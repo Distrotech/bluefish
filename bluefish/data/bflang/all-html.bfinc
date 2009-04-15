@@ -1,77 +1,22 @@
-<tag name="html" case_insens="1" sgml_shorttag="1" attributes="version,&i18n;" highlight="html-tag" autocomplete_append="&gt;" >
-	<reference>This tag is not yet documented in the language file</reference>
+<tag name="html" case_insens="1" sgml_shorttag="1" attributes="version,&i18n;" highlight="html-tag" autocomplete_append="&gt;&#10;&#10;&lt;/html&gt;" autocomplete_backup_cursor="8">
+	<reference>Defines an HTML document</reference>
 </tag>
-<tag name="head" case_insens="1" sgml_shorttag="1" attributes="profile,&i18n;" highlight="html-tag" autocomplete_append="&gt;">
-	<reference>This tag is not yet documented in the language file</reference>
+<tag name="head" case_insens="1" sgml_shorttag="1" attributes="profile,&i18n;" highlight="html-tag">
+	<reference>Defines information about the document</reference>
 </tag>
 	<tag name="base" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="href,target" attribhighlight="html-attribute" autocomplete_append="&gt; &lt;/base&gt;" >
-	<reference>This tag is not yet documented in the language file</reference>
+	<reference>Defines a default address or a default target for all links on a page</reference>
 </tag>
 	<tag name="meta" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="name,http-equiv,content,scheme,lang" attribhighlight="html-attribute" autocomplete_append=" &gt;" attrib_autocomplete_append="=&quot;&quot;" >
-	<reference>This tag is not yet documented in the language file</reference>
+	<reference>Defines metadata about an HTML document</reference>
 </tag>
 	<tag name="title" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;" attribhighlight="html-attribute" autocomplete_append="&gt; &lt;/title&gt;" >
-	<reference>This tag is not yet documented in the language file</reference>
+	<reference>Defines the title of a document</reference>
 </tag>
 
 <tag id="script" name="script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,language,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;" attribhighlight="html-attribute">
-	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-		<element pattern="(" id="js(" starts_block="1" highlight="brackets" />
-		<element pattern=")" highlight="brackets" ends_block="1" blockstartelement="js(" />
-		<element pattern="{" id="js{" starts_block="1" highlight="brackets" />
-		<element pattern="}" highlight="brackets" ends_block="1" blockstartelement="js{" />
-		<element pattern="[" id="js[" starts_block="1" highlight="brackets" />
-		<element pattern="]" highlight="brackets" ends_block="1" blockstartelement="js[" />
-		<group highlight="js-keyword" autocomplete="1">
-			<element pattern="if" />
-			<element pattern="else" />
-			<element pattern="where" />
-			<element pattern="case" />
-			<element pattern="switch" />
-			<element pattern="break" />
-			<element pattern="return" />
-			<element pattern="while" />
-			<element pattern="for" />
-			<element pattern="function" />
-			<element pattern="var" />
-			<element pattern="new" />
-			<element pattern="try" />
-			<element pattern="catch" />
-			<element pattern="default" />
-		</group>
-		<group highlight="js-function" autocomplete="1">
-			<element pattern="getElementsByTagName" />
-			<element pattern="getElementsByTagName" />
-		</group>
-		<group highlight="js-value" autocomplete="1">
-			<element pattern="true" />
-			<element pattern="false" />
-			<element pattern="[0-9.]+" is_regex="1" autocomplete="0"/>
-		</group>
-		<element pattern="&#34;" highlight="string">
-			<context symbols="\&#34;" highlight="string">
-				<element pattern="\&#34;" highlight="string" />
-				<element pattern="&#34;" highlight="string" ends_context="1" />
-			</context>
-		</element>
-		<element pattern="'" highlight="string">
-			<context symbols="\'" highlight="string">
-				<element pattern="\." is_regex="1" highlight="string" />
-				<element pattern="'" highlight="string" ends_context="1" />
-			</context>
-		</element>
-		<element pattern="//" highlight="js-comment">
-			<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
-				<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
-				<element pattern="&lt;/script&gt;" highlight="html-tag" ends_context="3" ends_block="1" blockstartelement="script"/>
-			</context>
-		</element>
-		<element id="js/*" pattern="/*" starts_block="1" highlight="js-comment">
-			<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
-				<element pattern="*/" ends_block="1" blockstartelement="js/*" highlight="js-comment" mayfold="1" ends_context="1" />
-				<element pattern="&lt;/script&gt;" highlight="html-tag" ends_context="3" ends_block="1" blockstartelement="script"/>
-			</context>
-		</element>
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
+	&all-javascript;
 	</context>
 </tag>
 
@@ -83,607 +28,15 @@
 				<element pattern="*/" ends_block="1" blockstartelement="css/*" highlight="css-comment" ends_context="1" />
 			</context>
 		</element>
-<!-- ________________________________________________________________________________________ -->
-<!--                     START of copy and paste from css.bflang2                             -->
-<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
-		<group highlight="css-html-tag" autocomplete="1">
-			<element pattern="a"/>
-			<element pattern="abbr"/>
-			<element pattern="acronym"/>
-			<element pattern="address"/>
-			<element pattern="applet"/>
-			<element pattern="area"/>
-			<element pattern="b"/>
-			<element pattern="base"/>
-			<element pattern="basefont"/>
-			<element pattern="bdo"/>
-			<element pattern="big"/>
-			<element pattern="blockquote"/>
-			<element pattern="body"/>
-			<element pattern="br"/>
-			<element pattern="button"/>
-			<element pattern="caption"/>
-			<element pattern="center"/>
-			<element pattern="cite"/>
-			<element pattern="code"/>
-			<element pattern="col"/>
-			<element pattern="colgroup"/>
-			<element pattern="dd"/>
-			<element pattern="del"/>
-			<element pattern="dfn"/>
-			<element pattern="dir"/>
-			<element pattern="div"/>
-			<element pattern="dl"/>
-			<element pattern="dt"/>
-			<element pattern="em"/>
-			<element pattern="fieldset"/>
-			<element pattern="font"/>
-			<element pattern="form"/>
-			<element pattern="frame"/>
-			<element pattern="frameset"/>
-			<element pattern="h1"/>
-			<element pattern="h2"/>
-			<element pattern="h3"/>
-			<element pattern="h4"/>
-			<element pattern="h5"/>
-			<element pattern="h6"/>
-			<element pattern="head"/>
-			<element pattern="hr"/>
-			<element pattern="html"/>
-			<element pattern="i"/>
-			<element pattern="iframe"/>
-			<element pattern="img"/>
-			<element pattern="input"/>
-			<element pattern="ins"/>
-			<element pattern="isindex"/>
-			<element pattern="kbd"/>
-			<element pattern="label"/>
-			<element pattern="legend"/>
-			<element pattern="li"/>
-			<element pattern="link"/>
-			<element pattern="map"/>
-			<element pattern="menu"/>
-			<element pattern="noframes"/>
-			<element pattern="noscript"/>
-			<element pattern="object"/>
-			<element pattern="ol"/>
-			<element pattern="optgroup"/>
-			<element pattern="option"/>
-			<element pattern="p"/>
-			<element pattern="param"/>
-			<element pattern="pre"/>
-			<element pattern="q"/>
-			<element pattern="s"/>
-			<element pattern="samp"/>
-			<element pattern="script"/>
-			<element pattern="select"/>
-			<element pattern="small"/>
-			<element pattern="span"/>
-			<element pattern="strike"/>
-			<element pattern="strong"/>
-			<element pattern="sub"/>
-			<element pattern="sup"/>
-			<element pattern="table"/>
-			<element pattern="tbody"/>
-			<element pattern="td"/>
-			<element pattern="textarea"/>
-			<element pattern="tfoot"/>
-			<element pattern="th"/>
-			<element pattern="thead"/>
-			<element pattern="tr"/>
-			<element pattern="tt"/>
-			<element pattern="u"/>
-			<element pattern="ul"/>
-			<element pattern="var"/>
-		</group>
-		<!-- pseudo elements/classes -->
-		<group highlight="css-pseudo-element" autocomplete="1">
-			<element pattern=":active"/>
-			<element pattern=":after"/>
-			<element pattern=":before"/>
-			<element pattern=":first-child"/>
-			<element pattern=":first-letter"/>
-			<element pattern=":first-line"/>
-			<element pattern=":focus"/>
-			<element pattern=":hover"/>
-			<element pattern=":lang"/>
-			<element pattern=":link"/>
-			<element pattern=":visited"/>
-		</group>
-		<group highlight="css-html-classid">
-			<element pattern="\.[a-z0-9._]+" is_regex="1" case_insens="1" />
-			<element pattern="#[a-z0-9._]+" is_regex="1" case_insens="1" />
-		</group>
-<!-- ________________________________________________________________________________________ -->
-<!--                     END of copy and paste from css.bflang2                             -->
-<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
-
+		&css-selectors;
 		<element id="css{" pattern="{" starts_block="1" highlight="brackets">
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
-<!-- ________________________________________________________________________________________ -->
-<!--                     START of copy and paste from css.bflang2                             -->
-<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
-
-				<element pattern="background" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>A shorthand property for setting all background properties: background-color, background-image, background-repeat, background-attachment, and background-position, in one declaration</reference>
-				</element>
-				<element pattern="background-attachment" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>Sets whether a background image is fixed or scrolls with the rest of the page</reference>
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<element pattern="scroll" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element pattern="fixed" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element id=";" pattern=";" ends_context="1"/>
-						<element id="}" pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2"/>
+				&css-rules;
+				<element pattern="/*" starts_block="1" highlight="css-comment">
+					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
+						<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="css-comment" mayfold="1" ends_context="1" />
 					</context>
 				</element>
-				<element pattern="background-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>Sets the background color of an element</reference>
-					<context id="color" symbols=" &#9;&#10;&#13;{}.;">
-						<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-						<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
-						<group highlight="css-value" autocomplete="1">
-							<element pattern="aqua"/>
-							<element pattern="black"/>
-							<element pattern="blue"/>
-							<element pattern="fuchsia"/>
-							<element pattern="gray"/>
-							<element pattern="green"/>
-							<element pattern="lime"/>
-							<element pattern="maroon"/>
-							<element pattern="navy"/>
-							<element pattern="olive"/>
-							<element pattern="orange"/>
-							<element pattern="purple"/>
-							<element pattern="red"/>
-							<element pattern="silver"/>
-							<element pattern="teal"/>
-							<element pattern="white"/>
-							<element pattern="yellow"/>
-						</group>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="background-image" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>Sets an image as the background</reference>
-				</element>
-				<element pattern="background-position" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>Sets the starting position of a background image</reference>
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<group autocomplete="1" highlight="css-value" autocomplete_append=";">
-							<element pattern="top left"/>
-							<element pattern="top center" />
-							<element pattern="top right" />
-							<element pattern="center left" />
-							<element pattern="center center" />
-							<element pattern="center right" />
-							<element pattern="bottom left" />
-							<element pattern="bottom center" />
-							<element pattern="bottom right" />
-						</group>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="background-repeat" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference><b>background-repeat</b> specifies whether the image is repeated (tiled), and how</reference>
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<group autocomplete="1" highlight="css-value" autocomplete_append=";">
-							<element pattern="repeat" />
-							<element pattern="repeat-x" />
-							<element pattern="repeat-y" />
-							<element pattern="no-repeat" />
-						</group>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="border-bottom" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="border-bottom-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context id="color" />
-				</element>
-				<element pattern="border-bottom-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context id="border-style" symbols=" &#9;&#10;&#13;{}.;">
-						<group autocomplete="1" highlight="css-value" autocomplete_append=";">
-							<element pattern="none"/>
-							<element pattern="hidden"/>
-							<element pattern="dotted"/>
-							<element pattern="dashed"/>
-							<element pattern="solid"/>
-							<element pattern="double"/>
-							<element pattern="groove"/>
-							<element pattern="ridge"/>
-							<element pattern="inset"/>
-							<element pattern="outset"/>
-						</group>
-						<element idref=";" />
-						<element idref="}" />
-					</context>	
-				</element>
-				<element pattern="border-bottom-width" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="border-collapse" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="border-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context idref="color" />
-				</element>
-				<element pattern="border-left" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="border-left-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context idref="color" />
-				</element>
-				<element pattern="border-left-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context idref="border-style" />
-				</element>
-				<element pattern="border-left-width" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="border-right" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="border-right-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context idref="color" />
-				</element>
-				<element pattern="border-right-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context idref="border-style" />
-				</element>
-				<element pattern="border-right-width" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="border-spacing" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="border-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context idref="border-style" />
-				</element>
-				<element pattern="border-top" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="border-top-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context idref="color" />
-				</element>
-				<element pattern="border-top-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context idref="border-style" />
-				</element>
-				<element pattern="border-top-width" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="border-width" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<!-- TODO: The following does not work! -->
-				<element pattern="border" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>A shorthand property for setting the properties border-width, border-style, and border-color for the four borders in one declaration</reference>
-					<context idref="border-style" />
-					<context idref="color" />
-				</element>
-				<element pattern="bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context id="box_offsets" symbols=" &#9;&#10;&#13;{}.;">
-						<element pattern="auto" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="clear" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<group highlight="css-value" autocomplete="1" autocomplete_append=";">
-							<element pattern="left"/>
-							<element pattern="right"/>
-							<element pattern="both"/>
-							<element pattern="none"/>
-							<element pattern="inherit"/>
-						</group>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="clip" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference><b>color</b> describes the foreground color of an element's text content.</reference>
-					<context idref="color" />
-				</element>
-				<element pattern="content" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<element pattern="'" highlight="string">
-							<context symbols="\'" highlight="string">
-								<element pattern="\\." is_regex="1" highlight="string" />
-								<element pattern="'" highlight="string" ends_context="1" />
-							</context>
-						</element>
-						<element pattern="&quot;" highlight="string">
-							<context symbols="\&quot;" highlight="string">
-								<element pattern="\\." is_regex="1" highlight="string" />
-								<element pattern="&quot;" highlight="string" ends_context="1" />
-							</context>
-						</element>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="counter-increment" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="counter-reset" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="cursor" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="display" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>Conforming HTML user agents may ignore the 'display' property. </reference>
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<group highlight="css-value" autocomplete="1" autocomplete_append=";">
-							<element pattern="inline"/>
-							<element pattern="block"/>
-							<element pattern="list-item"/>
-							<element pattern="run-in"/>
-							<element pattern="inline-block"/>
-							<element pattern="table"/>
-							<element pattern="inline-table"/>
-							<element pattern="table-row-group"/>
-							<element pattern="table-header-group"/>
-							<element pattern="table-footer-group"/>
-							<element pattern="table-row"/>
-							<element pattern="table-column-group"/>
-							<element pattern="table-column"/>
-							<element pattern="table-cell"/>
-							<element pattern="table-caption"/>
-							<element pattern="none"/>
-							<element pattern="inherit"/>
-						</group>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="float" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context id="float" symbols=" &#9;&#10;&#13;{}.;">
-						<group highlight="css-value" autocomplete="1" autocomplete_append=";">
-							<element pattern="left"/>
-							<element pattern="right"/>
-							<element pattern="none"/>
-							<element pattern="inherit"/>
-						</group>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="font-family" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="font-size" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference><b>font-size</b> describes the size of the font when set solid.</reference>
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<group highlight="css-value" autocomplete="1" autocomplete_append=";">
-							<element pattern="xx-small"/>
-							<element pattern="x-small"/>
-							<element pattern="small"/>
-							<element pattern="medium"/>
-							<element pattern="large"/>
-							<element pattern="x-large"/>
-							<element pattern="xx-large"/>
-							<element pattern="larger"/>
-							<element pattern="smaller"/>
-						</group>
-						<element pattern="[0-9]+[ &#9;]*(pt|em|px|%)" is_regex="1" highlight="css-value" />
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="font-size-adjust" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference><b>font-size-adjust</b> allows authors to specify an aspect value for an element that will preserve the x-height of the first choice font in the substitute font.</reference>
-				</element>
-				<element pattern="font-stretch" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>The 'font-stretch' property selects a normal, condensed, or extended face from a font family.</reference>
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<group highlight="css-value" autocomplete="1" autocomplete_append=";">
-							<element pattern="normal"/>
-							<element pattern="wider"/>
-							<element pattern="narrower"/>
-							<element pattern="ultra-condensed"/>
-							<element pattern="extra-condensed"/>
-							<element pattern="condensed"/>
-							<element pattern="semi-condensed"/>
-							<element pattern="semi-expanded"/>
-							<element pattern="expanded"/>
-							<element pattern="extra-expanded"/>
-							<element pattern="ultra-expanded"/>
-						</group>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="font-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<group highlight="css-value" autocomplete="1" autocomplete_append=";">
-							<element pattern="normal"/>
-							<element pattern="italic"/>
-							<element pattern="oblique"/>
-						</group>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="font-variant" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element pattern="small-caps" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>	
-				<element pattern="font-weight" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element pattern="bold" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element pattern="bolder" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element pattern="lighter" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element pattern="(100|200|300|400|500|600|700|800|900)" highlight="css-value" />
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>	
-				<element pattern="height" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
-				<element pattern="left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context idref="box_offsets" />
-				</element>
-				<element pattern="line-height" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="list-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="list-style-image" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="list-style-position" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="list-style-type" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="margin" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="margin-bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="margin-left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="margin-right" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="margin-top" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="max-height" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="max-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="min-height" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="min-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="overflow" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="outline" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="outline-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context idref="color" />
-				</element>
-				<element pattern="outline-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="outline-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="padding" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="padding-bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="padding-left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="padding-right" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="padding-top" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="position" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference><b>position</b>: The 'position' and 'float' properties determine which of the CSS2 positioning algorithms is used to calculate the position of a box</reference>
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<element pattern="static" autocomplete="1" highlight="css-value" autocomplete_append=";">
-							<reference><b>static</b>: The box is a normal box, laid out according to the normal flow. The 'left' and 'top' properties do not apply. 
-	relative </reference>
-						</element>
-						<element pattern="relative" autocomplete="1" highlight="css-value" autocomplete_append=";">
-							<reference><b>relative</b>: The box's position is calculated according to the normal flow (this is called the position in normal flow). Then the box is offset relative to its normal position. When a box B is relatively positioned, the position of the following box is calculated as though B were not offset. </reference>
-						</element>
-						<element pattern="absolute" autocomplete="1" highlight="css-value" autocomplete_append=";">
-							<reference><b>absolute</b>: The box's position (and possibly size) is specified with the 'left', 'right', 'top', and 'bottom' properties. These properties specify offsets with respect to the box's containing block. Absolutely positioned boxes are taken out of the normal flow. This means they have no impact on the layout of later siblings. Also, though absolutely positioned boxes have margins, they do not collapse with any other margins. </reference>
-						</element>
-						<element pattern="fixed" autocomplete="1" highlight="css-value" autocomplete_append=";">
-							<reference><b>fixed</b>: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. In the case of continuous media, the box is fixed with respect to the viewport (and doesn't move when scrolled). In the case of paged media, the box is fixed with respect to the page, even if that page is seen through a viewport (in the case of a print-preview, for example). Authors may wish to specify 'fixed' in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page.</reference>
-						</element>
-						<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";">
-							<reference>This css property is not yet documented in the language file</reference>
-						</element>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="quotes" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="right" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context idref="box_offsets" />
-				</element>
-				<element pattern="text-align" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference><b>text-align</b> describes how inline content of a block is aligned.</reference>
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<group autocomplete="1" highlight="css-value" autocomplete_append=";">
-							<element pattern="left"/>
-							<element pattern="right"/>
-							<element pattern="center"/>
-							<element pattern="justify"/>
-						</group>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="text-decoration" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference><b>text-decoration</b> describes decorations that are added to the text of an element. If the property is specified for a block-level element, it affects all inline-level descendants of the element. If it is specified for (or affects) an inline-level element, it affects all boxes generated by the element. If the element has no content or no text content (e.g., the IMG element in HTML), user agents must ignore this property</reference>
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<group autocomplete="1" highlight="css-value" autocomplete_append=";">
-							<element pattern="none"/>
-							<element pattern="underline"/>
-							<element pattern="overline"/>
-							<element pattern="line-through"/>
-							<element pattern="blink">
-								<reference>Text blinks (alternates between visible and invisible). Conforming user agents are not required to support this value.</reference>
-							</element>
-						</group>
-						<element idref=";" />
-						<element idref="}" />
-					</context>
-				</element>
-				<element pattern="text-indent" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference><b>text-indent</b> specifies the indentation of the first line of text in a block. More precisely, it specifies the indentation of the first box that flows into the block's first line box. The box is indented with respect to the left (or right, for right-to-left layout) edge of the line box. User agents should render this indentation as blank space. </reference>
-				</element>
-				<element pattern="text-shadow" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference><b>text-shadow</b> is a CSS2 property that accepts a comma-separated list of shadow effects to be applied to the text of the element. It may optionally start or end with a color. It always contains two lengths: the first length is the horizontal offset, second the vertical offset, and the optional third is the blur radius.</reference>
-				</element>
-				<element pattern="text-transform" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference><b>text-transform</b> controls capitalization effects of an element's text.</reference>
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<group autocomplete="1" highlight="css-value" autocomplete_append=";">
-							<element pattern="none"/>
-							<element pattern="capitalize"/>
-							<element pattern="uppercase"/>
-							<element pattern="lowercase"/>
-						</group>
-						<element idref=";" />
-						<element idref="}" />
-					</context>	
-				</element>
-				<element pattern="top" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<context idref="box_offsets" />
-				</element>
-				<element pattern="vertical-align" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="visibility" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="white-space" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference><b>white-space</b> declares how whitespace inside the element is handled. Conforming user agents may ignore the 'white-space' property in author and user style sheets but must specify a value for it in the default style sheet.</reference>
-					<context symbols=" &#9;&#10;&#13;{}.;">
-						<element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element pattern="pre" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element pattern="nowrap" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-						<element idref=";" />
-						<element idref="}" />
-					</context>		
-				</element>
-				<element pattern="width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="z-index" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet documented in the language file</reference>
-				</element>
-				<element pattern="/*" starts_block="1" highlight="html-comment">
-					<context symbols="*/&#9;&#10;&#13;" highlight="html-comment">
-						<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="html-comment" mayfold="1" ends_context="1" />
-					</context>
-				</element>
-<!-- ________________________________________________________________________________________ -->
-<!--                     END of copy and paste from css.bflang2                             -->
-<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 				<element pattern="&lt;/style&gt;" highlight="html-tag" ends_context="3" />
 				<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="1" />
 			</context>
@@ -691,188 +44,194 @@
 	</context>
 </tag>
 
-<tag name="link" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="html-attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
-				<reference>This tag is not yet documented in the language file</reference>
+<tag name="link" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="html-attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2" >
+				<reference>Defines the relationship between a document and an external resource </reference>
 			</tag>
 
-<tag name="body" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;" attribhighlight="html-attribute">
-	<reference>This tag is not yet documented in the language file</reference>
+<tag name="body" highlight="html-tag" case_insens="1" sgml_shorttag="1" autocomplete_append="&gt;&#10;&#10;&lt;/body&gt;" autocomplete_backup_cursor="8" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;">
+	<reference>Defines the document's body</reference>
 </tag>
-		<group highlight="reference-external-tag" attribhighlight="html-attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+		<group highlight="html-reference-external-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="a" case_insens="1" sgml_shorttag="1" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" >
 				<reference>The a tag inserts an anchor into a document</reference>
 			</tag>
-			<tag name="img" case_insens="1" sgml_shorttag="1" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; &gt;" >
+			<tag name="img" case_insens="1" sgml_shorttag="1" no_close="1" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; &gt;" >
 				<reference>The img tag inserts an image into a document</reference>
 			</tag>
 			<tag name="object" case_insens="1" sgml_shorttag="1" attributes="align,archive,border,classid,codebase,codetype,data,declare,height,hspace,name,standby,tabindex,type,usemap,vspace,width,&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an embedded object</reference>
 			</tag>
 			<tag name="param" case_insens="1" sgml_shorttag="1" attributes="id,name,value,valuetype,type" autocomplete_append=" name=&#34;&#34; &gt;" />
 		</group>
-		<group highlight="html-tag" attribhighlight="html-attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+		<group highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="abbr" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an embedded object</reference>
 			</tag>
 			<tag name="acronym" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an acronym</reference>
 			</tag>
 			<tag name="b" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="blockquote" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,cite">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a long quotation</reference>
 			</tag>
-			<tag name="br" case_insens="1" sgml_shorttag="1" attributes="&univ;" autocomplete_append="&gt;">
-				<reference>This tag is not yet documented in the language file</reference>
+			<tag name="br" case_insens="1" sgml_shorttag="1" no_close="1" autocomplete_append="&gt;" attributes="&univ;">
+				<reference>Defines a single line break</reference>
 			</tag>
 			<tag name="code" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines computer code text</reference>
 			</tag>
 			<tag name="cite" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a citation</reference>
 			</tag>
 			<tag name="del" case_insens="1" sgml_shorttag="1"  attributes="&univ;,&i18n;,&evnt;,cite,datetime">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines deleted text</reference>
 			</tag>
 			<tag name="dfn" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a definition term</reference>
 			</tag>
 			<tag name="div" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a block section in a document</reference>
 			</tag>
 			<tag name="dl" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a definition list</reference>
 			</tag>
 			<tag name="em" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines emphasized text </reference>
 			</tag>
 			<tag name="i" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines italic text</reference>
 			</tag>
 			<tag name="ins" case_insens="1" sgml_shorttag="1"  attributes="&univ;,&i18n;,&evnt;,cite,datetime">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines inserted text</reference>
 			</tag>
 			<tag name="h1" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an HTML heading</reference>
 			</tag>
 			<tag name="h2" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an HTML heading</reference>
 			</tag>
 			<tag name="h3" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an HTML heading</reference>
 			</tag>
 			<tag name="h4" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an HTML heading</reference>
 			</tag>
 			<tag name="h5" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an HTML heading</reference>
 			</tag>
 			<tag name="h6" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an HTML heading</reference>
 			</tag>
-			<tag name="hr" case_insens="1" sgml_shorttag="1" attributes="&univ;" autocomplete_append="&gt;" >
-				<reference>This tag is not yet documented in the language file</reference>
+			<tag name="hr" case_insens="1" sgml_shorttag="1" attributes="&univ;" >
+				<reference>Defines a horizontal line</reference>
 			</tag>
 			<tag name="kbd" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference><b>Deprecated.</b> Defines font, color, and size for text</reference>
 			</tag>
 			<tag name="li" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a list item</reference>
 			</tag>
 			<tag name="ol" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an ordered list</reference>
 			</tag>
 			<tag name="p" case_insens="1" sgml_shorttag="1" attributes="&univ;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a paragraph</reference>
 			</tag>
 			<tag name="pre" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines preformatted text</reference>
 			</tag>
 			<tag name="q" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a short quotation</reference>
 			</tag>
 			<tag name="samp" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines sample computer code</reference>
 			</tag>
 			<tag name="span" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a line section in a document</reference>
 			</tag>
 			<tag name="strong" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines strong text</reference>
 			</tag>
 			<tag name="sub" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines subscripted text</reference>
 			</tag>
 			<tag name="sup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
-			</tag>
-			<tag name="u" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines superscripted text</reference>
 			</tag>
 			<tag name="ul" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an unordered list</reference>
 			</tag>
 			<tag name="var" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a variable part of a text</reference>
 			</tag>			
 		</group>
-		<group highlight="deprecated-tag" attribhighlight="html-attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+		<group highlight="html-deprecated-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="font" case_insens="1" sgml_shorttag="1" attributes="size,color,bgcolor,face">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference><b>Deprecated.</b> Defines font, color, and size for text</reference>
+			</tag>
+			<tag name="u" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+				<reference><b>Deprecated.</b> Defines underlined text</reference>
+			</tag>
+			<tag name="s" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+				<reference><b>Deprecated.</b> Render strike-through style text.</reference>
+			</tag>
+			<tag name="strike" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+				<reference><b>Deprecated.</b> Render strike-through style text.</reference>
 			</tag>
 		</group>
-		<group highlight="form-tag" attribhighlight="html-attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+		<group highlight="html-form-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="fieldset" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a border around elements in a form</reference>
 			</tag>
 			<tag name="form" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accept-charset,action,enctype,method,target,onreset,onsubmit">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an HTML form for user input</reference>
 			</tag>
-			<tag name="input" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,type,readonly">
-				<reference>This tag is not yet documented in the language file</reference>
+			<tag name="input" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+				<reference>Defines an input control</reference>
 			</tag>
 			<tag name="label" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,for,onblur,onfocus">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a label for an input element</reference>
 			</tag>
 			<tag name="legend" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,align">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a caption for a fieldset element</reference>
 			</tag>
 			<tag name="optgroup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,label,onselect">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>	Defines a group of related options in a select list</reference>
 			</tag>
 			<tag name="option" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,label,selected,value,onselect">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines an option in a select list</reference>
 			</tag>
 			<tag name="select" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,multiple,name,onblur,onchange,onfocus,onselect,size,tabindex">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a select list (drop-down list)</reference>
 			</tag>
 			<tag name="textarea" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,cols,disabled,name,readonly,rows,tabindex,onblur,onchange,onfocus,onselect">
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a multi-line text input control</reference>
 			</tag>
 		</group>
-		<group highlight="table-tag" attribhighlight="html-attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+		<group highlight="html-table-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="table" case_insens="1" sgml_shorttag="1" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" autocomplete_append=" summary=&quot;&quot; &gt;" >
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a table</reference>
 			</tag>
 			<tag name="caption" case_insens="1" sgml_shorttag="1" attributes="align,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a table caption</reference>
 			</tag>
 			<tag name="td" case_insens="1" sgml_shorttag="1" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a cell in a table</reference>
 			</tag>
 			<tag name="th" case_insens="1" sgml_shorttag="1" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a header cell in a table</reference>
 			</tag>
 			<tag name="tr" case_insens="1" sgml_shorttag="1" attributes="align,bgcolor,char,charoff,valign,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Defines a row in a table</reference>
 			</tag>
 			<tag name="tbody" case_insens="1" sgml_shorttag="1" attributes="align,char,charoff,valign,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Groups the body content in a table</reference>
 			</tag>
 			<tag name="tfoot" case_insens="1" sgml_shorttag="1" attributes="align,char,charoff,valign,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Groups the footer content in a table</reference>
 			</tag>
 			<tag name="thead" case_insens="1" sgml_shorttag="1" attributes="align,char,charoff,valign,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet documented in the language file</reference>
+				<reference>Groups the header content in a table</reference>
 			</tag>
 		</group>
 		<element pattern="&lt;!--" highlight="html-comment" starts_block="1">

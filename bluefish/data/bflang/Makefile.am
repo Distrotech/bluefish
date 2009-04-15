@@ -10,18 +10,19 @@ MAINTAINERCLEANFILES = Makefile.in
 #bflangdtd_DATA = bflang.dtd catalog.xml
 
 bflang_DATA = \
+	all-javascript.bfinc \
+	all-html.bfinc \
+	css-selectors.bfinc \
+	css-rules.bfinc \
 	asp.bflang2 \
 	bflang2.bflang2 \
 	c.bflang2 \
 	cpp.bflang2 \
 	css.bflang2 \
-	css-selectors.bfinc \
-	css-rules.bfinc \
 	d.bflang2 \
 	html.bflang2 \
 	java.bflang2 \
 	javascript.bflang2 \
-	all-javascript.bfinc \
 	jsp.bflang2 \
 	perl.bflang2 \
 	php.bflang2 \
