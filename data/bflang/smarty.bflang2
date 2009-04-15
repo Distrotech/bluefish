@@ -24,6 +24,9 @@
 	<!ENTITY i18n "dir,lang">
 	<!ENTITY univ "class,id,style,title">
 	<!ENTITY evnt "onload,onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup">
+	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
+	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
+	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 	<!ENTITY all-html SYSTEM "all-html.bfinc">
 	<!ENTITY all-php SYSTEM "all-php.bfinc">
 	<!ENTITY s-univ '<element id="s_dstring" pattern="&quot;" highlight="string">
