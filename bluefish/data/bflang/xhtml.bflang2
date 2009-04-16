@@ -67,7 +67,7 @@
 <tag name="html" attributes="xmlns,version,&i18n;&xml;" highlight="tag" autocomplete_append=" xmlns=&quot;http://www.w3.org/1999/xhtml&quot; &gt;&#10;&#10;&lt;/html&gt;" autocomplete_backup_cursor="8" />
 <tag name="head" attributes="profile,&i18n;" highlight="tag" >
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
-	<tag name="meta" highlight="tag" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2" />
+	<tag name="meta" highlight="tag" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" />
 	<tag name="title" highlight="tag" attributes="&i18n;" />
 
 <tag id="script" name="script" highlight="tag" attributes="charset,defer,language,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;" attribhighlight="attribute">
@@ -75,7 +75,7 @@
 &all-javascript;
 </context>
 </tag>
-<tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2" >
+<tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
 	<context symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
 	
 		<element id="css/*" pattern="/*" starts_block="1" highlight="css-comment">
@@ -99,7 +99,7 @@
 	</context>
 </tag>
 
-	<tag name="link" highlight="tag" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2" />
+	<tag name="link" highlight="tag" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" />
 	<element id="html-comment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
 			<element pattern="--&gt;" ends_block="1" blockstartelement="html-comment" highlight="html-comment" mayfold="1" ends_context="1" />
@@ -112,7 +112,7 @@
 <tag name="body" highlight="tag" autocomplete_append="&gt;&#10;&#10;&lt;/body&gt;" autocomplete_backup_cursor="8" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 		<tag idref="script" />
-		<group highlight="reference-external-tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
+		<group highlight="reference-external-tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 			<tag name="a" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" />
 			<tag name="img" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; /&gt;">
 				<reference>The img tag inserts an image into a document</reference>
@@ -120,7 +120,7 @@
 			<tag name="object" attributes="align,archive,border,classid,codebase,codetype,data,declare,height,hspace,name,standby,tabindex,type,usemap,vspace,width,&univ;,&i18n;,&evnt;" />
 			<tag name="param" attributes="id,name,value,valuetype,type" autocomplete_append=" name=&#34;&#34; &gt;" />
 		</group>
-		<group highlight="tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
+		<group highlight="tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 			<tag name="abbr" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="acronym" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="b" attributes="&univ;,&i18n;,&evnt;"/>
@@ -157,7 +157,7 @@
 			<tag name="ul" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="var" attributes="&univ;,&i18n;,&evnt;"/>
 		</group>
-		<group highlight="form-tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
+		<group highlight="form-tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 			<tag name="fieldset" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="form" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="input" attributes="&univ;,&i18n;,&evnt;"/>
@@ -168,7 +168,7 @@
 			<tag name="select" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="textarea" attributes="&univ;,&i18n;,&evnt;"/>
 		</group>
-		<group highlight="table-tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
+		<group highlight="table-tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 			<tag name="table" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" autocomplete_append=" summary=&quot;&quot; &gt;" />
 			<tag name="caption" attributes="align,&univ;,&i18n;,&evnt;" />
 			<tag name="td" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;" />

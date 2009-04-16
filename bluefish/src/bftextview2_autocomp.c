@@ -350,14 +350,15 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 
 
 	scan_for_autocomp_prefix(btv,&iter,&cursorpos,&contextnum);
-	DBG_AUTOCOMP("got possible match start at %d in context %d, cursor is at %d\n",gtk_text_iter_get_offset(&iter),contextnum,gtk_text_iter_get_offset(&cursorpos));
-	/* see if next character is end or symbol */
+	DBG_AUTOCOMP("autocomp_run, got possible match start at %d in context %d, cursor is at %d\n",gtk_text_iter_get_offset(&iter),contextnum,gtk_text_iter_get_offset(&cursorpos));
+	/* see if character at cursor is end or symbol */
 	uc = gtk_text_iter_get_char(&cursorpos);
 	if (uc < NUMSCANCHARS) {
 		guint16 identstate = g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).identstate;
 		if (g_array_index(btv->bflang->st->table, Ttablerow, identstate).row[uc] == identstate) {
 			/* current character is not a symbol! */
-			DBG_AUTOCOMP("current character %d is not a symbol\n",uc);
+			DBG_AUTOCOMP("autocomp_run, character at cursor %d '%c' is not a symbol, return\n",uc, (char)uc);
+			acwin_cleanup(btv);
 			return;
 		}
 	} else {
