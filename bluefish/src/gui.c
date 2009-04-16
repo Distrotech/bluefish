@@ -451,9 +451,12 @@ void make_main_toolbar(Tbfwin *bfwin) {
 	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_PREFERENCES, _("Preferences..."),	
 								"", G_CALLBACK(open_preferences_cb), NULL, -1);	
 	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_FULLSCREEN, _("Toggle Full Screen"),	
-								"", G_CALLBACK(tb_fullscreen_cb), bfwin, -1);	
+	bfwin->toolbar_fullscreen = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_FULLSCREEN, _("Toggle Full Screen"),	
+								"", G_CALLBACK(tb_fullscreen_cb), bfwin, -1);
+	bfwin->toolbar_normalscreen = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_LEAVE_FULLSCREEN, _("Toggle Normal Screen"),
+								"", G_CALLBACK(tb_fullscreen_cb), bfwin, -1);
 	gtk_widget_show_all(toolbar);
+	gtk_widget_hide (bfwin->toolbar_normalscreen);
 }
 
 void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
@@ -1176,9 +1179,15 @@ void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync
 
 void tb_fullscreen_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	if (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item(gtk_item_factory_from_widget(bfwin->menubar), N_("/View/Fullscreen")))->active) {
+		DEBUG_MSG("tb_fullscreen_cb, toggle from full to normal screen\n");
 		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item(gtk_item_factory_from_widget(bfwin->menubar), "/View/Fullscreen")), FALSE);
+		gtk_widget_show(bfwin->toolbar_fullscreen);
+		gtk_widget_hide(bfwin->toolbar_normalscreen);
 	} else {
+		DEBUG_MSG("tb_fullscreen_cb, toggle from normal to full screen\n");
 		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item(gtk_item_factory_from_widget(bfwin->menubar), "/View/Fullscreen")), TRUE);
+		gtk_widget_hide(bfwin->toolbar_fullscreen);
+		gtk_widget_show(bfwin->toolbar_normalscreen);
 	}
 }
 
