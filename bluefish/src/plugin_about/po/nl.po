@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-02-28 20:16+0100\n"
+"POT-Creation-Date: 2009-04-16 20:38+0200\n"
 "PO-Revision-Date: 2007-08-22 19:07+0200\n"
 "Last-Translator: elve <elve@savage-elve.net>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -72,18 +72,6 @@ msgstr ""
 "\n"
 "Deze versie van Bluefish is gecompileerd met: "
 
-#: src/plugin_about/about.c:135
-msgid "libaspell support, "
-msgstr "ondersteuning voor libaspell, "
-
-#: src/plugin_about/about.c:138
-msgid "development checks support, "
-msgstr "ondersteuning voor ontwikkelings checks, "
-
-#: src/plugin_about/about.c:141
-msgid "i18n support, "
-msgstr "ondersteuning voor i18n, "
-
 #. Translators: This is a special message that shouldn't be translated
 #. * literally. It is used in the about box to give credits to
 #. * the translators.
@@ -92,22 +80,31 @@ msgstr "ondersteuning voor i18n, "
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:154
+#: src/plugin_about/about.c:143
 msgid "translator-credits"
 msgstr "Vertalers"
 
-#: src/plugin_about/about.c:203
+#: src/plugin_about/about.c:196
 msgid "/_Help"
 msgstr "/_Help"
 
-#: src/plugin_about/about.c:204
+#: src/plugin_about/about.c:197
 msgid "/Help/Bluefish _Homepage"
 msgstr "/Help/Bluefish Website"
 
-#: src/plugin_about/about.c:205
+#: src/plugin_about/about.c:198
 msgid "/Help/Report a _Bug"
 msgstr "/Help/Rapporteer een Bug"
 
-#: src/plugin_about/about.c:207
+#: src/plugin_about/about.c:200
 msgid "/Help/_About..."
 msgstr "/_Help/_Over..."
+
+#~ msgid "libaspell support, "
+#~ msgstr "ondersteuning voor libaspell, "
+
+#~ msgid "development checks support, "
+#~ msgstr "ondersteuning voor ontwikkelings checks, "
+
+#~ msgid "i18n support, "
+#~ msgstr "ondersteuning voor i18n, "

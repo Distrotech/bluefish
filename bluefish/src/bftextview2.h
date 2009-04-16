@@ -183,7 +183,7 @@ either on the start or on the end there is no symbol.
 
 #define NUMSCANCHARS 127 /* 128 is ascii, but the last character is never scanned (DEL)
 		and the Ttablerow has one more 16bit value. By setting this to 127 instead of 128
-		we don't need padding to align the Ttablerow in memory
+		we dont need padding to align the Ttablerow in memory
 		(Ttablerow = (127+1)*16=2048 bits or 256 bytes) */
 
 /*****************************************************************/

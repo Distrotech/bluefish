@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-02-28 20:16+0100\n"
+"POT-Creation-Date: 2009-04-16 20:38+0200\n"
 "PO-Revision-Date: 2003-12-06 14:24+0100\n"
 "Last-Translator: Juho Roukala <j.mr@luukku.com>\n"
 "Language-Team: Not a memeber <LL@li.org>\n"
@@ -1493,7 +1493,7 @@ msgstr "_Kohde:"
 #: src/plugin_htmlbar/html.c:1198 src/plugin_htmlbar/html.c:1661
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:466
+#: src/plugin_htmlbar/image.c:467
 msgid "_Name:"
 msgstr "_Nimi:"
 
@@ -1509,7 +1509,7 @@ msgstr "Kie_li:"
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:475
 #: src/plugin_htmlbar/image_dialog.c:409
 msgid "Custo_m:"
 msgstr "_Mukautettu:"
@@ -1595,7 +1595,7 @@ msgid "Horizontal Rule"
 msgstr "Vaakasuora viiva"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:430
+#: src/plugin_htmlbar/image.c:493 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Align:"
 msgstr "_Tasaus:"
 
@@ -1607,7 +1607,7 @@ msgstr "_Korkeus:"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:362
+#: src/plugin_htmlbar/image.c:451 src/plugin_htmlbar/image_dialog.c:362
 msgid "_Width:"
 msgstr "_Leveys:"
 
@@ -1986,67 +1986,67 @@ msgstr "Esikatsele"
 msgid "_Image location:"
 msgstr "K_uvan sijainti:"
 
-#: src/plugin_htmlbar/image.c:457
+#: src/plugin_htmlbar/image.c:458
 msgid "Hei_ght:"
 msgstr "Ko_rkeus:"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/image.c:463 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr "Käytä k_arttaa:"
 
-#: src/plugin_htmlbar/image.c:470
+#: src/plugin_htmlbar/image.c:471
 msgid "Alternate _text:"
 msgstr "V_aihtoehtoinen teksti:"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:439
+#: src/plugin_htmlbar/image.c:479 src/plugin_htmlbar/image_dialog.c:439
 msgid "_Hspace:"
 msgstr "_Vaakavälistys:"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:443
+#: src/plugin_htmlbar/image.c:483 src/plugin_htmlbar/image_dialog.c:443
 msgid "_Vspace:"
 msgstr "_Pystyvälistys"
 
-#: src/plugin_htmlbar/image.c:496
+#: src/plugin_htmlbar/image.c:497
 msgid "Borde_r:"
 msgstr "Reu_na"
 
-#: src/plugin_htmlbar/image.c:879
+#: src/plugin_htmlbar/image.c:880
 msgid "Select files for thumbnail creation"
 msgstr "Valitse tiedostot esikatselun luomista varten"
 
-#: src/plugin_htmlbar/image.c:914
+#: src/plugin_htmlbar/image.c:915
 msgid "Scaling (%)"
 msgstr "Skaalaus (%)"
 
-#: src/plugin_htmlbar/image.c:918 src/plugin_htmlbar/image.c:926
+#: src/plugin_htmlbar/image.c:919 src/plugin_htmlbar/image.c:927
 msgid "Width"
 msgstr "Leveys"
 
-#: src/plugin_htmlbar/image.c:922 src/plugin_htmlbar/image.c:954
+#: src/plugin_htmlbar/image.c:923 src/plugin_htmlbar/image.c:955
 msgid "Height"
 msgstr "Korkeus"
 
-#: src/plugin_htmlbar/image.c:943
+#: src/plugin_htmlbar/image.c:944
 msgid "Multi thumbnail"
 msgstr "Monta esikatselukuvaa"
 
-#: src/plugin_htmlbar/image.c:949
+#: src/plugin_htmlbar/image.c:950
 msgid "By scaling"
 msgstr "Skaalaamalla"
 
-#: src/plugin_htmlbar/image.c:950
+#: src/plugin_htmlbar/image.c:951
 msgid "By width, keep aspect ratio"
 msgstr "Leveydellä, pidä muotosuhde"
 
-#: src/plugin_htmlbar/image.c:951
+#: src/plugin_htmlbar/image.c:952
 msgid "By height, keep aspect ratio"
 msgstr "Korkeudella, pidä muotosuhde"
 
-#: src/plugin_htmlbar/image.c:952
+#: src/plugin_htmlbar/image.c:953
 msgid "By width and height, ignore aspect ratio"
 msgstr "Leveydellä ja korkeudella, älä huomioi muotosuhdetta"
 
-#: src/plugin_htmlbar/image.c:976
+#: src/plugin_htmlbar/image.c:977
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2087,21 +2087,21 @@ msgstr ""
 msgid "_Border:"
 msgstr "_Reuna:"
 
-#: src/plugin_htmlbar/image_dialog.c:772
+#: src/plugin_htmlbar/image_dialog.c:774
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:777
+#: src/plugin_htmlbar/image_dialog.c:779
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:874
+#: src/plugin_htmlbar/image_dialog.c:876
 msgid ""
 "\n"
 "\n"
@@ -2109,18 +2109,18 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:977
+#: src/plugin_htmlbar/image_dialog.c:979
 #, fuzzy
 msgid "Select Image"
 msgstr "Valitse tiedosto"
 
-#: src/plugin_htmlbar/image_dialog.c:985
+#: src/plugin_htmlbar/image_dialog.c:987
 #, fuzzy
 msgid "All images"
 msgstr "Kuvat"
 
-#: src/plugin_htmlbar/image_dialog.c:1213
-#: src/plugin_htmlbar/image_dialog.c:1325
+#: src/plugin_htmlbar/image_dialog.c:1215
+#: src/plugin_htmlbar/image_dialog.c:1327
 #, fuzzy
 msgid "Insert Image"
 msgstr "Lisää kuva"
