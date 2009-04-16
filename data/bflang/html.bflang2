@@ -114,14 +114,14 @@
 	</context>
 </tag>
 
-<tag name="link" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2" >
+<tag name="link" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
 				<reference>Defines the relationship between a document and an external resource </reference>
 			</tag>
 
 <tag name="body" highlight="tag" case_insens="1" sgml_shorttag="1" autocomplete_append="&gt;&#10;&#10;&lt;/body&gt;" autocomplete_backup_cursor="8" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;">
 	<reference>Defines the document's body</reference>
 </tag>
-		<group highlight="reference-external-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
+		<group highlight="reference-external-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 			<tag name="a" case_insens="1" sgml_shorttag="1" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" >
 				<reference>The a tag inserts an anchor into a document</reference>
 			</tag>
@@ -133,7 +133,7 @@
 			</tag>
 			<tag name="param" case_insens="1" sgml_shorttag="1" attributes="id,name,value,valuetype,type" autocomplete_append=" name=&#34;&#34; &gt;" />
 		</group>
-		<group highlight="tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
+		<group highlight="tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 			<tag name="abbr" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 				<reference>Defines an embedded object</reference>
 			</tag>
@@ -235,7 +235,7 @@
 				<reference>Defines a variable part of a text</reference>
 			</tag>			
 		</group>
-		<group highlight="deprecated-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
+		<group highlight="deprecated-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 			<tag name="font" case_insens="1" sgml_shorttag="1" attributes="size,color,bgcolor,face">
 				<reference><b>Deprecated.</b> Defines font, color, and size for text</reference>
 			</tag>
@@ -249,7 +249,7 @@
 				<reference><b>Deprecated.</b> Render strike-through style text.</reference>
 			</tag>
 		</group>
-		<group highlight="form-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
+		<group highlight="form-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 			<tag name="fieldset" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 				<reference>Defines a border around elements in a form</reference>
 			</tag>
@@ -278,8 +278,8 @@
 				<reference>Defines a multi-line text input control</reference>
 			</tag>
 		</group>
-		<group highlight="table-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
-			<tag name="table" case_insens="1" sgml_shorttag="1" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" autocomplete_append=" summary=&quot;&quot; &gt;" >
+		<group highlight="table-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+			<tag name="table" case_insens="1" sgml_shorttag="1" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" autocomplete_append=" summary=&quot;&quot; &gt;&#10;&#10;&lt;/table&gt;" autocomplete_backup_cursor="9">
 				<reference>Defines a table</reference>
 			</tag>
 			<tag name="caption" case_insens="1" sgml_shorttag="1" attributes="align,&univ;,&i18n;,&evnt;" >
