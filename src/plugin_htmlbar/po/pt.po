@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: last_pt\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-02-28 20:16+0100\n"
+"POT-Creation-Date: 2009-04-16 20:38+0200\n"
 "PO-Revision-Date: 2004-12-04 21:45+0000\n"
 "Last-Translator: Lopo Pizarro <lopo-pizarro@netcabo.pt>\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
@@ -1811,7 +1811,7 @@ msgstr "Alvo:"
 #: src/plugin_htmlbar/html.c:1198 src/plugin_htmlbar/html.c:1661
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:466
+#: src/plugin_htmlbar/image.c:467
 msgid "_Name:"
 msgstr "_Nome:"
 
@@ -1834,7 +1834,7 @@ msgstr "Idioma:"
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:475
 #: src/plugin_htmlbar/image_dialog.c:409
 msgid "Custo_m:"
 msgstr "Personalizado:"
@@ -1942,7 +1942,7 @@ msgstr "Régua Horizontal"
 # src/html.c:994 src/html.c:1422 src/html_table.c:79 src/html_table.c:145
 # src/html_table.c:202 src/html_table.c:276 src/images.c:232
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:430
+#: src/plugin_htmlbar/image.c:493 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Align:"
 msgstr "_Alinhar:"
 
@@ -1957,7 +1957,7 @@ msgstr "Altura:"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:362
+#: src/plugin_htmlbar/image.c:451 src/plugin_htmlbar/image_dialog.c:362
 msgid "_Width:"
 msgstr "Largura:"
 
@@ -2436,77 +2436,77 @@ msgid "_Image location:"
 msgstr "Localização da imagem:"
 
 # src/html.c:1411 src/html_table.c:210 src/html_table.c:284 src/images.c:216
-#: src/plugin_htmlbar/image.c:457
+#: src/plugin_htmlbar/image.c:458
 msgid "Hei_ght:"
 msgstr "Altura:"
 
 # src/images.c:251
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/image.c:463 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
 # src/images.c:221
-#: src/plugin_htmlbar/image.c:470
+#: src/plugin_htmlbar/image.c:471
 msgid "Alternate _text:"
 msgstr "_Texto alternativo:"
 
 # src/images.c:237
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:439
+#: src/plugin_htmlbar/image.c:479 src/plugin_htmlbar/image_dialog.c:439
 msgid "_Hspace:"
 msgstr "Espaço _Horizontal:"
 
 # src/images.c:243
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:443
+#: src/plugin_htmlbar/image.c:483 src/plugin_htmlbar/image_dialog.c:443
 msgid "_Vspace:"
 msgstr "Espaço _Vertical:"
 
 # src/html.c:1196 src/html.c:1247 src/html.c:1250 src/html.c:1418
 # src/html_table.c:98 src/images.c:226
-#: src/plugin_htmlbar/image.c:496
+#: src/plugin_htmlbar/image.c:497
 msgid "Borde_r:"
 msgstr "Borda:"
 
-#: src/plugin_htmlbar/image.c:879
+#: src/plugin_htmlbar/image.c:880
 msgid "Select files for thumbnail creation"
 msgstr "Selecione os ficheiros para criação de miniaturas"
 
 # src/html.c:1258
-#: src/plugin_htmlbar/image.c:914
+#: src/plugin_htmlbar/image.c:915
 msgid "Scaling (%)"
 msgstr "Escala (%)"
 
 # src/html.c:1008 src/html.c:1404 src/html_table.c:192 src/html_table.c:266
 # src/images.c:208
-#: src/plugin_htmlbar/image.c:918 src/plugin_htmlbar/image.c:926
+#: src/plugin_htmlbar/image.c:919 src/plugin_htmlbar/image.c:927
 msgid "Width"
 msgstr "Largura"
 
 # src/html.c:1411 src/html_table.c:210 src/html_table.c:284 src/images.c:216
-#: src/plugin_htmlbar/image.c:922 src/plugin_htmlbar/image.c:954
+#: src/plugin_htmlbar/image.c:923 src/plugin_htmlbar/image.c:955
 msgid "Height"
 msgstr "Altura"
 
-#: src/plugin_htmlbar/image.c:943
+#: src/plugin_htmlbar/image.c:944
 msgid "Multi thumbnail"
 msgstr "Miniaturas multiplas"
 
-#: src/plugin_htmlbar/image.c:949
+#: src/plugin_htmlbar/image.c:950
 msgid "By scaling"
 msgstr "Por escala"
 
-#: src/plugin_htmlbar/image.c:950
+#: src/plugin_htmlbar/image.c:951
 msgid "By width, keep aspect ratio"
 msgstr "Por largura, manter proporção"
 
-#: src/plugin_htmlbar/image.c:951
+#: src/plugin_htmlbar/image.c:952
 msgid "By height, keep aspect ratio"
 msgstr "Por altura, manter proporção"
 
-#: src/plugin_htmlbar/image.c:952
+#: src/plugin_htmlbar/image.c:953
 msgid "By width and height, ignore aspect ratio"
 msgstr "Por largura e altura, ignorar proporção"
 
-#: src/plugin_htmlbar/image.c:976
+#: src/plugin_htmlbar/image.c:977
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2553,21 +2553,21 @@ msgstr ""
 msgid "_Border:"
 msgstr "Bo_rda:"
 
-#: src/plugin_htmlbar/image_dialog.c:772
+#: src/plugin_htmlbar/image_dialog.c:774
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:777
+#: src/plugin_htmlbar/image_dialog.c:779
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:874
+#: src/plugin_htmlbar/image_dialog.c:876
 msgid ""
 "\n"
 "\n"
@@ -2576,20 +2576,20 @@ msgid ""
 msgstr ""
 
 # src/bluefish.c:617
-#: src/plugin_htmlbar/image_dialog.c:977
+#: src/plugin_htmlbar/image_dialog.c:979
 #, fuzzy
 msgid "Select Image"
 msgstr "Selecionar ficheiro"
 
 # src/configure.c:427 src/interface.c:777 src/interface.c:934
-#: src/plugin_htmlbar/image_dialog.c:985
+#: src/plugin_htmlbar/image_dialog.c:987
 #, fuzzy
 msgid "All images"
 msgstr "Imagens"
 
 # src/images.c:182
-#: src/plugin_htmlbar/image_dialog.c:1213
-#: src/plugin_htmlbar/image_dialog.c:1325
+#: src/plugin_htmlbar/image_dialog.c:1215
+#: src/plugin_htmlbar/image_dialog.c:1327
 #, fuzzy
 msgid "Insert Image"
 msgstr "Inserir imagem"

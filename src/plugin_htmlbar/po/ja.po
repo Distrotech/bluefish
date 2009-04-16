@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-02-28 20:16+0100\n"
+"POT-Creation-Date: 2009-04-16 20:38+0200\n"
 "PO-Revision-Date: 2009-02-07 13:07+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
@@ -1453,7 +1453,7 @@ msgstr "ターゲット(_T):"
 #: src/plugin_htmlbar/html.c:1198 src/plugin_htmlbar/html.c:1661
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:466
+#: src/plugin_htmlbar/image.c:467
 msgid "_Name:"
 msgstr "名前(_N):"
 
@@ -1469,7 +1469,7 @@ msgstr "言語(_L):"
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:475
 #: src/plugin_htmlbar/image_dialog.c:409
 msgid "Custo_m:"
 msgstr "カスタム(_M):"
@@ -1555,7 +1555,7 @@ msgid "Horizontal Rule"
 msgstr "水平線"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:430
+#: src/plugin_htmlbar/image.c:493 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Align:"
 msgstr "配置(_A):"
 
@@ -1567,7 +1567,7 @@ msgstr "高さ(_H):"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:362
+#: src/plugin_htmlbar/image.c:451 src/plugin_htmlbar/image_dialog.c:362
 msgid "_Width:"
 msgstr "幅(_W):"
 
@@ -1941,67 +1941,67 @@ msgstr "プレビュー"
 msgid "_Image location:"
 msgstr "画像のある場所(_I):"
 
-#: src/plugin_htmlbar/image.c:457
+#: src/plugin_htmlbar/image.c:458
 msgid "Hei_ght:"
 msgstr "高さ(_G):"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/image.c:463 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr "map利用(_U):"
 
-#: src/plugin_htmlbar/image.c:470
+#: src/plugin_htmlbar/image.c:471
 msgid "Alternate _text:"
 msgstr "代替テキスト(_T):"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:439
+#: src/plugin_htmlbar/image.c:479 src/plugin_htmlbar/image_dialog.c:439
 msgid "_Hspace:"
 msgstr "横方向スペース(_H):"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:443
+#: src/plugin_htmlbar/image.c:483 src/plugin_htmlbar/image_dialog.c:443
 msgid "_Vspace:"
 msgstr "縦方向スペース(_V):"
 
-#: src/plugin_htmlbar/image.c:496
+#: src/plugin_htmlbar/image.c:497
 msgid "Borde_r:"
 msgstr "ボーダー(_R):"
 
-#: src/plugin_htmlbar/image.c:879
+#: src/plugin_htmlbar/image.c:880
 msgid "Select files for thumbnail creation"
 msgstr "サムネイルを作成するファイルの選択"
 
-#: src/plugin_htmlbar/image.c:914
+#: src/plugin_htmlbar/image.c:915
 msgid "Scaling (%)"
 msgstr "倍率 (%)"
 
-#: src/plugin_htmlbar/image.c:918 src/plugin_htmlbar/image.c:926
+#: src/plugin_htmlbar/image.c:919 src/plugin_htmlbar/image.c:927
 msgid "Width"
 msgstr "幅"
 
-#: src/plugin_htmlbar/image.c:922 src/plugin_htmlbar/image.c:954
+#: src/plugin_htmlbar/image.c:923 src/plugin_htmlbar/image.c:955
 msgid "Height"
 msgstr "高さ"
 
-#: src/plugin_htmlbar/image.c:943
+#: src/plugin_htmlbar/image.c:944
 msgid "Multi thumbnail"
 msgstr "複数のサムネイル"
 
-#: src/plugin_htmlbar/image.c:949
+#: src/plugin_htmlbar/image.c:950
 msgid "By scaling"
 msgstr "倍率を指定する"
 
-#: src/plugin_htmlbar/image.c:950
+#: src/plugin_htmlbar/image.c:951
 msgid "By width, keep aspect ratio"
 msgstr "幅を指定して縦横比を保持する"
 
-#: src/plugin_htmlbar/image.c:951
+#: src/plugin_htmlbar/image.c:952
 msgid "By height, keep aspect ratio"
 msgstr "高さを指定して縦横比を保持する"
 
-#: src/plugin_htmlbar/image.c:952
+#: src/plugin_htmlbar/image.c:953
 msgid "By width and height, ignore aspect ratio"
 msgstr "幅と高さを指定して縦横比を無視する"
 
-#: src/plugin_htmlbar/image.c:976
+#: src/plugin_htmlbar/image.c:977
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2037,7 +2037,7 @@ msgstr "Transitional オプションを使う(_U)"
 msgid "_Border:"
 msgstr "_Border(外枠線):"
 
-#: src/plugin_htmlbar/image_dialog.c:772
+#: src/plugin_htmlbar/image_dialog.c:774
 #, c-format
 msgid ""
 "\n"
@@ -2046,7 +2046,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/plugin_htmlbar/image_dialog.c:777
+#: src/plugin_htmlbar/image_dialog.c:779
 #, c-format
 msgid ""
 "\n"
@@ -2055,7 +2055,7 @@ msgstr ""
 "\n"
 "%d x %d ピクセル"
 
-#: src/plugin_htmlbar/image_dialog.c:874
+#: src/plugin_htmlbar/image_dialog.c:876
 msgid ""
 "\n"
 "\n"
@@ -2067,16 +2067,16 @@ msgstr ""
 "\t<b>プレビューを読み込み中...</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:977
+#: src/plugin_htmlbar/image_dialog.c:979
 msgid "Select Image"
 msgstr "画像を選択"
 
-#: src/plugin_htmlbar/image_dialog.c:985
+#: src/plugin_htmlbar/image_dialog.c:987
 msgid "All images"
 msgstr "すべての画像"
 
-#: src/plugin_htmlbar/image_dialog.c:1213
-#: src/plugin_htmlbar/image_dialog.c:1325
+#: src/plugin_htmlbar/image_dialog.c:1215
+#: src/plugin_htmlbar/image_dialog.c:1327
 msgid "Insert Image"
 msgstr "Insert Image"
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-02-28 20:16+0100\n"
+"POT-Creation-Date: 2009-04-16 20:38+0200\n"
 "PO-Revision-Date: 2004-11-26 22:30+0100\n"
 "Last-Translator: Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
 "Language-Team: None\n"
@@ -1457,7 +1457,7 @@ msgstr "_Target:"
 #: src/plugin_htmlbar/html.c:1198 src/plugin_htmlbar/html.c:1661
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:466
+#: src/plugin_htmlbar/image.c:467
 msgid "_Name:"
 msgstr "_Navn:"
 
@@ -1473,7 +1473,7 @@ msgstr "_Sprog:"
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:475
 #: src/plugin_htmlbar/image_dialog.c:409
 msgid "Custo_m:"
 msgstr "_Bruger"
@@ -1559,7 +1559,7 @@ msgid "Horizontal Rule"
 msgstr "Horizontal linje"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:430
+#: src/plugin_htmlbar/image.c:493 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Align:"
 msgstr "_Opstil:"
 
@@ -1571,7 +1571,7 @@ msgstr "_Højde:"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:362
+#: src/plugin_htmlbar/image.c:451 src/plugin_htmlbar/image_dialog.c:362
 msgid "_Width:"
 msgstr "_Bredde:"
 
@@ -1950,67 +1950,67 @@ msgstr "Preview"
 msgid "_Image location:"
 msgstr "_Billede placering:"
 
-#: src/plugin_htmlbar/image.c:457
+#: src/plugin_htmlbar/image.c:458
 msgid "Hei_ght:"
 msgstr "_Højde:"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/image.c:463 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
-#: src/plugin_htmlbar/image.c:470
+#: src/plugin_htmlbar/image.c:471
 msgid "Alternate _text:"
 msgstr "Alternativ _tekst:"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:439
+#: src/plugin_htmlbar/image.c:479 src/plugin_htmlbar/image_dialog.c:439
 msgid "_Hspace:"
 msgstr "_Horizontal afstand:"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:443
+#: src/plugin_htmlbar/image.c:483 src/plugin_htmlbar/image_dialog.c:443
 msgid "_Vspace:"
 msgstr "_Vertikal afstand:"
 
-#: src/plugin_htmlbar/image.c:496
+#: src/plugin_htmlbar/image.c:497
 msgid "Borde_r:"
 msgstr "Ramme_r:"
 
-#: src/plugin_htmlbar/image.c:879
+#: src/plugin_htmlbar/image.c:880
 msgid "Select files for thumbnail creation"
 msgstr "Vælg filer til thumbnail oprettelse"
 
-#: src/plugin_htmlbar/image.c:914
+#: src/plugin_htmlbar/image.c:915
 msgid "Scaling (%)"
 msgstr "Skalering (%)"
 
-#: src/plugin_htmlbar/image.c:918 src/plugin_htmlbar/image.c:926
+#: src/plugin_htmlbar/image.c:919 src/plugin_htmlbar/image.c:927
 msgid "Width"
 msgstr "Bredde"
 
-#: src/plugin_htmlbar/image.c:922 src/plugin_htmlbar/image.c:954
+#: src/plugin_htmlbar/image.c:923 src/plugin_htmlbar/image.c:955
 msgid "Height"
 msgstr "Højde"
 
-#: src/plugin_htmlbar/image.c:943
+#: src/plugin_htmlbar/image.c:944
 msgid "Multi thumbnail"
 msgstr "Multi thumbnail"
 
-#: src/plugin_htmlbar/image.c:949
+#: src/plugin_htmlbar/image.c:950
 msgid "By scaling"
 msgstr "Efter skalering"
 
-#: src/plugin_htmlbar/image.c:950
+#: src/plugin_htmlbar/image.c:951
 msgid "By width, keep aspect ratio"
 msgstr "Efter bredde, bi-behold aspekt forhold"
 
-#: src/plugin_htmlbar/image.c:951
+#: src/plugin_htmlbar/image.c:952
 msgid "By height, keep aspect ratio"
 msgstr "Efter højde, bi-behold aspekt forhold"
 
-#: src/plugin_htmlbar/image.c:952
+#: src/plugin_htmlbar/image.c:953
 msgid "By width and height, ignore aspect ratio"
 msgstr "Efter bredde og højde, ignorér aspekt forhold"
 
-#: src/plugin_htmlbar/image.c:976
+#: src/plugin_htmlbar/image.c:977
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2051,21 +2051,21 @@ msgstr ""
 msgid "_Border:"
 msgstr "_Ramme:"
 
-#: src/plugin_htmlbar/image_dialog.c:772
+#: src/plugin_htmlbar/image_dialog.c:774
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:777
+#: src/plugin_htmlbar/image_dialog.c:779
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:874
+#: src/plugin_htmlbar/image_dialog.c:876
 msgid ""
 "\n"
 "\n"
@@ -2073,18 +2073,18 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:977
+#: src/plugin_htmlbar/image_dialog.c:979
 #, fuzzy
 msgid "Select Image"
 msgstr "Vælg Fil"
 
-#: src/plugin_htmlbar/image_dialog.c:985
+#: src/plugin_htmlbar/image_dialog.c:987
 #, fuzzy
 msgid "All images"
 msgstr "Billeder"
 
-#: src/plugin_htmlbar/image_dialog.c:1213
-#: src/plugin_htmlbar/image_dialog.c:1325
+#: src/plugin_htmlbar/image_dialog.c:1215
+#: src/plugin_htmlbar/image_dialog.c:1327
 #, fuzzy
 msgid "Insert Image"
 msgstr "Indsæt billede"
