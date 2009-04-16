@@ -12,6 +12,7 @@ MAINTAINERCLEANFILES = Makefile.in
 bflang_DATA = \
 	all-javascript.bfinc \
 	all-html.bfinc \
+	all-php.bfinc \
 	css-selectors.bfinc \
 	css-rules.bfinc \
 	asp.bflang2 \
@@ -30,6 +31,7 @@ bflang_DATA = \
 	python.bflang2 \
 	ruby.bflang2 \
 	shell.bflang2 \
+	sarty.bflang2 \
 	text.bflang2 \
 	xhtml.bflang2 \
 	xml.bflang2
