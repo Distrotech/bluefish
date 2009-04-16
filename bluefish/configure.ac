@@ -14,7 +14,11 @@ AC_PREREQ([2.59])
 AC_INIT([bluefish-unstable],[1.3.4],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 
 dnl Have to save them here!
-AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $@"], [The configure options used to compile bluefish.])
+if test "${ac_configure_args+set}" != "set" ; then
+	AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $@"], [The configure options used to compile bluefish.])
+else
+	AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $ac_configure_args"], [The configure options used to compile bluefish.])
+fi
 
 dnl The `-Wno-portability' value will suppress the GNU make warnings. Add it if necessary.
 AM_INIT_AUTOMAKE([1.8 -Wall])
