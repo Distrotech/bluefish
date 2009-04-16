@@ -570,8 +570,7 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 
 	win->view = gtk_text_view_new();
-	gtk_widget_set_size_request(GTK_WIDGET(win->view), 100, -1);
-	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(win->view),GTK_WRAP_WORD_CHAR);
+	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(win->view),GTK_WRAP_WORD);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(win->view),FALSE);
 	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(win->view),FALSE);
 	gtk_text_view_set_left_margin(GTK_TEXT_VIEW(win->view),8);
