@@ -31,7 +31,7 @@ bflang_DATA = \
 	python.bflang2 \
 	ruby.bflang2 \
 	shell.bflang2 \
-	sarty.bflang2 \
+	smarty.bflang2 \
 	text.bflang2 \
 	xhtml.bflang2 \
 	xml.bflang2
