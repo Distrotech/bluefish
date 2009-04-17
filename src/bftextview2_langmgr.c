@@ -1210,7 +1210,7 @@ void langmgr_init(void) {
 		g_object_set(tag, "foreground", "white", NULL);
 		gtk_text_tag_table_add(langmgr.tagtable, tag);
 		g_object_unref(tag);
-		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv(arr));
+		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv((gchar **)arr));
 	}
 	tag = gtk_text_tag_table_lookup(langmgr.tagtable,"foldheader");
 	if (tag) {
@@ -1222,7 +1222,7 @@ void langmgr_init(void) {
 		g_object_set(tag, "background", "#99FF99", NULL);
 		gtk_text_tag_table_add(langmgr.tagtable, tag);
 		g_object_unref(tag);
-		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv(arr));
+		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv((gchar **)arr));
 	} 	
 	for (tmplist = g_list_first(main_v->props.highlight_styles);tmplist;tmplist=tmplist->next) {
 		gchar **arr = (gchar **)tmplist->data;
