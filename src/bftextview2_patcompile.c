@@ -510,7 +510,7 @@ gint16 new_context(Tscantable *st, const gchar *lang, gchar *symbols, const gcha
 	g_array_index(st->contexts, Tcontext, context).startstate = startstate;
 	g_array_index(st->contexts, Tcontext, context).identstate = identstate;
 	g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens = autocomplete_case_insens;
-	g_array_index(st->contexts, Tcontext, context).contexthighlight = contexthighlight;
+	g_array_index(st->contexts, Tcontext, context).contexthighlight = (gchar *)contexthighlight;
 	/*if (contexthighlight) 
 		g_array_index(st->contexts, Tcontext, context).contexttag = langmrg_lookup_tag_highlight(lang, contexthighlight);*/
 	g_array_set_size(st->table,st->table->len+2);
@@ -609,8 +609,8 @@ static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
 	g_array_index(st->matches, Tpattern, matchnum).case_insens = case_insens;
 	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
-	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = selfhighlight;
-	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = blockhighlight;
+	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = (gchar *)selfhighlight;
+	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = (gchar *)blockhighlight;
 	g_array_index(st->matches, Tpattern, matchnum).autocomplete = autocomplete;
 	if (autocomplete) {
 		g_array_index(st->matches, Tpattern, matchnum).autocomplete_backup_cursor = autocomplete_backup_cursor;
