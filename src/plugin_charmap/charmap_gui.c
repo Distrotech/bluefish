@@ -140,7 +140,7 @@ static void chaptersv_changed_lcb(GtkComboBox *combo, gpointer data) {
 		gucharmap_table_set_codepoint_list((GucharmapTable *)cm->gcm,gcpl);
 #endif
 #ifdef HAVE_LIBGUCHARMAP_2
-		gucharmap_chartable_set_codepoint_list (cm->gcm,gcpl);
+		gucharmap_chartable_set_codepoint_list ((GucharmapChartable *)cm->gcm,gcpl);
 #endif 
 /*		g_free(name);*/
 		cms = get_charmap_session(cm->bfwin->session);
@@ -179,12 +179,12 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(vbox),cm->chaptersv,FALSE,TRUE,2);
 #ifdef HAVE_LIBGUCHARMAP
 	cm->gcm = gucharmap_table_new();
-	gucharmap_table_set_font(cm->gcm, "sans 12");
+	gucharmap_table_set_font((GucharmapTable *)cm->gcm, "sans 12");
 #endif
 #ifdef HAVE_LIBGUCHARMAP_2
 	cm->gcm = gucharmap_chartable_new();
 	fontdesc = pango_font_description_from_string("sans 12");
-	gucharmap_chartable_set_font_desc(cm->gcm, fontdesc);
+	gucharmap_chartable_set_font_desc((GucharmapChartable *)cm->gcm, fontdesc);
 	pango_font_description_free(fontdesc); 
 #endif 
 	g_signal_connect(cm->gcm, "activate", G_CALLBACK(charmap_charmap_activate_lcb), cm);
