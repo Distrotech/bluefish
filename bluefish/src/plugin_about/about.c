@@ -30,6 +30,7 @@
 
 #include "../config.h"
 #include "../plugins.h"
+#include "../dialog_utils.h" /* message_dialog_new */
 #include "../bluefish.h" /* BLUEFISH_SPLASH_FILENAME */
 
 
@@ -129,9 +130,7 @@ static void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget
     "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
     "MA 02110-1301, USA.";
   
-  gchar *comments = g_strconcat(
-      _("An open-source editor for experienced web designers and programmers, supporting many programming and markup languages, but focusing on creating dynamic and interactive websites."),
-      _("\n\nThis version of Bluefish was built with: "), CONFIGURE_OPTIONS, NULL);
+  const gchar *comments = _("An open-source editor for experienced web designers and programmers, supporting many programming and markup languages, but focusing on creating dynamic and interactive websites.");
 
   /* Translators: This is a special message that shouldn't be translated
    * literally. It is used in the about box to give credits to
@@ -173,9 +172,19 @@ static void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget
               NULL);
 
   if (logo) g_object_unref(logo);
-  g_free (comments);
+  /* g_free (comments); */
 }
 
+static void configure_options_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget *widget) {
+  message_dialog_new(bfwin->main_window, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
+#ifdef SVN_REVISION
+              PACKAGE_STRING " rev" SVN_REVISION,
+#else /* SVN_REVISION */
+              PACKAGE_STRING,
+#endif /* SVN_REVISION */
+              g_strconcat(_("\n\nThis version of Bluefish was built with: "), CONFIGURE_OPTIONS, NULL)
+  );
+}
 
 static void about_init(void) {
 #ifdef ENABLE_NLS
@@ -195,10 +204,11 @@ static void about_initgui(Tbfwin* bfwin) {
   GtkItemFactory *ifactory;
   static GtkItemFactoryEntry menu_items[] = {
     {N_("/_Help"), NULL, NULL, 0, "<LastBranch>"},
-    {N_("/Help/Bluefish _Homepage"), NULL, bluefish_url_show_lcb, 1, "<Item>"},
+    {N_("/Help/Bluefish _Homepage"), NULL, bluefish_url_show_lcb, 1, "<StockItem>", GTK_STOCK_HOME},
     {N_("/Help/Report a _Bug"), NULL, bluefish_url_show_lcb, 2, "<Item>"},
     {"/Help/sep1", NULL, NULL, 0, "<Separator>"},
-    {N_("/Help/_About..."), NULL, about_dialog_create, 0, "<StockItem>", GTK_STOCK_ABOUT}
+    {N_("/Help/_About..."), NULL, about_dialog_create, 0, "<StockItem>", GTK_STOCK_ABOUT},
+    {N_("/Help/_Build Info..."), NULL, configure_options_dialog_create, 0, "<StockItem>", GTK_STOCK_INFO}
   };
   ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 #ifdef ENABLE_NLS
