@@ -223,8 +223,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 			filename = g_file_get_parse_name(newuri);
 			suflen = strlen(main_v->props.project_suffix);
 			filen = strlen(filename);
-	
-			if (filen < suflen || strcmp(&filename[filen - suflen], main_v->props.project_suffix)==0) {
+			if (filen < suflen || strcmp(&filename[filen - suflen], main_v->props.project_suffix)!=0) {
 				GFile *tmp2;
 				gchar *tmp = g_strconcat(filename, main_v->props.project_suffix,NULL);
 				tmp2 = g_file_parse_name(tmp);
