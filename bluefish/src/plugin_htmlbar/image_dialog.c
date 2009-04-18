@@ -1342,8 +1342,8 @@ bluefish_image_dialog_new_with_data (Tbfwin *bfwin,
 												 "hspace", hspace,
 												 "vspace", vspace,
 												 "use-transitional", usetransitional,
-												 "tag-start", (Ttagpopup *) data->pos,
-												 "tag-end", (Ttagpopup *) data->end,
+												 "tag-start", data->pos,
+												 "tag-end", data->end,
 												 NULL);
 	
 	g_return_if_fail (dialog != NULL);
