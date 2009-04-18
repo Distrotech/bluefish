@@ -308,7 +308,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
-	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode == 1)) {
+	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
 		autocomp_run(btv,FALSE);
 	}
 	bftextview2_reset_user_idle_timer(btv);
@@ -668,7 +668,7 @@ static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIt
 										 GtkTextIter * oend, gpointer user_data)
 {
 	BluefishTextView *btv=user_data;
-	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode == 1)) {
+	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
 		autocomp_run(btv,FALSE);
 	}
 }
