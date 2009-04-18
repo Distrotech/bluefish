@@ -182,7 +182,7 @@ static void configure_options_dialog_create(Tbfwin *bfwin, guint *callback_actio
 #else /* SVN_REVISION */
               PACKAGE_STRING,
 #endif /* SVN_REVISION */
-              g_strconcat(_("\n\nThis version of Bluefish was built with: "), CONFIGURE_OPTIONS, NULL)
+              g_strconcat(_("\n\nThis version of Bluefish was built with:\n"), CONFIGURE_OPTIONS, NULL)
   );
 }
 
