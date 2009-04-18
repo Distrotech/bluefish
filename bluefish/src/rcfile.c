@@ -448,7 +448,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.delay_full_scan, "delay_full_scan:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.delay_scan_time, "delay_scan_time:", 900, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.autocomplete, "autocomplete:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.autocomp_popup_mode, "autocomp_popup_mode:", 2, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.autocomp_popup_mode, "autocomp_popup_mode:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.reduced_scan_triggers, "reduced_scan_triggers:", 1, TRUE);
 	return config_rc;
 }
