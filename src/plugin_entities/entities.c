@@ -31,6 +31,27 @@
 #include "../gtk_easy.h"
 #include "../undo_redo.h"
 #include "../dialog_utils.h"
+#include "../rcfile.h"
+
+typedef struct {
+	gint convert_num;
+	gint convert_iso;
+	gint convert_symbol;
+	gint convert_special;
+	gint convert_xml;
+} Tentitysetting;
+
+typedef struct {
+	Tentitysetting c2e;
+	Tentitysetting e2c;
+} Tentitiessession;
+
+typedef struct {
+	GHashTable* lookup;
+} Tentities;
+
+Tentities entities_v;
+
 /* see http://www.w3.org/TR/xhtml1/dtds.html for more information about the defined entities */
 
 static gchar *entities_iso8859_1[] = {
@@ -67,7 +88,7 @@ static gchar *entities_special[] = {
     "euro", NULL
 };
 static gchar *entities_xml[] = {
-  "nbsp", "quot", "amp", "lt", "gt", NULL
+  "nbsp", "quot", "amp", "lt", "gt", "apos", NULL
 };
 /*
  * the unicode characters for iso8859_1 are 161 + the index in the array
@@ -87,7 +108,7 @@ static guint entity_unicode_special[] = {
     8211, 8212, 8216, 8217, 8218, 8220, 8221, 8222, 8224, 8225, 8240, 8249, 8250, 8364, -1
 };
 static guint entity_unicode_xml[] = {
-  160, 34, 38, 60, 62, -1
+  160, '"', '&', '<', '>', '\'', -1
 };
 /* retuerns -1 if index not found */
 static gint index_in_array(gchar **arr,gchar *string) {
@@ -279,7 +300,7 @@ void doc_entities_to_utf8(Tdocument *doc, gint start, gint end, gboolean numeric
       if (unic != -1) {
         guint cfound,cendfound;
         gchar tmp[7];
-        g_print("unic=%d for entity '%s'\n",unic,entity);
+        DEBUG_MSG("doc_entities_to_utf8, unic=%d for entity '%s'\n",unic,entity);
         memset(tmp, 0, 7);
         len = g_unichar_to_utf8(unic, tmp);
         
@@ -361,12 +382,21 @@ typedef struct {
   GtkWidget *xml;
   Tentmode mode;
   Tbfwin *bfwin;
+  Tentitysetting *eset;
 } Tentwin;
 
 static void ew_response_lcb(GtkDialog * dialog, gint response, Tentwin * ew) {
-  if (response == GTK_RESPONSE_ACCEPT) {
-    gint start=0, end=-1;
-    gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(ew->scope));
+	if (response == GTK_RESPONSE_ACCEPT) {
+		gint start=0, end=-1;
+		gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(ew->scope));
+    	if (ew->numerical)
+	    	ew->eset->convert_num = GTK_TOGGLE_BUTTON(ew->numerical)->active;
+		ew->eset->convert_iso = GTK_TOGGLE_BUTTON(ew->iso8859_1)->active;
+		ew->eset->convert_symbol = GTK_TOGGLE_BUTTON(ew->symbol)->active;
+		ew->eset->convert_special = GTK_TOGGLE_BUTTON(ew->special)->active;
+		ew->eset->convert_xml = GTK_TOGGLE_BUTTON(ew->xml)->active;
+    
+    
     if (scope == 0 || (scope == 1 && doc_get_selection(ew->bfwin->current_document, &start, &end))) {
       doc_unre_new_group_action_id(ew->bfwin->current_document,0);
       if (ew->mode == mode_char2ent) {
@@ -401,14 +431,14 @@ static void ew_response_lcb(GtkDialog * dialog, gint response, Tentwin * ew) {
   g_free(ew);
 }
 
-static void entity_dialog(Tbfwin *bfwin, Tentmode mode) {
+static void entity_dialog(Tbfwin *bfwin, Tentmode mode, Tentitysetting *eset) {
   Tentwin *ew;
   GtkWidget *hbox;
   
   ew = g_new(Tentwin,1);
   ew->bfwin = bfwin;
   ew->mode = mode;
-  
+  ew->eset = eset;
   ew->dialog = gtk_dialog_new_with_buttons(mode == mode_char2ent ? _("Characters to entities") : _("Entities to characters"),
       GTK_WINDOW(bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT, 
       GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
@@ -431,26 +461,26 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode) {
   if (mode == mode_ent2char) {
     ew->numerical = gtk_check_button_new_with_mnemonic(_("Convert numerical characters"));
     gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->numerical, FALSE, FALSE, 0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->numerical),TRUE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->numerical),eset->convert_num);
   } else {
     ew->numerical = NULL;
   }
 
   ew->iso8859_1 = gtk_check_button_new_with_mnemonic(_("Convert _iso-8859-1 characters"));
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->iso8859_1, FALSE, FALSE, 0);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->iso8859_1),TRUE);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->iso8859_1),eset->convert_iso);
   
   ew->symbol = gtk_check_button_new_with_mnemonic(_("Convert _symbol characters"));
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->symbol, FALSE, FALSE, 0);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->symbol),TRUE);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->symbol),eset->convert_symbol);
   
   ew->special = gtk_check_button_new_with_mnemonic(_("Convert spe_cial characters"));
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->special, FALSE, FALSE, 0);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->special),TRUE);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->special),eset->convert_special);
   
-  ew->xml = gtk_check_button_new_with_mnemonic(_("Convert _xml characters <>&"));
+  ew->xml = gtk_check_button_new_with_mnemonic(_("Convert _xml characters <>&\"'"));
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->xml, FALSE, FALSE, 0);
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->xml),FALSE);
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->xml),eset->convert_xml);
   
 /*  g_signal_connect(ew->overlappingMatches, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
   gtk_tooltips_set_tip(main_v->tooltips,ew->overlappingMatches,_("After a match is found, start next search within that match."),NULL);*/
@@ -463,12 +493,14 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode) {
 }
 
 static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget){
+	Tentitiessession *es;
+	es = g_hash_table_lookup(entities_v.lookup,bfwin->session);
   switch (callback_action) {
   case 0:
-    entity_dialog(bfwin, mode_ent2char);
+    entity_dialog(bfwin, mode_ent2char, &es->e2c);
   break;
   case 1:
-    entity_dialog(bfwin, mode_char2ent);
+    entity_dialog(bfwin, mode_char2ent, &es->c2e);
   break;
   case 2:
     doc_code_selection(bfwin->current_document, mode_urlencode);
@@ -487,10 +519,13 @@ static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widg
 
 static void entity_init(void) {
 #ifdef ENABLE_NLS
-  DEBUG_MSG("entity_init, gettext domain-name=%s\n",PACKAGE"_plugin_entities");
-  bindtextdomain(PACKAGE"_plugin_entities", LOCALEDIR);
-  bind_textdomain_codeset(PACKAGE"_plugin_entities", "UTF-8");
+	DEBUG_MSG("entity_init, gettext domain-name=%s\n",PACKAGE"_plugin_entities");
+	bindtextdomain(PACKAGE"_plugin_entities", LOCALEDIR);
+	bind_textdomain_codeset(PACKAGE"_plugin_entities", "UTF-8");
 #endif /* ENABLE_NLS */
+	entities_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,
+					NULL /* == g_direct_equal() */,
+					NULL,NULL);
 /*  gchar *tmp, *tmp2;
 / * const gchar *orig = "hallo &amp; &test &uuml; ä;";* /
   const gchar *orig = "&alpha;";
@@ -530,7 +565,26 @@ static void entity_enforce_session(Tbfwin* bfwin) {}
 static void entity_cleanup(void) {}
 static void entity_cleanup_gui(Tbfwin *bfwin) {}
 static GHashTable *entity_register_globses_config(GHashTable *configlist) {return configlist;}
-static GHashTable *entity_register_session_config(GHashTable *configlist, Tsessionvars *session) {  return configlist;}
+static GHashTable *entity_register_session_config(GHashTable *configlist, Tsessionvars *session) {
+	Tentitiessession *es;
+	es = g_hash_table_lookup(entities_v.lookup,session);
+	if (!es) {
+		es = g_new0(Tentitiessession,1);
+		es->e2c.convert_xml = TRUE;
+		es->c2e.convert_xml = TRUE;
+		g_hash_table_insert(entities_v.lookup,session,es);
+	}
+	configlist = make_config_list_item(configlist, &es->c2e.convert_iso, 'i', "c2e.convert_iso:", 0);
+	configlist = make_config_list_item(configlist, &es->c2e.convert_symbol, 'i', "c2e.convert_symbol:", 0);
+	configlist = make_config_list_item(configlist, &es->c2e.convert_special, 'i', "c2e.convert_special:", 0);
+	configlist = make_config_list_item(configlist, &es->c2e.convert_xml, 'i', "c2e.convert_xml:", 0);
+	configlist = make_config_list_item(configlist, &es->e2c.convert_num, 'i', "e2c.convert_num:", 0);
+	configlist = make_config_list_item(configlist, &es->e2c.convert_iso, 'i', "e2c.convert_iso:", 0);
+	configlist = make_config_list_item(configlist, &es->e2c.convert_symbol, 'i', "e2c.convert_symbol:", 0);
+	configlist = make_config_list_item(configlist, &es->e2c.convert_special, 'i', "e2c.convert_special:", 0);
+	configlist = make_config_list_item(configlist, &es->e2c.convert_xml, 'i', "e2c.convert_xml:", 0);
+	return configlist;
+}
 
 static TBluefishPlugin bfplugin = {
   "entities",
