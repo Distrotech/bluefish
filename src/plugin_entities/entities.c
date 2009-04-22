@@ -459,7 +459,7 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode, Tentitysetting *eset) {
   gtk_box_pack_start(GTK_BOX(hbox), ew->scope, FALSE, FALSE, 0);
   
   if (mode == mode_ent2char) {
-    ew->numerical = gtk_check_button_new_with_mnemonic(_("Convert numerical characters"));
+    ew->numerical = gtk_check_button_new_with_mnemonic(_("Convert numerical encoded characters &#99;"));
     gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->numerical, FALSE, FALSE, 0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->numerical),eset->convert_num);
   } else {
