@@ -47,6 +47,7 @@
 #include "stringlist.h"
 #include "undo_redo.h"      /* undo_cb() redo_cb() etc. */
 #include "plugins.h"
+#include "rcfile.h"
 
 #ifdef HAVE_LIBASPELL
 #include "bfspell.h"
@@ -742,7 +743,8 @@ void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	g_free(bfwin);
 	
 	if (NULL == main_v->bfwinlist) {
-		bluefish_exit_request();
+		rcfile_save_global_session();
+		gtk_main_quit();
 	}
 }
 
