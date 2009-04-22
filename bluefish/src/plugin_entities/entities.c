@@ -478,7 +478,7 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode, Tentitysetting *eset) {
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->special, FALSE, FALSE, 0);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->special),eset->convert_special);
   
-  ew->xml = gtk_check_button_new_with_mnemonic(_("Convert _xml characters <>&\"'"));
+  ew->xml = gtk_check_button_new_with_mnemonic(_("Convert _XML characters < > & \" '"));
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->xml, FALSE, FALSE, 0);
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->xml),eset->convert_xml);
   
