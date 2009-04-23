@@ -4,6 +4,8 @@ import re
 import os
 import string
 import sys
+from xml.sax.saxutils import escape
+
 # from http://mhordecki.wordpress.com/2008/02/10/sphinx-official-python-documentation-tool/
 #
 #svn co http://svn.python.org/projects/python/trunk # checking out Python tree
@@ -72,8 +74,8 @@ class ParsedFunc:
 	def printelement(self):
 		if (not self.name or not self.description):
 			return
-		self.name = string.strip(self.name)
-		self.description = string.strip(self.description)
+		self.name = escape(string.strip(self.name))
+		self.description = escape(striptex(string.strip(self.description)))
 		print '<element pattern="'+self.name+'"><reference>'+self.description+'</reference></element>'
 
 
