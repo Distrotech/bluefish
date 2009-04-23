@@ -22,8 +22,8 @@
 
 <bflang name="Ada" matches="29" contexts="3" table="82">
 <header>
-	<mime type="application/x-ada"/>
 	<mime type="text/x-ada"/>
+	<mime type="text/x-adasrc"/>
 	<highlight name="string" style="string"   />
 	<highlight name="keyword" style="keyword"  />
 	<highlight name="value" style="value"  />
@@ -32,12 +32,14 @@
 	<highlight name="variable" style="variable"  />
 </header>
 <properties>
-	<comment id="---" type="line" start="---" />
+	<comment id="--" type="line" start="---" />
 </properties>
 
 <definition>
 <context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 <element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+<element pattern="true" highlight="value"/>
+<element pattern="false" highlight="value"/>
 <group autocomplete="1" highlight="keyword">
 <element pattern="abort"/>
 <element pattern="abs"/>
@@ -123,7 +125,7 @@
 <element id="(" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
 
-<element pattern="---[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
+<element pattern="--[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
 <element pattern="'[^']*'" is_regex="1" highlight="string"/>
 <element pattern="&quot;" highlight="string">
 <context symbols="\&quot;${}" highlight="string">
