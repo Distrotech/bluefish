@@ -73,7 +73,7 @@
 <element pattern="while" />
 <element pattern="yield" />
 </group>
-<group highlight="built-in-function" autocomplete="1">
+<group highlight="built-in-function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
 	<element pattern="abs"/>
 	<element pattern="all"/>
 	<element pattern="any"/>
@@ -194,7 +194,7 @@
 	<element pattern="RuntimeWarning"/>
 	<element pattern="FutureWarning"/>
 </group>
-<group highlight="function" autocomplete="1">
+<group highlight="function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
 <element pattern="distutils.Charset" />
 <element pattern="distutils.add_charset" />
 <element pattern="distutils.add_alias" />
