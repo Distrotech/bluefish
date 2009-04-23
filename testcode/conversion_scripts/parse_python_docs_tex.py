@@ -3,6 +3,7 @@
 import re
 import os
 import string
+import sys
 #svn co http://svn.python.org/projects/python/trunk # checking out Python tree
 #cd trunk/Doc
 #make latex
@@ -111,5 +112,8 @@ def parsefile(infile):
 #			print line[:-1]
 			f = ParsedFunc(fd,func)
 		line = fd.readline()
-		
-parsefile('latex/library.tex')
+
+if (len(sys.argv)>1):
+	parsefile(sys.argv[1])
+else:
+	parsefile('latex/library.tex')
