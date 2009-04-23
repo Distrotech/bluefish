@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		ada.bflang2 $Revision: 4726 $
+ 
+		Copyright (C) 2009 Olivier Sessink
+
+		This program is free software; you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation; either version 2 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+-->
+
+<bflang name="Ada" matches="29" contexts="3" table="82">
+<header>
+	<mime type="application/x-ada"/>
+	<mime type="text/x-ada"/>
+	<highlight name="string" style="string"   />
+	<highlight name="keyword" style="keyword"  />
+	<highlight name="value" style="value"  />
+	<highlight name="function" style="function"  />
+	<highlight name="comment" style="comment"  />
+	<highlight name="variable" style="variable"  />
+</header>
+<properties>
+	<comment id="---" type="line" start="---" />
+</properties>
+
+<definition>
+<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+<group autocomplete="1" highlight="keyword">
+<element pattern="abort"/>
+<element pattern="abs"/>
+<element pattern="abstract"/>
+<element pattern="accept"/>
+<element pattern="access"/>
+<element pattern="address"/>
+<element pattern="aliased"/>
+<element pattern="all"/>
+<element pattern="and"/>
+<element pattern="array"/>
+<element pattern="at"/>
+<element pattern="begin"/>
+<element pattern="body"/>
+<element pattern="boolean"/>
+<element pattern="case"/>
+<element pattern="character"/>
+<element pattern="constant"/>
+<element pattern="declare"/>
+<element pattern="delay"/>
+<element pattern="delta"/>
+<element pattern="digits"/>
+<element pattern="do"/>
+<element pattern="duration"/>
+<element pattern="else"/>
+<element pattern="elsif"/>
+<element pattern="end"/>
+<element pattern="entry"/>
+<element pattern="exception"/>
+<element pattern="exit"/>
+<element pattern="false"/>
+<element pattern="float"/>
+<element pattern="for"/>
+<element pattern="function"/>
+<element pattern="goto"/>
+<element pattern="if"/>
+<element pattern="in"/>
+<element pattern="integer"/>
+<element pattern="is"/>
+<element pattern="latin_1"/>
+<element pattern="limited"/>
+<element pattern="loop"/>
+<element pattern="mod"/>
+<element pattern="natural"/>
+<element pattern="new"/>
+<element pattern="not"/>
+<element pattern="null"/>
+<element pattern="or"/>
+<element pattern="others"/>
+<element pattern="out"/>
+<element pattern="package"/>
+<element pattern="positive"/>
+<element pattern="pragma"/>
+<element pattern="private"/>
+<element pattern="procedure"/>
+<element pattern="protected"/>
+<element pattern="raise"/>
+<element pattern="range"/>
+<element pattern="record"/>
+<element pattern="rem"/>
+<element pattern="renames"/>
+<element pattern="requeue"/>
+<element pattern="return"/>
+<element pattern="select"/>
+<element pattern="separate"/>
+<element pattern="string"/>
+<element pattern="subtype"/>
+<element pattern="tagged"/>
+<element pattern="task"/>
+<element pattern="terminate"/>
+<element pattern="then"/>
+<element pattern="time"/>
+<element pattern="true"/>
+<element pattern="type"/>
+<element pattern="until"/>
+<element pattern="use"/>
+<element pattern="when"/>
+<element pattern="while"/>
+<element pattern="with"/>
+<element pattern="xor"/>
+</group>
+
+<element id="(" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
+
+<element pattern="---[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
+<element pattern="'[^']*'" is_regex="1" highlight="string"/>
+<element pattern="&quot;" highlight="string">
+<context symbols="\&quot;${}" highlight="string">
+	<element pattern="\\." is_regex="1" highlight="tag" />
+	<element pattern="&quot;" highlight="string" ends_context="1"/>
+</context>
+</element>
+</context>
+</definition>
+</bflang>
