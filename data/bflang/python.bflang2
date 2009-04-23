@@ -20,15 +20,17 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Python" matches="1905" contexts="5" table="14697">
+<bflang name="Python" matches="2021" contexts="5" table="15390">
 <header>
 	<mime type="application/x-python"/>
 	<mime type="text/x-python" />
 	<highlight name="string" style="string"  />
 	<highlight name="brackets" style="brackets"  />
 	<highlight name="keyword" style="keyword"  />
+	<highlight name="exception" style="special-keyword"  />
 	<highlight name="value" style="value"  />
-	<highlight name="function" style="function"  />
+	<highlight name="function" style="special-function"  />
+	<highlight name="built-in-function" style="function"  />
 	<highlight name="comment" style="comment"  />
 	<highlight name="imports" style="preprocessor"   />	
 </header>
@@ -70,6 +72,127 @@
 <element pattern="where" />
 <element pattern="while" />
 <element pattern="yield" />
+</group>
+<group highlight="built-in-function" autocomplete="1">
+	<element pattern="abs"/>
+	<element pattern="all"/>
+	<element pattern="any"/>
+	<element pattern="apply"/>
+	<element pattern="basestring"/>
+	<element pattern="bool"/>
+	<element pattern="buffer"/>
+	<element pattern="callable"/>
+	<element pattern="chr"/>
+	<element pattern="classmethod"/>
+	<element pattern="cmp"/>
+	<element pattern="coerce"/>
+	<element pattern="compile"/>
+	<element pattern="complex"/>
+	<element pattern="delattr"/>
+	<element pattern="dict"/>
+	<element pattern="dir"/>
+	<element pattern="divmod"/>
+	<element pattern="enumerate"/>
+	<element pattern="eval"/>
+	<element pattern="execfile"/>
+	<element pattern="file"/>
+	<element pattern="filter"/>
+	<element pattern="float"/>
+	<element pattern="frozenset"/>
+	<element pattern="getattr"/>
+	<element pattern="globals"/>
+	<element pattern="hasattr"/>
+	<element pattern="hash"/>
+	<element pattern="hex"/>
+	<element pattern="id"/>
+	<element pattern="input"/>
+	<element pattern="intern"/>
+	<element pattern="int"/>
+	<element pattern="isinstance"/>
+	<element pattern="issubclass"/>
+	<element pattern="iter"/>
+	<element pattern="len"/>
+	<element pattern="list"/>
+	<element pattern="locals"/>
+	<element pattern="long"/>
+	<element pattern="map"/>
+	<element pattern="max"/>
+	<element pattern="min"/>
+	<element pattern="object"/>
+	<element pattern="oct"/>
+	<element pattern="open"/>
+	<element pattern="ord"/>
+	<element pattern="pow"/>
+	<element pattern="property"/>
+	<element pattern="range"/>
+	<element pattern="raw_input"/>
+	<element pattern="reduce"/>
+	<element pattern="reload"/>
+	<element pattern="repr"/>
+	<element pattern="reversed"/>
+	<element pattern="round"/>
+	<element pattern="setattr"/>
+	<element pattern="set"/>
+	<element pattern="slice"/>
+	<element pattern="sorted"/>
+	<element pattern="staticmethod"/>
+	<element pattern="str"/>
+	<element pattern="sum"/>
+	<element pattern="super"/>
+	<element pattern="tuple"/>
+	<element pattern="type"/>
+	<element pattern="unichr"/>
+	<element pattern="unicode"/>
+	<element pattern="vars"/>
+	<element pattern="xrange"/>
+	<element pattern="zip"/>
+</group>
+<group highlight="exception" autocomplete="1">
+	<element pattern="ArithmeticError"/>
+	<element pattern="AssertionError"/>
+	<element pattern="AttributeError"/>
+	<element pattern="EnvironmentError"/>
+	<element pattern="EOFError"/>
+	<element pattern="Exception"/>
+	<element pattern="FloatingPointError"/>
+	<element pattern="ImportError"/>
+	<element pattern="IndentationError"/>
+	<element pattern="IndexError"/>
+	<element pattern="IOError"/>
+	<element pattern="KeyboardInterrupt"/>
+	<element pattern="KeyError"/>
+	<element pattern="LookupError"/>
+	<element pattern="MemoryError"/>
+	<element pattern="NameError"/>
+	<element pattern="NotImplementedError"/>
+	<element pattern="OSError"/>
+	<element pattern="OverflowError"/>
+	<element pattern="ReferenceError"/>
+	<element pattern="RuntimeError"/>
+	<element pattern="StandardError"/>
+	<element pattern="StopIteration"/>
+	<element pattern="SyntaxError"/>
+	<element pattern="SystemError"/>
+	<element pattern="SystemExit"/>
+	<element pattern="TabError"/>
+	<element pattern="TypeError"/>
+	<element pattern="UnboundLocalError"/>
+	<element pattern="UnicodeDecodeError"/>
+	<element pattern="UnicodeEncodeError"/>
+	<element pattern="UnicodeError"/>
+	<element pattern="UnicodeTranslateError"/>
+	<element pattern="ValueError"/>
+	<element pattern="WindowsError"/>
+	<element pattern="ZeroDivisionError"/>
+
+	<element pattern="Warning"/>
+	<element pattern="UserWarning"/>
+	<element pattern="DeprecationWarning"/>
+	<element pattern="PendingDeprecationWarning"/>
+	<element pattern="SyntaxWarning"/>
+	<element pattern="OverflowWarning"/>
+	<element pattern="RuntimeWarning"/>
+	<element pattern="FutureWarning"/>
 </group>
 <group highlight="function" autocomplete="1">
 <element pattern="distutils.Charset" />
