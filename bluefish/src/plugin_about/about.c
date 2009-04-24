@@ -27,6 +27,7 @@
 #include <string.h>
 #include <unistd.h>      /* getopt() */
 #include "about.h"
+#include "about_rev.h"
 
 #include "../config.h"
 #include "../plugins.h"
