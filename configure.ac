@@ -28,13 +28,6 @@ AC_CANONICAL_HOST
 
 AC_REVISION($Revision$)
 
-svn_revision=`LANG=C svnversion -n .` || svn_revision="exported"
-if test "x$svn_revision" != "xexported"; then
-	AC_DEFINE_UNQUOTED([SVN_REVISION],["$svn_revision"],[The current SVN revision.])
-	AC_MSG_CHECKING([for SVN revision number])
-	AC_MSG_RESULT([$svn_revision])
-fi
-
 AM_MAINTAINER_MODE
 
 dnl ************************
