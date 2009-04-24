@@ -33,10 +33,10 @@ about_rev.h: FORCE
 	echo "#define __ABOUT_REV_H_" >> $@ ; \
 	echo "#ifdef SVN_REVISION" >> $@ ; \
 	echo "#undef SVN_REVISION" >> $@ ; \
+	echo "#endif /* SVN_REVISION */" >> $@ ; \
 	if test -n $${SVN_REVISION} -a "x$${SVN_REVISION}" != "xexported" ; then \
 		echo "#define SVN_REVISION \"$${SVN_REVISION}\"" >> $@ ; \
 	fi ; \
-	echo "#endif /* SVN_REVISION */" >> $@ ; \
 	echo "#endif /* __ABOUT_REV_H_ */" >> $@
 
 FORCE:
