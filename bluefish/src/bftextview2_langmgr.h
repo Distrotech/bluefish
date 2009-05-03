@@ -28,6 +28,7 @@ void langmgr_reload_user_highlights(void);
 GtkTextTag *langmrg_lookup_tag_highlight(const gchar *lang, const gchar *highlight);
 GtkTextTagTable *langmgr_get_tagtable(void);
 Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype);
+GList *langmgr_get_languages_mimetypes(void);
 GList *langmgr_get_languages(void);
 void langmgr_init(void);
 void langmgr_cleanup(void);
