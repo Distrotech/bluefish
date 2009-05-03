@@ -103,6 +103,7 @@ enum {
 	left_panel_width,
 	main_window_h,
 	main_window_w,
+	default_mime_type,
 	property_num_max
 };
 
@@ -1558,6 +1559,9 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	poplist = langmgr_get_languages_mimetypes();
+	pd->prefs[default_mime_type] = prefs_combo(_("Default mime type for new files"),main_v->props.default_mime_type, vbox2, pd, poplist, TRUE);
+	g_list_free(poplist);
 	pd->prefs[autoindent] = boxed_checkbut_with_value(_("(Smart) Auto indenting"), main_v->props.autoindent, vbox2);
 	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap"), main_v->props.word_wrap, vbox2);

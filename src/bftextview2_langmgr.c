@@ -1081,6 +1081,16 @@ static Tbflang *parse_bflang2_header(const gchar *filename) {
 	return bflang;
 }
 
+GList *langmgr_get_languages_mimetypes(void) {
+	GList *retlist=NULL,*tmplist=g_list_first(langmgr.bflang_list);
+	while(tmplist) {
+		if (((Tbflang *)(tmplist->data))->mimetypes)
+			retlist=g_list_prepend(retlist,((Tbflang *)(tmplist->data))->mimetypes->data);
+		tmplist=tmplist->next;
+	}
+	return retlist;
+}
+
 GList *langmgr_get_languages(void) {
 	return g_list_copy(langmgr.bflang_list);
 }
