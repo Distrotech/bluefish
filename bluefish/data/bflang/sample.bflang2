@@ -250,6 +250,14 @@ we can put this option into effect like this:
 	<element pattern="mysql_fetch_row" />
 	<element pattern="mysql_fetch_array" />
 </group>
+<!-- the reverse is also supported, using the notclass attribute, this can be used to make a 
+option that disables one section but enables a different section -->
+<group notclass="mysetting">
+	<element pattern="foo" />
+<group>
+<group class="mysetting">
+	<element pattern="bar" />
+<group>
 
 <!-- -------- OPTIMISATIONS ---------
 context re-use (<context idref=""/>) is more important than element or tag re-use 
