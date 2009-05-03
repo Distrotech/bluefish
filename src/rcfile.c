@@ -450,6 +450,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.autocomplete, "autocomplete:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.autocomp_popup_mode, "autocomp_popup_mode:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.reduced_scan_triggers, "reduced_scan_triggers:", 1, TRUE);
+	init_prop_string    (&config_rc, &main_v->props.default_mime_type,"default_mime_type:","text/plain");
 	return config_rc;
 }
 
