@@ -32,6 +32,9 @@
 	<highlight name="entity" style="value"  />
 	<highlight name="comment" style="comment"  />
 </header>
+<properties>
+	<comment id="&lt;!----&gt;" type="block" start="&lt;!--" end="--&gt;" />
+</properties>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 <element id="comment" pattern="&lt;!--" highlight="comment" starts_block="1">

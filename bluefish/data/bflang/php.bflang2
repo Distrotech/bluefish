@@ -107,6 +107,8 @@ for this pattern and both of them are a symbol. That's why we have a separate en
 <group notclass="php_short_open_tag">
 <element pattern="&lt;?php" starts_block="1" highlight="php-block-tag">
 <context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" highlight="region">
+<!-- unfortunately we cannot refer the context as previously used, because if option php_short_open_tag 
+was disabled, this whole section is not parsed by the language manager, so the context does not yet exist..  -->
 &all-php;
 <element pattern="//" highlight="php-comment">
 	<context id="line-comment" symbols="?&gt;&#10;&#13;" highlight="php-comment">
