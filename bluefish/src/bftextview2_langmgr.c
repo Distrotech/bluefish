@@ -406,8 +406,8 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 		,gchar *ih_autocomplete_append ,const gchar *ih_highlight
 		,gboolean ih_case_insens ,gboolean ih_is_regex ,gboolean ih_autocomplete, gint ih_autocomplete_backup_cursor) {
 	guint16 matchnum=0;
-	const gchar *tmp;
-	gchar *pattern=NULL, *idref=NULL, *highlight=NULL, *blockstartelement=NULL, *blockhighlight=NULL, *class=NULL, *autocomplete_append=NULL, *autocomplete_string=NULL, *id=NULL;
+	const gchar *tmp, *tmp2;
+	gchar *pattern=NULL, *idref=NULL, *highlight=NULL, *blockstartelement=NULL, *blockhighlight=NULL, *class=NULL, *notclass=NULL, *autocomplete_append=NULL, *autocomplete_string=NULL, *id=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE, is_empty, autocomplete=FALSE;
 	gint ends_context=0,autocomplete_backup_cursor=0;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
@@ -422,6 +422,7 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockhighlight",&blockhighlight);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockstartelement",&blockstartelement);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"notclass",&notclass);
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"is_regex", &is_regex);
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"starts_block", &starts_block);
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"ends_block", &ends_block);
@@ -436,7 +437,8 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 		xmlFree(aname);
 	}
 	tmp = lookup_user_option(bfparser->bflang->name,class);
-	if (!class || (tmp && tmp[0]=='1' )) {
+	tmp2 = lookup_user_option(bfparser->bflang->name,notclass);
+	if ((!class || (tmp && tmp[0]=='1')) || !notclass || (tmp2 && tmp2[0]=='0')) {
 		if (idref && idref[0] && !id && !pattern) {
 			guint16 matchnum;
 			matchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, idref));
@@ -528,8 +530,8 @@ int stringcmp(const void *sp1, const void *sp2 ) {
 static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context, GQueue *contextstack
 		,gchar *ih_autocomplete_append ,gchar *ih_highlight,gchar *ih_attrib_autocomplete_append ,gchar *ih_attribhighlight,
 		gint ih_autocomplete_backup_cursor, gint ih_attrib_autocomplete_backup_cursor) {
-	const gchar *tmp;
-	gchar *tag=NULL, *idref=NULL, *highlight=NULL, *attributes=NULL, *attribhighlight=NULL,*class=NULL
+	const gchar *tmp, *tmp2;
+	gchar *tag=NULL, *idref=NULL, *highlight=NULL, *attributes=NULL, *attribhighlight=NULL,*class=NULL, *notclass=NULL
 				, *autocomplete_append=NULL,*attrib_autocomplete_append=NULL,*id=NULL;
 	gint autocomplete_backup_cursor=0, attrib_autocomplete_backup_cursor=0;
 	guint16 matchnum=0,innercontext=context;
@@ -543,6 +545,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&tag);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"highlight",&highlight);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"notclass",&notclass);
 		if (bfparser->load_completion) {
 			set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
 			set_string_if_attribute_name(reader,aname, (xmlChar *)"attrib_autocomplete_append", &attrib_autocomplete_append);
@@ -557,7 +560,8 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 		xmlFree(aname);
 	}
 	tmp = lookup_user_option(bfparser->bflang->name,class);
-	if (!class || (tmp && tmp[0]=='1')) {
+	tmp2 = lookup_user_option(bfparser->bflang->name,notclass);
+	if ((!class || (tmp && tmp[0]=='1')) || !notclass || (tmp2 && tmp2[0]=='0')) {
 		if (idref && idref[0] && !tag) {
 			guint16 matchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, idref));
 			if (!matchnum) {
@@ -732,6 +736,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 	g_free(tag);
 	/*g_free(highlight);*/
 	g_free(class);
+	g_free(notclass);
 	g_free(autocomplete_append);
 	g_free(attrib_autocomplete_append);
 	/*g_free(attribhighlight);*/
@@ -744,11 +749,11 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint context, GQueue *contextstack
 		,gchar *ih_autocomplete_append ,gchar *ih_highlight ,gchar *ih_class ,gchar *ih_attrib_autocomplete_append ,gchar *ih_attribhighlight
 		,gboolean ih_case_insens ,gboolean ih_is_regex ,gboolean ih_autocomplete, gint ih_autocomplete_backup_cursor, gint ih_attrib_autocomplete_backup_cursor) {
-	gchar *autocomplete_append=NULL, *highlight=NULL, *class=NULL, *attrib_autocomplete_append=NULL, *attribhighlight=NULL;
+	gchar *autocomplete_append=NULL, *highlight=NULL, *class=NULL, *notclass=NULL, *attrib_autocomplete_append=NULL, *attribhighlight=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, autocomplete=FALSE;
 	gint autocomplete_backup_cursor=0,attrib_autocomplete_backup_cursor=0;
 	gint depth;
-	const gchar *tmp;
+	const gchar *tmp, *tmp2;
 	if (xmlTextReaderIsEmptyElement(reader)) {
 		return;
 	}
@@ -764,14 +769,16 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 		}
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"highlight",&highlight);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"notclass",&notclass);
 		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"case_insens",&case_insens);
 		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"is_regex",&is_regex);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"attribhighlight",&attribhighlight);
 		xmlFree(aname);
 	}
 	tmp = lookup_user_option(bfparser->bflang->name,class);
-	if (class && tmp && tmp[0]!='1'){
-		DBG_PARSING("group disabled, class=%s, skip to end of group, my depth=%d\n",class,depth);
+	tmp2 = lookup_user_option(bfparser->bflang->name,notclass);
+	if ((class && tmp && tmp[0]!='1')||(notclass &&tmp && tmp[0]=='1')){
+		DBG_PARSING("group disabled, class=%s, notclass=%s, skip to end of group, my depth=%d\n",class,notclass,depth);
 		skip_to_end_tag(reader, depth);
 	} else {
 		while (xmlTextReaderRead(reader)==1) {
@@ -821,6 +828,7 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 	g_free(autocomplete_append);
 	/*g_free(highlight); stored in the structure */
 	g_free(class);
+	g_free(notclass);
 	g_free(attrib_autocomplete_append);
 	/*g_free(attribhighlight);*/
 }
