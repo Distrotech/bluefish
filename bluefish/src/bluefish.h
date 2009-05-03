@@ -256,6 +256,7 @@ typedef struct {
 	gint autocomplete; /* whether or not to enable autocomplete by default for each new document */
 	gint autocomp_popup_mode; /* delayed or immediately */
 	gboolean reduced_scan_triggers;
+	gchar *default_mime_type;
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 

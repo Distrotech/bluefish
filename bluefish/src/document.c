@@ -2208,9 +2208,9 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->view = bftextview2_new_with_buffer(newdoc->buffer);
 	BLUEFISH_TEXT_VIEW(newdoc->view)->doc = newdoc;
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
-	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(newdoc->view), "text/plain");
+	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(newdoc->view), main_v->props.default_mime_type);
 	newdoc->fileinfo = g_file_info_new();
-	g_file_info_set_content_type(newdoc->fileinfo, "text/plain");
+	g_file_info_set_content_type(newdoc->fileinfo, main_v->props.default_mime_type);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	g_signal_connect(scroll, "scroll-event", G_CALLBACK(doc_scroll_event_lcb), newdoc);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
