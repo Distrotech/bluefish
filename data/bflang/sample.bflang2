@@ -44,6 +44,14 @@ can enable/disable this complete section with this option
 	<!-- whether or not to close <tag> -->
 
 </header>
+<properties>
+<!-- properties are parsed after the first file with this mime type has been loaded -->
+	<comment id="/**/" type="block" start="/*" end="*/" />
+	<comment id="//" type="line" start="//" />
+	<!-- the comment tag specifies which line and block comments that are possible for the smart comment function -->
+	<smartindent characters="{" />
+	<!-- smartindent characters specify which characters, followed by a return, should increase the indenting -->
+</properties>
 <definition>
 <!-- within <definition> the actual language description is found. A language definition always
 starts with a <context> tag.
