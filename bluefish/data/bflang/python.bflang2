@@ -2052,7 +2052,7 @@
 </group>
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;" highlight="string">
-		<element pattern="\&#34;" highlight="string" />
+		<element pattern="\." is_regex="1"/>
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
@@ -2063,7 +2063,7 @@
 </element>
 <element pattern="'" highlight="string">
 	<context symbols="\'" highlight="string">
-		<element pattern="\'" highlight="string" />
+		<element pattern="\." is_regex="1"/>
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
@@ -2072,7 +2072,8 @@
 <element pattern="False" />
 <element pattern="None" />
 <element pattern="0x[0-9]+" is_regex="1" autocomplete="0" />
-<element pattern="[0-9]+.?[0-9]*" is_regex="1" autocomplete="0" />
+<element pattern="[0-9]+\.[0-9]+" is_regex="1" autocomplete="0" />
+<element pattern="[0-9]+" is_regex="1" autocomplete="0" />
 </group>
 <element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />

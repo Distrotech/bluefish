@@ -1315,6 +1315,7 @@ static void preferences_apply(Tprefdialog *pd) {
 #endif /* #ifndef NOSPLASH */
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_tab_width, pd->prefs[editor_tab_width], FALSE);
+	string_apply(&main_v->props.default_mime_type, GTK_COMBO(pd->prefs[default_mime_type])->entry);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&main_v->props.smartindent, pd->prefs[smartindent], TRUE);
