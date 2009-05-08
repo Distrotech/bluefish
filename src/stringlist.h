@@ -35,6 +35,7 @@ gchar **array_from_arglist(const gchar *string1, ...);
 GList *list_from_arglist(gboolean allocate_strings, ...);
 GList *duplicate_stringlist(GList *list, gint dup_data);
 gint free_stringlist(GList * which_list);
+GList *get_list_from_buffer(gchar *buffer, GList *which_list, gboolean is_arraylist);
 GList *get_list(GFile* file, GList * which_list, gboolean is_arraylist);
 GList *get_stringlist(GFile *file, GList * which_list);
 gboolean put_stringlist_limited(GFile * file, GList * which_list, gint maxentries);

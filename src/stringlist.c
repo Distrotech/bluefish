@@ -367,23 +367,8 @@ GList *duplicate_arraylist(GList *arraylist) {
 	return newlist;
 }
 
-
-/*****************************************************************************
- * gets a stringlist from a file
- */
-GList *get_list(GFile * file, GList * which_list, gboolean is_arraylist) {
-	gchar *buffer=NULL;
-	gsize length;
-	GError *error=NULL;
+GList *get_list_from_buffer(gchar *buffer, GList *which_list, gboolean is_arraylist) {
 	gchar *pos,*nextpos;
-	if (file == NULL) {
-		return NULL;
-	}
-	g_file_load_contents(file,NULL,&buffer,&length,NULL,&error);
-	if (error) {
-		g_print("error reading list %d %s\n",error->code, error->message);
-		return NULL;
-	}
 	pos = buffer;
 	nextpos = strchr(pos, '\n');
 	do {
@@ -406,6 +391,26 @@ GList *get_list(GFile * file, GList * which_list, gboolean is_arraylist) {
 		if (pos)
 			nextpos = strchr(pos, '\n');
 	} while (pos);
+	
+	return which_list;
+}
+
+/*****************************************************************************
+ * gets a stringlist from a file
+ */
+GList *get_list(GFile * file, GList * which_list, gboolean is_arraylist) {
+	gchar *buffer=NULL;
+	gsize length;
+	GError *error=NULL;
+	if (file == NULL) {
+		return NULL;
+	}
+	g_file_load_contents(file,NULL,&buffer,&length,NULL,&error);
+	if (error) {
+		g_print("error reading list %d %s\n",error->code, error->message);
+		return NULL;
+	}
+	which_list = get_list_from_buffer(buffer, which_list, is_arraylist);
 	g_free(buffer);
 	
 /*	FILE *fd;

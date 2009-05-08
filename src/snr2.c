@@ -2318,3 +2318,43 @@ void toggle_comment(Tdocument *doc) {
 		}
 	}
 }
+#ifdef COLUMNFUNCTIONS
+
+void convert_to_column(Tdocument *doc, gint so, gint eo, gint numcolumns, gchar *separator) {
+	gint numlines,numnewlines,i=0,j=0;
+	gchar *buf;
+	GList *buflist;
+	guint offset=0,separatorlen;
+	/* get buffer */
+	buf = doc_get_chars(doc,so,eo);
+	/* buffer to list */
+	buflist = get_list_from_buffer(buf, NULL, FALSE);
+	g_free(buf);
+	/* get the number of lines */
+	numlines = g_list_length(buflist);
+	numnewlines = numlines/numcolumns+1;
+	separatorlen=g_utf8_strlen(separator);
+	doc_unre_new_group(doc);
+	doc_replace_text_backend(doc, NULL, so, eo);
+	for (i=0;i<numnewlines;i++) {
+		for(j=0;j<numcolumns;j++) {
+			gchar *tmp;
+			tmp = g_list_nth_data(buflist, i+j*numcolumnns);			
+			doc_replace_text_backend(doc, tmp, so+offset, so+offset);
+			offset += g_utf8_strlen(tmp);
+			if(j+1==numcolumns) {
+				doc_replace_text_backend(doc, separator, so+offset, so+offset);
+				offset += separatorlen;
+			} else {
+				doc_replace_text_backend(doc, "\n", so+offset, so+offset);
+				offset += 1;
+			}
+		}
+		
+	}
+	doc_unre_new_group(doc);
+	free_stringlist(buflist);
+}
+
+#endif
+
