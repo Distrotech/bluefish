@@ -110,7 +110,7 @@
 <element pattern="if" starts_block="1" case_insens="1" mayfold="1" highlight="vbs-keyword" >
 	<context symbols=" %():\&#34;\\',&gt;&lt;*+=-/_&#9;&#10;&#13;&#34;\.">
 		<element id="then" pattern="then[\ \t]*[^&#10;&#13;]" is_regex="1" case_insens="1" ends_block="1" ends_context="1"/>
-		<element id="end if" pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" ends_context="1" autocomplete_string="end if" highlight="vbs-keyword" />
+		<element id="end if" pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" ends_context="1" autocomplete_string="end if" highlight="vbs-keyword" blockstartelement="if" />
 	</context>
 </element>
 <!---->
