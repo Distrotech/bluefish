@@ -168,7 +168,7 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		toggle_comment(CURDOC(bfwin));
 	break;
 	case 36:
-		convert_to_columns_lcb(CURDOC(bfwin));
+		convert_to_columns(CURDOC(bfwin));
 	break;
 #ifdef HAVE_PYTHON
 	case 99:

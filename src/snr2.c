@@ -2319,7 +2319,7 @@ void toggle_comment(Tdocument *doc) {
 	}
 }
 
-static void convert_to_column(Tdocument *doc, gint so, gint eo, gint numcolumns, gboolean spread_horiz, gchar *separator) {
+static void convert_to_columns_backend(Tdocument *doc, gint so, gint eo, gint numcolumns, gboolean spread_horiz, gchar *separator) {
 	gint numlines,numnewlines,i=0,j=0;
 	gchar *buf;
 	GList *buflist;
@@ -2363,14 +2363,52 @@ static void convert_to_column(Tdocument *doc, gint so, gint eo, gint numcolumns,
 	free_stringlist(buflist);
 }
 
-void convert_to_columns_lcb(Tdocument *doc) {
-	gint start, end;
-	
-	if (!doc_get_selection(doc, &start, &end)) {
-		start=0;
-		end=-1;
+typedef struct {
+	Tdocument *doc;
+	GtkWidget *dialog;
+	GtkWidget *horizontally;
+	GtkWidget *separator;
+	GtkWidget *numcolumns;
+} Tconvertcolumn;
+
+static void convert_to_columns_lcb(GtkDialog * dialog, gint response, Tconvertcolumn *cc) {
+	if (response == GTK_RESPONSE_ACCEPT) {
+		gint start, end;
+		gchar *separator;
+		
+		if (!doc_get_selection(cc->doc, &start, &end)) {
+			start=0;
+			end=-1;
+		}
+		
+		separator = gtk_entry_get_text(cc->separator);
+		
+		convert_to_columns_backend(cc->doc, start, end, gtk_spin_button_get_value_as_int(cc->numcolumns), GTK_TOGGLE_BUTTON(cc->horizontally)->active, separator);
 	}
+	gtk_widget_destroy(cc->dialog);
+	g_free(cc);	
+}
+
+void convert_to_columns(Tdocument *doc) {
+	Tconvertcolumn *cc;
 	
-	convert_to_column(doc, start, end, 2, TRUE, "</td><td>");
+	cc = g_new0(Tconvertcolumn,1);
+	cc->doc=doc;
+	cc->dialog = gtk_dialog_new_with_buttons(_("Lines into columns"),
+      GTK_WINDOW(BFWIN(doc->bfwin)->main_window),GTK_DIALOG_DESTROY_WITH_PARENT, 
+      GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
+      GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, 
+      NULL);
+	g_signal_connect(G_OBJECT(cc->dialog), "response", G_CALLBACK(convert_to_columns_lcb), cc);
+	window_delete_on_escape(GTK_WINDOW(cc->dialog));
+	gtk_container_set_border_width(GTK_CONTAINER(cc->dialog),10);
+	gtk_box_set_spacing(GTK_BOX(GTK_DIALOG(cc->dialog)->vbox),10);
+
+	cc->numcolumns = spinbut_with_value("2", 2, 99, 1, 5);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(cc->dialog)->vbox), cc->numcolumns, FALSE, FALSE, 0);
+	cc->horizontally = boxed_checkbut_with_value(_("Spread lines horizontally"), 0,GTK_BOX(GTK_DIALOG(cc->dialog)->vbox) );
+	cc->separator = boxed_full_entry(_("Column separator"), ",","99", GTK_BOX(GTK_DIALOG(cc->dialog)->vbox));
+	
+	gtk_widget_show_all(cc->dialog);
 }
 
