@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		asp-vbs.bflang2 $Revision: 4803 $
+ 
+		Copyright (C) 2008-2009 Olivier Sessink, Alex Bodnaru
+
+		This program is free software; you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation; either version 2 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+-->
+<!DOCTYPE bflang [
+	<!ENTITY i18n "dir,lang">
+	<!ENTITY univ "class,id,style,title">
+	<!ENTITY evnt "onload,onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup">
+	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
+	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
+	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
+	<!ENTITY all-html SYSTEM "all-html.bfinc">
+	<!ENTITY all-vbscript SYSTEM "all-vbscript.bfinc">
+]>
+<bflang name="ASP-VBS" table="40618" contexts="116" matches="6680">
+<header>
+	<mime type="application/x-asp"/>
+	<option name="load_reference" default="1" description="load reference data"/>
+	<option name="load_completion" default="1" description="load completion data"/>
+	<!--
+	<option name="load_asp_functions" default="1" description="All asp functions" />
+	-->
+	<option name="autocomplete_tags" default="1" />
+
+	<highlight name="asp-block-tag" style="special-value"  />
+	<highlight name="string" style="string"   />
+
+	<highlight name="asp-keyword" style="special-value"  />
+
+	<highlight name="vbs-keyword" style="keyword"  />
+	<highlight name="vbs-brackets" style="brackets"  />
+	<highlight name="vbs-type" style="type"  />
+	<highlight name="vbs-string" style="string"  />
+	<highlight name="vbs-value" style="value" />
+	<highlight name="vbs-function" style="function"  />
+	<highlight name="vbs-comment" style="comment"  />
+	<highlight name="vbs-variable" style="variable"  />
+
+	<highlight name="html-tag" style="tag"  />
+	<highlight name="html-comment" style="comment"  />
+	<highlight name="html-entity" style="value"  />
+	<highlight name="html-attribute" style="attribute" />
+	<highlight name="html-reference-external-tag" style="special-tag" />
+	<highlight name="html-table-tag" style="special-tag2" />
+	<highlight name="html-form-tag" style="special-tag3" />
+	<highlight name="html-deprecated-tag" style="warning" />
+	
+	<highlight name="js-keyword" style="keyword"  />
+	<highlight name="js-brackets" style="brackets"  />
+	<highlight name="js-type" style="type"  />
+	<highlight name="js-string" style="string"  />
+	<highlight name="js-value" style="value"  />
+	<highlight name="js-function" style="function"  />
+	<highlight name="js-comment" style="comment"  />
+	<highlight name="js-variable" style="variable"  />
+
+	<highlight name="css-brackets" style="brackets"  />
+	<highlight name="css-comment" style="comment" />
+	<highlight name="css-html-tag" style="tag"  />
+	<highlight name="css-html-classid" style="tag" />
+	<highlight name="css-keyword" style="keyword"  />
+	<highlight name="css-property" style="special-keyword"  />
+	<highlight name="css-string" style="string" />
+	<highlight name="css-value" style="value"   />
+	<highlight name="css-pseudo-element" style="keyword" />
+</header>
+<properties>
+	<comment id="&lt;!----&gt;" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="'" type="line" start="'" />
+	<comment id="rem " case_insens="1" type="line" start="rem " />
+</properties>
+<definition>
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+
+&all-html;
+<element pattern="&lt;!--" highlight="html-comment" starts_block="1">
+	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
+		<element pattern="#include" highlight="asp-keyword" case_insens="1" />
+		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="html-comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+
+<element pattern="&lt;%" is_regex="1" starts_block="1" highlight="asp-block-tag" mayfold="1">
+	<context symbols=" %():\&#34;\\',&gt;&lt;*+=-/_&#9;&#10;&#13;&#34;\.">
+&all-vbscript;
+<element pattern="&#34;" highlight="vbs-string">
+	<context symbols="%&#34;" highlight="vbs-string">
+		<element pattern="&#34;" highlight="vbs-string" ends_context="1" />
+<!-- not working, yet
+		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="&gt;%" mayfold="1"/>
+-->
+	</context>
+</element>
+<element id="vbs-comment" pattern="'" highlight="vbs-comment">
+	<context symbols="%&#10;&#13;" highlight="vbs-comment">
+		<element pattern="[&#10;&#13;]" is_regex="1" highlight="vbs-comment" ends_context="1" />
+		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="&lt;%" mayfold="1"/>
+	</context>
+</element>
+<element id="vbs-rem" pattern="rem " highlight="vbs-comment" case_insens="1">
+	<context symbols="%&#10;&#13;" highlight="vbs-comment">
+		<element pattern="[&#10;&#13;]" is_regex="1" highlight="vbs-comment" ends_context="1" />
+		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="&lt;%" mayfold="1"/>
+	</context>
+</element>
+<group highlight="asp-keyword" autocomplete="1" case_insens="1">
+	<element pattern="request" />
+	<element pattern="response" />
+	<element pattern="server" />
+	<element pattern="session" />
+</group>
+
+<element pattern="%&gt;" ends_block="1" blockstartelement="&lt;%" highlight="asp-block-tag" mayfold="1" ends_context="1" />
+</context>
+</element>
+
+</context>
+</definition>
+</bflang>

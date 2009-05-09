@@ -46,7 +46,8 @@
 	<highlight name="js-comment" style="comment"  />
 	<highlight name="js-string" style="string"  />
 	<highlight name="js-value" style="value"  />
-	<highlight name="js-function" style="value"  />
+	<highlight name="js-variable" style="variable"  />
+	<highlight name="js-function" style="function"  />
 	<highlight name="css-brackets" style="brackets"  />
 	<highlight name="css-comment" style="comment" />
 	<highlight name="css-html-tag" style="tag"  />
@@ -73,6 +74,18 @@
 <tag id="script" name="script" highlight="tag" attributes="charset,defer,language,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;" attribhighlight="attribute">
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
 &all-javascript;
+	<element id="js:linecomment" pattern="//" highlight="js-comment">
+		<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
+			<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
+			<element pattern="&lt;/script&gt;" highlight="tag" ends_context="3" ends_block="1" blockstartelement="script"/>
+		</context>
+	</element>
+	<element id="js:blockcomment" pattern="/*" starts_block="1" highlight="js-comment">
+		<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
+			<element pattern="*/" ends_block="1" blockstartelement="js:blockcomment" highlight="js-comment" mayfold="1" ends_context="1" />
+			<element pattern="&lt;/script&gt;" highlight="tag" ends_context="3" ends_block="1" blockstartelement="script"/>
+		</context>
+	</element>
 </context>
 </tag>
 <tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
