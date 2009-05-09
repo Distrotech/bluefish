@@ -2318,9 +2318,8 @@ void toggle_comment(Tdocument *doc) {
 		}
 	}
 }
-#ifdef COLUMNFUNCTIONS
 
-void convert_to_column(Tdocument *doc, gint so, gint eo, gint numcolumns, gchar *separator) {
+static void convert_to_column(Tdocument *doc, gint so, gint eo, gint numcolumns, gboolean spread_horiz, gchar *separator) {
 	gint numlines,numnewlines,i=0,j=0;
 	gchar *buf;
 	GList *buflist;
@@ -2332,22 +2331,30 @@ void convert_to_column(Tdocument *doc, gint so, gint eo, gint numcolumns, gchar 
 	g_free(buf);
 	/* get the number of lines */
 	numlines = g_list_length(buflist);
-	numnewlines = numlines/numcolumns+1;
-	separatorlen=g_utf8_strlen(separator);
+	numnewlines = (0.9999+numlines/numcolumns);
+	separatorlen=g_utf8_strlen(separator,-1);
 	doc_unre_new_group(doc);
 	doc_replace_text_backend(doc, NULL, so, eo);
 	for (i=0;i<numnewlines;i++) {
 		for(j=0;j<numcolumns;j++) {
 			gchar *tmp;
-			tmp = g_list_nth_data(buflist, i+j*numcolumnns);			
-			doc_replace_text_backend(doc, tmp, so+offset, so+offset);
-			offset += g_utf8_strlen(tmp);
-			if(j+1==numcolumns) {
-				doc_replace_text_backend(doc, separator, so+offset, so+offset);
-				offset += separatorlen;
+			if (spread_horiz) {
+				g_print("i=%d,j=%d,numcolumns=%d, insert string i*numcolumns+j %d\n",i,j,numcolumns,i*numcolumns+j);
+				tmp = g_list_nth_data(buflist, i*numcolumns+j);
 			} else {
-				doc_replace_text_backend(doc, "\n", so+offset, so+offset);
-				offset += 1;
+				g_print("i=%d,j=%d,numnewlines=%d, insert string i+j*numnewlines %d\n",i,j,numnewlines,i+j*numnewlines);
+				tmp = g_list_nth_data(buflist, i+j*numnewlines);
+			}
+			if (tmp) {
+				doc_replace_text_backend(doc, tmp, so+offset, so+offset);
+				offset += g_utf8_strlen(tmp,-1);
+				if(j+1==numcolumns) {
+					doc_replace_text_backend(doc, "\n", so+offset, so+offset);
+					offset += 1;
+				} else {
+					doc_replace_text_backend(doc, separator, so+offset, so+offset);
+					offset += separatorlen;
+				}
 			}
 		}
 		
@@ -2356,5 +2363,14 @@ void convert_to_column(Tdocument *doc, gint so, gint eo, gint numcolumns, gchar 
 	free_stringlist(buflist);
 }
 
-#endif
+void convert_to_columns_lcb(Tdocument *doc) {
+	gint start, end;
+	
+	if (!doc_get_selection(doc, &start, &end)) {
+		start=0;
+		end=-1;
+	}
+	
+	convert_to_column(doc, start, end, 2, TRUE, "</td><td>");
+}
 

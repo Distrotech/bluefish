@@ -167,6 +167,9 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 35:
 		toggle_comment(CURDOC(bfwin));
 	break;
+	case 36:
+		convert_to_columns_lcb(CURDOC(bfwin));
+	break;
 #ifdef HAVE_PYTHON
 	case 99:
 		{
@@ -266,6 +269,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Replace special/Convert indenting to tabs"), NULL, menu_file_operations_cb, 30, "<Item>"},
 	{N_("/Edit/Replace special/Convert indenting to spaces"), NULL, menu_file_operations_cb, 31, "<Item>"},
 	{N_("/Edit/Replace special/Toggle comment"), "<shift><control>c", menu_file_operations_cb, 35, "<Item>"},
+	{N_("/Edit/Replace special/Split into columns"), NULL, menu_file_operations_cb, 36, "<Item>"},
 	{"/Edit/sep4", NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/S_hift Right"), NULL, menu_indent_cb, 2, "<StockItem>", GTK_STOCK_INDENT},
 	{N_("/Edit/Shift _Left"), NULL, menu_indent_cb, 1, "<StockItem>", GTK_STOCK_UNINDENT},
