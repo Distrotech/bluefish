@@ -1,0 +1,134 @@
+<element pattern="(" id="vbs(" starts_block="1" highlight="vbs-brackets" />
+<element pattern=")" highlight="vbs-brackets" ends_block="1" blockstartelement="vbs(" />
+<group highlight="vbs-keyword" autocomplete="1" case_insens="1">
+	<element pattern="and" />
+	<element pattern="as" />
+	<element pattern="call" />
+	<element pattern="case" />
+	<element pattern="default" />
+	<element pattern="do" />
+	<element pattern="each" />
+	<element pattern="else" />
+	<element pattern="elseif" />
+	<element pattern="end" />
+	<element pattern="exit" />
+	<element pattern="explicit" />
+	<element pattern="for" />
+	<element pattern="goto" />
+	<element pattern="if" />
+	<element pattern="in" />
+	<element pattern="is" />
+	<element pattern="let" />
+	<element pattern="loop" />
+	<element pattern="mod" />
+	<element pattern="new" />
+	<element pattern="next" />
+	<element pattern="not" />
+	<element pattern="option" />
+	<element pattern="or" />
+	<element pattern="preserve" />
+	<element pattern="private" />
+	<element pattern="public" />
+	<element pattern="redim" />
+	<element pattern="rem" />
+	<element pattern="resume" />
+	<element pattern="select" />
+	<element pattern="set" />
+	<element pattern="step" />
+	<element pattern="then" />
+	<element pattern="to" />
+	<element pattern="until" />
+	<element pattern="wend" />
+	<element pattern="while" />
+	<element pattern="with" />
+	<element pattern="xor" />
+</group>
+<group highlight="vbs-function" autocomplete="1" case_insens="1">
+		<element pattern="cbool" />
+		<element pattern="cbyte" />
+		<element pattern="cchar" />
+		<element pattern="cdate" />
+		<element pattern="cdec" />
+		<element pattern="cdbl" />
+		<element pattern="cint" />
+		<element pattern="class" />
+		<element pattern="clng" />
+		<element pattern="cobj" />
+		<element pattern="csng" />
+		<element pattern="cstr" />
+</group>
+<group highlight="vbs-type" autocomplete="1" case_insens="1">
+	<element pattern="dim" />
+	<element pattern="Array"/>
+	<element pattern="const" />
+	<element pattern="function" />
+	<element pattern="sub" />
+	<element pattern="codepage" />
+	<element pattern="language" />
+</group>
+<group highlight="vbs-value" autocomplete="1" case_insens="1">
+	<element pattern="true" />
+	<element pattern="false" />
+	<element pattern="nothing" />
+	<element pattern="[-\.]?[0-9]+" is_regex="1" autocomplete="0"/>
+</group>
+<group highlight="vbs-keyword" autocomplete="1" case_insens="1">
+	<element id="exit for" pattern="exit[\ \t]+for" is_regex="1" autocomplete_string="exit for" mayfold="1" />
+	<element id="exit do" pattern="exit[\ \t]+do" is_regex="1" autocomplete_string="exit do" mayfold="1" />
+	<element id="exit while" pattern="exit[\ \t]+while" is_regex="1" autocomplete_string="exit while" mayfold="1" />
+	<element id="exit sub" pattern="exit[\ \t]+sub" is_regex="1" autocomplete_string="exit sub" mayfold="1" />
+	<element id="exit function" pattern="exit[\ \t]+function" is_regex="1" autocomplete_string="exit function" mayfold="1" />
+	<element pattern="for" starts_block="1" mayfold="1" />
+	<element pattern="next" ends_block="1" blockstartelement="for" mayfold="1" />
+	<element pattern="do" starts_block="1" mayfold="1" />
+	<element pattern="loop" ends_block="1" blockstartelement="do" mayfold="1" />
+	<element pattern="while" starts_block="1" mayfold="1" />
+	<element pattern="wend" ends_block="1" blockstartelement="while" mayfold="1" />
+	<element pattern="sub" starts_block="1" mayfold="1" />
+	<element id="end sub" pattern="end[\ \t]+sub" is_regex="1" ends_block="1" blockstartelement="sub" autocomplete_string="end sub" mayfold="1" />
+	<element pattern="function" starts_block="1" mayfold="1" />
+	<element id="end function" pattern="end[\ \t]+function" is_regex="1" ends_block="1" blockstartelement="function" mayfold="1" autocomplete_string="end function" />
+	<element pattern="property" starts_block="1" mayfold="1" />
+	<element id="end property" pattern="end[\ \t]+property" is_regex="1" ends_block="1" blockstartelement="property" mayfold="1" autocomplete_string="end property" />
+	
+	<!--
+	<element id="if" pattern="if[\ \t].+[\ \t]then[\ \t]*[&#10;&#13;]" starts_block="1" is_regex="1" mayfold="1" autocomplete_string="then" />
+	<element id="end if" pattern="end[\ \t]+if" is_regex="1" ends_block="1" blockstartelement="if[\ \t].+[\ \t]then[\ \t]*[&#10;&#13;]" mayfold="1" autocomplete_string="end if" />
+	<element id="if" pattern="if.+then[\ \t]*&#10;&#13;" starts_block="1" is_regex="1" mayfold="1" autocomplete_string="if" />
+	<element id="end if" pattern="end[\ \t]+if" is_regex="1" ends_block="1" blockstartelement="if.+then[\ \t]*&#10;&#13;" mayfold="1" autocomplete_string="end if" />
+	-->
+	
+	<element pattern="with" starts_block="1" mayfold="1" />
+	<element id="end with" pattern="end[\ \t]+with" is_regex="1" ends_block="1" blockstartelement="with" mayfold="1" autocomplete_string="end with" />
+	<element pattern="select" starts_block="1" mayfold="1" />
+	<element id="end select" pattern="end[\ \t]+select" is_regex="1" ends_block="1" blockstartelement="select" mayfold="1" autocomplete_string="end select" />
+	<element pattern="class" starts_block="1" mayfold="1" />
+	<element id="end class" pattern="end[\ \t]+class" is_regex="1" ends_block="1" blockstartelement="class" mayfold="1" autocomplete_string="end class" />
+</group>
+
+<!---->
+<element pattern="if" starts_block="1" case_insens="1" mayfold="1" highlight="vbs-keyword" >
+	<context symbols=" %():\&#34;\\',&gt;&lt;*+=-/_&#9;&#10;&#13;&#34;\.">
+		<element id="then" pattern="then[\ \t]*[^&#10;&#13;]" is_regex="1" case_insens="1" ends_block="1" ends_context="1"/>
+		<element id="end if" pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" ends_context="1" autocomplete_string="end if" highlight="vbs-keyword" />
+	</context>
+</element>
+<!---->
+
+<element pattern="\.?[a-zA-Z][a-zA-Z_0-9]*[\$%]?" is_regex="1" highlight="vbs-variable"/>
+
+<element pattern="&#34;" highlight="vbs-string">
+	<context symbols="&#34;" highlight="vbs-string">
+		<element pattern="&#34;" highlight="vbs-string" ends_context="1" />
+	</context>
+</element>
+<element id="vbs-comment" pattern="'" highlight="vbs-comment">
+	<context symbols="&#10;&#13;&gt;&lt; " highlight="vbs-comment">
+		<element pattern="[&#10;&#13;]" is_regex="1" highlight="vbs-comment" ends_context="1" />
+	</context>
+</element>
+<element id="vbs-rem" pattern="rem " highlight="vbs-comment" case_insens="1">
+	<context symbols="&#10;&#13;&gt;&lt; " highlight="vbs-comment">
+		<element pattern="[&#10;&#13;]" is_regex="1" highlight="vbs-comment" ends_context="1" />
+	</context>
+</element>

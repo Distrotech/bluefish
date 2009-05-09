@@ -17,19 +17,31 @@
 <tag id="script" name="script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,language,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;&#10;&#10;&lt;/script&gt;" attribhighlight="html-attribute" autocomplete_backup_cursor="10">
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
 	&all-javascript;
+		<element id="js:linecomment" pattern="//" highlight="js-comment">
+			<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
+				<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
+				<element pattern="&lt;/script&gt;" highlight="html-tag" ends_context="3" case_insens="1" ends_block="1" blockstartelement="script"/>
+			</context>
+		</element>
+		<element id="js:blockcomment" pattern="/*" starts_block="1" highlight="js-comment">
+			<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
+				<element pattern="*/" ends_block="1" blockstartelement="js:blockcomment" highlight="js-comment" mayfold="1" ends_context="1" />
+				<element pattern="&lt;/script&gt;" highlight="html-tag" case_insens="1" ends_context="3" ends_block="1" blockstartelement="script"/>
+			</context>
+		</element>
 	</context>
 </tag>
 
 <tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;,media,title,type" attribhighlight="html-attribute" autocomplete_append="&gt;&#10;&#10;&lt;/style&gt;" autocomplete_backup_cursor="9" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<context symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
 	
-		<element id="css/*" pattern="/*" starts_block="1" highlight="css-comment">
+		<element id="css:blockcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
-				<element pattern="*/" ends_block="1" blockstartelement="css/*" highlight="css-comment" ends_context="1" />
+				<element pattern="*/" ends_block="1" blockstartelement="css:blockcomment" highlight="css-comment" ends_context="1" />
 			</context>
 		</element>
 		&css-selectors;
-		<element id="css{" pattern="{" starts_block="1" highlight="brackets">
+		<element id="css:bracket" pattern="{" starts_block="1" highlight="brackets">
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
 				&css-rules;
 				<element pattern="/*" starts_block="1" highlight="css-comment">
@@ -38,7 +50,7 @@
 					</context>
 				</element>
 				<element pattern="&lt;/style&gt;" highlight="html-tag" ends_context="3" />
-				<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="1" />
+				<element pattern="}" ends_block="1" blockstartelement="css:bracket" highlight="brackets" ends_context="1" />
 			</context>
 		</element>
 	</context>
