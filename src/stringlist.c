@@ -382,12 +382,14 @@ GList *get_list_from_buffer(gchar *buffer, GList *which_list, gboolean is_arrayl
 			DEBUG_MSG("get_list, adding string \"%s\" to the stringlist=%p\n", pos, which_list);
 			which_list = g_list_append(which_list, g_strdup(pos));
 		}
-		if (nextpos)
+		if (nextpos) {
 			nextpos++;
-		if (*nextpos == '\0')
+			if (*nextpos == '\0')
+				pos = NULL;
+			else
+				pos = nextpos;
+		} else 
 			pos = NULL;
-		else
-			pos = nextpos;
 		if (pos)
 			nextpos = strchr(pos, '\n');
 	} while (pos);
