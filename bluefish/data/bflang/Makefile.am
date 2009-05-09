@@ -10,12 +10,15 @@ MAINTAINERCLEANFILES = Makefile.in
 #bflangdtd_DATA = bflang.dtd catalog.xml
 
 bflang_DATA = \
-	all-javascript.bfinc \
 	all-html.bfinc \
+	all-javascript.bfinc \
 	all-php.bfinc \
-	css-selectors.bfinc \
+	all-vbscript.bfinc \
 	css-rules.bfinc \
+	css-selectors.bfinc \
+	ada.bflang2 \
 	asp.bflang2 \
+	asp-vbscript.bflang2 \
 	bflang2.bflang2 \
 	c.bflang2 \
 	cpp.bflang2 \
@@ -33,6 +36,7 @@ bflang_DATA = \
 	shell.bflang2 \
 	smarty.bflang2 \
 	text.bflang2 \
+	vbscript.bflang2 \
 	xhtml.bflang2 \
 	xml.bflang2
 
