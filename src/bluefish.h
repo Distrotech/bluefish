@@ -310,6 +310,9 @@ typedef struct {
 	gint view_statusbar;
 	gint outputb_scroll_mode; /* 0=none, 1=first line, 2= last line*/
 	gint outputb_show_all_output;
+	gchar *convertcolumn_separator;
+	gboolean convertcolumn_horizontally;
+	gchar *convertcolumn_fillempty;
 	GList *bmarks;
 	GList *classlist;
 	GList *colorlist;
