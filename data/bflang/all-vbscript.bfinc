@@ -91,12 +91,10 @@
 	<element pattern="property" starts_block="1" mayfold="1" />
 	<element id="end property" pattern="end[\ \t]+property" is_regex="1" ends_block="1" blockstartelement="property" mayfold="1" autocomplete_string="end property" />
 	
-	<!--
-	<element id="if" pattern="if[\ \t].+[\ \t]then[\ \t]*[&#10;&#13;]" starts_block="1" is_regex="1" mayfold="1" autocomplete_string="then" />
-	<element id="end if" pattern="end[\ \t]+if" is_regex="1" ends_block="1" blockstartelement="if[\ \t].+[\ \t]then[\ \t]*[&#10;&#13;]" mayfold="1" autocomplete_string="end if" />
-	<element id="if" pattern="if.+then[\ \t]*&#10;&#13;" starts_block="1" is_regex="1" mayfold="1" autocomplete_string="if" />
-	<element id="end if" pattern="end[\ \t]+if" is_regex="1" ends_block="1" blockstartelement="if.+then[\ \t]*&#10;&#13;" mayfold="1" autocomplete_string="end if" />
-	-->
+	<element pattern="if" highlight="vbs-keyword" />
+	<element pattern="then[\ \t]*[&#10;&#13;]" is_regex="1" starts_block="1" mayfold="1" autocomplete_string="then" highlight="vbs-keyword" />
+	<element id="end if" pattern="end[\ \t]+if" is_regex="1" ends_block="1" mayfold="1" autocomplete_string="end if" highlight="vbs-keyword" blockstartelement="then[\ \t]*[&#10;&#13;]" />
+	<element pattern="then" highlight="vbs-keyword" />
 	
 	<element pattern="with" starts_block="1" mayfold="1" />
 	<element id="end with" pattern="end[\ \t]+with" is_regex="1" ends_block="1" blockstartelement="with" mayfold="1" autocomplete_string="end with" />
@@ -105,15 +103,6 @@
 	<element pattern="class" starts_block="1" mayfold="1" />
 	<element id="end class" pattern="end[\ \t]+class" is_regex="1" ends_block="1" blockstartelement="class" mayfold="1" autocomplete_string="end class" />
 </group>
-
-<!---->
-<element pattern="if" starts_block="1" case_insens="1" mayfold="1" highlight="vbs-keyword" >
-	<context symbols=" %():\&#34;\\',&gt;&lt;*+=-/_&#9;&#10;&#13;&#34;\.">
-		<element id="then" pattern="then[\ \t]*[^&#10;&#13;]" is_regex="1" case_insens="1" ends_block="1" ends_context="1"/>
-		<element id="end if" pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" ends_context="1" autocomplete_string="end if" highlight="vbs-keyword" blockstartelement="if" />
-	</context>
-</element>
-<!---->
 
 <element pattern="\.?[a-zA-Z][a-zA-Z_0-9]*[\$%]?" is_regex="1" highlight="vbs-variable"/>
 
