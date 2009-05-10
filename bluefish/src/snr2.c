@@ -2331,7 +2331,9 @@ static void convert_to_columns_backend(Tdocument *doc, gint so, gint eo, gint nu
 	g_free(buf);
 	/* get the number of lines */
 	numlines = g_list_length(buflist);
-	numnewlines = (0.9999+numlines/numcolumns);
+	numnewlines = (0.99999999+1.0*numlines/numcolumns);
+/*	g_print("float=%f, int=%d\n",0.9999+1.0*numlines/numcolumns, (int)(0.9999+1.0*numlines/numcolumns));*/
+	g_print("numlines=%d, numcolumns=%d, numnewlines=%d\n",numlines,numcolumns,numnewlines);
 	separatorlen=g_utf8_strlen(separator,-1);
 	doc_unre_new_group(doc);
 	doc_replace_text_backend(doc, NULL, so, eo);
@@ -2339,22 +2341,23 @@ static void convert_to_columns_backend(Tdocument *doc, gint so, gint eo, gint nu
 		for(j=0;j<numcolumns;j++) {
 			gchar *tmp;
 			if (spread_horiz) {
-				g_print("i=%d,j=%d,numcolumns=%d, insert string i*numcolumns+j %d\n",i,j,numcolumns,i*numcolumns+j);
+				/*g_print("i=%d,j=%d,numcolumns=%d, insert string i*numcolumns+j %d\n",i,j,numcolumns,i*numcolumns+j);*/
 				tmp = g_list_nth_data(buflist, i*numcolumns+j);
 			} else {
-				g_print("i=%d,j=%d,numnewlines=%d, insert string i+j*numnewlines %d\n",i,j,numnewlines,i+j*numnewlines);
+				/*g_print("i=%d,j=%d,numnewlines=%d, insert string i+j*numnewlines %d\n",i,j,numnewlines,i+j*numnewlines);*/
 				tmp = g_list_nth_data(buflist, i+j*numnewlines);
 			}
 			if (tmp) {
 				doc_replace_text_backend(doc, tmp, so+offset, so+offset);
 				offset += g_utf8_strlen(tmp,-1);
-				if(j+1==numcolumns) {
-					doc_replace_text_backend(doc, "\n", so+offset, so+offset);
-					offset += 1;
-				} else {
-					doc_replace_text_backend(doc, separator, so+offset, so+offset);
-					offset += separatorlen;
-				}
+			}
+			if(j+1==numcolumns) {
+				/*g_print("j=%d, numcolumns=%d, j+1==numcolumns, newline!\n",j,numcolumns);*/
+				doc_replace_text_backend(doc, "\n", so+offset, so+offset);
+				offset += 1;
+			} else {
+				doc_replace_text_backend(doc, separator, so+offset, so+offset);
+				offset += separatorlen;
 			}
 		}
 		
