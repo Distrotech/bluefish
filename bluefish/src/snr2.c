@@ -2319,7 +2319,7 @@ void toggle_comment(Tdocument *doc) {
 	}
 }
 
-static void convert_to_columns_backend(Tdocument *doc, gint so, gint eo, gint numcolumns, gboolean spread_horiz, gchar *separator) {
+static void convert_to_columns_backend(Tdocument *doc, gint so, gint eo, gint numcolumns, gboolean spread_horiz, const gchar *separator) {
 	gint numlines,numnewlines,i=0,j=0;
 	gchar *buf;
 	GList *buflist;
@@ -2374,16 +2374,16 @@ typedef struct {
 static void convert_to_columns_lcb(GtkDialog * dialog, gint response, Tconvertcolumn *cc) {
 	if (response == GTK_RESPONSE_ACCEPT) {
 		gint start, end;
-		gchar *separator;
+		const gchar *separator;
 		
 		if (!doc_get_selection(cc->doc, &start, &end)) {
 			start=0;
 			end=-1;
 		}
 		
-		separator = gtk_entry_get_text(cc->separator);
+		separator = gtk_entry_get_text(GTK_ENTRY(cc->separator));
 		
-		convert_to_columns_backend(cc->doc, start, end, gtk_spin_button_get_value_as_int(cc->numcolumns), GTK_TOGGLE_BUTTON(cc->horizontally)->active, separator);
+		convert_to_columns_backend(cc->doc, start, end, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(cc->numcolumns)), GTK_TOGGLE_BUTTON(cc->horizontally)->active, separator);
 	}
 	gtk_widget_destroy(cc->dialog);
 	g_free(cc);	
@@ -2406,8 +2406,8 @@ void convert_to_columns(Tdocument *doc) {
 
 	cc->numcolumns = spinbut_with_value("2", 2, 99, 1, 5);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(cc->dialog)->vbox), cc->numcolumns, FALSE, FALSE, 0);
-	cc->horizontally = boxed_checkbut_with_value(_("Spread lines horizontally"), 0,GTK_BOX(GTK_DIALOG(cc->dialog)->vbox) );
-	cc->separator = boxed_full_entry(_("Column separator"), ",","99", GTK_BOX(GTK_DIALOG(cc->dialog)->vbox));
+	cc->horizontally = boxed_checkbut_with_value(_("Spread lines horizontally"), 0, GTK_DIALOG(cc->dialog)->vbox );
+	cc->separator = boxed_full_entry(_("Column separator"), ",",99, GTK_DIALOG(cc->dialog)->vbox);
 	
 	gtk_widget_show_all(cc->dialog);
 }
