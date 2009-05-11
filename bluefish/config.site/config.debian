@@ -1,0 +1,17 @@
+#!/bin/sh
+
+prefix=/usr
+exec_prefix='${prefix}'
+mandir='${datarootdir}/man'
+sysconfdir=/etc
+with_xml_catalog='${sysconfdir}/xml/catalog'
+with_icon_path='${datarootdir}/pixmaps'
+with_theme_path='${datarootdir}/icons/hicolor'
+with_freedesktop_org_menu='${datarootdir}/applications'
+with_freedesktop_org_mime='${datarootdir}/mime'
+enable_static=no
+enable_xml_catalog_update=no
+enable_update_databases=yes
+enable_maintainer_mode=yes
+LDFLAGS="-Wl,--as-needed -Wl,-O1"
+CFLAGS="-g -Wall -O2"
