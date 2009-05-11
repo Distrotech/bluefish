@@ -25,7 +25,10 @@ if OS_WIN32
 about_la_LDFLAGS += -no-undefined
 endif
 
-about_rev.h: FORCE
+about_rev.h: about_rev.h.tmp
+	@if test -n "`diff $< $@`" ; then cp $< $@ ; fi
+       
+about_rev.h.tmp:
 	@SVN_REVISION=`LANG=C svnversion -n . || echo exported` ; \
 	echo "/* Automatically created by the Makefile." > $@ ; \
 	echo " * http://bugzilla.gnome.org/show_bug.cgi?id=578719 */" >> $@ ; \
@@ -39,7 +42,8 @@ about_rev.h: FORCE
 	fi ; \
 	echo "#endif /* __ABOUT_REV_H_ */" >> $@
 
-FORCE:
+.INTERMEDIATE: about_rev.h.tmp
+.PHONY: about_rev.h.tmp
 
 maintainer-clean-local:
 	cd $(srcdir)/po && rm -f boldquot.sed en@boldquot.header en@quot.header insert-header.sin Makefile.in.in quot.sed remove-potcdate.sin Rules-quot $(PACKAGE)_plugin_about.pot
