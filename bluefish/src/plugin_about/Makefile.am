@@ -26,7 +26,7 @@ about_la_LDFLAGS += -no-undefined
 endif
 
 about_rev.h: about_rev.h.tmp
-	@if test -n "`diff $< $@`" ; then cp $< $@ ; fi
+	@if test ! -e $@ -o -n "`diff $< $@`" ; then cp $< $@ ; fi
        
 about_rev.h.tmp:
 	@SVN_REVISION=`LANG=C svnversion -n . || echo exported` ; \
