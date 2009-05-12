@@ -54,6 +54,7 @@ void doc_set_title(Tdocument *doc);
 void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen);
 void doc_set_font(Tdocument *doc, gchar *fontstring);
 void doc_set_tabsize(Tdocument *doc, gint tabsize);
+gint doc_get_tabsize(Tdocument *doc);
 void gui_change_tabsize(Tbfwin *bfwin,guint action,GtkWidget *widget);
 void session_set_savedir(Tbfwin *bfwin, gchar *curi);
 
