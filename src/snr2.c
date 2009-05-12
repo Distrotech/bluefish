@@ -2029,10 +2029,10 @@ void join_lines(Tdocument *doc) {
 }
 
 void split_lines(Tdocument *doc) {
-	gint i=0,coffset,count=0,start,end;
+	gint i=0,coffset,count=0,start,end,tabsize;
 	gint startws=0, endws=0,starti=0,endi=-1,requested_size; /* ws= whitespace, i=indenting */
 	gchar *buf;
-	
+	tabsize = doc_get_tabsize(doc);
 	if (!doc_get_selection(doc, &start, &end)) {
 		start=0;
 		end=-1;
@@ -2064,7 +2064,7 @@ void split_lines(Tdocument *doc) {
 			g_free(n_indenting);
 		}
 		if (buf[i] == '\t') {
-			count += main_v->props.editor_tab_width;
+			count += tabsize;
 			if (startws<endws) {
 				startws=i;
 			}
@@ -2095,8 +2095,10 @@ void split_lines(Tdocument *doc) {
 
 /* from spaces to tabs or from tabs to spaces */
 void convert_identing(Tdocument *doc, gboolean to_tabs) {
-	gint i=0,wstart=0,coffset=0,indenting=0;
+	gint i=0,wstart=0,coffset=0,indenting=0,tabsize;
 	gchar *buf = doc_get_chars(doc,0,-1);
+	tabsize = doc_get_tabsize(doc);
+	g_print("got tabsize %d\n",tabsize);
 	doc_unre_new_group(doc);
 	while (buf[i] != '\0') {
 		switch (buf[i]) {
@@ -2106,7 +2108,7 @@ void convert_identing(Tdocument *doc, gboolean to_tabs) {
 		break;
 		case '\t':
 			/* a tab increases to the next tab stop */
-			indenting = ((indenting/main_v->props.editor_tab_width)+1)*main_v->props.editor_tab_width;
+			indenting = ((indenting/tabsize)+1)*tabsize;
 		break;
 		case ' ':
 			indenting += 1;
@@ -2116,7 +2118,7 @@ void convert_identing(Tdocument *doc, gboolean to_tabs) {
 				gchar *newindent;
 				gint cstart, cend;
 				if (to_tabs) {
-					newindent = bf_str_repeat("\t", (indenting/main_v->props.editor_tab_width));
+					newindent = bf_str_repeat("\t", (indenting/tabsize));
 				} else {
 					newindent = bf_str_repeat(" ", indenting);
 				}
