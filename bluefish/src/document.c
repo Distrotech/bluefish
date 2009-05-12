@@ -584,12 +584,12 @@ gint doc_get_tabsize(Tdocument *doc) {
 void doc_change_tabsize(Tdocument *doc,gint direction) {
 	PangoTabArray *tab_array;
 	PangoTabAlign align;
-	gint pixels, setsize;
-	
+	gint pixels, setsize, singlesize;
+	singlesize = textview_calculate_real_tab_width(doc->view, 1);
 	tab_array = gtk_text_view_get_tabs(GTK_TEXT_VIEW(doc->view));
 	if (tab_array) {
 		pango_tab_array_get_tab(tab_array,0,&align,&setsize);
-		g_print("doc_change_tabsize, got setsize=%d\n",setsize);
+		/*g_print("doc_change_tabsize, got setsize=%d\n",setsize);*/
 	} else {
 		tab_array = pango_tab_array_new(1, TRUE);
 		setsize = 8;
@@ -597,11 +597,11 @@ void doc_change_tabsize(Tdocument *doc,gint direction) {
 	if (direction == 0) {
 		setsize = main_v->props.editor_tab_width;
 	} else if (direction < 0){
-		setsize -= 1;
+		setsize -= singlesize;
 	} else {
-		setsize += 1;
+		setsize += singlesize;
 	}
-	g_print("doc_change_tabsize, set setsize=%d\n",setsize);
+	/*g_print("doc_change_tabsize, set setsize=%d\n",setsize);*/
 	pixels = textview_calculate_real_tab_width(GTK_WIDGET(doc->view), main_v->props.editor_tab_width);
 	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, setsize);
 	gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->view), tab_array);

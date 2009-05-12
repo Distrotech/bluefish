@@ -2098,7 +2098,7 @@ void convert_identing(Tdocument *doc, gboolean to_tabs) {
 	gint i=0,wstart=0,coffset=0,indenting=0,tabsize;
 	gchar *buf = doc_get_chars(doc,0,-1);
 	tabsize = doc_get_tabsize(doc);
-	g_print("got tabsize %d\n",tabsize);
+	/*g_print("got tabsize %d\n",tabsize);*/
 	doc_unre_new_group(doc);
 	while (buf[i] != '\0') {
 		switch (buf[i]) {
