@@ -4,80 +4,80 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 1.3.2\n"
+"Project-Id-Version: bluefish 1.3.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-04-16 20:38+0200\n"
-"PO-Revision-Date: 2009-01-22 19:27+0100\n"
+"POT-Creation-Date: 2009-04-24 14:32+0200\n"
+"PO-Revision-Date: 2009-05-14 11:37+0200\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: src/plugin_entities/entities.c:412
+#: src/plugin_entities/entities.c:442
 msgid "Characters to entities"
 msgstr "ASCII in HTML-Entitäten"
 
-#: src/plugin_entities/entities.c:412
+#: src/plugin_entities/entities.c:442
 msgid "Entities to characters"
 msgstr "HTML-Entitäten in ASCII"
 
-#: src/plugin_entities/entities.c:425
+#: src/plugin_entities/entities.c:455
 msgid "In current document"
 msgstr "Im aktuellen Dokument"
 
-#: src/plugin_entities/entities.c:426
+#: src/plugin_entities/entities.c:456
 msgid "In selection"
 msgstr "In der Auswahl"
 
-#: src/plugin_entities/entities.c:427
+#: src/plugin_entities/entities.c:457
 msgid "In all documents"
 msgstr "In allen Dokumenten"
 
-#: src/plugin_entities/entities.c:428
+#: src/plugin_entities/entities.c:458
 msgid "Sco_pe:"
 msgstr "Such_bereich:"
 
-#: src/plugin_entities/entities.c:432
-msgid "Convert numerical characters"
-msgstr "_Numerische Zeichen ersetzen"
+#: src/plugin_entities/entities.c:462
+msgid "Convert numerical encoded characters &#99;"
+msgstr ""
 
-#: src/plugin_entities/entities.c:439
+#: src/plugin_entities/entities.c:469
 msgid "Convert _iso-8859-1 characters"
 msgstr "_Iso-8859-1 Zeichen ersetzen"
 
-#: src/plugin_entities/entities.c:443
+#: src/plugin_entities/entities.c:473
 msgid "Convert _symbol characters"
 msgstr "_Symbolzeichen konvertieren"
 
-#: src/plugin_entities/entities.c:447
+#: src/plugin_entities/entities.c:477
 msgid "Convert spe_cial characters"
 msgstr "Spe_zielle Zeichen ersetzen"
 
-#: src/plugin_entities/entities.c:451
-msgid "Convert _xml characters <>&"
-msgstr "_XML-Zeichen ersetzen <>&"
+#: src/plugin_entities/entities.c:481
+msgid "Convert _XML characters < > & \" '"
+msgstr "_XML-Zeichen ersetzen < > & \" '"
 
-#: src/plugin_entities/entities.c:514
+#: src/plugin_entities/entities.c:549
 msgid "/Edit/Replace special/Entities to characters"
 msgstr "/Bearbeiten/Ersetzen spezial/HTML-Entitäten in ASCII"
 
-#: src/plugin_entities/entities.c:515
+#: src/plugin_entities/entities.c:550
 msgid "/Edit/Replace special/Characters to entities"
 msgstr "/Bearbeiten/Ersetzen spezial/ASCII in HTML-Entitäten"
 
-#: src/plugin_entities/entities.c:516
+#: src/plugin_entities/entities.c:551
 msgid "/Edit/Replace special/URL encode selection"
 msgstr "/Bearbeiten/Ersetzen spezial/URL enkodieren"
 
-#: src/plugin_entities/entities.c:517
+#: src/plugin_entities/entities.c:552
 msgid "/Edit/Replace special/URL decode selection"
 msgstr "/Bearbeiten/Ersetzen spezial/URL dekodieren"
 
-#: src/plugin_entities/entities.c:518
+#: src/plugin_entities/entities.c:553
 msgid "/Edit/Replace special/To Lowercase"
 msgstr "/Bearbeiten/Ersetzen spezial/In Kleinbuchstaben"
 
-#: src/plugin_entities/entities.c:519
+#: src/plugin_entities/entities.c:554
 msgid "/Edit/Replace special/To Uppercase"
 msgstr "/Bearbeiten/Ersetzen spezial/In Grossbuchstaben"
