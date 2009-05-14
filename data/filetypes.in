@@ -8,6 +8,7 @@ changelog:ChangeLog::::::
 D:.d\:.di:(){}'[]\n/#" ;::1::0:
 Django::::1:\\{% comment %\\}-\\*-django-\\*-\\{% endcomment %\\}:0:
 gettext po:.po:"\n::1::0:
+html:.html\:.htm\:.shtml\:.shtm:<> \n":PKGDATADIRicon_html.png:1:<html[^>]*>:2:
 java:.java:(){}'[]\n/" :PKGDATADIRicon_java.png:1::0:
 javascript:.js:(){}'[]\n/" ::1::0:
 jsp:.jsp:(){}'[]\n/#" :PKGDATADIRicon_java.png:1:^#!/[a-z/]+jsp:0:
@@ -15,12 +16,15 @@ kid:.kid:<> \\n":PKGDATADIRicon_xml.png::::
 octave:.m:::1:^#!/[a-z/]+/octave:0:
 pascal:.pas: (){}'[]\n;":PKGDATADIRicon_pascal.png:1::0:
 perl:.pl\:.PL\:.cgi\:.pm:::1:^#!/[a-z/]+perl:0:
+php:.php\:.php4\:.inc\:.php3: <>'"/?$\\t-{}[]{}\n;:PKGDATADIRicon_php.png:1:^(#!/[a-z/]+php|<\\?php):2:
 python:.py::PKGDATADIRicon_python.png:1:^#!/[a-z/]+/python:0:
 R:.r\:.rd\:.R\:.Rd\:.RD: <>=+-*/'"{}[]()\t\n.,\:$&|#:PKGDATADIRicon_r.png:1::0:
 Ruby:.rb:::1::0:
 shell:.sh:::1:^#!/[a-z/]+/(ba)?sh$:0:
 sql:.sql:(){}'[]\n" ::1::0:
+stylesheet:.css:::1::0:
 tcl:.tcl:::1::0:
+tex:.tex\:.sty: \\\n\t%$[]{}:PKGDATADIRicon_tex.png:1::1:
 xml:.xml\:.sgml\:.xsl:<> \n":PKGDATADIRicon_xml.png:1:<\\?xml:1:
 webimage:.jpg\:.png\:.gif\:.jpeg::PKGDATADIRicon_image.png:0::0:
 image:.jpg\:.png\:.gif\:.jpeg\:.tif\:.tiff\:.xpm\:.xcf::PKGDATADIRicon_image.png:0::0:
