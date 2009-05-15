@@ -577,14 +577,14 @@ gint doc_get_tabsize(Tdocument *doc) {
  *
  * this function is the callback for the menu, based on action
  * it will increase or decrease the tabsize by one
- * for ALL DOCUMENTS (BUG: currently only all documents in the same window)
  *
  * Return value: void
  **/
 void doc_change_tabsize(Tdocument *doc,gint direction) {
 	PangoTabArray *tab_array;
 	PangoTabAlign align;
-	gint pixels, setsize, singlesize;
+	gint setsize, singlesize;
+	gchar *message;
 	singlesize = textview_calculate_real_tab_width(doc->view, 1);
 	tab_array = gtk_text_view_get_tabs(GTK_TEXT_VIEW(doc->view));
 	if (tab_array) {
@@ -594,15 +594,17 @@ void doc_change_tabsize(Tdocument *doc,gint direction) {
 		tab_array = pango_tab_array_new(1, TRUE);
 		setsize = 8;
 	}
-	if (direction == 0) {
-		setsize = main_v->props.editor_tab_width;
+	if (direction == 0) { /* 0 means reset to default */
+		setsize = main_v->props.editor_tab_width*singlesize;
 	} else if (direction < 0){
 		setsize -= singlesize;
 	} else {
 		setsize += singlesize;
 	}
+	message = g_strdup_printf(_("Changed tab width to %d"), setsize/singlesize);
+	statusbar_message(BFWIN(doc->bfwin),message, 2000);
+	g_free(message);
 	/*g_print("doc_change_tabsize, set setsize=%d\n",setsize);*/
-	pixels = textview_calculate_real_tab_width(GTK_WIDGET(doc->view), main_v->props.editor_tab_width);
 	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, setsize);
 	gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->view), tab_array);
 	pango_tab_array_free(tab_array);
