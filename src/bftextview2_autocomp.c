@@ -34,6 +34,8 @@ typedef struct {
 	GtkTreeView *tree;
 	GtkWidget *reflabel;
 	gint listwidth;
+	gint w;
+	gint h;
 	guint16 contextnum;
 } Tacwin;
 
@@ -199,12 +201,14 @@ static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 				gtk_widget_show(acw->reflabel);
 				gtk_widget_size_request(acw->reflabel,&requisition);
 				/*gtk_window_get_size(GTK_WINDOW(acw->win),&width,&height);*/
-				gtk_widget_set_size_request(acw->win, acw->listwidth+requisition.width+2, -1);
+				acw->w = acw->listwidth+requisition.width+2;
+				gtk_widget_set_size_request(acw->win, acw->w, -1);
 				return;
 			}
 		}
 	}
 	gtk_widget_hide(acw->reflabel);
+	acw->w = acw->listwidth;
 	gtk_widget_set_size_request(acw->win, acw->listwidth, -1);
 }
 
@@ -264,11 +268,13 @@ static Tacwin *acwin_create(BluefishTextView *btv) {
 	return acw;
 }
 
-static void acwin_position_at_cursor(BluefishTextView *btv) {
+/* returns TRUE if window is popped-up lower than the cursor, 
+returns FALSE if window is popped-up higher than the cursor (because cursor is low in the screen) */
+static gboolean acwin_position_at_cursor(BluefishTextView *btv) {
 	GtkTextIter it;
 	GdkRectangle rect;
 	GdkScreen *screen;
-	gint x,y;
+	gint x,y,sh;
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	screen = gtk_widget_get_screen(GTK_WIDGET(btv));
 
@@ -277,7 +283,15 @@ static void acwin_position_at_cursor(BluefishTextView *btv) {
 	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, rect.x, rect.y,&rect.x, &rect.y);
 	gdk_window_get_origin(gtk_text_view_get_window(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT),&x,&y);
 
-	gtk_window_move(GTK_WINDOW(ACWIN(btv->autocomp)->win),rect.x+x ,rect.y+y);
+	sh = gdk_screen_get_height(screen);
+	g_print("rect.y+y=%d, acw->h=%d, sh=%d\n",rect.y+y,ACWIN(btv->autocomp)->h,sh);
+	if (rect.y+y+ACWIN(btv->autocomp)->h > sh) {
+		gtk_window_move(GTK_WINDOW(ACWIN(btv->autocomp)->win),rect.x+x ,rect.y+y+rect.height-ACWIN(btv->autocomp)->h);
+		return FALSE;
+	} else {
+		gtk_window_move(GTK_WINDOW(ACWIN(btv->autocomp)->win),rect.x+x ,rect.y+y);
+		return TRUE;
+	}
 }
 
 /* not only fills the tree, but calculates and sets the required width as well */
@@ -307,14 +321,14 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 	}
 	g_list_free(list);
 	if (longest) {
-		gint len,rowh,h;
+		gint len,rowh;
 		PangoLayout *panlay = gtk_widget_create_pango_layout(GTK_WIDGET(acw->tree), NULL);
 		pango_layout_set_markup(panlay,longest,-1);
 		pango_layout_get_pixel_size(panlay, &len, &rowh);
-		h = MIN(MAX((numitems+1)*rowh+8,150),350);
-		DBG_AUTOCOMP("numitems=%d, rowh=%d, new height=%d\n",numitems,rowh,h);
-		acw->listwidth = len+20;
-		gtk_widget_set_size_request(GTK_WIDGET(acw->tree),acw->listwidth,h); /* ac_window */
+		acw->h = MIN(MAX((numitems+1)*rowh+8,150),350);
+		DBG_AUTOCOMP("numitems=%d, rowh=%d, new height=%d\n",numitems,rowh,acw->h);
+		acw->w = acw->listwidth = len+20;
+		gtk_widget_set_size_request(GTK_WIDGET(acw->tree),acw->listwidth,acw->h); /* ac_window */
 		g_free(longest);
 	}
 }
@@ -380,6 +394,7 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 					/* do not popup if there are 0 items, and also not if there is 1 item which equals the prefix */
 			GtkTreeSelection *selection;
 			GtkTreeIter it;
+			gboolean below;
 			/* create the GUI */
 			if (!btv->autocomp) {
 				btv->autocomp = acwin_create(btv);
@@ -392,11 +407,17 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 			ACWIN(btv->autocomp)->prefix = g_strdup(prefix);
 			ACWIN(btv->autocomp)->newprefix = g_strdup(newprefix);
 			acwin_fill_tree(ACWIN(btv->autocomp), items);
-			acwin_position_at_cursor(btv);
+			below = acwin_position_at_cursor(btv);
 			gtk_widget_show(ACWIN(btv->autocomp)->win);
-			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), &it);
+			if (below)
+				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), &it);
+			else {
+				gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), &it
+							, NULL, gtk_tree_model_iter_n_children(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), NULL)-1);
+			}
 			selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 			gtk_tree_selection_select_iter(selection, &it);
+			/* TODO: if !below scroll to the bottom of the autocompletion popup */
 		} else {
 			acwin_cleanup(btv);
 		}
