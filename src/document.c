@@ -396,7 +396,6 @@ void doc_set_tooltip(Tdocument *doc) {
 			retstr = g_string_append(retstr, _("\nLast modified: "));
 			retstr = g_string_append(retstr, mtimestr);
 			g_free(mtimestr);
-			retstr = g_string_truncate(retstr,retstr->len-1);
 		}
 	}
 	tmp = g_string_free(retstr,FALSE);
