@@ -136,9 +136,9 @@ static void bluefish_scan_dir_load_plugins(GList **oldlist,const gchar *indirnam
 					DEBUG_MSG("bluefish_scan_dir_load_plugins, returned NULL -> load failed\n");
 					if (arr && count_array(arr)>=2) {
 						g_free(arr[1]);
-						arr[1] = g_strdup("0");
+						arr[1] = g_strdup("1");
 					} else {
-						arr = array_from_arglist(path, "0", "error loading plugin", NULL);
+						arr = array_from_arglist(path, "1", "error loading plugin", NULL);
 						main_v->props.plugin_config = g_list_append(main_v->props.plugin_config, arr);
 					}
 				}
@@ -150,6 +150,11 @@ static void bluefish_scan_dir_load_plugins(GList **oldlist,const gchar *indirnam
 	g_dir_close(gdir);
 	g_pattern_spec_free(patspec);
 	g_free(dirname);
+}
+
+static gint plugins_compare_priority(gpointer a, gpointer b) {
+	TBluefishPlugin *pa=a,*pb=b;
+	return pa->priority-pb->priority;
 }
 
 void bluefish_load_plugins(void) {
@@ -167,6 +172,8 @@ void bluefish_load_plugins(void) {
 	}
 /* #endif */ /* DEVELOPMENT */
 	free_arraylist(oldlist);
+	
+	main_v->plugins = g_slist_sort(main_v->plugins,plugins_compare_priority);
 }
 
 void bluefish_cleanup_plugins(void) {
