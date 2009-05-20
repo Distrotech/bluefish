@@ -327,7 +327,7 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 		pango_layout_get_pixel_size(panlay, &len, &rowh);
 		acw->h = MIN(MAX((numitems+1)*rowh+8,150),350);
 		DBG_AUTOCOMP("numitems=%d, rowh=%d, new height=%d\n",numitems,rowh,acw->h);
-		acw->w = acw->listwidth = len+20;
+		acw->w = acw->listwidth = MIN(len+20, 350);
 		gtk_widget_set_size_request(GTK_WIDGET(acw->tree),acw->listwidth,acw->h); /* ac_window */
 		g_free(longest);
 	}
@@ -409,15 +409,18 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 			acwin_fill_tree(ACWIN(btv->autocomp), items);
 			below = acwin_position_at_cursor(btv);
 			gtk_widget_show(ACWIN(btv->autocomp)->win);
+			selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 			if (below)
 				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), &it);
 			else {
+				GtkTreePath *path;
 				gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), &it
 							, NULL, gtk_tree_model_iter_n_children(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), NULL)-1);
+				path = gtk_tree_model_get_path(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), &it);
+				gtk_tree_view_scroll_to_cell(ACWIN(btv->autocomp)->tree,path,NULL,FALSE,0.0,0.0);
+				gtk_tree_path_free(path);
 			}
-			selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 			gtk_tree_selection_select_iter(selection, &it);
-			/* TODO: if !below scroll to the bottom of the autocompletion popup */
 		} else {
 			acwin_cleanup(btv);
 		}
