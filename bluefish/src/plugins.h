@@ -24,8 +24,12 @@
 
 #include "bluefish.h"
 
+#define BFPLUGIN_PRIORITY_FIRST 0
+#define BFPLUGIN_PRIORITY_DEFAULT 127
+#define BFPLUGIN_PRIORITY_LAST 255
 
-#define BFPLUGIN_VERSION 5
+#define BFPLUGIN_VERSION 6
+
 typedef struct {
 	const gchar *name; /* plugin name */
 	const gushort bfplugin_version;
@@ -35,6 +39,7 @@ typedef struct {
 	const gushort bfwin_size;
 	const gushort project_size;
 	const gushort main_size;
+	const gushort priority;
 		
 	gpointer private; /* to be filled by Bluefish after loading */
 	void (*init) (void); /* called once after plugin is loaded */

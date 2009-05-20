@@ -105,6 +105,7 @@ static TBluefishPlugin bfplugin = {
 	sizeof(Tbfwin),
 	sizeof(Tproject),
 	sizeof(Tmain),
+	BFPLUGIN_PRIORITY_DEFAULT,
 	NULL, /* private */
 	snippets_init, /* init */
 	snippets_initgui, 

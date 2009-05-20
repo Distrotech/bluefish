@@ -158,6 +158,7 @@ static TBluefishPlugin bfplugin = {
 	sizeof(Tbfwin),
 	sizeof(Tproject),
 	sizeof(Tmain),
+	BFPLUGIN_PRIORITY_DEFAULT,
 	NULL, /* private */
 	htmlbar_init, /* init */
 	htmlbar_initgui, 
