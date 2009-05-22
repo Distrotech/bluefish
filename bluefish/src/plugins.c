@@ -173,7 +173,7 @@ void bluefish_load_plugins(void) {
 /* #endif */ /* DEVELOPMENT */
 	free_arraylist(oldlist);
 	
-	main_v->plugins = g_slist_sort(main_v->plugins,plugins_compare_priority);
+	main_v->plugins = g_slist_sort(main_v->plugins,(GCompareFunc)plugins_compare_priority);
 }
 
 void bluefish_cleanup_plugins(void) {
