@@ -2420,6 +2420,7 @@ void doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean d
 	tmpdoc = documentlist_return_document_from_uri(alldocs, uri);
 	g_list_free(alldocs);
 	if (tmpdoc) { /* document is already open */
+		DEBUG_MSG("doc_new_from_uri, doc %s is already open, delay_activate=%d, move_to_window=%d, goto_line=%d, goto_offset=%d\n",tmpcuri, delay_activate, move_to_this_win, goto_line, goto_offset);
 		if (tmpdoc->bfwin != bfwin && move_to_this_win) {
 			/* we should aks the user if it is OK to move the document */
 			if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;

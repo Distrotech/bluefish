@@ -254,7 +254,7 @@ static void file_open_ok_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
 #if GTK_CHECK_VERSION(2,14,0)
 		tmpslist = slist = gtk_file_chooser_get_files(GTK_FILE_CHOOSER(dialog));
 		while (tmpslist) {
-			doc_new_from_uri(bfwin, (GFile *)tmpslist->data, NULL, (slist->next==NULL), FALSE, -1, -1);
+			doc_new_from_uri(bfwin, (GFile *)tmpslist->data, NULL, (slist->next!=NULL), FALSE, -1, -1);
 			g_object_unref((GFile *)tmpslist->data);
 			tmpslist = tmpslist->next;
 		}
@@ -264,7 +264,7 @@ static void file_open_ok_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
 		while (tmpslist) {
 			GFile *file;
 			file = g_file_new_for_uri((gchar *) tmpslist->data);
-			doc_new_from_uri(bfwin, file, NULL, (slist->next==NULL), FALSE, -1, -1);
+			doc_new_from_uri(bfwin, file, NULL, (slist->next!=NULL), FALSE, -1, -1);
 			g_object_unref(file);
 			g_free((gchar *) tmpslist->data);
 			tmpslist = tmpslist->next;
