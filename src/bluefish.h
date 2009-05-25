@@ -148,6 +148,9 @@ typedef struct {
 	Tdocstatus status; /* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE, DOC_CLOSING */
 	gchar *encoding;
 	gint modified;
+	GList *need_autosave; /* if autosave is needed, a direct pointer to main_v->need_autosave; */
+	GList *autosaved; /* NULL if no autosave registration, else this is a direct pointer into the main_v->autosave_journal list */
+	GFile *autosave_uri; /* if autosaved, the URI of the autosave location, else NULL */
 	gint readonly;
 	gint is_symlink; /* file is a symbolic link */
 	gulong del_txt_id; /* text delete signal */
@@ -257,6 +260,12 @@ typedef struct {
 	gint autocomp_popup_mode; /* delayed or immediately */
 	gboolean reduced_scan_triggers;
 	gchar *default_mime_type;
+	gint autosave;
+	gint autosave_time;
+	gint autosave_location_mode; /* 0=~/.bluefish/autosave/, 1=original basedir */
+	gchar *autosave_filename_prefix;
+	gchar *autosave_filename_suffix;
+	gchar *autosave_path;
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
@@ -409,6 +418,9 @@ typedef struct {
 	Tproperties props; /* preferences */
 	gpointer prefdialog; /* preferences window, there should be only 1 */
 	Tglobalsession globses; /* global session */
+	GList *autosave_journal; /* holds an arraylist with autosaved documents */
+	GList *need_autosave; /* holds Tdocument pointers */
+	guint autosave_id;
 /*	GList *filetypelist; / * highlighting.c: a list of all filetypes with their icons and highlighting sets * /
 	GHashTable *filetypetable;*/
 	GList *bfwinlist;
