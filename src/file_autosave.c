@@ -22,14 +22,19 @@
 /*#define DEBUG*/
 
 #include <gtk/gtk.h>
+#include <string.h>
+#include <sys/types.h>
+#include <signal.h>
 #include "bluefish.h"
 #include "stringlist.h"
 #include "bf_lib.h"
+#include "file.h"
+#include "document.h"
 
 static GFile * create_autosave_path(Tdocument *doc) {
 	GFile *retval;
 	if (main_v->props.autosave_location_mode!=0 &&  (main_v->props.autosave_file_prefix==NULL||main_v->props.autosave_file_prefix[0]=='\0')
-				&& (main_v->props.autosave_file_suffix==NULL||main_v->props.autosave_file_suffix[0]=='\0') {
+				&& (main_v->props.autosave_file_suffix==NULL||main_v->props.autosave_file_suffix[0]=='\0')) {
 		main_v->props.autosave_location_mode = 0;
 	}
 	if (main_v->props.autosave_location_mode == 0 || doc->uri == NULL) {
@@ -48,7 +53,7 @@ static GFile * create_autosave_path(Tdocument *doc) {
 		char *base, *newbase;
 		GFile *dir = g_file_get_parent(doc->uri);
 		base = g_file_get_basename(doc->uri);
-		newbase = g_strconcat(main_v->props.autosave_filename_prefix, base, main_v->props.autosave_filename_suffix, NULL);
+		newbase = g_strconcat(main_v->props.autosave_file_prefix, base, main_v->props.autosave_file_suffix, NULL);
 		retval = g_file_get_child(dir, newbase);
 		g_free(base);
 		g_free(newbase);
@@ -60,9 +65,10 @@ static GFile * create_autosave_path(Tdocument *doc) {
 static void autosave_save_journal(void) {
 	GFile *file;
 	gchar *path = g_strconcat(g_get_home_dir(), "/."PACKAGE"/autosave_journal",NULL);
+	g_print("autosave_save_journal in %s\n",path);
 	file = g_file_new_for_path(path);
 	g_free(path);
-	put_stringlist(file, main_v->autosave_journal, -1, TRUE);
+	put_stringlist(file, main_v->autosave_journal, TRUE);
 	g_object_unref(file);
 }
 
@@ -70,9 +76,9 @@ static GList *register_autosave_journal(GFile *autosave_file, GFile *document_ur
 	gchar **arr, *arr1, *arr2, *arr3;
 	
 	arr1 = g_file_get_uri(autosave_file);
-	arr2 = document_uri : g_file_get_uri(document_uri) ? g_strdup("");
-	arr2 = project_uri : g_file_get_uri(project_uri) ? g_strdup("");
-	
+	arr2 = document_uri ? g_file_get_uri(document_uri) : g_strdup("");
+	arr3 = project_uri ? g_file_get_uri(project_uri) : g_strdup("");
+	g_print("register_autosave_journal %s for %s\n",arr1,arr2);
 	arr = array_from_arglist(arr1,arr2,arr3,NULL);
 	main_v->autosave_journal = g_list_prepend(main_v->autosave_journal, arr);
 	g_free(arr1);
@@ -82,7 +88,7 @@ static GList *register_autosave_journal(GFile *autosave_file, GFile *document_ur
 }
 
 void remove_autosave(Tdocument *doc) {
-	
+	g_print("remove_autosave for doc %p\n",doc);
 	/* delete autosaved file */
 	if (doc->autosave_uri) {
 		file_delete_async(doc->autosave_uri, FALSE, NULL, NULL);
@@ -102,33 +108,45 @@ void remove_autosave(Tdocument *doc) {
 	doc->autosave_uri = NULL;
 }
 
+static void autosave_complete_lcb(gint status,gint error_info,gpointer data) {
+	Tdocument *doc=data;
+	g_print("autosave_complete_lcb, status=%d for doc %p\n",status,doc);
+	if (status == 0) {
+		doc->autosaved = register_autosave_journal(doc->autosave_uri, doc->uri, (doc->bfwin && BFWIN(doc->bfwin)->project)?BFWIN(doc->bfwin)->project->uri:NULL); 
+		main_v->need_autosave = g_list_delete_link(main_v->need_autosave, doc->need_autosave);
+		doc->need_autosave = NULL;
+		
+		if (main_v->need_autosave==NULL) {
+			autosave_save_journal();
+		}
+	}	
+}
+
 static inline void autosave(Tdocument *doc) {
-	GFile *autosave_file;
 	Trefcpointer *buffer;
-	
+	g_print("autosave doc %p\n",doc);
 	if (!doc->autosave_uri) {
 		doc->autosave_uri = create_autosave_path(doc);
 	} 
 	/*  TODO store the contents into the file */
 	buffer = refcpointer_new(doc_get_chars(doc, 0, -1));
-	Tsavefile *file_savefile_uri_async(doc->autosave_uri, buffer,  strlen(buffer->data), SavefileAsyncCallback callback_func, gpointer callback_data);
-	
-	doc->autosaved = register_autosave_journal(doc->autosave_uri, doc->uri, (doc->bfwin && doc->bfwin->project):doc->bfwin->project->uri?NULL); 
-	main_v->need_autosave = g_list_delete_link(main_v->need_autosave, doc->need_autosave);
-	doc->need_autosave = NULL;
+	/*file_savefile_uri_async(doc->autosave_uri, buffer,  strlen(buffer->data), autosave_complete_lcb, doc);*/
 }
 
 static gboolean run_autosave(gpointer data) {
 	GList *tmplist = g_list_first(main_v->need_autosave);
+	g_print("run_autosave\n");
 	while (tmplist) {
 		autosave(tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
+	return TRUE;
 }
 
 static inline void autosave_recover(GFile *file) {
 	GList *list,*tmplist;
 	/* TODO: recovery */	
+	g_print("autosave_recover\n");
 	list = get_list(file, NULL, TRUE);
 	tmplist = g_list_first(list);
 	while (tmplist) {
@@ -147,6 +165,7 @@ static inline void autosave_recover(GFile *file) {
 }
 
 void autosave_init(gboolean recover) {
+	g_print("autosave_init, recover=%d\n",recover);
 	if (main_v->autosave_id) {
 		g_source_remove(main_v->autosave_id);
 	}
@@ -201,8 +220,9 @@ void autosave_init(gboolean recover) {
 
 void autosave_cleanup(void) {
 	GFile *file;
-	GError *error=NULL
+	GError *error=NULL;
 	gchar *path = g_strconcat(g_get_home_dir(), "/."PACKAGE"/autosave_journal",NULL);
+	g_print("autosave_cleanup\n");
 	file = g_file_new_for_path(path);
 	g_free(path);
 	/* is async a good option during exit ??????? */

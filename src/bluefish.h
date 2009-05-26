@@ -263,8 +263,8 @@ typedef struct {
 	gint autosave;
 	gint autosave_time;
 	gint autosave_location_mode; /* 0=~/.bluefish/autosave/, 1=original basedir */
-	gchar *autosave_filename_prefix;
-	gchar *autosave_filename_suffix;
+	gchar *autosave_file_prefix;
+	gchar *autosave_file_suffix;
 	gchar *autosave_path;
 } Tproperties;
 
