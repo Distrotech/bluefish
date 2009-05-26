@@ -95,7 +95,7 @@ typedef enum {
 typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status status,gint error_info,gpointer callback_data);
 
 GFile *backup_uri_from_orig_uri(GFile * origuri);
-gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
+gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, gboolean backup, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
 
 typedef enum {
 	OPENFILE_ERROR,

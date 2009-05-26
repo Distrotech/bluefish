@@ -259,7 +259,7 @@ int main(int argc, char *argv[])
 		msg_queue_check_server(TRUE);
 	}
 #endif
-
+	autosave_init(TRUE);
 	gui_show_main(firstbfwin);
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) {
@@ -274,6 +274,7 @@ int main(int argc, char *argv[])
 	gtk_main();
 /*  gdk_threads_leave ();*/
 	DEBUG_MSG("main, after gtk_main()\n");
+	autosave_cleanup();
 #ifdef WITH_MSG_QUEUE
 	/* do the cleanup */
 	msg_queue_cleanup();

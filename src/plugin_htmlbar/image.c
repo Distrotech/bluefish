@@ -165,7 +165,7 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
       g_free (path);
 #endif
 
-      file_checkNsave_uri_async (fullthumbfilename, finfo, refbuf, buflen, FALSE, (CheckNsaveAsyncCallback) async_thumbsave_lcb, NULL);
+      file_checkNsave_uri_async(fullthumbfilename, finfo, refbuf, buflen, FALSE,FALSE, (CheckNsaveAsyncCallback) async_thumbsave_lcb, NULL);
       refcpointer_unref(refbuf);
     }
 
@@ -798,7 +798,7 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
             DEBUG_MSG("mt_openfile_lcb, starting thumbnail save to %s\n", path);
             g_free (path);
 #endif
-            i2t->sf = file_checkNsave_uri_async(i2t->thumbname, finfo, refbuf, buflen, FALSE, (CheckNsaveAsyncCallback) async_thumbsave_lcb, NULL);
+            i2t->sf = file_checkNsave_uri_async(i2t->thumbname, finfo, refbuf, buflen, FALSE,FALSE, (CheckNsaveAsyncCallback) async_thumbsave_lcb, NULL);
             refcpointer_unref(refbuf);
           }
         } else {

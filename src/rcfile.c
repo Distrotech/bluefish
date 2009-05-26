@@ -451,6 +451,11 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.autocomp_popup_mode, "autocomp_popup_mode:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.reduced_scan_triggers, "reduced_scan_triggers:", 1, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.default_mime_type,"default_mime_type:","text/plain");
+	init_prop_integer   (&config_rc, &main_v->props.autosave, "autosave:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.autosave_time, "autosave_time:", 180, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.autosave_location_mode, "autosave_location_mode:", 0, TRUE);
+	init_prop_string    (&config_rc, &main_v->props.autosave_file_prefix,"autosave_file_prefix:","");
+	init_prop_string    (&config_rc, &main_v->props.autosave_file_suffix,"autosave_file_suffix:","#");
 	return config_rc;
 }
 
