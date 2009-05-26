@@ -376,7 +376,7 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 	checkNsave_cleanup(cns);
 }
 
-gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
+gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, gboolean backup, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
 	TcheckNsave *cns;
 	cns = g_new0(TcheckNsave,1);
 	/*cns->etag=NULL;*/
@@ -400,7 +400,7 @@ gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *bu
 	DEBUG_MSG("file_checkNsave_uri_async, saving %ld bytes to ",(long int)cns->buffer_size);
 	DEBUG_URI(cns->uri, TRUE);
 	g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
-					,cns->etag,main_v->props.backup_file ? TRUE : FALSE
+					,cns->etag,backup
 					,G_FILE_CREATE_NONE,NULL
 					,checkNsave_replace_async_lcb,cns);
 	return cns;

@@ -815,6 +815,11 @@ void doc_set_status(Tdocument *doc, gint status) {
  **/
 void doc_set_modified(Tdocument *doc, gint value) {
 	DEBUG_MSG("doc_set_modified, started, doc=%p, value=%d\n", doc, value);
+	if (value) {
+		need_autosave(doc);
+	} else {
+		remove_autosave(doc);
+	}
 	if (doc->modified != value) {
 		GdkColor colorblue = {0, 0, 0, 65535};
 		GdkColor colorblack = {0, 0, 0, 0};
