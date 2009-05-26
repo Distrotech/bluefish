@@ -1,13 +1,69 @@
+/* Bluefish HTML Editor
+ * file_autosave.c - autosave 
+ *
+ * Copyright (C) 2009 Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+/* indented with indent -ts4 -kr -l110   */
 
+/*#define DEBUG*/
+
+#include <gtk/gtk.h>
 #include "bluefish.h"
+#include "stringlist.h"
+#include "bf_lib.h"
 
 static GFile * create_autosave_path(Tdocument *doc) {
 	GFile *retval;
-	
-	/* TODO use the preferences to create a GFile */
-	
-	
+	if (main_v->props.autosave_location_mode!=0 &&  (main_v->props.autosave_file_prefix==NULL||main_v->props.autosave_file_prefix[0]=='\0')
+				&& (main_v->props.autosave_file_suffix==NULL||main_v->props.autosave_file_suffix[0]=='\0') {
+		main_v->props.autosave_location_mode = 0;
+	}
+	if (main_v->props.autosave_location_mode == 0 || doc->uri == NULL) {
+		gchar *path, *dir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/autosave/",NULL);
+		if (doc->uri) {
+			gchar *base = g_file_get_basename(doc->uri);
+			path = unique_path(dir, base);
+			g_free(base);
+		} else {
+			path = unique_path(dir, "no-name");
+		}
+		retval = g_file_new_for_path(path);
+		g_free(path); 
+		g_free(dir);
+	} else {
+		char *base, *newbase;
+		GFile *dir = g_file_get_parent(doc->uri);
+		base = g_file_get_basename(doc->uri);
+		newbase = g_strconcat(main_v->props.autosave_filename_prefix, base, main_v->props.autosave_filename_suffix, NULL);
+		retval = g_file_get_child(dir, newbase);
+		g_free(base);
+		g_free(newbase);
+		g_object_unref(dir);
+	}
 	return retval;
+}
+
+static void autosave_save_journal(void) {
+	GFile *file;
+	gchar *path = g_strconcat(g_get_home_dir(), "/."PACKAGE"/autosave_journal",NULL);
+	file = g_file_new_for_path(path);
+	g_free(path);
+	put_stringlist(file, main_v->autosave_journal, -1, TRUE);
+	g_object_unref(file);
 }
 
 static GList *register_autosave_journal(GFile *autosave_file, GFile *document_uri, GFile *project_uri) {
@@ -27,8 +83,10 @@ static GList *register_autosave_journal(GFile *autosave_file, GFile *document_ur
 
 void remove_autosave(Tdocument *doc) {
 	
-	/* TODO delete autosaved file */
-
+	/* delete autosaved file */
+	if (doc->autosave_uri) {
+		file_delete_async(doc->autosave_uri, FALSE, NULL, NULL);
+	}
 
 	/* remove from journal */
 	main_v->autosave_journal = g_list_delete_link(main_v->autosave_journal, doc->autosaved);
@@ -46,11 +104,14 @@ void remove_autosave(Tdocument *doc) {
 
 static inline void autosave(Tdocument *doc) {
 	GFile *autosave_file;
+	Trefcpointer *buffer;
 	
 	if (!doc->autosave_uri) {
 		doc->autosave_uri = create_autosave_path(doc);
 	} 
 	/*  TODO store the contents into the file */
+	buffer = refcpointer_new(doc_get_chars(doc, 0, -1));
+	Tsavefile *file_savefile_uri_async(doc->autosave_uri, buffer,  strlen(buffer->data), SavefileAsyncCallback callback_func, gpointer callback_data);
 	
 	doc->autosaved = register_autosave_journal(doc->autosave_uri, doc->uri, (doc->bfwin && doc->bfwin->project):doc->bfwin->project->uri?NULL); 
 	main_v->need_autosave = g_list_delete_link(main_v->need_autosave, doc->need_autosave);
@@ -65,8 +126,24 @@ static gboolean run_autosave(gpointer data) {
 	}
 }
 
-static inline void autosave_recover(const gchar *filename) {
+static inline void autosave_recover(GFile *file) {
+	GList *list,*tmplist;
 	/* TODO: recovery */	
+	list = get_list(file, NULL, TRUE);
+	tmplist = g_list_first(list);
+	while (tmplist) {
+		gchar **arr = (gchar **)tmplist->data;
+		if (count_array(arr)!=3) {
+			g_warning("autosave recovery: found invalid entry in autosave journal\n");
+			continue;
+		}
+		/* TODO */
+		g_print("recover %s for %s\n",arr[0],arr[1]);
+		/*doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset);*/
+		
+		tmplist = g_list_next(tmplist);
+	}
+	
 }
 
 void autosave_init(gboolean recover) {
@@ -79,38 +156,59 @@ void autosave_init(gboolean recover) {
 		const gchar *tmp;
 		GPatternSpec* patspec;
 		GDir* gdir;
-		gchar*dir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/",NULL);
+		gchar*dir;
+		
+		/* test if autosave directory exists */
+		dir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/autosave/",NULL);
+		if (!g_file_test(dir, G_FILE_TEST_EXISTS)) {
+			g_mkdir(dir, 0700);
+		}
+		g_free(dir);
+		
+		dir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/",NULL);
 		gdir = g_dir_open(dir ,0,&error);
  
 		if (error) {
 			g_warning("failed to open %s to recover autosaved files\n", dir);
 			g_free(dir);
+			g_error_free(error);
 			return;
 		}
-		g_free(dir);
+		
 		patspec = g_pattern_spec_new("autosave_journal.*");
 		tmp = g_dir_read_name(gdir);
 		while (tmp) {
 			if (g_pattern_match(patspec, strlen(tmp), tmp, NULL)) {
-				gint pid, ret;
-				
-				/* TODO extract pid from filename */
-				
-				if (kill(pid, 0)!=0) {
-					/* process pid is not alive, or not our process which also means we should recover */
-					
-					autosave_recover(const gchar *filename);
-					
+				gint pid;
+				pid = get_int_from_string(tmp);
+				if (kill(pid, 0)!=0) { /* process pid is not alive, or not our process which also means we should recover */
+					gchar *path;
+					GFile *file;
+					path = g_strconcat(dir, tmp, NULL);
+					file = g_file_new_for_path(path);
+					g_free(path);
+					autosave_recover(file);
+					g_object_unref(file);
 				}
 			}
 			tmp = g_dir_read_name(gdir);
 		}
+		g_free(dir);
 	}
 	
 	main_v->autosave_id = g_timeout_add_seconds_full(G_PRIORITY_DEFAULT, main_v->props.autosave_time, run_autosave, NULL, NULL);
 }
 
 void autosave_cleanup(void) {
-	
-	/* TODO: remove autosave_journal file */
+	GFile *file;
+	GError *error=NULL
+	gchar *path = g_strconcat(g_get_home_dir(), "/."PACKAGE"/autosave_journal",NULL);
+	file = g_file_new_for_path(path);
+	g_free(path);
+	/* is async a good option during exit ??????? */
+	g_file_delete(file,NULL,&error);
+	if (error) {
+		g_warning("failed to delete autosave_journal\n");
+	}	
+	g_object_unref(file);
 }

@@ -341,8 +341,9 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		g_free(formatstring);
 		return NULL;
 	}
-
-	localname = g_file_get_path(ep->bfwin->current_document->uri);
+	if (ep->bfwin->current_document->uri)
+		localname = g_file_get_path(ep->bfwin->current_document->uri);
+	
 	if (need_local && !localname) {
 		g_free(formatstring);
 		g_free(localname);
