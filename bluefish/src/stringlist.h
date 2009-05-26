@@ -38,8 +38,8 @@ gint free_stringlist(GList * which_list);
 GList *get_list_from_buffer(gchar *buffer, GList *which_list, gboolean is_arraylist);
 GList *get_list(GFile* file, GList * which_list, gboolean is_arraylist);
 GList *get_stringlist(GFile *file, GList * which_list);
-gboolean put_stringlist_limited(GFile * file, GList * which_list, gint maxentries);
-gboolean put_stringlist(GFile * file, GList * which_list);
+gboolean put_stringlist_limited(GFile * file, GList * which_list, gint maxentries, gboolean is_arraylist);
+gboolean put_stringlist(GFile * file, GList * which_list, gboolean is_arraylist);
 
 gint free_arraylist(GList * which_list);
 /*gchar **duplicate_stringarray(gchar **array);*/

@@ -1217,6 +1217,33 @@ gint get_int_from_string(gchar *string) {
 	return -1;
 }
 
+gchar *unique_path(const gchar *basedir, const gchar *prefix) {
+	gchar *path, *dir;
+	gint count=0;
+	if (!g_file_test(basedir, G_FILE_TEST_IS_DIR)) {
+		g_warning("dir %s does not exist\n",basedir);
+		return NULL;
+	}
+	dir = ending_slash(basedir);
+	if (prefix) {
+		path = g_strconcat(dir, prefix, NULL);
+	} else {
+		path = g_strdup_printf("%sbf-%d",dir,count);
+		count++;
+	}
+	while(g_file_test(path,G_FILE_TEST_EXISTS)) {
+		g_free(path);
+		if (prefix)
+			path = g_strdup_printf("%s%s%d",dir,prefix,count);
+		else
+			path = g_strdup_printf("%sbf-%d",dir,count);
+		count++;
+	}
+	g_free(dir);
+	/*g_print("return %s\n",path);*/
+	return path;
+}
+
 static gchar *return_securedir(void) {
 	if (main_v->securedir) {
 		if (access(main_v->securedir, W_OK|X_OK)==0) {
@@ -1230,10 +1257,10 @@ static gchar *return_securedir(void) {
 	 * we create a directory with that name. mkdir() will FAIL if this name is a hardlink
 	 * or a symlink, so we DO NOT overwrite any file the link is pointing to
 	 */
-	main_v->securedir = tempnam(g_get_tmp_dir(), "bfish");
+	main_v->securedir = unique_path(g_get_tmp_dir(), "bluefish");
 	while (mkdir(main_v->securedir, 0700) != 0) {
 		g_free(main_v->securedir);
-		main_v->securedir = tempnam(g_get_tmp_dir(), "bfish");
+		main_v->securedir = unique_path(g_get_tmp_dir(), "bluefish");
 	}
 	return main_v->securedir;
 }
@@ -1253,10 +1280,9 @@ static gchar *return_securedir(void) {
  **/
 gchar *create_secure_dir_return_filename(void) {
 	gchar *name, *name2;
-	
 	name = return_securedir();
 	DEBUG_MSG("create_secure_dir_return_filename, dir is at %s\n",name);
-	name2 = tempnam(name, "bf-");
+	name2 = unique_path(name, NULL);
 	DEBUG_MSG("create_secure_dir_return_filename, name2=%s\n", name2);
 	return name2;
 }

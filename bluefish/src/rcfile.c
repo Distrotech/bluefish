@@ -262,7 +262,7 @@ static gint save_config_file(GHashTable * config_list, GFile * file)
 		}
 	}
 	DEBUG_MSG("save_config_file, will save list with len %d to file\n",g_list_length(rclist));
-	retval = put_stringlist(file, rclist);
+	retval = put_stringlist(file, rclist, FALSE);
 	free_stringlist(rclist);
 	return retval;
 }
