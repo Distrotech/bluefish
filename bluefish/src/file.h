@@ -49,6 +49,7 @@ typedef struct {
 void checkmodified_cancel(Tcheckmodified * cm);
 
 Tcheckmodified *file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data);
+/*
 typedef enum {
 	SAVEFILE_ERROR,
 	SAVEFILE_ERROR_NOCHANNEL,
@@ -71,6 +72,7 @@ typedef struct {
 	gpointer callback_data;
 } Tsavefile;
 Tsavefile *file_savefile_uri_async(GFile *uri, Trefcpointer *buffer, gsize buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data);
+*/
 typedef enum {
 	CHECKANDSAVE_ERROR,
 	CHECKANDSAVE_ERROR_NOBACKUP,

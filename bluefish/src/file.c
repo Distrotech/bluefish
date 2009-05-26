@@ -290,8 +290,8 @@ typedef struct {
 	GFile *uri;
 	GFileInfo *finfo;
 	const gchar *etag;
-	Tsavefile *sf; /* to cancel the actual save */
-	Tcheckmodified *cm; /* to cancel the checkmodified check */
+	/*Tsavefile *sf;  to cancel the actual save */
+	/*Tcheckmodified *cm;  to cancel the checkmodified check */
 	Trefcpointer *buffer;
 	gboolean check_modified;
 	CheckNsaveAsyncCallback callback_func;

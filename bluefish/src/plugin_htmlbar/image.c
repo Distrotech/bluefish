@@ -99,7 +99,7 @@ void image_diag_destroy_cb(GtkWidget * widget, Timage_diag *imdg) {
   g_free(imdg);
 }
 
-static void async_thumbsave_lcb(Tsavefile_status status,gint error_info,gpointer callback_data) {
+static void async_thumbsave_lcb(TcheckNsave_status status,gint error_info,gpointer callback_data) {
   DEBUG_MSG("async_thumbsave_lcb, status=%d\n",status);
 }
 
@@ -149,7 +149,6 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
     } else {
     	GError *error=NULL;
     	GFileInfo *finfo;
-      Tsavefile *sf;
       Trefcpointer *refbuf = refcpointer_new(buffer);
       
 			finfo = g_file_query_info (fullthumbfilename,
@@ -166,7 +165,7 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
       g_free (path);
 #endif
 
-      sf = file_checkNsave_uri_async (fullthumbfilename, finfo, refbuf, buflen, FALSE, (CheckNsaveAsyncCallback) async_thumbsave_lcb, NULL);
+      file_checkNsave_uri_async (fullthumbfilename, finfo, refbuf, buflen, FALSE, (CheckNsaveAsyncCallback) async_thumbsave_lcb, NULL);
       refcpointer_unref(refbuf);
     }
 
@@ -544,7 +543,7 @@ typedef struct {
   GFile *imagename;
   GFile *thumbname;
   Topenfile *of; /* if != NULL, the image is loading */
-  Tsavefile *sf; /* if != NULL, the thumbnail is saving */
+  gpointer sf; /* if != NULL, the thumbnail is saving */
   gboolean created; /* both loading and saving is finished */
   gchar *string; /* the string to insert, if NULL && ->create = TRUE means 
             that the string is written to the document */
