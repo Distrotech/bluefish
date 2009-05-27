@@ -620,12 +620,15 @@ typedef struct {
 	Tbfwin *bfwin;
 	Tdocument *doc;
 	GFile *uri;
+	GFile *recover_uri;
 	gboolean readonly;
 } Tfile2doc;
 
 static void file2doc_cleanup(Tfile2doc *f2d) {
 	DEBUG_MSG("file2doc_cleanup, %p, num open documents=%d\n",f2d,g_list_length(f2d->bfwin->documentlist));
 	g_object_unref(f2d->uri);
+	if (f2d->recover_uri)
+		g_object_unref(f2d->recover_uri);
 	g_slice_free(Tfile2doc, f2d);
 }
 
@@ -641,45 +644,51 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,g
 	switch (status) {
 		case OPENFILE_FINISHED:
 			DEBUG_MSG("finished loading data in memory for view %p\n",f2d->doc->view);
-			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
-			doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer,buflen);
-			doc_set_tooltip(f2d->doc);
-			doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
-			bfwin_docs_not_complete(f2d->doc->bfwin, FALSE);
-			bmark_set_for_doc(f2d->doc,TRUE);
-			DEBUG_MSG("file2doc_lcb, focus_next_new_doc=%d\n",f2d->bfwin->focus_next_new_doc);
-			if (f2d->bfwin->focus_next_new_doc) {
-				f2d->bfwin->focus_next_new_doc = FALSE;
-				if (f2d->bfwin->current_document == f2d->doc) {
-					doc_force_activate(f2d->doc);
-				} else {
-					switch_to_document_by_pointer(f2d->bfwin,f2d->doc);
+			if (f2d->recover_uri) {
+				doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
+				/* TODO: delete contents */
+				file_into_doc(f2d->doc, f2d->recover_uri, TRUE);
+			} else {
+				doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
+				doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer,buflen);
+				doc_set_tooltip(f2d->doc);
+				doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
+				bfwin_docs_not_complete(f2d->doc->bfwin, FALSE);
+				bmark_set_for_doc(f2d->doc,TRUE);
+				DEBUG_MSG("file2doc_lcb, focus_next_new_doc=%d\n",f2d->bfwin->focus_next_new_doc);
+				if (f2d->bfwin->focus_next_new_doc) {
+					f2d->bfwin->focus_next_new_doc = FALSE;
+					if (f2d->bfwin->current_document == f2d->doc) {
+						doc_force_activate(f2d->doc);
+					} else {
+						switch_to_document_by_pointer(f2d->bfwin,f2d->doc);
+					}
 				}
-			}
-			if (f2d->doc->action.goto_line >= 0) {
-			   DEBUG_MSG("file2doc_lcb, goto_line=%d\n",f2d->doc->action.goto_line);
-				doc_select_line(f2d->doc, f2d->doc->action.goto_line, TRUE);
-			} else if (f2d->doc->action.goto_offset >= 0) {
-				DEBUG_MSG("file2doc_lcb, goto_offset=%d\n",f2d->doc->action.goto_offset);
-				doc_select_line_by_offset(f2d->doc, f2d->doc->action.goto_offset, TRUE);
-			}
-			{
-				gchar *utf8uri, *tmp;
-				utf8uri = gfile_display_name(f2d->uri,NULL);
-				if (BFWIN(f2d->bfwin)->num_docs_not_completed > 0) {
-					tmp = g_strdup_printf(_("Still loading %d files, finished %s"), BFWIN(f2d->bfwin)->num_docs_not_completed, utf8uri);
-				} else {
-					tmp = g_strdup_printf(_("All files loaded, finished %s"), utf8uri);
+				if (f2d->doc->action.goto_line >= 0) {
+				   DEBUG_MSG("file2doc_lcb, goto_line=%d\n",f2d->doc->action.goto_line);
+					doc_select_line(f2d->doc, f2d->doc->action.goto_line, TRUE);
+				} else if (f2d->doc->action.goto_offset >= 0) {
+					DEBUG_MSG("file2doc_lcb, goto_offset=%d\n",f2d->doc->action.goto_offset);
+					doc_select_line_by_offset(f2d->doc, f2d->doc->action.goto_offset, TRUE);
 				}
-				statusbar_message(f2d->doc->bfwin,tmp, 3000);
-				g_free(tmp);
-				g_free(utf8uri);
+				{
+					gchar *utf8uri, *tmp;
+					utf8uri = gfile_display_name(f2d->uri,NULL);
+					if (BFWIN(f2d->bfwin)->num_docs_not_completed > 0) {
+						tmp = g_strdup_printf(_("Still loading %d files, finished %s"), BFWIN(f2d->bfwin)->num_docs_not_completed, utf8uri);
+					} else {
+						tmp = g_strdup_printf(_("All files loaded, finished %s"), utf8uri);
+					}
+					statusbar_message(f2d->doc->bfwin,tmp, 3000);
+					g_free(tmp);
+					g_free(utf8uri);
+				}
+				f2d->doc->action.goto_line = -1;
+				f2d->doc->action.goto_offset = -1;
+				f2d->doc->action.load = NULL;
+				file2doc_cleanup(data);
+				DEBUG_MSG("finished data in document view %p\n",f2d->doc->view);
 			}
-			f2d->doc->action.goto_line = -1;
-			f2d->doc->action.goto_offset = -1;
-			f2d->doc->action.load = NULL;
-			file2doc_cleanup(data);
-			DEBUG_MSG("finished data in document view %p\n",f2d->doc->view);
 		break;
 		case OPENFILE_CHANNEL_OPENED:
 			/* do nothing */
@@ -758,7 +767,7 @@ void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri) {
 
 void file_doc_retry_uri(Tdocument *doc) {
 	Tfile2doc *f2d;
-	f2d = g_slice_new(Tfile2doc);
+	f2d = g_slice_new0(Tfile2doc);
 	f2d->bfwin = doc->bfwin;
 	f2d->doc = doc;
 	
@@ -778,7 +787,7 @@ void file_doc_retry_uri(Tdocument *doc) {
 
 void file_doc_fill_from_uri(Tdocument *doc, GFile *uri, GFileInfo *finfo, gint goto_line) {
 	Tfile2doc *f2d;
-	f2d = g_slice_new(Tfile2doc);
+	f2d = g_slice_new0(Tfile2doc);
 	f2d->bfwin = doc->bfwin;
 	f2d->uri = g_object_ref(uri);
 	f2d->doc = doc;
@@ -793,14 +802,15 @@ void file_doc_fill_from_uri(Tdocument *doc, GFile *uri, GFileInfo *finfo, gint g
 }
 
 /* this funcion is usually used to load documents */
-void file_doc_from_uri(Tbfwin *bfwin, GFile *uri, GFileInfo *finfo, gint goto_line, gint goto_offset, gboolean readonly) {
+void file_doc_from_uri(Tbfwin *bfwin, GFile *uri, GFile *recover_uri, GFileInfo *finfo, gint goto_line, gint goto_offset, gboolean readonly) {
 	Tfile2doc *f2d;
-	f2d = g_slice_new(Tfile2doc);
+	f2d = g_slice_new0(Tfile2doc);
 	DEBUG_MSG("file_doc_from_uri, open uri %p, f2d=%p\n", uri, f2d);
 	f2d->bfwin = bfwin;
-	f2d->uri = uri;
+	f2d->uri = g_object_ref(uri);
+	if (recover_uri)
+		f2d->recover_uri = g_object_ref(recover_uri);
 	f2d->readonly = readonly;
-	g_object_ref(uri);
 	f2d->doc = doc_new_loading_in_background(bfwin, uri, finfo, readonly);
 	f2d->doc->action.load = f2d;
 	f2d->doc->action.goto_line = goto_line;

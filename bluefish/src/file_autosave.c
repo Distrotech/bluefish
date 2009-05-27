@@ -151,6 +151,7 @@ static gboolean run_autosave(gpointer data) {
 }
 
 static inline void autosave_recover(GFile *file) {
+	GError *error=NULL;
 	GList *list,*tmplist;
 	/* TODO: recovery */	
 	g_print("autosave_recover\n");
@@ -164,11 +165,16 @@ static inline void autosave_recover(GFile *file) {
 		}
 		/* TODO */
 		g_print("TODO recover %s for %s\n",arr[0],arr[1]);
-		/*doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset);*/
+		
+		/*file_doc_from_uri(bfwin, uri, recover_uri, finfo, goto_line, goto_offset, open_readonly);*/
+		
 		
 		tmplist = g_list_next(tmplist);
 	}
-	/* TODO: remove recovered autosave_journal */
+	g_file_delete(file,NULL,&error);
+	if (error) {
+		g_warning("failed to delete recovered autosave_journal\n");
+	}
 }
 
 void need_autosave(Tdocument *doc) {
@@ -247,6 +253,6 @@ void autosave_cleanup(void) {
 	g_file_delete(file,NULL,&error);
 	if (error) {
 		g_warning("failed to delete autosave_journal\n");
-	}	
+	}
 	g_object_unref(file);
 }

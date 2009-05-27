@@ -51,6 +51,7 @@
 #include "snr2.h"           /* snr2_run_extern_replace */
 #include "stringlist.h"     /* free_stringlist() */
 #include "undo_redo.h"      /* doc_unre_init() */
+#include "file_autosave.h"
 
 typedef struct {
 	GtkWidget *textview;
@@ -747,7 +748,7 @@ static void doc_move_to_window_dialog_response_lcb(GtkDialog *dialog,gint respon
 		doc_move_to_window(dmwd->doc, dmwd->oldwin, dmwd->newwin);
 	} else if (response == 2) {
 		/* TODO: open readonly */
-		file_doc_from_uri(dmwd->newwin, dmwd->doc->uri, NULL, -1, -1, TRUE);
+		file_doc_from_uri(dmwd->newwin, dmwd->doc->uri, NULL, NULL, -1, -1, TRUE);
 	} else {
 		/* TODO: do not open */
 	}
@@ -2442,7 +2443,7 @@ void doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean d
 	} else { /* document is not yet opened */
 		if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;
 		DEBUG_MSG("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d\n",uri,delay_activate, bfwin->focus_next_new_doc);
-		file_doc_from_uri(bfwin, uri, finfo, goto_line, goto_offset, open_readonly);
+		file_doc_from_uri(bfwin, uri, NULL, finfo, goto_line, goto_offset, open_readonly);
 	}
 	add_filename_to_history(bfwin, uri);
 	session_set_opendir(bfwin, tmpcuri);

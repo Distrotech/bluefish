@@ -49,6 +49,7 @@
 #include "stringlist.h"			/* put_stringlist(), get_stringlist() */
 #include "filefilter.h"
 #include "file.h" /* file_handle() */
+#include "file_autosave.h"
 
 /*********************************************/
 /* this var is global for all bluefish files */
