@@ -19,6 +19,48 @@
  */
 /* indented with indent -ts4 -kr -l110   */
 
+/**********************************************************************************
+*** THE AUTOSAVE DESIGN ***
+
+every Tdocument has
+GList * needs_autosave
+GList *autosaved
+GFile *autosave_uri
+
+Tmain has
+GList *autosave_journal
+GList *need_autosave
+
+On a document change we register the Tdocument* in main_v->need_autosave
+the GList* element that has this reference is stored in doc->needs_autosave
+
+Every X seconds we loop over main_v->need_autosave
+for every Tdocument that needs autosave
+ - if it does not exist create autosave_uri 
+ - start an async call to store the contents in a autosave file
+
+In the callback after the save is finished:
+ - register the Tdocument* in main_v->autosaved and store the GList* element in doc->autosaved
+ - remove the needs_autosave link from main_v->need_autosave (because we know which GList* element
+   is involved this can be done without looping trough the list to find the right entry)
+  - if main_v->need_autosave == NULL we save the main_v->autosave_journal to a file autosave_journal.PID
+
+during document close/save etc.
+ - remove the Tdocument* reference from main_v->need_autosave using the GList* element stored in doc->need_autosave
+ - delete the doc->autosave_uri file
+ - remove the entry in main_v->autosave_journal using the GList* entry in doc->autosaved
+
+during quit:
+ - remove the autosave_journal file
+ 
+during startup:
+ - check for old autosave_journal.PID files 
+ - test if this process is still alive using kill()
+ - recover unsaved files
+ 
+
+************************************************************************************/
+
 /*#define DEBUG*/
 
 #include <gtk/gtk.h>
