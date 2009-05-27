@@ -494,9 +494,9 @@ gboolean put_stringlist_limited(GFile * file, GList * which_list, gint maxentrie
 		}
 	}
 	g_file_replace_contents(file,strbuffer->str,strbuffer->len
-				,NULL,TRUE,G_FILE_CREATE_PRIVATE,NULL,NULL,&error);
+				,NULL,FALSE,G_FILE_CREATE_PRIVATE,NULL,NULL,&error);
 	if (error) {
-		g_print("error %d %s\n",error->code,error->message);
+		g_warning("save stringlist error %d %s\n",error->code,error->message);
 		g_error_free(error);
 		return FALSE;
 	}

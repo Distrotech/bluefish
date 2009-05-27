@@ -22,6 +22,6 @@
 #define __FILE_AUTOSAVE_H_
 void remove_autosave(Tdocument *doc);
 void need_autosave(Tdocument *doc);
-void autosave_init(gboolean recover);
+void autosave_init(gboolean recover, Tbfwin *bfwin);
 void autosave_cleanup(void);
 #endif 

@@ -34,6 +34,7 @@
 
 static GFile * create_autosave_path(Tdocument *doc) {
 	GFile *retval;
+	g_print("create_autosave_path\n");
 	if (main_v->props.autosave_location_mode!=0 &&  (main_v->props.autosave_file_prefix==NULL||main_v->props.autosave_file_prefix[0]=='\0')
 				&& (main_v->props.autosave_file_suffix==NULL||main_v->props.autosave_file_suffix[0]=='\0')) {
 		main_v->props.autosave_location_mode = 0;
@@ -113,7 +114,8 @@ static void autosave_complete_lcb(gint status,gint error_info,gpointer data) {
 	Tdocument *doc=data;
 	g_print("autosave_complete_lcb, status=%d for doc %p\n",status,doc);
 	if (status == CHECKANDSAVE_FINISHED) {
-		doc->autosaved = register_autosave_journal(doc->autosave_uri, doc->uri, (doc->bfwin && BFWIN(doc->bfwin)->project)?BFWIN(doc->bfwin)->project->uri:NULL); 
+		if (!doc->autosaved)
+			doc->autosaved = register_autosave_journal(doc->autosave_uri, doc->uri, (doc->bfwin && BFWIN(doc->bfwin)->project)?BFWIN(doc->bfwin)->project->uri:NULL); 
 		main_v->need_autosave = g_list_delete_link(main_v->need_autosave, doc->need_autosave);
 		doc->need_autosave = NULL;
 		
@@ -150,8 +152,7 @@ static gboolean run_autosave(gpointer data) {
 	return TRUE;
 }
 
-static inline void autosave_recover(GFile *file) {
-	GError *error=NULL;
+static inline void autosave_recover(Tbfwin *bfwin, GFile *file) {
 	GList *list,*tmplist;
 	/* TODO: recovery */	
 	g_print("autosave_recover\n");
@@ -159,22 +160,28 @@ static inline void autosave_recover(GFile *file) {
 	tmplist = g_list_first(list);
 	while (tmplist) {
 		gchar **arr = (gchar **)tmplist->data;
+		GFile *uri=NULL, *recover_uri;
 		if (count_array(arr)!=3) {
-			g_warning("autosave recovery: found invalid entry in autosave journal\n");
+			tmplist = g_list_next(tmplist);
 			continue;
 		}
 		/* TODO */
-		g_print("TODO recover %s for %s\n",arr[0],arr[1]);
-		
-		/*file_doc_from_uri(bfwin, uri, recover_uri, finfo, goto_line, goto_offset, open_readonly);*/
-		
-		
+		g_print("recover %s for %s\n",arr[0],arr[1]);
+		recover_uri = g_file_new_for_uri(arr[0]);
+		if (arr[1] && arr[1][0] != '\0') {
+			uri = g_file_new_for_uri(arr[1]);
+			file_doc_from_uri(bfwin, uri, recover_uri, NULL, -1, -1, FALSE);
+		} else {
+			Tdocument *doc = doc_new_loading_in_background(bfwin, NULL, NULL, FALSE);
+			file_into_doc(doc, recover_uri, TRUE);
+			doc_set_modified(doc, TRUE);
+			doc->autosave_uri = recover_uri;
+			doc->autosaved = register_autosave_journal(recover_uri, NULL, NULL);
+		}
 		tmplist = g_list_next(tmplist);
 	}
-	g_file_delete(file,NULL,&error);
-	if (error) {
-		g_warning("failed to delete recovered autosave_journal\n");
-	}
+	free_stringlist(list);
+	g_print("autosave_recover done\n");
 }
 
 void need_autosave(Tdocument *doc) {
@@ -187,7 +194,7 @@ void need_autosave(Tdocument *doc) {
 	}
 }
 
-void autosave_init(gboolean recover) {
+void autosave_init(gboolean recover, Tbfwin *bfwin) {
 	g_print("autosave_init, recover=%d\n",recover);
 	if (main_v->autosave_id) {
 		g_source_remove(main_v->autosave_id);
@@ -220,16 +227,22 @@ void autosave_init(gboolean recover) {
 		patspec = g_pattern_spec_new("autosave_journal.*");
 		tmp = g_dir_read_name(gdir);
 		while (tmp) {
-			if (g_pattern_match(patspec, strlen(tmp), tmp, NULL)) {
+			int tmplen = strlen(tmp);
+			if (tmp && tmp[0]!='\0' && tmp[tmplen-1]!='~' && g_pattern_match(patspec, tmplen, tmp, NULL)) {
 				gint pid;
 				pid = get_int_from_string(tmp);
 				if (kill(pid, 0)!=0) { /* process pid is not alive, or not our process which also means we should recover */
 					gchar *path;
+					GError *error=NULL;
 					GFile *file;
 					path = g_strconcat(dir, tmp, NULL);
 					file = g_file_new_for_path(path);
+					autosave_recover(bfwin, file);
+					g_file_delete(file,NULL,&error);
+					if (error) {
+						g_warning("failed to delete recovered autosave_journal %s: %s\n",path,error->message);
+					}
 					g_free(path);
-					autosave_recover(file);
 					g_object_unref(file);
 				}
 			}
@@ -248,11 +261,13 @@ void autosave_cleanup(void) {
 	gchar *path = g_strdup_printf("%s/."PACKAGE"/autosave_journal.%d",g_get_home_dir(),getpid());
 	g_print("autosave_cleanup\n");
 	file = g_file_new_for_path(path);
-	g_free(path);
+	
 	/* is async a good option during exit ??????? */
 	g_file_delete(file,NULL,&error);
 	if (error) {
-		g_warning("failed to delete autosave_journal\n");
+		g_warning("failed to delete %s: %s\n",path,error->message);
+		g_error_free(error);
 	}
+	g_free(path);
 	g_object_unref(file);
 }

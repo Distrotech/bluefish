@@ -579,7 +579,7 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 		break;
 		case OPENFILE_CHANNEL_OPENED:
 			/* do nothing */
-		{
+		if (fid->uri) {
 			gchar *utf8uri, *tmp;
 			utf8uri = gfile_display_name(fid->uri, NULL);
 			tmp = g_strdup_printf("Loading %s", utf8uri);
@@ -645,9 +645,15 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,g
 		case OPENFILE_FINISHED:
 			DEBUG_MSG("finished loading data in memory for view %p\n",f2d->doc->view);
 			if (f2d->recover_uri) {
+				GtkTextIter itstart,itend;
 				doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
-				/* TODO: delete contents */
-				file_into_doc(f2d->doc, f2d->recover_uri, TRUE);
+				gtk_text_buffer_get_bounds(f2d->doc->buffer,&itstart,&itend);
+				gtk_text_buffer_delete(f2d->doc->buffer,&itstart,&itend);
+				f2d->of = file_openfile_uri_async(f2d->recover_uri,f2d->doc->bfwin,file2doc_lcb,f2d);
+				f2d->doc->autosave_uri = f2d->recover_uri;
+				need_autosave(f2d->doc);/* BUG: we should only call need_autosave AFTER the recover uri has been loaded */
+				f2d->recover_uri=NULL;
+				doc_set_modified(f2d->doc, TRUE);
 			} else {
 				doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
 				doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer,buflen);

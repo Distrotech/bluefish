@@ -455,9 +455,10 @@ void doc_set_title(Tdocument *doc) {
 void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen) {
 	const gchar *mimetype = NULL;
 	gboolean uncertain=FALSE;
-	char *filename, *conttype;
+	char *filename=NULL, *conttype;
 
-	filename = g_file_get_basename(newuri);
+	if (newuri)
+		filename = g_file_get_basename(newuri);
 	conttype = g_content_type_guess(filename,buf,buflen,&uncertain);
 	DEBUG_MSG("doc_reset_filetype,conttype=%s\n",conttype);
 	g_free(filename);

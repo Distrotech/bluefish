@@ -260,7 +260,7 @@ int main(int argc, char *argv[])
 		msg_queue_check_server(TRUE);
 	}
 #endif
-	autosave_init(TRUE);
+	autosave_init(TRUE, firstbfwin);
 	gui_show_main(firstbfwin);
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) {
