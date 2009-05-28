@@ -418,6 +418,7 @@ typedef struct {
 	gpointer prefdialog; /* preferences window, there should be only 1 */
 	Tglobalsession globses; /* global session */
 	GList *autosave_journal; /* holds an arraylist with autosaved documents */
+	gboolean autosave_need_journal_save;
 	GList *need_autosave; /* holds Tdocument pointers */
 	guint autosave_id;
 /*	GList *filetypelist; / * highlighting.c: a list of all filetypes with their icons and highlighting sets * /
