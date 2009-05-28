@@ -119,7 +119,7 @@ static void autosave_save_journal(void) {
 	}
 }
 
-static GList *register_autosave_journal(GFile *autosave_file, GFile *document_uri, GFile *project_uri) {
+GList *register_autosave_journal(GFile *autosave_file, GFile *document_uri, GFile *project_uri) {
 	gchar **arr, *arr1, *arr2, *arr3;
 	
 	arr1 = g_file_get_uri(autosave_file);
@@ -163,8 +163,9 @@ static void autosave_complete_lcb(gint status,gint error_info,gpointer data) {
 	Tdocument *doc=data;
 	g_print("autosave_complete_lcb, status=%d for doc %p\n",status,doc);
 	if (status == CHECKANDSAVE_FINISHED) {
-		if (!doc->autosaved)
-			doc->autosaved = register_autosave_journal(doc->autosave_uri, doc->uri, (doc->bfwin && BFWIN(doc->bfwin)->project)?BFWIN(doc->bfwin)->project->uri:NULL); 
+		if (!doc->autosaved) {
+			doc->autosaved = register_autosave_journal(doc->autosave_uri, doc->uri, (doc->bfwin && BFWIN(doc->bfwin)->project)?BFWIN(doc->bfwin)->project->uri:NULL);
+		} 
 		main_v->need_autosave = g_list_delete_link(main_v->need_autosave, doc->need_autosave);
 		doc->need_autosave = NULL;
 		
@@ -180,9 +181,7 @@ static inline void autosave(Tdocument *doc) {
 	if (!doc->autosave_uri) {
 		doc->autosave_uri = create_autosave_path(doc);
 	} 
-	/*  TODO store the contents into the file */
 	buffer = refcpointer_new(doc_get_chars(doc, 0, -1));
-	/*file_savefile_uri_async(doc->autosave_uri, buffer,  strlen(buffer->data), autosave_complete_lcb, doc);*/
 	file_checkNsave_uri_async(doc->autosave_uri, NULL, buffer, strlen(buffer->data), FALSE, FALSE, autosave_complete_lcb, doc);
 	refcpointer_unref(buffer);
 }
@@ -222,7 +221,7 @@ static inline void autosave_recover(Tbfwin *bfwin, GFile *file) {
 			file_doc_from_uri(bfwin, uri, recover_uri, NULL, -1, -1, FALSE);
 		} else {
 			Tdocument *doc = doc_new_loading_in_background(bfwin, NULL, NULL, FALSE);
-			file_into_doc(doc, recover_uri, TRUE);
+			file_into_doc(doc, recover_uri, FALSE);
 			doc_set_modified(doc, TRUE);
 			doc->autosave_uri = recover_uri;
 			doc->autosaved = register_autosave_journal(recover_uri, NULL, NULL);

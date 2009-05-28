@@ -647,13 +647,18 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,g
 			if (f2d->recover_uri) {
 				GtkTextIter itstart,itend;
 				doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
+				doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
+				bfwin_docs_not_complete(f2d->doc->bfwin, FALSE);
+				
 				gtk_text_buffer_get_bounds(f2d->doc->buffer,&itstart,&itend);
 				gtk_text_buffer_delete(f2d->doc->buffer,&itstart,&itend);
-				f2d->of = file_openfile_uri_async(f2d->recover_uri,f2d->doc->bfwin,file2doc_lcb,f2d);
+				file_into_doc(f2d->doc, f2d->recover_uri, FALSE);
+				doc_set_modified(f2d->doc, TRUE);
 				f2d->doc->autosave_uri = f2d->recover_uri;
-				need_autosave(f2d->doc);/* BUG: we should only call need_autosave AFTER the recover uri has been loaded */
+				f2d->doc->autosaved = register_autosave_journal(f2d->recover_uri, f2d->doc->uri, NULL);
 				f2d->recover_uri=NULL;
 				doc_set_modified(f2d->doc, TRUE);
+				
 			} else {
 				doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
 				doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer,buflen);
@@ -692,9 +697,9 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,g
 				f2d->doc->action.goto_line = -1;
 				f2d->doc->action.goto_offset = -1;
 				f2d->doc->action.load = NULL;
-				file2doc_cleanup(data);
-				DEBUG_MSG("finished data in document view %p\n",f2d->doc->view);
 			}
+			file2doc_cleanup(data);
+			DEBUG_MSG("finished data in document view %p\n",f2d->doc->view);
 		break;
 		case OPENFILE_CHANNEL_OPENED:
 			/* do nothing */
