@@ -1,0 +1,4888 @@
+# Korean language file for Bluefish.
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Jin-Hwan Jeong <yongdoria@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Bluefish gtk2-port\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2009-02-01 09:12-0800\n"
+"PO-Revision-Date: 2009-05-26 08:48+0900\n"
+"Last-Translator: Jin-Hwan Jeong <yongdoria@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=0;\n"
+
+#: ../desktop-data/bluefish-unstable.desktop.in.h:1
+#: ../desktop-data/bluefish-unstable-project.desktop.in.h:1
+msgid "Bluefish Editor (SVN)"
+msgstr "Bluefish 편집기(SVN)"
+
+#: ../desktop-data/bluefish-unstable.desktop.in.h:2
+#: ../desktop-data/bluefish-unstable-project.desktop.in.h:2
+msgid "Web Development Editor (development version)"
+msgstr "웹 개발 편집기(개발 버전)"
+
+#: ../desktop-data/bluefish-unstable.xml.in.h:1
+msgid "Bluefish language definition file"
+msgstr "Bluefish 언어 정의 파일"
+
+#: ../desktop-data/bluefish-unstable.xml.in.h:2
+msgid "Bluefish project file"
+msgstr "Bluefish 프로젝트 파일"
+
+#: ../src/bf_lib.c:157
+#, c-format
+msgid "Bluefish has trouble reading the filenames. Try to set the environment variable G_BROKEN_FILENAMES=1\n"
+msgstr "Bluefish가 파일명을 읽는데 문제가 있습니다.  환경변수 G_BROKEN_FILENAMES=1 설정을 하시오\n"
+
+#: ../src/bfspell.c:391
+msgid "Check Spelling"
+msgstr "철자 검사"
+
+#: ../src/bfspell.c:395
+msgid "Checking"
+msgstr "검사"
+
+#: ../src/bfspell.c:404
+msgid "_Misspelled word:"
+msgstr "틀린 단어(_M):"
+
+#: ../src/bfspell.c:408
+msgid "Change _to:"
+msgstr "변경(_T):"
+
+#: ../src/bfspell.c:411
+msgid "I_gnore"
+msgstr "무시(_G)"
+
+#: ../src/bfspell.c:412
+#: ../src/snr2.c:1817
+msgid "_Replace"
+msgstr "치환(_R)"
+
+#: ../src/bfspell.c:425
+msgid "In _document"
+msgstr "문서내(_D)"
+
+#: ../src/bfspell.c:426
+msgid "I_n selection"
+msgstr "선택범위 내(_N)"
+
+#: ../src/bfspell.c:435
+msgid "personal dictionary"
+msgstr "개인 사전"
+
+#: ../src/bfspell.c:438
+msgid "session dictionary"
+msgstr "세션 사전"
+
+#: ../src/bfspell.c:444
+msgid "Dictionary:"
+msgstr "사전:"
+
+#: ../src/bfspell.c:448
+msgid "_Add Word"
+msgstr "단어 더하기(_A) "
+
+#: ../src/bfspell.c:454
+msgid "Language:"
+msgstr "언어:"
+
+#: ../src/bfspell.c:458
+msgid "Set defa_ult"
+msgstr "기본설정(_U)"
+
+#: ../src/bfspell.c:462
+msgid "Filter:"
+msgstr "필터:"
+
+#: ../src/bfspell.c:470
+msgid "no filter"
+msgstr "필터 없음"
+
+#: ../src/bfspell.c:472
+msgid "html filter"
+msgstr " HTML 필터"
+
+#: ../src/blocksync.c:88
+msgid "Select the block to sync to other pages. Include the start-of-block and end-of-block markers in your selection."
+msgstr "다른 페이지와 동기시키기 위하여 블록 선택. 선택에서 블록시작과 블록 끝을 포함함"
+
+#: ../src/blocksync.c:93
+msgid "To proceed with the current selection click forward."
+msgstr "현재 선택을 진행하기 위하여 앞으로 클릭."
+
+#: ../src/blocksync.c:122
+msgid "Below is the block, including start and end marker. Please <b>select the start marker</b> in the text below."
+msgstr "아래는 시작과 끝 마커를 포함하는 블록입니다. 문자열 아래에서 <b>시작 마커를 선택</b>하여 주시오."
+
+#: ../src/blocksync.c:157
+msgid "Please <b>select the end marker</b> in the text below."
+msgstr "문자열 아래에서 <b>끝 마커를 선택</b>하여 주시오."
+
+#: ../src/blocksync.c:226
+msgid "<span foreground=\"red\" weight=\"bold\">Please select the block of text to synchronize.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">동기화를 위하여 문자열 블록을 선택하시오.</span>"
+
+#: ../src/blocksync.c:240
+#: ../src/blocksync.c:260
+msgid "<span foreground=\"red\" weight=\"bold\">This marker exists more than once in the block.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">블록에서 이 마커가 하나이상 있습니다.</span>"
+
+#: ../src/blocksync.c:246
+msgid "<span foreground=\"red\" weight=\"bold\">Select the text that marks the start of the block.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">블록 시작을 마크한 문자열을 선택</span>"
+
+#: ../src/blocksync.c:266
+msgid "<span foreground=\"red\" weight=\"bold\">Select the text that marks the end of the block.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">블록의 끝을 마커한 문자열 선택</span>"
+
+#: ../src/blocksync.c:297
+msgid "Block synchronisation"
+msgstr "블록 동기화"
+
+#: ../src/bluefish.c:73
+msgid "Bluefish Editor"
+msgstr "Bluefish 편집기"
+
+#: ../src/bluefish.c:74
+msgid "Visit us at http://bluefish.openoffice.nl"
+msgstr "http://bluefish.openoffice.nl 을 방문하시오"
+
+#: ../src/bluefish.c:103
+msgid "Open in a new window."
+msgstr "새 창에서 열기"
+
+#: ../src/bluefish.c:105
+msgid "Open a project from the specified projectfile."
+msgstr "지정된 프로젝트 파일에서 프로젝트를 열기"
+
+#: ../src/bluefish.c:105
+msgid "PROJECTFILE"
+msgstr "프로젝트 파일"
+
+#: ../src/bluefish.c:107
+msgid "Skip root check."
+msgstr "Root 검사 건너뛰기."
+
+#: ../src/bluefish.c:109
+msgid "Print version information."
+msgstr "인쇄 버전 정보"
+
+#: ../src/bluefish.c:136
+msgid " [FILE(S)]"
+msgstr "[파일]"
+
+#: ../src/bluefish.c:147
+#, c-format
+msgid ""
+"Error parsing command line options. %s\n"
+"Please run: %s -?\n"
+msgstr ""
+"오류 파싱 명령어 라인 설정.  %s\n"
+"실행 : %s -?\n"
+
+#: ../src/bluefish.c:224
+msgid "loading plugins..."
+msgstr "플러그인 읽어오는 중..."
+
+#: ../src/bluefish.c:246
+msgid "reading language files..."
+msgstr "언어 파일 읽는 중..."
+
+#: ../src/bluefish.c:251
+msgid "building file filters ..."
+msgstr "파일 필터 생성 중..."
+
+#: ../src/bluefish.c:259
+msgid "setting up bookmarks ..."
+msgstr "북마크 설정..."
+
+#: ../src/bluefish.c:274
+msgid "creating main gui..."
+msgstr "주 GUI 생성 중..."
+
+#: ../src/bluefish.c:286
+msgid "showing main gui..."
+msgstr "주 GUI 보이기..."
+
+#: ../src/bookmark.c:460
+msgid "_Name:"
+msgstr "이름(_N):"
+
+#: ../src/bookmark.c:465
+msgid "_Description:"
+msgstr "요약(_D):"
+
+#: ../src/bookmark.c:467
+msgid "Temporary"
+msgstr "임시"
+
+#: ../src/bookmark.c:619
+#, c-format
+msgid "Do you really want to delete all bookmarks for %s?"
+msgstr "%s 의 전체 북마크를 삭제하겠습니까?"
+
+#: ../src/bookmark.c:623
+msgid "Delete bookmarks?"
+msgstr "북마크를 삭제할까요?"
+
+#: ../src/bookmark.c:648
+#, c-format
+msgid "Do you really want to delete %s?"
+msgstr "%s 를 삭제하겠습니까?"
+
+#: ../src/bookmark.c:652
+msgid "Delete permanent bookmark."
+msgstr "영구 북마크를 삭제."
+
+#: ../src/bookmark.c:673
+msgid "Edit bookmark"
+msgstr "북마크 편집"
+
+#: ../src/bookmark.c:730
+msgid "/Goto"
+msgstr "/이동"
+
+#: ../src/bookmark.c:731
+msgid "/Edit"
+msgstr "/편집"
+
+#: ../src/bookmark.c:732
+msgid "/Delete"
+msgstr "/삭제"
+
+#: ../src/bookmark.c:734
+msgid "/Delete All in document"
+msgstr "/문서에서 전체 삭제"
+
+#: ../src/bookmark.c:735
+msgid "/Delete All"
+msgstr "/전체 삭제"
+
+#: ../src/bookmark.c:737
+msgid "/Permanent by default"
+msgstr "/기본으로 영구"
+
+#: ../src/bookmark.c:739
+msgid "/Show file"
+msgstr "/파일 보이기"
+
+#: ../src/bookmark.c:740
+msgid "/Show file/By name"
+msgstr "/파일 보이기/이름으로"
+
+#: ../src/bookmark.c:741
+msgid "/Show file/By full path"
+msgstr "/파일 보이기/전체 경로로"
+
+#: ../src/bookmark.c:742
+msgid "/Show file/By full uri"
+msgstr "/전체 보이기/전체 URI로"
+
+#: ../src/bookmark.c:743
+msgid "/Show bookmark"
+msgstr "/북마크 보이기"
+
+#: ../src/bookmark.c:744
+msgid "/Show bookmark/Name & Content"
+msgstr "/북마크 보이기/이름 및 내용"
+
+#: ../src/bookmark.c:745
+msgid "/Show bookmark/Content"
+msgstr "/북마크 보이기/내용"
+
+#: ../src/bookmark.c:746
+msgid "/Show bookmark/Name"
+msgstr "/북마크 보이기/이름"
+
+#: ../src/bookmark.c:879
+msgid "First bookmark"
+msgstr "처음 북마크"
+
+#: ../src/bookmark.c:883
+msgid "Previous bookmark"
+msgstr "이전 북마크"
+
+#: ../src/bookmark.c:887
+msgid "Next bookmark"
+msgstr "다음 북마크"
+
+#: ../src/bookmark.c:891
+msgid "Last bookmark"
+msgstr "마지막 북마크"
+
+#: ../src/bookmark.c:1533
+#: ../src/bookmark.c:1592
+msgid "Error adding bookmark"
+msgstr "북마크 더하기 오류"
+
+#: ../src/bookmark.c:1534
+#: ../src/bookmark.c:1593
+msgid "Cannot add bookmarks to unsaved files."
+msgstr "북마크를 저장되지 않은 파일에 더할 수 없습니다"
+
+#: ../src/bookmark.c:1553
+msgid "Can't add bookmark"
+msgstr "북마크를 더할 수 없습니다."
+
+#: ../src/bookmark.c:1554
+msgid "You already have a bookmark here!"
+msgstr "이미 여기에 북마크가 있습니다!"
+
+#: ../src/bookmark.c:1629
+msgid "Delete all bookmarks."
+msgstr "전체 북마크 제거."
+
+#: ../src/document.c:345
+msgid "Name: "
+msgstr "이름: "
+
+#: ../src/document.c:349
+msgid ""
+"\n"
+"File type: "
+msgstr ""
+"\n"
+"파일 형태:"
+
+#: ../src/document.c:353
+msgid ""
+"\n"
+"Encoding: "
+msgstr ""
+"\n"
+"엔코딩: "
+
+#: ../src/document.c:360
+#, c-format
+msgid ""
+"\n"
+"Permissions: %s\n"
+"Uid: %u Gid: %u"
+msgstr ""
+"\n"
+"권한: %s\n"
+"Uid: %u Gid: %u"
+
+#: ../src/document.c:365
+msgid ""
+"\n"
+"Size (on disk): "
+msgstr ""
+"\n"
+"디스크상 크기: "
+
+#: ../src/document.c:374
+msgid ""
+"\n"
+"Mime type: "
+msgstr ""
+"\n"
+"MIME 형태:"
+
+#: ../src/document.c:382
+msgid ""
+"\n"
+"Last modified: "
+msgstr ""
+"\n"
+"마지막 수정: "
+
+#: ../src/document.c:414
+#, c-format
+msgid "Untitled %d"
+msgstr "무제 %d"
+
+#: ../src/document.c:733
+#, c-format
+msgid "Document %s is already open in another Bluefish window."
+msgstr "문서 %s는 다른 Bluefish창에 열려져 있습니다."
+
+#: ../src/document.c:735
+msgid "Move to this window"
+msgstr "이 창으로 이동"
+
+#: ../src/document.c:735
+msgid "Open readonly"
+msgstr "읽기용으로 열기"
+
+#: ../src/document.c:735
+msgid "Do not open"
+msgstr "열지 마세요"
+
+#: ../src/document.c:1023
+#, c-format
+msgid " Ln: %d, Col: %d, Char: %d"
+msgstr " 행: %d, 열: %d, 문자: %d"
+
+#: ../src/document.c:1025
+#, c-format
+msgid " Ln: %d, Col: %d"
+msgstr "%d 행, %d 열"
+
+#: ../src/document.c:1046
+msgid " OVR"
+msgstr "OVR"
+
+#: ../src/document.c:1046
+msgid " INS"
+msgstr "삽입"
+
+#: ../src/document.c:1048
+msgid " RO"
+msgstr "RO"
+
+#: ../src/document.c:1069
+#: ../src/document.c:1075
+#, c-format
+msgid "  %s, %s"
+msgstr "  %s, %s"
+
+#: ../src/document.c:1426
+msgid "Cannot display file, unknown characters found."
+msgstr "파일 보이기를 할 수 없습니다. 알려지지 않은 문자가 발견됩니다."
+
+#: ../src/document.c:1635
+#: ../src/snr2.c:1674
+msgid "Replace"
+msgstr "치환"
+
+#: ../src/document.c:1640
+#: ../src/snr2.c:1671
+msgid "Find"
+msgstr "찾기"
+
+#: ../src/document.c:1648
+msgid "Delete bookmark"
+msgstr "북마크 삭제"
+
+#: ../src/document.c:1652
+msgid "Add bookmark"
+msgstr "북마크 더하기"
+
+#. if (main_v->props.backup_abort_action == 2)
+#. we have to ask the user
+#. we have to ask the user what to do
+#: ../src/document.c:1791
+#: ../src/file_dialogs.c:376
+#: ../src/file_dialogs.c:415
+msgid "_Abort save"
+msgstr "저장 취소(_A)"
+
+#: ../src/document.c:1791
+msgid "_Continue save in UTF-8"
+msgstr "UTF-8 로 계속 저장(_C)"
+
+#: ../src/document.c:1802
+#, c-format
+msgid ""
+"Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n"
+"\n"
+"Continue saving in UTF-8 encoding?"
+msgstr ""
+"%s를 문자 엔코딩 %s 로 변환 실패. '%s' 문자 (%d 행 %d 열)에서 엔코딩 실패\n"
+"\n"
+"UTF-8 엔코딩으로 계속 저장할까요?"
+
+#: ../src/document.c:1806
+msgid "File encoding conversion failure"
+msgstr "파일 엔코딩 변환 실패"
+
+#: ../src/document.c:2048
+msgid "Previously: "
+msgstr "이전: "
+
+#. || (!file_exists_and_readable(doc->uri))
+#: ../src/document.c:2532
+msgid "Unable to open file"
+msgstr "파일을 열 수 없음"
+
+#: ../src/document.c:2542
+#, c-format
+msgid "If you revert \"%s\" to your last saved copy, your current changes will be permanently lost."
+msgstr "\"%s\"를 마지막 저장된 복사본으로 되돌리려면, 현재 변경된 내용을 아주 잃게됩니다."
+
+#: ../src/document.c:2546
+msgid "Revert changes to last saved copy?"
+msgstr "변경을 마지막 저장된 복사본으로 되돌릴까요?"
+
+#: ../src/document.c:2579
+msgid "_Unset file name"
+msgstr "파일명을 설정할 수 없음(_U)"
+
+#: ../src/document.c:2579
+msgid "_Save"
+msgstr "저장(_S)"
+
+#. file is deleted on disk, what do we do now ?
+#: ../src/document.c:2581
+#, c-format
+msgid "File name: %s"
+msgstr "파일명: %s"
+
+#: ../src/document.c:2585
+msgid "File disappeared from disk\n"
+msgstr "디스크의 숨김 파일\n"
+
+#: ../src/document.c:2602
+msgid "_Ignore"
+msgstr "무시(_I)"
+
+#: ../src/document.c:2602
+msgid "_Reload"
+msgstr "다시 읽어오기(_R)"
+
+#: ../src/document.c:2602
+msgid "Check and reload all documents"
+msgstr "전체 문서 검사 및 다시 읽어오기"
+
+#: ../src/document.c:2610
+#, c-format
+msgid ""
+"Filename: %s\n"
+"\n"
+"New modification time is: %s\n"
+"Old modification time is: %s"
+msgstr ""
+"파일명: %s\n"
+"\n"
+"새 수정 시간: %s\n"
+"이전 수정 시간: %s"
+
+#: ../src/document.c:2614
+msgid "File has been modified by another process\n"
+msgstr "다른 과정에 의하여 파일이 수정되었습니다.\n"
+
+#: ../src/document.c:2675
+msgid "_Retry"
+msgstr "재시도(_R)"
+
+#: ../src/document.c:2675
+msgid "Retry _all failed"
+msgstr "실패한 전체 재시도(_A)"
+
+#: ../src/document.c:2675
+msgid "_Close"
+msgstr "닫기(_C)"
+
+#: ../src/document.c:2675
+msgid "Close all _failed"
+msgstr "실패한 전체 닫기(_F)"
+
+#: ../src/document.c:2679
+msgid "File "
+msgstr "파일"
+
+#: ../src/document.c:2679
+msgid " failed to load."
+msgstr "읽어오기 실패"
+
+#: ../src/document.c:2683
+msgid "File failed to load\n"
+msgstr "읽어오기 실패한 파일\n"
+
+#: ../src/document.c:2803
+msgid "Select file to insert"
+msgstr "삽일할 파일 선택"
+
+#: ../src/document.c:2811
+msgid "No file to insert"
+msgstr "삽일할 파일 없음"
+
+#: ../src/document.c:2945
+#, c-format
+msgid "Statistics: %d lines, %d words, %d characters"
+msgstr "통계: %d 행, %d 단어, %d 문자"
+
+#: ../src/encodings_dialog.c:329
+msgid "_Available encodings:"
+msgstr "사용 가능한 엔코딩(_A):"
+
+#: ../src/encodings_dialog.c:381
+#: ../src/encodings_dialog.c:452
+msgid "Description"
+msgstr "요약"
+
+#: ../src/encodings_dialog.c:391
+#: ../src/encodings_dialog.c:461
+#: ../src/preferences.c:1591
+msgid "Encoding"
+msgstr "엔코딩"
+
+#: ../src/encodings_dialog.c:427
+msgid "Encodings in _menu:"
+msgstr "메뉴에서 엔코딩(_M)."
+
+#: ../src/encodings_dialog.c:511
+msgid "Add or remove document encodings"
+msgstr "문서 엔코딩 더하기 또는 제거"
+
+#: ../src/filebrowser2.c:207
+msgid "Set documentroot and webroot"
+msgstr "문서 루트와 웹 루트 설정"
+
+#: ../src/filebrowser2.c:216
+msgid ""
+"The <i>documentroot</i> is the place where Bluefish finds the file,\n"
+"the <i>webroot</i> is the location where those same files can be viewed on the webserver"
+msgstr ""
+"<i>문서 루트</i>는 Bluefish가 파일을 찾는 위치에  있습니다.\n"
+"<i>웹 루트</i>는 이들 동일 파일들이 웹 서버상에 보여지는 위치입니다."
+
+#: ../src/filebrowser2.c:223
+msgid "Documentroot"
+msgstr "문서"
+
+#: ../src/filebrowser2.c:233
+msgid "Webroot"
+msgstr "웹 루트"
+
+#: ../src/filebrowser2.c:1349
+msgid "Could not rename\n"
+msgstr "다른 이름으로 저장할 수 없음\n"
+
+#: ../src/filebrowser2.c:1404
+msgid "New directory"
+msgstr "새 폴더"
+
+#: ../src/filebrowser2.c:1412
+msgid "New file"
+msgstr "새 파일"
+
+#. Do we really need to display the full path here?
+#. *
+#. * Having the filename in the both the primary and secondary text seems to be redundant.
+#. * Set back to just the primary text for now.
+#. *
+#. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
+#. * and then this might give you more indication if this is indeed the file you wanted to delete
+#.
+#: ../src/filebrowser2.c:1520
+#, c-format
+msgid ""
+"Are you sure you want to delete\n"
+"\"%s\"?"
+msgstr ""
+"\"%s\" \n"
+"정말 삭제하겠습니까?"
+
+#: ../src/filebrowser2.c:1521
+#, c-format
+msgid "If you delete %s, it will be permanently lost."
+msgstr "%s 삭제한다면, 영구히 복구 불가능합니다."
+
+#: ../src/filebrowser2.c:1666
+msgid "/_Open"
+msgstr "/열기(_O)"
+
+#: ../src/filebrowser2.c:1667
+msgid "/Open _Advanced..."
+msgstr "/고급 열기(_A)..."
+
+#: ../src/filebrowser2.c:1668
+msgid "/Rena_me"
+msgstr "다른 이름으로 저장(_M)"
+
+#: ../src/filebrowser2.c:1669
+msgid "/_Delete"
+msgstr "/삭제(_D)"
+
+#: ../src/filebrowser2.c:1671
+msgid "/New _File"
+msgstr "/새 파일(_F)"
+
+#: ../src/filebrowser2.c:1672
+msgid "/_New Directory"
+msgstr "/새 폴더(_D)"
+
+#: ../src/filebrowser2.c:1674
+msgid "/_Refresh"
+msgstr "/새로이(_R)"
+
+#: ../src/filebrowser2.c:1675
+msgid "/Follow active document"
+msgstr "/활성 문서에 따름"
+
+#: ../src/filebrowser2.c:1676
+msgid "/_Set as basedir"
+msgstr "/기본 폴더로 설정(_S)"
+
+#: ../src/filebrowser2.c:1677
+msgid "/Set as documentroot"
+msgstr "/문서 루트로 설정"
+
+#: ../src/filebrowser2.c:1679
+msgid "/Show Full _Tree"
+msgstr "/전체 구조 보이기(_T)"
+
+#: ../src/filebrowser2.c:1680
+msgid "/Show hidden files"
+msgstr "/숨김 파일 보이기"
+
+#: ../src/filebrowser2.c:1681
+msgid "/Show backup files"
+msgstr "/백업 파일 보이기"
+
+#: ../src/filebrowser2.c:1682
+msgid "/View mode"
+msgstr "/보기 모드"
+
+#: ../src/filebrowser2.c:1683
+msgid "/View mode/Tree"
+msgstr "/보기 모드/구조"
+
+#: ../src/filebrowser2.c:1684
+msgid "/View mode/Dual"
+msgstr "/보기 모드/듀얼 모드"
+
+#: ../src/filebrowser2.c:1685
+msgid "/View mode/Flat"
+msgstr "/보기 모드/플랫 모드"
+
+#. Add filter submenu
+#: ../src/filebrowser2.c:1763
+msgid "Filter"
+msgstr "필터"
+
+#: ../src/filebrowser2.c:1789
+#: ../src/filefilter.c:475
+msgid "Edit filter"
+msgstr "필터 편집"
+
+#: ../src/filebrowser2.c:1793
+msgid "Delete filter"
+msgstr "필터 삭제"
+
+#: ../src/filebrowser2.c:1798
+msgid "New filter"
+msgstr "새 필터"
+
+#: ../src/file.c:572
+#, c-format
+msgid "Still loading %d files, finished %s"
+msgstr "아직 %d 파일 읽어오는 중,  %s 완료"
+
+#: ../src/file.c:574
+#, c-format
+msgid "All files loaded, finished %s"
+msgstr "전체 파일 읽어온 후  %s 완료"
+
+#: ../src/file.c:764
+#, c-format
+msgid "%d document open."
+msgstr "%d 문서 열기"
+
+#: ../src/file.c:1020
+msgid "_Skip"
+msgstr "건너뛰기(_S)"
+
+#: ../src/file.c:1020
+#: ../src/file_dialogs.c:539
+#: ../src/file_dialogs.c:562
+#: ../src/project.c:233
+msgid "_Overwrite"
+msgstr "겹쳐쓰기(_O)"
+
+#: ../src/file.c:1024
+#, c-format
+msgid "%s cannot be copied, it already exists, overwrite?"
+msgstr "%s 를 복사할 수 없습니다. 이미 있습니다. 겹쳐쓸까요?"
+
+#: ../src/file.c:1028
+msgid "Overwrite file?"
+msgstr "파일을 겹쳐쓸까요?"
+
+#: ../src/file_dialogs.c:89
+msgid "Select basedir"
+msgstr "기본 폴더 선택"
+
+#: ../src/file_dialogs.c:129
+msgid "Advanced open file selector"
+msgstr "고급 열기 파일 선택자"
+
+#: ../src/file_dialogs.c:144
+msgid "<b>General</b>"
+msgstr "<b>전역</b>"
+
+#: ../src/file_dialogs.c:153
+msgid "Base _Dir:"
+msgstr "기본 폴더(_D):"
+
+#: ../src/file_dialogs.c:172
+msgid "_Pattern:"
+msgstr "패턴(_P):"
+
+#: ../src/file_dialogs.c:179
+msgid "_Match on file name only:"
+msgstr "파일명만 일치(_M):"
+
+#: ../src/file_dialogs.c:183
+msgid "_Recursive:"
+msgstr "재귀(_R):"
+
+#: ../src/file_dialogs.c:192
+msgid "<b>Contains</b>"
+msgstr "<b>포함</b>"
+
+#: ../src/file_dialogs.c:198
+msgid "Pa_ttern:"
+msgstr "패턴(_T):"
+
+#: ../src/file_dialogs.c:202
+msgid "Is rege_x:"
+msgstr "정규식(_X):"
+
+#: ../src/file_dialogs.c:263
+msgid "Select files"
+msgstr "파일선택"
+
+#: ../src/file_dialogs.c:311
+msgid "Open URL"
+msgstr "URL 열기"
+
+#: ../src/file_dialogs.c:315
+msgid "<b>Open URL</b>"
+msgstr "<b>URL 열기</b>"
+
+#: ../src/file_dialogs.c:376
+#: ../src/file_dialogs.c:415
+msgid "_Continue save"
+msgstr "계속 저장(_C)"
+
+#: ../src/file_dialogs.c:378
+#, c-format
+msgid "A backupfile for %s could not be created. If you continue, this file will be overwritten."
+msgstr "%s 의 백업파일을 생성할 수 없습니다. 계속하려면 이 파일을 겹쳐써야 합니다."
+
+#: ../src/file_dialogs.c:382
+msgid "File backup failure"
+msgstr "파일 백업 실패"
+
+#: ../src/file_dialogs.c:399
+msgid ""
+"Could not save file:\n"
+"\""
+msgstr ""
+"파일을 저장할 수 없음:\n"
+"\""
+
+#: ../src/file_dialogs.c:403
+msgid "File save failed!\n"
+msgstr "파일 저장 실패~\n"
+
+#: ../src/file_dialogs.c:420
+#, c-format
+msgid "File %s has been modified on disk, overwrite?"
+msgstr "파일 %s가 디스크상에서 수정되었습니다. 겹쳐쓸까요?"
+
+#: ../src/file_dialogs.c:422
+#, c-format
+msgid "Failed to check if %s has been modified on disk"
+msgstr "%s 를 디스크상에서 수정되었는지 검사 실패"
+
+#: ../src/file_dialogs.c:515
+#, c-format
+msgid "Move/rename %s to"
+msgstr "%s 이동/다른 이름으로"
+
+#: ../src/file_dialogs.c:515
+#, c-format
+msgid "Save %s as"
+msgstr "%s 를 다른 이름으로 저장"
+
+#: ../src/file_dialogs.c:539
+#: ../src/file_dialogs.c:562
+#: ../src/file_dialogs.c:838
+#: ../src/project.c:233
+msgid "_Cancel"
+msgstr "취소(_C)"
+
+#: ../src/file_dialogs.c:540
+#, c-format
+msgid "File %s exists and is open, overwrite?"
+msgstr "파일 %s 가 있고 열려있습니다. 겹쳐쓸까요?"
+
+#: ../src/file_dialogs.c:545
+msgid "The file you have selected is being edited in Bluefish."
+msgstr "Bluefish에서 선택된 파일이 편집되었습니다."
+
+#: ../src/file_dialogs.c:563
+#: ../src/project.c:235
+#, c-format
+msgid "A file named \"%s\" already exists."
+msgstr "\"%s\"  파일명이 이미 있습니다."
+
+#: ../src/file_dialogs.c:568
+#: ../src/project.c:240
+msgid "Do you want to replace the existing file?"
+msgstr "기존 파일을 치환할까요?"
+
+#. this message is not in very nice english I'm afraid
+#: ../src/file_dialogs.c:632
+msgid ""
+"File:\n"
+"\""
+msgstr ""
+"파일:\n"
+"\""
+
+#: ../src/file_dialogs.c:636
+msgid "Save in progress!"
+msgstr "저장 진행 중!"
+
+#: ../src/file_dialogs.c:784
+#: ../src/project.c:386
+msgid "Close _Without Saving"
+msgstr "저장하지 않고 닫기(_W)"
+
+#: ../src/file_dialogs.c:787
+#, c-format
+msgid "Save changes to \"%s\" before closing?"
+msgstr "닫기 전 변경된 내용을 \"%s\"로 저장할까요?"
+
+#: ../src/file_dialogs.c:792
+#: ../src/file_dialogs.c:843
+#: ../src/project.c:398
+msgid "If you don't save your changes they will be lost."
+msgstr "변경을 저장하지 않으면, 자료를 잃게 됩니다."
+
+#: ../src/file_dialogs.c:838
+msgid "Choose per _File"
+msgstr "파일당 선택(_F)"
+
+#: ../src/file_dialogs.c:838
+msgid "Close _All"
+msgstr "전체 닫기(_A)"
+
+#: ../src/file_dialogs.c:838
+msgid "_Save All"
+msgstr "전체 저장(_A)"
+
+#: ../src/file_dialogs.c:842
+msgid "Multiple open files have been changed."
+msgstr "여러 열린 파일이 변경되었습니다."
+
+#. build a list of filters
+#: ../src/filefilter.c:214
+#: ../src/gtk_easy.c:1388
+msgid "All files"
+msgstr "전체 파일"
+
+#: ../src/filefilter.c:515
+msgid "Hide files that match the filter"
+msgstr "필터에 일치되는 파일 숨김"
+
+#: ../src/filefilter.c:526
+#: ../src/filefilter.c:538
+msgid "Mime type"
+msgstr "MIME 형태"
+
+#: ../src/filefilter.c:529
+#: ../src/filefilter.c:541
+msgid "Icon"
+msgstr "아이콘"
+
+#: ../src/gtk_easy.c:1088
+#, c-format
+msgid "%d of %d"
+msgstr "%d of %d"
+
+#: ../src/gtk_easy.c:1193
+msgid "Select File"
+msgstr "파일 선택"
+
+#: ../src/gtk_easy.c:1263
+msgid "_Browse..."
+msgstr "찾기(_B)..."
+
+#: ../src/gtk_easy.c:1378
+msgid "Show backup files"
+msgstr "백업 파일 보이기"
+
+#: ../src/gtk_easy.c:1438
+msgid "Character _Encoding:"
+msgstr "문자 엔코딩(_E):"
+
+#: ../src/gtk_easy.c:1460
+msgid "Automatic detection"
+msgstr "자동 탐지"
+
+#: ../src/gui.c:266
+msgid "Filebrowser"
+msgstr "파일 탐색기"
+
+#: ../src/gui.c:267
+msgid "Bookmarks"
+msgstr "북마크"
+
+#: ../src/gui.c:406
+msgid "New"
+msgstr "새 탭"
+
+#: ../src/gui.c:408
+msgid "Open..."
+msgstr "열기..."
+
+#: ../src/gui.c:410
+msgid "Save"
+msgstr "저장"
+
+#: ../src/gui.c:412
+msgid "Save As..."
+msgstr "다른 이름으로 저장..."
+
+#: ../src/gui.c:414
+msgid "Close"
+msgstr "닫기"
+
+#: ../src/gui.c:417
+msgid "Cut"
+msgstr "잘라내기"
+
+#: ../src/gui.c:419
+msgid "Copy"
+msgstr "복사"
+
+#: ../src/gui.c:421
+msgid "Paste"
+msgstr "붙여넣기"
+
+#: ../src/gui.c:424
+msgid "Find..."
+msgstr "찾기..."
+
+#: ../src/gui.c:426
+msgid "Replace..."
+msgstr "치환..."
+
+#: ../src/gui.c:429
+msgid "Undo"
+msgstr "실행 취소"
+
+#: ../src/gui.c:431
+msgid "Redo"
+msgstr "재실행"
+
+#: ../src/gui.c:434
+msgid "Shift Left"
+msgstr "왼쪽으로 이동"
+
+#: ../src/gui.c:436
+msgid "Shift Right"
+msgstr "오른쪽으로 이동"
+
+#: ../src/gui.c:443
+msgid "Spellcheck..."
+msgstr "철자 검사..."
+
+#: ../src/gui.c:448
+msgid "View in browser"
+msgstr "탐색기로 보기"
+
+#: ../src/gui.c:451
+msgid "Preferences..."
+msgstr "기본설정..."
+
+#: ../src/gui.c:849
+msgid "Goto Line:"
+msgstr "라인 이동:"
+
+#: ../src/gui.c:868
+msgid "New Bluefish Window"
+msgstr "새 Bluefish 창"
+
+#. Fake-label (for notebook_hide() and _show() ;)
+#: ../src/gui.c:928
+msgid "Stand by..."
+msgstr "대기..."
+
+#: ../src/gui.c:1104
+msgid "starting bluefish"
+msgstr "bluefish 시동 중"
+
+#: ../src/menu.c:223
+msgid "/_File"
+msgstr "/파일(_F)"
+
+#: ../src/menu.c:225
+msgid "/File/_New"
+msgstr "/파일/새 탭(_N)"
+
+#: ../src/menu.c:226
+msgid "/File/New _Window"
+msgstr "/파일/새 작업창 생성(_W)"
+
+#: ../src/menu.c:227
+msgid "/File/_Open..."
+msgstr "/파일/열기(_O)..."
+
+#: ../src/menu.c:228
+msgid "/File/Open _recent"
+msgstr "/파일/최근 파일 열기(_R)"
+
+#: ../src/menu.c:230
+msgid "/File/Open Ad_vanced..."
+msgstr "/파일/고급 열기(_V)..."
+
+#: ../src/menu.c:231
+msgid "/File/Open _URL..."
+msgstr "/파일/URL 열기(_U)..."
+
+#: ../src/menu.c:232
+msgid "/File/Open _from selection"
+msgstr "/파일/선택에서 열기(_F)"
+
+#: ../src/menu.c:234
+msgid "/File/_Save"
+msgstr "/파일/저장(_S)"
+
+#: ../src/menu.c:235
+msgid "/File/Save _As..."
+msgstr "/파일/다른 이름으로 저장(_A)..."
+
+#: ../src/menu.c:236
+msgid "/File/Sav_e All"
+msgstr "/파일/전체 저장(_E)"
+
+#: ../src/menu.c:237
+msgid "/File/Rever_t to Saved"
+msgstr "/파일/기존 내용으로 되돌리기(_T)"
+
+#: ../src/menu.c:239
+msgid "/File/_Insert..."
+msgstr "/파일/파일 삽입(_I)..."
+
+#: ../src/menu.c:240
+msgid "/File/Rena_me..."
+msgstr "/파일/다른 이름으로(_M)..."
+
+#: ../src/menu.c:242
+msgid "/File/_Close"
+msgstr "/파일/탭 닫기(_C)"
+
+#: ../src/menu.c:243
+msgid "/File/Close A_ll"
+msgstr "/파일/전체 탭 닫기(_L)"
+
+#: ../src/menu.c:244
+msgid "/File/Close Win_dow"
+msgstr "/파일/작업창 닫기(_D)"
+
+#: ../src/menu.c:246
+msgid "/File/_Quit"
+msgstr "/파일/종료(_Q)"
+
+#: ../src/menu.c:249
+msgid "/File/Run Python Script"
+msgstr "/파일/파이썬 스크립트 실행"
+
+#: ../src/menu.c:251
+msgid "/_Edit"
+msgstr "/편집(_E)"
+
+#: ../src/menu.c:253
+msgid "/Edit/_Undo"
+msgstr "/편집/실행 취소(_U)"
+
+#: ../src/menu.c:254
+msgid "/Edit/_Redo"
+msgstr "/편집/재실행(_R)"
+
+#: ../src/menu.c:255
+msgid "/Edit/Undo All"
+msgstr "/편집/전체 실행 취소"
+
+#: ../src/menu.c:256
+msgid "/Edit/Redo All"
+msgstr "/편집/전체 재실행"
+
+#: ../src/menu.c:258
+msgid "/Edit/Cu_t"
+msgstr "/편집/잘라내기(_T)"
+
+#: ../src/menu.c:259
+msgid "/Edit/_Copy"
+msgstr "/편집/복사(_C)"
+
+#: ../src/menu.c:260
+msgid "/Edit/_Paste"
+msgstr "/편집/붙여넣기(_P)"
+
+#: ../src/menu.c:262
+msgid "/Edit/Select _All"
+msgstr "/편집/전체 선택(_A)"
+
+#: ../src/menu.c:264
+msgid "/Edit/_Find..."
+msgstr "/편집/찾기(_F)..."
+
+#: ../src/menu.c:265
+msgid "/Edit/Find A_gain"
+msgstr "/편집/다시 찾기(_G)"
+
+#: ../src/menu.c:266
+msgid "/Edit/Find from selection"
+msgstr "/편집/선택에서 찾기"
+
+#: ../src/menu.c:267
+msgid "/Edit/R_eplace..."
+msgstr "/편집/치환(_E)..."
+
+#: ../src/menu.c:268
+msgid "/Edit/Replace Agai_n"
+msgstr "/편집/다시 치환(_N)"
+
+#: ../src/menu.c:269
+msgid "/Edit/Replace special"
+msgstr "/편집/특수 치환"
+
+#: ../src/menu.c:271
+msgid "/Edit/Replace special/Block sync"
+msgstr "/편집/특수 치환/블록 동기화"
+
+#: ../src/menu.c:272
+msgid "/Edit/Replace special/Strip trailing whitespace"
+msgstr "/편집/특수 치환/말미의 공백문자 제거"
+
+#: ../src/menu.c:273
+msgid "/Edit/Replace special/Convert indenting to tabs"
+msgstr "/편집/특수 치환/들여쓰기를 탭으로 전환"
+
+#: ../src/menu.c:274
+msgid "/Edit/Replace special/Convert indenting to spaces"
+msgstr "/편집/특수 치환/들여쓰기를 공백으로 전환"
+
+#: ../src/menu.c:276
+msgid "/Edit/S_hift Right"
+msgstr "/편집/오른쪽으로 이동(_H)"
+
+#: ../src/menu.c:277
+msgid "/Edit/Shift _Left"
+msgstr "/편집/왼쪽으로 이동(_L)"
+
+#: ../src/menu.c:279
+msgid "/Edit/Add _Bookmark"
+msgstr "편집/북마크 더하기(_B)"
+
+#: ../src/menu.c:281
+msgid "/Edit/Save Sett_ings"
+msgstr "/편집/설정 저장(_I)"
+
+#: ../src/menu.c:282
+msgid "/Edit/Save Shortcut _Keys"
+msgstr "/편집/단축키 저장(_K)"
+
+#: ../src/menu.c:283
+msgid "/Edit/Preference_s"
+msgstr "/편집/기본설정(_S)"
+
+#: ../src/menu.c:284
+msgid "/_View"
+msgstr "/보기(_V)"
+
+#: ../src/menu.c:286
+msgid "/View/Fullscreen"
+msgstr "/보기/전체 화면"
+
+#: ../src/menu.c:288
+msgid "/View/View _Main Toolbar"
+msgstr "/보기/도구막대(_M)"
+
+#: ../src/menu.c:289
+msgid "/View/View _Sidebar"
+msgstr "/보기/사이드바(_S)"
+
+#: ../src/menu.c:290
+msgid "/View/View S_tatusbar"
+msgstr "/보기/상태바(_T)"
+
+#: ../src/menu.c:291
+msgid "/_Document"
+msgstr "문서(_D)"
+
+#: ../src/menu.c:293
+msgid "/Document/_Increase Tabsize"
+msgstr "/문서/탭 크기 증가(_I)"
+
+#: ../src/menu.c:294
+msgid "/Document/_Decrease Tabsize"
+msgstr "/문서/탭 크기 감소(_D)"
+
+#: ../src/menu.c:295
+msgid "/Document/_Auto Indent"
+msgstr "/문서/자동 들여쓰기(_A)"
+
+#: ../src/menu.c:296
+msgid "/Document/_Auto completion popup"
+msgstr "/문서/자동 완성창(_A)"
+
+#: ../src/menu.c:298
+msgid "/Document/_Wrap"
+msgstr "/문서/자동 줄넘기기(_W)"
+
+#: ../src/menu.c:299
+msgid "/Document/_Line Numbers"
+msgstr "/문서/행 번호(_L)"
+
+#: ../src/menu.c:300
+msgid "/Document/Show _blocks"
+msgstr "/문서/블록 보기(_B)"
+
+#: ../src/menu.c:302
+msgid "/Document/_Highlight Syntax"
+msgstr "/문서/구문 강조(_H)"
+
+#: ../src/menu.c:303
+msgid "/Document/_Update Highlighting"
+msgstr "/문서/강조 업데이트(_U)"
+
+#: ../src/menu.c:305
+msgid "/Document/Highlight _Mode"
+msgstr "/문서/강조 모드(_M)"
+
+#: ../src/menu.c:307
+msgid "/Document/Character _Encoding"
+msgstr "/문서/문자 엔코딩(_E)"
+
+#: ../src/menu.c:313
+msgid "/Document/Check _Spelling..."
+msgstr "/문서/철자 검사(_S)..."
+
+#: ../src/menu.c:315
+msgid "/Document/_Floating window"
+msgstr "/문서/유동 창(_F)"
+
+#: ../src/menu.c:316
+msgid "/Document/Word _Count"
+msgstr "/문서/단어 갯수(_C)"
+
+#: ../src/menu.c:318
+msgid "/Document/Move left"
+msgstr "/문서/왼쪽으로 이동"
+
+#: ../src/menu.c:319
+msgid "/Document/Move right"
+msgstr "/문서/오른쪽으로 이동"
+
+#: ../src/menu.c:320
+msgid "/_Go"
+msgstr "/이동(_G)"
+
+#: ../src/menu.c:322
+msgid "/Go/_Previous document"
+msgstr "/이동/이전 문서(_P)"
+
+#: ../src/menu.c:323
+msgid "/Go/_Next document"
+msgstr "/이동/다음 문서(_N)"
+
+#: ../src/menu.c:325
+msgid "/Go/_First document"
+msgstr "/이동/처음 문서(_F)"
+
+#: ../src/menu.c:326
+msgid "/Go/L_ast document"
+msgstr "/이동/마지막 문서(_A)"
+
+#: ../src/menu.c:328
+msgid "/Go/First bookmark"
+msgstr "/이동/처음 북마크"
+
+#: ../src/menu.c:329
+msgid "/Go/Previous bookmark"
+msgstr "/이동/이전 북마크"
+
+#: ../src/menu.c:330
+msgid "/Go/Next _bookmark"
+msgstr "/이동/다음 북마크(_B)"
+
+#: ../src/menu.c:331
+msgid "/Go/Last bookmark"
+msgstr "/이동/마지막 북마크"
+
+#: ../src/menu.c:333
+msgid "/Go/Goto _Line"
+msgstr "/이동/행 이동(_L)"
+
+#: ../src/menu.c:334
+msgid "/Go/Goto _Selection"
+msgstr "/이동/선택 이동(_O)"
+
+#: ../src/menu.c:335
+msgid "/_Project"
+msgstr "/프로젝트(_P)"
+
+#: ../src/menu.c:337
+msgid "/Project/_New Project"
+msgstr "/프로젝트/새 프로젝트(_N)"
+
+#: ../src/menu.c:338
+msgid "/Project/_Open Project..."
+msgstr "/프로젝트/프로젝트 열기(_O)..."
+
+#: ../src/menu.c:339
+msgid "/Project/Open _recent"
+msgstr "/프로젝트/최근 프로젝트(_R)"
+
+#: ../src/menu.c:342
+msgid "/Project/_Save"
+msgstr "/프로젝트/저장(_S)"
+
+#: ../src/menu.c:343
+msgid "/Project/Save _as..."
+msgstr "/프로젝트/다른 이름으로 저장(_A)..."
+
+#: ../src/menu.c:344
+msgid "/Project/Save & _close"
+msgstr "/프로젝트/저장 및 닫기(_C)"
+
+#: ../src/menu.c:346
+msgid "/Project/E_dit Project Options..."
+msgstr "/프로젝트/프로젝트 설정 편집(_D)..."
+
+#: ../src/menu.c:347
+msgid "/E_xternal"
+msgstr "/외부(_X)"
+
+#: ../src/menu.c:512
+msgid "/Document/Highlight Mode"
+msgstr "/문서/강조 모드"
+
+#: ../src/menu.c:644
+msgid "/Project/Open recent"
+msgstr "/프로젝트/최근 프로젝트 열기"
+
+#: ../src/menu.c:648
+msgid "/File/Open recent"
+msgstr "/파일/최근 파일 열기"
+
+#: ../src/menu.c:775
+msgid "/Windows"
+msgstr "창"
+
+#: ../src/menu.c:833
+msgid "No default browser found"
+msgstr "기본 탐색기 찾을 수 없음"
+
+#: ../src/menu.c:834
+msgid ""
+"You can set a default browser by going to:\n"
+"Edit->Preferences->External Commands"
+msgstr ""
+"편집→기본설정→외부 명령어에서 \n"
+"기본 탐색기를 설정할 수 있습니다"
+
+#: ../src/menu.c:869
+msgid "Operate filter only on selection?"
+msgstr "선택에서 필터만 적용시킬까요?"
+
+#: ../src/menu.c:914
+msgid "/External/Outputbox/"
+msgstr "/외부/출력상자/"
+
+#: ../src/menu.c:915
+msgid "/External/Commands/"
+msgstr "/외부/명령어/"
+
+#: ../src/menu.c:916
+msgid "/External/Filters/"
+msgstr "/외부/필터/"
+
+#: ../src/menu.c:929
+msgid "/External/Filters"
+msgstr "/외부/필터"
+
+#: ../src/menu.c:949
+msgid "/External"
+msgstr "/외부"
+
+#: ../src/menu.c:951
+msgid "/External/Commands"
+msgstr "/외부/명령어"
+
+#: ../src/menu.c:983
+msgid "/External/Outputbox"
+msgstr "/외부/출력상자"
+
+#: ../src/menu.c:1029
+msgid "/Document/Character Encoding"
+msgstr "/문서/문자 엔코딩"
+
+#: ../src/outputbox.c:402
+#, c-format
+msgid "failed to compile outputbox pattern %s\n"
+msgstr "출력상자 패턴 %s 컴파일 실패\n"
+
+#: ../src/preferences.c:267
+msgid "Untitled"
+msgstr "무제"
+
+#: ../src/preferences.c:368
+msgid "Select font"
+msgstr "글꼴 선택"
+
+#: ../src/preferences.c:393
+msgid "Select color"
+msgstr "색상 선택"
+
+#: ../src/preferences.c:487
+msgid "Message"
+msgstr "메세지"
+
+#: ../src/preferences.c:488
+msgid "Enabled"
+msgstr "가능"
+
+#: ../src/preferences.c:489
+msgid "File"
+msgstr "파일"
+
+#: ../src/preferences.c:634
+msgid "Text styles are applied on top of each other. If multiple styles are applied to the same text, the top-most style in this list has the highest priority. Use drag and drop to re-order the text styles."
+msgstr "문자열 스타일이 각각 다른 상위에 적용됩니다.  다수 스타일을 동일 문자열에 적용시키면, 이 목록의 최상위 스타일은 가장 높은 우선순위를 가집니다. 문자열 스타일을 재배열하기 위하여 드래그 드롭을 이용"
+
+#: ../src/preferences.c:643
+#: ../src/preferences.c:928
+#: ../src/preferences.c:998
+msgid "Label"
+msgstr "라벨"
+
+#: ../src/preferences.c:655
+#: ../src/preferences.c:1539
+msgid "Foreground color"
+msgstr "전경 색상"
+
+#: ../src/preferences.c:656
+#: ../src/preferences.c:1540
+msgid "Background color"
+msgstr "배경 색상"
+
+#: ../src/preferences.c:657
+msgid "normal weight"
+msgstr "일반"
+
+#: ../src/preferences.c:659
+msgid "bold weight"
+msgstr "굵게"
+
+#: ../src/preferences.c:661
+msgid "normal style"
+msgstr "보통"
+
+#: ../src/preferences.c:663
+msgid "italic style"
+msgstr "기울임"
+
+#: ../src/preferences.c:872
+#: ../src/preferences.c:1089
+msgid "Name"
+msgstr "이름"
+
+#: ../src/preferences.c:929
+#: ../src/preferences.c:999
+#: ../src/preferences.c:1094
+msgid "Command"
+msgstr "명령어"
+
+#: ../src/preferences.c:930
+msgid "Default browser"
+msgstr "기본 탐색기"
+
+#: ../src/preferences.c:932
+msgid ""
+"<small><b>Input options</b>\n"
+"start with a | to send the input to the standard input\n"
+"%s local filename (available for local files)\n"
+"%i temporary fifo for input, equals %s if the document is not modified and local\n"
+"%I temporary filename for input, equals %s if the document is not modified and local\n"
+"<b>Other options</b>\n"
+"%c local directory of file (available for local files)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"
+msgstr ""
+
+#: ../src/preferences.c:1002
+msgid ""
+"<small><b>Input options</b>\n"
+"start with a | to send the input to the standard input\n"
+"%s local filename (requires local file, cannot operate on selection)\n"
+"%i temporary fifo for input\n"
+"%I temporary filename for input\n"
+"<b>Output options</b>\n"
+"end with a | to read the output from the standard output\n"
+"%o temporary fifo\n"
+"%O temporary filename\n"
+"%t temporary filename for both input and output (for in-place-editing filters, cannot operate on selection)\n"
+"<b>Other options</b>\n"
+"%c local directory of file (requires local file)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"
+msgstr ""
+
+#: ../src/preferences.c:1090
+msgid "Pattern"
+msgstr "패턴"
+
+#: ../src/preferences.c:1091
+msgid "File #"
+msgstr "파일 #"
+
+#: ../src/preferences.c:1092
+msgid "Line #"
+msgstr "행 #"
+
+#: ../src/preferences.c:1093
+msgid "Output #"
+msgstr "출력 #"
+
+#: ../src/preferences.c:1095
+msgid "Show all output"
+msgstr "전체 출력 보이기"
+
+#: ../src/preferences.c:1097
+msgid ""
+"<small><b>Input options</b>\n"
+"start with a | to send the input to the standard input\n"
+"%s local filename (available for local files)\n"
+"%i temporary fifo for input, equals %s if the document is not modified and local\n"
+"%I temporary filename for input, equals %s if the document is not modified and local\n"
+"<b>Output options</b>\n"
+"end with a | to read the output from the standard output\n"
+"%o temporary fifo\n"
+"%O temporary filename\n"
+"%t temporary filename for both input and output (for in-place-editing filters)\n"
+"<b>Other options</b>\n"
+"%c local directory of file (available for local files)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"
+msgstr ""
+
+#. label = gtk_label_new(NULL);
+#. gtk_label_set_markup(GTK_LABEL(label), _("<small>language dialog not yet ready..</small>"));
+#. gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
+#. skip column 0, the language name
+#. 1=text
+#: ../src/preferences.c:1247
+msgid "Option name"
+msgstr "설정명"
+
+#. 2=boolean
+#: ../src/preferences.c:1248
+msgid "value"
+msgstr "값"
+
+#. 1=text
+#: ../src/preferences.c:1261
+msgid "Highlight name"
+msgstr "강조 이름"
+
+#. the textstyle model
+#: ../src/preferences.c:1264
+msgid "Textstyle"
+msgstr "문자열 스타일"
+
+#: ../src/preferences.c:1492
+#: ../src/preferences.c:1493
+msgid "left"
+msgstr "왼쪽"
+
+#: ../src/preferences.c:1492
+#: ../src/preferences.c:1493
+msgid "right"
+msgstr "오른쪽"
+
+#: ../src/preferences.c:1492
+msgid "top"
+msgstr "상단"
+
+#: ../src/preferences.c:1492
+msgid "bottom"
+msgstr "하단"
+
+#: ../src/preferences.c:1494
+msgid "Nothing"
+msgstr "없음"
+
+#: ../src/preferences.c:1494
+msgid "Modified time and file size"
+msgstr "수정 시간 및 파일 크기"
+
+#: ../src/preferences.c:1494
+msgid "Modified time"
+msgstr "수정 시간"
+
+#: ../src/preferences.c:1494
+msgid "File size"
+msgstr "파일 크기"
+
+#: ../src/preferences.c:1510
+msgid "Edit preferences"
+msgstr "기본설정 편집"
+
+#: ../src/preferences.c:1531
+msgid "Editor options"
+msgstr "편집기 설정"
+
+#: ../src/preferences.c:1533
+msgid "Generic editor options"
+msgstr "일반 편집기 설정"
+
+#: ../src/preferences.c:1538
+msgid "Font"
+msgstr "글꼴 "
+
+#: ../src/preferences.c:1541
+msgid "Smart Home/End cursor positioning"
+msgstr "스마트 Home/End 커서 이동"
+
+#: ../src/preferences.c:1542
+msgid "Use spaces to indent, not tabs"
+msgstr "공백으로 들여쓰기로 사용, 탭 아님"
+
+#: ../src/preferences.c:1544
+msgid "Number of actions in undo history"
+msgstr "작업내역에서 작업 갯수"
+
+#: ../src/preferences.c:1545
+msgid "Clear undo history on save"
+msgstr "저장시 작업내역 제거"
+
+#: ../src/preferences.c:1549
+msgid "Editor defaults"
+msgstr "편집기 기본"
+
+#: ../src/preferences.c:1552
+msgid "Default values"
+msgstr "기본 값"
+
+#: ../src/preferences.c:1557
+msgid "Tab width"
+msgstr "탭 너비"
+
+#: ../src/preferences.c:1558
+msgid "Word wrap"
+msgstr "자동 줄넘기기"
+
+#: ../src/preferences.c:1559
+msgid "Show line numbers"
+msgstr "행 번호 보이기"
+
+#: ../src/preferences.c:1561
+msgid "Highlight syntax"
+msgstr "강조 구문"
+
+#: ../src/preferences.c:1562
+msgid "Highlight current line"
+msgstr "현재 행 강조"
+
+#: ../src/preferences.c:1563
+msgid "Enable block folding"
+msgstr "블록 접기 가능"
+
+#: ../src/preferences.c:1564
+msgid "Enable automatic completion pop-up"
+msgstr "자동 완성 창 가능"
+
+#: ../src/preferences.c:1565
+msgid "Highlight matching block begin-end"
+msgstr "일치하는 블록 처음과 끝 강조"
+
+#: ../src/preferences.c:1570
+msgid "HTML"
+msgstr "HTML"
+
+#: ../src/preferences.c:1572
+msgid "HTML options"
+msgstr "HTML 설정"
+
+#: ../src/preferences.c:1577
+msgid "Lowercase HTML tags"
+msgstr "HTML 태그를 소문자로"
+
+#: ../src/preferences.c:1578
+msgid "Use deprecated tags (e.g. <font> and <nobr>)"
+msgstr "추천하지 않는 태그 사용 (예: <font> and  <nobr>)"
+
+#: ../src/preferences.c:1579
+msgid "Use XHTML style tags (<br />)"
+msgstr "XHTML 스타일 태그 사용 (<br />)"
+
+#: ../src/preferences.c:1580
+msgid "Automatically close tags"
+msgstr "자동으로 태그 닫기"
+
+#: ../src/preferences.c:1581
+msgid "Prepend close tags with a newline"
+msgstr "미리 개행 가진 태그 닫기"
+
+#: ../src/preferences.c:1583
+msgid "Automatically update author meta tag"
+msgstr "자동으로 저작자 메타 태그 업데이트"
+
+#: ../src/preferences.c:1584
+msgid "Automatically update date meta tag"
+msgstr "자동으로 자료 메타 태크 업데이트"
+
+#: ../src/preferences.c:1585
+msgid "Automatically update generator meta tag"
+msgstr "자동으로 제네레이터 메타 태그 업데이트"
+
+#: ../src/preferences.c:1589
+msgid "Files"
+msgstr "파일"
+
+#: ../src/preferences.c:1602
+msgid "Default character set for new files"
+msgstr "새 파일의 기본 문자 설정"
+
+#: ../src/preferences.c:1605
+msgid "Auto set <meta> HTML tag on encoding change"
+msgstr "엔코딩 변경에서 <meta> HTML 태그 자동 설정"
+
+#: ../src/preferences.c:1607
+msgid "Backup"
+msgstr "백업"
+
+#: ../src/preferences.c:1611
+msgid "Create backup file during file save"
+msgstr "파일 저장시 백업 파일 생성"
+
+#: ../src/preferences.c:1613
+msgid "Continue save"
+msgstr "계속 저장"
+
+#: ../src/preferences.c:1613
+msgid "Abort save"
+msgstr "저장 취소"
+
+#: ../src/preferences.c:1613
+msgid "Ask what to do"
+msgstr "무엇을 할지 물음"
+
+#: ../src/preferences.c:1614
+msgid "If the backup fails"
+msgstr "백업이 실패한다면"
+
+#: ../src/preferences.c:1616
+msgid "Remove backupfile on close"
+msgstr "닫기시 백업파일 제거"
+
+#: ../src/preferences.c:1620
+msgid "Misc"
+msgstr "기타"
+
+#: ../src/preferences.c:1626
+msgid "Open files in already running bluefish window"
+msgstr "이미 실행 중인 Bluefish 창에 파일 열기"
+
+#: ../src/preferences.c:1628
+msgid "File properties to check on disk for modifications"
+msgstr "디스크상 변경을 검사하기 위한 파일 설정"
+
+#: ../src/preferences.c:1629
+msgid "Periodically check if file is modified on disk"
+msgstr "디스크상 파일 변경을 주기적으로 검사"
+
+#: ../src/preferences.c:1630
+msgid "Number of files in 'Open recent'"
+msgstr "최근 열기 메뉴의 파일 갯수"
+
+#: ../src/preferences.c:1635
+msgid "User interface"
+msgstr "사용자 인터페이스"
+
+#: ../src/preferences.c:1638
+msgid "Startup options"
+msgstr "시동시 설정"
+
+#: ../src/preferences.c:1643
+msgid "Show splash-screen"
+msgstr "시동 화면 보이기"
+
+#: ../src/preferences.c:1646
+msgid "General"
+msgstr "전역"
+
+#: ../src/preferences.c:1651
+msgid "Make HTML dialogs transient"
+msgstr "HTML 대화창 잠시 머물게함."
+
+#: ../src/preferences.c:1652
+msgid ""
+"Notebook tab font \n"
+"(leave empty for gtk default)"
+msgstr ""
+"노트북 탭 글꼴 \n"
+"(GTK 기본은 빈 채 둠)"
+
+#: ../src/preferences.c:1653
+msgid "Document notebook tab position"
+msgstr "문서 노트북 탭 위치"
+
+#: ../src/preferences.c:1654
+msgid "Switch between tabs with <Alt>+0..9"
+msgstr "<Alt>+0..9 사이 탭 전환"
+
+#: ../src/preferences.c:1655
+msgid "Sidebar notebook tab position"
+msgstr "사이드바 노트북 탭 위치"
+
+#: ../src/preferences.c:1656
+msgid "Sidebar location"
+msgstr "사이드바 위치"
+
+#: ../src/preferences.c:1660
+#: ../src/preferences.c:1662
+msgid "Dimensions"
+msgstr "작업창 설정"
+
+#: ../src/preferences.c:1667
+msgid "Leave dimensions to window manager"
+msgstr "차수를 윈도우 관리자에게 남김"
+
+#: ../src/preferences.c:1668
+msgid "Restore last used dimensions"
+msgstr "마지막 지정된 값으로 복구"
+
+#: ../src/preferences.c:1669
+msgid "Initial sidebar width"
+msgstr "초기 사이드바 너비"
+
+#: ../src/preferences.c:1670
+msgid "Initial window height"
+msgstr "초기 윈도우 높이"
+
+#: ../src/preferences.c:1671
+msgid "Initial window width"
+msgstr "초기 윈도우 너비"
+
+#: ../src/preferences.c:1678
+#: ../src/preferences.c:1680
+msgid "File and directory view"
+msgstr "파일과 폴더 보기"
+
+#. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
+#. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
+#: ../src/preferences.c:1687
+#: ../src/rcfile.c:674
+msgid "Images"
+msgstr "이미지"
+
+#: ../src/preferences.c:1689
+msgid "Thumbnails"
+msgstr "썸네일"
+
+#: ../src/preferences.c:1693
+msgid "Thumbnail suffix"
+msgstr "썸네일 접미사"
+
+#: ../src/preferences.c:1696
+msgid "Thumbnail filetype"
+msgstr "썸네일 파일형태"
+
+#: ../src/preferences.c:1701
+msgid "External commands"
+msgstr "외부 명령어"
+
+#: ../src/preferences.c:1703
+msgid "Commands"
+msgstr "명령어"
+
+#: ../src/preferences.c:1711
+msgid "External filters"
+msgstr "외부 필터"
+
+#: ../src/preferences.c:1713
+msgid "Filters"
+msgstr "필터"
+
+#: ../src/preferences.c:1721
+#: ../src/preferences.c:1723
+msgid "Output parsers"
+msgstr "출력 파서"
+
+#: ../src/preferences.c:1731
+#: ../src/preferences.c:1732
+msgid "Plugins"
+msgstr "플러그인"
+
+#: ../src/preferences.c:1740
+#: ../src/preferences.c:1741
+msgid "Text styles"
+msgstr "문자열 스타일"
+
+#: ../src/preferences.c:1750
+msgid "Language support"
+msgstr "언어 지원"
+
+#: ../src/preferences.c:1752
+msgid "Advanced syntax scanning options"
+msgstr "고급 구문 스캔 설정"
+
+#: ../src/preferences.c:1758
+msgid "Delayed"
+msgstr "지연"
+
+#: ../src/preferences.c:1758
+msgid "Immediately"
+msgstr "즉시"
+
+#: ../src/preferences.c:1759
+msgid "Show the automatic completion pop-up window"
+msgstr "자동 완성 팝업창 보이기"
+
+#: ../src/preferences.c:1761
+msgid "Load reference information from language file"
+msgstr "언어 파일에서 참조 정보 읽어오기"
+
+#: ../src/preferences.c:1762
+msgid "Show reference information in autocompletion pop-up"
+msgstr "자동 완성 팝업창에서 참조 정보 보이기"
+
+#: ../src/preferences.c:1763
+msgid "Show reference information in tooltip window"
+msgstr "도구 도움말 창에서 참조 정보 보이기"
+
+#: ../src/project.c:134
+msgid "New project"
+msgstr "새 프로젝트"
+
+#: ../src/project.c:205
+msgid "Enter Bluefish project filename"
+msgstr "Bluefish 프로젝트 파일명 입력"
+
+#: ../src/project.c:336
+msgid "Select Bluefish project filename"
+msgstr "프로젝트 파일명 선택"
+
+#. dialog
+#: ../src/project.c:393
+msgid "Save current project?"
+msgstr "현재 프로젝트 저장하겠습니까?"
+
+#: ../src/project.c:519
+msgid "Create New Project"
+msgstr "새 프로젝트 생성"
+
+#: ../src/project.c:522
+msgid "Edit Project"
+msgstr "프로젝트 편집"
+
+#: ../src/project.c:545
+#, c-format
+msgid "This project contains %d files"
+msgstr "이 프로젝트는 %d 파일을 포함합니다."
+
+#: ../src/project.c:557
+msgid "Project _Name:"
+msgstr "프로젝트명(_N):"
+
+#: ../src/project.c:562
+msgid "_Template:"
+msgstr "서식(_T):"
+
+#: ../src/project.c:568
+msgid "_Word wrap by default"
+msgstr "기본값은 자동 줄넘기기(_W)"
+
+#: ../src/project.c:579
+msgid "Create _Project"
+msgstr "프로젝트 생성(_P)"
+
+#: ../src/project.c:619
+msgid "Create project"
+msgstr "프로젝트 생성"
+
+#: ../src/project.c:623
+msgid "Create project with currently opened documents"
+msgstr "현재 열린 문서의 프로젝트 생성"
+
+#: ../src/project.c:624
+msgid "Create empty project"
+msgstr "빈 프로젝트 생성"
+
+#. if the user does not have outputbox settings --> set them to defaults values
+#: ../src/rcfile.c:476
+msgid "make"
+msgstr "생성"
+
+#: ../src/rcfile.c:477
+msgid "weblint HTML checker"
+msgstr "weblint HTML 체커"
+
+#: ../src/rcfile.c:478
+msgid "tidy HTML validator"
+msgstr "tidy HTML 밸리데이터"
+
+#: ../src/rcfile.c:479
+msgid "javac"
+msgstr "javac"
+
+#: ../src/rcfile.c:480
+msgid "xmllint XML checker"
+msgstr "xmllink XML 체커"
+
+#: ../src/rcfile.c:481
+msgid "php"
+msgstr "php"
+
+#: ../src/rcfile.c:484
+msgid "Sort"
+msgstr "정렬"
+
+#: ../src/rcfile.c:485
+msgid "Reverse lines"
+msgstr "행을 거꾸로"
+
+#: ../src/rcfile.c:486
+msgid "Dos2unix"
+msgstr "도스2유닉스"
+
+#: ../src/rcfile.c:487
+msgid "Tidy HTML"
+msgstr "간결한 HTML"
+
+#: ../src/rcfile.c:488
+msgid "Strip empty lines"
+msgstr "빈 행 제거"
+
+#: ../src/rcfile.c:489
+msgid "Render HTML to text"
+msgstr "HTML을 문자열로 렌더"
+
+#: ../src/rcfile.c:492
+msgid "Mozilla"
+msgstr "모질라"
+
+#: ../src/rcfile.c:493
+msgid "Firefox"
+msgstr "파이어폭스"
+
+#: ../src/rcfile.c:494
+msgid "Opera"
+msgstr "오페라"
+
+#: ../src/rcfile.c:495
+msgid "Konqueror"
+msgstr "콘커러"
+
+#: ../src/rcfile.c:496
+msgid "Galeon"
+msgstr "갈레온"
+
+#: ../src/rcfile.c:497
+msgid "Epiphany"
+msgstr "Epiphany"
+
+#: ../src/rcfile.c:498
+msgid "Kazehakase"
+msgstr "카제하카세"
+
+#: ../src/rcfile.c:499
+msgid "Links2 (graphics)"
+msgstr "링크2 (그래픽)"
+
+#: ../src/rcfile.c:610
+msgid "Untitled Project"
+msgstr "무제 프로젝트"
+
+#: ../src/rcfile.c:668
+msgid "C programming"
+msgstr "C 프로그래밍"
+
+#: ../src/rcfile.c:670
+msgid "Web files"
+msgstr "Web파일"
+
+#: ../src/rcfile.c:676
+msgid "Hide objectfiles"
+msgstr "객체 파일 숨기기"
+
+#: ../src/snr2.c:241
+msgid "Regular expression error: "
+msgstr "정규식 오류: "
+
+#: ../src/snr2.c:245
+#: ../src/snr2.c:293
+msgid "Search failed"
+msgstr "찾기 실패"
+
+#: ../src/snr2.c:289
+#, c-format
+msgid "Regular expression error: %s at offset %d"
+msgstr "정규식 오류: %s (옵셋 %d)"
+
+#: ../src/snr2.c:1379
+#, c-format
+msgid "Found %d matches, "
+msgstr "%d개 일치됨"
+
+#: ../src/snr2.c:1380
+#, c-format
+msgid "replaced %d"
+msgstr "치환된 %d"
+
+#: ../src/snr2.c:1385
+#, c-format
+msgid "Found %d matches"
+msgstr "%d 개 일치함"
+
+#. display warning that not all documents have yet finished loading
+#: ../src/snr2.c:1406
+msgid "<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">전체 문서가 아직 읽어오지 않음</span>"
+
+#: ../src/snr2.c:1531
+msgid "<span foreground=\"red\" weight=\"bold\">No selection. Please select a block of text first.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">선택없음. 문자열 블록을 첫째로 선택하시오.</span>"
+
+#: ../src/snr2.c:1570
+#: ../src/snr2.c:1936
+msgid "<span foreground=\"red\" weight=\"bold\">No more matches found, next search will continue at the beginning.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">더 이상 일치되는 것이 없습니다. 다음 찾기는 시작부분에서 시작합니다.</span>"
+
+#: ../src/snr2.c:1647
+msgid "Entire document"
+msgstr "전체 문서"
+
+#: ../src/snr2.c:1648
+msgid "Forward from cursor position"
+msgstr "커서 위치에서 앞으로"
+
+#: ../src/snr2.c:1649
+msgid "Selection"
+msgstr "선택"
+
+#: ../src/snr2.c:1650
+msgid "All open files"
+msgstr "전체 열린 파일"
+
+#: ../src/snr2.c:1654
+#: ../src/snr2.c:1661
+msgid "Normal"
+msgstr "보통"
+
+#: ../src/snr2.c:1655
+msgid "Entire word only"
+msgstr "전체 단어만"
+
+#: ../src/snr2.c:1656
+msgid "POSIX"
+msgstr "POSIX"
+
+#: ../src/snr2.c:1657
+msgid "PERL"
+msgstr "PERL"
+
+#: ../src/snr2.c:1662
+msgid "Uppercase"
+msgstr "대문자"
+
+#: ../src/snr2.c:1663
+msgid "Lowercase"
+msgstr "소문자"
+
+#: ../src/snr2.c:1701
+msgid "_Search for: "
+msgstr "찾기(_F):"
+
+#: ../src/snr2.c:1705
+msgid "The pattern to look for"
+msgstr "찾을 패턴"
+
+#: ../src/snr2.c:1720
+msgid "Replace _with: "
+msgstr "치환(_W): "
+
+#: ../src/snr2.c:1724
+msgid "Replace matching text with"
+msgstr "일치 문자열을 치환"
+
+#: ../src/snr2.c:1732
+msgid "Sco_pe: "
+msgstr "범위(_P):"
+
+#: ../src/snr2.c:1736
+msgid "Where to look for the pattern."
+msgstr "패턴 찾을 위치"
+
+#: ../src/snr2.c:1742
+msgid "Found 0 matches, replaced 0"
+msgstr "일치하는 것이 없어 치환되지 않았습니다."
+
+#: ../src/snr2.c:1742
+msgid "Found 0 matches"
+msgstr "일치하는 것이 없습니다"
+
+#: ../src/snr2.c:1752
+msgid "<b>_Options</b>"
+msgstr "<b>설정(_O)</b>"
+
+#: ../src/snr2.c:1767
+msgid "Match Patter_n: "
+msgstr "패턴 일치(_N):"
+
+#: ../src/snr2.c:1771
+msgid "How to interpret the pattern."
+msgstr "패턴 해석 방법"
+
+#: ../src/snr2.c:1778
+msgid "Replace T_ype: "
+msgstr "치환 형태(_Y):"
+
+#: ../src/snr2.c:1783
+msgid "What to replace with."
+msgstr "치환될 내용"
+
+#: ../src/snr2.c:1787
+msgid "Allow o_verlapping matches"
+msgstr "오버랩 일치 허용(_V)"
+
+#: ../src/snr2.c:1790
+msgid "After a match is found, start next search within that match."
+msgstr "일치를 찾은 후 그 일치내에서 다음 찾기 시작"
+
+#: ../src/snr2.c:1792
+msgid "Case sensitive _matching"
+msgstr "대소문자 구분 일치(_M)"
+
+#: ../src/snr2.c:1795
+msgid "Only match if case (upper/lower) is identical."
+msgstr "대소문자가 동일하다면 일치만"
+
+#: ../src/snr2.c:1797
+msgid "_Use escape chars"
+msgstr "Escape 문자 사용(_U)"
+
+#: ../src/snr2.c:1800
+msgid ""
+"Unescape backslash escaped characters such as \\n"
+", \\t etc."
+msgstr ""
+
+#: ../src/snr2.c:1802
+msgid "_Select matches"
+msgstr "일치 선택(_S)"
+
+#: ../src/snr2.c:1805
+msgid "Select the matching text instead of just highlighting it"
+msgstr "그것을 강조하는 대신 일치하는 문자열 선택"
+
+#: ../src/snr2.c:1807
+msgid "_Bookmark matches"
+msgstr "북마크 일치(_B)"
+
+#: ../src/snr2.c:1809
+msgid "Create a bookmark for each match"
+msgstr "각각 일치를 위한 북마크 생성"
+
+#: ../src/snr2.c:1814
+msgid "Replace _All"
+msgstr "전체 치환(_A)"
+
+#: ../src/snr2.c:1820
+msgid "Find _All"
+msgstr "전체 찾기(_A)"
+
+#: ../src/undo_redo.c:463
+msgid "Undo in _all documents"
+msgstr "전체 문서에서 실행 취소(_A)"
+
+#: ../src/undo_redo.c:463
+msgid "Undo only _this document"
+msgstr "이 문서에서만 실행 취소(_T)"
+
+#: ../src/undo_redo.c:466
+msgid "Undo this change in all documents?"
+msgstr "전체 문서에서 이 변경 실행 취소하겠습니까?"
+
+#: ../src/undo_redo.c:466
+msgid "This change concerns multiple documents."
+msgstr "이 변경은 복수 문서와 관계있습니다."
+
+msgid "/Document/Auto Close H_TML tags"
+msgstr "/문서/HTML 태그 자동 닫기(_T)"
+
+msgid "/Document/Document Type"
+msgstr "/문서/문서 형태"
+
+msgid "/Dial_ogs"
+msgstr "/대화창(_O)"
+
+msgid "/_Tags"
+msgstr "/태그(_T)"
+
+msgid "/View/View _Custom Menu"
+msgstr "/보기/사용자 메뉴(_C)"
+
+msgid "/_Help"
+msgstr "/도움말(_H)"
+
+msgid "/Help/_About..."
+msgstr "/도움말/Bluefish는(_A)..."
+
+msgid "/View/View _HTML Toolbar"
+msgstr "/보기/HTML 도구막대(_H)"
+
+msgid "About Bluefish"
+msgstr "Bluefish 소개"
+
+msgid "Info"
+msgstr "정보"
+
+msgid "Authors"
+msgstr "저작자"
+
+msgid "Translators"
+msgstr "번역자"
+
+msgid "/Tags/_Headings"
+msgstr "/태그/머릿글(_H)"
+
+msgid "/Tags/Headings/H_1"
+msgstr "/태그/머릿글/H1(_1)"
+
+msgid "/Tags/Headings/H_2"
+msgstr "/태그/머릿글/H2(_2)"
+
+msgid "/Tags/Headings/H_3"
+msgstr "/태그/머릿글/H3(_3)"
+
+msgid "/Tags/Headings/H_4"
+msgstr "/태그/머릿글/H4(_4)"
+
+msgid "/Tags/Headings/H_5"
+msgstr "/태그/머릿글/H5(_5)"
+
+msgid "/Tags/Headings/H_6"
+msgstr "/태그/머릿글/H6(_6)"
+
+msgid "/Tags/_Special"
+msgstr "/태그/특수문자(_S)"
+
+msgid "/Tags/_Format by layout"
+msgstr "/태그/글꼴 모양(_F)"
+
+msgid "/Tags/F_ormat by context"
+msgstr "/태그/문맥 형식(_O)"
+
+msgid "/Tags/Format by context/_Strong"
+msgstr "/태그/문맥 형식/Strong(_S)"
+
+msgid "/Tags/Format by context/_Emphasis"
+msgstr "/태그/문맥 형식/Emphasis(_E)"
+
+msgid "/Tags/Format by context/_Define"
+msgstr "/태그/문맥 형식/Define(_D)"
+
+msgid "/Tags/Format by context/_Code"
+msgstr "/태그/문맥 형식/Code(_C)"
+
+msgid "/Tags/Format by context/Sa_mple"
+msgstr "/태그/문맥 형식/Sample(_M)"
+
+msgid "/Tags/Format _general"
+msgstr "/태그/일반 형식(_G)"
+
+msgid "/Tags/_Table"
+msgstr "/태그/표(_T)"
+
+msgid "/Tags/_List"
+msgstr "/태그/목록(_L)"
+
+msgid "/Tags/List/tearoff1"
+msgstr "/태그/목록/tearoff1"
+
+msgid "/Tags/List/Unordered _List"
+msgstr "/태그/목록/Uordnet _Liste"
+
+msgid "/Tags/List/_Ordered List"
+msgstr "/태그/목록/_Ordnet Liste"
+
+msgid "/Tags/List/List Ite_m"
+msgstr "/태그/목록/Liste Ele_ment"
+
+msgid "/Tags/List/De_finition List"
+msgstr "/태그/목록/Definitions _Liste"
+
+msgid "/Tags/List/Definition _Term"
+msgstr "/태그/목록/Definitions _Term"
+
+msgid "/Tags/List/_Definition"
+msgstr "/태그/목록/_Definition"
+
+msgid "/Tags/List/Men_u"
+msgstr "/태그/목록/Men_u"
+
+msgid "/Tags/Fo_rm"
+msgstr "/태그/양식(_R)"
+
+msgid "/Tags/_Misc"
+msgstr "/태그/기타(_M)"
+
+msgid "/Tags/_Comment"
+msgstr "/태그/주석(_C)"
+
+msgid "/Dialogs/_Frame"
+msgstr "/대화창/프레임(_F)"
+
+msgid "/Dialogs/F_orm"
+msgstr "/대화창/폼(_O)"
+
+msgid "/Dialogs/_Edit tag under cursor..."
+msgstr "/대화창/커서 아래 태그 편집(_E)..."
+
+msgid "/Edit/Replace special/_ASCII to HTML Entities"
+msgstr "/편집/특수 치환/ASCII를 HTML 엔트리로(_A)"
+
+msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+msgstr "/편집/특수 치환/ISO8859를 HTML 엔트리로(_I)"
+
+msgid "/Edit/Replace special/_Both Types to HTML Entities"
+msgstr "/편집/특수 치환/양쪽 형태를 HTML 엔트리로(_B)"
+
+msgid "/Edit/Replace special/To _Lowercase"
+msgstr "/편집/특수 치환/소문자로(_L)"
+
+msgid "/Edit/Replace special/To _Uppercase"
+msgstr "/편집/특수 치환/대문자로(_U)"
+
+msgid "Editor"
+msgstr "편집기"
+
+msgid "Editor startup options"
+msgstr "편집기 시작 설정"
+
+msgid "Show empty quickbar warning"
+msgstr "빈 빠른 막대 경고 보이기"
+
+msgid "_Font"
+msgstr "글꼴(_F)"
+
+msgid "Smart cursor positioning"
+msgstr "스마트 커서 위치"
+
+msgid "Word wrap default"
+msgstr "단어 자동 넘기기가 기본"
+
+msgid "Line numbuers by default"
+msgstr "행 번호가 기본"
+
+msgid "Highlight syntax by default"
+msgstr "강조 구문이 기본"
+
+msgid "Enable highlighting PCRE UTF-8 support"
+msgstr "PCRE UTF-8 지원 강조 가능"
+
+msgid "Highlight # lines"
+msgstr "강조 # 줄"
+
+msgid "Undo history size"
+msgstr "작업내역 저장 갯수"
+
+msgid "Bookmark options"
+msgstr "북마크 설정"
+
+msgid "Make permanent by default"
+msgstr "기본으로 영구 생성"
+
+msgid "Bookmarks filename display"
+msgstr "북마크 파일명 보이기"
+
+msgid "full path"
+msgstr "전체 경로"
+
+msgid "filename"
+msgstr "파일명"
+
+msgid "path from basedir"
+msgstr "기본경로"
+
+msgid "Line numbers by default"
+msgstr "행 번호 기본설정"
+
+msgid "_Apply"
+msgstr "적용(_A)"
+
+msgid "_Ok"
+msgstr "확인(_O)"
+
+msgid "Default character set"
+msgstr "기본 문자셋"
+
+msgid "Auto set <meta> encoding tag on change"
+msgstr "변경시 <meta> 엔코딩 자동 설정"
+
+msgid "Create backup on save"
+msgstr "저장시 백업파일 생성"
+
+msgid "Backup file suffix"
+msgstr "백업파일 접미사"
+
+msgid "Unknown icon"
+msgstr "미지의 아이콘"
+
+msgid "save"
+msgstr "저장"
+
+msgid "abort"
+msgstr "취소"
+
+msgid "ask"
+msgstr "묻기"
+
+msgid "Action on backup failure"
+msgstr "백업 실패시 작업방법"
+
+msgid "Allow multi instances of a file"
+msgstr "한 개 파일의 다수 경우 허용"
+
+msgid "no check"
+msgstr "검사 없음"
+
+msgid "check mtime"
+msgstr "수정시간 검사"
+
+msgid "check mtime and size"
+msgstr "수정시간 및 크기 검사"
+
+msgid "check size"
+msgstr "크기 검사"
+
+msgid "File modified on disk check "
+msgstr "디스크상 수정된 파일 검사 "
+
+msgid "File browser"
+msgstr "파일 탐색기"
+
+msgid "Default basedir"
+msgstr "기본 작업 폴더"
+
+msgid "Use separate file and directory view"
+msgstr "개별 파일 및 폴더 보기 사용"
+
+msgid "Directory icon"
+msgstr "폴더 아이콘"
+
+msgid "Notebook tab font (leave empty for gtk default)"
+msgstr "노트북 탭 글꼴 (GTK 기본은 빈 채 둠)"
+
+msgid "External browsers in submenu"
+msgstr "하위 메뉴에서 외부 탐색기"
+
+msgid "External commands in submenu"
+msgstr "하위 메뉴에서 외부 명령어"
+
+msgid "External outputbox in submenu"
+msgstr "하위 메뉴에서 외부 출력상자"
+
+msgid "Filetypes"
+msgstr "파일 형태"
+
+msgid "Syntax highlighting"
+msgstr "구문 강조"
+
+msgid "External programs"
+msgstr "외부 프로그램"
+
+msgid "Extensions"
+msgstr "확장자"
+
+msgid "Update chars"
+msgstr "문자 업데이트"
+
+msgid "Editable"
+msgstr "편집가능"
+
+msgid "Content regex"
+msgstr "내용 정규식"
+
+msgid "Auto close tags mode"
+msgstr "자동 닫기 태그 모드"
+
+msgid "_Add"
+msgstr "더하기(_A)"
+
+msgid "_Delete"
+msgstr "삭제(_D)"
+
+msgid "Filefilters"
+msgstr "파일 필터"
+
+msgid "Inverse filter"
+msgstr "역 필터"
+
+msgid "Filetypes in filter"
+msgstr "필터에서 파일 형태"
+
+msgid "filetype"
+msgstr "파일 형태"
+
+msgid "Pattern name"
+msgstr "패턴명"
+
+msgid "Start pattern and end pattern"
+msgstr "시작 패턴과 끝 패턴"
+
+msgid "Only start pattern"
+msgstr "시작 패턴만"
+
+msgid "Subpattern from parent"
+msgstr "부모로부터 해위 패턴"
+
+msgid "Start pattern"
+msgstr "시작 패턴"
+
+msgid "End pattern"
+msgstr "끝 패턴"
+
+msgid "Parentmatch"
+msgstr "부모 일치"
+
+msgid "Patterns"
+msgstr "패턴"
+
+msgid "Case sensitive matching"
+msgstr "대소문자 정확히 일치"
+
+msgid "don't change weight"
+msgstr "글꼴 변경 안함"
+
+msgid "force non-bold weight"
+msgstr "비 굵음 글꼴 강제"
+
+msgid "force bold weight"
+msgstr "굵음 글꼴 강제"
+
+msgid "don't change style"
+msgstr "스타일 변경 안함"
+
+msgid "force non-italic style"
+msgstr "비 기울임 글꼴 스타일 강제"
+
+msgid "force italic style"
+msgstr "기울임 글꼴 스타일 강제"
+
+msgid "Browers"
+msgstr "탐색기"
+
+msgid ""
+"%s for current filename (any command)\n"
+"%i for input and %f for output filename (filters)"
+msgstr ""
+"현재 파일명 위한 %s(임의 명령어)\n"
+"입력 위한 %i 과 출렬 파일명을 위한 %f (필터)"
+
+msgid "Utilities and filters"
+msgstr "유틸리티 및 필터"
+
+msgid "Outputbox"
+msgstr "출력 상자"
+
+msgid "Browsers"
+msgstr "탐색기"
+
+msgid "Reset"
+msgstr "초기화"
+
+msgid "/Dialogs/tearoff1"
+msgstr "/대화창/tearoff1"
+
+msgid "/Dialogs/_General"
+msgstr "/대화창/일반(_G)"
+
+msgid "/Dialogs/General/_Link Header..."
+msgstr "/대화창/일반/헤더 링크(_L)..."
+
+msgid "/Dialogs/General/_Quickstart..."
+msgstr "/대화창/일반/빠른 시작(_Q)..."
+
+msgid "/Dialogs/General/_Body..."
+msgstr "/대화창/일반/바디(_B)..."
+
+msgid "/Dialogs/General/_Anchor..."
+msgstr "/대화창/일반/앵커(_A)..."
+
+msgid "/Dialogs/General/_Email..."
+msgstr "/대화창/일반/이메일(_E)..."
+
+msgid "/Dialogs/General/_Rule..."
+msgstr "/대화창/일반/Rule(_R)..."
+
+msgid "/Dialogs/General/_Font..."
+msgstr "/대화창/일반/글꼴(_F)..."
+
+msgid "/Dialogs/General/Basef_ont..."
+msgstr "/대화창/일반/기본 글꼴(_O)..."
+
+msgid "/Dialogs/General/Quick_list..."
+msgstr "/대화창/일반/빠른 목록(_L)..."
+
+msgid "/Dialogs/General/_Meta..."
+msgstr "/대화창/일반/메타(_M)..."
+
+msgid "/Dialogs/General/Embe_d..."
+msgstr "/대화창/일반/임베드(_D)..."
+
+msgid "/Dialogs/General/Select _Color..."
+msgstr "/대화창/일반/색상 선택(_C)..."
+
+msgid "/Dialogs/General/Insert _Time..."
+msgstr "/대화창/일반/시간 삽입(_T)..."
+
+msgid "/Dialogs/General/Insert _Image..."
+msgstr "/대화창/일반/이미지 삽입(_I)..."
+
+msgid "/Dialogs/General/Insert T_humbnail..."
+msgstr "/대화창/일반/썸네일 삽입(_H)..."
+
+msgid "/Dialogs/_Table"
+msgstr "/대화창/표(_T)"
+
+msgid "/Dialogs/Table/Table _Wizard..."
+msgstr "/대화창/표/표 위저드(_W)..."
+
+msgid "/Dialogs/Table/_Table..."
+msgstr "/대화창/표/표(_T)..."
+
+msgid "/Dialogs/Table/Table _Row..."
+msgstr "/대화창/표/표 행(_R)..."
+
+msgid "/Dialogs/Table/Table _Head..."
+msgstr "/대화창/표/표 헤더(_H)..."
+
+msgid "/Dialogs/Table/Table _Data..."
+msgstr "/대화창/표/표 자료(_D)..."
+
+msgid "/Dialogs/_CSS"
+msgstr "/대화창/CSS(_C)"
+
+msgid "/Dialogs/CSS/_Create Style..."
+msgstr "/대화창/CSS/스타일 생성(_C)..."
+
+msgid "/Dialogs/CSS/S_pan..."
+msgstr "/대화창/CSS/스판(_P)..."
+
+msgid "/Dialogs/CSS/_Div..."
+msgstr "/대화창/CSS/Div(_D)..."
+
+msgid "/Dialogs/CSS/_Style..."
+msgstr "/대화창/CSS/스타일(_S)..."
+
+msgid "/Dialogs/CSS/_Link to Stylesheet..."
+msgstr "/대화창/CSS/스타일시트에 링크(_L)..."
+
+msgid "/Dialogs/Frame/Frame _Wizard..."
+msgstr "/대화창/프레임/프레임 위저드(_W)..."
+
+msgid "/Dialogs/Frame/Frame_set..."
+msgstr "/대화창/프레임/프레임셋(_S)..."
+
+msgid "/Dialogs/Frame/_Frame..."
+msgstr "/대화창/프레임/프레임(_F)..."
+
+msgid "/Dialogs/Form/F_orm..."
+msgstr "/대화창/폼/폼(_O)..."
+
+msgid "/Dialogs/Form/_Input..."
+msgstr "/대화창/폼/입력(_I)..."
+
+msgid "/Dialogs/Form/Input Buttons..."
+msgstr "/대화창/폼/입력 단추..."
+
+msgid "/Dialogs/Form/Input Text..."
+msgstr "/대화창/폼/입력 문자열..."
+
+msgid "/Dialogs/Form/Text_area..."
+msgstr "/대화창/폼/문자열 구역(_A)..."
+
+msgid "/Dialogs/Form/_Select..."
+msgstr "/대화창/폼/선택(_S)..."
+
+msgid "/Dialogs/Form/O_ption..."
+msgstr "/대화창/폼/설정(_P)..."
+
+msgid "/Dialogs/Form/Option _Group..."
+msgstr "/대화창/폼/설정 그룹(_G)..."
+
+msgid "/Dialogs/Form/_Button..."
+msgstr "/대화창/폼/단추(_B)..."
+
+msgid "/Tags/Special/_Accent"
+msgstr "/태그/특수문자/_Accenter"
+
+msgid "/Tags/Special/Accent/tearoff1"
+msgstr "/태그/특수문자/Accenter/tearoff1"
+
+msgid "/Tags/Special/Accent/_Uppercase"
+msgstr "/태그/특수문자/Accenter/_Store"
+
+msgid "/Tags/Special/Accent/Uppercase/_A-I"
+msgstr "/태그/특수문자/Accenter/Store/_A-I"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
+msgstr "/태그/특수문자/Accenter/Store/A-I/tearoff1"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
+msgstr "/태그/특수문자/Accenter/Store/A-I/A grave À"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
+msgstr "/태그/특수문자/Accenter/Store/A-I/A acute Á"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
+msgstr "/태그/특수문자/Accenter/Store/A-I/A circumflex Â"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
+msgstr "/태그/특수문자/Accenter/Store/A-I/A tilde Ã"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
+msgstr "/태그/특수문자/Accenter/Store/A-I/E ligatur Æ"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
+msgstr "/태그/특수문자/Accenter/Store/A-I/A diaresis Ä"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
+msgstr "/태그/특수문자/Accenter/Store/A-I/A ring Å"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
+msgstr "/태그/특수문자/Accenter/Store/A-I/C cedilla Ç"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
+msgstr "/태그/특수문자/Accenter/Store/A-I/E grave È"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
+msgstr "/태그/특수문자/Accenter/Store/A-I/E acute É"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
+msgstr "/태그/특수문자/Accenter/Store/A-I/E circuimflex Ê"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
+msgstr "/태그/특수문자/Accenter/Store/A-I/E diaresis Ë"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
+msgstr "/태그/특수문자/Accenter/Store/A-I/I grave Ì"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
+msgstr "/태그/특수문자/Accenter/Store/A-I/I acute Í"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
+msgstr "/태그/특수문자/Accenter/Store/A-I/I circumflex Î"
+
+msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
+msgstr "/태그/특수문자/Accenter/Store/A-I/I diaresis Ï"
+
+msgid "/Tags/Special/Accent/Uppercase/_J-Z"
+msgstr "/태그/특수문자/Accenter/Store/_J-Z"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/tearoff1"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/N tilde Ñ"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/O grave Ò"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/O acute Ó"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/O circumflex Ô"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/OE ligature "
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/O tilde Õ"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/O diaresis Ö"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/O slash Ø"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/U grave Ù"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/U acute Ú"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/U circumflex Û"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/U diaresis Ü"
+
+msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/Y acute Ý"
+
+msgid "/Tags/Special/Accent/_Lowercase"
+msgstr "/태그/특수문자/Accenter/_Små"
+
+msgid "/Tags/Special/Accent/Lowercase/_A-I"
+msgstr "/태그/특수문자/Accenter/Små/_A-I"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
+msgstr "/태그/특수문자/Accenter/Små/A-I/tearoff1"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
+msgstr "/태그/특수문자/Accenter/Små/A-I/a grave à"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
+msgstr "/태그/특수문자/Accenter/Små/A-I/a acute á"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
+msgstr "/태그/특수문자/Accenter/Små/A-I/a circumflex â"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
+msgstr "/태그/특수문자/Accenter/Små/A-I/a tilde ã"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
+msgstr "/태그/특수문자/Accenter/Små/A-I/a ring å "
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
+msgstr "/태그/특수문자/Accenter/Små/A-I/ae ligatur æ"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
+msgstr "/태그/특수문자/Accenter/Små/A-I/a diaresis ä"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
+msgstr "/태그/특수문자/Accenter/Små/A-I/c cedilla ç"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
+msgstr "/태그/특수문자/Accenter/Små/A-I/e grave è"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
+msgstr "/태그/특수문자/Accenter/Små/A-I/e acute é"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
+msgstr "/태그/특수문자/Accenter/Små/A-I/e circumflex ê"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
+msgstr "/태그/특수문자/Accenter/Små/A-I/e diaresis ë"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
+msgstr "/태그/특수문자/Accenter/Små/A-I/i grave ì"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
+msgstr "/태그/특수문자/Accenter/Små/A-I/i acute í"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
+msgstr "/태그/특수문자/Accenter/Små/A-I/i circumflex î"
+
+msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
+msgstr "/태그/특수문자/Accenter/Små/A-I/i diaresis ï"
+
+msgid "/Tags/Special/Accent/Lowercase/_J-Z"
+msgstr "/태그/특수문자/Accenter/Små/_J-Z"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/tearoff1"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/n tilde ñ"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/o grave ò"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/o acute ó"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/oe ligatur æ"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/o circumflex ô"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/o tilde õ"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/o diaeresis ö"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/o slash ø "
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/u grave ù"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/u acute ú"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/u circumflex û"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/u diaresis ü"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/y acute ý"
+
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/y diaresis ÿ"
+
+msgid "/Tags/Special/Accent/separator"
+msgstr "/태그/특수문자/Accenter/separator"
+
+msgid "/Tags/Special/Accent/U_mlaut ¨"
+msgstr "/태그/특수문자/Accenter/U_mlaut ¨"
+
+msgid "/Tags/Special/Accent/_Acute ´"
+msgstr "/태그/특수문자/Accenter/_Acute ´"
+
+msgid "/Tags/Special/Accent/_Cedilla ¸"
+msgstr "/태그/특수문자/Accenter/_Cedilla ¸"
+
+msgid "/Tags/Special/_Currency"
+msgstr "/태그/특수문자/화폐(_C)"
+
+msgid "/Tags/Special/Currency/_Cent sign ¢"
+msgstr "/태그/특수문자/화폐/센트 ¢(_C)"
+
+msgid "/Tags/Special/Currency/_Pound sterling £"
+msgstr "/태그/특수문자/화폐/파운드 £(_P)"
+
+msgid "/Tags/Special/Currency/C_urrency sign ¤"
+msgstr "/태그/특수문자/화폐/화폐 표시 ¤(_U)"
+
+msgid "/Tags/Special/Currency/_Yen sign ¥"
+msgstr "/태그/특수문자/화폐/엔 ¥(_Y)"
+
+msgid "/Tags/Special/Currency/_Euro "
+msgstr "/태그/특수문자/화폐/유로(_E)"
+
+msgid "/Tags/Special/_Math-Science"
+msgstr "/태그/특수문자/수학-과학(_M)"
+
+msgid "/Tags/Special/Math-Science/tearoff1"
+msgstr "/태그/특수문자/수학-과학/tearoff1"
+
+msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
+msgstr "/태그/특수문자/수학-과학/Logisk _ikke ligmed ¬"
+
+msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
+msgstr "/태그/특수문자/수학-과학/_Multiplikations tegn ×"
+
+msgid "/Tags/Special/Math-Science/_Division sign ÷"
+msgstr "/태그/특수문자/수학-과학/_Divisions tegn ÷"
+
+msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
+msgstr "/태그/특수문자/수학-과학/_Plus-minus tegn ±"
+
+msgid "/Tags/Special/Math-Science/_Less-than sign <"
+msgstr "/태그/특수문자/수학-과학/_Mindre end <"
+
+msgid "/Tags/Special/Math-Science/_Greater-than sign >"
+msgstr "/태그/특수문자/수학-과학/_Større end >"
+
+msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
+msgstr "/태그/특수문자/수학-과학/Hævet _1 ¹"
+
+msgid "/Tags/Special/Math-Science/Superscript _2 ²"
+msgstr "/태그/특수문자/수학-과학/Hævet _2 ²"
+
+msgid "/Tags/Special/Math-Science/Superscript _3 ³"
+msgstr "/태그/특수문자/수학-과학/Hævet _3 ³"
+
+msgid "/Tags/Special/Math-Science/One _quarter ¼"
+msgstr "/태그/특수문자/수학-과학/_Fjerdedel ¼"
+
+msgid "/Tags/Special/Math-Science/One _half ½"
+msgstr "/태그/특수문자/수학-과학/_Halvdel ½"
+
+msgid "/Tags/Special/Math-Science/_Three quarters ¾"
+msgstr "/태그/특수문자/수학-과학/_Tre fjerdedele ¾"
+
+msgid "/Tags/Special/Math-Science/Deg_ree sign °"
+msgstr "/태그/특수문자/수학-과학/_Grade tegn °"
+
+msgid "/Tags/Special/_Non Latin"
+msgstr "/태그/특수문자/비 라틴(_N)"
+
+msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
+msgstr "/태그/특수문자/비 라틴/_ETH (Islandsk) Ð"
+
+msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
+msgstr "/태그/특수문자/비 라틴/_THORN (Islandsk) Þ"
+
+msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
+msgstr "/태그/특수문자/비 라틴/et_h (Islandsk) ð"
+
+msgid "/Tags/Special/Non Latin/th_orn ÿ"
+msgstr "/태그/특수문자/비 라틴/th_orn (Islandsk) ÿ"
+
+msgid "/Tags/Special/Non Latin/Sharp _s ß"
+msgstr "/태그/특수문자/비 라틴/Skarpt _s ß"
+
+msgid "/Tags/Special/Non Latin/_Micro sign µ"
+msgstr "/태그/특수문자/비 라틴/_Mikro tegn µ"
+
+msgid "/Tags/Special/_Other"
+msgstr "/태그/특수문자/기타(_O)"
+
+msgid "/Tags/Special/Other/_Non-breaking space"
+msgstr "/태그/특수문자/기타/_Non-breaking mellemrum"
+
+msgid "/Tags/Special/Other/_Section sign §"
+msgstr "/태그/특수문자/기타/_Afsnits tegn §"
+
+msgid "/Tags/Special/Other/_Copyright sign ©"
+msgstr "/태그/특수문자/기타/_Copyright tegn ©"
+
+msgid "/Tags/Special/Other/_Left angle quotes «"
+msgstr "/태그/특수문자/기타/_Venstre gåseøjne «"
+
+msgid "/Tags/Special/Other/_Right angle quotes »"
+msgstr "/태그/특수문자/기타/_Højre gåseåjne »"
+
+msgid "/Tags/Special/Other/Registered _trademark ®"
+msgstr "/태그/특수문자/기타/Registrere_t varemærke ®"
+
+msgid "/Tags/Special/Other/Inverted _exclamation ¡"
+msgstr "/태그/특수문자/기타/Omvendt _udråbstegn ¡"
+
+msgid "/Tags/Special/Other/Inverted _question mark ¿"
+msgstr "/태그/특수문자/기타/Omvendt _spørgsmålstegn ¿"
+
+msgid "/Tags/Special/Other/_Feminine ordinal ª"
+msgstr "/태그/특수문자/기타/_Feminin ordinal ª"
+
+msgid "/Tags/Special/Other/_Masculine ordinal º"
+msgstr "/태그/특수문자/기타/_Maskulin ordinal º"
+
+msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
+msgstr "/태그/특수문자/기타/_Paragraf tegn ¶"
+
+msgid "/Tags/Special/Other/_Broken bar ¦"
+msgstr "/태그/특수문자/기타/_Broken bar ¦"
+
+msgid "/Tags/Special/Other/Soft _hypen -"
+msgstr "/태그/특수문자/기타/Blød _hypen -"
+
+msgid "/Tags/Special/Other/Spa_cing macron ¯"
+msgstr "/태그/특수문자/기타/_Mellemrums makron ¯"
+
+msgid "/Tags/Special/Other/Middle _dot ·"
+msgstr "/태그/특수문자/기타/Mellem _prik ·"
+
+#, fuzzy
+#~ msgid "Bluefish Project"
+#~ msgstr "Indtast Bluefish projekt filnavn"
+#~ msgid "_Line number:"
+#~ msgstr "_Linje nummer:"
+#~ msgid "From _selection"
+#~ msgstr "Fra _valg"
+#~ msgid "Keep _dialog"
+#~ msgstr "Behold _dialog"
+
+#, fuzzy
+#~ msgid "/Document/Show _symbols"
+#~ msgstr "/Dokument/Ord _Optælling"
+#~ msgid "/Document/Document Ty_pe"
+#~ msgstr "/Dokument/Dokument Ty_pe"
+
+#, fuzzy
+#~ msgid "Syntax scanning"
+#~ msgstr "Efter skalering"
+
+#, fuzzy
+#~ msgid "Collapse all"
+#~ msgstr "Luk _Alle"
+#~ msgid "parsing highlighting file..."
+#~ msgstr "læser syntaks-farvnings fil..."
+#~ msgid "compiling highlighting patterns..."
+#~ msgstr "oversætter syntaks-farvnigs fil..."
+
+#, fuzzy
+#~ msgid "Block folding view by default"
+#~ msgstr "_Ord-ombrydning som standard"
+
+#, fuzzy
+#~ msgid "Symbols view by default"
+#~ msgstr "Vis sidepanel som standard"
+
+#, fuzzy
+#~ msgid "Tag autoclose by default"
+#~ msgstr "Vis sidepanel som standard"
+
+#, fuzzy
+#~ msgid "Backup file prefix"
+#~ msgstr "Sikkerhedskopi endelse"
+
+#, fuzzy
+#~ msgid "Show right margin by default"
+#~ msgstr "Vis brugerdefineret menu som standard"
+
+#, fuzzy
+#~ msgid "whole document"
+#~ msgstr "I _dokument"
+
+#, fuzzy
+#~ msgid "Load network DTD by default"
+#~ msgstr "_Ord-ombrydning som standard"
+#~ msgid " Add "
+#~ msgstr " Tilføj "
+#~ msgid " Update "
+#~ msgstr " Opdatér "
+#~ msgid " Delete "
+#~ msgstr " Slet "
+#~ msgid " Up "
+#~ msgstr " Op "
+#~ msgid " Down "
+#~ msgstr " Ned "
+#~ msgid " Sort "
+#~ msgstr " Sortér "
+#~ msgid "_Basedir:"
+#~ msgstr "Grund_bibliotek:"
+#~ msgid "_Preview URL:"
+#~ msgstr "_Preview URL:"
+
+#, fuzzy
+#~ msgid "File size changed in file \n"
+#~ msgstr "Fil-størrelse ændredes i fil\n"
+#~ msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
+#~ msgstr "Bogmærkers positioner kan være forkerte. Slet bogmærker?"
+
+#, fuzzy
+#~ msgid "Show files in filter"
+#~ msgstr "Filtyper i filtre"
+#~ msgid "Servers"
+#~ msgstr "Servere"
+#~ msgid "Remote servers"
+#~ msgstr "Eksterne servere"
+#~ msgid "Zope compatibility mode"
+#~ msgstr "Zope kompatibilitets tilstand"
+#~ msgid "parsing custom menu file..."
+#~ msgstr "parser bruger menu fil..."
+
+#, fuzzy
+#~ msgid "Cannot load reference file %s\n"
+#~ msgstr "Opdatér reference filer"
+
+#, fuzzy
+#~ msgid ""
+#~ "Bad root element in reference file %s\n"
+#~ "Should be <ref> or <r> and found %s"
+#~ msgstr "Opdatér reference filer"
+
+#, fuzzy
+#~ msgid "Bad root element in reference file"
+#~ msgstr "Opdatér reference filer"
+
+#, fuzzy
+#~ msgid "Bad reference"
+#~ msgstr "Redigér præferencer"
+
+#, fuzzy
+#~ msgid "Loading reference"
+#~ msgstr "Redigér præferencer"
+
+#, fuzzy
+#~ msgid "Unloading reference"
+#~ msgstr "Funktions reference"
+
+#, fuzzy
+#~ msgid "Identifier"
+#~ msgstr "Centrer"
+
+#, fuzzy
+#~ msgid "Kind"
+#~ msgstr "Søg"
+
+#, fuzzy
+#~ msgid "Type"
+#~ msgstr "_Type:"
+
+#, fuzzy
+#~ msgid "Input type"
+#~ msgstr "Info type"
+
+#, fuzzy
+#~ msgid "Values"
+#~ msgstr "Værdi"
+
+#, fuzzy
+#~ msgid "Insert syntax"
+#~ msgstr "Indsæt billede"
+
+#, fuzzy
+#~ msgid "Help"
+#~ msgstr "/_Hjælp"
+
+#, fuzzy
+#~ msgid "Properties"
+#~ msgstr "Egenskab"
+
+#, fuzzy
+#~ msgid "Add property"
+#~ msgstr "Egenskab"
+
+#, fuzzy
+#~ msgid "Add ref definition"
+#~ msgstr "Definitions Term"
+#~ msgid "Error"
+#~ msgstr "Fejl"
+
+#, fuzzy
+#~ msgid ""
+#~ "Perhaps you didn't load a library, or you did not select a library to "
+#~ "search in."
+#~ msgstr ""
+#~ "Måske hentede du ikke en regerence, eller du valgte ikke en reference at "
+#~ "søge i."
+
+#, fuzzy
+#~ msgid "Element %s not found"
+#~ msgstr "Reference ikke fundet"
+
+#, fuzzy
+#~ msgid "Element search"
+#~ msgstr "Reference søgning"
+
+#, fuzzy
+#~ msgid "New library"
+#~ msgstr "/_Nyt Bibliotek"
+
+#, fuzzy
+#~ msgid "Library name"
+#~ msgstr "Bibliotek navn"
+
+#, fuzzy
+#~ msgid "Delete library?"
+#~ msgstr "Slet bogmærker?"
+
+#, fuzzy
+#~ msgid "Reference not loaded."
+#~ msgstr "Reference ikke fundet"
+
+#, fuzzy
+#~ msgid "New note"
+#~ msgstr "Nyt projekt"
+
+#, fuzzy
+#~ msgid "Title"
+#~ msgstr "_Unavngivet:"
+
+#, fuzzy
+#~ msgid "New group"
+#~ msgstr "Nyt projekt"
+
+#, fuzzy
+#~ msgid "New description def"
+#~ msgstr "Beskrivelse"
+
+#, fuzzy
+#~ msgid "Description text"
+#~ msgstr "Beskrivelse"
+
+#, fuzzy
+#~ msgid "New values def"
+#~ msgstr "Nyt Bluefish Vindue"
+
+#, fuzzy
+#~ msgid "Definitions"
+#~ msgstr "Definition"
+
+#, fuzzy
+#~ msgid "New property"
+#~ msgstr "Nyt projekt"
+
+#, fuzzy
+#~ msgid "No name"
+#~ msgstr "Intet filnavn"
+
+#, fuzzy
+#~ msgid "Delete definition?"
+#~ msgstr "Definition"
+
+#, fuzzy
+#~ msgid "Delete group"
+#~ msgstr " Slet "
+
+#, fuzzy
+#~ msgid "Delete group?"
+#~ msgstr " Slet "
+
+#, fuzzy
+#~ msgid "Do you really want to delete current entity?"
+#~ msgstr "Vil du virkelig slette %s?"
+#~ msgid "Show info window"
+#~ msgstr "Vis info vindue"
+#~ msgid "Insert"
+#~ msgstr "Indsæt"
+#~ msgid "Attributes/Parameters"
+#~ msgstr "Attributer/Parametre"
+#~ msgid "Notes"
+#~ msgstr "Noter"
+
+#, fuzzy
+#~ msgid "Examples"
+#~ msgstr "Prøve"
+
+#, fuzzy
+#~ msgid "Links"
+#~ msgstr "Lænke"
+
+#, fuzzy
+#~ msgid "Rescan directories"
+#~ msgstr "Opdatér reference filer"
+#~ msgid "Edit"
+#~ msgstr "Redigér"
+
+#, fuzzy
+#~ msgid "Delete library"
+#~ msgstr "Slet bogmærke"
+
+#, fuzzy
+#~ msgid "Note"
+#~ msgstr "Noter"
+
+#, fuzzy
+#~ msgid "Property definition"
+#~ msgstr "Definition"
+
+#, fuzzy
+#~ msgid "Description definition"
+#~ msgstr "Beskrivelse"
+
+#, fuzzy
+#~ msgid "Element"
+#~ msgstr "Begivenheder"
+
+#, fuzzy
+#~ msgid "Delete definition"
+#~ msgstr "Definition"
+
+#, fuzzy
+#~ msgid "Delete entity"
+#~ msgstr "Slet Menu Punkt"
+#~ msgid "Function reference"
+#~ msgstr "Funktions reference"
+#~ msgid "This custom search and replace requires a selection"
+#~ msgstr "Denne brugerdefinerede søg og erstatning kræver et valg"
+#~ msgid "/_Custom menu"
+#~ msgstr "/사용자 메뉴(_C)"
+#~ msgid "/Custom menu/Edit custom menu..."
+#~ msgstr "/Bruger menu/Redigér bruger menu..."
+#~ msgid "/Custom menu/Reset"
+#~ msgstr "/Bruger menu/Nulstil"
+#~ msgid "/Custom menu/Load new"
+#~ msgstr "/Bruger menu/Hent ny"
+#~ msgid "Search Pattern"
+#~ msgstr "Søge Mønster"
+#~ msgid "Replace String"
+#~ msgstr "Erstat Streng"
+#~ msgid "Formatstring Before"
+#~ msgstr "Formaterings-streng Før"
+#~ msgid "Formatstring After"
+#~ msgstr "Formaterings-streng Efter"
+#~ msgid "The menupath you want to update does not exist yet"
+#~ msgstr "Menustien du vil opdatere eksisterer ikke endnu"
+#~ msgid "Try 'add' instead."
+#~ msgstr "Prøv 'tilføj' istedet."
+#~ msgid "The menupath you want to add already exists."
+#~ msgstr "Menustien du ville tilføje eksisterer allerede."
+#~ msgid "The menupath should start with a / character"
+#~ msgstr "Menustien skal starte med en / karakter"
+#~ msgid "Custom Menu Editor"
+#~ msgstr "Bruger Menu Redigéring"
+#~ msgid "Add New Menu Entry"
+#~ msgstr "Tilføj Nyt Menu Punkt"
+#~ msgid "Apply Changes"
+#~ msgstr "Anvend Ændringer"
+#~ msgid "Delete Menu Entry"
+#~ msgstr "Slet Menu Punkt"
+#~ msgid "Close Discards Changes"
+#~ msgstr "Luk Forkaster Ændringer"
+#~ msgid "Save Changes and Exit"
+#~ msgstr "Gem Ændrenger og Afslut"
+#~ msgid "_Menu Path:"
+#~ msgstr "_Menu Sti:"
+#~ msgid "Menu path"
+#~ msgstr "Menu sti"
+#~ msgid "Number of _Variables:"
+#~ msgstr "Antal _Variable:"
+#~ msgid "Variables"
+#~ msgstr "Variable"
+#~ msgid "Custom Dialo_g"
+#~ msgstr "Brugerdefineret Dialo_g"
+#~ msgid "Custom Replace"
+#~ msgstr "Brugerdefineret Søg or Erstat"
+#~ msgid "_Replace:"
+#~ msgstr "_Erstat:"
+#~ msgid "in current document"
+#~ msgstr "i nuværende dokument"
+#~ msgid "from cursor"
+#~ msgstr "fra markør"
+#~ msgid "in selection"
+#~ msgstr "i det markerede"
+#~ msgid "in all open documents"
+#~ msgstr "i alle åbne dokumenter"
+#~ msgid "Matc_hing:"
+#~ msgstr "Sam_menligning"
+#~ msgid "normal"
+#~ msgstr "normal"
+#~ msgid "posix regular expressions"
+#~ msgstr "posix regulære udtryk"
+#~ msgid "perl regular expressions"
+#~ msgstr "perl regulære udtryk"
+#~ msgid "Case Se_nsitive"
+#~ msgstr "Case Se_nsitive"
+
+#, fuzzy
+#~ msgid "Reference library"
+#~ msgstr "Reference søgning"
+
+#, fuzzy
+#~ msgid "Info background color"
+#~ msgstr "Baggrundsfarve"
+
+#, fuzzy
+#~ msgid "Info foreground color"
+#~ msgstr "Forgrundsfarve"
+#~ msgid ""
+#~ "Bluefish is an editor for experienced web designers and programmers. It "
+#~ "supports many programming and markup languages, but focuses on editing "
+#~ "dynamic and interactive websites. Bluefish is an open source development "
+#~ "project, released under the GPL license.\n"
+#~ "\n"
+#~ "For more information, visit the Bluefish Website at http://bluefish."
+#~ "openoffice.nl/\n"
+#~ "\n"
+#~ "This version of bluefish was compiled with the following options:\n"
+#~ msgstr ""
+#~ "Bluefish er en editor for erfarne web designere of programmører. "
+#~ "Programmet har support for mange programmerings- og opmærkningssprog, men "
+#~ "fokuserer på redigering af dynamiske og interaktive websider. Bluefish er "
+#~ "et udviklings projekt med åben kildekode, udgivet under GPL licensen.\n"
+#~ "\n"
+#~ "For mere information, besøg Bluefish websiden på http://bluefish."
+#~ "openoffice.nl/\n"
+#~ "\n"
+#~ "Denne version af bluefish blev kompileret med følgende valg:\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Project leader:\n"
+#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Developers for this release:\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Jim Hayward\n"
+#~ "   <jimhayward@linuxexperience.net>\n"
+#~ "  Daniel Leidert\n"
+#~ "   <daniel.leidert@wgdd.de>\n"
+#~ "  Oskar Świda\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "  Eugene Morenko(More)\n"
+#~ "   <more@irpin.com>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@linuxexperience.com>\n"
+#~ "\n"
+#~ "Developers for previous releases:\n"
+#~ "  Chris Mazuc\n"
+#~ "  Neil Millar\n"
+#~ "  Gero Takke\n"
+#~ "  Bo Forslund\n"
+#~ "  David Arno\n"
+#~ "  Pablo De Napoli\n"
+#~ "  Santiago Capel Torres\n"
+#~ "  Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "  Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "  Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "  Antti-Juhani Kaijanaho\n"
+#~ "\n"
+#~ "Documentation:\n"
+#~ "  Scott White\n"
+#~ "   <wwsw3@earthlink.net>\n"
+#~ "  Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "  Anita Lewis\n"
+#~ "   <ajreiki@highstream.net>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@linuxexperience.com>\n"
+#~ "  Daniel Blair\n"
+#~ "   <joecamel@realcoders.org>\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Denny Reeh\n"
+#~ "\n"
+#~ "Package Maintainers:\n"
+#~ "  Debian:   Daniel Leidert\n"
+#~ "   <daniel.leidert@wgdd.de>\n"
+#~ "  Redhat:   Matthias Haase\n"
+#~ "   <matthias_haase@bennewitz.com>\n"
+#~ "  Mandrake: Todd Lyons\n"
+#~ "   <todd@mrball.net>\n"
+#~ "  Fink: Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "If you know of anyone missing from this list, please let us know\n"
+#~ "<bluefish@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Thanks to all who helped making this software available.\n"
+#~ msgstr ""
+#~ "Projekt leder:\n"
+#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Udviklere ved denne udgivelse:\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Jim Hayward\n"
+#~ "   <jimhayward@linuxexperience.net>\n"
+#~ "  Oskar Świda\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "  Eugene Morenko(More)\n"
+#~ "   <more@irpin.com>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@linuxexperience.com>\n"
+#~ "\n"
+#~ "Udviklere ved tidligere udgivelser:\n"
+#~ "  Chris Mazuc\n"
+#~ "  Neil Millar\n"
+#~ "  Gero Takke\n"
+#~ "  Bo Forslund\n"
+#~ "  David Arno\n"
+#~ "  Pablo De Napoli\n"
+#~ "  Santiago Capel Torres\n"
+#~ "  Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "  Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "  Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "  Antti-Juhani Kaijanaho\n"
+#~ "\n"
+#~ "Dokumentation:\n"
+#~ "  Scott White\n"
+#~ "   <wwsw3@earthlink.net>\n"
+#~ "  Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "  Anita Lewis\n"
+#~ "   <ajreiki@highstream.net>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@linuxexperience.com>\n"
+#~ "  Daniel Blair\n"
+#~ "   <joecamel@realcoders.org>\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Denny Reeh\n"
+#~ "\n"
+#~ "Pakke Vedligeholdere:\n"
+#~ "  Debian:   Davide Puricelli\n"
+#~ "   <evo@debian.org>\n"
+#~ "  Redhat:   Matthias Haase\n"
+#~ "   <matthias_haase@bennewitz.com>\n"
+#~ "  Mandrake: Todd Lyons\n"
+#~ "   <todd@mrball.net>\n"
+#~ "  Fink: Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "Hvis du kender nogen der mangler fra denne liste, så vil vi meget gerne "
+#~ "vide det\n"
+#~ "<bluefish@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Tak til alle som har hjulpet med at gøre dette program til virkelighed.\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Current translators:\n"
+#~ "\n"
+#~ "  Brazilian Portuguese: Anderson Rocha\n"
+#~ "   <anderson@maxlinux.com.br>\n"
+#~ "\n"
+#~ "  Bulgarian: Peio Popov\n"
+#~ "   <peio@peio.org>\n"
+#~ "\n"
+#~ "  Chinese: Ting Yang (Dormouse)\n"
+#~ "   <mouselinux@163.com>\n"
+#~ "\n"
+#~ "  Chinese, Traditional: OLS3\n"
+#~ "   <ols3@lxer.idv.tw>\n"
+#~ "\n"
+#~ "  Danish: Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "\n"
+#~ "  Finnish: Juho Roukala\n"
+#~ "   <j.mr@luukku.com>\n"
+#~ "\n"
+#~ "  French: Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "  German: Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "\n"
+#~ "  Hungarian: Péter Sáska\n"
+#~ "   <sasek@ccsystem.hu>\n"
+#~ "\n"
+#~ "  Italian: Stefano Canepa\n"
+#~ "   <sc@linux.it>\n"
+#~ "\n"
+#~ "  Japanese: Takeshi Hamasaki\n"
+#~ "   <hma@syd.odn.ne.jp>\n"
+#~ "\n"
+#~ "  Norwegian: Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "\n"
+#~ "  Polish: Oskar Swida\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "\n"
+#~ "  Portuguese: Lopo Pizarro\n"
+#~ "   <lopopizarro@netcabo.pt>\n"
+#~ "\n"
+#~ "  Russian: Eugene Rupakov\n"
+#~ "   <rupakov@jet.msk.su>\n"
+#~ "\n"
+#~ "  Serbian: Marko Milenović\n"
+#~ "   <raven@sbb.co.yu>\n"
+#~ "\n"
+#~ "  Spanish: Walter Oscar Echarri\n"
+#~ "   <wecharri@arnet.com.ar>\n"
+#~ "\n"
+#~ "  Swedish: David Smeringe\n"
+#~ "   <david.smeringe@telia.com>\n"
+#~ "\n"
+#~ "  Tamil: Murugapandian Barathee\n"
+#~ "   <barathee@yahoo.com>\n"
+#~ "\n"
+#~ "  Turkish: Oğuz Eren\n"
+#~ "   <ogzeren@gmail.com>\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Nuværende oversættere:\n"
+#~ "\n"
+#~ "  Brasiliansk Portugisisk - Anderson Rocha\n"
+#~ "   <anderson@maxlinux.com.br>\n"
+#~ "\n"
+#~ "  Bulgarsk - Peio Popov\n"
+#~ "   <peio@peio.org>\n"
+#~ "\n"
+#~ "  Dansk - Rasmus Toftdahl Olesen\n"
+#~ "   <halfdan@halfdans.net>\n"
+#~ "\n"
+#~ "  Finsk - Juho Roukala\n"
+#~ "   <j.mr@luukku.com>\n"
+#~ "\n"
+#~ "  Fransk - Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "  Italiensk - Stefano Canepa\n"
+#~ "   <sc@linux.it>\n"
+#~ "\n"
+#~ "  Kinesisk - Ting Yang (Dormouse)\n"
+#~ "   <mouselinux@163.com>\n"
+#~ "\n"
+#~ "  Norsk - Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "\n"
+#~ "  Polsk - Oskar Swida\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "\n"
+#~ "  Portugisisk - Lopo Pizarro\n"
+#~ "   <lopopizarro@netcabo.pt>\n"
+#~ "\n"
+#~ "  Russisk - Eugene Rupakov\n"
+#~ "   <rupakov@jet.msk.su>\n"
+#~ "\n"
+#~ "  Serbisk - Marko Milenović\n"
+#~ "   <raven@sbb.co.yu>\n"
+#~ "\n"
+#~ "  Spansk - Walter Oscar Echarri\n"
+#~ "   <wecharri@infovia.com.ar>\n"
+#~ "\n"
+#~ "  Svensk - David Smeringe\n"
+#~ "   <david.smeringe@telia.com>\n"
+#~ "\n"
+#~ "  Tamilsk - Murugapandian Barathee\n"
+#~ "   <barathee@yahoo.com>\n"
+#~ "\n"
+#~ "  Tysk - Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "\n"
+#~ "  Ungarsk - Péter Sáska\n"
+#~ "   <sasek@ccsystem.hu>\n"
+#~ "\n"
+#~ msgid "Authentication required"
+#~ msgstr "Autentificering krævet"
+
+#, fuzzy
+#~ msgid "_Username:"
+#~ msgstr "Brugernavn:"
+
+#, fuzzy
+#~ msgid "_Domain:"
+#~ msgstr "_Vertikal opstilling:"
+
+#, fuzzy
+#~ msgid "_Pasword:"
+#~ msgstr "Kodeord:"
+#~ msgid "Authentication is required for %s."
+#~ msgstr "Autentificering er påkrævet for %s."
+#~ msgid "Username:"
+#~ msgstr "Brugernavn:"
+#~ msgid "Password:"
+#~ msgstr "Kodeord:"
+#~ msgid ""
+#~ "\n"
+#~ "Usage: %s [options] [filenames ...]\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Brug: %s [tilvalg] [filnavne ...]\n"
+#~ msgid ""
+#~ "\n"
+#~ "Currently accepted options are:\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Nuværende accepterede tilvalg er:\n"
+#~ msgid "-v           current version\n"
+#~ msgstr "-v          nuværende version\n"
+#~ msgid "-n           open new window\n"
+#~ msgstr "-n          åben nyt vindue\n"
+#~ msgid "-p filename  open project\n"
+#~ msgstr "-p filnavn  åben projekt\n"
+#~ msgid "-h           this help screen\n"
+#~ msgstr "-h            denne hjælpe skærm\n"
+#~ msgid ""
+#~ "\n"
+#~ "Type: "
+#~ msgstr ""
+#~ "\n"
+#~ "Type: "
+#~ msgid " bytes"
+#~ msgstr " bytes"
+
+#, fuzzy
+#~ msgid "Advanced open: finished searching files, %d documents open"
+#~ msgstr "Advanceret åbn fil-vælger"
+#~ msgid "Show hidden files"
+#~ msgstr "Vis skjulte filer"
+#~ msgid "Syntax highlighting error for "
+#~ msgstr "Syntax highlighting fejl for "
+#~ msgid "compiling pattern '%s': %s at offset %d"
+#~ msgstr "kompilerer mønstret '%s': %s ved position %d"
+#~ msgid "studying pattern '%s': %s"
+#~ msgstr "studerer mønstret '%s': %s"
+#~ msgid "compiling 2nd pattern '%s': %s at offset %d"
+#~ msgstr "kompilerer 2. mønster '%s': %s ved position %d"
+#~ msgid "studying 2nd pattern '%s': %s"
+#~ msgstr "studerer 2. mænster '%s': %s"
+
+#, fuzzy
+#~ msgid "Language file"
+#~ msgstr "Sprog:"
+
+#, fuzzy
+#~ msgid "File filters"
+#~ msgstr "Filfiltre"
+#~ msgid "Java programming"
+#~ msgstr "Java programmering"
+#~ msgid "Show hidden"
+#~ msgstr "Vis skjulte"
+#~ msgid "/File/tearoff1"
+#~ msgstr "/Filer/tearoff1"
+#~ msgid "/File/Open recent/tearoff1"
+#~ msgstr "/Filer/Åbn seneste/tearoff1"
+#~ msgid "/File/sep1"
+#~ msgstr "/Filer/sep1"
+#~ msgid "/File/sep2"
+#~ msgstr "/Filer/sep2"
+#~ msgid "/File/sep3"
+#~ msgstr "/Filer/sep3"
+#~ msgid "/File/sep4"
+#~ msgstr "/Filer/sep4"
+
+#, fuzzy
+#~ msgid "/File/sep5"
+#~ msgstr "/Filer/sep1"
+#~ msgid "/Edit/Tearoff1"
+#~ msgstr "/Redigér/Tearoff1"
+#~ msgid "/Edit/sep1"
+#~ msgstr "/Redigér/sep1"
+#~ msgid "/Edit/sep2"
+#~ msgstr "/Redigér/sep2"
+#~ msgid "/Edit/sep3"
+#~ msgstr "/Redigér/sep3"
+#~ msgid "/Edit/sep4"
+#~ msgstr "/Redigér/sep4"
+#~ msgid "/Edit/sep5"
+#~ msgstr "/Redigér/sep5"
+#~ msgid "/Edit/sep6"
+#~ msgstr "/Redigér/sep6"
+#~ msgid "/View/tearoff1"
+#~ msgstr "/Vis/tearoff1"
+#~ msgid "/Document/tearoff1"
+#~ msgstr "/Dokument/tearoff1"
+#~ msgid "/Document/sep1"
+#~ msgstr "/Dokument/sep1"
+#~ msgid "/Document/sep2"
+#~ msgstr "/Dokument/sep2"
+#~ msgid "/Document/sep3"
+#~ msgstr "/Dokument/sep3"
+#~ msgid "/Document/Document Type/tearoff1"
+#~ msgstr "/Dokument/Dokument Type/tearoff1"
+#~ msgid "/Document/Character Encoding/tearoff1"
+#~ msgstr "/Dokument/Karakter Kodning/tearoff1"
+#~ msgid "/Document/sep4"
+#~ msgstr "/Dokument/sep4"
+
+#, fuzzy
+#~ msgid "/Document/sep5"
+#~ msgstr "/Dokument/sep1"
+#~ msgid "/Go/tearoff1"
+#~ msgstr "/Gå/tearoff1"
+#~ msgid "/Go/sep1"
+#~ msgstr "/Gå/sep1"
+#~ msgid "/Project/tearoff1"
+#~ msgstr "/_Projekt/tearoff1"
+#~ msgid "/Project/Open recent/tearoff1"
+#~ msgstr "/Projekt/Åbn seneste/tearoff1"
+#~ msgid "/Project/sep1"
+#~ msgstr "/Projekt/sep1"
+#~ msgid "/Project/sep2"
+#~ msgstr "/Projekt/sep2"
+#~ msgid "/External/tearoff1"
+#~ msgstr "/Eksterne/tearoff1"
+#~ msgid "/Custom menu/sep"
+#~ msgstr "/Bruger menu/sep"
+
+#, fuzzy
+#~ msgid "General scanner preferences"
+#~ msgstr "Opdatér reference filer"
+#~ msgid "Confirm replace"
+#~ msgstr "Bekræft erstat"
+#~ msgid "Replace selected text?"
+#~ msgstr "Erstat valgte tekst?"
+#~ msgid "Search: no match found"
+#~ msgstr "Søg: intet fundet"
+#~ msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
+#~ msgstr "\\0 refererer til det første under_mønster, \\1 til det andet, osv."
+#~ msgid "Beginning of document till end"
+#~ msgstr "Begyndelsen af dokumentet til enden"
+#~ msgid "Current position till end"
+#~ msgstr "Nuvæørende position til enden"
+#~ msgid "Beginning of selection till end of selection"
+#~ msgstr "Begyndelse af markering til enden af markering"
+#~ msgid "All opened files begin till end"
+#~ msgstr "Alle åbne filer begyndelse til enden"
+#~ msgid "Disabled"
+#~ msgstr "Slået fra"
+#~ msgid "Starts at:"
+#~ msgstr "Start ved:"
+#~ msgid "Regular expression:"
+#~ msgstr "Regulært udtryk:"
+#~ msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
+#~ msgstr "Mønstre indeholder \"backslash esca_pe sequences\" (\\n, \\t)"
+#~ msgid "_Match case"
+#~ msgstr "Genkend _små/store bogstaver"
+#~ msgid "Prompt _before replace"
+#~ msgstr "Spørg _før erstatning"
+#~ msgid "Replace o_nce"
+#~ msgstr "Ers_tat én gang"
+#~ msgid "Bookmark results"
+#~ msgstr "Opret bogmærker for resultat"
+#~ msgid ""
+#~ "This message is shown since you do not have any items in the Quickbar.\n"
+#~ "\n"
+#~ "If you right-click a button in the HTML toolbars you can add buttons to "
+#~ "the Quickbar."
+#~ msgstr ""
+#~ "Denne meddelelse bliver vist fordi du endnu ikke har nogen knapper i din "
+#~ "quickbar.\n"
+#~ "\n"
+#~ "Hvis du højre-klikker på en kanp i HTML værktøjslinjerne kan du tilføje "
+#~ "knapper til din quickbar."
+#~ msgid "Edit color"
+#~ msgstr "Rediger farve"
+#~ msgid "Edit tag"
+#~ msgstr "Redigér tag"
+#~ msgid "Could not delete \n"
+#~ msgstr "Kunne ikke slette\n"
+#~ msgid "Error creating path"
+#~ msgstr "Fejl under oprettelse af sti"
+#~ msgid "The specified pathname already exists."
+#~ msgstr "Det specificerede sti-navn eksisterer allerede."
+#~ msgid "Directory name"
+#~ msgstr "Bibliotek navn"
+#~ msgid "Opening directory..."
+#~ msgstr "Åbner bibliotek..."
+#~ msgid "Follow focus"
+#~ msgstr "Følg fokus"
+#~ msgid "Do_n't save"
+#~ msgstr "Gem i_kke"
+
+#, fuzzy
+#~ msgid "Select font for reference view"
+#~ msgstr "Opdatér reference filer"
+
+#, fuzzy
+#~ msgid "Set reference colors"
+#~ msgstr "Redigér præferencer"
+
+#, fuzzy
+#~ msgid "Set view font"
+#~ msgstr "Vælg skrifttype"
+#~ msgid "Dialog"
+#~ msgstr "Dialog"
+#~ msgid "Options"
+#~ msgstr "Indstillinger"
+#~ msgid "Left doubleclick action"
+#~ msgstr "Venstre dobbeltklik handling"
+#~ msgid "Info type"
+#~ msgstr "Info type"
+#~ msgid "Reference not found"
+#~ msgstr "Reference ikke fundet"
+#~ msgid ""
+#~ "Perhaps you didn't load a reference, or you did not select a reference to "
+#~ "search in."
+#~ msgstr ""
+#~ "Måske hentede du ikke en regerence, eller du valgte ikke en reference at "
+#~ "søge i."
+#~ msgid "Search"
+#~ msgstr "Søg"
+#~ msgid "QuickStart..."
+#~ msgstr "HurtigStart..."
+#~ msgid "Body..."
+#~ msgstr "Body..."
+#~ msgid "Bold"
+#~ msgstr "Fed"
+#~ msgid "Italic"
+#~ msgstr "Kursiv"
+#~ msgid "Paragraph"
+#~ msgstr "Afsnit"
+#~ msgid "Break"
+#~ msgstr "Break"
+#~ msgid "Break and clear"
+#~ msgstr "Break and clear"
+#~ msgid "Non-breaking space"
+#~ msgstr "Non-breaking space"
+#~ msgid "Anchor..."
+#~ msgstr "Anker"
+#~ msgid "Rule..."
+#~ msgstr "Linje..."
+#~ msgid "Center"
+#~ msgstr "Centrer"
+#~ msgid "Right Justify"
+#~ msgstr "Højrestillet"
+#~ msgid "Comment"
+#~ msgstr "Kommentar"
+#~ msgid "E-Mail..."
+#~ msgstr "E-Post..."
+#~ msgid "Font..."
+#~ msgstr "Skrifttype..."
+#~ msgid "Base Font Size..."
+#~ msgstr "Grund skrifttype størrelse..."
+#~ msgid "Font Size +1"
+#~ msgstr "Skriftstørrelse +1"
+#~ msgid "Font Size -1"
+#~ msgstr "Skriftstørrelse -1"
+#~ msgid "Preformatted Text"
+#~ msgstr "Preformateret tekst"
+#~ msgid "Subscript"
+#~ msgstr "Sænket"
+#~ msgid "Superscript"
+#~ msgstr "Hævet"
+#~ msgid "Strong"
+#~ msgstr "Fed"
+#~ msgid "Emphasis"
+#~ msgstr "Kursiv"
+#~ msgid "Heading 1"
+#~ msgstr "Overskrift 1"
+#~ msgid "Heading 2"
+#~ msgstr "Overskrift 2"
+#~ msgid "Heading 3"
+#~ msgstr "Overskrift 3"
+#~ msgid "Heading 4"
+#~ msgstr "Overskrift 4"
+#~ msgid "Heading 5"
+#~ msgstr "Overskrift 5"
+#~ msgid "Heading 6"
+#~ msgstr "Overskrift 6"
+#~ msgid "Table Wizard..."
+#~ msgstr "Tabel Wizard..."
+#~ msgid "Table..."
+#~ msgstr "Tabel..."
+#~ msgid "Table Row..."
+#~ msgstr "Tabel række..."
+#~ msgid "Table Header..."
+#~ msgstr "Tabel overskrift..."
+#~ msgid "Table Data..."
+#~ msgstr "Tabel data..."
+#~ msgid "Table"
+#~ msgstr "Tabel"
+#~ msgid "Table Row"
+#~ msgstr "Tabel række"
+#~ msgid "Table Header"
+#~ msgstr "Tabeltitel"
+#~ msgid "Table Data"
+#~ msgstr "Tabel data"
+#~ msgid "Table Caption"
+#~ msgstr "Tabel Caption"
+#~ msgid "Frame Wizard..."
+#~ msgstr "Frame Wizard"
+#~ msgid "Frameset..."
+#~ msgstr "Frameset..."
+#~ msgid "Frame..."
+#~ msgstr "Frame..."
+#~ msgid "Frameset"
+#~ msgstr "Frameset"
+#~ msgid "Frame"
+#~ msgstr "Frame"
+#~ msgid "Noframes"
+#~ msgstr "Ingen Frames"
+#~ msgid "Target"
+#~ msgstr "Target"
+#~ msgid "Form..."
+#~ msgstr "Formular..."
+#~ msgid "Input Button..."
+#~ msgstr "Input Knap..."
+#~ msgid "Input Text..."
+#~ msgstr "Input Tekst..."
+#~ msgid "Input Hidden..."
+#~ msgstr "Input Gemt..."
+#~ msgid "Textarea..."
+#~ msgstr "Tekstfelt..."
+#~ msgid "Input Radio Button..."
+#~ msgstr "Input Radio Knap..."
+#~ msgid "Input Check Box..."
+#~ msgstr "Input Tjeck Boks..."
+#~ msgid "Select..."
+#~ msgstr "Valg..."
+#~ msgid "Option..."
+#~ msgstr "Indstilling..."
+#~ msgid "Option group..."
+#~ msgstr "Indstillings gruppe..."
+#~ msgid "Button..."
+#~ msgstr "Knap..."
+#~ msgid "Quick List..."
+#~ msgstr "Hurtig Liste..."
+#~ msgid "Unordered List"
+#~ msgstr "Uordnet Liste"
+#~ msgid "Ordered List"
+#~ msgstr "Ordnet Liste"
+#~ msgid "List Item"
+#~ msgstr "List element"
+#~ msgid "Definition List"
+#~ msgstr "Definitions liste"
+#~ msgid "Definition Term"
+#~ msgstr "Definitions Term"
+#~ msgid "Definition"
+#~ msgstr "Definition"
+#~ msgid "Create stylesheet..."
+#~ msgstr "Opret stylesheet..."
+#~ msgid "Span..."
+#~ msgstr "Span..."
+#~ msgid "Div..."
+#~ msgstr "Div..."
+#~ msgid "Style"
+#~ msgstr "Stil"
+#~ msgid "Link to stylesheet..."
+#~ msgstr "Link til stylesheet..."
+#~ msgid "Insert image..."
+#~ msgstr "Indsæt billede..."
+#~ msgid "Insert thumbnail..."
+#~ msgstr "Indsæt billede som thumbnail"
+#~ msgid "Multi thumbnail..."
+#~ msgstr "Mange Thumbnail(s)..."
+#~ msgid "Code"
+#~ msgstr "Kode"
+#~ msgid "Sample"
+#~ msgstr "Prøve"
+#~ msgid "Keyboard"
+#~ msgstr "Tastatur"
+#~ msgid "Variable"
+#~ msgstr "Variabel"
+#~ msgid "Citation"
+#~ msgstr "Citation"
+#~ msgid "Abbreviation"
+#~ msgstr "Abbreviation"
+#~ msgid "Acronym"
+#~ msgstr "Akronym"
+#~ msgid "Remove from quickbar"
+#~ msgstr "Fjern fra quickbar"
+#~ msgid "Move Left"
+#~ msgstr "Flyt til Venstre"
+#~ msgid "Move Right"
+#~ msgstr "Flyt til Højre"
+#~ msgid "Add to quickbar"
+#~ msgstr "Tilføj til quickbar"
+#~ msgid " Quick bar "
+#~ msgstr " Quick Bar "
+#~ msgid "Heading"
+#~ msgstr "Overskrift"
+#~ msgid " Standard bar "
+#~ msgstr " Standard bar "
+#~ msgid "Context formatting"
+#~ msgstr "Kontekst formatering"
+#~ msgid " Fonts "
+#~ msgstr " Skrifttyper "
+#~ msgid " Tables "
+#~ msgstr " Tabeller "
+#~ msgid " Frames "
+#~ msgstr " Frames "
+#~ msgid " Forms "
+#~ msgstr " Formularer "
+#~ msgid " List "
+#~ msgstr " Liste "
+#~ msgid " CSS "
+#~ msgstr " CSS "
+#~ msgid "Cascading StyleSheet dialog"
+#~ msgstr "Cascading StyleSheet dialog"
+#~ msgid "_Selector:"
+#~ msgstr "_Vælger:"
+#~ msgid "_Property:"
+#~ msgstr "_Egenskab:"
+#~ msgid "_Value:"
+#~ msgstr "_Værdi:"
+#~ msgid "Property"
+#~ msgstr "Egenskab"
+#~ msgid " _Update "
+#~ msgstr " _Opdatér "
+#~ msgid " _Delete "
+#~ msgstr " _Slet "
+#~ msgid "_Style..."
+#~ msgstr "_Stil"
+#~ msgid "Bluefish: Select color"
+#~ msgstr "Bluefish: Vælg farve"
+#~ msgid "Insert Time"
+#~ msgstr "Indsæt tid"
+#~ msgid "  _Time (%i:%i:%i)"
+#~ msgstr "  _Tid (%i:%i:%i)"
+#~ msgid "  Day of the _week (Sunday)"
+#~ msgstr "  _Ugedag (Søndag)"
+#~ msgid "  Day of the _week (Monday)"
+#~ msgstr "  _Ugedag (Mandag)"
+#~ msgid "  Day of the _week (Tuesday)"
+#~ msgstr "  _Ugedag (Tirsdag)"
+#~ msgid "  Day of the _week (Wednesday)"
+#~ msgstr "  _Ugedag (Onsdag)"
+#~ msgid "  Day of the _week (Thursday)"
+#~ msgstr "  _Ugedag (Torsdag)"
+#~ msgid "  Day of the _week (Friday)"
+#~ msgstr "  _Ugedag (Fredag)"
+#~ msgid "  Day of the _week (Saturday)"
+#~ msgstr "  _Ugedag (Lørdag)"
+#~ msgid "You appear to have a non existant day!\n"
+#~ msgstr "Du synes at have en ugyldig ugedag!\n"
+#~ msgid "  _Date (%i/%i/%i)"
+#~ msgstr "  _Dato (%i/%i/%i)"
+#~ msgid "  _Unix Time (%i)"
+#~ msgstr "  _Unix tid (%i)"
+#~ msgid "  Unix Date _String (%s"
+#~ msgstr "  Unix Dato _Streng (%s"
+#~ msgid "Quick Anchor"
+#~ msgstr "Hurtigt link"
+#~ msgid "Attributes"
+#~ msgstr "Attributter"
+#~ msgid "_HREF:"
+#~ msgstr "_HREF:"
+#~ msgid "_Target:"
+#~ msgstr "_Target:"
+#~ msgid "_Language:"
+#~ msgstr "_Sprog:"
+#~ msgid "Custo_m:"
+#~ msgstr "_Bruger"
+#~ msgid "Events"
+#~ msgstr "Begivenheder"
+#~ msgid "OnClic_k:"
+#~ msgstr "OnClic_k"
+#~ msgid "OnD_blClick:"
+#~ msgstr "OnD_blClick"
+#~ msgid "OnMouseO_ver:"
+#~ msgstr "OnMouseO_ver:"
+#~ msgid "OnMouse_Down:"
+#~ msgstr "OnMouse_Down:"
+#~ msgid "OnMouse_Move:"
+#~ msgstr "OnMouse_Move:"
+#~ msgid "OnMouseOu_t:"
+#~ msgstr "OnMouseOu_t:"
+#~ msgid "OnMouse_Up:"
+#~ msgstr "OnMouse_Up:"
+#~ msgid "OnKeyDo_wn:"
+#~ msgstr "OnKeyDo_wn:"
+#~ msgid "OnKey_Press:"
+#~ msgstr "OnKey_Press:"
+#~ msgid "OnKe_yUp:"
+#~ msgstr "OnKe_yUp:"
+#~ msgid "Div"
+#~ msgstr "Div"
+#~ msgid "Span"
+#~ msgstr "Spænd"
+#~ msgid "Ali_gn:"
+#~ msgstr "_Opstil:"
+#~ msgid "Cl_ass:"
+#~ msgstr "_Klasse:"
+#~ msgid "St_yle:"
+#~ msgstr "_Stil:"
+#~ msgid "_ID:"
+#~ msgstr "_ID:"
+#~ msgid "Horizontal Rule"
+#~ msgstr "Horizontal linje"
+#~ msgid "_Align:"
+#~ msgstr "_Opstil:"
+#~ msgid "_Height:"
+#~ msgstr "_Højde:"
+#~ msgid "_Width:"
+#~ msgstr "_Bredde:"
+#~ msgid "Is _percent"
+#~ msgstr "I _procent"
+#~ msgid "Body"
+#~ msgstr "Body"
+#~ msgid "On_Load:"
+#~ msgstr "On_Load"
+#~ msgid "On_UnLoad:"
+#~ msgstr "On_UnLoad:"
+#~ msgid "Depreciated options"
+#~ msgstr "Forældede indstillinger"
+#~ msgid "Background _Image:"
+#~ msgstr "Baggrungs _Billede:"
+#~ msgid "Back_ground Color:"
+#~ msgstr "Baggrunds _Farve:"
+#~ msgid "_Text Color:"
+#~ msgstr "_Tekst Farve:"
+#~ msgid "_Link Color:"
+#~ msgstr "_Link Farve:"
+#~ msgid "_Visited Link Color:"
+#~ msgstr "_Besøgt Link Farve:"
+#~ msgid "_Active Link Color:"
+#~ msgstr "_Aktivt Link Farve:"
+#~ msgid "Meta"
+#~ msgstr "META"
+#~ msgid "_HTTP-EQUIV:"
+#~ msgstr "_HTTP-EQUIV:"
+#~ msgid "Con_tent:"
+#~ msgstr "_Indhold:"
+#~ msgid "_Scheme:"
+#~ msgstr "_Skema:"
+#~ msgid "Base Font"
+#~ msgstr "Grund skrifttype"
+#~ msgid "Size"
+#~ msgstr "Størrelse"
+#~ msgid "Color"
+#~ msgstr "Farve"
+#~ msgid "Face"
+#~ msgstr "Skrifttype familie"
+#~ msgid "Custom"
+#~ msgstr "Bruger"
+#~ msgid "Email"
+#~ msgstr "E-post"
+#~ msgid "_Email address:"
+#~ msgstr "_E-post adresse:"
+#~ msgid "UrlEncoded _subject:"
+#~ msgstr "UrlEncoded _emne:"
+#~ msgid "UrlEncoded _body:"
+#~ msgstr "UrlEncoded _krop:"
+#~ msgid "Quick List"
+#~ msgstr "Hurtig liste"
+#~ msgid "_Rows:"
+#~ msgstr "_Rækker:"
+#~ msgid "Or_dered"
+#~ msgstr "Or_dnet"
+#~ msgid "_Unordered"
+#~ msgstr "_U-ordnet"
+#~ msgid "Style:"
+#~ msgstr "Stil:"
+#~ msgid "Co_ls:"
+#~ msgstr "Ko_llonner:"
+#~ msgid "_Add <frame> elements"
+#~ msgstr "_Tilføj <frame> elementer"
+#~ msgid "_Source:"
+#~ msgstr "_Kilde:"
+#~ msgid "Margin _Width:"
+#~ msgstr "Margin _Bredde:"
+#~ msgid "Margin _Height:"
+#~ msgstr "Margen _Højde:"
+#~ msgid "Scrollin_g:"
+#~ msgstr "Scrollin_g:"
+#~ msgid "_Frameborder:"
+#~ msgstr "_Rammekant:"
+#~ msgid "No _Resize:"
+#~ msgstr "Ingen \"_resize\""
+#~ msgid "Embed"
+#~ msgstr "Embed"
+#~ msgid "Bo_rder:"
+#~ msgstr "_Ramme:"
+#~ msgid "Script"
+#~ msgstr "Skript"
+#~ msgid "_Type:"
+#~ msgstr "_Type:"
+#~ msgid "Link"
+#~ msgstr "Lænke"
+#~ msgid "_Href:"
+#~ msgstr "_Href:"
+#~ msgid "Href_lang:"
+#~ msgstr "Href_sprog:"
+#~ msgid "_Forward Relation:"
+#~ msgstr "_Fremad-rettet Relation:"
+#~ msgid "Media:"
+#~ msgstr "Medie:"
+#~ msgid "L_ang:"
+#~ msgstr "_Sprog:"
+#~ msgid "_Custom:"
+#~ msgstr "_Bruger:"
+#~ msgid "Form"
+#~ msgstr "Formular"
+#~ msgid "_Action:"
+#~ msgstr "\"_Action\""
+#~ msgid "Metho_d:"
+#~ msgstr "Meto_de:"
+#~ msgid "_Enctype:"
+#~ msgstr "_Enctype:"
+#~ msgid "Text area"
+#~ msgstr "Tekstfelt"
+#~ msgid "Select"
+#~ msgstr "Vælg"
+#~ msgid "Si_ze:"
+#~ msgstr "_Størrelse:"
+#~ msgid "Multiple _Selections:"
+#~ msgstr "Flere _Valg:"
+#~ msgid "_Label:"
+#~ msgstr "_Label:"
+#~ msgid "_Selected:"
+#~ msgstr "_Valg:"
+#~ msgid "Option group"
+#~ msgstr "Indstillings gruppe"
+#~ msgid "Input"
+#~ msgstr "Input"
+#~ msgid "_Checked:"
+#~ msgstr "_Valgt:"
+#~ msgid "Max _Length:"
+#~ msgstr "Maksimal _Længde:"
+#~ msgid "_Accept:"
+#~ msgstr "_Accepter:"
+#~ msgid "C_ustom:"
+#~ msgstr "Br_uger:"
+#~ msgid "On_Focus:"
+#~ msgstr "On_Focus:"
+#~ msgid "On_Blur:"
+#~ msgstr "On_Blur:"
+#~ msgid "On_Select:"
+#~ msgstr "On_Select:"
+#~ msgid "On_Change:"
+#~ msgstr "On_Change:"
+#~ msgid "Button"
+#~ msgstr "Knap"
+#~ msgid "Cell _Padding:"
+#~ msgstr "Element _Fyld(padding):"
+#~ msgid "C_ell Spacing:"
+#~ msgstr "_Element Mellemrum:"
+#~ msgid "Backgrou_nd Color:"
+#~ msgstr "Baggru_nds Farve:"
+#~ msgid "_Frame:"
+#~ msgstr "_Ramme:"
+#~ msgid "R_ules:"
+#~ msgstr "R_egler:"
+#~ msgid "Co_l Span:"
+#~ msgstr "Ko_lonne Spæn:"
+#~ msgid "_Row Span:"
+#~ msgstr "_Række Spæn:"
+#~ msgid "No Wra_p:"
+#~ msgstr "Ingen \"Wordwra_p\":"
+#~ msgid "Insert thumbnail"
+#~ msgstr "Indsæt thumbnail"
+#~ msgid "Insert image"
+#~ msgstr "Indsæt billede"
+#~ msgid "Preview"
+#~ msgstr "Preview"
+#~ msgid "_Image location:"
+#~ msgstr "_Billede placering:"
+#~ msgid "Hei_ght:"
+#~ msgstr "_Højde:"
+#~ msgid "_Usemap:"
+#~ msgstr "_Usemap:"
+#~ msgid "Alternate _text:"
+#~ msgstr "Alternativ _tekst:"
+#~ msgid "_Hspace:"
+#~ msgstr "_Horizontal afstand:"
+#~ msgid "_Vspace:"
+#~ msgstr "_Vertikal afstand:"
+#~ msgid "Borde_r:"
+#~ msgstr "Ramme_r:"
+#~ msgid "Select files for thumbnail creation"
+#~ msgstr "Vælg filer til thumbnail oprettelse"
+#~ msgid "Scaling (%)"
+#~ msgstr "Skalering (%)"
+#~ msgid "Width"
+#~ msgstr "Bredde"
+#~ msgid "Height"
+#~ msgstr "Højde"
+#~ msgid "Multi thumbnail"
+#~ msgstr "Multi thumbnail"
+#~ msgid "By width, keep aspect ratio"
+#~ msgstr "Efter bredde, bi-behold aspekt forhold"
+#~ msgid "By height, keep aspect ratio"
+#~ msgstr "Efter højde, bi-behold aspekt forhold"
+#~ msgid "By width and height, ignore aspect ratio"
+#~ msgstr "Efter bredde og højde, ignorér aspekt forhold"
+#~ msgid ""
+#~ "%r: original filename  %t: thumbnail filename\n"
+#~ "%w: original width  %h: original height\n"
+#~ "%x: thumbnail width  %y: thumbnail height\n"
+#~ "%b: original size (bytes)"
+#~ msgstr ""
+#~ "%r: originalt filnavn  %t: thumbnail filnavn\n"
+#~ "%w: original bredde  %h: orignal højde\n"
+#~ "%x: thumbnail bredde  %y: thumbnail højde\n"
+#~ "%b: original størrelse (bytes)"
+#~ msgid "/Tags/Tearoff1"
+#~ msgstr "/Tags/Tearoff1"
+#~ msgid "/Tags/Headings/Tearoff1"
+#~ msgstr "/Tags/Overskrifter/Tearoff1"
+
+#~ msgid "/Tags/Format by layout/tearoff1"
+#~ msgstr "/Tags/Formatér fra layout/tearoff1"
+#~ msgid "/Tags/Format by layout/_Bold"
+#~ msgstr "/Tags/Formatér fra layout/_Fed"
+#~ msgid "/Tags/Format by layout/_Italic"
+#~ msgstr "/Tags/Formatér fra layout/_Kursiv"
+#~ msgid "/Tags/Format by layout/_Underline"
+#~ msgstr "/Tags/Formatér fra layout/_Understreget"
+#~ msgid "/Tags/Format by layout/_Strikeout"
+#~ msgstr "/Tags/Formatér fra layout/_Overstreget"
+#~ msgid "/Tags/Format by layout/Sm_all"
+#~ msgstr "/Tags/Formatér fra layout/S_måt"
+#~ msgid "/Tags/Format by layout/Bi_g"
+#~ msgstr "/Tags/_Formatér fra layout/_Stort"
+#~ msgid "/Tags/Format by context/tearoff1"
+#~ msgstr "/Tags/Formatér fra kontekst/tearoff1"
+#~ msgid "/Tags/Format by context/_Keyboard"
+#~ msgstr "/Tags/Formatér fra kontekst/_Tastatur"
+#~ msgid "/Tags/Format by context/_Variable"
+#~ msgstr "/Tags/Formatér fra kontekst/_Variabel"
+#~ msgid "/Tags/Format by context/Ci_tation"
+#~ msgstr "/Tags/Formatér fra kontekst/Ci_tation"
+#~ msgid "/Tags/Format by context/_Abbreviation"
+#~ msgstr "/Tags/Formatér fra kontekst/_Forkortelse"
+#~ msgid "/Tags/Format by context/Ac_ronym"
+#~ msgstr "/Tags/Formatér fra kontekst/Ak_ronym"
+#~ msgid "/Tags/Format general/tearoff1"
+#~ msgstr "/태그/일반 형식/tearoff1"
+#~ msgid "/Tags/Format general/_Paragraph"
+#~ msgstr "/태그/일반 형식/_Afsnit"
+#~ msgid "/Tags/Format general/_Break"
+#~ msgstr "/태그/일반 형식/_Linjeskift"
+#~ msgid "/Tags/Format general/Break clear _all"
+#~ msgstr "/태그/일반 형식/Break clear _all"
+#~ msgid "/Tags/Format general/_Non-Breaking Space"
+#~ msgstr "/태그/일반 형식/_Non-Breaking Space"
+#~ msgid "/Tags/Format general/<separator>"
+#~ msgstr "/태그/일반 형식/<separator>"
+#~ msgid "/Tags/Format general/Font Si_ze +1"
+#~ msgstr "/태그/일반 형식/Skriftstørelse +_1"
+#~ msgid "/Tags/Format general/Font _Size -1"
+#~ msgstr "/태그/일반 형식/_Skriftstørelse -1"
+#~ msgid "/Tags/Format general/Preformatted _Text"
+#~ msgstr "/태그/일반 형식/Præformateret _tekst"
+#~ msgid "/Tags/Format general/Su_bscript"
+#~ msgstr "/태그/일반 형식/Sæn_ket"
+#~ msgid "/Tags/Format general/Su_perscript"
+#~ msgstr "/태그/일반 형식/_Hævet"
+#~ msgid "/Tags/Format general/_Center"
+#~ msgstr "/태그/일반 형식/_Centreret"
+#~ msgid "/Tags/Format general/Align _right"
+#~ msgstr "/태그/일반 형식/Hø_jrestillet"
+#~ msgid "/Tags/Table/tearoff1"
+#~ msgstr "/태그/표/tearoff1"
+#~ msgid "/Tags/Table/_Table"
+#~ msgstr "태그/표/_Tabel"
+#~ msgid "/Tags/Table/Table _Row"
+#~ msgstr "/태그/표/Tabel _Række"
+#~ msgid "/Tags/Table/Table _Header"
+#~ msgstr "/태그/표/Tabel _Overskrift"
+#~ msgid "/Tags/Table/Table _Data"
+#~ msgstr "/태그/표/Tabel _Data"
+#~ msgid "/Tags/Table/Table _Caption"
+#~ msgstr "/태그/표/Tabel \"_Caption\""
+#~ msgid "/Tags/Form/tearoff1"
+#~ msgstr "/태그/양식/tearoff1"
+#~ msgid "/Tags/Form/_Form"
+#~ msgstr "/태그/양식/_Form"
+#~ msgid "/Tags/Form/_Button"
+#~ msgstr "태그/양식/_Knap"
+#~ msgid "/Tags/Form/_Input"
+#~ msgstr "/태그/양식/_Input"
+#~ msgid "/Tags/Form/_Textarea"
+#~ msgstr "/태그/양식/_Tekstfelt"
+#~ msgid "/Tags/Misc/tearoff1"
+#~ msgstr "/Tags/태그/기타/tearoff1"
+#~ msgid "/Tags/Misc/Insert Generator _META-Tag"
+#~ msgstr "/태그/기타/Indsæt Generator _META-Tag"
+#~ msgid "/Tags/Misc/_Span"
+#~ msgstr "/태그/기타/_Span"
+#~ msgid "/Tags/Misc/_Div"
+#~ msgstr "/태그/기타/_Div"
+#~ msgid "/Tags/Misc/_Link"
+#~ msgstr "/태그/기타/_Lænke"
+#~ msgid "/Tags/Misc/S_cript"
+#~ msgstr "/태그/기타/S_kript"
+#~ msgid "/Tags/Misc/_Anchor"
+#~ msgstr "/태그/기타/_Anker"
+#~ msgid "/Tags/Misc/_Image"
+#~ msgstr "/태그/기타/B_illede"
+
+#, fuzzy
+#~ msgid "Could not view file in browser."
+#~ msgstr "Kunne ikke læse filen \"%s\"."
+#~ msgid "/External/Browsers"
+#~ msgstr "/Eksterne/Browsere"
+
+#, fuzzy
+#~ msgid "Ty_pe:"
+#~ msgstr "_Type:"
+
+#, fuzzy
+#~ msgid "Hre_f:"
+#~ msgstr "_Href:"
+
+#, fuzzy
+#~ msgid "_Media:"
+#~ msgstr "Medie:"
+
+#, fuzzy
+#~ msgid "Titl_e:"
+#~ msgstr "_Unavngivet:"
+
+#, fuzzy
+#~ msgid "<b>Style Area</b>"
+#~ msgstr "<b>Generél</b>"
+
+#, fuzzy
+#~ msgid "Cre_ate empty style area"
+#~ msgstr "Opret tomt projekt"
+
+#, fuzzy
+#~ msgid "<b>Attributes</b>"
+#~ msgstr "Attributter"
+
+#, fuzzy
+#~ msgid "_Src:"
+#~ msgstr "_Kilde:"
+
+#, fuzzy
+#~ msgid "Create _empty script area"
+#~ msgstr "Opret tomt projekt"
+#~ msgid "Quick Start"
+#~ msgstr "HurtigStart"
+
+#, fuzzy
+#~ msgid "_DTD:"
+#~ msgstr "Brug _DTD:"
+#~ msgid "_Title:"
+#~ msgstr "_Unavngivet:"
+
+#, fuzzy
+#~ msgid "_Head:"
+#~ msgstr "_Href:"
+#~ msgid "Netscape"
+#~ msgstr "Netscape"
+#~ msgid "Gnome default"
+#~ msgstr "Gnome default"
+#~ msgid "Tidy cleanup filter"
+#~ msgstr "Tidy udrensnings filter"
+#~ msgid "Table Wizard"
+#~ msgstr "Tabel Wizard"
+#~ msgid "Number of _rows:"
+#~ msgstr "Antal _rækker:"
+#~ msgid "Number of colu_mns:"
+#~ msgstr "Antal kolo_nner:"
+#~ msgid "Table rows on one _line:"
+#~ msgstr "Tabelrækker op én _linje"
+#~ msgid "_Indent table code:"
+#~ msgstr "_Indryk tabel kode:"
+#~ msgid "Frame Wizard"
+#~ msgstr "Frame Wizard"
+#~ msgid "Use _DTD:"
+#~ msgstr "Brug _DTD:"
+#~ msgid "Orientation:"
+#~ msgstr "Orienteting:"
+#~ msgid "_Horizontal"
+#~ msgstr "_Horizontal"
+#~ msgid "_Vertical"
+#~ msgstr "_Vertikal"
+#~ msgid "Number of _Frames:"
+#~ msgstr "Antal _Rammer:"
+#~ msgid "Frame's"
+#~ msgstr "Frame's"
+#~ msgid "Name:"
+#~ msgstr "Navn:"
+#~ msgid "Source:"
+#~ msgstr "Kilde:"
+#~ msgid "Size:"
+#~ msgstr "Størrelse:"
+#~ msgid "This bookmark is set in a file that no longer exists."
+#~ msgstr "Dette bogmærke er sat i en fil der ikke længere eksisterer."
+#~ msgid "Are you sure?"
+#~ msgstr "Er du sikker?"
+#~ msgid "Could not read file:\n"
+#~ msgstr "Kunne ikke læse fil:\n"
+#~ msgid "Opening file "
+#~ msgstr "Henter fil "
+#~ msgid "Saving file"
+#~ msgstr "Gemmer fil"
+#~ msgid "Save as..."
+#~ msgstr "Gem Som..."
+#~ msgid ""
+#~ "File: %s\n"
+#~ "\n"
+#~ "New modification time: %s\n"
+#~ "Old modification time: %s"
+#~ msgstr ""
+#~ "Fil %s\n"
+#~ "\n"
+#~ "Nyt ændrings-tidspunkt: %s\n"
+#~ "Gammelt ændrings-tidspunkt: %s"
+#~ msgid "File has been modified by another process."
+#~ msgstr "Filen er blever ændret af en anden process."
+#~ msgid "Saving %s"
+#~ msgstr "Gemmer %s"
+#~ msgid ""
+#~ "Could not backup file:\n"
+#~ "\""
+#~ msgstr ""
+#~ "Kunne ikke gemme backup fil:\n"
+#~ "\""
+#~ msgid "File save error"
+#~ msgstr "Fil gemnings fejl"
+#~ msgid ""
+#~ "These files could not opened:\n"
+#~ "\n"
+#~ msgstr "Disse filer kunne ikke åbnes:\n"
+#~ msgid "Unable to open file(s)\n"
+#~ msgstr "Ikke istand til at åbne fil(er)\n"
+#~ msgid "searching files..."
+#~ msgstr "gennemsøger filer..."
+#~ msgid "grep {contains} `find {basedir} -name '{file type}'`"
+#~ msgstr "grep {indeholder} `find {basisdir} -name '{mønster}'`"
+#~ msgid "_File Type:"
+#~ msgstr "_Fil Type:"
+#~ msgid "Loading %d file(s)..."
+#~ msgstr "Henter %d fil(er)..."
+#~ msgid "No matching files found"
+#~ msgstr "Ingen filer der opfylder kriterierne fundet"
+#~ msgid "_Doctype:"
+#~ msgstr "_Doctype:"
+#~ msgid "Header tags:"
+#~ msgstr "Header tags:"
+#~ msgid "The filename was:\n"
+#~ msgstr "Filnavnet var:\n"
+#~ msgid "Could not view file in browser, the file does not yet have a name\n"
+#~ msgstr "Kunne ikke vise fil i browser, filen har endnu ikke et navn\n"
+#~ msgid "These files were not opened:\n"
+#~ msgstr "Disse filer blev ikke åbnet:\n"
+#~ msgid "Show main toolbar by default"
+#~ msgstr "Vis hoved værktøjsline som standard"
+#~ msgid "Show HTML toolbar by default"
+#~ msgstr "Vis HTML værktøjslinje som standard"
+#~ msgid "Do you want to save the project?"
+#~ msgstr "Vil du gemme dette projekt?"
+
