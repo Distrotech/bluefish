@@ -29,7 +29,7 @@ about_rev.h: about_rev.h.tmp
 	@if test ! -e $@ -o -n "`diff $< $@`" ; then cp $< $@ ; fi
        
 about_rev.h.tmp:
-	@SVN_REVISION=`LANG=C svnversion -n . || echo exported` ; \
+	@SVN_REVISION=`LANG=C svnversion -n ${top_srcdir} || echo exported` ; \
 	echo "/* Automatically created by the Makefile." > $@ ; \
 	echo " * http://bugzilla.gnome.org/show_bug.cgi?id=578719 */" >> $@ ; \
 	echo "#ifndef __ABOUT_REV_H_" >> $@ ; \
