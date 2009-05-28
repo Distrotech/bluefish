@@ -25,6 +25,7 @@
 #include <string.h>				/* memcpy */
 #include <time.h>				/* strftime() */
 #include "bluefish.h"
+#include "file_autosave.h"
 #include "file_dialogs.h"
 #include "bookmark.h"
 #include "dialog_utils.h"
