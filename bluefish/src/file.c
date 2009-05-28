@@ -31,6 +31,7 @@
 #include "project.h"
 #include "file.h"
 #include "filebrowser2.h"
+#include "file_autosave.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"
 #include "gui.h"
