@@ -1,0 +1,218 @@
+# Korean language file for Bluefish.
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Jin-Hwan Jeong <yongdoria@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bluefish-unstable 1.3.5\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2009-05-11 18:00+0200\n"
+"PO-Revision-Date: 2009-05-26 08:48+0900\n"
+"Last-Translator: Jin-Hwan Jeong <yongdoria@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=0;\n"
+
+#: src/plugin_snippets/snippets_gui.c:264
+msgid "Set accelerator key"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:296
+#, fuzzy
+msgid "Snippet export filename"
+msgstr "프로젝트 파일명 선택"
+
+#: src/plugin_snippets/snippets_gui.c:305
+#, fuzzy
+msgid "Snippet import filename"
+msgstr "프로젝트 파일명 선택"
+
+#: src/plugin_snippets/snippets_gui.c:315
+#, fuzzy
+msgid "/_New snippet"
+msgstr "/새 폴더(_D)"
+
+#: src/plugin_snippets/snippets_gui.c:316
+#, fuzzy
+msgid "/_Edit snippet"
+msgstr "/편집(_E)"
+
+#: src/plugin_snippets/snippets_gui.c:317
+#, fuzzy
+msgid "/_Delete snippet"
+msgstr "Slet Menu Punkt"
+
+#: src/plugin_snippets/snippets_gui.c:318
+#, fuzzy
+msgid "/Delete branch"
+msgstr "Slet bogmærke"
+
+#: src/plugin_snippets/snippets_gui.c:320
+msgid "/Set snippet _accelerator"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:322
+#, fuzzy
+msgid "/Expand all"
+msgstr "/외부"
+
+#: src/plugin_snippets/snippets_gui.c:323
+#, fuzzy
+msgid "/Collapse all"
+msgstr "Luk _Alle"
+
+#: src/plugin_snippets/snippets_gui.c:325
+msgid "/Export"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:326
+msgid "/Import"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:441
+msgid "Click the right mouse button to add, edit or delete snippets."
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:598
+msgid "snippets"
+msgstr ""
+
+#: src/plugin_snippets/snippets_leaf_insert.c:93
+msgid "[cursor position or selection]"
+msgstr ""
+
+#: src/plugin_snippets/snippets_leaf_snr.c:154
+#, fuzzy
+msgid "Search for: '"
+msgstr "찾기(_F):"
+
+#: src/plugin_snippets/snippets_leaf_snr.c:154
+#, fuzzy
+msgid "', replace with: '"
+msgstr "치환(_W): "
+
+#: src/plugin_snippets/snippets_wizard.c:112
+msgid "Entire document"
+msgstr "전체 문서"
+
+#: src/plugin_snippets/snippets_wizard.c:113
+msgid "Forward from cursor position"
+msgstr "커서 위치에서 앞으로"
+
+#: src/plugin_snippets/snippets_wizard.c:114
+msgid "Selection"
+msgstr "선택"
+
+#: src/plugin_snippets/snippets_wizard.c:115
+msgid "All open files"
+msgstr "전체 열린 파일"
+
+#: src/plugin_snippets/snippets_wizard.c:119
+msgid "Normal"
+msgstr "보통"
+
+#: src/plugin_snippets/snippets_wizard.c:120
+msgid "Entire word only"
+msgstr "전체 단어만"
+
+#: src/plugin_snippets/snippets_wizard.c:121
+msgid "POSIX"
+msgstr "POSIX"
+
+#: src/plugin_snippets/snippets_wizard.c:122
+msgid "PERL"
+msgstr "PERL"
+
+#: src/plugin_snippets/snippets_wizard.c:133
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:140
+msgid "_Search for: "
+msgstr "찾기(_F):"
+
+#: src/plugin_snippets/snippets_wizard.c:144
+msgid "Replace _with: "
+msgstr "치환(_W): "
+
+#: src/plugin_snippets/snippets_wizard.c:151
+msgid "Sco_pe: "
+msgstr "범위(_P):"
+
+#: src/plugin_snippets/snippets_wizard.c:158
+msgid "Match Patter_n: "
+msgstr "패턴 일치(_N):"
+
+#: src/plugin_snippets/snippets_wizard.c:161
+msgid "Case sensitive _matching"
+msgstr "대소문자 구분 일치(_M)"
+
+#: src/plugin_snippets/snippets_wizard.c:162
+msgid "Only match if case (upper/lower) is identical."
+msgstr "대소문자가 동일하다면 일치만"
+
+#: src/plugin_snippets/snippets_wizard.c:165
+msgid "_Use escape chars"
+msgstr "Escape 문자 사용(_U)"
+
+#: src/plugin_snippets/snippets_wizard.c:166
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:339
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:345
+msgid "<i>Before</i> text"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:355
+msgid "<i>After</i> text"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:470
+msgid "Enter the name of the branch:"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:553
+msgid "Name of the new item:"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:558
+#, fuzzy
+msgid "Description:"
+msgstr "요약(_D):"
+
+#: src/plugin_snippets/snippets_wizard.c:608
+msgid "Select what you want to add"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:610
+msgid "Branch"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:612
+#, fuzzy
+msgid "Insert string"
+msgstr "Indsæt billede"
+
+#: src/plugin_snippets/snippets_wizard.c:614
+#, fuzzy
+msgid "Search and replace pattern"
+msgstr "Søge Mønster"
+
+#: src/plugin_snippets/snippets_wizard.c:721
+#, fuzzy
+msgid "New snippet"
+msgstr "Nyt projekt"

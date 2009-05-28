@@ -1,0 +1,2240 @@
+# Korean language file for Bluefish.
+# Copyright (C) 2000 Free Software Foundation, Inc.
+# Jin-Hwan Jeong <yongdoria@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bluefish-unstable 1.3.5\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2009-05-28 16:20+0200\n"
+"PO-Revision-Date: 2009-05-26 08:48+0900\n"
+"Last-Translator: Jin-Hwan Jeong <yongdoria@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=0;\n"
+
+#. _DM_ Alert box asking if user would like to change request from add to
+#. * update.
+#.
+#: src/plugin_htmlbar/html2.c:501
+#, fuzzy
+msgid "_Update"
+msgstr " _Opdatér "
+
+#: src/plugin_htmlbar/html2.c:506
+#, fuzzy, c-format
+msgid "The %s %s property already exists.\n"
+msgstr "Det specificerede sti-navn eksisterer allerede."
+
+#: src/plugin_htmlbar/html2.c:508
+#, fuzzy, c-format
+msgid "The %s property already exists.\n"
+msgstr "Det specificerede sti-navn eksisterer allerede."
+
+#: src/plugin_htmlbar/html2.c:511
+#, c-format
+msgid "Update it's value from %s to %s?"
+msgstr ""
+
+#: src/plugin_htmlbar/html2.c:637
+#, fuzzy
+msgid "Cascading Style Sheet Builder"
+msgstr "Cascading StyleSheet dialog"
+
+#: src/plugin_htmlbar/html2.c:657
+msgid "_Selector:"
+msgstr "_Vælger:"
+
+#: src/plugin_htmlbar/html2.c:676
+msgid "_Property:"
+msgstr "_Egenskab:"
+
+#: src/plugin_htmlbar/html2.c:678 src/plugin_htmlbar/html_form.c:650
+#: src/plugin_htmlbar/html_form.c:799 src/plugin_htmlbar/html_form.c:894
+msgid "_Value:"
+msgstr "_Værdi:"
+
+#: src/plugin_htmlbar/html2.c:696
+#, fuzzy
+msgid "Selector"
+msgstr "_Vælger:"
+
+#: src/plugin_htmlbar/html2.c:696 src/plugin_htmlbar/html2.c:699
+msgid "Property"
+msgstr "Egenskab"
+
+#: src/plugin_htmlbar/html2.c:696 src/plugin_htmlbar/html2.c:699
+#, fuzzy
+msgid "Value"
+msgstr "Værdi"
+
+#: src/plugin_htmlbar/html2.c:714
+#, fuzzy
+msgid " _Add "
+msgstr " Tilføj "
+
+#: src/plugin_htmlbar/html2.c:717
+msgid " _Update "
+msgstr " _Opdatér "
+
+#: src/plugin_htmlbar/html2.c:720
+msgid " _Delete "
+msgstr " _Slet "
+
+#: src/plugin_htmlbar/html2.c:973 src/plugin_htmlbar/html2.c:1010
+msgid "_Style..."
+msgstr "_Stil"
+
+#: src/plugin_htmlbar/html2.c:1167
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Vælg farve"
+
+#: src/plugin_htmlbar/htmlbar.c:36
+msgid "Edit color"
+msgstr "Rediger farve"
+
+#: src/plugin_htmlbar/htmlbar.c:44
+msgid "Edit tag"
+msgstr "Redigér tag"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:205
+msgid "/_Tags"
+msgstr "/태그(_T)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:207
+msgid "/Tags/_Headings"
+msgstr "/태그/머릿글(_H)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:209
+msgid "/Tags/Headings/H_1"
+msgstr "/태그/머릿글/H1(_1)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:210
+msgid "/Tags/Headings/H_2"
+msgstr "/태그/머릿글/H2(_2)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:211
+msgid "/Tags/Headings/H_3"
+msgstr "/태그/머릿글/H3(_3)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:212
+msgid "/Tags/Headings/H_4"
+msgstr "/태그/머릿글/H4(_4)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:213
+msgid "/Tags/Headings/H_5"
+msgstr "/태그/머릿글/H5(_5)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:214
+msgid "/Tags/Headings/H_6"
+msgstr "/태그/머릿글/H6(_6)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:215
+msgid "/Tags/_Special"
+msgstr "/태그/특수문자(_S)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:217
+msgid "/Tags/Special/_Accent"
+msgstr "/태그/특수문자/_Accenter"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:219
+msgid "/Tags/Special/Accent/_Uppercase"
+msgstr "/태그/특수문자/Accenter/_Store"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:220
+msgid "/Tags/Special/Accent/Uppercase/_A-I"
+msgstr "/태그/특수문자/Accenter/Store/_A-I"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:222
+msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
+msgstr "/태그/특수문자/Accenter/Store/A-I/A grave À"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:223
+msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
+msgstr "/태그/특수문자/Accenter/Store/A-I/A acute Á"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:224
+msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
+msgstr "/태그/특수문자/Accenter/Store/A-I/A circumflex Â"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:225
+msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
+msgstr "/태그/특수문자/Accenter/Store/A-I/A tilde Ã"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:226
+msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
+msgstr "/태그/특수문자/Accenter/Store/A-I/E ligatur Æ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:227
+msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
+msgstr "/태그/특수문자/Accenter/Store/A-I/A diaresis Ä"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:228
+msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
+msgstr "/태그/특수문자/Accenter/Store/A-I/A ring Å"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:229
+msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
+msgstr "/태그/특수문자/Accenter/Store/A-I/C cedilla Ç"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:230
+msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
+msgstr "/태그/특수문자/Accenter/Store/A-I/E grave È"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:231
+msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
+msgstr "/태그/특수문자/Accenter/Store/A-I/E acute É"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:232
+msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
+msgstr "/태그/특수문자/Accenter/Store/A-I/E circuimflex Ê"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:233
+msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
+msgstr "/태그/특수문자/Accenter/Store/A-I/E diaresis Ë"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:234
+msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
+msgstr "/태그/특수문자/Accenter/Store/A-I/I grave Ì"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:235
+msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
+msgstr "/태그/특수문자/Accenter/Store/A-I/I acute Í"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:236
+msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
+msgstr "/태그/특수문자/Accenter/Store/A-I/I circumflex Î"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:237
+msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
+msgstr "/태그/특수문자/Accenter/Store/A-I/I diaresis Ï"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:238
+msgid "/Tags/Special/Accent/Uppercase/_J-Z"
+msgstr "/태그/특수문자/Accenter/Store/_J-Z"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:240
+msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/N tilde Ñ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:241
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/O grave Ò"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:242
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/O acute Ó"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:243
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/O circumflex Ô"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:244
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/OE ligature "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:245
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/O tilde Õ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:246
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/O diaresis Ö"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:247
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/O slash Ø"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:248
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/U grave Ù"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:249
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/U acute Ú"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:250
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/U circumflex Û"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:251
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/U diaresis Ü"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:252
+msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
+msgstr "/태그/특수문자/Accenter/Store/J-Z/Y acute Ý"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:253
+msgid "/Tags/Special/Accent/_Lowercase"
+msgstr "/태그/특수문자/Accenter/_Små"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:254
+msgid "/Tags/Special/Accent/Lowercase/_A-I"
+msgstr "/태그/특수문자/Accenter/Små/_A-I"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:256
+msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
+msgstr "/태그/특수문자/Accenter/Små/A-I/a grave à"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:257
+msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
+msgstr "/태그/특수문자/Accenter/Små/A-I/a acute á"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:258
+msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
+msgstr "/태그/특수문자/Accenter/Små/A-I/a circumflex â"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:259
+msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
+msgstr "/태그/특수문자/Accenter/Små/A-I/a tilde ã"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:260
+msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
+msgstr "/태그/특수문자/Accenter/Små/A-I/a ring å "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:261
+msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
+msgstr "/태그/특수문자/Accenter/Små/A-I/ae ligatur æ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:262
+msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
+msgstr "/태그/특수문자/Accenter/Små/A-I/a diaresis ä"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:263
+msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
+msgstr "/태그/특수문자/Accenter/Små/A-I/c cedilla ç"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:264
+msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
+msgstr "/태그/특수문자/Accenter/Små/A-I/e grave è"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:265
+msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
+msgstr "/태그/특수문자/Accenter/Små/A-I/e acute é"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:266
+msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
+msgstr "/태그/특수문자/Accenter/Små/A-I/e circumflex ê"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:267
+msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
+msgstr "/태그/특수문자/Accenter/Små/A-I/e diaresis ë"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:268
+msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
+msgstr "/태그/특수문자/Accenter/Små/A-I/i grave ì"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:269
+msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
+msgstr "/태그/특수문자/Accenter/Små/A-I/i acute í"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:270
+msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
+msgstr "/태그/특수문자/Accenter/Små/A-I/i circumflex î"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:271
+msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
+msgstr "/태그/특수문자/Accenter/Små/A-I/i diaresis ï"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:272
+msgid "/Tags/Special/Accent/Lowercase/_J-Z"
+msgstr "/태그/특수문자/Accenter/Små/_J-Z"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:274
+msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/n tilde ñ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:275
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/o grave ò"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:276
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/o acute ó"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:277
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/oe ligatur æ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:278
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/o circumflex ô"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:279
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/o tilde õ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:280
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/o diaeresis ö"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:281
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/o slash ø "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:282
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/u grave ù"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:283
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/u acute ú"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:284
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/u circumflex û"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:285
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/u diaresis ü"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:286
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/y acute ý"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:287
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
+msgstr "/태그/특수문자/Accenter/Små/J-Z/y diaresis ÿ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:289
+msgid "/Tags/Special/Accent/U_mlaut ¨"
+msgstr "/태그/특수문자/Accenter/U_mlaut ¨"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:290
+msgid "/Tags/Special/Accent/_Acute ´"
+msgstr "/태그/특수문자/Accenter/_Acute ´"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:291
+msgid "/Tags/Special/Accent/_Cedilla ¸"
+msgstr "/태그/특수문자/Accenter/_Cedilla ¸"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:292
+msgid "/Tags/Special/_Currency"
+msgstr "/태그/특수문자/화폐(_C)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:294
+msgid "/Tags/Special/Currency/_Cent sign ¢"
+msgstr "/태그/특수문자/화폐/센트 ¢(_C)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:295
+msgid "/Tags/Special/Currency/_Pound sterling £"
+msgstr "/태그/특수문자/화폐/파운드 £(_P)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:296
+msgid "/Tags/Special/Currency/C_urrency sign ¤"
+msgstr "/태그/특수문자/화폐/화폐 표시 ¤(_U)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:297
+msgid "/Tags/Special/Currency/_Yen sign ¥"
+msgstr "/태그/특수문자/화폐/엔 ¥(_Y)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:298
+msgid "/Tags/Special/Currency/_Euro "
+msgstr "/태그/특수문자/화폐/유로(_E)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:299
+msgid "/Tags/Special/_Math-Science"
+msgstr "/태그/특수문자/수학-과학(_M)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:301
+msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
+msgstr "/태그/특수문자/수학-과학/Logisk _ikke ligmed ¬"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:302
+msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
+msgstr "/태그/특수문자/수학-과학/_Multiplikations tegn ×"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:303
+msgid "/Tags/Special/Math-Science/_Division sign ÷"
+msgstr "/태그/특수문자/수학-과학/_Divisions tegn ÷"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:304
+msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
+msgstr "/태그/특수문자/수학-과학/_Plus-minus tegn ±"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:305
+msgid "/Tags/Special/Math-Science/_Less-than sign <"
+msgstr "/태그/특수문자/수학-과학/_Mindre end <"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:306
+msgid "/Tags/Special/Math-Science/_Greater-than sign >"
+msgstr "/태그/특수문자/수학-과학/_Større end >"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:307
+msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
+msgstr "/태그/특수문자/수학-과학/Hævet _1 ¹"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:308
+msgid "/Tags/Special/Math-Science/Superscript _2 ²"
+msgstr "/태그/특수문자/수학-과학/Hævet _2 ²"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:309
+msgid "/Tags/Special/Math-Science/Superscript _3 ³"
+msgstr "/태그/특수문자/수학-과학/Hævet _3 ³"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:310
+msgid "/Tags/Special/Math-Science/One _quarter ¼"
+msgstr "/태그/특수문자/수학-과학/_Fjerdedel ¼"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:311
+msgid "/Tags/Special/Math-Science/One _half ½"
+msgstr "/태그/특수문자/수학-과학/_Halvdel ½"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:312
+msgid "/Tags/Special/Math-Science/_Three quarters ¾"
+msgstr "/태그/특수문자/수학-과학/_Tre fjerdedele ¾"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:313
+msgid "/Tags/Special/Math-Science/Deg_ree sign °"
+msgstr "/태그/특수문자/수학-과학/_Grade tegn °"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:314
+msgid "/Tags/Special/_Non Latin"
+msgstr "/태그/특수문자/비 라틴(_N)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:316
+msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
+msgstr "/태그/특수문자/비 라틴/_ETH (Islandsk) Ð"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:317
+msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
+msgstr "/태그/특수문자/비 라틴/_THORN (Islandsk) Þ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:318
+msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
+msgstr "/태그/특수문자/비 라틴/et_h (Islandsk) ð"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:319
+msgid "/Tags/Special/Non Latin/th_orn ÿ"
+msgstr "/태그/특수문자/비 라틴/th_orn (Islandsk) ÿ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:320
+msgid "/Tags/Special/Non Latin/Sharp _s ß"
+msgstr "/태그/특수문자/비 라틴/Skarpt _s ß"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:321
+msgid "/Tags/Special/Non Latin/_Micro sign µ"
+msgstr "/태그/특수문자/비 라틴/_Mikro tegn µ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:322
+msgid "/Tags/Special/_Other"
+msgstr "/태그/특수문자/기타(_O)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:324
+msgid "/Tags/Special/Other/_Non-breaking space"
+msgstr "/태그/특수문자/기타/_Non-breaking mellemrum"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:325
+msgid "/Tags/Special/Other/_Section sign §"
+msgstr "/태그/특수문자/기타/_Afsnits tegn §"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:326
+msgid "/Tags/Special/Other/_Copyright sign ©"
+msgstr "/태그/특수문자/기타/_Copyright tegn ©"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:327
+msgid "/Tags/Special/Other/_Left angle quotes «"
+msgstr "/태그/특수문자/기타/_Venstre gåseøjne «"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:328
+msgid "/Tags/Special/Other/_Right angle quotes »"
+msgstr "/태그/특수문자/기타/_Højre gåseåjne »"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:329
+msgid "/Tags/Special/Other/Registered _trademark ®"
+msgstr "/태그/특수문자/기타/Registrere_t varemærke ®"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:330
+msgid "/Tags/Special/Other/Inverted _exclamation ¡"
+msgstr "/태그/특수문자/기타/Omvendt _udråbstegn ¡"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:331
+msgid "/Tags/Special/Other/Inverted _question mark ¿"
+msgstr "/태그/특수문자/기타/Omvendt _spørgsmålstegn ¿"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:332
+msgid "/Tags/Special/Other/_Feminine ordinal ª"
+msgstr "/태그/특수문자/기타/_Feminin ordinal ª"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:333
+msgid "/Tags/Special/Other/_Masculine ordinal º"
+msgstr "/태그/특수문자/기타/_Maskulin ordinal º"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:334
+msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
+msgstr "/태그/특수문자/기타/_Paragraf tegn ¶"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:335
+msgid "/Tags/Special/Other/_Broken bar ¦"
+msgstr "/태그/특수문자/기타/_Broken bar ¦"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:336
+#, fuzzy
+msgid "/Tags/Special/Other/Soft _hyphen -"
+msgstr "/태그/특수문자/기타/Blød _hypen -"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:337
+msgid "/Tags/Special/Other/Spa_cing macron ¯"
+msgstr "/태그/특수문자/기타/_Mellemrums makron ¯"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:338
+msgid "/Tags/Special/Other/Middle _dot ·"
+msgstr "/태그/특수문자/기타/Mellem _prik ·"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:339
+msgid "/Tags/_Format by layout"
+msgstr "/태그/글꼴 모양(_F)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:341
+msgid "/Tags/Format by layout/_Bold"
+msgstr "/Tags/Formatér fra layout/_Fed"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:342
+msgid "/Tags/Format by layout/_Italic"
+msgstr "/Tags/Formatér fra layout/_Kursiv"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:343
+msgid "/Tags/Format by layout/_Underline"
+msgstr "/Tags/Formatér fra layout/_Understreget"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:344
+msgid "/Tags/Format by layout/_Strikeout"
+msgstr "/Tags/Formatér fra layout/_Overstreget"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:345
+msgid "/Tags/Format by layout/Sm_all"
+msgstr "/Tags/Formatér fra layout/S_måt"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:346
+msgid "/Tags/Format by layout/Bi_g"
+msgstr "/Tags/_Formatér fra layout/_Stort"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:347
+msgid "/Tags/F_ormat by context"
+msgstr "/태그/문맥 형식(_O)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:349
+msgid "/Tags/Format by context/_Strong"
+msgstr "/태그/문맥 형식/Strong(_S)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:350
+msgid "/Tags/Format by context/_Emphasis"
+msgstr "/태그/문맥 형식/Emphasis(_E)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:351
+msgid "/Tags/Format by context/_Define"
+msgstr "/태그/문맥 형식/Define(_D)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:352
+msgid "/Tags/Format by context/_Code"
+msgstr "/태그/문맥 형식/Code(_C)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:353
+msgid "/Tags/Format by context/Sa_mple"
+msgstr "/태그/문맥 형식/Sample(_M)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:354
+msgid "/Tags/Format by context/_Keyboard"
+msgstr "/Tags/Formatér fra kontekst/_Tastatur"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:355
+msgid "/Tags/Format by context/_Variable"
+msgstr "/Tags/Formatér fra kontekst/_Variabel"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:356
+msgid "/Tags/Format by context/Ci_tation"
+msgstr "/Tags/Formatér fra kontekst/Ci_tation"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:357
+msgid "/Tags/Format by context/_Abbreviation"
+msgstr "/Tags/Formatér fra kontekst/_Forkortelse"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:358
+msgid "/Tags/Format by context/Ac_ronym"
+msgstr "/Tags/Formatér fra kontekst/Ak_ronym"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:359
+msgid "/Tags/Format _general"
+msgstr "/태그/일반 형식(_G)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:361
+msgid "/Tags/Format general/_Paragraph"
+msgstr "/태그/일반 형식/_Afsnit"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:362
+msgid "/Tags/Format general/_Break"
+msgstr "/태그/일반 형식/_Linjeskift"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:363
+msgid "/Tags/Format general/Break clear _all"
+msgstr "/태그/일반 형식/Break clear _all"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:364
+msgid "/Tags/Format general/_Non-Breaking Space"
+msgstr "/태그/일반 형식/_Non-Breaking Space"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:366
+msgid "/Tags/Format general/Font Si_ze +1"
+msgstr "/태그/일반 형식/Skriftstørelse +_1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:367
+msgid "/Tags/Format general/Font _Size -1"
+msgstr "/태그/일반 형식/_Skriftstørelse -1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:369
+msgid "/Tags/Format general/Preformatted _Text"
+msgstr "/태그/일반 형식/Præformateret _tekst"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:370
+msgid "/Tags/Format general/Su_bscript"
+msgstr "/태그/일반 형식/Sæn_ket"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:371
+msgid "/Tags/Format general/Su_perscript"
+msgstr "/태그/일반 형식/_Hævet"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:373
+msgid "/Tags/Format general/_Center"
+msgstr "/태그/일반 형식/_Centreret"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:374
+msgid "/Tags/Format general/Align _right"
+msgstr "/태그/일반 형식/Hø_jrestillet"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:375
+msgid "/Tags/_Table"
+msgstr "/태그/표(_T)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:377
+msgid "/Tags/Table/_Table"
+msgstr "태그/표/_Tabel"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:378
+msgid "/Tags/Table/Table _Row"
+msgstr "/태그/표/Tabel _Række"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:379
+msgid "/Tags/Table/Table _Header"
+msgstr "/태그/표/Tabel _Overskrift"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:380
+msgid "/Tags/Table/Table _Data"
+msgstr "/태그/표/Tabel _Data"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:381
+msgid "/Tags/Table/Table _Caption"
+msgstr "/태그/표/Tabel \"_Caption\""
+
+#: src/plugin_htmlbar/htmlbar_gui.c:382
+msgid "/Tags/_List"
+msgstr "/태그/목록(_L)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:384
+msgid "/Tags/List/Unordered _List"
+msgstr "/태그/목록/Uordnet _Liste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:385
+msgid "/Tags/List/_Ordered List"
+msgstr "/태그/목록/_Ordnet Liste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:386
+msgid "/Tags/List/List Ite_m"
+msgstr "/태그/목록/Liste Ele_ment"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:387
+msgid "/Tags/List/De_finition List"
+msgstr "/태그/목록/Definitions _Liste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:388
+msgid "/Tags/List/Definition _Term"
+msgstr "/태그/목록/Definitions _Term"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:389
+msgid "/Tags/List/_Definition"
+msgstr "/태그/목록/_Definition"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:390
+msgid "/Tags/List/Men_u"
+msgstr "/태그/목록/Men_u"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:391
+msgid "/Tags/Fo_rm"
+msgstr "/태그/양식(_R)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:393
+msgid "/Tags/Form/_Form"
+msgstr "/태그/양식/_Form"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:394
+msgid "/Tags/Form/_Button"
+msgstr "태그/양식/_Knap"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:395
+msgid "/Tags/Form/_Input"
+msgstr "/태그/양식/_Input"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:396
+msgid "/Tags/Form/_Textarea"
+msgstr "/태그/양식/_Tekstfelt"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:397
+msgid "/Tags/_Misc"
+msgstr "/태그/기타(_M)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:399
+msgid "/Tags/Misc/Insert Generator _META-Tag"
+msgstr "/태그/기타/Indsæt Generator _META-Tag"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:400
+msgid "/Tags/Misc/_Span"
+msgstr "/태그/기타/_Span"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:401
+msgid "/Tags/Misc/_Div"
+msgstr "/태그/기타/_Div"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:402
+msgid "/Tags/Misc/_Link"
+msgstr "/태그/기타/_Lænke"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:403
+msgid "/Tags/Misc/S_cript"
+msgstr "/태그/기타/S_kript"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:404
+msgid "/Tags/Misc/_Anchor"
+msgstr "/태그/기타/_Anker"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:405
+msgid "/Tags/Misc/_Image"
+msgstr "/태그/기타/B_illede"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:406
+msgid "/Tags/_Comment"
+msgstr "/태그/주석(_C)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:407
+msgid "/Dial_ogs"
+msgstr "/대화창(_O)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:409
+msgid "/Dialogs/_General"
+msgstr "/대화창/일반(_G)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:411
+msgid "/Dialogs/General/_Quickstart..."
+msgstr "/대화창/일반/빠른 시작(_Q)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:412
+msgid "/Dialogs/General/_Link Header..."
+msgstr "/대화창/일반/헤더 링크(_L)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:413
+msgid "/Dialogs/General/_Body..."
+msgstr "/대화창/일반/바디(_B)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:414
+msgid "/Dialogs/General/_Anchor..."
+msgstr "/대화창/일반/앵커(_A)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:415
+msgid "/Dialogs/General/_Email..."
+msgstr "/대화창/일반/이메일(_E)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:416
+msgid "/Dialogs/General/_Rule..."
+msgstr "/대화창/일반/Rule(_R)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:417
+msgid "/Dialogs/General/_Font..."
+msgstr "/대화창/일반/글꼴(_F)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:418
+msgid "/Dialogs/General/Basef_ont..."
+msgstr "/대화창/일반/기본 글꼴(_O)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:419
+msgid "/Dialogs/General/Quick_list..."
+msgstr "/대화창/일반/빠른 목록(_L)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:420
+msgid "/Dialogs/General/_Meta..."
+msgstr "/대화창/일반/메타(_M)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:421
+msgid "/Dialogs/General/Embe_d..."
+msgstr "/대화창/일반/임베드(_D)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:422
+msgid "/Dialogs/General/Select _Color..."
+msgstr "/대화창/일반/색상 선택(_C)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:423
+msgid "/Dialogs/General/Insert _Time..."
+msgstr "/대화창/일반/시간 삽입(_T)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:424
+msgid "/Dialogs/General/Insert _Image..."
+msgstr "/대화창/일반/이미지 삽입(_I)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:425
+msgid "/Dialogs/General/Insert T_humbnail..."
+msgstr "/대화창/일반/썸네일 삽입(_H)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:426
+msgid "/Dialogs/_Table"
+msgstr "/대화창/표(_T)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:428
+msgid "/Dialogs/Table/Table _Wizard..."
+msgstr "/대화창/표/표 위저드(_W)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:429
+msgid "/Dialogs/Table/_Table..."
+msgstr "/대화창/표/표(_T)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:430
+msgid "/Dialogs/Table/Table _Row..."
+msgstr "/대화창/표/표 행(_R)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:431
+msgid "/Dialogs/Table/Table _Head..."
+msgstr "/대화창/표/표 헤더(_H)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:432
+msgid "/Dialogs/Table/Table _Data..."
+msgstr "/대화창/표/표 자료(_D)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:433
+msgid "/Dialogs/_CSS"
+msgstr "/대화창/CSS(_C)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:435
+msgid "/Dialogs/CSS/_Create Style..."
+msgstr "/대화창/CSS/스타일 생성(_C)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:436
+msgid "/Dialogs/CSS/S_pan..."
+msgstr "/대화창/CSS/스판(_P)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:437
+msgid "/Dialogs/CSS/_Div..."
+msgstr "/대화창/CSS/Div(_D)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:438
+msgid "/Dialogs/CSS/_Style..."
+msgstr "/대화창/CSS/스타일(_S)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:439
+msgid "/Dialogs/CSS/_Link to Stylesheet..."
+msgstr "/대화창/CSS/스타일시트에 링크(_L)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:440
+msgid "/Dialogs/_Frame"
+msgstr "/대화창/프레임(_F)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:442
+msgid "/Dialogs/Frame/Frame _Wizard..."
+msgstr "/대화창/프레임/프레임 위저드(_W)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:443
+msgid "/Dialogs/Frame/Frame_set..."
+msgstr "/대화창/프레임/프레임셋(_S)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:444
+msgid "/Dialogs/Frame/_Frame..."
+msgstr "/대화창/프레임/프레임(_F)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:445
+msgid "/Dialogs/F_orm"
+msgstr "/대화창/폼(_O)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:447
+msgid "/Dialogs/Form/F_orm..."
+msgstr "/대화창/폼/폼(_O)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:448
+msgid "/Dialogs/Form/_Input..."
+msgstr "/대화창/폼/입력(_I)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:449
+msgid "/Dialogs/Form/Input Buttons..."
+msgstr "/대화창/폼/입력 단추..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:450
+msgid "/Dialogs/Form/Input Text..."
+msgstr "/대화창/폼/입력 문자열..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:451
+msgid "/Dialogs/Form/Text_area..."
+msgstr "/대화창/폼/문자열 구역(_A)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:452
+msgid "/Dialogs/Form/_Select..."
+msgstr "/대화창/폼/선택(_S)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:453
+msgid "/Dialogs/Form/O_ption..."
+msgstr "/대화창/폼/설정(_P)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:454
+msgid "/Dialogs/Form/Option _Group..."
+msgstr "/대화창/폼/설정 그룹(_G)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:455
+msgid "/Dialogs/Form/_Button..."
+msgstr "/대화창/폼/단추(_B)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:457
+msgid "/Dialogs/_Edit tag under cursor..."
+msgstr "/대화창/커서 아래 태그 편집(_E)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:460
+msgid "/View/View _HTML Toolbar"
+msgstr "/보기/HTML 도구막대(_H)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:735
+msgid "QuickStart..."
+msgstr "HurtigStart..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:736
+msgid "Body..."
+msgstr "Body..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:737
+msgid "Bold"
+msgstr "Fed"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:738
+msgid "Italic"
+msgstr "Kursiv"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:739 src/plugin_htmlbar/html.c:777
+msgid "Paragraph"
+msgstr "Afsnit"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:740
+msgid "Break"
+msgstr "Break"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:741
+msgid "Break and clear"
+msgstr "Break and clear"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:742
+msgid "Non-breaking space"
+msgstr "Non-breaking space"
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:744
+msgid "Anchor..."
+msgstr "Anker"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:745
+msgid "Rule..."
+msgstr "Linje..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:746
+msgid "Center"
+msgstr "Centrer"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:747
+msgid "Right Justify"
+msgstr "Højrestillet"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:748
+msgid "Comment"
+msgstr "Kommentar"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:749
+#, fuzzy
+msgid "E-mail..."
+msgstr "E-Post..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:750
+msgid "Font..."
+msgstr "Skrifttype..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:751
+msgid "Base Font Size..."
+msgstr "Grund skrifttype størrelse..."
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:753
+msgid "Font Size +1"
+msgstr "Skriftstørrelse +1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:754
+msgid "Font Size -1"
+msgstr "Skriftstørrelse -1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:755
+msgid "Preformatted Text"
+msgstr "Preformateret tekst"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:756
+msgid "Subscript"
+msgstr "Sænket"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:757
+msgid "Superscript"
+msgstr "Hævet"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:758
+msgid "Strong"
+msgstr "Fed"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:759
+msgid "Emphasis"
+msgstr "Kursiv"
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:786
+msgid "Heading 1"
+msgstr "Overskrift 1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:789
+msgid "Heading 2"
+msgstr "Overskrift 2"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:792
+msgid "Heading 3"
+msgstr "Overskrift 3"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:764 src/plugin_htmlbar/html.c:795
+msgid "Heading 4"
+msgstr "Overskrift 4"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:765 src/plugin_htmlbar/html.c:798
+msgid "Heading 5"
+msgstr "Overskrift 5"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:766 src/plugin_htmlbar/html.c:801
+msgid "Heading 6"
+msgstr "Overskrift 6"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:767
+msgid "Table Wizard..."
+msgstr "Tabel Wizard..."
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:769
+msgid "Table..."
+msgstr "Tabel..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:770
+msgid "Table Row..."
+msgstr "Tabel række..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:771
+msgid "Table Header..."
+msgstr "Tabel overskrift..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:772
+msgid "Table Data..."
+msgstr "Tabel data..."
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:774 src/plugin_htmlbar/html_table.c:77
+msgid "Table"
+msgstr "Tabel"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:775 src/plugin_htmlbar/html_table.c:209
+msgid "Table Row"
+msgstr "Tabel række"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:776 src/plugin_htmlbar/html_table.c:320
+msgid "Table Header"
+msgstr "Tabeltitel"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:777 src/plugin_htmlbar/html_table.c:318
+msgid "Table Data"
+msgstr "Tabel data"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:778
+msgid "Table Caption"
+msgstr "Tabel Caption"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:779
+msgid "Frame Wizard..."
+msgstr "Frame Wizard"
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:781
+msgid "Frameset..."
+msgstr "Frameset..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:782
+msgid "Frame..."
+msgstr "Frame..."
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:784 src/plugin_htmlbar/html.c:1565
+msgid "Frameset"
+msgstr "Frameset"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:785 src/plugin_htmlbar/html.c:1649
+msgid "Frame"
+msgstr "Frame"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:786
+msgid "Noframes"
+msgstr "Ingen Frames"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:787
+msgid "Target"
+msgstr "Target"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:788
+msgid "Form..."
+msgstr "Formular..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:789
+msgid "Input Button..."
+msgstr "Input Knap..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:790
+msgid "Input Text..."
+msgstr "Input Tekst..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:791
+msgid "Input Hidden..."
+msgstr "Input Gemt..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:792
+msgid "Textarea..."
+msgstr "Tekstfelt..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:793
+msgid "Input Radio Button..."
+msgstr "Input Radio Knap..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:794
+msgid "Input Check Box..."
+msgstr "Input Tjeck Boks..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:795
+msgid "Select..."
+msgstr "Valg..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:796
+msgid "Option..."
+msgstr "Indstilling..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:797
+msgid "Option group..."
+msgstr "Indstillings gruppe..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:798
+msgid "Button..."
+msgstr "Knap..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:799
+msgid "Quick List..."
+msgstr "Hurtig Liste..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:800
+msgid "Unordered List"
+msgstr "Uordnet Liste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:801
+msgid "Ordered List"
+msgstr "Ordnet Liste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:802
+msgid "List Item"
+msgstr "List element"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:803
+msgid "Definition List"
+msgstr "Definitions liste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:804
+msgid "Definition Term"
+msgstr "Definitions Term"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:805 src/plugin_htmlbar/htmlbar_gui.c:814
+msgid "Definition"
+msgstr "Definition"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:806
+msgid "Create stylesheet..."
+msgstr "Opret stylesheet..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:807
+msgid "Span..."
+msgstr "Span..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:808
+msgid "Div..."
+msgstr "Div..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:809 src/plugin_htmlbar/html_form.c:825
+msgid "Style"
+msgstr "Stil"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:810
+msgid "Link to stylesheet..."
+msgstr "Link til stylesheet..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:811
+msgid "Insert image..."
+msgstr "Indsæt billede..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:812
+msgid "Insert thumbnail..."
+msgstr "Indsæt billede som thumbnail"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:813
+msgid "Multi thumbnail..."
+msgstr "Mange Thumbnail(s)..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:815
+msgid "Code"
+msgstr "Kode"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:816
+msgid "Sample"
+msgstr "Prøve"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:817
+msgid "Keyboard"
+msgstr "Tastatur"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:818
+msgid "Variable"
+msgstr "Variabel"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:819
+msgid "Citation"
+msgstr "Citation"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:820
+msgid "Abbreviation"
+msgstr "Abbreviation"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:821
+msgid "Acronym"
+msgstr "Akronym"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:941
+msgid "Remove from quickbar"
+msgstr "Fjern fra quickbar"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:942
+msgid "Move Left"
+msgstr "Flyt til Venstre"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:943
+msgid "Move Right"
+msgstr "Flyt til Højre"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:983
+msgid "Add to quickbar"
+msgstr "Tilføj til quickbar"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1085
+msgid " Quick bar "
+msgstr " Quick Bar "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1090
+msgid "Heading"
+msgstr "Overskrift"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1092
+msgid " Standard bar "
+msgstr " Standard bar "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1097
+msgid "Context formatting"
+msgstr "Kontekst formatering"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1099
+msgid " Fonts "
+msgstr " Skrifttyper "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1104
+msgid " Tables "
+msgstr " Tabeller "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1109
+msgid " Frames "
+msgstr " Frames "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1114
+msgid " Forms "
+msgstr " Formularer "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1119
+msgid " List "
+msgstr " Liste "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1124
+msgid " CSS "
+msgstr " CSS "
+
+#: src/plugin_htmlbar/html.c:385
+msgid "Insert Time"
+msgstr "Indsæt tid"
+
+#: src/plugin_htmlbar/html.c:393
+#, c-format
+msgid "  _Time (%i:%i:%i)"
+msgstr "  _Tid (%i:%i:%i)"
+
+#: src/plugin_htmlbar/html.c:398
+msgid "  Day of the _week (Sunday)"
+msgstr "  _Ugedag (Søndag)"
+
+#: src/plugin_htmlbar/html.c:401
+msgid "  Day of the _week (Monday)"
+msgstr "  _Ugedag (Mandag)"
+
+#: src/plugin_htmlbar/html.c:404
+msgid "  Day of the _week (Tuesday)"
+msgstr "  _Ugedag (Tirsdag)"
+
+#: src/plugin_htmlbar/html.c:407
+msgid "  Day of the _week (Wednesday)"
+msgstr "  _Ugedag (Onsdag)"
+
+#: src/plugin_htmlbar/html.c:410
+msgid "  Day of the _week (Thursday)"
+msgstr "  _Ugedag (Torsdag)"
+
+#: src/plugin_htmlbar/html.c:413
+msgid "  Day of the _week (Friday)"
+msgstr "  _Ugedag (Fredag)"
+
+#: src/plugin_htmlbar/html.c:416
+msgid "  Day of the _week (Saturday)"
+msgstr "  _Ugedag (Lørdag)"
+
+#: src/plugin_htmlbar/html.c:419
+msgid "You appear to have a non existant day!\n"
+msgstr "Du synes at have en ugyldig ugedag!\n"
+
+#: src/plugin_htmlbar/html.c:427
+#, c-format
+msgid "  _Date (%i/%i/%i)"
+msgstr "  _Dato (%i/%i/%i)"
+
+#: src/plugin_htmlbar/html.c:430
+#, c-format
+msgid "  _Unix Time (%i)"
+msgstr "  _Unix tid (%i)"
+
+#: src/plugin_htmlbar/html.c:435
+#, fuzzy, c-format
+msgid "  Unix Date _String (%s)"
+msgstr "  Unix Dato _Streng (%s"
+
+#: src/plugin_htmlbar/html.c:443
+#, c-format
+msgid "  ISO-8601 Ti_me (%s)"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:585
+msgid "Quick Anchor"
+msgstr "Hurtigt link"
+
+#: src/plugin_htmlbar/html.c:591 src/plugin_htmlbar/html_form.c:780
+msgid "Attributes"
+msgstr "Attributter"
+
+#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1893
+msgid "_HREF:"
+msgstr "_HREF:"
+
+#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/html_form.c:183
+msgid "_Target:"
+msgstr "_Target:"
+
+#: src/plugin_htmlbar/html.c:613 src/plugin_htmlbar/html.c:833
+#: src/plugin_htmlbar/html.c:1198 src/plugin_htmlbar/html.c:1661
+#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
+#: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
+#: src/plugin_htmlbar/image.c:466
+msgid "_Name:"
+msgstr "이름(_N):"
+
+#: src/plugin_htmlbar/html.c:619 src/plugin_htmlbar/html.c:1066
+#: src/plugin_htmlbar/html.c:1216 src/plugin_htmlbar/html.c:1808
+msgid "_Language:"
+msgstr "_Sprog:"
+
+#: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:841
+#: src/plugin_htmlbar/html.c:975 src/plugin_htmlbar/html.c:1070
+#: src/plugin_htmlbar/html.c:1224 src/plugin_htmlbar/html.c:1597
+#: src/plugin_htmlbar/html.c:1698 src/plugin_htmlbar/html.c:1827
+#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
+#: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
+#: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/image_dialog.c:409
+msgid "Custo_m:"
+msgstr "_Bruger"
+
+#: src/plugin_htmlbar/html.c:626 src/plugin_htmlbar/html.c:1074
+#: src/plugin_htmlbar/html_form.c:829
+msgid "Events"
+msgstr "Begivenheder"
+
+#: src/plugin_htmlbar/html.c:629
+msgid "OnClic_k:"
+msgstr "OnClic_k"
+
+#: src/plugin_htmlbar/html.c:633
+msgid "OnD_blClick:"
+msgstr "OnD_blClick"
+
+#: src/plugin_htmlbar/html.c:637
+msgid "OnMouseO_ver:"
+msgstr "OnMouseO_ver:"
+
+#: src/plugin_htmlbar/html.c:641
+msgid "OnMouse_Down:"
+msgstr "OnMouse_Down:"
+
+#: src/plugin_htmlbar/html.c:645
+msgid "OnMouse_Move:"
+msgstr "OnMouse_Move:"
+
+#: src/plugin_htmlbar/html.c:649
+msgid "OnMouseOu_t:"
+msgstr "OnMouseOu_t:"
+
+#: src/plugin_htmlbar/html.c:653
+msgid "OnMouse_Up:"
+msgstr "OnMouse_Up:"
+
+#: src/plugin_htmlbar/html.c:657
+msgid "OnKeyDo_wn:"
+msgstr "OnKeyDo_wn:"
+
+#: src/plugin_htmlbar/html.c:661
+msgid "OnKey_Press:"
+msgstr "OnKey_Press:"
+
+#: src/plugin_htmlbar/html.c:665
+msgid "OnKe_yUp:"
+msgstr "OnKe_yUp:"
+
+#: src/plugin_htmlbar/html.c:780
+msgid "Div"
+msgstr "Div"
+
+#: src/plugin_htmlbar/html.c:783
+msgid "Span"
+msgstr "Spænd"
+
+#: src/plugin_htmlbar/html.c:818 src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
+msgid "Ali_gn:"
+msgstr "_Opstil:"
+
+#: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
+#: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
+#: src/plugin_htmlbar/image_dialog.c:397
+msgid "Cl_ass:"
+msgstr "_Klasse:"
+
+#: src/plugin_htmlbar/html.c:826 src/plugin_htmlbar/html.c:1051
+#: src/plugin_htmlbar/html_diag.c:381 src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
+msgid "St_yle:"
+msgstr "_Stil:"
+
+#: src/plugin_htmlbar/html.c:837 src/plugin_htmlbar/html.c:1062
+#: src/plugin_htmlbar/html_diag.c:377
+msgid "_ID:"
+msgstr "_ID:"
+
+#: src/plugin_htmlbar/html.c:938
+msgid "Horizontal Rule"
+msgstr "Horizontal linje"
+
+#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:430
+msgid "_Align:"
+msgstr "_Opstil:"
+
+#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:371
+msgid "_Height:"
+msgstr "_Højde:"
+
+#. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
+#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
+#: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:362
+msgid "_Width:"
+msgstr "_Bredde:"
+
+#: src/plugin_htmlbar/html.c:965
+msgid "Is _percent"
+msgstr "I _procent"
+
+#: src/plugin_htmlbar/html.c:970
+#, fuzzy
+msgid "No _shading"
+msgstr "없음"
+
+#: src/plugin_htmlbar/html.c:1035
+msgid "Body"
+msgstr "Body"
+
+#: src/plugin_htmlbar/html.c:1043
+msgid "Options"
+msgstr "Indstillinger"
+
+#: src/plugin_htmlbar/html.c:1081
+msgid "On_Load:"
+msgstr "On_Load"
+
+#: src/plugin_htmlbar/html.c:1089
+msgid "On_UnLoad:"
+msgstr "On_UnLoad:"
+
+#: src/plugin_htmlbar/html.c:1098
+msgid "Depreciated options"
+msgstr "Forældede indstillinger"
+
+#: src/plugin_htmlbar/html.c:1108
+msgid "Background _Image:"
+msgstr "Baggrungs _Billede:"
+
+#: src/plugin_htmlbar/html.c:1115
+msgid "Back_ground Color:"
+msgstr "Baggrunds _Farve:"
+
+#: src/plugin_htmlbar/html.c:1121
+msgid "_Text Color:"
+msgstr "_Tekst Farve:"
+
+#: src/plugin_htmlbar/html.c:1127
+msgid "_Link Color:"
+msgstr "_Link Farve:"
+
+#: src/plugin_htmlbar/html.c:1133
+msgid "_Visited Link Color:"
+msgstr "_Besøgt Link Farve:"
+
+#: src/plugin_htmlbar/html.c:1139
+msgid "_Active Link Color:"
+msgstr "_Aktivt Link Farve:"
+
+#: src/plugin_htmlbar/html.c:1191
+msgid "Meta"
+msgstr "META"
+
+#: src/plugin_htmlbar/html.c:1207
+msgid "_HTTP-EQUIV:"
+msgstr "_HTTP-EQUIV:"
+
+#: src/plugin_htmlbar/html.c:1212
+msgid "Con_tent:"
+msgstr "_Indhold:"
+
+#: src/plugin_htmlbar/html.c:1220
+msgid "_Scheme:"
+msgstr "_Skema:"
+
+#: src/plugin_htmlbar/html.c:1301
+msgid "Font"
+msgstr "글꼴 "
+
+#: src/plugin_htmlbar/html.c:1304
+msgid "Base Font"
+msgstr "Grund skrifttype"
+
+#: src/plugin_htmlbar/html.c:1319
+msgid "Size"
+msgstr "Størrelse"
+
+#: src/plugin_htmlbar/html.c:1327
+msgid "Color"
+msgstr "Farve"
+
+#: src/plugin_htmlbar/html.c:1332
+msgid "Face"
+msgstr "Skrifttype familie"
+
+#: src/plugin_htmlbar/html.c:1336
+msgid "Custom"
+msgstr "Bruger"
+
+#: src/plugin_htmlbar/html.c:1420
+#, fuzzy
+msgid "E-mail"
+msgstr "E-post"
+
+#: src/plugin_htmlbar/html.c:1428
+msgid "_Mail to:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:1432
+#, fuzzy
+msgid "_Copy to:"
+msgstr "복사"
+
+#: src/plugin_htmlbar/html.c:1436
+msgid "Blin_d copy to:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:1440
+msgid "with _Subject:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:1444
+msgid "with _Body:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:1488
+msgid "Quick List"
+msgstr "Hurtig liste"
+
+#: src/plugin_htmlbar/html.c:1493 src/plugin_htmlbar/html.c:1575
+#: src/plugin_htmlbar/html_form.c:236
+msgid "_Rows:"
+msgstr "_Rækker:"
+
+#: src/plugin_htmlbar/html.c:1496
+msgid "Or_dered"
+msgstr "Or_dnet"
+
+#: src/plugin_htmlbar/html.c:1497
+msgid "_Unordered"
+msgstr "_U-ordnet"
+
+#: src/plugin_htmlbar/html.c:1499
+msgid "Style:"
+msgstr "Stil:"
+
+#: src/plugin_htmlbar/html.c:1571 src/plugin_htmlbar/html_form.c:240
+msgid "Co_ls:"
+msgstr "Ko_llonner:"
+
+#: src/plugin_htmlbar/html.c:1580
+msgid "_Add <frame> elements"
+msgstr "_Tilføj <frame> elementer"
+
+#: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
+#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:321
+msgid "_Source:"
+msgstr "_Kilde:"
+
+#: src/plugin_htmlbar/html.c:1665
+msgid "Margin _Width:"
+msgstr "Margin _Bredde:"
+
+#: src/plugin_htmlbar/html.c:1669
+msgid "Margin _Height:"
+msgstr "Margen _Højde:"
+
+#: src/plugin_htmlbar/html.c:1677
+msgid "Scrollin_g:"
+msgstr "Scrollin_g:"
+
+#: src/plugin_htmlbar/html.c:1681
+msgid "_Frameborder:"
+msgstr "_Rammekant:"
+
+#: src/plugin_htmlbar/html.c:1686
+msgid "No _Resize:"
+msgstr "Ingen \"_resize\""
+
+#: src/plugin_htmlbar/html.c:1736
+msgid "Embed"
+msgstr "Embed"
+
+#: src/plugin_htmlbar/html.c:1758 src/plugin_htmlbar/html_table.c:140
+msgid "Bo_rder:"
+msgstr "_Ramme:"
+
+#: src/plugin_htmlbar/html.c:1794
+msgid "Script"
+msgstr "Skript"
+
+#: src/plugin_htmlbar/html.c:1823 src/plugin_htmlbar/html.c:1924
+#: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
+msgid "_Type:"
+msgstr "_Type:"
+
+#: src/plugin_htmlbar/html.c:1882
+msgid "Link"
+msgstr "Lænke"
+
+#: src/plugin_htmlbar/html.c:1899
+#, fuzzy
+msgid "HREF_LANG:"
+msgstr "_HREF:"
+
+#: src/plugin_htmlbar/html.c:1903
+#, fuzzy
+msgid "T_itle:"
+msgstr "_Unavngivet:"
+
+#: src/plugin_htmlbar/html.c:1943
+msgid "_Forward Relation:"
+msgstr "_Fremad-rettet Relation:"
+
+#: src/plugin_htmlbar/html.c:1947
+#, fuzzy
+msgid "_Reverse Relation:"
+msgstr "행을 거꾸로"
+
+#: src/plugin_htmlbar/html.c:1958
+msgid "Media:"
+msgstr "Medie:"
+
+#: src/plugin_htmlbar/html.c:1962
+msgid "L_ang:"
+msgstr "_Sprog:"
+
+#: src/plugin_htmlbar/html.c:1966
+msgid "_Custom:"
+msgstr "_Bruger:"
+
+#: src/plugin_htmlbar/html_form.c:141
+msgid "Form"
+msgstr "Formular"
+
+#: src/plugin_htmlbar/html_form.c:159
+msgid "_Action:"
+msgstr "\"_Action\""
+
+#: src/plugin_htmlbar/html_form.c:167
+msgid "Metho_d:"
+msgstr "Meto_de:"
+
+#: src/plugin_htmlbar/html_form.c:176
+msgid "_Enctype:"
+msgstr "_Enctype:"
+
+#: src/plugin_htmlbar/html_form.c:225
+msgid "Text area"
+msgstr "Tekstfelt"
+
+#: src/plugin_htmlbar/html_form.c:590
+msgid "Select"
+msgstr "Vælg"
+
+#: src/plugin_htmlbar/html_form.c:601 src/plugin_htmlbar/html_form.c:808
+msgid "Si_ze:"
+msgstr "_Størrelse:"
+
+#: src/plugin_htmlbar/html_form.c:605
+msgid "Multiple _Selections:"
+msgstr "Flere _Valg:"
+
+#: src/plugin_htmlbar/html_form.c:644
+#, fuzzy
+msgid "Option"
+msgstr "Indstillinger"
+
+#: src/plugin_htmlbar/html_form.c:654 src/plugin_htmlbar/html_form.c:697
+msgid "_Label:"
+msgstr "_Label:"
+
+#: src/plugin_htmlbar/html_form.c:659
+msgid "_Selected:"
+msgstr "_Valg:"
+
+#: src/plugin_htmlbar/html_form.c:692
+msgid "Option group"
+msgstr "Indstillings gruppe"
+
+#: src/plugin_htmlbar/html_form.c:775
+msgid "Input"
+msgstr "Input"
+
+#: src/plugin_htmlbar/html_form.c:803
+msgid "_Checked:"
+msgstr "_Valgt:"
+
+#: src/plugin_htmlbar/html_form.c:812
+msgid "Max _Length:"
+msgstr "Maksimal _Længde:"
+
+#: src/plugin_htmlbar/html_form.c:816
+msgid "_Accept:"
+msgstr "_Accepter:"
+
+#: src/plugin_htmlbar/html_form.c:820
+msgid "C_ustom:"
+msgstr "Br_uger:"
+
+#: src/plugin_htmlbar/html_form.c:832
+msgid "On_Focus:"
+msgstr "On_Focus:"
+
+#: src/plugin_htmlbar/html_form.c:836
+msgid "On_Blur:"
+msgstr "On_Blur:"
+
+#: src/plugin_htmlbar/html_form.c:840
+msgid "On_Select:"
+msgstr "On_Select:"
+
+#: src/plugin_htmlbar/html_form.c:844
+msgid "On_Change:"
+msgstr "On_Change:"
+
+#: src/plugin_htmlbar/html_form.c:884
+msgid "Button"
+msgstr "Knap"
+
+#: src/plugin_htmlbar/html_table.c:83
+msgid "Cell _Padding:"
+msgstr "Element _Fyld(padding):"
+
+#: src/plugin_htmlbar/html_table.c:87
+msgid "C_ell Spacing:"
+msgstr "_Element Mellemrum:"
+
+#: src/plugin_htmlbar/html_table.c:123 src/plugin_htmlbar/html_table.c:233
+#: src/plugin_htmlbar/html_table.c:347
+#, fuzzy
+msgid "_Valign:"
+msgstr "_Opstil:"
+
+#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:392
+msgid "Backgrou_nd Color:"
+msgstr "Baggru_nds Farve:"
+
+#: src/plugin_htmlbar/html_table.c:154
+msgid "_Frame:"
+msgstr "_Ramme:"
+
+#: src/plugin_htmlbar/html_table.c:165
+msgid "R_ules:"
+msgstr "R_egler:"
+
+#: src/plugin_htmlbar/html_table.c:365
+msgid "Co_l Span:"
+msgstr "Ko_lonne Spæn:"
+
+#: src/plugin_htmlbar/html_table.c:369
+msgid "_Row Span:"
+msgstr "_Række Spæn:"
+
+#: src/plugin_htmlbar/html_table.c:374
+msgid "No Wra_p:"
+msgstr "Ingen \"Wordwra_p\":"
+
+#: src/plugin_htmlbar/image.c:287
+#, fuzzy
+msgid "Loading image failed..."
+msgstr "Henter %d fil(er)..."
+
+#: src/plugin_htmlbar/image.c:359
+#, fuzzy, c-format
+msgid "Loading file %s..."
+msgstr "Henter %d fil(er)..."
+
+#: src/plugin_htmlbar/image.c:411
+msgid "Insert thumbnail"
+msgstr "Indsæt thumbnail"
+
+#: src/plugin_htmlbar/image.c:413
+msgid "Insert image"
+msgstr "Indsæt billede"
+
+#: src/plugin_htmlbar/image.c:419 src/plugin_htmlbar/image_dialog.c:341
+msgid "Preview"
+msgstr "Preview"
+
+#: src/plugin_htmlbar/image.c:441
+msgid "_Image location:"
+msgstr "_Billede placering:"
+
+#: src/plugin_htmlbar/image.c:457
+msgid "Hei_ght:"
+msgstr "_Højde:"
+
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:405
+msgid "_Usemap:"
+msgstr "_Usemap:"
+
+#: src/plugin_htmlbar/image.c:470
+msgid "Alternate _text:"
+msgstr "Alternativ _tekst:"
+
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:439
+msgid "_Hspace:"
+msgstr "_Horizontal afstand:"
+
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:443
+msgid "_Vspace:"
+msgstr "_Vertikal afstand:"
+
+#: src/plugin_htmlbar/image.c:496
+msgid "Borde_r:"
+msgstr "Ramme_r:"
+
+#: src/plugin_htmlbar/image.c:879
+msgid "Select files for thumbnail creation"
+msgstr "Vælg filer til thumbnail oprettelse"
+
+#: src/plugin_htmlbar/image.c:914
+msgid "Scaling (%)"
+msgstr "Skalering (%)"
+
+#: src/plugin_htmlbar/image.c:918 src/plugin_htmlbar/image.c:926
+msgid "Width"
+msgstr "Bredde"
+
+#: src/plugin_htmlbar/image.c:922 src/plugin_htmlbar/image.c:954
+msgid "Height"
+msgstr "Højde"
+
+#: src/plugin_htmlbar/image.c:943
+msgid "Multi thumbnail"
+msgstr "Multi thumbnail"
+
+#: src/plugin_htmlbar/image.c:949
+#, fuzzy
+msgid "By scaling"
+msgstr "Efter skalering"
+
+#: src/plugin_htmlbar/image.c:950
+msgid "By width, keep aspect ratio"
+msgstr "Efter bredde, bi-behold aspekt forhold"
+
+#: src/plugin_htmlbar/image.c:951
+msgid "By height, keep aspect ratio"
+msgstr "Efter højde, bi-behold aspekt forhold"
+
+#: src/plugin_htmlbar/image.c:952
+msgid "By width and height, ignore aspect ratio"
+msgstr "Efter bredde og højde, ignorér aspekt forhold"
+
+#: src/plugin_htmlbar/image.c:976
+msgid ""
+"%r: original filename  %t: thumbnail filename\n"
+"%w: original width  %h: original height\n"
+"%x: thumbnail width  %y: thumbnail height\n"
+"%b: original size (bytes)"
+msgstr ""
+"%r: originalt filnavn  %t: thumbnail filnavn\n"
+"%w: original bredde  %h: orignal højde\n"
+"%x: thumbnail bredde  %y: thumbnail højde\n"
+"%b: original størrelse (bytes)"
+
+#: src/plugin_htmlbar/image_dialog.c:378
+#, fuzzy
+msgid "_Reset Dimensions"
+msgstr "작업창 설정"
+
+#: src/plugin_htmlbar/image_dialog.c:389
+#, fuzzy
+msgid "Alternate te_xt:"
+msgstr "Alternativ _tekst:"
+
+#: src/plugin_htmlbar/image_dialog.c:393
+#, fuzzy
+msgid "_Long description:"
+msgstr "요약(_D):"
+
+#: src/plugin_htmlbar/image_dialog.c:401
+#, fuzzy
+msgid "I_D:"
+msgstr "_ID:"
+
+#: src/plugin_htmlbar/image_dialog.c:420
+msgid "_Use Transitional options"
+msgstr ""
+
+#: src/plugin_htmlbar/image_dialog.c:435
+#, fuzzy
+msgid "_Border:"
+msgstr "_Ramme:"
+
+#: src/plugin_htmlbar/image_dialog.c:774
+#, c-format
+msgid ""
+"\n"
+"%s"
+msgstr ""
+
+#: src/plugin_htmlbar/image_dialog.c:779
+#, c-format
+msgid ""
+"\n"
+"%d x %d pixels"
+msgstr ""
+
+#: src/plugin_htmlbar/image_dialog.c:876
+msgid ""
+"\n"
+"\n"
+"\t<b>Loading preview...</b>\t\n"
+"\n"
+msgstr ""
+
+#: src/plugin_htmlbar/image_dialog.c:979
+#, fuzzy
+msgid "Select Image"
+msgstr "일치 선택(_S)"
+
+#: src/plugin_htmlbar/image_dialog.c:987
+#, fuzzy
+msgid "All images"
+msgstr "전체 파일"
+
+#: src/plugin_htmlbar/image_dialog.c:1215
+#: src/plugin_htmlbar/image_dialog.c:1327
+#, fuzzy
+msgid "Insert Image"
+msgstr "Indsæt billede"
+
+#: src/plugin_htmlbar/quickstart.c:502
+#, fuzzy
+msgid "<b>E_xternal Style Sheet</b>"
+msgstr "<b>Generél</b>"
+
+#: src/plugin_htmlbar/quickstart.c:512
+#, fuzzy
+msgid "Ty_pe:"
+msgstr "_Type:"
+
+#: src/plugin_htmlbar/quickstart.c:530
+#, fuzzy
+msgid "HRE_F:"
+msgstr "_HREF:"
+
+#: src/plugin_htmlbar/quickstart.c:534
+#, fuzzy
+msgid "_Media:"
+msgstr "Medie:"
+
+#: src/plugin_htmlbar/quickstart.c:538
+#, fuzzy
+msgid "Titl_e:"
+msgstr "_Unavngivet:"
+
+#. TODO: add an option to place content in the style area
+#. * Possibly from a code snippet library
+#.
+#: src/plugin_htmlbar/quickstart.c:544
+#, fuzzy
+msgid "<b>Style Area</b>"
+msgstr "<b>Generél</b>"
+
+#: src/plugin_htmlbar/quickstart.c:548
+#, fuzzy
+msgid "Cre_ate empty style area"
+msgstr "Opret tomt projekt"
+
+#: src/plugin_htmlbar/quickstart.c:570
+#, fuzzy
+msgid "<b>Attributes</b>"
+msgstr "Attributter"
+
+#: src/plugin_htmlbar/quickstart.c:585
+#, fuzzy
+msgid "_Src:"
+msgstr "_Kilde:"
+
+#. TODO: add an option to place content in the script area
+#: src/plugin_htmlbar/quickstart.c:592
+#, fuzzy
+msgid "<b>Script Area</b>"
+msgstr "<b>Generél</b>"
+
+#: src/plugin_htmlbar/quickstart.c:596
+#, fuzzy
+msgid "Cre_ate empty script area"
+msgstr "Opret tomt projekt"
+
+#: src/plugin_htmlbar/quickstart.c:623
+msgid "Quick Start"
+msgstr "HurtigStart"
+
+#: src/plugin_htmlbar/quickstart.c:638
+#, fuzzy
+msgid "_DTD:"
+msgstr "Brug _DTD:"
+
+#: src/plugin_htmlbar/quickstart.c:642 src/plugin_htmlbar/wizards.c:186
+msgid "_Title:"
+msgstr "_Unavngivet:"
+
+#: src/plugin_htmlbar/quickstart.c:665
+#, fuzzy
+msgid "_Head:"
+msgstr "_Href:"
+
+#: src/plugin_htmlbar/quickstart.c:682
+#, fuzzy
+msgid "Open in _new document."
+msgstr "전체 문서에서 실행 취소(_A)"
+
+#: src/plugin_htmlbar/wizards.c:68
+msgid "Table Wizard"
+msgstr "Tabel Wizard"
+
+#: src/plugin_htmlbar/wizards.c:76
+msgid "Number of _rows:"
+msgstr "Antal _rækker:"
+
+#: src/plugin_htmlbar/wizards.c:80
+#, fuzzy
+msgid "Number of colu_mns:"
+msgstr "Antal kolo_nner:"
+
+#: src/plugin_htmlbar/wizards.c:84
+msgid "Table rows on one _line:"
+msgstr "Tabelrækker op én _linje"
+
+#: src/plugin_htmlbar/wizards.c:88
+msgid "_Indent table code:"
+msgstr "_Indryk tabel kode:"
+
+#: src/plugin_htmlbar/wizards.c:175
+msgid "Frame Wizard"
+msgstr "Frame Wizard"
+
+#: src/plugin_htmlbar/wizards.c:190
+msgid "Use _DTD:"
+msgstr "Brug _DTD:"
+
+#: src/plugin_htmlbar/wizards.c:193
+msgid "Orientation:"
+msgstr "Orienteting:"
+
+#: src/plugin_htmlbar/wizards.c:196
+msgid "_Horizontal"
+msgstr "_Horizontal"
+
+#: src/plugin_htmlbar/wizards.c:197
+msgid "_Vertical"
+msgstr "_Vertikal"
+
+#: src/plugin_htmlbar/wizards.c:202
+msgid "Number of _Frames:"
+msgstr "Antal _Rammer:"
+
+#: src/plugin_htmlbar/wizards.c:205
+msgid "Frame's"
+msgstr "Frame's"
+
+#: src/plugin_htmlbar/wizards.c:217
+msgid "Name:"
+msgstr "Navn:"
+
+#: src/plugin_htmlbar/wizards.c:219
+msgid "Source:"
+msgstr "Kilde:"
+
+#: src/plugin_htmlbar/wizards.c:223
+msgid "Size:"
+msgstr "Størrelse:"
