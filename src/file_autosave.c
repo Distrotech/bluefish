@@ -64,6 +64,7 @@ during startup:
 /*#define DEBUG*/
 
 #include <gtk/gtk.h>
+#include <glib/gstdio.h> /* g_mkdir */
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -182,7 +183,7 @@ static inline void autosave(Tdocument *doc) {
 		doc->autosave_uri = create_autosave_path(doc);
 	} 
 	buffer = refcpointer_new(doc_get_chars(doc, 0, -1));
-	file_checkNsave_uri_async(doc->autosave_uri, NULL, buffer, strlen(buffer->data), FALSE, FALSE, autosave_complete_lcb, doc);
+	file_checkNsave_uri_async(doc->autosave_uri, NULL, buffer, strlen(buffer->data), FALSE, FALSE, (CheckNsaveAsyncCallback)autosave_complete_lcb, doc);
 	refcpointer_unref(buffer);
 }
 
