@@ -62,6 +62,7 @@ bluefish_unstable_SOURCES = \
 	file.c \
 	file.h \
 	file_autosave.c \
+	file_autosave.h \
 	file_dialogs.c \
 	file_dialogs.h \
 	filefilter.c \
