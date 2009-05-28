@@ -107,13 +107,16 @@ static GFile * create_autosave_path(Tdocument *doc) {
 }
 
 static void autosave_save_journal(void) {
-	GFile *file;
-	gchar *path = g_strdup_printf("%s/."PACKAGE"/autosave_journal.%d",g_get_home_dir(),getpid());
-	g_print("autosave_save_journal in %s\n",path);
-	file = g_file_new_for_path(path);
-	g_free(path);
-	put_stringlist(file, main_v->autosave_journal, TRUE);
-	g_object_unref(file);
+	if (main_v->autosave_need_journal_save) {
+		GFile *file;
+		gchar *path = g_strdup_printf("%s/."PACKAGE"/autosave_journal.%d",g_get_home_dir(),getpid());
+		g_print("autosave_save_journal in %s\n",path);
+		file = g_file_new_for_path(path);
+		g_free(path);
+		put_stringlist(file, main_v->autosave_journal, TRUE);
+		g_object_unref(file);
+		main_v->autosave_need_journal_save=FALSE;
+	}
 }
 
 static GList *register_autosave_journal(GFile *autosave_file, GFile *document_uri, GFile *project_uri) {
@@ -125,6 +128,7 @@ static GList *register_autosave_journal(GFile *autosave_file, GFile *document_ur
 	g_print("register_autosave_journal %s for %s\n",arr1,arr2);
 	arr = array_from_arglist(arr1,arr2,arr3,NULL);
 	main_v->autosave_journal = g_list_prepend(main_v->autosave_journal, arr);
+	main_v->autosave_need_journal_save=TRUE;
 	g_free(arr1);
 	g_free(arr2);
 	g_free(arr3);
@@ -139,8 +143,11 @@ void remove_autosave(Tdocument *doc) {
 	}
 
 	/* remove from journal */
-	main_v->autosave_journal = g_list_delete_link(main_v->autosave_journal, doc->autosaved);
-	doc->autosaved = NULL;
+	if (doc->autosaved) {
+		main_v->autosave_journal = g_list_delete_link(main_v->autosave_journal, doc->autosaved);
+		doc->autosaved = NULL;
+		main_v->autosave_need_journal_save=TRUE;
+	}
 	
 	/* remove need to autosave */
 	if (doc->need_autosave) {
@@ -241,6 +248,7 @@ void autosave_init(gboolean recover, Tbfwin *bfwin) {
 	if (main_v->autosave_id) {
 		g_source_remove(main_v->autosave_id);
 	}
+	main_v->autosave_need_journal_save = FALSE;
 	
 	if (recover) {
 		GError *error=NULL;

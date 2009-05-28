@@ -908,6 +908,9 @@ gboolean doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboo
 		DEBUG_MSG("doc_close_single_backend, cancelled load/info and set close_doc to TRUE, returning now\n");
 		return FALSE;
 	}
+	if (doc->autosaved || doc->need_autosave) {
+		remove_autosave(doc);
+	} 
 	if (doc_is_empty_non_modified_and_nameless(doc)
 		&& g_list_length(BFWIN(doc->bfwin)->documentlist) <= 1) {
 		if (close_window) {
