@@ -1193,7 +1193,7 @@ gchar *bf_str_repeat(const gchar * str, gint number_of) {
  *
  * Return value: the found #gint, -1 on failure
  **/
-gint get_int_from_string(gchar *string) {
+gint get_int_from_string(const gchar *string) {
 	if (string) {
 		gint faktor = 1, result=-1;
 		gint i,len = strlen(string);
