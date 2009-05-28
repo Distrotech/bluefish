@@ -34,7 +34,7 @@ dnl ************************
 dnl   I18N options
 dnl ************************
 
-ALL_LINGUAS="da de es eu fi fr it ja nb nl pl pt pt_BR ru sk sr sv ta tr zh_CN zh_TW"
+ALL_LINGUAS="da de es eu fi fr it ja ko_KR nb nl pl pt pt_BR ru sk sr sv ta tr zh_CN zh_TW"
 AC_SUBST(ALL_LINGUAS)
 GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
