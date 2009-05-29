@@ -623,6 +623,7 @@ typedef struct {
 	GFile *uri;
 	GFile *recover_uri;
 	gboolean readonly;
+	gint recovery_status; /* 0=no recovery, 1=original file, 2=recover backup */
 } Tfile2doc;
 
 static void file2doc_cleanup(Tfile2doc *f2d) {
@@ -645,21 +646,24 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,g
 	switch (status) {
 		case OPENFILE_FINISHED:
 			DEBUG_MSG("finished loading data in memory for view %p\n",f2d->doc->view);
-			if (f2d->recover_uri) {
+			if (f2d->recovery_status==1) {
 				GtkTextIter itstart,itend;
-				doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
-				doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
-				bfwin_docs_not_complete(f2d->doc->bfwin, FALSE);
 				
+				f2d->recovery_status=2;
+				doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
 				gtk_text_buffer_get_bounds(f2d->doc->buffer,&itstart,&itend);
 				gtk_text_buffer_delete(f2d->doc->buffer,&itstart,&itend);
-				file_into_doc(f2d->doc, f2d->recover_uri, FALSE);
-				doc_set_modified(f2d->doc, TRUE);
+				f2d->of = file_openfile_uri_async(f2d->recover_uri,f2d->bfwin,file2doc_lcb,f2d);
+			} else if (f2d->recovery_status==2) {
+				doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
 				f2d->doc->autosave_uri = f2d->recover_uri;
 				f2d->doc->autosaved = register_autosave_journal(f2d->recover_uri, f2d->doc->uri, NULL);
-				f2d->recover_uri=NULL;
+				doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
+				bfwin_docs_not_complete(f2d->bfwin, FALSE);
 				doc_set_modified(f2d->doc, TRUE);
-				
+				bmark_set_for_doc(f2d->doc,TRUE);
+				f2d->doc->action.load = NULL;
+				file2doc_cleanup(data);
 			} else {
 				doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
 				doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer,buflen);
@@ -698,8 +702,8 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,g
 				f2d->doc->action.goto_line = -1;
 				f2d->doc->action.goto_offset = -1;
 				f2d->doc->action.load = NULL;
+				file2doc_cleanup(data);
 			}
-			file2doc_cleanup(data);
 			DEBUG_MSG("finished data in document view %p\n",f2d->doc->view);
 		break;
 		case OPENFILE_CHANNEL_OPENED:
@@ -820,8 +824,10 @@ void file_doc_from_uri(Tbfwin *bfwin, GFile *uri, GFile *recover_uri, GFileInfo 
 	DEBUG_MSG("file_doc_from_uri, open uri %p, f2d=%p\n", uri, f2d);
 	f2d->bfwin = bfwin;
 	f2d->uri = g_object_ref(uri);
-	if (recover_uri)
+	if (recover_uri) {
 		f2d->recover_uri = g_object_ref(recover_uri);
+		f2d->recovery_status = 1;
+	}
 	f2d->readonly = readonly;
 	f2d->doc = doc_new_loading_in_background(bfwin, uri, finfo, readonly);
 	f2d->doc->action.load = f2d;
