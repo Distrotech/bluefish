@@ -787,6 +787,7 @@ void doc_set_status(Tdocument *doc, gint status) {
 	doc->status = status;
 	switch(status) {
 		case DOC_STATUS_COMPLETE:
+			doc->modified=FALSE;
 			doc_set_label_color(doc, &colorblack);
 		break;
 		case DOC_STATUS_ERROR:
