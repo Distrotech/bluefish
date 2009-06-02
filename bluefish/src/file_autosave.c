@@ -137,7 +137,7 @@ GList *register_autosave_journal(GFile *autosave_file, GFile *document_uri, GFil
 }
 
 void remove_autosave(Tdocument *doc) {
-	g_print("remove_autosave for doc %p\n",doc);
+	g_print("remove_autosave for doc %p, autosave_uri=%p, autosaved=%p, need_autosave=%p\n",doc, doc->autosave_uri, doc->autosaved, doc->need_autosave);
 	/* delete autosaved file */
 	if (doc->autosave_uri) {
 		file_delete_async(doc->autosave_uri, FALSE, NULL, NULL);
@@ -156,8 +156,10 @@ void remove_autosave(Tdocument *doc) {
 		doc->need_autosave = NULL;
 	}
 	
-	g_object_unref(doc->autosave_uri);
-	doc->autosave_uri = NULL;
+	if (doc->autosave_uri) {
+		g_object_unref(doc->autosave_uri);
+		doc->autosave_uri = NULL;
+	}
 }
 
 static void autosave_complete_lcb(gint status,gint error_info,gpointer data) {
@@ -243,6 +245,31 @@ void need_autosave(Tdocument *doc) {
 	}
 }
 
+static gboolean autosave_cleanup_old_autosaves(gpointer data) {
+	GError *error=NULL;
+	GDir* gdir;
+	gchar*dir;
+	const gchar *tmp;
+	g_print("autosave_cleanup_old_autosaves\n");
+	dir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/autosave/",NULL);
+	gdir = g_dir_open(dir ,0,&error);
+	if (error) {
+		g_warning("failed to open directory %s for cleanup\n",dir);
+		g_error_free(error);
+	} else {
+		tmp = g_dir_read_name(gdir);
+		while (tmp) {
+			gchar *path = g_strconcat(dir, tmp, NULL);
+			g_print("autosave_cleanup_old_autosaves, unlink %s\n",path);
+			g_unlink(path);
+			g_free(path);
+			tmp = g_dir_read_name(gdir);
+		}
+	}
+	g_free(dir);
+	return FALSE;	
+}
+
 void autosave_init(gboolean recover, Tbfwin *bfwin) {
 	g_print("autosave_init, recover=%d\n",recover);
 	if (main_v->autosave_id) {
@@ -255,6 +282,7 @@ void autosave_init(gboolean recover, Tbfwin *bfwin) {
 		const gchar *tmp;
 		GPatternSpec* patspec;
 		GDir* gdir;
+		gboolean found_journal=FALSE;
 		gchar*dir;
 		
 		/* test if autosave directory exists */
@@ -280,8 +308,9 @@ void autosave_init(gboolean recover, Tbfwin *bfwin) {
 			int tmplen = strlen(tmp);
 			if (tmp && tmp[0]!='\0' && tmp[tmplen-1]!='~' && g_pattern_match(patspec, tmplen, tmp, NULL)) {
 				gint pid;
+				found_journal=TRUE;
 				pid = get_int_from_string(tmp);
-				if (kill(pid, 0)!=0) { /* process pid is not alive, or not our process which also means we should recover */
+				if (pid > 0 && kill(pid, 0)!=0) { /* process pid is not alive, or not our process which also means we should recover */
 					gchar *path;
 					GError *error=NULL;
 					GFile *file;
@@ -299,6 +328,10 @@ void autosave_init(gboolean recover, Tbfwin *bfwin) {
 			tmp = g_dir_read_name(gdir);
 		}
 		g_free(dir);
+		if (!found_journal) {
+			/* if there was no journal we can remove *ALL* autosave files */
+			g_idle_add(autosave_cleanup_old_autosaves, NULL);
+		}
 	}
 	if (main_v->props.autosave) { 
 		main_v->autosave_id = g_timeout_add_seconds_full(G_PRIORITY_DEFAULT, main_v->props.autosave_time, run_autosave, NULL, NULL);
