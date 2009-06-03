@@ -651,26 +651,6 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 	gtk_drag_finish(context, TRUE, (mode == GDK_ACTION_COPY), time);
 }
 
-static gboolean gui_periodic_check_lcb(gpointer data) {
-	Tbfwin *bfwin = data;
-	if (bfwin->current_document) {
-		doc_start_modified_check(bfwin->current_document);
-	}
-	return TRUE;
-}
-
-void gui_bfwin_periodic_check(Tbfwin *bfwin, gboolean enabled) {
-	if (enabled) {
-#if GLIB_CHECK_VERSION (2, 14, 0)
-		if (!bfwin->periodic_check_id) bfwin->periodic_check_id = g_timeout_add_seconds_full(G_PRIORITY_LOW,15,gui_periodic_check_lcb,bfwin,NULL);
-#else
-		if (!bfwin->periodic_check_id) bfwin->periodic_check_id = g_timeout_add_full(G_PRIORITY_LOW,15000,gui_periodic_check_lcb,bfwin,NULL);
-#endif
-	} else {
-		if (bfwin->periodic_check_id) g_source_remove(bfwin->periodic_check_id);
-	}
-}
-
 void gui_apply_session(Tbfwin *bfwin) {
 	gui_set_main_toolbar_visible(bfwin, bfwin->session->view_main_toolbar, TRUE);
 	left_panel_show_hide_toggle(bfwin,FALSE,bfwin->session->view_left_panel, TRUE);
@@ -696,7 +676,6 @@ void gui_apply_settings(Tbfwin *bfwin) {
 			left_panel_show_hide_toggle(bfwin,FALSE, TRUE, FALSE);
 		}
 	}
-	gui_bfwin_periodic_check(bfwin, main_v->props.do_periodic_check);
 }
 
 static void gui_bfwin_cleanup(Tbfwin *bfwin) {
@@ -715,7 +694,6 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 		left */
 		tmplist = g_list_first(bfwin->documentlist);
 	}
-	gui_bfwin_periodic_check(bfwin,FALSE);
 	fb2_cleanup(bfwin);
 	bmark_cleanup(bfwin);
 	outputbox_cleanup(bfwin);
@@ -1059,9 +1037,6 @@ void gui_create_main(Tbfwin *bfwin) {
 				,(GDK_ACTION_DEFAULT | GDK_ACTION_COPY | GDK_ACTION_MOVE |
 				GDK_ACTION_LINK | GDK_ACTION_PRIVATE | GDK_ACTION_ASK));
 		g_signal_connect(G_OBJECT(bfwin->main_window), "drag_data_received", G_CALLBACK(main_win_on_drag_data_lcb), bfwin);
-	}
-	if (main_v->props.do_periodic_check) {
-		gui_bfwin_periodic_check(bfwin,TRUE);
 	}
 }
 

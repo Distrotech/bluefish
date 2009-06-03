@@ -364,7 +364,6 @@ typedef struct {
 	GtkWidget *menubar;
 	gint last_notebook_page; /* a check to see if the notebook changed to a new page */
 	gulong notebook_switch_signal;
-	guint periodic_check_id; /* used with g_timeout_add */
 	GtkWidget *gotoline_entry;
 	GtkWidget *notebook;
 	GtkWidget *notebook_fake;
@@ -420,7 +419,8 @@ typedef struct {
 	GList *autosave_journal; /* holds an arraylist with autosaved documents */
 	gboolean autosave_need_journal_save;
 	GList *need_autosave; /* holds Tdocument pointers */
-	guint autosave_id;
+	guint autosave_id; /* used with g_timeout_add */
+	guint periodic_check_id; /* used with g_timeout_add */
 /*	GList *filetypelist; / * highlighting.c: a list of all filetypes with their icons and highlighting sets * /
 	GHashTable *filetypetable;*/
 	GList *bfwinlist;

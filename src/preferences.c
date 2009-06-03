@@ -1406,7 +1406,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	langmgr_reload_user_options();
 	langmgr_reload_user_styles();
 	langmgr_reload_user_highlights();
-
+	modified_on_disk_check_init();
 	all_documents_apply_settings();
 	{
 		GList *tmplist = g_list_first(main_v->bfwinlist);
