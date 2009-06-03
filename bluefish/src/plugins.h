@@ -40,7 +40,8 @@ typedef struct {
 	const gushort project_size;
 	const gushort main_size;
 	const gushort priority;
-		
+	const gushort default_enabled;
+	
 	gpointer private; /* to be filled by Bluefish after loading */
 	void (*init) (void); /* called once after plugin is loaded */
 	void (*init_gui) (Tbfwin *bfwin); /* builds the gui */

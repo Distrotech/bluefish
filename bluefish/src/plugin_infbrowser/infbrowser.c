@@ -98,6 +98,7 @@ static TBluefishPlugin bfplugin = {
 	sizeof(Tproject),
 	sizeof(Tmain),
 	BFPLUGIN_PRIORITY_DEFAULT,
+	0,
 	NULL, /* private */
 	infb_init, /* init */
 	infb_initgui, 

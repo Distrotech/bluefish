@@ -86,6 +86,7 @@ static TBluefishPlugin bfplugin = {
   sizeof(Tproject),
   sizeof(Tmain),
   BFPLUGIN_PRIORITY_DEFAULT,
+  1,
   NULL, /* private */
   charmap_init, /* init */
   charmap_initgui, 
