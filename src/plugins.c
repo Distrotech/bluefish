@@ -67,7 +67,7 @@ static TBluefishPlugin *load_plugin(const gchar *filename) {
 	return bfplugin;
 }
 
-static const gchar *plugin_from_filename(const gchar *path) {
+static TBluefishPlugin *plugin_from_filename(const gchar *path) {
 	TBluefishPlugin *bfplugin;
 	bfplugin = load_plugin(path);
 	DEBUG_MSG("plugin_from_filename, bfplugin=%p\n",bfplugin);
@@ -80,9 +80,7 @@ static const gchar *plugin_from_filename(const gchar *path) {
 					&& bfplugin->project_size == sizeof(Tproject)
 					&& bfplugin->main_size == sizeof(Tmain)) {
 			DEBUG_MSG("bluefish_load_plugins, loaded %s properly, init!\n",path);
-			bfplugin->init();
-			main_v->plugins = g_slist_prepend(main_v->plugins,bfplugin);
-			return bfplugin->name;
+			return bfplugin;
 		} else {
 			DEBUG_MSG("plugin_from_filename, %s binary compatibility mismatch\n",path);
 			g_module_close(PRIVATE(bfplugin)->module);
@@ -124,13 +122,23 @@ static void bluefish_scan_dir_load_plugins(GList **oldlist,const gchar *indirnam
 			if (arr && arr[1][0] == '0') {
 				DEBUG_MSG("bluefish_scan_dir_load_plugins, plugin %s is disabled\n",path);
 			} else {
-				const gchar *plugname;
+				TBluefishPlugin *plugin;
 				DEBUG_MSG("bluefish_scan_dir_load_plugins, try loading plugin %s\n",path);
-				plugname = plugin_from_filename(path);
-				if (plugname) {
+				plugin = plugin_from_filename(path);
+				if (plugin) {
 					if (!arr) {
-						arr = array_from_arglist(path, "1", plugname, NULL);
+						if (plugin->default_enabled) {
+							arr = array_from_arglist(path, "1", plugin->name, NULL);
+							plugin->init();
+							main_v->plugins = g_slist_prepend(main_v->plugins,plugin);
+						} else {
+							arr = array_from_arglist(path, "0", plugin->name, NULL);
+							g_module_close(PRIVATE(plugin)->module);
+						}
 						main_v->props.plugin_config = g_list_append(main_v->props.plugin_config, arr);
+					} else {
+						plugin->init();
+						main_v->plugins = g_slist_prepend(main_v->plugins,plugin);
 					}
 				} else { /* no plugname ==> failed to load */
 					DEBUG_MSG("bluefish_scan_dir_load_plugins, returned NULL -> load failed\n");

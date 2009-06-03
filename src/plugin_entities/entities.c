@@ -596,6 +596,7 @@ static TBluefishPlugin bfplugin = {
   sizeof(Tproject),
   sizeof(Tmain),
   BFPLUGIN_PRIORITY_DEFAULT,
+  1,
   NULL, /* private */
   entity_init, /* init */
   entity_initgui, 

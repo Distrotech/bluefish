@@ -244,6 +244,7 @@ static TBluefishPlugin bfplugin = {
   sizeof(Tproject),
   sizeof(Tmain),
   BFPLUGIN_PRIORITY_LAST,
+  1,
   NULL, /* private */
   about_init, /* init */
   about_initgui, 
