@@ -330,7 +330,7 @@ void autosave_init(gboolean recover, Tbfwin *bfwin) {
 		g_free(dir);
 		if (!found_journal) {
 			/* if there was no journal we can remove *ALL* autosave files */
-			g_idle_add(autosave_cleanup_old_autosaves, NULL);
+			g_idle_add_full(G_PRIORITY_LOW, autosave_cleanup_old_autosaves, NULL, NULL);
 		}
 	}
 	if (main_v->props.autosave) { 

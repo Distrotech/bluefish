@@ -1169,3 +1169,25 @@ void sync_dialog(Tbfwin *bfwin) {
 	sd->signal_id = g_signal_connect(sd->dialog, "response", G_CALLBACK(sync_dialog_response_lcb), sd);
 	gtk_widget_show_all(sd->dialog);
 }
+
+static gboolean modified_on_disk_check_lcb(gpointer data) {
+	GList *tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		Tbfwin *bfwin = tmplist->data;
+		if (bfwin->current_document) {
+			doc_start_modified_check(bfwin->current_document);
+		}
+		tmplist=g_list_next(tmplist);
+	}
+	return TRUE;
+}
+
+void modified_on_disk_check_init(void) {
+	if (main_v->props.do_periodic_check && !main_v->periodic_check_id) 
+		main_v->periodic_check_id = g_timeout_add_seconds_full(G_PRIORITY_LOW,15,modified_on_disk_check_lcb,NULL,NULL);
+	else if (!main_v->props.do_periodic_check && main_v->periodic_check_id) {
+		g_source_remove(main_v->periodic_check_id);
+		main_v->periodic_check_id = 0;
+	}
+}
+

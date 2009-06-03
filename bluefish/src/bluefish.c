@@ -269,6 +269,7 @@ int main(int argc, char *argv[])
 		/*nanosleep(&req, NULL); */
 		gtk_widget_destroy(splash_window);
 	}
+	modified_on_disk_check_init();
 #endif							/* NOSPLASH */
 	DEBUG_MSG("main, before gtk_main()\n");
 /*  gdk_threads_enter ();*/
