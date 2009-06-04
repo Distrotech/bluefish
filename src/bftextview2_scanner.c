@@ -901,6 +901,9 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 					DBG_TOOLTIP("previous pos=%d had a match that pushed the context to %d!\n",pos,*contextnum);
 					g_queue_push_head(contextstack, GINT_TO_POINTER(*contextnum));
 				}
+			} else if (retthismatch) {
+				g_queue_free(contextstack);
+				return FALSE;
 			}
 			if (gtk_text_iter_equal(mstart,&iter)) {
 				gtk_text_iter_forward_char(&iter);
