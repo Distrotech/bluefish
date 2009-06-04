@@ -1133,16 +1133,16 @@ void sync_dialog(Tbfwin *bfwin) {
 	
 	hbox = gtk_hbox_new(FALSE,4);
 	sd->entry_local = gtk_entry_new();
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Local directory")), TRUE,FALSE,4);
-	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_local, TRUE,FALSE,4);
-	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_local, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), TRUE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Local directory")), FALSE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_local, TRUE,TRUE,4);
+	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_local, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), FALSE,FALSE,4);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), hbox, FALSE,FALSE,4);
 
 	hbox = gtk_hbox_new(FALSE,4);
 	sd->entry_remote = gtk_entry_new();
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Remote directory")), TRUE,FALSE,4);
-	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_remote, TRUE,FALSE,4);
-	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_remote, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), TRUE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Remote directory")), FALSE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_remote, TRUE,TRUE,4);
+	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_remote, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), FALSE,FALSE,4);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), hbox, FALSE,FALSE,4);
 	
 	sd->delete_deprecated = boxed_checkbut_with_value(_("Delete remote deprecated files"), bfwin->session->sync_delete_deprecated, GTK_DIALOG(sd->dialog)->vbox);
