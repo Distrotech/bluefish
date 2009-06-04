@@ -4,13 +4,16 @@
 <tag name="head" case_insens="1" sgml_shorttag="1" attributes="profile,&i18n;" highlight="html-tag" autocomplete_append="&gt;&#10;&#10;&lt;/head&gt;" autocomplete_backup_cursor="8">
 	<reference>Defines the header information about the document</reference>
 </tag>
-	<tag name="base" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="href,target" attribhighlight="html-attribute" autocomplete_append="&gt; &lt;/base&gt;" >
+<tag name="frameset" case_insens="1" sgml_shorttag="1" attributes="&univ;,cols,onload,onunload,rows">
+	<reference>Defines a frameset</reference>
+</tag>
+<tag name="base" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="href,target" attribhighlight="html-attribute" autocomplete_append="&gt; &lt;/base&gt;" >
 	<reference>Defines a default address or a default target for all links on a page</reference>
 </tag>
-	<tag name="meta" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="name,http-equiv,content,scheme,lang" attribhighlight="html-attribute" autocomplete_append=" &gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+<tag name="meta" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="name,http-equiv,content,scheme,lang" attribhighlight="html-attribute" autocomplete_append=" &gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<reference>Defines metadata about an HTML document</reference>
 </tag>
-	<tag name="title" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;" attribhighlight="html-attribute">
+<tag name="title" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;" attribhighlight="html-attribute">
 	<reference>Defines the title of a document</reference>
 </tag>
 
@@ -85,17 +88,11 @@
 	<tag name="address" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines an address</reference>
 	</tag>
-	<tag name="applet" case_insens="1" sgml_shorttag="1" attributes="&univ;,align,alt,archive,code,codebase,height,hspace,name,object,vspace,width">
-		<reference>Defines an embedded Java applet</reference>
-	</tag>
 	<tag name="area" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,alt,accesskey,coords,href,nohref,onblur,onfocus,shape,tabindex,target">
 		<reference>Defines a click-able area inside an image-map</reference>
 	</tag>
 	<tag name="b" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Render content in bold face</reference>
-	</tag>
-	<tag name="basefont" case_insens="1" sgml_shorttag="1" attributes="id,color,face,size">
-		<reference>Defines the default font family, size and color for the text in a document</reference>
 	</tag>
 	<tag name="bdo" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,dir">
 		<reference>Defines/overrides the text direction (right-to-left or left-to-right)</reference>
@@ -112,20 +109,20 @@
 	<tag name="button" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,disabled,name,onblur,onfocus,tabindex,type,value">
 		<reference>Defines a push button</reference>
 	</tag>
-	<tag name="caption" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
-		<reference>Defines a table caption</reference>
-	</tag>
-	<tag name="center" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Center text</reference>
-	</tag>
 	<tag name="cite" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines a citation</reference>
 	</tag>
 	<tag name="code" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines computer code text</reference>
 	</tag>
-	<tag name="cite" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines a citation</reference>
+	<tag name="col" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align,char,charoff,span,valign,width">
+		<reference>Defines attribute values for one or more columns in a table</reference>
+	</tag>
+	<tag name="colgroup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align,char,charoff,span,valign,width">
+		<reference>Defines a column group in a table for formatting</reference>
+	</tag>
+	<tag name="dd" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines a definition list definition</reference>
 	</tag>
 	<tag name="del" case_insens="1" sgml_shorttag="1"  attributes="&univ;,&i18n;,&evnt;,cite,datetime">
 		<reference>Defines deleted text</reference>
@@ -133,20 +130,38 @@
 	<tag name="dfn" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines a definition term</reference>
 	</tag>
-	<tag name="div" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+	<tag name="div" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a block section in a document</reference>
 	</tag>
-	<tag name="dt" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines a definition list definition</reference>
-	</tag>
-	<tag name="dl" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+	<tag name="dl" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,compact">
 		<reference>Defines a definition list</reference>
 	</tag>
 	<tag name="dt" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines a definition list term</reference>
 	</tag>
 	<tag name="em" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines emphasized text </reference>
+		<reference>Defines emphasized text</reference>
+	</tag>
+	<tag name="h1" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
+		<reference>Defines a HTML heading</reference>
+	</tag>
+	<tag name="h2" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
+		<reference>Defines a HTML heading</reference>
+	</tag>
+	<tag name="h3" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
+		<reference>Defines a HTML heading</reference>
+	</tag>
+	<tag name="h4" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
+		<reference>Defines a HTML heading</reference>
+	</tag>
+	<tag name="h5" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
+		<reference>Defines a HTML heading</reference>
+	</tag>
+	<tag name="h6" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
+		<reference>Defines a HTML heading</reference>
+	</tag>
+	<tag name="hr" case_insens="1" sgml_shorttag="1" no_close="1" autocomplete_append="&gt;" attributes="&univ;,align,noshade,size,width" >
+		<reference>Defines a horizontal line</reference>
 	</tag>
 	<tag name="i" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines italic text</reference>
@@ -154,29 +169,8 @@
 	<tag name="ins" case_insens="1" sgml_shorttag="1"  attributes="&univ;,&i18n;,&evnt;,cite,datetime">
 		<reference>Defines inserted text</reference>
 	</tag>
-	<tag name="h1" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines an HTML heading</reference>
-	</tag>
-	<tag name="h2" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines an HTML heading</reference>
-	</tag>
-	<tag name="h3" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines an HTML heading</reference>
-	</tag>
-	<tag name="h4" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines an HTML heading</reference>
-	</tag>
-	<tag name="h5" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines an HTML heading</reference>
-	</tag>
-	<tag name="h6" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines an HTML heading</reference>
-	</tag>
-	<tag name="hr" case_insens="1" sgml_shorttag="1" attributes="&univ;" >
-		<reference>Defines a horizontal line</reference>
-	</tag>
 	<tag name="kbd" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference><b>Deprecated.</b> Defines font, color, and size for text</reference>
+		<reference>Defines keyboard text</reference>
 	</tag>
 	<tag name="li" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines a list item</reference>
@@ -216,24 +210,47 @@
 	</tag>			
 </group>
 <group highlight="html-deprecated-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
-	<tag name="font" case_insens="1" sgml_shorttag="1" attributes="size,color,bgcolor,face">
-		<reference><b>Deprecated.</b> Defines font, color, and size for text</reference>
+	<tag name="applet" case_insens="1" sgml_shorttag="1" attributes="&univ;,align,alt,archive,code,codebase,height,hspace,name,object,vspace,width">
+		<reference>Defines an embedded Java applet (<b>deprecated</b>)</reference>
+	</tag>
+	<tag name="basefont" case_insens="1" sgml_shorttag="1" attributes="id,color,face,size">
+		<reference>Defines the default font face, size and color for the text in a document (<b>deprecated</b>)</reference>
+	</tag>
+	<tag name="center" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Center text (<b>deprecated</b>)</reference>
+	</tag>
+	<tag name="dir" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,compact">
+		<reference>Defines a list of directory titles (<b>deprecated</b>)</reference>
+	</tag>
+	<tag name="font" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,color,face,size">
+		<reference>Defines font face, color and size for text (<b>deprecated</b>)</reference>
 	</tag>
 	<tag name="u" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference><b>Deprecated.</b> Defines underlined text</reference>
+		<reference>Defines underlined text (<b>deprecated</b>)</reference>
 	</tag>
 	<tag name="s" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference><b>Deprecated.</b> Render strike-through style text.</reference>
+		<reference>Render strike-through style text (<b>deprecated</b>)</reference>
 	</tag>
 	<tag name="strike" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference><b>Deprecated.</b> Render strike-through style text.</reference>
+		<reference>Render strike-through style text (<b>deprecated</b>)</reference>
+	</tag>
+</group>
+<group highlight="html-deprecated-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+	<tag name="frame" case_insens="1" sgml_shorttag="1" attributes="&univ;,frameborder,longdesc,marginwidth,marginheight,name,noresize,scrolling,src">
+		<reference>Defines a particular window (frame) within a frameset</reference>
+	</tag>
+	<tag name="noframes" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines content for browsers not able to handle/show frames</reference>
+	</tag>
+	<tag name="iframe" case_insens="1" sgml_shorttag="1" attributes="&univ;,align,frameborder,height,longdesc,marginwidth,marginheight,name,scrolling,src,width">
+		<reference>Defines an inline frame that contains another document</reference>
 	</tag>
 </group>
 <group highlight="html-form-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<tag name="fieldset" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines a border around elements in a form</reference>
 	</tag>
-	<tag name="form" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accept-charset,action,enctype,method,target,onreset,onsubmit">
+	<tag name="form" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accept,accept-charset,action,enctype,method,name,onreset,onsubmit,target">
 		<reference>Defines an HTML form for user input</reference>
 	</tag>
 	<tag name="input" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
