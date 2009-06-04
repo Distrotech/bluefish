@@ -290,6 +290,7 @@ typedef struct {
 	gsize buffer_size;
 	GFile *uri;
 	GFileInfo *finfo;
+	GCancellable* cancelab;
 	const gchar *etag;
 	/*Tsavefile *sf;  to cancel the actual save */
 	/*Tcheckmodified *cm;  to cancel the checkmodified check */
@@ -304,6 +305,7 @@ static void checkNsave_cleanup(TcheckNsave *cns) {
 	DEBUG_MSG("checkNsave_cleanup, called for %p\n",cns);
 	refcpointer_unref(cns->buffer);
 	g_object_unref(cns->uri);
+	g_object_unref(cns->cancelab);
 	if (cns->finfo) g_object_unref(cns->finfo);
 	g_free(cns);
 }
@@ -377,9 +379,14 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 	checkNsave_cleanup(cns);
 }
 
+void file_checkNsave_cancel(gpointer cns) {
+	g_cancellable_cancel(((TcheckNsave *)cns)->cancelab);
+}
+
 gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, gboolean backup, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
 	TcheckNsave *cns;
 	cns = g_new0(TcheckNsave,1);
+	cns->cancelab = g_cancellable_new();
 	/*cns->etag=NULL;*/
 	cns->callback_data = callback_data;
 	cns->callback_func = callback_func;
@@ -402,7 +409,7 @@ gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *bu
 	DEBUG_URI(cns->uri, TRUE);
 	g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
 					,cns->etag,backup
-					,G_FILE_CREATE_NONE,NULL
+					,G_FILE_CREATE_NONE,cns->cancelab
 					,checkNsave_replace_async_lcb,cns);
 	return cns;
 }

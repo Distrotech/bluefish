@@ -76,14 +76,9 @@ Tsavefile *file_savefile_uri_async(GFile *uri, Trefcpointer *buffer, gsize buffe
 typedef enum {
 	CHECKANDSAVE_ERROR,
 	CHECKANDSAVE_ERROR_NOBACKUP,
-	CHECKANDSAVE_ERROR_NOCHANNEL,
 	CHECKANDSAVE_ERROR_NOWRITE,
 	CHECKANDSAVE_ERROR_MODIFIED,
-	CHECKANDSAVE_ERROR_MODIFIED_FAILED,
 	CHECKANDSAVE_ERROR_CANCELLED,
-	CHECKANDSAVE_CHECKED,
-	CHECKANDSAVE_BACKUP,
-	CHECKANDSAVE_CHANNEL_OPENED,
 	CHECKANDSAVE_FINISHED
 } TcheckNsave_status;
 
@@ -95,6 +90,7 @@ typedef enum {
 typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status status,gint error_info,gpointer callback_data);
 
 GFile *backup_uri_from_orig_uri(GFile * origuri);
+void file_checkNsave_cancel(gpointer cns);
 gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, gboolean backup, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
 
 typedef enum {

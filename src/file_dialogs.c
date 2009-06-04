@@ -437,7 +437,6 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 		}
 		break;
 	case CHECKANDSAVE_ERROR:
-	case CHECKANDSAVE_ERROR_NOCHANNEL:
 	case CHECKANDSAVE_ERROR_NOWRITE:
 	case CHECKANDSAVE_ERROR_CANCELLED:
 		{
@@ -453,7 +452,6 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 		}
 		break;
 	case CHECKANDSAVE_ERROR_MODIFIED:
-	case CHECKANDSAVE_ERROR_MODIFIED_FAILED:
 		{
 			/* we have to ask the user what to do */
 			const gchar *buttons[] = { _("_Abort save"), _("_Continue save"), NULL };
@@ -477,11 +475,6 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 			}
 			return CHECKNSAVE_CONT;
 		}
-	case CHECKANDSAVE_CHECKED:
-	case CHECKANDSAVE_BACKUP:
-	case CHECKANDSAVE_CHANNEL_OPENED:
-		/* do nothing, or perhaps we could change the notebook tab color or a statusbar message? */
-		break;
 	case CHECKANDSAVE_FINISHED:
 		if (dsb->unlink_uri) {
 			file_delete_async(dsb->unlink_uri, FALSE, docsavebackend_async_unlink_lcb, dsb);
