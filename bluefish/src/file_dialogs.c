@@ -894,6 +894,8 @@ gboolean doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboo
 	Tbfwin *bfwin = doc->bfwin;
 	if (doc->action.checkmodified)
 		checkmodified_cancel(doc->action.checkmodified);
+	if (doc->autosave_progress || doc->autosaved || doc->need_autosave)
+		remove_autosave(doc);
 	if (doc->action.load != NULL || doc->action.info != NULL) {
 		/* we should cancel the action now..., and then let the callbacks close it...
 		   the order is important, because the info callback will not close the document, 

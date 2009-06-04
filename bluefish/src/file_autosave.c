@@ -156,6 +156,13 @@ void remove_autosave(Tdocument *doc) {
 		doc->need_autosave = NULL;
 	}
 	
+	/* cancel running autosave */
+	if (doc->autosave_progress) {
+		/* TODO: cancel!!!!!!!!!!!!!!!!! */
+		main_v->autosave_progress = g_list_delete_link(main_v->autosave_progress, doc->autosave_progress);
+		doc->autosave_progress = NULL;
+	}
+	
 	if (doc->autosave_uri) {
 		g_object_unref(doc->autosave_uri);
 		doc->autosave_uri = NULL;
@@ -165,16 +172,21 @@ void remove_autosave(Tdocument *doc) {
 static void autosave_complete_lcb(gint status,gint error_info,gpointer data) {
 	Tdocument *doc=data;
 	g_print("autosave_complete_lcb, status=%d for doc %p\n",status,doc);
-	if (status == CHECKANDSAVE_FINISHED) {
+	switch(status) {
+	case CHECKANDSAVE_FINISHED:
 		if (!doc->autosaved) {
 			doc->autosaved = register_autosave_journal(doc->autosave_uri, doc->uri, (doc->bfwin && BFWIN(doc->bfwin)->project)?BFWIN(doc->bfwin)->project->uri:NULL);
 		} 
-		main_v->need_autosave = g_list_delete_link(main_v->need_autosave, doc->need_autosave);
-		doc->need_autosave = NULL;
+		main_v->autosave_progress = g_list_delete_link(main_v->autosave_progress, doc->autosave_progress);
+		doc->autosave_progress = NULL;
 		
-		if (main_v->need_autosave==NULL) {
+		if (main_v->autosave_progress==NULL) {
 			autosave_save_journal();
 		}
+		break;
+		default:
+		g_print("autosave_complete_lcb, status %d is not handled\n",status);
+		break;
 	}	
 }
 
@@ -190,16 +202,24 @@ static inline void autosave(Tdocument *doc) {
 }
 
 static gboolean run_autosave(gpointer data) {
-	GList *tmplist = g_list_first(main_v->need_autosave);
+	GList *tmplist;
 	g_print("run_autosave\n");
-	if (!tmplist) {
+	if (main_v->need_autosave) {
+		main_v->autosave_progress = main_v->need_autosave;
+		main_v->need_autosave=NULL;
+		tmplist=g_list_first(main_v->autosave_progress);
+		while (tmplist) {
+			Tdocument *doc=tmplist->data;
+			doc->autosave_progress = doc->need_autosave;
+			doc->need_autosave=NULL;
+			autosave(doc);
+			tmplist = g_list_next(tmplist);
+		}
+	} else {
 		autosave_save_journal();
 		return TRUE;
 	}
-	while (tmplist) {
-		autosave(tmplist->data);
-		tmplist = g_list_next(tmplist);
-	}
+	
 	return TRUE;
 }
 

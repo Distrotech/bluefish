@@ -28,6 +28,7 @@
 #include "bftextview2_langmgr.h"
 #include "document.h"
 #include "filebrowser2.h"
+#include "file_dialogs.h"
 #include "gtk_easy.h"
 #include "gui.h"
 #include "menu.h"
