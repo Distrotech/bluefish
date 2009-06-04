@@ -704,6 +704,7 @@ void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	DEBUG_MSG("main_window_destroy_lcb, started for bfwin=%p, first cleanup any project (%p)\n",bfwin,bfwin->project);
 	if (bfwin->project) {
 		project_final_close(bfwin, TRUE);
+		bfwin->session=NULL;
 	}
 	
 	DEBUG_MSG("main_window_destroy_lcb, will hide the window now\n");
