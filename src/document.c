@@ -2003,7 +2003,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n",doc);
 	bmark_clean_for_doc(doc);
 
-	if (doc->uri) {
+	if (doc->uri && bfwin->session) { /* in a special situation the bfwin does not have a session: if a project window is closing */
 		add_to_recent_list(doc->bfwin,doc->uri, 1, FALSE);
 	}
 	gui_notebook_unbind_signals(BFWIN(doc->bfwin));
