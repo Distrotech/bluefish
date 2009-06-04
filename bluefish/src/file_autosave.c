@@ -23,27 +23,30 @@
 *** THE AUTOSAVE DESIGN ***
 
 every Tdocument has
-GList * needs_autosave
+GList *needs_autosave
+GList *autosave_progress
 GList *autosaved
 GFile *autosave_uri
 
 Tmain has
 GList *autosave_journal
 GList *need_autosave
+GList *autosave_progress
 
 On a document change we register the Tdocument* in main_v->need_autosave
 the GList* element that has this reference is stored in doc->needs_autosave
 
 Every X seconds we loop over main_v->need_autosave
 for every Tdocument that needs autosave
- - if it does not exist create autosave_uri 
+ - if it does not exist create autosave_uri
+ - move the need_autosave pointer to autosave_progress 
  - start an async call to store the contents in a autosave file
 
 In the callback after the save is finished:
  - register the Tdocument* in main_v->autosaved and store the GList* element in doc->autosaved
- - remove the needs_autosave link from main_v->need_autosave (because we know which GList* element
+ - remove the autosave_progress link from main_v->autosave_progress (because we know which GList* element
    is involved this can be done without looping trough the list to find the right entry)
-  - if main_v->need_autosave == NULL we save the main_v->autosave_journal to a file autosave_journal.PID
+ - if main_v->autosave_progress == NULL we save the main_v->autosave_journal to a file autosave_journal.PID
 
 during document close/save etc.
  - remove the Tdocument* reference from main_v->need_autosave using the GList* element stored in doc->need_autosave
