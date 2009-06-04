@@ -150,6 +150,7 @@ typedef struct {
 	gint modified;
 	GList *need_autosave; /* if autosave is needed, a direct pointer to main_v->need_autosave; */
 	GList *autosave_progress;
+	gpointer autosave_action;
 	GList *autosaved; /* NULL if no autosave registration, else this is a direct pointer into the main_v->autosave_journal list */
 	GFile *autosave_uri; /* if autosaved, the URI of the autosave location, else NULL */
 	gint readonly;

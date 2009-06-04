@@ -158,7 +158,7 @@ void remove_autosave(Tdocument *doc) {
 	
 	/* cancel running autosave */
 	if (doc->autosave_progress) {
-		/* TODO: cancel!!!!!!!!!!!!!!!!! */
+		file_checkNsave_cancel(doc->autosave_action);
 		main_v->autosave_progress = g_list_delete_link(main_v->autosave_progress, doc->autosave_progress);
 		doc->autosave_progress = NULL;
 	}
@@ -179,14 +179,24 @@ static void autosave_complete_lcb(gint status,gint error_info,gpointer data) {
 		} 
 		main_v->autosave_progress = g_list_delete_link(main_v->autosave_progress, doc->autosave_progress);
 		doc->autosave_progress = NULL;
-		
-		if (main_v->autosave_progress==NULL) {
-			autosave_save_journal();
-		}
+		doc->autosave_action=NULL;
 		break;
-		default:
+	case CHECKANDSAVE_ERROR_CANCELLED:
+		g_print("autosave_complete_lcb, cancelled, don't touch the 'doc' pointer anymore\n");
+		break;
+	case CHECKANDSAVE_ERROR:
+	case CHECKANDSAVE_ERROR_NOBACKUP:
+	case CHECKANDSAVE_ERROR_NOWRITE:
+	case CHECKANDSAVE_ERROR_MODIFIED:
+		main_v->autosave_progress = g_list_delete_link(main_v->autosave_progress, doc->autosave_progress);
+		doc->autosave_progress = NULL;
+	break;
+	default:
 		g_print("autosave_complete_lcb, status %d is not handled\n",status);
 		break;
+	}
+	if (main_v->autosave_progress==NULL) {
+		autosave_save_journal();
 	}	
 }
 
@@ -197,13 +207,16 @@ static inline void autosave(Tdocument *doc) {
 		doc->autosave_uri = create_autosave_path(doc);
 	} 
 	buffer = refcpointer_new(doc_get_chars(doc, 0, -1));
-	file_checkNsave_uri_async(doc->autosave_uri, NULL, buffer, strlen(buffer->data), FALSE, FALSE, (CheckNsaveAsyncCallback)autosave_complete_lcb, doc);
+	doc->autosave_action = file_checkNsave_uri_async(doc->autosave_uri, NULL, buffer, strlen(buffer->data), FALSE, FALSE, (CheckNsaveAsyncCallback)autosave_complete_lcb, doc);
 	refcpointer_unref(buffer);
 }
 
 static gboolean run_autosave(gpointer data) {
 	GList *tmplist;
 	g_print("run_autosave\n");
+	if (main_v->autosave_progress)
+		return TRUE;
+	
 	if (main_v->need_autosave) {
 		main_v->autosave_progress = main_v->need_autosave;
 		main_v->need_autosave=NULL;
