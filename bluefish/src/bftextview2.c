@@ -999,7 +999,7 @@ static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint
 		gtk_text_iter_forward_char(&iter);
 		DBG_TOOLTIP("scan for tooltip: start at %d, position=%d...\n",gtk_text_iter_get_offset(&mstart),gtk_text_iter_get_offset(&iter));
 		if (scan_for_tooltip(btv,&mstart,&iter,&contextnum)) {
-			DBG_TOOLTIP("we have a match in context %d, has_reference=%d\n",contextnum,(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).reference!=NULL));
+			DBG_TOOLTIP("we have a match in context %d, has_patternhash=%d\n",contextnum,(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).patternhash!=NULL));
 			if (g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).patternhash) {
 				gint pattern_id;
 				gchar *key = gtk_text_buffer_get_text(GTK_TEXT_VIEW(btv)->buffer,&mstart,&iter,TRUE);
