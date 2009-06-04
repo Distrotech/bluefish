@@ -149,6 +149,7 @@ typedef struct {
 	gchar *encoding;
 	gint modified;
 	GList *need_autosave; /* if autosave is needed, a direct pointer to main_v->need_autosave; */
+	GList *autosave_progress;
 	GList *autosaved; /* NULL if no autosave registration, else this is a direct pointer into the main_v->autosave_journal list */
 	GFile *autosave_uri; /* if autosaved, the URI of the autosave location, else NULL */
 	gint readonly;
@@ -419,18 +420,15 @@ typedef struct {
 	GList *autosave_journal; /* holds an arraylist with autosaved documents */
 	gboolean autosave_need_journal_save;
 	GList *need_autosave; /* holds Tdocument pointers */
+	GList *autosave_progress; /* holds Tdocument pointers that are being saved right now */
 	guint autosave_id; /* used with g_timeout_add */
 	guint periodic_check_id; /* used with g_timeout_add */
-/*	GList *filetypelist; / * highlighting.c: a list of all filetypes with their icons and highlighting sets * /
-	GHashTable *filetypetable;*/
 	GList *bfwinlist;
-/*	GList *recent_directories; / * a stringlist with the most recently used directories */
 	Tsessionvars *session; /* holds all session variables for non-project windows */
 	gpointer filebrowserconfig;
 	gpointer fb2config; /* filebrowser2config */
 	GList *filefilters; /* initialized by fb2config functions */
 	gpointer bmarkdata;
-/* 	GtkTreeStore *bookmarkstore; the global bookmarks from the global session */
 	gint num_untitled_documents;
 	GtkTooltips *tooltips;
 	gchar *securedir; /* temporary rwx------ directory for secure file creation */
