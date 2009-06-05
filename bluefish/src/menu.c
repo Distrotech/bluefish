@@ -925,9 +925,9 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 	g_list_free(bfwin->menu_outputbox);
 	bfwin->menu_outputbox = NULL;
 	
-	create_parent_and_tearoff(N_("/Tools/Outputbox/"), gtk_item_factory_from_widget(bfwin->menubar));
+	/*create_parent_and_tearoff(N_("/Tools/Outputbox/"), gtk_item_factory_from_widget(bfwin->menubar));
 	create_parent_and_tearoff(N_("/Tools/Commands/"), gtk_item_factory_from_widget(bfwin->menubar));
-	create_parent_and_tearoff(N_("/Tools/Filters/"), gtk_item_factory_from_widget(bfwin->menubar));
+	create_parent_and_tearoff(N_("/Tools/Filters/"), gtk_item_factory_from_widget(bfwin->menubar));*/
 
 	tmplist = g_list_first(main_v->props.external_filter);
 	while (tmplist) {
@@ -960,7 +960,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			gchar *tmp1;
 			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
 			if (arr[2][0] == '1') {
-				tmp1 = N_("/External");
+				tmp1 = N_("/Tools");
 			} else {
 				tmp1 = N_("/Tools/Commands");
 			}

@@ -494,8 +494,8 @@ void gui_set_document_widgets(Tdocument *doc) {
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Paste", !doc->readonly);
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Replace...", !doc->readonly);
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Replace Again", !doc->readonly);
-	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/_Indent", !doc->readonly);
-	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/_Unindent", !doc->readonly);
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Indent", !doc->readonly);
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Unindent", !doc->readonly);
 
 }
 /*
