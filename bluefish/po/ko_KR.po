@@ -1177,11 +1177,11 @@ msgid "Redo"
 msgstr "재실행"
 
 #: ../src/gui.c:435
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "왼쪽으로 이동"
 
 #: ../src/gui.c:437
-msgid "Shift Right"
+msgid "Indent"
 msgstr "오른쪽으로 이동"
 
 #: ../src/gui.c:444
@@ -1366,51 +1366,51 @@ msgid "/Edit/Replace special"
 msgstr "/편집/특수 치환"
 
 #: ../src/menu.c:265
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr "/편집/특수 치환/블록 동기화"
 
 #: ../src/menu.c:266
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/편집/특수 치환/말미의 공백문자 제거"
 
 #: ../src/menu.c:267
 #, fuzzy
-msgid "/Edit/Replace special/Join lines"
+msgid "/Tools/Join lines"
 msgstr "/편집/특수 치환"
 
 #: ../src/menu.c:268
 #, fuzzy
-msgid "/Edit/Replace special/Split lines"
+msgid "/Tools/Split lines"
 msgstr "/편집/특수 치환"
 
 #: ../src/menu.c:269
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/편집/특수 치환/들여쓰기를 탭으로 전환"
 
 #: ../src/menu.c:270
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/편집/특수 치환/들여쓰기를 공백으로 전환"
 
 #: ../src/menu.c:271
 #, fuzzy
-msgid "/Edit/Replace special/Toggle comment"
+msgid "/Tools/Toggle comment"
 msgstr "/편집/특수 치환/소문자로(_L)"
 
 #: ../src/menu.c:272
 #, fuzzy
-msgid "/Edit/Replace special/Split into columns"
+msgid "/Tools/Split into columns"
 msgstr "/편집/특수 치환/블록 동기화"
 
 #: ../src/menu.c:274
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/편집/오른쪽으로 이동(_H)"
 
 #: ../src/menu.c:275
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/편집/왼쪽으로 이동(_L)"
 
 #: ../src/menu.c:277
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "편집/북마크 더하기(_B)"
 
 #: ../src/menu.c:279
@@ -1529,7 +1529,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/문서/문자 엔코딩(_E)"
 
 #: ../src/menu.c:322
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/문서/철자 검사(_S)..."
 
 #: ../src/menu.c:324
@@ -1537,7 +1537,7 @@ msgid "/Document/_Floating window"
 msgstr "/문서/유동 창(_F)"
 
 #: ../src/menu.c:325
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/문서/단어 갯수(_C)"
 
 #: ../src/menu.c:327
@@ -1625,7 +1625,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/프로젝트/프로젝트 설정 편집(_D)..."
 
 #: ../src/menu.c:356
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/외부(_X)"
 
 #: ../src/menu.c:521
@@ -1662,19 +1662,19 @@ msgid "Operate filter only on selection?"
 msgstr "선택에서 필터만 적용시킬까요?"
 
 #: ../src/menu.c:926
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/외부/출력상자/"
 
 #: ../src/menu.c:927
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/외부/명령어/"
 
 #: ../src/menu.c:928
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/외부/필터/"
 
 #: ../src/menu.c:941
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/외부/필터"
 
 #: ../src/menu.c:961
@@ -1682,11 +1682,11 @@ msgid "/External"
 msgstr "/외부"
 
 #: ../src/menu.c:963
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/외부/명령어"
 
 #: ../src/menu.c:995
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/외부/출력상자"
 
 #: ../src/menu.c:1041

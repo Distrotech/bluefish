@@ -1196,11 +1196,11 @@ msgid "Redo"
 msgstr "Refazer"
 
 #: ../src/gui.c:434
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Deslocar à esquerda"
 
 #: ../src/gui.c:436
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Deslocar à direita"
 
 # src/toolbars.c:128
@@ -1409,35 +1409,35 @@ msgstr "/Editar/Substituir especial"
 
 # src/menu.c:100
 #: ../src/menu.c:271
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr "/Editar/Substituir especial/Sincronização de bloco"
 
 # src/menu.c:102
 #: ../src/menu.c:272
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/Editar/Substituir especial/Remover espaço em branco excedente"
 
 # src/menu.c:375
 #: ../src/menu.c:273
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/Editar/Substituir especial/Converter recuo para tabulações"
 
 # src/menu.c:375
 #: ../src/menu.c:274
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/Editar/Substituir especial/Converter recuo para espaços"
 
 #: ../src/menu.c:276
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Editar/Deslocar à direita"
 
 # src/menu.c:92
 #: ../src/menu.c:277
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Editar/Deslocar à esquerda"
 
 #: ../src/menu.c:279
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Editar/Adicionar Favorito"
 
 # src/menu.c:473
@@ -1540,7 +1540,7 @@ msgstr "/Documento/Codificação dos Caract_eres"
 
 # src/configure.c:474
 #: ../src/menu.c:313
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Documento/Verificar Ortografia..."
 
 # src/configure.c:474
@@ -1550,7 +1550,7 @@ msgstr "/Documento/Janela Flutuante"
 
 # src/menu.c:90
 #: ../src/menu.c:316
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Documento/_Contar palavras"
 
 # src/menu.c:466
@@ -1648,7 +1648,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Projeto/Editar Opções do Projeto"
 
 #: ../src/menu.c:347
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/E_xterno"
 
 # src/highlight.c:429 src/interface.c:213 src/menu.c:122
@@ -1689,19 +1689,19 @@ msgstr "Ministrar filtro apenas na seleção?"
 
 # src/menu.c:454
 #: ../src/menu.c:914
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Externo/Caixa de Saída/"
 
 #: ../src/menu.c:915
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Externo/Comandos/"
 
 #: ../src/menu.c:916
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Externo/Filtros/"
 
 #: ../src/menu.c:929
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Externo/Filtros"
 
 #: ../src/menu.c:949
@@ -1709,11 +1709,11 @@ msgid "/External"
 msgstr "/Externo"
 
 #: ../src/menu.c:951
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Externo/Comandos"
 
 #: ../src/menu.c:983
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Externo/Caixa de Saída"
 
 # src/configure.c:474

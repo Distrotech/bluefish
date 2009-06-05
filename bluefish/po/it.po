@@ -1122,11 +1122,11 @@ msgid "Redo"
 msgstr "Ripeti"
 
 #: ../src/gui.c:434
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Spostamento a sinistra"
 
 #: ../src/gui.c:436
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Spostamento a destra"
 
 #: ../src/gui.c:443
@@ -1297,34 +1297,34 @@ msgstr "/Modifica/Sostituisci speciale"
 
 #: ../src/menu.c:271
 #, fuzzy
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr "/Modifica/Sostituisci speciale"
 
 #: ../src/menu.c:272
 #, fuzzy
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/Edit/Sostituisci speciale/In _maiuscolo"
 
 #: ../src/menu.c:273
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/Modifica/Sostituisci speciale/_Entrambi i tipi in entità HTML"
 
 #: ../src/menu.c:274
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/Modifica/Sostituisci speciale/da _ASCII ad HTML"
 
 #: ../src/menu.c:276
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Modifica/Sposta a dest_ra"
 
 #: ../src/menu.c:277
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Modifica/Sposta a sinis_tra"
 
 #: ../src/menu.c:279
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Modifica/Aggiungi_segnalibro"
 
 #: ../src/menu.c:281
@@ -1412,7 +1412,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Documento/Codi_fica caratteri"
 
 #: ../src/menu.c:313
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Documento/Controllo _ortografico"
 
 #: ../src/menu.c:315
@@ -1420,7 +1420,7 @@ msgid "/Document/_Floating window"
 msgstr "/Documento/Finestra flottante"
 
 #: ../src/menu.c:316
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Documento/Conteggio pa_role"
 
 #: ../src/menu.c:318
@@ -1514,7 +1514,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Progetto/Mo_difica le opzioni del progetto..."
 
 #: ../src/menu.c:347
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/Comandi e_sterni"
 
 #: ../src/menu.c:512
@@ -1550,21 +1550,21 @@ msgid "Operate filter only on selection?"
 msgstr ""
 
 #: ../src/menu.c:914
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Comandi esterni/Riquadro output/"
 
 #: ../src/menu.c:915
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Comandi esterni/Comandi/"
 
 #: ../src/menu.c:916
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Comandi esterni/Browser/"
 
 #: ../src/menu.c:929
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Comandi esterni/tearoff1"
 
 #: ../src/menu.c:949
@@ -1572,11 +1572,11 @@ msgid "/External"
 msgstr "/Comandi esterni"
 
 #: ../src/menu.c:951
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Comandi esterni/Comandi"
 
 #: ../src/menu.c:983
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Comandi esterni/Riquadro output"
 
 #: ../src/menu.c:1029
@@ -3531,13 +3531,13 @@ msgstr ""
 #~ msgid "/Edit/sep3"
 #~ msgstr "/Modifica/sep3"
 
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/Edit/Sostituisci speciale/Tearoff1"
 
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/Modifica/Sostituisci speciale/da _ISO8859 a HTML"
 
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/Edit/Sostituisci speciale/In min_uscolo"
 
 #~ msgid "/Edit/sep4"
@@ -3595,7 +3595,7 @@ msgstr ""
 #~ msgid "/Project/sep2"
 #~ msgstr "/Progetto/sep2"
 
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/Comandi esterni/tearoff1"
 
 #~ msgid "/_Help"
@@ -5265,7 +5265,7 @@ msgstr ""
 #~ msgid "Could not view file in browser."
 #~ msgstr "Impossibile scrivere il file \"%s\"."
 
-#~ msgid "/External/Browsers"
+#~ msgid "/Tools/Browsers"
 #~ msgstr "/Comandi esterni/Browser"
 
 #~ msgid ""

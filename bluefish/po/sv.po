@@ -1121,11 +1121,11 @@ msgid "Redo"
 msgstr "Gör om"
 
 #: ../src/gui.c:434
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Flytta åt vänster"
 
 #: ../src/gui.c:436
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Flytta åt höger"
 
 #: ../src/gui.c:443
@@ -1296,34 +1296,34 @@ msgstr "/Redigera/Ersätt special"
 
 #: ../src/menu.c:271
 #, fuzzy
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr "/Redigera/Ersätt special"
 
 #: ../src/menu.c:272
 #, fuzzy
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/Redigera/Ersätt special/Till _Versaler"
 
 #: ../src/menu.c:273
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/Redigera/Ersätt special/_Båda typerna till HTML-entiteter"
 
 #: ../src/menu.c:274
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/Redigera/Ersätt special/_ASCII till HTML-entiteter"
 
 #: ../src/menu.c:276
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Edit/Flytta åt _höger"
 
 #: ../src/menu.c:277
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Redigera/Flytta åt _vänster"
 
 #: ../src/menu.c:279
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Redigera/Lägg till _Bokmärke"
 
 #: ../src/menu.c:281
@@ -1411,7 +1411,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Dokument/T_eckenkodning"
 
 #: ../src/menu.c:313
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Dokument/Kontrollera _Stavning..."
 
 #: ../src/menu.c:315
@@ -1419,7 +1419,7 @@ msgid "/Document/_Floating window"
 msgstr "/Dokument/_Flytande fönster"
 
 #: ../src/menu.c:316
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Dokument/Räkna _ord"
 
 #: ../src/menu.c:318
@@ -1513,7 +1513,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Projekt/Re_digera Projektinställningar..."
 
 #: ../src/menu.c:347
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/E_xterna"
 
 #: ../src/menu.c:512
@@ -1549,21 +1549,21 @@ msgid "Operate filter only on selection?"
 msgstr ""
 
 #: ../src/menu.c:914
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Externa/Utskriftsfönster/"
 
 #: ../src/menu.c:915
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Externa/Kommandon/"
 
 #: ../src/menu.c:916
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Externa/Webbläsare/"
 
 #: ../src/menu.c:929
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Externa/tearoff1"
 
 #: ../src/menu.c:949
@@ -1571,11 +1571,11 @@ msgid "/External"
 msgstr "/Externa"
 
 #: ../src/menu.c:951
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Externa/Kommandon"
 
 #: ../src/menu.c:983
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Externa/Utskriftsfönster"
 
 #: ../src/menu.c:1029
@@ -3518,13 +3518,13 @@ msgstr ""
 #~ msgid "/Edit/sep3"
 #~ msgstr "/Redigera/sep3"
 
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/Redigera/Ersätt special/Tearoff1"
 
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/Redigera/Ersätt special/_iso8859 till HTML-entiteter"
 
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/Redigera/Ersätt special/Till _Gemener"
 
 #~ msgid "/Edit/sep4"
@@ -3582,7 +3582,7 @@ msgstr ""
 #~ msgid "/Project/sep2"
 #~ msgstr "/Projekt/sep2"
 
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/Externa/tearoff1"
 
 #~ msgid "/_Help"
@@ -5208,8 +5208,8 @@ msgstr ""
 #~ msgid "File has not been saved\n"
 #~ msgstr "Filen har inte blivit sparad."
 
-#~ msgid "/External/Browsers"
-#~ msgstr "/External/Webläsare"
+#~ msgid "/Tools/Browsers"
+#~ msgstr "/Tools/Webläsare"
 
 #~ msgid ""
 #~ "%s for current filename (any command)\n"

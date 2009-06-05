@@ -1114,11 +1114,11 @@ msgid "Redo"
 msgstr "Tee uudelleen"
 
 #: ../src/gui.c:434
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Siirrä vasemmalle"
 
 #: ../src/gui.c:436
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Siirrä oikealle"
 
 #: ../src/gui.c:443
@@ -1288,34 +1288,34 @@ msgid "/Edit/Replace special"
 msgstr "/Muokkaa/Korvaa erityisesti"
 
 #: ../src/menu.c:271
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr ""
 
 #: ../src/menu.c:272
 #, fuzzy
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/Muokkaa/Korvaa erityisesti"
 
 #: ../src/menu.c:273
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/Muokkaa/Korvaa erityisesti"
 
 #: ../src/menu.c:274
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/Muokkaa/Korvaa erityisesti"
 
 #: ../src/menu.c:276
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Muokkaa/Siirr_ä oikealle"
 
 #: ../src/menu.c:277
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Muokkaa/Siirrä _vasemmalle"
 
 #: ../src/menu.c:279
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Muokkaa/Li_sää kirjanmerkki"
 
 #: ../src/menu.c:281
@@ -1402,7 +1402,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Dokumentti/_Merkistökoodaus"
 
 #: ../src/menu.c:313
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Dokumentti/Tarkista _oikeinkirjoitus..."
 
 #: ../src/menu.c:315
@@ -1410,7 +1410,7 @@ msgid "/Document/_Floating window"
 msgstr "/Dokumentti/K_elluva ikkuna"
 
 #: ../src/menu.c:316
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Dokumentti/Sana_määrä"
 
 #: ../src/menu.c:318
@@ -1504,7 +1504,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Projekti/_Muokkaa projektin asetuksia..."
 
 #: ../src/menu.c:347
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/_Ulkopuolinen"
 
 #: ../src/menu.c:512
@@ -1542,21 +1542,21 @@ msgid "Operate filter only on selection?"
 msgstr ""
 
 #: ../src/menu.c:914
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Ulkopuolinen/Tulostelaatikko/"
 
 #: ../src/menu.c:915
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Ulkopuolinen/Komennot/"
 
 #: ../src/menu.c:916
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Ulkopuolinen/Selaimet/"
 
 #: ../src/menu.c:929
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Ulkopuolinen/tearoff1"
 
 #: ../src/menu.c:949
@@ -1564,11 +1564,11 @@ msgid "/External"
 msgstr "/Ulkopuolinen"
 
 #: ../src/menu.c:951
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Ulkopuolinen/Komennot"
 
 #: ../src/menu.c:983
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Ulkopuolinen/Tulostelaatikko"
 
 #: ../src/menu.c:1029

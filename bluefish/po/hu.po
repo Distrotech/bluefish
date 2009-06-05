@@ -1674,11 +1674,11 @@ msgid "Redo"
 msgstr "Ismétel"
 
 #: ../src/gui.c:405
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Balra tol"
 
 #: ../src/gui.c:407
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Jobbra tol"
 
 #: ../src/gui.c:414
@@ -1887,16 +1887,16 @@ msgstr "/Szerkesztés/Irányított csere"
 
 #: ../src/menu.c:269
 #, fuzzy
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Szerkesztés/J_obbra tol"
 
 #: ../src/menu.c:270
 #, fuzzy
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Szerkesztés/B_alra tol"
 
 #: ../src/menu.c:272
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Kö_nyvjelző hozzáadása"
 
 #: ../src/menu.c:274
@@ -1985,7 +1985,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Dokumentum/_Karakterkészlet"
 
 #: ../src/menu.c:305
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Dokumentum/_Helyesírás ellenőrzése"
 
 #: ../src/menu.c:307
@@ -1993,7 +1993,7 @@ msgid "/Document/_Floating window"
 msgstr "/Dokumentum/_Lebegő ablak"
 
 #: ../src/menu.c:308
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Dokumentum/Sz_avak száma"
 
 #: ../src/menu.c:310
@@ -2068,7 +2068,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Projekt/Projekt _tulajdonságainak szerkesztése"
 
 #: ../src/menu.c:334
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/_Külső"
 
 #: ../src/menu.c:506
@@ -2088,21 +2088,21 @@ msgid "/Windows"
 msgstr "/Ablakok"
 
 #: ../src/menu.c:1047
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Külső/Kimenetablak/"
 
 #: ../src/menu.c:1048
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Külső/Szűrők/"
 
 #: ../src/menu.c:1049
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Külső/Böngészők/"
 
 #: ../src/menu.c:1062
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Külső/tearoff1"
 
 #: ../src/menu.c:1085
@@ -2110,11 +2110,11 @@ msgid "/External"
 msgstr "/_Külső"
 
 #: ../src/menu.c:1087
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Külső/Szűrők"
 
 #: ../src/menu.c:1115
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Külső/Kimenetablak"
 
 #: ../src/menu.c:1159
@@ -3251,22 +3251,22 @@ msgstr ""
 #~ msgid "/Edit/sep3"
 #~ msgstr "/Szerkesztés/sep3"
 
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/Szerkesztés/Irányított csere/Tearoff1"
 
-#~ msgid "/Edit/Replace special/_ASCII to HTML Entities"
+#~ msgid "/Tools/_ASCII to HTML Entities"
 #~ msgstr "/Szerkesztés/Irányított csere/_ascii-t HTML-re"
 
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/Szerkesztés/Irányított csere/_ISO-8859-1-et HTML-re"
 
-#~ msgid "/Edit/Replace special/_Both Types to HTML Entities"
+#~ msgid "/Tools/_Both Types to HTML Entities"
 #~ msgstr "/Szerkesztés/Irányított csere/_mindkét típust HTML-re"
 
-#~ msgid "/Edit/Replace special/To _Uppercase"
+#~ msgid "/Tools/To _Uppercase"
 #~ msgstr "/Szerkesztés/Irányított csere/Nagybetűsre"
 
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/Szerkesztés/Irányított csere/Kisbetűsre"
 
 #~ msgid "/Edit/sep4"
@@ -3324,7 +3324,7 @@ msgstr ""
 #~ msgid "/Project/sep2"
 #~ msgstr "/Projekt/sep2"
 
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/Külső/tearoff1"
 
 #~ msgid "/_Help"
@@ -5105,7 +5105,7 @@ msgstr ""
 #~ msgid "File has not been saved\n"
 #~ msgstr "A fájl mentése nem sikerült."
 
-#~ msgid "/External/Browsers"
+#~ msgid "/Tools/Browsers"
 #~ msgstr "/Külső/Böngészők"
 
 #, fuzzy

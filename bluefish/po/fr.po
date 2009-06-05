@@ -1112,11 +1112,11 @@ msgid "Redo"
 msgstr "Rétablir"
 
 #: ../src/gui.c:434
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Diminuer le retrait"
 
 #: ../src/gui.c:436
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Augmenter le retrait"
 
 #: ../src/gui.c:443
@@ -1287,34 +1287,34 @@ msgstr "/Éditer/Remplacement spécial"
 
 #: ../src/menu.c:271
 #, fuzzy
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr "/Éditer/Remplacement spécial"
 
 #: ../src/menu.c:272
 #, fuzzy
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/Éditer/Remplacement spécial"
 
 #: ../src/menu.c:273
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/Éditer/Remplacement spécial"
 
 #: ../src/menu.c:274
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/Éditer/Remplacement spécial"
 
 #: ../src/menu.c:276
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Éditer/Au_gmenter le retrait"
 
 #: ../src/menu.c:277
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Éditer/Dimin_uer le retrait"
 
 #: ../src/menu.c:279
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Éditer/A_jouter un signet"
 
 #: ../src/menu.c:281
@@ -1401,7 +1401,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Document/_Encodage"
 
 #: ../src/menu.c:313
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Document/Vérification ort_hographique..."
 
 #: ../src/menu.c:315
@@ -1409,7 +1409,7 @@ msgid "/Document/_Floating window"
 msgstr "/Document/Fenêtre _flottante"
 
 #: ../src/menu.c:316
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Document/Compter les _mots"
 
 #: ../src/menu.c:318
@@ -1501,7 +1501,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Projet/Options _du projet..."
 
 #: ../src/menu.c:347
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/E_xterne"
 
 #: ../src/menu.c:512
@@ -1537,19 +1537,19 @@ msgid "Operate filter only on selection?"
 msgstr ""
 
 #: ../src/menu.c:914
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Externe/Boîte de sortie/"
 
 #: ../src/menu.c:915
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Externe/Commandes/"
 
 #: ../src/menu.c:916
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Externe/Filtres/"
 
 #: ../src/menu.c:929
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Externe/Filtres"
 
 #: ../src/menu.c:949
@@ -1557,11 +1557,11 @@ msgid "/External"
 msgstr "/Externe"
 
 #: ../src/menu.c:951
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Externe/Commandes"
 
 #: ../src/menu.c:983
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Externe/Boîte de sortie"
 
 #: ../src/menu.c:1029

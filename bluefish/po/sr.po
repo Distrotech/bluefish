@@ -1123,11 +1123,11 @@ msgid "Redo"
 msgstr "Ponovi"
 
 #: ../src/gui.c:434
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Shift levo"
 
 #: ../src/gui.c:436
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Shift desno"
 
 #: ../src/gui.c:443
@@ -1298,34 +1298,34 @@ msgstr "/Uredi/Zameni (specijalno)"
 
 #: ../src/menu.c:271
 #, fuzzy
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr "/Uredi/Zameni (specijalno)"
 
 #: ../src/menu.c:272
 #, fuzzy
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/Uredi/Zameni (specijalno)/Velika slova"
 
 #: ../src/menu.c:273
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/Uredi/Zameni (specijalno) /_Oba tipa u HTML Entitete"
 
 #: ../src/menu.c:274
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/Uredi/Zameni (specijalno)/_ASKI u HTML Entitete"
 
 #: ../src/menu.c:276
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Uredi/Pomeri desno"
 
 #: ../src/menu.c:277
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Uredi/Pomeri _levo"
 
 #: ../src/menu.c:279
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Uredi/Dodaj marker"
 
 #: ../src/menu.c:281
@@ -1413,7 +1413,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Dokument/Kodeks _karaktera"
 
 #: ../src/menu.c:313
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Dokument/Proveri _pravopis"
 
 #: ../src/menu.c:315
@@ -1421,7 +1421,7 @@ msgid "/Document/_Floating window"
 msgstr "/Dokument/_Plutajući prozor"
 
 #: ../src/menu.c:316
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Dokument/Broj _reči"
 
 #: ../src/menu.c:318
@@ -1515,7 +1515,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Projekat/Uredi podešavanja projekta"
 
 #: ../src/menu.c:347
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/Spoljni"
 
 #: ../src/menu.c:512
@@ -1551,21 +1551,21 @@ msgid "Operate filter only on selection?"
 msgstr ""
 
 #: ../src/menu.c:914
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Spoljni/Izlaz/"
 
 #: ../src/menu.c:915
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Spoljni/Komande/"
 
 #: ../src/menu.c:916
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Spoljni/Pretraživači/"
 
 #: ../src/menu.c:929
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Spoljni/tearoff1"
 
 #: ../src/menu.c:949
@@ -1573,11 +1573,11 @@ msgid "/External"
 msgstr "/Spoljni"
 
 #: ../src/menu.c:951
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Spoljni/Komande"
 
 #: ../src/menu.c:983
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Spoljni/Izlaz"
 
 #: ../src/menu.c:1029
@@ -3518,13 +3518,13 @@ msgstr ""
 #~ msgid "/Edit/sep3"
 #~ msgstr "/Uredi/sep3"
 
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/Uredi/Zameni (specijalno)/Tearoff1 "
 
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/Uredi/Zameni (specijalno) /_ISO8859 u HTML Entitete"
 
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/Uredi/Zameni (specijalno)/Mala slova"
 
 #~ msgid "/Edit/sep4"
@@ -3582,7 +3582,7 @@ msgstr ""
 #~ msgid "/Project/sep2"
 #~ msgstr "/Projekat/sep2"
 
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/Spoljni/tearoff1"
 
 #~ msgid "/_Help"
@@ -5202,7 +5202,7 @@ msgstr ""
 #~ msgid "Could not view file in browser."
 #~ msgstr "Nemoguće pisanje u datoteku \"%s\"."
 
-#~ msgid "/External/Browsers"
+#~ msgid "/Tools/Browsers"
 #~ msgstr "/Spoljni/Pretraživači"
 
 #~ msgid ""

@@ -1326,11 +1326,11 @@ msgid "Redo"
 msgstr "Rehacer"
 
 #: ../src/gui.c:434
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Desplazar a la izquierda"
 
 #: ../src/gui.c:436
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Desplazar a la derecha"
 
 # src/html.c:1724 src/html.c:1768
@@ -1579,38 +1579,38 @@ msgstr "/Edición/Reemplazo e_special"
 # src/menu.c:128
 #: ../src/menu.c:271
 #, fuzzy
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr "/Edición/Reemplazo e_special"
 
 # src/menu.c:127
 # src/menu.c:130
 #: ../src/menu.c:272
 #, fuzzy
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/Edición/Reemplazar especial/Convertir a Mayúsculas"
 
 #: ../src/menu.c:273
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/Edición/Reemplazar especial/Ambos tipos a _entidades HTML"
 
 #: ../src/menu.c:274
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/Edición/Reemplazar especial/_Ascii a entidades HTML"
 
 #: ../src/menu.c:276
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Edición/_Desplazar a la derecha"
 
 # src/menu.c:120
 # src/menu.c:120
 #: ../src/menu.c:277
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Edición/Desplazar a la _izquierda"
 
 #: ../src/menu.c:279
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Edición/Añadir _Marcador"
 
 # src/menu.c:489
@@ -1726,7 +1726,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Documento/_Codificación"
 
 #: ../src/menu.c:313
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Documento/Corregir _ortografía..."
 
 #: ../src/menu.c:315
@@ -1736,7 +1736,7 @@ msgstr "/Documento/Ventana _flotante"
 # src/menu.c:118
 # src/menu.c:118
 #: ../src/menu.c:316
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Documento/Contar _palabras"
 
 # src/callbacks.c:581 src/configure.c:226
@@ -1860,7 +1860,7 @@ msgstr "/Proyecto/_Editar Opciones del Proyecto..."
 # src/menu.c:442
 # src/menu.c:467
 #: ../src/menu.c:347
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/E_xterno"
 
 # src/highlight.c:312 src/interface.c:125 src/menu.c:142
@@ -1908,27 +1908,27 @@ msgstr ""
 # src/menu.c:445
 # src/menu.c:470
 #: ../src/menu.c:914
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Externo/Caja de salida/"
 
 # src/init.c:480
 # src/init.c:444
 #: ../src/menu.c:915
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Externo/Comandos/"
 
 # src/init.c:474
 # src/init.c:438
 #: ../src/menu.c:916
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Externo/Navegadores/"
 
 # src/menu.c:443
 # src/menu.c:468
 #: ../src/menu.c:929
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Externo/tearoff1"
 
 # src/menu.c:442
@@ -1940,13 +1940,13 @@ msgstr "/Externo"
 # src/init.c:480
 # src/init.c:444
 #: ../src/menu.c:951
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Externo/Comandos"
 
 # src/menu.c:445
 # src/menu.c:470
 #: ../src/menu.c:983
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Externo/Caja de salida"
 
 #: ../src/menu.c:1029
@@ -4311,16 +4311,16 @@ msgstr ""
 
 # src/menu.c:127
 # src/menu.c:130
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/Edición/Reemplazar especial/Tearoff1"
 
 # src/menu.c:395
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/Marcas/Reemplazar especial/_ISO 8859-1 a entidades HTML"
 
 # src/menu.c:127
 # src/menu.c:130
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/Edición/Reemplazar especial/Convertir a M_inúsculas"
 
 # src/menu.c:121
@@ -4412,7 +4412,7 @@ msgstr ""
 
 # src/menu.c:443
 # src/menu.c:468
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/Externo/tearoff1"
 
 #~ msgid "/_Help"
@@ -7015,7 +7015,7 @@ msgstr ""
 
 # src/init.c:474
 # src/init.c:438
-#~ msgid "/External/Browsers"
+#~ msgid "/Tools/Browsers"
 #~ msgstr "/Externo/Navegadores"
 
 #~ msgid ""

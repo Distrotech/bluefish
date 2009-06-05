@@ -260,21 +260,9 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Find from selection"), NULL, menu_file_operations_cb, 27, "<Item>"},
 	{N_("/Edit/R_eplace..."), "<control>h", menu_file_operations_cb, 17, "<StockItem>", GTK_STOCK_FIND_AND_REPLACE},
 	{N_("/Edit/Replace Agai_n"), "<shift><control>h", menu_file_operations_cb, 19, "<Item>"},
-	{N_("/Edit/Replace special"), NULL, NULL, 0, "<Branch>"},
-	{"/Edit/Replace special/tearoff1", NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Edit/Replace special/Block sync"), NULL, menu_file_operations_cb, 28, "<Item>"},
-	{N_("/Edit/Replace special/Strip trailing whitespace"), NULL, menu_file_operations_cb, 29, "<Item>"},
-	{N_("/Edit/Replace special/Join lines"), NULL, menu_file_operations_cb, 33, "<Item>"},
-	{N_("/Edit/Replace special/Split lines"), NULL, menu_file_operations_cb, 34, "<Item>"},
-	{N_("/Edit/Replace special/Convert indenting to tabs"), NULL, menu_file_operations_cb, 30, "<Item>"},
-	{N_("/Edit/Replace special/Convert indenting to spaces"), NULL, menu_file_operations_cb, 31, "<Item>"},
-	{N_("/Edit/Replace special/Toggle comment"), "<shift><control>c", menu_file_operations_cb, 35, "<Item>"},
-	{N_("/Edit/Replace special/Split into columns"), NULL, menu_file_operations_cb, 36, "<Item>"},
 	{"/Edit/sep4", NULL, NULL, 0, "<Separator>"},
-	{N_("/Edit/S_hift Right"), NULL, menu_indent_cb, 2, "<StockItem>", GTK_STOCK_INDENT},
-	{N_("/Edit/Shift _Left"), NULL, menu_indent_cb, 1, "<StockItem>", GTK_STOCK_UNINDENT},
-	{"/Edit/sep5", NULL, NULL, 0, "<Separator>"},
-	{N_("/Edit/Add _Bookmark"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
+	{N_("/Edit/_Indent"), NULL, menu_indent_cb, 2, "<StockItem>", GTK_STOCK_INDENT},
+	{N_("/Edit/_Unindent"), NULL, menu_indent_cb, 1, "<StockItem>", GTK_STOCK_UNINDENT},
 	{"/Edit/sep6", NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Save Sett_ings"), NULL, rcfile_save_configfile_menu_cb, 0, "<Item>"},
 	{N_("/Edit/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 3, "<Item>"},	
@@ -318,11 +306,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{"/Document/Character Encoding/sep4", NULL, NULL, 0, "<Separator>"},
 	{"/Document/Character Encoding/_Add or Remove...", NULL, encodings_dialog_menu_cb, 1, "<Item>"},
 	{"/Document/sep5", NULL, NULL, 0, "<Separator>"},
-#ifdef HAVE_LIBASPELL
-	{N_("/Document/Check _Spelling..."), NULL, spell_check_menu_cb, 0, "<StockItem>", GTK_STOCK_SPELL_CHECK},
-#endif /* HAVE_LIBASPELL */
+	{N_("/Document/Add _Bookmark"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
 	{N_("/Document/_Floating window"), NULL, file_floatingview_menu_cb, 1, "<Item>"},			
-	{N_("/Document/Word _Count"), NULL, word_count_cb, 1, "<Item>"},
 	{"/Document/sep6", NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/Move left"), NULL, gui_notebook_switch, 5, "<Item>"},
 	{N_("/Document/Move right"), NULL, gui_notebook_switch, 6, "<Item>"},
@@ -353,13 +338,30 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Project/Save & _close"), NULL, project_menu_cb, 4, "<Item>"},
 	{"/Project/sep2", NULL, NULL, 0, "<Separator>"},
 	{N_("/Project/E_dit Project Options..."), NULL, project_menu_cb, 5, "<StockItem>", GTK_STOCK_PREFERENCES},
-	{N_("/E_xternal"), NULL, NULL, 0, "<Branch>"},
-	{"/External/tearoff1", NULL, NULL, 0, "<Tearoff>"}, 
-/*	{N_("/External/_Commands"), NULL, NULL, 0, "<Branch>"},
-	{"/External/Commands/tearoff1", NULL, NULL, 0, "<Tearoff>"},
-	{N_("/External/_Outputbox"), NULL, NULL, 0, "<Branch>"},
-	{"/External/Outputbox/tearoff1", NULL, NULL, 0, "<Tearoff>"},
-	{"/External/sep1", NULL, NULL, 0, "<Separator>"},*/
+	{N_("/T_ools"), NULL, NULL, 0, "<Branch>"},
+	{"/Tools/tearoff1", NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Tools/_Commands"), NULL, NULL, 0, "<Branch>"},
+	{"/Tools/Commands/tearoff1", NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Tools/_Outputbox"), NULL, NULL, 0, "<Branch>"},
+	{"/Tools/Outputbox/tearoff1", NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Tools/_Filters"), NULL, NULL, 0, "<Branch>"},
+	{"/Tools/Filters/tearoff1", NULL, NULL, 0, "<Tearoff>"},
+	{"/Tools/sep4", NULL, NULL, 0, "<Separator>"},
+	{N_("/Tools/Block sync"), NULL, menu_file_operations_cb, 28, "<Item>"},
+	{N_("/Tools/Toggle comment"), "<shift><control>c", menu_file_operations_cb, 35, "<Item>"},
+	{"/Tools/sep2", NULL, NULL, 0, "<Separator>"},
+	{N_("/Tools/Strip trailing whitespace"), NULL, menu_file_operations_cb, 29, "<Item>"},
+	{N_("/Tools/Join lines"), NULL, menu_file_operations_cb, 33, "<Item>"},
+	{N_("/Tools/Split lines"), NULL, menu_file_operations_cb, 34, "<Item>"},
+	{N_("/Tools/Convert indenting to tabs"), NULL, menu_file_operations_cb, 30, "<Item>"},
+	{N_("/Tools/Convert indenting to spaces"), NULL, menu_file_operations_cb, 31, "<Item>"},
+	{N_("/Tools/Split into columns"), NULL, menu_file_operations_cb, 36, "<Item>"},
+	{"/Tools/sep3", NULL, NULL, 0, "<Separator>"},
+	{N_("/Tools/Word _Count"), NULL, word_count_cb, 1, "<Item>"},
+#ifdef HAVE_LIBASPELL
+	{N_("/Tools/Check _Spelling..."), NULL, spell_check_menu_cb, 0, "<StockItem>", GTK_STOCK_SPELL_CHECK},
+#endif /* HAVE_LIBASPELL */
+	{"/Tools/sep1", NULL, NULL, 0, "<Separator>"},
 };
 
 #ifdef ENABLE_NLS
@@ -552,8 +554,8 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), accel_group);
 	bfwin->menubar = gtk_item_factory_get_widget(item_factory, "<bluefishmain>");
 	gtk_box_pack_start(GTK_BOX(vbox), bfwin->menubar, FALSE, TRUE, 0);
-	gtk_accel_map_add_entry("<bluefishmain>/Edit/Shift Right", GDK_period, GDK_CONTROL_MASK);
-	gtk_accel_map_add_entry("<bluefishmain>/Edit/Shift Left", GDK_comma, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Edit/_Indent", GDK_period, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Edit/_Unindent", GDK_comma, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Go/Previous document", GDK_Page_Up, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Go/Next document", GDK_Page_Down, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Go/First document", GDK_Page_Up, GDK_SHIFT_MASK | GDK_CONTROL_MASK);
@@ -923,9 +925,9 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 	g_list_free(bfwin->menu_outputbox);
 	bfwin->menu_outputbox = NULL;
 	
-	create_parent_and_tearoff(N_("/External/Outputbox/"), gtk_item_factory_from_widget(bfwin->menubar));
-	create_parent_and_tearoff(N_("/External/Commands/"), gtk_item_factory_from_widget(bfwin->menubar));
-	create_parent_and_tearoff(N_("/External/Filters/"), gtk_item_factory_from_widget(bfwin->menubar));
+	create_parent_and_tearoff(N_("/Tools/Outputbox/"), gtk_item_factory_from_widget(bfwin->menubar));
+	create_parent_and_tearoff(N_("/Tools/Commands/"), gtk_item_factory_from_widget(bfwin->menubar));
+	create_parent_and_tearoff(N_("/Tools/Filters/"), gtk_item_factory_from_widget(bfwin->menubar));
 
 	tmplist = g_list_first(main_v->props.external_filter);
 	while (tmplist) {
@@ -938,7 +940,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
 			DEBUG_MSG("external_menu_rebuild,Adding filter %s with command %s to the menu\n", arr[0], arr[1]);
-			bdm->menuitem = create_dynamic_menuitem(bfwin,N_("/External/Filters"),arr[0],G_CALLBACK(external_filter_lcb),bdm,-1);
+			bdm->menuitem = create_dynamic_menuitem(bfwin,N_("/Tools/Filters"),arr[0],G_CALLBACK(external_filter_lcb),bdm,-1);
 			DEBUG_MSG("external_menu_rebuild,creating,bfwin=%p,bdm=%p,menuitem=%p\n",bfwin,bdm,bdm->menuitem);
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
 		} else {
@@ -960,7 +962,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			if (arr[2][0] == '1') {
 				tmp1 = N_("/External");
 			} else {
-				tmp1 = N_("/External/Commands");
+				tmp1 = N_("/Tools/Commands");
 			}
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
@@ -992,7 +994,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			bdm->data = arr;
 			bdm->bfwin = bfwin;
 			DEBUG_MSG("external_menu_rebuild,Adding outputbox %s with command %s to the menu\n", arr[0], arr[5]);
-			bdm->menuitem = create_dynamic_menuitem(bfwin,N_("/External/Outputbox"),arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)bdm,-1);
+			bdm->menuitem = create_dynamic_menuitem(bfwin,N_("/Tools/Outputbox"),arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)bdm,-1);
 			bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox,bdm);
 		} else {
 			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_outputbox; array count =%d\n",count_array(arr));

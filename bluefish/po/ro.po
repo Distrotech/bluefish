@@ -1577,11 +1577,11 @@ msgid "Redo"
 msgstr "Elimina refacerea"
 
 #: ../src/gui.c:405
-msgid "Shift Left"
+msgid "Unindent"
 msgstr ""
 
 #: ../src/gui.c:407
-msgid "Shift Right"
+msgid "Indent"
 msgstr ""
 
 #: ../src/gui.c:414
@@ -1824,16 +1824,16 @@ msgstr "/Fisier/Inchide"
 
 #: ../src/menu.c:269
 #, fuzzy
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Fisier/Inchide"
 
 #: ../src/menu.c:270
 #, fuzzy
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Fisier/Inchide"
 
 #: ../src/menu.c:272
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr ""
 
 #: ../src/menu.c:274
@@ -1932,7 +1932,7 @@ msgstr "Optiuni editor"
 
 #: ../src/menu.c:305
 #, fuzzy
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "Enctype"
 
 #: ../src/menu.c:307
@@ -1942,7 +1942,7 @@ msgstr "Enctype"
 
 #: ../src/menu.c:308
 #, fuzzy
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "Optiuni editor"
 
 #: ../src/menu.c:310
@@ -2027,7 +2027,7 @@ msgstr ""
 
 #: ../src/menu.c:334
 #, fuzzy
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "Extern"
 
 #: ../src/menu.c:506
@@ -2051,21 +2051,21 @@ msgstr ""
 
 #: ../src/menu.c:1047
 #, fuzzy
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "Extern"
 
 #: ../src/menu.c:1048
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr ""
 
 #: ../src/menu.c:1049
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "Extern"
 
 #: ../src/menu.c:1062
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "Extern"
 
 #: ../src/menu.c:1085
@@ -2075,12 +2075,12 @@ msgstr "Extern"
 
 #: ../src/menu.c:1087
 #, fuzzy
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "Extern"
 
 #: ../src/menu.c:1115
 #, fuzzy
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "Extern"
 
 #: ../src/menu.c:1159
@@ -3271,27 +3271,27 @@ msgstr ""
 #~ msgstr "/Fisier/Inchide"
 
 #, fuzzy
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "Extern"
 
 #, fuzzy
-#~ msgid "/Edit/Replace special/_ASCII to HTML Entities"
+#~ msgid "/Tools/_ASCII to HTML Entities"
 #~ msgstr "Extern"
 
 #, fuzzy
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "Extern"
 
 #, fuzzy
-#~ msgid "/Edit/Replace special/_Both Types to HTML Entities"
+#~ msgid "/Tools/_Both Types to HTML Entities"
 #~ msgstr "Extern"
 
 #, fuzzy
-#~ msgid "/Edit/Replace special/To _Uppercase"
+#~ msgid "/Tools/To _Uppercase"
 #~ msgstr "Extern"
 
 #, fuzzy
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "Extern"
 
 #, fuzzy
@@ -3363,7 +3363,7 @@ msgstr ""
 #~ msgstr "Comentariu"
 
 #, fuzzy
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "Extern"
 
 #, fuzzy
@@ -4995,7 +4995,7 @@ msgstr ""
 #~ msgstr "Fisierul nu a putut fi deschis :\n"
 
 #, fuzzy
-#~ msgid "/External/Browsers"
+#~ msgid "/Tools/Browsers"
 #~ msgstr "Extern"
 
 #, fuzzy

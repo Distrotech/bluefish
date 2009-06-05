@@ -1679,11 +1679,11 @@ msgid "Redo"
 msgstr "Повтори"
 
 #: ../src/gui.c:405
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Премести няляво"
 
 #: ../src/gui.c:407
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Премести надясно"
 
 #: ../src/gui.c:414
@@ -1892,16 +1892,16 @@ msgstr "/Редактиране/Замяна на символи"
 
 #: ../src/menu.c:269
 #, fuzzy
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Редактиране/Преместване на дясно"
 
 #: ../src/menu.c:270
 #, fuzzy
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Редактиране/Преместване на ляво"
 
 #: ../src/menu.c:272
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Редактиране/Добавяне на отметка"
 
 #: ../src/menu.c:274
@@ -1990,7 +1990,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Документ/Кодиране на символите"
 
 #: ../src/menu.c:305
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Документ/Провери правописа"
 
 #: ../src/menu.c:307
@@ -1998,7 +1998,7 @@ msgid "/Document/_Floating window"
 msgstr "/Документ/Плаващ прозорец"
 
 #: ../src/menu.c:308
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Документ/Брой думи"
 
 #: ../src/menu.c:310
@@ -2073,7 +2073,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Проект/Редакция на настройките..."
 
 #: ../src/menu.c:334
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/_Външни"
 
 #: ../src/menu.c:506
@@ -2093,21 +2093,21 @@ msgid "/Windows"
 msgstr "/Прозорци"
 
 #: ../src/menu.c:1047
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Външни/Резултат"
 
 #: ../src/menu.c:1048
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Външни/Команди"
 
 #: ../src/menu.c:1049
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Външни/Браузъри"
 
 #: ../src/menu.c:1062
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Външни/tearoff1"
 
 #: ../src/menu.c:1085
@@ -2115,11 +2115,11 @@ msgid "/External"
 msgstr "/Външни"
 
 #: ../src/menu.c:1087
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Външни/Команди"
 
 #: ../src/menu.c:1115
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Външни/Резултат"
 
 #: ../src/menu.c:1159
@@ -3256,22 +3256,22 @@ msgstr ""
 #~ msgid "/Edit/sep3"
 #~ msgstr "/Редактиране/sep3"
 
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/Редактиране/Замяна на символи/Tearoff1"
 
-#~ msgid "/Edit/Replace special/_ASCII to HTML Entities"
+#~ msgid "/Tools/_ASCII to HTML Entities"
 #~ msgstr "/Редактиране/Замяна на символи/ASCII към HTML символи"
 
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/Редактиране/Замяна на символи/ISO8859 към HTML символи"
 
-#~ msgid "/Edit/Replace special/_Both Types to HTML Entities"
+#~ msgid "/Tools/_Both Types to HTML Entities"
 #~ msgstr "/Редактиране/Замяна на символи/Двата типа към HTML символи"
 
-#~ msgid "/Edit/Replace special/To _Uppercase"
+#~ msgid "/Tools/To _Uppercase"
 #~ msgstr "/Редактиране/Замяна на символи/Към горен регистър"
 
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/Редактиране/Замяна на символи/Към долен регистър"
 
 #~ msgid "/Edit/sep4"
@@ -3329,7 +3329,7 @@ msgstr ""
 #~ msgid "/Project/sep2"
 #~ msgstr "/Проект/sep2"
 
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/Външни/tearoff1"
 
 #~ msgid "/_Help"
@@ -5017,7 +5017,7 @@ msgstr ""
 #~ msgid "File has not been saved\n"
 #~ msgstr "Фалът не беше запазен."
 
-#~ msgid "/External/Browsers"
+#~ msgid "/Tools/Browsers"
 #~ msgstr "/Външни/Браузъри"
 
 #, fuzzy
