@@ -196,12 +196,10 @@ static void drd_response_lcb(GtkDialog * dialog, gint response, Tdocrootdialog *
 		if (docroot && webroot) {
 			if (drd->bfwin->session->documentroot)
 				g_free(drd->bfwin->session->documentroot);
-			
 			drd->bfwin->session->documentroot = g_file_get_uri(docroot);
 			
 			if (drd->bfwin->session->webroot)
 				g_free(drd->bfwin->session->webroot);
-
 			drd->bfwin->session->webroot = g_file_get_uri(webroot);
 			
 			g_object_unref(docroot);
@@ -245,13 +243,15 @@ static void set_documentroot_dialog(Tbfwin * bfwin, GFile * uri)
 	gtk_table_attach_defaults(GTK_TABLE(table), drd->doc_entry, 1, 2, 1, 2);
 	dialog_mnemonic_label_in_table(_("Documentroot"), drd->doc_entry, table, 0, 1, 1, 2);
 
-	if (g_file_has_uri_scheme(uri, "file")) {
+	if (bfwin->session->webroot) {
+		tmp = g_strdup(bfwin->session->webroot);
+	} else if (g_file_has_uri_scheme(uri, "file")) {
 		tmp = g_strdup("http://localhost/");
 	} else {
-
+		tmp = g_strdup("http://");
 	}
-
 	drd->web_entry = entry_with_text(tmp, 512);
+	g_free(tmp);
 	gtk_table_attach_defaults(GTK_TABLE(table), drd->web_entry, 1, 2, 2, 3);
 	dialog_mnemonic_label_in_table(_("Webroot"), drd->web_entry, table, 0, 1, 2, 3);
 
