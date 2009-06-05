@@ -938,7 +938,7 @@ static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info,
 			DEBUG_MSG("open_adv_content_filter_lcb, status=%d, now we should do the content filtering\n",status);
 			/* we have all content, do the filtering, and if correct, open the file as document */
 			if (open_adv_content_matches_filter(buffer,buflen,oau)) {
-				Tfile2doc *f2d = g_slice_new(Tfile2doc);
+				Tfile2doc *f2d = g_slice_new0(Tfile2doc);
 				f2d->uri = oau->uri;
 				g_object_ref(oau->uri);
 				f2d->bfwin = oau->oa->bfwin;
