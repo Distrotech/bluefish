@@ -1122,11 +1122,11 @@ msgid "Redo"
 msgstr "Повторить действие"
 
 #: ../src/gui.c:434
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Сдвинуть влево"
 
 #: ../src/gui.c:436
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Сдвинуть вправо"
 
 #: ../src/gui.c:443
@@ -1297,34 +1297,34 @@ msgstr "/Редактирование/Особая замена"
 
 #: ../src/menu.c:271
 #, fuzzy
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr "/Редактирование/Особая замена"
 
 #: ../src/menu.c:272
 #, fuzzy
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/Редактирование/Особая замена/В пр_описные"
 
 #: ../src/menu.c:273
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/Редактирование/Особая замена/О_ба типа в элементы HTML"
 
 #: ../src/menu.c:274
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/Редактирование/Особая замена/_ASCII в элементы HTML"
 
 #: ../src/menu.c:276
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Редактирование/Сдвинуть в_право"
 
 #: ../src/menu.c:277
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Редактирование/Сдвинуть в_лево"
 
 #: ../src/menu.c:279
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Редактирование/Добавить _закладку"
 
 #: ../src/menu.c:281
@@ -1412,7 +1412,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Документ/_Кодировка"
 
 #: ../src/menu.c:313
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Документ/Проверка п_равописания..."
 
 #: ../src/menu.c:315
@@ -1420,7 +1420,7 @@ msgid "/Document/_Floating window"
 msgstr "/Документ/П_лавающее окно"
 
 #: ../src/menu.c:316
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Документ/Число _слов"
 
 #: ../src/menu.c:318
@@ -1514,7 +1514,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Проект/Ре_дактировать параметры проекта..."
 
 #: ../src/menu.c:347
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/Вне_шние"
 
 #: ../src/menu.c:512
@@ -1550,21 +1550,21 @@ msgid "Operate filter only on selection?"
 msgstr ""
 
 #: ../src/menu.c:914
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Внешние/Окно вывода/"
 
 #: ../src/menu.c:915
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Внешние/Команды/"
 
 #: ../src/menu.c:916
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Внешние/Браузеры/"
 
 #: ../src/menu.c:929
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Внешние/tearoff1"
 
 #: ../src/menu.c:949
@@ -1572,11 +1572,11 @@ msgid "/External"
 msgstr "/Внешние"
 
 #: ../src/menu.c:951
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Внешние/Команды"
 
 #: ../src/menu.c:983
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Внешние/Окно вывода"
 
 #: ../src/menu.c:1029
@@ -3527,13 +3527,13 @@ msgstr ""
 #~ msgid "/Edit/sep3"
 #~ msgstr "/Редактирование/sep3"
 
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/Редактирование/Особая замена/Tearoff1"
 
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/Редактирование/Особая замена/_ISO8859 в элементы HTML"
 
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/Редактирование/Особая замена/В с_трочные"
 
 #~ msgid "/Edit/sep4"
@@ -3591,7 +3591,7 @@ msgstr ""
 #~ msgid "/Project/sep2"
 #~ msgstr "/Проект/sep2"
 
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/Внешние/tearoff1"
 
 #~ msgid "/_Help"
@@ -5215,7 +5215,7 @@ msgstr ""
 #~ msgid "Could not view file in browser."
 #~ msgstr "Не удается найти файл \"%s\"."
 
-#~ msgid "/External/Browsers"
+#~ msgid "/Tools/Browsers"
 #~ msgstr "/Внешние/Браузеры"
 
 #~ msgid ""

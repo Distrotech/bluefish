@@ -1101,11 +1101,11 @@ msgid "Redo"
 msgstr "Ponów"
 
 #: ../src/gui.c:434
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Przesuń w lewo"
 
 #: ../src/gui.c:436
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Przesuń w prawo"
 
 #: ../src/gui.c:443
@@ -1276,34 +1276,34 @@ msgstr "/Edycja/Zamiana specjalna"
 
 #: ../src/menu.c:271
 #, fuzzy
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr "/Edycja/Zamiana specjalna"
 
 #: ../src/menu.c:272
 #, fuzzy
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/Edycja/Zamiana specjalna/_Wielkie litery"
 
 #: ../src/menu.c:273
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/Edycja/Zamiana specjalna/Oba typy na notację HTML"
 
 #: ../src/menu.c:274
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/Edycja/Zamiana specjalna/_ASCII na notację HTML"
 
 #: ../src/menu.c:276
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Edycja/Przesuń w p_rawo"
 
 #: ../src/menu.c:277
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Edycja/Prz_esuń w lewo"
 
 #: ../src/menu.c:279
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Edycja/Dodaj za_kładkę"
 
 #: ../src/menu.c:281
@@ -1390,7 +1390,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Dokument/Kodowani_e znaków"
 
 #: ../src/menu.c:313
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Dokument/_Pisownia..."
 
 #: ../src/menu.c:315
@@ -1398,7 +1398,7 @@ msgid "/Document/_Floating window"
 msgstr "/Dokument/_Oddzielne okno"
 
 #: ../src/menu.c:316
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Dokument/_Ilość słów"
 
 #: ../src/menu.c:318
@@ -1490,7 +1490,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Projekt/_Opcje projektu..."
 
 #: ../src/menu.c:347
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/Zewnętrzne"
 
 #: ../src/menu.c:512
@@ -1526,19 +1526,19 @@ msgid "Operate filter only on selection?"
 msgstr ""
 
 #: ../src/menu.c:914
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Zewnętrzne/Okno wyników/"
 
 #: ../src/menu.c:915
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Zewnętrzne/Polecenia/"
 
 #: ../src/menu.c:916
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Zewnętrzne/Filtry/"
 
 #: ../src/menu.c:929
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Zewnętrzne/Filtry"
 
 #: ../src/menu.c:949
@@ -1546,11 +1546,11 @@ msgid "/External"
 msgstr "/Zewnętrzne"
 
 #: ../src/menu.c:951
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Zewnętrzne/Polecenia"
 
 #: ../src/menu.c:983
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Zewnętrzne/Okno wyników"
 
 #: ../src/menu.c:1029
@@ -3686,13 +3686,13 @@ msgstr "Zmiana obejmuje wiele dokumentów."
 #~ msgid "/Edit/sep3"
 #~ msgstr "/Edycja/sep3"
 
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/Edycja/Zamiana specjalna/tearoff1"
 
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/Edycja/Zamiana specjalna/_ISO8859 na notację HTML"
 
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/Edycja/Zamiana specjalna/_Małe litery"
 
 #~ msgid "/Edit/sep4"
@@ -3749,7 +3749,7 @@ msgstr "Zmiana obejmuje wiele dokumentów."
 #~ msgid "/Project/sep2"
 #~ msgstr "/Projekt/sep2"
 
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/Zewnętrzne/tearoff1"
 
 #~ msgid "/_Help"
@@ -5370,7 +5370,7 @@ msgstr "Zmiana obejmuje wiele dokumentów."
 #~ msgid "Could not view file in browser."
 #~ msgstr "Nie znaleziono pliku \"%s\"."
 
-#~ msgid "/External/Browsers"
+#~ msgid "/Tools/Browsers"
 #~ msgstr "/Zewnętrzne/Przeglądarki"
 
 #~ msgid ""

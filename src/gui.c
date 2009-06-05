@@ -432,9 +432,9 @@ void make_main_toolbar(Tbfwin *bfwin) {
 	bfwin->toolbar_redo = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_REDO, _("Redo"),	
 								"", G_CALLBACK(redo_cb), bfwin, -1);
 	gtk_toolbar_append_space (GTK_TOOLBAR(toolbar));
-	gtk_toolbar_insert_stock (GTK_TOOLBAR(toolbar), GTK_STOCK_UNINDENT, _("Shift Left"), 
+	gtk_toolbar_insert_stock (GTK_TOOLBAR(toolbar), GTK_STOCK_UNINDENT, _("Unindent"), 
 	                     "", G_CALLBACK(doc_unindent_lcb), bfwin, -1);
-	gtk_toolbar_insert_stock (GTK_TOOLBAR(toolbar), GTK_STOCK_INDENT, _("Shift Right"),
+	gtk_toolbar_insert_stock (GTK_TOOLBAR(toolbar), GTK_STOCK_INDENT, _("Indent"),
                         "", G_CALLBACK(doc_indent_lcb), bfwin, -1);
 
 /*
@@ -494,8 +494,8 @@ void gui_set_document_widgets(Tdocument *doc) {
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Paste", !doc->readonly);
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Replace...", !doc->readonly);
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Replace Again", !doc->readonly);
-	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Shift Right", !doc->readonly);
-	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Shift Left", !doc->readonly);
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/_Indent", !doc->readonly);
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/_Unindent", !doc->readonly);
 
 }
 /*

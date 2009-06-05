@@ -1101,11 +1101,11 @@ msgid "Redo"
 msgstr "Gjenta"
 
 #: ../src/gui.c:434
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Indenter venstre"
 
 #: ../src/gui.c:436
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Indenter høyre"
 
 #: ../src/gui.c:443
@@ -1276,34 +1276,34 @@ msgstr "/_Rediger/Erstatt (_spesial)"
 
 #: ../src/menu.c:271
 #, fuzzy
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr "/_Rediger/Erstatt (_spesial)"
 
 #: ../src/menu.c:272
 #, fuzzy
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/_Rediger/Erstatt (spesial)/Til _KAPITALISERT"
 
 #: ../src/menu.c:273
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/Rediger/Erstatt (spesial)/Konverter begge til HTML entiteter"
 
 #: ../src/menu.c:274
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/Rediger/Erstatt (spesial)/Konverter: ascii -> HTML entiteter"
 
 #: ../src/menu.c:276
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Rediger/Indenter _høyre"
 
 #: ../src/menu.c:277
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Rediger/_Indenter venstre"
 
 #: ../src/menu.c:279
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Rediger/Nytt _Bokmerke"
 
 #: ../src/menu.c:281
@@ -1390,7 +1390,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Dokument/T_egnsett"
 
 #: ../src/menu.c:313
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Dokument/_Stavekontroll..."
 
 #: ../src/menu.c:315
@@ -1398,7 +1398,7 @@ msgid "/Document/_Floating window"
 msgstr "/Dokument/_Flytende vindu"
 
 #: ../src/menu.c:316
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Dokument/_Ordtelling"
 
 #: ../src/menu.c:318
@@ -1490,7 +1490,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Prosjekt/R_ediger prosjektalternativer..."
 
 #: ../src/menu.c:347
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/E_ksterne"
 
 #: ../src/menu.c:512
@@ -1526,19 +1526,19 @@ msgid "Operate filter only on selection?"
 msgstr ""
 
 #: ../src/menu.c:914
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Eksterne/Output-boks/"
 
 #: ../src/menu.c:915
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Eksterne/Kommandoer/"
 
 #: ../src/menu.c:916
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Eksterne/Filtre/"
 
 #: ../src/menu.c:929
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Eksterne/Filtre"
 
 #: ../src/menu.c:949
@@ -1546,11 +1546,11 @@ msgid "/External"
 msgstr "/Eksterne"
 
 #: ../src/menu.c:951
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Eksterne/Kommandoer"
 
 #: ../src/menu.c:983
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Eksterne/Output-boks"
 
 #: ../src/menu.c:1029
@@ -3619,13 +3619,13 @@ msgstr "Denne endringen vil berøre flere dokumenter."
 #~ msgid "/Edit/sep3"
 #~ msgstr "/Rediger/sep3"
 
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/_Rediger/Erstatt (spesial)/Tearoff1"
 
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/Rediger/Erstatt (spesial)/Konverter: iso-8859 -> HTML entiteter"
 
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/_Rediger/Erstatt (spesial)/Til _lowercase"
 
 #~ msgid "/Edit/sep4"
@@ -3683,7 +3683,7 @@ msgstr "Denne endringen vil berøre flere dokumenter."
 #~ msgid "/Project/sep2"
 #~ msgstr "/Prosjekt/sep2"
 
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/Eksterne/tearoff1"
 
 #~ msgid "/_Help"
@@ -5304,7 +5304,7 @@ msgstr "Denne endringen vil berøre flere dokumenter."
 #~ msgid "Could not view file in browser."
 #~ msgstr "Kunne ikke finne filen \"%s\"."
 
-#~ msgid "/External/Browsers"
+#~ msgid "/Tools/Browsers"
 #~ msgstr "/Eksterne/Browsere"
 
 #~ msgid ""

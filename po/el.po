@@ -1556,11 +1556,11 @@ msgid "Redo"
 msgstr "Επαναφορά"
 
 #: ../src/gui.c:405
-msgid "Shift Left"
+msgid "Unindent"
 msgstr ""
 
 #: ../src/gui.c:407
-msgid "Shift Right"
+msgid "Indent"
 msgstr ""
 
 #: ../src/gui.c:414
@@ -1800,16 +1800,16 @@ msgstr "/Επεξεργασία/Αντικατάσταση"
 
 #: ../src/menu.c:269
 #, fuzzy
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Επεξεργασία/Επικόλληση"
 
 #: ../src/menu.c:270
 #, fuzzy
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Επεξεργασία/Επικόλληση"
 
 #: ../src/menu.c:272
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr ""
 
 #: ../src/menu.c:274
@@ -1912,7 +1912,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Επεξεργασία/Αποκοπή"
 
 #: ../src/menu.c:305
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr ""
 
 #: ../src/menu.c:307
@@ -1922,7 +1922,7 @@ msgstr "Αριθμός γραμμής: "
 
 #: ../src/menu.c:308
 #, fuzzy
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Επεξεργασία/Αποκοπή"
 
 #: ../src/menu.c:310
@@ -2006,7 +2006,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr ""
 
 #: ../src/menu.c:334
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/_Εξωτερικά"
 
 #: ../src/menu.c:506
@@ -2030,21 +2030,21 @@ msgstr ""
 
 #: ../src/menu.c:1047
 #, fuzzy
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Εξωτερικά/διαχ11"
 
 #: ../src/menu.c:1048
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Εξωτερικά/Εντολές/"
 
 #: ../src/menu.c:1049
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Εξωτερικά/Φίλτρα/"
 
 #: ../src/menu.c:1062
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Εξωτερικά/διαχ1"
 
 #: ../src/menu.c:1085
@@ -2054,12 +2054,12 @@ msgstr "/_Εξωτερικά"
 
 #: ../src/menu.c:1087
 #, fuzzy
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Εξωτερικά/Εντολές/"
 
 #: ../src/menu.c:1115
 #, fuzzy
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Εξωτερικά/διαχ11"
 
 #: ../src/menu.c:1159
@@ -3256,27 +3256,27 @@ msgstr ""
 #~ msgstr "/Επεξεργασία/διαχ3"
 
 #, fuzzy
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/Επεξεργασία/Αντικατάσταση επομένου"
 
 #, fuzzy
-#~ msgid "/Edit/Replace special/_ASCII to HTML Entities"
+#~ msgid "/Tools/_ASCII to HTML Entities"
 #~ msgstr "/Ετικέτες/Αντικατάσταση χαρακτήρων ascii"
 
 #, fuzzy
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/Ετικέτες/Αντικατάσταση χαρακτήρων iso 8859-1"
 
 #, fuzzy
-#~ msgid "/Edit/Replace special/_Both Types to HTML Entities"
+#~ msgid "/Tools/_Both Types to HTML Entities"
 #~ msgstr "/Ετικέτες/Αντικατάσταση χαρακτήρων ascii"
 
 #, fuzzy
-#~ msgid "/Edit/Replace special/To _Uppercase"
+#~ msgid "/Tools/To _Uppercase"
 #~ msgstr "/Επεξεργασία/Αντικατάσταση επομένου"
 
 #, fuzzy
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/Επεξεργασία/Αντικατάσταση επομένου"
 
 #, fuzzy
@@ -3351,7 +3351,7 @@ msgstr ""
 #~ msgid "/Project/sep2"
 #~ msgstr "/Αρχείο/διαχ2"
 
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/Εξωτερικά/διαχ1"
 
 # src/html.c:736		ΝΤΚ
@@ -5126,7 +5126,7 @@ msgstr ""
 #~ msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
 
 #, fuzzy
-#~ msgid "/External/Browsers"
+#~ msgid "/Tools/Browsers"
 #~ msgstr "/Εξωτερικά/Φίλτρα/"
 
 #~ msgid "Bookmark options"

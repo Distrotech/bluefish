@@ -1717,11 +1717,11 @@ msgid "Redo"
 msgstr "Vrátit akci"
 
 #: ../src/gui.c:405
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Posunout Blok Vlevo"
 
 #: ../src/gui.c:407
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Posunout Blok Vpravo"
 
 #: ../src/gui.c:414
@@ -1926,15 +1926,15 @@ msgid "/Edit/Replace special"
 msgstr "/Úpravy/Přepsat speciálně"
 
 #: ../src/menu.c:269
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Úpravy/Posun bloku V_pravo"
 
 #: ../src/menu.c:270
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Úpravy/Posun bloku V_levo"
 
 #: ../src/menu.c:272
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Úpravy/Přidat Zál_ožku"
 
 #: ../src/menu.c:274
@@ -2020,7 +2020,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Dokument/_Kódování"
 
 #: ../src/menu.c:305
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Dokument/Kontrola _Pravopisu..."
 
 #: ../src/menu.c:307
@@ -2028,7 +2028,7 @@ msgid "/Document/_Floating window"
 msgstr "/Dokument/Plovoucí ok_no"
 
 #: ../src/menu.c:308
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Dokument/Poč_et Slov"
 
 #: ../src/menu.c:310
@@ -2102,7 +2102,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Projekt/Nastavit Př_edvolby Projektu..."
 
 #: ../src/menu.c:334
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/E_xterní"
 
 #: ../src/menu.c:506
@@ -2122,21 +2122,21 @@ msgid "/Windows"
 msgstr "/Okna"
 
 #: ../src/menu.c:1047
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Externí/Výstup"
 
 #: ../src/menu.c:1048
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Externí/Příkazy"
 
 #: ../src/menu.c:1049
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Externí/Prohlížeče"
 
 #: ../src/menu.c:1062
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Externí/tearoff1"
 
 #: ../src/menu.c:1085
@@ -2144,11 +2144,11 @@ msgid "/External"
 msgstr "/E_xterní"
 
 #: ../src/menu.c:1087
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Externí/Příkazy"
 
 #: ../src/menu.c:1115
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Externí/Výstup"
 
 #: ../src/menu.c:1159
@@ -3272,22 +3272,22 @@ msgstr ""
 #~ msgid "/Edit/sep3"
 #~ msgstr "/Úpravy/sep3"
 
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/Úpravy/Přepsat speciálně/Tearoff1"
 
-#~ msgid "/Edit/Replace special/_ASCII to HTML Entities"
+#~ msgid "/Tools/_ASCII to HTML Entities"
 #~ msgstr "/Úpravy/Nahradit specil./_ASCII na HTML Entity"
 
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/Úpravy/Nahradit special./_ISO8859 na HTML Entity"
 
-#~ msgid "/Edit/Replace special/_Both Types to HTML Entities"
+#~ msgid "/Tools/_Both Types to HTML Entities"
 #~ msgstr "/Úpravy/Nahradit specil./O_ba typy na HTML Entity"
 
-#~ msgid "/Edit/Replace special/To _Uppercase"
+#~ msgid "/Tools/To _Uppercase"
 #~ msgstr "/Úpravy/Přepsat speciálně/Na _Velká písmena"
 
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/Úpravy/Přepsat speciálně/Na _Malá písmena"
 
 #~ msgid "/Edit/sep4"
@@ -3345,7 +3345,7 @@ msgstr ""
 #~ msgid "/Project/sep2"
 #~ msgstr "/Projekt/sep2"
 
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/Externí/tearoff1"
 
 #~ msgid "/_Help"
@@ -4993,7 +4993,7 @@ msgstr ""
 #~ msgid "Could not view file in browser."
 #~ msgstr "Nebyl nalezen soubor \"%s\"."
 
-#~ msgid "/External/Browsers"
+#~ msgid "/Tools/Browsers"
 #~ msgstr "/Externí/Prohlížeče"
 
 #~ msgid ""

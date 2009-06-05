@@ -1120,11 +1120,11 @@ msgid "Redo"
 msgstr "Gentag"
 
 #: ../src/gui.c:434
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "Skift til Venstre"
 
 #: ../src/gui.c:436
-msgid "Shift Right"
+msgid "Indent"
 msgstr "Skift til Højre"
 
 #: ../src/gui.c:443
@@ -1295,34 +1295,34 @@ msgstr "/Redigér/Erstat speciel"
 
 #: ../src/menu.c:271
 #, fuzzy
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr "/Redigér/Erstat speciel"
 
 #: ../src/menu.c:272
 #, fuzzy
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/Redigér/Erstat speciel/Til _Store bogstaver"
 
 #: ../src/menu.c:273
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/Redigér/Erstat speciel/_Begge Typer til HTML Enheder"
 
 #: ../src/menu.c:274
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/Redigér/Erstat speciel/_ASCII til HTML Enheder"
 
 #: ../src/menu.c:276
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/Redigér/Sk_ift til Højre"
 
 #: ../src/menu.c:277
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/Redigér/S_kift til Venstre"
 
 #: ../src/menu.c:279
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/Redigér/Tilføj _Bogmærke"
 
 #: ../src/menu.c:281
@@ -1410,7 +1410,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/Dokument/Karakter _Kodning"
 
 #: ../src/menu.c:313
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/Dokument/Kontroller _Stavning..."
 
 #: ../src/menu.c:315
@@ -1418,7 +1418,7 @@ msgid "/Document/_Floating window"
 msgstr "/Dokument/_Svævende vindue"
 
 #: ../src/menu.c:316
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/Dokument/Ord _Optælling"
 
 #: ../src/menu.c:318
@@ -1512,7 +1512,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/Projekt/Redigér Projekt Indstillinger..."
 
 #: ../src/menu.c:347
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/E_ksterne"
 
 #: ../src/menu.c:512
@@ -1548,21 +1548,21 @@ msgid "Operate filter only on selection?"
 msgstr ""
 
 #: ../src/menu.c:914
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/Eksterne/Uddata-box"
 
 #: ../src/menu.c:915
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/Eksterne/Kommandoer/"
 
 #: ../src/menu.c:916
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/Eksterne/Browsere/"
 
 #: ../src/menu.c:929
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/Eksterne/tearoff1"
 
 #: ../src/menu.c:949
@@ -1570,11 +1570,11 @@ msgid "/External"
 msgstr "/Eksterne"
 
 #: ../src/menu.c:951
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/Eksterne/Kommandoer"
 
 #: ../src/menu.c:983
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/Eksterne/Uddata-box"
 
 #: ../src/menu.c:1029
@@ -3523,13 +3523,13 @@ msgstr ""
 #~ msgid "/Edit/sep3"
 #~ msgstr "/Redigér/sep3"
 
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/Redigér/Erstat speciel/Tearoff1"
 
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/Redigér/Erstat speciel/_ISO8859 til HTML Enheder"
 
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/Redigér/Erstat speciel/Til _Små bogstaver"
 
 #~ msgid "/Edit/sep4"
@@ -3587,7 +3587,7 @@ msgstr ""
 #~ msgid "/Project/sep2"
 #~ msgstr "/Projekt/sep2"
 
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/Eksterne/tearoff1"
 
 #~ msgid "/_Help"
@@ -5209,7 +5209,7 @@ msgstr ""
 #~ msgid "Could not view file in browser."
 #~ msgstr "Kunne ikke læse filen \"%s\"."
 
-#~ msgid "/External/Browsers"
+#~ msgid "/Tools/Browsers"
 #~ msgstr "/Eksterne/Browsere"
 
 #~ msgid ""

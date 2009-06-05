@@ -1123,11 +1123,11 @@ msgid "Redo"
 msgstr "மறுசெயல்"
 
 #: ../src/gui.c:434
-msgid "Shift Left"
+msgid "Unindent"
 msgstr "இடப்பக்கம் தூக்கு"
 
 #: ../src/gui.c:436
-msgid "Shift Right"
+msgid "Indent"
 msgstr "வலப்பக்கம் தூக்கு"
 
 #: ../src/gui.c:443
@@ -1298,34 +1298,34 @@ msgstr "/தொகு/சிறப்பு மாற்றம்"
 
 #: ../src/menu.c:271
 #, fuzzy
-msgid "/Edit/Replace special/Block sync"
+msgid "/Tools/Block sync"
 msgstr "/தொகு/சிறப்பு மாற்றம்"
 
 #: ../src/menu.c:272
 #, fuzzy
-msgid "/Edit/Replace special/Strip trailing whitespace"
+msgid "/Tools/Strip trailing whitespace"
 msgstr "/தொகு/சிறப்பு மாற்றம்/To _Uppercase"
 
 #: ../src/menu.c:273
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to tabs"
+msgid "/Tools/Convert indenting to tabs"
 msgstr "/தொகு/சிறப்பு மாற்றம்/இரண்டு வகைகளிலிருந்து HTML தொகுப்புகள் _B"
 
 #: ../src/menu.c:274
 #, fuzzy
-msgid "/Edit/Replace special/Convert indenting to spaces"
+msgid "/Tools/Convert indenting to spaces"
 msgstr "/தொகு/சிறப்பு மாற்றம்/_ASCIIயிலிருந்து HTML தொகுப்புகள்"
 
 #: ../src/menu.c:276
-msgid "/Edit/S_hift Right"
+msgid "/Edit/_Indent"
 msgstr "/தொகு/S_hift Right"
 
 #: ../src/menu.c:277
-msgid "/Edit/Shift _Left"
+msgid "/Edit/_Unindent"
 msgstr "/தொகு/Shift _Left"
 
 #: ../src/menu.c:279
-msgid "/Edit/Add _Bookmark"
+msgid "/Document/Add _Bookmark"
 msgstr "/தொகு/புத்தகக்குறியைச் சேர் _B"
 
 #: ../src/menu.c:281
@@ -1413,7 +1413,7 @@ msgid "/Document/Character _Encoding"
 msgstr "/ஆவணம்/குறியீட்டுமுறை _E"
 
 #: ../src/menu.c:313
-msgid "/Document/Check _Spelling..."
+msgid "/Tools/Check _Spelling..."
 msgstr "/ஆவணம்/எழுத்துப்பிழை சோதி... _S"
 
 #: ../src/menu.c:315
@@ -1421,7 +1421,7 @@ msgid "/Document/_Floating window"
 msgstr "/ஆவணம்/_மிதக்கும் சாளரம்"
 
 #: ../src/menu.c:316
-msgid "/Document/Word _Count"
+msgid "/Tools/Word _Count"
 msgstr "/ஆவணம்/சொற்களின் எண்ணிக்கை"
 
 #: ../src/menu.c:318
@@ -1515,7 +1515,7 @@ msgid "/Project/E_dit Project Options..."
 msgstr "/செயல்திட்டம்/செயல்திட்ட விருப்பங்களை மாற்று_d"
 
 #: ../src/menu.c:347
-msgid "/E_xternal"
+msgid "/T_ools"
 msgstr "/_வெளியுறவு"
 
 #: ../src/menu.c:512
@@ -1550,21 +1550,21 @@ msgid "Operate filter only on selection?"
 msgstr ""
 
 #: ../src/menu.c:914
-msgid "/External/Outputbox/"
+msgid "/Tools/Outputbox/"
 msgstr "/வெளியுறவு/வெளியீட்டுப்பெட்டி/"
 
 #: ../src/menu.c:915
-msgid "/External/Commands/"
+msgid "/Tools/Commands/"
 msgstr "/வெளியுறவு/கட்டளைகள்/"
 
 #: ../src/menu.c:916
 #, fuzzy
-msgid "/External/Filters/"
+msgid "/Tools/Filters/"
 msgstr "/வெளியுறவு/மேலோடிகள்/"
 
 #: ../src/menu.c:929
 #, fuzzy
-msgid "/External/Filters"
+msgid "/Tools/Filters"
 msgstr "/வெளியுறவு/மேலோடிகள்"
 
 #: ../src/menu.c:949
@@ -1572,11 +1572,11 @@ msgid "/External"
 msgstr "/வெளியுறவு"
 
 #: ../src/menu.c:951
-msgid "/External/Commands"
+msgid "/Tools/Commands"
 msgstr "/வெளியுறவு/கட்டளைகள்"
 
 #: ../src/menu.c:983
-msgid "/External/Outputbox"
+msgid "/Tools/Outputbox"
 msgstr "/வெளியுறவு/கட்டளைப்பெட்டி"
 
 #: ../src/menu.c:1029
@@ -4225,10 +4225,10 @@ msgstr ""
 #~ "%x: நகக்கண் சித்திர அகலம்  %y: நகக்கண் சித்திர உயரம்\n"
 #~ "%b: அசல் அளவு (பைட்டுகள்)"
 
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
 #~ msgstr "/தொகு/சிறப்பு மாற்றம்/_ISO8859லிருந்து HTML தொகுப்புகள்"
 
-#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgid "/Tools/To _Lowercase"
 #~ msgstr "/தொகு/சிறப்பு மாற்றம்/To _Lowercase"
 
 #~ msgid "/View/View _HTML Toolbar"
@@ -5237,7 +5237,7 @@ msgstr ""
 #~ msgid "/Edit/sep3"
 #~ msgstr "/தொகு/sep3"
 
-#~ msgid "/Edit/Replace special/Tearoff1"
+#~ msgid "/Tools/Tearoff1"
 #~ msgstr "/தொகு/சிறப்பு மாற்றம்/Tearoff1"
 
 #~ msgid "/Edit/sep4"
@@ -5372,7 +5372,7 @@ msgstr ""
 #~ msgid "/Project/sep2"
 #~ msgstr "/செயல்திட்டம்/sep2"
 
-#~ msgid "/External/tearoff1"
+#~ msgid "/Tools/tearoff1"
 #~ msgstr "/வெளியுறவு/tearoff1"
 
 #~ msgid "/Custom menu/sep"
