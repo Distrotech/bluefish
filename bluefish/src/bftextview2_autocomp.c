@@ -135,7 +135,7 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 					backup_chars=g_array_index(btv->bflang->st->matches, Tpattern, pattern_id).autocomplete_backup_cursor;
 				}
 			}
-			
+			DBG_AUTOCOMP("acwin_check_keypress: ENTER: insert %s\n",string+strlen(ACWIN(btv->autocomp)->prefix));
 			gtk_text_buffer_insert_at_cursor(buffer,string+strlen(ACWIN(btv->autocomp)->prefix),-1);
 			if (backup_chars!=0) { 
 				GtkTextIter iter;

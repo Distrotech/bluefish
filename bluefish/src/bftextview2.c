@@ -53,7 +53,7 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 	} else {
 		guint nextcheck;
 		nextcheck = USER_IDLE_EVENT_INTERVAL - elapsed;
-		DBG_MSG
+		DBG_AUTOCOMP
 			("bftextview2_user_idle_timer, not yet elapsed (%d milliseconds idle), rechecking in %d milliseconds\n",
 			 elapsed, nextcheck);
 		btv->user_idle = g_timeout_add(nextcheck, bftextview2_user_idle_timer, btv);
@@ -63,13 +63,11 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 
 static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 {
-	gboolean need_timeout_func;
-	DBG_DELAYSCANNING("timer reset\n");
-	g_timer_start(btv->user_idle_timer);
-	need_timeout_func = ((main_v->props.autocomp_popup_mode==0&&btv->autocomp)||main_v->props.delay_full_scan);
-	if (btv->user_idle == 0 && need_timeout_func) {
+	DBG_AUTOCOMP("bftextview2_reset_user_idle_timer: timer reset\n");
+	g_timer_start(btv->user_idle_timer); /* the timer is used both for delayed scanning AND for the delayed popup */
+	if (btv->user_idle == 0 && main_v->props.autocomp_popup_mode==0 /*&&btv->autocomp*/) {
 		btv->user_idle = g_timeout_add(USER_IDLE_EVENT_INTERVAL, bftextview2_user_idle_timer, btv);
-		DBG_MSG("started user_idle timeout with event source %d and timeout %d\n", btv->user_idle,
+		DBG_AUTOCOMP("started user_idle timeout with event source %d and timeout %d\n", btv->user_idle,
 				USER_IDLE_EVENT_INTERVAL);
 	}
 }
@@ -239,6 +237,10 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 		if (BLUEFISH_TEXT_VIEW(widget)->autocomp) {
 			autocomp_stop(BLUEFISH_TEXT_VIEW(widget));
 		}
+		if (BLUEFISH_TEXT_VIEW(widget)->user_idle) {
+			g_source_remove(BLUEFISH_TEXT_VIEW(widget)->user_idle);
+			BLUEFISH_TEXT_VIEW(widget)->user_idle=0;
+		}
 		/*bftextview2_reset_user_idle_timer(BLUEFISH_TEXT_VIEW(widget));*/
 	}
 }
@@ -292,7 +294,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 {
 	GtkTextIter start;
 	gint start_offset;
-	DBG_SIGNALS("bftextview2_insert_text_lcb, stringlen=%d\n", stringlen);
+	DBG_SIGNALS("bftextview2_insert_text_after_lcb, stringlen=%d\n", stringlen);
 	if (!main_v->props.reduced_scan_triggers || stringlen > 1 || (stringlen==1 && char_in_allsymbols(btv, string[0]))) {
 		bftextview2_schedule_scanning(btv);
 	}
@@ -301,7 +303,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	gtk_text_iter_backward_chars(&start, stringlen);
 
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
-	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&start),
+	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&start),
 			gtk_text_iter_get_offset(iter));
 	start_offset = gtk_text_iter_get_offset(&start);
 	if (btv->scancache.stackcache_need_update_charoffset == -1
@@ -309,6 +311,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
 	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
+		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb: call autocomp_run\n");
 		autocomp_run(btv,FALSE);
 	}
 	bftextview2_reset_user_idle_timer(btv);
