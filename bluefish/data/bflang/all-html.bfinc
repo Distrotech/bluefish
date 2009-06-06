@@ -10,14 +10,14 @@
 <tag name="base" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="href,target" attribhighlight="html-attribute" autocomplete_append="&gt; &lt;/base&gt;" >
 	<reference>Defines a default address or a default target for all links on a page</reference>
 </tag>
-<tag name="meta" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="name,http-equiv,content,scheme,lang" attribhighlight="html-attribute" autocomplete_append=" &gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+<tag name="meta" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;,content,http-equiv,name,scheme" attribhighlight="html-attribute" autocomplete_append=" &gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<reference>Defines metadata about an HTML document</reference>
 </tag>
 <tag name="title" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;" attribhighlight="html-attribute">
 	<reference>Defines the title of a document</reference>
 </tag>
 
-<tag id="script" name="script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,language,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;&#10;&#10;&lt;/script&gt;" attribhighlight="html-attribute" autocomplete_backup_cursor="10">
+<tag id="script" name="script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,event,language,for,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;&#10;&#10;&lt;/script&gt;" attribhighlight="html-attribute" autocomplete_backup_cursor="10">
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
 	&all-javascript;
 		<element id="js:linecomment" pattern="//" highlight="js-comment">
@@ -59,25 +59,27 @@
 	</context>
 </tag>
 
-<tag name="link" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="html-attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
+<tag name="link" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;&evnt;,charset,href,hreflang,media,rel,rev,target,type" attribhighlight="html-attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
 	<reference>Defines the relationship between a document and an external resource </reference>
 </tag>
 
 <tag name="body" highlight="html-tag" case_insens="1" sgml_shorttag="1" autocomplete_append="&gt;&#10;&#10;&lt;/body&gt;" autocomplete_backup_cursor="8" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;">
 	<reference>Defines the document's body</reference>
 </tag>
+
 <group highlight="html-reference-external-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<tag name="a" case_insens="1" sgml_shorttag="1" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" >
 		<reference>The a tag inserts an anchor into a document</reference>
 	</tag>
-	<tag name="img" case_insens="1" sgml_shorttag="1" no_close="1" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; &gt;" >
+	<tag name="img" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; &gt;" >
 		<reference>The img tag inserts an image into a document</reference>
 	</tag>
 	<tag name="object" case_insens="1" sgml_shorttag="1" attributes="align,archive,border,classid,codebase,codetype,data,declare,height,hspace,name,standby,tabindex,type,usemap,vspace,width,&univ;,&i18n;,&evnt;">
 		<reference>Defines an embedded object</reference>
 	</tag>
-	<tag name="param" case_insens="1" sgml_shorttag="1" attributes="id,name,value,valuetype,type" autocomplete_append=" name=&#34;&#34; &gt;" />
+	<tag name="param" case_insens="1" sgml_shorttag="1" attributes="id,name,type,value,valuetype" autocomplete_append=" name=&#34;&#34; &gt;" />
 </group>
+
 <group highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<tag name="abbr" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines an embedded object</reference>
@@ -131,7 +133,7 @@
 		<reference>Defines a definition term</reference>
 	</tag>
 	<tag name="div" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
-		<reference>Defines a block section in a document</reference>
+		<reference>Defines a block section in a document - it provides no visual change by itself</reference>
 	</tag>
 	<tag name="dl" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,compact">
 		<reference>Defines a definition list</reference>
@@ -172,29 +174,38 @@
 	<tag name="kbd" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines keyboard text</reference>
 	</tag>
-	<tag name="li" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+	<tag name="li" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,type,value">
 		<reference>Defines a list item</reference>
 	</tag>
-	<tag name="ol" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+	<tag name="map" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,name">
+		<reference>Defines an image-map with clickable areas</reference>
+	</tag>
+	<tag name="noscript" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines alternate content for users that have scripts disabled</reference>
+	</tag>
+	<tag name="ol" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,compact,start,type">
 		<reference>Defines an ordered list</reference>
 	</tag>
-	<tag name="p" case_insens="1" sgml_shorttag="1" attributes="&univ;,&evnt;">
+	<tag name="p" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,align">
 		<reference>Defines a paragraph</reference>
 	</tag>
-	<tag name="pre" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+	<tag name="pre" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,width">
 		<reference>Defines preformatted text</reference>
 	</tag>
-	<tag name="q" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+	<tag name="q" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,cite">
 		<reference>Defines a short quotation</reference>
 	</tag>
 	<tag name="samp" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines sample computer code</reference>
 	</tag>
+	<tag name="small" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Renders as smaller text</reference>
+	</tag>
 	<tag name="span" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines a line section in a document</reference>
+		<reference>Defines an inline section of the document - it provides no visual change by itself</reference>
 	</tag>
 	<tag name="strong" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines strong text</reference>
+		<reference>Defines strong emphasized text</reference>
 	</tag>
 	<tag name="sub" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines subscripted text</reference>
@@ -202,13 +213,17 @@
 	<tag name="sup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines superscripted text</reference>
 	</tag>
-	<tag name="ul" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+	<tag name="tt" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines teletype text</reference>
+	</tag>
+	<tag name="ul" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,compact,type">
 		<reference>Defines an unordered list</reference>
 	</tag>
 	<tag name="var" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines a variable part of a text</reference>
 	</tag>			
 </group>
+
 <group highlight="html-deprecated-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<tag name="applet" case_insens="1" sgml_shorttag="1" attributes="&univ;,align,alt,archive,code,codebase,height,hspace,name,object,vspace,width">
 		<reference>Defines an embedded Java applet (<b>deprecated</b>)</reference>
@@ -225,8 +240,8 @@
 	<tag name="font" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,color,face,size">
 		<reference>Defines font face, color and size for text (<b>deprecated</b>)</reference>
 	</tag>
-	<tag name="u" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines underlined text (<b>deprecated</b>)</reference>
+	<tag name="menu" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,compact">
+		<reference>Defines a list of menu choices (<b>deprecated</b>)</reference>
 	</tag>
 	<tag name="s" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Render strike-through style text (<b>deprecated</b>)</reference>
@@ -234,7 +249,11 @@
 	<tag name="strike" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Render strike-through style text (<b>deprecated</b>)</reference>
 	</tag>
+	<tag name="u" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+		<reference>Defines underlined text (<b>deprecated</b>)</reference>
+	</tag>
 </group>
+
 <group highlight="html-deprecated-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<tag name="frame" case_insens="1" sgml_shorttag="1" attributes="&univ;,frameborder,longdesc,marginwidth,marginheight,name,noresize,scrolling,src">
 		<reference>Defines a particular window (frame) within a frameset</reference>
@@ -246,6 +265,7 @@
 		<reference>Defines an inline frame that contains another document</reference>
 	</tag>
 </group>
+
 <group highlight="html-form-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<tag name="fieldset" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines a border around elements in a form</reference>
@@ -253,7 +273,10 @@
 	<tag name="form" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accept,accept-charset,action,enctype,method,name,onreset,onsubmit,target">
 		<reference>Defines an HTML form for user input</reference>
 	</tag>
-	<tag name="input" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+	<tag name="input" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accept,accesskey,align,alt,checked,disabled,ismap,maxlength,name,onblur,onchange,onfocus,onselect,readonly,size,src,tabindex,type,usemap,value">
+		<reference>Defines an input control</reference>
+	</tag>
+	<tag name="isindex" case_insens="1" sgml_shorttag="1" attributes="class,dir,id,lang,prompt,style,title">
 		<reference>Defines an input control</reference>
 	</tag>
 	<tag name="label" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,for,onblur,onfocus">
@@ -262,19 +285,20 @@
 	<tag name="legend" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,align">
 		<reference>Defines a caption for a fieldset element</reference>
 	</tag>
-	<tag name="optgroup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,label,onselect">
+	<tag name="optgroup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,label">
 		<reference>	Defines a group of related options in a select list</reference>
 	</tag>
-	<tag name="option" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,label,selected,value,onselect">
+	<tag name="option" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,label,selected,value">
 		<reference>Defines an option in a select list</reference>
 	</tag>
-	<tag name="select" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,multiple,name,onblur,onchange,onfocus,onselect,size,tabindex">
+	<tag name="select" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,multiple,name,onblur,onchange,onfocus,size,tabindex">
 		<reference>Defines a select list (drop-down list)</reference>
 	</tag>
-	<tag name="textarea" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,cols,disabled,name,readonly,rows,tabindex,onblur,onchange,onfocus,onselect">
+	<tag name="textarea" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,cols,disabled,name,onblur,onchange,onfocus,onselect,readonly,rows,tabindex">
 		<reference>Defines a multi-line text input control</reference>
 	</tag>
 </group>
+
 <group highlight="html-table-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<tag name="table" case_insens="1" sgml_shorttag="1" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" autocomplete_append=" summary=&quot;&quot; &gt;&#10;&#10;&lt;/table&gt;" autocomplete_backup_cursor="9">
 		<reference>Defines a table</reference>
@@ -301,9 +325,11 @@
 		<reference>Groups the header content in a table</reference>
 	</tag>
 </group>
+
 <element pattern="&lt;!--" highlight="html-comment" starts_block="1">
 	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
 		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="html-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
+
 <element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="html-entity" />
