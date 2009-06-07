@@ -221,6 +221,7 @@ static gboolean run_autosave(gpointer data) {
 		return TRUE;
 	
 	if (main_v->need_autosave) {
+		all_bfwin_statusbar_message(_("Autosave in progress..."), 1);
 		main_v->autosave_progress = main_v->need_autosave;
 		main_v->need_autosave=NULL;
 		tmplist=g_list_first(main_v->autosave_progress);

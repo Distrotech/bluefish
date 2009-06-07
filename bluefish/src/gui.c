@@ -1063,18 +1063,27 @@ typedef struct {
 
 static gint statusbar_remove(gpointer sr) {
 	gtk_statusbar_remove(GTK_STATUSBAR(((Tstatusbar_remove *)sr)->bfwin->statusbar), 0, ((Tstatusbar_remove *)sr)->message_id);
-	g_free(sr);
+	g_slice_free(Tstatusbar_remove,sr);
 	return FALSE;
 }
 
-void statusbar_message(Tbfwin *bfwin,gchar *message, gint time) {
+void statusbar_message(Tbfwin *bfwin,const gchar *message, gint time) {
 	if (bfwin->statusbar) {
-		Tstatusbar_remove *sr = g_new(Tstatusbar_remove,1);
+		Tstatusbar_remove *sr = g_slice_new(Tstatusbar_remove);
 		sr->bfwin = bfwin;
 		sr->message_id = gtk_statusbar_push(GTK_STATUSBAR(bfwin->statusbar), 0, message);
-		gtk_timeout_add(time, statusbar_remove, sr);
+		/*gtk_timeout_add(time, statusbar_remove, sr);*/
+		g_timeout_add_seconds(time/1000, statusbar_remove, sr);
 	}
 }
+
+void all_bfwin_statusbar_message(const gchar *message, gint seconds) {
+	GList *tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		statusbar_message(BFWIN(tmplist->data),message, seconds*1000);
+		tmplist = g_list_next(tmplist);
+	}
+} 
 
 void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	gchar *string;
