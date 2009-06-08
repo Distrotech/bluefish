@@ -400,7 +400,7 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	ob->def->pcre_c = pcre_compile(ob->def->pattern, PCRE_UTF8,&errptr,&erroffset,NULL);
 	if (ob->def->pcre_c == NULL) {
 		gchar *tmpstr = g_strdup_printf(_("failed to compile outputbox pattern %s\n"),ob->def->pattern);
-		statusbar_message(bfwin,tmpstr,4000);
+		statusbar_message(bfwin,tmpstr,4);
 		g_free(tmpstr);
 		return;
 	}

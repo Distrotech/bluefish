@@ -603,7 +603,7 @@ void doc_change_tabsize(Tdocument *doc,gint direction) {
 		setsize += singlesize;
 	}
 	message = g_strdup_printf(_("Changed tab width to %d"), setsize/singlesize);
-	statusbar_message(BFWIN(doc->bfwin),message, 2000);
+	statusbar_message(BFWIN(doc->bfwin),message, 2);
 	g_free(message);
 	/*g_print("doc_change_tabsize, set setsize=%d\n",setsize);*/
 	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, setsize);
@@ -1500,7 +1500,7 @@ gboolean doc_file_to_textbox(Tdocument *doc, gchar *filename, gboolean enable_un
 	int document_size=0;
 	gboolean ret;
 	message = g_strconcat(_("Opening file "), filename, NULL);
-	statusbar_message(BFWIN(doc->bfwin),message, 1000);
+	statusbar_message(BFWIN(doc->bfwin),message, 1);
 	g_free(message);
 
 	buffer = get_buffer_from_filename(BFWIN(doc->bfwin), filename, &document_size);
@@ -1879,7 +1879,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 	gchar *buffer;
 	GtkTextIter itstart, itend;
 
-	if (!window_closing) statusbar_message(BFWIN(doc->bfwin),_("Saving file"), 1000);
+	if (!window_closing) statusbar_message(BFWIN(doc->bfwin),_("Saving file"), 1);
 	if (main_v->props.auto_update_meta) {
 		const gchar *realname = g_get_real_name();
 		if (realname && strlen(realname) > 0)  {
@@ -2574,7 +2574,7 @@ void doc_reload(Tdocument *doc, GFileInfo *newfinfo, gboolean warn_user) {
 	
 	DEBUG_MSG("starting reload for %p\n",doc);
 	if ((doc->uri == NULL)/* || (!file_exists_and_readable(doc->uri))*/) {
-		statusbar_message(BFWIN(doc->bfwin),_("Unable to open file"), 2000);
+		statusbar_message(BFWIN(doc->bfwin),_("Unable to open file"), 2);
 		return;
 	}
 	
@@ -2853,7 +2853,7 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 		gtk_widget_destroy(dialog);
 	}
 	if (tmpfilename == NULL) {
-		statusbar_message(bfwin,_("No file to insert"), 2000);
+		statusbar_message(bfwin,_("No file to insert"), 2);
 		return;
 	} else {
 		GFile *uri;
@@ -2989,7 +2989,7 @@ void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 	g_free(allchars);
 
 	wc_message = g_strdup_printf(_("Statistics: %d lines, %d words, %d characters"), lines, words, chars);
-	statusbar_message (bfwin,wc_message, 5000);
+	statusbar_message (bfwin,wc_message, 5);
 	g_free (wc_message);
 }
 /**
