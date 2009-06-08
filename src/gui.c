@@ -1067,20 +1067,20 @@ static gint statusbar_remove(gpointer sr) {
 	return FALSE;
 }
 
-void statusbar_message(Tbfwin *bfwin,const gchar *message, gint time) {
+void statusbar_message(Tbfwin *bfwin,const gchar *message, gint seconds) {
 	if (bfwin->statusbar) {
 		Tstatusbar_remove *sr = g_slice_new(Tstatusbar_remove);
 		sr->bfwin = bfwin;
 		sr->message_id = gtk_statusbar_push(GTK_STATUSBAR(bfwin->statusbar), 0, message);
 		/*gtk_timeout_add(time, statusbar_remove, sr);*/
-		g_timeout_add_seconds(time/1000, statusbar_remove, sr);
+		g_timeout_add_seconds(seconds, statusbar_remove, sr);
 	}
 }
 
 void all_bfwin_statusbar_message(const gchar *message, gint seconds) {
 	GList *tmplist = g_list_first(main_v->bfwinlist);
 	while (tmplist) {
-		statusbar_message(BFWIN(tmplist->data),message, seconds*1000);
+		statusbar_message(BFWIN(tmplist->data),message, seconds);
 		tmplist = g_list_next(tmplist);
 	}
 } 

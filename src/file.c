@@ -591,7 +591,7 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 			gchar *utf8uri, *tmp;
 			utf8uri = gfile_display_name(fid->uri, NULL);
 			tmp = g_strdup_printf("Loading %s", utf8uri);
-			statusbar_message(fid->doc->bfwin,tmp, 1000);
+			statusbar_message(fid->doc->bfwin,tmp, 1);
 			g_free(tmp);
 			g_free(utf8uri);
 		}
@@ -702,7 +702,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,g
 					} else {
 						tmp = g_strdup_printf(_("All files loaded, finished %s"), utf8uri);
 					}
-					statusbar_message(f2d->doc->bfwin,tmp, 3000);
+					statusbar_message(f2d->doc->bfwin,tmp, 3);
 					g_free(tmp);
 					g_free(utf8uri);
 				}
@@ -896,7 +896,7 @@ static void openadv_unref(Topenadv *oa) {
 		tmp = g_strdup_printf(ngettext("%d document open.","%d documents open.",g_list_length(oa->bfwin->documentlist)),
 				g_list_length(oa->bfwin->documentlist));
 		tmp2 = g_strconcat("Advanced open: Finished searching files. ",tmp,NULL);
-		statusbar_message(oa->bfwin, tmp2, 4000);
+		statusbar_message(oa->bfwin, tmp2, 4);
 #ifdef LOAD_TIMER
 		g_print("%f ms, %s\n",g_timer_elapsed(oa->timer,NULL), tmp2);
 		g_timer_destroy(oa->timer);
