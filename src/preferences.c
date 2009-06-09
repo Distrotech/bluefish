@@ -34,6 +34,7 @@
 #include "menu.h"
 #include "pixmap.h"
 #include "rcfile.h"
+#include "file_autosave.h"
 #include "stringlist.h"    /* duplicate_arraylist*/
 
 enum {
@@ -105,6 +106,8 @@ enum {
 	main_window_h,
 	main_window_w,
 	default_mime_type,
+	autosave,
+	autosave_time,
 	property_num_max
 };
 
@@ -1352,6 +1355,10 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.backup_prefix, pd->prefs[backup_prefix]);*/
 	main_v->props.backup_abort_action = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[backup_abort_action]));
 	integer_apply(&main_v->props.backup_cleanuponclose, pd->prefs[backup_cleanuponclose], TRUE);
+	
+	integer_apply(&main_v->props.autosave, pd->prefs[autosave], TRUE);
+	integer_apply(&main_v->props.autosave_time, pd->prefs[autosave_time], FALSE);
+	
 	integer_apply(&main_v->props.num_undo_levels, pd->prefs[num_undo_levels], FALSE);
 	integer_apply(&main_v->props.clear_undo_on_save, pd->prefs[clear_undo_on_save], TRUE);
 #ifdef WITH_MSG_QUEUE
@@ -1408,6 +1415,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	langmgr_reload_user_styles();
 	langmgr_reload_user_highlights();
 	modified_on_disk_check_init();
+	autosave_init(FALSE, NULL);
 	all_documents_apply_settings();
 	{
 		GList *tmplist = g_list_first(main_v->bfwinlist);
@@ -1615,7 +1623,7 @@ static void preferences_dialog() {
 
 	pd->prefs[auto_set_encoding_meta] = boxed_checkbut_with_value(_("Auto set <meta> HTML tag on encoding change"), main_v->props.auto_set_encoding_meta, vbox2);
 
-	frame = gtk_frame_new(_("Backup"));
+	frame = gtk_frame_new(_("Backup files and recovery of modified documents"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
@@ -1627,6 +1635,9 @@ static void preferences_dialog() {
 	pd->prefs[backup_cleanuponclose] = boxed_checkbut_with_value(_("Remove backup file on close"), main_v->props.backup_cleanuponclose, vbox2);
 	create_backup_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[backup_file]), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[backup_file]), "toggled", G_CALLBACK(create_backup_toggled_lcb), pd);
+	
+	pd->prefs[autosave] = boxed_checkbut_with_value(_("Enable recovery of modified documents"), main_v->props.autosave, vbox2);
+	pd->prefs[autosave_time] = prefs_integer(_("Frequency to store changes (seconds)"), main_v->props.autosave_time, vbox2, pd, 10, 600);
 
 	frame = gtk_frame_new(_("Misc"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
