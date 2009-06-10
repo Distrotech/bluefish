@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-04-16 20:38+0200\n"
+"POT-Creation-Date: 2009-06-10 22:04+0200\n"
 "PO-Revision-Date: 2004-05-25 12:59+0200\n"
 "Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
@@ -16,81 +16,85 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.2\n"
 
-#: src/plugin_entities/entities.c:412
+#: src/plugin_entities/entities.c:442
 msgid "Characters to entities"
 msgstr ""
 
-#: src/plugin_entities/entities.c:412
+#: src/plugin_entities/entities.c:442
 #, fuzzy
 msgid "Entities to characters"
 msgstr "Karaktere-joko lehenetsia"
 
-#: src/plugin_entities/entities.c:425
+#: src/plugin_entities/entities.c:455
 #, fuzzy
 msgid "In current document"
 msgstr "uneko dokumentuan"
 
-#: src/plugin_entities/entities.c:426
+#: src/plugin_entities/entities.c:456
 #, fuzzy
 msgid "In selection"
 msgstr "_Hautapenean"
 
-#: src/plugin_entities/entities.c:427
+#: src/plugin_entities/entities.c:457
 #, fuzzy
 msgid "In all documents"
 msgstr "irekitako dokumentu guztietan"
 
-#: src/plugin_entities/entities.c:428
+#: src/plugin_entities/entities.c:458
 #, fuzzy
 msgid "Sco_pe:"
 msgstr "_Mota:"
 
-#: src/plugin_entities/entities.c:432
-msgid "Convert numerical characters"
+#: src/plugin_entities/entities.c:462
+msgid "Convert numerical encoded characters &#99;"
 msgstr ""
 
-#: src/plugin_entities/entities.c:439
+#: src/plugin_entities/entities.c:469
 msgid "Convert _iso-8859-1 characters"
 msgstr ""
 
-#: src/plugin_entities/entities.c:443
+#: src/plugin_entities/entities.c:473
 msgid "Convert _symbol characters"
 msgstr ""
 
-#: src/plugin_entities/entities.c:447
+#: src/plugin_entities/entities.c:477
 msgid "Convert spe_cial characters"
 msgstr ""
 
-#: src/plugin_entities/entities.c:451
-msgid "Convert _xml characters <>&"
+#: src/plugin_entities/entities.c:481
+msgid "Convert _XML characters < > & \" '"
 msgstr ""
 
-#: src/plugin_entities/entities.c:514
+#: src/plugin_entities/entities.c:549
+msgid "/Tools/sepent"
+msgstr ""
+
+#: src/plugin_entities/entities.c:550
 #, fuzzy
 msgid "/Tools/Entities to characters"
 msgstr "/Editatu/Ordeztu berezia/_Maiuskulak"
 
-#: src/plugin_entities/entities.c:515
+#: src/plugin_entities/entities.c:551
 #, fuzzy
 msgid "/Tools/Characters to entities"
 msgstr "/Editatu/Ordeztu berezia/_Bi motak -> HTML entitateak"
 
-#: src/plugin_entities/entities.c:516
+#: src/plugin_entities/entities.c:552
 #, fuzzy
 msgid "/Tools/URL encode selection"
 msgstr "/Editatu/Ordeztu berezia/_Maiuskulak"
 
-#: src/plugin_entities/entities.c:517
+#: src/plugin_entities/entities.c:553
 #, fuzzy
 msgid "/Tools/URL decode selection"
 msgstr "/Editatu/Ordeztu berezia/_Maiuskulak"
 
-#: src/plugin_entities/entities.c:518
+#: src/plugin_entities/entities.c:554
 #, fuzzy
 msgid "/Tools/To Lowercase"
 msgstr "/Editatu/Ordeztu berezia/_Maiuskulak"
 
-#: src/plugin_entities/entities.c:519
+#: src/plugin_entities/entities.c:555
 #, fuzzy
 msgid "/Tools/To Uppercase"
 msgstr "/Editatu/Ordeztu berezia/_Maiuskulak"

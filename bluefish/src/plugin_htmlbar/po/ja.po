@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-04-16 20:38+0200\n"
+"POT-Creation-Date: 2009-06-10 22:04+0200\n"
 "PO-Revision-Date: 2009-05-17 16:18+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
@@ -52,10 +52,8 @@ msgstr "セレクタ(_S):"
 msgid "_Property:"
 msgstr "プロパティ(_P):"
 
-#: src/plugin_htmlbar/html2.c:678
-#: src/plugin_htmlbar/html_form.c:650
-#: src/plugin_htmlbar/html_form.c:799
-#: src/plugin_htmlbar/html_form.c:894
+#: src/plugin_htmlbar/html2.c:678 src/plugin_htmlbar/html_form.c:650
+#: src/plugin_htmlbar/html_form.c:799 src/plugin_htmlbar/html_form.c:894
 msgid "_Value:"
 msgstr "値(_V):"
 
@@ -63,13 +61,11 @@ msgstr "値(_V):"
 msgid "Selector"
 msgstr "セレクタ"
 
-#: src/plugin_htmlbar/html2.c:696
-#: src/plugin_htmlbar/html2.c:699
+#: src/plugin_htmlbar/html2.c:696 src/plugin_htmlbar/html2.c:699
 msgid "Property"
 msgstr "プロパティ"
 
-#: src/plugin_htmlbar/html2.c:696
-#: src/plugin_htmlbar/html2.c:699
+#: src/plugin_htmlbar/html2.c:696 src/plugin_htmlbar/html2.c:699
 msgid "Value"
 msgstr "値"
 
@@ -85,8 +81,7 @@ msgstr " 更新(_U) "
 msgid " _Delete "
 msgstr " 削除(_D) "
 
-#: src/plugin_htmlbar/html2.c:973
-#: src/plugin_htmlbar/html2.c:1010
+#: src/plugin_htmlbar/html2.c:973 src/plugin_htmlbar/html2.c:1010
 msgid "_Style..."
 msgstr "スタイルシート(_S)..."
 
@@ -1014,8 +1009,7 @@ msgstr "ボールド"
 msgid "Italic"
 msgstr "イタリック"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:739
-#: src/plugin_htmlbar/html.c:777
+#: src/plugin_htmlbar/htmlbar_gui.c:739 src/plugin_htmlbar/html.c:777
 msgid "Paragraph"
 msgstr "パラグラフ"
 
@@ -1094,33 +1088,27 @@ msgid "Emphasis"
 msgstr "強調"
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:761
-#: src/plugin_htmlbar/html.c:786
+#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:786
 msgid "Heading 1"
 msgstr "見出し1"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:762
-#: src/plugin_htmlbar/html.c:789
+#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:789
 msgid "Heading 2"
 msgstr "見出し2"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:763
-#: src/plugin_htmlbar/html.c:792
+#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:792
 msgid "Heading 3"
 msgstr "見出し3"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:764
-#: src/plugin_htmlbar/html.c:795
+#: src/plugin_htmlbar/htmlbar_gui.c:764 src/plugin_htmlbar/html.c:795
 msgid "Heading 4"
 msgstr "見出し4"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:765
-#: src/plugin_htmlbar/html.c:798
+#: src/plugin_htmlbar/htmlbar_gui.c:765 src/plugin_htmlbar/html.c:798
 msgid "Heading 5"
 msgstr "見出し5"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:766
-#: src/plugin_htmlbar/html.c:801
+#: src/plugin_htmlbar/htmlbar_gui.c:766 src/plugin_htmlbar/html.c:801
 msgid "Heading 6"
 msgstr "見出し6"
 
@@ -1146,23 +1134,19 @@ msgid "Table Data..."
 msgstr "データセル..."
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:774
-#: src/plugin_htmlbar/html_table.c:77
+#: src/plugin_htmlbar/htmlbar_gui.c:774 src/plugin_htmlbar/html_table.c:77
 msgid "Table"
 msgstr "テーブル"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:775
-#: src/plugin_htmlbar/html_table.c:209
+#: src/plugin_htmlbar/htmlbar_gui.c:775 src/plugin_htmlbar/html_table.c:209
 msgid "Table Row"
 msgstr "行"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:776
-#: src/plugin_htmlbar/html_table.c:320
+#: src/plugin_htmlbar/htmlbar_gui.c:776 src/plugin_htmlbar/html_table.c:320
 msgid "Table Header"
 msgstr "ヘッダセル"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:777
-#: src/plugin_htmlbar/html_table.c:318
+#: src/plugin_htmlbar/htmlbar_gui.c:777 src/plugin_htmlbar/html_table.c:318
 msgid "Table Data"
 msgstr "データセル"
 
@@ -1184,13 +1168,11 @@ msgid "Frame..."
 msgstr "フレーム..."
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:784
-#: src/plugin_htmlbar/html.c:1565
+#: src/plugin_htmlbar/htmlbar_gui.c:784 src/plugin_htmlbar/html.c:1565
 msgid "Frameset"
 msgstr "フレームセット"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:785
-#: src/plugin_htmlbar/html.c:1649
+#: src/plugin_htmlbar/htmlbar_gui.c:785 src/plugin_htmlbar/html.c:1649
 msgid "Frame"
 msgstr "フレーム"
 
@@ -1270,8 +1252,7 @@ msgstr "定義リスト"
 msgid "Definition Term"
 msgstr "定義語"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:805
-#: src/plugin_htmlbar/htmlbar_gui.c:814
+#: src/plugin_htmlbar/htmlbar_gui.c:805 src/plugin_htmlbar/htmlbar_gui.c:814
 msgid "Definition"
 msgstr "定義説明"
 
@@ -1287,8 +1268,7 @@ msgstr "SPAN..."
 msgid "Div..."
 msgstr "Div..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:809
-#: src/plugin_htmlbar/html_form.c:825
+#: src/plugin_htmlbar/htmlbar_gui.c:809 src/plugin_htmlbar/html_form.c:825
 msgid "Style"
 msgstr "スタイルシート"
 
@@ -1457,62 +1437,44 @@ msgstr "  ISO-8601 形式時刻(_M) (%s) "
 msgid "Quick Anchor"
 msgstr "クイック・アンカー"
 
-#: src/plugin_htmlbar/html.c:591
-#: src/plugin_htmlbar/html_form.c:780
+#: src/plugin_htmlbar/html.c:591 src/plugin_htmlbar/html_form.c:780
 msgid "Attributes"
 msgstr "属性値"
 
-#: src/plugin_htmlbar/html.c:605
-#: src/plugin_htmlbar/html.c:1893
+#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1893
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:609
-#: src/plugin_htmlbar/html_form.c:183
+#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/html_form.c:183
 msgid "_Target:"
 msgstr "ターゲット(_T):"
 
-#: src/plugin_htmlbar/html.c:613
-#: src/plugin_htmlbar/html.c:833
-#: src/plugin_htmlbar/html.c:1198
-#: src/plugin_htmlbar/html.c:1661
-#: src/plugin_htmlbar/html_form.c:231
-#: src/plugin_htmlbar/html_form.c:596
-#: src/plugin_htmlbar/html_form.c:795
-#: src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:467
+#: src/plugin_htmlbar/html.c:613 src/plugin_htmlbar/html.c:833
+#: src/plugin_htmlbar/html.c:1198 src/plugin_htmlbar/html.c:1661
+#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
+#: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
+#: src/plugin_htmlbar/image.c:466
 msgid "_Name:"
 msgstr "名前(_N):"
 
-#: src/plugin_htmlbar/html.c:619
-#: src/plugin_htmlbar/html.c:1066
-#: src/plugin_htmlbar/html.c:1216
-#: src/plugin_htmlbar/html.c:1808
+#: src/plugin_htmlbar/html.c:619 src/plugin_htmlbar/html.c:1066
+#: src/plugin_htmlbar/html.c:1216 src/plugin_htmlbar/html.c:1808
 msgid "_Language:"
 msgstr "言語(_L):"
 
-#: src/plugin_htmlbar/html.c:623
-#: src/plugin_htmlbar/html.c:841
-#: src/plugin_htmlbar/html.c:975
-#: src/plugin_htmlbar/html.c:1070
-#: src/plugin_htmlbar/html.c:1224
-#: src/plugin_htmlbar/html.c:1597
-#: src/plugin_htmlbar/html.c:1698
-#: src/plugin_htmlbar/html.c:1827
-#: src/plugin_htmlbar/html_form.c:187
-#: src/plugin_htmlbar/html_form.c:243
-#: src/plugin_htmlbar/html_form.c:609
-#: src/plugin_htmlbar/html_form.c:903
-#: src/plugin_htmlbar/html_table.c:101
-#: src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361
-#: src/plugin_htmlbar/image.c:475
+#: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:841
+#: src/plugin_htmlbar/html.c:975 src/plugin_htmlbar/html.c:1070
+#: src/plugin_htmlbar/html.c:1224 src/plugin_htmlbar/html.c:1597
+#: src/plugin_htmlbar/html.c:1698 src/plugin_htmlbar/html.c:1827
+#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
+#: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
+#: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
 #: src/plugin_htmlbar/image_dialog.c:409
 msgid "Custo_m:"
 msgstr "カスタム(_M):"
 
-#: src/plugin_htmlbar/html.c:626
-#: src/plugin_htmlbar/html.c:1074
+#: src/plugin_htmlbar/html.c:626 src/plugin_htmlbar/html.c:1074
 #: src/plugin_htmlbar/html_form.c:829
 msgid "Events"
 msgstr "イベント"
@@ -1565,34 +1527,25 @@ msgstr "DIV"
 msgid "Span"
 msgstr "SPAN"
 
-#: src/plugin_htmlbar/html.c:818
-#: src/plugin_htmlbar/html_table.c:109
-#: src/plugin_htmlbar/html_table.c:219
-#: src/plugin_htmlbar/html_table.c:333
+#: src/plugin_htmlbar/html.c:818 src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
 msgid "Ali_gn:"
 msgstr "配置(_G):"
 
-#: src/plugin_htmlbar/html.c:822
-#: src/plugin_htmlbar/html.c:1058
-#: src/plugin_htmlbar/html_diag.c:373
-#: src/plugin_htmlbar/html_table.c:91
-#: src/plugin_htmlbar/html_table.c:237
-#: src/plugin_htmlbar/html_table.c:351
+#: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
+#: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
 #: src/plugin_htmlbar/image_dialog.c:397
 msgid "Cl_ass:"
 msgstr "Cla_ss:"
 
-#: src/plugin_htmlbar/html.c:826
-#: src/plugin_htmlbar/html.c:1051
-#: src/plugin_htmlbar/html_diag.c:381
-#: src/plugin_htmlbar/html_table.c:96
-#: src/plugin_htmlbar/html_table.c:248
-#: src/plugin_htmlbar/html_table.c:356
+#: src/plugin_htmlbar/html.c:826 src/plugin_htmlbar/html.c:1051
+#: src/plugin_htmlbar/html_diag.c:381 src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
 msgid "St_yle:"
 msgstr "スタイルシート(_Y):"
 
-#: src/plugin_htmlbar/html.c:837
-#: src/plugin_htmlbar/html.c:1062
+#: src/plugin_htmlbar/html.c:837 src/plugin_htmlbar/html.c:1062
 #: src/plugin_htmlbar/html_diag.c:377
 msgid "_ID:"
 msgstr "_ID:"
@@ -1601,27 +1554,20 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "水平線"
 
-#: src/plugin_htmlbar/html.c:949
-#: src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:493
-#: src/plugin_htmlbar/image_dialog.c:430
+#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Align:"
 msgstr "配置(_A):"
 
-#: src/plugin_htmlbar/html.c:956
-#: src/plugin_htmlbar/html.c:1754
-#: src/plugin_htmlbar/html_table.c:387
-#: src/plugin_htmlbar/image_dialog.c:371
+#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:371
 msgid "_Height:"
 msgstr "高さ(_H):"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:962
-#: src/plugin_htmlbar/html.c:1750
-#: src/plugin_htmlbar/html_table.c:134
-#: src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:451
-#: src/plugin_htmlbar/image_dialog.c:362
+#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
+#: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:362
 msgid "_Width:"
 msgstr "幅(_W):"
 
@@ -1745,8 +1691,7 @@ msgstr "本文(_B):"
 msgid "Quick List"
 msgstr "クイック・リスト"
 
-#: src/plugin_htmlbar/html.c:1493
-#: src/plugin_htmlbar/html.c:1575
+#: src/plugin_htmlbar/html.c:1493 src/plugin_htmlbar/html.c:1575
 #: src/plugin_htmlbar/html_form.c:236
 msgid "_Rows:"
 msgstr "行(_R):"
@@ -1763,8 +1708,7 @@ msgstr "順序なし(_U)"
 msgid "Style:"
 msgstr "スタイルシート:"
 
-#: src/plugin_htmlbar/html.c:1571
-#: src/plugin_htmlbar/html_form.c:240
+#: src/plugin_htmlbar/html.c:1571 src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
 msgstr "列(_L):"
 
@@ -1772,10 +1716,8 @@ msgstr "列(_L):"
 msgid "_Add <frame> elements"
 msgstr "<frame>要素を追加(_A)"
 
-#: src/plugin_htmlbar/html.c:1657
-#: src/plugin_htmlbar/html.c:1742
-#: src/plugin_htmlbar/html.c:1801
-#: src/plugin_htmlbar/image_dialog.c:321
+#: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
+#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:321
 msgid "_Source:"
 msgstr "ソース(_S):"
 
@@ -1803,8 +1745,7 @@ msgstr "サイズ変更禁止(_R):"
 msgid "Embed"
 msgstr "埋め込み"
 
-#: src/plugin_htmlbar/html.c:1758
-#: src/plugin_htmlbar/html_table.c:140
+#: src/plugin_htmlbar/html.c:1758 src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
 msgstr "ボーダー(_R):"
 
@@ -1812,10 +1753,8 @@ msgstr "ボーダー(_R):"
 msgid "Script"
 msgstr "スクリプト"
 
-#: src/plugin_htmlbar/html.c:1823
-#: src/plugin_htmlbar/html.c:1924
-#: src/plugin_htmlbar/html_form.c:789
-#: src/plugin_htmlbar/html_form.c:899
+#: src/plugin_htmlbar/html.c:1823 src/plugin_htmlbar/html.c:1924
+#: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
 msgstr "種類(_T):"
 
@@ -1875,8 +1814,7 @@ msgstr "複数行テキスト"
 msgid "Select"
 msgstr "選択メニュー"
 
-#: src/plugin_htmlbar/html_form.c:601
-#: src/plugin_htmlbar/html_form.c:808
+#: src/plugin_htmlbar/html_form.c:601 src/plugin_htmlbar/html_form.c:808
 msgid "Si_ze:"
 msgstr "サイズ(_Z)"
 
@@ -1888,8 +1826,7 @@ msgstr "複数選択可(_S):"
 msgid "Option"
 msgstr "選択メニュー項目"
 
-#: src/plugin_htmlbar/html_form.c:654
-#: src/plugin_htmlbar/html_form.c:697
+#: src/plugin_htmlbar/html_form.c:654 src/plugin_htmlbar/html_form.c:697
 msgid "_Label:"
 msgstr "ラベル(_L):"
 
@@ -1949,14 +1886,12 @@ msgstr "セルとデータの間隔(_P):"
 msgid "C_ell Spacing:"
 msgstr "セル間の間隔(_E):"
 
-#: src/plugin_htmlbar/html_table.c:123
-#: src/plugin_htmlbar/html_table.c:233
+#: src/plugin_htmlbar/html_table.c:123 src/plugin_htmlbar/html_table.c:233
 #: src/plugin_htmlbar/html_table.c:347
 msgid "_Valign:"
 msgstr "縦の配置(_V):"
 
-#: src/plugin_htmlbar/html_table.c:128
-#: src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
 #: src/plugin_htmlbar/html_table.c:392
 msgid "Backgrou_nd Color:"
 msgstr "背景色(_N):"
@@ -1981,98 +1916,92 @@ msgstr "縦にセルを結合(_R):"
 msgid "No Wra_p:"
 msgstr "文字を折り返さない(_P):"
 
-#: src/plugin_htmlbar/image.c:288
+#: src/plugin_htmlbar/image.c:287
 msgid "Loading image failed..."
 msgstr "画像の読み込みに失敗しました..."
 
-#: src/plugin_htmlbar/image.c:360
+#: src/plugin_htmlbar/image.c:359
 #, c-format
 msgid "Loading file %s..."
 msgstr "ファイル %s を読み込み中..."
 
-#: src/plugin_htmlbar/image.c:412
+#: src/plugin_htmlbar/image.c:411
 msgid "Insert thumbnail"
 msgstr "サムネイルでイメージを挿入"
 
-#: src/plugin_htmlbar/image.c:414
+#: src/plugin_htmlbar/image.c:413
 msgid "Insert image"
 msgstr "画像を挿入"
 
-#: src/plugin_htmlbar/image.c:420
-#: src/plugin_htmlbar/image_dialog.c:341
+#: src/plugin_htmlbar/image.c:419 src/plugin_htmlbar/image_dialog.c:341
 msgid "Preview"
 msgstr "プレビュー"
 
-#: src/plugin_htmlbar/image.c:442
+#: src/plugin_htmlbar/image.c:441
 msgid "_Image location:"
 msgstr "画像のある場所(_I):"
 
-#: src/plugin_htmlbar/image.c:458
+#: src/plugin_htmlbar/image.c:457
 msgid "Hei_ght:"
 msgstr "高さ(_G):"
 
-#: src/plugin_htmlbar/image.c:463
-#: src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr "map利用(_U):"
 
-#: src/plugin_htmlbar/image.c:471
+#: src/plugin_htmlbar/image.c:470
 msgid "Alternate _text:"
 msgstr "代替テキスト(_T):"
 
-#: src/plugin_htmlbar/image.c:479
-#: src/plugin_htmlbar/image_dialog.c:439
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:439
 msgid "_Hspace:"
 msgstr "横方向スペース(_H):"
 
-#: src/plugin_htmlbar/image.c:483
-#: src/plugin_htmlbar/image_dialog.c:443
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:443
 msgid "_Vspace:"
 msgstr "縦方向スペース(_V):"
 
-#: src/plugin_htmlbar/image.c:497
+#: src/plugin_htmlbar/image.c:496
 msgid "Borde_r:"
 msgstr "ボーダー(_R):"
 
-#: src/plugin_htmlbar/image.c:880
+#: src/plugin_htmlbar/image.c:879
 msgid "Select files for thumbnail creation"
 msgstr "サムネイルを作成するファイルの選択"
 
-#: src/plugin_htmlbar/image.c:915
+#: src/plugin_htmlbar/image.c:914
 msgid "Scaling (%)"
 msgstr "倍率 (%)"
 
-#: src/plugin_htmlbar/image.c:919
-#: src/plugin_htmlbar/image.c:927
+#: src/plugin_htmlbar/image.c:918 src/plugin_htmlbar/image.c:926
 msgid "Width"
 msgstr "幅"
 
-#: src/plugin_htmlbar/image.c:923
-#: src/plugin_htmlbar/image.c:955
+#: src/plugin_htmlbar/image.c:922 src/plugin_htmlbar/image.c:954
 msgid "Height"
 msgstr "高さ"
 
-#: src/plugin_htmlbar/image.c:944
+#: src/plugin_htmlbar/image.c:943
 msgid "Multi thumbnail"
 msgstr "複数のサムネイル"
 
-#: src/plugin_htmlbar/image.c:950
+#: src/plugin_htmlbar/image.c:949
 msgid "By scaling"
 msgstr "倍率を指定する"
 
-#: src/plugin_htmlbar/image.c:951
+#: src/plugin_htmlbar/image.c:950
 msgid "By width, keep aspect ratio"
 msgstr "幅を指定して縦横比を保持する"
 
-#: src/plugin_htmlbar/image.c:952
+#: src/plugin_htmlbar/image.c:951
 msgid "By height, keep aspect ratio"
 msgstr "高さを指定して縦横比を保持する"
 
-#: src/plugin_htmlbar/image.c:953
+#: src/plugin_htmlbar/image.c:952
 msgid "By width and height, ignore aspect ratio"
 msgstr "幅と高さを指定して縦横比を無視する"
 
-#: src/plugin_htmlbar/image.c:977
+#: src/plugin_htmlbar/image.c:976
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2207,8 +2136,7 @@ msgstr "クイック・スタート"
 msgid "_DTD:"
 msgstr "_DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:642
-#: src/plugin_htmlbar/wizards.c:186
+#: src/plugin_htmlbar/quickstart.c:642 src/plugin_htmlbar/wizards.c:186
 msgid "_Title:"
 msgstr "タイトル(_T):"
 
@@ -2287,4 +2215,3 @@ msgstr "サイズ:"
 #, fuzzy
 #~ msgid "Transitional"
 #~ msgstr "Transitional"
-

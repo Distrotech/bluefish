@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru.po\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-04-16 20:38+0200\n"
+"POT-Creation-Date: 2009-06-10 22:04+0200\n"
 "PO-Revision-Date: 2004-12-02 10:42+0300\n"
 "Last-Translator: Eugene Rupakov <taurus_1@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
@@ -1459,7 +1459,7 @@ msgstr "_Цель:"
 #: src/plugin_htmlbar/html.c:1198 src/plugin_htmlbar/html.c:1661
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:467
+#: src/plugin_htmlbar/image.c:466
 msgid "_Name:"
 msgstr "_Имя:"
 
@@ -1475,7 +1475,7 @@ msgstr "_Язык:"
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:475
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
 #: src/plugin_htmlbar/image_dialog.c:409
 msgid "Custo_m:"
 msgstr "Про_чее:"
@@ -1561,7 +1561,7 @@ msgid "Horizontal Rule"
 msgstr "Горизонтальный разделитель"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:493 src/plugin_htmlbar/image_dialog.c:430
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Align:"
 msgstr "В_ыравнивание"
 
@@ -1573,7 +1573,7 @@ msgstr "Вы_сота:"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:451 src/plugin_htmlbar/image_dialog.c:362
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:362
 msgid "_Width:"
 msgstr "_Ширина:"
 
@@ -1926,93 +1926,93 @@ msgstr "Расстояние между ст_роками:"
 msgid "No Wra_p:"
 msgstr "Не _переносить слова:"
 
-#: src/plugin_htmlbar/image.c:288
+#: src/plugin_htmlbar/image.c:287
 #, fuzzy
 msgid "Loading image failed..."
 msgstr "Загрузка файлов..."
 
-#: src/plugin_htmlbar/image.c:360
+#: src/plugin_htmlbar/image.c:359
 #, fuzzy, c-format
 msgid "Loading file %s..."
 msgstr "Загрузка файлов..."
 
-#: src/plugin_htmlbar/image.c:412
+#: src/plugin_htmlbar/image.c:411
 msgid "Insert thumbnail"
 msgstr "Вставить эскиз"
 
-#: src/plugin_htmlbar/image.c:414
+#: src/plugin_htmlbar/image.c:413
 msgid "Insert image"
 msgstr "Вставить изображение"
 
-#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:341
+#: src/plugin_htmlbar/image.c:419 src/plugin_htmlbar/image_dialog.c:341
 msgid "Preview"
 msgstr "Просмотр"
 
-#: src/plugin_htmlbar/image.c:442
+#: src/plugin_htmlbar/image.c:441
 msgid "_Image location:"
 msgstr "Ссылка на _изображение:"
 
-#: src/plugin_htmlbar/image.c:458
+#: src/plugin_htmlbar/image.c:457
 msgid "Hei_ght:"
 msgstr "В_ысота:"
 
-#: src/plugin_htmlbar/image.c:463 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
-#: src/plugin_htmlbar/image.c:471
+#: src/plugin_htmlbar/image.c:470
 msgid "Alternate _text:"
 msgstr "Альтернативный _текст:"
 
-#: src/plugin_htmlbar/image.c:479 src/plugin_htmlbar/image_dialog.c:439
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:439
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: src/plugin_htmlbar/image.c:483 src/plugin_htmlbar/image_dialog.c:443
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:443
 msgid "_Vspace:"
 msgstr "_Vspace:"
 
-#: src/plugin_htmlbar/image.c:497
+#: src/plugin_htmlbar/image.c:496
 msgid "Borde_r:"
 msgstr "_Рамка:"
 
-#: src/plugin_htmlbar/image.c:880
+#: src/plugin_htmlbar/image.c:879
 msgid "Select files for thumbnail creation"
 msgstr "Выберите файлы для которых следует создать эскизы"
 
-#: src/plugin_htmlbar/image.c:915
+#: src/plugin_htmlbar/image.c:914
 msgid "Scaling (%)"
 msgstr "Масштабирование (%)"
 
-#: src/plugin_htmlbar/image.c:919 src/plugin_htmlbar/image.c:927
+#: src/plugin_htmlbar/image.c:918 src/plugin_htmlbar/image.c:926
 msgid "Width"
 msgstr "Ширина"
 
-#: src/plugin_htmlbar/image.c:923 src/plugin_htmlbar/image.c:955
+#: src/plugin_htmlbar/image.c:922 src/plugin_htmlbar/image.c:954
 msgid "Height"
 msgstr "Высота"
 
-#: src/plugin_htmlbar/image.c:944
+#: src/plugin_htmlbar/image.c:943
 msgid "Multi thumbnail"
 msgstr "Альбом эскизов"
 
-#: src/plugin_htmlbar/image.c:950
+#: src/plugin_htmlbar/image.c:949
 msgid "By scaling"
 msgstr "По масштабу"
 
-#: src/plugin_htmlbar/image.c:951
+#: src/plugin_htmlbar/image.c:950
 msgid "By width, keep aspect ratio"
 msgstr "По ширине, сохранять пропорции"
 
-#: src/plugin_htmlbar/image.c:952
+#: src/plugin_htmlbar/image.c:951
 msgid "By height, keep aspect ratio"
 msgstr "По высоте, сохранять пропорции"
 
-#: src/plugin_htmlbar/image.c:953
+#: src/plugin_htmlbar/image.c:952
 msgid "By width and height, ignore aspect ratio"
 msgstr "По ширине и высоте, игнорировать пропорцию"
 
-#: src/plugin_htmlbar/image.c:977
+#: src/plugin_htmlbar/image.c:976
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"

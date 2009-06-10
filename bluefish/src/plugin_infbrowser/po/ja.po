@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-04-16 20:38+0200\n"
+"POT-Creation-Date: 2009-06-10 22:04+0200\n"
 "PO-Revision-Date: 2009-05-17 17:02+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
@@ -21,8 +21,7 @@ msgstr ""
 msgid "Loading..."
 msgstr "読み込み中..."
 
-#: src/plugin_infbrowser/infb_gui.c:148
-#: src/plugin_infbrowser/infb_gui.c:208
+#: src/plugin_infbrowser/infb_gui.c:148 src/plugin_infbrowser/infb_gui.c:208
 msgid "Cannot load file from network"
 msgstr "ネットワークからファイルを読み込むことができません"
 
@@ -38,8 +37,7 @@ msgstr "保存しました"
 msgid "Cannot open file"
 msgstr "ファイルを開けません"
 
-#: src/plugin_infbrowser/infb_gui.c:458
-#: src/plugin_infbrowser/infb_gui.c:496
+#: src/plugin_infbrowser/infb_gui.c:458 src/plugin_infbrowser/infb_gui.c:496
 msgid "Nothing found"
 msgstr "何も見つかりません"
 
@@ -128,4 +126,3 @@ msgstr "新規 info 項目"
 #: src/plugin_infbrowser/infb_wizard.c:418
 msgid "Entries you can delete"
 msgstr "削除できる項目"
-
