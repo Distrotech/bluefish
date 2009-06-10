@@ -470,7 +470,7 @@ static void fb2_enumerate_next_files_lcb(GObject * source_object, GAsyncResult *
 	DEBUG_MSG("fb2_enumerate_next_files_lcb, started for uir %p\n", uir);
 	list = g_file_enumerator_next_files_finish(uir->gfe, res, &error);
 	if (error) {
-		g_print("ERROR: unhandled error %d in fb2_enumerate_next_files_lcb()\n", error->code);
+		g_warning("ERROR: unhandled error %d in fb2_enumerate_next_files_lcb(): %s\n", error->code, error->message);
 		return;
 	}
 #ifdef DEBUG
@@ -518,11 +518,16 @@ static void fb2_enumerate_children_lcb(GObject * source_object, GAsyncResult * r
 	Turi_in_refresh *uir = user_data;
 	GError *error = NULL;
 	uir->gfe = g_file_enumerate_children_finish(uir->uri, res, &error);
+	if (error) {
+		g_warning("failed to list directory in filebrowser: %s\n",error->message);
+		g_error_free(error);
+		fb2_uri_in_refresh_cleanup(uir);
+		return;
+	}
 	if (uir->gfe) {
 		g_file_enumerator_next_files_async(uir->gfe, 40, G_PRIORITY_LOW, uir->cancel,
 										   fb2_enumerate_next_files_lcb, uir);
 	}
-	/* BUG: do error handling */
 }
 
 static void fb2_fill_dir_async(GtkTreeIter * parent, GFile * uri)
