@@ -361,7 +361,6 @@ static GtkItemFactoryEntry menu_items[] = {
 #ifdef HAVE_LIBASPELL
 	{N_("/Tools/Check _Spelling..."), NULL, spell_check_menu_cb, 0, "<StockItem>", GTK_STOCK_SPELL_CHECK},
 #endif /* HAVE_LIBASPELL */
-	{"/Tools/sep1", NULL, NULL, 0, "<Separator>"},
 };
 
 #ifdef ENABLE_NLS
@@ -446,23 +445,23 @@ static GtkWidget *create_dynamic_menuitem(Tbfwin *bfwin, const gchar *menubasepa
 	factory = gtk_item_factory_from_widget(bfwin->menubar);
 	menu = gtk_item_factory_get_widget(factory, menubasepath);
 	DEBUG_MSG("create_dynamic_menuitem, menubar=%p, menu=%p basepath=%s, label=%s\n", bfwin->menubar, menu, menubasepath,label);
-	if (menu != NULL) {
+	if (!menu)
+		return NULL;
+	if (label) {
 		tmp = gtk_menu_item_new_with_label(label);
 		g_signal_connect(G_OBJECT(tmp), "activate",callback, data);
-
-		gtk_widget_show(tmp);
-		if (menu_insert_offset == -1) {
-			gtk_menu_shell_append(GTK_MENU_SHELL(menu),tmp);
-		} else {
-			gtk_menu_shell_insert(GTK_MENU_SHELL(menu),tmp,menu_insert_offset);
-		}
-		return tmp;
-	} else {
-		DEBUG_MSG("create_dynamic_menuitem, NO MENU FOR BASEPATH %s\n", menubasepath);
-		return NULL;
+	} else { /* separator */
+		tmp = gtk_menu_item_new();
 	}
+	gtk_widget_show(tmp);
+	if (menu_insert_offset == -1) {
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu),tmp);
+	} else {
+		gtk_menu_shell_insert(GTK_MENU_SHELL(menu),tmp,menu_insert_offset);
+	}
+	return tmp;
 }
-
+/*
 static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory) {
 	char *basepath;
 	GtkWidget *widg=NULL;
@@ -483,7 +482,7 @@ static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory)
 		g_free(entry.path);
 	}
 	g_free(basepath);
-}	
+}	*/
 
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
 	DEBUG_MSG("menu_current_document_type_change, started for bflang %p\n", bdm->data);
@@ -957,17 +956,16 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		 *  arr[2] = is_default_browser
 		 */
 		if (count_array(arr)==3) {
-			gchar *tmp1;
 			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
-			if (arr[2][0] == '1') {
-				tmp1 = N_("/Tools");
-			} else {
-				tmp1 = N_("/Tools/Commands");
-			}
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
-			DEBUG_MSG("external_menu_rebuild,Adding command %s with command %s (is default browser=%d) to the menu\n", arr[0], arr[1], (arr[2][0] == '1'));
-			bdm->menuitem = create_dynamic_menuitem(bfwin,tmp1,arr[0],G_CALLBACK(external_command_lcb),bdm,-1);
+			if (arr[2][0] == '1') {
+				const gchar *tmp1 = N_("/Tools");
+				create_dynamic_menuitem(bfwin,tmp1,NULL,NULL,NULL,1);
+				bdm->menuitem = create_dynamic_menuitem(bfwin,tmp1,arr[0],G_CALLBACK(external_command_lcb),bdm,1);
+			} else {
+				bdm->menuitem = create_dynamic_menuitem(bfwin,N_("/Tools/Commands"),arr[0],G_CALLBACK(external_command_lcb),bdm,-1);
+			}
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
 		} else {
 			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_command; array count =%d\n",count_array(arr));
