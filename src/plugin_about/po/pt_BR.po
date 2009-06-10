@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 1.3.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-04-16 20:38+0200\n"
+"POT-Creation-Date: 2009-06-10 22:04+0200\n"
 "PO-Revision-Date: 2009-02-06 16:37-0300\n"
 "Last-Translator: Esfinge Metal <esfingemetal@gmail.com>\n"
 "Language-Team: \n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/plugin_about/about.c:72
+#: src/plugin_about/about.c:74
 msgid ""
 "\n"
 "Developers of previous releases:"
@@ -23,7 +23,7 @@ msgstr ""
 "\n"
 "Desenvolvedores de versões anteriores:"
 
-#: src/plugin_about/about.c:87
+#: src/plugin_about/about.c:89
 msgid ""
 "\n"
 "Package maintainers:"
@@ -31,7 +31,7 @@ msgstr ""
 "\n"
 "Mantenedores de pacotes:"
 
-#: src/plugin_about/about.c:92
+#: src/plugin_about/about.c:95
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
@@ -41,7 +41,7 @@ msgstr ""
 "Se você souber de alguem faltando nessa lista,\n"
 "por favor deixe-nos saber via <bluefish@bluefish.openoffice.nl>."
 
-#: src/plugin_about/about.c:93
+#: src/plugin_about/about.c:96
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
@@ -49,7 +49,7 @@ msgstr ""
 "\n"
 "Obrigado a todos que ajudaram a tornar esse software disponível."
 
-#: src/plugin_about/about.c:132
+#: src/plugin_about/about.c:134
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
@@ -59,16 +59,6 @@ msgstr ""
 "programadores, suportando muitas linguagens de programação e markup, mas "
 "focando na criação de websites dinâmicos e interativos."
 
-#: src/plugin_about/about.c:133
-msgid ""
-"\n"
-"\n"
-"This version of Bluefish was built with: "
-msgstr ""
-"\n"
-"\n"
-"Essa versão do Bluefish foi construída com: "
-
 #. Translators: This is a special message that shouldn't be translated
 #. * literally. It is used in the about box to give credits to
 #. * the translators.
@@ -77,26 +67,39 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:143
+#: src/plugin_about/about.c:144
 msgid "translator-credits"
 msgstr ""
 "Anderson Rocha  <anderson@ilheusnet.com.br>\n"
 "Esfinge Metal <esfingemetal@gmail.com>"
 
-#: src/plugin_about/about.c:196
+#: src/plugin_about/about.c:186
+#, fuzzy
+msgid "This version of Bluefish was built with:\n"
+msgstr ""
+"\n"
+"\n"
+"Essa versão do Bluefish foi construída com: "
+
+#: src/plugin_about/about.c:207
 msgid "/_Help"
 msgstr "/Ajuda"
 
-#: src/plugin_about/about.c:197
+#: src/plugin_about/about.c:208
 msgid "/Help/Bluefish _Homepage"
 msgstr "/Ajuda/Bluefish _Homepage"
 
-#: src/plugin_about/about.c:198
+#: src/plugin_about/about.c:209
 msgid "/Help/Report a _Bug"
 msgstr "/Ajuda/Reportar um bug"
 
-#: src/plugin_about/about.c:200
+#: src/plugin_about/about.c:211
 msgid "/Help/_About..."
+msgstr "/Ajuda/Sobre..."
+
+#: src/plugin_about/about.c:212
+#, fuzzy
+msgid "/Help/_Build Info..."
 msgstr "/Ajuda/Sobre..."
 
 #~ msgid "libaspell support, "
