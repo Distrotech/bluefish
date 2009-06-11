@@ -1278,6 +1278,7 @@ typedef struct {
 	Tqueue queue_update;
 	guint num_found;
 	guint num_finished;
+	guint num_failed;
 	/*GTimer *timer;*/
 	SyncProgressCallback progress_callback;
 	gpointer callback_data;
@@ -1292,12 +1293,12 @@ static void sync_unref(gpointer data) {
 				,g_list_length(sync->queue_walkdir_remote.head),sync->queue_walkdir_remote.worknum
 				);*/
 	if (sync->refcount == 0) {
-		g_print("sync_unref, unreffing!\n");
+		DEBUG_MSG("sync_unref, unreffing!\n");
 		g_object_unref(sync->basedir);
 		g_object_unref(sync->targetdir);
-		sync->progress_callback(-1,-1,sync->callback_data);
+		sync->progress_callback(-1,-1,sync->num_failed,sync->callback_data);
 		/*g_timer_destroy(sync->timer);*/
-		g_print("sync_unref, refcount=%d, q_update=%d/%d, q_local=%d/%d q_remote=%d/%d\n",sync->refcount
+		DEBUG_MSG("sync_unref, refcount=%d, q_update=%d/%d, q_local=%d/%d q_remote=%d/%d\n",sync->refcount
 				,g_list_length(sync->queue_update.head),sync->queue_update.worknum
 				,g_list_length(sync->queue_walkdir_local.head),sync->queue_walkdir_local.worknum
 				,g_list_length(sync->queue_walkdir_remote.head),sync->queue_walkdir_remote.worknum
@@ -1384,11 +1385,22 @@ static void progress_update(gpointer data) {
 /*	if (g_timer_elapsed(sync->timer,NULL) > 0.05) */
 /*	if (sync->num_found % 10==0 || (sync->num_found - sync->num_finished) % 10 == 0) 
 	{*/
-		sync->progress_callback(sync->num_found,sync->num_finished,sync->callback_data);
+		sync->progress_callback(sync->num_found,sync->num_finished,sync->num_failed,sync->callback_data);
 /*		g_print("timer elapsed %f\n",g_timer_elapsed(sync->timer,NULL));
 		g_timer_start(sync->timer);*/
 /*	}*/
 }
+
+static gpointer sync_handle_error(Tsync *sync, GFile *uri, const gchar *message, GError *error) {
+	gchar *curi;
+	sync->num_failed++;
+	curi = g_file_get_uri(uri);
+	g_warning("%s %s: %s\n",message, curi,error->message);
+	g_free(curi);
+	g_error_free(error);
+	return NULL;
+}
+
 
 /*
 TODO
@@ -1409,8 +1421,7 @@ static void do_update_lcb(GObject *source_object,GAsyncResult *res,gpointer user
 	GError *error=NULL;
 	ret = g_file_copy_finish(su->local_uri,res,&error);
 	if (error) {
-		g_print("do_update_lcb got error %d %s\n",error->code,error->message);
-		g_error_free(error);
+		error = sync_handle_error(su->sync, su->remote_uri, "Failed to copy to", error);
 	}
 	su->sync->num_finished++;
 	progress_update(su->sync);
@@ -1442,130 +1453,6 @@ static void do_update(Tsync *sync, GFile *local_uri, GFile *remote_uri) {
 	g_idle_add(do_update_push, su); /* use g_idle_add to escape from a possible thread */
 }
 
-/*
-static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
-	Tsync_needupdate *snu= user_data;
-	GFileInfo *remote_finfo;
-	GError *error=NULL;
-	remote_finfo = g_file_query_info_finish(snu->remote_uri,res,&error);
-	if (error) {
-		if (error->code == G_IO_ERROR_NOT_FOUND) {
-			g_error_free(error);
-			if (snu->is_dir) {
-				error=NULL;
-				if (g_file_make_directory(snu->remote_uri,NULL,&error)) {
-					walk_local_directory(snu->sync, snu->local_uri, snu->remote_uri);
-				} else if (error) {
-					g_print("check_update_need_lcb, while creating remote dir got error %d %s\n",error->code,error->message);
-					g_error_free(error);
-				}
-			} else {
-				do_update(snu->sync,snu->local_uri,snu->remote_uri);
-			}
-		} else {
-			g_print("check_update_need_lcb got error %d %s\n",error->code,error->message);
-			g_error_free(error);
-		}
-	} else if(remote_finfo) {
-		if (snu->is_dir) {
-			walk_local_directory(snu->sync, snu->local_uri, snu->remote_uri);
-		} else {
-			GTimeVal remote_mtime,local_mtime;
-			g_file_info_get_modification_time(remote_finfo,&remote_mtime);
-			g_file_info_get_modification_time(snu->local_finfo,&local_mtime);
-			if (g_file_info_get_size(remote_finfo)!=g_file_info_get_size(snu->local_finfo)
-						|| remote_mtime.tv_sec+remote_mtime.tv_usec <  local_mtime.tv_sec+local_mtime.tv_usec) {
-				do_update(snu->sync,snu->local_uri,snu->remote_uri);
-			} else {
-				snu->sync->num_finished++;
-				progress_update(snu->sync);
-			}
-		}
-		g_object_unref(remote_finfo);
-	} else {
-		g_print("weird, no error and no remote finfo??? snu=%p\n",snu);
-	}
-	queue_worker_ready(&snu->sync->queue_need_update,need_update_run);
-	need_update_cleanup(snu);
-}
-
-static void need_update_run(gpointer data) {
-	Tsync_needupdate *snu=data;
-	g_file_query_info_async(snu->remote_uri,"standard::name,standard::type,standard::display-name,standard::size,time::modified",
-					G_FILE_QUERY_INFO_NONE,G_PRIORITY_LOW,NULL,check_update_need_lcb,snu);
-}
-
-static void check_update_need(Tsync *sync, GFile *uri,GFileInfo *finfo, gboolean is_dir) {
-	Tsync_needupdate *snu = g_slice_new0(Tsync_needupdate);
-	snu->sync = sync;
-	snu->is_dir = is_dir;
-	snu->sync->refcount++;
-	snu->local_uri = uri;
-	g_object_ref(snu->local_uri);
-	snu->local_finfo = finfo;
-	g_object_ref(snu->local_finfo);
-	snu->remote_uri = remote_for_local(snu->sync,snu->local_uri);
-	queue_push(&sync->queue_need_update,snu,need_update_run);
-}*/
-
-/*static void walk_directory_remote_close_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
-	GError *error=NULL;
-	Tsync_walkdir *swd = user_data;
-	
-	g_file_enumerator_close_finish(swd->renmrt,res,&error);
-	if (error) {
-		g_print("walk_local_directory_close_lcb, error %d=%s\n",error->code,error->message);
-		g_error_free(error);
-	}
-	queue_worker_ready(&swd->sync->queue_walkdir_remote, walk_directory_remote_run);
-	walk_directory_cleanup(swd);
-}
-
-static void walk_directory_remote_enumerate_next_files_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
-	Tsync_walkdir *swd = user_data;
-	GList *list;
-	GError *error=NULL;
-	list = g_file_enumerator_next_files_finish(swd->renmrt,res,&error);
-	if (error) {
-		g_print("walk_directory_remote_enumerate_next_files_lcb, got error %d: %s\n", error->code,error->message);
-		g_error_free(error);
-		g_file_enumerator_close_async(swd->renmrt, G_PRIORITY_LOW, NULL,walk_directory_remote_close_lcb, swd);
-	} else {
-		if (list) {
-			GList *tmplist = g_list_first(list);
-			while (tmplist) {
-				GFileInfo *finfo = tmplist->data;
-				const gchar *name;
-				name = g_file_info_get_name(finfo);
-				if (g_hash_table_lookup(swd->localnames, name)==NULL) { / * . and .. are in the hash * /
-					GFile *uri;
-					uri = g_file_get_child(swd->remote_dir, name);
-					file_delete_async(uri, TRUE, NULL, NULL);
-					g_object_unref(uri);
-				}
-				g_object_unref(finfo);
-				tmplist = g_list_next(tmplist);
-			}
-			g_list_free(list);
-			g_file_enumerator_next_files_async(swd->renmrt,64,G_PRIORITY_LOW,NULL,walk_directory_remote_enumerate_next_files_lcb,swd);
-		} else {
-			g_file_enumerator_close_async(swd->renmrt, G_PRIORITY_LOW, NULL,walk_directory_remote_close_lcb, swd);
-		}
-	}
-}
-
-static void walk_directory_remote_enumerate_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
-	GError *error=NULL;
-	Tsync_walkdir *swd = user_data;
-	swd->renmrt = g_file_enumerate_children_finish(swd->remote_dir,res,&error);
-	if (error) {
-		g_print("walk_local_directory_remote_enumerate_lcb, error %d=%s\n",error->code,error->message);
-		g_error_free(error);
-	} else {
-		g_file_enumerator_next_files_async(swd->renmrt,64,G_PRIORITY_LOW,NULL,walk_directory_remote_enumerate_next_files_lcb,swd);
-	}	
-}*/
-
 static gboolean walk_directory_remote_job_finished(gpointer user_data) {
 	Tsync_walkdir *swd = user_data;
 	queue_worker_ready(&swd->sync->queue_walkdir_remote, walk_directory_remote_run);
@@ -1580,17 +1467,14 @@ static gboolean walk_directory_remote_job(GIOSchedulerJob *job,GCancellable *can
 	enumer = g_file_enumerate_children(swd->remote_dir,"standard::name,standard::type,standard::display-name,standard::size,time::modified"
 							,G_FILE_QUERY_INFO_NONE,NULL,&error);
 	if (error) {
-		g_print("walk_directory_remote_job, enumerate_children, error %d=%s\n",error->code,error->message);
-		g_error_free(error);
+		error = sync_handle_error(swd->sync, swd->remote_dir, "Failed to open directory", error);
 	} else if (enumer) {
 		gboolean cont=TRUE;
 		while (cont) {
 			GFileInfo *finfo;
 			finfo = g_file_enumerator_next_file(enumer,NULL,&error);
 			if (error) {
-				g_print("walk_directory_remote_job, enumerate_next_file, error %d=%s\n",error->code,error->message);
-				g_error_free(error);
-				error=NULL;
+				error = sync_handle_error(swd->sync, swd->remote_dir, "Failed to read entry from directory", error);
 			} else if (finfo) {
 				const gchar *name = g_file_info_get_name(finfo);
 				if (g_hash_table_lookup(swd->localnames, name)==NULL) { /* . and .. are in the hash */
@@ -1601,9 +1485,7 @@ static gboolean walk_directory_remote_job(GIOSchedulerJob *job,GCancellable *can
 					}
 					g_file_delete(uri,NULL,&error);
 					if (error) {
-						g_print("walk_directory_remote_job, delete, error %d=%s\n",error->code,error->message);
-						g_error_free(error);
-						error=NULL;
+						error = sync_handle_error(swd->sync, uri, "Failed to delete", error);
 					}
 					g_object_unref(uri);
 				}
@@ -1614,8 +1496,7 @@ static gboolean walk_directory_remote_job(GIOSchedulerJob *job,GCancellable *can
 		}
 		g_file_enumerator_close(enumer,NULL,&error);
 		if (error) {
-			g_print("walk_directory_remote_job, close_enumerator, error %d=%s\n",error->code,error->message);
-			g_error_free(error);
+			error = sync_handle_error(swd->sync, swd->remote_dir, "Failed to close directory", error);
 		}
 		g_object_unref(enumer);
 	}
@@ -1627,80 +1508,8 @@ static gboolean walk_directory_remote_job(GIOSchedulerJob *job,GCancellable *can
 static void walk_directory_remote_run(gpointer data) {
 	Tsync_walkdir *swd = data;
 	g_io_scheduler_push_job(walk_directory_remote_job,swd,NULL,G_PRIORITY_LOW,NULL);
-/*	g_file_enumerate_children_async(swd->remote_dir,"standard::name,standard::type,standard::display-name,standard::size,time::modified",
-					G_FILE_QUERY_INFO_NONE,G_PRIORITY_LOW,NULL,walk_directory_remote_enumerate_lcb,swd);*/
 }
 
-/*static void walk_local_directory_close_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
-	GError *error=NULL;
-	Tsync_walkdir *swd = user_data;
-	
-	g_file_enumerator_close_finish(swd->enmrt,res,&error);
-	if (error) {
-		g_print("walk_local_directory_close_lcb, error %d=%s\n",error->code,error->message);
-		g_error_free(error);
-	}
-	queue_worker_ready(&swd->sync->queue_walkdir_local,walk_local_directory_run);
-	if (swd->sync->delete_deprecated) {
-		queue_push(&swd->sync->queue_walkdir_remote,swd,walk_directory_remote_run);
-	} else {
-		walk_directory_cleanup(swd);
-	}
-}
-
-static void walk_local_directory_enumerate_next_files_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
-	Tsync_walkdir *swd = user_data;
-	GList *list;
-	GError *error=NULL;
-	list = g_file_enumerator_next_files_finish(swd->enmrt,res,&error);
-	if (error) {
-		g_print("walk_local_directory_enumerate_next_files_lcb, got error %d: %s\n", error->code,error->message);
-		g_error_free(error);
-		g_file_enumerator_close_async(swd->enmrt, G_PRIORITY_LOW, NULL,walk_local_directory_close_lcb, swd);
-	} else {
-		if (list) {
-			GList *tmplist = g_list_first(list);
-			while (tmplist) {
-				GFileInfo *finfo = tmplist->data;
-				const gchar *name;
-				GFileType ft = g_file_info_get_file_type(finfo);
-				name = g_file_info_get_name(finfo);
-				if (strcmp(name,"..")!=0 && strcmp(name,".")!=0) {
-					GFile *uri;
-					uri = g_file_get_child(swd->local_dir, name);
-					if (ft == G_FILE_TYPE_DIRECTORY) {
-						check_update_need(swd->sync,uri,finfo, TRUE);
-					} else if (ft == G_FILE_TYPE_REGULAR) {
-						check_update_need(swd->sync,uri,finfo, FALSE);
-						swd->sync->num_found++;
-						progress_update(swd->sync);
-					}
-					g_object_unref(uri);
-				}
-				g_hash_table_insert(swd->localnames, g_strdup(name),GINT_TO_POINTER(1));
-				g_object_unref(finfo);
-				tmplist = g_list_next(tmplist);
-			}
-			g_list_free(list);
-			g_file_enumerator_next_files_async(swd->enmrt,64,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_next_files_lcb,swd);
-		} else {
-			/ * finished * /
-			g_file_enumerator_close_async(swd->enmrt, G_PRIORITY_LOW, NULL,walk_local_directory_close_lcb, swd);
-		}
-	}
-}
-
-static void walk_local_directory_enumerate_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
-	GError *error=NULL;
-	Tsync_walkdir *swd = user_data;
-	swd->enmrt = g_file_enumerate_children_finish(swd->local_dir,res,&error);
-	if (error) {
-		g_print("walk_local_directory_enumerate_lcb, error %d=%s\n",error->code,error->message);
-		g_error_free(error);
-	} else {
-		g_file_enumerator_next_files_async(swd->enmrt,64,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_next_files_lcb,swd);
-	}
-}*/
 
 static gboolean walk_local_directory_job_finished(gpointer user_data) {
 	Tsync_walkdir *swd = user_data;
@@ -1723,17 +1532,14 @@ static gboolean walk_local_directory_job(GIOSchedulerJob *job,GCancellable *canc
 	enumer = g_file_enumerate_children(swd->local_dir,"standard::name,standard::type,standard::display-name,standard::size,time::modified"
 							,G_FILE_QUERY_INFO_NONE,NULL,&error);
 	if (error) {
-		g_print("walk_local_directory_job, enumerate_children, error %d=%s\n",error->code,error->message);
-		g_error_free(error);
+		error = sync_handle_error(swd->sync, swd->local_dir, "Failed to open directory", error);
 	} else if (enumer) {
 		gboolean cont=TRUE;
 		while (cont) {
 			GFileInfo *finfo;
 			finfo = g_file_enumerator_next_file(enumer,NULL,&error);
 			if (error) {
-				g_print("walk_local_directory_job, enumerate_next_file, error %d=%s\n",error->code,error->message);
-				g_error_free(error);
-				error=NULL;
+				error = sync_handle_error(swd->sync, swd->local_dir, "Failed to read entry in directory", error);
 			} else if (finfo) {
 				const gchar *name = g_file_info_get_name(finfo);
 				if (name && strcmp(name,"..")!=0 && strcmp(name,".")!=0 && (swd->sync->include_hidden || name[0]!='.')) {
@@ -1751,26 +1557,20 @@ static gboolean walk_local_directory_job(GIOSchedulerJob *job,GCancellable *canc
 								if (g_file_make_directory(remote,NULL,&error)) {
 									walk_local_directory(swd->sync, local, remote);
 								} else if (error) {
-									g_print("walk_local_directory_job, while creating remote dir got error %d %s\n",error->code,error->message);
-									g_error_free(error);
-									error = NULL;
+									error = sync_handle_error(swd->sync, remote, "Failed to create directory", error);
 								}
 							} else {
 								do_update(swd->sync,local,remote);
 							}
 						} else {
-							g_print("walk_local_directory_run_job, query remote, got error %d: %s\n", error->code,error->message);
-							g_error_free(error);
-							error=NULL;
+							error = sync_handle_error(swd->sync, remote, "Failed to retrieve info about", error);
 						}
 					} else if (rfinfo) {
 						if (g_file_info_get_file_type(finfo) ==  G_FILE_TYPE_DIRECTORY) {
 							if (g_file_info_get_file_type(rfinfo) != G_FILE_TYPE_DIRECTORY) {
 								g_file_delete(remote,NULL,&error);
 								if (error) {
-									g_print("walk_local_directory_run_job, delete, got error %d: %s\n", error->code,error->message);
-									g_error_free(error);
-									error=NULL;
+									error = sync_handle_error(swd->sync, remote, "Failed to delete", error);
 								}
 							}
 							walk_local_directory(swd->sync, local, remote);
@@ -1781,9 +1581,7 @@ static gboolean walk_local_directory_job(GIOSchedulerJob *job,GCancellable *canc
 								delete_recursive(remote);
 								g_file_delete(remote,NULL,&error);
 								if (error) {
-									g_print("walk_local_directory_run_job, delete directory, got error %d: %s\n", error->code,error->message);
-									g_error_free(error);
-									error=NULL;
+									error = sync_handle_error(swd->sync, remote, "Failed to delete", error);
 								}
 							}
 							
@@ -1814,8 +1612,7 @@ static gboolean walk_local_directory_job(GIOSchedulerJob *job,GCancellable *canc
 		}
 		g_file_enumerator_close(enumer,NULL,&error);
 		if (error) {
-			g_print("walk_local_directory_job, close_enumerator, error %d=%s\n",error->code,error->message);
-			g_error_free(error);
+			error = sync_handle_error(swd->sync, swd->local_dir, "Failed to close directory", error);
 		}
 		g_object_unref(enumer);
 	}

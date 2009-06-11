@@ -1074,10 +1074,11 @@ typedef struct {
 	GtkWidget *delete_deprecated;
 	GtkWidget *include_hidden;
 	GtkWidget *progress;
+	GtkWidget *messagelabel;
 	gulong signal_id;
 } Tsyncdialog;
 
-static void sync_progress(gint total, gint done, gpointer user_data) {
+static void sync_progress(gint total, gint done, gint failed, gpointer user_data) {
 	Tsyncdialog *sd = user_data;
 	if (total > 0) {
 		gchar *text;
@@ -1086,19 +1087,28 @@ static void sync_progress(gint total, gint done, gpointer user_data) {
 		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress),text);
 /*		g_print("%s\n",text);*/
 		g_free(text);
+		if (failed > 0) {
+			text = g_strdup_printf("<span color=\"red\">%d failures</span>",failed);
+			gtk_label_set_markup(GTK_LABEL(sd->messagelabel), text);
+			g_free(text);
+		}
 	} else if (total == -1) {
 		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(sd->progress),1);
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress),_("done"));
+		if (failed>0) {
+			gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress),_("incomplete finished"));
+		} else {
+			gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress),_("completed"));
+		}
 		g_signal_handler_unblock(sd->dialog,sd->signal_id);
 	}
 }
 
 static void sync_dialog_response_lcb(GtkDialog *dialog,gint response_id,gpointer user_data) {
 	Tsyncdialog *sd = user_data;
-	g_print("sync_dialog_response_lcb, response=%d\n",response_id);
+	DEBUG_MSG("sync_dialog_response_lcb, response=%d\n",response_id);
 	if (response_id > 0) { 
 		GFile *local, *remote;
-	
+		gtk_label_set_text(GTK_LABEL(sd->messagelabel), "");
 		local = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_local)));
 		remote = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_remote)));
 		if (response_id==1) {
@@ -1147,6 +1157,9 @@ void sync_dialog(Tbfwin *bfwin) {
 	
 	sd->delete_deprecated = boxed_checkbut_with_value(_("Delete remote deprecated files"), bfwin->session->sync_delete_deprecated, GTK_DIALOG(sd->dialog)->vbox);
 	sd->include_hidden = boxed_checkbut_with_value(_("Include hidden files"), bfwin->session->sync_include_hidden, GTK_DIALOG(sd->dialog)->vbox);
+
+	sd->messagelabel = gtk_label_new(NULL);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), sd->messagelabel, FALSE,FALSE,4);
 
 	sd->progress = gtk_progress_bar_new();
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), sd->progress, FALSE,FALSE,4);
