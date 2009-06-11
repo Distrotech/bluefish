@@ -546,7 +546,7 @@ static gchar *entity_menu_translate(const gchar * path, gpointer data) {
 static void entity_initgui(Tbfwin* bfwin) {
 	GtkItemFactory *ifactory;
 	static GtkItemFactoryEntry menu_items[] = {
-		{N_("/Tools/sepent"), NULL, NULL, 0, "<Separator>"},
+		{"/Tools/sepent", NULL, NULL, 0, "<Separator>"},
 		{N_("/Tools/Entities to characters"), NULL, entity_menu_lcb, 0, "<Item>"},
 		{N_("/Tools/Characters to entities"), NULL, entity_menu_lcb, 1, "<Item>"},
 		{N_("/Tools/URL encode selection"), NULL, entity_menu_lcb, 2, "<Item>"},
