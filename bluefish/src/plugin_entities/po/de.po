@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 1.3.4\n"
+"Project-Id-Version: bluefish 1.3.5\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-06-10 22:04+0200\n"
-"PO-Revision-Date: 2009-05-14 11:37+0200\n"
+"POT-Creation-Date: 2009-06-11 10:09+0200\n"
+"PO-Revision-Date: 2009-06-11 10:20+0200\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr "Such_bereich:"
 
 #: src/plugin_entities/entities.c:462
 msgid "Convert numerical encoded characters &#99;"
-msgstr ""
+msgstr "Numerische Entitäten &#99; ersetzen"
 
 #: src/plugin_entities/entities.c:469
 msgid "Convert _iso-8859-1 characters"
@@ -48,7 +48,7 @@ msgstr "_Iso-8859-1 Zeichen ersetzen"
 
 #: src/plugin_entities/entities.c:473
 msgid "Convert _symbol characters"
-msgstr "_Symbolzeichen konvertieren"
+msgstr "_Symbolzeichen ersetzen"
 
 #: src/plugin_entities/entities.c:477
 msgid "Convert spe_cial characters"
@@ -58,30 +58,26 @@ msgstr "Spe_zielle Zeichen ersetzen"
 msgid "Convert _XML characters < > & \" '"
 msgstr "_XML-Zeichen ersetzen < > & \" '"
 
-#: src/plugin_entities/entities.c:549
-msgid "/Tools/sepent"
-msgstr ""
-
 #: src/plugin_entities/entities.c:550
 msgid "/Tools/Entities to characters"
-msgstr "/Bearbeiten/Ersetzen spezial/HTML-Entitäten in ASCII"
+msgstr "/Werkzeuge/Ersetzen spezial/HTML-Entitäten in ASCII"
 
 #: src/plugin_entities/entities.c:551
 msgid "/Tools/Characters to entities"
-msgstr "/Bearbeiten/Ersetzen spezial/ASCII in HTML-Entitäten"
+msgstr "/Werkzeuge/Ersetzen spezial/ASCII in HTML-Entitäten"
 
 #: src/plugin_entities/entities.c:552
 msgid "/Tools/URL encode selection"
-msgstr "/Bearbeiten/Ersetzen spezial/URL enkodieren"
+msgstr "/Werkzeuge/Ersetzen spezial/URL enkodieren"
 
 #: src/plugin_entities/entities.c:553
 msgid "/Tools/URL decode selection"
-msgstr "/Bearbeiten/Ersetzen spezial/URL dekodieren"
+msgstr "/Werkzeuge/Ersetzen spezial/URL dekodieren"
 
 #: src/plugin_entities/entities.c:554
 msgid "/Tools/To Lowercase"
-msgstr "/Bearbeiten/Ersetzen spezial/In Kleinbuchstaben"
+msgstr "/Werkzeuge/Ersetzen spezial/In Kleinbuchstaben"
 
 #: src/plugin_entities/entities.c:555
 msgid "/Tools/To Uppercase"
-msgstr "/Bearbeiten/Ersetzen spezial/In Grossbuchstaben"
+msgstr "/Werkzeuge/Ersetzen spezial/In Grossbuchstaben"
