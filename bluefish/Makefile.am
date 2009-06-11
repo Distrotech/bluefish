@@ -9,6 +9,7 @@ EXTRA_DIST = \
 	intltool-update.in
 
 DISTCLEANFILES = \
+	doltcompile \
 	intltool-extract \
 	intltool-merge \
 	intltool-update
