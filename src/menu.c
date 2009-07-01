@@ -553,8 +553,8 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), accel_group);
 	bfwin->menubar = gtk_item_factory_get_widget(item_factory, "<bluefishmain>");
 	gtk_box_pack_start(GTK_BOX(vbox), bfwin->menubar, FALSE, TRUE, 0);
-	gtk_accel_map_add_entry("<bluefishmain>/Edit/_Indent", GDK_period, GDK_CONTROL_MASK);
-	gtk_accel_map_add_entry("<bluefishmain>/Edit/_Unindent", GDK_comma, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Edit/Indent", GDK_period, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Edit/Unindent", GDK_comma, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Go/Previous document", GDK_Page_Up, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Go/Next document", GDK_Page_Down, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Go/First document", GDK_Page_Up, GDK_SHIFT_MASK | GDK_CONTROL_MASK);
