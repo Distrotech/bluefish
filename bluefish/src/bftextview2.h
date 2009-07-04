@@ -202,7 +202,9 @@ typedef struct {
 					for this context. The identifier state is a state that refers to itself for all characters
 					except the characters (symbols) thay may be the begin or end of an identifier such
 					as whitespace, ();[]{}*+-/ etc. */
-
+#ifdef HAVE_ENCHANT
+	guint8 need_spellcheck;
+#endif /*HAVE_ENCHANT*/
 } Tcontext;
 
 typedef struct {
@@ -359,6 +361,9 @@ struct _BluefishTextView {
 	Tbflang *bflang; /* Tbflang */
 	gpointer doc; /* Tdocument */
 	GtkTextTag *needscanning;
+#ifdef HAVE_ENCHANT
+	GtkTextTag *needspellcheck;
+#endif /*HAVE_ENCHANT*/
 	GtkTextTag *blockmatch;
 	Tscancache scancache;
 	guint scanner_idle; /* event ID for the idle function that handles the scanning. 0 if no idle function is running */

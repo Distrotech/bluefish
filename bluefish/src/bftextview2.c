@@ -303,6 +303,9 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	gtk_text_iter_backward_chars(&start, stringlen);
 
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
+#ifdef HAVE_ENCHANT
+	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, iter);
+#endif /*HAVE_ENCHANT*/
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&start),
 			gtk_text_iter_get_offset(iter));
 	start_offset = gtk_text_iter_get_offset(&start);
@@ -656,6 +659,9 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	gtk_text_iter_backward_word_start(&begin);
 	gtk_text_iter_forward_word_end(&end);
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
+#ifdef HAVE_ENCHANT
+	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &begin, &end);
+#endif /*HAVE_ENCHANT*/
 	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
 			gtk_text_iter_get_offset(&end));
 	start_offset = gtk_text_iter_get_offset(&begin);
@@ -918,6 +924,9 @@ void bluefish_text_view_rescan(BluefishTextView * btv) {
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 		gtk_text_buffer_get_bounds(buffer,&start,&end);
 		gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, &end);
+#ifdef HAVE_ENCHANT
+		gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
+#endif /*HAVE_ENCHANT*/
 		bftextview2_schedule_scanning(btv);
 	}
 }
@@ -1106,6 +1115,7 @@ static void bluefish_text_view_class_init(BluefishTextViewClass * klass)
 
 static void bluefish_text_view_init(BluefishTextView * textview)
 {
+	GtkTextTagTable *ttt;
 /*	PangoFontDescription *font_desc;*/
 	textview->user_idle_timer = g_timer_new();
 	textview->scancache.stackcaches = g_sequence_new(NULL);
@@ -1115,9 +1125,13 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	textview->autoindent = main_v->props.autoindent;
 	textview->autocomplete=main_v->props.autocomplete;
 	textview->showsymbols=TRUE;
-	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"_needscanning_");
-	textview->blockmatch = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"blockmatch");
-	textview->enable_scanner=FALSE;	
+	ttt = langmgr_get_tagtable();
+	textview->needscanning = gtk_text_tag_table_lookup(ttt,"_needscanning_");
+#ifdef HAVE_ENCHANT
+	textview->needspellcheck = gtk_text_tag_table_lookup(ttt,"_needspellcheck_");
+#endif /*HAVE_ENCHANT*/
+	textview->blockmatch = gtk_text_tag_table_lookup(ttt,"blockmatch");
+	textview->enable_scanner=FALSE;
 	/*font_desc = pango_font_description_from_string("Monospace 10");
 	gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
 	pango_font_description_free(font_desc);*/

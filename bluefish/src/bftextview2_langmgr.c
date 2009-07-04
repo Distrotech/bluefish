@@ -1213,9 +1213,14 @@ void langmgr_init(void) {
 	tag = gtk_text_tag_new("_needscanning_");
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
+#ifdef HAVE_ENCHANT
+	tag = gtk_text_tag_new("_needspellcheck_");
+	g_object_set(tag, "underline", PANGO_UNDERLINE_ERROR, NULL);
+	gtk_text_tag_table_add(langmgr.tagtable, tag);
+	g_object_unref(tag);
+#endif /*HAVE_ENCHANT*/
 	tag = gtk_text_tag_new("_folded_");
-	g_object_set(tag, "editable", FALSE, NULL);
-	g_object_set(tag, "invisible", TRUE, NULL);
+	g_object_set(tag, "editable", FALSE, "invisible", TRUE, NULL);
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
 	langmgr_reload_user_options();
@@ -1224,8 +1229,7 @@ void langmgr_init(void) {
 	if (!gtk_text_tag_table_lookup(langmgr.tagtable,"blockmatch")) {
 		const gchar * arr[] = {"blockmatch","#FFFFFF","#FF0000","0","0",NULL};
 		tag = gtk_text_tag_new("blockmatch");
-		g_object_set(tag, "background", "red", NULL);
-		g_object_set(tag, "foreground", "white", NULL);
+		g_object_set(tag, "background", "red", "foreground", "white", NULL);
 		gtk_text_tag_table_add(langmgr.tagtable, tag);
 		g_object_unref(tag);
 		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv((gchar **)arr));
@@ -1236,8 +1240,7 @@ void langmgr_init(void) {
 	} else {
 		const gchar * arr[] = {"foldheader","","#99FF99","0","0",NULL};
 		tag = gtk_text_tag_new("foldheader");
-		g_object_set(tag, "editable", FALSE, NULL);
-		g_object_set(tag, "background", "#99FF99", NULL);
+		g_object_set(tag, "editable", FALSE, "background", "#99FF99", NULL);
 		gtk_text_tag_table_add(langmgr.tagtable, tag);
 		g_object_unref(tag);
 		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv((gchar **)arr));
