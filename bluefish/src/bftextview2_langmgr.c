@@ -1215,6 +1215,9 @@ void langmgr_init(void) {
 	g_object_unref(tag);
 #ifdef HAVE_ENCHANT
 	tag = gtk_text_tag_new("_needspellcheck_");
+	gtk_text_tag_table_add(langmgr.tagtable, tag);
+	g_object_unref(tag);
+	tag = gtk_text_tag_new("_spellerror_");
 	g_object_set(tag, "underline", PANGO_UNDERLINE_ERROR, NULL);
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
