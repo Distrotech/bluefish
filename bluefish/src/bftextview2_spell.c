@@ -58,40 +58,61 @@ static void word_check(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTextIte
 	if (enchant_dict_check(ed, tocheck, strlen(tocheck)) != 0) {
 		gtk_text_buffer_apply_tag_by_name(buffer, "_spellerror_", start, end);
 	}
+	g_free(tocheck);
+}
+
+static inline gint foundstack_need_spellcheck(BluefishTextView * btv, Tfoundstack *fstack) {
+	guint16 contextnum;
+	contextnum = g_queue_get_length(fstack->contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(fstack->contextstack)): 1;
+	return g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).need_spellcheck;
 }
 
 static gboolean run_spellcheck(BluefishTextView * btv) {
 	GtkTextIter so,eo,iter;
 	GtkTextBuffer *buffer;
-	Tfoundstack *fstack;
+	Tfoundstack *fstack, *nextfstack;
 	GSequenceIter *siter=NULL;
 	GTimer *timer;
 	gint loops=0;
 	gint loops_per_timer=100;
-	guint16 contextnum=1;
 	gboolean cont=TRUE;
 	
-	buffer = 
+	buffer = /*TODO*/
 	if (!bftextview2_find_region2spellcheck(btv, buffer, &so, &eo));
 		return FALSE;
 
 	timer = g_timer_new();
 	
-	fstack = get_stackcache_at_position(btv, &so, &siter); 
-	contextnum = g_queue_get_length(fstack->contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(fstack->contextstack)): 1;
-	need_spellcheck = g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).need_spellcheck;
-	
+	fstack = get_stackcache_at_position(btv, &so, &siter);
+	need_spellcheck = foundstack_need_spellcheck(btv,fstack);
+	nextfstack = get_stackcache_next(btv, &siter);
 	do {
 		if (need_spellcheck) {
 			/* move to the next word, but check in the meantime that we're not entering a context that doesn't need spellchecking */
 			
+			nextfstack && nextfstack->charoffset;
 			
 		} else {
 			/* move in the B-tree to the next context that needs spellchecking */
-			
+			fstack = nextfstack;
+			nextfstack = get_stackcache_next(btv, &siter);
+			if (fstack) {
+				need_spellcheck = foundstack_need_spellcheck(btv,fstack);
+				if (need_spellcheck) {
+					/* set the iter so we can continue spellchecking */
+					gtk_text_buffer_iter_at_offset(buffer,&iter,fstack->charoffset);
+				}
+			} else {
+				/* we're finished spellchecking, set the iter to the end */
+				iter=eo;
+				cont=0;
+			}
 		}
 		loops++;
-	} while (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL);
+		if (gtk_text_iter_compare(&iter, &so) <= 0) { /* TODO: check the order of the compare items */
+			cont=0;
+		}
+	} while (cont && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL));
 	
 	gtk_text_buffer_remove_tag(buffer, btv->needspellcheck, &so , &iter);
 
