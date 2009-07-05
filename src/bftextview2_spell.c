@@ -51,7 +51,7 @@ static gboolean bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTe
 	return TRUE;
 }
 
-static void word_check(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
+static void spellcheck_word(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
 	gchar *tocheck;
 	
 	tocheck = gtk_text_buffer_get_text(buffer, start,end);
@@ -65,6 +65,22 @@ static inline gint foundstack_need_spellcheck(BluefishTextView * btv, Tfoundstac
 	guint16 contextnum;
 	contextnum = g_queue_get_length(fstack->contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(fstack->contextstack)): 1;
 	return g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).need_spellcheck;
+}
+
+/* handle apostrophe in word gracefully */ 
+static inline gboolean text_iter_forward_real_word_end(GtkTextIter *it) {
+	GtkTextIter iter;
+	if (!gtk_text_iter_forward_word_end(it))
+		return FALSE;
+	if (gtk_text_iter_get_char(it) != '\'')
+		return TRUE;
+	iter = *i;
+	if (gtk_text_iter_forward_char(&iter)) {
+		if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
+			return (gtk_text_iter_forward_word_end(i));
+		}
+	}
+	return TRUE;
 }
 
 static gboolean run_spellcheck(BluefishTextView * btv) {
@@ -88,7 +104,14 @@ static gboolean run_spellcheck(BluefishTextView * btv) {
 	nextfstack = get_stackcache_next(btv, &siter);
 	do {
 		if (need_spellcheck) {
+			GtkTextIter words;
+			gtk_text_iter_forward_word_start(&iter);
+			words=iter;
 			/* move to the next word, but check in the meantime that we're not entering a context that doesn't need spellchecking */
+			if (text_iter_forward_real_word_end(&iter)) {
+				/* check word */
+				spellcheck_word(btv, buffer, &words, &iter);
+			}
 			
 			nextfstack && nextfstack->charoffset;
 			
