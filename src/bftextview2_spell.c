@@ -18,11 +18,13 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+
 /* for the design docs see bftextview2.h */
-#ifdef HAVE_ENCHANT
-#include <enchant.h>
 
 #include "bluefish.h"
+
+#ifdef HAVE_ENCHANT
+#include <enchant/enchant.h>
 
 #define MAX_CONTINUOUS_SPELLCHECK_INTERVAL 0.1 /* float in seconds */
 
@@ -54,17 +56,22 @@ static gboolean bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTe
 static void spellcheck_word(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
 	gchar *tocheck;
 	
-	tocheck = gtk_text_buffer_get_text(buffer, start,end);
-	if (enchant_dict_check(ed, tocheck, strlen(tocheck)) != 0) {
+	tocheck = gtk_text_buffer_get_text(buffer, start,end, FALSE);
+	if (!ed) {
+		g_print("spellcheck_word, should check word %s\n",tocheck);
+		g_free(tocheck);
+		return;
+	}
+
+	if (enchant_dict_check(ed, tocheck, g_utf8_strlen(tocheck,NULL)) != 0) {
 		gtk_text_buffer_apply_tag_by_name(buffer, "_spellerror_", start, end);
 	}
 	g_free(tocheck);
 }
 
-static inline gint foundstack_need_spellcheck(BluefishTextView * btv, Tfoundstack *fstack) {
-	guint16 contextnum;
-	contextnum = g_queue_get_length(fstack->contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(fstack->contextstack)): 1;
-	return g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).need_spellcheck;
+static inline gint foundstack_needspellcheck(BluefishTextView * btv, Tfoundstack *fstack) {
+	guint16 contextnum = g_queue_get_length(fstack->contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(fstack->contextstack)): 1;
+	return g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).needspellcheck;
 }
 
 /* handle apostrophe in word gracefully */ 
@@ -74,10 +81,10 @@ static inline gboolean text_iter_forward_real_word_end(GtkTextIter *it) {
 		return FALSE;
 	if (gtk_text_iter_get_char(it) != '\'')
 		return TRUE;
-	iter = *i;
+	iter = *it;
 	if (gtk_text_iter_forward_char(&iter)) {
 		if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
-			return (gtk_text_iter_forward_word_end(i));
+			return (gtk_text_iter_forward_word_end(it));
 		}
 	}
 	return TRUE;
@@ -89,75 +96,97 @@ static gboolean run_spellcheck(BluefishTextView * btv) {
 	Tfoundstack *fstack, *nextfstack;
 	GSequenceIter *siter=NULL;
 	GTimer *timer;
-	gint loops=0;
-	gint loops_per_timer=100;
-	gboolean cont=TRUE;
+	gint loop=0, loops_per_timer=100;
+	guint eo_offset;
+	gboolean cont=TRUE, use_default_context=FALSE;
 	
-	buffer = /*TODO*/
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	if (!bftextview2_find_region2spellcheck(btv, buffer, &so, &eo));
 		return FALSE;
 
 	timer = g_timer_new();
 	iter=so;
+	eo_offset = gtk_text_iter_get_offset(&eo);
 	do {
 		GtkTextIter eo2;
-		/* find contexts within this region that need spellcheck */
-		fstack = get_stackcache_at_position(btv, &so, &siter);
-		if (fstack) {
-			need_spellcheck = foundstack_need_spellcheck(btv,fstack);
-			while (fstack && !need_spellcheck) {
+		gboolean cont2=TRUE;
+		/**** find the start within this region of a context that needs spellcheck */
+		fstack = get_stackcache_at_position(btv, &iter, &siter);
+		if (fstack || !g_array_index(btv->bflang->st->contexts,Tcontext, 1).needspellcheck) {
+			if(!fstack) {
+				fstack = get_stackcache_first(btv, &siter);
+				if (fstack->charoffset > eo_offset) {
+					/* nothing to do ! */
+					cont=FALSE;
+					cont2=FALSE;
+					iter=eo;
+				}
+			}
+			while (fstack && fstack->charoffset < eo_offset && !foundstack_needspellcheck(btv,fstack)) {
 				fstack = get_stackcache_next(btv, &siter);
-				need_spellcheck = foundstack_need_spellcheck(btv,fstack);
 			}
-			if (need_spellcheck) {
-				/* set the iter to the charoffset of the fstack OR 'so', the last position of these two */
-				iter=so;
-				eo2= ...;
-				
-				/* TODO: now find the end of this context to spellcheck */
-				
-				
+			
+			if (fstack && fstack->charoffset < eo_offset) {
+				guint iter_offset;
+				/* advance the iter to the charoffset of fstack, but keep at the same place if the iter is already further */
+				if (fstack->charoffset > gtk_text_iter_get_offset(&iter)) {
+					gtk_text_iter_set_offset(&iter, fstack->charoffset);
+				}
+			}
+		} else { /* no fstack and the default context needs spellcheck */
+			iter=so;
+			fstack = get_stackcache_first(btv, &siter);
+		}
+
+		/***** now find the end of this context to spellcheck */
+		if (cont && cont2) {
+			while(fstack && fstack->charoffset < eo_offset && foundstack_needspellcheck(btv,fstack)) {
+				fstack = get_stackcache_next(btv, &siter);
+			}
+			if (fstack && fstack->charoffset < eo_offset) {
+				/* set eo2 to the end of the context(s) that needs spellcheck */
+				gtk_text_iter_set_offset(&eo2, fstack->charoffset);
 			} else {
-				/* TODO: nothing to do !!! mark the region as not-need-spellcheck */
-					
-			}
-		} else {
-			/* no fstack means that we should use the default context 1 and use the total area */	
-			if (g_array_index(btv->bflang->st->contexts,Tcontext, 1).need_spellcheck) {
-				iter=so;
+				/* no next, set end iter to eo */
 				eo2=eo;
-			} else {
-				/* TODO: nothing to do !!! mark the region as not-need-spellcheck */
 			}
 		}
-		do {
-			GtkTextIter words;
+		
+		while (cont2 && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) { /* loop from iter to eo2 */
+			GtkTextIter wordstart;
+
+			loop++;
 			gtk_text_iter_forward_word_start(&iter);
-			words=iter;
-			/* move to the next word, but check in the meantime that we're not entering a context that doesn't need spellchecking */
+			wordstart=iter;
+			/* move to the next word as long as the we don't hit eo2 */
 			if (text_iter_forward_real_word_end(&iter)) {
 				/* check word */
-				spellcheck_word(btv, buffer, &words, &iter);
+				spellcheck_word(btv, buffer, &wordstart, &iter);
 			}
-		} while (gtk_text_iter_compare(&iter, &eo2) <= 0);
-
-		loops++;
-		if (gtk_text_iter_compare(&iter, &so) <= 0) { /* TODO: check the order of the compare items */
-			cont=0;
+			if (gtk_text_iter_compare(&iter, &eo2) <= 0)
+				cont2 = FALSE;
+			 
 		}
+
+		if (gtk_text_iter_compare(&iter, &eo) <= 0) /* TODO: check the order of the compare items */
+			cont = FALSE;
+			
 	} while (cont && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL));
 	
 	gtk_text_buffer_remove_tag(buffer, btv->needspellcheck, &so , &iter);
 
-	g_timer_destroy(scanning.timer);
+	g_timer_destroy(timer);
 	
 	return TRUE;
 }
 
 static void bftextview2_spell_init(void) {
 	eb = enchant_broker_init();
+	ed = enchant_broker_request_dict (eb, "NL");
+	if (!ed) {
+		g_warning("dictionary does not exist!\n");
+	}
 
-	
 }
 
 static void bftextview2_spell_cleanup(void) {

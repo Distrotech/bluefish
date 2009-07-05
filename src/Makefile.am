@@ -43,6 +43,7 @@ bluefish_unstable_SOURCES = \
 	bftextview2_patcompile.h \
 	bftextview2_scanner.c \
 	bftextview2_scanner.h \
+	bftextview2_spell.c \
 	bookmark.c \
 	bookmark.h \
 	cap.c \
