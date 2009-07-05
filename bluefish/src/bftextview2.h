@@ -162,6 +162,7 @@ either on the start or on the end there is no symbol.
 #define _BFTEXTVIEW2_H_
 
 #include <gtk/gtk.h>
+#include "config.h"
 
 #define DBG_NONE(args...)
  /**/
@@ -203,7 +204,7 @@ typedef struct {
 					except the characters (symbols) thay may be the begin or end of an identifier such
 					as whitespace, ();[]{}*+-/ etc. */
 #ifdef HAVE_ENCHANT
-	guint8 need_spellcheck;
+	guint8 needspellcheck;
 #endif /*HAVE_ENCHANT*/
 } Tcontext;
 
