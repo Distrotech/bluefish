@@ -98,12 +98,39 @@ static gboolean run_spellcheck(BluefishTextView * btv) {
 		return FALSE;
 
 	timer = g_timer_new();
-	
-	fstack = get_stackcache_at_position(btv, &so, &siter);
-	need_spellcheck = foundstack_need_spellcheck(btv,fstack);
-	nextfstack = get_stackcache_next(btv, &siter);
+	iter=so;
 	do {
-		if (need_spellcheck) {
+		GtkTextIter eo2;
+		/* find contexts within this region that need spellcheck */
+		fstack = get_stackcache_at_position(btv, &so, &siter);
+		if (fstack) {
+			need_spellcheck = foundstack_need_spellcheck(btv,fstack);
+			while (fstack && !need_spellcheck) {
+				fstack = get_stackcache_next(btv, &siter);
+				need_spellcheck = foundstack_need_spellcheck(btv,fstack);
+			}
+			if (need_spellcheck) {
+				/* set the iter to the charoffset of the fstack OR 'so', the last position of these two */
+				iter=so;
+				eo2= ...;
+				
+				/* TODO: now find the end of this context to spellcheck */
+				
+				
+			} else {
+				/* TODO: nothing to do !!! mark the region as not-need-spellcheck */
+					
+			}
+		} else {
+			/* no fstack means that we should use the default context 1 and use the total area */	
+			if (g_array_index(btv->bflang->st->contexts,Tcontext, 1).need_spellcheck) {
+				iter=so;
+				eo2=eo;
+			} else {
+				/* TODO: nothing to do !!! mark the region as not-need-spellcheck */
+			}
+		}
+		do {
 			GtkTextIter words;
 			gtk_text_iter_forward_word_start(&iter);
 			words=iter;
@@ -112,25 +139,8 @@ static gboolean run_spellcheck(BluefishTextView * btv) {
 				/* check word */
 				spellcheck_word(btv, buffer, &words, &iter);
 			}
-			
-			nextfstack && nextfstack->charoffset;
-			
-		} else {
-			/* move in the B-tree to the next context that needs spellchecking */
-			fstack = nextfstack;
-			nextfstack = get_stackcache_next(btv, &siter);
-			if (fstack) {
-				need_spellcheck = foundstack_need_spellcheck(btv,fstack);
-				if (need_spellcheck) {
-					/* set the iter so we can continue spellchecking */
-					gtk_text_buffer_iter_at_offset(buffer,&iter,fstack->charoffset);
-				}
-			} else {
-				/* we're finished spellchecking, set the iter to the end */
-				iter=eo;
-				cont=0;
-			}
-		}
+		} while (gtk_text_iter_compare(&iter, &eo2) <= 0);
+
 		loops++;
 		if (gtk_text_iter_compare(&iter, &so) <= 0) { /* TODO: check the order of the compare items */
 			cont=0;
