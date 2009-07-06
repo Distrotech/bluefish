@@ -84,6 +84,7 @@ static gint foundstack_needspellcheck(BluefishTextView * btv, Tfoundstack *fstac
 		contextnum = ((Tfoundcontext *)g_queue_peek_head(fstack->contextstack))->context;
 	else
 		contextnum = 1;
+	g_print("context %d has spellcheck=%d\n",contextnum, g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).needspellcheck);
 	return g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).needspellcheck;
 }
 
@@ -132,6 +133,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 				fstack = get_stackcache_first(btv, &siter);
 				if (fstack->charoffset > eo_offset) {
 					/* nothing to do ! */
+					g_print("next starting fstack beyond eo (1), we're finished\n");
 					cont=FALSE;
 					cont2=FALSE;
 					iter=eo;
@@ -147,6 +149,11 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 					gtk_text_iter_set_offset(&iter, fstack->charoffset);
 					g_print("advance iter to %d\n",gtk_text_iter_get_offset(&iter));
 				}
+			} else {
+				g_print("next starting fstack beyond eo (2), we're finished\n");
+				cont=FALSE;
+				cont2=FALSE;
+				iter=eo;
 			}
 		} else { /* no fstack and the default context needs spellcheck */
 			g_print("default context, keep iter at %d\n",gtk_text_iter_get_offset(&iter));
@@ -171,7 +178,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 		g_print("loop2 from %d to %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&eo2));
 		while (cont2 && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) { /* loop from iter to eo2 */
 			loop++;
-			if (gtk_text_iter_forward_word_end(&iter)) {
+			if (gtk_text_iter_forward_word_end(&iter) && gtk_text_iter_compare(&iter, &eo2) <= 0) {
 				GtkTextIter wordstart;
 				gtk_text_iter_backward_word_start(&iter);
 
@@ -182,9 +189,11 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 					spellcheck_word(btv, buffer, &wordstart, &iter);
 				}
 			} else {
-				g_print("no word start?\n");
+				g_print("no word start within region\n");
+				iter=eo2;
+				cont2=FALSE;
 			}
-			if (gtk_text_iter_compare(&iter, &eo2) >= 0)
+			if (cont2 && gtk_text_iter_compare(&iter, &eo2) >= 0)
 				cont2 = FALSE;
 		}
 

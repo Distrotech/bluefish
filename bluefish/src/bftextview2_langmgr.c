@@ -630,7 +630,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			if (!contexttag) {
 				static const gchar *internal_tag_string_d = "__internal_tag_string_d__";
 				static const gchar *internal_tag_string_s = "__internal_tag_string_s__";
-				contexttag = new_context(bfparser->st, bfparser->bflang->name, "/>\"=' \t\n\r<", NULL, FALSE);
+				contexttag = new_context(bfparser->st, bfparser->bflang->name, "/>\"=' \t\n\r<", NULL, FALSE, TRUE);
 				match_set_nextcontext(bfparser->st, matchnum, contexttag);
 				if (attrib_arr) {
 					gchar**tmp2;
@@ -835,7 +835,7 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 
 static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack) {
 	gchar *symbols=NULL, *highlight=NULL, *id=NULL, *idref=NULL;
-	gboolean autocomplete_case_insens=FALSE,is_empty;
+	gboolean autocomplete_case_insens=FALSE,spellcheck=FALSE,is_empty;
 	gint context;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
@@ -844,6 +844,7 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"idref",&idref);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"symbols",&symbols);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"highlight",&highlight);
+		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"spellcheck",&spellcheck);
 		if (bfparser->load_completion)
 			set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_case_insens",&autocomplete_case_insens);
 		xmlFree(aname);
@@ -860,7 +861,7 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 	}
 	/* create context */
 	DBG_PARSING("create context symbols %s and highlight %s\n",symbols,highlight);
-	context = new_context(bfparser->st,bfparser->bflang->name,symbols,highlight,autocomplete_case_insens);
+	context = new_context(bfparser->st,bfparser->bflang->name,symbols,highlight,autocomplete_case_insens, spellcheck);
 	g_queue_push_head(contextstack,GINT_TO_POINTER(context));
 	if (id) {
 		DBG_PARSING("insert context %s into hash table as %d\n",id,context);

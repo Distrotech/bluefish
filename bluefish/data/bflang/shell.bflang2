@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		shell.bflang2 $Revision$
  
-		Copyright (C) 2008 Olivier Sessink
+		Copyright (C) 2008,2009 Olivier Sessink
 
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@
 </properties>
 
 <definition>
-<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;" spellcheck="0">
 <element pattern="[0-9.]+" is_regex="1" highlight="value"/>
 <element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
 <element pattern="${[^}]+}" is_regex="1" case_insens="1" highlight="variable"/>
@@ -69,10 +69,15 @@
 <element id="(" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
 
-<element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
+<element pattern="#" highlight="comment">
+<context symbols="&#10;&#13;" highlight="comment" spellcheck="1">
+	<element pattern="&#10;" highlight="comment" ends_context="1"/>
+	<element pattern="&#13;" highlight="comment" ends_context="1"/>
+</context>
+</element>
 <element pattern="'[^']*'" is_regex="1" highlight="string"/>
 <element pattern="&quot;" highlight="string">
-<context symbols="\&quot;${}" highlight="string">
+<context symbols="\&quot;${}" highlight="string" spellcheck="1">
 	<element pattern="\\." is_regex="1" highlight="tag" />
 	<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
 	<element pattern="${[^}]+}" is_regex="1" case_insens="1" highlight="variable"/>
