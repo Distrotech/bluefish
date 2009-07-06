@@ -259,6 +259,14 @@ fi
 AM_CONDITIONAL([HAVE_UPDATE_DESKTOP_DATABASE], [test -n "$UPDATE_DESKTOP_DATABASE"])
 AM_CONDITIONAL([HAVE_UPDATE_MIME_DATABASE], [test -n "$UPDATE_MIME_DATABASE"])
 
+AC_ARG_ENABLE(
+	[spell-check],
+	AC_HELP_STRING(
+		[--enable-spell-check],
+		[enable (or disable) spell checking capabilities @<:@default=yes@:>@]
+	)
+)
+
 dnl ************************
 dnl   Configure options w/wo
 dnl ************************
@@ -376,6 +384,26 @@ PKG_CHECK_EXISTS(
 	 fi
 	]
 )
+
+if test "x$enable-spell-check" != "xno"; then
+	PKG_CHECK_EXISTS(
+		[enchant],
+		[
+		 BF_dependencies="$BF_dependencies enchant"
+		 AC_DEFINE([HAVE_LIBENCHANT], [1], [Define to 1 if you have the `enchant' library (-lenchant).])
+		],
+		[
+		 AC_CHECK_HEADERS(
+			[enchant.h enchant/enchant.h],
+			AC_CHECK_LIB(
+				[enchant],
+				[enchant_dict_check]
+			)
+		 )
+		]
+	)
+fi
+
 
 PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
 

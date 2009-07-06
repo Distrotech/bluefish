@@ -1213,7 +1213,7 @@ void langmgr_init(void) {
 	tag = gtk_text_tag_new("_needscanning_");
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
-#ifdef HAVE_ENCHANT
+#ifdef HAVE_LIBENCHANT
 	tag = gtk_text_tag_new("_needspellcheck_");
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
@@ -1221,7 +1221,7 @@ void langmgr_init(void) {
 	g_object_set(tag, "underline", PANGO_UNDERLINE_ERROR, NULL);
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
-#endif /*HAVE_ENCHANT*/
+#endif /*HAVE_LIBENCHANT*/
 	tag = gtk_text_tag_new("_folded_");
 	g_object_set(tag, "editable", FALSE, "invisible", TRUE, NULL);
 	gtk_text_tag_table_add(langmgr.tagtable, tag);

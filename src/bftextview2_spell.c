@@ -23,8 +23,12 @@
 
 #include "bluefish.h"
 
-#ifdef HAVE_ENCHANT
+#ifdef HAVE_LIBENCHANT
+#ifdef HAVE_ENCHANT_ENCHANT_H
 #include <enchant/enchant.h>
+#else /* HAVE_ENCHANT_ENCHANT_H */
+#include <enchant.h>
+#endif /* HAVE_ENCHANT_ENCHANT_H */
 
 #define MAX_CONTINUOUS_SPELLCHECK_INTERVAL 0.1 /* float in seconds */
 
@@ -194,4 +198,4 @@ static void bftextview2_spell_cleanup(void) {
 	eb=NULL;
 }
 
-#endif /*HAVE_ENCHANT*/
+#endif /*HAVE_LIBENCHANT*/
