@@ -194,6 +194,9 @@ int main(int argc, char *argv[])
 		splash_screen_set_label(_("reading language files..."));
 #endif							/* NOSPLASH */
 	langmgr_init();
+#ifdef HAVE_LIBENCHANT
+	bftextview2_spell_init();
+#endif /*HAVE_LIBENCHANT*/
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen)
 		splash_screen_set_label(_("building file browser ..."));

@@ -641,6 +641,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		g_timer_destroy(scanning.timer);
 		/* after the offsets have been updated there is really nothing to do for
 		the idle function so we return FALSE */
+#ifdef HAVE_LIBENCHANT_DISABLED		
+		g_print("call run_spellcheck\n");
+		bftextview2_run_spellcheck(btv);
+#endif
 		return FALSE;
 	}
 	orig_end = end;
