@@ -303,9 +303,9 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	gtk_text_iter_backward_chars(&start, stringlen);
 
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
-#ifdef HAVE_ENCHANT
+#ifdef HAVE_LIBENCHANT
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, iter);
-#endif /*HAVE_ENCHANT*/
+#endif /*HAVE_LIBENCHANT*/
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&start),
 			gtk_text_iter_get_offset(iter));
 	start_offset = gtk_text_iter_get_offset(&start);
@@ -659,9 +659,9 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	gtk_text_iter_backward_word_start(&begin);
 	gtk_text_iter_forward_word_end(&end);
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
-#ifdef HAVE_ENCHANT
+#ifdef HAVE_LIBENCHANT
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &begin, &end);
-#endif /*HAVE_ENCHANT*/
+#endif /*HAVE_LIBENCHANT*/
 	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
 			gtk_text_iter_get_offset(&end));
 	start_offset = gtk_text_iter_get_offset(&begin);
@@ -924,9 +924,9 @@ void bluefish_text_view_rescan(BluefishTextView * btv) {
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 		gtk_text_buffer_get_bounds(buffer,&start,&end);
 		gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, &end);
-#ifdef HAVE_ENCHANT
+#ifdef HAVE_LIBENCHANT
 		gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
-#endif /*HAVE_ENCHANT*/
+#endif /*HAVE_LIBENCHANT*/
 		bftextview2_schedule_scanning(btv);
 	}
 }
@@ -1127,9 +1127,9 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	textview->showsymbols=TRUE;
 	ttt = langmgr_get_tagtable();
 	textview->needscanning = gtk_text_tag_table_lookup(ttt,"_needscanning_");
-#ifdef HAVE_ENCHANT
+#ifdef HAVE_LIBENCHANT
 	textview->needspellcheck = gtk_text_tag_table_lookup(ttt,"_needspellcheck_");
-#endif /*HAVE_ENCHANT*/
+#endif /*HAVE_LIBENCHANT*/
 	textview->blockmatch = gtk_text_tag_table_lookup(ttt,"blockmatch");
 	textview->enable_scanner=FALSE;
 	/*font_desc = pango_font_description_from_string("Monospace 10");

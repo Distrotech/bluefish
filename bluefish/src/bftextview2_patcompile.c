@@ -511,10 +511,10 @@ gint16 new_context(Tscantable *st, const gchar *lang, gchar *symbols, const gcha
 	g_array_index(st->contexts, Tcontext, context).identstate = identstate;
 	g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens = autocomplete_case_insens;
 	g_array_index(st->contexts, Tcontext, context).contexthighlight = (gchar *)contexthighlight;
-#ifdef HAVE_ENCHANT
+#ifdef HAVE_LIBENCHANT
 	/* TODO: for the moment we always set to 1, but this should become a parameter to this function call */ 
 	g_array_index(st->contexts, Tcontext, context).needspellcheck = 1;
-#endif /*HAVE_ENCHANT*/
+#endif /*HAVE_LIBENCHANT*/
 
 	/*if (contexthighlight) 
 		g_array_index(st->contexts, Tcontext, context).contexttag = langmrg_lookup_tag_highlight(lang, contexthighlight);*/
@@ -717,10 +717,10 @@ Tscantable *scantable_new(guint size_table, guint size_matches, guint size_conte
 	st->matches->len = 1; /* match 0 means no match */
 	st->contexts->len = 1; /* a match with nextcontext 0 means no context change, so we cannot use context 0 */
 
-#ifdef HAVE_ENCHANT
+#ifdef HAVE_LIBENCHANT
 	/* TODO: for the moment we always set to 1, but this should become a parameter to this function call */ 
 	g_array_index(st->contexts, Tcontext, 1).needspellcheck = 1;
-#endif /*HAVE_ENCHANT*/
+#endif /*HAVE_LIBENCHANT*/
 
 	return st;
 }
