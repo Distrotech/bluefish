@@ -1664,8 +1664,12 @@ static void rpopup_del_bookmark_lcb(GtkWidget *widget, Tdocument *doc) {
 static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdocument *doc) {
 	GtkWidget *menuitem;
 	/* I found no way to connect an item-factory to this menu widget, so we have to do it in the manual way... */
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
 
+#ifdef HAVE_LIBENCHANT
+	bftextview2_populate_preferences_popup(menu, doc);
+#endif /*HAVE_LIBENCHANT*/
+
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
 	menuitem = gtk_image_menu_item_new_with_label(_("Replace"));
 	g_signal_connect(menuitem, "activate", G_CALLBACK(replace_cb), doc->bfwin);
 	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),gtk_image_new_from_stock(GTK_STOCK_FIND_AND_REPLACE, GTK_ICON_SIZE_MENU));
@@ -1708,6 +1712,10 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 			tmplist = g_slist_next(tmplist);
 		}
 	}
+
+#ifdef HAVE_LIBENCHANT
+	bftextview2_populate_suggestions_popup(menu, doc);
+#endif /*HAVE_LIBENCHANT*/
 
 	gtk_widget_show_all(GTK_WIDGET(menu));
 }

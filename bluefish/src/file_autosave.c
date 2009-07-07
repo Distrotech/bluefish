@@ -386,7 +386,8 @@ void autosave_cleanup(void) {
 	/* is async a good option during exit ??????? */
 	g_file_delete(file,NULL,&error);
 	if (error) {
-		g_warning("failed to delete %s: %s\n",path,error->message);
+		/* not really a problem if it does not exist */
+		/*g_warning("failed to delete %s: %s\n",path,error->message);*/
 		g_error_free(error);
 	}
 	g_free(path);

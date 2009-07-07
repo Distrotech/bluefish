@@ -323,6 +323,7 @@ typedef struct {
 	gchar *convertcolumn_separator;
 	gboolean convertcolumn_horizontally;
 	gchar *convertcolumn_fillempty;
+	gchar *spell_lang;
 	GList *bmarks;
 	GList *classlist;
 	GList *colorlist;
@@ -399,6 +400,9 @@ typedef struct {
 	GtkWidget *menu_cmenu;
 	GList *menu_cmenu_entries;
 	GList *menu_filetypes;
+#ifdef HAVE_LIBENCHANT
+	gpointer *ed; /* EnchantDict */
+#endif
 	/* following is a new approach, that we have only a gpointer here, whioh is typecasted 
 	in the file where it is needed */
 	gpointer outputbox;
@@ -429,6 +433,8 @@ typedef struct {
 	gpointer filebrowserconfig;
 	gpointer fb2config; /* filebrowser2config */
 	GList *filefilters; /* initialized by fb2config functions */
+	Tdocument *bevent_doc;
+	gint bevent_charoffset; 
 	gpointer bmarkdata;
 	gint num_untitled_documents;
 	GtkTooltips *tooltips;

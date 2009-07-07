@@ -92,8 +92,8 @@ typedef struct {
 #define BMARK(var) ((Tbmark *)(var))
 
 typedef struct {
-	Tdocument *bevent_doc;		/* last button event document */
-	gint bevent_charoffset;		/* last button event location */
+	/*Tdocument *bevent_doc;		 last button event document 
+	gint bevent_charoffset;		 last button event location*/ 
 	GtkTreeStore *bookmarkstore; /* the global bookmarks from the global session */
 	GHashTable *bmarkfiles; /* the global bookmarks from the global session */
 } Tbmarkdata;
@@ -1559,21 +1559,15 @@ void bmark_add(Tbfwin * bfwin) {
 }
 
 gboolean bmark_have_bookmark_at_stored_bevent(Tdocument * doc) {
-	if (BMARKDATA(main_v->bmarkdata)->bevent_doc == doc) {
-		return (bmark_get_bmark_at_line(doc, BMARKDATA(main_v->bmarkdata)->bevent_charoffset) != NULL);
+	if (main_v->bevent_doc == doc) {
+		return (bmark_get_bmark_at_line(doc, main_v->bevent_charoffset) != NULL);
 	}
 	return FALSE;
 }
 
-void bmark_store_bevent_location(Tdocument * doc, gint charoffset) {
-	DEBUG_MSG("bmark_store_bevent_location, storing offset=%d for doc=%p\n",charoffset,doc);
-	BMARKDATA(main_v->bmarkdata)->bevent_doc = doc;
-	BMARKDATA(main_v->bmarkdata)->bevent_charoffset = charoffset;
-}
-
 void bmark_del_at_bevent(Tdocument *doc) {
-	if (BMARKDATA(main_v->bmarkdata)->bevent_doc == doc) {
-		Tbmark *b = bmark_get_bmark_at_line(doc, BMARKDATA(main_v->bmarkdata)->bevent_charoffset);
+	if (main_v->bevent_doc == doc) {
+		Tbmark *b = bmark_get_bmark_at_line(doc, main_v->bevent_charoffset);
 		if (b) {
 			DEBUG_MSG("bmark_del_at_bevent, deleting bookmark %p\n",b);
 			bmark_check_remove(BFWIN(doc->bfwin),b); /* check  if we should remove a filename too */	
@@ -1593,8 +1587,8 @@ void bmark_add_at_bevent(Tdocument *doc) {
 								 _("Cannot add bookmarks to unsaved files."));
 		return;
 	}
-	if (BMARKDATA(main_v->bmarkdata)->bevent_doc == doc) {
-		gint offset = BMARKDATA(main_v->bmarkdata)->bevent_charoffset;
+	if (main_v->bevent_doc == doc) {
+		gint offset = main_v->bevent_charoffset;
 		/* we have the location */
 		bmark_add_current_doc_backend(doc->bfwin, "", offset, !main_v->globses.bookmarks_default_store);
 	}

@@ -849,7 +849,8 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 	if (event->button == 3) {
 		GtkTextIter iter;
 		doc_get_iter_at_bevent((Tdocument *) btv->doc, event, &iter);
-		bmark_store_bevent_location((Tdocument *) btv->doc, gtk_text_iter_get_offset(&iter));
+		main_v->bevent_doc = btv->doc;
+		main_v->bevent_charoffset = gtk_text_iter_get_offset(&iter);
 	}
 	/* here we ask any plugins to do any processing */
 	if (main_v->doc_view_button_press_cbs) {
