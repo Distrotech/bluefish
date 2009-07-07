@@ -88,7 +88,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 			DBG_DELAYSCANNING("%d milliseconds elapsed since last user action\n",elapsed);
 			if ((elapsed + 20) >= main_v->props.delay_scan_time) { /* delay scan time has passed ! */
 				DBG_DELAYSCANNING("idle, call scan for everything\n");
-				if (!bftextview2_run_scanner(btv, NULL)) {
+				if (!bftextview2_run_scanner(btv, NULL) && !bftextview2_run_spellcheck(btv)) {
 					/* finished scanning, make sure we are not called again */
 					DBG_DELAYSCANNING("finished scanning (idle=%d)\n",in_idle);
 					if (in_idle && btv->scanner_delayed) {
@@ -122,7 +122,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(btv), &endvisible, rect.y + rect.height, NULL);
 				gtk_text_iter_forward_to_line_end(&endvisible);
 				DBG_DELAYSCANNING("not idle, call scan for visible area\n");
-				if (!bftextview2_run_scanner(btv, &endvisible)) {
+				if (!bftextview2_run_scanner(btv, &endvisible) && !bftextview2_run_spellcheck(btv)) {
 					DBG_DELAYSCANNING("finished scanning\n");
 					if (in_idle && btv->scanner_delayed) {
 						g_source_remove(btv->scanner_delayed);
@@ -149,7 +149,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 			}
 		} else {
 			DBG_SIGNALS("bftextview2_scanner_idle, running scanner idle function\n");
-			if (!bftextview2_run_scanner(btv, NULL)) {
+			if (!bftextview2_run_scanner(btv, NULL) && !bftextview2_run_spellcheck(btv)) {
 				btv->scanner_idle = 0;
 				DBG_SIGNALS("bftextview2_scanner_idle, stopping scanner idle function\n");
 				bftextview2_set_margin_size(btv);
@@ -158,7 +158,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 		}
 	} else { /* no scantable, do only spellcheck */
 		g_print("no scantable, run spellcheck only\n");
-		if (!bftextview2_run_spellcheck(btv)) {
+		if (!bftextview2_run_spellcheck(btv) && !bftextview2_run_spellcheck(btv)) {
 			btv->scanner_idle = 0;
 			return FALSE;
 		}
