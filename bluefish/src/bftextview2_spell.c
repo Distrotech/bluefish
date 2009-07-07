@@ -31,6 +31,9 @@
 #endif /* HAVE_ENCHANT_ENCHANT_H */
 
 #include "bftextview2_scanner.h"
+#include "bftextview2_langmgr.h"
+#include "bftextview2_spell.h"
+#include "document.h"
 
 #define MAX_CONTINUOUS_SPELLCHECK_INTERVAL 0.1 /* float in seconds */
 
@@ -40,8 +43,10 @@ static gboolean bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTe
 	/* first find a region that needs a spellcheck */
 	gtk_text_buffer_get_start_iter(buffer, start);
 	if (!gtk_text_iter_begins_tag(start,btv->needspellcheck) ) {
+		g_print("iter %d does not begins tag needspellcheck %p, needscanning(%p)=%d\n",gtk_text_iter_get_offset(start),btv->needspellcheck,btv->needscanning,gtk_text_iter_begins_tag(start,btv->needscanning));
 		if (!gtk_text_iter_forward_to_tag_toggle(start,btv->needspellcheck)) {
 			/* nothing to spellcheck */
+			g_print("tag needspellcheck is never started\n");
 			return FALSE;
 		}
 	}
@@ -60,8 +65,9 @@ static gboolean bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTe
 static gboolean load_dictionary(Tbfwin *bfwin) {
 	if (bfwin->ed)
 		enchant_broker_free_dict(eb, bfwin->ed);
-	if (bfwin->session->spell_lang && enchant_broker_dict_exists(eb,bfwin->session->spell_lang)) {
+	if (bfwin->session->spell_lang && bfwin->session->spell_lang[0]!='\0' && enchant_broker_dict_exists(eb,bfwin->session->spell_lang)) {
 		bfwin->ed = enchant_broker_request_dict(eb, bfwin->session->spell_lang);
+		g_print("loaded dictionary %s\n", bfwin->session->spell_lang);
 		return TRUE;
 	} else {
 		bfwin->ed = NULL;
@@ -131,16 +137,17 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 	gboolean cont=TRUE;
 	
 	if (!BFWIN(DOCUMENT(btv->doc)->bfwin)->ed && !load_dictionary(BFWIN(DOCUMENT(btv->doc)->bfwin))) {
-		return;
+		g_print("bftextview2_run_spellcheck, no dictionary.. return..\n");
+		return FALSE;
 	}
 
 	
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	if (!bftextview2_find_region2spellcheck(btv, buffer, &so, &eo)) {
-		g_print("nothing to spellcheck...\n");
+		g_print("bftextview2_run_spellcheck, no region to spellcheck found... return FALSE\n");
 		return FALSE;
 	}
-	g_print("loop1 from %d to %d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&eo));
+	g_print("bftextview2_run_spellcheck, loop1 from %d to %d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&eo));
 	timer = g_timer_new();
 	iter=so;
 	eo_offset = gtk_text_iter_get_offset(&eo);
@@ -155,7 +162,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 					fstack = get_stackcache_first(btv, &siter);
 					if (fstack->charoffset > eo_offset) {
 						/* nothing to do ! */
-						g_print("next starting fstack beyond eo (1), we're finished\n");
+						g_print("bftextview2_run_spellcheck, next starting fstack beyond eo (1), we're finished\n");
 						cont=FALSE;
 						cont2=FALSE;
 						iter=eo;
@@ -169,16 +176,16 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 					/* advance the iter to the charoffset of fstack, but keep at the same place if the iter is already further */
 					if (fstack->charoffset > gtk_text_iter_get_offset(&iter)) {
 						gtk_text_iter_set_offset(&iter, fstack->charoffset);
-						g_print("advance iter to %d\n",gtk_text_iter_get_offset(&iter));
+						g_print("bftextview2_run_spellcheck, advance iter to %d\n",gtk_text_iter_get_offset(&iter));
 					}
 				} else {
-					g_print("next starting fstack beyond eo (2), we're finished\n");
+					g_print("bftextview2_run_spellcheck, next starting fstack beyond eo (2), we're finished\n");
 					cont=FALSE;
 					cont2=FALSE;
 					iter=eo;
 				}
 			} else { /* no fstack and the default context needs spellcheck */
-				g_print("default context, keep iter at %d\n",gtk_text_iter_get_offset(&iter));
+				g_print("bftextview2_run_spellcheck, default context, keep iter at %d\n",gtk_text_iter_get_offset(&iter));
 				fstack = get_stackcache_first(btv, &siter);
 			}
 	
@@ -190,17 +197,17 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 				if (fstack && fstack->charoffset < eo_offset) {
 					/* set eo2 to the end of the context(s) that needs spellcheck */
 					gtk_text_iter_set_offset(&eo2, fstack->charoffset);
-					g_print("set eo2 to %d\n",gtk_text_iter_get_offset(&eo2));
+					g_print("bftextview2_run_spellcheck, set eo2 to %d\n",gtk_text_iter_get_offset(&eo2));
 				} else {
 					/* no next, set end iter to eo */
 					eo2=eo;
-					g_print("set eo2 to eo at %d\n",gtk_text_iter_get_offset(&eo2));
+					g_print("bftextview2_run_spellcheck, set eo2 to eo at %d\n",gtk_text_iter_get_offset(&eo2));
 				}
 			}
 		} else { /* no scantable */
 			eo2=eo;
 		}
-		g_print("loop2 from %d to %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&eo2));
+		g_print("bftextview2_run_spellcheck, loop2 from %d to %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&eo2));
 		while (cont2 && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) { /* loop from iter to eo2 */
 			loop++;
 			if (gtk_text_iter_forward_word_end(&iter) && gtk_text_iter_compare(&iter, &eo2) <= 0) {
@@ -214,7 +221,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 					spellcheck_word(btv, buffer, &wordstart, &iter);
 				}
 			} else {
-				g_print("no word start within region\n");
+				g_print("bftextview2_run_spellcheck, no word start within region\n");
 				iter=eo2;
 				cont2=FALSE;
 			}
@@ -226,7 +233,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 			cont = FALSE;
 			
 	} while (cont && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL));
-	
+	g_print("bftextview2_run_spellcheck, remove needspellcheck from start %d to iter at %d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&iter));
 	gtk_text_buffer_remove_tag(buffer, btv->needspellcheck, &so , &iter);
 
 	g_timer_destroy(timer);
@@ -266,7 +273,7 @@ static void bftextview2_suggestion_menu_lcb(GtkWidget *widget, gpointer data) {
 	if (main_v->bevent_doc != doc)
 		return;
 	g_print("chosen %s\n",gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)));
-	if (get_misspelled_word_at_bevent(doc->view, &wordstart, &wordend)) {
+	if (get_misspelled_word_at_bevent(BLUEFISH_TEXT_VIEW(doc->view), &wordstart, &wordend)) {
 		gint start,end;
 		start = gtk_text_iter_get_offset(&wordstart);
 		end = gtk_text_iter_get_offset(&wordend);
@@ -282,7 +289,7 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 	if (main_v->bevent_doc != doc)
 		return;
 	
-	if (get_misspelled_word_at_bevent(doc->view, &wordstart, &wordend)) {
+	if (get_misspelled_word_at_bevent(BLUEFISH_TEXT_VIEW(doc->view), &wordstart, &wordend)) {
 		gchar *word, **suggestions;
 		size_t n_suggs;
 		word = gtk_text_buffer_get_text(GTK_TEXT_VIEW(doc->view)->buffer, &wordstart,&wordend,FALSE);
@@ -307,11 +314,12 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 
 static void bftextview2_preferences_menu_lcb(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
-	
-	if (bfwin->session->spell_lang)
-		g_free(bfwin->session->spell_lang);
-	bfwin->session->spell_lang = g_strdup(gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)));
-	load_dictionary(bfwin);
+	if (GTK_CHECK_MENU_ITEM(widget)->active) {
+		if (bfwin->session->spell_lang)
+			g_free(bfwin->session->spell_lang);
+		bfwin->session->spell_lang = g_strdup(gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)));
+		load_dictionary(bfwin);
+	}
 }
 
 typedef struct {

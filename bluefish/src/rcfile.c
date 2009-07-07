@@ -611,6 +611,7 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 	init_prop_string_with_escape(&configlist, &session->convertcolumn_separator, "convertcolumn_separator:", NULL);
 	init_prop_integer   (&configlist, &session->convertcolumn_horizontally,"convertcolumn_horizontally:",0, FALSE);
 	init_prop_string_with_escape(&configlist, &session->convertcolumn_fillempty, "convertcolumn_fillempty:", NULL);
+	init_prop_string_with_escape(&configlist, &session->spell_lang, "spell_lang:", NULL);
 #ifdef HAVE_LIBASPELL
 	init_prop_string(&configlist, &session->spell_default_lang, "spell_default_lang:", "en");
 #endif /* HAVE_LIBASPELL */
