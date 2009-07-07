@@ -35,6 +35,9 @@
 #include "bftextview2_patcompile.h"
 #include "bftextview2_autocomp.h"
 #include "bftextview2_langmgr.h"
+#ifdef HAVE_LIBENCHANT
+#include "bftextview2_spell.h"
+#endif
 
 #define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
 
@@ -76,9 +79,10 @@ static void bftextview2_set_margin_size(BluefishTextView * btv);
 static gboolean bftextview2_scanner_idle(gpointer data);
 static gboolean bftextview2_scanner_timeout(gpointer data);
 
-static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle)
-{
-	if (btv->bflang) {
+static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle) {
+	if (!btv->bflang)
+		return FALSE;
+	if (btv->bflang->st) {
 		if (main_v->props.delay_full_scan) {
 			guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 			DBG_DELAYSCANNING("%d milliseconds elapsed since last user action\n",elapsed);
@@ -152,14 +156,20 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 				return FALSE;
 			}
 		}
+	} else { /* no scantable, do only spellcheck */
+		g_print("no scantable, run spellcheck only\n");
+		if (!bftextview2_run_spellcheck(btv)) {
+			btv->scanner_idle = 0;
+			return FALSE;
+		}
 	}
 	return TRUE;
 }
 
 static gboolean bftextview2_scanner_idle(gpointer data) {
+	g_print("bftextview2_scanner_idle\n");
 	if (!((BluefishTextView *)data)->enable_scanner)
 		return FALSE;
-	DBG_DELAYSCANNING("bftextview2_scanner_idle\n");
 	return bftextview2_scanner_scan((BluefishTextView *)data, TRUE);
 }
 static gboolean bftextview2_scanner_timeout(gpointer data) {
@@ -170,8 +180,9 @@ static gboolean bftextview2_scanner_timeout(gpointer data) {
 }
 
 void bftextview2_schedule_scanning(BluefishTextView * btv) {
-	if (btv->enable_scanner && btv->bflang && btv->bflang->st && btv->scanner_idle == 0) {
-		DBG_MSG("bftextview2_schedule_scanning, scheduling scanning function\n");
+	g_print("bftextview2_schedule_scanning, enable=%d, bflang=%p,scanner_idle=%d\n",btv->enable_scanner, btv->bflang, btv->scanner_idle);
+	if (btv->enable_scanner && btv->bflang && btv->scanner_idle == 0) {
+		g_print("bftextview2_schedule_scanning, scheduling scanning function\n");
 		DBG_DELAYSCANNING("scheduling scanning in idle function\n");
 		/* G_PRIORITY_LOW IS 300 and G_PRIORITY_DEFAULT_IDLE is 200 */
 		btv->scanner_idle = g_idle_add_full(G_PRIORITY_DEFAULT-50,bftextview2_scanner_idle, btv,NULL);
@@ -284,8 +295,12 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 static inline gboolean char_in_allsymbols(BluefishTextView * btv, gunichar uc) {
 	if (uc > 127)
 		return FALSE;
-	if (btv->bflang && btv->bflang->st)
+	if (!btv->bflang)
+		return FALSE;
+	if (btv->bflang->st)
 		return btv->bflang->st->allsymbols[uc];
+	else
+		return (uc == ' ' || uc == '\t' || uc == '\n'); 
 	return FALSE;
 }
 
@@ -294,7 +309,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 {
 	GtkTextIter start;
 	gint start_offset;
-	DBG_SIGNALS("bftextview2_insert_text_after_lcb, stringlen=%d\n", stringlen);
+	g_print("bftextview2_insert_text_after_lcb, stringlen=%d\n", stringlen);
 	if (!main_v->props.reduced_scan_triggers || stringlen > 1 || (stringlen==1 && char_in_allsymbols(btv, string[0]))) {
 		bftextview2_schedule_scanning(btv);
 	}
@@ -302,12 +317,12 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	start = *iter;
 	gtk_text_iter_backward_chars(&start, stringlen);
 
-	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
 #ifdef HAVE_LIBENCHANT
+	g_print("bftextview2_insert_text_after_lcb, mark area from %d to %d with tag 'needspellcheck' %p\n", gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needspellcheck);
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, iter);
 #endif /*HAVE_LIBENCHANT*/
-	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&start),
-			gtk_text_iter_get_offset(iter));
+	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning %p\n", gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter), btv->needscanning);
+	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
 	start_offset = gtk_text_iter_get_offset(&start);
 	if (btv->scancache.stackcache_need_update_charoffset == -1
 		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
@@ -659,11 +674,12 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	gtk_text_iter_backward_word_start(&begin);
 	gtk_text_iter_forward_word_end(&end);
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
-#ifdef HAVE_LIBENCHANT
-	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &begin, &end);
-#endif /*HAVE_LIBENCHANT*/
 	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
 			gtk_text_iter_get_offset(&end));
+#ifdef HAVE_LIBENCHANT
+	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &begin, &end);
+	g_print("mark text from %d to %d as needspellcheck\n", gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
+#endif /*HAVE_LIBENCHANT*/
 	start_offset = gtk_text_iter_get_offset(&begin);
 	if (btv->scancache.stackcache_need_update_charoffset == -1
 		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
@@ -926,6 +942,7 @@ void bluefish_text_view_rescan(BluefishTextView * btv) {
 		gtk_text_buffer_get_bounds(buffer,&start,&end);
 		gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, &end);
 #ifdef HAVE_LIBENCHANT
+		g_print("bluefish_text_view_rescan, mark all with needspellcheck\n");
 		gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
 #endif /*HAVE_LIBENCHANT*/
 		bftextview2_schedule_scanning(btv);
@@ -972,6 +989,7 @@ void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) 
 		/* restart scanning */
 		gtk_text_buffer_get_bounds(buffer,&start,&end);
 		gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, &end);
+		gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
 		bftextview2_schedule_scanning(btv);
 	} else {
 		btv->bflang = NULL;

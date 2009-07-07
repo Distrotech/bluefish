@@ -33,6 +33,9 @@
 #endif							/* ENABLE_NLS */
 
 #include "bftextview2_langmgr.h"
+#ifdef HAVE_LIBENCHANT
+#include "bftextview2_spell.h"
+#endif
 #include "pixmap.h"				/* set_default_icon() */
 #include "bf_lib.h"				/* create_full_path() */
 #include "bookmark.h"			/* bmark_init() */
