@@ -2062,7 +2062,7 @@
 	</context>
 </element>
 <element pattern="'" highlight="string">
-	<context symbols="\'" highlight="string">
+	<context symbols="\'" highlight="string" spellcheck="1">
 		<element pattern="\." is_regex="1"/>
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
@@ -2081,5 +2081,10 @@
 <element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
 <element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
-<element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
+<element pattern="#" highlight="comment">
+<context symbols="&#10;&#13;" highlight="comment" spellcheck="1">
+	<element pattern="&#10;" highlight="comment" ends_context="1"/>
+	<element pattern="&#13;" highlight="comment" ends_context="1"/>
+</context>
+</element>
 </context></definition></bflang>

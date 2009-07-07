@@ -21,13 +21,13 @@
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
 	&all-javascript;
 		<element id="js:linecomment" pattern="//" highlight="js-comment">
-			<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
+			<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment" spellcheck="1">
 				<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
 				<element pattern="&lt;/script&gt;" highlight="html-tag" ends_context="3" case_insens="1" ends_block="1" blockstartelement="script"/>
 			</context>
 		</element>
 		<element id="js:blockcomment" pattern="/*" starts_block="1" highlight="js-comment">
-			<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
+			<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment" spellcheck="1">
 				<element pattern="*/" ends_block="1" blockstartelement="js:blockcomment" highlight="js-comment" mayfold="1" ends_context="1" />
 				<element pattern="&lt;/script&gt;" highlight="html-tag" case_insens="1" ends_context="3" ends_block="1" blockstartelement="script"/>
 			</context>
@@ -48,7 +48,7 @@
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
 				&css-rules;
 				<element pattern="/*" starts_block="1" highlight="css-comment">
-					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
+					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment" spellcheck="1">
 						<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="css-comment" mayfold="1" ends_context="1" />
 					</context>
 				</element>
