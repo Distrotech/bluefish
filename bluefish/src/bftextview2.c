@@ -670,7 +670,14 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	BluefishTextView *btv=user_data;
 	DBG_SIGNALS("bftextview2_delete_range_lcb\n");
 
-	/* mark the surroundings of the ext that will be deleted */
+	/* mark the surroundings of the text that will be deleted */
+	
+	/* the 'word start' algorithm of pango becomes very slow in a situation where 
+	the file is filled with funny unicode characters such as 'box' symbol characters. 
+	This happens in search and replace with many replaces (this function is called for
+	each replace).  
+	I have to see why this is. We could also mark from the beginning of the line, but that
+	would be excessive on very long lines...... what is best?? */
 	gtk_text_iter_backward_word_start(&begin);
 	gtk_text_iter_forward_word_end(&end);
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
