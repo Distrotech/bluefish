@@ -157,7 +157,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 			}
 		}
 	} else { /* no scantable, do only spellcheck */
-		g_print("no scantable, run spellcheck only\n");
+		DBG_SPELL("no scantable, run spellcheck only\n");
 		if (!bftextview2_run_spellcheck(btv) && !bftextview2_run_spellcheck(btv)) {
 			btv->scanner_idle = 0;
 			return FALSE;
@@ -167,7 +167,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 }
 
 static gboolean bftextview2_scanner_idle(gpointer data) {
-	g_print("bftextview2_scanner_idle\n");
+	DBG_MSG("bftextview2_scanner_idle\n");
 	if (!((BluefishTextView *)data)->enable_scanner)
 		return FALSE;
 	return bftextview2_scanner_scan((BluefishTextView *)data, TRUE);
@@ -180,9 +180,8 @@ static gboolean bftextview2_scanner_timeout(gpointer data) {
 }
 
 void bftextview2_schedule_scanning(BluefishTextView * btv) {
-	g_print("bftextview2_schedule_scanning, enable=%d, bflang=%p,scanner_idle=%d\n",btv->enable_scanner, btv->bflang, btv->scanner_idle);
+	DBG_MSG("bftextview2_schedule_scanning, enable=%d, bflang=%p,scanner_idle=%d\n",btv->enable_scanner, btv->bflang, btv->scanner_idle);
 	if (btv->enable_scanner && btv->bflang && btv->scanner_idle == 0) {
-		g_print("bftextview2_schedule_scanning, scheduling scanning function\n");
 		DBG_DELAYSCANNING("scheduling scanning in idle function\n");
 		/* G_PRIORITY_LOW IS 300 and G_PRIORITY_DEFAULT_IDLE is 200 */
 		btv->scanner_idle = g_idle_add_full(G_PRIORITY_DEFAULT-50,bftextview2_scanner_idle, btv,NULL);
@@ -309,7 +308,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 {
 	GtkTextIter start;
 	gint start_offset;
-	g_print("bftextview2_insert_text_after_lcb, stringlen=%d\n", stringlen);
+	DBG_MSG("bftextview2_insert_text_after_lcb, stringlen=%d\n", stringlen);
 	if (!main_v->props.reduced_scan_triggers || stringlen > 1 || (stringlen==1 && char_in_allsymbols(btv, string[0]))) {
 		bftextview2_schedule_scanning(btv);
 	}
@@ -318,7 +317,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	gtk_text_iter_backward_chars(&start, stringlen);
 
 #ifdef HAVE_LIBENCHANT
-	g_print("bftextview2_insert_text_after_lcb, mark area from %d to %d with tag 'needspellcheck' %p\n", gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needspellcheck);
+	DBG_SPELL("bftextview2_insert_text_after_lcb, mark area from %d to %d with tag 'needspellcheck' %p\n", gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needspellcheck);
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, iter);
 #endif /*HAVE_LIBENCHANT*/
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning %p\n", gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter), btv->needscanning);
@@ -662,10 +661,13 @@ static gboolean bftextview2_expose_after_lcb(GtkWidget *widget, GdkEventExpose *
 	return FALSE;
 }
 
+
+
 static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 										 GtkTextIter * oend, gpointer user_data)
 {
 	guint start_offset;
+	gint loop;
 	GtkTextIter begin=*obegin,end=*oend;
 	BluefishTextView *btv=user_data;
 	DBG_SIGNALS("bftextview2_delete_range_lcb\n");
@@ -678,14 +680,20 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	each replace).  
 	I have to see why this is. We could also mark from the beginning of the line, but that
 	would be excessive on very long lines...... what is best?? */
-	gtk_text_iter_backward_word_start(&begin);
-	gtk_text_iter_forward_word_end(&end);
+	loop=0;
+	while (loop < 32 && gtk_text_iter_backward_char(&begin) && !g_unichar_isspace(gtk_text_iter_get_char(&begin)))
+		loop++;
+	loop=0;
+	while (loop < 32 && gtk_text_iter_backward_char(&begin) && !g_unichar_isspace(gtk_text_iter_get_char(&end)))
+		loop++;
+	/*gtk_text_iter_backward_word_start(&begin);
+	gtk_text_iter_forward_word_end(&end);*/
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
 	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
 			gtk_text_iter_get_offset(&end));
 #ifdef HAVE_LIBENCHANT
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &begin, &end);
-	g_print("mark text from %d to %d as needspellcheck\n", gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
+	DBG_SPELL("mark text from %d to %d as needspellcheck\n", gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
 #endif /*HAVE_LIBENCHANT*/
 	start_offset = gtk_text_iter_get_offset(&begin);
 	if (btv->scancache.stackcache_need_update_charoffset == -1
@@ -855,7 +863,7 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &it, y, &x);
 				it2 = it;
 				gtk_text_iter_forward_to_line_end(&it2);
-				g_print("select from %d to %d\n",gtk_text_iter_get_offset(&it),gtk_text_iter_get_offset(&it2));
+				DBG_MSG("select from %d to %d\n",gtk_text_iter_get_offset(&it),gtk_text_iter_get_offset(&it2));
 				gtk_text_buffer_select_range(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),&it,&it2);
 				return TRUE;
 			}
@@ -949,7 +957,7 @@ void bluefish_text_view_rescan(BluefishTextView * btv) {
 		gtk_text_buffer_get_bounds(buffer,&start,&end);
 		gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, &end);
 #ifdef HAVE_LIBENCHANT
-		g_print("bluefish_text_view_rescan, mark all with needspellcheck\n");
+		DBG_SPELL("bluefish_text_view_rescan, mark all with needspellcheck\n");
 		gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
 #endif /*HAVE_LIBENCHANT*/
 		bftextview2_schedule_scanning(btv);

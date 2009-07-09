@@ -324,6 +324,7 @@ typedef struct {
 	gboolean convertcolumn_horizontally;
 	gchar *convertcolumn_fillempty;
 	gchar *spell_lang;
+	gint spell_enable;
 	GList *bmarks;
 	GList *classlist;
 	GList *colorlist;
