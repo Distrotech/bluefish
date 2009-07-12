@@ -384,6 +384,7 @@ typedef struct {
 	GtkWidget *toolbar_redo;
 	GtkWidget *toolbar_fullscreen;
 	GtkWidget *toolbar_normalscreen;
+	GtkWidget *toolbar_spell;
 	GtkWidget *toolbar_quickbar; /* the quickbar widget */
 	GList *toolbar_quickbar_children; /* this list is needed to remove widgets from the quickbar */
 	/* following widgets are used to show/hide stuff */

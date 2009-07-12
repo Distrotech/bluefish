@@ -29,4 +29,5 @@ void bftextview2_spell_init(void);
 void bftextview2_spell_cleanup(void);
 void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc);
 void bftextview2_populate_preferences_popup(GtkMenu *menu, Tdocument *doc);
+void bfspell_gui_toggle_spell_check(GtkWidget *widget, gpointer data);
 #endif

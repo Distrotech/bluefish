@@ -88,7 +88,8 @@ static Tstockpixmap tsp[] = {
 	{1001, GTK_STOCK_FIND_AND_REPLACE},
 	{1002, GTK_STOCK_PREFERENCES},
 	{1003, GTK_STOCK_GO_UP},
-	{1004, GTK_STOCK_GO_DOWN}	
+	{1004, GTK_STOCK_GO_DOWN}	,
+	{1005, GTK_STOCK_SPELL_CHECK}
 };
 
 GtkWidget *new_pixmap(gint type) {

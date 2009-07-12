@@ -331,6 +331,7 @@ static void bftextview2_preferences_menu_lcb(GtkWidget *widget, gpointer data) {
 static void bftextview2_preferences_menu_enable_lcb(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
 	bfwin->session->spell_enable = GTK_CHECK_MENU_ITEM(widget)->active;
+	gtk_toggle_button_set_active(bfwin->toolbar_spell,bfwin->session->spell_enable);
 }
 
 typedef struct {
@@ -346,8 +347,9 @@ static void list_dicts_lcb(const char * const lang_tag,const char * const provid
 	menuitem = gtk_radio_menu_item_new_with_label(dl->group, lang_tag);
 	if (!dl->group)
 		dl->group = gtk_radio_menu_item_group(GTK_RADIO_MENU_ITEM(menuitem));
-	if (g_strcmp0(dl->bfwin->session->spell_lang, lang_tag)==0)
+	if (g_strcmp0(dl->bfwin->session->spell_lang, lang_tag)==0) {
 		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
+	}
 	g_signal_connect(menuitem, "activate", G_CALLBACK(bftextview2_preferences_menu_lcb), dl->bfwin);
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(dl->menu), GTK_WIDGET(menuitem));
 }
@@ -374,8 +376,11 @@ void bftextview2_populate_preferences_popup(GtkMenu *menu, Tdocument *doc) {
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), BFWIN(doc->bfwin)->session->spell_enable);
 	g_signal_connect(menuitem, "activate", G_CALLBACK(bftextview2_preferences_menu_enable_lcb), doc->bfwin);
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+}
 
-
+void bfspell_gui_toggle_spell_check(GtkWidget *widget, gpointer data) {
+	Tbfwin *bfwin=data;
+	bfwin->session->spell_enable = GTK_TOGGLE_BUTTON(widget)->active;
 }
 
 #endif /*HAVE_LIBENCHANT*/
