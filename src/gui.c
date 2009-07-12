@@ -51,9 +51,6 @@
 #ifdef HAVE_LIBENCHANT
 #include "bftextview2_spell.h"
 #endif /*HAVE_LIBENCHANT*/
-#ifdef HAVE_LIBASPELL
-#include "bfspell.h"
-#endif /* HAVE_LIBASPELL */
 
 typedef struct {
 	GtkWidget *window;
@@ -444,13 +441,8 @@ void make_main_toolbar(Tbfwin *bfwin) {
 							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);*/
 #ifdef HAVE_LIBENCHANT
 	bfwin->toolbar_spell = gtk_toolbar_insert_element(GTK_TOOLBAR(toolbar),GTK_TOOLBAR_CHILD_TOGGLEBUTTON,
-				NULL,_("Spellcheck"),_("Spellcheck"),"",new_pixmap(1005),bfspell_gui_toggle_spell_check,bfwin,-1);
+				NULL,_("Spellcheck"),_("Spellcheck"),"",new_pixmap(1005),bftextview2_gui_toggle_spell_check,bfwin,-1);
 	gtk_toggle_button_set_active(bfwin->toolbar_spell,bfwin->session->spell_enable);
-#else
-#ifdef HAVE_LIBASPELL
-	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SPELL_CHECK, _("Spellcheck..."),
-							"", G_CALLBACK(spell_check_cb), bfwin, -1);
-#endif /* HAVE_LIBASPELL */
 #endif
 
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,

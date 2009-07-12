@@ -27,8 +27,6 @@ bin_PROGRAMS = bluefish-unstable
 bluefish_unstable_SOURCES = \
 	bf_lib.c \
 	bf_lib.h \
-	bfspell.c \
-	bfspell.h \
 	blocksync.c \
 	blocksync.h \
 	bluefish.c \
