@@ -29,6 +29,7 @@
 #else /* HAVE_ENCHANT_ENCHANT_H */
 #include <enchant.h>
 #endif /* HAVE_ENCHANT_ENCHANT_H */
+#include <string.h> /*strlen*/
 
 #include "bftextview2_scanner.h"
 #include "bftextview2_langmgr.h"
@@ -64,9 +65,9 @@ static gboolean bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTe
 
 static gboolean load_dictionary(Tbfwin *bfwin) {
 	if (bfwin->ed)
-		enchant_broker_free_dict(eb, bfwin->ed);
+		enchant_broker_free_dict(eb, (EnchantDict *)bfwin->ed);
 	if (bfwin->session->spell_lang && bfwin->session->spell_lang[0]!='\0' && enchant_broker_dict_exists(eb,bfwin->session->spell_lang)) {
-		bfwin->ed = enchant_broker_request_dict(eb, bfwin->session->spell_lang);
+		bfwin->ed = (void *)enchant_broker_request_dict(eb, bfwin->session->spell_lang);
 		DBG_SPELL("loaded dictionary %s\n", bfwin->session->spell_lang);
 		return TRUE;
 	} else {
@@ -81,11 +82,11 @@ static void spellcheck_word(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTe
 	
 	tocheck = gtk_text_buffer_get_text(buffer, start,end, FALSE);
 	DBG_SPELL("spellcheck_word, check word %s\n",tocheck);
-	if (enchant_dict_check(BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck, g_utf8_strlen(tocheck,-1)) != 0) {
-		DBG_SPELL("%s *not* spelled correctly!\n", tocheck);
+	if (enchant_dict_check((EnchantDict *)BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck, strlen(tocheck)) != 0) {
+		DBG_SPELL("'%s' *not* spelled correctly!\n", tocheck);
 		gtk_text_buffer_apply_tag_by_name(buffer, "_spellerror_", start, end);
 	} else {
-		DBG_SPELL("%s spelled correctly!\n", tocheck);
+		DBG_SPELL("'%s' spelled correctly!\n", tocheck);
 	}
 	g_free(tocheck);
 }
@@ -278,7 +279,8 @@ static void bftextview2_suggestion_menu_lcb(GtkWidget *widget, gpointer data) {
 	DBG_SPELL("chosen %s\n",gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)));
 	if (get_misspelled_word_at_bevent(BLUEFISH_TEXT_VIEW(doc->view), &wordstart, &wordend)) {
 		gint start,end;
-		gtk_text_buffer_remove_tag_by_name(doc->buffer, "_spellerror_", &wordstart, &wordend);
+		/* no need to remove the tag because the text with this tag is deleted by the replace
+		gtk_text_buffer_remove_tag_by_name(doc->buffer, "_spellerror_", &wordstart, &wordend);*/
 		start = gtk_text_iter_get_offset(&wordstart);
 		end = gtk_text_iter_get_offset(&wordend);
 		doc_replace_text(doc, gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)), start, end);
@@ -298,7 +300,7 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 		size_t n_suggs;
 		word = gtk_text_buffer_get_text(GTK_TEXT_VIEW(doc->view)->buffer, &wordstart,&wordend,FALSE);
 		DBG_SPELL("list alternatives for %s\n", word);
-		suggestions = enchant_dict_suggest(BFWIN(doc->bfwin)->ed, word,g_utf8_strlen(word,-1), &n_suggs);
+		suggestions = enchant_dict_suggest((EnchantDict *)BFWIN(doc->bfwin)->ed, word,strlen(word), &n_suggs);
 		if (suggestions) {
 			GtkWidget *menuitem;
 			gint i;
@@ -310,7 +312,7 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 				gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 			}
 			
-			enchant_dict_free_string_list(BFWIN(doc->bfwin)->ed, suggestions);
+			enchant_dict_free_string_list((EnchantDict *)BFWIN(doc->bfwin)->ed, suggestions);
 		}
 		g_free(word);
 	}
@@ -369,7 +371,7 @@ void bftextview2_populate_preferences_popup(GtkMenu *menu, Tdocument *doc) {
 	enchant_broker_list_dicts(eb, list_dicts_lcb, &dl);
 
 	menuitem = gtk_check_menu_item_new_with_label(_("Enable spell check"));
-	gtk_check_menu_item_set_active(menuitem, BFWIN(doc->bfwin)->session->spell_enable);
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), BFWIN(doc->bfwin)->session->spell_enable);
 	g_signal_connect(menuitem, "activate", G_CALLBACK(bftextview2_preferences_menu_enable_lcb), doc->bfwin);
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 

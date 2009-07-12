@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#define HL_PROFILING
+/*#define HL_PROFILING*/
 #ifdef HL_PROFILING
 #include <sys/times.h>
 #include <unistd.h>
