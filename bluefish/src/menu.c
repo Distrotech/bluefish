@@ -31,7 +31,6 @@
 
 #include "bluefish.h"
 #include "bf_lib.h"			/* append_string_to_file() */
-#include "bfspell.h"
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"

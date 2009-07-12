@@ -378,7 +378,7 @@ void bftextview2_populate_preferences_popup(GtkMenu *menu, Tdocument *doc) {
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 }
 
-void bfspell_gui_toggle_spell_check(GtkWidget *widget, gpointer data) {
+void bftextview2_gui_toggle_spell_check(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
 	bfwin->session->spell_enable = GTK_TOGGLE_BUTTON(widget)->active;
 }
