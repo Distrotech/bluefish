@@ -665,6 +665,7 @@ void gui_apply_session(Tbfwin *bfwin) {
 	gui_statusbar_show_hide_toggle(bfwin, bfwin->session->view_statusbar, TRUE);
 	fb2_update_settings_from_session(bfwin);
 	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
+	gtk_toggle_button_set_active(bfwin->toolbar_spell,bfwin->session->spell_enable);
 	/* force this session in the plugins */
 	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
 }
