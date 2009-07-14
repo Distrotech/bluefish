@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -294,7 +294,7 @@ void blocksync_dialog(Tbfwin *bfwin) {
 	bsdialog = g_new0(Tbsdialog,1);
 	bsdialog->bfwin = bfwin;
 	bsdialog->curpage = page_no_selection;
-	bsdialog->dialog = gtk_dialog_new_with_buttons(_("Block synchronisation"),GTK_WINDOW(bfwin->main_window),
+	bsdialog->dialog = gtk_dialog_new_with_buttons(_("Synchronize text block"),GTK_WINDOW(bfwin->main_window),
 					GTK_DIALOG_DESTROY_WITH_PARENT,
 					GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,
 					GTK_STOCK_GO_FORWARD,1,

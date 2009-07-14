@@ -1138,7 +1138,7 @@ void sync_dialog(Tbfwin *bfwin) {
 	GtkWidget *hbox;
 	sd = g_new0(Tsyncdialog,1);
 	sd->bfwin = bfwin;
-	sd->dialog = gtk_dialog_new_with_buttons(_("Synchronize files"),GTK_WINDOW(bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT
+	sd->dialog = gtk_dialog_new_with_buttons(_("Upload / Download"),GTK_WINDOW(bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT
 				,_("Upload"),1,_("Download"),2,GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE,NULL);
 	
 	hbox = gtk_hbox_new(FALSE,4);
@@ -1155,7 +1155,7 @@ void sync_dialog(Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_remote, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), FALSE,FALSE,4);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), hbox, FALSE,FALSE,4);
 	
-	sd->delete_deprecated = boxed_checkbut_with_value(_("Delete remote deprecated files"), bfwin->session->sync_delete_deprecated, GTK_DIALOG(sd->dialog)->vbox);
+	sd->delete_deprecated = boxed_checkbut_with_value(_("Delete deprecated files"), bfwin->session->sync_delete_deprecated, GTK_DIALOG(sd->dialog)->vbox);
 	sd->include_hidden = boxed_checkbut_with_value(_("Include hidden files"), bfwin->session->sync_include_hidden, GTK_DIALOG(sd->dialog)->vbox);
 
 	sd->messagelabel = gtk_label_new(NULL);
