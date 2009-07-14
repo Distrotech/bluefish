@@ -761,7 +761,7 @@ Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_type
  *
  * last_snr2 is reset with .start = .end = -1, and .doc = doc.
  *
- * Return value: void
+ * Return value: number of replaces
  **/
 static gint replace_doc_multiple(Tbfwin *bfwin,const gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, const gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype, gboolean unescape, guint unre_action_id) {
 /* endpos -1 means do till end */
@@ -852,7 +852,7 @@ static gint replace_doc_multiple(Tbfwin *bfwin,const gchar *search_pattern, Tmat
  * Perform a replace_doc_multiple() with supplied data on all open documents.
  * This will replace all occurences of search_pattern in all documents.
  *
- * Return value: void
+ * Return value: number of replaces
  **/
 static gint replace_all(Tbfwin *bfwin,const gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, const gchar *replace_pattern, Treplace_types replacetype, gboolean unescape) {
 	GList *tmplist;
@@ -1041,16 +1041,16 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
  * @is_case_sens: #gint
  * @replace_pattern: #gchar* to replace pattern.
  * @ unescape: #gboolean whether the patterns needs to be unescaped
- * Return value: void
+ * Return value: number of replaces
  **/
 
-void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
+gint snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
 							gint matchtype, gint is_case_sens, const gchar *replace_pattern,
 							gboolean unescape) {
 	DEBUG_MSG("snr2_run_extern_replace, search_pattern=%s, replace_pattern=%s, unescape=%d\n",search_pattern,replace_pattern,unescape);
 
 	if (region == 3) { /* in all open files */
-		replace_all(BFWIN(doc->bfwin),search_pattern
+		return replace_all(BFWIN(doc->bfwin),search_pattern
 					, matchtype
 					, is_case_sens
 					, replace_pattern
@@ -1062,10 +1062,10 @@ void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
 			startpos = doc_get_cursor_position(doc);
 		} else if (region == 2){
 			if (!doc_get_selection(doc,&startpos,&endpos)) {
-				return;
+				return 0;
 			}
 		}
-		replace_doc_multiple(BFWIN(doc->bfwin),search_pattern
+		return replace_doc_multiple(BFWIN(doc->bfwin),search_pattern
 					, matchtype
 					, is_case_sens
 					, startpos, endpos, replace_pattern

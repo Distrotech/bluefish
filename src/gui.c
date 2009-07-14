@@ -716,9 +716,6 @@ void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	gui_bfwin_cleanup(bfwin);
 	DEBUG_MSG("main_window_destroy_lcb, will destroy the window now\n");
 	gtk_widget_destroy(bfwin->main_window);
-#ifdef USER_IDLE_TIMER
-	g_timer_destroy(bfwin->idletimer);
-#endif
 	DEBUG_MSG("main_window_destroy_lcb, going to free bfwin %p\n",bfwin);
 	g_free(bfwin);
 	
@@ -894,14 +891,10 @@ static void gui_create_gotoline_frame(Tbfwin *bfwin) {
 void gui_create_main(Tbfwin *bfwin) {
 	GtkWidget *vbox;
 	DEBUG_MSG("gui_create_main, bfwin=%p, main_window_w=%d\n",bfwin,main_v->globses.main_window_w);
-#ifdef USER_IDLE_TIMER	
-	bfwin->idletimer = g_timer_new();
-#endif
 	bfwin->main_window = window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
 	gtk_widget_realize(bfwin->main_window);
 	if (!main_v->props.leave_to_window_manager) {
-		g_print("set window size\n");
 		if (main_v->globses.main_window_w > 0) {
 			gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->globses.main_window_w, main_v->globses.main_window_h);
 		} else {

@@ -45,7 +45,7 @@ typedef struct {
 void snr2_init(Tbfwin *bfwin);
 void snr2_cleanup(Tbfwin *bfwin);
 
-void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
+gint snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
 							gint matchtype, gint is_case_sens, const gchar *replace_pattern,
 							gboolean unescape);
 Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens, gint offset);
