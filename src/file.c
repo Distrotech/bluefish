@@ -429,7 +429,10 @@ GFile *backup_uri_from_orig_uri(GFile * origuri) {
 /*************************** OPEN FILE ASYNC ******************************/
 
 static GList *wait_for_mount=NULL;
-GMountOperation *gmo=NULL;
+GMountOperation *gmo=NULL; /* we do only 1 mount operation at a 
+		time to avoid multiple mount calls for the same volume, resulting in multiple authentication
+		popups for the user. In 99.9% of the cases when the user is loading multiple files that need
+		mounting they will be from the same server anyway  */
 
 static void openfile_run(gpointer data);
 
