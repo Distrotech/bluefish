@@ -51,7 +51,7 @@ void DEBUG_URI(GFile * uri, gboolean newline)
 	g_free(name);
 }
 
-/* queue functions */
+/******************************** queue functions ********************************/
 typedef struct {
 	guint worknum; /* number of elements that are being worked on */
 	GList *head; /* data structures that are *not* being worked on */
@@ -62,11 +62,19 @@ typedef struct {
 	GStaticMutex mutex;
 } Tqueue;
 
+static Tqueue ofqueue;
+static Tqueue oadqueue;
+
 static void queue_init(Tqueue *queue, guint max_worknum) {
 	queue->worknum=0;
 	queue->tail=queue->head=NULL;
 	queue->max_worknum=max_worknum;
 	g_static_mutex_init(&queue->mutex);
+}
+
+void file_static_queues_init(void) {
+	queue_init(&ofqueue, 32);
+	queue_init(&oadqueue, 16);
 }
 
 static void queue_cleanup(Tqueue *queue) {
@@ -106,15 +114,6 @@ static void queue_push(Tqueue *queue, gpointer item, void (*activate_func) ()) {
 	queue_run(queue,activate_func);
 	g_static_mutex_unlock(&queue->mutex);
 }
-
-static Tqueue ofqueue;
-static Tqueue oadqueue;
-
-void file_static_queues_init(void) {
-	queue_init(&ofqueue, 32);
-	queue_init(&oadqueue, 16);
-}
-
 
 /*************************** FILE DELETE ASYNC ******************************/
 typedef struct {
@@ -428,13 +427,9 @@ GFile *backup_uri_from_orig_uri(GFile * origuri) {
 }*/
 
 /*************************** OPEN FILE ASYNC ******************************/
-/*typedef struct {
-	GList *todo;
-	guint worknum;
-} Tofqueue;
-static Tofqueue ofqueue = {NULL,0};
-#define OF_MAX_WORKNUM 32
-static void process_ofqueue(gpointer data);*/
+
+static GList *wait_for_mount=NULL;
+GMountOperation *gmo=NULL;
 
 static void openfile_run(gpointer data);
 
@@ -454,14 +449,24 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 
 static void openfile_async_mount_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Topenfile *of = user_data;
+	GList *tmplist;
 	GError *error=NULL;
 	if (g_file_mount_enclosing_volume_finish(of->uri,res,&error)) {
 		/* open again */
 		g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
 	} else {
-		g_print("failed to mount with error %d %s!!\n",error->code,error->message);
+		DEBUG_MSG("failed to mount with error %d %s!!\n",error->code,error->message);
 		of->callback_func(OPENFILE_ERROR,error->code,NULL,0, of->callback_data);		
 	}
+	gmo=NULL;
+	tmplist = g_list_first(wait_for_mount);
+	while (tmplist) {
+		DEBUG_MSG("push 'wait_for_mount' %p on queue again\n", tmplist->data);
+		queue_push(&ofqueue, tmplist->data, openfile_run);
+		tmplist=g_list_next(tmplist);
+	}
+	g_list_free(wait_for_mount);
+	wait_for_mount=NULL;
 }
 
 static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
@@ -476,14 +481,19 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 	if (error) {
 		DEBUG_MSG("openfile_async_lcb, finished, received error code %d: %s\n",error->code,error->message);
 		if (error->code == G_IO_ERROR_NOT_MOUNTED) {
-			GMountOperation * gmo;
-			g_print("not mounted, try to mount!!\n");
-			gmo = gtk_mount_operation_new(of->bfwin?(GtkWindow *)of->bfwin->main_window:NULL); /* TODO, add bfwin to the Topenfile */
-			g_file_mount_enclosing_volume(of->uri
-					,G_MOUNT_MOUNT_NONE
-					,gmo
-					,of->cancel
-					,openfile_async_mount_lcb,of);
+			if (gmo==NULL) {
+				DEBUG_MSG("not mounted, try to mount!!\n");
+				gmo = gtk_mount_operation_new(of->bfwin?(GtkWindow *)of->bfwin->main_window:NULL); /* TODO, add bfwin to the Topenfile */
+				g_file_mount_enclosing_volume(of->uri
+						,G_MOUNT_MOUNT_NONE
+						,gmo
+						,of->cancel
+						,openfile_async_mount_lcb,of);
+			} else {
+				DEBUG_MSG("push %p on 'wait_for_mount' list and remove from queue\n", of);
+				wait_for_mount = g_list_prepend(wait_for_mount, of);
+				queue_worker_ready(&ofqueue, openfile_run);
+			}
 		} else {
 			of->callback_func(OPENFILE_ERROR,error->code,buffer,size, of->callback_data);
 			g_free(buffer);
