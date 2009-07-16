@@ -323,8 +323,10 @@ typedef struct {
 	gchar *convertcolumn_separator;
 	gboolean convertcolumn_horizontally;
 	gchar *convertcolumn_fillempty;
+#ifdef HAVE_LIBENCHANT
 	gchar *spell_lang;
 	gint spell_enable;
+#endif
 	GList *bmarks;
 	GList *classlist;
 	GList *colorlist;
@@ -384,7 +386,9 @@ typedef struct {
 	GtkWidget *toolbar_redo;
 	GtkWidget *toolbar_fullscreen;
 	GtkWidget *toolbar_normalscreen;
+#ifdef HAVE_LIBENCHANT
 	GtkWidget *toolbar_spell;
+#endif
 	GtkWidget *toolbar_quickbar; /* the quickbar widget */
 	GList *toolbar_quickbar_children; /* this list is needed to remove widgets from the quickbar */
 	/* following widgets are used to show/hide stuff */
