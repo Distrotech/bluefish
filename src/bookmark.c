@@ -998,7 +998,7 @@ void bookmark_data_cleanup(gpointer *data) {
  * them into treestore BMARKDATA(bfwin->bmarkdata)->bookmarkstore
  *
  * it is called from bluefish.c for the first window (global bookmarks)
- * and from project.c after opening a project
+ * and from project.c during opening a project
  *
  * this function should ALSO check all douments that are
  * opened (bfwin->documentlist) if they have bookmarks !!
@@ -1048,13 +1048,6 @@ void bmark_reload(Tbfwin * bfwin) {
 			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &(b->iter), NAME_COLUMN, ptr, PTR_COLUMN, b,-1);
 			g_free(ptr);
 		}
-		tmplist = g_list_next(tmplist);
-	}
-	
-	tmplist = g_list_first(bfwin->documentlist);
-	while (tmplist) {
-		DEBUG_MSG("bmark_reload, calling bmark_set_for_doc for doc=%p\n",tmplist->data);
-		bmark_set_for_doc(DOCUMENT(tmplist->data),TRUE);
 		tmplist = g_list_next(tmplist);
 	}
 }
