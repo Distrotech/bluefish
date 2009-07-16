@@ -2,7 +2,7 @@
  * bookmark.c - bookmarks
  *
  * Copyright (C) 2003 Oskar Swida
- * modifications (C) 2004-2008 Olivier Sessink
+ * modifications (C) 2004-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -959,8 +959,8 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 
 
 /*
- * this function should create the global
- * main_v->bookmarkstore
+ * this function is used to create the global main_v->bookmarkstore
+ * as well as the project bookmarkstores
  */
 gpointer bookmark_data_new(void) {
 	Tbmarkdata *bmd;
@@ -970,12 +970,13 @@ gpointer bookmark_data_new(void) {
 	DEBUG_MSG("bookmark_data_new, created bookmarkstore at %p\n", bmd->bookmarkstore);
 	return bmd;
 }
+/* used to clean up the project bookmarkdata */
 void bookmark_data_cleanup(gpointer *data) {
 	Tbmarkdata *bmd = BMARKDATA(data);
 	GtkTreeIter fileit;
 	gboolean cont;
 	/*walk the treestore and free all Tbmark's in the pointer columns */
-	
+	DEBUG_MSG("bookmark_data_cleanup\n");
 	cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(bmd->bookmarkstore), &fileit,NULL);
 	while (cont) { /* walk the toplevel */
 		GtkTreeIter bmit;
@@ -983,6 +984,7 @@ void bookmark_data_cleanup(gpointer *data) {
 		while (cont2) {
 			Tbmark *bmark;
 			gtk_tree_model_get(GTK_TREE_MODEL(bmd->bookmarkstore), &bmit, PTR_COLUMN,&bmark, -1);
+			bmark->strarr=NULL;
 			bmark_free(bmark);
 			cont2 = gtk_tree_model_iter_next(GTK_TREE_MODEL(bmd->bookmarkstore), &bmit);
 		}
@@ -1099,9 +1101,6 @@ void bmark_clean_for_doc(Tdocument * doc) {
 	/* now unset the Tdocument* in the second column */
 	DEBUG_MSG("bmark_clean_for_doc, unsetting and freeing parent_iter %p for doc %p\n",doc->bmark_parent,doc);
 	gtk_tree_store_set(GTK_TREE_STORE(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), doc->bmark_parent, PTR_COLUMN, NULL, -1);
-	/* remove the pointer from the hastable */
-	g_hash_table_remove(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles,doc->uri);
-	g_free(doc->bmark_parent);
 	doc->bmark_parent = NULL;
 }
 
