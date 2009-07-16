@@ -1144,6 +1144,7 @@ static gboolean bookmark_needs_repositioning(Tbmark *mark, GtkTextIter *it) {
 	/* check the content at the bookmark */
 	gtk_text_buffer_get_iter_at_offset(mark->doc->buffer, &it2, mark->offset + strlen(mark->text));
 	tmpstr = gtk_text_buffer_get_text(mark->doc->buffer, it, &it2, FALSE);
+	DEBUG_MSG("original offset %d, compare %s and %s\n",mark->offset, tmpstr, mark->text);
 	retval = (strcmp(tmpstr, mark->text)!=0);
 	DEBUG_MSG("bookmark_needs_repositioning, reposition=%d,text='%s', tmpstr='%s'\n",retval,mark->text, tmpstr);
 	g_free(tmpstr);
@@ -1180,7 +1181,7 @@ void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
 	if (doc->bmark_parent) {
 		gboolean cont2;
 		GtkTreeIter child;
-		DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",gtk_label_get_text(GTK_LABEL(doc->tab_menu)),mark->offset);
+		/*g_print("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",gtk_label_get_text(GTK_LABEL(doc->tab_menu)),mark->offset);*/
 		gtk_tree_store_set(GTK_TREE_STORE(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), doc->bmark_parent, PTR_COLUMN, doc, -1);
 	
 		cont2 = gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child, doc->bmark_parent);
