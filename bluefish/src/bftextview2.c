@@ -88,7 +88,11 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 			DBG_DELAYSCANNING("%d milliseconds elapsed since last user action\n",elapsed);
 			if ((elapsed + 20) >= main_v->props.delay_scan_time) { /* delay scan time has passed ! */
 				DBG_DELAYSCANNING("idle, call scan for everything\n");
-				if (!bftextview2_run_scanner(btv, NULL) && !bftextview2_run_spellcheck(btv)) {
+				if (!bftextview2_run_scanner(btv, NULL)
+#ifdef HAVE_LIBENCHANT
+				 && !bftextview2_run_spellcheck(btv)
+#endif
+				 												) {
 					/* finished scanning, make sure we are not called again */
 					DBG_DELAYSCANNING("finished scanning (idle=%d)\n",in_idle);
 					if (in_idle && btv->scanner_delayed) {
@@ -122,7 +126,11 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(btv), &endvisible, rect.y + rect.height, NULL);
 				gtk_text_iter_forward_to_line_end(&endvisible);
 				DBG_DELAYSCANNING("not idle, call scan for visible area\n");
-				if (!bftextview2_run_scanner(btv, &endvisible) && !bftextview2_run_spellcheck(btv)) {
+				if (!bftextview2_run_scanner(btv, &endvisible)
+#ifdef HAVE_LIBENCHANT
+								 && !bftextview2_run_spellcheck(btv)
+#endif
+								 									) {
 					DBG_DELAYSCANNING("finished scanning\n");
 					if (in_idle && btv->scanner_delayed) {
 						g_source_remove(btv->scanner_delayed);
@@ -149,7 +157,11 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 			}
 		} else {
 			DBG_SIGNALS("bftextview2_scanner_idle, running scanner idle function\n");
-			if (!bftextview2_run_scanner(btv, NULL) && !bftextview2_run_spellcheck(btv)) {
+			if (!bftextview2_run_scanner(btv, NULL)
+#ifdef HAVE_LIBENCHANT
+			 		&& !bftextview2_run_spellcheck(btv)
+#endif
+			 		) {
 				btv->scanner_idle = 0;
 				DBG_SIGNALS("bftextview2_scanner_idle, stopping scanner idle function\n");
 				bftextview2_set_margin_size(btv);
@@ -157,11 +169,15 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 			}
 		}
 	} else { /* no scantable, do only spellcheck */
+#ifdef HAVE_LIBENCHANT
 		DBG_SPELL("no scantable, run spellcheck only\n");
-		if (!bftextview2_run_spellcheck(btv) && !bftextview2_run_spellcheck(btv)) {
+		if (!bftextview2_run_spellcheck(btv)) {
 			btv->scanner_idle = 0;
 			return FALSE;
 		}
+#endif
+		btv->scanner_idle = 0;
+		return FALSE;
 	}
 	return TRUE;
 }
@@ -1004,7 +1020,9 @@ void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) 
 		/* restart scanning */
 		gtk_text_buffer_get_bounds(buffer,&start,&end);
 		gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, &end);
+#ifdef HAVE_LIBENCHANT
 		gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
+#endif
 		bftextview2_schedule_scanning(btv);
 	} else {
 		btv->bflang = NULL;
