@@ -360,7 +360,11 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 	gtk_table_attach(GTK_TABLE(p2->table), scrolwin, 0,1,7,11
 				,GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,0,0);
 	p2->after = gtk_text_view_get_buffer(GTK_TEXT_VIEW(p2->after_v));
-	gtk_table_attach(GTK_TABLE(p2->table),gtk_label_new(_("is filename")), 3,4,1,2
+	gtk_table_attach(GTK_TABLE(p2->table),gtk_label_new(_("Number")), 1,2,1,2
+					,GTK_FILL,GTK_FILL,0,0);
+	gtk_table_attach(GTK_TABLE(p2->table),gtk_label_new(_("Name")), 2,3,1,2
+					,GTK_FILL,GTK_FILL,0,0);
+	gtk_table_attach(GTK_TABLE(p2->table),gtk_label_new(_("Is file path")), 3,4,1,2
 					,GTK_FILL,GTK_FILL,0,0);
 	for (i = 0; i <  10; i++) {
 		tmpstr = g_strdup_printf("%%%d ", i);
@@ -374,7 +378,7 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 					,GTK_FILL,GTK_FILL,0,0);
 		p2->is_file[i] = gtk_toggle_button_new();
 		gtk_table_attach(GTK_TABLE(p2->table),p2->is_file[i], 3,4,i+2,i+3
-					,GTK_FILL,GTK_FILL,0,0);
+					,GTK_SHRINK,GTK_SHRINK,0,0);
 	}
 	
 	if (snwiz->node) {
@@ -394,12 +398,16 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 				i++;
 			} else if (xmlStrEqual(cur->name, (const xmlChar *)"before")) {
 				tmpstr = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
-				gtk_text_buffer_set_text(p2->before,(gchar *)tmpstr,-1);
-				g_free(tmpstr);
+				if (tmpstr) {
+					gtk_text_buffer_set_text(p2->before,(gchar *)tmpstr,-1);
+					g_free(tmpstr);
+				}
 			} else if (xmlStrEqual(cur->name, (const xmlChar *)"after")) {
 				tmpstr = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
-				gtk_text_buffer_set_text(p2->after,(gchar *)tmpstr,-1);
-				g_free(tmpstr);
+				if (tmpstr) {
+					gtk_text_buffer_set_text(p2->after,(gchar *)tmpstr,-1);
+					g_free(tmpstr);
+				}
 			}
 		}	
 	}
