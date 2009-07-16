@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snippets_wizard.c - plugin for snippets sidebar
  *
- * Copyright (C) 2006 Olivier Sessink
+ * Copyright (C) 2006,2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -318,11 +318,11 @@ static gint snippets_test_pageSnr(Tsnipwiz *snwiz, gpointer data) {
 typedef struct {
 	GtkWidget *table;
 	GtkWidget *entries[10];
+	GtkWidget *is_file[10];
 	GtkWidget *before_v;
 	GtkWidget *after_v;
 	GtkTextBuffer *before;
 	GtkTextBuffer *after;
-
 } TpageInsert;
 
 static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_action) {
@@ -331,7 +331,7 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 	gchar *tmpstr;
 	TpageInsert *p2 = g_new(TpageInsert,1);
 
-	p2->table = gtk_table_new(12, 4, FALSE);
+	p2->table = gtk_table_new(13, 5, FALSE);
 	gtk_table_set_row_spacings(GTK_TABLE (p2->table), 6);
 	gtk_table_set_col_spacings(GTK_TABLE (p2->table), 12);
 	gtk_box_pack_start(GTK_BOX(dialog_action), p2->table, TRUE, TRUE, 0);
@@ -360,16 +360,20 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 	gtk_table_attach(GTK_TABLE(p2->table), scrolwin, 0,1,7,11
 				,GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,0,0);
 	p2->after = gtk_text_view_get_buffer(GTK_TEXT_VIEW(p2->after_v));
-	
+	gtk_table_attach(GTK_TABLE(p2->table),gtk_label_new(_("is filename")), 3,4,1,2
+					,GTK_FILL,GTK_FILL,0,0);
 	for (i = 0; i <  10; i++) {
 		tmpstr = g_strdup_printf("%%%d ", i);
 		label = gtk_label_new(tmpstr);
 		gtk_misc_set_alignment(GTK_MISC(label),1,0.5);
-		gtk_table_attach(GTK_TABLE(p2->table),label, 1,2,i+1,i+2
+		gtk_table_attach(GTK_TABLE(p2->table),label, 1,2,i+2,i+3
 					,GTK_FILL,GTK_FILL,0,0);
 		g_free(tmpstr);
 		p2->entries[i] = gtk_entry_new();
-		gtk_table_attach(GTK_TABLE(p2->table),p2->entries[i], 2,3,i+1,i+2
+		gtk_table_attach(GTK_TABLE(p2->table),p2->entries[i], 2,3,i+2,i+3
+					,GTK_FILL,GTK_FILL,0,0);
+		p2->is_file[i] = gtk_toggle_button_new();
+		gtk_table_attach(GTK_TABLE(p2->table),p2->is_file[i], 3,4,i+2,i+3
 					,GTK_FILL,GTK_FILL,0,0);
 	}
 	
@@ -379,10 +383,14 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 		gint i=0;
 		for (cur = snwiz->node->xmlChildrenNode;cur != NULL;cur = cur->next) {
 			if (i<10 && xmlStrEqual(cur->name, (const xmlChar *)"param")) {
-				xmlChar *name;
+				xmlChar *name, *is_file;
 				name = xmlGetProp(cur, (const xmlChar *)"name");
+				is_file = xmlGetProp(cur, (const xmlChar *)"is_file");
 				gtk_entry_set_text(GTK_ENTRY(p2->entries[i]), (gchar *)name);
+				if (is_file&&is_file[0]=='1')
+					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(p2->is_file[i]),1);
 				g_free(name);
+				g_free(is_file);
 				i++;
 			} else if (xmlStrEqual(cur->name, (const xmlChar *)"before")) {
 				tmpstr = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
@@ -446,6 +454,9 @@ static gint snippets_test_pageInsert(Tsnipwiz *snwiz, gpointer data) {
 		if (strlen(tmpstr)>0) {
 			tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"param", NULL);
 			xmlSetProp(tmpn, (const xmlChar *)"name", (const xmlChar *)tmpstr);
+			if (GTK_TOGGLE_BUTTON(p2->is_file[i])->active) {
+				xmlSetProp(tmpn, (const xmlChar *)"is_file", (const xmlChar *)"1");
+			}
 		}
 	}
 	if (!snwiz->node) {

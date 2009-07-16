@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snippets_leaf_insert.c - plugin for snippets sidebar
  *
- * Copyright (C) 2006 Olivier Sessink
+ * Copyright (C) 2006,2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -67,19 +67,27 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	xmlFree(title);
 	gtk_dialog_set_default_response (GTK_DIALOG(sid->dialog),GTK_RESPONSE_ACCEPT);
 	gtk_box_set_spacing(GTK_BOX(GTK_DIALOG(sid->dialog)->vbox),6);
-	table = gtk_table_new(num_vars+1, 2, FALSE);
+	table = gtk_table_new(num_vars+1, 3, FALSE);
 	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 6);
 	for (cur = leaf->xmlChildrenNode;cur != NULL;cur = cur->next) {
 		if (xmlStrEqual(cur->name, (const xmlChar *)"param")) {
-			xmlChar *name;
+			xmlChar *name, *is_file;
 			gchar *final_name;
-			name =  xmlGetProp(cur, (const xmlChar *)"name");
+			name = xmlGetProp(cur, (const xmlChar *)"name");
+			is_file = xmlGetProp(cur, (const xmlChar *)"is_file");
 			final_name = g_markup_escape_text((gchar *)name,-1);
 			sid->textentry[i] = gtk_entry_new();
 			gtk_entry_set_activates_default(GTK_ENTRY(sid->textentry[i]),TRUE);
 			bf_mnemonic_label_tad_with_alignment(final_name, sid->textentry[i], 0, 0.5, table, 0, 1, i+1, i+2);
-			gtk_table_attach(GTK_TABLE (table), sid->textentry[i], 1, 2, i+1, i+2, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
+			if (is_file && is_file[0]=='1') {
+				GtkWidget *but;
+				gtk_table_attach(GTK_TABLE (table), sid->textentry[i], 1, 2, i+1, i+2, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
+				but = file_but_new2(sid->textentry[i], "", snw->bfwin,GTK_FILE_CHOOSER_ACTION_OPEN);
+				gtk_table_attach(GTK_TABLE (table), but, 2, 3, i+1, i+2, GTK_FILL, GTK_SHRINK, 0, 0);
+			} else {
+				gtk_table_attach(GTK_TABLE (table), sid->textentry[i], 1, 3, i+1, i+2, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
+			}
 			xmlFree(name);
 			g_free(final_name);
 			i++;
