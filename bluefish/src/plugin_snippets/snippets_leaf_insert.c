@@ -83,7 +83,7 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 			if (is_file && is_file[0]=='1') {
 				GtkWidget *but;
 				gtk_table_attach(GTK_TABLE (table), sid->textentry[i], 1, 2, i+1, i+2, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
-				but = file_but_new2(sid->textentry[i], "", snw->bfwin,GTK_FILE_CHOOSER_ACTION_OPEN);
+				but = file_but_new2(sid->textentry[i], 0, snw->bfwin,GTK_FILE_CHOOSER_ACTION_OPEN);
 				gtk_table_attach(GTK_TABLE (table), but, 2, 3, i+1, i+2, GTK_FILL, GTK_SHRINK, 0, 0);
 			} else {
 				gtk_table_attach(GTK_TABLE (table), sid->textentry[i], 1, 3, i+1, i+2, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
