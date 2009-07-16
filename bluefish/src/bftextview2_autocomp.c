@@ -301,7 +301,7 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 	guint numitems=0,longestlen=1;
 
 	list = tmplist = g_list_sort(g_list_copy(items), (GCompareFunc) g_strcmp0);
-	while (tmplist)	{
+	while (tmplist && numitems < 50)	{
 		GtkTreeIter it;
 		gchar *tmp;
 		guint len;
