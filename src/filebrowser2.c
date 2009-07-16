@@ -346,9 +346,6 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 			mime_type = "inode/directory";
 		}
 		icon = g_file_info_get_icon(finfo);
-		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
-							  newiter, parent);
-		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
 		if (icon && G_IS_THEMED_ICON(icon)) {
 			GStrv names;
 
@@ -369,11 +366,18 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 			DEBUG_MSG("icon %p for '%s' is not themed, use icon name 'folder'\n",icon,display_name);
 			icon_name = g_strdup("folder");
 		}
+		/*gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
+							  newiter, parent);
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore), newiter,
 								   ICON_NAME_COLUMN, icon_name, FILENAME_COLUMN, display_name, URI_COLUMN,
 								   child_uri, REFRESH_COLUMN, 0, TYPE_COLUMN, mime_type, FILEINFO_COLUMN,
+								   finfo, -1);*/
+		gtk_tree_store_insert_with_values(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
+									newiter, parent, 0, 
+									ICON_NAME_COLUMN, icon_name, FILENAME_COLUMN, display_name, URI_COLUMN,
+								   child_uri, REFRESH_COLUMN, 0, TYPE_COLUMN, mime_type, FILEINFO_COLUMN,
 								   finfo, -1);
-
+		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
 		g_free(icon_name);
 		DEBUG_MSG("insert newiter %p in hashtable for child_uri %p\n",newiter,child_uri);
 		/* give it an extra reference for the hashtable */
