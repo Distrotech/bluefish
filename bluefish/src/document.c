@@ -495,24 +495,6 @@ void doc_set_filename(Tdocument *doc, GFile *newuri) {
 }
 
 /**
- * doc_set_font:
- * @doc: a #Tdocument
- * @fontstring: a #gchar describing the font
- *
- * this function will set the textview from doc to use the font
- * described by fontstring
- *
- * Return value: void
- **/
-
-#ifdef __GNUC__
-__inline__
-#endif
-void doc_set_font(Tdocument *doc, gchar *fontstring) {
-	apply_font_style(doc->view, fontstring ? fontstring : main_v->props.editor_font_string);
-}
-
-/**
  * This function is taken from gtksourceview
  * Copyright (C) 2001
  * Mikael Hermansson <tyan@linux.se>
@@ -897,20 +879,6 @@ gchar *doc_get_chars(Tdocument *doc, gint start, gint end) {
 	DEBUG_MSG("doc_get_chars, retrieved string (%p)\n", string);
 	return string;
 }
-/**
- * doc_get_max_offset:
- * @doc: a #Tdocument
- *
- * returns the number of characters (NOT BYTES!!) in this document
- *
- * Return value: gint with the number of characters
- **/
-#ifdef __GNUC__
-__inline__
-#endif
-gint doc_get_max_offset(Tdocument *doc) {
-	return gtk_text_buffer_get_char_count(doc->buffer);
-}
 
 void doc_select_and_scroll(Tdocument *doc, GtkTextIter *it1,
                                   GtkTextIter *it2, gboolean select_it1_line,
@@ -926,7 +894,7 @@ void doc_select_and_scroll(Tdocument *doc, GtkTextIter *it1,
 	if (do_scroll) {
 	/* in doc reload this works strange, there is no scrolling to the correct position...
 		perhaps this should be done in an idle callback so that the iter positions can be calculated?? */
-		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&sit1,0.25,FALSE,0.5,0.10);
+		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&sit1,0.25,FALSE,0.5,0.95);
 		gtk_widget_grab_focus(doc->view);
 	}
 }
@@ -2245,7 +2213,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	gtk_misc_set_alignment(GTK_MISC(newdoc->tab_menu), 0,0);
 
 	doc_unre_init(newdoc);
-	doc_set_font(newdoc, NULL);
+	apply_font_style(newdoc->view, main_v->props.editor_font_string);
 	newdoc->wrapstate = (bfwin->project) ? bfwin->project->word_wrap : main_v->props.word_wrap;
 	doc_set_wrap(newdoc);
 
@@ -2947,7 +2915,7 @@ void all_documents_apply_settings() {
 	while (tmplist){
 		Tdocument *doc = tmplist->data;
 		/*doc_set_tabsize(doc, main_v->props.editor_tab_width);*/
-		doc_set_font(doc, main_v->props.editor_font_string);
+		apply_font_style(doc->view, main_v->props.editor_font_string);
 		bluefish_text_view_set_colors(BLUEFISH_TEXT_VIEW(doc->view), main_v->props.editor_fg, main_v->props.editor_bg);
 		tmplist = g_list_next(tmplist);
 	}
