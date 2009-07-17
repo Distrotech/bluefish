@@ -1026,7 +1026,7 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 	alldoclist = return_allwindows_documentlist();
 	while (tmplist) {
 		GFileInfo *finfo=tmplist->data;
-		if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_DIRECTORY) {
+		if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_DIRECTORY && oad->oa->recursive) {
 			GFile *dir;
 			const gchar *name = g_file_info_get_name(finfo);
 			DEBUG_MSG("enumerator_next_files_lcb, %s is a dir\n",name);

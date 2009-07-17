@@ -560,7 +560,7 @@ static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,g
 			GError *error=NULL;
 			DEBUG_MSG("filter_io_watch_lcb, received '%s'\n",str_return);
 			if (ep->end == -1) {
-				end = doc_get_max_offset(ep->bfwin->current_document);
+				end = gtk_text_buffer_get_char_count(ep->bfwin->current_document->buffer);
 			}
 			doc_replace_text(ep->bfwin->current_document, str_return, ep->begin, end);
 			g_io_channel_shutdown(channel,TRUE,&error);
