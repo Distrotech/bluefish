@@ -433,23 +433,6 @@ AM_CONDITIONAL([ENABLE_CHARMAP_PLUGIN], [test "x$build_charmap_plugin" = "xyes"]
 
 AC_SEARCH_LIBS([nanosleep], [posix4 rt])
 
-AC_CHECK_HEADERS(
-	[aspell.h],
-	AC_SEARCH_LIBS(
-		[new_aspell_config],
-		[aspell aspell-common],
-		AC_DEFINE([HAVE_LIBASPELL], [1], [Define to 1 if you have the `aspell' library (-laspell).]),
-		AC_SEARCH_LIBS(
-			[new_aspell_config],
-			[aspell aspell-common],
-			LIBS="$LIBS -lstdc++"
-			AC_DEFINE([HAVE_LIBASPELL], [1], [Define to 1 if you have the `aspell' library (-laspell).]),
-			AC_MSG_WARN([libaspell not found - please install libaspell-dev or similar]),
-			[-lstdc++]
-		)
-	)
-)
-
 AC_ARG_ENABLE(
 	[python],
 	AC_HELP_STRING(
