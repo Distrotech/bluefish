@@ -187,11 +187,6 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		exit(123);
 	}
 }
-#ifdef HAVE_LIBASPELL
-static void spell_check_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	spell_check_cb(NULL, bfwin);
-}
-#endif /* HAVE_LIBASPELL */
 
 static void menu_bmark_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	switch(callback_action) {
