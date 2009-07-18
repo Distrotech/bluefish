@@ -393,9 +393,9 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.leftpanel_tabposition,"leftpanel_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.default_basedir,"default_basedir:",g_get_home_dir());
 	init_prop_string    (&config_rc, &main_v->props.project_suffix,"project_suffix:",".bfproject");
-#ifdef HAVE_LIBASPELL
+#if defined(HAVE_ENCHANT) || defined(HAVE_LIBASPELL)
 	init_prop_string(&config_rc, &main_v->props.spell_default_lang, "spell_default_lang:", "en");
-#endif /* HAVE_LIBASPELL */
+#endif /* HAVE_ENCHANT || HAVE_LIBASPELL */
 	/* not yet in use */
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
 	init_prop_integer(&config_rc, &main_v->props.allow_dep, "allow_the_use_of_font:", 0, TRUE);

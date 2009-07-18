@@ -220,9 +220,9 @@ typedef struct {
 	gint switch_tabs_by_altx;
 	gchar *default_basedir;
 	gchar *project_suffix;
-#ifdef HAVE_LIBASPELL
+#if defined(HAVE_ENCHANT) || defined(HAVE_LIBASPELL)
 	gchar *spell_default_lang;
-#endif /* HAVE_LIBASPELL */
+#endif /* HAVE_ENCHANT || HAVE_LIBASPELL */
 	/* not yet in use */
 	gchar *image_editor_cline; 	/* image editor commandline */
 	gint allow_dep;				/* allow <FONT>... */

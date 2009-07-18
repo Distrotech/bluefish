@@ -53,9 +53,9 @@
 #include "undo_redo.h"     /* undo_cb() redo_cb() etc. */
 #include "wizards.h"
 
-#ifdef HAVE_LIBASPELL
+#if defined(HAVE_ENCHANT) || defined(HAVE_LIBASPELL)
 #include "bfspell.h"
-#endif /* HAVE_LIBASPELL */
+#endif /* HAVE_ENCHANT || HAVE_LIBASPELL */
 
 typedef struct {
 	GtkWidget *window;
@@ -1115,10 +1115,10 @@ void make_main_toolbar(Tbfwin *bfwin) {
 /*
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
 							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);*/
-#ifdef HAVE_LIBASPELL
+#if defined(HAVE_ENCHANT) || defined(HAVE_LIBASPELL)
 	gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SPELL_CHECK, _("Spellcheck..."),
 							"", G_CALLBACK(spell_check_cb), bfwin, -1);
-#endif /* HAVE_LIBASPELL */
+#endif /* HAVE_ENCHANT || HAVE_LIBASPELL */
 
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
 							_("View in browser"), "",

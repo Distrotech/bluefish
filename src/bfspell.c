@@ -22,8 +22,12 @@
 
 #include "config.h"
 
-#ifdef HAVE_LIBASPELL
+#if defined(HAVE_ENCHANT) || defined(HAVE_LIBASPELL)
+#if defined(HAVE_LIBASPELL)
 #include <aspell.h>
+#elif defined(HAVE_ENCHANT)
+#include <enchant.h>
+#endif
 #include <gtk/gtk.h>
 #include <string.h>
 #include <ctype.h> /* isdigit() */
@@ -39,8 +43,13 @@
 typedef enum {filtnone,filthtml} Tspellfilter;
 
 typedef struct {
+#if defined(HAVE_ENCHANT)
+	EnchantBroker *broker;
+	EnchantDict *spell_checker;
+#else
 	AspellConfig *spell_config;
 	AspellSpeller *spell_checker;
+#endif
 	Tspellfilter filtert;
 	GtkWidget *win;
 	GtkWidget *lang;
@@ -121,19 +130,37 @@ gchar *doc_get_next_word(Tbfspell *bfspell, GtkTextIter *itstart, GtkTextIter *i
 void spell_add_to_session(Tbfspell *bfspell, gboolean to_session, const gchar * word) {
 	DEBUG_MSG("spell_add_to_session, to_session=%d, word=%s\n",to_session,word);
 	if (to_session) {
+#ifdef HAVE_ENCHANT
+		enchant_dict_add_to_session(bfspell->spell_checker, word, strlen(word));
+#else
 		aspell_speller_add_to_session(bfspell->spell_checker, word, -1);
+#endif
 	} else {
+#ifdef HAVE_ENCHANT
+		enchant_dict_add(bfspell->spell_checker, word, strlen(word));
+#else
 		aspell_speller_add_to_personal(bfspell->spell_checker, word, -1);
+#endif
 	}
-
 }
 
 gboolean spell_check_word(Tbfspell *bfspell, gchar * tocheck, GtkTextIter *itstart, GtkTextIter *itend) {
 	if (tocheck && !isdigit(tocheck[0])) {
+#ifdef HAVE_ENCHANT
+		int correct = enchant_dict_check(bfspell->spell_checker, tocheck, strlen(tocheck)) == 0;
+#else
 		int correct = aspell_speller_check(bfspell->spell_checker, tocheck, -1);
+#endif
 		DEBUG_MSG("word '%s' has correct=%d\n",tocheck,correct);
 		if (!correct) {
+#ifdef HAVE_ENCHANT
+			size_t n_suggs;
+			char ** suggs;
+
+			suggs = enchant_dict_suggest(bfspell->spell_checker, tocheck, strlen(tocheck), &n_suggs);
+#else
 			AspellWordList *awl = (AspellWordList *)aspell_speller_suggest(bfspell->spell_checker, tocheck,-1);
+#endif
 			if (!bfspell->so || !bfspell->eo) {
 				bfspell->so = gtk_text_buffer_create_mark(bfspell->doc->buffer,NULL,itstart,FALSE);
 				bfspell->eo = gtk_text_buffer_create_mark(bfspell->doc->buffer,NULL,itend,TRUE);
@@ -145,23 +172,39 @@ gboolean spell_check_word(Tbfspell *bfspell, gchar * tocheck, GtkTextIter *itsta
 			bfspell->offset = -1;
 			gtk_entry_set_text(GTK_ENTRY(bfspell->incorrectword), tocheck);
 			gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(bfspell->suggestions)->entry), "");
+#ifndef HAVE_ENCHANT
 			if (awl == 0) {
 				DEBUG_MSG("spell_check_word error: %s\n", aspell_speller_error_message(bfspell->spell_checker));
 			} else {
+
+#endif
 				GList *poplist=NULL;
+#ifdef HAVE_ENCHANT
+				size_t i;
+				for (i = 0; i < n_suggs; i++) {
+					poplist = g_list_append(poplist,g_strdup(suggs[i]));
+				}
+#else
 				AspellStringEnumeration *els = aspell_word_list_elements(awl);
 				const char *word;
 				while ((word = aspell_string_enumeration_next(els)) != 0) {
 					poplist = g_list_append(poplist,g_strdup(word));
 				}
+#endif
 				if (!poplist) {
 					poplist = g_list_append(poplist, g_strdup("(no suggested words)"));
 				}
 				gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(bfspell->suggestions)->entry), "");
 				gtk_combo_set_popdown_strings(GTK_COMBO(bfspell->suggestions), poplist);
 				free_stringlist(poplist);
+#ifdef HAVE_ENCHANT
+				if (suggs) {
+					enchant_dict_free_string_list (bfspell->spell_checker, suggs);
+				}
+#else
 				delete_aspell_string_enumeration(els);
 			}
+#endif
 			return FALSE;
 		}
 	}
@@ -177,8 +220,12 @@ static void spell_run_finished(Tbfspell *bfspell) {
 	gtk_combo_set_popdown_strings(GTK_COMBO(bfspell->suggestions), poplist);
 	g_list_free(poplist);
 	bfspell->offset = 0;
+#ifdef HAVE_ENCHANT
+	enchant_broker_free_dict(bfspell->broker, bfspell->spell_checker);
+#else
 	aspell_speller_save_all_word_lists(bfspell->spell_checker);
 	delete_aspell_speller(bfspell->spell_checker);
+#endif
 	bfspell->spell_checker = NULL;
 	spell_gui_set_button_status(bfspell, FALSE);
 }
@@ -210,6 +257,10 @@ gboolean spell_run(Tbfspell *bfspell) {
 
 void spell_start(Tbfspell *bfspell) {
 	DEBUG_MSG("spell_start, started for bfspell=%p\n",bfspell);
+#ifdef HAVE_ENCHANT
+	bfspell->broker = enchant_broker_init();
+	DEBUG_MSG("spell_start, created enchant broker at %p\n",bfspell->broker);
+#else
 	bfspell->spell_config = new_aspell_config();
 	DEBUG_MSG("spell_start, created spell_config at %p\n",bfspell->spell_config);
 	/*
@@ -228,16 +279,24 @@ void spell_start(Tbfspell *bfspell) {
 	/*
 	 * from the aspell manual 
 	 */
+#endif
 }
 
 static void spell_gui_destroy(GtkWidget * widget, Tbfspell *bfspell) {
 	DEBUG_MSG("spell_gui_destroy started\n");
 	window_destroy(bfspell->win);
+#ifdef HAVE_ENCHANT
+	if (bfspell->spell_checker) {
+		enchant_broker_free_dict(bfspell->broker, bfspell->spell_checker);
+	}
+	enchant_broker_free(bfspell->broker);
+#else
 	if (bfspell->spell_checker) {
 		aspell_speller_save_all_word_lists(bfspell->spell_checker);
 		delete_aspell_speller(bfspell->spell_checker);
 	}
 	delete_aspell_config(bfspell->spell_config);
+#endif
 	if (bfspell->so) {
 		gtk_text_buffer_delete_mark(bfspell->doc->buffer, bfspell->so);
 	}
@@ -252,7 +311,9 @@ void spell_gui_cancel_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
 }
 
 void spell_gui_ok_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
+#ifndef HAVE_ENCHANT
 	AspellCanHaveError *possible_err;
+#endif
 	const gchar *lang;
 	DEBUG_MSG("spell_gui_ok_clicked_cb, bfspell=%p, bfwin=%p\n",bfspell, bfspell->bfwin);
 	bfspell->doc = bfspell->bfwin->current_document;
@@ -262,6 +323,9 @@ void spell_gui_ok_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
 		lang = g_list_nth_data(bfspell->langs, indx);
 		DEBUG_MSG("spell_gui_ok_clicked_cb, indx=%d has language %s\n",indx,lang);
 	}
+#ifdef HAVE_ENCHANT
+	bfspell->spell_checker = enchant_broker_request_dict (bfspell->broker, lang);
+#else
 	aspell_config_replace(bfspell->spell_config, "lang", lang);
 
 	DEBUG_MSG("spell_gui_ok_clicked_cb, about to create speller for spell_config=%p\n",bfspell->spell_config);
@@ -274,7 +338,7 @@ void spell_gui_ok_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
 	} else {
 		bfspell->spell_checker = to_aspell_speller(possible_err);
 	}
-
+#endif
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(bfspell->in_doc))) {
 		bfspell->stop_position = gtk_text_buffer_get_char_count(bfspell->doc->buffer);
 	} else {
@@ -291,38 +355,68 @@ void spell_gui_ok_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
 	}
 }
 
+typedef struct _spellstruct
+{
+	Tbfspell *bfspell;
+	GtkWidget *menu;
+} spellstruct;
+
+void DictDescribe(const char * const lang_tag,
+    const char * const provider_name,
+    const char * const provider_desc,
+    const char * const provider_file,
+    void *user_data)
+{
+	GtkWidget *menuitem;
+	GtkWidget *label;
+	spellstruct *spellinfo = (spellstruct*)user_data;
+
+	menuitem = gtk_menu_item_new();
+	label = gtk_label_new(lang_tag);
+
+	gtk_misc_set_alignment(GTK_MISC(label),0,0.5);
+	gtk_container_add(GTK_CONTAINER(menuitem), label);
+/*	g_signal_connect(G_OBJECT (menuitem), "activate",G_CALLBACK(),GINT_TO_POINTER(0));*/
+	if (strcmp(lang_tag, main_v->props.spell_default_lang) == 0) {
+		DEBUG_MSG("spell_gui_fill_dicts, lang %s is the default language, inserting menuitem %p at position 0\n",lang_tag,menuitem);
+		gtk_menu_shell_insert(GTK_MENU_SHELL(spellinfo->menu), menuitem, 0);
+		spellinfo->bfspell->langs = g_list_prepend(spellinfo->bfspell->langs,g_strdup(lang_tag));
+	} else {
+		DEBUG_MSG("spell_gui_fill_dicts, lang %s is not the default language, appending menuitem %p\n",lang_tag,menuitem);
+		gtk_menu_shell_append(GTK_MENU_SHELL(spellinfo->menu), menuitem);
+		spellinfo->bfspell->langs = g_list_append(spellinfo->bfspell->langs,g_strdup(lang_tag));
+	}
+}
+
+
 void spell_gui_fill_dicts(Tbfspell *bfspell) {
-	GtkWidget *menu, *menuitem;
+#ifndef HAVE_ENCHANT
 	AspellDictInfoEnumeration * dels;
 	AspellDictInfoList * dlist;
 	const AspellDictInfo * entry;
 
+
 	dlist = get_aspell_dict_info_list(bfspell->spell_config);
 	dels = aspell_dict_info_list_elements(dlist);
+#endif
 	free_stringlist(bfspell->langs);
 	bfspell->langs = NULL;
-	menu = gtk_menu_new();	
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell->lang), menu);
+
+	spellstruct spellinfo;
+	spellinfo.bfspell = bfspell; 
+	spellinfo.menu = gtk_menu_new();	
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell->lang), spellinfo.menu);
+
+#ifdef HAVE_ENCHANT
+	enchant_broker_list_dicts(bfspell->broker, DictDescribe, &spellinfo);
+#else
 	while ( (entry = aspell_dict_info_enumeration_next(dels)) != 0) {
-		GtkWidget *label;
-		menuitem = gtk_menu_item_new();
-		label = gtk_label_new(entry->name);
-		gtk_misc_set_alignment(GTK_MISC(label),0,0.5);
-		gtk_container_add(GTK_CONTAINER(menuitem), label);
-/*		g_signal_connect(G_OBJECT (menuitem), "activate",G_CALLBACK(),GINT_TO_POINTER(0));*/
-		if (strcmp(entry->name, main_v->props.spell_default_lang) == 0) {
-			DEBUG_MSG("spell_gui_fill_dicts, lang %s is the default language, inserting menuitem %p at position 0\n",entry->name,menuitem);
-			gtk_menu_shell_insert(GTK_MENU_SHELL(menu), menuitem, 0);
-			bfspell->langs = g_list_prepend(bfspell->langs,g_strdup(entry->name));
-		} else {
-			DEBUG_MSG("spell_gui_fill_dicts, lang %s is not the default language, appending menuitem %p\n",entry->name,menuitem);
-			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-			bfspell->langs = g_list_append(bfspell->langs,g_strdup(entry->name));
-		}
+		DictDescribe(entry->name, "", "", "", &spellinfo);
 	}
 	delete_aspell_dict_info_enumeration(dels);
-	gtk_widget_show_all(menu);
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell->lang), menu);
+#endif
+	gtk_widget_show_all(spellinfo.menu);
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(bfspell->lang), spellinfo.menu);
 	DEBUG_MSG("spell_gui_fill_dicts, set item 0 as selected item\n");
 	gtk_option_menu_set_history(GTK_OPTION_MENU(bfspell->lang),0);
 }
@@ -355,8 +449,12 @@ void spell_gui_replace_clicked(GtkWidget *widget, Tbfspell *bfspell) {
 	GtkTextIter iter;
 	const gchar *original = gtk_entry_get_text(GTK_ENTRY(bfspell->incorrectword));
 	const gchar *newstring = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(bfspell->suggestions)->entry));
-
+#ifdef HAVE_ENCHANT
+	enchant_dict_store_replacement (bfspell->spell_checker, original, strlen(original),
+		newstring, strlen(newstring));
+#else
 	aspell_speller_store_replacement(bfspell->spell_checker,original,-1,newstring,-1);
+#endif
 
 	gtk_text_buffer_get_iter_at_mark(bfspell->doc->buffer,&iter,bfspell->so);
 	start = gtk_text_iter_get_offset(&iter);
@@ -502,4 +600,4 @@ void spell_check_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	spell_start(bfspell);
 	spell_gui_fill_dicts(bfspell);
 }
-#endif /* HAVE_LIBASPELL */
+#endif /* HAVE_ENCHANT || HAVE_LIBASPELL */

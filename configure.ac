@@ -302,25 +302,36 @@ AC_CHECK_LIB(posix4, nanosleep,
 	)
 )
 
-AC_CHECK_HEADER(aspell.h, 
-	AC_CHECK_LIB(aspell, new_aspell_config, 
-		LIBS="$LIBS -laspell"
-		AC_DEFINE(HAVE_LIBASPELL),
-		OLDLIBS=$LIBS
-		LIBS="$OLDSLIBS -lstdc++"
-		AC_CHECK_LIB(aspell, new_aspell_config,
+# Check ENCHANT is available
+echo -n "checking for enchant... "
+if pkg-config --exists enchant ; then
+	LIBS="$LIBS `pkg-config --libs enchant`"
+	CFLAGS="$CFLAGS `pkg-config --cflags enchant`"
+	echo "yes"
+	AC_DEFINE(HAVE_ENCHANT)
+else
+	echo "no"
+	# otherwise Check ASPELL is available
+	AC_CHECK_HEADER(aspell.h, 
+		AC_CHECK_LIB(aspell, new_aspell_config, 
 			LIBS="$LIBS -laspell"
 			AC_DEFINE(HAVE_LIBASPELL),
-			LIBS="$OLDSLIBS -laspell-common -lstdc++"
+			OLDLIBS=$LIBS
+			LIBS="$OLDSLIBS -lstdc++"
 			AC_CHECK_LIB(aspell, new_aspell_config,
 				LIBS="$LIBS -laspell"
 				AC_DEFINE(HAVE_LIBASPELL),
-				LIBS=$OLDLIBS
-				echo "libaspell not found please install libaspell-dev or similar"
+				LIBS="$OLDSLIBS -laspell-common -lstdc++"
+				AC_CHECK_LIB(aspell, new_aspell_config,
+					LIBS="$LIBS -laspell"
+					AC_DEFINE(HAVE_LIBASPELL),
+					LIBS=$OLDLIBS
+					echo "libaspell not found please install libaspell-dev or similar"
+				)
 			)
 		)
 	)
-)
+fi
 
 localedir='${prefix}/share/locale'
 AC_SUBST(localedir)

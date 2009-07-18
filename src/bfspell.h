@@ -18,6 +18,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifdef HAVE_LIBASPELL
+#if defined(HAVE_ENCHANT) || defined(HAVE_LIBASPELL)
 void spell_check_cb(GtkWidget *widget, Tbfwin *bfwin);
-#endif /* HAVE_LIBASPELL */
+#endif /* HAVE_ENCHANT || HAVE_LIBASPELL */

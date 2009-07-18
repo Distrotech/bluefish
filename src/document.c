@@ -2921,6 +2921,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	}
 	newdoc->tab_menu = gtk_label_new(NULL);
 	newdoc->tab_eventbox = gtk_event_box_new();
+	gtk_event_box_set_visible_window(GTK_EVENT_BOX(newdoc->tab_eventbox), FALSE);
 	gtk_misc_set_alignment(GTK_MISC(newdoc->tab_menu), 0,0);
 
 	doc_unre_init(newdoc);
