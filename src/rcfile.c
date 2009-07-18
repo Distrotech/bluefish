@@ -614,10 +614,6 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 #ifdef HAVE_LIBENCHANT
 	init_prop_string_with_escape(&configlist, &session->spell_lang, "spell_lang:", NULL);
 	init_prop_integer   (&configlist, &session->spell_enable,"spell_enable:",1, FALSE);
-#else
-#ifdef HAVE_LIBASPELL
-	init_prop_string(&configlist, &session->spell_default_lang, "spell_default_lang:", "en");
-#endif /* HAVE_LIBASPELL */
 #endif
 	configlist = bfplugins_register_session_config(configlist,session);
 	return configlist;
