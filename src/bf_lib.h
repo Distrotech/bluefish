@@ -74,7 +74,7 @@ void list_switch_order(GList *first, GList *second);
 gboolean file_copy(gchar *source, gchar *dest);
 gint find_common_prefixlen_in_stringlist(GList *stringlist);
 gboolean append_string_to_file(gchar *filename, gchar *string);
-guint countchars(const gchar *string, const gchar *chars);
+/*guint countchars(const gchar *string, const gchar *chars);*/
 gint table_convert_char2int(Tconvert_table *table, const gchar *my_char, Ttcc2i_mode mode);
 gchar *table_convert_int2char(Tconvert_table *table, gint my_int);
 gchar *expand_string(const gchar *string, const char specialchar, Tconvert_table *table);
