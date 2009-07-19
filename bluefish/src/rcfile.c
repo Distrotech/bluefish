@@ -369,7 +369,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 {
 	init_prop_integer   (&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1, TRUE);
-	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
+	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "monospace 10");
 	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
