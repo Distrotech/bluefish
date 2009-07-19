@@ -441,8 +441,8 @@ void make_main_toolbar(Tbfwin *bfwin) {
 							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);*/
 #ifdef HAVE_LIBENCHANT
 	bfwin->toolbar_spell = gtk_toolbar_insert_element(GTK_TOOLBAR(toolbar),GTK_TOOLBAR_CHILD_TOGGLEBUTTON,
-				NULL,_("Spellcheck"),_("Spellcheck"),"",new_pixmap(1005),bftextview2_gui_toggle_spell_check,bfwin,-1);
-	gtk_toggle_button_set_active(bfwin->toolbar_spell,bfwin->session->spell_enable);
+				NULL,_("Spellcheck"),_("Spellcheck"),"",new_pixmap(1005),G_CALLBACK(bftextview2_gui_toggle_spell_check),bfwin,-1);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(bfwin->toolbar_spell),bfwin->session->spell_enable);
 #endif
 
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
@@ -658,7 +658,7 @@ void gui_apply_session(Tbfwin *bfwin) {
 	fb2_update_settings_from_session(bfwin);
 	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
 #ifdef HAVE_LIBENCHANT
-	gtk_toggle_button_set_active(bfwin->toolbar_spell,bfwin->session->spell_enable);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(bfwin->toolbar_spell),bfwin->session->spell_enable);
 #endif
 	/* force this session in the plugins */
 	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);

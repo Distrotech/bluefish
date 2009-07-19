@@ -331,7 +331,7 @@ static void bftextview2_preferences_menu_lcb(GtkWidget *widget, gpointer data) {
 static void bftextview2_preferences_menu_enable_lcb(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
 	bfwin->session->spell_enable = GTK_CHECK_MENU_ITEM(widget)->active;
-	gtk_toggle_button_set_active(bfwin->toolbar_spell,bfwin->session->spell_enable);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(bfwin->toolbar_spell),bfwin->session->spell_enable);
 }
 
 typedef struct {
