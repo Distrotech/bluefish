@@ -2891,7 +2891,7 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 
 /**
  * doc_toggle_highlighting_cb:
- * @callback_data: unused #gpointer
+ * @bfwin: pointer to the documents window. #Tbfwin
  * @action: unused #guint
  * @widget: unused #GtkWidget*
  *
@@ -2901,6 +2901,7 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  **/
 void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner-1;
+	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 }
 
 /**
@@ -2923,8 +2924,8 @@ void all_documents_apply_settings() {
 }
 
 /**
- * doc_toggle_highlighting_cb:
- * @callback_data: unused #gpointer
+ * word_count_cb:
+ * @bfwin: pointer to the current documents window. #Tbfwin
  * @action: unused #guint
  * @widget: unused #GtkWidget*
  *
