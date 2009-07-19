@@ -480,6 +480,7 @@ void gui_set_document_widgets(Tdocument *doc) {
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Line Numbers", doc->linenumberstate);
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Show blocks", doc->blocksstate);
 	/*setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Show symbols", doc->symstate);*/
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Auto Indent", BLUEFISH_TEXT_VIEW(doc->view)->autoindent);
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Auto completion popup", BLUEFISH_TEXT_VIEW(doc->view)->autocomplete);
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Visible spacing", BLUEFISH_TEXT_VIEW(doc->view)->visible_spacing);
 /*#ifndef USE_SCANNER	why did we not set the encoding and filetype with the scanner enabled????*/
