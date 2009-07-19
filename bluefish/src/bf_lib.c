@@ -68,7 +68,7 @@ void refcpointer_unref(Trefcpointer *rp) {
 		g_free(rp);
 	}
 }
-GFile *add_suffix_to_uri(GFile *file, const char *suffix) {
+/*GFile *add_suffix_to_uri(GFile *file, const char *suffix) {
 	if (!suffix) {
 		g_object_ref(file);
 		return file;
@@ -82,7 +82,7 @@ GFile *add_suffix_to_uri(GFile *file, const char *suffix) {
 		g_free(tmp2);
 		return retval;
 	}
-}
+}*/
 GList *urilist_to_stringlist(GList *urilist) {
 	GList *retlist=NULL, *tmplist = g_list_last(urilist);
 	while (tmplist) {
@@ -148,7 +148,7 @@ gchar *filename_utf8_from_uri(GFile *uri) {
 	return utf8name;
 }*/
 
-gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname) {
+/*gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname) {
 	if (encodedname) {
 		GError *gerror=NULL;
 		gsize b_written;
@@ -161,7 +161,7 @@ gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname) {
 		return ondiskencoding;
 	}
 	return NULL;
-}
+}*/
 
 gboolean string_is_color(const gchar *color) {
 	GdkColor gcolor;
@@ -282,12 +282,6 @@ void list_switch_order(GList *first, GList *second) {
 	second->data = tmp;
 }
 
-/* moves the data pointer data to position pos in the list */
-void list_move_entry(GList *list, gpointer data, gint pos) {
-	
-
-}
-
 static gint length_common_prefix(gchar *first, gchar *second) {
 	gint i=0;
 	while (first[i] == second[i] && first[i] != '\0') {
@@ -335,7 +329,7 @@ gint find_common_prefixlen_in_stringlist(GList *stringlist) {
  * 
  * Return value: guint with the number of characters found
  **/
-guint countchars(const gchar *string, const gchar *chars) {
+static guint countchars(const gchar *string, const gchar *chars) {
 	guint count=0;
 	gchar *newstr = strpbrk(string, chars);
 	while(newstr) {
