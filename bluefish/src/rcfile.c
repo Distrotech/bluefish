@@ -526,9 +526,9 @@ void rcfile_check_directory(void) {
 
 void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidget *widget) {
 	switch (action) {
-	case 0:
+/*	case 0:
 		rcfile_save_main();
-	break;
+	break;*/
 #ifdef USE_CUSTOM_MENU
 	case 2:
 		rcfile_save_custom_menu();

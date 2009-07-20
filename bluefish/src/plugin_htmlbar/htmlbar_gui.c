@@ -403,7 +403,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/Tags/Misc/_Anchor"), NULL, general_html_menu_cb, 63, "<ImageItem>", pixmap_anchor},
 		{N_("/Tags/Misc/_Image"), NULL, general_html_menu_cb, 64, "<ImageItem>", pixmap_image},
 		{N_("/Tags/_Comment"), "<control><alt>C", general_html_menu_cb, 10, "<ImageItem>", pixmap_comment},
-		{N_("/Dialog_s"), NULL, NULL, 0, "<Branch>"},
+		{N_("/D_ialogs"), NULL, NULL, 0, "<Branch>"},
 		{"/Dialogs/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 		{N_("/Dialogs/_General"), NULL, NULL, 0, "<Branch>"},
 		{"/Dialogs/General/tearoff1", NULL, NULL, 0, "<Tearoff>"},
