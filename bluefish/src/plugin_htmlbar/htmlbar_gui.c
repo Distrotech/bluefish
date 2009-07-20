@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * htmlbar_gui.c
  *
- * Copyright (C) 2005 Olivier Sessink
+ * Copyright (C) 2005-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -78,7 +78,6 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		embed_dialog(bfwin,NULL);
 	break;
 	case 10:
-		/*image_insert_dialog(bfwin,NULL);*/
 		bluefish_image_dialog_new(bfwin);
 	break;
 	case 11:
@@ -404,7 +403,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/Tags/Misc/_Anchor"), NULL, general_html_menu_cb, 63, "<ImageItem>", pixmap_anchor},
 		{N_("/Tags/Misc/_Image"), NULL, general_html_menu_cb, 64, "<ImageItem>", pixmap_image},
 		{N_("/Tags/_Comment"), "<control><alt>C", general_html_menu_cb, 10, "<ImageItem>", pixmap_comment},
-		{N_("/Dial_ogs"), NULL, NULL, 0, "<Branch>"},
+		{N_("/Dialog_s"), NULL, NULL, 0, "<Branch>"},
 		{"/Dialogs/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 		{N_("/Dialogs/_General"), NULL, NULL, 0, "<Branch>"},
 		{"/Dialogs/General/tearoff1", NULL, NULL, 0, "<Tearoff>"},
