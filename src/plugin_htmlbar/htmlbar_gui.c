@@ -201,7 +201,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 	Thtmlbarsession *hbs;
 	Tbfwin *bfwin = hbw->bfwin;
 	static GtkItemFactoryEntry menu_items[] = {
-		{N_("/_Tags"), NULL, NULL, 0, "<Branch>"},
+		{N_("/T_ags"), NULL, NULL, 0, "<Branch>"},
 		{"/Tags/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 		{N_("/Tags/_Headings"), NULL, NULL, 0, "<Branch>"},
 		{"/Tags/Headings/tearoff1", NULL, NULL, 0, "<Tearoff>"},
