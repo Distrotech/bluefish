@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="C" matches="2504" contexts="6" table="13956">
+<bflang name="C" matches="2503" contexts="5" table="13953">
 <header>
 	<mime type="text/x-csrc"/>
 	<mime type="text/x-chdr"/>
@@ -2571,12 +2571,12 @@
 		</element>
 		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
 		<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
-		<element pattern="#(include|if|else|endif|ifdef|ifndef|define)" is_regex="1" highlight="preprocessor">
-		<context symbols="/*&#10;&#13;" highlight="preprocessor">
+	<element pattern="#(define|elif|else|endif|if|ifdef|ifndef|include)" is_regex="1" highlight="preprocessor" />
+<!--	<context symbols="/*&#10;&#13;" highlight="preprocessor">
 			<element pattern="[&#10;&#13;]" is_regex="1" ends_context="1" />
 			<element idref="commstart" />	
 		</context>
-		</element>
+	</element> -->
 	</context>
 </definition>
 </bflang>
