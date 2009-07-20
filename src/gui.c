@@ -319,7 +319,7 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 	DEBUG_MSG("left_panel_show_hide_toggle, bfwin=%p, first_time=%d, show=%d, sync_menu=%d\n",bfwin,first_time,show,sync_menu);
 	if (sync_menu) {
 		DEBUG_MSG("left_panel_show_hide_toggle, trying to sync menu\n");
-		setup_toggle_item_from_widget(bfwin->menubar, "/View/View Sidebar", show);
+		setup_toggle_item_from_widget(bfwin->menubar, "/View/Side Pane", show);
 	}
 	if (!first_time && ((show && bfwin->hpane) || (!show && bfwin->hpane == NULL))) {
 		DEBUG_MSG("left_panel_show_hide_toggle, retrurning!!, show=%d, bfwin->hpane=%p, first_time=%d\n",show,bfwin->hpane,first_time);
@@ -478,11 +478,11 @@ void gui_set_document_widgets(Tdocument *doc) {
 	gui_set_undo_redo_widgets(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Wrap", doc->wrapstate);
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Line Numbers", doc->linenumberstate);
-	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Show blocks", doc->blocksstate);
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Show Blocks", doc->blocksstate);
 	/*setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Show symbols", doc->symstate);*/
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Auto Indent", BLUEFISH_TEXT_VIEW(doc->view)->autoindent);
-	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Auto completion popup", BLUEFISH_TEXT_VIEW(doc->view)->autocomplete);
-	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Visible spacing", BLUEFISH_TEXT_VIEW(doc->view)->visible_spacing);
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Auto Completion Popup", BLUEFISH_TEXT_VIEW(doc->view)->autocomplete);
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Visible Spacing", BLUEFISH_TEXT_VIEW(doc->view)->visible_spacing);
 /*#ifndef USE_SCANNER	why did we not set the encoding and filetype with the scanner enabled????*/
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),BLUEFISH_TEXT_VIEW(doc->view)->bflang, doc->encoding);
 
@@ -1153,7 +1153,7 @@ GtkWidget *start_splash_screen() {
 void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
 	if (sync_menu) {
 		DEBUG_MSG("gui_set_main_toolbar_visible, trying to sync menu\n");
-		setup_toggle_item_from_widget(bfwin->menubar, "/View/View Main Toolbar", visible);
+		setup_toggle_item_from_widget(bfwin->menubar, "/View/Main Toolbar", visible);
 	}
 	if (gtk_container_children(GTK_CONTAINER(bfwin->main_toolbar_hb)) == NULL) {
 		make_main_toolbar(bfwin);
@@ -1185,7 +1185,7 @@ void gui_fullscreen_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 
 void gui_statusbar_show_hide_toggle(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
 	if (sync_menu) {
-		setup_toggle_item_from_widget(bfwin->menubar, "/View/View Statusbar", visible);
+		setup_toggle_item_from_widget(bfwin->menubar, "/View/Statusbar", visible);
 	}
 	widget_set_visible(bfwin->statusbar,visible);
 	widget_set_visible(bfwin->statusbar_lncol,visible);
@@ -1208,6 +1208,12 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	case 5:
 		bfwin->session->view_statusbar = active;
 		gui_statusbar_show_hide_toggle(bfwin, active, FALSE);
+	break;
+	case 6:
+		if (active) 
+			outputbox(bfwin,NULL, 0, 0, 0, NULL, 0);
+		else
+			outputbox_cleanup(bfwin);
 	break;
 	default:
 		g_print("gui_toggle_hidewidget_cb should NEVER be called with action %d\n", action);

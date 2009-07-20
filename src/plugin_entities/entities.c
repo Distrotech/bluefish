@@ -547,10 +547,10 @@ static void entity_initgui(Tbfwin* bfwin) {
 	GtkItemFactory *ifactory;
 	static GtkItemFactoryEntry menu_items[] = {
 		{"/Tools/sepent", NULL, NULL, 0, "<Separator>"},
-		{N_("/Tools/Entities to characters"), NULL, entity_menu_lcb, 0, "<Item>"},
-		{N_("/Tools/Characters to entities"), NULL, entity_menu_lcb, 1, "<Item>"},
-		{N_("/Tools/URL encode selection"), NULL, entity_menu_lcb, 2, "<Item>"},
-		{N_("/Tools/URL decode selection"), NULL, entity_menu_lcb, 3, "<Item>"},
+		{N_("/Tools/Entities To Characters..."), NULL, entity_menu_lcb, 0, "<Item>"},
+		{N_("/Tools/Characters To Entities..."), NULL, entity_menu_lcb, 1, "<Item>"},
+		{N_("/Tools/URL Encode"), NULL, entity_menu_lcb, 2, "<Item>"},
+		{N_("/Tools/URL Decode"), NULL, entity_menu_lcb, 3, "<Item>"},
 		{N_("/Tools/To Lowercase"), NULL, entity_menu_lcb, 4, "<Item>"},
 		{N_("/Tools/To Uppercase"), NULL, entity_menu_lcb, 5, "<Item>"}
 	};
@@ -560,7 +560,6 @@ static void entity_initgui(Tbfwin* bfwin) {
 #endif
 	gtk_item_factory_create_items(ifactory, sizeof(menu_items) / sizeof(menu_items[0]), menu_items, bfwin);
 	gtk_widget_show_all(bfwin->menubar);
-
 }
 static void entity_enforce_session(Tbfwin* bfwin) {}
 static void entity_cleanup(void) {}

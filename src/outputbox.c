@@ -251,6 +251,7 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
 	gtk_widget_show_all(ob->hbox);
+	setup_toggle_item_from_widget(bfwin->menubar, "/View/Output Pane", 1);
 	return ob;
 }
 
@@ -366,6 +367,7 @@ void outputbox_cleanup(Tbfwin *bfwin) {
 		gtk_widget_destroy(OUTPUTBOX(bfwin->outputbox)->hbox);
 		g_free(bfwin->outputbox);
 		bfwin->outputbox = NULL;
+		setup_toggle_item_from_widget(bfwin->menubar, "/View/Output Pane", 0);
 	}
 }
 
@@ -378,6 +380,10 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 		ob = OUTPUTBOX(bfwin->outputbox);
 	} else {
 		ob = init_output_box(bfwin);
+	}
+	if (!pattern && !command) {
+		/* a pattern and command of NULL is used to just display the output pane without any command running */
+		return;
 	}
 	if (ob->def) {
 		/* we have a command still running !!! we have to cancel that first! */
