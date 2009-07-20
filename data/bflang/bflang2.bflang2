@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Bflang2" matches="120" contexts="20" table="767">
+<bflang name="Bflang2" matches="155" contexts="24" table="1009">
 <header>
 	<mime type="application/x-bluefish-language2"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -77,12 +77,12 @@
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" >
 		<element idref="comment"/>
 		<element idref="entity" />
-		<tag name="context" id="context" highlight="tag" autocomplete_append=" symbols=&quot;&quot; &gt;" attributes="id,idref,symbols,highlight" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+		<tag name="context" id="context" highlight="tag" autocomplete_append=" symbols=&quot;&quot; &gt;" attributes="id,idref,symbols,highlight,spellcheck" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 			<reference>Every definition starts with a context. The most important attribute of a context are the symbols. Symbols is a string with all characters that may be at the start or end of a pattern (for example whitespace in most programming languages, or &lt; and &gt; in XML, SGML and HTML), or characters that are a pattern themselves (for example a bracket [ ).</reference>
 			<context idref="context" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 			<element idref="comment"/>
 			<element idref="entity" />
-			<tag id="element" name="element" highlight="pattern-tag" autocomplete_append=" pattern=&quot;&quot; /&gt;" attributes="id,idref,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,notclass,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string,autocomplete_backup_cursor" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+			<tag id="element" name="element" highlight="pattern-tag" autocomplete_append=" pattern=&quot;&quot; /&gt;" attributes="id,idref,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,notclass,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string,autocomplete_backup_cursor,mayfold" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 			<reference>Element is an actual language element that is syntax highlighted, autocompleted or has reference information. The most important attribute is pattern. The pattern may be a keyword (such as <b>function</b>) or a regular expression pattern (such as <b>[0-9]+</b>) if attribute is_regex is set to 1.  </reference>
 				<context id="innerpattern" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 					<element idref="comment"/>
