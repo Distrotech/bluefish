@@ -336,6 +336,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Project/E_dit Project Options..."), NULL, project_menu_cb, 5, "<StockItem>", GTK_STOCK_PREFERENCES},
 	{N_("/T_ools"), NULL, NULL, 0, "<Branch>"},
 	{"/Tools/tearoff1", NULL, NULL, 0, "<Tearoff>"},
+	{"/Tools/sep1", NULL, NULL, 0, "<Separator>"},
 	{N_("/Tools/_Commands"), NULL, NULL, 0, "<Branch>"},
 	{"/Tools/Commands/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Tools/_Outputbox"), NULL, NULL, 0, "<Branch>"},
@@ -953,7 +954,6 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			bdm->data = arr;
 			if (arr[2][0] == '1') {
 				const gchar *tmp1 = N_("/Tools");
-				create_dynamic_menuitem(bfwin,tmp1,NULL,NULL,NULL,1);
 				bdm->menuitem = create_dynamic_menuitem(bfwin,tmp1,arr[0],G_CALLBACK(external_command_lcb),bdm,1);
 			} else {
 				bdm->menuitem = create_dynamic_menuitem(bfwin,N_("/Tools/Commands"),arr[0],G_CALLBACK(external_command_lcb),bdm,-1);
