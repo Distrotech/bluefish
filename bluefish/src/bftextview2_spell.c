@@ -245,6 +245,138 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 	return TRUE;
 }
 
+#ifdef ALTERNATIVE_LOOP
+
+static gboolean has_tags(GSList *tags, GtkTextTag **tagarr) {
+	GSList *tmpslist = tags;
+	while (tmpslist) {
+		GtkTextTag *thistag = tagarr[0];
+		while (thistag) {
+			if (thistag == tmpslist->data)
+				return TRUE;
+			thistag++;
+		}
+		tmpslist=tmpslist->next;
+	}
+	return FALSE;
+}
+
+static gboolean get_next_region(BluefishTextView * btv, GtkTextIter *so, GtkTextIter *eo) {
+	gboolean fso=FALSE,feo=FALSE;
+	/* search start */
+	while (fso==FALSE && gtk_text_iter_forward_to_tag_toggle(iter, NULL)) {
+		tmpslist = gtk_text_iter_get_tags(iter);
+		if (has_tags(tmpslist, btv->bflang->need_spellcheck_tags)) {
+			/* yes we need to scan */
+			fso=TRUE;
+		} else if (has_tags(tmpslist, btv->bflang->no_spellcheck_tags)) {
+			/* do not scan */
+		} else {
+			/* scan depending on the settings of the language if it needs spell checking in default area's */
+			if (btv->bflang->default_spellcheck)
+				fso=TRUE;
+		}
+		g_slist_free(tmpslist);
+	}
+	if (fso) {
+		*so = iter;
+		
+		/* search end */
+		while (feo==FALSE && gtk_text_iter_forward_to_tag_toggle(iter, NULL)) {
+			tmpslist = gtk_text_iter_get_tags(iter);
+			if (has_tags(tmpslist, btv->bflang->need_spellcheck_tags)) {
+				/* yes we need to scan */
+				
+			} else if (has_tags(tmpslist, btv->bflang->no_spellcheck_tags)) {
+				/* do not scan */
+				feo=TRUE;
+			} else {
+				/* scan depending on the settings of the language if it needs scanning in default area's */
+				if (!btv->bflang->default_spellcheck)
+					fso=TRUE;
+			}
+			g_slist_free(tmpslist);
+		}
+		if (feo) {
+			*eo = iter;
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
+	GtkTextIter so,eo,iter;
+	GtkTextBuffer *buffer;
+	Tfoundstack *fstack;
+	GSequenceIter *siter=NULL;
+	GTimer *timer;
+	gint loop=0, loops_per_timer=100;
+	gboolean cont=TRUE;
+	
+	if (!BFWIN(DOCUMENT(btv->doc)->bfwin)->session->spell_enable)
+		return FALSE;
+	
+	if (!BFWIN(DOCUMENT(btv->doc)->bfwin)->ed && !load_dictionary(BFWIN(DOCUMENT(btv->doc)->bfwin))) {
+		DBG_SPELL("bftextview2_run_spellcheck, no dictionary.. return..\n");
+		return FALSE;
+	}
+	
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+	if (!bftextview2_find_region2spellcheck(btv, buffer, &so, &eo)) {
+		DBG_SPELL("bftextview2_run_spellcheck, no region to spellcheck found... return FALSE\n");
+		return FALSE;
+	}
+	DBG_SPELL("bftextview2_run_spellcheck, loop1 from %d to %d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&eo));
+	timer = g_timer_new();
+	iter=so;
+	do {
+		GtkTextIter eo2=eo;
+		gboolean cont2=TRUE;
+		if (btv->bflang->st) {
+			cont2 = get_next_region(btv, &iter, &eo2);
+			
+		} else { /* no scantable */
+			eo2=eo;
+		}
+		DBG_SPELL("bftextview2_run_spellcheck, loop2 from %d to %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&eo2));
+		while (cont2 && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) { /* loop from iter to eo2 */
+			loop++;
+			if (gtk_text_iter_forward_word_end(&iter) && gtk_text_iter_compare(&iter, &eo2) <= 0) {
+				GtkTextIter wordstart;
+				gtk_text_iter_backward_word_start(&iter);
+
+				wordstart=iter;
+				/* move to the next word as long as the we don't hit eo2 */
+				if (text_iter_forward_real_word_end(&iter)) {
+					/* check word */
+					spellcheck_word(btv, buffer, &wordstart, &iter);
+				}
+			} else {
+				DBG_SPELL("bftextview2_run_spellcheck, no word start within region\n");
+				iter=eo2;
+				cont2=FALSE;
+			}
+			if (cont2 && gtk_text_iter_compare(&iter, &eo2) >= 0)
+				cont2 = FALSE;
+		}
+
+		if (gtk_text_iter_compare(&iter, &eo) >= 0) /* TODO: check the order of the compare items */
+			cont = FALSE;
+			
+	} while (cont && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL));
+	DBG_SPELL("bftextview2_run_spellcheck, remove needspellcheck from start %d to iter at %d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&iter));
+	gtk_text_buffer_remove_tag(buffer, btv->needspellcheck, &so , &iter);
+
+	g_timer_destroy(timer);
+	
+	return TRUE;
+}
+
+
+
+#endif
+
 void bftextview2_spell_init(void) {
 	eb = enchant_broker_init();
 	if (!eb) {
