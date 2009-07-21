@@ -106,10 +106,10 @@ static void skip_to_end_tag(xmlTextReaderPtr reader, int depth) {
 	}
 }
 
-static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const gchar *bgcolor, gchar *bold, gchar *italic, gchar *spellcheck) {
+static GtkTextTag *langmrg_create_style(const gchar *name, const gchar *fgcolor, const gchar *bgcolor, gchar *bold, gchar *italic) {
 	GtkTextTag *tag;
 	gboolean newtag=FALSE;
-	if (!name || name[0]=='\0') return;
+	if (!name || name[0]=='\0') return NULL;
 
 	tag = gtk_text_tag_table_lookup(langmgr.tagtable,name);
 	if (!tag) {
@@ -150,6 +150,7 @@ static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const 
 		gtk_text_tag_table_add(langmgr.tagtable, tag);
 		g_object_unref(tag);
 	}
+	return tag;
 }
 
 static void langmgr_load_default_styles(void) {
@@ -186,8 +187,8 @@ static void langmgr_load_default_styles(void) {
 }
 
 void langmgr_reload_user_styles(void) {
-	GList *tmplist;
-	gboolean have_styles=FALSE;
+	GList *tmplist, *needlist=NULL,*noscanlist=NULL;
+	gint i;
 	
 	if (main_v->props.textstyles == NULL) {
 		langmgr_load_default_styles();
@@ -196,14 +197,30 @@ void langmgr_reload_user_styles(void) {
 	/* because the order of the styles is important (last added GtkTextTag is most important) 
 	we begin with the last style in the list */
 	for (tmplist = g_list_last(main_v->props.textstyles);tmplist;tmplist=tmplist->prev) {
+		GtkTextTag *tag;
 		gchar **arr = (gchar **)tmplist->data;
 		if (count_array(arr)==6) { 
-			langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
-			have_styles=TRUE;
+			tag = langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
+			if (arr[5][0]=='1')
+				needlist = g_list_prepend(needlist, tag);
+			else
+				noscanlist = g_list_prepend(noscanlist, tag);
 		}
 	}
-	if (!have_styles)
-		langmgr_load_default_styles();
+#ifdef HAVE_LIBENCHANT
+	langmgr.need_spellcheck_tags = g_new0(gpointer, g_list_length(needlist)+1);
+	i=0;
+	for (tmplist = g_list_first(needlist);tmplist;tmplist=tmplist->next) {
+		langmgr.need_spellcheck_tags[i] = tmplist->data;
+		i++;
+	}
+	langmgr.no_spellcheck_tags = g_new0(gpointer, g_list_length(noscanlist)+1);
+	i=0;
+	for (tmplist = g_list_first(noscanlist);tmplist;tmplist=tmplist->next) {
+		langmgr.no_spellcheck_tags[i] = tmplist->data;
+		i++;
+	}
+#endif
 }
 
 static void langmgr_insert_user_option(gchar *lang,gchar *option,gchar *val) {

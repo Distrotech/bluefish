@@ -435,7 +435,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_arraylist (&config_rc, &main_v->props.plugin_config, "plugin_config:", 3, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.editor_fg,"editor_fg:","#000000");
 	init_prop_string    (&config_rc, &main_v->props.editor_bg,"editor_bg:","#FFFFFF");
-	init_prop_arraylist (&config_rc, &main_v->props.textstyles, "textstyles2:", 5, TRUE);
+	init_prop_arraylist (&config_rc, &main_v->props.textstyles, "textstyles3:", 6, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_mbhl, "view_mbhl:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_cline, "view_cline:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_blocks, "view_blocks:", 1, TRUE);
