@@ -140,6 +140,9 @@ typedef struct {
 	GtkWidget *bg_color,*fg_color;
 	GtkWidget *bold_radio[2];
 	GtkWidget *italic_radio[2];
+#ifdef HAVE_LIBENCHANT
+	GtkWidget *need_spellcheck;
+#endif
 } Ttextstylepref;
 
 typedef struct {
@@ -527,7 +530,7 @@ static void create_plugin_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 static void set_textstyle_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
 	arrcount = count_array(strarr);
-	if (arrcount==5) {
+	if (arrcount==6) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->tsd.lstore), iter
 				,0,strarr[0],1,strarr,-1);
 	} else {
@@ -542,7 +545,7 @@ static void textstyle_0_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *
 static void add_new_textstyle_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gchar **strarr;
 	GtkTreeIter iter;
-	strarr = pref_create_empty_strarr(5);
+	strarr = pref_create_empty_strarr(6);
 	gtk_list_store_append(GTK_LIST_STORE(pd->tsd.lstore), &iter);
 	set_textstyle_strarr_in_list(&iter, strarr,pd);
 	pd->lists[textstyles] = g_list_append(pd->lists[textstyles], strarr);
@@ -579,6 +582,7 @@ static void textstyle_selection_changed_cb(GtkTreeSelection *selection, Tprefdia
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[1]), (strarr[3][0] == '1'));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[0]), (strarr[4][0] != '1'));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[1]), (strarr[4][0] == '1'));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.need_spellcheck), (strarr[5][0] == '1'));
 		pd->tsd.curstrarr = strarr;
 	} else {
 		DEBUG_MSG("no selection, returning..\n");
@@ -624,7 +628,15 @@ static void textstyle_radio_changed(GtkToggleButton *togglebutton, gpointer user
 		DEBUG_MSG("textstyle_radio_changed, changing arr[%d] to %s\n",index,val);
 	}
 }
-
+#ifdef HAVE_LIBENCHANT
+static void textstyle_spellcheck_changed(GtkToggleButton *togglebutton, gpointer user_data) {
+	Tprefdialog *pd = (Tprefdialog *)user_data;
+	if (pd->tsd.curstrarr) {
+		if (pd->tsd.curstrarr[5]) g_free(pd->tsd.curstrarr[5]);
+		pd->tsd.curstrarr[5] = g_strdup(togglebutton->active?"1":"0");
+	}
+}
+#endif
 /*
 the textstyle gui is based on a liststore with 2 columns, first the name, second the gchar **
 where this should be updated. We keep track of the current selected name, and set that gchar ** in
@@ -668,16 +680,22 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[0], FALSE, FALSE, 0);
 	pd->tsd.italic_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.italic_radio[0]), _("italic style"));
 	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[1], FALSE, FALSE, 0);
+#ifdef HAVE_LIBENCHANT
+	pd->tsd.need_spellcheck = gtk_check_button_new_with_label(_("Spell check"));
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.need_spellcheck, FALSE, FALSE, 0);
+#endif
+
 	{
 		GList *tmplist = g_list_first(pd->lists[textstyles]); /* the order of this list has a meaning !!! */
 		while (tmplist) {
 			gchar **strarr = (gchar **)tmplist->data;
-			if (count_array(strarr)==5) {
+			gint count = count_array(strarr);
+			if (count==6) {
 				GtkTreeIter iter;
 				gtk_list_store_append(GTK_LIST_STORE(pd->tsd.lstore), &iter);
 				set_textstyle_strarr_in_list(&iter, strarr,pd);
 			} else {
-				g_print("invalid textstyle with length %d\n",count_array(strarr));
+				g_print("invalid/outdated textstyle with length %d\n",count_array(strarr));
 			}
 			tmplist = g_list_next(tmplist);
 		}
@@ -694,7 +712,9 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	g_signal_connect(G_OBJECT(pd->tsd.bold_radio[1]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
 	g_signal_connect(G_OBJECT(pd->tsd.italic_radio[0]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
 	g_signal_connect(G_OBJECT(pd->tsd.italic_radio[1]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
-
+#ifdef HAVE_LIBENCHANT
+	g_signal_connect(G_OBJECT(pd->tsd.need_spellcheck),"toggled",G_CALLBACK(textstyle_spellcheck_changed),pd);
+#endif
 	hbox2 = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1),hbox2, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_textstyle_lcb), pd);
