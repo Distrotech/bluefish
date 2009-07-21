@@ -58,6 +58,10 @@ typedef struct {
 	GHashTable *bflang_options; /* key: a NULL terminated char **array with first value the language name,
 											second value the option name, third NULL
 											and as value a gchar * with the value of the option */
+#ifdef HAVE_LIBENCHANT
+	GtkTextTag **need_spellcheck_tags;
+	GtkTextTag **no_spellcheck_tags;
+#endif
 } Tlangmgr;
 
 static Tlangmgr langmgr = {NULL,NULL,NULL};
@@ -102,7 +106,7 @@ static void skip_to_end_tag(xmlTextReaderPtr reader, int depth) {
 	}
 }
 
-static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const gchar *bgcolor, gchar *bold, gchar *italic) {
+static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const gchar *bgcolor, gchar *bold, gchar *italic, gchar *spellcheck) {
 	GtkTextTag *tag;
 	gboolean newtag=FALSE;
 	if (!name || name[0]=='\0') return;
@@ -148,49 +152,58 @@ static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const 
 	}
 }
 
+static void langmgr_load_default_styles(void) {
+	gint i=0;
+	/* init the textstyles, most important on the bottom
+	order of the items is {name, foreground, background, bold, italic} */
+	const gchar *arr[][7] = {
+		{"preprocessor","#aaaa00","","0","0","0",NULL},
+		{"comment","#555555","","0","1","1",NULL},
+		{"string","#009900","","0","0","1",NULL},
+		{"type","","","1","0","0",NULL},
+		{"special-type","#990000","","1","","0",NULL},
+		{"function","#000099","","0","0","0",NULL},
+		{"special-function","#990000","","","","0",NULL},
+		{"keyword","#000000","","1","0","0",NULL},
+		{"special-keyword","#990000","","1","","0",NULL},
+		{"value","#0000FF","","0","0","0",NULL},
+		{"special-value","#0000FF","","1","","0",NULL},
+		{"variable","#990000","","1","0","0",NULL},
+		{"tag","#990099","","1","","0",NULL},
+		{"special-tag","#990000","","1","","0",NULL},
+		{"special-tag2","#005500","","1","","0",NULL},
+		{"special-tag3","#FF9900","","1","","0",NULL},
+		{"attribute","#000099","","","","0",NULL},
+		{"special-attribute","#FF0000","","","","0",NULL},
+		{"brackets","#000000","","1","0","0",NULL},
+		{"warning","#FF0000","","1","0","0",NULL},
+		{NULL,NULL,NULL,NULL,NULL,NULL,NULL}
+	};
+	while (arr[i][0]) {
+		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv((gchar **)arr[i]));
+		i++;
+	}
+}
+
 void langmgr_reload_user_styles(void) {
 	GList *tmplist;
+	gboolean have_styles=FALSE;
 	
 	if (main_v->props.textstyles == NULL) {
-		gint i=0;
-		/* init the textstyles, most important on the bottom
-		order of the items is {name, foreground, background, bold, italic} */
-		const gchar *arr[][6] = {
-			{"preprocessor","#aaaa00","","0","0",NULL},
-			{"comment","#555555","","0","1",NULL},
-			{"string","#009900","","0","0",NULL},
-			{"type","","","1","0",NULL},
-			{"special-type","#990000","","1","",NULL},
-			{"function","#000099","","0","0",NULL},
-			{"special-function","#990000","","","",NULL},
-			{"keyword","#000000","","1","0",NULL},
-			{"special-keyword","#990000","","1","",NULL},
-			{"value","#0000FF","","0","0",NULL},
-			{"special-value","#0000FF","","1","",NULL},
-			{"variable","#990000","","1","0",NULL},
-			{"tag","#990099","","1","",NULL},
-			{"special-tag","#990000","","1","",NULL},
-			{"special-tag2","#005500","","1","",NULL},
-			{"special-tag3","#FF9900","","1","",NULL},
-			{"attribute","#000099","","","",NULL},
-			{"special-attribute","#FF0000","","","",NULL},
-			{"brackets","#000000","","1","0",NULL},
-			{"warning","#FF0000","","1","0",NULL},
-			{NULL,NULL,NULL,NULL,NULL,NULL}
-		};
-		while (arr[i][0]) {
-			main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv((gchar **)arr[i]));
-			i++;
-		}
+		langmgr_load_default_styles();
 	}
 	
 	/* because the order of the styles is important (last added GtkTextTag is most important) 
 	we begin with the last style in the list */
 	for (tmplist = g_list_last(main_v->props.textstyles);tmplist;tmplist=tmplist->prev) {
 		gchar **arr = (gchar **)tmplist->data;
-		if (count_array(arr)==5) 
-			langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
+		if (count_array(arr)==6) { 
+			langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
+			have_styles=TRUE;
+		}
 	}
+	if (!have_styles)
+		langmgr_load_default_styles();
 }
 
 static void langmgr_insert_user_option(gchar *lang,gchar *option,gchar *val) {
