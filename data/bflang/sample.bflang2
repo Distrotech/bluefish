@@ -51,6 +51,11 @@ can enable/disable this complete section with this option
 	<!-- the comment tag specifies which line and block comments that are possible for the smart comment function -->
 	<smartindent characters="{" />
 	<!-- smartindent characters specify which characters, followed by a return, should increase the indenting -->
+	<default_spellcheck enabled="1" />
+	<!-- default_spellcheck defines if regions that are not highlighted will be checked by the spell checker. 
+	This is typically enabled for HTML/XML like languages, and disabled (or ignored, because the default=0)
+	for all programming languages
+	-->
 </properties>
 <definition>
 <!-- within <definition> the actual language description is found. A language definition always
