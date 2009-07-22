@@ -219,17 +219,21 @@ void langmgr_reload_user_styles(void) {
 	langmgr.need_spellcheck_tags = g_new0(gpointer, g_list_length(needlist)+1);
 	i=0;
 	for (tmplist = g_list_first(needlist);tmplist;tmplist=tmplist->next) {
+		/*DBG_SPELL("tag %p in need_spellcheck_tags[%d]\n",tmplist->data,i);*/
 		langmgr.need_spellcheck_tags[i] = tmplist->data;
 		i++;
 	}
-	g_print("have %d items in need_spellcheck_tags\n",i);
+	DBG_SPELL("have %d items in need_spellcheck_tags %p\n",i,langmgr.need_spellcheck_tags);
+	g_list_free(needlist);
 	langmgr.no_spellcheck_tags = g_new0(gpointer, g_list_length(noscanlist)+1);
 	i=0;
 	for (tmplist = g_list_first(noscanlist);tmplist;tmplist=tmplist->next) {
+		/*DBG_SPELL("tag %p in no_spellcheck_tags[%d]\n",tmplist->data,i);*/
 		langmgr.no_spellcheck_tags[i] = tmplist->data;
 		i++;
 	}
-	g_print("have %d items in no_spellcheck_tags\n",i);
+	DBG_SPELL("have %d items in no_spellcheck_tags %p\n",i,langmgr.no_spellcheck_tags);
+	g_list_free(noscanlist);
 #endif
 }
 
