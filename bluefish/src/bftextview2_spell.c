@@ -91,16 +91,6 @@ static void spellcheck_word(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTe
 	g_free(tocheck);
 }
 
-static gint foundstack_needspellcheck(BluefishTextView * btv, Tfoundstack *fstack) {
-	guint16 contextnum;
-	if (g_queue_get_length(fstack->contextstack))
-		contextnum = ((Tfoundcontext *)g_queue_peek_head(fstack->contextstack))->context;
-	else
-		contextnum = 1;
-	DBG_SPELL("context %d has spellcheck=%d\n",contextnum, g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).needspellcheck);
-	return g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).needspellcheck;
-}
-
 /* handle apostrophe in word gracefully */ 
 static inline gboolean text_iter_forward_real_word_end(GtkTextIter *it) {
 	GtkTextIter iter;
@@ -116,6 +106,18 @@ static inline gboolean text_iter_forward_real_word_end(GtkTextIter *it) {
 	}
 	return TRUE;
 }
+
+#ifdef HAVE_LIBENCHANT_OLD
+static gint foundstack_needspellcheck(BluefishTextView * btv, Tfoundstack *fstack) {
+	guint16 contextnum;
+	if (g_queue_get_length(fstack->contextstack))
+		contextnum = ((Tfoundcontext *)g_queue_peek_head(fstack->contextstack))->context;
+	else
+		contextnum = 1;
+	DBG_SPELL("context %d has spellcheck=%d\n",contextnum, g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).needspellcheck);
+	return g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).needspellcheck;
+}
+
 /*static inline gboolean text_iter_backward_real_word_start(GtkTextIter *i) {
 	GtkTextIter iter;
 	if (!gtk_text_iter_backward_word_start(i))
@@ -127,6 +129,7 @@ static inline gboolean text_iter_forward_real_word_end(GtkTextIter *it) {
 	return TRUE;
 }
 */
+
 gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 	GtkTextIter so,eo,iter;
 	GtkTextBuffer *buffer;
@@ -245,7 +248,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 	return TRUE;
 }
 
-#ifdef ALTERNATIVE_LOOP
+#else
 
 static gboolean has_tags(GSList *tags, GtkTextTag **tagarr) {
 	GSList *tmpslist = tags;
@@ -263,13 +266,16 @@ static gboolean has_tags(GSList *tags, GtkTextTag **tagarr) {
 
 static gboolean get_next_region(BluefishTextView * btv, GtkTextIter *so, GtkTextIter *eo) {
 	gboolean fso=FALSE,feo=FALSE;
+	GtkTextIter iter=*so;
+	GSList *tmpslist;
 	/* search start */
-	while (fso==FALSE && gtk_text_iter_forward_to_tag_toggle(iter, NULL)) {
-		tmpslist = gtk_text_iter_get_tags(iter);
-		if (has_tags(tmpslist, btv->bflang->need_spellcheck_tags)) {
+	g_print("get_next_region, search from %d to %d\n",gtk_text_iter_get_offset(so),gtk_text_iter_get_offset(eo));
+	while (fso==FALSE && gtk_text_iter_forward_to_tag_toggle(&iter, NULL)) {
+		tmpslist = gtk_text_iter_get_tags(&iter);
+		if (has_tags(tmpslist, langmgr_need_spellcheck_tags())) {
 			/* yes we need to scan */
 			fso=TRUE;
-		} else if (has_tags(tmpslist, btv->bflang->no_spellcheck_tags)) {
+		} else if (has_tags(tmpslist, langmgr_no_spellcheck_tags())) {
 			/* do not scan */
 		} else {
 			/* scan depending on the settings of the language if it needs spell checking in default area's */
@@ -282,18 +288,18 @@ static gboolean get_next_region(BluefishTextView * btv, GtkTextIter *so, GtkText
 		*so = iter;
 		
 		/* search end */
-		while (feo==FALSE && gtk_text_iter_forward_to_tag_toggle(iter, NULL)) {
-			tmpslist = gtk_text_iter_get_tags(iter);
-			if (has_tags(tmpslist, btv->bflang->need_spellcheck_tags)) {
+		while (feo==FALSE && gtk_text_iter_forward_to_tag_toggle(&iter, NULL)) {
+			tmpslist = gtk_text_iter_get_tags(&iter);
+			if (has_tags(tmpslist, langmgr_need_spellcheck_tags())) {
 				/* yes we need to scan */
 				
-			} else if (has_tags(tmpslist, btv->bflang->no_spellcheck_tags)) {
+			} else if (has_tags(tmpslist, langmgr_no_spellcheck_tags())) {
 				/* do not scan */
 				feo=TRUE;
 			} else {
 				/* scan depending on the settings of the language if it needs scanning in default area's */
 				if (!btv->bflang->default_spellcheck)
-					fso=TRUE;
+					feo=TRUE;
 			}
 			g_slist_free(tmpslist);
 		}
@@ -308,8 +314,6 @@ static gboolean get_next_region(BluefishTextView * btv, GtkTextIter *so, GtkText
 gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 	GtkTextIter so,eo,iter;
 	GtkTextBuffer *buffer;
-	Tfoundstack *fstack;
-	GSequenceIter *siter=NULL;
 	GTimer *timer;
 	gint loop=0, loops_per_timer=100;
 	gboolean cont=TRUE;

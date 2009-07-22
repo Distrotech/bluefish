@@ -204,7 +204,7 @@ typedef struct {
 					for this context. The identifier state is a state that refers to itself for all characters
 					except the characters (symbols) thay may be the begin or end of an identifier such
 					as whitespace, ();[]{}*+-/ etc. */
-#ifdef HAVE_LIBENCHANT
+#ifdef HAVE_LIBENCHANT_OLD
 	guint8 needspellcheck;
 #endif /*HAVE_LIBENCHANT*/
 } Tcontext;
@@ -335,6 +335,9 @@ typedef struct {
 	Tcomment *line; /* preferred line comment */
 	Tcomment *block; /* preferred block comment */
 	gchar *smartindentchars;
+#ifdef HAVE_LIBENCHANT
+	gboolean default_spellcheck;
+#endif
 	gboolean no_st; /* no scantable, for Text, don't try to load the scantable if st=NULL */
 	gboolean parsing; /* set to TRUE when a thread is parsing the scantable already */
 	gint size_table;
