@@ -253,11 +253,13 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 static gboolean has_tags(GSList *tags, GtkTextTag **tagarr) {
 	GSList *tmpslist = tags;
 	while (tmpslist) {
-		GtkTextTag *thistag = tagarr[0];
-		while (thistag) {
-			if (thistag == tmpslist->data)
+		gint i=0;
+		while (tagarr[i]) {
+			if (tagarr[i] == tmpslist->data) {
+				/*g_print("has_tags, return TRUE for tag %p in tagarray[%d] %p\n",tagarr[i],i,tagarr);*/
 				return TRUE;
-			thistag++;
+			}
+			i++;
 		}
 		tmpslist=tmpslist->next;
 	}
@@ -269,37 +271,45 @@ static gboolean get_next_region(BluefishTextView * btv, GtkTextIter *so, GtkText
 	GtkTextIter iter=*so;
 	GSList *tmpslist;
 	/* search start */
-	g_print("get_next_region, search from %d to %d\n",gtk_text_iter_get_offset(so),gtk_text_iter_get_offset(eo));
-	while (fso==FALSE && gtk_text_iter_forward_to_tag_toggle(&iter, NULL)) {
+	DBG_SPELL("get_next_region, search from %d to %d\n",gtk_text_iter_get_offset(so),gtk_text_iter_get_offset(eo));
+	do {
 		tmpslist = gtk_text_iter_get_tags(&iter);
 		if (has_tags(tmpslist, langmgr_need_spellcheck_tags())) {
 			/* yes we need to scan */
+			DBG_SPELL("found tag to scan at %d\n",gtk_text_iter_get_offset(&iter));
 			fso=TRUE;
 		} else if (has_tags(tmpslist, langmgr_no_spellcheck_tags())) {
 			/* do not scan */
+			DBG_SPELL("found tag not to scan, skip at %d\n",gtk_text_iter_get_offset(&iter));
 		} else {
 			/* scan depending on the settings of the language if it needs spell checking in default area's */
-			if (btv->bflang->default_spellcheck)
+			if (btv->bflang->default_spellcheck) {
+				DBG_SPELL("no tags: scan at %d\n",gtk_text_iter_get_offset(&iter));
 				fso=TRUE;
+			}
 		}
 		g_slist_free(tmpslist);
-	}
+	} while (fso==FALSE && gtk_text_iter_forward_to_tag_toggle(&iter, NULL) && !gtk_text_iter_is_end(&iter));
 	if (fso) {
 		*so = iter;
 		
 		/* search end */
-		while (feo==FALSE && gtk_text_iter_forward_to_tag_toggle(&iter, NULL)) {
+		while (feo==FALSE && gtk_text_iter_forward_to_tag_toggle(&iter, NULL) && !gtk_text_iter_is_end(&iter)) {
 			tmpslist = gtk_text_iter_get_tags(&iter);
+			DBG_SPELL("got %d tags at %d\n",g_slist_length(tmpslist),gtk_text_iter_get_offset(&iter));
 			if (has_tags(tmpslist, langmgr_need_spellcheck_tags())) {
 				/* yes we need to scan */
-				
+				DBG_SPELL("found tag to scan, continue scanning at %d\n",gtk_text_iter_get_offset(&iter));
 			} else if (has_tags(tmpslist, langmgr_no_spellcheck_tags())) {
 				/* do not scan */
+				DBG_SPELL("found tag not to scan at %d\n",gtk_text_iter_get_offset(&iter));
 				feo=TRUE;
 			} else {
 				/* scan depending on the settings of the language if it needs scanning in default area's */
-				if (!btv->bflang->default_spellcheck)
+				if (!btv->bflang->default_spellcheck) {
+					DBG_SPELL("no tags, no scan at %d\n",gtk_text_iter_get_offset(&iter));
 					feo=TRUE;
+				}
 			}
 			g_slist_free(tmpslist);
 		}
@@ -308,6 +318,7 @@ static gboolean get_next_region(BluefishTextView * btv, GtkTextIter *so, GtkText
 			return TRUE;
 		}
 	}
+	DBG_SPELL("get_next_region, return FALSE\n");
 	return FALSE;
 }
 
@@ -339,7 +350,9 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 		gboolean cont2=TRUE;
 		if (btv->bflang->st) {
 			cont2 = get_next_region(btv, &iter, &eo2);
-			
+			if (!cont2) {
+				iter=eo;
+			}
 		} else { /* no scantable */
 			eo2=eo;
 		}
