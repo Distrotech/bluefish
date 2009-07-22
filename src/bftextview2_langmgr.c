@@ -45,6 +45,9 @@ typedef struct {
 	gboolean load_completion;
 	gboolean load_reference;
 	gboolean autoclose_tags;
+#ifdef HAVE_LIBENCHANT
+	gboolean default_spellcheck;
+#endif
 } Tbflangparsing;
 
 typedef struct {
@@ -63,8 +66,11 @@ typedef struct {
 	GtkTextTag **no_spellcheck_tags;
 #endif
 } Tlangmgr;
-
-static Tlangmgr langmgr = {NULL,NULL,NULL};
+#ifdef HAVE_LIBENCHANT
+static Tlangmgr langmgr = {NULL,NULL,NULL,0,NULL,NULL,NULL,NULL};
+#else
+static Tlangmgr langmgr = {NULL,NULL,NULL,0,NULL,NULL};
+#endif
 
 /* utils */
 
@@ -201,10 +207,12 @@ void langmgr_reload_user_styles(void) {
 		gchar **arr = (gchar **)tmplist->data;
 		if (count_array(arr)==6) { 
 			tag = langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
+#ifdef HAVE_LIBENCHANT
 			if (arr[5][0]=='1')
 				needlist = g_list_prepend(needlist, tag);
 			else
 				noscanlist = g_list_prepend(noscanlist, tag);
+#endif
 		}
 	}
 #ifdef HAVE_LIBENCHANT
@@ -214,12 +222,14 @@ void langmgr_reload_user_styles(void) {
 		langmgr.need_spellcheck_tags[i] = tmplist->data;
 		i++;
 	}
+	g_print("have %d items in need_spellcheck_tags\n",i);
 	langmgr.no_spellcheck_tags = g_new0(gpointer, g_list_length(noscanlist)+1);
 	i=0;
 	for (tmplist = g_list_first(noscanlist);tmplist;tmplist=tmplist->next) {
 		langmgr.no_spellcheck_tags[i] = tmplist->data;
 		i++;
 	}
+	g_print("have %d items in no_spellcheck_tags\n",i);
 #endif
 }
 
@@ -309,6 +319,9 @@ static gboolean build_lang_finished_lcb(gpointer data)
 		bfparser->bflang->no_st = TRUE;
 	}
 	bfparser->bflang->smartindentchars = bfparser->smartindentchars;
+#ifdef HAVE_LIBENCHANT
+	bfparser->bflang->default_spellcheck = bfparser->default_spellcheck;
+#endif
 	bfparser->bflang->parsing=FALSE;
 	DBG_PARSING("build_lang_finished_lcb..\n");
 	/* now walk and rescan all documents that use this bflang */
@@ -660,7 +673,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			if (!contexttag) {
 				static const gchar *internal_tag_string_d = "__internal_tag_string_d__";
 				static const gchar *internal_tag_string_s = "__internal_tag_string_s__";
-				contexttag = new_context(bfparser->st, bfparser->bflang->name, "/>\"=' \t\n\r<", NULL, FALSE, FALSE);
+				contexttag = new_context(bfparser->st, bfparser->bflang->name, "/>\"=' \t\n\r<", NULL, FALSE);
 				match_set_nextcontext(bfparser->st, matchnum, contexttag);
 				if (attrib_arr) {
 					gchar**tmp2;
@@ -865,7 +878,10 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 
 static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack) {
 	gchar *symbols=NULL, *highlight=NULL, *id=NULL, *idref=NULL;
-	gboolean autocomplete_case_insens=FALSE,spellcheck=FALSE,is_empty;
+	gboolean autocomplete_case_insens=FALSE,is_empty;
+#ifdef HAVE_LIBENCHANT_OLD
+	gboolean spellcheck=FALSE;
+#endif
 	gint context;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
@@ -874,7 +890,9 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"idref",&idref);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"symbols",&symbols);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"highlight",&highlight);
+#ifdef HAVE_LIBENCHANT_OLD
 		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"spellcheck",&spellcheck);
+#endif
 		if (bfparser->load_completion)
 			set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_case_insens",&autocomplete_case_insens);
 		xmlFree(aname);
@@ -891,7 +909,7 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 	}
 	/* create context */
 	DBG_PARSING("create context symbols %s and highlight %s\n",symbols,highlight);
-	context = new_context(bfparser->st,bfparser->bflang->name,symbols,highlight,autocomplete_case_insens, spellcheck);
+	context = new_context(bfparser->st,bfparser->bflang->name,symbols,highlight,autocomplete_case_insens);
 	g_queue_push_head(contextstack,GINT_TO_POINTER(context));
 	if (id) {
 		DBG_PARSING("insert context %s into hash table as %d\n",id,context);
@@ -1026,6 +1044,13 @@ static gpointer build_lang_thread(gpointer data)
 						set_string_if_attribute_name(reader,aname,(xmlChar *)"characters", &bfparser->smartindentchars);
 						xmlFree(aname);
 					}
+				} else if (xmlStrEqual(name2,(xmlChar *)"default_spellcheck")) {
+					while (xmlTextReaderMoveToNextAttribute(reader)) {
+						xmlChar *aname = xmlTextReaderName(reader);
+						set_boolean_if_attribute_name(reader,aname,(xmlChar *)"enabled", &bfparser->default_spellcheck);
+						xmlFree(aname);
+					}
+
 				} else if (xmlStrEqual(name2,(xmlChar *)"properties")) {
 					xmlFree(name2);
 					break;
@@ -1129,6 +1154,15 @@ GList *langmgr_get_languages_mimetypes(void) {
 	}
 	return retlist;
 }
+#ifdef HAVE_LIBENCHANT
+GtkTextTag **langmgr_no_spellcheck_tags(void) {
+	return langmgr.no_spellcheck_tags;	
+}
+GtkTextTag **langmgr_need_spellcheck_tags(void) {
+	return langmgr.need_spellcheck_tags;	
+}
+
+#endif
 
 GList *langmgr_get_languages(void) {
 	return g_list_copy(langmgr.bflang_list);

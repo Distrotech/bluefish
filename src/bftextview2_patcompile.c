@@ -495,7 +495,7 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 	g_free(pattern);
 }
 
-gint16 new_context(Tscantable *st, const gchar *lang, gchar *symbols, const gchar *contexthighlight, gboolean autocomplete_case_insens, gboolean spellcheck) {
+gint16 new_context(Tscantable *st, const gchar *lang, gchar *symbols, const gchar *contexthighlight, gboolean autocomplete_case_insens) {
 	gint16 context;
 	guint16 startstate, identstate;
 	gint i;
@@ -511,7 +511,7 @@ gint16 new_context(Tscantable *st, const gchar *lang, gchar *symbols, const gcha
 	g_array_index(st->contexts, Tcontext, context).identstate = identstate;
 	g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens = autocomplete_case_insens;
 	g_array_index(st->contexts, Tcontext, context).contexthighlight = (gchar *)contexthighlight;
-#ifdef HAVE_LIBENCHANT
+#ifdef HAVE_LIBENCHANT_OLD
 	g_array_index(st->contexts, Tcontext, context).needspellcheck = spellcheck;
 #endif /*HAVE_LIBENCHANT*/
 
