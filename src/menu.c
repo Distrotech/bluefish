@@ -733,13 +733,12 @@ void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean i
 /*****************/
 /* Windows !!    */
 /*****************/
-
+/*
 static void remove_all_window_entries_in_window(Tbfwin *menubfwin) {
 	GList *tmplist = g_list_first(menubfwin->menu_windows);
 	DEBUG_MSG("removing all window entries in menubfwin %p\n",menubfwin);
 	while (tmplist) {
 		Tbfw_dynmenu *bdm = BFW_DYNMENU(tmplist->data);
-		/*g_signal_handler_disconnect(bdm->menuitem,bdm->signal_id);*/
 		DEBUG_MSG("remove_all_window_entries_in_window, destroy menuitem=%p\n",bdm->menuitem);
 		gtk_widget_destroy(bdm->menuitem);
 		g_free(bdm);
@@ -752,7 +751,6 @@ static void remove_window_entry_from_window(Tbfwin *menubfwin, Tbfwin *tobfwin) 
 	Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(menubfwin->menu_windows, tobfwin);
 	DEBUG_MSG("remove_window_entry_from_window, menuwin=%p, found bdm=%p\n",menubfwin,bdm);
 	if (bdm) {
-		/*g_signal_handler_disconnect(bdm->menuitem,bdm->signal_id);*/
 		DEBUG_MSG("remove_window_entry_from_window, destroy menuitem=%p\n",bdm->menuitem);
 		gtk_widget_destroy(bdm->menuitem);
 		menubfwin->menu_windows = g_list_remove(menubfwin->menu_windows,bdm);
@@ -816,7 +814,7 @@ void rename_window_entry_in_all_windows(Tbfwin *tobfwin, gchar *newtitle) {
 		tmplist = g_list_next(tmplist);
 	}
 }
-
+*/
 /*****************/
 /* Browsers!!    */
 /*****************/
