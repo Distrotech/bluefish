@@ -2197,7 +2197,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
 											(scroll), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
-
+	newdoc->highlightstate=1;
 	newdoc->linenumberstate = main_v->props.view_line_numbers;
 /*	document_set_line_numbers(newdoc, newdoc->linenumberstate); set in the widget by default*/
 	newdoc->blocksstate = main_v->props.view_blocks;
@@ -2715,8 +2715,7 @@ void doc_activate(Tdocument *doc) {
 		DEBUG_MSG("doc_activate, STILL LOADING! returning\n");
 		return;
 	} else {
-		if (!BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner) {
-			/*g_print("doc_activate, enable scanner for doc %p\n",doc);*/
+		if (doc->highlightstate && !BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner) {
 			BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
 			bftextview2_schedule_scanning(BLUEFISH_TEXT_VIEW(doc->view));
 		}
@@ -2900,7 +2899,8 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
-	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner-1;
+	bfwin->current_document->highlightstate = bfwin->current_document->highlightstate-1;
+	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = bfwin->current_document->highlightstate;
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 }
 
