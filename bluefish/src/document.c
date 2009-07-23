@@ -1636,9 +1636,9 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 	GtkWidget *menuitem;
 	/* I found no way to connect an item-factory to this menu widget, so we have to do it in the manual way... */
 
-#ifdef HAVE_LIBENCHANT
+/*#ifdef HAVE_LIBENCHANT
 	bftextview2_populate_preferences_popup(menu, doc);
-#endif /*HAVE_LIBENCHANT*/
+#endif*/
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
 	menuitem = gtk_image_menu_item_new_with_label(_("Replace"));

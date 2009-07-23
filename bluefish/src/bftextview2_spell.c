@@ -436,12 +436,61 @@ static void bftextview2_suggestion_menu_lcb(GtkWidget *widget, gpointer data) {
 	}
 }
 
+static void bftextview2_preferences_menu_lcb(GtkWidget *widget, gpointer data) {
+	Tbfwin *bfwin=data;
+	if (GTK_CHECK_MENU_ITEM(widget)->active) {
+		if (bfwin->session->spell_lang)
+			g_free(bfwin->session->spell_lang);
+		bfwin->session->spell_lang = g_strdup(gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)));
+		if (load_dictionary(bfwin)) {
+			bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+		}
+	}
+}
+
+typedef struct {
+	Tbfwin *bfwin;
+	GtkWidget *menu;
+	GSList *group;
+} Tdictlist;
+
+static void list_dicts_lcb(const char * const lang_tag,const char * const provider_name,const char * const provider_desc,const char * const provider_file,void *data) {
+	Tdictlist *dl=data;
+	GtkWidget *menuitem;
+	/*DBG_SPELL("lang_tag=%s, provider_name=%s, provider_desc=%s, provider_file=%s\n",lang_tag,provider_name,provider_desc,provider_file);*/
+	menuitem = gtk_radio_menu_item_new_with_label(dl->group, lang_tag);
+	if (!dl->group)
+		dl->group = gtk_radio_menu_item_group(GTK_RADIO_MENU_ITEM(menuitem));
+	if (g_strcmp0(dl->bfwin->session->spell_lang, lang_tag)==0) {
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
+	}
+	g_signal_connect(menuitem, "activate", G_CALLBACK(bftextview2_preferences_menu_lcb), dl->bfwin);
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(dl->menu), GTK_WIDGET(menuitem));
+}
+
 void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 	GtkTextIter wordstart,wordend;
-	if (!BFWIN(doc->bfwin)->ed)
-		return;
+	Tdictlist dl;
+	GtkWidget *menuitem, *submenu;
 	
 	if (main_v->bevent_doc != doc)
+		return;
+	
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
+
+	menuitem = gtk_image_menu_item_new_with_label(_("Spell check language"));
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),gtk_image_new_from_stock(GTK_STOCK_SPELL_CHECK, GTK_ICON_SIZE_MENU));
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	
+	submenu = gtk_menu_new();
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem), submenu);
+	
+	dl.bfwin = doc->bfwin;
+	dl.menu = submenu;
+	dl.group=NULL;
+	enchant_broker_list_dicts(eb, list_dicts_lcb, &dl);
+
+	if (!BFWIN(doc->bfwin)->ed)
 		return;
 	
 	if (get_misspelled_word_at_bevent(BLUEFISH_TEXT_VIEW(doc->view), &wordstart, &wordend)) {
@@ -467,69 +516,31 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 	}
 }
 
-static void bftextview2_preferences_menu_lcb(GtkWidget *widget, gpointer data) {
-	Tbfwin *bfwin=data;
-	if (GTK_CHECK_MENU_ITEM(widget)->active) {
-		if (bfwin->session->spell_lang)
-			g_free(bfwin->session->spell_lang);
-		bfwin->session->spell_lang = g_strdup(gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)));
-		load_dictionary(bfwin);
-	}
-}
-
+/*
 static void bftextview2_preferences_menu_enable_lcb(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
 	bfwin->session->spell_enable = GTK_CHECK_MENU_ITEM(widget)->active;
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(bfwin->toolbar_spell),bfwin->session->spell_enable);
 }
 
-typedef struct {
-	Tbfwin *bfwin;
-	GtkWidget *menu;
-	GSList *group;
-} Tdictlist;
-
-static void list_dicts_lcb(const char * const lang_tag,const char * const provider_name,const char * const provider_desc,const char * const provider_file,void *data) {
-	Tdictlist *dl=data;
-	GtkWidget *menuitem;
-	/*DBG_SPELL("lang_tag=%s, provider_name=%s, provider_desc=%s, provider_file=%s\n",lang_tag,provider_name,provider_desc,provider_file);*/
-	menuitem = gtk_radio_menu_item_new_with_label(dl->group, lang_tag);
-	if (!dl->group)
-		dl->group = gtk_radio_menu_item_group(GTK_RADIO_MENU_ITEM(menuitem));
-	if (g_strcmp0(dl->bfwin->session->spell_lang, lang_tag)==0) {
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
-	}
-	g_signal_connect(menuitem, "activate", G_CALLBACK(bftextview2_preferences_menu_lcb), dl->bfwin);
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(dl->menu), GTK_WIDGET(menuitem));
-}
-
 void bftextview2_populate_preferences_popup(GtkMenu *menu, Tdocument *doc) {
 	GtkWidget *menuitem, *submenu;
 	Tdictlist dl;
 	
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
-
-	menuitem = gtk_image_menu_item_new_with_label(_("Spell check language"));
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),gtk_image_new_from_stock(GTK_STOCK_SPELL_CHECK, GTK_ICON_SIZE_MENU));
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
-	
-	submenu = gtk_menu_new();
-	gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem), submenu);
-	
-	dl.bfwin = doc->bfwin;
-	dl.menu = submenu;
-	dl.group=NULL;
-	enchant_broker_list_dicts(eb, list_dicts_lcb, &dl);
 
 	menuitem = gtk_check_menu_item_new_with_label(_("Enable spell check"));
 	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), BFWIN(doc->bfwin)->session->spell_enable);
 	g_signal_connect(menuitem, "activate", G_CALLBACK(bftextview2_preferences_menu_enable_lcb), doc->bfwin);
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
-}
+}*/
 
 void bftextview2_gui_toggle_spell_check(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
 	bfwin->session->spell_enable = GTK_TOGGLE_BUTTON(widget)->active;
+	if (bfwin->current_document && bfwin->current_document->view) {
+		/* the signal is also emitted when the toggle button gets it's initial value during the building of the window */
+		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+	}
 }
 
 #endif /*HAVE_LIBENCHANT*/

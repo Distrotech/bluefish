@@ -338,9 +338,6 @@ typedef struct {
 	GList *searchlist;     /* used in snr2 and for advanced_open */
 	GList *targetlist;
 	GList *urllist;
-#ifdef HAVE_LIBASPELL
-	gchar *spell_default_lang;
-#endif /* HAVE_LIBASPELL */
 } Tsessionvars;
 
 typedef struct {
