@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-09 23:02+0100\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2009-07-18 19:34-0700\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Unknown <unk@unk.org>\n"
 "Language-Team: no team <LL@li.org>\n"
@@ -15,54 +15,202 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../entities.c:353
-msgid "Characters to entities"
+#: src/plugin_snippets/snippets_gui.c:264
+msgid "Set accelerator key"
 msgstr ""
 
-#: ../entities.c:353
-msgid "Entities to characters"
+#: src/plugin_snippets/snippets_gui.c:296
+msgid "Snippet export filename"
 msgstr ""
 
-#: ../entities.c:366
-msgid "In current document"
+#: src/plugin_snippets/snippets_gui.c:305
+msgid "Snippet import filename"
 msgstr ""
 
-#: ../entities.c:367
-msgid "In selection"
+#: src/plugin_snippets/snippets_gui.c:315
+msgid "/_New snippet"
 msgstr ""
 
-#: ../entities.c:368
-msgid "In all documents"
+#: src/plugin_snippets/snippets_gui.c:316
+msgid "/_Edit snippet"
 msgstr ""
 
-#: ../entities.c:369
-msgid "Sco_pe:"
+#: src/plugin_snippets/snippets_gui.c:317
+msgid "/_Delete snippet"
 msgstr ""
 
-#: ../entities.c:373
-msgid "Convert numerical characters"
+#: src/plugin_snippets/snippets_gui.c:318
+msgid "/Delete branch"
 msgstr ""
 
-#: ../entities.c:380
-msgid "Convert _iso-8859-1 characters"
+#: src/plugin_snippets/snippets_gui.c:320
+msgid "/Set snippet _accelerator"
 msgstr ""
 
-#: ../entities.c:384
-msgid "Convert _symbol characters"
+#: src/plugin_snippets/snippets_gui.c:322
+msgid "/Expand all"
 msgstr ""
 
-#: ../entities.c:388
-msgid "Convert spe_cial characters"
+#: src/plugin_snippets/snippets_gui.c:323
+msgid "/Collapse all"
 msgstr ""
 
-#: ../entities.c:392
-msgid "Convert _xml characters <>&"
+#: src/plugin_snippets/snippets_gui.c:325
+msgid "/Export"
 msgstr ""
 
-#: ../entities.c:459
-msgid "/Tools/Entities to characters"
+#: src/plugin_snippets/snippets_gui.c:326
+msgid "/Import"
 msgstr ""
 
-#: ../entities.c:460
-msgid "/Tools/Characters to entities"
+#: src/plugin_snippets/snippets_gui.c:441
+msgid "Click the right mouse button to add, edit or delete snippets."
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:598
+msgid "snippets"
+msgstr ""
+
+#: src/plugin_snippets/snippets_leaf_insert.c:101
+msgid "[cursor position or selection]"
+msgstr ""
+
+#: src/plugin_snippets/snippets_leaf_snr.c:154
+msgid "Search for: '"
+msgstr ""
+
+#: src/plugin_snippets/snippets_leaf_snr.c:154
+msgid "', replace with: '"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:112
+msgid "Entire document"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:113
+msgid "Forward from cursor position"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:114
+msgid "Selection"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:115
+msgid "All open files"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:119
+msgid "Normal"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:120
+msgid "Entire word only"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:121
+msgid "POSIX"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:122
+msgid "PERL"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:133
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:140
+msgid "_Search for: "
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:144
+msgid "Replace _with: "
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:151
+msgid "Sco_pe: "
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:158
+msgid "Match Patter_n: "
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:161
+msgid "Case sensitive _matching"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:162
+msgid "Only match if case (upper/lower) is identical."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:165
+msgid "_Use escape chars"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:166
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:339
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:345
+msgid "<i>Before</i> text"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:355
+msgid "<i>After</i> text"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:363
+msgid "Number"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:365
+msgid "Name"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:367
+msgid "Is file path"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:489
+msgid "Enter the name of the branch:"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:572
+msgid "Name of the new item:"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:577
+msgid "Description:"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:627
+msgid "Select what you want to add"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:629
+msgid "Branch"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:631
+msgid "Insert string"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:633
+msgid "Search and replace pattern"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:740
+msgid "New snippet"
 msgstr ""

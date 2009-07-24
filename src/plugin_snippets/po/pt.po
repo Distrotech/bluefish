@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: last_pt\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-06-10 22:04+0200\n"
+"POT-Creation-Date: 2009-07-18 19:34-0700\n"
 "PO-Revision-Date: 2004-12-04 21:45+0000\n"
 "Last-Translator: Lopo Pizarro <lopo-pizarro@netcabo.pt>\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
@@ -73,7 +73,7 @@ msgstr ""
 msgid "snippets"
 msgstr ""
 
-#: src/plugin_snippets/snippets_leaf_insert.c:93
+#: src/plugin_snippets/snippets_leaf_insert.c:101
 msgid "[cursor position or selection]"
 msgstr ""
 
@@ -173,34 +173,46 @@ msgstr ""
 msgid "<i>After</i> text"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:470
+#: src/plugin_snippets/snippets_wizard.c:363
+msgid "Number"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:365
+msgid "Name"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:367
+msgid "Is file path"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:489
 msgid "Enter the name of the branch:"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:553
+#: src/plugin_snippets/snippets_wizard.c:572
 msgid "Name of the new item:"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:558
+#: src/plugin_snippets/snippets_wizard.c:577
 msgid "Description:"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:608
+#: src/plugin_snippets/snippets_wizard.c:627
 msgid "Select what you want to add"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:610
+#: src/plugin_snippets/snippets_wizard.c:629
 msgid "Branch"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:612
+#: src/plugin_snippets/snippets_wizard.c:631
 msgid "Insert string"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:614
+#: src/plugin_snippets/snippets_wizard.c:633
 msgid "Search and replace pattern"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:721
+#: src/plugin_snippets/snippets_wizard.c:740
 msgid "New snippet"
 msgstr ""

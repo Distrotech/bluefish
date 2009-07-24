@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-06-10 22:04+0200\n"
+"POT-Creation-Date: 2009-07-18 19:34-0700\n"
 "PO-Revision-Date: 2007-08-22 15:43+0200\n"
 "Last-Translator: elve <elve@savage-elve.net>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -76,7 +76,7 @@ msgstr ""
 msgid "snippets"
 msgstr "snippets"
 
-#: src/plugin_snippets/snippets_leaf_insert.c:93
+#: src/plugin_snippets/snippets_leaf_insert.c:101
 msgid "[cursor position or selection]"
 msgstr "[cursor positie of selectie]"
 
@@ -184,34 +184,46 @@ msgstr "<i>Ervoor</i> tekst"
 msgid "<i>After</i> text"
 msgstr "<i>Erna</i> tekst"
 
-#: src/plugin_snippets/snippets_wizard.c:470
+#: src/plugin_snippets/snippets_wizard.c:363
+msgid "Number"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:365
+msgid "Name"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:367
+msgid "Is file path"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:489
 msgid "Enter the name of the branch:"
 msgstr "Voer de naam van de branche in:"
 
-#: src/plugin_snippets/snippets_wizard.c:553
+#: src/plugin_snippets/snippets_wizard.c:572
 msgid "Name of the new item:"
 msgstr "Naam van het nieuwe item:"
 
-#: src/plugin_snippets/snippets_wizard.c:558
+#: src/plugin_snippets/snippets_wizard.c:577
 msgid "Description:"
 msgstr "Beschrijving:"
 
-#: src/plugin_snippets/snippets_wizard.c:608
+#: src/plugin_snippets/snippets_wizard.c:627
 msgid "Select what you want to add"
 msgstr "Selecteer wat u wilt toevoegen"
 
-#: src/plugin_snippets/snippets_wizard.c:610
+#: src/plugin_snippets/snippets_wizard.c:629
 msgid "Branch"
 msgstr "Branch"
 
-#: src/plugin_snippets/snippets_wizard.c:612
+#: src/plugin_snippets/snippets_wizard.c:631
 msgid "Insert string"
 msgstr "String invoegen"
 
-#: src/plugin_snippets/snippets_wizard.c:614
+#: src/plugin_snippets/snippets_wizard.c:633
 msgid "Search and replace pattern"
 msgstr "Zoeken en vervangen patroon"
 
-#: src/plugin_snippets/snippets_wizard.c:721
+#: src/plugin_snippets/snippets_wizard.c:740
 msgid "New snippet"
 msgstr "Nieuwe snippet"
