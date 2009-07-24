@@ -549,10 +549,10 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_box_pack_start(GTK_BOX(vbox), bfwin->menubar, FALSE, TRUE, 0);
 	gtk_accel_map_add_entry("<bluefishmain>/Edit/Indent", GDK_period, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Edit/Unindent", GDK_comma, GDK_CONTROL_MASK);
-	gtk_accel_map_add_entry("<bluefishmain>/Go/Previous document", GDK_Page_Up, GDK_CONTROL_MASK);
-	gtk_accel_map_add_entry("<bluefishmain>/Go/Next document", GDK_Page_Down, GDK_CONTROL_MASK);
-	gtk_accel_map_add_entry("<bluefishmain>/Go/First document", GDK_Page_Up, GDK_SHIFT_MASK | GDK_CONTROL_MASK);
-	gtk_accel_map_add_entry("<bluefishmain>/Go/Last document", GDK_Page_Down, GDK_SHIFT_MASK | GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Go/Previous Document", GDK_Page_Up, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Go/Next Document", GDK_Page_Down, GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Go/First Document", GDK_Page_Up, GDK_SHIFT_MASK | GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Go/Last Document", GDK_Page_Down, GDK_SHIFT_MASK | GDK_CONTROL_MASK);
 	gtk_widget_show(bfwin->menubar);
 	setup_toggle_item(item_factory, "/View/Main Toolbar", bfwin->session->view_main_toolbar);
 	setup_toggle_item(item_factory, "/View/Side Pane", bfwin->session->view_left_panel);
