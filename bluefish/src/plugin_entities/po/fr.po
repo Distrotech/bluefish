@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish pre1.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-06-10 22:04+0200\n"
+"POT-Creation-Date: 2009-07-23 18:41-0700\n"
 "PO-Revision-Date: 2006-01-29 00:06+0100\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
@@ -64,25 +64,25 @@ msgstr "Convertir les caractères _spéciaux"
 msgid "Convert _XML characters < > & \" '"
 msgstr "Convertir les caractères _xml <>&"
 
-#: src/plugin_entities/entities.c:549
-msgid "/Tools/sepent"
-msgstr ""
-
 #: src/plugin_entities/entities.c:550
-msgid "/Tools/Entities to characters"
+#, fuzzy
+msgid "/Tools/Entities To Characters..."
 msgstr "/Éditer/Remplacement spécial/Entités en caractères"
 
 #: src/plugin_entities/entities.c:551
-msgid "/Tools/Characters to entities"
+#, fuzzy
+msgid "/Tools/Characters To Entities..."
 msgstr "/Éditer/Remplacement spécial/Caractères en entités"
 
 #: src/plugin_entities/entities.c:552
-msgid "/Tools/URL encode selection"
+#, fuzzy
+msgid "/Tools/URL Encode"
 msgstr "/Éditer/Remplacement spécial/Encodage URL de la sélection"
 
 #: src/plugin_entities/entities.c:553
-msgid "/Tools/URL decode selection"
-msgstr "/Éditer/Remplacement spécial/Décodage URL de la sélection"
+#, fuzzy
+msgid "/Tools/URL Decode"
+msgstr "/Éditer/Remplacement spécial/Encodage URL de la sélection"
 
 #: src/plugin_entities/entities.c:554
 #, fuzzy
@@ -93,3 +93,6 @@ msgstr "/Éditer/Remplacement spécial/Encodage URL de la sélection"
 #, fuzzy
 msgid "/Tools/To Uppercase"
 msgstr "/Éditer/Remplacement spécial/Encodage URL de la sélection"
+
+#~ msgid "/Tools/URL decode selection"
+#~ msgstr "/Éditer/Remplacement spécial/Décodage URL de la sélection"

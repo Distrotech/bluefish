@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 1.3.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-06-10 22:04+0200\n"
+"POT-Creation-Date: 2009-07-23 18:41-0700\n"
 "PO-Revision-Date: 2009-02-06 16:45-0300\n"
 "Last-Translator: Esfinge Metal <esfingemetal@gmail.com>\n"
 "Language-Team: \n"
@@ -61,25 +61,25 @@ msgstr "Converter caracteres especiais"
 msgid "Convert _XML characters < > & \" '"
 msgstr "Converter caracteres _xml <>&"
 
-#: src/plugin_entities/entities.c:549
-msgid "/Tools/sepent"
-msgstr ""
-
 #: src/plugin_entities/entities.c:550
-msgid "/Tools/Entities to characters"
+#, fuzzy
+msgid "/Tools/Entities To Characters..."
 msgstr "/Editar/Substituir especial/Entidades para caracteres"
 
 #: src/plugin_entities/entities.c:551
-msgid "/Tools/Characters to entities"
+#, fuzzy
+msgid "/Tools/Characters To Entities..."
 msgstr "/Editar/Substituir especial/Caracteres para entidades"
 
 #: src/plugin_entities/entities.c:552
-msgid "/Tools/URL encode selection"
+#, fuzzy
+msgid "/Tools/URL Encode"
 msgstr "/Editar/Substituir especial/Codificar URL selecionada"
 
 #: src/plugin_entities/entities.c:553
-msgid "/Tools/URL decode selection"
-msgstr "/Editar/Substituir especial/Decodificar URL selecionada"
+#, fuzzy
+msgid "/Tools/URL Decode"
+msgstr "/Editar/Substituir especial/Codificar URL selecionada"
 
 #: src/plugin_entities/entities.c:554
 msgid "/Tools/To Lowercase"
@@ -88,3 +88,6 @@ msgstr "/Editar/Substituir especial/Para minúscula"
 #: src/plugin_entities/entities.c:555
 msgid "/Tools/To Uppercase"
 msgstr "/Editar/Substituir especial/Para maiúscula"
+
+#~ msgid "/Tools/URL decode selection"
+#~ msgstr "/Editar/Substituir especial/Decodificar URL selecionada"
