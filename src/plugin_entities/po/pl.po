@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-06-10 22:04+0200\n"
+"POT-Creation-Date: 2009-07-23 18:41-0700\n"
 "PO-Revision-Date: 2004-11-30 01:14-0300\n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
@@ -59,26 +59,24 @@ msgstr "Konwertuj znaki spe_cjalne"
 msgid "Convert _XML characters < > & \" '"
 msgstr "Konwertuj znaki _xml takie jak <>&"
 
-#: src/plugin_entities/entities.c:549
-msgid "/Tools/sepent"
-msgstr ""
-
 #: src/plugin_entities/entities.c:550
-msgid "/Tools/Entities to characters"
+#, fuzzy
+msgid "/Tools/Entities To Characters..."
 msgstr "/Edycja/Zamiana specjalna/Encje do znaków"
 
 #: src/plugin_entities/entities.c:551
-msgid "/Tools/Characters to entities"
+#, fuzzy
+msgid "/Tools/Characters To Entities..."
 msgstr "/Edycja/Zamiana specjalna/Znaki do encji"
 
 #: src/plugin_entities/entities.c:552
 #, fuzzy
-msgid "/Tools/URL encode selection"
+msgid "/Tools/URL Encode"
 msgstr "/Edycja/Zamiana specjalna/Znaki do encji"
 
 #: src/plugin_entities/entities.c:553
 #, fuzzy
-msgid "/Tools/URL decode selection"
+msgid "/Tools/URL Decode"
 msgstr "/Edycja/Zamiana specjalna/Znaki do encji"
 
 #: src/plugin_entities/entities.c:554
@@ -90,3 +88,7 @@ msgstr "/Edycja/Zamiana specjalna/Znaki do encji"
 #, fuzzy
 msgid "/Tools/To Uppercase"
 msgstr "/Edycja/Zamiana specjalna/Znaki do encji"
+
+#, fuzzy
+#~ msgid "/Tools/URL decode selection"
+#~ msgstr "/Edycja/Zamiana specjalna/Znaki do encji"

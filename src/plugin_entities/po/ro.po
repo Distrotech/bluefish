@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-09 23:02+0100\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2009-07-23 18:41-0700\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Unknown <unk@unk.org>\n"
 "Language-Team: no team <LL@li.org>\n"
@@ -15,54 +15,70 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../entities.c:353
+#: src/plugin_entities/entities.c:442
 msgid "Characters to entities"
 msgstr ""
 
-#: ../entities.c:353
+#: src/plugin_entities/entities.c:442
 msgid "Entities to characters"
 msgstr ""
 
-#: ../entities.c:366
+#: src/plugin_entities/entities.c:455
 msgid "In current document"
 msgstr ""
 
-#: ../entities.c:367
+#: src/plugin_entities/entities.c:456
 msgid "In selection"
 msgstr ""
 
-#: ../entities.c:368
+#: src/plugin_entities/entities.c:457
 msgid "In all documents"
 msgstr ""
 
-#: ../entities.c:369
+#: src/plugin_entities/entities.c:458
 msgid "Sco_pe:"
 msgstr ""
 
-#: ../entities.c:373
-msgid "Convert numerical characters"
+#: src/plugin_entities/entities.c:462
+msgid "Convert numerical encoded characters &#99;"
 msgstr ""
 
-#: ../entities.c:380
+#: src/plugin_entities/entities.c:469
 msgid "Convert _iso-8859-1 characters"
 msgstr ""
 
-#: ../entities.c:384
+#: src/plugin_entities/entities.c:473
 msgid "Convert _symbol characters"
 msgstr ""
 
-#: ../entities.c:388
+#: src/plugin_entities/entities.c:477
 msgid "Convert spe_cial characters"
 msgstr ""
 
-#: ../entities.c:392
-msgid "Convert _xml characters <>&"
+#: src/plugin_entities/entities.c:481
+msgid "Convert _XML characters < > & \" '"
 msgstr ""
 
-#: ../entities.c:459
-msgid "/Tools/Entities to characters"
+#: src/plugin_entities/entities.c:550
+msgid "/Tools/Entities To Characters..."
 msgstr ""
 
-#: ../entities.c:460
-msgid "/Tools/Characters to entities"
+#: src/plugin_entities/entities.c:551
+msgid "/Tools/Characters To Entities..."
+msgstr ""
+
+#: src/plugin_entities/entities.c:552
+msgid "/Tools/URL Encode"
+msgstr ""
+
+#: src/plugin_entities/entities.c:553
+msgid "/Tools/URL Decode"
+msgstr ""
+
+#: src/plugin_entities/entities.c:554
+msgid "/Tools/To Lowercase"
+msgstr ""
+
+#: src/plugin_entities/entities.c:555
+msgid "/Tools/To Uppercase"
 msgstr ""
