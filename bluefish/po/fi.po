@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-02-01 09:12-0800\n"
+"POT-Creation-Date: 2009-07-23 18:35-0700\n"
 "PO-Revision-Date: 2007-10-01 17:23+0200\n"
 "Last-Translator: Elias Julkunen <elias.julkunen@gmail.com>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -16,13 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../desktop-data/bluefish-unstable.desktop.in.h:1
-#: ../desktop-data/bluefish-unstable-project.desktop.in.h:1
 #, fuzzy
 msgid "Bluefish Editor (SVN)"
 msgstr "Bluefish"
 
 #: ../desktop-data/bluefish-unstable.desktop.in.h:2
-#: ../desktop-data/bluefish-unstable-project.desktop.in.h:2
 msgid "Web Development Editor (development version)"
 msgstr ""
 
@@ -34,84 +32,6 @@ msgstr ""
 #, fuzzy
 msgid "Bluefish project file"
 msgstr "Bluefish-projektitiedosto"
-
-#: ../src/bf_lib.c:157
-#, c-format
-msgid ""
-"Bluefish has trouble reading the filenames. Try to set the environment "
-"variable G_BROKEN_FILENAMES=1\n"
-msgstr ""
-"Bluefish ei voi ongelmitta lukea tiedostonimiä. Yritä asettaa ympäristö- "
-"muuttuja G_BROKEN_FILENAMES=1\n"
-
-#: ../src/bfspell.c:391
-msgid "Check Spelling"
-msgstr "Tarkista kieliasu"
-
-#: ../src/bfspell.c:395
-msgid "Checking"
-msgstr "Tarkistetaan"
-
-#: ../src/bfspell.c:404
-msgid "_Misspelled word:"
-msgstr "_Väärinkirjoitettu sana:"
-
-#: ../src/bfspell.c:408
-msgid "Change _to:"
-msgstr "Vaihda _tähän:"
-
-#: ../src/bfspell.c:411
-msgid "I_gnore"
-msgstr "_Ohita"
-
-#: ../src/bfspell.c:412 ../src/snr2.c:1817
-msgid "_Replace"
-msgstr "_Korvaa"
-
-#: ../src/bfspell.c:425
-msgid "In _document"
-msgstr "D_okumentissa"
-
-#: ../src/bfspell.c:426
-msgid "I_n selection"
-msgstr "V_alitussa alueessa"
-
-#: ../src/bfspell.c:435
-msgid "personal dictionary"
-msgstr "henkilökohtainen sanakirja"
-
-#: ../src/bfspell.c:438
-msgid "session dictionary"
-msgstr "istunnon sanakirja"
-
-#: ../src/bfspell.c:444
-msgid "Dictionary:"
-msgstr "Sanakirja:"
-
-#: ../src/bfspell.c:448
-#, fuzzy
-msgid "_Add Word"
-msgstr "_Lisää sana"
-
-#: ../src/bfspell.c:454
-msgid "Language:"
-msgstr "Kieli:"
-
-#: ../src/bfspell.c:458
-msgid "Set defa_ult"
-msgstr "_Aseta oletus"
-
-#: ../src/bfspell.c:462
-msgid "Filter:"
-msgstr "Suodin:"
-
-#: ../src/bfspell.c:470
-msgid "no filter"
-msgstr "ei suodatusta"
-
-#: ../src/bfspell.c:472
-msgid "html filter"
-msgstr "html-suodatus"
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -158,73 +78,61 @@ msgid ""
 msgstr ""
 
 #: ../src/blocksync.c:297
-msgid "Block synchronisation"
+msgid "Synchronize text block"
 msgstr ""
 
-#: ../src/bluefish.c:73
+#: ../src/bluefish.c:75
 #, fuzzy
 msgid "Bluefish Editor"
 msgstr "Bluefish"
 
-#: ../src/bluefish.c:74
+#: ../src/bluefish.c:75
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr "Vieraile sivuillamme http://bluefish.openoffice.nl"
 
-#: ../src/bluefish.c:103
-msgid "Open in a new window."
+#: ../src/bluefish.c:99
+#, fuzzy
+msgid "Open in current window."
 msgstr "Avaa uudessa ikkunassa."
 
-#: ../src/bluefish.c:105
-msgid "Open a project from the specified projectfile."
-msgstr ""
-
-#: ../src/bluefish.c:105
-msgid "PROJECTFILE"
-msgstr "PROJEKTITIEDOSTO"
-
-#: ../src/bluefish.c:107
-msgid "Skip root check."
-msgstr ""
-
-#: ../src/bluefish.c:109
+#: ../src/bluefish.c:101
 msgid "Print version information."
 msgstr "Tulosta version tiedot"
 
-#: ../src/bluefish.c:136
+#: ../src/bluefish.c:128
 msgid " [FILE(S)]"
 msgstr ""
 
-#: ../src/bluefish.c:147
+#: ../src/bluefish.c:139
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
 "Please run: %s -?\n"
 msgstr ""
 
-#: ../src/bluefish.c:224
+#: ../src/bluefish.c:175
 msgid "loading plugins..."
 msgstr ""
 
-#: ../src/bluefish.c:246
+#: ../src/bluefish.c:197
 #, fuzzy
 msgid "reading language files..."
 msgstr "luodaan graafista käyttöliittymää..."
 
-#: ../src/bluefish.c:251
+#: ../src/bluefish.c:205
 #, fuzzy
-msgid "building file filters ..."
+msgid "building file browser ..."
 msgstr "rakennetaan tiedostosuotimia..."
 
-#: ../src/bluefish.c:259
-#, fuzzy
-msgid "setting up bookmarks ..."
-msgstr "säädetään kirjanmerkkejä..."
+#: ../src/bluefish.c:219
+msgid "checking for running bluefish process ..."
+msgstr ""
 
-#: ../src/bluefish.c:274
+#: ../src/bluefish.c:226
 msgid "creating main gui..."
 msgstr "luodaan graafista käyttöliittymää..."
 
-#: ../src/bluefish.c:286
+#: ../src/bluefish.c:253
 msgid "showing main gui..."
 msgstr "näytetään graafista käyttöliittymää..."
 
@@ -347,34 +255,34 @@ msgstr "Poista kirjanmerkki"
 msgid "Last bookmark"
 msgstr "Muokkaa kirjanmerkkiä"
 
-#: ../src/bookmark.c:1533 ../src/bookmark.c:1592
+#: ../src/bookmark.c:1526 ../src/bookmark.c:1579
 #, fuzzy
 msgid "Error adding bookmark"
 msgstr "Virhe lisättäessä kirjanmerkkiä"
 
-#: ../src/bookmark.c:1534 ../src/bookmark.c:1593
+#: ../src/bookmark.c:1527 ../src/bookmark.c:1580
 #, fuzzy
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Tallentamattomiin tiedostoihin ei voi lisätä kirjanmerkkiä."
 
-#: ../src/bookmark.c:1553
+#: ../src/bookmark.c:1546
 #, fuzzy
 msgid "Can't add bookmark"
 msgstr "Kirjanmerkin lisääminen epäonnistui"
 
-#: ../src/bookmark.c:1554
+#: ../src/bookmark.c:1547
 msgid "You already have a bookmark here!"
 msgstr "Sinulla on jo tähän kirjanmerkki!"
 
-#: ../src/bookmark.c:1629
+#: ../src/bookmark.c:1616
 msgid "Delete all bookmarks."
 msgstr "Poista kaikki kirjanmerkit."
 
-#: ../src/document.c:345
+#: ../src/document.c:363
 msgid "Name: "
 msgstr "Nimi: "
 
-#: ../src/document.c:349
+#: ../src/document.c:367
 #, fuzzy
 msgid ""
 "\n"
@@ -383,7 +291,7 @@ msgstr ""
 "\n"
 "Tiedostotyyppi: "
 
-#: ../src/document.c:353
+#: ../src/document.c:371
 msgid ""
 "\n"
 "Encoding: "
@@ -391,7 +299,7 @@ msgstr ""
 "\n"
 "Koodaus: "
 
-#: ../src/document.c:360
+#: ../src/document.c:378
 #, c-format
 msgid ""
 "\n"
@@ -399,7 +307,7 @@ msgid ""
 "Uid: %u Gid: %u"
 msgstr ""
 
-#: ../src/document.c:365
+#: ../src/document.c:383
 msgid ""
 "\n"
 "Size (on disk): "
@@ -407,13 +315,13 @@ msgstr ""
 "\n"
 "Koko (levyllä): "
 
-#: ../src/document.c:374
+#: ../src/document.c:392
 msgid ""
 "\n"
 "Mime type: "
 msgstr ""
 
-#: ../src/document.c:382
+#: ../src/document.c:400
 msgid ""
 "\n"
 "Last modified: "
@@ -421,88 +329,93 @@ msgstr ""
 "\n"
 "Viimeksi muokattu: "
 
-#: ../src/document.c:414
+#: ../src/document.c:431
 #, c-format
 msgid "Untitled %d"
 msgstr "Nimetön %d"
 
-#: ../src/document.c:733
+#: ../src/document.c:590
+#, c-format
+msgid "Changed tab width to %d"
+msgstr ""
+
+#: ../src/document.c:753
 #, fuzzy, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "%s on jo avattuna Bluefish-ikkunaan."
 
-#: ../src/document.c:735
+#: ../src/document.c:755
 msgid "Move to this window"
 msgstr "Siirrä tähän ikkunaan"
 
-#: ../src/document.c:735
+#: ../src/document.c:755
 msgid "Open readonly"
 msgstr ""
 
-#: ../src/document.c:735
+#: ../src/document.c:755
 #, fuzzy
 msgid "Do not open"
 msgstr "Älä avaa"
 
-#: ../src/document.c:1023
+#: ../src/document.c:1028
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " Rivi %d, Sarake %d"
 
-#: ../src/document.c:1025
+#: ../src/document.c:1030
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " Rivi %d, Sarake %d"
 
-#: ../src/document.c:1046
+#: ../src/document.c:1051
 msgid " OVR"
 msgstr ""
 
-#: ../src/document.c:1046
+#: ../src/document.c:1051
 msgid " INS"
 msgstr ""
 
-#: ../src/document.c:1048
+#: ../src/document.c:1053
 msgid " RO"
 msgstr ""
 
-#: ../src/document.c:1069 ../src/document.c:1075
+#: ../src/document.c:1074 ../src/document.c:1080
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1426
+#: ../src/document.c:1431
 msgid "Cannot display file, unknown characters found."
 msgstr "Tiedostoa ei voida näyttää, löydettiin tuntemattomia merkkejä."
 
-#: ../src/document.c:1635 ../src/snr2.c:1674
+#: ../src/document.c:1644 ../src/snr2.c:1667
 msgid "Replace"
 msgstr "Korvaa"
 
-#: ../src/document.c:1640 ../src/snr2.c:1671
+#: ../src/document.c:1649 ../src/snr2.c:1664
 msgid "Find"
 msgstr "Etsi"
 
-#: ../src/document.c:1648
+#: ../src/document.c:1657
 msgid "Delete bookmark"
 msgstr "Poista kirjanmerkki"
 
-#: ../src/document.c:1652
+#: ../src/document.c:1661
 msgid "Add bookmark"
 msgstr "Lisää kirjanmerkki"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1791 ../src/file_dialogs.c:376 ../src/file_dialogs.c:415
+#: ../src/document.c:1778 ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
 msgid "_Abort save"
 msgstr "_Keskeytä tallennus"
 
-#: ../src/document.c:1791
+#: ../src/document.c:1778
 msgid "_Continue save in UTF-8"
 msgstr "_Jatka tallennusta UTF-8 -muodossa"
 
-#: ../src/document.c:1802
+#: ../src/document.c:1789
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -515,63 +428,63 @@ msgstr ""
 "\n"
 "Jatka tallentamalla UTF-8 -koodaukselle?"
 
-#: ../src/document.c:1806
+#: ../src/document.c:1793
 msgid "File encoding conversion failure"
 msgstr "Virhe tiedoston koodauksen muutoksessa"
 
-#: ../src/document.c:2048
+#: ../src/document.c:2035
 msgid "Previously: "
 msgstr "Ennen:"
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2532
+#: ../src/document.c:2530
 msgid "Unable to open file"
 msgstr "Tiedostoa ei voitu avata"
 
-#: ../src/document.c:2542
+#: ../src/document.c:2540
 #, fuzzy, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "Jos poistat tämän tiedoston, se katoaa lopullisesti."
 
-#: ../src/document.c:2546
+#: ../src/document.c:2544
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "Tallennetaanko muutokset ennen sulkemista?"
 
-#: ../src/document.c:2579
+#: ../src/document.c:2577
 msgid "_Unset file name"
 msgstr ""
 
-#: ../src/document.c:2579
+#: ../src/document.c:2577
 #, fuzzy
 msgid "_Save"
 msgstr "_Tallenna"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:2581
+#: ../src/document.c:2579
 #, fuzzy, c-format
 msgid "File name: %s"
 msgstr "Tiedoston nimi: %s"
 
-#: ../src/document.c:2585
+#: ../src/document.c:2583
 msgid "File disappeared from disk\n"
 msgstr ""
 
-#: ../src/document.c:2602
+#: ../src/document.c:2600
 msgid "_Ignore"
 msgstr "_Hylkää"
 
-#: ../src/document.c:2602
+#: ../src/document.c:2600
 msgid "_Reload"
 msgstr "_Lataa _uudelleen"
 
-#: ../src/document.c:2602
+#: ../src/document.c:2600
 msgid "Check and reload all documents"
 msgstr ""
 
-#: ../src/document.c:2610
+#: ../src/document.c:2608
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -584,45 +497,45 @@ msgstr ""
 "Uusi muokattu-aika on: %s\n"
 "Vanha muokattu-aika on: %s"
 
-#: ../src/document.c:2614
+#: ../src/document.c:2612
 msgid "File has been modified by another process\n"
 msgstr "Toinen prosessi on muokannut tiedostoa\n"
 
-#: ../src/document.c:2675
+#: ../src/document.c:2673
 msgid "_Retry"
 msgstr "_Tee uudelleen"
 
-#: ../src/document.c:2675
+#: ../src/document.c:2673
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:2675
+#: ../src/document.c:2673
 #, fuzzy
 msgid "_Close"
 msgstr "_Sulje"
 
-#: ../src/document.c:2675
+#: ../src/document.c:2673
 msgid "Close all _failed"
 msgstr ""
 
-#: ../src/document.c:2679
+#: ../src/document.c:2677
 #, fuzzy
 msgid "File "
 msgstr "Tiedosto "
 
-#: ../src/document.c:2679
+#: ../src/document.c:2677
 msgid " failed to load."
 msgstr " ei voitu ladata."
 
-#: ../src/document.c:2683
+#: ../src/document.c:2681
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:2803
+#: ../src/document.c:2800
 msgid "Select file to insert"
 msgstr "Valitse lisättävä tiedosto"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2808
 msgid "No file to insert"
 msgstr "Ei lisättävää tiedostoa"
 
@@ -641,7 +554,7 @@ msgid "Description"
 msgstr "_Kuvaus:"
 
 #: ../src/encodings_dialog.c:391 ../src/encodings_dialog.c:461
-#: ../src/preferences.c:1591
+#: ../src/preferences.c:1630
 msgid "Encoding"
 msgstr "Koodaus"
 
@@ -656,36 +569,36 @@ msgstr ""
 msgid "Add or remove document encodings"
 msgstr ""
 
-#: ../src/filebrowser2.c:207
+#: ../src/filebrowser2.c:228
 msgid "Set documentroot and webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:216
+#: ../src/filebrowser2.c:237
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
 "the webserver"
 msgstr ""
 
-#: ../src/filebrowser2.c:223
+#: ../src/filebrowser2.c:244
 #, fuzzy
 msgid "Documentroot"
 msgstr "/_Dokumentti"
 
-#: ../src/filebrowser2.c:233
+#: ../src/filebrowser2.c:256
 msgid "Webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:1349
+#: ../src/filebrowser2.c:1401
 msgid "Could not rename\n"
 msgstr "Ei voitu uudelleennimetä\n"
 
-#: ../src/filebrowser2.c:1404
+#: ../src/filebrowser2.c:1465
 #, fuzzy
 msgid "New directory"
 msgstr "Uusi hakemisto"
 
-#: ../src/filebrowser2.c:1412
+#: ../src/filebrowser2.c:1487 ../src/filebrowser2.c:1489
 #, fuzzy
 msgid "New file"
 msgstr "/Uusi tiedosto"
@@ -698,7 +611,7 @@ msgstr "/Uusi tiedosto"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1520
+#: ../src/filebrowser2.c:1599
 #, fuzzy, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -707,199 +620,203 @@ msgstr ""
 "Oletko varma että haluat poistaa\n"
 "\"%s\"?"
 
-#: ../src/filebrowser2.c:1521
+#: ../src/filebrowser2.c:1600
 #, fuzzy, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "Jos poistat tämän tiedoston, se katoaa lopullisesti."
 
-#: ../src/filebrowser2.c:1666
+#: ../src/filebrowser2.c:1745
 msgid "/_Open"
 msgstr "/_Avaa"
 
-#: ../src/filebrowser2.c:1667
+#: ../src/filebrowser2.c:1746
 msgid "/Open _Advanced..."
 msgstr "/Avaa _edistyneesti..."
 
-#: ../src/filebrowser2.c:1668
+#: ../src/filebrowser2.c:1747
 msgid "/Rena_me"
 msgstr "/Uudelleenni_meä"
 
-#: ../src/filebrowser2.c:1669
+#: ../src/filebrowser2.c:1748
 msgid "/_Delete"
 msgstr "/_Poista"
 
-#: ../src/filebrowser2.c:1671
+#: ../src/filebrowser2.c:1750
 msgid "/New _File"
 msgstr "/_Uusi tiedosto"
 
-#: ../src/filebrowser2.c:1672
+#: ../src/filebrowser2.c:1751
 msgid "/_New Directory"
 msgstr "/Uusi _hakemisto"
 
-#: ../src/filebrowser2.c:1674
+#: ../src/filebrowser2.c:1753
 msgid "/_Refresh"
 msgstr "/_Päivitä"
 
-#: ../src/filebrowser2.c:1675
+#: ../src/filebrowser2.c:1754
 msgid "/Follow active document"
 msgstr ""
 
-#: ../src/filebrowser2.c:1676
+#: ../src/filebrowser2.c:1755
 msgid "/_Set as basedir"
 msgstr "/_Aseta oletushakemistoksi"
 
-#: ../src/filebrowser2.c:1677
+#: ../src/filebrowser2.c:1756
 #, fuzzy
 msgid "/Set as documentroot"
 msgstr "/Siirry/S_euraava dokumentti"
 
-#: ../src/filebrowser2.c:1679
+#: ../src/filebrowser2.c:1758
 #, fuzzy
 msgid "/Show Full _Tree"
 msgstr "Näytä koko polku"
 
-#: ../src/filebrowser2.c:1680
+#: ../src/filebrowser2.c:1759
 #, fuzzy
 msgid "/Show hidden files"
 msgstr "/Näytä piilotiedostot"
 
-#: ../src/filebrowser2.c:1681
+#: ../src/filebrowser2.c:1760
 #, fuzzy
 msgid "/Show backup files"
 msgstr "/Näytä varmuuskopiot"
 
-#: ../src/filebrowser2.c:1682
+#: ../src/filebrowser2.c:1761
 #, fuzzy
 msgid "/View mode"
 msgstr "/_Näytä"
 
-#: ../src/filebrowser2.c:1683
+#: ../src/filebrowser2.c:1762
 msgid "/View mode/Tree"
 msgstr ""
 
-#: ../src/filebrowser2.c:1684
+#: ../src/filebrowser2.c:1763
 msgid "/View mode/Dual"
 msgstr ""
 
-#: ../src/filebrowser2.c:1685
+#: ../src/filebrowser2.c:1764
 msgid "/View mode/Flat"
 msgstr ""
 
 #. Add filter submenu
-#: ../src/filebrowser2.c:1763
+#: ../src/filebrowser2.c:1842
 msgid "Filter"
 msgstr "Suodin"
 
-#: ../src/filebrowser2.c:1789 ../src/filefilter.c:475
+#: ../src/filebrowser2.c:1868 ../src/filefilter.c:475
 #, fuzzy
 msgid "Edit filter"
 msgstr "Muokkaa suodinta"
 
-#: ../src/filebrowser2.c:1793
+#: ../src/filebrowser2.c:1872
 #, fuzzy
 msgid "Delete filter"
 msgstr "Poista suodin"
 
-#: ../src/filebrowser2.c:1798
+#: ../src/filebrowser2.c:1877
 #, fuzzy
 msgid "New filter"
 msgstr "Uusi suodin"
 
-#: ../src/file.c:572
+#: ../src/file.c:714
 #, c-format
 msgid "Still loading %d files, finished %s"
 msgstr ""
 
-#: ../src/file.c:574
+#: ../src/file.c:716
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr ""
 
-#: ../src/file.c:764
+#: ../src/file.c:909
 #, fuzzy, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
 msgstr[0] "Dokumentti %d avattiin"
 msgstr[1] "Dokumentit %d avattiin"
 
-#: ../src/file.c:1020
+#: ../src/file.c:1185
 msgid "_Skip"
 msgstr "_Ohita"
 
-#: ../src/file.c:1020 ../src/file_dialogs.c:539 ../src/file_dialogs.c:562
-#: ../src/project.c:233
+#: ../src/file.c:1185 ../src/file_dialogs.c:582 ../src/file_dialogs.c:603
+#: ../src/project.c:252
 msgid "_Overwrite"
 msgstr "_Ylikirjoita"
 
-#: ../src/file.c:1024
+#: ../src/file.c:1189
 #, fuzzy, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "Tiedosto %s on jo olemassa, ylikirjoitetaanko?"
 
-#: ../src/file.c:1028
+#: ../src/file.c:1193
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "Ylikirjoitetaanko tiedosto?"
 
-#: ../src/file_dialogs.c:89
+#: ../src/file_autosave.c:225
+msgid "Autosave in progress..."
+msgstr ""
+
+#: ../src/file_dialogs.c:99
 msgid "Select basedir"
 msgstr "Valitse oletushakemisto"
 
-#: ../src/file_dialogs.c:129
+#: ../src/file_dialogs.c:142
 msgid "Advanced open file selector"
 msgstr "Edistynyt tiedoston avaaja"
 
-#: ../src/file_dialogs.c:144
+#: ../src/file_dialogs.c:155
 msgid "<b>General</b>"
 msgstr "<b>Yleistä</b>"
 
-#: ../src/file_dialogs.c:153
+#: ../src/file_dialogs.c:164
 #, fuzzy
 msgid "Base _Dir:"
 msgstr "_Oletushakemisto:"
 
-#: ../src/file_dialogs.c:172
+#: ../src/file_dialogs.c:179
 #, fuzzy
 msgid "_Pattern:"
 msgstr "Ku_vio:"
 
-#: ../src/file_dialogs.c:179
+#: ../src/file_dialogs.c:187
 msgid "_Match on file name only:"
 msgstr ""
 
-#: ../src/file_dialogs.c:183
+#: ../src/file_dialogs.c:191
 msgid "_Recursive:"
 msgstr "_Rekursiivinen:"
 
-#: ../src/file_dialogs.c:192
+#: ../src/file_dialogs.c:200
 msgid "<b>Contains</b>"
 msgstr "<b>Sisältää</b>"
 
-#: ../src/file_dialogs.c:198
+#: ../src/file_dialogs.c:206
 msgid "Pa_ttern:"
 msgstr "Ku_vio:"
 
-#: ../src/file_dialogs.c:202
+#: ../src/file_dialogs.c:210
 msgid "Is rege_x:"
 msgstr "O_n säänn. lauseke:"
 
-#: ../src/file_dialogs.c:263
+#: ../src/file_dialogs.c:292
 msgid "Select files"
 msgstr "Valitse tiedostoja"
 
-#: ../src/file_dialogs.c:311
+#: ../src/file_dialogs.c:347
 msgid "Open URL"
 msgstr "Avaa URL"
 
-#: ../src/file_dialogs.c:315
+#: ../src/file_dialogs.c:351
 msgid "<b>Open URL</b>"
 msgstr "<b>Avaa URL</b>"
 
-#: ../src/file_dialogs.c:376 ../src/file_dialogs.c:415
+#: ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
 msgid "_Continue save"
 msgstr "_Jatka tallennusta"
 
-#: ../src/file_dialogs.c:378
+#: ../src/file_dialogs.c:423
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -908,11 +825,11 @@ msgstr ""
 "Tiedostolle %s ei voitu luoda varmuuskopiota. Jos jatkat, tämä tiedosto "
 "ylikirjoitetaan."
 
-#: ../src/file_dialogs.c:382
+#: ../src/file_dialogs.c:427
 msgid "File backup failure"
 msgstr "Tiedoston varmuuskopiointi epäonnistui."
 
-#: ../src/file_dialogs.c:399
+#: ../src/file_dialogs.c:444
 #, fuzzy
 msgid ""
 "Could not save file:\n"
@@ -921,56 +838,55 @@ msgstr ""
 "Ei voitu tallentaa tiedostoa:\n"
 "\""
 
-#: ../src/file_dialogs.c:403
+#: ../src/file_dialogs.c:447
 #, fuzzy
 msgid "File save failed!\n"
 msgstr "Tiedoston tallennus epäonnistui.\n"
 
-#: ../src/file_dialogs.c:420
+#: ../src/file_dialogs.c:462
 #, c-format
 msgid "File %s has been modified on disk, overwrite?"
 msgstr ""
 
-#: ../src/file_dialogs.c:422
+#: ../src/file_dialogs.c:464
 #, c-format
 msgid "Failed to check if %s has been modified on disk"
 msgstr ""
 
-#: ../src/file_dialogs.c:515
+#: ../src/file_dialogs.c:555
 #, c-format
 msgid "Move/rename %s to"
 msgstr "Siirrä/nimeä uudelleen %s"
 
-#: ../src/file_dialogs.c:515
+#: ../src/file_dialogs.c:555
 #, c-format
 msgid "Save %s as"
 msgstr "Tallenna nimellä %s"
 
-#: ../src/file_dialogs.c:539 ../src/file_dialogs.c:562
-#: ../src/file_dialogs.c:838 ../src/project.c:233
+#: ../src/file_dialogs.c:582 ../src/file_dialogs.c:603
+#: ../src/file_dialogs.c:842 ../src/project.c:252
 msgid "_Cancel"
 msgstr "_Peruuta"
 
-#: ../src/file_dialogs.c:540
+#: ../src/file_dialogs.c:583
 #, fuzzy, c-format
 msgid "File %s exists and is open, overwrite?"
 msgstr "Tiedosto %s on olemassa ja avoinna, ylikirjoitetaanko?"
 
-#: ../src/file_dialogs.c:545
+#: ../src/file_dialogs.c:586
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Valitsemaasi tiedostoa muokataan Bluefishillä."
 
-#: ../src/file_dialogs.c:563 ../src/project.c:235
+#: ../src/file_dialogs.c:604 ../src/project.c:254
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Tiedosto nimeltä \"%s\" on jo olemassa."
 
-#: ../src/file_dialogs.c:568 ../src/project.c:240
+#: ../src/file_dialogs.c:607 ../src/project.c:259
 msgid "Do you want to replace the existing file?"
 msgstr "Haluatko korvata olemassaolevan tiedoston?"
 
-#. this message is not in very nice english I'm afraid
-#: ../src/file_dialogs.c:632
+#: ../src/file_dialogs.c:683
 #, fuzzy
 msgid ""
 "File:\n"
@@ -979,41 +895,83 @@ msgstr ""
 "Tiedosto:\n"
 "\""
 
-#: ../src/file_dialogs.c:636
+#: ../src/file_dialogs.c:686
 msgid "Save in progress!"
 msgstr ""
 
-#: ../src/file_dialogs.c:784 ../src/project.c:386
+#: ../src/file_dialogs.c:830
 msgid "Close _Without Saving"
 msgstr "Sulje _tallentamatta"
 
-#: ../src/file_dialogs.c:787
+#: ../src/file_dialogs.c:833
 #, fuzzy, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr "Tallennetaanko muutokset ennen sulkemista?"
 
-#: ../src/file_dialogs.c:792 ../src/file_dialogs.c:843 ../src/project.c:398
+#: ../src/file_dialogs.c:836 ../src/file_dialogs.c:846
 msgid "If you don't save your changes they will be lost."
 msgstr "Jos et tallenna tekemiäsi muutoksia, ne katoavat."
 
-#: ../src/file_dialogs.c:838
+#: ../src/file_dialogs.c:842
 msgid "Choose per _File"
 msgstr "Valitse _tiedostot erikseen"
 
-#: ../src/file_dialogs.c:838
+#: ../src/file_dialogs.c:842
 msgid "Close _All"
 msgstr "S_ulje kaikki"
 
-#: ../src/file_dialogs.c:838
+#: ../src/file_dialogs.c:842
 msgid "_Save All"
 msgstr "T_allenna kaikki"
 
-#: ../src/file_dialogs.c:842
-msgid "Multiple open files have been changed."
+#: ../src/file_dialogs.c:845
+#, fuzzy
+msgid "One or more open files have been changed."
 msgstr "Useita avoimia tiedostoja on muokattu."
 
+#: ../src/file_dialogs.c:1098
+msgid "incomplete finished"
+msgstr ""
+
+#: ../src/file_dialogs.c:1100
+msgid "completed"
+msgstr ""
+
+#: ../src/file_dialogs.c:1141
+msgid "Upload / Download"
+msgstr ""
+
+#: ../src/file_dialogs.c:1142
+#, fuzzy
+msgid "Upload"
+msgstr "_Lataa _uudelleen"
+
+#: ../src/file_dialogs.c:1142
+msgid "Download"
+msgstr ""
+
+#: ../src/file_dialogs.c:1146
+#, fuzzy
+msgid "Local directory"
+msgstr "Uusi hakemisto"
+
+#: ../src/file_dialogs.c:1153
+#, fuzzy
+msgid "Remote directory"
+msgstr "Uusi hakemisto"
+
+#: ../src/file_dialogs.c:1158
+#, fuzzy
+msgid "Delete deprecated files"
+msgstr "Valitse tiedostoja"
+
+#: ../src/file_dialogs.c:1159
+#, fuzzy
+msgid "Include hidden files"
+msgstr "/Näytä piilotiedostot"
+
 #. build a list of filters
-#: ../src/filefilter.c:214 ../src/gtk_easy.c:1388
+#: ../src/filefilter.c:214 ../src/gtk_easy.c:1390
 msgid "All files"
 msgstr "Kaikki tiedostot"
 
@@ -1035,27 +993,89 @@ msgstr "Kuvake"
 msgid "%d of %d"
 msgstr "%d %d:sta"
 
-#: ../src/gtk_easy.c:1193
+#: ../src/gtk_easy.c:1194
 msgid "Select File"
 msgstr "Valitse tiedosto"
 
-#: ../src/gtk_easy.c:1263
+#: ../src/gtk_easy.c:1265
 msgid "_Browse..."
 msgstr "_Selaa..."
 
-#: ../src/gtk_easy.c:1378
+#: ../src/gtk_easy.c:1380
 msgid "Show backup files"
 msgstr "Näytä varmuuskopiot"
 
-#: ../src/gtk_easy.c:1438
+#: ../src/gtk_easy.c:1440
 #, fuzzy
 msgid "Character _Encoding:"
 msgstr "_Merkistökoodaus"
 
-#: ../src/gtk_easy.c:1460
+#: ../src/gtk_easy.c:1462
 #, fuzzy
 msgid "Automatic detection"
 msgstr "Automaattinen tunnistus"
+
+#: ../src/gtkmountoperation.c:125
+#, fuzzy
+msgid "Parent"
+msgstr "Kuvio"
+
+#: ../src/gtkmountoperation.c:126
+msgid "The parent window"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:133
+msgid "Is Showing"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:134
+msgid "Are we showing a dialog"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:141
+msgid "Screen"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:142
+msgid "The screen where this window will be displayed."
+msgstr ""
+
+#: ../src/gtkmountoperation.c:449
+msgid "Co_nnect"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:516
+msgid "Connect _anonymously"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:525
+msgid "Connect as u_ser:"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:563
+#, fuzzy
+msgid "_Username:"
+msgstr "_Nimi:"
+
+#: ../src/gtkmountoperation.c:568
+msgid "_Domain:"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:574
+msgid "_Password:"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:592
+msgid "Forget password _immediately"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:602
+msgid "Remember password until you _logout"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:612
+msgid "Remember _forever"
+msgstr ""
 
 #: ../src/gui.c:266
 msgid "Filebrowser"
@@ -1121,415 +1141,514 @@ msgstr "Siirrä vasemmalle"
 msgid "Indent"
 msgstr "Siirrä oikealle"
 
-#: ../src/gui.c:443
-msgid "Spellcheck..."
+#: ../src/gui.c:444
+#, fuzzy
+msgid "Spellcheck"
 msgstr "Tarkista oikeinkirjoitus..."
 
-#: ../src/gui.c:448
+#: ../src/gui.c:449
 msgid "View in browser"
 msgstr "Esikatsele selaimessa"
 
-#: ../src/gui.c:451
+#: ../src/gui.c:452
 msgid "Preferences..."
 msgstr "Asetukset..."
 
-#: ../src/gui.c:849
+#: ../src/gui.c:455
+msgid "Toggle Full Screen"
+msgstr ""
+
+#: ../src/gui.c:457
+msgid "Toggle Normal Screen"
+msgstr ""
+
+#: ../src/gui.c:882
 #, fuzzy
 msgid "Goto Line:"
 msgstr "Siirry riville"
 
-#: ../src/gui.c:868
+#: ../src/gui.c:897
 msgid "New Bluefish Window"
 msgstr "Uusi Bluefish-ikkuna"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/gui.c:928
+#: ../src/gui.c:956
 msgid "Stand by..."
 msgstr "Valmiustila"
 
-#: ../src/gui.c:1104
+#: ../src/gui.c:1129
 msgid "starting bluefish"
 msgstr "bluefish käynnistyy"
 
-#: ../src/menu.c:223
-msgid "/_File"
-msgstr "/_Tiedosto"
-
-#: ../src/menu.c:225
-msgid "/File/_New"
-msgstr "/Tiedosto/_Uusi"
-
-#: ../src/menu.c:226
-msgid "/File/New _Window"
-msgstr "/Tiedosto/Uusi _ikkuna"
-
-#: ../src/menu.c:227
-msgid "/File/_Open..."
-msgstr "/Tiedosto/_Avaa..."
-
-#: ../src/menu.c:228
-msgid "/File/Open _recent"
-msgstr "/Tiedosto/Avaa _viimeisin"
-
-#: ../src/menu.c:230
-msgid "/File/Open Ad_vanced..."
-msgstr "/Tiedosto/Avaa e_distyneesti..."
-
-#: ../src/menu.c:231
-msgid "/File/Open _URL..."
-msgstr "/Tiedosto/Avaa U_RL..."
-
-#: ../src/menu.c:232
-msgid "/File/Open _from selection"
-msgstr "/Tiedosto/Avaa v_alinnasta"
-
-#: ../src/menu.c:234
-msgid "/File/_Save"
-msgstr "/Tiedosto/Ta_llenna"
-
-#: ../src/menu.c:235
-msgid "/File/Save _As..."
-msgstr "/Tiedosto/Tallenna _nimellä..."
-
-#: ../src/menu.c:236
-msgid "/File/Sav_e All"
-msgstr "/Tiedosto/Tallenna _kaikki"
-
-#: ../src/menu.c:237
-msgid "/File/Rever_t to Saved"
-msgstr "/Tiedosto/_Palauta tallennettuun"
-
-#: ../src/menu.c:239
-msgid "/File/_Insert..."
-msgstr "/Tiedosto/_Lisää..."
-
-#: ../src/menu.c:240
-msgid "/File/Rena_me..."
-msgstr "/Tiedosto/U_udelleennimeä..."
-
-#: ../src/menu.c:242
-msgid "/File/_Close"
-msgstr "/Tiedosto/_Sulje"
-
-#: ../src/menu.c:243
-msgid "/File/Close A_ll"
-msgstr "/Tiedosto/Sul_je kaikki"
-
-#: ../src/menu.c:244
-msgid "/File/Close Win_dow"
-msgstr "/Tiedosto/Sulj_e ikkuna"
-
-#: ../src/menu.c:246
-msgid "/File/_Quit"
-msgstr "/Tiedosto/L_opeta"
-
-#: ../src/menu.c:249
-msgid "/File/Run Python Script"
-msgstr "/Tiedosto/Suorita Python-skripti"
-
-#: ../src/menu.c:251
-msgid "/_Edit"
-msgstr "/_Muokkaa"
-
-#: ../src/menu.c:253
-msgid "/Edit/_Undo"
-msgstr "/Muokkaa/_Kumoa"
-
-#: ../src/menu.c:254
-msgid "/Edit/_Redo"
-msgstr "/Muokkaa/_Tee uudelleen"
-
-#: ../src/menu.c:255
-msgid "/Edit/Undo All"
-msgstr "/Muokkaa/Kumoa kaikki"
-
-#: ../src/menu.c:256
-msgid "/Edit/Redo All"
-msgstr "/Muokkaa/Tee kaikki uudelleen"
-
-#: ../src/menu.c:258
-msgid "/Edit/Cu_t"
-msgstr "/Muokkaa/_Leikkaa"
-
-#: ../src/menu.c:259
-msgid "/Edit/_Copy"
-msgstr "/Muokkaa/K_opioi"
-
-#: ../src/menu.c:260
-msgid "/Edit/_Paste"
-msgstr "/Muokkaa/L_iitä"
-
-#: ../src/menu.c:262
-msgid "/Edit/Select _All"
-msgstr "/Muokkaa/Valitse _kaikki"
-
-#: ../src/menu.c:264
-msgid "/Edit/_Find..."
-msgstr "/Muokkaa/_Etsi..."
-
-#: ../src/menu.c:265
-msgid "/Edit/Find A_gain"
-msgstr "/Muokkaa/Etsi _uudelleen"
-
-#: ../src/menu.c:266
-msgid "/Edit/Find from selection"
-msgstr "/Muokkaa/Etsi valinnasta"
-
-#: ../src/menu.c:267
-msgid "/Edit/R_eplace..."
-msgstr "/Muokkaa/Ko_rvaa..."
-
-#: ../src/menu.c:268
-msgid "/Edit/Replace Agai_n"
-msgstr "/Muokkaa/Korvaa uu_delleen"
-
-#: ../src/menu.c:269
-msgid "/Edit/Replace special"
-msgstr "/Muokkaa/Korvaa erityisesti"
-
-#: ../src/menu.c:271
-msgid "/Tools/Block sync"
-msgstr ""
-
-#: ../src/menu.c:272
-#, fuzzy
-msgid "/Tools/Strip trailing whitespace"
-msgstr "/Muokkaa/Korvaa erityisesti"
-
-#: ../src/menu.c:273
-#, fuzzy
-msgid "/Tools/Convert indenting to tabs"
-msgstr "/Muokkaa/Korvaa erityisesti"
-
-#: ../src/menu.c:274
-#, fuzzy
-msgid "/Tools/Convert indenting to spaces"
-msgstr "/Muokkaa/Korvaa erityisesti"
-
-#: ../src/menu.c:276
-msgid "/Edit/_Indent"
-msgstr "/Muokkaa/Siirr_ä oikealle"
-
-#: ../src/menu.c:277
-msgid "/Edit/_Unindent"
-msgstr "/Muokkaa/Siirrä _vasemmalle"
-
-#: ../src/menu.c:279
-msgid "/Document/Add _Bookmark"
-msgstr "/Muokkaa/Li_sää kirjanmerkki"
-
-#: ../src/menu.c:281
-msgid "/Edit/Save Sett_ings"
-msgstr "/Muokkaa/T_allenna asetukset"
-
-#: ../src/menu.c:282
-msgid "/Edit/Save Shortcut _Keys"
-msgstr "/Muokkaa/Tallenna _pikanäppäimet"
-
-#: ../src/menu.c:283
-msgid "/Edit/Preference_s"
-msgstr "/Muokkaa/_Asetukset"
-
-#: ../src/menu.c:284
-msgid "/_View"
-msgstr "/_Näytä"
-
-#: ../src/menu.c:286
+#: ../src/gui.c:1165
 msgid "/View/Fullscreen"
 msgstr ""
 
-#: ../src/menu.c:288
-msgid "/View/View _Main Toolbar"
+#: ../src/menu.c:209
+msgid "/_File"
+msgstr "/_Tiedosto"
+
+#: ../src/menu.c:211
+msgid "/File/_New"
+msgstr "/Tiedosto/_Uusi"
+
+#: ../src/menu.c:212
+msgid "/File/New _Window"
+msgstr "/Tiedosto/Uusi _ikkuna"
+
+#: ../src/menu.c:213
+msgid "/File/_Open..."
+msgstr "/Tiedosto/_Avaa..."
+
+#: ../src/menu.c:214
+#, fuzzy
+msgid "/File/Open _Recent"
+msgstr "/Tiedosto/Avaa _viimeisin"
+
+#: ../src/menu.c:216
+msgid "/File/Open Ad_vanced..."
+msgstr "/Tiedosto/Avaa e_distyneesti..."
+
+#: ../src/menu.c:217
+msgid "/File/Open _URL..."
+msgstr "/Tiedosto/Avaa U_RL..."
+
+#: ../src/menu.c:218
+#, fuzzy
+msgid "/File/Open _From Selection"
+msgstr "/Tiedosto/Avaa v_alinnasta"
+
+#: ../src/menu.c:219
+msgid "/File/_Insert..."
+msgstr "/Tiedosto/_Lisää..."
+
+#: ../src/menu.c:221
+msgid "/File/_Save"
+msgstr "/Tiedosto/Ta_llenna"
+
+#: ../src/menu.c:222
+msgid "/File/Save _As..."
+msgstr "/Tiedosto/Tallenna _nimellä..."
+
+#: ../src/menu.c:223
+msgid "/File/Rena_me..."
+msgstr "/Tiedosto/U_udelleennimeä..."
+
+#: ../src/menu.c:224
+msgid "/File/Sav_e All"
+msgstr "/Tiedosto/Tallenna _kaikki"
+
+#: ../src/menu.c:225
+msgid "/File/Rever_t to Saved"
+msgstr "/Tiedosto/_Palauta tallennettuun"
+
+#: ../src/menu.c:227
+msgid "/File/_Close"
+msgstr "/Tiedosto/_Sulje"
+
+#: ../src/menu.c:228
+msgid "/File/Close A_ll"
+msgstr "/Tiedosto/Sul_je kaikki"
+
+#: ../src/menu.c:229
+msgid "/File/Close Win_dow"
+msgstr "/Tiedosto/Sulj_e ikkuna"
+
+#: ../src/menu.c:231
+msgid "/File/Upload \\/ Download"
+msgstr ""
+
+#: ../src/menu.c:233
+msgid "/File/_Quit"
+msgstr "/Tiedosto/L_opeta"
+
+#: ../src/menu.c:236
+msgid "/File/Run Python Script"
+msgstr "/Tiedosto/Suorita Python-skripti"
+
+#: ../src/menu.c:238
+msgid "/_Edit"
+msgstr "/_Muokkaa"
+
+#: ../src/menu.c:240
+msgid "/Edit/_Undo"
+msgstr "/Muokkaa/_Kumoa"
+
+#: ../src/menu.c:241
+msgid "/Edit/_Redo"
+msgstr "/Muokkaa/_Tee uudelleen"
+
+#: ../src/menu.c:242
+msgid "/Edit/Undo All"
+msgstr "/Muokkaa/Kumoa kaikki"
+
+#: ../src/menu.c:243
+msgid "/Edit/Redo All"
+msgstr "/Muokkaa/Tee kaikki uudelleen"
+
+#: ../src/menu.c:245
+msgid "/Edit/Cu_t"
+msgstr "/Muokkaa/_Leikkaa"
+
+#: ../src/menu.c:246
+msgid "/Edit/_Copy"
+msgstr "/Muokkaa/K_opioi"
+
+#: ../src/menu.c:247
+msgid "/Edit/_Paste"
+msgstr "/Muokkaa/L_iitä"
+
+#: ../src/menu.c:249
+msgid "/Edit/Select _All"
+msgstr "/Muokkaa/Valitse _kaikki"
+
+#: ../src/menu.c:251
+msgid "/Edit/_Find..."
+msgstr "/Muokkaa/_Etsi..."
+
+#: ../src/menu.c:252
+msgid "/Edit/Find A_gain"
+msgstr "/Muokkaa/Etsi _uudelleen"
+
+#: ../src/menu.c:253
+#, fuzzy
+msgid "/Edit/Find From Selection"
+msgstr "/Muokkaa/Etsi valinnasta"
+
+#: ../src/menu.c:254
+msgid "/Edit/R_eplace..."
+msgstr "/Muokkaa/Ko_rvaa..."
+
+#: ../src/menu.c:255
+msgid "/Edit/Replace Agai_n"
+msgstr "/Muokkaa/Korvaa uu_delleen"
+
+#: ../src/menu.c:257
+msgid "/Edit/_Indent"
+msgstr "/Muokkaa/Siirr_ä oikealle"
+
+#: ../src/menu.c:258
+msgid "/Edit/_Unindent"
+msgstr "/Muokkaa/Siirrä _vasemmalle"
+
+#. {N_("/Edit/Save Sett_ings"), NULL, rcfile_save_configfile_menu_cb, 0, "<Item>"},
+#: ../src/menu.c:261
+msgid "/Edit/Save Shortcut _Keys"
+msgstr "/Muokkaa/Tallenna _pikanäppäimet"
+
+#: ../src/menu.c:262
+msgid "/Edit/Preference_s"
+msgstr "/Muokkaa/_Asetukset"
+
+#: ../src/menu.c:263
+msgid "/_View"
+msgstr "/_Näytä"
+
+#: ../src/menu.c:265
+msgid "/View/_Full Screen"
+msgstr ""
+
+#: ../src/menu.c:267
+#, fuzzy
+msgid "/View/_Main Toolbar"
 msgstr "/Näytä/Näytä _päätyökalurivi"
 
-#: ../src/menu.c:289
-msgid "/View/View _Sidebar"
-msgstr "/Näytä/Näytä _sivupaneeli"
-
-#: ../src/menu.c:290
+#: ../src/menu.c:268
 #, fuzzy
-msgid "/View/View S_tatusbar"
+msgid "/View/_Side Pane"
 msgstr "/Näytä/Näytä _sivupaneeli"
 
-#: ../src/menu.c:291
+#: ../src/menu.c:269
+msgid "/View/_Output Pane"
+msgstr ""
+
+#: ../src/menu.c:270
+#, fuzzy
+msgid "/View/Status_bar"
+msgstr "/Näytä/Näytä _sivupaneeli"
+
+#: ../src/menu.c:271
 msgid "/_Document"
 msgstr "/_Dokumentti"
 
-#: ../src/menu.c:293
-msgid "/Document/_Increase Tabsize"
-msgstr "/Dokumentti/_Suurenna sarkainkokoa"
-
-#: ../src/menu.c:294
-msgid "/Document/_Decrease Tabsize"
-msgstr "/Dokumentti/_Pienennä sarkainkokoa"
-
-#: ../src/menu.c:295
+#: ../src/menu.c:273
 msgid "/Document/_Auto Indent"
 msgstr "/Dokumentti/_Automaattinen sisennys"
 
-#: ../src/menu.c:296
+#: ../src/menu.c:274
 #, fuzzy
-msgid "/Document/_Auto completion popup"
+msgid "/Document/Auto _Completion Popup"
 msgstr "/Dokumentti/_Automaattinen sisennys"
 
-#: ../src/menu.c:298
+#: ../src/menu.c:275
 msgid "/Document/_Wrap"
 msgstr "/Dokumentti/_Katkaisu"
 
-#: ../src/menu.c:299
+#: ../src/menu.c:276
 msgid "/Document/_Line Numbers"
 msgstr "/Dokumentti/_Rivinumerot"
 
-#: ../src/menu.c:300
-msgid "/Document/Show _blocks"
-msgstr ""
+#: ../src/menu.c:277
+#, fuzzy
+msgid "/Document/Show _Blocks"
+msgstr "/Muokkaa/Li_sää kirjanmerkki"
 
-#: ../src/menu.c:302
+#: ../src/menu.c:278
+#, fuzzy
+msgid "/Document/_Visible Spacing"
+msgstr "/Dokumentti/K_elluva ikkuna"
+
+#: ../src/menu.c:280
+#, fuzzy
+msgid "/_Document/Tab Size"
+msgstr "/Dokumentti/_Suurenna sarkainkokoa"
+
+#: ../src/menu.c:282
+#, fuzzy
+msgid "/Document/Tab Size/_Increase"
+msgstr "/Dokumentti/_Suurenna sarkainkokoa"
+
+#: ../src/menu.c:283
+#, fuzzy
+msgid "/Document/Tab Size/_Decrease"
+msgstr "/Dokumentti/_Pienennä sarkainkokoa"
+
+#: ../src/menu.c:285
+#, fuzzy
+msgid "/Document/Tab Size/_Reset"
+msgstr "/Dokumentti/_Suurenna sarkainkokoa"
+
+#: ../src/menu.c:286
+#, fuzzy
+msgid "/_Document/Font Size"
+msgstr "/Dokumentti/Dokumentin tyyppi"
+
+#: ../src/menu.c:288
+#, fuzzy
+msgid "/Document/Font Size/_Increase"
+msgstr "/Dokumentti/_Suurenna sarkainkokoa"
+
+#: ../src/menu.c:289
+#, fuzzy
+msgid "/Document/Font Size/_Decrease"
+msgstr "/Dokumentti/_Pienennä sarkainkokoa"
+
+#: ../src/menu.c:291
+#, fuzzy
+msgid "/Document/Font Size/_Reset"
+msgstr "/Dokumentti/Dokumentin t_yyppi"
+
+#: ../src/menu.c:293
 msgid "/Document/_Highlight Syntax"
 msgstr ""
 
-#: ../src/menu.c:303
-msgid "/Document/_Update Highlighting"
-msgstr "/Dokumentti/P_äivitä korostus"
+#: ../src/menu.c:295
+msgid "/Document/_Rescan Syntax & Spelling"
+msgstr ""
 
-#: ../src/menu.c:305
+#: ../src/menu.c:297
 #, fuzzy
-msgid "/Document/Highlight _Mode"
+msgid "/Document/_Rescan Syntax"
+msgstr "/Dokumentti/_Pienennä sarkainkokoa"
+
+#: ../src/menu.c:299
+#, fuzzy
+msgid "/Document/Language _Mode"
 msgstr "/Dokumentti/P_äivitä korostus"
 
-#: ../src/menu.c:307
+#: ../src/menu.c:302
 msgid "/Document/Character _Encoding"
 msgstr "/Dokumentti/_Merkistökoodaus"
 
-#: ../src/menu.c:313
-msgid "/Tools/Check _Spelling..."
-msgstr "/Dokumentti/Tarkista _oikeinkirjoitus..."
+#: ../src/menu.c:307
+msgid "/Document/Add _Bookmark"
+msgstr "/Muokkaa/Li_sää kirjanmerkki"
 
-#: ../src/menu.c:315
-msgid "/Document/_Floating window"
+#: ../src/menu.c:308
+#, fuzzy
+msgid "/Document/_Floating Window"
 msgstr "/Dokumentti/K_elluva ikkuna"
 
-#: ../src/menu.c:316
-msgid "/Tools/Word _Count"
-msgstr "/Dokumentti/Sana_määrä"
-
-#: ../src/menu.c:318
+#: ../src/menu.c:310
 #, fuzzy
-msgid "/Document/Move left"
+msgid "/Document/Move Left"
 msgstr "/Dokumentti/_Siirrä vasemmalle"
 
-#: ../src/menu.c:319
+#: ../src/menu.c:311
 #, fuzzy
-msgid "/Document/Move right"
+msgid "/Document/Move Right"
 msgstr "/Dokumentti/Siirrä oikealle"
 
-#: ../src/menu.c:320
+#: ../src/menu.c:312
 msgid "/_Go"
 msgstr "/_Siirry"
 
-#: ../src/menu.c:322
-msgid "/Go/_Previous document"
+#: ../src/menu.c:314
+#, fuzzy
+msgid "/Go/_Previous Document"
 msgstr "/Siirry/E_dellinen dokumentti"
 
-#: ../src/menu.c:323
-msgid "/Go/_Next document"
+#: ../src/menu.c:315
+#, fuzzy
+msgid "/Go/_Next Document"
 msgstr "/Siirry/S_euraava dokumentti"
 
-#: ../src/menu.c:325
-msgid "/Go/_First document"
+#: ../src/menu.c:316
+#, fuzzy
+msgid "/Go/_First Document"
 msgstr "/Siirry/_Ensimmäinen dokumentti"
 
-#: ../src/menu.c:326
-msgid "/Go/L_ast document"
+#: ../src/menu.c:317
+#, fuzzy
+msgid "/Go/L_ast Document"
 msgstr "/Siirry/_Viimeinen dokumentti"
 
-#: ../src/menu.c:328
+#: ../src/menu.c:319
 #, fuzzy
-msgid "/Go/First bookmark"
+msgid "/Go/F_irst Bookmark"
 msgstr "Muokkaa kirjanmerkkiä"
 
-#: ../src/menu.c:329
+#: ../src/menu.c:320
 #, fuzzy
-msgid "/Go/Previous bookmark"
+msgid "/Go/P_revious Bookmark"
 msgstr "/Siirry/E_dellinen dokumentti"
 
-#: ../src/menu.c:330
+#: ../src/menu.c:321
 #, fuzzy
-msgid "/Go/Next _bookmark"
+msgid "/Go/N_ext Bookmark"
 msgstr "Poista kirjanmerkki"
 
-#: ../src/menu.c:331
+#: ../src/menu.c:322
 #, fuzzy
-msgid "/Go/Last bookmark"
+msgid "/Go/Last _Bookmark"
 msgstr "Muokkaa kirjanmerkkiä"
 
-#: ../src/menu.c:333
+#: ../src/menu.c:324
 msgid "/Go/Goto _Line"
 msgstr "/Siirry/Siirry _riville"
 
-#: ../src/menu.c:334
-msgid "/Go/Goto _Selection"
+#: ../src/menu.c:325
+#, fuzzy
+msgid "/Go/Goto line number in _selection"
 msgstr "/Siirry/Siirry va_lintaan"
 
-#: ../src/menu.c:335
+#: ../src/menu.c:326
 msgid "/_Project"
 msgstr "/_Projekti"
 
-#: ../src/menu.c:337
+#: ../src/menu.c:328
 msgid "/Project/_New Project"
 msgstr "/Projekti/_Uusi projekti"
 
-#: ../src/menu.c:338
+#: ../src/menu.c:329
 msgid "/Project/_Open Project..."
 msgstr "/Projekti/_Avaa projekti..."
 
-#: ../src/menu.c:339
-msgid "/Project/Open _recent"
+#: ../src/menu.c:330
+#, fuzzy
+msgid "/Project/Open _Recent"
 msgstr "/Projekti/Avaa _viimeaikaisia"
 
-#: ../src/menu.c:342
+#: ../src/menu.c:333
 msgid "/Project/_Save"
 msgstr "/Projekti/_Tallenna"
 
-#: ../src/menu.c:343
+#: ../src/menu.c:334
 msgid "/Project/Save _as..."
 msgstr "/Projekti/T_allenna nimellä..."
 
-#: ../src/menu.c:344
+#: ../src/menu.c:335
 msgid "/Project/Save & _close"
 msgstr "/Projekti/Tallenna & _sulje"
 
-#: ../src/menu.c:346
+#: ../src/menu.c:337
 msgid "/Project/E_dit Project Options..."
 msgstr "/Projekti/_Muokkaa projektin asetuksia..."
 
-#: ../src/menu.c:347
-msgid "/T_ools"
+#: ../src/menu.c:338
+#, fuzzy
+msgid "/_Tools"
 msgstr "/_Ulkopuolinen"
 
-#: ../src/menu.c:512
+#: ../src/menu.c:341
 #, fuzzy
-msgid "/Document/Highlight Mode"
+msgid "/Tools/_Commands"
+msgstr "/Ulkopuolinen/Komennot"
+
+#: ../src/menu.c:343
+#, fuzzy
+msgid "/Tools/_Outputbox"
+msgstr "/Ulkopuolinen/Tulostelaatikko"
+
+#: ../src/menu.c:345
+#, fuzzy
+msgid "/Tools/_Filters"
+msgstr "/Ulkopuolinen/tearoff1"
+
+#: ../src/menu.c:348
+msgid "/Tools/_Synchronize text block"
+msgstr ""
+
+#: ../src/menu.c:349
+#, fuzzy
+msgid "/Tools/Toggle _Comment"
+msgstr "/Dokumentti/Sana_määrä"
+
+#: ../src/menu.c:350
+#, fuzzy
+msgid "/Tools/_Word Count"
+msgstr "/Dokumentti/Sana_määrä"
+
+#: ../src/menu.c:352
+#, fuzzy
+msgid "/Tools/Strip T_railing Whitespace"
+msgstr "/Muokkaa/Korvaa erityisesti"
+
+#: ../src/menu.c:353
+#, fuzzy
+msgid "/Tools/_Join lines"
+msgstr "/Ulkopuolinen/tearoff1"
+
+#: ../src/menu.c:354
+#, fuzzy
+msgid "/Tools/Sp_lit lines"
+msgstr "/Ulkopuolinen/tearoff1"
+
+#: ../src/menu.c:355
+#, fuzzy
+msgid "/Tools/Indenting To T_abs"
+msgstr "/Muokkaa/Korvaa erityisesti"
+
+#: ../src/menu.c:356
+#, fuzzy
+msgid "/Tools/Indenting To S_paces"
+msgstr "/Muokkaa/Korvaa erityisesti"
+
+#: ../src/menu.c:357
+msgid "/Tools/Split Into Col_umns"
+msgstr ""
+
+#: ../src/menu.c:516
+#, fuzzy
+msgid "/Document/Language Mode"
 msgstr "/Dokumentti/P_äivitä korostus"
 
-#: ../src/menu.c:644
-msgid "/Project/Open recent"
+#: ../src/menu.c:651
+#, fuzzy
+msgid "/Project/Open Recent"
 msgstr "/Projekti/Avaa viimeisin"
 
-#: ../src/menu.c:648
-msgid "/File/Open recent"
+#: ../src/menu.c:655
+#, fuzzy
+msgid "/File/Open Recent"
 msgstr "/Tiedosto/Avaa viimeisin"
 
-#: ../src/menu.c:775
-msgid "/Windows"
-msgstr "/Ikkunat"
-
-#: ../src/menu.c:833
+#: ../src/menu.c:838
 #, fuzzy
 msgid "No default browser found"
 msgstr "Oletuselainta ei löytynyt"
 
-#: ../src/menu.c:834
+#: ../src/menu.c:839
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
@@ -1537,129 +1656,123 @@ msgstr ""
 "Voit asettaa oletusselaimen menemällä:\n"
 "Muokkaa->Asetukset->Ulkoiset komennot"
 
-#: ../src/menu.c:869
+#: ../src/menu.c:874
 msgid "Operate filter only on selection?"
 msgstr ""
 
-#: ../src/menu.c:914
-msgid "/Tools/Outputbox/"
-msgstr "/Ulkopuolinen/Tulostelaatikko/"
-
-#: ../src/menu.c:915
-msgid "/Tools/Commands/"
-msgstr "/Ulkopuolinen/Komennot/"
-
-#: ../src/menu.c:916
-#, fuzzy
-msgid "/Tools/Filters/"
-msgstr "/Ulkopuolinen/Selaimet/"
-
-#: ../src/menu.c:929
+#: ../src/menu.c:934
 #, fuzzy
 msgid "/Tools/Filters"
 msgstr "/Ulkopuolinen/tearoff1"
 
-#: ../src/menu.c:949
-msgid "/External"
-msgstr "/Ulkopuolinen"
+#: ../src/menu.c:955
+#, fuzzy
+msgid "/Tools"
+msgstr "/_Ulkopuolinen"
 
-#: ../src/menu.c:951
+#: ../src/menu.c:958
 msgid "/Tools/Commands"
 msgstr "/Ulkopuolinen/Komennot"
 
-#: ../src/menu.c:983
+#: ../src/menu.c:986
 msgid "/Tools/Outputbox"
 msgstr "/Ulkopuolinen/Tulostelaatikko"
 
-#: ../src/menu.c:1029
+#: ../src/menu.c:1032
 msgid "/Document/Character Encoding"
 msgstr "/Dokumentti/Merkistökoodaus"
 
-#: ../src/outputbox.c:402
+#: ../src/outputbox.c:408
 #, c-format
 msgid "failed to compile outputbox pattern %s\n"
 msgstr ""
 
-#: ../src/preferences.c:267
+#: ../src/preferences.c:276
 msgid "Untitled"
 msgstr "Nimetön"
 
-#: ../src/preferences.c:368
+#: ../src/preferences.c:377
 msgid "Select font"
 msgstr "Valitse kirjasin"
 
-#: ../src/preferences.c:393
+#: ../src/preferences.c:402
 #, fuzzy
 msgid "Select color"
 msgstr "Valitse väri:"
 
-#: ../src/preferences.c:487
+#: ../src/preferences.c:496
 msgid "Message"
 msgstr "Viesti"
 
-#: ../src/preferences.c:488
+#: ../src/preferences.c:497
 #, fuzzy
 msgid "Enabled"
 msgstr "Sallittu"
 
-#: ../src/preferences.c:489
+#: ../src/preferences.c:498
 #, fuzzy
 msgid "File"
 msgstr "Tiedosto"
 
-#: ../src/preferences.c:634
+#: ../src/preferences.c:652
 msgid ""
 "Text styles are applied on top of each other. If multiple styles are applied "
 "to the same text, the top-most style in this list has the highest priority. "
 "Use drag and drop to re-order the text styles."
 msgstr ""
 
-#: ../src/preferences.c:643 ../src/preferences.c:928 ../src/preferences.c:998
+#: ../src/preferences.c:661 ../src/preferences.c:954 ../src/preferences.c:1024
 msgid "Label"
 msgstr "Nimi"
 
-#: ../src/preferences.c:655 ../src/preferences.c:1539
+#: ../src/preferences.c:673 ../src/preferences.c:1574
 msgid "Foreground color"
 msgstr "Edusväri"
 
-#: ../src/preferences.c:656 ../src/preferences.c:1540
+#: ../src/preferences.c:674 ../src/preferences.c:1575
 msgid "Background color"
 msgstr "Taustaväri"
 
-#: ../src/preferences.c:657
+#: ../src/preferences.c:675
 #, fuzzy
 msgid "normal weight"
 msgstr "pakota lihavoitu muotoilu"
 
-#: ../src/preferences.c:659
+#: ../src/preferences.c:677
 #, fuzzy
 msgid "bold weight"
 msgstr "pakota lihavoitu muotoilu"
 
-#: ../src/preferences.c:661
+#: ../src/preferences.c:679
 #, fuzzy
 msgid "normal style"
 msgstr "pakota kursivoitu tyyli"
 
-#: ../src/preferences.c:663
+#: ../src/preferences.c:681
 #, fuzzy
 msgid "italic style"
 msgstr "pakota kursivoitu tyyli"
 
-#: ../src/preferences.c:872 ../src/preferences.c:1089
+#: ../src/preferences.c:684
+#, fuzzy
+msgid "Spell check"
+msgstr "Tarkista oikeinkirjoitus..."
+
+#: ../src/preferences.c:898 ../src/preferences.c:1115
 msgid "Name"
 msgstr "Nimi"
 
-#: ../src/preferences.c:929 ../src/preferences.c:999 ../src/preferences.c:1094
+#: ../src/preferences.c:955 ../src/preferences.c:1025
+#: ../src/preferences.c:1120
 msgid "Command"
 msgstr "Komento"
 
-#: ../src/preferences.c:930
+#: ../src/preferences.c:956
 #, fuzzy
 msgid "Default browser"
 msgstr "Oletusselain"
 
-#: ../src/preferences.c:932
+#: ../src/preferences.c:958
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1676,7 +1789,7 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1002
+#: ../src/preferences.c:1028
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1697,27 +1810,27 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1090
+#: ../src/preferences.c:1116
 msgid "Pattern"
 msgstr "Kuvio"
 
-#: ../src/preferences.c:1091
+#: ../src/preferences.c:1117
 msgid "File #"
 msgstr "Tiedosto #"
 
-#: ../src/preferences.c:1092
+#: ../src/preferences.c:1118
 msgid "Line #"
 msgstr "Rivi #"
 
-#: ../src/preferences.c:1093
+#: ../src/preferences.c:1119
 msgid "Output #"
 msgstr "Tuloste #"
 
-#: ../src/preferences.c:1095
+#: ../src/preferences.c:1121
 msgid "Show all output"
 msgstr "Näytä koko tuloste"
 
-#: ../src/preferences.c:1097
+#: ../src/preferences.c:1123
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1745,277 +1858,287 @@ msgstr ""
 #. gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
 #. skip column 0, the language name
 #. 1=text
-#: ../src/preferences.c:1247
+#: ../src/preferences.c:1273
 msgid "Option name"
 msgstr ""
 
 #. 2=boolean
-#: ../src/preferences.c:1248
+#: ../src/preferences.c:1274
 msgid "value"
 msgstr ""
 
 #. 1=text
-#: ../src/preferences.c:1261
+#: ../src/preferences.c:1287
 #, fuzzy
 msgid "Highlight name"
 msgstr "Korostussyntaksi oletuksena"
 
 #. the textstyle model
-#: ../src/preferences.c:1264
+#: ../src/preferences.c:1290
 #, fuzzy
 msgid "Textstyle"
 msgstr "Tekstityylit"
 
-#: ../src/preferences.c:1492 ../src/preferences.c:1493
+#: ../src/preferences.c:1527 ../src/preferences.c:1528
 msgid "left"
 msgstr "vasen"
 
-#: ../src/preferences.c:1492 ../src/preferences.c:1493
+#: ../src/preferences.c:1527 ../src/preferences.c:1528
 msgid "right"
 msgstr "oikea"
 
-#: ../src/preferences.c:1492
+#: ../src/preferences.c:1527
 msgid "top"
 msgstr "ylä"
 
-#: ../src/preferences.c:1492
+#: ../src/preferences.c:1527
 msgid "bottom"
 msgstr "ala"
 
-#: ../src/preferences.c:1494
+#: ../src/preferences.c:1529
 #, fuzzy
 msgid "Nothing"
 msgstr "Ei mitään"
 
-#: ../src/preferences.c:1494
+#: ../src/preferences.c:1529
 msgid "Modified time and file size"
 msgstr ""
 
-#: ../src/preferences.c:1494
+#: ../src/preferences.c:1529
 msgid "Modified time"
 msgstr ""
 
-#: ../src/preferences.c:1494
+#: ../src/preferences.c:1529
 #, fuzzy
 msgid "File size"
 msgstr "Tiedoston koko"
 
-#: ../src/preferences.c:1510
+#: ../src/preferences.c:1545
 msgid "Edit preferences"
 msgstr "Muokkaa asetuksia"
 
-#: ../src/preferences.c:1531
+#: ../src/preferences.c:1566
 #, fuzzy
-msgid "Editor options"
+msgid "Editor settings"
 msgstr "Kumoa asetukset"
 
-#: ../src/preferences.c:1533
+#: ../src/preferences.c:1568
 #, fuzzy
-msgid "Generic editor options"
+msgid "Generic editor settings"
 msgstr "Editorin asetukset"
 
-#: ../src/preferences.c:1538
+#: ../src/preferences.c:1573
 msgid "Font"
 msgstr "Kirjasin"
 
-#: ../src/preferences.c:1541
+#: ../src/preferences.c:1576
 #, fuzzy
 msgid "Smart Home/End cursor positioning"
 msgstr "Viisas kursorin sijoitus"
 
-#: ../src/preferences.c:1542
+#: ../src/preferences.c:1577
 msgid "Use spaces to indent, not tabs"
 msgstr "Käytä välejä sisennykseen, älä sarkaimia"
 
-#: ../src/preferences.c:1544
+#: ../src/preferences.c:1578
+msgid "Smart auto indenting"
+msgstr ""
+
+#: ../src/preferences.c:1580
 msgid "Number of actions in undo history"
 msgstr ""
 
-#: ../src/preferences.c:1545
+#: ../src/preferences.c:1581
 msgid "Clear undo history on save"
 msgstr "Tyhjennä kumoushistoria tallennettaessa"
 
-#: ../src/preferences.c:1549
+#: ../src/preferences.c:1585
 #, fuzzy
-msgid "Editor defaults"
-msgstr "_Aseta oletus"
+msgid "Initial editor settings"
+msgstr "Sisäänrakennetun ikkunan korkeus"
 
-#: ../src/preferences.c:1552
+#: ../src/preferences.c:1588
+msgid "Initial settings for new documents"
+msgstr ""
+
+#: ../src/preferences.c:1593
 #, fuzzy
-msgid "Default values"
-msgstr "Oletusselain"
+msgid "Default mime type for new files"
+msgstr "Uusien tiedostojen oletusmerkistö"
 
-#: ../src/preferences.c:1557
+#: ../src/preferences.c:1595
+msgid "(Smart) Auto indenting"
+msgstr ""
+
+#: ../src/preferences.c:1596
 msgid "Tab width"
 msgstr "Sarkaimen pituus"
 
-#: ../src/preferences.c:1558
+#: ../src/preferences.c:1597
 #, fuzzy
 msgid "Word wrap"
 msgstr "Sanan katkaisu oletuksena"
 
-#: ../src/preferences.c:1559
+#: ../src/preferences.c:1598
 #, fuzzy
 msgid "Show line numbers"
 msgstr "_Rivinumero:"
 
-#: ../src/preferences.c:1561
-#, fuzzy
-msgid "Highlight syntax"
-msgstr "Korostussyntaksi oletuksena"
-
-#: ../src/preferences.c:1562
+#. pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);
+#: ../src/preferences.c:1601
 #, fuzzy
 msgid "Highlight current line"
 msgstr "Korosta nykyinen rivi oletuksena"
 
-#: ../src/preferences.c:1563
+#: ../src/preferences.c:1602
 msgid "Enable block folding"
 msgstr ""
 
-#: ../src/preferences.c:1564
+#: ../src/preferences.c:1603
 msgid "Enable automatic completion pop-up"
 msgstr ""
 
-#: ../src/preferences.c:1565
+#: ../src/preferences.c:1604
 #, fuzzy
 msgid "Highlight matching block begin-end"
 msgstr "Sanakatkaisu oletuksena"
 
-#: ../src/preferences.c:1570
+#: ../src/preferences.c:1609
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1572
+#: ../src/preferences.c:1611
 msgid "HTML options"
 msgstr "HTML-asetukset"
 
-#: ../src/preferences.c:1577
+#: ../src/preferences.c:1616
 msgid "Lowercase HTML tags"
 msgstr "Pienikirjaimiset HTML-tagit"
 
-#: ../src/preferences.c:1578
+#: ../src/preferences.c:1617
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Käytä ei-suositeltuja tageja (kuten <font> ja <nobr>)"
 
-#: ../src/preferences.c:1579
+#: ../src/preferences.c:1618
 msgid "Use XHTML style tags (<br />)"
 msgstr "Käytä XHTML tyylisiä tageja (<br> />"
 
-#: ../src/preferences.c:1580
-#, fuzzy
-msgid "Automatically close tags"
-msgstr "Päivitä automaatisesti tekijä-meta"
-
-#: ../src/preferences.c:1581
-msgid "Prepend close tags with a newline"
-msgstr ""
-
-#: ../src/preferences.c:1583
+#. pd->prefs[insert_close_tag] = boxed_checkbut_with_value(_("Automatically close tags"), main_v->props.insert_close_tag, vbox2);
+#. pd->prefs[close_tag_newline] = boxed_checkbut_with_value(_("Prepend close tags with a newline"), main_v->props.close_tag_newline, vbox2);
+#: ../src/preferences.c:1622
 #, fuzzy
 msgid "Automatically update author meta tag"
 msgstr "Päivitä automaatisesti tekijä-meta"
 
-#: ../src/preferences.c:1584
+#: ../src/preferences.c:1623
 #, fuzzy
 msgid "Automatically update date meta tag"
 msgstr "Päivitä automaattisesti päivä-meta"
 
-#: ../src/preferences.c:1585
+#: ../src/preferences.c:1624
 #, fuzzy
 msgid "Automatically update generator meta tag"
 msgstr "Automaattinen päivitä tekijä-meta"
 
-#: ../src/preferences.c:1589
+#: ../src/preferences.c:1628
 msgid "Files"
 msgstr "Tiedostot"
 
-#: ../src/preferences.c:1602
+#: ../src/preferences.c:1641
 #, fuzzy
 msgid "Default character set for new files"
 msgstr "Uusien tiedostojen oletusmerkistö"
 
-#: ../src/preferences.c:1605
+#: ../src/preferences.c:1644
 #, fuzzy
 msgid "Auto set <meta> HTML tag on encoding change"
 msgstr "Aseta automaattisesti <meta> HTML-tagi muutettaessa koodausta"
 
-#: ../src/preferences.c:1607
-msgid "Backup"
-msgstr "Varmuuskopio"
+#: ../src/preferences.c:1646
+msgid "Backup files and recovery of modified documents"
+msgstr ""
 
-#: ../src/preferences.c:1611
+#: ../src/preferences.c:1650
 #, fuzzy
 msgid "Create backup file during file save"
 msgstr "Luo varmuuskopio tallennettaessa"
 
-#: ../src/preferences.c:1613
+#: ../src/preferences.c:1652
 #, fuzzy
 msgid "Continue save"
 msgstr "Jatka tallennusta"
 
-#: ../src/preferences.c:1613
+#: ../src/preferences.c:1652
 #, fuzzy
 msgid "Abort save"
 msgstr "Keskeytä tallennus"
 
-#: ../src/preferences.c:1613
+#: ../src/preferences.c:1652
 msgid "Ask what to do"
 msgstr "Kysy mitä tehdä"
 
-#: ../src/preferences.c:1614
+#: ../src/preferences.c:1653
 #, fuzzy
 msgid "If the backup fails"
 msgstr "Näytä varmuuskopiotiedostot"
 
-#: ../src/preferences.c:1616
+#: ../src/preferences.c:1655
 #, fuzzy
 msgid "Remove backup file on close"
 msgstr "Poista varmuuskopio suljettaessa"
 
-#: ../src/preferences.c:1620
+#: ../src/preferences.c:1659
+msgid "Enable recovery of modified documents"
+msgstr ""
+
+#: ../src/preferences.c:1660
+msgid "Frequency to store changes (seconds)"
+msgstr ""
+
+#: ../src/preferences.c:1662
 msgid "Misc"
 msgstr "Sekalaiset"
 
-#: ../src/preferences.c:1626
-msgid "Open files in already running bluefish window"
+#: ../src/preferences.c:1668
+#, fuzzy
+msgid "Open commandline files in running bluefish process"
 msgstr "Avaa tiedostot olemassaolevaan bluefish-ikkunaan"
 
-#: ../src/preferences.c:1628
+#: ../src/preferences.c:1670
 msgid "File properties to check on disk for modifications"
 msgstr ""
 
-#: ../src/preferences.c:1629
+#: ../src/preferences.c:1671
 msgid "Periodically check if file is modified on disk"
 msgstr ""
 
-#: ../src/preferences.c:1630
+#: ../src/preferences.c:1672
 #, fuzzy
 msgid "Number of files in 'Open recent' menu"
 msgstr "Tiedostojen lukumäärä kohdassa 'Viimeksi avattu'"
 
-#: ../src/preferences.c:1635
+#: ../src/preferences.c:1677
 msgid "User interface"
 msgstr "Ulkoasu"
 
-#: ../src/preferences.c:1638
+#: ../src/preferences.c:1680
 #, fuzzy
 msgid "Startup options"
 msgstr "Editorin käynnistysasetukset"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1685
 msgid "Show splash-screen"
 msgstr "Näytä aloitusikkuna"
 
-#: ../src/preferences.c:1646
+#: ../src/preferences.c:1688
 msgid "General"
 msgstr "Yleistä"
 
-#: ../src/preferences.c:1651
+#: ../src/preferences.c:1693
 msgid "Make HTML dialogs transient"
 msgstr "Tee HTML-dialogeista lyhytaikaisia"
 
-#: ../src/preferences.c:1652
+#: ../src/preferences.c:1694
 #, fuzzy
 msgid ""
 "Notebook tab font \n"
@@ -2024,321 +2147,310 @@ msgstr ""
 "Muistion tab-fontti \n"
 "(jätä tyhjäksi järjestelmän oletusta varten)"
 
-#: ../src/preferences.c:1653
+#: ../src/preferences.c:1695
 msgid "Document notebook tab position"
 msgstr "Dokumentin muistio-tabin sijainti"
 
-#: ../src/preferences.c:1654
+#: ../src/preferences.c:1696
 msgid "Switch between tabs with <Alt>+0..9"
 msgstr ""
 
-#: ../src/preferences.c:1655
+#: ../src/preferences.c:1697
 msgid "Sidebar notebook tab position"
 msgstr "Sivupaneelin muistio-tabin sijainti"
 
-#: ../src/preferences.c:1656
+#: ../src/preferences.c:1698
 msgid "Sidebar location"
 msgstr "Sivupaneelin sijainti"
 
-#: ../src/preferences.c:1660 ../src/preferences.c:1662
+#: ../src/preferences.c:1702 ../src/preferences.c:1704
 msgid "Dimensions"
 msgstr "Ulottuvuudet"
 
-#: ../src/preferences.c:1667
+#: ../src/preferences.c:1709
 msgid "Leave dimensions to window manager"
 msgstr ""
 
-#: ../src/preferences.c:1668
+#: ../src/preferences.c:1710
 msgid "Restore last used dimensions"
 msgstr "Tallenna viimeksikäytetyt ulottuvuudet"
 
-#: ../src/preferences.c:1669
+#: ../src/preferences.c:1711
 msgid "Initial sidebar width"
 msgstr "Sisäänrakennetun sivupaneelin leveys"
 
-#: ../src/preferences.c:1670
+#: ../src/preferences.c:1712
 msgid "Initial window height"
 msgstr "Sisäänrakennetun ikkunan korkeus"
 
-#: ../src/preferences.c:1671
+#: ../src/preferences.c:1713
 msgid "Initial window width"
 msgstr "Sisäänrakennetun ikkunan leveys"
 
-#: ../src/preferences.c:1678 ../src/preferences.c:1680
-#, fuzzy
-msgid "File and directory view"
-msgstr "Tiedosto- ja hakemistonäkymä"
-
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:1687 ../src/rcfile.c:674
+#: ../src/preferences.c:1720 ../src/rcfile.c:688
 msgid "Images"
 msgstr "Kuvat"
 
-#: ../src/preferences.c:1689
+#: ../src/preferences.c:1722
 msgid "Thumbnails"
 msgstr "Esikatselukuvat"
 
-#: ../src/preferences.c:1693
+#: ../src/preferences.c:1726
 msgid "Thumbnail suffix"
 msgstr "Esikatselukuvien pääte"
 
-#: ../src/preferences.c:1696
+#: ../src/preferences.c:1729
 msgid "Thumbnail filetype"
 msgstr "Esikatselukuvien tiedostotyyppi"
 
-#: ../src/preferences.c:1701
+#: ../src/preferences.c:1734
 #, fuzzy
 msgid "External commands"
 msgstr "Ulkoiset komennot"
 
-#: ../src/preferences.c:1703
+#: ../src/preferences.c:1736
 #, fuzzy
 msgid "Commands"
 msgstr "Komennot"
 
-#: ../src/preferences.c:1711
+#: ../src/preferences.c:1744
 #, fuzzy
 msgid "External filters"
 msgstr "Ulkoiset suotimet"
 
-#: ../src/preferences.c:1713
+#: ../src/preferences.c:1746
 #, fuzzy
 msgid "Filters"
 msgstr "Suotimet"
 
-#: ../src/preferences.c:1721 ../src/preferences.c:1723
+#: ../src/preferences.c:1754 ../src/preferences.c:1756
 msgid "Output parsers"
 msgstr "Tulosteen jäsentäjät"
 
-#: ../src/preferences.c:1731 ../src/preferences.c:1732
+#: ../src/preferences.c:1764 ../src/preferences.c:1765
 msgid "Plugins"
 msgstr "Lisäosat"
 
-#: ../src/preferences.c:1740 ../src/preferences.c:1741
+#: ../src/preferences.c:1773 ../src/preferences.c:1774
 msgid "Text styles"
 msgstr "Tekstityylit"
 
-#: ../src/preferences.c:1750
+#: ../src/preferences.c:1783
 #, fuzzy
 msgid "Language support"
 msgstr "Kieli:"
 
-#: ../src/preferences.c:1752
+#: ../src/preferences.c:1785
 msgid "Advanced syntax scanning options"
 msgstr ""
 
-#: ../src/preferences.c:1758
+#: ../src/preferences.c:1791
 msgid "Delayed"
 msgstr ""
 
-#: ../src/preferences.c:1758
+#: ../src/preferences.c:1791
 msgid "Immediately"
 msgstr ""
 
-#: ../src/preferences.c:1759
+#: ../src/preferences.c:1792
 msgid "Show the automatic completion pop-up window"
 msgstr ""
 
-#: ../src/preferences.c:1761
+#: ../src/preferences.c:1794
 msgid "Load reference information from language file"
 msgstr ""
 
-#: ../src/preferences.c:1762
+#: ../src/preferences.c:1795
 msgid "Show reference information in autocompletion pop-up"
 msgstr ""
 
-#: ../src/preferences.c:1763
+#: ../src/preferences.c:1796
 msgid "Show reference information in tooltip window"
 msgstr ""
 
-#: ../src/project.c:134
+#: ../src/project.c:154
 msgid "New project"
 msgstr "Uusi projekti"
 
-#: ../src/project.c:205
+#: ../src/project.c:225
 msgid "Enter Bluefish project filename"
 msgstr "Syötä Bluefish-projektin tiedostonimi"
 
-#: ../src/project.c:336
+#: ../src/project.c:348
 msgid "Select Bluefish project filename"
 msgstr "Valitse Bluefish-projektin tiedostonimi"
 
-#. dialog
-#: ../src/project.c:393
-#, fuzzy
-msgid "Save current project?"
-msgstr "Tallenetaanko nykyinen projeki?"
-
-#: ../src/project.c:519
+#: ../src/project.c:494
 msgid "Create New Project"
 msgstr "Luo uusi projekti"
 
-#: ../src/project.c:522
+#: ../src/project.c:497
 msgid "Edit Project"
 msgstr "Muokkaa projektia"
 
-#: ../src/project.c:545
+#: ../src/project.c:520
 #, c-format
 msgid "This project contains %d files"
 msgstr "Tämä projekti sisältää %d tiedostoa"
 
-#: ../src/project.c:557
+#: ../src/project.c:532
 msgid "Project _Name:"
 msgstr "Projektin _nimi:"
 
-#: ../src/project.c:562
+#: ../src/project.c:537
 msgid "_Template:"
 msgstr "_Mallipohja:"
 
-#: ../src/project.c:568
+#: ../src/project.c:543
 msgid "_Word wrap by default"
 msgstr "_Sanakatkaisu oletuksena"
 
-#: ../src/project.c:579
+#: ../src/project.c:554
 msgid "Create _Project"
 msgstr "_Luo projekti"
 
-#: ../src/project.c:619
+#: ../src/project.c:594
 msgid "Create project"
 msgstr "Luo projekti"
 
-#: ../src/project.c:623
+#: ../src/project.c:598
 msgid "Create project with currently opened documents"
 msgstr "Luo projekti avoinna olevilla dokumenteilla"
 
-#: ../src/project.c:624
+#: ../src/project.c:599
 msgid "Create empty project"
 msgstr "Luo tyhjä projekti"
 
 #. if the user does not have outputbox settings --> set them to defaults values
-#: ../src/rcfile.c:476
+#: ../src/rcfile.c:483
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:477
+#: ../src/rcfile.c:484
 msgid "weblint HTML checker"
 msgstr "weblint HTML-tarkastaja"
 
-#: ../src/rcfile.c:478
+#: ../src/rcfile.c:485
 msgid "tidy HTML validator"
 msgstr ""
 
-#: ../src/rcfile.c:479
+#: ../src/rcfile.c:486
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:480
+#: ../src/rcfile.c:487
 msgid "xmllint XML checker"
 msgstr "xmllint XML-tarkastaja"
 
-#: ../src/rcfile.c:481
+#: ../src/rcfile.c:488
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:484
+#: ../src/rcfile.c:491
 #, fuzzy
 msgid "Sort"
 msgstr " Järjestä "
 
-#: ../src/rcfile.c:485
+#: ../src/rcfile.c:492
 msgid "Reverse lines"
 msgstr ""
 
-#: ../src/rcfile.c:486
+#: ../src/rcfile.c:493
 msgid "Dos2unix"
 msgstr ""
 
-#: ../src/rcfile.c:487
+#: ../src/rcfile.c:494
 #, fuzzy
 msgid "Tidy HTML"
 msgstr "HTML"
 
-#: ../src/rcfile.c:488
+#: ../src/rcfile.c:495
 msgid "Strip empty lines"
 msgstr ""
 
-#: ../src/rcfile.c:489
+#: ../src/rcfile.c:496
 msgid "Render HTML to text"
 msgstr ""
 
-#: ../src/rcfile.c:492
+#: ../src/rcfile.c:499
 msgid "Mozilla"
 msgstr ""
 
-#: ../src/rcfile.c:493
+#: ../src/rcfile.c:500
 msgid "Firefox"
 msgstr ""
 
-#: ../src/rcfile.c:494
+#: ../src/rcfile.c:501
 msgid "Opera"
 msgstr ""
 
-#: ../src/rcfile.c:495
+#: ../src/rcfile.c:502
 msgid "Konqueror"
 msgstr ""
 
-#: ../src/rcfile.c:496
+#: ../src/rcfile.c:503
 msgid "Galeon"
 msgstr ""
 
-#: ../src/rcfile.c:497
+#: ../src/rcfile.c:504
 msgid "Epiphany"
 msgstr ""
 
-#: ../src/rcfile.c:498
+#: ../src/rcfile.c:505
 msgid "Kazehakase"
 msgstr ""
 
-#: ../src/rcfile.c:499
+#: ../src/rcfile.c:506
 msgid "Links2 (graphics)"
 msgstr ""
 
-#: ../src/rcfile.c:610
+#: ../src/rcfile.c:624
 msgid "Untitled Project"
 msgstr "Nimetön projekti"
 
-#: ../src/rcfile.c:668
+#: ../src/rcfile.c:682
 msgid "C programming"
 msgstr "C-ohjelmointi"
 
-#: ../src/rcfile.c:670
+#: ../src/rcfile.c:684
 #, fuzzy
 msgid "Web files"
 msgstr "Web-tiedostot"
 
-#: ../src/rcfile.c:676
+#: ../src/rcfile.c:690
 msgid "Hide objectfiles"
 msgstr "Piilota objektitiedostot"
 
-#: ../src/snr2.c:241
+#: ../src/snr2.c:234
 msgid "Regular expression error: "
 msgstr "Säännöllinen lauseke -virhe: "
 
-#: ../src/snr2.c:245 ../src/snr2.c:293
+#: ../src/snr2.c:238 ../src/snr2.c:286
 msgid "Search failed"
 msgstr "Etsintä epäonnistui"
 
-#: ../src/snr2.c:289
+#: ../src/snr2.c:282
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Säännöllinen lauseke -virhe: %s paikassa %d"
 
-#: ../src/snr2.c:1379
+#: ../src/snr2.c:1372
 #, c-format
 msgid "Found %d matches, "
 msgid_plural "Found %d matches, "
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/snr2.c:1380
+#: ../src/snr2.c:1373
 #, fuzzy, c-format
 msgid "replaced %d"
 msgid_plural "replaced %d"
 msgstr[0] "korvattiin %d"
 msgstr[1] "Korvattiin %d"
 
-#: ../src/snr2.c:1385
+#: ../src/snr2.c:1378
 #, c-format
 msgid "Found %d matches"
 msgid_plural "Found %d matches"
@@ -2346,7 +2458,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr2.c:1406
+#: ../src/snr2.c:1399
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
 "span>"
@@ -2354,169 +2466,193 @@ msgstr ""
 "<span foreground=\"red\" weight=\"bold\">Kaikkia dokumentteja ei ole vielä "
 "ladattu</span>"
 
-#: ../src/snr2.c:1531
+#: ../src/snr2.c:1524
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">No selection. Please select a block "
 "of text first.</span>"
 msgstr ""
 
-#: ../src/snr2.c:1570 ../src/snr2.c:1936
+#: ../src/snr2.c:1563 ../src/snr2.c:1929
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
 "will continue at the beginning.</span>"
 msgstr ""
 
-#: ../src/snr2.c:1647
+#: ../src/snr2.c:1640
 #, fuzzy
 msgid "Entire document"
 msgstr "D_okumentissa"
 
-#: ../src/snr2.c:1648
+#: ../src/snr2.c:1641
 msgid "Forward from cursor position"
 msgstr "Jatka kursorin sijainnista"
 
-#: ../src/snr2.c:1649
+#: ../src/snr2.c:1642
 #, fuzzy
 msgid "Selection"
 msgstr "Valinta"
 
-#: ../src/snr2.c:1650
+#: ../src/snr2.c:1643
 #, fuzzy
 msgid "All open files"
 msgstr "Kaikki avoimet tiedostot"
 
-#: ../src/snr2.c:1654 ../src/snr2.c:1661
+#: ../src/snr2.c:1647 ../src/snr2.c:1654
 msgid "Normal"
 msgstr "Normaali"
 
-#: ../src/snr2.c:1655
+#: ../src/snr2.c:1648
 msgid "Entire word only"
 msgstr ""
 
-#: ../src/snr2.c:1656
+#: ../src/snr2.c:1649
 #, fuzzy
 msgid "POSIX"
 msgstr "POSIX"
 
-#: ../src/snr2.c:1657
+#: ../src/snr2.c:1650
 #, fuzzy
 msgid "PERL"
 msgstr "PERL"
 
-#: ../src/snr2.c:1662
+#: ../src/snr2.c:1655
 msgid "Uppercase"
 msgstr "Isot kirjaimet"
 
-#: ../src/snr2.c:1663
+#: ../src/snr2.c:1656
 msgid "Lowercase"
 msgstr "Pienet kirjaimet"
 
-#: ../src/snr2.c:1701
+#: ../src/snr2.c:1694
 msgid "_Search for: "
 msgstr "_Hakusana: "
 
-#: ../src/snr2.c:1705
+#: ../src/snr2.c:1698
 msgid "The pattern to look for"
 msgstr ""
 
-#: ../src/snr2.c:1720
+#: ../src/snr2.c:1713
 msgid "Replace _with: "
 msgstr ""
 
-#: ../src/snr2.c:1724
+#: ../src/snr2.c:1717
 msgid "Replace matching text with"
 msgstr ""
 
-#: ../src/snr2.c:1732
+#: ../src/snr2.c:1725
 msgid "Sco_pe: "
 msgstr ""
 
-#: ../src/snr2.c:1736
+#: ../src/snr2.c:1729
 msgid "Where to look for the pattern."
 msgstr ""
 
-#: ../src/snr2.c:1742
+#: ../src/snr2.c:1735
 msgid "Found 0 matches, replaced 0"
 msgstr "0 osumaa, 0 korvattiin"
 
-#: ../src/snr2.c:1742
+#: ../src/snr2.c:1735
 msgid "Found 0 matches"
 msgstr "0 osumaa"
 
-#: ../src/snr2.c:1752
+#: ../src/snr2.c:1745
 #, fuzzy
 msgid "<b>_Options</b>"
 msgstr "<b>_Valinnat</b>"
 
-#: ../src/snr2.c:1767
+#: ../src/snr2.c:1760
 msgid "Match Patter_n: "
 msgstr ""
 
-#: ../src/snr2.c:1771
+#: ../src/snr2.c:1764
 msgid "How to interpret the pattern."
 msgstr ""
 
-#: ../src/snr2.c:1778
+#: ../src/snr2.c:1771
 #, fuzzy
 msgid "Replace T_ype: "
 msgstr "Korvauksen tyyppi: "
 
-#: ../src/snr2.c:1783
+#: ../src/snr2.c:1776
 msgid "What to replace with."
 msgstr ""
 
-#: ../src/snr2.c:1787
+#: ../src/snr2.c:1780
 #, fuzzy
 msgid "Allow o_verlapping matches"
 msgstr "Limittäin olevat haut"
 
-#: ../src/snr2.c:1790
+#: ../src/snr2.c:1783
 msgid "After a match is found, start next search within that match."
 msgstr ""
 
-#: ../src/snr2.c:1792
+#: ../src/snr2.c:1785
 #, fuzzy
 msgid "Case sensitive _matching"
 msgstr "Kirjainkoolla on väliä"
 
-#: ../src/snr2.c:1795
+#: ../src/snr2.c:1788
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Huomioi isot ja pienet kirjaimet."
 
-#: ../src/snr2.c:1797
+#: ../src/snr2.c:1790
 msgid "_Use escape chars"
 msgstr ""
 
-#: ../src/snr2.c:1800
+#: ../src/snr2.c:1793
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr ""
 
-#: ../src/snr2.c:1802
+#: ../src/snr2.c:1795
 #, fuzzy
 msgid "_Select matches"
 msgstr "Valitse tiedostoja"
 
-#: ../src/snr2.c:1805
+#: ../src/snr2.c:1798
 msgid "Select the matching text instead of just highlighting it"
 msgstr ""
 
-#: ../src/snr2.c:1807
+#: ../src/snr2.c:1800
 msgid "_Bookmark matches"
 msgstr ""
 
-#: ../src/snr2.c:1809
+#: ../src/snr2.c:1802
 msgid "Create a bookmark for each match"
 msgstr ""
 
-#: ../src/snr2.c:1814
+#: ../src/snr2.c:1807
 #, fuzzy
 msgid "Replace _All"
 msgstr "Korvaa k_aikki"
 
-#: ../src/snr2.c:1820
+#: ../src/snr2.c:1810
+msgid "_Replace"
+msgstr "_Korvaa"
+
+#: ../src/snr2.c:1813
 #, fuzzy
 msgid "Find _All"
 msgstr "Etsi"
+
+#: ../src/snr2.c:2415
+msgid "Lines into columns"
+msgstr ""
+
+#: ../src/snr2.c:2427
+msgid "Number of columns"
+msgstr ""
+
+#: ../src/snr2.c:2430
+msgid "Spread lines horizontally"
+msgstr ""
+
+#: ../src/snr2.c:2431
+msgid "Column separator"
+msgstr ""
+
+#: ../src/snr2.c:2433
+msgid "Fill empty entries"
+msgstr ""
 
 #: ../src/undo_redo.c:463
 msgid "Undo in _all documents"
@@ -2534,6 +2670,124 @@ msgstr ""
 msgid "This change concerns multiple documents."
 msgstr ""
 
+#~ msgid ""
+#~ "Bluefish has trouble reading the filenames. Try to set the environment "
+#~ "variable G_BROKEN_FILENAMES=1\n"
+#~ msgstr ""
+#~ "Bluefish ei voi ongelmitta lukea tiedostonimiä. Yritä asettaa ympäristö- "
+#~ "muuttuja G_BROKEN_FILENAMES=1\n"
+
+#~ msgid "Check Spelling"
+#~ msgstr "Tarkista kieliasu"
+
+#~ msgid "Checking"
+#~ msgstr "Tarkistetaan"
+
+#~ msgid "_Misspelled word:"
+#~ msgstr "_Väärinkirjoitettu sana:"
+
+#~ msgid "Change _to:"
+#~ msgstr "Vaihda _tähän:"
+
+#~ msgid "I_gnore"
+#~ msgstr "_Ohita"
+
+#~ msgid "In _document"
+#~ msgstr "D_okumentissa"
+
+#~ msgid "I_n selection"
+#~ msgstr "V_alitussa alueessa"
+
+#~ msgid "personal dictionary"
+#~ msgstr "henkilökohtainen sanakirja"
+
+#~ msgid "session dictionary"
+#~ msgstr "istunnon sanakirja"
+
+#~ msgid "Dictionary:"
+#~ msgstr "Sanakirja:"
+
+#, fuzzy
+#~ msgid "_Add Word"
+#~ msgstr "_Lisää sana"
+
+#~ msgid "Language:"
+#~ msgstr "Kieli:"
+
+#~ msgid "Set defa_ult"
+#~ msgstr "_Aseta oletus"
+
+#~ msgid "Filter:"
+#~ msgstr "Suodin:"
+
+#~ msgid "no filter"
+#~ msgstr "ei suodatusta"
+
+#~ msgid "html filter"
+#~ msgstr "html-suodatus"
+
+#~ msgid "PROJECTFILE"
+#~ msgstr "PROJEKTITIEDOSTO"
+
+#, fuzzy
+#~ msgid "setting up bookmarks ..."
+#~ msgstr "säädetään kirjanmerkkejä..."
+
+#~ msgid "/Edit/Replace special"
+#~ msgstr "/Muokkaa/Korvaa erityisesti"
+
+#~ msgid "/Edit/Save Sett_ings"
+#~ msgstr "/Muokkaa/T_allenna asetukset"
+
+#~ msgid "/Document/_Update Highlighting"
+#~ msgstr "/Dokumentti/P_äivitä korostus"
+
+#~ msgid "/Tools/Check _Spelling..."
+#~ msgstr "/Dokumentti/Tarkista _oikeinkirjoitus..."
+
+#~ msgid "/Windows"
+#~ msgstr "/Ikkunat"
+
+#~ msgid "/Tools/Outputbox/"
+#~ msgstr "/Ulkopuolinen/Tulostelaatikko/"
+
+#~ msgid "/Tools/Commands/"
+#~ msgstr "/Ulkopuolinen/Komennot/"
+
+#, fuzzy
+#~ msgid "/Tools/Filters/"
+#~ msgstr "/Ulkopuolinen/Selaimet/"
+
+#~ msgid "/External"
+#~ msgstr "/Ulkopuolinen"
+
+#, fuzzy
+#~ msgid "Editor defaults"
+#~ msgstr "_Aseta oletus"
+
+#, fuzzy
+#~ msgid "Default values"
+#~ msgstr "Oletusselain"
+
+#, fuzzy
+#~ msgid "Highlight syntax"
+#~ msgstr "Korostussyntaksi oletuksena"
+
+#, fuzzy
+#~ msgid "Automatically close tags"
+#~ msgstr "Päivitä automaatisesti tekijä-meta"
+
+#~ msgid "Backup"
+#~ msgstr "Varmuuskopio"
+
+#, fuzzy
+#~ msgid "File and directory view"
+#~ msgstr "Tiedosto- ja hakemistonäkymä"
+
+#, fuzzy
+#~ msgid "Save current project?"
+#~ msgstr "Tallenetaanko nykyinen projeki?"
+
 #, fuzzy
 #~ msgid "Bluefish Project"
 #~ msgstr "Bluefish-projekti"
@@ -2549,12 +2803,6 @@ msgstr ""
 
 #~ msgid "/Document/Auto Close H_TML tags"
 #~ msgstr "/Dokumentti/Sulje HTML-tagit automaattisesti"
-
-#~ msgid "/Document/Document Ty_pe"
-#~ msgstr "/Dokumentti/Dokumentin t_yyppi"
-
-#~ msgid "/Document/Document Type"
-#~ msgstr "/Dokumentti/Dokumentin tyyppi"
 
 #~ msgid "Editor"
 #~ msgstr "Editori"
