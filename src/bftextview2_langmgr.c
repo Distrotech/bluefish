@@ -401,6 +401,7 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 					main_v->props.bflang_options = g_list_prepend(main_v->props.bflang_options,array_from_arglist(bflang->name,optionname,defaultval?"1":"0",NULL));
 					langmgr_insert_user_option(bflang->name,optionname,defaultval?"1":"0");
 				}
+				g_free(optionname);
 			}
 		} else if (xmlStrEqual(name,(xmlChar *)"highlight")) {
 			gchar *name=NULL, *style=NULL/*, *fgcolor=NULL, *bgcolor=NULL, *italic=NULL,*bold=NULL*/;
