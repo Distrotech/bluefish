@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-06-10 22:04+0200\n"
+"POT-Creation-Date: 2009-07-18 19:34-0700\n"
 "PO-Revision-Date: 2009-01-30 17:58+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
@@ -74,7 +74,7 @@ msgstr ""
 msgid "snippets"
 msgstr "スニペット"
 
-#: src/plugin_snippets/snippets_leaf_insert.c:93
+#: src/plugin_snippets/snippets_leaf_insert.c:101
 msgid "[cursor position or selection]"
 msgstr "[カーソル位置 または 選択範囲]"
 
@@ -183,34 +183,46 @@ msgstr "テキストの<i>前</i>"
 msgid "<i>After</i> text"
 msgstr "文字列<i>の後</i>"
 
-#: src/plugin_snippets/snippets_wizard.c:470
+#: src/plugin_snippets/snippets_wizard.c:363
+msgid "Number"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:365
+msgid "Name"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:367
+msgid "Is file path"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:489
 msgid "Enter the name of the branch:"
 msgstr "ブランチの名前を入力:"
 
-#: src/plugin_snippets/snippets_wizard.c:553
+#: src/plugin_snippets/snippets_wizard.c:572
 msgid "Name of the new item:"
 msgstr "新しい項目の名前:"
 
-#: src/plugin_snippets/snippets_wizard.c:558
+#: src/plugin_snippets/snippets_wizard.c:577
 msgid "Description:"
 msgstr "説明:"
 
-#: src/plugin_snippets/snippets_wizard.c:608
+#: src/plugin_snippets/snippets_wizard.c:627
 msgid "Select what you want to add"
 msgstr "追加したいものを選択"
 
-#: src/plugin_snippets/snippets_wizard.c:610
+#: src/plugin_snippets/snippets_wizard.c:629
 msgid "Branch"
 msgstr "ブランチ"
 
-#: src/plugin_snippets/snippets_wizard.c:612
+#: src/plugin_snippets/snippets_wizard.c:631
 msgid "Insert string"
 msgstr "文字列を挿入"
 
-#: src/plugin_snippets/snippets_wizard.c:614
+#: src/plugin_snippets/snippets_wizard.c:633
 msgid "Search and replace pattern"
 msgstr "文字列の検索と置換"
 
-#: src/plugin_snippets/snippets_wizard.c:721
+#: src/plugin_snippets/snippets_wizard.c:740
 msgid "New snippet"
 msgstr "新規スニペット"
