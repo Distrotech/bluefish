@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-20 21:46-0800\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2009-07-23 18:41-0700\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Unknown <unk@unk.org>\n"
 "Language-Team: no team <LL@li.org>\n"
@@ -15,2251 +15,2384 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../html2.c:558
-msgid "Cascading StyleSheet dialog"
+#. _DM_ Alert box asking if user would like to change request from add to
+#. * update.
+#.
+#: src/plugin_htmlbar/html2.c:501
+#, fuzzy
+msgid "_Update"
+msgstr " Actualizeaza "
+
+#: src/plugin_htmlbar/html2.c:506
+#, c-format
+msgid "The %s %s property already exists.\n"
 msgstr ""
 
-#: ../html2.c:578
+#: src/plugin_htmlbar/html2.c:508
+#, c-format
+msgid "The %s property already exists.\n"
+msgstr ""
+
+#: src/plugin_htmlbar/html2.c:511
+#, c-format
+msgid "Update it's value from %s to %s?"
+msgstr ""
+
+#: src/plugin_htmlbar/html2.c:637
+msgid "Cascading Style Sheet Builder"
+msgstr ""
+
+#: src/plugin_htmlbar/html2.c:657
 #, fuzzy
 msgid "_Selector:"
 msgstr "Selectie"
 
-#: ../html2.c:597
+#: src/plugin_htmlbar/html2.c:676
 #, fuzzy
 msgid "_Property:"
 msgstr "/_Proiect"
 
-#: ../html2.c:599 ../html_form.c:650 ../html_form.c:799 ../html_form.c:894
+#: src/plugin_htmlbar/html2.c:678 src/plugin_htmlbar/html_form.c:650
+#: src/plugin_htmlbar/html_form.c:799 src/plugin_htmlbar/html_form.c:894
 #, fuzzy
 msgid "_Value:"
 msgstr "Valoare"
 
-#: ../html2.c:617
+#: src/plugin_htmlbar/html2.c:696
 #, fuzzy
 msgid "Selector"
 msgstr "Selectie"
 
-#: ../html2.c:617 ../html2.c:620
+#: src/plugin_htmlbar/html2.c:696 src/plugin_htmlbar/html2.c:699
 #, fuzzy
 msgid "Property"
 msgstr "/_Proiect"
 
-#: ../html2.c:617 ../html2.c:620
+#: src/plugin_htmlbar/html2.c:696 src/plugin_htmlbar/html2.c:699
 msgid "Value"
 msgstr "Valoare"
 
-#: ../html2.c:635
+#: src/plugin_htmlbar/html2.c:714
 #, fuzzy
 msgid " _Add "
 msgstr " Adauga "
 
-#: ../html2.c:638
+#: src/plugin_htmlbar/html2.c:717
 #, fuzzy
 msgid " _Update "
 msgstr " Actualizeaza "
 
-#: ../html2.c:641
+#: src/plugin_htmlbar/html2.c:720
 #, fuzzy
 msgid " _Delete "
 msgstr " Sterge "
 
-#: ../html2.c:897 ../html2.c:934
+#: src/plugin_htmlbar/html2.c:973 src/plugin_htmlbar/html2.c:1010
 #, fuzzy
 msgid "_Style..."
 msgstr "Stil"
 
-#: ../html2.c:1091
+#: src/plugin_htmlbar/html2.c:1167
 #, fuzzy
 msgid "Bluefish: Select color"
 msgstr "Selectati culoarea"
 
-#: ../htmlbar.c:36
+#: src/plugin_htmlbar/htmlbar.c:36
 #, fuzzy
 msgid "Edit color"
 msgstr "Editor"
 
-#: ../htmlbar.c:44
+#: src/plugin_htmlbar/htmlbar.c:44
 #, fuzzy
 msgid "Edit tag"
 msgstr "Editeaza tintele"
 
-#: ../htmlbar_gui.c:202
-msgid "/_Tags"
+#: src/plugin_htmlbar/htmlbar_gui.c:204
+msgid "/T_ags"
 msgstr ""
 
-#: ../htmlbar_gui.c:204
+#: src/plugin_htmlbar/htmlbar_gui.c:206
 #, fuzzy
 msgid "/Tags/_Headings"
 msgstr "Aliniat 1"
 
-#: ../htmlbar_gui.c:206
+#: src/plugin_htmlbar/htmlbar_gui.c:208
 #, fuzzy
 msgid "/Tags/Headings/H_1"
 msgstr "Aliniat 1"
 
-#: ../htmlbar_gui.c:207
+#: src/plugin_htmlbar/htmlbar_gui.c:209
 #, fuzzy
 msgid "/Tags/Headings/H_2"
 msgstr "Aliniat 1"
 
-#: ../htmlbar_gui.c:208
+#: src/plugin_htmlbar/htmlbar_gui.c:210
 #, fuzzy
 msgid "/Tags/Headings/H_3"
 msgstr "Aliniat 1"
 
-#: ../htmlbar_gui.c:209
+#: src/plugin_htmlbar/htmlbar_gui.c:211
 #, fuzzy
 msgid "/Tags/Headings/H_4"
 msgstr "Aliniat 1"
 
-#: ../htmlbar_gui.c:210
+#: src/plugin_htmlbar/htmlbar_gui.c:212
 #, fuzzy
 msgid "/Tags/Headings/H_5"
 msgstr "Aliniat 1"
 
-#: ../htmlbar_gui.c:211
+#: src/plugin_htmlbar/htmlbar_gui.c:213
 #, fuzzy
 msgid "/Tags/Headings/H_6"
 msgstr "Aliniat 1"
 
-#: ../htmlbar_gui.c:212
+#: src/plugin_htmlbar/htmlbar_gui.c:214
 #, fuzzy
 msgid "/Tags/_Special"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:214
+#: src/plugin_htmlbar/htmlbar_gui.c:216
 #, fuzzy
 msgid "/Tags/Special/_Accent"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:216
+#: src/plugin_htmlbar/htmlbar_gui.c:218
 #, fuzzy
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:217
+#: src/plugin_htmlbar/htmlbar_gui.c:219
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr ""
 
-#: ../htmlbar_gui.c:219
+#: src/plugin_htmlbar/htmlbar_gui.c:221
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:220
+#: src/plugin_htmlbar/htmlbar_gui.c:222
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:221
+#: src/plugin_htmlbar/htmlbar_gui.c:223
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:222
+#: src/plugin_htmlbar/htmlbar_gui.c:224
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:223
+#: src/plugin_htmlbar/htmlbar_gui.c:225
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:224
+#: src/plugin_htmlbar/htmlbar_gui.c:226
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:225
+#: src/plugin_htmlbar/htmlbar_gui.c:227
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:226
+#: src/plugin_htmlbar/htmlbar_gui.c:228
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:227
+#: src/plugin_htmlbar/htmlbar_gui.c:229
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:228
+#: src/plugin_htmlbar/htmlbar_gui.c:230
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:229
+#: src/plugin_htmlbar/htmlbar_gui.c:231
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:230
+#: src/plugin_htmlbar/htmlbar_gui.c:232
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:231
+#: src/plugin_htmlbar/htmlbar_gui.c:233
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:232
+#: src/plugin_htmlbar/htmlbar_gui.c:234
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:233
+#: src/plugin_htmlbar/htmlbar_gui.c:235
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:234
+#: src/plugin_htmlbar/htmlbar_gui.c:236
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:235
+#: src/plugin_htmlbar/htmlbar_gui.c:237
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr ""
 
-#: ../htmlbar_gui.c:237
+#: src/plugin_htmlbar/htmlbar_gui.c:239
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:238
+#: src/plugin_htmlbar/htmlbar_gui.c:240
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:239
+#: src/plugin_htmlbar/htmlbar_gui.c:241
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:240
+#: src/plugin_htmlbar/htmlbar_gui.c:242
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:241
+#: src/plugin_htmlbar/htmlbar_gui.c:243
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:242
+#: src/plugin_htmlbar/htmlbar_gui.c:244
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:243
+#: src/plugin_htmlbar/htmlbar_gui.c:245
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:244
+#: src/plugin_htmlbar/htmlbar_gui.c:246
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:245
+#: src/plugin_htmlbar/htmlbar_gui.c:247
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:246
+#: src/plugin_htmlbar/htmlbar_gui.c:248
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:247
+#: src/plugin_htmlbar/htmlbar_gui.c:249
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:248
+#: src/plugin_htmlbar/htmlbar_gui.c:250
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:249
+#: src/plugin_htmlbar/htmlbar_gui.c:251
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:250
+#: src/plugin_htmlbar/htmlbar_gui.c:252
 #, fuzzy
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:251
+#: src/plugin_htmlbar/htmlbar_gui.c:253
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr ""
 
-#: ../htmlbar_gui.c:253
+#: src/plugin_htmlbar/htmlbar_gui.c:255
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:254
+#: src/plugin_htmlbar/htmlbar_gui.c:256
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:255
+#: src/plugin_htmlbar/htmlbar_gui.c:257
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:256
+#: src/plugin_htmlbar/htmlbar_gui.c:258
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:257
+#: src/plugin_htmlbar/htmlbar_gui.c:259
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:258
+#: src/plugin_htmlbar/htmlbar_gui.c:260
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:259
+#: src/plugin_htmlbar/htmlbar_gui.c:261
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:260
+#: src/plugin_htmlbar/htmlbar_gui.c:262
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:261
+#: src/plugin_htmlbar/htmlbar_gui.c:263
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:262
+#: src/plugin_htmlbar/htmlbar_gui.c:264
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:263
+#: src/plugin_htmlbar/htmlbar_gui.c:265
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:264
+#: src/plugin_htmlbar/htmlbar_gui.c:266
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:265
+#: src/plugin_htmlbar/htmlbar_gui.c:267
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:266
+#: src/plugin_htmlbar/htmlbar_gui.c:268
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:267
+#: src/plugin_htmlbar/htmlbar_gui.c:269
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:268
+#: src/plugin_htmlbar/htmlbar_gui.c:270
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:269
+#: src/plugin_htmlbar/htmlbar_gui.c:271
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr ""
 
-#: ../htmlbar_gui.c:271
+#: src/plugin_htmlbar/htmlbar_gui.c:273
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:272
+#: src/plugin_htmlbar/htmlbar_gui.c:274
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:273
+#: src/plugin_htmlbar/htmlbar_gui.c:275
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:274
+#: src/plugin_htmlbar/htmlbar_gui.c:276
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:275
+#: src/plugin_htmlbar/htmlbar_gui.c:277
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:276
+#: src/plugin_htmlbar/htmlbar_gui.c:278
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:277
+#: src/plugin_htmlbar/htmlbar_gui.c:279
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:278
+#: src/plugin_htmlbar/htmlbar_gui.c:280
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:279
+#: src/plugin_htmlbar/htmlbar_gui.c:281
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:280
+#: src/plugin_htmlbar/htmlbar_gui.c:282
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:281
+#: src/plugin_htmlbar/htmlbar_gui.c:283
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:282
+#: src/plugin_htmlbar/htmlbar_gui.c:284
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:283
+#: src/plugin_htmlbar/htmlbar_gui.c:285
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:284
+#: src/plugin_htmlbar/htmlbar_gui.c:286
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:286
+#: src/plugin_htmlbar/htmlbar_gui.c:288
 #, fuzzy
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:287
+#: src/plugin_htmlbar/htmlbar_gui.c:289
 #, fuzzy
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:288
+#: src/plugin_htmlbar/htmlbar_gui.c:290
 #, fuzzy
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:289
+#: src/plugin_htmlbar/htmlbar_gui.c:291
 #, fuzzy
 msgid "/Tags/Special/_Currency"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:291
+#: src/plugin_htmlbar/htmlbar_gui.c:293
 #, fuzzy
 msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:292
+#: src/plugin_htmlbar/htmlbar_gui.c:294
 #, fuzzy
 msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:293
+#: src/plugin_htmlbar/htmlbar_gui.c:295
 #, fuzzy
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:294
+#: src/plugin_htmlbar/htmlbar_gui.c:296
 #, fuzzy
 msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:295
+#: src/plugin_htmlbar/htmlbar_gui.c:297
 #, fuzzy
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:296
+#: src/plugin_htmlbar/htmlbar_gui.c:298
 #, fuzzy
 msgid "/Tags/Special/_Math-Science"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:298
+#: src/plugin_htmlbar/htmlbar_gui.c:300
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:299
+#: src/plugin_htmlbar/htmlbar_gui.c:301
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:300
+#: src/plugin_htmlbar/htmlbar_gui.c:302
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:301
+#: src/plugin_htmlbar/htmlbar_gui.c:303
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:302
+#: src/plugin_htmlbar/htmlbar_gui.c:304
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:303
+#: src/plugin_htmlbar/htmlbar_gui.c:305
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:304
+#: src/plugin_htmlbar/htmlbar_gui.c:306
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:305
+#: src/plugin_htmlbar/htmlbar_gui.c:307
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:306
+#: src/plugin_htmlbar/htmlbar_gui.c:308
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:307
+#: src/plugin_htmlbar/htmlbar_gui.c:309
 #, fuzzy
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:308
+#: src/plugin_htmlbar/htmlbar_gui.c:310
 #, fuzzy
 msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:309
+#: src/plugin_htmlbar/htmlbar_gui.c:311
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:310
+#: src/plugin_htmlbar/htmlbar_gui.c:312
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:311
+#: src/plugin_htmlbar/htmlbar_gui.c:313
 #, fuzzy
 msgid "/Tags/Special/_Non Latin"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:313
+#: src/plugin_htmlbar/htmlbar_gui.c:315
 #, fuzzy
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:314
+#: src/plugin_htmlbar/htmlbar_gui.c:316
 #, fuzzy
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:315
+#: src/plugin_htmlbar/htmlbar_gui.c:317
 #, fuzzy
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:316
+#: src/plugin_htmlbar/htmlbar_gui.c:318
 #, fuzzy
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:317
+#: src/plugin_htmlbar/htmlbar_gui.c:319
 #, fuzzy
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:318
+#: src/plugin_htmlbar/htmlbar_gui.c:320
 #, fuzzy
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:319
+#: src/plugin_htmlbar/htmlbar_gui.c:321
 #, fuzzy
 msgid "/Tags/Special/_Other"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:321
+#: src/plugin_htmlbar/htmlbar_gui.c:323
 #, fuzzy
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "Spatiu"
 
-#: ../htmlbar_gui.c:322
+#: src/plugin_htmlbar/htmlbar_gui.c:324
 #, fuzzy
 msgid "/Tags/Special/Other/_Section sign §"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:323
+#: src/plugin_htmlbar/htmlbar_gui.c:325
 #, fuzzy
 msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:324
+#: src/plugin_htmlbar/htmlbar_gui.c:326
 #, fuzzy
 msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:325
+#: src/plugin_htmlbar/htmlbar_gui.c:327
 #, fuzzy
 msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:326
+#: src/plugin_htmlbar/htmlbar_gui.c:328
 #, fuzzy
 msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:327
+#: src/plugin_htmlbar/htmlbar_gui.c:329
 #, fuzzy
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:328
+#: src/plugin_htmlbar/htmlbar_gui.c:330
 #, fuzzy
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:329
+#: src/plugin_htmlbar/htmlbar_gui.c:331
 #, fuzzy
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:330
+#: src/plugin_htmlbar/htmlbar_gui.c:332
 #, fuzzy
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:331
+#: src/plugin_htmlbar/htmlbar_gui.c:333
 #, fuzzy
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:332
+#: src/plugin_htmlbar/htmlbar_gui.c:334
 #, fuzzy
 msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:333
+#: src/plugin_htmlbar/htmlbar_gui.c:335
 #, fuzzy
-msgid "/Tags/Special/Other/Soft _hypen -"
+msgid "/Tags/Special/Other/Soft _hyphen -"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:334
+#: src/plugin_htmlbar/htmlbar_gui.c:336
 #, fuzzy
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:335
+#: src/plugin_htmlbar/htmlbar_gui.c:337
 #, fuzzy
 msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:336
+#: src/plugin_htmlbar/htmlbar_gui.c:338
 #, fuzzy
 msgid "/Tags/_Format by layout"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:338
+#: src/plugin_htmlbar/htmlbar_gui.c:340
 msgid "/Tags/Format by layout/_Bold"
 msgstr ""
 
-#: ../htmlbar_gui.c:339
+#: src/plugin_htmlbar/htmlbar_gui.c:341
 msgid "/Tags/Format by layout/_Italic"
 msgstr ""
 
-#: ../htmlbar_gui.c:340
+#: src/plugin_htmlbar/htmlbar_gui.c:342
 msgid "/Tags/Format by layout/_Underline"
 msgstr ""
 
-#: ../htmlbar_gui.c:341
+#: src/plugin_htmlbar/htmlbar_gui.c:343
 msgid "/Tags/Format by layout/_Strikeout"
 msgstr ""
 
-#: ../htmlbar_gui.c:342
+#: src/plugin_htmlbar/htmlbar_gui.c:344
 #, fuzzy
 msgid "/Tags/Format by layout/Sm_all"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:343
+#: src/plugin_htmlbar/htmlbar_gui.c:345
 #, fuzzy
 msgid "/Tags/Format by layout/Bi_g"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:344
+#: src/plugin_htmlbar/htmlbar_gui.c:346
 #, fuzzy
 msgid "/Tags/F_ormat by context"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:346
+#: src/plugin_htmlbar/htmlbar_gui.c:348
 #, fuzzy
 msgid "/Tags/Format by context/_Strong"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:347
+#: src/plugin_htmlbar/htmlbar_gui.c:349
 msgid "/Tags/Format by context/_Emphasis"
 msgstr ""
 
-#: ../htmlbar_gui.c:348
+#: src/plugin_htmlbar/htmlbar_gui.c:350
 msgid "/Tags/Format by context/_Define"
 msgstr ""
 
-#: ../htmlbar_gui.c:349
+#: src/plugin_htmlbar/htmlbar_gui.c:351
 msgid "/Tags/Format by context/_Code"
 msgstr ""
 
-#: ../htmlbar_gui.c:350
+#: src/plugin_htmlbar/htmlbar_gui.c:352
 msgid "/Tags/Format by context/Sa_mple"
 msgstr ""
 
-#: ../htmlbar_gui.c:351
+#: src/plugin_htmlbar/htmlbar_gui.c:353
 #, fuzzy
 msgid "/Tags/Format by context/_Keyboard"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:352
+#: src/plugin_htmlbar/htmlbar_gui.c:354
 #, fuzzy
 msgid "/Tags/Format by context/_Variable"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:353
+#: src/plugin_htmlbar/htmlbar_gui.c:355
 #, fuzzy
 msgid "/Tags/Format by context/Ci_tation"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:354
+#: src/plugin_htmlbar/htmlbar_gui.c:356
 msgid "/Tags/Format by context/_Abbreviation"
 msgstr ""
 
-#: ../htmlbar_gui.c:355
+#: src/plugin_htmlbar/htmlbar_gui.c:357
 msgid "/Tags/Format by context/Ac_ronym"
 msgstr ""
 
-#: ../htmlbar_gui.c:356
+#: src/plugin_htmlbar/htmlbar_gui.c:358
 #, fuzzy
 msgid "/Tags/Format _general"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:358
+#: src/plugin_htmlbar/htmlbar_gui.c:360
 #, fuzzy
 msgid "/Tags/Format general/_Paragraph"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:359
+#: src/plugin_htmlbar/htmlbar_gui.c:361
 #, fuzzy
 msgid "/Tags/Format general/_Break"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:360
+#: src/plugin_htmlbar/htmlbar_gui.c:362
 #, fuzzy
 msgid "/Tags/Format general/Break clear _all"
 msgstr "Spatiu"
 
-#: ../htmlbar_gui.c:361
+#: src/plugin_htmlbar/htmlbar_gui.c:363
 #, fuzzy
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "Spatiu"
 
-#: ../htmlbar_gui.c:363
+#: src/plugin_htmlbar/htmlbar_gui.c:365
 #, fuzzy
 msgid "/Tags/Format general/Font Si_ze +1"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:364
+#: src/plugin_htmlbar/htmlbar_gui.c:366
 #, fuzzy
 msgid "/Tags/Format general/Font _Size -1"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:366
+#: src/plugin_htmlbar/htmlbar_gui.c:368
 #, fuzzy
 msgid "/Tags/Format general/Preformatted _Text"
 msgstr "Text preformatat"
 
-#: ../htmlbar_gui.c:367
+#: src/plugin_htmlbar/htmlbar_gui.c:369
 #, fuzzy
 msgid "/Tags/Format general/Su_bscript"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:368
+#: src/plugin_htmlbar/htmlbar_gui.c:370
 #, fuzzy
 msgid "/Tags/Format general/Su_perscript"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:370
+#: src/plugin_htmlbar/htmlbar_gui.c:372
 #, fuzzy
 msgid "/Tags/Format general/_Center"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:371
+#: src/plugin_htmlbar/htmlbar_gui.c:373
 #, fuzzy
 msgid "/Tags/Format general/Align _right"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:372
+#: src/plugin_htmlbar/htmlbar_gui.c:374
 msgid "/Tags/_Table"
 msgstr ""
 
-#: ../htmlbar_gui.c:374
+#: src/plugin_htmlbar/htmlbar_gui.c:376
 msgid "/Tags/Table/_Table"
 msgstr ""
 
-#: ../htmlbar_gui.c:375
+#: src/plugin_htmlbar/htmlbar_gui.c:377
 #, fuzzy
 msgid "/Tags/Table/Table _Row"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:376
+#: src/plugin_htmlbar/htmlbar_gui.c:378
 #, fuzzy
 msgid "/Tags/Table/Table _Header"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:377
+#: src/plugin_htmlbar/htmlbar_gui.c:379
 #, fuzzy
 msgid "/Tags/Table/Table _Data"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:378
+#: src/plugin_htmlbar/htmlbar_gui.c:380
 #, fuzzy
 msgid "/Tags/Table/Table _Caption"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:379
+#: src/plugin_htmlbar/htmlbar_gui.c:381
 #, fuzzy
 msgid "/Tags/_List"
 msgstr " Liste "
 
-#: ../htmlbar_gui.c:381
+#: src/plugin_htmlbar/htmlbar_gui.c:383
 #, fuzzy
 msgid "/Tags/List/Unordered _List"
 msgstr "Lista neordonata"
 
-#: ../htmlbar_gui.c:382
+#: src/plugin_htmlbar/htmlbar_gui.c:384
 #, fuzzy
 msgid "/Tags/List/_Ordered List"
 msgstr "Lista ordonata"
 
-#: ../htmlbar_gui.c:383
+#: src/plugin_htmlbar/htmlbar_gui.c:385
 #, fuzzy
 msgid "/Tags/List/List Ite_m"
 msgstr "Termen definitie"
 
-#: ../htmlbar_gui.c:384
+#: src/plugin_htmlbar/htmlbar_gui.c:386
 #, fuzzy
 msgid "/Tags/List/De_finition List"
 msgstr "Lista definitii"
 
-#: ../htmlbar_gui.c:385
+#: src/plugin_htmlbar/htmlbar_gui.c:387
 #, fuzzy
 msgid "/Tags/List/Definition _Term"
 msgstr "Termen definitie"
 
-#: ../htmlbar_gui.c:386
+#: src/plugin_htmlbar/htmlbar_gui.c:388
 #, fuzzy
 msgid "/Tags/List/_Definition"
 msgstr "Definitie"
 
-#: ../htmlbar_gui.c:387
+#: src/plugin_htmlbar/htmlbar_gui.c:389
 #, fuzzy
 msgid "/Tags/List/Men_u"
 msgstr " Liste "
 
-#: ../htmlbar_gui.c:388
+#: src/plugin_htmlbar/htmlbar_gui.c:390
 #, fuzzy
 msgid "/Tags/Fo_rm"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:390
+#: src/plugin_htmlbar/htmlbar_gui.c:392
 #, fuzzy
 msgid "/Tags/Form/_Form"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:391
+#: src/plugin_htmlbar/htmlbar_gui.c:393
 #, fuzzy
 msgid "/Tags/Form/_Button"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:392
+#: src/plugin_htmlbar/htmlbar_gui.c:394
 #, fuzzy
 msgid "/Tags/Form/_Input"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:393
+#: src/plugin_htmlbar/htmlbar_gui.c:395
 #, fuzzy
 msgid "/Tags/Form/_Textarea"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:394
+#: src/plugin_htmlbar/htmlbar_gui.c:396
 #, fuzzy
 msgid "/Tags/_Misc"
 msgstr " Liste "
 
-#: ../htmlbar_gui.c:396
+#: src/plugin_htmlbar/htmlbar_gui.c:398
 msgid "/Tags/Misc/Insert Generator _META-Tag"
 msgstr ""
 
-#: ../htmlbar_gui.c:397
+#: src/plugin_htmlbar/htmlbar_gui.c:399
 #, fuzzy
 msgid "/Tags/Misc/_Span"
 msgstr "Extern"
 
-#: ../htmlbar_gui.c:398
+#: src/plugin_htmlbar/htmlbar_gui.c:400
 #, fuzzy
 msgid "/Tags/Misc/_Div"
 msgstr "Definitie"
 
-#: ../htmlbar_gui.c:399
+#: src/plugin_htmlbar/htmlbar_gui.c:401
 #, fuzzy
 msgid "/Tags/Misc/_Link"
 msgstr " Liste "
 
-#: ../htmlbar_gui.c:400
+#: src/plugin_htmlbar/htmlbar_gui.c:402
 #, fuzzy
 msgid "/Tags/Misc/S_cript"
 msgstr " Liste "
 
-#: ../htmlbar_gui.c:401
+#: src/plugin_htmlbar/htmlbar_gui.c:403
 #, fuzzy
 msgid "/Tags/Misc/_Anchor"
 msgstr "Definitie"
 
-#: ../htmlbar_gui.c:402
+#: src/plugin_htmlbar/htmlbar_gui.c:404
 #, fuzzy
 msgid "/Tags/Misc/_Image"
 msgstr " Liste "
 
-#: ../htmlbar_gui.c:403
+#: src/plugin_htmlbar/htmlbar_gui.c:405
 #, fuzzy
 msgid "/Tags/_Comment"
 msgstr "Comentariu"
 
-#: ../htmlbar_gui.c:404
+#: src/plugin_htmlbar/htmlbar_gui.c:406
 #, fuzzy
-msgid "/Dial_ogs"
+msgid "/D_ialogs"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:406
+#: src/plugin_htmlbar/htmlbar_gui.c:408
 #, fuzzy
 msgid "/Dialogs/_General"
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:408
+#: src/plugin_htmlbar/htmlbar_gui.c:410
 #, fuzzy
 msgid "/Dialogs/General/_Quickstart..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:409
+#: src/plugin_htmlbar/htmlbar_gui.c:411
 #, fuzzy
 msgid "/Dialogs/General/_Link Header..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:410
+#: src/plugin_htmlbar/htmlbar_gui.c:412
 #, fuzzy
 msgid "/Dialogs/General/_Body..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:411
+#: src/plugin_htmlbar/htmlbar_gui.c:413
 #, fuzzy
 msgid "/Dialogs/General/_Anchor..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:412
+#: src/plugin_htmlbar/htmlbar_gui.c:414
 #, fuzzy
 msgid "/Dialogs/General/_Email..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:413
+#: src/plugin_htmlbar/htmlbar_gui.c:415
 #, fuzzy
 msgid "/Dialogs/General/_Rule..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:414
+#: src/plugin_htmlbar/htmlbar_gui.c:416
 #, fuzzy
 msgid "/Dialogs/General/_Font..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:415
+#: src/plugin_htmlbar/htmlbar_gui.c:417
 #, fuzzy
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:416
+#: src/plugin_htmlbar/htmlbar_gui.c:418
 #, fuzzy
 msgid "/Dialogs/General/Quick_list..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:417
+#: src/plugin_htmlbar/htmlbar_gui.c:419
 #, fuzzy
 msgid "/Dialogs/General/_Meta..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:418
+#: src/plugin_htmlbar/htmlbar_gui.c:420
 #, fuzzy
 msgid "/Dialogs/General/Embe_d..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:419
+#: src/plugin_htmlbar/htmlbar_gui.c:421
 #, fuzzy
 msgid "/Dialogs/General/Select _Color..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:420
+#: src/plugin_htmlbar/htmlbar_gui.c:422
 #, fuzzy
 msgid "/Dialogs/General/Insert _Time..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:421
+#: src/plugin_htmlbar/htmlbar_gui.c:423
 #, fuzzy
 msgid "/Dialogs/General/Insert _Image..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:422
+#: src/plugin_htmlbar/htmlbar_gui.c:424
 #, fuzzy
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "Selecteaza culoare..."
 
-#: ../htmlbar_gui.c:423
+#: src/plugin_htmlbar/htmlbar_gui.c:425
 #, fuzzy
 msgid "/Dialogs/_Table"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:425
+#: src/plugin_htmlbar/htmlbar_gui.c:427
 #, fuzzy
 msgid "/Dialogs/Table/Table _Wizard..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:426
+#: src/plugin_htmlbar/htmlbar_gui.c:428
 #, fuzzy
 msgid "/Dialogs/Table/_Table..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:427
+#: src/plugin_htmlbar/htmlbar_gui.c:429
 #, fuzzy
 msgid "/Dialogs/Table/Table _Row..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:428
+#: src/plugin_htmlbar/htmlbar_gui.c:430
 #, fuzzy
 msgid "/Dialogs/Table/Table _Head..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:429
+#: src/plugin_htmlbar/htmlbar_gui.c:431
 #, fuzzy
 msgid "/Dialogs/Table/Table _Data..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:430
+#: src/plugin_htmlbar/htmlbar_gui.c:432
 #, fuzzy
 msgid "/Dialogs/_CSS"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:432
+#: src/plugin_htmlbar/htmlbar_gui.c:434
 #, fuzzy
 msgid "/Dialogs/CSS/_Create Style..."
 msgstr "Introdu stil in stylesheet..."
 
-#: ../htmlbar_gui.c:433
+#: src/plugin_htmlbar/htmlbar_gui.c:435
 #, fuzzy
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:434
+#: src/plugin_htmlbar/htmlbar_gui.c:436
 #, fuzzy
 msgid "/Dialogs/CSS/_Div..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:435
+#: src/plugin_htmlbar/htmlbar_gui.c:437
 #, fuzzy
 msgid "/Dialogs/CSS/_Style..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:436
+#: src/plugin_htmlbar/htmlbar_gui.c:438
 #, fuzzy
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
 msgstr "Link la stylesheet"
 
-#: ../htmlbar_gui.c:437
+#: src/plugin_htmlbar/htmlbar_gui.c:439
 #, fuzzy
 msgid "/Dialogs/_Frame"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:439
+#: src/plugin_htmlbar/htmlbar_gui.c:441
 #, fuzzy
 msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:440
+#: src/plugin_htmlbar/htmlbar_gui.c:442
 #, fuzzy
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:441
+#: src/plugin_htmlbar/htmlbar_gui.c:443
 #, fuzzy
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:442
+#: src/plugin_htmlbar/htmlbar_gui.c:444
 #, fuzzy
 msgid "/Dialogs/F_orm"
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:444
+#: src/plugin_htmlbar/htmlbar_gui.c:446
 #, fuzzy
 msgid "/Dialogs/Form/F_orm..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:445
+#: src/plugin_htmlbar/htmlbar_gui.c:447
 #, fuzzy
 msgid "/Dialogs/Form/_Input..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:446
+#: src/plugin_htmlbar/htmlbar_gui.c:448
 #, fuzzy
 msgid "/Dialogs/Form/Input Buttons..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:447
+#: src/plugin_htmlbar/htmlbar_gui.c:449
 #, fuzzy
 msgid "/Dialogs/Form/Input Text..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:448
+#: src/plugin_htmlbar/htmlbar_gui.c:450
 #, fuzzy
 msgid "/Dialogs/Form/Text_area..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:449
+#: src/plugin_htmlbar/htmlbar_gui.c:451
 #, fuzzy
 msgid "/Dialogs/Form/_Select..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:450
+#: src/plugin_htmlbar/htmlbar_gui.c:452
 #, fuzzy
 msgid "/Dialogs/Form/O_ption..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:451
+#: src/plugin_htmlbar/htmlbar_gui.c:453
 #, fuzzy
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:452
+#: src/plugin_htmlbar/htmlbar_gui.c:454
 #, fuzzy
 msgid "/Dialogs/Form/_Button..."
 msgstr "Javascript"
 
-#: ../htmlbar_gui.c:454
+#: src/plugin_htmlbar/htmlbar_gui.c:456
 msgid "/Dialogs/_Edit tag under cursor..."
 msgstr ""
 
-#: ../htmlbar_gui.c:457
+#: src/plugin_htmlbar/htmlbar_gui.c:459
 #, fuzzy
 msgid "/View/View _HTML Toolbar"
 msgstr "Editeaza meniu"
 
-#: ../htmlbar_gui.c:731
+#: src/plugin_htmlbar/htmlbar_gui.c:734
 msgid "QuickStart..."
 msgstr "Start rapid..."
 
-#: ../htmlbar_gui.c:732
+#: src/plugin_htmlbar/htmlbar_gui.c:735
 msgid "Body..."
 msgstr "Body..."
 
-#: ../htmlbar_gui.c:733
+#: src/plugin_htmlbar/htmlbar_gui.c:736
 msgid "Bold"
 msgstr "Bold"
 
-#: ../htmlbar_gui.c:734
+#: src/plugin_htmlbar/htmlbar_gui.c:737
 msgid "Italic"
 msgstr "Italic"
 
-#: ../htmlbar_gui.c:735 ../html.c:781
+#: src/plugin_htmlbar/htmlbar_gui.c:738 src/plugin_htmlbar/html.c:909
 msgid "Paragraph"
 msgstr "Paragraf"
 
-#: ../htmlbar_gui.c:736
+#: src/plugin_htmlbar/htmlbar_gui.c:739
 msgid "Break"
 msgstr "Pauza"
 
-#: ../htmlbar_gui.c:737
+#: src/plugin_htmlbar/htmlbar_gui.c:740
 msgid "Break and clear"
 msgstr "Pauza si sterge"
 
-#: ../htmlbar_gui.c:738
+#: src/plugin_htmlbar/htmlbar_gui.c:741
 msgid "Non-breaking space"
 msgstr "Spatiu"
 
-#: ../htmlbar_gui.c:740
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:743
 msgid "Anchor..."
 msgstr "Ancora..."
 
-#: ../htmlbar_gui.c:741
+#: src/plugin_htmlbar/htmlbar_gui.c:744
 msgid "Rule..."
 msgstr "Linie..."
 
-#: ../htmlbar_gui.c:742
+#: src/plugin_htmlbar/htmlbar_gui.c:745
 msgid "Center"
 msgstr "Centrat"
 
-#: ../htmlbar_gui.c:743
+#: src/plugin_htmlbar/htmlbar_gui.c:746
 msgid "Right Justify"
 msgstr "Aliniat dreapta"
 
-#: ../htmlbar_gui.c:744
+#: src/plugin_htmlbar/htmlbar_gui.c:747
 msgid "Comment"
 msgstr "Comentariu"
 
-#: ../htmlbar_gui.c:745
+#: src/plugin_htmlbar/htmlbar_gui.c:748
 #, fuzzy
 msgid "E-mail..."
 msgstr "E-Mail..."
 
-#: ../htmlbar_gui.c:746
+#: src/plugin_htmlbar/htmlbar_gui.c:749
 msgid "Font..."
 msgstr "Font..."
 
-#: ../htmlbar_gui.c:747
+#: src/plugin_htmlbar/htmlbar_gui.c:750
 msgid "Base Font Size..."
 msgstr "Marimea de baza a fontului..."
 
-#: ../htmlbar_gui.c:749
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:752
 msgid "Font Size +1"
 msgstr "Marime font +1"
 
-#: ../htmlbar_gui.c:750
+#: src/plugin_htmlbar/htmlbar_gui.c:753
 msgid "Font Size -1"
 msgstr "Marime font -1"
 
-#: ../htmlbar_gui.c:751
+#: src/plugin_htmlbar/htmlbar_gui.c:754
 msgid "Preformatted Text"
 msgstr "Text preformatat"
 
-#: ../htmlbar_gui.c:752
+#: src/plugin_htmlbar/htmlbar_gui.c:755
 msgid "Subscript"
 msgstr "Indice"
 
-#: ../htmlbar_gui.c:753
+#: src/plugin_htmlbar/htmlbar_gui.c:756
 msgid "Superscript"
 msgstr "Superscript"
 
-#: ../htmlbar_gui.c:754
+#: src/plugin_htmlbar/htmlbar_gui.c:757
 msgid "Strong"
 msgstr "Puternic"
 
-#: ../htmlbar_gui.c:755
+#: src/plugin_htmlbar/htmlbar_gui.c:758
 msgid "Emphasis"
 msgstr "Cursiv"
 
-#: ../htmlbar_gui.c:757 ../html.c:790
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:918
 msgid "Heading 1"
 msgstr "Aliniat 1"
 
-#: ../htmlbar_gui.c:758 ../html.c:793
+#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:921
 msgid "Heading 2"
 msgstr "Aliniat 2"
 
-#: ../htmlbar_gui.c:759 ../html.c:796
+#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:924
 msgid "Heading 3"
 msgstr "Aliniat 3"
 
-#: ../htmlbar_gui.c:760 ../html.c:799
+#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:927
 msgid "Heading 4"
 msgstr "Aliniat 4"
 
-#: ../htmlbar_gui.c:761 ../html.c:802
+#: src/plugin_htmlbar/htmlbar_gui.c:764 src/plugin_htmlbar/html.c:930
 msgid "Heading 5"
 msgstr "Aliniat 5"
 
-#: ../htmlbar_gui.c:762 ../html.c:805
+#: src/plugin_htmlbar/htmlbar_gui.c:765 src/plugin_htmlbar/html.c:933
 msgid "Heading 6"
 msgstr "Aliniat 6"
 
-#: ../htmlbar_gui.c:763
+#: src/plugin_htmlbar/htmlbar_gui.c:766
 msgid "Table Wizard..."
 msgstr "Asistent tabel..."
 
-#: ../htmlbar_gui.c:765
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:768
 msgid "Table..."
 msgstr "Tabel..."
 
-#: ../htmlbar_gui.c:766
+#: src/plugin_htmlbar/htmlbar_gui.c:769
 msgid "Table Row..."
 msgstr "Linie tabel..."
 
-#: ../htmlbar_gui.c:767
+#: src/plugin_htmlbar/htmlbar_gui.c:770
 msgid "Table Header..."
 msgstr "Cap tabel..."
 
-#: ../htmlbar_gui.c:768
+#: src/plugin_htmlbar/htmlbar_gui.c:771
 msgid "Table Data..."
 msgstr "Date tabel..."
 
-#: ../htmlbar_gui.c:770 ../html_table.c:77
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:773 src/plugin_htmlbar/html_table.c:77
 msgid "Table"
 msgstr "Tabel"
 
-#: ../htmlbar_gui.c:771 ../html_table.c:209
+#: src/plugin_htmlbar/htmlbar_gui.c:774 src/plugin_htmlbar/html_table.c:209
 msgid "Table Row"
 msgstr "Linie tabel"
 
-#: ../htmlbar_gui.c:772 ../html_table.c:320
+#: src/plugin_htmlbar/htmlbar_gui.c:775 src/plugin_htmlbar/html_table.c:320
 msgid "Table Header"
 msgstr "Cap tabel"
 
-#: ../htmlbar_gui.c:773 ../html_table.c:318
+#: src/plugin_htmlbar/htmlbar_gui.c:776 src/plugin_htmlbar/html_table.c:318
 msgid "Table Data"
 msgstr "Date tabel"
 
-#: ../htmlbar_gui.c:774
+#: src/plugin_htmlbar/htmlbar_gui.c:777
 msgid "Table Caption"
 msgstr "Table Caption"
 
-#: ../htmlbar_gui.c:775
+#: src/plugin_htmlbar/htmlbar_gui.c:778
 msgid "Frame Wizard..."
 msgstr "Asistent Frame..."
 
-#: ../htmlbar_gui.c:777
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:780
 msgid "Frameset..."
 msgstr "Frameset..."
 
-#: ../htmlbar_gui.c:778
+#: src/plugin_htmlbar/htmlbar_gui.c:781
 msgid "Frame..."
 msgstr "Frame..."
 
-#: ../htmlbar_gui.c:780 ../html.c:1590
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:783 src/plugin_htmlbar/html.c:1697
 msgid "Frameset"
 msgstr "Frameset"
 
-#: ../htmlbar_gui.c:781 ../html.c:1674
+#: src/plugin_htmlbar/htmlbar_gui.c:784 src/plugin_htmlbar/html.c:1781
 msgid "Frame"
 msgstr "Frame"
 
-#: ../htmlbar_gui.c:782
+#: src/plugin_htmlbar/htmlbar_gui.c:785
 msgid "Noframes"
 msgstr "Fara frameuri"
 
-#: ../htmlbar_gui.c:783
+#: src/plugin_htmlbar/htmlbar_gui.c:786
 msgid "Target"
 msgstr "Tinta"
 
-#: ../htmlbar_gui.c:784
+#: src/plugin_htmlbar/htmlbar_gui.c:787
 msgid "Form..."
 msgstr "Formular..."
 
-#: ../htmlbar_gui.c:785
+#: src/plugin_htmlbar/htmlbar_gui.c:788
 #, fuzzy
 msgid "Input Button..."
 msgstr "Buton radio..."
 
-#: ../htmlbar_gui.c:786
+#: src/plugin_htmlbar/htmlbar_gui.c:789
 #, fuzzy
 msgid "Input Text..."
 msgstr "Buton radio..."
 
-#: ../htmlbar_gui.c:787
+#: src/plugin_htmlbar/htmlbar_gui.c:790
 #, fuzzy
 msgid "Input Hidden..."
 msgstr "Ascuns..."
 
-#: ../htmlbar_gui.c:788
+#: src/plugin_htmlbar/htmlbar_gui.c:791
 msgid "Textarea..."
 msgstr "Zona text..."
 
-#: ../htmlbar_gui.c:789
+#: src/plugin_htmlbar/htmlbar_gui.c:792
 #, fuzzy
 msgid "Input Radio Button..."
 msgstr "Buton radio..."
 
-#: ../htmlbar_gui.c:790
+#: src/plugin_htmlbar/htmlbar_gui.c:793
 #, fuzzy
 msgid "Input Check Box..."
 msgstr "Cutiuta bifata.."
 
-#: ../htmlbar_gui.c:791
+#: src/plugin_htmlbar/htmlbar_gui.c:794
 msgid "Select..."
 msgstr "Selectie..."
 
-#: ../htmlbar_gui.c:792
+#: src/plugin_htmlbar/htmlbar_gui.c:795
 #, fuzzy
 msgid "Option..."
 msgstr "Font..."
 
-#: ../htmlbar_gui.c:793
+#: src/plugin_htmlbar/htmlbar_gui.c:796
 #, fuzzy
 msgid "Option group..."
 msgstr "Font..."
 
-#: ../htmlbar_gui.c:794
+#: src/plugin_htmlbar/htmlbar_gui.c:797
 #, fuzzy
 msgid "Button..."
 msgstr "Buton radio"
 
-#: ../htmlbar_gui.c:795
+#: src/plugin_htmlbar/htmlbar_gui.c:798
 msgid "Quick List..."
 msgstr "Lista rapida..."
 
-#: ../htmlbar_gui.c:796
+#: src/plugin_htmlbar/htmlbar_gui.c:799
 msgid "Unordered List"
 msgstr "Lista neordonata"
 
-#: ../htmlbar_gui.c:797
+#: src/plugin_htmlbar/htmlbar_gui.c:800
 msgid "Ordered List"
 msgstr "Lista ordonata"
 
-#: ../htmlbar_gui.c:798
+#: src/plugin_htmlbar/htmlbar_gui.c:801
 msgid "List Item"
 msgstr "Element lista"
 
-#: ../htmlbar_gui.c:799
+#: src/plugin_htmlbar/htmlbar_gui.c:802
 msgid "Definition List"
 msgstr "Lista definitii"
 
-#: ../htmlbar_gui.c:800
+#: src/plugin_htmlbar/htmlbar_gui.c:803
 msgid "Definition Term"
 msgstr "Termen definitie"
 
-#: ../htmlbar_gui.c:801 ../htmlbar_gui.c:810
+#: src/plugin_htmlbar/htmlbar_gui.c:804 src/plugin_htmlbar/htmlbar_gui.c:813
 msgid "Definition"
 msgstr "Definitie"
 
-#: ../htmlbar_gui.c:802
+#: src/plugin_htmlbar/htmlbar_gui.c:805
 #, fuzzy
 msgid "Create stylesheet..."
 msgstr "Introdu stil in stylesheet..."
 
-#: ../htmlbar_gui.c:803
+#: src/plugin_htmlbar/htmlbar_gui.c:806
 msgid "Span..."
 msgstr "Intindere..."
 
-#: ../htmlbar_gui.c:804
+#: src/plugin_htmlbar/htmlbar_gui.c:807
 msgid "Div..."
 msgstr "Div..."
 
-#: ../htmlbar_gui.c:805 ../html_form.c:825
+#: src/plugin_htmlbar/htmlbar_gui.c:808 src/plugin_htmlbar/html_form.c:825
 msgid "Style"
 msgstr "Stil"
 
-#: ../htmlbar_gui.c:806
+#: src/plugin_htmlbar/htmlbar_gui.c:809
 #, fuzzy
 msgid "Link to stylesheet..."
 msgstr "Link la stylesheet"
 
-#: ../htmlbar_gui.c:807
+#: src/plugin_htmlbar/htmlbar_gui.c:810
 #, fuzzy
 msgid "Insert image..."
 msgstr "Introdu timp..."
 
-#: ../htmlbar_gui.c:808
+#: src/plugin_htmlbar/htmlbar_gui.c:811
 #, fuzzy
 msgid "Insert thumbnail..."
 msgstr "Introdu imagine ca thumbnail"
 
-#: ../htmlbar_gui.c:809
+#: src/plugin_htmlbar/htmlbar_gui.c:812
 #, fuzzy
 msgid "Multi thumbnail..."
 msgstr "Tip thumbnail"
 
-#: ../htmlbar_gui.c:811
+#: src/plugin_htmlbar/htmlbar_gui.c:814
 #, fuzzy
 msgid "Code"
 msgstr "Inchide"
 
-#: ../htmlbar_gui.c:812
+#: src/plugin_htmlbar/htmlbar_gui.c:815
 msgid "Sample"
 msgstr ""
 
-#: ../htmlbar_gui.c:813
+#: src/plugin_htmlbar/htmlbar_gui.c:816
 msgid "Keyboard"
 msgstr ""
 
-#: ../htmlbar_gui.c:814
+#: src/plugin_htmlbar/htmlbar_gui.c:817
 #, fuzzy
 msgid "Variable"
 msgstr "Numele fisierului este necunoscut"
 
-#: ../htmlbar_gui.c:815
+#: src/plugin_htmlbar/htmlbar_gui.c:818
 #, fuzzy
 msgid "Citation"
 msgstr "Continut"
 
-#: ../htmlbar_gui.c:816
+#: src/plugin_htmlbar/htmlbar_gui.c:819
 msgid "Abbreviation"
 msgstr ""
 
-#: ../htmlbar_gui.c:817
+#: src/plugin_htmlbar/htmlbar_gui.c:820
 #, fuzzy
 msgid "Acronym"
 msgstr "Actiune"
 
-#: ../htmlbar_gui.c:937
+#: src/plugin_htmlbar/htmlbar_gui.c:940
 msgid "Remove from quickbar"
 msgstr ""
 
-#: ../htmlbar_gui.c:938
+#: src/plugin_htmlbar/htmlbar_gui.c:941
 msgid "Move Left"
 msgstr ""
 
-#: ../htmlbar_gui.c:939
+#: src/plugin_htmlbar/htmlbar_gui.c:942
 #, fuzzy
 msgid "Move Right"
 msgstr "Inaltime"
 
-#: ../htmlbar_gui.c:979
+#: src/plugin_htmlbar/htmlbar_gui.c:982
 #, fuzzy
 msgid "Add to quickbar"
 msgstr " Quick bar "
 
-#: ../htmlbar_gui.c:1081
+#: src/plugin_htmlbar/htmlbar_gui.c:1084
 msgid " Quick bar "
 msgstr " Quick bar "
 
-#: ../htmlbar_gui.c:1086
+#: src/plugin_htmlbar/htmlbar_gui.c:1089
 #, fuzzy
 msgid "Heading"
 msgstr "Aliniat 1"
 
-#: ../htmlbar_gui.c:1088
+#: src/plugin_htmlbar/htmlbar_gui.c:1091
 msgid " Standard bar "
 msgstr ""
 
-#: ../htmlbar_gui.c:1093
+#: src/plugin_htmlbar/htmlbar_gui.c:1096
 #, fuzzy
 msgid "Context formatting"
 msgstr "decorare text"
 
-#: ../htmlbar_gui.c:1095
+#: src/plugin_htmlbar/htmlbar_gui.c:1098
 msgid " Fonts "
 msgstr " Fonturi "
 
-#: ../htmlbar_gui.c:1100
+#: src/plugin_htmlbar/htmlbar_gui.c:1103
 msgid " Tables "
 msgstr " Tabele "
 
-#: ../htmlbar_gui.c:1105
+#: src/plugin_htmlbar/htmlbar_gui.c:1108
 msgid " Frames "
 msgstr " Frameuri "
 
-#: ../htmlbar_gui.c:1110
+#: src/plugin_htmlbar/htmlbar_gui.c:1113
 msgid " Forms "
 msgstr " Formulare "
 
-#: ../htmlbar_gui.c:1115
+#: src/plugin_htmlbar/htmlbar_gui.c:1118
 #, fuzzy
 msgid " List "
 msgstr " Liste "
 
-#: ../htmlbar_gui.c:1120
+#: src/plugin_htmlbar/htmlbar_gui.c:1123
 msgid " CSS "
 msgstr " CSS "
 
-#: ../html.c:389
+#: src/plugin_htmlbar/html.c:387
 #, fuzzy
 msgid "Insert Time"
 msgstr "Introdu timp..."
 
-#: ../html.c:397
+#: src/plugin_htmlbar/html.c:395
 #, fuzzy, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr "  Data (%i/%i/%i)"
 
-#: ../html.c:402
+#: src/plugin_htmlbar/html.c:400
 #, fuzzy
 msgid "  Day of the _week (Sunday)"
 msgstr "  Ziua saptamanii (Duminica)"
 
-#: ../html.c:405
+#: src/plugin_htmlbar/html.c:403
 #, fuzzy
 msgid "  Day of the _week (Monday)"
 msgstr "  Ziua saptamanii (Luni)"
 
-#: ../html.c:408
+#: src/plugin_htmlbar/html.c:406
 #, fuzzy
 msgid "  Day of the _week (Tuesday)"
 msgstr "  Ziua saptamanii (Marti)"
 
-#: ../html.c:411
+#: src/plugin_htmlbar/html.c:409
 #, fuzzy
 msgid "  Day of the _week (Wednesday)"
 msgstr "  Ziua saptamanii (Miercuri)"
 
-#: ../html.c:414
+#: src/plugin_htmlbar/html.c:412
 #, fuzzy
 msgid "  Day of the _week (Thursday)"
 msgstr "  Ziua saptamanii (Joi)"
 
-#: ../html.c:417
+#: src/plugin_htmlbar/html.c:415
 #, fuzzy
 msgid "  Day of the _week (Friday)"
 msgstr "  Ziua saptamanii (Vineri)"
 
-#: ../html.c:420
+#: src/plugin_htmlbar/html.c:418
 #, fuzzy
 msgid "  Day of the _week (Saturday)"
 msgstr "  Ziua saptamanii (Sambata)"
 
-#: ../html.c:423
+#: src/plugin_htmlbar/html.c:421
 msgid "You appear to have a non existant day!\n"
 msgstr "Se pare ca aveti o zi inexistenta!\n"
 
-#: ../html.c:431
+#: src/plugin_htmlbar/html.c:429
 #, fuzzy, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr "  Data (%i/%i/%i)"
 
-#: ../html.c:434
+#: src/plugin_htmlbar/html.c:432
 #, fuzzy, c-format
 msgid "  _Unix Time (%i)"
 msgstr "  Timpul Unix (%i)"
 
-#: ../html.c:439
+#: src/plugin_htmlbar/html.c:437
 #, fuzzy, c-format
-msgid "  Unix Date _String (%s"
+msgid "  Unix Date _String (%s)"
 msgstr "  Data Unix (%s"
 
-#: ../html.c:447
+#: src/plugin_htmlbar/html.c:445
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
 msgstr ""
 
-#: ../html.c:589
-msgid "Quick Anchor"
-msgstr "Ancora rapida"
-
-#: ../html.c:595 ../html_form.c:780
-msgid "Attributes"
+#: src/plugin_htmlbar/html.c:555
+msgid "Insert <a> anchor"
 msgstr ""
 
-#: ../html.c:609 ../html.c:1918
+#: src/plugin_htmlbar/html.c:568 src/plugin_htmlbar/html.c:737
+#: src/plugin_htmlbar/html.c:2025
 msgid "_HREF:"
 msgstr ""
 
-#: ../html.c:613 ../html_form.c:183
-#, fuzzy
-msgid "_Target:"
-msgstr "Tinta"
-
-#: ../html.c:617 ../html.c:837 ../html.c:1212 ../html.c:1686
-#: ../html_form.c:231 ../html_form.c:596 ../html_form.c:795 ../html_form.c:890
-#: ../image.c:416
+#: src/plugin_htmlbar/html.c:575 src/plugin_htmlbar/html.c:745
+#: src/plugin_htmlbar/html.c:965 src/plugin_htmlbar/html.c:1330
+#: src/plugin_htmlbar/html.c:1793 src/plugin_htmlbar/html_form.c:231
+#: src/plugin_htmlbar/html_form.c:596 src/plugin_htmlbar/html_form.c:795
+#: src/plugin_htmlbar/html_form.c:890 src/plugin_htmlbar/image.c:466
 #, fuzzy
 msgid "_Name:"
 msgstr "Nume"
 
-#: ../html.c:623 ../html.c:1070 ../html.c:1241 ../html.c:1833
+#: src/plugin_htmlbar/html.c:579
+#, fuzzy
+msgid "_Rel:"
+msgstr "Inlocuieste:"
+
+#: src/plugin_htmlbar/html.c:583
+#, fuzzy
+msgid "Re_v:"
+msgstr "Inlocuieste:"
+
+#: src/plugin_htmlbar/html.c:587 src/plugin_htmlbar/html.c:741
+#: src/plugin_htmlbar/html_form.c:183
+#, fuzzy
+msgid "_Target:"
+msgstr "Tinta"
+
+#: src/plugin_htmlbar/html.c:591
+#, fuzzy
+msgid "T_ype:"
+msgstr "Fara titlu"
+
+#: src/plugin_htmlbar/html.c:605
+#, fuzzy
+msgid "Clas_s:"
+msgstr "Clasa"
+
+#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/image_dialog.c:401
+msgid "I_D:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:613
+#, fuzzy
+msgid "_Style:"
+msgstr "Stil"
+
+#: src/plugin_htmlbar/html.c:617 src/plugin_htmlbar/quickstart.c:538
+#, fuzzy
+msgid "Titl_e:"
+msgstr "Fara titlu"
+
+#: src/plugin_htmlbar/html.c:631
+#, fuzzy
+msgid "C_harset:"
+msgstr "Tinta"
+
+#: src/plugin_htmlbar/html.c:635
+#, fuzzy
+msgid "_Dir:"
+msgstr "Sursa"
+
+#: src/plugin_htmlbar/html.c:639
+#, fuzzy
+msgid "_Hreflang:"
+msgstr "Frame"
+
+#: src/plugin_htmlbar/html.c:643
+#, fuzzy
+msgid "_Lang:"
+msgstr "Tabel"
+
+#: src/plugin_htmlbar/html.c:657
+#, fuzzy
+msgid "_Accesskey:"
+msgstr "Actiune"
+
+#: src/plugin_htmlbar/html.c:661
+msgid "_Tabindex:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:717
+msgid "Quick Anchor"
+msgstr "Ancora rapida"
+
+#: src/plugin_htmlbar/html.c:723 src/plugin_htmlbar/html_form.c:780
+msgid "Attributes"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:751 src/plugin_htmlbar/html.c:1198
+#: src/plugin_htmlbar/html.c:1348 src/plugin_htmlbar/html.c:1940
 msgid "_Language:"
 msgstr ""
 
-#: ../html.c:627 ../html.c:845 ../html.c:979 ../html.c:1074 ../html.c:1249
-#: ../html.c:1622 ../html.c:1723 ../html.c:1852 ../html_form.c:187
-#: ../html_form.c:243 ../html_form.c:609 ../html_form.c:903
-#: ../html_table.c:101 ../html_table.c:253 ../html_table.c:361 ../image.c:424
+#: src/plugin_htmlbar/html.c:755 src/plugin_htmlbar/html.c:973
+#: src/plugin_htmlbar/html.c:1107 src/plugin_htmlbar/html.c:1202
+#: src/plugin_htmlbar/html.c:1356 src/plugin_htmlbar/html.c:1729
+#: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1959
+#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
+#: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
+#: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/image_dialog.c:409
 #, fuzzy
 msgid "Custo_m:"
 msgstr "Taie"
 
-#: ../html.c:630 ../html.c:1078 ../html_form.c:829
+#: src/plugin_htmlbar/html.c:758 src/plugin_htmlbar/html.c:1206
+#: src/plugin_htmlbar/html_form.c:829
 msgid "Events"
 msgstr ""
 
-#: ../html.c:633
+#: src/plugin_htmlbar/html.c:761
 msgid "OnClic_k:"
 msgstr ""
 
-#: ../html.c:637
+#: src/plugin_htmlbar/html.c:765
 msgid "OnD_blClick:"
 msgstr ""
 
-#: ../html.c:641
+#: src/plugin_htmlbar/html.c:769
 msgid "OnMouseO_ver:"
 msgstr ""
 
-#: ../html.c:645
+#: src/plugin_htmlbar/html.c:773
 msgid "OnMouse_Down:"
 msgstr ""
 
-#: ../html.c:649
+#: src/plugin_htmlbar/html.c:777
 msgid "OnMouse_Move:"
 msgstr ""
 
-#: ../html.c:653
+#: src/plugin_htmlbar/html.c:781
 msgid "OnMouseOu_t:"
 msgstr ""
 
-#: ../html.c:657
+#: src/plugin_htmlbar/html.c:785
 msgid "OnMouse_Up:"
 msgstr ""
 
-#: ../html.c:661
+#: src/plugin_htmlbar/html.c:789
 msgid "OnKeyDo_wn:"
 msgstr ""
 
-#: ../html.c:665
+#: src/plugin_htmlbar/html.c:793
 msgid "OnKey_Press:"
 msgstr ""
 
-#: ../html.c:669
+#: src/plugin_htmlbar/html.c:797
 msgid "OnKe_yUp:"
 msgstr ""
 
-#: ../html.c:784
+#: src/plugin_htmlbar/html.c:912
 #, fuzzy
 msgid "Div"
 msgstr "Div..."
 
-#: ../html.c:787
+#: src/plugin_htmlbar/html.c:915
 #, fuzzy
 msgid "Span"
 msgstr "Spatiere"
 
-#: ../html.c:822 ../html_table.c:109 ../html_table.c:219 ../html_table.c:333
+#: src/plugin_htmlbar/html.c:950 src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
 #, fuzzy
 msgid "Ali_gn:"
 msgstr "Aliniere"
 
-#: ../html.c:826 ../html.c:1062 ../html_diag.c:373 ../html_table.c:91
-#: ../html_table.c:237 ../html_table.c:351
+#: src/plugin_htmlbar/html.c:954 src/plugin_htmlbar/html.c:1190
+#: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
+#: src/plugin_htmlbar/image_dialog.c:397
 #, fuzzy
 msgid "Cl_ass:"
 msgstr "Clasa"
 
-#: ../html.c:830 ../html.c:1055 ../html_diag.c:381 ../html_table.c:96
-#: ../html_table.c:248 ../html_table.c:356
+#: src/plugin_htmlbar/html.c:958 src/plugin_htmlbar/html.c:1183
+#: src/plugin_htmlbar/html_diag.c:381 src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
 #, fuzzy
 msgid "St_yle:"
 msgstr "Stil"
 
-#: ../html.c:841 ../html.c:1066 ../html_diag.c:377
+#: src/plugin_htmlbar/html.c:969 src/plugin_htmlbar/html.c:1194
+#: src/plugin_htmlbar/html_diag.c:377
 msgid "_ID:"
 msgstr ""
 
-#: ../html.c:942
+#: src/plugin_htmlbar/html.c:1070
 msgid "Horizontal Rule"
 msgstr "Linie orizontala"
 
-#: ../html.c:953 ../html.c:1771 ../image.c:442
+#: src/plugin_htmlbar/html.c:1081 src/plugin_htmlbar/html.c:1878
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:430
 #, fuzzy
 msgid "_Align:"
 msgstr "Aliniere"
 
-#: ../html.c:960 ../html.c:1779 ../html_table.c:387
+#: src/plugin_htmlbar/html.c:1088 src/plugin_htmlbar/html.c:1886
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:371
 #, fuzzy
 msgid "_Height:"
 msgstr "Inaltime"
 
-#: ../html.c:966 ../html.c:1775 ../html_table.c:134 ../html_table.c:380
-#: ../image.c:400
+#. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
+#: src/plugin_htmlbar/html.c:1094 src/plugin_htmlbar/html.c:1882
+#: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:362
 #, fuzzy
 msgid "_Width:"
 msgstr "Latime"
 
-#: ../html.c:969
+#: src/plugin_htmlbar/html.c:1097
 #, fuzzy
 msgid "Is _percent"
 msgstr "In procente ?"
 
-#: ../html.c:974
+#: src/plugin_htmlbar/html.c:1102
 #, fuzzy
 msgid "No _shading"
 msgstr "Fara shading"
 
-#: ../html.c:1039
+#: src/plugin_htmlbar/html.c:1167
 msgid "Body"
 msgstr "Body"
 
-#: ../html.c:1047
+#: src/plugin_htmlbar/html.c:1175
 #, fuzzy
 msgid "Options"
 msgstr "Actiune"
 
-#: ../html.c:1085
+#: src/plugin_htmlbar/html.c:1213
 msgid "On_Load:"
 msgstr ""
 
-#: ../html.c:1093
+#: src/plugin_htmlbar/html.c:1221
 msgid "On_UnLoad:"
 msgstr ""
 
-#: ../html.c:1102
+#: src/plugin_htmlbar/html.c:1230
 #, fuzzy
 msgid "Depreciated options"
 msgstr "Verifica scrierea cuvintelor"
 
-#: ../html.c:1112
+#: src/plugin_htmlbar/html.c:1240
 #, fuzzy
 msgid "Background _Image:"
 msgstr "Imagine background"
 
-#: ../html.c:1119
+#: src/plugin_htmlbar/html.c:1247
 #, fuzzy
 msgid "Back_ground Color:"
 msgstr "Culoare background"
 
-#: ../html.c:1125
+#: src/plugin_htmlbar/html.c:1253
 #, fuzzy
 msgid "_Text Color:"
 msgstr "Culoare text"
 
-#: ../html.c:1131
+#: src/plugin_htmlbar/html.c:1259
 #, fuzzy
 msgid "_Link Color:"
 msgstr "Culoare link"
 
-#: ../html.c:1137
+#: src/plugin_htmlbar/html.c:1265
 #, fuzzy
 msgid "_Visited Link Color:"
 msgstr "Culoare link vizitat"
 
-#: ../html.c:1143
+#: src/plugin_htmlbar/html.c:1271
 #, fuzzy
 msgid "_Active Link Color:"
 msgstr "Culoare link activ"
 
-#: ../html.c:1194
+#: src/plugin_htmlbar/html.c:1323
 msgid "Meta"
 msgstr "META"
 
-#: ../html.c:1232
+#: src/plugin_htmlbar/html.c:1339
 #, fuzzy
 msgid "_HTTP-EQUIV:"
 msgstr "HTTP-EQUIV"
 
-#: ../html.c:1237
+#: src/plugin_htmlbar/html.c:1344
 #, fuzzy
 msgid "Con_tent:"
 msgstr "Continut"
 
-#: ../html.c:1245
+#: src/plugin_htmlbar/html.c:1352
 msgid "_Scheme:"
 msgstr ""
 
-#: ../html.c:1326
+#: src/plugin_htmlbar/html.c:1433
 msgid "Font"
 msgstr "Font"
 
-#: ../html.c:1329
+#: src/plugin_htmlbar/html.c:1436
 msgid "Base Font"
 msgstr "Fontul de baza"
 
-#: ../html.c:1344
+#: src/plugin_htmlbar/html.c:1451
 msgid "Size"
 msgstr "Marime"
 
-#: ../html.c:1352
+#: src/plugin_htmlbar/html.c:1459
 msgid "Color"
 msgstr "Culoare"
 
-#: ../html.c:1357
+#: src/plugin_htmlbar/html.c:1464
 msgid "Face"
 msgstr "Familia font"
 
-#: ../html.c:1361
+#: src/plugin_htmlbar/html.c:1468
 #, fuzzy
 msgid "Custom"
 msgstr "Taie"
 
-#: ../html.c:1445
+#: src/plugin_htmlbar/html.c:1552
 #, fuzzy
 msgid "E-mail"
 msgstr "Email"
 
-#: ../html.c:1453
+#: src/plugin_htmlbar/html.c:1560
 msgid "_Mail to:"
 msgstr ""
 
-#: ../html.c:1457
+#: src/plugin_htmlbar/html.c:1564
 #, fuzzy
 msgid "_Copy to:"
 msgstr "Copiaza"
 
-#: ../html.c:1461
+#: src/plugin_htmlbar/html.c:1568
 msgid "Blin_d copy to:"
 msgstr ""
 
-#: ../html.c:1465
+#: src/plugin_htmlbar/html.c:1572
 msgid "with _Subject:"
 msgstr ""
 
-#: ../html.c:1469
+#: src/plugin_htmlbar/html.c:1576
 msgid "with _Body:"
 msgstr ""
 
-#: ../html.c:1513
+#: src/plugin_htmlbar/html.c:1620
 msgid "Quick List"
 msgstr "Lista rapida"
 
-#: ../html.c:1518 ../html.c:1600 ../html_form.c:236
+#: src/plugin_htmlbar/html.c:1625 src/plugin_htmlbar/html.c:1707
+#: src/plugin_htmlbar/html_form.c:236
 #, fuzzy
 msgid "_Rows:"
 msgstr "Linii"
 
-#: ../html.c:1521
+#: src/plugin_htmlbar/html.c:1628
 #, fuzzy
 msgid "Or_dered"
 msgstr "Ordonat"
 
-#: ../html.c:1522
+#: src/plugin_htmlbar/html.c:1629
 #, fuzzy
 msgid "_Unordered"
 msgstr "Neordonat"
 
-#: ../html.c:1524
+#: src/plugin_htmlbar/html.c:1631
 #, fuzzy
 msgid "Style:"
 msgstr "Stil"
 
-#: ../html.c:1596 ../html_form.c:240
+#: src/plugin_htmlbar/html.c:1703 src/plugin_htmlbar/html_form.c:240
 #, fuzzy
 msgid "Co_ls:"
 msgstr "Coloane"
 
-#: ../html.c:1605
+#: src/plugin_htmlbar/html.c:1712
 msgid "_Add <frame> elements"
 msgstr ""
 
-#: ../html.c:1682 ../html.c:1767 ../html.c:1826
+#: src/plugin_htmlbar/html.c:1789 src/plugin_htmlbar/html.c:1874
+#: src/plugin_htmlbar/html.c:1933 src/plugin_htmlbar/image_dialog.c:321
 #, fuzzy
 msgid "_Source:"
 msgstr "Sursa"
 
-#: ../html.c:1690
+#: src/plugin_htmlbar/html.c:1797
 #, fuzzy
 msgid "Margin _Width:"
 msgstr " Latime margine "
 
-#: ../html.c:1694
+#: src/plugin_htmlbar/html.c:1801
 #, fuzzy
 msgid "Margin _Height:"
 msgstr " Inaltime margine "
 
-#: ../html.c:1702
+#: src/plugin_htmlbar/html.c:1809
 #, fuzzy
 msgid "Scrollin_g:"
 msgstr "Derulare "
 
-#: ../html.c:1706
+#: src/plugin_htmlbar/html.c:1813
 #, fuzzy
 msgid "_Frameborder:"
 msgstr "Frameset"
 
-#: ../html.c:1711
+#: src/plugin_htmlbar/html.c:1818
 #, fuzzy
 msgid "No _Resize:"
 msgstr "Fara schimbare marime"
 
-#: ../html.c:1761
+#: src/plugin_htmlbar/html.c:1868
 msgid "Embed"
 msgstr "Embed"
 
-#: ../html.c:1783 ../html_table.c:140
+#: src/plugin_htmlbar/html.c:1890 src/plugin_htmlbar/html_table.c:140
 #, fuzzy
 msgid "Bo_rder:"
 msgstr "Chenar"
 
-#: ../html.c:1819
+#: src/plugin_htmlbar/html.c:1926
 #, fuzzy
 msgid "Script"
 msgstr "Indice"
 
-#: ../html.c:1848 ../html.c:1949 ../html_form.c:789 ../html_form.c:899
+#: src/plugin_htmlbar/html.c:1955 src/plugin_htmlbar/html.c:2056
+#: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
 msgstr ""
 
-#: ../html.c:1907
+#: src/plugin_htmlbar/html.c:2014
 msgid "Link"
 msgstr ""
 
-#: ../html.c:1924
+#: src/plugin_htmlbar/html.c:2031
 msgid "HREF_LANG:"
 msgstr ""
 
-#: ../html.c:1928
+#: src/plugin_htmlbar/html.c:2035
 #, fuzzy
 msgid "T_itle:"
 msgstr "Fara titlu"
 
-#: ../html.c:1968
+#: src/plugin_htmlbar/html.c:2075
 msgid "_Forward Relation:"
 msgstr ""
 
-#: ../html.c:1972
+#: src/plugin_htmlbar/html.c:2079
 msgid "_Reverse Relation:"
 msgstr ""
 
-#: ../html.c:1983
+#: src/plugin_htmlbar/html.c:2090
 #, fuzzy
 msgid "Media:"
 msgstr "META"
 
-#: ../html.c:1987
+#: src/plugin_htmlbar/html.c:2094
 msgid "L_ang:"
 msgstr ""
 
-#: ../html.c:1991
+#: src/plugin_htmlbar/html.c:2098
 #, fuzzy
 msgid "_Custom:"
 msgstr "Taie"
 
-#: ../html_form.c:141
+#: src/plugin_htmlbar/html_form.c:141
 msgid "Form"
 msgstr "Formular"
 
-#: ../html_form.c:159
+#: src/plugin_htmlbar/html_form.c:159
 #, fuzzy
 msgid "_Action:"
 msgstr "Actiune"
 
-#: ../html_form.c:167
+#: src/plugin_htmlbar/html_form.c:167
 #, fuzzy
 msgid "Metho_d:"
 msgstr "Metoda"
 
-#: ../html_form.c:176
+#: src/plugin_htmlbar/html_form.c:176
 #, fuzzy
 msgid "_Enctype:"
 msgstr "Enctype"
 
-#: ../html_form.c:225
+#: src/plugin_htmlbar/html_form.c:225
 #, fuzzy
 msgid "Text area"
 msgstr "Zona text"
 
-#: ../html_form.c:590
+#: src/plugin_htmlbar/html_form.c:590
 msgid "Select"
 msgstr "Selectie"
 
-#: ../html_form.c:601 ../html_form.c:808
+#: src/plugin_htmlbar/html_form.c:601 src/plugin_htmlbar/html_form.c:808
 #, fuzzy
 msgid "Si_ze:"
 msgstr "Marime"
 
-#: ../html_form.c:605
+#: src/plugin_htmlbar/html_form.c:605
 #, fuzzy
 msgid "Multiple _Selections:"
 msgstr "Selectarea fontului"
 
-#: ../html_form.c:644
+#: src/plugin_htmlbar/html_form.c:644
 #, fuzzy
 msgid "Option"
 msgstr "Actiune"
 
-#: ../html_form.c:654 ../html_form.c:697
+#: src/plugin_htmlbar/html_form.c:654 src/plugin_htmlbar/html_form.c:697
 #, fuzzy
 msgid "_Label:"
 msgstr "Tabel"
 
-#: ../html_form.c:659
+#: src/plugin_htmlbar/html_form.c:659
 #, fuzzy
 msgid "_Selected:"
 msgstr "Selectie"
 
-#: ../html_form.c:692
+#: src/plugin_htmlbar/html_form.c:692
 #, fuzzy
 msgid "Option group"
 msgstr "Actiune"
 
-#: ../html_form.c:775
+#: src/plugin_htmlbar/html_form.c:775
 msgid "Input"
 msgstr ""
 
-#: ../html_form.c:803
+#: src/plugin_htmlbar/html_form.c:803
 #, fuzzy
 msgid "_Checked:"
 msgstr "Bifat"
 
-#: ../html_form.c:812
+#: src/plugin_htmlbar/html_form.c:812
 #, fuzzy
 msgid "Max _Length:"
 msgstr "Lungime maxima"
 
-#: ../html_form.c:816
+#: src/plugin_htmlbar/html_form.c:816
 #, fuzzy
 msgid "_Accept:"
 msgstr "Actiune"
 
-#: ../html_form.c:820
+#: src/plugin_htmlbar/html_form.c:820
 #, fuzzy
 msgid "C_ustom:"
 msgstr "Taie"
 
-#: ../html_form.c:832
+#: src/plugin_htmlbar/html_form.c:832
 msgid "On_Focus:"
 msgstr ""
 
-#: ../html_form.c:836
+#: src/plugin_htmlbar/html_form.c:836
 msgid "On_Blur:"
 msgstr ""
 
-#: ../html_form.c:840
+#: src/plugin_htmlbar/html_form.c:840
 #, fuzzy
 msgid "On_Select:"
 msgstr "Selectie"
 
-#: ../html_form.c:844
+#: src/plugin_htmlbar/html_form.c:844
 msgid "On_Change:"
 msgstr ""
 
-#: ../html_form.c:884
+#: src/plugin_htmlbar/html_form.c:884
 #, fuzzy
 msgid "Button"
 msgstr "Buton radio"
 
-#: ../html_table.c:83
+#: src/plugin_htmlbar/html_table.c:83
 #, fuzzy
 msgid "Cell _Padding:"
 msgstr "Spatiul dintre celule"
 
-#: ../html_table.c:87
+#: src/plugin_htmlbar/html_table.c:87
 #, fuzzy
 msgid "C_ell Spacing:"
 msgstr "Spatiul dintre celule"
 
-#: ../html_table.c:123 ../html_table.c:233 ../html_table.c:347
+#: src/plugin_htmlbar/html_table.c:123 src/plugin_htmlbar/html_table.c:233
+#: src/plugin_htmlbar/html_table.c:347
 #, fuzzy
 msgid "_Valign:"
 msgstr "Aliniere verticala"
 
-#: ../html_table.c:128 ../html_table.c:242 ../html_table.c:392
+#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:392
 #, fuzzy
 msgid "Backgrou_nd Color:"
 msgstr "Culoare background"
 
-#: ../html_table.c:154
+#: src/plugin_htmlbar/html_table.c:154
 #, fuzzy
 msgid "_Frame:"
 msgstr "Frame"
 
-#: ../html_table.c:165
+#: src/plugin_htmlbar/html_table.c:165
 #, fuzzy
 msgid "R_ules:"
 msgstr "Linie..."
 
-#: ../html_table.c:365
+#: src/plugin_htmlbar/html_table.c:365
 #, fuzzy
 msgid "Co_l Span:"
 msgstr "Intindere coloana"
 
-#: ../html_table.c:369
+#: src/plugin_htmlbar/html_table.c:369
 #, fuzzy
 msgid "_Row Span:"
 msgstr "Intindere rand"
 
-#: ../html_table.c:374
+#: src/plugin_htmlbar/html_table.c:374
 #, fuzzy
 msgid "No Wra_p:"
 msgstr "Fara wrap"
 
-#: ../image.c:364
+#: src/plugin_htmlbar/image.c:287
+#, fuzzy
+msgid "Loading image failed..."
+msgstr "Salvez fisierul"
+
+#: src/plugin_htmlbar/image.c:359
+#, fuzzy, c-format
+msgid "Loading file %s..."
+msgstr "Salvez fisierul"
+
+#: src/plugin_htmlbar/image.c:411
 #, fuzzy
 msgid "Insert thumbnail"
 msgstr "Introdu imagine ca thumbnail"
 
-#: ../image.c:366
+#: src/plugin_htmlbar/image.c:413
 msgid "Insert image"
 msgstr "Introdu imagine"
 
-#: ../image.c:372
+#: src/plugin_htmlbar/image.c:419 src/plugin_htmlbar/image_dialog.c:341
 msgid "Preview"
 msgstr ""
 
-#: ../image.c:392
+#: src/plugin_htmlbar/image.c:441
 #, fuzzy
 msgid "_Image location:"
 msgstr "Locatia imaginii"
 
-#: ../image.c:407
+#: src/plugin_htmlbar/image.c:457
 #, fuzzy
 msgid "Hei_ght:"
 msgstr "Inaltime"
 
-#: ../image.c:412
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr ""
 
-#: ../image.c:420
+#: src/plugin_htmlbar/image.c:470
 #, fuzzy
 msgid "Alternate _text:"
 msgstr "Text alternativ"
 
-#: ../image.c:428
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:439
 #, fuzzy
 msgid "_Hspace:"
 msgstr "Spatiu orizontal"
 
-#: ../image.c:432
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:443
 #, fuzzy
 msgid "_Vspace:"
 msgstr "Spatiu vertical"
 
-#: ../image.c:446
+#: src/plugin_htmlbar/image.c:496
 #, fuzzy
 msgid "Borde_r:"
 msgstr "Chenar"
 
-#: ../image.c:774
+#: src/plugin_htmlbar/image.c:879
 msgid "Select files for thumbnail creation"
 msgstr ""
 
-#: ../image.c:809
+#: src/plugin_htmlbar/image.c:914
 #, fuzzy
 msgid "Scaling (%)"
 msgstr "Derulare "
 
-#: ../image.c:813 ../image.c:821
+#: src/plugin_htmlbar/image.c:918 src/plugin_htmlbar/image.c:926
 msgid "Width"
 msgstr "Latime"
 
-#: ../image.c:817 ../image.c:849
+#: src/plugin_htmlbar/image.c:922 src/plugin_htmlbar/image.c:954
 msgid "Height"
 msgstr "Inaltime"
 
-#: ../image.c:838
+#: src/plugin_htmlbar/image.c:943
 msgid "Multi thumbnail"
 msgstr ""
 
-#: ../image.c:844
+#: src/plugin_htmlbar/image.c:949
 msgid "By scaling"
 msgstr ""
 
-#: ../image.c:845
+#: src/plugin_htmlbar/image.c:950
 msgid "By width, keep aspect ratio"
 msgstr ""
 
-#: ../image.c:846
+#: src/plugin_htmlbar/image.c:951
 msgid "By height, keep aspect ratio"
 msgstr ""
 
-#: ../image.c:847
+#: src/plugin_htmlbar/image.c:952
 msgid "By width and height, ignore aspect ratio"
 msgstr ""
 
-#: ../image.c:871
+#: src/plugin_htmlbar/image.c:976
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2267,147 +2400,207 @@ msgid ""
 "%b: original size (bytes)"
 msgstr ""
 
-#: ../quickstart.c:512
+#: src/plugin_htmlbar/image_dialog.c:378
+msgid "_Reset Dimensions"
+msgstr ""
+
+#: src/plugin_htmlbar/image_dialog.c:389
+#, fuzzy
+msgid "Alternate te_xt:"
+msgstr "Text alternativ"
+
+#: src/plugin_htmlbar/image_dialog.c:393
+#, fuzzy
+msgid "_Long description:"
+msgstr "Definitie"
+
+#: src/plugin_htmlbar/image_dialog.c:420
+msgid "_Use Transitional options"
+msgstr ""
+
+#: src/plugin_htmlbar/image_dialog.c:435
+#, fuzzy
+msgid "_Border:"
+msgstr "Chenar"
+
+#: src/plugin_htmlbar/image_dialog.c:774
+#, c-format
+msgid ""
+"\n"
+"%s"
+msgstr ""
+
+#: src/plugin_htmlbar/image_dialog.c:779
+#, c-format
+msgid ""
+"\n"
+"%d x %d pixels"
+msgstr ""
+
+#: src/plugin_htmlbar/image_dialog.c:876
+msgid ""
+"\n"
+"\n"
+"\t<b>Loading preview...</b>\t\n"
+"\n"
+msgstr ""
+
+#: src/plugin_htmlbar/image_dialog.c:979
+#, fuzzy
+msgid "Select Image"
+msgstr "Selecteaza fisierul"
+
+#: src/plugin_htmlbar/image_dialog.c:987
+#, fuzzy
+msgid "All images"
+msgstr "Fisierul nu poate fi deschis"
+
+#: src/plugin_htmlbar/image_dialog.c:1215
+#: src/plugin_htmlbar/image_dialog.c:1327
+#, fuzzy
+msgid "Insert Image"
+msgstr "Introdu imagine"
+
+#: src/plugin_htmlbar/quickstart.c:502
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr ""
 
-#: ../quickstart.c:522
+#: src/plugin_htmlbar/quickstart.c:512
 #, fuzzy
 msgid "Ty_pe:"
 msgstr "Fara titlu"
 
-#: ../quickstart.c:540
+#: src/plugin_htmlbar/quickstart.c:530
 msgid "HRE_F:"
 msgstr ""
 
-#: ../quickstart.c:544
+#: src/plugin_htmlbar/quickstart.c:534
 #, fuzzy
 msgid "_Media:"
 msgstr "META"
 
-#: ../quickstart.c:548
-#, fuzzy
-msgid "Titl_e:"
-msgstr "Fara titlu"
-
-#: ../quickstart.c:554
+#. TODO: add an option to place content in the style area
+#. * Possibly from a code snippet library
+#.
+#: src/plugin_htmlbar/quickstart.c:544
 msgid "<b>Style Area</b>"
 msgstr ""
 
-#: ../quickstart.c:558
+#: src/plugin_htmlbar/quickstart.c:548
 msgid "Cre_ate empty style area"
 msgstr ""
 
-#: ../quickstart.c:580
+#: src/plugin_htmlbar/quickstart.c:570
 #, fuzzy
 msgid "<b>Attributes</b>"
 msgstr "Continut"
 
-#: ../quickstart.c:595
+#: src/plugin_htmlbar/quickstart.c:585
 #, fuzzy
 msgid "_Src:"
 msgstr "Sursa"
 
-#: ../quickstart.c:602
+#. TODO: add an option to place content in the script area
+#: src/plugin_htmlbar/quickstart.c:592
 #, fuzzy
 msgid "<b>Script Area</b>"
 msgstr "Continut"
 
-#: ../quickstart.c:606
+#: src/plugin_htmlbar/quickstart.c:596
 msgid "Cre_ate empty script area"
 msgstr ""
 
-#: ../quickstart.c:633
+#: src/plugin_htmlbar/quickstart.c:623
 #, fuzzy
 msgid "Quick Start"
 msgstr "Start rapid..."
 
-#: ../quickstart.c:647
+#: src/plugin_htmlbar/quickstart.c:638
 msgid "_DTD:"
 msgstr ""
 
-#: ../quickstart.c:651 ../wizards.c:186
+#: src/plugin_htmlbar/quickstart.c:642 src/plugin_htmlbar/wizards.c:186
 #, fuzzy
 msgid "_Title:"
 msgstr "Fara titlu"
 
-#: ../quickstart.c:674
+#: src/plugin_htmlbar/quickstart.c:665
 #, fuzzy
 msgid "_Head:"
 msgstr "Frame"
 
-#: ../quickstart.c:691
+#: src/plugin_htmlbar/quickstart.c:682
 #, fuzzy
 msgid "Open in _new document."
 msgstr "Comentariu"
 
-#: ../wizards.c:68
+#: src/plugin_htmlbar/wizards.c:68
 msgid "Table Wizard"
 msgstr "Asistent tabel"
 
-#: ../wizards.c:76
+#: src/plugin_htmlbar/wizards.c:76
 #, fuzzy
 msgid "Number of _rows:"
 msgstr "Numar linii"
 
-#: ../wizards.c:80
+#: src/plugin_htmlbar/wizards.c:80
 #, fuzzy
 msgid "Number of colu_mns:"
 msgstr "Numar linii"
 
-#: ../wizards.c:84
+#: src/plugin_htmlbar/wizards.c:84
 #, fuzzy
 msgid "Table rows on one _line:"
 msgstr "Introdu ca o linie"
 
-#: ../wizards.c:88
+#: src/plugin_htmlbar/wizards.c:88
 msgid "_Indent table code:"
 msgstr ""
 
-#: ../wizards.c:175
+#: src/plugin_htmlbar/wizards.c:175
 msgid "Frame Wizard"
 msgstr "Asistent frame"
 
-#: ../wizards.c:190
+#: src/plugin_htmlbar/wizards.c:190
 msgid "Use _DTD:"
 msgstr ""
 
-#: ../wizards.c:193
+#: src/plugin_htmlbar/wizards.c:193
 #, fuzzy
 msgid "Orientation:"
 msgstr "Continut"
 
-#: ../wizards.c:196
+#: src/plugin_htmlbar/wizards.c:196
 #, fuzzy
 msgid "_Horizontal"
 msgstr "Orizontal"
 
-#: ../wizards.c:197
+#: src/plugin_htmlbar/wizards.c:197
 #, fuzzy
 msgid "_Vertical"
 msgstr "Vertical"
 
-#: ../wizards.c:202
+#: src/plugin_htmlbar/wizards.c:202
 #, fuzzy
 msgid "Number of _Frames:"
 msgstr "Numar frameuri"
 
-#: ../wizards.c:205
+#: src/plugin_htmlbar/wizards.c:205
 #, fuzzy
 msgid "Frame's"
 msgstr "Frame"
 
-#: ../wizards.c:217
+#: src/plugin_htmlbar/wizards.c:217
 #, fuzzy
 msgid "Name:"
 msgstr "Nume"
 
-#: ../wizards.c:219
+#: src/plugin_htmlbar/wizards.c:219
 #, fuzzy
 msgid "Source:"
 msgstr "Sursa"
 
-#: ../wizards.c:223
+#: src/plugin_htmlbar/wizards.c:223
 #, fuzzy
 msgid "Size:"
 msgstr "Marime"
@@ -2435,10 +2628,6 @@ msgstr "Marime"
 #, fuzzy
 #~ msgid "_Email address:"
 #~ msgstr "Adresa email:"
-
-#, fuzzy
-#~ msgid "_Href:"
-#~ msgstr "Frame"
 
 #, fuzzy
 #~ msgid "Hre_f:"
@@ -2518,10 +2707,6 @@ msgstr "Marime"
 #, fuzzy
 #~ msgid "Bluefish tip:"
 #~ msgstr "Eroare Bluefish"
-
-#, fuzzy
-#~ msgid "_Description:"
-#~ msgstr "Definitie"
 
 #, fuzzy
 #~ msgid "Do you really want to delete all bookmarks for %s?"
@@ -2666,10 +2851,6 @@ msgstr "Marime"
 #, fuzzy
 #~ msgid "Filter"
 #~ msgstr "/_Fisier"
-
-#, fuzzy
-#~ msgid "All files"
-#~ msgstr "Fisierul nu poate fi deschis"
 
 #, fuzzy
 #~ msgid "Error creating path"
@@ -2964,10 +3145,6 @@ msgstr "Marime"
 
 #~ msgid "Search"
 #~ msgstr "Cauta"
-
-#, fuzzy
-#~ msgid "Select File"
-#~ msgstr "Selecteaza fisierul"
 
 #, fuzzy
 #~ msgid "Filebrowser"
@@ -3959,10 +4136,6 @@ msgstr "Marime"
 #~ msgstr "Fisierul nu a putut fi deschis :\n"
 
 #, fuzzy
-#~ msgid "Loading files..."
-#~ msgstr "Salvez fisierul"
-
-#, fuzzy
 #~ msgid ""
 #~ "These files could not opened:\n"
 #~ "\n"
@@ -4126,10 +4299,6 @@ msgstr "Marime"
 
 #~ msgid "Text..."
 #~ msgstr "Text..."
-
-#, fuzzy
-#~ msgid "_Rel:"
-#~ msgstr "Inlocuieste:"
 
 #~ msgid "Hidden"
 #~ msgstr "Ascuns"
