@@ -2131,32 +2131,6 @@ static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
 	doc_close_single_backend(data, FALSE, FALSE);
 }
 
-/**
- * document_set_line_numbers:
- * @doc: a #Tdocument*
- * @value: a #gboolean
- *
- * Show or hide linenumbers (at the left of the main GtkTextView).
- *
- * Return value: void
- **/
-void document_set_line_numbers(Tdocument *doc, gboolean value) {
-	BLUEFISH_TEXT_VIEW(doc->view)->linenumbers = value;
-}
-
-/**
- * document_set_show_blocks:
- * @doc: a #Tdocument*
- * @value: a #gboolean
- *
- * Show or hide blocks (at the left of the main GtkTextView).
- *
- * Return value: void
- **/
-void document_set_show_blocks(Tdocument *doc, gboolean value) {
-	BLUEFISH_TEXT_VIEW(doc->view)->showblocks = value;
-}
-
 static gboolean doc_scroll_event_lcb(GtkWidget *widget,GdkEventScroll *event,gpointer user_data) {
 	if (event->state & GDK_CONTROL_MASK) {
 		Tdocument *doc = user_data;
@@ -2198,9 +2172,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 											(scroll), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
 	newdoc->highlightstate=1;
-	newdoc->linenumberstate = main_v->props.view_line_numbers;
 /*	document_set_line_numbers(newdoc, newdoc->linenumberstate); set in the widget by default*/
-	newdoc->blocksstate = main_v->props.view_blocks;
 /*	document_set_show_blocks(newdoc, newdoc->blocksstate); set in the widget by default */
 	newdoc->tab_label = gtk_label_new(NULL);
 	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
@@ -3167,44 +3139,42 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		doc_set_wrap(bfwin->current_document);
 		break;
 	case 2:
-		bfwin->current_document->linenumberstate = GTK_CHECK_MENU_ITEM(widget)->active;
-		document_set_line_numbers(bfwin->current_document, bfwin->current_document->linenumberstate);
+		bluefish_text_view_set_show_line_numbers(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+															  GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 3:
-		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->autocomplete = GTK_CHECK_MENU_ITEM(widget)->active;
+		bluefish_text_view_set_auto_complete(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+														 GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 4:
-		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->autoindent = GTK_CHECK_MENU_ITEM(widget)->active;
+		bluefish_text_view_set_auto_indent(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+													  GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 5:
-		bfwin->current_document->blocksstate = GTK_CHECK_MENU_ITEM(widget)->active;
-		document_set_show_blocks(bfwin->current_document, bfwin->current_document->blocksstate);
+		bluefish_text_view_set_show_blocks(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+													  GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 6:
-		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->visible_spacing = GTK_CHECK_MENU_ITEM(widget)->active;
-		/*GdkRegion *region;
-		region = gdk_drawable_get_clip_region (widget->window);
-		gdk_window_invalidate_region(bfwin->current_document->view->window, region, TRUE);
-		gdk_region_destroy(region);
-		*/
+		bluefish_text_view_set_show_visible_spacing(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+																  GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 7:
 		doc_font_size(CURDOC(bfwin), 1);
-	break;
+		break;
 	case 8:
 		doc_font_size(CURDOC(bfwin), -1);
-	break;
+		break;
 	case 9:
 		doc_font_size(CURDOC(bfwin), 0);
-	break;
+		break;
 	case 10:
 		doc_change_tabsize(CURDOC(bfwin),1);
-	break;
+		break;
 	case 11:
 		doc_change_tabsize(CURDOC(bfwin),-1);
-	break;
+		break;
 	case 12:
 		doc_change_tabsize(CURDOC(bfwin),0);
-	break;
+		break;
 	}
 }

@@ -96,8 +96,6 @@ void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter 
 void doc_destroy(Tdocument * doc, gboolean delay_activation);
 void document_unset_filename(Tdocument *doc);
 gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean window_closing);
-void document_set_line_numbers(Tdocument *doc, gboolean value);
-void document_set_show_blocks(Tdocument *doc, gboolean value);
 void document_set_show_symbols(Tdocument *doc, gboolean value);
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
 /* void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename); */
