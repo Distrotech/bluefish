@@ -56,9 +56,7 @@ typedef struct {
 	guint worknum; /* number of elements that are being worked on */
 	GList *head; /* data structures that are *not* being worked on */
 	GList *tail;
-	/*guint task_id;*/ /* the event source id of the task running with g_timeout_add(), or 0 if no task is running */
 	guint max_worknum;
-	/*void (*activate_func) ();*/
 	GStaticMutex mutex;
 } Tqueue;
 
@@ -525,24 +523,6 @@ static void openfile_run(gpointer data) {
 	g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
 }
 
-/*static void process_ofqueue(gpointer data) {
-	Topenfile *of;
-	if (ofqueue.todo == NULL) {
-		return;
-	}
-	if (ofqueue.worknum > OF_MAX_WORKNUM) { / * load max OAD_MAX_WORKNUM directories simultaneously * /
-		return;
-	}
-	while (ofqueue.todo!=NULL && ofqueue.worknum <= OF_MAX_WORKNUM) {
-		of = ofqueue.todo->data;
-		ofqueue.todo = g_list_delete_link(ofqueue.todo, ofqueue.todo);
-		ofqueue.worknum++;
-		DEBUG_MSG("process_ofqueue, processing next uri %p ",of->uri);
-		DEBUG_URI(of->uri, TRUE);
-		g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
-	}
-}*/
-
 Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
 	of = g_new(Topenfile,1);
@@ -553,8 +533,6 @@ Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallb
 	of->cancel = g_cancellable_new();
 	g_object_ref(of->uri);
 	queue_push(&ofqueue, of, openfile_run);
-/*	ofqueue.todo = g_list_prepend(ofqueue.todo, of);
-	process_ofqueue(NULL);*/
 	return of;
 }
 
@@ -873,14 +851,6 @@ void file_doc_from_uri(Tbfwin *bfwin, GFile *uri, GFile *recover_uri, GFileInfo 
 
 /*************************** OPEN ADVANCED ******************************/
 
-/*typedef struct {
-	GList *todo;
-	guint worknum;
-} Toadqueue; / * a queue of Topenadv_dir to avoid 'Too many open files' errors * /
-
-static Toadqueue oadqueue = {NULL, 0};
-#define OAD_MAX_WORKNUM 16
-atic void process_oadqueue(gpointer data);*/
 #define OAD_NUM_FILES_PER_CB 64
 #undef LOAD_TIMER
 typedef struct {
@@ -1016,8 +986,6 @@ static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
 	openadv_unref(oad->oa);
 	g_free(oad);
 	queue_worker_ready(&oadqueue, openadv_run);
-/*	oadqueue.worknum--;
-	process_oadqueue(NULL);*/
 }
 
 static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
@@ -1110,25 +1078,6 @@ static void openadv_run(gpointer data) {
 					,NULL
 					,enumerate_children_lcb,oad);
 }
-/*
-static void process_oadqueue(gpointer data) {
-	Topenadv_dir *oad;
-	if (oadqueue.todo == NULL) {
-		return;
-	}
-	if (oadqueue.worknum > OAD_MAX_WORKNUM) { / * load max OAD_MAX_WORKNUM directories simultaneously * /
-		return;
-	}
-	while (oadqueue.todo!=NULL && oadqueue.worknum <= OAD_MAX_WORKNUM) {
-		oad=oadqueue.todo->data;
-		oadqueue.todo = g_list_delete_link(oadqueue.todo, oadqueue.todo);
-		oadqueue.worknum++;
-		g_file_enumerate_children_async(oad->basedir,BF_FILEINFO,0
-					,G_PRIORITY_DEFAULT+3 
-					,NULL
-					,enumerate_children_lcb,oad);
-	}
-}*/
 
 static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 	Topenadv_dir *oad;
@@ -1141,8 +1090,6 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 	oad->basedir = basedir;
 	g_object_ref(oad->basedir);
 	queue_push(&oadqueue, oad, openadv_run);
-	/*oadqueue.todo = g_list_prepend(oadqueue.todo,oad);
-	process_oadqueue(NULL);*/
 }
 
 void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
@@ -1354,22 +1301,6 @@ static void walk_directory_cleanup(Tsync_walkdir *swd) {
 	g_hash_table_destroy(swd->localnames);
 	g_slice_free(Tsync_walkdir,swd);
 }
-/*
-typedef struct {
-	Tsync *sync;
-	GFile *local_uri;
-	GFileInfo *local_finfo;
-	GFile *remote_uri;
-	gboolean is_dir; 
-} Tsync_needupdate;
-
-static void need_update_cleanup(Tsync_needupdate *snu) {
-	sync_unref(snu->sync);
-	g_object_unref(snu->local_uri);
-	g_object_unref(snu->local_finfo);
-	g_object_unref(snu->remote_uri);
-	g_slice_free(Tsync_needupdate,snu);
-}*/
 
 typedef struct {
 	Tsync *sync;
@@ -1423,20 +1354,6 @@ static gpointer sync_handle_error(Tsync *sync, GFile *uri, const gchar *message,
 	g_error_free(error);
 	return NULL;
 }
-
-
-/*
-TODO
-static void remote_cleanup(Tsync *sync) {
-	g_file_enumerate_children_async(dir,
-                                                         const char *attributes,
-                                                         GFileQueryInfoFlags flags,
-                                                         int io_priority,
-                                                         GCancellable *cancellable,
-                                                         GAsyncReadyCallback callback,
-                                                         gpointer user_data);
-
-}*/
 
 static void do_update_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Tsync_update *su = user_data;
@@ -1648,8 +1565,6 @@ static gboolean walk_local_directory_job(GIOSchedulerJob *job,GCancellable *canc
 static void walk_local_directory_run(gpointer data) {
 	Tsync_walkdir *swd = data;
 	g_io_scheduler_push_job(walk_local_directory_job,swd,NULL,G_PRIORITY_LOW,NULL);
-	/*g_file_enumerate_children_async(swd->local_dir,"standard::name,standard::type,standard::display-name,standard::size,time::modified",
-					G_FILE_QUERY_INFO_NONE,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_lcb,swd);*/
 }
 
 static gboolean walk_local_directory_push(gpointer data) {
@@ -1697,8 +1612,6 @@ void sync_directory(GFile *basedir, GFile *targetdir, gboolean delete_deprecated
 	sync->callback_data = callback_data;
 	queue_init(&sync->queue_walkdir_local,3);
 	queue_init(&sync->queue_walkdir_remote,2);
-/*	queue_init(&sync->queue_delete,7);
-	queue_init(&sync->queue_need_update,8);*/
 	queue_init(&sync->queue_update,4);
 	/*sync->timer = g_timer_new();*/
 	sync->basedir = basedir;
