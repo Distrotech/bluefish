@@ -553,56 +553,6 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 	g_object_unref(G_OBJECT(panlay));
 }
 
-static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
-{
-	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);
-	gboolean event_handled = FALSE;
-
-	/* expose should not schedule any scanning !?!?!?! it doesn't change text so why schedule a scanning run ????????
-	/ * Optimally this should only scan the visible area and only if necessary * /
-	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
-		bftextview2_schedule_scanning(btv);
-	*/
-	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT)) {
-		GtkTextIter startvisible, endvisible;
-		GdkRectangle rect;
-		DBG_SIGNALS("bluefish_text_view_expose_event, GTK_TEXT_WINDOW_LEFT\n");
-
-		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
-		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
-		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
-
-		paint_margin(btv, event, &startvisible, &endvisible);
-		event_handled = TRUE;
-	} else {
-		 if (GTK_WIDGET_IS_SENSITIVE(btv)
-		  && (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
-			&& (main_v->props.view_cline)) {
-				/* current line highlighting */
-				GdkRectangle rect;
-				gint w,w2;
-				GtkTextIter it;
-				DBG_SIGNALS("bluefish_text_view_expose_event, GTK_TEXT_WINDOW_TEXT\n");				
-				
-				GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-				gtk_text_buffer_get_iter_at_mark(buffer, &it, gtk_text_buffer_get_insert(buffer));
-				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
-				gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &w2);
-				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
-															  rect.x, rect.y, &rect.x, &rect.y);
-				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
-														  0, w, NULL, &w);
-				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)],
-										   TRUE, rect.x, w, rect.width, w2);
-		}
-		
-		if (GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->expose_event)
- 			event_handled = GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->expose_event (widget, event); 			
-	}
-	
-	return event_handled;
-}
-
 static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible) {
 	GtkTextIter iter;
 	cairo_t *cr;
@@ -666,20 +616,66 @@ static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, G
 	cairo_destroy(cr);
 }
 
-static gboolean bftextview2_expose_after_lcb(GtkWidget *widget, GdkEventExpose * event) {
-	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
-	if (btv->visible_spacing && event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT)) {
+static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
+{
+	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);
+	gboolean event_handled = FALSE;
+
+	/* expose should not schedule any scanning !?!?!?! it doesn't change text so why schedule a scanning run ????????
+	/ * Optimally this should only scan the visible area and only if necessary * /
+	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
+		bftextview2_schedule_scanning(btv);
+	*/
+	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT)) {
 		GtkTextIter startvisible, endvisible;
 		GdkRectangle rect;
+		DBG_SIGNALS("bluefish_text_view_expose_event, GTK_TEXT_WINDOW_LEFT\n");
+
 		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
 		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
 		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
-		paint_spaces(btv,event,&startvisible,&endvisible);
+
+		paint_margin(btv, event, &startvisible, &endvisible);
+		event_handled = TRUE;
+	} else {
+		 if (GTK_WIDGET_IS_SENSITIVE(btv)
+		  && (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
+			&& (main_v->props.view_cline)) {
+				GdkRectangle rect;
+				gint w,w2;
+				GtkTextIter it;
+				DBG_SIGNALS("bluefish_text_view_expose_event, current line highlighting\n");				
+				
+				GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+				gtk_text_buffer_get_iter_at_mark(buffer, &it, gtk_text_buffer_get_insert(buffer));
+				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+				gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &w2);
+				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
+															  rect.x, rect.y, &rect.x, &rect.y);
+				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
+														  0, w, NULL, &w);
+				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)],
+										   TRUE, rect.x, w, rect.width, w2);
+		}
+		
+		if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT)
+		 && btv->visible_spacing) {
+			GtkTextIter startvisible, endvisible;
+			GdkRectangle rect;
+			DBG_SIGNALS("bluefish_text_view_expose_event, paint visible spacing\n");			
+			
+			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
+			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
+			paint_spaces(btv,event,&startvisible,&endvisible);
+		}
+		
+		if (GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->expose_event)
+ 			event_handled = GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->expose_event (widget, event); 			
 	}
-	return FALSE;
+	
+	return event_handled;
 }
-
-
 
 static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 										 GtkTextIter * oend, gpointer user_data)
@@ -1304,6 +1300,5 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 	g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb),textview);
 	g_signal_connect_after(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_after_lcb),textview);
 	g_signal_connect_after(G_OBJECT(textview), "key-release-event", G_CALLBACK(bftextview2_key_release_lcb), textview);
-	g_signal_connect_after(G_OBJECT(textview), "expose-event", G_CALLBACK(bftextview2_expose_after_lcb), textview);
 	return GTK_WIDGET(textview);
 }
