@@ -168,9 +168,7 @@ typedef struct {
 	gint last_rbutton_event; /* index of last 3rd button click */
 	gint need_highlighting; /* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
 	gboolean highlightstate; /* does this document use highlighting ? */
-	gboolean wrapstate; /* does this document use wrap?*/
-	gboolean linenumberstate; /* does this document use linenumbers? */	
-	gboolean blocksstate; /* does this document show blocks? */
+	gboolean wrapstate; /* does this document use wrap?*/	
 	gboolean symstate; /* does this document show symbols? */	
 	gboolean overwrite_mode; /* is document in overwrite mode */
 	gboolean autoclosingtag; /* does the document use autoclosing of tags */

@@ -386,10 +386,10 @@ struct _BluefishTextView {
 	gboolean key_press_was_autocomplete;
 
 	gboolean enable_scanner; /* only run scanner when TRUE, this is FALSE if the document is in the background for example */
-	gboolean autoindent;
-	gboolean autocomplete;
-	gboolean linenumbers;
-	gboolean showblocks;
+	gboolean auto_indent;
+	gboolean auto_complete;
+	gboolean show_line_numbers;
+	gboolean show_blocks;
 	gboolean showsymbols;
 	gboolean visible_spacing;
 };
@@ -398,15 +398,26 @@ struct _BluefishTextViewClass {
 	GtkTextViewClass parent_class;
 };
 
-void bluefish_text_view_rescan(BluefishTextView * btv);
-gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter *its, GtkTextIter *ite);
-void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime);
-void bluefish_text_view_set_colors(BluefishTextView * btv, const gchar *fg_color, const gchar *bg_color);
-
 GType bluefish_text_view_get_type (void);
 
-void bftextview2_schedule_scanning(BluefishTextView * btv);
 GtkWidget * bftextview2_new(void);
 GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer);
+
+gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
+void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);
+gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);
+void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable);
+void bluefish_text_view_set_colors(BluefishTextView * btv, const gchar *fg_color, const gchar *bg_color);
+void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime);
+gboolean bluefish_text_view_get_show_blocks(BluefishTextView * btv);
+void bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show);
+gboolean bluefish_text_view_get_show_line_numbers(BluefishTextView * btv);
+void bluefish_text_view_set_show_line_numbers(BluefishTextView * btv, gboolean show);
+gboolean bluefish_text_view_get_show_visible_spacing(BluefishTextView * btv);
+void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolean show);
+
+void bluefish_text_view_rescan(BluefishTextView * btv);
+void bftextview2_schedule_scanning(BluefishTextView * btv);
+gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter *its, GtkTextIter *ite);
 
 #endif
