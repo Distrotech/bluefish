@@ -63,6 +63,7 @@ typedef struct {
 } Tqueue;
 
 static Tqueue ofqueue;
+static Tqueue sfqueue;
 static Tqueue oadqueue;
 
 static void queue_init(Tqueue *queue, guint max_worknum) {
@@ -73,8 +74,9 @@ static void queue_init(Tqueue *queue, guint max_worknum) {
 }
 
 void file_static_queues_init(void) {
-	queue_init(&ofqueue, 32);
+	queue_init(&ofqueue, 16);
 	queue_init(&oadqueue, 16);
+	queue_init(&sfqueue, 16);
 }
 
 static void queue_cleanup(Tqueue *queue) {
@@ -291,17 +293,19 @@ typedef struct {
 	GFileInfo *finfo;
 	GCancellable* cancelab;
 	const gchar *etag;
-	/*Tsavefile *sf;  to cancel the actual save */
-	/*Tcheckmodified *cm;  to cancel the checkmodified check */
 	Trefcpointer *buffer;
 	gboolean check_modified;
+	gboolean backup;
 	CheckNsaveAsyncCallback callback_func;
 	gpointer callback_data;
 	gboolean abort; /* the backup callback may set this to true, it means that the user choosed to abort save because the backup failed */
 } TcheckNsave;
 
+static void file_checkNsave_run(gpointer data);
+
 static void checkNsave_cleanup(TcheckNsave *cns) {
 	DEBUG_MSG("checkNsave_cleanup, called for %p\n",cns);
+	queue_worker_ready(&sfqueue, file_checkNsave_run);
 	refcpointer_unref(cns->buffer);
 	g_object_unref(cns->uri);
 	g_object_unref(cns->cancelab);
@@ -382,6 +386,14 @@ void file_checkNsave_cancel(gpointer cns) {
 	g_cancellable_cancel(((TcheckNsave *)cns)->cancelab);
 }
 
+static void file_checkNsave_run(gpointer data) {
+	TcheckNsave *cns=data;
+	g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
+					,cns->etag,cns->backup
+					,G_FILE_CREATE_NONE,cns->cancelab
+					,checkNsave_replace_async_lcb,cns);	
+}
+
 gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, gboolean backup, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
 	TcheckNsave *cns;
 	cns = g_new0(TcheckNsave,1);
@@ -397,6 +409,7 @@ gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *bu
 	cns->finfo = info;
 	cns->check_modified = check_modified;
 	cns->abort = FALSE;
+	cns->backup = backup;
 	if (info) {
 		g_object_ref(info);
 		if (check_modified && g_file_info_has_attribute(info,G_FILE_ATTRIBUTE_ETAG_VALUE)) {
@@ -406,10 +419,7 @@ gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *bu
 	}
 	DEBUG_MSG("file_checkNsave_uri_async, saving %ld bytes to ",(long int)cns->buffer_size);
 	DEBUG_URI(cns->uri, TRUE);
-	g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
-					,cns->etag,backup
-					,G_FILE_CREATE_NONE,cns->cancelab
-					,checkNsave_replace_async_lcb,cns);
+	queue_push(&sfqueue, cns, file_checkNsave_run);
 	return cns;
 }
 /*
