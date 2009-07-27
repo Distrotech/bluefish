@@ -324,6 +324,7 @@ gint document_return_num_notcomplete(GList *doclist) {
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	if (!bfwin->current_document) return;
 	if (!BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner) {
+		g_print("doc_update_highlighting, set enable_scanner to TRUE\n");
 		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = TRUE;
 	}
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
@@ -2673,6 +2674,8 @@ void doc_activate(Tdocument *doc) {
 	}
 #endif
 	if (doc == NULL || doc == BFWIN(doc->bfwin)->last_activated_doc || doc->action.close_doc) {
+		/* DO enable the scanner, because it is disabled in notebook_changed(), but if the last document is also the new document it needs to be re-enabled again */
+		BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
 		DEBUG_MSG("doc_activate, not doing anything, doc=%p, last_avtivated_doc=%p, close_doc=%d\n",doc, BFWIN(doc->bfwin)->last_activated_doc, doc->action.close_doc);
 		return;
 	}
@@ -2724,6 +2727,7 @@ void doc_activate(Tdocument *doc) {
 		return;
 	} else {
 		if (doc->highlightstate && !BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner) {
+			/*g_print("doc_activate, enable scanner for %p\n",doc);*/
 			BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
 			bftextview2_schedule_scanning(BLUEFISH_TEXT_VIEW(doc->view));
 		}
@@ -2908,6 +2912,7 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  **/
 void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	bfwin->current_document->highlightstate = bfwin->current_document->highlightstate-1;
+	g_print("doc_toggle_highlighting_cb, set enable_scanner=%d\n",bfwin->current_document->highlightstate);
 	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = bfwin->current_document->highlightstate;
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 }

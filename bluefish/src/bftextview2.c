@@ -1059,6 +1059,7 @@ void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) 
 	Tbflang *bflang = langmgr_get_bflang_for_mimetype(mime);
 	/* remove all highlighting */
 	cleanup_scanner(btv);
+	DBG_MSG("bluefish_text_view_set_mimetype, found bflang %p for mimetype %s\n",bflang,mime);
 	if (bflang) {
 		/* set new language */
 		btv->bflang = bflang;
