@@ -51,6 +51,7 @@ void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *wid
 void doc_set_wrap(Tdocument *doc);
 void doc_set_tooltip(Tdocument *doc);
 void doc_set_title(Tdocument *doc);
+void doc_set_mimetype(Tdocument *doc, const gchar *mimetype);
 void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen);
 void doc_set_font(Tdocument *doc, gchar *fontstring);
 void doc_set_tabsize(Tdocument *doc, gint tabsize);
@@ -77,7 +78,7 @@ void doc_select_line_by_offset(Tdocument *doc, gint offset, gboolean do_scroll);
 gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end);
 gint doc_get_cursor_position(Tdocument *doc);
 void doc_set_statusbar_insovr(Tdocument *doc);
-void doc_set_statusbar_editmode_encoding(Tdocument *doc);
+void doc_set_statusbar_mimetype_encoding(Tdocument *doc);
 
 /* the prototype for these functions is changed!! */
 void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end);

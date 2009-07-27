@@ -481,19 +481,8 @@ static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory)
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
 	DEBUG_MSG("menu_current_document_type_change, started for bflang %p\n", bdm->data);
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
-		bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(bdm->bfwin->current_document->view), ((Tbflang *)bdm->data)->mimetypes->data);
-		
-		if (bdm->bfwin->current_document->newdoc_autodetect_lang_id) {
-			g_source_remove(bdm->bfwin->current_document->newdoc_autodetect_lang_id);
-			bdm->bfwin->current_document->newdoc_autodetect_lang_id=0;
-		}
-		
-		/* BUG: the fileinfo object is not changed, and the statusbar and tooltip popup get their mime
-		info from the fileinfo */
-		
+		doc_set_mimetype(bdm->bfwin->current_document, ((Tbflang *)bdm->data)->mimetypes->data);
 	}
-	/* BUG: this only needs to be called if the mime type it actually changed, right? */
-	doc_set_statusbar_editmode_encoding(bdm->bfwin->current_document);
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
 }
 
@@ -1013,7 +1002,6 @@ static void menu_current_document_encoding_change(GtkMenuItem *menuitem,Tbfw_dyn
 				if (main_v->props.auto_set_encoding_meta) {
 					update_encoding_meta_in_file(bfwin->current_document, bfwin->current_document->encoding);
 				}
-				doc_set_statusbar_editmode_encoding(bfwin->current_document);
 				DEBUG_MSG("menu_current_document_encoding_change, set to %s\n", encoding);
 			}
 			if (bfwin->session->encoding) g_free(bfwin->session->encoding);
