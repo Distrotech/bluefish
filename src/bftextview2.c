@@ -1089,6 +1089,7 @@ void bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show)
 	}
 	
 	btv->show_blocks = show;
+	bftextview2_set_margin_size(btv);
 	gtk_widget_queue_draw(GTK_WIDGET(btv));
 }
 
@@ -1107,6 +1108,7 @@ void bluefish_text_view_set_show_line_numbers(BluefishTextView * btv, gboolean s
 	}
 	
 	btv->show_line_numbers = show;
+	bftextview2_set_margin_size(btv);
 	gtk_widget_queue_draw(GTK_WIDGET(btv));
 }
 
