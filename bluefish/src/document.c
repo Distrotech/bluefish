@@ -443,6 +443,19 @@ void doc_set_title(Tdocument *doc) {
 	}
 }
 
+void doc_set_mimetype(Tdocument *doc, const gchar *mimetype) {
+	DEBUG_MSG("doc_set_mimetype(%p, %s)\n",doc,mimetype);
+	if (doc->newdoc_autodetect_lang_id) {
+		g_source_remove(doc->newdoc_autodetect_lang_id);
+		doc->newdoc_autodetect_lang_id=0;
+	}
+	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(doc->view), mimetype);
+	if (doc->fileinfo) {
+		g_file_info_set_content_type(doc->fileinfo,mimetype);
+	}
+	doc_set_statusbar_mimetype_encoding(doc);
+} 
+
 /**
  * doc_reset_filetype:
  * @doc: #Tdocument to reset
@@ -456,29 +469,15 @@ void doc_set_title(Tdocument *doc) {
  * Return value: void
  **/
 void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen) {
-	const gchar *mimetype = NULL;
 	gboolean uncertain=FALSE;
 	char *filename=NULL, *conttype;
-
-	if (doc->newdoc_autodetect_lang_id) {
-		g_source_remove(doc->newdoc_autodetect_lang_id);
-		doc->newdoc_autodetect_lang_id=0;
-	}
 
 	if (newuri)
 		filename = g_file_get_basename(newuri);
 	conttype = g_content_type_guess(filename,buf,buflen,&uncertain);
 	DEBUG_MSG("doc_reset_filetype,conttype=%s\n",conttype);
 	g_free(filename);
-	/*mimetype = g_content_type_get_mime_type(conttype);*/
-	mimetype=conttype;
-	DEBUG_MSG("doc_reset_filetype,mimetype=%s\n",mimetype);
-
-	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(doc->view), mimetype);
-	if (doc->fileinfo) {
-		g_file_info_set_content_type(doc->fileinfo,mimetype);
-	}
-	
+	doc_set_mimetype(doc, conttype);
 	g_free(conttype);
 }
 
@@ -1057,15 +1056,14 @@ void doc_set_statusbar_insovr(Tdocument *doc)
 		gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0, _(" RO"));
 }
 /**
- * doc_set_statusbar_editmode_encoding:
+ * doc_set_statusbar_mimetype_encoding:
  * @doc: a #Tdocument
  *
- *
- *
+ * fills the statusbar for encoding and mimetype
  *
  * Return value: void
  **/
-void doc_set_statusbar_editmode_encoding(Tdocument *doc)
+void doc_set_statusbar_mimetype_encoding(Tdocument *doc)
 {
 	gchar *msg = NULL;
 
@@ -1087,6 +1085,7 @@ void doc_set_statusbar_editmode_encoding(Tdocument *doc)
 	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0, msg);
 	g_free(msg);
 }
+
 
 void doc_insert_text_backend(Tdocument *doc, const gchar * newstring, gint position) {
 	GtkTextIter iter;
@@ -1964,6 +1963,10 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		add_to_recent_list(doc->bfwin,doc->uri, 1, FALSE);
 	}
 	gui_notebook_unbind_signals(BFWIN(doc->bfwin));
+	if (doc->newdoc_autodetect_lang_id) {
+		g_source_remove(doc->newdoc_autodetect_lang_id);
+		doc->newdoc_autodetect_lang_id=0;
+	}
 
 	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(),
 	(in notebook_changed())
@@ -2272,23 +2275,19 @@ static gboolean doc_auto_detect_lang_lcb(gpointer data) {
 	
 	buf = doc_get_chars(doc, 0, -1);
 	buflen = strlen(buf);
-	conttype = g_content_type_guess(NULL,buf,buflen,&uncertain);
-	g_print("doc_auto_detect_lang_lcb, buflen=%d\n",buflen);
+	conttype = g_content_type_guess(NULL,(guchar *)buf,buflen,&uncertain);
+	/*g_print("doc_auto_detect_lang_lcb, buflen=%d\n",buflen);*/
 	g_free(buf);
 	if (!uncertain && conttype && (strcmp(conttype, "text/plain")!=0|| buflen>50) )  {
-		g_print("doc_auto_detect_lang_lcb, found %s for certain\n",conttype);
-		doc->newdoc_autodetect_lang_id=0;
-		bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(doc->view), conttype);
-		if (doc->fileinfo) {
-			g_file_info_set_content_type(doc->fileinfo,conttype);
-		}
+		DEBUG_MSG("doc_auto_detect_lang_lcb, found %s for certain\n",conttype);
+		doc_set_mimetype(doc,conttype);
 		g_free(conttype);
 		return FALSE; 
 	}
 	g_free(conttype);
 	if (buflen > 50) {
 		doc->newdoc_autodetect_lang_id=0;
-		g_print("doc_auto_detect_lang_lcb, filesize>50, stop detection\n");
+		DEBUG_MSG("doc_auto_detect_lang_lcb, filesize>50, stop detection\n");
 		return FALSE; 
 	}
 	return TRUE;
@@ -2738,7 +2737,7 @@ void doc_activate(Tdocument *doc) {
 	gui_set_title(BFWIN(doc->bfwin), doc);
 	doc_set_statusbar_lncol(doc);
 	doc_set_statusbar_insovr(doc);
-	doc_set_statusbar_editmode_encoding(doc);
+	doc_set_statusbar_mimetype_encoding(doc);
 
 /*	doc_scroll_to_cursor(doc);*/
 	if (doc->uri) {
