@@ -158,6 +158,7 @@ typedef struct {
 	gulong del_txt_id; /* text delete signal */
 	gulong ins_txt_id; /* text insert signal */
 	/*gulong ins_aft_txt_id;*/ /* text insert-after signal, for auto-indenting */
+	guint newdoc_autodetect_lang_id; /* a timer function that runs for new documents to detect their mime type  */
 	unre_t unre;
 	GtkWidget *view;
 	GtkWidget *tab_label;
