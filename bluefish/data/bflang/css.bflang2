@@ -45,7 +45,7 @@
 <definition>
 	<context symbols=" &#9;&#10;&#13;{}.,:#">
 		&css-selectors;
-		<element id="css{" pattern="{" starts_block="1" mayfold="1" highlight="css-brackets" >
+		<element id="css:bracket" pattern="{" starts_block="1" mayfold="1" highlight="css-brackets" >
 			<context id="css_properties" symbols=" &#9;&#10;&#13;{}.:&quot;';">
 				&css-rules;
 				<element pattern="/*" starts_block="1" highlight="css-comment">
@@ -53,7 +53,7 @@
 						<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="css-comment" mayfold="1" ends_context="1" />
 					</context>
 				</element>
-				<element pattern="}" ends_block="1" blockstartelement="css{" highlight="css-brackets" ends_context="1"/>
+				<element pattern="}" ends_block="1" blockstartelement="css:bracket" highlight="css-brackets" ends_context="1"/>
 			</context>
 		</element>
 		<element pattern="/*" starts_block="1" highlight="css-comment">
