@@ -482,8 +482,17 @@ static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu
 	DEBUG_MSG("menu_current_document_type_change, started for bflang %p\n", bdm->data);
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
 		bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(bdm->bfwin->current_document->view), ((Tbflang *)bdm->data)->mimetypes->data);
+		
+		if (doc->newdoc_autodetect_lang_id) {
+			g_source_remove(doc->newdoc_autodetect_lang_id);
+			doc->newdoc_autodetect_lang_id=0;
+		}
+		
+		/* BUG: the fileinfo object is not changed, and the statusbar and tooltip popup get their mime
+		info from the fileinfo */
+		
 	}
-
+	/* BUG: this only needs to be called if the mime type it actually changed, right? */
 	doc_set_statusbar_editmode_encoding(bdm->bfwin->current_document);
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
 }

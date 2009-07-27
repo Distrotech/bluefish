@@ -460,6 +460,11 @@ void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssiz
 	gboolean uncertain=FALSE;
 	char *filename=NULL, *conttype;
 
+	if (doc->newdoc_autodetect_lang_id) {
+		g_source_remove(doc->newdoc_autodetect_lang_id);
+		doc->newdoc_autodetect_lang_id=0;
+	}
+
 	if (newuri)
 		filename = g_file_get_basename(newuri);
 	conttype = g_content_type_guess(filename,buf,buflen,&uncertain);
@@ -475,7 +480,6 @@ void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssiz
 	}
 	
 	g_free(conttype);
-	/* TODO: set the mime type in the doc->fileinfo so we can use it in the tooltips */
 }
 
 void doc_set_filename(Tdocument *doc, GFile *newuri) {
@@ -2260,6 +2264,36 @@ Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GFile *uri, GFileInfo *f
 	return doc;
 }
 
+static gboolean doc_auto_detect_lang_lcb(gpointer data) {
+	Tdocument *doc=data;
+	gchar *conttype, *buf;
+	gint buflen;
+	gboolean uncertain=FALSE;
+	
+	buf = doc_get_chars(doc, 0, -1);
+	buflen = strlen(buf);
+	conttype = g_content_type_guess(NULL,buf,buflen,&uncertain);
+	g_print("doc_auto_detect_lang_lcb, buflen=%d\n",buflen);
+	g_free(buf);
+	if (!uncertain && conttype && (strcmp(conttype, "text/plain")!=0|| buflen>50) )  {
+		g_print("doc_auto_detect_lang_lcb, found %s for certain\n",conttype);
+		doc->newdoc_autodetect_lang_id=0;
+		bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(doc->view), conttype);
+		if (doc->fileinfo) {
+			g_file_info_set_content_type(doc->fileinfo,conttype);
+		}
+		g_free(conttype);
+		return FALSE; 
+	}
+	g_free(conttype);
+	if (buflen > 50) {
+		doc->newdoc_autodetect_lang_id=0;
+		g_print("doc_auto_detect_lang_lcb, filesize>50, stop detection\n");
+		return FALSE; 
+	}
+	return TRUE;
+}
+
 /**
  * doc_new:
  * @bfwin: #Tbfwin* with the window to open the document in
@@ -2275,6 +2309,9 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	Tdocument *doc = doc_new_backend(bfwin, TRUE, FALSE);
 	doc_set_status(doc, DOC_STATUS_COMPLETE);
 	DEBUG_MSG("doc_new, status=%d\n",doc->status);
+
+	doc->newdoc_autodetect_lang_id=g_timeout_add_seconds_full(G_PRIORITY_DEFAULT_IDLE, 10, doc_auto_detect_lang_lcb, doc, NULL);
+	
 	if(!delay_activate) gtk_widget_show(doc->view); /* Delay _show() if neccessary */
 	return doc;
 }
