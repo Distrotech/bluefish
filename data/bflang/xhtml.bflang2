@@ -98,7 +98,7 @@
 			</context>
 		</element>
 		&css-selectors;
-		<element id="css{" pattern="{" starts_block="1" highlight="brackets">
+		<element id="css:bracket" pattern="{" starts_block="1" highlight="brackets">
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
 				&css-rules;
 				<element pattern="/*" starts_block="1" highlight="css-comment">
@@ -107,7 +107,7 @@
 					</context>
 				</element>
 				<element pattern="&lt;/style&gt;" highlight="tag" ends_context="3" />
-				<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="1" />
+				<element pattern="}" ends_block="1" blockstartelement="css:bracket" highlight="brackets" ends_context="1" />
 			</context>
 		</element>
 	</context>

@@ -28,7 +28,7 @@
 		<element pattern="scroll" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="fixed" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element id="css;" pattern=";" ends_context="1"/>
-		<element id="css}" pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2"/>
+		<element id="css}" pattern="}" ends_block="1" blockstartelement="css:bracket" highlight="brackets" ends_context="2"/>
 	</context>
 </element>
 <element pattern="background-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
