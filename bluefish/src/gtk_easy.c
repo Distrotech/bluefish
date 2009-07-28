@@ -1538,9 +1538,11 @@ static gboolean accelerator_key_press_lcb(GtkWidget *widget, GdkEventKey *event,
 			gdk_keymap_translate_keyboard_state(gdk_keymap_get_for_display(display),event->hardware_keycode, event->state, event->group,NULL, NULL, NULL, &consumed_modifiers);
 			accel_mods = event->state & gtk_accelerator_get_default_mod_mask() & ~consumed_modifiers;
 			accel_key = gdk_keyval_to_lower(event->keyval);
-			if (accel_key != event->keyval) accel_mods |= GDK_SHIFT_MASK;
+			if (accel_key != event->keyval) {
+				accel_mods |= GDK_SHIFT_MASK;
+			}
 			if (gtk_accelerator_valid (accel_key, accel_mods)) {
-				g_object_set_data(G_OBJECT(dlg),"keyname",gtk_accelerator_name(event->keyval,event->state));
+				g_object_set_data(G_OBJECT(dlg),"keyname",gtk_accelerator_name(accel_key,accel_mods));
 				gtk_dialog_response(dlg,GTK_RESPONSE_OK);
 			} else {
 				DEBUG_MSG("accelerator_key_press_lcb, not valid..\n");
