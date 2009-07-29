@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: bluefish 1.3.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-07-18 19:34-0700\n"
-"PO-Revision-Date: 2009-02-06 16:37-0300\n"
+"PO-Revision-Date: 2009-07-27 17:52-0300\n"
 "Last-Translator: Esfinge Metal <esfingemetal@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -74,12 +74,8 @@ msgstr ""
 "Esfinge Metal <esfingemetal@gmail.com>"
 
 #: src/plugin_about/about.c:186
-#, fuzzy
 msgid "This version of Bluefish was built with:\n"
-msgstr ""
-"\n"
-"\n"
-"Essa versão do Bluefish foi construída com: "
+msgstr "Essa versão do Bluefish foi construída com:\n"
 
 #: src/plugin_about/about.c:207
 msgid "/_Help"
@@ -98,15 +94,5 @@ msgid "/Help/_About..."
 msgstr "/Ajuda/Sobre..."
 
 #: src/plugin_about/about.c:212
-#, fuzzy
 msgid "/Help/_Build Info..."
-msgstr "/Ajuda/Sobre..."
-
-#~ msgid "libaspell support, "
-#~ msgstr "suporte libaspell, "
-
-#~ msgid "development checks support, "
-#~ msgstr "suporte development checks, "
-
-#~ msgid "i18n support, "
-#~ msgstr "suporte i18n, "
+msgstr "/Ajuda/Informação de construção..."
