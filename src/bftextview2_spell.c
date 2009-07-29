@@ -80,7 +80,7 @@ static gboolean load_dictionary(Tbfwin *bfwin) {
 	if (bfwin->session->spell_lang && bfwin->session->spell_lang[0]!='\0' && enchant_broker_dict_exists(eb,bfwin->session->spell_lang)) {
 		bfwin->ed = (void *)enchant_broker_request_dict(eb, bfwin->session->spell_lang);
 		DBG_SPELL("loaded dictionary %s\n", bfwin->session->spell_lang);
-		return TRUE;
+		return (bfwin->ed != NULL);
 	} else {
 		bfwin->ed = NULL;
 		/* load the first existing enchant dict */
