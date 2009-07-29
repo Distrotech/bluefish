@@ -1077,7 +1077,7 @@ Converts a Gregorian date to Julian Day Count
 <b> year int </b>The year as a number between -4714 and 9999
 <b>returns</b>  int The julian day for the given gregorian date as an integer.
 </reference></element>
-<element pattern="c" autocomplete_append="($julianday, $mode = null);">
+<element pattern="jddayofweek" autocomplete_append="($julianday, $mode = null);">
 <reference>jddayofweek($julianday, $mode = null);
 Returns the day of the week
 <b> julianday int </b>A julian day number as integer
