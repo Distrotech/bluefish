@@ -1077,36 +1077,14 @@ Converts a Gregorian date to Julian Day Count
 <b> year int </b>The year as a number between -4714 and 9999
 <b>returns</b>  int The julian day for the given gregorian date as an integer.
 </reference></element>
-<element pattern="jddayofweek" autocomplete_append="($julianday, $mode = null);">
+<element pattern="c" autocomplete_append="($julianday, $mode = null);">
 <reference>jddayofweek($julianday, $mode = null);
 Returns the day of the week
 <b> julianday int </b>A julian day number as integer
-<b> mode int[optional] &lt;table&gt;</b>Calendar week modes
-&lt;tr valign="top"&gt;
-&lt;td&gt;Mode&lt;/td&gt;
-&lt;td&gt;Meaning&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;0 (Default)&lt;/td&gt; 
-&lt;td&gt;
-Return the day number as an int (0=Sunday, 1=Monday, etc)
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt; 
-&lt;td&gt;
-Returns string containing the day of week
-(English-Gregorian)
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt; 
-&lt;td&gt;
-Return a string containing the abbreviated day of week
-(English-Gregorian)
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+<b> mode int[optional] </b>Calendar week modes
+0 (Default) Return the day number as an int (0=Sunday, 1=Monday, etc)
+1 Returns string containing the day of week (English-Gregorian)
+2 Return a string containing the abbreviated day of week (English-Gregorian)
 <b>returns</b>  mixed The gregorian weekday as either an integer or string.
 </reference></element>
 <element pattern="jdmonthname" autocomplete_append="($julianday, $mode);">
@@ -2800,29 +2778,11 @@ Returns an array with information about sunset/sunrise and twilight begin/end
 Returns time of sunrise for a given day and location
 <b> timestamp int </b>The timestamp of the day from which the sunrise
 time is taken.
-<b> format int[optional] </b>&lt;table&gt;
+<b> format int[optional] </b>
 format constants
-&lt;tr valign="top"&gt;
-&lt;td&gt;constant&lt;/td&gt;
-&lt;td&gt;description&lt;/td&gt;
-&lt;td&gt;example&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SUNFUNCS_RET_STRING&lt;/td&gt;
-&lt;td&gt;returns the result as string&lt;/td&gt;
-&lt;td&gt;16:46&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SUNFUNCS_RET_DOUBLE&lt;/td&gt;
-&lt;td&gt;returns the result as float&lt;/td&gt;
-&lt;td&gt;16.78243132&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SUNFUNCS_RET_TIMESTAMP&lt;/td&gt;
-&lt;td&gt;returns the result as integer (timestamp)&lt;/td&gt;
-&lt;td&gt;1095034606&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+SUNFUNCS_RET_STRING returns the result as string
+SUNFUNCS_RET_DOUBLE returns the result as float
+SUNFUNCS_RET_TIMESTAMP returns the result as integer (timestamp)
 <b> latitude float[optional] </b>Defaults to North, pass in a negative value for South.
 See also: date.default_latitude
 <b> longitude float[optional] </b>Defaults to East, pass in a negative value for West.
@@ -2836,29 +2796,11 @@ success, or false on failure.
 Returns time of sunset for a given day and location
 <b> timestamp int </b>The timestamp of the day from which the sunset
 time is taken.
-<b> format int[optional] </b>&lt;table&gt;
+<b> format int[optional] </b>
 format constants
-&lt;tr valign="top"&gt;
-&lt;td&gt;constant&lt;/td&gt;
-&lt;td&gt;description&lt;/td&gt;
-&lt;td&gt;example&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SUNFUNCS_RET_STRING&lt;/td&gt;
-&lt;td&gt;returns the result as string&lt;/td&gt;
-&lt;td&gt;16:46&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SUNFUNCS_RET_DOUBLE&lt;/td&gt;
-&lt;td&gt;returns the result as float&lt;/td&gt;
-&lt;td&gt;16.78243132&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SUNFUNCS_RET_TIMESTAMP&lt;/td&gt;
-&lt;td&gt;returns the result as integer (timestamp)&lt;/td&gt;
-&lt;td&gt;1095034606&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+SUNFUNCS_RET_STRING returns the result as string
+SUNFUNCS_RET_DOUBLE returns the result as float
+SUNFUNCS_RET_TIMESTAMP returns the result as integer (timestamp)
 <b> latitude float[optional] </b>Defaults to North, pass in a negative value for South.
 See also: date.default_latitude
 <b> longitude float[optional] </b>Defaults to East, pass in a negative value for West.
@@ -2897,240 +2839,55 @@ options below.
 &lt;table&gt;
 The following characters are recognized in the
 format parameter string
-&lt;tr valign="top"&gt;
-&lt;td&gt;format character&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;td&gt;Example returned values&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-Day&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;d&lt;/td&gt;
-&lt;td&gt;Day of the month, 2 digits with leading zeros&lt;/td&gt;
-&lt;td&gt;01 to 31&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;D&lt;/td&gt;
-&lt;td&gt;A textual representation of a day, three letters&lt;/td&gt;
-&lt;td&gt;Mon through Sun&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;j&lt;/td&gt;
-&lt;td&gt;Day of the month without leading zeros&lt;/td&gt;
-&lt;td&gt;1 to 31&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;l (lowercase 'L')&lt;/td&gt;
-&lt;td&gt;A full textual representation of the day of the week&lt;/td&gt;
-&lt;td&gt;Sunday through Saturday&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;N&lt;/td&gt;
-&lt;td&gt;ISO-8601 numeric representation of the day of the week (added in
-PHP 5.1.0)&lt;/td&gt;
-&lt;td&gt;1 (for Monday) through 7 (for Sunday)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;S&lt;/td&gt;
-&lt;td&gt;English ordinal suffix for the day of the month, 2 characters&lt;/td&gt;
-&lt;td&gt;
-st, nd, rd or
-th. Works well with j
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;w&lt;/td&gt;
-&lt;td&gt;Numeric representation of the day of the week&lt;/td&gt;
-&lt;td&gt;0 (for Sunday) through 6 (for Saturday)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;z&lt;/td&gt;
-&lt;td&gt;The day of the year (starting from 0)&lt;/td&gt;
-&lt;td&gt;0 through 365&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-Week&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;W&lt;/td&gt;
-&lt;td&gt;ISO-8601 week number of year, weeks starting on Monday (added in PHP 4.1.0)&lt;/td&gt;
-&lt;td&gt;Example: 42 (the 42nd week in the year)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-Month&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;F&lt;/td&gt;
-&lt;td&gt;A full textual representation of a month, such as January or March&lt;/td&gt;
-&lt;td&gt;January through December&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;m&lt;/td&gt;
-&lt;td&gt;Numeric representation of a month, with leading zeros&lt;/td&gt;
-&lt;td&gt;01 through 12&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;M&lt;/td&gt;
-&lt;td&gt;A short textual representation of a month, three letters&lt;/td&gt;
-&lt;td&gt;Jan through Dec&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;n&lt;/td&gt;
-&lt;td&gt;Numeric representation of a month, without leading zeros&lt;/td&gt;
-&lt;td&gt;1 through 12&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;t&lt;/td&gt;
-&lt;td&gt;Number of days in the given month&lt;/td&gt;
-&lt;td&gt;28 through 31&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-Year&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;L&lt;/td&gt;
-&lt;td&gt;Whether it's a leap year&lt;/td&gt;
-&lt;td&gt;1 if it is a leap year, 0 otherwise.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;o&lt;/td&gt;
-&lt;td&gt;ISO-8601 year number. This has the same value as
-Y, except that if the ISO week number
-(W) belongs to the previous or next year, that year
-is used instead. (added in PHP 5.1.0)&lt;/td&gt;
-&lt;td&gt;Examples: 1999 or 2003&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Y&lt;/td&gt;
-&lt;td&gt;A full numeric representation of a year, 4 digits&lt;/td&gt;
-&lt;td&gt;Examples: 1999 or 2003&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;y&lt;/td&gt;
-&lt;td&gt;A two digit representation of a year&lt;/td&gt;
-&lt;td&gt;Examples: 99 or 03&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-Time&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;a&lt;/td&gt;
-&lt;td&gt;Lowercase Ante meridiem and Post meridiem&lt;/td&gt;
-&lt;td&gt;am or pm&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;A&lt;/td&gt;
-&lt;td&gt;Uppercase Ante meridiem and Post meridiem&lt;/td&gt;
-&lt;td&gt;AM or PM&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;B&lt;/td&gt;
-&lt;td&gt;Swatch Internet time&lt;/td&gt;
-&lt;td&gt;000 through 999&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;g&lt;/td&gt;
-&lt;td&gt;12-hour format of an hour without leading zeros&lt;/td&gt;
-&lt;td&gt;1 through 12&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;G&lt;/td&gt;
-&lt;td&gt;24-hour format of an hour without leading zeros&lt;/td&gt;
-&lt;td&gt;0 through 23&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;h&lt;/td&gt;
-&lt;td&gt;12-hour format of an hour with leading zeros&lt;/td&gt;
-&lt;td&gt;01 through 12&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;H&lt;/td&gt;
-&lt;td&gt;24-hour format of an hour with leading zeros&lt;/td&gt;
-&lt;td&gt;00 through 23&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;i&lt;/td&gt;
-&lt;td&gt;Minutes with leading zeros&lt;/td&gt;
-&lt;td&gt;00 to 59&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;s&lt;/td&gt;
-&lt;td&gt;Seconds, with leading zeros&lt;/td&gt;
-&lt;td&gt;00 through 59&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;u&lt;/td&gt;
-&lt;td&gt;Microseconds (added in PHP 5.2.2)&lt;/td&gt;
-&lt;td&gt;Example: 54321&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-Timezone&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;e&lt;/td&gt;
-&lt;td&gt;Timezone identifier (added in PHP 5.1.0)&lt;/td&gt;
-&lt;td&gt;Examples: UTC, GMT, Atlantic/Azores&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;I (capital i)&lt;/td&gt;
-&lt;td&gt;Whether or not the date is in daylight saving time&lt;/td&gt;
-&lt;td&gt;1 if Daylight Saving Time, 0 otherwise.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;O&lt;/td&gt;
-&lt;td&gt;Difference to Greenwich time (GMT) in hours&lt;/td&gt;
-&lt;td&gt;Example: +0200&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;P&lt;/td&gt;
-&lt;td&gt;Difference to Greenwich time (GMT) with colon between hours and minutes (added in PHP 5.1.3)&lt;/td&gt;
-&lt;td&gt;Example: +02:00&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;T&lt;/td&gt;
-&lt;td&gt;Timezone abbreviation&lt;/td&gt;
-&lt;td&gt;Examples: EST, MDT ...&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Z&lt;/td&gt;
-&lt;td&gt;Timezone offset in seconds. The offset for timezones west of UTC is always
-negative, and for those east of UTC is always positive.&lt;/td&gt;
-&lt;td&gt;-43200 through 50400&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-Full Date/Time&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;td&gt;---&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;c&lt;/td&gt;
-&lt;td&gt;ISO 8601 date (added in PHP 5)&lt;/td&gt;
-&lt;td&gt;2004-02-12T15:19:21+00:00&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;r&lt;/td&gt;
-&lt;td&gt;RFC 2822 formatted date&lt;/td&gt;
-&lt;td&gt;Example: Thu, 21 Dec 2000 16:01:07 +0200&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;U&lt;/td&gt;
-&lt;td&gt;Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)&lt;/td&gt;
-&lt;td&gt;See also time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+<b>Day</b>
+d Day of the month, 2 digits with leading zeros
+D A textual representation of a day, three letters
+j Day of the month without leading zeros
+l (lowercase 'L') A full textual representation of the day of the week
+N ISO-8601 numeric representation of the day of the week (added in
+PHP 5.1.0)
+S English ordinal suffix for the day of the month, 2 characters
+w Numeric representation of the day of the week
+z The day of the year (starting from 0)
+<b>Week</b>
+W ISO-8601 week number of year, weeks starting on Monday (added in PHP 4.1.0)
+<b>Month</b>
+F A full textual representation of a month, such as January or March
+m Numeric representation of a month, with leading zeros
+M A short textual representation of a month, three letters
+n Numeric representation of a month, without leading zeros
+t Number of days in the given month
+<b>Year</b>
+L Whether it's a leap year 1 if it is a leap year, 0 otherwise.
+o ISO-8601 year number. This has the same value as Y, except that if the 
+ISO week number (W) belongs to the previous or next year, that year
+is used instead. (added in PHP 5.1.0)
+Y A full numeric representation of a year, 4 digits
+y A two digit representation of a year
+<b>Time</b>
+a Lowercase Ante meridiem and Post meridiem
+A Uppercase Ante meridiem and Post meridiem
+B Swatch Internet time
+g 12-hour format of an hour without leading zeros
+G 24-hour format of an hour without leading zeros
+h 12-hour format of an hour with leading zeros
+H 24-hour format of an hour with leading zeros
+i Minutes with leading zeros
+s Seconds, with leading zeros
+u Microseconds (added in PHP 5.2.2)
+<b>Timezone</b>
+e Timezone identifier (added in PHP 5.1.0)
+I (capital i) Whether or not the date is in daylight saving time 1 if Daylight Saving Time, 0 otherwise.
+O Difference to Greenwich time (GMT) in hours
+P Difference to Greenwich time (GMT) with colon between hours and minutes (added in PHP 5.1.3)
+T Timezone abbreviation
+Z Timezone offset in seconds. The offset for timezones west of UTC is always
+negative, and for those east of UTC is always positive.
+<b>Full Date/Time</b>
+c ISO 8601 date (added in PHP 5)
+r RFC 2822 formatted date
+U Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)
+
 Unrecognized characters in the format string will be printed
 as-is. The Z format will always return
 0 when using gmdate.
@@ -3149,75 +2906,20 @@ Get date/time information
 <b> timestamp int[optional] </b><b>returns</b>  array an associative array of information related to
 the timestamp. Elements from the returned 
 associative array are as follows:
-&lt;table&gt;
-Key elements of the returned associative array
-&lt;tr valign="top"&gt;
-&lt;td&gt;Key&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;td&gt;Example returned values&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;"seconds"&lt;/td&gt;
-&lt;td&gt;Numeric representation of seconds&lt;/td&gt;
-&lt;td&gt;0 to 59&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;"minutes"&lt;/td&gt;
-&lt;td&gt;Numeric representation of minutes&lt;/td&gt;
-&lt;td&gt;0 to 59&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;"hours"&lt;/td&gt;
-&lt;td&gt;Numeric representation of hours&lt;/td&gt;
-&lt;td&gt;0 to 23&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;"mday"&lt;/td&gt;
-&lt;td&gt;Numeric representation of the day of the month&lt;/td&gt;
-&lt;td&gt;1 to 31&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;"wday"&lt;/td&gt;
-&lt;td&gt;Numeric representation of the day of the week&lt;/td&gt;
-&lt;td&gt;0 (for Sunday) through 6 (for Saturday)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;"mon"&lt;/td&gt;
-&lt;td&gt;Numeric representation of a month&lt;/td&gt;
-&lt;td&gt;1 through 12&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;"year"&lt;/td&gt;
-&lt;td&gt;A full numeric representation of a year, 4 digits&lt;/td&gt;
-&lt;td&gt;Examples: 1999 or 2003&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;"yday"&lt;/td&gt;
-&lt;td&gt;Numeric representation of the day of the year&lt;/td&gt;
-&lt;td&gt;0 through 365&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;"weekday"&lt;/td&gt;
-&lt;td&gt;A full textual representation of the day of the week&lt;/td&gt;
-&lt;td&gt;Sunday through Saturday&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;"month"&lt;/td&gt;
-&lt;td&gt;A full textual representation of a month, such as January or March&lt;/td&gt;
-&lt;td&gt;January through December&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;
+
+"seconds" Numeric representation of seconds
+"minutes" Numeric representation of minutes
+"hours" Numeric representation of hours
+"mday" Numeric representation of the day of the month
+"wday" Numeric representation of the day of the week
+"mon" Numeric representation of a month
+"year" A full numeric representation of a year, 4 digits
+"yday" Numeric representation of the day of the year
+"weekday" A full textual representation of the day of the week
+"month" A full textual representation of a month, such as January or March
+
 Seconds since the Unix Epoch, similar to the values returned by
-time and used by date.
-&lt;/td&gt;
-&lt;td&gt;
-System Dependent, typically -2147483648 through
-2147483647.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+time and used by date. System Dependent, typically -2147483648 through 2147483647.
 </reference></element>
 <element pattern="gettimeofday" autocomplete_append="($return_float = null);">
 <reference>gettimeofday($return_float = null);
@@ -3266,86 +2968,29 @@ with setlocale.
 <element pattern="idate" autocomplete_append="($format, $timestamp = null);">
 <reference>idate($format, $timestamp = null);
 Format a local time/date as integer
-<b> format string </b>&lt;table&gt;
+<b> format string </b>
 The following characters are recognized in the
-format parameter string
-&lt;tr valign="top"&gt;
-&lt;td&gt;format character&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;B&lt;/td&gt;
-&lt;td&gt;Swatch Beat/Internet Time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;d&lt;/td&gt;
-&lt;td&gt;Day of the month&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;h&lt;/td&gt;
-&lt;td&gt;Hour (12 hour format)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;H&lt;/td&gt;
-&lt;td&gt;Hour (24 hour format)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;i&lt;/td&gt;
-&lt;td&gt;Minutes&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;I (uppercase i)&lt;/td&gt;
-&lt;td&gt;returns 1 if DST is activated,
-0 otherwise&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;L (uppercase l)&lt;/td&gt;
-&lt;td&gt;returns 1 for leap year,
-0 otherwise&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;m&lt;/td&gt;
-&lt;td&gt;Month number&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;s&lt;/td&gt;
-&lt;td&gt;Seconds&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;t&lt;/td&gt;
-&lt;td&gt;Days in current month&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;U&lt;/td&gt;
-&lt;td&gt;Seconds since the Unix Epoch - January 1 1970 00:00:00 UTC -
-this is the same as time&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;w&lt;/td&gt;
-&lt;td&gt;Day of the week (0 on Sunday)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;W&lt;/td&gt;
-&lt;td&gt;ISO-8601 week number of year, weeks starting on
-Monday&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;y&lt;/td&gt;
-&lt;td&gt;Year (1 or 2 digits - check note below)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Y&lt;/td&gt;
-&lt;td&gt;Year (4 digits)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;z&lt;/td&gt;
-&lt;td&gt;Day of the year&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Z&lt;/td&gt;
-&lt;td&gt;Timezone offset in seconds&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+format parameter string:
+
+B Swatch Beat/Internet Time
+d Day of the month
+h Hour (12 hour format)
+H Hour (24 hour format)
+i Minutes
+I (uppercase i) returns 1 if DST is activated, 0 otherwise
+L (uppercase l) returns 1 for leap year, 0 otherwise
+m Month number
+s Seconds
+t Days in current month
+U Seconds since the Unix Epoch - January 1 1970 00:00:00 UTC -
+this is the same as time
+w Day of the week (0 on Sunday)
+W ISO-8601 week number of year, weeks starting on Monday
+y Year (1 or 2 digits - check note below)
+Y Year (4 digits)
+z Day of the year
+Z Timezone offset in seconds
+
 <b> timestamp int[optional] </b><b>returns</b>  int an integer.
 As idate always returns an integer and
 as they can't start with a "0", idate may return
@@ -3427,50 +3072,16 @@ used in strftime).
 For more information about the format options, read the
 strftime page.
 <b>returns</b>  array an array, or false on failure.
-&lt;table&gt;
 The following parameters are returned in the array
-&lt;tr valign="top"&gt;
-&lt;td&gt;parameters&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;tm_sec&lt;/td&gt;
-&lt;td&gt;Seconds after the minute (0-61)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;tm_min&lt;/td&gt;
-&lt;td&gt;Minutes after the hour (0-59)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;tm_hour&lt;/td&gt;
-&lt;td&gt;Hour since midnight (0-23)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;tm_mday&lt;/td&gt;
-&lt;td&gt;Day of the month (1-31)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;tm_mon&lt;/td&gt;
-&lt;td&gt;Months since January (0-11)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;tm_year&lt;/td&gt;
-&lt;td&gt;Years since 1900&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;tm_wday&lt;/td&gt;
-&lt;td&gt;Days since Sunday (0-6)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;tm_yday&lt;/td&gt;
-&lt;td&gt;Days since January 1 (0-365)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;unparsed&lt;/td&gt;
-&lt;td&gt;the date part which was not
-recognized using the specified format&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+tm_sec Seconds after the minute (0-61)
+tm_min Minutes after the hour (0-59)
+tm_hour Hour since midnight (0-23)
+tm_mday Day of the month (1-31)
+tm_mon Months since January (0-11)
+tm_year Years since 1900
+tm_wday Days since Sunday (0-6)
+tm_yday Days since January 1 (0-365)
+unparsed the date part which was not recognized using the specified format
 </reference></element>
 <element pattern="strtotime" autocomplete_append="($time, $now = null);">
 <reference>strtotime($time, $now = null);
@@ -3894,71 +3505,19 @@ Gets a DOMElement object from a SimpleXMLElement object
 <element pattern="debug_backtrace" autocomplete_append="($provide_object = null);">
 <reference>debug_backtrace($provide_object = null);
 Generates a backtrace
-<b> provide_object bool[optional] </b><b>returns</b>  array an associative array. The possible returned elements
-are as follows:
-&lt;table&gt;
-Possible returned elements from debug_backtrace
-&lt;tr valign="top"&gt;
-&lt;td&gt;&amp;Name;&lt;/td&gt;
-&lt;td&gt;&amp;Type;&lt;/td&gt;
-&lt;td&gt;&amp;Description;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;function&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;
-The current function name. See also
-__FUNCTION__.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;line&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;td&gt;
-The current line number. See also
-__LINE__.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;file&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;
-The current file name. See also
-__FILE__.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;class&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;
-The current class name. See also
-__CLASS__
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;object&lt;/td&gt;
-&lt;td&gt;object&lt;/td&gt;
-&lt;td&gt;
-The current object.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;type&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;
-The current call type. If a method call, "-&gt;" is returned. If a static
+<b> provide_object bool[optional] </b>
+<b>returns</b>  array an associative array.
+ The possible returned elements are as follows:
+
+function string The current function name. See also __FUNCTION__.
+line integer The current line number. See also __LINE__.
+file string The current file name. See also __FILE__.
+class string The current class name. See also __CLASS__
+object object The current object.
+type string The current call type. If a method call, "-&gt;" is returned. If a static
 method call, "::" is returned. If a function call, nothing is returned.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;args&lt;/td&gt;
-&lt;td&gt;array&lt;/td&gt;
-&lt;td&gt;
-If inside a function, this lists the functions arguments. If
+args array If inside a function, this lists the functions arguments. If
 inside an included file, this lists the included file name(s).
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
 </reference></element>
 <element pattern="debug_print_backtrace" autocomplete_append="();">
 <reference>debug_print_backtrace();
@@ -3976,43 +3535,24 @@ yet.
 <reference>error_log($message, $message_type = null, $destination = null, $extra_headers = null);
 Send an error message somewhere
 <b> message string </b>The error message that should be logged.
-<b> message_type int[optional] </b>Says where the error should go. The possible message types are as 
-follows:
-&lt;table&gt;
-error_log log types
-&lt;tr valign="top"&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;
-message is sent to PHP's system logger, using
-the Operating System's system logging mechanism or a file, depending
-on what the error_log
-configuration directive is set to. This is the default option.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;
-message is sent by email to the address in
+<b> message_type int[optional] </b>Says where the error should go.
+The possible message types are as follows:
+
+0 message is sent to PHP's system logger, using the Operating 
+System's system logging mechanism or a file, depending
+on what the error_log configuration directive is set to. This is the default option.
+
+1 message is sent by email to the address in
 the destination parameter. This is the only
 message type where the fourth parameter,
 extra_headers is used.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;
-No longer an option.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;
-message is appended to the file
+
+2 No longer an option.
+
+3 message is appended to the file
 destination. A newline is not automatically 
 added to the end of the message string.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b> destination string[optional] </b>The destination. Its meaning depends on the 
 message_type parameter as described above.
 <b> extra_headers string[optional] </b>The extra headers. It's used when the message_type
@@ -4032,111 +3572,25 @@ so older integer-based error levels will not always behave as expected.
 The available error level constants are listed below. The actual
 meanings of these error levels are described in the
 predefined constants.
-&lt;table&gt;
-error_reporting level constants and bit values
-&lt;tr valign="top"&gt;
-&lt;td&gt;value&lt;/td&gt;
-&lt;td&gt;constant&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;
-E_ERROR
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;
-E_WARNING
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;td&gt;
-E_PARSE
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;8&lt;/td&gt;
-&lt;td&gt;
-E_NOTICE
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;16&lt;/td&gt;
-&lt;td&gt;
-E_CORE_ERROR
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;32&lt;/td&gt;
-&lt;td&gt;
-E_CORE_WARNING
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;64&lt;/td&gt;
-&lt;td&gt;
-E_COMPILE_ERROR
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;128&lt;/td&gt;
-&lt;td&gt;
-E_COMPILE_WARNING
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;256&lt;/td&gt;
-&lt;td&gt;
-E_USER_ERROR
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;512&lt;/td&gt;
-&lt;td&gt;
-E_USER_WARNING
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1024&lt;/td&gt;
-&lt;td&gt;
-E_USER_NOTICE
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;6143&lt;/td&gt;
-&lt;td&gt;
-E_ALL
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2048&lt;/td&gt;
-&lt;td&gt;
-E_STRICT
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;4096&lt;/td&gt;
-&lt;td&gt;
-E_RECOVERABLE_ERROR
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;8192&lt;/td&gt;
-&lt;td&gt;
-E_DEPRECATED
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;16384&lt;/td&gt;
-&lt;td&gt;
-E_USER_DEPRECATED
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-<b>returns</b>  int the old error_reporting
-level.
+
+1 E_ERROR
+2 E_WARNING
+4 E_PARSE
+8 E_NOTICE
+16 E_CORE_ERROR
+32 E_CORE_WARNING
+64 E_COMPILE_ERROR
+128 E_COMPILE_WARNING
+256 E_USER_ERROR
+512 E_USER_WARNING
+1024 E_USER_NOTICE
+6143 E_ALL
+2048 E_STRICT
+4096 E_RECOVERABLE_ERROR
+8192 E_DEPRECATED
+16384 E_USER_DEPRECATED
+
+<b>returns</b>  int the old error_reporting level.
 </reference></element>
 <element pattern="restore_error_handler" autocomplete_append="();">
 <reference>restore_error_handler();
@@ -4582,44 +4036,23 @@ FILE_USE_INCLUDE_PATH flag instead.
 The value of flags can be any combination of 
 the following flags (with some restrictions), joined with the binary OR 
 (|) operator.
-&lt;table&gt;
-Available flags
-&lt;tr valign="top"&gt;
-&lt;td&gt;Flag&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;
+
+Available flags:
+
 FILE_USE_INCLUDE_PATH
-&lt;/td&gt;
-&lt;td&gt;
 Search for filename in the include directory.
-See include_path for more
-information.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;
+See include_path for more information.
+
 FILE_TEXT
-&lt;/td&gt;
-&lt;td&gt;
 If unicode semantics are enabled, the default encoding of the read
 data is UTF-8. You can specify a different encoding by creating a 
 custom context or by changing the default using 
 stream_default_encoding. This flag cannot be 
 used with FILE_BINARY. 
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;
+
 FILE_BINARY
-&lt;/td&gt;
-&lt;td&gt;
 With this flag, the file is read in binary mode. This is the default
 setting and cannot be used with FILE_TEXT. 
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
 <b> context resource[optional] </b>A valid context resource created with 
 stream_context_create. If you don't need to use a
 custom context, you can skip this parameter by &amp;null;.
@@ -4642,45 +4075,23 @@ file_put_contents($filename, implode('', $array)).
 <b> flags int[optional] </b>The value of flags can be any combination of 
 the following flags (with some restrictions), joined with the binary OR 
 (|) operator.
-&lt;table&gt;
-Available flags
-&lt;tr valign="top"&gt;
-&lt;td&gt;Flag&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;
+
+Available flags:
+
 FILE_USE_INCLUDE_PATH
-&lt;/td&gt;
-&lt;td&gt;
 Search for filename in the include directory.
 See include_path for more
 information.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;
+
 FILE_APPEND
-&lt;/td&gt;
-&lt;td&gt;
 If file filename already exists, append 
 the data to the file instead of overwriting it.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;
+
 LOCK_EX
-&lt;/td&gt;
-&lt;td&gt;
 Acquire an exclusive lock on the file while proceeding to the 
 writing.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;
+
 FILE_TEXT
-&lt;/td&gt;
-&lt;td&gt;
 data is written in text mode. If unicode 
 semantics are enabled, the default encoding is UTF-8.
 You can specify a different encoding by creating a custom context
@@ -4688,20 +4099,12 @@ or by using the stream_default_encoding to
 change the default. This flag cannot be used with 
 FILE_BINARY. This flag is only available since
 PHP 6.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;
+
 FILE_BINARY
-&lt;/td&gt;
-&lt;td&gt;
 data will be written in binary mode. This
 is the default setting and cannot be used with
 FILE_TEXT. This flag is only available since
 PHP 6.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
 <b> context resource[optional] </b>A valid context resource created with 
 stream_context_create.
 <b>returns</b>  int The function returns the number of bytes that were written to the file, or
@@ -4854,83 +4257,46 @@ used in the path to the file, or use forward slashes.
 ]]&gt;
 <b> mode string </b>The mode parameter specifies the type of access
 you require to the stream. It may be any of the following:
-&lt;table&gt;
-A list of possible modes for fopen
-using mode
-&lt;tr valign="top"&gt;
-&lt;td&gt;mode&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;'r'&lt;/td&gt;
-&lt;td&gt;
-Open for reading only; place the file pointer at the
+
+A list of possible modes for fopen using mode:
+
+'r' Open for reading only; place the file pointer at the
 beginning of the file.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;'r+'&lt;/td&gt;
-&lt;td&gt;
-Open for reading and writing; place the file pointer at
+
+'r+' Open for reading and writing; place the file pointer at
 the beginning of the file.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;'w'&lt;/td&gt;
-&lt;td&gt;
-Open for writing only; place the file pointer at the
+
+'w' Open for writing only; place the file pointer at the
 beginning of the file and truncate the file to zero length.
 If the file does not exist, attempt to create it.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;'w+'&lt;/td&gt;
-&lt;td&gt;
-Open for reading and writing; place the file pointer at
+
+'w+' Open for reading and writing; place the file pointer at
 the beginning of the file and truncate the file to zero
 length. If the file does not exist, attempt to create it.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;'a'&lt;/td&gt;
-&lt;td&gt;
-Open for writing only; place the file pointer at the end of
+
+'a' Open for writing only; place the file pointer at the end of
 the file. If the file does not exist, attempt to create it.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;'a+'&lt;/td&gt;
-&lt;td&gt;
-Open for reading and writing; place the file pointer at
+
+'a+' Open for reading and writing; place the file pointer at
 the end of the file. If the file does not exist, attempt to
 create it.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;'x'&lt;/td&gt;
-&lt;td&gt;
-Create and open for writing only; place the file pointer at the
+
+'x' Create and open for writing only; place the file pointer at the
 beginning of the file. If the file already exists, the
 fopen call will fail by returning false and
 generating an error of level E_WARNING. If
 the file does not exist, attempt to create it. This is equivalent
 to specifying O_EXCL|O_CREAT flags for the
 underlying open(2) system call. 
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;'x+'&lt;/td&gt;
-&lt;td&gt;
-Create and open for reading and writing; place the file pointer at
+
+'x+' Create and open for reading and writing; place the file pointer at
 the beginning of the file. If the file already exists, the
 fopen call will fail by returning false and
 generating an error of level E_WARNING. If
 the file does not exist, attempt to create it. This is equivalent
 to specifying O_EXCL|O_CREAT flags for the
 underlying open(2) system call.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 Different operating system families have different line-ending
 conventions. When you write a text file and want to insert a line
 break, you need to use the correct line-ending character(s) for your
@@ -5305,80 +4671,24 @@ Removes directory
 <reference>stat($filename);
 Gives information about a file
 <b> filename string </b>Path to the file.
-<b>returns</b>  array &lt;table&gt;
-stat and fstat result
-format
-&lt;tr valign="top"&gt;
-&lt;td&gt;Numeric&lt;/td&gt;
-&lt;td&gt;Associative (since PHP 4.0.6)&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;dev&lt;/td&gt;
-&lt;td&gt;device number&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;ino&lt;/td&gt;
-&lt;td&gt;inode number *&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;mode&lt;/td&gt;
-&lt;td&gt;inode protection mode&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;nlink&lt;/td&gt;
-&lt;td&gt;number of links&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;td&gt;uid&lt;/td&gt;
-&lt;td&gt;userid of owner *&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;td&gt;gid&lt;/td&gt;
-&lt;td&gt;groupid of owner *&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;6&lt;/td&gt;
-&lt;td&gt;rdev&lt;/td&gt;
-&lt;td&gt;device type, if inode device&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;7&lt;/td&gt;
-&lt;td&gt;size&lt;/td&gt;
-&lt;td&gt;size in bytes&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;8&lt;/td&gt;
-&lt;td&gt;atime&lt;/td&gt;
-&lt;td&gt;time of last access (Unix timestamp)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;9&lt;/td&gt;
-&lt;td&gt;mtime&lt;/td&gt;
-&lt;td&gt;time of last modification (Unix timestamp)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;10&lt;/td&gt;
-&lt;td&gt;ctime&lt;/td&gt;
-&lt;td&gt;time of last inode change (Unix timestamp)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;11&lt;/td&gt;
-&lt;td&gt;blksize&lt;/td&gt;
-&lt;td&gt;blocksize of filesystem IO **&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;12&lt;/td&gt;
-&lt;td&gt;blocks&lt;/td&gt;
-&lt;td&gt;number of blocks allocated **&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+<b>returns</b>  array
+
+stat and fstat result format:
+
+0 dev device number
+1 ino inode number *
+2 mode inode protection mode
+3 nlink number of links
+4 uid userid of owner *
+5 gid groupid of owner *
+6 rdev device type, if inode device
+7 size size in bytes
+8 atime time of last access (Unix timestamp)
+9 mtime time of last modification (Unix timestamp)
+10 ctime time of last inode change (Unix timestamp)
+11 blksize blocksize of filesystem IO **
+12 blocks number of blocks allocated **
+
 * On Windows this will always be 0.
 ** Only valid on systems supporting the st_blksize type - other
 systems (e.g. Windows) return -1.
@@ -5724,22 +5034,13 @@ FTP_BINARY.
 <reference>ftp_get_option($ftp_stream, $option);
 Retrieves various runtime behaviours of the current FTP stream
 <b> ftp_stream resource </b>The link identifier of the FTP connection.
-<b> option int </b>Currently, the following options are supported:
-&lt;table&gt;
-Supported runtime FTP options
-&lt;tr valign="top"&gt;
-&lt;td&gt;FTP_TIMEOUT_SEC&lt;/td&gt;
-&lt;td&gt;
-Returns the current timeout used for network related operations.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;FTP_AUTOSEEK&lt;/td&gt;
-&lt;td&gt;
-Returns true if this option is on, false otherwise. 
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+<b> option int </b>
+
+Currently, the following options are supported:
+
+FTP_TIMEOUT_SEC Returns the current timeout used for network related operations.
+FTP_AUTOSEEK Returns true if this option is on, false otherwise. 
+
 <b>returns</b>  mixed the value on success or false if the given 
 option is not supported. In the latter case, a
 warning message is also thrown.
@@ -5904,27 +5205,19 @@ path to an empty directory.
 <reference>ftp_set_option($ftp_stream, $option, $value);
 Set miscellaneous runtime FTP options
 <b> ftp_stream resource </b>The link identifier of the FTP connection.
-<b> option int </b>Currently, the following options are supported:
-&lt;table&gt;
-Supported runtime FTP options
-&lt;tr valign="top"&gt;
-&lt;td&gt;FTP_TIMEOUT_SEC&lt;/td&gt;
-&lt;td&gt;
-Changes the timeout in seconds used for all network related 
+<b> option int </b>
+
+Currently, the following options are supported:
+
+FTP_TIMEOUT_SEC Changes the timeout in seconds used for all network related 
 functions. value must be an integer that
 is greater than 0. The default timeout is 90 seconds.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;FTP_AUTOSEEK&lt;/td&gt;
-&lt;td&gt;
-When enabled, GET or PUT requests with a 
-resumepos or startpos
-parameter will first seek to the requested position within the file.
+
+FTP_AUTOSEEK When enabled, GET or PUT requests with a 
+resumepos or startpos parameter will first seek to the 
+requested position within the file.
 This is enabled by default.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b> value mixed </b>This parameter depends on which option is chosen
 to be altered.
 <b>returns</b>  bool true if the option could be set; false if not. A warning
@@ -6829,47 +6122,26 @@ other databases, pass &amp;null; or an empty string.
 <b> schema string[optional] </b>The schema which contains the tables. To match all schemas, pass &amp;null;
 or an empty string.
 <b> table_name string[optional] </b><b> column_name string[optional] </b><b>returns</b>  resource a statement resource with a result set containing rows describing
-the column privileges for columns matching the specified parameters. The
-rows are composed of the following columns:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Column name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_CAT&lt;/td&gt;
-&lt;td&gt;Name of the catalog. The value is NULL if this table does not
-have catalogs.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_SCHEM&lt;/td&gt;
-&lt;td&gt;Name of the schema.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_NAME&lt;/td&gt;
-&lt;td&gt;Name of the table or view.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;COLUMN_NAME&lt;/td&gt;
-&lt;td&gt;Name of the column.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;GRANTOR&lt;/td&gt;
-&lt;td&gt;Authorization ID of the user who granted the privilege.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;GRANTEE&lt;/td&gt;
-&lt;td&gt;Authorization ID of the user to whom the privilege was
-granted.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PRIVILEGE&lt;/td&gt;
-&lt;td&gt;The privilege for the column.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IS_GRANTABLE&lt;/td&gt;
-&lt;td&gt;Whether the GRANTEE is permitted to grant this privilege to
-other users.&lt;/td&gt;
-&lt;/tr&gt;
+the column privileges for columns matching the specified parameters.
+The rows are composed of the following columns:
+
+TABLE_CAT Name of the catalog. The value is NULL if this table does not
+have catalogs.
+
+TABLE_SCHEM Name of the schema.
+
+TABLE_NAME Name of the table or view.
+
+COLUMN_NAME Name of the column.
+
+GRANTOR Authorization ID of the user who granted the privilege.
+
+GRANTEE Authorization ID of the user to whom the privilege was granted.
+
+PRIVILEGE The privilege for the column.
+
+IS_GRANTABLE Whether the GRANTEE is permitted to grant this privilege to
+other users
 </reference></element>
 <element pattern="db2_columns" autocomplete_append="($connection, $qualifier = null, $schema = null, $table_name = null, $column_name = null);">
 <reference>db2_columns($connection, $qualifier = null, $schema = null, $table_name = null, $column_name = null);
@@ -6879,106 +6151,56 @@ Returns a result set listing the columns and associated metadata for a table
 other databases, pass &amp;null; or an empty string.
 <b> schema string[optional] </b>The schema which contains the tables. To match all schemas, pass
 '%'.
-<b> table_name string[optional] </b><b> column_name string[optional] </b><b>returns</b>  resource a statement resource with a result set containing rows describing
-the columns matching the specified parameters. The rows are composed of
-the following columns:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Column name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_CAT&lt;/td&gt;
-&lt;td&gt;Name of the catalog. The value is NULL if this table does not
-have catalogs.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_SCHEM&lt;/td&gt;
-&lt;td&gt;Name of the schema.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_NAME&lt;/td&gt;
-&lt;td&gt;Name of the table or view.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;COLUMN_NAME&lt;/td&gt;
-&lt;td&gt;Name of the column.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;DATA_TYPE&lt;/td&gt;
-&lt;td&gt;The SQL data type for the column represented as an integer value.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TYPE_NAME&lt;/td&gt;
-&lt;td&gt;A string representing the data type for the column.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;COLUMN_SIZE&lt;/td&gt;
-&lt;td&gt;An integer value representing the size of the column.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;BUFFER_LENGTH&lt;/td&gt;
-&lt;td&gt;
-Maximum number of bytes necessary to store data from this column.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;DECIMAL_DIGITS&lt;/td&gt;
-&lt;td&gt;
-The scale of the column, or &amp;null; where scale is not applicable.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;NUM_PREC_RADIX&lt;/td&gt;
-&lt;td&gt;
-An integer value of either 10 (representing
+<b> table_name string[optional] </b><b> column_name string[optional] </b>
+<b>returns</b>  resource a statement resource with a result set containing rows describing
+the columns matching the specified parameters.
+
+The rows are composed of the following columns:
+
+TABLE_CAT Name of the catalog. The value is NULL if this table does not
+have catalogs.
+
+TABLE_SCHEM Name of the schema.
+
+TABLE_NAME Name of the table or view.
+
+COLUMN_NAME Name of the column.
+
+DATA_TYPE The SQL data type for the column represented as an integer value.
+
+TYPE_NAME A string representing the data type for the column.
+
+COLUMN_SIZE An integer value representing the size of the column.
+
+BUFFER_LENGTH Maximum number of bytes necessary to store data from this column.
+
+DECIMAL_DIGITS The scale of the column, or &amp;null; where scale is not applicable.
+
+NUM_PREC_RADIX An integer value of either 10 (representing
 an exact numeric data type), 2 (representing an
 approximate numeric data type), or &amp;null; (representing a data type for
 which radix is not applicable).
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;NULLABLE&lt;/td&gt;
-&lt;td&gt;An integer value representing whether the column is nullable or
-not.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;REMARKS&lt;/td&gt;
-&lt;td&gt;Description of the column.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;COLUMN_DEF&lt;/td&gt;
-&lt;td&gt;Default value for the column.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SQL_DATA_TYPE&lt;/td&gt;
-&lt;td&gt;An integer value representing the size of the column.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SQL_DATETIME_SUB&lt;/td&gt;
-&lt;td&gt;
-Returns an integer value representing a datetime subtype code,
+
+NULLABLE An integer value representing whether the column is nullable or
+not.
+
+REMARKS Description of the column.
+
+COLUMN_DEF Default value for the column.
+
+SQL_DATA_TYPE An integer value representing the size of the column.
+
+SQL_DATETIME_SUB Returns an integer value representing a datetime subtype code,
 or &amp;null; for SQL data types to which this does not apply.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CHAR_OCTET_LENGTH&lt;/td&gt;
-&lt;td&gt;
-Maximum length in octets for a character data type column, which
+
+CHAR_OCTET_LENGTH Maximum length in octets for a character data type column, which
 matches COLUMN_SIZE for single-byte character set data, or &amp;null; for
 non-character data types.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ORDINAL_POSITION&lt;/td&gt;
-&lt;td&gt;The 1-indexed position of the column in the table.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IS_NULLABLE&lt;/td&gt;
-&lt;td&gt;
-A string value where 'YES' means that the column is nullable and
+
+ORDINAL_POSITION The 1-indexed position of the column in the table.
+
+IS_NULLABLE A string value where 'YES' means that the column is nullable and
 'NO' means that the column is not nullable.
-&lt;/td&gt;
-&lt;/tr&gt;
 </reference></element>
 <element pattern="db2_commit" autocomplete_append="($connection);">
 <reference>db2_commit($connection);
@@ -7234,89 +6456,44 @@ other databases, pass &amp;null; or an empty string.
 <b> schema string </b>The schema which contains the tables. If schema
 is &amp;null;, db2_foreign_keys matches the schema for
 the current connection.
-<b> table_name string </b><b>returns</b>  resource a statement resource with a result set containing rows describing
-the foreign keys for the specified table. The result set is composed of the
-following columns:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Column name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PKTABLE_CAT&lt;/td&gt;
-&lt;td&gt;
-Name of the catalog for the table containing the primary key. The
+<b> table_name string </b>
+<b>returns</b>  resource a statement resource with a result set containing rows describing
+the foreign keys for the specified table.
+
+The result set is composed of the following columns:
+
+PKTABLE_CAT Name of the catalog for the table containing the primary key. The
 value is NULL if this table does not have catalogs.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PKTABLE_SCHEM&lt;/td&gt;
-&lt;td&gt;
-Name of the schema for the table containing the primary key.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PKTABLE_NAME&lt;/td&gt;
-&lt;td&gt;Name of the table containing the primary key.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PKCOLUMN_NAME&lt;/td&gt;
-&lt;td&gt;Name of the column containing the primary key.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;FKTABLE_CAT&lt;/td&gt;
-&lt;td&gt;
-Name of the catalog for the table containing the foreign key. The
+
+PKTABLE_SCHEM Name of the schema for the table containing the primary key.
+
+PKTABLE_NAME Name of the table containing the primary key.
+
+PKCOLUMN_NAME Name of the column containing the primary key.
+
+FKTABLE_CAT Name of the catalog for the table containing the foreign key. The
 value is NULL if this table does not have catalogs.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;FKTABLE_SCHEM&lt;/td&gt;
-&lt;td&gt;
-Name of the schema for the table containing the foreign key.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;FKTABLE_NAME&lt;/td&gt;
-&lt;td&gt;Name of the table containing the foreign key.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;FKCOLUMN_NAME&lt;/td&gt;
-&lt;td&gt;Name of the column containing the foreign key.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;KEY_SEQ&lt;/td&gt;
-&lt;td&gt;1-indexed position of the column in the key.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;UPDATE_RULE&lt;/td&gt;
-&lt;td&gt;
-Integer value representing the action applied to the foreign key
+
+FKTABLE_SCHEM Name of the schema for the table containing the foreign key.
+
+FKTABLE_NAME Name of the table containing the foreign key.
+
+FKCOLUMN_NAME Name of the column containing the foreign key.
+
+KEY_SEQ 1-indexed position of the column in the key.
+
+UPDATE_RULE Integer value representing the action applied to the foreign key
 when the SQL operation is UPDATE.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;DELETE_RULE&lt;/td&gt;
-&lt;td&gt;
-Integer value representing the action applied to the foreign key
+
+DELETE_RULE Integer value representing the action applied to the foreign key
 when the SQL operation is DELETE.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;FK_NAME&lt;/td&gt;
-&lt;td&gt;The name of the foreign key.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PK_NAME&lt;/td&gt;
-&lt;td&gt;The name of the primary key.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;DEFERRABILITY&lt;/td&gt;
-&lt;td&gt;
-An integer value representing whether the foreign key deferrability is
-SQL_INITIALLY_DEFERRED, SQL_INITIALLY_IMMEDIATE, or
-SQL_NOT_DEFERRABLE.
-&lt;/td&gt;
-&lt;/tr&gt;
+
+FK_NAME The name of the foreign key.
+
+PK_NAME The name of the primary key.
+
+DEFERRABILITY An integer value representing whether the foreign key deferrability is
+SQL_INITIALLY_DEFERRED, SQL_INITIALLY_IMMEDIATE, or SQL_NOT_DEFERRABLE.
 </reference></element>
 <element pattern="db2_free_result" autocomplete_append="($stmt);">
 <reference>db2_free_result($stmt);
@@ -7444,42 +6621,24 @@ other databases, pass &amp;null; or an empty string.
 <b> schema string </b>The schema which contains the tables. If schema
 is &amp;null;, db2_primary_keys matches the schema for
 the current connection.
-<b> table_name string </b><b>returns</b>  resource a statement resource with a result set containing rows describing
-the primary keys for the specified table. The result set is composed of the
-following columns:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Column name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_CAT&lt;/td&gt;
-&lt;td&gt;
-Name of the catalog for the table containing the primary key. The
+<b> table_name string </b>
+<b>returns</b>  resource a statement resource with a result set containing rows describing
+the primary keys for the specified table.
+
+The result set is composed of the following columns:
+
+TABLE_CAT Name of the catalog for the table containing the primary key. The
 value is NULL if this table does not have catalogs.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_SCHEM&lt;/td&gt;
-&lt;td&gt;
-Name of the schema for the table containing the primary key.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_NAME&lt;/td&gt;
-&lt;td&gt;Name of the table containing the primary key.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;COLUMN_NAME&lt;/td&gt;
-&lt;td&gt;Name of the column containing the primary key.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;KEY_SEQ&lt;/td&gt;
-&lt;td&gt;1-indexed position of the column in the key.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PK_NAME&lt;/td&gt;
-&lt;td&gt;The name of the primary key.&lt;/td&gt;
-&lt;/tr&gt;
+
+TABLE_SCHEM Name of the schema for the table containing the primary key.
+
+TABLE_NAME Name of the table containing the primary key.
+
+COLUMN_NAME Name of the column containing the primary key.
+
+KEY_SEQ 1-indexed position of the column in the key.
+
+PK_NAME The name of the primary key.
 </reference></element>
 <element pattern="db2_procedure_columns" autocomplete_append="($connection, $qualifier, $schema, $procedure, $parameter);">
 <reference>db2_procedure_columns($connection, $qualifier, $schema, $procedure, $parameter);
@@ -7636,46 +6795,26 @@ as wildcards.
 search pattern containing _ and %
 as wildcards.
 <b>returns</b>  resource a statement resource with a result set containing rows describing
-the stored procedures matching the specified parameters. The rows are
-composed of the following columns:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Column name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PROCEDURE_CAT&lt;/td&gt;
-&lt;td&gt;The catalog that contains the procedure. The value is &amp;null; if
-this table does not have catalogs.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PROCEDURE_SCHEM&lt;/td&gt;
-&lt;td&gt;Name of the schema that contains the stored procedure.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PROCEDURE_NAME&lt;/td&gt;
-&lt;td&gt;Name of the procedure.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;NUM_INPUT_PARAMS&lt;/td&gt;
-&lt;td&gt;Number of input (IN) parameters for the stored procedure.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;NUM_OUTPUT_PARAMS&lt;/td&gt;
-&lt;td&gt;Number of output (OUT) parameters for the stored procedure.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;NUM_RESULT_SETS&lt;/td&gt;
-&lt;td&gt;Number of result sets returned by the stored procedure.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;REMARKS&lt;/td&gt;
-&lt;td&gt;Any comments about the stored procedure.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PROCEDURE_TYPE&lt;/td&gt;
-&lt;td&gt;Always returns 1, indicating that the stored
-procedure does not return a return value.&lt;/td&gt;
-&lt;/tr&gt;
+the stored procedures matching the specified parameters.
+The rows are composed of the following columns:
+
+PROCEDURE_CAT The catalog that contains the procedure. The value is &amp;null; if
+this table does not have catalogs.
+
+PROCEDURE_SCHEM Name of the schema that contains the stored procedure.
+
+PROCEDURE_NAME Name of the procedure.
+
+NUM_INPUT_PARAMS Number of input (IN) parameters for the stored procedure.
+
+NUM_OUTPUT_PARAMS Number of output (OUT) parameters for the stored procedure.
+
+NUM_RESULT_SETS Number of result sets returned by the stored procedure.
+
+REMARKS Any comments about the stored procedure.
+
+PROCEDURE_TYPE Always returns 1, indicating that the stored
+procedure does not return a return value.
 </reference></element>
 <element pattern="db2_result" autocomplete_append="($stmt, $column);">
 <reference>db2_result($stmt, $column);
