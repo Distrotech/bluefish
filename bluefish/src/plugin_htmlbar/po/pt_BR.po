@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: bluefish 1.3.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-07-23 18:41-0700\n"
-"PO-Revision-Date: 2009-02-09 21:44-0300\n"
+"PO-Revision-Date: 2009-07-27 17:51-0300\n"
 "Last-Translator: Esfinge Metal <esfingemetal@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -115,9 +115,8 @@ msgstr "Editar tag"
 
 # src/menu.c:137
 #: src/plugin_htmlbar/htmlbar_gui.c:204
-#, fuzzy
 msgid "/T_ags"
-msgstr "/_Tags"
+msgstr "/T_ags"
 
 # src/menu.c:139
 #: src/plugin_htmlbar/htmlbar_gui.c:206
@@ -1011,9 +1010,8 @@ msgstr "/Tags/_Comentários"
 
 # src/menu.c:377
 #: src/plugin_htmlbar/htmlbar_gui.c:406
-#, fuzzy
 msgid "/D_ialogs"
-msgstr "/Diál_ogos"
+msgstr "/D_iálogos"
 
 # src/menu.c:379
 #: src/plugin_htmlbar/htmlbar_gui.c:408
@@ -1777,7 +1775,7 @@ msgstr "  ISO-8601 Te_mpo (%s)"
 
 #: src/plugin_htmlbar/html.c:555
 msgid "Insert <a> anchor"
-msgstr ""
+msgstr "Inserir ancora <a>"
 
 # src/html.c:885 src/wml.c:250
 #: src/plugin_htmlbar/html.c:568 src/plugin_htmlbar/html.c:737
@@ -1800,13 +1798,12 @@ msgstr "Nome:"
 
 # src/html_form.c:484 src/wml.c:319
 #: src/plugin_htmlbar/html.c:579
-#, fuzzy
 msgid "_Rel:"
-msgstr "Rótulo:"
+msgstr "_Rel:"
 
 #: src/plugin_htmlbar/html.c:583
 msgid "Re_v:"
-msgstr ""
+msgstr "Re_v:"
 
 # src/html.c:889 src/html_form.c:136
 #: src/plugin_htmlbar/html.c:587 src/plugin_htmlbar/html.c:741
@@ -1816,15 +1813,13 @@ msgstr "Alvo:"
 
 # src/wml.c:315
 #: src/plugin_htmlbar/html.c:591
-#, fuzzy
 msgid "T_ype:"
-msgstr "_Tipo:"
+msgstr "Tipo:"
 
 # src/html.c:901
 #: src/plugin_htmlbar/html.c:605
-#, fuzzy
 msgid "Clas_s:"
-msgstr "Cl_asse:"
+msgstr "Clas_se:"
 
 # src/html.c:897 src/wml.c:123 src/wml.c:163 src/wml.c:203 src/wml.c:246
 # src/wml.c:304 src/wml.c:360 src/wml.c:398
@@ -1834,9 +1829,8 @@ msgstr "I_D:"
 
 # src/html.c:905 src/html.c:1317 src/toolbars.c:452
 #: src/plugin_htmlbar/html.c:613
-#, fuzzy
 msgid "_Style:"
-msgstr "Estilo:"
+msgstr "E_stilo:"
 
 # src/html.c:705 src/wml.c:127 src/wml.c:364
 #: src/plugin_htmlbar/html.c:617 src/plugin_htmlbar/quickstart.c:538
@@ -1845,38 +1839,33 @@ msgstr "Título:"
 
 # src/html.c:889 src/html_form.c:136
 #: src/plugin_htmlbar/html.c:631
-#, fuzzy
 msgid "C_harset:"
-msgstr "Alvo:"
+msgstr "C_harset:"
 
 # src/html.c:897 src/wml.c:123 src/wml.c:163 src/wml.c:203 src/wml.c:246
 # src/wml.c:304 src/wml.c:360 src/wml.c:398
 #: src/plugin_htmlbar/html.c:635
-#, fuzzy
 msgid "_Dir:"
-msgstr "_ID:"
+msgstr "_Dir:"
 
 # src/html.c:909
 #: src/plugin_htmlbar/html.c:639
-#, fuzzy
 msgid "_Hreflang:"
-msgstr "Idiom_a:"
+msgstr "Idioma _Href:"
 
 # src/html.c:909
 #: src/plugin_htmlbar/html.c:643
-#, fuzzy
 msgid "_Lang:"
-msgstr "Idiom_a:"
+msgstr "Idioma:"
 
 # src/html_form.c:115
 #: src/plugin_htmlbar/html.c:657
-#, fuzzy
 msgid "_Accesskey:"
-msgstr "_Aceitar:"
+msgstr "Tecla de _Atalho:"
 
 #: src/plugin_htmlbar/html.c:661
 msgid "_Tabindex:"
-msgstr ""
+msgstr "_Tabindex:"
 
 # src/html.c:873
 #: src/plugin_htmlbar/html.c:717
@@ -2804,8 +2793,3 @@ msgstr "Código Fonte:"
 #: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "Tamanho:"
-
-# src/menu.c:426
-#, fuzzy
-#~ msgid "/Dialogs/_New html dialog..."
-#~ msgstr "/Diálogos/Formulário/O_pções..."
