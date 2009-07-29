@@ -63,6 +63,17 @@ static gboolean bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTe
 	return TRUE;
 }
 
+static void dicts_load_first_lcb(const char * const lang_tag,const char * const provider_name,const char * const provider_desc,const char * const provider_file,void *data) {
+	Tbfwin *bfwin=data;
+	if (!bfwin->ed) {
+		bfwin->ed = (void *)enchant_broker_request_dict(eb, lang_tag);
+		if (bfwin->ed) {
+			g_free(bfwin->session->spell_lang);
+			bfwin->session->spell_lang = g_strdup(lang_tag);
+		} 
+	}
+}
+
 static gboolean load_dictionary(Tbfwin *bfwin) {
 	if (bfwin->ed)
 		enchant_broker_free_dict(eb, (EnchantDict *)bfwin->ed);
@@ -72,8 +83,9 @@ static gboolean load_dictionary(Tbfwin *bfwin) {
 		return TRUE;
 	} else {
 		bfwin->ed = NULL;
-		g_warning("dictionary %s does not exist!\n", bfwin->session->spell_lang);
-		return FALSE;
+		/* load the first existing enchant dict */
+		enchant_broker_list_dicts(eb,dicts_load_first_lcb,bfwin);
+		return (bfwin->ed != NULL);
 	}
 }
 
@@ -474,6 +486,9 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 	GtkWidget *menuitem, *submenu;
 	
 	if (main_v->bevent_doc != doc)
+		return;
+	
+	if (!BFWIN(doc->bfwin)->session->spell_enable)
 		return;
 	
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
