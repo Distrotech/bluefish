@@ -39,6 +39,7 @@ fi
 ## the directories which will contain the $GETTEXT_FILES
 GETTEXT_PO_DIRS="
 src/plugin_about/po
+src/plugin_charmap/po
 src/plugin_entities/po
 src/plugin_htmlbar/po
 src/plugin_infbrowser/po
