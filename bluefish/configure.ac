@@ -573,6 +573,7 @@ AC_CONFIG_FILES([
 	src/plugin_about/Makefile
 	src/plugin_about/po/Makefile.in
 	src/plugin_charmap/Makefile
+	src/plugin_charmap/po/Makefile.in
 	src/plugin_entities/Makefile
 	src/plugin_entities/po/Makefile.in
 	src/plugin_htmlbar/Makefile
