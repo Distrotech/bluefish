@@ -33,9 +33,13 @@
 
 <definition>
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-
-<element pattern="&quot;[^&quot;]*&quot;" is_regex="1" highlight="string"/>
-<element pattern="#[^&#x0A;]*" is_regex="1" highlight="comment"/>
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;nrt" highlight="string" spellcheck="1">
+		<element pattern="\\." is_regex="1" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="#[^&#10;]*" is_regex="1" highlight="comment"/>
 <element pattern="msgid" autocomplete="1" highlight="keyword"/>
 <element pattern="msgstr" autocomplete="1" highlight="keyword"/>
 
