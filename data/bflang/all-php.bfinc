@@ -2836,7 +2836,7 @@ Sets the time zone for the DateTime object
 Format a local time/date
 <b> format string </b>The format of the outputted date string. See the formatting
 options below.
-&lt;table&gt;
+
 The following characters are recognized in the
 format parameter string
 <b>Day</b>
@@ -6659,128 +6659,59 @@ procedures are returned.
 <b>returns</b>  resource a statement resource with a result set containing rows describing
 the parameters for the stored procedures matching the specified parameters.
 The rows are composed of the following columns:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Column name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PROCEDURE_CAT&lt;/td&gt;
-&lt;td&gt;The catalog that contains the procedure. The value is &amp;null; if
-this table does not have catalogs.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PROCEDURE_SCHEM&lt;/td&gt;
-&lt;td&gt;Name of the schema that contains the stored procedure.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PROCEDURE_NAME&lt;/td&gt;
-&lt;td&gt;Name of the procedure.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;COLUMN_NAME&lt;/td&gt;
-&lt;td&gt;Name of the parameter.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;COLUMN_TYPE&lt;/td&gt;
-&lt;td&gt;
+
+PROCEDURE_CAT
+The catalog that contains the procedure. The value is &amp;null; if
+this table does not have catalogs.
+PROCEDURE_SCHEM
+Name of the schema that contains the stored procedure.
+PROCEDURE_NAME
+Name of the procedure.
+COLUMN_NAME
+Name of the parameter.
+COLUMN_TYPE
 An integer value representing the type of the parameter:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Return value&lt;/td&gt;
-&lt;td&gt;Parameter type&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1 (SQL_PARAM_INPUT)&lt;/td&gt;
-&lt;td&gt;Input (IN) parameter.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2 (SQL_PARAM_INPUT_OUTPUT)&lt;/td&gt;
-&lt;td&gt;Input/output (INOUT) parameter.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;3 (SQL_PARAM_OUTPUT)&lt;/td&gt;
-&lt;td&gt;Output (OUT) parameter.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;DATA_TYPE&lt;/td&gt;
-&lt;td&gt;The SQL data type for the parameter represented as an integer
-value.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TYPE_NAME&lt;/td&gt;
-&lt;td&gt;A string representing the data type for the parameter.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;COLUMN_SIZE&lt;/td&gt;
-&lt;td&gt;An integer value representing the size of the parameter.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;BUFFER_LENGTH&lt;/td&gt;
-&lt;td&gt;
+1 (SQL_PARAM_INPUT) Input (IN) parameter.
+2 (SQL_PARAM_INPUT_OUTPUT) Input/output (INOUT) parameter.
+3 (SQL_PARAM_OUTPUT) Output (OUT) parameter.
+DATA_TYPE
+The SQL data type for the parameter represented as an integer value.
+TYPE_NAME
+A string representing the data type for the parameter.
+COLUMN_SIZE
+An integer value representing the size of the parameter.
+BUFFER_LENGTH
 Maximum number of bytes necessary to store data for this parameter.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;DECIMAL_DIGITS&lt;/td&gt;
-&lt;td&gt;
+DECIMAL_DIGITS
 The scale of the parameter, or &amp;null; where scale is not applicable.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;NUM_PREC_RADIX&lt;/td&gt;
-&lt;td&gt;
+NUM_PREC_RADIX
 An integer value of either 10 (representing
 an exact numeric data type), 2 (representing an
 approximate numeric data type), or &amp;null; (representing a data type for
 which radix is not applicable).
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;NULLABLE&lt;/td&gt;
-&lt;td&gt;An integer value representing whether the parameter is nullable
-or not.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;REMARKS&lt;/td&gt;
-&lt;td&gt;Description of the parameter.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;COLUMN_DEF&lt;/td&gt;
-&lt;td&gt;Default value for the parameter.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SQL_DATA_TYPE&lt;/td&gt;
-&lt;td&gt;An integer value representing the size of the parameter.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SQL_DATETIME_SUB&lt;/td&gt;
-&lt;td&gt;
+NULLABLE
+An integer value representing whether the parameter is nullable
+or not.
+REMARKS
+Description of the parameter.
+COLUMN_DEF
+Default value for the parameter.
+SQL_DATA_TYPE
+An integer value representing the size of the parameter.
+SQL_DATETIME_SUB
 Returns an integer value representing a datetime subtype code,
 or &amp;null; for SQL data types to which this does not apply.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CHAR_OCTET_LENGTH&lt;/td&gt;
-&lt;td&gt;
+CHAR_OCTET_LENGTH
 Maximum length in octets for a character data type parameter, which
 matches COLUMN_SIZE for single-byte character set data, or &amp;null; for
 non-character data types.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ORDINAL_POSITION&lt;/td&gt;
-&lt;td&gt;The 1-indexed position of the parameter in the CALL
-statement.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IS_NULLABLE&lt;/td&gt;
-&lt;td&gt;
+ORDINAL_POSITION
+The 1-indexed position of the parameter in the CALL
+statement.
+IS_NULLABLE
 A string value where 'YES' means that the parameter accepts or
 returns &amp;null; values and 'NO' means that the parameter does not
 accept or return &amp;null; values.
-&lt;/td&gt;
-&lt;/tr&gt;
 </reference></element>
 <element pattern="db2_procedures" autocomplete_append="($connection, $qualifier, $schema, $procedure);">
 <reference>db2_procedures($connection, $qualifier, $schema, $procedure);
@@ -6874,108 +6805,48 @@ other databases, pass &amp;null; or an empty string.
 <b> schema string </b>The schema which contains the tables.
 <b> table_name string </b>The name of the table.
 <b> scope int </b>Integer value representing the minimum duration for which the
-unique row identifier is valid. This can be one of the following
-values:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Integer value&lt;/td&gt;
-&lt;td&gt;SQL constant&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;SQL_SCOPE_CURROW&lt;/td&gt;
-&lt;td&gt;Row identifier is valid only while the cursor is positioned
-on the row.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;SQL_SCOPE_TRANSACTION&lt;/td&gt;
-&lt;td&gt;Row identifier is valid for the duration of the
-transaction.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;SQL_SCOPE_SESSION&lt;/td&gt;
-&lt;td&gt;Row identifier is valid for the duration of the
-connection.&lt;/td&gt;
-&lt;/tr&gt;
+unique row identifier is valid.
+This can be one of the following values:
+
+0 SQL_SCOPE_CURROW
+Row identifier is valid only while the cursor is positioned
+on the row.
+
+1 SQL_SCOPE_TRANSACTION
+Row identifier is valid for the duration of the
+transaction.
+
+2 SQL_SCOPE_SESSION
+Row identifier is valid for the duration of the
+connection.
+
 <b>returns</b>  resource a statement resource with a result set containing rows with unique
-row identifier information for a table. The rows are composed of the
-following columns:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Column name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SCOPE&lt;/td&gt;
-&lt;td&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Integer value&lt;/td&gt;
-&lt;td&gt;SQL constant&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;SQL_SCOPE_CURROW&lt;/td&gt;
-&lt;td&gt;Row identifier is valid only while the cursor is positioned
-on the row.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;SQL_SCOPE_TRANSACTION&lt;/td&gt;
-&lt;td&gt;Row identifier is valid for the duration of the
-transaction.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;SQL_SCOPE_SESSION&lt;/td&gt;
-&lt;td&gt;Row identifier is valid for the duration of the
-connection.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;COLUMN_NAME&lt;/td&gt;
-&lt;td&gt;Name of the unique column.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;DATA_TYPE&lt;/td&gt;
-&lt;td&gt;SQL data type for the column.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TYPE_NAME&lt;/td&gt;
-&lt;td&gt;Character string representation of the SQL data type for the
-column.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;COLUMN_SIZE&lt;/td&gt;
-&lt;td&gt;An integer value representing the size of the column.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;BUFFER_LENGTH&lt;/td&gt;
-&lt;td&gt;
-Maximum number of bytes necessary to store data from this column.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;DECIMAL_DIGITS&lt;/td&gt;
-&lt;td&gt;
-The scale of the column, or &amp;null; where scale is not applicable.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;NUM_PREC_RADIX&lt;/td&gt;
-&lt;td&gt;
-An integer value of either 10 (representing
+row identifier information for a table.
+The rows are composed of the following columns:
+
+SCOPE
+0 SQL_SCOPE_CURROW
+Row identifier is valid only while the cursor is positioned
+on the row.
+1 SQL_SCOPE_TRANSACTION
+Row identifier is valid for the duration of the
+transaction.
+2 SQL_SCOPE_SESSION
+Row identifier is valid for the duration of the
+connection.
+
+COLUMN_NAME Name of the unique column.
+DATA_TYPE SQL data type for the column.
+TYPE_NAME Character string representation of the SQL data type for the
+column.
+COLUMN_SIZE An integer value representing the size of the column.
+BUFFER_LENGTH Maximum number of bytes necessary to store data from this column.
+DECIMAL_DIGITS The scale of the column, or &amp;null; where scale is not applicable.
+NUM_PREC_RADIX An integer value of either 10 (representing
 an exact numeric data type), 2 (representing an
 approximate numeric data type), or &amp;null; (representing a data type for
 which radix is not applicable).
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PSEUDO_COLUMN&lt;/td&gt;
-&lt;td&gt;Always returns 1.&lt;/td&gt;
-&lt;/tr&gt;
+PSEUDO_COLUMN Always returns 1.
 </reference></element>
 <element pattern="db2_statistics" autocomplete_append="($connection, $qualifier, $schema, $table_name, $unique);">
 <reference>db2_statistics($connection, $qualifier, $schema, $table_name, $unique);
@@ -6992,129 +6863,62 @@ current user.
 Return only the information for unique indexes on the table.
 <b>returns</b>  resource a statement resource with a result set containing rows describing
 the statistics and indexes for the base tables matching the specified
-parameters. The rows are composed of the following columns:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Column name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_CAT&lt;/td&gt;
-&lt;td&gt;The catalog that contains the table. The value is &amp;null; if
-this table does not have catalogs.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_SCHEM&lt;/td&gt;
-&lt;td&gt;Name of the schema that contains the table.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_NAME&lt;/td&gt;
-&lt;td&gt;Name of the table.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;NON_UNIQUE&lt;/td&gt;
-&lt;td&gt;
+parameters.
+The rows are composed of the following columns:
+
+TABLE_CAT
+The catalog that contains the table. The value is &amp;null; if
+this table does not have catalogs.
+TABLE_SCHEM
+Name of the schema that contains the table.
+TABLE_NAME
+Name of the table.
+NON_UNIQUE
 An integer value representing whether the index prohibits unique
 values, or whether the row represents statistics on the table itself:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Return value&lt;/td&gt;
-&lt;td&gt;Parameter type&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;0 (SQL_FALSE)&lt;/td&gt;
-&lt;td&gt;The index allows duplicate values.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1 (SQL_TRUE)&lt;/td&gt;
-&lt;td&gt;The index values must be unique.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;&amp;null;&lt;/td&gt;
-&lt;td&gt;This row is statistics information for the table itself.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;INDEX_QUALIFIER&lt;/td&gt;
-&lt;td&gt;A string value representing the qualifier that would have to be
-prepended to INDEX_NAME to fully qualify the index.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;INDEX_NAME&lt;/td&gt;
-&lt;td&gt;A string representing the name of the index.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TYPE&lt;/td&gt;
-&lt;td&gt;
+0 (SQL_FALSE) The index allows duplicate values.
+1 (SQL_TRUE) The index values must be unique.
+null This row is statistics information for the table itself.
+INDEX_QUALIFIER
+A string value representing the qualifier that would have to be
+prepended to INDEX_NAME to fully qualify the index.
+INDEX_NAME
+A string representing the name of the index.
+TYPE
 An integer value representing the type of information contained in
 this row of the result set:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Return value&lt;/td&gt;
-&lt;td&gt;Parameter type&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;0 (SQL_TABLE_STAT)&lt;/td&gt;
-&lt;td&gt;The row contains statistics about the table itself.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1 (SQL_INDEX_CLUSTERED)&lt;/td&gt;
-&lt;td&gt;The row contains information about a clustered index.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2 (SQL_INDEX_HASH)&lt;/td&gt;
-&lt;td&gt;The row contains information about a hashed index.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;3 (SQL_INDEX_OTHER)&lt;/td&gt;
-&lt;td&gt;The row contains information about a type of index that
-is neither clustered nor hashed.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ORDINAL_POSITION&lt;/td&gt;
-&lt;td&gt;The 1-indexed position of the column in the index. &amp;null; if
-the row contains statistics information about the table itself.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;COLUMN_NAME&lt;/td&gt;
-&lt;td&gt;The name of the column in the index. &amp;null; if the row
-contains statistics information about the table itself.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ASC_OR_DESC&lt;/td&gt;
-&lt;td&gt;
+0 (SQL_TABLE_STAT) The row contains statistics about the table itself.
+1 (SQL_INDEX_CLUSTERED) The row contains information about a clustered index.
+2 (SQL_INDEX_HASH) The row contains information about a hashed index.
+3 (SQL_INDEX_OTHER) The row contains information about a type of index that
+is neither clustered nor hashed.
+ORDINAL_POSITION
+The 1-indexed position of the column in the index. &amp;null; if
+the row contains statistics information about the table itself.
+COLUMN_NAME
+The name of the column in the index. &amp;null; if the row
+contains statistics information about the table itself.
+ASC_OR_DESC
 A if the column is sorted in ascending order,
 D if the column is sorted in descending order,
-&amp;null; if the row contains statistics information about the table
+&amp; null; if the row contains statistics information about the table
 itself.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CARDINALITY&lt;/td&gt;
-&lt;td&gt;
+CARDINALITY
 If the row contains information about an index, this column contains
 an integer value representing the number of unique values in the
 index.
 If the row contains information about the table itself, this column
 contains an integer value representing the number of rows in the
 table.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PAGES&lt;/td&gt;
-&lt;td&gt;
+PAGES
 If the row contains information about an index, this column contains
 an integer value representing the number of pages used to store the
 index.
 If the row contains information about the table itself, this column
 contains an integer value representing the number of pages used to
 store the table.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;FILTER_CONDITION&lt;/td&gt;
-&lt;td&gt;Always returns &amp;null;.&lt;/td&gt;
-&lt;/tr&gt;
+FILTER_CONDITION
+Always returns &amp;null;
 </reference></element>
 <element pattern="db2_stmt_error" autocomplete_append="($stmt = null);">
 <reference>db2_stmt_error($stmt = null);
@@ -7141,48 +6945,27 @@ as wildcards.
 <b> table_name string[optional] </b>The name of the table. This parameter accepts a search pattern
 containing _ and % as wildcards.
 <b>returns</b>  resource a statement resource with a result set containing rows describing
-the privileges for the tables that match the specified parameters. The rows
-are composed of the following columns:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Column name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_CAT&lt;/td&gt;
-&lt;td&gt;The catalog that contains the table. The value is &amp;null; if
-this table does not have catalogs.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_SCHEM&lt;/td&gt;
-&lt;td&gt;Name of the schema that contains the table.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_NAME&lt;/td&gt;
-&lt;td&gt;Name of the table.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;GRANTOR&lt;/td&gt;
-&lt;td&gt;Authorization ID of the user who granted the privilege.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;GRANTEE&lt;/td&gt;
-&lt;td&gt;Authorization ID of the user to whom the privilege was
-granted.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PRIVILEGE&lt;/td&gt;
-&lt;td&gt;
+the privileges for the tables that match the specified parameters.
+The rows are composed of the following columns:
+
+TABLE_CAT
+The catalog that contains the table. The value is &amp;null; if
+this table does not have catalogs.
+TABLE_SCHEM
+Name of the schema that contains the table.
+TABLE_NAME
+Name of the table.
+GRANTOR
+Authorization ID of the user who granted the privilege.
+GRANTEE
+Authorization ID of the user to whom the privilege was
+granted.
+PRIVILEGE
 The privilege that has been granted. This can be one of ALTER,
 CONTROL, DELETE, INDEX, INSERT, REFERENCES, SELECT, or UPDATE.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IS_GRANTABLE&lt;/td&gt;
-&lt;td&gt;
+IS_GRANTABLE
 A string value of "YES" or "NO" indicating whether the grantee
 can grant the privilege to other users.
-&lt;/td&gt;
-&lt;/tr&gt;
 </reference></element>
 <element pattern="db2_tables" autocomplete_append="($connection, $qualifier = null, $schema = null, $table_name = null, $table_type = null);">
 <reference>db2_tables($connection, $qualifier = null, $schema = null, $table_name = null, $table_type = null);
@@ -7194,33 +6977,20 @@ other databases, pass &amp;null; or an empty string.
 search pattern containing _ and %
 as wildcards.
 <b> table_name string[optional] </b><b> table_type string[optional] </b><b>returns</b>  resource a statement resource with a result set containing rows describing
-the tables that match the specified parameters. The rows are composed of
-the following columns:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Column name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_CAT&lt;/td&gt;
-&lt;td&gt;The catalog that contains the table. The value is &amp;null; if
-this table does not have catalogs.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_SCHEM&lt;/td&gt;
-&lt;td&gt;Name of the schema that contains the table.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_NAME&lt;/td&gt;
-&lt;td&gt;Name of the table.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TABLE_TYPE&lt;/td&gt;
-&lt;td&gt;Table type identifier for the table.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;REMARKS&lt;/td&gt;
-&lt;td&gt;Description of the table.&lt;/td&gt;
-&lt;/tr&gt;
+the tables that match the specified parameters.
+The rows are composed of the following columns:
+
+TABLE_CAT
+The catalog that contains the table. The value is &amp;null; if
+this table does not have catalogs.
+TABLE_SCHEM
+Name of the schema that contains the table.
+TABLE_NAME
+Name of the table.
+TABLE_TYPE
+Table type identifier for the table.
+REMARKS
+Description of the table.
 </reference></element>
 <element pattern="icap_close"/>
 <element pattern="icap_create_calendar"/>
@@ -7256,34 +7026,18 @@ Decodes multiple &lt;literal&gt;MIME&lt;/literal&gt; header fields at once
 iconv_mime_decode_headers encounters a malformed
 MIME header field. You can specify any combination
 of the following bitmasks.
-&lt;table&gt;
+
 Bitmasks acceptable to iconv_mime_decode_headers
-&lt;tr valign="top"&gt;
-&lt;td&gt;Value&lt;/td&gt;
-&lt;td&gt;Constant&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;ICONV_MIME_DECODE_STRICT&lt;/td&gt;
-&lt;td&gt;
+1 ICONV_MIME_DECODE_STRICT
 If set, the given header is decoded in full conformance with the
 standards defined in RFC2047.
 This option is disabled by default because there are a lot of
 broken mail user agents that don't follow the specification and don't
 produce correct MIME headers.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;ICONV_MIME_DECODE_CONTINUE_ON_ERROR&lt;/td&gt;
-&lt;td&gt;
+2 ICONV_MIME_DECODE_CONTINUE_ON_ERROR
 If set, iconv_mime_decode_headers
 attempts to ignore any grammatical errors and continue to process
 a given header.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
 <b> charset string[optional] </b>The optional charset parameter specifies the
 character set to represent the result by. If omitted,
 iconv.internal_encoding
@@ -7298,34 +7052,18 @@ Decodes a &lt;literal&gt;MIME&lt;/literal&gt; header field
 iconv_mime_decode encounters a malformed
 MIME header field. You can specify any combination
 of the following bitmasks.
-&lt;table&gt;
+
 Bitmasks acceptable to iconv_mime_decode
-&lt;tr valign="top"&gt;
-&lt;td&gt;Value&lt;/td&gt;
-&lt;td&gt;Constant&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;ICONV_MIME_DECODE_STRICT&lt;/td&gt;
-&lt;td&gt;
+1 ICONV_MIME_DECODE_STRICT
 If set, the given header is decoded in full conformance with the
 standards defined in RFC2047.
 This option is disabled by default because there are a lot of
 broken mail user agents that don't follow the specification and don't
 produce correct MIME headers.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;ICONV_MIME_DECODE_CONTINUE_ON_ERROR&lt;/td&gt;
-&lt;td&gt;
+2 ICONV_MIME_DECODE_CONTINUE_ON_ERROR
 If set, iconv_mime_decode_headers
 attempts to ignore any grammatical errors and continue to process
 a given header.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
 <b> charset string[optional] </b>The optional charset parameter specifies the
 character set to represent the result by. If omitted,
 iconv.internal_encoding
@@ -7343,86 +7081,44 @@ by specifying an associative array that contains configuration items
 to the optional third parameter preferences.
 The items supported by iconv_mime_encode are
 listed below. Note that item names are treated case-sensitive.
-&lt;table&gt;
+
 Configuration items supported by iconv_mime_encode
-&lt;tr valign="top"&gt;
-&lt;td&gt;Item&lt;/td&gt;
-&lt;td&gt;Type&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;td&gt;Default value&lt;/td&gt;
-&lt;td&gt;Example&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;scheme&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;
+
+scheme string
 Specifies the method to encode a field value by. The value of
 this item may be either "B" or "Q", where "B" stands for
 base64 encoding scheme and "Q" stands for
 quoted-printable encoding scheme.
-&lt;/td&gt;
-&lt;td&gt;B&lt;/td&gt;
-&lt;td&gt;B&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;input-charset&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;
+
+input-charset string
 Specifies the character set in which the first parameter
 field_name and the second parameter
 field_value are presented. If not given,
 iconv_mime_encode assumes those parameters
 are presented to it in the
-iconv.internal_encoding
-ini setting.
-&lt;/td&gt;
-&lt;td&gt;
-iconv.internal_encoding
-&lt;/td&gt;
-&lt;td&gt;ISO-8859-1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;output-charset&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;
+iconv.internal_encoding ini setting.
+
+output-charset string
 Specifies the character set to use to compose the
 MIME header. If not given, the same value as
 input-charset will be used.
-&lt;/td&gt;
-&lt;td&gt;
-iconv.internal_encoding
-&lt;/td&gt;
-&lt;td&gt;UTF-8&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;line-length&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;td&gt;
+
+line-length integer
 Specifies the maximum length of the header lines. The resulting
 header is "folded" to a set of multiple lines in case
 the resulting header field would be longer than the value of this
 parameter, according to
 RFC2822 - Internet Message Format.
 If not given, the length will be limited to 76 characters.
-&lt;/td&gt;
-&lt;td&gt;76&lt;/td&gt;
-&lt;td&gt;996&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;line-break-chars&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;
+
+line-break-chars string
 Specifies the sequence of characters to append to each line
 as an end-of-line sign when "folding" is performed on a long header
 field. If not given, this defaults to "\r\n"
 (CR LF). Note that
 this parameter is always treated as an ASCII string regardless
 of the value of input-charset.
-&lt;/td&gt;
-&lt;td&gt;\r\n&lt;/td&gt;
-&lt;td&gt;\n&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b>returns</b>  string an encoded MIME field on success,
 or false if an error occurs during the encoding.
 </reference></element>
@@ -7543,68 +7239,33 @@ return values.
 <reference>gd_info();
 Retrieve information about the currently installed GD library
 <b>returns</b>  array an associative array.
-&lt;table&gt;
+
 Elements of array returned by gd_info
-&lt;tr valign="top"&gt;
-&lt;td&gt;Attribute&lt;/td&gt;
-&lt;td&gt;Meaning&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;GD Version&lt;/td&gt;
-&lt;td&gt;string value describing the installed
-libgd version.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Freetype Support&lt;/td&gt;
-&lt;td&gt;boolean value. true
-if Freetype Support is installed.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Freetype Linkage&lt;/td&gt;
-&lt;td&gt;string value describing the way in which
+GD Version
+string value describing the installed libgd version.
+Freetype Support
+boolean value. true if Freetype Support is installed.
+Freetype Linkage
+string value describing the way in which
 Freetype was linked. Expected values are: 'with freetype',
 'with TTF library', and 'with unknown library'. This element will
-only be defined if Freetype Support evaluated to
-true.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;T1Lib Support&lt;/td&gt;
-&lt;td&gt;boolean value. true
-if T1Lib support is included.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;GIF Read Support&lt;/td&gt;
-&lt;td&gt;boolean value. true
-if support for reading GIF
-images is included.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;GIF Create Support&lt;/td&gt;
-&lt;td&gt;boolean value. true
-if support for creating GIF
-images is included.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;JPG Support&lt;/td&gt;
-&lt;td&gt;boolean value. true
-if JPG support is included.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PNG Support&lt;/td&gt;
-&lt;td&gt;boolean value. true
-if PNG support is included.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;WBMP Support&lt;/td&gt;
-&lt;td&gt;boolean value. true
-if WBMP support is included.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;XBM Support&lt;/td&gt;
-&lt;td&gt;boolean value. true
-if XBM support is included.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+only be defined if Freetype Support evaluated to true.
+T1Lib Support
+boolean value. true if T1Lib support is included.
+GIF Read Support
+boolean value. true if support for reading GIF
+images is included.
+GIF Create Support
+boolean value. true if support for creating GIF
+images is included.
+JPG Support
+boolean value. true if JPG support is included.
+PNG Support
+boolean value. true if PNG support is included.
+WBMP Support
+boolean value. true if WBMP support is included.
+XBM Support
+boolean value. true if XBM support is included.
 </reference></element>
 <element pattern="getimagesize" autocomplete_append="($filename, array &amp;$imageinfo = null);">
 <reference>getimagesize($filename, array &amp;$imageinfo = null);
@@ -7659,83 +7320,25 @@ Get Mime-Type for image-type returned by getimagesize,
 exif_read_data, exif_thumbnail, exif_imagetype
 <b> imagetype int </b>One of the IMAGETYPE_XXX constants.
 <b>returns</b>  string The returned values are as follows
-&lt;table&gt;
+
 Returned values Constants
-&lt;tr valign="top"&gt;
-&lt;td&gt;imagetype&lt;/td&gt;
-&lt;td&gt;Returned value&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_GIF&lt;/td&gt;
-&lt;td&gt;image/gif&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_JPEG&lt;/td&gt;
-&lt;td&gt;image/jpeg&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_PNG&lt;/td&gt;
-&lt;td&gt;image/png&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_SWF&lt;/td&gt;
-&lt;td&gt;application/x-shockwave-flash&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_PSD&lt;/td&gt;
-&lt;td&gt;image/psd&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_BMP&lt;/td&gt;
-&lt;td&gt;image/bmp&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_TIFF_II (intel byte order)&lt;/td&gt;
-&lt;td&gt;image/tiff&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;
-IMAGETYPE_TIFF_MM (motorola byte order)
-&lt;/td&gt;
-&lt;td&gt;image/tiff&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_JPC&lt;/td&gt;
-&lt;td&gt;application/octet-stream&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_JP2&lt;/td&gt;
-&lt;td&gt;image/jp2&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_JPX&lt;/td&gt;
-&lt;td&gt;application/octet-stream&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_JB2&lt;/td&gt;
-&lt;td&gt;application/octet-stream&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_SWC&lt;/td&gt;
-&lt;td&gt;application/x-shockwave-flash&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_IFF&lt;/td&gt;
-&lt;td&gt;image/iff&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_WBMP&lt;/td&gt;
-&lt;td&gt;image/vnd.wap.wbmp&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_XBM&lt;/td&gt;
-&lt;td&gt;image/xbm&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;IMAGETYPE_ICO&lt;/td&gt;
-&lt;td&gt;image/vnd.microsoft.icon&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+IMAGETYPE_GIF image/gif
+IMAGETYPE_JPEG image/jpeg
+IMAGETYPE_PNG image/png
+IMAGETYPE_SWF application/x-shockwave-flash
+IMAGETYPE_PSD image/psd
+IMAGETYPE_BMP image/bmp
+IMAGETYPE_TIFF_II (intel byte order) image/tiff
+IMAGETYPE_TIFF_MM (motorola byte order) image/tiff
+IMAGETYPE_JPC application/octet-stream
+IMAGETYPE_JP2 image/jp2
+IMAGETYPE_JPX application/octet-stream
+IMAGETYPE_JB2 application/octet-stream
+IMAGETYPE_SWC application/x-shockwave-flash
+IMAGETYPE_IFF image/iff
+IMAGETYPE_WBMP image/vnd.wap.wbmp
+IMAGETYPE_XBM image/xbm
+IMAGETYPE_ICO image/vnd.microsoft.icon
 </reference></element>
 <element pattern="image2wbmp" autocomplete_append="($image, $filename = null, $threshold = null);">
 <reference>image2wbmp($image, $filename = null, $threshold = null);
@@ -8220,54 +7823,23 @@ which version of the GD library that PHP is using, it may attempt to
 search for files that do not begin with a leading '/' by appending
 '.ttf' to the filename and searching along a library-defined font path.
 <b> text string </b>The string to be measured.
-<b> extrainfo array[optional] </b>&lt;table&gt;
-Possible array indexes for extrainfo
-&lt;tr valign="top"&gt;
-&lt;td&gt;Key&lt;/td&gt;
-&lt;td&gt;Type&lt;/td&gt;
-&lt;td&gt;Meaning&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;linespacing&lt;/td&gt;
-&lt;td&gt;float&lt;/td&gt;
-&lt;td&gt;Defines drawing linespacing&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+<b> extrainfo array[optional] </b>
+Possible array indexes for extrainfo:
+linespacing float
+Defines drawing linespacing
+
 <b>returns</b>  array imageftbbox returns an array with 8
 elements representing four points making the bounding box of the
 text:
-&lt;tr valign="top"&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;lower left corner, X position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;lower left corner, Y position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;lower right corner, X position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;lower right corner, Y position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;td&gt;upper right corner, X position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;td&gt;upper right corner, Y position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;6&lt;/td&gt;
-&lt;td&gt;upper left corner, X position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;7&lt;/td&gt;
-&lt;td&gt;upper left corner, Y position&lt;/td&gt;
-&lt;/tr&gt;
+0 lower left corner, X position
+1 lower left corner, Y position
+2 lower right corner, X position
+3 lower right corner, Y position
+4 upper right corner, X position
+5 upper right corner, Y position
+6 upper left corner, X position
+7 upper left corner, Y position
+
 The points are relative to the text regardless of the
 angle, so "upper left" means in the top left-hand 
 corner seeing the text horizontally.
@@ -8305,52 +7877,22 @@ In many cases where a font resides in the same directory as the script using it
 the following trick will alleviate any include problems.
 ]]&gt;
 <b> text string </b>Text to be inserted into image. 
-<b> extrainfo array[optional] </b>&lt;table&gt;
-Possible array indexes for extrainfo
-&lt;tr valign="top"&gt;
-&lt;td&gt;Key&lt;/td&gt;
-&lt;td&gt;Type&lt;/td&gt;
-&lt;td&gt;Meaning&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;linespacing&lt;/td&gt;
-&lt;td&gt;float&lt;/td&gt;
-&lt;td&gt;Defines drawing linespacing&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+<b> extrainfo array[optional] </b>
+Possible array indexes for extrainfo:
+
+linespacing float
+Defines drawing linespacing
+
 <b>returns</b>  array This function returns an array defining the four points of the box, starting in the lower left and moving counter-clockwise:
-&lt;tr valign="top"&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;lower left x-coordinate&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;lower left y-coordinate&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;lower right x-coordinate&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;lower right y-coordinate&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;td&gt;upper right x-coordinate&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;td&gt;upper right y-coordinate&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;6&lt;/td&gt;
-&lt;td&gt;upper left x-coordinate&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;7&lt;/td&gt;
-&lt;td&gt;upper left y-coordinate&lt;/td&gt;
-&lt;/tr&gt;
+
+0 lower left x-coordinate
+1 lower left y-coordinate
+2 lower right x-coordinate
+3 lower right y-coordinate
+4 upper right x-coordinate
+5 upper right y-coordinate
+6 upper left x-coordinate
+7 upper left y-coordinate
 </reference></element>
 <element pattern="imagegammacorrect" autocomplete_append="($image, $inputgamma, $outputgamma);">
 <reference>imagegammacorrect($image, $inputgamma, $outputgamma);
@@ -8437,44 +7979,20 @@ Load a new font
 <b> file string </b>The font file format is currently binary and architecture
 dependent. This means you should generate the font files on the
 same type of CPU as the machine you are running PHP on.
-&lt;table&gt;
+
 Font file format
-&lt;tr valign="top"&gt;
-&lt;td&gt;byte position&lt;/td&gt;
-&lt;td&gt;C data type&lt;/td&gt;
-&lt;td&gt;description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;byte 0-3&lt;/td&gt;
-&lt;td&gt;int&lt;/td&gt;
-&lt;td&gt;number of characters in the font&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;byte 4-7&lt;/td&gt;
-&lt;td&gt;int&lt;/td&gt;
-&lt;td&gt;
+byte 0-3 int
+number of characters in the font
+byte 4-7 int
 value of first character in the font (often 32 for space)
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;byte 8-11&lt;/td&gt;
-&lt;td&gt;int&lt;/td&gt;
-&lt;td&gt;pixel width of each character&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;byte 12-15&lt;/td&gt;
-&lt;td&gt;int&lt;/td&gt;
-&lt;td&gt;pixel height of each character&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;byte 16-&lt;/td&gt;
-&lt;td&gt;char&lt;/td&gt;
-&lt;td&gt;
+byte 8-11 int
+pixel width of each character
+byte 12-15 int
+pixel height of each character
+byte 16- char
 array with character data, one byte per pixel in each
 character, for a total of (nchars*width*height) bytes.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b>returns</b>  int The font identifier which is always bigger than 5 to avoid conflicts with
 built-in fonts or false on errors.
 </reference></element>
@@ -8503,23 +8021,14 @@ disable or activate all filters.
 <element pattern="imagepolygon" autocomplete_append="($image, array $points, $num_points, $color);">
 <reference>imagepolygon($image, array $points, $num_points, $color);
 Draws a polygon
-<b> image resource </b><b> points array </b>An array containing the polygon's vertices, e.g.:
-&lt;tr valign="top"&gt;
-&lt;td&gt;points[0]&lt;/td&gt;
-&lt;td&gt;= x0&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;points[1]&lt;/td&gt;
-&lt;td&gt;= y0&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;points[2]&lt;/td&gt;
-&lt;td&gt;= x1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;points[3]&lt;/td&gt;
-&lt;td&gt;= y1&lt;/td&gt;
-&lt;/tr&gt;
+<b> image resource </b><b> points array </b>
+An array containing the polygon's vertices, e.g.:
+
+points[0] = x0
+points[1] = y0
+points[2] = x1
+points[3] = y1
+
 <b> num_points int </b>Total number of points (vertices).
 <b> color int </b>A color identifier created with 
 imagecolorallocate.
@@ -8648,38 +8157,16 @@ search for files that do not begin with a leading '/' by appending
 <b>returns</b>  array imagettfbbox returns an array with 8
 elements representing four points making the bounding box of the
 text:
-&lt;tr valign="top"&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;lower left corner, X position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;lower left corner, Y position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;lower right corner, X position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;lower right corner, Y position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;td&gt;upper right corner, X position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;td&gt;upper right corner, Y position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;6&lt;/td&gt;
-&lt;td&gt;upper left corner, X position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;7&lt;/td&gt;
-&lt;td&gt;upper left corner, Y position&lt;/td&gt;
-&lt;/tr&gt;
+
+0 lower left corner, X position
+1 lower left corner, Y position
+2 lower right corner, X position
+3 lower right corner, Y position
+4 upper right corner, X position
+5 upper right corner, Y position
+6 upper left corner, X position
+7 upper left corner, Y position
+
 The points are relative to the text regardless of the
 angle, so "upper left" means in the top left-hand 
 corner seeing the text horizontally.
@@ -8985,104 +8472,51 @@ FT_UID, which tells the function to treat the
 msg_number argument as a 
 UID.
 <b>returns</b>  object an object includes the envelope, internal date, size, flags and
-body structure along with a similar object for each mime attachment. The
-structure of the returned objects is as follows:
-&lt;table&gt;
+body structure along with a similar object for each mime attachment.
+The structure of the returned objects is as follows:
+
 Returned Objects for imap_fetchstructure
-&lt;tr valign="top"&gt;
-&lt;td&gt;type&lt;/td&gt;
-&lt;td&gt;Primary body type&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;encoding&lt;/td&gt;
-&lt;td&gt;Body transfer encoding&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ifsubtype&lt;/td&gt;
-&lt;td&gt;true if there is a subtype string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;subtype&lt;/td&gt;
-&lt;td&gt;MIME subtype&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ifdescription&lt;/td&gt;
-&lt;td&gt;true if there is a description string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;description&lt;/td&gt;
-&lt;td&gt;Content description string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ifid&lt;/td&gt;
-&lt;td&gt;true if there is an identification string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;id&lt;/td&gt;
-&lt;td&gt;Identification string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;lines&lt;/td&gt;
-&lt;td&gt;Number of lines&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;bytes&lt;/td&gt;
-&lt;td&gt;Number of bytes&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ifdisposition&lt;/td&gt;
-&lt;td&gt;true if there is a disposition string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;disposition&lt;/td&gt;
-&lt;td&gt;Disposition string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ifdparameters&lt;/td&gt;
-&lt;td&gt;true if the dparameters array exists&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;dparameters&lt;/td&gt;
-&lt;td&gt;An array of objects where each object has an "attribute" and a
+
+type Primary body type
+encoding Body transfer encoding
+ifsubtype true if there is a subtype string
+subtype MIME subtype
+ifdescription true if there is a description string
+description Content description string
+ifid true if there is an identification string
+id Identification string
+lines Number of lines
+bytes Number of bytes
+ifdisposition true if there is a disposition string
+disposition Disposition string
+ifdparameters true if the dparameters array exists
+dparameters An array of objects where each object has an "attribute" and a
 "value" property corresponding to the parameters on the
-Content-disposition MIMEheader.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ifparameters&lt;/td&gt;
-&lt;td&gt;true if the parameters array exists&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;parameters&lt;/td&gt;
-&lt;td&gt;An array of objects where each object has an "attribute" and
-a "value" property.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;parts&lt;/td&gt;
-&lt;td&gt;An array of objects identical in structure to the top-level
+Content-disposition MIMEheader.
+ifparameters true if the parameters array exists
+parameters An array of objects where each object has an "attribute" and
+a "value" property.
+parts An array of objects identical in structure to the top-level
 object, each of which corresponds to a MIME body
-part.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;table&gt;
+part.
+
 Primary body type
-&lt;tr valign="top"&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;text&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;multipart&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;message&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;application&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;audio&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;image&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;video&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;other&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-&lt;table&gt;
+0 text
+1 multipart
+2 message
+3 application
+4 audio
+5 image
+6 video
+7 other
+
 Transfer encodings
-&lt;tr valign="top"&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;7BIT&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;8BIT&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;BINARY&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;BASE64&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;QUOTED-PRINTABLE&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;OTHER&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
+0 7BIT
+1 8BIT
+2 BINARY
+3 BASE64
+4 QUOTED-PRINTABLE
+5 OTHER
 </reference></element>
 <element pattern="imap_get_quota" autocomplete_append="($imap_stream, $quota_root);">
 <reference>imap_get_quota($imap_stream, $quota_root);
@@ -9347,41 +8781,18 @@ This is useful when using PHP as a mail client for multiple users.
 <reference>imap_mailboxmsginfo($imap_stream);
 Get information about the current mailbox
 <b> imap_stream resource </b><b>returns</b>  object the information in an object with following properties:
-&lt;table&gt;
+
 Mailbox properties
-&lt;tr valign="top"&gt;
-&lt;td&gt;Date&lt;/td&gt;
-&lt;td&gt;date of last change&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Driver&lt;/td&gt;
-&lt;td&gt;driver&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Mailbox&lt;/td&gt;
-&lt;td&gt;name of the mailbox&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Nmsgs&lt;/td&gt;
-&lt;td&gt;number of messages&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Recent&lt;/td&gt;
-&lt;td&gt;number of recent messages&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Unread&lt;/td&gt;
-&lt;td&gt;number of unread messages&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Deleted&lt;/td&gt;
-&lt;td&gt;number of deleted messages&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;Size&lt;/td&gt;
-&lt;td&gt;mailbox size&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
+Date date of last change
+Driver driver
+Mailbox name of the mailbox
+Nmsgs number of messages
+Recent number of recent messages
+Unread number of unread messages
+Deleted number of deleted messages
+Size mailbox size
+
 Returns false on failure.
 </reference></element>
 <element pattern="imap_mime_header_decode" autocomplete_append="($text);">
@@ -9933,62 +9344,20 @@ array indices.)
 Get the current value for given option
 <b> link_identifier resource </b>An LDAP link identifier, returned by ldap_connect.
 <b> option int </b>The parameter option can be one of:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Option&lt;/td&gt;
-&lt;td&gt;Type&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_DEREF&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_SIZELIMIT&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_TIMELIMIT&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_NETWORK_TIMEOUT&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_PROTOCOL_VERSION&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_ERROR_NUMBER&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_REFERRALS&lt;/td&gt;
-&lt;td&gt;bool&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_RESTART&lt;/td&gt;
-&lt;td&gt;bool&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_HOST_NAME&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_ERROR_STRING&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_MATCHED_DN&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_SERVER_CONTROLS&lt;/td&gt;
-&lt;td&gt;array&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_CLIENT_CONTROLS&lt;/td&gt;
-&lt;td&gt;array&lt;/td&gt;
-&lt;/tr&gt;
+
+LDAP_OPT_DEREF integer
+LDAP_OPT_SIZELIMIT integer
+LDAP_OPT_TIMELIMIT integer
+LDAP_OPT_NETWORK_TIMEOUT integer
+LDAP_OPT_PROTOCOL_VERSION integer
+LDAP_OPT_ERROR_NUMBER integer
+LDAP_OPT_REFERRALS bool
+LDAP_OPT_RESTART bool
+LDAP_OPT_HOST_NAME string
+LDAP_OPT_ERROR_STRING string
+LDAP_OPT_MATCHED_DN string
+LDAP_OPT_SERVER_CONTROLS array
+LDAP_OPT_CLIENT_CONTROLS array
 <b> retval mixed </b>This will be set to the option value.
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
@@ -10198,62 +9567,21 @@ dereferenced.
 Set the value of the given option
 <b> link_identifier resource </b>An LDAP link identifier, returned by ldap_connect.
 <b> option int </b>The parameter option can be one of:
-&lt;tr valign="top"&gt;
-&lt;td&gt;Option&lt;/td&gt;
-&lt;td&gt;Type&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_DEREF&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_SIZELIMIT&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_TIMELIMIT&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_NETWORK_TIMEOUT&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_PROTOCOL_VERSION&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_ERROR_NUMBER&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_REFERRALS&lt;/td&gt;
-&lt;td&gt;bool&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_RESTART&lt;/td&gt;
-&lt;td&gt;bool&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_HOST_NAME&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_ERROR_STRING&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_MATCHED_DN&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_SERVER_CONTROLS&lt;/td&gt;
-&lt;td&gt;array&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LDAP_OPT_CLIENT_CONTROLS&lt;/td&gt;
-&lt;td&gt;array&lt;/td&gt;
-&lt;/tr&gt;
+
+LDAP_OPT_DEREF integer
+LDAP_OPT_SIZELIMIT integer
+LDAP_OPT_TIMELIMIT integer
+LDAP_OPT_NETWORK_TIMEOUT integer
+LDAP_OPT_PROTOCOL_VERSION integer
+LDAP_OPT_ERROR_NUMBER integer
+LDAP_OPT_REFERRALS bool
+LDAP_OPT_RESTART bool
+LDAP_OPT_HOST_NAME string
+LDAP_OPT_ERROR_STRING string
+LDAP_OPT_MATCHED_DN string
+LDAP_OPT_SERVER_CONTROLS array
+LDAP_OPT_CLIENT_CONTROLS array
+
 LDAP_OPT_SERVER_CONTROLS and 
 LDAP_OPT_CLIENT_CONTROLS require a list of
 controls, this means that the value must be an array of controls. A
@@ -11572,90 +10900,29 @@ absolute position where to put the next data, for everything else the
 repeat count specifies how many data arguments are consumed and packed
 into the resulting binary string.
 Currently implemented formats are:
-&lt;table&gt;
-pack format characters
-&lt;tr valign="top"&gt;
-&lt;td&gt;Code&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;a&lt;/td&gt;
-&lt;td&gt;NUL-padded string&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;A&lt;/td&gt;
-&lt;td&gt;SPACE-padded string&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;h&lt;/td&gt;
-&lt;td&gt;Hex string, low nibble first&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;H&lt;/td&gt;
-&lt;td&gt;Hex string, high nibble first&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;&lt;td&gt;c&lt;/td&gt;&lt;td&gt;signed char&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;C&lt;/td&gt;
-&lt;td&gt;unsigned char&lt;/td&gt;&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;s&lt;/td&gt;
-&lt;td&gt;signed short (always 16 bit, machine byte order)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;S&lt;/td&gt;
-&lt;td&gt;unsigned short (always 16 bit, machine byte order)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;n&lt;/td&gt;
-&lt;td&gt;unsigned short (always 16 bit, big endian byte order)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;v&lt;/td&gt;
-&lt;td&gt;unsigned short (always 16 bit, little endian byte order)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;i&lt;/td&gt;
-&lt;td&gt;signed integer (machine dependent size and byte order)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;I&lt;/td&gt;
-&lt;td&gt;unsigned integer (machine dependent size and byte order)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;l&lt;/td&gt;
-&lt;td&gt;signed long (always 32 bit, machine byte order)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;L&lt;/td&gt;
-&lt;td&gt;unsigned long (always 32 bit, machine byte order)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;N&lt;/td&gt;
-&lt;td&gt;unsigned long (always 32 bit, big endian byte order)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;V&lt;/td&gt;
-&lt;td&gt;unsigned long (always 32 bit, little endian byte order)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;f&lt;/td&gt;
-&lt;td&gt;float (machine dependent size and representation)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;d&lt;/td&gt;
-&lt;td&gt;double (machine dependent size and representation)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;x&lt;/td&gt;
-&lt;td&gt;NUL byte&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;X&lt;/td&gt;
-&lt;td&gt;Back up one byte&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;@&lt;/td&gt;
-&lt;td&gt;NUL-fill to absolute position&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
+a NUL-padded string
+A SPACE-padded string
+h Hex string, low nibble first
+H Hex string, high nibble first
+c signed char
+C unsigned char
+s signed short (always 16 bit, machine byte order)
+S unsigned short (always 16 bit, machine byte order)
+n unsigned short (always 16 bit, big endian byte order)
+v unsigned short (always 16 bit, little endian byte order)
+i signed integer (machine dependent size and byte order)
+I unsigned integer (machine dependent size and byte order)
+l signed long (always 32 bit, machine byte order)
+L unsigned long (always 32 bit, machine byte order)
+N unsigned long (always 32 bit, big endian byte order)
+V unsigned long (always 32 bit, little endian byte order)
+f float (machine dependent size and representation)
+d double (machine dependent size and representation)
+x NUL byte
+X Back up one byte
+@ NUL-fill to absolute position
+
 <b> args mixed[optional] </b><b> _ mixed[optional] </b><b>returns</b>  string a binary string containing data.
 </reference></element>
 <element pattern="php_check_syntax"/>
@@ -12128,107 +11395,28 @@ encoding will be used.
 Convert "kana" one from another ("zen-kaku", "han-kaku" and more)
 <b> str string </b>The string being converted.
 <b> option string[optional] </b>The conversion option. The default value is "KV".
-Specify with a combination of following options. The default 
-value is KV.
-&lt;table&gt;
+Specify with a combination of following options. The default value is KV.
+
 Applicable Conversion Options
-&lt;tr valign="top"&gt;
-&lt;td&gt;Option&lt;/td&gt;
-&lt;td&gt;Meaning&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;r&lt;/td&gt;
-&lt;td&gt;
-Convert "zen-kaku" alphabets to "han-kaku"
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;R&lt;/td&gt;
-&lt;td&gt;
-Convert "han-kaku" alphabets to "zen-kaku"
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;n&lt;/td&gt;
-&lt;td&gt;
-Convert "zen-kaku" numbers to "han-kaku"
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;N&lt;/td&gt;
-&lt;td&gt;
-Convert "han-kaku" numbers to "zen-kaku"
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;a&lt;/td&gt;
-&lt;td&gt;
-Convert "zen-kaku" alphabets and numbers to "han-kaku"
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;A&lt;/td&gt;
-&lt;td&gt;
-Convert "han-kaku" alphabets and numbers to "zen-kaku"
+
+r Convert "zen-kaku" alphabets to "han-kaku"
+R Convert "han-kaku" alphabets to "zen-kaku"
+n Convert "zen-kaku" numbers to "han-kaku"
+N Convert "han-kaku" numbers to "zen-kaku"
+a Convert "zen-kaku" alphabets and numbers to "han-kaku"
+A Convert "han-kaku" alphabets and numbers to "zen-kaku"
 (Characters included in "a", "A" options are
 U+0021 - U+007E excluding U+0022, U+0027, U+005C, U+007E)
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;s&lt;/td&gt;
-&lt;td&gt;
-Convert "zen-kaku" space to "han-kaku" (U+3000 -&gt; U+0020)
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;S&lt;/td&gt;
-&lt;td&gt;
-Convert "han-kaku" space to "zen-kaku" (U+0020 -&gt; U+3000)
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;k&lt;/td&gt;
-&lt;td&gt;
-Convert "zen-kaku kata-kana" to "han-kaku kata-kana"
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;K&lt;/td&gt;
-&lt;td&gt;
-Convert "han-kaku kata-kana" to "zen-kaku kata-kana"
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;h&lt;/td&gt;
-&lt;td&gt;
-Convert "zen-kaku hira-gana" to "han-kaku kata-kana"
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;H&lt;/td&gt;
-&lt;td&gt;
-Convert "han-kaku kata-kana" to "zen-kaku hira-gana"
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;c&lt;/td&gt;
-&lt;td&gt;
-Convert "zen-kaku kata-kana" to "zen-kaku hira-gana"
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;C&lt;/td&gt;
-&lt;td&gt;
-Convert "zen-kaku hira-gana" to "zen-kaku kata-kana"
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;V&lt;/td&gt;
-&lt;td&gt;
-Collapse voiced sound notation and convert them into a character. Use with "K","H"
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+s Convert "zen-kaku" space to "han-kaku" (U+3000 -&gt; U+0020)
+S Convert "han-kaku" space to "zen-kaku" (U+0020 -&gt; U+3000)
+k Convert "zen-kaku kata-kana" to "han-kaku kata-kana"
+K Convert "han-kaku kata-kana" to "zen-kaku kata-kana"
+h Convert "zen-kaku hira-gana" to "han-kaku kata-kana"
+H Convert "han-kaku kata-kana" to "zen-kaku hira-gana"
+c Convert "zen-kaku kata-kana" to "zen-kaku hira-gana"
+C Convert "zen-kaku hira-gana" to "zen-kaku kata-kana"
+V Collapse voiced sound notation and convert them into a character. Use with "K","H"
+
 <b> encoding string[optional] &amp;mbstring.encoding.parameter;</b><b>returns</b>  string The converted string.
 </reference></element>
 <element pattern="mb_convert_variables" autocomplete_append="($to_encoding, $from_encoding, &amp;$vars, &amp;$_ = null);">
@@ -14704,99 +13892,39 @@ Enforce execution of a query on the master in a master/slave setup
 <element pattern="mysqli_query" autocomplete_append="();">
 <reference>mysqli_query();
 Enables or disables internal report functions
-<b> flags int </b>&lt;table&gt;
+<b> flags int </b>
 Supported flags
-&lt;tr valign="top"&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_OFF&lt;/td&gt;
-&lt;td&gt;Turns reporting off&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_ERROR&lt;/td&gt;
-&lt;td&gt;Report errors from mysqli function calls&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_STRICT&lt;/td&gt;
-&lt;td&gt;Report warnings from mysqli function calls&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_INDEX&lt;/td&gt;
-&lt;td&gt;Report if no index or bad index was used in a query&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_ALL&lt;/td&gt;
-&lt;td&gt;Set all options (report all)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+MYSQLI_REPORT_OFF Turns reporting off
+MYSQLI_REPORT_ERROR Report errors from mysqli function calls
+MYSQLI_REPORT_STRICT Report warnings from mysqli function calls
+MYSQLI_REPORT_INDEX Report if no index or bad index was used in a query
+MYSQLI_REPORT_ALL Set all options (report all)
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
 <element pattern="query"/>
 <element pattern="mysqli_real_connect" autocomplete_append="();">
 <reference>mysqli_real_connect();
 Enables or disables internal report functions
-<b> flags int </b>&lt;table&gt;
+<b> flags int </b>
 Supported flags
-&lt;tr valign="top"&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_OFF&lt;/td&gt;
-&lt;td&gt;Turns reporting off&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_ERROR&lt;/td&gt;
-&lt;td&gt;Report errors from mysqli function calls&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_STRICT&lt;/td&gt;
-&lt;td&gt;Report warnings from mysqli function calls&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_INDEX&lt;/td&gt;
-&lt;td&gt;Report if no index or bad index was used in a query&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_ALL&lt;/td&gt;
-&lt;td&gt;Set all options (report all)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+MYSQLI_REPORT_OFF Turns reporting off
+MYSQLI_REPORT_ERROR Report errors from mysqli function calls
+MYSQLI_REPORT_STRICT Report warnings from mysqli function calls
+MYSQLI_REPORT_INDEX Report if no index or bad index was used in a query
+MYSQLI_REPORT_ALL Set all options (report all)
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
 <element pattern="real_connect"/>
 <element pattern="mysqli_real_escape_string" autocomplete_append="();">
 <reference>mysqli_real_escape_string();
 Enables or disables internal report functions
-<b> flags int </b>&lt;table&gt;
+<b> flags int </b>
 Supported flags
-&lt;tr valign="top"&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_OFF&lt;/td&gt;
-&lt;td&gt;Turns reporting off&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_ERROR&lt;/td&gt;
-&lt;td&gt;Report errors from mysqli function calls&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_STRICT&lt;/td&gt;
-&lt;td&gt;Report warnings from mysqli function calls&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_INDEX&lt;/td&gt;
-&lt;td&gt;Report if no index or bad index was used in a query&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_ALL&lt;/td&gt;
-&lt;td&gt;Set all options (report all)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+MYSQLI_REPORT_OFF Turns reporting off
+MYSQLI_REPORT_ERROR Report errors from mysqli function calls
+MYSQLI_REPORT_STRICT Report warnings from mysqli function calls
+MYSQLI_REPORT_INDEX Report if no index or bad index was used in a query
+MYSQLI_REPORT_ALL Set all options (report all)
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
 <element pattern="escape_string"/>
@@ -14804,33 +13932,13 @@ Supported flags
 <element pattern="mysqli_real_query" autocomplete_append="();">
 <reference>mysqli_real_query();
 Enables or disables internal report functions
-<b> flags int </b>&lt;table&gt;
+<b> flags int </b>
 Supported flags
-&lt;tr valign="top"&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_OFF&lt;/td&gt;
-&lt;td&gt;Turns reporting off&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_ERROR&lt;/td&gt;
-&lt;td&gt;Report errors from mysqli function calls&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_STRICT&lt;/td&gt;
-&lt;td&gt;Report warnings from mysqli function calls&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_INDEX&lt;/td&gt;
-&lt;td&gt;Report if no index or bad index was used in a query&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_ALL&lt;/td&gt;
-&lt;td&gt;Set all options (report all)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+MYSQLI_REPORT_OFF Turns reporting off
+MYSQLI_REPORT_ERROR Report errors from mysqli function calls
+MYSQLI_REPORT_STRICT Report warnings from mysqli function calls
+MYSQLI_REPORT_INDEX Report if no index or bad index was used in a query
+MYSQLI_REPORT_ALL Set all options (report all)
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
 <element pattern="real_query"/>
@@ -14839,31 +13947,11 @@ Supported flags
 Enables or disables internal report functions
 <b> flags int </b>&lt;table&gt;
 Supported flags
-&lt;tr valign="top"&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_OFF&lt;/td&gt;
-&lt;td&gt;Turns reporting off&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_ERROR&lt;/td&gt;
-&lt;td&gt;Report errors from mysqli function calls&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_STRICT&lt;/td&gt;
-&lt;td&gt;Report warnings from mysqli function calls&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_INDEX&lt;/td&gt;
-&lt;td&gt;Report if no index or bad index was used in a query&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_ALL&lt;/td&gt;
-&lt;td&gt;Set all options (report all)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+MYSQLI_REPORT_OFF Turns reporting off
+MYSQLI_REPORT_ERROR Report errors from mysqli function calls
+MYSQLI_REPORT_STRICT Report warnings from mysqli function calls
+MYSQLI_REPORT_INDEX Report if no index or bad index was used in a query
+MYSQLI_REPORT_ALL Set all options (report all)
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
 <element pattern="mysqli_rollback" autocomplete_append="();">
@@ -14871,31 +13959,11 @@ Supported flags
 Enables or disables internal report functions
 <b> flags int </b>&lt;table&gt;
 Supported flags
-&lt;tr valign="top"&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_OFF&lt;/td&gt;
-&lt;td&gt;Turns reporting off&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_ERROR&lt;/td&gt;
-&lt;td&gt;Report errors from mysqli function calls&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_STRICT&lt;/td&gt;
-&lt;td&gt;Report warnings from mysqli function calls&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_INDEX&lt;/td&gt;
-&lt;td&gt;Report if no index or bad index was used in a query&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MYSQLI_REPORT_ALL&lt;/td&gt;
-&lt;td&gt;Set all options (report all)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+MYSQLI_REPORT_OFF Turns reporting off
+MYSQLI_REPORT_ERROR Report errors from mysqli function calls
+MYSQLI_REPORT_STRICT Report warnings from mysqli function calls
+MYSQLI_REPORT_INDEX Report if no index or bad index was used in a query
+MYSQLI_REPORT_ALL Set all options (report all)
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
 <element pattern="rollback"/>
