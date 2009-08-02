@@ -23,12 +23,13 @@
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 ]>
 
-<bflang name="Javascript" matches="944" contexts="6" table="179">
+<bflang name="Javascript" matches="210" contexts="6" table="1072">
 <header>
 	<mime type="application/javascript"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
 	<highlight name="js-keyword" style="keyword"  />
+	<highlight name="js-special-keyword" style="special-keyword"  />
 	<highlight name="js-brackets" style="brackets"  />
 	<highlight name="js-type" style="type"  />
 	<highlight name="js-comment" style="comment"  />
