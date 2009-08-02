@@ -7,9 +7,9 @@
 # Copyright (C) 2001, 2007 Free Software Foundation, Inc.
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish-unstable\n"
+"Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-07-23 18:35-0700\n"
+"POT-Creation-Date: 2009-08-02 12:23-0700\n"
 "PO-Revision-Date: 2007-08-22 19:02+0200\n"
 "Last-Translator: elve <elve@savage-elve.net>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -36,6 +36,11 @@ msgstr ""
 #: ../desktop-data/bluefish-unstable.xml.in.h:2
 msgid "Bluefish project file"
 msgstr "Bluefish Project bestand"
+
+#: ../src/bftextview2_spell.c:496
+#, fuzzy
+msgid "Spell check language"
+msgstr "Spelling controleren..."
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -261,31 +266,31 @@ msgstr "Verwĳder bladwĳzer"
 msgid "Last bookmark"
 msgstr "Bladwĳzer bewerken"
 
-#: ../src/bookmark.c:1526 ../src/bookmark.c:1579
+#: ../src/bookmark.c:1527 ../src/bookmark.c:1580
 msgid "Error adding bookmark"
 msgstr "Fout bĳ toevoegen bladwĳzer"
 
-#: ../src/bookmark.c:1527 ../src/bookmark.c:1580
+#: ../src/bookmark.c:1528 ../src/bookmark.c:1581
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Kan geen bladwĳzers toevoegen aan niet opgeslagen bestanden."
 
-#: ../src/bookmark.c:1546
+#: ../src/bookmark.c:1547
 msgid "Can't add bookmark"
 msgstr "Kan bladwĳzer niet toevoegen"
 
-#: ../src/bookmark.c:1547
+#: ../src/bookmark.c:1548
 msgid "You already have a bookmark here!"
 msgstr "U heeft daar al een bladwĳzer!"
 
-#: ../src/bookmark.c:1616
+#: ../src/bookmark.c:1617
 msgid "Delete all bookmarks."
 msgstr "Verwĳder alle bladwĳzers."
 
-#: ../src/document.c:363
+#: ../src/document.c:364
 msgid "Name: "
 msgstr "Naam: "
 
-#: ../src/document.c:367
+#: ../src/document.c:368
 msgid ""
 "\n"
 "File type: "
@@ -293,7 +298,7 @@ msgstr ""
 "\n"
 "Bestands type: "
 
-#: ../src/document.c:371
+#: ../src/document.c:372
 msgid ""
 "\n"
 "Encoding: "
@@ -301,7 +306,7 @@ msgstr ""
 "\n"
 "Encoding: "
 
-#: ../src/document.c:378
+#: ../src/document.c:379
 #, c-format
 msgid ""
 "\n"
@@ -312,7 +317,7 @@ msgstr ""
 "Permissie's:%s\n"
 "UID:%u GID:%u"
 
-#: ../src/document.c:383
+#: ../src/document.c:384
 msgid ""
 "\n"
 "Size (on disk): "
@@ -320,7 +325,7 @@ msgstr ""
 "\n"
 "Grootte (op schĳf): "
 
-#: ../src/document.c:392
+#: ../src/document.c:393
 msgid ""
 "\n"
 "Mime type: "
@@ -328,7 +333,7 @@ msgstr ""
 "\n"
 "Mime type: "
 
-#: ../src/document.c:400
+#: ../src/document.c:401
 msgid ""
 "\n"
 "Last modified: "
@@ -336,92 +341,92 @@ msgstr ""
 "\n"
 "Laatste wĳziging: "
 
-#: ../src/document.c:431
+#: ../src/document.c:432
 #, c-format
 msgid "Untitled %d"
 msgstr "Naamloos %d"
 
-#: ../src/document.c:590
+#: ../src/document.c:594
 #, c-format
 msgid "Changed tab width to %d"
 msgstr ""
 
-#: ../src/document.c:753
+#: ../src/document.c:757
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "Document %s is al geopend in een ander Bluefish venster."
 
-#: ../src/document.c:755
+#: ../src/document.c:759
 msgid "Move to this window"
 msgstr "Verplaats naar dit venster"
 
-#: ../src/document.c:755
+#: ../src/document.c:759
 msgid "Open readonly"
 msgstr "Open alleen-lezen"
 
-#: ../src/document.c:755
+#: ../src/document.c:759
 msgid "Do not open"
 msgstr "Niet openen"
 
-#: ../src/document.c:1028
+#: ../src/document.c:1032
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr "Ln: %d, Kol:%d"
 
-#: ../src/document.c:1030
+#: ../src/document.c:1034
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr "Ln: %d, Kol:%d"
 
-#: ../src/document.c:1051
+#: ../src/document.c:1055
 msgid " OVR"
 msgstr " OVR"
 
-#: ../src/document.c:1051
+#: ../src/document.c:1055
 msgid " INS"
 msgstr " INS"
 
-#: ../src/document.c:1053
+#: ../src/document.c:1057
 msgid " RO"
 msgstr " RO"
 
-#: ../src/document.c:1074 ../src/document.c:1080
+#: ../src/document.c:1077 ../src/document.c:1083
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s,%s"
 
-#: ../src/document.c:1431
+#: ../src/document.c:1435
 msgid "Cannot display file, unknown characters found."
 msgstr "Kan bestand niet laten zien; Onbekende karakters gevonden."
 
-#: ../src/document.c:1644 ../src/snr2.c:1667
+#: ../src/document.c:1648 ../src/snr2.c:1667
 msgid "Replace"
 msgstr "Vervangen"
 
-#: ../src/document.c:1649 ../src/snr2.c:1664
+#: ../src/document.c:1653 ../src/snr2.c:1664
 msgid "Find"
 msgstr "Zoek"
 
-#: ../src/document.c:1657
+#: ../src/document.c:1661
 msgid "Delete bookmark"
 msgstr "Verwĳder bladwĳzer"
 
-#: ../src/document.c:1661
+#: ../src/document.c:1665
 msgid "Add bookmark"
 msgstr "Bladwĳzer toevoegen"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1778 ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
+#: ../src/document.c:1782 ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
 msgid "_Abort save"
 msgstr "Opslaan afbreken"
 
-#: ../src/document.c:1778
+#: ../src/document.c:1782
 msgid "_Continue save in UTF-8"
 msgstr "Opslaan hervatten in UTF-8"
 
-#: ../src/document.c:1789
+#: ../src/document.c:1793
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -434,63 +439,63 @@ msgstr ""
 "\n"
 "Doorgaan met opslaan in UTF-8 codering ?"
 
-#: ../src/document.c:1793
+#: ../src/document.c:1797
 msgid "File encoding conversion failure"
 msgstr "Bestands codering conversie fout"
 
-#: ../src/document.c:2035
+#: ../src/document.c:2043
 msgid "Previously: "
 msgstr "Voorheen: "
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2530
+#: ../src/document.c:2539
 msgid "Unable to open file"
 msgstr "Kan bestand niet openen"
 
-#: ../src/document.c:2540
+#: ../src/document.c:2549
 #, fuzzy, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "Als u %s verwĳderd dan zal het permanent zĳn."
 
-#: ../src/document.c:2544
+#: ../src/document.c:2553
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "Veranderingen opslaan naar \"%s\" voor sluiten?"
 
-#: ../src/document.c:2577
+#: ../src/document.c:2586
 msgid "_Unset file name"
 msgstr "Bestandsnaam wissen"
 
-#: ../src/document.c:2577
+#: ../src/document.c:2586
 msgid "_Save"
 msgstr "Opslaan"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:2579
+#: ../src/document.c:2588
 #, c-format
 msgid "File name: %s"
 msgstr "Bestandnaam %s"
 
-#: ../src/document.c:2583
+#: ../src/document.c:2592
 msgid "File disappeared from disk\n"
 msgstr "Bestand verdwenen van schĳf\n"
 
-#: ../src/document.c:2600
+#: ../src/document.c:2609
 msgid "_Ignore"
 msgstr "Negeren"
 
-#: ../src/document.c:2600
+#: ../src/document.c:2609
 msgid "_Reload"
 msgstr "Herladen"
 
-#: ../src/document.c:2600
+#: ../src/document.c:2609
 #, fuzzy
 msgid "Check and reload all documents"
 msgstr "In alle geopende documenten ongedaan maken"
 
-#: ../src/document.c:2608
+#: ../src/document.c:2617
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -503,47 +508,47 @@ msgstr ""
 "Nieuwe wĳzigings tĳd is: %s\n"
 "Oude wĳzigings tĳd is: %s"
 
-#: ../src/document.c:2612
+#: ../src/document.c:2621
 msgid "File has been modified by another process\n"
 msgstr "Bestand is gewĳzigd door ander proces\n"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 msgid "_Retry"
 msgstr "Opnieuw"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 msgid "Retry _all failed"
 msgstr "Alle gefaalde opnieuw"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 msgid "_Close"
 msgstr "Sluiten"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 msgid "Close all _failed"
 msgstr "Alle gefaalde sluiten"
 
-#: ../src/document.c:2677
+#: ../src/document.c:2688
 msgid "File "
 msgstr "Bestand "
 
-#: ../src/document.c:2677
+#: ../src/document.c:2688
 msgid " failed to load."
 msgstr "laden mislukt."
 
-#: ../src/document.c:2681
+#: ../src/document.c:2692
 msgid "File failed to load\n"
 msgstr "Bestand laden mislukt\n"
 
-#: ../src/document.c:2800
+#: ../src/document.c:2812
 msgid "Select file to insert"
 msgstr "Selecteer bestand om in te voegen"
 
-#: ../src/document.c:2808
+#: ../src/document.c:2820
 msgid "No file to insert"
 msgstr "Geen bestand om in te voegen"
 
-#: ../src/document.c:2945
+#: ../src/document.c:2958
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistieken: %d regels, %d woorden, %d karakters"
@@ -714,38 +719,38 @@ msgstr "Fileter verwĳderen"
 msgid "New filter"
 msgstr "Nieuw filter"
 
-#: ../src/file.c:714
+#: ../src/file.c:702
 #, c-format
 msgid "Still loading %d files, finished %s"
 msgstr ""
 
-#: ../src/file.c:716
+#: ../src/file.c:704
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr ""
 
-#: ../src/file.c:909
+#: ../src/file.c:889
 #, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
 msgstr[0] "%d document open."
 msgstr[1] "%d documenten open."
 
-#: ../src/file.c:1185
+#: ../src/file.c:1142
 msgid "_Skip"
 msgstr "Overslaan"
 
-#: ../src/file.c:1185 ../src/file_dialogs.c:582 ../src/file_dialogs.c:603
+#: ../src/file.c:1142 ../src/file_dialogs.c:582 ../src/file_dialogs.c:603
 #: ../src/project.c:252
 msgid "_Overwrite"
 msgstr "Overschrĳven"
 
-#: ../src/file.c:1189
+#: ../src/file.c:1146
 #, fuzzy, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s bestaat al, overschrĳven?"
 
-#: ../src/file.c:1193
+#: ../src/file.c:1150
 msgid "Overwrite file?"
 msgstr "Bestand overschrĳven?"
 
@@ -1065,110 +1070,110 @@ msgstr ""
 msgid "Remember _forever"
 msgstr ""
 
-#: ../src/gui.c:266
+#: ../src/gui.c:268
 msgid "Filebrowser"
 msgstr "Bestands beheerder"
 
-#: ../src/gui.c:267
+#: ../src/gui.c:269
 msgid "Bookmarks"
 msgstr "Bladwĳzers"
 
-#: ../src/gui.c:406
+#: ../src/gui.c:408
 msgid "New"
 msgstr "Nieuw"
 
-#: ../src/gui.c:408
+#: ../src/gui.c:410
 msgid "Open..."
 msgstr "Openen..."
 
-#: ../src/gui.c:410
+#: ../src/gui.c:412
 msgid "Save"
 msgstr "Opslaan"
 
-#: ../src/gui.c:412
+#: ../src/gui.c:414
 msgid "Save As..."
 msgstr "Opslaan Als..."
 
-#: ../src/gui.c:414
+#: ../src/gui.c:416
 msgid "Close"
 msgstr "Sluiten"
 
-#: ../src/gui.c:417
+#: ../src/gui.c:419
 msgid "Cut"
 msgstr "Knippen"
 
-#: ../src/gui.c:419
+#: ../src/gui.c:421
 msgid "Copy"
 msgstr "Kopieren"
 
-#: ../src/gui.c:421
+#: ../src/gui.c:423
 msgid "Paste"
 msgstr "Plakken"
 
-#: ../src/gui.c:424
+#: ../src/gui.c:426
 msgid "Find..."
 msgstr "Zoek..."
 
-#: ../src/gui.c:426
+#: ../src/gui.c:428
 msgid "Replace..."
 msgstr "Vervangen..."
 
-#: ../src/gui.c:429
+#: ../src/gui.c:431
 msgid "Undo"
 msgstr "Herstel"
 
-#: ../src/gui.c:431
+#: ../src/gui.c:433
 msgid "Redo"
 msgstr "Herhaal"
 
-#: ../src/gui.c:434
+#: ../src/gui.c:436
 msgid "Unindent"
 msgstr "Shift Links"
 
-#: ../src/gui.c:436
+#: ../src/gui.c:438
 msgid "Indent"
 msgstr "Shift Rechts"
 
-#: ../src/gui.c:444
+#: ../src/gui.c:446
 #, fuzzy
 msgid "Spellcheck"
 msgstr "Spelling controleren..."
 
-#: ../src/gui.c:449
+#: ../src/gui.c:451
 msgid "View in browser"
 msgstr "Bekĳken in browser"
 
-#: ../src/gui.c:452
+#: ../src/gui.c:454
 msgid "Preferences..."
 msgstr "Voorkeuren..."
 
-#: ../src/gui.c:455
+#: ../src/gui.c:457
 msgid "Toggle Full Screen"
 msgstr ""
 
-#: ../src/gui.c:457
+#: ../src/gui.c:459
 msgid "Toggle Normal Screen"
 msgstr ""
 
-#: ../src/gui.c:882
+#: ../src/gui.c:895
 #, fuzzy
 msgid "Goto Line:"
 msgstr "Ga naar regel"
 
-#: ../src/gui.c:897
+#: ../src/gui.c:910
 msgid "New Bluefish Window"
 msgstr "Nieuw Bluefish Venster"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/gui.c:956
+#: ../src/gui.c:969
 msgid "Stand by..."
 msgstr "Stand by..."
 
-#: ../src/gui.c:1129
+#: ../src/gui.c:1142
 msgid "starting bluefish"
 msgstr "Bluefish wordt gestart"
 
-#: ../src/gui.c:1165
+#: ../src/gui.c:1178
 msgid "/View/Fullscreen"
 msgstr ""
 
@@ -1388,7 +1393,7 @@ msgstr "/Document/Zwevend venster"
 
 #: ../src/menu.c:280
 #, fuzzy
-msgid "/_Document/Tab Size"
+msgid "/Document/_Tab Size"
 msgstr "/Document/Vergroot Tabgrootte"
 
 #: ../src/menu.c:282
@@ -1408,7 +1413,7 @@ msgstr "/Document/Vergroot Tabgrootte"
 
 #: ../src/menu.c:286
 #, fuzzy
-msgid "/_Document/Font Size"
+msgid "/Document/_Font Size"
 msgstr "/Document/Document Type"
 
 #: ../src/menu.c:288
@@ -1449,12 +1454,13 @@ msgid "/Document/Character _Encoding"
 msgstr "/Document/Karakter Codering"
 
 #: ../src/menu.c:307
-msgid "/Document/Add _Bookmark"
+#, fuzzy
+msgid "/Document/Add Boo_kmark"
 msgstr "/Bewerken/Bladwĳzer Toevoegen"
 
 #: ../src/menu.c:308
 #, fuzzy
-msgid "/Document/_Floating Window"
+msgid "/Document/Floati_ng Window"
 msgstr "/Document/Zwevend venster"
 
 #: ../src/menu.c:310
@@ -1616,26 +1622,26 @@ msgstr "/Bewerken/Vervangen speciaal/Block sync"
 msgid "/Tools/Split Into Col_umns"
 msgstr ""
 
-#: ../src/menu.c:516
+#: ../src/menu.c:514
 #, fuzzy
 msgid "/Document/Language Mode"
 msgstr "/Document/Highlight syntax"
 
-#: ../src/menu.c:651
+#: ../src/menu.c:649
 #, fuzzy
 msgid "/Project/Open Recent"
 msgstr "/Project/Recent Geopend"
 
-#: ../src/menu.c:655
+#: ../src/menu.c:653
 #, fuzzy
 msgid "/File/Open Recent"
 msgstr "/Bestand/Recent Geopend"
 
-#: ../src/menu.c:838
+#: ../src/menu.c:836
 msgid "No default browser found"
 msgstr "Geen standaard browser gevonden"
 
-#: ../src/menu.c:839
+#: ../src/menu.c:837
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
@@ -1643,28 +1649,28 @@ msgstr ""
 "U kunt een standaard browser instellen door te gaan naar:\n"
 "Bewerken->Voorkeuren->Externe commando's"
 
-#: ../src/menu.c:874
+#: ../src/menu.c:872
 msgid "Operate filter only on selection?"
 msgstr "Filter alleen toepassen op selectie?"
 
-#: ../src/menu.c:934
+#: ../src/menu.c:932
 msgid "/Tools/Filters"
 msgstr "/Extern/Filters"
 
-#: ../src/menu.c:955
+#: ../src/menu.c:953
 #, fuzzy
 msgid "/Tools"
 msgstr "/Extern"
 
-#: ../src/menu.c:958
+#: ../src/menu.c:956
 msgid "/Tools/Commands"
 msgstr "/Extern/Commando's"
 
-#: ../src/menu.c:986
+#: ../src/menu.c:984
 msgid "/Tools/Outputbox"
 msgstr "/Extern/Uitvoer vlak"
 
-#: ../src/menu.c:1032
+#: ../src/menu.c:1029
 msgid "/Document/Character Encoding"
 msgstr "/Document/Karakter Codering"
 

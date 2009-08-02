@@ -1,9 +1,9 @@
 # Traditional Chinese(zh_TW) language file for Bluefish.
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish\n"
+"Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-07-23 18:35-0700\n"
+"POT-Creation-Date: 2009-08-02 12:23-0700\n"
 "PO-Revision-Date: 2005-01-19 11:34+0800\n"
 "Last-Translator: OLS3 <ols3@lxer.idv.tw>\n"
 "Language-Team: zh_TW <i18n-translation@b2d.org.tw>\n"
@@ -29,6 +29,11 @@ msgstr "定義"
 #, fuzzy
 msgid "Bluefish project file"
 msgstr "輸入 Bluefish 專案檔名"
+
+#: ../src/bftextview2_spell.c:496
+#, fuzzy
+msgid "Spell check language"
+msgstr "拼字檢查..."
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -256,41 +261,41 @@ msgstr "刪除書籤"
 msgid "Last bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bookmark.c:1526 ../src/bookmark.c:1579
+#: ../src/bookmark.c:1527 ../src/bookmark.c:1580
 #, fuzzy
 msgid "Error adding bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bookmark.c:1527 ../src/bookmark.c:1580
+#: ../src/bookmark.c:1528 ../src/bookmark.c:1581
 #, fuzzy
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "無法在未命名的檔案中新增書籤."
 
-#: ../src/bookmark.c:1546
+#: ../src/bookmark.c:1547
 #, fuzzy
 msgid "Can't add bookmark"
 msgstr "新增書籤"
 
-#: ../src/bookmark.c:1547
+#: ../src/bookmark.c:1548
 msgid "You already have a bookmark here!"
 msgstr "您目前在這裡頭已經有書籤了!"
 
-#: ../src/bookmark.c:1616
+#: ../src/bookmark.c:1617
 msgid "Delete all bookmarks."
 msgstr "刪除所有書籤."
 
-#: ../src/document.c:363
+#: ../src/document.c:364
 msgid "Name: "
 msgstr "名稱:"
 
-#: ../src/document.c:367
+#: ../src/document.c:368
 #, fuzzy
 msgid ""
 "\n"
 "File type: "
 msgstr "檔案類型"
 
-#: ../src/document.c:371
+#: ../src/document.c:372
 msgid ""
 "\n"
 "Encoding: "
@@ -298,7 +303,7 @@ msgstr ""
 "\n"
 "編碼:"
 
-#: ../src/document.c:378
+#: ../src/document.c:379
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -308,7 +313,7 @@ msgstr ""
 "\n"
 "權限:"
 
-#: ../src/document.c:383
+#: ../src/document.c:384
 msgid ""
 "\n"
 "Size (on disk): "
@@ -316,14 +321,14 @@ msgstr ""
 "\n"
 "大小(磁碟上):"
 
-#: ../src/document.c:392
+#: ../src/document.c:393
 #, fuzzy
 msgid ""
 "\n"
 "Mime type: "
 msgstr "檔案類型"
 
-#: ../src/document.c:400
+#: ../src/document.c:401
 msgid ""
 "\n"
 "Last modified: "
@@ -331,93 +336,93 @@ msgstr ""
 "\n"
 "上次修改時間:"
 
-#: ../src/document.c:431
+#: ../src/document.c:432
 #, c-format
 msgid "Untitled %d"
 msgstr "無標題 %d"
 
-#: ../src/document.c:590
+#: ../src/document.c:594
 #, c-format
 msgid "Changed tab width to %d"
 msgstr ""
 
-#: ../src/document.c:753
+#: ../src/document.c:757
 #, fuzzy, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "在已執行的 bluefish 視窗中開啟檔案"
 
-#: ../src/document.c:755
+#: ../src/document.c:759
 msgid "Move to this window"
 msgstr ""
 
-#: ../src/document.c:755
+#: ../src/document.c:759
 msgid "Open readonly"
 msgstr ""
 
-#: ../src/document.c:755
+#: ../src/document.c:759
 #, fuzzy
 msgid "Do not open"
 msgstr "無法開啟檔案\n"
 
-#: ../src/document.c:1028
+#: ../src/document.c:1032
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr "列 %d, 欄 %d"
 
-#: ../src/document.c:1030
+#: ../src/document.c:1034
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d"
 msgstr "列 %d, 欄 %d"
 
-#: ../src/document.c:1051
+#: ../src/document.c:1055
 msgid " OVR"
 msgstr ""
 
-#: ../src/document.c:1051
+#: ../src/document.c:1055
 msgid " INS"
 msgstr ""
 
-#: ../src/document.c:1053
+#: ../src/document.c:1057
 msgid " RO"
 msgstr ""
 
-#: ../src/document.c:1074 ../src/document.c:1080
+#: ../src/document.c:1077 ../src/document.c:1083
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1431
+#: ../src/document.c:1435
 msgid "Cannot display file, unknown characters found."
 msgstr "無法顯示檔案, 發現不明的字元集."
 
-#: ../src/document.c:1644 ../src/snr2.c:1667
+#: ../src/document.c:1648 ../src/snr2.c:1667
 msgid "Replace"
 msgstr "取代"
 
-#: ../src/document.c:1649 ../src/snr2.c:1664
+#: ../src/document.c:1653 ../src/snr2.c:1664
 msgid "Find"
 msgstr "尋找"
 
-#: ../src/document.c:1657
+#: ../src/document.c:1661
 msgid "Delete bookmark"
 msgstr "刪除書籤"
 
-#: ../src/document.c:1661
+#: ../src/document.c:1665
 msgid "Add bookmark"
 msgstr "新增書籤"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1778 ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
+#: ../src/document.c:1782 ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
 msgid "_Abort save"
 msgstr "中斷儲存(_A)"
 
-#: ../src/document.c:1778
+#: ../src/document.c:1782
 msgid "_Continue save in UTF-8"
 msgstr "繼續以 UTF-8 儲存(_C)"
 
-#: ../src/document.c:1789
+#: ../src/document.c:1793
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -429,66 +434,66 @@ msgstr ""
 "\n"
 "要繼續以 UTF-8 編碼儲存嗎?"
 
-#: ../src/document.c:1793
+#: ../src/document.c:1797
 msgid "File encoding conversion failure"
 msgstr "檔案編碼轉換失敗"
 
-#: ../src/document.c:2035
+#: ../src/document.c:2043
 msgid "Previously: "
 msgstr "前一個: "
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2530
+#: ../src/document.c:2539
 msgid "Unable to open file"
 msgstr "無法開啟檔案"
 
-#: ../src/document.c:2540
+#: ../src/document.c:2549
 #, fuzzy, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "如果您刪除這個檔案, 它將會永久消失."
 
-#: ../src/document.c:2544
+#: ../src/document.c:2553
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "關閉前要儲存 \"%s\" 嗎?."
 
-#: ../src/document.c:2577
+#: ../src/document.c:2586
 #, fuzzy
 msgid "_Unset file name"
 msgstr "檔名"
 
-#: ../src/document.c:2577
+#: ../src/document.c:2586
 #, fuzzy
 msgid "_Save"
 msgstr "儲存"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:2579
+#: ../src/document.c:2588
 #, fuzzy, c-format
 msgid "File name: %s"
 msgstr "檔案名稱"
 
-#: ../src/document.c:2583
+#: ../src/document.c:2592
 #, fuzzy
 msgid "File disappeared from disk\n"
 msgstr "磁碟檢查時修改檔案"
 
-#: ../src/document.c:2600
+#: ../src/document.c:2609
 msgid "_Ignore"
 msgstr "忽略(_I)"
 
-#: ../src/document.c:2600
+#: ../src/document.c:2609
 msgid "_Reload"
 msgstr "重新載入(_R)"
 
-#: ../src/document.c:2600
+#: ../src/document.c:2609
 #, fuzzy
 msgid "Check and reload all documents"
 msgstr "在所有開啟的文件中"
 
-#: ../src/document.c:2608
+#: ../src/document.c:2617
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -501,50 +506,50 @@ msgstr ""
 "新的修改時間:%s\n"
 "舊的修改時間:%s"
 
-#: ../src/document.c:2612
+#: ../src/document.c:2621
 msgid "File has been modified by another process\n"
 msgstr "檔案已經被另一個行程修改\n"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 #, fuzzy
 msgid "_Close"
 msgstr "關閉"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 #, fuzzy
 msgid "Close all _failed"
 msgstr "檔案儲存中斷.\n"
 
-#: ../src/document.c:2677
+#: ../src/document.c:2688
 #, fuzzy
 msgid "File "
 msgstr "檔案 #"
 
-#: ../src/document.c:2677
+#: ../src/document.c:2688
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:2681
+#: ../src/document.c:2692
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:2800
+#: ../src/document.c:2812
 msgid "Select file to insert"
 msgstr "選擇要插入的檔案"
 
-#: ../src/document.c:2808
+#: ../src/document.c:2820
 msgid "No file to insert"
 msgstr "沒有要插入的檔案"
 
-#: ../src/document.c:2945
+#: ../src/document.c:2958
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "統計: 共 %d 列, %d 個單字, %d 個字元"
@@ -721,38 +726,38 @@ msgstr "選擇檔案"
 msgid "New filter"
 msgstr "/新增檔案(_F)"
 
-#: ../src/file.c:714
+#: ../src/file.c:702
 #, c-format
 msgid "Still loading %d files, finished %s"
 msgstr ""
 
-#: ../src/file.c:716
+#: ../src/file.c:704
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr ""
 
-#: ../src/file.c:909
+#: ../src/file.c:889
 #, fuzzy, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
 msgstr[0] "在文件中(_D)"
 msgstr[1] "在文件中(_D)"
 
-#: ../src/file.c:1185
+#: ../src/file.c:1142
 msgid "_Skip"
 msgstr "跳過(_S)"
 
-#: ../src/file.c:1185 ../src/file_dialogs.c:582 ../src/file_dialogs.c:603
+#: ../src/file.c:1142 ../src/file_dialogs.c:582 ../src/file_dialogs.c:603
 #: ../src/project.c:252
 msgid "_Overwrite"
 msgstr "覆蓋(_O)"
 
-#: ../src/file.c:1189
+#: ../src/file.c:1146
 #, fuzzy, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "檔案 %s 已存在且已被開啟, 要覆蓋嗎?"
 
-#: ../src/file.c:1193
+#: ../src/file.c:1150
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "覆蓋(_O)"
@@ -1081,110 +1086,110 @@ msgstr ""
 msgid "Remember _forever"
 msgstr ""
 
-#: ../src/gui.c:266
+#: ../src/gui.c:268
 msgid "Filebrowser"
 msgstr "檔案瀏覽器"
 
-#: ../src/gui.c:267
+#: ../src/gui.c:269
 msgid "Bookmarks"
 msgstr "書籤"
 
-#: ../src/gui.c:406
+#: ../src/gui.c:408
 msgid "New"
 msgstr "新增"
 
-#: ../src/gui.c:408
+#: ../src/gui.c:410
 msgid "Open..."
 msgstr "開啟.."
 
-#: ../src/gui.c:410
+#: ../src/gui.c:412
 msgid "Save"
 msgstr "儲存"
 
-#: ../src/gui.c:412
+#: ../src/gui.c:414
 msgid "Save As..."
 msgstr "另存為..."
 
-#: ../src/gui.c:414
+#: ../src/gui.c:416
 msgid "Close"
 msgstr "關閉"
 
-#: ../src/gui.c:417
+#: ../src/gui.c:419
 msgid "Cut"
 msgstr "剪下"
 
-#: ../src/gui.c:419
+#: ../src/gui.c:421
 msgid "Copy"
 msgstr "複製"
 
-#: ../src/gui.c:421
+#: ../src/gui.c:423
 msgid "Paste"
 msgstr "貼上"
 
-#: ../src/gui.c:424
+#: ../src/gui.c:426
 msgid "Find..."
 msgstr "尋找..."
 
-#: ../src/gui.c:426
+#: ../src/gui.c:428
 msgid "Replace..."
 msgstr "取代..."
 
-#: ../src/gui.c:429
+#: ../src/gui.c:431
 msgid "Undo"
 msgstr "復原"
 
-#: ../src/gui.c:431
+#: ../src/gui.c:433
 msgid "Redo"
 msgstr "重做"
 
-#: ../src/gui.c:434
+#: ../src/gui.c:436
 msgid "Unindent"
 msgstr "左移"
 
-#: ../src/gui.c:436
+#: ../src/gui.c:438
 msgid "Indent"
 msgstr "右移"
 
-#: ../src/gui.c:444
+#: ../src/gui.c:446
 #, fuzzy
 msgid "Spellcheck"
 msgstr "拼字檢查..."
 
-#: ../src/gui.c:449
+#: ../src/gui.c:451
 msgid "View in browser"
 msgstr "在瀏覽器中觀看"
 
-#: ../src/gui.c:452
+#: ../src/gui.c:454
 msgid "Preferences..."
 msgstr "偏好設定..."
 
-#: ../src/gui.c:455
+#: ../src/gui.c:457
 msgid "Toggle Full Screen"
 msgstr ""
 
-#: ../src/gui.c:457
+#: ../src/gui.c:459
 msgid "Toggle Normal Screen"
 msgstr ""
 
-#: ../src/gui.c:882
+#: ../src/gui.c:895
 #, fuzzy
 msgid "Goto Line:"
 msgstr "跳至列"
 
-#: ../src/gui.c:897
+#: ../src/gui.c:910
 msgid "New Bluefish Window"
 msgstr "新增 Bluefish 視窗"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/gui.c:956
+#: ../src/gui.c:969
 msgid "Stand by..."
 msgstr "稍待..."
 
-#: ../src/gui.c:1129
+#: ../src/gui.c:1142
 msgid "starting bluefish"
 msgstr "開始執行 bluefish"
 
-#: ../src/gui.c:1165
+#: ../src/gui.c:1178
 msgid "/View/Fullscreen"
 msgstr ""
 
@@ -1404,7 +1409,7 @@ msgstr "/文件(D)/sep1"
 
 #: ../src/menu.c:280
 #, fuzzy
-msgid "/_Document/Tab Size"
+msgid "/Document/_Tab Size"
 msgstr "/文件(D)/增加 Tab 大小(_I)"
 
 #: ../src/menu.c:282
@@ -1424,7 +1429,7 @@ msgstr "/文件(D)/增加 Tab 大小(_I)"
 
 #: ../src/menu.c:286
 #, fuzzy
-msgid "/_Document/Font Size"
+msgid "/Document/_Font Size"
 msgstr "/檔案(D)/檔案類型"
 
 #: ../src/menu.c:288
@@ -1465,12 +1470,13 @@ msgid "/Document/Character _Encoding"
 msgstr "/文件(D)/字元編碼(_E)"
 
 #: ../src/menu.c:307
-msgid "/Document/Add _Bookmark"
+#, fuzzy
+msgid "/Document/Add Boo_kmark"
 msgstr "/編輯(E)/新增書籤(_B)"
 
 #: ../src/menu.c:308
 #, fuzzy
-msgid "/Document/_Floating Window"
+msgid "/Document/Floati_ng Window"
 msgstr "/文件(D)/浮動視窗(_F)"
 
 #: ../src/menu.c:310
@@ -1632,55 +1638,55 @@ msgstr "/編輯(E)/特殊取代/取代 _ASCII 為 HTML 實體"
 msgid "/Tools/Split Into Col_umns"
 msgstr ""
 
-#: ../src/menu.c:516
+#: ../src/menu.c:514
 #, fuzzy
 msgid "/Document/Language Mode"
 msgstr "/檔案(D)/語法顏色識別"
 
-#: ../src/menu.c:651
+#: ../src/menu.c:649
 #, fuzzy
 msgid "/Project/Open Recent"
 msgstr "/專案(P)/開啟最近的"
 
-#: ../src/menu.c:655
+#: ../src/menu.c:653
 #, fuzzy
 msgid "/File/Open Recent"
 msgstr "/檔案(F)/開啟最近的"
 
-#: ../src/menu.c:838
+#: ../src/menu.c:836
 #, fuzzy
 msgid "No default browser found"
 msgstr "預設的基本目錄"
 
-#: ../src/menu.c:839
+#: ../src/menu.c:837
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
 msgstr ""
 
-#: ../src/menu.c:874
+#: ../src/menu.c:872
 msgid "Operate filter only on selection?"
 msgstr ""
 
-#: ../src/menu.c:934
+#: ../src/menu.c:932
 #, fuzzy
 msgid "/Tools/Filters"
 msgstr "/外部(X)/tearoff1"
 
-#: ../src/menu.c:955
+#: ../src/menu.c:953
 #, fuzzy
 msgid "/Tools"
 msgstr "/外部(_X)"
 
-#: ../src/menu.c:958
+#: ../src/menu.c:956
 msgid "/Tools/Commands"
 msgstr "/外部(X)/命令"
 
-#: ../src/menu.c:986
+#: ../src/menu.c:984
 msgid "/Tools/Outputbox"
 msgstr "/外部(X)/輸出視窗"
 
-#: ../src/menu.c:1032
+#: ../src/menu.c:1029
 msgid "/Document/Character Encoding"
 msgstr "/檔案(D)/字元編碼"
 

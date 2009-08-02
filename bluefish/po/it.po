@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish gtk2-port\n"
+"Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-07-23 18:35-0700\n"
+"POT-Creation-Date: 2009-08-02 12:23-0700\n"
 "PO-Revision-Date: 2004-11-26 10:05+0100\n"
 "Last-Translator: Stefano Canepa <sc@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -34,6 +34,11 @@ msgstr "Definizione"
 #, fuzzy
 msgid "Bluefish project file"
 msgstr "Inserire il nome del file del progetto di Bluefish"
+
+#: ../src/bftextview2_spell.c:496
+#, fuzzy
+msgid "Spell check language"
+msgstr "Controllo ortografico..."
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -261,41 +266,41 @@ msgstr "Elimina i segnalibri"
 msgid "Last bookmark"
 msgstr "Modifica il segnalibro"
 
-#: ../src/bookmark.c:1526 ../src/bookmark.c:1579
+#: ../src/bookmark.c:1527 ../src/bookmark.c:1580
 #, fuzzy
 msgid "Error adding bookmark"
 msgstr "Modifica il segnalibro"
 
-#: ../src/bookmark.c:1527 ../src/bookmark.c:1580
+#: ../src/bookmark.c:1528 ../src/bookmark.c:1581
 #, fuzzy
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Impossibile aggiungere segnalibri a un file senza nome."
 
-#: ../src/bookmark.c:1546
+#: ../src/bookmark.c:1547
 #, fuzzy
 msgid "Can't add bookmark"
 msgstr "Aggiungi il segnalibro"
 
-#: ../src/bookmark.c:1547
+#: ../src/bookmark.c:1548
 msgid "You already have a bookmark here!"
 msgstr "Segnalibro già presente"
 
-#: ../src/bookmark.c:1616
+#: ../src/bookmark.c:1617
 msgid "Delete all bookmarks."
 msgstr "Elimina tutti i segnalibri."
 
-#: ../src/document.c:363
+#: ../src/document.c:364
 msgid "Name: "
 msgstr "Nome:"
 
-#: ../src/document.c:367
+#: ../src/document.c:368
 #, fuzzy
 msgid ""
 "\n"
 "File type: "
 msgstr "Tipi dei file"
 
-#: ../src/document.c:371
+#: ../src/document.c:372
 msgid ""
 "\n"
 "Encoding: "
@@ -303,7 +308,7 @@ msgstr ""
 "\n"
 "Codifica: "
 
-#: ../src/document.c:378
+#: ../src/document.c:379
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -313,7 +318,7 @@ msgstr ""
 "\n"
 "Permessi: "
 
-#: ../src/document.c:383
+#: ../src/document.c:384
 msgid ""
 "\n"
 "Size (on disk): "
@@ -321,14 +326,14 @@ msgstr ""
 "\n"
 "Dimensione (sul disco): "
 
-#: ../src/document.c:392
+#: ../src/document.c:393
 #, fuzzy
 msgid ""
 "\n"
 "Mime type: "
 msgstr "Tipi dei file"
 
-#: ../src/document.c:400
+#: ../src/document.c:401
 msgid ""
 "\n"
 "Last modified: "
@@ -336,93 +341,93 @@ msgstr ""
 "\n"
 "Modificato l'ultima volta: "
 
-#: ../src/document.c:431
+#: ../src/document.c:432
 #, c-format
 msgid "Untitled %d"
 msgstr "Senza nome %d"
 
-#: ../src/document.c:590
+#: ../src/document.c:594
 #, c-format
 msgid "Changed tab width to %d"
 msgstr ""
 
-#: ../src/document.c:753
+#: ../src/document.c:757
 #, fuzzy, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "Apri i file nella finestra corrente di bluefish"
 
-#: ../src/document.c:755
+#: ../src/document.c:759
 msgid "Move to this window"
 msgstr ""
 
-#: ../src/document.c:755
+#: ../src/document.c:759
 msgid "Open readonly"
 msgstr ""
 
-#: ../src/document.c:755
+#: ../src/document.c:759
 #, fuzzy
 msgid "Do not open"
 msgstr "Impossibile aprire il file\n"
 
-#: ../src/document.c:1028
+#: ../src/document.c:1032
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr "Lin %d, col %d"
 
-#: ../src/document.c:1030
+#: ../src/document.c:1034
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d"
 msgstr "Lin %d, col %d"
 
-#: ../src/document.c:1051
+#: ../src/document.c:1055
 msgid " OVR"
 msgstr ""
 
-#: ../src/document.c:1051
+#: ../src/document.c:1055
 msgid " INS"
 msgstr ""
 
-#: ../src/document.c:1053
+#: ../src/document.c:1057
 msgid " RO"
 msgstr ""
 
-#: ../src/document.c:1074 ../src/document.c:1080
+#: ../src/document.c:1077 ../src/document.c:1083
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1431
+#: ../src/document.c:1435
 msgid "Cannot display file, unknown characters found."
 msgstr "Impossibile mostrare il file, trovati caratteri sconosciuti."
 
-#: ../src/document.c:1644 ../src/snr2.c:1667
+#: ../src/document.c:1648 ../src/snr2.c:1667
 msgid "Replace"
 msgstr "Sostituisci"
 
-#: ../src/document.c:1649 ../src/snr2.c:1664
+#: ../src/document.c:1653 ../src/snr2.c:1664
 msgid "Find"
 msgstr "Cerca"
 
-#: ../src/document.c:1657
+#: ../src/document.c:1661
 msgid "Delete bookmark"
 msgstr "Elimina i segnalibri"
 
-#: ../src/document.c:1661
+#: ../src/document.c:1665
 msgid "Add bookmark"
 msgstr "Aggiungi il segnalibro"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1778 ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
+#: ../src/document.c:1782 ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
 msgid "_Abort save"
 msgstr "Interrompi s_alvataggio"
 
-#: ../src/document.c:1778
+#: ../src/document.c:1782
 msgid "_Continue save in UTF-8"
 msgstr "_Continua il salvataggio in UTF-8"
 
-#: ../src/document.c:1789
+#: ../src/document.c:1793
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -435,66 +440,66 @@ msgstr ""
 "\n"
 "Continuare a salvare codificato UTF-8?"
 
-#: ../src/document.c:1793
+#: ../src/document.c:1797
 msgid "File encoding conversion failure"
 msgstr "Conversione della codifica del file fallita"
 
-#: ../src/document.c:2035
+#: ../src/document.c:2043
 msgid "Previously: "
 msgstr "Precedentemente: "
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2530
+#: ../src/document.c:2539
 msgid "Unable to open file"
 msgstr "Impossibile aprire il file"
 
-#: ../src/document.c:2540
+#: ../src/document.c:2549
 #, fuzzy, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "Se si elimina il file, sarà perso per sempre."
 
-#: ../src/document.c:2544
+#: ../src/document.c:2553
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "Salvare i cambiamenti a \"%s\" prima di chiudere?"
 
-#: ../src/document.c:2577
+#: ../src/document.c:2586
 #, fuzzy
 msgid "_Unset file name"
 msgstr "nome del file"
 
-#: ../src/document.c:2577
+#: ../src/document.c:2586
 #, fuzzy
 msgid "_Save"
 msgstr "Salva"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:2579
+#: ../src/document.c:2588
 #, fuzzy, c-format
 msgid "File name: %s"
 msgstr "Nome file"
 
-#: ../src/document.c:2583
+#: ../src/document.c:2592
 #, fuzzy
 msgid "File disappeared from disk\n"
 msgstr "File modificato dal controllo su disco"
 
-#: ../src/document.c:2600
+#: ../src/document.c:2609
 msgid "_Ignore"
 msgstr "_Ignora"
 
-#: ../src/document.c:2600
+#: ../src/document.c:2609
 msgid "_Reload"
 msgstr "_Ricarica"
 
-#: ../src/document.c:2600
+#: ../src/document.c:2609
 #, fuzzy
 msgid "Check and reload all documents"
 msgstr "in tutti i documenti aperti"
 
-#: ../src/document.c:2608
+#: ../src/document.c:2617
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -507,50 +512,50 @@ msgstr ""
 "Ora della nuova modifica: %s\n"
 "Ora della vecchia modifica: %s"
 
-#: ../src/document.c:2612
+#: ../src/document.c:2621
 msgid "File has been modified by another process\n"
 msgstr "Il file è stato modificato da un'altro processo.\n"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 #, fuzzy
 msgid "_Close"
 msgstr "Chiudi"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Salvataggio file interrotto.\n"
 
-#: ../src/document.c:2677
+#: ../src/document.c:2688
 #, fuzzy
 msgid "File "
 msgstr "File n°"
 
-#: ../src/document.c:2677
+#: ../src/document.c:2688
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:2681
+#: ../src/document.c:2692
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:2800
+#: ../src/document.c:2812
 msgid "Select file to insert"
 msgstr "Selezionare il file da inserire"
 
-#: ../src/document.c:2808
+#: ../src/document.c:2820
 msgid "No file to insert"
 msgstr "Nessun file da inserire"
 
-#: ../src/document.c:2945
+#: ../src/document.c:2958
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiche: %d righe, %d parole, %d caratteri"
@@ -727,38 +732,38 @@ msgstr "Selezionare il file"
 msgid "New filter"
 msgstr "/_Nuovo file"
 
-#: ../src/file.c:714
+#: ../src/file.c:702
 #, c-format
 msgid "Still loading %d files, finished %s"
 msgstr ""
 
-#: ../src/file.c:716
+#: ../src/file.c:704
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr ""
 
-#: ../src/file.c:909
+#: ../src/file.c:889
 #, fuzzy, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
 msgstr[0] "Nel _documento"
 msgstr[1] "Nel _documento"
 
-#: ../src/file.c:1185
+#: ../src/file.c:1142
 msgid "_Skip"
 msgstr "_Salta"
 
-#: ../src/file.c:1185 ../src/file_dialogs.c:582 ../src/file_dialogs.c:603
+#: ../src/file.c:1142 ../src/file_dialogs.c:582 ../src/file_dialogs.c:603
 #: ../src/project.c:252
 msgid "_Overwrite"
 msgstr "S_ovrascrivi"
 
-#: ../src/file.c:1189
+#: ../src/file.c:1146
 #, fuzzy, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "Il file %s esite ed è aperto, sovrascrivere?"
 
-#: ../src/file.c:1193
+#: ../src/file.c:1150
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "S_ovrascrivi"
@@ -1087,110 +1092,110 @@ msgstr ""
 msgid "Remember _forever"
 msgstr ""
 
-#: ../src/gui.c:266
+#: ../src/gui.c:268
 msgid "Filebrowser"
 msgstr "Browser dei file"
 
-#: ../src/gui.c:267
+#: ../src/gui.c:269
 msgid "Bookmarks"
 msgstr "Segnalibri"
 
-#: ../src/gui.c:406
+#: ../src/gui.c:408
 msgid "New"
 msgstr "Nuovo"
 
-#: ../src/gui.c:408
+#: ../src/gui.c:410
 msgid "Open..."
 msgstr "Apri"
 
-#: ../src/gui.c:410
+#: ../src/gui.c:412
 msgid "Save"
 msgstr "Salva"
 
-#: ../src/gui.c:412
+#: ../src/gui.c:414
 msgid "Save As..."
 msgstr "Salva come..."
 
-#: ../src/gui.c:414
+#: ../src/gui.c:416
 msgid "Close"
 msgstr "Chiudi"
 
-#: ../src/gui.c:417
+#: ../src/gui.c:419
 msgid "Cut"
 msgstr "Taglia"
 
-#: ../src/gui.c:419
+#: ../src/gui.c:421
 msgid "Copy"
 msgstr "Copia"
 
-#: ../src/gui.c:421
+#: ../src/gui.c:423
 msgid "Paste"
 msgstr "Incolla"
 
-#: ../src/gui.c:424
+#: ../src/gui.c:426
 msgid "Find..."
 msgstr "Cerca..."
 
-#: ../src/gui.c:426
+#: ../src/gui.c:428
 msgid "Replace..."
 msgstr "Sostituisci..."
 
-#: ../src/gui.c:429
+#: ../src/gui.c:431
 msgid "Undo"
 msgstr "Annulla"
 
-#: ../src/gui.c:431
+#: ../src/gui.c:433
 msgid "Redo"
 msgstr "Ripeti"
 
-#: ../src/gui.c:434
+#: ../src/gui.c:436
 msgid "Unindent"
 msgstr "Spostamento a sinistra"
 
-#: ../src/gui.c:436
+#: ../src/gui.c:438
 msgid "Indent"
 msgstr "Spostamento a destra"
 
-#: ../src/gui.c:444
+#: ../src/gui.c:446
 #, fuzzy
 msgid "Spellcheck"
 msgstr "Controllo ortografico..."
 
-#: ../src/gui.c:449
+#: ../src/gui.c:451
 msgid "View in browser"
 msgstr "Mostra nel browser"
 
-#: ../src/gui.c:452
+#: ../src/gui.c:454
 msgid "Preferences..."
 msgstr "Preferenze..."
 
-#: ../src/gui.c:455
+#: ../src/gui.c:457
 msgid "Toggle Full Screen"
 msgstr ""
 
-#: ../src/gui.c:457
+#: ../src/gui.c:459
 msgid "Toggle Normal Screen"
 msgstr ""
 
-#: ../src/gui.c:882
+#: ../src/gui.c:895
 #, fuzzy
 msgid "Goto Line:"
 msgstr "Vai alla riga"
 
-#: ../src/gui.c:897
+#: ../src/gui.c:910
 msgid "New Bluefish Window"
 msgstr "Nuova finestra di Bluefish"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/gui.c:956
+#: ../src/gui.c:969
 msgid "Stand by..."
 msgstr "Attendere..."
 
-#: ../src/gui.c:1129
+#: ../src/gui.c:1142
 msgid "starting bluefish"
 msgstr "avvio di bluefish in corso"
 
-#: ../src/gui.c:1165
+#: ../src/gui.c:1178
 msgid "/View/Fullscreen"
 msgstr ""
 
@@ -1410,7 +1415,7 @@ msgstr "/Documento/sep1"
 
 #: ../src/menu.c:280
 #, fuzzy
-msgid "/_Document/Tab Size"
+msgid "/Document/_Tab Size"
 msgstr "/Documento/_Aumenta dimensione tabulatore"
 
 #: ../src/menu.c:282
@@ -1430,7 +1435,7 @@ msgstr "/Documento/_Aumenta dimensione tabulatore"
 
 #: ../src/menu.c:286
 #, fuzzy
-msgid "/_Document/Font Size"
+msgid "/Document/_Font Size"
 msgstr "/Documento/Tipo"
 
 #: ../src/menu.c:288
@@ -1471,12 +1476,13 @@ msgid "/Document/Character _Encoding"
 msgstr "/Documento/Codi_fica caratteri"
 
 #: ../src/menu.c:307
-msgid "/Document/Add _Bookmark"
+#, fuzzy
+msgid "/Document/Add Boo_kmark"
 msgstr "/Modifica/Aggiungi_segnalibro"
 
 #: ../src/menu.c:308
 #, fuzzy
-msgid "/Document/_Floating Window"
+msgid "/Document/Floati_ng Window"
 msgstr "/Documento/Finestra flottante"
 
 #: ../src/menu.c:310
@@ -1638,55 +1644,55 @@ msgstr "/Modifica/Sostituisci speciale/da _ASCII ad HTML"
 msgid "/Tools/Split Into Col_umns"
 msgstr ""
 
-#: ../src/menu.c:516
+#: ../src/menu.c:514
 #, fuzzy
 msgid "/Document/Language Mode"
 msgstr "/Documento/Evidenzia sintassi"
 
-#: ../src/menu.c:651
+#: ../src/menu.c:649
 #, fuzzy
 msgid "/Project/Open Recent"
 msgstr "/Progetto/Apri progetto"
 
-#: ../src/menu.c:655
+#: ../src/menu.c:653
 #, fuzzy
 msgid "/File/Open Recent"
 msgstr "/File/Apri recenti"
 
-#: ../src/menu.c:838
+#: ../src/menu.c:836
 #, fuzzy
 msgid "No default browser found"
 msgstr "Directory di base predefinita"
 
-#: ../src/menu.c:839
+#: ../src/menu.c:837
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
 msgstr ""
 
-#: ../src/menu.c:874
+#: ../src/menu.c:872
 msgid "Operate filter only on selection?"
 msgstr ""
 
-#: ../src/menu.c:934
+#: ../src/menu.c:932
 #, fuzzy
 msgid "/Tools/Filters"
 msgstr "/Comandi esterni/tearoff1"
 
-#: ../src/menu.c:955
+#: ../src/menu.c:953
 #, fuzzy
 msgid "/Tools"
 msgstr "/Comandi e_sterni"
 
-#: ../src/menu.c:958
+#: ../src/menu.c:956
 msgid "/Tools/Commands"
 msgstr "/Comandi esterni/Comandi"
 
-#: ../src/menu.c:986
+#: ../src/menu.c:984
 msgid "/Tools/Outputbox"
 msgstr "/Comandi esterni/Riquadro output"
 
-#: ../src/menu.c:1032
+#: ../src/menu.c:1029
 msgid "/Document/Character Encoding"
 msgstr "/Documento/Codifica caratteri"
 
