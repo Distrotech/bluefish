@@ -13945,7 +13945,7 @@ MYSQLI_REPORT_ALL Set all options (report all)
 <element pattern="mysqli_report" autocomplete_append="($flags);">
 <reference>mysqli_report($flags);
 Enables or disables internal report functions
-<b> flags int </b>&lt;table&gt;
+<b> flags int </b>
 Supported flags
 MYSQLI_REPORT_OFF Turns reporting off
 MYSQLI_REPORT_ERROR Report errors from mysqli function calls
@@ -13957,7 +13957,7 @@ MYSQLI_REPORT_ALL Set all options (report all)
 <element pattern="mysqli_rollback" autocomplete_append="();">
 <reference>mysqli_rollback();
 Enables or disables internal report functions
-<b> flags int </b>&lt;table&gt;
+<b> flags int </b>
 Supported flags
 MYSQLI_REPORT_OFF Turns reporting off
 MYSQLI_REPORT_ERROR Report errors from mysqli function calls
@@ -14036,80 +14036,23 @@ Force execution of a query on a slave in a master/slave setup
 <reference>stat($filename);
 Gives information about a file
 <b> filename string </b>Path to the file.
-<b>returns</b>  array &lt;table&gt;
-stat and fstat result
-format
-&lt;tr valign="top"&gt;
-&lt;td&gt;Numeric&lt;/td&gt;
-&lt;td&gt;Associative (since PHP 4.0.6)&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;dev&lt;/td&gt;
-&lt;td&gt;device number&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;ino&lt;/td&gt;
-&lt;td&gt;inode number *&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;mode&lt;/td&gt;
-&lt;td&gt;inode protection mode&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;3&lt;/td&gt;
-&lt;td&gt;nlink&lt;/td&gt;
-&lt;td&gt;number of links&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;td&gt;uid&lt;/td&gt;
-&lt;td&gt;userid of owner *&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;td&gt;gid&lt;/td&gt;
-&lt;td&gt;groupid of owner *&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;6&lt;/td&gt;
-&lt;td&gt;rdev&lt;/td&gt;
-&lt;td&gt;device type, if inode device&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;7&lt;/td&gt;
-&lt;td&gt;size&lt;/td&gt;
-&lt;td&gt;size in bytes&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;8&lt;/td&gt;
-&lt;td&gt;atime&lt;/td&gt;
-&lt;td&gt;time of last access (Unix timestamp)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;9&lt;/td&gt;
-&lt;td&gt;mtime&lt;/td&gt;
-&lt;td&gt;time of last modification (Unix timestamp)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;10&lt;/td&gt;
-&lt;td&gt;ctime&lt;/td&gt;
-&lt;td&gt;time of last inode change (Unix timestamp)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;11&lt;/td&gt;
-&lt;td&gt;blksize&lt;/td&gt;
-&lt;td&gt;blocksize of filesystem IO **&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;12&lt;/td&gt;
-&lt;td&gt;blocks&lt;/td&gt;
-&lt;td&gt;number of blocks allocated **&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+<b>returns</b>  array 
+stat and fstat result format
+
+0 dev device number
+1 ino inode number *
+2 mode inode protection mode
+3 nlink number of links
+4 uid userid of owner *
+5 gid groupid of owner *
+6 rdev device type, if inode device
+7 size size in bytes
+8 atime time of last access (Unix timestamp)
+9 mtime time of last modification (Unix timestamp)
+10 ctime time of last inode change (Unix timestamp)
+11 blksize blocksize of filesystem IO **
+12 blocks number of blocks allocated **
+
 * On Windows this will always be 0.
 ** Only valid on systems supporting the st_blksize type - other
 systems (e.g. Windows) return -1.
@@ -14476,103 +14419,50 @@ always return every record, the slower DNS_ALL
 will collect all records more reliably.
 <b>returns</b>  array This function returns an array of associative arrays. Each associative array contains
 at minimum the following keys:
-&lt;table&gt;
+
 Basic DNS attributes
-&lt;tr valign="top"&gt;
-&lt;td&gt;Attribute&lt;/td&gt;
-&lt;td&gt;Meaning&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;host&lt;/td&gt;
-&lt;td&gt;
+
+host
 The record in the DNS namespace to which the rest of the associated data refers.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;class&lt;/td&gt;
-&lt;td&gt;
+class
 dns_get_record only returns Internet class records and as
 such this parameter will always return IN.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;type&lt;/td&gt;
-&lt;td&gt;
+type
 String containing the record type. Additional attributes will also be contained
 in the resulting array dependant on the value of type. See table below.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ttl&lt;/td&gt;
-&lt;td&gt;
+ttl
 Time To Live remaining for this record. This will not equal
 the record's original ttl, but will rather equal the original ttl minus whatever
 length of time has passed since the authoritative name server was queried.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;table&gt;
+
 Other keys in associative arrays dependant on 'type'
-&lt;tr valign="top"&gt;
-&lt;td&gt;Type&lt;/td&gt;
-&lt;td&gt;Extra Columns&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;A&lt;/td&gt;
-&lt;td&gt;
+
+A
 ip: An IPv4 addresses in dotted decimal notation.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MX&lt;/td&gt;
-&lt;td&gt;
+MX
 pri: Priority of mail exchanger.
 Lower numbers indicate greater priority.
 target: FQDN of the mail exchanger.
 See also dns_get_mx.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CNAME&lt;/td&gt;
-&lt;td&gt;
+CNAME
 target: FQDN of location in DNS namespace to which
 the record is aliased.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;NS&lt;/td&gt;
-&lt;td&gt;
+NS
 target: FQDN of the name server which is authoritative
 for this hostname.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PTR&lt;/td&gt;
-&lt;td&gt;
+PTR
 target: Location within the DNS namespace to which
 this record points.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;TXT&lt;/td&gt;
-&lt;td&gt;
+TXT
 txt: Arbitrary string data associated with this record.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;HINFO&lt;/td&gt;
-&lt;td&gt;
+HINFO
 cpu: IANA number designating the CPU of the machine
 referenced by this record.
 os: IANA number designating the Operating System on
 the machine referenced by this record.
 See IANA's Operating System
 Names for the meaning of these values.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SOA&lt;/td&gt;
-&lt;td&gt;
+SOA
 mname: FQDN of the machine from which the resource
 records originated.
 rname: Email address of the administrative contain
@@ -14590,47 +14480,28 @@ minimum-ttl: Minimum length of time (seconds) a
 client can continue to use a DNS resolution before it should request
 a new resolution from the server. Can be overridden by individual
 resource records.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;AAAA&lt;/td&gt;
-&lt;td&gt;
+AAAA
 ipv6: IPv6 address
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;A6(PHP &amp;gt;= 5.1.0)&lt;/td&gt;
-&lt;td&gt;
+A6(PHP &amp;gt;= 5.1.0)
 masklen: Length (in bits) to inherit from the target
 specified by chain.
 ipv6: Address for this specific record to merge with
 chain.
 chain: Parent record to merge with
 ipv6 data.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SRV&lt;/td&gt;
-&lt;td&gt;
+SRV
 pri: (Priority) lowest priorities should be used first.
 weight: Ranking to weight which of commonly prioritized
 targets should be chosen at random.
 target and port: hostname and port
 where the requested service can be found.
 For additional information see: RFC 2782
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;NAPTR&lt;/td&gt;
-&lt;td&gt;
+NAPTR
 order and pref: Equivalent to
 pri and weight above.
 flags, services, regex,
 and replacement: Parameters as defined by
 RFC 2915.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
 </reference></element>
 <element pattern="fsockopen" autocomplete_append="($hostname, $port = null, &amp;$errno = null, &amp;$errstr = null, $timeout = null);">
 <reference>fsockopen($hostname, $port = null, &amp;$errno = null, &amp;$errstr = null, $timeout = null);
@@ -14797,41 +14668,22 @@ Open connection to system logger
 <b> ident string </b>The string ident is added to each message. 
 <b> option int </b>The option argument is used to indicate
 what logging options will be used when generating a log message.
-&lt;table&gt;
+
 openlog Options
-&lt;tr valign="top"&gt;
-&lt;td&gt;Constant&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_CONS&lt;/td&gt;
-&lt;td&gt;
+
+LOG_CONS
 if there is an error while sending data to the system logger,
 write directly to the system console
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_NDELAY&lt;/td&gt;
-&lt;td&gt;
+LOG_NDELAY
 open the connection to the logger immediately
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_ODELAY&lt;/td&gt;
-&lt;td&gt;
+LOG_ODELAY
 (default) delay opening the connection until the first
 message is logged
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_PERROR&lt;/td&gt;
-&lt;td&gt;print log message also to standard error&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_PID&lt;/td&gt;
-&lt;td&gt;include PID with each message&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+LOG_PERROR
+print log message also to standard error
+LOG_PID
+include PID with each message
+
 You can use one or more of this options. When using multiple options
 you need to OR them, i.e. to open the connection
 immediately, write to the console and include the PID in each message,
@@ -14840,65 +14692,36 @@ you will use: LOG_CONS | LOG_NDELAY | LOG_PID
 type of program is logging the message. This allows you to specify
 (in your machine's syslog configuration) how messages coming from
 different facilities will be handled.
-&lt;table&gt;
+
 openlog Facilities
-&lt;tr valign="top"&gt;
-&lt;td&gt;Constant&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_AUTH&lt;/td&gt;
-&lt;td&gt;
+
+LOG_AUTH
 security/authorization messages (use 
 LOG_AUTHPRIV instead
 in systems where that constant is defined)
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_AUTHPRIV&lt;/td&gt;
-&lt;td&gt;security/authorization messages (private)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_CRON&lt;/td&gt;
-&lt;td&gt;clock daemon (cron and at)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_DAEMON&lt;/td&gt;
-&lt;td&gt;other system daemons&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_KERN&lt;/td&gt;
-&lt;td&gt;kernel messages&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_LOCAL0 ... LOG_LOCAL7&lt;/td&gt;
-&lt;td&gt;reserved for local use, these are not available in Windows&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_LPR&lt;/td&gt;
-&lt;td&gt;line printer subsystem&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_MAIL&lt;/td&gt;
-&lt;td&gt;mail subsystem&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_NEWS&lt;/td&gt;
-&lt;td&gt;USENET news subsystem&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_SYSLOG&lt;/td&gt;
-&lt;td&gt;messages generated internally by syslogd&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_USER&lt;/td&gt;
-&lt;td&gt;generic user-level messages&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_UUCP&lt;/td&gt;
-&lt;td&gt;UUCP subsystem&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+LOG_AUTHPRIV
+security/authorization messages (private)
+LOG_CRON
+clock daemon (cron and at)
+LOG_DAEMON
+other system daemons
+LOG_KERN
+kernel messages
+LOG_LOCAL0 ... LOG_LOCAL7
+reserved for local use, these are not available in Windows
+LOG_LPR
+line printer subsystem
+LOG_MAIL
+mail subsystem
+LOG_NEWS
+USENET news subsystem
+LOG_SYSLOG
+messages generated internally by syslogd
+LOG_USER
+generic user-level messages
+LOG_UUCP
+UUCP subsystem
+
 LOG_USER is the only valid log type under Windows
 operating systems
 <b>returns</b>  bool Returns true on success or false on failure.
@@ -14973,45 +14796,26 @@ Send a cookie without urlencoding the cookie value
 Generate a system log message
 <b> priority int </b>priority is a combination of the facility and
 the level. Possible values are:
-&lt;table&gt;
+
 syslog Priorities (in descending order)
-&lt;tr valign="top"&gt;
-&lt;td&gt;Constant&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_EMERG&lt;/td&gt;
-&lt;td&gt;system is unusable&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_ALERT&lt;/td&gt;
-&lt;td&gt;action must be taken immediately&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_CRIT&lt;/td&gt;
-&lt;td&gt;critical conditions&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_ERR&lt;/td&gt;
-&lt;td&gt;error conditions&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_WARNING&lt;/td&gt;
-&lt;td&gt;warning conditions&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_NOTICE&lt;/td&gt;
-&lt;td&gt;normal, but significant, condition&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_INFO&lt;/td&gt;
-&lt;td&gt;informational message&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;LOG_DEBUG&lt;/td&gt;
-&lt;td&gt;debug-level message&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
+LOG_EMERG
+system is unusable
+LOG_ALERT
+action must be taken immediately
+LOG_CRIT
+critical conditions
+LOG_ERR
+error conditions
+LOG_WARNING
+warning conditions
+LOG_NOTICE
+normal, but significant, condition
+LOG_INFO
+informational message
+LOG_DEBUG
+debug-level message
+
 <b> message string </b>The message to send, except that the two characters
 %m will be replaced by the error message string
 (strerror) corresponding to the present value of
@@ -16238,59 +16042,28 @@ config key to the path of the file you want to use.
 The following keys, if present in configargs
 behave as their equivalents in the openssl.conf, as
 listed in the table below.
-&lt;table&gt;
+
 Configuration overrides
-&lt;tr valign="top"&gt;
-&lt;td&gt;configargs key&lt;/td&gt;
-&lt;td&gt;type&lt;/td&gt;
-&lt;td&gt;openssl.conf equivalent&lt;/td&gt;
-&lt;td&gt;description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;digest_alg&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;default_md&lt;/td&gt;
-&lt;td&gt;Selects which digest method to use&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;x509_extensions&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;x509_extensions&lt;/td&gt;
-&lt;td&gt;Selects which extensions should be used when creating an x509
-certificate&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;req_extensions&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;req_extensions&lt;/td&gt;
-&lt;td&gt;Selects which extensions should be used when creating a CSR&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;private_key_bits&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;td&gt;default_bits&lt;/td&gt;
-&lt;td&gt;Specifies how many bits should be used to generate a private
-key&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;private_key_type&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;td&gt;none&lt;/td&gt;
-&lt;td&gt;Specifies the type of private key to create. This can be one
+digest_alg string default_md
+Selects which digest method to use
+x509_extensions string x509_extensions
+Selects which extensions should be used when creating an x509
+certificate
+req_extensions string req_extensions
+Selects which extensions should be used when creating a CSR
+private_key_bits integer default_bits
+Specifies how many bits should be used to generate a private
+key
+private_key_type integer none
+Specifies the type of private key to create. This can be one
 of OPENSSL_KEYTYPE_DSA,
 OPENSSL_KEYTYPE_DH or
 OPENSSL_KEYTYPE_RSA.
 The default value is OPENSSL_KEYTYPE_RSA which
 is currently the only supported key type.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;encrypt_key&lt;/td&gt;
-&lt;td&gt;boolean&lt;/td&gt;
-&lt;td&gt;encrypt_key&lt;/td&gt;
-&lt;td&gt;Should an exported key (with passphrase) be encrypted?&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+encrypt_key boolean encrypt_key
+Should an exported key (with passphrase) be encrypted?
+
 <b> extraattribs array[optional] </b>extraattribs is used to specify additional
 configuration options for the CSR. Both dn and
 extraattribs are associative arrays whose keys are
@@ -16543,44 +16316,27 @@ corresponds to cert, or false otherwise.
 <reference>openssl_x509_checkpurpose($x509cert, $purpose, array $cainfo = null, $untrustedfile = null);
 Verifies if a certificate can be used for a particular purpose
 <b> x509cert mixed </b>The examined certificate.
-<b> purpose int </b>&lt;table&gt;
+<b> purpose int </b>
 openssl_x509_checkpurpose purposes
-&lt;tr valign="top"&gt;
-&lt;td&gt;Constant&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;X509_PURPOSE_SSL_CLIENT&lt;/td&gt;
-&lt;td&gt;Can the certificate be used for the client side of an SSL
-connection?&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;X509_PURPOSE_SSL_SERVER&lt;/td&gt;
-&lt;td&gt;Can the certificate be used for the server side of an SSL
-connection?&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;X509_PURPOSE_NS_SSL_SERVER&lt;/td&gt;
-&lt;td&gt;Can the cert be used for Netscape SSL server?&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;X509_PURPOSE_SMIME_SIGN&lt;/td&gt;
-&lt;td&gt;Can the cert be used to sign S/MIME email?&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;X509_PURPOSE_SMIME_ENCRYPT&lt;/td&gt;
-&lt;td&gt;Can the cert be used to encrypt S/MIME email?&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;X509_PURPOSE_CRL_SIGN&lt;/td&gt;
-&lt;td&gt;Can the cert be used to sign a certificate revocation list
-(CRL)?&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;X509_PURPOSE_ANY&lt;/td&gt;
-&lt;td&gt;Can the cert be used for Any/All purposes?&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
+X509_PURPOSE_SSL_CLIENT
+Can the certificate be used for the client side of an SSL
+connection?
+X509_PURPOSE_SSL_SERVER
+Can the certificate be used for the server side of an SSL
+connection?
+X509_PURPOSE_NS_SSL_SERVER
+Can the cert be used for Netscape SSL server?
+X509_PURPOSE_SMIME_SIGN
+Can the cert be used to sign S/MIME email?
+X509_PURPOSE_SMIME_ENCRYPT
+Can the cert be used to encrypt S/MIME email?
+X509_PURPOSE_CRL_SIGN
+Can the cert be used to sign a certificate revocation list
+(CRL)?
+X509_PURPOSE_ANY
+Can the cert be used for Any/All purposes?
+
 These options are not bitfields - you may specify one only!
 <b> cainfo array[optional] </b>cainfo should be an array of trusted CA files/dirs
 as described in Certificate
@@ -16979,22 +16735,15 @@ wait3 is not available, providing a value for options
 will have no effect. The value of options
 is the value of zero or more of the following two constants
 OR'ed together:
-&lt;table&gt;
+
 Possible values for options
-&lt;tr valign="top"&gt;
-&lt;td&gt;WNOHANG&lt;/td&gt;
-&lt;td&gt;
+
+WNOHANG
 Return immediately if no child has exited.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;WUNTRACED&lt;/td&gt;
-&lt;td&gt;
+WUNTRACED
 Return for children which are stopped, and whose status has
 not been reported.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b>returns</b>  int pcntl_wait returns the process ID of the
 child which exited, -1 on error or zero if WNOHANG was provided as an
 option (on wait3-available systems) and no child was available.
@@ -17003,37 +16752,18 @@ option (on wait3-available systems) and no child was available.
 <reference>pcntl_waitpid($pid, &amp;$status, $options = null);
 Waits on or returns the status of a forked child
 <b> pid int </b>The value of pid can be one of the following:
-&lt;table&gt;
-possible values for pid
-&lt;tr valign="top"&gt;
-&lt;td&gt;&amp;lt; -1&lt;/td&gt;
-&lt;td&gt;
-wait for any child process whose process group ID is equal to
+
+possible values for pid:
+
+&lt; -1 wait for any child process whose process group ID is equal to
 the absolute value of pid.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;-1&lt;/td&gt;
-&lt;td&gt;
-wait for any child process; this is the same behaviour that
+-1 wait for any child process; this is the same behaviour that
 the wait function exhibits.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;
-wait for any child process whose process group ID is equal to
+0 wait for any child process whose process group ID is equal to
 that of the calling process.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;&amp;gt; 0&lt;/td&gt;
-&lt;td&gt;
-wait for the child whose process ID is equal to the value of
+&gt; 0 wait for the child whose process ID is equal to the value of
 pid.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 Specifying -1 as the pid is
 equivalent to the functionality pcntl_wait provides
 (minus options).
@@ -17049,22 +16779,15 @@ pcntl_wstopsig.
 <b> options int[optional] </b>The value of options is the value of zero
 or more of the following two global constants
 OR'ed together:
-&lt;table&gt;
-possible values for options
-&lt;tr valign="top"&gt;
-&lt;td&gt;WNOHANG&lt;/td&gt;
-&lt;td&gt;
+
+possible values for options:
+
+WNOHANG
 return immediately if no child has exited.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;WUNTRACED&lt;/td&gt;
-&lt;td&gt;
+WUNTRACED
 return for children which are stopped, and whose status has
 not been reported.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b>returns</b>  int pcntl_waitpid returns the process ID of the
 child which exited, -1 on error or zero if WNOHANG was used and no
 child was available
@@ -17541,48 +17264,30 @@ output parameter.
 <element pattern="assert_options" autocomplete_append="($what, $value = null);">
 <reference>assert_options($what, $value = null);
 Set/get the various assert flags
-<b> what int </b>&lt;table&gt;
-Assert Options
-&lt;tr valign="top"&gt;
-&lt;td&gt;option&lt;/td&gt;
-&lt;td&gt;ini-parameter&lt;/td&gt;
-&lt;td&gt;default&lt;/td&gt;
-&lt;td&gt;description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ASSERT_ACTIVE&lt;/td&gt;
-&lt;td&gt;assert.active&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;enable assert evaluation&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ASSERT_WARNING&lt;/td&gt;
-&lt;td&gt;assert.warning&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;issue a PHP warning for each failed assertion&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ASSERT_BAIL&lt;/td&gt;
-&lt;td&gt;assert.bail&lt;/td&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;terminate execution on failed assertions&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ASSERT_QUIET_EVAL&lt;/td&gt;
-&lt;td&gt;assert.quiet_eval&lt;/td&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;
+<b> what int </b>
+Assert Options:
+ASSERT_ACTIVE
+assert.active
+Default value: 1
+enable assert evaluation
+ASSERT_WARNING
+assert.warning
+Default value: 1
+issue a PHP warning for each failed assertion
+ASSERT_BAIL
+assert.bail
+Default value: 0
+terminate execution on failed assertions
+ASSERT_QUIET_EVAL
+assert.quiet_eval
+Default value: 0
 disable error_reporting during assertion expression
 evaluation
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ASSERT_CALLBACK&lt;/td&gt;
-&lt;td&gt;assert.callback&lt;/td&gt;
-&lt;td)&lt;&amp;null;)&lt;/td&gt;
-&lt;td&gt;user function to call on failed assertions&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+ASSERT_CALLBACK
+assert.callback
+Default value: (null)
+user function to call on failed assertions
+
 <b> value mixed[optional] </b>An optional new value for the option.
 <b>returns</b>  mixed the original setting of any option or false on errors.
 </reference></element>
@@ -17875,58 +17580,31 @@ Prints out the credits for PHP
 <b> flag int[optional] </b>To generate a custom credits page, you may want to use the
 flag parameter. flag is
 optional, and it defaults to CREDITS_ALL.
-&lt;table&gt;
+
 Pre-defined phpcredits flags
-&lt;tr valign="top"&gt;
-&lt;td&gt;name&lt;/td&gt;
-&lt;td&gt;description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CREDITS_ALL&lt;/td&gt;
-&lt;td&gt;
+
+CREDITS_ALL
 All the credits, equivalent to using: CREDITS_DOCS +
 CREDITS_GENERAL + CREDITS_GROUP + CREDITS_MODULES +
 CREDITS_FULLPAGE. It generates a complete stand-alone HTML
 page with the appropriate tags.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CREDITS_DOCS&lt;/td&gt;
-&lt;td&gt;The credits for the documentation team&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CREDITS_FULLPAGE&lt;/td&gt;
-&lt;td&gt;
+CREDITS_DOCS
+The credits for the documentation team
+CREDITS_FULLPAGE
 Usually used in combination with the other flags. Indicates
 that a complete stand-alone HTML page needs to be
 printed including the information indicated by the other
 flags.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CREDITS_GENERAL&lt;/td&gt;
-&lt;td&gt;
+CREDITS_GENERAL
 General credits: Language design and concept, PHP 4.0
 authors and SAPI module.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CREDITS_GROUP&lt;/td&gt;
-&lt;td&gt;A list of the core developers&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CREDITS_MODULES&lt;/td&gt;
-&lt;td&gt;
+CREDITS_GROUP
+A list of the core developers
+CREDITS_MODULES
 A list of the extension modules for PHP, and their authors
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CREDITS_SAPI&lt;/td&gt;
-&lt;td&gt;
+CREDITS_SAPI
 A list of the server API modules for PHP, and their authors
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
 <element pattern="phpinfo" autocomplete_append="($what = null);">
@@ -17937,76 +17615,39 @@ following constants bitwise values summed
 together in the optional what parameter.
 One can also combine the respective constants or bitwise values
 together with the or operator.
-&lt;table&gt;
+
 phpinfo options
-&lt;tr valign="top"&gt;
-&lt;td&gt;Name (constant)&lt;/td&gt;
-&lt;td&gt;Value&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;INFO_GENERAL&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;
+
+INFO_GENERAL
+Value: 1
 The configuration line, &amp;php.ini; location, build date, Web
 Server, System and more.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;INFO_CREDITS&lt;/td&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;
+INFO_CREDITS
+Value: 2
 PHP Credits. See also phpcredits.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;INFO_CONFIGURATION&lt;/td&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;td&gt;
+INFO_CONFIGURATION
+Value: 4
 Current Local and Master values for PHP directives. See
 also ini_get.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;INFO_MODULES&lt;/td&gt;
-&lt;td&gt;8&lt;/td&gt;
-&lt;td&gt;
+INFO_MODULES
+Value: 8
 Loaded modules and their respective settings. See also
 get_loaded_extensions.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;INFO_ENVIRONMENT&lt;/td&gt;
-&lt;td&gt;16&lt;/td&gt;
-&lt;td&gt;
+INFO_ENVIRONMENT
+Value: 16
 Environment Variable information that's also available in
 $_ENV.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;INFO_VARIABLES&lt;/td&gt;
-&lt;td&gt;32&lt;/td&gt;
-&lt;td&gt;
-Shows all 
-predefined variables from EGPCS (Environment, GET,
+INFO_VARIABLES
+Value: 32
+Shows all predefined variables from EGPCS (Environment, GET,
 POST, Cookie, Server).
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;INFO_LICENSE&lt;/td&gt;
-&lt;td&gt;64&lt;/td&gt;
-&lt;td&gt;
+INFO_LICENSE
+Value: 64
 PHP License information. See also the license FAQ.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;INFO_ALL&lt;/td&gt;
-&lt;td&gt;-1&lt;/td&gt;
-&lt;td&gt;
+INFO_ALL
+Value: -1
 Shows all of the above. This is the default value.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
 <element pattern="phpversion" autocomplete_append="($extension = null);">
@@ -18142,88 +17783,53 @@ Return the real group ID of the current process
 <reference>posix_getgrgid($gid);
 Return info about a group by group id
 <b> gid int </b>The group id.
-<b>returns</b>  array The array elements returned are:
-&lt;table&gt;
-The group information array
-&lt;tr valign="top"&gt;
-&lt;td&gt;Element&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;name&lt;/td&gt;
-&lt;td&gt;
+<b>returns</b>  array
+
+The array elements returned are:
+
+name
 The name element contains the name of the group. This is
 a short, usually less than 16 character "handle" of the
 group, not the real, full name.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;passwd&lt;/td&gt;
-&lt;td&gt;
+
+passwd
 The passwd element contains the group's password in an
 encrypted format. Often, for example on a system employing
 "shadow" passwords, an asterisk is returned instead.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;gid&lt;/td&gt;
-&lt;td&gt;
+
+gid
 Group ID, should be the same as the
 gid parameter used when calling the
 function, and hence redundant.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;members&lt;/td&gt;
-&lt;td&gt;
+
+members
 This consists of an array of
 string's for all the members in the group.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 </reference></element>
 <element pattern="posix_getgrnam" autocomplete_append="($name);">
 <reference>posix_getgrnam($name);
 Return info about a group by name
-<b> name string The name of the group</b><b>returns</b>  array The array elements returned are:
-&lt;table&gt;
-The group information array
-&lt;tr valign="top"&gt;
-&lt;td&gt;Element&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;name&lt;/td&gt;
-&lt;td&gt;
+<b> name string The name of the group</b><b>returns</b>  array
+
+The array elements returned are:
+
+name
 The name element contains the name of the group. This is
 a short, usually less than 16 character "handle" of the
 group, not the real, full name. This should be the same as
 the name parameter used when
 calling the function, and hence redundant.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;passwd&lt;/td&gt;
-&lt;td&gt;
+passwd
 The passwd element contains the group's password in an
 encrypted format. Often, for example on a system employing
 "shadow" passwords, an asterisk is returned instead.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;gid&lt;/td&gt;
-&lt;td&gt;
+gid
 Group ID of the group in numeric form.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;members&lt;/td&gt;
-&lt;td&gt;
+members
 This consists of an array of
 string's for all the members in the group.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 </reference></element>
 <element pattern="posix_getgroups" autocomplete_append="();">
 <reference>posix_getgroups();
@@ -18261,48 +17867,31 @@ Return the parent process identifier
 <reference>posix_getpwnam($username);
 Return info about a user by username
 <b> username string </b>An alphanumeric username.
-<b>returns</b>  array The array elements returned are:
-&lt;table&gt;
-The user information array
-&lt;tr valign="top"&gt;
-&lt;td&gt;Element&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;name&lt;/td&gt;
-&lt;td&gt;
+<b>returns</b>  array
+
+The array elements returned are:
+
+name
 The name element contains the username of the user. This is
 a short, usually less than 16 character "handle" of the
 user, not the real, full name. This should be the same as
 the username parameter used when
 calling the function, and hence redundant.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;passwd&lt;/td&gt;
-&lt;td&gt;
+
+passwd
 The passwd element contains the user's password in an
 encrypted format. Often, for example on a system employing
 "shadow" passwords, an asterisk is returned instead.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;uid&lt;/td&gt;
-&lt;td&gt;
+
+uid
 User ID of the user in numeric form.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;gid&lt;/td&gt;
-&lt;td&gt;
+
+gid
 The group ID of the user. Use the function
 posix_getgrgid to resolve the group
 name and a list of its members.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;gecos&lt;/td&gt;
-&lt;td&gt;
+
+gecos
 GECOS is an obsolete term that refers to the finger
 information field on a Honeywell batch processing system.
 The field, however, lives on, and its contents have been
@@ -18310,70 +17899,43 @@ formalized by POSIX. The field contains a comma separated
 list containing the user's full name, office phone, office
 number, and home phone number. On most systems, only the
 user's full name is available.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;dir&lt;/td&gt;
-&lt;td&gt;
+
+dir
 This element contains the absolute path to the home
 directory of the user.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;shell&lt;/td&gt;
-&lt;td&gt;
+
+shell
 The shell element contains the absolute path to the
 executable of the user's default shell.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
 </reference></element>
 <element pattern="posix_getpwuid" autocomplete_append="($uid);">
 <reference>posix_getpwuid($uid);
 Return info about a user by user id
 <b> uid int </b>The user identifier.
-<b>returns</b>  array an associative array with the following elements:
-&lt;table&gt;
-The user information array
-&lt;tr valign="top"&gt;
-&lt;td&gt;Element&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;name&lt;/td&gt;
-&lt;td&gt;
+<b>returns</b>  array 
+an associative array with the following elements:
+
+name
 The name element contains the username of the user. This is
 a short, usually less than 16 character "handle" of the
 user, not the real, full name.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;passwd&lt;/td&gt;
-&lt;td&gt;
+
+passwd
 The passwd element contains the user's password in an
 encrypted format. Often, for example on a system employing
 "shadow" passwords, an asterisk is returned instead.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;uid&lt;/td&gt;
-&lt;td&gt;
+
+uid
 User ID, should be the same as the
 uid parameter used when calling the
 function, and hence redundant.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;gid&lt;/td&gt;
-&lt;td&gt;
+
+gid
 The group ID of the user. Use the function
 posix_getgrgid to resolve the group
 name and a list of its members.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;gecos&lt;/td&gt;
-&lt;td&gt;
+
+gecos
 GECOS is an obsolete term that refers to the finger
 information field on a Honeywell batch processing system.
 The field, however, lives on, and its contents have been
@@ -18381,105 +17943,58 @@ formalized by POSIX. The field contains a comma separated
 list containing the user's full name, office phone, office
 number, and home phone number. On most systems, only the
 user's full name is available.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;dir&lt;/td&gt;
-&lt;td&gt;
+
+dir
 This element contains the absolute path to the
 home directory of the user.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;shell&lt;/td&gt;
-&lt;td&gt;
+
+shell
 The shell element contains the absolute path to the
 executable of the user's default shell.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
 </reference></element>
 <element pattern="posix_getrlimit" autocomplete_append="();">
 <reference>posix_getrlimit();
 Return info about system resource limits
 <b>returns</b>  array an associative array of elements for each
 limit that is defined. Each limit has a soft and a hard limit.
-&lt;table&gt;
-List of possible limits returned
-&lt;tr valign="top"&gt;
-&lt;td&gt;Limit name&lt;/td&gt;
-&lt;td&gt;Limit description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;core&lt;/td&gt;
-&lt;td&gt;
+
+List of possible limits returned:
+
+core
 The maximum size of the core file. When 0, not core files are
 created. When core files are larger than this size, they will
 be truncated at this size.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;totalmem&lt;/td&gt;
-&lt;td&gt;
+
+totalmem
 The maximum size of the memory of the process, in bytes.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;virtualmem&lt;/td&gt;
-&lt;td&gt;
+
+virtualmem
 The maximum size of the virtual memory for the process, in bytes.
-&lt;/td&gt;
-&lt;/tr&gt; 
-&lt;tr valign="top"&gt;
-&lt;td&gt;data&lt;/td&gt;
-&lt;td&gt;
+
+data
 The maximum size of the data segment for the process, in bytes.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;stack&lt;/td&gt;
-&lt;td&gt;
+
+stack
 The maximum size of the process stack, in bytes.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;rss&lt;/td&gt;
-&lt;td&gt;
+
+rss
 The maximum number of virtual pages resident in RAM
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;maxproc&lt;/td&gt;
-&lt;td&gt;
+
+maxproc
 The maximum number of processes that can be created for the
 real user ID of the calling process.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;memlock&lt;/td&gt;
-&lt;td&gt;
+
+memlock
 The maximum number of bytes of memory that may be locked into RAM.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;cpu&lt;/td&gt;
-&lt;td&gt;
+
+cpu
 The amount of time the process is allowed to use the CPU.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;filesize&lt;/td&gt;
-&lt;td&gt;
+
+filesize
 The maximum size of the data segment for the process, in bytes.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;openfiles&lt;/td&gt;
-&lt;td&gt;
+
+openfiles
 One more than the maximum number of open file descriptors.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
 </reference></element>
 <element pattern="posix_getsid" autocomplete_append="($pid);">
 <reference>posix_getsid($pid);
@@ -20403,32 +19918,26 @@ returned as a binary-safe string.
 <b> flags int[optional] </b>The optional flags allows you to pass flags to the
 low-level msgrcv system call. It defaults to 0, but you may specify one
 or more of the following values (by adding or ORing them together).
-&lt;table&gt;
-Flag values for msg_receive
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_IPC_NOWAIT&lt;/td&gt;
-&lt;td&gt;If there are no messages of the
+
+Flag values for msg_receive:
+
+MSG_IPC_NOWAIT
+If there are no messages of the
 desiredmsgtype, return immediately and do not
 wait. The function will fail and return an integer value
 corresponding to MSG_ENOMSG.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_EXCEPT&lt;/td&gt;
-&lt;td&gt;Using this flag in combination with a
+
+MSG_EXCEPT
+Using this flag in combination with a
 desiredmsgtype greater than 0 will cause the
 function to receive the first message that is not equal to
-desiredmsgtype.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_NOERROR&lt;/td&gt;
-&lt;td&gt;
+desiredmsgtype.
+
+MSG_NOERROR
 If the message is longer than maxsize,
 setting this flag will truncate the message to
 maxsize and will not signal an error.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b> errorcode int[optional] </b>If the function fails, the optional errorcode
 will be set to the value of the system errno variable.
 <b>returns</b>  bool Returns true on success or false on failure.
@@ -20481,72 +19990,32 @@ that you require in the data array.
 <reference>msg_stat_queue($queue);
 Returns information from the message queue data structure
 <b> queue resource </b>Message queue resource handle
-<b>returns</b>  array The return value is an array whose keys and values have the following
-meanings:
-&lt;table&gt;
+<b>returns</b>  array
+The return value is an array whose keys and values have the following meanings:
+
 Array structure for msg_stat_queue
-&lt;tr valign="top"&gt;
-&lt;td&gt;msg_perm.uid&lt;/td&gt;
-&lt;td&gt;
+
+msg_perm.uid
 The uid of the owner of the queue.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;msg_perm.gid&lt;/td&gt;
-&lt;td&gt;
+msg_perm.gid
 The gid of the owner of the queue.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;msg_perm.mode&lt;/td&gt;
-&lt;td&gt;
+msg_perm.mode
 The file access mode of the queue.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;msg_stime&lt;/td&gt;
-&lt;td&gt;
+msg_stime
 The time that the last message was sent to the queue.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;msg_rtime&lt;/td&gt;
-&lt;td&gt;
+msg_rtime
 The time that the last message was received from the queue.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;msg_ctime&lt;/td&gt;
-&lt;td&gt;
+msg_ctime
 The time that the queue was last changed.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;msg_qnum&lt;/td&gt;
-&lt;td&gt;
+msg_qnum
 The number of messages waiting to be read from the queue.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;msg_qbytes&lt;/td&gt;
-&lt;td&gt;
+msg_qbytes
 The number of bytes of space currently available in the queue to
 hold sent messages until they are received.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;msg_lspid&lt;/td&gt;
-&lt;td&gt;
+msg_lspid
 The pid of the process that sent the last message to the queue.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;msg_lrpid&lt;/td&gt;
-&lt;td&gt;
+msg_lrpid
 The pid of the process that received the last message from the queue.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
 </reference></element>
 <element pattern="sem_acquire" autocomplete_append="($sem_identifier);">
 <reference>sem_acquire($sem_identifier);
@@ -21094,82 +20563,44 @@ protocols.
 Create a socket (endpoint for communication)
 <b> domain int </b>The domain parameter specifies the protocol
 family to be used by the socket.
-&lt;table&gt;
+
 Available address/protocol families
-&lt;tr valign="top"&gt;
-&lt;td&gt;Domain&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;AF_INET&lt;/td&gt;
-&lt;td&gt;
+
+AF_INET
 IPv4 Internet based protocols. TCP and UDP are common protocols of
 this protocol family.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;AF_INET6&lt;/td&gt;
-&lt;td&gt;
+AF_INET6
 IPv6 Internet based protocols. TCP and UDP are common protocols of
 this protocol family. Support added in PHP 5.0.0.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;AF_UNIX&lt;/td&gt;
-&lt;td&gt;
+AF_UNIX
 Local communication protocol family. High efficiency and low
 overhead make it a great form of IPC (Interprocess Communication).
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b> type int </b>The type parameter selects the type of communication
 to be used by the socket.
-&lt;table&gt;
+
 Available socket types
-&lt;tr valign="top"&gt;
-&lt;td&gt;Type&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SOCK_STREAM&lt;/td&gt;
-&lt;td&gt;
+
+SOCK_STREAM
 Provides sequenced, reliable, full-duplex, connection-based byte streams.
 An out-of-band data transmission mechanism may be supported.
 The TCP protocol is based on this socket type.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SOCK_DGRAM&lt;/td&gt;
-&lt;td&gt;
+SOCK_DGRAM
 Supports datagrams (connectionless, unreliable messages of a fixed maximum length).
 The UDP protocol is based on this socket type.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SOCK_SEQPACKET&lt;/td&gt;
-&lt;td&gt;
+SOCK_SEQPACKET
 Provides a sequenced, reliable, two-way connection-based data transmission path for
 datagrams of fixed maximum length; a consumer is required to read an
 entire packet with each read call.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SOCK_RAW&lt;/td&gt;
-&lt;td&gt;
+SOCK_RAW
 Provides raw network protocol access. This special type of socket
 can be used to manually construct any type of protocol. A common use
 for this socket type is to perform ICMP requests (like ping,
 traceroute, etc).
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SOCK_RDM&lt;/td&gt;
-&lt;td&gt;
+SOCK_RDM
 Provides a reliable datagram layer that does not guarantee ordering.
 This is most likely not implemented on your operating system.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b> protocol int </b>The protocol parameter sets the specific
 protocol within the specified domain to be used
 when communicating on the returned socket. The proper value can be
@@ -21177,32 +20608,21 @@ retrieved by name by using getprotobyname. If
 the desired protocol is TCP, or UDP the corresponding constants
 SOL_TCP, and SOL_UDP
 can also be used.
-&lt;table&gt;
+
 Common protocols
-&lt;tr valign="top"&gt;
-&lt;td&gt;Name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;icmp&lt;/td&gt;
-&lt;td&gt;
+
+icmp
 The Internet Control Message Protocol is used primarily by gateways
 and hosts to report errors in datagram communication. The "ping"
 command (present in most modern operating systems) is an example
 application of ICMP.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;udp&lt;/td&gt;
-&lt;td&gt;
+
+udp
 The User Datagram Protocol is a connectionless, unreliable,
 protocol with fixed record lengths. Due to these aspects, UDP
 requires a minimum amount of protocol overhead.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;tcp&lt;/td&gt;
-&lt;td&gt;
+
+tcp
 The Transmission Control Protocol is a reliable, connection based,
 stream oriented, full duplex protocol. TCP guarantees that all data packets
 will be received in the order in which they were sent. If any packet is somehow
@@ -21211,9 +20631,7 @@ the destination host acknowledges that packet. For reliability and performance
 reasons, the TCP implementation itself decides the appropriate octet boundaries
 of the underlying datagram communication layer. Therefore, TCP applications must
 allow for the possibility of partial record transmission.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b>returns</b>  resource socket_create returns a socket resource on success,
 or false on error. The actual error code can be retrieved by calling
 socket_last_error. This error code may be passed to
@@ -21231,54 +20649,25 @@ the socket level, a level parameter of
 SOL_SOCKET would be used. Other levels, such as TCP, can be used by
 specifying the protocol number of that level. Protocol numbers can be
 found by using the getprotobyname function.
-<b> optname int &lt;table&gt;</b>Available Socket Options
-&lt;tr valign="top"&gt;
-&lt;td&gt;Option&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;td&gt;Type&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_DEBUG&lt;/td&gt;
-&lt;td&gt;
+<b> optname int </b>
+Available Socket Options:
+
+SO_DEBUG
 Reports whether debugging information is being recorded.
-&lt;/td&gt;
-&lt;td&gt;
 int
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_BROADCAST&lt;/td&gt;
-&lt;td&gt;
+SO_BROADCAST
 Reports whether transmission of broadcast messages is supported.
-&lt;/td&gt;
-&lt;td&gt;
 int
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_REUSEADDR&lt;/td&gt;
-&lt;td&gt;
+SO_REUSEADDR
 Reports whether local addresses can be reused.
-&lt;/td&gt;
-&lt;td&gt;
 int
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_KEEPALIVE&lt;/td&gt;
-&lt;td&gt;
+SO_KEEPALIVE
 Reports whether connections are kept active with periodic transmission
 of messages. If the connected socket fails to respond to these messages,
 the connection is broken and processes writing to that socket are notified
 with a SIGPIPE signal.
-&lt;/td&gt;
-&lt;td&gt;
 int
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_LINGER&lt;/td&gt;
-&lt;td&gt;
+SO_LINGER
 Reports whether the socket lingers on 
 socket_close if data is present. By default, 
 when the socket is closed, it attempts to send all unsent data.
@@ -21295,113 +20684,51 @@ socket_close will block until all the data
 is sent or the time specified in l_linger
 elapses. If the socket is non-blocking, 
 socket_close will fail and return an error.
-&lt;/td&gt;
-&lt;td&gt;
+
 array. The array will contain two keys:
 l_onoff and 
 l_linger. 
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_OOBINLINE&lt;/td&gt;
-&lt;td&gt;
+
+SO_OOBINLINE
 Reports whether the socket leaves out-of-band data inline.
-&lt;/td&gt;
-&lt;td&gt;
 int
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_SNDBUF&lt;/td&gt;
-&lt;td&gt;
+SO_SNDBUF
 Reports the size of the send buffer.
-&lt;/td&gt;
-&lt;td&gt;
 int
-&lt;/td&gt; 
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_RCVBUF&lt;/td&gt;
-&lt;td&gt;
+SO_RCVBUF
 Reports the size of the receive buffer.
-&lt;/td&gt;
-&lt;td&gt;
 int
-&lt;/td&gt; 
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_ERROR&lt;/td&gt;
-&lt;td&gt;
+SO_ERROR
 Reports information about error status and clears it.
-&lt;/td&gt;
-&lt;td&gt;
 int (cannot be set by socket_set_option)
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_TYPE&lt;/td&gt;
-&lt;td&gt;
+SO_TYPE
 Reports the socket type (e.g. 
 SOCK_STREAM).
-&lt;/td&gt;
-&lt;td&gt;
 int (cannot be set by socket_set_option)
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_DONTROUTE&lt;/td&gt;
-&lt;td&gt;
+SO_DONTROUTE
 Reports whether outgoing messages bypass the standard routing facilities.
-&lt;/td&gt;
-&lt;td&gt;
 int
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_RCVLOWAT&lt;/td&gt;
-&lt;td&gt;
+SO_RCVLOWAT
 Reports the minimum number of bytes to process for socket 
 input operations.
-&lt;/td&gt;
-&lt;td&gt;
 int
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_RCVTIMEO&lt;/td&gt;
-&lt;td&gt;
+SO_RCVTIMEO
 Reports the timeout value for input operations.
-&lt;/td&gt;
-&lt;td&gt;
 array. The array will contain two keys:
 sec which is the seconds part on the timeout
 value and usec which is the microsecond part 
 of the timeout value. 
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_SNDTIMEO&lt;/td&gt;
-&lt;td&gt;
+SO_SNDTIMEO
 Reports the timeout value specifying the amount of time that an output
 function blocks because flow control prevents data from being sent.
-&lt;/td&gt;
-&lt;td&gt;
 array. The array will contain two keys:
 sec which is the seconds part on the timeout
 value and usec which is the microsecond part 
 of the timeout value. 
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;SO_SNDLOWAT&lt;/td&gt;
-&lt;td&gt;
+SO_SNDLOWAT
 Reports the minimum number of bytes to process for socket output operations.
-&lt;/td&gt;
-&lt;td&gt;
 int
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b>returns</b>  mixed the value of the given option, or false on errors.
 </reference></element>
 <element pattern="socket_getpeername" autocomplete_append="($socket, &amp;$address, &amp;$port = null);">
@@ -21512,41 +20839,22 @@ buf.
 <b> flags int </b>The value of flags can be any combination of 
 the following flags, joined with the binary OR (|)
 operator.
-&lt;table&gt;
-Possible values for flags
-&lt;tr valign="top"&gt;
-&lt;td&gt;Flag&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_OOB&lt;/td&gt;
-&lt;td&gt;
+
+Possible values for flags:
+
+MSG_OOB
 Process out-of-band data.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_PEEK&lt;/td&gt;
-&lt;td&gt;
+MSG_PEEK
 Receive data from the beginning of the receive queue without
 removing it from the queue.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_WAITALL&lt;/td&gt;
-&lt;td&gt;
+MSG_WAITALL
 Block until at least len are received.
 However, if a signal is caught or the remote host disconnects, the
 function may return less data.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_DONTWAIT&lt;/td&gt;
-&lt;td&gt;
+MSG_DONTWAIT
 With this flag set, the function returns even if it would normally
 have blocked.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b> name string </b>If the socket is of the type AF_UNIX type,
 name is the path to the file. Else, for
 unconnected sockets, name is the IP address of,
@@ -21603,35 +20911,23 @@ buf.
 <b> flags int </b>The value of flags can be any combination of 
 the following flags, joined with the binary OR (|)
 operator.
-&lt;table&gt;
-Possible values for flags
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_OOB&lt;/td&gt;
-&lt;td&gt;
+
+Possible values for flags:
+
+MSG_OOB
 Send OOB (out-of-band) data.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_EOR&lt;/td&gt;
-&lt;td&gt;
+
+MSG_EOR
 Indicate a record mark. The sent data completes the record.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_EOF&lt;/td&gt;
-&lt;td&gt;
+
+MSG_EOF
 Close the sender side of the socket and include an appropriate
 notification of this at the end of the sent data. The sent data
 completes the transaction.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_DONTROUTE&lt;/td&gt;
-&lt;td&gt;
+
+MSG_DONTROUTE
 Bypass routing, use direct interface.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b>returns</b>  int 
 </reference></element>
 <element pattern="socket_sendto" autocomplete_append="($socket, $buf, $len, $flags, $addr, $port = null);">
@@ -21644,35 +20940,23 @@ sent.
 <b> flags int </b>The value of flags can be any combination of 
 the following flags, joined with the binary OR (|)
 operator.
-&lt;table&gt;
-Possible values for flags
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_OOB&lt;/td&gt;
-&lt;td&gt;
+
+Possible values for flags:
+
+MSG_OOB
 Send OOB (out-of-band) data.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_EOR&lt;/td&gt;
-&lt;td&gt;
+
+MSG_EOR
 Indicate a record mark. The sent data completes the record.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_EOF&lt;/td&gt;
-&lt;td&gt;
+
+MSG_EOF
 Close the sender side of the socket and include an appropriate
 notification of this at the end of the sent data. The sent data
 completes the transaction.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MSG_DONTROUTE&lt;/td&gt;
-&lt;td&gt;
+
+MSG_DONTROUTE
 Bypass routing, use direct interface.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b> addr string </b>IP address of the remote host.
 <b> port int[optional] </b>port is the remote port number at which the data
 will be sent.
@@ -21714,28 +20998,14 @@ socket_get_option function.
 <reference>socket_shutdown($socket, $how = null);
 Shuts down a socket for receiving, sending, or both
 <b> socket resource </b>A valid socket resource created with socket_create.
-<b> how int[optional] </b>The value of how can be one of the following:
-&lt;table&gt;
-possible values for how
-&lt;tr valign="top"&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;td&gt;
-Shutdown socket reading
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;td&gt;
-Shutdown socket writing
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;2&lt;/td&gt;
-&lt;td&gt;
-Shutdown socket reading and writing
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+<b> how int[optional] </b>
+
+The value of how can be one of the following:
+
+0 Shutdown socket reading
+1 Shutdown socket writing
+2 Shutdown socket reading and writing
+
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
 <element pattern="socket_strerror" autocomplete_append="($errno);">
@@ -22805,25 +22075,16 @@ Convert all HTML entities to their applicable characters
 you define what will be done with 'single' and "double" quotes. It takes
 on one of three constants with the default being
 ENT_COMPAT:
-&lt;table&gt;
+
 Available quote_style constants
-&lt;tr valign="top"&gt;
-&lt;td&gt;Constant Name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ENT_COMPAT&lt;/td&gt;
-&lt;td&gt;Will convert double-quotes and leave single-quotes alone.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ENT_QUOTES&lt;/td&gt;
-&lt;td&gt;Will convert both double and single quotes.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ENT_NOQUOTES&lt;/td&gt;
-&lt;td&gt;Will leave both double and single quotes unconverted.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
+ENT_COMPAT
+Will convert double-quotes and leave single-quotes alone.
+ENT_QUOTES
+Will convert both double and single quotes.
+ENT_NOQUOTES
+Will leave both double and single quotes unconverted.
+
 <b> charset string[optional] </b>The ISO-8859-1 character set is used as default for the optional third
 charset. This defines the character set used in
 conversion.
@@ -22838,25 +22099,16 @@ Convert all applicable characters to HTML entities
 quote_style parameter lets you define what will
 be done with 'single' and "double" quotes. It takes on one of three
 constants with the default being ENT_COMPAT:
-&lt;table&gt;
+
 Available quote_style constants
-&lt;tr valign="top"&gt;
-&lt;td&gt;Constant Name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ENT_COMPAT&lt;/td&gt;
-&lt;td&gt;Will convert double-quotes and leave single-quotes alone.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ENT_QUOTES&lt;/td&gt;
-&lt;td&gt;Will convert both double and single quotes.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ENT_NOQUOTES&lt;/td&gt;
-&lt;td&gt;Will leave both double and single quotes unconverted.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
+ENT_COMPAT
+Will convert double-quotes and leave single-quotes alone.
+ENT_QUOTES
+Will convert both double and single quotes.
+ENT_NOQUOTES
+Will leave both double and single quotes unconverted.
+
 <b> charset string[optional] </b>Like htmlspecialchars, it takes an optional
 third argument charset which defines character
 set used in conversion.
@@ -22871,26 +22123,16 @@ encode existing html entities. The default is to convert everything.
 Convert special HTML entities back to characters
 <b> string string </b>The string to decode
 <b> quote_style int[optional] </b>The quote style. One of the following constants:
-&lt;table&gt;
-quote_style constants
-&lt;tr valign="top"&gt;
-&lt;td&gt;Constant Name&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ENT_COMPAT&lt;/td&gt;
-&lt;td&gt;Will convert double-quotes and leave single-quotes alone
-(default)&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ENT_QUOTES&lt;/td&gt;
-&lt;td&gt;Will convert both double and single quotes&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ENT_NOQUOTES&lt;/td&gt;
-&lt;td&gt;Will leave both double and single quotes unconverted&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
+Available quote_style constants
+
+ENT_COMPAT
+Will convert double-quotes and leave single-quotes alone.
+ENT_QUOTES
+Will convert both double and single quotes.
+ENT_NOQUOTES
+Will leave both double and single quotes unconverted.
+
 <b>returns</b>  string the decoded string.
 </reference></element>
 <element pattern="htmlspecialchars" autocomplete_append="($string, $quote_style = null, $charset = null, $double_encode = null);">
@@ -23109,137 +22351,73 @@ constant name of the element. The following is a list of constant names
 for item that may be used and their description.
 Some of these constants may not be defined or hold no value for certain
 locales.
-&lt;table&gt;
+
 nl_langinfo Constants
-&lt;tr valign="top"&gt;
-&lt;td&gt;Constant&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-LC_TIME Category Constants&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ABDAY_(1-7)&lt;/td&gt;
-&lt;td&gt;Abbreviated name of n-th day of the week.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;DAY_(1-7)&lt;/td&gt;
-&lt;td&gt;Name of the n-th day of the week (DAY_1 = Sunday).&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ABMON_(1-12)&lt;/td&gt;
-&lt;td&gt;Abbreviated name of the n-th month of the year.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MON_(1-12)&lt;/td&gt;
-&lt;td&gt;Name of the n-th month of the year.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;AM_STR&lt;/td&gt;
-&lt;td&gt;String for Ante meridian.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;PM_STR&lt;/td&gt;
-&lt;td&gt;String for Post meridian.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;D_T_FMT&lt;/td&gt;
-&lt;td&gt;String that can be used as the format string for strftime to represent time and date.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;D_FMT&lt;/td&gt;
-&lt;td&gt;String that can be used as the format string for strftime to represent date.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;T_FMT&lt;/td&gt;
-&lt;td&gt;String that can be used as the format string for strftime to represent time.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;T_FMT_AMPM&lt;/td&gt;
-&lt;td&gt;String that can be used as the format string for strftime to represent time in 12-hour format with ante/post meridian.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ERA&lt;/td&gt;
-&lt;td&gt;Alternate era.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ERA_YEAR&lt;/td&gt;
-&lt;td&gt;Year in alternate era format.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ERA_D_T_FMT&lt;/td&gt;
-&lt;td&gt;Date and time in alternate era format (string can be used in strftime).&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ERA_D_FMT&lt;/td&gt;
-&lt;td&gt;Date in alternate era format (string can be used in strftime).&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;ERA_T_FMT&lt;/td&gt;
-&lt;td&gt;Time in alternate era format (string can be used in strftime).&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-LC_MONETARY Category Constants&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;INT_CURR_SYMBOL&lt;/td&gt;
-&lt;td&gt;International currency symbol.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CURRENCY_SYMBOL&lt;/td&gt;
-&lt;td&gt;Local currency symbol.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;CRNCYSTR&lt;/td&gt;
-&lt;td&gt;Same value as CURRENCY_SYMBOL.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MON_DECIMAL_POINT&lt;/td&gt;
-&lt;td&gt;Decimal point character.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MON_THOUSANDS_SEP&lt;/td&gt;
-&lt;td&gt;Thousands separator (groups of three digits).&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;MON_GROUPING&lt;/td&gt;
-&lt;td&gt;Like 'grouping' element.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;POSITIVE_SIGN&lt;/td&gt;
-&lt;td&gt;Sign for positive values.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;NEGATIVE_SIGN&lt;/td&gt;
-&lt;td&gt;Sign for negative values.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;INT_FRAC_DIGITS&lt;/td&gt;
-&lt;td&gt;International fractional digits.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;FRAC_DIGITS&lt;/td&gt;
-&lt;td&gt;Local fractional digits.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;P_CS_PRECEDES&lt;/td&gt;
-&lt;td&gt;Returns 1 if CURRENCY_SYMBOL precedes a positive value.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;P_SEP_BY_SPACE&lt;/td&gt;
-&lt;td&gt;Returns 1 if a space separates CURRENCY_SYMBOL from a positive value.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;N_CS_PRECEDES&lt;/td&gt;
-&lt;td&gt;Returns 1 if CURRENCY_SYMBOL precedes a negative value.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;N_SEP_BY_SPACE&lt;/td&gt;
-&lt;td&gt;Returns 1 if a space separates CURRENCY_SYMBOL from a negative value.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;P_SIGN_POSN&lt;/td&gt;
+
+LC_TIME Category Constants
+ABDAY_(1-7)
+Abbreviated name of n-th day of the week.
+DAY_(1-7)
+Name of the n-th day of the week (DAY_1 = Sunday).
+ABMON_(1-12)
+Abbreviated name of the n-th month of the year.
+MON_(1-12)
+Name of the n-th month of the year.
+AM_STR
+String for Ante meridian.
+PM_STR
+String for Post meridian.
+D_T_FMT
+String that can be used as the format string for strftime to represent time and date.
+D_FMT
+String that can be used as the format string for strftime to represent date.
+T_FMT
+String that can be used as the format string for strftime to represent time.
+T_FMT_AMPM
+String that can be used as the format string for strftime to represent time in 12-hour format with ante/post meridian.
+ERA
+Alternate era.
+ERA_YEAR
+Year in alternate era format.
+ERA_D_T_FMT
+Date and time in alternate era format (string can be used in strftime).
+ERA_D_FMT
+Date in alternate era format (string can be used in strftime).
+ERA_T_FMT
+Time in alternate era format (string can be used in strftime).
+
+LC_MONETARY Category Constants
+INT_CURR_SYMBOL
+International currency symbol.
+CURRENCY_SYMBOL
+Local currency symbol.
+CRNCYSTR
+Same value as CURRENCY_SYMBOL.
+MON_DECIMAL_POINT
+Decimal point character.
+MON_THOUSANDS_SEP
+Thousands separator (groups of three digits).
+MON_GROUPING
+Like 'grouping' element.
+POSITIVE_SIGN
+Sign for positive values.
+NEGATIVE_SIGN
+Sign for negative values.
+INT_FRAC_DIGITS
+International fractional digits.
+FRAC_DIGITS
+Local fractional digits.
+P_CS_PRECEDES
+Returns 1 if CURRENCY_SYMBOL precedes a positive value.
+P_SEP_BY_SPACE
+Returns 1 if a space separates CURRENCY_SYMBOL from a positive value.
+N_CS_PRECEDES
+Returns 1 if CURRENCY_SYMBOL precedes a negative value.
+N_SEP_BY_SPACE
+Returns 1 if a space separates CURRENCY_SYMBOL from a negative value.
+P_SIGN_POSN
 Returns 0 if parentheses surround the quantity and currency_symbol.
+
 <b>returns</b>  string the element as a string, or false if item
 is not valid.
 </reference></element>
@@ -24854,48 +24032,27 @@ Set options in an XML parser
 <b> parser resource </b>A reference to the XML parser to set an option in.
 <b> option int </b>Which option to set. See below.
 The following options are available:
-&lt;table&gt;
+
 XML parser options
-&lt;tr valign="top"&gt;
-&lt;td&gt;Option constant&lt;/td&gt;
-&lt;td&gt;Data type&lt;/td&gt;
-&lt;td&gt;Description&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;XML_OPTION_CASE_FOLDING&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt;
-&lt;td&gt;
+XML_OPTION_CASE_FOLDING
+integer
 Controls whether case-folding is enabled for this
 XML parser. Enabled by default.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;XML_OPTION_SKIP_TAGSTART&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt; 
-&lt;td&gt;
+XML_OPTION_SKIP_TAGSTART
+integer 
 Specify how many characters should be skipped in the beginning of a
 tag name.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;XML_OPTION_SKIP_WHITE&lt;/td&gt;
-&lt;td&gt;integer&lt;/td&gt; 
-&lt;td&gt;
+XML_OPTION_SKIP_WHITE
+integer 
 Whether to skip values consisting of whitespace characters.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr valign="top"&gt;
-&lt;td&gt;XML_OPTION_TARGET_ENCODING&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt; 
-&lt;td&gt;
+XML_OPTION_TARGET_ENCODING
+string 
 Sets which target encoding to
 use in this XML parser.By default, it is set to the same as the
 source encoding used by xml_parser_create.
 Supported target encodings are ISO-8859-1,
 US-ASCII and UTF-8.
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+
 <b> value mixed </b>The option's new value.
 <b>returns</b>  bool This function returns false if parser does not
 refer to a valid parser, or if the option could not be set. Else the
