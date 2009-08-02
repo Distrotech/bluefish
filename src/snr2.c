@@ -1720,7 +1720,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 
 	snrwin->scope = gtk_combo_box_new_text();
 	for (i = 0; i < G_N_ELEMENTS(scope); i++) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->scope), scope[i]);
+		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->scope), _(scope[i]));
 	}
 	dialog_mnemonic_label_in_table(_("Sco_pe: "), snrwin->scope, table, 0, 1, numrows-2, numrows-1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->scope, 1, 2, numrows-2, numrows-1,
@@ -1755,7 +1755,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 
 	snrwin->matchPattern = gtk_combo_box_new_text();
 	for (i = 0; i < G_N_ELEMENTS(matchPattern); i++) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->matchPattern), matchPattern[i]);
+		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->matchPattern), _(matchPattern[i]));
 	}
 	dialog_mnemonic_label_in_table(_("Match Patter_n: "), snrwin->matchPattern, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->matchPattern, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL,
@@ -1766,7 +1766,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	if (dialogType == BF_REPLACE_DIALOG) {
 		snrwin->replaceType = gtk_combo_box_new_text();
 		for (i = 0; i < G_N_ELEMENTS(replaceType); i++) {
-			gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->replaceType), replaceType[i]);
+			gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->replaceType), _(replaceType[i]));
 		}
 		dialog_mnemonic_label_in_table(_("Replace T_ype: "), snrwin->replaceType, table, 0, 1, 1,
 									   2);
