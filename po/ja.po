@@ -7,9 +7,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish gtk2-port\n"
+"Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-07-23 18:35-0700\n"
+"POT-Creation-Date: 2009-08-02 12:23-0700\n"
 "PO-Revision-Date: 2009-05-17 16:06+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
@@ -33,6 +33,11 @@ msgstr "Bluefish 言語定義ファイル"
 #: ../desktop-data/bluefish-unstable.xml.in.h:2
 msgid "Bluefish project file"
 msgstr "Bluefish プロジェクトファイル"
+
+#: ../src/bftextview2_spell.c:496
+#, fuzzy
+msgid "Spell check language"
+msgstr "スペルチェック..."
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -255,31 +260,31 @@ msgstr "次のブックマーク"
 msgid "Last bookmark"
 msgstr "最後のブックマーク"
 
-#: ../src/bookmark.c:1526 ../src/bookmark.c:1579
+#: ../src/bookmark.c:1527 ../src/bookmark.c:1580
 msgid "Error adding bookmark"
 msgstr "ブックマーク追加エラー"
 
-#: ../src/bookmark.c:1527 ../src/bookmark.c:1580
+#: ../src/bookmark.c:1528 ../src/bookmark.c:1581
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "まだ保存していないファイルにはブックマークを追加できません."
 
-#: ../src/bookmark.c:1546
+#: ../src/bookmark.c:1547
 msgid "Can't add bookmark"
 msgstr "ブックマークを追加できません"
 
-#: ../src/bookmark.c:1547
+#: ../src/bookmark.c:1548
 msgid "You already have a bookmark here!"
 msgstr "すでにここにブックマークがあります!"
 
-#: ../src/bookmark.c:1616
+#: ../src/bookmark.c:1617
 msgid "Delete all bookmarks."
 msgstr "すべてのブックマークを削除します."
 
-#: ../src/document.c:363
+#: ../src/document.c:364
 msgid "Name: "
 msgstr "名前: "
 
-#: ../src/document.c:367
+#: ../src/document.c:368
 msgid ""
 "\n"
 "File type: "
@@ -287,7 +292,7 @@ msgstr ""
 "\n"
 "ファイルの種類:"
 
-#: ../src/document.c:371
+#: ../src/document.c:372
 msgid ""
 "\n"
 "Encoding: "
@@ -295,7 +300,7 @@ msgstr ""
 "\n"
 "文字コード: "
 
-#: ../src/document.c:378
+#: ../src/document.c:379
 #, c-format
 msgid ""
 "\n"
@@ -306,7 +311,7 @@ msgstr ""
 "権限: %s\n"
 "Uid: %u Gid: %u"
 
-#: ../src/document.c:383
+#: ../src/document.c:384
 msgid ""
 "\n"
 "Size (on disk): "
@@ -314,7 +319,7 @@ msgstr ""
 "\n"
 "(ディスク上での)サイズ: "
 
-#: ../src/document.c:392
+#: ../src/document.c:393
 msgid ""
 "\n"
 "Mime type: "
@@ -322,7 +327,7 @@ msgstr ""
 "\n"
 "MIME タイプ:"
 
-#: ../src/document.c:400
+#: ../src/document.c:401
 msgid ""
 "\n"
 "Last modified: "
@@ -330,92 +335,92 @@ msgstr ""
 "\n"
 "最終更新: "
 
-#: ../src/document.c:431
+#: ../src/document.c:432
 #, c-format
 msgid "Untitled %d"
 msgstr "無題 %d"
 
-#: ../src/document.c:590
+#: ../src/document.c:594
 #, c-format
 msgid "Changed tab width to %d"
 msgstr ""
 
-#: ../src/document.c:753
+#: ../src/document.c:757
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "文書 %s は既に他の Bluefish のウィンドウで開いています。"
 
-#: ../src/document.c:755
+#: ../src/document.c:759
 msgid "Move to this window"
 msgstr "このウィンドウに移す"
 
-#: ../src/document.c:755
+#: ../src/document.c:759
 msgid "Open readonly"
 msgstr "読み込み専用で開く"
 
-#: ../src/document.c:755
+#: ../src/document.c:759
 msgid "Do not open"
 msgstr "開きません"
 
-#: ../src/document.c:1028
+#: ../src/document.c:1032
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " 行: %d, 桁: %d, 文字: %d"
 
-#: ../src/document.c:1030
+#: ../src/document.c:1034
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr "%d 行, %d 列目"
 
-#: ../src/document.c:1051
+#: ../src/document.c:1055
 msgid " OVR"
 msgstr " 上書き"
 
-#: ../src/document.c:1051
+#: ../src/document.c:1055
 msgid " INS"
 msgstr " 挿入"
 
-#: ../src/document.c:1053
+#: ../src/document.c:1057
 msgid " RO"
 msgstr " 読み込み専用"
 
-#: ../src/document.c:1074 ../src/document.c:1080
+#: ../src/document.c:1077 ../src/document.c:1083
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1431
+#: ../src/document.c:1435
 msgid "Cannot display file, unknown characters found."
 msgstr "ファイルを表示できません、不明な文字が見つかりました。"
 
-#: ../src/document.c:1644 ../src/snr2.c:1667
+#: ../src/document.c:1648 ../src/snr2.c:1667
 msgid "Replace"
 msgstr "置換"
 
-#: ../src/document.c:1649 ../src/snr2.c:1664
+#: ../src/document.c:1653 ../src/snr2.c:1664
 msgid "Find"
 msgstr "検索"
 
-#: ../src/document.c:1657
+#: ../src/document.c:1661
 msgid "Delete bookmark"
 msgstr "ブックマークを削除する"
 
-#: ../src/document.c:1661
+#: ../src/document.c:1665
 msgid "Add bookmark"
 msgstr "ブックマークを追加する"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1778 ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
+#: ../src/document.c:1782 ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
 msgid "_Abort save"
 msgstr "保存中止(_A)"
 
-#: ../src/document.c:1778
+#: ../src/document.c:1782
 msgid "_Continue save in UTF-8"
 msgstr "UTF-8 で保存を続ける(_C)"
 
-#: ../src/document.c:1789
+#: ../src/document.c:1793
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -428,20 +433,20 @@ msgstr ""
 "\n"
 "文字コード UTF-8 で保存を続けますか?"
 
-#: ../src/document.c:1793
+#: ../src/document.c:1797
 msgid "File encoding conversion failure"
 msgstr "ファイルの文字コード変換に失敗しました"
 
-#: ../src/document.c:2035
+#: ../src/document.c:2043
 msgid "Previously: "
 msgstr "元: "
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2530
+#: ../src/document.c:2539
 msgid "Unable to open file"
 msgstr "ファイルをオープンできません"
 
-#: ../src/document.c:2540
+#: ../src/document.c:2549
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -450,41 +455,41 @@ msgstr ""
 "ファイル \"%s\"について 一つ前の保存から行われた変更を破棄すると、その変更は"
 "失われます。"
 
-#: ../src/document.c:2544
+#: ../src/document.c:2553
 msgid "Revert changes to last saved copy?"
 msgstr "一つ前の保存から行われた変更を破棄しますか？"
 
-#: ../src/document.c:2577
+#: ../src/document.c:2586
 msgid "_Unset file name"
 msgstr "ファイル名の設定を外す(_U)"
 
-#: ../src/document.c:2577
+#: ../src/document.c:2586
 msgid "_Save"
 msgstr "保存(_S)"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:2579
+#: ../src/document.c:2588
 #, c-format
 msgid "File name: %s"
 msgstr "ファイル名: %s"
 
-#: ../src/document.c:2583
+#: ../src/document.c:2592
 msgid "File disappeared from disk\n"
 msgstr "ディスクからファイルがなくなりました\n"
 
-#: ../src/document.c:2600
+#: ../src/document.c:2609
 msgid "_Ignore"
 msgstr "無視(_I)"
 
-#: ../src/document.c:2600
+#: ../src/document.c:2609
 msgid "_Reload"
 msgstr "再読込み(_R)"
 
-#: ../src/document.c:2600
+#: ../src/document.c:2609
 msgid "Check and reload all documents"
 msgstr "すべての文書を確認し開き直す"
 
-#: ../src/document.c:2608
+#: ../src/document.c:2617
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -497,47 +502,47 @@ msgstr ""
 "新しい最終更新日時: %s\n"
 "  古い最終更新日時: %s"
 
-#: ../src/document.c:2612
+#: ../src/document.c:2621
 msgid "File has been modified by another process\n"
 msgstr "ファイルは他のプロセスによって変更されています\n"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 msgid "_Retry"
 msgstr "再試行(_R)"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 msgid "Retry _all failed"
 msgstr "失敗したすべての文書をもう一度開く(_A)"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 msgid "_Close"
 msgstr "閉じる(_C)"
 
-#: ../src/document.c:2673
+#: ../src/document.c:2684
 msgid "Close all _failed"
 msgstr "失敗したすべての文書を閉じる(_F)"
 
-#: ../src/document.c:2677
+#: ../src/document.c:2688
 msgid "File "
 msgstr "ファイル"
 
-#: ../src/document.c:2677
+#: ../src/document.c:2688
 msgid " failed to load."
 msgstr " 読み込みに失敗"
 
-#: ../src/document.c:2681
+#: ../src/document.c:2692
 msgid "File failed to load\n"
 msgstr "ファイルの読み込みに失敗しました\n"
 
-#: ../src/document.c:2800
+#: ../src/document.c:2812
 msgid "Select file to insert"
 msgstr "挿入するファイルの選択"
 
-#: ../src/document.c:2808
+#: ../src/document.c:2820
 msgid "No file to insert"
 msgstr "挿入するファイルがありません"
 
-#: ../src/document.c:2945
+#: ../src/document.c:2958
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "ファイル統計: %d 行, %d 語, %d 文字"
@@ -704,38 +709,38 @@ msgstr "フィルタを削除"
 msgid "New filter"
 msgstr "新規フィルタ"
 
-#: ../src/file.c:714
+#: ../src/file.c:702
 #, c-format
 msgid "Still loading %d files, finished %s"
 msgstr "まだ %d 個のファイルを読み込んでいます, 完了 %s"
 
-#: ../src/file.c:716
+#: ../src/file.c:704
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "すべてのファイルを読み込みました, %s"
 
-#: ../src/file.c:909
+#: ../src/file.c:889
 #, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
 msgstr[0] "%d のドキュメントを開いています"
 msgstr[1] "%d のドキュメントを開いています"
 
-#: ../src/file.c:1185
+#: ../src/file.c:1142
 msgid "_Skip"
 msgstr "スキップ(_S)"
 
-#: ../src/file.c:1185 ../src/file_dialogs.c:582 ../src/file_dialogs.c:603
+#: ../src/file.c:1142 ../src/file_dialogs.c:582 ../src/file_dialogs.c:603
 #: ../src/project.c:252
 msgid "_Overwrite"
 msgstr "上書き(_O)"
 
-#: ../src/file.c:1189
+#: ../src/file.c:1146
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "ファイル %s はコピーできません, 既に存在します, 上書きしますか?"
 
-#: ../src/file.c:1193
+#: ../src/file.c:1150
 msgid "Overwrite file?"
 msgstr "ファイルを上書きしますか?"
 
@@ -1055,109 +1060,109 @@ msgstr ""
 msgid "Remember _forever"
 msgstr ""
 
-#: ../src/gui.c:266
+#: ../src/gui.c:268
 msgid "Filebrowser"
 msgstr "ファイルブラウザ"
 
-#: ../src/gui.c:267
+#: ../src/gui.c:269
 msgid "Bookmarks"
 msgstr "ブックマーク"
 
-#: ../src/gui.c:406
+#: ../src/gui.c:408
 msgid "New"
 msgstr "新規"
 
-#: ../src/gui.c:408
+#: ../src/gui.c:410
 msgid "Open..."
 msgstr "開く.."
 
-#: ../src/gui.c:410
+#: ../src/gui.c:412
 msgid "Save"
 msgstr "保存"
 
-#: ../src/gui.c:412
+#: ../src/gui.c:414
 msgid "Save As..."
 msgstr "別名で保存..."
 
-#: ../src/gui.c:414
+#: ../src/gui.c:416
 msgid "Close"
 msgstr "閉じる"
 
-#: ../src/gui.c:417
+#: ../src/gui.c:419
 msgid "Cut"
 msgstr "切り取り"
 
-#: ../src/gui.c:419
+#: ../src/gui.c:421
 msgid "Copy"
 msgstr "コピー"
 
-#: ../src/gui.c:421
+#: ../src/gui.c:423
 msgid "Paste"
 msgstr "貼り付け"
 
-#: ../src/gui.c:424
+#: ../src/gui.c:426
 msgid "Find..."
 msgstr "検索..."
 
-#: ../src/gui.c:426
+#: ../src/gui.c:428
 msgid "Replace..."
 msgstr "置換..."
 
-#: ../src/gui.c:429
+#: ../src/gui.c:431
 msgid "Undo"
 msgstr "元に戻す"
 
-#: ../src/gui.c:431
+#: ../src/gui.c:433
 msgid "Redo"
 msgstr "やり直す"
 
-#: ../src/gui.c:434
+#: ../src/gui.c:436
 msgid "Unindent"
 msgstr "字上げ"
 
-#: ../src/gui.c:436
+#: ../src/gui.c:438
 msgid "Indent"
 msgstr "字下げ"
 
-#: ../src/gui.c:444
+#: ../src/gui.c:446
 #, fuzzy
 msgid "Spellcheck"
 msgstr "スペルチェック..."
 
-#: ../src/gui.c:449
+#: ../src/gui.c:451
 msgid "View in browser"
 msgstr "ブラウザで表示"
 
-#: ../src/gui.c:452
+#: ../src/gui.c:454
 msgid "Preferences..."
 msgstr "設定..."
 
-#: ../src/gui.c:455
+#: ../src/gui.c:457
 msgid "Toggle Full Screen"
 msgstr ""
 
-#: ../src/gui.c:457
+#: ../src/gui.c:459
 msgid "Toggle Normal Screen"
 msgstr ""
 
-#: ../src/gui.c:882
+#: ../src/gui.c:895
 msgid "Goto Line:"
 msgstr "行ジャンプ:"
 
-#: ../src/gui.c:897
+#: ../src/gui.c:910
 msgid "New Bluefish Window"
 msgstr "新規 Bluefish ウィンドウ"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/gui.c:956
+#: ../src/gui.c:969
 msgid "Stand by..."
 msgstr "Stand by..."
 
-#: ../src/gui.c:1129
+#: ../src/gui.c:1142
 msgid "starting bluefish"
 msgstr "bluefishを起動中"
 
-#: ../src/gui.c:1165
+#: ../src/gui.c:1178
 msgid "/View/Fullscreen"
 msgstr "/表示/フルスクリーン表示"
 
@@ -1378,7 +1383,7 @@ msgstr "/文書/ウィンドウのフロート化(_F)"
 
 #: ../src/menu.c:280
 #, fuzzy
-msgid "/_Document/Tab Size"
+msgid "/Document/_Tab Size"
 msgstr "/文書/タブサイズを増やす(_I)"
 
 #: ../src/menu.c:282
@@ -1398,7 +1403,7 @@ msgstr "/文書/タブサイズを増やす(_I)"
 
 #: ../src/menu.c:286
 #, fuzzy
-msgid "/_Document/Font Size"
+msgid "/Document/_Font Size"
 msgstr "/文書/形式"
 
 #: ../src/menu.c:288
@@ -1439,12 +1444,13 @@ msgid "/Document/Character _Encoding"
 msgstr "/文書/文字コード(_E)"
 
 #: ../src/menu.c:307
-msgid "/Document/Add _Bookmark"
+#, fuzzy
+msgid "/Document/Add Boo_kmark"
 msgstr "編集/ブックマークを追加する(_B)"
 
 #: ../src/menu.c:308
 #, fuzzy
-msgid "/Document/_Floating Window"
+msgid "/Document/Floati_ng Window"
 msgstr "/文書/ウィンドウのフロート化(_F)"
 
 #: ../src/menu.c:310
@@ -1606,26 +1612,26 @@ msgstr "/編集/特殊な置換/インデントをスペースに変換"
 msgid "/Tools/Split Into Col_umns"
 msgstr ""
 
-#: ../src/menu.c:516
+#: ../src/menu.c:514
 #, fuzzy
 msgid "/Document/Language Mode"
 msgstr "/文書/色分け"
 
-#: ../src/menu.c:651
+#: ../src/menu.c:649
 #, fuzzy
 msgid "/Project/Open Recent"
 msgstr "/プロジェクト/最近開いたプロジェクト"
 
-#: ../src/menu.c:655
+#: ../src/menu.c:653
 #, fuzzy
 msgid "/File/Open Recent"
 msgstr "/ファイル/最近開いたファイル"
 
-#: ../src/menu.c:838
+#: ../src/menu.c:836
 msgid "No default browser found"
 msgstr "既定のブラウザが見つかりません"
 
-#: ../src/menu.c:839
+#: ../src/menu.c:837
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
@@ -1633,28 +1639,28 @@ msgstr ""
 "編集→環境設定→起動プログラムの設定 \n"
 "から既定のブラウザを設定できます"
 
-#: ../src/menu.c:874
+#: ../src/menu.c:872
 msgid "Operate filter only on selection?"
 msgstr "選択範囲のみにフィルタを適用しますか?"
 
-#: ../src/menu.c:934
+#: ../src/menu.c:932
 msgid "/Tools/Filters"
 msgstr "/起動/フィルタ"
 
-#: ../src/menu.c:955
+#: ../src/menu.c:953
 #, fuzzy
 msgid "/Tools"
 msgstr "/起動(_X)"
 
-#: ../src/menu.c:958
+#: ../src/menu.c:956
 msgid "/Tools/Commands"
 msgstr "/起動/コマンド"
 
-#: ../src/menu.c:986
+#: ../src/menu.c:984
 msgid "/Tools/Outputbox"
 msgstr "/起動/Outputbox"
 
-#: ../src/menu.c:1032
+#: ../src/menu.c:1029
 msgid "/Document/Character Encoding"
 msgstr "/文書/文字コード"
 
