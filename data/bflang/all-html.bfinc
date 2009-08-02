@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
 		all-html.bfinc $Revision: 4947 $
@@ -38,7 +39,7 @@
 	<reference>Defines the title of a document</reference>
 </tag>
 
-<tag id="script" name="script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,event,language,for,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;&#10;&#10;&lt;/script&gt;" attribhighlight="html-attribute" autocomplete_backup_cursor="10">
+<tag id="script" name="script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,event,language,for,src,type" attribhighlight="html-attribute" autocomplete_append=" type=&quot;text/javascript&quot; &gt;&#10;&#10;&lt;/script&gt;" autocomplete_backup_cursor="10">
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
 	&all-javascript;
 		<element id="js:linecomment" pattern="//" highlight="js-comment">
