@@ -25,12 +25,11 @@
 <element pattern="}" highlight="js-brackets" ends_block="1" blockstartelement="js{" />
 <element pattern="[" id="js[" starts_block="1" highlight="js-brackets" />
 <element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="js[" />
+<!-- JavaScript Keywords -->
 <group highlight="js-keyword" autocomplete="1">
 	<element pattern="break" />
 	<element pattern="case" />
 	<element pattern="catch" />
-	<element pattern="const" />
-	<element pattern="constructor" />
 	<element pattern="continue" />
 	<element pattern="default" />
 	<element pattern="delete" />
@@ -43,7 +42,6 @@
 	<element pattern="in" />
 	<element pattern="instanceof" />
 	<element pattern="new" />
-	<element pattern="prototype" />
 	<element pattern="return" />
 	<element pattern="switch" />
 	<element pattern="this" />
@@ -54,9 +52,39 @@
 	<element pattern="while" />
 	<element pattern="with" />
 </group>
-<group highlight="js-function" autocomplete="1">
-	<element pattern="getElementsByTagName" />
-	<element pattern="getElementByTagName" />
+<!-- ECMA-262 reserved words -->
+<group highlight="js-keyword" autocomplete="1">
+	<element pattern="abstract" />
+	<element pattern="boolean" />
+	<element pattern="byte" />
+	<element pattern="char" />
+	<element pattern="class" />
+	<element pattern="const" />
+	<element pattern="debugger" />
+	<element pattern="double" />
+	<element pattern="enum" />
+	<element pattern="export" />
+	<element pattern="extends" />
+	<element pattern="final" />
+	<element pattern="float" />
+	<element pattern="goto" />
+	<element pattern="implements" />
+	<element pattern="import" />
+	<element pattern="int" />
+	<element pattern="interface" />
+	<element pattern="long" />
+	<element pattern="native" />
+	<element pattern="package" />
+	<element pattern="private" />
+	<element pattern="protected" />
+	<element pattern="public" />
+	<element pattern="short" />
+	<element pattern="static" />
+	<element pattern="super" />
+	<element pattern="synchronized" />
+	<element pattern="throws" />
+	<element pattern="transient" />
+	<element pattern="volatile" />
 </group>
 <group highlight="js-function" autocomplete="1">
 	<element pattern="abs"/>
@@ -83,6 +111,8 @@
 	<element pattern="fromCharCode"/>
 	<element pattern="getDate"/>
 	<element pattern="getDay"/>
+	<element pattern="getElementByTagName" />
+	<element pattern="getElementsByTagName" />
 	<element pattern="getFullYear"/>
 	<element pattern="getHours"/>
 	<element pattern="getMilliseconds"/>
@@ -170,6 +200,7 @@
 	<element pattern="UTC"/>
 	<element pattern="valueOf"/>
 </group>
+<!-- JavaScript Objects -->
 <group highlight="js-type" autocomplete="1">
 	<element pattern="Array"/>
 	<element pattern="Boolean"/>
@@ -186,6 +217,13 @@
 	<element pattern="TypeError"/>
 	<element pattern="URIError"/>
 </group>
+<!-- These objects appear to be case insensitive -->
+<group highlight="js-variable" autocomplete="1">
+	<element pattern="document"/>
+	<element pattern="global"/>
+	<element pattern="window"/>
+</group>
+
 <group highlight="js-value" autocomplete="1">
 	<element pattern="true" />
 	<element pattern="false" />
