@@ -456,7 +456,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/Dialogs/_Edit tag under cursor..."), "F3", menu_html_dialogs_lcb, 39, "<ImageItem>", pixmap_edit_tag}
 	};
 	static GtkItemFactoryEntry menu_items1[] = {
-		{N_("/View/View _HTML Toolbar"), NULL, htmlbar_view_lcb, 0, "<ToggleItem>"}
+		{N_("/View/_HTML Toolbar"), NULL, htmlbar_view_lcb, 0, "<ToggleItem>"}
 	};
 	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 #ifdef ENABLE_NLS
@@ -467,7 +467,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 
 	hbs = g_hash_table_lookup(htmlbar_v.lookup,bfwin->session);
 	if (hbs) {
-		setup_toggle_item(ifactory, "/View/View HTML Toolbar", hbs->view_htmlbar);
+		setup_toggle_item(ifactory, "/View/HTML Toolbar", hbs->view_htmlbar);
 	} else {
 		DEBUG_MSG("htmlbar_build_menu, ERROR, no htmlbarsession in hasht %p for session %p!!?!?!?!?\n",htmlbar_v.lookup,bfwin->session);
 	}
