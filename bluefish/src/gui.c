@@ -1175,12 +1175,12 @@ void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync
 }
 
 void tb_fullscreen_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	if (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item(gtk_item_factory_from_widget(bfwin->menubar), N_("/View/Fullscreen")))->active) {
+	if (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item(gtk_item_factory_from_widget(bfwin->menubar), "/View/Full Screen"))->active) {
 		DEBUG_MSG("tb_fullscreen_cb, toggle from full to normal screen\n");
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item(gtk_item_factory_from_widget(bfwin->menubar), "/View/Fullscreen")), FALSE);
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item(gtk_item_factory_from_widget(bfwin->menubar), "/View/Full Screen")), FALSE);
 	} else {
 		DEBUG_MSG("tb_fullscreen_cb, toggle from normal to full screen\n");
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item(gtk_item_factory_from_widget(bfwin->menubar), "/View/Fullscreen")), TRUE);
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item(gtk_item_factory_from_widget(bfwin->menubar), "/View/Full Screen")), TRUE);
 	}
 }
 
