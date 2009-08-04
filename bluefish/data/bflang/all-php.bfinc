@@ -25046,10 +25046,11 @@ or false.
 		<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="php-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
-<element id="php-variable" pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="php-variable"/>
+<element id="php-variable" pattern="$[a-z_][a-z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable"/>
 <element pattern="&#34;" highlight="string">
-	<context symbols="\&#34;$ &#9;&#10;&#13;'" highlight="string">
+	<context symbols="\&#34;$ &#9;&#10;&#13;' &lt;&gt;{}[]" highlight="string">
 		<element pattern="\&#34;" highlight="string" />
+		<element pattern="\$" highlight="string" />
 		<element idref="php-variable" />
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
