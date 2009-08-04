@@ -22,7 +22,9 @@ snippets_la_SOURCES = \
 	snippets_load.c \
 	snippets_load.h \
 	snippets_wizard.c \
-	snippets_wizard.h
+	snippets_wizard.h \
+	snippetsmenu.c \
+	snippetsmenu.h
 
 snippets_la_LDFLAGS = -module -avoid-version
 
