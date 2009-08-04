@@ -124,7 +124,7 @@
 	<element pattern=":link"/>
 	<element pattern=":visited"/>
 </group>
-<group highlight="css-classid">
+<group highlight="css-html-classid">
 	<element pattern="\.[a-z0-9._]+" is_regex="1" case_insens="1" />
 	<element pattern="#[a-z0-9._]+" is_regex="1" case_insens="1" />
 </group>
