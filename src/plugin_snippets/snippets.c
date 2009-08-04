@@ -28,6 +28,7 @@
 #include "../bf_lib.h"
 #include "snippets_gui.h"
 #include "snippets_load.h"
+#include "snippetsmenu.h"
 Tsnippets snippets_v;
 
 static void snippets_init(void) {
@@ -46,8 +47,16 @@ static void snippets_init(void) {
 	
 	DEBUG_MSG("snippets_init finished, store=%p, lookup=%p\n",snippets_v.store, snippets_v.lookup);
 }
-static void snippets_initgui(Tbfwin* bfwin) {
 
+static void snippetsmenu_cb(gpointer user_data, gpointer data) {
+	
+}
+
+static void snippets_initgui(Tbfwin* bfwin) {
+	SnippetsMenu *sm = snippets_menu_new();
+	snippets_menu_set_model((SnippetsMenu *)sm, (GtkTreeModel *)snippets_v.store, snippetsmenu_cb, bfwin, TITLE_COLUMN, NODE_COLUMN);
+	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), (GtkWidget *)sm, FALSE, FALSE, 0);
+	gtk_widget_show_all((GtkWidget *)sm);
 }
 static void snippets_enforce_session(Tbfwin* bfwin) {
 	/*Tsnippetssession *hbs;*/

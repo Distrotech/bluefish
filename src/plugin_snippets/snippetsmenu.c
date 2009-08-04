@@ -54,15 +54,17 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 	} else {
 		GtkMenuShell *mshell;
 		item = menuitem_from_path(sm, parent);
-		mshell = (GtkMenuShell *)gtk_menu_item_get_submenu(item);
-		g_print("row inserted, item=%p, mshell=%p\n",item, mshell);
-		if (!mshell) {
-			mshell = (GtkMenuShell *)gtk_menu_new();
-			g_print("append mshell %p to item %p\n",mshell, item);
-			gtk_menu_item_set_submenu(item, (GtkWidget *)mshell);
-		}
-		g_print("row inserted, insert in mshell=%p at position %d\n",mshell, TREEPATH(path)->indices[TREEPATH(path)->depth-1]);
-		gtk_menu_shell_insert((GtkMenuShell *)mshell, gtk_menu_item_new(), TREEPATH(path)->indices[TREEPATH(path)->depth-1]);		
+		if (item) {
+			mshell = (GtkMenuShell *)gtk_menu_item_get_submenu(item);
+			g_print("row inserted, item=%p, mshell=%p\n",item, mshell);
+			if (!mshell) {
+				mshell = (GtkMenuShell *)gtk_menu_new();
+				g_print("append mshell %p to item %p\n",mshell, item);
+				gtk_menu_item_set_submenu(item, (GtkWidget *)mshell);
+			}
+			g_print("row inserted, insert in mshell=%p at position %d\n",mshell, TREEPATH(path)->indices[TREEPATH(path)->depth-1]);
+			gtk_menu_shell_insert((GtkMenuShell *)mshell, gtk_menu_item_new(), TREEPATH(path)->indices[TREEPATH(path)->depth-1]);
+		}		
 	}
 	gtk_tree_path_free(parent);
 	
@@ -150,8 +152,14 @@ static void snippets_menu_row_changed(GtkTreeModel * tree_model,
 	}
 }
 
+gboolean snippets_menu_set_model_foreach(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data) {
+	snippets_menu_row_inserted(model,path,iter, data);
+	snippets_menu_row_changed(model,path, iter, data);
+	return FALSE;
+}
 void snippets_menu_set_model(SnippetsMenu * sm, GtkTreeModel * model, SnippetMenuCallback callback, gpointer user_data, gint name_column, gint data_column)
 {
+	g_print("snippets_menu_set_model\n");
 	sm->name_column = name_column;
 	sm->data_column = data_column;
 	sm->callback = callback;
@@ -161,6 +169,8 @@ void snippets_menu_set_model(SnippetsMenu * sm, GtkTreeModel * model, SnippetMen
 	/*g_signal_connect(model, "row-has-child-toggled", G_CALLBACK(snippets_menu_row_has_child_toggled), sm);
 	g_signal_connect(model, "rows-reordered", G_CALLBACK(snippets_menu_rows_reordered), sm);*/
 	g_signal_connect(model, "row-inserted", G_CALLBACK(snippets_menu_row_inserted), sm);
+	
+	gtk_tree_model_foreach(model, snippets_menu_set_model_foreach, sm);
 }
 
 

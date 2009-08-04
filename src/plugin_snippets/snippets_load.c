@@ -282,7 +282,7 @@ static gpointer snippets_load_async(gpointer data) {
 	DEBUG_MSG("snippets_load, filename=%s\n",filename);
 	doc = xmlParseFile(filename);
 	g_free(filename);
-	g_idle_add(snippets_load_finished_lcb, doc);	
+	g_idle_add_full(G_PRIORITY_LOW, snippets_load_finished_lcb, doc, NULL);	
 	return NULL;
 }
 
@@ -365,7 +365,7 @@ static gpointer snippets_import_async(gpointer data) {
 	Tsnippets_import *si = (Tsnippets_import *)data;
 	
 	si->doc = xmlParseFile(si->filename);
-	g_idle_add(snippets_import_load_finished_lcb, si);	
+	g_idle_add_full(G_PRIORITY_LOW, snippets_import_load_finished_lcb, si, NULL);	
 	return NULL;
 }
 
