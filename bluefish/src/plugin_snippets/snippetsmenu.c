@@ -134,8 +134,6 @@ static void snippets_menu_row_changed(GtkTreeModel * tree_model,
 		if (!GTK_BIN(mitem)->child) {
 			gtk_container_add(GTK_CONTAINER(mitem), gtk_label_new(name));
 			gtk_widget_show_all((GtkWidget *)mitem);
-			
-			
 		} else {
 			g_signal_handlers_disconnect_matched(mitem, G_SIGNAL_MATCH_FUNC, 0, 0, NULL, menuitem_activate, NULL);
 			gtk_label_set_text(GTK_LABEL(GTK_BIN(mitem)->child),name);

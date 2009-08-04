@@ -28,7 +28,6 @@
 #include "../bf_lib.h"
 #include "snippets_gui.h"
 #include "snippets_load.h"
-#include "snippetsmenu.h"
 Tsnippets snippets_v;
 
 static void snippets_init(void) {
@@ -48,31 +47,27 @@ static void snippets_init(void) {
 	DEBUG_MSG("snippets_init finished, store=%p, lookup=%p\n",snippets_v.store, snippets_v.lookup);
 }
 
-static void snippetsmenu_cb(gpointer user_data, gpointer data) {
-	xmlNodePtr cur=data;
-	Tsnippetswin *snw=user_data;
-	if (xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
-		snippet_activate_leaf(snw, cur);
+Tsnippetssession *snippets_get_session(Tsessionvars *session) {
+	Tsnippetssession *sns = g_hash_table_lookup(snippets_v.lookup,session);
+	if (!sns) {
+		sns = g_new0(Tsnippetssession,1);
+		sns->show_as_menu = TRUE;
+		g_hash_table_insert(snippets_v.lookup,session,sns);
 	}
+	return sns;
 }
 
 static void snippets_initgui(Tbfwin* bfwin) {
-	Tsnippetswin *snw;
-	SnippetsMenu *sm = snippets_menu_new();
-	snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
-	snippets_menu_set_model((SnippetsMenu *)sm, (GtkTreeModel *)snippets_v.store, snippetsmenu_cb, snw, TITLE_COLUMN, NODE_COLUMN);
-	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), (GtkWidget *)sm, FALSE, FALSE, 0);
-	gtk_widget_show_all((GtkWidget *)sm);
+	snippets_create_menu(bfwin);
 }
 static void snippets_enforce_session(Tbfwin* bfwin) {
-	/*Tsnippetssession *hbs;*/
-	/*Tsnippetswin *hbw;*/
-	DEBUG_MSG("snippets_enforce_session, started for session %p\n",bfwin->session);
-/*	hbs = g_hash_table_lookup(snippets_v.lookup,bfwin->session);
-	hbw = g_hash_table_lookup(snippets_v.lookup,bfwin);
-	if (hbs && hbw) {
-		snippets_view_toolbar(hbw, hbs->view_snippets);
-	}*/
+	Tsnippetssession *sns;
+	Tsnippetswin *snw;
+	sns = g_hash_table_lookup(snippets_v.lookup,bfwin->session);
+	snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
+	if (sns && snw) {
+		snippets_show_as_menu(snw, sns->show_as_menu);
+	}
 }
 static void snippets_cleanup(void) {
 	/*GList *tmplist = g_list_first(gtk_window_list_toplevels());
@@ -98,16 +93,9 @@ static GHashTable *snippets_register_globses_config(GHashTable *configlist) {
 	return configlist;
 }
 static GHashTable *snippets_register_session_config(GHashTable *configlist, Tsessionvars *session) {
-/*	Tsnippetssession *hbs;
-	DEBUG_MSG("snippets_register_session_config, started for %p\n",session);
-	hbs = g_hash_table_lookup(snippets_v.lookup,session);
-	if (!hbs) {
-		hbs = g_new0(Tsnippetssession,1);
-		hbs->view_snippets = TRUE;
-		g_hash_table_insert(snippets_v.lookup,session,hbs);
-		DEBUG_MSG("snippets_register_session_config, adding hbs %p to hashtable %p with key %p\n",hbs,snippets_v.lookup,session);
-	}
-	configlist = make_config_list_item(configlist, &hbs->view_snippets, 'i', "snippets_view:", 0);*/
+	Tsnippetssession *sns;
+	sns = snippets_get_session(session);
+	configlist = make_config_list_item(configlist, &sns->show_as_menu, 'i', "snippets_show_as_menu:", 1);
 	return configlist;
 }
 

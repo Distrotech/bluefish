@@ -19,8 +19,8 @@
  */
 #ifndef SNIPPET_GUI_H
 #define SNIPPET_GUI_H
-void snippet_activate_leaf(Tsnippetswin *snw, xmlNodePtr cur);
+
 void snippets_sidepanel_initgui(Tbfwin *bfwin);
 void snippets_sidepanel_destroygui(Tbfwin *bfwin);
-
+void snippets_create_menu(Tbfwin *bfwin);
 #endif /* SNIPPET_GUI_H */
