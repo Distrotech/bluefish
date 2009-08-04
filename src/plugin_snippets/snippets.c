@@ -49,12 +49,18 @@ static void snippets_init(void) {
 }
 
 static void snippetsmenu_cb(gpointer user_data, gpointer data) {
-	
+	xmlNodePtr cur=data;
+	Tsnippetswin *snw=user_data;
+	if (xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
+		snippet_activate_leaf(snw, cur);
+	}
 }
 
 static void snippets_initgui(Tbfwin* bfwin) {
+	Tsnippetswin *snw;
 	SnippetsMenu *sm = snippets_menu_new();
-	snippets_menu_set_model((SnippetsMenu *)sm, (GtkTreeModel *)snippets_v.store, snippetsmenu_cb, bfwin, TITLE_COLUMN, NODE_COLUMN);
+	snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
+	snippets_menu_set_model((SnippetsMenu *)sm, (GtkTreeModel *)snippets_v.store, snippetsmenu_cb, snw, TITLE_COLUMN, NODE_COLUMN);
 	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), (GtkWidget *)sm, FALSE, FALSE, 0);
 	gtk_widget_show_all((GtkWidget *)sm);
 }
