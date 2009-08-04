@@ -100,8 +100,18 @@ static void snippets_menu_row_deleted(GtkTreeModel * tree_model, GtkTreePath * p
 	}
 }
 
+typedef struct {
+	SnippetsMenu *sm;
+	gpointer pointer;
+} Tsmdata;
+
 static void menuitem_activate(GtkMenuItem *mitem, gpointer user_data) {
-	g_print("activated for data %p\n",user_data);
+	Tsmdata *smdata=user_data;
+	smdata->sm->callback(smdata->sm->user_data, smdata->pointer);
+}
+
+static void smdata_free(gpointer smdata) {
+	g_slice_free(Tsmdata, smdata);
 }
 
 static void snippets_menu_row_changed(GtkTreeModel * tree_model,
@@ -114,32 +124,42 @@ static void snippets_menu_row_changed(GtkTreeModel * tree_model,
 	if (mitem) {
 		gchar *name=NULL;
 		gpointer pointer;
+		Tsmdata *smdata;
 		gtk_tree_model_get(tree_model, iter, sm->name_column, &name, sm->data_column, &pointer, -1);
 		g_print("row changed got name %s pointer %p\n",name, pointer);
 		if (!GTK_BIN(mitem)->child) {
 			gtk_container_add(GTK_CONTAINER(mitem), gtk_label_new(name));
 			gtk_widget_show_all((GtkWidget *)mitem);
+			
+			
 		} else {
 			g_signal_handlers_disconnect_matched(mitem, G_SIGNAL_MATCH_FUNC, 0, 0, NULL, menuitem_activate, NULL);
 			gtk_label_set_text(GTK_LABEL(GTK_BIN(mitem)->child),name);
 		}
-		g_signal_connect(mitem, "activate", G_CALLBACK(menuitem_activate), pointer);
+		smdata = g_object_get_data(G_OBJECT(mitem),"smdata");
+		if (!smdata) {
+			smdata = g_slice_new(Tsmdata);
+			smdata->sm = sm;
+			g_object_weak_ref(G_OBJECT(mitem),(GWeakNotify) smdata_free,smdata);
+			g_object_set_data(G_OBJECT(mitem),"smdata",smdata);
+		}
+		smdata->pointer = pointer;
+		g_signal_connect(mitem, "activate", G_CALLBACK(menuitem_activate), smdata);
 	} else {
 		g_print("row changed, no mitem for path %s\n",gtk_tree_path_to_string(path));	
 	}
-	
-/*	gtk_menu_shell_append((GtkMenuShell *) sm, gtk_menu_item_new_with_label("changed"));
-	gtk_widget_show_all(sm);*/
 }
 
-void snippets_menu_set_model(SnippetsMenu * sm, GtkTreeModel * model, gint name_column, gint data_column)
+void snippets_menu_set_model(SnippetsMenu * sm, GtkTreeModel * model, SnippetMenuCallback callback, gpointer user_data, gint name_column, gint data_column)
 {
 	sm->name_column = name_column;
 	sm->data_column = data_column;
+	sm->callback = callback;
+	sm->user_data = user_data;
 	g_signal_connect(model, "row-changed", G_CALLBACK(snippets_menu_row_changed), sm);
 	g_signal_connect(model, "row-deleted", G_CALLBACK(snippets_menu_row_deleted), sm);
-	g_signal_connect(model, "row-has-child-toggled", G_CALLBACK(snippets_menu_row_has_child_toggled), sm);
-	g_signal_connect(model, "rows-reordered", G_CALLBACK(snippets_menu_rows_reordered), sm);
+	/*g_signal_connect(model, "row-has-child-toggled", G_CALLBACK(snippets_menu_row_has_child_toggled), sm);
+	g_signal_connect(model, "rows-reordered", G_CALLBACK(snippets_menu_rows_reordered), sm);*/
 	g_signal_connect(model, "row-inserted", G_CALLBACK(snippets_menu_row_inserted), sm);
 }
 

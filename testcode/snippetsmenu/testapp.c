@@ -57,6 +57,10 @@ void on_insert_clicked(GtkWidget * button, gpointer data)
 	g_free(name);
 }
 
+static void testapp_cb(gpointer user_data, gpointer data) {
+	g_print("testapp_cb, user_data=%p, data=%p\n",user_data, data);
+}
+
 int main(int argc, char *argv[])
 {
 	GtkWidget *window;
@@ -83,7 +87,7 @@ int main(int argc, char *argv[])
 	snippetsmenu = snippets_menu_new();
 	gtk_box_pack_start(GTK_BOX(vbox), snippetsmenu, 0, 0, 0);
 	treestore = gtk_tree_store_new(NUM_COLUMNS, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_POINTER);
-	snippets_menu_set_model((SnippetsMenu *)snippetsmenu, (GtkTreeModel *)treestore, TITLE_COLUMN, NODE_COLUMN);
+	snippets_menu_set_model((SnippetsMenu *)snippetsmenu, (GtkTreeModel *)treestore, testapp_cb, NULL, TITLE_COLUMN, NODE_COLUMN);
 	
 	
 	treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(treestore));
@@ -99,9 +103,10 @@ int main(int argc, char *argv[])
 	gtk_tree_view_column_pack_start(column, renderer, TRUE);
 	gtk_tree_view_column_set_attributes(column,renderer,"text", TITLE_COLUMN,NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
-	gtk_tree_view_enable_model_drag_source(GTK_TREE_VIEW(treeview), GDK_BUTTON1_MASK, dndtargets,1, GDK_ACTION_MOVE);
+	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(treeview), 1);
+	/*gtk_tree_view_enable_model_drag_source(GTK_TREE_VIEW(treeview), GDK_BUTTON1_MASK, dndtargets,1, GDK_ACTION_MOVE);
 	gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(treeview), dndtargets, 1, GDK_ACTION_MOVE);
-	/*g_signal_connect(G_OBJECT(treeview), "drag-data-received",G_CALLBACK(snippetview_drag_data_received_lcb), snw);
+	g_signal_connect(G_OBJECT(treeview), "drag-data-received",G_CALLBACK(snippetview_drag_data_received_lcb), snw);
 	g_signal_connect(G_OBJECT(treeview), "drag-data-get",G_CALLBACK(snippetview_drag_data_get_lcb), snw);*/
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);

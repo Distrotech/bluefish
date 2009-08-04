@@ -14,10 +14,14 @@
 typedef struct _SnippetsMenu SnippetsMenu;
 typedef struct _SnippetsMenuClass SnippetsMenuClass;
 
+typedef void (* SnippetMenuCallback) (gpointer user_data, gpointer data);
+
 struct _SnippetsMenu {
 	GtkMenuBar parent;
 	gint data_column;
 	gint name_column;
+	SnippetMenuCallback callback;
+	gpointer user_data;
 };
 
 struct _SnippetsMenuClass {
@@ -27,5 +31,5 @@ struct _SnippetsMenuClass {
 GType snippets_menu_get_type(void);
 
 GtkWidget *snippets_menu_new(void);
-void snippets_menu_set_model(SnippetsMenu * sm, GtkTreeModel * model, gint name_column, gint data_column);
+void snippets_menu_set_model(SnippetsMenu * sm, GtkTreeModel * model, SnippetMenuCallback callback, gpointer user_data, gint name_column, gint data_column);
 
