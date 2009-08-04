@@ -20,8 +20,6 @@ typedef struct {
 
 #define TREEPATH(var) ((TreePath *)(var))
 
-
-
 static GtkMenuItem *menuitem_from_path(SnippetsMenu *sm, GtkTreePath *path) {
 	gint i;
 	GtkMenuItem *mitem=NULL;
@@ -46,13 +44,15 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 									   GtkTreePath * path, GtkTreeIter * iter, gpointer user_data)
 {
 	SnippetsMenu *sm = user_data;
-	GtkMenuItem *item;
+	GtkMenuItem *item, *newitem;
 	GtkTreePath *parent;
 	DEBUG_MSG("row inserted, path=%s\n", gtk_tree_path_to_string(path));
 	parent = gtk_tree_path_copy(path);
 	if (!gtk_tree_path_up(parent) || gtk_tree_path_get_depth(parent)==0) {
 		/* main menu entry ! */
-		gtk_menu_shell_insert((GtkMenuShell *)sm, gtk_menu_item_new(), TREEPATH(path)->indices[0]);
+		newitem = gtk_menu_item_new();
+		gtk_menu_shell_insert((GtkMenuShell *)sm, (GtkWidget *)newitem, TREEPATH(path)->indices[0]);
+		gtk_widget_show((GtkWidget *)newitem);
 	} else {
 		GtkMenuShell *mshell;
 		item = menuitem_from_path(sm, parent);
@@ -65,22 +65,20 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 				gtk_menu_item_set_submenu(item, (GtkWidget *)mshell);
 			}
 			DEBUG_MSG("row inserted, insert in mshell=%p at position %d\n",mshell, TREEPATH(path)->indices[TREEPATH(path)->depth-1]);
-			gtk_menu_shell_insert((GtkMenuShell *)mshell, gtk_menu_item_new(), TREEPATH(path)->indices[TREEPATH(path)->depth-1]);
+			newitem = gtk_menu_item_new();
+			gtk_menu_shell_insert((GtkMenuShell *)mshell, (GtkWidget *)newitem, TREEPATH(path)->indices[TREEPATH(path)->depth-1]);
+			gtk_widget_show((GtkWidget *)newitem);
 		}		
 	}
 	gtk_tree_path_free(parent);
-	
-	
-/*	gtk_menu_shell_append((GtkMenuShell *) sm, gtk_menu_item_new_with_label("blajaja"));*/
-	gtk_widget_show_all((GtkWidget *)sm);
 }
 
-static void snippets_menu_rows_reordered(GtkTreeModel * tree_model,
+/*static void snippets_menu_rows_reordered(GtkTreeModel * tree_model,
 										 GtkTreePath * path,
 										 GtkTreeIter * iter, gint *neworder, gpointer user_data)
 {
-	/* an array of integers mapping the current position of each child to its 
-	old position before the re-ordering, i.e. neworder[newpos] = oldpos. */
+	/ * an array of integers mapping the current position of each child to its 
+	old position before the re-ordering, i.e. neworder[newpos] = oldpos. * /
 	
 	DEBUG_MSG("TODO rows reordered\n");
 }
@@ -90,7 +88,7 @@ static void snippets_menu_row_has_child_toggled(GtkTreeModel * tree_model,
 {
 	DEBUG_MSG("todo? or nothing todo? row has child toggled\n");
 }
-
+*/
 static void snippets_menu_row_deleted(GtkTreeModel * tree_model, GtkTreePath * path, gpointer user_data)
 {
 	SnippetsMenu *sm = user_data;
@@ -179,7 +177,7 @@ G_DEFINE_TYPE(SnippetsMenu, snippets_menu, GTK_TYPE_MENU_BAR)
 
 static void snippets_menu_finalize(GObject * object)
 {
-	g_print("finalize\n");
+	/*g_print("finalize\n");*/
 }
 
 static void snippets_menu_class_init(SnippetsMenuClass * klass)
@@ -191,12 +189,8 @@ static void snippets_menu_class_init(SnippetsMenuClass * klass)
 
 static void snippets_menu_init(SnippetsMenu * sm)
 {
-/*	gtk_menu_shell_append((GtkMenuShell *)sm,gtk_menu_item_new_with_label("bla"));*/
-
 
 }
-
-
 
 GtkWidget *snippets_menu_new(void)
 {
