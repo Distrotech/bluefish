@@ -18,6 +18,8 @@ typedef struct {
 
 #define TREEPATH(var) ((TreePath *)(var))
 
+
+
 static GtkMenuItem *menuitem_from_path(SnippetsMenu *sm, GtkTreePath *path) {
 	gint i;
 	GtkMenuItem *mitem=NULL;
@@ -30,11 +32,11 @@ static GtkMenuItem *menuitem_from_path(SnippetsMenu *sm, GtkTreePath *path) {
 	for (i=0;mshell && i<TREEPATH(path)->depth;i++) {
 		mitem = menushell_nth_child(mshell, TREEPATH(path)->indices[i]);
 		if (mitem) {
-			mshell = gtk_menu_item_get_submenu(mitem);
+			mshell = (GtkMenuShell *)gtk_menu_item_get_submenu(mitem);
 		}
 		g_print("indices[%d]=%d mitem=%p, mshell=%p\n",i,TREEPATH(path)->indices[i],mitem, mshell);
 	}
-	g_print("return mitem=%p with label %s\n", mitem, gtk_menu_item_get_label(mitem));
+	/*g_print("return mitem=%p with label %s\n", mitem, gtk_label_get_text(GTK_LABEL(GTK_BIN(mitem)->child)));*/
 	return mitem;
 }
 
@@ -52,12 +54,12 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 	} else {
 		GtkMenuShell *mshell;
 		item = menuitem_from_path(sm, parent);
-		mshell = gtk_menu_item_get_submenu(item);
+		mshell = (GtkMenuShell *)gtk_menu_item_get_submenu(item);
 		g_print("row inserted, item=%p, mshell=%p\n",item, mshell);
 		if (!mshell) {
-			mshell = gtk_menu_new();
+			mshell = (GtkMenuShell *)gtk_menu_new();
 			g_print("append mshell %p to item %p\n",mshell, item);
-			gtk_menu_item_set_submenu(item, mshell);
+			gtk_menu_item_set_submenu(item, (GtkWidget *)mshell);
 		}
 		g_print("row inserted, insert in mshell=%p at position %d\n",mshell, TREEPATH(path)->indices[TREEPATH(path)->depth-1]);
 		gtk_menu_shell_insert((GtkMenuShell *)mshell, gtk_menu_item_new(), TREEPATH(path)->indices[TREEPATH(path)->depth-1]);		
@@ -66,7 +68,7 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 	
 	
 /*	gtk_menu_shell_append((GtkMenuShell *) sm, gtk_menu_item_new_with_label("blajaja"));*/
-	gtk_widget_show_all(sm);
+	gtk_widget_show_all((GtkWidget *)sm);
 }
 
 static void snippets_menu_rows_reordered(GtkTreeModel * tree_model,
@@ -92,7 +94,7 @@ static void snippets_menu_row_deleted(GtkTreeModel * tree_model, GtkTreePath * p
 	g_print("row deleted\n");
 	mitem = menuitem_from_path(sm, path);
 	if (mitem) {
-		gtk_widget_destroy(mitem);
+		gtk_widget_destroy((GtkWidget *)mitem);
 	} else {
 		g_print("row deleted, no mitem for path %s\n",gtk_tree_path_to_string(path));	
 	}
@@ -112,10 +114,15 @@ static void snippets_menu_row_changed(GtkTreeModel * tree_model,
 	if (mitem) {
 		gchar *name=NULL;
 		gpointer pointer;
-		gtk_tree_model_get(tree_model, iter, 0, &name, 1, &pointer, -1);
-		gtk_menu_item_set_label(mitem,name);
-		/* BUG the next line does not work! */
-		g_signal_handlers_disconnect_by_func(mitem, menuitem_activate, NULL);
+		gtk_tree_model_get(tree_model, iter, sm->name_column, &name, sm->data_column, &pointer, -1);
+		g_print("row changed got name %s pointer %p\n",name, pointer);
+		if (!GTK_BIN(mitem)->child) {
+			gtk_container_add(GTK_CONTAINER(mitem), gtk_label_new(name));
+			gtk_widget_show_all((GtkWidget *)mitem);
+		} else {
+			g_signal_handlers_disconnect_matched(mitem, G_SIGNAL_MATCH_FUNC, 0, 0, NULL, menuitem_activate, NULL);
+			gtk_label_set_text(GTK_LABEL(GTK_BIN(mitem)->child),name);
+		}
 		g_signal_connect(mitem, "activate", G_CALLBACK(menuitem_activate), pointer);
 	} else {
 		g_print("row changed, no mitem for path %s\n",gtk_tree_path_to_string(path));	
@@ -125,8 +132,10 @@ static void snippets_menu_row_changed(GtkTreeModel * tree_model,
 	gtk_widget_show_all(sm);*/
 }
 
-void snippets_menu_set_model(SnippetsMenu * sm, GtkTreeModel * model)
+void snippets_menu_set_model(SnippetsMenu * sm, GtkTreeModel * model, gint name_column, gint data_column)
 {
+	sm->name_column = name_column;
+	sm->data_column = data_column;
 	g_signal_connect(model, "row-changed", G_CALLBACK(snippets_menu_row_changed), sm);
 	g_signal_connect(model, "row-deleted", G_CALLBACK(snippets_menu_row_deleted), sm);
 	g_signal_connect(model, "row-has-child-toggled", G_CALLBACK(snippets_menu_row_has_child_toggled), sm);
@@ -147,7 +156,7 @@ static void snippets_menu_finalize(GObject * object)
 static void snippets_menu_class_init(SnippetsMenuClass * klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
-	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
+	/*GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);*/
 	object_class->finalize = snippets_menu_finalize;
 }
 

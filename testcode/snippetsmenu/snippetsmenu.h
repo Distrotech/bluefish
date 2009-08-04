@@ -16,7 +16,8 @@ typedef struct _SnippetsMenuClass SnippetsMenuClass;
 
 struct _SnippetsMenu {
 	GtkMenuBar parent;
-	GHashTable *hasht;
+	gint data_column;
+	gint name_column;
 };
 
 struct _SnippetsMenuClass {
@@ -26,5 +27,5 @@ struct _SnippetsMenuClass {
 GType snippets_menu_get_type(void);
 
 GtkWidget *snippets_menu_new(void);
-void snippets_menu_set_model(SnippetsMenu *sm, GtkTreeModel *model);
+void snippets_menu_set_model(SnippetsMenu * sm, GtkTreeModel * model, gint name_column, gint data_column);
 
