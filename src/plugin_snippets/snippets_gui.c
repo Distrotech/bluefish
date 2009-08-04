@@ -27,6 +27,7 @@
 #include "snippets_leaf_insert.h"
 #include "snippets_leaf_snr.h"
 #include "snippets_wizard.h"
+#include "snippetsmenu.h"
 #include "../document.h"
 #include "../gtk_easy.h"
 
@@ -119,7 +120,7 @@ static xmlNodePtr snippetview_get_node_at_path(GtkTreePath *path) {
 	return NULL;
 }
 
-void snippet_activate_leaf(Tsnippetswin *snw, xmlNodePtr cur) {
+static void snippet_activate_leaf(Tsnippetswin *snw, xmlNodePtr cur) {
 	xmlChar *type = xmlGetProp(cur, (const xmlChar *)"type");
 	if (!type) {
 		DEBUG_MSG("snippet_activate_leaf, no type\n");
@@ -311,6 +312,19 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 	}
 }
 
+void snippets_show_as_menu(Tsnippetswin *snw, gboolean enable) {
+	if (enable) {
+		gtk_widget_show(snw->snippetsmenu);
+	} else {
+		gtk_widget_hide(snw->snippetsmenu);
+	}	
+}
+
+void snip_rpopup_toggle_cb(Tsnippetswin *snw,guint action,GtkWidget *widget) {
+	Tsnippetssession *sns = snippets_get_session(snw->bfwin->session);
+	sns->show_as_menu = GTK_CHECK_MENU_ITEM(widget)->active;
+	snippets_show_as_menu(snw, sns->show_as_menu);
+}
 static GtkItemFactoryEntry snip_rpopup_menu_entries[] = {
 	{ N_("/_New snippet"),		NULL,	snip_rpopup_rpopup_action_lcb,		3,	"<Item>" },
 	{ N_("/_Edit snippet"),		NULL,	snip_rpopup_rpopup_action_lcb,		1,	"<Item>" },
@@ -322,6 +336,8 @@ static GtkItemFactoryEntry snip_rpopup_menu_entries[] = {
 	{ N_("/Expand all"),			NULL,	snip_rpopup_rpopup_action_lcb,	5,	"<Item>" },
 	{ N_("/Collapse all"),			NULL,	snip_rpopup_rpopup_action_lcb,	6,	"<Item>" },
 	{ "/sep3",						NULL,	NULL,									0,	"<Separator>" },
+	{ N_("/Show as menu"),			NULL,	snip_rpopup_toggle_cb,	6,	"<ToggleItem>" },
+	{ "/sep4",						NULL,	NULL,									0,	"<Separator>" },
 	{ N_("/Export"),			NULL,	snip_rpopup_rpopup_action_lcb,	7,	"<Item>" },
 	{ N_("/Import"),			NULL,	snip_rpopup_rpopup_action_lcb,	8,	"<Item>" }
 };
@@ -336,7 +352,7 @@ static GtkWidget *snip_rpopup_create_menu(Tsnippetswin *snw, xmlNodePtr cur) {
 	GtkWidget *menu;
 	GtkItemFactory *menumaker;
 	gint state=0; /* 0= nothing clicked, 1=branch, 2\=leaf */
-
+	Tsnippetssession *sns = snippets_get_session(snw->bfwin->session);
 	menumaker = gtk_item_factory_new(GTK_TYPE_MENU, "<snippets_rpopup>", NULL);
 #ifdef ENABLE_NLS
 	gtk_item_factory_set_translate_func(menumaker,snippets_menu_translate,"<snippets_rpopup>",NULL);
@@ -351,6 +367,7 @@ static GtkWidget *snip_rpopup_create_menu(Tsnippetswin *snw, xmlNodePtr cur) {
 			state = 1;
 		}
 	}
+	gtk_check_menu_item_set_active(gtk_item_factory_get_widget(menumaker, "/Show as menu"),sns->show_as_menu);
 
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit snippet"), (state==2));
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete snippet"), (state==2));
@@ -623,3 +640,25 @@ void snippets_sidepanel_destroygui(Tbfwin *bfwin) {
 		g_object_unref(G_OBJECT(snw->accel_group));
 	}	
 }
+
+static void snippetsmenu_cb(gpointer user_data, gpointer data) {
+	xmlNodePtr cur=data;
+	Tsnippetswin *snw=user_data;
+	if (snw && cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
+		snippet_activate_leaf(snw, cur);
+	}
+}
+
+void snippets_create_menu(Tbfwin *bfwin) {
+	Tsnippetswin *snw;
+	Tsnippetssession *sns = snippets_get_session(bfwin->session);
+	snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
+	
+	snw->snippetsmenu = snippets_menu_new();
+	snippets_menu_set_model((SnippetsMenu *)snw->snippetsmenu, (GtkTreeModel *)snippets_v.store, snippetsmenu_cb, snw, TITLE_COLUMN, NODE_COLUMN);
+	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), snw->snippetsmenu, FALSE, FALSE, 0);
+	if (sns->show_as_menu) {
+		gtk_widget_show_all(snw->snippetsmenu);
+	}
+}
+

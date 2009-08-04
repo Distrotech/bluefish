@@ -54,6 +54,7 @@ typedef struct {
 
 typedef struct {
 	Tbfwin *bfwin;
+	GtkWidget *snippetsmenu;
 	GtkWidget *view;
 	/*TreeTips *ttips;*/
 	GtkAccelGroup *accel_group;
@@ -61,6 +62,11 @@ typedef struct {
 	GtkTreePath *lastclickedpath;
 } Tsnippetswin;
 
+typedef struct {
+	gboolean show_as_menu;
+} Tsnippetssession;
 extern Tsnippets snippets_v;
+
+Tsnippetssession *snippets_get_session(Tsessionvars *session);
 
 #endif /* __SNIPPETS_H_ */
