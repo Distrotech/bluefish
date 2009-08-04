@@ -119,7 +119,7 @@ static xmlNodePtr snippetview_get_node_at_path(GtkTreePath *path) {
 	return NULL;
 }
 
-static void snippet_activate_leaf(Tsnippetswin *snw, xmlNodePtr cur) {
+void snippet_activate_leaf(Tsnippetswin *snw, xmlNodePtr cur) {
 	xmlChar *type = xmlGetProp(cur, (const xmlChar *)"type");
 	if (!type) {
 		DEBUG_MSG("snippet_activate_leaf, no type\n");
