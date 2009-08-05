@@ -1049,13 +1049,14 @@ static gpointer build_lang_thread(gpointer data)
 						set_string_if_attribute_name(reader,aname,(xmlChar *)"characters", &bfparser->smartindentchars);
 						xmlFree(aname);
 					}
+#ifdef HAVE_LIBENCHANT
 				} else if (xmlStrEqual(name2,(xmlChar *)"default_spellcheck")) {
 					while (xmlTextReaderMoveToNextAttribute(reader)) {
 						xmlChar *aname = xmlTextReaderName(reader);
 						set_boolean_if_attribute_name(reader,aname,(xmlChar *)"enabled", &bfparser->default_spellcheck);
 						xmlFree(aname);
 					}
-
+#endif
 				} else if (xmlStrEqual(name2,(xmlChar *)"properties")) {
 					xmlFree(name2);
 					break;
