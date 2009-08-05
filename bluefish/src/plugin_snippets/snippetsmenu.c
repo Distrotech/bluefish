@@ -49,10 +49,16 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 	DEBUG_MSG("row inserted, path=%s\n", gtk_tree_path_to_string(path));
 	parent = gtk_tree_path_copy(path);
 	if (!gtk_tree_path_up(parent) || gtk_tree_path_get_depth(parent)==0) {
+		GtkRequisition req;
 		/* main menu entry ! */
-		newitem = gtk_menu_item_new();
-		gtk_menu_shell_insert((GtkMenuShell *)sm, (GtkWidget *)newitem, TREEPATH(path)->indices[0]);
-		gtk_widget_show((GtkWidget *)newitem);
+
+		gtk_widget_size_request((GtkWidget *)sm,&req);
+		g_print("have %d pixels in use, %d available\n",req.width, sm->maxwidth);
+		if (req.width < (sm->maxwidth-100)) { /* reserve at least 100 pixels for any new entry */
+			newitem = gtk_menu_item_new();
+			gtk_menu_shell_insert((GtkMenuShell *)sm, (GtkWidget *)newitem, TREEPATH(path)->indices[0]);
+			gtk_widget_show((GtkWidget *)newitem);
+		}
 	} else {
 		GtkMenuShell *mshell;
 		item = menuitem_from_path(sm, parent);
@@ -192,9 +198,10 @@ static void snippets_menu_init(SnippetsMenu * sm)
 
 }
 
-GtkWidget *snippets_menu_new(void)
+GtkWidget *snippets_menu_new(gint maxwidth)
 {
 	SnippetsMenu *sm = (SnippetsMenu *) g_object_new(SNIPPETS_TYPE_MENU, NULL);
 	g_return_val_if_fail(sm != NULL, NULL);
+	sm->maxwidth = maxwidth;
 	return GTK_WIDGET(sm);
 }
