@@ -582,7 +582,9 @@ static void textstyle_selection_changed_cb(GtkTreeSelection *selection, Tprefdia
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[1]), (strarr[3][0] == '1'));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[0]), (strarr[4][0] != '1'));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[1]), (strarr[4][0] == '1'));
+#ifdef HAVE_LIBENCHANT
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.need_spellcheck), (strarr[5][0] == '1'));
+#endif
 		pd->tsd.curstrarr = strarr;
 	} else {
 		DEBUG_MSG("no selection, returning..\n");
