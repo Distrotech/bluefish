@@ -384,9 +384,8 @@ static GtkWidget *snip_rpopup_create_menu(Tsnippetswin *snw, xmlNodePtr cur) {
 	}
 	gtk_check_menu_item_set_active(gtk_item_factory_get_widget(menumaker, "/Show as menu"),sns->show_as_menu);
 
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit snippet"), (state==2));
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit snippet"), (state!=0));
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete snippet"), (state==2));
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit snippet"), (state==2));
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Set snippet accelerator"), (state==2));
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/New snippet"), (state!=2));
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete branch"), (state==1));

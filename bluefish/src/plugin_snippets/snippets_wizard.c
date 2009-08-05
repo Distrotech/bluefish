@@ -483,14 +483,20 @@ typedef struct {
 
 static gpointer snippets_build_pageBranch(Tsnipwiz *snwiz, GtkWidget *dialog_action) {
 	GtkWidget *label;
+	gchar *namestr=NULL;
 	TpageBranch *p1 = g_new(TpageBranch,1);
+	if (snwiz->node) {	/* we're editing a node! */
+		namestr = (gchar *)xmlGetProp(snwiz->node, (const xmlChar *)"title");
+	}
 	p1->vbox = gtk_vbox_new(TRUE,12);
 	gtk_container_add(GTK_CONTAINER(dialog_action),p1->vbox);
 	label = gtk_label_new(_("Enter the name of the branch:"));
 	gtk_box_pack_start(GTK_BOX(p1->vbox),label,TRUE,TRUE,12);
 	p1->entry = gtk_entry_new();
+	if (namestr) {
+		gtk_entry_set_text((GtkEntry *)p1->entry,namestr);
+	}
 	gtk_box_pack_start(GTK_BOX(p1->vbox),p1->entry,TRUE,TRUE,12);
-	
 	gtk_widget_show_all(p1->vbox);
 	return p1;
 }
@@ -506,44 +512,51 @@ static gint snippets_test_pageBranch(Tsnipwiz *snwiz, gpointer data) {
 	GtkTreePath *parentp=NULL;
 	xmlNodePtr parent=NULL, child;
 	GtkTreeIter piter, citer;	
-	/* lets build the branch! */
+	
 	name = gtk_editable_get_chars(GTK_EDITABLE(p1->entry),0,-1);
-	if (snwiz->snw->lastclickedpath) {
-		parentp = gtk_tree_path_copy(snwiz->snw->lastclickedpath);
-	}
-	if (snwiz->snw->lastclickednode) {
-		if (xmlStrEqual(snwiz->snw->lastclickednode->name, (const xmlChar *)"leaf")) {
-			DEBUG_MSG("clicked node was a leaf\n");
-			parent = snwiz->snw->lastclickednode->parent;
-			if (parentp) {
-				if (!gtk_tree_path_up(parentp)) {
-					DEBUG_MSG("could not go up, set parentp NULL\n");
-					gtk_tree_path_free(parentp);
-					parentp = NULL;
+	
+	if (snwiz->node) {
+		xmlSetProp(snwiz->node, (const xmlChar *)"title", (const xmlChar *)name);
+		update_name_in_tree(snwiz->snw, name);
+	} else {
+		/* lets build the branch! */
+		if (snwiz->snw->lastclickedpath) {
+			parentp = gtk_tree_path_copy(snwiz->snw->lastclickedpath);
+		}
+		if (snwiz->snw->lastclickednode) {
+			if (xmlStrEqual(snwiz->snw->lastclickednode->name, (const xmlChar *)"leaf")) {
+				DEBUG_MSG("clicked node was a leaf\n");
+				parent = snwiz->snw->lastclickednode->parent;
+				if (parentp) {
+					if (!gtk_tree_path_up(parentp)) {
+						DEBUG_MSG("could not go up, set parentp NULL\n");
+						gtk_tree_path_free(parentp);
+						parentp = NULL;
+					}
 				}
+			} else {
+				parent = snwiz->snw->lastclickednode;
+				DEBUG_MSG("clicked node was a branch\n");
+			}
+		} else { /* parent must be the root element <snippets> */
+			parent = xmlDocGetRootElement(snippets_v.doc);
+		}
+		DEBUG_MSG("snippets_test_pageBranch, xml-adding %s to parent %s\n",name,(gchar *)parent->name); 
+		child = xmlNewChild(parent,NULL,(const xmlChar *)"branch",NULL);	
+		xmlSetProp(child, (const xmlChar *)"title", (const xmlChar *)name);
+		/* add this branch to the treestore */
+		DEBUG_MSG("snippets_test_pageBranch, store-adding %s to parentp=%p\n",name,parentp);
+		if (parentp) {
+			if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&piter,parentp)) {
+				gtk_tree_store_append(snippets_v.store, &citer, &piter);
+			} else {
+				g_print("hmm weird error!?!\n");
 			}
 		} else {
-			parent = snwiz->snw->lastclickednode;
-			DEBUG_MSG("clicked node was a branch\n");
+			gtk_tree_store_append(snippets_v.store, &citer, NULL);
 		}
-	} else { /* parent must be the root element <snippets> */
-		parent = xmlDocGetRootElement(snippets_v.doc);
+		gtk_tree_store_set(snippets_v.store, &citer, PIXMAP_COLUMN,NULL,TITLE_COLUMN, name,NODE_COLUMN, child,-1);
 	}
-	DEBUG_MSG("snippets_test_pageBranch, xml-adding %s to parent %s\n",name,(gchar *)parent->name); 
-	child = xmlNewChild(parent,NULL,(const xmlChar *)"branch",NULL);	
-	xmlSetProp(child, (const xmlChar *)"title", (const xmlChar *)name);
-	/* add this branch to the treestore */
-	DEBUG_MSG("snippets_test_pageBranch, store-adding %s to parentp=%p\n",name,parentp);
-	if (parentp) {
-		if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&piter,parentp)) {
-			gtk_tree_store_append(snippets_v.store, &citer, &piter);
-		} else {
-			g_print("hmm weird error!?!\n");
-		}
-	} else {
-		gtk_tree_store_append(snippets_v.store, &citer, NULL);
-	}
-	gtk_tree_store_set(snippets_v.store, &citer, PIXMAP_COLUMN,NULL,TITLE_COLUMN, name,NODE_COLUMN, child,-1);
 	
 	DEBUG_MSG("add branch with title %s\n",name);
 	g_free(name);
@@ -745,14 +758,19 @@ void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr node) {
 	gtk_window_set_default_size(GTK_WINDOW(snwiz->dialog),500,400);
 	g_signal_connect(G_OBJECT(snwiz->dialog), "response", G_CALLBACK(snipwiz_dialog_response_lcb), snwiz);
 	if (node) {
-		xmlChar *type = xmlGetProp(node, (const xmlChar *)"type");
-		if (xmlStrEqual(type, (const xmlChar *)"insert")) {
-			snwiz->choice = 1;
-		} else if (xmlStrEqual(type, (const xmlChar *)"snr")) {
-			snwiz->choice = 2;
-		} 
-		snwiz->pagestruct = snippets_build_pageName(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
-		snwiz->pagenum = page_name;
+		if (xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
+			xmlChar *type = xmlGetProp(node, (const xmlChar *)"type");
+			if (xmlStrEqual(type, (const xmlChar *)"insert")) {
+				snwiz->choice = 1;
+			} else if (xmlStrEqual(type, (const xmlChar *)"snr")) {
+				snwiz->choice = 2;
+			} 
+			snwiz->pagestruct = snippets_build_pageName(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+			snwiz->pagenum = page_name;
+		} else {
+			snwiz->pagestruct = snippets_build_pageBranch(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+			snwiz->pagenum = page_branch;
+		}
 	} else {
 		snwiz->pagestruct = snippets_build_pageType(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
 		snwiz->pagenum = page_type;
