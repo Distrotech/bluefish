@@ -18,6 +18,7 @@ typedef void (* SnippetMenuCallback) (gpointer user_data, gpointer data);
 
 struct _SnippetsMenu {
 	GtkMenuBar parent;
+	gint maxwidth;
 	gint data_column;
 	gint name_column;
 	SnippetMenuCallback callback;
@@ -30,6 +31,6 @@ struct _SnippetsMenuClass {
 
 GType snippets_menu_get_type(void);
 
-GtkWidget *snippets_menu_new(void);
+GtkWidget *snippets_menu_new(gint maxwidth);
 void snippets_menu_set_model(SnippetsMenu * sm, GtkTreeModel * model, SnippetMenuCallback callback, gpointer user_data, gint name_column, gint data_column);
 

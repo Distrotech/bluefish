@@ -312,12 +312,27 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 	}
 }
 
+static void snippetsmenu_cb(gpointer user_data, gpointer data) {
+	xmlNodePtr cur=data;
+	Tsnippetswin *snw=user_data;
+	if (snw && cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
+		snippet_activate_leaf(snw, cur);
+	}
+}
+
 void snippets_show_as_menu(Tsnippetswin *snw, gboolean enable) {
 	if (enable) {
-		gtk_widget_show(snw->snippetsmenu);
-	} else {
+		if (!snw->snippetsmenu) {
+			gint width = gdk_screen_get_width(gtk_window_get_screen(snw->bfwin->main_window));
+			snw->snippetsmenu = snippets_menu_new(width);
+			gtk_box_pack_start(GTK_BOX(snw->bfwin->toolbarbox), snw->snippetsmenu, FALSE, FALSE, 0);
+			gtk_widget_show(snw->snippetsmenu); /* show is required such that the size requests are accurate */
+			snippets_menu_set_model((SnippetsMenu *)snw->snippetsmenu, (GtkTreeModel *)snippets_v.store, snippetsmenu_cb, snw, TITLE_COLUMN, NODE_COLUMN);
+		} else 
+			gtk_widget_show(snw->snippetsmenu);
+	} else if (snw->snippetsmenu) {
 		gtk_widget_hide(snw->snippetsmenu);
-	}	
+	}
 }
 
 void snip_rpopup_toggle_cb(Tsnippetswin *snw,guint action,GtkWidget *widget) {
@@ -641,24 +656,12 @@ void snippets_sidepanel_destroygui(Tbfwin *bfwin) {
 	}	
 }
 
-static void snippetsmenu_cb(gpointer user_data, gpointer data) {
-	xmlNodePtr cur=data;
-	Tsnippetswin *snw=user_data;
-	if (snw && cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
-		snippet_activate_leaf(snw, cur);
-	}
-}
-
 void snippets_create_menu(Tbfwin *bfwin) {
-	Tsnippetswin *snw;
 	Tsnippetssession *sns = snippets_get_session(bfwin->session);
-	snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
-	
-	snw->snippetsmenu = snippets_menu_new();
-	snippets_menu_set_model((SnippetsMenu *)snw->snippetsmenu, (GtkTreeModel *)snippets_v.store, snippetsmenu_cb, snw, TITLE_COLUMN, NODE_COLUMN);
-	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), snw->snippetsmenu, FALSE, FALSE, 0);
 	if (sns->show_as_menu) {
-		gtk_widget_show_all(snw->snippetsmenu);
+		Tsnippetswin *snw;
+		snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
+		snippets_show_as_menu(snw, TRUE);
 	}
 }
 
