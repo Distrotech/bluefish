@@ -72,16 +72,16 @@ static void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget
     "Jim Hayward <jimhayward@linuxexperience.net>",
     "Daniel Leidert <daniel.leidert@wgdd.de>",
     _("\nDevelopers of previous releases:"),
-    "Oskar Świda <swida@aragorn.pb.bialystok.pl>",
-    "Eugene Morenko <more@irpin.com>",
     "Alastair Porter <alastair@porter.net.nz>",
     "Antti-Juhani Kaijanaho",
     "Bo Forslund",
     "Chris Mazuc",
     "Christian Tellefsen <chris@tellefsen.net>",
     "David Arno",
+    "Eugene Morenko <more@irpin.com>",
     "Gero Takke",
     "Neil Millar",
+    "Oskar Świda <swida@aragorn.pb.bialystok.pl>",
     "Pablo De Napoli",
     "Rasmus Toftdahl Olesen <rto@pohldata.dk>",
     "Roland Steinbach <roland@netzblick.de>",
@@ -109,7 +109,6 @@ static void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget
   };
 
   const gchar *copyright =
-    "Copyright \xc2\xa9 1998-2000 Chris Mazuc.\n"
     "Copyright \xc2\xa9 1998-2009 Olivier Sessink and others.\n";
 
   /* wrap the license here,
