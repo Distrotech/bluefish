@@ -136,7 +136,9 @@ static void snippets_menu_row_changed(GtkTreeModel * tree_model,
 		gtk_tree_model_get(tree_model, iter, sm->name_column, &name, sm->data_column, &pointer, -1);
 		DEBUG_MSG("row changed got name %s pointer %p\n",name, pointer);
 		if (!GTK_BIN(mitem)->child) {
-			gtk_container_add(GTK_CONTAINER(mitem), gtk_label_new(name));
+			GtkWidget *label = gtk_label_new(name);
+			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5); 
+			gtk_container_add(GTK_CONTAINER(mitem), label);
 			gtk_widget_show_all((GtkWidget *)mitem);
 		} else {
 			g_signal_handlers_disconnect_matched(mitem, G_SIGNAL_MATCH_FUNC, 0, 0, NULL, menuitem_activate, NULL);
