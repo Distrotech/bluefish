@@ -772,8 +772,13 @@ void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr node) {
 			snwiz->pagenum = page_branch;
 		}
 	} else {
-		snwiz->pagestruct = snippets_build_pageType(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
-		snwiz->pagenum = page_type;
+		if (!snw->lastclickednode) {
+			snwiz->pagestruct = snippets_build_pageBranch(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+			snwiz->pagenum = page_branch;
+		} else {
+			snwiz->pagestruct = snippets_build_pageType(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+			snwiz->pagenum = page_type;
+		}
 	}
 	gtk_widget_show_all(snwiz->dialog);	
 }
