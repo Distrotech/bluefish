@@ -55,7 +55,7 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 		gtk_widget_size_request((GtkWidget *)sm,&req);
 		g_print("have %d pixels in use, %d available\n",req.width, sm->maxwidth);
 		if (req.width < (sm->maxwidth-100)) { /* reserve at least 100 pixels for any new entry */
-			newitem = gtk_menu_item_new();
+			newitem = gtk_menu_item_new_with_label("");
 			gtk_menu_shell_insert((GtkMenuShell *)sm, (GtkWidget *)newitem, TREEPATH(path)->indices[0]);
 			gtk_widget_show((GtkWidget *)newitem);
 		}
@@ -71,7 +71,7 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 				gtk_menu_item_set_submenu(item, (GtkWidget *)mshell);
 			}
 			DEBUG_MSG("row inserted, insert in mshell=%p at position %d\n",mshell, TREEPATH(path)->indices[TREEPATH(path)->depth-1]);
-			newitem = gtk_menu_item_new();
+			newitem = gtk_menu_item_new_with_label("");
 			gtk_menu_shell_insert((GtkMenuShell *)mshell, (GtkWidget *)newitem, TREEPATH(path)->indices[TREEPATH(path)->depth-1]);
 			gtk_widget_show((GtkWidget *)newitem);
 		}		
@@ -135,12 +135,7 @@ static void snippets_menu_row_changed(GtkTreeModel * tree_model,
 		Tsmdata *smdata;
 		gtk_tree_model_get(tree_model, iter, sm->name_column, &name, sm->data_column, &pointer, -1);
 		DEBUG_MSG("row changed got name %s pointer %p\n",name, pointer);
-		if (!GTK_BIN(mitem)->child) {
-			GtkWidget *label = gtk_label_new(name);
-			gtk_misc_set_alignment(GTK_MISC(label), 0.0, 0.5); 
-			gtk_container_add(GTK_CONTAINER(mitem), label);
-			gtk_widget_show_all((GtkWidget *)mitem);
-		} else {
+		if (GTK_BIN(mitem)->child) {
 			g_signal_handlers_disconnect_matched(mitem, G_SIGNAL_MATCH_FUNC, 0, 0, NULL, menuitem_activate, NULL);
 			gtk_label_set_text(GTK_LABEL(GTK_BIN(mitem)->child),name);
 		}
