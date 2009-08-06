@@ -147,6 +147,10 @@ gboolean snippets_accelerator_activated_lcb(GtkAccelGroup *accel_group,GObject *
 	return TRUE;
 }
 
+static void accelerator_cbdata_free(gpointer data) {
+	g_slice_free(Taccelerator_cbdata, data);
+}
+
 static void snippets_connect_accelerators_from_doc(Tsnippetswin *snw, xmlNodePtr cur, GtkAccelGroup *accel_group) {
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
@@ -163,7 +167,7 @@ static void snippets_connect_accelerators_from_doc(Tsnippetswin *snw, xmlNodePtr
 				if (key!=0 && mod!=0 && gtk_accelerator_valid(key,mod)) {
 					GClosure *closure;
 					Taccelerator_cbdata *hcbdata;
-					hcbdata = g_new(Taccelerator_cbdata,1);
+					hcbdata = g_slice_new(Taccelerator_cbdata);
 					hcbdata->snw = snw;
 					hcbdata->cur = cur;
 					DEBUG_MSG("snippets_connect_accelerators_from_doc, connecting accelerator %s\n",accelerator);
@@ -323,7 +327,7 @@ static void snippetsmenu_cb(gpointer user_data, gpointer data) {
 void snippets_show_as_menu(Tsnippetswin *snw, gboolean enable) {
 	if (enable) {
 		if (!snw->snippetsmenu) {
-			gint width = gdk_screen_get_width(gtk_window_get_screen(snw->bfwin->main_window));
+			gint width = gdk_screen_get_width(gtk_window_get_screen(GTK_WINDOW(snw->bfwin->main_window)));
 			snw->snippetsmenu = snippets_menu_new(width);
 			gtk_box_pack_start(GTK_BOX(snw->bfwin->toolbarbox), snw->snippetsmenu, FALSE, FALSE, 0);
 			gtk_widget_show(snw->snippetsmenu); /* show is required such that the size requests are accurate */
@@ -333,6 +337,7 @@ void snippets_show_as_menu(Tsnippetswin *snw, gboolean enable) {
 	} else if (snw->snippetsmenu) {
 		gtk_widget_hide(snw->snippetsmenu);
 	}
+	setup_toggle_item(gtk_item_factory_from_widget(snw->bfwin->menubar), "/View/Snippets Menu", enable);
 }
 
 void snip_rpopup_toggle_cb(Tsnippetswin *snw,guint action,GtkWidget *widget) {
@@ -382,7 +387,7 @@ static GtkWidget *snip_rpopup_create_menu(Tsnippetswin *snw, xmlNodePtr cur) {
 			state = 1;
 		}
 	}
-	gtk_check_menu_item_set_active(gtk_item_factory_get_widget(menumaker, "/Show as menu"),sns->show_as_menu);
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(menumaker, "/Show as menu")),sns->show_as_menu);
 
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit snippet"), (state!=0));
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete snippet"), (state==2));
@@ -655,12 +660,25 @@ void snippets_sidepanel_destroygui(Tbfwin *bfwin) {
 	}	
 }
 
-void snippets_create_menu(Tbfwin *bfwin) {
+void snippets_create_gui(Tbfwin *bfwin) {
+	static GtkItemFactoryEntry menu_items[] = {
+		{N_("/View/Snippets Menu"), NULL, snip_rpopup_toggle_cb, 0, "<ToggleItem>"}
+	};
+	Tsnippetswin *snw;
+	GtkItemFactory *ifactory;
 	Tsnippetssession *sns = snippets_get_session(bfwin->session);
+	snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
+
+	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
+#ifdef ENABLE_NLS
+	gtk_item_factory_set_translate_func(ifactory, snippets_menu_translate, "<bluefishmain>", NULL);
+#endif
+	gtk_item_factory_create_items(ifactory, sizeof(menu_items) / sizeof(menu_items[0]), menu_items, snw);
+
 	if (sns->show_as_menu) {
-		Tsnippetswin *snw;
-		snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
 		snippets_show_as_menu(snw, TRUE);
 	}
+	gtk_widget_show_all(bfwin->menubar);
+	
 }
 

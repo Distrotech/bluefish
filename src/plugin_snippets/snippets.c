@@ -58,7 +58,7 @@ Tsnippetssession *snippets_get_session(Tsessionvars *session) {
 }
 
 static void snippets_initgui(Tbfwin* bfwin) {
-	snippets_create_menu(bfwin);
+	snippets_create_gui(bfwin);
 }
 static void snippets_enforce_session(Tbfwin* bfwin) {
 	Tsnippetssession *sns;
