@@ -34,6 +34,8 @@ typedef struct {
 	they should be freed by the calling function! */
 	regmatch_t *pmatch;
 	gint nmatch;
+	
+	gint errorcode; /* 0 means no error */
 } Tsearch_result;
 
 typedef struct {

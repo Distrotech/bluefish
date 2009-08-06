@@ -213,6 +213,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 	returnvalue.bend = -1;
 	returnvalue.pmatch = NULL;
 	returnvalue.nmatch = 0;
+	returnvalue.errorcode = 0;
 	if ((!search_pattern) || (!buf)) {
 		DEBUG_MSG("search_backend, search_pattern or buf is NULL\n");
 		return returnvalue;
@@ -238,6 +239,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 									 _("Search failed"),
 									 errorstr2);
 			g_free(errorstr2);
+			returnvalue.errorcode=1;
 			/* error compiling the search_pattern, returning the default result set,
 			which is the 'nothing found' set */
 			return returnvalue;
@@ -286,6 +288,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 									 _("Search failed"),
 									 errstring);
 			g_free(errstring);
+			returnvalue.errorcode=1;
 			return returnvalue;/* error compiling the search_pattern, returning the default result set,which is the 'nothing found' set */
 		}
 		retval = pcre_exec(pcre_c,NULL,buf+byte_offset,strlen(buf+byte_offset),0,0,ovector,30);
@@ -797,7 +800,9 @@ static gint replace_doc_multiple(Tbfwin *bfwin,const gchar *search_pattern, Tmat
 	fulltext = doc_get_chars(doc, startpos, endpos);
 	utf8_offset_cache_reset();
 	result = replace_backend(bfwin,realpats, matchtype, is_case_sens, fulltext, 0, realpatr, doc, offset, replacetype, &replacelen, realunesc);
-	while (result.end > 0) {
+	if (result.errorcode!=0)
+		return -1;
+	while (result.errorcode==0 && result.end > 0) {
 		/* the 'buf_b_offset' is the location in the buffer, measured in bytes, where the next search has to start
 		 *
 		 * 'offset' is the number of characters after which our temporary buffer starts
@@ -860,7 +865,10 @@ static gint replace_all(Tbfwin *bfwin,const gchar *search_pattern, Tmatch_types 
 	guint unre_action_id = new_unre_action_id();
 	tmplist = g_list_first(bfwin->documentlist);
 	while (tmplist) {
-		count += replace_doc_multiple(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, (Tdocument *)tmplist->data, replacetype, unescape, unre_action_id);
+		gint tmpcount = replace_doc_multiple(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, (Tdocument *)tmplist->data, replacetype, unescape, unre_action_id);
+		if (tmpcount <0)
+			return -1;
+		count += tmpcount;
 		tmplist = g_list_next(tmplist);
 	}
 	return count;
