@@ -1,3 +1,24 @@
+/* Bluefish HTML Editor
+ * snippetsmenu.h
+ *
+ * Copyright (C) 2009 Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+#ifndef __SNIPPETSMENU_H_
+#define __SNIPPETSMENU_H_
 
 
 /*****************************************************************/
@@ -21,6 +42,7 @@ struct _SnippetsMenu {
 	gint maxwidth;
 	gint data_column;
 	gint name_column;
+	gint accel_column;
 	SnippetMenuCallback callback;
 	gpointer user_data;
 };
@@ -34,3 +56,4 @@ GType snippets_menu_get_type(void);
 GtkWidget *snippets_menu_new(gint maxwidth);
 void snippets_menu_set_model(SnippetsMenu * sm, GtkTreeModel * model, SnippetMenuCallback callback, gpointer user_data, gint name_column, gint data_column);
 
+#endif /*__SNIPPETSMENU_H_*/

@@ -215,10 +215,11 @@ void snippets_fill_tree_item_from_node(GtkTreeIter *iter, xmlNodePtr node) {
 		xmlFree(type);
 	}
 	gtk_tree_store_set(snippets_v.store, iter, PIXMAP_COLUMN, pixmap, TITLE_COLUMN, title,NODE_COLUMN, node,-1);
+	xmlFree(title);	
 	if (recursive) {
 		walk_tree(node, iter);
 	}
-	xmlFree(title);	
+	
 }
 
 static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
