@@ -50,7 +50,8 @@ static GtkMenuItem *menuitem_from_path(SnippetsMenu *sm, GtkTreePath *path) {
 	}
 	DEBUG_MSG("menuitem_from_path, depth=%d\n",TREEPATH(path)->depth);
 	for (i=0;mshell && i<TREEPATH(path)->depth;i++) {
-		mitem = menushell_nth_child(mshell, TREEPATH(path)->indices[i]);
+			/* all menu's have a tearoff entry as first entry, except the main menu */
+		mitem = menushell_nth_child(mshell, i==0?TREEPATH(path)->indices[i]:TREEPATH(path)->indices[i]+1);
 		if (mitem) {
 			mshell = (GtkMenuShell *)gtk_menu_item_get_submenu(mitem);
 		}
@@ -86,13 +87,18 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 			mshell = (GtkMenuShell *)gtk_menu_item_get_submenu(item);
 			DEBUG_MSG("row inserted, item=%p, mshell=%p\n",item, mshell);
 			if (!mshell) {
+				GtkMenuItem *tearoff;
 				mshell = (GtkMenuShell *)gtk_menu_new();
 				DEBUG_MSG("append mshell %p to item %p\n",mshell, item);
 				gtk_menu_item_set_submenu(item, (GtkWidget *)mshell);
+				tearoff = gtk_tearoff_menu_item_new();
+				gtk_menu_shell_insert((GtkMenuShell *)mshell, (GtkWidget *)tearoff, 0);
+				gtk_widget_show(tearoff);
 			}
-			DEBUG_MSG("row inserted, insert in mshell=%p at position %d\n",mshell, TREEPATH(path)->indices[TREEPATH(path)->depth-1]);
+			DEBUG_MSG("row inserted, insert in mshell=%p at position %d\n",mshell, TREEPATH(path)->indices[TREEPATH(path)->depth-1]+1);
 			newitem = gtk_menu_item_new_with_label("");
-			gtk_menu_shell_insert((GtkMenuShell *)mshell, (GtkWidget *)newitem, TREEPATH(path)->indices[TREEPATH(path)->depth-1]);
+			/* add 1 to the index number for the tearoff item */
+			gtk_menu_shell_insert((GtkMenuShell *)mshell, (GtkWidget *)newitem, TREEPATH(path)->indices[TREEPATH(path)->depth-1]+1);
 			gtk_widget_show((GtkWidget *)newitem);
 		}		
 	}
