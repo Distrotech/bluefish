@@ -1,26 +1,26 @@
 /* Bluefish HTML Editor
- * image_dialog.c
- *
- * Copyright (C) 2008,2009 James Hayward and Olivier Sessink
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+* image_dialog.c
+*
+* Copyright (C) 2008,2009 James Hayward and Olivier Sessink
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 
 #include <string.h>
-
+#include "htmlbar.h"
 #include "image_dialog.h"
 #include "cap.h"
 
@@ -35,7 +35,7 @@
 
 struct _BluefishImageDialogPrivate
 {
-  GFile *fileuri;
+	GFile *fileuri;
 	gchar *filename;
 	
 	gint origHeight;
@@ -77,8 +77,8 @@ struct _BluefishImageDialogPrivate
 
 enum
 {
-  PROP_0,
-  PROP_BFWIN,
+	PROP_0,
+	PROP_BFWIN,
 	PROP_SRC,
 	PROP_WIDTH,
 	PROP_WIDTH_IS_PERCENT,
@@ -104,7 +104,7 @@ G_DEFINE_TYPE(BluefishImageDialog, bluefish_image_dialog, GTK_TYPE_DIALOG)
 /* static function prototypes */
 static void
 image_dialog_reset_dimensions (GtkButton *button,
-															 BluefishImageDialog *dialog);
+															BluefishImageDialog *dialog);
 
 static void
 image_dialog_source_activate (GtkWidget *widget,
@@ -112,7 +112,7 @@ image_dialog_source_activate (GtkWidget *widget,
 
 static void
 image_dialog_source_changed (GtkWidget *widget,
-														 BluefishImageDialog *dialog);
+														BluefishImageDialog *dialog);
 
 static void
 filebutton_clicked (GtkButton *button,
@@ -120,7 +120,7 @@ filebutton_clicked (GtkButton *button,
 
 static void
 image_dialog_height_percent_toggled (GtkToggleButton *togglebutton,
-																		 BluefishImageDialog *dialog);
+																		BluefishImageDialog *dialog);
 
 static void
 image_dialog_width_percent_toggled (GtkToggleButton *togglebutton,
@@ -128,12 +128,12 @@ image_dialog_width_percent_toggled (GtkToggleButton *togglebutton,
 
 static void
 image_dialog_use_transitional_toggled (GtkToggleButton *togglebutton,
-																			 BluefishImageDialog *dialog);
+																			BluefishImageDialog *dialog);
 
 static void 
 image_dialog_response_lcb (GtkDialog *dialog,
-													 gint response,
-													 BluefishImageDialog *imageDialog);
+													gint response,
+													BluefishImageDialog *imageDialog);
 /* end static function prototypes */
 
 
@@ -148,7 +148,7 @@ bluefish_image_dialog_finalize (GObject *object)
 	if (dialog->priv->filename)
 		g_free (dialog->priv->filename);
 	
-  G_OBJECT_CLASS (bluefish_image_dialog_parent_class)->finalize (object);
+	G_OBJECT_CLASS (bluefish_image_dialog_parent_class)->finalize (object);
 }
 
 static void
@@ -157,17 +157,17 @@ bluefish_image_dialog_get_property (GObject *object,
 																		GValue *value,
 																		GParamSpec *pspec)
 {
-  BluefishImageDialog *dialog = BLUEFISH_IMAGE_DIALOG (object);
+	BluefishImageDialog *dialog = BLUEFISH_IMAGE_DIALOG (object);
   
-  switch (prop_id)
-  {
-    case PROP_BFWIN:
-      g_value_set_pointer (value, dialog->priv->bfwin);
-      break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-  }
+	switch (prop_id)
+	{
+		case PROP_BFWIN:
+			g_value_set_pointer (value, dialog->priv->bfwin);
+			break;
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+			break;
+	}
 }
 
 static void
@@ -176,13 +176,13 @@ bluefish_image_dialog_set_property (GObject *object,
 																		const GValue *value,
 																		GParamSpec *pspec)
 {
-  BluefishImageDialog *dialog = BLUEFISH_IMAGE_DIALOG (object);
+	BluefishImageDialog *dialog = BLUEFISH_IMAGE_DIALOG (object);
 
-  switch (prop_id)
-  {
-    case PROP_BFWIN:
-      dialog->priv->bfwin = g_value_get_pointer (value);
-      break;
+	switch (prop_id)
+	{
+		case PROP_BFWIN:
+		dialog->priv->bfwin = g_value_get_pointer (value);
+			break;
 		case PROP_SRC:
 			if (g_value_get_string (value) != NULL)
 				gtk_entry_set_text (GTK_ENTRY (dialog->priv->source),
@@ -190,7 +190,7 @@ bluefish_image_dialog_set_property (GObject *object,
 			break;
 		case PROP_WIDTH:
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (dialog->priv->width),
-																 g_value_get_double (value));
+																g_value_get_double (value));
 			break;
 		case PROP_WIDTH_IS_PERCENT:
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->widthPercent),
@@ -198,7 +198,7 @@ bluefish_image_dialog_set_property (GObject *object,
 			break;
 		case PROP_HEIGHT:
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (dialog->priv->height),
-																 g_value_get_double (value));
+																g_value_get_double (value));
 			break;
 		case PROP_HEIGHT_IS_PERCENT:
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->heightPercent),
@@ -247,15 +247,15 @@ bluefish_image_dialog_set_property (GObject *object,
 			break;
 		case PROP_BORDER:
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (dialog->priv->border),
-																 g_value_get_double (value));
+																g_value_get_double (value));
 			break;
 		case PROP_HSPACE:
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (dialog->priv->hspace),
-																 g_value_get_double (value));
+																g_value_get_double (value));
 			break;
 		case PROP_VSPACE:
 			gtk_spin_button_set_value (GTK_SPIN_BUTTON (dialog->priv->vspace),
-																 g_value_get_double (value));
+																g_value_get_double (value));
 			break;
 		case PROP_USE_TRANSITIONAL:
 			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->useTransitional),
@@ -267,22 +267,21 @@ bluefish_image_dialog_set_property (GObject *object,
 		case PROP_TAG_END:
 			dialog->priv->tagEnd = g_value_get_int (value);
 			break;
-    default:
-      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-      break;
-  }
+		default:
+			G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+			break;
+	}
 }
 
 static GObject *
 bluefish_image_dialog_create (GType type, guint n_construct_properties, GObjectConstructParam *construct_properties)
 {
-  BluefishImageDialogClass *klass = BLUEFISH_IMAGE_DIALOG_CLASS (g_type_class_peek (BLUEFISH_TYPE_IMAGE_DIALOG));
-  GObjectClass *parent_class = G_OBJECT_CLASS (g_type_class_peek_parent (klass));
-  GObject *obj = parent_class->constructor (type,
-                                            n_construct_properties,
-                                            construct_properties);
-                                            
-  BluefishImageDialog *dialog = BLUEFISH_IMAGE_DIALOG (obj);  
+	BluefishImageDialogClass *klass = BLUEFISH_IMAGE_DIALOG_CLASS (g_type_class_peek (BLUEFISH_TYPE_IMAGE_DIALOG));
+	GObjectClass *parent_class = G_OBJECT_CLASS (g_type_class_peek_parent (klass));
+	GObject *obj = parent_class->constructor (type,
+																						n_construct_properties,
+																						construct_properties);
+	BluefishImageDialog *dialog = BLUEFISH_IMAGE_DIALOG (obj);
 
 	GtkWidget *alignment, *frame, *hbox, *vbox;
 	GtkWidget *label, *notebook, *table;
@@ -327,8 +326,8 @@ bluefish_image_dialog_create (GType type, guint n_construct_properties, GObjectC
 	g_signal_connect (dialog->priv->source, "changed", G_CALLBACK (image_dialog_source_changed), dialog);
 	
 	dialog->priv->fileButton = dialog_button_new_with_image (NULL,
-																													 -1, GTK_STOCK_OPEN,
-																													 GTK_ICON_SIZE_MENU);
+																													-1, GTK_STOCK_OPEN,
+																													GTK_ICON_SIZE_MENU);
 	gtk_button_set_focus_on_click (GTK_BUTTON (dialog->priv->fileButton), FALSE);
 	gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->fileButton, FALSE, FALSE, 0);
 	g_signal_connect (dialog->priv->fileButton, "clicked", G_CALLBACK (filebutton_clicked), dialog);
@@ -376,11 +375,11 @@ bluefish_image_dialog_create (GType type, guint n_construct_properties, GObjectC
 										G_CALLBACK (image_dialog_height_percent_toggled), dialog);
 	
 	dialog->priv->resetSizeButton = dialog_button_new_with_image_in_table(_("_Reset Dimensions"),
-																		 -1, GTK_STOCK_REFRESH,
-																		 GTK_ICON_SIZE_MENU,
-																		 table, 0, 3, 2, 3);
-	gtk_widget_set_sensitive (dialog->priv->resetSizeButton, FALSE);																	 
-	g_signal_connect (dialog->priv->resetSizeButton, "clicked", G_CALLBACK (image_dialog_reset_dimensions), dialog);																		 
+																		-1, GTK_STOCK_REFRESH,
+																		GTK_ICON_SIZE_MENU,
+																		table, 0, 3, 2, 3);
+	gtk_widget_set_sensitive (dialog->priv->resetSizeButton, FALSE);
+	g_signal_connect (dialog->priv->resetSizeButton, "clicked", G_CALLBACK (image_dialog_reset_dimensions), dialog);
 	
 	table = dialog_table_in_vbox(6, 3, 6, vbox, TRUE, TRUE, 0);
 
@@ -446,34 +445,34 @@ bluefish_image_dialog_create (GType type, guint n_construct_properties, GObjectC
 	
 	image_dialog_use_transitional_toggled (GTK_TOGGLE_BUTTON (dialog->priv->useTransitional), dialog);
 	
-  return (obj);
+	return (obj);
 }
 
 static void
 bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 {
-  GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-  object_class->constructor = bluefish_image_dialog_create;
-  object_class->finalize = bluefish_image_dialog_finalize;
+	object_class->constructor = bluefish_image_dialog_create;
+	object_class->finalize = bluefish_image_dialog_finalize;
 	
-  object_class->get_property = bluefish_image_dialog_get_property;
-  object_class->set_property = bluefish_image_dialog_set_property;
+	object_class->get_property = bluefish_image_dialog_get_property;
+	object_class->set_property = bluefish_image_dialog_set_property;
 
-  g_type_class_add_private (object_class, sizeof(BluefishImageDialogPrivate));
+	g_type_class_add_private (object_class, sizeof(BluefishImageDialogPrivate));
   
-  g_object_class_install_property (object_class,
-																	 PROP_BFWIN,
-																	 g_param_spec_pointer ("bfwin",
-																												 "bfwin",
-																												 "The image dialogs bfwin",
-																												 G_PARAM_READWRITE |
-																												 G_PARAM_CONSTRUCT_ONLY |
-																												 G_PARAM_STATIC_STRINGS));
+	g_object_class_install_property (object_class,
+																	PROP_BFWIN,
+																	g_param_spec_pointer ("bfwin",
+																	"bfwin",
+																	"The image dialogs bfwin",
+																	G_PARAM_READWRITE |
+																	G_PARAM_CONSTRUCT_ONLY |
+																	G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_SRC,
-																	 g_param_spec_string ("src",
+																	PROP_SRC,
+																	g_param_spec_string ("src",
 																												"src",
 																												"The image source",
 																												NULL,
@@ -481,8 +480,8 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_WIDTH,
-																	 g_param_spec_double ("width",
+																	PROP_WIDTH,
+																	g_param_spec_double ("width",
 																												"width",
 																												"The image width",
 																												0, 3000, 0,
@@ -490,17 +489,17 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_WIDTH_IS_PERCENT,
-																	 g_param_spec_boolean ("width-is-percent",
-																												 "width is percent",
-																												 "If image width is a percent",
-																												 FALSE,
-																												 G_PARAM_READWRITE |
-																												 G_PARAM_STATIC_STRINGS));
+																	PROP_WIDTH_IS_PERCENT,
+																	g_param_spec_boolean ("width-is-percent",
+																												"width is percent",
+																												"If image width is a percent",
+																												FALSE,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_HEIGHT,
-																	 g_param_spec_double ("height",
+																	PROP_HEIGHT,
+																	g_param_spec_double ("height",
 																												"height",
 																												"The image height",
 																												0, 3000, 0,
@@ -508,17 +507,17 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_HEIGHT_IS_PERCENT,
-																	 g_param_spec_boolean ("height-is-percent",
-																												 "height is percent",
-																												 "If image height is a percent",
-																												 FALSE,
-																												 G_PARAM_READWRITE |
-																												 G_PARAM_STATIC_STRINGS));
+																	PROP_HEIGHT_IS_PERCENT,
+																	g_param_spec_boolean ("height-is-percent",
+																												"height is percent",
+																												"If image height is a percent",
+																												FALSE,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_ALT,
-																	 g_param_spec_string ("alt",
+																	PROP_ALT,
+																	g_param_spec_string ("alt",
 																												"alt",
 																												"Alternate text",
 																												NULL,
@@ -526,8 +525,8 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_LONGDESC,
-																	 g_param_spec_string ("longdesc",
+																	PROP_LONGDESC,
+																	g_param_spec_string ("longdesc",
 																												"longdesc",
 																												"Long description",
 																												NULL,
@@ -535,8 +534,8 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_CLASS,
-																	 g_param_spec_string ("class",
+																	PROP_CLASS,
+																	g_param_spec_string ("class",
 																												"class",
 																												"Class",
 																												NULL,
@@ -544,8 +543,8 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_ID,
-																	 g_param_spec_string ("id",
+																	PROP_ID,
+																	g_param_spec_string ("id",
 																												"id",
 																												"ID",
 																												NULL,
@@ -553,8 +552,8 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_USEMAP,
-																	 g_param_spec_string ("usemap",
+																	PROP_USEMAP,
+																	g_param_spec_string ("usemap",
 																												"usemap",
 																												"Usemap",
 																												NULL,
@@ -562,8 +561,8 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_CUSTOM,
-																	 g_param_spec_string ("custom",
+																	PROP_CUSTOM,
+																	g_param_spec_string ("custom",
 																												"custom",
 																												"Custom",
 																												NULL,
@@ -572,17 +571,17 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 	
 	
 	g_object_class_install_property (object_class,
-																	 PROP_ALIGN,
-																	 g_param_spec_int ("align",
-																										 "align",
-																										 "The image alignment",
-																										 0, 5, 0,
-																										 G_PARAM_READWRITE |
-																										 G_PARAM_STATIC_STRINGS));
+																	PROP_ALIGN,
+																	g_param_spec_int ("align",
+																										"align",
+																										"The image alignment",
+																										0, 5, 0,
+																										G_PARAM_READWRITE |
+																										G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_BORDER,
-																	 g_param_spec_double ("border",
+																	PROP_BORDER,
+																	g_param_spec_double ("border",
 																												"border",
 																												"The image border width",
 																												-1, 500, -1,
@@ -590,8 +589,8 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_HSPACE,
-																	 g_param_spec_double ("hspace",
+																	PROP_HSPACE,
+																	g_param_spec_double ("hspace",
 																												"hspace",
 																												"The image hspace",
 																												-1, 500, -1,
@@ -599,8 +598,8 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_VSPACE,
-																	 g_param_spec_double ("vspace",
+																	PROP_VSPACE,
+																	g_param_spec_double ("vspace",
 																												"vspace",
 																												"The image vspace",
 																												-1, 500, -1,
@@ -608,38 +607,38 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
 																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_USE_TRANSITIONAL,
-																	 g_param_spec_boolean ("use-transitional",
-																												 "use transitional",
-																												 "Use transitional options",
-																												 FALSE,
-																												 G_PARAM_READWRITE |
-																												 G_PARAM_STATIC_STRINGS));
+																	PROP_USE_TRANSITIONAL,
+																	g_param_spec_boolean ("use-transitional",
+																												"use transitional",
+																												"Use transitional options",
+																												FALSE,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_TAG_START,
-																	 g_param_spec_int ("tag-start",
-																										 "tag start",
-																										 "Start position to replace existing tag",
-																										 -1, G_MAXINT, -1,
-																										 G_PARAM_READWRITE |
-																										 G_PARAM_STATIC_STRINGS));
+																	PROP_TAG_START,
+																	g_param_spec_int ("tag-start",
+																										"tag start",
+																										"Start position to replace existing tag",
+																										-1, G_MAXINT, -1,
+																										G_PARAM_READWRITE |
+																										G_PARAM_STATIC_STRINGS));
 	
 	g_object_class_install_property (object_class,
-																	 PROP_TAG_END,
-																	 g_param_spec_int ("tag-end",
-																										 "tag end",
-																										 "End position to replace existing tag",
-																										 -1, G_MAXINT, -1,
-																										 G_PARAM_READWRITE |
-																										 G_PARAM_STATIC_STRINGS));
+																	PROP_TAG_END,
+																	g_param_spec_int ("tag-end",
+																										"tag end",
+																										"End position to replace existing tag",
+																										-1, G_MAXINT, -1,
+																										G_PARAM_READWRITE |
+																										G_PARAM_STATIC_STRINGS));
 }
 
 static void 
 bluefish_image_dialog_init (BluefishImageDialog *dialog)
 {
-  dialog->priv = BLUEFISH_IMAGE_DIALOG_GET_PRIVATE (dialog);
-  g_return_if_fail (dialog->priv != NULL);
+	dialog->priv = BLUEFISH_IMAGE_DIALOG_GET_PRIVATE (dialog);
+	g_return_if_fail (dialog->priv != NULL);
 }
 
 static void
@@ -682,7 +681,7 @@ pbloader_get_for_mime_type (const gchar *mimetype)
 
 static void
 image_dialog_reset_dimensions (GtkButton *button,
-															 BluefishImageDialog *dialog)
+															BluefishImageDialog *dialog)
 {
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (dialog->priv->width), dialog->priv->origWidth);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (dialog->priv->height), dialog->priv->origHeight);
@@ -714,19 +713,19 @@ image_dialog_set_source (BluefishImageDialog *dialog)
 		dialog->priv->filename = g_file_get_parse_name (dialog->priv->fileuri);
 	
 	g_signal_handlers_block_matched (dialog->priv->source,
-																	 G_SIGNAL_MATCH_FUNC,
-																	 0, 0, NULL,
-																	 image_dialog_source_changed,
-																	 NULL);
+																	G_SIGNAL_MATCH_FUNC,
+																	0, 0, NULL,
+																	image_dialog_source_changed,
+																	NULL);
 	DEBUG_MSG("image_dialog_set_source, filename=%s\n",dialog->priv->filename);
 	gtk_entry_set_text (GTK_ENTRY (dialog->priv->source), dialog->priv->filename);
 	gtk_editable_set_position (GTK_EDITABLE (dialog->priv->source), -1);
 	
 	g_signal_handlers_unblock_matched (dialog->priv->source,
-																		 G_SIGNAL_MATCH_FUNC,
-																		 0, 0, NULL,
-																		 image_dialog_source_changed,
-																		 NULL);
+																		G_SIGNAL_MATCH_FUNC,
+																		0, 0, NULL,
+																		image_dialog_source_changed,
+																		NULL);
 }
 
 static void
@@ -794,10 +793,10 @@ image_dialog_preview_loaded (BluefishImageDialog *dialog)
 
 static void
 image_dialog_load_preview (Topenfile_status status, 
-													 gint error_info,
-													 gchar *buffer,
-													 goffset buflen,
-													 gpointer callback_data)
+													gint error_info,
+													gchar *buffer,
+													goffset buflen,
+													gpointer callback_data)
 {
 	BluefishImageDialog *imageDialog = callback_data;
 	gboolean cleanup = TRUE;
@@ -963,7 +962,7 @@ image_dialog_source_activate (GtkWidget *widget,
 
 static void
 image_dialog_source_changed (GtkWidget *widget,
-														 BluefishImageDialog *dialog)
+														BluefishImageDialog *dialog)
 {
 	source_changed_or_activate (dialog, FALSE);
 }
@@ -977,11 +976,11 @@ filebutton_clicked (GtkButton *button,
 	gchar *seturi = NULL;
 	
 	dialog = gtk_file_chooser_dialog_new (_("Select Image"),
-										  GTK_WINDOW (imageDialog),
-										  GTK_FILE_CHOOSER_ACTION_OPEN,
-										  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-										  GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-										  NULL);
+											GTK_WINDOW (imageDialog),
+											GTK_FILE_CHOOSER_ACTION_OPEN,
+											GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+											GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+											NULL);
 	
 	filefilter = gtk_file_filter_new ();
 	gtk_file_filter_set_name (filefilter, _("All images"));
@@ -1009,10 +1008,10 @@ filebutton_clicked (GtkButton *button,
 	
 	if (seturi == NULL && imageDialog->priv->bfwin->session->opendir)
 		gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dialog), 
-																						 imageDialog->priv->bfwin->session->opendir);
+																						imageDialog->priv->bfwin->session->opendir);
 	else if (seturi == NULL)
 		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog),
-																				 g_get_home_dir ());
+																				g_get_home_dir ());
 	
 	if (seturi)
 		g_free (seturi);
@@ -1052,7 +1051,7 @@ image_dialog_percent_toggled (GtkToggleButton *togglebutton,
 
 static void
 image_dialog_height_percent_toggled (GtkToggleButton *togglebutton,
-																		 BluefishImageDialog *dialog)
+																		BluefishImageDialog *dialog)
 {
 	image_dialog_percent_toggled (togglebutton,
 																GTK_SPIN_BUTTON (dialog->priv->height),
@@ -1070,7 +1069,7 @@ image_dialog_width_percent_toggled (GtkToggleButton *togglebutton,
 
 static void
 image_dialog_use_transitional_toggled (GtkToggleButton *togglebutton,
-																			 BluefishImageDialog *dialog)
+																			BluefishImageDialog *dialog)
 {
 	if (gtk_toggle_button_get_active (togglebutton)) {
 		gtk_widget_set_sensitive (dialog->priv->transitionalVbox, TRUE);
@@ -1171,7 +1170,7 @@ image_dialog_ok_clicked (BluefishImageDialog *dialog)
 			g_string_append_printf (tag, " %s=\"%d\"", cap ("VSPACE"), intvalue);
 	}
 	
-  g_string_append_printf (tag, (main_v->props.xhtml == 1) ? " />" : ">");
+	g_string_append_printf (tag, (main_v->props.xhtml == 1) ? " />" : ">");
   
 	if (dialog->priv->tagStart >= 0) {
 		doc_replace_text (dialog->priv->doc, tag->str, dialog->priv->tagStart, dialog->priv->tagEnd);
@@ -1193,8 +1192,8 @@ image_dialog_ok_clicked (BluefishImageDialog *dialog)
 
 static void 
 image_dialog_response_lcb (GtkDialog *dialog,
-													 gint response,
-													 BluefishImageDialog *imageDialog)
+													gint response,
+													BluefishImageDialog *imageDialog)
 {
 	if (response == GTK_RESPONSE_OK) {
 		image_dialog_ok_clicked (imageDialog);
@@ -1209,14 +1208,14 @@ bluefish_image_dialog_new (Tbfwin *bfwin)
 	BluefishImageDialog *dialog;
   
 	dialog = g_object_new (BLUEFISH_TYPE_IMAGE_DIALOG,
-												 "bfwin", bfwin,
-												 "destroy-with-parent", TRUE,
-												 "has-separator", FALSE,
-												 "title", _("Insert Image"),
-												 "transient-for", bfwin->main_window,
-												 "tag-start", -1,
-												 "tag-end", -1,
-												 NULL);
+												"bfwin", bfwin,
+												"destroy-with-parent", TRUE,
+												"has-separator", FALSE,
+												"title", _("Insert Image"),
+												"transient-for", bfwin->main_window,
+												"tag-start", -1,
+												"tag-end", -1,
+												NULL);
 	
 	g_return_if_fail (dialog != NULL);
 	
@@ -1225,10 +1224,10 @@ bluefish_image_dialog_new (Tbfwin *bfwin)
 
 void
 bluefish_image_dialog_new_with_data (Tbfwin *bfwin,
-																		 Ttagpopup *data)
+																		Ttagpopup *data)
 {
 	BluefishImageDialog *dialog;
-  gboolean usetransitional = FALSE;
+	gboolean usetransitional = FALSE;
 	gboolean widthispercent = FALSE;
 	gboolean heightispercent = FALSE;
 	gchar *custom = NULL;
@@ -1321,30 +1320,30 @@ bluefish_image_dialog_new_with_data (Tbfwin *bfwin,
 		usetransitional = TRUE;
 	
 	dialog = g_object_new (BLUEFISH_TYPE_IMAGE_DIALOG,
-												 "bfwin", bfwin,
-												 "destroy-with-parent", TRUE,
-												 "has-separator", FALSE,
-												 "title", _("Insert Image"),
-												 "transient-for", bfwin->main_window,
-												 "src", tagvalues[0],
-												 "width", width,
-												 "width-is-percent", widthispercent,
-												 "height", height,
-												 "height-is-percent", heightispercent,
-												 "alt", tagvalues[3],
-												 "longdesc", tagvalues[4],
-												 "class", tagvalues[5],
-												 "id", tagvalues[6],
-												 "usemap", tagvalues[7],
-												 "custom", custom,
-												 "align", align,
-												 "border", border,
-												 "hspace", hspace,
-												 "vspace", vspace,
-												 "use-transitional", usetransitional,
-												 "tag-start", data->pos,
-												 "tag-end", data->end,
-												 NULL);
+												"bfwin", bfwin,
+												"destroy-with-parent", TRUE,
+												"has-separator", FALSE,
+												"title", _("Insert Image"),
+												"transient-for", bfwin->main_window,
+												"src", tagvalues[0],
+												"width", width,
+												"width-is-percent", widthispercent,
+												"height", height,
+												"height-is-percent", heightispercent,
+												"alt", tagvalues[3],
+												"longdesc", tagvalues[4],
+												"class", tagvalues[5],
+												"id", tagvalues[6],
+												"usemap", tagvalues[7],
+												"custom", custom,
+												"align", align,
+												"border", border,
+												"hspace", hspace,
+												"vspace", vspace,
+												"use-transitional", usetransitional,
+												"tag-start", data->pos,
+												"tag-end", data->end,
+												NULL);
 	
 	g_return_if_fail (dialog != NULL);
 	
