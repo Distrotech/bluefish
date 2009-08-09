@@ -1,11 +1,11 @@
-.TH "BLUEFISH\-UNSTABLE" "1" "2009-02-07" "Bluefish Editor 1.3" "User commands"
+.TH "BLUEFISH\-UNSTABLE" "1" "2009-08-09" "Bluefish Editor 1.3" "User commands"
 
 .SH "NAME"
 bluefish\-unstable \- editor for experienced web designers and programmers
 
 .SH "SYNOPSIS"
 .B bluefish\-unstable
-.RB [ \-c | \-\-curwindow ]
+.RB "[[" "\-c" "|" "\-\-curwindow" "] | [" "\-n" "|" "\-\-newwindow" "]]"
 .BI [ "FILE(S)..." ]
 .PP
 .B bluefish-unstable
@@ -24,7 +24,11 @@ dynamic and interactive websites.
 currently supports the following options:
 .TP
 .BR \-c ", " \-\-curwindow
-Open a file in an existing window.
+Open a file in an existing window. This can be used to overwrite the chosen
+default.
+.TP
+.BR \-n ", " \-\-newwindow
+Open a file in a new window. This can be used to overwrite the chosen default.
 .TP
 .BR \-? ", " \-\-help ", " \-\-help\-* ", " \-\-help\-all
 Print all or just a group of help options. Some of these options may be
