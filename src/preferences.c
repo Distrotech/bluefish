@@ -88,6 +88,7 @@ enum {
 	link_management,              /* perform link management */
 #ifdef WITH_MSG_QUEUE
 	open_in_running_bluefish,     /* open commandline documents in already running session*/
+	open_in_new_window, 
 #endif /* WITH_MSG_QUEUE */
 	load_reference,
 	show_autocomp_reference,
@@ -1385,6 +1386,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.clear_undo_on_save, pd->prefs[clear_undo_on_save], TRUE);
 #ifdef WITH_MSG_QUEUE
 	integer_apply(&main_v->props.open_in_running_bluefish, pd->prefs[open_in_running_bluefish], TRUE);
+	integer_apply(&main_v->props.open_in_new_window, pd->prefs[open_in_new_window], TRUE);
 #endif
 	main_v->props.modified_check_type = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[modified_check_type]));
 	integer_apply(&main_v->props.do_periodic_check, pd->prefs[do_periodic_check], TRUE);
@@ -1522,6 +1524,10 @@ void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
 		}
 		gtk_tree_path_free(path);
 	}
+}
+
+static void open_in_running_bluefish_toggled_lcb(GtkWidget *widget, Tprefdialog *pd) {
+	gtk_widget_set_sensitive(pd->prefs[open_in_new_window], GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 static void preferences_dialog() {
@@ -1669,6 +1675,9 @@ static void preferences_dialog() {
 
 #ifdef WITH_MSG_QUEUE
 	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(_("Open commandline files in running bluefish process"),main_v->props.open_in_running_bluefish, vbox2);
+	g_signal_connect(pd->prefs[open_in_running_bluefish], "toggled", G_CALLBACK(open_in_running_bluefish_toggled_lcb), pd);
+	pd->prefs[open_in_new_window] = boxed_checkbut_with_value(_("Open commandline files in new window"),main_v->props.open_in_new_window, vbox2);
+	gtk_widget_set_sensitive(pd->prefs[open_in_new_window], main_v->props.open_in_running_bluefish);
 #endif /* WITH_MSG_QUEUE */
 	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File properties to check on disk for modifications"), main_v->props.modified_check_type, vbox2, modified_check_types);
 	pd->prefs[do_periodic_check] = boxed_checkbut_with_value(_("Periodically check if file is modified on disk"), main_v->props.do_periodic_check, vbox2);

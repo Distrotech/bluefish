@@ -240,7 +240,8 @@ typedef struct {
 	gint link_management; 	/* perform link management */
 	gint cont_highlight_update;	/* update the syntax highlighting continuous */
 	/* key conversion */
-	gint open_in_running_bluefish; /* open commandline documents in already running session*/
+	gint open_in_running_bluefish; /* open commandline documents in already running process */
+	gint open_in_new_window; /* open commandline files in a new window as opposed to an existing window */
 	gint show_splash_screen;
 	GList *plugin_config; /* array, 0=filename, 1=enabled, 2=name*/
 	gchar *editor_fg; /* editor foreground color */

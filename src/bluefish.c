@@ -82,7 +82,7 @@ void cb_print_version(const gchar * option_name, const gchar * value, gpointer d
 
 int main(int argc, char *argv[])
 {
-	gboolean curwindow = FALSE;
+	gboolean arg_curwindow = FALSE, arg_newwindow=FALSE;
 	gchar **files = NULL;
 	GList *filenames = NULL;
 	Tbfwin *firstbfwin;
@@ -95,8 +95,10 @@ int main(int argc, char *argv[])
 
 	GOptionContext *context;
 	const GOptionEntry options[] = {
-		{"curwindow", 'c', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &curwindow,
-		 N_("Open in current window."), NULL},
+		{"curwindow", 'c', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &arg_curwindow,
+		 N_("Open in existing window."), NULL},
+		{"newwindow", 'n', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &arg_newwindow,
+		 N_("Open in new window."), NULL},
 		{"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void *) cb_print_version,
 		 N_("Print version information."), NULL},
 		{G_OPTION_REMAINING, 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_FILENAME_ARRAY, &files,
@@ -165,7 +167,7 @@ int main(int argc, char *argv[])
 	/* start message queue as early as possible so a running bluefish process has a lot of 
 	time to respond to our request-alive request */
 	if (main_v->props.open_in_running_bluefish) {
-		msg_queue_start(filenames, !curwindow);
+		msg_queue_start(filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) );
 	}
 #endif							/* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
