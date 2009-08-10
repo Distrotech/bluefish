@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.165 2008-08-20 03:42:57 jimh6583 Exp $
+dnl $Revision$
 dnl
 dnl Copyright (C) 2002-2009 Olivier Sessink
 dnl Copyright (C) 2006-2009 Daniel Leidert
@@ -11,7 +11,12 @@ dnl ************************
 
 AC_PREREQ([2.59])
 
-AC_INIT([bluefish-unstable],[1.3.6],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
+m4_define([bluefish_major_version], [1])
+m4_define([bluefish_minor_version], [3])
+m4_define([bluefish_micro_version], [6])
+m4_define([bluefish_version], [bluefish_major_version.bluefish_minor_version.bluefish_micro_version])
+
+AC_INIT([bluefish-unstable],[bluefish_version],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 
 dnl Have to save them here!
 if test "${ac_configure_args+set}" != "set" ; then
@@ -38,7 +43,9 @@ ALL_LINGUAS="da de es eu fi fr it ja ko_KR nb nl pl pt pt_BR ro ru sk sr sv ta t
 AC_SUBST(ALL_LINGUAS)
 GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [gettext domain])
 AM_GLIB_GNU_GETTEXT
+
 IT_PROG_INTLTOOL
 case "$host" in
 	*-openbsd3.8)

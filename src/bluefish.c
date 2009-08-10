@@ -108,10 +108,10 @@ int main(int argc, char *argv[])
 
 #ifdef ENABLE_NLS
 	setlocale(LC_ALL, "");
-	bindtextdomain(PACKAGE, LOCALEDIR);
-	DEBUG_MSG("set bindtextdomain for %s to %s\n", PACKAGE, LOCALEDIR);
-	bind_textdomain_codeset(PACKAGE, "UTF-8");
-	textdomain(PACKAGE);
+	bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
+	DEBUG_MSG("set bindtextdomain for %s to %s\n", GETTEXT_PACKAGE, LOCALEDIR);
+	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
+	textdomain(GETTEXT_PACKAGE);
 #endif							/* ENABLE_NLS */
 
 	if (!g_thread_supported())
@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
 
 	context = g_option_context_new(_(" [FILE(S)]"));
 #ifdef ENABLE_NLS
-	g_option_context_add_main_entries(context, options, PACKAGE);
+	g_option_context_add_main_entries(context, options, GETTEXT_PACKAGE);
 #else
 	g_option_context_add_main_entries(context, options, NULL);
 #endif							/* ENABLE_NLS */
