@@ -323,6 +323,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 	if (newiter != NULL) {
 		gboolean refresh;
 		/* the child exists already, update the REFRESH column */
+		DEBUG_MSG("entry exists with iter %p, update the 'refresh' column\n", newiter);
 		gtk_tree_model_get(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), newiter,
 						   REFRESH_COLUMN, &refresh, -1);
 		if (refresh != 0) {
@@ -400,22 +401,20 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 	return newiter;
 }
 
-/**
- * fb2_treestore_delete_children_refresh1
- *
- * deletes all children of 'iter' that have value 1 in the REFRESH_COLUMN
- */
-static void fb2_treestore_delete_children_refresh1(GtkTreeStore * tstore, GtkTreeIter * iter)
-{
+static void fb2_treestore_delete_children(GtkTreeStore * tstore, GtkTreeIter * iter, gboolean only_when_refresh1) {
 	GtkTreeIter child;
 	if (gtk_tree_model_iter_children(GTK_TREE_MODEL(tstore), &child, iter)) {
 		gboolean cont = TRUE;
 		while (cont) {
-			gboolean refresh;
+			gboolean do_delete = !only_when_refresh1;
 			GtkTreeIter this = child;
-			gtk_tree_model_get(GTK_TREE_MODEL(tstore), &child, REFRESH_COLUMN, &refresh, -1);
+			if (only_when_refresh1) {
+				gboolean refresh;
+				gtk_tree_model_get(GTK_TREE_MODEL(tstore), &child, REFRESH_COLUMN, &refresh, -1);
+				do_delete=(refresh==1);
+			}
 			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(tstore), &child);
-			if (refresh == 1) {
+			if (do_delete) {
 				/* delete 'this' ! */
 				GFile *d_uri;
 				GFileInfo *finfo;
@@ -425,13 +424,25 @@ static void fb2_treestore_delete_children_refresh1(GtkTreeStore * tstore, GtkTre
 				/* remove from hash table too! */
 				g_hash_table_remove(FB2CONFIG(main_v->fb2config)->filesystem_itable,d_uri);
 				
-				DEBUG_MSG("fb2_treestore_delete_children_refresh1, unref d_uri %p and finfo %p\n",
+				DEBUG_MSG("fb2_treestore_delete_children, unref d_uri %p and finfo %p\n",
 						  d_uri, finfo);
 				g_object_unref(d_uri);
 				g_object_unref(finfo);
 			}
 		}
 	}
+	
+}
+
+
+/**
+ * fb2_treestore_delete_children_refresh1
+ *
+ * deletes all children of 'iter' that have value 1 in the REFRESH_COLUMN
+ */
+static void fb2_treestore_delete_children_refresh1(GtkTreeStore * tstore, GtkTreeIter * iter)
+{
+	fb2_treestore_delete_children(tstore, iter, TRUE);
 }
 
 /**
@@ -442,7 +453,7 @@ static void fb2_treestore_delete_children_refresh1(GtkTreeStore * tstore, GtkTre
 static void fb2_treestore_mark_children_refresh1(GtkTreeStore * tstore, GtkTreeIter * iter)
 {
 	GtkTreeIter child;
-	DEBUG_MSG("fb2_treestore_mark_children_refresh1, started for model=%p\n", tstore);
+	DEBUG_MSG("fb2_treestore_mark_children_refresh1, started for model=%p, mark children of iter %p\n", tstore, iter);
 	if (gtk_tree_model_iter_children(GTK_TREE_MODEL(tstore), &child, iter)) {
 		gboolean cont = TRUE;
 		while (cont) {
@@ -494,7 +505,7 @@ static void fb2_enumerate_next_files_lcb(GObject * source_object, GAsyncResult *
 			GFile *newchild;
 			name = g_file_info_get_name(finfo);
 			newchild = g_file_get_child(uir->uri, name);
-			DEBUG_MSG("adding newchild %p ",newchild);
+			DEBUG_MSG("found newchild %p ",newchild);
 			DEBUG_GFILE(newchild,TRUE);
 			fb2_add_filesystem_entry(uir->parent, newchild, finfo, TRUE);
 			g_object_unref(newchild);
@@ -1404,6 +1415,12 @@ static void rename_not_open_file(Tbfwin * bfwin, GFile * olduri)
 			g_free(errmessage);
 		} else {
 			GFile *parent1, *parent2;
+			GtkTreeIter *olditer;
+			
+			olditer = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, olduri);
+			if (olditer)
+				fb2_treestore_delete_children(FB2CONFIG(main_v->fb2config)->filesystem_tstore, olditer, FALSE);
+			
 			parent1 = g_file_get_parent(olduri);
 			parent2 = g_file_get_parent(newuri);
 			DEBUG_MSG("parent1=");
@@ -1414,6 +1431,8 @@ static void rename_not_open_file(Tbfwin * bfwin, GFile * olduri)
 				fb2_refresh_parent_of_uri(olduri);
 				fb2_refresh_parent_of_uri(newuri);
 			} else if (parent1) {
+				DEBUG_MSG("rename_not_open_file, refresh parent1");
+				DEBUG_GFILE(parent1, TRUE);
 				fb2_refresh_dir_from_uri(parent1);
 			} else if (parent2) {
 				fb2_refresh_dir_from_uri(parent2);
