@@ -418,6 +418,10 @@ static void fb2_treestore_delete_children(GtkTreeStore * tstore, GtkTreeIter * i
 				/* delete 'this' ! */
 				GFile *d_uri;
 				GFileInfo *finfo;
+				
+				if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(tstore), &this)) {
+					fb2_treestore_delete_children(tstore, &this, FALSE);
+				}
 				gtk_tree_model_get(GTK_TREE_MODEL(tstore), &this, URI_COLUMN, &d_uri,
 								   FILEINFO_COLUMN, &finfo, -1);
 				gtk_tree_store_remove(tstore, &this);
