@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
+/*#define DEBUG*/
 #include <gtk/gtk.h>
 #include "../bluefish.h"
 #include "snippetsmenu.h"
@@ -28,7 +28,7 @@ static GtkMenuItem *menushell_nth_child(GtkMenuShell *menushell, guint n) {
 	GList *list = gtk_container_get_children(GTK_CONTAINER(menushell));
 	menuitem = g_list_nth_data(list, n);
 	g_list_free(list);
-	DEBUG_MSG("menushell_nth_child, return child %p for n=%d\n",menuitem,n);
+	/*g_print("menushell_nth_child, return child %p for n=%d\n",menuitem,n);*/
 	return menuitem;
 }
 
@@ -45,18 +45,19 @@ static GtkMenuItem *menuitem_from_path(SnippetsMenu *sm, GtkTreePath *path) {
 	GtkMenuItem *mitem=NULL;
 	GtkMenuShell *mshell = (GtkMenuShell *)sm;
 	if (!path) {
-		DEBUG_MSG("menuitem_from_path, path=NULL, return\n");
+		DEBUG_MSG("menuitem_from_path, path=NULL, return NULL\n");
 		return NULL;
 	}
-	DEBUG_MSG("menuitem_from_path, depth=%d\n",TREEPATH(path)->depth);
+	/*DEBUG_MSG("menuitem_from_path, depth=%d\n",TREEPATH(path)->depth);*/
 	for (i=0;mshell && i<TREEPATH(path)->depth;i++) {
-			/* all menu's have a tearoff entry as first entry, except the main menu */
+		/* all menu's have a tearoff entry as first entry, except the main menu */
 		mitem = menushell_nth_child(mshell, i==0?TREEPATH(path)->indices[i]:TREEPATH(path)->indices[i]+1);
-		if (mitem) {
+		if (mitem)
 			mshell = (GtkMenuShell *)gtk_menu_item_get_submenu(mitem);
-		}
-		DEBUG_MSG("indices[%d]=%d mitem=%p, mshell=%p\n",i,TREEPATH(path)->indices[i],mitem, mshell);
+		else 
+			mshell = NULL;
 	}
+	DEBUG_MSG("indices[%d]=%d mitem=%p, mshell=%p\n",i,TREEPATH(path)->indices[i],mitem, mshell);
 	/*g_print("return mitem=%p with label %s\n", mitem, gtk_label_get_text(GTK_LABEL(GTK_BIN(mitem)->child)));*/
 	return mitem;
 }
@@ -72,9 +73,8 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 	if (!gtk_tree_path_up(parent) || gtk_tree_path_get_depth(parent)==0) {
 		GtkRequisition req;
 		/* main menu entry ! */
-
 		gtk_widget_size_request((GtkWidget *)sm,&req);
-		g_print("have %d pixels in use, %d available\n",req.width, sm->maxwidth);
+		DEBUG_MSG("have %d pixels in use, %d available\n",req.width, sm->maxwidth);
 		if (req.width < (sm->maxwidth-100)) { /* reserve at least 100 pixels for any new entry */
 			newitem = gtk_menu_item_new_with_label("");
 			gtk_menu_shell_insert((GtkMenuShell *)sm, (GtkWidget *)newitem, TREEPATH(path)->indices[0]);
@@ -100,7 +100,7 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 			/* add 1 to the index number for the tearoff item */
 			gtk_menu_shell_insert((GtkMenuShell *)mshell, (GtkWidget *)newitem, TREEPATH(path)->indices[TREEPATH(path)->depth-1]+1);
 			gtk_widget_show((GtkWidget *)newitem);
-		}		
+		}
 	}
 	gtk_tree_path_free(parent);
 }
@@ -153,14 +153,12 @@ static void snippets_menu_row_changed(GtkTreeModel * tree_model,
 {
 	SnippetsMenu *sm = user_data;
 	GtkMenuItem *mitem;
-	DEBUG_MSG("row changed\n");
 	mitem = menuitem_from_path(sm, path);
 	if (mitem) {
 		gchar *name=NULL;
 		gpointer pointer;
 		Tsmdata *smdata;
 		gtk_tree_model_get(tree_model, iter, sm->name_column, &name, sm->data_column, &pointer, -1);
-		DEBUG_MSG("row changed got name %s pointer %p\n",name, pointer);
 		if (GTK_BIN(mitem)->child) {
 			g_signal_handlers_disconnect_matched(mitem, G_SIGNAL_MATCH_FUNC, 0, 0, NULL, menuitem_activate, NULL);
 			gtk_label_set_text(GTK_LABEL(GTK_BIN(mitem)->child),name);
