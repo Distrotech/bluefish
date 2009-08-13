@@ -277,21 +277,21 @@ static void start_command(Texternalp *ep) {
 
 gboolean operatable_on_selection(const gchar *formatstring) {
 
-	return (strstr(formatstring, "%s") == NULL && strstr(formatstring, "%c") == NULL 
+	return (strstr(formatstring, "%f") == NULL && strstr(formatstring, "%c") == NULL 
 		&& strstr(formatstring, "%n") == NULL && strstr(formatstring, "%u") == NULL
 		&& strstr(formatstring, "%p") == NULL);
 
 } 
 
 /* The format string should have new options:
-    * %s local full path (function should abort for remote files)
+    * %flocal full path (function should abort for remote files)
     * %c local directory of file (function should abort for remote files)
     * %n filename without path
     * %u URL
     * %p preview URL if basedir and preview dir are set in project settings, else identical to %u
-    * %i temporary fifo for input, if the document is not modified and local equal to %s
+    * %i temporary fifo for input, if the document is not modified and local equal to %f
     * %o temporary fifo for output of filters or outputbox
-    * %I temporary filename for input (fifo is faster), if the document is not modified and local equal to %s
+    * %I temporary filename for input (fifo is faster), if the document is not modified and local equal to %f
     * %O temporary filename for output of filters or outputbox (fifo is faster) (previously %f)
     * %t temporary filename for both input and output (for in-place-editing filters)
 */
@@ -330,7 +330,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		formatstring[formatstringlen-1]=' ';
 	}
 	
-	need_filename = need_local = (strstr(formatstring, "%c") != NULL || strstr(formatstring, "%s") != NULL);
+	need_filename = need_local = (strstr(formatstring, "%c") != NULL || strstr(formatstring, "%f") != NULL);
 	need_preview_uri = (strstr(formatstring, "%p") != NULL);
 	if (!need_filename) { /* local already implies we need a filename */
 		need_filename = (need_preview_uri || strstr(formatstring, "%n") != NULL || strstr(formatstring, "%u") != NULL);
@@ -478,7 +478,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		cur++;
 	}
 	if (need_local) {
-		table[cur].my_int = 's';
+		table[cur].my_int = 'f';
 		table[cur].my_char = localname;
 		cur++;
 		table[cur].my_int = 'c';

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-07-18 19:34-0700\n"
+"POT-Creation-Date: 2009-08-13 13:48+0200\n"
 "PO-Revision-Date: 2004-11-26 10:05+0100\n"
 "Last-Translator: Stefano Canepa <sc@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -16,60 +16,76 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/plugin_snippets/snippets_gui.c:264
+#: src/plugin_snippets/snippets_gui.c:269
 msgid "Set accelerator key"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:296
+#: src/plugin_snippets/snippets_gui.c:301
 msgid "Snippet export filename"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:305
+#: src/plugin_snippets/snippets_gui.c:310
 msgid "Snippet import filename"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:315
+#: src/plugin_snippets/snippets_gui.c:349
 msgid "/_New snippet"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:316
+#: src/plugin_snippets/snippets_gui.c:350
 msgid "/_Edit snippet"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:317
+#: src/plugin_snippets/snippets_gui.c:351
 msgid "/_Delete snippet"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:318
+#: src/plugin_snippets/snippets_gui.c:352
 msgid "/Delete branch"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:320
+#: src/plugin_snippets/snippets_gui.c:354
 msgid "/Set snippet _accelerator"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:322
+#: src/plugin_snippets/snippets_gui.c:356
 msgid "/Expand all"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:323
+#: src/plugin_snippets/snippets_gui.c:357
 msgid "/Collapse all"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:325
+#: src/plugin_snippets/snippets_gui.c:359
+msgid "/Show as menu"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:361
 msgid "/Export"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:326
+#: src/plugin_snippets/snippets_gui.c:362
 msgid "/Import"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:441
+#: src/plugin_snippets/snippets_gui.c:478
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:598
+#: src/plugin_snippets/snippets_gui.c:479
+msgid "Use drag and drop to re-order snippets"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:480
+msgid "To exchange snippets with others use import or export"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:640
 msgid "snippets"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:671
+msgid "/View/Snippets Menu"
 msgstr ""
 
 #: src/plugin_snippets/snippets_leaf_insert.c:101
@@ -184,34 +200,34 @@ msgstr ""
 msgid "Is file path"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:489
+#: src/plugin_snippets/snippets_wizard.c:493
 msgid "Enter the name of the branch:"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:572
+#: src/plugin_snippets/snippets_wizard.c:585
 msgid "Name of the new item:"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:577
+#: src/plugin_snippets/snippets_wizard.c:590
 msgid "Description:"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:627
+#: src/plugin_snippets/snippets_wizard.c:640
 msgid "Select what you want to add"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:629
+#: src/plugin_snippets/snippets_wizard.c:642
 msgid "Branch"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:631
+#: src/plugin_snippets/snippets_wizard.c:644
 msgid "Insert string"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:633
+#: src/plugin_snippets/snippets_wizard.c:646
 msgid "Search and replace pattern"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:740
+#: src/plugin_snippets/snippets_wizard.c:753
 msgid "New snippet"
 msgstr ""

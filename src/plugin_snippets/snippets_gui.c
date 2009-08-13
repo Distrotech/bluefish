@@ -171,7 +171,7 @@ static void snippets_connect_accelerators_from_doc(Tsnippetswin *snw, xmlNodePtr
 					hcbdata->snw = snw;
 					hcbdata->cur = cur;
 					DEBUG_MSG("snippets_connect_accelerators_from_doc, connecting accelerator %s\n",accelerator);
-					closure = g_cclosure_new(G_CALLBACK(snippets_accelerator_activated_lcb),hcbdata,(GClosureNotify)g_free);
+					closure = g_cclosure_new(G_CALLBACK(snippets_accelerator_activated_lcb),hcbdata,(GClosureNotify)accelerator_cbdata_free);
 					gtk_accel_group_connect(accel_group,key,mod,GTK_ACCEL_VISIBLE, closure);
 				}
 				xmlFree(accelerator);
@@ -473,8 +473,14 @@ static gboolean snippets_treetip_lcb(GtkWidget *widget,gint x,gint y,gboolean ke
 				}
 			}
 			gtk_tree_path_free(path);
+		} else {
+			gchar *arr[] = {
+				N_("Click the right mouse button to add, edit or delete snippets."),
+				N_("Use drag and drop to re-order snippets"),
+				N_("To exchange snippets with others use import or export")
+			};
+			gtk_tooltip_set_text(tooltipwidget, _(arr[g_random_int_range(0,3)]));
 		}
-		gtk_tooltip_set_text(tooltipwidget, _("Click the right mouse button to add, edit or delete snippets."));
 	}
 	return TRUE;
 }

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-07-23 18:41-0700\n"
+"POT-Creation-Date: 2009-08-13 13:48+0200\n"
 "PO-Revision-Date: 2009-05-17 16:18+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
@@ -992,7 +992,8 @@ msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/ダイアログ/カーソル位置のタグを編集(_E)..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:459
-msgid "/View/View _HTML Toolbar"
+#, fuzzy
+msgid "/View/_HTML Toolbar"
 msgstr "/表示/HTMLツールバー(_H)"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:734
@@ -1011,7 +1012,7 @@ msgstr "ボールド"
 msgid "Italic"
 msgstr "イタリック"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:738 src/plugin_htmlbar/html.c:909
+#: src/plugin_htmlbar/htmlbar_gui.c:738 src/plugin_htmlbar/html.c:777
 msgid "Paragraph"
 msgstr "パラグラフ"
 
@@ -1090,27 +1091,27 @@ msgid "Emphasis"
 msgstr "強調"
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:918
+#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:786
 msgid "Heading 1"
 msgstr "見出し1"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:921
+#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:789
 msgid "Heading 2"
 msgstr "見出し2"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:924
+#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:792
 msgid "Heading 3"
 msgstr "見出し3"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:927
+#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:795
 msgid "Heading 4"
 msgstr "見出し4"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:764 src/plugin_htmlbar/html.c:930
+#: src/plugin_htmlbar/htmlbar_gui.c:764 src/plugin_htmlbar/html.c:798
 msgid "Heading 5"
 msgstr "見出し5"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:765 src/plugin_htmlbar/html.c:933
+#: src/plugin_htmlbar/htmlbar_gui.c:765 src/plugin_htmlbar/html.c:801
 msgid "Heading 6"
 msgstr "見出し6"
 
@@ -1170,11 +1171,11 @@ msgid "Frame..."
 msgstr "フレーム..."
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:783 src/plugin_htmlbar/html.c:1697
+#: src/plugin_htmlbar/htmlbar_gui.c:783 src/plugin_htmlbar/html.c:1565
 msgid "Frameset"
 msgstr "フレームセット"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:784 src/plugin_htmlbar/html.c:1781
+#: src/plugin_htmlbar/htmlbar_gui.c:784 src/plugin_htmlbar/html.c:1649
 msgid "Frame"
 msgstr "フレーム"
 
@@ -1374,488 +1375,421 @@ msgstr " リスト "
 msgid " CSS "
 msgstr " CSS "
 
-#: src/plugin_htmlbar/html.c:387
+#: src/plugin_htmlbar/html.c:385
 msgid "Insert Time"
 msgstr "日時の挿入"
 
-#: src/plugin_htmlbar/html.c:395
+#: src/plugin_htmlbar/html.c:393
 #, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr "  時刻(_T) (%i:%i:%i)"
 
-#: src/plugin_htmlbar/html.c:400
+#: src/plugin_htmlbar/html.c:398
 msgid "  Day of the _week (Sunday)"
 msgstr "  曜日 (日曜日)(_W)"
 
-#: src/plugin_htmlbar/html.c:403
+#: src/plugin_htmlbar/html.c:401
 msgid "  Day of the _week (Monday)"
 msgstr "  曜日 (月曜日)(_W)"
 
-#: src/plugin_htmlbar/html.c:406
+#: src/plugin_htmlbar/html.c:404
 msgid "  Day of the _week (Tuesday)"
 msgstr "  曜日 (火曜日)(_W)"
 
-#: src/plugin_htmlbar/html.c:409
+#: src/plugin_htmlbar/html.c:407
 msgid "  Day of the _week (Wednesday)"
 msgstr "  曜日 (水曜日)(_W)"
 
-#: src/plugin_htmlbar/html.c:412
+#: src/plugin_htmlbar/html.c:410
 msgid "  Day of the _week (Thursday)"
 msgstr "  曜日 (木曜日)(_W)"
 
-#: src/plugin_htmlbar/html.c:415
+#: src/plugin_htmlbar/html.c:413
 msgid "  Day of the _week (Friday)"
 msgstr "  曜日 (金曜日)(_W)"
 
-#: src/plugin_htmlbar/html.c:418
+#: src/plugin_htmlbar/html.c:416
 msgid "  Day of the _week (Saturday)"
 msgstr "  曜日 (土曜日)(_W)"
 
-#: src/plugin_htmlbar/html.c:421
+#: src/plugin_htmlbar/html.c:419
 msgid "You appear to have a non existant day!\n"
 msgstr "あなたは、ありえない日付を設定しているようです!\n"
 
-#: src/plugin_htmlbar/html.c:429
+#: src/plugin_htmlbar/html.c:427
 #, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr "  日付(_D) (%3$i/%2$i/%1$i)"
 
-#: src/plugin_htmlbar/html.c:432
+#: src/plugin_htmlbar/html.c:430
 #, c-format
 msgid "  _Unix Time (%i)"
 msgstr "  _Unix時間 (%i)"
 
-#: src/plugin_htmlbar/html.c:437
+#: src/plugin_htmlbar/html.c:435
 #, c-format
 msgid "  Unix Date _String (%s)"
 msgstr "  Unix 形式日付文字列(_S) (%s)"
 
-#: src/plugin_htmlbar/html.c:445
+#: src/plugin_htmlbar/html.c:443
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
 msgstr "  ISO-8601 形式時刻(_M) (%s) "
 
-#: src/plugin_htmlbar/html.c:555
-msgid "Insert <a> anchor"
-msgstr ""
-
-#: src/plugin_htmlbar/html.c:568 src/plugin_htmlbar/html.c:737
-#: src/plugin_htmlbar/html.c:2025
-msgid "_HREF:"
-msgstr "_HREF:"
-
-#: src/plugin_htmlbar/html.c:575 src/plugin_htmlbar/html.c:745
-#: src/plugin_htmlbar/html.c:965 src/plugin_htmlbar/html.c:1330
-#: src/plugin_htmlbar/html.c:1793 src/plugin_htmlbar/html_form.c:231
-#: src/plugin_htmlbar/html_form.c:596 src/plugin_htmlbar/html_form.c:795
-#: src/plugin_htmlbar/html_form.c:890 src/plugin_htmlbar/image.c:466
-msgid "_Name:"
-msgstr "名前(_N):"
-
-#: src/plugin_htmlbar/html.c:579
-#, fuzzy
-msgid "_Rel:"
-msgstr "ラベル(_L):"
-
-#: src/plugin_htmlbar/html.c:583
-msgid "Re_v:"
-msgstr ""
-
-#: src/plugin_htmlbar/html.c:587 src/plugin_htmlbar/html.c:741
-#: src/plugin_htmlbar/html_form.c:183
-msgid "_Target:"
-msgstr "ターゲット(_T):"
-
-#: src/plugin_htmlbar/html.c:591
-#, fuzzy
-msgid "T_ype:"
-msgstr "種類(_T):"
-
-#: src/plugin_htmlbar/html.c:605
-#, fuzzy
-msgid "Clas_s:"
-msgstr "Cla_ss:"
-
-#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/image_dialog.c:401
-msgid "I_D:"
-msgstr "I_D:"
-
-#: src/plugin_htmlbar/html.c:613
-#, fuzzy
-msgid "_Style:"
-msgstr "スタイルシート:"
-
-#: src/plugin_htmlbar/html.c:617 src/plugin_htmlbar/quickstart.c:538
-msgid "Titl_e:"
-msgstr "タイトル(_E):"
-
-#: src/plugin_htmlbar/html.c:631
-#, fuzzy
-msgid "C_harset:"
-msgstr "ターゲット(_T):"
-
-#: src/plugin_htmlbar/html.c:635
-#, fuzzy
-msgid "_Dir:"
-msgstr "_ID:"
-
-#: src/plugin_htmlbar/html.c:639
-#, fuzzy
-msgid "_Hreflang:"
-msgstr "言語(_A):"
-
-#: src/plugin_htmlbar/html.c:643
-#, fuzzy
-msgid "_Lang:"
-msgstr "言語(_A):"
-
-#: src/plugin_htmlbar/html.c:657
-#, fuzzy
-msgid "_Accesskey:"
-msgstr "受け入れる(_A):"
-
-#: src/plugin_htmlbar/html.c:661
-msgid "_Tabindex:"
-msgstr ""
-
-#: src/plugin_htmlbar/html.c:717
+#: src/plugin_htmlbar/html.c:585
 msgid "Quick Anchor"
 msgstr "クイック・アンカー"
 
-#: src/plugin_htmlbar/html.c:723 src/plugin_htmlbar/html_form.c:780
+#: src/plugin_htmlbar/html.c:591 src/plugin_htmlbar/html_form.c:780
 msgid "Attributes"
 msgstr "属性値"
 
-#: src/plugin_htmlbar/html.c:751 src/plugin_htmlbar/html.c:1198
-#: src/plugin_htmlbar/html.c:1348 src/plugin_htmlbar/html.c:1940
+#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1893
+msgid "_HREF:"
+msgstr "_HREF:"
+
+#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/html_form.c:183
+msgid "_Target:"
+msgstr "ターゲット(_T):"
+
+#: src/plugin_htmlbar/html.c:613 src/plugin_htmlbar/html.c:833
+#: src/plugin_htmlbar/html.c:1198 src/plugin_htmlbar/html.c:1661
+#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
+#: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
+#: src/plugin_htmlbar/image.c:466
+msgid "_Name:"
+msgstr "名前(_N):"
+
+#: src/plugin_htmlbar/html.c:619 src/plugin_htmlbar/html.c:1066
+#: src/plugin_htmlbar/html.c:1216 src/plugin_htmlbar/html.c:1808
 msgid "_Language:"
 msgstr "言語(_L):"
 
-#: src/plugin_htmlbar/html.c:755 src/plugin_htmlbar/html.c:973
-#: src/plugin_htmlbar/html.c:1107 src/plugin_htmlbar/html.c:1202
-#: src/plugin_htmlbar/html.c:1356 src/plugin_htmlbar/html.c:1729
-#: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1959
+#: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:841
+#: src/plugin_htmlbar/html.c:975 src/plugin_htmlbar/html.c:1070
+#: src/plugin_htmlbar/html.c:1224 src/plugin_htmlbar/html.c:1597
+#: src/plugin_htmlbar/html.c:1698 src/plugin_htmlbar/html.c:1827
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
-#: src/plugin_htmlbar/image_dialog.c:409
+#: src/plugin_htmlbar/image_dialog.c:408
 msgid "Custo_m:"
 msgstr "カスタム(_M):"
 
-#: src/plugin_htmlbar/html.c:758 src/plugin_htmlbar/html.c:1206
+#: src/plugin_htmlbar/html.c:626 src/plugin_htmlbar/html.c:1074
 #: src/plugin_htmlbar/html_form.c:829
 msgid "Events"
 msgstr "イベント"
 
-#: src/plugin_htmlbar/html.c:761
+#: src/plugin_htmlbar/html.c:629
 msgid "OnClic_k:"
 msgstr "OnClic_k:"
 
-#: src/plugin_htmlbar/html.c:765
+#: src/plugin_htmlbar/html.c:633
 msgid "OnD_blClick:"
 msgstr "OnD_blClick:"
 
-#: src/plugin_htmlbar/html.c:769
+#: src/plugin_htmlbar/html.c:637
 msgid "OnMouseO_ver:"
 msgstr "OnMouseO_ver:"
 
-#: src/plugin_htmlbar/html.c:773
+#: src/plugin_htmlbar/html.c:641
 msgid "OnMouse_Down:"
 msgstr "OnMouse_Down:"
 
-#: src/plugin_htmlbar/html.c:777
+#: src/plugin_htmlbar/html.c:645
 msgid "OnMouse_Move:"
 msgstr "OnMouse_Move:"
 
-#: src/plugin_htmlbar/html.c:781
+#: src/plugin_htmlbar/html.c:649
 msgid "OnMouseOu_t:"
 msgstr "OnMouseOu_t:"
 
-#: src/plugin_htmlbar/html.c:785
+#: src/plugin_htmlbar/html.c:653
 msgid "OnMouse_Up:"
 msgstr "OnMouse_Up:"
 
-#: src/plugin_htmlbar/html.c:789
+#: src/plugin_htmlbar/html.c:657
 msgid "OnKeyDo_wn:"
 msgstr "OnKeyDo_wn:"
 
-#: src/plugin_htmlbar/html.c:793
+#: src/plugin_htmlbar/html.c:661
 msgid "OnKey_Press:"
 msgstr "OnKey_Press:"
 
-#: src/plugin_htmlbar/html.c:797
+#: src/plugin_htmlbar/html.c:665
 msgid "OnKe_yUp:"
 msgstr "OnKe_yUp:"
 
-#: src/plugin_htmlbar/html.c:912
+#: src/plugin_htmlbar/html.c:780
 msgid "Div"
 msgstr "DIV"
 
-#: src/plugin_htmlbar/html.c:915
+#: src/plugin_htmlbar/html.c:783
 msgid "Span"
 msgstr "SPAN"
 
-#: src/plugin_htmlbar/html.c:950 src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html.c:818 src/plugin_htmlbar/html_table.c:109
 #: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
 msgid "Ali_gn:"
 msgstr "配置(_G):"
 
-#: src/plugin_htmlbar/html.c:954 src/plugin_htmlbar/html.c:1190
+#: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
 #: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
 #: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
-#: src/plugin_htmlbar/image_dialog.c:397
+#: src/plugin_htmlbar/image_dialog.c:396
 msgid "Cl_ass:"
 msgstr "Cla_ss:"
 
-#: src/plugin_htmlbar/html.c:958 src/plugin_htmlbar/html.c:1183
+#: src/plugin_htmlbar/html.c:826 src/plugin_htmlbar/html.c:1051
 #: src/plugin_htmlbar/html_diag.c:381 src/plugin_htmlbar/html_table.c:96
 #: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
 msgid "St_yle:"
 msgstr "スタイルシート(_Y):"
 
-#: src/plugin_htmlbar/html.c:969 src/plugin_htmlbar/html.c:1194
+#: src/plugin_htmlbar/html.c:837 src/plugin_htmlbar/html.c:1062
 #: src/plugin_htmlbar/html_diag.c:377
 msgid "_ID:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/html.c:1070
+#: src/plugin_htmlbar/html.c:938
 msgid "Horizontal Rule"
 msgstr "水平線"
 
-#: src/plugin_htmlbar/html.c:1081 src/plugin_htmlbar/html.c:1878
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:430
+#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:429
 msgid "_Align:"
 msgstr "配置(_A):"
 
-#: src/plugin_htmlbar/html.c:1088 src/plugin_htmlbar/html.c:1886
-#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:371
+#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:370
 msgid "_Height:"
 msgstr "高さ(_H):"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1094 src/plugin_htmlbar/html.c:1882
+#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:362
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:361
 msgid "_Width:"
 msgstr "幅(_W):"
 
-#: src/plugin_htmlbar/html.c:1097
+#: src/plugin_htmlbar/html.c:965
 msgid "Is _percent"
 msgstr "パーセント指定(_P)"
 
-#: src/plugin_htmlbar/html.c:1102
+#: src/plugin_htmlbar/html.c:970
 msgid "No _shading"
 msgstr "影なし(_S)"
 
-#: src/plugin_htmlbar/html.c:1167
+#: src/plugin_htmlbar/html.c:1035
 msgid "Body"
 msgstr "Body"
 
-#: src/plugin_htmlbar/html.c:1175
+#: src/plugin_htmlbar/html.c:1043
 msgid "Options"
 msgstr "オプション"
 
-#: src/plugin_htmlbar/html.c:1213
+#: src/plugin_htmlbar/html.c:1081
 msgid "On_Load:"
 msgstr "On_Load:"
 
-#: src/plugin_htmlbar/html.c:1221
+#: src/plugin_htmlbar/html.c:1089
 msgid "On_UnLoad:"
 msgstr "On_UnLoad:"
 
-#: src/plugin_htmlbar/html.c:1230
+#: src/plugin_htmlbar/html.c:1098
 msgid "Depreciated options"
 msgstr "推奨されないオプション"
 
-#: src/plugin_htmlbar/html.c:1240
+#: src/plugin_htmlbar/html.c:1108
 msgid "Background _Image:"
 msgstr "背景画像(_I):"
 
-#: src/plugin_htmlbar/html.c:1247
+#: src/plugin_htmlbar/html.c:1115
 msgid "Back_ground Color:"
 msgstr "背景色(_G):"
 
-#: src/plugin_htmlbar/html.c:1253
+#: src/plugin_htmlbar/html.c:1121
 msgid "_Text Color:"
 msgstr "テキストの色(_T):"
 
-#: src/plugin_htmlbar/html.c:1259
+#: src/plugin_htmlbar/html.c:1127
 msgid "_Link Color:"
 msgstr "リンクの色(_L):"
 
-#: src/plugin_htmlbar/html.c:1265
+#: src/plugin_htmlbar/html.c:1133
 msgid "_Visited Link Color:"
 msgstr "閲覧済みリンクの色(_V):"
 
-#: src/plugin_htmlbar/html.c:1271
+#: src/plugin_htmlbar/html.c:1139
 msgid "_Active Link Color:"
 msgstr "選択中のリンクの色(_A):"
 
-#: src/plugin_htmlbar/html.c:1323
+#: src/plugin_htmlbar/html.c:1191
 msgid "Meta"
 msgstr "Meta"
 
-#: src/plugin_htmlbar/html.c:1339
+#: src/plugin_htmlbar/html.c:1207
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: src/plugin_htmlbar/html.c:1344
+#: src/plugin_htmlbar/html.c:1212
 msgid "Con_tent:"
 msgstr "Con_tent:"
 
-#: src/plugin_htmlbar/html.c:1352
+#: src/plugin_htmlbar/html.c:1220
 msgid "_Scheme:"
 msgstr "_Scheme:"
 
-#: src/plugin_htmlbar/html.c:1433
+#: src/plugin_htmlbar/html.c:1301
 msgid "Font"
 msgstr "フォント"
 
-#: src/plugin_htmlbar/html.c:1436
+#: src/plugin_htmlbar/html.c:1304
 msgid "Base Font"
 msgstr "ベースフォント"
 
-#: src/plugin_htmlbar/html.c:1451
+#: src/plugin_htmlbar/html.c:1319
 msgid "Size"
 msgstr "サイズ"
 
-#: src/plugin_htmlbar/html.c:1459
+#: src/plugin_htmlbar/html.c:1327
 msgid "Color"
 msgstr "色"
 
-#: src/plugin_htmlbar/html.c:1464
+#: src/plugin_htmlbar/html.c:1332
 msgid "Face"
 msgstr "書体"
 
-#: src/plugin_htmlbar/html.c:1468
+#: src/plugin_htmlbar/html.c:1336
 msgid "Custom"
 msgstr "カスタム設定"
 
-#: src/plugin_htmlbar/html.c:1552
+#: src/plugin_htmlbar/html.c:1420
 msgid "E-mail"
 msgstr "Eメール"
 
-#: src/plugin_htmlbar/html.c:1560
+#: src/plugin_htmlbar/html.c:1428
 msgid "_Mail to:"
 msgstr "宛先(_M):"
 
-#: src/plugin_htmlbar/html.c:1564
+#: src/plugin_htmlbar/html.c:1432
 msgid "_Copy to:"
 msgstr "コピー先(_C):"
 
-#: src/plugin_htmlbar/html.c:1568
+#: src/plugin_htmlbar/html.c:1436
 msgid "Blin_d copy to:"
 msgstr "Bcc(_D):"
 
-#: src/plugin_htmlbar/html.c:1572
+#: src/plugin_htmlbar/html.c:1440
 msgid "with _Subject:"
 msgstr "件名(_S):"
 
-#: src/plugin_htmlbar/html.c:1576
+#: src/plugin_htmlbar/html.c:1444
 msgid "with _Body:"
 msgstr "本文(_B):"
 
-#: src/plugin_htmlbar/html.c:1620
+#: src/plugin_htmlbar/html.c:1488
 msgid "Quick List"
 msgstr "クイック・リスト"
 
-#: src/plugin_htmlbar/html.c:1625 src/plugin_htmlbar/html.c:1707
+#: src/plugin_htmlbar/html.c:1493 src/plugin_htmlbar/html.c:1575
 #: src/plugin_htmlbar/html_form.c:236
 msgid "_Rows:"
 msgstr "行(_R):"
 
-#: src/plugin_htmlbar/html.c:1628
+#: src/plugin_htmlbar/html.c:1496
 msgid "Or_dered"
 msgstr "順序つき(_D)"
 
-#: src/plugin_htmlbar/html.c:1629
+#: src/plugin_htmlbar/html.c:1497
 msgid "_Unordered"
 msgstr "順序なし(_U)"
 
-#: src/plugin_htmlbar/html.c:1631
+#: src/plugin_htmlbar/html.c:1499
 msgid "Style:"
 msgstr "スタイルシート:"
 
-#: src/plugin_htmlbar/html.c:1703 src/plugin_htmlbar/html_form.c:240
+#: src/plugin_htmlbar/html.c:1571 src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
 msgstr "列(_L):"
 
-#: src/plugin_htmlbar/html.c:1712
+#: src/plugin_htmlbar/html.c:1580
 msgid "_Add <frame> elements"
 msgstr "<frame>要素を追加(_A)"
 
-#: src/plugin_htmlbar/html.c:1789 src/plugin_htmlbar/html.c:1874
-#: src/plugin_htmlbar/html.c:1933 src/plugin_htmlbar/image_dialog.c:321
+#: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
+#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:320
 msgid "_Source:"
 msgstr "ソース(_S):"
 
-#: src/plugin_htmlbar/html.c:1797
+#: src/plugin_htmlbar/html.c:1665
 msgid "Margin _Width:"
 msgstr "マージン幅(_W):"
 
-#: src/plugin_htmlbar/html.c:1801
+#: src/plugin_htmlbar/html.c:1669
 msgid "Margin _Height:"
 msgstr "マージン高さ(_H):"
 
-#: src/plugin_htmlbar/html.c:1809
+#: src/plugin_htmlbar/html.c:1677
 msgid "Scrollin_g:"
 msgstr "スクロール(_G):"
 
-#: src/plugin_htmlbar/html.c:1813
+#: src/plugin_htmlbar/html.c:1681
 msgid "_Frameborder:"
 msgstr "フレーム境界(_F):"
 
-#: src/plugin_htmlbar/html.c:1818
+#: src/plugin_htmlbar/html.c:1686
 msgid "No _Resize:"
 msgstr "サイズ変更禁止(_R):"
 
-#: src/plugin_htmlbar/html.c:1868
+#: src/plugin_htmlbar/html.c:1736
 msgid "Embed"
 msgstr "埋め込み"
 
-#: src/plugin_htmlbar/html.c:1890 src/plugin_htmlbar/html_table.c:140
+#: src/plugin_htmlbar/html.c:1758 src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
 msgstr "ボーダー(_R):"
 
-#: src/plugin_htmlbar/html.c:1926
+#: src/plugin_htmlbar/html.c:1794
 msgid "Script"
 msgstr "スクリプト"
 
-#: src/plugin_htmlbar/html.c:1955 src/plugin_htmlbar/html.c:2056
+#: src/plugin_htmlbar/html.c:1823 src/plugin_htmlbar/html.c:1924
 #: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
 msgstr "種類(_T):"
 
-#: src/plugin_htmlbar/html.c:2014
+#: src/plugin_htmlbar/html.c:1882
 msgid "Link"
 msgstr "リンク"
 
-#: src/plugin_htmlbar/html.c:2031
+#: src/plugin_htmlbar/html.c:1899
 msgid "HREF_LANG:"
 msgstr "HREF_LANG:"
 
-#: src/plugin_htmlbar/html.c:2035
+#: src/plugin_htmlbar/html.c:1903
 msgid "T_itle:"
 msgstr "タイトル(_I):"
 
-#: src/plugin_htmlbar/html.c:2075
+#: src/plugin_htmlbar/html.c:1943
 msgid "_Forward Relation:"
 msgstr "次の関係(_F):"
 
-#: src/plugin_htmlbar/html.c:2079
+#: src/plugin_htmlbar/html.c:1947
 msgid "_Reverse Relation:"
 msgstr "前の関係(_R):"
 
-#: src/plugin_htmlbar/html.c:2090
+#: src/plugin_htmlbar/html.c:1958
 msgid "Media:"
 msgstr "メディア:"
 
-#: src/plugin_htmlbar/html.c:2094
+#: src/plugin_htmlbar/html.c:1962
 msgid "L_ang:"
 msgstr "言語(_A):"
 
-#: src/plugin_htmlbar/html.c:2098
+#: src/plugin_htmlbar/html.c:1966
 msgid "_Custom:"
 msgstr "カスタム(_C):"
 
@@ -2002,7 +1936,7 @@ msgstr "サムネイルでイメージを挿入"
 msgid "Insert image"
 msgstr "画像を挿入"
 
-#: src/plugin_htmlbar/image.c:419 src/plugin_htmlbar/image_dialog.c:341
+#: src/plugin_htmlbar/image.c:419 src/plugin_htmlbar/image_dialog.c:340
 msgid "Preview"
 msgstr "プレビュー"
 
@@ -2014,7 +1948,7 @@ msgstr "画像のある場所(_I):"
 msgid "Hei_ght:"
 msgstr "高さ(_G):"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:404
 msgid "_Usemap:"
 msgstr "map利用(_U):"
 
@@ -2022,11 +1956,11 @@ msgstr "map利用(_U):"
 msgid "Alternate _text:"
 msgstr "代替テキスト(_T):"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:439
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:438
 msgid "_Hspace:"
 msgstr "横方向スペース(_H):"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:443
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:442
 msgid "_Vspace:"
 msgstr "縦方向スペース(_V):"
 
@@ -2082,27 +2016,31 @@ msgstr ""
 "%x: サムネイルの幅  %y: サムネイルの高さ\n"
 "%b: 元のファイルサイズ (バイト)"
 
-#: src/plugin_htmlbar/image_dialog.c:378
+#: src/plugin_htmlbar/image_dialog.c:377
 msgid "_Reset Dimensions"
 msgstr "大きさをリセット(_R)"
 
-#: src/plugin_htmlbar/image_dialog.c:389
+#: src/plugin_htmlbar/image_dialog.c:388
 msgid "Alternate te_xt:"
 msgstr "代替テキスト(_X):"
 
-#: src/plugin_htmlbar/image_dialog.c:393
+#: src/plugin_htmlbar/image_dialog.c:392
 msgid "_Long description:"
 msgstr "詳細な説明(_L):"
 
-#: src/plugin_htmlbar/image_dialog.c:420
+#: src/plugin_htmlbar/image_dialog.c:400
+msgid "I_D:"
+msgstr "I_D:"
+
+#: src/plugin_htmlbar/image_dialog.c:419
 msgid "_Use Transitional options"
 msgstr "Transitional オプションを使う(_U)"
 
-#: src/plugin_htmlbar/image_dialog.c:435
+#: src/plugin_htmlbar/image_dialog.c:434
 msgid "_Border:"
 msgstr "_Border(外枠線):"
 
-#: src/plugin_htmlbar/image_dialog.c:774
+#: src/plugin_htmlbar/image_dialog.c:773
 #, c-format
 msgid ""
 "\n"
@@ -2111,7 +2049,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/plugin_htmlbar/image_dialog.c:779
+#: src/plugin_htmlbar/image_dialog.c:778
 #, c-format
 msgid ""
 "\n"
@@ -2120,7 +2058,7 @@ msgstr ""
 "\n"
 "%d x %d ピクセル"
 
-#: src/plugin_htmlbar/image_dialog.c:876
+#: src/plugin_htmlbar/image_dialog.c:875
 msgid ""
 "\n"
 "\n"
@@ -2132,16 +2070,16 @@ msgstr ""
 "\t<b>プレビューを読み込み中...</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:979
+#: src/plugin_htmlbar/image_dialog.c:978
 msgid "Select Image"
 msgstr "画像を選択"
 
-#: src/plugin_htmlbar/image_dialog.c:987
+#: src/plugin_htmlbar/image_dialog.c:986
 msgid "All images"
 msgstr "すべての画像"
 
-#: src/plugin_htmlbar/image_dialog.c:1215
-#: src/plugin_htmlbar/image_dialog.c:1327
+#: src/plugin_htmlbar/image_dialog.c:1214
+#: src/plugin_htmlbar/image_dialog.c:1326
 msgid "Insert Image"
 msgstr "Insert Image"
 
@@ -2160,6 +2098,10 @@ msgstr "HRE_F:"
 #: src/plugin_htmlbar/quickstart.c:534
 msgid "_Media:"
 msgstr "メディア(_M):"
+
+#: src/plugin_htmlbar/quickstart.c:538
+msgid "Titl_e:"
+msgstr "タイトル(_E):"
 
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
@@ -2268,6 +2210,42 @@ msgstr "ソース:"
 #: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "サイズ:"
+
+#, fuzzy
+#~ msgid "_Rel:"
+#~ msgstr "ラベル(_L):"
+
+#, fuzzy
+#~ msgid "T_ype:"
+#~ msgstr "種類(_T):"
+
+#, fuzzy
+#~ msgid "Clas_s:"
+#~ msgstr "Cla_ss:"
+
+#, fuzzy
+#~ msgid "_Style:"
+#~ msgstr "スタイルシート:"
+
+#, fuzzy
+#~ msgid "C_harset:"
+#~ msgstr "ターゲット(_T):"
+
+#, fuzzy
+#~ msgid "_Dir:"
+#~ msgstr "_ID:"
+
+#, fuzzy
+#~ msgid "_Hreflang:"
+#~ msgstr "言語(_A):"
+
+#, fuzzy
+#~ msgid "_Lang:"
+#~ msgstr "言語(_A):"
+
+#, fuzzy
+#~ msgid "_Accesskey:"
+#~ msgstr "受け入れる(_A):"
 
 #, fuzzy
 #~ msgid "/Dialogs/_New html dialog..."
