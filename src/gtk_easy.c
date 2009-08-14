@@ -1504,17 +1504,6 @@ void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu) {
 	gtk_widget_destroy(GTK_WIDGET(menu));
 }
 
-gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe) {
-	gchar *tmpstr;
-	tmpstr = g_malloc(8*sizeof(char));
-	if (websafe) {
-		g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", (0x33 * color->red/(256*0x33)), (0x33 * color->green/(256*0x33)), (0x33 * color->blue/(256*0x33)) );
-	} else {
-		g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", color->red/256, color->green/256, color->blue/256);
-	}
-	return tmpstr;
-}
-
 static gboolean accelerator_key_press_lcb(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
 	GtkDialog *dlg = GTK_DIALOG(user_data);
 /*	if (!g_unichar_isalnum((gunichar)event->keyval) && event->keyval!=GDK_Escape && !g_unichar_isspace((gunichar)event->keyval))
@@ -1593,4 +1582,47 @@ gchar *ask_accelerator_dialog(const gchar *title) {
 	gtk_widget_destroy(dialog1);
 	return retval;
 }
- 
+
+gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe) {
+	gchar *tmpstr;
+	tmpstr = g_malloc(8*sizeof(char));
+	if (websafe) {
+		g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", (0x33 * color->red/(256*0x33)), (0x33 * color->green/(256*0x33)), (0x33 * color->blue/(256*0x33)) );
+	} else {
+		g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", color->red/256, color->green/256, color->blue/256);
+	}
+	return tmpstr;
+}
+
+static void color_entry_changed_lcb(GtkWidget *widget, gpointer data) {
+	GdkColor gcolor;
+	const gchar *string;
+	string = gtk_entry_get_text(GTK_ENTRY(widget));
+	if (gdk_color_parse(string, &gcolor)) {
+		gtk_color_button_set_color(GTK_COLOR_BUTTON(data), &gcolor);
+		gtk_color_button_set_use_alpha(GTK_COLOR_BUTTON(data), FALSE);
+	} else {
+		gtk_color_button_set_alpha(GTK_COLOR_BUTTON(data), 0);
+		gtk_color_button_set_use_alpha(GTK_COLOR_BUTTON(data), TRUE);
+	}
+}
+
+static void color_set_lcb(GtkWidget *widget, gpointer data) {
+	GdkColor gcolor;
+	gchar *string;
+	gtk_color_button_get_color(GTK_COLOR_BUTTON(widget), &gcolor);
+	string = gdk_color_to_hexstring(&gcolor, FALSE);
+	gtk_entry_set_text(GTK_ENTRY(data), string);
+	g_free(string);
+}
+
+GtkWidget *color_but_new2(GtkWidget *entry) {
+	GtkWidget *cbut;
+	
+	cbut = gtk_color_button_new();
+	g_signal_connect(G_OBJECT(entry), "changed", G_CALLBACK(color_entry_changed_lcb), cbut);
+	g_signal_connect(G_OBJECT(cbut), "color-set", G_CALLBACK(color_set_lcb), entry);
+	color_entry_changed_lcb(entry, cbut);
+	return cbut;
+}
+
