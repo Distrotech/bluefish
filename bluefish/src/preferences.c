@@ -387,7 +387,7 @@ static void font_button_lcb(GtkWidget *wid, GtkWidget *entry) {
 	gtk_widget_show(fsd);
 }
 
-static void color_dialog_response_lcb(GtkDialog *fsd,gint response,GtkWidget *entry) {
+/*static void color_dialog_response_lcb(GtkDialog *fsd,gint response,GtkWidget *entry) {
 	if (response == GTK_RESPONSE_OK) {
 		GdkColor cc;
 		gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(GTK_COLOR_SELECTION_DIALOG(fsd)->colorsel),&cc);
@@ -401,7 +401,7 @@ static void color_button_lcb(GtkWidget *wid, GtkWidget *entry) {
 	const gchar *cname;
 	GdkColor cc;
 	fsd = gtk_color_selection_dialog_new(_("Select color"));
-	cname = gtk_entry_get_text(GTK_ENTRY(entry)); /* do NOT free, this is an internal pointer */
+	cname = gtk_entry_get_text(GTK_ENTRY(entry)); / * do NOT free, this is an internal pointer * /
 	if (strlen(cname)) {
 		gdk_color_parse(cname,&cc);
 		gtk_color_selection_set_current_color(GTK_COLOR_SELECTION(GTK_COLOR_SELECTION_DIALOG(fsd)->colorsel), &cc);
@@ -411,7 +411,7 @@ static void color_button_lcb(GtkWidget *wid, GtkWidget *entry) {
 	gtk_window_set_modal(GTK_WINDOW(GTK_DIALOG(fsd)), TRUE);
 	gtk_window_set_destroy_with_parent(GTK_WINDOW(GTK_DIALOG(fsd)), TRUE);
 	gtk_widget_show(fsd);
-}
+}*/
 
 static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidget *box, Tprefdialog *pd, Tprefstringtype prefstringtype) {
 	GtkWidget *hbox, *return_widget;
@@ -422,6 +422,7 @@ static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidge
 	if (prefstringtype == string_color) {
 		return_widget = boxed_entry_with_text(curval, 8, hbox);
 		gtk_entry_set_width_chars(GTK_ENTRY(return_widget),8);
+		gtk_box_pack_start(GTK_BOX(hbox), color_but_new2(return_widget), FALSE, FALSE, 3);
 	} else
 		return_widget = boxed_entry_with_text(curval, 1023, hbox);
 	if (prefstringtype == file) {
@@ -429,10 +430,10 @@ static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidge
 	} else if (prefstringtype == font) {
 		GtkWidget *but = bf_gtkstock_button(GTK_STOCK_SELECT_FONT, G_CALLBACK(font_button_lcb), return_widget);
 		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 3);
-	}	 else if (prefstringtype == string_color) {
+	}/*	 else if (prefstringtype == string_color) {
 		GtkWidget *but = bf_gtkstock_button(GTK_STOCK_SELECT_COLOR, G_CALLBACK(color_button_lcb), return_widget);
 		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 3);
-	}
+	}*/
 	return return_widget;
 }
 

@@ -103,6 +103,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChoose
 											const gchar *set, gboolean localonly, gboolean multiple, const gchar *filter, gboolean show_encoding);
 void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu);
 
-gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe);
 gchar *ask_accelerator_dialog(const gchar *title);
+gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe);
+GtkWidget *color_but_new2(GtkWidget *entry);
 #endif
