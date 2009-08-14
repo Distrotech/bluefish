@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -92,6 +92,11 @@ void notebook_show(Tbfwin *bfwin) {
 	gtk_widget_show (bfwin->notebook);	
 }*/
 
+static gboolean notebook_changed_activate_current_document_lcb(gpointer data) {
+	doc_activate(BFWIN(data)->current_document);
+	return FALSE;	
+}
+
 void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	gint cur = newpage;
 	gint doclistlen;
@@ -146,12 +151,13 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	
 	bfwin->last_notebook_page = cur;
 	DEBUG_MSG("notebook_changed, current_document=%p, first flush the queue\n",bfwin->current_document);
+	/* slightly lower than default priority */
+	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+1, notebook_changed_activate_current_document_lcb, bfwin, NULL);
 	/* now we flush the queue first, so that we don't call doc_activate 
-	on _this_ document if the user has another close click in the queue */
+	on _this_ document if the user has another close click in the queue * /
 	flush_queue();
 	DEBUG_MSG("notebook_changed, after flushing the queue, call doc_activate()\n");
-	doc_activate(bfwin->current_document);
-/*	bmark_adjust_visible(bfwin);*/
+	doc_activate(bfwin->current_document);*/
 	DEBUG_MSG("notebook_changed, finished\n");
 }
 
