@@ -2,7 +2,7 @@
  * html2.c - menu/toolbar callbacks, inserting functions, and other cool stuff 
  * otherwise html.c is getting so long ;-)
  *
- * Copyright (C) 1999-2006 Olivier Sessink
+ * Copyright (C) 1999-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1025,7 +1025,7 @@ typedef struct {
 	GtkWidget *csel;
 	gint hex_changed_id;
 	gint csel_changed_id;
-	/* the dialog is dual functional: it can be caklled directly from the text, and it can be called by return_color 
+	/* the dialog is dual functional: it can be called directly from the text, and it can be called by return_color 
 	if called by return_color it is in the modal state */
 	gint is_modal;
 	/* for the modal state */
@@ -1037,45 +1037,6 @@ typedef struct {
 	Tbfwin *bfwin;
 } Tcolsel;
 
-static gchar *GdkColor_to_hexstring(GdkColor *color, gboolean websafe) {
-	gchar *tmpstr;
-
-	tmpstr = g_malloc(8*sizeof(char));
-	if (websafe) {
-		g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", (0x33 * color->red/(256*0x33)), (0x33 * color->green/(256*0x33)), (0x33 * color->blue/(256*0x33)) );
-	} else {
-		g_snprintf (tmpstr, 8,"#%.2X%.2X%.2X", color->red/256, color->green/256, color->blue/256);
-	}
-	return tmpstr;
-}
-/*
-static gdouble *hex_to_gdouble_arr(const gchar *color) {
-	static gdouble tmpcol[4];
-	gchar tmpstr[8];
-	long tmpl;
-
-	if (!string_is_color(color)) {
-		DEBUG_MSG("hex_to_gdouble_arr, color is not a valid #...... color\n");
-		return NULL;
-	}
-	strncpy(tmpstr, &color[1], 2);
-	tmpl = strtol(tmpstr, NULL, 16);
-	tmpcol[0] = (gdouble) tmpl;
-	
-	strncpy(tmpstr, &color[3], 2);
-	tmpl = strtol(tmpstr, NULL, 16);
-	tmpcol[1] = (gdouble) tmpl;
-	
-	strncpy(tmpstr, &color[5], 2);
-	tmpl = strtol(tmpstr, NULL, 16);
-	tmpcol[2] = (gdouble) tmpl;
-
-	DEBUG_MSG("hex_to_gdouble_arr, R=%d, G=%d, B=%d\n", color[0], color[1], color[2]);
-
-	tmpcol[3] = 0;
-	return tmpcol;
-}
-*/ 
 static void colsel_destroy_lcb(GtkWidget *widget, Tcolsel *csd) {
 	DEBUG_MSG("colsel_destroy_lcb, started for csd=%p\n",csd);
 	g_free(csd->returnval);
@@ -1088,7 +1049,7 @@ static void colsel_ok_clicked_lcb(GtkWidget *widget, Tcolsel *csd) {
 	/* only on a OK click we do the setcolor thing */
 	gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(csd->csel), &gcolor);
 
-	tmpstr = GdkColor_to_hexstring(&gcolor, FALSE);
+	tmpstr = gdk_color_to_hexstring(&gcolor, FALSE);
 	if (csd->bfwin) {
 		csd->bfwin->session->colorlist = add_to_stringlist(csd->bfwin->session->colorlist, tmpstr);
 	}
@@ -1115,39 +1076,6 @@ static void colsel_ok_clicked_lcb(GtkWidget *widget, Tcolsel *csd) {
 static void colsel_cancel_clicked_lcb(GtkWidget *widget, Tcolsel *csd) {
 	window_destroy(csd->win);
 }
-/* declaration needed to connect/disconnect callback */
-/*static void colsel_color_changed(GtkWidget *widget, Tcolsel *csd);
-
-static void hexentry_color_changed(GtkWidget *widget, Tcolsel *csd) {
-	gdouble *color;
-	gchar *tmpstr;
-	tmpstr=gtk_editable_get_chars(GTK_EDITABLE(csd->hexentry), 0, -1);
-	if (strlen(tmpstr) == 7){
-		color = hex_to_gdouble_arr(tmpstr);
-		if (color) {
-			gtk_signal_disconnect(GTK_OBJECT(csd->csel), csd->csel_changed_id);
-			gtk_color_selection_set_color(GTK_COLOR_SELECTION(csd->csel), color);
-			csd->csel_changed_id = gtk_signal_connect(GTK_OBJECT(csd->csel), "color-changed", G_CALLBACK(colsel_color_changed), csd);
-		} else {
-			tmpstr=NULL;
-		}
-	}
-	g_free(tmpstr);
-}*/
-
-/*
-static void colsel_color_changed(GtkWidget *widget, Tcolsel *csd) {
-	gdouble color[4];
-	gchar *tmpstr;
-
-	gtk_color_selection_get_color(GTK_COLOR_SELECTION(csd->csel), color);
-	tmpstr = gdouble_arr_to_hex(color, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(csd->websafe)));
-
-	gtk_signal_disconnect(GTK_OBJECT(csd->hexentry), csd->hex_changed_id);
-	gtk_entry_set_text(GTK_ENTRY(csd->hexentry), tmpstr);
-	csd->hex_changed_id = gtk_signal_connect(GTK_OBJECT(csd->hexentry), "changed", G_CALLBACK(hexentry_color_changed), csd);
-	g_free(tmpstr);
-}*/
 
 static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, gint startpos, gint endpos) {
 	Tcolsel *csd;
@@ -1179,8 +1107,6 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 	}
 	if (bfwin && bfwin->session->colorlist) {
 		GtkSettings* gtksettings;
-/*		GdkColor *gcolorarr=NULL;
-		gint num=0;*/
 		gchar *strings = stringlist_to_string(bfwin->session->colorlist, ":");
 		strings[strlen(strings)-1] = '\0';
 		gtksettings = gtk_widget_get_settings(GTK_WIDGET(csd->csel));
@@ -1195,17 +1121,7 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 	}
 	gtk_color_selection_set_has_palette(GTK_COLOR_SELECTION(csd->csel), TRUE);
 	gtk_box_pack_start(GTK_BOX(vbox), csd->csel, TRUE, TRUE, 0);
-/*	
-	csd->csel_changed_id = gtk_signal_connect(GTK_OBJECT(csd->csel), "color-changed", G_CALLBACK(colsel_color_changed), csd);
-	
 
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
-	
-	csd->hexentry = boxed_entry_with_text(this_color, 7, hbox);
-	csd->hex_changed_id = gtk_signal_connect(GTK_OBJECT(csd->hexentry), "changed", G_CALLBACK(hexentry_color_changed), csd);
-	csd->websafe = boxed_checkbut_with_value(_("_websafe"), 0, hbox);
-*/
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
