@@ -151,7 +151,7 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	
 	bfwin->last_notebook_page = cur;
 	DEBUG_MSG("notebook_changed, current_document=%p, first flush the queue\n",bfwin->current_document);
-	/* slightly lower than default priority */
+	/* slightly lower than default priority so we make sure any events are handled first */
 	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+1, notebook_changed_activate_current_document_lcb, bfwin, NULL);
 	/* now we flush the queue first, so that we don't call doc_activate 
 	on _this_ document if the user has another close click in the queue * /
@@ -1056,18 +1056,18 @@ void gui_create_main(Tbfwin *bfwin) {
 		g_signal_connect(G_OBJECT(bfwin->main_window), "drag_data_received", G_CALLBACK(main_win_on_drag_data_lcb), bfwin);
 	}
 }
+extern GTimer *startuptimer;
+static gboolean gui_show_main_idle_lcb(gpointer data) {
+	g_print("startup took %g\n",g_timer_elapsed(startuptimer, NULL));
+	doc_scroll_to_cursor(BFWIN(data)->current_document);
+	return FALSE;	
+}
 
 void gui_show_main(Tbfwin *bfwin) {
 	DEBUG_MSG("gui_show_main, before show\n");
 	/* don't use show_all since some widgets are and should be hidden */
 	gtk_widget_show(bfwin->main_window);
-	DEBUG_MSG("gui_show_main, after show, before flush_queue\n");
-	flush_queue();
-	DEBUG_MSG("gui_show_main, after flush queue\n");
-	doc_scroll_to_cursor(bfwin->current_document);
-/*	if ((bfwin->project && bfwin->project->view_left_panel) || (!bfwin->project && main_v->props.view_left_panel)) {
-		filebrowser_scroll_initial(bfwin);
-	}*/
+	g_idle_add(gui_show_main_idle_lcb, bfwin);
 }
 /***********************/
 /* statusbar functions */
@@ -1119,17 +1119,16 @@ void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget
 #ifndef NOSPLASH
 
 void splash_screen_set_label(gchar *label) {
-	/*static struct timespec const req = { 0, 10000000};*/
 #ifdef DEBUG
 	g_print("Setting splash label to %s\n", label);
 #endif
 	gtk_label_set(GTK_LABEL(splashscreen.label),label);
+#ifndef SPLASH_IDLE_LOOP
 	flush_queue();
-	/*nanosleep(&req, NULL);*/
+#endif /* SPLASH_IDLE_LOOP */
 }
 
 GtkWidget *start_splash_screen() {
-	/*static struct timespec const req = { 0, 100000000};*/
 	GtkWidget *image, *vbox;
 	GdkColor color;
 
@@ -1148,7 +1147,7 @@ GtkWidget *start_splash_screen() {
 	splashscreen.label = gtk_label_new(_("starting bluefish"));
 	gtk_box_pack_end(GTK_BOX(vbox),splashscreen.label , FALSE, FALSE, 0);
 	gtk_widget_show(splashscreen.label);
-	{
+	/*{
 		GError *error=NULL;
 		GdkPixbuf* pixbuf= gdk_pixbuf_new_from_file(BLUEFISH_SPLASH_FILENAME,&error);
 		if (error) {
@@ -1160,12 +1159,15 @@ GtkWidget *start_splash_screen() {
 			g_object_unref(pixbuf);
 			gtk_widget_show(image);
 		}
-	}
-
+	}*/
+	image = gtk_image_new_from_file(BLUEFISH_SPLASH_FILENAME);
+	gtk_box_pack_end(GTK_BOX(vbox), image, FALSE, FALSE, 0);
+	gtk_widget_show(image);
 	gtk_widget_show(splashscreen.window);
+#ifndef SPLASH_IDLE_LOOP
 	flush_queue();
+#endif /* SPLASH_IDLE_LOOP */
 	DEBUG_MSG("start_splash_screen, should be visible\n");
-/*	nanosleep(&req, NULL);*/
 	return splashscreen.window;
 }
 #endif /* #ifndef NOSPLASH */

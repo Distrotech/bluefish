@@ -59,6 +59,8 @@
 /*********************************************/
 Tmain *main_v;
 
+GTimer *startuptimer;
+
 /********************************/
 /* functions used in bluefish.c */
 /********************************/
@@ -79,6 +81,104 @@ void cb_print_version(const gchar * option_name, const gchar * value, gpointer d
 /*********************/
 /* the main function */
 /*********************/
+#ifdef SPLASH_IDLE_LOOP
+#define STARTUP_PRIORITY G_PRIORITY_DEFAULT_IDLE-50
+
+static gboolean startup2_during_splash_screen(gpointer data) {
+	Tbfwin *firstbfwin;
+	GList *filenames = NULL;
+#ifndef NOSPLASH
+	GtkWidget *splash_window = data;
+#endif							/* NOSPLASH */	
+
+	/* create the first window */
+	firstbfwin = g_new0(Tbfwin, 1);
+	firstbfwin->session = main_v->session;
+	firstbfwin->bmarkdata = main_v->bmarkdata;
+	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
+	gui_create_main(firstbfwin);
+#ifdef WITH_MSG_QUEUE
+	if (main_v->props.open_in_running_bluefish) {
+		msg_queue_check_server(FALSE);
+	}
+#endif
+	file_static_queues_init();
+	if (filenames) {
+		GList *tmplist = g_list_first(filenames);
+		DEBUG_MSG("main, we have filenames, load them\n");
+		firstbfwin->focus_next_new_doc = TRUE;
+		while (tmplist) {
+			file_handle((GFile *)tmplist->data, firstbfwin);
+			tmplist = g_list_next(tmplist);
+		}
+	}
+	bmark_reload(firstbfwin);
+
+	/* set GTK settings, must be AFTER the menu is created */
+	{
+		gchar *shortcutfilename;
+		GtkSettings *gtksettings = gtk_settings_get_default();
+		g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL);
+		shortcutfilename = g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
+		gtk_accel_map_load(shortcutfilename);
+		g_free(shortcutfilename);
+	}
+#ifdef WITH_MSG_QUEUE
+	if (main_v->props.open_in_running_bluefish) {
+		msg_queue_check_server(TRUE);
+	}
+#endif
+	autosave_init(TRUE, firstbfwin);
+	gui_show_main(firstbfwin);
+	modified_on_disk_check_init();
+#ifndef NOSPLASH
+	if (main_v->props.show_splash_screen) {
+		gtk_widget_destroy(splash_window);
+	}
+#endif							/* NOSPLASH */
+	return FALSE;
+}
+
+static gboolean startup_during_splash_screen(gpointer data) {
+	
+	GList *filenames = NULL;
+#ifndef NOSPLASH
+	GtkWidget *splash_window = data;
+#endif							/* NOSPLASH */
+	
+	bluefish_load_plugins();
+	main_v->session = g_new0(Tsessionvars, 1);
+	main_v->session->view_main_toolbar = main_v->session->view_left_panel =
+	main_v->session->filebrowser_focus_follow = main_v->session->view_statusbar = 1;
+	main_v->session->snr_position_x = main_v->session->snr_position_y = -1;
+	rcfile_parse_global_session();
+	if (main_v->session->recent_dirs == NULL) {
+		main_v->session->recent_dirs =
+			g_list_append(main_v->session->recent_dirs,
+						  g_strconcat("file://", g_get_home_dir(), NULL));
+	}
+	langmgr_init();
+#ifdef HAVE_LIBENCHANT
+	bftextview2_spell_init();
+#endif /*HAVE_LIBENCHANT*/
+	set_default_icon();
+	fb2config_init();			/* filebrowser2config */
+	filters_rebuild();
+	main_v->tooltips = gtk_tooltips_new();
+	regcomp(&main_v->find_encoding,
+			"<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"text/x?html;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>",
+			REG_EXTENDED | REG_ICASE);
+	main_v->bmarkdata = bookmark_data_new();
+#ifdef WITH_MSG_QUEUE
+	if (main_v->props.open_in_running_bluefish) {
+		msg_queue_check_server(FALSE);
+	}
+#endif							/* WITH_MSG_QUEUE */
+
+	g_idle_add_full(STARTUP_PRIORITY, startup2_during_splash_screen, splash_window, NULL);
+	return FALSE;	
+}
+#endif /* SPLASH_IDLE_LOOP */
 
 int main(int argc, char *argv[])
 {
@@ -92,7 +192,7 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
 	GtkWidget *splash_window = NULL;
 #endif							/* NOSPLASH */
-
+	
 	GOptionContext *context;
 	const GOptionEntry options[] = {
 		{"curwindow", 'c', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &arg_curwindow,
@@ -108,16 +208,16 @@ int main(int argc, char *argv[])
 
 #ifdef ENABLE_NLS
 	setlocale(LC_ALL, "");
-	bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
-	DEBUG_MSG("set bindtextdomain for %s to %s\n", GETTEXT_PACKAGE, LOCALEDIR);
-	bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-	textdomain(GETTEXT_PACKAGE);
+	bindtextdomain(PACKAGE, LOCALEDIR);
+	DEBUG_MSG("set bindtextdomain for %s to %s\n", PACKAGE, LOCALEDIR);
+	bind_textdomain_codeset(PACKAGE, "UTF-8");
+	textdomain(PACKAGE);
 #endif							/* ENABLE_NLS */
 
 	if (!g_thread_supported())
 		g_thread_init(NULL);
 /*  gdk_threads_init ();*/
-
+	startuptimer = g_timer_new();
 	gtk_rc_parse_string ("style \"bluefish-small-close-button-style\"\n"
                        "{\n"
                           "GtkWidget::focus-padding = 0\n"
@@ -129,7 +229,7 @@ int main(int argc, char *argv[])
 
 	context = g_option_context_new(_(" [FILE(S)]"));
 #ifdef ENABLE_NLS
-	g_option_context_add_main_entries(context, options, GETTEXT_PACKAGE);
+	g_option_context_add_main_entries(context, options, PACKAGE);
 #else
 	g_option_context_add_main_entries(context, options, NULL);
 #endif							/* ENABLE_NLS */
@@ -178,11 +278,9 @@ int main(int argc, char *argv[])
 	}
 #endif							/* NOSPLASH */
 
-/*  {
-    gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/dir_history", NULL);
-    main_v->recent_directories = get_stringlist(filename, NULL);
-    g_free(filename);
-  }*/
+#ifdef SPLASH_IDLE_LOOP
+	g_idle_add_full(STARTUP_PRIORITY, startup_during_splash_screen, splash_window, NULL);
+#else 
 	bluefish_load_plugins();
 	main_v->session = g_new0(Tsessionvars, 1);
 	main_v->session->view_main_toolbar = main_v->session->view_left_panel =
@@ -277,10 +375,13 @@ int main(int argc, char *argv[])
 		/*nanosleep(&req, NULL); */
 		gtk_widget_destroy(splash_window);
 	}
-	modified_on_disk_check_init();
 #endif							/* NOSPLASH */
+	modified_on_disk_check_init();
+
+#endif /* SPLASH_IDLE_LOOP */
 	DEBUG_MSG("main, before gtk_main()\n");
 /*  gdk_threads_enter ();*/
+	g_print("before gtk_main(), took %f seconds\n",g_timer_elapsed(startuptimer, NULL));
 	gtk_main();
 /*  gdk_threads_leave ();*/
 	DEBUG_MSG("main, after gtk_main()\n");
