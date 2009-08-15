@@ -59,8 +59,6 @@
 /*********************************************/
 Tmain *main_v;
 
-GTimer *startuptimer;
-
 /********************************/
 /* functions used in bluefish.c */
 /********************************/
@@ -93,7 +91,7 @@ typedef struct {
 
 static gboolean startup_in_idle(gpointer data) {
 	Tstartup *startup=data;
-	g_print("to start of state %d took %f seconds\n",startup->state, g_timer_elapsed(startuptimer, NULL));
+	DEBUG_MSG("startup_in_idle, started state=%d\n",startup->state);
 	switch (startup->state) {
 		case 0:
 #ifndef NOSPLASH
@@ -148,7 +146,7 @@ static gboolean startup_in_idle(gpointer data) {
 			file_static_queues_init();
 			if (startup->filenames) {
 				GList *tmplist = g_list_first(startup->filenames);
-				DEBUG_MSG("main, we have filenames, load them\n");
+				DEBUG_MSG("startup_in_idle, we have filenames, load them\n");
 				startup->firstbfwin->focus_next_new_doc = TRUE;
 				while (tmplist) {
 					file_handle((GFile *)tmplist->data, startup->firstbfwin);
@@ -184,7 +182,6 @@ static gboolean startup_in_idle(gpointer data) {
 			}
 #endif							/* NOSPLASH */
 			g_free(startup);
-			g_print("to finish took %f seconds\n",g_timer_elapsed(startuptimer, NULL));
 			return FALSE;
 		break;
 	}
@@ -223,7 +220,6 @@ int main(int argc, char *argv[])
 	if (!g_thread_supported())
 		g_thread_init(NULL);
 /*  gdk_threads_init ();*/
-	startuptimer = g_timer_new();
 	gtk_rc_parse_string ("style \"bluefish-small-close-button-style\"\n"
                        "{\n"
                           "GtkWidget::focus-padding = 0\n"
@@ -275,11 +271,10 @@ int main(int argc, char *argv[])
 	if (main_v->props.open_in_running_bluefish) {
 		msg_queue_start(startup->filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) );
 	}
-#endif							/* WITH_MSG_QUEUE */
+#endif /* WITH_MSG_QUEUE */
 	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, NULL);
 	DEBUG_MSG("main, before gtk_main()\n");
 /*  gdk_threads_enter ();*/
-	g_print("before gtk_main(), took %f seconds\n",g_timer_elapsed(startuptimer, NULL));
 	gtk_main();
 /*  gdk_threads_leave ();*/
 	DEBUG_MSG("main, after gtk_main()\n");
