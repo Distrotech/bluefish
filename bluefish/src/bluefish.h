@@ -20,7 +20,6 @@
  */
 /* #define HL_PROFILING */
 #define USE_BFTEXTVIEW2
-/*#define SPLASH_IDLE_LOOP*/
 /* if you define DEBUG here you will get debug output from all Bluefish parts */
 /* #define DEBUG */
 

@@ -81,118 +81,124 @@ void cb_print_version(const gchar * option_name, const gchar * value, gpointer d
 /*********************/
 /* the main function */
 /*********************/
-#ifdef SPLASH_IDLE_LOOP
-#define STARTUP_PRIORITY G_PRIORITY_DEFAULT_IDLE-50
 
-static gboolean startup2_during_splash_screen(gpointer data) {
+typedef struct {
 	Tbfwin *firstbfwin;
-	GList *filenames = NULL;
+	GList *filenames;
 #ifndef NOSPLASH
-	GtkWidget *splash_window = data;
+	GtkWidget *splash_window;
 #endif							/* NOSPLASH */	
+	guint state;
+} Tstartup;
 
-	/* create the first window */
-	firstbfwin = g_new0(Tbfwin, 1);
-	firstbfwin->session = main_v->session;
-	firstbfwin->bmarkdata = main_v->bmarkdata;
-	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
-	gui_create_main(firstbfwin);
-#ifdef WITH_MSG_QUEUE
-	if (main_v->props.open_in_running_bluefish) {
-		msg_queue_check_server(FALSE);
-	}
-#endif
-	file_static_queues_init();
-	if (filenames) {
-		GList *tmplist = g_list_first(filenames);
-		DEBUG_MSG("main, we have filenames, load them\n");
-		firstbfwin->focus_next_new_doc = TRUE;
-		while (tmplist) {
-			file_handle((GFile *)tmplist->data, firstbfwin);
-			tmplist = g_list_next(tmplist);
-		}
-	}
-	bmark_reload(firstbfwin);
-
-	/* set GTK settings, must be AFTER the menu is created */
-	{
-		gchar *shortcutfilename;
-		GtkSettings *gtksettings = gtk_settings_get_default();
-		g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL);
-		shortcutfilename = g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
-		gtk_accel_map_load(shortcutfilename);
-		g_free(shortcutfilename);
-	}
-#ifdef WITH_MSG_QUEUE
-	if (main_v->props.open_in_running_bluefish) {
-		msg_queue_check_server(TRUE);
-	}
-#endif
-	autosave_init(TRUE, firstbfwin);
-	gui_show_main(firstbfwin);
-	modified_on_disk_check_init();
+static gboolean startup_in_idle(gpointer data) {
+	Tstartup *startup=data;
+	g_print("to start of state %d took %f seconds\n",startup->state, g_timer_elapsed(startuptimer, NULL));
+	switch (startup->state) {
+		case 0:
 #ifndef NOSPLASH
-	if (main_v->props.show_splash_screen) {
-		gtk_widget_destroy(splash_window);
-	}
+			if (main_v->props.show_splash_screen) {
+				/* start splash screen somewhere here */
+				startup->splash_window = start_splash_screen();
+				splash_screen_set_label(_("starting up..."));
+			}
 #endif							/* NOSPLASH */
-	return FALSE;
-}
-
-static gboolean startup_during_splash_screen(gpointer data) {
-	
-	GList *filenames = NULL;
-#ifndef NOSPLASH
-	GtkWidget *splash_window = data;
-#endif							/* NOSPLASH */
-	
-	bluefish_load_plugins();
-	main_v->session = g_new0(Tsessionvars, 1);
-	main_v->session->view_main_toolbar = main_v->session->view_left_panel =
-	main_v->session->filebrowser_focus_follow = main_v->session->view_statusbar = 1;
-	main_v->session->snr_position_x = main_v->session->snr_position_y = -1;
-	rcfile_parse_global_session();
-	if (main_v->session->recent_dirs == NULL) {
-		main_v->session->recent_dirs =
-			g_list_append(main_v->session->recent_dirs,
-						  g_strconcat("file://", g_get_home_dir(), NULL));
-	}
-	langmgr_init();
+			bluefish_load_plugins();
+			main_v->session = g_new0(Tsessionvars, 1);
+			main_v->session->view_main_toolbar = main_v->session->view_left_panel =	main_v->session->filebrowser_focus_follow = main_v->session->view_statusbar = 1;
+			main_v->session->snr_position_x = main_v->session->snr_position_y = -1;
+			rcfile_parse_global_session();
+			if (main_v->session->recent_dirs == NULL) {
+				main_v->session->recent_dirs =
+					g_list_append(main_v->session->recent_dirs,
+								  g_strconcat("file://", g_get_home_dir(), NULL));
+			}
+			langmgr_init();
 #ifdef HAVE_LIBENCHANT
-	bftextview2_spell_init();
+			bftextview2_spell_init();
 #endif /*HAVE_LIBENCHANT*/
-	set_default_icon();
-	fb2config_init();			/* filebrowser2config */
-	filters_rebuild();
-	main_v->tooltips = gtk_tooltips_new();
-	regcomp(&main_v->find_encoding,
-			"<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"text/x?html;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>",
-			REG_EXTENDED | REG_ICASE);
-	main_v->bmarkdata = bookmark_data_new();
+			set_default_icon();
+			fb2config_init();			/* filebrowser2config */
+			filters_rebuild();
+			main_v->tooltips = gtk_tooltips_new();
+			regcomp(&main_v->find_encoding,
+					"<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"text/x?html;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>",
+					REG_EXTENDED | REG_ICASE);
+			main_v->bmarkdata = bookmark_data_new();
+			/* create the first window */
+			startup->firstbfwin = g_new0(Tbfwin, 1);
+			startup->firstbfwin->session = main_v->session;
+			startup->firstbfwin->bmarkdata = main_v->bmarkdata;
+			main_v->bfwinlist = g_list_append(NULL, startup->firstbfwin);
 #ifdef WITH_MSG_QUEUE
-	if (main_v->props.open_in_running_bluefish) {
-		msg_queue_check_server(FALSE);
-	}
+			if (main_v->props.open_in_running_bluefish) {
+				msg_queue_check_server(FALSE);
+			}
 #endif							/* WITH_MSG_QUEUE */
-
-	g_idle_add_full(STARTUP_PRIORITY, startup2_during_splash_screen, splash_window, NULL);
-	return FALSE;	
+		break;
+		case 1:
+			gui_create_main(startup->firstbfwin);
+#ifdef WITH_MSG_QUEUE
+			if (main_v->props.open_in_running_bluefish) {
+				msg_queue_check_server(FALSE);
+			}
+#endif
+		break;
+		case 2:
+			file_static_queues_init();
+			if (startup->filenames) {
+				GList *tmplist = g_list_first(startup->filenames);
+				DEBUG_MSG("main, we have filenames, load them\n");
+				startup->firstbfwin->focus_next_new_doc = TRUE;
+				while (tmplist) {
+					file_handle((GFile *)tmplist->data, startup->firstbfwin);
+					tmplist = g_list_next(tmplist);
+				}
+			}
+			bmark_reload(startup->firstbfwin);
+			/* set GTK settings, must be AFTER the menu is created */
+			{
+				gchar *shortcutfilename;
+				GtkSettings *gtksettings = gtk_settings_get_default();
+				g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL);
+				shortcutfilename = g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
+				gtk_accel_map_load(shortcutfilename);
+				g_free(shortcutfilename);
+			}
+			autosave_init(TRUE, startup->firstbfwin);
+		#ifdef WITH_MSG_QUEUE
+			if (main_v->props.open_in_running_bluefish) {
+				msg_queue_check_server(TRUE);
+			}
+		#endif
+		break;
+		case 3:
+			gui_show_main(startup->firstbfwin);
+		break;
+		case 4:
+			doc_scroll_to_cursor(BFWIN(startup->firstbfwin)->current_document);
+			modified_on_disk_check_init();
+#ifndef NOSPLASH
+			if (main_v->props.show_splash_screen) {
+				gtk_widget_destroy(startup->splash_window);
+			}
+#endif							/* NOSPLASH */
+			g_free(startup);
+			g_print("to finish took %f seconds\n",g_timer_elapsed(startuptimer, NULL));
+			return FALSE;
+		break;
+	}
+	startup->state++;
+	return TRUE;	
 }
-#endif /* SPLASH_IDLE_LOOP */
 
 int main(int argc, char *argv[])
 {
 	gboolean arg_curwindow = FALSE, arg_newwindow=FALSE;
 	gchar **files = NULL;
-	GList *filenames = NULL;
-	Tbfwin *firstbfwin;
+	Tstartup *startup;
 
 	GError *error = NULL;
-
-#ifndef NOSPLASH
-	GtkWidget *splash_window = NULL;
-#endif							/* NOSPLASH */
-	
 	GOptionContext *context;
 	const GOptionEntry options[] = {
 		{"curwindow", 'c', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &arg_curwindow,
@@ -247,7 +253,7 @@ int main(int argc, char *argv[])
 		g_error_free(error);
 
 	xmlInitParser();
-
+	startup = g_new0(Tstartup,1);
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
 	rcfile_check_directory();
@@ -257,7 +263,7 @@ int main(int argc, char *argv[])
 		gchar **tmp = files;
 		while (*tmp) {
 			GFile *tmpfile = g_file_new_for_commandline_arg(*tmp);
-			filenames = g_list_append(filenames, tmpfile);
+			startup->filenames = g_list_append(startup->filenames, tmpfile);
 			DEBUG_MSG("main, file=%s\n", *tmp);
 			tmp++;
 		}
@@ -267,118 +273,10 @@ int main(int argc, char *argv[])
 	/* start message queue as early as possible so a running bluefish process has a lot of 
 	time to respond to our request-alive request */
 	if (main_v->props.open_in_running_bluefish) {
-		msg_queue_start(filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) );
+		msg_queue_start(startup->filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) );
 	}
 #endif							/* WITH_MSG_QUEUE */
-#ifndef NOSPLASH
-	if (main_v->props.show_splash_screen) {
-		/* start splash screen somewhere here */
-		splash_window = start_splash_screen();
-		splash_screen_set_label(_("loading plugins..."));
-	}
-#endif							/* NOSPLASH */
-
-#ifdef SPLASH_IDLE_LOOP
-	g_idle_add_full(STARTUP_PRIORITY, startup_during_splash_screen, splash_window, NULL);
-#else 
-	bluefish_load_plugins();
-	main_v->session = g_new0(Tsessionvars, 1);
-	main_v->session->view_main_toolbar = main_v->session->view_left_panel =
-		main_v->session->filebrowser_focus_follow = main_v->session->view_statusbar = 1;
-	main_v->session->snr_position_x = main_v->session->snr_position_y = -1;
-	rcfile_parse_global_session();
-	if (main_v->session->recent_dirs == NULL) {
-		main_v->session->recent_dirs =
-			g_list_append(main_v->session->recent_dirs,
-						  g_strconcat("file://", g_get_home_dir(), NULL));
-	}
-#ifndef NOSPLASH
-	if (main_v->props.show_splash_screen)
-		splash_screen_set_label(_("reading language files..."));
-#endif							/* NOSPLASH */
-	langmgr_init();
-#ifdef HAVE_LIBENCHANT
-	bftextview2_spell_init();
-#endif /*HAVE_LIBENCHANT*/
-#ifndef NOSPLASH
-	if (main_v->props.show_splash_screen)
-		splash_screen_set_label(_("building file browser ..."));
-#endif							/* NOSPLASH */
-	set_default_icon();
-	fb2config_init();			/* filebrowser2config */
-	filters_rebuild();
-	main_v->tooltips = gtk_tooltips_new();
-	regcomp(&main_v->find_encoding,
-			"<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"text/x?html;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>",
-			REG_EXTENDED | REG_ICASE);
-	main_v->bmarkdata = bookmark_data_new();
-#ifdef WITH_MSG_QUEUE
-	if (main_v->props.open_in_running_bluefish) {
-#ifndef NOSPLASH
-		if (main_v->props.show_splash_screen)
-			splash_screen_set_label(_("checking for running bluefish process ..."));
-#endif							/* NOSPLASH */
-		msg_queue_check_server(FALSE);
-	}
-#endif							/* WITH_MSG_QUEUE */
-#ifndef NOSPLASH
-	if (main_v->props.show_splash_screen)
-		splash_screen_set_label(_("creating main gui..."));
-#endif							/* NOSPLASH */
-	/* create the first window */
-	firstbfwin = g_new0(Tbfwin, 1);
-	firstbfwin->session = main_v->session;
-	firstbfwin->bmarkdata = main_v->bmarkdata;
-	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
-	gui_create_main(firstbfwin);
-#ifdef WITH_MSG_QUEUE
-	if (main_v->props.open_in_running_bluefish) {
-		msg_queue_check_server(FALSE);
-	}
-#endif
-	file_static_queues_init();
-	if (filenames) {
-		GList *tmplist = g_list_first(filenames);
-		DEBUG_MSG("main, we have filenames, load them\n");
-		firstbfwin->focus_next_new_doc = TRUE;
-		while (tmplist) {
-			file_handle((GFile *)tmplist->data, firstbfwin);
-			tmplist = g_list_next(tmplist);
-		}
-	}
-	bmark_reload(firstbfwin);
-
-#ifndef NOSPLASH
-	if (main_v->props.show_splash_screen)
-		splash_screen_set_label(_("showing main gui..."));
-#endif							/* NOSPLASH */
-	/* set GTK settings, must be AFTER the menu is created */
-	{
-		gchar *shortcutfilename;
-		GtkSettings *gtksettings = gtk_settings_get_default();
-		g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL);
-		shortcutfilename = g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
-		gtk_accel_map_load(shortcutfilename);
-		g_free(shortcutfilename);
-	}
-#ifdef WITH_MSG_QUEUE
-	if (main_v->props.open_in_running_bluefish) {
-		msg_queue_check_server(TRUE);
-	}
-#endif
-	autosave_init(TRUE, firstbfwin);
-	gui_show_main(firstbfwin);
-#ifndef NOSPLASH
-	if (main_v->props.show_splash_screen) {
-		/*static struct timespec const req = { 0, 10000000}; */
-		flush_queue();
-		/*nanosleep(&req, NULL); */
-		gtk_widget_destroy(splash_window);
-	}
-#endif							/* NOSPLASH */
-	modified_on_disk_check_init();
-
-#endif /* SPLASH_IDLE_LOOP */
+	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, NULL);
 	DEBUG_MSG("main, before gtk_main()\n");
 /*  gdk_threads_enter ();*/
 	g_print("before gtk_main(), took %f seconds\n",g_timer_elapsed(startuptimer, NULL));

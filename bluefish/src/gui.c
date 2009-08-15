@@ -1056,18 +1056,12 @@ void gui_create_main(Tbfwin *bfwin) {
 		g_signal_connect(G_OBJECT(bfwin->main_window), "drag_data_received", G_CALLBACK(main_win_on_drag_data_lcb), bfwin);
 	}
 }
-extern GTimer *startuptimer;
-static gboolean gui_show_main_idle_lcb(gpointer data) {
-	g_print("startup took %g\n",g_timer_elapsed(startuptimer, NULL));
-	doc_scroll_to_cursor(BFWIN(data)->current_document);
-	return FALSE;	
-}
 
 void gui_show_main(Tbfwin *bfwin) {
 	DEBUG_MSG("gui_show_main, before show\n");
 	/* don't use show_all since some widgets are and should be hidden */
 	gtk_widget_show(bfwin->main_window);
-	g_idle_add(gui_show_main_idle_lcb, bfwin);
+
 }
 /***********************/
 /* statusbar functions */
@@ -1123,9 +1117,6 @@ void splash_screen_set_label(gchar *label) {
 	g_print("Setting splash label to %s\n", label);
 #endif
 	gtk_label_set(GTK_LABEL(splashscreen.label),label);
-#ifndef SPLASH_IDLE_LOOP
-	flush_queue();
-#endif /* SPLASH_IDLE_LOOP */
 }
 
 GtkWidget *start_splash_screen() {
@@ -1164,9 +1155,6 @@ GtkWidget *start_splash_screen() {
 	gtk_box_pack_end(GTK_BOX(vbox), image, FALSE, FALSE, 0);
 	gtk_widget_show(image);
 	gtk_widget_show(splashscreen.window);
-#ifndef SPLASH_IDLE_LOOP
-	flush_queue();
-#endif /* SPLASH_IDLE_LOOP */
 	DEBUG_MSG("start_splash_screen, should be visible\n");
 	return splashscreen.window;
 }
