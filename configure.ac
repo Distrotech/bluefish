@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Revision$
+dnl $Id$
 dnl
 dnl Copyright (C) 2002-2009 Olivier Sessink
 dnl Copyright (C) 2006-2009 Daniel Leidert
@@ -13,7 +13,7 @@ AC_PREREQ([2.59])
 
 m4_define([bluefish_major_version], [1])
 m4_define([bluefish_minor_version], [3])
-m4_define([bluefish_micro_version], [6])
+m4_define([bluefish_micro_version], [7])
 m4_define([bluefish_version], [bluefish_major_version.bluefish_minor_version.bluefish_micro_version])
 
 AC_INIT([bluefish-unstable],[bluefish_version],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
