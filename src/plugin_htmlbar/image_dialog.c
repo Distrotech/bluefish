@@ -1105,16 +1105,20 @@ image_dialog_ok_clicked (BluefishImageDialog *dialog)
 	g_free (strvalue);
 	
 	intvalue = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (dialog->priv->width));
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->widthPercent)))
-		g_string_append_printf (tag, " %s=\"%d%%\"", cap ("WIDTH"), intvalue);
-	else
-		g_string_append_printf (tag, " %s=\"%d\"", cap ("WIDTH"), intvalue);
+	if (intvalue != 0) {
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->widthPercent)))
+			g_string_append_printf (tag, " %s=\"%d%%\"", cap ("WIDTH"), intvalue);
+		else
+			g_string_append_printf (tag, " %s=\"%d\"", cap ("WIDTH"), intvalue);
+	}
 	
 	intvalue = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (dialog->priv->height));
-	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->heightPercent)))
-		g_string_append_printf (tag, " %s=\"%d%%\"", cap ("HEIGHT"), intvalue);
-	else
-		g_string_append_printf (tag, " %s=\"%d\"", cap ("HEIGHT"), intvalue);
+	if (intvalue != 0) {
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->heightPercent)))
+			g_string_append_printf (tag, " %s=\"%d%%\"", cap ("HEIGHT"), intvalue);
+		else
+			g_string_append_printf (tag, " %s=\"%d\"", cap ("HEIGHT"), intvalue);
+	}
 	
 	strvalue = gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->alt), 0, -1);
 	if (strlen (strvalue))
