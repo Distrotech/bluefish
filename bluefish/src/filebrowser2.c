@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filebrowser2.c - the filebrowser v2
  *
- * Copyright (C) 2002,2003,2004,2005,2006,2007,2008 Olivier Sessink
+ * Copyright (C) 2002,2003,2004,2005,2006,2007,2008,2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -401,6 +401,26 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 	return newiter;
 }
 
+static void fb2_treestore_delete_children(GtkTreeStore * tstore, GtkTreeIter * iter, gboolean only_when_refresh1);
+
+static void fb2_treestore_delete(GtkTreeStore * tstore, GtkTreeIter * iter) {
+	GFile *d_uri;
+	GFileInfo *finfo;
+	if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(tstore), iter)) {
+		fb2_treestore_delete_children(tstore, iter, FALSE);
+	}
+	gtk_tree_model_get(GTK_TREE_MODEL(tstore), iter, URI_COLUMN, &d_uri,
+								   FILEINFO_COLUMN, &finfo, -1);
+	gtk_tree_store_remove(tstore, iter);
+	/* remove from hash table too! */
+	g_hash_table_remove(FB2CONFIG(main_v->fb2config)->filesystem_itable,d_uri);
+	
+	DEBUG_MSG("fb2_treestore_delete, unref d_uri %p and finfo %p\n",
+			  d_uri, finfo);
+	g_object_unref(d_uri);
+	g_object_unref(finfo);
+}
+
 static void fb2_treestore_delete_children(GtkTreeStore * tstore, GtkTreeIter * iter, gboolean only_when_refresh1) {
 	GtkTreeIter child;
 	if (gtk_tree_model_iter_children(GTK_TREE_MODEL(tstore), &child, iter)) {
@@ -416,28 +436,12 @@ static void fb2_treestore_delete_children(GtkTreeStore * tstore, GtkTreeIter * i
 			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(tstore), &child);
 			if (do_delete) {
 				/* delete 'this' ! */
-				GFile *d_uri;
-				GFileInfo *finfo;
-				
-				if (gtk_tree_model_iter_has_child(GTK_TREE_MODEL(tstore), &this)) {
-					fb2_treestore_delete_children(tstore, &this, FALSE);
-				}
-				gtk_tree_model_get(GTK_TREE_MODEL(tstore), &this, URI_COLUMN, &d_uri,
-								   FILEINFO_COLUMN, &finfo, -1);
-				gtk_tree_store_remove(tstore, &this);
-				/* remove from hash table too! */
-				g_hash_table_remove(FB2CONFIG(main_v->fb2config)->filesystem_itable,d_uri);
-				
-				DEBUG_MSG("fb2_treestore_delete_children, unref d_uri %p and finfo %p\n",
-						  d_uri, finfo);
-				g_object_unref(d_uri);
-				g_object_unref(finfo);
+				fb2_treestore_delete(tstore, &this);
 			}
 		}
 	}
 	
 }
-
 
 /**
  * fb2_treestore_delete_children_refresh1
@@ -538,6 +542,11 @@ static void fb2_enumerate_children_lcb(GObject * source_object, GAsyncResult * r
 	GError *error = NULL;
 	uir->gfe = g_file_enumerate_children_finish(uir->uri, res, &error);
 	if (error) {
+		/* delete the directory from the treestore */
+		GtkTreeIter *iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uir->uri);
+		if (iter) {
+			fb2_treestore_delete(FB2CONFIG(main_v->fb2config)->filesystem_tstore, iter);
+		}
 		g_warning("failed to list directory in filebrowser: %s\n",error->message);
 		g_error_free(error);
 		fb2_uri_in_refresh_cleanup(uir);
