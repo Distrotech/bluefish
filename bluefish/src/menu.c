@@ -438,7 +438,7 @@ static GtkWidget *create_dynamic_menuitem(Tbfwin *bfwin, const gchar *menubasepa
 	/* add it to bfwin->menubar */
 	factory = gtk_item_factory_from_widget(bfwin->menubar);
 	menu = gtk_item_factory_get_widget(factory, menubasepath);
-	DEBUG_MSG("create_dynamic_menuitem, menubar=%p, menu=%p basepath=%s, label=%s\n", bfwin->menubar, menu, menubasepath,label);
+	DEBUG_MSG("create_dynamic_menuitem, menubar=%p, menu=%p, basepath=%s, label=%s\n", bfwin->menubar, menu, menubasepath, label);
 	if (!menu)
 		return NULL;
 	if (label) {
@@ -646,11 +646,11 @@ static GtkWidget *create_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 		}
 	}
 	if (is_project) {
-		return  create_dynamic_menuitem(bfwin,N_("/Project/Open Recent")
+		return  create_dynamic_menuitem(bfwin,"/Project/Open Recent"
 			, filename, G_CALLBACK(open_recent_project_cb), bfwin
 			, 1);
 	} else {
-		return  create_dynamic_menuitem(bfwin,N_("/File/Open Recent")
+		return  create_dynamic_menuitem(bfwin,"/File/Open Recent"
 			, filename, G_CALLBACK(open_recent_file_cb), bfwin
 			, 1);
 	}
@@ -929,7 +929,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
 			DEBUG_MSG("external_menu_rebuild,Adding filter %s with command %s to the menu\n", arr[0], arr[1]);
-			bdm->menuitem = create_dynamic_menuitem(bfwin,N_("/Tools/Filters"),arr[0],G_CALLBACK(external_filter_lcb),bdm,-1);
+			bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools/Filters",arr[0],G_CALLBACK(external_filter_lcb),bdm,-1);
 			DEBUG_MSG("external_menu_rebuild,creating,bfwin=%p,bdm=%p,menuitem=%p\n",bfwin,bdm,bdm->menuitem);
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
 		} else {
@@ -950,10 +950,9 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
 			if (arr[2][0] == '1') {
-				const gchar *tmp1 = N_("/Tools");
-				bdm->menuitem = create_dynamic_menuitem(bfwin,tmp1,arr[0],G_CALLBACK(external_command_lcb),bdm,1);
+				bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools",arr[0],G_CALLBACK(external_command_lcb),bdm,1);
 			} else {
-				bdm->menuitem = create_dynamic_menuitem(bfwin,N_("/Tools/Commands"),arr[0],G_CALLBACK(external_command_lcb),bdm,-1);
+				bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools/Commands",arr[0],G_CALLBACK(external_command_lcb),bdm,-1);
 			}
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
 		} else {
@@ -981,7 +980,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			bdm->data = arr;
 			bdm->bfwin = bfwin;
 			DEBUG_MSG("external_menu_rebuild,Adding outputbox %s with command %s to the menu\n", arr[0], arr[5]);
-			bdm->menuitem = create_dynamic_menuitem(bfwin,N_("/Tools/Outputbox"),arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)bdm,-1);
+			bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools/Outputbox",arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)bdm,-1);
 			bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox,bdm);
 		} else {
 			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_outputbox; array count =%d\n",count_array(arr));
