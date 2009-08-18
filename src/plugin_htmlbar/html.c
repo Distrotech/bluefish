@@ -558,6 +558,7 @@ static void quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
   thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[1]), cap("ID"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[2]), cap("STYLE"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[17]), cap("LANG"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[18]), cap("TITLE"), thestring, NULL);
   finalstring = g_strdup_printf("%s>", thestring);
   g_free(thestring);
 
