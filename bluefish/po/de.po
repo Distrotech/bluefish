@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 1.3.6\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-08-16 17:02+0200\n"
+"POT-Creation-Date: 2009-08-18 03:24+0200\n"
 "PO-Revision-Date: 2009-06-11 11:30+0200\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: None\n"
@@ -1531,14 +1531,6 @@ msgstr "/Werkzeuge/In Spalten a_uftrennen"
 msgid "/Document/Language Mode"
 msgstr ""
 
-#: ../src/menu.c:649
-msgid "/Project/Open Recent"
-msgstr "/Projekt/Zuletzt geöffnet"
-
-#: ../src/menu.c:653
-msgid "/File/Open Recent"
-msgstr "/Datei/Zuletzt geöffnet"
-
 #: ../src/menu.c:836
 msgid "No default browser found"
 msgstr "Kein Standardbrowser gefunden"
@@ -1555,23 +1547,7 @@ msgstr ""
 msgid "Operate filter only on selection?"
 msgstr "Filter nur auf Auswahl anwenden?"
 
-#: ../src/menu.c:932
-msgid "/Tools/Filters"
-msgstr "/Werkzeuge/Filter"
-
-#: ../src/menu.c:953
-msgid "/Tools"
-msgstr "/Werkzeuge"
-
-#: ../src/menu.c:956
-msgid "/Tools/Commands"
-msgstr "/Werkzeuge/Befehle"
-
-#: ../src/menu.c:984
-msgid "/Tools/Outputbox"
-msgstr "/Werkzeuge/Ausgabefenster"
-
-#: ../src/menu.c:1029
+#: ../src/menu.c:1028
 msgid "/Document/Character Encoding"
 msgstr "/Dokument/Zeichenkodierung"
 
@@ -2597,6 +2573,24 @@ msgstr "In allen Dokumenten rückgängig machen?"
 #: ../src/undo_redo.c:466
 msgid "This change concerns multiple documents."
 msgstr "Diese Änderung betrifft mehrere Dokumente"
+
+#~ msgid "/Project/Open Recent"
+#~ msgstr "/Projekt/Zuletzt geöffnet"
+
+#~ msgid "/File/Open Recent"
+#~ msgstr "/Datei/Zuletzt geöffnet"
+
+#~ msgid "/Tools/Filters"
+#~ msgstr "/Werkzeuge/Filter"
+
+#~ msgid "/Tools"
+#~ msgstr "/Werkzeuge"
+
+#~ msgid "/Tools/Commands"
+#~ msgstr "/Werkzeuge/Befehle"
+
+#~ msgid "/Tools/Outputbox"
+#~ msgstr "/Werkzeuge/Ausgabefenster"
 
 #~ msgid "loading plugins..."
 #~ msgstr "Lade Plugins..."
