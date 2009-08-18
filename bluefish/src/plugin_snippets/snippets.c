@@ -56,7 +56,15 @@ Tsnippetssession *snippets_get_session(Tsessionvars *session) {
 	}
 	return sns;
 }
-
+Tsnippetswin *snippets_get_win(Tbfwin *bfwin) {
+	Tsnippetswin *snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
+	if (!snw) {
+		snw = g_new0(Tsnippetswin,1);
+		snw->bfwin = bfwin;
+		g_hash_table_insert(snippets_v.lookup,bfwin,snw);
+	}
+	return snw;	
+}
 static void snippets_initgui(Tbfwin* bfwin) {
 	snippets_create_gui(bfwin);
 }

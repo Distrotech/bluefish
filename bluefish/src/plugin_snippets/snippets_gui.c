@@ -325,7 +325,7 @@ static void snippetsmenu_cb(gpointer user_data, gpointer data) {
 }
 
 void snippets_show_as_menu(Tsnippetswin *snw, gboolean enable) {
-	if (enable) {
+	if (snw && enable) {
 		if (!snw->snippetsmenu) {
 			gint width = gdk_screen_get_width(gtk_window_get_screen(GTK_WINDOW(snw->bfwin->main_window)));
 			snw->snippetsmenu = snippets_menu_new(width);
@@ -603,9 +603,7 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	
 	DEBUG_MSG("snippets_sidepanel_initgui, bfwin=%p\n",bfwin);
 	
-	snw = g_new0(Tsnippetswin,1);
-	snw->bfwin = bfwin;
-	g_hash_table_insert(snippets_v.lookup,bfwin,snw);	
+	snw = snippets_get_win(bfwin);	
 	DEBUG_MSG("snippets_sidepanel_initgui, snw=%p, store=%p\n",snw,snippets_v.store);
 	snw->view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(snippets_v.store));
 /*	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(snw->view));
@@ -658,7 +656,7 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 void snippets_sidepanel_destroygui(Tbfwin *bfwin) {
 	Tsnippetswin *snw;
 	/* the widget is auto destroyed, and there is nothing more to destroy */
-	snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
+	snw = snippets_get_win(bfwin);
 	if (snw) {
 		/*tree_tips_destroy(snw->ttips);*/
 		gtk_window_remove_accel_group(GTK_WINDOW(snw->bfwin->main_window),snw->accel_group);
@@ -673,7 +671,7 @@ void snippets_create_gui(Tbfwin *bfwin) {
 	Tsnippetswin *snw;
 	GtkItemFactory *ifactory;
 	Tsnippetssession *sns = snippets_get_session(bfwin->session);
-	snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
+	snw = snippets_get_win(bfwin);
 
 	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 #ifdef ENABLE_NLS
