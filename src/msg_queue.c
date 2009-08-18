@@ -119,7 +119,7 @@ static gboolean msg_queue_check_alive(void)
 		static struct timespec rem;
 		nanosleep(&req, &rem);
 	}*/
-	g_print("msg_queue_check_alive\n");
+	g_print("msg_queue_check_alive after %d ms\n",(int)(g_timer_elapsed(msg_queue.timer, NULL)*1000));
 	while (msgrcv
 		   (msg_queue.msgid, &small_msgp, MSQ_QUEUE_SMALL_SIZE * sizeof(char), MSG_QUEUE_SEND_ALIVE,
 			IPC_NOWAIT) != -1) {
@@ -216,6 +216,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout) {
 	}
 	bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
 	while (run_again && !is_last) {
+		DEBUG_MSG("poll message queue again\n");
 		run_again = FALSE;
 		
 		/* read all except MSG_QUEUE_SEND_ALIVE */
@@ -234,6 +235,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout) {
 				strncpy(small_msgp.mtext, msgp.mtext, MSQ_QUEUE_SMALL_SIZE - 1);
 				msgsnd(msg_queue.msgid, (void *) &small_msgp, MSQ_QUEUE_SMALL_SIZE * sizeof(char),
 					   IPC_NOWAIT);
+				run_again=TRUE;
 				}
 			break;
 			case MSG_QUEUE_OPENFILE_LAST:
@@ -269,6 +271,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout) {
 						DEBUG_MSG("msg_queue_check, the PID is not ours, opening new window\n");
 						bfwin = gui_new_window(NULL);
 					}
+					run_again=TRUE;
 				}
 			break;
 	#ifdef DEBUG
@@ -501,7 +504,7 @@ static void msg_queue_become_server(void) {
 void msg_queue_start(GList * filenames, gboolean open_new_window) {
 	gboolean queue_already_open;
 	msg_queue.timer = g_timer_new();
-	main_v->globses.msg_queue_poll_time = 500; /* a tuned value is set again later on in the process*/
+	main_v->globses.msg_queue_poll_time = 600; /* a tuned value is set again later on in the process*/
 	DEBUG_MSG("msg_queue_start, open message queue\n");
 	queue_already_open = msg_queue_open();
 	if (queue_already_open && msg_queue.functional) {
@@ -557,12 +560,12 @@ void msg_queue_check_server(gboolean last_check) {
 	}
 	if (msg_queue.functional && !msg_queue.server && !msg_queue.received_keepalive) {
 		if (last_check) {
-			gdouble remainder = (((gdouble)main_v->globses.msg_queue_poll_time)/1000.0) - elapsed;
-			g_print("start to here took %f seconds\n",g_timer_elapsed(msg_queue.timer,NULL));  
+			/* wait for the remaining time, but sleep longer --> 200% */
+			gdouble remainder = (((gdouble)main_v->globses.msg_queue_poll_time*2.0)/1000.0) - elapsed;
+			g_print("start to here took %d ms, timer from config is %d ms, safe-remainder is %d\n",(int)(1000*elapsed),main_v->globses.msg_queue_poll_time, (int)(remainder*1000) );  
 			if (remainder > 0) {
-				/* wait for the remaining time, sleep slightly longer --> 110% */
 				struct timespec rem;
-				struct timespec req = { 0, (int)(1100000000.0 * remainder)};			
+				struct timespec req = { 0, (int)(1000000000.0 * remainder)};			
 				g_print("msg_queue_check_server, wait for %f seconds, %ld nanoseconds\n",remainder,req.tv_nsec);
 				nanosleep(&req, &rem);
 			}
@@ -579,15 +582,23 @@ void msg_queue_check_server(gboolean last_check) {
 			DEBUG_MSG("msg_queue_check_server, we did send all our messages to an active queue, exiting!\n");
 			exit(0);
 		} else if (last_check) { /* still no keepalive on last_check */
+			g_print("still no keepalive, elapsed=%d, poll timer from config=%d, become server!\n", (int)(elapsed*1000),main_v->globses.msg_queue_poll_time);
 			msg_queue_become_server();
 		} else {
 			msg_queue_send_remaining_files();
 		
 		}
 	}
-	if (last_check) { /* auto-tune poll at an interval 90% of the startup interval */
-		main_v->globses.msg_queue_poll_time = (int) MAX(MIN(((900.0 * elapsed)+main_v->globses.msg_queue_poll_time)/2.0,750),200);
-		g_print("start to here took %d milliseconds, change poll queue timer to %d\n",(int)(elapsed*1000),main_v->globses.msg_queue_poll_time); 
+	if (last_check) { /* auto-tune poll at an interval 66.7% of the lowest startup interval
+				(I have seen such variations in the startup time) */
+		g_print("start to here (excluding any sleep()'s) took %d milliseconds, change poll queue timer from %d ", (int)(elapsed*1000), main_v->globses.msg_queue_poll_time); 
+		if (elapsed*667 <  main_v->globses.msg_queue_poll_time) {
+			main_v->globses.msg_queue_poll_time = (int) MAX(MIN((667.0 * elapsed),750),200);
+		} else {
+			/* 'walking average' where the old value has 4/5 and the new value 1/5 impact */
+			main_v->globses.msg_queue_poll_time = (int) MAX(MIN(((667.0 * elapsed)+main_v->globses.msg_queue_poll_time*4.0)/5.0,750),200);
+		}
+		g_print("to %d\n",main_v->globses.msg_queue_poll_time); 
 		g_timer_destroy(msg_queue.timer);
 		msg_queue_become_server();
 	}
