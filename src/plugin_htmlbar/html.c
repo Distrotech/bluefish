@@ -575,9 +575,9 @@ static void quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
 }
 
 void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-  static gchar *aitems[] = { "href", "target", "name", "onkeyup", "onclick", "ondblclick", "onmouseover", "onmousedown", "onmousemove", "onmouseout", "onmouseup", "onkeydown", "onkeypress", "class", "id", "style", "lang", NULL };
+  static gchar *aitems[] = { "href", "target", "name", "onkeyup", "onclick", "ondblclick", "onmouseover", "onmousedown", "onmousemove", "onmouseout", "onmouseup", "onkeydown", "onkeypress", "class", "id", "style", "lang", "title", NULL };
   gchar *custom = NULL;
-  gchar *avalues[18];
+  gchar *avalues[19];
   Thtml_diag *dg;
 
   GtkWidget *noteb, *dgtable, *file_but;
@@ -588,7 +588,7 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   noteb = gtk_notebook_new();
   gtk_box_pack_start(GTK_BOX(dg->vbox), noteb, FALSE, FALSE, 0);
 
-  dgtable = generic_table_inside_notebookframe(noteb, _("Attributes"), 8, 3);
+  dgtable = generic_table_inside_notebookframe(noteb, _("Attributes"), 9, 3);
 
   {
     GList *rel_link_list=NULL, *tmplist;
@@ -613,15 +613,19 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 2, 3);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 3, 2, 3);
 
-  generic_class_id_style_section(dg, 0, dgtable, 3, avalues, 13);
+  dg->entry[18] = entry_with_text(avalues[17], 256);
+  bf_mnemonic_label_tad_with_alignment(_("Titl_e:"), dg->entry[18], 0, 0.5, dgtable, 0, 1, 3, 4);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[18], 1, 3, 3, 4);
+
+  generic_class_id_style_section(dg, 0, dgtable, 4, avalues, 13);
 
   dg->entry[17] = entry_with_text(avalues[16], 256);
-  bf_mnemonic_label_tad_with_alignment(_("_Language:"), dg->entry[17], 0, 0.5, dgtable, 0, 1, 6, 7);
-  gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[17], 1, 3, 6, 7);
+  bf_mnemonic_label_tad_with_alignment(_("_Language:"), dg->entry[17], 0, 0.5, dgtable, 0, 1, 7, 8);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[17], 1, 3, 7, 8);
 
   dg->entry[4] = entry_with_text(custom, 1024);
-  bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 7, 8);
-  gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 3, 7, 8);
+  bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 8, 9);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 3, 8, 9);
 
   dgtable = generic_table_inside_notebookframe(noteb, _("Events"), 10, 2);
 
