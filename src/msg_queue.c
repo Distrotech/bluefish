@@ -560,17 +560,25 @@ void msg_queue_check_server(gboolean last_check) {
 	}
 	if (msg_queue.functional && !msg_queue.server && !msg_queue.received_keepalive) {
 		if (last_check) {
-			/* wait for the remaining time, but sleep longer --> 200% */
-			gdouble remainder = (((gdouble)main_v->globses.msg_queue_poll_time*2.0)/1000.0) - elapsed;
+			/* wait for the 250% of the remaining time
+			 if I run the second process in a loop in the shell, these long sleeps 
+			 are nessecary to respond to all request for alives */
+			gdouble remainder = (((gdouble)main_v->globses.msg_queue_poll_time*2.5)/1000.0) - elapsed;
 			g_print("start to here took %d ms, timer from config is %d ms, safe-remainder is %d\n",(int)(1000*elapsed),main_v->globses.msg_queue_poll_time, (int)(remainder*1000) );  
 			if (remainder > 0) {
 				struct timespec rem;
-				struct timespec req = { 0, (int)(1000000000.0 * remainder)};			
-				g_print("msg_queue_check_server, wait for %f seconds, %ld nanoseconds\n",remainder,req.tv_nsec);
+				struct timespec req = { 0, (int)(0.5 * 1000000000.0 * remainder)}; /* sleep two times half the remainder value */			
+				g_print("msg_queue_check_server, sleep %ld ms\n",req.tv_nsec/1000000);
 				nanosleep(&req, &rem);
+				msg_queue.received_keepalive = msg_queue_check_alive();
+				if (!msg_queue.received_keepalive) {
+					g_print("msg_queue_check_server, sleep %ld ms\n",req.tv_nsec/1000000);
+					nanosleep(&req, &rem);
+				}
 			}
 		}
-		msg_queue.received_keepalive = msg_queue_check_alive();
+		if (!msg_queue.received_keepalive)
+			msg_queue.received_keepalive = msg_queue_check_alive();
 		if (msg_queue.received_keepalive) {
 			/* now send all of the remaining files until we are done, then exit */
 			while (msg_queue_send_remaining_files()) {
@@ -590,7 +598,7 @@ void msg_queue_check_server(gboolean last_check) {
 		}
 	}
 	if (last_check) { /* auto-tune poll at an interval 66.7% of the lowest startup interval
-				(I have seen such variations in the startup time) */
+				(I have seen such big variations in the startup time) */
 		g_print("start to here (excluding any sleep()'s) took %d milliseconds, change poll queue timer from %d ", (int)(elapsed*1000), main_v->globses.msg_queue_poll_time); 
 		if (elapsed*667 <  main_v->globses.msg_queue_poll_time) {
 			main_v->globses.msg_queue_poll_time = (int) MAX(MIN((667.0 * elapsed),750),200);
