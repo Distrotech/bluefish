@@ -68,5 +68,5 @@ typedef struct {
 extern Tsnippets snippets_v;
 
 Tsnippetssession *snippets_get_session(Tsessionvars *session);
-
+Tsnippetswin *snippets_get_win(Tbfwin *bfwin);
 #endif /* __SNIPPETS_H_ */
