@@ -508,7 +508,7 @@ static void cs3d_add_to_update(Tcs3_diag *diag,
         primaryText = g_strdup_printf (_("The %s property already exists.\n"), property);
     }
     
-    secondaryText = g_strdup_printf (_("Update it's value from %s to %s?"), curValue, newValue);
+    secondaryText = g_strdup_printf (_("Update its value from %s to %s?"), curValue, newValue);
     
     result = message_dialog_new_multi(diag->win,
                                       GTK_MESSAGE_QUESTION,
