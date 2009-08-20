@@ -1,14 +1,13 @@
 # Norwegian language file for Bluefish.
-# Rewritten from da.po (da.po by Rasmus Toftdahl Olesen <halfdan@halfdan.dyndns.org>)
 # Copyright (C) 2000 Free Software Foundation, Inc.
-# Christian Tellefsen <chris@tellefsen.net>, 2003.
+# Christian Tellefsen <chris@tellefsen.net>, 2009.
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-08-13 13:48+0200\n"
-"PO-Revision-Date: 2002-12-22 12:00+0100\n"
+"PO-Revision-Date: 2009-08-20 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,12 +19,16 @@ msgid ""
 "\n"
 "Developers of previous releases:"
 msgstr ""
+"\n"
+"Utviklere fra tidligere versjoner:"
 
 #: src/plugin_about/about.c:89
 msgid ""
 "\n"
 "Package maintainers:"
 msgstr ""
+"\n"
+"Pakkeansvarlige:"
 
 #: src/plugin_about/about.c:95
 msgid ""
@@ -33,12 +36,17 @@ msgid ""
 "If you know of anyone missing from this list,\n"
 "please let us know via <bluefish@bluefish.openoffice.nl>."
 msgstr ""
+"\n"
+"Hvis du mener at noen mangler på listen,\n"
+"gi oss beskjed via <bluefish@bluefish.openoffice.nl>."
 
 #: src/plugin_about/about.c:96
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
 msgstr ""
+"\n"
+"Takk til alle som har hjulpet til med å lage Bluefish."
 
 #: src/plugin_about/about.c:133
 msgid ""
@@ -46,6 +54,9 @@ msgid ""
 "supporting many programming and markup languages, but focusing on creating "
 "dynamic and interactive websites."
 msgstr ""
+"En åpen-kildekode teksteditor for profesjonelle webdesignere og "
+"programmerere. Bluefish støtter en rekke programmeringsspråk og markupspråk,"
+"med hovedfokus på utvikling av dynamiske og interaktive websider."
 
 #. Translators: This is a special message that shouldn't be translated
 #. * literally. It is used in the about box to give credits to
@@ -56,13 +67,12 @@ msgstr ""
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
 #: src/plugin_about/about.c:143
-#, fuzzy
 msgid "translator-credits"
-msgstr "Oversettere"
+msgstr "Christian Tellefsen (chris - @at@ - tellefsen.net)"
 
 #: src/plugin_about/about.c:185
 msgid "This version of Bluefish was built with:\n"
-msgstr ""
+msgstr "Denne versjonen av Bluefish var bygget med:\n"
 
 #: src/plugin_about/about.c:206
 msgid "/_Help"
@@ -70,20 +80,19 @@ msgstr "/_Hjelp"
 
 #: src/plugin_about/about.c:207
 msgid "/Help/Bluefish _Homepage"
-msgstr ""
+msgstr "/Hjelp/Bluefish _Hjemmeside"
 
 #: src/plugin_about/about.c:208
 msgid "/Help/Report a _Bug"
-msgstr ""
+msgstr "/Hjelp/Rapporter en _feil"
 
 #: src/plugin_about/about.c:210
 msgid "/Help/_About..."
 msgstr "/Hjelp/_Om..."
 
 #: src/plugin_about/about.c:211
-#, fuzzy
 msgid "/Help/_Build Info..."
-msgstr "/Hjelp/_Om..."
+msgstr "/Hjelp/_Byggeinformasjon..."
 
 #~ msgid ""
 #~ "Bluefish is an editor for experienced web designers and programmers. It "
