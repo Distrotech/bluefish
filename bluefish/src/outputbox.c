@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+/*#define DEBUG*/ 
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -333,12 +333,13 @@ void fill_output_box(gpointer data, gchar *string) {
 			g_free((gchar *)output);
 		}
 	} else {
+		DEBUG_MSG("fill_output_box, no match, append string %s to list\n",string);
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
 		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,2,string, -1);
 	}
 	if (ob->bfwin->session->outputb_scroll_mode == 2) {
 		GtkAdjustment* vadj;
-		DEBUG_MSG("scroll to end..\n");
+		DEBUG_MSG("fill_output_box, scroll to end..\n");
 		vadj = gtk_tree_view_get_vadjustment(GTK_TREE_VIEW(ob->lview));
 		gtk_adjustment_set_value(vadj, vadj->upper);		
 		
@@ -371,7 +372,7 @@ void outputbox_cleanup(Tbfwin *bfwin) {
 	}
 }
 
-void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output) {
+void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command) {
 	Toutputbox *ob;
 	const char *errptr;
 	gint erroffset;

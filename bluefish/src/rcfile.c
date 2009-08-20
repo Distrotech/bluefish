@@ -376,7 +376,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
 	init_prop_arraylist (&config_rc, &main_v->props.external_command, "external_command:", 3, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_filter, "external_filter:", 2, TRUE);
-	init_prop_arraylist (&config_rc, &main_v->props.external_outputbox, "external_outputbox:", 7, TRUE);
+	init_prop_arraylist (&config_rc, &main_v->props.external_outputbox, "external_outputbox:", 6, TRUE);
 
 	/*init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);*/
 	/* old type filetypes have a different count, they are converted below */
@@ -481,12 +481,12 @@ void rcfile_parse_main(void)  {
 
 	if (main_v->props.external_outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","cd %c && make|","1",NULL));
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+) \\(([0-9:]+)\\) (.*)","1","2","3","weblint '%s'|","0",NULL));
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("tidy HTML validator"),"line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","|tidy -qe '%s'|","0",NULL));
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("javac"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac '%s'|","0",NULL));
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("xmllint XML checker"),"([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\: (.*)","1","2","3","xmllint --noout --valid '%s'|","0",NULL));
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("php"),"(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)","1","2","3","php '%s'|","0",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","cd %c && make|",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+) \\(([0-9:]+)\\) (.*)","1","2","3","weblint '%f'|",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("tidy HTML validator"),"line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","|tidy -qe '%f'|",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("javac"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac '%f'|",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("xmllint XML checker"),"([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\: (.*)","1","2","3","xmllint --noout --valid '%f'|",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("php"),"(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)","1","2","3","php '%f'|",NULL));
 	}
 	if (main_v->props.external_filter==NULL) {
 		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Sort"),"|sort|",NULL));

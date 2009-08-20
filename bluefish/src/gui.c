@@ -1218,7 +1218,7 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	break;
 	case 6:
 		if (active) 
-			outputbox(bfwin,NULL, 0, 0, 0, NULL, 0);
+			outputbox(bfwin,NULL, 0, 0, 0, NULL);
 		else
 			outputbox_cleanup(bfwin);
 	break;
