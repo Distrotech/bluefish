@@ -959,7 +959,7 @@ static void create_extcommands_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 1, G_CALLBACK(extcommands_1_edited_lcb), pd, _("Command"), 1,FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 2, G_CALLBACK(extcommands_2_edited_lcb), pd, _("Default browser"), 2,FALSE);
 	label = gtk_label_new(NULL);
-	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%f local filename (available for local files)\n%i temporary fifo for input, equals %f if the document is not modified and local\n%I temporary filename for input, equals %s if the document is not modified and local\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
+	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%f local filename (available for local files)\n%i temporary fifo for input, equals %f if the document is not modified and local\n%I temporary filename for input, equals %f if the document is not modified and local\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
 	gtk_box_pack_start(GTK_BOX(vbox1),label, FALSE, FALSE, 2);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
@@ -1065,15 +1065,14 @@ static void create_filters_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 static void set_outputbox_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
 	arrcount = count_array(strarr);
-	if (arrcount==7) {
+	if (arrcount==6) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->od.lstore), iter
 				,0,strarr[0],1,strarr[1],2,strarr[2],3,strarr[3]
-				,4,strarr[4],5,strarr[5],6,(strarr[6][0] != '0')
-				,7,strarr,-1);
+				,4,strarr[4],5,strarr[5],6,strarr,-1);
 	}
 }
 static void outputbox_apply_change(Tprefdialog *pd, gint type, gchar *path, gchar *newval, gint index) {
-	pref_apply_change(pd->od.lstore,7,type,path,newval,index);
+	pref_apply_change(pd->od.lstore,6,type,path,newval,index);
 }
 static void outputbox_0_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
 	outputbox_apply_change(pd, 1, path, newtext, 0);
@@ -1093,28 +1092,23 @@ static void outputbox_4_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *
 static void outputbox_5_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
 	outputbox_apply_change(pd, 1, path, newtext, 5);
 }
-static void outputbox_6_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
-	gchar *val = g_strdup(cellrenderertoggle->active ? "0" : "1");
-	outputbox_apply_change(pd, 2, path, val, 6);
-	g_free(val);
-}
 static void add_new_outputbox_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gchar **strarr;
 	GtkTreeIter iter;
-	strarr = pref_create_empty_strarr(7);
+	strarr = pref_create_empty_strarr(6);
 	gtk_list_store_append(GTK_LIST_STORE(pd->od.lstore), &iter);
 	set_outputbox_strarr_in_list(&iter, strarr,pd);
 	pd->lists[extoutputbox] = g_list_append(pd->lists[extoutputbox], strarr);
 	pd->od.insertloc = -1;
 }
 static void delete_outputbox_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	pref_delete_strarr(pd, &pd->od, 7);
+	pref_delete_strarr(pd, &pd->od, 6);
 }
 
 static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but, *scrolwin, *label;
 	pd->lists[extoutputbox] = duplicate_arraylist(main_v->props.external_outputbox);
-	pd->od.lstore = gtk_list_store_new (8,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER);
+	pd->od.lstore = gtk_list_store_new(7,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->od.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->od.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_0_edited_lcb), pd, _("Name"), 0,TRUE);
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_1_edited_lcb), pd, _("Pattern"), 1,TRUE);
@@ -1122,9 +1116,8 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_3_edited_lcb), pd, _("Line #"), 3,TRUE);
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_4_edited_lcb), pd, _("Output #"), 4,TRUE);
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_5_edited_lcb), pd, _("Command"), 5,TRUE);
-	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 2, G_CALLBACK(outputbox_6_toggled_lcb), pd, _("Show all output"), 6,TRUE);
 	label = gtk_label_new(NULL);
-	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%s local filename (available for local files)\n%i temporary fifo for input, equals %s if the document is not modified and local\n%I temporary filename for input, equals %s if the document is not modified and local\n<b>Output options</b>\nend with a | to read the output from the standard output\n%o temporary fifo\n%O temporary filename\n%t temporary filename for both input and output (for in-place-editing filters)\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
+	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%f local filename (available for local files)\n%i temporary fifo for input, equals %f if the document is not modified and local\n%I temporary filename for input, equals %f if the document is not modified and local\n<b>Output options</b>\nend with a | to read the output from the standard output\n%o temporary fifo\n%O temporary filename\n%t temporary filename for both input and output (for in-place-editing filters)\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
 	gtk_box_pack_start(GTK_BOX(vbox1),label, FALSE, FALSE, 2);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
@@ -1137,7 +1130,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 			gint arrcount;
 			gchar **strarr = (gchar **)tmplist->data;
 			arrcount = count_array(strarr);
-			if (arrcount==7) {
+			if (arrcount==6) {
 				GtkTreeIter iter;
 				gtk_list_store_append(GTK_LIST_STORE(pd->od.lstore), &iter);
 				set_outputbox_strarr_in_list(&iter, strarr,pd);

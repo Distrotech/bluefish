@@ -577,7 +577,7 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 
 static void menu_outputbox_lcb(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
 	gchar **arr = (gchar **)bdm->data;
-	outputbox(bdm->bfwin,arr[1], atoi(arr[2]), atoi(arr[3]), atoi(arr[4]), arr[5], (arr[6][0]=='1'));
+	outputbox(bdm->bfwin,arr[1], atoi(arr[2]), atoi(arr[3]), atoi(arr[4]), arr[5]);
 }
 
 /*******************************************************************/
@@ -975,7 +975,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		 * arr[5] = command
 		 * arr[6] = show_all_output
 		 */
-		if (count_array(arr)==7) {
+		if (count_array(arr)==6) {
 			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
 			bdm->data = arr;
 			bdm->bfwin = bfwin;
