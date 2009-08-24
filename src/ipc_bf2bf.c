@@ -31,7 +31,7 @@
 #include "bluefish.h"
 #include "gui.h"
 #include "file.h"
-/*#include "ipc_bf2bf.h"*/
+#include "ipc_bf2bf.h"
 
 #ifndef UNIX_PATH_MAX
 #define UNIX_PATH_MAX 108
