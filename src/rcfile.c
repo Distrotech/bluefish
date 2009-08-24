@@ -426,10 +426,10 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.smartindent, "smartindent:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1, TRUE);
-#ifdef WITH_MSG_QUEUE
+/*#ifdef WITH_MSG_QUEUE*/
 	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1, TRUE);
 	init_prop_integer (&config_rc, &main_v->props.open_in_new_window,"open_in_new_window:",1, TRUE);
-#endif
+/*#endif*/
 #ifndef NOSPLASH
 	init_prop_integer(&config_rc, &main_v->props.show_splash_screen, "show_splash_screen:", 1, TRUE);
 #endif

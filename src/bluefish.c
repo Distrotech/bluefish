@@ -265,13 +265,20 @@ int main(int argc, char *argv[])
 		}
 		g_strfreev(files);
 	}
-#ifdef WITH_MSG_QUEUE
-	/* start message queue as early as possible so a running bluefish process has a lot of 
-	time to respond to our request-alive request */
+
 	if (main_v->props.open_in_running_bluefish) {
+#ifdef WITH_MSG_QUEUE
+		/* start message queue as early as possible so a running bluefish process has a lot of 
+		time to respond to our request-alive request */
 		msg_queue_start(startup->filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) );
-	}
+#else
+		g_print("open socket\n");
+		if (!ipc_bf2bf_start(startup->filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) )) {
+			exit(0);
+		}
 #endif /* WITH_MSG_QUEUE */
+	}
+
 	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, NULL);
 	DEBUG_MSG("main, before gtk_main()\n");
 /*  gdk_threads_enter ();*/
@@ -282,7 +289,9 @@ int main(int argc, char *argv[])
 #ifdef WITH_MSG_QUEUE
 	/* do the cleanup */
 	msg_queue_cleanup();
-#endif							/* WITH_MSG_QUEUE */
+#else
+	ipc_bf2bf_cleanup();
+#endif /* WITH_MSG_QUEUE */
 	DEBUG_MSG("calling fb2config_cleanup()\n");
 	fb2config_cleanup();
 	langmgr_cleanup();
