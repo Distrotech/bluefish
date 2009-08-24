@@ -71,6 +71,7 @@ bluefish_unstable_SOURCES = \
 	gtkmountoperation.h \
 	gui.c \
 	gui.h \
+	ipc_bf2bf.c \
 	menu.c \
 	menu.h \
 	msg_queue.c \
