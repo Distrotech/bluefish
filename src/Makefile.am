@@ -72,6 +72,7 @@ bluefish_unstable_SOURCES = \
 	gui.c \
 	gui.h \
 	ipc_bf2bf.c \
+	ipc_bf2bf.h \
 	menu.c \
 	menu.h \
 	msg_queue.c \
