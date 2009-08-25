@@ -76,7 +76,7 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 		gtk_widget_size_request((GtkWidget *)sm,&req);
 		DEBUG_MSG("have %d pixels in use, %d available\n",req.width, sm->maxwidth);
 		if (req.width < (sm->maxwidth-100)) { /* reserve at least 100 pixels for any new entry */
-			newitem = gtk_menu_item_new_with_label("");
+			newitem = (GtkMenuItem *) gtk_menu_item_new_with_label("");
 			gtk_menu_shell_insert((GtkMenuShell *)sm, (GtkWidget *)newitem, TREEPATH(path)->indices[0]);
 			gtk_widget_show((GtkWidget *)newitem);
 		}
@@ -91,12 +91,12 @@ static void snippets_menu_row_inserted(GtkTreeModel * tree_model,
 				mshell = (GtkMenuShell *)gtk_menu_new();
 				DEBUG_MSG("append mshell %p to item %p\n",mshell, item);
 				gtk_menu_item_set_submenu(item, (GtkWidget *)mshell);
-				tearoff = gtk_tearoff_menu_item_new();
+				tearoff = (GtkMenuItem *) gtk_tearoff_menu_item_new();
 				gtk_menu_shell_insert((GtkMenuShell *)mshell, (GtkWidget *)tearoff, 0);
-				gtk_widget_show(tearoff);
+				gtk_widget_show((GtkWidget *)tearoff);
 			}
 			DEBUG_MSG("row inserted, insert in mshell=%p at position %d\n",mshell, TREEPATH(path)->indices[TREEPATH(path)->depth-1]+1);
-			newitem = gtk_menu_item_new_with_label("");
+			newitem = (GtkMenuItem *) gtk_menu_item_new_with_label("");
 			/* add 1 to the index number for the tearoff item */
 			gtk_menu_shell_insert((GtkMenuShell *)mshell, (GtkWidget *)newitem, TREEPATH(path)->indices[TREEPATH(path)->depth-1]+1);
 			gtk_widget_show((GtkWidget *)newitem);
