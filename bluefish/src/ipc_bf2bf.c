@@ -24,7 +24,6 @@
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/types.h>
 #include <sys/un.h>
 #include <unistd.h>
 
@@ -57,17 +56,17 @@ static void handle_message(const gchar *message, gsize len) {
 	Tbfwin *bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
 	if (strcmp(message, "openwin")==0) {
 		/* call open new window */
-		g_print("open new window\n");
+		DEBUG_MSG("open new window\n");
 		bfwin = gui_new_window(NULL);
 	} else if (strncmp(message, "openuri", 7)==0 && len > 12) {
 		GFile *file;
-		g_print("open URI %s\n",&message[8]);
+		DEBUG_MSG("open URI %s\n",&message[8]);
 		file = g_file_new_for_uri(&message[8]);
 		file_handle(file, bfwin);
-		g_object_unref(file);	
+		g_object_unref(file);
 	} else {
 		g_print("unknown message with len %d on socket...\n", len);
-		g_print("message: %s\n",message);	
+		/*DEBUG_MSG("message: %s\n",message);*/
 	}
 }
 
@@ -79,12 +78,12 @@ static gboolean socket_data_in_lcb(GIOChannel * source, GIOCondition condition, 
 	GError *error=NULL;
 	GIOStatus status;
 
-	g_print("socket_data_in_lcb, called\n");
+	DEBUG_MSG("socket_data_in_lcb, called\n");
 	if (data == NULL) {
 		socklen_t tmp=0;
 	
-		client = g_new0(Tconnection, 1);
-		g_print("socket_data_in_lcb, accept new connection, new client=%p\n",client);
+		client = g_slice_new(Tconnection);
+		DEBUG_MSG("socket_data_in_lcb, accept new connection, new client=%p\n",client);
 		client->fd = accept(ibf.fd, NULL, &tmp);
 		client->chan = g_io_channel_unix_new(client->fd);
 		g_io_channel_set_line_term(client->chan, "\n", 1);
@@ -93,26 +92,26 @@ static gboolean socket_data_in_lcb(GIOChannel * source, GIOCondition condition, 
 	}
 	
 	status = g_io_channel_read_line(source, &instring, &instringlen, &termpos, &error);
-	g_print("socket_data_in_lcb, status=%d\n",status);
+	DEBUG_MSG("socket_data_in_lcb, status=%d\n",status);
 	while(status ==G_IO_STATUS_NORMAL && instringlen>0) {
-		g_print("received data instring=%p, instringlen=%d, termpos=%d\n",instring, instringlen, termpos);
+		DEBUG_MSG("received data instring=%p, instringlen=%d, termpos=%d\n",instring, instringlen, termpos);
 		instring[termpos]='\0';
 		handle_message(instring, instringlen);
 		g_free(instring);
 		instring=NULL;
 		status = g_io_channel_read_line(source, &instring, &instringlen, &termpos, &error);
-		g_print("socket_data_in_lcb, status=%d\n",status);
+		DEBUG_MSG("socket_data_in_lcb, status=%d\n",status);
 	}
 	if (status == G_IO_STATUS_EOF) {
-		g_print("socket_data_in_lcb, EOF, shutdown channel\n");
+		DEBUG_MSG("socket_data_in_lcb, EOF, shutdown channel\n");
 		g_io_channel_shutdown(client->chan, FALSE, NULL);
 		g_io_channel_unref(client->chan);		
 		close(client->fd);
 /*		client->chan_id = 0;
 		client->chan = NULL;
 */		
-		g_print("free client %p\n",client);
-		g_free(client);
+		DEBUG_MSG("free client %p\n",client);
+		g_slice_free(Tconnection, client);
 		return FALSE;	
 	}
 	return TRUE;
@@ -129,7 +128,7 @@ static gboolean socket_is_valid(const char *path)
 	if ((sbuf.st_mode & S_IFSOCK) != S_IFSOCK)
 		return FALSE;
 	/* check permissions ? */
-	g_print("socket %s is valid\n",path);
+	DEBUG_MSG("socket %s is valid\n",path);
 	return TRUE;
 }
 
@@ -177,7 +176,7 @@ static gboolean become_server(void)
 	chmod(ibf.path, 0600);
 	listen(ibf.fd, 10);
 	ibf.chan = g_io_channel_unix_new(ibf.fd);
-	g_io_channel_set_line_term(ibf.chan, "\n", 1);
+	/*g_io_channel_set_line_term(ibf.chan, "\n", 1);*/
 	ibf.iochan_id = g_io_add_watch(ibf.chan, G_IO_IN, socket_data_in_lcb, NULL);
 	ibf.master = TRUE;
 	return TRUE;
@@ -192,7 +191,7 @@ static gboolean become_client(void)
 	ibf.fd = socket(PF_UNIX, SOCK_STREAM, 0);
 	if (connect(ibf.fd, (struct sockaddr *) &uaddr, sizeof(uaddr)) == -1) {
 		ibf.fd = -1;
-		g_print("become_client, could not connect to socket, errno=%d: %s\n",errno, strerror(errno));
+		DEBUG_MSG("become_client, could not connect to socket, errno=%d: %s\n",errno, strerror(errno));
 		return FALSE;
 	}
 	ibf.chan = g_io_channel_unix_new(ibf.fd);
@@ -208,7 +207,7 @@ gboolean ipc_bf2bf_start(GList *filenames, gboolean new_window) {
 	if (socket_is_valid(ibf.path)) {
 		if (become_client()) {
 			GList *tmplist = g_list_first(filenames);
-			g_print("ipc_bf2bf_start, there is a server, send files\n");
+			g_print("sending files to existing bluefish process... ");
 			if (new_window)
 				send_openwin();
 			/* send all files and exit */
@@ -216,12 +215,13 @@ gboolean ipc_bf2bf_start(GList *filenames, gboolean new_window) {
 				send_filename(tmplist->data);
 				tmplist = g_list_next(tmplist);
 			}
+			g_print("done\n");
 			return FALSE;
 		}
 	}
 	unlink(ibf.path);
 	become_server();
-	g_print("ipc_bf2bf_start, master=%d\n",ibf.master);
+	DEBUG_MSG("ipc_bf2bf_start, master=%d\n",ibf.master);
 	return TRUE;
 }
 
