@@ -45,7 +45,7 @@
 #include "file_dialogs.h"
 #include "gtk_easy.h"			/* flush_queue() */
 #include "gui.h"				/* gui_create_main() */
-#ifdef WITH_MESSAGE_QUEUE
+#ifdef HAVE_MESSAGE_QUEUE
 #include "msg_queue.h"			/* msg_queue_start() */
 #else
 #include "ipc_bf2bf.h"
@@ -276,7 +276,6 @@ int main(int argc, char *argv[])
 		time to respond to our request-alive request */
 		msg_queue_start(startup->filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) );
 #else
-		g_print("open socket\n");
 		if (!ipc_bf2bf_start(startup->filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) )) {
 			exit(0);
 		}
