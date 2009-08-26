@@ -514,11 +514,17 @@ gint rcfile_save_main(void) {
 	return ret;
 }
 
-#define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
+#ifndef WIN32
+#    define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
+#endif
 void rcfile_check_directory(void) {
 	gchar *rcdir = g_strconcat(g_get_home_dir(), "/."PACKAGE, NULL);
 	if (!g_file_test(rcdir, G_FILE_TEST_IS_DIR)) {
+#ifndef WIN32
 		mkdir(rcdir, DIR_MODE);
+#else
+        mkdir(rcdir);
+#endif
 	}
 	g_free(rcdir);
 }

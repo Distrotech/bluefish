@@ -348,6 +348,7 @@ void autosave_init(gboolean recover, Tbfwin *bfwin) {
 				gint pid;
 				found_journal=TRUE;
 				pid = get_int_from_string(tmp);
+#ifndef WIN32 //FIXME
 				if (pid > 0 && kill(pid, 0)!=0) { /* process pid is not alive, or not our process which also means we should recover */
 					gchar *path;
 					GError *error=NULL;
@@ -362,6 +363,7 @@ void autosave_init(gboolean recover, Tbfwin *bfwin) {
 					g_free(path);
 					g_object_unref(file);
 				}
+#endif
 			}
 			tmp = g_dir_read_name(gdir);
 		}

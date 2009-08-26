@@ -27,7 +27,9 @@
 #include <string.h> /* strlen() */
 #include <sys/types.h>
 #include <signal.h>
-#include <sys/wait.h>
+#ifndef WIN32
+#    include <sys/wait.h>
+#endif
 
 #include "bluefish.h"
 #include "outputbox.h" /* myself */
