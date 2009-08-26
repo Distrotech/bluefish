@@ -216,7 +216,7 @@ void langmgr_reload_user_styles(void) {
 		}
 	}
 #ifdef HAVE_LIBENCHANT
-	langmgr.need_spellcheck_tags = g_new0(gpointer, g_list_length(needlist)+1);
+	langmgr.need_spellcheck_tags = (GtkTextTag **) g_new0(gpointer, g_list_length(needlist)+1);
 	i=0;
 	for (tmplist = g_list_first(needlist);tmplist;tmplist=tmplist->next) {
 		/*DBG_SPELL("tag %p in need_spellcheck_tags[%d]\n",tmplist->data,i);*/
@@ -225,7 +225,7 @@ void langmgr_reload_user_styles(void) {
 	}
 	DBG_SPELL("have %d items in need_spellcheck_tags %p\n",i,langmgr.need_spellcheck_tags);
 	g_list_free(needlist);
-	langmgr.no_spellcheck_tags = g_new0(gpointer, g_list_length(noscanlist)+1);
+	langmgr.no_spellcheck_tags = (GtkTextTag **) g_new0(gpointer, g_list_length(noscanlist)+1);
 	i=0;
 	for (tmplist = g_list_first(noscanlist);tmplist;tmplist=tmplist->next) {
 		/*DBG_SPELL("tag %p in no_spellcheck_tags[%d]\n",tmplist->data,i);*/
