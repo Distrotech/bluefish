@@ -471,7 +471,10 @@ void doc_set_mimetype(Tdocument *doc, const gchar *mimetype) {
  **/
 void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen) {
 	gboolean uncertain=FALSE;
-	char *filename=NULL, *conttype, *mimetype;
+	gchar *filename=NULL, *conttype;
+#ifdef WIN32
+	gchar *mimetype;
+#endif
 
 	if (newuri)
 		filename = g_file_get_basename(newuri);
@@ -2279,7 +2282,10 @@ Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GFile *uri, GFileInfo *f
 
 static gboolean doc_auto_detect_lang_lcb(gpointer data) {
 	Tdocument *doc=data;
-	gchar *conttype, *mimetype, *buf;
+	gchar *conttype, *buf;
+#ifdef WIN32
+	gchar *mimetype;
+#endif
 	gint buflen;
 	gboolean uncertain=FALSE;
 	
