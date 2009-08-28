@@ -888,7 +888,7 @@ static void openadv_unref(Topenadv *oa) {
 		gchar *tmp, *tmp2;
 		tmp = g_strdup_printf(ngettext("%d document open.","%d documents open.",g_list_length(oa->bfwin->documentlist)),
 				g_list_length(oa->bfwin->documentlist));
-		tmp2 = g_strconcat("Advanced open: Finished searching files. ",tmp,NULL);
+		tmp2 = g_strconcat(_("Advanced open: Finished searching files. "),tmp,NULL);
 		statusbar_message(oa->bfwin, tmp2, 4);
 #ifdef LOAD_TIMER
 		g_print("%f ms, %s\n",g_timer_elapsed(oa->timer,NULL), tmp2);

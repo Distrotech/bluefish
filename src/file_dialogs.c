@@ -681,7 +681,7 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
 		/* this message is not in very nice english I'm afraid */
 		errmessage =
 			g_strconcat(_("File:\n\""), gtk_label_get_text(GTK_LABEL(doc->tab_label)),
-						"\" save is in progress", NULL);
+						_("\" save is in progress"), NULL);
 		message_dialog_new(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
 						   _("Save in progress!"), errmessage);
 		g_free(errmessage);
