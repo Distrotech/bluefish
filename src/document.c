@@ -471,15 +471,23 @@ void doc_set_mimetype(Tdocument *doc, const gchar *mimetype) {
  **/
 void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen) {
 	gboolean uncertain=FALSE;
-	char *filename=NULL, *conttype;
+	char *filename=NULL, *conttype, *mimetype;
 
 	if (newuri)
 		filename = g_file_get_basename(newuri);
 	conttype = g_content_type_guess(filename,buf,buflen,&uncertain);
+#ifdef WIN32
+	mimetype = g_content_type_get_mime_type(conttype);
+#endif
 	DEBUG_MSG("doc_reset_filetype,conttype=%s\n",conttype);
 	g_free(filename);
+#ifdef WIN32
+	doc_set_mimetype(doc, mimetype);
+#else
 	doc_set_mimetype(doc, conttype);
+#endif
 	g_free(conttype);
+	g_free(mimetype);
 }
 
 void doc_set_filename(Tdocument *doc, GFile *newuri) {
@@ -2270,19 +2278,27 @@ Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GFile *uri, GFileInfo *f
 
 static gboolean doc_auto_detect_lang_lcb(gpointer data) {
 	Tdocument *doc=data;
-	gchar *conttype, *buf;
+	gchar *conttype, *mimetype, *buf;
 	gint buflen;
 	gboolean uncertain=FALSE;
 	
 	buf = doc_get_chars(doc, 0, -1);
 	buflen = strlen(buf);
 	conttype = g_content_type_guess(NULL,(guchar *)buf,buflen,&uncertain);
+#ifdef WIN32
+	mimetype = g_content_type_get_mime_type(conttype);
+#endif
 	/*g_print("doc_auto_detect_lang_lcb, buflen=%d\n",buflen);*/
 	g_free(buf);
 	if (!uncertain && conttype && (strcmp(conttype, "text/plain")!=0|| buflen>50) )  {
 		DEBUG_MSG("doc_auto_detect_lang_lcb, found %s for certain\n",conttype);
-		doc_set_mimetype(doc,conttype);
+#ifdef WIN32
+		doc_set_mimetype(doc, mimetype);
+#else
+		doc_set_mimetype(doc, conttype);
+#endif
 		g_free(conttype);
+		g_free(mimetype);
 		return FALSE; 
 	}
 	g_free(conttype);
