@@ -483,11 +483,12 @@ void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssiz
 	g_free(filename);
 #ifdef WIN32
 	doc_set_mimetype(doc, mimetype);
+	g_free(mimetype);
 #else
 	doc_set_mimetype(doc, conttype);
 #endif
 	g_free(conttype);
-	g_free(mimetype);
+
 }
 
 void doc_set_filename(Tdocument *doc, GFile *newuri) {
@@ -2294,11 +2295,11 @@ static gboolean doc_auto_detect_lang_lcb(gpointer data) {
 		DEBUG_MSG("doc_auto_detect_lang_lcb, found %s for certain\n",conttype);
 #ifdef WIN32
 		doc_set_mimetype(doc, mimetype);
+		g_free(mimetype);
 #else
 		doc_set_mimetype(doc, conttype);
 #endif
 		g_free(conttype);
-		g_free(mimetype);
 		return FALSE; 
 	}
 	g_free(conttype);
