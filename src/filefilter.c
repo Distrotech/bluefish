@@ -478,24 +478,42 @@ void filefilter_gui(Tfilter *filter) {
 	
 	/* fill the list model from the currently known filetypes */
 	reglist = g_content_types_get_registered();
-	
-	tmplist = g_list_first(g_list_sort(reglist, (GCompareFunc) g_strcmp0));
+
+#ifdef WIN32
+	GList *winlist = NULL;
+	gchar *mimetype;
+	gint llen, lpos;
+	while(reglist) {
+		mimetype = g_content_type_get_mime_type(reglist->data);
+		if ((llen = g_list_length(winlist))) {
+			tmplist = g_list_copy(winlist);
+			for (lpos = 0; llen != -1 && lpos < llen; lpos++) {
+				if (!g_strcmp0(mimetype, tmplist->data))
+					llen = -1;
+				else
+					tmplist = g_list_next(tmplist);
+			}
+			g_list_free(tmplist);
+		}
+		if (llen != -1)
+			winlist = g_list_append(winlist, mimetype);
+		reglist = g_list_next(reglist);
+	}
+	tmplist = g_list_first(g_list_reverse(g_list_sort(winlist, (GCompareFunc) g_strcmp0)));	
+#else
+	tmplist = g_list_first(g_list_sort(reglist, (GCompareFunc) g_strcmp0));	
+#endif
 	while (tmplist) {
 		GtkTreeIter it;
-#ifdef WIN32
-		gchar *mime_type= g_content_type_get_mime_type(tmplist->data);
-		if (MIME_ISDIR(mime_type)) {
-			gtk_list_store_prepend(ffg->lstore,&it);
-			gtk_list_store_set(ffg->lstore,&it,0,mime_type,2,0, -1);
-		}
-#else
 		if (MIME_ISDIR(tmplist->data)) {
 			gtk_list_store_prepend(ffg->lstore,&it);
 			gtk_list_store_set(ffg->lstore,&it,0,tmplist->data,2,0, -1);
 		}
-#endif
 		tmplist = g_list_next(tmplist);
 	}
+#ifdef WIN32
+	g_list_free(winlist);
+#endif
 	g_list_free(reglist);
 	/* make sure that all filetypes that exist in the current filter are shown */
 	/*g_hash_table_foreach(ffg->curfilter->filetypes,filefiltergui_add_filetypes,ffg);*/
