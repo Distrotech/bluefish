@@ -482,10 +482,18 @@ void filefilter_gui(Tfilter *filter) {
 	tmplist = g_list_first(g_list_sort(reglist, (GCompareFunc) g_strcmp0));
 	while (tmplist) {
 		GtkTreeIter it;
+#ifdef WIN32
+		gchar *mime_type= g_content_type_get_mime_type(tmplist->data);
+		if (MIME_ISDIR(mime_type)) {
+			gtk_list_store_prepend(ffg->lstore,&it);
+			gtk_list_store_set(ffg->lstore,&it,0,mime_type,2,0, -1);
+		}
+#else
 		if (MIME_ISDIR(tmplist->data)) {
 			gtk_list_store_prepend(ffg->lstore,&it);
 			gtk_list_store_set(ffg->lstore,&it,0,tmplist->data,2,0, -1);
 		}
+#endif
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(reglist);

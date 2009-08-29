@@ -333,13 +333,21 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 	} else {					/* child does not yet exist */
 		gchar *display_name;
 		const gchar *mime_type;
+#ifdef WIN32
+		gchar *cont_type;
+#endif
 		GIcon *icon;
 		gchar *icon_name = NULL;
 		newiter = g_slice_new0(GtkTreeIter);
 		g_object_ref(child_uri);
 		g_object_ref(finfo);
 		display_name = gfile_display_name(child_uri, finfo);
+#ifdef WIN32
+		cont_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+		mime_type= g_content_type_get_mime_type(cont_type); 
+#else
 		mime_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+#endif
 		if (mime_type == NULL && g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY) {
 			/* GVFS SMB module on Ubuntu 8.10 returns NULL as FAST_CONTENT_TYPE, but it does set
 			the type (regular file or directory). In the case of a directory we manually set the 
