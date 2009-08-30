@@ -40,10 +40,8 @@
 
 enum {
 	do_periodic_check,
-	view_line_numbers,
 	editor_show_splash_screen,    /* show splash screen at start-up */
 	editor_font_string,           /* editor font */
-	editor_tab_width,             /* editor tabwidth */
 	editor_smart_cursor,
 	editor_indent_wspaces,
 	tab_font_string,              /* notebook tabs font */
@@ -82,7 +80,6 @@ enum {
 	dtd_url,                      /* URL in DTD */
 	xml_start,                    /* <?XML...> */
 	lowercase_tags,               /* use lowercase tags */
-	autoindent,                   /* autoindent code */
 	smartindent,
 	drop_at_drop_pos,             /* drop at drop position instead of cursor position */
 	link_management,              /* perform link management */
@@ -92,12 +89,8 @@ enum {
 	show_autocomp_reference,
 	show_tooltip_reference,
 	delay_full_scan,
-	autocomplete,
 	autocomp_popup_mode,
 	reduced_scan_triggers,
-	view_blocks,
-	view_mbhl,
-	view_cline,
 	editor_fg,
 	editor_bg,
 	/* now the entries in globses */
@@ -447,7 +440,7 @@ static GtkWidget *prefs_combo(const gchar *title, const gchar *curval, GtkWidget
 	return return_widget;
 }
 
-static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget *box, Tprefdialog *pd, gfloat lower, gfloat upper) {
+static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget *box, /*Tprefdialog *pd,*/ gfloat lower, gfloat upper) {
 	GtkWidget *return_widget;
 	GtkWidget *hbox;
 	GtkObject *adjust;
@@ -473,6 +466,13 @@ static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget
 
 void sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 	integer_apply(&sessionvars->wrap_text_default, sprefs->prefs[session_wrap_text], TRUE);
+	integer_apply(&sessionvars->autoindent, sprefs->prefs[autoindent], TRUE);
+	integer_apply(&sessionvars->editor_tab_width, sprefs->prefs[editor_tab_width], FALSE);
+	integer_apply(&sessionvars->view_line_numbers, sprefs->prefs[view_line_numbers], TRUE);
+	integer_apply(&sessionvars->view_blocks, sprefs->prefs[view_blocks], TRUE);
+	integer_apply(&sessionvars->autocomplete, sprefs->prefs[autocomplete], TRUE);
+	integer_apply(&sessionvars->view_mbhl, sprefs->prefs[view_mbhl], TRUE);
+	integer_apply(&sessionvars->view_cline, sprefs->prefs[view_cline], TRUE);
 #ifdef HAVE_LIBENCHANT
 	integer_apply(&sessionvars->spell_check_default, sprefs->prefs[session_spell_check], TRUE);
 #endif
@@ -481,6 +481,13 @@ void sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 Tsessionprefs *sessionprefs(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 	sprefs->vbox = gtk_vbox_new(FALSE,3);
 	sprefs->prefs[session_wrap_text] = boxed_checkbut_with_value(_("Initially wrap text"), sessionvars->wrap_text_default, sprefs->vbox);
+	sprefs->prefs[autoindent] = boxed_checkbut_with_value(_("(Smart) Auto indenting"), sessionvars->autoindent, sprefs->vbox);
+	sprefs->prefs[editor_tab_width] = prefs_integer(_("Tab width"), sessionvars->editor_tab_width, sprefs->vbox, 1, 50);
+	sprefs->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Show line numbers"), sessionvars->view_line_numbers, sprefs->vbox);
+	sprefs->prefs[view_cline] = boxed_checkbut_with_value(_("Highlight current line"), sessionvars->view_cline, sprefs->vbox);
+	sprefs->prefs[view_blocks] = boxed_checkbut_with_value(_("Enable block folding"), sessionvars->view_blocks, sprefs->vbox);
+	sprefs->prefs[autocomplete] = boxed_checkbut_with_value(_("Enable automatic completion pop-up"), sessionvars->autocomplete, sprefs->vbox);
+	sprefs->prefs[view_mbhl] = boxed_checkbut_with_value(_("Highlight matching block begin-end"), sessionvars->view_mbhl, sprefs->vbox);
 #ifdef HAVE_LIBENCHANT
 	sprefs->prefs[session_spell_check] = boxed_checkbut_with_value(_("Initially enable spell check"), sessionvars->spell_check_default, sprefs->vbox);
 #endif
@@ -1350,17 +1357,10 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.show_splash_screen, pd->prefs[editor_show_splash_screen], TRUE);
 #endif /* #ifndef NOSPLASH */
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
-	integer_apply(&main_v->props.editor_tab_width, pd->prefs[editor_tab_width], FALSE);
 	string_apply(&main_v->props.default_mime_type, GTK_COMBO(pd->prefs[default_mime_type])->entry);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&main_v->props.smartindent, pd->prefs[smartindent], TRUE);
-	integer_apply(&main_v->props.autoindent, pd->prefs[autoindent], TRUE);
-	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
-	integer_apply(&main_v->props.view_blocks, pd->prefs[view_blocks], TRUE);
-	integer_apply(&main_v->props.autocomplete, pd->prefs[autocomplete], TRUE);
-	integer_apply(&main_v->props.view_mbhl, pd->prefs[view_mbhl], TRUE);
-	integer_apply(&main_v->props.view_cline, pd->prefs[view_cline], TRUE);
 	string_apply(&main_v->props.editor_fg, pd->prefs[editor_fg]);
 	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);
 	/*integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);*/
@@ -1594,7 +1594,7 @@ static void preferences_dialog() {
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
 	pd->prefs[smartindent] = boxed_checkbut_with_value(_("Smart auto indenting"), main_v->props.smartindent, vbox2);
 
-	pd->prefs[num_undo_levels] = prefs_integer(_("Number of actions in undo history"), main_v->props.num_undo_levels, vbox2, pd, 50, 10000);
+	pd->prefs[num_undo_levels] = prefs_integer(_("Number of actions in undo history"), main_v->props.num_undo_levels, vbox2, 50, 10000);
 	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
@@ -1611,15 +1611,8 @@ static void preferences_dialog() {
 	poplist = langmgr_get_languages_mimetypes();
 	pd->prefs[default_mime_type] = prefs_combo(_("Default mime type for new files"),main_v->props.default_mime_type, vbox2, pd, poplist, TRUE);
 	g_list_free(poplist);
-	pd->prefs[autoindent] = boxed_checkbut_with_value(_("(Smart) Auto indenting"), main_v->props.autoindent, vbox2);
-	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
-	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Show line numbers"), main_v->props.view_line_numbers, vbox2);
 	
 	/*pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);*/
-	pd->prefs[view_cline] = boxed_checkbut_with_value(_("Highlight current line"), main_v->props.view_cline, vbox2);
-	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Enable block folding"), main_v->props.view_blocks, vbox2);
-	pd->prefs[autocomplete] = boxed_checkbut_with_value(_("Enable automatic completion pop-up"), main_v->props.autocomplete, vbox2);
-	pd->prefs[view_mbhl] = boxed_checkbut_with_value(_("Highlight matching block begin-end"), main_v->props.view_mbhl, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 
@@ -1675,7 +1668,7 @@ static void preferences_dialog() {
 	g_signal_connect(G_OBJECT(pd->prefs[backup_file]), "toggled", G_CALLBACK(create_backup_toggled_lcb), pd);
 	
 	pd->prefs[autosave] = boxed_checkbut_with_value(_("Enable recovery of modified documents"), main_v->props.autosave, vbox2);
-	pd->prefs[autosave_time] = prefs_integer(_("Frequency to store changes (seconds)"), main_v->props.autosave_time, vbox2, pd, 10, 600);
+	pd->prefs[autosave_time] = prefs_integer(_("Frequency to store changes (seconds)"), main_v->props.autosave_time, vbox2, 10, 600);
 
 	frame = gtk_frame_new(_("Misc"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -1688,7 +1681,7 @@ static void preferences_dialog() {
 	gtk_widget_set_sensitive(pd->prefs[open_in_new_window], main_v->props.open_in_running_bluefish);
 	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File properties to check on disk for modifications"), main_v->props.modified_check_type, vbox2, modified_check_types);
 	pd->prefs[do_periodic_check] = boxed_checkbut_with_value(_("Periodically check if file is modified on disk"), main_v->props.do_periodic_check, vbox2);
-	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent' menu"), main_v->props.max_recent_files, vbox2, pd, 3, 100);
+	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent' menu"), main_v->props.max_recent_files, vbox2, 3, 100);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 
@@ -1727,9 +1720,9 @@ static void preferences_dialog() {
 
 	pd->prefs[leave_to_window_manager] = boxed_checkbut_with_value(_("Leave dimensions to window manager"), main_v->props.leave_to_window_manager, vbox2);
 	pd->prefs[restore_dimensions] = boxed_checkbut_with_value(_("Restore last used dimensions"), main_v->props.restore_dimensions, vbox2);
-	pd->prefs[left_panel_width] = prefs_integer(_("Initial sidebar width"), main_v->globses.left_panel_width, vbox2, pd, 1, 4000);
-	pd->prefs[main_window_h] = prefs_integer(_("Initial window height"), main_v->globses.main_window_h, vbox2, pd, 1, 4000);
-	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, pd, 1, 4000);
+	pd->prefs[left_panel_width] = prefs_integer(_("Initial sidebar width"), main_v->globses.left_panel_width, vbox2, 1, 4000);
+	pd->prefs[main_window_h] = prefs_integer(_("Initial window height"), main_v->globses.main_window_h, vbox2, 1, 4000);
+	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, 1, 4000);
 	restore_dimensions_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[restore_dimensions]), "toggled", G_CALLBACK(restore_dimensions_toggled_lcb), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[leave_to_window_manager]), "toggled", G_CALLBACK(restore_dimensions_toggled_lcb), pd);

@@ -640,7 +640,7 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 	} else {
 		 if (GTK_WIDGET_IS_SENSITIVE(btv)
 		  && (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
-			&& (main_v->props.view_cline)) {
+			&& (BFWIN(DOCUMENT(btv->doc)->bfwin)->session->view_cline)) {
 				GdkRectangle rect;
 				gint w,w2;
 				GtkTextIter it;
@@ -784,10 +784,10 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 			GtkTextIter iter;
 			gchar *string;
 			/* replace the tab with spaces if the user wants that */
-			string = bf_str_repeat(" ", main_v->props.editor_tab_width);
+			string = bf_str_repeat(" ", BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
 			imark = gtk_text_buffer_get_insert(buffer);
 			gtk_text_buffer_get_iter_at_mark(buffer,&iter,imark);
-			gtk_text_buffer_insert(buffer,&iter,string,main_v->props.editor_tab_width);
+			gtk_text_buffer_insert(buffer,&iter,string,BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
 			g_free(string);
 			return TRUE;
 		}
@@ -944,7 +944,7 @@ static gboolean bftextview2_key_release_lcb(GtkWidget *widget,GdkEventKey *keven
 					if(strchr(btv->bflang->smartindentchars, lastchar)!=NULL) {
 						gchar *tmp, *tmp2;
 						if (main_v->props.editor_indent_wspaces)
-							tmp2 = bf_str_repeat(" ", main_v->props.editor_tab_width);
+							tmp2 = bf_str_repeat(" ", BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
 						else 
 							tmp2 = g_strdup("	");
 						tmp = g_strconcat(string, tmp2,NULL);
@@ -1254,6 +1254,19 @@ static void bluefish_text_view_class_init(BluefishTextViewClass * klass)
 	widget_class->focus_out_event = bluefish_text_view_focus_out_event;
 }
 
+void bluefish_text_view_multiset(BluefishTextView *btv
+			, gpointer doc
+			, gint view_line_numbers
+			, gint view_blocks
+			, gint autoindent
+			, gint autocomplete) {
+	btv->doc = doc;
+	btv->show_line_numbers = view_line_numbers;
+	btv->show_blocks = view_blocks;
+	btv->auto_indent = autoindent;
+	btv->auto_complete= autocomplete;
+}
+
 static void bluefish_text_view_init(BluefishTextView * textview)
 {
 	GtkTextTagTable *ttt;
@@ -1261,10 +1274,6 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	textview->user_idle_timer = g_timer_new();
 	textview->scancache.stackcaches = g_sequence_new(NULL);
 	bluefish_text_view_set_colors(textview, main_v->props.editor_fg, main_v->props.editor_bg);
-	textview->show_line_numbers = main_v->props.view_line_numbers;
-	textview->show_blocks = main_v->props.view_blocks;
-	textview->auto_indent = main_v->props.autoindent;
-	textview->auto_complete=main_v->props.autocomplete;
 	textview->showsymbols=TRUE;
 	ttt = langmgr_get_tagtable();
 	textview->needscanning = gtk_text_tag_table_lookup(ttt,"_needscanning_");

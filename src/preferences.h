@@ -23,6 +23,13 @@
 
 enum {
 	session_wrap_text,
+	view_line_numbers,
+	editor_tab_width,             /* editor tabwidth */
+	autoindent,                   /* autoindent code */
+	autocomplete,
+	view_blocks,
+	view_mbhl,
+	view_cline,	
 #ifdef HAVE_LIBENCHANT
 	session_spell_check,
 #endif

@@ -420,4 +420,11 @@ void bluefish_text_view_rescan(BluefishTextView * btv);
 void bftextview2_schedule_scanning(BluefishTextView * btv);
 gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter *its, GtkTextIter *ite);
 
+void bluefish_text_view_multiset(BluefishTextView *btv
+			, gpointer doc
+			, gint view_line_numbers
+			, gint view_blocks
+			, gint autoindent
+			, gint autocomplete);
+
 #endif
