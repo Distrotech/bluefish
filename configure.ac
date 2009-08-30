@@ -34,7 +34,7 @@ dnl ************************
 dnl   I18N options
 dnl ************************
 
-ALL_LINGUAS="da de es eu fi fr it ja ko_KR nb nl pl pt pt_BR ro ru sk sr sv ta tr zh_CN zh_TW"
+ALL_LINGUAS="da de es eu fi fr it ja ko_KR nb nl pl pt pt_BR ru sk sr sv ta tr zh_CN zh_TW"
 AC_SUBST(ALL_LINGUAS)
 GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
@@ -218,7 +218,7 @@ dnl But because several systems like Debian or Mac use their own system, so let 
 dnl decide, if he wants to update the sytems catalog.
 AC_PATH_PROG([XMLCATALOG], [xmlcatalog], [no])
 if test "x$XMLCATALOG" = "xno"; then
-	AC_MSG_ERROR([Install the xmlcatalog application, which is delivered with the GNOME xml-library.])
+	AC_MSG_WARN([Install the xmlcatalog application, which is delivered with the GNOME xml-library.])
 fi
 
 AC_ARG_ENABLE(
@@ -361,6 +361,12 @@ dnl ************************
 PKG_PROG_PKG_CONFIG
 
 # it is unclear to me if gio requires g_thread_init(), but if it does, we need to include gthread-2.0
+if test "x$native_win32" = "xyes"; then
+	GIO_PC="gio-2.0"
+else
+	GIO_PC="gio-unix-2.0"
+fi
+
 BF_dependencies="\
 gtk+-2.0 >= 2.12 \
 gmodule-2.0 >= 2.12 \
@@ -369,7 +375,7 @@ glib-2.0 \
 pango \
 gdk-pixbuf-2.0 \
 gdk-2.0 \
-gio-unix-2.0 >= 2.16 \
+$GIO_PC >= 2.16 \
 gthread-2.0 \
 libxml-2.0"
 
