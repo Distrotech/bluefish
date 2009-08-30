@@ -231,7 +231,6 @@ typedef struct {
 	gint dtd_url;				/* URL in DTD */
 	gint xml_start;				/* <?XML...> */
 	gint lowercase_tags;		/* use lowercase tags */
-	gint word_wrap;				/* use wordwrap */
 	gint autoindent;			/* autoindent code */
 	gint smartindent; /* add extra indent in certain situations */
 	gint drop_at_drop_pos; 	/* drop at drop position instead of cursor position */
@@ -348,7 +347,6 @@ typedef struct {
 	GList *files;
 	gchar *template;
 	gpointer editor;
-	gint word_wrap;
 	Tsessionvars *session;
 	gpointer bmarkdata; /* project bookmarks */
 	gboolean close; /* if this is TRUE, it means the project is saved and all, 

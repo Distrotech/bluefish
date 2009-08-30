@@ -82,7 +82,6 @@ enum {
 	dtd_url,                      /* URL in DTD */
 	xml_start,                    /* <?XML...> */
 	lowercase_tags,               /* use lowercase tags */
-	word_wrap,                    /* use wordwrap */
 	autoindent,                   /* autoindent code */
 	smartindent,
 	drop_at_drop_pos,             /* drop at drop position instead of cursor position */
@@ -1351,7 +1350,6 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&main_v->props.smartindent, pd->prefs[smartindent], TRUE);
 	integer_apply(&main_v->props.autoindent, pd->prefs[autoindent], TRUE);
-	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
 	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
 	integer_apply(&main_v->props.view_blocks, pd->prefs[view_blocks], TRUE);
 	integer_apply(&main_v->props.autocomplete, pd->prefs[autocomplete], TRUE);
@@ -1609,7 +1607,6 @@ static void preferences_dialog() {
 	g_list_free(poplist);
 	pd->prefs[autoindent] = boxed_checkbut_with_value(_("(Smart) Auto indenting"), main_v->props.autoindent, vbox2);
 	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
-	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap"), main_v->props.word_wrap, vbox2);
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Show line numbers"), main_v->props.view_line_numbers, vbox2);
 	
 	/*pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);*/
