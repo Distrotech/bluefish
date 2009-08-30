@@ -332,9 +332,9 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 		}
 	} else {					/* child does not yet exist */
 		gchar *display_name;
-		const gchar *mime_type;
+		gchar *mime_type;
 #ifdef WIN32
-		gchar *cont_type;
+		const gchar *cont_type;
 #endif
 		GIcon *icon;
 		gchar *icon_name = NULL;
