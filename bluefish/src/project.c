@@ -38,6 +38,7 @@
 #include "menu.h"
 #include "bookmark.h"
 #include "plugins.h"
+#include "preferences.h"
 
 static void free_session(Tsessionvars *session) {
 	free_stringlist(session->classlist);
@@ -422,6 +423,7 @@ typedef struct {
 	GtkWidget *win;
 	Tbfwin *bfwin;
 	Tproject *project;
+	Tsessionprefs sprefs;
 	GtkWidget *entries[projecteditor_entries_num];
 	gboolean destroy_project_on_close;
 } Tprojecteditor;
@@ -456,7 +458,7 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	string_apply(&prj->name, pred->entries[name]);
 	string_apply(&prj->template, pred->entries[template]);
 	integer_apply(&prj->word_wrap, pred->entries[word_wrap], TRUE);
-
+	sessionprefs_apply(&pred->sprefs, pred->project->session);
 	if (pred->bfwin == NULL) {
 		pred->bfwin = gui_new_window(pred->project);
 		pred->bfwin->session = pred->project->session;
@@ -542,7 +544,10 @@ void project_edit(Tbfwin *bfwin) {
 	gtk_table_set_row_spacing(GTK_TABLE(table), 3, 18);
 	pred->entries[word_wrap] = checkbut_with_value(_("_Word wrap by default"), pred->project->word_wrap);
 	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[word_wrap], 0, 3, 4, 5);
-		
+
+	sessionprefs(&pred->sprefs, pred->project->session);
+	gtk_box_pack_start (GTK_BOX (vbox), pred->sprefs.vbox, FALSE, FALSE, 6);
+	
 	gtk_box_pack_start (GTK_BOX (vbox), gtk_hseparator_new(), FALSE, FALSE, 12);
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);

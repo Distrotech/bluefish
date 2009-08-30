@@ -21,6 +21,16 @@
 #ifndef __PREFERENCES_H_
 #define __PREFERENCES_H_
 
+enum {
+	session_wrap_text,
+	session_num_max
+};
+
+typedef struct {
+	GtkWidget *vbox;
+	GtkWidget *prefs[session_num_max];
+} Tsessionprefs;
+
 void open_preferences_cb(GtkWidget *wid, gpointer data);
 void open_preferences_menu_cb(gpointer callback_data,guint action,GtkWidget *widget);
 
