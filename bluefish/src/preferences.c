@@ -473,11 +473,17 @@ static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget
 
 void sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 	integer_apply(&sessionvars->wrap_text_default, sprefs->prefs[session_wrap_text], TRUE);
+#ifdef HAVE_LIBENCHANT
+	integer_apply(&sessionvars->spell_check_default, sprefs->prefs[session_spell_check], TRUE);
+#endif
 }
 
 Tsessionprefs *sessionprefs(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 	sprefs->vbox = gtk_vbox_new(FALSE,3);
 	sprefs->prefs[session_wrap_text] = boxed_checkbut_with_value(_("Initially wrap text"), sessionvars->wrap_text_default, sprefs->vbox);
+#ifdef HAVE_LIBENCHANT
+	sprefs->prefs[session_spell_check] = boxed_checkbut_with_value(_("Initially enable spell check"), sessionvars->spell_check_default, sprefs->vbox);
+#endif
 	return sprefs;
 }
 

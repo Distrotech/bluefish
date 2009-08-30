@@ -23,6 +23,9 @@
 
 enum {
 	session_wrap_text,
+#ifdef HAVE_LIBENCHANT
+	session_spell_check,
+#endif
 	session_num_max
 };
 
@@ -30,7 +33,8 @@ typedef struct {
 	GtkWidget *vbox;
 	GtkWidget *prefs[session_num_max];
 } Tsessionprefs;
-
+void sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars);
+Tsessionprefs *sessionprefs(Tsessionprefs *sprefs, Tsessionvars *sessionvars);
 void open_preferences_cb(GtkWidget *wid, gpointer data);
 void open_preferences_menu_cb(gpointer callback_data,guint action,GtkWidget *widget);
 
