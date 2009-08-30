@@ -459,6 +459,10 @@ void filefilter_gui(Tfilter *filter) {
 	GtkTreeViewColumn *column;
 	GList *tmplist, *reglist;
 	GtkWidget *table,*hbox,*but,*vbox,*scrolwin;
+#ifdef WIN32
+	GList *mimelist;
+	gchar *last_mime=NULL;
+#endif
 
 	Tfilefiltergui *ffg = g_new0(Tfilefiltergui,1);
 	ffg->curfilter = filter;
@@ -480,7 +484,25 @@ void filefilter_gui(Tfilter *filter) {
 	reglist = g_content_types_get_registered();
 
 #ifdef WIN32
-	GList *winlist = NULL;
+	tmplist = g_list_first(reglist);
+	while (tmplist) {
+		mimelist = g_list_prepend(g_content_type_get_mime_type(tmplist->data));
+		tmplist = g_list_next(tmplist);
+	}
+	mimelist = g_list_reverse(g_list_sort(mimelist, (GCompareFunc) g_strcmp0));
+	tmplist = g_list_first(mimelist);
+	while (tmplist) {
+		if (!last_mime || g_strcmp0(last_mime, tmplist->data)!=0) {
+			GtkTreeIter it;
+			last_mime=tmplist->data;
+			if (MIME_ISDIR(tmplist->data)) {
+				gtk_list_store_prepend(ffg->lstore,&it);
+				gtk_list_store_set(ffg->lstore,&it,0,tmplist->data,2,0, -1);
+			}
+		}
+		tmplist = g_list_next(tmplist);
+	}
+/*	GList *winlist = NULL;
 	gchar *mimetype;
 	gint llen, lpos;
 	while(reglist) {
@@ -499,10 +521,10 @@ void filefilter_gui(Tfilter *filter) {
 			winlist = g_list_append(winlist, mimetype);
 		reglist = g_list_next(reglist);
 	}
-	tmplist = g_list_first(g_list_reverse(g_list_sort(winlist, (GCompareFunc) g_strcmp0)));	
+	tmplist = g_list_first(g_list_reverse(g_list_sort(winlist, (GCompareFunc) g_strcmp0)));*/
+	free_stringlist(mimelist);
 #else
 	tmplist = g_list_first(g_list_sort(reglist, (GCompareFunc) g_strcmp0));	
-#endif
 	while (tmplist) {
 		GtkTreeIter it;
 		if (MIME_ISDIR(tmplist->data)) {
@@ -511,8 +533,6 @@ void filefilter_gui(Tfilter *filter) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
-#ifdef WIN32
-	g_list_free(winlist);
 #endif
 	g_list_free(reglist);
 	/* make sure that all filetypes that exist in the current filter are shown */
