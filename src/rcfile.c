@@ -661,7 +661,7 @@ gboolean rcfile_save_global_session(void) {
 	filename = user_bfdir("session");
 	configlist = return_globalsession_configlist(FALSE);
 	configlist = return_session_configlist(configlist, main_v->session);
-	DEBUG_MSG("rcfile_save_global_session, saving global session to %s\n",filename);
+	DEBUG_MSG("rcfile_save_global_session, saving global session to %s\n",g_file_get_parse_name(filename));
 	DEBUG_MSG("rcfile_save_global_session, length session recent_files=%d\n",g_list_length(main_v->session->recent_files));
 	DEBUG_MSG("rcfile_save_global_session, length session recent_projects=%d\n",g_list_length(main_v->globses.recent_projects));
 	retval = save_config_file(configlist, filename);
