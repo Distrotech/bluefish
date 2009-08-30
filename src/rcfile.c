@@ -421,7 +421,6 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.dtd_url, "url_in_dtd:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.xml_start, "xml_starting_line:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.lowercase_tags, "lowercase_tags:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.word_wrap, "word_wrap:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.autoindent, "autoindent:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.smartindent, "smartindent:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0, TRUE);
@@ -626,7 +625,6 @@ static GHashTable *return_project_configlist(Tproject *project) {
 	init_prop_stringlist(&configlist, &project->files, "files:", FALSE);
 	init_prop_string(&configlist, &project->template,"template:","");
 /*	init_prop_stringlist(&configlist, &project->recentfiles, "recentfiles:", FALSE); / * should be changed to use the session->recent_files */
-	init_prop_integer (&configlist, &project->word_wrap,"word_wrap:",1,FALSE);
 	configlist = return_session_configlist(configlist, project->session);
 	return configlist;
 }

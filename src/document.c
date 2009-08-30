@@ -2194,7 +2194,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 
 	doc_unre_init(newdoc);
 	apply_font_style(newdoc->view, main_v->props.editor_font_string);
-	newdoc->wrapstate = (bfwin->project) ? bfwin->project->word_wrap : main_v->props.word_wrap;
+	newdoc->wrapstate = bfwin->session->wrap_text_default;
 	doc_set_wrap(newdoc);
 
 	/* we initialize already with 0 , so we don't need these:
