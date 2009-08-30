@@ -21,17 +21,11 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
+
 #ifdef WIN32
 #    include <winsock2.h>
 #    include <ws2tcpip.h>
-typedef unsigned char uint8_t;
-typedef uint8_t sa_family_t;  /* socket address family */
-struct  sockaddr_un {
-    uint8_t sun_len;          /* total sockaddr length */
-    sa_family_t sun_family;   /* AF_LOCAL */
-    char sun_path[104];       /* path name (gag) */
-};
-#else
+#else /* WIN32 */
 #    include <sys/socket.h>
 #    include <sys/un.h>
 #endif
@@ -43,6 +37,18 @@ struct  sockaddr_un {
 #include "gui.h"
 #include "file.h"
 #include "ipc_bf2bf.h"
+
+#ifdef WIN32
+#ifndef HAVE_STDINT_H
+typedef unsigned char uint8_t;
+#endif /* HAVE_STDINT_H */
+typedef uint8_t sa_family_t;  /* socket address family */
+struct  sockaddr_un {
+    uint8_t sun_len;          /* total sockaddr length */
+    sa_family_t sun_family;   /* AF_LOCAL */
+    char sun_path[104];       /* path name (gag) */
+};
+#endif /* WIN32 */
 
 #ifndef UNIX_PATH_MAX
 #define UNIX_PATH_MAX 108
