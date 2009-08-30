@@ -1,0 +1,18 @@
+#!/bin/sh
+
+PATH="/opt/perl/bin:$PATH"
+prefix=/local
+exec_prefix='${prefix}'
+mandir='${datarootdir}/man'
+with_xml_catalog='${sysconfdir}/xml/catalog'
+with_icon_path='${datarootdir}/pixmaps'
+with_theme_path='${datarootdir}/icons/hicolor'
+with_freedesktop_org_menu='${datarootdir}/applications'
+with_freedesktop_org_mime='${datarootdir}/mime'
+enable_static=no
+enable_xml_catalog_update=no
+enable_update_databases=no
+enable_maintainer_mode=yes
+LDFLAGS="-Wl,--as-needed -Wl,-O1 -L/lib -L/local/lib"
+CFLAGS="-g -Wall -O2 -I/include -I/local/include -mwindows"
+CPPFLAGS="-g -Wall -O2 -I/include -I/local/include"
