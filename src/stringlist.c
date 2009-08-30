@@ -219,7 +219,7 @@ gchar **string_to_array(gchar *string) {
  *
  * Return value: #gchar** with the array
  */
-gchar **array_from_arglist(const gchar *string1, ...) {
+EXPORT gchar **array_from_arglist(const gchar *string1, ...) {
 	gint numargs=1;
 	va_list args;
 	gchar *s;
@@ -258,7 +258,7 @@ gchar **array_from_arglist(const gchar *string1, ...) {
  *
  * Return value: GList *
  */
-GList *list_from_arglist(gboolean allocate_strings, ...) {
+EXPORT GList *list_from_arglist(gboolean allocate_strings, ...) {
 	GList *retval=NULL;
 	va_list args;
 	gchar *s;
@@ -272,7 +272,7 @@ GList *list_from_arglist(gboolean allocate_strings, ...) {
 	return retval;
 }
 
-GList *duplicate_stringlist(GList *list, gint dup_data) {
+EXPORT GList *duplicate_stringlist(GList *list, gint dup_data) {
 	GList *retlist=NULL;
 	if (list) {
 		GList *tmplist;
@@ -293,7 +293,7 @@ GList *duplicate_stringlist(GList *list, gint dup_data) {
 	return retlist;
 }
 
-gint free_stringlist(GList * which_list)
+EXPORT gint free_stringlist(GList * which_list)
 {
 	GList *tmplist;
 
@@ -509,7 +509,7 @@ gboolean put_stringlist(GFile * file, GList * which_list, gboolean is_arraylist)
 	return put_stringlist_limited(file,which_list, -1, is_arraylist);
 }
 
-GList *remove_from_stringlist(GList *which_list, const gchar * string) {
+EXPORT GList *remove_from_stringlist(GList *which_list, const gchar * string) {
 	if (string && strlen(string) ) {
 		GList *tmplist = g_list_first(which_list);
 		while (tmplist) {
@@ -606,7 +606,7 @@ GList *add_to_history_stringlist(GList *which_list, const gchar *string, gboolea
  * 
  * Return value: the new GList *
  **/
-GList *add_to_stringlist(GList * which_list, const gchar * string) {
+EXPORT GList *add_to_stringlist(GList * which_list, const gchar * string) {
 	if (string && strlen(string) ) {
 		GList *tmplist = g_list_first(which_list);
 		while (tmplist) {
@@ -632,7 +632,7 @@ GList *add_to_stringlist(GList * which_list, const gchar * string) {
  * 
  * Return value: the gchar *
  **/
-gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
+EXPORT gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
 	gchar *string, *tmp;
 	GList *tmplist;
 	string = g_strdup("");

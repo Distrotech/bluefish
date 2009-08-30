@@ -61,7 +61,7 @@
 /*********************************************/
 /* this var is global for all bluefish files */
 /*********************************************/
-Tmain *main_v;
+EXPORT Tmain *main_v;
 
 /********************************/
 /* functions used in bluefish.c */

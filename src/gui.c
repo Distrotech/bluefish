@@ -172,7 +172,7 @@ gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {
 	return TRUE;
 }
 
-gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document) {
+EXPORT gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document) {
 	gint index;
 
 	index = g_list_index(bfwin->documentlist, document);

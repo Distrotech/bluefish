@@ -29,6 +29,10 @@
 #include "rpopup.h"
 Thtmlbar htmlbar_v;
 
+#ifdef WIN32
+__declspec(dllimport) Tmain *main_v;
+#endif
+
 static void htmlbar_doc_view_populate_popup(GtkTextView *textview,GtkMenu *menu,Tdocument *doc) {
 	GtkWidget *menuitem;
 	DEBUG_MSG("htmlbar_doc_view_populate_popup, called\n");
