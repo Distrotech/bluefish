@@ -24,6 +24,7 @@
 #include <string.h>        /* strcmp() */
 
 #include "bluefish.h"
+#include "preferences.h"
 #include "bf_lib.h"        /* list_switch_order() */
 #include "bftextview2_langmgr.h"
 #include "document.h"
@@ -177,6 +178,7 @@ typedef struct {
 typedef struct {
 	GtkWidget *prefs[property_num_max];
 	GList *lists[lists_num_max];
+	Tsessionprefs sprefs;
 	GtkWidget *win;
 	GtkWidget *noteb;
 	GtkTreeStore *nstore;
@@ -468,7 +470,17 @@ static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget
 	gtk_box_pack_start(GTK_BOX(hbox), return_widget, TRUE, TRUE, 3);
 	return return_widget;
 }
+/* session preferences */
 
+void sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
+	integer_apply(&sessionvars->wrap_text_default, sprefs->prefs[session_wrap_text], TRUE);
+}
+
+Tsessionprefs *sessionprefs(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
+	sprefs->vbox = gtk_vbox_new(FALSE,3);
+	sprefs->prefs[session_wrap_text] = boxed_checkbut_with_value(_("Initially wrap text"), sessionvars->wrap_text_default, sprefs->vbox);
+	return sprefs;
+}
 
 /************ plugin code ****************/
 static void set_plugin_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
@@ -1363,6 +1375,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.auto_update_meta_date, pd->prefs[auto_update_meta_date], TRUE);
 	integer_apply(&main_v->props.auto_update_meta_generator, pd->prefs[auto_update_meta_generator], TRUE);
 
+	sessionprefs_apply(&pd->sprefs, main_v->session);
+
 	string_apply(&main_v->props.newfile_default_encoding, GTK_COMBO(pd->prefs[newfile_default_encoding])->entry);
 	integer_apply(&main_v->props.auto_set_encoding_meta, pd->prefs[auto_set_encoding_meta], TRUE);
 	integer_apply(&main_v->props.backup_file, pd->prefs[backup_file], TRUE);
@@ -1583,6 +1597,8 @@ static void preferences_dialog() {
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Initial editor settings"), WIDGETCOL,vbox1,-1);
 
+	sessionprefs(&pd->sprefs, main_v->session);
+	gtk_box_pack_start(GTK_BOX(vbox1), pd->sprefs.vbox, FALSE, FALSE, 6);
 
 	frame = gtk_frame_new(_("Initial settings for new documents"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);

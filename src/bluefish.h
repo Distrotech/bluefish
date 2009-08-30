@@ -292,6 +292,10 @@ typedef struct {
 } Tglobalsession;
 
 typedef struct {
+	/* these settings are set in the preferences or project dialog */
+	gboolean wrap_text_default; /* by default wrap text */
+	
+	/* other settings */
 	gboolean snr_is_expanded;
 	gchar *webroot;
 	gchar *documentroot;
