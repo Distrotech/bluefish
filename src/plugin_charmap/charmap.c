@@ -23,6 +23,10 @@
 #include "../rcfile.h"
 Tcharmap charmap_v;
 
+#ifdef WIN32
+__declspec(dllimport) Tmain *main_v;
+#endif
+
 static void charmap_init(void) {
 #ifdef ENABLE_NLS
   DEBUG_MSG("charmap_init, gettext domain-name=%s\n",PACKAGE"_plugin_charmap");

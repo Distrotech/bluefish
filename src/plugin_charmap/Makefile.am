@@ -1,5 +1,7 @@
 SUBDIRS = po
 
+EXTRA_DIST = charmap.def
+
 DISTCLEANFILES = @OPENBSD_3_8_FIX@
 
 MAINTAINERCLEANFILES = Makefile.in
@@ -22,7 +24,7 @@ charmap_la_LIBADD = $(CHARMAP_PLUGIN_LIBS)
 charmap_la_LDFLAGS = -module -avoid-version
 
 if OS_WIN32
-charmap_la_LDFLAGS += -no-undefined
+charmap_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/charmap.def
 endif
 
 maintainer-clean-local:
