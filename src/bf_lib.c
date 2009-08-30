@@ -69,7 +69,7 @@ EXPORT void refcpointer_unref(Trefcpointer *rp) {
 	}
 }
 /*GFile *add_suffix_to_uri(GFile *file, const char *suffix) {
-	if (!suffix) {replace
+	if (!suffix) {
 		g_object_ref(file);
 		return file;
 	} else {
