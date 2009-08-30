@@ -427,7 +427,7 @@ GtkWidget *checkbut_with_value(gchar *labeltext, gint which_config_int) {
  *
  * Return value: #GtkWidget* pointer to the new checkbutton widget
  */
-GtkWidget *boxed_checkbut_with_value(gchar *labeltext, gint which_config_int, GtkWidget * box) {
+EXPORT GtkWidget *boxed_checkbut_with_value(gchar *labeltext, gint which_config_int, GtkWidget * box) {
 	GtkWidget *returnwidget;
 
 	returnwidget = checkbut_with_value(labeltext, which_config_int);
