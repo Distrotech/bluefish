@@ -388,6 +388,9 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 								   finfo, -1);
 		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
 		g_free(icon_name);
+#ifdef WIN32
+		g_free(mime_type);
+#endif
 		DEBUG_MSG("insert newiter %p in hashtable for child_uri %p\n",newiter,child_uri);
 		/* give it an extra reference for the hashtable */
 		g_object_ref(child_uri);
