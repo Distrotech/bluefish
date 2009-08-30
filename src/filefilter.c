@@ -460,7 +460,7 @@ void filefilter_gui(Tfilter *filter) {
 	GList *tmplist, *reglist;
 	GtkWidget *table,*hbox,*but,*vbox,*scrolwin;
 #ifdef WIN32
-	GList *mimelist;
+	GList *mimelist=NULL;
 	gchar *last_mime=NULL;
 #endif
 
@@ -486,7 +486,7 @@ void filefilter_gui(Tfilter *filter) {
 #ifdef WIN32
 	tmplist = g_list_first(reglist);
 	while (tmplist) {
-		mimelist = g_list_prepend(g_content_type_get_mime_type(tmplist->data));
+		mimelist = g_list_prepend(mimelist, g_content_type_get_mime_type(tmplist->data));
 		tmplist = g_list_next(tmplist);
 	}
 	mimelist = g_list_reverse(g_list_sort(mimelist, (GCompareFunc) g_strcmp0));
