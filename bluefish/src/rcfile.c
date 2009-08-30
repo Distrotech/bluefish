@@ -368,9 +368,7 @@ static gboolean parse_config_file(GHashTable * config_list, GFile * file)
 static GHashTable *props_init_main(GHashTable * config_rc)
 {
 	init_prop_integer   (&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "monospace 10");
-	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
@@ -421,7 +419,6 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.dtd_url, "url_in_dtd:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.xml_start, "xml_starting_line:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.lowercase_tags, "lowercase_tags:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.autoindent, "autoindent:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.smartindent, "smartindent:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1, TRUE);
@@ -434,9 +431,6 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.editor_fg,"editor_fg:","#000000");
 	init_prop_string    (&config_rc, &main_v->props.editor_bg,"editor_bg:","#FFFFFF");
 	init_prop_arraylist (&config_rc, &main_v->props.textstyles, "textstyles3:", 6, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.view_mbhl, "view_mbhl:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.view_cline, "view_cline:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.view_blocks, "view_blocks:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.block_folding_mode, "block_folding_mode:", 1, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.highlight_styles, "highlight_styles:", 3, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.bflang_options, "bflang_options:", 3, TRUE);
@@ -445,7 +439,6 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.show_tooltip_reference, "show_tooltip_reference:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.delay_full_scan, "delay_full_scan:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.delay_scan_time, "delay_scan_time:", 900, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.autocomplete, "autocomplete:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.autocomp_popup_mode, "autocomp_popup_mode:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.reduced_scan_triggers, "reduced_scan_triggers:", 1, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.default_mime_type,"default_mime_type:","text/plain");
@@ -577,6 +570,13 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 	because it is also used on existing sessions that already have a value, and
 	that would wipe out the value of the existing session */
 	init_prop_integer(&configlist, &session->wrap_text_default, "wrap_text_default:", 1, FALSE);
+	init_prop_integer(&configlist, &session->autoindent, "autoindent:", 1, FALSE);
+	init_prop_integer(&configlist, &session->editor_tab_width, "editor_tab_width:", 3, FALSE);
+	init_prop_integer(&configlist, &session->view_line_numbers, "view_line_numbers:", 1, FALSE);
+	init_prop_integer(&configlist, &session->view_cline, "view_cline:", 1, FALSE);
+	init_prop_integer(&configlist, &session->view_blocks, "view_blocks:", 1, FALSE);
+	init_prop_integer(&configlist, &session->autocomplete, "autocomplete:", 1, FALSE);
+	init_prop_integer(&configlist, &session->view_mbhl, "view_mbhl:", 1, FALSE);
 #ifdef HAVE_LIBENCHANT
 	init_prop_integer(&configlist, &session->spell_check_default, "spell_check_default:", 1, FALSE);
 #endif

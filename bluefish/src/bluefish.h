@@ -178,10 +178,10 @@ typedef struct {
 } Tdocument;
 
 typedef struct {
+
+
 	gint do_periodic_check;
-	gint view_line_numbers; /* view line numbers on the left side by default */
 	gchar *editor_font_string;		/* editor font */
-	gint editor_tab_width;	/* editor tabwidth */
 	gint editor_smart_cursor;
 	gint editor_indent_wspaces; /* indent with spaces, not tabs */
 	gchar *tab_font_string;		/* notebook tabs font */
@@ -231,7 +231,7 @@ typedef struct {
 	gint dtd_url;				/* URL in DTD */
 	gint xml_start;				/* <?XML...> */
 	gint lowercase_tags;		/* use lowercase tags */
-	gint autoindent;			/* autoindent code */
+
 	gint smartindent; /* add extra indent in certain situations */
 	gint drop_at_drop_pos; 	/* drop at drop position instead of cursor position */
 	gint link_management; 	/* perform link management */
@@ -243,10 +243,7 @@ typedef struct {
 	GList *plugin_config; /* array, 0=filename, 1=enabled, 2=name*/
 	gchar *editor_fg; /* editor foreground color */
 	gchar *editor_bg; /* editor background color */
-	gint view_mbhl; /* show matching block begin-end by default */	
-	gint view_cline; /* highlight current line by default */
 	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
-	gint view_blocks; /* show blocks on the left side by default */
 	gint block_folding_mode;
 	GList *highlight_styles;
 	GList *bflang_options; /* array with: lang_name, option_name, value */ 
@@ -255,7 +252,6 @@ typedef struct {
 	gboolean show_tooltip_reference;
 	gboolean delay_full_scan;
 	gint delay_scan_time;
-	gint autocomplete; /* whether or not to enable autocomplete by default for each new document */
 	gint autocomp_popup_mode; /* delayed or immediately */
 	gboolean reduced_scan_triggers;
 	gchar *default_mime_type;
@@ -293,6 +289,16 @@ typedef struct {
 typedef struct {
 	/* these settings are set in the preferences or project dialog */
 	gint wrap_text_default; /* by default wrap text */
+
+	gint autoindent;			/* autoindent code */
+	gint editor_tab_width;	/* editor tabwidth */
+	gint view_line_numbers; /* view line numbers on the left side by default */
+	gint view_cline; /* highlight current line by default */
+	gint view_blocks; /* show blocks on the left side by default */
+	gint autocomplete; /* whether or not to enable autocomplete by default for each new document */
+	gint view_mbhl; /* show matching block begin-end by default */
+
+
 #ifdef HAVE_LIBENCHANT
 	gint spell_check_default;
 #endif

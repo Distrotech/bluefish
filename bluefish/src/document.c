@@ -585,7 +585,7 @@ void doc_change_tabsize(Tdocument *doc,gint direction) {
 		setsize = 8;
 	}
 	if (direction == 0) { /* 0 means reset to default */
-		setsize = main_v->props.editor_tab_width*singlesize;
+		setsize = BFWIN(doc->bfwin)->session->editor_tab_width*singlesize;
 	} else if (direction < 0){
 		setsize -= singlesize;
 	} else {
@@ -1024,7 +1024,7 @@ static void doc_set_statusbar_lncol(Tdocument *doc) {
 
 	while (!gtk_text_iter_equal(&start, &iter)) {
 		if (gtk_text_iter_get_char(&start) == '\t') {
-			col += (main_v->props.editor_tab_width - (col  % main_v->props.editor_tab_width));
+			col += (BFWIN(doc->bfwin)->session->editor_tab_width - (col  % BFWIN(doc->bfwin)->session->editor_tab_width));
 		} else ++col;
 		gtk_text_iter_forward_char(&start);
 	}
@@ -2166,7 +2166,11 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->status = DOC_STATUS_COMPLETE; /* if we don't set this default we will get problems for new empty files */
 	newdoc->buffer = gtk_text_buffer_new(langmgr_get_tagtable());
 	newdoc->view = bftextview2_new_with_buffer(newdoc->buffer);
-	BLUEFISH_TEXT_VIEW(newdoc->view)->doc = newdoc;
+	bluefish_text_view_multiset(newdoc->view, newdoc
+			, BFWIN(bfwin)->session->view_line_numbers
+			, BFWIN(bfwin)->session->view_blocks
+			, BFWIN(bfwin)->session->autoindent
+			, BFWIN(bfwin)->session->autocomplete);
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
 	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(newdoc->view), main_v->props.default_mime_type);
 	newdoc->fileinfo = g_file_info_new();
@@ -2241,7 +2245,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 		gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(bfwin->notebook), scroll, TRUE);
 	}
 	/* for some reason it only works after the document is appended to the notebook */
-	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
+	doc_set_tabsize(newdoc, BFWIN(bfwin)->session->editor_tab_width);
 
 	DEBUG_MSG("doc_new_backend, need_highlighting=%d\n", newdoc->need_highlighting);
 	return newdoc;
@@ -3003,9 +3007,9 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 				} else if (cchar == 32) { /* 32 is ascii for space */
 					gint i=0;
 					itend = itstart;
-					gtk_text_iter_forward_chars(&itend,main_v->props.editor_tab_width);
+					gtk_text_iter_forward_chars(&itend,BFWIN(doc->bfwin)->session->editor_tab_width);
 					buf = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
-					DEBUG_MSG("tab_width=%d, strlen(buf)=%d, buf='%s'\n",main_v->props.editor_tab_width,strlen(buf),buf);
+					DEBUG_MSG("tab_width=%d, strlen(buf)=%d, buf='%s'\n",BFWIN(doc->bfwin)->session->editor_tab_width,strlen(buf),buf);
 					while (cont && buf[i] != '\0') {
 						cont = (buf[i] == ' ');
 						DEBUG_MSG("doc_indent_selection, buf[%d]='%c'\n",i,buf[i]);
@@ -3035,8 +3039,8 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 				gchar *indentstring;
 				gint indentlen;
 				if (main_v->props.editor_indent_wspaces) {
-					indentstring = bf_str_repeat(" ", main_v->props.editor_tab_width);
-					indentlen = main_v->props.editor_tab_width;
+					indentstring = bf_str_repeat(" ", BFWIN(doc->bfwin)->session->editor_tab_width);
+					indentlen = BFWIN(doc->bfwin)->session->editor_tab_width;
 				} else {
 					indentstring = g_strdup("\t");
 					indentlen=1;
@@ -3063,13 +3067,13 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 			gint deletelen = 0;
 			gchar *tmpstr, *tmp2str;
 			GtkTextIter itend = iter;
-			gtk_text_iter_forward_chars(&itend,main_v->props.editor_tab_width);
+			gtk_text_iter_forward_chars(&itend,BFWIN(doc->bfwin)->session->editor_tab_width);
 			tmpstr = gtk_text_buffer_get_text(doc->buffer,&iter,&itend,TRUE);
-			tmp2str = bf_str_repeat(" ", main_v->props.editor_tab_width);
+			tmp2str = bf_str_repeat(" ", BFWIN(doc->bfwin)->session->editor_tab_width);
 			if (tmpstr[0] == '\t') {
 				deletelen = 1;
-			} else if (tmpstr && strncmp(tmpstr,tmp2str,main_v->props.editor_tab_width)==0) {
-				deletelen = main_v->props.editor_tab_width;
+			} else if (tmpstr && strncmp(tmpstr,tmp2str,BFWIN(doc->bfwin)->session->editor_tab_width)==0) {
+				deletelen = BFWIN(doc->bfwin)->session->editor_tab_width;
 			}
 			g_free(tmpstr);
 			g_free(tmp2str);
@@ -3082,8 +3086,8 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 			gchar *indentstring;
 			gint indentlen;
 			if (main_v->props.editor_indent_wspaces) {
-				indentstring = bf_str_repeat(" ", main_v->props.editor_tab_width);
-				indentlen = main_v->props.editor_tab_width;
+				indentstring = bf_str_repeat(" ", BFWIN(doc->bfwin)->session->editor_tab_width);
+				indentlen = BFWIN(doc->bfwin)->session->editor_tab_width;
 			} else {
 				indentstring = g_strdup("\t");
 				indentlen=1;
