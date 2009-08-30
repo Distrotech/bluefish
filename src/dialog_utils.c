@@ -22,6 +22,7 @@
 
 #include <gtk/gtk.h>
 
+#include "bluefish.h"
 #include "dialog_utils.h"
 #include "pixmap.h"
 
@@ -442,6 +443,7 @@ message_dialog_set_text(GtkWidget *dialog, const gchar *primaryText, const gchar
  *
  * Return value: void
  */
+EXPORT
 void
 message_dialog_new(GtkWidget *parent, 
 				   GtkMessageType type, 

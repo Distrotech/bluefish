@@ -31,6 +31,14 @@
 #include "config.h"
 #define BLUEFISH_SPLASH_FILENAME PKGDATADIR"/bluefish_splash.png"
 
+#ifdef WIN32
+#ifdef EXE_EXPORT_SYMBOLS
+#define EXPORT __declspec(dllexport)
+#else
+#define EXPORT __declspec(dllimport)
+#endif
+#endif
+
 #ifdef HAVE_SYS_MSG_H
 #ifdef HAVE_MSGRCV
 #ifdef HAVE_MSGSND
