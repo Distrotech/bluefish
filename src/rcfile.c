@@ -577,6 +577,9 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 	because it is also used on existing sessions that already have a value, and
 	that would wipe out the value of the existing session */
 	init_prop_integer(&configlist, &session->wrap_text_default, "wrap_text_default:", 1, FALSE);
+#ifdef HAVE_LIBENCHANT
+	init_prop_integer(&configlist, &session->spell_check_default, "spell_check_default:", 1, FALSE);
+#endif
 
 	init_prop_string_with_escape(&configlist, &session->webroot, "webroot:", NULL);
 	init_prop_string_with_escape(&configlist, &session->documentroot, "documentroot:", NULL);

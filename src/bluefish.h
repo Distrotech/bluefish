@@ -292,8 +292,10 @@ typedef struct {
 
 typedef struct {
 	/* these settings are set in the preferences or project dialog */
-	gboolean wrap_text_default; /* by default wrap text */
-	
+	gint wrap_text_default; /* by default wrap text */
+#ifdef HAVE_LIBENCHANT
+	gint spell_check_default;
+#endif
 	/* other settings */
 	gboolean snr_is_expanded;
 	gchar *webroot;
