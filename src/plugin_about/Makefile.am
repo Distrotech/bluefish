@@ -1,6 +1,8 @@
 
 SUBDIRS = po
 
+EXTRA_DIST = about.def
+
 CLEANFILES = about_rev.h
 
 DISTCLEANFILES = @OPENBSD_3_8_FIX@
@@ -22,7 +24,7 @@ about_la_SOURCES = \
 about_la_LDFLAGS = -module -avoid-version
 
 if OS_WIN32
-about_la_LDFLAGS += -no-undefined
+about_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/about.def
 endif
 
 about_rev.h: about_rev.h.tmp
@@ -44,10 +46,6 @@ about_rev.h.tmp:
 
 .INTERMEDIATE: about_rev.h.tmp
 .PHONY: about_rev.h.tmp
-
-if OS_WIN32
-about_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/about.def
-endif
 
 maintainer-clean-local:
 	cd $(srcdir)/po && rm -f boldquot.sed en@boldquot.header en@quot.header insert-header.sin Makefile.in.in quot.sed remove-potcdate.sin Rules-quot $(PACKAGE)_plugin_about.pot
