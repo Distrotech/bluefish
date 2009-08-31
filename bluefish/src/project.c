@@ -62,7 +62,7 @@ static void free_session(Tsessionvars *session) {
 static void project_setup_initial_session(Tsessionvars *session, gboolean before_parse) {
 	if (!before_parse) {
 		/* session parts that will be filled by rcfile_parse() will not be included
-		   in this initial setup */
+		   if before parse is TRUE (this is thus only used for new projects) */
 		session->webroot = g_strdup(main_v->session->webroot);
 		session->documentroot = g_strdup(main_v->session->documentroot);
 		session->encoding = g_strdup(main_v->session->encoding);
@@ -73,7 +73,8 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 		session->spell_lang = g_strdup(main_v->session->spell_lang);
 #endif
 	}
-	session->snr_is_expanded = main_v->session->snr_is_expanded;
+	memcpy(session, main_v->session, 27 * sizeof(gint));
+/*	session->snr_is_expanded = main_v->session->snr_is_expanded;
 	session->adv_open_recursive = main_v->session->adv_open_recursive;
 	session->adv_open_matchname = main_v->session->adv_open_matchname;
 	session->bookmarks_filename_mode = main_v->session->bookmarks_filename_mode;
@@ -85,7 +86,7 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 	session->snr_position_x = main_v->session->snr_position_x;
 	session->snr_position_y = main_v->session->snr_position_y;
 	session->view_main_toolbar = main_v->session->view_main_toolbar;
-	session->view_left_panel = main_v->session->view_left_panel;
+	session->view_left_panel = main_v->session->view_left_panel;*/
 #ifdef HAVE_LIBENCHANT
 	session->spell_enable = main_v->session->spell_enable;
 #endif
