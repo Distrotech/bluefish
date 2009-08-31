@@ -483,11 +483,11 @@ Tsessionprefs *sessionprefs(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 	GList *poplist;
 	sprefs->vbox = gtk_vbox_new(FALSE,3);
 
-	poplist = langmgr_get_languages_mimetypes();
+	poplist = g_list_sort(langmgr_get_languages_mimetypes(), (GCompareFunc)g_strcmp0);
 	sprefs->prefs[default_mime_type] = prefs_combo(_("Default mime type for new files"),sessionvars->default_mime_type, sprefs->vbox, poplist, TRUE);
 	g_list_free(poplist);
 
-	sprefs->prefs[session_wrap_text] = boxed_checkbut_with_value(_("Initially wrap text"), sessionvars->wrap_text_default, sprefs->vbox);
+	sprefs->prefs[session_wrap_text] = boxed_checkbut_with_value(_("_Word wrap by default"), sessionvars->wrap_text_default, sprefs->vbox);
 	sprefs->prefs[autoindent] = boxed_checkbut_with_value(_("(Smart) Auto indenting"), sessionvars->autoindent, sprefs->vbox);
 	sprefs->prefs[editor_tab_width] = prefs_integer(_("Tab width"), sessionvars->editor_tab_width, sprefs->vbox, 1, 50);
 	sprefs->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Show line numbers"), sessionvars->view_line_numbers, sprefs->vbox);
@@ -1607,13 +1607,11 @@ static void preferences_dialog() {
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Initial editor settings"), WIDGETCOL,vbox1,-1);
 
-	sessionprefs(&pd->sprefs, main_v->session);
-	gtk_box_pack_start(GTK_BOX(vbox1), pd->sprefs.vbox, FALSE, FALSE, 6);
-
+	
 	frame = gtk_frame_new(_("Initial settings for new documents"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	sessionprefs(&pd->sprefs, main_v->session);
+	gtk_container_add(GTK_CONTAINER(frame), pd->sprefs.vbox);
 	
 	/*pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);*/
 
