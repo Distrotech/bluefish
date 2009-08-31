@@ -441,7 +441,6 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.delay_scan_time, "delay_scan_time:", 900, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.autocomp_popup_mode, "autocomp_popup_mode:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.reduced_scan_triggers, "reduced_scan_triggers:", 1, TRUE);
-	init_prop_string    (&config_rc, &main_v->props.default_mime_type,"default_mime_type:","text/plain");
 	init_prop_integer   (&config_rc, &main_v->props.autosave, "autosave:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.autosave_time, "autosave_time:", 180, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.autosave_location_mode, "autosave_location_mode:", 0, TRUE);
@@ -580,7 +579,7 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 #ifdef HAVE_LIBENCHANT
 	init_prop_integer(&configlist, &session->spell_check_default, "spell_check_default:", 1, FALSE);
 #endif
-
+	init_prop_string(&configlist, &session->default_mime_type,"default_mime_type:",NULL);
 	init_prop_string_with_escape(&configlist, &session->webroot, "webroot:", NULL);
 	init_prop_string_with_escape(&configlist, &session->documentroot, "documentroot:", NULL);
 	init_prop_limitedstringlist(&configlist, &session->searchlist, "searchlist:", 10, FALSE);
@@ -622,6 +621,15 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 	return configlist;
 }
 
+static void setup_session_after_parse(Tsessionvars *session) {
+	if (session->editor_tab_width < 2)
+		session->editor_tab_width = 3;
+	
+	if (session->default_mime_type ==NULL)
+		session->default_mime_type = g_strdup("text/plain");
+	g_print("default mime type %s\n",session->default_mime_type);
+}
+
 static GHashTable *return_project_configlist(Tproject *project) {
 	GHashTable *configlist = g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free);
 	init_prop_string(&configlist, &project->name,"name:",_("Untitled Project"));
@@ -637,6 +645,7 @@ gboolean rcfile_parse_project(Tproject *project, GFile *file) {
 	GHashTable *configlist = return_project_configlist(project);
 	retval = parse_config_file(configlist, file);
 	free_configlist(configlist);
+	setup_session_after_parse(project->session);
 	return retval;
 }
 
@@ -677,7 +686,7 @@ gboolean rcfile_parse_global_session(void) {
 	retval = parse_config_file(configlist, file);
 	free_configlist(configlist);
 	g_object_unref(file);
-
+	setup_session_after_parse(main_v->session);
 	if (main_v->globses.filefilters == NULL) {
 		/* if the user does not have file filters --> set them to defaults values */
 		gchar **arr;
