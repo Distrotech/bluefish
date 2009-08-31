@@ -627,7 +627,6 @@ static void setup_session_after_parse(Tsessionvars *session) {
 	
 	if (session->default_mime_type ==NULL)
 		session->default_mime_type = g_strdup("text/plain");
-	g_print("default mime type %s\n",session->default_mime_type);
 }
 
 static GHashTable *return_project_configlist(Tproject *project) {
