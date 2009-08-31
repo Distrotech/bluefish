@@ -97,7 +97,6 @@ enum {
 	left_panel_width,
 	main_window_h,
 	main_window_w,
-	default_mime_type,
 	autosave,
 	autosave_time,
 	property_num_max
@@ -429,7 +428,7 @@ static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidge
 	return return_widget;
 }
 
-static GtkWidget *prefs_combo(const gchar *title, const gchar *curval, GtkWidget *box, Tprefdialog *pd, GList *poplist, gboolean editable) {
+static GtkWidget *prefs_combo(const gchar *title, const gchar *curval, GtkWidget *box, GList *poplist, gboolean editable) {
 	GtkWidget *return_widget;
 	GtkWidget *hbox;
 
@@ -473,13 +472,21 @@ void sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 	integer_apply(&sessionvars->autocomplete, sprefs->prefs[autocomplete], TRUE);
 	integer_apply(&sessionvars->view_mbhl, sprefs->prefs[view_mbhl], TRUE);
 	integer_apply(&sessionvars->view_cline, sprefs->prefs[view_cline], TRUE);
+	string_apply(&sessionvars->default_mime_type, GTK_COMBO(sprefs->prefs[default_mime_type])->entry);
+
 #ifdef HAVE_LIBENCHANT
 	integer_apply(&sessionvars->spell_check_default, sprefs->prefs[session_spell_check], TRUE);
 #endif
 }
 
 Tsessionprefs *sessionprefs(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
+	GList *poplist;
 	sprefs->vbox = gtk_vbox_new(FALSE,3);
+
+	poplist = langmgr_get_languages_mimetypes();
+	sprefs->prefs[default_mime_type] = prefs_combo(_("Default mime type for new files"),sessionvars->default_mime_type, sprefs->vbox, poplist, TRUE);
+	g_list_free(poplist);
+
 	sprefs->prefs[session_wrap_text] = boxed_checkbut_with_value(_("Initially wrap text"), sessionvars->wrap_text_default, sprefs->vbox);
 	sprefs->prefs[autoindent] = boxed_checkbut_with_value(_("(Smart) Auto indenting"), sessionvars->autoindent, sprefs->vbox);
 	sprefs->prefs[editor_tab_width] = prefs_integer(_("Tab width"), sessionvars->editor_tab_width, sprefs->vbox, 1, 50);
@@ -1357,7 +1364,6 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.show_splash_screen, pd->prefs[editor_show_splash_screen], TRUE);
 #endif /* #ifndef NOSPLASH */
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
-	string_apply(&main_v->props.default_mime_type, GTK_COMBO(pd->prefs[default_mime_type])->entry);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&main_v->props.smartindent, pd->prefs[smartindent], TRUE);
@@ -1608,9 +1614,6 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	poplist = langmgr_get_languages_mimetypes();
-	pd->prefs[default_mime_type] = prefs_combo(_("Default mime type for new files"),main_v->props.default_mime_type, vbox2, pd, poplist, TRUE);
-	g_list_free(poplist);
 	
 	/*pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);*/
 
@@ -1649,7 +1652,7 @@ static void preferences_dialog() {
 		poplist = g_list_append(poplist, strarr[1]);
 		tmplist = g_list_next(tmplist);
 	}
-	pd->prefs[newfile_default_encoding] = prefs_combo(_("Default character set for new files"),main_v->props.newfile_default_encoding, vbox2, pd, poplist, TRUE);
+	pd->prefs[newfile_default_encoding] = prefs_combo(_("Default character set for new files"),main_v->props.newfile_default_encoding, vbox2, poplist, TRUE);
 	g_list_free(poplist);
 
 	pd->prefs[auto_set_encoding_meta] = boxed_checkbut_with_value(_("Auto set <meta> HTML tag on encoding change"), main_v->props.auto_set_encoding_meta, vbox2);
@@ -1738,7 +1741,7 @@ static void preferences_dialog() {
 	pd->prefs[image_thumbnailstring] = prefs_string(_("Thumbnail suffix"), main_v->props.image_thumbnailstring, vbox2, pd, string_none);
 	poplist = g_list_append(NULL, "png");
 	poplist = g_list_append(poplist, "jpeg");
-	pd->prefs[image_thumbnailtype] = prefs_combo(_("Thumbnail filetype"),main_v->props.image_thumbnailtype, vbox2, pd, poplist, FALSE);
+	pd->prefs[image_thumbnailtype] = prefs_combo(_("Thumbnail filetype"),main_v->props.image_thumbnailtype, vbox2, poplist, FALSE);
 	g_list_free(poplist);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);

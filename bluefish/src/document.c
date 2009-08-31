@@ -2166,15 +2166,15 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->status = DOC_STATUS_COMPLETE; /* if we don't set this default we will get problems for new empty files */
 	newdoc->buffer = gtk_text_buffer_new(langmgr_get_tagtable());
 	newdoc->view = bftextview2_new_with_buffer(newdoc->buffer);
-	bluefish_text_view_multiset(newdoc->view, newdoc
+	bluefish_text_view_multiset(BLUEFISH_TEXT_VIEW(newdoc->view), newdoc
 			, BFWIN(bfwin)->session->view_line_numbers
 			, BFWIN(bfwin)->session->view_blocks
 			, BFWIN(bfwin)->session->autoindent
 			, BFWIN(bfwin)->session->autocomplete);
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
-	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(newdoc->view), main_v->props.default_mime_type);
+	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(newdoc->view), bfwin->session->default_mime_type);
 	newdoc->fileinfo = g_file_info_new();
-	g_file_info_set_content_type(newdoc->fileinfo, main_v->props.default_mime_type);
+	g_file_info_set_content_type(newdoc->fileinfo, bfwin->session->default_mime_type);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	g_signal_connect(scroll, "scroll-event", G_CALLBACK(doc_scroll_event_lcb), newdoc);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),

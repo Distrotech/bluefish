@@ -178,8 +178,6 @@ typedef struct {
 } Tdocument;
 
 typedef struct {
-
-
 	gint do_periodic_check;
 	gchar *editor_font_string;		/* editor font */
 	gint editor_smart_cursor;
@@ -254,7 +252,6 @@ typedef struct {
 	gint delay_scan_time;
 	gint autocomp_popup_mode; /* delayed or immediately */
 	gboolean reduced_scan_triggers;
-	gchar *default_mime_type;
 	gint autosave;
 	gint autosave_time;
 	gint autosave_location_mode; /* 0=~/.bluefish/autosave/, 1=original basedir */
@@ -322,6 +319,7 @@ typedef struct {
 	gchar *spell_lang;
 	gint spell_enable;
 #endif
+	gchar *default_mime_type;
 	gchar *convertcolumn_separator;
 	gchar *convertcolumn_fillempty;
 	gchar *webroot;

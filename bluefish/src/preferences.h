@@ -30,6 +30,7 @@ enum {
 	view_blocks,
 	view_mbhl,
 	view_cline,	
+	default_mime_type,
 #ifdef HAVE_LIBENCHANT
 	session_spell_check,
 #endif
