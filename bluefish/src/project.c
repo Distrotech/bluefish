@@ -69,6 +69,7 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 		session->opendir = g_strdup(main_v->session->opendir);
 		session->savedir = g_strdup(main_v->session->savedir);
 		session->last_filefilter = g_strdup(main_v->session->last_filefilter);
+		session->default_mime_type = g_strdup(main_v->session->default_mime_type);
 #ifdef HAVE_LIBENCHANT
 		session->spell_lang = g_strdup(main_v->session->spell_lang);
 #endif
