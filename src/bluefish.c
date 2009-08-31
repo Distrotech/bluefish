@@ -80,6 +80,21 @@ void cb_print_version(const gchar * option_name, const gchar * value, gpointer d
 	exit(0);
 }
 
+static void init_default_session(Tsessionvars *session) {
+	session->view_main_toolbar = session->view_left_panel
+			= session->filebrowser_focus_follow
+			= session->view_statusbar
+			= session->autoindent
+			= session->view_line_numbers
+			= session->view_cline
+			= session->view_blocks
+			= session->autocomplete
+			= session->view_mbhl
+			= 1;
+	session->snr_position_x = session->snr_position_y = -1;
+	session->editor_tab_width = 3;
+}
+
 /*********************/
 /* the main function */
 /*********************/
@@ -107,8 +122,7 @@ static gboolean startup_in_idle(gpointer data) {
 #endif							/* NOSPLASH */
 			bluefish_load_plugins();
 			main_v->session = g_new0(Tsessionvars, 1);
-			main_v->session->view_main_toolbar = main_v->session->view_left_panel =	main_v->session->filebrowser_focus_follow = main_v->session->view_statusbar = 1;
-			main_v->session->snr_position_x = main_v->session->snr_position_y = -1;
+			init_default_session(main_v->session);
 			rcfile_parse_global_session();
 			if (main_v->session->recent_dirs == NULL) {
 				main_v->session->recent_dirs =

@@ -287,9 +287,7 @@ typedef struct {
 } Tglobalsession;
 
 typedef struct {
-	/* these settings are set in the preferences or project dialog */
 	gint wrap_text_default; /* by default wrap text */
-
 	gint autoindent;			/* autoindent code */
 	gint editor_tab_width;	/* editor tabwidth */
 	gint view_line_numbers; /* view line numbers on the left side by default */
@@ -297,21 +295,7 @@ typedef struct {
 	gint view_blocks; /* show blocks on the left side by default */
 	gint autocomplete; /* whether or not to enable autocomplete by default for each new document */
 	gint view_mbhl; /* show matching block begin-end by default */
-
-
-#ifdef HAVE_LIBENCHANT
-	gint spell_check_default;
-#endif
-	/* other settings */
-	gboolean snr_is_expanded;
-	gchar *webroot;
-	gchar *documentroot;
-	gchar *encoding;
-	gchar *last_filefilter;   /* last filelist filter type */
-	gchar *opendir;
-	gchar *savedir;
-	gchar *sync_local_uri;
-	gchar *sync_remote_uri;
+	gint snr_is_expanded;
 	gint sync_delete_deprecated;
 	gint sync_include_hidden;
 	gint adv_open_matchname;
@@ -329,13 +313,25 @@ typedef struct {
 	gint view_statusbar;
 	gint outputb_scroll_mode; /* 0=none, 1=first line, 2= last line*/
 	gint outputb_show_all_output;
-	gchar *convertcolumn_separator;
-	gboolean convertcolumn_horizontally;
-	gchar *convertcolumn_fillempty;
+	gint convertcolumn_horizontally;
+	/* 27 * sizeof(gint) */
+	/* IF YOU EDIT THIS STRUCTURE PLEASE EDIT THE CODE IN PROJECT.C THAT COPIES
+	A Tsessionvar INTO A NEW Tsessionvar AND ADJUST THE SIZES!!!!!!!!!!!!!!!!!!!!!! */
 #ifdef HAVE_LIBENCHANT
+	gint spell_check_default;
 	gchar *spell_lang;
 	gint spell_enable;
 #endif
+	gchar *convertcolumn_separator;
+	gchar *convertcolumn_fillempty;
+	gchar *webroot;
+	gchar *documentroot;
+	gchar *encoding;
+	gchar *last_filefilter;   /* last filelist filter type */
+	gchar *opendir;
+	gchar *savedir;
+	gchar *sync_local_uri;
+	gchar *sync_remote_uri;
 	GList *bmarks;
 	GList *classlist;
 	GList *colorlist;
