@@ -2955,11 +2955,16 @@ void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 	guint chars = 0, lines = 0, words = 0;
 	gchar *allchars, *wc_message;
 
-   allchars = doc_get_chars(bfwin->current_document, 0, -1);
+	allchars = doc_get_chars(bfwin->current_document, 0, -1);
 	wordcount(allchars, &chars, &lines, &words);
 	g_free(allchars);
 
-	wc_message = g_strdup_printf(_("Statistics: %d lines, %d words, %d characters"), lines, words, chars);
+	wc_message = g_strconcat(
+			g_strdup_printf(_("Statistics: ")),
+			g_strdup_printf(ngettext("%d line", "%d lines", lines), lines), ", ",
+			g_strdup_printf(ngettext("%d word", "%d words", words), words), ", ",
+			g_strdup_printf(ngettext("%d character", "%d characters", chars), chars),
+			NULL);
 	statusbar_message (bfwin,wc_message, 5);
 	g_free (wc_message);
 }
