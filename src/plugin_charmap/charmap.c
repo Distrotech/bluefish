@@ -20,12 +20,9 @@
 
 #include "charmap.h"
 #include "charmap_gui.h"
+#include "../plugins.h"
 #include "../rcfile.h"
 Tcharmap charmap_v;
-
-#ifdef WIN32
-__declspec(dllimport) Tmain *main_v;
-#endif
 
 static void charmap_init(void) {
 #ifdef ENABLE_NLS

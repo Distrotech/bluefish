@@ -36,10 +36,6 @@ static GdkCursor *regular_cursor;
 
 Tinfb infb_v;
 
-#ifdef WIN32
-__declspec(dllimport) Tmain *main_v;
-#endif
-
 inline void set_normal_cursor(GtkTextView *view) {
 	gdk_window_set_cursor (gtk_text_view_get_window (GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT), regular_cursor);
 }

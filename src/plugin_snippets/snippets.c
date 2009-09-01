@@ -30,10 +30,6 @@
 #include "snippets_load.h"
 Tsnippets snippets_v;
 
-#ifdef WIN32
-__declspec(dllimport) Tmain *main_v;
-#endif
-
 static void snippets_init(void) {
 #ifdef ENABLE_NLS
 	DEBUG_MSG("snippets_init, gettext domain-name=%s\n",PACKAGE"_plugin_snippets");
