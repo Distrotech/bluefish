@@ -460,7 +460,7 @@ typedef struct {
 	regex_t find_encoding;
 } Tmain;
 
-extern Tmain *main_v;
+extern EXPORT Tmain *main_v;
 
 /* public functions from bluefish.c */
 void bluefish_exit_request(void);
