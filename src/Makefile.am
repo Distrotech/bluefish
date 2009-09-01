@@ -11,7 +11,7 @@ if OS_WIN32
 DEFS += -DEXE_EXPORT_SYMBOLS
 endif
 
-LDADD = -lregex -lws2_32
+LDADD = -lgnurx -lws2_32
 
 bin_PROGRAMS = bluefish-unstable
 
