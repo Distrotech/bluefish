@@ -469,7 +469,7 @@ void doc_set_mimetype(Tdocument *doc, const gchar *mimetype) {
  *
  * Return value: void
  **/
-EXPORT void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen) {
+void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen) {
 	gboolean uncertain=FALSE;
 	gchar *filename=NULL, *conttype;
 #ifdef WIN32
@@ -648,7 +648,7 @@ void doc_font_size(Tdocument *doc, gint direction) {
  *
  * Return value: gboolean, TRUE if doc is empty, non-modified and nameless
  **/
-EXPORT gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
+gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
 	if (!doc) {
 		return FALSE;
 	}
@@ -861,7 +861,7 @@ void doc_set_modified(Tdocument *doc, gint value) {
  *
  * Return value: void
  **/
-EXPORT void doc_scroll_to_cursor(Tdocument *doc) {
+void doc_scroll_to_cursor(Tdocument *doc) {
 	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
 	gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(doc->view),mark,0.25,FALSE,0.5,0.5);
 }
@@ -877,7 +877,7 @@ EXPORT void doc_scroll_to_cursor(Tdocument *doc) {
  *
  * Return value: gchar * with the requested characters
  **/
-EXPORT gchar *doc_get_chars(Tdocument *doc, gint start, gint end) {
+gchar *doc_get_chars(Tdocument *doc, gint start, gint end) {
 	GtkTextIter itstart, itend;
 	gchar *string;
 
@@ -981,7 +981,7 @@ void doc_select_line_by_offset(Tdocument *doc, gint offset, gboolean do_scroll) 
  *
  * Return value: gboolean if there is a selection
  **/
-EXPORT gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end) {
+gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end) {
 	GtkTextIter itstart, itend;
 	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
 	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,mark);
@@ -1131,7 +1131,7 @@ void doc_insert_text_backend(Tdocument *doc, const gchar * newstring, gint posit
  *
  * Return value: void
  **/
-EXPORT void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end) {
+void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end) {
 	doc_unbind_signals(doc);
 	/* delete region, and add that to undo/redo list */
 	if (end==-1 || end>start){
@@ -1176,7 +1176,7 @@ EXPORT void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gi
  *
  * Return value: void
  **/
-EXPORT void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint end) {
+void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint end) {
 	doc_unre_new_group(doc);
 	doc_replace_text_backend(doc, newstring, start, end);
 	doc_unre_new_group(doc);
@@ -1217,7 +1217,7 @@ static void doc_convert_case_in_selection(Tdocument *doc, gboolean toUpper) {
  *
  * Return value: void
  **/
-EXPORT void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar *after_str) {
+void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar *after_str) {
 	GtkTextIter itinsert, itselect;
 	GtkTextMark *insert, *select;
 	gboolean have_diag_marks = FALSE;
@@ -1629,7 +1629,7 @@ void doc_get_cursor_location(Tdocument *doc, gint *x, gint *y) {
 	doc_get_iter_location(doc, &iter, x, y);
 }
 */
-EXPORT void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter *iter) {
+void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter *iter) {
 	gint xpos, ypos;
 	GtkTextWindowType wintype;
 
@@ -2160,7 +2160,7 @@ static gboolean doc_scroll_event_lcb(GtkWidget *widget,GdkEventScroll *event,gpo
 	return FALSE;
 }
 
-EXPORT Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly) {
+Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly) {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
 
@@ -2328,7 +2328,7 @@ static gboolean doc_auto_detect_lang_lcb(gpointer data) {
  *
  * Return value: a #Tdocument* pointer to the just created document.
  **/
-EXPORT Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
+Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	Tdocument *doc = doc_new_backend(bfwin, TRUE, FALSE);
 	doc_set_status(doc, DOC_STATUS_COMPLETE);
 	DEBUG_MSG("doc_new, status=%d\n",doc->status);
@@ -3132,7 +3132,7 @@ void menu_indent_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
  *
  * Return value: #GList with strings
  */
-EXPORT GList *list_relative_document_filenames(Tdocument *curdoc) {
+GList *list_relative_document_filenames(Tdocument *curdoc) {
 	GList *tmplist, *retlist=NULL;
 	gchar *curi;
 	if (curdoc->uri == NULL) {

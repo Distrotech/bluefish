@@ -131,7 +131,7 @@ void widget_set_visible(GtkWidget *widget, gboolean visible) {
  * 
  * Return value: void
  **/
-EXPORT void window_destroy(GtkWidget * windowname) {
+void window_destroy(GtkWidget * windowname) {
 	DEBUG_MSG("window_destroy, windowname=%p, first the signal handlers\n", windowname);
 	g_signal_handlers_destroy(G_OBJECT(windowname));
 	DEBUG_MSG("window_destroy, then remove the grab\n");
@@ -179,7 +179,7 @@ void window_close_by_data_cb(GtkWidget * widget, gpointer data) {
  *
  * Return value: void
  */
-EXPORT void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state) {
+void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state) {
 	GtkWidget *toggle = gtk_item_factory_get_widget(ifactory, path);
 	if (!toggle) {
 		g_print("Cannot set-up menu widget %s\n",path);
@@ -277,7 +277,7 @@ void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox) {
  *
  * Return value: #GtkWidget* pointer to created combo
  */
-EXPORT GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint editable) {
+GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint editable) {
 	GtkWidget *returnwidget;
 
 	returnwidget = gtk_combo_new();
@@ -309,7 +309,7 @@ EXPORT GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list
  *
  * Return value: #GtkWidget* pointer to created combo
  */
-EXPORT GtkWidget *boxed_combo_with_popdown(const gchar * setstring, GList * which_list, gint editable, GtkWidget *box) {
+GtkWidget *boxed_combo_with_popdown(const gchar * setstring, GList * which_list, gint editable, GtkWidget *box) {
 	GtkWidget *returnwidget;
 	
 	returnwidget = combo_with_popdown(setstring, which_list, editable);
@@ -327,7 +327,7 @@ EXPORT GtkWidget *boxed_combo_with_popdown(const gchar * setstring, GList * whic
  *
  * Return value: #GtkWidget* pointer to created combo
  */
-EXPORT GtkWidget *combo_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width) {
+GtkWidget *combo_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width) {
 	GtkWidget *returnwidget;
 	
 	returnwidget = combo_with_popdown(setstring, which_list, editable);
@@ -344,7 +344,7 @@ EXPORT GtkWidget *combo_with_popdown_sized(const gchar * setstring, GList * whic
  *
  * Return value: #GtkWidget* pointer to the new entry widget
  */
-EXPORT GtkWidget *entry_with_text(const gchar * setstring, gint max_lenght) {
+GtkWidget *entry_with_text(const gchar * setstring, gint max_lenght) {
 	GtkWidget *returnwidget;
 
 	if (max_lenght) {
@@ -368,7 +368,7 @@ EXPORT GtkWidget *entry_with_text(const gchar * setstring, gint max_lenght) {
  *
  * Return value: #GtkWidget* pointer to the new entry widget
  */
-EXPORT GtkWidget *boxed_entry_with_text(const gchar * setstring, gint max_lenght, GtkWidget *box) {
+GtkWidget *boxed_entry_with_text(const gchar * setstring, gint max_lenght, GtkWidget *box) {
 	GtkWidget *returnwidget;
 	
 	returnwidget = entry_with_text(setstring, max_lenght);
@@ -427,7 +427,7 @@ GtkWidget *checkbut_with_value(gchar *labeltext, gint which_config_int) {
  *
  * Return value: #GtkWidget* pointer to the new checkbutton widget
  */
-EXPORT GtkWidget *boxed_checkbut_with_value(gchar *labeltext, gint which_config_int, GtkWidget * box) {
+GtkWidget *boxed_checkbut_with_value(gchar *labeltext, gint which_config_int, GtkWidget * box) {
 	GtkWidget *returnwidget;
 
 	returnwidget = checkbut_with_value(labeltext, which_config_int);
@@ -445,7 +445,7 @@ EXPORT GtkWidget *boxed_checkbut_with_value(gchar *labeltext, gint which_config_
  *
  * Return value: #GtkWidget* pointer to the new radiobutton widget
  */
-EXPORT GtkWidget *radiobut_with_value(gchar *labeltext, gint enabled, GtkRadioButton *prevbut) {
+GtkWidget *radiobut_with_value(gchar *labeltext, gint enabled, GtkRadioButton *prevbut) {
 	GtkWidget *returnwidget;
 	GSList *group=NULL;
 
@@ -499,7 +499,7 @@ static gint is_int(gfloat testval) {
  *
  * Return value: #GtkWidget* pointer to the new spinbutton widget
  */
-EXPORT GtkWidget *spinbut_with_value(gchar *value, gfloat lower, gfloat upper, gfloat step_increment, gfloat page_increment) {
+GtkWidget *spinbut_with_value(gchar *value, gfloat lower, gfloat upper, gfloat step_increment, gfloat page_increment) {
 	GtkAdjustment *adj;
 	GtkWidget *returnwidget;
 	guint digits;
@@ -634,7 +634,7 @@ static gboolean window_full_key_press_event_lcb(GtkWidget *widget,GdkEventKey *e
 	return FALSE;
 }
 
-EXPORT void window_delete_on_escape(GtkWindow *window) {
+void window_delete_on_escape(GtkWindow *window) {
 	g_signal_connect(G_OBJECT(window), "key_press_event", G_CALLBACK(window_full_key_press_event_lcb), window);
 }
 
@@ -657,7 +657,7 @@ EXPORT void window_delete_on_escape(GtkWindow *window) {
  *
  * Return value: #GtkWidget* pointer to created window
  */
-EXPORT GtkWidget *window_full2(const gchar * title, GtkWindowPosition position
+GtkWidget *window_full2(const gchar * title, GtkWindowPosition position
 			, gint borderwidth, GCallback close_func
 			, gpointer close_data
 			, gboolean delete_on_escape,
@@ -700,7 +700,7 @@ EXPORT GtkWidget *window_full2(const gchar * title, GtkWindowPosition position
  *
  * Return value: #GtkWidget* to the scolwin
  */
-EXPORT GtkWidget *textview_buffer_in_scrolwin(GtkWidget **textview, gint width, gint height, const gchar *contents, GtkWrapMode wrapmode) {
+GtkWidget *textview_buffer_in_scrolwin(GtkWidget **textview, gint width, gint height, const gchar *contents, GtkWrapMode wrapmode) {
 	GtkWidget *scrolwin;
 	GtkTextBuffer *textbuf;
 	
@@ -717,7 +717,7 @@ EXPORT GtkWidget *textview_buffer_in_scrolwin(GtkWidget **textview, gint width, 
 	}
 	return scrolwin;
 }
-EXPORT gchar *textbuffer_get_all_chars(GtkTextBuffer *buffer) {
+gchar *textbuffer_get_all_chars(GtkTextBuffer *buffer) {
 	GtkTextIter start, end;
 	gtk_text_buffer_get_bounds(buffer,&start,&end);
 	return gtk_text_buffer_get_text(buffer,&start,&end,TRUE);
@@ -761,7 +761,7 @@ GtkWidget *hbox_with_pix_and_text(const gchar *label, gint bf_pixmaptype, gboole
 	return hbox;
 }
 
-EXPORT GtkWidget *bf_allbuttons_backend(const gchar *label, gboolean w_mnemonic, gint bf_pixmaptype, GCallback func, gpointer func_data) {
+GtkWidget *bf_allbuttons_backend(const gchar *label, gboolean w_mnemonic, gint bf_pixmaptype, GCallback func, gpointer func_data) {
 	GtkWidget *button;
 	if (bf_pixmaptype == -1) {
 		/* there is no image needed, only text */
@@ -845,7 +845,7 @@ EXPORT GtkWidget *bf_allbuttons_backend(const gchar *label, gboolean w_mnemonic,
  *
  * Return value: pointer to created button
  */
-EXPORT GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data) {
+GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data) {
 	GtkWidget *button = gtk_button_new_from_stock(stock_id);
 	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
@@ -862,7 +862,7 @@ EXPORT GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpo
  *
  * Return value: #GtkWidget* pointer to created frame
  */
-EXPORT GtkWidget *bf_generic_frame_new(const gchar *label, GtkShadowType shadowtype, gint borderwidth) {
+GtkWidget *bf_generic_frame_new(const gchar *label, GtkShadowType shadowtype, gint borderwidth) {
   GtkWidget *frame;
 
   frame = gtk_frame_new(label);
@@ -888,7 +888,7 @@ EXPORT GtkWidget *bf_generic_frame_new(const gchar *label, GtkShadowType shadowt
  *
  * Return value: void
  */
-EXPORT void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_widget,
+void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_widget,
 						float xalign, gfloat yalign, GtkWidget *table, guint left_attach, 
 						guint right_attach, guint top_attach, guint bottom_attach) {
 	GtkWidget *label;
@@ -1250,7 +1250,7 @@ static void file_but_destroy(GtkObject *object, Tfilebut *fb) {
  *
  * Return value: #GtkWidget* pointer to file button
  */
-EXPORT GtkWidget *file_but_new2(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfwin, GtkFileChooserAction chooseraction) {
+GtkWidget *file_but_new2(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfwin, GtkFileChooserAction chooseraction) {
 	GtkWidget *file_but;
 	Tfilebut *fb;
 
@@ -1325,7 +1325,7 @@ static gboolean file_chooser_custom_filter_func(GtkFileFilterInfo *filter_info,g
 	return (ret ? cf->filter->mode : !cf->filter->mode);  
 }
 
-EXPORT GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChooserAction action, 
+GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChooserAction action, 
 											const gchar *set, gboolean localonly, gboolean multiple, const gchar *filter, gboolean show_encoding) {
 	GtkWidget *vbox, *hbox, *dialog, *viewbackup;
 	/* dialog = gtk_file_chooser_dialog_new_with_backend(title,bfwin ? GTK_WINDOW(bfwin->main_window) : NULL,
@@ -1542,7 +1542,7 @@ static gboolean accelerator_key_press_lcb(GtkWidget *widget, GdkEventKey *event,
 	return FALSE;
 }
 
-EXPORT gchar *ask_accelerator_dialog(const gchar *title) {
+gchar *ask_accelerator_dialog(const gchar *title) {
 	GtkWidget *dialog1;
 	GtkWidget *label1;
 	GtkWidget *label2;
@@ -1583,7 +1583,7 @@ EXPORT gchar *ask_accelerator_dialog(const gchar *title) {
 	return retval;
 }
 
-EXPORT gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe) {
+gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe) {
 	gchar *tmpstr;
 	tmpstr = g_malloc(8*sizeof(char));
 	if (websafe) {

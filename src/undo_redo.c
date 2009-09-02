@@ -37,7 +37,7 @@ typedef struct {
 
 static guint action_id_count = 1; /* 0 means it should be auto-generated */
 
-EXPORT guint new_unre_action_id(void) {
+guint new_unre_action_id(void) {
 	return ++action_id_count;
 }
 
@@ -316,7 +316,7 @@ static void doc_unre_finish(Tdocument *doc, gint cursorpos) {
  * 
  * Return value: void
  **/
-EXPORT void doc_unre_new_group_action_id(Tdocument *doc, guint action_id) {
+void doc_unre_new_group_action_id(Tdocument *doc, guint action_id) {
 	DEBUG_MSG("doc_unre_new_group_w_id, started, num entries=%d, action_id=%u\n", g_list_length(doc->unre.current->entries),action_id);
 	if (doc->unre.current->entries!=NULL) {
 		doc->unre.first = g_list_prepend(doc->unre.first, doc->unre.current);

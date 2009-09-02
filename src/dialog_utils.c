@@ -151,7 +151,6 @@ dialog_button_widget_new(const gchar *labeltext,
  *
  * Return value: #GtkWidget * The newly created button
  */
-EXPORT
 GtkWidget *
 dialog_button_new_with_image(const gchar *labeltext,
 							 gint pixmap,
@@ -184,7 +183,6 @@ dialog_button_new_with_image(const gchar *labeltext,
  *
  * Return value: #GtkWidget * The newly created button
  */
-EXPORT
 GtkWidget *
 dialog_button_new_with_image_in_table(const gchar *labeltext,
 									  gint pixmap,
@@ -217,7 +215,6 @@ dialog_button_new_with_image_in_table(const gchar *labeltext,
  *
  * Return value: void
  */
-EXPORT
 void
 dialog_mnemonic_label_in_table(const gchar *labeltext,
 							   GtkWidget *m_widget,
@@ -249,7 +246,6 @@ dialog_mnemonic_label_in_table(const gchar *labeltext,
  *
  * Return value: #GtkWidget * The new GtkLabel widget.
  */
-EXPORT
 GtkWidget *
 dialog_box_label_new(const gchar *labeltext, 
 					 gfloat xalign, gfloat yalign, 
@@ -296,7 +292,6 @@ dialog_vbox_new(GtkWidget *box)
  *
  * Return value: #GtkWidget * The new GtkVBox widget.
  */
-EXPORT
 GtkWidget *
 dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box)
 {
@@ -317,7 +312,6 @@ dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box)
  *
  * Return value: #GtkWidget * The new GtkVBox widget.
  */
-EXPORT
 GtkWidget *
 dialog_vbox_labeled_checkbutton(const gchar *labeltext, GtkWidget *checkbutton, GtkWidget *box)
 {
@@ -372,7 +366,6 @@ dialog_table_new(gint rows, gint cols, gint borderWidth)
  *
  * Return value: #GtkWidget * The new GtkTable widget
  */
-EXPORT
 GtkWidget *
 dialog_table_in_vbox(gint rows, gint cols, 
 					 gint borderWidth, 
@@ -397,7 +390,6 @@ dialog_table_in_vbox(gint rows, gint cols,
  *
  * Return value: #GtkWidget * The new GtkTable widget
  */
-EXPORT
 GtkWidget *
 dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget *box)
 {
@@ -451,7 +443,6 @@ message_dialog_set_text(GtkWidget *dialog, const gchar *primaryText, const gchar
  *
  * Return value: void
  */
-EXPORT
 void
 message_dialog_new(GtkWidget *parent, 
 				   GtkMessageType type, 
@@ -485,7 +476,6 @@ message_dialog_new(GtkWidget *parent,
  *
  * Return value: #gint The response ID
  */
-EXPORT
 gint
 message_dialog_new_multi(GtkWidget *parent, 
 						 GtkMessageType type, 

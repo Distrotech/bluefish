@@ -392,7 +392,7 @@ static void file_checkNsave_run(gpointer data) {
 					,checkNsave_replace_async_lcb,cns);	
 }
 
-EXPORT gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, gboolean backup, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
+gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, gboolean backup, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
 	TcheckNsave *cns;
 	cns = g_new0(TcheckNsave,1);
 	cns->cancelab = g_cancellable_new();
@@ -452,7 +452,7 @@ static void openfile_cleanup(Topenfile *of) {
 	process_ofqueue(NULL);*/
 	queue_worker_ready(&ofqueue, openfile_run);
 }
-EXPORT void openfile_cancel(Topenfile *of) {
+void openfile_cancel(Topenfile *of) {
 	g_cancellable_cancel(of->cancel);
 }
 
@@ -523,7 +523,7 @@ static void openfile_run(gpointer data) {
 	g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
 }
 
-EXPORT Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallback callback_func, gpointer callback_data) {
+Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
 	of = g_new(Topenfile,1);
 	of->callback_data = callback_data;

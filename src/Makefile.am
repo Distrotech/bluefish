@@ -8,6 +8,7 @@ MAINTAINERCLEANFILES = Makefile.in config.h.in
 DEFS += -DLOCALEDIR=\"$(localedir)\" -DPKGDATADIR=\"$(pkgdatadir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
 
 if OS_WIN32
+AM_LDFLAGS = -export-all-symbols
 DEFS += -DEXE_EXPORT_SYMBOLS
 endif
 

@@ -105,7 +105,7 @@ static void free_configlist(GHashTable *configlist) {
 }
 
 /*this should add 1 empty entry to the configuration list */
-EXPORT GHashTable *make_config_list_item(GHashTable * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var, gint len)
+GHashTable *make_config_list_item(GHashTable * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var, gint len)
 {
 	Tconfig_list_item *config_list_item;
 	if (!pointer_to_var) {

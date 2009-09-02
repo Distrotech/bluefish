@@ -48,7 +48,7 @@ void refcpointer_ref(Trefcpointer *rp) {
 	g_print("refcpointer_ref, %p refcount=%d\n",rp, rp->count);
 }
 #endif
-EXPORT Trefcpointer *refcpointer_new(gpointer data) {
+Trefcpointer *refcpointer_new(gpointer data) {
 	Trefcpointer *rp = g_new(Trefcpointer,1);
 	rp->data = data;
 	rp->count = 1;
@@ -58,7 +58,7 @@ EXPORT Trefcpointer *refcpointer_new(gpointer data) {
 	return rp;
 }
 
-EXPORT void refcpointer_unref(Trefcpointer *rp) {
+void refcpointer_unref(Trefcpointer *rp) {
 	rp->count--;
 #ifdef REFP_DEBUG
 	g_print("refcpointer_unref, %p refcount=%d %s\n",rp, rp->count, (rp->count ==0 ? "freeing data" : ""));
@@ -115,7 +115,7 @@ GFile *gtk_file_chooser_get_file(GtkFileChooser *chooser) {
 }
 #endif
 
-EXPORT GFile *user_bfdir(const gchar *filename) {
+GFile *user_bfdir(const gchar *filename) {
 	GFile *file;
 	gchar *path = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", filename, NULL);
 	file = g_file_new_for_path(path);
@@ -163,7 +163,7 @@ gchar *filename_utf8_from_uri(GFile *uri) {
 	return NULL;
 }*/
 
-EXPORT gboolean string_is_color(const gchar *color) {
+gboolean string_is_color(const gchar *color) {
 	GdkColor gcolor;
 	return gdk_color_parse(color, &gcolor);
 }
@@ -275,7 +275,7 @@ void pointer_switch_addresses(gpointer *a, gpointer *b) {
  * 
  * Return value: void
  **/
-EXPORT void list_switch_order(GList *first, GList *second) {
+void list_switch_order(GList *first, GList *second) {
 	gpointer tmp;
 	tmp = first->data;
 	first->data = second->data;
@@ -426,7 +426,7 @@ gchar *table_convert_int2char(Tconvert_table *table, gint my_int) {
  * 
  * Return value: a newly allocated gchar * with the resulting string
  **/
-EXPORT gchar *expand_string(const gchar *string, const char specialchar, Tconvert_table *table) {
+gchar *expand_string(const gchar *string, const char specialchar, Tconvert_table *table) {
 	gchar *p, *prev, *stringdup;
 	gchar *tmp, *dest = g_strdup("");
 
@@ -455,7 +455,7 @@ EXPORT gchar *expand_string(const gchar *string, const char specialchar, Tconver
 	DEBUG_MSG("expand_string, dest='%s'\n", dest);
 	return dest;
 }
-EXPORT gchar *replace_string_printflike(const gchar *string, Tconvert_table *table) {
+gchar *replace_string_printflike(const gchar *string, Tconvert_table *table) {
 	return expand_string(string,'%',table);
 }
 
@@ -570,7 +570,7 @@ Tconvert_table *new_convert_table(gint size, gboolean fill_standardescape) {
 	}
 	return tct;
 }
-EXPORT void free_convert_table(Tconvert_table *tct) {
+void free_convert_table(Tconvert_table *tct) {
 	Tconvert_table *tmp = tct;
 	while (tmp->my_char) {
 		DEBUG_MSG("free_convert_table, my_char=%s\n",tmp->my_char);
@@ -625,7 +625,7 @@ static Tutf8_offset_cache utf8_offset_cache;
 #ifdef __GNUC__
 __inline__ 
 #endif
-EXPORT void utf8_offset_cache_reset() {
+void utf8_offset_cache_reset() {
 #ifdef UTF8_BYTECHARDEBUG
 	g_print("UTF8_BYTECHARDEBUG: called %d times for total %llu bytes\n",utf8_offset_cache.numcalls_since_reset,utf8_offset_cache.numbytes_parsed);
 	g_print("UTF8_BYTECHARDEBUG: cache HIT %d times, reduced to %llu bytes, cache size %d\n",utf8_offset_cache.numcalls_cached_since_reset,utf8_offset_cache.numbytes_cached_parsed,UTF8_OFFSET_CACHE_SIZE);
@@ -648,7 +648,7 @@ EXPORT void utf8_offset_cache_reset() {
  * 
  * Return value: guint with character offset
  **/
-EXPORT guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffset) {
+guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffset) {
 	guint retval;
 	gint i = UTF8_OFFSET_CACHE_SIZE-1;
 	if (byteoffset ==0) return 0;
@@ -823,7 +823,7 @@ EXPORT guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong by
  * 
  * Return value: the same gchar * as passed to the function
  **/
-EXPORT gchar *strip_any_whitespace(gchar *string) {
+gchar *strip_any_whitespace(gchar *string) {
 	gint count=0, len;
 
 #ifdef DEVELOPMENT
@@ -862,7 +862,7 @@ EXPORT gchar *strip_any_whitespace(gchar *string) {
  * 
  * Return value: the same gchar * as passed to the function
  **/
-EXPORT gchar *trunc_on_char(gchar * string, gchar which_char)
+gchar *trunc_on_char(gchar * string, gchar which_char)
 {
 	gchar *tmpchar = string;
 	while(*tmpchar) {
@@ -952,7 +952,7 @@ gchar *most_efficient_filename(gchar *filename) {
  *
  * Return value: a newly allocated gchar * with the relative link
  **/
-EXPORT gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepath)
+gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepath)
 {
 	gchar *returnstring = NULL;
 	gchar *eff_current_filepath, *eff_link_to_filepath;
@@ -1165,7 +1165,7 @@ gboolean filename_test_extensions(gchar **extensions, const gchar *filename) {
  *
  * Return value: the newly allocated #gchar *
  **/
-EXPORT gchar *bf_str_repeat(const gchar * str, gint number_of) {
+gchar *bf_str_repeat(const gchar * str, gint number_of) {
 	gchar *retstr;
 	gint len = strlen(str) * number_of;
 	retstr = g_malloc(len + 1);
@@ -1399,7 +1399,7 @@ GList *glist_from_gslist(GSList *src) {
 	return target;
 }
 /* returns a newly allocated string! */
-EXPORT gchar *bf_portable_time(const time_t *timep) {
+gchar *bf_portable_time(const time_t *timep) {
 	gchar *retstr=NULL;
 #ifdef HAVE_CTIME_R
 	retstr = g_new(gchar, 128);

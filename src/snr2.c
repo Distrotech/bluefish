@@ -1052,7 +1052,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
  * Return value: number of replaces
  **/
 
-EXPORT gint snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
+gint snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
 							gint matchtype, gint is_case_sens, const gchar *replace_pattern,
 							gboolean unescape) {
 	DEBUG_MSG("snr2_run_extern_replace, search_pattern=%s, replace_pattern=%s, unescape=%d\n",search_pattern,replace_pattern,unescape);
