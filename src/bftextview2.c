@@ -1131,6 +1131,12 @@ void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolea
 	gtk_widget_queue_draw(GTK_WIDGET(btv));
 }
 
+#ifdef HAVE_LIBENCHANT
+void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check) {
+	btv->spell_check = spell_check;
+}
+#endif
+
 static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint y, gboolean keyboard_tip, GtkTooltip *tooltip) {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);	
 	

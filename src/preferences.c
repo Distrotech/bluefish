@@ -496,7 +496,7 @@ Tsessionprefs *sessionprefs(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 	sprefs->prefs[autocomplete] = boxed_checkbut_with_value(_("Enable automatic completion pop-up"), sessionvars->autocomplete, sprefs->vbox);
 	sprefs->prefs[view_mbhl] = boxed_checkbut_with_value(_("Highlight matching block begin-end"), sessionvars->view_mbhl, sprefs->vbox);
 #ifdef HAVE_LIBENCHANT
-	sprefs->prefs[session_spell_check] = boxed_checkbut_with_value(_("Initially enable spell check"), sessionvars->spell_check_default, sprefs->vbox);
+	sprefs->prefs[session_spell_check] = boxed_checkbut_with_value(_("Enable spell check"), sessionvars->spell_check_default, sprefs->vbox);
 #endif
 	return sprefs;
 }

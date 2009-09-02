@@ -392,6 +392,9 @@ struct _BluefishTextView {
 	gboolean show_blocks;
 	gboolean showsymbols;
 	gboolean visible_spacing;
+#ifdef HAVE_LIBENCHANT
+	gboolean spell_check;
+#endif
 };
 
 struct _BluefishTextViewClass {
@@ -415,6 +418,9 @@ gboolean bluefish_text_view_get_show_line_numbers(BluefishTextView * btv);
 void bluefish_text_view_set_show_line_numbers(BluefishTextView * btv, gboolean show);
 gboolean bluefish_text_view_get_show_visible_spacing(BluefishTextView * btv);
 void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolean show);
+#ifdef HAVE_LIBENCHANT
+void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check);
+#endif
 
 void bluefish_text_view_rescan(BluefishTextView * btv);
 void bftextview2_schedule_scanning(BluefishTextView * btv);

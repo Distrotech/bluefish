@@ -91,6 +91,9 @@ static void init_default_session(Tsessionvars *session) {
 			= session->autocomplete
 			= session->view_mbhl
 			= 1;
+#ifdef HAVE_LIBENCHANT
+	session->spell_check_default = 1;
+#endif
 	session->snr_position_x = session->snr_position_y = -1;
 	session->editor_tab_width = 3;
 }

@@ -447,12 +447,6 @@ void make_main_toolbar(Tbfwin *bfwin) {
 /*
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
 							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);*/
-#ifdef HAVE_LIBENCHANT
-	bfwin->toolbar_spell = gtk_toolbar_insert_element(GTK_TOOLBAR(toolbar),GTK_TOOLBAR_CHILD_TOGGLEBUTTON,
-				NULL,_("Spellcheck"),_("Spellcheck"),"",new_pixmap(1005),G_CALLBACK(bftextview2_gui_toggle_spell_check),bfwin,-1);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(bfwin->toolbar_spell),bfwin->session->spell_enable);
-#endif
-
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL,
 							_("View in browser"), "",
 							new_pixmap(102), G_CALLBACK(browser_toolbar_cb), bfwin);
@@ -502,6 +496,11 @@ void gui_set_document_widgets(Tdocument *doc) {
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
 			"/Document/Visible Spacing",
 			bluefish_text_view_get_show_visible_spacing(BLUEFISH_TEXT_VIEW(doc->view)));
+#ifdef HAVE_LIBENCHANT
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
+			"/Document/Spell Check",
+			BLUEFISH_TEXT_VIEW(doc->view)->spell_check);
+#endif
 /*#ifndef USE_SCANNER	why did we not set the encoding and filetype with the scanner enabled????*/
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),BLUEFISH_TEXT_VIEW(doc->view)->bflang, doc->encoding);
 
@@ -677,9 +676,6 @@ void gui_apply_session(Tbfwin *bfwin) {
 	gui_statusbar_show_hide_toggle(bfwin, bfwin->session->view_statusbar, TRUE);
 	fb2_update_settings_from_session(bfwin);
 	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
-#ifdef HAVE_LIBENCHANT
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(bfwin->toolbar_spell),bfwin->session->spell_enable);
-#endif
 	/* force this session in the plugins */
 	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
 }
