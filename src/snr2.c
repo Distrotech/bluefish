@@ -73,7 +73,6 @@
 /* Updates, May 2003, by Ruben Dorta */
 
 typedef enum { string, uppercase, lowercase } Treplace_types;
-typedef enum { match_normal, match_word, match_posix, match_perl } Tmatch_types;
 typedef enum { beginning, cursor, selection, opened_files } Tplace_types;
 
 
@@ -1053,9 +1052,9 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
  **/
 
 gint snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
-							gint matchtype, gint is_case_sens, const gchar *replace_pattern,
+							Tmatch_types matchtype, gint is_case_sens, const gchar *replace_pattern,
 							gboolean unescape) {
-	DEBUG_MSG("snr2_run_extern_replace, search_pattern=%s, replace_pattern=%s, unescape=%d\n",search_pattern,replace_pattern,unescape);
+	DEBUG_MSG("snr2_run_extern_replace, search_pattern=%s, replace_pattern=%s, unescape=%d, matchtype=%d\n",search_pattern,replace_pattern,unescape,matchtype);
 
 	if (region == 3) { /* in all open files */
 		return replace_all(BFWIN(doc->bfwin),search_pattern
