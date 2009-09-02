@@ -2171,6 +2171,9 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 			, BFWIN(bfwin)->session->view_blocks
 			, BFWIN(bfwin)->session->autoindent
 			, BFWIN(bfwin)->session->autocomplete);
+#ifdef HAVE_LIBENCHANT
+	BLUEFISH_TEXT_VIEW(newdoc->view)->spell_check = BFWIN(bfwin)->session->spell_check_default; 
+#endif
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
 	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(newdoc->view), bfwin->session->default_mime_type);
 	newdoc->fileinfo = g_file_info_new();
@@ -3225,6 +3228,11 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		break;
 	case 12:
 		doc_change_tabsize(CURDOC(bfwin),0);
+		break;
+	case 13:
+#ifdef HAVE_LIBENCHANT
+		bluefish_text_view_set_spell_check(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), GTK_CHECK_MENU_ITEM(widget)->active);
+#endif	
 		break;
 	}
 }

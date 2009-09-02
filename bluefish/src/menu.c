@@ -276,6 +276,9 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/_Line Numbers"), NULL, doc_menu_lcb, 2, "<ToggleItem>"},
 	{N_("/Document/Show _Blocks"), NULL, doc_menu_lcb, 5, "<ToggleItem>"},
 	{N_("/Document/_Visible Spacing"), NULL, doc_menu_lcb, 6, "<ToggleItem>"},
+#ifdef HAVE_LIBENCHANT
+	{N_("/Document/_Spell Check"), NULL, doc_menu_lcb, 13, "<ToggleItem>"},
+#endif
 	{"/Document/sep1", NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/_Tab Size"), NULL, NULL, 0, "<Branch>"},
 	{"/Document/Tab Size/tearoff1", NULL, NULL, 0, "<Tearoff>"},

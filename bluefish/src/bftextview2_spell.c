@@ -341,7 +341,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 	gint loop=0, loops_per_timer=100;
 	gboolean cont=TRUE;
 	
-	if (!BFWIN(DOCUMENT(btv->doc)->bfwin)->session->spell_enable)
+	if (!btv->spell_check)
 		return FALSE;
 	
 	if (!BFWIN(DOCUMENT(btv->doc)->bfwin)->ed && !load_dictionary(BFWIN(DOCUMENT(btv->doc)->bfwin))) {
@@ -488,7 +488,7 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 	if (main_v->bevent_doc != doc)
 		return;
 	
-	if (!BFWIN(doc->bfwin)->session->spell_enable)
+	if (!BLUEFISH_TEXT_VIEW(doc->view)->spell_check)
 		return;
 	
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
@@ -549,13 +549,13 @@ void bftextview2_populate_preferences_popup(GtkMenu *menu, Tdocument *doc) {
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 }*/
 
-void bftextview2_gui_toggle_spell_check(GtkWidget *widget, gpointer data) {
+/*void bftextview2_gui_toggle_spell_check(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
 	bfwin->session->spell_enable = GTK_TOGGLE_BUTTON(widget)->active;
 	if (bfwin->current_document && bfwin->current_document->view) {
-		/* the signal is also emitted when the toggle button gets it's initial value during the building of the window */
+		/ * the signal is also emitted when the toggle button gets it's initial value during the building of the window * /
 		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 	}
-}
+}*/
 
 #endif /*HAVE_LIBENCHANT*/

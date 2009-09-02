@@ -615,7 +615,6 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 	init_prop_string_with_escape(&configlist, &session->convertcolumn_fillempty, "convertcolumn_fillempty:", NULL);
 #ifdef HAVE_LIBENCHANT
 	init_prop_string_with_escape(&configlist, &session->spell_lang, "spell_lang:", NULL);
-	init_prop_integer   (&configlist, &session->spell_enable,"spell_enable:",1, FALSE);
 #endif
 	configlist = bfplugins_register_session_config(configlist,session);
 	return configlist;
@@ -627,6 +626,13 @@ static void setup_session_after_parse(Tsessionvars *session) {
 	
 	if (session->default_mime_type ==NULL)
 		session->default_mime_type = g_strdup("text/plain");
+/* TODO: set spell check language to a sensible default
+	 
+#ifdef HAVE_LIBENCHANT
+	if (session->spell_lang==NULL)
+		session->spell_lang=
+#endif
+*/
 }
 
 static GHashTable *return_project_configlist(Tproject *project) {

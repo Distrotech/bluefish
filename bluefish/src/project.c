@@ -72,6 +72,7 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 		session->default_mime_type = g_strdup(main_v->session->default_mime_type);
 #ifdef HAVE_LIBENCHANT
 		session->spell_lang = g_strdup(main_v->session->spell_lang);
+		session->spell_check_default = main_v->session->spell_check_default;
 #endif
 	}
 	memcpy(session, main_v->session, 27 * sizeof(gint));
@@ -88,9 +89,6 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 	session->snr_position_y = main_v->session->snr_position_y;
 	session->view_main_toolbar = main_v->session->view_main_toolbar;
 	session->view_left_panel = main_v->session->view_left_panel;*/
-#ifdef HAVE_LIBENCHANT
-	session->spell_enable = main_v->session->spell_enable;
-#endif
 }
 
 Tbfwin *project_is_open(GFile *uri) {
