@@ -643,7 +643,7 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
 			author_tmp = g_strconcat("<meta name=\"author\" content=\"", realname, "\" ", NULL);
 			snr2_run_extern_replace(doc,
 									"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
-									0, 1, 0, author_tmp, TRUE);
+									0, match_perl, 0, author_tmp, FALSE);
 			g_free(author_tmp);
 		}
 	}
@@ -662,7 +662,7 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
 		date_tmp = g_strconcat("<meta name=\"date\" content=\"", isotime, "\" ", NULL);
 		snr2_run_extern_replace(doc,
 								"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"date\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
-								0, 1, 0, date_tmp, TRUE);
+								0, match_perl, 0, date_tmp, FALSE);
 		g_free(date_tmp);
 	}
 
@@ -670,7 +670,7 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
 	if (main_v->props.auto_update_meta_generator) {
 		snr2_run_extern_replace(doc,
 								"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
-								0, 1, 0, "<meta name=\"generator\" content=\"Bluefish " VERSION "\" ", TRUE);
+								0, match_perl, 0, "<meta name=\"generator\" content=\"Bluefish " VERSION "\" ", FALSE);
 	}
 
 	if (doc->uri)
