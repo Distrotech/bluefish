@@ -25,7 +25,7 @@
 #include "config.h"
 
 #define DIR_MIME_TYPE "inode/directory"
-#define MIME_ISDIR(string) strcmp(string, "inode/directory")
+#define MIME_ISDIR(string) (strcmp(string, "inode/directory")==0)
 
 typedef struct {
 	GtkTreeStore *filesystem_tstore;	/* the directory tree */

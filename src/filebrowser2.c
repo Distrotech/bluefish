@@ -910,7 +910,7 @@ static gboolean tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter,
 	DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s, mime=%s, and uri=", model, fb2,
 			  name, mime_type);
 	DEBUG_GFILE(uri, TRUE);
-	if (!mime_type || MIME_ISDIR(mime_type) != 0) {	/* file */
+	if (!mime_type || !MIME_ISDIR(mime_type)) {	/* file */
 		if (fb2->filebrowser_viewmode == viewmode_dual) {
 			/* in the two paned view we don't show files in the dir view */
 			retval = FALSE;
@@ -986,7 +986,7 @@ static gboolean file_list_filter_func(GtkTreeModel * model, GtkTreeIter * iter, 
 	if (!name)
 		return FALSE;
 
-	if (mime_type && MIME_ISDIR(mime_type) == 0)
+	if (mime_type && MIME_ISDIR(mime_type))
 		retval = FALSE;
 
 	if (retval && !fb2->filebrowser_show_backup_files) {
@@ -1027,8 +1027,9 @@ gint filebrowser_sort_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter * 
 	gint retval = 0;
 	gtk_tree_model_get((GtkTreeModel *)model, a, FILENAME_COLUMN, &namea, TYPE_COLUMN, &mimea, -1);
 	gtk_tree_model_get((GtkTreeModel *)model, b, FILENAME_COLUMN, &nameb, TYPE_COLUMN, &mimeb, -1);
-	isdira = (mimea && MIME_ISDIR(mimea) == 0);
-	isdirb = (mimeb && MIME_ISDIR(mimeb) == 0);
+	isdira = (mimea && MIME_ISDIR(mimea));
+	isdirb = (mimeb && MIME_ISDIR(mimeb));
+	/*g_print("isdira=%d, mimea=%s, isdirb=%d, mimeb=%s\n",isdira,mimea,isdirb,mimeb);*/
 	if (isdira == isdirb) {		/* both files, or both directories */
 		if (namea == nameb) {
 			retval = 0;			/* both NULL */
@@ -1253,7 +1254,7 @@ static GFile *fb2_uri_from_dir_sort_path(Tfilebrowser2 * fb2, GtkTreePath * sort
 	if (gtk_tree_model_get_iter(fb2->dir_tsort, &iter, sort_path)) {
 		gtk_tree_model_get(fb2->dir_tsort, &iter, URI_COLUMN, &uri, -1);
 		if (mime) {
-			gtk_tree_model_get(fb2->dir_tsort, &iter, TYPE_COLUMN, &mime, -1);
+			gtk_tree_model_get(fb2->dir_tsort, &iter, TYPE_COLUMN, mime, -1);
 		}
 	}
 	return uri;
@@ -1272,7 +1273,7 @@ static gboolean fb2_isdir_from_dir_sort_path(Tfilebrowser2 * fb2, GtkTreePath * 
 		gboolean is_dir = FALSE;
 		gtk_tree_model_get(fb2->dir_tsort, &iter, TYPE_COLUMN, &mime_type, -1);
 		DEBUG_MSG("fb2_isdir_from_file_sort_path, mime_type=%s\n", mime_type);
-		if (mime_type && MIME_ISDIR(mime_type) == 0) {
+		if (mime_type && MIME_ISDIR(mime_type)) {
 			is_dir = TRUE;
 		}
 		g_free(mime_type);
@@ -1964,6 +1965,7 @@ static gboolean dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * even
 #endif
 				handle_activate_on_file(fb2, uri,mime);
 			}
+			/* BUG??: do we need to free mime here ?? */
 		}
 	}
 	return FALSE;				/* pass the event on */
@@ -2105,9 +2107,13 @@ static void dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 									GtkTreeViewColumn * column, Tfilebrowser2 * fb2)
 {
 	if (fb2->filebrowser_viewmode == viewmode_flat) {
-		GFile *uri = fb2_uri_from_dir_sort_path(fb2, path,NULL);	/* this is a pointer to the uri stored in the treemodel */
-		fb2_set_basedir_backend(fb2, uri);
-		dirmenu_set_curdir(fb2, uri);
+		gchar *mime=NULL;
+		GFile *uri = fb2_uri_from_dir_sort_path(fb2, path,&mime);	/* this is a pointer to the uri stored in the treemodel */
+		if (mime && MIME_ISDIR(mime)) {
+			fb2_set_basedir_backend(fb2, uri);
+			dirmenu_set_curdir(fb2, uri);
+		}
+		/* BUG?? do we need to free mime here ? */
 	}
 }
 
@@ -2123,7 +2129,7 @@ static void dir_v_selection_changed_lcb(GtkTreeSelection * treeselection, Tfileb
 		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri, TYPE_COLUMN, &mime_type, -1);
 		DEBUG_MSG("dir_v_selection_changed_lcb, mime_type=%s and uri=", mime_type);
 		DEBUG_GFILE(uri, TRUE);
-		if (uri && (mime_type && MIME_ISDIR(mime_type) == 0)) {
+		if (uri && (mime_type && MIME_ISDIR(mime_type))) {
 			DEBUG_MSG("uri %p is directory, calling dirmenu_set_curdir\n", uri);
 			dirmenu_set_curdir(fb2, uri);
 			fb2_focus_dir(fb2, uri, TRUE);
@@ -2138,9 +2144,8 @@ static void dir_v_selection_changed_lcb(GtkTreeSelection * treeselection, Tfileb
 static void fb2_set_basedir_backend(Tfilebrowser2 * fb2, GFile * uri)
 {
 	GtkTreePath *basepath = NULL;
-
 	if (uri && fb2->basedir && (fb2->basedir == uri || g_file_equal(fb2->basedir, uri))) {
-		DEBUG_MSG("fb2_set_basedir_backend, basedir did not change ?!?\n");
+		DEBUG_MSG("fb2_set_basedir_backend, basedir did not change, do nothing\n");
 		return;
 	}
 	/* disconnect the dir_v and file_v for higher performance */
