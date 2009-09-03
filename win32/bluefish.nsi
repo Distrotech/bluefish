@@ -1,8 +1,11 @@
 Name "Bluefish"
 OutFile "bluefish-setup.exe"
+RequestExecutionLevel admin
 
 !define BLUEFISH_UNINST_EXE				"bluefish-uninst.exe"
-!define BLUEFISH_REG_KEY					"SOFTWARE\bluefish"
+!define BLUEFISH_REG_KEY					"SOFTWARE\Bluefish"
+
+!define MSYS_PATH "E:\MSYS"
 
 SetCompressor /SOLID lzma
 ShowInstDetails show
@@ -76,7 +79,30 @@ Section "Bluefish Editor" SecBluefish
 
 	SetOutPath "$INSTDIR"
 	SetOverwrite on
-	File "local\bin\bluefish-unstable.exe"
+	File "${MSYS_PATH}\local\bin\bluefish-unstable.exe"
+	File "bluefish.ico"
+	File "${MSYS_PATH}\local\bin\libaspell-15.dll"
+	File "${MSYS_PATH}\local\bin\libenchant-1.dll"
+	File "${MSYS_PATH}\local\bin\libgnurx-0.dll"
+	File "${MSYS_PATH}\local\bin\libpcre-0.dll"
+	File "${MSYS_PATH}\local\bin\libxml2-2.dll"
+	SetOutPath "$INSTDIR\lib\bluefish-unstable"
+	File /r "${MSYS_PATH}\local\lib\bluefish-unstable\*.dll"
+	SetOutPath "$INSTDIR\lib\enchant"
+	File "${MSYS_PATH}\local\lib\enchant\libenchant_aspell.dll"
+	SetOutPath "$INSTDIR\lib\aspell-0.60"
+	File "${MSYS_PATH}\local\lib\aspell-0.60\*.cmap"
+	File "${MSYS_PATH}\local\lib\aspell-0.60\*.cset"
+	File "${MSYS_PATH}\local\lib\aspell-0.60\*.amf"
+	File "${MSYS_PATH}\local\lib\aspell-0.60\*.kbd"
+	File "${MSYS_PATH}\local\lib\aspell-0.60\spell"
+	File "${MSYS_PATH}\local\lib\aspell-0.60\ispell"
+	SetOutPath "$INSTDIR\share\bluefish-unstable"
+	File /r "${MSYS_PATH}\local\share\bluefish-unstable\*"
+	SetOutPath "$INSTDIR\share\enchant"
+	File /r "${MSYS_PATH}\local\share\enchant\*"
+
+	SetOutPath "$INSTDIR"
 
 	SetOverwrite on
 	WriteUninstaller "$INSTDIR\${BLUEFISH_UNINST_EXE}"
@@ -86,20 +112,33 @@ SectionEnd
 SectionGroup /e "Bluefish shortcuts"  SecShortcuts
 	Section /o "Desktop" SecDesktopShortcut
 		SetOverwrite on
-		CreateShortCut "$DESKTOP\Bluefish.lnk" "$INSTDIR\bluefish.exe"
+		CreateShortCut "$DESKTOP\Bluefish.lnk" "$INSTDIR\bluefish-unstable.exe" "" "$INSTDIR\bluefish.ico" 0
 		SetOverwrite off
 	SectionEnd
 	Section "Startmenu" SecStartMenuShortcut
 		SetOverwrite on
-		CreateShortCut "$SMPROGRAMS\Bluefish.lnk" "$INSTDIR\bluefish.exe"
+		CreateDirectory "$SMPROGRAMS\Bluefish"
+		CreateShortCut "$SMPROGRAMS\Bluefish\Bluefish.lnk" "$INSTDIR\bluefish-unstable.exe" "" "$INSTDIR\bluefish.ico" 0
+		CreateShortCut "$SMPROGRAMS\Bluefish\Uninstall Bluefish.lnk" "$INSTDIR\bluefish-uninst.exe"
 		SetOverwrite off
 	SectionEnd
 SectionGroupEnd
 
-Section "Uninstall Bluefish" un.SecUninstall
+Section "Uninstall"
 	Delete "$INSTDIR\bluefish-unstable.exe"
+	Delete "$INSTDIR\bluefish.ico"
+	Delete "$INSTDIR\libaspell-15.dll"
+	Delete "$INSTDIR\libenchant-1.dll"
+	Delete "$INSTDIR\libgnurx-0.dll"
+	Delete "$INSTDIR\libpcre-0.dll"
+	Delete "$INSTDIR\libxml2-2.dll"
+	RMDir /r "$INSTDIR\lib"
+	RMDir /r "$INSTDIR\share"
+	Delete "$INSTDIR\bluefish-uninst.exe"
 	RMDir  "$INSTDIR"
-	Delete "$DESKTOP\Bluefish.lnk"
+	Delete "$SMPROGRAMS\Bluefish\Bluefish.lnk"
+	Delete "$SMPROGRAMS\Bluefish\Uninstall Bluefish.lnk"
+	RMDir "$SMPROGRAMS\Bluefish"
 SectionEnd
 
 Function .onInit
