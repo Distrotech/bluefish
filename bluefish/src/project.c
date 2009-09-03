@@ -538,9 +538,9 @@ void project_edit(Tbfwin *bfwin) {
 	gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
 
 	sessionprefs(&pred->sprefs, pred->project->session);
-	gtk_box_pack_start (GTK_BOX (vbox), pred->sprefs.vbox, FALSE, FALSE, 6);
+	gtk_box_pack_start(GTK_BOX(vbox), pred->sprefs.frame, FALSE, FALSE, 6);
 	
-	gtk_box_pack_start (GTK_BOX (vbox), gtk_hseparator_new(), FALSE, FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 12);
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);

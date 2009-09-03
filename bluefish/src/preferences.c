@@ -483,6 +483,9 @@ Tsessionprefs *sessionprefs(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 	GList *poplist;
 	sprefs->vbox = gtk_vbox_new(FALSE,3);
 
+	sprefs->frame = gtk_frame_new(_("Initial document settings"));
+	gtk_container_add(GTK_CONTAINER(sprefs->frame), sprefs->vbox);
+
 	poplist = g_list_sort(langmgr_get_languages_mimetypes(), (GCompareFunc)g_strcmp0);
 	sprefs->prefs[default_mime_type] = prefs_combo(_("Default mime type for new files"),sessionvars->default_mime_type, sprefs->vbox, poplist, TRUE);
 	g_list_free(poplist);
@@ -1605,13 +1608,10 @@ static void preferences_dialog() {
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Initial editor settings"), WIDGETCOL,vbox1,-1);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Initial document settings"), WIDGETCOL,vbox1,-1);
 
-	
-	frame = gtk_frame_new(_("Initial settings for new documents"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	gtk_box_pack_start(GTK_BOX(vbox1), pd->sprefs.frame, FALSE, FALSE, 5);
 	sessionprefs(&pd->sprefs, main_v->session);
-	gtk_container_add(GTK_CONTAINER(frame), pd->sprefs.vbox);
 	
 	/*pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);*/
 
