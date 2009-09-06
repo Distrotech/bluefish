@@ -37,7 +37,7 @@ msgid "The %s property already exists.\n"
 msgstr "De %s eigenschap bestaat al\n"
 
 #: src/plugin_htmlbar/html2.c:511
-#, fuzzy, c-format
+# c-format
 msgid "Update its value from %s to %s?"
 msgstr "Waarde updaten van %s naar %s?"
 
@@ -99,7 +99,6 @@ msgid "Edit tag"
 msgstr "Tag bewerken"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:204
-#, fuzzy
 msgid "/T_ags"
 msgstr "/_Tags"
 
@@ -572,7 +571,6 @@ msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Tags/Speciaal/Overige/Onderbroken balk ¦"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:335
-#, fuzzy
 msgid "/Tags/Special/Other/Soft _hyphen -"
 msgstr "/Tags/Speciaal/Overige/­Soft hypen -"
 
@@ -817,7 +815,6 @@ msgid "/Tags/_Comment"
 msgstr "/Tags/Commentaar"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:406
-#, fuzzy
 msgid "/D_ialogs"
 msgstr "/_Dialogen"
 
@@ -994,9 +991,8 @@ msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/Dialogen/Formulier/Tag onder cursor bewerken..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:459
-#, fuzzy
 msgid "/View/_HTML Toolbar"
-msgstr "/Opties/Beeld/Toon HTML-werkbalk"
+msgstr "/Beeld/HTML-werkbalk"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:734
 msgid "QuickStart..."
@@ -2027,7 +2023,6 @@ msgid "_Reset Dimensions"
 msgstr "Reset formaat"
 
 #: src/plugin_htmlbar/image_dialog.c:388
-#, fuzzy
 msgid "Alternate te_xt:"
 msgstr "Alternatieve tekst:"
 
@@ -2036,7 +2031,6 @@ msgid "_Long description:"
 msgstr "Lange beschrijving"
 
 #: src/plugin_htmlbar/image_dialog.c:400
-#, fuzzy
 msgid "I_D:"
 msgstr "ID:"
 
@@ -2045,7 +2039,6 @@ msgid "_Use Transitional options"
 msgstr "Gebruik 'transitional' opties"
 
 #: src/plugin_htmlbar/image_dialog.c:434
-#, fuzzy
 msgid "_Border:"
 msgstr "Rand:"
 
@@ -2055,13 +2048,16 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-
+"\n"
+"%s"
 #: src/plugin_htmlbar/image_dialog.c:778
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
+"\n"
+"%d x %d pixels"
 
 #: src/plugin_htmlbar/image_dialog.c:875
 msgid ""
@@ -2076,9 +2072,8 @@ msgstr ""
 "\n"
 
 #: src/plugin_htmlbar/image_dialog.c:978
-#, fuzzy
 msgid "Select Image"
-msgstr "Selecteer afbeelding"
+msgstr "Selecteer Afbeelding"
 
 #: src/plugin_htmlbar/image_dialog.c:986
 msgid "All images"
@@ -2086,7 +2081,6 @@ msgstr "Alle afbeeldingen"
 
 #: src/plugin_htmlbar/image_dialog.c:1218
 #: src/plugin_htmlbar/image_dialog.c:1330
-#, fuzzy
 msgid "Insert Image"
 msgstr "Afbeelding invoegen"
 
