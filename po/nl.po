@@ -1849,12 +1849,12 @@ msgstr ""
 #. 1=text
 #: ../src/preferences.c:1302
 msgid "Option name"
-msgstr ""
+msgstr "Optie naam"
 
 #. 2=boolean
 #: ../src/preferences.c:1303
 msgid "value"
-msgstr ""
+msgstr "waarde"
 
 #. 1=text
 #: ../src/preferences.c:1316
@@ -1924,11 +1924,11 @@ msgstr "Gebruik spatie's voor inspringen, geen tabs"
 
 #: ../src/preferences.c:1604
 msgid "Smart auto indenting"
-msgstr ""
+msgstr "Slim automatisch inspringen"
 
 #: ../src/preferences.c:1606
 msgid "Number of actions in undo history"
-msgstr ""
+msgstr "Aantal acties in ongedaan maken historie"
 
 #: ../src/preferences.c:1607
 msgid "Clear undo history on save"
@@ -1979,15 +1979,15 @@ msgstr "Standaard karakterset voor nieuwe bestanden"
 #: ../src/preferences.c:1656
 msgid "Auto set <meta> HTML tag on encoding change"
 msgstr ""
-"Automatisch aanpassen van <meta> HTML tag bĳ verandering van karaktercodering"
+"Automatisch <meta> HTML tag aanpassen bĳ coderingsverandering"
 
 #: ../src/preferences.c:1658
 msgid "Backup files and recovery of modified documents"
-msgstr ""
+msgstr "Reservebestanden en herstellen van gewijzigde documenten"
 
 #: ../src/preferences.c:1662
 msgid "Create backup file during file save"
-msgstr "Maak backup bestand bĳ opslaan"
+msgstr "Maak reservebestand bĳ opslaan"
 
 #: ../src/preferences.c:1664
 msgid "Continue save"
@@ -2007,15 +2007,15 @@ msgstr "Als de reservekopie mislukt"
 
 #: ../src/preferences.c:1667
 msgid "Remove backup file on close"
-msgstr "Verwĳder reservekopie bĳ sluiten"
+msgstr "Verwĳder reservebestand bĳ sluiten"
 
 #: ../src/preferences.c:1671
 msgid "Enable recovery of modified documents"
-msgstr ""
+msgstr "Gebruik herstelmogelijkheid voor gewijzigde documenten"
 
 #: ../src/preferences.c:1672
 msgid "Frequency to store changes (seconds)"
-msgstr ""
+msgstr "Frequentie om wijzigingen op te slaan (seconden)"
 
 #: ../src/preferences.c:1674
 msgid "Misc"
@@ -2032,8 +2032,7 @@ msgstr "Open commando-regel bestanden in een nieuw venster"
 #: ../src/preferences.c:1683
 msgid "File properties to check on disk for modifications"
 msgstr ""
-"Bestands eigenschappen op schĳf die gecontroleerd moeten worden voor "
-"wĳzigingen"
+"Bestandseigenschappen op schĳf ter controle voor wĳzigingen"
 
 #: ../src/preferences.c:1684
 msgid "Periodically check if file is modified on disk"
@@ -2077,7 +2076,7 @@ msgstr "Document notebook tab positie"
 
 #: ../src/preferences.c:1709
 msgid "Switch between tabs with <Alt>+0..9"
-msgstr ""
+msgstr "Wissel tussen tabs met Alt>+0..9"
 
 #: ../src/preferences.c:1710
 msgid "Sidebar notebook tab position"
@@ -2093,7 +2092,7 @@ msgstr "Afmetingen"
 
 #: ../src/preferences.c:1722
 msgid "Leave dimensions to window manager"
-msgstr ""
+msgstr "Laat afmetingen over aan vensterbeheer"
 
 #: ../src/preferences.c:1723
 msgid "Restore last used dimensions"
@@ -2101,15 +2100,15 @@ msgstr "Herstel laatst gebruikte afmetingen"
 
 #: ../src/preferences.c:1724
 msgid "Initial sidebar width"
-msgstr "Initiële breedte van zijbalk"
+msgstr "Initiële zijbalk breedte"
 
 #: ../src/preferences.c:1725
 msgid "Initial window height"
-msgstr "Initiële hoogte van venster"
+msgstr "Initiële venster hoogte"
 
 #: ../src/preferences.c:1726
 msgid "Initial window width"
-msgstr "Initiële breedte van venster"
+msgstr "Initiële venster breedte"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
@@ -2167,27 +2166,30 @@ msgstr "Geavanceerde syntax scanning optie's"
 
 #: ../src/preferences.c:1804
 msgid "Delayed"
-msgstr ""
+msgstr "Vertraagd"
 
 #: ../src/preferences.c:1804
 msgid "Immediately"
-msgstr ""
+msgstr "Direct"
 
 #: ../src/preferences.c:1805
 msgid "Show the automatic completion pop-up window"
-msgstr ""
+msgstr "Automatische completering venster weergave"
 
 #: ../src/preferences.c:1807
+# fuzzy
 msgid "Load reference information from language file"
-msgstr ""
+msgstr "Laadt referentie informatie uit taal definities"
 
 #: ../src/preferences.c:1808
+# fuzzy
 msgid "Show reference information in autocompletion pop-up"
-msgstr ""
+msgstr "Referentie informatie weergave in automatische completering"
 
 #: ../src/preferences.c:1809
+# fuzzy
 msgid "Show reference information in tooltip window"
-msgstr ""
+msgstr "Referentie informatie weergave bij muis"
 
 #: ../src/project.c:155
 msgid "New project"
@@ -2269,7 +2271,7 @@ msgstr "Sorteren"
 
 #: ../src/rcfile.c:482
 msgid "Reverse lines"
-msgstr "Omgedraaide regels"
+msgstr "Regels omdraaien"
 
 #: ../src/rcfile.c:483
 msgid "Dos2unix"
@@ -2285,39 +2287,39 @@ msgstr "Verwijder lege regels"
 
 #: ../src/rcfile.c:486
 msgid "Render HTML to text"
-msgstr ""
+msgstr "Maak tekst van HTML"
 
 #: ../src/rcfile.c:489
 msgid "Mozilla"
-msgstr ""
+msgstr "Mozilla"
 
 #: ../src/rcfile.c:490
 msgid "Firefox"
-msgstr ""
+msgstr "Firefox"
 
 #: ../src/rcfile.c:491
 msgid "Opera"
-msgstr ""
+msgstr "Opera"
 
 #: ../src/rcfile.c:492
 msgid "Konqueror"
-msgstr ""
+msgstr "Konqueror"
 
 #: ../src/rcfile.c:493
 msgid "Galeon"
-msgstr ""
+msgstr "Galeon"
 
 #: ../src/rcfile.c:494
 msgid "Epiphany"
-msgstr ""
+msgstr "Epiphany"
 
 #: ../src/rcfile.c:495
 msgid "Kazehakase"
-msgstr ""
+msgstr "Kazehakase"
 
 #: ../src/rcfile.c:496
 msgid "Links2 (graphics)"
-msgstr ""
+msgstr "Links2 (graphics)"
 
 #: ../src/rcfile.c:640
 msgid "Untitled Project"
@@ -2447,6 +2449,7 @@ msgid "Replace _with: "
 msgstr "Vervangen door: Vervang met: "
 
 #: ../src/snr2.c:1724
+#fuzzy
 msgid "Replace matching text with"
 msgstr "Vervang matching tekst door"
 
@@ -2542,23 +2545,23 @@ msgstr "Zoek Alles"
 
 #: ../src/snr2.c:2422
 msgid "Lines into columns"
-msgstr ""
+msgstr "Regels in kolommen"
 
 #: ../src/snr2.c:2434
 msgid "Number of columns"
-msgstr ""
+msgstr "Aantal kolommen"
 
 #: ../src/snr2.c:2437
 msgid "Spread lines horizontally"
-msgstr ""
+msgstr "Verspreid regels horizontaal"
 
 #: ../src/snr2.c:2438
 msgid "Column separator"
-msgstr ""
+msgstr "Kolomscheiding"
 
 #: ../src/snr2.c:2440
 msgid "Fill empty entries"
-msgstr ""
+msgstr "Vul lege plaatsen"
 
 #: ../src/undo_redo.c:463
 msgid "Undo in _all documents"
