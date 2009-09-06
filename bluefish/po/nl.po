@@ -133,6 +133,8 @@ msgid ""
 "Error parsing command line options. %s\n"
 "Please run: %s -?\n"
 msgstr ""
+"Fout bij het lezen van de commandoopdracht. %s\n"
+"Probeer: %s -?\n"
 
 #: ../src/bookmark.c:460
 msgid "_Name:"
@@ -526,28 +528,28 @@ msgstr "Geen bestand om in te voegen"
 #: ../src/document.c:2966
 #, c-format
 msgid "Statistics: "
-msgstr ""
+msgstr "Statistieken: "
 
 #: ../src/document.c:2967
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d regel"
+msgstr[1] "% regels"
 
 #: ../src/document.c:2968
-#, fuzzy, c-format
+#, c-format
 msgid "%d word"
 msgid_plural "%d words"
-msgstr[0] "%d van %d"
-msgstr[1] "%d van %d"
+msgstr[0] "%d woord"
+msgstr[1] "%d woorden"
 
 #: ../src/document.c:2969
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d karakter"
+msgstr[1] "%d karakters"
 
 #: ../src/encodings_dialog.c:329
 msgid "_Available encodings:"
@@ -729,9 +731,8 @@ msgstr[0] "%d document open."
 msgstr[1] "%d documenten open."
 
 #: ../src/file.c:891
-#, fuzzy
 msgid "Advanced open: Finished searching files. "
-msgstr "Geavanceerde bestands selectie"
+msgstr "Geavanceerd openen: Gereed met zoeken naar bestanden. "
 
 #: ../src/file.c:1142
 msgid "_Skip"
@@ -888,9 +889,8 @@ msgstr ""
 "\""
 
 #: ../src/file_dialogs.c:684
-#, fuzzy
 msgid "\" save is in progress"
-msgstr "Opslaan bezig!"
+msgstr "\" wordt opgeslagen"
 
 #: ../src/file_dialogs.c:686
 msgid "Save in progress!"
@@ -1025,19 +1025,19 @@ msgstr "Scherm"
 
 #: ../src/gtkmountoperation.c:142
 msgid "The screen where this window will be displayed."
-msgstr ""
+msgstr "Het scherm waar dit venster wordt weergegeven"
 
 #: ../src/gtkmountoperation.c:449
 msgid "Co_nnect"
-msgstr ""
+msgstr "Verbinden"
 
 #: ../src/gtkmountoperation.c:516
 msgid "Connect _anonymously"
-msgstr ""
+msgstr "Anoniem verbinden"
 
 #: ../src/gtkmountoperation.c:525
 msgid "Connect as u_ser:"
-msgstr ""
+msgstr "Verbinden als gebruiker"
 
 #: ../src/gtkmountoperation.c:563
 msgid "_Username:"
@@ -1045,23 +1045,23 @@ msgstr "Naam:"
 
 #: ../src/gtkmountoperation.c:568
 msgid "_Domain:"
-msgstr ""
+msgstr "Domein:"
 
 #: ../src/gtkmountoperation.c:574
 msgid "_Password:"
-msgstr ""
+msgstr "Wachtwoord:"
 
 #: ../src/gtkmountoperation.c:592
 msgid "Forget password _immediately"
-msgstr ""
+msgstr "Vergeet wachtwoord direct"
 
 #: ../src/gtkmountoperation.c:602
 msgid "Remember password until you _logout"
-msgstr ""
+msgstr "Onthoudt wachtwoord tot uitloggen"
 
 #: ../src/gtkmountoperation.c:612
 msgid "Remember _forever"
-msgstr ""
+msgstr "Onthoudt altijd"
 
 #: ../src/gui.c:274
 msgid "Filebrowser"
@@ -1366,9 +1366,8 @@ msgid "/Document/_Visible Spacing"
 msgstr "/Document/Zichtbare spatiering"
 
 #: ../src/menu.c:280
-#, fuzzy
 msgid "/Document/_Spell Check"
-msgstr "/Document/Omloop"
+msgstr "/Document/Spellingscontrole"
 
 #: ../src/menu.c:283
 msgid "/Document/_Tab Size"
@@ -1644,7 +1643,6 @@ msgid "Highlight matching block begin-end"
 msgstr "Blok begin-eind oplichten"
 
 #: ../src/preferences.c:502
-#, fuzzy
 msgid "Enable spell check"
 msgstr "Spelling controleren"
 
@@ -1716,7 +1714,6 @@ msgid "Default browser"
 msgstr "Standaard browser"
 
 #: ../src/preferences.c:994
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1802,7 +1799,6 @@ msgid "Output #"
 msgstr "Uitvoer #"
 
 #: ../src/preferences.c:1152
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -2177,17 +2173,14 @@ msgid "Show the automatic completion pop-up window"
 msgstr "Automatische completering venster weergave"
 
 #: ../src/preferences.c:1807
-# fuzzy
 msgid "Load reference information from language file"
 msgstr "Laadt referentie informatie uit taal definities"
 
 #: ../src/preferences.c:1808
-# fuzzy
 msgid "Show reference information in autocompletion pop-up"
 msgstr "Referentie informatie weergave in automatische completering"
 
 #: ../src/preferences.c:1809
-# fuzzy
 msgid "Show reference information in tooltip window"
 msgstr "Referentie informatie weergave bij muis"
 
@@ -2348,14 +2341,14 @@ msgstr "Zoeken mislukt"
 #: ../src/snr2.c:283
 #, c-format
 msgid "Regular expression error: %s at offset %d"
-msgstr "Reguliere expressie error: %s op offset %d"
+msgstr "Reguliere expressie error: %s na %d karakters"
 
 #: ../src/snr2.c:1379
 #, c-format
 msgid "Found %d matches, "
 msgid_plural "Found %d matches, "
-msgstr[0] "%d match gevonden"
-msgstr[1] "%d matches gevonden"
+msgstr[0] "%d resultaten gevonden, "
+msgstr[1] "%d resultaten gevonden, "
 
 #: ../src/snr2.c:1380
 #, c-format
@@ -2368,8 +2361,8 @@ msgstr[1] "%d vervangen"
 #, c-format
 msgid "Found %d matches"
 msgid_plural "Found %d matches"
-msgstr[0] "%d match gevonden"
-msgstr[1] "%d matches gevonden"
+msgstr[0] "%d resultaten gevonden"
+msgstr[1] "%d resultaten gevonden"
 
 #. display warning that not all documents have yet finished loading
 #: ../src/snr2.c:1406
@@ -2393,7 +2386,7 @@ msgid ""
 "<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
 "will continue at the beginning.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Niet meer matches gevonden, "
+"<span foreground=\"red\" weight=\"bold\">Niet meer resultaten gevonden, "
 "volgende zoekopdracht zal verder gaan bĳ begin</span>"
 
 #: ../src/snr2.c:1647
@@ -2446,12 +2439,11 @@ msgstr "Het patroon om naar te zoeken"
 
 #: ../src/snr2.c:1720
 msgid "Replace _with: "
-msgstr "Vervangen door: Vervang met: "
+msgstr "Vervangen door:"
 
 #: ../src/snr2.c:1724
-#fuzzy
 msgid "Replace matching text with"
-msgstr "Vervang matching tekst door"
+msgstr "Vervang gevonden resultaat door"
 
 #: ../src/snr2.c:1732
 msgid "Sco_pe: "
@@ -2463,11 +2455,11 @@ msgstr "Waar zoeken naar het patroon."
 
 #: ../src/snr2.c:1742
 msgid "Found 0 matches, replaced 0"
-msgstr "Vond 0 matches, 0 vervangen"
+msgstr "Vond 0 resultaten, 0 vervangen"
 
 #: ../src/snr2.c:1742
 msgid "Found 0 matches"
-msgstr "Vond 0 matches"
+msgstr "Vond 0 resultaten"
 
 #: ../src/snr2.c:1752
 msgid "<b>_Options</b>"
@@ -2475,7 +2467,7 @@ msgstr "<b>Optie's</b>"
 
 #: ../src/snr2.c:1767
 msgid "Match Patter_n: "
-msgstr "Match Patroon"
+msgstr "Zoekpatroon"
 
 #: ../src/snr2.c:1771
 msgid "How to interpret the pattern."
@@ -2491,21 +2483,21 @@ msgstr "Waarmee vervangen."
 
 #: ../src/snr2.c:1787
 msgid "Allow o_verlapping matches"
-msgstr "Overlappende matches toestaan"
+msgstr "Overlappende resultaten toestaan"
 
 #: ../src/snr2.c:1790
 msgid "After a match is found, start next search within that match."
 msgstr ""
-"Als een match is gevonden, begin dan de volgende zoekopdracht binnen die "
-"match."
+"Als een resultaat is gevonden, begin dan de volgende zoekopdracht binnen dat "
+"resultaat."
 
 #: ../src/snr2.c:1792
 msgid "Case sensitive _matching"
-msgstr "Hoofdletter gevoelig matchen"
+msgstr "Hoofdletter gevoelig zoeken"
 
 #: ../src/snr2.c:1795
 msgid "Only match if case (upper/lower) is identical."
-msgstr "Alleen matchen als kast (hoofdletter/kleine letter) identiek is."
+msgstr "Alleen resultaat als kast (hoofdletter/kleine letter) identiek is."
 
 #: ../src/snr2.c:1797
 msgid "_Use escape chars"
@@ -2517,19 +2509,19 @@ msgstr "Backslash escape karakters weghalen in gevallen zoals \\n, \\t etc."
 
 #: ../src/snr2.c:1802
 msgid "_Select matches"
-msgstr ""
+msgstr "Selecteer gevonden resultaat"
 
 #: ../src/snr2.c:1805
 msgid "Select the matching text instead of just highlighting it"
-msgstr ""
+msgstr "Selecteer gevonden tekst i.p.v. alleen uitlichten"
 
 #: ../src/snr2.c:1807
 msgid "_Bookmark matches"
-msgstr "Bladwĳzer matches"
+msgstr "Maak bladwĳzer voor resultaat"
 
 #: ../src/snr2.c:1809
 msgid "Create a bookmark for each match"
-msgstr "Maak een bladwĳzer voor elke match"
+msgstr "Maak een bladwĳzer voor elk resultaat"
 
 #: ../src/snr2.c:1814
 msgid "Replace _All"
