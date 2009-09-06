@@ -501,6 +501,7 @@ Tsessionprefs *sessionprefs(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 #ifdef HAVE_LIBENCHANT
 	sprefs->prefs[session_spell_check] = boxed_checkbut_with_value(_("Enable spell check"), sessionvars->spell_check_default, sprefs->vbox);
 #endif
+	gtk_widget_show_all(sprefs->frame);
 	return sprefs;
 }
 
@@ -1610,8 +1611,8 @@ static void preferences_dialog() {
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Initial document settings"), WIDGETCOL,vbox1,-1);
 
-	gtk_box_pack_start(GTK_BOX(vbox1), pd->sprefs.frame, FALSE, FALSE, 5);
 	sessionprefs(&pd->sprefs, main_v->session);
+	gtk_box_pack_start(GTK_BOX(vbox1), pd->sprefs.frame, FALSE, FALSE, 5);
 	
 	/*pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);*/
 
