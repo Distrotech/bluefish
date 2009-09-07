@@ -657,7 +657,22 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
 
 		time_var = time(NULL);
 		time_struct = localtime(&time_var);
+#ifdef WIN32
+		{
+			glong hours, mins;
+			gchar gmtsign;
+			gchar tmptime[50];
+			
+			strftime(tmptime, 30, "%Y-%m-%dT%H:%M:%S", time_struct);
+			gmtsign = _timezone > 0 ? '-' : '+';
+			hours = abs(_timezone) / 3600;
+			mins = (abs(_timezone) % 3600) / 60;
+			sprintf(isotime, "%s%c%02ld%02ld", tmptime, gmtsign, hours, mins);
+		}
+#else /* WIN32 */
 		strftime(isotime, 30, "%Y-%m-%dT%H:%M:%S%z", time_struct);
+#endif /* WIN32 */
+		DEBUG_MSG("doc_save_backend, ISO-8601 time %s\n", isotime);
 
 		date_tmp = g_strconcat("<meta name=\"date\" content=\"", isotime, "\" ", NULL);
 		snr2_run_extern_replace(doc,

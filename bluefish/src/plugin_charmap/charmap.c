@@ -20,6 +20,7 @@
 
 #include "charmap.h"
 #include "charmap_gui.h"
+#include "../plugins.h"
 #include "../rcfile.h"
 Tcharmap charmap_v;
 

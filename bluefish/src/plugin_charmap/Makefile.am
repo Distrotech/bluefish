@@ -1,5 +1,7 @@
 SUBDIRS = po
 
+EXTRA_DIST = charmap.def
+
 DISTCLEANFILES = @OPENBSD_3_8_FIX@
 
 MAINTAINERCLEANFILES = Makefile.in
@@ -22,9 +24,9 @@ charmap_la_LIBADD = $(CHARMAP_PLUGIN_LIBS)
 charmap_la_LDFLAGS = -module -avoid-version
 
 if OS_WIN32
-charmap_la_LDFLAGS += -no-undefined
+charmap_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/charmap.def
 endif
 
-#maintainer-clean-local:
-#	cd $(srcdir)/po && rm -f boldquot.sed en@boldquot.header en@quot.header insert-header.sin Makefile.in.in quot.sed remove-potcdate.sin Rules-quot $(PACKAGE)_plugin_about.pot
+maintainer-clean-local:
+	cd $(srcdir)/po && rm -f boldquot.sed en@boldquot.header en@quot.header insert-header.sin Makefile.in.in quot.sed remove-potcdate.sin Rules-quot $(PACKAGE)_plugin_about.pot
 

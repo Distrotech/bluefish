@@ -21,16 +21,34 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/socket.h>
+
+#ifdef WIN32
+#    include <winsock2.h>
+#    include <ws2tcpip.h>
+#else /* WIN32 */
+#    include <sys/socket.h>
+#    include <sys/un.h>
+#endif
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/un.h>
 #include <unistd.h>
 
 #include "bluefish.h"
 #include "gui.h"
 #include "file.h"
 #include "ipc_bf2bf.h"
+
+#ifdef WIN32
+#ifndef HAVE_STDINT_H
+typedef unsigned char uint8_t;
+#endif /* HAVE_STDINT_H */
+typedef uint8_t sa_family_t;  /* socket address family */
+struct  sockaddr_un {
+    uint8_t sun_len;          /* total sockaddr length */
+    sa_family_t sun_family;   /* AF_LOCAL */
+    char sun_path[104];       /* path name (gag) */
+};
+#endif /* WIN32 */
 
 #ifndef UNIX_PATH_MAX
 #define UNIX_PATH_MAX 108
@@ -123,10 +141,14 @@ static gboolean socket_is_valid(const char *path)
 
 	if (stat(path, &sbuf) == -1)
 		return FALSE;
+#ifndef WIN32
 	if (sbuf.st_uid != geteuid())
 		return FALSE;
+#endif
+#ifdef S_IFSOCK
 	if ((sbuf.st_mode & S_IFSOCK) != S_IFSOCK)
 		return FALSE;
+#endif
 	/* check permissions ? */
 	DEBUG_MSG("socket %s is valid\n",path);
 	return TRUE;

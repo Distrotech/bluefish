@@ -7,6 +7,12 @@ MAINTAINERCLEANFILES = Makefile.in config.h.in
 
 DEFS += -DLOCALEDIR=\"$(localedir)\" -DPKGDATADIR=\"$(pkgdatadir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
 
+if OS_WIN32
+AM_LDFLAGS = -export-all-symbols
+DEFS += -DEXE_EXPORT_SYMBOLS
+LDADD = -lgnurx -lws2_32
+endif
+
 bin_PROGRAMS = bluefish-unstable
 
 #

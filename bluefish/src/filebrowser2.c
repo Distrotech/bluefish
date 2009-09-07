@@ -368,13 +368,26 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 		}
 	} else {					/* child does not yet exist */
 		gchar *display_name;
-		const gchar *mime_type;
+		gchar *mime_type;
+#ifdef WIN32
+		const gchar *cont_type;
+#endif
 		GIcon *icon;
 		gchar *icon_name = NULL;
 		newiter = g_slice_new0(GtkTreeIter);
 		g_object_ref(child_uri);
 		g_object_ref(finfo);
 		display_name = gfile_display_name(child_uri, finfo);
+#ifdef WIN32
+		if (g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY) {
+			cont_type=NULL;
+			mime_type = g_strdup("inode/directory");
+		} else {
+			cont_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+			mime_type= g_content_type_get_mime_type(cont_type);
+		}
+		/*g_print("display_name=%s, cont_type=%s, mime_type=%s\n",display_name,cont_type,mime_type);*/ 
+#else
 		mime_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 		if (mime_type == NULL && g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY) {
 			/* GVFS SMB module on Ubuntu 8.10 returns NULL as FAST_CONTENT_TYPE, but it does set
@@ -382,6 +395,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 			mime type  */
 			mime_type = "inode/directory";
 		}
+#endif
 		icon = g_file_info_get_icon(finfo);
 		icon_name = icon_name_from_icon(icon);
 		/*gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
@@ -397,6 +411,9 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 								   finfo, -1);
 		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
 		g_free(icon_name);
+#ifdef WIN32
+		g_free(mime_type);
+#endif
 		DEBUG_MSG("insert newiter %p in hashtable for child_uri %p\n",newiter,child_uri);
 		/* give it an extra reference for the hashtable */
 		g_object_ref(child_uri);
