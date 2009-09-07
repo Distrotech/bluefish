@@ -75,7 +75,8 @@ enum {
 
 enum {
 	DIR_NAME_COLUMN,
-	DIR_URI_COLUMN
+	DIR_URI_COLUMN,
+	DIR_ICON_COLUMN
 };
 
 enum {
@@ -2040,9 +2041,10 @@ static gboolean dirmenu_idle_cleanup_lcb(gpointer callback_data)
 static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 {
 	GtkTreeIter iter, setiter;
-	GList *tmplist;
+	GList *tmplist, *drivelist;
 	GtkTreeModel *oldmodel = fb2->dirmenu_m;
 	GFile *tmp;
+	GVolumeMonitor* gvolmon;
 	gboolean cont, havesetiter = FALSE;
 	DEBUG_MSG("dirmenu_set_curdir(fb2=%p, newcurdir=%p)\n", fb2, newcurdir);
 	if (fb2->currentdir) {
@@ -2059,7 +2061,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	DEBUG_GFILE(newcurdir, TRUE);
 #endif
 
-	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_POINTER));
+	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_tree_store_new(3, G_TYPE_STRING, G_TYPE_POINTER, GDK_TYPE_PIXBUF));
 	tmplist = g_list_last(fb2->bfwin->session->recent_dirs);
 	while (tmplist) {
 		GFile *uri;
@@ -2070,8 +2072,8 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 		if (uri) {
 			name = g_file_get_uri(uri);
 			DEBUG_MSG("dirmenu_set_curdir, appending %s\n", name);
-			gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
-			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name,
+			gtk_tree_store_append(GTK_TREE_STORE(fb2->dirmenu_m), &iter, NULL);
+			gtk_tree_store_set(GTK_TREE_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name,
 							   DIR_URI_COLUMN, uri, -1);
 			g_free(name);
 		}
@@ -2082,17 +2084,59 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	do {
 				gchar *name = g_file_get_uri(tmp);
 				DEBUG_MSG("dirmenu_set_curdir, appending %s to the new model\n", name);
-				gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
+				gtk_tree_store_append(GTK_TREE_STORE(fb2->dirmenu_m), &iter, NULL);
 				if (!havesetiter) {
 					setiter = iter;
 					havesetiter = TRUE;
 				}
-				gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name, DIR_URI_COLUMN, tmp,	/* don't unref tmp at this point, because there is a reference in the model */
+				gtk_tree_store_set(GTK_TREE_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name, DIR_URI_COLUMN, tmp,	/* don't unref tmp at this point, because there is a reference in the model */
 													 -1);
 				g_free(name);
 				tmp = g_file_get_parent(tmp);
 				cont = (tmp != NULL);
 	} while (cont);
+	
+	gvolmon = g_volume_monitor_get();
+	drivelist = g_volume_monitor_get_connected_drives(gvolmon);
+	tmplist = g_list_first(drivelist);
+	g_print("got %d drives\n",g_list_length(drivelist));
+	while(tmplist) {
+		GList *vollist, *tmplist2;
+		gchar *tmp;
+		GDrive *drive = tmplist->data;
+		vollist = g_drive_get_volumes(drive);
+		tmplist2 = g_list_first(vollist);
+		tmp = g_drive_get_name(drive);
+		g_print("got %d volumes for %s\n",g_list_length(vollist), tmp);
+		g_free(tmp);
+		while (tmplist2) {
+			GVolume *vol=tmplist2->data;
+			GMount *gmount;
+			gmount = g_volume_get_mount(vol);
+			tmp = g_volume_get_name(vol);
+			g_print("mount=%p for volume %s\n",gmount, tmp);
+			g_free(tmp);
+			if (gmount) { /* it is mounted ! */
+				gchar *name;
+				GFile *root;
+				name = g_mount_get_name(gmount);
+				g_print("got mount %s\n",name);
+				root = g_mount_get_root(gmount);
+				gtk_tree_store_append(GTK_TREE_STORE(fb2->dirmenu_m), &iter, NULL);
+				gtk_tree_store_set(GTK_TREE_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name, DIR_URI_COLUMN, root,	/* don't unref root at this point, because there is a reference in the model */
+													 -1);
+				g_free(name);
+			}
+			g_object_unref(vol);
+			tmplist2 = g_list_next(tmplist2);
+		}
+		g_list_free(vollist);
+		g_object_unref(drive);
+		tmplist = g_list_next(tmplist);
+	}	
+	g_list_free(drivelist);
+	g_object_unref(gvolmon);
+	
 	DEBUG_MSG("dirmenu_set_curdir, activate the new model\n");
 	g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 	gtk_combo_box_set_model(GTK_COMBO_BOX(fb2->dirmenu_v), GTK_TREE_MODEL(fb2->dirmenu_m));
@@ -2566,29 +2610,16 @@ GtkWidget *fb2_init(Tbfwin * bfwin)
 	fb2->vbox = gtk_vbox_new(FALSE, 0);
 
 	fb2->dirmenu_m =
-		GTK_TREE_MODEL(gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER));
-/*  {
-    GList *tmplist;
-    tmplist = g_list_first(bfwin->session->recent_dirs);
-    while (tmplist) {
-      GtkTreeIter iter;
-      GFile *uri;
-      gchar *name;
-      uri = gnome_vfs_uri_new(tmplist->data);
-      if (uri) {
-        name = full_path_utf8_from_uri(uri);
-        gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
-        DEBUG_MSG("fb2_init, adding %s to dir menu\n",(gchar *)tmplist->data);
-        gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m),&iter
-            ,DIR_NAME_COLUMN,name
-            ,DIR_URI_COLUMN ,uri
-            ,-1);
-      }
-      tmplist = g_list_next(tmplist);
-    }
-  }*/
+		GTK_TREE_MODEL(gtk_tree_store_new(3, G_TYPE_STRING, G_TYPE_BOOLEAN, GDK_TYPE_PIXBUF));
 	fb2->dirmenu_v = gtk_combo_box_new_with_model(fb2->dirmenu_m);
 	/*gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(fb2->dirmenu_v),3); */
+	renderer = gtk_cell_renderer_pixbuf_new();
+	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, FALSE);
+	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer,
+											/*"icon-name", ICON_NAME_COLUMN,*/
+											"pixbuf_expander_closed", DIR_ICON_COLUMN,
+											"pixbuf_expander_open", DIR_ICON_COLUMN, NULL);
+
 	renderer = gtk_cell_renderer_text_new();
 	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, TRUE);
 	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, "text",
