@@ -316,6 +316,32 @@ static GFileInfo *fake_directory_fileinfo_for_uri(GFile * uri)
 	g_free(name);
 	return finfo;
 }
+
+static gchar *icon_name_from_icon(GIcon *icon) {
+	gchar *icon_name=NULL;
+	if (icon && G_IS_THEMED_ICON(icon)) {
+		GStrv names;
+
+		g_object_get(icon, "names", &names, NULL);
+		if (names && names[0]) {
+			GtkIconTheme *icon_theme;
+			int i;
+			icon_theme = gtk_icon_theme_get_default();
+			for (i = 0; i < g_strv_length (names); i++) {
+				if (gtk_icon_theme_has_icon(icon_theme, names[i])) {
+					icon_name = g_strdup(names[i]);
+					break;
+				}
+			}
+			g_strfreev (names);
+		}
+	} else {
+		DEBUG_MSG("icon %p for '%s' is not themed, use icon name 'folder'\n",icon,display_name);
+		icon_name = g_strdup("folder");
+	}
+	return icon_name;
+}
+
 /**
  * fb2_add_filesystem_entry:
  *
@@ -357,26 +383,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 			mime_type = "inode/directory";
 		}
 		icon = g_file_info_get_icon(finfo);
-		if (icon && G_IS_THEMED_ICON(icon)) {
-			GStrv names;
-
-			g_object_get(icon, "names", &names, NULL);
-			if (names && names[0]) {
-				GtkIconTheme *icon_theme;
-				int i;
-				icon_theme = gtk_icon_theme_get_default();
-				for (i = 0; i < g_strv_length (names); i++) {
-					if (gtk_icon_theme_has_icon(icon_theme, names[i])) {
-						icon_name = g_strdup(names[i]);
-						break;
-					}
-				}
-				g_strfreev (names);
-			}
-		} else {
-			DEBUG_MSG("icon %p for '%s' is not themed, use icon name 'folder'\n",icon,display_name);
-			icon_name = g_strdup("folder");
-		}
+		icon_name = icon_name_from_icon(icon);
 		/*gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
 							  newiter, parent);
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore), newiter,
@@ -2073,24 +2080,44 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 
 	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING));
 
-	hasht = g_hash_table_new_full(g_file_hash, (GEqualFunc)g_file_equal, uri_hash_destroy, NULL);
+	hasht = g_hash_table_new_full(g_file_hash, (GEqualFunc)g_file_equal, NULL, NULL);
 
 	/* rebuild the current uri */
 	tmp = g_file_dup(newcurdir);
 	do {
 		gchar *name = g_file_get_uri(tmp);
+		GFile *tmp2 = g_file_get_parent(tmp);
 		DEBUG_MSG("dirmenu_set_curdir, appending %s to the new model\n", name);
 		gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
 		if (!havesetiter) {
 			setiter = iter;
 			havesetiter = TRUE;
 		}
-		gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name
+		if (tmp2==NULL) {
+			gchar *icon_name;
+			GError *error=NULL;
+			GMount * gmount= g_file_find_enclosing_mount(tmp,NULL,&error);
+			if (!error) {
+				GIcon *icon;
+				icon = g_mount_get_icon(gmount);
+				icon_name = icon_name_from_icon(icon);
+				DEBUG_MSG("detected icon name %s for %s\n",icon_name, name);
+			} else {
+				icon_name = g_strdup("drive-harddisk");
+				DEBUG_MSG("fallback icon name %s for %s\n",icon_name, name);
+			}
+			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name
+				, DIR_URI_COLUMN, tmp	/* don't unref tmp at this point, because there is a reference in the model */
+				, DIR_ICON_COLUMN, icon_name, -1);
+			g_free(icon_name);
+		} else {
+			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name
 				, DIR_URI_COLUMN, tmp	/* don't unref tmp at this point, because there is a reference in the model */
 				, DIR_ICON_COLUMN, "folder", -1);
+		}
 		g_hash_table_insert(hasht, tmp, GINT_TO_POINTER(1));
 		g_free(name);
-		tmp = g_file_get_parent(tmp);
+		tmp = tmp2;
 		cont = (tmp != NULL);
 	} while (cont);
 
@@ -2115,7 +2142,6 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	gvolmon = g_volume_monitor_get();
 	drivelist = g_volume_monitor_get_connected_drives(gvolmon);
 	tmplist = g_list_first(drivelist);
-	g_print("got %d drives\n",g_list_length(drivelist));
 	while(tmplist) {
 		GList *vollist;
 		gchar *tmp;
@@ -2123,27 +2149,33 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 		vollist = g_drive_get_volumes(drive);
 		tmplist2 = g_list_first(vollist);
 		tmp = g_drive_get_name(drive);
-		g_print("got %d volumes for %s\n",g_list_length(vollist), tmp);
 		g_free(tmp);
 		while (tmplist2) {
 			GVolume *vol=tmplist2->data;
 			GMount *gmount;
 			gmount = g_volume_get_mount(vol);
 			tmp = g_volume_get_name(vol);
-			g_print("mount=%p for volume %s\n",gmount, tmp);
 			g_free(tmp);
 			if (gmount) { /* it is mounted ! */
-				gchar *name;
+				gchar *name, *icon_name;
 				GFile *root;
+				GIcon *icon;
 				name = g_mount_get_name(gmount);
-				g_print("got mount %s\n",name);
+				icon = g_mount_get_icon(gmount);
+				icon_name = icon_name_from_icon(icon);
+				DEBUG_MSG("got mount %s with icon_name %s\n",name,icon_name);
 				root = g_mount_get_root(gmount);
 				if (g_hash_table_lookup(hasht, root)==NULL) {
 					gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
-					gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name, DIR_URI_COLUMN, root,	/* don't unref root at this point, because there is a reference in the model */
-													 -1);
+					gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name
+								, DIR_URI_COLUMN, root	/* don't unref root at this point, because there is a reference in the model */
+								, DIR_ICON_COLUMN, icon_name, -1);
 					g_hash_table_insert(hasht, root, GINT_TO_POINTER(1));
 				}
+				if (icon) {
+					g_object_unref(icon);
+				}
+				g_free(icon_name);
 				g_free(name);
 			}
 			g_object_unref(vol);
