@@ -92,6 +92,7 @@ static void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget
     "Gentoo: Hanno Böck <hanno@gentoo.org>",
     "Mandrake: Todd Lyons <todd@mrball.net>",
     "Redhat: Matthias Haase <matthias_haase@bennewitz.com>",
+    "Windows: Shawn Novak <kernel86@gmail.com>, Daniel Leidert <daniel.leidert@wgdd.de>"
     _("\nIf you know of anyone missing from this list,\nplease let us know via <bluefish@bluefish.openoffice.nl>."),
     _("\nThanks to all who helped making this software available."),
     NULL
