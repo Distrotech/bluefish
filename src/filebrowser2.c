@@ -176,6 +176,15 @@ static void DEBUG_TPATH(GtkTreeModel * model, GtkTreePath * path, gboolean newli
 	g_free(filename);
 }
 
+static void uri_hash_destroy(gpointer data)
+{
+	g_object_unref((GObject *) data);
+}
+static void iter_value_destroy(gpointer data)
+{
+	g_slice_free(GtkTreeIter,data);
+}
+
 /**************/
 typedef struct {
 	Tbfwin *bfwin;
@@ -2041,7 +2050,8 @@ static gboolean dirmenu_idle_cleanup_lcb(gpointer callback_data)
 static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 {
 	GtkTreeIter iter, setiter;
-	GList *tmplist, *drivelist;
+	GHashTable *hasht;
+	GList *tmplist, *drivelist, *tmplist2;
 	GtkTreeModel *oldmodel = fb2->dirmenu_m;
 	GFile *tmp;
 	GVolumeMonitor* gvolmon;
@@ -2061,47 +2071,53 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	DEBUG_GFILE(newcurdir, TRUE);
 #endif
 
-	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_tree_store_new(3, G_TYPE_STRING, G_TYPE_POINTER, GDK_TYPE_PIXBUF));
+	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING));
+
+	hasht = g_hash_table_new_full(g_file_hash, (GEqualFunc)g_file_equal, uri_hash_destroy, NULL);
+
+	/* rebuild the current uri */
+	tmp = g_file_dup(newcurdir);
+	do {
+		gchar *name = g_file_get_uri(tmp);
+		DEBUG_MSG("dirmenu_set_curdir, appending %s to the new model\n", name);
+		gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
+		if (!havesetiter) {
+			setiter = iter;
+			havesetiter = TRUE;
+		}
+		gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name
+				, DIR_URI_COLUMN, tmp	/* don't unref tmp at this point, because there is a reference in the model */
+				, DIR_ICON_COLUMN, "folder", -1);
+		g_hash_table_insert(hasht, tmp, GINT_TO_POINTER(1));
+		g_free(name);
+		tmp = g_file_get_parent(tmp);
+		cont = (tmp != NULL);
+	} while (cont);
+
 	tmplist = g_list_last(fb2->bfwin->session->recent_dirs);
 	while (tmplist) {
 		GFile *uri;
 		gchar *name;
 
 		uri = g_file_new_for_uri(tmplist->data);
-
-		if (uri) {
+		if (uri && g_hash_table_lookup(hasht, uri)==NULL) {
 			name = g_file_get_uri(uri);
 			DEBUG_MSG("dirmenu_set_curdir, appending %s\n", name);
-			gtk_tree_store_append(GTK_TREE_STORE(fb2->dirmenu_m), &iter, NULL);
-			gtk_tree_store_set(GTK_TREE_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name,
-							   DIR_URI_COLUMN, uri, -1);
+			gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
+			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name,
+							   DIR_URI_COLUMN, uri, DIR_ICON_COLUMN, "folder", -1);
+			g_hash_table_insert(hasht, uri, GINT_TO_POINTER(1));
 			g_free(name);
 		}
 		tmplist = g_list_previous(tmplist);
 	}
-	/* then we rebuild the current uri */
-	tmp = g_file_dup(newcurdir);
-	do {
-				gchar *name = g_file_get_uri(tmp);
-				DEBUG_MSG("dirmenu_set_curdir, appending %s to the new model\n", name);
-				gtk_tree_store_append(GTK_TREE_STORE(fb2->dirmenu_m), &iter, NULL);
-				if (!havesetiter) {
-					setiter = iter;
-					havesetiter = TRUE;
-				}
-				gtk_tree_store_set(GTK_TREE_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name, DIR_URI_COLUMN, tmp,	/* don't unref tmp at this point, because there is a reference in the model */
-													 -1);
-				g_free(name);
-				tmp = g_file_get_parent(tmp);
-				cont = (tmp != NULL);
-	} while (cont);
 	
 	gvolmon = g_volume_monitor_get();
 	drivelist = g_volume_monitor_get_connected_drives(gvolmon);
 	tmplist = g_list_first(drivelist);
 	g_print("got %d drives\n",g_list_length(drivelist));
 	while(tmplist) {
-		GList *vollist, *tmplist2;
+		GList *vollist;
 		gchar *tmp;
 		GDrive *drive = tmplist->data;
 		vollist = g_drive_get_volumes(drive);
@@ -2122,9 +2138,12 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 				name = g_mount_get_name(gmount);
 				g_print("got mount %s\n",name);
 				root = g_mount_get_root(gmount);
-				gtk_tree_store_append(GTK_TREE_STORE(fb2->dirmenu_m), &iter, NULL);
-				gtk_tree_store_set(GTK_TREE_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name, DIR_URI_COLUMN, root,	/* don't unref root at this point, because there is a reference in the model */
+				if (g_hash_table_lookup(hasht, root)==NULL) {
+					gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
+					gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name, DIR_URI_COLUMN, root,	/* don't unref root at this point, because there is a reference in the model */
 													 -1);
+					g_hash_table_insert(hasht, root, GINT_TO_POINTER(1));
+				}
 				g_free(name);
 			}
 			g_object_unref(vol);
@@ -2136,6 +2155,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	}	
 	g_list_free(drivelist);
 	g_object_unref(gvolmon);
+	g_hash_table_destroy(hasht);
 	
 	DEBUG_MSG("dirmenu_set_curdir, activate the new model\n");
 	g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
@@ -2610,15 +2630,15 @@ GtkWidget *fb2_init(Tbfwin * bfwin)
 	fb2->vbox = gtk_vbox_new(FALSE, 0);
 
 	fb2->dirmenu_m =
-		GTK_TREE_MODEL(gtk_tree_store_new(3, G_TYPE_STRING, G_TYPE_BOOLEAN, GDK_TYPE_PIXBUF));
+		GTK_TREE_MODEL(gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_STRING));
 	fb2->dirmenu_v = gtk_combo_box_new_with_model(fb2->dirmenu_m);
 	/*gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(fb2->dirmenu_v),3); */
 	renderer = gtk_cell_renderer_pixbuf_new();
 	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, FALSE);
 	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer,
-											/*"icon-name", ICON_NAME_COLUMN,*/
-											"pixbuf_expander_closed", DIR_ICON_COLUMN,
-											"pixbuf_expander_open", DIR_ICON_COLUMN, NULL);
+											"icon-name", DIR_ICON_COLUMN,
+											/*"pixbuf_expander_closed", DIR_ICON_COLUMN,
+											"pixbuf_expander_open", DIR_ICON_COLUMN,*/ NULL);
 
 	renderer = gtk_cell_renderer_text_new();
 	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, TRUE);
@@ -2678,14 +2698,6 @@ void fb2_unset_filter(Tbfwin * bfwin, Tfilter * filter)
 	}
 }
 
-static void uri_hash_destroy(gpointer data)
-{
-	g_object_unref((GObject *) data);
-}
-static void iter_value_destroy(gpointer data)
-{
-	g_slice_free(GtkTreeIter,data);
-}
 
 void fb2config_init(void)
 {
