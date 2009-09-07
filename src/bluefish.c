@@ -111,9 +111,11 @@ static gboolean startup_in_idle(gpointer data) {
 			main_v->session->snr_position_x = main_v->session->snr_position_y = -1;
 			rcfile_parse_global_session();
 			if (main_v->session->recent_dirs == NULL) {
+				GFile *uri = g_file_new_for_path(g_get_home_dir());
 				main_v->session->recent_dirs =
 					g_list_append(main_v->session->recent_dirs,
-								  g_strconcat("file://", g_get_home_dir(), NULL));
+								  g_file_get_uri(uri));
+				g_object_unref(uri);
 			}
 			langmgr_init();
 #ifdef HAVE_LIBENCHANT
