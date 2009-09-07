@@ -194,6 +194,7 @@ static void start_command_backend(Texternalp *ep) {
 	argv = g_malloc(sizeof(char *)*(count_char(ep->commandstring, ' ')+1));
 #endif
 	DEBUG_MSG("start_command_backend,commandstring=%s\n",ep->commandstring);
+#ifndef WIN32
 	if (ep->fifo_in) {
 		if (mkfifo(ep->fifo_in, 0600) != 0) {
 			g_print("some error happened creating fifo %s??\n",ep->fifo_in);
@@ -207,7 +208,9 @@ static void start_command_backend(Texternalp *ep) {
 			return;
 		}
 	}
-#ifdef WIN32
+#else
+	DEBUG_MSG("start_command_backend,commandstring=%s\n",ep->commandstring);
+	DEBUG_MSG("unsupported function mkfifo\n");
 	ep->include_stderr = FALSE;
 #endif
 	DEBUG_MSG("start_command_backend, pipe_in=%d, pipe_out=%d, fifo_in=%s, fifo_out=%s,include_stderr=%d\n",ep->pipe_in,ep->pipe_out,ep->fifo_in,ep->fifo_out,ep->include_stderr);

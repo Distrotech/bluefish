@@ -505,11 +505,17 @@ gint rcfile_save_main(void) {
 	return ret;
 }
 
-#define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
+#ifndef WIN32
+#    define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
+#endif
 void rcfile_check_directory(void) {
 	gchar *rcdir = g_strconcat(g_get_home_dir(), "/."PACKAGE, NULL);
 	if (!g_file_test(rcdir, G_FILE_TEST_IS_DIR)) {
+#ifndef WIN32
 		mkdir(rcdir, DIR_MODE);
+#else
+        mkdir(rcdir);
+#endif
 	}
 	g_free(rcdir);
 }
@@ -672,7 +678,7 @@ gboolean rcfile_save_global_session(void) {
 	filename = user_bfdir("session");
 	configlist = return_globalsession_configlist(FALSE);
 	configlist = return_session_configlist(configlist, main_v->session);
-	DEBUG_MSG("rcfile_save_global_session, saving global session to %s\n",filename);
+	DEBUG_MSG("rcfile_save_global_session, saving global session to %s\n",g_file_get_parse_name(filename));
 	DEBUG_MSG("rcfile_save_global_session, length session recent_files=%d\n",g_list_length(main_v->session->recent_files));
 	DEBUG_MSG("rcfile_save_global_session, length session recent_projects=%d\n",g_list_length(main_v->globses.recent_projects));
 	retval = save_config_file(configlist, filename);

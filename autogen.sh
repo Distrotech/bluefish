@@ -141,7 +141,7 @@ autogen() {
 	$LIBTOOLIZE $DEBUG -f $COPYOPTION
 	$INTLTOOLIZE $DEBUG -f $COPYOPTION
 	prepare_gettext
-	$ACLOCAL --force $VERBOSE
+	$ACLOCAL $ACLOCAL_OPT --force $VERBOSE
 	$AUTOHEADER -f $DEBUG $VERBOSE
 	$AUTOMAKE --gnu -a $VERBOSE $COPYOPTION
 	autogen_if_missing

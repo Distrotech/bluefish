@@ -1252,10 +1252,17 @@ static gchar *return_securedir(void) {
 	 * or a symlink, so we DO NOT overwrite any file the link is pointing to
 	 */
 	main_v->securedir = unique_path(g_get_tmp_dir(), "bluefish");
+#ifndef WIN32
 	while (mkdir(main_v->securedir, 0700) != 0) {
 		g_free(main_v->securedir);
 		main_v->securedir = unique_path(g_get_tmp_dir(), "bluefish");
 	}
+#else
+	while (mkdir(main_v->securedir) != 0) {
+		g_free(main_v->securedir);
+		main_v->securedir = unique_path(g_get_tmp_dir(), "bluefish");
+	}
+#endif
 	return main_v->securedir;
 }
 

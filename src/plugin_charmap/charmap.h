@@ -21,11 +21,6 @@
 #ifndef __CHARMAP_H_
 #define __CHARMAP_H_
 
-#ifdef ENABLE_NLS
-#undef _
-#define _(String) dgettext(PACKAGE"_plugin_about", String)
-#endif
-
 #include <gmodule.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
@@ -35,8 +30,12 @@
 #include <unistd.h>      /* getopt() */
 
 #include "../config.h"
-#include "../plugins.h"
 #include "../bluefish.h" /* BLUEFISH_SPLASH_FILENAME */
+
+#ifdef ENABLE_NLS
+#undef _
+#define _(String) dgettext(PACKAGE"_plugin_about", String)
+#endif
 
 typedef struct {
 	Tbfwin *bfwin;

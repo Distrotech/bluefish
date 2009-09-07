@@ -459,6 +459,10 @@ void filefilter_gui(Tfilter *filter) {
 	GtkTreeViewColumn *column;
 	GList *tmplist, *reglist;
 	GtkWidget *table,*hbox,*but,*vbox,*scrolwin;
+#ifdef WIN32
+	GList *mimelist=NULL;
+	gchar *last_mime=NULL;
+#endif
 
 	Tfilefiltergui *ffg = g_new0(Tfilefiltergui,1);
 	ffg->curfilter = filter;
@@ -478,8 +482,49 @@ void filefilter_gui(Tfilter *filter) {
 	
 	/* fill the list model from the currently known filetypes */
 	reglist = g_content_types_get_registered();
-	
-	tmplist = g_list_first(g_list_sort(reglist, (GCompareFunc) g_strcmp0));
+
+#ifdef WIN32
+	tmplist = g_list_first(reglist);
+	while (tmplist) {
+		mimelist = g_list_prepend(mimelist, g_content_type_get_mime_type(tmplist->data));
+		tmplist = g_list_next(tmplist);
+	}
+	mimelist = g_list_reverse(g_list_sort(mimelist, (GCompareFunc) g_strcmp0));
+	tmplist = g_list_first(mimelist);
+	while (tmplist) {
+		if (!last_mime || g_strcmp0(last_mime, tmplist->data)!=0) {
+			GtkTreeIter it;
+			last_mime=tmplist->data;
+			if (MIME_ISDIR(tmplist->data)) {
+				gtk_list_store_prepend(ffg->lstore,&it);
+				gtk_list_store_set(ffg->lstore,&it,0,tmplist->data,2,0, -1);
+			}
+		}
+		tmplist = g_list_next(tmplist);
+	}
+/*	GList *winlist = NULL;
+	gchar *mimetype;
+	gint llen, lpos;
+	while(reglist) {
+		mimetype = g_content_type_get_mime_type(reglist->data);
+		if ((llen = g_list_length(winlist))) {
+			tmplist = g_list_copy(winlist);
+			for (lpos = 0; llen != -1 && lpos < llen; lpos++) {
+				if (!g_strcmp0(mimetype, tmplist->data))
+					llen = -1;
+				else
+					tmplist = g_list_next(tmplist);
+			}
+			g_list_free(tmplist);
+		}
+		if (llen != -1)
+			winlist = g_list_append(winlist, mimetype);
+		reglist = g_list_next(reglist);
+	}
+	tmplist = g_list_first(g_list_reverse(g_list_sort(winlist, (GCompareFunc) g_strcmp0)));*/
+	free_stringlist(mimelist);
+#else
+	tmplist = g_list_first(g_list_sort(reglist, (GCompareFunc) g_strcmp0));	
 	while (tmplist) {
 		GtkTreeIter it;
 		if (MIME_ISDIR(tmplist->data)) {
@@ -488,6 +533,7 @@ void filefilter_gui(Tfilter *filter) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
+#endif
 	g_list_free(reglist);
 	/* make sure that all filetypes that exist in the current filter are shown */
 	/*g_hash_table_foreach(ffg->curfilter->filetypes,filefiltergui_add_filetypes,ffg);*/

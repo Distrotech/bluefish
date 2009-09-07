@@ -22,6 +22,7 @@
 
 #include <gtk/gtk.h>
 
+#include "bluefish.h"
 #include "dialog_utils.h"
 #include "pixmap.h"
 

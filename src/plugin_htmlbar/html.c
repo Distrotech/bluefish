@@ -439,8 +439,25 @@ void insert_time_dialog(Tbfwin *bfwin) {
       temp[strlen(temp) - 1] = ')';
       break;
     case 6:
-      strftime(isotime, 30, "%Y-%m-%dT%H:%M:%S%z", time_struct);
-      temp = g_strdup_printf(_("  ISO-8601 Ti_me (%s)"), isotime);
+      {
+        gchar *tmpstr = _("  ISO-8601 Ti_me ");
+#ifdef WIN32
+        glong hours, mins;
+        gchar gmtsign;
+
+        strftime(isotime, 30, "%Y-%m-%dT%H:%M:%S", time_struct);
+        gmtsign = _timezone > 0 ? '-' : '+';
+        hours = abs(_timezone) / 3600;
+        mins = (abs(_timezone) % 3600) / 60;
+        temp = g_strconcat(tmpstr, g_strdup_printf("(%s%c%02ld%02ld)",
+        	isotime, gmtsign, hours, mins), NULL);
+
+#else /* WIN32 */
+        strftime(isotime, 30, "%Y-%m-%dT%H:%M:%S%z", time_struct);
+        temp = g_strconcat(tmpstr, g_strdup_printf("(%s)", isotime),
+        	NULL);
+#endif /* WIN32 */
+      }
       break;
     default:
       break;
