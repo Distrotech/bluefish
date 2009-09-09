@@ -2075,7 +2075,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 {
 	GtkTreeIter iter, setiter;
 	GHashTable *hasht;
-	GList *tmplist, *drivelist, *tmplist2;
+	GList *tmplist;
 	GtkTreeModel *oldmodel = fb2->dirmenu_m;
 	GFile *tmp;
 	GVolumeMonitor* gvolmon;
@@ -2157,52 +2157,36 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	}
 	
 	gvolmon = g_volume_monitor_get();
-	drivelist = g_volume_monitor_get_connected_drives(gvolmon);
-	tmplist = g_list_first(drivelist);
-	while(tmplist) {
-		GList *vollist;
-		gchar *tmp;
-		GDrive *drive = tmplist->data;
-		vollist = g_drive_get_volumes(drive);
-		tmplist2 = g_list_first(vollist);
-		tmp = g_drive_get_name(drive);
-		g_free(tmp);
-		while (tmplist2) {
-			GVolume *vol=tmplist2->data;
-			GMount *gmount;
-			gmount = g_volume_get_mount(vol);
-			tmp = g_volume_get_name(vol);
-			g_free(tmp);
-			if (gmount) { /* it is mounted ! */
-				gchar *name, *icon_name;
-				GFile *root;
-				GIcon *icon;
-				name = g_mount_get_name(gmount);
-				icon = g_mount_get_icon(gmount);
-				icon_name = icon_name_from_icon(icon);
-				DEBUG_MSG("got mount %s with icon_name %s\n",name,icon_name);
-				root = g_mount_get_root(gmount);
-				if (g_hash_table_lookup(hasht, root)==NULL) {
-					gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
-					gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name
-								, DIR_URI_COLUMN, root	/* don't unref root at this point, because there is a reference in the model */
-								, DIR_ICON_COLUMN, icon_name, -1);
-					g_hash_table_insert(hasht, root, GINT_TO_POINTER(1));
-				}
-				if (icon) {
-					g_object_unref(icon);
-				}
-				g_free(icon_name);
-				g_free(name);
-			}
-			g_object_unref(vol);
-			tmplist2 = g_list_next(tmplist2);
+	{
+	GList * mountlist = tmplist = g_list_first(g_volume_monitor_get_mounts(gvolmon));
+	while (tmplist) {
+		GMount *gmount=tmplist->data;
+		gchar *name, *icon_name;
+		GFile *root;
+		GIcon *icon;
+		name = g_mount_get_name(gmount);
+		root = g_mount_get_root(gmount);
+		icon = g_mount_get_icon(gmount);
+		icon_name = icon_name_from_icon(icon);
+		if (g_hash_table_lookup(hasht, root)==NULL) {
+			gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
+				gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name
+							, DIR_URI_COLUMN, root	/* don't unref root at this point, because there is a reference in the model */
+							, DIR_ICON_COLUMN, icon_name, -1);
+				g_hash_table_insert(hasht, root, GINT_TO_POINTER(1));
+		
 		}
-		g_list_free(vollist);
-		g_object_unref(drive);
-		tmplist = g_list_next(tmplist);
-	}	
-	g_list_free(drivelist);
+		DEBUG_MSG("found mount %s and icon_name %s\n",name, icon_name);
+		g_free(name);
+		g_free(icon_name);
+		if (icon) {
+			g_object_unref(icon);
+		}
+		g_object_unref(gmount);
+		tmplist=tmplist->next;
+	}
+	g_list_free(mountlist);
+	}
 	g_object_unref(gvolmon);
 	g_hash_table_destroy(hasht);
 	
