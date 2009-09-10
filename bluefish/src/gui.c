@@ -713,6 +713,11 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 		left */
 		tmplist = g_list_first(bfwin->documentlist);
 	}
+	g_list_free(bfwin->menu_recent_files);
+	g_list_free(bfwin->menu_recent_projects);
+#ifdef HAVE_LIBENCHANT
+	unload_spell_dictionary(bfwin);
+#endif
 	fb2_cleanup(bfwin);
 	bmark_cleanup(bfwin);
 	outputbox_cleanup(bfwin);

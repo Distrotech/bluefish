@@ -23,7 +23,7 @@
 #define _BFTEXTVIEW2_SPELL_H_
 
 #include "bftextview2.h"
-
+void unload_spell_dictionary(Tbfwin *bfwin);
 gboolean bftextview2_run_spellcheck(BluefishTextView * btv);
 void bftextview2_spell_init(void);
 void bftextview2_spell_cleanup(void);
