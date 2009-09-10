@@ -74,6 +74,12 @@ static void dicts_load_first_lcb(const char * const lang_tag,const char * const 
 	}
 }
 
+void unload_spell_dictionary(Tbfwin *bfwin) {
+	if (bfwin->ed)
+		enchant_broker_free_dict(eb, (EnchantDict *)bfwin->ed);
+
+}
+
 static gboolean load_dictionary(Tbfwin *bfwin) {
 	if (bfwin->ed)
 		enchant_broker_free_dict(eb, (EnchantDict *)bfwin->ed);
