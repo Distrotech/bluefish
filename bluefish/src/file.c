@@ -313,11 +313,10 @@ static void checkNsave_cleanup(TcheckNsave *cns) {
 
 static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *res, gpointer user_data) {
 	TcheckNsave *cns = user_data;
-	gboolean retval;
 	char *etag=NULL;
 	GError *error=NULL;
 	
-	retval = g_file_replace_contents_finish(cns->uri,res,&etag,&error);
+	g_file_replace_contents_finish(cns->uri,res,&etag,&error);
 	if (error) {
 		DEBUG_MSG("checkNsave_replace_async_lcb,error %d: %s\n",error->code,error->message);
 		if (error->code == G_IO_ERROR_WRONG_ETAG) {
@@ -482,13 +481,12 @@ static void openfile_async_mount_lcb(GObject *source_object,GAsyncResult *res,gp
 
 static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Topenfile *of = user_data;
-	gboolean retval;
 	GError *error=NULL;
 	gchar *buffer=NULL;
 	gchar *etag=NULL;
 	gsize size=0;
 	
-	retval = g_file_load_contents_finish(of->uri,res,&buffer,&size,&etag,&error);
+	g_file_load_contents_finish(of->uri,res,&buffer,&size,&etag,&error);
 	if (error) {
 		DEBUG_MSG("openfile_async_lcb, finished, received error code %d: %s\n",error->code,error->message);
 		if (error->code == G_IO_ERROR_NOT_MOUNTED) {
@@ -1357,9 +1355,8 @@ static gpointer sync_handle_error(Tsync *sync, GFile *uri, const gchar *message,
 
 static void do_update_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Tsync_update *su = user_data;
-	gboolean ret;
 	GError *error=NULL;
-	ret = g_file_copy_finish(su->local_uri,res,&error);
+	g_file_copy_finish(su->local_uri,res,&error);
 	if (error) {
 		error = sync_handle_error(su->sync, su->remote_uri, "Failed to copy to", error);
 	}
