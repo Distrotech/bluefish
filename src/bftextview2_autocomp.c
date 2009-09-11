@@ -215,7 +215,8 @@ static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 static Tacwin *acwin_create(BluefishTextView *btv) {
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
-	GtkWidget *scroll, *vbar, *hbox;
+	GtkWidget *scroll, *hbox;
+	/* GtkWidget *vbar; */
 	Tacwin * acw;
 	GtkTreeSelection* selection;
 
@@ -234,8 +235,8 @@ static Tacwin *acwin_create(BluefishTextView *btv) {
 
 	gtk_tree_view_set_headers_visible(acw->tree, FALSE);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
-	vbar = gtk_scrolled_window_get_vscrollbar(GTK_SCROLLED_WINDOW(scroll));
-	/*gtk_widget_set_size_request(vbar,10,-1);*/
+	/* vbar = gtk_scrolled_window_get_vscrollbar(GTK_SCROLLED_WINDOW(scroll));
+	gtk_widget_set_size_request(vbar,10,-1); */
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "markup", 0, NULL);
