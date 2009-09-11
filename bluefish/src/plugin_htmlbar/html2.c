@@ -527,48 +527,49 @@ static void cs3d_add_to_update(Tcs3_diag *diag,
 }
 
 static void cs3d_add_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
-    gint onlist = 0, row = 0, retval = 1;
-    gint col = diag->styletype == onestyle ? 0 : 1;
-    gchar *cmb_selector = NULL, *cmb_property = NULL, *cmb_value = NULL;
+	gint onlist = 0, row = 0, retval = 1;
+	gint col = diag->styletype == onestyle ? 0 : 1;
+	gchar *cmb_selector = NULL, *cmb_property = NULL, *cmb_value = NULL;
 	gchar *lst_selector, *lst_property, *lst_value;
 
-    if (diag->styletype == multistyle) { 
-	    cmb_selector = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->selector)->entry), 0, -1);
+	if (diag->styletype == multistyle) { 
+		cmb_selector = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->selector)->entry), 0, -1);
 	}
 	cmb_property = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->property)->entry), 0, -1);
 	cmb_value = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->value)->entry), 0, -1);
-	
+
 	while (retval) {
-	    if (diag->styletype == multistyle) {
-	        retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, 0, &lst_selector);
-	        if (retval && strcmp(lst_selector, cmb_selector) != 0) {
-	            row++;
-	            continue;
-	        }
-	    }
-        retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, col, &lst_property);
-        if (retval && strcmp(lst_property, cmb_property) == 0) {
-            retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, col + 1, &lst_value);
-            if (retval && strcmp(lst_value, cmb_value) == 0) {
-                onlist = 1;
-                DEBUG_MSG("%s already on list.\n", cmb_property);
-                break;
+		if (diag->styletype == multistyle) {
+			retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, 0, &lst_selector);
+			if (retval && g_strcmp0(lst_selector, cmb_selector) != 0) {
+				row++;
+				continue;
+			}
+		}
+		retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, col, &lst_property);
+		if (retval && strcmp(lst_property, cmb_property) == 0) {
+			retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, col + 1, &lst_value);
+			if (retval && strcmp(lst_value, cmb_value) == 0) {
+				onlist = 1;
+				DEBUG_MSG("%s already on list.\n", cmb_property);
+				break;
 			} else {
-                onlist = 1;
-                DEBUG_MSG("%s already on list.\n", cmb_property);
-                diag->selected_row = row;
-                cs3d_add_to_update(diag, cmb_selector, cmb_property, lst_value, cmb_value);
-			    break;
-            }
-         }
-         DEBUG_MSG("clist %d contains: %s, %s\n", retval, lst_selector, lst_property); 
-         row++;
-    }
+				onlist = 1;
+				DEBUG_MSG("%s already on list.\n", cmb_property);
+				diag->selected_row = row;
+				cs3d_add_to_update(diag, cmb_selector, cmb_property, lst_value, cmb_value);
+				break;
+			}
+		}
+		DEBUG_MSG("clist %d contains: %s, %s\n", retval, lst_selector, lst_property); 
+		row++;
+	}
     
 	if(!onlist)
 		add_to_row(diag, -1);
 
-	if (cmb_selector)    g_free (cmb_selector);
+	if (cmb_selector)
+		g_free (cmb_selector);
 	g_free (cmb_property);
 	g_free (cmb_value);
 }
