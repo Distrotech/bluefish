@@ -204,11 +204,13 @@ void gui_notebook_move(Tbfwin *bfwin, gboolean move_left) {
 	DEBUG_MSG("gui_notebook_move, found scrolwin %p\n",tmp);
 	if (tmp) {
 		gint curpos, newpos;
-		GList *cur;
 		curpos = gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),tmp);
-		cur = g_list_nth(bfwin->documentlist, curpos);
 #ifdef DEVELOPMENT
-		if (!cur) exit(1);
+		{
+			GList *cur;
+			cur = g_list_nth(bfwin->documentlist, curpos);
+			if (!cur) exit(1);
+		}
 #endif
 		newpos = curpos + ((move_left) ? -1 : 1);
 		DEBUG_MSG("gui_notebook_move, cur=%d, new=%d (num_pages=%d)\n",curpos,newpos,gtk_notebook_get_n_pages(GTK_NOTEBOOK(bfwin->notebook)));
