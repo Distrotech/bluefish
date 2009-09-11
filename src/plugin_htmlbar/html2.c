@@ -1148,7 +1148,6 @@ void edit_color_dialog(Tdocument *doc, gchar *color, gint startpos, gint endpos)
 }
 
 void sel_colour_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	Tcolsel *csd;
 	gchar *tmpstr=NULL;
 	gint startpos=0;
 	gint endpos=0;
@@ -1175,10 +1174,9 @@ void sel_colour_cb(GtkWidget *widget, Tbfwin *bfwin) {
 		DEBUG_MSG("sel_colour_cb, NO selection found\n");
 	}
 
-	csd = colsel_dialog(bfwin, tmpstr, 0, startpos, endpos);
-	if (tmpstr) {
+	colsel_dialog(bfwin, tmpstr, 0, startpos, endpos);
+	if (tmpstr)
 		g_free(tmpstr);
-	}
 }
  
 gchar *return_color(gchar *start_value) {
