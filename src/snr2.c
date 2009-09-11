@@ -1973,7 +1973,7 @@ void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 void strip_trailing_spaces(Tdocument *doc) {
 	gint i=0,wstart=0,coffset=0;
 	gint start,end;
-	gchar *buf = doc_get_chars(doc,0,-1);
+	gchar *buf;
 	
 	if (!doc_get_selection(doc, &start, &end)) {
 		start=0;
