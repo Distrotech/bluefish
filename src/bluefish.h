@@ -34,10 +34,12 @@
 #ifdef WIN32
 #ifdef EXE_EXPORT_SYMBOLS
 #define EXPORT __declspec(dllexport)
-#else
+#else /* EXE_EXPORT_SYMBOLS */
 #define EXPORT __declspec(dllimport)
-#endif
-#endif
+#endif /* EXE_EXPORT_SYMBOLS */
+#else /* WIN32 */
+#define EXPORT
+#endif /* WIN32 */
 
 #ifdef HAVE_SYS_MSG_H
 #ifdef HAVE_MSGRCV
@@ -459,11 +461,7 @@ typedef struct {
 	regex_t find_encoding;
 } Tmain;
 
-#ifdef WIN32
 extern EXPORT Tmain *main_v;
-#else /* WIN32 */
-extern Tmain *main_v;
-#endif /* WIN32 */
 
 /* public functions from bluefish.c */
 void bluefish_exit_request(void);
