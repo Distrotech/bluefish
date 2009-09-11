@@ -825,7 +825,7 @@ void bookmark_menu_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 			} break;
 			case 2: 	/* previous */ {
 				GtkTreePath *path= gtk_tree_model_get_path(model,&iter);
-				success = gtk_tree_path_prev(path);
+				gtk_tree_path_prev(path);
 				success = gtk_tree_model_get_iter(model,&iter,path);
 				gtk_tree_path_free(path);
 			} break;
