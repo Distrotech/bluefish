@@ -739,7 +739,6 @@ static GtkTreeIter *fb2_build_dir(GFile * uri)
 			finfo = fake_directory_fileinfo(name);
 			parent = fb2_add_filesystem_entry(NULL, tmp, finfo, FALSE);
 			g_free(name);
-			parent_uri = tmp;
 			break;
 		} else {
 			g_object_unref(tmp);
