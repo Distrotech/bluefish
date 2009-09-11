@@ -112,12 +112,11 @@ static void externalp_unref(Texternalp *ep) {
 
 static gboolean start_command_write_lcb(GIOChannel *channel,GIOCondition condition,gpointer data) {
 	Texternalp *ep = data;
-	GIOStatus status;
 	GError *error=NULL;
 	gsize bytes_written=0;
 	DEBUG_MSG("start_command_write_lcb, started, still %d bytes to go\n",strlen(ep->buffer_out_position));
 
-	status = g_io_channel_write_chars(channel,ep->buffer_out_position,-1,&bytes_written,&error);
+	g_io_channel_write_chars(channel,ep->buffer_out_position,-1,&bytes_written,&error);
 	DEBUG_MSG("start_command_write_lcb, %d bytes written\n",bytes_written);
 	ep->buffer_out_position += bytes_written;
 	if (strlen(ep->buffer_out) <= (ep->buffer_out_position - ep->buffer_out)) {
@@ -350,6 +349,8 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	if (need_local && !localname) {
 		g_free(formatstring);
 		g_free(localname);
+
+		return NULL;
 	}
 
 	need_tmpin = (strstr(formatstring, "%I") != NULL);
