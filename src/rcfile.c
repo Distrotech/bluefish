@@ -684,7 +684,7 @@ gboolean rcfile_save_global_session(void) {
 	retval = save_config_file(configlist, filename);
 	free_configlist(configlist);
 	g_object_unref(filename);
-	return TRUE;
+	return retval;
 }
 /* should be called AFTER the normal properties are loaded, becauses return_session_configlist() uses
  settings from main_v->props */
