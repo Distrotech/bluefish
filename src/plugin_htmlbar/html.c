@@ -1418,7 +1418,6 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
       body = g_strconcat("&amp;body=", urlencoded, NULL);
     } else {
       body = g_strconcat("?body=", urlencoded, NULL);
-      have_questionmark = TRUE;     
     }   
   } else {
     body = g_strdup("");
@@ -1824,13 +1823,13 @@ void script_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[0], 2, 10, 0, 1);
 
 
-    tmplist = g_list_append(NULL, "javascript");
-    tmplist = g_list_append(tmplist, "javascript1.2");
-    tmplist = g_list_append(tmplist, "javascript1.1");
-    label = gtk_label_new_with_mnemonic(_("_Language:"));
-    tmplist2 = g_list_append(NULL, "application/javascript");
-    tmplist2 = g_list_append(NULL, "text/javascript");
-    tmplist2 = g_list_append(tmplist2, "application/x-javascript");
+  tmplist = g_list_append(NULL, "javascript");
+  tmplist = g_list_append(tmplist, "javascript1.2");
+  tmplist = g_list_append(tmplist, "javascript1.1");
+  label = gtk_label_new_with_mnemonic(_("_Language:"));
+  tmplist2 = g_list_append(NULL, "application/javascript");
+  tmplist2 = g_list_append(tmplist2, "text/javascript");
+  tmplist2 = g_list_append(tmplist2, "application/x-javascript");
   tmplist2 = g_list_append(tmplist2, "text/plain");
   tmplist2 = g_list_append(tmplist2, "text/html");
 
