@@ -1439,9 +1439,9 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChoose
 		hbox = gtk_hbox_new (FALSE, 6);
 		label = gtk_label_new_with_mnemonic(_("Character _Encoding:"));
 		store = gtk_list_store_new(3,
-															 G_TYPE_STRING,
-															 G_TYPE_POINTER,
-															 G_TYPE_BOOLEAN);
+				G_TYPE_STRING,
+				G_TYPE_POINTER,
+				G_TYPE_BOOLEAN);
 		for (tmplist=g_list_first(main_v->globses.encodings);tmplist;tmplist=tmplist->next){
 			GStrv arr = (GStrv) tmplist->data;
 			if (g_strv_length (arr) == 3 && g_ascii_strcasecmp(arr[2], "TRUE") == 0) {
@@ -1449,7 +1449,8 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChoose
 				gtk_list_store_append(store,&iter);
 				gtk_list_store_set(store,&iter,0,label,1,arr,-1);
 				g_free (label);
-				if (have_seliter==FALSE && bfwin->session->encoding && strcmp(arr[1],bfwin->session->encoding)==0) {
+				if (have_seliter==FALSE && bfwin && bfwin->session && bfwin->session->encoding &&
+						strcmp(arr[1],bfwin->session->encoding)==0) {
 					seliter = iter;
 					have_seliter = TRUE;
 				}
