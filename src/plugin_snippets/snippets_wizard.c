@@ -296,8 +296,8 @@ static gint snippets_test_pageSnr(Tsnipwiz *snwiz, gpointer data) {
 	
 	search = gtk_editable_get_chars(GTK_EDITABLE(p->searchpat),0,-1);
 	replace = gtk_editable_get_chars(GTK_EDITABLE(p->replace),0,-1);
-	tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"searchpat",(const xmlChar *)search);
-	tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"replacepat",(const xmlChar *)replace);
+	xmlNewChild(childn,NULL,(const xmlChar *)"searchpat",(const xmlChar *)search);
+	xmlNewChild(childn,NULL,(const xmlChar *)"replacepat",(const xmlChar *)replace);
 	for (i = 0; i <  6; i++) {
 		gchar *tmpstr;
 		tmpstr = gtk_editable_get_chars(GTK_EDITABLE(p->entries[i]),0,-1);
@@ -454,8 +454,8 @@ static gint snippets_test_pageInsert(Tsnipwiz *snwiz, gpointer data) {
 		xmlSetProp(childn, (const xmlChar *)"tooltip", (const xmlChar *)snwiz->description);
 	}
 	
-	tmpn = xmlNewTextChild(childn,NULL,(const xmlChar *)"before",(const xmlChar *)before);
-	tmpn = xmlNewTextChild(childn,NULL,(const xmlChar *)"after",(const xmlChar *)after);
+	xmlNewTextChild(childn,NULL,(const xmlChar *)"before",(const xmlChar *)before);
+	xmlNewTextChild(childn,NULL,(const xmlChar *)"after",(const xmlChar *)after);
 	for (i = 0; i <  10; i++) {
 		gchar *tmpstr;
 		tmpstr = gtk_editable_get_chars(GTK_EDITABLE(p2->entries[i]),0,-1);
