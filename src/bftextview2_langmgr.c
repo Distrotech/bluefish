@@ -825,8 +825,9 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 	}
 	tmp = lookup_user_option(bfparser->bflang->name,class);
 	tmp2 = lookup_user_option(bfparser->bflang->name,notclass);
-	if ((class && tmp && tmp[0]!='1')||(notclass &&tmp && tmp[0]=='1')){
+	if ((class && tmp && tmp[0]!='1')||(notclass && tmp2 && tmp2[0]=='1')){
 		DBG_PARSING("group disabled, class=%s, notclass=%s, skip to end of group, my depth=%d\n",class,notclass,depth);
+		printf("group disabled, class=%s, notclass=%s, skip to end of group, my depth=%d\n",class,notclass,depth);
 		skip_to_end_tag(reader, depth);
 	} else {
 		while (xmlTextReaderRead(reader)==1) {
@@ -1092,11 +1093,10 @@ Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype) {
 	bflang = g_hash_table_lookup(langmgr.bflang_lookup,mimetype);
 	if (bflang && bflang->filename && !bflang->st && !bflang->no_st && !bflang->parsing) {
 		GError *error=NULL;
-		GThread* thread;
 		bflang->parsing=TRUE;
 		DBG_MSG("no scantable in %p, start thread\n",bflang);
 		/*thread = g_thread_create(build_lang_thread,bflang,FALSE,&error);*/
-		thread = g_thread_create_full(build_lang_thread,bflang,0,FALSE,FALSE,G_THREAD_PRIORITY_LOW,&error);
+		g_thread_create_full(build_lang_thread,bflang,0,FALSE,FALSE,G_THREAD_PRIORITY_LOW,&error);
 		
 		if (error) {
 			DBG_PARSING("start thread, error\n");
