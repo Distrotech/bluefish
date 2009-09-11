@@ -325,7 +325,7 @@ static void snippetsmenu_cb(gpointer user_data, gpointer data) {
 }
 
 void snippets_show_as_menu(Tsnippetswin *snw, gboolean enable) {
-	if (snw && enable) {
+	if (enable) {
 		if (!snw->snippetsmenu) {
 			gint width = gdk_screen_get_width(gtk_window_get_screen(GTK_WINDOW(snw->bfwin->main_window)));
 			snw->snippetsmenu = snippets_menu_new(width);
