@@ -326,8 +326,7 @@ void snippets_export_node(xmlNodePtr node, const gchar *filename) {
 	
 	newnode = xmlDocCopyNode(node, newdoc, TRUE);
 	DEBUG_MSG("snippets_export_node, cur=%p, newdoc=%p, newnode=%p\n",cur,newdoc,newnode);
-	newnode =  xmlAddChild(cur,newnode);
-	DEBUG_MSG("snippets_export_node, cur=%p, newdoc=%p, newnode=%p\n",cur,newdoc,newnode);
+	xmlAddChild(cur, newnode);
 
 	xmlSaveFormatFile(filename, newdoc, 1);
 	xmlFreeDoc(newdoc);
