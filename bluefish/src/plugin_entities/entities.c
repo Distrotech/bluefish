@@ -253,11 +253,11 @@ gchar *entities_to_utf8(const gchar *inbuf) {
 			outbufloc += len;
 			unic = unichar_for_entity(entity, TRUE,TRUE,TRUE,TRUE,FALSE);
 			if (unic != -1) {
-				g_print("unic=%d for entity '%s'\n",unic,entity);
+				DEBUG_MSG("entities_to_utf8, unic=%d for entity '%s'\n",unic,entity);
 				memset(tmp, 0, 7);
-				len = g_unichar_to_utf8(unic, tmp);
-				/*g_print("tmp='%s', len=%d\n",tmp,len);*/
+				g_unichar_to_utf8(unic, tmp);
 				len = strlen(tmp);
+				DEBUG_MSG("entities_to_utf8, tmp='%s', len=%d\n",tmp,len);
 				memcpy(outbufloc, tmp, len);
 				outbufloc += len;
 			} else {
@@ -291,18 +291,16 @@ void doc_entities_to_utf8(Tdocument *doc, gint start, gint end, gboolean numeric
 		endfound = g_utf8_strchr(found,-1, ';');
 		if (endfound && endfound - found <= 7) {
 			gchar *entity;
-			gint len;
 			gunichar unic;
       
 			entity = g_strndup(found+1, (endfound-found)-1);
-			len = (found - prevfound);
 			unic = unichar_for_entity(entity,numerical,iso8859_1,symbols,specials,xml);
 			if (unic != -1) {
 				guint cfound,cendfound;
 				gchar tmp[7];
 				DEBUG_MSG("doc_entities_to_utf8, unic=%d for entity '%s'\n",unic,entity);
 				memset(tmp, 0, 7);
-				len = g_unichar_to_utf8(unic, tmp);
+				g_unichar_to_utf8(unic, tmp);
         
 				cfound = utf8_byteoffset_to_charsoffset_cached(buf, (found-buf));
 				cendfound = utf8_byteoffset_to_charsoffset_cached(buf, (endfound-buf));
