@@ -1002,7 +1002,7 @@ static gint search_multiple(Tbfwin *bfwin, gint startpos, gint endpos) {
 }
 
 static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, gint startpos, gint endpos, gboolean want_submatches) {
-	Tsearch_result result = {0,0,0,0,NULL,0};
+	Tsearch_result result = {0,0,0,0,NULL,0,0};
 	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
 		Tsearch_all_result result_all;
 		snr2_doc_remove_highlight(LASTSNR2(bfwin->snr2)->doc);
