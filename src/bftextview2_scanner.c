@@ -105,8 +105,9 @@ Tfoundstack *get_stackcache_at_position(BluefishTextView * btv, GtkTextIter *pos
 		} else {
 			DBG_SCANCACHE("no siter no stack\n");
 		}
-	} else
+	} else {
 		DBG_SCANCACHE("got begin iter..\n");
+	}
 	return fstack;
 }
 

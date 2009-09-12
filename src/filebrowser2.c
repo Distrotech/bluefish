@@ -869,11 +869,13 @@ static void fb2_focus_dir(Tfilebrowser2 * fb2, GFile * uri, gboolean noselect)
 						gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(fb2->dir_v), sort_path, 0, TRUE,
 													 0.5, 0.5);
 						gtk_tree_path_free(sort_path);
-					} else
+					} else {
 						DEBUG_MSG("fb2_focus_dir, no sort_path\n");
+					}
 					gtk_tree_path_free(filter_path);
-				} else
+				} else {
 					DEBUG_MSG("fb2_focus_dir, no filter_path\n");
+				}
 			} else {
 				/* 'uri' is not persistent, 'dir' is peristent, so only pass 'dir' 
 				   the "select" or "expand" signal (dual or tree view) will also refresh this directory, so 
@@ -2488,8 +2490,9 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		DEBUG_MSG("setting sort function\n");
 		gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(fb2->dir_tsort), FILENAME_COLUMN,
 										filebrowser_sort_func, NULL, NULL);
-	} else
+	} else {
 		DEBUG_MSG("sort alphabetical\n");
+	}
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->dir_tsort), FILENAME_COLUMN,
 										 GTK_SORT_ASCENDING);
 
