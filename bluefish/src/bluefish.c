@@ -228,7 +228,7 @@ int main(int argc, char *argv[])
 		{"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void *) cb_print_version,
 		 N_("Print version information."), NULL},
 		{G_OPTION_REMAINING, 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_FILENAME_ARRAY, &files,
-		 "Special option that collects any remaining arguments for us"},
+		 "Special option that collects any remaining arguments for us", NULL},
 		{NULL}
 	};
 
