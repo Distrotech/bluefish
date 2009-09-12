@@ -354,9 +354,10 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 static void print_fstack(Tfoundstack * fstack)
 {
 	DBG_MARGIN("got fstack %p for next position", fstack);
-	if (fstack)
+	if (fstack) {
 		DBG_MARGIN(" with line %d and charoffset %d and %d blocks", fstack->line, fstack->charoffset,
 				g_queue_get_length(fstack->blockstack));
+	}
 	DBG_MARGIN("\n");
 }
 

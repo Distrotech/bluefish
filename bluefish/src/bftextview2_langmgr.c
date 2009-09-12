@@ -869,8 +869,9 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 							,attrib_autocomplete_backup_cursor?attrib_autocomplete_backup_cursor:ih_attrib_autocomplete_backup_cursor
 							 );
 				}
-			} else
+			} else {
 				DBG_PARSING("found %s\n",name);
+			}
 			xmlFree(name);
 		}
 	}
@@ -939,8 +940,9 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 			DBG_PARSING("parsing context, end-of-context, return context %d\n",context);
 			g_queue_pop_head(contextstack);
 			return context;
-		} else
+		} else {
 			DBG_PARSING("parsing context, found %s\n",name);
+		}
 		xmlFree(name);
 	}
 	/* can we ever get here ?? */
@@ -1012,8 +1014,9 @@ static gpointer build_lang_thread(gpointer data)
 				} else if (xmlStrEqual(name2,(xmlChar *)"definition")) {
 					xmlFree(name2);
 					break;
-				} else
+				} else {
 					DBG_PARSING("build_lang_thread, within <definition>, found %s\n",name2);
+				}
 				xmlFree(name2);
 			}
 		} else if (xmlStrEqual(name,(xmlChar *)"properties")) {
