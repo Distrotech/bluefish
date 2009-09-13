@@ -93,7 +93,7 @@ static gchar *entities_xml[] = {
 /*
 * the unicode characters for iso8859_1 are 161 + the index in the array
 */
-static guint entity_unicode_symbols[] = {
+static gint16 entity_unicode_symbols[] = {
 	402, 913, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 931,
 		932, 933, 934, 935, 936, 937, 945, 946, 947, 948, 949, 950, 951, 952, 953, 954, 955, 956,
 		957, 958, 959, 960, 961, 962, 963, 964, 965, 966, 967, 968, 977, 978, 982, 8226, 8230, 8242,
@@ -103,15 +103,15 @@ static guint entity_unicode_symbols[] = {
 		8801, 8804, 8805, 8834, 8835, 8836, 8838, 8839, 8853, 8855, 8869, 8901, 8968, 8969, 8970,
 		8971, 9001, 9002, 9674, 9824, 9827, 9829, 9830, -1
 };
-static guint entity_unicode_special[] = {
+static gint16 entity_unicode_special[] = {
 	338, 339, 352, 353, 376, 710, 732, 8194, 8195, 8201, 8204, 8205, 8206, 8207,
 		8211, 8212, 8216, 8217, 8218, 8220, 8221, 8222, 8224, 8225, 8240, 8249, 8250, 8364, -1
 };
-static guint entity_unicode_xml[] = {
+static gint16 entity_unicode_xml[] = {
 	160, '"', '&', '<', '>', '\'', -1
 };
-/* retuerns -1 if index not found */
-static gint index_in_array(gchar **arr,gchar *string) {
+/* returns -1 if index not found */
+static gint16 index_in_array(gchar **arr,gchar *string) {
 	gint i;
 	for (i=0;arr[i]!=NULL;i++) {
 		if (strcmp(arr[i],string)==0) {
@@ -121,7 +121,7 @@ static gint index_in_array(gchar **arr,gchar *string) {
 	return -1;
 }
 
-static gint index_in_array2(guint *arr, guint val) {
+static gint index_in_array2(gint16 *arr, guint val) {
 	gint i;
 	for (i=0;arr[i]!=-1;i++) {
 		if (arr[i]==val) {
@@ -132,7 +132,7 @@ static gint index_in_array2(guint *arr, guint val) {
 }
 
 gunichar unichar_for_entity(gchar *entity,gboolean numerical, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml) {
-	gint indx;
+	gint16 indx;
 	if (!entity) return -1;
 	if (entity[0] == '#') {
 		if (numerical) {
@@ -175,7 +175,7 @@ gunichar unichar_for_entity(gchar *entity,gboolean numerical, gboolean iso8859_1
 }
 
 gchar *entity_for_unichar(gunichar uchar, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml) {
-	gint indx;
+	gint16 indx;
 	if (iso8859_1 && uchar >= 161 && uchar < 255) {
 		return entities_iso8859_1[uchar - 161];
 	}
