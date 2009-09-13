@@ -85,10 +85,12 @@ static void unregroup_destroy(unregroup_t *to_remove) {
 static void doc_unre_destroy_last_group(Tdocument *doc) {
 	DEBUG_MSG("doc_unre_destroy_last_group, called, last=%p\n", doc->unre.last);
 	if (doc->unre.last) {
-		/* Don't we need to reverse the list first? g_list_remove will remove
-		 * the first node matching to_remove. */
+		GList *dummy;
+		/* a variable to get rid of the compiler warning, can we do this in a more nice way? 
+		I tried a typecast but that didn't work */
 		unregroup_t *to_remove = doc->unre.last->data;
-		doc->unre.last = g_list_last(g_list_remove(g_list_previous(doc->unre.last), to_remove));
+		doc->unre.last = g_list_previous(doc->unre.last);
+		dummy = g_list_remove(doc->unre.last, to_remove);
 		doc->unre.num_groups--;
 		unregroup_destroy(to_remove);
 	}
