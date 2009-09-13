@@ -344,8 +344,8 @@ static void cs3d_ok_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 		gint retval=1, row=0;
 		while (retval) {
 			gchar *text[4];
-			retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, 0, &text[0]);
-			retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, 1, &text[1]);
+			retval = (gtk_clist_get_text(GTK_CLIST(diag->clist), row, 0, &text[0]) 
+						&& gtk_clist_get_text(GTK_CLIST(diag->clist), row, 1, &text[1]));
 			if (retval) {
 				tmpbuf1 = g_strconcat(tmpbuf2, text[0], ": ", text[1], "; ", NULL);
 				g_free(tmpbuf2);
@@ -361,9 +361,9 @@ static void cs3d_ok_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 		gint retval=1, row=0;
 		while (retval) {
 			gchar *text[4];
-			retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, 0, &text[0]);
-			retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, 1, &text[1]);
-			retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, 2, &text[2]);
+			retval = (gtk_clist_get_text(GTK_CLIST(diag->clist), row, 0, &text[0])
+					&& gtk_clist_get_text(GTK_CLIST(diag->clist), row, 1, &text[1])
+					&& gtk_clist_get_text(GTK_CLIST(diag->clist), row, 2, &text[2]));
 			if (retval) {
 				if (!prev_selector) {
 					prev_selector = g_strdup(text[0]);
