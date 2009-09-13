@@ -57,11 +57,16 @@ void html_diag_cancel_clicked_cb(GtkWidget *widget, gpointer data) {
 Thtml_diag *html_diag_new(Tbfwin *bfwin, gchar *title) {
 	Thtml_diag *dg;
 	
+	if (!bfwin) {
+		g_warning("plugin_htmlbar: bfwin may not be NULL in html_diag_new()\n");
+		return NULL;
+	}
+	
 	dg = g_malloc(sizeof(Thtml_diag));
 	dg->tobedestroyed = FALSE;
 	DEBUG_MSG("html_diag_new, dg=%p\n",dg);
 	dg->dialog = window_full2(title, GTK_WIN_POS_MOUSE
-		, 12,G_CALLBACK(html_diag_destroy_cb), dg, TRUE,  bfwin ? bfwin->main_window : NULL);
+		, 12,G_CALLBACK(html_diag_destroy_cb), dg, TRUE,  bfwin->main_window);
 	gtk_window_set_type_hint(GTK_WINDOW(dg->dialog), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_window_set_role(GTK_WINDOW(dg->dialog), "html_dialog");
 	dg->vbox = gtk_vbox_new(FALSE, 1);
