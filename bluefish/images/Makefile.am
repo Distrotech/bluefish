@@ -1,10 +1,12 @@
 
 EXTRA_DIST = \
-	$(appsiconsvg_DATA) \
-	$(mimeiconsvg_DATA) \
 	$(APPS_PICS) \
+	$(APPS_SVG) \
 	$(MIME_PICS) \
+	$(MIME_SVG) \
 	$(SPLASH_PICS)
+
+APPS_SVG = bluefish-icon.svg
 
 APPS_PICS = \
 	bluefish-icon_16.png \
@@ -17,6 +19,8 @@ APPS_PICS = \
 	bluefish-icon_96.png \
 	bluefish-icon_128.png \
 	bluefish-icon_192.png
+
+MIME_SVG = bluefish-project.svg
 
 MIME_PICS = \
 	bluefish-project_16.png \
@@ -42,10 +46,10 @@ ICON_SIZES = 16 22 32 36 48 64 72 96 128 192
 
 if INSTALL_THEMEICONS
 appsiconsvgdir = $(iconthemepath)/scalable/apps
-appsiconsvg_DATA = bluefish-icon.svg
+appsiconsvg_DATA = $(APPS_SVG)
 
 mimeiconsvgdir = $(iconthemepath)/scalable/mimetypes
-mimeiconsvg_DATA = bluefish-project.svg
+mimeiconsvg_DATA = $(MIME_SVG)
 endif #INSTALL_THEMEICONS
 
 
