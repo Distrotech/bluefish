@@ -851,6 +851,7 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 		pos = newpos;
 	}
 	g_queue_free(contextstack);
+	DBG_AUTOCOMP("scan_for_autocomp_prefix, return mstart at %d, cursor at %d, context %d\n",gtk_text_iter_get_offset(mstart),gtk_text_iter_get_offset(cursorpos),*contextnum);
 }
 
 gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter *position,gint *contextnum) {

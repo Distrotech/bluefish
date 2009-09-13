@@ -296,12 +296,15 @@ static gboolean acwin_position_at_cursor(BluefishTextView *btv) {
 }
 
 /* not only fills the tree, but calculates and sets the required width as well */
-static void acwin_fill_tree(Tacwin *acw, GList *items) {
+static void acwin_fill_tree(Tacwin *acw, GList *items, gchar *closetag) {
 	GList *tmplist,*list;
 	gchar *longest=NULL;
 	guint numitems=0,longestlen=1;
-
-	list = tmplist = g_list_sort(g_list_copy(items), (GCompareFunc) g_strcmp0);
+	if (items)
+		list = g_list_prepend(g_list_copy(items), closetag);
+	else
+		list = g_list_prepend(NULL, closetag);
+	list = tmplist = g_list_sort(list, (GCompareFunc) g_strcmp0);
 	while (tmplist && numitems < 50)	{
 		GtkTreeIter it;
 		gchar *tmp;
@@ -353,6 +356,7 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 	GtkTextBuffer *buffer;
 	gint contextnum;
 	gunichar uc;
+	Tfoundblock *fblock=NULL; /* needed for the special case to close generix xml tags based on the top of the blockstack */
 
 	if (!btv->bflang || !btv->bflang->st)
 		return;
@@ -380,18 +384,57 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 		return;
 	}
 
-	if ((user_requested || !gtk_text_iter_equal(&iter,&cursorpos)) && g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac != NULL) {
-		/* we have a prefix or it is user requested, and we have a context with autocompletion */
-		gchar *newprefix, *prefix;
-		GList *items;
-
+	if (g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).has_tagclose_from_blockstack) {
+		Tfoundstack *fstack;
+		GSequenceIter *siter=NULL;
+		fstack = get_stackcache_at_position(btv, &cursorpos, &siter);
+		fblock = g_queue_peek_head(fstack->blockstack);
+		DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n", fblock->patternum, g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).tagclose_from_blockstack);
+/*		if (g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).tagclose_from_blockstack) {
+			gchar *start; 
+			gtk_text_buffer_get_iter_at_mark(buffer, &it1, fblock->start1);
+			gtk_text_buffer_get_iter_at_mark(buffer, &it2, fblock->end1);
+			gtk_text_iter_forward_char(&it1);
+			start = gtk_text_buffer_get_text(buffer,&it1,&it2,TRUE);
+			g_print("close tag %s\n",start);
+			g_free(start);
+		}*/
+	}
+	if ((user_requested || !gtk_text_iter_equal(&iter,&cursorpos)) 
+		&& (g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac != NULL
+			|| (fblock && g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).tagclose_from_blockstack)
+			)
+		) {
+		/* we have a prefix or it is user requested, and we have a context with autocompletion or we have blockstack-tag-auto-closing */
+		gchar *newprefix=NULL, *prefix, *closetag=NULL;
+		GList *items=NULL;
 		/*print_ac_items(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac);*/
 
 		prefix = gtk_text_buffer_get_text(buffer,&iter,&cursorpos,TRUE);
-		items = g_completion_complete(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac,prefix,&newprefix);
-		DBG_AUTOCOMP("got %d autocompletion items for prefix %s in context %d, newprefix=%s\n",g_list_length(items),prefix,contextnum,newprefix);
+		
+		if (fblock) {
+			gchar *tmp;
+			gint plen;
+			GtkTextIter it1,it2;
+			gtk_text_buffer_get_iter_at_mark(buffer, &it1, fblock->start1);
+			gtk_text_buffer_get_iter_at_mark(buffer, &it2, fblock->end1);
+			gtk_text_iter_forward_char(&it1);
+			tmp = gtk_text_buffer_get_text(buffer,&it1,&it2,TRUE);
+			closetag = g_strconcat("</",tmp,">",NULL);
+			g_free(tmp);
+			DBG_AUTOCOMP("closetag=%s, prefix=%s\n",closetag,prefix);
+			plen = strlen(prefix);
+			if (plen == strlen(closetag) || strncmp(closetag, prefix, plen)!=0) {
+				g_free(closetag);
+				closetag=NULL;
+			}
+		}
+		if (g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac) {
+			items = g_completion_complete(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac,prefix,&newprefix);
+			DBG_AUTOCOMP("got %d autocompletion items for prefix %s in context %d, newprefix=%s\n",g_list_length(items),prefix,contextnum,newprefix);
+		}
 
-		if (items!=NULL && (items->next != NULL || strcmp(items->data,prefix)!=0) ) {
+		if (closetag || (items!=NULL && (items->next != NULL || strcmp(items->data,prefix)!=0)) ) {
 					/* do not popup if there are 0 items, and also not if there is 1 item which equals the prefix */
 			GtkTreeSelection *selection;
 			GtkTreeIter it;
@@ -406,8 +449,10 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 			}
 			ACWIN(btv->autocomp)->contextnum = contextnum;
 			ACWIN(btv->autocomp)->prefix = g_strdup(prefix);
-			ACWIN(btv->autocomp)->newprefix = g_strdup(newprefix);
-			acwin_fill_tree(ACWIN(btv->autocomp), items);
+			if (newprefix) {
+				ACWIN(btv->autocomp)->newprefix = g_strdup(newprefix);
+			}
+			acwin_fill_tree(ACWIN(btv->autocomp), items, closetag);
 			below = acwin_position_at_cursor(btv);
 			gtk_widget_show(ACWIN(btv->autocomp)->win);
 			selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
@@ -422,6 +467,7 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 				gtk_tree_path_free(path);
 			}
 			gtk_tree_selection_select_iter(selection, &it);
+			g_free(closetag);
 		} else {
 			acwin_cleanup(btv);
 		}

@@ -204,9 +204,10 @@ typedef struct {
 					for this context. The identifier state is a state that refers to itself for all characters
 					except the characters (symbols) thay may be the begin or end of an identifier such
 					as whitespace, ();[]{}*+-/ etc. */
-#ifdef HAVE_LIBENCHANT_OLD
+	guint8 has_tagclose_from_blockstack; /* this context has xml end patterns that need autoclosing for generix xml tags, based on the tag that is on top of the blockstack */
+/*#ifdef HAVE_LIBENCHANT_OLD
 	guint8 needspellcheck;
-#endif /*HAVE_LIBENCHANT*/
+#endif / *HAVE_LIBENCHANT*/
 } Tcontext;
 
 typedef struct {
@@ -215,9 +216,7 @@ typedef struct {
 	the region within the start and end pattern with this tag */
 	gchar *reference; /* the reference data, or NULL. may be inserted in hash tables for multiple keys in multiple contexts */
 	gchar *pattern; /* the pattern itself. stored in the Tpattern so we can re-use it in another context */
-	gboolean autocomplete; /* whether or not this pattern should be added to the autocompletion; stored in the Tpattern so we can re-use it in another context */
 	gchar *autocomplete_string;
-	gint autocomplete_backup_cursor;
 	gchar *selfhighlight; /* a string with the highlight for this pattern. used when re-linking highlights and textstyles 
 							if the user changed any of these in the preferences */
 	gchar *blockhighlight; /* a string for the highlight corresponding to the  blocktag */
@@ -229,6 +228,9 @@ typedef struct {
 	guint8 ends_block; /* wether or not this pattern may end a block */
 	guint8 case_insens;
 	guint8 is_regex;
+	guint8 autocomplete; /* whether or not this pattern should be added to the autocompletion; stored in the Tpattern so we can re-use it in another context */
+	guint8 autocomplete_backup_cursor; /* number of characters to backup the cursor after autocompletion (max 256) */
+	guint8 tagclose_from_blockstack; /* this is a generix xml close tag that needs the blockstack to autoclose */
 	/*gboolean may_fold;  not yet used */
 	/*gboolean highlight_other_end; not yet used */
 } Tpattern;
