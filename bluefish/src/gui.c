@@ -260,6 +260,11 @@ static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpo
 	}
 }
 
+static void leftpanel_notebook_swich_lcb(GtkNotebook *notebook,GtkNotebookPage *page,guint page_num,gpointer user_data) {
+	Tbfwin *bfwin =BFWIN(user_data);
+	bfwin->session->leftpanel_active_tab = page_num;
+}
+
 GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	GtkWidget *bmarks;
 	GtkWidget *fb2g;
@@ -287,7 +292,8 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	}
 	
 	gtk_widget_show_all(bfwin->leftpanel_notebook);
-	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->leftpanel_notebook),0);
+	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->leftpanel_notebook),bfwin->session->leftpanel_active_tab);
+	g_signal_connect(G_OBJECT(bfwin->leftpanel_notebook), "switch-page", G_CALLBACK(leftpanel_notebook_swich_lcb), bfwin);
 	return bfwin->leftpanel_notebook;
 }
 
@@ -325,7 +331,7 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 	}
 }
 
-void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show, gboolean sync_menu) {
+gboolean left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show, gboolean sync_menu) {
 	DEBUG_MSG("left_panel_show_hide_toggle, bfwin=%p, first_time=%d, show=%d, sync_menu=%d\n",bfwin,first_time,show,sync_menu);
 	if (sync_menu) {
 		DEBUG_MSG("left_panel_show_hide_toggle, trying to sync menu\n");
@@ -333,7 +339,7 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 	}
 	if (!first_time && ((show && bfwin->hpane) || (!show && bfwin->hpane == NULL))) {
 		DEBUG_MSG("left_panel_show_hide_toggle, retrurning!!, show=%d, bfwin->hpane=%p, first_time=%d\n",show,bfwin->hpane,first_time);
-		return;
+		return FALSE;
 	} 
 
 	if (!first_time) {
@@ -376,6 +382,7 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 	if (!first_time) {
 		gtk_widget_unref(bfwin->notebook_box);
 	}
+	return TRUE;
 }
 
 void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
@@ -674,7 +681,11 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 
 void gui_apply_session(Tbfwin *bfwin) {
 	gui_set_main_toolbar_visible(bfwin, bfwin->session->view_main_toolbar, TRUE);
-	left_panel_show_hide_toggle(bfwin,FALSE,bfwin->session->view_left_panel, TRUE);
+	if (!left_panel_show_hide_toggle(bfwin,FALSE,bfwin->session->view_left_panel, TRUE)) {
+		if (bfwin->leftpanel_notebook) {
+			gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->leftpanel_notebook),bfwin->session->leftpanel_active_tab);	
+		}
+	}
 	gui_statusbar_show_hide_toggle(bfwin, bfwin->session->view_statusbar, TRUE);
 	fb2_update_settings_from_session(bfwin);
 	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);

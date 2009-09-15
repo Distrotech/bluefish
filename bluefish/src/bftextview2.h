@@ -224,12 +224,14 @@ typedef struct {
 	gint16 blockstartpattern; /* the number of the pattern that may start this block, or -1 to end the last started block */
 	gint16 nextcontext; /* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
 			to pop a context of the stack */
+	guint8 autocomplete_backup_cursor; /* number of characters to backup the cursor after autocompletion (max 256) */
+	/* TODO:  all following guint8 entries are booleans that can be combined into a single 8 bits integer with a bitmask */ 
 	guint8 starts_block; /* wether or not this pattern may start a block */
 	guint8 ends_block; /* wether or not this pattern may end a block */
 	guint8 case_insens;
 	guint8 is_regex;
 	guint8 autocomplete; /* whether or not this pattern should be added to the autocompletion; stored in the Tpattern so we can re-use it in another context */
-	guint8 autocomplete_backup_cursor; /* number of characters to backup the cursor after autocompletion (max 256) */
+
 	guint8 tagclose_from_blockstack; /* this is a generix xml close tag that needs the blockstack to autoclose */
 	/*gboolean may_fold;  not yet used */
 	/*gboolean highlight_other_end; not yet used */
@@ -273,7 +275,7 @@ typedef struct {
 	gint16 patternum; /* which pattern (number of the array element in scantable->matches) */
 	guint16 refcount; /* free on 0 */
 	guint8 folded;
-	guint8 foldable; /* perhaps on a single line ? */
+	guint8 foldable; /* perhaps on a single line ? TODO: is this used??? */
 } Tfoundblock; /* once a start-of-block is found start1 and end1 are set
 						and the Tfoundblock is added to the GtkTextMark's as "block"
 						and the Tfoundblock is added to the current blockstack.

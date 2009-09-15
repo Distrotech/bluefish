@@ -314,6 +314,7 @@ typedef struct {
 	gint filebrowser_viewmode; /* 0=tree, 1=dual or 2=flat */
 	gint snr_position_x;
 	gint snr_position_y;
+	gint leftpanel_active_tab;
 	gint view_left_panel;     /* view filebrowser/functionbrowser etc. */
 	gint view_main_toolbar;   /* view main toolbar */
 	gint view_statusbar;

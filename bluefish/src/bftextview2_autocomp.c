@@ -297,13 +297,13 @@ static gboolean acwin_position_at_cursor(BluefishTextView *btv) {
 
 /* not only fills the tree, but calculates and sets the required width as well */
 static void acwin_fill_tree(Tacwin *acw, GList *items, gchar *closetag) {
-	GList *tmplist,*list;
+	GList *tmplist,*list=NULL;
 	gchar *longest=NULL;
 	guint numitems=0,longestlen=1;
 	if (items)
-		list = g_list_prepend(g_list_copy(items), closetag);
-	else
-		list = g_list_prepend(NULL, closetag);
+		list = g_list_copy(items);
+	if (closetag)
+		list = g_list_prepend(list, closetag);
 	list = tmplist = g_list_sort(list, (GCompareFunc) g_strcmp0);
 	while (tmplist && numitems < 50)	{
 		GtkTreeIter it;
