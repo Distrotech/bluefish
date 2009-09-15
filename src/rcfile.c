@@ -606,6 +606,7 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 	init_prop_integer   (&configlist, &session->adv_open_matchname, "adv_open_matchname:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->adv_open_recursive, "adv_open_recursive:", 0, FALSE);
 	init_prop_string    (&configlist, &session->last_filefilter, "last_filefilter:", "");
+	init_prop_integer   (&configlist, &session->leftpanel_active_tab, "leftpanel_active_tab:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->view_main_toolbar, "view_main_toolbar:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->view_left_panel, "view_left_panel:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->view_statusbar, "view_statusbar:", 1, FALSE);

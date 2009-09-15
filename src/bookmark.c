@@ -1195,9 +1195,6 @@ void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
 					}
 				}
 				mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
-#ifdef USE_BFTEXTVIEW2
-				/* TODO, set symbol ?? */
-#endif
 			}
 			cont2 =
 				gtk_tree_model_iter_next(GTK_TREE_MODEL
@@ -1372,11 +1369,6 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	if (!m->is_temp) {
 		bmark_store(BFWIN(doc->bfwin), m);
 	}
-#ifdef USE_BFTEXTVIEW2
-	/* TODO */
-#else
-	bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it),TRUE);
-#endif
 	gtk_widget_queue_draw(doc->view);	
 }
 
