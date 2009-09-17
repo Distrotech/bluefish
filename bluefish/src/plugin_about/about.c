@@ -71,6 +71,7 @@ static void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget
     "Olivier Sessink <olivier@bluefish.openoffice.nl> (Project leader)",
     "Jim Hayward <jimhayward@linuxexperience.net>",
     "Daniel Leidert <daniel.leidert@wgdd.de>",
+    "Shawn Novak <kernel86@gmail.com>",
     _("\nDevelopers of previous releases:"),
     "Alastair Porter <alastair@porter.net.nz>",
     "Antti-Juhani Kaijanaho",
