@@ -518,7 +518,11 @@ static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widg
 static void entity_init(void) {
 #ifdef ENABLE_NLS
 	DEBUG_MSG("entity_init, gettext domain-name=%s\n",PACKAGE"_plugin_entities");
+#ifdef WIN32
+	bindtextdomain(PACKAGE"_plugin_entities", LOCALE_DIR);
+#else
 	bindtextdomain(PACKAGE"_plugin_entities", LOCALEDIR);
+#endif
 	bind_textdomain_codeset(PACKAGE"_plugin_entities", "UTF-8");
 #endif /* ENABLE_NLS */
 	entities_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,

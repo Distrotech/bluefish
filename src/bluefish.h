@@ -32,11 +32,19 @@
 #define BLUEFISH_SPLASH_FILENAME PKGDATADIR"/bluefish_splash.png"
 
 #ifdef WIN32
+#include <windows.h>
 #ifdef EXE_EXPORT_SYMBOLS
 #define EXPORT __declspec(dllexport)
 #else /* EXE_EXPORT_SYMBOLS */
 #define EXPORT __declspec(dllimport)
 #endif /* EXE_EXPORT_SYMBOLS */
+#ifndef __G_LIB_H__
+#include <glib.h>
+#endif
+gchar *PKG_DATA_DIR;
+gchar *PKG_LIB_DIR;
+gchar *LOCALE_DIR;
+gchar *BLUEFISH_PNG_PATH;
 #else /* WIN32 */
 #define EXPORT
 #endif /* WIN32 */

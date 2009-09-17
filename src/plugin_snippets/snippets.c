@@ -26,6 +26,7 @@
 #include "../rcfile.h"
 #include "../document.h"
 #include "../bf_lib.h"
+#include "../bluefish.h"
 #include "snippets_gui.h"
 #include "snippets_load.h"
 Tsnippets snippets_v;
@@ -33,7 +34,11 @@ Tsnippets snippets_v;
 static void snippets_init(void) {
 #ifdef ENABLE_NLS
 	DEBUG_MSG("snippets_init, gettext domain-name=%s\n",PACKAGE"_plugin_snippets");
+#ifdef WIN32
+	bindtextdomain(PACKAGE"_plugin_snippets", LOCALE_DIR);
+#else
 	bindtextdomain(PACKAGE"_plugin_snippets", LOCALEDIR);
+#endif
 	bind_textdomain_codeset(PACKAGE"_plugin_snippets", "UTF-8");
 #endif
 	snippets_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,
