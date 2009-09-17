@@ -715,8 +715,7 @@ gboolean rcfile_parse_global_session(void) {
 	}
 	if (main_v->globses.encodings == NULL) {
 #ifdef WIN32
-		gchar *pkgtmp = g_malloc0(MAX_PATH+1);
-		pkgtmp = g_strconcat(PKG_DATA_DIR, "/encodings", NULL);
+		gchar *pkgtmp = g_strconcat(PKG_DATA_DIR, "/encodings", NULL);
 		GFile *defaultfile = return_first_existing_filename(pkgtmp,"data/encodings","../data/encodings",NULL);
 		g_free(pkgtmp);
 #else
