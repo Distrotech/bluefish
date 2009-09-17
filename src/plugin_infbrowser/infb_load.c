@@ -160,8 +160,7 @@ void infb_load(void) {
 
 	if ( infb_v.homeDoc != NULL ) xmlFreeDoc(infb_v.homeDoc);
 #ifdef WIN32
-	gchar *pkgtmp = g_malloc0(MAX_PATH+1);
-	g_strconcat(PKG_DATA_DIR, "/bflang/", NULL);
+	gchar *pkgtmp = g_strconcat(PKG_DATA_DIR, "/bflang/", NULL);
 	infb_rescan_dir(pkgtmp);
 	g_free(pkgtmp);
 #else

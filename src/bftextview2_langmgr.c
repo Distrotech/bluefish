@@ -1336,8 +1336,7 @@ void langmgr_init(void) {
 	scan_bflang2files(homebfdir);
 	g_free(homebfdir);
 #ifdef WIN32
-	gchar *pkgtmp = g_malloc0(MAX_PATH+1);
-	g_strconcat(PKG_DATA_DIR, "/bflang/", NULL);
+	gchar *pkgtmp = g_strconcat(PKG_DATA_DIR, "/bflang/", NULL);
 	scan_bflang2files(pkgtmp);
 	g_free(pkgtmp);
 #else

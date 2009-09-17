@@ -235,10 +235,10 @@ int main(int argc, char *argv[])
 			}
 		}
 
-		PKG_DATA_DIR = g_strconcat(cwd, "/share/"PACKAGE"/", NULL);
-		PKG_LIB_DIR = g_strconcat(cwd, "/lib/"PACKAGE"/", NULL);
+		PKG_DATA_DIR = g_strconcat(cwd, "/share/"PACKAGE, NULL);
+		PKG_LIB_DIR = g_strconcat(cwd, "/lib/"PACKAGE, NULL);
 		LOCALE_DIR = g_strconcat(cwd, "/share/locale", NULL);
-		BLUEFISH_PNG_PATH = g_strconcat(PKG_DATA_DIR, "bluefish_splash.png", NULL);
+		BLUEFISH_PNG_PATH = g_strconcat(PKG_DATA_DIR, "/bluefish_splash.png", NULL);
 
 		g_free(cwd);
 	}
