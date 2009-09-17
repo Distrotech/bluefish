@@ -212,8 +212,57 @@ static gboolean startup_in_idle(gpointer data) {
 	return TRUE;	
 }
 
+void bf_set_cwd(const char* appPath){
+	if (appPath){
+		gchar *cwd = g_malloc0(strlen(appPath+1));
+		strncpy(cwd, appPath, (strrchr(appPath,'\\')-appPath));
+		if (cwd){
+			SetCurrentDirectory(cwd);
+			_chdir(cwd);
+			DEBUG_MSG("Current directory set to: %s\n", cwd);
+		}
+		g_free(cwd);
+	}
+}
+
 int main(int argc, char *argv[])
 {
+/* Dynamically create paths for Win32 */	
+#ifdef WIN32
+ 	gchar *path = g_malloc0(MAX_PATH+1);
+	if (GetModuleFileName(NULL, path, MAX_PATH)) {
+		/* set current working directory */
+		gchar *cwd = g_malloc0(strlen(path+1));
+		strncpy(cwd, path, (strrchr(path,'\\')-path));
+		if (cwd) {
+			SetCurrentDirectory(cwd);
+			DEBUG_MSG("Current directory set to: %s\n", cwd);
+		}
+
+		/* create other paths */	
+		gint i,len = strlen(cwd);
+		for (i = 0; i < len; i++)
+		{
+			if (cwd[i] == (gint)'\\') {
+				cwd[i] = (gint)'/';
+			}
+		}
+
+		PKG_DATA_DIR = g_strconcat(cwd, "/share/"PACKAGE"/", NULL);
+		PKG_LIB_DIR = g_strconcat(cwd, "/lib/"PACKAGE"/", NULL);
+		LOCALE_DIR = g_strconcat(cwd, "/share/locale", NULL);
+		BLUEFISH_PNG_PATH = g_strconcat(PKG_DATA_DIR, "bluefish_splash.png", NULL);
+
+		g_free(cwd);
+	}
+	else {
+		g_print("Configuration file(s) could not be found.\nExiting now.\n");
+		g_free(path);
+		bluefish_exit_request();	
+	}
+	g_free(path);
+#endif
+
 	gboolean arg_curwindow = FALSE, arg_newwindow=FALSE;
 	gchar **files = NULL;
 	Tstartup *startup;
@@ -234,8 +283,13 @@ int main(int argc, char *argv[])
 
 #ifdef ENABLE_NLS
 	setlocale(LC_ALL, "");
+#ifdef WIN32
+	bindtextdomain(PACKAGE, LOCALE_DIR);
+	DEBUG_MSG("set bindtextdomain for %s to %s\n", PACKAGE, LOCALE_DIR);
+#else
 	bindtextdomain(PACKAGE, LOCALEDIR);
 	DEBUG_MSG("set bindtextdomain for %s to %s\n", PACKAGE, LOCALEDIR);
+#endif
 	bind_textdomain_codeset(PACKAGE, "UTF-8");
 	textdomain(PACKAGE);
 #endif							/* ENABLE_NLS */

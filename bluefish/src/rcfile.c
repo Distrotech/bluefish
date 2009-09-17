@@ -714,7 +714,14 @@ gboolean rcfile_parse_global_session(void) {
 		main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
 	}
 	if (main_v->globses.encodings == NULL) {
+#ifdef WIN32
+		gchar *pkgtmp = g_malloc0(MAX_PATH+1);
+		pkgtmp = g_strconcat(PKG_DATA_DIR, "/encodings", NULL);
+		GFile *defaultfile = return_first_existing_filename(pkgtmp,"data/encodings","../data/encodings",NULL);
+		g_free(pkgtmp);
+#else
 		GFile *defaultfile = return_first_existing_filename(PKGDATADIR"/encodings","data/encodings","../data/encodings",NULL);
+#endif
 		if (defaultfile) { 
 			main_v->globses.encodings = get_list(defaultfile,NULL,TRUE);
 			g_object_unref(defaultfile);

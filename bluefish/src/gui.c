@@ -1165,7 +1165,11 @@ GtkWidget *start_splash_screen() {
 			gtk_widget_show(image);
 		}
 	}*/
+#ifdef WIN32
+	image = gtk_image_new_from_file(BLUEFISH_PNG_PATH);
+#else
 	image = gtk_image_new_from_file(BLUEFISH_SPLASH_FILENAME);
+#endif
 	gtk_box_pack_end(GTK_BOX(vbox), image, FALSE, FALSE, 0);
 	gtk_widget_show(image);
 	gtk_widget_show(splashscreen.window);

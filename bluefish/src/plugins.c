@@ -171,7 +171,11 @@ void bluefish_load_plugins(void) {
 	DEBUG_MSG("bluefish_load_plugins, oldlist %p len=%d\n",oldlist,g_list_length(oldlist));
 	main_v->props.plugin_config = NULL;
 
+#ifdef WIN32
+	bluefish_scan_dir_load_plugins(&oldlist,PKG_LIB_DIR);
+#else
 	bluefish_scan_dir_load_plugins(&oldlist,PKGLIBDIR);
+#endif
 /* #ifdef DEVELOPMENT */
 	{
 		gchar*dir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/",NULL);

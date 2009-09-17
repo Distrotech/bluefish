@@ -25,6 +25,7 @@
 #include "../rcfile.h"
 #include "../document.h"
 #include "../gtk_easy.h"
+#include "../bluefish.h"
 #include "htmlbar_gui.h"
 #include "rpopup.h"
 Thtmlbar htmlbar_v;
@@ -69,7 +70,11 @@ static void htmlbar_doc_view_button_press(GtkWidget *widget,GdkEventButton *beve
 static void htmlbar_init(void) {
 #ifdef ENABLE_NLS
 	DEBUG_MSG("htmlbar_init, gettext domain-name=%s\n",PACKAGE"_plugin_htmlbar");
+#ifdef WIN32
+	bindtextdomain(PACKAGE"_plugin_htmlbar", LOCALE_DIR);
+#else
 	bindtextdomain(PACKAGE"_plugin_htmlbar", LOCALEDIR);
+#endif
 	bind_textdomain_codeset(PACKAGE"_plugin_htmlbar", "UTF-8");
 #endif
 	htmlbar_v.quickbar_items = NULL;
