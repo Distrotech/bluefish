@@ -212,19 +212,6 @@ static gboolean startup_in_idle(gpointer data) {
 	return TRUE;	
 }
 
-void bf_set_cwd(const char* appPath){
-	if (appPath){
-		gchar *cwd = g_malloc0(strlen(appPath+1));
-		strncpy(cwd, appPath, (strrchr(appPath,'\\')-appPath));
-		if (cwd){
-			SetCurrentDirectory(cwd);
-			_chdir(cwd);
-			DEBUG_MSG("Current directory set to: %s\n", cwd);
-		}
-		g_free(cwd);
-	}
-}
-
 int main(int argc, char *argv[])
 {
 /* Dynamically create paths for Win32 */	
