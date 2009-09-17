@@ -2435,6 +2435,28 @@ static void fb2_two_pane_notify_position_lcb(GObject * object, GParamSpec * pspe
 	}
 }
 
+static gboolean fb2_tooltip_lcb(GtkWidget *widget,gint x,gint y,gboolean keyboard_tip, GtkTooltip *tooltipwidget, gpointer user_data) {
+	GtkTreeView *tview=user_data;
+	GtkTreePath *path;
+	gboolean retval=FALSE;	
+	if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(tview), x, y, &path, NULL, NULL, NULL)) {
+		GtkTreeIter iter;
+		if (gtk_tree_model_get_iter(gtk_tree_view_get_model(tview),&iter,path)) {
+			GFile *uri=NULL;
+			gtk_tree_model_get(gtk_tree_view_get_model(tview), &iter, URI_COLUMN, &uri, -1);
+			if (uri) {
+				char *text;
+				text = g_file_get_uri(uri);
+				gtk_tooltip_set_text(tooltipwidget, text);
+				g_free(text);
+				retval = TRUE;
+			}
+		}
+		gtk_tree_path_free(path);
+	}
+	return retval;
+}
+
 static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 {
 	GtkTreeViewColumn *column;
@@ -2584,6 +2606,8 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 						  (GDK_ACTION_DEFAULT | GDK_ACTION_COPY));
 		g_signal_connect(G_OBJECT(fb2->file_v), "drag_data_received",
 						 G_CALLBACK(fb2_file_v_drag_data_received), fb2);
+		g_object_set(fb2->file_v, "has-tooltip", TRUE, NULL);
+		g_signal_connect(fb2->file_v, "query-tooltip",G_CALLBACK(fb2_tooltip_lcb), fb2->file_v);
 	}
 
 	g_signal_connect(G_OBJECT(fb2->dir_v), "row-activated", G_CALLBACK(dir_v_row_activated_lcb),
@@ -2593,6 +2617,8 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	fb2->expand_signal =
 		g_signal_connect(G_OBJECT(fb2->dir_v), "row-expanded", G_CALLBACK(dir_v_row_expanded_lcb),
 						 fb2);
+	g_signal_connect(fb2->dir_v, "query-tooltip",G_CALLBACK(fb2_tooltip_lcb), fb2->dir_v);
+	g_object_set(fb2->dir_v, "has-tooltip", TRUE, NULL);
 	/*gtk_container_resize_children(GTK_CONTAINER(fb2->vbox)); */
 	gtk_widget_show_all(fb2->vbox);
 	DEBUG_MSG("fb2_set_viewmode_widgets, new GUI finished\n");
