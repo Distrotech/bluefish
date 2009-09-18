@@ -388,17 +388,19 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 		Tfoundstack *fstack;
 		GSequenceIter *siter=NULL;
 		fstack = get_stackcache_at_position(btv, &cursorpos, &siter);
-		fblock = g_queue_peek_head(fstack->blockstack);
-		DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n", fblock->patternum, g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).tagclose_from_blockstack);
+		if (fstack) {
+			fblock = g_queue_peek_head(fstack->blockstack);
+			DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n", fblock->patternum, g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).tagclose_from_blockstack);
 /*		if (g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).tagclose_from_blockstack) {
-			gchar *start; 
-			gtk_text_buffer_get_iter_at_mark(buffer, &it1, fblock->start1);
-			gtk_text_buffer_get_iter_at_mark(buffer, &it2, fblock->end1);
-			gtk_text_iter_forward_char(&it1);
-			start = gtk_text_buffer_get_text(buffer,&it1,&it2,TRUE);
-			g_print("close tag %s\n",start);
-			g_free(start);
-		}*/
+				gchar *start; 
+				gtk_text_buffer_get_iter_at_mark(buffer, &it1, fblock->start1);
+				gtk_text_buffer_get_iter_at_mark(buffer, &it2, fblock->end1);
+				gtk_text_iter_forward_char(&it1);
+				start = gtk_text_buffer_get_text(buffer,&it1,&it2,TRUE);
+				g_print("close tag %s\n",start);
+				g_free(start);
+			}*/
+		}
 	}
 	if ((user_requested || !gtk_text_iter_equal(&iter,&cursorpos)) 
 		&& (g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac != NULL
