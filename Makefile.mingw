@@ -1,0 +1,26 @@
+PACKAGE = bluefish-unstable
+
+installer: build install create
+installer-clean: clean
+
+config: win32/build/config.status
+win32/build/config.status: configure config.site/config.msys
+	mkdir -p $(@D)
+	(cd $(@D) && ../../configure CONFIG_SITE=../../config.site/config.msys --disable-rpath)
+	sed -i -e 's/-rpath \$$([^)]\+) //g' win32/build/src/plugin_*/Makefile
+
+build: config
+	$(MAKE) -C win32/build/ \
+	           pkgdatadir="../share/$(PACKAGE)" \
+		   pkglibdir="../share/$(PACKAGE)" \
+	           localedir="../share/locale/"
+
+install: build
+	mkdir -p win32/install
+	$(MAKE) -C win32/build/ install DESTDIR=$(CURDIR)/win32/install/
+
+create:
+	#TODO
+
+clean:
+	$(RM) -r win32/install/ win32/build/
