@@ -273,7 +273,7 @@ msgid ""
 "File type: "
 msgstr ""
 "\n"
-"Type de fichier"
+"Type de fichier : "
 
 #: ../src/document.c:372
 msgid ""
@@ -529,28 +529,28 @@ msgstr "Aucun fichier à insérer"
 #: ../src/document.c:2966
 #, c-format
 msgid "Statistics: "
-msgstr ""
+msgstr "Statistiques"
 
 #: ../src/document.c:2967
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d ligne"
+msgstr[1] "%d lignes"
 
 #: ../src/document.c:2968
-#, fuzzy, c-format
+#, c-format
 msgid "%d word"
 msgid_plural "%d words"
-msgstr[0] "%d sur %d"
-msgstr[1] "%d sur %d"
+msgstr[0] "%d mot"
+msgstr[1] "%d mots"
 
 #: ../src/document.c:2969
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d caractère"
+msgstr[1] "%d caractères"
 
 #: ../src/encodings_dialog.c:329
 msgid "_Available encodings:"
@@ -732,9 +732,8 @@ msgstr[0] "%d document ouvert"
 msgstr[1] "%d documents ouverts"
 
 #: ../src/file.c:891
-#, fuzzy
 msgid "Advanced open: Finished searching files. "
-msgstr "Paramétrer l'ouverture des fichiers"
+msgstr "Ouverture avancée : fin de la recherche des fichiers"
 
 #: ../src/file.c:1142
 msgid "_Skip"
@@ -894,9 +893,8 @@ msgstr ""
 "\""
 
 #: ../src/file_dialogs.c:684
-#, fuzzy
 msgid "\" save is in progress"
-msgstr "Enregistrement en cours !"
+msgstr "\" enregistrement en cours !"
 
 #: ../src/file_dialogs.c:686
 msgid "Save in progress!"
@@ -1374,9 +1372,8 @@ msgid "/Document/_Visible Spacing"
 msgstr "/Document/Marquer les espaces"
 
 #: ../src/menu.c:280
-#, fuzzy
 msgid "/Document/_Spell Check"
-msgstr "/Document/_Césure"
+msgstr "/Document/Vérifier l'_orthographe"
 
 #: ../src/menu.c:283
 msgid "/Document/_Tab Size"
@@ -1652,9 +1649,8 @@ msgid "Highlight matching block begin-end"
 msgstr "Mettre en évidence les marqueurs de début et fin de bloc"
 
 #: ../src/preferences.c:502
-#, fuzzy
 msgid "Enable spell check"
-msgstr "Vérifier l'orthographe"
+msgstr "Activer la vérification orthographique"
 
 #: ../src/preferences.c:530
 msgid "Message"
