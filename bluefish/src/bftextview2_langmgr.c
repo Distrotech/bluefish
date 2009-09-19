@@ -1335,13 +1335,7 @@ void langmgr_init(void) {
 	homebfdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 	scan_bflang2files(homebfdir);
 	g_free(homebfdir);
-#ifdef WIN32
-	gchar *pkgtmp = g_strconcat(PKG_DATA_DIR, "/bflang/", NULL);
-	scan_bflang2files(pkgtmp);
-	g_free(pkgtmp);
-#else
 	scan_bflang2files(PKGDATADIR"/bflang/");
-#endif
 	
 	langmgr.bflang_list = g_list_sort(langmgr.bflang_list, (GCompareFunc) sort_bflang_list);
 

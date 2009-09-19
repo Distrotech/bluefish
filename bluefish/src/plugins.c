@@ -171,8 +171,8 @@ void bluefish_load_plugins(void) {
 	DEBUG_MSG("bluefish_load_plugins, oldlist %p len=%d\n",oldlist,g_list_length(oldlist));
 	main_v->props.plugin_config = NULL;
 
-#ifdef WIN32
-	bluefish_scan_dir_load_plugins(&oldlist,PKG_LIB_DIR);
+#ifdef NSIS
+	bluefish_scan_dir_load_plugins(&oldlist,"./lib/"PACKAGE);
 #else
 	bluefish_scan_dir_load_plugins(&oldlist,PKGLIBDIR);
 #endif

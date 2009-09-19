@@ -22,17 +22,12 @@
 #include "charmap_gui.h"
 #include "../plugins.h"
 #include "../rcfile.h"
-#include "../bluefish.h"
 Tcharmap charmap_v;
 
 static void charmap_init(void) {
 #ifdef ENABLE_NLS
   DEBUG_MSG("charmap_init, gettext domain-name=%s\n",PACKAGE"_plugin_charmap");
-#ifdef WIN32
-  bindtextdomain(PACKAGE"_plugin_charmap", LOCALE_DIR);
-#else
   bindtextdomain(PACKAGE"_plugin_charmap", LOCALEDIR);
-#endif
   bind_textdomain_codeset(PACKAGE"_plugin_charmap", "UTF-8");
 #endif /* ENABLE_NLS */
 	charmap_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,

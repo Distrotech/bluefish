@@ -23,7 +23,6 @@
 #include <libxml/xpath.h>
 #include <libxml/xmlwriter.h>
 #include <string.h>
-#include "../bluefish.h"
 #include "../stringlist.h"
 #include "infb_load.h"
 #include "infbrowser.h"
@@ -159,13 +158,7 @@ void infb_load(void) {
 	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 
 	if ( infb_v.homeDoc != NULL ) xmlFreeDoc(infb_v.homeDoc);
-#ifdef WIN32
-	gchar *pkgtmp = g_strconcat(PKG_DATA_DIR, "/bflang/", NULL);
-	infb_rescan_dir(pkgtmp);
-	g_free(pkgtmp);
-#else
 	infb_rescan_dir(PKGDATADIR "/bflib/");
-#endif
 	infb_rescan_dir(userdir);
 	g_free(userdir);
 	infb_v.homeDoc = xmlNewDoc(BAD_CAST "1.0");	

@@ -506,7 +506,7 @@ gint rcfile_save_main(void) {
 }
 
 #ifndef WIN32
-#    define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
+#define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
 #endif
 void rcfile_check_directory(void) {
 	gchar *rcdir = g_strconcat(g_get_home_dir(), "/."PACKAGE, NULL);
@@ -514,7 +514,7 @@ void rcfile_check_directory(void) {
 #ifndef WIN32
 		mkdir(rcdir, DIR_MODE);
 #else
-        mkdir(rcdir);
+		mkdir(rcdir);
 #endif
 	}
 	g_free(rcdir);
@@ -714,13 +714,7 @@ gboolean rcfile_parse_global_session(void) {
 		main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
 	}
 	if (main_v->globses.encodings == NULL) {
-#ifdef WIN32
-		gchar *pkgtmp = g_strconcat(PKG_DATA_DIR, "/encodings", NULL);
-		GFile *defaultfile = return_first_existing_filename(pkgtmp,"data/encodings","../data/encodings",NULL);
-		g_free(pkgtmp);
-#else
 		GFile *defaultfile = return_first_existing_filename(PKGDATADIR"/encodings","data/encodings","../data/encodings",NULL);
-#endif
 		if (defaultfile) { 
 			main_v->globses.encodings = get_list(defaultfile,NULL,TRUE);
 			g_object_unref(defaultfile);

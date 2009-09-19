@@ -26,7 +26,6 @@
 #include "../rcfile.h"
 #include "../document.h"
 #include "../bf_lib.h"
-#include "../bluefish.h"
 #include "infb_gui.h"
 #include "infb_load.h"
 
@@ -51,11 +50,7 @@ static void infb_init(void) {
 
 #ifdef ENABLE_NLS
 	DEBUG_MSG("infb_init, gettext domain-name=%s\n",PACKAGE"_plugin_infbrowser");
-#ifdef WIN32
-	bindtextdomain(PACKAGE"_plugin_infbrowser", LOCALE_DIR);
-#else
 	bindtextdomain(PACKAGE"_plugin_infbrowser", LOCALEDIR);
-#endif
 	bind_textdomain_codeset(PACKAGE"_plugin_infbrowser", "UTF-8");
 #endif
 	infb_v.currentDoc = NULL;
