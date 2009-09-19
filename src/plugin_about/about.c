@@ -146,11 +146,7 @@ static void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget
 
   {
     GError *error=NULL;
-#ifdef WIN32
-    logo = gdk_pixbuf_new_from_file (BLUEFISH_PNG_PATH, &error);
-#else
     logo = gdk_pixbuf_new_from_file (BLUEFISH_SPLASH_FILENAME, &error);
-#endif
     if (error) {
       g_print("ERROR while loading splash screen: %s\n", error->message);
       g_error_free(error);
@@ -195,11 +191,7 @@ static void configure_options_dialog_create(Tbfwin *bfwin, guint *callback_actio
 static void about_init(void) {
 #ifdef ENABLE_NLS
   DEBUG_MSG("about_init, gettext domain-name=%s\n",PACKAGE"_plugin_about");
-#ifdef WIN32
-  bindtextdomain(PACKAGE"_plugin_about", LOCALE_DIR);
-#else
   bindtextdomain(PACKAGE"_plugin_about", LOCALEDIR);
-#endif
   bind_textdomain_codeset(PACKAGE"_plugin_about", "UTF-8");
 #endif /* ENABLE_NLS */
 }
