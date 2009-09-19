@@ -112,8 +112,6 @@
 	<element pattern="fromCharCode"/>
 	<element pattern="getDate"/>
 	<element pattern="getDay"/>
-	<element pattern="getElementById" />
-	<element pattern="getElementsByTagName" />
 	<element pattern="getFullYear"/>
 	<element pattern="getHours"/>
 	<element pattern="getMilliseconds"/>
@@ -200,6 +198,86 @@
 	<element pattern="unshift"/>
 	<element pattern="UTC"/>
 	<element pattern="valueOf"/>
+	<group class="window_functions" highlight="js-function" autocomplete="1">
+		<group highlight="js-property">
+			<element pattern="closed"/>
+			<element pattern="defaultStatus"/>
+			<element pattern="innerHeight"/>
+			<element pattern="innerWidth"/>
+			<element pattern="locationbar"/>
+			<element pattern="menubar"/>
+			<element pattern="name"/>
+			<element pattern="outerHeight"/>
+			<element pattern="outerWidth"/>
+			<element pattern="pageXOffset"/>
+			<element pattern="pageYOffset"/>
+			<element pattern="personalbar"/>
+			<element pattern="scrollbars"/>
+			<element pattern="status"/>
+			<element pattern="statusbar"/>
+			<element pattern="toolbar"/>
+		</group>
+		<element pattern="alert"/>
+		<element pattern="back"/>
+		<element pattern="blur"/>
+		<element pattern="captureEvents"/>
+		<element pattern="clearInterval"/>
+		<element pattern="clearTimeout"/>
+		<element pattern="close"/>
+		<element pattern="confirm"/>
+		<element pattern="disableExternalCapture"/>
+		<element pattern="enableExternalCapture"/>
+		<element pattern="find"/>
+		<element pattern="focus"/>
+		<element pattern="forward"/>
+		<element pattern="handleEvent"/>
+		<element pattern="home"/>
+		<element pattern="moveBy"/>
+		<element pattern="moveTo"/>
+		<element pattern="open"/>
+		<element pattern="print"/>
+		<element pattern="prompt"/>
+		<element pattern="releaseEvents"/>
+		<element pattern="resizeBy"/>
+		<element pattern="resizeTo"/>
+		<element pattern="routeEvent"/>
+		<element pattern="scrollBy"/>
+		<element pattern="scrollTo"/>
+		<element pattern="setInterval"/>
+		<element pattern="setTimeout"/>
+		<element pattern="stop"/>
+		<group class="document_functions" highlight="js-function" autocomplete="1">
+			<group highlight="js-property">
+				<element pattern="alinkColor"/>
+				<element pattern="bgColor"/>
+				<element pattern="charset"/>
+				<element pattern="cookie"/>
+				<element pattern="defaultCharset"/>
+				<element pattern="fgColor"/>
+				<element pattern="lastModified"/>
+				<element pattern="linkColor"/>
+				<element pattern="referrer"/>
+				<element pattern="title"/>
+				<element pattern="URL"/>
+				<element pattern="vlinkColor"/>
+			</group>
+			<element pattern="captureEvents"/>
+			<element pattern="close"/>
+			<element pattern="createAttribute"/>
+			<element pattern="createElement"/>
+			<element pattern="createTextNode"/>
+			<element pattern="getElementById" />
+			<element pattern="getElementsByName"/>
+			<element pattern="getElementsByTagName" />
+			<element pattern="getSelection"/>
+			<element pattern="handleEvent"/>
+			<element pattern="open"/>
+			<element pattern="releaseEvents"/>
+			<element pattern="routeEvents"/>
+			<element pattern="write"/>
+			<element pattern="writeIn"/>
+		</group>
+	</group>
 </group>
 <!-- JavaScript Objects -->
 <group highlight="js-type" autocomplete="1">
