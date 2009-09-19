@@ -28,15 +28,18 @@
 	<mime type="application/javascript"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
-	<highlight name="js-keyword" style="keyword"  />
-	<highlight name="js-special-keyword" style="special-keyword"  />
+	<option name="window_functions" default="1" description="window object"/>
+	<option name="document_functions" default="1" description="document object" />
 	<highlight name="js-brackets" style="brackets"  />
-	<highlight name="js-type" style="type"  />
 	<highlight name="js-comment" style="comment"  />
+	<highlight name="js-function" style="function"  />
+	<highlight name="js-keyword" style="keyword"  />
+	<highlight name="js-property" style="special-keyword"  />
+	<highlight name="js-special-keyword" style="special-keyword"  />
 	<highlight name="js-string" style="string"  />
+	<highlight name="js-type" style="type"  />
 	<highlight name="js-value" style="value"  />
 	<highlight name="js-variable" style="variable"  />
-	<highlight name="js-function" style="function"  />
 </header>
 <properties>
 	<comment id="/**/" type="block" start="/*" end="*/" />
