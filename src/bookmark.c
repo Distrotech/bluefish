@@ -92,10 +92,8 @@ typedef struct {
 #define BMARK(var) ((Tbmark *)(var))
 
 typedef struct {
-	/*Tdocument *bevent_doc;		 last button event document 
-	gint bevent_charoffset;		 last button event location*/ 
-	GtkTreeStore *bookmarkstore; /* the global bookmarks from the global session */
-	GHashTable *bmarkfiles; /* the global bookmarks from the global session */
+	GtkTreeStore *bookmarkstore; /* the treestore with the name and the pointer to the Tbmark */
+	GHashTable *bmarkfiles; /* a hash table with the GFile as key, and the iter in the treestore as value */
 } Tbmarkdata;
 #define BMARKDATA(var) ((Tbmarkdata *)(var))
 
@@ -535,12 +533,6 @@ static gboolean bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 
 		if (b->doc) {
 		 	gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
-#ifdef USE_BFTEXTVIEW2
-	/* TODO */
-#else
-		 	bf_textview_set_symbol(BF_TEXTVIEW(b->doc->view),"bookmark",gtk_text_iter_get_line(&it),FALSE);
-#endif
-
 		} 
 	
 		if (numchild == 1) {
@@ -1204,98 +1196,8 @@ void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
 	} else {
 		DEBUG_MSG("no bookmarks for doc %p in hashtable\n",doc);
 	}
-	/* else {
-		GtkTreeIter tmpiter;
-		GtkTextIter it;
-		gboolean cont =
-			gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter,
-										 NULL);
-		while (cont) {
-			/ * loop all documents * /
-			GtkTreeIter child;
-			if (gtk_tree_model_iter_children
-				(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child, &tmpiter)) {
-				Tbmark *mark = NULL;
-				gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child, PTR_COLUMN,
-								   &mark, -1);
-				if (mark) {
-					if (mark->filepath && (mark->filepath == doc->uri || g_file_equal(mark->filepath, doc->uri))) {	/ * this is it * /
-						bmark_init_bmarks_for_doc(doc,&tmpiter);
-						doc->bmark_parent = g_memdup(&tmpiter, sizeof(GtkTreeIter));
-						g_print("bmark_set_for_doc, alloc'ed bmark_parent %p for doc %p %s\n",doc->bmark_parent,doc,g_file_get_uri(doc->uri));
-						/ * now we add that to the hastbale * /
-						g_object_ref(doc->uri);
-						g_hash_table_insert(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles, doc->uri, doc->bmark_parent);
-						DEBUG_MSG("bmark_set_for_doc, added parent_iter %p to doc %p, and adding that to the hashtable %p\n",doc->bmark_parent,doc,BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles);
-						return;
-					}
-				}
-			}
-			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter);
-		}							/ * cont * /
-	}
-	DEBUG_MSG("bmark_set_for_doc, no bookmarks found for document %s\n", gtk_label_get_text(GTK_LABEL(doc->tab_menu)));*/
 }
 
-/**
- * bmark_get_bookmarked_lines:
- * @doc: Tdocument *
- * @ fromit: GtkTextIter *
- * @ toit: GtkTextIter *
- *
- * this function returns a hash table with all bookmarks between fromit and toit
- *
- * this function is called VERY OFTEN (might be 20X per second!!!!) by document.c
- * to redraw the bookmarks at the sides
- * so we obviously need to keep this function VERY FAST 
- *
- * the function will return NULL if no bookmarks for this document are 
- * known (this is faster then looking in an empty hash table)
- *
- * Return value: #GHashTable * pointer or NULL
- */
-/*GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, GtkTextIter *toit) {
-	if (doc->bmark_parent) {
-		gboolean cont = TRUE;
-		guint offset;
-		Tbmark *mark;
-		GtkTreeIter tmpiter;
-
-		GHashTable *ret = g_hash_table_new_full(g_int_hash, g_int_equal, g_free, g_free);
-
-		/ * because the bookmarks are sorted by line number, we don't have to scan trough all 
-		bookmarks, we can start at the bookmark *before* fromit, and continue until the 
-		first bookmark > toit * /
-		offset = gtk_text_iter_get_offset(fromit);
-		mark = bmark_find_bookmark_before_offset(BFWIN(doc->bfwin), offset, doc->bmark_parent);
-		if (mark) {
-			tmpiter = mark->iter;
-		} else {
-			cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), 
-									&tmpiter, doc->bmark_parent);
-		}
-		
-		while (cont) {
-			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter, PTR_COLUMN,
-							   &mark, -1);
-			if (mark && mark->mark) {
-				GtkTextIter it;
-				gint *iaux;
-				gtk_text_buffer_get_iter_at_mark(doc->buffer, &it, mark->mark);
-				if (gtk_text_iter_compare(toit,&it) < 0) {
-					break;
-				} else if (gtk_text_iter_compare(fromit,&it) < 0) {
-					iaux = g_new(gint, 1);
-					*iaux = gtk_text_iter_get_line(&it);
-					g_hash_table_insert(ret, iaux, g_strdup(mark->is_temp ? "1" : "0"));
-				}
-			}
-			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter);
-		} / * cont * /
-		return ret;
-	}
-	return NULL;
-}*/
 /* returns a line number for the Tbmark that bmark points to, or -1 if there is no bmark  */
 gint bmark_margin_get_next_bookmark(Tdocument * doc, gpointer *bmark) {
 	gboolean cont;
@@ -1621,56 +1523,6 @@ void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
 	}
 	gtk_widget_grab_focus(bfwin->current_document->view);
 }	
-/*
-void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
-	GtkTreeIter tmpiter;
-	gboolean cont;
-	
-	g_print("bmark_check_length is temporarily disabled\n");
-	return;
-	
-	if (!doc || !doc->bmark_parent) {
-		DEBUG_MSG("bmark_check_length, no bmark_parent iter => no bookmarks, returning\n");
-		return;
-	}
-	DEBUG_MSG("bmark_check_length, doc %p, filename %s\n\n", doc, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
-
-	cont =
-		gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter,
-									 doc->bmark_parent);
-	while (cont) {
-		Tbmark *mark = NULL;
-		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter, PTR_COLUMN,
-						   &mark, -1);
-		if (mark) {
-			glong size;
-			size = gtk_text_buffer_get_char_count(doc->buffer);
-			DEBUG_MSG("bmark_check_length, bmark has %d, file has %ld\n",mark->len, size);
-			if (mark->len != size) {
-				gint retval;
-				const gchar *buttons[] = {GTK_STOCK_NO, GTK_STOCK_YES, NULL};
-				gchar *str;
-				str = g_strconcat(_("File size changed in file \n"),gtk_label_get_text(GTK_LABEL(doc->tab_menu)),NULL);
-				retval = message_dialog_new_multi(bfwin->main_window,
-															 GTK_MESSAGE_QUESTION,
-															 buttons,
-															 _("Bookmarks positions could be incorrect. Delete bookmarks?"),
-															 str);
-				g_free(str);
-				if (retval==1) {
-					bmark_del_for_document(bfwin, doc);
-				} else {
-					mark->len = size;
-				}
-				return;
-			}
-		} else {
-			DEBUG_MSG("bmark_check_length, NOT GOOD no mark in the treestore??\n");
-		}
-		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter);
-	}
-	DEBUG_MSG("bmark_check_length, all bookmarks OK, returning\n");
-}*/
 
 void bmark_cleanup(Tbfwin * bfwin) {
 	DEBUG_MSG("bmark_cleanup, cleanup for bfwin=%p\n",bfwin);
