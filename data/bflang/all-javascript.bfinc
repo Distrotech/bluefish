@@ -198,7 +198,7 @@
 	<element pattern="unshift"/>
 	<element pattern="UTC"/>
 	<element pattern="valueOf"/>
-	<group class="window_functions" highlight="js-function" autocomplete="1">
+	<group class="javascript_window_functions" highlight="js-function" autocomplete="1">
 		<group highlight="js-property">
 			<element pattern="closed"/>
 			<element pattern="defaultStatus"/>
@@ -246,7 +246,7 @@
 		<element pattern="setInterval"/>
 		<element pattern="setTimeout"/>
 		<element pattern="stop"/>
-		<group class="document_functions" highlight="js-function" autocomplete="1">
+		<group class="javascript_document_functions" highlight="js-function" autocomplete="1">
 			<group highlight="js-property">
 				<element pattern="alinkColor"/>
 				<element pattern="bgColor"/>
