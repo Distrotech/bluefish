@@ -370,6 +370,7 @@ void autosave_init(gboolean recover, Tbfwin *bfwin) {
 		}
 		g_free(dir);
 		g_dir_close(gdir);
+		g_pattern_spec_free(patspec);
 		if (!found_journal) {
 			/* if there was no journal we can remove *ALL* autosave files */
 			g_idle_add_full(G_PRIORITY_LOW, autosave_cleanup_old_autosaves, NULL, NULL);
