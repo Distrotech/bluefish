@@ -50,8 +50,8 @@ static void bluefish_url_show_lcb(Tbfwin *bfwin, guint callback_action, GtkWidge
       bluefish_url_show("http://bugzilla.gnome.org/enter_bug.cgi?product=bluefish");
       break;
     default:
-      g_print("bluefish_url_show_cb, unknown action, abort!\n");
-      exit(123);
+      g_critical("uh-oh: bluefish_url_show_cb, unknown action\n");
+      g_return_if_reached();
   }
 }
 
