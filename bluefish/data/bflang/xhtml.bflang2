@@ -32,6 +32,8 @@
 <header>
 	<mime type="application/xhtml+xml"/>
 	<option name="autocomplete_tags" default="1" />
+	<option name="javascript_window_functions" default="1" description="window object"/>
+	<option name="javascript_document_functions" default="1" description="document object" />
 	<highlight name="tag" style="tag" />
 	<highlight name="reference-external-tag" style="special-tag" />
 	<highlight name="table-tag" style="special-tag2" />

@@ -36,6 +36,8 @@
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
 	<option name="autocomplete_tags" default="1" />
+	<option name="javascript_window_functions" default="1" description="window object"/>
+	<option name="javascript_document_functions" default="1" description="document object" />
 	<highlight name="html-tag" style="tag" />
 	<highlight name="html-reference-external-tag" style="special-tag" />
 	<highlight name="html-table-tag" style="special-tag2" />

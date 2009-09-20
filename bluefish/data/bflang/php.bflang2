@@ -37,7 +37,8 @@
 	<option name="load_php_functions" default="1" description="All php functions" />
 	<option name="php_short_open_tag" default="0" />
 	<option name="autocomplete_tags" default="1" />
-
+	<option name="javascript_window_functions" default="0" description="window object"/>
+	<option name="javascript_document_functions" default="0" description="document object" />
 	<highlight name="php-block-tag" style="special-value"  />
 	<highlight name="string" style="string"   />
 	<highlight name="brackets" style="brackets"  />
