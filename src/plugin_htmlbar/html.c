@@ -1262,11 +1262,8 @@ static void generalfontdialog_lcb(gint type, GtkWidget * widget, Thtml_diag *dg)
     thestring = g_strdup(cap("<BASEFONT"));
   break;
   default:
-#ifdef DEVELOPMENT
-    DEBUG_MSG("generalfontdialog_cb is called with an unknown type\n");
-    exit(1);
-#endif 
-    return;
+    g_critical("uh-oh: generalfontdialog_lcb, unknown action\n")
+    g_return_if_reached();
   break;
   }
   if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->spin[1])))) {

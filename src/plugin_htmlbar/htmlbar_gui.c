@@ -162,8 +162,8 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		edit_tag_under_cursor_cb(bfwin);
 	break;
 	default:
-		g_print("menu_file_operations_cb, unknown action, abort!\n");
-		exit(123);
+		g_critical("uh-oh: menu_file_operations_cb, unknown action\n");
+		g_return_if_reached();
 	}
 }
 
