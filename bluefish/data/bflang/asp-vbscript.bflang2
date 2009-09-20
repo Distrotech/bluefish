@@ -34,6 +34,9 @@
 	<mime type="application/x-asp"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
+	<option name="javascript_window_functions" default="0" description="window object"/>
+	<option name="javascript_document_functions" default="0" description="document object" />
+
 	<!--
 	<option name="load_asp_functions" default="1" description="All asp functions" />
 	-->
