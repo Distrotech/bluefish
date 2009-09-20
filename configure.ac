@@ -591,6 +591,7 @@ AC_CONFIG_FILES([
 	src/plugin_infbrowser/po/Makefile.in
 	src/plugin_snippets/Makefile
 	src/plugin_snippets/po/Makefile.in
+	win32/Makefile.mingw
 ])
 AC_OUTPUT
 
