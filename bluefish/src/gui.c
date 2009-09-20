@@ -1237,8 +1237,8 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 			outputbox_cleanup(bfwin);
 	break;
 	default:
-		g_print("gui_toggle_hidewidget_cb should NEVER be called with action %d\n", action);
-		exit(1);
+		g_critical("uh-oh: gui_toggle_hidewidget_cb called with unknown action %d\n", action);
+		g_return_if_reached();
 	break;
 	}
 }
