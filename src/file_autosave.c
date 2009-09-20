@@ -303,6 +303,7 @@ static gboolean autosave_cleanup_old_autosaves(gpointer data) {
 			g_free(path);
 			tmp = g_dir_read_name(gdir);
 		}
+		g_dir_close(gdir);
 	}
 	g_free(dir);
 	return FALSE;	
@@ -368,6 +369,7 @@ void autosave_init(gboolean recover, Tbfwin *bfwin) {
 			tmp = g_dir_read_name(gdir);
 		}
 		g_free(dir);
+		g_dir_close(gdir);
 		if (!found_journal) {
 			/* if there was no journal we can remove *ALL* autosave files */
 			g_idle_add_full(G_PRIORITY_LOW, autosave_cleanup_old_autosaves, NULL, NULL);
