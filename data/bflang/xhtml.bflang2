@@ -31,6 +31,8 @@
 <bflang name="XHTML" table="8123" contexts="109" matches="1817">
 <header>
 	<mime type="application/xhtml+xml"/>
+	<option name="load_reference" default="1" description="load reference data"/>
+	<option name="load_completion" default="1" description="load completion data"/>
 	<option name="autocomplete_tags" default="1" />
 	<option name="javascript_window_functions" default="1" description="window object"/>
 	<option name="javascript_document_functions" default="1" description="document object" />
