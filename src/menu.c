@@ -730,6 +730,7 @@ void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean i
 	} else {
 		bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, FALSE,TRUE);
 	}
+	g_free(filename);
 }
 /*****************/
 /* Windows !!    */
