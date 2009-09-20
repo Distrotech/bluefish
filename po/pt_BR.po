@@ -3,13 +3,12 @@
 # Anderson Rocha <anderson@ilheusnet.com.br>, 2003, 2004.
 # Esfinge Metal <esfingemetal@gmail.com>, 2009.
 #
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish SVN\n"
+"Project-Id-Version: Bluefish 1.3.7\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-09-03 15:31+0200\n"
-"PO-Revision-Date: 2009-08-03 00:46-0300\n"
+"PO-Revision-Date: 2009-09-20 12:10-0300\n"
 "Last-Translator: Esfinge Metal <esfingemetal@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -40,60 +39,37 @@ msgid "Spell check language"
 msgstr "Verificar ortografia de texto"
 
 #: ../src/blocksync.c:88
-msgid ""
-"Select the block to sync to other pages. Include the start-of-block and end-"
-"of-block markers in your selection."
-msgstr ""
-"Selecione o bloco a sincronizar com outras páginas. Incluindo os marcadores "
-"de inicio-do-bloco e final-do-bloco na sua seleção."
+msgid "Select the block to sync to other pages. Include the start-of-block and end-of-block markers in your selection."
+msgstr "Selecione o bloco a sincronizar com outras páginas. Incluindo os marcadores de inicio-do-bloco e final-do-bloco na sua seleção."
 
 #: ../src/blocksync.c:93
 msgid "To proceed with the current selection click forward."
 msgstr "Para proceder com a atual seleção clique em avançar."
 
 #: ../src/blocksync.c:122
-msgid ""
-"Below is the block, including start and end marker. Please <b>select the "
-"start marker</b> in the text below."
-msgstr ""
-"Abaixo há o bloco incluindo o marcador inicial e final. Por favor, "
-"<b>selecione o marcador inicial</b> no texto abaixo."
+msgid "Below is the block, including start and end marker. Please <b>select the start marker</b> in the text below."
+msgstr "Abaixo há o bloco incluindo o marcador inicial e final. Por favor, <b>selecione o marcador inicial</b> no texto abaixo."
 
 #: ../src/blocksync.c:157
 msgid "Please <b>select the end marker</b> in the text below."
 msgstr "Por favor, <b>selecione o marcador final</b> no texto abaixo."
 
 #: ../src/blocksync.c:226
-msgid ""
-"<span foreground=\"red\" weight=\"bold\">Please select the block of text to "
-"synchronize.</span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Por favor, selecione o bloco de "
-"texto para sincronizar.</span>"
+msgid "<span foreground=\"red\" weight=\"bold\">Please select the block of text to synchronize.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Por favor, selecione o bloco de texto para sincronizar.</span>"
 
-#: ../src/blocksync.c:240 ../src/blocksync.c:260
-msgid ""
-"<span foreground=\"red\" weight=\"bold\">This marker exists more than once "
-"in the block.</span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Esse marcador existe em mais de um "
-"bloco.</span>"
+#: ../src/blocksync.c:240
+#: ../src/blocksync.c:260
+msgid "<span foreground=\"red\" weight=\"bold\">This marker exists more than once in the block.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Esse marcador existe em mais de um bloco.</span>"
 
 #: ../src/blocksync.c:246
-msgid ""
-"<span foreground=\"red\" weight=\"bold\">Select the text that marks the "
-"start of the block.</span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Selecione o texto que marca o "
-"inicio do bloco.</span>"
+msgid "<span foreground=\"red\" weight=\"bold\">Select the text that marks the start of the block.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Selecione o texto que marca o inicio do bloco.</span>"
 
 #: ../src/blocksync.c:266
-msgid ""
-"<span foreground=\"red\" weight=\"bold\">Select the text that marks the end "
-"of the block.</span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Selecione o texto que marca o final "
-"do bloco.</span>"
+msgid "<span foreground=\"red\" weight=\"bold\">Select the text that marks the end of the block.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Selecione o texto que marca o final do bloco.</span>"
 
 #
 #: ../src/blocksync.c:297
@@ -110,19 +86,16 @@ msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr "Visite-nos em http://bluefish.openoffice.nl"
 
 #: ../src/bluefish.c:123
-#, fuzzy
 msgid "starting up..."
-msgstr "iniciando bluefish"
+msgstr "Inicializando..."
 
 #: ../src/bluefish.c:223
-#, fuzzy
 msgid "Open in existing window."
-msgstr "Abrir na janela atual."
+msgstr "Abrir na janela existente."
 
 #: ../src/bluefish.c:225
-#, fuzzy
 msgid "Open in new window."
-msgstr "Abrir na janela atual."
+msgstr "Abrir em nova janela."
 
 #: ../src/bluefish.c:227
 msgid "Print version information."
@@ -262,11 +235,13 @@ msgstr "Próximo favorito"
 msgid "Last bookmark"
 msgstr "Ultimo favorito"
 
-#: ../src/bookmark.c:1527 ../src/bookmark.c:1580
+#: ../src/bookmark.c:1527
+#: ../src/bookmark.c:1580
 msgid "Error adding bookmark"
 msgstr "Erro adicionando favorito"
 
-#: ../src/bookmark.c:1528 ../src/bookmark.c:1581
+#: ../src/bookmark.c:1528
+#: ../src/bookmark.c:1581
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Não é possível adicionar favoritos em arquivos não salvos."
 
@@ -396,22 +371,24 @@ msgstr "INS"
 msgid " RO"
 msgstr " Somente Leitura"
 
-#: ../src/document.c:1077 ../src/document.c:1083
+#: ../src/document.c:1077
+#: ../src/document.c:1083
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
 #: ../src/document.c:1435
 msgid "Cannot display file, unknown characters found."
-msgstr ""
-"Não foi possível mostrar o arquivo, caracteres desconhecidos encontrados."
+msgstr "Não foi possível mostrar o arquivo, caracteres desconhecidos encontrados."
 
 # src/snr2.c:651 src/snr2.c:688
-#: ../src/document.c:1648 ../src/snr2.c:1674
+#: ../src/document.c:1648
+#: ../src/snr2.c:1674
 msgid "Replace"
 msgstr "Substituir"
 
-#: ../src/document.c:1653 ../src/snr2.c:1671
+#: ../src/document.c:1653
+#: ../src/snr2.c:1671
 msgid "Find"
 msgstr "Procurar"
 
@@ -426,7 +403,9 @@ msgstr "Adicionar favorito"
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1782 ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
+#: ../src/document.c:1782
+#: ../src/file_dialogs.c:419
+#: ../src/file_dialogs.c:457
 msgid "_Abort save"
 msgstr "_Abortar salvamento"
 
@@ -437,13 +416,11 @@ msgstr "_Continuar salvamento em UTF-8"
 #: ../src/document.c:1793
 #, c-format
 msgid ""
-"Failed to convert %s to character encoding %s. Encoding failed on character "
-"'%s' at line %d column %d\n"
+"Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n"
 "\n"
 "Continue saving in UTF-8 encoding?"
 msgstr ""
-"Falhou ao converter %s para codificação de caractere %s. Codificação falhou "
-"no caractere %s na linha %d coluna %d\n"
+"Falhou ao converter %s para codificação de caractere %s. Codificação falhou no caractere %s na linha %d coluna %d\n"
 "\n"
 "Continua salvando na codificação UTF-8?"
 
@@ -464,12 +441,8 @@ msgstr "Não foi possível abrir o arquivo"
 
 #: ../src/document.c:2556
 #, c-format
-msgid ""
-"If you revert \"%s\" to your last saved copy, your current changes will be "
-"permanently lost."
-msgstr ""
-"Se você reverter \"%s\" para o ultima copia salva, suas alterações atuais "
-"serão permanentemente perdidas."
+msgid "If you revert \"%s\" to your last saved copy, your current changes will be permanently lost."
+msgstr "Se você reverter \"%s\" para o ultima copia salva, suas alterações atuais serão permanentemente perdidas."
 
 #: ../src/document.c:2560
 msgid "Revert changes to last saved copy?"
@@ -573,40 +546,42 @@ msgstr "Nenhum arquivo para inserir"
 #: ../src/document.c:2966
 #, c-format
 msgid "Statistics: "
-msgstr ""
+msgstr "Estatísticas:"
 
 #: ../src/document.c:2967
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d linha"
+msgstr[1] "%d linhas"
 
 #: ../src/document.c:2968
-#, fuzzy, c-format
+#, c-format
 msgid "%d word"
 msgid_plural "%d words"
-msgstr[0] "%d de %d"
-msgstr[1] "%d de %d"
+msgstr[0] "%d palavra"
+msgstr[1] "%d palavras"
 
 #: ../src/document.c:2969
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d caracter"
+msgstr[1] "%d caracteres"
 
 #: ../src/encodings_dialog.c:329
 msgid "_Available encodings:"
 msgstr "Codific_ações disponíveis:"
 
 # src/toolbars.c:427
-#: ../src/encodings_dialog.c:381 ../src/encodings_dialog.c:452
+#: ../src/encodings_dialog.c:381
+#: ../src/encodings_dialog.c:452
 msgid "Description"
 msgstr "Descrição"
 
 # src/configure.c:474
-#: ../src/encodings_dialog.c:391 ../src/encodings_dialog.c:461
+#: ../src/encodings_dialog.c:391
+#: ../src/encodings_dialog.c:461
 #: ../src/preferences.c:1642
 msgid "Encoding"
 msgstr "Codificação"
@@ -627,12 +602,10 @@ msgstr "Definir raiz de documento e raiz da web"
 #: ../src/filebrowser2.c:237
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
-"the <i>webroot</i> is the location where those same files can be viewed on "
-"the webserver"
+"the <i>webroot</i> is the location where those same files can be viewed on the webserver"
 msgstr ""
 "O <i>diretório raiz</i> é o lugar onde o Bluefish encontra os arquivos,\n"
-"e a <i>raiz da web</i> é o local onde esses mesmos arquivos podem ser "
-"visualizados no servidor web."
+"e a <i>raiz da web</i> é o local onde esses mesmos arquivos podem ser visualizados no servidor web."
 
 # src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/filebrowser2.c:244
@@ -654,7 +627,8 @@ msgid "New directory"
 msgstr "Novo diretório"
 
 # src/html2.c:383
-#: ../src/filebrowser2.c:1519 ../src/filebrowser2.c:1521
+#: ../src/filebrowser2.c:1519
+#: ../src/filebrowser2.c:1521
 msgid "New file"
 msgstr "Novo arquivo"
 
@@ -764,7 +738,8 @@ msgid "Filter"
 msgstr "Filtro"
 
 # src/configure.c:434
-#: ../src/filebrowser2.c:1900 ../src/filefilter.c:475
+#: ../src/filebrowser2.c:1900
+#: ../src/filefilter.c:475
 msgid "Edit filter"
 msgstr "Editar filtro"
 
@@ -797,16 +772,17 @@ msgstr[0] "%d documento aberto."
 msgstr[1] "%d documentos abertos."
 
 #: ../src/file.c:891
-#, fuzzy
 msgid "Advanced open: Finished searching files. "
-msgstr "Seletor avançado de abrir arquivo"
+msgstr "Abrir avançado: A busca por arquivos foi concluída."
 
 #: ../src/file.c:1142
 msgid "_Skip"
 msgstr "_Pular"
 
 # src/document.c:1318
-#: ../src/file.c:1142 ../src/file_dialogs.c:582 ../src/file_dialogs.c:603
+#: ../src/file.c:1142
+#: ../src/file_dialogs.c:582
+#: ../src/file_dialogs.c:603
 #: ../src/project.c:252
 msgid "_Overwrite"
 msgstr "S_obrescrever"
@@ -885,18 +861,15 @@ msgstr "Abrir URL"
 msgid "<b>Open URL</b>"
 msgstr "<b>Abrir URL</b>"
 
-#: ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
+#: ../src/file_dialogs.c:419
+#: ../src/file_dialogs.c:457
 msgid "_Continue save"
 msgstr "_Continuar salvamento"
 
 #: ../src/file_dialogs.c:423
 #, c-format
-msgid ""
-"A backupfile for %s could not be created. If you continue, this file will be "
-"overwritten."
-msgstr ""
-"A cópia de segurança para %s não pode ser criada. Se você continuar, esse "
-"arquivo será sobrescrito."
+msgid "A backupfile for %s could not be created. If you continue, this file will be overwritten."
+msgstr "A cópia de segurança para %s não pode ser criada. Se você continuar, esse arquivo será sobrescrito."
 
 # src/callbacks.c:174
 #: ../src/file_dialogs.c:427
@@ -941,8 +914,10 @@ msgid "Save %s as"
 msgstr "Salvar %s como"
 
 # src/document.c:1318 src/document.c:1419 src/interface.c:702
-#: ../src/file_dialogs.c:582 ../src/file_dialogs.c:603
-#: ../src/file_dialogs.c:842 ../src/project.c:252
+#: ../src/file_dialogs.c:582
+#: ../src/file_dialogs.c:603
+#: ../src/file_dialogs.c:842
+#: ../src/project.c:252
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -956,13 +931,15 @@ msgstr "O arquivo %s existe e está aberto, sobrescrever?"
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "O arquivo que você selecionou está sendo editado no Bluefish."
 
-#: ../src/file_dialogs.c:604 ../src/project.c:254
+#: ../src/file_dialogs.c:604
+#: ../src/project.c:254
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Um arquivo de nome \"%s\" já existe."
 
 # src/document.c:1465
-#: ../src/file_dialogs.c:607 ../src/project.c:259
+#: ../src/file_dialogs.c:607
+#: ../src/project.c:259
 msgid "Do you want to replace the existing file?"
 msgstr "Você deseja substituir o arquivo existente?"
 
@@ -976,9 +953,8 @@ msgstr ""
 "\""
 
 #: ../src/file_dialogs.c:684
-#, fuzzy
 msgid "\" save is in progress"
-msgstr "Salvando!"
+msgstr "\" Salvando"
 
 #: ../src/file_dialogs.c:686
 msgid "Save in progress!"
@@ -993,7 +969,8 @@ msgstr "Fechar Sem Salvar"
 msgid "Save changes to \"%s\" before closing?"
 msgstr "Salvar mudanças em \"%s\" antes de fechar?"
 
-#: ../src/file_dialogs.c:836 ../src/file_dialogs.c:846
+#: ../src/file_dialogs.c:836
+#: ../src/file_dialogs.c:846
 msgid "If you don't save your changes they will be lost."
 msgstr "Se você não salvar, suas alterações serão perdidas."
 
@@ -1058,7 +1035,8 @@ msgstr "Incluir arquivos ocultos"
 
 # src/configure.c:425 src/interface.c:763
 #. build a list of filters
-#: ../src/filefilter.c:214 ../src/gtk_easy.c:1390
+#: ../src/filefilter.c:214
+#: ../src/gtk_easy.c:1390
 msgid "All files"
 msgstr "Todos os arquivos"
 
@@ -1067,11 +1045,13 @@ msgid "Hide files that match the filter"
 msgstr "Esconder arquivos que se igualam com o filtro"
 
 # src/interface.c:929 src/interface.c:948
-#: ../src/filefilter.c:526 ../src/filefilter.c:538
+#: ../src/filefilter.c:526
+#: ../src/filefilter.c:538
 msgid "Mime type"
 msgstr "Tipo de arquivo"
 
-#: ../src/filefilter.c:529 ../src/filefilter.c:541
+#: ../src/filefilter.c:529
+#: ../src/filefilter.c:541
 msgid "Icon"
 msgstr "Ícone"
 
@@ -1504,9 +1484,8 @@ msgstr "/Documento/Espaçamento _Visível"
 
 # src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/menu.c:280
-#, fuzzy
 msgid "/Document/_Spell Check"
-msgstr "/Documento/Quebrar linhas"
+msgstr "/Documento/_Corretor Ortográfico"
 
 # src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/menu.c:283
@@ -1771,7 +1750,8 @@ msgid "Select font"
 msgstr "Selecionar fonte"
 
 # src/configure.c:417
-#: ../src/preferences.c:486 ../src/preferences.c:1611
+#: ../src/preferences.c:486
+#: ../src/preferences.c:1611
 msgid "Initial document settings"
 msgstr "Configurações iniciais do editor"
 
@@ -1818,9 +1798,8 @@ msgstr "Destacar bloco correspondente do começo ao fim"
 
 # src/toolbars.c:128
 #: ../src/preferences.c:502
-#, fuzzy
 msgid "Enable spell check"
-msgstr "Verificar Ortografia"
+msgstr "Habilitar corretor ortográfico"
 
 #: ../src/preferences.c:530
 msgid "Message"
@@ -1837,29 +1816,27 @@ msgid "File"
 msgstr "Arquivo"
 
 #: ../src/preferences.c:688
-msgid ""
-"Text styles are applied on top of each other. If multiple styles are applied "
-"to the same text, the top-most style in this list has the highest priority. "
-"Use drag and drop to re-order the text styles."
-msgstr ""
-"Estilos de texto são aplicados um em cima do outro. Se múltiplos estilos são "
-"aplicados ao mesmo texto, o estilo mais próximo do topo na lista tem maior "
-"prioridade. Use arrastar e soltar para reordenar os estilos de texto."
+msgid "Text styles are applied on top of each other. If multiple styles are applied to the same text, the top-most style in this list has the highest priority. Use drag and drop to re-order the text styles."
+msgstr "Estilos de texto são aplicados um em cima do outro. Se múltiplos estilos são aplicados ao mesmo texto, o estilo mais próximo do topo na lista tem maior prioridade. Use arrastar e soltar para reordenar os estilos de texto."
 
 # src/html_form.c:484 src/wml.c:319
-#: ../src/preferences.c:697 ../src/preferences.c:990 ../src/preferences.c:1060
+#: ../src/preferences.c:697
+#: ../src/preferences.c:990
+#: ../src/preferences.c:1060
 msgid "Label"
 msgstr "Rótulo"
 
 # src/html.c:817 src/html_table.c:103 src/html_table.c:154
 # src/html_table.c:222 src/html_table.c:296
-#: ../src/preferences.c:709 ../src/preferences.c:1600
+#: ../src/preferences.c:709
+#: ../src/preferences.c:1600
 msgid "Foreground color"
 msgstr "Cor principal"
 
 # src/html.c:817 src/html_table.c:103 src/html_table.c:154
 # src/html_table.c:222 src/html_table.c:296
-#: ../src/preferences.c:710 ../src/preferences.c:1601
+#: ../src/preferences.c:710
+#: ../src/preferences.c:1601
 msgid "Background color"
 msgstr "Cor de fundo"
 
@@ -1889,12 +1866,14 @@ msgstr "Verificar Ortografia"
 # src/html_form.c:291 src/html_form.c:342 src/html_form.c:387
 # src/html_form.c:432 src/images.c:247 src/wml.c:167 src/wml.c:207
 # src/wml.c:323
-#: ../src/preferences.c:934 ../src/preferences.c:1145
+#: ../src/preferences.c:934
+#: ../src/preferences.c:1145
 msgid "Name"
 msgstr "Nome"
 
 # src/configure.c:467
-#: ../src/preferences.c:991 ../src/preferences.c:1061
+#: ../src/preferences.c:991
+#: ../src/preferences.c:1061
 #: ../src/preferences.c:1150
 msgid "Command"
 msgstr "Commando"
@@ -1905,40 +1884,30 @@ msgid "Default browser"
 msgstr "Navegador padrão"
 
 #: ../src/preferences.c:994
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (available for local files)\n"
-"%i temporary fifo for input, equals %f if the document is not modified and "
-"local\n"
-"%I temporary filename for input, equals %f if the document is not modified "
-"and local\n"
+"%i temporary fifo for input, equals %f if the document is not modified and local\n"
+"%I temporary filename for input, equals %f if the document is not modified and local\n"
 "<b>Other options</b>\n"
 "%c local directory of file (available for local files)\n"
 "%n filename without path (available for all titled files)\n"
 "%u URL (available for all titled files)\n"
-"%p preview URL if basedir and preview dir are set in project settings, else "
-"identical to %u</small>"
+"%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"
 msgstr ""
 "<small><b>Opções de entrada</b>\n"
 "Inicie com um | para enviar a entrada para a entrada padrão\n"
-"%s nome de arquivo local (disponível para arquivos locais)\n"
-"%i fifo temporário para entrada, resulta em %s se o documento não for "
-"modificado e local\n"
-"%I nome de arquivo temporário para entrada, resulta em %s se o documento não "
-"for modificado e local\n"
+"%f nome de arquivo local (disponível para arquivos locais)\n"
+"%i fifo temporário para entrada, resulta em %f se o documento não for modificado e local\n"
+"%I nome de arquivo temporário para entrada, resulta em %f se o documento não for modificado e local\n"
 "<b>Outras opções</b>\n"
 "%c diretório local do arquivo (disponível para arquivos locais)\n"
-"%n nome de arquivo sem localização (disponível para todos os arquivos com "
-"título)\n"
+"%n nome de arquivo sem localização (disponível para todos os arquivos com título)\n"
 "%u URL (disponível para todos os arquivos com título)\n"
-"%p pré-visualizar URL se diretório base e diretório de pré-visualização "
-"estiverem definidos nas configurações do projeto, do contrario, idêntico a %"
-"u</small>"
+"%p pré-visualizar URL se diretório base e diretório de pré-visualização estiverem definidos nas configurações do projeto, do contrario, idêntico a %u</small>"
 
 #: ../src/preferences.c:1064
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1949,33 +1918,28 @@ msgid ""
 "end with a | to read the output from the standard output\n"
 "%o temporary fifo\n"
 "%O temporary filename\n"
-"%t temporary filename for both input and output (for in-place-editing "
-"filters, cannot operate on selection)\n"
+"%t temporary filename for both input and output (for in-place-editing filters, cannot operate on selection)\n"
 "<b>Other options</b>\n"
 "%c local directory of file (requires local file)\n"
 "%n filename without path (available for all titled files)\n"
 "%u URL (available for all titled files)\n"
-"%p preview URL if basedir and preview dir are set in project settings, else "
-"identical to %u</small>"
+"%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"
 msgstr ""
 "<small><b>Opções de entrada</b>\n"
 "Inicie com um | para enviar a entrada para a entrada padrão\n"
-"%s nome de arquivo local (requer arquivo local, não pode operar em seleção)\n"
+"%f nome de arquivo local (requer arquivo local, não pode operar em seleção)\n"
 "%i fifo temporário para entrada\n"
 "%I nome de arquivo temporário para entrada\n"
-"<b>Opções de saida</b>\n"
+"<b>Opções de saída</b>\n"
 "Termine com um | para ler a saída da saída padrão\n"
 "%o fifo temporário\n"
 "%O nome de arquivo temporário\n"
-"%t nome de arquivo temporário para ambas entrada e saída (para filtros de "
-"edição-em-local, não pode operar em seleção)\n"
+"%t nome de arquivo temporário para ambas entrada e saída (para filtros de edição-em-local, não pode operar em seleção)\n"
 "<b>Outras opções</b>\n"
 "%c diretório local do arquivo (requer arquivo local)\n"
 "%n nome de arquivo sem local (disponível para todos os arquivos com título)\n"
 "%u URL (disponível para todos os arquivos com título)\n"
-"%p pré-visualizar URL se diretório base e diretório de pré-visualização "
-"estiverem definidos nas configurações do projeto, do contrario, idêntico a %"
-"u</small>"
+"%p pré-visualizar URL se diretório base e diretório de pré-visualização estiverem definidos nas configurações do projeto, do contrario, idêntico a %u</small>"
 
 # src/toolbars.c:109
 #: ../src/preferences.c:1146
@@ -1998,48 +1962,38 @@ msgid "Output #"
 msgstr "Saída #"
 
 #: ../src/preferences.c:1152
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
 "%f local filename (available for local files)\n"
-"%i temporary fifo for input, equals %f if the document is not modified and "
-"local\n"
-"%I temporary filename for input, equals %f if the document is not modified "
-"and local\n"
+"%i temporary fifo for input, equals %f if the document is not modified and local\n"
+"%I temporary filename for input, equals %f if the document is not modified and local\n"
 "<b>Output options</b>\n"
 "end with a | to read the output from the standard output\n"
 "%o temporary fifo\n"
 "%O temporary filename\n"
-"%t temporary filename for both input and output (for in-place-editing "
-"filters)\n"
+"%t temporary filename for both input and output (for in-place-editing filters)\n"
 "<b>Other options</b>\n"
 "%c local directory of file (available for local files)\n"
 "%n filename without path (available for all titled files)\n"
 "%u URL (available for all titled files)\n"
-"%p preview URL if basedir and preview dir are set in project settings, else "
-"identical to %u</small>"
+"%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"
 msgstr ""
 "<small><b>Opções de entrada</b>\n"
 "inicie com um | para enviar a entrada para a entrada padrão\n"
-"%s nome de arquivo local (disponível para arquivos locais)\n"
-"%i fifo temporário para entrada, equivale a %s se o documento não for "
-"modificado e local\n"
-"%I nome de arquivo temporário para entrada, equivale a %s se o documento não "
-"for modificado e local\n"
+"%f nome de arquivo local (disponível para arquivos locais)\n"
+"%i fifo temporário para entrada, equivale a %f se o documento não for modificado e local\n"
+"%I nome de arquivo temporário para entrada, equivale a %s se o documento não for modificado e local\n"
 "<b>Opções de saída</b>\n"
 "termine com um | para ler a saída da saída padrão\n"
 "%o fifo temporário\n"
 "%O nome de arquivo temporário\n"
-"%t nome de arquivo temporário para ambas entrada e saída (para filtros de "
-"edição em local)\n"
+"%t nome de arquivo temporário para ambas entrada e saída (para filtros de edição em local)\n"
 "<b>Outras opções</b>\n"
 "%c diretório local do arquivo (disponível para arquivos locais)\n"
-"%n nome de arquivo sem caminho (disponível para todos os arquivos "
-"denominados)\n"
+"%n nome de arquivo sem caminho (disponível para todos os arquivos denominados)\n"
 "%u URL (disponível para todos os arquivos denominados)\n"
-"%p antever URL se diretório base e diretório de visualização estiverem "
-"definidos na configuração do projeto, do contrário idêntico a  %u</small>"
+"%p antever URL se diretório base e diretório de visualização estiverem definidos na configuração do projeto, do contrário idêntico a  %u</small>"
 
 # src/html_form.c:471
 #. label = gtk_label_new(NULL);
@@ -2072,12 +2026,14 @@ msgid "Textstyle"
 msgstr "Estilo de texto"
 
 # src/html_form.c:427
-#: ../src/preferences.c:1553 ../src/preferences.c:1554
+#: ../src/preferences.c:1553
+#: ../src/preferences.c:1554
 msgid "left"
 msgstr "esquerda"
 
 # src/html2.c:606 src/html2.c:646
-#: ../src/preferences.c:1553 ../src/preferences.c:1554
+#: ../src/preferences.c:1553
+#: ../src/preferences.c:1554
 msgid "right"
 msgstr "direita"
 
@@ -2241,14 +2197,11 @@ msgstr "Miscelânia"
 
 #: ../src/preferences.c:1679
 msgid "Open commandline files in running bluefish process"
-msgstr ""
-"Abre arquivos da linha de comando em um processo do bluefish em execução"
+msgstr "Abre arquivos da linha de comando em um processo do bluefish em execução"
 
 #: ../src/preferences.c:1681
-#, fuzzy
 msgid "Open commandline files in new window"
-msgstr ""
-"Abre arquivos da linha de comando em um processo do bluefish em execução"
+msgstr "Abrir arquivos da linha de comando em nova janela"
 
 #: ../src/preferences.c:1683
 msgid "File properties to check on disk for modifications"
@@ -2311,7 +2264,8 @@ msgstr "Posição da aba do notebook na barra lateral"
 msgid "Sidebar location"
 msgstr "Localização da barra lateral"
 
-#: ../src/preferences.c:1715 ../src/preferences.c:1717
+#: ../src/preferences.c:1715
+#: ../src/preferences.c:1717
 msgid "Dimensions"
 msgstr "Dimensões"
 
@@ -2341,7 +2295,8 @@ msgstr "Largura inicial da janela"
 # src/configure.c:427 src/interface.c:777 src/interface.c:934
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:1733 ../src/rcfile.c:704
+#: ../src/preferences.c:1733
+#: ../src/rcfile.c:704
 msgid "Images"
 msgstr "imagens"
 
@@ -2380,15 +2335,18 @@ msgid "Filters"
 msgstr "Filtros"
 
 # src/configure.c:475
-#: ../src/preferences.c:1767 ../src/preferences.c:1769
+#: ../src/preferences.c:1767
+#: ../src/preferences.c:1769
 msgid "Output parsers"
 msgstr "Analizadores de saída"
 
-#: ../src/preferences.c:1777 ../src/preferences.c:1778
+#: ../src/preferences.c:1777
+#: ../src/preferences.c:1778
 msgid "Plugins"
 msgstr "Plugins"
 
-#: ../src/preferences.c:1786 ../src/preferences.c:1787
+#: ../src/preferences.c:1786
+#: ../src/preferences.c:1787
 msgid "Text styles"
 msgstr "Estilos de texto"
 
@@ -2595,7 +2553,8 @@ msgid "Regular expression error: "
 msgstr "Erro na expressão regular: "
 
 # src/snr2.c:654 src/toolbars.c:111
-#: ../src/snr2.c:238 ../src/snr2.c:287
+#: ../src/snr2.c:238
+#: ../src/snr2.c:287
 msgid "Search failed"
 msgstr "Falha na procura"
 
@@ -2629,28 +2588,17 @@ msgstr[1] "Localizado %d ocorrências"
 
 #. display warning that not all documents have yet finished loading
 #: ../src/snr2.c:1406
-msgid ""
-"<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
-"span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Nem todos os documentos foram "
-"carregados ainda</span>"
+msgid "<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Nem todos os documentos foram carregados ainda</span>"
 
 #: ../src/snr2.c:1531
-msgid ""
-"<span foreground=\"red\" weight=\"bold\">No selection. Please select a block "
-"of text first.</span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Sem seleção. Por favor selecione um "
-"bloco de texto primeiro.</span>"
+msgid "<span foreground=\"red\" weight=\"bold\">No selection. Please select a block of text first.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Sem seleção. Por favor selecione um bloco de texto primeiro.</span>"
 
-#: ../src/snr2.c:1570 ../src/snr2.c:1936
-msgid ""
-"<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
-"will continue at the beginning.</span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Não há mais resultados igualáveis, "
-"próxima busca continuará do começo.</span>"
+#: ../src/snr2.c:1570
+#: ../src/snr2.c:1936
+msgid "<span foreground=\"red\" weight=\"bold\">No more matches found, next search will continue at the beginning.</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">Não há mais resultados igualáveis, próxima busca continuará do começo.</span>"
 
 # src/menu.c:133
 #: ../src/snr2.c:1647
@@ -2672,7 +2620,8 @@ msgid "All open files"
 msgstr "Todos os arquivos abertos"
 
 # src/html_form.c:110
-#: ../src/snr2.c:1654 ../src/snr2.c:1661
+#: ../src/snr2.c:1654
+#: ../src/snr2.c:1661
 msgid "Normal"
 msgstr "Normal"
 
@@ -2762,9 +2711,7 @@ msgstr "Permitir sobreposições de busca"
 
 #: ../src/snr2.c:1790
 msgid "After a match is found, start next search within that match."
-msgstr ""
-"Depois de encontrar um igualável, começar a próxima busca com esse mesmo "
-"valor."
+msgstr "Depois de encontrar um igualável, começar a próxima busca com esse mesmo valor."
 
 # src/snr2.c:684
 #: ../src/snr2.c:1792
@@ -2781,9 +2728,12 @@ msgid "_Use escape chars"
 msgstr "_Usar caracteres de escapamento"
 
 #: ../src/snr2.c:1800
-msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgid ""
+"Unescape backslash escaped characters such as \\n"
+", \\t etc."
 msgstr ""
-"Não escapar caracteres de escapamento de barra invertida como \\n, \\t etc."
+"Não escapar caracteres de escapamento de barra invertida como \\n"
+", \\t etc."
 
 # src/bluefish.c:617
 #: ../src/snr2.c:1802
@@ -2857,60 +2807,3 @@ msgstr "Essa alteração diz respeito a vários documentos."
 #~ msgid "Statistics: %d lines, %d words, %d characters"
 #~ msgstr "Estatísticas: %d linhas, %d palavras, %d caracteres"
 
-# src/toolbars.c:128
-#~ msgid "Spellcheck"
-#~ msgstr "Verificar Ortografia"
-
-#~ msgid "Show all output"
-#~ msgstr "Mostrar toda saída"
-
-# src/configure.c:350
-#~ msgid "Word wrap"
-#~ msgstr "Quebrar texto"
-
-# src/document.c:1091
-#~ msgid "loading plugins..."
-#~ msgstr "Carregando plugins..."
-
-#~ msgid "reading language files..."
-#~ msgstr "lendo arquivos de linguagem..."
-
-# src/document.c:1091
-#~ msgid "building file browser ..."
-#~ msgstr "construindo navegador de arquivos ..."
-
-#~ msgid "checking for running bluefish process ..."
-#~ msgstr "checando por processos do bluefish em andamento ..."
-
-#~ msgid "creating main gui..."
-#~ msgstr "criando interface gráfica principal..."
-
-#~ msgid "showing main gui..."
-#~ msgstr "Exibindo interface gráfica principal..."
-
-#~ msgid "/Project/Open Recent"
-#~ msgstr "/Projeto/Abrir Recente"
-
-#~ msgid "/File/Open Recent"
-#~ msgstr "/Arquivo/Abrir Recente"
-
-# src/rpopup.c:288
-#~ msgid "/Tools/Filters"
-#~ msgstr "/Ferramentas/Filtros"
-
-#~ msgid "/Tools"
-#~ msgstr "/Ferramentas"
-
-# src/configure.c:467
-#~ msgid "/Tools/Commands"
-#~ msgstr "/Ferramentas/Comandos"
-
-#~ msgid "/Tools/Outputbox"
-#~ msgstr "/Ferramentas/Caixa de saída"
-
-# src/html_form.c:427
-#~ msgid "Select color"
-#~ msgstr "Selecionar cor"
-
-#~ msgid "/View/Fullscreen"
-#~ msgstr "/Ver/Tela Cheia"
