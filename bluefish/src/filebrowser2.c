@@ -2120,6 +2120,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 				icon = g_mount_get_icon(gmount);
 				icon_name = icon_name_from_icon(icon);
 				DEBUG_MSG("detected icon name %s for %s\n",icon_name, name);
+				g_object_unref(gmount);
 			} else {
 				icon_name = g_strdup("drive-harddisk");
 				DEBUG_MSG("fallback icon name %s for %s\n",icon_name, name);
