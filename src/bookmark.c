@@ -554,7 +554,7 @@ static gboolean bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 	 else {
 		gchar *name;
 		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &b->iter, NAME_COLUMN,&name, -1);
-		g_print("bmark_check_remove, very weird, bookmark %s for %s does not have a parent ?????\n",name,gnome_vfs_uri_get_path(b->filepath));
+		g_print("bmark_check_remove, very weird, bookmark %s for %s does not have a parent ?????\n",name,g_file_get_uri(b->filepath));
 		g_free(name);
 		exit(123);
 	}
