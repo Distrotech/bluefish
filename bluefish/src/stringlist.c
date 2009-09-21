@@ -86,28 +86,24 @@ gint count_array(gchar **array) {
  */
 gchar *array_to_string(gchar **array) {
 	g_return_val_if_fail(array,g_strdup(""));
-	if (array) {
-		gchar **tmp, *escaped1, *finalstring;
-		gint newsize=1;
-		DEBUG_MSG("array_to_string, started\n");
-		finalstring = g_malloc0(newsize);
-		tmp = array;
-		while(*tmp) {
-			DEBUG_MSG("array_to_string, *tmp = %s\n", *tmp);
-			escaped1 = escape_string(*tmp, TRUE);
-			newsize += strlen(escaped1)+1;
-			finalstring = g_realloc(finalstring, newsize);
-			strcat(finalstring, escaped1);
-			finalstring[newsize-2] = ':';
-			finalstring[newsize-1] = '\0';
-			g_free(escaped1);
-			tmp++;
-		}	
-		DEBUG_MSG("array_to_string, finalstring = %s\n", finalstring);
-		return finalstring;
-	} else {
-		DEBUG_MSG_C("array_to_string, array=NULL !!!\n");
-	}
+	gchar **tmp, *escaped1, *finalstring;
+	gint newsize=1;
+	DEBUG_MSG("array_to_string, started\n");
+	finalstring = g_malloc0(newsize);
+	tmp = array;
+	while(*tmp) {
+		DEBUG_MSG("array_to_string, *tmp = %s\n", *tmp);
+		escaped1 = escape_string(*tmp, TRUE);
+		newsize += strlen(escaped1)+1;
+		finalstring = g_realloc(finalstring, newsize);
+		strcat(finalstring, escaped1);
+		finalstring[newsize-2] = ':';
+		finalstring[newsize-1] = '\0';
+		g_free(escaped1);
+		tmp++;
+	}	
+	DEBUG_MSG("array_to_string, finalstring = %s\n", finalstring);
+	return finalstring;
 }
 
 #define ARRAYBLOCKSIZE 6
