@@ -318,6 +318,7 @@ typedef struct {
 	gint adv_open_recursive;
 	gint bookmarks_filename_mode;    /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
 	gint bookmarks_show_mode;        /* 0=both,1=name,2=content */
+	gint bmarksearchmode;
 	gint filebrowser_focus_follow;   /* have the directory of the current document in focus */
 	gint filebrowser_show_backup_files;
 	gint filebrowser_show_hidden_files;
@@ -331,7 +332,7 @@ typedef struct {
 	gint outputb_scroll_mode; /* 0=none, 1=first line, 2= last line*/
 	gint outputb_show_all_output;
 	gint convertcolumn_horizontally;
-	/* 27 * sizeof(gint) */
+	/* 28 * sizeof(gint) */
 	/* IF YOU EDIT THIS STRUCTURE PLEASE EDIT THE CODE IN PROJECT.C THAT COPIES
 	A Tsessionvar INTO A NEW Tsessionvar AND ADJUST THE SIZES!!!!!!!!!!!!!!!!!!!!!! */
 #ifdef HAVE_LIBENCHANT

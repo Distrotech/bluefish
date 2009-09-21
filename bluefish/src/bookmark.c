@@ -557,15 +557,6 @@ static gboolean bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 			return FALSE;
 		}
 	}
-#ifdef DEVELOPMENT	
-	 else {
-		gchar *name;
-		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &b->iter, NAME_COLUMN,&name, -1);
-		g_print("bmark_check_remove, very weird, bookmark %s for %s does not have a parent ?????\n",name,g_file_get_uri(b->filepath));
-		g_free(name);
-		exit(123);
-	}
-#endif
   	DEBUG_MSG("bmark_check_remove, finished\n");
   	return TRUE;
 }
@@ -892,6 +883,39 @@ static void bmark_search_changed(GtkEditable *editable,gpointer user_data) {
 	bfwin->bmark_search_prefix = gtk_editable_get_chars(editable, 0, -1);
 	gtk_tree_model_filter_refilter(bfwin->bmarkfilter);
 }
+#if GTK_CHECK_VERSION(2,16,0)
+void bmark_search_mode_changed(gpointer data, guint action, GtkWidget *widget) {
+	Tbfwin *bfwin = BFWIN(data);
+	bfwin->session->bmarksearchmode = action;
+}
+
+void bmark_search_icon_press(GtkEntry *entry, GtkEntryIconPosition icon_pos, GdkEvent *event, gpointer user_data) {
+	Tbfwin *bfwin=user_data;
+	GtkItemFactory *menumaker;
+	GdkEventButton * bevent=event;
+	GtkMenu *menu;
+	GtkRadioMenuItem *rmi;
+
+	static GtkItemFactoryEntry bmarksearch_rpopup_menu_entries[] = {
+		{ N_("/Both Name & Content"),	NULL,	bmark_search_mode_changed,	BM_SEARCH_BOTH, "<RadioItem>" },
+		{ N_("/Content"),	NULL,	bmark_search_mode_changed,	BM_SEARCH_CONTENT, "/Both Name & Content" },
+		{ N_("/Name"),	NULL,	bmark_search_mode_changed,	BM_SEARCH_NAME, "/Both Name & Content" }
+	};
+
+	menumaker = gtk_item_factory_new(GTK_TYPE_MENU, "<Bookmarksearch>", NULL);
+#ifdef ENABLE_NLS
+	gtk_item_factory_set_translate_func(menumaker,menu_translate,"<Bookmarksearch>",NULL);
+#endif
+	gtk_item_factory_create_items(menumaker, sizeof(bmarksearch_rpopup_menu_entries)/sizeof(GtkItemFactoryEntry), bmarksearch_rpopup_menu_entries, bfwin);
+	menu = gtk_item_factory_get_widget(menumaker, "<Bookmarksearch>");
+	setup_toggle_item(menumaker, "/Both Name & Content", bfwin->session->bmarksearchmode != BM_SEARCH_CONTENT && bfwin->session->bmarksearchmode != BM_SEARCH_NAME);
+	setup_toggle_item(menumaker, "/Content", bfwin->session->bmarksearchmode == BM_SEARCH_CONTENT);
+	setup_toggle_item(menumaker, "/Name", bfwin->session->bmarksearchmode == BM_SEARCH_NAME);
+	gtk_widget_show_all(menu);
+	gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,bevent->button, bevent->time);
+	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
+} 
+#endif
 
 #endif /* BMARKSEARCH */
 
@@ -907,9 +931,16 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 	   Tree View is in bfwin->bmark 
 	 */
 	vbox = gtk_vbox_new(FALSE, 1);
+#ifdef BMARKSEARCH
 	entry = gtk_entry_new();
+#if GTK_CHECK_VERSION(2,16,0)
+	gtk_entry_set_icon_from_stock(entry, GTK_ENTRY_ICON_PRIMARY, GTK_STOCK_FIND);
+	gtk_entry_set_icon_activatable(entry, GTK_ENTRY_ICON_PRIMARY, TRUE);
+	g_signal_connect(G_OBJECT(entry), "icon-press", bmark_search_icon_press, bfwin);
+#endif
 	g_signal_connect(G_OBJECT(entry), "changed", bmark_search_changed, bfwin);
 	gtk_box_pack_start(GTK_BOX(vbox), entry, FALSE, TRUE, 0);
+#endif
 	hbox = gtk_toolbar_new();
 	gtk_toolbar_set_icon_size(GTK_TOOLBAR(hbox),GTK_ICON_SIZE_MENU);
 	gtk_toolbar_set_style(GTK_TOOLBAR(hbox),GTK_TOOLBAR_ICONS);

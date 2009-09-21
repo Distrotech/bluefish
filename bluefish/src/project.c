@@ -75,20 +75,10 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 		session->spell_check_default = main_v->session->spell_check_default;
 #endif
 	}
-	memcpy(session, main_v->session, 27 * sizeof(gint));
-/*	session->snr_is_expanded = main_v->session->snr_is_expanded;
-	session->adv_open_recursive = main_v->session->adv_open_recursive;
-	session->adv_open_matchname = main_v->session->adv_open_matchname;
-	session->bookmarks_filename_mode = main_v->session->bookmarks_filename_mode;
-	session->bookmarks_show_mode = main_v->session->bookmarks_show_mode;
-	session->filebrowser_focus_follow = main_v->session->filebrowser_focus_follow;
-	session->filebrowser_show_hidden_files = main_v->session->filebrowser_show_hidden_files;
-	session->filebrowser_show_backup_files = main_v->session->filebrowser_show_backup_files;
-	session->filebrowser_viewmode = main_v->session->filebrowser_viewmode;
-	session->snr_position_x = main_v->session->snr_position_x;
-	session->snr_position_y = main_v->session->snr_position_y;
-	session->view_main_toolbar = main_v->session->view_main_toolbar;
-	session->view_left_panel = main_v->session->view_left_panel;*/
+	
+	/* THE NUBER OF BYTES THAT IS COPIED HERE MUST BE EQUAL TO THE NUMBER OF INTEGERS
+	IN THE STRUCT IN bluefish.h ELSE ALL WILL FAIL */
+	memcpy(session, main_v->session, 28 * sizeof(gint));
 }
 
 Tbfwin *project_is_open(GFile *uri) {
