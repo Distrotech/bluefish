@@ -1,5 +1,5 @@
 /* Bluefish HTML Editor
- * html.c - menu/toolbar callbacks, inserting functions, and other cool stuff 
+ * html.c - menu/toolbar callbacks, inserting functions, and other cool stuff
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
  * modifications Copyright (C) 1999 Antti-Juhani Kaijanaho
@@ -28,7 +28,7 @@
 #include <stdlib.h>        /* strtod() */
 #include <string.h>
 #include <time.h>
-  
+
 #include "htmlbar.h"
 #include "html.h"
 #include "html_diag.h"     /* the new html dialog stuff  */
@@ -348,7 +348,7 @@ static void insert_time_callback(GtkWidget * widget, TimeInsert * timeinsert)
     }
     DEBUG_MSG("insert_time_callback, count=%d\n", count);
   }
-  
+
   DEBUG_MSG("insert_time_callback, final_string=%s\n", final_string);
   doc_insert_two_strings(timeinsert->bfwin->current_document, final_string, "");
   DEBUG_MSG("insert_time_callback, text inserted\n");
@@ -613,9 +613,9 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
     rel_link_list = list_relative_document_filenames(bfwin->current_document);
     tmplist = duplicate_stringlist(bfwin->session->urllist, 1);
     rel_link_list = g_list_concat(tmplist, rel_link_list);
-  
+
     dg->combo[2] = combo_with_popdown(avalues[0], rel_link_list, 1);
-  
+
     free_stringlist(rel_link_list);
   }
   file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), 0, bfwin);
@@ -654,11 +654,11 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   dg->entry[6] = entry_with_text(avalues[5], 256);
   bf_mnemonic_label_tad_with_alignment(_("OnD_blClick:"), dg->entry[6], 0, 0.5, dgtable, 0, 1, 1, 2);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[6], 1, 2, 1, 2);
-  
+
   dg->entry[7] = entry_with_text(avalues[6], 256);
   bf_mnemonic_label_tad_with_alignment(_("OnMouseO_ver:"), dg->entry[7], 0, 0.5, dgtable, 0, 1, 2, 3);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[7], 1, 2, 2, 3);
-  
+
   dg->entry[8] = entry_with_text(avalues[7], 256);
   bf_mnemonic_label_tad_with_alignment(_("OnMouse_Down:"), dg->entry[8], 0, 0.5, dgtable, 0, 1, 3, 4);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[8], 1, 2, 3, 4);
@@ -670,7 +670,7 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   dg->entry[10] = entry_with_text(avalues[9], 256);
   bf_mnemonic_label_tad_with_alignment(_("OnMouseOu_t:"), dg->entry[10], 0, 0.5, dgtable, 0, 1, 5, 6);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[10], 1, 2, 5, 6);
-  
+
   dg->entry[11] = entry_with_text(avalues[10], 256);
   bf_mnemonic_label_tad_with_alignment(_("OnMouse_Up:"), dg->entry[11], 0, 0.5, dgtable, 0, 1, 6, 7);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[11], 1, 2, 6, 7);
@@ -831,7 +831,7 @@ void block_tag_edit_dialog(Tbfwin *bfwin, gint type, Ttagpopup *data) {
   fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
   dgtable = html_diag_table_in_vbox(dg, 5, 4);
-  
+
   popuplist = g_list_append(NULL, "left");
   popuplist = g_list_append(popuplist, "center");
   popuplist = g_list_append(popuplist, "right");
@@ -854,7 +854,7 @@ void block_tag_edit_dialog(Tbfwin *bfwin, gint type, Ttagpopup *data) {
   dg->entry[2] = entry_with_text(tagvalues[3], 1024);
   bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[2], 1, 0.5, dgtable, 2, 3, 0, 1);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 3, 4, 0, 1);
-  
+
   dg->entry[3] = entry_with_text(tagvalues[4], 1024);
   bf_mnemonic_label_tad_with_alignment(_("_ID:"), dg->entry[3], 1, 0.5, dgtable, 2, 3, 1, 2);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 3, 4, 1, 2);
@@ -862,7 +862,7 @@ void block_tag_edit_dialog(Tbfwin *bfwin, gint type, Ttagpopup *data) {
   dg->entry[4] = entry_with_text(custom, 1024);
   bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 3, 4);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 4, 3, 4);
-  
+
   switch (type) {
   case 1:
     html_diag_finish(dg, G_CALLBACK(p_editok_lcb));
@@ -956,7 +956,7 @@ void quickrule_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   Thtml_diag *dg;
   GtkWidget *dgtable;
   GtkAdjustment *dgadj;
-  
+
   dg = html_diag_new(bfwin, _("Horizontal Rule"));
   fill_dialogvalues(hritems, hrvalues, &custom, (Ttagpopup *) data, dg);
 
@@ -1067,7 +1067,7 @@ void body_dialog(Tbfwin *bfwin, Ttagpopup *data) {
     gtk_table_set_row_spacings(GTK_TABLE(dgtable[1]), 6);
     gtk_table_set_col_spacings(GTK_TABLE(dgtable[1]), 12);
     gtk_container_add(GTK_CONTAINER(frame), dgtable[1]);
-    
+
     dg->entry[3] = entry_with_text(bodyvalues[6], 256);
     gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->entry[3], 1, 2, 0, 1);
     bf_mnemonic_label_tad_with_alignment(_("St_yle:"), dg->entry[3], 0, 0.5, dgtable[1], 0, 1, 0, 1);
@@ -1097,7 +1097,7 @@ void body_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
     vbox2 = gtk_vbox_new(FALSE, 12);
     gtk_container_add(GTK_CONTAINER(frame), vbox2);
-    
+
     hbox = gtk_hbox_new(FALSE, 12);
     dg->entry[6] = entry_with_text(bodyvalues[10], 256);
     label = gtk_label_new_with_mnemonic(_("On_Load:"));
@@ -1113,7 +1113,7 @@ void body_dialog(Tbfwin *bfwin, Ttagpopup *data) {
     gtk_label_set_mnemonic_widget(GTK_LABEL(label), dg->entry[7]);
     gtk_box_pack_start(GTK_BOX(hbox), dg->entry[7], TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-    
+
     /* Depreciated options tab */
   if (!(!main_v->props.allow_dep && !data)){
           frame = bf_generic_frame_new(NULL, GTK_SHADOW_NONE, 12);
@@ -1209,7 +1209,7 @@ void meta_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   gchar *custom = NULL;
   Thtml_diag *dg;
   GtkWidget *dgtable;
-  
+
   dg = html_diag_new(bfwin,_("Meta"));
   fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
@@ -1237,15 +1237,15 @@ void meta_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   dg->entry[2] = entry_with_text(tagvalues[3], 256);
   bf_mnemonic_label_tad_with_alignment(_("_Language:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 3, 4);
-  
+
   dg->entry[3] = entry_with_text(tagvalues[4], 256);
   bf_mnemonic_label_tad_with_alignment(_("_Scheme:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 4, 5);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 10, 4, 5);
-  
+
   dg->entry[4] = entry_with_text(custom, 1024);
   bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 5, 6);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 10, 5, 6);
-  
+
   html_diag_finish(dg, G_CALLBACK(metaok_lcb));
   if (custom) g_free(custom);
 }
@@ -1262,7 +1262,7 @@ static void generalfontdialog_lcb(gint type, GtkWidget * widget, Thtml_diag *dg)
     thestring = g_strdup(cap("<BASEFONT"));
   break;
   default:
-    g_critical("uh-oh: generalfontdialog_lcb, unknown action %d\n",type)
+    g_critical("uh-oh: generalfontdialog_lcb, unknown action %d\n",type);
     g_return_if_reached();
   break;
   }
@@ -1284,7 +1284,7 @@ static void generalfontdialog_lcb(gint type, GtkWidget * widget, Thtml_diag *dg)
     g_free(sizecombo);
   }
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), cap("COLOR"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry), cap("FACE"), thestring, NULL); 
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry), cap("FACE"), thestring, NULL);
   thestring = insert_string_if_entry(dg->entry[1], NULL, thestring, NULL);
   finalstring = g_strconcat(thestring, ">", NULL);
   g_free(thestring);
@@ -1394,7 +1394,7 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
     } else {
       bcc = g_strconcat("?bcc=", gtk_entry_get_text(GTK_ENTRY(dg->entry[3])), NULL);
       have_questionmark = TRUE;
-    }   
+    }
   } else {
     bcc = g_strdup("");
   }
@@ -1404,8 +1404,8 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
       subj = g_strconcat("&amp;subject=", urlencoded, NULL);
     } else {
       subj = g_strconcat("?subject=", urlencoded, NULL);
-      have_questionmark = TRUE;     
-    }   
+      have_questionmark = TRUE;
+    }
   } else {
     subj = g_strdup("");
   }
@@ -1415,7 +1415,7 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
       body = g_strconcat("&amp;body=", urlencoded, NULL);
     } else {
       body = g_strconcat("?body=", urlencoded, NULL);
-    }   
+    }
   } else {
     body = g_strdup("");
   }
@@ -1434,7 +1434,7 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 void email_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   GtkWidget *dgtable;
   Thtml_diag *dg;
-  
+
   dg = html_diag_new(bfwin,_("E-mail"));
 
   dgtable = gtk_table_new(5, 2, FALSE);
@@ -1453,7 +1453,7 @@ void email_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   dg->entry[3] = gtk_entry_new_with_max_length(256);
   bf_mnemonic_label_tad_with_alignment(_("Blin_d copy to:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 2, 3);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 2, 2, 3);
-  
+
   dg->entry[4] = gtk_entry_new_with_max_length(256);
   bf_mnemonic_label_tad_with_alignment(_("with _Subject:"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 3, 4);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 2, 3, 4);
@@ -1519,7 +1519,7 @@ void quicklist_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[2], 5, 10, 1, 2);
 
   html_diag_finish(dg, G_CALLBACK(quicklistok_lcb));
-  
+
 }
 
 static void framesetdialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
@@ -1601,7 +1601,7 @@ void frameset_dialog(Tbfwin *bfwin, Ttagpopup *data) {
     dg->check[1] = NULL;
   }
 
-/* THIS IS NO VALID HTML !!!! 
+/* THIS IS NO VALID HTML !!!!
   dg->check[1] = gtk_check_button_new();
   parse_existence_for_dialog(tagvalues[2], dg->check[1]);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Border")), 0, 2, 2, 3);
@@ -1660,7 +1660,7 @@ void frame_dialog(Tbfwin *bfwin, Ttagpopup *data) {
     { "src", "name", "frameborder", "scrolling", "marginwidth", "marginheight", "noresize", NULL };
   gchar *tagvalues[9];
   gchar *custom = NULL;
-  
+
   GtkWidget *dgtable, *file_but;
   Thtml_diag *dg;
 
@@ -1717,7 +1717,7 @@ void frame_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 4, 5);
 
   html_diag_finish(dg, G_CALLBACK(framedialogok_lcb));
-  
+
   if (custom) g_free(custom);
 }
 
@@ -1776,7 +1776,7 @@ void embed_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   bf_mnemonic_label_tad_with_alignment(_("Bo_rder:"), dg->spin[3], 0, 0.5, dgtable, 0, 1, 4, 5);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[3], 1, 2, 4, 5);
 
-  html_diag_finish(dg, G_CALLBACK(embedok_lcb));  
+  html_diag_finish(dg, G_CALLBACK(embedok_lcb));
 }
 
 static void scriptok_lcb(GtkWidget * widget,Thtml_diag *dg ) {
@@ -1896,7 +1896,7 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode) {
   gchar *custom = NULL;
   Thtml_diag *dg;
   GtkWidget *dgtable, *but;
-  
+
   dg = html_diag_new(bfwin,_("Link"));
   fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
   dgtable = html_diag_table_in_vbox(dg, 3, 10);
@@ -1914,7 +1914,7 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode) {
   gtk_table_attach_defaults(GTK_TABLE(dgtable), but, 2, 3, 0, 1);
 
   dg->attrwidget[1] = entry_with_text(tagvalues[1], 1024);
-  bf_mnemonic_label_tad_with_alignment(_("HREF_LANG:"), dg->attrwidget[1], 0, 0.5, dgtable, 0, 1, 1, 2);  
+  bf_mnemonic_label_tad_with_alignment(_("HREF_LANG:"), dg->attrwidget[1], 0, 0.5, dgtable, 0, 1, 1, 2);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[1], 1, 3, 1, 2);
 
   dg->attrwidget[2] = entry_with_text(tagvalues[2], 1024);
@@ -1936,12 +1936,12 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode) {
       break;
     }
     dg->attrwidget[3] = combo_with_popdown(tmp, tmplist, 1);
-    
+
     g_list_free(tmplist);
   }
   bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->attrwidget[3], 0, 0.5, dgtable, 0, 1, 3, 4);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[3], 1, 3, 3, 4);
-  
+
   {
     gchar *tmp;
     GList *tmplist = list_from_arglist(FALSE, "stylesheet", "alternate", "alternate stylesheet", "shortcut icon", "contents", "chapter", "section", "subsection", "index", "glossary", "appendix", "search", "author", "copyright", "next", "prev", "first", "last", "up", "top", "help", "bookmark", NULL);
@@ -1960,14 +1960,14 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode) {
     dg->attrwidget[4] = combo_with_popdown(tmp, tmplist, 1);
     bf_mnemonic_label_tad_with_alignment(_("_Forward Relation:"), dg->attrwidget[4], 0, 0.5, dgtable, 0, 1, 4, 5);
     gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[4], 1, 3, 4, 5);
-    
+
     dg->attrwidget[5] = combo_with_popdown(tagvalues[5], tmplist, 1);
     bf_mnemonic_label_tad_with_alignment(_("_Reverse Relation:"), dg->attrwidget[5], 0, 0.5, dgtable, 0, 1, 5, 6);
     gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[5], 1, 3, 5, 6);
-    
+
     g_list_free(tmplist);
   }
-  
+
   {
     GList *tmplist = list_from_arglist(FALSE, "screen", "tty", "tv", "projection", "handheld", "print", "braille", "aural", "all", NULL);
     dg->attrwidget[6] = combo_with_popdown(tagvalues[6], tmplist, 1);
@@ -1979,11 +1979,11 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode) {
   dg->attrwidget[7] = entry_with_text(tagvalues[7], 1024);
   bf_mnemonic_label_tad_with_alignment(_("L_ang:"), dg->attrwidget[7], 0, 0.5, dgtable, 0, 1, 7, 8);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[7], 1, 3, 7, 8);
-  
+
   dg->attrwidget[8] = entry_with_text(custom, 1024);
   bf_mnemonic_label_tad_with_alignment(_("_Custom:"), dg->attrwidget[8], 0, 0.5, dgtable, 0, 1, 8, 9);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[8], 1, 3, 8, 9);
-  
+
   html_diag_finish(dg, G_CALLBACK(linkdialogok_lcb));
   if (custom) g_free(custom);
-} 
+}
