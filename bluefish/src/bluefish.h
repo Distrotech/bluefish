@@ -431,7 +431,9 @@ typedef struct {
 /*	gpointer filebrowser;*/
 	gpointer fb2; /* filebrowser2 gui */
 	gpointer snr2;
-	gpointer bmark;
+	GtkTreeView * bmark;
+	GtkTreeModelFilter *bmarkfilter;
+	gchar *bmark_search_prefix;
 	gpointer bmarkdata; /* a link to the global main_v->bmarkdata, OR project->bmarkdata */
 /*	GtkTreeStore *bookmarkstore; / * this is a link to project->bookmarkstore OR main_v->bookmarkstore
 											  and it is only here for convenience !!!! * /
