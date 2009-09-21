@@ -90,9 +90,6 @@ typedef struct {
 } Tconfig_list_item;
 
 static GHashTable *main_configlist=NULL;
-#ifdef USE_CUSTOM_MENU
-static GHashTable *custom_menu_configlist=NULL;
-#endif
 static void free_configlist(GHashTable *configlist) {
 	g_hash_table_destroy(configlist);
 /*	GList *tmplist = g_list_first(configlist);
@@ -525,11 +522,6 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 /*	case 0:
 		rcfile_save_main();
 	break;*/
-#ifdef USE_CUSTOM_MENU
-	case 2:
-		rcfile_save_custom_menu();
-	break;
-#endif
 	case 3:
 		{
 			gchar *shortcutfilename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/menudump_2", NULL);
