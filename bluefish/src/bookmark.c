@@ -883,18 +883,15 @@ static void bmark_search_changed(GtkEditable *editable,gpointer user_data) {
 	bfwin->bmark_search_prefix = gtk_editable_get_chars(editable, 0, -1);
 	gtk_tree_model_filter_refilter(bfwin->bmarkfilter);
 }
-#if GTK_CHECK_VERSION(2,16,0)
-void bmark_search_mode_changed(gpointer data, guint action, GtkWidget *widget) {
+
+static void bmark_search_mode_changed(gpointer data, guint action, GtkWidget *widget) {
 	Tbfwin *bfwin = BFWIN(data);
 	bfwin->session->bmarksearchmode = action;
 }
 
-void bmark_search_icon_press(GtkEntry *entry, GtkEntryIconPosition icon_pos, GdkEvent *event, gpointer user_data) {
-	Tbfwin *bfwin=user_data;
+static void bmark_search_rpopup_menu(Tbfwin *bfwin, GdkEventButton * bevent) {
 	GtkItemFactory *menumaker;
-	GdkEventButton * bevent=event;
 	GtkMenu *menu;
-	GtkRadioMenuItem *rmi;
 
 	static GtkItemFactoryEntry bmarksearch_rpopup_menu_entries[] = {
 		{ N_("/Both Name & Content"),	NULL,	bmark_search_mode_changed,	BM_SEARCH_BOTH, "<RadioItem>" },
@@ -907,14 +904,25 @@ void bmark_search_icon_press(GtkEntry *entry, GtkEntryIconPosition icon_pos, Gdk
 	gtk_item_factory_set_translate_func(menumaker,menu_translate,"<Bookmarksearch>",NULL);
 #endif
 	gtk_item_factory_create_items(menumaker, sizeof(bmarksearch_rpopup_menu_entries)/sizeof(GtkItemFactoryEntry), bmarksearch_rpopup_menu_entries, bfwin);
-	menu = gtk_item_factory_get_widget(menumaker, "<Bookmarksearch>");
+	menu = (GtkMenu *) gtk_item_factory_get_widget(menumaker, "<Bookmarksearch>");
 	setup_toggle_item(menumaker, "/Both Name & Content", bfwin->session->bmarksearchmode != BM_SEARCH_CONTENT && bfwin->session->bmarksearchmode != BM_SEARCH_NAME);
 	setup_toggle_item(menumaker, "/Content", bfwin->session->bmarksearchmode == BM_SEARCH_CONTENT);
 	setup_toggle_item(menumaker, "/Name", bfwin->session->bmarksearchmode == BM_SEARCH_NAME);
-	gtk_widget_show_all(menu);
+	gtk_widget_show_all(GTK_WIDGET(menu));
 	gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,bevent->button, bevent->time);
 	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
+}
+
+#if GTK_CHECK_VERSION(2,16,0)
+static void bmark_search_icon_press(GtkEntry *entry, GtkEntryIconPosition icon_pos, GdkEvent *event, gpointer user_data) {
+	bmark_search_rpopup_menu(user_data, event);
 } 
+#else
+static void bmark_search_button_press(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
+	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
+		bmark_search_rpopup_menu(user_data, event);
+	}
+}
 #endif
 
 #endif /* BMARKSEARCH */
@@ -936,9 +944,11 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 #if GTK_CHECK_VERSION(2,16,0)
 	gtk_entry_set_icon_from_stock(entry, GTK_ENTRY_ICON_PRIMARY, GTK_STOCK_FIND);
 	gtk_entry_set_icon_activatable(entry, GTK_ENTRY_ICON_PRIMARY, TRUE);
-	g_signal_connect(G_OBJECT(entry), "icon-press", bmark_search_icon_press, bfwin);
+	g_signal_connect(G_OBJECT(entry), "icon-press", G_CALLBACK(bmark_search_icon_press), bfwin);
+#else
+	g_signal_connect(G_OBJECT(entry), "button-press-event", G_CALLBACK(bmark_search_button_press), bfwin);
 #endif
-	g_signal_connect(G_OBJECT(entry), "changed", bmark_search_changed, bfwin);
+	g_signal_connect(G_OBJECT(entry), "changed", G_CALLBACK(bmark_search_changed), bfwin);
 	gtk_box_pack_start(GTK_BOX(vbox), entry, FALSE, TRUE, 0);
 #endif
 	hbox = gtk_toolbar_new();
