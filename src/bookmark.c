@@ -598,11 +598,8 @@ static void bmark_popup_menu_deldoc(Tbfwin *bfwin) {
 				/* go up to parent */
 				gtk_tree_path_up(path);
 			} else if (depth != 1) {
-				g_print("a bug in function bmark_popup_menu_deldoc_lcb()\n");
-#ifdef DEVELOPMENT
-				exit(124);
-#endif
-				return;
+				g_critical("a bug in function bmark_popup_menu_deldoc_lcb()\n");
+				g_return_if_reached();
 			}
 			gtk_tree_model_get_iter(gtk_tree_view_get_model(bfwin->bmark), &iter, path);
 			gtk_tree_path_free(path);

@@ -183,8 +183,8 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	break;
 #endif
 	default:
-		g_print("menu_file_operations_cb, unknown action, abort!\n");
-		exit(123);
+		DEBUG_MSG_C("uh-oh: menu_file_operations_cb, unknown action %d\n",callback_action);
+		g_return_if_reached();
 	}
 }
 
