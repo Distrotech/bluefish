@@ -87,7 +87,7 @@ typedef struct {
 	gint len;					/* file length for integrity check - perhaps some hash code is needed */
 	gboolean is_temp;
 	gchar **strarr;				/* this is a pointer to the location where this bookmark is stored in the sessionlist,
-								   so we can immediately change it _in_ the list */
+									   so we can immediately change it _in_ the list */
 } Tbmark;
 #define BMARK(var) ((Tbmark *)(var))
 
@@ -108,6 +108,12 @@ enum {
 	BM_SMODE_BOTH,
 	BM_SMODE_NAME,
 	BM_SMODE_CONTENT
+};
+
+enum {
+	BM_SEARCH_NAME,
+	BM_SEARCH_CONTENT,
+	BM_SEARCH_BOTH
 };
 
 /* Free bookmark structure */
@@ -844,7 +850,40 @@ static void bmark_next_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 static void bmark_last_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	bookmark_menu_cb(bfwin,4,widget);
 }
+#ifdef BMARKSEARCH
 
+static gboolean bmark_search_filter_func(GtkTreeModel *model, GtkTreeIter  *iter, gpointer data) {
+	GtkTreeIter piter;
+	/* the parents have a Tdocument stored in PTR_COLUMN, the bookmarks themselves have a Tbmark */
+	if (gtk_tree_model_parent(model, &piter, &iter)) {
+		Tbmark *bmark;
+		gtk_tree_model_get(model, &iter, PTR_COLUMN,&bmark, -1);
+		if (bmark) {
+			switch(bfwin->session->bmark_search_mode) {
+			case BM_SEARCH_NAME:
+				return g_str_has_prefix(bmark->name, bfwin->bmark_search_prefix);
+			break;
+			case BM_SEARCH_CONTENT:
+				return g_str_has_prefix(bmark->text, bfwin->bmark_search_prefix);
+			break;
+			case BM_SEARCH_BOTH:
+				return (g_str_has_prefix(bmark->text, bfwin->bmark_search_prefix) || return g_str_has_prefix(bmark->name, bfwin->bmark_search_prefix));
+			break;
+			}
+		}
+		return FALSE;
+	}
+	return TRUE;
+}
+
+static void bmark_search_changed(Tbfwin *bfwin) {
+	/* call refilter on the bmarkfilter */
+	g_free(bfwin->bmark_search_prefix);
+	bfwin->bmark_search_prefix = gtk_editable_get_chars(entry, 0, -1);
+	gtk_tree_model_filter_refilter(bfwin->bmarkfilter);
+}
+
+#endif /* BMARKSEARCH */
 
 /* Initialize bookmarks gui for window */
 GtkWidget *bmark_gui(Tbfwin * bfwin)
@@ -882,7 +921,13 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 	
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
 	
-	bfwin->bmark = gtk_tree_view_new_with_model(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore));
+#ifdef BMARKSEARCH
+	bfwin->bmarkfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore));
+	gtk_tree_model_filter_set_visible_func(bfwin->bmarkfilter, bmark_search_filter_func, bfwin, NULL);
+	bfwin->bmark = gtk_tree_view_new_with_model(GTK_TREE_MODEL(bfwin->bmarkfilter));
+#else	
+	bfwin->bmark = gtk_tree_view_new_with_model(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore));	
+#endif /* BMARKSEARCH */
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "text", NAME_COLUMN, NULL);
 	gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
