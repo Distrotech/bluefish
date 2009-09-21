@@ -209,10 +209,10 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{"/File/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/_New"), "<control>n", menu_file_operations_cb, 1, "<StockItem>", GTK_STOCK_NEW},
-	{N_("/File/New _Window"), "<shift><control>n", gui_window_menu_cb, 1, "<Item>"},	
+	{N_("/File/New _Window"), "<shift><control>n", gui_window_menu_cb, 1, "<Item>"},
 	{N_("/File/_Open..."), "<control>O", menu_file_operations_cb, 2, "<StockItem>", GTK_STOCK_OPEN},
 	{N_("/File/Open _Recent"), NULL, NULL, 0, "<Branch>"},
-	{"/File/Open Recent/tearoff1", NULL, NULL, 0, "<Tearoff>"},	
+	{"/File/Open Recent/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/Open Ad_vanced..."), "<shift><control>O", menu_file_operations_cb, 3, "<Item>"},
 	{N_("/File/Open _URL..."), NULL, menu_file_operations_cb, 25, "<Item>"},
 	{N_("/File/Open _From Selection"), NULL, menu_file_operations_cb, 26, "<Item>"},
@@ -227,7 +227,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/_Close"), "<control>w", menu_file_operations_cb, 9, "<StockItem>", GTK_STOCK_CLOSE},
 	{N_("/File/Close A_ll"), "<shift><control>w", menu_file_operations_cb, 24, "<Item>"},
 	{N_("/File/Close Win_dow"), NULL, gui_window_menu_cb, 2, "<Item>"},
-	{"/File/sep2", NULL, NULL, 0, "<Separator>"},	
+	{"/File/sep2", NULL, NULL, 0, "<Separator>"},
 	{N_("/File/Upload \\/ Download"), NULL, menu_file_operations_cb, 32, "<Item>"},
 	{"/File/sep4", NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Quit"), "<control>Q", bluefish_exit_request, 0, "<StockItem>", GTK_STOCK_QUIT},
@@ -241,7 +241,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/_Redo"), "<shift><control>z", menu_file_operations_cb, 21, "<StockItem>", GTK_STOCK_REDO},
 	{N_("/Edit/Undo All"), NULL, menu_file_operations_cb, 22, "<Item>"},
 	{N_("/Edit/Redo All"), NULL, menu_file_operations_cb, 23, "<Item>"},
-	{"/Edit/sep1", NULL, NULL, 0, "<Separator>"},	
+	{"/Edit/sep1", NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Cu_t"), "<control>x", menu_file_operations_cb, 10, "<StockItem>", GTK_STOCK_CUT},
 	{N_("/Edit/_Copy"), "<control>c", menu_file_operations_cb, 11, "<StockItem>", GTK_STOCK_COPY},
 	{N_("/Edit/_Paste"), "<control>v", menu_file_operations_cb, 12, "<StockItem>", GTK_STOCK_PASTE},
@@ -258,7 +258,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/_Unindent"), NULL, menu_indent_cb, 1, "<StockItem>", GTK_STOCK_UNINDENT},
 	{"/Edit/sep6", NULL, NULL, 0, "<Separator>"},
 /*	{N_("/Edit/Save Sett_ings"), NULL, rcfile_save_configfile_menu_cb, 0, "<Item>"},*/
-	{N_("/Edit/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 3, "<Item>"},	
+	{N_("/Edit/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 3, "<Item>"},
 	{N_("/Edit/Preference_s"), NULL, open_preferences_menu_cb, 0, "<StockItem>", GTK_STOCK_PREFERENCES},
 	{N_("/_View"), NULL, NULL, 0, "<Branch>"},
 	{"/View/tearoff1", NULL, NULL, 0, "<Tearoff>"},
@@ -307,8 +307,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{"/Document/Character Encoding/sep4", NULL, NULL, 0, "<Separator>"},
 	{"/Document/Character Encoding/_Add or Remove...", NULL, encodings_dialog_menu_cb, 1, "<Item>"},
 	{"/Document/sep5", NULL, NULL, 0, "<Separator>"},
-	{N_("/Document/Add Boo_kmark"), "<control>k", menu_bmark_operations_cb, 1, "<Item>"},	
-	{N_("/Document/Floati_ng Window"), NULL, file_floatingview_menu_cb, 1, "<Item>"},			
+	{N_("/Document/Add Boo_kmark"), "<control>k", menu_bmark_operations_cb, 1, "<Item>"},
+	{N_("/Document/Floati_ng Window"), NULL, file_floatingview_menu_cb, 1, "<Item>"},
 	{"/Document/sep6", NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/Move Left"), NULL, gui_notebook_switch, 5, "<Item>"},
 	{N_("/Document/Move Right"), NULL, gui_notebook_switch, 6, "<Item>"},
@@ -330,8 +330,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{"/Project/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Project/_New Project"), NULL, project_menu_cb, 6, "<Item>"},
 	{N_("/Project/_Open Project..."), NULL, project_menu_cb, 1, "<Item>"},
-	{N_("/Project/Open _Recent"), NULL, NULL, 0, "<Branch>"},		
-	{"/Project/Open Recent/tearoff1", NULL, NULL, 0, "<Tearoff>"},	
+	{N_("/Project/Open _Recent"), NULL, NULL, 0, "<Branch>"},
+	{"/Project/Open Recent/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{"/Project/sep1", NULL, NULL, 0, "<Separator>"},
 	{N_("/Project/_Save"), NULL, project_menu_cb, 2, "<Item>"},
 	{N_("/Project/Save _as..."), NULL, project_menu_cb, 3, "<Item>"},
@@ -366,8 +366,8 @@ gchar *menu_translate(const gchar * path, gpointer data) {
 /*	static gchar *menupath = NULL;
 	if (menupath) g_free(menupath);
 	menupath = g_strdup(path);
-	if ((strstr(path, "/tearoff1") != NULL) 
-			|| (strstr(path, "/---") != NULL) 
+	if ((strstr(path, "/tearoff1") != NULL)
+			|| (strstr(path, "/---") != NULL)
 			|| (strstr(path, "/sep1") != NULL)) {
 		DEBUG_MSG("menu_translate, nogettext returning %s for %s\n", menupath, path);
 		return menupath;
@@ -375,7 +375,7 @@ gchar *menu_translate(const gchar * path, gpointer data) {
 	retval = gettext(path);
 	return retval;
 }
-#endif       
+#endif
 
 /************************************************/
 /* generic functions for dynamic created menu's */
@@ -513,7 +513,7 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		item_factory = gtk_item_factory_from_widget(bfwin->menubar);
 	}
 	DEBUG_MSG("filetype_menu_rebuild, adding filetypes in menu\n");
-	bfwin->menu_filetypes = NULL; 
+	bfwin->menu_filetypes = NULL;
 	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Language Mode"));
 	tmplist = g_list_last(langmgr_get_languages());
 	while (tmplist) {
@@ -531,7 +531,7 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	}
 }
 
-/* 
+/*
  * menu factory crap, thanks to the gtk tutorial for this
  * both the 1.0 and the 1.2 code is directly from the tutorial
  */
@@ -708,10 +708,10 @@ void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean i
 				GtkWidget *tmp;
 				GList **worklist;
 				worklist = (is_project) ? &curbfwin->menu_recent_projects : &curbfwin->menu_recent_files;
-				
+
 				/* First of all, create the entry and insert it at the list*/
 				*worklist = g_list_append(*worklist,create_recent_entry(curbfwin,filename,is_project,TRUE));
-	
+
 				DEBUG_MSG("add_to_recent_list, inserted item in menu\n");
 				if(g_list_length(*worklist) > main_v->props.max_recent_files) {
 					tmp = remove_recent_entry(bfwin,"last",is_project);
@@ -757,7 +757,7 @@ static void remove_window_entry_from_window(Tbfwin *menubfwin, Tbfwin *tobfwin) 
 		gtk_widget_destroy(bdm->menuitem);
 		menubfwin->menu_windows = g_list_remove(menubfwin->menu_windows,bdm);
 		g_free(bdm);
-		
+
 	}
 }
 static void rename_window_entry_from_window(Tbfwin *menubfwin, Tbfwin *tobfwin, gchar *newtitle) {
@@ -768,7 +768,7 @@ static void rename_window_entry_from_window(Tbfwin *menubfwin, Tbfwin *tobfwin, 
 		DEBUG_MSG("rename_window_entry_from_window, setting label to have title %s\n",newtitle);
 		gtk_label_set_text(GTK_LABEL(label), newtitle);
 	}
-}	
+}
 static void menu_window_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	gtk_window_present(GTK_WINDOW(BFWIN(bdm->data)->main_window));
 }
@@ -800,7 +800,7 @@ void add_allwindows_entries_to_window(Tbfwin *menubfwin) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
-}	
+}
 void remove_window_entry_from_all_windows(Tbfwin *tobfwin) {
 	GList *tmplist = g_list_first(main_v->bfwinlist);
 	while (tmplist) {
@@ -833,12 +833,12 @@ void browser_toolbar_cb(GtkWidget *widget, Tbfwin *bfwin) {
             tmplist = g_list_next(tmplist);
         }
     }
-    
-    message_dialog_new(bfwin->main_window, 
+
+    message_dialog_new(bfwin->main_window,
                        GTK_MESSAGE_INFO,
                        GTK_BUTTONS_CLOSE,
                        _("No default browser found"),
-                       _("You can set a default browser by going to:\n" 
+                       _("You can set a default browser by going to:\n"
                          "Edit->Preferences->External Commands"));
 }
 
@@ -865,13 +865,13 @@ static void external_filter_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	gint begin=0,end=-1;
 	/* if we have a selection, and the filter can be used on a selection,
 	 we should ask if it should be the complete file or the selection */
-	 
+
 	if (operatable_on_selection(arr[1]) && (doc_has_selection(bdm->bfwin->current_document))) {
 		GtkWidget *dialog;
 		Tfilterdialog *fd;
 		fd = g_slice_new(Tfilterdialog);
 		fd->bdm = bdm;
-		
+
 		fd->selsave = doc_save_selection(bdm->bfwin->current_document);
 		dialog = gtk_message_dialog_new(GTK_WINDOW(bdm->bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Operate filter only on selection?"));
 		g_signal_connect(dialog,"response",G_CALLBACK(external_filter_dialog_response_lcb),fd);
@@ -896,7 +896,7 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
  */
 void external_menu_rebuild(Tbfwin *bfwin) {
 	GList *tmplist;
-	
+
 	/* first cleanup all menu's */
 	tmplist = g_list_first(bfwin->menu_external);
 	while (tmplist) {
@@ -917,7 +917,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 	}
 	g_list_free(bfwin->menu_outputbox);
 	bfwin->menu_outputbox = NULL;
-	
+
 	/*create_parent_and_tearoff(N_("/Tools/Outputbox/"), gtk_item_factory_from_widget(bfwin->menubar));
 	create_parent_and_tearoff(N_("/Tools/Commands/"), gtk_item_factory_from_widget(bfwin->menubar));
 	create_parent_and_tearoff(N_("/Tools/Filters/"), gtk_item_factory_from_widget(bfwin->menubar));*/
@@ -941,7 +941,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	
+
 	tmplist = g_list_first(main_v->props.external_command);
 	while (tmplist) {
 		gchar **arr = tmplist->data;
@@ -965,7 +965,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		tmplist = g_list_next(tmplist);
 	}
 
-	/* the outputbox */	
+	/* the outputbox */
 
 	tmplist = g_list_first(main_v->props.external_outputbox);
 	while (tmplist) {
@@ -1062,7 +1062,7 @@ void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filety
 		tmplist = g_list_first(main_v->globses.encodings);
 		while (tmplist) {
 			gchar **tmparr = (gchar **)tmplist->data;
-			if (strcmp(tmparr[1], encoding)==0) {
+			if (g_ascii_strcasecmp(tmparr[1], encoding)==0) {
 				Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(bfwin->menu_encodings, tmparr[1]);
 				if (bdm) {
 					g_signal_handlers_block_matched(G_OBJECT(bdm->menuitem), G_SIGNAL_MATCH_FUNC,
@@ -1073,7 +1073,7 @@ void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filety
 				}
 				break;
 			}
-			tmplist = g_list_next(tmplist);	
+			tmplist = g_list_next(tmplist);
 		}
 	}
 }
