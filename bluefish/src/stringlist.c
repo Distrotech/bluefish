@@ -85,6 +85,7 @@ gint count_array(gchar **array) {
  * Return value: #gchar* newly allocated string
  */
 gchar *array_to_string(gchar **array) {
+	g_return_val_if_fail(array,g_strdup(""));
 	if (array) {
 		gchar **tmp, *escaped1, *finalstring;
 		gint newsize=1;
@@ -105,12 +106,7 @@ gchar *array_to_string(gchar **array) {
 		DEBUG_MSG("array_to_string, finalstring = %s\n", finalstring);
 		return finalstring;
 	} else {
-#ifdef DEBUG
-		g_print("array_to_string, array=NULL !!!\n");
-		exit(135);
-#else
-		return g_strdup("");
-#endif
+		DEBUG_MSG_C("array_to_string, array=NULL !!!\n");
 	}
 }
 
