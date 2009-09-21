@@ -152,7 +152,7 @@ gint have_modified_documents(GList *doclist) {
 	GList *tmplist = g_list_first(doclist);
 	gint count=0;
 	while (tmplist) {
-		if (DOCUMENT(tmplist->data)->modified) { 
+		if (DOCUMENT(tmplist->data)->modified) {
 			count++;
 			if (count > 2)
 				return 2;
@@ -455,7 +455,7 @@ void doc_set_mimetype(Tdocument *doc, const gchar *mimetype) {
 		g_file_info_set_content_type(doc->fileinfo,mimetype);
 	}
 	doc_set_statusbar_mimetype_encoding(doc);
-} 
+}
 
 /**
  * doc_reset_filetype:
@@ -623,11 +623,11 @@ void doc_font_size(Tdocument *doc, gint direction) {
 		PangoFontDescription *font_desc;
 		PangoContext *pc;
 		gint size;
-		
+
 		pc = gtk_widget_get_pango_context(doc->view);
 		font_desc = pango_context_get_font_description(pc);
 		size = pango_font_description_get_size(font_desc);
-		size = (direction > 0) ? size*1.2 : size/1.2; 
+		size = (direction > 0) ? size*1.2 : size/1.2;
 		if (pango_font_description_get_size_is_absolute(font_desc)) {
 			pango_font_description_set_absolute_size(font_desc, size);
 		} else {
@@ -1082,7 +1082,7 @@ void doc_set_statusbar_mimetype_encoding(Tdocument *doc)
 
 	if (doc->fileinfo) {
 		const gchar *mime = NULL;
-		
+
 		mime = g_file_info_get_content_type(doc->fileinfo);
 		if (mime) {
 			gchar *desc = g_content_type_get_description(mime);
@@ -1090,7 +1090,7 @@ void doc_set_statusbar_mimetype_encoding(Tdocument *doc)
 			g_free(desc);
 		}
 	}
-	
+
 	if (msg == NULL)
 		msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
 
@@ -1277,21 +1277,26 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 }
 
 static void add_encoding_to_list(gchar *encoding) {
+	GList *tmplist = g_list_first(main_v->globses.encodings);
+
+	while (tmplist) {
+		gchar **tmparr = tmplist->data;
+
+		if (g_ascii_strcasecmp(tmparr[1], encoding) == 0) {
+			return;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+
 	gchar **enc = g_new0(gchar *,4);
 	enc[0] = g_strdup(encoding);
-	if (!arraylist_value_exists(main_v->globses.encodings, (const gchar **)enc, 1, FALSE)) {
-		GList *tmplist;
-		enc[1] = g_strdup(encoding);
-		enc[2] = g_strdup("TRUE");
-		main_v->globses.encodings = g_list_insert(main_v->globses.encodings, enc, 1);
-		tmplist = g_list_first(main_v->bfwinlist);
-		while (tmplist) {
-			encoding_menu_rebuild(BFWIN(tmplist->data));
-			tmplist = g_list_next(tmplist);
-		}
-	} else {
-		g_free(enc[0]);
-		g_free(enc);
+	enc[1] = g_strdup(encoding);
+	enc[2] = g_strdup("TRUE");
+	main_v->globses.encodings = g_list_insert(main_v->globses.encodings, enc, 1);
+	tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		encoding_menu_rebuild(BFWIN(tmplist->data));
+		tmplist = g_list_next(tmplist);
 	}
 }
 
@@ -1495,7 +1500,7 @@ gboolean doc_file_to_textbox(Tdocument *doc, gchar *filename, gboolean enable_un
 	g_free(buffer);
 	return ret;
 }*/
-/* code moved to file.c 
+/* code moved to file.c
 void doc_set_fileinfo(Tdocument *doc, GFileInfo *finfo) {
 	DEBUG_MSG("doc_set_fileinfo, doc=%p, new finfo=%p, old fileinfo=%p\n",doc,finfo,doc->fileinfo);
 	if (doc->fileinfo) {
@@ -2184,7 +2189,7 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 			, BFWIN(bfwin)->session->autoindent
 			, BFWIN(bfwin)->session->autocomplete);
 #ifdef HAVE_LIBENCHANT
-	BLUEFISH_TEXT_VIEW(newdoc->view)->spell_check = BFWIN(bfwin)->session->spell_check_default; 
+	BLUEFISH_TEXT_VIEW(newdoc->view)->spell_check = BFWIN(bfwin)->session->spell_check_default;
 #endif
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
 	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(newdoc->view), bfwin->session->default_mime_type);
@@ -2225,7 +2230,7 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 	newdoc->encoding = g_strdup( (bfwin->session->encoding) ? bfwin->session->encoding : main_v->props.newfile_default_encoding);
 	DEBUG_MSG("doc_new_backend, encoding is %s\n",newdoc->encoding);
 	newdoc->overwrite_mode = FALSE;
-	
+
 	doc_set_title(newdoc);
 	doc_bind_signals(newdoc);
 
@@ -2295,7 +2300,7 @@ static gboolean doc_auto_detect_lang_lcb(gpointer data) {
 #endif
 	gint buflen;
 	gboolean uncertain=FALSE;
-	
+
 	buf = doc_get_chars(doc, 0, -1);
 	buflen = strlen(buf);
 	conttype = g_content_type_guess(NULL,(guchar *)buf,buflen,&uncertain);
@@ -2313,13 +2318,13 @@ static gboolean doc_auto_detect_lang_lcb(gpointer data) {
 		doc_set_mimetype(doc, conttype);
 #endif
 		g_free(conttype);
-		return FALSE; 
+		return FALSE;
 	}
 	g_free(conttype);
 	if (buflen > 50) {
 		doc->newdoc_autodetect_lang_id=0;
 		DEBUG_MSG("doc_auto_detect_lang_lcb, filesize>50, stop detection\n");
-		return FALSE; 
+		return FALSE;
 	}
 	return TRUE;
 }
@@ -2341,7 +2346,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	DEBUG_MSG("doc_new, status=%d\n",doc->status);
 
 	doc->newdoc_autodetect_lang_id=g_timeout_add_seconds_full(G_PRIORITY_DEFAULT_IDLE, 10, doc_auto_detect_lang_lcb, doc, NULL);
-	
+
 	if(!delay_activate) gtk_widget_show(doc->view); /* Delay _show() if neccessary */
 	return doc;
 }
@@ -2563,18 +2568,18 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 void doc_reload(Tdocument *doc, GFileInfo *newfinfo, gboolean warn_user) {
 	GtkTextIter itstart, itend, cursor;
 	gint cursorpos=-1;
-	
+
 	DEBUG_MSG("starting reload for %p\n",doc);
 	if ((doc->uri == NULL)/* || (!file_exists_and_readable(doc->uri))*/) {
 		statusbar_message(BFWIN(doc->bfwin),_("Unable to open file"), 2);
 		return;
 	}
-	
+
 	if (warn_user) {
 		gint retval;
 		const gchar *buttons[] = { GTK_STOCK_CANCEL, GTK_STOCK_REVERT_TO_SAVED, NULL };
 		gchar *msgstr, *basename;
-		
+
 		basename = g_file_get_basename(doc->uri);
 		msgstr = g_strdup_printf(_("If you revert \"%s\" to your last saved copy, your current changes will be permanently lost."), basename);
 		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
@@ -2582,14 +2587,14 @@ void doc_reload(Tdocument *doc, GFileInfo *newfinfo, gboolean warn_user) {
 																			buttons,
 																			_("Revert changes to last saved copy?"),
 																			msgstr);
-		
+
 		g_free(basename);
 		g_free(msgstr);
 
 		if (retval == 0)
 			return;
 	}
-	
+
  	/* store all bookmark positions, reload them later */
 	bmark_clean_for_doc(doc);
 	gtk_text_buffer_get_iter_at_mark(doc->buffer,&cursor,gtk_text_buffer_get_insert(doc->buffer));
@@ -3255,7 +3260,7 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	case 13:
 #ifdef HAVE_LIBENCHANT
 		bluefish_text_view_set_spell_check(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), GTK_CHECK_MENU_ITEM(widget)->active);
-#endif	
+#endif
 		break;
 	}
 }
