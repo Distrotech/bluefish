@@ -257,8 +257,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/_Indent"), NULL, menu_indent_cb, 2, "<StockItem>", GTK_STOCK_INDENT},
 	{N_("/Edit/_Unindent"), NULL, menu_indent_cb, 1, "<StockItem>", GTK_STOCK_UNINDENT},
 	{"/Edit/sep6", NULL, NULL, 0, "<Separator>"},
-/*	{N_("/Edit/Save Sett_ings"), NULL, rcfile_save_configfile_menu_cb, 0, "<Item>"},*/
-	{N_("/Edit/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 3, "<Item>"},
+	{N_("/Edit/Save Shortcut _Keys"), NULL, rcfile_save_configfile_menu_cb, 0, "<Item>"},
 	{N_("/Edit/Preference_s"), NULL, open_preferences_menu_cb, 0, "<StockItem>", GTK_STOCK_PREFERENCES},
 	{N_("/_View"), NULL, NULL, 0, "<Branch>"},
 	{"/View/tearoff1", NULL, NULL, 0, "<Tearoff>"},
