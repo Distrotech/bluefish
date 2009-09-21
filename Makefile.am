@@ -1,7 +1,7 @@
 
 AUTOMAKE_OPTIONS = dist-bzip2 1.8
 
-SUBDIRS = data desktop-data images man po src
+SUBDIRS = data desktop-data images man po src win32
 
 PO_SUBDIRS = \
 	po \
@@ -15,7 +15,8 @@ PO_SUBDIRS = \
 EXTRA_DIST = \
 	intltool-extract.in \
 	intltool-merge.in \
-	intltool-update.in
+	intltool-update.in \
+	Makefile.mingw
 
 DISTCLEANFILES = \
 	doltcompile \
