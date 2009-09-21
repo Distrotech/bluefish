@@ -5,15 +5,12 @@ SUBDIRS = pixmaps plugin_about plugin_entities plugin_htmlbar plugin_infbrowser 
 
 MAINTAINERCLEANFILES = Makefile.in config.h.in
 
-DEFS += -DLOCALEDIR=\"$(localedir)\" -DPKGDATADIR=\"$(pkgdatadir)\"
+DEFS += -DLOCALEDIR=\"$(localedir)\" -DPKGDATADIR=\"$(pkgdatadir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
 
 if OS_WIN32
-win32_pkglibdir = $(pkglibdir)
 AM_LDFLAGS = -export-all-symbols
-DEFS += -DPKGLIBDIR=\"$(win32_pkglibdir)\" -DEXE_EXPORT_SYMBOLS
+DEFS += -DEXE_EXPORT_SYMBOLS
 LDADD = -lgnurx -lws2_32
-else
-DEFS += -DPKGLIBDIR=\"$(pkglibdir)\"
 endif
 
 bin_PROGRAMS = bluefish-unstable
