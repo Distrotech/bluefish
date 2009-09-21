@@ -660,9 +660,7 @@ guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffse
 		exit(156);
 	}
 #endif
-#ifdef DEBUG
 	DEBUG_MSG("utf8_byteoffset_to_charsoffset_cached, string %p has strlen %d, looking for byteoffset %ld, starting in cache at i=%d\n", string, strlen(string),byteoffset,i);
-#endif
 
 	while (i > 0 && utf8_offset_cache.last_byteoffset[i] > byteoffset) {
 		i--;
@@ -670,9 +668,7 @@ guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffse
 
 	if (i > 0) {
 		if (utf8_offset_cache.last_byteoffset[i] == byteoffset) {
-#ifdef DEBUG
 			DEBUG_MSG("byteoffset %ld is in the cache at i=%d, returning %d\n",byteoffset,i,utf8_offset_cache.last_charoffset[i]);
-#endif
 			return utf8_offset_cache.last_charoffset[i];
 		}
 		/* if the byteoffset is in the middle of a multibyte character, this line will fail (but
