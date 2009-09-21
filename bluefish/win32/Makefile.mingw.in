@@ -22,7 +22,6 @@ EXTERNAL_DLLS = \
 build: $(top_srcdir)/config.status
 	$(MAKE) -C $(top_srcdir) \
 	    pkgdatadir="../share/$(BLUEFISH_PACKAGE)" \
-	    win32_pkglibdir="../lib/$(BLUEFISH_PACKAGE)" \
 	    localedir="../share/locale/"
 
 install: build
