@@ -602,6 +602,8 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 	init_prop_integer   (&configlist, &session->filebrowser_focus_follow, "fb_focus_follow:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->filebrowser_viewmode, "fb_viewmode:", 2, FALSE);
 	init_prop_integer   (&configlist, &session->bookmarks_filename_mode,"bookmarks_filename_mode:",1, FALSE);
+	init_prop_integer   (&configlist, &session->bookmarks_show_mode,"bookmarks_show_mode:",0, FALSE);
+	init_prop_integer   (&configlist, &session->bmarksearchmode,"bmarksearchmode:",0, FALSE);
 	init_prop_integer   (&configlist, &session->outputb_scroll_mode,"outputb_scroll_mode:",0, FALSE);
 	init_prop_integer   (&configlist, &session->outputb_show_all_output,"outputb_show_all_output:",0, FALSE);
 	init_prop_string_with_escape(&configlist, &session->convertcolumn_separator, "convertcolumn_separator:", NULL);
