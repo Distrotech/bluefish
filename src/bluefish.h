@@ -52,13 +52,22 @@
 
 #ifdef DEBUG
 #define DEBUG_MSG g_print
+#define DEBUG_MSG_C g_critical
+#define DEBUG_MSG_E g_error
+#define DEBUG_MSG_W g_warning
 #else /* not DEBUG */
 #if defined(__GNUC__) || defined(__SUNPRO_C)
 #define DEBUG_MSG(args...)
+#define DEBUG_MSG_C(args...)
+#define DEBUG_MSG_E(args...)
+#define DEBUG_MSG_W(args...)
  /**/
 #else/* notdef __GNUC__ || __SUNPRO_C */
 extern void g_none(gchar *first, ...);
 #define DEBUG_MSG g_none
+#define DEBUG_MSG_C g_none
+#define DEBUG_MSG_E g_none
+#define DEBUG_MSG_W g_none
 #endif /* __GNUC__ || __SUNPRO_C */
 #endif /* DEBUG */
 
