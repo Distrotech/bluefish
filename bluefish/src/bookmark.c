@@ -111,9 +111,9 @@ enum {
 };
 
 enum {
+	BM_SEARCH_BOTH,
 	BM_SEARCH_NAME,
-	BM_SEARCH_CONTENT,
-	BM_SEARCH_BOTH
+	BM_SEARCH_CONTENT
 };
 
 /* Free bookmark structure */
