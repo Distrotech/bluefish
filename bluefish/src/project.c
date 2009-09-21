@@ -658,7 +658,7 @@ void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		}
 	break;
 	default:
-		g_critical("uh-oh: project_menu_cb, no such callback_action %d\n",callback_action);
+		DEBUG_MSG_C("uh-oh: project_menu_cb, no such callback_action %d\n",callback_action);
 		g_return_if_reached();
 	break;
 	}

@@ -538,7 +538,7 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 		}
 	break;
 	default:
-		g_critical("rcfile_save_configfile_menu_cb, unknown action %d\n", action);
+		DEBUG_MSG_C("rcfile_save_configfile_menu_cb, unknown action %d\n", action);
 		g_return_if_reached();
 	break;
 	}

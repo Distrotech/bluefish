@@ -1262,7 +1262,7 @@ static void generalfontdialog_lcb(gint type, GtkWidget * widget, Thtml_diag *dg)
     thestring = g_strdup(cap("<BASEFONT"));
   break;
   default:
-    g_critical("uh-oh: generalfontdialog_lcb, unknown action %d\n",type);
+    DEBUG_MSG_C("uh-oh: generalfontdialog_lcb, unknown action %d\n",type);
     g_return_if_reached();
   break;
   }
