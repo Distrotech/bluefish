@@ -918,10 +918,12 @@ static void bmark_search_icon_press(GtkEntry *entry, GtkEntryIconPosition icon_p
 	bmark_search_rpopup_menu(user_data, event);
 } 
 #else
-static void bmark_search_button_press(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
+static gboolean bmark_search_button_press(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
 	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
 		bmark_search_rpopup_menu(user_data, event);
+		return TRUE;
 	}
+	return FALSE;
 }
 #endif
 
@@ -1618,4 +1620,7 @@ void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
 void bmark_cleanup(Tbfwin * bfwin) {
 	DEBUG_MSG("bmark_cleanup, cleanup for bfwin=%p\n",bfwin);
 	bfwin->bmark = NULL;
+	bfwin->bmarkfilter = NULL;
+	g_free(bfwin->bmark_search_prefix);
+	bfwin->bmark_search_prefix=NULL;
 }
