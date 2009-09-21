@@ -42,7 +42,8 @@ MAINTAINERCLEANFILES = \
 	mkinstalldirs \
 	Makefile.in
 
-DISTCHECK_CONFIGURE_FLAGS = --disable-update-databases --disable-xml-catalog-update
+DISTCHECK_CONFIGURE_FLAGS = --disable-update-databases --disable-xml-catalog-update \
+                            --enable-debugging-output --enable-development
 
 #maintainer-clean-local:
 #	find $(top_srcdir) -name "*~" -exec rm "{}" ";"
