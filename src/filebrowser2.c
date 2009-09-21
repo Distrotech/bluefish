@@ -336,7 +336,7 @@ static gchar *icon_name_from_icon(GIcon *icon) {
 			g_strfreev (names);
 		}
 	} else {
-		DEBUG_MSG("icon %p for '%s' is not themed, use icon name 'folder'\n",icon,display_name);
+		DEBUG_MSG("icon %p is not themed, use icon name 'folder'\n",icon);
 		icon_name = g_strdup("folder");
 	}
 	return icon_name;
