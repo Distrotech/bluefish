@@ -519,10 +519,7 @@ void rcfile_check_directory(void) {
 
 void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidget *widget) {
 	switch (action) {
-/*	case 0:
-		rcfile_save_main();
-	break;*/
-	case 3:
+	case 0:
 		{
 			gchar *shortcutfilename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/menudump_2", NULL);
 			gtk_accel_map_save(shortcutfilename);
