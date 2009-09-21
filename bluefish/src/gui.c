@@ -209,7 +209,7 @@ void gui_notebook_move(Tbfwin *bfwin, gboolean move_left) {
 		{
 			GList *cur;
 			cur = g_list_nth(bfwin->documentlist, curpos);
-			if (!cur) exit(1);
+			g_return_if_fail(cur);
 		}
 #endif
 		newpos = curpos + ((move_left) ? -1 : 1);
