@@ -20,15 +20,15 @@
 !define PROGRAM_EXE		"${PACKAGE}.exe"
 !define UNINSTALL_EXE	"bluefish-uninst.exe"
 
-!define GTK_URL			"http://internap.dl.sourceforge.net/project/pidgin/GTK%2B%20for%20Windows/2.14.7%20Rev%20A"
-!define GTK_FILENAME 	"gtk-runtime-2.14.7-rev-a.exe"
+!define GTK_URL			"http://internap.dl.sourceforge.net/project/gtk-win/GTK%2B%20Runtime%20Environment/GTK%2B%202.16"
+!define GTK_FILENAME 	"gtk2-runtime-2.16.6-2009-09-12-ash.exe"
 !define GTK_SIZE			"34549" ; Install size in Kilobytes
 !define AS_DICT_URL		"http://www.muleslow.net/files/aspell/lang"
 
 !define REG_USER_SET		"Software\${PRODUCT}"
 !define REG_UNINSTALL	"Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}"
 
-!define GTK_MIN_VERSION	"2.14.7"
+!define GTK_MIN_VERSION	"2.16.0"
 
 
 ; Variables
