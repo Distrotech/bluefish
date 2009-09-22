@@ -21,8 +21,8 @@ EXTERNAL_DLLS = \
 
 build: $(top_srcdir)/config.status
 	$(MAKE) -C $(top_srcdir) \
-	    pkgdatadir="../share/$(BLUEFISH_PACKAGE)" \
-	    localedir="../share/locale/"
+	    pkgdatadir="./share/$(BLUEFISH_PACKAGE)" \
+	    localedir="./share/locale/"
 
 install: build
 	mkdir -p $(BUILD_DIR)
@@ -37,7 +37,7 @@ prepare:
 	mkdir -p $(BUILD_DIR)/lib/aspell-0.60
 	mkdir -p $(BUILD_DIR)/lib/enchant
 	mkdir -p $(BUILD_DIR)/share/enchant
-	cp -f $(addprefix /local/lib/,$(EXTERNAL_DLLS)) $(BUILD_DIR)
+	cp -f $(addprefix /local/bin/,$(EXTERNAL_DLLS)) $(BUILD_DIR)
 	cp -f /local/lib/enchant/libenchant_aspell.dll  $(BUILD_DIR)/lib/enchant/
 	cp -f /local/lib/aspell-0.60/*.cmap             $(BUILD_DIR)/lib/aspell-0.60/
 	cp -f /local/lib/aspell-0.60/*.cset             $(BUILD_DIR)/lib/aspell-0.60/
@@ -47,9 +47,9 @@ prepare:
 
 installer: install strip prepare
 	$(MAKENSIS) -V3 \
-	    -DBLUEFISH_PACKAGE="$(BLUEFISH_PACKAGE)" \
-	    -DBLUEFISH_VERSION="$(BLUEFISH_VERSION)" \
-	    -DBLUEFISH_LOCALES="$(BLUEFISH_LOCALES)" \
+	    -DPACKAGE="$(BLUEFISH_PACKAGE)" \
+	    -DVERSION="$(BLUEFISH_VERSION)" \
+	    -DLOCALES="$(BLUEFISH_LOCALES)" \
 	    bluefish.nsi
 
 clean:

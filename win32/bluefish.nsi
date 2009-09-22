@@ -9,11 +9,11 @@
 
 ; Defines
 ;----------------------------------------------
-!define PACKAGE "${BLUEFISH_PACKAGE}"
-!define LOCALE  "${BLUEFISH_LOCALES}"
+;!define PACKAGE
+;!define LOCALE
+;!define VERSION
 
 !define PRODUCT			"Bluefish"
-!define VERSION			"${BLUEFISH_VERSION}"
 !define PUBLISHER			"The Bluefish Developers"
 !define HOMEPAGE			"http://bluefish.openoffice.nl/"
 !define HELPURL			"http://bluefish.openoffice.nl/manual/"
