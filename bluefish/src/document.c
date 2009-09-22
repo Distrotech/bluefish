@@ -56,6 +56,10 @@
 #include "bftextview2_spell.h"
 #endif
 
+static GdkColor colorgrey = {0, 50000, 50000, 50000};
+static GdkColor colorred = {0, 65535, 0, 0};
+static GdkColor colorblue = {0, 0, 0, 65535};
+
 typedef struct {
 	GtkWidget *textview;
 	GtkWidget *window;
@@ -773,6 +777,17 @@ void doc_move_to_window_dialog(Tdocument *doc, Tbfwin *newwin) {
 	gtk_widget_show_all(dialog);
 }
 
+
+/**
+ * doc_set_label_color:
+ * @doc: a #Tdocument
+ * @color: a GdkColor * or NULL
+ *
+ * sets the text of the notebook tab and tab menu to color
+ * if color is NULL, the color is reset to the gtk-style setting
+ *
+ * Return value: void
+ **/
 static void doc_set_label_color(Tdocument *doc, GdkColor *color) {
 	gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, color);
 	gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, color);
@@ -782,22 +797,20 @@ static void doc_set_label_color(Tdocument *doc, GdkColor *color) {
 }
 
 void doc_set_status(Tdocument *doc, gint status) {
-	GdkColor colorblack = {0, 0, 0, 0};
-	GdkColor colorgrey = {0, 50000, 50000, 50000};
-	GdkColor colorred = {0, 65535, 0, 0};
+	GdkColor *labelcolor = NULL;
 	doc->status = status;
 	switch(status) {
 		case DOC_STATUS_COMPLETE:
 			doc->modified=FALSE;
-			doc_set_label_color(doc, &colorblack);
 		break;
 		case DOC_STATUS_ERROR:
-			doc_set_label_color(doc, &colorred);
+			labelcolor =  &colorred;
 		break;
 		case DOC_STATUS_LOADING:
-			doc_set_label_color(doc, &colorgrey);
+			labelcolor =  &colorgrey;
 		break;
 	}
+	doc_set_label_color(doc, labelcolor);
 }
 
 /**
@@ -825,15 +838,11 @@ void doc_set_modified(Tdocument *doc, gint value) {
 		remove_autosave(doc);
 	}
 	if (doc->modified != value) {
-		GdkColor colorblue = {0, 0, 0, 65535};
-		GdkColor colorblack = {0, 0, 0, 0};
-
+		GdkColor *labelcolor = NULL;
 		doc->modified = value;
-		if (doc->modified) {
-			doc_set_label_color(doc, &colorblue);
-		} else {
-			doc_set_label_color(doc, &colorblack);
-		}
+		if (doc->modified)
+			labelcolor = &colorblue;
+		doc_set_label_color(doc, labelcolor);
 	}
 #ifdef DEBUG
 	else {
