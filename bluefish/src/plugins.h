@@ -30,17 +30,18 @@
 #define BFPLUGIN_PRIORITY_LATE 191
 #define BFPLUGIN_PRIORITY_LAST 255
 
-#define BFPLUGIN_VERSION 6
+#define BFPLUGIN_VERSION 7
 
 typedef struct {
 	const gchar *name; /* plugin name */
-	const gushort bfplugin_version;
-	const gushort document_size;
+	const gushort bfplugin_version; /* the sizes of the most important structs are checker here to avoid a plugin */
+	const gushort document_size;    /* compiled with a different struct accessing the wrong member of a struct  */
 	const gushort sessionvars_size;
 	const gushort globalsession_size;
 	const gushort bfwin_size;
 	const gushort project_size;
 	const gushort main_size;
+	const gushort properties_size;
 	const gushort priority;
 	const gushort default_enabled;
 	

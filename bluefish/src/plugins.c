@@ -78,7 +78,9 @@ static TBluefishPlugin *plugin_from_filename(const gchar *path) {
 					&& bfplugin->globalsession_size == sizeof(Tglobalsession)
 					&& bfplugin->bfwin_size == sizeof(Tbfwin)
 					&& bfplugin->project_size == sizeof(Tproject)
-					&& bfplugin->main_size == sizeof(Tmain)) {
+					&& bfplugin->main_size == sizeof(Tmain)
+					&& bfplugin->properties_size == sizeof(Tproperties)
+					) {
 			DEBUG_MSG("bluefish_load_plugins, loaded %s properly, init!\n",path);
 			return bfplugin;
 		} else {

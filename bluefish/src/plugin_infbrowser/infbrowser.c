@@ -97,6 +97,7 @@ static TBluefishPlugin bfplugin = {
 	sizeof(Tbfwin),
 	sizeof(Tproject),
 	sizeof(Tmain),
+	sizeof(Tproperties),
 	BFPLUGIN_PRIORITY_DEFAULT,
 	0,
 	NULL, /* private */
