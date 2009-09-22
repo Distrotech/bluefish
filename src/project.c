@@ -75,7 +75,7 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 		session->spell_check_default = main_v->session->spell_check_default;
 #endif
 	}
-	
+
 	/* THE NUBER OF BYTES THAT IS COPIED HERE MUST BE EQUAL TO THE NUMBER OF INTEGERS
 	IN THE STRUCT IN bluefish.h ELSE ALL WILL FAIL */
 	memcpy(session, main_v->session, 28 * sizeof(gint));
@@ -85,7 +85,7 @@ Tbfwin *project_is_open(GFile *uri) {
 	GList *tmplist;
 	tmplist = g_list_first(main_v->bfwinlist);
 	while(tmplist){
-		if (BFWIN(tmplist->data)->project 
+		if (BFWIN(tmplist->data)->project
 				&& BFWIN(tmplist->data)->project->uri
 				&& g_file_equal( BFWIN(tmplist->data)->project->uri, uri )) {
 			return BFWIN(tmplist->data);
@@ -143,7 +143,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	Tproject *prj;
 	prj = g_new0(Tproject,1);
 	prj->name = g_strdup(_("New project"));
-	prj->bmarkdata = bookmark_data_new(); 
+	prj->bmarkdata = bookmark_data_new();
 	DEBUG_MSG("create_new_project, project=%p, bfwin=%p\n",prj,bfwin);
 	if (bfwin) {
 		DEBUG_MSG("create_new_project, new project for bfwin %p\n",bfwin);
@@ -154,7 +154,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	}
 	prj->session = g_new0(Tsessionvars,1);
 	project_setup_initial_session(prj->session, FALSE);
-	
+
 	if (bfwin && prj->files) {
 		GList *tmplist;
 		tmplist = g_list_first(bfwin->documentlist);
@@ -162,7 +162,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 			bmark_clean_for_doc(DOCUMENT(tmplist->data));
 			tmplist = g_list_next(tmplist);
 		}
-	
+
 		tmplist = g_list_first(bfwin->session->bmarks);
 		while (tmplist) {
 			gchar **entry = (gchar**)tmplist->data;
@@ -202,7 +202,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	DEBUG_MSG("project_save, project=%p, num files was %d\n", bfwin->project, g_list_length(bfwin->project->files));
 	update_project_filelist(bfwin, bfwin->project);
 /*	bfwin->project->recentfiles = limit_stringlist(bfwin->project->recentfiles, main_v->props.max_recent_files, TRUE);*/
-	
+
 	bfwin->project->session->searchlist = limit_stringlist(bfwin->project->session->searchlist, 10, FALSE);
 	bfwin->project->session->replacelist = limit_stringlist(bfwin->project->session->replacelist, 10, FALSE);
 	bfwin->project->session->urllist = limit_stringlist(bfwin->project->session->urllist, 10, TRUE);
@@ -226,7 +226,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 				g_free(tmp);
 				g_object_unref(newuri);
 				newuri = tmp2;
-			}		
+			}
 			g_free(filename);
 		}
 		gtk_widget_destroy(dialog);
@@ -257,7 +257,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 		}
 		bfwin->project->uri = newuri;
 	}
-	
+
 	retval = rcfile_save_project(bfwin->project, bfwin->project->uri);
 	DEBUG_MSG("project_save, retval=%d\n",retval);
 	add_to_recent_list(bfwin,bfwin->project->uri, FALSE, TRUE);
@@ -345,7 +345,8 @@ static void project_destroy(Tproject *project) {
 	bookmark_data_cleanup(project->bmarkdata);
 	free_stringlist(project->files);
 	free_session(project->session);
-	g_object_unref(project->uri);
+	if (project->uri)
+		g_object_unref(project->uri);
 	g_free(project->name);
 	g_free(project->template);
 	g_free(project);
@@ -373,15 +374,15 @@ gboolean project_final_close(Tbfwin *bfwin, gboolean close_win) {
 	return TRUE;
 }
 
-/* 
- * returns TRUE if the project is closed, 
+/*
+ * returns TRUE if the project is closed,
  * returns FALSE if something went wrong or was cancelled
  */
 /*gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 	if (!bfwin->project)
 		return TRUE;
 	DEBUG_MSG("project_save_and_close, bfwin=%p, project=%p, close_win=%d, project->close=%d\n",bfwin,bfwin->project,close_win,bfwin->project->close);
-	
+
 	project_save(bfwin, FALSE);
 
 	if (test_only_empty_doc_left(bfwin->documentlist)) {
@@ -432,15 +433,15 @@ static void project_edit_destroy_lcb(GtkWidget *widget, Tprojecteditor *pred) {
 }
 
 static void project_edit_cancel_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
-	
+
 	gtk_widget_destroy(pred->win);
 }
 
 static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
 	Tproject *prj = pred->project;
-	
+
 	pred->destroy_project_on_close = FALSE;
-	
+
 	gtk_widget_hide(pred->win);
 	DEBUG_MSG("project_edit_ok_clicked_lcb, Tproject at %p, bfwin at %p\n",prj,pred->bfwin);
 	string_apply(&prj->name, pred->entries[name]);
@@ -491,16 +492,16 @@ void project_edit(Tbfwin *bfwin) {
 	DEBUG_MSG("project_edit, Tproject at %p\n",pred->project);
 	pred->bfwin = bfwin;
 	pred->project->editor = pred;
-	
+
 	pred->win = window_full2(wintitle, GTK_WIN_POS_CENTER_ALWAYS, 5
 			, G_CALLBACK(project_edit_destroy_lcb), pred, TRUE, NULL);
 	vbox = gtk_vbox_new(FALSE,0);
 	gtk_container_add(GTK_CONTAINER(pred->win),vbox);
-	
+
 	if (wintitle) {
 		g_free(wintitle);
 	}
-	
+
 	label = gtk_label_new(NULL);
 	gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, TRUE, 0);
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
@@ -510,12 +511,12 @@ void project_edit(Tbfwin *bfwin) {
 		gtk_label_set_markup(GTK_LABEL(label), message);
 		g_free(message);
 	}
-	
+
 	table = gtk_table_new (5, 4, FALSE);
 	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
-	gtk_table_set_row_spacings (GTK_TABLE (table), 6);	
+	gtk_table_set_row_spacings (GTK_TABLE (table), 6);
 	gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 12);
-	
+
 	pred->entries[name] = entry_with_text(pred->project->name, 255);
 	gtk_widget_set_size_request(GTK_WIDGET(pred->entries[name]), 250, -1);
 	bf_mnemonic_label_tad_with_alignment(_("Project _Name:"), pred->entries[name], 1, 0.5, table, 0, 1, 0, 1);
@@ -529,8 +530,7 @@ void project_edit(Tbfwin *bfwin) {
 
 	sessionprefs(&pred->sprefs, pred->project->session);
 	gtk_box_pack_start(GTK_BOX(vbox), pred->sprefs.frame, FALSE, FALSE, 6);
-	
-	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 12);
+
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
@@ -575,7 +575,7 @@ static void project_create_ok_clicked_lcb(GtkWidget *widget, Tpc *pc) {
 void project_create_gui(Tbfwin *bfwin) {
 	GtkWidget *vbox, *hbox, *but;
 	Tpc *pc;
-	
+
 	pc = g_new(Tpc,1);
 	pc->bfwin = bfwin;
 	pc->win = window_full2(_("Create project"), GTK_WIN_POS_NONE, 5
