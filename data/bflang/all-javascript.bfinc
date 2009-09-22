@@ -87,19 +87,12 @@
 	<element pattern="transient" />
 	<element pattern="volatile" />
 </group>
-<group highlight="js-function" autocomplete="1">
-	<element pattern="abs"/>
-	<element pattern="acos"/>
+<group highlight="js-function" autocomplete="1" autocomplete_append="()">
+	<element pattern="arguments"/>
+	<element pattern="acrity"/>
 	<element pattern="apply"/>
-	<element pattern="asin"/>
-	<element pattern="atan"/>
-	<element pattern="atan2"/>
 	<element pattern="call"/>
-	<element pattern="ceil"/>
-	<element pattern="charAt"/>
-	<element pattern="charCodeAt"/>
-	<element pattern="concat"/>
-	<element pattern="cos"/>
+	<element pattern="caller"/>
 	<element pattern="decodeURI"/>
 	<element pattern="decodeURIComponent"/>
 	<element pattern="encodeURI"/>
@@ -107,116 +100,17 @@
 	<element pattern="escape"/>
 	<element pattern="eval"/>
 	<element pattern="exec"/>
-	<element pattern="exp"/>
-	<element pattern="floor"/>
-	<element pattern="fromCharCode"/>
-	<element pattern="getDate"/>
-	<element pattern="getDay"/>
-	<element pattern="getFullYear"/>
-	<element pattern="getHours"/>
-	<element pattern="getMilliseconds"/>
-	<element pattern="getMinutes"/>
-	<element pattern="getMonth"/>
-	<element pattern="getSeconds"/>
-	<element pattern="getTime"/>
-	<element pattern="getTimezoneOffset"/>
-	<element pattern="getUTCDate"/>
-	<element pattern="getUTCDay"/>
-	<element pattern="getUTCFullYear"/>
-	<element pattern="getUTCHours"/>
-	<element pattern="getUTCMilliseconds"/>
-	<element pattern="getUTCMinutes"/>
-	<element pattern="getUTCMonth"/>
-	<element pattern="getUTCSeconds"/>
-	<element pattern="getYear"/>
 	<element pattern="hasOwnProperty"/>
-	<element pattern="indexOf"/>
 	<element pattern="isFinite"/>
 	<element pattern="isNaN"/>
 	<element pattern="isPrototypeOf"/>
-	<element pattern="join"/>
-	<element pattern="lastIndexOf"/>
 	<element pattern="localeCompare"/>
-	<element pattern="log"/>
-	<element pattern="match"/>
-	<element pattern="max"/>
-	<element pattern="min"/>
-	<element pattern="parse"/>
 	<element pattern="parseFloat"/>
 	<element pattern="parseInt"/>
-	<element pattern="pop"/>
-	<element pattern="pow"/>
 	<element pattern="propertyIsEnumerable"/>
-	<element pattern="push"/>
-	<element pattern="random"/>
-	<element pattern="replace"/>
-	<element pattern="reverse"/>
-	<element pattern="round"/>
-	<element pattern="search"/>
-	<element pattern="setDate"/>
-	<element pattern="setFullYear"/>
-	<element pattern="setHours"/>
-	<element pattern="setMilliseconds"/>
-	<element pattern="setMinutes"/>
-	<element pattern="setMonth"/>
-	<element pattern="setSeconds"/>
-	<element pattern="setTime"/>
-	<element pattern="setUTCDate"/>
-	<element pattern="setUTCFullYear"/>
-	<element pattern="setUTCHours"/>
-	<element pattern="setUTCMilliseconds"/>
-	<element pattern="setUTCMinutes"/>
-	<element pattern="setUTCMonth"/>
-	<element pattern="setUTCSeconds"/>
-	<element pattern="setYear"/>
-	<element pattern="shift"/>
-	<element pattern="sin"/>
-	<element pattern="slice"/>
-	<element pattern="sort"/>
-	<element pattern="split"/>
-	<element pattern="sqrt"/>
-	<element pattern="substr"/>
-	<element pattern="substring"/>
-	<element pattern="tan"/>
-	<element pattern="toDateString"/>
-	<element pattern="toExponential"/>
-	<element pattern="toFixed"/>
-	<element pattern="toGMTString"/>
-	<element pattern="toLocaleDateString"/>
-	<element pattern="toLocaleLowerCase"/>
-	<element pattern="toLocaleString"/>
-	<element pattern="toLocaleString"/>
-	<element pattern="toLocaleTimeString"/>
-	<element pattern="toLocaleUpperCase"/>
-	<element pattern="toLowerCase"/>
-	<element pattern="toPrecision"/>
-	<element pattern="toString"/>
-	<element pattern="toTimeString"/>
-	<element pattern="toUpperCase"/>
-	<element pattern="toUTCString"/>
 	<element pattern="unescape"/>
-	<element pattern="unshift"/>
-	<element pattern="UTC"/>
 	<element pattern="valueOf"/>
-	<group class="javascript_window_functions" highlight="js-function" autocomplete="1">
-		<group highlight="js-property">
-			<element pattern="closed"/>
-			<element pattern="defaultStatus"/>
-			<element pattern="innerHeight"/>
-			<element pattern="innerWidth"/>
-			<element pattern="locationbar"/>
-			<element pattern="menubar"/>
-			<element pattern="name"/>
-			<element pattern="outerHeight"/>
-			<element pattern="outerWidth"/>
-			<element pattern="pageXOffset"/>
-			<element pattern="pageYOffset"/>
-			<element pattern="personalbar"/>
-			<element pattern="scrollbars"/>
-			<element pattern="status"/>
-			<element pattern="statusbar"/>
-			<element pattern="toolbar"/>
-		</group>
+	<group class="javascript_window_object">
 		<element pattern="alert"/>
 		<element pattern="back"/>
 		<element pattern="blur"/>
@@ -246,21 +140,7 @@
 		<element pattern="setInterval"/>
 		<element pattern="setTimeout"/>
 		<element pattern="stop"/>
-		<group class="javascript_document_functions" highlight="js-function" autocomplete="1">
-			<group highlight="js-property">
-				<element pattern="alinkColor"/>
-				<element pattern="bgColor"/>
-				<element pattern="charset"/>
-				<element pattern="cookie"/>
-				<element pattern="defaultCharset"/>
-				<element pattern="fgColor"/>
-				<element pattern="lastModified"/>
-				<element pattern="linkColor"/>
-				<element pattern="referrer"/>
-				<element pattern="title"/>
-				<element pattern="URL"/>
-				<element pattern="vlinkColor"/>
-			</group>
+		<group class="javasript_document_object">
 			<element pattern="captureEvents"/>
 			<element pattern="close"/>
 			<element pattern="createAttribute"/>
@@ -277,7 +157,293 @@
 			<element pattern="write"/>
 			<element pattern="writeIn"/>
 		</group>
+		<group class="javascript_history_object">
+			<element pattern="back"/>
+			<element pattern="forward"/>
+			<element pattern="go"/>
+		</group>
+		<group class="javascript_location_object">
+			<element pattern="reload"/>
+			<element pattern="replace"/>
+		</group>
 	</group>
+	<!-- Array -->
+	<group>
+		<element pattern="concat"/>
+		<element pattern="join"/>
+		<element pattern="pop"/>
+		<element pattern="push"/>
+		<element pattern="reverse"/>
+		<element pattern="shift"/>
+		<element pattern="slice"/>
+		<element pattern="splice"/>
+		<element pattern="sort"/>
+		<element pattern="unshift"/>
+	</group>
+	<!-- Date -->
+	<group class="javascript_date_object">
+		<element pattern="getDate"/>
+		<element pattern="getDay"/>
+		<element pattern="getFullYear"/>
+		<element pattern="getHours"/>
+		<element pattern="getMilliseconds"/>
+		<element pattern="getMinutes"/>
+		<element pattern="getMonth"/>
+		<element pattern="getSeconds"/>
+		<element pattern="getTime"/>
+		<element pattern="getTimezoneOffset"/>
+		<element pattern="getUTCDate"/>
+		<element pattern="getUTCDay"/>
+		<element pattern="getUTCFullYear"/>
+		<element pattern="getUTCHours"/>
+		<element pattern="getUTCMilliseconds"/>
+		<element pattern="getUTCMinutes"/>
+		<element pattern="getUTCMonth"/>
+		<element pattern="getUTCSeconds"/>
+		<element pattern="getYear"/>
+		<element pattern="parse"/>
+		<element pattern="setDate"/>
+		<element pattern="setFullYear"/>
+		<element pattern="setHours"/>
+		<element pattern="setMilliseconds"/>
+		<element pattern="setMinutes"/>
+		<element pattern="setMonth"/>
+		<element pattern="setSeconds"/>
+		<element pattern="setTime"/>
+		<element pattern="setUTCDate"/>
+		<element pattern="setUTCFullYear"/>
+		<element pattern="setUTCHours"/>
+		<element pattern="setUTCMilliseconds"/>
+		<element pattern="setUTCMinutes"/>
+		<element pattern="setUTCMonth"/>
+		<element pattern="setUTCSeconds"/>
+		<element pattern="setYear"/>
+		<element pattern="toGMTString"/>
+		<element pattern="toDateString"/>
+		<element pattern="toLocaleDateString"/>
+		<element pattern="toLocaleLowerCase"/>
+		<element pattern="toLocaleString"/>
+		<element pattern="toLocaleTimeString"/>
+		<element pattern="toLocaleUpperCase"/>
+		<element pattern="toTimeString"/>
+		<element pattern="toUTCString"/>
+		<element pattern="UTC"/>
+	</group>
+	<!-- Math -->
+	<group class="javascript_math_object">
+		<element pattern="abs"/>
+		<element pattern="acos"/>
+		<element pattern="asin"/>
+		<element pattern="atan"/>
+		<element pattern="atan2"/>
+		<element pattern="ceil"/>
+		<element pattern="cos"/>
+		<element pattern="exp"/>
+		<element pattern="floor"/>
+		<element pattern="log"/>
+		<element pattern="max"/>
+		<element pattern="min"/>
+		<element pattern="pow"/>
+		<element pattern="random"/>
+		<element pattern="round"/>
+		<element pattern="sin"/>
+		<element pattern="sqrt"/>
+		<element pattern="tan"/>
+	</group>
+	<!-- Node -->
+	<group class="javascript_node_object">
+		<element pattern="appendChild"/>
+		<element pattern="appendData"/>
+		<element pattern="cloneNode"/>
+		<element pattern="deleteData"/>
+		<element pattern="getAttribute"/>
+		<element pattern="getAttributeNode"/>
+		<element pattern="getElementsByTagName"/>
+		<element pattern="hasChildNodes"/>
+		<element pattern="insertBefore"/>
+		<element pattern="insertData"/>
+		<element pattern="removeAttribute"/>
+		<element pattern="removeAttributeNode"/>
+		<element pattern="removeChild"/>
+		<element pattern="replaceChild"/>
+		<element pattern="replaceData"/>
+		<element pattern="setAttribute"/>
+		<element pattern="setAttributeNode"/>
+	</group>
+	<!-- navigator -->
+	<element pattern="javaEnabled" class="javascript_navigator_object"/>
+	<!-- number -->
+	<group>
+		<element pattern="toExponential"/>
+		<element pattern="toFixed"/>
+		<element pattern="toPrecision"/>
+		<element pattern="toString"/>
+	</group>
+	<!-- regexp -->
+	<group>
+		<element pattern="exec"/>
+		<element pattern="test"/>
+	</group>
+	<!-- string -->
+	<group class="javascript_string_object">
+		<element pattern="anchor"/>
+		<element pattern="big"/>
+		<element pattern="blink"/>
+		<element pattern="bold"/>
+		<element pattern="charAt"/>
+		<element pattern="charCodeAt"/>
+		<element pattern="concat"/>
+		<element pattern="fixed"/>
+		<element pattern="fontcolor"/>
+		<element pattern="fontsize"/>
+		<element pattern="fromCharCode"/>
+		<element pattern="indexOf"/>
+		<element pattern="italics"/>
+		<element pattern="lastIndexOf"/>
+		<element pattern="link"/>
+		<element pattern="match"/>
+		<element pattern="replace"/>
+		<element pattern="search"/>
+		<element pattern="slice"/>
+		<element pattern="small"/>
+		<element pattern="split"/>
+		<element pattern="strike"/>
+		<element pattern="sub"/>
+		<element pattern="substr"/>
+		<element pattern="substring"/>
+		<element pattern="sup"/>
+		<element pattern="toLowerCase"/>
+		<element pattern="toUpperCase"/>
+	</group>
+</group>
+<group highlight="js-property" autocomplete="1">
+	<group class="javascript_window_object">
+		<element pattern="closed"/>
+		<element pattern="defaultStatus"/>
+		<element pattern="innerHeight"/>
+		<element pattern="innerWidth"/>
+		<element pattern="locationbar"/>
+		<element pattern="menubar"/>
+		<element pattern="name"/>
+		<element pattern="outerHeight"/>
+		<element pattern="outerWidth"/>
+		<element pattern="pageXOffset"/>
+		<element pattern="pageYOffset"/>
+		<element pattern="personalbar"/>
+		<element pattern="scrollbars"/>
+		<element pattern="status"/>
+		<element pattern="statusbar"/>
+		<element pattern="toolbar"/>
+		<group class="javascript_document_object">
+			<element pattern="alinkColor"/>
+			<element pattern="bgColor"/>
+			<element pattern="charset"/>
+			<element pattern="cookie"/>
+			<element pattern="defaultCharset"/>
+			<element pattern="fgColor"/>
+			<element pattern="lastModified"/>
+			<element pattern="linkColor"/>
+			<element pattern="referrer"/>
+			<element pattern="title"/>
+			<element pattern="URL"/>
+			<element pattern="vlinkColor"/>
+			<group class="javascript_anchors_object">
+				<element pattern="name"/>
+				<element pattern="length"/>
+				<element pattern="text"/>
+				<element pattern="x"/>
+				<element pattern="y"/>
+			</group>
+			<element pattern="length" class="javascript_applet_object"/>
+			<group class="javascript_node_object">
+				<element pattern="attributes"/>
+				<element pattern="childNodes"/>
+				<element pattern="data"/>
+				<element pattern="firstChild"/>
+				<element pattern="lastChild"/>
+				<element pattern="nextSibling"/>
+				<element pattern="nodeName"/>
+				<element pattern="nodeType"/>
+				<element pattern="nodeValue"/>
+				<element pattern="parentNode"/>
+				<element pattern="previousSibling"/>
+			</group>
+		</group>
+		<group class="javascript_event_object">
+			<element pattern="altKey"/>
+			<element pattern="ctrlKey"/>
+			<element pattern="shiftKey"/>
+			<element pattern="button"/>
+			<element pattern="clientX"/>
+			<element pattern="clientY"/>
+			<element pattern="keyCode"/>
+			<element pattern="layerX"/>
+			<element pattern="modifiers"/>
+			<element pattern="offsetX"/>
+			<element pattern="pageX"/>
+			<element pattern="screenX"/>
+			<element pattern="which"/>
+			<element pattern="type"/>
+			<element pattern="x"/>
+			<element pattern="y"/>
+			<element pattern="layerY"/>
+			<element pattern="offsetY"/>
+			<element pattern="pageY"/>
+			<element pattern="screenY"/>
+		</group>
+		<element pattern="length" class="javascript_history_object"/>
+		<group class="javascript_location_object">
+			<element pattern="hash"/>
+			<element pattern="host"/>
+			<element pattern="hostname"/>
+			<element pattern="href"/>
+			<element pattern="pathname"/>
+			<element pattern="port"/>
+			<element pattern="protocol"/>
+			<element pattern="search"/>
+		</group>
+	</group>
+	<group class="javascript_math_object">
+		<element pattern="E"/>
+		<element pattern="LN2"/>
+		<element pattern="LN10"/>
+		<element pattern="LOG2E"/>
+		<element pattern="LOG10E"/>
+		<element pattern="PI"/>
+		<element pattern="SQRT1_2"/>
+		<element pattern="SQRT2"/>
+	</group>
+	<group class="javascript_navigator_object">
+		<element pattern="appCodeName"/>
+		<element pattern="appName"/>
+		<element pattern="appVersion"/>
+		<element pattern="cookieEnabled"/>
+		<element pattern="language"/>
+		<element pattern="platform"/>
+		<element pattern="userAgent"/>
+		<group>
+			<element pattern="description"/>
+			<element pattern="enabledPlugin"/>
+			<element pattern="length"/>
+			<element pattern="suffixes"/>
+			<element pattern="type"/>
+		</group>
+		<group>
+			<element pattern="description"/>
+			<element pattern="filename"/>
+			<element pattern="length"/>
+			<element pattern="name"/>
+		</group>
+	</group>
+	<group class="javascript_screen_object">
+		<element pattern="availHeight"/>
+		<element pattern="availWidth"/>
+		<element pattern="colorDepth"/>
+		<element pattern="height"/>
+		<element pattern="pixelDepth"/>
+		<element pattern="width"/>
+	</group>
+	<element pattern="length" class="javascript_string_object"/>
 </group>
 <!-- JavaScript Objects -->
 <group highlight="js-type" autocomplete="1">
@@ -298,17 +464,34 @@
 </group>
 <!-- These objects appear to be case insensitive -->
 <group highlight="js-variable" autocomplete="1">
-	<element pattern="document"/>
 	<element pattern="global"/>
-	<element pattern="window"/>
+	<element pattern="navigator" class="javascript_navigator_object">
+		<element pattern="mimeTypes"/>
+		<element pattern="plugins"/>
+	</element>
+	<element pattern="screen" class="javascript_screen_object"/>
+	<element pattern="window" class="javascript_window_object">
+		<element pattern="document" class="javascript_document_object">
+			<element pattern="anchors" class="javascript_anchors_object"/>
+			<element pattern="applets" class="javascript_applets_object"/>
+			<element pattern="node" class="javascript_node_object"/>
+		</element>
+		<element pattern="event" class="javascript_event_object"/>
+		<element pattern="history" class="javascript_history_object"/>
+		<element pattern="location" class="javascript_location_object"/>
+	</element>
 </group>
 
 <group highlight="js-value" autocomplete="1">
-	<element pattern="true" />
 	<element pattern="false" />
-	<element pattern="null" />
-	<element pattern="NaN" />
 	<element pattern="Infinity" />
+	<element pattern="MAX_VALUE"/>
+	<element pattern="MIN_VALUE" />
+	<element pattern="NaN" />
+	<element pattern="NEGATIVE_INFINITY" />
+	<element pattern="null" />
+	<element pattern="POSITIVE_INFINITY" />
+	<element pattern="true" />
 	<!-- having [.-]?[0-9]+ as a value pattern has an unwanted side 
 	effect: the . is matching a patterns and is not seen as a symbol anymore
 	such that substr in w.substr() is not detected anymore	-->
