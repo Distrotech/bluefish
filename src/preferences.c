@@ -45,6 +45,10 @@ enum {
 	editor_smart_cursor,
 	editor_indent_wspaces,
 	tab_font_string,              /* notebook tabs font */
+	/*tab_color_normal,*/           /* notebook tabs text color normal.  This is just NULL! */
+	tab_color_modified,           /* tab text color when doc is modified and unsaved*/
+	tab_color_loading,            /* tab text color when doc is loading */
+	tab_color_error,              /* tab text color when doc has errors */
 	/*defaulthighlight,*/             /* highlight documents by default */
 	transient_htdialogs,          /* set html dialogs transient ro the main window */
 	leave_to_window_manager,
@@ -1417,6 +1421,9 @@ static void preferences_apply(Tprefdialog *pd) {
 		integer_apply(&main_v->globses.main_window_w, pd->prefs[main_window_w], FALSE);
 	}
 	string_apply(&main_v->props.tab_font_string, pd->prefs[tab_font_string]);
+	string_apply(&main_v->props.tab_color_modified, pd->prefs[tab_color_modified]);
+	string_apply(&main_v->props.tab_color_loading, pd->prefs[tab_color_loading]);
+	string_apply(&main_v->props.tab_color_error, pd->prefs[tab_color_error]);
 	main_v->props.document_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[document_tabposition]));
 	integer_apply(&main_v->props.switch_tabs_by_altx, pd->prefs[switch_tabs_by_altx], TRUE);
 	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
@@ -1706,6 +1713,9 @@ static void preferences_dialog() {
 
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font \n(leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
+	pd->prefs[tab_color_modified] = prefs_string(_("Notebook tab color (doc modified)"), main_v->props.tab_color_modified, vbox2, pd, string_color);
+	pd->prefs[tab_color_loading] = prefs_string(_("Notebook tab color (doc loading)"), main_v->props.tab_color_loading, vbox2, pd, string_color);
+	pd->prefs[tab_color_error] = prefs_string(_("Notebook tab color (doc error)"), main_v->props.tab_color_error, vbox2, pd, string_color);
 	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
 	pd->prefs[switch_tabs_by_altx] = boxed_checkbut_with_value(_("Switch between tabs with <Alt>+0..9"), main_v->props.switch_tabs_by_altx, vbox2);
 	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Sidebar notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);

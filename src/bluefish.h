@@ -73,7 +73,7 @@ extern void g_none(gchar *first, ...);
 
 #ifdef ENABLE_NLS
 #include <glib/gi18n.h>
-#else /* ENABLE_NLS */                                                                           
+#else /* ENABLE_NLS */
 #define _(String)(String)
 #define N_(String)(String)
 #endif /* ENABLE_NLS */
@@ -198,10 +198,14 @@ typedef struct {
 
 typedef struct {
 	gint do_periodic_check;
-	gchar *editor_font_string;		/* editor font */
+	gchar *editor_font_string; /* editor font */
 	gint editor_smart_cursor;
 	gint editor_indent_wspaces; /* indent with spaces, not tabs */
-	gchar *tab_font_string;		/* notebook tabs font */
+	gchar *tab_font_string; /* notebook tabs font */
+/*	gchar *tab_color_normal;*/ /* notebook tabs text color normal.  This is just NULL! */
+	gchar *tab_color_modified; /* tab text color when doc is modified and unsaved*/
+	gchar *tab_color_loading; /* tab text color when doc is loading */
+	gchar *tab_color_error; /* tab text color when doc has errors */
 	
 	/* new replacements: */
 	GList *external_command; /* array: name,command,is_default_browser */

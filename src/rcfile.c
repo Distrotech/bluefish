@@ -369,6 +369,9 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
+	init_prop_string    (&config_rc, &main_v->props.tab_color_modified, "tab_color_modified:", "#0000FF");
+	init_prop_string    (&config_rc, &main_v->props.tab_color_loading, "tab_color_loading:", "#C7C7C7");
+	init_prop_string    (&config_rc, &main_v->props.tab_color_error, "tab_color_error:", "#FF0000");
 	init_prop_arraylist (&config_rc, &main_v->props.external_command, "external_command:", 3, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_filter, "external_filter:", 2, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_outputbox, "external_outputbox:", 6, TRUE);

@@ -56,10 +56,6 @@
 #include "bftextview2_spell.h"
 #endif
 
-static GdkColor colorgrey = {0, 50000, 50000, 50000};
-static GdkColor colorred = {0, 65535, 0, 0};
-static GdkColor colorblue = {0, 0, 0, 65535};
-
 typedef struct {
 	GtkWidget *textview;
 	GtkWidget *window;
@@ -781,36 +777,42 @@ void doc_move_to_window_dialog(Tdocument *doc, Tbfwin *newwin) {
 /**
  * doc_set_label_color:
  * @doc: a #Tdocument
- * @color: a GdkColor * or NULL
+ * @color: a parsable string or NULL
  *
  * sets the text of the notebook tab and tab menu to color
- * if color is NULL, the color is reset to the gtk-style setting
+ * if color is NULL, the color is reset to the gtk-theme setting
  *
  * Return value: void
  **/
-static void doc_set_label_color(Tdocument *doc, GdkColor *color) {
-	gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, color);
-	gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, color);
-	gtk_widget_modify_fg(doc->tab_label, GTK_STATE_NORMAL, color);
-	gtk_widget_modify_fg(doc->tab_label, GTK_STATE_PRELIGHT, color);
-	gtk_widget_modify_fg(doc->tab_label, GTK_STATE_ACTIVE, color);
+static void doc_set_label_color(Tdocument *doc, const gchar *color) {
+	GdkColor  labelcolor;
+	GdkColor *color_p = NULL;
+	if (color != NULL) {
+		gdk_color_parse(color, &labelcolor);
+		color_p = &labelcolor;
+	}
+	gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_NORMAL, color_p);
+	gtk_widget_modify_fg(doc->tab_menu, GTK_STATE_PRELIGHT, color_p);
+	gtk_widget_modify_fg(doc->tab_label, GTK_STATE_NORMAL, color_p);
+	gtk_widget_modify_fg(doc->tab_label, GTK_STATE_PRELIGHT, color_p);
+	gtk_widget_modify_fg(doc->tab_label, GTK_STATE_ACTIVE, color_p);
 }
 
 void doc_set_status(Tdocument *doc, gint status) {
-	GdkColor *labelcolor = NULL;
+	gchar *color = NULL;
 	doc->status = status;
 	switch(status) {
 		case DOC_STATUS_COMPLETE:
 			doc->modified=FALSE;
 		break;
 		case DOC_STATUS_ERROR:
-			labelcolor =  &colorred;
+			color = main_v->props.tab_color_error;
 		break;
 		case DOC_STATUS_LOADING:
-			labelcolor =  &colorgrey;
+			color = main_v->props.tab_color_loading;
 		break;
 	}
-	doc_set_label_color(doc, labelcolor);
+	doc_set_label_color(doc, color);
 }
 
 /**
@@ -826,7 +828,7 @@ void doc_set_status(Tdocument *doc, gint status) {
  * it will update the toolbar and menu undo/redo items
  *
  * if value is TRUE, it will make the notebook and notebook-menu
- * label red, if value is FALSE it will set them to black
+ * label red, if value is FALSE it will set them to normal
  *
  * Return value: void
  **/
@@ -838,11 +840,11 @@ void doc_set_modified(Tdocument *doc, gint value) {
 		remove_autosave(doc);
 	}
 	if (doc->modified != value) {
-		GdkColor *labelcolor = NULL;
+		gchar *color= NULL;
 		doc->modified = value;
 		if (doc->modified)
-			labelcolor = &colorblue;
-		doc_set_label_color(doc, labelcolor);
+			color = main_v->props.tab_color_modified;
+		doc_set_label_color(doc, color);
 	}
 #ifdef DEBUG
 	else {
