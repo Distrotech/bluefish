@@ -116,6 +116,7 @@ static TBluefishPlugin bfplugin = {
 	sizeof(Tbfwin),
 	sizeof(Tproject),
 	sizeof(Tmain),
+	sizeof(Tproperties),
 	BFPLUGIN_PRIORITY_LATE, /* late means after (under) the htmlbar toolbar */
 	1,
 	NULL, /* private */
