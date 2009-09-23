@@ -1184,7 +1184,7 @@ static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint
 			g_object_get(GTK_TEXT_VIEW(btv)->buffer,"cursor-position", &offset, NULL);
 			gtk_text_buffer_get_iter_at_offset(GTK_TEXT_VIEW(btv)->buffer, &iter, offset);
 		} else {
-			gint bx, by;
+			gint bx, by, trailing;
 			/*g_print("get iter at mouse position %d %d\n",x,y);*/
 			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT,x-(btv->margin_pixels_chars+btv->margin_pixels_block+btv->margin_pixels_symbol), y, &bx, &by);
 			if (bx < 0)
@@ -1222,7 +1222,9 @@ static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint
 			and for the tooltip we request an iter somewhere in the text that is becoming hidden
 			*/
 			/*g_print("get iter at buffer position %d %d\n",bx,by);*/
-			gtk_text_view_get_iter_at_position(GTK_TEXT_VIEW(btv), &iter, NULL, bx, by);
+			/* gtk 2.14 cannot handle a NULL instead of &trailing. so although the docs tell
+			that if you don't need it you can pass NULL, we will not do so. */
+			gtk_text_view_get_iter_at_position(GTK_TEXT_VIEW(btv), &iter, &trailing, bx, by);
 			/*g_print("done\n");*/
 		}
 		mstart=iter;
