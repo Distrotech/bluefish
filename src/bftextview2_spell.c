@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
+/*#define SPELL_PROFILING*/
 
 /* for the design docs see bftextview2.h */
 
@@ -157,7 +157,6 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 	gint loop=0, loops_per_timer=100;
 	guint eo_offset;
 	gboolean cont=TRUE;
-	
 	if (!BFWIN(DOCUMENT(btv->doc)->bfwin)->session->spell_enable)
 		return FALSE;
 	
@@ -346,6 +345,9 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 	GTimer *timer;
 	gint loop=0, loops_per_timer=100;
 	gboolean cont=TRUE;
+#ifdef SPELL_PROFILING
+	guint profile_words=0;
+#endif	
 	
 	if (!btv->spell_check)
 		return FALSE;
@@ -385,6 +387,9 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 				/* move to the next word as long as the we don't hit eo2 */
 				if (text_iter_forward_real_word_end(&iter)) {
 					/* check word */
+#ifdef SPELL_PROFILING
+					profile_words++;
+#endif
 					spellcheck_word(btv, buffer, &wordstart, &iter);
 				}
 			} else {
@@ -400,6 +405,12 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 			cont = FALSE;
 			
 	} while (cont && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL));
+	if (cont) {
+		loops_per_timer = MAX(loop/10,100);
+	}
+#ifdef SPELL_PROFILING
+	g_print("timing for this %d ms spell run: %d words\n",(gint)(1000.0*g_timer_elapsed(timer,NULL)), profile_words);
+#endif
 	DBG_SPELL("bftextview2_run_spellcheck, remove needspellcheck from start %d to iter at %d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&iter));
 	gtk_text_buffer_remove_tag(buffer, btv->needspellcheck, &so , &iter);
 

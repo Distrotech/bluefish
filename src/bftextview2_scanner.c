@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#define HL_PROFILING
+/*#define HL_PROFILING*/
 #ifdef HL_PROFILING
 #include <sys/times.h>
 #include <unistd.h>
@@ -604,7 +604,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	gboolean normal_run=TRUE, last_character_run=FALSE;
 	gint loop=0;
 #ifdef HL_PROFILING
-	gdouble stage1;
+	gdouble stage1=0;
 	gdouble stage2;
 	gdouble stage3;
 	gdouble stage4;
@@ -625,25 +625,21 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		return FALSE;
 	}
 
-	/* start timer */
-	scanning.timer = g_timer_new();
-
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 
 	if (!bftextview2_find_region2scan(btv, buffer, &start, &end)) {
 		DBG_MSG("nothing to scan here.. update the offsets in the stackcache\n");
-		
 		DBG_SCANCACHE("scancache length %d\n", g_sequence_get_length(btv->scancache.stackcaches));
-		scancache_update_all_positions(btv,buffer,NULL,NULL);
-#ifdef HL_PROFILING
-		stage1 = g_timer_elapsed(scanning.timer,NULL);
-		g_print("update scancache offsets timing: %f us\n",stage1);
-#endif
-		g_timer_destroy(scanning.timer);
-		/* after the offsets have been updated there is really nothing to do for
-		the idle function so we return FALSE */
+		if (btv->scancache.stackcache_need_update_charoffset != -1) {
+			g_print("update scancache offsets\n");
+			scancache_update_all_positions(btv,buffer,NULL,NULL);
+		}
+		/* after the offsets have been updated there is really nothing else to do so we return FALSE */
 		return FALSE;
 	}
+	/* start timer */
+	scanning.timer = g_timer_new();
+
 	orig_end = end;
 	if (visible_end) {
 		/* check such that we only scan up to vend */
