@@ -20,15 +20,15 @@
 !define PROGRAM_EXE		"${PACKAGE}.exe"
 !define UNINSTALL_EXE	"bluefish-uninst.exe"
 
-!define GTK_URL			"http://internap.dl.sourceforge.net/project/gtk-win/GTK%2B%20Runtime%20Environment/GTK%2B%202.16"
-!define GTK_FILENAME 	"gtk2-runtime-2.16.6-2009-09-12-ash.exe"
+!define GTK_URL			"http://internap.dl.sourceforge.net/project/pidgin/GTK%2B%20for%20Windows/2.14.7%20Rev%20A"
+!define GTK_FILENAME 	"gtk-runtime-2.14.7-rev-a.exe"
 !define GTK_SIZE			"34549" ; Install size in Kilobytes
 !define AS_DICT_URL		"http://www.muleslow.net/files/aspell/lang"
 
 !define REG_USER_SET		"Software\${PRODUCT}"
 !define REG_UNINSTALL	"Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}"
 
-!define GTK_MIN_VERSION	"2.16.0"
+!define GTK_MIN_VERSION	"2.14.7"
 
 
 ; Variables
@@ -279,7 +279,10 @@ Section "-GTK+ Installer" SecGTK
 SectionEnd
 
 SectionGroup "Plugins" SecPlugins
+	SetOverwrite on
 	Section "Charmap" SecPlCharmap
+		SetOutPath "$INSTDIR"
+		File "build\libgucharmap-7.dll"
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\charmap.dll"
 		SetOutPath "$INSTDIR\share\locale"
@@ -309,6 +312,7 @@ SectionGroup "Plugins" SecPlugins
 		SetOutPath "$INSTDIR\share\locale"
 		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" "build\share\locale\*"
 	SectionEnd
+	SetOverwrite off
 SectionGroupEnd
 
 Section "Desktop Shortcut" SecDesktopShortcut
@@ -378,6 +382,7 @@ Section "Uninstall"
 	Delete "$INSTDIR\libaspell-15.dll"
 	Delete "$INSTDIR\libenchant-1.dll"
 	Delete "$INSTDIR\libgnurx-0.dll"
+	Delete "$INSTDIR\libgucharmap-7.dll"
 	Delete "$INSTDIR\libpcre-0.dll"
 	Delete "$INSTDIR\libxml2-2.dll"
 	RMDir /r "$INSTDIR\docs"
@@ -385,7 +390,7 @@ Section "Uninstall"
 	RMDir /r "$INSTDIR\share"
 	Delete "$INSTDIR\${UNINSTALL_EXE}"
 	RMDir  "$INSTDIR"
-	Delete "$DESKTOP\Bluefish.lnk"
+	Delete "$DESKTOP\${PRODUCT}.lnk"
 
 	ReadRegStr $R0 HKCU ${REG_USER_SET} "Start Menu Folder"
 	${If} $R0 != ""
