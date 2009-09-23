@@ -475,7 +475,7 @@ void rcfile_parse_main(void)  {
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("tidy HTML validator"),"line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","tidy -qe '%I'|",NULL));
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("javac"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac '%f'|",NULL));
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("xmllint XML checker"),"([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\: (.*)","1","2","3","xmllint --noout --valid '%f'|",NULL));
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("php"),"(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)","1","2","3","php '%f'|",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("php"),"(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)","2","3","1","php '%f'|",NULL));
 	}
 	if (main_v->props.external_filter==NULL) {
 		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Sort"),"|sort|",NULL));
