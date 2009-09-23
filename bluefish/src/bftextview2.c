@@ -796,6 +796,39 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->key_press_event (widget, kevent);
 }
 
+static void bftextview2_block_toggle_fold(BluefishTextView *btv, Tfoundblock *fblock) {
+
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+	GtkTextIter it1,it2,it3,it4;
+
+	bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
+	if (main_v->props.block_folding_mode == 1 && !gtk_text_iter_ends_line(&it2)) {
+		gtk_text_iter_forward_to_line_end(&it2);
+	}
+	if (gtk_text_iter_ends_line(&it4)) {
+		gtk_text_iter_forward_line(&it4);
+	}
+
+	if (fblock->folded) {
+		gtk_text_buffer_remove_tag_by_name(buffer, "foldheader", &it1, &it2);
+		if (main_v->props.block_folding_mode==0) {
+			gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it3);
+			gtk_text_buffer_remove_tag_by_name(buffer, "foldheader", &it3, &it4);
+		} else if (main_v->props.block_folding_mode==1) {
+			gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it4);
+		}
+	} else {
+		gtk_text_buffer_apply_tag_by_name(buffer, "foldheader", &it1, &it2);
+		if (main_v->props.block_folding_mode==0) {
+			gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it3);
+			gtk_text_buffer_apply_tag_by_name(buffer, "foldheader", &it3, &it4);
+		} else if (main_v->props.block_folding_mode==1) {
+			gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it4);
+		}
+	}
+	fblock->folded=(!fblock->folded);
+}
+
 static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 	Tfoundstack *fstack;
 	GSequenceIter *siter;
@@ -818,39 +851,44 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 			break;
 	}
 	if (fstack && fstack->line == line && fstack->pushedblock && fstack->pushedblock->foldable) {
-		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-		GtkTextIter it1,it2,it3,it4;
 		DBG_FOLD("got fstack=%p on line %d\n",fstack,fstack->line);
-		bftextview2_get_iters_at_foundblock(buffer, fstack->pushedblock, &it1, &it2, &it3, &it4);
-		if (main_v->props.block_folding_mode == 1 && !gtk_text_iter_ends_line(&it2)) {
-			gtk_text_iter_forward_to_line_end(&it2);
-		}
-		if (gtk_text_iter_ends_line(&it4)) {
-			gtk_text_iter_forward_line(&it4);
-		}
-		if (fstack->pushedblock->folded) {
-			DBG_FOLD("expand fstack with line %d\n",fstack->line);
-			gtk_text_buffer_remove_tag_by_name(buffer, "foldheader", &it1, &it2);
-			if (main_v->props.block_folding_mode==0) {
-				gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it3);
-				gtk_text_buffer_remove_tag_by_name(buffer, "foldheader", &it3, &it4);
-			} else if (main_v->props.block_folding_mode==1) {
-				gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it4);
-			}
-			fstack->pushedblock->folded=FALSE;
-		} else {
-			DBG_FOLD("collapse fstack with line %d\n",fstack->line);
-			gtk_text_buffer_apply_tag_by_name(buffer, "foldheader", &it1, &it2);
-			if (main_v->props.block_folding_mode==0) {
-				gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it3);
-				gtk_text_buffer_apply_tag_by_name(buffer, "foldheader", &it3, &it4);
-			} else if (main_v->props.block_folding_mode==1) {
-				gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it4);
-			}
-			fstack->pushedblock->folded=TRUE;
-		}
+		bftextview2_block_toggle_fold(btv, fstack->pushedblock);
 	}
 }
+
+static void bftextview2_collapse_expand_all_toggle(BluefishTextView *btv, gboolean collapse) {
+	GSequenceIter *siter=NULL;
+	Tfoundstack *fstack;
+	fstack = get_stackcache_first(btv, &siter);
+	while (fstack) {
+		if (fstack->pushedblock && fstack->pushedblock->foldable && fstack->pushedblock->folded != collapse)
+			bftextview2_block_toggle_fold(btv, fstack->pushedblock);
+		fstack = get_stackcache_next(btv, &siter);
+	}
+}
+
+static void bftextview2_collapse_all_lcb(GtkMenuItem *mitem, BluefishTextView *btv) {
+	bftextview2_collapse_expand_all_toggle(btv,TRUE);
+}
+
+static void bftextview2_expand_all_lcb(GtkMenuItem *mitem, BluefishTextView *btv) {
+	bftextview2_collapse_expand_all_toggle(btv,FALSE);
+}
+
+static GtkWidget *bftextview2_fold_menu(BluefishTextView *btv) {
+	GtkMenuItem *mitem;
+	GtkWidget *menu = gtk_menu_new();
+	mitem = gtk_menu_item_new_with_label(_("Collapse all"));
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu),mitem);
+	g_signal_connect(G_OBJECT(mitem),"activate",G_CALLBACK(bftextview2_collapse_all_lcb),btv);
+	mitem = gtk_menu_item_new_with_label(_("Expand all"));
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu),mitem);
+	g_signal_connect(G_OBJECT(mitem),"activate",G_CALLBACK(bftextview2_expand_all_lcb),btv);
+	gtk_widget_show_all(menu);
+	/* only required for submenu's that have a radioitem ????? g_signal_connect(G_OBJECT(menu), "destroy", destroy_disposable_menu_cb, menu);*/
+	return menu;
+}
+
 
 static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event) {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);
@@ -882,18 +920,15 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 				gtk_text_buffer_select_range(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),&it,&it2);
 				return TRUE;
 			}
-		}
-	}	
-	/* else if (event->button.button == 3) {
-		if (event->button.x >= pt_blocks) {
-			gtk_menu_popup(GTK_MENU(BF_TEXTVIEW(widget)->fold_menu), NULL, NULL, NULL, NULL, 1,
-						   gtk_get_current_event_time());
+		} else if (event->button == 3 && btv->show_blocks && event->x >= btv->margin_pixels_chars) {
+			gtk_menu_popup(GTK_MENU(bftextview2_fold_menu(btv)), NULL, NULL, NULL, NULL, event->button,event->time);
 			return TRUE;
 		}
-	}*/
-	
+	} 
 	if (event->button == 3) {
 		GtkTextIter iter;
+		/* store the location of the right mouse button click for menu items like 'edit tag'
+		or 'edit color' */
 		doc_get_iter_at_bevent((Tdocument *) btv->doc, event, &iter);
 		main_v->bevent_doc = btv->doc;
 		main_v->bevent_charoffset = gtk_text_iter_get_offset(&iter);
@@ -1140,7 +1175,6 @@ void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_c
 
 static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint y, gboolean keyboard_tip, GtkTooltip *tooltip) {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);	
-	
 	if (btv->bflang && btv->bflang->st && btv->enable_scanner && btv->scanner_idle==0 && main_v->props.show_tooltip_reference) {
 		GtkTextIter iter,mstart;
 		gint contextnum;
@@ -1150,9 +1184,46 @@ static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint
 			g_object_get(GTK_TEXT_VIEW(btv)->buffer,"cursor-position", &offset, NULL);
 			gtk_text_buffer_get_iter_at_offset(GTK_TEXT_VIEW(btv)->buffer, &iter, offset);
 		} else {
-			gint bx, by, trailing;
+			gint bx, by;
+			/*g_print("get iter at mouse position %d %d\n",x,y);*/
 			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT,x-(btv->margin_pixels_chars+btv->margin_pixels_block+btv->margin_pixels_symbol), y, &bx, &by);
-			gtk_text_view_get_iter_at_position(GTK_TEXT_VIEW(btv), &iter, &trailing, bx, by);
+			if (bx < 0)
+				return FALSE;
+			/* if I don't do this check, I get the following error during 'Collapse all'
+			(bluefish-unstable:3866): Gtk-WARNING **: /build/buildd/gtk+2.0-2.16.1/gtk/gtktextbtree.c:4017: byte index off the end of the line
+			Gtk-ERROR **: Byte index 533 is off the end of the line aborting...
+
+#0  0xb80bf430 in __kernel_vsyscall ()
+#1  0xb761f6d0 in raise () from /lib/tls/i686/cmov/libc.so.6
+#2  0xb7621098 in abort () from /lib/tls/i686/cmov/libc.so.6
+#3  0xb77b3eac in IA__g_logv (log_domain=0xb7fcba77 "Gtk", 
+    log_level=G_LOG_LEVEL_ERROR, 
+    format=0xb8076f74 "Byte index %d is off the end of the line", 
+    args1=0xbfcdc06c "\206\002")
+    at /build/buildd/glib2.0-2.20.1/glib/gmessages.c:506
+#4  0xb77b3ee6 in IA__g_log (log_domain=0xb7fcba77 "Gtk", 
+    log_level=G_LOG_LEVEL_ERROR, 
+    format=0xb8076f74 "Byte index %d is off the end of the line")
+    at /build/buildd/glib2.0-2.20.1/glib/gmessages.c:526
+#5  0xb7ed4ee7 in iter_set_from_byte_offset (iter=0xbfcdc0c4, line=0x9b1cbb8, 
+    byte_offset=646) at /build/buildd/gtk+2.0-2.16.1/gtk/gtktextiter.c:110
+#6  0xb7ed967f in IA__gtk_text_iter_set_visible_line_index (iter=0xbfcdc1e4, 
+    byte_on_line=4) at /build/buildd/gtk+2.0-2.16.1/gtk/gtktextiter.c:3906
+#7  0xb7edc8c0 in line_display_index_to_iter (layout=0x9711728, 
+    display=0x9c30618, iter=0xbfcdc1e4, index=69, trailing=0)
+    at /build/buildd/gtk+2.0-2.16.1/gtk/gtktextlayout.c:2549
+#8  0xb7ee099c in IA__gtk_text_layout_get_iter_at_position (layout=0x9711728, 
+    target_iter=0xbfcdc1e4, trailing=0xbfcdc21c, x=-5, y=<value optimized out>)
+    at /build/buildd/gtk+2.0-2.16.1/gtk/gtktextlayout.c:2670
+#9  0x080646cd in bluefish_text_view_query_tooltip (widget=0x9783050, x=47, 
+    y=88, keyboard_tip=0, tooltip=0x97d0a38) at bftextview2.c:1187
+			
+			I guess this is a race condition, during collapse all a lot of text is made hidden
+			and for the tooltip we request an iter somewhere in the text that is becoming hidden
+			*/
+			/*g_print("get iter at buffer position %d %d\n",bx,by);*/
+			gtk_text_view_get_iter_at_position(GTK_TEXT_VIEW(btv), &iter, NULL, bx, by);
+			/*g_print("done\n");*/
 		}
 		mstart=iter;
 		gtk_text_iter_set_line_offset(&mstart,0);
