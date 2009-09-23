@@ -298,13 +298,14 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 }
 
 static void left_panel_cleanup(Tbfwin *bfwin) {
+	DEBUG_MSG("left_panel_cleanup called for bfwin %p\n",bfwin);
 	bmark_cleanup(bfwin);
 	fb2_cleanup(bfwin);
 	if (main_v->sidepanel_destroygui) {
 		GSList *tmplist = main_v->sidepanel_destroygui;
 		while (tmplist) {
 			void *(* func)() = tmplist->data;
-			DEBUG_MSG("left_panel_rebuild, calling plugin func %p\n", tmplist->data);
+			DEBUG_MSG("left_panel_rebuild, calling plugin func %p on bfwin %p\n", tmplist->data, bfwin);
 			func(bfwin);
 			tmplist = g_slist_next(tmplist);
 		}
@@ -316,9 +317,9 @@ static void left_panel_cleanup(Tbfwin *bfwin) {
  */
 void left_panel_rebuild(Tbfwin *bfwin) {
 	if (bfwin->hpane) {
-		DEBUG_MSG("left_panel_rebuild, destroying widgets\n");
+		DEBUG_MSG("left_panel_rebuild, destroying widgets for bfwin %p\n",bfwin);
 		gtk_widget_destroy(bfwin->leftpanel_notebook);
-		DEBUG_MSG("left_panel_rebuild, cleanup\n");
+		DEBUG_MSG("left_panel_rebuild, cleanup for bfwin %p\n",bfwin);
 		left_panel_cleanup(bfwin);
 		DEBUG_MSG("left_panel_rebuild, re-init\n");
 		left_panel_build(bfwin);

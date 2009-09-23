@@ -92,6 +92,7 @@ static const guint8 charmap_icon[] =
 void charmap_sidepanel_destroygui(Tbfwin *bfwin) {
 	Tcharmapwin *cm;
 	cm = g_hash_table_lookup(charmap_v.lookup,bfwin);
+	DEBUG_MSG("charmap_sidepanel_destroygui, found cm=%p for bfwin %p\n",cm,bfwin);
 	if (cm) {
 		/* hmm nothing to destroy except the widget ?!?!?!?!*/
 		g_free(cm);
@@ -101,13 +102,13 @@ void charmap_sidepanel_destroygui(Tbfwin *bfwin) {
 static void insert_unichar(Tcharmapwin *cm, gunichar wc) {
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(cm->entities))) {
 		gchar *buf = g_strdup_printf("&#%d;",wc);
-		g_print("charmap_plugin, clicked %s\n",buf);
+		DEBUG_MSG("charmap_plugin, clicked %s\n",buf);
 		doc_insert_two_strings(cm->bfwin->current_document, buf, NULL);
 		g_free(buf);
 	} else {
 		gchar ubuf[7];
 		ubuf[g_unichar_to_utf8 (wc, ubuf)] = '\0';
-		g_print("charmap_plugin, clicked %s\n",ubuf);
+		DEBUG_MSG("charmap_plugin, clicked %s\n",ubuf);
 		doc_insert_two_strings(cm->bfwin->current_document, ubuf, NULL);
 	}
 }
@@ -164,6 +165,7 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 
 	cm = g_new0(Tcharmapwin,1);
 	cm->bfwin = bfwin;
+	DEBUG_MSG("created cm=%p for bfwin %p\n",cm,bfwin);
 	g_hash_table_insert(charmap_v.lookup,bfwin,cm);
 	cms = get_charmap_session(bfwin->session);
 	
