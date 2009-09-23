@@ -182,6 +182,7 @@ static void snippets_connect_accelerators_from_doc(Tsnippetswin *snw, xmlNodePtr
 }
 static void snippets_window_rebuild_accelerators_lcb(gpointer key,gpointer value,gpointer user_data) {
 	Tsnippetswin *snw = (Tsnippetswin *)value;
+	g_print("snippets_window_rebuild_accelerators_lcb, snw=%p\n",snw);
 	gtk_window_remove_accel_group(GTK_WINDOW(snw->bfwin->main_window),snw->accel_group);
 	g_object_unref(G_OBJECT(snw->accel_group));
 	
@@ -197,7 +198,22 @@ static void snippets_window_rebuild_accelerators_lcb(gpointer key,gpointer value
 
 static void snippets_rebuild_accelerators(void) {
 	/* loop over all windows and rebuild the accelerators */
-	 g_hash_table_foreach(snippets_v.lookup,snippets_window_rebuild_accelerators_lcb,NULL);
+	GList *tmplist;
+	for (tmplist=g_list_first(main_v->bfwinlist);tmplist;tmplist=tmplist->next) {
+		Tbfwin *bfwin = tmplist->data;
+		Tsnippetswin *snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
+		gtk_window_remove_accel_group(GTK_WINDOW(bfwin->main_window),snw->accel_group);
+		g_object_unref(G_OBJECT(snw->accel_group));
+	
+		snw->accel_group = gtk_accel_group_new();
+		gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), snw->accel_group);
+		if (snippets_v.doc) {
+			xmlNodePtr cur = xmlDocGetRootElement(snippets_v.doc);
+			if (cur) {
+				snippets_connect_accelerators_from_doc(snw, cur, snw->accel_group);
+			}
+		}
+	}
 }
 
 static gboolean snippets_delete(xmlNodePtr node, GtkTreePath *path) {
