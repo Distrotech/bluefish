@@ -40,6 +40,22 @@
 #endif
 
 #define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
+/*
+G_PRIORITY_HIGH -100 			Use this for high priority event sources. It is not used within GLib or GTK+.
+G_PRIORITY_DEFAULT 0 			Use this for default priority event sources. In GLib this priority is used when adding 
+										timeout functions with g_timeout_add(). In GDK this priority is used for events from the X server.
+G_PRIORITY_HIGH_IDLE 100 		Use this for high priority idle functions. GTK+ uses G_PRIORITY_HIGH_IDLE + 10 for resizing 
+										operations, and G_PRIORITY_HIGH_IDLE + 20 for redrawing operations. (This is done to ensure 
+										that any pending resizes are processed before any pending redraws, so that widgets are not 
+										redrawn twice unnecessarily.)
+G_PRIORITY_DEFAULT_IDLE 200 	Use this for default priority idle functions. In GLib this priority is used when adding idle 
+										functions with g_idle_add().
+G_PRIORITY_LOW 300
+*/
+#define SCANNING_IDLE_PRIORITY -50
+#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 121 /* a higher priority makes bluefish go greyed-out (it will not redraw if required while the loop is running)
+																	and a much lower priority (tried 250) will first draw all textstules on screen before the
+																	next burst of scanning is done */
 
 G_DEFINE_TYPE(BluefishTextView, bluefish_text_view, GTK_TYPE_TEXT_VIEW)
 
@@ -108,8 +124,8 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 				if (!in_idle) {
 					/* don't call timeout function again (run in idle) */
 					if (!btv->scanner_idle) {
-						DBG_DELAYSCANNING("schedule scan again in idle time\n");
-						btv->scanner_idle = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+50,bftextview2_scanner_idle, btv, NULL);
+						DBG_DELAYSCANNING("schedule scan again in idle time with priority %d\n",SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY);
+						btv->scanner_idle = g_idle_add_full(SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY,bftextview2_scanner_idle, btv, NULL);
 					} else {
 						DBG_DELAYSCANNING("scan in idle is already scheduled\n");
 					}
@@ -183,7 +199,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 }
 
 static gboolean bftextview2_scanner_idle(gpointer data) {
-	DBG_MSG("bftextview2_scanner_idle\n");
+	DBG_MSG("bftextview2_scanner_idle callback started\n");
 	if (!((BluefishTextView *)data)->enable_scanner)
 		return FALSE;
 	return bftextview2_scanner_scan((BluefishTextView *)data, TRUE);
@@ -191,16 +207,15 @@ static gboolean bftextview2_scanner_idle(gpointer data) {
 static gboolean bftextview2_scanner_timeout(gpointer data) {
 	if (!((BluefishTextView *)data)->enable_scanner)
 		return FALSE;
-	DBG_DELAYSCANNING("bftextview2_scanner_timeout\n");
+	DBG_DELAYSCANNING("bftextview2_scanner_timeout callback started\n");
 	return bftextview2_scanner_scan((BluefishTextView *)data, FALSE);
 }
 
 void bftextview2_schedule_scanning(BluefishTextView * btv) {
 	DBG_MSG("bftextview2_schedule_scanning, enable=%d, bflang=%p,scanner_idle=%d\n",btv->enable_scanner, btv->bflang, btv->scanner_idle);
 	if (btv->enable_scanner && btv->bflang && btv->scanner_idle == 0) {
-		DBG_DELAYSCANNING("scheduling scanning in idle function\n");
-		/* G_PRIORITY_LOW IS 300 and G_PRIORITY_DEFAULT_IDLE is 200 */
-		btv->scanner_idle = g_idle_add_full(G_PRIORITY_DEFAULT-50,bftextview2_scanner_idle, btv,NULL);
+		DBG_DELAYSCANNING("scheduling scanning in idle function with priority %d\n",SCANNING_IDLE_PRIORITY);
+		btv->scanner_idle = g_idle_add_full(SCANNING_IDLE_PRIORITY,bftextview2_scanner_idle, btv,NULL);
 	}
 }
 
