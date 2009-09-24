@@ -631,7 +631,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		DBG_MSG("nothing to scan here.. update the offsets in the stackcache\n");
 		DBG_SCANCACHE("scancache length %d\n", g_sequence_get_length(btv->scancache.stackcaches));
 		if (btv->scancache.stackcache_need_update_charoffset != -1) {
-			g_print("update scancache offsets\n");
+			DBG_MSG("update scancache offsets\n");
 			scancache_update_all_positions(btv,buffer,NULL,NULL);
 		}
 		/* after the offsets have been updated there is really nothing else to do so we return FALSE */

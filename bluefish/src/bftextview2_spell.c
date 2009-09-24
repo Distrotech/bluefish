@@ -39,6 +39,7 @@
 #define MAX_CONTINUOUS_SPELLCHECK_INTERVAL 0.1 /* float in seconds */
 
 static EnchantBroker *eb;
+static guint loops_per_timer=1000;
 
 static gboolean bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
 	/* first find a region that needs a spellcheck */
@@ -343,7 +344,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 	GtkTextIter so,eo,iter;
 	GtkTextBuffer *buffer;
 	GTimer *timer;
-	gint loop=0, loops_per_timer=100;
+	gint loop=0;
 	gboolean cont=TRUE;
 #ifdef SPELL_PROFILING
 	guint profile_words=0;
