@@ -1329,7 +1329,9 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 	{
 		regmatch_t pmatch[10];
 		gint retval;
-		/* <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> */
+		/* <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		OR  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=iso-8859-1" />
+		 */
 		/* we do a nasty trick to make regexec search only in the first N bytes */
 		if (buflen > main_v->props.encoding_search_Nbytes) {
 			gchar tmp = buffer[main_v->props.encoding_search_Nbytes];
