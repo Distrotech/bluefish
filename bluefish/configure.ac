@@ -393,7 +393,7 @@ PKG_CHECK_EXISTS(
 	]
 )
 
-if test "x$enable-spell-check" != "xno"; then
+if test "x$enable_spell_check" != "xno"; then
 	PKG_CHECK_EXISTS(
 		[enchant],
 		[
