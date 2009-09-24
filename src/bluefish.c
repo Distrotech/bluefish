@@ -143,7 +143,7 @@ static gboolean startup_in_idle(gpointer data) {
 			filters_rebuild();
 			main_v->tooltips = gtk_tooltips_new();
 			regcomp(&main_v->find_encoding,
-					"<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"text/x?html;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>",
+					"<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"[^;\"]+;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>",
 					REG_EXTENDED | REG_ICASE);
 			main_v->bmarkdata = bookmark_data_new();
 			/* create the first window */
