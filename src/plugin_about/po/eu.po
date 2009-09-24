@@ -1,32 +1,38 @@
-# translation of bluefish.po to Basque
+# translation of eu.po to Basque
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
-# 
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish\n"
+"Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-09-03 14:44+0200\n"
-"PO-Revision-Date: 2004-05-25 12:59+0200\n"
-"Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>\n"
+"PO-Revision-Date: 2009-09-21 12:28+0200\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/plugin_about/about.c:74
 msgid ""
 "\n"
 "Developers of previous releases:"
 msgstr ""
+"\n"
+"Aurreko argitalpeneko garatzaileak:"
 
 #: src/plugin_about/about.c:89
 msgid ""
 "\n"
 "Package maintainers:"
 msgstr ""
+"\n"
+"Paketearen mantentzaileak:"
 
 #: src/plugin_about/about.c:95
 msgid ""
@@ -34,12 +40,18 @@ msgid ""
 "If you know of anyone missing from this list,\n"
 "please let us know via <bluefish@bluefish.openoffice.nl>."
 msgstr ""
+"\n"
+"Zerrenda honetan norbait falta dela badakizu,\n"
+"eskertuko genizuke jakinaraziko bazeniguke\n"
+"honako helbidean: <bluefish@bluefish.openoffice.nl>"
 
 #: src/plugin_about/about.c:96
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
 msgstr ""
+"\n"
+"Mila esker software hau eskuragarri egiten lagundu duten guztiei."
 
 #: src/plugin_about/about.c:133
 msgid ""
@@ -47,6 +59,9 @@ msgid ""
 "supporting many programming and markup languages, but focusing on creating "
 "dynamic and interactive websites."
 msgstr ""
+"Iturburu irekiko editore bat web diseinatzaile eta programatzaile adituentzako, "
+"hainbat programazio eta markaketa hizkuntzak onartzen ditu, gainera 1"
+"webgune dinamiko eta elkarreragileak sortzeko bideratua dago."
 
 #. Translators: This is a special message that shouldn't be translated
 #. * literally. It is used in the about box to give credits to
@@ -57,13 +72,12 @@ msgstr ""
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
 #: src/plugin_about/about.c:143
-#, fuzzy
 msgid "translator-credits"
-msgstr "Itzultzaileak"
+msgstr "Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>"
 
 #: src/plugin_about/about.c:185
 msgid "This version of Bluefish was built with:\n"
-msgstr ""
+msgstr "Bluefish-en bertsio hau honekin eraiki zen:\n"
 
 #: src/plugin_about/about.c:206
 msgid "/_Help"
@@ -71,17 +85,17 @@ msgstr "/_Laguntza"
 
 #: src/plugin_about/about.c:207
 msgid "/Help/Bluefish _Homepage"
-msgstr ""
+msgstr "/Laguntza/Bluefish webgune _nagusia"
 
 #: src/plugin_about/about.c:208
 msgid "/Help/Report a _Bug"
-msgstr ""
+msgstr "/Laguntza/_Akatsen berri eman"
 
 #: src/plugin_about/about.c:210
 msgid "/Help/_About..."
-msgstr "/Laguntza/H_oni buruz..."
+msgstr "/Laguntza/_Honi buruz..."
 
 #: src/plugin_about/about.c:211
-#, fuzzy
 msgid "/Help/_Build Info..."
-msgstr "/Laguntza/H_oni buruz..."
+msgstr "/Laguntza/_Eraikitzeari buruz..."
+

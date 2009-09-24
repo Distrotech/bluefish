@@ -1,128 +1,130 @@
-# translation of bluefish.po to Basque
+# translation of eu.po to Basque
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
-# 
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish\n"
+"Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-09-03 14:44+0200\n"
-"PO-Revision-Date: 2004-05-25 12:59+0200\n"
-"Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>\n"
+"PO-Revision-Date: 2009-09-21 13:01+0200\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/plugin_infbrowser/infb_gui.c:142
 msgid "Loading..."
-msgstr ""
+msgstr "Kargatzen..."
 
 #: src/plugin_infbrowser/infb_gui.c:148 src/plugin_infbrowser/infb_gui.c:208
 msgid "Cannot load file from network"
-msgstr ""
+msgstr "Ezin da fitxategia saretik kargatu"
 
 #: src/plugin_infbrowser/infb_gui.c:162
 msgid "Cannot find file"
-msgstr ""
+msgstr "Ezin da fitxategia bilatu"
 
 #: src/plugin_infbrowser/infb_gui.c:372
 msgid "Fragment saved"
-msgstr ""
+msgstr "Zatia gordeta"
 
 #: src/plugin_infbrowser/infb_gui.c:376
 msgid "Cannot open file"
-msgstr ""
+msgstr "Ezin da fitxategia ireki"
 
 #: src/plugin_infbrowser/infb_gui.c:458 src/plugin_infbrowser/infb_gui.c:496
 msgid "Nothing found"
-msgstr ""
+msgstr "Ezer ez da bilatu"
 
 #: src/plugin_infbrowser/infb_gui.c:537
 msgid "Documentation index"
-msgstr ""
+msgstr "Dokumentazioaren indizea"
 
 #: src/plugin_infbrowser/infb_gui.c:542
-#, fuzzy
 msgid "Document index"
-msgstr "_Dokumentuan"
+msgstr "Dokumentuaren indizea"
 
 #: src/plugin_infbrowser/infb_gui.c:547
 msgid "Upper level"
-msgstr ""
+msgstr "Goikoa maila"
 
 #: src/plugin_infbrowser/infb_gui.c:553
 msgid "Save current view"
-msgstr ""
+msgstr "Gorde uneko ikuspegia"
 
 #: src/plugin_infbrowser/infb_gui.c:554
 msgid "Go to selected fragment"
-msgstr ""
+msgstr "Joan hautatutako zatira"
 
 #: src/plugin_infbrowser/infb_gui.c:589
 msgid "Find"
-msgstr ""
+msgstr "Bilatu"
 
 #: src/plugin_infbrowser/infb_gui.c:595
 msgid "Info Browser"
-msgstr ""
+msgstr "Informazio arakatzailea"
 
 #: src/plugin_infbrowser/infb_load.c:42
 #, c-format
 msgid "Cannot load reference file %s\n"
-msgstr ""
+msgstr "Ezin izan da %s erreferentziako fitxategia kargatu\n"
 
 #: src/plugin_infbrowser/infb_load.c:166
 msgid "Documentation entries"
-msgstr ""
+msgstr "Dokumentazioaren sarrerak"
 
 #: src/plugin_infbrowser/infb_load.c:170
 msgid "References"
-msgstr ""
+msgstr "Erreferentziak"
 
 #: src/plugin_infbrowser/infb_load.c:172
 msgid "DTD"
-msgstr ""
+msgstr "DTD"
 
 #: src/plugin_infbrowser/infb_load.c:174
 msgid "Web pages"
-msgstr ""
+msgstr "Web orrialdeak"
 
 #: src/plugin_infbrowser/infb_text.c:809
 msgid "Unknown document type"
-msgstr ""
+msgstr "Dokumentu mota ezezaguna"
 
 #: src/plugin_infbrowser/infb_wizard.c:117
 #: src/plugin_infbrowser/infb_wizard.c:165
 msgid "Local DTD file"
-msgstr ""
+msgstr "Lokaleko DTD fitxategia"
 
 #: src/plugin_infbrowser/infb_wizard.c:125
 msgid "Remote DTD file"
-msgstr ""
+msgstr "Urruneko DTD fitxategia"
 
 #: src/plugin_infbrowser/infb_wizard.c:162
 msgid "Choose file"
-msgstr ""
+msgstr "Aukeratu fitxategia"
 
 #: src/plugin_infbrowser/infb_wizard.c:214
 msgid "Entry name"
-msgstr ""
+msgstr "Sarrerako izena"
 
 #: src/plugin_infbrowser/infb_wizard.c:223
 msgid "Description"
-msgstr ""
+msgstr "Deskripzioa"
 
 #: src/plugin_infbrowser/infb_wizard.c:259
 msgid "DTD file URI"
-msgstr ""
+msgstr "DTD fitxategiaren URIa"
 
 #: src/plugin_infbrowser/infb_wizard.c:348
 msgid "New info item"
-msgstr ""
+msgstr "Informazio-elementu berria"
 
 #: src/plugin_infbrowser/infb_wizard.c:418
 msgid "Entries you can delete"
-msgstr ""
+msgstr "Ezaab ditzakezun sarrerak"
+

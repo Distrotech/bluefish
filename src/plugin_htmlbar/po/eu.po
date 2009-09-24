@@ -1,48 +1,48 @@
-# translation of bluefish.po to Basque
+# translation of eu.po to Basque
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
-# 
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish\n"
+"Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-09-03 14:44+0200\n"
-"PO-Revision-Date: 2004-05-25 12:59+0200\n"
-"Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>\n"
+"PO-Revision-Date: 2009-09-21 12:57+0200\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. _DM_ Alert box asking if user would like to change request from add to
 #. * update.
 #.
 #: src/plugin_htmlbar/html2.c:501
-#, fuzzy
 msgid "_Update"
-msgstr " _Eguneratu "
+msgstr "_Eguneratu"
 
 #: src/plugin_htmlbar/html2.c:506
-#, fuzzy, c-format
+#, c-format
 msgid "The %s %s property already exists.\n"
-msgstr "Zehaztutako bide-izena badago lehendik."
+msgstr "%s(r)en %s propietatea badago lehendik ere.\n"
 
 #: src/plugin_htmlbar/html2.c:508
-#, fuzzy, c-format
+#, c-format
 msgid "The %s property already exists.\n"
-msgstr "Zehaztutako bide-izena badago lehendik."
+msgstr "%s propietatea badago lehendik ere.\n"
 
 #: src/plugin_htmlbar/html2.c:511
 #, c-format
 msgid "Update its value from %s to %s?"
-msgstr ""
+msgstr "Bere balioa %s -> %s eguneratu?"
 
 #: src/plugin_htmlbar/html2.c:637
-#, fuzzy
 msgid "Cascading Style Sheet Builder"
-msgstr "CSS elkarrizketa-koadroa"
+msgstr "CSS eraikitzailea"
 
 #: src/plugin_htmlbar/html2.c:657
 msgid "_Selector:"
@@ -87,7 +87,7 @@ msgstr "_Estiloa..."
 
 #: src/plugin_htmlbar/html2.c:1095
 msgid "Bluefish: Select color"
-msgstr "Bluefish: Hautatu kolorea"
+msgstr "Bluefish: hautatu kolorea"
 
 #: src/plugin_htmlbar/htmlbar.c:36
 msgid "Edit color"
@@ -98,7 +98,6 @@ msgid "Edit tag"
 msgstr "Editatu etiketa"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:204
-#, fuzzy
 msgid "/T_ags"
 msgstr "/E_tiketak"
 
@@ -231,9 +230,8 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/O zirkunflexua Ô"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:243
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/OE lotura"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/OE lotura Œ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:244
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
@@ -356,9 +354,8 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/o zorrotza ó"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:276
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/oe lotura æ"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/oe lotura œ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:277
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
@@ -573,9 +570,8 @@ msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Etiketak/Berezia/Bestelakoak/_Barra hautsia ¦"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:335
-#, fuzzy
 msgid "/Tags/Special/Other/Soft _hyphen -"
-msgstr "/Etiketak/Berezia/Bestelakoak/_Marratxoa -"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Marratxo biguna -"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:336
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
@@ -818,7 +814,6 @@ msgid "/Tags/_Comment"
 msgstr "/Etiketak/I_ruzkina"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:406
-#, fuzzy
 msgid "/D_ialogs"
 msgstr "/Elk_arrizketak"
 
@@ -831,9 +826,8 @@ msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Elkarrizketak/Orokorra/_Abiarazte bizkorra..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:411
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Elkarrizketak/Orokorra/M_eta..."
+msgstr "/Elkarrizketak/Orokorra/Estekaren _goiburua..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:412
 msgid "/Dialogs/General/_Body..."
@@ -996,9 +990,8 @@ msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/Elkarrizketak/_Editatu etiketa kurtsorearen azpian..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:459
-#, fuzzy
 msgid "/View/_HTML Toolbar"
-msgstr "/Ikusi/Ikusi _HTML tresna-barra"
+msgstr "/Ikusi/_HTML tresna-barra"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:734
 msgid "QuickStart..."
@@ -1054,7 +1047,6 @@ msgid "Comment"
 msgstr "Iruzkina"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:748
-#, fuzzy
 msgid "E-mail..."
 msgstr "Helbide elektronikoa...."
 
@@ -1432,14 +1424,14 @@ msgid "  _Unix Time (%i)"
 msgstr "  _Unix ordua (%i)"
 
 #: src/plugin_htmlbar/html.c:435
-#, fuzzy, c-format
+#, c-format
 msgid "  Unix Date _String (%s)"
-msgstr "  Unix dataren _katea (%s"
+msgstr "  Unix dataren _katea (%s)"
 
 #: src/plugin_htmlbar/html.c:443
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
-msgstr ""
+msgstr "  ISO-8601 _ordua (%s)"
 
 #: src/plugin_htmlbar/html.c:586
 msgid "Quick Anchor"
@@ -1466,7 +1458,6 @@ msgid "_Name:"
 msgstr "_Izena:"
 
 #: src/plugin_htmlbar/html.c:618 src/plugin_htmlbar/quickstart.c:538
-#, fuzzy
 msgid "Titl_e:"
 msgstr "_Titulua:"
 
@@ -1677,30 +1668,28 @@ msgid "Custom"
 msgstr "Pertsonalizatu"
 
 #: src/plugin_htmlbar/html.c:1425
-#, fuzzy
 msgid "E-mail"
 msgstr "Posta elektronikoa"
 
 #: src/plugin_htmlbar/html.c:1433
 msgid "_Mail to:"
-msgstr ""
+msgstr "_Bidali honi:"
 
 #: src/plugin_htmlbar/html.c:1437
-#, fuzzy
 msgid "_Copy to:"
-msgstr "Kopiatu"
+msgstr "_Kopia:"
 
 #: src/plugin_htmlbar/html.c:1441
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "Kopia _itxua:"
 
 #: src/plugin_htmlbar/html.c:1445
 msgid "with _Subject:"
-msgstr ""
+msgstr "_Gaia:"
 
 #: src/plugin_htmlbar/html.c:1449
 msgid "with _Body:"
-msgstr ""
+msgstr "G_orputza:"
 
 #: src/plugin_htmlbar/html.c:1493
 msgid "Quick List"
@@ -1778,26 +1767,24 @@ msgid "Link"
 msgstr "Esteka"
 
 #: src/plugin_htmlbar/html.c:1904
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF:"
+msgstr "HREF_HIZK:"
 
 #: src/plugin_htmlbar/html.c:1908
-#, fuzzy
 msgid "T_itle:"
 msgstr "_Titulua:"
 
 #: src/plugin_htmlbar/html.c:1948
 msgid "_Forward Relation:"
-msgstr "_Forward Relation:"
+msgstr "_Aurrerako erlazioa:"
 
 #: src/plugin_htmlbar/html.c:1952
 msgid "_Reverse Relation:"
-msgstr "_Reverse Relation:"
+msgstr "_Alderantzizko erlazioa:"
 
 #: src/plugin_htmlbar/html.c:1963
 msgid "Media:"
-msgstr "Media:"
+msgstr "Euskarria:"
 
 #: src/plugin_htmlbar/html.c:1967
 msgid "L_ang:"
@@ -1821,7 +1808,7 @@ msgstr "_Metodoa:"
 
 #: src/plugin_htmlbar/html_form.c:176
 msgid "_Enctype:"
-msgstr "_Enctype:"
+msgstr "_Kodeketa mota:"
 
 #: src/plugin_htmlbar/html_form.c:225
 msgid "Text area"
@@ -1923,11 +1910,11 @@ msgstr "Marra_k:"
 
 #: src/plugin_htmlbar/html_table.c:365
 msgid "Co_l Span:"
-msgstr "Co_l Span:"
+msgstr "Co_lspan:"
 
 #: src/plugin_htmlbar/html_table.c:369
 msgid "_Row Span:"
-msgstr "_Row Span:"
+msgstr "_Rowspan:"
 
 #: src/plugin_htmlbar/html_table.c:374
 msgid "No Wra_p:"
@@ -1935,12 +1922,12 @@ msgstr "_Ez itzulbiratu:"
 
 #: src/plugin_htmlbar/image.c:287
 msgid "Loading image failed..."
-msgstr ""
+msgstr "Huts egin du irudia kargatzean..."
 
 #: src/plugin_htmlbar/image.c:359
 #, c-format
 msgid "Loading file %s..."
-msgstr ""
+msgstr "%s fitxategia kargatzen..."
 
 #: src/plugin_htmlbar/image.c:411
 msgid "Insert thumbnail"
@@ -2032,28 +2019,25 @@ msgstr ""
 
 #: src/plugin_htmlbar/image_dialog.c:377
 msgid "_Reset Dimensions"
-msgstr ""
+msgstr "_Berrezarri dimentsioak"
 
 #: src/plugin_htmlbar/image_dialog.c:388
-#, fuzzy
 msgid "Alternate te_xt:"
 msgstr "_Ordezko testua:"
 
 #: src/plugin_htmlbar/image_dialog.c:392
 msgid "_Long description:"
-msgstr ""
+msgstr "_Deskripzio luzea:"
 
 #: src/plugin_htmlbar/image_dialog.c:400
-#, fuzzy
 msgid "I_D:"
 msgstr "_IDa:"
 
 #: src/plugin_htmlbar/image_dialog.c:419
 msgid "_Use Transitional options"
-msgstr ""
+msgstr "_Erabili trantsiziozko aukerak"
 
 #: src/plugin_htmlbar/image_dialog.c:434
-#, fuzzy
 msgid "_Border:"
 msgstr "_Ertza:"
 
@@ -2063,6 +2047,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"\n"
+"%s"
 
 #: src/plugin_htmlbar/image_dialog.c:778
 #, c-format
@@ -2070,6 +2056,8 @@ msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
+"\n"
+"%d x %d pixel"
 
 #: src/plugin_htmlbar/image_dialog.c:875
 msgid ""
@@ -2078,96 +2066,87 @@ msgid ""
 "\t<b>Loading preview...</b>\t\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"\t<b>Aurrebista kargatzen...</b>\t\n"
+"\n"
 
 #: src/plugin_htmlbar/image_dialog.c:978
-#, fuzzy
 msgid "Select Image"
-msgstr "Hautatu"
+msgstr "Hautatu irudia"
 
 #: src/plugin_htmlbar/image_dialog.c:986
 msgid "All images"
-msgstr ""
+msgstr "Irudi guztiak"
 
 #: src/plugin_htmlbar/image_dialog.c:1218
 #: src/plugin_htmlbar/image_dialog.c:1330
-#, fuzzy
 msgid "Insert Image"
 msgstr "Txertatu irudia"
 
 #: src/plugin_htmlbar/quickstart.c:502
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr ""
+msgstr "<b>_Kanpoko estilo orria</b>"
 
 #: src/plugin_htmlbar/quickstart.c:512
-#, fuzzy
 msgid "Ty_pe:"
 msgstr "_Mota:"
 
 #: src/plugin_htmlbar/quickstart.c:530
-#, fuzzy
 msgid "HRE_F:"
 msgstr "_HREF:"
 
 #: src/plugin_htmlbar/quickstart.c:534
-#, fuzzy
 msgid "_Media:"
-msgstr "Media:"
+msgstr "_Euskarria:"
 
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
 #.
 #: src/plugin_htmlbar/quickstart.c:544
-#, fuzzy
 msgid "<b>Style Area</b>"
-msgstr "<b>Orokorra</b>"
+msgstr "<b>Estiloaren area</b>"
 
 #: src/plugin_htmlbar/quickstart.c:548
-#, fuzzy
 msgid "Cre_ate empty style area"
-msgstr "Sortu proiektu hutsa"
+msgstr "_Sortu estiloaren area hutsa"
 
 #: src/plugin_htmlbar/quickstart.c:570
-#, fuzzy
 msgid "<b>Attributes</b>"
-msgstr "Atributuak"
+msgstr "<b>Atributuak</b>"
 
 #: src/plugin_htmlbar/quickstart.c:585
-#, fuzzy
 msgid "_Src:"
 msgstr "_Iturburua:"
 
 #. TODO: add an option to place content in the script area
 #: src/plugin_htmlbar/quickstart.c:592
 msgid "<b>Script Area</b>"
-msgstr ""
+msgstr "<b>Script-aren area</b>"
 
 #: src/plugin_htmlbar/quickstart.c:596
-#, fuzzy
 msgid "Cre_ate empty script area"
-msgstr "Sortu proiektu hutsa"
+msgstr "Sortu script-aren area hutsa"
 
 #: src/plugin_htmlbar/quickstart.c:623
 msgid "Quick Start"
 msgstr "Abiarazte bizkorra"
 
 #: src/plugin_htmlbar/quickstart.c:638
-#, fuzzy
 msgid "_DTD:"
-msgstr "Erabili _DTD:"
+msgstr "_DTD:"
 
 #: src/plugin_htmlbar/quickstart.c:642 src/plugin_htmlbar/wizards.c:186
 msgid "_Title:"
 msgstr "_Titulua:"
 
 #: src/plugin_htmlbar/quickstart.c:665
-#, fuzzy
 msgid "_Head:"
-msgstr "_Href:"
+msgstr "_Goiburua:"
 
 #: src/plugin_htmlbar/quickstart.c:682
-#, fuzzy
 msgid "Open in _new document."
-msgstr "_Dokumentuan"
+msgstr "Ireki dokumentu _berrian."
 
 #: src/plugin_htmlbar/wizards.c:68
 msgid "Table Wizard"
@@ -2229,46 +2208,3 @@ msgstr "Iturburua:"
 msgid "Size:"
 msgstr "Tamaina:"
 
-#, fuzzy
-#~ msgid "_Rel:"
-#~ msgstr "_Etiketa:"
-
-#, fuzzy
-#~ msgid "T_ype:"
-#~ msgstr "_Mota:"
-
-#, fuzzy
-#~ msgid "Clas_s:"
-#~ msgstr "_Klasea:"
-
-#, fuzzy
-#~ msgid "_Style:"
-#~ msgstr "Estiloa:"
-
-#, fuzzy
-#~ msgid "C_harset:"
-#~ msgstr "_Helburua:"
-
-#, fuzzy
-#~ msgid "_Dir:"
-#~ msgstr "_IDa:"
-
-#, fuzzy
-#~ msgid "_Hreflang:"
-#~ msgstr "_Hizkuntza:"
-
-#, fuzzy
-#~ msgid "_Lang:"
-#~ msgstr "_Hizkuntza:"
-
-#, fuzzy
-#~ msgid "_Accesskey:"
-#~ msgstr "_Onartu:"
-
-#, fuzzy
-#~ msgid "/Dialogs/_New html dialog..."
-#~ msgstr "/Elkarrizketak/Inprimakia/_Aukera..."
-
-#, fuzzy
-#~ msgid "Strict"
-#~ msgstr "Script-a"
