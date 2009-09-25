@@ -25033,6 +25033,9 @@ or false.
 <element pattern="public" />
 <element pattern="private" />
 <element pattern="protected" />
+<element pattern="static" />
+<element pattern="final" />
+<element pattern="extends" />
 <element pattern="global" />
 </group>
 <element pattern="[0-9.]+" is_regex="1" highlight="php-value"/>
