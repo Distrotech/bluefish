@@ -150,7 +150,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 				the timeout function */
 				if (!bftextview2_run_scanner(btv, &endvisible)
 #ifdef HAVE_LIBENCHANT
-								 && !bftextview2_run_spellcheck(btv)
+								 && !btv->spell_check
 #endif
 								 									) {
 					DBG_DELAYSCANNING("finished scanning, remove callback\n");
