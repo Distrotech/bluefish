@@ -39,6 +39,8 @@
 #include "bftextview2_spell.h"
 #endif
 
+/*#define DBG_DELAYSCANNING g_print*/
+
 #define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
 /*
 G_PRIORITY_HIGH -100 			Use this for high priority event sources. It is not used within GLib or GTK+.
@@ -98,7 +100,7 @@ static gboolean bftextview2_scanner_timeout(gpointer data);
 static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle) {
 	if (!btv->bflang)
 		return FALSE;
-	if (btv->bflang->st) {
+	if (btv->bflang->st || btv->spell_check) {
 		if (main_v->props.delay_full_scan) {
 			guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 			DBG_DELAYSCANNING("%d milliseconds elapsed since last user action\n",elapsed);
@@ -132,6 +134,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					btv->scanner_delayed = 0;
 					return FALSE; 
 				}
+				DBG_DELAYSCANNING("return TRUE, call idle callback again\n");
 				return TRUE; /* call idle function again */
 			} else {
 				/* user has not been idle, only scan visible area */
@@ -142,12 +145,15 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(btv), &endvisible, rect.y + rect.height, NULL);
 				gtk_text_iter_forward_to_line_end(&endvisible);
 				DBG_DELAYSCANNING("not idle, call scan for visible area\n");
+				/* hmm spell checking should always be delayed, right? we should
+				rewrite this bit such that we always schedule spell checking in 
+				the timeout function */
 				if (!bftextview2_run_scanner(btv, &endvisible)
 #ifdef HAVE_LIBENCHANT
 								 && !bftextview2_run_spellcheck(btv)
 #endif
 								 									) {
-					DBG_DELAYSCANNING("finished scanning\n");
+					DBG_DELAYSCANNING("finished scanning, remove callback\n");
 					if (in_idle && btv->scanner_delayed) {
 						g_source_remove(btv->scanner_delayed);
 					} else if (!in_idle && btv->scanner_idle) {
@@ -169,9 +175,10 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					btv->scanner_idle = 0;
 					return FALSE;
 				}
+				DBG_DELAYSCANNING("return TRUE, call timeout again\n");
 				return TRUE;/* call timeout function again */
 			}
-		} else {
+		} else { /* no delayed scanning */
 			DBG_SIGNALS("bftextview2_scanner_idle, running scanner idle function\n");
 			if (!bftextview2_run_scanner(btv, NULL)
 #ifdef HAVE_LIBENCHANT
@@ -1184,7 +1191,13 @@ void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolea
 
 #ifdef HAVE_LIBENCHANT
 void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check) {
-	btv->spell_check = spell_check;
+	g_print("bluefish_text_view_set_spell_check, spell_check=%d\n",spell_check);
+	if (btv->spell_check != spell_check) {
+		btv->spell_check = spell_check;
+		/* now activate or deactivate the spell check */
+		if (btv->spell_check)
+			bftextview2_schedule_scanning(btv);
+	}
 }
 #endif
 
