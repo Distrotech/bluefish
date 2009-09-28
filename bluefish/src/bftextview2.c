@@ -100,109 +100,99 @@ static gboolean bftextview2_scanner_timeout(gpointer data);
 static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle) {
 	if (!btv->bflang)
 		return FALSE;
-	if (btv->bflang->st || btv->spell_check) {
-		if (main_v->props.delay_full_scan) {
-			guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
-			DBG_DELAYSCANNING("%d milliseconds elapsed since last user action\n",elapsed);
-			if ((elapsed + 20) >= main_v->props.delay_scan_time) { /* delay scan time has passed ! */
-				DBG_DELAYSCANNING("idle, call scan for everything\n");
-				if (!bftextview2_run_scanner(btv, NULL)
-#ifdef HAVE_LIBENCHANT
-				 && !bftextview2_run_spellcheck(btv)
-#endif
-				 												) {
-					/* finished scanning, make sure we are not called again */
-					DBG_DELAYSCANNING("finished scanning (idle=%d)\n",in_idle);
-					if (in_idle && btv->scanner_delayed) {
-						g_source_remove(btv->scanner_delayed);
-					} else if (!in_idle && btv->scanner_idle) {
-						g_source_remove(btv->scanner_idle);
-					}
-					btv->scanner_delayed = 0;
-					btv->scanner_idle = 0;
-					bftextview2_set_margin_size(btv);
-					return FALSE;
-				}
-				if (!in_idle) {
-					/* don't call timeout function again (run in idle) */
-					if (!btv->scanner_idle) {
-						DBG_DELAYSCANNING("schedule scan again in idle time with priority %d\n",SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY);
-						btv->scanner_idle = g_idle_add_full(SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY,bftextview2_scanner_idle, btv, NULL);
-					} else {
-						DBG_DELAYSCANNING("scan in idle is already scheduled\n");
-					}
-					btv->scanner_delayed = 0;
-					return FALSE; 
-				}
-				DBG_DELAYSCANNING("return TRUE, call idle callback again\n");
-				return TRUE; /* call idle function again */
-			} else {
-				/* user has not been idle, only scan visible area */
-				GtkTextIter endvisible;
-				GdkRectangle rect;
-				/* get visible area and only scan the visible area */
-				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(btv), &rect);
-				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(btv), &endvisible, rect.y + rect.height, NULL);
-				gtk_text_iter_forward_to_line_end(&endvisible);
-				DBG_DELAYSCANNING("not idle, call scan for visible area\n");
-				/* hmm spell checking should always be delayed, right? we should
-				rewrite this bit such that we always schedule spell checking in 
-				the timeout function */
-				if (!bftextview2_run_scanner(btv, &endvisible)
-#ifdef HAVE_LIBENCHANT
-								 && !btv->spell_check
-#endif
-								 									) {
-					DBG_DELAYSCANNING("finished scanning, remove callback\n");
-					if (in_idle && btv->scanner_delayed) {
-						g_source_remove(btv->scanner_delayed);
-					} else if (!in_idle && btv->scanner_idle) {
-						g_source_remove(btv->scanner_idle);
-					}
-					btv->scanner_delayed = 0;
-					btv->scanner_idle = 0;
-					bftextview2_set_margin_size(btv);
-					return FALSE;
-				}
-				if (in_idle) {
-					/* don't call idle function again, but call timeout function */
-					if (!btv->scanner_delayed) {
-						DBG_DELAYSCANNING("schedule delayed scanning\n");
-						btv->scanner_delayed = g_timeout_add(main_v->props.delay_scan_time, bftextview2_scanner_timeout, btv);
-					} else {
-						DBG_DELAYSCANNING("delayed scanning already scheduled\n");
-					}
-					btv->scanner_idle = 0;
-					return FALSE;
-				}
-				DBG_DELAYSCANNING("return TRUE, call timeout again\n");
-				return TRUE;/* call timeout function again */
-			}
-		} else { /* no delayed scanning */
-			DBG_SIGNALS("bftextview2_scanner_idle, running scanner idle function\n");
+	if (!btv->bflang->st && !btv->spell_check)
+		return FALSE;
+	
+	if (main_v->props.delay_full_scan) {
+		guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
+		DBG_DELAYSCANNING("%d milliseconds elapsed since last user action\n",elapsed);
+		if ((elapsed + 20) >= main_v->props.delay_scan_time) { /* delay scan time has passed ! */
+			DBG_DELAYSCANNING("idle, call scan for everything\n");
 			if (!bftextview2_run_scanner(btv, NULL)
 #ifdef HAVE_LIBENCHANT
-			 		&& !bftextview2_run_spellcheck(btv)
+			 && !bftextview2_run_spellcheck(btv)
 #endif
-			 		) {
+			 												) {
+				/* finished scanning, make sure we are not called again */
+				DBG_DELAYSCANNING("finished scanning (idle=%d)\n",in_idle);
+				if (in_idle && btv->scanner_delayed) {
+					g_source_remove(btv->scanner_delayed);
+				} else if (!in_idle && btv->scanner_idle) {
+					g_source_remove(btv->scanner_idle);
+				}
+				btv->scanner_delayed = 0;
 				btv->scanner_idle = 0;
-				DBG_SIGNALS("bftextview2_scanner_idle, stopping scanner idle function\n");
 				bftextview2_set_margin_size(btv);
 				return FALSE;
 			}
-		}
-	} else { /* no scantable, do only spellcheck */
+			if (!in_idle) {
+				/* don't call timeout function again (run in idle) */
+				if (!btv->scanner_idle) {
+					DBG_DELAYSCANNING("schedule scan again in idle time with priority %d\n",SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY);
+					btv->scanner_idle = g_idle_add_full(SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY,bftextview2_scanner_idle, btv, NULL);
+				} else {
+					DBG_DELAYSCANNING("scan in idle is already scheduled\n");
+				}
+				btv->scanner_delayed = 0;
+				return FALSE; 
+			}
+			DBG_DELAYSCANNING("return TRUE, call idle callback again\n");
+			return TRUE; /* call idle function again */
+		} else { /* user is not idle, only scan visible area */
+			GtkTextIter endvisible;
+			GdkRectangle rect;
+			/* get visible area and only scan the visible area */
+			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(btv), &rect);
+			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(btv), &endvisible, rect.y + rect.height, NULL);
+			gtk_text_iter_forward_to_line_end(&endvisible);
+			DBG_DELAYSCANNING("not idle, call scan for visible area\n");
+			/* hmm spell checking should always be delayed, right? we should
+			rewrite this bit such that we always schedule spell checking in 
+			the timeout function */
+			if (!bftextview2_run_scanner(btv, &endvisible)
 #ifdef HAVE_LIBENCHANT
-		DBG_SPELL("no scantable, run spellcheck only\n");
-		if (!bftextview2_run_spellcheck(btv)) {
+							 && !btv->spell_check
+#endif
+							 									) {
+				DBG_DELAYSCANNING("finished scanning, remove callback\n");
+				if (in_idle && btv->scanner_delayed) {
+					g_source_remove(btv->scanner_delayed);
+				} else if (!in_idle && btv->scanner_idle) {
+					g_source_remove(btv->scanner_idle);
+				}
+				btv->scanner_delayed = 0;
+				btv->scanner_idle = 0;
+				bftextview2_set_margin_size(btv);
+				return FALSE;
+			}
+			if (in_idle) {
+				/* don't call idle function again, but call timeout function */
+				if (!btv->scanner_delayed) {
+					DBG_DELAYSCANNING("schedule delayed scanning\n");
+					btv->scanner_delayed = g_timeout_add(main_v->props.delay_scan_time, bftextview2_scanner_timeout, btv);
+				} else {
+					DBG_DELAYSCANNING("delayed scanning already scheduled\n");
+				}
+				btv->scanner_idle = 0;
+				return FALSE;
+			}
+			DBG_DELAYSCANNING("return TRUE, call timeout again\n");
+			return TRUE;/* call timeout function again */
+		}
+	} else { /* no delayed scanning, run everything in the idle callback */
+		DBG_SIGNALS("bftextview2_scanner_idle, running scanner idle function\n");
+		if (!bftextview2_run_scanner(btv, NULL)
+#ifdef HAVE_LIBENCHANT
+		 		&& !bftextview2_run_spellcheck(btv)
+#endif
+		 		) {
 			btv->scanner_idle = 0;
+			DBG_SIGNALS("bftextview2_scanner_idle, stopping scanner idle function\n");
+			bftextview2_set_margin_size(btv);
 			return FALSE;
 		}
-#endif
-		btv->scanner_idle = 0;
-		return FALSE;
 	}
-	return TRUE;
+	return TRUE; /* call me again */
 }
 
 static gboolean bftextview2_scanner_idle(gpointer data) {
