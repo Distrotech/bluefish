@@ -134,6 +134,9 @@ static void foundstack_update_positions(GtkTextBuffer *buffer, Tfoundstack *fsta
 		gtk_text_buffer_get_iter_at_mark(buffer,&it1,mark);
 		fstack->charoffset = gtk_text_iter_get_offset(&it1);
 		fstack->line = gtk_text_iter_get_line(&it1);
+		/* we store the offsets as integers in the structure, because a compare function on integers is much faster than 
+		a compare function that has to compare the relative positions of two textmarks. In general the compare function
+		is called about 10X more often than this update function */
 	}
 }
 
@@ -336,6 +339,11 @@ static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBu
 #ifdef HL_PROFILING
 		hl_profiling.fblock_refcount++;
 #endif
+		/* TODO: My latest callgrind runs show that creating GtkTextMarks	is one of the slowest parts of the engine.
+		having two marks for the start and two marks for the end leaves room for improvement. What if we would
+		just store the start of the start in a GtkTextMark and the offset to the end of the start as integer? (same for the end)
+		The only function that really needs to work in a very different way is bftextview2_get_block_at_iter() 
+		*/
 		fblock->start1 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 		fblock->end1 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
 		fblock->patternum = match.patternum;
@@ -370,6 +378,7 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuff
 	if (fblock) {
 		GtkTextIter iter;
 		DBG_BLOCKMATCH("found the matching start of the block\n");
+		/* TODO: see comments in start_of_block how to reduce the number of GtkTextMark's */
 		fblock->start2 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 		fblock->end2 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
 		g_object_set_data(G_OBJECT(fblock->start2), "block", fblock);
