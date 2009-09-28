@@ -275,7 +275,7 @@ typedef struct {
 	gint16 patternum; /* which pattern (number of the array element in scantable->matches) */
 	guint16 refcount; /* free on 0 */
 	guint8 folded;
-	guint8 foldable; /* perhaps on a single line ? TODO: is this used??? */
+	guint8 foldable; /* FALSE on a single line */
 } Tfoundblock; /* once a start-of-block is found start1 and end1 are set
 						and the Tfoundblock is added to the GtkTextMark's as "block"
 						and the Tfoundblock is added to the current blockstack.
