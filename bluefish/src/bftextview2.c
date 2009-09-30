@@ -98,16 +98,20 @@ static gboolean bftextview2_scanner_idle(gpointer data);
 static gboolean bftextview2_scanner_timeout(gpointer data);
 
 static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle) {
-	if (!btv->bflang)
+	if (!btv->bflang) {
+		btv->scanner_idle = 0;
+		btv->scanner_delayed = 0;
 		return FALSE;
-
+	}
 	if (!btv->bflang->st
 #ifdef HAVE_LIBENCHANT
 	 && !btv->spell_check
 #endif
-	 )
+	 ) {
+	 	btv->scanner_idle = 0;
+	 	btv->scanner_delayed = 0;
 		return FALSE;
-	
+	}
 	if (main_v->props.delay_full_scan) {
 		guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 		DBG_DELAYSCANNING("%d milliseconds elapsed since last user action\n",elapsed);
@@ -1017,6 +1021,7 @@ static gboolean bftextview2_key_release_lcb(GtkWidget *widget,GdkEventKey *keven
 }
 
 void bluefish_text_view_rescan(BluefishTextView * btv) {
+	DBG_MSG("bluefish_text_view_rescan, btv=%p, lang=%p\n",btv,btv->bflang);
 	cleanup_scanner(btv);
 	if (btv->bflang) {
 		GtkTextIter start,end;
