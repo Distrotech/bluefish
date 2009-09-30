@@ -362,9 +362,11 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 	} else {
 #if !GLIB_CHECK_VERSION(2, 18, 0)
 		/* a bug in the fuse smbnetfs mount code */
-		if (g_file_has_uri_scheme(cns->uri, "smb")) {	
+		if (g_file_has_uri_scheme(cns->uri, "smb")) {
+			DEBUG_MSG("checkNsave_replace_async_lcb, starting glib<2.18 workaround for save on smb://\n");
 			/* check that file exists/got created */
 			if (!g_file_query_exists(cns->uri,NULL)) {
+				DEBUG_MSG("checkNsave_replace_async_lcb, smb:// workaround: save file again with backup=0\n");
 				g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
 						,cns->etag,FALSE /* we already created a backup */
 						,G_FILE_CREATE_NONE,NULL
@@ -373,8 +375,9 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 			}
 		}
 #endif
+		DEBUG_MSG("checkNsave_replace_async_lcb, finished ");
+		DEBUG_URI(cns->uri, TRUE);
 		cns->callback_func(CHECKANDSAVE_FINISHED, 0, cns->callback_data);
-		
 	}
 	checkNsave_cleanup(cns);
 }
