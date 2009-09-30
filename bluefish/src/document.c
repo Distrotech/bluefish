@@ -68,6 +68,8 @@ typedef struct {
 } Tpasteoperation;
 #define PASTEOPERATION(var) ((Tpasteoperation *)(var))
 
+static void doc_set_statusbar_lang_encoding(Tdocument *doc);
+
 Tselectionsave *doc_save_selection(Tdocument *doc) {
 	Tselectionsave *selsave;
 	GtkTextIter start,end;
@@ -363,9 +365,8 @@ void doc_set_tooltip(Tdocument *doc) {
 
 	retstr = g_string_new(_("Name: "));
 	retstr = g_string_append(retstr, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
-
 	if (BLUEFISH_TEXT_VIEW(doc->view)->bflang) {
-		retstr = g_string_append(retstr, _("\nFile type: "));
+		retstr = g_string_append(retstr, _("\nLanguage mode: "));
 		retstr = g_string_append(retstr, BLUEFISH_TEXT_VIEW(doc->view)->bflang->name);
 	}
 	if (doc->encoding) {
@@ -374,6 +375,14 @@ void doc_set_tooltip(Tdocument *doc) {
 	}
 	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for doc %s\n", doc->fileinfo, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 	if (doc->fileinfo) {
+		const gchar *mime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+		if (!mime)
+			mime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+		if (mime) {
+			retstr = g_string_append(retstr, _("\nMime type: "));
+			retstr = g_string_append(retstr, mime);
+		}
+
 		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_UNIX_MODE)) {
 			tmp = filemode_to_string(g_file_info_get_attribute_uint32(doc->fileinfo, G_FILE_ATTRIBUTE_UNIX_MODE));
 			g_string_append_printf(retstr, _("\nPermissions: %s\nUid: %u Gid: %u"),tmp,g_file_info_get_attribute_uint32(doc->fileinfo,G_FILE_ATTRIBUTE_UNIX_UID),g_file_info_get_attribute_uint32(doc->fileinfo,G_FILE_ATTRIBUTE_UNIX_GID));
@@ -384,15 +393,6 @@ void doc_set_tooltip(Tdocument *doc) {
 			retstr = g_string_append(retstr, _("\nSize (on disk): "));
 			retstr = g_string_append(retstr, sizestr);
 			g_free(sizestr);
-		}
-		if (doc->fileinfo) {
-			const gchar *mime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
-			if (!mime)
-				mime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
-			if (mime) {
-				retstr = g_string_append(retstr, _("\nMime type: "));
-				retstr = g_string_append(retstr, mime);
-			}
 		}
 		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED)) {
 			/* this function always appends a newline to the string*/
@@ -454,7 +454,7 @@ void doc_set_mimetype(Tdocument *doc, const gchar *mimetype) {
 	if (doc->fileinfo) {
 		g_file_info_set_content_type(doc->fileinfo,mimetype);
 	}
-	doc_set_statusbar_mimetype_encoding(doc);
+	doc_set_statusbar_lang_encoding(doc);
 }
 
 /**
@@ -1087,24 +1087,15 @@ void doc_set_statusbar_insovr(Tdocument *doc)
  *
  * Return value: void
  **/
-void doc_set_statusbar_mimetype_encoding(Tdocument *doc)
+static void doc_set_statusbar_lang_encoding(Tdocument *doc)
 {
 	gchar *msg = NULL;
 
-	if (doc->fileinfo) {
-		const gchar *mime = NULL;
-
-		mime = g_file_info_get_content_type(doc->fileinfo);
-		if (mime) {
-			gchar *desc = g_content_type_get_description(mime);
-			msg = g_strdup_printf(_("  %s, %s"), desc, doc->encoding);
-			g_free(desc);
-		}
+	if (BLUEFISH_TEXT_VIEW(doc->view)->bflang) {
+		msg = g_strdup_printf(" %s, %s", BLUEFISH_TEXT_VIEW(doc->view)->bflang->name, doc->encoding);
+	} else {
+		msg = g_strdup_printf(" %s, %s", _("Unknown"), doc->encoding);
 	}
-
-	if (msg == NULL)
-		msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
-
 	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0);
 	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0, msg);
 	g_free(msg);
@@ -2789,7 +2780,7 @@ void doc_activate(Tdocument *doc) {
 	gui_set_title(BFWIN(doc->bfwin), doc);
 	doc_set_statusbar_lncol(doc);
 	doc_set_statusbar_insovr(doc);
-	doc_set_statusbar_mimetype_encoding(doc);
+	doc_set_statusbar_lang_encoding(doc);
 
 /*	doc_scroll_to_cursor(doc);*/
 	if (doc->uri) {
