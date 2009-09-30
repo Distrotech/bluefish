@@ -1653,8 +1653,8 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	const gchar *matchPattern[] = {
 		N_("Normal"),
 		N_("Entire word only"),
-		N_("POSIX"),
-		N_("PERL"),
+		N_("POSIX style regular expression"),
+		N_("PERL style regular expression"),
 	};
 
 	const gchar *replaceType[] = {
