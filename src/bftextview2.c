@@ -100,7 +100,12 @@ static gboolean bftextview2_scanner_timeout(gpointer data);
 static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle) {
 	if (!btv->bflang)
 		return FALSE;
-	if (!btv->bflang->st && !btv->spell_check)
+
+	if (!btv->bflang->st
+#ifdef HAVE_LIBENCHANT
+	 && !btv->spell_check
+#endif
+	 )
 		return FALSE;
 	
 	if (main_v->props.delay_full_scan) {
