@@ -371,7 +371,6 @@ void doc_unre_init(Tdocument *doc) {
  * Return value: void
  **/
 void doc_unre_destroy(Tdocument *doc) {
-	/* TODO */
 	DEBUG_MSG("doc_unre_destroy, about to destroy undolist %p\n",doc->unre.first );
 	unre_list_cleanup(&doc->unre.first);
 	DEBUG_MSG("doc_unre_destroy, about to destroy redofirst %p\n", doc->unre.redofirst);
@@ -510,7 +509,6 @@ void redo_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void undo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	/* TODO  -> what needs to be done?? */
 	if (bfwin->current_document) {
 		gint lastpos = -1;
 		doc_unre_start(bfwin->current_document);
@@ -530,7 +528,6 @@ void undo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void redo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
-	/* TODO -> what needs to be done?? */
 	if (bfwin->current_document) {
 		gint lastpos = -1;
 		doc_unre_start(bfwin->current_document);

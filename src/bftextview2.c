@@ -99,17 +99,21 @@ static gboolean bftextview2_scanner_timeout(gpointer data);
 
 static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle) {
 	if (!btv->bflang) {
-		btv->scanner_idle = 0;
-		btv->scanner_delayed = 0;
+		if (in_idle) 
+			btv->scanner_idle = 0;
+		else
+			btv->scanner_delayed = 0;
 		return FALSE;
 	}
 	if (!btv->bflang->st
 #ifdef HAVE_LIBENCHANT
-	 && !btv->spell_check
+	 			&& !btv->spell_check
 #endif
-	 ) {
-	 	btv->scanner_idle = 0;
-	 	btv->scanner_delayed = 0;
+	 			) {
+	 	if (in_idle)
+	 		btv->scanner_idle = 0;
+	 	else 
+	 		btv->scanner_delayed = 0;
 		return FALSE;
 	}
 	if (main_v->props.delay_full_scan) {
