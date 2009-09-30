@@ -78,7 +78,7 @@ void doc_select_line_by_offset(Tdocument *doc, gint offset, gboolean do_scroll);
 gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end);
 gint doc_get_cursor_position(Tdocument *doc);
 void doc_set_statusbar_insovr(Tdocument *doc);
-void doc_set_statusbar_mimetype_encoding(Tdocument *doc);
+/*void doc_set_statusbar_mimetype_encoding(Tdocument *doc);*/
 
 /* the prototype for these functions is changed!! */
 void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end);
