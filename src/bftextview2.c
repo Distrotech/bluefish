@@ -39,7 +39,7 @@
 #include "bftextview2_spell.h"
 #endif
 
-/*#define DBG_DELAYSCANNING g_print*/
+#define DBG_DELAYSCANNING g_print
 
 #define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
 /*
@@ -136,6 +136,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 				btv->scanner_delayed = 0;
 				btv->scanner_idle = 0;
 				bftextview2_set_margin_size(btv);
+				DBG_DELAYSCANNING("return FALSE, scanning was finished (in_idle=%d, scanned_delayed=%d, scanner_idle=%d)\n",in_idle,btv->scanner_delayed,btv->scanner_idle);
 				return FALSE;
 			}
 			if (!in_idle) {
@@ -147,9 +148,10 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					DBG_DELAYSCANNING("scan in idle is already scheduled\n");
 				}
 				btv->scanner_delayed = 0;
+				DBG_DELAYSCANNING("return FALSE for timeout callback (in_idle=%d, scanned_delayed=%d, scanner_idle=%d)\n",in_idle,btv->scanner_delayed,btv->scanner_idle);
 				return FALSE; 
 			}
-			DBG_DELAYSCANNING("return TRUE, call idle callback again\n");
+			DBG_DELAYSCANNING("return TRUE, call idle callback again (scanned_delayed=%d, scanner_idle=%d)\n",btv->scanner_delayed,btv->scanner_idle);
 			return TRUE; /* call idle function again */
 		} else { /* user is not idle, only scan visible area */
 			GtkTextIter endvisible;
@@ -167,7 +169,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 							 && !btv->spell_check
 #endif
 							 									) {
-				DBG_DELAYSCANNING("finished scanning, remove callback\n");
+				DBG_DELAYSCANNING("finished scanning, remove callbacks\n");
 				if (in_idle && btv->scanner_delayed) {
 					g_source_remove(btv->scanner_delayed);
 				} else if (!in_idle && btv->scanner_idle) {
@@ -176,6 +178,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 				btv->scanner_delayed = 0;
 				btv->scanner_idle = 0;
 				bftextview2_set_margin_size(btv);
+				DBG_DELAYSCANNING("scanning was finished, so return FALSE (scanned_delayed=%d, scanner_idle=%d)\n",btv->scanner_delayed,btv->scanner_idle);
 				return FALSE;
 			}
 			if (in_idle) {
@@ -187,9 +190,10 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					DBG_DELAYSCANNING("delayed scanning already scheduled\n");
 				}
 				btv->scanner_idle = 0;
+				DBG_DELAYSCANNING("return FALSE for this idle (in_idle=%d) callback (scanned_delayed=%d, scanner_idle=%d)\n",in_idle,btv->scanner_delayed,btv->scanner_idle);
 				return FALSE;
 			}
-			DBG_DELAYSCANNING("return TRUE, call timeout again\n");
+			DBG_DELAYSCANNING("return TRUE, call timeout again (in_idle=%d, scanned_delayed=%d, scanner_idle=%d)\n",in_idle,btv->scanner_delayed,btv->scanner_idle);
 			return TRUE;/* call timeout function again */
 		}
 	} else { /* no delayed scanning, run everything in the idle callback */
@@ -205,6 +209,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 			return FALSE;
 		}
 	}
+	DBG_DELAYSCANNING("end of function, return TRUE\n");
 	return TRUE; /* call me again */
 }
 
