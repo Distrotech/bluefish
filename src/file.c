@@ -495,7 +495,7 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 		if (error->code == G_IO_ERROR_NOT_MOUNTED) {
 			if (gmo==NULL) {
 				DEBUG_MSG("not mounted, try to mount!!\n");
-				gmo = gtk_mount_operation_new(of->bfwin?(GtkWindow *)of->bfwin->main_window:NULL); /* TODO, add bfwin to the Topenfile */
+				gmo = gtk_mount_operation_new(of->bfwin?(GtkWindow *)of->bfwin->main_window:NULL);
 				g_file_mount_enclosing_volume(of->uri
 						,G_MOUNT_MOUNT_NONE
 						,gmo

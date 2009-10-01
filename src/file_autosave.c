@@ -243,7 +243,6 @@ static gboolean run_autosave(gpointer data) {
 
 static inline void autosave_recover(Tbfwin *bfwin, GFile *file) {
 	GList *list,*tmplist;
-	/* TODO: recovery */	
 	DEBUG_MSG("autosave_recover\n");
 	list = get_list(file, NULL, TRUE);
 	tmplist = g_list_first(list);

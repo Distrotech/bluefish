@@ -127,7 +127,7 @@ static inline gboolean text_iter_forward_real_word_end(GtkTextIter *it) {
 }
 
 #ifdef HAVE_LIBENCHANT_OLD
-static gint foundstack_needspellcheck(BluefishTextView * btv, Tfoundstack *fstack) {
+static gint OLD_foundstack_needspellcheck(BluefishTextView * btv, Tfoundstack *fstack) {
 	guint16 contextnum;
 	if (g_queue_get_length(fstack->contextstack))
 		contextnum = ((Tfoundcontext *)g_queue_peek_head(fstack->contextstack))->context;
@@ -137,7 +137,7 @@ static gint foundstack_needspellcheck(BluefishTextView * btv, Tfoundstack *fstac
 	return g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).needspellcheck;
 }
 
-/*static inline gboolean text_iter_backward_real_word_start(GtkTextIter *i) {
+/*static inline gboolean OLD_text_iter_backward_real_word_start(GtkTextIter *i) {
 	GtkTextIter iter;
 	if (!gtk_text_iter_backward_word_start(i))
 		return FALSE;
@@ -149,7 +149,7 @@ static gint foundstack_needspellcheck(BluefishTextView * btv, Tfoundstack *fstac
 }
 */
 
-gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
+gboolean OLD_bftextview2_run_spellcheck(BluefishTextView * btv) {
 	GtkTextIter so,eo,iter;
 	GtkTextBuffer *buffer;
 	Tfoundstack *fstack;
@@ -402,8 +402,10 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 				cont2 = FALSE;
 		}
 
-		if (gtk_text_iter_compare(&iter, &eo) >= 0) /* TODO: check the order of the compare items */
+		if (gtk_text_iter_compare(&iter, &eo) >= 0) {
+			DBG_SPELL("bftextview2_run_spellcheck, iter (%d) equals eo, finished this area for spell checking\n", gtk_text_iter_get_offset(&iter));
 			cont = FALSE;
+		}
 			
 	} while (cont && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL));
 	if (cont) {
@@ -417,7 +419,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 
 	g_timer_destroy(timer);
 	
-	return TRUE;
+	return (!gtk_text_iter_is_end(&iter));
 }
 
 
