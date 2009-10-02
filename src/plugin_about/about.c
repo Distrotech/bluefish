@@ -25,7 +25,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>      /* getopt() */
+#include <unistd.h>	/* getopt() */
+#ifdef WIN32
+#include <windows.h>
+#include <shellapi.h>	/* ShellExecute */
+#endif /* WIN32 */
 #include "about.h"
 #include "about_rev.h"
 
@@ -36,7 +40,11 @@
 
 
 static void bluefish_url_show(const gchar *url) { 
+#ifdef WIN32
+  if ((int)ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL) <= 32) {
+#else /* WIN32 */
   if (g_app_info_launch_default_for_uri (url, NULL, NULL) == FALSE) {
+#endif /* WIN32 */
     g_warning ("Failed trying to launch URL in about dialog");
   }
 }
