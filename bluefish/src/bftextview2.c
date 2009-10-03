@@ -814,11 +814,15 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 			GtkTextMark* imark;
 			GtkTextIter iter;
 			gchar *string;
-			/* replace the tab with spaces if the user wants that */
+			gint numchars;
+			/* replace the tab with spaces if the user wants that. 
+			However, some users want the tab key to arrive at the next tab stop. so if the tab width is 
+			4 and there are two characters already, bluefish should insert only 2 characters */
 			string = bf_str_repeat(" ", BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
 			imark = gtk_text_buffer_get_insert(buffer);
 			gtk_text_buffer_get_iter_at_mark(buffer,&iter,imark);
-			gtk_text_buffer_insert(buffer,&iter,string,BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
+			numchars = BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width-(gtk_text_iter_get_line_offset(&iter) % BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
+			gtk_text_buffer_insert(buffer,&iter,string,numchars);
 			g_free(string);
 			return TRUE;
 		}
