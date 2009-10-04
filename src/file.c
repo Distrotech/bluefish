@@ -336,7 +336,7 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 				return;
 			} 
 		}
-#if !GLIB_CHECK_VERSION(2, 18, 0)	
+#if !GLIB_CHECK_VERSION(2, 18, 0)
 		else if (error->code == G_IO_ERROR_EXISTS && (g_file_has_uri_scheme(cns->uri, "sftp")||g_file_has_uri_scheme(cns->uri, "smb"))) {
 			/* there is  a bug in the GIO sftp and smb module in glib version 2.18 that returns 'file exists error' 
 			if you request an async content_replace */

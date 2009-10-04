@@ -1155,7 +1155,15 @@ void sync_dialog(Tbfwin *bfwin) {
 	sd->bfwin = bfwin;
 	sd->dialog = gtk_dialog_new_with_buttons(_("Upload / Download"),GTK_WINDOW(bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT
 				,_("Upload"),1,_("Download"),2,GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE,NULL);
-	
+
+   if (glib_major_version == 2 && glib_minor_version <= 18) {
+      gchar *message;
+      GtkWidget *label=gtk_label_new(NULL);
+      message = g_strdup_printf("<b>Your glib version (%d-%d,%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please a glib version newer than 2.18.0</b>",glib_major_version,glib_minor_version,glib_micro_version);
+      gtk_label_set_markup(GTK_LABEL(label), message);
+      g_free(message);
+      gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), label, FALSE,FALSE,4);
+   }
 	hbox = gtk_hbox_new(FALSE,4);
 	sd->entry_local = gtk_entry_new();
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Local directory")), FALSE,FALSE,4);
