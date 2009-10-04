@@ -1159,7 +1159,7 @@ void sync_dialog(Tbfwin *bfwin) {
    if (glib_major_version == 2 && glib_minor_version < 18) {
       gchar *message;
       GtkWidget *label=gtk_label_new(NULL);
-      message = g_strdup_printf("<b>Your glib version (%d-%d-%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please a glib version newer than 2.18.0</b>",glib_major_version,glib_minor_version,glib_micro_version);
+      message = g_strdup_printf("<b>Your glib version (%d-%d-%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 if you rely on remote file support.</b>",glib_major_version,glib_minor_version,glib_micro_version);
       gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
       gtk_label_set_markup(GTK_LABEL(label), message);
       g_free(message);
