@@ -910,8 +910,7 @@ static void bftextview2_expand_all_lcb(GtkMenuItem *mitem, BluefishTextView *btv
 }
 
 static GtkWidget *bftextview2_fold_menu(BluefishTextView *btv) {
-	GtkMenuItem *mitem;
-	GtkWidget *menu = gtk_menu_new();
+	GtkWidget *mitem, *menu = gtk_menu_new();
 	mitem = gtk_menu_item_new_with_label(_("Collapse all"));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),mitem);
 	g_signal_connect(G_OBJECT(mitem),"activate",G_CALLBACK(bftextview2_collapse_all_lcb),btv);
