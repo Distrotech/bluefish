@@ -248,10 +248,10 @@ static void checkmodified_asyncfileinfo_lcb(GObject *source_object,GAsyncResult 
 		} else {
 			cm->callback_func(CHECKMODIFIED_OK, 0, cm->orig_finfo, info, cm->callback_data);
 		}
-	} else {
+	} else if (error) {
 		/* error condition */
 		DEBUG_MSG("************************ checkmodified_asyncfileinfo_lcb, non-handled error condition\n");
-		
+		g_warning("while checking file modification on disk, received error %d: %s\n",error->code,error->message);
 		cm->callback_func(CHECKMODIFIED_ERROR, error->code, NULL, NULL, cm->callback_data);
 		g_error_free(error);
 	}
@@ -355,7 +355,8 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 		}
 #endif
 		 else {
-			g_print("****************** checkNsave_replace_async_lcb() unhandled error %d: %s\n",error->code,error->message);
+		 	g_warning("while save to disk, received error %d: %s\n",error->code,error->message);
+			DEBUG_MSG("****************** checkNsave_replace_async_lcb() unhandled error %d: %s\n",error->code,error->message);
 			cns->callback_func(CHECKANDSAVE_ERROR, 0, cns->callback_data);
 		}
 		g_error_free(error);
@@ -507,6 +508,7 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 				queue_worker_ready(&ofqueue, openfile_run);
 			}
 		} else {
+			g_warning("while opening file, received error %d: %s\n",error->code,error->message);
 			of->callback_func(OPENFILE_ERROR,error->code,buffer,size, of->callback_data);
 			g_free(buffer);
 		}

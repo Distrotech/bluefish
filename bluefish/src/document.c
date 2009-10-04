@@ -2446,6 +2446,14 @@ void doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean d
 	} else { /* document is not yet opened */
 		if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;
 		DEBUG_MSG("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d\n",uri,delay_activate, bfwin->focus_next_new_doc);
+#if !GLIB_CHECK_VERSION(2, 18, 0)
+	   /* check runtime glib version, check if remote file, and give warning if remote file on glib < 2.18 */
+		if (glib_major_version==2 && glib_minor_version<18 && !g_file_is_native(uri)) {
+			gchar *message = g_strdup_printf("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer.",glib_major_version,glib_minor_version,glib_micro_version);
+			statusbar_message(bfwin,message,20);
+			g_free(message);
+		}
+#endif
 		file_doc_from_uri(bfwin, uri, NULL, finfo, goto_line, goto_offset, open_readonly);
 	}
 	add_filename_to_history(bfwin, uri);
