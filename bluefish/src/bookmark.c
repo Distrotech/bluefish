@@ -915,7 +915,7 @@ static void bmark_search_rpopup_menu(Tbfwin *bfwin, GdkEventButton * bevent) {
 
 #if GTK_CHECK_VERSION(2,16,0)
 static void bmark_search_icon_press(GtkEntry *entry, GtkEntryIconPosition icon_pos, GdkEvent *event, gpointer user_data) {
-	bmark_search_rpopup_menu(user_data, event);
+	bmark_search_rpopup_menu(user_data, (GdkEventButton*)event);
 }
 #else
 static gboolean bmark_search_button_press(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
