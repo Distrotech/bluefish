@@ -9,112 +9,107 @@ msgstr ""
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-09-03 15:31+0200\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
-"Last-Translator: Unknown <unk@unk.org>\n"
-"Language-Team: no team <LL@li.org>\n"
+"Last-Translator: Alex Negulescu <alecs@altlinux.org>\n"
+"Language-Team: <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
 #: ../desktop-data/bluefish-unstable.desktop.in.h:1
 msgid "Bluefish Editor (SVN)"
-msgstr ""
+msgstr "Editorul Bluefish (SVN)"
 
 #: ../desktop-data/bluefish-unstable.desktop.in.h:2
 msgid "Web Development Editor (development version)"
-msgstr ""
+msgstr "Editor web (versiune devel)"
 
 #: ../desktop-data/bluefish-unstable.xml.in.h:1
-#, fuzzy
 msgid "Bluefish language definition file"
-msgstr "Definitie"
+msgstr "Fisier definire limba"
 
 #: ../desktop-data/bluefish-unstable.xml.in.h:2
-#, fuzzy
 msgid "Bluefish project file"
-msgstr "Eroare Bluefish"
+msgstr "Fisier proiect Bluefish"
 
 #: ../src/bftextview2_spell.c:496
-#, fuzzy
 msgid "Spell check language"
-msgstr "Verifica scrierea cuvintelor"
+msgstr "Corectura lingvistica"
 
 #: ../src/blocksync.c:88
 msgid ""
 "Select the block to sync to other pages. Include the start-of-block and end-"
 "of-block markers in your selection."
-msgstr ""
+msgstr "Selectati blocul de text pentru sincronizare. Includeti markerii de inceput si sfarsit in selectie."
 
 #: ../src/blocksync.c:93
 msgid "To proceed with the current selection click forward."
-msgstr ""
+msgstr "Pentru a continua cu selectia curenta, click pe Continua."
 
 #: ../src/blocksync.c:122
 msgid ""
 "Below is the block, including start and end marker. Please <b>select the "
 "start marker</b> in the text below."
-msgstr ""
+msgstr "Mai jos se afla selectia, incluzand markerii de inceput si sfarsit. Selectati markerul de inceput in textul urmator."
 
 #: ../src/blocksync.c:157
 msgid "Please <b>select the end marker</b> in the text below."
-msgstr ""
+msgstr "Selectati markerul care macrheaza sfarsitul in textul urmator"
 
 #: ../src/blocksync.c:226
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Please select the block of text to "
 "synchronize.</span>"
-msgstr ""
+msgstr "Selectati textul pentru sincornizare."
 
 #: ../src/blocksync.c:240 ../src/blocksync.c:260
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">This marker exists more than once "
 "in the block.</span>"
-msgstr ""
+msgstr "Markerul exista de mai multe ori in selectie."
 
 #: ../src/blocksync.c:246
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Select the text that marks the "
 "start of the block.</span>"
-msgstr ""
+msgstr "Selectati textul care marcheaza inceputul blocului de text."
 
 #: ../src/blocksync.c:266
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Select the text that marks the end "
 "of the block.</span>"
-msgstr ""
+msgstr "Selectati textul care marcheaza sfarsitul blocului de text."
 
 #: ../src/blocksync.c:297
 msgid "Synchronize text block"
-msgstr ""
+msgstr "Sincronizare bloc text."
 
 #: ../src/bluefish.c:79
-#, fuzzy
 msgid "Bluefish Editor"
-msgstr "Eroare Bluefish"
+msgstr "Editorul Bluefish"
 
 #: ../src/bluefish.c:79
 msgid "Visit us at http://bluefish.openoffice.nl"
-msgstr ""
+msgstr "Vizitati-ne la http://bluefish.openoffice.nl"
 
 #: ../src/bluefish.c:123
-#, fuzzy
 msgid "starting up..."
-msgstr "Salvez fisierul"
+msgstr "initializare..."
 
 #: ../src/bluefish.c:223
 msgid "Open in existing window."
-msgstr ""
+msgstr "Deschide in fereastra existenta."
 
 #: ../src/bluefish.c:225
 msgid "Open in new window."
-msgstr ""
+msgstr "Deschide in fereastra noua."
 
 #: ../src/bluefish.c:227
 msgid "Print version information."
-msgstr ""
+msgstr "Informatii despre versiune."
 
 #: ../src/bluefish.c:253
 msgid " [FILE(S)]"
-msgstr ""
+msgstr " [FISIER(E)]"
 
 #: ../src/bluefish.c:264
 #, c-format
@@ -122,235 +117,221 @@ msgid ""
 "Error parsing command line options. %s\n"
 "Please run: %s -?\n"
 msgstr ""
+"Optiunile comenzii sunt eroane. %s\n"
+"Rulati: %s -?\n"
 
 #: ../src/bookmark.c:460
-#, fuzzy
 msgid "_Name:"
 msgstr "Nume"
 
 #: ../src/bookmark.c:465
-#, fuzzy
 msgid "_Description:"
-msgstr "Definitie"
+msgstr "Descriere"
 
 #: ../src/bookmark.c:467
 msgid "Temporary"
-msgstr ""
+msgstr "Temporar"
 
 #: ../src/bookmark.c:619
-#, fuzzy, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
-msgstr "Sunteti sigur ca vreti sa inlocuiti aceasta?"
+msgstr "Sunteti sigur ca vreti sa stergeti bookmark-urile pentru %s?"
 
 #: ../src/bookmark.c:623
-#, fuzzy
 msgid "Delete bookmarks?"
-msgstr "Editor"
+msgstr "Sterge bookmark-uri?"
 
 #: ../src/bookmark.c:648
-#, fuzzy, c-format
 msgid "Do you really want to delete %s?"
-msgstr "Sunteti sigur ca vreti sa inlocuiti aceasta?"
+msgstr "Sunteti sigur ca vreti sa stergeti %s?"
 
 #: ../src/bookmark.c:652
 msgid "Delete permanent bookmark."
-msgstr ""
+msgstr "Sterge bookmark-ul definitiv."
 
 #: ../src/bookmark.c:673
-#, fuzzy
 msgid "Edit bookmark"
-msgstr "Editor"
+msgstr "Editare bookmark"
 
 #: ../src/bookmark.c:730
 msgid "/Goto"
-msgstr ""
+msgstr "/Mergi la"
 
 #: ../src/bookmark.c:731
-#, fuzzy
 msgid "/Edit"
-msgstr "Editor"
+msgstr "/Editeaza"
 
 #: ../src/bookmark.c:732
-#, fuzzy
 msgid "/Delete"
-msgstr " Sterge "
+msgstr "/Sterge"
 
 #: ../src/bookmark.c:734
-#, fuzzy
 msgid "/Delete All in document"
-msgstr "Fisierul nu poate fi deschis"
+msgstr "/Sterge tot in documentul curent"
 
 #: ../src/bookmark.c:735
-#, fuzzy
 msgid "/Delete All"
-msgstr " Sterge "
+msgstr "/Sterge tot"
 
 #: ../src/bookmark.c:737
-#, fuzzy
 msgid "/Permanent by default"
-msgstr "Numarul liniei:"
+msgstr "/Implicit permanent"
 
 #: ../src/bookmark.c:739
-#, fuzzy
 msgid "/Show file"
-msgstr "Numele fisierului este necunoscut"
+msgstr "/Ordoneaza fisier"
 
 #: ../src/bookmark.c:740
-#, fuzzy
 msgid "/Show file/By name"
-msgstr "Numele fisierului este necunoscut"
+msgstr "/Ordoneaza fisier/Dupa nume"
 
 #: ../src/bookmark.c:741
-#, fuzzy
 msgid "/Show file/By full path"
-msgstr "Meniu"
+msgstr "/Ordoneaza fisier/Dupa calea completa"
 
 #: ../src/bookmark.c:742
-#, fuzzy
 msgid "/Show file/By full uri"
-msgstr "Meniu"
+msgstr "/Ordoneaza fisier/Dupa URI complet"
 
 #: ../src/bookmark.c:743
-#, fuzzy
 msgid "/Show bookmark"
-msgstr "Extern"
+msgstr "/Ordoneaza bookmark-uri"
 
 #: ../src/bookmark.c:744
 msgid "/Show bookmark/Name & Content"
-msgstr ""
+msgstr "/Ordoneaza bookmark-uri/Dupa nume si continut"
 
 #: ../src/bookmark.c:745
 msgid "/Show bookmark/Content"
-msgstr ""
+msgstr "/Ordoneaza bookmark-uri/Dupa continut"
 
 #: ../src/bookmark.c:746
 msgid "/Show bookmark/Name"
-msgstr ""
+msgstr "/Ordoneaza bookmark-uri/Dupa nume"
 
 #: ../src/bookmark.c:879
-#, fuzzy
 msgid "First bookmark"
-msgstr "Editor"
+msgstr "Primul bookmark"
 
 #: ../src/bookmark.c:883
-#, fuzzy
 msgid "Previous bookmark"
-msgstr "Editor"
+msgstr "Bookmark anterior"
 
 #: ../src/bookmark.c:887
-#, fuzzy
 msgid "Next bookmark"
-msgstr "Editor"
+msgstr "Urmatorul bookmark"
 
 #: ../src/bookmark.c:891
-#, fuzzy
 msgid "Last bookmark"
-msgstr "Editor"
+msgstr "Ultimul bookmark"
 
 #: ../src/bookmark.c:1527 ../src/bookmark.c:1580
-#, fuzzy
 msgid "Error adding bookmark"
-msgstr "Editor"
+msgstr "Eroare la adaugarea bookmark-ului"
 
 #: ../src/bookmark.c:1528 ../src/bookmark.c:1581
 msgid "Cannot add bookmarks to unsaved files."
-msgstr ""
+msgstr "Adaugarea unui bookmark este imposibila daca fisierul nu a fost salvat."
 
 #: ../src/bookmark.c:1547
-#, fuzzy
 msgid "Can't add bookmark"
-msgstr "Extern"
+msgstr "Nu pot adauga bookmark"
 
 #: ../src/bookmark.c:1548
 msgid "You already have a bookmark here!"
-msgstr ""
+msgstr "Aveti deja un bookmark aici!"
 
 #: ../src/bookmark.c:1617
 msgid "Delete all bookmarks."
-msgstr ""
+msgstr "Sterge toate bookmark-urile."
 
 #: ../src/document.c:364
-#, fuzzy
 msgid "Name: "
-msgstr "Nume"
+msgstr "Nume: "
 
 #: ../src/document.c:368
-#, fuzzy
 msgid ""
 "\n"
 "File type: "
-msgstr "/_Fisier"
+msgstr ""
+"\n"
+"Tip fisier: "
 
 #: ../src/document.c:372
 msgid ""
 "\n"
 "Encoding: "
 msgstr ""
+"\n"
+"Encodare: "
 
 #: ../src/document.c:379
-#, c-format
 msgid ""
 "\n"
 "Permissions: %s\n"
 "Uid: %u Gid: %u"
 msgstr ""
+"\n"
+"Permisiuni: %s\n"
+"Uid: %u Gid: %u"
 
 #: ../src/document.c:384
 msgid ""
 "\n"
 "Size (on disk): "
 msgstr ""
+"\n"
+"Dimensiune (pe disk): "
 
 #: ../src/document.c:393
-#, fuzzy
 msgid ""
 "\n"
 "Mime type: "
-msgstr "/_Fisier"
+msgstr ""
+"\n"
+"Tip MIME: "
 
 #: ../src/document.c:401
 msgid ""
 "\n"
 "Last modified: "
 msgstr ""
+"\n"
+"Ultima modificare: "
 
 #: ../src/document.c:432
-#, fuzzy, c-format
 msgid "Untitled %d"
-msgstr "Fara titlu"
+msgstr "Fara nume %d"
 
 #: ../src/document.c:594
 #, c-format
 msgid "Changed tab width to %d"
-msgstr ""
+msgstr "Seteaza latimea tab-ului la %d"
 
 #: ../src/document.c:757
-#, c-format
 msgid "Document %s is already open in another Bluefish window."
-msgstr ""
+msgstr "Documentul %s este deja deschis intr-o alta fereastra Bluefish"
 
 #: ../src/document.c:759
 msgid "Move to this window"
-msgstr ""
+msgstr "Muta in aceasta fereastra"
 
 #: ../src/document.c:759
 msgid "Open readonly"
-msgstr ""
+msgstr "Deschide in mod citire"
 
 #: ../src/document.c:759
-#, fuzzy
 msgid "Do not open"
-msgstr "Fisierul nu a putut fi deschis :\n"
+msgstr "Nu deschide"
 
 #: ../src/document.c:1032
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
-msgstr ""
+msgstr " Ln: %d, Col: %d, Char: %d"
 
 #: ../src/document.c:1034
 #, c-format
 msgid " Ln: %d, Col: %d"
-msgstr ""
+msgstr " Ln: %d, Col: %d"
 
 #: ../src/document.c:1055
 msgid " OVR"
@@ -371,58 +352,57 @@ msgstr ""
 
 #: ../src/document.c:1435
 msgid "Cannot display file, unknown characters found."
-msgstr ""
+msgstr "Nu pot afisa fisierul, au fost gasite caractere necunoscute."
 
 #: ../src/document.c:1648 ../src/snr2.c:1674
-#, fuzzy
 msgid "Replace"
-msgstr "Inlocuieste:"
+msgstr "Inlocuire"
 
 #: ../src/document.c:1653 ../src/snr2.c:1671
 msgid "Find"
-msgstr ""
+msgstr "Cauta"
 
 #: ../src/document.c:1661
-#, fuzzy
 msgid "Delete bookmark"
-msgstr "Editor"
+msgstr "Sterge bookmark"
 
 #: ../src/document.c:1665
-#, fuzzy
 msgid "Add bookmark"
-msgstr "Extern"
+msgstr "Adauga bookmark"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
 #: ../src/document.c:1782 ../src/file_dialogs.c:419 ../src/file_dialogs.c:457
 msgid "_Abort save"
-msgstr ""
+msgstr "_Anulare"
 
 #: ../src/document.c:1782
 msgid "_Continue save in UTF-8"
-msgstr ""
+msgstr "_Continua salvarea in UTF-8"
 
 #: ../src/document.c:1793
-#, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
 "'%s' at line %d column %d\n"
 "\n"
 "Continue saving in UTF-8 encoding?"
 msgstr ""
+"Nu am putut converti %s la encoding-ul %s. Encodare esuata la pozitia"
+"'%s', linia %d, coloana %d\n"
+"\n"
+"Continui salvarea ca UTF-8 ?"
 
 #: ../src/document.c:1797
 msgid "File encoding conversion failure"
-msgstr ""
+msgstr "Setare encoding nou esuata"
 
 #: ../src/document.c:2043
 msgid "Previously: "
-msgstr ""
+msgstr "Inainte: "
 
 #. || (!file_exists_and_readable(doc->uri))
 #: ../src/document.c:2546
-#, fuzzy
 msgid "Unable to open file"
 msgstr "Fisierul nu poate fi deschis"
 
@@ -432,46 +412,47 @@ msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr ""
+"Daca restituiti \"%s\" la ultima versiune salvata, modificarile dvs vor fi "
+"pierdute definitiv."
 
 #: ../src/document.c:2560
 #, fuzzy
 msgid "Revert changes to last saved copy?"
-msgstr "Sunteti sigur ca vreti sa inlocuiti aceasta?"
+msgstr "Reveniti la ultima versiune salvata?"
 
 #: ../src/document.c:2593
 #, fuzzy
 msgid "_Unset file name"
-msgstr "Numele fisierului este necunoscut"
+msgstr "Reseteaza n_umele fisierului"
 
 #: ../src/document.c:2593
 #, fuzzy
 msgid "_Save"
-msgstr "Salveaza"
+msgstr "_Salveaza"
 
 #. file is deleted on disk, what do we do now ?
 #: ../src/document.c:2595
-#, fuzzy, c-format
 msgid "File name: %s"
-msgstr "/Fisier/_Nou"
+msgstr "Nume fisier: %s"
 
 #: ../src/document.c:2599
 msgid "File disappeared from disk\n"
-msgstr ""
+msgstr "Fisierul a disparut de pe disk\n"
 
 #: ../src/document.c:2616
 #, fuzzy
 msgid "_Ignore"
-msgstr "Neordonat"
+msgstr "_Ignora"
 
 #: ../src/document.c:2616
 #, fuzzy
 msgid "_Reload"
-msgstr "Inlocuieste:"
+msgstr "_Reincarca"
 
 #: ../src/document.c:2616
 #, fuzzy
 msgid "Check and reload all documents"
-msgstr "Fisierul nu poate fi deschis"
+msgstr "Verifica si reincarca toate documentele"
 
 #: ../src/document.c:2624
 #, c-format
@@ -481,134 +462,136 @@ msgid ""
 "New modification time is: %s\n"
 "Old modification time is: %s"
 msgstr ""
+"Nume fisier: %s\n"
+"\n"
+"Noua data a modificarilor: %s\n"
+"Vechea data a modificarilor: %s"
 
 #: ../src/document.c:2628
 msgid "File has been modified by another process\n"
-msgstr ""
+msgstr "Fisierul a fost modificat de alt proces\n"
 
 #: ../src/document.c:2691
 msgid "_Retry"
-msgstr ""
+msgstr "_Reincearca"
 
 #: ../src/document.c:2691
+#,fuzzy
 msgid "Retry _all failed"
-msgstr ""
+msgstr "Reince_arca toate esuate"
 
 #: ../src/document.c:2691
-#, fuzzy
 msgid "_Close"
-msgstr "Inchide"
+msgstr "In_chide"
 
 #: ../src/document.c:2691
 #, fuzzy
 msgid "Close all _failed"
-msgstr "Eroare Bluefish"
+msgstr "Inchide toate esuate"
 
 #: ../src/document.c:2695
-#, fuzzy
 msgid "File "
-msgstr "/_Fisier"
+msgstr "Fisier "
 
 #: ../src/document.c:2695
 msgid " failed to load."
-msgstr ""
+msgstr " nu a putut fi incarcat."
 
 #: ../src/document.c:2699
 msgid "File failed to load\n"
-msgstr ""
+msgstr "Fisierul nu a putut fi incarcat\n"
 
 #: ../src/document.c:2819
-#, fuzzy
 msgid "Select file to insert"
-msgstr "Numele fisierului este necunoscut"
+msgstr "Selectati fisierul spre inserare"
 
 #: ../src/document.c:2827
 #, fuzzy
 msgid "No file to insert"
-msgstr "Numele fisierului este necunoscut"
+msgstr "Nu ati ales fisier spre inserare"
 
 #: ../src/document.c:2966
-#, fuzzy, c-format
 msgid "Statistics: "
-msgstr "Cauta"
+msgstr "Statistici: "
 
 #: ../src/document.c:2967
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d linie"
+msgstr[1] "%d linii"
 
 #: ../src/document.c:2968
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d cuvant"
+msgstr[1] "%d cuvinte"
 
 #: ../src/document.c:2969
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d caracter"
+msgstr[1] "%d caractere"
 
 #: ../src/encodings_dialog.c:329
 msgid "_Available encodings:"
-msgstr ""
+msgstr "Encod_ari disponibile:"
 
 #: ../src/encodings_dialog.c:381 ../src/encodings_dialog.c:452
 #, fuzzy
 msgid "Description"
-msgstr "Definitie"
+msgstr "Descriere"
 
 #: ../src/encodings_dialog.c:391 ../src/encodings_dialog.c:461
 #: ../src/preferences.c:1642
 msgid "Encoding"
-msgstr ""
+msgstr "Encodare"
 
 #: ../src/encodings_dialog.c:427
 msgid "Encodings in _menu:"
-msgstr ""
+msgstr "Encodari in _meniu:"
 
 #: ../src/encodings_dialog.c:511
+#,fuzzy
 msgid "Add or remove document encodings"
-msgstr ""
+msgstr "Adauga sau sterge encodari la document"
 
 #: ../src/filebrowser2.c:228
 msgid "Set documentroot and webroot"
-msgstr ""
+msgstr "Seteaza radacina documentelor si radacina web"
 
 #: ../src/filebrowser2.c:237
+#,fuzzy
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
 "the webserver"
 msgstr ""
+"<i>Radacina documentelor</i> este locul unde Bluefish gaseste fisierele,\n"
+"<i>Radacina web</i> este locul unde fisierele vor fi puse pentru"
+"a fi servite de webserver"
 
 #: ../src/filebrowser2.c:244
-#, fuzzy
 msgid "Documentroot"
-msgstr "Comentariu"
+msgstr "Radacina documente"
 
 #: ../src/filebrowser2.c:256
 msgid "Webroot"
-msgstr ""
+msgstr "Radacina web"
 
 #: ../src/filebrowser2.c:1425
-#, fuzzy
 msgid "Could not rename\n"
-msgstr "Fisierul nu a putut fi deschis :\n"
+msgstr "Fisierul nu a putut fi redenumit\n"
 
 #: ../src/filebrowser2.c:1497
-#, fuzzy
 msgid "New directory"
-msgstr "Deschid fisierul"
+msgstr "Director nou"
 
 #: ../src/filebrowser2.c:1519 ../src/filebrowser2.c:1521
-#, fuzzy
 msgid "New file"
-msgstr "Stil nou"
+msgstr "Fisier nou"
 
 #. Do we really need to display the full path here?
 #. *
@@ -619,76 +602,72 @@ msgstr "Stil nou"
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
 #: ../src/filebrowser2.c:1631
-#, fuzzy, c-format
 msgid ""
 "Are you sure you want to delete\n"
 "\"%s\"?"
-msgstr "Sunteti sigur ca vreti sa inlocuiti aceasta?"
+msgstr "Sunteti sigur ca vreti sa stergeti\n"
+"\"%s\"?"
 
 #: ../src/filebrowser2.c:1632
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
-msgstr ""
+msgstr "Daca stergeti %s, va fi pierdut definitiv"
 
 #: ../src/filebrowser2.c:1777
-#, fuzzy
 msgid "/_Open"
-msgstr "Font..."
+msgstr "/_Deschide"
 
 #: ../src/filebrowser2.c:1778
 #, fuzzy
 msgid "/Open _Advanced..."
-msgstr "/Fisier/_Deschide"
+msgstr "/Deschide _avansat..."
 
 #: ../src/filebrowser2.c:1779
 msgid "/Rena_me"
-msgstr ""
+msgstr "/Redenu_meste"
 
 #: ../src/filebrowser2.c:1780
-#, fuzzy
 msgid "/_Delete"
-msgstr " Sterge "
+msgstr " /_Sterge "
 
 #: ../src/filebrowser2.c:1782
-#, fuzzy
 msgid "/New _File"
-msgstr "Stil nou"
+msgstr "/_Fisier nou"
 
 #: ../src/filebrowser2.c:1783
 msgid "/_New Directory"
-msgstr ""
+msgstr "/Director _nou"
 
 #: ../src/filebrowser2.c:1785
 msgid "/_Refresh"
-msgstr ""
+msgstr "/_Reimprospatare"
 
 #: ../src/filebrowser2.c:1786
 #, fuzzy
 msgid "/Follow active document"
-msgstr "Comentariu"
+msgstr "/Urmareste documentul activ"
 
 #: ../src/filebrowser2.c:1787
-#, fuzzy
+#,fuzzy
 msgid "/_Set as basedir"
-msgstr "Selectie"
+msgstr "/_Seteaza ca director de baza"
 
 #: ../src/filebrowser2.c:1788
-#, fuzzy
 msgid "/Set as documentroot"
-msgstr "Comentariu"
+msgstr "/Seteaza ca director radacina"
 
 #: ../src/filebrowser2.c:1790
+#,fuzzy
 msgid "/Show Full _Tree"
-msgstr ""
+msgstr "/Arata _toate directoarele"
 
 #: ../src/filebrowser2.c:1791
 msgid "/Show hidden files"
-msgstr ""
+msgstr "/Arata fisiere ascunse"
 
 #: ../src/filebrowser2.c:1792
-#, fuzzy
 msgid "/Show backup files"
-msgstr "Numele serverului nu a fost gasit"
+msgstr "/Arata fisiere backup"
 
 #: ../src/filebrowser2.c:1793
 #, fuzzy
@@ -701,7 +680,7 @@ msgstr ""
 
 #: ../src/filebrowser2.c:1795
 msgid "/View mode/Dual"
-msgstr ""
+msgstr "/View mode/Dual"
 
 #: ../src/filebrowser2.c:1796
 msgid "/View mode/Flat"
