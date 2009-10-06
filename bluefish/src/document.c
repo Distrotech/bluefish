@@ -2980,7 +2980,8 @@ void all_documents_apply_settings() {
 		Tdocument *doc = tmplist->data;
 		/*doc_set_tabsize(doc, main_v->props.editor_tab_width);*/
 		apply_font_style(doc->view, main_v->props.editor_font_string);
-		bluefish_text_view_set_colors(BLUEFISH_TEXT_VIEW(doc->view), main_v->props.editor_fg, main_v->props.editor_bg);
+		bluefish_text_view_set_colors(BLUEFISH_TEXT_VIEW(doc->view),
+				main_v->props.btv_color_str);
 		tmplist = g_list_next(tmplist);
 	}
 

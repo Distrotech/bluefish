@@ -262,8 +262,7 @@ typedef struct {
 	gint open_in_new_window; /* open commandline files in a new window as opposed to an existing window */
 	gint show_splash_screen;
 	GList *plugin_config; /* array, 0=filename, 1=enabled, 2=name*/
-	gchar *editor_fg; /* editor foreground color */
-	gchar *editor_bg; /* editor background color */
+	gchar *btv_color_str[BTV_COLOR_COUNT]; /* editor colors */
 	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
 	gint block_folding_mode;
 	GList *highlight_styles;

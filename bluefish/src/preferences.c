@@ -97,6 +97,8 @@ enum {
 	reduced_scan_triggers,
 	editor_fg,
 	editor_bg,
+	cline_bg,
+	visible_ws,
 	/* now the entries in globses */
 	left_panel_width,
 	main_window_h,
@@ -1375,8 +1377,10 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&main_v->props.smartindent, pd->prefs[smartindent], TRUE);
-	string_apply(&main_v->props.editor_fg, pd->prefs[editor_fg]);
-	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);
+	string_apply(&main_v->props.btv_color_str[BTV_COLOR_ED_FG], pd->prefs[editor_fg]);
+	string_apply(&main_v->props.btv_color_str[BTV_COLOR_ED_BG], pd->prefs[editor_bg]);
+	string_apply(&main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE], pd->prefs[cline_bg]);
+	string_apply(&main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], pd->prefs[visible_ws]);
 	/*integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);*/
 
 	integer_apply(&main_v->props.xhtml, pd->prefs[xhtml], TRUE);
@@ -1605,8 +1609,10 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	pd->prefs[editor_font_string] = prefs_string(_("Font"), main_v->props.editor_font_string, vbox2, pd, string_font);
-	pd->prefs[editor_fg] = prefs_string(_("Foreground color"), main_v->props.editor_fg, vbox2, pd, string_color);
-	pd->prefs[editor_bg] = prefs_string(_("Background color"), main_v->props.editor_bg, vbox2, pd, string_color);
+	pd->prefs[editor_fg] = prefs_string(_("Foreground color"), main_v->props.btv_color_str[BTV_COLOR_ED_FG], vbox2, pd, string_color);
+	pd->prefs[editor_bg] = prefs_string(_("Background color"), main_v->props.btv_color_str[BTV_COLOR_ED_BG], vbox2, pd, string_color);
+	pd->prefs[cline_bg] = prefs_string(_("Current line color"), main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE], vbox2, pd, string_color);
+	pd->prefs[visible_ws] = prefs_string(_("Visible whitespace color"), main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], vbox2, pd, string_color);
 	pd->prefs[editor_smart_cursor] = boxed_checkbut_with_value(_("Smart Home/End cursor positioning"), main_v->props.editor_smart_cursor, vbox2);
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
 	pd->prefs[smartindent] = boxed_checkbut_with_value(_("Smart auto indenting"), main_v->props.smartindent, vbox2);
