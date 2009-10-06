@@ -36,7 +36,7 @@ typedef enum {
 	CHECKMODIFIED_OK
 } Tcheckmodified_status;
 
-typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status status,gint error_info,GFileInfo *orig, GFileInfo *new, gpointer callback_data);
+typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status status,GError *gerror,GFileInfo *orig, GFileInfo *new, gpointer callback_data);
 
 typedef struct {
 	GCancellable *cancel;
@@ -87,7 +87,7 @@ typedef enum {
 	CHECKNSAVE_CONT
 } TcheckNsave_return;
 
-typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status status,gint error_info,gpointer callback_data);
+typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status status,GError *gerror,gpointer callback_data);
 
 GFile *backup_uri_from_orig_uri(GFile * origuri);
 void file_checkNsave_cancel(gpointer cns);
@@ -102,7 +102,7 @@ typedef enum {
 	OPENFILE_FINISHED
 } Topenfile_status;
 
-typedef void (* OpenfileAsyncCallback) (Topenfile_status status,gint error_info, gchar *buffer,goffset buflen,gpointer callback_data);
+typedef void (* OpenfileAsyncCallback) (Topenfile_status status,GError *gerror, gchar *buffer,goffset buflen,gpointer callback_data);
 typedef struct {
 	GFile *uri;
 	Tbfwin *bfwin; /* MAY BE NULL !!!!!!!!!!!!!!!!!!!!!!!!!!! */

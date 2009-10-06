@@ -99,8 +99,10 @@ void image_diag_destroy_cb(GtkWidget * widget, Timage_diag *imdg) {
   g_free(imdg);
 }
 
-static void async_thumbsave_lcb(TcheckNsave_status status,gint error_info,gpointer callback_data) {
+static TcheckNsave_return async_thumbsave_lcb(TcheckNsave_status status,GError *gerror,gpointer callback_data) {
   DEBUG_MSG("async_thumbsave_lcb, status=%d\n",status);
+  /* TODO: handle error */
+  return CHECKNSAVE_CONT;
 }
 
 static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
@@ -277,13 +279,14 @@ static void image_dialog_set_pixbuf(Timage_diag *imdg) {
   DEBUG_MSG("image_filename_changed() finished. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 }
 
-static void image_loaded_lcb(Topenfile_status status,gint error_info,gchar *buffer,goffset buflen,gpointer callback_data) {
+static void image_loaded_lcb(Topenfile_status status,GError *gerror,gchar *buffer,goffset buflen,gpointer callback_data) {
   Timage_diag *imdg = callback_data;
   gboolean cleanup = TRUE;
   switch (status) {
     case OPENFILE_ERROR:
     case OPENFILE_ERROR_NOCHANNEL:
     case OPENFILE_ERROR_NOREAD:
+    	/* TODO: use error info in gerror */
       gtk_label_set_text(GTK_LABEL(imdg->message), _("Loading image failed..."));
     break;
     case OPENFILE_ERROR_CANCELLED:
@@ -690,14 +693,14 @@ static gboolean mt_start_next_load(Timage2thumb *i2t) {
   return FALSE;
 }
 
-static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buffer,goffset buflen,gpointer callback_data) {
+static void mt_openfile_lcb(Topenfile_status status,GError *gerror, gchar *buffer,goffset buflen,gpointer callback_data) {
   Timage2thumb *i2t = callback_data;
   switch (status) {
     case OPENFILE_ERROR:
     case OPENFILE_ERROR_NOCHANNEL:
     case OPENFILE_ERROR_NOREAD:
     case OPENFILE_ERROR_CANCELLED: {
-      /* should we warn the user ?? */
+      /* TODO: should we warn the user ?? */
 #ifdef DEBUG
       gchar *path = g_file_get_path (i2t->imagename);
       DEBUG_MSG("mt_openfile_lcb, some error! status=%d for image %s\n",status, path);
@@ -798,7 +801,7 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
             DEBUG_MSG("mt_openfile_lcb, starting thumbnail save to %s\n", path);
             g_free (path);
 #endif
-            i2t->sf = file_checkNsave_uri_async(i2t->thumbname, finfo, refbuf, buflen, FALSE,FALSE, (CheckNsaveAsyncCallback) async_thumbsave_lcb, NULL);
+            i2t->sf = file_checkNsave_uri_async(i2t->thumbname, finfo, refbuf, buflen, FALSE,FALSE, async_thumbsave_lcb, NULL);
             refcpointer_unref(refbuf);
           }
         } else {
