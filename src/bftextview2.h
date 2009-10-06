@@ -350,6 +350,18 @@ typedef struct {
 } Tbflang;
 
 
+/* Color Configuation data */
+typedef enum {
+	BTV_COLOR_ED_BG,
+	BTV_COLOR_ED_FG,
+	BTV_COLOR_WHITESPACE,
+	BTV_COLOR_CURRENT_LINE,
+/*	BTV_COLOR_SEARCH_BG,
+	BTV_COLOR_SEARCH_FG,*/
+	BTV_COLOR_COUNT
+} Tbtv_colors;
+
+
 /*****************************************************************/
 /* stuff for the widget */
 /*****************************************************************/
@@ -388,7 +400,7 @@ struct _BluefishTextView {
 	gint margin_pixels_block;
 	gint margin_pixels_symbol;
 	gboolean key_press_was_autocomplete;
-
+	
 	gboolean enable_scanner; /* only run scanner when TRUE, this is FALSE if the document is in the background for example */
 	gboolean auto_indent;
 	gboolean auto_complete;
@@ -414,7 +426,7 @@ gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
 void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);
 gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);
 void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable);
-void bluefish_text_view_set_colors(BluefishTextView * btv, const gchar *fg_color, const gchar *bg_color);
+void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors);
 void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime);
 gboolean bluefish_text_view_get_show_blocks(BluefishTextView * btv);
 void bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show);

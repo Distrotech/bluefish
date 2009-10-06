@@ -428,8 +428,10 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.show_splash_screen, "show_splash_screen:", 1, TRUE);
 #endif
 	init_prop_arraylist (&config_rc, &main_v->props.plugin_config, "plugin_config:", 3, TRUE);
-	init_prop_string    (&config_rc, &main_v->props.editor_fg,"editor_fg:","#000000");
-	init_prop_string    (&config_rc, &main_v->props.editor_bg,"editor_bg:","#FFFFFF");
+	init_prop_string    (&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_FG],"editor_fg:","#000000");
+	init_prop_string    (&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_BG],"editor_bg:","#FFFFFF");
+	init_prop_string    (&config_rc, &main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE],"cline_bg:","#E0E0E0");
+	init_prop_string    (&config_rc, &main_v->props.btv_color_str[BTV_COLOR_WHITESPACE],"visible_ws:","#FF0000");
 	init_prop_arraylist (&config_rc, &main_v->props.textstyles, "textstyles3:", 6, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.block_folding_mode, "block_folding_mode:", 1, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.highlight_styles, "highlight_styles:", 3, TRUE);

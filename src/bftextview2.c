@@ -61,6 +61,9 @@ G_PRIORITY_LOW 300
 
 G_DEFINE_TYPE(BluefishTextView, bluefish_text_view, GTK_TYPE_TEXT_VIEW)
 
+static GdkColor st_whitespace_color;
+static GdkColor st_cline_color;
+
 static gboolean bftextview2_user_idle_timer(gpointer data)
 {
 	BluefishTextView *btv = data;
@@ -589,7 +592,8 @@ static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, G
 	cairo_t *cr;
 	cr = gdk_cairo_create(event->window);
 	cairo_set_line_width(cr, 1.0);
-	cairo_set_source_rgb(cr, 1, 0, 0);
+	gdk_cairo_set_source_color(cr, &st_whitespace_color);
+/*	cairo_set_source_rgb(cr, 1, 0, 0);*/
 	iter = *startvisible;
 	while (!gtk_text_iter_equal(&iter,endvisible)) {
 		gunichar uc;
@@ -670,23 +674,30 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 		event_handled = TRUE;
 	} else {
 		 if (GTK_WIDGET_IS_SENSITIVE(btv)
-		  && (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
-			&& (BFWIN(DOCUMENT(btv->doc)->bfwin)->session->view_cline)) {
-				GdkRectangle rect;
-				gint w,w2;
-				GtkTextIter it;
-				DBG_SIGNALS("bluefish_text_view_expose_event, current line highlighting\n");				
-				
-				GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-				gtk_text_buffer_get_iter_at_mark(buffer, &it, gtk_text_buffer_get_insert(buffer));
-				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
-				gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &w2);
-				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
-															  rect.x, rect.y, &rect.x, &rect.y);
-				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
-														  0, w, NULL, &w);
-				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)],
-										   TRUE, rect.x, w, rect.width, w2);
+				&& (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
+				&& (BFWIN(DOCUMENT(btv->doc)->bfwin)->session->view_cline)) {
+			GdkRectangle rect;
+			gint w,w2;
+			cairo_t *context;
+			GtkTextIter it;
+			GtkTextBuffer *buffer;
+			DBG_SIGNALS("bluefish_text_view_expose_event, current line highlighting\n");				
+			buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+			gtk_text_buffer_get_iter_at_mark(buffer, &it, gtk_text_buffer_get_insert(buffer));
+			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &w2);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
+														  rect.x, rect.y, &rect.x, &rect.y);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
+													  0, w, NULL, &w);
+			context = gdk_cairo_create(event->window);
+			gdk_cairo_set_source_color(context, &st_cline_color);
+			cairo_set_line_width(context, 1);
+			cairo_rectangle(context, rect.x + .5, w + .5,
+					 rect.width - 1, w2 - 1);
+			cairo_stroke_preserve(context);
+			cairo_fill(context);
+			cairo_destroy(context);
 		}
 		
 		if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT)
@@ -1110,16 +1121,21 @@ void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable)
 	btv->auto_indent = enable;
 }
 
-void bluefish_text_view_set_colors(BluefishTextView * btv, const gchar *fg_color, const gchar *bg_color) {
-	if (bg_color) {
-		GdkColor color;
-		gdk_color_parse(bg_color, &color);
-		gtk_widget_modify_base(GTK_WIDGET(btv),GTK_STATE_NORMAL, &color);
+void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors) {
+	GdkColor color;
+	if (colors[BTV_COLOR_ED_BG]) {
+		gdk_color_parse(colors[BTV_COLOR_ED_BG], &color);
+		gtk_widget_modify_base(GTK_WIDGET(btv), GTK_STATE_NORMAL, &color);
 	}
-	if (fg_color) {
-		GdkColor color;
-		gdk_color_parse(fg_color, &color);
-		gtk_widget_modify_text(GTK_WIDGET(btv),GTK_STATE_NORMAL, &color);
+	if (colors[BTV_COLOR_ED_FG]) {
+		gdk_color_parse(colors[BTV_COLOR_ED_FG], &color);
+		gtk_widget_modify_text(GTK_WIDGET(btv), GTK_STATE_NORMAL, &color);
+	}
+	if (colors[BTV_COLOR_CURRENT_LINE]) {
+		gdk_color_parse(colors[BTV_COLOR_CURRENT_LINE], &st_cline_color);
+	}
+	if (colors[BTV_COLOR_WHITESPACE]) {
+		gdk_color_parse(colors[BTV_COLOR_WHITESPACE], &st_whitespace_color);
 	}
 }
 
@@ -1393,7 +1409,8 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 /*	PangoFontDescription *font_desc;*/
 	textview->user_idle_timer = g_timer_new();
 	textview->scancache.stackcaches = g_sequence_new(NULL);
-	bluefish_text_view_set_colors(textview, main_v->props.editor_fg, main_v->props.editor_bg);
+	bluefish_text_view_set_colors(textview,
+			main_v->props.btv_color_str);
 	textview->showsymbols=TRUE;
 	ttt = langmgr_get_tagtable();
 	textview->needscanning = gtk_text_tag_table_lookup(ttt,"_needscanning_");
@@ -1411,8 +1428,7 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 GtkWidget *bftextview2_new(void)
 {
 	BluefishTextView *textview = g_object_new(BLUEFISH_TYPE_TEXT_VIEW,
-																						"has-tooltip", TRUE,
-																						NULL);
+			"has-tooltip", TRUE, NULL);
 
 	g_return_val_if_fail(textview != NULL, NULL);
 
