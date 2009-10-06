@@ -410,7 +410,7 @@ static void docsavebackend_async_unlink_lcb(gpointer data)
 	docsavebackend_cleanup(dsb);
 }
 
-static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status, gint error_info, gpointer data)
+static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status, GError *gerror, gpointer data)
 {
 	Tdocsavebackend *dsb = data;
 	Tdocument *doc = dsb->doc;
@@ -432,7 +432,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status, gint err
 			gchar *tmpstr =
 				g_strdup_printf(_
 								("A backupfile for %s could not be created. If you continue, this file will be overwritten."),
-gtk_label_get_text(GTK_LABEL(doc->tab_label)));
+			gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 			retval =
 				message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_WARNING, buttons,
 										 _("File backup failure"), tmpstr);
@@ -1077,7 +1077,7 @@ void file_new_cb(GtkWidget * widget, Tbfwin * bfwin)
 	}
 }
 
-static void file_reload_all_modified_check_lcb(Tcheckmodified_status status, gint error_info,
+static void file_reload_all_modified_check_lcb(Tcheckmodified_status status, GError *gerror,
 											   GFileInfo * orig, GFileInfo * new, gpointer user_data)
 {
 	if (status == CHECKMODIFIED_MODIFIED) {

@@ -244,15 +244,15 @@ static void checkmodified_asyncfileinfo_lcb(GObject *source_object,GAsyncResult 
 	info = g_file_query_info_finish(cm->uri,res,&error);
 	if (info) {
 		if (checkmodified_is_modified(cm->orig_finfo, info)) {
-			cm->callback_func(CHECKMODIFIED_MODIFIED, 0, cm->orig_finfo, info, cm->callback_data);
+			cm->callback_func(CHECKMODIFIED_MODIFIED, NULL, cm->orig_finfo, info, cm->callback_data);
 		} else {
-			cm->callback_func(CHECKMODIFIED_OK, 0, cm->orig_finfo, info, cm->callback_data);
+			cm->callback_func(CHECKMODIFIED_OK, NULL, cm->orig_finfo, info, cm->callback_data);
 		}
 	} else if (error) {
 		/* error condition */
 		DEBUG_MSG("************************ checkmodified_asyncfileinfo_lcb, non-handled error condition\n");
 		g_warning("while checking file modification on disk, received error %d: %s\n",error->code,error->message);
-		cm->callback_func(CHECKMODIFIED_ERROR, error->code, NULL, NULL, cm->callback_data);
+		cm->callback_func(CHECKMODIFIED_ERROR, error, NULL, NULL, cm->callback_data);
 		g_error_free(error);
 	}
 	checkmodified_cleanup(cm);
@@ -262,7 +262,7 @@ static void checkmodified_asyncfileinfo_lcb(GObject *source_object,GAsyncResult 
 Tcheckmodified *file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data) {
 	Tcheckmodified *cm;
 	if (curinfo == NULL) {
-		callback_func(CHECKMODIFIED_OK, 0, NULL, NULL, callback_data);
+		callback_func(CHECKMODIFIED_OK, NULL, NULL, NULL, callback_data);
 		return NULL;
 	}
 	cm = g_new(Tcheckmodified,1);
@@ -320,19 +320,21 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 	if (error) {
 		DEBUG_MSG("checkNsave_replace_async_lcb,error %d: %s\n",error->code,error->message);
 		if (error->code == G_IO_ERROR_WRONG_ETAG) {
-			if (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED,error->code, cns->callback_data) == CHECKNSAVE_CONT) {
+			if (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED,error, cns->callback_data) == CHECKNSAVE_CONT) {
 				g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
 						,NULL,TRUE
 						,G_FILE_CREATE_NONE,NULL
 						,checkNsave_replace_async_lcb,cns);
+				g_error_free(error);
 				return;
 			}
 		} else if (error->code == G_IO_ERROR_CANT_CREATE_BACKUP) {
-			if (cns->callback_func(CHECKANDSAVE_ERROR_NOBACKUP, 0, cns->callback_data) == CHECKNSAVE_CONT) {
+			if (cns->callback_func(CHECKANDSAVE_ERROR_NOBACKUP, error, cns->callback_data) == CHECKNSAVE_CONT) {
 				g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
 						,cns->etag,FALSE
 						,G_FILE_CREATE_NONE,NULL
 						,checkNsave_replace_async_lcb,cns);
+				g_error_free(error);
 				return;
 			} 
 		}
@@ -346,18 +348,18 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 					, G_FILE_CREATE_NONE,NULL
 					,NULL, &error2);
 			if (error2) {
-				g_print("sync version returns error %d: %s\n",error->code,error->message);
-				cns->callback_func(CHECKANDSAVE_ERROR, 0, cns->callback_data);
+				g_warning("glib < 2.18.0 workaround returns error %d: %s\n",error2->code,error2->message);
+				cns->callback_func(CHECKANDSAVE_ERROR, error2, cns->callback_data);
 				g_error_free(error2);
 			} else {
-				cns->callback_func(CHECKANDSAVE_FINISHED, 0, cns->callback_data);
+				cns->callback_func(CHECKANDSAVE_FINISHED, NULL, cns->callback_data);
 			}
 		}
 #endif
 		 else {
 		 	g_warning("while save to disk, received error %d: %s\n",error->code,error->message);
 			DEBUG_MSG("****************** checkNsave_replace_async_lcb() unhandled error %d: %s\n",error->code,error->message);
-			cns->callback_func(CHECKANDSAVE_ERROR, 0, cns->callback_data);
+			cns->callback_func(CHECKANDSAVE_ERROR, error, cns->callback_data);
 		}
 		g_error_free(error);
 	} else {
@@ -372,13 +374,13 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 						,cns->etag,FALSE /* we already created a backup */
 						,G_FILE_CREATE_NONE,NULL
 						,checkNsave_replace_async_lcb,cns);
-				return;			
+				return;		
 			}
 		}
 #endif
 		DEBUG_MSG("checkNsave_replace_async_lcb, finished ");
 		DEBUG_URI(cns->uri, TRUE);
-		cns->callback_func(CHECKANDSAVE_FINISHED, 0, cns->callback_data);
+		cns->callback_func(CHECKANDSAVE_FINISHED, NULL, cns->callback_data);
 	}
 	checkNsave_cleanup(cns);
 }
@@ -470,7 +472,7 @@ static void openfile_async_mount_lcb(GObject *source_object,GAsyncResult *res,gp
 		g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
 	} else {
 		DEBUG_MSG("failed to mount with error %d %s!!\n",error->code,error->message);
-		of->callback_func(OPENFILE_ERROR,error->code,NULL,0, of->callback_data);		
+		of->callback_func(OPENFILE_ERROR,error,NULL,0, of->callback_data);		
 	}
 	gmo=NULL;
 	tmplist = g_list_first(wait_for_mount);
@@ -509,13 +511,13 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 			}
 		} else {
 			g_warning("while opening file, received error %d: %s\n",error->code,error->message);
-			of->callback_func(OPENFILE_ERROR,error->code,buffer,size, of->callback_data);
+			of->callback_func(OPENFILE_ERROR,error,buffer,size, of->callback_data);
 			g_free(buffer);
 		}
 		g_error_free(error);
 	} else {
 		DEBUG_MSG("openfile_async_lcb, finished, received %d bytes\n",size);
-		of->callback_func(OPENFILE_FINISHED,0,buffer,size, of->callback_data);
+		of->callback_func(OPENFILE_FINISHED,NULL,buffer,size, of->callback_data);
 		openfile_cleanup(of);
 		g_free(buffer);
 	}	
@@ -552,7 +554,7 @@ static void fileintodoc_cleanup(Tfileintodoc *fid) {
 	g_free(fid);
 }
 
-static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffer,goffset buflen ,gpointer data) {
+static void fileintodoc_lcb(Topenfile_status status,GError *gerror,gchar *buffer,goffset buflen ,gpointer data) {
 	Tfileintodoc *fid = data;
 	switch (status) {
 		case OPENFILE_FINISHED:
@@ -603,6 +605,7 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
 		case OPENFILE_ERROR_NOREAD:
+			/* TODO: use gerror information to notify the user, for example in the statusbar */
 			DEBUG_MSG("fileitodoc_lcb, ERROR status=%d, cleanup!!!!!\n",status);
 			fid->doc->action.load = NULL;
 			fileintodoc_cleanup(data);
@@ -651,7 +654,7 @@ void file2doc_cancel(gpointer f2d) {
 	/* no cleanup, there is a CANCELLED callback coming */
 }
 
-static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,goffset buflen ,gpointer data) {
+static void file2doc_lcb(Topenfile_status status,GError *gerror,gchar *buffer,goffset buflen ,gpointer data) {
 	Tfile2doc *f2d = data;
 	DEBUG_MSG("file2doc_lcb, status=%d, f2d=%p\n",status,f2d);
 	switch (status) {
@@ -730,6 +733,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,g
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
 		case OPENFILE_ERROR_NOREAD:
+			/* TODO use gerror info to notify user, for example in the statusbar */
 			DEBUG_MSG("file2doc_lcb, ERROR status=%d, cleanup!!!!!\n",status);
 			if (f2d->doc->action.close_doc) {
 				f2d->doc->action.load = NULL;
@@ -927,7 +931,7 @@ static gboolean open_adv_content_matches_filter(gchar *buffer,goffset buflen, To
 	return FALSE;
 }
 
-static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info, gchar *buffer,goffset buflen,gpointer data) {
+static void open_adv_content_filter_lcb(Topenfile_status status,GError *gerror, gchar *buffer,goffset buflen,gpointer data) {
 	Topenadv_uri *oau = data;
 	switch (status) {
 		case OPENFILE_FINISHED:
@@ -939,7 +943,7 @@ static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info,
 				g_object_ref(oau->uri);
 				f2d->bfwin = oau->oa->bfwin;
 				f2d->doc = doc_new_loading_in_background(oau->oa->bfwin, oau->uri, oau->finfo, FALSE);
-				file2doc_lcb(status,error_info,buffer,buflen,f2d);
+				file2doc_lcb(status,gerror,buffer,buflen,f2d);
 			}
 			open_adv_open_uri_cleanup(data);
 		break;
@@ -949,7 +953,9 @@ static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info,
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
 		case OPENFILE_ERROR_NOREAD:
-		case OPENFILE_ERROR_CANCELLED:
+			/* TODO: on error notify user */
+		/* no break, fall through */
+		case OPENFILE_ERROR_CANCELLED: 
 			open_adv_open_uri_cleanup(data);
 		break;
 	}

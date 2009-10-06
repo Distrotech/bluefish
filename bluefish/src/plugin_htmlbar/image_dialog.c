@@ -793,7 +793,7 @@ image_dialog_preview_loaded (BluefishImageDialog *dialog)
 
 static void
 image_dialog_load_preview (Topenfile_status status, 
-													gint error_info,
+													GError *gerror,
 													gchar *buffer,
 													goffset buflen,
 													gpointer callback_data)
@@ -806,6 +806,7 @@ image_dialog_load_preview (Topenfile_status status,
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
 		case OPENFILE_ERROR_NOREAD:
+			/* TODO: warn the user */
 		case OPENFILE_ERROR_CANCELLED:
 			gdk_pixbuf_loader_close (imageDialog->priv->pbloader, NULL);			
 		break;
