@@ -449,18 +449,17 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status, GError *
 		break;
 	case CHECKANDSAVE_ERROR:
 	case CHECKANDSAVE_ERROR_NOWRITE:
-	case CHECKANDSAVE_ERROR_CANCELLED:
 		{
-			errmessage =
-				g_strconcat(_("Could not save file:\n\""), gtk_label_get_text(GTK_LABEL(doc->tab_label)),
-							"\"", NULL);
+			errmessage = g_strconcat(_("Could not save file "), gtk_label_get_text(GTK_LABEL(doc->tab_label)), NULL);
 			message_dialog_new(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
-							   _("File save failed!\n"), errmessage);
+					errmessage, gerror->message);
 			g_free(errmessage);
-			doc->action.save = NULL;
-			gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
-			docsavebackend_cleanup(dsb);
 		}
+	/* no break - fall through */
+	case CHECKANDSAVE_ERROR_CANCELLED:
+		doc->action.save = NULL;
+		gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
+		docsavebackend_cleanup(dsb);
 		break;
 	case CHECKANDSAVE_ERROR_MODIFIED:
 		{

@@ -2616,7 +2616,8 @@ void doc_reload(Tdocument *doc, GFileInfo *newfinfo, gboolean warn_user) {
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	bfwin_docs_not_complete(doc->bfwin, TRUE);
 	doc_set_modified(doc,FALSE);
-	g_object_unref(doc->fileinfo);
+	if (doc->fileinfo)
+		g_object_unref(doc->fileinfo);
 	doc->fileinfo = newfinfo;
 	g_object_ref(doc->fileinfo);
 	file_doc_fill_from_uri(doc, doc->uri, doc->fileinfo, cursorpos);

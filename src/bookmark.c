@@ -1067,7 +1067,7 @@ void bookmark_data_cleanup(gpointer *data) {
 	GtkTreeIter fileit;
 	gboolean cont;
 	/*walk the treestore and free all Tbmark's in the pointer columns */
-	DEBUG_MSG("bookmark_data_cleanup\n");
+	DEBUG_MSG("bookmark_data_cleanup bmarkdata %p\n",bmd);
 	cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(bmd->bookmarkstore), &fileit,NULL);
 	while (cont) { /* walk the toplevel */
 		GtkTreeIter bmit;
@@ -1076,6 +1076,8 @@ void bookmark_data_cleanup(gpointer *data) {
 			Tbmark *bmark;
 			gtk_tree_model_get(GTK_TREE_MODEL(bmd->bookmarkstore), &bmit, PTR_COLUMN,&bmark, -1);
 			bmark->strarr=NULL;
+			if (bmark->doc)
+				bmark->doc->bmark_parent = NULL;
 			bmark_free(bmark);
 			cont2 = gtk_tree_model_iter_next(GTK_TREE_MODEL(bmd->bookmarkstore), &bmit);
 		}
@@ -1174,7 +1176,7 @@ void bmark_clean_for_doc(Tdocument * doc) {
 
 	if (!doc->uri)
 		return;
-	DEBUG_MSG("bmark_clean_for_doc, getting children for parent_iter=%p\n",doc->bmark_parent);
+	DEBUG_MSG("bmark_clean_for_doc, doc=%p, bfwin=%p, bmarkdata=%p, getting children for parent_iter=%p\n",doc, doc->bfwin,BFWIN(doc->bfwin)->bmarkdata, doc->bmark_parent);
 	cont =
 		gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter,
 									 doc->bmark_parent);
