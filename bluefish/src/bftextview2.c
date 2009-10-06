@@ -1121,21 +1121,22 @@ void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable)
 	btv->auto_indent = enable;
 }
 
+void bftextview2_parse_static_colors(void) {
+	if (!(main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE] && gdk_color_parse(main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE], &st_cline_color))) {
+		gdk_color_parse("#e0e0e0",&st_cline_color);
+	} 
+	if (!(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE] && gdk_color_parse(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], &st_whitespace_color))) {
+		gdk_color_parse("#ff0000",&st_whitespace_color);
+	}
+}
+
 void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors) {
 	GdkColor color;
-	if (colors[BTV_COLOR_ED_BG]) {
-		gdk_color_parse(colors[BTV_COLOR_ED_BG], &color);
+	if (colors[BTV_COLOR_ED_BG] && gdk_color_parse(colors[BTV_COLOR_ED_BG], &color)) {
 		gtk_widget_modify_base(GTK_WIDGET(btv), GTK_STATE_NORMAL, &color);
 	}
-	if (colors[BTV_COLOR_ED_FG]) {
-		gdk_color_parse(colors[BTV_COLOR_ED_FG], &color);
+	if (colors[BTV_COLOR_ED_FG] && gdk_color_parse(colors[BTV_COLOR_ED_FG], &color)) {
 		gtk_widget_modify_text(GTK_WIDGET(btv), GTK_STATE_NORMAL, &color);
-	}
-	if (colors[BTV_COLOR_CURRENT_LINE]) {
-		gdk_color_parse(colors[BTV_COLOR_CURRENT_LINE], &st_cline_color);
-	}
-	if (colors[BTV_COLOR_WHITESPACE]) {
-		gdk_color_parse(colors[BTV_COLOR_WHITESPACE], &st_whitespace_color);
 	}
 }
 
