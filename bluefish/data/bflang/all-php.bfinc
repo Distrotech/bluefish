@@ -25055,7 +25055,7 @@ or false.
 <element id="php-variable" pattern="$[a-z_][a-z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable"/>
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;$ &#9;&#10;&#13;' &lt;&gt;{}[]" highlight="string">
-		<element pattern="\&#34;" highlight="string" />
+		<element pattern="\\." highlight="string" is_regex="1" />
 		<element pattern="\$" highlight="string" />
 		<element idref="php-variable" />
 		<element pattern="&#34;" highlight="string" ends_context="1" />
@@ -25063,7 +25063,7 @@ or false.
 </element>
 <element pattern="'" highlight="string">
 	<context symbols="\'" highlight="string">
-		<element pattern="\'" highlight="string" />
+		<element pattern="\\." highlight="string" is_regex="1" />
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
