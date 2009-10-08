@@ -206,7 +206,7 @@ typedef struct {
 	gchar *tab_color_modified; /* tab text color when doc is modified and unsaved*/
 	gchar *tab_color_loading; /* tab text color when doc is loading */
 	gchar *tab_color_error; /* tab text color when doc has errors */
-	
+	gint visible_ws_mode;
 	/* new replacements: */
 	GList *external_command; /* array: name,command,is_default_browser */
 	GList *external_filter; /* array: name,command */
@@ -335,7 +335,7 @@ typedef struct {
 	gint outputb_scroll_mode; /* 0=none, 1=first line, 2= last line*/
 	gint outputb_show_all_output;
 	gint convertcolumn_horizontally;
-	/* 28 * sizeof(gint) */
+	/* 29 * sizeof(gint) */
 	/* IF YOU EDIT THIS STRUCTURE PLEASE EDIT THE CODE IN PROJECT.C THAT COPIES
 	A Tsessionvar INTO A NEW Tsessionvar AND ADJUST THE SIZES!!!!!!!!!!!!!!!!!!!!!! */
 #ifdef HAVE_LIBENCHANT

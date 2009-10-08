@@ -49,6 +49,7 @@ enum {
 	tab_color_modified,           /* tab text color when doc is modified and unsaved*/
 	tab_color_loading,            /* tab text color when doc is loading */
 	tab_color_error,              /* tab text color when doc has errors */
+	visible_ws_mode,
 	/*defaulthighlight,*/             /* highlight documents by default */
 	transient_htdialogs,          /* set html dialogs transient ro the main window */
 	leave_to_window_manager,
@@ -1381,6 +1382,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_ED_BG], pd->prefs[editor_bg]);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE], pd->prefs[cline_bg]);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], pd->prefs[visible_ws]);
+	main_v->props.visible_ws_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[visible_ws_mode]));
 	/*integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);*/
 
 	integer_apply(&main_v->props.xhtml, pd->prefs[xhtml], TRUE);
@@ -1566,6 +1568,7 @@ static void preferences_dialog() {
 	gchar *notebooktabpositions[] = {N_("left"), N_("right"), N_("top"), N_("bottom"), NULL};
 	gchar *panellocations[] = {N_("right"), N_("left"), NULL};
 	gchar *modified_check_types[] = {N_("Nothing"), N_("Modified time and file size"), N_("Modified time"), N_("File size"), NULL};
+	gchar *visible_ws_modes[] = {N_("All"), N_("All except spaces"),  N_("All trailing"), N_("All except non-trailing spaces"), NULL};
 	GtkWidget *dhbox, *scrolwin;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
@@ -1614,6 +1617,7 @@ static void preferences_dialog() {
 	pd->prefs[editor_bg] = prefs_string(_("Background color"), main_v->props.btv_color_str[BTV_COLOR_ED_BG], vbox2, pd, string_color);
 	pd->prefs[cline_bg] = prefs_string(_("Current line color"), main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE], vbox2, pd, string_color);
 	pd->prefs[visible_ws] = prefs_string(_("Visible whitespace color"), main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], vbox2, pd, string_color);
+	pd->prefs[visible_ws_mode] = boxed_optionmenu_with_value(_("Show whitespace"), main_v->props.visible_ws_mode, vbox2, visible_ws_modes);
 	pd->prefs[editor_smart_cursor] = boxed_checkbut_with_value(_("Smart Home/End cursor positioning"), main_v->props.editor_smart_cursor, vbox2);
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
 	pd->prefs[smartindent] = boxed_checkbut_with_value(_("Smart auto indenting"), main_v->props.smartindent, vbox2);

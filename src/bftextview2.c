@@ -586,7 +586,72 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 	}
 	g_object_unref(G_OBJECT(panlay));
 }
+/* whitespace macro. Possibly include: '/n', 8206-8207, maybe others */
+#define BTV_ISWS(c) ( \
+  ((c) == '\t') || \
+  ((c) == ' ') || \
+  ((c) == 160) || \
+  ((c) == 12288) || \
+  ((c) >= 8192 && (c) <= 8205) \
+)
+/*
+main_v->props.visible_ws_mode:
+0 = All
+1 = All except spaces
+2 = All trailing
+3 = All except non-trailing spaces 
+*/
+static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible) {
+	GtkTextIter iter;
+	cairo_t *cr;
+	gunichar uc;
+	gboolean trailing=FALSE;
 
+	cr = gdk_cairo_create(event->window);
+	cairo_set_line_width(cr, 1.0);
+	gdk_cairo_set_source_color(cr, &st_whitespace_color);
+
+	iter = *endvisible;
+	if (!gtk_text_iter_ends_line(&iter))
+		gtk_text_iter_forward_to_line_end(&iter);
+
+	while (!gtk_text_iter_equal(&iter,startvisible)) { /* equal is faster than compare */
+		GdkRectangle rect;
+		gint x, y;
+		uc = gtk_text_iter_get_char(&iter);
+		if (BTV_ISWS(uc)) {
+			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv),&iter,&rect);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x,rect.y+rect.height/1.5,&x,&y);
+			if (uc == '\t' && (trailing || main_v->props.visible_ws_mode !=2)) {  
+				/* draw tab */
+				cairo_move_to(cr, x + 3, y - 3);
+				cairo_rel_line_to(cr, 0, 3);
+				cairo_rel_line_to(cr, rect.width - 6, 0);
+				cairo_rel_line_to(cr, 0, -3);
+			} else if (uc == 160 && (trailing || main_v->props.visible_ws_mode !=2)) {
+				/* draw nbsp */
+				cairo_move_to(cr, x + 1, y);
+				cairo_rel_line_to(cr,rect.width - 2, 0);
+			} else if (main_v->props.visible_ws_mode==0 || (main_v->props.visible_ws_mode!=1 &&trailing) ) {
+				/* draw space */
+				x += rect.width / 2;
+				cairo_move_to(cr, x, y);
+				cairo_arc(cr, x, y, 0.75, 0, 2 * M_PI);
+			}
+		} else if (uc != '\n' && uc != '\r'){
+			trailing=FALSE;
+		}				
+
+		if (gtk_text_iter_starts_line(&iter)) {
+			trailing=TRUE;
+		}
+		gtk_text_iter_backward_char(&iter);
+	}
+	cairo_stroke(cr);
+	cairo_destroy(cr);
+}
+
+#if 0 
 static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible) {
 	GtkTextIter iter;
 	cairo_t *cr;
@@ -650,7 +715,7 @@ static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, G
 	cairo_stroke(cr);
 	cairo_destroy(cr);
 }
-
+#endif
 static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);
