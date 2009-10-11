@@ -42,7 +42,7 @@
 			</context>
 		</element>
 		<element id="s_val" pattern="$[A-Za-z0-9-_\.]*" is_regex="1" highlight="smarty-variable" />
-		<element id="s_bval" pattern="(TRUE|FALSE)" is_regex="1" highlight="smarty-variable" />
+		<element id="s_bval" pattern="(true|false)" is_regex="1" highlight="smarty-variable" />
 		<element id="s_nval" pattern="[0123456789]+" is_regex="1" highlight="smarty-value" />
 		'>
 ]>
