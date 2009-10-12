@@ -304,7 +304,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/Character _Encoding"), NULL, NULL, 0, "<Branch>"},
 	{"/Document/Character Encoding/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{"/Document/Character Encoding/sep4", NULL, NULL, 0, "<Separator>"},
-	{"/Document/Character Encoding/_Add or Remove...", NULL, encodings_dialog_menu_cb, 1, "<Item>"},
+	{N_("/Document/Character Encoding/_Add or Remove..."), NULL, encodings_dialog_menu_cb, 1, "<Item>"},
 	{"/Document/sep5", NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/Add Boo_kmark"), "<control>k", menu_bmark_operations_cb, 1, "<Item>"},
 	{N_("/Document/Floati_ng Window"), NULL, file_floatingview_menu_cb, 1, "<Item>"},

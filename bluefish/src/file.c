@@ -705,7 +705,11 @@ static void file2doc_lcb(Topenfile_status status,GError *gerror,gchar *buffer,go
 					gchar *utf8uri, *tmp;
 					utf8uri = gfile_display_name(f2d->uri,NULL);
 					if (BFWIN(f2d->bfwin)->num_docs_not_completed > 0) {
-						tmp = g_strdup_printf(_("Still loading %d files, finished %s"), BFWIN(f2d->bfwin)->num_docs_not_completed, utf8uri);
+						tmp = g_strdup_printf(
+							ngettext("Still loading %d file, finished %s",
+								"Still loading %d files, finished %s",
+								BFWIN(f2d->bfwin)->num_docs_not_completed),
+							BFWIN(f2d->bfwin)->num_docs_not_completed, utf8uri);
 					} else {
 						tmp = g_strdup_printf(_("All files loaded, finished %s"), utf8uri);
 					}

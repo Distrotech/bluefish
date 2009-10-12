@@ -1120,7 +1120,9 @@ static void sync_progress(gint total, gint done, gint failed, gpointer user_data
 /*		g_print("%s\n",text);*/
 		g_free(text);
 		if (failed > 0) {
-			text = g_strdup_printf("<span color=\"red\">%d failures</span>",failed);
+			text = g_strdup_printf(
+				ngettext("<span color=\"red\">%d failure</span>", "<span color=\"red\">%d failures</span>", failed),
+				failed);
 			gtk_label_set_markup(GTK_LABEL(sd->messagelabel), text);
 			g_free(text);
 		}

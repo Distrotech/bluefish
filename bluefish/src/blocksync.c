@@ -192,7 +192,7 @@ static void bs_page_summary(Tbsdialog *bsdialog) {
 
 	tmp1 = g_markup_escape_text(bsdialog->startmarker,-1);
 	tmp2 = g_markup_escape_text(bsdialog->endmarker,-1);
-	tmp = g_strdup_printf("Will replace the text between <i>%s</i> and <i>%s</i> in all documents opened in this window.\n<b>Proceed?</b>", tmp1,tmp2);
+	tmp = g_strdup_printf(_("Will replace the text between <i>%s</i> and <i>%s</i> in all documents opened in this window.\n<b>Proceed?</b>"), tmp1,tmp2);
 	label = gtk_label_new(tmp);
 	g_free(tmp);
 	g_free(tmp1);

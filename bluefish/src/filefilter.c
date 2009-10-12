@@ -471,7 +471,7 @@ void filefilter_gui(Tfilter *filter) {
 	}
 	if (!filter) {
 		ffg->curfilter = g_new0(Tfilter,1);
-		ffg->curfilter->name = g_strdup("New filter");
+		ffg->curfilter->name = g_strdup(_("New filter"));
 		ffg->curfilter->filetypes = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
 	}
 	
@@ -563,7 +563,7 @@ void filefilter_gui(Tfilter *filter) {
 	
 	ffg->patentry = entry_with_text("*.*", 20);
 	gtk_table_attach(GTK_TABLE(table),ffg->patentry,2,3,1,2,GTK_FILL,GTK_FILL,0,0);
-	but = gtk_button_new_with_label("Add pattern");
+	but = gtk_button_new_with_label(_("Add pattern"));
 	g_signal_connect(but,"clicked",G_CALLBACK(filefiltergui_addpattern_clicked_lcb),ffg);
 	gtk_table_attach(GTK_TABLE(table),but,3,4,1,2,GTK_FILL,GTK_FILL,0,0);
 	

@@ -507,7 +507,9 @@ void project_edit(Tbfwin *bfwin) {
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
 	{
 		gchar *message;
-		message = g_strdup_printf(_("This project contains %d files"), g_list_length(pred->project->files));
+		message = g_strdup_printf(
+			ngettext("This project contains %d file", "This project contains %d files", g_list_length(pred->project->files)),
+			g_list_length(pred->project->files));
 		gtk_label_set_markup(GTK_LABEL(label), message);
 		g_free(message);
 	}

@@ -1508,7 +1508,7 @@ void quicklist_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   dgtable = html_diag_table_in_vbox(dg, 2, 10);
   dg->spin[1] = spinbut_with_value("3", 0, 500, 1.0, 5.0);
   gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(dg->spin[1]), 1);
-  bf_mnemonic_label_tad_with_alignment(_("_Rows:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 0, 1);
+  bf_mnemonic_label_tad_with_alignment(_("Number of _rows:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 0, 1);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 0, 1);
 
   dg->radio[1] = gtk_radio_button_new_with_mnemonic(NULL, _("Or_dered"));
