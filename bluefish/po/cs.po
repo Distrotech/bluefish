@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable 1.3.8\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-10-08 20:24+0200\n"
-"PO-Revision-Date: 2009-10-11 12:29+0100\n"
+"POT-Creation-Date: 2009-10-11 21:33+0200\n"
+"PO-Revision-Date: 2009-10-11 21:41+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech translators <diskuze@lists.l10n.cz>\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,14 @@ msgstr "Soubor Bluefish s definicí jazyka"
 msgid "Bluefish project file"
 msgstr "Projektový soubor Bluefish"
 
+#: ../src/bftextview2.c:925
+msgid "Collapse all"
+msgstr "Sbalit vše"
+
+#: ../src/bftextview2.c:928
+msgid "Expand all"
+msgstr "Rozbalit vše"
+
 #: ../src/bftextview2_spell.c:516
 msgid "Spell check language"
 msgstr "Kontrolovat pravopis jazyka"
@@ -51,6 +59,15 @@ msgstr "Zde je blok zahrnující označení začátku a konce. Nyní prosím v t
 #: ../src/blocksync.c:157
 msgid "Please <b>select the end marker</b> in the text below."
 msgstr "A nyní prosím v tomto textu <b>vyberte označení konce</b>."
+
+#: ../src/blocksync.c:195
+#, c-format
+msgid ""
+"Will replace the text between <i>%s</i> and <i>%s</i> in all documents opened in this window.\n"
+"<b>Proceed?</b>"
+msgstr ""
+"Ve všech dokumentech otevřených v tomto okně bude nahrazen text mezi <i>%s</i> a <i>%s</i>.\n"
+"<b>Pokračovat?</b>"
 
 #: ../src/blocksync.c:226
 msgid "<span foreground=\"red\" weight=\"bold\">Please select the block of text to synchronize.</span>"
@@ -699,20 +716,24 @@ msgid "Delete filter"
 msgstr "Smazat filtr"
 
 #: ../src/filebrowser2.c:1945
+#: ../src/filefilter.c:474
 msgid "New filter"
 msgstr "Nový filtr"
 
-#: ../src/file.c:708
+#: ../src/file.c:709
 #, c-format
-msgid "Still loading %d files, finished %s"
-msgstr "Ještě se načítá %d souborů, dokončeno %s"
+msgid "Still loading %d file, finished %s"
+msgid_plural "Still loading %d files, finished %s"
+msgstr[0] "Ještě se načítá %d soubor, dokončeno %s"
+msgstr[1] "Ještě se načítájí %d soubory, dokončeno %s"
+msgstr[2] "Ještě se načítá %d souborů, dokončeno %s"
 
-#: ../src/file.c:710
+#: ../src/file.c:714
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "Všechny soubory načteny, dokončeno %s"
 
-#: ../src/file.c:896
+#: ../src/file.c:900
 #, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
@@ -720,27 +741,27 @@ msgstr[0] "Otevřen %d dokument."
 msgstr[1] "Otevřeny %d dokumenty."
 msgstr[2] "Otevřeno %d dokumentů."
 
-#: ../src/file.c:898
+#: ../src/file.c:902
 msgid "Advanced open: Finished searching files. "
 msgstr "Pokročilé otevření: Dokončeno vyhledání souborů."
 
-#: ../src/file.c:1151
+#: ../src/file.c:1155
 msgid "_Skip"
 msgstr "Pře_skočit"
 
-#: ../src/file.c:1151
+#: ../src/file.c:1155
 #: ../src/file_dialogs.c:592
 #: ../src/file_dialogs.c:613
 #: ../src/project.c:242
 msgid "_Overwrite"
 msgstr "Pře_psat"
 
-#: ../src/file.c:1155
+#: ../src/file.c:1159
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s nelze zkopírovat, již existuje, přepsat?"
 
-#: ../src/file.c:1159
+#: ../src/file.c:1163
 msgid "Overwrite file?"
 msgstr "Přepsat soubor?"
 
@@ -911,39 +932,47 @@ msgstr "_Uložit vše"
 msgid "One or more open files have been changed."
 msgstr "Jeden nebo více souborů bylo změněno."
 
-#: ../src/file_dialogs.c:1130
+#: ../src/file_dialogs.c:1124
+#, c-format
+msgid "<span color=\"red\">%d failure</span>"
+msgid_plural "<span color=\"red\">%d failures</span>"
+msgstr[0] "<span color=\"red\">%d chyba</span>"
+msgstr[1] "<span color=\"red\">%d chyby</span>"
+msgstr[2] "<span color=\"red\">%d chyb</span>"
+
+#: ../src/file_dialogs.c:1132
 msgid "incomplete finished"
 msgstr "dokončeno neúplné"
 
-#: ../src/file_dialogs.c:1132
+#: ../src/file_dialogs.c:1134
 msgid "completed"
 msgstr "hotovo"
 
-#: ../src/file_dialogs.c:1173
+#: ../src/file_dialogs.c:1175
 msgid "Upload / Download"
 msgstr "Nahrání / Stažení"
 
-#: ../src/file_dialogs.c:1174
+#: ../src/file_dialogs.c:1176
 msgid "Upload"
 msgstr "Nahrát"
 
-#: ../src/file_dialogs.c:1174
+#: ../src/file_dialogs.c:1176
 msgid "Download"
 msgstr "Stáhnout"
 
-#: ../src/file_dialogs.c:1188
+#: ../src/file_dialogs.c:1190
 msgid "Local directory"
 msgstr "Místní složka"
 
-#: ../src/file_dialogs.c:1195
+#: ../src/file_dialogs.c:1197
 msgid "Remote directory"
 msgstr "Vzdálená složka"
 
-#: ../src/file_dialogs.c:1200
+#: ../src/file_dialogs.c:1202
 msgid "Delete deprecated files"
 msgstr "Smazat zavržené soubory"
 
-#: ../src/file_dialogs.c:1201
+#: ../src/file_dialogs.c:1203
 msgid "Include hidden files"
 msgstr "Zahrnout skryté soubory"
 
@@ -956,6 +985,10 @@ msgstr "Všechny soubory"
 #: ../src/filefilter.c:561
 msgid "Hide files that match the filter"
 msgstr "Skrýt soubory odpovídající filtru"
+
+#: ../src/filefilter.c:566
+msgid "Add pattern"
+msgstr "Přidat masku"
 
 #: ../src/filefilter.c:572
 #: ../src/filefilter.c:584
@@ -1409,6 +1442,10 @@ msgstr "/Dokument/Režim _jazyka"
 msgid "/Document/Character _Encoding"
 msgstr "/Dokument/Kódování z_naků"
 
+#: ../src/menu.c:307
+msgid "/Document/Character Encoding/_Add or Remove..."
+msgstr "/Dokument/Kódování znaků/Přid_at nebo odebrat"
+
 #: ../src/menu.c:309
 msgid "/Document/Add Boo_kmark"
 msgstr "/Dokument/Přidat záložk_u"
@@ -1577,10 +1614,22 @@ msgstr "Pracuje filtr pouze na výběru?"
 msgid "/Document/Character Encoding"
 msgstr "/Dokument/Kódování znaků"
 
+#: ../src/outputbox.c:227
+msgid "Filename"
+msgstr "Název souboru"
+
+#: ../src/outputbox.c:229
+msgid "Line"
+msgstr "Řádek"
+
+#: ../src/outputbox.c:231
+msgid "Output"
+msgstr "Výstup"
+
 #: ../src/outputbox.c:411
 #, c-format
-msgid "failed to compile outputbox pattern %s\n"
-msgstr "Nezdařilo se přeložit vzor %s pro výstupní panel\n"
+msgid "Failed to compile outputbox pattern %s"
+msgstr "Nezdařilo se přeložit vzor %s pro výstupní panel"
 
 #: ../src/preferences.c:274
 msgid "Untitled"
@@ -2201,32 +2250,35 @@ msgstr "Vytvoření nového projektu"
 msgid "Edit Project"
 msgstr "Upravit projekt"
 
-#: ../src/project.c:510
+#: ../src/project.c:511
 #, c-format
-msgid "This project contains %d files"
-msgstr "Tento projekt obsahuje %d souborů"
+msgid "This project contains %d file"
+msgid_plural "This project contains %d files"
+msgstr[0] "Tento projekt obsahuje %d soubor"
+msgstr[1] "Tento projekt obsahuje %d soubory"
+msgstr[2] "Tento projekt obsahuje %d souborů"
 
-#: ../src/project.c:522
+#: ../src/project.c:524
 msgid "Project _Name:"
 msgstr "_Název projektu:"
 
-#: ../src/project.c:526
+#: ../src/project.c:528
 msgid "_Template:"
 msgstr "Ša_blona:"
 
-#: ../src/project.c:541
+#: ../src/project.c:543
 msgid "Create _Project"
 msgstr "Vytvořit _projekt"
 
-#: ../src/project.c:581
+#: ../src/project.c:583
 msgid "Create project"
 msgstr "Vytvoření projektu"
 
-#: ../src/project.c:585
+#: ../src/project.c:587
 msgid "Create project with currently opened documents"
 msgstr "Vytvořit projekt s právě otevřenými dokumenty"
 
-#: ../src/project.c:586
+#: ../src/project.c:588
 msgid "Create empty project"
 msgstr "Vytvořit prázdný projekt"
 
