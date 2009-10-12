@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable 1.3.8\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-09-25 14:01+0200\n"
+"POT-Creation-Date: 2009-10-12 23:49+0200\n"
 "PO-Revision-Date: 2009-09-25 14:01+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -427,7 +427,7 @@ msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr ""
 
 #: src/plugin_htmlbar/htmlbar_gui.c:297
-msgid "/Tags/Special/Currency/_Euro "
+msgid "/Tags/Special/Currency/_Euro €"
 msgstr ""
 
 #: src/plugin_htmlbar/htmlbar_gui.c:298
@@ -1449,7 +1449,7 @@ msgstr ""
 #: src/plugin_htmlbar/html.c:1220 src/plugin_htmlbar/html.c:1679
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:466
+#: src/plugin_htmlbar/image.c:469
 msgid "_Name:"
 msgstr ""
 
@@ -1469,7 +1469,7 @@ msgstr ""
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:477
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Custo_m:"
 msgstr ""
@@ -1555,7 +1555,7 @@ msgid "Horizontal Rule"
 msgstr ""
 
 #: src/plugin_htmlbar/html.c:971 src/plugin_htmlbar/html.c:1764
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/image.c:495 src/plugin_htmlbar/image_dialog.c:429
 msgid "_Align:"
 msgstr ""
 
@@ -1567,7 +1567,7 @@ msgstr ""
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:984 src/plugin_htmlbar/html.c:1768
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:361
+#: src/plugin_htmlbar/image.c:453 src/plugin_htmlbar/image_dialog.c:361
 msgid "_Width:"
 msgstr ""
 
@@ -1691,9 +1691,8 @@ msgstr ""
 msgid "Quick List"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1511 src/plugin_htmlbar/html.c:1593
-#: src/plugin_htmlbar/html_form.c:236
-msgid "_Rows:"
+#: src/plugin_htmlbar/html.c:1511 src/plugin_htmlbar/wizards.c:76
+msgid "Number of _rows:"
 msgstr ""
 
 #: src/plugin_htmlbar/html.c:1514
@@ -1710,6 +1709,10 @@ msgstr ""
 
 #: src/plugin_htmlbar/html.c:1589 src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:1593 src/plugin_htmlbar/html_form.c:236
+msgid "_Rows:"
 msgstr ""
 
 #: src/plugin_htmlbar/html.c:1598
@@ -1916,92 +1919,93 @@ msgstr ""
 msgid "No Wra_p:"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:287
+#. TODO: use error info in gerror
+#: src/plugin_htmlbar/image.c:290
 msgid "Loading image failed..."
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:359
+#: src/plugin_htmlbar/image.c:362
 #, c-format
 msgid "Loading file %s..."
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:411
+#: src/plugin_htmlbar/image.c:414
 msgid "Insert thumbnail"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:413
+#: src/plugin_htmlbar/image.c:416
 msgid "Insert image"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:419 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:422 src/plugin_htmlbar/image_dialog.c:340
 msgid "Preview"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:441
+#: src/plugin_htmlbar/image.c:444
 msgid "_Image location:"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:457
+#: src/plugin_htmlbar/image.c:460
 msgid "Hei_ght:"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:404
+#: src/plugin_htmlbar/image.c:465 src/plugin_htmlbar/image_dialog.c:404
 msgid "_Usemap:"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:470
+#: src/plugin_htmlbar/image.c:473
 msgid "Alternate _text:"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:438
+#: src/plugin_htmlbar/image.c:481 src/plugin_htmlbar/image_dialog.c:438
 msgid "_Hspace:"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:442
+#: src/plugin_htmlbar/image.c:485 src/plugin_htmlbar/image_dialog.c:442
 msgid "_Vspace:"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:496
+#: src/plugin_htmlbar/image.c:499
 msgid "Borde_r:"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:879
+#: src/plugin_htmlbar/image.c:882
 msgid "Select files for thumbnail creation"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:914
+#: src/plugin_htmlbar/image.c:917
 msgid "Scaling (%)"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:918 src/plugin_htmlbar/image.c:926
+#: src/plugin_htmlbar/image.c:921 src/plugin_htmlbar/image.c:929
 msgid "Width"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:922 src/plugin_htmlbar/image.c:954
+#: src/plugin_htmlbar/image.c:925 src/plugin_htmlbar/image.c:957
 msgid "Height"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:943
+#: src/plugin_htmlbar/image.c:946
 msgid "Multi thumbnail"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:949
+#: src/plugin_htmlbar/image.c:952
 msgid "By scaling"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:950
+#: src/plugin_htmlbar/image.c:953
 msgid "By width, keep aspect ratio"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:951
+#: src/plugin_htmlbar/image.c:954
 msgid "By height, keep aspect ratio"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:952
+#: src/plugin_htmlbar/image.c:955
 msgid "By width and height, ignore aspect ratio"
 msgstr ""
 
-#: src/plugin_htmlbar/image.c:976
+#: src/plugin_htmlbar/image.c:979
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2047,7 +2051,7 @@ msgid ""
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:875
+#: src/plugin_htmlbar/image_dialog.c:876
 msgid ""
 "\n"
 "\n"
@@ -2055,16 +2059,16 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:978
+#: src/plugin_htmlbar/image_dialog.c:979
 msgid "Select Image"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:986
+#: src/plugin_htmlbar/image_dialog.c:987
 msgid "All images"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:1218
-#: src/plugin_htmlbar/image_dialog.c:1330
+#: src/plugin_htmlbar/image_dialog.c:1219
+#: src/plugin_htmlbar/image_dialog.c:1331
 msgid "Insert Image"
 msgstr ""
 
@@ -2134,10 +2138,6 @@ msgstr ""
 
 #: src/plugin_htmlbar/wizards.c:68
 msgid "Table Wizard"
-msgstr ""
-
-#: src/plugin_htmlbar/wizards.c:76
-msgid "Number of _rows:"
 msgstr ""
 
 #: src/plugin_htmlbar/wizards.c:80
