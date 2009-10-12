@@ -294,7 +294,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/Tags/Special/Currency/_Pound sterling £"), NULL, insert_char_cb, 61, "<Item>"},
 		{N_("/Tags/Special/Currency/C_urrency sign ¤"), NULL, insert_char_cb, 62, "<Item>"},
 		{N_("/Tags/Special/Currency/_Yen sign ¥"), NULL, insert_char_cb, 63, "<Item>"},
-		{N_("/Tags/Special/Currency/_Euro "), NULL, insert_char_cb, 98, "<Item>"},
+		{N_("/Tags/Special/Currency/_Euro €"), NULL, insert_char_cb, 98, "<Item>"},
 		{N_("/Tags/Special/_Math-Science"), NULL, NULL, 0, "<Branch>"},
 		{"/Tags/Special/Math-Science/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 		{N_("/Tags/Special/Math-Science/Logical _not sign ¬"), NULL, insert_char_cb, 64, "<Item>"},

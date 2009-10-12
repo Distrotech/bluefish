@@ -224,11 +224,11 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 	g_object_unref(ob->lstore);/* the view widget now holds the only reference, if the view is destroyed, the model will be destroyed */
 
 	renderer = gtk_cell_renderer_text_new ();
-	column = gtk_tree_view_column_new_with_attributes ("Filename", renderer,"text",0,NULL);
+	column = gtk_tree_view_column_new_with_attributes (_("Filename"), renderer,"text",0,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(ob->lview), column);
-	column = gtk_tree_view_column_new_with_attributes ("Line", renderer,"text",1,NULL);
+	column = gtk_tree_view_column_new_with_attributes (_("Line"), renderer,"text",1,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(ob->lview), column);
-	column = gtk_tree_view_column_new_with_attributes ("Output", renderer,"text",2,NULL);
+	column = gtk_tree_view_column_new_with_attributes (_("Output"), renderer,"text",2,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(ob->lview), column);
 
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
@@ -408,7 +408,7 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	
 	ob->def->pcre_c = pcre_compile(ob->def->pattern, PCRE_UTF8,&errptr,&erroffset,NULL);
 	if (ob->def->pcre_c == NULL) {
-		gchar *tmpstr = g_strdup_printf(_("failed to compile outputbox pattern %s\n"),ob->def->pattern);
+		gchar *tmpstr = g_strdup_printf(_("Failed to compile outputbox pattern %s"),ob->def->pattern);
 		statusbar_message(bfwin,tmpstr,4);
 		g_free(tmpstr);
 		return;
