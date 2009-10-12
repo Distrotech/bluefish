@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 1.3.6\n"
+"Project-Id-Version: bluefish 1.3.7\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-10-12 23:49+0200\n"
-"PO-Revision-Date: 2009-06-11 11:30+0200\n"
+"POT-Creation-Date: 2009-10-12 23:47+0200\n"
+"PO-Revision-Date: 2009-10-13 00:30+0200\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -35,17 +35,16 @@ msgid "Bluefish project file"
 msgstr "Bluefish Projektdatei"
 
 #: ../src/bftextview2.c:990
-#, fuzzy
 msgid "Collapse all"
-msgstr "Alle s_chließen"
+msgstr "Alle einklappen"
 
 #: ../src/bftextview2.c:993
 msgid "Expand all"
-msgstr ""
+msgstr "Alle ausklappen"
 
 #: ../src/bftextview2_spell.c:516
 msgid "Spell check language"
-msgstr ""
+msgstr "Sprache für die Rechtschreibprüfung"
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -54,8 +53,9 @@ msgid ""
 msgstr ""
 
 #: ../src/blocksync.c:93
+#, fuzzy
 msgid "To proceed with the current selection click forward."
-msgstr ""
+msgstr "Um mit der aktuellen Auswahl fortzufahren "
 
 #: ../src/blocksync.c:122
 msgid ""
@@ -296,7 +296,9 @@ msgstr "Name: "
 msgid ""
 "\n"
 "Language mode: "
-msgstr "Sprache:"
+msgstr ""
+"\n"
+"Sprache:"
 
 #: ../src/document.c:373
 msgid ""
@@ -736,13 +738,13 @@ msgstr "Neuer Filter"
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Noch %d Datei laden, %s fertig"
+msgstr[1] "Noch %d Dateien laden, %s fertig"
 
 #: ../src/file.c:714
 #, c-format
 msgid "All files loaded, finished %s"
-msgstr ""
+msgstr "Alle Dateien wurden geladen, %s fertig"
 
 #: ../src/file.c:900
 #, c-format
@@ -752,9 +754,8 @@ msgstr[0] "%d Dokument offen."
 msgstr[1] "%d Dokumente offen."
 
 #: ../src/file.c:902
-#, fuzzy
 msgid "Advanced open: Finished searching files. "
-msgstr "Erweiterte Dateiauswahl"
+msgstr "Erweitertes Öffnen: Suche nach Dateien beendet. "
 
 #: ../src/file.c:1155
 msgid "_Skip"
@@ -848,21 +849,18 @@ msgid "File backup failure"
 msgstr "Backup fehlgeschlagen"
 
 #: ../src/file_dialogs.c:453
-#, fuzzy
 msgid "Could not save file "
-msgstr ""
-"Kann Datei nicht schreiben:\n"
-"\""
+msgstr "Datei konnte nicht gespeichert werden "
 
 #: ../src/file_dialogs.c:472
 #, c-format
 msgid "File %s has been modified on disk, overwrite?"
-msgstr "Datei %s auf der Platte geändert, überschreiben?"
+msgstr "Die Datei %s wurde zwischenzeitlich verändert. Überschreiben?"
 
 #: ../src/file_dialogs.c:474
 #, c-format
 msgid "Failed to check if %s has been modified on disk"
-msgstr "Dateiüberprüfung von %s fehlgeschlagen"
+msgstr "Überprüfen, ob %s zwischenzeitlich geändert wurde, fehlgeschlagen"
 
 # c-format
 #: ../src/file_dialogs.c:565
@@ -907,13 +905,12 @@ msgstr ""
 "\""
 
 #: ../src/file_dialogs.c:709
-#, fuzzy
 msgid "\" save is in progress"
-msgstr "Speichere..."
+msgstr "\" wird gespeichert"
 
 #: ../src/file_dialogs.c:711
 msgid "Save in progress!"
-msgstr "Speichere..."
+msgstr "Speichern läuft!"
 
 #: ../src/file_dialogs.c:862
 msgid "Close _Without Saving"
@@ -997,9 +994,8 @@ msgid "Hide files that match the filter"
 msgstr "Auf Filter zutreffende Dateien verstecken"
 
 #: ../src/filefilter.c:566
-#, fuzzy
 msgid "Add pattern"
-msgstr "Muster"
+msgstr "Muster hinzufügen"
 
 #: ../src/filefilter.c:572 ../src/filefilter.c:584
 msgid "Mime type"
@@ -1396,9 +1392,8 @@ msgid "/Document/_Visible Spacing"
 msgstr "/Dokument/_Leerzeichen anzeigen"
 
 #: ../src/menu.c:279
-#, fuzzy
 msgid "/Document/_Spell Check"
-msgstr "/Dokument/Um_bruch"
+msgstr "/Dokument/_Rechtschreibprüfung"
 
 #: ../src/menu.c:282
 msgid "/Document/_Tab Size"
@@ -1453,18 +1448,16 @@ msgid "/Document/Character _Encoding"
 msgstr "/Dokument/Zeichenkodierung"
 
 #: ../src/menu.c:307
-#, fuzzy
 msgid "/Document/Character Encoding/_Add or Remove..."
-msgstr "/Dokument/Zeichenkodierung"
+msgstr "/Dokument/Zeichenkodierung/_Hinzufügen oder entfernen..."
 
 #: ../src/menu.c:309
 msgid "/Document/Add Boo_kmark"
 msgstr "/Dokument/_Lesezeichen hinzufügen"
 
 #: ../src/menu.c:310
-#, fuzzy
 msgid "/Document/Floati_ng Window"
-msgstr "/Dokument/Freie Fenster"
+msgstr "/Dokument/Freies Fe_nster"
 
 #: ../src/menu.c:312
 msgid "/Document/Move Left"
@@ -1627,24 +1620,21 @@ msgid "/Document/Character Encoding"
 msgstr "/Dokument/Zeichenkodierung"
 
 #: ../src/outputbox.c:227
-#, fuzzy
 msgid "Filename"
-msgstr "Dateiname: %s"
+msgstr "Dateiname"
 
 #: ../src/outputbox.c:229
-#, fuzzy
 msgid "Line"
-msgstr "Zeile Nr."
+msgstr "Zeile"
 
 #: ../src/outputbox.c:231
-#, fuzzy
 msgid "Output"
-msgstr "Ausgabe Nr."
+msgstr "Ausgabe"
 
 #: ../src/outputbox.c:411
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to compile outputbox pattern %s"
-msgstr "Konnte Muster %s nicht kompilieren\n"
+msgstr "Muster %s für die Ausgabe konnte nicht kompiliert werden"
 
 #: ../src/preferences.c:275
 msgid "Untitled"
@@ -1655,15 +1645,13 @@ msgid "Select font"
 msgstr "Schriftartauswahl"
 
 #: ../src/preferences.c:493 ../src/preferences.c:1630
-#, fuzzy
 msgid "Initial document settings"
-msgstr "Anfangsfensterhöhe"
+msgstr "Initiale  Dokumenteinstellungen"
 
 #
 #: ../src/preferences.c:497
-#, fuzzy
 msgid "Default mime type for new files"
-msgstr "Standardzeichensatz für neue Dateien"
+msgstr "Standarddateityp für neue Dateien"
 
 #: ../src/preferences.c:500
 msgid "_Word wrap by default"
@@ -1700,9 +1688,8 @@ msgid "Highlight matching block begin-end"
 msgstr "Zugehöriges Block-Ende hervorheben"
 
 #: ../src/preferences.c:509
-#, fuzzy
 msgid "Enable spell check"
-msgstr "Rechtschreibprüfung..."
+msgstr "Rechtschreibprüfung aktivieren"
 
 #: ../src/preferences.c:538
 msgid "Message"
@@ -1755,9 +1742,8 @@ msgid "italic style"
 msgstr "kursiv"
 
 #: ../src/preferences.c:728
-#, fuzzy
 msgid "Spell check"
-msgstr "Rechtschreibprüfung..."
+msgstr "Rechtschreibprüfung"
 
 #: ../src/preferences.c:942 ../src/preferences.c:1153
 msgid "Name"
@@ -1773,7 +1759,6 @@ msgid "Default browser"
 msgstr "Standardbrowser"
 
 #: ../src/preferences.c:1002
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1789,13 +1774,13 @@ msgid ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 msgstr ""
-"<small><b>Eingabeoptionen</b>\n"
-"Keine Optionen um von STDOUT zu lesen\n"
-"%s lokaler Dateiname (für lokale Dateien)\n"
-"%i Temporärer FIFO für die Eingabe. Ist gleich %s falls die Datei nicht "
-"geändert und lokal ist\n"
-"%I Temporärer Dateiname für die Eingabe. Ist gleich %s falls die Datei nicht "
-"geändert und lokal ist\n"
+"<small><b>Eingabe-Optionen</b>\n"
+"ein | am Anfang sendet die Eingabe zur Standardeingabe (stdin)\n"
+"%f lokaler Dateiname (für lokale Dateien)\n"
+"%i Temporärer FIFO für die Eingabe, für lokale und unmodifizierte Dateien "
+"gleich %f\n"
+"%I Temporärer Dateiname für die Eingabe, für lokale und unmodifizierte "
+"Dateien gleich %f\n"
 "<b>Andere Optionen</b>\n"
 "%c Lokales Verzeichnis der Datei (für lokale Dateien)\n"
 "%n Dateiname ohne Pfad (für alle benannten Dateien)\n"
@@ -1804,7 +1789,6 @@ msgstr ""
 "Projekteinstellungengesetzt sind, ansonsten gleich %u</small>"
 
 #: ../src/preferences.c:1072
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1824,15 +1808,17 @@ msgid ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 msgstr ""
-"<small><b>Eingabeoptionen</b>\n"
-"Keine Optionen um von STDOUT zu lesen\n"
-"%s lokaler Dateiname (für lokale Dateien)\n"
-"%i Temporärer FIFO für die Eingabe.%I Temporärer Dateiname für die Eingabe."
-"<b>Ausgabeoptionen</b>\n"
-"Keine Eingabe um STDOUT auszugeben\n"
+"<small><b>Eingabe-Optionen</b>\n"
+"ein | am Anfang sendet die Eingabe zur Standardeingabe (stdin)\n"
+"%f lokaler Dateiname (nur für lokale Dateien, nicht auf Auswahl anwendbar)\n"
+"%i Temporärer FIFO für die Eingabe\n"
+"%I Temporärer Dateiname für die Eingabe\n"
+"<b>Ausgabe-Optionen</b>\n"
+"ein | am Ende sendet die Ausgabe zur Standardausgabe (stdout)\n"
 "%o temporärer FIFO\n"
 "%O temporärer Dateiname\n"
-"%t temporärer Dateiname für Ein- und Ausgabe (In-Place-Editing Filter)\n"
+"%t temporärer Dateiname für Ein- und Ausgabe (für In-Place-Editing Filter, "
+"nicht auf Auswahl anwendbar)\n"
 "<b>Andere Optionen</b>\n"
 "%c Lokales Verzeichnis der Datei (für lokale Dateien)\n"
 "%n Dateiname ohne Pfad (für alle benannten Dateien)\n"
@@ -1857,7 +1843,6 @@ msgid "Output #"
 msgstr "Ausgabe Nr."
 
 #: ../src/preferences.c:1160
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1879,15 +1864,15 @@ msgid ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 msgstr ""
-"<small><b>Eingabeoptionen</b>\n"
-"Keine Optionen um von STDOUT zu lesen\n"
-"%s lokaler Dateiname (für lokale Dateien)\n"
-"%i Temporärer FIFO für die Eingabe. Ist gleich %s falls die Datei nicht "
-"geändert und lokal ist\n"
-"%I Temporärer Dateiname für die Eingabe. Ist gleich %s falls die Datei nicht "
-"geändert und lokal ist\n"
-"<b>Ausgabeoptionen</b>\n"
-"Keine Eingabe um STDOUT auszugeben\n"
+"<small><b>Eingabe-Optionen</b>\n"
+"ein | am Anfang sendet die Eingabe zur Standardeingabe (stdin)\n"
+"%f lokaler Dateiname (für lokale Dateien)\n"
+"%i Temporärer FIFO für die Eingabe, für lokale und unmodifizierte Dateien "
+"gleich %f\n"
+"%I Temporärer Dateiname für die Eingabe, für lokale und unmodifizierte "
+"Dateien gleich %f\n"
+"<b>Ausgabe-Optionen</b>\n"
+"ein | am Ende sendet die Ausgabe zur Standardausgabe (stdout)\n"
 "%o temporärer FIFO\n"
 "%O temporärer Dateiname\n"
 "%t temporärer Dateiname für Ein- und Ausgabe (In-Place-Editing Filter)\n"
@@ -1956,51 +1941,47 @@ msgstr "Dateigröße"
 
 #: ../src/preferences.c:1571
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: ../src/preferences.c:1571
 msgid "All except spaces"
-msgstr ""
+msgstr "Alle außer Leerzeichen"
 
 #: ../src/preferences.c:1571
 msgid "All trailing"
-msgstr ""
+msgstr "Alle nachgestellte"
 
 #: ../src/preferences.c:1571
 msgid "All except non-trailing spaces"
-msgstr ""
+msgstr "Alle außer nicht-nachgestellte Leerzeichen"
 
 #: ../src/preferences.c:1587
 msgid "Edit preferences"
 msgstr "Einstellungen bearbeiten"
 
 #: ../src/preferences.c:1608
-#, fuzzy
 msgid "Editor settings"
-msgstr "Editoroptionen"
+msgstr "Editoreinstellungen"
 
 #: ../src/preferences.c:1610
-#, fuzzy
 msgid "Generic editor settings"
-msgstr "Allgemeine Editoroptionen"
+msgstr "Allgemeine Editoreinstellungen"
 
 #: ../src/preferences.c:1615
 msgid "Font"
 msgstr "Schriftart"
 
 #: ../src/preferences.c:1618
-#, fuzzy
 msgid "Current line color"
-msgstr "Farbauswahl"
+msgstr "Farbe für die aktuele Zeile"
 
 #: ../src/preferences.c:1619
 msgid "Visible whitespace color"
-msgstr ""
+msgstr "Farbe zur Darstellung von Leerzeichen"
 
 #: ../src/preferences.c:1620
-#, fuzzy
 msgid "Show whitespace"
-msgstr "Splash-Screen anzeigen"
+msgstr "Leerzeichen anzeigen"
 
 #: ../src/preferences.c:1621
 msgid "Smart Home/End cursor positioning"
@@ -2119,14 +2100,12 @@ msgid "Misc"
 msgstr "Verschiedenes"
 
 #: ../src/preferences.c:1698
-#, fuzzy
 msgid "Open commandline files in running bluefish process"
-msgstr "Öffne Dateien in bereits laufendem Programm"
+msgstr "Öffne Dateien aus der Kommandozeile in laufendem Bluefish-Prozess"
 
 #: ../src/preferences.c:1700
-#, fuzzy
 msgid "Open commandline files in new window"
-msgstr "Öffne Dateien in bereits laufendem Programm"
+msgstr "Öffne Dateien aus der Kommandozeile in einem neuen Fenster"
 
 #: ../src/preferences.c:1702
 msgid "File properties to check on disk for modifications"
@@ -2321,10 +2300,10 @@ msgid "Edit Project"
 msgstr "Projekt bearbeiten"
 
 #: ../src/project.c:511
-#, fuzzy, c-format
+#, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
-msgstr[0] "Dieses Projekt enthält %d Dateien"
+msgstr[0] "Dieses Projekt enthält %d Datei"
 msgstr[1] "Dieses Projekt enthält %d Dateien"
 
 #: ../src/project.c:524
@@ -2534,14 +2513,12 @@ msgid "Entire word only"
 msgstr "Nur ganzes Wort"
 
 #: ../src/snr2.c:1656
-#, fuzzy
 msgid "POSIX style regular expression"
-msgstr "Fehler im regulären Ausdruck: "
+msgstr "Regulärer Ausdruck im POSIX-Stil"
 
 #: ../src/snr2.c:1657
-#, fuzzy
 msgid "PERL style regular expression"
-msgstr "Fehler im regulären Ausdruck: "
+msgstr "Regulärer Ausdruck im PERL-Stil"
 
 #: ../src/snr2.c:1662
 msgid "Uppercase"
@@ -2666,9 +2643,8 @@ msgid "Lines into columns"
 msgstr ""
 
 #: ../src/snr2.c:2434
-#, fuzzy
 msgid "Number of columns"
-msgstr "Anzahl der Veränderungen im \"Rückgängig\"-Speicher"
+msgstr "Anzahl der Spalten"
 
 #: ../src/snr2.c:2437
 msgid "Spread lines horizontally"
@@ -2676,12 +2652,11 @@ msgstr ""
 
 #: ../src/snr2.c:2438
 msgid "Column separator"
-msgstr ""
+msgstr "Spaltentrenner"
 
 #: ../src/snr2.c:2440
-#, fuzzy
 msgid "Fill empty entries"
-msgstr "Leere Zeilen entfernen"
+msgstr ""
 
 #: ../src/undo_redo.c:462
 msgid "Undo in _all documents"
@@ -2698,208 +2673,3 @@ msgstr "In allen Dokumenten rückgängig machen?"
 #: ../src/undo_redo.c:465
 msgid "This change concerns multiple documents."
 msgstr "Diese Änderung betrifft mehrere Dokumente"
-
-#~ msgid ""
-#~ "\n"
-#~ "File type: "
-#~ msgstr ""
-#~ "\n"
-#~ "Dateityp: "
-
-#~ msgid "  %s, %s"
-#~ msgstr "  %s, %s"
-
-#~ msgid "File save failed!\n"
-#~ msgstr "Speichern fehlgeschlagen.\n"
-
-#
-#~ msgid "POSIX"
-#~ msgstr "POSIX"
-
-#
-#~ msgid "PERL"
-#~ msgstr "PERL"
-
-#~ msgid "_Use escape chars"
-#~ msgstr "Fluchtzeichen ben_utzen"
-
-#~ msgid "Statistics: %d lines, %d words, %d characters"
-#~ msgstr "Statistik: %d Zeilen, %d Wörter, %d Zeichen"
-
-#~ msgid "Spellcheck"
-#~ msgstr "Rechtschreibprüfung"
-
-#~ msgid "Show all output"
-#~ msgstr "Gesamte Ausgabe anzeigen"
-
-#~ msgid "Word wrap"
-#~ msgstr "Zeilenumbruch"
-
-#~ msgid "/Project/Open Recent"
-#~ msgstr "/Projekt/Zuletzt geöffnet"
-
-#~ msgid "/File/Open Recent"
-#~ msgstr "/Datei/Zuletzt geöffnet"
-
-#~ msgid "/Tools/Filters"
-#~ msgstr "/Werkzeuge/Filter"
-
-#~ msgid "/Tools"
-#~ msgstr "/Werkzeuge"
-
-#~ msgid "/Tools/Commands"
-#~ msgstr "/Werkzeuge/Befehle"
-
-#~ msgid "/Tools/Outputbox"
-#~ msgstr "/Werkzeuge/Ausgabefenster"
-
-#~ msgid "loading plugins..."
-#~ msgstr "Lade Plugins..."
-
-#~ msgid "reading language files..."
-#~ msgstr "Lese Sprachdateien..."
-
-#~ msgid "building file browser ..."
-#~ msgstr "Dateibrowser starten..."
-
-#~ msgid "checking for running bluefish process ..."
-#~ msgstr "Prüfe auf laufende bluefish-Instanzen ..."
-
-#~ msgid "creating main gui..."
-#~ msgstr "Erzeuge Hauptfenster..."
-
-#~ msgid "showing main gui..."
-#~ msgstr "Öffne Hauptfenster..."
-
-#~ msgid "/View/Fullscreen"
-#~ msgstr "/Ansicht/Vollbild"
-
-#~ msgid ""
-#~ "Bluefish has trouble reading the filenames. Try to set the environment "
-#~ "variable G_BROKEN_FILENAMES=1\n"
-#~ msgstr ""
-#~ "Bluefish kann die Dateinamen nicht lesen. Versuche die Umgebungsvariable "
-#~ "G_BROKEN_FILENAMES=1 zu setzen.\n"
-
-#~ msgid "Check Spelling"
-#~ msgstr "Rechtschreibprüfung"
-
-#~ msgid "Checking"
-#~ msgstr "Prüfe"
-
-#~ msgid "_Misspelled word:"
-#~ msgstr "_Falschgeschriebenes Wort:"
-
-#~ msgid "Change _to:"
-#~ msgstr "Ändern _zu:"
-
-#~ msgid "I_gnore"
-#~ msgstr "i_gnorieren"
-
-#~ msgid "In _document"
-#~ msgstr "Im _Dokument"
-
-#~ msgid "I_n selection"
-#~ msgstr "I_n der Auswahl"
-
-#~ msgid "personal dictionary"
-#~ msgstr "Benutzerwörterbuch"
-
-#~ msgid "session dictionary"
-#~ msgstr "Sessionwörterbuch"
-
-#~ msgid "Dictionary:"
-#~ msgstr "Wörterbuch:"
-
-#~ msgid "_Add Word"
-#~ msgstr "Wort Hin_zufügen "
-
-#~ msgid "Set defa_ult"
-#~ msgstr "Stan_dard"
-
-#~ msgid "Filter:"
-#~ msgstr "Filter:"
-
-#~ msgid "no filter"
-#~ msgstr "kein Filter"
-
-#~ msgid "html filter"
-#~ msgstr "HTML Filter"
-
-#~ msgid "Block synchronisation"
-#~ msgstr "Block-Synchronisation"
-
-#~ msgid "Open a project from the specified projectfile."
-#~ msgstr "Ein Projekt aus dem Projektfile öffnen"
-
-#~ msgid "PROJECTFILE"
-#~ msgstr "PROJEKTDATEI"
-
-#~ msgid "Skip root check."
-#~ msgstr "Überspringe root Überprüfung."
-
-#~ msgid "setting up bookmarks ..."
-#~ msgstr "Richte Lesezeichen ein..."
-
-#~ msgid "/Edit/Replace special"
-#~ msgstr "/Bearbeiten/Ersetzen spezial"
-
-#~ msgid "/Tools/Block sync"
-#~ msgstr "/Werkzeuge/Block-Synchronisation"
-
-#~ msgid "/Edit/Save Sett_ings"
-#~ msgstr "/Bearbeiten/Einstellungen Spe_ichern"
-
-#~ msgid "/Document/_Update Highlighting"
-#~ msgstr "/Dokument/Syntaxhervorhebung a_ktualisieren"
-
-#~ msgid "/Tools/Check _Spelling..."
-#~ msgstr "/Dokument/Rechtschreibprüfung..."
-
-#~ msgid "/Windows"
-#~ msgstr "/Fenster"
-
-#~ msgid "/Tools/Outputbox/"
-#~ msgstr "/Werkzeuge/Ausgabebox"
-
-#~ msgid "/Tools/Commands/"
-#~ msgstr "/Werkzeuge/Befehle/"
-
-#~ msgid "/Tools/Filters/"
-#~ msgstr "/Werkzeuge/Filter/"
-
-#~ msgid "/External"
-#~ msgstr "/E_xtern"
-
-#~ msgid "Editor defaults"
-#~ msgstr "Standardeinstellungen"
-
-#~ msgid "Default values"
-#~ msgstr "Standardwerte"
-
-#~ msgid "Highlight syntax"
-#~ msgstr "Syntaxhervorhebung"
-
-#
-#~ msgid "Automatically close tags"
-#~ msgstr "Tags automatisch schließen"
-
-#~ msgid "Prepend close tags with a newline"
-#~ msgstr "Zeilenumbruch nach einem schließenden Tag einfügen"
-
-#~ msgid "Backup"
-#~ msgstr "Sicherungskopie"
-
-#
-#~ msgid "File and directory view"
-#~ msgstr "Datei- und Verzeichnisansicht"
-
-#~ msgid "Save current project?"
-#~ msgstr "Aktuelles Projekt speichern?"
-
-#
-#~ msgid "Syntax scanning"
-#~ msgstr "Syntax scannen"
-
-#~ msgid "Syntax highlighting"
-#~ msgstr "Syntaxhighlighting"
