@@ -5,14 +5,15 @@
 # romeo viuberges <apostledemencia@free.fr>, 2003.
 # Romeo VIU-BERGES <romda@free.fr>, 2003.
 # Michèle Garoche <michele.garoche@easyconnect.fr>, 2004-2006.
+# Frédéric Falsetti <falsetti@clansco.org>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-10-10 02:39+0200\n"
-"PO-Revision-Date: 2006-10-23 08:47+0100\n"
-"Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
+"PO-Revision-Date: 2009-10-12 19:41+0200 \n"
+"Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +43,6 @@ msgstr ""
 "Cette version de Bluefish a été compilée avec les options suivantes :\n"
 
 #: ../src/about.c:58
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -403,9 +403,8 @@ msgid "Dictionary:"
 msgstr "Dictionnaire :"
 
 #: ../src/bfspell.c:544
-#, fuzzy
 msgid "_Add Word"
-msgstr " _Ajouter "
+msgstr " _Ajouter ce mot"
 
 #: ../src/bfspell.c:550
 msgid "Language:"
@@ -535,9 +534,8 @@ msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "Voulez-vous vraiment supprimer tous les signets relatifs à %s ?"
 
 #: ../src/bookmark.c:624
-#, fuzzy
 msgid "Delete all bookmarks?"
-msgstr "Supprimer tous les signets"
+msgstr "Supprimer tous les signets ?"
 
 #: ../src/bookmark.c:654
 #, c-format
@@ -573,19 +571,16 @@ msgid "Delete all"
 msgstr "Tout supprimer"
 
 #: ../src/bookmark.c:1297 ../src/bookmark.c:1356
-#, fuzzy
 msgid "Error adding bookmark"
-msgstr "Éditer le signet"
+msgstr "Erreur : ajout de signet"
 
 #: ../src/bookmark.c:1298 ../src/bookmark.c:1357
-#, fuzzy
 msgid "Cannot add bookmarks to unsaved files."
-msgstr "Impossible d'ajouter un signet pour un fichier sans nom"
+msgstr "Impossible d'ajouter un signet pour un fichier non sauvegardé"
 
 #: ../src/bookmark.c:1317
-#, fuzzy
 msgid "Can't add bookmark"
-msgstr "Ajouter un signet"
+msgstr "Impossible d'ajouter un signet"
 
 #: ../src/bookmark.c:1318
 msgid "You already have a bookmark here!"
@@ -852,7 +847,7 @@ msgstr ""
 
 #: ../src/document.c:2704
 msgid "Continue _Without Saving"
-msgstr ""
+msgstr "Continuer sans sauvegarder"
 
 #: ../src/document.c:2709 ../src/document.c:3903 ../src/project.c:379
 msgid "If you don't save your changes they will be lost."
@@ -883,15 +878,17 @@ msgid "Unable to open file"
 msgstr "Impossible d'ouvrir le fichier"
 
 #: ../src/document.c:3228
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
-msgstr "Le fichier sera définitivement effacé."
+msgstr ""
+"Si vous revenez à votre votre ancienne sauvegarde de \"%s\, "
+"vos modifications courantes seront définitivement perdues."
 
 #: ../src/document.c:3232
 msgid "Revert changes to last saved copy?"
-msgstr ""
+msgstr "Abandonner les modifications et revenir à la dernière sauvegarde ?"
 
 #: ../src/document.c:3293
 msgid "_Reload"
@@ -1148,12 +1145,10 @@ msgid "Reference search"
 msgstr "Recherche dans la référence"
 
 #: ../src/fref.c:2091 ../src/fref.c:2108
-#, fuzzy
 msgid "Reference search error"
-msgstr "Recherche dans la référence"
+msgstr "Erreur de recherche dans la référence"
 
 #: ../src/fref.c:2092
-#, fuzzy
 msgid "Reference not found."
 msgstr "Référence introuvable"
 
@@ -1784,9 +1779,9 @@ msgid "  _Unix Time (%i)"
 msgstr "  Heure au format _Unix (%i)"
 
 #: ../src/html.c:433
-#, fuzzy, c-format
+#, c-format
 msgid "  Unix Date _String (%s)"
-msgstr "  Date au _format Unix (%s"
+msgstr "  Date au _format Unix (%s)"
 
 #: ../src/html.c:439
 #, c-format
@@ -3003,9 +2998,8 @@ msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Balises/Spéciales/Autres/_Barre verticale interrompue ¦"
 
 #: ../src/menu.c:511
-#, fuzzy
 msgid "/Tags/Special/Other/Soft _hyphen -"
-msgstr "/Balises/Spéciales/Autres/Tiret _virtuel -"
+msgstr "/Balises/Spéciales/Autres/Trait d'union -"
 
 #: ../src/menu.c:512
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
@@ -3532,9 +3526,8 @@ msgid "/Project/Save _as..."
 msgstr "/Projet/Enregistrer _sous..."
 
 #: ../src/menu.c:705
-#, fuzzy
 msgid "/Project/C_lose"
-msgstr "/Projet/_Enregistrer"
+msgstr "/Projet/Fermer"
 
 #: ../src/menu.c:706
 msgid "/Project/Save & _close"
@@ -3951,9 +3944,8 @@ msgid "Edit preferences"
 msgstr "Éditer les préférences"
 
 #: ../src/preferences.c:1387 ../src/preferences.c:1389
-#, fuzzy
 msgid "Startup"
-msgstr "Début du modèle"
+msgstr "Début"
 
 #: ../src/preferences.c:1395
 msgid "Show splash-screen"
@@ -4017,7 +4009,7 @@ msgstr "Position de l'onglet"
 
 #: ../src/preferences.c:1428
 msgid "Switch between tabs with <Alt>+0..9"
-msgstr ""
+msgstr "Naviguer entre les onglets avec <Alt>+0..9"
 
 #: ../src/preferences.c:1429
 msgid "Sidebar notebook tab position"
@@ -4056,9 +4048,8 @@ msgid "Line numbers by default"
 msgstr "Numéros de ligne par défaut"
 
 #: ../src/preferences.c:1446
-#, fuzzy
 msgid "Highlight current line"
-msgstr "Coloration nombre de lignes"
+msgstr "Colorer la ligne courante"
 
 #: ../src/preferences.c:1447
 msgid "Highlight syntax by default"
@@ -4183,7 +4174,6 @@ msgid "Number of files in 'Open recent'"
 msgstr "Nombre de fichiers dans 'Récemment ouvert'"
 
 #: ../src/preferences.c:1523
-#, fuzzy
 msgid "File Browser"
 msgstr "Navigateur de fichiers"
 
@@ -4248,12 +4238,10 @@ msgid "Thumbnail filetype"
 msgstr "Type de fichier des vignettes"
 
 #: ../src/preferences.c:1564 ../src/preferences.c:1566
-#, fuzzy
 msgid "File Types"
-msgstr "Type de _fichier :"
+msgstr "Types de _fichiers :"
 
 #: ../src/preferences.c:1574 ../src/preferences.c:1576
-#, fuzzy
 msgid "File Filters"
 msgstr "Filtres de fichiers"
 
@@ -4311,12 +4299,11 @@ msgstr "Sélectionner le nom de fichier du projet Bluefish"
 
 #: ../src/project.c:366
 msgid "Close _Without Saving"
-msgstr ""
+msgstr "Fermer sans sauvegarder"
 
 #: ../src/project.c:374
-#, fuzzy
 msgid "Save current project?"
-msgstr "Créer un projet vide"
+msgstr "Sauvegarder le projet courant ?"
 
 #: ../src/project.c:520
 msgid "Create New Project"
@@ -4433,7 +4420,7 @@ msgstr "Ouvrir dans un _nouveau document."
 
 #: ../src/rcfile.c:504
 msgid "Firefox"
-msgstr ""
+msgstr "Firefox"
 
 #: ../src/rcfile.c:506
 msgid "Mozilla"
@@ -4703,69 +4690,3 @@ msgstr "Source :"
 #: ../src/wizards.c:225
 msgid "Size:"
 msgstr "Taille :"
-
-#~ msgid "grep {contains} `find {basedir} -name '{file type}'`"
-#~ msgstr "grep {contenu} `find {répertoire} -name '{type de fichier}'`"
-
-#~ msgid "Close Discards Changes"
-#~ msgstr "Abandonner et Fermer"
-
-#~ msgid "Save Changes and Exit"
-#~ msgstr "Enregistrer les changements et quitter"
-
-#~ msgid "Editor startup options"
-#~ msgstr "Options de démarrage de l'éditeur"
-
-#~ msgid "Filetypes"
-#~ msgstr "Types de fichiers"
-
-#~ msgid "Netscape"
-#~ msgstr "Netscape"
-
-#~ msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
-#~ msgstr "\\0 se réfère au premier sous-modèle, \\1 au deuxième, etc."
-
-#~ msgid "Authentication required"
-#~ msgstr "Autorisation requise"
-
-#~ msgid "Authentication is required for %s."
-#~ msgstr "Une autorisation est requise pour accéder à %s."
-
-#~ msgid "Username:"
-#~ msgstr "Nom d'utilisateur :"
-
-#~ msgid "Password:"
-#~ msgstr "Mot de passe : "
-
-#~ msgid "_Add"
-#~ msgstr "_Ajouter"
-
-#~ msgid "Delete bookmarks?"
-#~ msgstr "Voulez-vous supprimer les signets ?"
-
-#~ msgid "Are you sure?"
-#~ msgstr "En êtes-vous sûr(e) ?"
-
-#~ msgid "Do_n't save"
-#~ msgstr "Ne pas enre_gistrer"
-
-#~ msgid "Error"
-#~ msgstr "Erreur"
-
-#~ msgid "Select file"
-#~ msgstr "Sélectionner un fichier"
-
-#~ msgid "_Doctype:"
-#~ msgstr "_Doctype :"
-
-#~ msgid "Header tags:"
-#~ msgstr "Balises Head :"
-
-#~ msgid "with _Subject (URL-encoded):"
-#~ msgstr "O_bjet (encodage URL) :"
-
-#~ msgid "with _Body (URL-encoded):"
-#~ msgstr "Corp_s (encodage URL :"
-
-#~ msgid "Do you want to save the project?"
-#~ msgstr "Voulez-vous enregistrer le projet ?"
