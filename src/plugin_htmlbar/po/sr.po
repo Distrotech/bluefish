@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: last_sr\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-09-03 14:44+0200\n"
+"POT-Creation-Date: 2009-10-12 23:49+0200\n"
 "PO-Revision-Date: 2004-11-27 11:08+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -40,53 +40,53 @@ msgstr "Izabrana putanja već postoji."
 msgid "Update its value from %s to %s?"
 msgstr ""
 
-#: src/plugin_htmlbar/html2.c:637
+#: src/plugin_htmlbar/html2.c:638
 #, fuzzy
 msgid "Cascading Style Sheet Builder"
 msgstr "CSS meni"
 
-#: src/plugin_htmlbar/html2.c:657
+#: src/plugin_htmlbar/html2.c:658
 msgid "_Selector:"
 msgstr "_Birač:"
 
-#: src/plugin_htmlbar/html2.c:676
+#: src/plugin_htmlbar/html2.c:677
 msgid "_Property:"
 msgstr "_Osobine:"
 
-#: src/plugin_htmlbar/html2.c:678 src/plugin_htmlbar/html_form.c:650
+#: src/plugin_htmlbar/html2.c:679 src/plugin_htmlbar/html_form.c:650
 #: src/plugin_htmlbar/html_form.c:799 src/plugin_htmlbar/html_form.c:894
 msgid "_Value:"
 msgstr "_Vrednost:"
 
-#: src/plugin_htmlbar/html2.c:696
+#: src/plugin_htmlbar/html2.c:697
 msgid "Selector"
 msgstr "Birač"
 
-#: src/plugin_htmlbar/html2.c:696 src/plugin_htmlbar/html2.c:699
+#: src/plugin_htmlbar/html2.c:697 src/plugin_htmlbar/html2.c:700
 msgid "Property"
 msgstr "Osobine"
 
-#: src/plugin_htmlbar/html2.c:696 src/plugin_htmlbar/html2.c:699
+#: src/plugin_htmlbar/html2.c:697 src/plugin_htmlbar/html2.c:700
 msgid "Value"
 msgstr "Vrednost"
 
-#: src/plugin_htmlbar/html2.c:714
+#: src/plugin_htmlbar/html2.c:715
 msgid " _Add "
 msgstr " _Dodaj "
 
-#: src/plugin_htmlbar/html2.c:717
+#: src/plugin_htmlbar/html2.c:718
 msgid " _Update "
 msgstr " _Ažuriraj "
 
-#: src/plugin_htmlbar/html2.c:720
+#: src/plugin_htmlbar/html2.c:721
 msgid " _Delete "
 msgstr " _Obriši "
 
-#: src/plugin_htmlbar/html2.c:973 src/plugin_htmlbar/html2.c:1010
+#: src/plugin_htmlbar/html2.c:974 src/plugin_htmlbar/html2.c:1011
 msgid "_Style..."
 msgstr " _Stil..."
 
-#: src/plugin_htmlbar/html2.c:1095
+#: src/plugin_htmlbar/html2.c:1096
 msgid "Bluefish: Select color"
 msgstr "Bluefish birač boja"
 
@@ -434,7 +434,8 @@ msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Markeri/Specijalno/_Valute/_Jen  ¥"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:297
-msgid "/Tags/Special/Currency/_Euro "
+#, fuzzy
+msgid "/Tags/Special/Currency/_Euro €"
 msgstr "/Markeri/Specijalno/_Valute/_Evro "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:298
@@ -1017,7 +1018,7 @@ msgstr "Bold"
 msgid "Italic"
 msgstr "Italik"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:738 src/plugin_htmlbar/html.c:782
+#: src/plugin_htmlbar/htmlbar_gui.c:738 src/plugin_htmlbar/html.c:799
 msgid "Paragraph"
 msgstr "Paragraf"
 
@@ -1097,27 +1098,27 @@ msgid "Emphasis"
 msgstr "Uveličavanje"
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:791
+#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:808
 msgid "Heading 1"
 msgstr "Zaglavlje 1"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:794
+#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:811
 msgid "Heading 2"
 msgstr "Zaglavlje 2"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:797
+#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:814
 msgid "Heading 3"
 msgstr "Zaglavlje 3"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:800
+#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:817
 msgid "Heading 4"
 msgstr "Zaglavlje 4"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:764 src/plugin_htmlbar/html.c:803
+#: src/plugin_htmlbar/htmlbar_gui.c:764 src/plugin_htmlbar/html.c:820
 msgid "Heading 5"
 msgstr "Zaglavlje 5"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:765 src/plugin_htmlbar/html.c:806
+#: src/plugin_htmlbar/htmlbar_gui.c:765 src/plugin_htmlbar/html.c:823
 msgid "Heading 6"
 msgstr "Zaglavlje 6"
 
@@ -1177,11 +1178,11 @@ msgid "Frame..."
 msgstr "Okvir..."
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:783 src/plugin_htmlbar/html.c:1570
+#: src/plugin_htmlbar/htmlbar_gui.c:783 src/plugin_htmlbar/html.c:1583
 msgid "Frameset"
 msgstr "Okviri"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:784 src/plugin_htmlbar/html.c:1654
+#: src/plugin_htmlbar/htmlbar_gui.c:784 src/plugin_htmlbar/html.c:1667
 msgid "Frame"
 msgstr "Okvir"
 
@@ -1438,373 +1439,375 @@ msgid "  Unix Date _String (%s)"
 msgstr "  Unix datum _string (%s"
 
 #: src/plugin_htmlbar/html.c:443
-#, c-format
-msgid "  ISO-8601 Ti_me (%s)"
+msgid "  ISO-8601 Ti_me "
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:586
+#: src/plugin_htmlbar/html.c:603
 msgid "Quick Anchor"
 msgstr "Brzo sidro"
 
-#: src/plugin_htmlbar/html.c:592 src/plugin_htmlbar/html_form.c:780
+#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/html_form.c:780
 msgid "Attributes"
 msgstr "Atributi"
 
-#: src/plugin_htmlbar/html.c:606 src/plugin_htmlbar/html.c:1898
+#: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:1911
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:610 src/plugin_htmlbar/html_form.c:183
+#: src/plugin_htmlbar/html.c:627 src/plugin_htmlbar/html_form.c:183
 msgid "_Target:"
 msgstr "_Meta:"
 
-#: src/plugin_htmlbar/html.c:614 src/plugin_htmlbar/html.c:838
-#: src/plugin_htmlbar/html.c:1203 src/plugin_htmlbar/html.c:1666
+#: src/plugin_htmlbar/html.c:631 src/plugin_htmlbar/html.c:855
+#: src/plugin_htmlbar/html.c:1220 src/plugin_htmlbar/html.c:1679
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:466
+#: src/plugin_htmlbar/image.c:469
 msgid "_Name:"
 msgstr "_Ime:"
 
-#: src/plugin_htmlbar/html.c:618 src/plugin_htmlbar/quickstart.c:538
+#: src/plugin_htmlbar/html.c:635 src/plugin_htmlbar/quickstart.c:538
 #, fuzzy
 msgid "Titl_e:"
 msgstr "_Naslov:"
 
-#: src/plugin_htmlbar/html.c:624 src/plugin_htmlbar/html.c:1071
-#: src/plugin_htmlbar/html.c:1221 src/plugin_htmlbar/html.c:1813
+#: src/plugin_htmlbar/html.c:641 src/plugin_htmlbar/html.c:1088
+#: src/plugin_htmlbar/html.c:1238 src/plugin_htmlbar/html.c:1826
 msgid "_Language:"
 msgstr "_Jezik:"
 
-#: src/plugin_htmlbar/html.c:628 src/plugin_htmlbar/html.c:846
-#: src/plugin_htmlbar/html.c:980 src/plugin_htmlbar/html.c:1075
-#: src/plugin_htmlbar/html.c:1229 src/plugin_htmlbar/html.c:1602
-#: src/plugin_htmlbar/html.c:1703 src/plugin_htmlbar/html.c:1832
+#: src/plugin_htmlbar/html.c:645 src/plugin_htmlbar/html.c:863
+#: src/plugin_htmlbar/html.c:997 src/plugin_htmlbar/html.c:1092
+#: src/plugin_htmlbar/html.c:1246 src/plugin_htmlbar/html.c:1615
+#: src/plugin_htmlbar/html.c:1716 src/plugin_htmlbar/html.c:1845
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:477
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Custo_m:"
 msgstr "Lični:"
 
-#: src/plugin_htmlbar/html.c:631 src/plugin_htmlbar/html.c:1079
+#: src/plugin_htmlbar/html.c:648 src/plugin_htmlbar/html.c:1096
 #: src/plugin_htmlbar/html_form.c:829
 msgid "Events"
 msgstr "Događaji"
 
-#: src/plugin_htmlbar/html.c:634
+#: src/plugin_htmlbar/html.c:651
 msgid "OnClic_k:"
 msgstr "NaKlik:"
 
-#: src/plugin_htmlbar/html.c:638
+#: src/plugin_htmlbar/html.c:655
 msgid "OnD_blClick:"
 msgstr "Na Dupli Klik:"
 
-#: src/plugin_htmlbar/html.c:642
+#: src/plugin_htmlbar/html.c:659
 msgid "OnMouseO_ver:"
 msgstr "Na Miš preko:"
 
-#: src/plugin_htmlbar/html.c:646
+#: src/plugin_htmlbar/html.c:663
 msgid "OnMouse_Down:"
 msgstr "On Miš dole:"
 
-#: src/plugin_htmlbar/html.c:650
+#: src/plugin_htmlbar/html.c:667
 msgid "OnMouse_Move:"
 msgstr "Na Pomeranje miša:"
 
-#: src/plugin_htmlbar/html.c:654
+#: src/plugin_htmlbar/html.c:671
 msgid "OnMouseOu_t:"
 msgstr "Na Sklonjenog miša:"
 
-#: src/plugin_htmlbar/html.c:658
+#: src/plugin_htmlbar/html.c:675
 msgid "OnMouse_Up:"
 msgstr "Na Miš gore:"
 
-#: src/plugin_htmlbar/html.c:662
+#: src/plugin_htmlbar/html.c:679
 msgid "OnKeyDo_wn:"
 msgstr "Na Dugme dole:"
 
-#: src/plugin_htmlbar/html.c:666
+#: src/plugin_htmlbar/html.c:683
 msgid "OnKey_Press:"
 msgstr "Na Pritisak dugmeta:"
 
-#: src/plugin_htmlbar/html.c:670
+#: src/plugin_htmlbar/html.c:687
 msgid "OnKe_yUp:"
 msgstr "Na Dugme gore:"
 
-#: src/plugin_htmlbar/html.c:785
+#: src/plugin_htmlbar/html.c:802
 msgid "Div"
 msgstr "Div"
 
-#: src/plugin_htmlbar/html.c:788
+#: src/plugin_htmlbar/html.c:805
 msgid "Span"
 msgstr "Raširi"
 
-#: src/plugin_htmlbar/html.c:823 src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html.c:840 src/plugin_htmlbar/html_table.c:109
 #: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
 msgid "Ali_gn:"
 msgstr "Poravnaj:"
 
-#: src/plugin_htmlbar/html.c:827 src/plugin_htmlbar/html.c:1063
-#: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html.c:844 src/plugin_htmlbar/html.c:1080
+#: src/plugin_htmlbar/html_diag.c:378 src/plugin_htmlbar/html_table.c:91
 #: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
 #: src/plugin_htmlbar/image_dialog.c:396
 msgid "Cl_ass:"
 msgstr "Klasa:"
 
-#: src/plugin_htmlbar/html.c:831 src/plugin_htmlbar/html.c:1056
-#: src/plugin_htmlbar/html_diag.c:381 src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html.c:848 src/plugin_htmlbar/html.c:1073
+#: src/plugin_htmlbar/html_diag.c:386 src/plugin_htmlbar/html_table.c:96
 #: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
 msgid "St_yle:"
 msgstr "Stil:"
 
-#: src/plugin_htmlbar/html.c:842 src/plugin_htmlbar/html.c:1067
-#: src/plugin_htmlbar/html_diag.c:377
+#: src/plugin_htmlbar/html.c:859 src/plugin_htmlbar/html.c:1084
+#: src/plugin_htmlbar/html_diag.c:382
 msgid "_ID:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/html.c:943
+#: src/plugin_htmlbar/html.c:960
 msgid "Horizontal Rule"
 msgstr "Horizontalno pravilo"
 
-#: src/plugin_htmlbar/html.c:954 src/plugin_htmlbar/html.c:1751
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/html.c:971 src/plugin_htmlbar/html.c:1764
+#: src/plugin_htmlbar/image.c:495 src/plugin_htmlbar/image_dialog.c:429
 msgid "_Align:"
 msgstr "_Poravnjaj:"
 
-#: src/plugin_htmlbar/html.c:961 src/plugin_htmlbar/html.c:1759
+#: src/plugin_htmlbar/html.c:978 src/plugin_htmlbar/html.c:1772
 #: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:370
 msgid "_Height:"
 msgstr "_Visina:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:967 src/plugin_htmlbar/html.c:1755
+#: src/plugin_htmlbar/html.c:984 src/plugin_htmlbar/html.c:1768
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:361
+#: src/plugin_htmlbar/image.c:453 src/plugin_htmlbar/image_dialog.c:361
 msgid "_Width:"
 msgstr "_Širina:"
 
-#: src/plugin_htmlbar/html.c:970
+#: src/plugin_htmlbar/html.c:987
 msgid "Is _percent"
 msgstr "Je _procenata"
 
-#: src/plugin_htmlbar/html.c:975
+#: src/plugin_htmlbar/html.c:992
 msgid "No _shading"
 msgstr "Bez _senčenja"
 
-#: src/plugin_htmlbar/html.c:1040
+#: src/plugin_htmlbar/html.c:1057
 msgid "Body"
 msgstr "Telo"
 
-#: src/plugin_htmlbar/html.c:1048
+#: src/plugin_htmlbar/html.c:1065
 msgid "Options"
 msgstr "Opcije"
 
-#: src/plugin_htmlbar/html.c:1086
+#: src/plugin_htmlbar/html.c:1103
 msgid "On_Load:"
 msgstr "Pri_učitavanju:"
 
-#: src/plugin_htmlbar/html.c:1094
+#: src/plugin_htmlbar/html.c:1111
 msgid "On_UnLoad:"
 msgstr "Pri_iščitavanju:"
 
-#: src/plugin_htmlbar/html.c:1103
+#: src/plugin_htmlbar/html.c:1120
 msgid "Depreciated options"
 msgstr "Snižene opcije"
 
-#: src/plugin_htmlbar/html.c:1113
+#: src/plugin_htmlbar/html.c:1130
 msgid "Background _Image:"
 msgstr "Pozadinska _slika:"
 
-#: src/plugin_htmlbar/html.c:1120
+#: src/plugin_htmlbar/html.c:1137
 msgid "Back_ground Color:"
 msgstr "Pozadinska boja:"
 
-#: src/plugin_htmlbar/html.c:1126
+#: src/plugin_htmlbar/html.c:1143
 msgid "_Text Color:"
 msgstr "_Boja teksta:"
 
-#: src/plugin_htmlbar/html.c:1132
+#: src/plugin_htmlbar/html.c:1149
 msgid "_Link Color:"
 msgstr "_Boja veze:"
 
-#: src/plugin_htmlbar/html.c:1138
+#: src/plugin_htmlbar/html.c:1155
 msgid "_Visited Link Color:"
 msgstr "_Boja posećene veze:"
 
-#: src/plugin_htmlbar/html.c:1144
+#: src/plugin_htmlbar/html.c:1161
 msgid "_Active Link Color:"
 msgstr "_Boja aktivne veze:"
 
-#: src/plugin_htmlbar/html.c:1196
+#: src/plugin_htmlbar/html.c:1213
 msgid "Meta"
 msgstr "Meta"
 
-#: src/plugin_htmlbar/html.c:1212
+#: src/plugin_htmlbar/html.c:1229
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: src/plugin_htmlbar/html.c:1217
+#: src/plugin_htmlbar/html.c:1234
 msgid "Con_tent:"
 msgstr "Sadr_žaj:"
 
-#: src/plugin_htmlbar/html.c:1225
+#: src/plugin_htmlbar/html.c:1242
 msgid "_Scheme:"
 msgstr "_Šema:"
 
-#: src/plugin_htmlbar/html.c:1306
+#: src/plugin_htmlbar/html.c:1320
 msgid "Font"
 msgstr "Slova"
 
-#: src/plugin_htmlbar/html.c:1309
+#: src/plugin_htmlbar/html.c:1323
 msgid "Base Font"
 msgstr "Osnovna slova"
 
-#: src/plugin_htmlbar/html.c:1324
+#: src/plugin_htmlbar/html.c:1338
 msgid "Size"
 msgstr "Veličina"
 
-#: src/plugin_htmlbar/html.c:1332
+#: src/plugin_htmlbar/html.c:1346
 msgid "Color"
 msgstr "Boja"
 
-#: src/plugin_htmlbar/html.c:1337
+#: src/plugin_htmlbar/html.c:1351
 msgid "Face"
 msgstr "Lice"
 
-#: src/plugin_htmlbar/html.c:1341
+#: src/plugin_htmlbar/html.c:1355
 msgid "Custom"
 msgstr "Domaći"
 
-#: src/plugin_htmlbar/html.c:1425
+#: src/plugin_htmlbar/html.c:1438
 #, fuzzy
 msgid "E-mail"
 msgstr "E-pošta"
 
-#: src/plugin_htmlbar/html.c:1433
+#: src/plugin_htmlbar/html.c:1446
 msgid "_Mail to:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1437
+#: src/plugin_htmlbar/html.c:1450
 #, fuzzy
 msgid "_Copy to:"
 msgstr "Kopiraj"
 
-#: src/plugin_htmlbar/html.c:1441
+#: src/plugin_htmlbar/html.c:1454
 msgid "Blin_d copy to:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1445
+#: src/plugin_htmlbar/html.c:1458
 msgid "with _Subject:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1449
+#: src/plugin_htmlbar/html.c:1462
 msgid "with _Body:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1493
+#: src/plugin_htmlbar/html.c:1506
 msgid "Quick List"
 msgstr "Brza lista"
 
-#: src/plugin_htmlbar/html.c:1498 src/plugin_htmlbar/html.c:1580
-#: src/plugin_htmlbar/html_form.c:236
-msgid "_Rows:"
-msgstr "_Redovi:"
+#: src/plugin_htmlbar/html.c:1511 src/plugin_htmlbar/wizards.c:76
+msgid "Number of _rows:"
+msgstr "Broj _redova:"
 
-#: src/plugin_htmlbar/html.c:1501
+#: src/plugin_htmlbar/html.c:1514
 msgid "Or_dered"
 msgstr "Poređano"
 
-#: src/plugin_htmlbar/html.c:1502
+#: src/plugin_htmlbar/html.c:1515
 msgid "_Unordered"
 msgstr "_Bez reda"
 
-#: src/plugin_htmlbar/html.c:1504
+#: src/plugin_htmlbar/html.c:1517
 msgid "Style:"
 msgstr "Stil:"
 
-#: src/plugin_htmlbar/html.c:1576 src/plugin_htmlbar/html_form.c:240
+#: src/plugin_htmlbar/html.c:1589 src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
 msgstr "Kolone:"
 
-#: src/plugin_htmlbar/html.c:1585
+#: src/plugin_htmlbar/html.c:1593 src/plugin_htmlbar/html_form.c:236
+msgid "_Rows:"
+msgstr "_Redovi:"
+
+#: src/plugin_htmlbar/html.c:1598
 msgid "_Add <frame> elements"
 msgstr "_Dodaj<frame> elemente"
 
-#: src/plugin_htmlbar/html.c:1662 src/plugin_htmlbar/html.c:1747
-#: src/plugin_htmlbar/html.c:1806 src/plugin_htmlbar/image_dialog.c:320
+#: src/plugin_htmlbar/html.c:1675 src/plugin_htmlbar/html.c:1760
+#: src/plugin_htmlbar/html.c:1819 src/plugin_htmlbar/image_dialog.c:320
 msgid "_Source:"
 msgstr "_Izvorni kod:"
 
-#: src/plugin_htmlbar/html.c:1670
+#: src/plugin_htmlbar/html.c:1683
 msgid "Margin _Width:"
 msgstr "Dužine _margine:"
 
-#: src/plugin_htmlbar/html.c:1674
+#: src/plugin_htmlbar/html.c:1687
 msgid "Margin _Height:"
 msgstr "Visina _margine:"
 
-#: src/plugin_htmlbar/html.c:1682
+#: src/plugin_htmlbar/html.c:1695
 msgid "Scrollin_g:"
 msgstr "Skrolovanje:"
 
-#: src/plugin_htmlbar/html.c:1686
+#: src/plugin_htmlbar/html.c:1699
 msgid "_Frameborder:"
 msgstr "_Ivica okvira:"
 
-#: src/plugin_htmlbar/html.c:1691
+#: src/plugin_htmlbar/html.c:1704
 msgid "No _Resize:"
 msgstr "Bez _menjanja veličine:"
 
-#: src/plugin_htmlbar/html.c:1741
+#: src/plugin_htmlbar/html.c:1754
 msgid "Embed"
 msgstr "Utisnuti"
 
-#: src/plugin_htmlbar/html.c:1763 src/plugin_htmlbar/html_table.c:140
+#: src/plugin_htmlbar/html.c:1776 src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
 msgstr "Ivica:"
 
-#: src/plugin_htmlbar/html.c:1799
+#: src/plugin_htmlbar/html.c:1812
 msgid "Script"
 msgstr "Skripta"
 
-#: src/plugin_htmlbar/html.c:1828 src/plugin_htmlbar/html.c:1929
+#: src/plugin_htmlbar/html.c:1841 src/plugin_htmlbar/html.c:1942
 #: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
 msgstr "_Tip:"
 
-#: src/plugin_htmlbar/html.c:1887
+#: src/plugin_htmlbar/html.c:1900
 msgid "Link"
 msgstr "Veza"
 
-#: src/plugin_htmlbar/html.c:1904
+#: src/plugin_htmlbar/html.c:1917
 #, fuzzy
 msgid "HREF_LANG:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:1908
+#: src/plugin_htmlbar/html.c:1921
 #, fuzzy
 msgid "T_itle:"
 msgstr "_Naslov:"
 
-#: src/plugin_htmlbar/html.c:1948
+#: src/plugin_htmlbar/html.c:1961
 msgid "_Forward Relation:"
 msgstr "_Odnos u napred:"
 
-#: src/plugin_htmlbar/html.c:1952
+#: src/plugin_htmlbar/html.c:1965
 msgid "_Reverse Relation:"
 msgstr "_Odnos u nazad:"
 
-#: src/plugin_htmlbar/html.c:1963
+#: src/plugin_htmlbar/html.c:1976
 msgid "Media:"
 msgstr "Medija:"
 
-#: src/plugin_htmlbar/html.c:1967
+#: src/plugin_htmlbar/html.c:1980
 msgid "L_ang:"
 msgstr "Jezik:"
 
-#: src/plugin_htmlbar/html.c:1971
+#: src/plugin_htmlbar/html.c:1984
 msgid "_Custom:"
 msgstr "_Lični:"
 
@@ -1934,93 +1937,94 @@ msgstr "_Širina reda:"
 msgid "No Wra_p:"
 msgstr "Bez uređenja:"
 
-#: src/plugin_htmlbar/image.c:287
+#. TODO: use error info in gerror
+#: src/plugin_htmlbar/image.c:290
 #, fuzzy
 msgid "Loading image failed..."
 msgstr "Učitavam datoteke"
 
-#: src/plugin_htmlbar/image.c:359
+#: src/plugin_htmlbar/image.c:362
 #, fuzzy, c-format
 msgid "Loading file %s..."
 msgstr "Učitavam datoteke"
 
-#: src/plugin_htmlbar/image.c:411
+#: src/plugin_htmlbar/image.c:414
 msgid "Insert thumbnail"
 msgstr "Ubaci umanjen prikaz:"
 
-#: src/plugin_htmlbar/image.c:413
+#: src/plugin_htmlbar/image.c:416
 msgid "Insert image"
 msgstr "Ubaci sliku"
 
-#: src/plugin_htmlbar/image.c:419 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:422 src/plugin_htmlbar/image_dialog.c:340
 msgid "Preview"
 msgstr "Pregled"
 
-#: src/plugin_htmlbar/image.c:441
+#: src/plugin_htmlbar/image.c:444
 msgid "_Image location:"
 msgstr "_Lokacija slike:"
 
-#: src/plugin_htmlbar/image.c:457
+#: src/plugin_htmlbar/image.c:460
 msgid "Hei_ght:"
 msgstr "Visina:"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:404
+#: src/plugin_htmlbar/image.c:465 src/plugin_htmlbar/image_dialog.c:404
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
-#: src/plugin_htmlbar/image.c:470
+#: src/plugin_htmlbar/image.c:473
 msgid "Alternate _text:"
 msgstr "Promenljivi _tekst:"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:438
+#: src/plugin_htmlbar/image.c:481 src/plugin_htmlbar/image_dialog.c:438
 msgid "_Hspace:"
 msgstr "_Hprostor:"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:442
+#: src/plugin_htmlbar/image.c:485 src/plugin_htmlbar/image_dialog.c:442
 msgid "_Vspace:"
 msgstr "_Vprostor:"
 
-#: src/plugin_htmlbar/image.c:496
+#: src/plugin_htmlbar/image.c:499
 msgid "Borde_r:"
 msgstr "Ivica:"
 
-#: src/plugin_htmlbar/image.c:879
+#: src/plugin_htmlbar/image.c:882
 msgid "Select files for thumbnail creation"
 msgstr "Izaberite datoteke za umanjen prikaz"
 
-#: src/plugin_htmlbar/image.c:914
+#: src/plugin_htmlbar/image.c:917
 msgid "Scaling (%)"
 msgstr "Srazmera(%)"
 
-#: src/plugin_htmlbar/image.c:918 src/plugin_htmlbar/image.c:926
+#: src/plugin_htmlbar/image.c:921 src/plugin_htmlbar/image.c:929
 msgid "Width"
 msgstr "Širina"
 
-#: src/plugin_htmlbar/image.c:922 src/plugin_htmlbar/image.c:954
+#: src/plugin_htmlbar/image.c:925 src/plugin_htmlbar/image.c:957
 msgid "Height"
 msgstr "Visina"
 
-#: src/plugin_htmlbar/image.c:943
+#: src/plugin_htmlbar/image.c:946
 msgid "Multi thumbnail"
 msgstr "Više umanjenih prikaza"
 
-#: src/plugin_htmlbar/image.c:949
+#: src/plugin_htmlbar/image.c:952
 msgid "By scaling"
 msgstr "Po srazmeri"
 
-#: src/plugin_htmlbar/image.c:950
+#: src/plugin_htmlbar/image.c:953
 msgid "By width, keep aspect ratio"
 msgstr "Po širini zadrži srazmeru"
 
-#: src/plugin_htmlbar/image.c:951
+#: src/plugin_htmlbar/image.c:954
 msgid "By height, keep aspect ratio"
 msgstr "Po visini, zadrži srazmeru"
 
-#: src/plugin_htmlbar/image.c:952
+#: src/plugin_htmlbar/image.c:955
 msgid "By width and height, ignore aspect ratio"
 msgstr "Po širini i visini, ignoriši srazmernost"
 
-#: src/plugin_htmlbar/image.c:976
+#: src/plugin_htmlbar/image.c:979
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2075,7 +2079,7 @@ msgid ""
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:875
+#: src/plugin_htmlbar/image_dialog.c:876
 msgid ""
 "\n"
 "\n"
@@ -2083,18 +2087,18 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:978
+#: src/plugin_htmlbar/image_dialog.c:979
 #, fuzzy
 msgid "Select Image"
 msgstr "Izaberi datoteku "
 
-#: src/plugin_htmlbar/image_dialog.c:986
+#: src/plugin_htmlbar/image_dialog.c:987
 #, fuzzy
 msgid "All images"
 msgstr "Slike"
 
-#: src/plugin_htmlbar/image_dialog.c:1218
-#: src/plugin_htmlbar/image_dialog.c:1330
+#: src/plugin_htmlbar/image_dialog.c:1219
+#: src/plugin_htmlbar/image_dialog.c:1331
 #, fuzzy
 msgid "Insert Image"
 msgstr "Ubaci sliku"
@@ -2179,10 +2183,6 @@ msgstr "U_dokumentu"
 #: src/plugin_htmlbar/wizards.c:68
 msgid "Table Wizard"
 msgstr "Čarobnjak tabela "
-
-#: src/plugin_htmlbar/wizards.c:76
-msgid "Number of _rows:"
-msgstr "Broj _redova:"
 
 #: src/plugin_htmlbar/wizards.c:80
 msgid "Number of colu_mns:"

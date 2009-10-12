@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-09-03 14:44+0200\n"
+"POT-Creation-Date: 2009-10-12 23:49+0200\n"
 "PO-Revision-Date: 2007-08-22 17:11+0200\n"
 "Last-Translator: elve <elve@savage-elve.net>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -36,57 +36,58 @@ msgstr "De %s %s eigenschap bestaat al\n"
 msgid "The %s property already exists.\n"
 msgstr "De %s eigenschap bestaat al\n"
 
-#: src/plugin_htmlbar/html2.c:511
 # c-format
+#: src/plugin_htmlbar/html2.c:511
+#, c-format
 msgid "Update its value from %s to %s?"
 msgstr "Waarde updaten van %s naar %s?"
 
-#: src/plugin_htmlbar/html2.c:637
+#: src/plugin_htmlbar/html2.c:638
 msgid "Cascading Style Sheet Builder"
 msgstr "Cascading Style Sheet Builder"
 
-#: src/plugin_htmlbar/html2.c:657
+#: src/plugin_htmlbar/html2.c:658
 msgid "_Selector:"
 msgstr "Selector:"
 
-#: src/plugin_htmlbar/html2.c:676
+#: src/plugin_htmlbar/html2.c:677
 msgid "_Property:"
 msgstr "Eigenschap:"
 
-#: src/plugin_htmlbar/html2.c:678 src/plugin_htmlbar/html_form.c:650
+#: src/plugin_htmlbar/html2.c:679 src/plugin_htmlbar/html_form.c:650
 #: src/plugin_htmlbar/html_form.c:799 src/plugin_htmlbar/html_form.c:894
 msgid "_Value:"
 msgstr "Waarde:"
 
-#: src/plugin_htmlbar/html2.c:696
+#: src/plugin_htmlbar/html2.c:697
 msgid "Selector"
 msgstr "Selector"
 
-#: src/plugin_htmlbar/html2.c:696 src/plugin_htmlbar/html2.c:699
+#: src/plugin_htmlbar/html2.c:697 src/plugin_htmlbar/html2.c:700
 msgid "Property"
 msgstr "Eigenschap"
 
-#: src/plugin_htmlbar/html2.c:696 src/plugin_htmlbar/html2.c:699
+#: src/plugin_htmlbar/html2.c:697 src/plugin_htmlbar/html2.c:700
 msgid "Value"
 msgstr "Waarde"
 
-#: src/plugin_htmlbar/html2.c:714
+#: src/plugin_htmlbar/html2.c:715
 msgid " _Add "
 msgstr " Toevoegen "
 
-#: src/plugin_htmlbar/html2.c:717
+#: src/plugin_htmlbar/html2.c:718
 msgid " _Update "
 msgstr " Vernieuwen"
 
-#: src/plugin_htmlbar/html2.c:720
+#: src/plugin_htmlbar/html2.c:721
 msgid " _Delete "
 msgstr "Verwĳderen"
 
-#: src/plugin_htmlbar/html2.c:973 src/plugin_htmlbar/html2.c:1010
+#: src/plugin_htmlbar/html2.c:974 src/plugin_htmlbar/html2.c:1011
 msgid "_Style..."
 msgstr "Stĳl..."
 
-#: src/plugin_htmlbar/html2.c:1095
+#: src/plugin_htmlbar/html2.c:1096
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Selecteer kleur"
 
@@ -431,7 +432,8 @@ msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Tags/Speciaal/Munteenheid/Yen teken ¥"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:297
-msgid "/Tags/Special/Currency/_Euro "
+#, fuzzy
+msgid "/Tags/Special/Currency/_Euro €"
 msgstr "/Tags/Speciaal/Munteenheid/Euro teken €"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:298
@@ -1010,7 +1012,7 @@ msgstr "Vet"
 msgid "Italic"
 msgstr "Cursief"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:738 src/plugin_htmlbar/html.c:782
+#: src/plugin_htmlbar/htmlbar_gui.c:738 src/plugin_htmlbar/html.c:799
 msgid "Paragraph"
 msgstr "Alinea"
 
@@ -1089,27 +1091,27 @@ msgid "Emphasis"
 msgstr "Nadruk"
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:791
+#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:808
 msgid "Heading 1"
 msgstr "Kop 1"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:794
+#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:811
 msgid "Heading 2"
 msgstr "Kop 2"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:797
+#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:814
 msgid "Heading 3"
 msgstr "Kop 3"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:800
+#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:817
 msgid "Heading 4"
 msgstr "Kop 4"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:764 src/plugin_htmlbar/html.c:803
+#: src/plugin_htmlbar/htmlbar_gui.c:764 src/plugin_htmlbar/html.c:820
 msgid "Heading 5"
 msgstr "Kop 5"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:765 src/plugin_htmlbar/html.c:806
+#: src/plugin_htmlbar/htmlbar_gui.c:765 src/plugin_htmlbar/html.c:823
 msgid "Heading 6"
 msgstr "Kop 6"
 
@@ -1169,11 +1171,11 @@ msgid "Frame..."
 msgstr "Frame..."
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:783 src/plugin_htmlbar/html.c:1570
+#: src/plugin_htmlbar/htmlbar_gui.c:783 src/plugin_htmlbar/html.c:1583
 msgid "Frameset"
 msgstr "Frameset"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:784 src/plugin_htmlbar/html.c:1654
+#: src/plugin_htmlbar/htmlbar_gui.c:784 src/plugin_htmlbar/html.c:1667
 msgid "Frame"
 msgstr "Frame"
 
@@ -1430,368 +1432,371 @@ msgid "  Unix Date _String (%s)"
 msgstr "Unix datum string (%s)"
 
 #: src/plugin_htmlbar/html.c:443
-#, c-format
-msgid "  ISO-8601 Ti_me (%s)"
+#, fuzzy
+msgid "  ISO-8601 Ti_me "
 msgstr "ISO-8601 Tĳd (%s)"
 
-#: src/plugin_htmlbar/html.c:586
+#: src/plugin_htmlbar/html.c:603
 msgid "Quick Anchor"
 msgstr "Snel anker"
 
-#: src/plugin_htmlbar/html.c:592 src/plugin_htmlbar/html_form.c:780
+#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/html_form.c:780
 msgid "Attributes"
 msgstr "Attributen"
 
-#: src/plugin_htmlbar/html.c:606 src/plugin_htmlbar/html.c:1898
+#: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:1911
 msgid "_HREF:"
 msgstr "HREF:"
 
-#: src/plugin_htmlbar/html.c:610 src/plugin_htmlbar/html_form.c:183
+#: src/plugin_htmlbar/html.c:627 src/plugin_htmlbar/html_form.c:183
 msgid "_Target:"
 msgstr "Doel:"
 
-#: src/plugin_htmlbar/html.c:614 src/plugin_htmlbar/html.c:838
-#: src/plugin_htmlbar/html.c:1203 src/plugin_htmlbar/html.c:1666
+#: src/plugin_htmlbar/html.c:631 src/plugin_htmlbar/html.c:855
+#: src/plugin_htmlbar/html.c:1220 src/plugin_htmlbar/html.c:1679
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:466
+#: src/plugin_htmlbar/image.c:469
 msgid "_Name:"
 msgstr "Naam:"
 
-#: src/plugin_htmlbar/html.c:618 src/plugin_htmlbar/quickstart.c:538
+#: src/plugin_htmlbar/html.c:635 src/plugin_htmlbar/quickstart.c:538
 msgid "Titl_e:"
 msgstr "Titel:"
 
-#: src/plugin_htmlbar/html.c:624 src/plugin_htmlbar/html.c:1071
-#: src/plugin_htmlbar/html.c:1221 src/plugin_htmlbar/html.c:1813
+#: src/plugin_htmlbar/html.c:641 src/plugin_htmlbar/html.c:1088
+#: src/plugin_htmlbar/html.c:1238 src/plugin_htmlbar/html.c:1826
 msgid "_Language:"
 msgstr "Taal:"
 
-#: src/plugin_htmlbar/html.c:628 src/plugin_htmlbar/html.c:846
-#: src/plugin_htmlbar/html.c:980 src/plugin_htmlbar/html.c:1075
-#: src/plugin_htmlbar/html.c:1229 src/plugin_htmlbar/html.c:1602
-#: src/plugin_htmlbar/html.c:1703 src/plugin_htmlbar/html.c:1832
+#: src/plugin_htmlbar/html.c:645 src/plugin_htmlbar/html.c:863
+#: src/plugin_htmlbar/html.c:997 src/plugin_htmlbar/html.c:1092
+#: src/plugin_htmlbar/html.c:1246 src/plugin_htmlbar/html.c:1615
+#: src/plugin_htmlbar/html.c:1716 src/plugin_htmlbar/html.c:1845
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:477
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Custo_m:"
 msgstr "Aangepast:"
 
-#: src/plugin_htmlbar/html.c:631 src/plugin_htmlbar/html.c:1079
+#: src/plugin_htmlbar/html.c:648 src/plugin_htmlbar/html.c:1096
 #: src/plugin_htmlbar/html_form.c:829
 msgid "Events"
 msgstr "Gebeurtenissen"
 
-#: src/plugin_htmlbar/html.c:634
+#: src/plugin_htmlbar/html.c:651
 msgid "OnClic_k:"
 msgstr "OnClick:"
 
-#: src/plugin_htmlbar/html.c:638
+#: src/plugin_htmlbar/html.c:655
 msgid "OnD_blClick:"
 msgstr "OnDblClick:"
 
-#: src/plugin_htmlbar/html.c:642
+#: src/plugin_htmlbar/html.c:659
 msgid "OnMouseO_ver:"
 msgstr "OnMouseOver:"
 
-#: src/plugin_htmlbar/html.c:646
+#: src/plugin_htmlbar/html.c:663
 msgid "OnMouse_Down:"
 msgstr "OnMouseDown:"
 
-#: src/plugin_htmlbar/html.c:650
+#: src/plugin_htmlbar/html.c:667
 msgid "OnMouse_Move:"
 msgstr "OnMouseMove:"
 
-#: src/plugin_htmlbar/html.c:654
+#: src/plugin_htmlbar/html.c:671
 msgid "OnMouseOu_t:"
 msgstr "OnMouseOut:"
 
-#: src/plugin_htmlbar/html.c:658
+#: src/plugin_htmlbar/html.c:675
 msgid "OnMouse_Up:"
 msgstr "OnMouseUp:"
 
-#: src/plugin_htmlbar/html.c:662
+#: src/plugin_htmlbar/html.c:679
 msgid "OnKeyDo_wn:"
 msgstr "OnKeyDown:"
 
-#: src/plugin_htmlbar/html.c:666
+#: src/plugin_htmlbar/html.c:683
 msgid "OnKey_Press:"
 msgstr "OnKeyPress:"
 
-#: src/plugin_htmlbar/html.c:670
+#: src/plugin_htmlbar/html.c:687
 msgid "OnKe_yUp:"
 msgstr "OnKeyUp:"
 
-#: src/plugin_htmlbar/html.c:785
+#: src/plugin_htmlbar/html.c:802
 msgid "Div"
 msgstr "Div"
 
-#: src/plugin_htmlbar/html.c:788
+#: src/plugin_htmlbar/html.c:805
 msgid "Span"
 msgstr "Span"
 
-#: src/plugin_htmlbar/html.c:823 src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html.c:840 src/plugin_htmlbar/html_table.c:109
 #: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
 msgid "Ali_gn:"
 msgstr "Uitlĳnen:"
 
-#: src/plugin_htmlbar/html.c:827 src/plugin_htmlbar/html.c:1063
-#: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html.c:844 src/plugin_htmlbar/html.c:1080
+#: src/plugin_htmlbar/html_diag.c:378 src/plugin_htmlbar/html_table.c:91
 #: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
 #: src/plugin_htmlbar/image_dialog.c:396
 msgid "Cl_ass:"
 msgstr "Klasse:"
 
-#: src/plugin_htmlbar/html.c:831 src/plugin_htmlbar/html.c:1056
-#: src/plugin_htmlbar/html_diag.c:381 src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html.c:848 src/plugin_htmlbar/html.c:1073
+#: src/plugin_htmlbar/html_diag.c:386 src/plugin_htmlbar/html_table.c:96
 #: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
 msgid "St_yle:"
 msgstr "Stĳl:"
 
-#: src/plugin_htmlbar/html.c:842 src/plugin_htmlbar/html.c:1067
-#: src/plugin_htmlbar/html_diag.c:377
+#: src/plugin_htmlbar/html.c:859 src/plugin_htmlbar/html.c:1084
+#: src/plugin_htmlbar/html_diag.c:382
 msgid "_ID:"
 msgstr "ID:"
 
-#: src/plugin_htmlbar/html.c:943
+#: src/plugin_htmlbar/html.c:960
 msgid "Horizontal Rule"
 msgstr "Horizontale Lĳn"
 
-#: src/plugin_htmlbar/html.c:954 src/plugin_htmlbar/html.c:1751
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/html.c:971 src/plugin_htmlbar/html.c:1764
+#: src/plugin_htmlbar/image.c:495 src/plugin_htmlbar/image_dialog.c:429
 msgid "_Align:"
 msgstr "Uitlĳnen:"
 
-#: src/plugin_htmlbar/html.c:961 src/plugin_htmlbar/html.c:1759
+#: src/plugin_htmlbar/html.c:978 src/plugin_htmlbar/html.c:1772
 #: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:370
 msgid "_Height:"
 msgstr "Hoogte:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:967 src/plugin_htmlbar/html.c:1755
+#: src/plugin_htmlbar/html.c:984 src/plugin_htmlbar/html.c:1768
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:361
+#: src/plugin_htmlbar/image.c:453 src/plugin_htmlbar/image_dialog.c:361
 msgid "_Width:"
 msgstr "Breedte:"
 
-#: src/plugin_htmlbar/html.c:970
+#: src/plugin_htmlbar/html.c:987
 msgid "Is _percent"
 msgstr "Percentage?"
 
-#: src/plugin_htmlbar/html.c:975
+#: src/plugin_htmlbar/html.c:992
 msgid "No _shading"
 msgstr "Geen schaduw"
 
-#: src/plugin_htmlbar/html.c:1040
+#: src/plugin_htmlbar/html.c:1057
 msgid "Body"
 msgstr "Body"
 
-#: src/plugin_htmlbar/html.c:1048
+#: src/plugin_htmlbar/html.c:1065
 msgid "Options"
 msgstr "Opties"
 
-#: src/plugin_htmlbar/html.c:1086
+#: src/plugin_htmlbar/html.c:1103
 msgid "On_Load:"
 msgstr "On Load:"
 
-#: src/plugin_htmlbar/html.c:1094
+#: src/plugin_htmlbar/html.c:1111
 msgid "On_UnLoad:"
 msgstr "On UnLoad:"
 
-#: src/plugin_htmlbar/html.c:1103
+#: src/plugin_htmlbar/html.c:1120
 msgid "Depreciated options"
 msgstr "Verouderde opties"
 
-#: src/plugin_htmlbar/html.c:1113
+#: src/plugin_htmlbar/html.c:1130
 msgid "Background _Image:"
 msgstr "Achtergrond Afbeelding:"
 
-#: src/plugin_htmlbar/html.c:1120
+#: src/plugin_htmlbar/html.c:1137
 msgid "Back_ground Color:"
 msgstr "Achtergrond-kleur:"
 
-#: src/plugin_htmlbar/html.c:1126
+#: src/plugin_htmlbar/html.c:1143
 msgid "_Text Color:"
 msgstr "Kleur van tekst:"
 
-#: src/plugin_htmlbar/html.c:1132
+#: src/plugin_htmlbar/html.c:1149
 msgid "_Link Color:"
 msgstr "Kleur van Link:"
 
-#: src/plugin_htmlbar/html.c:1138
+#: src/plugin_htmlbar/html.c:1155
 msgid "_Visited Link Color:"
 msgstr "Kleur van bezochte link:"
 
-#: src/plugin_htmlbar/html.c:1144
+#: src/plugin_htmlbar/html.c:1161
 msgid "_Active Link Color:"
 msgstr "Kleur van active link:"
 
-#: src/plugin_htmlbar/html.c:1196
+#: src/plugin_htmlbar/html.c:1213
 msgid "Meta"
 msgstr "Meta"
 
-#: src/plugin_htmlbar/html.c:1212
+#: src/plugin_htmlbar/html.c:1229
 msgid "_HTTP-EQUIV:"
 msgstr "HTTP-EQUIV:"
 
-#: src/plugin_htmlbar/html.c:1217
+#: src/plugin_htmlbar/html.c:1234
 msgid "Con_tent:"
 msgstr "Inhoud:"
 
-#: src/plugin_htmlbar/html.c:1225
+#: src/plugin_htmlbar/html.c:1242
 msgid "_Scheme:"
 msgstr "Schema:"
 
-#: src/plugin_htmlbar/html.c:1306
+#: src/plugin_htmlbar/html.c:1320
 msgid "Font"
 msgstr "Lettertype::"
 
-#: src/plugin_htmlbar/html.c:1309
+#: src/plugin_htmlbar/html.c:1323
 msgid "Base Font"
 msgstr "Basis lettergrootte"
 
-#: src/plugin_htmlbar/html.c:1324
+#: src/plugin_htmlbar/html.c:1338
 msgid "Size"
 msgstr "Grootte"
 
-#: src/plugin_htmlbar/html.c:1332
+#: src/plugin_htmlbar/html.c:1346
 msgid "Color"
 msgstr "Kleur"
 
-#: src/plugin_htmlbar/html.c:1337
+#: src/plugin_htmlbar/html.c:1351
 msgid "Face"
 msgstr "Face"
 
-#: src/plugin_htmlbar/html.c:1341
+#: src/plugin_htmlbar/html.c:1355
 msgid "Custom"
 msgstr "Aangepast"
 
-#: src/plugin_htmlbar/html.c:1425
+#: src/plugin_htmlbar/html.c:1438
 msgid "E-mail"
 msgstr "Email"
 
-#: src/plugin_htmlbar/html.c:1433
+#: src/plugin_htmlbar/html.c:1446
 msgid "_Mail to:"
 msgstr "Mailen naar:"
 
-#: src/plugin_htmlbar/html.c:1437
+#: src/plugin_htmlbar/html.c:1450
 msgid "_Copy to:"
 msgstr "Kopieëren naar:"
 
-#: src/plugin_htmlbar/html.c:1441
+#: src/plugin_htmlbar/html.c:1454
 msgid "Blin_d copy to:"
 msgstr "Blinde kopie naar:"
 
-#: src/plugin_htmlbar/html.c:1445
+#: src/plugin_htmlbar/html.c:1458
 msgid "with _Subject:"
 msgstr "met Onderwerp:"
 
-#: src/plugin_htmlbar/html.c:1449
+#: src/plugin_htmlbar/html.c:1462
 msgid "with _Body:"
 msgstr "met Body:"
 
-#: src/plugin_htmlbar/html.c:1493
+#: src/plugin_htmlbar/html.c:1506
 msgid "Quick List"
 msgstr "Snel lĳst"
 
-#: src/plugin_htmlbar/html.c:1498 src/plugin_htmlbar/html.c:1580
-#: src/plugin_htmlbar/html_form.c:236
-msgid "_Rows:"
-msgstr "Rĳen:"
+#: src/plugin_htmlbar/html.c:1511 src/plugin_htmlbar/wizards.c:76
+msgid "Number of _rows:"
+msgstr "Aantal rĳen:"
 
-#: src/plugin_htmlbar/html.c:1501
+#: src/plugin_htmlbar/html.c:1514
 msgid "Or_dered"
 msgstr "Geordend"
 
-#: src/plugin_htmlbar/html.c:1502
+#: src/plugin_htmlbar/html.c:1515
 msgid "_Unordered"
 msgstr "Ongeordend"
 
-#: src/plugin_htmlbar/html.c:1504
+#: src/plugin_htmlbar/html.c:1517
 msgid "Style:"
 msgstr "Stĳl:"
 
-#: src/plugin_htmlbar/html.c:1576 src/plugin_htmlbar/html_form.c:240
+#: src/plugin_htmlbar/html.c:1589 src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
 msgstr "Kolommen:"
 
-#: src/plugin_htmlbar/html.c:1585
+#: src/plugin_htmlbar/html.c:1593 src/plugin_htmlbar/html_form.c:236
+msgid "_Rows:"
+msgstr "Rĳen:"
+
+#: src/plugin_htmlbar/html.c:1598
 msgid "_Add <frame> elements"
 msgstr "<frame> elementen toevoegen"
 
-#: src/plugin_htmlbar/html.c:1662 src/plugin_htmlbar/html.c:1747
-#: src/plugin_htmlbar/html.c:1806 src/plugin_htmlbar/image_dialog.c:320
+#: src/plugin_htmlbar/html.c:1675 src/plugin_htmlbar/html.c:1760
+#: src/plugin_htmlbar/html.c:1819 src/plugin_htmlbar/image_dialog.c:320
 msgid "_Source:"
 msgstr "Bron:"
 
-#: src/plugin_htmlbar/html.c:1670
+#: src/plugin_htmlbar/html.c:1683
 msgid "Margin _Width:"
 msgstr "Marge breedte:"
 
-#: src/plugin_htmlbar/html.c:1674
+#: src/plugin_htmlbar/html.c:1687
 msgid "Margin _Height:"
 msgstr "Marge hoogte:"
 
-#: src/plugin_htmlbar/html.c:1682
+#: src/plugin_htmlbar/html.c:1695
 msgid "Scrollin_g:"
 msgstr "Schuifbalk:"
 
-#: src/plugin_htmlbar/html.c:1686
+#: src/plugin_htmlbar/html.c:1699
 msgid "_Frameborder:"
 msgstr "Framerand:"
 
-#: src/plugin_htmlbar/html.c:1691
+#: src/plugin_htmlbar/html.c:1704
 msgid "No _Resize:"
 msgstr "Frames fixeren:"
 
-#: src/plugin_htmlbar/html.c:1741
+#: src/plugin_htmlbar/html.c:1754
 msgid "Embed"
 msgstr "Multimedia (embed)"
 
-#: src/plugin_htmlbar/html.c:1763 src/plugin_htmlbar/html_table.c:140
+#: src/plugin_htmlbar/html.c:1776 src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
 msgstr "Rand:"
 
-#: src/plugin_htmlbar/html.c:1799
+#: src/plugin_htmlbar/html.c:1812
 msgid "Script"
 msgstr "Script"
 
-#: src/plugin_htmlbar/html.c:1828 src/plugin_htmlbar/html.c:1929
+#: src/plugin_htmlbar/html.c:1841 src/plugin_htmlbar/html.c:1942
 #: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
 msgstr "Type:"
 
-#: src/plugin_htmlbar/html.c:1887
+#: src/plugin_htmlbar/html.c:1900
 msgid "Link"
 msgstr "Link"
 
-#: src/plugin_htmlbar/html.c:1904
+#: src/plugin_htmlbar/html.c:1917
 msgid "HREF_LANG:"
 msgstr "HREF_LANG:"
 
-#: src/plugin_htmlbar/html.c:1908
+#: src/plugin_htmlbar/html.c:1921
 msgid "T_itle:"
 msgstr "Titel:"
 
-#: src/plugin_htmlbar/html.c:1948
+#: src/plugin_htmlbar/html.c:1961
 msgid "_Forward Relation:"
 msgstr "Voorwaartse relatie:"
 
-#: src/plugin_htmlbar/html.c:1952
+#: src/plugin_htmlbar/html.c:1965
 msgid "_Reverse Relation:"
 msgstr "Achterwaartse relatie:"
 
-#: src/plugin_htmlbar/html.c:1963
+#: src/plugin_htmlbar/html.c:1976
 msgid "Media:"
 msgstr "Media:"
 
-#: src/plugin_htmlbar/html.c:1967
+#: src/plugin_htmlbar/html.c:1980
 msgid "L_ang:"
 msgstr "Taal:"
 
-#: src/plugin_htmlbar/html.c:1971
+#: src/plugin_htmlbar/html.c:1984
 msgid "_Custom:"
 msgstr "Aangepast:"
 
@@ -1921,92 +1926,93 @@ msgstr "Aantal samen te voegen rĳen:"
 msgid "No Wra_p:"
 msgstr "Geen omloop:"
 
-#: src/plugin_htmlbar/image.c:287
+#. TODO: use error info in gerror
+#: src/plugin_htmlbar/image.c:290
 msgid "Loading image failed..."
 msgstr "Laden van afbeelding mislukt..."
 
-#: src/plugin_htmlbar/image.c:359
+#: src/plugin_htmlbar/image.c:362
 #, c-format
 msgid "Loading file %s..."
 msgstr "Bestand %s wordt geladen..."
 
-#: src/plugin_htmlbar/image.c:411
+#: src/plugin_htmlbar/image.c:414
 msgid "Insert thumbnail"
 msgstr "Voeg voorbeeldafbeelding in"
 
-#: src/plugin_htmlbar/image.c:413
+#: src/plugin_htmlbar/image.c:416
 msgid "Insert image"
 msgstr "Afbeelding invoegen"
 
-#: src/plugin_htmlbar/image.c:419 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:422 src/plugin_htmlbar/image_dialog.c:340
 msgid "Preview"
 msgstr "Voorbeeld"
 
-#: src/plugin_htmlbar/image.c:441
+#: src/plugin_htmlbar/image.c:444
 msgid "_Image location:"
 msgstr "Locatie van afbeelding:"
 
-#: src/plugin_htmlbar/image.c:457
+#: src/plugin_htmlbar/image.c:460
 msgid "Hei_ght:"
 msgstr "Hoogte:"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:404
+#: src/plugin_htmlbar/image.c:465 src/plugin_htmlbar/image_dialog.c:404
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
-#: src/plugin_htmlbar/image.c:470
+#: src/plugin_htmlbar/image.c:473
 msgid "Alternate _text:"
 msgstr "Alternatieve tekst:"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:438
+#: src/plugin_htmlbar/image.c:481 src/plugin_htmlbar/image_dialog.c:438
 msgid "_Hspace:"
 msgstr "Horizontale ruimte:"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:442
+#: src/plugin_htmlbar/image.c:485 src/plugin_htmlbar/image_dialog.c:442
 msgid "_Vspace:"
 msgstr "Verticale ruimte:"
 
-#: src/plugin_htmlbar/image.c:496
+#: src/plugin_htmlbar/image.c:499
 msgid "Borde_r:"
 msgstr "Rand:"
 
-#: src/plugin_htmlbar/image.c:879
+#: src/plugin_htmlbar/image.c:882
 msgid "Select files for thumbnail creation"
 msgstr "Selecteer bestanden voor voorbeeldafbeelding creatie"
 
-#: src/plugin_htmlbar/image.c:914
+#: src/plugin_htmlbar/image.c:917
 msgid "Scaling (%)"
 msgstr "Schaal  (%)"
 
-#: src/plugin_htmlbar/image.c:918 src/plugin_htmlbar/image.c:926
+#: src/plugin_htmlbar/image.c:921 src/plugin_htmlbar/image.c:929
 msgid "Width"
 msgstr "Breedte"
 
-#: src/plugin_htmlbar/image.c:922 src/plugin_htmlbar/image.c:954
+#: src/plugin_htmlbar/image.c:925 src/plugin_htmlbar/image.c:957
 msgid "Height"
 msgstr "Hoogte"
 
-#: src/plugin_htmlbar/image.c:943
+#: src/plugin_htmlbar/image.c:946
 msgid "Multi thumbnail"
 msgstr "Meervoudige voorbeeldafbeelding"
 
-#: src/plugin_htmlbar/image.c:949
+#: src/plugin_htmlbar/image.c:952
 msgid "By scaling"
 msgstr "Met schaal"
 
-#: src/plugin_htmlbar/image.c:950
+#: src/plugin_htmlbar/image.c:953
 msgid "By width, keep aspect ratio"
 msgstr "Met breedte, behoud verhoudingen"
 
-#: src/plugin_htmlbar/image.c:951
+#: src/plugin_htmlbar/image.c:954
 msgid "By height, keep aspect ratio"
 msgstr "Met hoogte,behoud verhoudingen"
 
-#: src/plugin_htmlbar/image.c:952
+#: src/plugin_htmlbar/image.c:955
 msgid "By width and height, ignore aspect ratio"
 msgstr "Met hoogte en breedte,negeer verhoudingen"
 
-#: src/plugin_htmlbar/image.c:976
+#: src/plugin_htmlbar/image.c:979
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2050,6 +2056,7 @@ msgid ""
 msgstr ""
 "\n"
 "%s"
+
 #: src/plugin_htmlbar/image_dialog.c:778
 #, c-format
 msgid ""
@@ -2059,7 +2066,7 @@ msgstr ""
 "\n"
 "%d x %d pixels"
 
-#: src/plugin_htmlbar/image_dialog.c:875
+#: src/plugin_htmlbar/image_dialog.c:876
 msgid ""
 "\n"
 "\n"
@@ -2071,16 +2078,16 @@ msgstr ""
 "\t<b>Bezig met laden van voorbeeld...</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:978
+#: src/plugin_htmlbar/image_dialog.c:979
 msgid "Select Image"
 msgstr "Selecteer Afbeelding"
 
-#: src/plugin_htmlbar/image_dialog.c:986
+#: src/plugin_htmlbar/image_dialog.c:987
 msgid "All images"
 msgstr "Alle afbeeldingen"
 
-#: src/plugin_htmlbar/image_dialog.c:1218
-#: src/plugin_htmlbar/image_dialog.c:1330
+#: src/plugin_htmlbar/image_dialog.c:1219
+#: src/plugin_htmlbar/image_dialog.c:1331
 msgid "Insert Image"
 msgstr "Afbeelding invoegen"
 
@@ -2151,10 +2158,6 @@ msgstr "Open in nieuw document."
 #: src/plugin_htmlbar/wizards.c:68
 msgid "Table Wizard"
 msgstr "Tabel Wizard"
-
-#: src/plugin_htmlbar/wizards.c:76
-msgid "Number of _rows:"
-msgstr "Aantal rĳen:"
 
 #: src/plugin_htmlbar/wizards.c:80
 msgid "Number of colu_mns:"

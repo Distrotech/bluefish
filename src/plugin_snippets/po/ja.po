@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-09-03 14:44+0200\n"
+"POT-Creation-Date: 2009-10-12 23:50+0200\n"
 "PO-Revision-Date: 2009-10-03 21:24+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
@@ -18,75 +18,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Basepath: /factory/ja-po/bluefish/bluefish\n"
 
-#: src/plugin_snippets/snippets_gui.c:269
+#: src/plugin_snippets/snippets_gui.c:270
 msgid "Set accelerator key"
 msgstr "ショートカットキーを設定"
 
-#: src/plugin_snippets/snippets_gui.c:301
+#: src/plugin_snippets/snippets_gui.c:302
 msgid "Snippet export filename"
 msgstr "スニペットをエクスポートするファイル名"
 
-#: src/plugin_snippets/snippets_gui.c:310
+#: src/plugin_snippets/snippets_gui.c:311
 msgid "Snippet import filename"
 msgstr "スニペットをインポートするファイル名"
 
-#: src/plugin_snippets/snippets_gui.c:349
+#: src/plugin_snippets/snippets_gui.c:350
 msgid "/_New snippet"
 msgstr "/新規スニペット(_N)"
 
-#: src/plugin_snippets/snippets_gui.c:350
+#: src/plugin_snippets/snippets_gui.c:351
 msgid "/_Edit snippet"
 msgstr "/スニペットを編集(_E)"
 
-#: src/plugin_snippets/snippets_gui.c:351
+#: src/plugin_snippets/snippets_gui.c:352
 msgid "/_Delete snippet"
 msgstr "/スニペットを削除(_D)"
 
-#: src/plugin_snippets/snippets_gui.c:352
+#: src/plugin_snippets/snippets_gui.c:353
 msgid "/Delete branch"
 msgstr "/ブランチを削除"
 
-#: src/plugin_snippets/snippets_gui.c:354
+#: src/plugin_snippets/snippets_gui.c:355
 msgid "/Set snippet _accelerator"
 msgstr "/スニペットのアクセラレータを設定(_A)"
 
-#: src/plugin_snippets/snippets_gui.c:356
+#: src/plugin_snippets/snippets_gui.c:357
 msgid "/Expand all"
 msgstr "/すべて展開"
 
-#: src/plugin_snippets/snippets_gui.c:357
+#: src/plugin_snippets/snippets_gui.c:358
 msgid "/Collapse all"
 msgstr "/全て畳む"
 
-#: src/plugin_snippets/snippets_gui.c:359
+#: src/plugin_snippets/snippets_gui.c:360
 msgid "/Show as menu"
 msgstr "/メニューに表示"
 
-#: src/plugin_snippets/snippets_gui.c:361
+#: src/plugin_snippets/snippets_gui.c:362
 msgid "/Export"
 msgstr "/エキスポート"
 
-#: src/plugin_snippets/snippets_gui.c:362
+#: src/plugin_snippets/snippets_gui.c:363
 msgid "/Import"
 msgstr "/インポート"
 
-#: src/plugin_snippets/snippets_gui.c:478
-msgid "Click the right mouse button to add, edit or delete snippets."
-msgstr "マウスの右ボタンをクリックすると、スニペットを追加、編集、削除できます。"
-
 #: src/plugin_snippets/snippets_gui.c:479
+msgid "Click the right mouse button to add, edit or delete snippets."
+msgstr ""
+"マウスの右ボタンをクリックすると、スニペットを追加、編集、削除できます。"
+
+#: src/plugin_snippets/snippets_gui.c:480
 msgid "Use drag and drop to re-order snippets"
 msgstr "ドラッグ&ドロップでスニペットを並べ替える"
 
-#: src/plugin_snippets/snippets_gui.c:480
+#: src/plugin_snippets/snippets_gui.c:481
 msgid "To exchange snippets with others use import or export"
-msgstr "スニペットを他のものと入れ替えるには、インポートまたはエクスポートを使用してください"
+msgstr ""
+"スニペットを他のものと入れ替えるには、インポートまたはエクスポートを使用して"
+"ください"
 
-#: src/plugin_snippets/snippets_gui.c:638
+#: src/plugin_snippets/snippets_gui.c:639
 msgid "snippets"
 msgstr "スニペット"
 
-#: src/plugin_snippets/snippets_gui.c:669
+#: src/plugin_snippets/snippets_gui.c:670
 msgid "/View/Snippets Menu"
 msgstr "/表示/スニペットメニュー"
 
@@ -135,8 +138,14 @@ msgid "PERL"
 msgstr "PERL形式"
 
 #: src/plugin_snippets/snippets_wizard.c:133
-msgid "Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."
-msgstr "検索、置換するパターンを指定してください。%0, %1, ...%9 をプレースホルダーとして使用し、項目を有効化したときに値を尋ねるようにすることができます。これらのプレースホルダーに適当な名前を付けてください（右側）。"
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right."
+msgstr ""
+"検索、置換するパターンを指定してください。%0, %1, ...%9 をプレースホルダーと"
+"して使用し、項目を有効化したときに値を尋ねるようにすることができます。これら"
+"のプレースホルダーに適当な名前を付けてください（右側）。"
 
 #: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
@@ -167,16 +176,23 @@ msgid "_Use escape chars"
 msgstr "エスケープ文字を使用する(_U)"
 
 #: src/plugin_snippets/snippets_wizard.c:166
-msgid ""
-"Unescape backslash escaped characters such as \\n"
-", \\t etc."
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr ""
-"バックスラッシュでエスケープされた文字 \\n"
-", \\t などのエスケープを外す。"
+"バックスラッシュでエスケープされた文字 \\n, \\t などのエスケープを外す。"
 
 #: src/plugin_snippets/snippets_wizard.c:339
-msgid "The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."
-msgstr "<i>の前</i> の場合、文字列はカーソル位置または、選択範囲の前に挿入されます。<i>の後</i>の場合、文字列はカーソル位置または、選択範囲の後ろに挿入されます。 %0, %1, ...%9 をプレースホルダーとして使用し、項目を有効化したときに値を尋ねるようにすることができます。これらのプレースホルダーに適当な名前を付けてください（右側）。"
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right."
+msgstr ""
+"<i>の前</i> の場合、文字列はカーソル位置または、選択範囲の前に挿入されます。"
+"<i>の後</i>の場合、文字列はカーソル位置または、選択範囲の後ろに挿入されま"
+"す。 %0, %1, ...%9 をプレースホルダーとして使用し、項目を有効化したときに値を"
+"尋ねるようにすることができます。これらのプレースホルダーに適当な名前を付けて"
+"ください（右側）。"
 
 #: src/plugin_snippets/snippets_wizard.c:345
 msgid "<i>Before</i> text"
@@ -229,4 +245,3 @@ msgstr "パターンの検索と置換"
 #: src/plugin_snippets/snippets_wizard.c:753
 msgid "New snippet"
 msgstr "新規スニペット"
-

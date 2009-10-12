@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-09-03 14:44+0200\n"
+"POT-Creation-Date: 2009-10-12 23:50+0200\n"
 "PO-Revision-Date: 2009-09-21 17:46+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
@@ -18,75 +18,77 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/plugin_snippets/snippets_gui.c:269
+#: src/plugin_snippets/snippets_gui.c:270
 msgid "Set accelerator key"
 msgstr "Ezarri bizkortzailea"
 
-#: src/plugin_snippets/snippets_gui.c:301
+#: src/plugin_snippets/snippets_gui.c:302
 msgid "Snippet export filename"
 msgstr "Mozkin fitxategiaren izena esportatzeko"
 
-#: src/plugin_snippets/snippets_gui.c:310
+#: src/plugin_snippets/snippets_gui.c:311
 msgid "Snippet import filename"
 msgstr "Mozkin fitxategiaren izena inportatzeko"
 
-#: src/plugin_snippets/snippets_gui.c:349
+#: src/plugin_snippets/snippets_gui.c:350
 msgid "/_New snippet"
 msgstr "/Mozkin _berria"
 
-#: src/plugin_snippets/snippets_gui.c:350
+#: src/plugin_snippets/snippets_gui.c:351
 msgid "/_Edit snippet"
 msgstr "/_Editatu mozkina"
 
-#: src/plugin_snippets/snippets_gui.c:351
+#: src/plugin_snippets/snippets_gui.c:352
 msgid "/_Delete snippet"
 msgstr "/E_zabatu mozkina"
 
-#: src/plugin_snippets/snippets_gui.c:352
+#: src/plugin_snippets/snippets_gui.c:353
 msgid "/Delete branch"
 msgstr "/Ezabatu adarra"
 
-#: src/plugin_snippets/snippets_gui.c:354
+#: src/plugin_snippets/snippets_gui.c:355
 msgid "/Set snippet _accelerator"
 msgstr "/Ezarri mozkinaren bizkortzailea"
 
-#: src/plugin_snippets/snippets_gui.c:356
+#: src/plugin_snippets/snippets_gui.c:357
 msgid "/Expand all"
 msgstr "/Zabaldu denak"
 
-#: src/plugin_snippets/snippets_gui.c:357
+#: src/plugin_snippets/snippets_gui.c:358
 msgid "/Collapse all"
 msgstr "/Tolestu denak"
 
-#: src/plugin_snippets/snippets_gui.c:359
+#: src/plugin_snippets/snippets_gui.c:360
 msgid "/Show as menu"
 msgstr "/Erakutsi menu gisa"
 
-#: src/plugin_snippets/snippets_gui.c:361
+#: src/plugin_snippets/snippets_gui.c:362
 msgid "/Export"
 msgstr "/Esportatu"
 
-#: src/plugin_snippets/snippets_gui.c:362
+#: src/plugin_snippets/snippets_gui.c:363
 msgid "/Import"
 msgstr "/Inportatu"
 
-#: src/plugin_snippets/snippets_gui.c:478
-msgid "Click the right mouse button to add, edit or delete snippets."
-msgstr "Egin klik saguaren eskuineko botoiarekin mozkinak gehitzeko, editatzeko edo ezabatzeko."
-
 #: src/plugin_snippets/snippets_gui.c:479
+msgid "Click the right mouse button to add, edit or delete snippets."
+msgstr ""
+"Egin klik saguaren eskuineko botoiarekin mozkinak gehitzeko, editatzeko edo "
+"ezabatzeko."
+
+#: src/plugin_snippets/snippets_gui.c:480
 msgid "Use drag and drop to re-order snippets"
 msgstr "Erabili arrastatu eta jaregin mozkinak berrantolatzeko"
 
-#: src/plugin_snippets/snippets_gui.c:480
+#: src/plugin_snippets/snippets_gui.c:481
 msgid "To exchange snippets with others use import or export"
 msgstr "Mozkinak beste batzuekin trukatzeko erabili inportatu edo esportatu"
 
-#: src/plugin_snippets/snippets_gui.c:638
+#: src/plugin_snippets/snippets_gui.c:639
 msgid "snippets"
 msgstr "mozkinak"
 
-#: src/plugin_snippets/snippets_gui.c:669
+#: src/plugin_snippets/snippets_gui.c:670
 msgid "/View/Snippets Menu"
 msgstr "/Ikusi/Mozkinen menua"
 
@@ -140,9 +142,9 @@ msgid ""
 "placeholders to ask for values when you activate this item. Give these "
 "placeholders an appropriate name on the right."
 msgstr ""
-"Zehaztu bilatzeko eta ordezteko eredu bat. %0, %1, ...%5 leku-markak "
-"erabil ditzakezu balioak eskatzeko elementu hau aktibatzen duzunerako. "
-"Eman leku-marka hauei izen egokiak eskuinean."
+"Zehaztu bilatzeko eta ordezteko eredu bat. %0, %1, ...%5 leku-markak erabil "
+"ditzakezu balioak eskatzeko elementu hau aktibatzen duzunerako. Eman leku-"
+"marka hauei izen egokiak eskuinean."
 
 #: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
@@ -174,7 +176,9 @@ msgstr "_Erabili ihes-karaktereak"
 
 #: src/plugin_snippets/snippets_wizard.c:166
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
-msgstr "Jarri ihes-gabeko moduan alderantzizko barra duten ihes-karaktereak \\n, \\t e.a. gisa."
+msgstr ""
+"Jarri ihes-gabeko moduan alderantzizko barra duten ihes-karaktereak \\n, \\t "
+"e.a. gisa."
 
 #: src/plugin_snippets/snippets_wizard.c:339
 msgid ""
@@ -186,9 +190,9 @@ msgid ""
 msgstr ""
 "<i>Aurretik</i> kurtsorearen posizio edo uneko hautapenaren aurretik "
 "txertatuko du testua. <i>Ondoren</i> kurtsorearen posizio edo uneko "
-"hautapenaren ondoren txertatuko du testua. %0, %1, ...%9 leku-markak "
-"erabil ditzakezu balioak eskatzeko elementu hau aktibatzen duzunerako. "
-"Eman leku-marka hauei izen egokiak eskuinean."
+"hautapenaren ondoren txertatuko du testua. %0, %1, ...%9 leku-markak erabil "
+"ditzakezu balioak eskatzeko elementu hau aktibatzen duzunerako. Eman leku-"
+"marka hauei izen egokiak eskuinean."
 
 #: src/plugin_snippets/snippets_wizard.c:345
 msgid "<i>Before</i> text"
@@ -241,4 +245,3 @@ msgstr "Bilatzeko eta ordezteko eredua"
 #: src/plugin_snippets/snippets_wizard.c:753
 msgid "New snippet"
 msgstr "Mozkin berria"
-
