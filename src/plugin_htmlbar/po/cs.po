@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable 1.3.8\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-10-08 19:59+0200\n"
-"PO-Revision-Date: 2009-10-11 16:59+0100\n"
+"POT-Creation-Date: 2009-10-11 21:45+0200\n"
+"PO-Revision-Date: 2009-10-11 21:48+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech translators <diskuze@lists.l10n.cz>\n"
 "MIME-Version: 1.0\n"
@@ -52,8 +52,10 @@ msgstr "_Selektor:"
 msgid "_Property:"
 msgstr "_Vlastnost:"
 
-#: src/plugin_htmlbar/html2.c:679 src/plugin_htmlbar/html_form.c:650
-#: src/plugin_htmlbar/html_form.c:799 src/plugin_htmlbar/html_form.c:894
+#: src/plugin_htmlbar/html2.c:679
+#: src/plugin_htmlbar/html_form.c:650
+#: src/plugin_htmlbar/html_form.c:799
+#: src/plugin_htmlbar/html_form.c:894
 msgid "_Value:"
 msgstr "_Hodnota:"
 
@@ -61,11 +63,13 @@ msgstr "_Hodnota:"
 msgid "Selector"
 msgstr "Selektor"
 
-#: src/plugin_htmlbar/html2.c:697 src/plugin_htmlbar/html2.c:700
+#: src/plugin_htmlbar/html2.c:697
+#: src/plugin_htmlbar/html2.c:700
 msgid "Property"
 msgstr "Vlastnost"
 
-#: src/plugin_htmlbar/html2.c:697 src/plugin_htmlbar/html2.c:700
+#: src/plugin_htmlbar/html2.c:697
+#: src/plugin_htmlbar/html2.c:700
 msgid "Value"
 msgstr "Hodnota"
 
@@ -81,7 +85,8 @@ msgstr " _Aktualizovat"
 msgid " _Delete "
 msgstr " _Smazat"
 
-#: src/plugin_htmlbar/html2.c:974 src/plugin_htmlbar/html2.c:1011
+#: src/plugin_htmlbar/html2.c:974
+#: src/plugin_htmlbar/html2.c:1011
 msgid "_Style..."
 msgstr "_Styl…"
 
@@ -430,7 +435,7 @@ msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Značky/Speciální/Měna/_Yen ¥"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:297
-msgid "/Tags/Special/Currency/_Euro "
+msgid "/Tags/Special/Currency/_Euro €"
 msgstr "/Značky/Speciální/Měna/_Euro €"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:298
@@ -1009,7 +1014,8 @@ msgstr "Tučné"
 msgid "Italic"
 msgstr "Kurzíva"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:738 src/plugin_htmlbar/html.c:799
+#: src/plugin_htmlbar/htmlbar_gui.c:738
+#: src/plugin_htmlbar/html.c:799
 msgid "Paragraph"
 msgstr "Odstavec"
 
@@ -1088,27 +1094,33 @@ msgid "Emphasis"
 msgstr "Zvýrazněné"
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:808
+#: src/plugin_htmlbar/htmlbar_gui.c:760
+#: src/plugin_htmlbar/html.c:808
 msgid "Heading 1"
 msgstr "Nadpis 1"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:811
+#: src/plugin_htmlbar/htmlbar_gui.c:761
+#: src/plugin_htmlbar/html.c:811
 msgid "Heading 2"
 msgstr "Nadpis 2"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:814
+#: src/plugin_htmlbar/htmlbar_gui.c:762
+#: src/plugin_htmlbar/html.c:814
 msgid "Heading 3"
 msgstr "Nadpis 3"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:817
+#: src/plugin_htmlbar/htmlbar_gui.c:763
+#: src/plugin_htmlbar/html.c:817
 msgid "Heading 4"
 msgstr "Nadpis 4"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:764 src/plugin_htmlbar/html.c:820
+#: src/plugin_htmlbar/htmlbar_gui.c:764
+#: src/plugin_htmlbar/html.c:820
 msgid "Heading 5"
 msgstr "Nadpis 5"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:765 src/plugin_htmlbar/html.c:823
+#: src/plugin_htmlbar/htmlbar_gui.c:765
+#: src/plugin_htmlbar/html.c:823
 msgid "Heading 6"
 msgstr "Nadpis 6"
 
@@ -1134,19 +1146,23 @@ msgid "Table Data..."
 msgstr "Data tabulky …"
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:773 src/plugin_htmlbar/html_table.c:77
+#: src/plugin_htmlbar/htmlbar_gui.c:773
+#: src/plugin_htmlbar/html_table.c:77
 msgid "Table"
 msgstr "Tabulka <table>"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:774 src/plugin_htmlbar/html_table.c:209
+#: src/plugin_htmlbar/htmlbar_gui.c:774
+#: src/plugin_htmlbar/html_table.c:209
 msgid "Table Row"
 msgstr "Řádek tabulky <tr>"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:775 src/plugin_htmlbar/html_table.c:320
+#: src/plugin_htmlbar/htmlbar_gui.c:775
+#: src/plugin_htmlbar/html_table.c:320
 msgid "Table Header"
 msgstr "Záhlaví tabulky <th>"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:776 src/plugin_htmlbar/html_table.c:318
+#: src/plugin_htmlbar/htmlbar_gui.c:776
+#: src/plugin_htmlbar/html_table.c:318
 msgid "Table Data"
 msgstr "Data tabulky <td>"
 
@@ -1168,11 +1184,13 @@ msgid "Frame..."
 msgstr "Rám…"
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:783 src/plugin_htmlbar/html.c:1583
+#: src/plugin_htmlbar/htmlbar_gui.c:783
+#: src/plugin_htmlbar/html.c:1583
 msgid "Frameset"
 msgstr "Sada rámů <frameset>"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:784 src/plugin_htmlbar/html.c:1667
+#: src/plugin_htmlbar/htmlbar_gui.c:784
+#: src/plugin_htmlbar/html.c:1667
 msgid "Frame"
 msgstr "Rám <frame>"
 
@@ -1252,7 +1270,8 @@ msgstr "Seznam definic"
 msgid "Definition Term"
 msgstr "Termín definice"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:804 src/plugin_htmlbar/htmlbar_gui.c:813
+#: src/plugin_htmlbar/htmlbar_gui.c:804
+#: src/plugin_htmlbar/htmlbar_gui.c:813
 msgid "Definition"
 msgstr "Definice"
 
@@ -1268,7 +1287,8 @@ msgstr "Segment…"
 msgid "Div..."
 msgstr "Blok…"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:808 src/plugin_htmlbar/html_form.c:825
+#: src/plugin_htmlbar/htmlbar_gui.c:808
+#: src/plugin_htmlbar/html_form.c:825
 msgid "Style"
 msgstr "Styl"
 
@@ -1436,48 +1456,67 @@ msgstr "  Čas dle _ISO-8601 "
 msgid "Quick Anchor"
 msgstr "Kotva <a>"
 
-#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/html_form.c:780
+#: src/plugin_htmlbar/html.c:609
+#: src/plugin_htmlbar/html_form.c:780
 msgid "Attributes"
 msgstr "Atributy"
 
-#: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:1911
+#: src/plugin_htmlbar/html.c:623
+#: src/plugin_htmlbar/html.c:1911
 msgid "_HREF:"
 msgstr "Odkaz (_href):"
 
-#: src/plugin_htmlbar/html.c:627 src/plugin_htmlbar/html_form.c:183
+#: src/plugin_htmlbar/html.c:627
+#: src/plugin_htmlbar/html_form.c:183
 msgid "_Target:"
 msgstr "_Cíl (target):"
 
-#: src/plugin_htmlbar/html.c:631 src/plugin_htmlbar/html.c:855
-#: src/plugin_htmlbar/html.c:1220 src/plugin_htmlbar/html.c:1679
-#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
-#: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
+#: src/plugin_htmlbar/html.c:631
+#: src/plugin_htmlbar/html.c:855
+#: src/plugin_htmlbar/html.c:1220
+#: src/plugin_htmlbar/html.c:1679
+#: src/plugin_htmlbar/html_form.c:231
+#: src/plugin_htmlbar/html_form.c:596
+#: src/plugin_htmlbar/html_form.c:795
+#: src/plugin_htmlbar/html_form.c:890
 #: src/plugin_htmlbar/image.c:469
 msgid "_Name:"
 msgstr "_Název (name):"
 
-#: src/plugin_htmlbar/html.c:635 src/plugin_htmlbar/quickstart.c:538
+#: src/plugin_htmlbar/html.c:635
+#: src/plugin_htmlbar/quickstart.c:538
 msgid "Titl_e:"
 msgstr "Titulek (titl_e):"
 
-#: src/plugin_htmlbar/html.c:641 src/plugin_htmlbar/html.c:1088
-#: src/plugin_htmlbar/html.c:1238 src/plugin_htmlbar/html.c:1826
+#: src/plugin_htmlbar/html.c:641
+#: src/plugin_htmlbar/html.c:1088
+#: src/plugin_htmlbar/html.c:1238
+#: src/plugin_htmlbar/html.c:1826
 msgid "_Language:"
 msgstr "_Jazyk (language):"
 
-#: src/plugin_htmlbar/html.c:645 src/plugin_htmlbar/html.c:863
-#: src/plugin_htmlbar/html.c:997 src/plugin_htmlbar/html.c:1092
-#: src/plugin_htmlbar/html.c:1246 src/plugin_htmlbar/html.c:1615
-#: src/plugin_htmlbar/html.c:1716 src/plugin_htmlbar/html.c:1845
-#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
-#: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
-#: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:477
+#: src/plugin_htmlbar/html.c:645
+#: src/plugin_htmlbar/html.c:863
+#: src/plugin_htmlbar/html.c:997
+#: src/plugin_htmlbar/html.c:1092
+#: src/plugin_htmlbar/html.c:1246
+#: src/plugin_htmlbar/html.c:1615
+#: src/plugin_htmlbar/html.c:1716
+#: src/plugin_htmlbar/html.c:1845
+#: src/plugin_htmlbar/html_form.c:187
+#: src/plugin_htmlbar/html_form.c:243
+#: src/plugin_htmlbar/html_form.c:609
+#: src/plugin_htmlbar/html_form.c:903
+#: src/plugin_htmlbar/html_table.c:101
+#: src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:361
+#: src/plugin_htmlbar/image.c:477
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Custo_m:"
 msgstr "_Vlastní:"
 
-#: src/plugin_htmlbar/html.c:648 src/plugin_htmlbar/html.c:1096
+#: src/plugin_htmlbar/html.c:648
+#: src/plugin_htmlbar/html.c:1096
 #: src/plugin_htmlbar/html_form.c:829
 msgid "Events"
 msgstr "Události"
@@ -1530,25 +1569,34 @@ msgstr "Blok <div>"
 msgid "Span"
 msgstr "Segment <span>"
 
-#: src/plugin_htmlbar/html.c:840 src/plugin_htmlbar/html_table.c:109
-#: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
+#: src/plugin_htmlbar/html.c:840
+#: src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html_table.c:219
+#: src/plugin_htmlbar/html_table.c:333
 msgid "Ali_gn:"
 msgstr "Zarovnání (ali_gn):"
 
-#: src/plugin_htmlbar/html.c:844 src/plugin_htmlbar/html.c:1080
-#: src/plugin_htmlbar/html_diag.c:378 src/plugin_htmlbar/html_table.c:91
-#: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
+#: src/plugin_htmlbar/html.c:844
+#: src/plugin_htmlbar/html.c:1080
+#: src/plugin_htmlbar/html_diag.c:378
+#: src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html_table.c:237
+#: src/plugin_htmlbar/html_table.c:351
 #: src/plugin_htmlbar/image_dialog.c:396
 msgid "Cl_ass:"
 msgstr "Tříd_a (class):"
 
-#: src/plugin_htmlbar/html.c:848 src/plugin_htmlbar/html.c:1073
-#: src/plugin_htmlbar/html_diag.c:386 src/plugin_htmlbar/html_table.c:96
-#: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
+#: src/plugin_htmlbar/html.c:848
+#: src/plugin_htmlbar/html.c:1073
+#: src/plugin_htmlbar/html_diag.c:386
+#: src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html_table.c:248
+#: src/plugin_htmlbar/html_table.c:356
 msgid "St_yle:"
 msgstr "St_yl (style):"
 
-#: src/plugin_htmlbar/html.c:859 src/plugin_htmlbar/html.c:1084
+#: src/plugin_htmlbar/html.c:859
+#: src/plugin_htmlbar/html.c:1084
 #: src/plugin_htmlbar/html_diag.c:382
 msgid "_ID:"
 msgstr "_Identifikátor (id):"
@@ -1557,20 +1605,27 @@ msgstr "_Identifikátor (id):"
 msgid "Horizontal Rule"
 msgstr "Vodorovná linka <hr>"
 
-#: src/plugin_htmlbar/html.c:971 src/plugin_htmlbar/html.c:1764
-#: src/plugin_htmlbar/image.c:495 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/html.c:971
+#: src/plugin_htmlbar/html.c:1764
+#: src/plugin_htmlbar/image.c:495
+#: src/plugin_htmlbar/image_dialog.c:429
 msgid "_Align:"
 msgstr "Z_arovnání (align):"
 
-#: src/plugin_htmlbar/html.c:978 src/plugin_htmlbar/html.c:1772
-#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:370
+#: src/plugin_htmlbar/html.c:978
+#: src/plugin_htmlbar/html.c:1772
+#: src/plugin_htmlbar/html_table.c:387
+#: src/plugin_htmlbar/image_dialog.c:370
 msgid "_Height:"
 msgstr "_Výška (height):"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:984 src/plugin_htmlbar/html.c:1768
-#: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:453 src/plugin_htmlbar/image_dialog.c:361
+#: src/plugin_htmlbar/html.c:984
+#: src/plugin_htmlbar/html.c:1768
+#: src/plugin_htmlbar/html_table.c:134
+#: src/plugin_htmlbar/html_table.c:380
+#: src/plugin_htmlbar/image.c:453
+#: src/plugin_htmlbar/image_dialog.c:361
 msgid "_Width:"
 msgstr "Šíř_ka (width):"
 
@@ -1694,10 +1749,10 @@ msgstr "_Tělo zprávy:"
 msgid "Quick List"
 msgstr "Rychlý seznam"
 
-#: src/plugin_htmlbar/html.c:1511 src/plugin_htmlbar/html.c:1593
-#: src/plugin_htmlbar/html_form.c:236
-msgid "_Rows:"
-msgstr "Řád_ky (rows):"
+#: src/plugin_htmlbar/html.c:1511
+#: src/plugin_htmlbar/wizards.c:76
+msgid "Number of _rows:"
+msgstr "Počet řád_ků:"
 
 #: src/plugin_htmlbar/html.c:1514
 msgid "Or_dered"
@@ -1711,16 +1766,24 @@ msgstr "_Neřazený"
 msgid "Style:"
 msgstr "Styl:"
 
-#: src/plugin_htmlbar/html.c:1589 src/plugin_htmlbar/html_form.c:240
+#: src/plugin_htmlbar/html.c:1589
+#: src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
 msgstr "S_loupce (cols):"
+
+#: src/plugin_htmlbar/html.c:1593
+#: src/plugin_htmlbar/html_form.c:236
+msgid "_Rows:"
+msgstr "Řád_ky (rows):"
 
 #: src/plugin_htmlbar/html.c:1598
 msgid "_Add <frame> elements"
 msgstr "Přid_at elementy <frame>"
 
-#: src/plugin_htmlbar/html.c:1675 src/plugin_htmlbar/html.c:1760
-#: src/plugin_htmlbar/html.c:1819 src/plugin_htmlbar/image_dialog.c:320
+#: src/plugin_htmlbar/html.c:1675
+#: src/plugin_htmlbar/html.c:1760
+#: src/plugin_htmlbar/html.c:1819
+#: src/plugin_htmlbar/image_dialog.c:320
 msgid "_Source:"
 msgstr "_Zdroj (source):"
 
@@ -1748,7 +1811,8 @@ msgstr "Neměnitelné (no_resize):"
 msgid "Embed"
 msgstr "Vložený objekt <embed>"
 
-#: src/plugin_htmlbar/html.c:1776 src/plugin_htmlbar/html_table.c:140
+#: src/plugin_htmlbar/html.c:1776
+#: src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
 msgstr "Rámeček (bo_rder):"
 
@@ -1756,8 +1820,10 @@ msgstr "Rámeček (bo_rder):"
 msgid "Script"
 msgstr "Skript <script>"
 
-#: src/plugin_htmlbar/html.c:1841 src/plugin_htmlbar/html.c:1942
-#: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
+#: src/plugin_htmlbar/html.c:1841
+#: src/plugin_htmlbar/html.c:1942
+#: src/plugin_htmlbar/html_form.c:789
+#: src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
 msgstr "Typ (_type):"
 
@@ -1817,7 +1883,8 @@ msgstr "Textová oblast (textarea)"
 msgid "Select"
 msgstr "Výběr <select>"
 
-#: src/plugin_htmlbar/html_form.c:601 src/plugin_htmlbar/html_form.c:808
+#: src/plugin_htmlbar/html_form.c:601
+#: src/plugin_htmlbar/html_form.c:808
 msgid "Si_ze:"
 msgstr "Velikost (si_ze):"
 
@@ -1829,7 +1896,8 @@ msgstr "Vícenásobný _výběr:"
 msgid "Option"
 msgstr "Volba <option>"
 
-#: src/plugin_htmlbar/html_form.c:654 src/plugin_htmlbar/html_form.c:697
+#: src/plugin_htmlbar/html_form.c:654
+#: src/plugin_htmlbar/html_form.c:697
 msgid "_Label:"
 msgstr "Popisek (_label):"
 
@@ -1889,12 +1957,14 @@ msgstr "Odsazení buňky (cellpadding):"
 msgid "C_ell Spacing:"
 msgstr "Mezery mez buňkami (cellspacing):"
 
-#: src/plugin_htmlbar/html_table.c:123 src/plugin_htmlbar/html_table.c:233
+#: src/plugin_htmlbar/html_table.c:123
+#: src/plugin_htmlbar/html_table.c:233
 #: src/plugin_htmlbar/html_table.c:347
 msgid "_Valign:"
 msgstr "Svislé zarovnání (_valign):"
 
-#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:128
+#: src/plugin_htmlbar/html_table.c:242
 #: src/plugin_htmlbar/html_table.c:392
 msgid "Backgrou_nd Color:"
 msgstr "Barva pozadí (b_gcolor):"
@@ -1937,7 +2007,8 @@ msgstr "Vložení miniatury"
 msgid "Insert image"
 msgstr "Vložení obrázku"
 
-#: src/plugin_htmlbar/image.c:422 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:422
+#: src/plugin_htmlbar/image_dialog.c:340
 msgid "Preview"
 msgstr "Náhled"
 
@@ -1949,7 +2020,8 @@ msgstr "_Umístění obrázku:"
 msgid "Hei_ght:"
 msgstr "_Výška (height):"
 
-#: src/plugin_htmlbar/image.c:465 src/plugin_htmlbar/image_dialog.c:404
+#: src/plugin_htmlbar/image.c:465
+#: src/plugin_htmlbar/image_dialog.c:404
 msgid "_Usemap:"
 msgstr "Použít mapu (_usemap):"
 
@@ -1957,11 +2029,13 @@ msgstr "Použít mapu (_usemap):"
 msgid "Alternate _text:"
 msgstr "Alternativní te_xt (alt):"
 
-#: src/plugin_htmlbar/image.c:481 src/plugin_htmlbar/image_dialog.c:438
+#: src/plugin_htmlbar/image.c:481
+#: src/plugin_htmlbar/image_dialog.c:438
 msgid "_Hspace:"
 msgstr "Vodorovný prostor (_hspace):"
 
-#: src/plugin_htmlbar/image.c:485 src/plugin_htmlbar/image_dialog.c:442
+#: src/plugin_htmlbar/image.c:485
+#: src/plugin_htmlbar/image_dialog.c:442
 msgid "_Vspace:"
 msgstr "Svislý prostor (_vspace):"
 
@@ -1977,11 +2051,13 @@ msgstr "Výběr souborů pro vytvoření miniatur"
 msgid "Scaling (%)"
 msgstr "Měřítko (%)"
 
-#: src/plugin_htmlbar/image.c:921 src/plugin_htmlbar/image.c:929
+#: src/plugin_htmlbar/image.c:921
+#: src/plugin_htmlbar/image.c:929
 msgid "Width"
 msgstr "Šířka"
 
-#: src/plugin_htmlbar/image.c:925 src/plugin_htmlbar/image.c:957
+#: src/plugin_htmlbar/image.c:925
+#: src/plugin_htmlbar/image.c:957
 msgid "Height"
 msgstr "Výška"
 
@@ -2136,7 +2212,8 @@ msgstr "Rychlý start"
 msgid "_DTD:"
 msgstr "_DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:642 src/plugin_htmlbar/wizards.c:186
+#: src/plugin_htmlbar/quickstart.c:642
+#: src/plugin_htmlbar/wizards.c:186
 msgid "_Title:"
 msgstr "_Titulek (_title):"
 
@@ -2151,10 +2228,6 @@ msgstr "Otevřít v _novém dokumentu"
 #: src/plugin_htmlbar/wizards.c:68
 msgid "Table Wizard"
 msgstr "Průvodce tabulkou"
-
-#: src/plugin_htmlbar/wizards.c:76
-msgid "Number of _rows:"
-msgstr "Počet řád_ků:"
 
 #: src/plugin_htmlbar/wizards.c:80
 msgid "Number of colu_mns:"
@@ -2207,3 +2280,4 @@ msgstr "Zdroj:"
 #: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "Velikost:"
+
