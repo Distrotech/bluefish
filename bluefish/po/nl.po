@@ -52,8 +52,8 @@ msgid ""
 "Select the block to sync to other pages. Include the start-of-block and end-"
 "of-block markers in your selection."
 msgstr ""
-"Selecteer het blok dat gesynchroniseerd moet worden, inclusief deblokstart "
-"en blokeinde markeringen"
+"Selecteer het blok dat gesynchroniseerd moet worden, inclusief de blok-start "
+"en blok-einde markeringen"
 
 #: ../src/blocksync.c:93
 msgid "To proceed with the current selection click forward."
@@ -65,7 +65,7 @@ msgid ""
 "start marker</b> in the text below."
 msgstr ""
 "Hieronder is het blok, inclusief the start en eind markering. <b>Selecteer "
-"destart markering</b> in de tekst hieronder."
+"de start markering</b> in de tekst hieronder."
 
 #: ../src/blocksync.c:157
 msgid "Please <b>select the end marker</b> in the text below."
@@ -77,7 +77,8 @@ msgid ""
 "Will replace the text between <i>%s</i> and <i>%s</i> in all documents "
 "opened in this window.\n"
 "<b>Proceed?</b>"
-msgstr ""
+msgstr "Tekst tussen <i>%s</i> en <i>%s</i> zal in alle documenten in dit venster vervangen worden.\n"
+"<b>Doorgaan?</b>"
 
 #: ../src/blocksync.c:226
 msgid ""
@@ -1625,24 +1626,21 @@ msgid "/Document/Character Encoding"
 msgstr "/Document/Karakter Codering"
 
 #: ../src/outputbox.c:227
-#, fuzzy
 msgid "Filename"
-msgstr "Bestandnaam: %s"
+msgstr "Bestandnaam"
 
 #: ../src/outputbox.c:229
-#, fuzzy
 msgid "Line"
-msgstr "Regel #"
+msgstr "Regel"
 
 #: ../src/outputbox.c:231
-#, fuzzy
 msgid "Output"
-msgstr "Uitvoer #"
+msgstr "Uitvoer"
 
 #: ../src/outputbox.c:411
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to compile outputbox pattern %s"
-msgstr "Compileren mislukt van uitvoer vlak patroon %s\n"
+msgstr "Compileren mislukt van uitvoer vlak patroon %s"
 
 #: ../src/preferences.c:275
 msgid "Untitled"
@@ -1946,19 +1944,19 @@ msgstr "Bestands grootte"
 
 #: ../src/preferences.c:1571
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: ../src/preferences.c:1571
 msgid "All except spaces"
-msgstr ""
+msgstr "Alle behalve spaties"
 
 #: ../src/preferences.c:1571
 msgid "All trailing"
-msgstr ""
+msgstr "Alle hangende"
 
 #: ../src/preferences.c:1571
 msgid "All except non-trailing spaces"
-msgstr ""
+msgstr "Alle behalve niet-hangende spaties"
 
 #: ../src/preferences.c:1587
 msgid "Edit preferences"
@@ -1977,18 +1975,16 @@ msgid "Font"
 msgstr "Lettertype"
 
 #: ../src/preferences.c:1618
-#, fuzzy
 msgid "Current line color"
-msgstr "Selecteer kleur"
+msgstr "Actieve regel kleur"
 
 #: ../src/preferences.c:1619
 msgid "Visible whitespace color"
-msgstr ""
+msgstr "Zichtbare witruimte kleur"
 
 #: ../src/preferences.c:1620
-#, fuzzy
 msgid "Show whitespace"
-msgstr "Toon splash-screen"
+msgstr "Toon witruimte"
 
 #: ../src/preferences.c:1621
 msgid "Smart Home/End cursor positioning"
@@ -2146,15 +2142,15 @@ msgstr ""
 
 #: ../src/preferences.c:1727
 msgid "Notebook tab color (doc modified)"
-msgstr ""
+msgstr "Notebook tab kleur (document veranderd)"
 
 #: ../src/preferences.c:1728
 msgid "Notebook tab color (doc loading)"
-msgstr ""
+msgstr "Notebook tab kleur (document laadt)"
 
 #: ../src/preferences.c:1729
 msgid "Notebook tab color (doc error)"
-msgstr ""
+msgstr "Notebook tab kleur (document error)"
 
 #: ../src/preferences.c:1730
 msgid "Document notebook tab position"
@@ -2295,10 +2291,10 @@ msgid "Edit Project"
 msgstr "Project bewerken"
 
 #: ../src/project.c:511
-#, fuzzy, c-format
+# c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
-msgstr[0] "Dit project bevat %d bestanden"
+msgstr[0] "Dit project bevat %d bestand"
 msgstr[1] "Dit project bevat %d bestanden"
 
 #: ../src/project.c:524
@@ -2506,14 +2502,12 @@ msgid "Entire word only"
 msgstr "Alleen gehele woorden"
 
 #: ../src/snr2.c:1656
-#, fuzzy
 msgid "POSIX style regular expression"
-msgstr "Reguliere expressie error: "
+msgstr "POSIX type reguliere expressie"
 
 #: ../src/snr2.c:1657
-#, fuzzy
 msgid "PERL style regular expression"
-msgstr "Reguliere expressie error: "
+msgstr "Perl type reguliere expressie"
 
 #: ../src/snr2.c:1662
 msgid "Uppercase"
@@ -2595,12 +2589,11 @@ msgstr "Alleen resultaat als kast (hoofdletter/kleine letter) identiek is."
 
 #: ../src/snr2.c:1797
 msgid "_Pattern contains escape-sequences"
-msgstr ""
+msgstr "Patroon bevat escape combinaties"
 
 #: ../src/snr2.c:1800
-#, fuzzy
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
-msgstr "Backslash escape karakters weghalen in gevallen zoals \\n, \\t etc."
+msgstr "Patroon bevat backslash escape karakters zoals \\n, \\t etc."
 
 #: ../src/snr2.c:1802
 msgid "_Select matches"
