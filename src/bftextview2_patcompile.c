@@ -636,7 +636,7 @@ void match_set_reference(Tscantable *st, guint16 matchnum, const gchar *referenc
 
 static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang, const gchar *selfhighlight, const gchar *blockhighlight, gint16 context, gint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint16 blockstartpattern, gboolean case_insens, gboolean is_regex
-				, const gchar *reference, gboolean tagclose_from_blockstack) {
+				, gboolean tagclose_from_blockstack) {
 	guint matchnum;
 /* add the match */
 	if (context == nextcontext)
@@ -671,8 +671,6 @@ void compile_existing_match(Tscantable *st,guint16 matchnum, gint16 context) {
 guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *pattern, const gchar *lang, const gchar *selfhighlight, const gchar *blockhighlight
 				, gboolean is_regex,gboolean case_insens, gint16 context, gint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
-				, gboolean autocomplete, const gchar *autocomplete_string, const gchar *autocomplete_append, gint autocomplete_backup_cursor
-				, const gchar *reference
 				, gboolean tagclose_from_blockstack)  {
 	guint16 matchnum;
 
@@ -681,11 +679,8 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *pattern, const gcha
 		return 0;
 	}
 	matchnum = new_match(st, pattern, lang, selfhighlight, blockhighlight, context, nextcontext, starts_block, ends_block, blockstartpattern, case_insens, is_regex
-				, reference, tagclose_from_blockstack);
+				, tagclose_from_blockstack);
 	DBG_PATCOMPILE("add_keyword_to_scanning_table,pattern=%s,starts_block=%d,ends_block=%d,blockstartpattern=%d, context=%d,nextcontext=%d and got matchnum %d\n",pattern, starts_block, ends_block, blockstartpattern,context,nextcontext,matchnum);
-	if (autocomplete) {
-		match_add_autocomp_item(st, matchnum, autocomplete_string, autocomplete_append, autocomplete_backup_cursor);
-	}
 	
 	if (is_regex) {
 		compile_limitedregex_to_DFA(st, pattern, case_insens, matchnum, context);
