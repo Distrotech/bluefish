@@ -210,13 +210,11 @@ typedef struct {
 #endif / *HAVE_LIBENCHANT*/
 } Tcontext;
 
-#ifdef AUTOCOMP_NEW
 typedef struct {
 	gchar *autocomplete_string;
 	guint8 autocomplete_backup_cursor; /* number of characters to backup the cursor after autocompletion (max 256) */
-	guint8 autocomplete; /* whether or not this pattern should be added to the autocompletion; stored in the Tpattern so we can re-use it in another context */
+	 /* guint8 autocomplete;whether or not this pattern should be added to the autocompletion; stored in the Tpattern so we can re-use it in another context */
 } Tpattern_autocomplete;
-#endif
 
 typedef struct {
 	GtkTextTag *selftag; /* the tag used to highlight this pattern */
@@ -224,11 +222,7 @@ typedef struct {
 	the region within the start and end pattern with this tag */
 	gchar *reference; /* the reference data, or NULL. may be inserted in hash tables for multiple keys in multiple contexts */
 	gchar *pattern; /* the pattern itself. stored in the Tpattern so we can re-use it in another context */
-#ifdef AUTOCOMP_NEW
 	GSList *autocomp_items;
-#else
-	gchar *autocomplete_string;
-#endif
 	gchar *selfhighlight; /* a string with the highlight for this pattern. used when re-linking highlights and textstyles 
 							if the user changed any of these in the preferences */
 	gchar *blockhighlight; /* a string for the highlight corresponding to the  blocktag */
@@ -236,17 +230,11 @@ typedef struct {
 	gint16 blockstartpattern; /* the number of the pattern that may start this block, or -1 to end the last started block */
 	gint16 nextcontext; /* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
 			to pop a context of the stack */
-#ifndef AUTOCOMP_NEW
-	guint8 autocomplete_backup_cursor; /* number of characters to backup the cursor after autocompletion (max 256) */
-#endif
 	/* TODO:  all following guint8 entries are booleans that can be combined into a single 8 bits integer with a bitmask */ 
 	guint8 starts_block; /* wether or not this pattern may start a block */
 	guint8 ends_block; /* wether or not this pattern may end a block */
 	guint8 case_insens;
 	guint8 is_regex;
-#ifndef AUTOCOMP_NEW
-	guint8 autocomplete; /* whether or not this pattern should be added to the autocompletion; stored in the Tpattern so we can re-use it in another context */
-#endif
 	guint8 tagclose_from_blockstack; /* this is a generix xml close tag that needs the blockstack to autoclose */
 	/*gboolean may_fold;  not yet used */
 	/*gboolean highlight_other_end; not yet used */

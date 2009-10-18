@@ -566,7 +566,6 @@ void match_autocomplete_reference(Tscantable *st,guint16 matchnum, guint16 conte
 		}
 		g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,g_array_index(st->matches, Tpattern, matchnum).pattern,g_array_index(st->matches, Tpattern, matchnum).reference);
 	}*/
-#ifdef AUTOCOMP_NEW
 	if (g_array_index(st->matches, Tpattern, matchnum).autocomp_items) {
 		GSList *tmpslist = g_array_index(st->matches, Tpattern, matchnum).autocomp_items;
 		GList *list=NULL;
@@ -586,7 +585,7 @@ void match_autocomplete_reference(Tscantable *st,guint16 matchnum, guint16 conte
 		g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
 		g_list_free(list);
 	}
-#else
+#ifdef OLD_AUTOCOMP
 	if (g_array_index(st->matches, Tpattern, matchnum).autocomplete) {
 		GList *list;
 		gchar *tmp;
@@ -616,6 +615,20 @@ void match_autocomplete_reference(Tscantable *st,guint16 matchnum, guint16 conte
 #endif
 }
 
+void match_add_autocomp_item(Tscantable *st, guint16 matchnum, const gchar *autocomplete_string
+										, const gchar *autocomplete_append, guint8 autocomplete_backup_cursor) {
+	Tpattern_autocomplete *pac= g_slice_new(Tpattern_autocomplete);
+	if (autocomplete_string) {
+		pac->autocomplete_string = autocomplete_string;
+	} else if (autocomplete_append) {
+		pac->autocomplete_string = g_strconcat(g_array_index(st->matches, Tpattern, matchnum).pattern, autocomplete_append, NULL);
+	} else {
+		pac->autocomplete_string = g_array_index(st->matches, Tpattern, matchnum).pattern;
+	}
+	pac->autocomplete_backup_cursor = autocomplete_backup_cursor;
+	g_array_index(st->matches, Tpattern, matchnum).autocomp_items = g_slist_prepend(g_array_index(st->matches, Tpattern, matchnum).autocomp_items, pac);
+}
+
 void match_set_reference(Tscantable *st, guint16 matchnum, const gchar *reference) {
 	if (reference)
 		g_array_index(st->matches, Tpattern, matchnum).reference = g_strdup(reference);
@@ -623,7 +636,6 @@ void match_set_reference(Tscantable *st, guint16 matchnum, const gchar *referenc
 
 static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang, const gchar *selfhighlight, const gchar *blockhighlight, gint16 context, gint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint16 blockstartpattern, gboolean case_insens, gboolean is_regex
-				, gboolean autocomplete, const gchar *autocomplete_string, const gchar *autocomplete_append, gint autocomplete_backup_cursor
 				, const gchar *reference, gboolean tagclose_from_blockstack) {
 	guint matchnum;
 /* add the match */
@@ -642,19 +654,7 @@ static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang
 	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
 	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = (gchar *)selfhighlight;
 	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = (gchar *)blockhighlight;
-	g_array_index(st->matches, Tpattern, matchnum).autocomplete = autocomplete;
 	g_array_index(st->matches, Tpattern, matchnum).tagclose_from_blockstack = tagclose_from_blockstack;
-	if (autocomplete) {
-		g_array_index(st->matches, Tpattern, matchnum).autocomplete_backup_cursor = autocomplete_backup_cursor;
-		if (autocomplete_string)
-			g_array_index(st->matches, Tpattern, matchnum).autocomplete_string = g_strdup(autocomplete_string);
-		else if (autocomplete_append)
-			g_array_index(st->matches, Tpattern, matchnum).autocomplete_string = g_strconcat(g_array_index(st->matches, Tpattern, matchnum).pattern, autocomplete_append, NULL);
-	}
-	/*if (selfhighlight)
-		g_array_index(st->matches, Tpattern, matchnum).selftag = langmrg_lookup_tag_highlight(lang, selfhighlight);*/
-	/*if (blockhighlight)
-		g_array_index(st->matches, Tpattern, matchnum).blocktag = langmrg_lookup_tag_highlight(lang, blockhighlight);*/
 	return matchnum;
 }
 
@@ -681,8 +681,12 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *pattern, const gcha
 		return 0;
 	}
 	matchnum = new_match(st, pattern, lang, selfhighlight, blockhighlight, context, nextcontext, starts_block, ends_block, blockstartpattern, case_insens, is_regex
-				, autocomplete, autocomplete_string, autocomplete_append, autocomplete_backup_cursor, reference, tagclose_from_blockstack);
+				, reference, tagclose_from_blockstack);
 	DBG_PATCOMPILE("add_keyword_to_scanning_table,pattern=%s,starts_block=%d,ends_block=%d,blockstartpattern=%d, context=%d,nextcontext=%d and got matchnum %d\n",pattern, starts_block, ends_block, blockstartpattern,context,nextcontext,matchnum);
+	if (autocomplete) {
+		match_add_autocomp_item(st, matchnum, autocomplete_string, autocomplete_append, autocomplete_backup_cursor);
+	}
+	
 	if (is_regex) {
 		compile_limitedregex_to_DFA(st, pattern, case_insens, matchnum, context);
 	} else {
