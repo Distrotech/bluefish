@@ -1189,7 +1189,8 @@ static void bflang_cleanup_scantable(Tbflang *bflang) {
 	for (i=1;i<bflang->st->matches->len;i++) {
 		g_free(g_array_index(bflang->st->matches, Tpattern, i).reference);
 		g_free(g_array_index(bflang->st->matches, Tpattern, i).pattern);
-		g_free(g_array_index(bflang->st->matches, Tpattern, i).autocomplete_string);
+		/* TODO: cleanup autocomplete list */
+/*		g_free(g_array_index(bflang->st->matches, Tpattern, i).autocomplete_string);*/
 		/* we cannot cleanup selfhighlight because there are several tags/elements that
 		use the same string in memory for this value... for example if they are part of
 		the same <group>

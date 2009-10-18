@@ -132,7 +132,16 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 				pattern_id = GPOINTER_TO_INT(g_hash_table_lookup(g_array_index(btv->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).patternhash, string));
 				DBG_AUTOCOMP("got pattern_id=%d\n",pattern_id);
 				if (pattern_id) {
-					backup_chars=g_array_index(btv->bflang->st->matches, Tpattern, pattern_id).autocomplete_backup_cursor;
+					GSList *tmpslist = g_array_index(btv->bflang->st->matches, Tpattern, pattern_id).autocomp_items;
+					/* a pattern MAY have multiple autocomplete items. This code is not efficient iof in the future some 
+					patterns would have many autocomplete items. I don't expect this, so I leave this as it is right now  */
+					while (tmpslist) {
+						Tpattern_autocomplete *pac=tmpslist->data;
+						if (g_strcmp0(string, pac->autocomplete_string)==0) {
+							backup_chars=pac->autocomplete_backup_cursor;
+						}
+						tmpslist = g_slist_next(tmpslist);
+					}
 				}
 			}
 			DBG_AUTOCOMP("acwin_check_keypress: ENTER: insert %s\n",string+strlen(ACWIN(btv->autocomp)->prefix));
@@ -140,7 +149,7 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 			if (backup_chars!=0) { 
 				GtkTextIter iter;
 				gtk_text_buffer_get_iter_at_mark(buffer,&iter,gtk_text_buffer_get_insert(buffer));
-				if (gtk_text_iter_backward_chars(&iter,g_array_index(btv->bflang->st->matches, Tpattern, pattern_id).autocomplete_backup_cursor)) {
+				if (gtk_text_iter_backward_chars(&iter,backup_chars)) {
 					DBG_AUTOCOMP("move cursor %d chars back!\n",backup_chars);
 					gtk_text_buffer_place_cursor(buffer, &iter);
 				}
