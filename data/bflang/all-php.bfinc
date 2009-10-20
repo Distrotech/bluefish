@@ -25027,7 +25027,7 @@ or false.
 <element pattern="include_once" />
 <element pattern="function" autocomplete_append=" () {"  autocomplete_backup_cursor="4" />
 <element pattern="case" autocomplete_append=" :"  autocomplete_backup_cursor="1" />
-<element pattern="default" />
+<element pattern="default" autocomplete_append=":" />
 <element pattern="echo" />
 <element pattern="class" />
 <element pattern="var" />
