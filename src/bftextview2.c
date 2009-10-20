@@ -591,6 +591,7 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
   ((c) == '\t') || \
   ((c) == ' ') || \
   ((c) == 160) || \
+  ((c) == 8239) || \
   ((c) == 12288) || \
   ((c) >= 8192 && (c) <= 8205) \
 )
@@ -628,8 +629,8 @@ static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, G
 				cairo_rel_line_to(cr, 0, 3);
 				cairo_rel_line_to(cr, rect.width - 6, 0);
 				cairo_rel_line_to(cr, 0, -3);
-			} else if (uc == 160 && (trailing || main_v->props.visible_ws_mode !=2)) {
-				/* draw nbsp */
+			} else if ((uc == 160||uc==8239) && (trailing || main_v->props.visible_ws_mode !=2)) {
+				/* draw nbsp (8239= narrow-nbsp)*/
 				cairo_move_to(cr, x + 1, y);
 				cairo_rel_line_to(cr,rect.width - 2, 0);
 			} else if (main_v->props.visible_ws_mode==0 || (main_v->props.visible_ws_mode!=1 &&trailing) ) {
