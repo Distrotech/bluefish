@@ -1109,6 +1109,11 @@ static gboolean bftextview2_key_release_lcb(GtkWidget *widget,GdkEventKey *keven
 	return FALSE; /* we didn't handle all of the event */
 }
 
+/* called for example by doc_reload() */
+void bluefish_text_view_scan_cleanup(BluefishTextView * btv) {
+	cleanup_scanner(btv);
+}
+
 void bluefish_text_view_rescan(BluefishTextView * btv) {
 	DBG_MSG("bluefish_text_view_rescan, btv=%p, lang=%p\n",btv,btv->bflang);
 	cleanup_scanner(btv);
