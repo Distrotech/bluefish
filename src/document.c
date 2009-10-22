@@ -2609,10 +2609,21 @@ void doc_reload(Tdocument *doc, GFileInfo *newfinfo, gboolean warn_user) {
 
  	/* store all bookmark positions, reload them later */
 	bmark_clean_for_doc(doc);
+	bluefish_text_view_scan_cleanup(BLUEFISH_TEXT_VIEW(doc->view));
 	gtk_text_buffer_get_iter_at_mark(doc->buffer,&cursor,gtk_text_buffer_get_insert(doc->buffer));
 	cursorpos = gtk_text_iter_get_line(&cursor);
 	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
 	gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
+	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+	{
+		GSList *tmpslist = gtk_text_iter_get_marks(&itstart);
+		g_print("have %d marks left in the document\n",g_slist_length(tmpslist));
+/*		while(tmpslist) {
+			gtk_text_buffer_delete_mark(doc->buffer,tmpslist->data);
+			tmpslist = g_slist_next(tmpslist);
+		}
+		g_print("done deleting marks\n");
+*/	}
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	bfwin_docs_not_complete(doc->bfwin, TRUE);
 	doc_set_modified(doc,FALSE);
