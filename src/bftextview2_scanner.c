@@ -186,6 +186,9 @@ static void foundblock_unref(Tfoundblock *fblock, GtkTextBuffer *buffer) {
 		gtk_text_buffer_delete_mark(buffer,fblock->end1);
 #ifdef HL_PROFILING
 		hl_profiling.num_marks -=2;
+		if ((fblock->start2==NULL) != (fblock->end2==NULL)) {
+			g_warning("there is a fblock->start2, but not an fblock->end2 !?!?!?!\n");
+		} 
 #endif
 		if (fblock->start2 && fblock->end2) {
 			gtk_text_buffer_delete_mark(buffer,fblock->start2);
@@ -403,6 +406,11 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuff
 		GtkTextIter iter;
 		DBG_BLOCKMATCH("found the matching start of the block\n");
 		/* TODO: see comments in start_of_block how to reduce the number of GtkTextMark's */
+#ifdef HL_PROFILING
+		if (fblock->start2 || fblock->end2) {
+			g_warning("fblock->start2 || fblock->end2, we have a memory leak here!!\n");
+		}
+#endif
 		fblock->start2 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 		fblock->end2 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
 #ifdef HL_PROFILING
@@ -443,9 +451,15 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,GtkText
 			fcontext = g_queue_pop_head(scanning->contextstack);
 			DBG_SCANNING("popped %p, stack len now %d\n",fcontext,g_queue_get_length(scanning->contextstack));
 			DBG_SCANNING("found_context_change, popped context %d from the stack, stack len %d\n",fcontext->context,g_queue_get_length(scanning->contextstack));
+#ifdef HL_PROFILING
+			if (fcontext->end) {
+				/* BUG: this warning is triggered sometimes, this is the place where we leek GtkTextMark's !!!!!!!!!!! */
+				g_warning("fcontext->end != NULL, we have a memory leak here!!!\n");
+			}
+#endif
 			fcontext->end = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 #ifdef HL_PROFILING
-		hl_profiling.num_marks++;
+			hl_profiling.num_marks++;
 #endif
 			if (g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag) {
 				GtkTextIter iter;
