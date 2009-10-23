@@ -585,11 +585,13 @@ static void foundblock_foreach_clear_end_lcb(gpointer data,gpointer user_data) {
 	Tfoundblock *fblock=data;
 	if (fblock) {
 		if (fblock->start2 && fblock->end2) {
+#ifdef DEBUG
 			GtkTextIter iter;/* for debugging */
 			gtk_text_buffer_get_iter_at_mark(GTK_TEXT_BUFFER(user_data), &iter, fblock->start1);
 			DBG_SCANNING("clear end for block that starts at %d",gtk_text_iter_get_offset(&iter));
 			gtk_text_buffer_get_iter_at_mark(GTK_TEXT_BUFFER(user_data), &iter, fblock->start2);
 			DBG_SCANNING(" and the end starts at %d\n",gtk_text_iter_get_offset(&iter));
+#endif
 			gtk_text_buffer_delete_mark(GTK_TEXT_BUFFER(user_data),fblock->start2);
 			gtk_text_buffer_delete_mark(GTK_TEXT_BUFFER(user_data),fblock->end2);
 #ifdef HL_PROFILING
@@ -599,6 +601,17 @@ static void foundblock_foreach_clear_end_lcb(gpointer data,gpointer user_data) {
 			fblock->end2 = NULL;
 		}
 		fblock->foldable = FALSE;
+	}
+}
+
+static void foundcontext_foreach_clear_end_lcb(gpointer data,gpointer user_data) {
+	Tfoundcontext *fcontext=data;
+	if (fcontext && fcontext->end) {
+		gtk_text_buffer_delete_mark(GTK_TEXT_BUFFER(user_data),fcontext->end);
+#ifdef HL_PROFILING
+		hl_profiling.num_marks--;
+#endif
+		fcontext->end = NULL;
 	}
 }
 
@@ -613,12 +626,11 @@ static void reconstruct_stack(BluefishTextView * btv, GtkTextBuffer *buffer, Gtk
 		if (fcontext)
 			scanning->context = fcontext->context;
 		scanning->blockstack = g_queue_copy(fstack->blockstack);
-
 		g_queue_foreach(scanning->blockstack,foundblock_foreach_ref_lcb,NULL);
-		g_queue_foreach(scanning->contextstack,foundcontext_foreach_ref_lcb,NULL);
-		DBG_SCANNING("stack from the cache, contextstack has len %d, blockstack has len %d, context=%d\n",g_queue_get_length(scanning->contextstack),g_queue_get_length(scanning->blockstack),scanning->context);
-
 		g_queue_foreach(scanning->blockstack,foundblock_foreach_clear_end_lcb,buffer);
+		g_queue_foreach(scanning->contextstack,foundcontext_foreach_ref_lcb,NULL);
+		g_queue_foreach(scanning->contextstack,foundcontext_foreach_clear_end_lcb,buffer);
+		DBG_SCANNING("stack from the cache, contextstack has len %d, blockstack has len %d, context=%d\n",g_queue_get_length(scanning->contextstack),g_queue_get_length(scanning->blockstack),scanning->context);
 	} else {
 		DBG_SCANNING("empty stack\n");
 		scanning->contextstack = g_queue_new();
