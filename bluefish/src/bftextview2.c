@@ -39,8 +39,6 @@
 #include "bftextview2_spell.h"
 #endif
 
-#define DBG_DELAYSCANNING g_print
-
 #define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
 /*
 G_PRIORITY_HIGH -100 			Use this for high priority event sources. It is not used within GLib or GTK+.

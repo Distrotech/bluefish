@@ -20,7 +20,7 @@
 
 /*#define MINIMAL_REFCOUNTING*/
 
-#define HL_PROFILING
+/*#define HL_PROFILING*/
 #ifdef HL_PROFILING
 #include <sys/times.h>
 #include <unistd.h>
@@ -258,16 +258,22 @@ void foundstack_free_lcb(gpointer data, gpointer btv) {
 	DBG_FBLOCKREFCOUNT("removing fstack %p, calling foundblock_foreach_unref_lcb\n",fstack);
 #ifndef MINIMAL_REFCOUNTING
 	g_queue_foreach(fstack->blockstack,foundblock_foreach_unref_lcb,btv);
+	DBG_FCONTEXTREFCOUNT("calling foreach unref for contextstack with len %d\n",g_queue_get_length(fstack->contextstack));
 	g_queue_foreach(fstack->contextstack,foundcontext_foreach_unref_lcb,btv);
+	
 	if (fstack->poppedblock)
 		foundblock_unref(fstack->poppedblock, GTK_TEXT_VIEW(btv)->buffer);
-	if (fstack->poppedcontext)
+	if (fstack->poppedcontext) {
+		DBG_FCONTEXTREFCOUNT("calling unref for poppedcontext on %p\n",fstack->poppedcontext);
 		foundcontext_unref(fstack->poppedcontext, GTK_TEXT_VIEW(btv)->buffer);
+	}
 #endif
 	if (fstack->pushedblock)
 		foundblock_unref(fstack->pushedblock, GTK_TEXT_VIEW(btv)->buffer);
-	if (fstack->pushedcontext)
+	if (fstack->pushedcontext) {
+		DBG_FCONTEXTREFCOUNT("calling unref for pushedcontext on %p\n",fstack->pushedcontext);
 		foundcontext_unref(fstack->pushedcontext, GTK_TEXT_VIEW(btv)->buffer);
+	}
 	g_queue_free(fstack->blockstack);
 	g_queue_free(fstack->contextstack);
 	g_slice_free(Tfoundstack,fstack);
@@ -311,8 +317,9 @@ static inline void add_to_scancache(BluefishTextView * btv,GtkTextBuffer *buffer
 #endif
 		if (fcontext == g_queue_peek_head(fstack->contextstack)) {
 			fstack->pushedcontext = fcontext;
-#ifndef MINIMAL_REFCOUNTING
+#ifdef MINIMAL_REFCOUNTING /* with minimal refcounting we *do* refcount a pushedblock, not a poppedblock */
 			fcontext->refcount++;
+			DBG_FCONTEXTREFCOUNT("ref pushedcontext %p, refcount=%d\n",fcontext, fcontext->refcount);
 #endif		
 		} else
 			fstack->poppedcontext = fcontext;
@@ -464,7 +471,7 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,GtkText
 		fcontext->context = pat->nextcontext;
 		g_queue_push_head(scanning->contextstack, fcontext);
 		
-		DBG_FCONTEXTREFCOUNT("refcount for fcontext %p is %d\n",fcontext,fcontext->refcount);
+		DBG_FCONTEXTREFCOUNT("refcount for NEW fcontext %p is %d\n",fcontext,fcontext->refcount);
 		DBG_SCANNING("found_context_change, pushed nextcontext %d onto the stack, stack len %d\n",pat->nextcontext,g_queue_get_length(scanning->contextstack));
 		return fcontext;
 	}
@@ -998,14 +1005,11 @@ void cleanup_scanner(BluefishTextView *btv) {
 	gtk_text_buffer_get_bounds(buffer,&begin,&end);
 	gtk_text_buffer_remove_all_tags(buffer,&begin,&end);
 
-#ifdef HL_PROFILING
-	g_print("cleanup_scanner, BEFORE num_marks=%d, fblock_refcount=%d,fcontext_refcount=%d,fstack_refcount=%d\n",hl_profiling.num_marks,hl_profiling.fblock_refcount,hl_profiling.fcontext_refcount,hl_profiling.fstack_refcount);
-#endif
-
+	g_sequence_foreach(btv->scancache.stackcaches,foundstack_free_lcb,btv);
 	sit1 = g_sequence_get_begin_iter(btv->scancache.stackcaches);
 	if (sit1 && !g_sequence_iter_is_end(sit1)) {
 		sit2 = g_sequence_get_end_iter(btv->scancache.stackcaches);
-		g_sequence_foreach_range(sit1,sit2,foundstack_free_lcb,btv);
+		/*g_sequence_foreach_range(sit1,sit2,foundstack_free_lcb,btv);*/
 		g_sequence_remove_range(sit1,sit2);
 	} else{
 		DBG_SCANNING("cleanup_scanner, no sit1, no cleanup ??\n");
