@@ -2614,23 +2614,14 @@ void doc_reload(Tdocument *doc, GFileInfo *newfinfo, gboolean warn_user) {
 	cursorpos = gtk_text_iter_get_line(&cursor);
 	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
 	gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
-	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-	{
-		GSList *tmpslist = gtk_text_iter_get_marks(&itstart);
-		g_print("have %d marks left in the document\n",g_slist_length(tmpslist));
-/*		while(tmpslist) {
-			gtk_text_buffer_delete_mark(doc->buffer,tmpslist->data);
-			tmpslist = g_slist_next(tmpslist);
-		}
-		g_print("done deleting marks\n");
-*/	}
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	bfwin_docs_not_complete(doc->bfwin, TRUE);
 	doc_set_modified(doc,FALSE);
 	if (doc->fileinfo)
 		g_object_unref(doc->fileinfo);
 	doc->fileinfo = newfinfo;
-	g_object_ref(doc->fileinfo);
+	if (newfinfo)
+		g_object_ref(doc->fileinfo);
 	file_doc_fill_from_uri(doc, doc->uri, doc->fileinfo, cursorpos);
 }
 

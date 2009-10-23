@@ -441,7 +441,7 @@ void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolea
 #ifdef HAVE_LIBENCHANT
 void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check);
 #endif
-
+void bluefish_text_view_scan_cleanup(BluefishTextView * btv);
 void bluefish_text_view_rescan(BluefishTextView * btv);
 void bftextview2_schedule_scanning(BluefishTextView * btv);
 gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter *its, GtkTextIter *ite);
