@@ -25008,6 +25008,7 @@ Returns the coding type used for output compression
 or false.
 </reference></element>
 </group>
+
 <group highlight="php-keyword" autocomplete="1">
 <element pattern="if" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
 <element pattern="else" autocomplete_append=" {" />
@@ -25040,8 +25041,14 @@ or false.
 <element pattern="global" />
 </group>
 <element pattern="[0-9.]+" is_regex="1" highlight="php-value"/>
+<!-- autocompletion does not recognize both TRUE and true unless they are in separate elements.
+	 using case_insens="1" does not add both TRUE and true. -->
 <element pattern="TRUE" autocomplete="1" highlight="php-value"/>
 <element pattern="FALSE" autocomplete="1" highlight="php-value"/>
+<element pattern="false" autocomplete="1" highlight="php-value"/>
+<element pattern="true" autocomplete="1" highlight="php-value"/>
+<element pattern="NULL" autocomplete="1" highlight="php-value"/>
+<element pattern="null" autocomplete="1" highlight="php-value"/>
 <element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
 <element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
@@ -25053,9 +25060,9 @@ or false.
 		<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="php-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
-<element id="php-variable" pattern="$[a-z_][a-z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable"/>
+<element id="php-variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable"/>
 <element pattern="&#34;" highlight="string">
-	<context symbols="\&#34;$ &#9;&#10;&#13;' &lt;&gt;{}[]" highlight="string">
+	<context symbols="\&#34;$ &#9;&#10;&#13;' -&lt;&gt;{}[]" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
 		<element pattern="\$" highlight="string" />
 		<element idref="php-variable" />
