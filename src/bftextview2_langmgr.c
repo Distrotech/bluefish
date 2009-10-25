@@ -176,6 +176,7 @@ static void langmgr_load_default_styles(void) {
 		{"value","#0000FF","","0","0","0",NULL},
 		{"special-value","#0000FF","","1","","0",NULL},
 		{"variable","#990000","","1","0","0",NULL},
+		{"operator","#C86400","","0","0","0",NULL},
 		{"tag","#990099","","1","","0",NULL},
 		{"special-tag","#990000","","1","","0",NULL},
 		{"special-tag2","#005500","","1","","0",NULL},
