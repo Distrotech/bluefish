@@ -300,6 +300,7 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 		{
 			GtkWidget *dialog;
 			dialog = file_chooser_dialog(snw->bfwin, _("Snippet export filename"), GTK_FILE_CHOOSER_ACTION_SAVE, NULL, TRUE, FALSE, "snippets", FALSE);
+			gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(dialog), TRUE);
 			g_signal_connect(dialog, "response", G_CALLBACK(snippets_export_response_lcb), snw);
 			gtk_widget_show_all(dialog);
 		}
