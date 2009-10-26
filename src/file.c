@@ -114,6 +114,20 @@ static void queue_push(Tqueue *queue, gpointer item, void (*activate_func) ()) {
 	queue_run(queue,activate_func);
 	g_static_mutex_unlock(&queue->mutex);
 }
+/* return TRUE if we found the item on the queue, FALSE if we did not find the item */
+static gboolean queue_remove(Tqueue *queue, gpointer item) {
+	GList *curlst = g_list_find(queue->head, item);
+	if (curlst) {
+		g_static_mutex_lock(&queue->mutex);
+		if (curlst == queue->tail)
+			queue->tail = curlst->prev;
+		queue->head = g_list_remove_link(queue->head, curlst);
+		g_list_free_1(curlst);
+		g_static_mutex_unlock(&queue->mutex);
+		return TRUE; 
+	}
+	return FALSE;
+}
 
 /*************************** FILE DELETE ASYNC ******************************/
 typedef struct {
@@ -458,7 +472,14 @@ static void openfile_cleanup(Topenfile *of) {
 	queue_worker_ready(&ofqueue, openfile_run);
 }
 void openfile_cancel(Topenfile *of) {
-	g_cancellable_cancel(of->cancel);
+	if (queue_remove(&ofqueue, of)) {
+		DEBUG_MSG("openfile_cancel %p was removed from queue, call the callback function and cleanup\n", of);
+		of->callback_func(OPENFILE_ERROR_CANCELLED,NULL,NULL,0, of->callback_data);
+		openfile_cleanup(of);
+	} else {
+		DEBUG_MSG("openfile_cancel, call cancel for %p\n",of);
+		g_cancellable_cancel(of->cancel);
+	}
 }
 
 static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data);
@@ -477,8 +498,15 @@ static void openfile_async_mount_lcb(GObject *source_object,GAsyncResult *res,gp
 	gmo=NULL;
 	tmplist = g_list_first(wait_for_mount);
 	while (tmplist) {
-		DEBUG_MSG("push 'wait_for_mount' %p on queue again\n", tmplist->data);
-		queue_push(&ofqueue, tmplist->data, openfile_run);
+		Topenfile *of2=tmplist->data;
+		if (!g_cancellable_is_cancelled(of2->cancel)) {
+			DEBUG_MSG("openfile_async_mount_lcb, push 'wait_for_mount' %p back on queue\n", of2);
+			queue_push(&ofqueue, of2, openfile_run);
+		} else {
+			DEBUG_MSG("openfile_async_mount_lcb, loading %p was cancelled, call callback and cleanup\n", of2);
+			of2->callback_func(OPENFILE_ERROR_CANCELLED,NULL,NULL,0, of2->callback_data);
+			openfile_cleanup(of2);
+		}
 		tmplist=g_list_next(tmplist);
 	}
 	g_list_free(wait_for_mount);
