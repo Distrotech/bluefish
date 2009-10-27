@@ -102,7 +102,7 @@
 </element>
 
 <element pattern="&lt;%" is_regex="1" starts_block="1" highlight="asp-block-tag" mayfold="1">
-	<context symbols=" %():\&#34;\\',&gt;&lt;*+=-/_&#9;&#10;&#13;&#34;\.%">
+	<context symbols=" ():\&#34;\',&gt;&lt;*+=-/_&#9;&#10;&#13;.%">
 &all-vbscript;
 <element pattern="&#34;" highlight="vbs-string">
 	<context symbols="%&#34;" highlight="vbs-string">
