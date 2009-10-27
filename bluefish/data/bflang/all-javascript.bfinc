@@ -495,10 +495,10 @@
 	<!-- having [.-]?[0-9]+ as a value pattern has an unwanted side 
 	effect: the . is matching a patterns and is not seen as a symbol anymore
 	such that substr in w.substr() is not detected anymore	-->
-	<element pattern="[0-9]+" is_regex="1" autocomplete="0"/>
-	<element pattern="[0-9]+\.[0-9]*" is_regex="1" autocomplete="0"/>
+	<element pattern="-?[0-9]+" is_regex="1" autocomplete="0"/>
+	<element pattern="-?\.[0-9]*" is_regex="1" autocomplete="0"/>
 </group>
-<!--this pattern more or less colors everything, so I rmeoved it. -->
+<!--this pattern more or less colors everything, so I removed it. -->
 <!--<element pattern="[a-zA-Z_][a-zA-Z_0-9]*" is_regex="1" highlight="js-variable"/>-->
 <element pattern="&#34;" highlight="js-string">
 	<context symbols="\&#34;" highlight="js-string">
