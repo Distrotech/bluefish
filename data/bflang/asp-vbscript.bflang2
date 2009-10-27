@@ -101,7 +101,7 @@
 	</context>
 </element>
 
-<element pattern="&lt;%" is_regex="1" starts_block="1" highlight="asp-block-tag" mayfold="1">
+<element id="asp-block-start" pattern="&lt;%[=@]?" is_regex="1" starts_block="1" highlight="asp-block-tag" mayfold="1">
 	<context symbols=" ():\&#34;\',&gt;&lt;*+=-/_&#9;&#10;&#13;.%">
 &all-vbscript;
 <element pattern="&#34;" highlight="vbs-string">
@@ -115,13 +115,13 @@
 <element id="vbs-comment" pattern="'" highlight="vbs-comment">
 	<context symbols="%&#10;&#13;" highlight="vbs-comment">
 		<element pattern="[&#10;&#13;]" is_regex="1" highlight="vbs-comment" ends_context="1" />
-		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="&lt;%" mayfold="1"/>
+		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="asp-block-start" mayfold="1"/>
 	</context>
 </element>
 <element id="vbs-rem" pattern="rem " highlight="vbs-comment" case_insens="1">
 	<context symbols="%&#10;&#13;" highlight="vbs-comment">
 		<element pattern="[&#10;&#13;]" is_regex="1" highlight="vbs-comment" ends_context="1" />
-		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="&lt;%" mayfold="1"/>
+		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="asp-block-start" mayfold="1"/>
 	</context>
 </element>
 <group highlight="asp-keyword" autocomplete="1" case_insens="1">
@@ -131,7 +131,7 @@
 	<element pattern="session" />
 </group>
 
-<element pattern="%&gt;" ends_block="1" blockstartelement="&lt;%" highlight="asp-block-tag" mayfold="1" ends_context="1" />
+<element pattern="%&gt;" ends_block="1" blockstartelement="asp-block-start" highlight="asp-block-tag" mayfold="1" ends_context="1" />
 </context>
 </element>
 
