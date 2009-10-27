@@ -37,7 +37,7 @@
 	<highlight name="html-comment" style="comment"  />
 </header>
 <definition>
-<context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;">
+<context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;%">
 <group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" >
 <tag name="html" />
 <tag name="head" />
@@ -83,7 +83,7 @@
 <!-- <element pattern="&lt;script[ &#9;].+javascript.+&gt;" is_regex="1" case_insens="1" highlight="keyword"/> -->
 
 <element pattern="&lt;%" starts_block="1" highlight="region">
-	<context id="vbscript" autocomplete_case_insens="1" symbols=" '&#34;():.,/*-+=&gt;&lt;&amp; &#9;&#10;&#13;" highlight="region">
+	<context id="vbscript" autocomplete_case_insens="1" symbols=" '&#34;():.,/*-+=&gt;&lt;&amp; &#9;&#10;&#13;%" highlight="region">
 		<group autocomplete="1" case_insens="1" highlight="keyword">
 		<element pattern="and" />
 		<element pattern="as" />
