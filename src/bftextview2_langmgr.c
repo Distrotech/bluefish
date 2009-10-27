@@ -567,7 +567,7 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 	if (pattern) xmlFree(pattern);
 	if (id) xmlFree(id);
 	if (idref) xmlFree(idref);
-	if (autocomplete_string) xmlFree(autocomplete_string);
+	/*if (autocomplete_string) xmlFree(autocomplete_string);*/ /* stored in the pattern */
 	if (autocomplete_append) xmlFree(autocomplete_append);
 	/*if (highlight) xmlFree(highlight);*/
 	if (blockstartelement) xmlFree(blockstartelement);
