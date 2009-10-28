@@ -29,7 +29,7 @@
 	<!ENTITY all-html SYSTEM "all-html.bfinc">
 	<!ENTITY all-vbscript SYSTEM "all-vbscript.bfinc">
 ]>
-<bflang name="ASP-VBS" table="40618" contexts="116" matches="6680">
+<bflang name="ASP-VBS" table="13254" contexts="144" matches="2948">
 <header>
 	<mime type="application/x-asp"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -101,7 +101,7 @@
 	</context>
 </element>
 
-<element id="asp-block-start" pattern="&lt;%[=@]?" is_regex="1" starts_block="1" highlight="asp-block-tag" mayfold="1">
+<element id="asp-block-start" pattern="(&lt;%|&lt;%@|&lt;%=)" is_regex="1" starts_block="1" highlight="asp-block-tag" mayfold="1">
 	<context symbols=" ():\&#34;\',&gt;&lt;*+=-/_&#9;&#10;&#13;.%">
 &all-vbscript;
 <element pattern="&#34;" highlight="vbs-string">

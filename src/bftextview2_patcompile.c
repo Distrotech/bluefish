@@ -175,7 +175,7 @@ static void create_state_tables(Tscantable *st, gint16 context, gchar *character
 	and thus newstate==-1 but if one or more characters in one or more states need a new state
 	it will be >0 */
 	identstate = g_array_index(st->contexts, Tcontext, context).identstate;
-	DBG_PATCOMPILE("create_state_tables, started for %d states, pointtoself=%d\n",g_queue_get_length(positions),pointtoself);
+	DBG_PATCOMPILE("create_state_tables started for %d states, pointtoself=%d\n",g_queue_get_length(positions),pointtoself);
 	while (g_queue_get_length(positions)) {
 		pos = GPOINTER_TO_INT(g_queue_pop_head(positions));
 		DBG_PATCOMPILE("working on position %d, identstate=%d\n",pos,identstate);
@@ -228,11 +228,15 @@ static void create_state_tables(Tscantable *st, gint16 context, gchar *character
 						g_array_index(st->table, Ttablerow, pos).row[c] = newstate = st->table->len;
 						DBG_PATCOMPILE("create_state_tables, create newstate %d, pointtoself=%d\n",newstate,pointtoself);
 						g_array_set_size(st->table,st->table->len+1);
-						if (!end_is_symbol)
+						if (!end_is_symbol) {
 							/* normally this memcpy copies the identstate to the current state such that all symbols still point to the
 							startstate but all non-symbols point to the identstate. Only if the last character ITSELF is a symbol, ALL next
 							characters may point to state 0 and make this a valid match and we don't have to copy the identstate  */
+							DBG_PATCOMPILE("create_state_tables, newstate %d does not end on a symbol, init all values equal to the identstate %d\n",newstate,g_array_index(st->contexts, Tcontext, context).identstate);
 							memcpy(g_array_index(st->table, Ttablerow, newstate).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(guint16[NUMSCANCHARS]));
+						} else {
+							DBG_PATCOMPILE("create_state_tables, newstate %d ends on a symbol, so init all values with 0\n",newstate);
+						}
 						g_queue_push_head(newpositions, GINT_TO_POINTER(newstate));
 						if (pointtoself) {
 							guint d;
@@ -375,7 +379,8 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 contex
 						characters[j - 32] = characters[j];
 					}
 				}
-
+				/* BUG: the following code misses a lot of cases where the next state could be a possible 
+				end-state already. For example <%[=@]? does not work */
 				if (regexpart_ends_regex && regexpart[i]!='\0' && regexpart[i+1]=='\0') {
 					gboolean only_symbols=TRUE;
 					/* check if the last character of the regex is a symbol, if so the last state should not
