@@ -231,7 +231,7 @@ static void create_state_tables(Tscantable *st, gint16 context, gchar *character
 						if (!end_is_symbol)
 							/* normally this memcpy copies the identstate to the current state such that all symbols still point to the
 							startstate but all non-symbols point to the identstate. Only if the last character ITSELF is a symbol, ALL next
-							characters may point to state 0 and make this a valid match and we don't have to copy yhr identstate  */
+							characters may point to state 0 and make this a valid match and we don't have to copy the identstate  */
 							memcpy(g_array_index(st->table, Ttablerow, newstate).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(guint16[NUMSCANCHARS]));
 						g_queue_push_head(newpositions, GINT_TO_POINTER(newstate));
 						if (pointtoself) {
@@ -262,9 +262,9 @@ static void merge_queues(GQueue *target, GQueue *src) {
 	DBG_PATCOMPILE("merge queue, target queue has length %d \n",g_queue_get_length(target));
 }
 
-static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean is_complete_regex);
+static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean regexpart_ends_regex);
 
-static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gint *regexpartpos) {
+static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gint *regexpartpos, gboolean regexpart_ends_regex) {
 	gint j=0;
 	gboolean escaped=FALSE;
 	gchar *target;
@@ -282,7 +282,7 @@ static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,gint16 context, 
 			GQueue *newpositions;
 			target[j] = '\0';
 			DBG_PATCOMPILE("at regexpartpos=%d found SUBPATTERN %s\n",*regexpartpos,target);
-			newpositions = process_regex_part(st, target,context, caseinsensitive, inputpositions, FALSE);
+			newpositions = process_regex_part(st, target,context, caseinsensitive, inputpositions, regexpart_ends_regex);
 			merge_queues(mergednewpositions,newpositions);
 			g_queue_free(newpositions);
 			j=0;
@@ -303,8 +303,17 @@ static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,gint16 context, 
 }
 
 /* this function can be called recursively for subpatterns. It gets all current valid states in
-inputpositions, and returns all valid outputstates. */
-static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean is_complete_regex) {
+inputpositions, and returns all valid outputstates.
+
+regexpart_ends_regex is a boolean that is used to set the state for the last character of the regex.
+if the last character of a pattern is a symbol, the states are different. because this function is
+called recursively this is only relevant for the first call.
+BUG: this is not true, for a pattern like <(a|b) the a and b are both end-patterns, but they are handled in a 
+subpattern  
+
+ 
+*/
+static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean regexpart_ends_regex) {
 	gboolean escaped = FALSE;
 	gint i=0;
 	char characters[NUMSCANCHARS];
@@ -327,10 +336,19 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 contex
 				i++;
 			}
 			if (!escaped && regexpart[i] == '(') {
+				gchar *tmp;
+				gboolean subpattern_ends_regex=FALSE;
 				/* a subpattern */
 				DBG_PATCOMPILE("found subpatern start at %d\n",i);
 				i++;
-				newpositions = run_subpatterns(st, regexpart,context, caseinsensitive, positions, &i);
+				tmp = strchr(&regexpart[i], ')');
+				/* BUG: this code doesn't handle an escaped \) sequence */
+				if (tmp) {
+					tmp++;
+					if (*tmp == '\0')
+						subpattern_ends_regex=TRUE;
+				}
+				newpositions = run_subpatterns(st, regexpart,context, caseinsensitive, positions, &i, subpattern_ends_regex);
 				DBG_PATCOMPILE("end of subpatern at %d (%c)\n",i,regexpart[i]);
 			} else {
 				gboolean end_is_symbol=FALSE;
@@ -358,7 +376,7 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 contex
 					}
 				}
 
-				if (is_complete_regex && regexpart[i]!='\0' && regexpart[i+1]=='\0') {
+				if (regexpart_ends_regex && regexpart[i]!='\0' && regexpart[i+1]=='\0') {
 					gboolean only_symbols=TRUE;
 					/* check if the last character of the regex is a symbol, if so the last state should not
 					refer to the identstate for all non-symbols */
