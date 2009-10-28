@@ -1,19 +1,21 @@
-# Galician translation for Bluefish
-# Pikamoku.
-# <pikamoku at gmail dot com>
+# Galician translations for bluefish-unstable package.
+# Copyright (C) 2009 The Bluefish Development Team.
+# This file is distributed under the same license as the bluefish-unstable package.
+# Automatically generated, 2009.
+#Xose M. <pikamoku@gmail.com>, 2009.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish SVN\n"
+"Project-Id-Version: bluefish-unstable 1.3.7\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-10-12 23:49+0200\n"
+"POT-Creation-Date: 2009-10-28 16:35+0100\n"
 "PO-Revision-Date: 2009-09-18 13:21+0100\n"
 "Last-Translator: Xose M. <pikamoku@gmail.com>\n"
 "Language-Team:  <pikamoku@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Galician\n"
-"X-Poedit-Country: SPAIN\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 # src/callbacks.c:166 src/callbacks.c:244
 # src/document.c:649 src/document.c:671 src/document.c:756
@@ -37,12 +39,12 @@ msgstr "Arquivo do proxecto Bluefish"
 
 # src/menu.c:113
 # src/menu.c:113
-#: ../src/bftextview2.c:990
+#: ../src/bftextview2.c:989
 #, fuzzy
 msgid "Collapse all"
 msgstr "Pechar _todos"
 
-#: ../src/bftextview2.c:993
+#: ../src/bftextview2.c:992
 msgid "Expand all"
 msgstr ""
 
@@ -545,47 +547,47 @@ msgstr "¿Voltar  \"%s\" ó estado da última copia gardada?"
 
 # src/callbacks.c:166 src/callbacks.c:244
 # src/document.c:649 src/document.c:671 src/document.c:756
-#: ../src/document.c:2634
+#: ../src/document.c:2636
 msgid "_Unset file name"
 msgstr "_Nome de ficheiro non etablecido"
 
 # src/toolbars.c:152
 # src/toolbars.c:154
-#: ../src/document.c:2634
+#: ../src/document.c:2636
 msgid "_Save"
 msgstr "Gardar"
 
 # src/menu.c:103
 # src/menu.c:102
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:2636
+#: ../src/document.c:2638
 #, c-format
 msgid "File name: %s"
 msgstr "Nome do ficheiro: %s"
 
-#: ../src/document.c:2640
+#: ../src/document.c:2642
 msgid "File disappeared from disk\n"
 msgstr "Arquivo non atopado\n"
 
 # src/html.c:1847
 # src/html.c:1131
-#: ../src/document.c:2659
+#: ../src/document.c:2661
 msgid "_Ignore"
 msgstr "_Ignorar"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
-#: ../src/document.c:2659
+#: ../src/document.c:2661
 msgid "_Reload"
 msgstr "_Voltar a cargar"
 
 # src/menu.c:153
 # src/menu.c:155
-#: ../src/document.c:2659
+#: ../src/document.c:2661
 msgid "Check and reload all documents"
 msgstr "Verificar e recargar todolos documentos"
 
-#: ../src/document.c:2667
+#: ../src/document.c:2669
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -598,74 +600,74 @@ msgstr ""
 "Data modificación recente: %s\n"
 "Data modificación anterior: %s"
 
-#: ../src/document.c:2671
+#: ../src/document.c:2673
 msgid "File has been modified by another process\n"
 msgstr "O ficheiro foi modificado por outro proceso.\n"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2736
 msgid "_Retry"
 msgstr "_Retentar"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2736
 msgid "Retry _all failed"
 msgstr "Tentar todo fallou"
 
 # src/callbacks.c:1290 src/toolbars.c:156
 # src/callbacks.c:313 src/toolbars.c:158
-#: ../src/document.c:2734
+#: ../src/document.c:2736
 msgid "_Close"
 msgstr "Pechar"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2736
 msgid "Close all _failed"
 msgstr "Fallou PecharTodo."
 
 # src/callbacks.c:579
 # src/project.c:165
-#: ../src/document.c:2738
+#: ../src/document.c:2740
 msgid "File "
 msgstr "Arquivo"
 
-#: ../src/document.c:2738
+#: ../src/document.c:2740
 msgid " failed to load."
 msgstr " fallou a carga"
 
-#: ../src/document.c:2742
+#: ../src/document.c:2744
 msgid "File failed to load\n"
 msgstr "Fallou  a carga do ficheiro\n"
 
 # src/callbacks.c:581 src/configure.c:226
 # src/menu.c:482
-#: ../src/document.c:2862
+#: ../src/document.c:2864
 msgid "Select file to insert"
 msgstr "Elexir ficheiro a insertar"
 
 # src/callbacks.c:581 src/configure.c:226
 # src/menu.c:482
-#: ../src/document.c:2870
+#: ../src/document.c:2872
 msgid "No file to insert"
 msgstr "Ningún ficheiro para insertar"
 
-#: ../src/document.c:3010
+#: ../src/document.c:3012
 #, c-format
 msgid "Statistics: "
 msgstr "Estatísticas:"
 
-#: ../src/document.c:3011
+#: ../src/document.c:3013
 #, fuzzy, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d liña"
 msgstr[1] "%d liña"
 
-#: ../src/document.c:3012
+#: ../src/document.c:3014
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d palabra"
 msgstr[1] "%d palabra"
 
-#: ../src/document.c:3013
+#: ../src/document.c:3015
 #, fuzzy, c-format
 msgid "%d character"
 msgid_plural "%d characters"
@@ -869,46 +871,46 @@ msgstr "Borrar Filtro"
 msgid "New filter"
 msgstr "Novo Filtro"
 
-#: ../src/file.c:709
+#: ../src/file.c:737
 #, fuzzy, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "Cargando %d ficheiros, rematado %s"
 msgstr[1] "Cargando %d ficheiros, rematado %s"
 
-#: ../src/file.c:714
+#: ../src/file.c:742
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "Todolos ficheiros cargados, cargados %s"
 
 # src/menu.c:152
 # src/menu.c:154
-#: ../src/file.c:900
+#: ../src/file.c:928
 #, fuzzy, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
 msgstr[0] "%d documento aberto."
 msgstr[1] "%d documento aberto."
 
-#: ../src/file.c:902
+#: ../src/file.c:930
 msgid "Advanced open: Finished searching files. "
 msgstr "Selector avanzado de ficheiros"
 
-#: ../src/file.c:1155
+#: ../src/file.c:1183
 msgid "_Skip"
 msgstr "_Omitir"
 
-#: ../src/file.c:1155 ../src/file_dialogs.c:592 ../src/file_dialogs.c:613
+#: ../src/file.c:1183 ../src/file_dialogs.c:592 ../src/file_dialogs.c:613
 #: ../src/project.c:242
 msgid "_Overwrite"
 msgstr "_Sobreescribir"
 
-#: ../src/file.c:1159
+#: ../src/file.c:1187
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s non se pode copiar, xa existe,...¿sobreescribilo?"
 
-#: ../src/file.c:1163
+#: ../src/file.c:1191
 msgid "Overwrite file?"
 msgstr "_Sobreescribir?"
 

@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 1.3.7\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-10-12 23:49+0200\n"
-"PO-Revision-Date: 2009-10-05 13:41+0200 \n"
+"POT-Creation-Date: 2009-10-28 17:42+0100\n"
+"PO-Revision-Date: 2009-10-21 10:41+0200 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: ../desktop-data/bluefish-unstable.desktop.in.h:1
 msgid "Bluefish Editor (SVN)"
@@ -36,14 +36,13 @@ msgstr "Fichier de définition de language Bluefish"
 msgid "Bluefish project file"
 msgstr "Fichier de projet Bluefish"
 
-#: ../src/bftextview2.c:990
-#, fuzzy
+#: ../src/bftextview2.c:989
 msgid "Collapse all"
-msgstr "_Tout fermer"
+msgstr "Tout replier"
 
-#: ../src/bftextview2.c:993
+#: ../src/bftextview2.c:992
 msgid "Expand all"
-msgstr ""
+msgstr "Tout Déplier"
 
 #: ../src/bftextview2_spell.c:516
 msgid "Spell check language"
@@ -80,6 +79,9 @@ msgid ""
 "opened in this window.\n"
 "<b>Proceed?</b>"
 msgstr ""
+"Remplacement du texte entre <i>%s</i> and <i>%s</i> dans tous les documents "
+"ouverts dans cette fenêtre.\n"
+"<b>Continuer ?</b>"
 
 #: ../src/blocksync.c:226
 msgid ""
@@ -302,7 +304,7 @@ msgid ""
 "Language mode: "
 msgstr ""
 "\n"
-"mode de langage : "
+"Mode de langage : "
 
 #: ../src/document.c:373
 msgid ""
@@ -471,37 +473,37 @@ msgstr ""
 msgid "Revert changes to last saved copy?"
 msgstr "Supprimer les modifications et revenir à la dernière sauvegarde ?"
 
-#: ../src/document.c:2634
+#: ../src/document.c:2636
 msgid "_Unset file name"
 msgstr "S_upprimer le nom de fichier"
 
-#: ../src/document.c:2634
+#: ../src/document.c:2636
 msgid "_Save"
 msgstr "_Enregistrer"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:2636
+#: ../src/document.c:2638
 #, c-format
 msgid "File name: %s"
 msgstr "Nom du fichier : %s"
 
-#: ../src/document.c:2640
+#: ../src/document.c:2642
 msgid "File disappeared from disk\n"
 msgstr "Le fichier n'est plus sur le disque\n"
 
-#: ../src/document.c:2659
+#: ../src/document.c:2661
 msgid "_Ignore"
 msgstr "_Ignorer"
 
-#: ../src/document.c:2659
+#: ../src/document.c:2661
 msgid "_Reload"
 msgstr "_Recharger"
 
-#: ../src/document.c:2659
+#: ../src/document.c:2661
 msgid "Check and reload all documents"
 msgstr "Vérifier et recharger tous les documents"
 
-#: ../src/document.c:2667
+#: ../src/document.c:2669
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -514,66 +516,66 @@ msgstr ""
 "Heure de la nouvelle modification : %s\n"
 "Heure de l'ancienne modification : %s"
 
-#: ../src/document.c:2671
+#: ../src/document.c:2673
 msgid "File has been modified by another process\n"
 msgstr "Le fichier a été modifié par un autre processus\n"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2736
 msgid "_Retry"
 msgstr "_Réessayer"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2736
 msgid "Retry _all failed"
 msgstr "Échec de _Tout réessayer"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2736
 msgid "_Close"
 msgstr "_Fermer"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2736
 msgid "Close all _failed"
 msgstr "Échec de Tout _fermer"
 
-#: ../src/document.c:2738
+#: ../src/document.c:2740
 msgid "File "
 msgstr "Le fichier "
 
-#: ../src/document.c:2738
+#: ../src/document.c:2740
 msgid " failed to load."
 msgstr " n'a pas pu être chargé."
 
-#: ../src/document.c:2742
+#: ../src/document.c:2744
 msgid "File failed to load\n"
 msgstr "Le fichier n'a pas pu être chargé\n"
 
-#: ../src/document.c:2862
+#: ../src/document.c:2864
 msgid "Select file to insert"
 msgstr "Sélectionner le fichier à insérer"
 
-#: ../src/document.c:2870
+#: ../src/document.c:2872
 msgid "No file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:3010
+#: ../src/document.c:3012
 #, c-format
 msgid "Statistics: "
 msgstr "Statistiques"
 
-#: ../src/document.c:3011
+#: ../src/document.c:3013
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d ligne"
 msgstr[1] "%d lignes"
 
-#: ../src/document.c:3012
+#: ../src/document.c:3014
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d mot"
 msgstr[1] "%d mots"
 
-#: ../src/document.c:3013
+#: ../src/document.c:3015
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
@@ -742,45 +744,45 @@ msgstr "Supprimer le filtre"
 msgid "New filter"
 msgstr "Nouveau fichier"
 
-#: ../src/file.c:709
-#, fuzzy, c-format
+#: ../src/file.c:737
+#, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
-msgstr[0] "Ouverture de %d fichiers, %s ouverts"
+msgstr[0] "Ouverture de %d fichier, %s ouvert"
 msgstr[1] "Ouverture de %d fichiers, %s ouverts"
 
-#: ../src/file.c:714
+#: ../src/file.c:742
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "Tous les fichiers sont ouverts, %s ouverts"
 
-#: ../src/file.c:900
+#: ../src/file.c:928
 #, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
 msgstr[0] "%d document ouvert"
 msgstr[1] "%d documents ouverts"
 
-#: ../src/file.c:902
+#: ../src/file.c:930
 msgid "Advanced open: Finished searching files. "
 msgstr "Ouverture avancée : fin de la recherche des fichiers"
 
-#: ../src/file.c:1155
+#: ../src/file.c:1183
 msgid "_Skip"
 msgstr "_Ignorer"
 
-#: ../src/file.c:1155 ../src/file_dialogs.c:592 ../src/file_dialogs.c:613
+#: ../src/file.c:1183 ../src/file_dialogs.c:592 ../src/file_dialogs.c:613
 #: ../src/project.c:242
 msgid "_Overwrite"
 msgstr "_Écraser"
 
-#: ../src/file.c:1159
+#: ../src/file.c:1187
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr ""
 "%s ne peut être copié, il existe déjà, voulez-vous vraiment l'écraser ?"
 
-#: ../src/file.c:1163
+#: ../src/file.c:1191
 msgid "Overwrite file?"
 msgstr "Voulez-vous écraser le fichier ?"
 
@@ -858,11 +860,8 @@ msgid "File backup failure"
 msgstr "Échec de la sauvegarde"
 
 #: ../src/file_dialogs.c:453
-#, fuzzy
 msgid "Could not save file "
-msgstr ""
-"Impossible d'enregistrer le fichier :\n"
-"\""
+msgstr "Impossible d'enregistrer le fichier "
 
 #: ../src/file_dialogs.c:472
 #, c-format
@@ -960,8 +959,8 @@ msgstr "Un ou plusieurs fichiers ont été modifiés."
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<span color=\"red\">%d echec</span>"
+msgstr[1] "<span color=\"red\">%d échecs</span>"
 
 #: ../src/file_dialogs.c:1132
 msgid "incomplete finished"
@@ -1009,9 +1008,8 @@ msgid "Hide files that match the filter"
 msgstr "Cacher les fichiers correspondant au filtre"
 
 #: ../src/filefilter.c:566
-#, fuzzy
 msgid "Add pattern"
-msgstr "Modèle"
+msgstr "Ajouter le modèle"
 
 #: ../src/filefilter.c:572 ../src/filefilter.c:584
 msgid "Mime type"
@@ -1464,9 +1462,8 @@ msgid "/Document/Character _Encoding"
 msgstr "/Document/_Encodage des caractères"
 
 #: ../src/menu.c:307
-#, fuzzy
 msgid "/Document/Character Encoding/_Add or Remove..."
-msgstr "/Document/Encodage des caractères"
+msgstr "/Document/Encodage des caractères/_Ajouter ou Supprimer"
 
 #: ../src/menu.c:309
 msgid "/Document/Add Boo_kmark"
@@ -1637,24 +1634,21 @@ msgid "/Document/Character Encoding"
 msgstr "/Document/Encodage des caractères"
 
 #: ../src/outputbox.c:227
-#, fuzzy
 msgid "Filename"
-msgstr "Nom du fichier : %s"
+msgstr "Nom du fichier"
 
 #: ../src/outputbox.c:229
-#, fuzzy
 msgid "Line"
-msgstr "Ligne #"
+msgstr "Ligne"
 
 #: ../src/outputbox.c:231
-#, fuzzy
 msgid "Output"
-msgstr "Résultat à l'écran #"
+msgstr "Résultat"
 
 #: ../src/outputbox.c:411
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to compile outputbox pattern %s"
-msgstr "Échec de la compilation du modèle de boîte de sortie %s\n"
+msgstr "Échec de la compilation du modèle de boîte de sortie %s"
 
 #: ../src/preferences.c:275
 msgid "Untitled"
@@ -1966,19 +1960,19 @@ msgstr "Taille du fichier"
 
 #: ../src/preferences.c:1571
 msgid "All"
-msgstr ""
+msgstr "Tout"
 
 #: ../src/preferences.c:1571
 msgid "All except spaces"
-msgstr ""
+msgstr "Tout sauf les espaces sécables"
 
 #: ../src/preferences.c:1571
 msgid "All trailing"
-msgstr ""
+msgstr "Tous les espaces en fin de ligne"
 
 #: ../src/preferences.c:1571
 msgid "All except non-trailing spaces"
-msgstr ""
+msgstr "tabulations, espaces insécables et espaces en fin de ligne"
 
 #: ../src/preferences.c:1587
 msgid "Edit preferences"
@@ -1998,16 +1992,15 @@ msgstr "Police"
 
 #: ../src/preferences.c:1618
 msgid "Current line color"
-msgstr ""
+msgstr "Couleur de la ligne courante"
 
 #: ../src/preferences.c:1619
 msgid "Visible whitespace color"
-msgstr ""
+msgstr "Couleur des espaces visibles"
 
 #: ../src/preferences.c:1620
-#, fuzzy
 msgid "Show whitespace"
-msgstr "Afficher l'écran d'accueil"
+msgstr "Afficher les espaces"
 
 #: ../src/preferences.c:1621
 msgid "Smart Home/End cursor positioning"
@@ -2316,10 +2309,10 @@ msgid "Edit Project"
 msgstr "Éditer le projet"
 
 #: ../src/project.c:511
-#, fuzzy, c-format
+#, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
-msgstr[0] "Ce projet contient %d fichiers"
+msgstr[0] "Ce projet contient %d fichier"
 msgstr[1] "Ce projet contient %d fichiers"
 
 #: ../src/project.c:524
@@ -2688,6 +2681,3 @@ msgstr "Annuler ce changement dans tous les documents ?"
 #: ../src/undo_redo.c:465
 msgid "This change concerns multiple documents."
 msgstr "Ce changement affecte de multiple documents."
-
-#~ msgid "File save failed!\n"
-#~ msgstr "Échec de l'enregistrement du fichier :\n"
