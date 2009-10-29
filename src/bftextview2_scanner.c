@@ -116,8 +116,9 @@ Tfoundstack *get_stackcache_at_position(BluefishTextView * btv, GtkTextIter *pos
 	return fstack;
 }
 
+/* this function is called repeatedly for each change in the text 
+for each foundtack, so millions of times. Try to keep this as optimised as possible */
 static void foundstack_update_positions(GtkTextBuffer *buffer, Tfoundstack *fstack) {
-
 	GtkTextMark *mark=NULL;
 	if (fstack->pushedblock)
 		mark = fstack->pushedblock->end1;
