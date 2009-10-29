@@ -25066,12 +25066,40 @@ or false.
 		<element pattern="\\." highlight="string" is_regex="1" />
 		<element pattern="\$" highlight="string" />
 		<element idref="php-variable" />
+		<group class="sql-in-php-string" highlight="php-string-sql-keyword">
+			<element pattern="SELECT" />
+			<element pattern="FROM" />
+			<element pattern="WHERE" />
+			<element pattern="ON" />
+			<element pattern="AS" />
+			<element pattern="ORDER" />
+			<element pattern="LEFT" />
+			<element pattern="INNER" />
+			<element pattern="JOIN" />
+			<element pattern="UPDATE" />
+			<element pattern="INSERT" />
+			<element pattern="DELETE" />
+		</group>
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
 <element pattern="'" highlight="string">
 	<context symbols="\'" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
+		<group class="sql-in-php-string" highlight="php-string-sql-keyword">
+			<element pattern="SELECT" />
+			<element pattern="FROM" />
+			<element pattern="WHERE" />
+			<element pattern="ON" />
+			<element pattern="AS" />
+			<element pattern="ORDER" />
+			<element pattern="LEFT" />
+			<element pattern="INNER" />
+			<element pattern="JOIN" />
+			<element pattern="UPDATE" />
+			<element pattern="INSERT" />
+			<element pattern="DELETE" />
+		</group>
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
