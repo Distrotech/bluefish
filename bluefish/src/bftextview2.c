@@ -350,6 +350,14 @@ static inline gboolean char_in_allsymbols(BluefishTextView * btv, gunichar uc) {
 	return FALSE;
 }
 
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
+										gint stringlen, BluefishTextView * btv)
+{
+	stackcache_update_offsets(btv, gtk_text_iter_get_offset(iter), stringlen); 
+}
+
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
 										gint stringlen, BluefishTextView * btv)
 {
@@ -791,7 +799,10 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	GtkTextIter begin=*obegin,end=*oend;
 	BluefishTextView *btv=user_data;
 	DBG_SIGNALS("bftextview2_delete_range_lcb\n");
-
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+	loop = gtk_text_iter_get_offset(obegin);
+	stackcache_update_offsets(btv, loop, loop-gtk_text_iter_get_offset(oend));
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 	/* mark the surroundings of the text that will be deleted */
 	
 	/* the 'word start' algorithm of pango becomes very slow in a situation where 
@@ -1512,7 +1523,9 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 	g_return_val_if_fail(textview != NULL, NULL);
 
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(textview), buffer);
-
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+	g_signal_connect(G_OBJECT(buffer), "insert-text", G_CALLBACK(bftextview2_insert_text_lcb),textview);
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 	g_signal_connect_after(G_OBJECT(buffer), "insert-text", G_CALLBACK(bftextview2_insert_text_after_lcb),textview);
 	g_signal_connect_after(G_OBJECT(buffer), "mark-set", G_CALLBACK(bftextview2_mark_set_lcb),textview);
 	g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb),textview);
