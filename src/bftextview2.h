@@ -167,6 +167,9 @@ either on the start or on the end there is no symbol.
 #define DBG_NONE(args...)
  /**/
 
+/*#define BF2_OFFSETS_FOR_TEXTMARKS*/
+#define BF2_OFFSET_UNDEFINED G_MAXUINT
+
 #define DBG_MSG DBG_NONE
 #define DBG_SCANCACHE DBG_NONE
 #define DBG_FCONTEXTREFCOUNT DBG_NONE
@@ -271,6 +274,12 @@ typedef struct {
 /* scanning the text and caching the results */
 /*****************************************************************/
 typedef struct {
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+	guint start1_o;
+	guint end1_o;
+	guint start2_o;
+	guint end2_o;
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 	GtkTextMark *start1; /* start of the 'start' pattern */
 	GtkTextMark *end1;  /* end of the 'start' pattern */
 	GtkTextMark *start2; /* start of the 'end' pattern */
@@ -290,6 +299,10 @@ typedef struct {
 						of the stack is copied into Tscancache */
 
 typedef struct {
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+	guint start_o;
+	guint end_o;
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 	GtkTextMark *start; /* start of the context, the end of the match that has a contextchange */
 	GtkTextMark *end;/* end of the context, the end of the match that has a -1 contextchange */
 	gint16 context; /* number of the element in scantable->contexts */
@@ -311,6 +324,9 @@ typedef struct {
 	Tfoundcontext *pushedcontext;
 	Tfoundblock *poppedblock;
 	Tfoundblock *pushedblock;
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+	guint charoffset_o;
+#endif
 	guint charoffset; /* the stackcaches (see below in Tscancache) is sorted on this offset */
 	guint line; /* a line that starts a block should be very quick to find (during the expose event)
 						because we need to draw a collapse icon in the margin. because the stackcaches are

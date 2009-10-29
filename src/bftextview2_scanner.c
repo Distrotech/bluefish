@@ -20,7 +20,7 @@
 
 /*#define MINIMAL_REFCOUNTING*/
 
-/*#define HL_PROFILING*/
+#define HL_PROFILING
 #ifdef HL_PROFILING
 #include <sys/times.h>
 #include <unistd.h>
@@ -116,6 +116,70 @@ Tfoundstack *get_stackcache_at_position(BluefishTextView * btv, GtkTextIter *pos
 	return fstack;
 }
 
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+
+void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset) {
+	Tfoundstack *fstack;
+	GSequenceIter *siter;
+	GtkTextIter tmp;
+	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_VIEW(btv)->buffer, &tmp, startpos);
+	fstack = get_stackcache_at_position(btv, &tmp, &siter);
+	if (fstack) {
+		GList *tmplist;
+		/* for the first fstack, we have to update the end-offsets for all contexts/blocks on the stack */
+		for (tmplist=fstack->contextstack->head;tmplist;tmplist=tmplist->next) {
+			Tfoundcontext *fcontext=tmplist->data;
+			if (fcontext->end_o != BF2_OFFSET_UNDEFINED)
+				fcontext->end_o += offset;
+		}
+		for (tmplist=fstack->blockstack->head;tmplist;tmplist=tmplist->next) {
+			Tfoundblock *fblock=tmplist->data;
+			if (fblock->start2_o != BF2_OFFSET_UNDEFINED)
+				fblock->start2_o += offset;
+			if (fblock->end2_o != BF2_OFFSET_UNDEFINED)
+				fblock->end2_o += offset;
+		}
+		fstack->charoffset_o += offset;
+		fstack = get_stackcache_next(btv, &siter);
+	}
+	while (fstack) {
+		/* for all further fstacks, we only handle the pushedblock and pushedcontext */
+		if (fstack->pushedcontext) {
+			if (fstack->pushedcontext->start_o != BF2_OFFSET_UNDEFINED)
+				fstack->pushedcontext->start_o += offset;
+			if (fstack->pushedcontext->end_o != BF2_OFFSET_UNDEFINED)
+				fstack->pushedcontext->end_o += offset;
+		}
+		if (fstack->pushedblock) {
+			if (fstack->pushedblock->start1_o != BF2_OFFSET_UNDEFINED)
+				fstack->pushedblock->start1_o += offset;
+			if (fstack->pushedblock->end1_o != BF2_OFFSET_UNDEFINED)
+				fstack->pushedblock->end1_o += offset;
+			if (fstack->pushedblock->start2_o != BF2_OFFSET_UNDEFINED)
+				fstack->pushedblock->start2_o += offset;
+			if (fstack->pushedblock->end2_o != BF2_OFFSET_UNDEFINED)
+				fstack->pushedblock->end2_o += offset;
+		}
+		fstack->charoffset_o += offset;
+		fstack = get_stackcache_next(btv, &siter);
+	}
+}
+
+static void foundstack_set_offset(GtkTextBuffer *buffer, Tfoundstack *fstack) {
+	if (fstack->pushedblock)
+		fstack->charoffset_o = fstack->pushedblock->end1_o;
+		/* previously this had fstack->pushedblock->start1 but this caused a problem. if a fstack has BOTH context
+		AND block, and you need to restore the correct context, the context that should have been started at
+		fstack->pushedcontext->start is accidently started at fstack->pushedblock->start1.  */
+	else if (fstack->poppedblock && fstack->poppedblock->end2_o!=BF2_OFFSET_UNDEFINED)
+		fstack->charoffset_o = fstack->poppedblock->end2_o;
+	else if (fstack->pushedcontext)
+		fstack->charoffset_o = fstack->pushedcontext->start_o;
+	else if (fstack->poppedcontext)
+		fstack->charoffset_o = fstack->poppedcontext->end_o;
+}
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
+
 /* this function is called repeatedly for each change in the text 
 for each foundtack, so millions of times. Try to keep this as optimised as possible */
 static void foundstack_update_positions(GtkTextBuffer *buffer, Tfoundstack *fstack) {
@@ -135,6 +199,11 @@ static void foundstack_update_positions(GtkTextBuffer *buffer, Tfoundstack *fsta
 		GtkTextIter it1;
 		gtk_text_buffer_get_iter_at_mark(buffer,&it1,mark);
 		fstack->charoffset = gtk_text_iter_get_offset(&it1);
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+		if (fstack->charoffset!=fstack->charoffset_o) {
+			g_warning("BF2_OFFSETS_FOR_TEXTMARKS, offset=%d and offset_o=%d\n",fstack->charoffset,fstack->charoffset_o);
+		}
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 		fstack->line = gtk_text_iter_get_line(&it1);
 		/* we store the offsets as integers in the structure, because a compare function on integers is much faster than 
 		a compare function that has to compare the relative positions of two textmarks. In general the compare function
@@ -328,6 +397,9 @@ static inline void add_to_scancache(BluefishTextView * btv,GtkTextBuffer *buffer
 		} else
 			fstack->poppedcontext = fcontext;
 	}
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+	foundstack_set_offset(buffer, fstack);
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 	foundstack_update_positions(buffer, fstack);
 	DBG_SCANCACHE("add_to_scancache, put fstack %p in the cache at charoffset %d / line %d\n",fstack,fstack->charoffset,fstack->line);
 	g_sequence_insert_sorted(btv->scancache.stackcaches,fstack,stackcache_compare_charoffset,NULL);
@@ -369,6 +441,12 @@ static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBu
 		just store the start of the start in a GtkTextMark and the offset to the end of the start as integer? (same for the end)
 		The only function that really needs to work in a very different way is bftextview2_get_block_at_iter() 
 		*/
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+		fblock->start1_o = gtk_text_iter_get_offset(&match.start);
+		fblock->end1_o = gtk_text_iter_get_offset(&match.end);
+		fblock->start2_o = BF2_OFFSET_UNDEFINED;
+		fblock->end2_o = BF2_OFFSET_UNDEFINED;
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 		fblock->start1 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 		fblock->end1 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
 #ifdef HL_PROFILING
@@ -412,6 +490,10 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuff
 			g_warning("fblock->start2 || fblock->end2, we have a memory leak here!!\n");
 		}
 #endif
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+		fblock->start2_o = gtk_text_iter_get_offset(&match.start);
+		fblock->end2_o = gtk_text_iter_get_offset(&match.end);
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 		fblock->start2 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 		fblock->end2 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
 #ifdef HL_PROFILING
@@ -458,6 +540,9 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,GtkText
 				g_warning("fcontext->end != NULL, we have a memory leak here!!!\n");
 			}
 #endif
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+			fcontext->end_o = gtk_text_iter_get_offset(&match.start);
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 			fcontext->end = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 #ifdef HL_PROFILING
 			hl_profiling.num_marks++;
@@ -479,6 +564,10 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,GtkText
 #ifdef HL_PROFILING
 		hl_profiling.fcontext_refcount++;
 #endif
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+		fcontext->start_o = gtk_text_iter_get_offset(&match.end);
+		fcontext->end_o = BF2_OFFSET_UNDEFINED;
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 		fcontext->start = gtk_text_buffer_create_mark(buffer,NULL,&match.end,FALSE);
 #ifdef HL_PROFILING
 		hl_profiling.num_marks++;
