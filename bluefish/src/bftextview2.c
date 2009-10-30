@@ -239,11 +239,40 @@ static void bftextview2_get_iters_at_foundblock(GtkTextBuffer * buffer, Tfoundbl
 												GtkTextIter * it1, GtkTextIter * it2,
 												GtkTextIter * it3, GtkTextIter * it4)
 {
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+	gtk_text_buffer_get_iter_at_offset(buffer, it1, fblock->start1_o);
+	gtk_text_buffer_get_iter_at_offset(buffer, it2, fblock->end1_o);
+	gtk_text_buffer_get_iter_at_offset(buffer, it3, fblock->start2_o);
+	gtk_text_buffer_get_iter_at_offset(buffer, it4, fblock->end2_o);
+	if (fblock->start1_o != gtk_text_iter_get_offset(it1) || fblock->start2_o != gtk_text_iter_get_offset(it3)) {
+		g_warning("BF2_OFFSETS_FOR_TEXTMARKS, at foundblock, start1_o=%d, start1=%d\n",fblock->start1_o , gtk_text_iter_get_offset(it1));
+		g_warning("BF2_OFFSETS_FOR_TEXTMARKS, at foundblock, start2_o=%d, start2=%d\n",fblock->start1_o , gtk_text_iter_get_offset(it3));
+	}
+#else
 	gtk_text_buffer_get_iter_at_mark(buffer, it1, fblock->start1);
 	gtk_text_buffer_get_iter_at_mark(buffer, it2, fblock->end1);
 	gtk_text_buffer_get_iter_at_mark(buffer, it3, fblock->start2);
 	gtk_text_buffer_get_iter_at_mark(buffer, it4, fblock->end2);
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 }
+
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+static inline Tfoundblock *bftextview2_get_block_at_iter(BluefishTextView *btv, guint offset)
+{
+	Tfoundstack *fstack;
+	GSequenceIter *siter;
+	fstack = get_stackcache_at_offset(btv, offset, &siter);
+	/* TODO/BUG: there are 4 valid positions, start1, end1, start2 and end2
+	the fstack charoffset is stored on end1 and on end2, how do we 
+	handle a request that aks for a foundblock at start1 or start2 ??????? */
+	if (fstack->pushedblock && fstack->pushedblock->start1_o==offset) {
+		return fstack->pushedblock;
+	} else if (fstack->poppedblock && fstack->poppedblock->start1_o==offset) {
+		return fstack->poppedblock;
+	}
+	return NULL;
+}
+#else
 /* this function is called from the mark_set signal
 which is a performance sensitive function */
 static inline Tfoundblock *bftextview2_get_block_at_iter(GtkTextIter * it)
@@ -261,6 +290,7 @@ static inline Tfoundblock *bftextview2_get_block_at_iter(GtkTextIter * it)
 	}
 	g_slist_free(lst);
 	return NULL;
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 }
 /* this function slows down scrolling when you hold the cursor pressed, because 
 it is called for every cursor position change. This function is therefore
@@ -561,6 +591,9 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 			- to find out if we need a line or nothing we need to know the number of expanded blocks on the stack
 			 */
 			if (btv->show_blocks) {
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+				/* TODO/BUG write code that can handle the offset-based fstacks without line numbers */
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 				while (fstack) {
 					if (fstack->line > i) {
 						DBG_FOLD("found fstack for line %d, num_blocks=%d..\n",fstack->line,num_blocks);

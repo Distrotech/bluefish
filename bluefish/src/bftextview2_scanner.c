@@ -118,12 +118,39 @@ Tfoundstack *get_stackcache_at_position(BluefishTextView * btv, GtkTextIter *pos
 
 #ifdef BF2_OFFSETS_FOR_TEXTMARKS
 
+static gint stackcache_compare_charoffset_o(gconstpointer a,gconstpointer b,gpointer user_data) {
+	return ((Tfoundstack *)a)->charoffset_o - ((Tfoundstack *)b)->charoffset_o;
+}
+
+Tfoundstack *get_stackcache_at_offset(BluefishTextView * btv, guint offset, GSequenceIter ** retsiter) {
+	GSequenceIter* siter;
+	Tfoundstack fakefstack;
+	Tfoundstack *fstack=NULL;
+	fakefstack.charoffset_o = offset;
+	siter = g_sequence_search(btv->scancache.stackcaches,&fakefstack,stackcache_compare_charoffset_o,NULL);
+	if (!g_sequence_iter_is_begin(siter)) {
+		/* now get the previous position, and get the stack at that position */
+		DBG_SCANCACHE("search returned iter at position %d (cache length %d)\n",g_sequence_iter_get_position(siter),g_sequence_get_length(btv->scancache.stackcaches));
+		siter = g_sequence_iter_prev(siter);
+		DBG_SCANCACHE("prev returned iter at position %d (cache length %d)\n",g_sequence_iter_get_position(siter),g_sequence_get_length(btv->scancache.stackcaches));
+		if (siter && !g_sequence_iter_is_end(siter)) {
+			fstack = g_sequence_get(siter);
+			if (retsiter)
+				*retsiter = siter;
+			DBG_SCANCACHE("found nearest stack %p with charoffset %d\n",fstack,fstack->charoffset);
+		} else {
+			DBG_SCANCACHE("no siter no stack\n");
+		}
+	} else {
+		DBG_SCANCACHE("got begin iter..\n");
+	}
+	return fstack;
+}
+
 void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset) {
 	Tfoundstack *fstack;
 	GSequenceIter *siter;
-	GtkTextIter tmp;
-	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_VIEW(btv)->buffer, &tmp, startpos);
-	fstack = get_stackcache_at_position(btv, &tmp, &siter);
+	fstack = get_stackcache_at_offset(btv, startpos, &siter);
 	if (fstack) {
 		GList *tmplist;
 		/* for the first fstack, we have to update the end-offsets for all contexts/blocks on the stack */
@@ -139,9 +166,10 @@ void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 			if (fblock->end2_o != BF2_OFFSET_UNDEFINED)
 				fblock->end2_o += offset;
 		}
-		fstack->charoffset_o += offset;
+		/*this offset is *before* 'position' fstack->charoffset_o += offset;*/
 		fstack = get_stackcache_next(btv, &siter);
 	}
+	/* DO WE actually have to update them all??? sometimes they will be deleted anyway.. can we do this smart?? */
 	while (fstack) {
 		/* for all further fstacks, we only handle the pushedblock and pushedcontext */
 		if (fstack->pushedcontext) {
@@ -160,6 +188,7 @@ void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 			if (fstack->pushedblock->end2_o != BF2_OFFSET_UNDEFINED)
 				fstack->pushedblock->end2_o += offset;
 		}
+		g_print("startpos=%d, offset=%d, fstack=%p, update charoffset_o from %d to %d\n",startpos,offset, fstack,fstack->charoffset_o,fstack->charoffset_o+offset);
 		fstack->charoffset_o += offset;
 		fstack = get_stackcache_next(btv, &siter);
 	}
@@ -201,7 +230,7 @@ static void foundstack_update_positions(GtkTextBuffer *buffer, Tfoundstack *fsta
 		fstack->charoffset = gtk_text_iter_get_offset(&it1);
 #ifdef BF2_OFFSETS_FOR_TEXTMARKS
 		if (fstack->charoffset!=fstack->charoffset_o) {
-			g_warning("BF2_OFFSETS_FOR_TEXTMARKS, offset=%d and offset_o=%d\n",fstack->charoffset,fstack->charoffset_o);
+			g_warning("BF2_OFFSETS_FOR_TEXTMARKS, foundstack_update_positions, fstack %p has charoffset=%d and charoffset_o=%d\n",fstack,fstack->charoffset,fstack->charoffset_o);
 		}
 #endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 		fstack->line = gtk_text_iter_get_line(&it1);
@@ -328,6 +357,9 @@ static void foundcontext_foreach_ref_lcb(gpointer data,gpointer user_data) {
 void foundstack_free_lcb(gpointer data, gpointer btv) {
 	Tfoundstack *fstack = data;
 	/* unref all contexts and blocks */
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+	g_print("foundstack_free_lcb, remve fstack %p at charoffset_o=%d\n",fstack,fstack->charoffset_o);
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 	DBG_FBLOCKREFCOUNT("removing fstack %p, calling foundblock_foreach_unref_lcb\n",fstack);
 #ifndef MINIMAL_REFCOUNTING
 	g_queue_foreach(fstack->blockstack,foundblock_foreach_unref_lcb,btv);
@@ -399,8 +431,9 @@ static inline void add_to_scancache(BluefishTextView * btv,GtkTextBuffer *buffer
 	}
 #ifdef BF2_OFFSETS_FOR_TEXTMARKS
 	foundstack_set_offset(buffer, fstack);
+	g_print("new fstack %p at charoffset_o=%d\n",fstack,fstack->charoffset_o);
 #endif /* BF2_OFFSETS_FOR_TEXTMARKS */
-	foundstack_update_positions(buffer, fstack);
+	foundstack_update_positions(buffer, fstack);	
 	DBG_SCANCACHE("add_to_scancache, put fstack %p in the cache at charoffset %d / line %d\n",fstack,fstack->charoffset,fstack->line);
 	g_sequence_insert_sorted(btv->scancache.stackcaches,fstack,stackcache_compare_charoffset,NULL);
 }
