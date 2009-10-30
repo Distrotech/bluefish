@@ -279,11 +279,12 @@ typedef struct {
 	guint end1_o;
 	guint start2_o;
 	guint end2_o;
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
+#else
 	GtkTextMark *start1; /* start of the 'start' pattern */
 	GtkTextMark *end1;  /* end of the 'start' pattern */
 	GtkTextMark *start2; /* start of the 'end' pattern */
 	GtkTextMark *end2; /* end of the 'end' pattern */
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 	gint16 patternum; /* which pattern (number of the array element in scantable->matches) */
 	guint16 refcount; /* free on 0 */
 	guint8 folded;
@@ -326,8 +327,9 @@ typedef struct {
 	Tfoundblock *pushedblock;
 #ifdef BF2_OFFSETS_FOR_TEXTMARKS
 	guint charoffset_o;
-#endif
+#else
 	guint charoffset; /* the stackcaches (see below in Tscancache) is sorted on this offset */
+#endif
 	guint line; /* a line that starts a block should be very quick to find (during the expose event)
 						because we need to draw a collapse icon in the margin. because the stackcaches are
 						sorted by charoffset they are automatically also sorted by line. finding the first

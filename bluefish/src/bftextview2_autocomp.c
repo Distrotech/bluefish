@@ -396,7 +396,11 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 	if (g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).has_tagclose_from_blockstack) {
 		Tfoundstack *fstack;
 		GSequenceIter *siter=NULL;
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+		fstack = get_stackcache_at_offset(btv, gtk_text_iter_get_offset(&cursorpos), &siter);
+#else
 		fstack = get_stackcache_at_position(btv, &cursorpos, &siter);
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 		if (fstack) {
 			fblock = g_queue_peek_head(fstack->blockstack);
 			DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n", fblock->patternum, g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).tagclose_from_blockstack);
@@ -427,8 +431,13 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 			gchar *tmp;
 			gint plen;
 			GtkTextIter it1,it2;
+#ifdef BF2_OFFSETS_FOR_TEXTMARKS
+			gtk_text_buffer_get_iter_at_offset(buffer, &it1, fblock->start1_o);
+			gtk_text_buffer_get_iter_at_offset(buffer, &it2, fblock->end1_o);
+#else
 			gtk_text_buffer_get_iter_at_mark(buffer, &it1, fblock->start1);
 			gtk_text_buffer_get_iter_at_mark(buffer, &it2, fblock->end1);
+#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 			gtk_text_iter_forward_char(&it1);
 			tmp = gtk_text_buffer_get_text(buffer,&it1,&it2,TRUE);
 			closetag = g_strconcat("</",tmp,">",NULL);
