@@ -579,14 +579,20 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 				gtk_text_iter_forward_to_line_end(&nextline);
 				nextline_o = gtk_text_iter_get_offset(&nextline);	
 				while (fstack) {
-					if (fstack->charoffset_o > nextline_o) {
+					guint fstackpos=fstack->charoffset_o;
+					if (fstack->pushedblock) {
+						/* on a pushedblock we should look where the block match start, charoffset_o is the end of the 
+								match, so multiline patterns are drawn on the wrong line */ 
+						fstackpos=fstack->pushedblock->start1_o;
+					}
+					if (fstackpos > nextline_o) {
 						DBG_FOLD("found fstack for line %d, num_blocks=%d..\n",fstack->line,num_blocks);
 						if (num_blocks > 0) {
 							paint_margin_line(btv,event,w,height);
 						}
 						break;
 					}
-					if (fstack->charoffset_o <= nextline_o && fstack->charoffset_o >= curline_o) {
+					if (fstackpos <= nextline_o && fstackpos >= curline_o) {
 						DBG_FOLD("found fstack %p (charoffset %d) for current line %d, pushedblock=%p,poppedblock=%p\n",fstack, fstack->charoffset, fstack->line,fstack->pushedblock,fstack->poppedblock);
 						if (fstack->pushedblock && fstack->pushedblock->foldable) {
 							if (fstack->pushedblock->folded)
