@@ -1069,7 +1069,15 @@ static gboolean bftextview2_key_release_lcb(GtkWidget *widget,GdkEventKey *keven
 					}
 				}
 				if (string && string[0]!='\0') {
+					gboolean in_paste = DOCUMENT(btv->doc)->in_paste_operation;
+					/*g_print("bftextview2_key_release_lcb, autoindent, insert indenting\n");*/
+					/* a dirty trick: if in_paste_operation is set, there will be no call 
+					for doc_unre_new_group when indenting is inserted */
+					if (!in_paste)
+						DOCUMENT(btv->doc)->in_paste_operation=TRUE;
 					gtk_text_buffer_insert(buffer,&itend,string,-1);
+					if (!in_paste)
+						DOCUMENT(btv->doc)->in_paste_operation=FALSE;
 				}
 				g_free(string);
 			}
