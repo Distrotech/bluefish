@@ -239,61 +239,19 @@ static void bftextview2_get_iters_at_foundblock(GtkTextBuffer * buffer, Tfoundbl
 												GtkTextIter * it1, GtkTextIter * it2,
 												GtkTextIter * it3, GtkTextIter * it4)
 {
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
 	gtk_text_buffer_get_iter_at_offset(buffer, it1, fblock->start1_o);
 	gtk_text_buffer_get_iter_at_offset(buffer, it2, fblock->end1_o);
 	gtk_text_buffer_get_iter_at_offset(buffer, it3, fblock->start2_o);
 	gtk_text_buffer_get_iter_at_offset(buffer, it4, fblock->end2_o);
-	if (fblock->start1_o != gtk_text_iter_get_offset(it1) || fblock->start2_o != gtk_text_iter_get_offset(it3)) {
-		g_warning("BF2_OFFSETS_FOR_TEXTMARKS, at foundblock, start1_o=%d, start1=%d\n",fblock->start1_o , gtk_text_iter_get_offset(it1));
-		g_warning("BF2_OFFSETS_FOR_TEXTMARKS, at foundblock, start2_o=%d, start2=%d\n",fblock->start1_o , gtk_text_iter_get_offset(it3));
-	}
-#else
-	gtk_text_buffer_get_iter_at_mark(buffer, it1, fblock->start1);
-	gtk_text_buffer_get_iter_at_mark(buffer, it2, fblock->end1);
-	gtk_text_buffer_get_iter_at_mark(buffer, it3, fblock->start2);
-	gtk_text_buffer_get_iter_at_mark(buffer, it4, fblock->end2);
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 }
 
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
-
-static gint stackcache_foundblock_compare_charoffset_o(gconstpointer a,gconstpointer b,gpointer user_data) {
-	return ((Tfoundstack *)a)->charoffset_o - ((Tfoundstack *)b)->charoffset_o;
-}
-
-Tfoundstack *get_stackcache_foundblock_at_offset(BluefishTextView * btv, guint offset, GSequenceIter ** retsiter) {
-	GSequenceIter* siter;
-	Tfoundstack fakefstack;
-	Tfoundstack *fstack=NULL;
-	fakefstack.charoffset_o = offset;
-	siter = g_sequence_search(btv->scancache.stackcaches,&fakefstack,stackcache_foundblock_compare_charoffset_o,NULL);
-	if (!g_sequence_iter_is_begin(siter)) {
-		/* now get the previous position, and get the stack at that position */
-		DBG_SCANCACHE("search for offset %d returned iter-position %d (cache length %d)\n",offset,g_sequence_iter_get_position(siter),g_sequence_get_length(btv->scancache.stackcaches));
-		siter = g_sequence_iter_prev(siter);
-		DBG_SCANCACHE("prev returned iter-position %d (cache length %d)\n",g_sequence_iter_get_position(siter),g_sequence_get_length(btv->scancache.stackcaches));
-		if (siter && !g_sequence_iter_is_end(siter)) {
-			fstack = g_sequence_get(siter);
-			if (retsiter)
-				*retsiter = siter;
-			DBG_SCANCACHE("found nearest stack %p with charoffset_o %d\n",fstack,fstack->charoffset_o);
-		} else {
-			DBG_SCANCACHE("no siter no stack\n");
-		}
-	} else {
-		fstack = g_sequence_get(siter); /* get the first fstack */
-	}
-	return fstack;
-}
-
-static inline Tfoundblock *bftextview2_get_block_at_iter(BluefishTextView *btv, guint offset)
+static inline Tfoundblock *bftextview2_get_block_at_offset(BluefishTextView *btv, guint offset)
 {
 	Tfoundstack *fstack;
 	GSequenceIter *siter;
-	fstack = get_stackcache_foundblock_at_offset(btv, offset, &siter);
+	fstack = get_stackcache_at_offset(btv, offset, &siter);
 	while(fstack) {
-		g_print("check fstack %p with charoffset_o=%d\n",fstack,fstack->charoffset_o);
+		/*g_print("check fstack %p with charoffset_o=%d\n",fstack,fstack->charoffset_o);*/
 		if (fstack->pushedblock && (fstack->pushedblock->start1_o==offset || fstack->pushedblock->end1_o==offset)) {
 			return fstack->pushedblock;
 		} else if (fstack->poppedblock && (fstack->poppedblock->start2_o==offset || fstack->poppedblock->end2_o==offset )) {
@@ -303,37 +261,9 @@ static inline Tfoundblock *bftextview2_get_block_at_iter(BluefishTextView *btv, 
 			break;
 		fstack = get_stackcache_next(btv, &siter);
 	}
-	/*g_print("bftextview2_get_block_at_iter, got fstack %p at charoffset_o %d for offset %d, pushedblock=%p, poppedblock=%p\n",fstack,fstack->charoffset_o,offset, fstack->pushedblock, fstack->poppedblock);*/
-	/* TODO/BUG: there are 4 valid positions, start1, end1, start2 and end2
-	the fstack charoffset is stored on end1 and on end2, how do we 
-	handle a request that aks for a foundblock at start1 or start2 ??????? */
-/*	if (fstack->pushedblock && (fstack->pushedblock->start1_o==offset || fstack->pushedblock->end1_o==offset)) {
-		return fstack->pushedblock;
-	} else if (fstack->poppedblock && (fstack->poppedblock->start2_o==offset || fstack->poppedblock->end2_o==offset )) {
-		return fstack->poppedblock;
-	}*/
 	return NULL;
 }
-#else
-/* this function is called from the mark_set signal
-which is a performance sensitive function */
-static inline Tfoundblock *bftextview2_get_block_at_iter(GtkTextIter * it)
-{
-	GSList *tmp, *lst = gtk_text_iter_get_marks(it);
-	tmp = lst;
-	while (tmp) {
-		gpointer ptr = NULL;
-		ptr = g_object_get_data(G_OBJECT(tmp->data), "block");
-		if (ptr) {
-			g_slist_free(lst);
-			return ptr;
-		}
-		tmp = g_slist_next(tmp);
-	}
-	g_slist_free(lst);
-	return NULL;
-}
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
+
 /* this function slows down scrolling when you hold the cursor pressed, because 
 it is called for every cursor position change. This function is therefore
 an ideal candidate for speed optimization */
@@ -343,11 +273,7 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 
 	if (BLUEFISH_TEXT_VIEW(widget)->bflang && BLUEFISH_TEXT_VIEW(widget)->bflang->st && arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
 		GtkTextIter it1, it2;
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
-		Tfoundblock *fblock = bftextview2_get_block_at_iter(BLUEFISH_TEXT_VIEW(widget),gtk_text_iter_get_offset(location));
-#else
-		Tfoundblock *fblock = bftextview2_get_block_at_iter(location);
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
+		Tfoundblock *fblock = bftextview2_get_block_at_offset(BLUEFISH_TEXT_VIEW(widget),gtk_text_iter_get_offset(location));
 		if (BLUEFISH_TEXT_VIEW(widget)->showing_blockmatch) {
 			gtk_text_buffer_get_bounds(buffer, &it1, &it2);
 			gtk_text_buffer_remove_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
@@ -356,12 +282,7 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 		DBG_SIGNALS("bftextview2_mark_set_lcb, 'insert' set at %d\n",gtk_text_iter_get_offset(location));		
 		if (fblock) {
 			GtkTextIter it3, it4;
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
-			if (fblock->start2_o != BF2_OFFSET_UNDEFINED)
-#else
-			if (fblock->start2) 
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
-				{
+			if (fblock->start2_o != BF2_OFFSET_UNDEFINED) {
 				bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
 				DBG_MSG("found a block to highlight the start (%d:%d) and end (%d:%d)\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_offset(&it3),gtk_text_iter_get_offset(&it4));
 				gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
@@ -431,14 +352,12 @@ static inline gboolean char_in_allsymbols(BluefishTextView * btv, gunichar uc) {
 	return FALSE;
 }
 
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
 static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
 										gint stringlen, BluefishTextView * btv)
 {
-	stackcache_update_offsets(btv, gtk_text_iter_get_offset(iter), stringlen); 
+	stackcache_update_offsets(btv, gtk_text_iter_get_offset(iter), g_utf8_strlen(string,stringlen)); 
 }
 
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
 										gint stringlen, BluefishTextView * btv)
 {
@@ -558,12 +477,19 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 	Tfoundstack *fstack = NULL;
 	GSequenceIter *siter=NULL;
 	guint num_blocks;
+	gint cursor_line=-1;
 	GtkTextIter it;
 	GtkTextTag *folded;
 	gint i;
 	PangoLayout *panlay;
 	gpointer bmark;
 	gint bmarkline=-1;
+
+	if (btv->show_line_numbers) {
+		GtkTextIter cursorit;
+		gtk_text_buffer_get_iter_at_mark(GTK_TEXT_VIEW(btv)->buffer, &cursorit, gtk_text_buffer_get_insert(GTK_TEXT_VIEW(btv)->buffer));
+		cursor_line = gtk_text_iter_get_line(&cursorit);
+	}
 
 	/* to see how many blocks are active here */
 	if (gtk_text_iter_is_start(startvisible) && (g_sequence_get_length (btv->scancache.stackcaches) != 0)) {
@@ -574,11 +500,7 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 		num_blocks = 0;
 		DBG_MARGIN("EXPOSE: start at begin, set num_blocks %d, fstack=%p\n", num_blocks, fstack);
 	} else {
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
 		fstack = get_stackcache_at_offset(btv, gtk_text_iter_get_offset(startvisible), &siter);
-#else
-		fstack = get_stackcache_at_position(btv, startvisible, &siter);
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 		if (fstack) {
 			num_blocks = get_num_foldable_blocks(fstack);
 			DBG_MARGIN
@@ -592,13 +514,7 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 	}
 	/* in the case that the *first* fstack is relevant, we don't need
 	   the 'next' fstack */
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
-	if (!fstack || fstack->charoffset_o < gtk_text_iter_get_offset(startvisible))
-#else
-	if (!fstack || fstack->charoffset < gtk_text_iter_get_offset(startvisible))
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */ 
-	
-	{
+	if (!fstack || fstack->charoffset_o < gtk_text_iter_get_offset(startvisible)) {
 		DBG_MARGIN("get next fstack..\n");
 		if (siter)
 			fstack = get_stackcache_next(btv, &siter);
@@ -618,6 +534,7 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 		gint w, height;
 		gchar *string;
 
+
 		gtk_text_iter_set_line(&it, i);
 
 		if (gtk_text_iter_has_tag(&it, folded)) {
@@ -629,7 +546,10 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 
 			/* line numbers */
 			if (btv->show_line_numbers) {
-				string = g_strdup_printf("%d", 1 + i);
+				if (i==cursor_line)
+					string = g_strdup_printf("<b>%d</b>", 1 + i);
+				else
+					string = g_strdup_printf("%d", 1 + i);
 				pango_layout_set_markup(panlay, string, -1);
 				gtk_paint_layout(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), FALSE, NULL,
 								 GTK_WIDGET(btv), NULL, 2, w, panlay);
@@ -652,18 +572,21 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 			- to find out if we need a line or nothing we need to know the number of expanded blocks on the stack
 			 */
 			if (btv->show_blocks) {
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
-				/* TODO/BUG write code that can handle the offset-based fstacks without line numbers */
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
+				GtkTextIter nextline;
+				guint nextline_o, curline_o;
+				curline_o = gtk_text_iter_get_offset(&it);
+				nextline = it;
+				gtk_text_iter_forward_to_line_end(&nextline);
+				nextline_o = gtk_text_iter_get_offset(&nextline);	
 				while (fstack) {
-					if (fstack->line > i) {
+					if (fstack->charoffset_o > nextline_o) {
 						DBG_FOLD("found fstack for line %d, num_blocks=%d..\n",fstack->line,num_blocks);
 						if (num_blocks > 0) {
 							paint_margin_line(btv,event,w,height);
 						}
 						break;
 					}
-					if (fstack->line == i) {
+					if (fstack->charoffset_o <= nextline_o && fstack->charoffset_o >= curline_o) {
 						DBG_FOLD("found fstack %p (charoffset %d) for current line %d, pushedblock=%p,poppedblock=%p\n",fstack, fstack->charoffset, fstack->line,fstack->pushedblock,fstack->poppedblock);
 						if (fstack->pushedblock && fstack->pushedblock->foldable) {
 							if (fstack->pushedblock->folded)
@@ -752,71 +675,6 @@ static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, G
 	cairo_destroy(cr);
 }
 
-#if 0 
-static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible) {
-	GtkTextIter iter;
-	cairo_t *cr;
-	cr = gdk_cairo_create(event->window);
-	cairo_set_line_width(cr, 1.0);
-	gdk_cairo_set_source_color(cr, &st_whitespace_color);
-/*	cairo_set_source_rgb(cr, 1, 0, 0);*/
-	iter = *startvisible;
-	while (!gtk_text_iter_equal(&iter,endvisible)) {
-		gunichar uc;
-		GdkRectangle rect;
-		gint x,y;
-		uc = gtk_text_iter_get_char(&iter);
-		cairo_save(cr);
-		switch (uc) {
-		case '\t':
-			/* draw tab */
-			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv),&iter,&rect);
-			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x,rect.y+rect.height/1.5,&x,&y);
-			cairo_move_to(cr, x+3, y);
-			cairo_rel_line_to(cr,0, -3);
-			cairo_move_to(cr, x+3, y);
-			cairo_rel_line_to(cr,rect.width - 6, 0);
-			cairo_rel_line_to(cr,0, -3);
-		break;
-		case 160:
-			/* draw nbsp */
-			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv),&iter,&rect);
-			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x,rect.y+rect.height/1.5,&x,&y);
-			cairo_move_to(cr, x+1, y);
-			cairo_rel_line_to(cr,rect.width - 2, 0);
-		break;
-		case ' ':
-		case 8192:
-		case 8193:
-		case 8194:
-		case 8195:
-		case 8196:
-		case 8197:
-		case 8198:
-		case 8199:
-		case 8200:
-		case 8201:
-		case 8202:
-		case 8203:
-		case 8204:
-		case 8205:
-		case 12288:
-			/* draw space */
-			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv),&iter,&rect);
-			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x + rect.width / 2,rect.y+rect.height/1.5,&x,&y);
-			cairo_move_to(cr, x, y);
-			cairo_arc(cr, x, y, 0.75, 0, 2 * M_PI);
-		break;
-/*		default:
-		break;*/
-		}
-		cairo_restore(cr);
-		gtk_text_iter_forward_char(&iter);
-	}
-	cairo_stroke(cr);
-	cairo_destroy(cr);
-}
-#endif
 static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);
@@ -893,10 +751,8 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	GtkTextIter begin=*obegin,end=*oend;
 	BluefishTextView *btv=user_data;
 	DBG_SIGNALS("bftextview2_delete_range_lcb\n");
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
-	loop = gtk_text_iter_get_offset(obegin);
+	loop = gtk_text_iter_get_offset(obegin); /* re-use the loop variable */
 	stackcache_update_offsets(btv, loop, loop-gtk_text_iter_get_offset(oend));
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 	/* mark the surroundings of the text that will be deleted */
 	
 	/* the 'word start' algorithm of pango becomes very slow in a situation where 
@@ -1046,29 +902,29 @@ static void bftextview2_block_toggle_fold(BluefishTextView *btv, Tfoundblock *fb
 static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 	Tfoundstack *fstack;
 	GSequenceIter *siter;
-	gint line;
+	GtkTextIter tmpiter;
+	guint offset,nextline_o;
 
 	if (!btv->bflang)
 		return;
-
-	line = gtk_text_iter_get_line(iter);
+	tmpiter = *iter;
+	gtk_text_iter_set_line_offset(&tmpiter,0);
+	offset = gtk_text_iter_get_offset(&tmpiter);
+	gtk_text_iter_forward_to_line_end(&tmpiter);
+	nextline_o = gtk_text_iter_get_offset(&tmpiter);
 	 /* returns the fstack PRIOR to iter, or the fstack excactly at iter,
 	 but this fails if the iter is the start of the buffer */
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
-	fstack = get_stackcache_at_offset(btv, gtk_text_iter_get_offset(iter), &siter);
-#else
-	fstack = get_stackcache_at_position(btv, iter, &siter);
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
+	fstack = get_stackcache_at_offset(btv, offset, &siter);
 	if (!fstack) {
 		DBG_FOLD("no fstack, retrieve first iter\n");
 		fstack = get_stackcache_first(btv, &siter);
 	}
-	while (fstack && (fstack->line < line || !fstack->pushedblock || !fstack->pushedblock->foldable)) {
+	while (fstack && (fstack->charoffset_o < offset || !fstack->pushedblock || !fstack->pushedblock->foldable)) {
 		fstack = get_stackcache_next(btv, &siter); /* should be the first fstack AFTER iter */
 		if (fstack && fstack->pushedblock && fstack->pushedblock->foldable)
 			break;
 	}
-	if (fstack && fstack->line == line && fstack->pushedblock && fstack->pushedblock->foldable) {
+	if (fstack && fstack->charoffset_o >= offset && fstack->charoffset_o <= nextline_o && fstack->pushedblock && fstack->pushedblock->foldable) {
 		DBG_FOLD("got fstack=%p on line %d\n",fstack,fstack->line);
 		bftextview2_block_toggle_fold(btv, fstack->pushedblock);
 	}
@@ -1621,9 +1477,7 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 	g_return_val_if_fail(textview != NULL, NULL);
 
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(textview), buffer);
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
 	g_signal_connect(G_OBJECT(buffer), "insert-text", G_CALLBACK(bftextview2_insert_text_lcb),textview);
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 	g_signal_connect_after(G_OBJECT(buffer), "insert-text", G_CALLBACK(bftextview2_insert_text_after_lcb),textview);
 	g_signal_connect_after(G_OBJECT(buffer), "mark-set", G_CALLBACK(bftextview2_mark_set_lcb),textview);
 	g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb),textview);
