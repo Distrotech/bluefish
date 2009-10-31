@@ -2154,6 +2154,23 @@ static gboolean doc_scroll_event_lcb(GtkWidget *widget,GdkEventScroll *event,gpo
 	return FALSE;
 }
 
+static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
+	if (bevent->button==2) {
+		doc->in_paste_operation = TRUE;
+		doc_unre_new_group(doc);
+ 	}
+ 	return FALSE;
+}
+
+static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
+	if (bevent->button==2) {
+		doc->in_paste_operation = FALSE;
+		doc_unre_new_group(doc);
+	}
+	return FALSE;
+}
+
+
 Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly) {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
@@ -2231,6 +2248,10 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 		G_CALLBACK(doc_view_toggle_overwrite_lcb), newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view), "populate-popup",
 		G_CALLBACK(doc_view_populate_popup_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event",
+		G_CALLBACK(doc_view_button_release_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event",
+		G_CALLBACK(doc_view_button_press_lcb), newdoc);
 
 	bfwin->documentlist = g_list_append(bfwin->documentlist, newdoc);
 
