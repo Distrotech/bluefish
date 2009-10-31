@@ -182,7 +182,7 @@ typedef struct {
 	GtkWidget *tab_eventbox;
 	GtkWidget *tab_menu;
 	GtkTextBuffer *buffer;
-	/*gpointer paste_operation;*/
+	gboolean in_paste_operation;
 	gint last_rbutton_event; /* index of last 3rd button click */
 	gint need_highlighting; /* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
 	gboolean highlightstate; /* does this document use highlighting ? */

@@ -1525,27 +1525,16 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 	gint pos = gtk_text_iter_get_offset(iter);
 	gint clen = g_utf8_strlen(string, len);
 	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s', len=%d, clen=%d\n", string, len, clen);
-	/* the 'len' seems to be the number of bytes and not the number of characters.. */
+	/* 'len' is the number of bytes and not the number of characters.. */
 
-/*	if (doc->paste_operation) {
-		if ((pos + clen) > PASTEOPERATION(doc->paste_operation)->eo) PASTEOPERATION(doc->paste_operation)->eo = pos + clen;
-		if (pos < PASTEOPERATION(doc->paste_operation)->so || PASTEOPERATION(doc->paste_operation)->so == -1) PASTEOPERATION(doc->paste_operation)->so = pos;
-	} else if (len == 1) {*/
-		/* undo_redo stuff */
-		if (	!doc_unre_test_last_entry(doc, UndoInsert, -1, pos)
-				|| string[0] == ' '
-				|| string[0] == '\n'
-				|| string[0] == '\t'
-				|| string[0] == '\r') {
-			DEBUG_MSG("doc_buffer_insert_text_lcb, need a new undogroup\n");
-			doc_unre_new_group(doc);
-		}
-/*	}*/
-	/* we do not call doc_unre_new_group() for multi character inserts, these are from paste, and edit_paste_cb groups them already */
-	/*  else if (clen != 1) {
+	if (!doc->in_paste_operation && (!doc_unre_test_last_entry(doc, UndoInsert, -1, pos)
+			|| string[0] == ' '
+			|| string[0] == '\n'
+			|| string[0] == '\t'
+			|| string[0] == '\r')) {
+		DEBUG_MSG("doc_buffer_insert_text_lcb, create a new undogroup\n");
 		doc_unre_new_group(doc);
-	} */
-
+	}
 	doc_unre_add(doc, string, pos, pos+clen, UndoInsert);
 	doc_set_modified(doc, 1);
 	DEBUG_MSG("doc_buffer_insert_text_lcb, done\n");
@@ -1584,27 +1573,23 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 	DEBUG_MSG("doc_buffer_delete_range_lcb, string='%s'\n",string);
 	if (string) {
 		/* undo_redo stuff */
-		{
-			gint start, end, len;
-			start = gtk_text_iter_get_offset(itstart);
-			end = gtk_text_iter_get_offset(itend);
-			len = end - start;
-			DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len, string);
-			if (len == 1) {
-				if (		(!doc_unre_test_last_entry(doc, UndoDelete, start, -1) /* delete */
-							&& !doc_unre_test_last_entry(doc, UndoDelete, end, -1)) /* backspace */
-						|| string[0] == ' '
-						|| string[0] == '\n'
-						|| string[0] == '\t'
-						|| string[0] == '\r') {
-					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
-					doc_unre_new_group(doc);
-				}
-			} else /*if (!doc->paste_operation)*/ {
+		gint start, end, len;
+		start = gtk_text_iter_get_offset(itstart);
+		end = gtk_text_iter_get_offset(itend);
+		len = end - start;
+		DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len, string);
+		if (len == 1 && !doc->in_paste_operation) {
+			if ((!doc_unre_test_last_entry(doc, UndoDelete, start, -1) /* delete */
+						&& !doc_unre_test_last_entry(doc, UndoDelete, end, -1)) /* backspace */
+					|| string[0] == ' '
+					|| string[0] == '\n'
+					|| string[0] == '\t'
+					|| string[0] == '\r') {
+				DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
 				doc_unre_new_group(doc);
 			}
-			doc_unre_add(doc, string, start, end, UndoDelete);
 		}
+		doc_unre_add(doc, string, start, end, UndoDelete);
 		g_free(string);
 	}
 	doc_set_modified(doc, 1);
@@ -2924,12 +2909,13 @@ void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin) {
 void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GtkTextMark *mark;
 	Tdocument *doc = bfwin->current_document;
-	DEBUG_MSG("edit_paste_cb, started\n");
+	g_print("edit_paste_cb, create new undo group\n");
 	doc_unre_new_group(doc);
-
+	doc->in_paste_operation=TRUE;
 	DEBUG_MSG("edit_paste_cb, pasting clipboard\n");
 	gtk_text_buffer_paste_clipboard (doc->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
-
+	doc->in_paste_operation=FALSE;
+	g_print("edit_paste_cb, finished, create new undo group\n");
 	doc_unre_new_group(doc);
 	mark = gtk_text_buffer_get_insert(bfwin->current_document->buffer);
 	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(bfwin->current_document->view), mark);
