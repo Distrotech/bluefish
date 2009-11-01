@@ -108,7 +108,10 @@ Tfoundstack *get_stackcache_at_offset(BluefishTextView * btv, guint offset, GSeq
 			DBG_SCANCACHE("no siter no stack\n");
 		}
 	} else if (!g_sequence_iter_is_end(siter)){
+		DBG_SCANCACHE("got begin siter\n");
 		fstack = g_sequence_get(siter); /* get the first fstack */
+		if (retsiter)
+			*retsiter = siter;
 	}
 	return fstack;
 }
