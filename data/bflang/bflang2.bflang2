@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 		Bluefish HTML Editor
 		bflang2.bflang2 $Revision$
@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Bflang2" matches="155" contexts="24" table="1009">
+<bflang name="Bflang2" matches="162" contexts="25" table="1064">
 <header>
 	<mime type="application/x-bluefish-language2"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -71,6 +71,7 @@
 			<element idref="entity" />
 			<tag id="tagcomment" name="comment" highlight="tag" attributes="id,type,start,end" autocomplete_append=" type=&quot;&quot; start=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
 			<tag name="smartindent" highlight="tag" attributes="characters" autocomplete_append=" characters=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
+			<tag name="default_spellcheck" highlight="tag" attributes="enabled" autocomplete_append=" enabled=&quot;1&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;1&quot;"/>
 		</context>
 	</tag>
 	<tag name="definition" highlight="tag" autocomplete_append="&gt;">
