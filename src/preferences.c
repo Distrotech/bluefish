@@ -1392,6 +1392,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	} else {
 		integer_apply(&main_v->props.lowercase_tags, pd->prefs[lowercase_tags], TRUE);
 		integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
+		integer_apply(&main_v->props.format_by_context, pd->prefs[format_by_context], TRUE);
 	}
 	/*integer_apply(&main_v->props.insert_close_tag, pd->prefs[insert_close_tag], TRUE);
 	integer_apply(&main_v->props.close_tag_newline, pd->prefs[close_tag_newline], TRUE);*/
@@ -1646,6 +1647,7 @@ static void preferences_dialog() {
 
 	pd->prefs[lowercase_tags] = boxed_checkbut_with_value(_("Lowercase HTML tags"), main_v->props.lowercase_tags, vbox2);
 	pd->prefs[allow_dep] = boxed_checkbut_with_value(_("Use deprecated tags (e.g. <font> and <nobr>)"), main_v->props.allow_dep, vbox2);
+	pd->prefs[format_by_context] = boxed_checkbut_with_value(_("Format according to accessibility guidelines (e.g. <strong> for <b>)"), main_v->props.format_by_context, vbox2);
 	pd->prefs[xhtml] = boxed_checkbut_with_value(_("Use XHTML style tags (<br />)"), main_v->props.xhtml, vbox2);
 	/*pd->prefs[insert_close_tag] = boxed_checkbut_with_value(_("Automatically close tags"), main_v->props.insert_close_tag, vbox2);
 	pd->prefs[close_tag_newline] = boxed_checkbut_with_value(_("Prepend close tags with a newline"), main_v->props.close_tag_newline, vbox2);*/

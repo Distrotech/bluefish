@@ -489,10 +489,16 @@ typedef struct {
 }Tquickbaritem;
 
 static void bold_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	general_html_menu_cb(bfwin, 1, NULL);
+	if (main_v->props.format_by_context)
+		general_html_menu_cb(bfwin, 16, NULL);
+	else
+		general_html_menu_cb(bfwin, 1, NULL);
 }
 static void italic_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	general_html_menu_cb(bfwin, 2, NULL);
+	if (main_v->props.format_by_context)
+		general_html_menu_cb(bfwin, 17, NULL);
+	else
+		general_html_menu_cb(bfwin, 2, NULL);
 }
 static void paragraph_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	general_html_menu_cb(bfwin, 5, NULL);

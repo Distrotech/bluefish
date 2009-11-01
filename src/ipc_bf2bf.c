@@ -83,7 +83,7 @@ static void handle_message(const gchar *message, gsize len) {
 		file_handle(file, bfwin);
 		g_object_unref(file);
 	} else {
-		g_print("unknown message with len %li on socket...\n", len);
+		g_print("unknown message with len %"G_GSIZE_FORMAT" on socket...\n", len);
 		/*DEBUG_MSG("message: %s\n",message);*/
 	}
 }

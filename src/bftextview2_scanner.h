@@ -26,12 +26,8 @@
 
 Tfoundstack *get_stackcache_next(BluefishTextView * bt2, GSequenceIter ** siter);
 Tfoundstack *get_stackcache_first(BluefishTextView * bt2, GSequenceIter ** retsiter);
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
 Tfoundstack *get_stackcache_at_offset(BluefishTextView * btv, guint offset, GSequenceIter ** retsiter);
 void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset);
-#else
-Tfoundstack *get_stackcache_at_position(BluefishTextView * bt2, GtkTextIter *position, GSequenceIter ** retsiter);
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 guint16 get_context_and_startposition(BluefishTextView * bt2, GtkTextIter *position);
 gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_end);
 void scan_for_prefix_start(BluefishTextView *btv, guint16 contextnum, GtkTextIter *start, GtkTextIter *cursor);
