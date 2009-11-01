@@ -116,11 +116,26 @@ Tfoundstack *get_stackcache_at_offset(BluefishTextView * btv, guint offset, GSeq
 	return fstack;
 }
 
+void foundstack_free_lcb(gpointer data, gpointer btv);
+
 void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset) {
 	Tfoundstack *fstack;
 	GSequenceIter *siter;
+	if (offset==0)
+		return;
 	DBG_SCANCACHE("stackcache_update_offsets, update offset %d starting at startpos %d\n",offset,startpos);
-	fstack = get_stackcache_at_offset(btv, startpos, &siter);
+	if (offset < 0) {
+		fstack = get_stackcache_at_offset(btv, startpos+offset, &siter);
+		while (fstack && fstack->charoffset_o < startpos) {
+			GSequenceIter *tmpsiter = siter;
+			Tfoundstack *tmpfstack=fstack;
+			fstack = get_stackcache_next(btv, &siter);
+			g_sequence_remove(tmpsiter);
+			foundstack_free_lcb(tmpfstack, btv);
+		}		
+	} else {  
+		fstack = get_stackcache_at_offset(btv, startpos, &siter);
+	}
 	if (fstack) {
 		GList *tmplist;
 		DBG_SCANCACHE("stackcache_update_offsets, handle first fstack %p on offset %d complete stack\n",fstack, fstack->charoffset_o);
