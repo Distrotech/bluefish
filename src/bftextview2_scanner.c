@@ -120,6 +120,7 @@ void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	fstack = get_stackcache_at_offset(btv, startpos, &siter);
 	if (fstack) {
 		GList *tmplist;
+		DBG_SCANCACHE("stackcache_update_offsets, handle first fstack %p on offset %d complete stack\n",fstack, fstack->charoffset_o);
 		/* for the first fstack, we have to update the end-offsets for all contexts/blocks on the stack */
 		for (tmplist=fstack->contextstack->head;tmplist;tmplist=tmplist->next) {
 			Tfoundcontext *fcontext=tmplist->data;
@@ -133,11 +134,13 @@ void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 			if (fblock->end2_o != BF2_OFFSET_UNDEFINED)
 				fblock->end2_o += offset;
 		}
+		DBG_SCANCACHE("stackcache_update_offsets, handled first fstack %p, requesting next\n",fstack);
 		/*this offset is *before* 'position' fstack->charoffset_o += offset;*/
 		fstack = get_stackcache_next(btv, &siter);
 	}
 	/* DO WE actually have to update them all??? sometimes they will be deleted anyway.. can we do this smart?? */
 	while (fstack) {
+		DBG_SCANCACHE("stackcache_update_offsets, handle fstack %p pushedblock/pushecontext\n",fstack);
 		/* for all further fstacks, we only handle the pushedblock and pushedcontext */
 		if (fstack->pushedcontext) {
 			if (fstack->pushedcontext->start_o != BF2_OFFSET_UNDEFINED)
