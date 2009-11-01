@@ -482,6 +482,7 @@ void rcfile_parse_main(void)  {
 	}
 	if (main_v->props.external_filter==NULL) {
 		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Sort"),"|sort|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Sort / Unique"),"|sort|unique|",NULL));
 		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Reverse lines"),"|tac|",NULL));
 		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Dos2unix"),"|dos2unix|",NULL));
 		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Tidy HTML"),"|tidy|",NULL));
