@@ -478,7 +478,13 @@ void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssiz
 
 	if (newuri)
 		filename = g_file_get_basename(newuri);
-	conttype = g_content_type_guess(filename,buf,buflen,&uncertain);
+
+	/* TODO: Does this work on Windows? */
+	if (g_str_has_suffix(filename, ".bflang2"))
+		conttype = g_strdup("application/x-bluefish-language2");
+	else
+		conttype = g_content_type_guess(filename,buf,buflen,&uncertain);
+
 #ifdef WIN32
 	mimetype = g_content_type_get_mime_type(conttype);
 #endif
