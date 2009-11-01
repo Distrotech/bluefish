@@ -167,7 +167,6 @@ either on the start or on the end there is no symbol.
 #define DBG_NONE(args...)
  /**/
 
-#define BF2_OFFSETS_FOR_TEXTMARKS
 #define BF2_OFFSET_UNDEFINED G_MAXUINT32
 
 #define DBG_MSG DBG_NONE
@@ -274,17 +273,10 @@ typedef struct {
 /* scanning the text and caching the results */
 /*****************************************************************/
 typedef struct {
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
 	guint32 start1_o;
 	guint32 end1_o;
 	guint32 start2_o;
 	guint32 end2_o;
-#else
-	GtkTextMark *start1; /* start of the 'start' pattern */
-	GtkTextMark *end1;  /* end of the 'start' pattern */
-	GtkTextMark *start2; /* start of the 'end' pattern */
-	GtkTextMark *end2; /* end of the 'end' pattern */
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 	gint16 patternum; /* which pattern (number of the array element in scantable->matches) */
 	guint16 refcount; /* free on 0 */
 	guint8 folded;
@@ -300,13 +292,8 @@ typedef struct {
 						of the stack is copied into Tscancache */
 
 typedef struct {
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
 	guint32 start_o;
 	guint32 end_o;
-#else
-	GtkTextMark *start; /* start of the context, the end of the match that has a contextchange */
-	GtkTextMark *end;/* end of the context, the end of the match that has a -1 contextchange */
-#endif /* BF2_OFFSETS_FOR_TEXTMARKS */
 	gint16 context; /* number of the element in scantable->contexts */
 	guint16 refcount; /* free on 0 */
 } Tfoundcontext; /* once a start-of-context is found start is set
@@ -326,16 +313,7 @@ typedef struct {
 	Tfoundcontext *pushedcontext;
 	Tfoundblock *poppedblock;
 	Tfoundblock *pushedblock;
-#ifdef BF2_OFFSETS_FOR_TEXTMARKS
 	guint32 charoffset_o;
-#else
-	guint charoffset; /* the stackcaches (see below in Tscancache) is sorted on this offset */
-	guint line; /* a line that starts a block should be very quick to find (during the expose event)
-						because we need to draw a collapse icon in the margin. because the stackcaches are
-						sorted by charoffset they are automatically also sorted by line. finding the first
-						visible block should be easy, and then we can iterare over the stackcaches until
-						we're out of the visible area */
-#endif
 } Tfoundstack;
 
 typedef struct {
