@@ -268,7 +268,7 @@ static void merge_queues(GQueue *target, GQueue *src) {
 
 static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean regexpart_ends_regex);
 
-static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gint *regexpartpos, gboolean regexpart_ends_regex) {
+static GQueue *run_subpatterns_OLD(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gint *regexpartpos, gboolean regexpart_ends_regex) {
 	gint j=0;
 	gboolean escaped=FALSE;
 	gchar *target;
@@ -306,6 +306,47 @@ static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,gint16 context, 
 	return mergednewpositions;
 }
 
+static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gint *regexpartpos, gboolean regexpart_ends_regex) {
+	gint j=0;
+	gchar *target;
+	GQueue *mergednewpositions = g_queue_new();
+	target = g_strdup(&regexpart[*regexpartpos]); /* a very easy way to make target a buffer long enough to hold any subpattern */
+
+	while (regexpart[*regexpartpos] != '\0') {
+		DBG_PATCOMPILE("run_subpatterns, regexpart[%d]=%c\n",*regexpartpos,regexpart[*regexpartpos]);
+		if (regexpart[*regexpartpos] == '\\') {
+			if (regexpart[*regexpartpos+1] == '|' || regexpart[*regexpartpos+1]==')') {
+				target[j] = regexpart[*regexpartpos+1];
+				*regexpartpos = *regexpartpos + 1;
+				j++;
+			} else {
+				target[j] = regexpart[*regexpartpos];
+				j++;
+			}
+		} else if ((regexpart[*regexpartpos] == '|' || regexpart[*regexpartpos] == ')')) {
+			/* found a subpattern */
+			GQueue *newpositions;
+			target[j] = '\0';
+			DBG_PATCOMPILE("at regexpartpos=%d found SUBPATTERN %s\n",*regexpartpos,target);
+			newpositions = process_regex_part(st, target,context, caseinsensitive, inputpositions, regexpart_ends_regex);
+			merge_queues(mergednewpositions,newpositions);
+			g_queue_free(newpositions);
+			j=0;
+
+			if (regexpart[*regexpartpos] == ')') {
+				g_free(target);
+				return mergednewpositions;
+			}
+		} else {
+			target[j] = regexpart[*regexpartpos];
+			j++;
+		}
+		*regexpartpos = *regexpartpos + 1;
+	}
+	g_free(target);
+	return mergednewpositions;
+}
+
 /* this function can be called recursively for subpatterns. It gets all current valid states in
 inputpositions, and returns all valid outputstates.
 
@@ -325,7 +366,7 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 contex
 
 	positions = g_queue_copy(inputpositions);
 	newpositions = g_queue_new();
-
+	DBG_PATCOMPILE("process_regex_part, running part %s\n",regexpart);
 	while (1) {
 		memset(&characters, 0, NUMSCANCHARS*sizeof(char));
 		escaped = 0;
@@ -336,6 +377,7 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 contex
 			return positions;
 		} else {
 			if (!escaped && regexpart[i]=='\\') {
+				DBG_PATCOMPILE("found \\ at position %d:next pattern is escaped\n",i);
 				escaped = TRUE;
 				i++;
 			}
@@ -354,6 +396,7 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 contex
 				}
 				newpositions = run_subpatterns(st, regexpart,context, caseinsensitive, positions, &i, subpattern_ends_regex);
 				DBG_PATCOMPILE("end of subpatern at %d (%c)\n",i,regexpart[i]);
+				/* BUG: if the subpattern is followed by an operator foo(bla)? this is not handled by the code !!!!!!!! */
 			} else {
 				gboolean end_is_symbol=FALSE;
 				if (!escaped) {
@@ -370,6 +413,7 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 contex
 						break;
 					}
 				} else { /* escaped */
+					DBG_PATCOMPILE("character %c was escaped, adding to characters\n",regexpart[i]);
 					characters[(int)regexpart[i]] = 1;
 				}
 				/* handle case */
@@ -400,23 +444,28 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 contex
 				/*print_characters(characters);*/
 				/* see if there is an operator */
 				if (regexpart[i] == '\0') {
+					DBG_PATCOMPILE("no operator, end of (sub)pattern\n");
 					create_state_tables(st, context, characters, FALSE, positions, newpositions, end_is_symbol);
 				} else if (regexpart[i+1] == '+') {
+					DBG_PATCOMPILE("handling + operator\n");
 					create_state_tables(st, context, characters, TRUE, positions, newpositions, end_is_symbol);
 					i++;
 				} else if (regexpart[i+1] == '*') {
 					GQueue *tmp = g_queue_copy(positions);
+					DBG_PATCOMPILE("handling * operator\n");
 					create_state_tables(st, context, characters, TRUE, positions, newpositions, end_is_symbol);
 					merge_queues(newpositions, tmp);
 					g_queue_free(tmp);
 					i++;
 				} else if (regexpart[i+1] == '?') {
 					GQueue *tmp = g_queue_copy(positions);
+					DBG_PATCOMPILE("handling ? operator\n");
 					create_state_tables(st, context, characters, FALSE, positions, newpositions, end_is_symbol);
 					merge_queues(newpositions, tmp);
 					g_queue_free(tmp);
 					i++;
 				} else {
+					DBG_PATCOMPILE("no operator\n");
 					create_state_tables(st, context, characters, FALSE, positions, newpositions, end_is_symbol);
 				}
 			}
