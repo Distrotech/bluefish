@@ -658,8 +658,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 
 	if (!bftextview2_find_region2scan(btv, buffer, &start, &end)) {
-		DBG_MSG("nothing to scan here.. update the offsets in the stackcache\n");
-		DBG_SCANCACHE("scancache length %d\n", g_sequence_get_length(btv->scancache.stackcaches));
+		DBG_MSG("nothing to scan here.. return FALSE\n");
 		return FALSE;
 	}
 	/* start timer */
@@ -799,8 +798,8 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	g_queue_foreach(scanning.contextstack,foundcontext_foreach_unref_lcb,btv);
 	g_queue_free(scanning.contextstack);
 	g_queue_free(scanning.blockstack);
-	DBG_MSG("cleaned scanning run\n");
-	return TRUE; /* even if we finished scanning the next call should update the scancache */
+	DBG_MSG("cleaned scanning run, finished this run\n");
+	return !gtk_text_iter_is_end(&iter); 
 }
 
 static GQueue *get_contextstack_at_position(BluefishTextView * btv, GtkTextIter *position) {
