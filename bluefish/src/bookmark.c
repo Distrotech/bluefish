@@ -1021,9 +1021,12 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 	if (ptr == NULL) {			/* closed document or bookmarks never set */
 		gchar *title;
 		parent = g_new0(GtkTreeIter, 1);
-		gtk_tree_store_append(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, parent, NULL);
+		/* we should sort the document names in the treestore */
 		title = bmark_filename(bfwin,m->filepath);
-		gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, parent, NAME_COLUMN, title, PTR_COLUMN, m->doc, -1);
+		DEBUG_MSG("insert parent with name %s and doc=%p in treestore %p\n",title, m->doc, BMARKDATA(bfwin->bmarkdata)->bookmarkstore);
+		gtk_tree_store_insert_with_values(BMARKDATA(bfwin->bmarkdata)->bookmarkstore,parent,NULL,0, NAME_COLUMN, title, PTR_COLUMN, m->doc, -1);
+/*		gtk_tree_store_append(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, parent, NULL);
+		gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, parent, NAME_COLUMN, title, PTR_COLUMN, m->doc, -1);*/
 		g_free(title);
 		if (m->doc != NULL) {
 			m->doc->bmark_parent = parent;
@@ -1047,6 +1050,28 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 	}
 }
 
+static gint bmark_sort_func(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpointer user_data) {
+	GtkTreeIter tmp;
+	if (gtk_tree_model_iter_parent(model,&tmp,a)==FALSE) {
+		gint retval; 
+		gchar *name_a, *name_b;
+		gtk_tree_model_get(model, a, NAME_COLUMN,&name_a, -1);
+		gtk_tree_model_get(model, b, NAME_COLUMN,&name_b, -1);
+		retval = g_strcmp0(name_a,name_b);
+		g_free(name_a);
+		g_free(name_b);
+		return retval;
+	} else {
+		Tbmark *bmark_a, *bmark_b;
+		gtk_tree_model_get(model, a, PTR_COLUMN,&bmark_a, -1);
+		gtk_tree_model_get(model, b, PTR_COLUMN,&bmark_b, -1);
+		if (bmark_a && bmark_b) {
+			return  bmark_a->offset - bmark_b->offset;
+		} else {
+			return (gint)(bmark_a-bmark_b);
+		}
+	}
+}
 
 /*
  * this function is used to create the global main_v->bookmarkstore
@@ -1056,6 +1081,8 @@ gpointer bookmark_data_new(void) {
 	Tbmarkdata *bmd;
 	bmd = g_new0(Tbmarkdata, 1);
 	bmd->bookmarkstore = gtk_tree_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_POINTER);
+	gtk_tree_sortable_set_default_sort_func(GTK_TREE_SORTABLE(bmd->bookmarkstore),bmark_sort_func,bmd,NULL);
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(bmd->bookmarkstore),GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID,GTK_SORT_ASCENDING);
 	/* BUG: shouldn't we free the data in the hash table when we close a project? */
 	bmd->bmarkfiles = g_hash_table_new_full(g_file_hash, (GEqualFunc)g_file_equal, NULL, NULL);
 	DEBUG_MSG("bookmark_data_new, created bookmarkstore at %p\n", bmd->bookmarkstore);
