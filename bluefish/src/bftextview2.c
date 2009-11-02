@@ -378,10 +378,6 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning %p\n", gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter), btv->needscanning);
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
 	start_offset = gtk_text_iter_get_offset(&start);
-	if (btv->scancache.stackcache_need_update_charoffset == -1
-		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
-		btv->scancache.stackcache_need_update_charoffset = start_offset;
-	}
 	if (btv->enable_scanner && btv->auto_complete && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb: call autocomp_run\n");
 		autocomp_run(btv,FALSE);
@@ -752,13 +748,13 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 										 GtkTextIter * oend, gpointer user_data)
 {
-	guint start_offset;
 	gint loop;
 	GtkTextIter begin=*obegin,end=*oend;
 	BluefishTextView *btv=user_data;
 	DBG_SIGNALS("bftextview2_delete_range_lcb\n");
 	loop = gtk_text_iter_get_offset(obegin); /* re-use the loop variable */
 	stackcache_update_offsets(btv, loop, loop-gtk_text_iter_get_offset(oend));
+	
 	/* mark the surroundings of the text that will be deleted */
 	
 	/* the 'word start' algorithm of pango becomes very slow in a situation where 
@@ -782,12 +778,6 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &begin, &end);
 	DBG_SPELL("mark text from %d to %d as needspellcheck\n", gtk_text_iter_get_offset(&begin),gtk_text_iter_get_offset(&end));
 #endif /*HAVE_LIBENCHANT*/
-	start_offset = gtk_text_iter_get_offset(&begin);
-	if (btv->scancache.stackcache_need_update_charoffset == -1
-		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
-		btv->scancache.stackcache_need_update_charoffset = start_offset;
-	}
-
 	bftextview2_reset_user_idle_timer(btv);
 	bftextview2_schedule_scanning(btv);
 }

@@ -506,7 +506,7 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 			create_state_tables(st, context, characters, FALSE, positions, newpositions, end_is_symbol);
 		}
 		g_queue_clear(positions);
-		pointer_switch_addresses(&positions, &newpositions);
+		pointer_switch_addresses((void *)&positions, (void *)&newpositions);
 		/*tmp = positions;
 		positions = newpositions;
 		newpositions = tmp;*/

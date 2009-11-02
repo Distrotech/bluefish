@@ -320,7 +320,7 @@ typedef struct {
 	GSequence* stackcaches; /* a sorted structure of Tfoundstack for
 				each position where the stack changes so we can restart scanning
 				on any location */
-	gint stackcache_need_update_charoffset; /* from this character offset and further there
+	/*gint stackcache_need_update_charoffset;*/ /* from this character offset and further there
 				have been changes in the buffer so the caches need updating */
 } Tscancache;
 /********************************/
