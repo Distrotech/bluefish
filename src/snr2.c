@@ -2036,64 +2036,70 @@ void join_lines(Tdocument *doc) {
 }
 
 void split_lines(Tdocument *doc) {
-	gint i=0,coffset,count=0,start,end,tabsize;
+	gint coffset=0,count=0,start,end,tabsize;
 	gint startws=0, endws=0,starti=0,endi=-1,requested_size; /* ws= whitespace, i=indenting */
-	gchar *buf;
+	gint charpos;
+	gchar *buf,*p;
+	gunichar c;
 	tabsize = doc_get_tabsize(doc);
 	if (!doc_get_selection(doc, &start, &end)) {
 		start=0;
 		end=-1;
 	}
 	
-	buf = doc_get_chars(doc,start,end);
-	coffset=start;
+	p = buf = doc_get_chars(doc,start,end);
 	doc_unre_new_group(doc);
 	
 	requested_size = 80;
-
-	i=0;
-	while (buf[i] != '\0') {
+	charpos=start;
+	c=g_utf8_get_char(p);
+	while (c != '\0') {
 		if (count > requested_size) {
-			gint cstart,cend;
-			gchar *tmp,*n_indenting;
-			tmp = g_strndup(&buf[starti],endi-starti);
-/*			g_print("starti=%d,endi=%d,tmp=%s\n",starti,endi,tmp);*/
-			n_indenting = g_strconcat("\n",tmp,NULL);
-			g_free(tmp);
-			cstart = utf8_byteoffset_to_charsoffset_cached(buf, startws);
-			cend = utf8_byteoffset_to_charsoffset_cached(buf, endws);
-			/*g_print("startws=%d,endws=%d\n",startws,endws);*/
-			doc_replace_text_backend(doc, n_indenting, cstart+coffset, cend+coffset);
-			coffset += (strlen(n_indenting) - (cend-cstart));
+			gchar *new_indenting, *tmp1, *tmp2;
+			tmp1 = g_utf8_offset_to_pointer(buf, starti);
+			tmp2 = g_utf8_offset_to_pointer(buf, endi);
+			new_indenting = g_strndup(tmp1, (tmp2-tmp1));
+			DEBUG_MSG("startws=%d,endws=%d\n",startws,endws);
+			doc_replace_text_backend(doc, new_indenting, startws+coffset, endws+coffset);
+			coffset += (g_utf8_strlen(new_indenting,-1) - (endws-startws));
+			DEBUG_MSG("new coffset=%d\n",coffset);
 			count=0;
-			startws=i;
-			endws=i;
-			g_free(n_indenting);
+			startws=charpos;
+			endws=charpos;
+			g_free(new_indenting);
 		}
-		if (buf[i] == '\t') {
+		if (c == '\t') {
 			count += tabsize;
 			if (startws<endws) {
-				startws=i;
+				startws=charpos;
+				endws=charpos;
+				DEBUG_MSG("set startws to %d\n",startws);
 			}
-		} else if (buf[i] == ' ') {
+		} else if (c == ' ') {
 			count++;
-			if (startws<=endws) {
-				startws=i;
+			if (startws<endws) {
+				startws=charpos;
+				endws=charpos;
+				DEBUG_MSG("set startws to %d\n",startws);
 			}
-		} else if (buf[i]=='\n') {
+		} else if (c=='\n') {
 			count=0;
-			endws=startws=starti=i+1;
-			/*g_print("newline, i=%d, set starti=%d\n",i,starti);*/
+			starti=charpos;
+			endws=startws=charpos+1;
+			DEBUG_MSG("newline, set starti=%d, endws=startws=%d\n",starti,endws);
 		} else {
-			count++;/* BUG: unicode characters may contain multiple bytes */
+			count++;
 			if (starti>endi) {
-				endi=i;
-				/*g_print("set endi to %d, starti=%d\n",endi,starti);*/
-			} else if (startws>endws) {
-				endws=i;
+				endi=charpos;
+				DEBUG_MSG("non-whitespace, set endi to %d, starti=%d\n",endi,starti);
+			} else if (startws>=endws) {
+				endws=charpos;
+				DEBUG_MSG("non-whitespace, set endws to %d\n",endws);
 			}
 		}
-		i++;
+		p = g_utf8_next_char(p);
+		charpos++;
+		c=g_utf8_get_char(p);
 	}
 	g_free(buf);
 	doc_unre_new_group(doc);
