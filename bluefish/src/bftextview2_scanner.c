@@ -22,7 +22,6 @@
 
 #define HL_PROFILING
 #ifdef HL_PROFILING
-#include <sys/times.h>
 #include <unistd.h>
 #endif
 /* for the design docs see bftextview2.h */
