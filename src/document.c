@@ -31,7 +31,11 @@
 /*#define DEBUG*/
 
 #ifdef DEBUGPROFILING
+#ifdef WIN32
+#undef DEBUGPROFILING
+#else
 #include <sys/times.h>
+#endif
 #endif
 
 #include "bluefish.h"
