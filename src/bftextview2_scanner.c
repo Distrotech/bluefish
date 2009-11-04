@@ -117,16 +117,23 @@ Tfoundstack *get_stackcache_at_offset(BluefishTextView * btv, guint offset, GSeq
 
 void foundstack_free_lcb(gpointer data, gpointer btv);
 
+/** 
+ * stackcache_update_offsets
+ * 
+ * startpos is the lowest position 
+ *  so on insert it is the point _after_ which the insert will be (and offset is a positive number) 
+ *  on delete it is the point _after_ which the delete area starts (and offset is a negative number)
+*/
 void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset) {
 	Tfoundstack *fstack;
 	GSequenceIter *siter;
 	if (offset==0)
 		return;
 	DBG_SCANCACHE("stackcache_update_offsets, update offset %d starting at startpos %d\n",offset,startpos);
+	fstack = get_stackcache_at_offset(btv, startpos, &siter);
 	if (offset < 0) {
-		fstack = get_stackcache_at_offset(btv, startpos+offset, &siter);
-		while (fstack && fstack->charoffset_o < startpos) {
-			if (fstack->charoffset_o > startpos+offset) {
+		while (fstack && fstack->charoffset_o < startpos-offset) {
+			if (fstack->charoffset_o > startpos) {
 				GSequenceIter *tmpsiter = siter;
 				Tfoundstack *tmpfstack=fstack;
 				fstack = get_stackcache_next(btv, &siter);
@@ -137,8 +144,6 @@ void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 				fstack = get_stackcache_next(btv, &siter);
 			}
 		}		
-	} else {  
-		fstack = get_stackcache_at_offset(btv, startpos, &siter);
 	}
 	if (fstack) {
 		GList *tmplist;

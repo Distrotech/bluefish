@@ -753,6 +753,7 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	BluefishTextView *btv=user_data;
 	DBG_SIGNALS("bftextview2_delete_range_lcb\n");
 	loop = gtk_text_iter_get_offset(obegin); /* re-use the loop variable */
+	DBG_SCANCACHE("bftextview2_delete_range_lcb, delete from %d to %d\n",gtk_text_iter_get_offset(obegin),gtk_text_iter_get_offset(oend));
 	stackcache_update_offsets(btv, loop, loop-gtk_text_iter_get_offset(oend));
 	
 	/* mark the surroundings of the text that will be deleted */
