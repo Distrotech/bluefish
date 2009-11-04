@@ -1,13 +1,14 @@
 # Galician translations for bluefish-unstable package.
 # Copyright (C) 2009 The Bluefish Development Team.
 # This file is distributed under the same license as the bluefish-unstable package.
+# Automatically generated, 2009.
 # Xose M. <pikamoku@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable 1.3.8\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-10-12 23:49+0200\n"
+"POT-Creation-Date: 2009-10-28 16:36+0100\n"
 "PO-Revision-Date: 2009-11-03 10:36+0100\n"
 "Last-Translator: Xose M. <pikamoku@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,11 +17,226 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/plugin_charmap/charmap_gui.c:207
-msgid "Insert as HTML entity"
-msgstr "Engadir coma entidade HTML"
+#: src/plugin_snippets/snippets_gui.c:270
+msgid "Set accelerator key"
+msgstr ""
 
-#: src/plugin_charmap/charmap_gui.c:214
-msgid "charmap"
-msgstr "Mapa de caracteres"
+#: src/plugin_snippets/snippets_gui.c:302
+msgid "Snippet export filename"
+msgstr ""
 
+#: src/plugin_snippets/snippets_gui.c:312
+msgid "Snippet import filename"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:351
+msgid "/_New snippet"
+msgstr "/_Novo anaco"
+
+#: src/plugin_snippets/snippets_gui.c:352
+msgid "/_Edit snippet"
+msgstr "/_Edita anaco"
+
+#: src/plugin_snippets/snippets_gui.c:353
+msgid "/_Delete snippet"
+msgstr "/_Borra anaco"
+
+#: src/plugin_snippets/snippets_gui.c:354
+#, fuzzy
+msgid "/Delete branch"
+msgstr "/_Borra anaco"
+
+#: src/plugin_snippets/snippets_gui.c:356
+msgid "/Set snippet _accelerator"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:358
+msgid "/Expand all"
+msgstr "/Amosar todo"
+
+#: src/plugin_snippets/snippets_gui.c:359
+msgid "/Collapse all"
+msgstr "/Pechar todo"
+
+#: src/plugin_snippets/snippets_gui.c:361
+msgid "/Show as menu"
+msgstr "/Amosar coma menu"
+
+#: src/plugin_snippets/snippets_gui.c:363
+msgid "/Export"
+msgstr "/Exportar"
+
+#: src/plugin_snippets/snippets_gui.c:364
+msgid "/Import"
+msgstr "/Importar"
+
+#: src/plugin_snippets/snippets_gui.c:480
+msgid "Click the right mouse button to add, edit or delete snippets."
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:481
+msgid "Use drag and drop to re-order snippets"
+msgstr "Utiliza pinchar e arrastrar para reordenar os anacos"
+
+#: src/plugin_snippets/snippets_gui.c:482
+msgid "To exchange snippets with others use import or export"
+msgstr "Para intercambiar anacos con outros use importar ou exportar"
+
+#: src/plugin_snippets/snippets_gui.c:640
+msgid "snippets"
+msgstr "anacos"
+
+#: src/plugin_snippets/snippets_gui.c:671
+msgid "/View/Snippets Menu"
+msgstr "/Ver/Menú Anacos"
+
+#: src/plugin_snippets/snippets_leaf_insert.c:101
+msgid "[cursor position or selection]"
+msgstr "[posición do cursor ou selección]"
+
+#: src/plugin_snippets/snippets_leaf_snr.c:154
+msgid "Search for: '"
+msgstr "Buscar: '"
+
+#: src/plugin_snippets/snippets_leaf_snr.c:154
+msgid "', replace with: '"
+msgstr "', trocar por: '"
+
+#: src/plugin_snippets/snippets_wizard.c:112
+msgid "Entire document"
+msgstr "Documento completo"
+
+#: src/plugin_snippets/snippets_wizard.c:113
+msgid "Forward from cursor position"
+msgstr "Adiante dende a posición do cursor"
+
+#: src/plugin_snippets/snippets_wizard.c:114
+msgid "Selection"
+msgstr "Selección"
+
+#: src/plugin_snippets/snippets_wizard.c:115
+msgid "All open files"
+msgstr "Todolos ficheiros abertos"
+
+#: src/plugin_snippets/snippets_wizard.c:119
+msgid "Normal"
+msgstr "Normal"
+
+#: src/plugin_snippets/snippets_wizard.c:120
+msgid "Entire word only"
+msgstr "Só palabra completa"
+
+#: src/plugin_snippets/snippets_wizard.c:121
+msgid "POSIX"
+msgstr "POSIX"
+
+#: src/plugin_snippets/snippets_wizard.c:122
+msgid "PERL"
+msgstr "PERL"
+
+#: src/plugin_snippets/snippets_wizard.c:133
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right."
+msgstr ""
+"Faga unha búsqueda e substitúa o patrón. Pode usar %0, %1,  ..%5 marcadores "
+"de posición para pedir valores cando activas esta función. Na dereita, dalle "
+"un nome axeitado ó marcador."
+
+#: src/plugin_snippets/snippets_wizard.c:140
+msgid "_Search for: "
+msgstr "_Buscar por: "
+
+#: src/plugin_snippets/snippets_wizard.c:144
+msgid "Replace _with: "
+msgstr "Substitúe _con: "
+
+#: src/plugin_snippets/snippets_wizard.c:151
+msgid "Sco_pe: "
+msgstr "Ámb_ito: "
+
+#: src/plugin_snippets/snippets_wizard.c:158
+msgid "Match Patter_n: "
+msgstr "Patrón coincidente: "
+
+#: src/plugin_snippets/snippets_wizard.c:161
+msgid "Case sensitive _matching"
+msgstr "Distingue Maí/Min"
+
+#: src/plugin_snippets/snippets_wizard.c:162
+msgid "Only match if case (upper/lower) is identical."
+msgstr "Só se Mai/Min son idénticas"
+
+#: src/plugin_snippets/snippets_wizard.c:165
+msgid "_Use escape chars"
+msgstr "_Usar caracteres de escape"
+
+#: src/plugin_snippets/snippets_wizard.c:166
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgstr "Quitar caracteres de escape coma \\n , \\t etc."
+
+#: src/plugin_snippets/snippets_wizard.c:339
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right."
+msgstr ""
+"O texto <i>anterior</i> será introducido antes da posición do cursor ou "
+"selección actual, o texto <i>posterior</i> será introducido despois da "
+"selección actual ou posición do cursor. Pode usar %0, %1 ...%9 marcadores de "
+"posición (e debe darlle nomes) para pedir valores cando activa este control."
+
+#: src/plugin_snippets/snippets_wizard.c:345
+msgid "<i>Before</i> text"
+msgstr "texto <i>anterior</i>"
+
+#: src/plugin_snippets/snippets_wizard.c:355
+msgid "<i>After</i> text"
+msgstr "texto <i>posterior</i>"
+
+#: src/plugin_snippets/snippets_wizard.c:363
+msgid "Number"
+msgstr "Número"
+
+#: src/plugin_snippets/snippets_wizard.c:365
+msgid "Name"
+msgstr "Nome"
+
+#: src/plugin_snippets/snippets_wizard.c:367
+msgid "Is file path"
+msgstr "É ruta ó ficheiro"
+
+#: src/plugin_snippets/snippets_wizard.c:493
+msgid "Enter the name of the branch:"
+msgstr "Introduza o nome da ramificación:"
+
+#: src/plugin_snippets/snippets_wizard.c:585
+msgid "Name of the new item:"
+msgstr "Nome do novo elemento:"
+
+#: src/plugin_snippets/snippets_wizard.c:590
+msgid "Description:"
+msgstr "Descrición"
+
+#: src/plugin_snippets/snippets_wizard.c:640
+msgid "Select what you want to add"
+msgstr "Seleccione o que queira engadir"
+
+#: src/plugin_snippets/snippets_wizard.c:642
+msgid "Branch"
+msgstr "Ramificación"
+
+#: src/plugin_snippets/snippets_wizard.c:644
+msgid "Insert string"
+msgstr "Insira cadea"
+
+#: src/plugin_snippets/snippets_wizard.c:646
+msgid "Search and replace pattern"
+msgstr "Busque e substitúa o patrón"
+
+#: src/plugin_snippets/snippets_wizard.c:753
+msgid "New snippet"
+msgstr "Novo anaco"
