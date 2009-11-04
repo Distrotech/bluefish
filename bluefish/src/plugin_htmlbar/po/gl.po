@@ -2,2010 +2,2084 @@
 # Copyright (C) 2009 The Bluefish Development Team.
 # This file is distributed under the same license as the bluefish-unstable package.
 # Automatically generated, 2009.
-#Xose M. <pikamoku@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish-unstable 1.3.7\n"
+"Project-Id-Version: bluefish-unstable 1.3.8\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-10-12 17:28+0200\n"
-"PO-Revision-Date: 2009-09-25 14:01+0200\n"
+"POT-Creation-Date: 2009-10-12 23:49+0200\n"
+"PO-Revision-Date: 2009-11-04 11:04+0100\n"
 "Last-Translator: Xose M. <pikamoku@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. _DM_ Alert box asking if user would like to change request from add to
 #. * update.
 #.
 #: src/plugin_htmlbar/html2.c:501
 msgid "_Update"
-msgstr ""
+msgstr "_Actualizar"
 
 #: src/plugin_htmlbar/html2.c:506
 #, c-format
 msgid "The %s %s property already exists.\n"
-msgstr ""
+msgstr "A propiedade %s %s xa existe.\n"
 
 #: src/plugin_htmlbar/html2.c:508
 #, c-format
 msgid "The %s property already exists.\n"
-msgstr ""
+msgstr "A propiedade %s xa existe.\n"
 
 #: src/plugin_htmlbar/html2.c:511
 #, c-format
 msgid "Update its value from %s to %s?"
-msgstr ""
+msgstr "Actualizar o valor de %s a %s?"
 
 #: src/plugin_htmlbar/html2.c:638
 msgid "Cascading Style Sheet Builder"
-msgstr ""
+msgstr "Editor de Follas de Estilo (CSS)"
 
 #: src/plugin_htmlbar/html2.c:658
 msgid "_Selector:"
-msgstr ""
+msgstr "_Seleccionador"
 
 #: src/plugin_htmlbar/html2.c:677
 msgid "_Property:"
-msgstr ""
+msgstr "_Propiedade:"
 
-#: src/plugin_htmlbar/html2.c:679 src/plugin_htmlbar/html_form.c:650
-#: src/plugin_htmlbar/html_form.c:799 src/plugin_htmlbar/html_form.c:894
+#: src/plugin_htmlbar/html2.c:679
+#: src/plugin_htmlbar/html_form.c:650
+#: src/plugin_htmlbar/html_form.c:799
+#: src/plugin_htmlbar/html_form.c:894
 msgid "_Value:"
-msgstr ""
+msgstr "_Valor:"
 
 #: src/plugin_htmlbar/html2.c:697
 msgid "Selector"
-msgstr ""
+msgstr "Seleccionador"
 
-#: src/plugin_htmlbar/html2.c:697 src/plugin_htmlbar/html2.c:700
+#: src/plugin_htmlbar/html2.c:697
+#: src/plugin_htmlbar/html2.c:700
 msgid "Property"
-msgstr ""
+msgstr "Propiedade"
 
-#: src/plugin_htmlbar/html2.c:697 src/plugin_htmlbar/html2.c:700
+#: src/plugin_htmlbar/html2.c:697
+#: src/plugin_htmlbar/html2.c:700
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
 #: src/plugin_htmlbar/html2.c:715
 msgid " _Add "
-msgstr ""
+msgstr "_Engadir"
 
 #: src/plugin_htmlbar/html2.c:718
 msgid " _Update "
-msgstr ""
+msgstr "_Actualizar"
 
 #: src/plugin_htmlbar/html2.c:721
 msgid " _Delete "
-msgstr ""
+msgstr "_Eliminar"
 
-#: src/plugin_htmlbar/html2.c:974 src/plugin_htmlbar/html2.c:1011
+#: src/plugin_htmlbar/html2.c:974
+#: src/plugin_htmlbar/html2.c:1011
 msgid "_Style..."
-msgstr ""
+msgstr "_Estilo..."
 
 #: src/plugin_htmlbar/html2.c:1096
 msgid "Bluefish: Select color"
-msgstr ""
+msgstr "Bluefish: Escolla cor"
 
 #: src/plugin_htmlbar/htmlbar.c:36
 msgid "Edit color"
-msgstr ""
+msgstr "Editar cor"
 
 #: src/plugin_htmlbar/htmlbar.c:44
 msgid "Edit tag"
-msgstr ""
+msgstr "Editar etiqueta"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:204
 msgid "/T_ags"
-msgstr ""
+msgstr "/E_tiquetas"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:206
 msgid "/Tags/_Headings"
-msgstr ""
+msgstr "/Etiquetas/Cabeceiras"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:208
 msgid "/Tags/Headings/H_1"
-msgstr ""
+msgstr "/Etiquetas/Cabeceiras/H_1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:209
 msgid "/Tags/Headings/H_2"
-msgstr ""
+msgstr "/Etiquetas/Cabeceiras/H_2"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:210
 msgid "/Tags/Headings/H_3"
-msgstr ""
+msgstr "/Etiquetas/Cabeceiras/H_3"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:211
 msgid "/Tags/Headings/H_4"
-msgstr ""
+msgstr "/Etiquetas/Cabeceiras/H_4"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:212
 msgid "/Tags/Headings/H_5"
-msgstr ""
+msgstr "/Etiquetas/Cabeceiras/H_5"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:213
 msgid "/Tags/Headings/H_6"
-msgstr ""
+msgstr "/Etiquetas/Cabeceiras/H_6"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:214
 msgid "/Tags/_Special"
-msgstr ""
+msgstr "/Etiquetas/_Especial"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:216
 msgid "/Tags/Special/_Accent"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Acento"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:218
 msgid "/Tags/Special/Accent/_Uppercase"
-msgstr ""
+msgstr "Etiquetas/Especial/Acento/Maiúscula"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:219
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
-msgstr ""
+msgstr "Etiquetas/Especial/Acento/Maiúscula/_A-I"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:221
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
-msgstr ""
+msgstr "Etiquetas/Especial/Acento/Maiúscula/A-I/À"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:222
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
-msgstr ""
+msgstr "Etiquetas/Especial/Acento/Maiúscula/A-I/Á"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:223
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
-msgstr ""
+msgstr "Etiquetas/Especial/Acento/Maiúscula/A-I/Â"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:224
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/Ã"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:225
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/unión AE Æ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:226
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/diérese Ä"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:227
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/A con círculo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:228
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/C cedilla Ç"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:229
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/È"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:230
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/É"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:231
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/Ê"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:232
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/Ë"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:233
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/Ì"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:234
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/Í"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:235
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/Î"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:236
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/A-I/Ï"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:237
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/_J-Z"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:239
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/Ñ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:240
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/Ò"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:241
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/Ó"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:242
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:243
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/unión OE"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:244
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/Ö"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:245
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/Ö"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:246
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/Ø"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:247
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/Ù"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:248
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/Ú"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:249
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/Û"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:250
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/Ü"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:251
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Maiúscula/J-Z/Ý"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:252
 msgid "/Tags/Special/Accent/_Lowercase"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/_Minúscula"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:253
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:255
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/à"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:256
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/á"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:257
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/â"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:258
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/ã"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:259
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/a con círculo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:260
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/æ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:261
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/ä"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:262
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/ç"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:263
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/è"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:264
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/é"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:265
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/ê"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:266
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/ë"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:267
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/ì"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:268
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/í"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:269
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/î"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:270
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_A-I/ï"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:271
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/_J-Z"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:273
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/ñ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:274
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/ò"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:275
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/ó"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:276
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/unión oe"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:277
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/ô"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:278
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/õ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:279
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/ö"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:280
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/ø"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:281
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/ù"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:282
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/ú"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:283
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/û"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:284
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/ü"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:285
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/ý"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:286
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Minúscula/J-Z/ÿ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:288
 msgid "/Tags/Special/Accent/U_mlaut ¨"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Diérese ¨"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:289
 msgid "/Tags/Special/Accent/_Acute ´"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Acento ´"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:290
 msgid "/Tags/Special/Accent/_Cedilla ¸"
-msgstr ""
+msgstr "/Etiquetas/Especial/Acento/Cedilla"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:291
 msgid "/Tags/Special/_Currency"
-msgstr ""
+msgstr "/Etiquetas/Especial/Moeda"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:293
 msgid "/Tags/Special/Currency/_Cent sign ¢"
-msgstr ""
+msgstr "/Etiquetas/Especial/Moeda/Céntimo ¢"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:294
 msgid "/Tags/Special/Currency/_Pound sterling £"
-msgstr ""
+msgstr "/Etiquetas/Especial/Moeda/Libra Esterlina £"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:295
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
-msgstr ""
+msgstr "/Etiquetas/Especial/Moeda/Signo de moeda ¤"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:296
 msgid "/Tags/Special/Currency/_Yen sign ¥"
-msgstr ""
+msgstr "/Etiquetas/Especial/Moeda/signo do Yen  ¥"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:297
 msgid "/Tags/Special/Currency/_Euro €"
-msgstr ""
+msgstr "/Etiquetas/Especial/Moeda/Euro €"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:298
 msgid "/Tags/Special/_Math-Science"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:300
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/Non lóxico signo ¬"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:301
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/Multiplicación ×"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:302
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/División ÷"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:303
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/Signo Máis-Menos ±"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:304
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/Menos que   <"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:305
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/Máis que  >"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:306
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/Superscript 1  ¹"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:307
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/Superscript 2  ²"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:308
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/Superscript 3  ³"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:309
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/Un cuarto  ¼"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:310
 msgid "/Tags/Special/Math-Science/One _half ½"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/Un medio  ½"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:311
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/Tres cuartos ¾"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:312
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
-msgstr ""
+msgstr "/Etiquetas/Especial/_Matemáticos-Científicos/Grado °"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:313
 msgid "/Tags/Special/_Non Latin"
-msgstr ""
+msgstr "/Etiquetas/Especial/Non Latinos"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:315
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
-msgstr ""
+msgstr "/Etiquetas/Especial/Non Latinos/ETH (Islandés) Ð"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:316
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
-msgstr ""
+msgstr "/Etiquetas/Especial/Non Latinos/_THORN (Islandés) þ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:317
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
-msgstr ""
+msgstr "/Etiquetas/Especial/Non Latinos/et_h (Islandés) ð"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:318
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
-msgstr ""
+msgstr "/Etiquetas/Especial/Non Latinos/thorn ÿ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:319
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
-msgstr ""
+msgstr "/Etiquetas/Especial/Non Latinos/ß"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:320
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
-msgstr ""
+msgstr "/Etiquetas/Especial/Non Latinos/µ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:321
 msgid "/Tags/Special/_Other"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:323
 msgid "/Tags/Special/Other/_Non-breaking space"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/Espazo sen ruptura"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:324
 msgid "/Tags/Special/Other/_Section sign §"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/§"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:325
 msgid "/Tags/Special/Other/_Copyright sign ©"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/Copyright ©"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:326
 msgid "/Tags/Special/Other/_Left angle quotes «"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/comezo de cita   «"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:327
 msgid "/Tags/Special/Other/_Right angle quotes »"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/final de cita   »"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:328
 msgid "/Tags/Special/Other/Registered _trademark ®"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/Marca rexistrada ®"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:329
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/Exclamación invertida  ¡"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:330
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/Inicio de pregunta   ¿"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:331
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/Ordinal feminino ª"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:332
 msgid "/Tags/Special/Other/_Masculine ordinal º"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/Ordinal masculino  º"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:333
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/Signo de parágrafo ¶"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:334
 msgid "/Tags/Special/Other/_Broken bar ¦"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/Barra partida ¦"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:335
 msgid "/Tags/Special/Other/Soft _hyphen -"
-msgstr ""
+msgstr "/Tags/Special/Other/Guión medio -"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:336
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
-msgstr ""
+msgstr "/Tags/Special/Other/marca de espaciado ¯"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:337
 msgid "/Tags/Special/Other/Middle _dot ·"
-msgstr ""
+msgstr "/Etiquetas/Especial/Outros/Punto medio ·"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:338
 msgid "/Tags/_Format by layout"
-msgstr ""
+msgstr "/Etiquetas/_Formato por disposición"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:340
 msgid "/Tags/Format by layout/_Bold"
-msgstr ""
+msgstr "/Etiquetas/_Formato por disposición/Remarcado"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:341
 msgid "/Tags/Format by layout/_Italic"
-msgstr ""
+msgstr "/Etiquetas/_Formato por disposición/Cursiva"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:342
 msgid "/Tags/Format by layout/_Underline"
-msgstr ""
+msgstr "/Etiquetas/_Formato por disposición/Subliñado"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:343
 msgid "/Tags/Format by layout/_Strikeout"
-msgstr ""
+msgstr "/Etiquetas/_Formato por disposición/Riscado"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:344
 msgid "/Tags/Format by layout/Sm_all"
-msgstr ""
+msgstr "/Etiquetas/_Formato por disposición/Pequeno"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:345
 msgid "/Tags/Format by layout/Bi_g"
-msgstr ""
+msgstr "/Etiquetas/_Formato por disposición/Grande"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:346
 msgid "/Tags/F_ormat by context"
-msgstr ""
+msgstr "/Etiquetas/_Formato polo contexto"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:348
 msgid "/Tags/Format by context/_Strong"
-msgstr ""
+msgstr "/Etiquetas/Formato polo contexto/Forte"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:349
 msgid "/Tags/Format by context/_Emphasis"
-msgstr ""
+msgstr "/Etiquetas/Formato polo contexto/Énfase"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:350
 msgid "/Tags/Format by context/_Define"
-msgstr ""
+msgstr "/Etiquetas/Formato polo contexto/Definir"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:351
 msgid "/Tags/Format by context/_Code"
-msgstr ""
+msgstr "/Etiquetas/Formato polo contexto/Código"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:352
 msgid "/Tags/Format by context/Sa_mple"
-msgstr ""
+msgstr "/Etiquetas/Formato polo contexto/Exemplo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:353
 msgid "/Tags/Format by context/_Keyboard"
-msgstr ""
+msgstr "/Etiquetas/Formato polo contexto/Teclado"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:354
 msgid "/Tags/Format by context/_Variable"
-msgstr ""
+msgstr "/Etiquetas/Formato polo contexto/Variable"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:355
 msgid "/Tags/Format by context/Ci_tation"
-msgstr ""
+msgstr "/Etiquetas/Formato polo contexto/Cita"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:356
 msgid "/Tags/Format by context/_Abbreviation"
-msgstr ""
+msgstr "/Etiquetas/Formato polo contexto/Abreviatura"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:357
 msgid "/Tags/Format by context/Ac_ronym"
-msgstr ""
+msgstr "/Etiquetas/Formato polo contexto/Acónimo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:358
 msgid "/Tags/Format _general"
-msgstr ""
+msgstr "/Etiquetas/Formato xeral"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:360
 msgid "/Tags/Format general/_Paragraph"
-msgstr ""
+msgstr "/Etiquetas/Formato xeral/Parágrafo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:361
 msgid "/Tags/Format general/_Break"
-msgstr ""
+msgstr "/Etiquetas/Formato xeral/Nova liña"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:362
 msgid "/Tags/Format general/Break clear _all"
-msgstr ""
+msgstr "/Etiquetas/Formato xeral/Novo parágrafo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:363
 msgid "/Tags/Format general/_Non-Breaking Space"
-msgstr ""
+msgstr "/Etiquetas/Formato xeral/Espazo sen ruptura"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:365
 msgid "/Tags/Format general/Font Si_ze +1"
-msgstr ""
+msgstr "/Etiquetas/Formato xeral/Tamaño de letra +1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:366
 msgid "/Tags/Format general/Font _Size -1"
-msgstr ""
+msgstr "/Etiquetas/Formato xeral/Tamaño de letra  -1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:368
 msgid "/Tags/Format general/Preformatted _Text"
-msgstr ""
+msgstr "/Etiquetas/Formato xeral/Texto sen formato"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:369
 msgid "/Tags/Format general/Su_bscript"
-msgstr ""
+msgstr "/Etiquetas/Formato xeral/Subscript"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:370
 msgid "/Tags/Format general/Su_perscript"
-msgstr ""
+msgstr "/Etiquetas/Formato xeral/Superscript"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:372
 msgid "/Tags/Format general/_Center"
-msgstr ""
+msgstr "/Etiquetas/Formato xeral/Centrado"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:373
 msgid "/Tags/Format general/Align _right"
-msgstr ""
+msgstr "/Etiquetas/Formato xeral/Aliñar á dereita"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:374
 msgid "/Tags/_Table"
-msgstr ""
+msgstr "/Etiquetas/Táboa"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:376
 msgid "/Tags/Table/_Table"
-msgstr ""
+msgstr "/Etiquetas/Táboa/_Táboa"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:377
 msgid "/Tags/Table/Table _Row"
-msgstr ""
+msgstr "/Etiquetas/Táboa/Fila"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:378
 msgid "/Tags/Table/Table _Header"
-msgstr ""
+msgstr "/Etiquetas/Táboa/Cabeceira da táboa"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:379
 msgid "/Tags/Table/Table _Data"
-msgstr ""
+msgstr "/Etiquetas/Táboa/Datos da táboa"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:380
 msgid "/Tags/Table/Table _Caption"
-msgstr ""
+msgstr "/Etiquetas/Táboa/Lenda da táboa"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:381
 msgid "/Tags/_List"
-msgstr ""
+msgstr "/Etiquetas/_Lista"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:383
 msgid "/Tags/List/Unordered _List"
-msgstr ""
+msgstr "/Etiquetas/Lista/Lista sen ordenar"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:384
 msgid "/Tags/List/_Ordered List"
-msgstr ""
+msgstr "/Etiquetas/Lista/Lista ordenada"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:385
 msgid "/Tags/List/List Ite_m"
-msgstr ""
+msgstr "/Etiquetas/Lista/Elemento da lista"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:386
 msgid "/Tags/List/De_finition List"
-msgstr ""
+msgstr "/Etiquetas/Lista/Lista de definicións"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:387
 msgid "/Tags/List/Definition _Term"
-msgstr ""
+msgstr "/Etiquetas/Lista/Termo definido"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:388
 msgid "/Tags/List/_Definition"
-msgstr ""
+msgstr "/Etiquetas/Lista/Definición"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:389
 msgid "/Tags/List/Men_u"
-msgstr ""
+msgstr "/Etiquetas/Lista/Menú"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:390
 msgid "/Tags/Fo_rm"
-msgstr ""
+msgstr "/Etiquetas/Fo_rmulario"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:392
 msgid "/Tags/Form/_Form"
-msgstr ""
+msgstr "/Etiquetas/Formulario/_Formulario"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:393
 msgid "/Tags/Form/_Button"
-msgstr ""
+msgstr "/Etiquetas/Formulario/Botón"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:394
 msgid "/Tags/Form/_Input"
-msgstr ""
+msgstr "/Etiquetas/Formulario/Caixa de texto"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:395
 msgid "/Tags/Form/_Textarea"
-msgstr ""
+msgstr "/Etiquetas/Formulario/Área de texto"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:396
 msgid "/Tags/_Misc"
-msgstr ""
+msgstr "/Etiquetas/_Varios"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:398
 msgid "/Tags/Misc/Insert Generator _META-Tag"
-msgstr ""
+msgstr "/Etiquetas/Varios/Engadir xerador de _META_Tag"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:399
 msgid "/Tags/Misc/_Span"
-msgstr ""
+msgstr "/Etiquetas/Varios/_Span"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:400
 msgid "/Tags/Misc/_Div"
-msgstr ""
+msgstr "/Etiquetas/Varios/_DIV"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:401
 msgid "/Tags/Misc/_Link"
-msgstr ""
+msgstr "/Eitqueta/Varios/_Enlace"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:402
 msgid "/Tags/Misc/S_cript"
-msgstr ""
+msgstr "/Etiquetas/Varios/Script"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:403
 msgid "/Tags/Misc/_Anchor"
-msgstr ""
+msgstr "/Etiquetas/Varios/Áncora"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:404
 msgid "/Tags/Misc/_Image"
-msgstr ""
+msgstr "/Etitquetas/Varios/Imaxe"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:405
 msgid "/Tags/_Comment"
-msgstr ""
+msgstr "/Etiquetas/_Comentario"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:406
 msgid "/D_ialogs"
-msgstr ""
+msgstr "/As_istentes"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:408
 msgid "/Dialogs/_General"
-msgstr ""
+msgstr "/Asistentes/_Xeral"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:410
 msgid "/Dialogs/General/_Quickstart..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/Inicio rápido..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:411
 msgid "/Dialogs/General/_Link Header..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/Cabeceira do enlace..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:412
 msgid "/Dialogs/General/_Body..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/etiqueta Body..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:413
 msgid "/Dialogs/General/_Anchor..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/Áncora..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:414
 msgid "/Dialogs/General/_Email..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/_Correo electrónico..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:415
 msgid "/Dialogs/General/_Rule..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/_Raia horizontal..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:416
 msgid "/Dialogs/General/_Font..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/_Letra..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:417
 msgid "/Dialogs/General/Basef_ont..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/Letra por defecto..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:418
 msgid "/Dialogs/General/Quick_list..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/Lista rápida..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:419
 msgid "/Dialogs/General/_Meta..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/Meta..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:420
 msgid "/Dialogs/General/Embe_d..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/Incorporar..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:421
 msgid "/Dialogs/General/Select _Color..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/Seleccionar Cor..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:422
 msgid "/Dialogs/General/Insert _Time..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/Engadir Marca de tempo..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:423
 msgid "/Dialogs/General/Insert _Image..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/Engadir Imaxe..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:424
 msgid "/Dialogs/General/Insert T_humbnail..."
-msgstr ""
+msgstr "/Asistetentes/Xeral/Engadir Icona..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:425
 msgid "/Dialogs/_Table"
-msgstr ""
+msgstr "/Asistetentes/_Táboa"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:427
 msgid "/Dialogs/Table/Table _Wizard..."
-msgstr ""
+msgstr "/Asistetentes/Táboa/Asistente de táboas..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:428
 msgid "/Dialogs/Table/_Table..."
-msgstr ""
+msgstr "/Asistentes/Táboa/_Táboa..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:429
 msgid "/Dialogs/Table/Table _Row..."
-msgstr ""
+msgstr "/Asistetentes/Táboa/Fila..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:430
 msgid "/Dialogs/Table/Table _Head..."
-msgstr ""
+msgstr "/Asistetentes/Táboa/Cabeceira da táboa..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:431
 msgid "/Dialogs/Table/Table _Data..."
-msgstr ""
+msgstr "/Asistetentes/Táboa/Datos da táboa..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:432
 msgid "/Dialogs/_CSS"
-msgstr ""
+msgstr "Asistentes/_CSS"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:434
 msgid "/Dialogs/CSS/_Create Style..."
-msgstr ""
+msgstr "/Asistentes/CSS/Crear folla de estilo..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:435
 msgid "/Dialogs/CSS/S_pan..."
-msgstr ""
+msgstr "/Asistentes/CSS/S_pan"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:436
 msgid "/Dialogs/CSS/_Div..."
-msgstr ""
+msgstr "/Asistentes/CSS/Div..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:437
 msgid "/Dialogs/CSS/_Style..."
-msgstr ""
+msgstr "/Asistentes/CSS/Estilo..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:438
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
-msgstr ""
+msgstr "/Asistentes/CSS/Ligazón a folla de estilo..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:439
 msgid "/Dialogs/_Frame"
-msgstr ""
+msgstr "/Asistentes/_Marco"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:441
 msgid "/Dialogs/Frame/Frame _Wizard..."
-msgstr ""
+msgstr "/Asistentes/Marco/Asistente para Marcos..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:442
 msgid "/Dialogs/Frame/Frame_set..."
-msgstr ""
+msgstr "/Asistentes/Marco/Conxunto de marcos..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:443
 msgid "/Dialogs/Frame/_Frame..."
-msgstr ""
+msgstr "/Asistentes/Marco/Marco..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:444
 msgid "/Dialogs/F_orm"
-msgstr ""
+msgstr "/Asistentes/F_ormulario"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:446
 msgid "/Dialogs/Form/F_orm..."
-msgstr ""
+msgstr "/Asistentes/Formulario/Formulario..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:447
 msgid "/Dialogs/Form/_Input..."
-msgstr ""
+msgstr "/Asistentes/Formulario/Entrada..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:448
 msgid "/Dialogs/Form/Input Buttons..."
-msgstr ""
+msgstr "/Asistentes/Formulario/Botóns"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:449
 msgid "/Dialogs/Form/Input Text..."
-msgstr ""
+msgstr "/Asistentes/Formulario/Caixa de texto"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:450
 msgid "/Dialogs/Form/Text_area..."
-msgstr ""
+msgstr "/Asistentes/Formulario/Área de texto..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:451
 msgid "/Dialogs/Form/_Select..."
-msgstr ""
+msgstr "/Asistentes/Formulario/Botón select..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:452
 msgid "/Dialogs/Form/O_ption..."
-msgstr ""
+msgstr "/Asistentes/Formulario/Botón de opción..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:453
 msgid "/Dialogs/Form/Option _Group..."
-msgstr ""
+msgstr "/Asistentes/Formulario/Grupo de opcións...."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:454
 msgid "/Dialogs/Form/_Button..."
-msgstr ""
+msgstr "/Asistentes/Formulario/Botón..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:456
 msgid "/Dialogs/_Edit tag under cursor..."
-msgstr ""
+msgstr "/Asistentes/Editar etiqueta onde está o cursor..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:459
 msgid "/View/_HTML Toolbar"
-msgstr ""
+msgstr "/Ver/Ferramentas HTML"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:734
 msgid "QuickStart..."
-msgstr ""
+msgstr "Inicio rápido..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:735
 msgid "Body..."
-msgstr ""
+msgstr "Etiqueta Body..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:736
 msgid "Bold"
-msgstr ""
+msgstr "Remarcado"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:737
 msgid "Italic"
-msgstr ""
+msgstr "Cursiva"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:738 src/plugin_htmlbar/html.c:799
+#: src/plugin_htmlbar/htmlbar_gui.c:738
+#: src/plugin_htmlbar/html.c:799
 msgid "Paragraph"
-msgstr ""
+msgstr "Parágrafo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:739
 msgid "Break"
-msgstr ""
+msgstr "Cambio de liña"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:740
 msgid "Break and clear"
-msgstr ""
+msgstr "Cambio de  parágrafo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:741
 msgid "Non-breaking space"
-msgstr ""
+msgstr "Espazo"
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:743
 msgid "Anchor..."
-msgstr ""
+msgstr "Áncora"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:744
 msgid "Rule..."
-msgstr ""
+msgstr "Raia horizontal"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:745
 msgid "Center"
-msgstr ""
+msgstr "Centrar"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:746
 msgid "Right Justify"
-msgstr ""
+msgstr "Aliñar á dereita"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:747
 msgid "Comment"
-msgstr ""
+msgstr "Comentario"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:748
 msgid "E-mail..."
-msgstr ""
+msgstr "Correo electrónico"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:749
 msgid "Font..."
-msgstr ""
+msgstr "Tipo de letra"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:750
 msgid "Base Font Size..."
-msgstr ""
+msgstr "Tipo de letra por defecto"
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:752
 msgid "Font Size +1"
-msgstr ""
+msgstr "Aumentar tamaño letra +1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:753
 msgid "Font Size -1"
-msgstr ""
+msgstr "Diminuír tamaño de letra -1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:754
 msgid "Preformatted Text"
-msgstr ""
+msgstr "Texto sen formato"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:755
 msgid "Subscript"
-msgstr ""
+msgstr "Subíndice"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:756
 msgid "Superscript"
-msgstr ""
+msgstr "Supraíndice"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:757
 msgid "Strong"
-msgstr ""
+msgstr "Forte"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:758
 msgid "Emphasis"
-msgstr ""
+msgstr "Enfatizado"
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:808
+#: src/plugin_htmlbar/htmlbar_gui.c:760
+#: src/plugin_htmlbar/html.c:808
 msgid "Heading 1"
-msgstr ""
+msgstr "Cabeceira 1"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:811
+#: src/plugin_htmlbar/htmlbar_gui.c:761
+#: src/plugin_htmlbar/html.c:811
 msgid "Heading 2"
-msgstr ""
+msgstr "Cabeceira 2"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:814
+#: src/plugin_htmlbar/htmlbar_gui.c:762
+#: src/plugin_htmlbar/html.c:814
 msgid "Heading 3"
-msgstr ""
+msgstr "Cabeceira 3"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:817
+#: src/plugin_htmlbar/htmlbar_gui.c:763
+#: src/plugin_htmlbar/html.c:817
 msgid "Heading 4"
-msgstr ""
+msgstr "Cabeceira 4"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:764 src/plugin_htmlbar/html.c:820
+#: src/plugin_htmlbar/htmlbar_gui.c:764
+#: src/plugin_htmlbar/html.c:820
 msgid "Heading 5"
-msgstr ""
+msgstr "Cabeceira 5"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:765 src/plugin_htmlbar/html.c:823
+#: src/plugin_htmlbar/htmlbar_gui.c:765
+#: src/plugin_htmlbar/html.c:823
 msgid "Heading 6"
-msgstr ""
+msgstr "Cabeceira 6"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:766
 msgid "Table Wizard..."
-msgstr ""
+msgstr "Asistente de Táboas..."
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:768
 msgid "Table..."
-msgstr ""
+msgstr "Táboa..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:769
 msgid "Table Row..."
-msgstr ""
+msgstr "Fila de táboa..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:770
 msgid "Table Header..."
-msgstr ""
+msgstr "Cabeceira de táboa..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:771
 msgid "Table Data..."
-msgstr ""
+msgstr "Datos de táboa..."
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:773 src/plugin_htmlbar/html_table.c:77
+#: src/plugin_htmlbar/htmlbar_gui.c:773
+#: src/plugin_htmlbar/html_table.c:77
 msgid "Table"
-msgstr ""
+msgstr "Táboa"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:774 src/plugin_htmlbar/html_table.c:209
+#: src/plugin_htmlbar/htmlbar_gui.c:774
+#: src/plugin_htmlbar/html_table.c:209
 msgid "Table Row"
-msgstr ""
+msgstr "Fila de táboa"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:775 src/plugin_htmlbar/html_table.c:320
+#: src/plugin_htmlbar/htmlbar_gui.c:775
+#: src/plugin_htmlbar/html_table.c:320
 msgid "Table Header"
-msgstr ""
+msgstr "Cabeceira da táboa"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:776 src/plugin_htmlbar/html_table.c:318
+#: src/plugin_htmlbar/htmlbar_gui.c:776
+#: src/plugin_htmlbar/html_table.c:318
 msgid "Table Data"
-msgstr ""
+msgstr "Datos da táboa"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:777
 msgid "Table Caption"
-msgstr ""
+msgstr "Lenda da táboa"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:778
 msgid "Frame Wizard..."
-msgstr ""
+msgstr "Asistente de Marcos..."
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:780
 msgid "Frameset..."
-msgstr ""
+msgstr "Estructura de marcos..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:781
 msgid "Frame..."
-msgstr ""
+msgstr "Marco..."
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:783 src/plugin_htmlbar/html.c:1583
+#: src/plugin_htmlbar/htmlbar_gui.c:783
+#: src/plugin_htmlbar/html.c:1583
 msgid "Frameset"
-msgstr ""
+msgstr "Estructura de marcos"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:784 src/plugin_htmlbar/html.c:1667
+#: src/plugin_htmlbar/htmlbar_gui.c:784
+#: src/plugin_htmlbar/html.c:1667
 msgid "Frame"
-msgstr ""
+msgstr "Marco"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:785
 msgid "Noframes"
-msgstr ""
+msgstr "Sen marcos"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:786
 msgid "Target"
-msgstr ""
+msgstr "Destino"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:787
 msgid "Form..."
-msgstr ""
+msgstr "Formulario..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:788
 msgid "Input Button..."
-msgstr ""
+msgstr "Botón"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:789
 msgid "Input Text..."
-msgstr ""
+msgstr "Caixa de texto..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:790
 msgid "Input Hidden..."
-msgstr ""
+msgstr "Campo oculto..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:791
 msgid "Textarea..."
-msgstr ""
+msgstr "Área de texto..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:792
 msgid "Input Radio Button..."
-msgstr ""
+msgstr "Botón opción Radio..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:793
 msgid "Input Check Box..."
-msgstr ""
+msgstr "Caixa de opción..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:794
 msgid "Select..."
-msgstr ""
+msgstr "Escoller opción..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:795
 msgid "Option..."
-msgstr ""
+msgstr "Opción..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:796
 msgid "Option group..."
-msgstr ""
+msgstr "Grupo de opcións..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:797
 msgid "Button..."
-msgstr ""
+msgstr "Botón..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:798
 msgid "Quick List..."
-msgstr ""
+msgstr "Lista rápida..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:799
 msgid "Unordered List"
-msgstr ""
+msgstr "Lista non ordenada"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:800
 msgid "Ordered List"
-msgstr ""
+msgstr "Lista ordenada"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:801
 msgid "List Item"
-msgstr ""
+msgstr "Elemento da lista"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:802
 msgid "Definition List"
-msgstr ""
+msgstr "Lista de definición"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:803
 msgid "Definition Term"
-msgstr ""
+msgstr "Termo definido"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:804 src/plugin_htmlbar/htmlbar_gui.c:813
+#: src/plugin_htmlbar/htmlbar_gui.c:804
+#: src/plugin_htmlbar/htmlbar_gui.c:813
 msgid "Definition"
-msgstr ""
+msgstr "Definición"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:805
 msgid "Create stylesheet..."
-msgstr ""
+msgstr "Crea folla de estilo..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:806
 msgid "Span..."
-msgstr ""
+msgstr "Etiqueta Span..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:807
 msgid "Div..."
-msgstr ""
+msgstr "Estiqueta Div..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:808 src/plugin_htmlbar/html_form.c:825
+#: src/plugin_htmlbar/htmlbar_gui.c:808
+#: src/plugin_htmlbar/html_form.c:825
 msgid "Style"
-msgstr ""
+msgstr "Estilo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:809
 msgid "Link to stylesheet..."
-msgstr ""
+msgstr "Ligazón a folla de estilo..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:810
 msgid "Insert image..."
-msgstr ""
+msgstr "Engadir imaxe..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:811
 msgid "Insert thumbnail..."
-msgstr ""
+msgstr "Engadir icona..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:812
 msgid "Multi thumbnail..."
-msgstr ""
+msgstr "Multiples iconas..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:814
 msgid "Code"
-msgstr ""
+msgstr "Codigo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:815
 msgid "Sample"
-msgstr ""
+msgstr "Mostra"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:816
 msgid "Keyboard"
-msgstr ""
+msgstr "Teclado"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:817
 msgid "Variable"
-msgstr ""
+msgstr "Variable"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:818
 msgid "Citation"
-msgstr ""
+msgstr "Cita"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:819
 msgid "Abbreviation"
-msgstr ""
+msgstr "Abreviatura"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:820
 msgid "Acronym"
-msgstr ""
+msgstr "Acrónimo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:940
 msgid "Remove from quickbar"
-msgstr ""
+msgstr "Quitar da Barra Rápida"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:941
 msgid "Move Left"
-msgstr ""
+msgstr "Mover á esquerda"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:942
 msgid "Move Right"
-msgstr ""
+msgstr "Mover á dereita"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:982
 msgid "Add to quickbar"
-msgstr ""
+msgstr "Engadir á Barra Rápida"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1084
 msgid " Quick bar "
-msgstr ""
+msgstr " Barra rápida"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1089
 msgid "Heading"
-msgstr ""
+msgstr "Cabeceira"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1091
 msgid " Standard bar "
-msgstr ""
+msgstr "Barra Común"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1096
 msgid "Context formatting"
-msgstr ""
+msgstr "Formato segundo o entorno"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1098
 msgid " Fonts "
-msgstr ""
+msgstr " Letra "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1103
 msgid " Tables "
-msgstr ""
+msgstr " Táboas"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1108
 msgid " Frames "
-msgstr ""
+msgstr " Marcos "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1113
 msgid " Forms "
-msgstr ""
+msgstr " Formularios "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1118
 msgid " List "
-msgstr ""
+msgstr " Lista "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1123
 msgid " CSS "
-msgstr ""
+msgstr " CSS "
 
 #: src/plugin_htmlbar/html.c:385
 msgid "Insert Time"
-msgstr ""
+msgstr " Engadir Hora "
 
 #: src/plugin_htmlbar/html.c:393
 #, c-format
 msgid "  _Time (%i:%i:%i)"
-msgstr ""
+msgstr " _Hora (%i:%i:%i)"
 
 #: src/plugin_htmlbar/html.c:398
 msgid "  Day of the _week (Sunday)"
-msgstr ""
+msgstr " Día da _semana (Domingo)"
 
 #: src/plugin_htmlbar/html.c:401
 msgid "  Day of the _week (Monday)"
-msgstr ""
+msgstr " Día da semana (Luns)"
 
 #: src/plugin_htmlbar/html.c:404
 msgid "  Day of the _week (Tuesday)"
-msgstr ""
+msgstr " Día da semana (Martes)"
 
 #: src/plugin_htmlbar/html.c:407
 msgid "  Day of the _week (Wednesday)"
-msgstr ""
+msgstr " Día da semana (Mércores)"
 
 #: src/plugin_htmlbar/html.c:410
 msgid "  Day of the _week (Thursday)"
-msgstr ""
+msgstr " Día da semana (Xoves)"
 
 #: src/plugin_htmlbar/html.c:413
 msgid "  Day of the _week (Friday)"
-msgstr ""
+msgstr " Día da semana (Venres)"
 
 #: src/plugin_htmlbar/html.c:416
 msgid "  Day of the _week (Saturday)"
-msgstr ""
+msgstr " Día da semana (Sábado)"
 
 #: src/plugin_htmlbar/html.c:419
 msgid "You appear to have a non existant day!\n"
-msgstr ""
+msgstr "  Parece que non hai día actual!\n"
 
 #: src/plugin_htmlbar/html.c:427
 #, c-format
 msgid "  _Date (%i/%i/%i)"
-msgstr ""
+msgstr " _Data (%i/%i/%i)"
 
 #: src/plugin_htmlbar/html.c:430
 #, c-format
 msgid "  _Unix Time (%i)"
-msgstr ""
+msgstr " Tempo Unix (%i)"
 
 #: src/plugin_htmlbar/html.c:435
 #, c-format
 msgid "  Unix Date _String (%s)"
-msgstr ""
+msgstr " Cadea de data Unix (%s)"
 
 #: src/plugin_htmlbar/html.c:443
 msgid "  ISO-8601 Ti_me "
-msgstr ""
+msgstr " Hora ISO-8601"
 
 #: src/plugin_htmlbar/html.c:603
 msgid "Quick Anchor"
-msgstr ""
+msgstr " Áncora Rápida"
 
-#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/html_form.c:780
+#: src/plugin_htmlbar/html.c:609
+#: src/plugin_htmlbar/html_form.c:780
 msgid "Attributes"
-msgstr ""
+msgstr "Propiedades"
 
-#: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:1911
+#: src/plugin_htmlbar/html.c:623
+#: src/plugin_htmlbar/html.c:1911
 msgid "_HREF:"
-msgstr ""
+msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:627 src/plugin_htmlbar/html_form.c:183
+#: src/plugin_htmlbar/html.c:627
+#: src/plugin_htmlbar/html_form.c:183
 msgid "_Target:"
-msgstr ""
+msgstr "_Obxetivo:"
 
-#: src/plugin_htmlbar/html.c:631 src/plugin_htmlbar/html.c:855
-#: src/plugin_htmlbar/html.c:1220 src/plugin_htmlbar/html.c:1679
-#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
-#: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
+#: src/plugin_htmlbar/html.c:631
+#: src/plugin_htmlbar/html.c:855
+#: src/plugin_htmlbar/html.c:1220
+#: src/plugin_htmlbar/html.c:1679
+#: src/plugin_htmlbar/html_form.c:231
+#: src/plugin_htmlbar/html_form.c:596
+#: src/plugin_htmlbar/html_form.c:795
+#: src/plugin_htmlbar/html_form.c:890
 #: src/plugin_htmlbar/image.c:469
 msgid "_Name:"
-msgstr ""
+msgstr "_Nome:"
 
-#: src/plugin_htmlbar/html.c:635 src/plugin_htmlbar/quickstart.c:538
+#: src/plugin_htmlbar/html.c:635
+#: src/plugin_htmlbar/quickstart.c:538
 msgid "Titl_e:"
-msgstr ""
+msgstr "Título:"
 
-#: src/plugin_htmlbar/html.c:641 src/plugin_htmlbar/html.c:1088
-#: src/plugin_htmlbar/html.c:1238 src/plugin_htmlbar/html.c:1826
+#: src/plugin_htmlbar/html.c:641
+#: src/plugin_htmlbar/html.c:1088
+#: src/plugin_htmlbar/html.c:1238
+#: src/plugin_htmlbar/html.c:1826
 msgid "_Language:"
-msgstr ""
+msgstr "Língua:"
 
-#: src/plugin_htmlbar/html.c:645 src/plugin_htmlbar/html.c:863
-#: src/plugin_htmlbar/html.c:997 src/plugin_htmlbar/html.c:1092
-#: src/plugin_htmlbar/html.c:1246 src/plugin_htmlbar/html.c:1615
-#: src/plugin_htmlbar/html.c:1716 src/plugin_htmlbar/html.c:1845
-#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
-#: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
-#: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:477
+#: src/plugin_htmlbar/html.c:645
+#: src/plugin_htmlbar/html.c:863
+#: src/plugin_htmlbar/html.c:997
+#: src/plugin_htmlbar/html.c:1092
+#: src/plugin_htmlbar/html.c:1246
+#: src/plugin_htmlbar/html.c:1615
+#: src/plugin_htmlbar/html.c:1716
+#: src/plugin_htmlbar/html.c:1845
+#: src/plugin_htmlbar/html_form.c:187
+#: src/plugin_htmlbar/html_form.c:243
+#: src/plugin_htmlbar/html_form.c:609
+#: src/plugin_htmlbar/html_form.c:903
+#: src/plugin_htmlbar/html_table.c:101
+#: src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:361
+#: src/plugin_htmlbar/image.c:477
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Custo_m:"
-msgstr ""
+msgstr "Personalizado:"
 
-#: src/plugin_htmlbar/html.c:648 src/plugin_htmlbar/html.c:1096
+#: src/plugin_htmlbar/html.c:648
+#: src/plugin_htmlbar/html.c:1096
 #: src/plugin_htmlbar/html_form.c:829
 msgid "Events"
-msgstr ""
+msgstr "Eventos:"
 
 #: src/plugin_htmlbar/html.c:651
 msgid "OnClic_k:"
-msgstr ""
+msgstr "OnClic_k:"
 
 #: src/plugin_htmlbar/html.c:655
 msgid "OnD_blClick:"
-msgstr ""
+msgstr "OnD_blClick:"
 
 #: src/plugin_htmlbar/html.c:659
 msgid "OnMouseO_ver:"
-msgstr ""
+msgstr "OnMouseO_ver:"
 
 #: src/plugin_htmlbar/html.c:663
 msgid "OnMouse_Down:"
-msgstr ""
+msgstr "OnMouse_Down:"
 
 #: src/plugin_htmlbar/html.c:667
 msgid "OnMouse_Move:"
-msgstr ""
+msgstr "OnMouse_Move:"
 
 #: src/plugin_htmlbar/html.c:671
 msgid "OnMouseOu_t:"
-msgstr ""
+msgstr "OnMouseOu_t:"
 
 #: src/plugin_htmlbar/html.c:675
 msgid "OnMouse_Up:"
-msgstr ""
+msgstr "OnMouse_Up:"
 
 #: src/plugin_htmlbar/html.c:679
 msgid "OnKeyDo_wn:"
-msgstr ""
+msgstr "OnKeyDo_wn:"
 
 #: src/plugin_htmlbar/html.c:683
 msgid "OnKey_Press:"
-msgstr ""
+msgstr "OnKey_Press:"
 
 #: src/plugin_htmlbar/html.c:687
 msgid "OnKe_yUp:"
-msgstr ""
+msgstr "OnKe_yUp:"
 
 #: src/plugin_htmlbar/html.c:802
 msgid "Div"
-msgstr ""
+msgstr "Div"
 
 #: src/plugin_htmlbar/html.c:805
 msgid "Span"
-msgstr ""
+msgstr "Span"
 
-#: src/plugin_htmlbar/html.c:840 src/plugin_htmlbar/html_table.c:109
-#: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
+#: src/plugin_htmlbar/html.c:840
+#: src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html_table.c:219
+#: src/plugin_htmlbar/html_table.c:333
 msgid "Ali_gn:"
-msgstr ""
+msgstr "Aliñar:"
 
-#: src/plugin_htmlbar/html.c:844 src/plugin_htmlbar/html.c:1080
-#: src/plugin_htmlbar/html_diag.c:378 src/plugin_htmlbar/html_table.c:91
-#: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
+#: src/plugin_htmlbar/html.c:844
+#: src/plugin_htmlbar/html.c:1080
+#: src/plugin_htmlbar/html_diag.c:378
+#: src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html_table.c:237
+#: src/plugin_htmlbar/html_table.c:351
 #: src/plugin_htmlbar/image_dialog.c:396
 msgid "Cl_ass:"
-msgstr ""
+msgstr "Cl_ass:"
 
-#: src/plugin_htmlbar/html.c:848 src/plugin_htmlbar/html.c:1073
-#: src/plugin_htmlbar/html_diag.c:386 src/plugin_htmlbar/html_table.c:96
-#: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
+#: src/plugin_htmlbar/html.c:848
+#: src/plugin_htmlbar/html.c:1073
+#: src/plugin_htmlbar/html_diag.c:386
+#: src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html_table.c:248
+#: src/plugin_htmlbar/html_table.c:356
 msgid "St_yle:"
-msgstr ""
+msgstr "Estilo:"
 
-#: src/plugin_htmlbar/html.c:859 src/plugin_htmlbar/html.c:1084
+#: src/plugin_htmlbar/html.c:859
+#: src/plugin_htmlbar/html.c:1084
 #: src/plugin_htmlbar/html_diag.c:382
 msgid "_ID:"
-msgstr ""
+msgstr "_ID:"
 
 #: src/plugin_htmlbar/html.c:960
 msgid "Horizontal Rule"
-msgstr ""
+msgstr "Raia horizontal"
 
-#: src/plugin_htmlbar/html.c:971 src/plugin_htmlbar/html.c:1764
-#: src/plugin_htmlbar/image.c:495 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/html.c:971
+#: src/plugin_htmlbar/html.c:1764
+#: src/plugin_htmlbar/image.c:495
+#: src/plugin_htmlbar/image_dialog.c:429
 msgid "_Align:"
-msgstr ""
+msgstr "Aliñar:"
 
-#: src/plugin_htmlbar/html.c:978 src/plugin_htmlbar/html.c:1772
-#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:370
+#: src/plugin_htmlbar/html.c:978
+#: src/plugin_htmlbar/html.c:1772
+#: src/plugin_htmlbar/html_table.c:387
+#: src/plugin_htmlbar/image_dialog.c:370
 msgid "_Height:"
-msgstr ""
+msgstr "Altura:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:984 src/plugin_htmlbar/html.c:1768
-#: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:453 src/plugin_htmlbar/image_dialog.c:361
+#: src/plugin_htmlbar/html.c:984
+#: src/plugin_htmlbar/html.c:1768
+#: src/plugin_htmlbar/html_table.c:134
+#: src/plugin_htmlbar/html_table.c:380
+#: src/plugin_htmlbar/image.c:453
+#: src/plugin_htmlbar/image_dialog.c:361
 msgid "_Width:"
-msgstr ""
+msgstr "Ancho:"
 
 #: src/plugin_htmlbar/html.c:987
 msgid "Is _percent"
-msgstr ""
+msgstr "En porcentaxe"
 
 #: src/plugin_htmlbar/html.c:992
 msgid "No _shading"
-msgstr ""
+msgstr "Sen sombra"
 
 #: src/plugin_htmlbar/html.c:1057
 msgid "Body"
-msgstr ""
+msgstr "Body"
 
 #: src/plugin_htmlbar/html.c:1065
 msgid "Options"
-msgstr ""
+msgstr "Opcións"
 
 #: src/plugin_htmlbar/html.c:1103
 msgid "On_Load:"
-msgstr ""
+msgstr "On_Load:"
 
 #: src/plugin_htmlbar/html.c:1111
 msgid "On_UnLoad:"
-msgstr ""
+msgstr "On_UnLoad:"
 
 #: src/plugin_htmlbar/html.c:1120
 msgid "Depreciated options"
-msgstr ""
+msgstr "Opcións obsoletas"
 
 #: src/plugin_htmlbar/html.c:1130
 msgid "Background _Image:"
-msgstr ""
+msgstr "Imaxe de Fondo:"
 
 #: src/plugin_htmlbar/html.c:1137
 msgid "Back_ground Color:"
-msgstr ""
+msgstr "Cor de Fondo:"
 
 #: src/plugin_htmlbar/html.c:1143
 msgid "_Text Color:"
-msgstr ""
+msgstr "Cor do texto:"
 
 #: src/plugin_htmlbar/html.c:1149
 msgid "_Link Color:"
-msgstr ""
+msgstr "Cor da ligazón:"
 
 #: src/plugin_htmlbar/html.c:1155
 msgid "_Visited Link Color:"
-msgstr ""
+msgstr "Cor da Ligazón visitada:"
 
 #: src/plugin_htmlbar/html.c:1161
 msgid "_Active Link Color:"
-msgstr ""
+msgstr "Cor da ligazón activa:"
 
 #: src/plugin_htmlbar/html.c:1213
 msgid "Meta"
-msgstr ""
+msgstr "Meta"
 
 #: src/plugin_htmlbar/html.c:1229
 msgid "_HTTP-EQUIV:"
-msgstr ""
+msgstr "_HTTP-EQUIV:"
 
 #: src/plugin_htmlbar/html.c:1234
 msgid "Con_tent:"
-msgstr ""
+msgstr "Con_tido:"
 
 #: src/plugin_htmlbar/html.c:1242
 msgid "_Scheme:"
-msgstr ""
+msgstr "E_squema:"
 
 #: src/plugin_htmlbar/html.c:1320
 msgid "Font"
-msgstr ""
+msgstr "Letra"
 
 #: src/plugin_htmlbar/html.c:1323
 msgid "Base Font"
-msgstr ""
+msgstr "Letra por defecto"
 
 #: src/plugin_htmlbar/html.c:1338
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 #: src/plugin_htmlbar/html.c:1346
 msgid "Color"
-msgstr ""
+msgstr "Cor"
 
 #: src/plugin_htmlbar/html.c:1351
 msgid "Face"
-msgstr ""
+msgstr "Aparencia"
 
 #: src/plugin_htmlbar/html.c:1355
 msgid "Custom"
-msgstr ""
+msgstr "Personalizado"
 
 #: src/plugin_htmlbar/html.c:1438
 msgid "E-mail"
-msgstr ""
+msgstr "Correo Electrónico"
 
 #: src/plugin_htmlbar/html.c:1446
 msgid "_Mail to:"
-msgstr ""
+msgstr "Para:"
 
 #: src/plugin_htmlbar/html.c:1450
 msgid "_Copy to:"
-msgstr ""
+msgstr "Copia para:"
 
 #: src/plugin_htmlbar/html.c:1454
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "Copia cega para:"
 
 #: src/plugin_htmlbar/html.c:1458
 msgid "with _Subject:"
-msgstr ""
+msgstr "Asunto:"
 
 #: src/plugin_htmlbar/html.c:1462
 msgid "with _Body:"
-msgstr ""
+msgstr "Corpor da mensaxe:"
 
 #: src/plugin_htmlbar/html.c:1506
 msgid "Quick List"
-msgstr ""
+msgstr "Lista Rápida"
 
-#: src/plugin_htmlbar/html.c:1511 src/plugin_htmlbar/wizards.c:76
+#: src/plugin_htmlbar/html.c:1511
+#: src/plugin_htmlbar/wizards.c:76
 msgid "Number of _rows:"
-msgstr ""
+msgstr "Número de filas:"
 
 #: src/plugin_htmlbar/html.c:1514
 msgid "Or_dered"
-msgstr ""
+msgstr "Ordenada"
 
 #: src/plugin_htmlbar/html.c:1515
 msgid "_Unordered"
-msgstr ""
+msgstr "Non Ordenada"
 
 #: src/plugin_htmlbar/html.c:1517
 msgid "Style:"
-msgstr ""
+msgstr "Estilo:"
 
-#: src/plugin_htmlbar/html.c:1589 src/plugin_htmlbar/html_form.c:240
+#: src/plugin_htmlbar/html.c:1589
+#: src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
-msgstr ""
+msgstr "Columnas:"
 
-#: src/plugin_htmlbar/html.c:1593 src/plugin_htmlbar/html_form.c:236
+#: src/plugin_htmlbar/html.c:1593
+#: src/plugin_htmlbar/html_form.c:236
 msgid "_Rows:"
-msgstr ""
+msgstr "Filas:"
 
 #: src/plugin_htmlbar/html.c:1598
 msgid "_Add <frame> elements"
-msgstr ""
+msgstr "Engadir elementos <frame>"
 
-#: src/plugin_htmlbar/html.c:1675 src/plugin_htmlbar/html.c:1760
-#: src/plugin_htmlbar/html.c:1819 src/plugin_htmlbar/image_dialog.c:320
+#: src/plugin_htmlbar/html.c:1675
+#: src/plugin_htmlbar/html.c:1760
+#: src/plugin_htmlbar/html.c:1819
+#: src/plugin_htmlbar/image_dialog.c:320
 msgid "_Source:"
-msgstr ""
+msgstr "_Fonte:"
 
 #: src/plugin_htmlbar/html.c:1683
 msgid "Margin _Width:"
-msgstr ""
+msgstr "Anc_ho da marxe:"
 
 #: src/plugin_htmlbar/html.c:1687
 msgid "Margin _Height:"
-msgstr ""
+msgstr "Al_tura da marxe:"
 
 #: src/plugin_htmlbar/html.c:1695
 msgid "Scrollin_g:"
-msgstr ""
+msgstr "Desplazamento:"
 
 #: src/plugin_htmlbar/html.c:1699
 msgid "_Frameborder:"
-msgstr ""
+msgstr "Bordo do marco:"
 
 #: src/plugin_htmlbar/html.c:1704
 msgid "No _Resize:"
-msgstr ""
+msgstr "Non Redimensionar:"
 
 #: src/plugin_htmlbar/html.c:1754
 msgid "Embed"
-msgstr ""
+msgstr "Incluido"
 
-#: src/plugin_htmlbar/html.c:1776 src/plugin_htmlbar/html_table.c:140
+#: src/plugin_htmlbar/html.c:1776
+#: src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
-msgstr ""
+msgstr "Bo_rdo:"
 
 #: src/plugin_htmlbar/html.c:1812
 msgid "Script"
-msgstr ""
+msgstr "Script"
 
-#: src/plugin_htmlbar/html.c:1841 src/plugin_htmlbar/html.c:1942
-#: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
+#: src/plugin_htmlbar/html.c:1841
+#: src/plugin_htmlbar/html.c:1942
+#: src/plugin_htmlbar/html_form.c:789
+#: src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
-msgstr ""
+msgstr "_Tipo:"
 
 #: src/plugin_htmlbar/html.c:1900
 msgid "Link"
-msgstr ""
+msgstr "Ligazón"
 
 #: src/plugin_htmlbar/html.c:1917
 msgid "HREF_LANG:"
-msgstr ""
+msgstr "HREF _LANG:"
 
 #: src/plugin_htmlbar/html.c:1921
 msgid "T_itle:"
-msgstr ""
+msgstr "Titulo:"
 
 #: src/plugin_htmlbar/html.c:1961
+#, fuzzy
 msgid "_Forward Relation:"
 msgstr ""
 
 #: src/plugin_htmlbar/html.c:1965
+#, fuzzy
 msgid "_Reverse Relation:"
 msgstr ""
 
 #: src/plugin_htmlbar/html.c:1976
 msgid "Media:"
-msgstr ""
+msgstr "Medios:"
 
 #: src/plugin_htmlbar/html.c:1980
 msgid "L_ang:"
-msgstr ""
+msgstr "Idioma:"
 
 #: src/plugin_htmlbar/html.c:1984
 msgid "_Custom:"
-msgstr ""
+msgstr "_Personalizado:"
 
 #: src/plugin_htmlbar/html_form.c:141
 msgid "Form"
-msgstr ""
+msgstr "Formulario"
 
 #: src/plugin_htmlbar/html_form.c:159
 msgid "_Action:"
-msgstr ""
+msgstr "_Action:"
 
 #: src/plugin_htmlbar/html_form.c:167
 msgid "Metho_d:"
-msgstr ""
+msgstr "Metho_d:"
 
 #: src/plugin_htmlbar/html_form.c:176
 msgid "_Enctype:"
-msgstr ""
+msgstr "_Enctype:"
 
 #: src/plugin_htmlbar/html_form.c:225
 msgid "Text area"
-msgstr ""
+msgstr "Área de texto"
 
 #: src/plugin_htmlbar/html_form.c:590
 msgid "Select"
-msgstr ""
+msgstr "Select"
 
-#: src/plugin_htmlbar/html_form.c:601 src/plugin_htmlbar/html_form.c:808
+#: src/plugin_htmlbar/html_form.c:601
+#: src/plugin_htmlbar/html_form.c:808
 msgid "Si_ze:"
-msgstr ""
+msgstr "Tamaño:"
 
 #: src/plugin_htmlbar/html_form.c:605
 msgid "Multiple _Selections:"
-msgstr ""
+msgstr "Seleccións Múltiples:"
 
 #: src/plugin_htmlbar/html_form.c:644
 msgid "Option"
-msgstr ""
+msgstr "Opción"
 
-#: src/plugin_htmlbar/html_form.c:654 src/plugin_htmlbar/html_form.c:697
+#: src/plugin_htmlbar/html_form.c:654
+#: src/plugin_htmlbar/html_form.c:697
 msgid "_Label:"
-msgstr ""
+msgstr "E_tiqueta:"
 
 #: src/plugin_htmlbar/html_form.c:659
 msgid "_Selected:"
-msgstr ""
+msgstr "_Seleccionado:"
 
 #: src/plugin_htmlbar/html_form.c:692
 msgid "Option group"
-msgstr ""
+msgstr "Grupo de Opcións"
 
 #: src/plugin_htmlbar/html_form.c:775
 msgid "Input"
-msgstr ""
+msgstr "Entrada"
 
 #: src/plugin_htmlbar/html_form.c:803
 msgid "_Checked:"
-msgstr ""
+msgstr "_Marcado:"
 
 #: src/plugin_htmlbar/html_form.c:812
 msgid "Max _Length:"
-msgstr ""
+msgstr "Lonxitude máxima:"
 
 #: src/plugin_htmlbar/html_form.c:816
 msgid "_Accept:"
-msgstr ""
+msgstr "_Consentir:"
 
 #: src/plugin_htmlbar/html_form.c:820
 msgid "C_ustom:"
-msgstr ""
+msgstr "Pe_rsonalizado:"
 
 #: src/plugin_htmlbar/html_form.c:832
 msgid "On_Focus:"
-msgstr ""
+msgstr "On_Focus:"
 
 #: src/plugin_htmlbar/html_form.c:836
 msgid "On_Blur:"
-msgstr ""
+msgstr "On_Blur:"
 
 #: src/plugin_htmlbar/html_form.c:840
 msgid "On_Select:"
-msgstr ""
+msgstr "On_Select:"
 
 #: src/plugin_htmlbar/html_form.c:844
 msgid "On_Change:"
-msgstr ""
+msgstr "On_Change:"
 
 #: src/plugin_htmlbar/html_form.c:884
 msgid "Button"
-msgstr ""
+msgstr "Botón"
 
 #: src/plugin_htmlbar/html_table.c:83
 msgid "Cell _Padding:"
-msgstr ""
+msgstr "Espaciado entre celdas:"
 
 #: src/plugin_htmlbar/html_table.c:87
 msgid "C_ell Spacing:"
-msgstr ""
+msgstr "Espaciado na celda"
 
-#: src/plugin_htmlbar/html_table.c:123 src/plugin_htmlbar/html_table.c:233
+#: src/plugin_htmlbar/html_table.c:123
+#: src/plugin_htmlbar/html_table.c:233
 #: src/plugin_htmlbar/html_table.c:347
 msgid "_Valign:"
-msgstr ""
+msgstr "Aliñar Vertical:"
 
-#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:128
+#: src/plugin_htmlbar/html_table.c:242
 #: src/plugin_htmlbar/html_table.c:392
 msgid "Backgrou_nd Color:"
-msgstr ""
+msgstr "Cor de fondo:"
 
 #: src/plugin_htmlbar/html_table.c:154
 msgid "_Frame:"
-msgstr ""
+msgstr "_Marco:"
 
 #: src/plugin_htmlbar/html_table.c:165
 msgid "R_ules:"
-msgstr ""
+msgstr "Raias Horizontais:"
 
 #: src/plugin_htmlbar/html_table.c:365
 msgid "Co_l Span:"
-msgstr ""
+msgstr "Extender Colum"
 
 #: src/plugin_htmlbar/html_table.c:369
 msgid "_Row Span:"
-msgstr ""
+msgstr "Extenter Filas:"
 
 #: src/plugin_htmlbar/html_table.c:374
 msgid "No Wra_p:"
-msgstr ""
+msgstr "Non recortar:"
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:290
 msgid "Loading image failed..."
-msgstr ""
+msgstr "Fallo a carga da imaxe..."
 
 #: src/plugin_htmlbar/image.c:362
 #, c-format
 msgid "Loading file %s..."
-msgstr ""
+msgstr "Cargando ficheiro %s..."
 
 #: src/plugin_htmlbar/image.c:414
 msgid "Insert thumbnail"
-msgstr ""
+msgstr "Engadir icona"
 
 #: src/plugin_htmlbar/image.c:416
 msgid "Insert image"
-msgstr ""
+msgstr "Engadir imaxe"
 
-#: src/plugin_htmlbar/image.c:422 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:422
+#: src/plugin_htmlbar/image_dialog.c:340
 msgid "Preview"
-msgstr ""
+msgstr "Vista previa"
 
 #: src/plugin_htmlbar/image.c:444
 msgid "_Image location:"
-msgstr ""
+msgstr "Ruta á imaxe:"
 
 #: src/plugin_htmlbar/image.c:460
 msgid "Hei_ght:"
-msgstr ""
+msgstr "Al_tura:"
 
-#: src/plugin_htmlbar/image.c:465 src/plugin_htmlbar/image_dialog.c:404
+#: src/plugin_htmlbar/image.c:465
+#: src/plugin_htmlbar/image_dialog.c:404
+#, fuzzy
 msgid "_Usemap:"
-msgstr ""
+msgstr "_Mapa de imaxe:"
 
 #: src/plugin_htmlbar/image.c:473
 msgid "Alternate _text:"
-msgstr ""
+msgstr "Texto Alt:"
 
-#: src/plugin_htmlbar/image.c:481 src/plugin_htmlbar/image_dialog.c:438
+#: src/plugin_htmlbar/image.c:481
+#: src/plugin_htmlbar/image_dialog.c:438
 msgid "_Hspace:"
-msgstr ""
+msgstr "Espazo _H:"
 
-#: src/plugin_htmlbar/image.c:485 src/plugin_htmlbar/image_dialog.c:442
+#: src/plugin_htmlbar/image.c:485
+#: src/plugin_htmlbar/image_dialog.c:442
 msgid "_Vspace:"
-msgstr ""
+msgstr "Espazo _V:"
 
 #: src/plugin_htmlbar/image.c:499
 msgid "Borde_r:"
-msgstr ""
+msgstr "Bord_o:"
 
 #: src/plugin_htmlbar/image.c:882
 msgid "Select files for thumbnail creation"
-msgstr ""
+msgstr "Seleccione ficheiros para crear iconas"
 
 #: src/plugin_htmlbar/image.c:917
 msgid "Scaling (%)"
-msgstr ""
+msgstr "Proporción (%)"
 
-#: src/plugin_htmlbar/image.c:921 src/plugin_htmlbar/image.c:929
+#: src/plugin_htmlbar/image.c:921
+#: src/plugin_htmlbar/image.c:929
 msgid "Width"
-msgstr ""
+msgstr "Ancho"
 
-#: src/plugin_htmlbar/image.c:925 src/plugin_htmlbar/image.c:957
+#: src/plugin_htmlbar/image.c:925
+#: src/plugin_htmlbar/image.c:957
 msgid "Height"
-msgstr ""
+msgstr "Alto"
 
 #: src/plugin_htmlbar/image.c:946
 msgid "Multi thumbnail"
-msgstr ""
+msgstr "Varias iconas"
 
 #: src/plugin_htmlbar/image.c:952
 msgid "By scaling"
-msgstr ""
+msgstr "Por proporción"
 
 #: src/plugin_htmlbar/image.c:953
 msgid "By width, keep aspect ratio"
-msgstr ""
+msgstr "Polo ancho, manter proporcion aspecto"
 
 #: src/plugin_htmlbar/image.c:954
 msgid "By height, keep aspect ratio"
-msgstr ""
+msgstr "Por altura, manter proporción aspecto"
 
 #: src/plugin_htmlbar/image.c:955
 msgid "By width and height, ignore aspect ratio"
-msgstr ""
+msgstr "Por ancho e alto, sen manter relación aspecto"
 
 #: src/plugin_htmlbar/image.c:979
 msgid ""
@@ -2014,30 +2088,34 @@ msgid ""
 "%x: thumbnail width  %y: thumbnail height\n"
 "%b: original size (bytes)"
 msgstr ""
+"%r: nome orixinal ficheiro %t: nome da icona\n"
+"%w: ancho orixinal  %h: altura orixinal\n"
+"%x: ancho da icona  %y: altura da icona\n"
+"%b: tamaño orixinal (bytes)"
 
 #: src/plugin_htmlbar/image_dialog.c:377
 msgid "_Reset Dimensions"
-msgstr ""
+msgstr "Restablecer Tamaño"
 
 #: src/plugin_htmlbar/image_dialog.c:388
 msgid "Alternate te_xt:"
-msgstr ""
+msgstr "Texto Alternativo:"
 
 #: src/plugin_htmlbar/image_dialog.c:392
 msgid "_Long description:"
-msgstr ""
+msgstr "Descripción Longa:"
 
 #: src/plugin_htmlbar/image_dialog.c:400
 msgid "I_D:"
-msgstr ""
+msgstr "I_D:"
 
 #: src/plugin_htmlbar/image_dialog.c:419
 msgid "_Use Transitional options"
-msgstr ""
+msgstr "Usar opcións de transición"
 
 #: src/plugin_htmlbar/image_dialog.c:434
 msgid "_Border:"
-msgstr ""
+msgstr "_Bordo:"
 
 #: src/plugin_htmlbar/image_dialog.c:773
 #, c-format
@@ -2045,6 +2123,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"\n"
+"%s"
 
 #: src/plugin_htmlbar/image_dialog.c:778
 #, c-format
@@ -2052,6 +2132,8 @@ msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
+"\n"
+"%d x %d pixels"
 
 #: src/plugin_htmlbar/image_dialog.c:876
 msgid ""
@@ -2060,136 +2142,142 @@ msgid ""
 "\t<b>Loading preview...</b>\t\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"\t<b>Cargado vista previa...</b>\t\n"
+"\n"
 
 #: src/plugin_htmlbar/image_dialog.c:979
 msgid "Select Image"
-msgstr ""
+msgstr "Selecciona Imaxe"
 
 #: src/plugin_htmlbar/image_dialog.c:987
 msgid "All images"
-msgstr ""
+msgstr "Tódalas imaxes"
 
 #: src/plugin_htmlbar/image_dialog.c:1219
 #: src/plugin_htmlbar/image_dialog.c:1331
 msgid "Insert Image"
-msgstr ""
+msgstr "Engadir imaxe"
 
 #: src/plugin_htmlbar/quickstart.c:502
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr ""
+msgstr "<b>Folla de Estilo E_xterna</b>"
 
 #: src/plugin_htmlbar/quickstart.c:512
 msgid "Ty_pe:"
-msgstr ""
+msgstr "Tipo:"
 
 #: src/plugin_htmlbar/quickstart.c:530
 msgid "HRE_F:"
-msgstr ""
+msgstr "HRE_F:"
 
 #: src/plugin_htmlbar/quickstart.c:534
 msgid "_Media:"
-msgstr ""
+msgstr "_Media:"
 
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
 #.
 #: src/plugin_htmlbar/quickstart.c:544
 msgid "<b>Style Area</b>"
-msgstr ""
+msgstr "<b>Área de Estilo</b>"
 
 #: src/plugin_htmlbar/quickstart.c:548
 msgid "Cre_ate empty style area"
-msgstr ""
+msgstr "Crear Área de Estilo Baldeira"
 
 #: src/plugin_htmlbar/quickstart.c:570
 msgid "<b>Attributes</b>"
-msgstr ""
+msgstr "<b>Propiedades</b>"
 
 #: src/plugin_htmlbar/quickstart.c:585
 msgid "_Src:"
-msgstr ""
+msgstr "_Src:"
 
 #. TODO: add an option to place content in the script area
 #: src/plugin_htmlbar/quickstart.c:592
 msgid "<b>Script Area</b>"
-msgstr ""
+msgstr "<b>Área de Script</b>"
 
 #: src/plugin_htmlbar/quickstart.c:596
 msgid "Cre_ate empty script area"
-msgstr ""
+msgstr "Crear un Área de Script baldeira"
 
 #: src/plugin_htmlbar/quickstart.c:623
 msgid "Quick Start"
-msgstr ""
+msgstr "Inicio Rápido"
 
 #: src/plugin_htmlbar/quickstart.c:638
 msgid "_DTD:"
-msgstr ""
+msgstr "_DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:642 src/plugin_htmlbar/wizards.c:186
+#: src/plugin_htmlbar/quickstart.c:642
+#: src/plugin_htmlbar/wizards.c:186
 msgid "_Title:"
-msgstr ""
+msgstr "_Título:"
 
 #: src/plugin_htmlbar/quickstart.c:665
 msgid "_Head:"
-msgstr ""
+msgstr "_Cabeceira:"
 
 #: src/plugin_htmlbar/quickstart.c:682
 msgid "Open in _new document."
-msgstr ""
+msgstr "Abrir nun _novo documento."
 
 #: src/plugin_htmlbar/wizards.c:68
 msgid "Table Wizard"
-msgstr ""
+msgstr "Asistente de Táboas"
 
 #: src/plugin_htmlbar/wizards.c:80
 msgid "Number of colu_mns:"
-msgstr ""
+msgstr "Número de columnas:"
 
 #: src/plugin_htmlbar/wizards.c:84
 msgid "Table rows on one _line:"
-msgstr ""
+msgstr "Filas da táboa nunha liña:"
 
 #: src/plugin_htmlbar/wizards.c:88
 msgid "_Indent table code:"
-msgstr ""
+msgstr "Aliñar código da táboa:"
 
 #: src/plugin_htmlbar/wizards.c:175
 msgid "Frame Wizard"
-msgstr ""
+msgstr "Asistente para Marcos:"
 
 #: src/plugin_htmlbar/wizards.c:190
 msgid "Use _DTD:"
-msgstr ""
+msgstr "Usar _DTD:"
 
 #: src/plugin_htmlbar/wizards.c:193
 msgid "Orientation:"
-msgstr ""
+msgstr "Orientación:"
 
 #: src/plugin_htmlbar/wizards.c:196
 msgid "_Horizontal"
-msgstr ""
+msgstr "_Horizontal:"
 
 #: src/plugin_htmlbar/wizards.c:197
 msgid "_Vertical"
-msgstr ""
+msgstr "_Vertical:"
 
 #: src/plugin_htmlbar/wizards.c:202
 msgid "Number of _Frames:"
-msgstr ""
+msgstr "Número de Marcos:"
 
 #: src/plugin_htmlbar/wizards.c:205
 msgid "Frame's"
-msgstr ""
+msgstr "do Marco"
 
 #: src/plugin_htmlbar/wizards.c:217
 msgid "Name:"
-msgstr ""
+msgstr "Nome:"
 
 #: src/plugin_htmlbar/wizards.c:219
 msgid "Source:"
-msgstr ""
+msgstr "Fonte:"
 
 #: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
-msgstr ""
+msgstr "Tamaño:"
+
