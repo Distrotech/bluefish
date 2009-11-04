@@ -452,6 +452,67 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	return config_rc;
 }
 
+static gboolean merge_config_files(GFile *oldrc, GFile *oldsession, GFile *newrc, GFile *newsession) {
+	GError *gerror=NULL;
+	GInputStream *istream;
+	GOutputStream *ostream;
+	gssize size;
+	
+	istream = (GInputStream *)g_file_read(oldrc,NULL,&gerror);
+	if (gerror){
+		g_print("config file migration error %d:%s",gerror->code,gerror->message);
+		g_error_free(gerror);
+		return FALSE;
+	}
+	ostream = (GOutputStream *)g_file_append_to(newrc,G_FILE_CREATE_PRIVATE,NULL,&gerror);
+	if (gerror){
+		g_print("config file migration error %d:%s",gerror->code,gerror->message);
+		g_error_free(gerror);
+		g_input_stream_close(istream,NULL,&gerror);
+		return FALSE;
+	}
+	size = g_output_stream_splice(ostream,istream,G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE,NULL,&gerror);
+	if (gerror){
+		g_print("config file migration error %d:%s",gerror->code,gerror->message);
+		g_error_free(gerror);
+		g_output_stream_close(ostream,NULL,&gerror);
+		return FALSE;
+	}
+	istream = (GInputStream *)g_file_read(oldsession,NULL,&gerror);
+	if (gerror){
+		g_print("config file migration error %d:%s",gerror->code,gerror->message);
+		g_error_free(gerror);
+		g_output_stream_close(ostream,NULL,&gerror);
+		return FALSE;
+	}
+	size = g_output_stream_splice(ostream,istream,G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE,NULL,&gerror);
+	if (gerror){
+		g_print("config file migration error %d:%s",gerror->code,gerror->message);
+		g_error_free(gerror);
+		g_output_stream_close(ostream,NULL,&gerror);
+		return FALSE;
+	}	
+	g_output_stream_close(ostream,NULL,&gerror);
+	g_file_copy(newrc,newsession,G_FILE_COPY_BACKUP,NULL,NULL,NULL,&gerror);
+	if (gerror){
+		g_print("config file migration error %d:%s",gerror->code,gerror->message);
+		g_error_free(gerror);
+		return FALSE;
+	}
+	return TRUE;
+}
+
+static void migrate_config_files(GHashTable *main_configlist, GFile *newrc) {
+	GFile *oldrc, *oldsession, *newsession;
+	oldrc = user_bfdir("rcfile_v2");
+	oldsession = user_bfdir("session");
+	newsession = user_bfdir("session-2.0");
+	merge_config_files(oldrc, oldsession, newrc, newsession);
+	if (parse_config_file(main_configlist, newrc)) {
+		/* TODO? check some values or are we done now ? */
+	}
+}
+
 void rcfile_parse_main(void)  {
 	GFile *file;
 
@@ -465,7 +526,9 @@ void rcfile_parse_main(void)  {
 
 	file = user_bfdir("rcfile_v2");
 	if (!parse_config_file(main_configlist, file)) {
-		/* should we initialize some things ?? */
+		/* probably there is no configfile. try to migrate the configfile from a previous 
+		version */
+		migrate_config_files(main_configlist,file);
 	}
 	g_object_unref(file);
 	if (main_v->props.encoding_search_Nbytes< 1000) main_v->props.encoding_search_Nbytes = 2048;
