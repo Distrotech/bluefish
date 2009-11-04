@@ -1578,14 +1578,18 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 		end = gtk_text_iter_get_offset(itend);
 		len = end - start;
 		DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len, string);
-		if (len == 1 && !doc->in_paste_operation) {
-			if ((!doc_unre_test_last_entry(doc, UndoDelete, start, -1) /* delete */
-						&& !doc_unre_test_last_entry(doc, UndoDelete, end, -1)) /* backspace */
-					|| string[0] == ' '
-					|| string[0] == '\n'
-					|| string[0] == '\t'
-					|| string[0] == '\r') {
-				DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
+		if (!doc->in_paste_operation) {
+			if (len == 1) {
+				if ((!doc_unre_test_last_entry(doc, UndoDelete, start, -1) /* delete */
+							&& !doc_unre_test_last_entry(doc, UndoDelete, end, -1)) /* backspace */
+						|| string[0] == ' '
+						|| string[0] == '\n'
+						|| string[0] == '\t'
+						|| string[0] == '\r') {
+					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
+					doc_unre_new_group(doc);
+				}
+			} else {
 				doc_unre_new_group(doc);
 			}
 		}
