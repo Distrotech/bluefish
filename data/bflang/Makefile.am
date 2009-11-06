@@ -28,6 +28,7 @@ bflang_DATA = \
 	java.bflang2 \
 	javascript.bflang2 \
 	jsp.bflang2 \
+	nsis.bflang2 \
 	perl.bflang2 \
 	php.bflang2 \
 	po.bflang2 \
