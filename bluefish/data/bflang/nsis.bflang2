@@ -19,305 +19,301 @@
 		along with this program; if not, write to the Free Software
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
-<bflang name="NSIS" matches="300" contexts="4" table="13953">
+
+<bflang name="NSIS">
 <header>
-	<mime type="text/x-nsi"/>
-	<mime type="text/x-nsh"/>
-	<option name="load_reference" default="1" description="load reference data"/>
-	<option name="load_completion" default="1" description="load completion data"/>
-	<highlight name="comment" style="comment"/>
-	<highlight name="string" style="string"/>
-	<highlight name="value" style="value"/>
-	<highlight name="preprocessor" style="preprocessor"/>
-	<highlight name="function" style="function"/>
-	<highlight name="variable" style="variable"/>
+	<mime type="text/x-nsi" />
+	<mime type="text/x-nsh" />
+	<option name="load_completion" default="1" description="load completion data" />
+	<highlight name="comment" style="comment" />
+	<highlight name="string" style="string" />
+	<highlight name="value" style="value" />
+	<highlight name="preprocessor" style="preprocessor" />
+	<highlight name="function" style="function" />
+	<highlight name="variable" style="variable" />
 </header>
 
 <properties>
-	<comment id="/**/" type="block" start="/*" end="*/"/>
+	<comment id="/**/" type="block" start="/*" end="*/" />
 </properties>
 
 <definition>
-<context symbols=" ;(){}[]:\&quot;\\',&gt;&lt;*&amp;^%!+=-|/?#	
-">
+<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 	<group highlight="preprocessor">
-		<element pattern="!include"/>
-		<element pattern="!addincludedir"/>
-		<element pattern="!addplugindir"/>
-		<element pattern="!appendfile"/>
-		<element pattern="!cd"/>
-		<element pattern="!delfile"/>
-		<element pattern="!echo"/>
-		<element pattern="!error"/>
-		<element pattern="!execute"/>
-		<element pattern="!packhdr"/>
-		<element pattern="!system"/>
-		<element pattern="!tempfile"/>
-		<element pattern="!warning"/>
-		<element pattern="!verbose"/>
+		<element pattern="!include" />
+		<element pattern="!addincludedir" />
+		<element pattern="!addplugindir" />
+		<element pattern="!appendfile" />
+		<element pattern="!cd" />
+		<element pattern="!delfile" />
+		<element pattern="!echo" />
+		<element pattern="!error" />
+		<element pattern="!execute" />
+		<element pattern="!packhdr" />
+		<element pattern="!system" />
+		<element pattern="!tempfile" />
+		<element pattern="!warning" />
+		<element pattern="!verbose" />
 		
-		<element pattern="!define"/>
-		<element pattern="!undef"/>
-		<element pattern="!ifdef"/>
-		<element pattern="!ifndef"/>
-		<element pattern="!if"/>
-		<element pattern="!ifmacrodef"/>
-		<element pattern="!ifmacrondef"/>
-		<element pattern="!else"/>
-		<element pattern="!endif"/>
-		<element pattern="!insertmacro"/>
-		<element pattern="!macro"/>
-		<element pattern="!macroend"/>
-		<element pattern="!searchparse"/>
-		<element pattern="!searchreplace"/>
+		<element pattern="!define" />
+		<element pattern="!undef" />
+		<element pattern="!ifdef" />
+		<element pattern="!ifndef" />
+		<element pattern="!if" />
+		<element pattern="!ifmacrodef" />
+		<element pattern="!ifmacrondef" />
+		<element pattern="!else" />
+		<element pattern="!endif" />
+		<element pattern="!insertmacro" />
+		<element pattern="!macro" />
+		<element pattern="!macroend" />
+		<element pattern="!searchparse" />
+		<element pattern="!searchreplace" />
 	</group>
 
 	<group highlight="comment" autocomplete="1">
 		<element id="commstart" pattern="/*" starts_block="1" highlight="comment">
-			<context symbols="*/	
-" highlight="comment" spellcheck="1">
-				<element pattern="*/" ends_block="1" blockstartelement="commstart" highlight="comment" mayfold="1" ends_context="1"/>
+			<context symbols="*/&#9;&#10;&#13;" highlight="comment" spellcheck="1">
+				<element pattern="*/" ends_block="1" blockstartelement="commstart" highlight="comment" mayfold="1" ends_context="1" />
 			</context>
 		</element>
-		<element pattern=";[^
-]+" is_regex="1"/>
-		<element pattern="#[^
-]+" is_regex="1"/>
+		<element pattern=";[^&#10;]+" is_regex="1" />
+		<element pattern="#[^&#10;]+" is_regex="1" />
 	</group>
 
-	<element pattern="${[^}]+}" is_regex="1" case_insens="1" highlight="variable"/>
-	<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
+	<element pattern="${[^}]+}" is_regex="1" case_insens="1" highlight="variable" />
+	<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable" />
 
-	<element pattern="&quot;" highlight="string">
-		<context symbols="\&quot;nrt" highlight="string" spellcheck="1">
-			<element pattern="\\." is_regex="1" highlight="string"/>
-			<element pattern="&quot;" highlight="string" ends_context="1"/>
+	<element pattern="&#34;" highlight="string">
+		<context symbols="\&#34;nrt" highlight="string" spellcheck="1">
+			<element pattern="\\." is_regex="1" highlight="string" />
+			<element pattern="&#34;" highlight="string" ends_context="1" />
 		</context>
 	</element>
 	<element pattern="'" highlight="string">
 		<context symbols="\'" highlight="string" spellcheck="1">
-			<element pattern="\\." is_regex="1" highlight="string"/>
-			<element pattern="'" highlight="string" ends_context="1"/>
+			<element pattern="\\." is_regex="1" highlight="string" />
+			<element pattern="'" highlight="string" ends_context="1" />
 		</context>
 	</element>
 
-	<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+	<element pattern="[0-9.]+" is_regex="1" highlight="value" />
 
-	<group highlight="function" autocomplete="1" autocomplete_append="();" autocomplete_backup_cursor="2">
+	<group highlight="function" autocomplete="1">
 <!-- Variables: User Variables -->
-		<element pattern="Var"/>
+		<element pattern="Var" />
 <!-- Pages -->
-		<element pattern="Page"/>
-		<element pattern="UninstPage"/>
-		<element pattern="PageEx"/>
-		<element pattern="PageExEnd"/>
-		<element pattern="PageCallbacks"/>
+		<element pattern="Page" />
+		<element pattern="UninstPage" />
+		<element pattern="PageEx" />
+		<element pattern="PageExEnd" />
+		<element pattern="PageCallbacks" />
 <!-- Sections: Section Commands -->
-		<element pattern="AddSize"/>
-		<element pattern="Section"/>
-		<element pattern="SectionEnd"/>
-		<element pattern="SectionIn"/>
-		<element pattern="SectionGroup"/>
-		<element pattern="SectionGroupEnd"/>
+		<element pattern="AddSize" />
+		<element pattern="Section" />
+		<element pattern="SectionEnd" />
+		<element pattern="SectionIn" />
+		<element pattern="SectionGroup" />
+		<element pattern="SectionGroupEnd" />
 <!-- Functions: Function Commands -->
-		<element pattern="Function"/>
-		<element pattern="FunctionEnd"/>
+		<element pattern="Function" />
+		<element pattern="FunctionEnd" />
 <!-- Installer Attributes: General Attributes -->
-		<element pattern="AddBrandingImage"/>
-		<element pattern="AllowRootDirInstall"/>
-		<element pattern="AutoCloseWindow"/>
-		<element pattern="BGFont"/>
-		<element pattern="BGGradient"/>
-		<element pattern="BrandingText"/>
-		<element pattern="Caption"/>
-		<element pattern="ChangeUI"/>
-		<element pattern="CheckBitmap"/>
-		<element pattern="CompletedText"/>
-		<element pattern="ComponentText"/>
-		<element pattern="CRCCheck"/>
-		<element pattern="DetailsButtonText"/>
-		<element pattern="DirText"/>
-		<element pattern="DirVar"/>
-		<element pattern="DirVerify"/>
-		<element pattern="FileErrorText"/>
-		<element pattern="Icon"/>
-		<element pattern="InstallButtonText"/>
-		<element pattern="InstallColors"/>
-		<element pattern="InstallDir"/>
-		<element pattern="InstallDirRegKey"/>
-		<element pattern="InstProgressFlags"/>
-		<element pattern="InstType"/>
-		<element pattern="LicenseBkColor"/>
-		<element pattern="LicenseData"/>
-		<element pattern="LicenseForceSelection"/>
-		<element pattern="LicenseText"/>
-		<element pattern="MiscButtonText"/>
-		<element pattern="Name"/>
-		<element pattern="OutFile"/>
-		<element pattern="RequestExecutionLevel"/>
-		<element pattern="SetFont"/>
-		<element pattern="ShowInstDetails"/>
-		<element pattern="ShowUninstDetails"/>
-		<element pattern="SilentInstall"/>
-		<element pattern="SilentUnInstall"/>
-		<element pattern="SpaceTexts"/>
-		<element pattern="SubCaption"/>
-		<element pattern="UninstallButtonText"/>
-		<element pattern="UninstallCaption"/>
-		<element pattern="UninstallIcon"/>
-		<element pattern="UninstallSubCaption"/>
-		<element pattern="UninstallText"/>
-		<element pattern="WindowIcon"/>
-		<element pattern="XPStyle"/>
+		<element pattern="AddBrandingImage" />
+		<element pattern="AllowRootDirInstall" />
+		<element pattern="AutoCloseWindow" />
+		<element pattern="BGFont" />
+		<element pattern="BGGradient" />
+		<element pattern="BrandingText" />
+		<element pattern="Caption" />
+		<element pattern="ChangeUI" />
+		<element pattern="CheckBitmap" />
+		<element pattern="CompletedText" />
+		<element pattern="ComponentText" />
+		<element pattern="CRCCheck" />
+		<element pattern="DetailsButtonText" />
+		<element pattern="DirText" />
+		<element pattern="DirVar" />
+		<element pattern="DirVerify" />
+		<element pattern="FileErrorText" />
+		<element pattern="Icon" />
+		<element pattern="InstallButtonText" />
+		<element pattern="InstallColors" />
+		<element pattern="InstallDir" />
+		<element pattern="InstallDirRegKey" />
+		<element pattern="InstProgressFlags" />
+		<element pattern="InstType" />
+		<element pattern="LicenseBkColor" />
+		<element pattern="LicenseData" />
+		<element pattern="LicenseForceSelection" />
+		<element pattern="LicenseText" />
+		<element pattern="MiscButtonText" />
+		<element pattern="Name" />
+		<element pattern="OutFile" />
+		<element pattern="RequestExecutionLevel" />
+		<element pattern="SetFont" />
+		<element pattern="ShowInstDetails" />
+		<element pattern="ShowUninstDetails" />
+		<element pattern="SilentInstall" />
+		<element pattern="SilentUnInstall" />
+		<element pattern="SpaceTexts" />
+		<element pattern="SubCaption" />
+		<element pattern="UninstallButtonText" />
+		<element pattern="UninstallCaption" />
+		<element pattern="UninstallIcon" />
+		<element pattern="UninstallSubCaption" />
+		<element pattern="UninstallText" />
+		<element pattern="WindowIcon" />
+		<element pattern="XPStyle" />
 <!-- Installer Attributes: Compiler Flags -->
-		<element pattern="AllowSkipFiles"/>
-		<element pattern="FileBufSize"/>
-		<element pattern="SetCompress"/>
-		<element pattern="SetCompressor"/>
-		<element pattern="SetCompressorDictSize"/>
-		<element pattern="SetDatablockOptimize"/>
-		<element pattern="SetDateSave"/>
-		<element pattern="SetOverwrite"/>
+		<element pattern="AllowSkipFiles" />
+		<element pattern="FileBufSize" />
+		<element pattern="SetCompress" />
+		<element pattern="SetCompressor" />
+		<element pattern="SetCompressorDictSize" />
+		<element pattern="SetDatablockOptimize" />
+		<element pattern="SetDateSave" />
+		<element pattern="SetOverwrite" />
 <!-- Installer Attributes: Version Information -->
-		<element pattern="VIAddVersionKey"/>
-		<element pattern="VIProductVersion"/>
+		<element pattern="VIAddVersionKey" />
+		<element pattern="VIProductVersion" />
 <!-- Instructions: Basic Instructions -->
-		<element pattern="Delete"/>
-		<element pattern="Exec"/>
-		<element pattern="ExecShell"/>
-		<element pattern="ExecWait"/>
-		<element pattern="File"/>
-		<element pattern="Rename"/>
-		<element pattern="ReserveFile"/>
-		<element pattern="RMDir"/>
-		<element pattern="SetOutPath"/>
+		<element pattern="Delete" />
+		<element pattern="Exec" />
+		<element pattern="ExecShell" />
+		<element pattern="ExecWait" />
+		<element pattern="File" />
+		<element pattern="Rename" />
+		<element pattern="ReserveFile" />
+		<element pattern="RMDir" />
+		<element pattern="SetOutPath" />
 <!-- Instructions: Registry, INI, File Instructions -->
-		<element pattern="DeleteINISec"/>
-		<element pattern="DeleteINIStr"/>
-		<element pattern="DeleteRegKey"/>
-		<element pattern="DeleteRegValue"/>
-		<element pattern="EnumRegKey"/>
-		<element pattern="EnumRegValue"/>
-		<element pattern="ExpandEnvStrings"/>
-		<element pattern="FlushINI"/>
-		<element pattern="ReadEnvStr"/>
-		<element pattern="ReadINIStr"/>
-		<element pattern="ReadRegDWORD"/>
-		<element pattern="ReadRegStr"/>
-		<element pattern="WriteINIStr"/>
-		<element pattern="WriteRegBin"/>
-		<element pattern="WriteRegDWORD"/>
-		<element pattern="WriteRegStr"/>
-		<element pattern="WriteRegExpandStr"/>
+		<element pattern="DeleteINISec" />
+		<element pattern="DeleteINIStr" />
+		<element pattern="DeleteRegKey" />
+		<element pattern="DeleteRegValue" />
+		<element pattern="EnumRegKey" />
+		<element pattern="EnumRegValue" />
+		<element pattern="ExpandEnvStrings" />
+		<element pattern="FlushINI" />
+		<element pattern="ReadEnvStr" />
+		<element pattern="ReadINIStr" />
+		<element pattern="ReadRegDWORD" />
+		<element pattern="ReadRegStr" />
+		<element pattern="WriteINIStr" />
+		<element pattern="WriteRegBin" />
+		<element pattern="WriteRegDWORD" />
+		<element pattern="WriteRegStr" />
+		<element pattern="WriteRegExpandStr" />
 <!-- Instructions: General Purpose Instructions -->
-		<element pattern="CallInstDLL"/>
-		<element pattern="CopyFiles"/>
-		<element pattern="CreateDirectory"/>
-		<element pattern="CreateShortCut"/>
-		<element pattern="GetDLLVersion"/>
-		<element pattern="GetDLLVersionLocal"/>
-		<element pattern="GetFileTime"/>
-		<element pattern="GetFileTimeLocal"/>
-		<element pattern="GetFullPathName"/>
-		<element pattern="GetTempFileName"/>
-		<element pattern="SearchPath"/>
-		<element pattern="SetFileAttributes"/>
-		<element pattern="RegDLL"/>
-		<element pattern="UnRegDLL"/>
+		<element pattern="CallInstDLL" />
+		<element pattern="CopyFiles" />
+		<element pattern="CreateDirectory" />
+		<element pattern="CreateShortCut" />
+		<element pattern="GetDLLVersion" />
+		<element pattern="GetDLLVersionLocal" />
+		<element pattern="GetFileTime" />
+		<element pattern="GetFileTimeLocal" />
+		<element pattern="GetFullPathName" />
+		<element pattern="GetTempFileName" />
+		<element pattern="SearchPath" />
+		<element pattern="SetFileAttributes" />
+		<element pattern="RegDLL" />
+		<element pattern="UnRegDLL" />
 <!-- Instructions: Flow Control Instructions -->
-		<element pattern="Abort"/>
-		<element pattern="Call"/>
-		<element pattern="ClearErrors"/>
-		<element pattern="GetCurrentAddress"/>
-		<element pattern="GetFunctionAddress"/>
-		<element pattern="GetLabelAddress"/>
-		<element pattern="Goto"/>
-		<element pattern="IfAbort"/>
-		<element pattern="IfErrors"/>
-		<element pattern="IfFileExists"/>
-		<element pattern="IfRebootFlag"/>
-		<element pattern="IfSilent"/>
-		<element pattern="IntCmp"/>
-		<element pattern="IntCmpU"/>
-		<element pattern="MessageBox"/>
-		<element pattern="Return"/>
-		<element pattern="Quit"/>
-		<element pattern="SetErrors"/>
-		<element pattern="StrCmp"/>
-		<element pattern="StrCmpS"/>
+		<element pattern="Abort" />
+		<element pattern="Call" />
+		<element pattern="ClearErrors" />
+		<element pattern="GetCurrentAddress" />
+		<element pattern="GetFunctionAddress" />
+		<element pattern="GetLabelAddress" />
+		<element pattern="Goto" />
+		<element pattern="IfAbort" />
+		<element pattern="IfErrors" />
+		<element pattern="IfFileExists" />
+		<element pattern="IfRebootFlag" />
+		<element pattern="IfSilent" />
+		<element pattern="IntCmp" />
+		<element pattern="IntCmpU" />
+		<element pattern="MessageBox" />
+		<element pattern="Return" />
+		<element pattern="Quit" />
+		<element pattern="SetErrors" />
+		<element pattern="StrCmp" />
+		<element pattern="StrCmpS" />
 <!-- Instructions: File Instructions -->
-		<element pattern="FileClose"/>
-		<element pattern="FileOpen"/>
-		<element pattern="FileRead"/>
-		<element pattern="FileReadByte"/>
-		<element pattern="FileSeek"/>
-		<element pattern="FileWrite"/>
-		<element pattern="FileWriteByte"/>
-		<element pattern="FindClose"/>
-		<element pattern="FindFirst"/>
-		<element pattern="FindNext"/>
+		<element pattern="FileClose" />
+		<element pattern="FileOpen" />
+		<element pattern="FileRead" />
+		<element pattern="FileReadByte" />
+		<element pattern="FileSeek" />
+		<element pattern="FileWrite" />
+		<element pattern="FileWriteByte" />
+		<element pattern="FindClose" />
+		<element pattern="FindFirst" />
+		<element pattern="FindNext" />
 <!-- Instructions: Uninstaller Functions -->
-		<element pattern="WriteUninstaller"/>
+		<element pattern="WriteUninstaller" />
 <!-- Instructions: Miscellaneous Instructions -->
-		<element pattern="GetErrorLevel"/>
-		<element pattern="GetInstDirError"/>
-		<element pattern="InitPluginsDir"/>
-		<element pattern="Nop"/>
-		<element pattern="SetErrorLevel"/>
-		<element pattern="SetRegView"/>
-		<element pattern="SetShellVarContext"/>
-		<element pattern="Sleep"/>
+		<element pattern="GetErrorLevel" />
+		<element pattern="GetInstDirError" />
+		<element pattern="InitPluginsDir" />
+		<element pattern="Nop" />
+		<element pattern="SetErrorLevel" />
+		<element pattern="SetRegView" />
+		<element pattern="SetShellVarContext" />
+		<element pattern="Sleep" />
 <!-- Instructions: String Manipulation Instructions -->
-		<element pattern="StrCpy"/>
-		<element pattern="StrLen"/>
+		<element pattern="StrCpy" />
+		<element pattern="StrLen" />
 <!-- Instructions: Stack Support -->
-		<element pattern="Exch"/>
-		<element pattern="Pop"/>
-		<element pattern="Push"/>
+		<element pattern="Exch" />
+		<element pattern="Pop" />
+		<element pattern="Push" />
 <!-- Instructions: Integer Support -->
-		<element pattern="IntFmt"/>
-		<element pattern="IntOp"/>
+		<element pattern="IntFmt" />
+		<element pattern="IntOp" />
 <!-- Instructions: Reboot Instructions -->
-		<element pattern="Reboot"/>
-		<element pattern="SetRebootFlag"/>
+		<element pattern="Reboot" />
+		<element pattern="SetRebootFlag" />
 <!-- Instructions: Install Logging Instructions -->
-		<element pattern="LogSet"/>
-		<element pattern="LogText"/>
+		<element pattern="LogSet" />
+		<element pattern="LogText" />
 <!-- Instructions: Section Management -->
-		<element pattern="SectionSetFlags"/>
-		<element pattern="SectionGetFlags"/>
-		<element pattern="SectionSetText"/>
-		<element pattern="SectionGetText"/>
-		<element pattern="SectionSetInstType"/>
-		<element pattern="SectionGetInstType"/>
-		<element pattern="SectionSetSize"/>
-		<element pattern="SectionGetSize"/>
-		<element pattern="SetCurInstType"/>
-		<element pattern="GetCurInstType"/>
-		<element pattern="InstTypeSetText"/>
-		<element pattern="InstTypeGetText"/>
+		<element pattern="SectionSetFlags" />
+		<element pattern="SectionGetFlags" />
+		<element pattern="SectionSetText" />
+		<element pattern="SectionGetText" />
+		<element pattern="SectionSetInstType" />
+		<element pattern="SectionGetInstType" />
+		<element pattern="SectionSetSize" />
+		<element pattern="SectionGetSize" />
+		<element pattern="SetCurInstType" />
+		<element pattern="GetCurInstType" />
+		<element pattern="InstTypeSetText" />
+		<element pattern="InstTypeGetText" />
 <!-- Instructions: User Interface Instructions -->
-		<element pattern="BringToFront"/>
-		<element pattern="CreateFont"/>
-		<element pattern="DetailPrint"/>
-		<element pattern="EnableWindow"/>
-		<element pattern="FindWindow"/>
-		<element pattern="GetDlgItem"/>
-		<element pattern="HideWindow"/>
-		<element pattern="IsWindow"/>
-		<element pattern="LockWindow"/>
-		<element pattern="SendMessage"/>
-		<element pattern="SetAutoClose"/>
-		<element pattern="SetBrandingImage"/>
-		<element pattern="SetDetailsView"/>
-		<element pattern="SetDetailsPrint"/>
-		<element pattern="SetCtlColors"/>
-		<element pattern="SetSilent"/>
-		<element pattern="ShowWindow"/>
+		<element pattern="BringToFront" />
+		<element pattern="CreateFont" />
+		<element pattern="DetailPrint" />
+		<element pattern="EnableWindow" />
+		<element pattern="FindWindow" />
+		<element pattern="GetDlgItem" />
+		<element pattern="HideWindow" />
+		<element pattern="IsWindow" />
+		<element pattern="LockWindow" />
+		<element pattern="SendMessage" />
+		<element pattern="SetAutoClose" />
+		<element pattern="SetBrandingImage" />
+		<element pattern="SetDetailsView" />
+		<element pattern="SetDetailsPrint" />
+		<element pattern="SetCtlColors" />
+		<element pattern="SetSilent" />
+		<element pattern="ShowWindow" />
 <!-- Instructions: Multiple Languages Instructions -->
-		<element pattern="LoadLanguageFile"/>
-		<element pattern="LangString"/>
-		<element pattern="LicenseLangString"/>
+		<element pattern="LoadLanguageFile" />
+		<element pattern="LangString" />
+		<element pattern="LicenseLangString" />
 	</group>
 </context>
 </definition>
