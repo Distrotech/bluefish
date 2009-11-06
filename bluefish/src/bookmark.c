@@ -1039,14 +1039,14 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 		parent = (GtkTreeIter *) ptr;
 
 	{
-		Tbmark *bef = bmark_find_bookmark_before_offset(bfwin, m->offset, parent);
-		if (bef == NULL) {
+		/*Tbmark *bef = bmark_find_bookmark_before_offset(bfwin, m->offset, parent);
+		if (bef == NULL) {*/
 			gtk_tree_store_prepend(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &m->iter, parent);
 			return;
-		} else {
+/*		} else {
 			gtk_tree_store_insert_after(GTK_TREE_STORE(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&m->iter,parent,&bef->iter);
 			return;
-		}
+		}*/
 	}
 }
 
@@ -1172,6 +1172,21 @@ void bmark_reload(Tbfwin * bfwin) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
+#ifdef WALKTREE
+	/* walk over all bookmarks and print them to stdout */
+	{
+		GtkTreeIter iter;
+		gboolean cont;
+		cont = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&iter);
+		while (cont) {
+			gchar *name;
+			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&iter, NAME_COLUMN, &name, -1);
+			g_print("walk bookmarks, got name %s\n",name);
+			g_free(name);
+			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&iter);
+		}
+	}
+#endif
 }
 
 /*
@@ -1332,7 +1347,8 @@ void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
 	}
 }
 
-/* returns a line number for the Tbmark that bmark points to, or -1 if there is no bmark  */
+/* this is called by the editor widget to show bookmarks in the left margin.
+returns a line number for the Tbmark that bmark points to, or -1 if there is no bmark  */
 gint bmark_margin_get_next_bookmark(Tdocument * doc, gpointer *bmark) {
 	gboolean cont;
 	GtkTextIter textit;
@@ -1345,7 +1361,8 @@ gint bmark_margin_get_next_bookmark(Tdocument * doc, gpointer *bmark) {
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &textit, ((Tbmark *)*bmark)->mark);
 	return gtk_text_iter_get_line(&textit);
 }
-/* returns a line number for the Tbmark that bmark points to, or -1 if there is no bmark */
+/* this is called by the editor widget to show bookmarks in the left margin.
+ returns a line number for the Tbmark that bmark points to, or -1 if there is no bmark */
 gint bmark_margin_get_initial_bookmark(Tdocument * doc, GtkTextIter *fromit, gpointer *bmark) {
 	guint offset;
 	GtkTextIter textit;
