@@ -172,7 +172,7 @@ static void langmgr_load_default_styles(void) {
 		{"function","#000099","","0","0","0",NULL},
 		{"special-function","#990000","","","","0",NULL},
 		{"keyword","#000000","","1","0","0",NULL},
-		{"special-keyword","#990000","","1","","0",NULL},
+		{"special-keyword","#005050","","1","","0",NULL},
 		{"value","#0000FF","","0","0","0",NULL},
 		{"special-value","#0000FF","","1","","0",NULL},
 		{"variable","#990000","","1","0","0",NULL},
