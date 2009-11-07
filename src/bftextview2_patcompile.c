@@ -78,6 +78,8 @@ GList * bftextview2_scantable_rematch_highlights(Tscantable *st, const gchar *la
 			g_array_index(st->matches, Tpattern, i).selftag = langmrg_lookup_tag_highlight(lang, g_array_index(st->matches, Tpattern, i).selfhighlight);
 			if (g_array_index(st->matches, Tpattern, i).selftag)
 				retlist = g_list_prepend(retlist, g_array_index(st->matches, Tpattern, i).selftag);
+			else
+				g_warning("no textstyle found for highlight %s\n",g_array_index(st->matches, Tpattern, i).selfhighlight);
 		}
 		if (g_array_index(st->matches, Tpattern, i).blockhighlight) {
 			g_array_index(st->matches, Tpattern, i).blocktag = langmrg_lookup_tag_highlight(lang, g_array_index(st->matches, Tpattern, i).blockhighlight);

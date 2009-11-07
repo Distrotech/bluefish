@@ -299,6 +299,8 @@ GtkTextTag *langmrg_lookup_tag_highlight(const gchar *lang, const gchar *highlig
 		gchar *style = langmgr_lookup_style_for_highlight(lang,highlight);
 		if (style)
 			tag = gtk_text_tag_table_lookup(langmgr.tagtable,style);
+		else
+			tag = gtk_text_tag_table_lookup(langmgr.tagtable,highlight);
 	}
 	/*g_print("found tag %p for lang %s highlight %s\n",tag,lang,highlight);*/
 	return tag;
