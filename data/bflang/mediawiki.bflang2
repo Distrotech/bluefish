@@ -1,0 +1,337 @@
+<?xml version="1.0"?>
+<!--
+      Bluefish HTML Editor
+      shell.bflang2
+ 
+      Copyright (C) 2008 Olivier Sessink
+
+      This program is free software; you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation; either version 2 of the License, or
+      (at your option) any later version.
+
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU General Public License for more details.
+
+      You should have received a copy of the GNU General Public License
+      along with this program; if not, write to the Free Software
+      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+-->
+<!DOCTYPE bflang [
+   <!ENTITY i18n "dir,lang">
+   <!ENTITY univ "class,id,style,title">
+   <!ENTITY evnt "onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,
+   onkeypress,onkeydown,onkeyup">
+   <!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
+   <!ENTITY css-rules SYSTEM "css-rules.bfinc">
+]>
+
+
+<bflang name="Mediawiki" matches="1084" contexts="66" table="4719">
+<!--
+table     4719 (1179,75 Kbytes)
+contexts    66 (1,80 Kbytes)
+matches   1084 (42,34 Kbytes)
+
+-->
+<header>
+   <mime type="text/x-mediawiki"/>
+   <option name="load_completion" default="1" description="load completion data"/>
+   <option name="autocomplete_tags" default="1" />
+   <option name="load_reference" default="1" description="load reference data"/>
+   <highlight name="keyword" style="keyword"  />
+   <highlight name="special-tag" style="special-tag"  />
+   <highlight name="comment" style="comment"  />
+   <highlight name="link" style="value"  />
+   <highlight name="string" style="string"  />
+   <highlight name="title" style="special-tag3"  />
+   <highlight name="pre"	 style="blockmatch"  />
+   <highlight name="wiki" style="special-type"  />
+   <highlight name="html-tag" style="tag" />
+   <highlight name="html-reference-external-tag" style="special-tag" />
+   <highlight name="html-table-tag" style="special-tag2" />
+   <highlight name="wiki-table" style="tag" />
+   <highlight name="html-deprecated-tag" style="warning" />
+   <highlight name="html-attribute" style="attribute" />
+   <highlight name="html-string" style="string" />
+</header>
+<properties>
+   <comment type="block" start="&lt;!--" end="--&gt;" />
+   <default_spellcheck enabled="1" />
+</properties>
+<definition>
+
+<context symbols=":;[|{=* &gt;&lt;&#10;">
+
+<element id="comment" pattern="&lt;!--" highlight="comment" starts_block="1">
+   <context id="comment" symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
+     <element pattern="--&gt;" ends_block="1" blockstartelement="comment" highlight="comment" 
+     mayfold="1" ends_context="1" />
+   </context>
+</element>
+
+<!-- wiki -->
+	<!-- ul -->
+<element pattern="&#10;\*" is_regex="1" highlight="wiki" />
+<element pattern="&#10;\*\*" is_regex="1" highlight="wiki" />
+<element pattern="&#10;\*\*\*" is_regex="1" highlight="wiki" />
+<element pattern="&#10;\*\*\*\*" is_regex="1" highlight="wiki" />
+	<!-- ol -->
+<element  pattern="&#10;\#" is_regex="1" highlight="wiki" />
+<element  pattern="&#10;\#\#" is_regex="1" highlight="wiki" />
+<element  pattern="&#10;\#\#\#" is_regex="1" highlight="wiki" />
+<element  pattern="&#10;\#\#\#\#" is_regex="1" highlight="wiki" />
+	<!-- ul and ol combination-->
+<element  pattern="&#10;\#\*" is_regex="1" highlight="wiki" />
+<element  pattern="&#10;\*\#" is_regex="1" highlight="wiki" />
+		<!-- etc -->
+	<!-- other -->
+<element id="wiki-def" pattern="&#10;:" is_regex="1" highlight="wiki" />
+<element id="wiki-def2" pattern="&#10;;" is_regex="1" highlight="wiki" />
+<element id="pre" pattern="&#10; " is_regex="1" highlight="pre" />
+
+<!-- wiki table -->
+<element id="wiki-table-start" pattern="&#10;\{|" is_regex="1" highlight="wiki-table"  starts_block="1">
+   <context id="wiki-table-start"  symbols="&#10;|!}">
+      <element id="wiki-table-col" pattern="&#10;|" is_regex="1" highlight="wiki-table" />
+      <element id="wiki-table-data" pattern="&#10;|-" is_regex="1" highlight="wiki-table" />
+      <element id="wiki-table-caption" pattern="&#10;|\+" is_regex="1" highlight="wiki-table" />
+      <element id="wiki-table-header" pattern="&#10;\!" is_regex="1" highlight="wiki-table" />
+      <element id="wiki-table-end" pattern="&#10;|\}" is_regex="1" highlight="wiki-table" ends_block="1" 
+      blockstartelement="wiki-table-start" ends_context="1"/>
+   </context>
+</element>
+
+
+<!-- wiki title -->
+<element id="title6" pattern="&#10;======"  is_regex="1" highlight="title" starts_block="1" autocomplete="1" 
+autocomplete_append="  ======" autocomplete_backup_cursor="7">
+   <context id="title6" highlight="title" symbols="=" >
+   <element pattern="======" ends_block="1" blockstartelement="title6"  highlight="title" ends_context="1" />
+   </context>
+</element> 
+<element id="title5" pattern="&#10;====="  is_regex="1" highlight="title" starts_block="1" autocomplete="1" 
+autocomplete_append="  =====" autocomplete_backup_cursor="6">
+   <context id="title5" highlight="title" symbols="=" >
+   <element pattern="=====" ends_block="1" blockstartelement="title5"  highlight="title" ends_context="1" />
+   </context>
+</element>
+<element id="title4" pattern="&#10;===="  is_regex="1" highlight="title" starts_block="1" autocomplete="1" 
+autocomplete_append="  ====" autocomplete_backup_cursor="5">
+   <context id="title4" highlight="title" symbols="=" >
+   <element pattern="====" ends_block="1" blockstartelement="title4"  highlight="title" ends_context="1" />
+   </context>
+</element> 
+<element id="title3" pattern="&#10;==="  is_regex="1" highlight="title" starts_block="1" autocomplete="1" 
+autocomplete_append="  ===" autocomplete_backup_cursor="4">
+   <context id="title3" highlight="title" symbols="=" >
+    <element pattern="===" ends_block="1" blockstartelement="title3"  highlight="title" ends_context="1" />
+   </context>
+</element> 
+<element id="title2" pattern="&#10;=="  is_regex="1" highlight="title" starts_block="1" autocomplete="1" 
+autocomplete_append="  ==" autocomplete_backup_cursor="3">
+   <context id="title2" highlight="title" symbols="=" >
+    <element pattern="==" ends_block="1" blockstartelement="title2"  highlight="title" ends_context="1" />
+   </context>
+</element>
+
+<!-- wiki links -->
+
+<element pattern="[[" highlight="special-tag">
+	<context symbols="|]">
+		<element pattern="]]" highlight="special-tag" ends_context="1" />
+		<element pattern="|">
+			<context symbols="\]" highlight="special-tag">
+			   <element pattern="\]" highlight="special-tag" />
+				<element pattern="]]" highlight="special-tag" ends_context="2" />
+			</context>
+		</element> 
+	</context>
+</element>
+
+
+<element pattern="[" highlight="link">
+	<context symbols=" ]">
+		<element pattern="]" highlight="link" ends_context="1" />
+		<element pattern=" ">
+			<context symbols="\]" highlight="link">
+			   <element pattern="\]" highlight="link" />
+				<element pattern="]" highlight="link" ends_context="2" />
+			</context>
+		</element> 
+	</context>
+</element>
+
+<!-- alternative links -->
+<!-- <element pattern="(http://)|(ftp://)"  highlight="attribute" > </element> -->
+
+<!--<math>-->
+   <tag name="math" >
+      <reference></reference>
+   </tag>
+<!-- html -->
+<group highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" 
+attrib_autocomplete_backup_cursor="1">
+   <tag name="abbr" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines an embedded object</reference>
+   </tag>
+   <tag name="b" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Render content in bold face</reference>
+   </tag>
+   <tag name="big" attributes="&univ;,&i18n;,dir">
+      <reference>Renders content as bigger text</reference>
+   </tag>
+   <tag name="blockquote" attributes="&univ;,&i18n;,&evnt;,cite">
+      <reference>Defines a long quotation</reference>
+   </tag>
+   <tag name="br" attributes="&univ;" autocomplete_append=" /&gt;">
+      <reference>Defines a single line break</reference>
+   </tag>
+   <tag name="cite" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines a citation</reference>
+   </tag>	
+   <tag name="code" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines computer code text</reference>
+   </tag>
+   <tag name="dd" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines a definition list definition</reference>
+   </tag>
+   <tag name="del"  attributes="&univ;,&i18n;,&evnt;,cite,datetime">
+      <reference>Defines deleted text</reference>
+   </tag>
+   <tag name="div" attributes="&univ;,&i18n;,&evnt;,align">
+      <reference>Defines a block section in a document - it provides no visual change by itself</reference>
+   </tag>
+   <tag name="dl" attributes="&univ;,&i18n;,&evnt;,compact">
+      <reference>Defines a definition list</reference>
+   </tag>
+   <tag name="dt" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines a definition list term</reference>
+   </tag>
+   <tag name="em" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines emphasized text</reference>
+   </tag>
+   <tag name="h2" attributes="&univ;,&i18n;,&evnt;,align">
+      <reference>Defines a HTML heading</reference>
+   </tag>
+   <tag name="h3" attributes="&univ;,&i18n;,&evnt;,align">
+      <reference>Defines a HTML heading</reference>
+   </tag>
+   <tag name="h4" attributes="&univ;,&i18n;,&evnt;,align">
+      <reference>Defines a HTML heading</reference>
+   </tag>
+   <tag name="h5" attributes="&univ;,&i18n;,&evnt;,align">
+      <reference>Defines a HTML heading</reference>
+   </tag>
+   <tag name="h6" attributes="&univ;,&i18n;,&evnt;,align">
+      <reference>Defines a HTML heading</reference>
+   </tag>
+   <tag name="hr" autocomplete_append=" /&gt;" attributes="&univ;,align,noshade,size,width">
+      <reference>Defines a horizontal line</reference>
+   </tag>
+   <tag name="i" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines italic text</reference>
+   </tag>
+   <tag name="ins"  attributes="&univ;,&i18n;,&evnt;,cite,datetime">
+      <reference>Defines inserted text</reference>
+   </tag>
+   <tag name="li" attributes="&univ;,&i18n;,&evnt;,type,value">
+      <reference>Defines a list item</reference>
+   </tag>
+   <tag name="ol" attributes="&univ;,&i18n;,&evnt;,compact,start,type">
+      <reference>Defines an ordered list</reference>
+   </tag>
+   <tag name="p" attributes="&univ;,&i18n;,&evnt;,align">
+      <reference>Defines a paragraph</reference>
+   </tag>
+   <tag name="pre" attributes="&univ;,&i18n;,&evnt;,width">
+      <reference>Defines preformatted text</reference>
+   </tag>
+   <tag name="small" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Renders as smaller text</reference>
+   </tag>
+   <tag name="span" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines an inline section of the document - it provides no visual change by itself</reference>
+   </tag>
+   <tag name="strong" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines strong emphasized text</reference>
+   </tag>
+   <tag name="sub" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines subscripted text</reference>
+   </tag>
+   <tag name="sup" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines superscripted text</reference>
+   </tag>
+   <tag name="tt" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines teletype text</reference>
+   </tag>
+   <tag name="ul" attributes="&univ;,&i18n;,&evnt;,compact,type">
+      <reference>Defines an unordered list</reference>
+   </tag>
+   <tag name="var" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines a variable part of a text</reference>
+   </tag>			
+
+</group>
+<group highlight="html-table-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" 
+attrib_autocomplete_backup_cursor="1">
+   <tag name="table" 
+   attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" 
+   autocomplete_append=" summary=&quot;&quot; &gt;&#10;&#10;&lt;/table&gt;" autocomplete_backup_cursor="9">
+      <reference>Defines a table</reference>
+   </tag>
+   <tag name="caption" attributes="align,&univ;,&i18n;,&evnt;" >
+      <reference>Defines a table caption</reference>
+   </tag>
+   <tag name="td"   attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,
+   valign,width,&univ;,&i18n;,&evnt;" >
+      <reference>Defines a cell in a table</reference>
+   </tag>
+   <tag name="th" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,
+   valign,width,&univ;,&i18n;,&evnt;" >
+      <reference>Defines a header cell in a table</reference>
+   </tag>
+   <tag name="tr" attributes="align,bgcolor,char,charoff,valign,&univ;,&i18n;,&evnt;" >
+      <reference>Defines a row in a table</reference>
+   </tag>
+</group>
+<group highlight="html-deprecated-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" 
+attrib_autocomplete_backup_cursor="1">
+   <tag name="center" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Center text (<b>deprecated</b>)</reference>
+   </tag>
+   <tag name="font" attributes="&univ;,&i18n;,color,face,size">
+      <reference>Defines font face, color and size for text (<b>deprecated</b>)</reference>
+   </tag>
+   <tag name="s" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Render strike-through style text (<b>deprecated</b>)</reference>
+   </tag>
+   <tag name="strike" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Render strike-through style text (<b>deprecated</b>)</reference>
+   </tag>
+   <tag name="u" attributes="&univ;,&i18n;,&evnt;">
+      <reference>Defines underlined text (<b>deprecated</b>)</reference>
+   </tag>
+
+</group>
+<group highlight="wiki" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" 
+attrib_autocomplete_backup_cursor="1">
+<tag name="ruby" />
+<tag name="rb" />
+<tag name="rp" />
+<tag name="rt" />
+<tag name="ref" attributes="name" />
+<tag name="references"  autocomplete_append=" /&gt;"/>
+<tag name="noinclude" />
+<tag name="includeonly" />
+<tag name="nowiki" />
+<tag name="math" />
+<tag name="gallery" />
+
+</group>
+</context>
+
+</definition>
+</bflang>
