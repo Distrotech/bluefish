@@ -1406,7 +1406,7 @@ static void handle_activate_on_file(Tfilebrowser2 * fb2, GFile * uri, gchar *mim
 		if (strncmp(mimetype, "image", 5) == 0) {
 			/* image! */
 			g_print("handle_activate_on_file, TODO, handle image activate!\n");
-		} else if (strcmp(mimetype, "application/bluefish-project") == 0) {
+		} else if (strcmp(mimetype, "application/x-bluefish-project") == 0) {
 			project_open_from_file(fb2->bfwin, uri);
 			return;
 		}
