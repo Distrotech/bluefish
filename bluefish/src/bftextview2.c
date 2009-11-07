@@ -872,7 +872,7 @@ static void bftextview2_block_toggle_fold(BluefishTextView *btv, Tfoundblock *fb
 	GtkTextIter it1,it2,it3,it4;
 
 	bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
-	if (main_v->props.block_folding_mode == 1 && !gtk_text_iter_ends_line(&it2)) {
+	if (main_v->props.block_folding_mode == 1 && !gtk_text_iter_ends_line(&it2) && !gtk_text_iter_starts_line(&it2)) {
 		gtk_text_iter_forward_to_line_end(&it2);
 	}
 	if (gtk_text_iter_ends_line(&it4)) {
@@ -933,7 +933,7 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 			break;
 	}*/
 	if (fstack && fstack->pushedblock && fstack->pushedblock->start1_o >= offset && fstack->pushedblock->start1_o <= nextline_o && fstack->pushedblock->foldable) {
-		g_print("toggle fold on fstack=%p\n",fstack);
+		DBG_FOLD("toggle fold on fstack=%p\n",fstack);
 		bftextview2_block_toggle_fold(btv, fstack->pushedblock);
 	}
 }
