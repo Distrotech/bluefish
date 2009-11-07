@@ -572,7 +572,9 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 				guint nextline_o, curline_o;
 				curline_o = gtk_text_iter_get_offset(&it);
 				nextline = it;
-				gtk_text_iter_forward_to_line_end(&nextline);
+				if (!gtk_text_iter_ends_line(&nextline)) {
+					gtk_text_iter_forward_to_line_end(&nextline);
+				}
 				nextline_o = gtk_text_iter_get_offset(&nextline);	
 				while (fstack) {
 					guint fstackpos=fstack->charoffset_o;
@@ -581,6 +583,7 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 								match, so multiline patterns are drawn on the wrong line */ 
 						fstackpos=fstack->pushedblock->start1_o;
 					}
+					/*DBG_FOLD("search block at line %d, curline_o=%d, nextline_o=%d\n",i,curline_o,nextline_o);*/
 					if (fstackpos > nextline_o) {
 						DBG_FOLD("found fstack for line %d, num_blocks=%d..\n",fstack->line,num_blocks);
 						if (num_blocks > 0) {

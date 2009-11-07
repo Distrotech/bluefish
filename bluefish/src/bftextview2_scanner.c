@@ -360,6 +360,7 @@ static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBu
 		*/
 		fblock->start1_o = gtk_text_iter_get_offset(&match.start);
 		fblock->end1_o = gtk_text_iter_get_offset(&match.end);
+		/*g_print("found blockstart with start_1 %d end1 %d\n",fblock->start1_o,fblock->end1_o);*/
 		fblock->start2_o = BF2_OFFSET_UNDEFINED;
 		fblock->end2_o = BF2_OFFSET_UNDEFINED;
 		fblock->patternum = match.patternum;
