@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-10-12 23:50+0200\n"
-"PO-Revision-Date: 2009-10-03 21:24+0700\n"
+"POT-Creation-Date: 2009-11-07 07:12+0700\n"
+"PO-Revision-Date: 2009-10-14 21:08+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,70 +26,70 @@ msgstr "ショートカットキーを設定"
 msgid "Snippet export filename"
 msgstr "スニペットをエクスポートするファイル名"
 
-#: src/plugin_snippets/snippets_gui.c:311
+#: src/plugin_snippets/snippets_gui.c:312
 msgid "Snippet import filename"
 msgstr "スニペットをインポートするファイル名"
 
-#: src/plugin_snippets/snippets_gui.c:350
+#: src/plugin_snippets/snippets_gui.c:351
 msgid "/_New snippet"
 msgstr "/新規スニペット(_N)"
 
-#: src/plugin_snippets/snippets_gui.c:351
+#: src/plugin_snippets/snippets_gui.c:352
 msgid "/_Edit snippet"
 msgstr "/スニペットを編集(_E)"
 
-#: src/plugin_snippets/snippets_gui.c:352
+#: src/plugin_snippets/snippets_gui.c:353
 msgid "/_Delete snippet"
 msgstr "/スニペットを削除(_D)"
 
-#: src/plugin_snippets/snippets_gui.c:353
+#: src/plugin_snippets/snippets_gui.c:354
 msgid "/Delete branch"
 msgstr "/ブランチを削除"
 
-#: src/plugin_snippets/snippets_gui.c:355
+#: src/plugin_snippets/snippets_gui.c:356
 msgid "/Set snippet _accelerator"
 msgstr "/スニペットのアクセラレータを設定(_A)"
 
-#: src/plugin_snippets/snippets_gui.c:357
+#: src/plugin_snippets/snippets_gui.c:358
 msgid "/Expand all"
 msgstr "/すべて展開"
 
-#: src/plugin_snippets/snippets_gui.c:358
+#: src/plugin_snippets/snippets_gui.c:359
 msgid "/Collapse all"
 msgstr "/全て畳む"
 
-#: src/plugin_snippets/snippets_gui.c:360
+#: src/plugin_snippets/snippets_gui.c:361
 msgid "/Show as menu"
 msgstr "/メニューに表示"
 
-#: src/plugin_snippets/snippets_gui.c:362
+#: src/plugin_snippets/snippets_gui.c:363
 msgid "/Export"
 msgstr "/エキスポート"
 
-#: src/plugin_snippets/snippets_gui.c:363
+#: src/plugin_snippets/snippets_gui.c:364
 msgid "/Import"
 msgstr "/インポート"
 
-#: src/plugin_snippets/snippets_gui.c:479
+#: src/plugin_snippets/snippets_gui.c:480
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr ""
 "マウスの右ボタンをクリックすると、スニペットを追加、編集、削除できます。"
 
-#: src/plugin_snippets/snippets_gui.c:480
+#: src/plugin_snippets/snippets_gui.c:481
 msgid "Use drag and drop to re-order snippets"
 msgstr "ドラッグ&ドロップでスニペットを並べ替える"
 
-#: src/plugin_snippets/snippets_gui.c:481
+#: src/plugin_snippets/snippets_gui.c:482
 msgid "To exchange snippets with others use import or export"
 msgstr ""
 "スニペットを他のものと入れ替えるには、インポートまたはエクスポートを使用して"
 "ください"
 
-#: src/plugin_snippets/snippets_gui.c:639
+#: src/plugin_snippets/snippets_gui.c:640
 msgid "snippets"
 msgstr "スニペット"
 
-#: src/plugin_snippets/snippets_gui.c:670
+#: src/plugin_snippets/snippets_gui.c:671
 msgid "/View/Snippets Menu"
 msgstr "/表示/スニペットメニュー"
 
@@ -204,15 +204,15 @@ msgstr "文字列<i>の後</i>"
 
 #: src/plugin_snippets/snippets_wizard.c:363
 msgid "Number"
-msgstr ""
+msgstr "番号"
 
 #: src/plugin_snippets/snippets_wizard.c:365
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #: src/plugin_snippets/snippets_wizard.c:367
 msgid "Is file path"
-msgstr ""
+msgstr "ファイルのパス名"
 
 #: src/plugin_snippets/snippets_wizard.c:493
 msgid "Enter the name of the branch:"
