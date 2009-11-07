@@ -910,22 +910,30 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 	tmpiter = *iter;
 	gtk_text_iter_set_line_offset(&tmpiter,0);
 	offset = gtk_text_iter_get_offset(&tmpiter);
-	gtk_text_iter_forward_to_line_end(&tmpiter);
+	if (!gtk_text_iter_ends_line(&tmpiter)) {
+		gtk_text_iter_forward_to_line_end(&tmpiter);
+	}
 	nextline_o = gtk_text_iter_get_offset(&tmpiter);
 	 /* returns the fstack PRIOR to iter, or the fstack excactly at iter,
 	 but this fails if the iter is the start of the buffer */
 	fstack = get_stackcache_at_offset(btv, offset, &siter);
 	if (!fstack) {
+		/* is this 'if' block still required? I think get_stackcache_at_offset() now returns the first iter already */
 		DBG_FOLD("no fstack, retrieve first iter\n");
 		fstack = get_stackcache_first(btv, &siter);
 	}
-	while (fstack && (fstack->charoffset_o < offset || !fstack->pushedblock || !fstack->pushedblock->foldable)) {
+	while (fstack && fstack->charoffset_o < nextline_o) {
+		if (fstack->pushedblock && fstack->pushedblock->foldable && fstack->pushedblock->start1_o >= offset)
+			break;
 		fstack = get_stackcache_next(btv, &siter); /* should be the first fstack AFTER iter */
+	}
+	/*while (fstack && (fstack->charoffset_o < offset || !fstack->pushedblock || !fstack->pushedblock->foldable)) {
+		fstack = get_stackcache_next(btv, &siter); / * should be the first fstack AFTER iter * /
 		if (fstack && fstack->pushedblock && fstack->pushedblock->foldable)
 			break;
-	}
-	if (fstack && fstack->charoffset_o >= offset && fstack->charoffset_o <= nextline_o && fstack->pushedblock && fstack->pushedblock->foldable) {
-		DBG_FOLD("got fstack=%p on line %d\n",fstack,fstack->line);
+	}*/
+	if (fstack && fstack->pushedblock && fstack->pushedblock->start1_o >= offset && fstack->pushedblock->start1_o <= nextline_o && fstack->pushedblock->foldable) {
+		g_print("toggle fold on fstack=%p\n",fstack);
 		bftextview2_block_toggle_fold(btv, fstack->pushedblock);
 	}
 }
