@@ -18,6 +18,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#define CURCONFIG "rcfile-2.0"
+#define OLDCONFIG "rcfile_v2"
+#define CURSESSION "session-2.0"
+#define OLDSESSION "session"
+
 /*****
  * THE WORKING OF THE CONFIG FILES AND STRUCTURES IN BLUEFISH
  *
@@ -504,9 +509,9 @@ static gboolean merge_config_files(GFile *oldrc, GFile *oldsession, GFile *newrc
 
 static void migrate_config_files(GHashTable *main_configlist, GFile *newrc) {
 	GFile *oldrc, *oldsession, *newsession;
-	oldrc = user_bfdir("rcfile_v2");
-	oldsession = user_bfdir("session");
-	newsession = user_bfdir("session-2.0");
+	oldrc = user_bfdir(OLDCONFIG);
+	oldsession = user_bfdir(OLDSESSION);
+	newsession = user_bfdir(CURSESSION);
 	merge_config_files(oldrc, oldsession, newrc, newsession);
 	if (parse_config_file(main_configlist, newrc)) {
 		/* TODO? check some values or are we done now ? */
@@ -524,7 +529,7 @@ void rcfile_parse_main(void)  {
 	/*Make the config_rc list ready for filling with data and set default values */
 	main_configlist = props_init_main(g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free));
 
-	file = user_bfdir("rcfile_v2");
+	file = user_bfdir(CURCONFIG);
 	if (!parse_config_file(main_configlist, file)) {
 		/* probably there is no configfile. try to migrate the configfile from a previous 
 		version */
@@ -566,7 +571,7 @@ void rcfile_parse_main(void)  {
 
 gint rcfile_save_main(void) {
 	gint ret;
-	GFile *filename = user_bfdir("rcfile_v2");
+	GFile *filename = user_bfdir(CURCONFIG);
 	ret = save_config_file(main_configlist, filename);
 	g_object_unref(filename);
 	return ret;
@@ -735,7 +740,7 @@ gboolean rcfile_save_global_session(void) {
 	gboolean retval;
 	GFile *filename;
 	GHashTable *configlist;
-	filename = user_bfdir("session");
+	filename = user_bfdir(CURSESSION);
 	configlist = return_globalsession_configlist(FALSE);
 	configlist = return_session_configlist(configlist, main_v->session);
 	DEBUG_MSG("rcfile_save_global_session, saving global session to %s\n",g_file_get_parse_name(filename));
@@ -753,7 +758,7 @@ gboolean rcfile_parse_global_session(void) {
 	GFile *file;
 	GHashTable *configlist = return_globalsession_configlist(TRUE);
 	configlist = return_session_configlist(configlist, main_v->session);
-	file = user_bfdir("session");
+	file = user_bfdir(CURSESSION);
 	retval = parse_config_file(configlist, file);
 	free_configlist(configlist);
 	g_object_unref(file);
