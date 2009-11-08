@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable 1.3.8\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-10-11 21:33+0200\n"
-"PO-Revision-Date: 2009-10-11 21:41+0100\n"
+"POT-Creation-Date: 2009-11-08 23:11+0100\n"
+"PO-Revision-Date: 2009-11-08 23:20+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech translators <diskuze@lists.l10n.cz>\n"
 "MIME-Version: 1.0\n"
@@ -32,11 +32,11 @@ msgstr "Soubor Bluefish s definicí jazyka"
 msgid "Bluefish project file"
 msgstr "Projektový soubor Bluefish"
 
-#: ../src/bftextview2.c:925
+#: ../src/bftextview2.c:962
 msgid "Collapse all"
 msgstr "Sbalit vše"
 
-#: ../src/bftextview2.c:928
+#: ../src/bftextview2.c:965
 msgid "Expand all"
 msgstr "Rozbalit vše"
 
@@ -245,33 +245,33 @@ msgstr "Následující záložka"
 msgid "Last bookmark"
 msgstr "Poslední záložka"
 
-#: ../src/bookmark.c:1521
-#: ../src/bookmark.c:1574
+#: ../src/bookmark.c:1565
+#: ../src/bookmark.c:1618
 msgid "Error adding bookmark"
 msgstr "Chyba při přidávání záložky"
 
-#: ../src/bookmark.c:1522
-#: ../src/bookmark.c:1575
+#: ../src/bookmark.c:1566
+#: ../src/bookmark.c:1619
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Do neuložených souborů nelze přidat záložku."
 
-#: ../src/bookmark.c:1541
+#: ../src/bookmark.c:1585
 msgid "Can't add bookmark"
 msgstr "Nelze přidat záložku"
 
-#: ../src/bookmark.c:1542
+#: ../src/bookmark.c:1586
 msgid "You already have a bookmark here!"
 msgstr "Zde již záložku máte!"
 
-#: ../src/bookmark.c:1611
+#: ../src/bookmark.c:1655
 msgid "Delete all bookmarks."
 msgstr "Smazání všech záložek."
 
-#: ../src/document.c:366
+#: ../src/document.c:370
 msgid "Name: "
 msgstr "Název: "
 
-#: ../src/document.c:369
+#: ../src/document.c:373
 msgid ""
 "\n"
 "Language mode: "
@@ -279,7 +279,7 @@ msgstr ""
 "\n"
 "Režim jazyka: "
 
-#: ../src/document.c:373
+#: ../src/document.c:377
 msgid ""
 "\n"
 "Encoding: "
@@ -287,7 +287,7 @@ msgstr ""
 "\n"
 "Kódování: "
 
-#: ../src/document.c:382
+#: ../src/document.c:386
 msgid ""
 "\n"
 "Mime type: "
@@ -295,7 +295,7 @@ msgstr ""
 "\n"
 "Typ MIME: "
 
-#: ../src/document.c:388
+#: ../src/document.c:392
 #, c-format
 msgid ""
 "\n"
@@ -306,7 +306,7 @@ msgstr ""
 "Oprávnění: %s\n"
 "UID: %u GID: %u"
 
-#: ../src/document.c:393
+#: ../src/document.c:397
 msgid ""
 "\n"
 "Size (on disk): "
@@ -314,7 +314,7 @@ msgstr ""
 "\n"
 "Velikost (na disku): "
 
-#: ../src/document.c:401
+#: ../src/document.c:405
 msgid ""
 "\n"
 "Last modified: "
@@ -322,95 +322,95 @@ msgstr ""
 "\n"
 "Naposledy změněno: "
 
-#: ../src/document.c:432
+#: ../src/document.c:436
 #, c-format
 msgid "Untitled %d"
 msgstr "Nepojmenovaný %d"
 
-#: ../src/document.c:606
+#: ../src/document.c:610
 #, c-format
 msgid "Changed tab width to %d"
 msgstr "Šířka tabelátoru změněna na %d"
 
-#: ../src/document.c:769
+#: ../src/document.c:773
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "Dokument %s je již otevřený v jiném okně Bluefish."
 
-#: ../src/document.c:771
+#: ../src/document.c:775
 msgid "Move to this window"
 msgstr "Přesunout do tohoto okna"
 
-#: ../src/document.c:771
+#: ../src/document.c:775
 msgid "Open readonly"
 msgstr "Otevřít jen pro čtení"
 
-#: ../src/document.c:771
+#: ../src/document.c:775
 msgid "Do not open"
 msgstr "Neotevírat"
 
-#: ../src/document.c:1055
+#: ../src/document.c:1059
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr "Řá: %d, Sl: %d, Znak: %d"
 
-#: ../src/document.c:1057
+#: ../src/document.c:1061
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr "Řá: %d, Sl: %d"
 
-#: ../src/document.c:1078
+#: ../src/document.c:1082
 msgid " OVR"
 msgstr "PŘE"
 
-#: ../src/document.c:1078
+#: ../src/document.c:1082
 msgid " INS"
 msgstr "VKL"
 
-#: ../src/document.c:1080
+#: ../src/document.c:1084
 msgid " RO"
 msgstr "JPČ"
 
-#: ../src/document.c:1097
+#: ../src/document.c:1101
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: ../src/document.c:1456
+#: ../src/document.c:1466
 msgid "Cannot display file, unknown characters found."
 msgstr "Soubor nelze zobrazit, nalezeny neznámé znaky."
 
-#: ../src/document.c:1669
+#: ../src/document.c:1668
 #: ../src/snr2.c:1674
 msgid "Replace"
 msgstr "Nahradit"
 
-#: ../src/document.c:1674
+#: ../src/document.c:1673
 #: ../src/snr2.c:1671
 msgid "Find"
 msgstr "Najít"
 
-#: ../src/document.c:1682
+#: ../src/document.c:1681
 msgid "Delete bookmark"
 msgstr "Smazat záložku"
 
-#: ../src/document.c:1686
+#: ../src/document.c:1685
 msgid "Add bookmark"
 msgstr "Přidat záložku"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1803
+#: ../src/document.c:1802
 #: ../src/file_dialogs.c:430
 #: ../src/file_dialogs.c:467
 msgid "_Abort save"
 msgstr "_Zrušit ukládání"
 
-#: ../src/document.c:1803
+#: ../src/document.c:1802
 msgid "_Continue save in UTF-8"
 msgstr "_Pokračovat v ukládání v UTF-8"
 
-#: ../src/document.c:1814
+#: ../src/document.c:1813
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n"
@@ -421,59 +421,59 @@ msgstr ""
 "\n"
 "Pokračovat v ukládání v kódování UTF-8?"
 
-#: ../src/document.c:1818
+#: ../src/document.c:1817
 msgid "File encoding conversion failure"
 msgstr "Chyba převodu kódování souboru"
 
-#: ../src/document.c:2064
+#: ../src/document.c:2063
 msgid "Previously: "
 msgstr "Dříve: "
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2586
+#: ../src/document.c:2606
 msgid "Unable to open file"
 msgstr "Nelze otevřít soubor"
 
-#: ../src/document.c:2596
+#: ../src/document.c:2616
 #, c-format
 msgid "If you revert \"%s\" to your last saved copy, your current changes will be permanently lost."
 msgstr "Pokud vrátíte „%s“ na stav poslední uložené kopie, budou současné vámi provedené změny nenávratně ztraceny."
 
-#: ../src/document.c:2600
+#: ../src/document.c:2620
 msgid "Revert changes to last saved copy?"
 msgstr "Vrátit změny na naposledy uloženou kopii?"
 
-#: ../src/document.c:2634
+#: ../src/document.c:2656
 msgid "_Unset file name"
 msgstr "_Zrušit název souboru"
 
-#: ../src/document.c:2634
+#: ../src/document.c:2656
 msgid "_Save"
 msgstr "_Uložit"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:2636
+#: ../src/document.c:2658
 #, c-format
 msgid "File name: %s"
 msgstr "Název souboru: %s"
 
-#: ../src/document.c:2640
+#: ../src/document.c:2662
 msgid "File disappeared from disk\n"
 msgstr "Soubor zmizel z disku\n"
 
-#: ../src/document.c:2659
+#: ../src/document.c:2681
 msgid "_Ignore"
 msgstr "_Ignorovat"
 
-#: ../src/document.c:2659
+#: ../src/document.c:2681
 msgid "_Reload"
 msgstr "_Znovu načíst"
 
-#: ../src/document.c:2659
+#: ../src/document.c:2681
 msgid "Check and reload all documents"
 msgstr "Zkontrolovat a znovu načíst všechny"
 
-#: ../src/document.c:2667
+#: ../src/document.c:2689
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -486,52 +486,52 @@ msgstr ""
 "Nový čas změny je: %s\n"
 "Starý čas změny je: %s"
 
-#: ../src/document.c:2671
+#: ../src/document.c:2693
 msgid "File has been modified by another process\n"
 msgstr "Soubor byl změněn jiným procesem\n"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2756
 msgid "_Retry"
 msgstr "_Opakovat"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2756
 msgid "Retry _all failed"
 msgstr "Opakovat _všechny chybné"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2756
 msgid "_Close"
 msgstr "_Zavřít"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2756
 msgid "Close all _failed"
 msgstr "Zavřít všechny chy_bné"
 
-#: ../src/document.c:2738
+#: ../src/document.c:2760
 msgid "File "
 msgstr "Soubor "
 
-#: ../src/document.c:2738
+#: ../src/document.c:2760
 msgid " failed to load."
 msgstr " se nezdařilo načíst."
 
-#: ../src/document.c:2742
+#: ../src/document.c:2764
 msgid "File failed to load\n"
 msgstr "Soubor se nezdařilo načíst\n"
 
-#: ../src/document.c:2862
+#: ../src/document.c:2884
 msgid "Select file to insert"
 msgstr "Výběr souboru na vložení"
 
-#: ../src/document.c:2870
+#: ../src/document.c:2892
 msgid "No file to insert"
 msgstr "Žádný soubor ke vložení"
 
-#: ../src/document.c:3010
+#: ../src/document.c:3033
 #, c-format
 msgid "Statistics: "
 msgstr "Statistika: "
 
-#: ../src/document.c:3011
+#: ../src/document.c:3034
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
@@ -539,7 +539,7 @@ msgstr[0] "%d řádek"
 msgstr[1] "%d řádky"
 msgstr[2] "%d řádků"
 
-#: ../src/document.c:3012
+#: ../src/document.c:3035
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
@@ -547,7 +547,7 @@ msgstr[0] "%d slovo"
 msgstr[1] "%d slova"
 msgstr[2] "%d slov"
 
-#: ../src/document.c:3013
+#: ../src/document.c:3036
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
@@ -555,26 +555,26 @@ msgstr[0] "%d znak"
 msgstr[1] "%d znaky"
 msgstr[2] "%d znaků"
 
-#: ../src/encodings_dialog.c:329
+#: ../src/encodings_dialog.c:321
 msgid "_Available encodings:"
 msgstr "_Dostupná kódování:"
 
-#: ../src/encodings_dialog.c:381
-#: ../src/encodings_dialog.c:452
+#: ../src/encodings_dialog.c:373
+#: ../src/encodings_dialog.c:444
 msgid "Description"
 msgstr "Popis"
 
-#: ../src/encodings_dialog.c:391
-#: ../src/encodings_dialog.c:461
-#: ../src/preferences.c:1657
+#: ../src/encodings_dialog.c:383
+#: ../src/encodings_dialog.c:453
+#: ../src/preferences.c:1662
 msgid "Encoding"
 msgstr "Kódování"
 
-#: ../src/encodings_dialog.c:427
+#: ../src/encodings_dialog.c:419
 msgid "Encodings in _menu:"
 msgstr "Kódování v _nabídce:"
 
-#: ../src/encodings_dialog.c:511
+#: ../src/encodings_dialog.c:503
 msgid "Add or remove document encodings"
 msgstr "Přidání nebo odebrání kódování dokumentu"
 
@@ -720,7 +720,7 @@ msgstr "Smazat filtr"
 msgid "New filter"
 msgstr "Nový filtr"
 
-#: ../src/file.c:709
+#: ../src/file.c:737
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
@@ -728,12 +728,12 @@ msgstr[0] "Ještě se načítá %d soubor, dokončeno %s"
 msgstr[1] "Ještě se načítájí %d soubory, dokončeno %s"
 msgstr[2] "Ještě se načítá %d souborů, dokončeno %s"
 
-#: ../src/file.c:714
+#: ../src/file.c:742
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "Všechny soubory načteny, dokončeno %s"
 
-#: ../src/file.c:900
+#: ../src/file.c:928
 #, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
@@ -741,27 +741,27 @@ msgstr[0] "Otevřen %d dokument."
 msgstr[1] "Otevřeny %d dokumenty."
 msgstr[2] "Otevřeno %d dokumentů."
 
-#: ../src/file.c:902
+#: ../src/file.c:930
 msgid "Advanced open: Finished searching files. "
 msgstr "Pokročilé otevření: Dokončeno vyhledání souborů."
 
-#: ../src/file.c:1155
+#: ../src/file.c:1183
 msgid "_Skip"
 msgstr "Pře_skočit"
 
-#: ../src/file.c:1155
+#: ../src/file.c:1183
 #: ../src/file_dialogs.c:592
 #: ../src/file_dialogs.c:613
 #: ../src/project.c:242
 msgid "_Overwrite"
 msgstr "Pře_psat"
 
-#: ../src/file.c:1159
+#: ../src/file.c:1187
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s nelze zkopírovat, již existuje, přepsat?"
 
-#: ../src/file.c:1163
+#: ../src/file.c:1191
 msgid "Overwrite file?"
 msgstr "Přepsat soubor?"
 
@@ -1594,11 +1594,11 @@ msgstr "/Nástroje/Rozsadit na sloup_ce"
 msgid "/Document/Language Mode"
 msgstr "/Dokument/Režim jazyka"
 
-#: ../src/menu.c:839
+#: ../src/menu.c:755
 msgid "No default browser found"
 msgstr "Nenalezen žádný výchozí prohlížeč"
 
-#: ../src/menu.c:840
+#: ../src/menu.c:756
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
@@ -1606,11 +1606,11 @@ msgstr ""
 "Výchozí prohlížeč můžete nastavit pomocí:\n"
 "Upravit->Předvolby->Externí příkazy"
 
-#: ../src/menu.c:875
+#: ../src/menu.c:791
 msgid "Operate filter only on selection?"
 msgstr "Pracuje filtr pouze na výběru?"
 
-#: ../src/menu.c:1031
+#: ../src/menu.c:947
 msgid "/Document/Character Encoding"
 msgstr "/Dokument/Kódování znaků"
 
@@ -1631,127 +1631,127 @@ msgstr "Výstup"
 msgid "Failed to compile outputbox pattern %s"
 msgstr "Nezdařilo se přeložit vzor %s pro výstupní panel"
 
-#: ../src/preferences.c:274
+#: ../src/preferences.c:275
 msgid "Untitled"
 msgstr "Nepojmenovaný"
 
-#: ../src/preferences.c:375
+#: ../src/preferences.c:376
 msgid "Select font"
 msgstr "Výběr písma"
 
-#: ../src/preferences.c:492
-#: ../src/preferences.c:1626
+#: ../src/preferences.c:493
+#: ../src/preferences.c:1630
 msgid "Initial document settings"
 msgstr "Počáteční nastavení dokumentu"
 
-#: ../src/preferences.c:496
+#: ../src/preferences.c:497
 msgid "Default mime type for new files"
 msgstr "Výchozí typ MIME pro nové soubory"
 
-#: ../src/preferences.c:499
+#: ../src/preferences.c:500
 msgid "_Word wrap by default"
 msgstr "_Zalamování slov jako výchozí"
 
-#: ../src/preferences.c:500
+#: ../src/preferences.c:501
 msgid "(Smart) Auto indenting"
 msgstr "(Chytré) automatické odsazování"
 
-#: ../src/preferences.c:501
+#: ../src/preferences.c:502
 msgid "Tab width"
 msgstr "Šířka tabelátoru"
 
-#: ../src/preferences.c:502
+#: ../src/preferences.c:503
 msgid "Show line numbers"
 msgstr "Zobrazovat čísla řádků"
 
-#: ../src/preferences.c:503
+#: ../src/preferences.c:504
 msgid "Highlight current line"
 msgstr "Zvýrazňovat aktuální řádek"
 
-#: ../src/preferences.c:504
+#: ../src/preferences.c:505
 msgid "Enable block folding"
 msgstr "Povolit sbalování bloků"
 
-#: ../src/preferences.c:505
+#: ../src/preferences.c:506
 msgid "Enable automatic completion pop-up"
 msgstr "Povolit vyskakování automatického dokončování"
 
-#: ../src/preferences.c:506
+#: ../src/preferences.c:507
 msgid "Highlight matching block begin-end"
 msgstr "Zvýrazňovat odpovídající začátek-konec bloku"
 
-#: ../src/preferences.c:508
+#: ../src/preferences.c:509
 msgid "Enable spell check"
 msgstr "Povolit kontrolu pravopisu"
 
-#: ../src/preferences.c:537
+#: ../src/preferences.c:538
 msgid "Message"
 msgstr "Zpráva"
 
-#: ../src/preferences.c:538
+#: ../src/preferences.c:539
 msgid "Enabled"
 msgstr "Povolený"
 
-#: ../src/preferences.c:539
+#: ../src/preferences.c:540
 msgid "File"
 msgstr "Soubor"
 
-#: ../src/preferences.c:695
+#: ../src/preferences.c:696
 msgid "Text styles are applied on top of each other. If multiple styles are applied to the same text, the top-most style in this list has the highest priority. Use drag and drop to re-order the text styles."
 msgstr "Textové styly se používají jeden za druhým. Pokud se na stejný text použije více stylů, styl nejvýše v seznamu má nejvyšší prioritu. Pořadí textových stylů můžete změnit pomocí přetahování myší."
 
-#: ../src/preferences.c:704
-#: ../src/preferences.c:997
-#: ../src/preferences.c:1067
+#: ../src/preferences.c:705
+#: ../src/preferences.c:998
+#: ../src/preferences.c:1068
 msgid "Label"
 msgstr "Popisek"
 
-#: ../src/preferences.c:716
-#: ../src/preferences.c:1613
+#: ../src/preferences.c:717
+#: ../src/preferences.c:1616
 msgid "Foreground color"
 msgstr "Barva popředí"
 
-#: ../src/preferences.c:717
-#: ../src/preferences.c:1614
+#: ../src/preferences.c:718
+#: ../src/preferences.c:1617
 msgid "Background color"
 msgstr "Barva pozadí"
 
-#: ../src/preferences.c:718
+#: ../src/preferences.c:719
 msgid "normal weight"
 msgstr "normální tloušťka"
 
-#: ../src/preferences.c:720
+#: ../src/preferences.c:721
 msgid "bold weight"
 msgstr "tučná tloušťka"
 
-#: ../src/preferences.c:722
+#: ../src/preferences.c:723
 msgid "normal style"
 msgstr "normální styl"
 
-#: ../src/preferences.c:724
+#: ../src/preferences.c:725
 msgid "italic style"
 msgstr "styl kurzíva"
 
-#: ../src/preferences.c:727
+#: ../src/preferences.c:728
 msgid "Spell check"
 msgstr "Kontrola pravopisu"
 
-#: ../src/preferences.c:941
-#: ../src/preferences.c:1152
+#: ../src/preferences.c:942
+#: ../src/preferences.c:1153
 msgid "Name"
 msgstr "Název"
 
-#: ../src/preferences.c:998
-#: ../src/preferences.c:1068
-#: ../src/preferences.c:1157
+#: ../src/preferences.c:999
+#: ../src/preferences.c:1069
+#: ../src/preferences.c:1158
 msgid "Command"
 msgstr "Příkaz"
 
-#: ../src/preferences.c:999
+#: ../src/preferences.c:1000
 msgid "Default browser"
 msgstr "Výchozí prohlížeč"
 
-#: ../src/preferences.c:1001
+#: ../src/preferences.c:1002
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1775,7 +1775,7 @@ msgstr ""
 "%u URL (dostupné pro všechny pojmenované soubory)\n"
 "%p URL náhledu, pokud jsou v nastavení projektu zadány základní složka a složka náhledu, jinak shodné s %u</small>"
 
-#: ../src/preferences.c:1071
+#: ../src/preferences.c:1072
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1809,23 +1809,23 @@ msgstr ""
 "%u URL (dostupné pro všechny pojmenované soubory)\n"
 "%p URL náhledu, pokud jsou v nastavení projektu zadány základní složka a složka náhledu, jinak shodné s %u</small>"
 
-#: ../src/preferences.c:1153
+#: ../src/preferences.c:1154
 msgid "Pattern"
 msgstr "Vzor"
 
-#: ../src/preferences.c:1154
+#: ../src/preferences.c:1155
 msgid "File #"
 msgstr "Soubor #"
 
-#: ../src/preferences.c:1155
+#: ../src/preferences.c:1156
 msgid "Line #"
 msgstr "Řádek #"
 
-#: ../src/preferences.c:1156
+#: ../src/preferences.c:1157
 msgid "Output #"
 msgstr "Výstup #"
 
-#: ../src/preferences.c:1159
+#: ../src/preferences.c:1160
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1864,230 +1864,254 @@ msgstr ""
 #. gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
 #. skip column 0, the language name
 #. 1=text
-#: ../src/preferences.c:1309
+#: ../src/preferences.c:1310
 msgid "Option name"
 msgstr "Název volby"
 
 #. 2=boolean
-#: ../src/preferences.c:1310
+#: ../src/preferences.c:1311
 msgid "value"
 msgstr "Hodnota"
 
 #. 1=text
-#: ../src/preferences.c:1323
+#: ../src/preferences.c:1324
 msgid "Highlight name"
 msgstr "Název zvýraznění"
 
 #. the textstyle model
-#: ../src/preferences.c:1326
+#: ../src/preferences.c:1327
 msgid "Textstyle"
 msgstr "Textový styl"
 
-#: ../src/preferences.c:1566
-#: ../src/preferences.c:1567
+#: ../src/preferences.c:1568
+#: ../src/preferences.c:1569
 msgid "left"
 msgstr "Vlevo"
 
-#: ../src/preferences.c:1566
-#: ../src/preferences.c:1567
+#: ../src/preferences.c:1568
+#: ../src/preferences.c:1569
 msgid "right"
 msgstr "Vpravo"
 
-#: ../src/preferences.c:1566
+#: ../src/preferences.c:1568
 msgid "top"
 msgstr "Nahoře"
 
-#: ../src/preferences.c:1566
+#: ../src/preferences.c:1568
 msgid "bottom"
 msgstr "Dole"
 
-#: ../src/preferences.c:1568
+#: ../src/preferences.c:1570
 msgid "Nothing"
 msgstr "Žádné"
 
-#: ../src/preferences.c:1568
+#: ../src/preferences.c:1570
 msgid "Modified time and file size"
 msgstr "Čas změny a velikost souboru"
 
-#: ../src/preferences.c:1568
+#: ../src/preferences.c:1570
 msgid "Modified time"
 msgstr "Čas změny"
 
-#: ../src/preferences.c:1568
+#: ../src/preferences.c:1570
 msgid "File size"
 msgstr "Velikost souboru"
 
-#: ../src/preferences.c:1584
+#: ../src/preferences.c:1571
+msgid "All"
+msgstr "Vše"
+
+#: ../src/preferences.c:1571
+msgid "All except spaces"
+msgstr "Vše mimo mezer"
+
+#: ../src/preferences.c:1571
+msgid "All trailing"
+msgstr "Všechny koncové"
+
+#: ../src/preferences.c:1571
+msgid "All except non-trailing spaces"
+msgstr "Vše mimo nekoncových mezer"
+
+#: ../src/preferences.c:1587
 msgid "Edit preferences"
 msgstr "Úprava předvoleb"
 
-#: ../src/preferences.c:1605
+#: ../src/preferences.c:1608
 msgid "Editor settings"
 msgstr "Nastavení editoru"
 
-#: ../src/preferences.c:1607
+#: ../src/preferences.c:1610
 msgid "Generic editor settings"
 msgstr "Obecná nastaven editoru"
 
-#: ../src/preferences.c:1612
+#: ../src/preferences.c:1615
 msgid "Font"
 msgstr "Písmo"
 
-#: ../src/preferences.c:1615
+#: ../src/preferences.c:1618
 msgid "Current line color"
 msgstr "Barva aktuálního řádku"
 
-#: ../src/preferences.c:1616
+#: ../src/preferences.c:1619
 msgid "Visible whitespace color"
 msgstr "Barva viditelných mezer"
 
-#: ../src/preferences.c:1617
+#: ../src/preferences.c:1620
+msgid "Show whitespace"
+msgstr "Zobrazit bílé znaky"
+
+#: ../src/preferences.c:1621
 msgid "Smart Home/End cursor positioning"
 msgstr "Chytré umisťování kurzoru na začátek/konec"
 
-#: ../src/preferences.c:1618
+#: ../src/preferences.c:1622
 msgid "Use spaces to indent, not tabs"
 msgstr "K odsazování používat mezery, ne tabelátory "
 
-#: ../src/preferences.c:1619
+#: ../src/preferences.c:1623
 msgid "Smart auto indenting"
 msgstr "Chytré automatické odsazování"
 
-#: ../src/preferences.c:1621
+#: ../src/preferences.c:1625
 msgid "Number of actions in undo history"
 msgstr "Počet úkonů v historii pro funkci zpět"
 
-#: ../src/preferences.c:1622
+#: ../src/preferences.c:1626
 msgid "Clear undo history on save"
 msgstr "Při ukládání smazat historii pro funkci zpět"
 
-#: ../src/preferences.c:1636
+#: ../src/preferences.c:1640
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1638
+#: ../src/preferences.c:1642
 msgid "HTML options"
 msgstr "Volby HTML"
 
-#: ../src/preferences.c:1643
+#: ../src/preferences.c:1647
 msgid "Lowercase HTML tags"
 msgstr "Značky HTML malými písmeny"
 
-#: ../src/preferences.c:1644
+#: ../src/preferences.c:1648
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Používat zavržené značky (např. <font> a <nobr>)"
 
-#: ../src/preferences.c:1645
+#: ../src/preferences.c:1649
+msgid "Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr "Formátovat v souladu s pravidly přístupnosti (např. <strong> pro <b>)"
+
+#: ../src/preferences.c:1650
 msgid "Use XHTML style tags (<br />)"
 msgstr "Používat styl značek XHTML (<br />)"
 
 #. pd->prefs[insert_close_tag] = boxed_checkbut_with_value(_("Automatically close tags"), main_v->props.insert_close_tag, vbox2);
 #. pd->prefs[close_tag_newline] = boxed_checkbut_with_value(_("Prepend close tags with a newline"), main_v->props.close_tag_newline, vbox2);
-#: ../src/preferences.c:1649
+#: ../src/preferences.c:1654
 msgid "Automatically update author meta tag"
 msgstr "Automaticky aktualizovat meta značku author"
 
-#: ../src/preferences.c:1650
+#: ../src/preferences.c:1655
 msgid "Automatically update date meta tag"
 msgstr "Automaticky aktualizovat meta značku date"
 
-#: ../src/preferences.c:1651
+#: ../src/preferences.c:1656
 msgid "Automatically update generator meta tag"
 msgstr "Automaticky aktualizovat meta značku generator"
 
-#: ../src/preferences.c:1655
+#: ../src/preferences.c:1660
 msgid "Files"
 msgstr "Soubory"
 
-#: ../src/preferences.c:1668
+#: ../src/preferences.c:1673
 msgid "Default character set for new files"
 msgstr "Výchozí znaková sada pro nové soubory"
 
-#: ../src/preferences.c:1671
+#: ../src/preferences.c:1676
 msgid "Auto set <meta> HTML tag on encoding change"
 msgstr "Automaticky nastavit značku HTML <meta> při změně kódování"
 
-#: ../src/preferences.c:1673
+#: ../src/preferences.c:1678
 msgid "Backup files and recovery of modified documents"
 msgstr "Zálohování souborů a obnova změněných dokumentů"
 
-#: ../src/preferences.c:1677
+#: ../src/preferences.c:1682
 msgid "Create backup file during file save"
 msgstr "Při ukládání vytvářet záložní soubory"
 
-#: ../src/preferences.c:1679
+#: ../src/preferences.c:1684
 msgid "Continue save"
 msgstr "Pokračovat v ukládání"
 
-#: ../src/preferences.c:1679
+#: ../src/preferences.c:1684
 msgid "Abort save"
 msgstr "Přerušit ukládání"
 
-#: ../src/preferences.c:1679
+#: ../src/preferences.c:1684
 msgid "Ask what to do"
 msgstr "Dotázat se, co dál"
 
-#: ../src/preferences.c:1680
+#: ../src/preferences.c:1685
 msgid "If the backup fails"
 msgstr "Když se záloha nezdaří"
 
-#: ../src/preferences.c:1682
+#: ../src/preferences.c:1687
 msgid "Remove backup file on close"
 msgstr "Při zavření odstranit záložní soubor"
 
-#: ../src/preferences.c:1686
+#: ../src/preferences.c:1691
 msgid "Enable recovery of modified documents"
 msgstr "Povolit obnovení změněných dokumentů"
 
-#: ../src/preferences.c:1687
+#: ../src/preferences.c:1692
 msgid "Frequency to store changes (seconds)"
 msgstr "Četnost ukládání změn (v sekundách)"
 
-#: ../src/preferences.c:1689
+#: ../src/preferences.c:1694
 msgid "Misc"
 msgstr "Různé"
 
-#: ../src/preferences.c:1694
+#: ../src/preferences.c:1699
 msgid "Open commandline files in running bluefish process"
 msgstr "Otevřít soubory zadané v příkazové řádce v běžícím Bluefish"
 
-#: ../src/preferences.c:1696
+#: ../src/preferences.c:1701
 msgid "Open commandline files in new window"
 msgstr "Otevřít soubory zadané v příkazové řádce v novém okně"
 
-#: ../src/preferences.c:1698
+#: ../src/preferences.c:1703
 msgid "File properties to check on disk for modifications"
 msgstr "Vlastnosti souboru na disku kontrolované kvůli odhalení změn"
 
-#: ../src/preferences.c:1699
+#: ../src/preferences.c:1704
 msgid "Periodically check if file is modified on disk"
 msgstr "Pravidelně kontrolovat, zda nebyl soubor na disku změněn"
 
-#: ../src/preferences.c:1700
+#: ../src/preferences.c:1705
 msgid "Number of files in 'Open recent' menu"
 msgstr "Počet souborů v nabídce „Otevřít nedávné“"
 
-#: ../src/preferences.c:1705
+#: ../src/preferences.c:1710
 msgid "User interface"
 msgstr "Uživatelské rozhraní"
 
-#: ../src/preferences.c:1708
+#: ../src/preferences.c:1713
 msgid "Startup options"
 msgstr "Volby spouštění"
 
-#: ../src/preferences.c:1713
+#: ../src/preferences.c:1718
 msgid "Show splash-screen"
 msgstr "Ukazovat úvodní obrazovku"
 
-#: ../src/preferences.c:1716
+#: ../src/preferences.c:1721
 msgid "General"
 msgstr "Obecné"
 
-#: ../src/preferences.c:1721
+#: ../src/preferences.c:1726
 msgid "Make HTML dialogs transient"
 msgstr "Dialogy HTML jako přechodové"
 
-#: ../src/preferences.c:1722
+#: ../src/preferences.c:1727
 msgid ""
 "Notebook tab font \n"
 "(leave empty for gtk default)"
@@ -2095,138 +2119,138 @@ msgstr ""
 "Písmo ouška karty \n"
 "(při prázdném se použije výchozí z gtk)"
 
-#: ../src/preferences.c:1723
+#: ../src/preferences.c:1728
 msgid "Notebook tab color (doc modified)"
 msgstr "Barva ouška karty (dokument změněn)"
 
-#: ../src/preferences.c:1724
+#: ../src/preferences.c:1729
 msgid "Notebook tab color (doc loading)"
 msgstr "Barva ouška karty (dokument se načítá)"
 
-#: ../src/preferences.c:1725
+#: ../src/preferences.c:1730
 msgid "Notebook tab color (doc error)"
 msgstr "Barva ouška karty (chyba dokumentu)"
 
-#: ../src/preferences.c:1726
+#: ../src/preferences.c:1731
 msgid "Document notebook tab position"
 msgstr "Umístění oušek karet s dokumenty"
 
-#: ../src/preferences.c:1727
+#: ../src/preferences.c:1732
 msgid "Switch between tabs with <Alt>+0..9"
 msgstr "Přepínání mezi kartami pomocí <Alt>+0..9"
 
-#: ../src/preferences.c:1728
+#: ../src/preferences.c:1733
 msgid "Sidebar notebook tab position"
 msgstr "Umístění oušek karet v postranním panelu"
 
-#: ../src/preferences.c:1729
+#: ../src/preferences.c:1734
 msgid "Sidebar location"
 msgstr "Umístění postranního panelu"
 
-#: ../src/preferences.c:1733
-#: ../src/preferences.c:1735
+#: ../src/preferences.c:1738
+#: ../src/preferences.c:1740
 msgid "Dimensions"
 msgstr "Rozměry"
 
-#: ../src/preferences.c:1740
+#: ../src/preferences.c:1745
 msgid "Leave dimensions to window manager"
 msgstr "Ponechat rozměry na okenním správci"
 
-#: ../src/preferences.c:1741
+#: ../src/preferences.c:1746
 msgid "Restore last used dimensions"
 msgstr "Obnovit naposledy použité rozměry"
 
-#: ../src/preferences.c:1742
+#: ../src/preferences.c:1747
 msgid "Initial sidebar width"
 msgstr "Počáteční šířka postranního panelu"
 
-#: ../src/preferences.c:1743
+#: ../src/preferences.c:1748
 msgid "Initial window height"
 msgstr "Počáteční výška okna"
 
-#: ../src/preferences.c:1744
+#: ../src/preferences.c:1749
 msgid "Initial window width"
 msgstr "Počáteční šířka okna"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:1751
-#: ../src/rcfile.c:705
+#: ../src/preferences.c:1756
+#: ../src/rcfile.c:778
 msgid "Images"
 msgstr "Obrázky"
 
-#: ../src/preferences.c:1753
+#: ../src/preferences.c:1758
 msgid "Thumbnails"
 msgstr "Miniatury"
 
-#: ../src/preferences.c:1757
+#: ../src/preferences.c:1762
 msgid "Thumbnail suffix"
 msgstr "Přípona miniatury"
 
-#: ../src/preferences.c:1760
+#: ../src/preferences.c:1765
 msgid "Thumbnail filetype"
 msgstr "Souborový typ miniatury"
 
-#: ../src/preferences.c:1765
+#: ../src/preferences.c:1770
 msgid "External commands"
 msgstr "Externí příkazy"
 
-#: ../src/preferences.c:1767
+#: ../src/preferences.c:1772
 msgid "Commands"
 msgstr "Příkazy"
 
-#: ../src/preferences.c:1775
+#: ../src/preferences.c:1780
 msgid "External filters"
 msgstr "Externí filtry"
 
-#: ../src/preferences.c:1777
+#: ../src/preferences.c:1782
 msgid "Filters"
 msgstr "Filtry"
 
-#: ../src/preferences.c:1785
-#: ../src/preferences.c:1787
+#: ../src/preferences.c:1790
+#: ../src/preferences.c:1792
 msgid "Output parsers"
 msgstr "Výstupní analyzátor"
 
-#: ../src/preferences.c:1795
-#: ../src/preferences.c:1796
+#: ../src/preferences.c:1800
+#: ../src/preferences.c:1801
 msgid "Plugins"
 msgstr "Zásuvné moduly"
 
-#: ../src/preferences.c:1804
-#: ../src/preferences.c:1805
+#: ../src/preferences.c:1809
+#: ../src/preferences.c:1810
 msgid "Text styles"
 msgstr "Textové styly"
 
-#: ../src/preferences.c:1814
+#: ../src/preferences.c:1819
 msgid "Language support"
 msgstr "Podpora jazyků"
 
-#: ../src/preferences.c:1816
+#: ../src/preferences.c:1821
 msgid "Advanced syntax scanning options"
 msgstr "Pokročilé volby prohledávání syntaxe"
 
-#: ../src/preferences.c:1822
+#: ../src/preferences.c:1827
 msgid "Delayed"
 msgstr "Se spožděním"
 
-#: ../src/preferences.c:1822
+#: ../src/preferences.c:1827
 msgid "Immediately"
 msgstr "Ihned"
 
-#: ../src/preferences.c:1823
+#: ../src/preferences.c:1828
 msgid "Show the automatic completion pop-up window"
 msgstr "Vyskakovací okno automatického dokončování zobrazovat"
 
-#: ../src/preferences.c:1825
+#: ../src/preferences.c:1830
 msgid "Load reference information from language file"
 msgstr "Načíst referenční informace z souboru jazyka"
 
-#: ../src/preferences.c:1826
+#: ../src/preferences.c:1831
 msgid "Show reference information in autocompletion pop-up"
 msgstr "Zobrazit referenční informace v automatickém dokončování"
 
-#: ../src/preferences.c:1827
+#: ../src/preferences.c:1832
 msgid "Show reference information in tooltip window"
 msgstr "Zobrazit referenční informace v bublině s nápovědou"
 
@@ -2283,99 +2307,103 @@ msgid "Create empty project"
 msgstr "Vytvořit prázdný projekt"
 
 #. if the user does not have outputbox settings --> set them to defaults values
-#: ../src/rcfile.c:475
+#: ../src/rcfile.c:547
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:476
+#: ../src/rcfile.c:548
 msgid "weblint HTML checker"
 msgstr "weblint (kontrolor HTML)"
 
-#: ../src/rcfile.c:477
+#: ../src/rcfile.c:549
 msgid "tidy HTML validator"
 msgstr "tidy (ověřovač správnosti HTML)"
 
-#: ../src/rcfile.c:478
+#: ../src/rcfile.c:550
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:479
+#: ../src/rcfile.c:551
 msgid "xmllint XML checker"
 msgstr "xmllint (kontrolor XML)"
 
-#: ../src/rcfile.c:480
+#: ../src/rcfile.c:552
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:483
+#: ../src/rcfile.c:555
 msgid "Sort"
 msgstr "Seřadit"
 
-#: ../src/rcfile.c:484
+#: ../src/rcfile.c:556
+msgid "Sort / Unique"
+msgstr "Seřadit / Jedinečnost"
+
+#: ../src/rcfile.c:557
 msgid "Reverse lines"
 msgstr "Otočit pořadí řádků"
 
-#: ../src/rcfile.c:485
+#: ../src/rcfile.c:558
 msgid "Dos2unix"
 msgstr "Dos2unix"
 
-#: ../src/rcfile.c:486
+#: ../src/rcfile.c:559
 msgid "Tidy HTML"
 msgstr "Uhladit HTML"
 
-#: ../src/rcfile.c:487
+#: ../src/rcfile.c:560
 msgid "Strip empty lines"
 msgstr "Odstranit prázdné řádky"
 
-#: ../src/rcfile.c:488
+#: ../src/rcfile.c:561
 msgid "Render HTML to text"
 msgstr "Reprodukovat HTML jako text"
 
-#: ../src/rcfile.c:491
+#: ../src/rcfile.c:564
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:492
+#: ../src/rcfile.c:565
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:493
+#: ../src/rcfile.c:566
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:494
+#: ../src/rcfile.c:567
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:495
+#: ../src/rcfile.c:568
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:496
+#: ../src/rcfile.c:569
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:497
+#: ../src/rcfile.c:570
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:498
+#: ../src/rcfile.c:571
 msgid "Links2 (graphics)"
 msgstr "Links2 (grafický)"
 
-#: ../src/rcfile.c:641
+#: ../src/rcfile.c:714
 msgid "Untitled Project"
 msgstr "Nepojmenovaný projekt"
 
-#: ../src/rcfile.c:699
+#: ../src/rcfile.c:772
 msgid "C programming"
 msgstr "Programování v C"
 
-#: ../src/rcfile.c:701
+#: ../src/rcfile.c:774
 msgid "Web files"
 msgstr "Webové soubory"
 
-#: ../src/rcfile.c:707
+#: ../src/rcfile.c:780
 msgid "Hide objectfiles"
 msgstr "Skrýt objektové soubory"
 
@@ -2580,23 +2608,23 @@ msgstr "Nah_radit"
 msgid "Find _All"
 msgstr "Hled_at vše"
 
-#: ../src/snr2.c:2422
+#: ../src/snr2.c:2428
 msgid "Lines into columns"
 msgstr "Řádky na sloupce"
 
-#: ../src/snr2.c:2434
+#: ../src/snr2.c:2440
 msgid "Number of columns"
 msgstr "Počet sloupců"
 
-#: ../src/snr2.c:2437
+#: ../src/snr2.c:2443
 msgid "Spread lines horizontally"
 msgstr "Řádky vodorovně rozprostřít"
 
-#: ../src/snr2.c:2438
+#: ../src/snr2.c:2444
 msgid "Column separator"
 msgstr "Oddělovač sloupců"
 
-#: ../src/snr2.c:2440
+#: ../src/snr2.c:2446
 msgid "Fill empty entries"
 msgstr "Scházející položky vyplnit"
 
