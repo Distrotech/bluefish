@@ -1439,7 +1439,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChoose
 				G_TYPE_BOOLEAN);
 		for (tmplist=g_list_first(main_v->globses.encodings);tmplist;tmplist=tmplist->next){
 			GStrv arr = (GStrv) tmplist->data;
-			if (g_strv_length (arr) == 3 && g_ascii_strcasecmp(arr[2], "TRUE") == 0) {
+			if (g_strv_length (arr) == 3 && arr[2][0]=='1') {
 				gchar *label = g_strdup_printf ("%s (%s)", arr[0], arr[1]);
 				gtk_list_store_append(store,&iter);
 				gtk_list_store_set(store,&iter,0,label,1,arr,-1);

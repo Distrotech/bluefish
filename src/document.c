@@ -1283,26 +1283,32 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 }
 
 static void add_encoding_to_list(gchar *encoding) {
+	gboolean found=FALSE,changed=FALSE;
 	GList *tmplist = g_list_first(main_v->globses.encodings);
 
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
-
-		if (g_ascii_strcasecmp(tmparr[1], encoding) == 0) {
-			return;
+		if (count_array(tmparr)==3 && g_ascii_strcasecmp(tmparr[1], encoding) == 0) {
+			if (tmparr[2][0]!='1') { /* enable this encoding */
+				g_print("enable encoding %s\n",tmparr[0]);
+				g_free(tmparr[2]);
+				tmparr[2]=g_strdup("1");
+				changed=TRUE;
+			}
+			found=TRUE;
 		}
 		tmplist = g_list_next(tmplist);
 	}
-
-	gchar **enc = g_new0(gchar *,4);
-	enc[0] = g_strdup(encoding);
-	enc[1] = g_strdup(encoding);
-	enc[2] = g_strdup("TRUE");
-	main_v->globses.encodings = g_list_insert(main_v->globses.encodings, enc, 1);
-	tmplist = g_list_first(main_v->bfwinlist);
-	while (tmplist) {
-		encoding_menu_rebuild(BFWIN(tmplist->data));
-		tmplist = g_list_next(tmplist);
+	if (!found) {
+		main_v->globses.encodings = g_list_insert(main_v->globses.encodings, array_from_arglist(encoding,encoding,"1",NULL), 1);
+		changed=TRUE;
+	}
+	if (changed) {
+		tmplist = g_list_first(main_v->bfwinlist);
+		while (tmplist) {
+			encoding_menu_rebuild(BFWIN(tmplist->data));
+			tmplist = g_list_next(tmplist);
+		}
 	}
 }
 

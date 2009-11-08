@@ -497,7 +497,7 @@ void filetype_menus_empty() {
 			Tbfw_dynmenu *bdm = BFW_DYNMENU(tmplist2->data);
 			g_signal_handler_disconnect(bdm->menuitem,bdm->signal_id);
 			gtk_widget_destroy(bdm->menuitem);
-			g_free(bdm);
+			g_slice_free(Tbfw_dynmenu,bdm);
 			tmplist2 = g_list_next(tmplist2);
 		}
 		tmplist = g_list_next(tmplist);
@@ -517,7 +517,7 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	tmplist = g_list_last(langmgr_get_languages());
 	while (tmplist) {
 		Tbflang *bflang = (Tbflang *)tmplist->data;
-		Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
+		Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 		bdm->data = bflang;
 		bdm->bfwin = bfwin;
 		bdm->menuitem = gtk_radio_menu_item_new_with_label(group, bflang->name);
@@ -731,91 +731,7 @@ void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean i
 	}
 	g_free(filename);
 }
-/*****************/
-/* Windows !!    */
-/*****************/
-/*
-static void remove_all_window_entries_in_window(Tbfwin *menubfwin) {
-	GList *tmplist = g_list_first(menubfwin->menu_windows);
-	DEBUG_MSG("removing all window entries in menubfwin %p\n",menubfwin);
-	while (tmplist) {
-		Tbfw_dynmenu *bdm = BFW_DYNMENU(tmplist->data);
-		DEBUG_MSG("remove_all_window_entries_in_window, destroy menuitem=%p\n",bdm->menuitem);
-		gtk_widget_destroy(bdm->menuitem);
-		g_free(bdm);
-		tmplist = g_list_next(tmplist);
-	}
-	g_list_free(menubfwin->menu_windows);
-	menubfwin->menu_windows = NULL;
-}
-static void remove_window_entry_from_window(Tbfwin *menubfwin, Tbfwin *tobfwin) {
-	Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(menubfwin->menu_windows, tobfwin);
-	DEBUG_MSG("remove_window_entry_from_window, menuwin=%p, found bdm=%p\n",menubfwin,bdm);
-	if (bdm) {
-		DEBUG_MSG("remove_window_entry_from_window, destroy menuitem=%p\n",bdm->menuitem);
-		gtk_widget_destroy(bdm->menuitem);
-		menubfwin->menu_windows = g_list_remove(menubfwin->menu_windows,bdm);
-		g_free(bdm);
 
-	}
-}
-static void rename_window_entry_from_window(Tbfwin *menubfwin, Tbfwin *tobfwin, gchar *newtitle) {
-	Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(menubfwin->menu_windows, tobfwin);
-	DEBUG_MSG("rename_window_entry_from_window, menubfwin=%p, found bdm=%p\n",menubfwin,bdm);
-	if (bdm) {
-		GtkWidget *label = gtk_bin_get_child(GTK_BIN(bdm->menuitem));
-		DEBUG_MSG("rename_window_entry_from_window, setting label to have title %s\n",newtitle);
-		gtk_label_set_text(GTK_LABEL(label), newtitle);
-	}
-}
-static void menu_window_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
-	gtk_window_present(GTK_WINDOW(BFWIN(bdm->data)->main_window));
-}
-static void add_window_entry(Tbfwin *menubfwin, Tbfwin *tobfwin) {
-	const gchar *winname;
-	Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
-	bdm->bfwin = menubfwin;
-	bdm->data = tobfwin;
-	winname = gtk_window_get_title(GTK_WINDOW(tobfwin->main_window));
-	DEBUG_MSG("add_window_entry, menubfwin=%p, bdm=%p with title %s\n",menubfwin,bdm,winname);
-	bdm->menuitem = create_dynamic_menuitem(menubfwin,_("/Windows"),winname,G_CALLBACK(menu_window_lcb),(gpointer)bdm,-1);
-	DEBUG_MSG("add_window_entry, menuitem=%p\n",bdm->menuitem);
-	menubfwin->menu_windows = g_list_append(menubfwin->menu_windows, bdm);
-}
-void add_window_entry_to_all_windows(Tbfwin *tobfwin) {
-	GList *tmplist = g_list_first(main_v->bfwinlist);
-	while (tmplist) {
-		if (tmplist->data != tobfwin) {
-			add_window_entry(BFWIN(tmplist->data), tobfwin);
-		}
-		tmplist = g_list_next(tmplist);
-	}
-}
-void add_allwindows_entries_to_window(Tbfwin *menubfwin) {
-	GList *tmplist = g_list_first(main_v->bfwinlist);
-	while (tmplist) {
-		if (tmplist->data != menubfwin) {
-			add_window_entry(menubfwin, BFWIN(tmplist->data));
-		}
-		tmplist = g_list_next(tmplist);
-	}
-}
-void remove_window_entry_from_all_windows(Tbfwin *tobfwin) {
-	GList *tmplist = g_list_first(main_v->bfwinlist);
-	while (tmplist) {
-		remove_window_entry_from_window(BFWIN(tmplist->data), tobfwin);
-		tmplist = g_list_next(tmplist);
-	}
-	remove_all_window_entries_in_window(tobfwin);
-}
-void rename_window_entry_in_all_windows(Tbfwin *tobfwin, gchar *newtitle) {
-	GList *tmplist = g_list_first(main_v->bfwinlist);
-	while (tmplist) {
-		rename_window_entry_from_window(BFWIN(tmplist->data), tobfwin, newtitle);
-		tmplist = g_list_next(tmplist);
-	}
-}
-*/
 /*****************/
 /* Browsers!!    */
 /*****************/
@@ -902,7 +818,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		Tbfw_dynmenu *bdm = (Tbfw_dynmenu *)tmplist->data;
 		DEBUG_MSG("external_menu_rebuild,destroying,bfwin=%p,bdm=%p,menuitem=%p\n",bfwin,bdm,bdm->menuitem);
 		gtk_widget_destroy(bdm->menuitem);
-		g_free(bdm);
+		g_slice_free(Tbfw_dynmenu,bdm);
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(bfwin->menu_external);
@@ -911,7 +827,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 	tmplist = g_list_first(bfwin->menu_outputbox);
 	while (tmplist) {
 		gtk_widget_destroy(BFW_DYNMENU(tmplist->data)->menuitem);
-		g_free(BFW_DYNMENU(tmplist->data));
+		g_slice_free(Tbfw_dynmenu,BFW_DYNMENU(tmplist->data));
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(bfwin->menu_outputbox);
@@ -928,7 +844,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		 *  arr[1] = command
 		 */
 		if (count_array(arr)==2) {
-			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
+			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
 			DEBUG_MSG("external_menu_rebuild,Adding filter %s with command %s to the menu\n", arr[0], arr[1]);
@@ -949,7 +865,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		 *  arr[2] = is_default_browser
 		 */
 		if (count_array(arr)==3) {
-			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
+			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
 			if (arr[2][0] == '1') {
@@ -979,7 +895,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		 * arr[6] = show_all_output
 		 */
 		if (count_array(arr)==6) {
-			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
+			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->data = arr;
 			bdm->bfwin = bfwin;
 			DEBUG_MSG("external_menu_rebuild,Adding outputbox %s with command %s to the menu\n", arr[0], arr[5]);
@@ -1021,7 +937,7 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 	while (tmplist) {
 		Tbfw_dynmenu *bdm = tmplist->data;
 		gtk_widget_destroy(GTK_WIDGET(bdm->menuitem));
-		g_free(bdm);
+		g_slice_free(Tbfw_dynmenu,bdm);
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(bfwin->menu_encodings);
@@ -1031,9 +947,10 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Document/Character Encoding"));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
-		if (count_array(strarr)==3 && (g_ascii_strcasecmp (strarr[2], "TRUE") == 0)) {
-			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
+		if (count_array(strarr)==3 && strarr[2][0]=='1') {
+			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			gchar *label = g_strdup_printf ("%s (%s)", strarr[0], strarr[1]);
+			/*g_print("add encoding %s:%s:%s to the menu\n",strarr[0],strarr[1],strarr[2]);*/
 			bdm->menuitem = gtk_radio_menu_item_new_with_label(group, label);
 			g_free (label);
 			bdm->data = strarr[1];
