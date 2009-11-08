@@ -513,8 +513,11 @@ static void migrate_config_files(GHashTable *main_configlist, GFile *newrc) {
 	oldsession = user_bfdir(OLDSESSION);
 	newsession = user_bfdir(CURSESSION);
 	merge_config_files(oldrc, oldsession, newrc, newsession);
+	/* add some entries to main_configlist. because main_configlist is used for 
+	saving as well this means we'll save these entries too */
 	if (parse_config_file(main_configlist, newrc)) {
-		/* TODO? check some values or are we done now ? */
+		/* are there any entries that we want to convert ?? */
+		
 	}
 }
 
@@ -779,7 +782,7 @@ gboolean rcfile_parse_global_session(void) {
 	}
 	if (main_v->globses.encodings == NULL) {
 		GFile *defaultfile = return_first_existing_filename(PKGDATADIR"/encodings","data/encodings","../data/encodings",NULL);
-		if (defaultfile) { 
+		if (defaultfile) {
 			main_v->globses.encodings = get_list(defaultfile,NULL,TRUE);
 			g_object_unref(defaultfile);
 		}

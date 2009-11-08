@@ -1480,7 +1480,6 @@ static void preferences_apply(Tprefdialog *pd) {
 		while (tmplist) {
 			Tbfwin *bfwin = BFWIN(tmplist->data);
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling encoding_menu_rebuild\n");
-			encoding_menu_rebuild(bfwin);
 			external_menu_rebuild(bfwin); /* browsers is also rebuild here! */
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling gui_apply_settings\n");
 			gui_apply_settings(bfwin);

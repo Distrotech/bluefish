@@ -239,8 +239,7 @@ encodings_dialog_response_lcb (GtkDialog *dialog,
 	
 	while (valid)
 	{
-		gchar *desc, *enc, *tmpstr;
-		gchar **strarr;
+		gchar *desc, *enc;
 		gboolean inMenu = FALSE;
 		
 		gtk_tree_model_get (GTK_TREE_MODEL (encDialog->priv->encStore), &iter,
@@ -248,16 +247,10 @@ encodings_dialog_response_lcb (GtkDialog *dialog,
 												COLUMN_ENCODING, &enc,
 												COLUMN_IN_MENU, &inMenu,
 												-1);
-				
-		tmpstr = g_strjoin (":", desc, enc, inMenu ? "FALSE" : "TRUE", NULL);
-		strarr = g_strsplit(tmpstr, ":", 3);
-		
-		tmplist = g_list_append (tmplist, strarr);
-		
+		tmplist = g_list_append (tmplist, array_from_arglist(desc, enc, inMenu ? "1" : "0", NULL));
 		g_free (desc);
 		g_free (enc);
-		g_free (tmpstr);
-		
+	
 		valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (encDialog->priv->encStore), &iter);
 	}
 	
@@ -286,10 +279,9 @@ visible_func (GtkTreeModel *model,
 	gtk_tree_model_get (model, iter, COLUMN_IN_MENU, &inMenu, -1);
 
 	if (g_ascii_strcasecmp ((gchar *) data, "ENC_AVAIL_MODEL"))
-		retval = inMenu ? FALSE : TRUE;
+		retval = !inMenu;
 	else
-		retval = inMenu ? TRUE : FALSE;
-		
+		retval = inMenu;
 	return (retval);
 }
 
@@ -356,7 +348,7 @@ bluefish_encodings_dialog_create (GType type,
 			gtk_list_store_set (dialog->priv->encStore, &iter,
 													COLUMN_DESCRIPTION, arr[0], 
 													COLUMN_ENCODING, arr[1],
-													COLUMN_IN_MENU, (g_ascii_strcasecmp (arr[2], "TRUE") ? TRUE : FALSE),
+													COLUMN_IN_MENU, (arr[2][0]=='1' ? TRUE : FALSE),
 													COLUMN_CAN_REMOVE, canRemove,
 													-1);
 		}
