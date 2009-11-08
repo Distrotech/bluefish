@@ -517,7 +517,7 @@ static void migrate_config_files(GHashTable *main_configlist, GFile *newrc) {
 	saving as well this means we'll save these entries too */
 	if (parse_config_file(main_configlist, newrc)) {
 		/* are there any entries that we want to convert ?? */
-		
+		save_config_file(main_configlist, newrc);
 	}
 }
 
