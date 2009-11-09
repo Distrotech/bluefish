@@ -129,8 +129,8 @@ ${StrTok}
 !define MUI_STARTMENUPAGE_REGISTRY_KEY 		${REG_USER_SET}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME	"Start Menu Folder"
 
-!define MUI_FINISHPAGE_RUN					"$INSTDIR\${PROGRAM_EXE}"
-!define MUI_FINISHPAGE_RUN_NOTCHECKED
+;!define MUI_FINISHPAGE_RUN					"$INSTDIR\${PROGRAM_EXE}"
+;!define MUI_FINISHPAGE_RUN_NOTCHECKED
 !define MUI_FINISHPAGE_LINK				"Visit the Bluefish Homepage"
 !define MUI_FINISHPAGE_LINK_LOCATION	"http://bluefish.openoffice.nl"
 
@@ -171,6 +171,7 @@ ${StrTok}
 				WriteRegStr HKCR ".${EXT}" "" "${PROG}"
 			${EndIf}
 			WriteRegStr HKCR "${PROG}" "" "${DESC}"
+; Icon set coming soon
 ;			WriteRegStr HKCR "${PROG}\DefaultIcon" "" ""
 			WriteRegStr HKCR "${PROG}\shell" "" "open"
 			WriteRegStr HKCR "${PROG}\shell\open" "" "Open"
@@ -433,6 +434,17 @@ Function .onInit
 	SectionSetSize ${SecLangSv} 3522		; 1.19MB Download
 	SectionSetSize ${SecLangTa} 283			; 112KB Download
 	SectionSetSize ${SecLangTr} 1554		; 534KB Download
+
+; Fix a bug from the 1.3.7 installers, Path should be REG_EXPAND_SZ or variable expansion breaks
+	Push $R1
+	Push $R2
+	ReadRegStr $R1 HKLM "${REG_UNINSTALL}" "DisplayVersion"
+	${If} $R1 == "1.3.7"
+		ReadRegStr $R2 HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
+		WriteRegExpandStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
+	${EndIf}
+	Pop $R2
+	Pop $R1
 FunctionEnd
 
 Function FileAssociations
@@ -665,7 +677,7 @@ Function GtkInstallPath
 	${If} $R1 == 0
 		StrCpy $R2 "$R2;$R3"
 		; Write the updated system path to the registry
-		WriteRegStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
+		WriteRegExpandStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
 		; Alert the system that an environment variable has been changed so it propagates
 		SendMessage ${HWND_BROADCAST} ${WM_SETTINGCHANGE} "0" "STR:Environment" /TIMEOUT=5000
 	${EndIf}
