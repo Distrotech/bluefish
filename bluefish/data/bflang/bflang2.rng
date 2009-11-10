@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<element name="bflang"
+         xmlns="http://relaxng.org/ns/structure/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+	<attribute name="name">
+		<data type="normalizedString"/>
+	</attribute>
+	<optional>
+		<group>
+			<attribute name="matches">
+				<data type="positiveInteger"/>
+			</attribute>
+			<attribute name="contexts">
+				<data type="positiveInteger"/>
+			</attribute>
+			<attribute name="table">
+				<data type="positiveInteger"/>
+			</attribute>
+		</group>
+	</optional>
+	<element name="header">
+		<oneOrMore>
+			<element name="mime">
+				<attribute name="type">
+					<data type="token"/>
+				</attribute>
+				<empty/>
+			</element><!-- mime -->
+		</oneOrMore>
+		<zeroOrMore>
+			<element name="option">
+				<attribute name="name">
+					<data type="normalizedString"/>
+				</attribute>
+				<attribute name="default">
+					<data type="boolean"/>
+				</attribute>
+				<optional>
+					<attribute name="description">
+						<data type="string"/>
+					</attribute>
+				</optional>
+				<empty/>
+			</element><!-- option -->
+			<element name="highlight">
+				<attribute name="name">
+					<data type="ID"/>
+				</attribute>
+				<attribute name="name">
+					<choice>
+						<data value="token">attribute</data>
+						<data value="token">brackets</data>
+						<data value="token">comment</data>
+						<data value="token">function</data>
+						<data value="token">keyword</data>
+						<data value="token">operator</data>
+						<data value="token">preprocessor</data>
+						<data value="token">special-attribute</data>
+						<data value="token">special-function</data>
+						<data value="token">special-keyword</data>
+						<data value="token">special-tag</data>
+						<data value="token">special-tag2</data>
+						<data value="token">special-tag3</data>
+						<data value="token">special-type</data>
+						<data value="token">special-value</data>
+						<data value="token">string</data>
+						<data value="token">tag</data>
+						<data value="token">type</data>
+						<data value="token">value</data>
+						<data value="token">variable</data>
+						<data value="token">warning</data>
+					</choice>
+				</attribute>
+				<empty/>
+			</element><!-- highlight -->
+		</zeroOrMore>
+		<empty/>
+	</element><!-- header -->
+	<optional>
+		<element name="properties">
+			<oneOrMore>
+				<element name="comment">
+					<attribute name="id">
+						<data type="ID"/>
+					</attribute>
+					<attribute name="type">
+						<choice>
+							<data value="token">block</data>
+							<data value="token">line</data>
+						</choice>
+					</attribute>
+					<choice>
+						<attribute name="start">
+							<data type="string"/>
+						</attribute>
+						<group>
+							<attribute name="start">
+								<data type="string"/>
+							</attribute>
+							<attribute name="end">
+								<data type="string"/>
+							</attribute>
+						</group>
+					</choice>
+					<empty/>
+				</element><!-- comment -->
+				<element name="smartindent">
+					<attribute name="characters">
+						<data type="string"/>
+					</attribute>
+					<empty/>
+				</element><!-- smartindent -->
+				<element name="default_spellcheck">
+					<empty/>
+				</element><!-- default_spellcheck -->
+			</oneOrMore>
+			<empty/>
+		</element><!-- properties -->
+	</optional>
+	<element name="definition">
+		<empty/>
+	</element><!-- definition -->
+	<empty/>
+</element><!-- bflang -->
