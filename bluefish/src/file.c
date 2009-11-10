@@ -40,6 +40,16 @@
 #if !GTK_CHECK_VERSION(2,14,0)
 #include "gtkmountoperation.h"
 #endif
+#define OAD_MEMCOUNT
+#ifdef OAD_MEMCOUNT
+typedef struct {
+	gint allocdir;
+	gint allocuri;
+} Toad_memcount;
+
+Toad_memcount omemcount = {0,0}; 
+#endif /* OAD_MEMCOUNT */
+
 
 void DEBUG_URI(GFile * uri, gboolean newline)
 {
@@ -53,11 +63,12 @@ void DEBUG_URI(GFile * uri, gboolean newline)
 
 /******************************** queue functions ********************************/
 typedef struct {
-	guint worknum; /* number of elements that are being worked on */
 	GList *head; /* data structures that are *not* being worked on */
 	GList *tail;
-	guint max_worknum;
 	GStaticMutex mutex;
+	guint queuelen;
+	guint worknum; /* number of elements that are being worked on */
+	guint max_worknum;
 } Tqueue;
 
 static Tqueue ofqueue;
@@ -91,6 +102,7 @@ static void queue_run(Tqueue *queue, void (*activate_func) () )  {
 				queue->head = NULL;
 			else
 				queue->tail->next = NULL;
+			queue->queuelen--;
 			activate_func(curlst->data);
 			queue->worknum++;
 			g_list_free_1(curlst);
@@ -109,6 +121,7 @@ static void queue_worker_ready(Tqueue *queue, void (*activate_func) ()) {
 static void queue_push(Tqueue *queue, gpointer item, void (*activate_func) ()) {
 	g_static_mutex_lock(&queue->mutex);
 	queue->head = g_list_prepend(queue->head, item);
+	queue->queuelen++;
 	if (queue->tail==NULL)
 		queue->tail=queue->head;
 	queue_run(queue,activate_func);
@@ -122,6 +135,7 @@ static gboolean queue_remove(Tqueue *queue, gpointer item) {
 		if (curlst == queue->tail)
 			queue->tail = curlst->prev;
 		queue->head = g_list_remove_link(queue->head, curlst);
+		queue->queuelen--;
 		g_list_free_1(curlst);
 		g_static_mutex_unlock(&queue->mutex);
 		return TRUE; 
@@ -466,7 +480,7 @@ static void openfile_run(gpointer data);
 static void openfile_cleanup(Topenfile *of) {
 	g_object_unref(of->uri);
 	g_object_unref(of->cancel);
-	g_free(of);
+	g_slice_free(Topenfile,of);
 	/*ofqueue.worknum--;
 	process_ofqueue(NULL);*/
 	queue_worker_ready(&ofqueue, openfile_run);
@@ -558,7 +572,7 @@ static void openfile_run(gpointer data) {
 
 Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
-	of = g_new(Topenfile,1);
+	of = g_slice_new(Topenfile);
 	of->callback_data = callback_data;
 	of->callback_func = callback_func;
 	of->uri = uri;
@@ -948,7 +962,11 @@ static void open_adv_open_uri_cleanup(Topenadv_uri *oau) {
 	g_object_unref(oau->uri);
 	g_object_unref(oau->finfo);
 	openadv_unref(oau->oa);
-	g_free(oau);
+#ifdef OAD_MEMCOUNT
+	omemcount.allocuri--;
+	g_print("allocuri=%d\n",omemcount.allocuri);
+#endif /* OAD_MEMCOUNT */
+	g_slice_free(Topenadv_uri,oau);
 }
 
 static gboolean open_adv_content_matches_filter(gchar *buffer,goffset buflen, Topenadv_uri *oau) {
@@ -1005,7 +1023,11 @@ static void openadv_content_filter_file(Topenadv *oa, GFile *uri, GFileInfo* fin
 	if (tmpdoc)
 		return;
 	
-	oau = g_new0(Topenadv_uri,1);
+	oau = g_slice_new0(Topenadv_uri);
+#ifdef OAD_MEMCOUNT
+	omemcount.allocuri++;
+	g_print("allocuri=%d, oadqueue=%d (%d), ofqueue=%d (%d)\n",omemcount.allocuri,oadqueue.queuelen,oadqueue.max_worknum,ofqueue.queuelen,ofqueue.max_worknum);
+#endif /* OAD_MEMCOUNT */
 	oau->oa = oa;
 	oa->refcount++;
 	oau->uri = uri;
@@ -1025,7 +1047,11 @@ static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
 	if (oad->gfe)
 		g_object_unref(oad->gfe);
 	openadv_unref(oad->oa);
-	g_free(oad);
+	g_slice_free(Topenadv_dir,oad);
+#ifdef OAD_MEMCOUNT
+	omemcount.allocdir--;
+	g_print("allocdir=%d, oadqueue.queuelen=%d\n",omemcount.allocdir,oadqueue.queuelen);
+#endif /* OAD_MEMCOUNT */
 	queue_worker_ready(&oadqueue, openadv_run);
 }
 
@@ -1124,12 +1150,24 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 	Topenadv_dir *oad;
 	DEBUG_MSG("open_advanced_backend on basedir %p ",basedir);
 	DEBUG_URI(basedir,TRUE);
-	oad = g_new0(Topenadv_dir, 1);
+	oad = g_slice_new0(Topenadv_dir);
+#ifdef OAD_MEMCOUNT
+	omemcount.allocdir++;
+	g_print("allocdir=%d, oadqueue.queuelen=%d\n",omemcount.allocdir,oadqueue.queuelen);
+#endif /* OAD_MEMCOUNT */
 	oad->oa = oa;
 	oa->refcount++;
 
 	oad->basedir = basedir;
 	g_object_ref(oad->basedir);
+	
+	/* tune the queue, if there are VERY MANY files on the ofqueue, we limit the oadqueue */
+	if (oadqueue.max_worknum >= 8 && ofqueue.queuelen > 1024)
+		oadqueue.max_worknum = 2;
+	else if (oadqueue.max_worknum >= 2 && ofqueue.queuelen > 10240)
+		oadqueue.max_worknum = 1;
+	else if (oadqueue.max_worknum < 16 && ofqueue.queuelen < 1024)
+		oadqueue.max_worknum = 16;
 	queue_push(&oadqueue, oad, openadv_run);
 }
 
