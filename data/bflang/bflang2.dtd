@@ -76,7 +76,7 @@
 
 <!-- TODO: symbols or idref REQUIRED; spellcheck default=1 ? -->
 <!ATTLIST context
-	highlight	CDATA	#IMPLIED
+	highlight	IDREF	#IMPLIED
 	id	ID	#IMPLIED
 	idref	IDREF	#IMPLIED
 	spellcheck	(0|1)	"0"
@@ -97,7 +97,7 @@
 	notclass	IDREF	#IMPLIED
 >
 
-<!ELEMENT element ((context|group|reference)*)>
+<!ELEMENT element ((context|group|element|reference)*)>
 
 <!-- TODO: idref or pattern REQUIRED -->
 <!ATTLIST element
@@ -116,7 +116,7 @@
 	starts_block	(0|1)	"0"
 >
 
-<!ELEMENT tag ((reference|context|tag)*)>
+<!ELEMENT tag ((reference|context|tag|group)*)>
 
 <!-- attributes == NMTOKEN? TOKEN? -->
 <!-- TODO: idref or name REQUIRED -->
