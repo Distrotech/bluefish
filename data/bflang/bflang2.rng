@@ -1,8 +1,11 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
-         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
+			xmlns:rng="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
 	<start>
-		<element name="bflang" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+		<element name="bflang">
 			<attribute name="name">
 				<data type="normalizedString"/>
 			</attribute>
@@ -29,91 +32,95 @@
 					</element><!-- mime -->
 				</oneOrMore>
 				<zeroOrMore>
-					<element name="option">
-						<attribute name="name">
-							<data type="normalizedString"/>
-						</attribute>
-						<attribute name="default">
-							<data type="boolean"/>
-						</attribute>
-						<optional>
-							<attribute name="description">
-								<data type="string"/>
+					<choice>
+						<element name="option">
+							<attribute name="name">
+								<data type="normalizedString"/>
 							</attribute>
-						</optional>
-						<empty/>
-					</element><!-- option -->
-					<element name="highlight">
-						<attribute name="name">
-							<data type="ID"/>
-						</attribute>
-						<attribute name="name">
-							<choice>
-								<data value="token">attribute</data>
-								<data value="token">brackets</data>
-								<data value="token">comment</data>
-								<data value="token">function</data>
-								<data value="token">keyword</data>
-								<data value="token">operator</data>
-								<data value="token">preprocessor</data>
-								<data value="token">special-attribute</data>
-								<data value="token">special-function</data>
-								<data value="token">special-keyword</data>
-								<data value="token">special-tag</data>
-								<data value="token">special-tag2</data>
-								<data value="token">special-tag3</data>
-								<data value="token">special-type</data>
-								<data value="token">special-value</data>
-								<data value="token">string</data>
-								<data value="token">tag</data>
-								<data value="token">type</data>
-								<data value="token">value</data>
-								<data value="token">variable</data>
-								<data value="token">warning</data>
-							</choice>
-						</attribute>
-						<empty/>
-					</element><!-- highlight -->
+							<attribute name="default">
+								<data type="boolean"/>
+							</attribute>
+							<optional>
+								<attribute name="description">
+									<data type="string"/>
+								</attribute>
+							</optional>
+							<empty/>
+						</element><!-- option -->
+						<element name="highlight">
+							<attribute name="name">
+								<data type="ID"/>
+							</attribute>
+							<attribute name="style">
+								<choice>
+									<value type="token">attribute</value>
+									<value type="token">brackets</value>
+									<value type="token">comment</value>
+									<value type="token">function</value>
+									<value type="token">keyword</value>
+									<value type="token">operator</value>
+									<value type="token">preprocessor</value>
+									<value type="token">special-attribute</value>
+									<value type="token">special-function</value>
+									<value type="token">special-keyword</value>
+									<value type="token">special-tag</value>
+									<value type="token">special-tag2</value>
+									<value type="token">special-tag3</value>
+									<value type="token">special-type</value>
+									<value type="token">special-value</value>
+									<value type="token">string</value>
+									<value type="token">tag</value>
+									<value type="token">type</value>
+									<value type="token">value</value>
+									<value type="token">variable</value>
+									<value type="token">warning</value>
+								</choice>
+							</attribute>
+							<empty/>
+						</element><!-- highlight -->
+					</choice>
 				</zeroOrMore>
 				<empty/>
 			</element><!-- header -->
 			<optional>
 				<element name="properties">
 					<oneOrMore>
-						<element name="comment">
-							<attribute name="id">
-								<data type="ID"/>
-							</attribute>
-							<attribute name="type">
-								<choice>
-									<data value="token">block</data>
-									<data value="token">line</data>
-								</choice>
-							</attribute>
-							<group>
-								<attribute name="start">
-									<data type="string"/>
+						<choice>
+							<element name="comment">
+								<attribute name="id">
+									<data type="ID"/>
 								</attribute>
-								<optional>
-									<attribute name="end">
+								<attribute name="type">
+									<choice>
+										<value type="token">block</value>
+										<value type="token">line</value>
+									</choice>
+								</attribute>
+								<group>
+									<attribute name="start">
 										<data type="string"/>
 									</attribute>
-								</optional>
-							</group>
-							<empty/>
-						</element><!-- comment -->
-						<element name="smartindent">
-							<attribute name="characters">
-								<data type="string"/>
-							</attribute>
-							<empty/>
-						</element><!-- smartindent -->
-						<element name="default_spellcheck">
-							<attribute name="enabled" a:defaultValue="1">
-								<data type="boolean"/>
-							</attribute>
-							<empty/>
-						</element><!-- default_spellcheck -->
+									<optional>
+										<attribute name="end">
+											<data type="string"/>
+										</attribute>
+									</optional>
+								</group>
+								<empty/>
+							</element><!-- comment -->
+							<element name="smartindent">
+								<attribute name="characters">
+									<data type="string"/>
+								</attribute>
+								<empty/>
+							</element><!-- smartindent -->
+							<element name="default_spellcheck">
+								<attribute name="enabled" a:defaultValue="1">
+									<data type="boolean"/>
+								</attribute>
+								<empty/>
+							</element><!-- default_spellcheck -->
+						</choice>
 					</oneOrMore>
 					<empty/>
 				</element><!-- properties -->
@@ -145,62 +152,32 @@
 					</attribute>
 				</choice>
 				<oneOrMore>
-					<ref name="context"/>
+					<ref name="element.context"/>
 				</oneOrMore>
 			</element><!-- definition -->
 			<empty/>
 		</element><!-- bflang -->
 	</start>
 
-	<define name="context">
+	<define name="element.context">
 		<element name="context">
-			
-			<interleave>
-				<zeroOrMore>
-					<ref name="element"/>
-				</zeroOrMore>
-				<zeroOrMore>
-					<ref name="group"/>
-				</zeroOrMore>
-				<zeroOrMore>
-					<ref name="tag"/>
-				</zeroOrMore>
-			</interleave>
-			<empty/>
-		</element><!-- group -->
-	</define>
-
-	<define name="element">
-		<element name="element">
 			<choice>
 				<group>
-					<attribute name="pattern">
-						<data type=""/>
+					<attribute name="symbols">
+						<data type="string"/>
 					</attribute>
 					<optional>
-						<optional>
-							<group>
-								<attribute name="starts_block">
-									<data type="boolean"/>
-								</attribute>
-								<optional>
-									<attribute name="mayfold">
-										<data type="boolean" a:defaultValue="0"/>
-									</attribute>
-								</optional>
-							</group>
-						</optional>
-						<optional>
-							<group>
-								<attribute name="blockstartelement">
-									<data type="IDREF"/>
-								</attribute>
-								<attribute name="ends_block" a:defaultValue="0">
-									<data type="boolean"/>
-								</attribute>
-							</group>
-						</optional>
-						<attribute name="case_insens" a:defaultValue="0">
+						<attribute name="highlight">
+							<data type="IDREF"/>
+						</attribute>
+					</optional>
+					<optional>
+						<attribute name="id">
+							<data type="ID"/>
+						</attribute>
+					</optional>
+					<optional>
+						<attribute name="spellcheck" a:defaultValue="0">
 							<data type="boolean"/>
 						</attribute>
 					</optional>
@@ -209,23 +186,93 @@
 					<data type="IDREF"/>
 				</attribute>
 			</choice>
-			<interleave>
-				<zeroOrMore>
-					<ref name="context"/>
-				</zeroOrMore>
-				<zeroOrMore>
-					<ref name="group"/>
-				</zeroOrMore>
-				<zeroOrMore>
-					<ref name="reference"/>
-				</zeroOrMore>
-			</interleave>
+			<zeroOrMore>
+				<choice>
+					<ref name="element.element"/>
+					<ref name="element.group"/>
+					<ref name="element.tag"/>
+				</choice>
+			</zeroOrMore>
+			<empty/>
+		</element><!-- context -->
+	</define>
+
+	<define name="element.element">
+		<element name="element">
+			<choice>
+				<group>
+					<attribute name="pattern">
+						<data type="string"/>
+					</attribute>
+					<ref name="autocomplete.element"/>
+					<ref name="autocomplete.extended"/>
+					<optional>
+						<choice>
+							<attribute name="starts_block">
+								<data type="boolean"/>
+							</attribute>
+							<group>
+								<attribute name="blockstartelement">
+									<data type="IDREF"/>
+								</attribute>
+								<attribute name="ends_block" a:defaultValue="0">
+									<data type="boolean"/>
+								</attribute>
+							</group>
+						</choice>
+					</optional>
+					<optional>
+						<attribute name="case_insens" a:defaultValue="0">
+							<data type="boolean"/>
+						</attribute>
+					</optional>
+					<optional>
+						<attribute name="ends_context" a:defaultValue="0">
+							<data type="boolean"/>
+						</attribute>
+					</optional>
+					<optional>
+						<attribute name="highlight">
+							<data type="IDREF"/>
+						</attribute>
+					</optional>
+					<optional>
+						<attribute name="id">
+							<data type="ID"/>
+						</attribute>
+					</optional>
+					<optional>
+						<attribute name="is_regex" a:defaultValue="0">
+							<data type="boolean"/>
+						</attribute>
+					</optional>
+					<optional>
+						<attribute name="mayfold">
+							<data type="boolean" a:defaultValue="0"/>
+						</attribute>
+					</optional>
+				</group>
+				<attribute name="idref">
+					<data type="IDREF"/>
+				</attribute>
+			</choice>
+			<zeroOrMore>
+				<choice>
+					<ref name="element.context"/>
+					<ref name="element.element"/>
+					<ref name="element.group"/>
+					<ref name="element.reference"/>
+				</choice>
+			</zeroOrMore>
 			<empty/>
 		</element><!-- element -->
 	</define>
 
-	<define name="group">
+	<define name="element.group">
 		<element name="group">
+			<ref name="autocomplete.attribute"/>
+			<ref name="autocomplete.element"/>
+			<ref name="autocomplete.extended"/>
 			<optional>
 				<attribute name="attribhighlight">
 					<data type="IDREF"/>
@@ -256,40 +303,133 @@
 					<data type="boolean"/>
 				</attribute>
 			</optional>
-			<interleave>
-				<zeroOrMore>
-					<ref name="element"/>
-				</zeroOrMore>
-				<zeroOrMore>
-					<ref name="group"/>
-				</zeroOrMore>
-				<zeroOrMore>
-					<ref name="tag"/>
-				</zeroOrMore>
-			</interleave>
+			<zeroOrMore>
+				<choice>
+					<ref name="element.element"/>
+					<ref name="element.group"/>
+					<ref name="element.tag"/>
+				</choice>
+			</zeroOrMore>
 			<empty/>
 		</element><!-- group -->
 	</define>
 
-	<define name="tag">
+	<define name="element.tag">
 		<element name="tag">
 			<choice>
-				<optional>
-			
-				</optional>
+				<group>
+					<attribute name="name">
+						<data type="token"/>
+					</attribute>
+					<ref name="autocomplete.attribute"/>
+					<ref name="autocomplete.element"/>
+					<ref name="autocomplete.extended"/>
+					<optional>
+						<attribute name="attributes">
+							<data type="string"/><!-- TODO: more like a list with commata? -->
+						</attribute>
+						<optional>
+							<attribute name="attribhighlight">
+								<data type="IDREF"/>
+							</attribute>
+						</optional>
+					</optional>
+					<optional>
+						<attribute name="case_insens" a:defaultValue="0">
+							<data type="boolean"/>
+						</attribute>
+					</optional>
+					<optional>
+						<attribute name="highlight">
+							<data type="IDREF"/>
+						</attribute>
+					</optional>
+					<optional>
+						<attribute name="id">
+							<data type="ID"/>
+						</attribute>
+					</optional>
+					<optional>
+						<attribute name="no_close" a:defaultValue="0">
+							<data type="boolean"/>
+						</attribute>
+					</optional>
+					<optional>
+						<attribute name="sgml_shorttag" a:defaultValue="0">
+							<data type="boolean"/>
+						</attribute>
+					</optional>
+				</group>
+				<attribute name="idref">
+					<data type="IDREF"/>
+				</attribute>
 			</choice>
+			<zeroOrMore>
+				<choice>
+					<ref name="element.context"/>
+					<ref name="element.group"/>
+					<ref name="element.reference"/>
+					<ref name="element.tag"/>
+				</choice>
+			</zeroOrMore>
 			<empty/>
 		</element><!-- tag -->
 	</define>
 
-<!--	<define name="autocomplete">
-		<element name="tag">
-			<choice>
-				<optional>
-			
-				</optional>
-			</choice>
+	<define name="element.reference">
+		<element name="reference">
+			<zeroOrMore>
+				<choice>
+					<text/>
+					<element name="b">
+						<text/>
+					</element>
+					<element name="i">
+						<text/>
+					</element>
+				</choice>
+			</zeroOrMore>
 			<empty/>
-		</element>
-	</define> -->
+		</element><!-- reference -->
+	</define>
+
+	<define name="autocomplete.element">
+		<optional>
+			<attribute name="autocomplete" a:defaultValue="0">
+				<data type="boolean"/>
+			</attribute>
+		</optional>
+		<optional>
+			<attribute name="autocomplete_append">
+				<data type="string"/>
+			</attribute>
+		</optional>
+	</define>
+
+	<define name="autocomplete.attribute">
+		<optional>
+			<attribute name="attrib_autocomplete" a:defaultValue="0">
+				<data type="boolean"/>
+			</attribute>
+		</optional>
+		<optional>
+			<attribute name="attrib_autocomplete_append">
+				<data type="string"/>
+			</attribute>
+		</optional>
+	</define>
+
+	<define name="autocomplete.extended">
+		<optional>
+			<attribute name="autocomplete_string">
+				<data type="string"/>
+			</attribute>
+		</optional>
+		<optional>
+			<attribute name="autocomplete_backup_cursor">
+				<data type="positiveInteger"/>
+			</attribute>
+		</optional>
+	</define>
+
 </grammar>
