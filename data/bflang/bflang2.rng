@@ -126,31 +126,6 @@
 				</element><!-- properties -->
 			</optional>
 			<element name="definition">
-				<choice>
-					<group>
-						<attribute name="symbols">
-							<data type="string"/>
-						</attribute>
-						<optional>
-							<attribute name="highlight">
-								<data type="IDREF"/>
-							</attribute>
-						</optional>
-						<optional>
-							<attribute name="id">
-								<data type="ID"/>
-							</attribute>
-						</optional>
-						<optional>
-							<attribute name="spellcheck" a:defaultValue="0">
-								<data type="boolean"/>
-							</attribute>
-						</optional>
-					</group>
-					<attribute name="idref">
-						<data type="IDREF"/>
-					</attribute>
-				</choice>
 				<oneOrMore>
 					<ref name="element.context"/>
 				</oneOrMore>
