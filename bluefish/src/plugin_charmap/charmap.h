@@ -34,7 +34,7 @@
 
 #ifdef ENABLE_NLS
 #undef _
-#define _(String) dgettext(PACKAGE"_plugin_about", String)
+#define _(String) dgettext(PACKAGE"_plugin_charmap", String)
 #endif
 
 typedef struct {
