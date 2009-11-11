@@ -47,6 +47,7 @@ typedef struct {
 	GtkWidget *find_pattern;
 	GtkWidget *matchname;
 	GtkWidget *recursive;
+	GtkWidget *max_recursion;
 	GtkWidget *grep_pattern;
 	GtkWidget *is_regex;
 	Tbfwin *bfwin;
@@ -70,11 +71,12 @@ static void files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 	extension_filter = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(tfs->find_pattern)->child), 0, -1);
 	basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
 	baseuri = g_file_new_for_uri(basedir);
-	content_filter = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->grep_pattern)->entry), 0, -1);
+	content_filter = gtk_combo_box_get_active_text(GTK_COMBO_BOX(tfs->grep_pattern));
 	tfs->bfwin->session->searchlist =
 		add_to_history_stringlist(tfs->bfwin->session->searchlist, content_filter, FALSE, TRUE);
 
 	open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
+				  , 500
 				  , gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname))
 				  ,
 				  strlen(extension_filter) == 0 ? NULL : extension_filter,
@@ -118,6 +120,7 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	unsigned int i = 0;
 
 	const gchar *fileExts[] = {
+		"*",
 		"*.c",
 		"*.cgi",
 		"*.cpp",
@@ -152,7 +155,7 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(alignment), vbox);
 
-	vbox2 = dialog_vbox_labeled(_("<b>General</b>"), vbox);
+	vbox2 = dialog_vbox_labeled(_("<b>Files</b>"), vbox);
 
 	table = dialog_table_in_vbox(2, 6, 0, vbox2, FALSE, FALSE, 6);
 
@@ -181,7 +184,7 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	g_signal_connect(G_OBJECT(tfs->find_pattern), "changed",
 					 G_CALLBACK(files_advanced_win_findpattern_changed), tfs);
 
-	table = dialog_table_in_vbox(2, 2, 0, vbox2, FALSE, FALSE, 0);
+	table = dialog_table_in_vbox(3, 2, 0, vbox2, FALSE, FALSE, 0);
 
 	tfs->matchname = checkbut_with_value(NULL, tfs->bfwin ? tfs->bfwin->session->adv_open_matchname : TRUE);
 	dialog_mnemonic_label_in_table(_("_Match on file name only:"), tfs->matchname, table, 0, 1, 0, 1);
@@ -190,6 +193,10 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	tfs->recursive = checkbut_with_value(NULL, tfs->bfwin ? tfs->bfwin->session->adv_open_recursive : TRUE);
 	dialog_mnemonic_label_in_table(_("_Recursive:"), tfs->recursive, table, 0, 1, 1, 2);
 	gtk_table_attach(GTK_TABLE(table), tfs->recursive, 1, 2, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 0);
+
+	tfs->max_recursion = spinbut_with_value("100", 1, 100000, 1, 10);
+	dialog_mnemonic_label_in_table(_("Ma_x recursion:"), tfs->max_recursion, table, 0, 1, 2, 3);
+	gtk_table_attach(GTK_TABLE(table), tfs->max_recursion, 1, 2, 2, 3, GTK_SHRINK, GTK_SHRINK, 0, 0);
 
 	alignment = gtk_alignment_new(0, 0, 1, 1);
 	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 12, 18, 12, 6);
@@ -202,8 +209,8 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	table = dialog_table_in_vbox(2, 4, 0, vbox2, FALSE, FALSE, 6);
 
 	/* TODO: This needs to be converted to use GtkComboBoxEntry */
-	tfs->grep_pattern = combo_with_popdown("", bfwin->session->searchlist, TRUE);
-	dialog_mnemonic_label_in_table(_("Pa_ttern:"), (GTK_COMBO(tfs->grep_pattern)->entry), table, 0, 1, 0, 1);
+	tfs->grep_pattern = combobox_with_popdown("", bfwin->session->searchlist);
+	dialog_mnemonic_label_in_table(_("Pa_ttern:"), tfs->grep_pattern, table, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 1, 4, 0, 1);
 
 	tfs->is_regex = checkbut_with_value(NULL, 0);
