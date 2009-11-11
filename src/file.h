@@ -119,7 +119,7 @@ void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri);
 void file_doc_fill_from_uri(Tdocument *doc, GFile *uri, GFileInfo *finfo, gint goto_line);
 void file_doc_from_uri(Tbfwin *bfwin, GFile *uri, GFile *recover_uri, GFileInfo *finfo, gint goto_line, gint goto_offset, gboolean readonly);
 void file_into_doc(Tdocument *doc, GFile *uri, gboolean isTemplate);
-void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex);
+void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex);
 void copy_uris_async(Tbfwin *bfwin, GFile *destdir, GSList *sources);
 void copy_files_async(Tbfwin *bfwin, GFile *destdir, gchar *sources);
 void file_doc_retry_uri(Tdocument *doc);

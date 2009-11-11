@@ -52,6 +52,7 @@ void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state);
 void string_apply(gchar ** config_var, GtkWidget * entry);
 void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox);
 void button_apply(gchar ** config_var, GtkWidget * entry);
+GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list);
 GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint editable);
 GtkWidget *boxed_combo_with_popdown(const gchar * setstring, GList * which_list, gint editable, GtkWidget *box);
 GtkWidget *combo_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width);

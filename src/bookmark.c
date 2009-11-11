@@ -1555,8 +1555,9 @@ void bmark_add_extern(Tdocument *doc, gint offset, const gchar *name, const gcha
 
 void bmark_add(Tbfwin * bfwin) {
 	GtkTextMark *im;
-	GtkTextIter it;
+	GtkTextIter it, it2;
 	gint offset;
+	gboolean has_mark;
 	/* check for unnamed document */
 	if (!DOCUMENT(bfwin->current_document)->uri) {
 		message_dialog_new(bfwin->main_window,
@@ -1568,26 +1569,27 @@ void bmark_add(Tbfwin * bfwin) {
 		return;
 	}
 	/* if the left panel is disabled, we simply should add the bookmark to the list, and do nothing else */
-/*	if (bfwin->bmark == NULL) {
-		DEBUG_MSG("no left panel, this is not implemented yet\n");
-	} else */ {
-		gboolean has_mark;
-		im = gtk_text_buffer_get_insert(DOCUMENT(bfwin->current_document)->buffer);
-		gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer, &it, im);
-		offset = gtk_text_iter_get_offset(&it);
-
-		/* check for existing bookmark in this place */
-		has_mark = (bmark_get_bmark_at_line(DOCUMENT(bfwin->current_document), offset) != NULL);
-		if (has_mark) {
-			message_dialog_new(bfwin->main_window,
-								 	 GTK_MESSAGE_ERROR,
-								 	 GTK_BUTTONS_CLOSE,
-								 	 _("Can't add bookmark"),
-									 _("You already have a bookmark here!"));
-			return;
-		}
-		bmark_add_current_doc_backend(bfwin, "", offset, !main_v->globses.bookmarks_default_store);
+	/* BUG: if there is a selection we should use the text in the selection as bookmark 
+	contents, and we should set the offset not at the insert mark, but the lowest of insert
+	and selection. use gtk_text_iter_order() to do this */
+	im = gtk_text_buffer_get_insert(DOCUMENT(bfwin->current_document)->buffer);
+	gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer, &it, im);
+	gtk_text_buffer_get_iter_at_mark(DOCUMENT(bfwin->current_document)->buffer, &it2, gtk_text_buffer_get_selection(DOCUMENT(bfwin->current_document)->buffer));
+	gtk_text_iter_order(&it,&it2);
+	offset = gtk_text_iter_get_offset(&it);
+	g_print("bmark_add, adding bookmark at offset %d\n",offset);
+	/* BUG: WE'RE DOING REDUNDSANT THINGS WITH THE BACKEND FUNCTION */
+	/* check for existing bookmark in this place */
+	has_mark = (bmark_get_bmark_at_line(DOCUMENT(bfwin->current_document), offset) != NULL);
+	if (has_mark) {
+		message_dialog_new(bfwin->main_window,
+							 	 GTK_MESSAGE_ERROR,
+							 	 GTK_BUTTONS_CLOSE,
+							 	 _("Can't add bookmark"),
+								 _("You already have a bookmark here!"));
+		return;
 	}
+	bmark_add_current_doc_backend(bfwin, "", offset, !main_v->globses.bookmarks_default_store);
 }
 
 gboolean bmark_have_bookmark_at_stored_bevent(Tdocument * doc) {

@@ -267,6 +267,32 @@ void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox) {
 	}
 	DEBUG_MSG("integer_apply, config_var(%p)=%i\n", config_var, *config_var);
 }
+
+GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list) {
+	GtkWidget *returnwidget;
+	GList *tmplist;
+	gint activenum=-1,index=0;
+	returnwidget = gtk_combo_box_entry_new_text();
+	for (tmplist=g_list_first(which_list);tmplist;tmplist=g_list_next(tmplist)) {
+		if (tmplist->data) {
+			gtk_combo_box_append_text(GTK_COMBO_BOX(returnwidget),tmplist->data);
+			if (setstring && g_strcmp0(tmplist->data, setstring)==0) {
+				activenum=index;
+			}
+			index++;
+		}
+	}
+	if (activenum!=-1) {
+		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget),activenum);
+	} else if (setstring) {
+		gtk_combo_box_append_text(GTK_COMBO_BOX(returnwidget),setstring);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget),index);
+	}
+	/*gtk_combo_disable_activate(GTK_COMBO(returnwidget));
+	gtk_entry_set_activates_default (GTK_ENTRY (GTK_COMBO (returnwidget)->entry), TRUE);*/
+	return returnwidget;
+}
+
 /**
  * combo_with_popdown:
  * 	@setstring: #gchar* to set in textbox, if NULL it will be set ""

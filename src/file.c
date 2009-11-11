@@ -40,7 +40,7 @@
 #if !GTK_CHECK_VERSION(2,14,0)
 #include "gtkmountoperation.h"
 #endif
-#define OAD_MEMCOUNT
+#undef OAD_MEMCOUNT
 #ifdef OAD_MEMCOUNT
 typedef struct {
 	gint allocdir;
@@ -910,6 +910,7 @@ typedef struct {
 	guint refcount;
 	Tbfwin *bfwin;
 	gboolean recursive;
+	guint max_recursion;
 	gboolean matchname;
 	gchar *extension_filter;
 	GPatternSpec* patspec;
@@ -926,6 +927,7 @@ typedef struct {
 	Topenadv *oa;
 	GFile *basedir;
 	GFileEnumerator *gfe;
+	guint recursion;
 } Topenadv_dir;
 
 typedef struct {
@@ -1038,7 +1040,7 @@ static void openadv_content_filter_file(Topenadv *oa, GFile *uri, GFileInfo* fin
 	file_openfile_uri_async(uri, oa->bfwin, open_adv_content_filter_lcb, oau);
 }
 
-static void open_advanced_backend(Topenadv *oa, GFile *basedir);
+static void open_advanced_backend(Topenadv *oa, GFile *basedir, guint recursion);
 static void openadv_run(gpointer data);
 
 static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
@@ -1071,13 +1073,15 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 	alldoclist = return_allwindows_documentlist();
 	while (tmplist) {
 		GFileInfo *finfo=tmplist->data;
-		if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_DIRECTORY && oad->oa->recursive) {
-			GFile *dir;
-			const gchar *name = g_file_info_get_name(finfo);
-			DEBUG_MSG("enumerator_next_files_lcb, %s is a dir\n",name);
-			dir = g_file_get_child(oad->basedir,name);
-			open_advanced_backend(oad->oa, dir);
-			g_object_unref(dir);
+		if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_DIRECTORY) {
+			if (oad->oa->recursive && oad->recursion < oad->oa->max_recursion) { 
+				GFile *dir;
+				const gchar *name = g_file_info_get_name(finfo);
+				DEBUG_MSG("enumerator_next_files_lcb, %s is a dir\n",name);
+				dir = g_file_get_child(oad->basedir,name);
+				open_advanced_backend(oad->oa, dir, oad->recursion+1);
+				g_object_unref(dir);
+			}
 		} else if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_REGULAR) {
 			GFile *child_uri;
 			const gchar *name = g_file_info_get_name(finfo);
@@ -1109,6 +1113,9 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 			} else {
 				doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
 			}
+		} else {
+			/* TODO: symlink support ?? */
+			/*g_print("%s is not a file and not a dir\n",g_file_info_get_name(finfo));*/
 		}
 		g_object_unref(finfo);
 		tmplist = g_list_next(tmplist);
@@ -1146,7 +1153,7 @@ static void openadv_run(gpointer data) {
 					,enumerate_children_lcb,oad);
 }
 
-static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
+static void open_advanced_backend(Topenadv *oa, GFile *basedir, guint recursion) {
 	Topenadv_dir *oad;
 	DEBUG_MSG("open_advanced_backend on basedir %p ",basedir);
 	DEBUG_URI(basedir,TRUE);
@@ -1157,7 +1164,7 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 #endif /* OAD_MEMCOUNT */
 	oad->oa = oa;
 	oa->refcount++;
-
+	oad->recursion=recursion;
 	oad->basedir = basedir;
 	g_object_ref(oad->basedir);
 	
@@ -1171,7 +1178,7 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 	queue_push(&oadqueue, oad, openadv_run);
 }
 
-void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
+void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
 	if (basedir) {
 		Topenadv *oa;
 		oa = g_new0(Topenadv, 1);
@@ -1180,6 +1187,7 @@ void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, gboolean m
 #endif
 		oa->bfwin = bfwin;
 		oa->recursive = recursive;
+		oa->max_recursion = max_recursion;
 		oa->matchname = matchname;
 		oa->topbasedir = basedir;
 		g_object_ref(oa->topbasedir);
@@ -1196,7 +1204,7 @@ void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, gboolean m
 			/* BUG: need error handling here */
 			openadv_unref(oa);
 		}
-		open_advanced_backend(oa, basedir);
+		open_advanced_backend(oa, basedir, 0);
 	}
 }
 
