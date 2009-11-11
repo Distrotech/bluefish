@@ -29,7 +29,7 @@
 ]>
 
 
-<bflang name="Mediawiki" matches="986" contexts="68" table="4757">
+<bflang name="Mediawiki" xmlns="http://bluefish.openoffice.nl/ns/bflang/2.0" matches="1000" contexts="68" table="4925">
 
 <header>
    <mime type="text/x-mediawiki"/>
@@ -55,44 +55,64 @@
 </properties>
 <definition>
 
-<context symbols=":;[|{=* &gt;&lt;&#10;}">
+<context symbols="~#_:;[|{=* &gt;&lt;&#10;}">
 
 <element id="comment" pattern="&lt;!--" highlight="comment" starts_block="1">
-   <context id="comment" symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
+   <context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
      <element pattern="--&gt;" ends_block="1" blockstartelement="comment" highlight="comment" 
      mayfold="1" ends_context="1" />
    </context>
 </element>
-
 <!-- wiki -->
+	<!-- Magic_words -->
+<element pattern="#REDIRECT" highlight="wiki"/>
+		<!-- Behavior switches -->
+<element pattern="__NOTOC__" highlight="wiki"/>
+<element pattern="__FORCETOC__" highlight="wiki"/>
+<element pattern="__TOC__" highlight="wiki"/>
+<element pattern="__NOEDITSECTION__" highlight="wiki"/>
+<element pattern="__NOTITLECONVERT__" highlight="wiki"/>
+<element pattern="__NOCONTENTCONVERT__" highlight="wiki"/>
+<element pattern="__START__" highlight="wiki"/>
+<element pattern="__END__" highlight="wiki"/>
+<element pattern="__HIDDENCAT__" highlight="wiki"/>
+<element pattern="__NEWSECTIONLINK__" highlight="wiki"/>
+<element pattern="__NONEWSECTIONLINK__" highlight="wiki"/>
+<element pattern="__NOGALLERY__" highlight="wiki"/>
+<element pattern="__NOCC__" highlight="wiki"/>
+<element pattern="__NOTC__" highlight="wiki"/>
+<element pattern="__INDEX__" highlight="wiki"/>
+<element pattern="__NOINDEX__" highlight="wiki"/>
+<element pattern="__STATICREDIRECT__" highlight="wiki"/>
+	<!-- signature -->
+<element pattern="~~~" highlight="wiki"/>
+<element pattern="~~~~" highlight="wiki"/>
+<element pattern="~~~~~" highlight="wiki"/>
+	<!-- Horizontal rule -->
+<element pattern="&#10;----" is_regex="1" highlight="wiki"/>
 	<!-- bold -->
 <element pattern="&#10;?'''[^']+'''" is_regex="1" highlight="wiki"/>
 	<!-- italic -->
 <element pattern="&#10;?''[^']+''" is_regex="1" highlight="wiki"/>
 	<!-- italic bold -->
 <element pattern="&#10;?'''''[^']+'''''" is_regex="1" highlight="wiki"/>
-	<!-- ul -->
+	<!-- Lists -->
+		<!-- Bulleted -->
 <element pattern="&#10;\*" is_regex="1" highlight="wiki" />
-<element pattern="&#10;\*\*" is_regex="1" highlight="wiki" />
-<element pattern="&#10;\*\*\*" is_regex="1" highlight="wiki" />
-<element pattern="&#10;\*\*\*\*" is_regex="1" highlight="wiki" />
-	<!-- ol -->
+		<!-- Numbered -->
 <element  pattern="&#10;\#" is_regex="1" highlight="wiki" />
-<element  pattern="&#10;\#\#" is_regex="1" highlight="wiki" />
-<element  pattern="&#10;\#\#\#" is_regex="1" highlight="wiki" />
-<element  pattern="&#10;\#\#\#\#" is_regex="1" highlight="wiki" />
-	<!-- ul and ol combination-->
-<element  pattern="&#10;\#\*" is_regex="1" highlight="wiki" />
-<element  pattern="&#10;\*\#" is_regex="1" highlight="wiki" />
-		<!-- etc -->
-	<!-- other -->
-<element id="wiki-def" pattern="&#10;:" is_regex="1" highlight="wiki" />
-<element id="wiki-def2" pattern="&#10;;" is_regex="1" highlight="wiki" />
-<element id="pre" pattern="&#10; " is_regex="1" highlight="pre" />
-
+		<!-- nested lists-->
+<element  pattern="&#10;[\#\*]+[\#\*]*" is_regex="1" highlight="wiki" />
+		<!-- Indent with no marking -->
+<element pattern="&#10;:" is_regex="1" highlight="wiki" />
+		<!-- Definition list -->
+<element pattern="&#10;;" is_regex="1" highlight="wiki" />
+	<!-- Pre-formatted text -->
+<element pattern="&#10; " is_regex="1" highlight="pre" />
 <!-- wiki template -->
 <element pattern="&#10;?\{\{[^\}]+\}\}" is_regex="1" highlight="wiki"/>
-<!-- <element pattern="{{" highlight="wiki">
+<!-- 
+<element pattern="{{" highlight="wiki">
 	<context symbols="|}">
 		<element pattern="}}" highlight="wiki" ends_context="1" />
 		<element pattern="|" highlight="special-keyword" >
@@ -102,10 +122,12 @@
 			</context>
 		</element> 
 	</context>
-</element> -->
+</element>
+ -->
 <!-- wiki table -->
+	<!-- TODO: all code (wiki + html) have to be highlighted in table  -->
 <element id="wiki-table-start" pattern="&#10;\{|" is_regex="1" highlight="wiki-table" starts_block="1">
-   <context id="wiki-table-start" symbols="&#10;|!}">
+   <context id="wiki-table-start" symbols="&#10;|!-}">
       <element id="wiki-table-col" pattern="&#10;|" is_regex="1" highlight="wiki-table" />
       <element id="wiki-table-data" pattern="&#10;|-" is_regex="1" highlight="wiki-table" />
       <element id="wiki-table-caption" pattern="&#10;|\+" is_regex="1" highlight="wiki-table" />
@@ -119,31 +141,31 @@
 <!-- wiki title -->
 <element id="title6" pattern="&#10;======" is_regex="1" highlight="title" starts_block="1" autocomplete="1" 
 autocomplete_append=" ======" autocomplete_backup_cursor="7">
-   <context id="title6" highlight="title" symbols="=" >
+   <context highlight="title" symbols="=" >
    <element pattern="======" ends_block="1" blockstartelement="title6" highlight="title" ends_context="1" />
    </context>
 </element> 
 <element id="title5" pattern="&#10;=====" is_regex="1" highlight="title" starts_block="1" autocomplete="1" 
 autocomplete_append=" =====" autocomplete_backup_cursor="6">
-   <context id="title5" highlight="title" symbols="=" >
+   <context highlight="title" symbols="=" >
    <element pattern="=====" ends_block="1" blockstartelement="title5" highlight="title" ends_context="1" />
    </context>
 </element>
 <element id="title4" pattern="&#10;====" is_regex="1" highlight="title" starts_block="1" autocomplete="1" 
 autocomplete_append=" ====" autocomplete_backup_cursor="5">
-   <context id="title4" highlight="title" symbols="=" >
+   <context highlight="title" symbols="=" >
    <element pattern="====" ends_block="1" blockstartelement="title4" highlight="title" ends_context="1" />
    </context>
 </element> 
 <element id="title3" pattern="&#10;===" is_regex="1" highlight="title" starts_block="1" autocomplete="1" 
 autocomplete_append=" ===" autocomplete_backup_cursor="4">
-   <context id="title3" highlight="title" symbols="=" >
+   <context highlight="title" symbols="=" >
     <element pattern="===" ends_block="1" blockstartelement="title3" highlight="title" ends_context="1" />
    </context>
 </element> 
 <element id="title2" pattern="&#10;==" is_regex="1" highlight="title" starts_block="1" autocomplete="1" 
 autocomplete_append=" ==" autocomplete_backup_cursor="3">
-   <context id="title2" highlight="title" symbols="=" >
+   <context highlight="title" symbols="=" >
     <element pattern="==" ends_block="1" blockstartelement="title2" highlight="title" ends_context="1" />
    </context>
 </element>
@@ -182,12 +204,12 @@ autocomplete_append=" ==" autocomplete_backup_cursor="3">
 
 <!-- alternative links -->
 <!-- <element pattern="(http://)|(ftp://)" highlight="attribute" > </element> -->
-<element pattern="http://" highlight="link" />
+<!-- <element pattern="http://" highlight="link" /> -->
 
 <!--<math>-->
-   <tag name="math" >
-      <reference></reference>
-   </tag>
+<tag name="math" >
+   <reference></reference>
+</tag>
 <!-- html -->
 <group highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" 
 attrib_autocomplete_backup_cursor="1">
@@ -292,8 +314,10 @@ attrib_autocomplete_backup_cursor="1">
    </tag>			
 
 </group>
-<group highlight="html-table-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
-   <tag name="table" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" 
+<group highlight="html-table-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" 
+attrib_autocomplete_backup_cursor="1">
+   <tag name="table" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,
+&i18n;,&evnt;" 
 autocomplete_append=" summary=&quot;&quot; &gt;&#10;&#10;&lt;/table&gt;" autocomplete_backup_cursor="9">
       <reference>Defines a table</reference>
    </tag>
@@ -301,7 +325,8 @@ autocomplete_append=" summary=&quot;&quot; &gt;&#10;&#10;&lt;/table&gt;" autocom
       <reference>Defines a table caption</reference>
    </tag>
    <tag name="td" 
-attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;" >
+attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,
+&i18n;,&evnt;" >
       <reference>Defines a cell in a table</reference>
    </tag>
    <tag name="th" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,
@@ -344,7 +369,6 @@ attrib_autocomplete_backup_cursor="1">
 <tag name="nowiki" />
 <tag name="math" />
 <tag name="gallery" />
-
 </group>
 </context>
 
