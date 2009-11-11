@@ -268,11 +268,20 @@ void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox) {
 	DEBUG_MSG("integer_apply, config_var(%p)=%i\n", config_var, *config_var);
 }
 
-GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list) {
+GtkWidget *boxed_combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable, GtkWidget *box) {
+	GtkWidget *returnwidget = combobox_with_popdown(setstring, which_list, editable);
+	gtk_box_pack_start(GTK_BOX(box), returnwidget, TRUE, TRUE, 3);
+	return returnwidget;
+}
+
+GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable) {
 	GtkWidget *returnwidget;
 	GList *tmplist;
 	gint activenum=-1,index=0;
-	returnwidget = gtk_combo_box_entry_new_text();
+	if (editable)
+		returnwidget = gtk_combo_box_entry_new_text();
+	else
+		returnwidget = gtk_combo_box_new_text();
 	for (tmplist=g_list_first(which_list);tmplist;tmplist=g_list_next(tmplist)) {
 		if (tmplist->data) {
 			gtk_combo_box_append_text(GTK_COMBO_BOX(returnwidget),tmplist->data);
@@ -299,7 +308,7 @@ GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list) {
  * 	@which_list: #GList* to set in popdown widget
  * 	@editable: #gint if the combo should be editable (1 or 0)
  *
- * 	Create new combo and preset some values
+ * 	DEPRECATED Create new combo and preset some values
  *
  * Return value: #GtkWidget* pointer to created combo
  */
@@ -330,7 +339,7 @@ GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint 
  * 	@editable: #gint if the combo should be editable (1 or 0)
  * @box: the #GtkWidget* box widget to add the combo to
  *
- * 	create a new combo with presets like in combo_with_popdown()
+ * 	DEPRECATED create a new combo with presets like in combo_with_popdown()
  * and add it to the box
  *
  * Return value: #GtkWidget* pointer to created combo

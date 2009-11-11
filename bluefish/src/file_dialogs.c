@@ -209,7 +209,7 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	table = dialog_table_in_vbox(2, 4, 0, vbox2, FALSE, FALSE, 6);
 
 	/* TODO: This needs to be converted to use GtkComboBoxEntry */
-	tfs->grep_pattern = combobox_with_popdown("", bfwin->session->searchlist);
+	tfs->grep_pattern = combobox_with_popdown("", bfwin->session->searchlist, TRUE);
 	dialog_mnemonic_label_in_table(_("Pa_ttern:"), tfs->grep_pattern, table, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 1, 4, 0, 1);
 
@@ -325,8 +325,7 @@ static void open_url_cancel_lcb(GtkWidget * widget, Tou * ou)
 }
 static void open_url_ok_lcb(GtkWidget * widget, Tou * ou)
 {
-	gchar *url = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(ou->entry)->entry),
-										0, -1);
+	gchar *url = gtk_combo_box_get_active_text(GTK_COMBO_BOX(ou->entry));
 	DEBUG_MSG("open_url_ok_lcb, url=%s\n", url);
 	doc_new_from_input(ou->bfwin, url, FALSE, FALSE, -1);
 	g_free(url);
@@ -375,7 +374,7 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin * bfwin)
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	ou->entry = boxed_combo_with_popdown("", urlhistory, TRUE, vbox);
+	ou->entry = boxed_combobox_with_popdown("", urlhistory, TRUE, vbox);
 	free_stringlist(urlhistory);
 /*  ou->entry = boxed_entry_with_text("", 255, vbox); */
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 5);
