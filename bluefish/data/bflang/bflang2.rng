@@ -5,20 +5,27 @@
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://bluefish.openoffice.nl/ns/bflang/2.0">
 
+	<a:documentation>RELAX NG flat schema for Bluefish Language Files (bflang) containing syntax highlighting and autocompletion information for the bluefish <a href="http://bluefish.openoffice.nl">Bluefish</a> editor.</a:documentation>
+
 	<start>
 		<element name="bflang">
+			<a:documentation>The root tag of a bflang2 file.</a:documentation>
 			<attribute name="name">
+				<a:documentation>A human readable name of the language that is defined. E.g. C, C++, JavaScript,...</a:documentation>
 				<data type="normalizedString"/>
 			</attribute>
 			<optional>
 				<group>
-					<attribute name="matches">
+					<attribute name="contexts">
+						<a:documentation>context metadata. As illustration: contexts="100" (4.69 Kbytes)</a:documentation>
 						<data type="positiveInteger"/>
 					</attribute>
-					<attribute name="contexts">
+					<attribute name="matches">
+						<a:documentation>element/tag metadata. As illustration: matches="1752" (123.19 Kbytes)</a:documentation>
 						<data type="positiveInteger"/>
 					</attribute>
 					<attribute name="table">
+						<a:documentation>DFA tables, compiled patterns for each contex. As illustration: table="7906" (1976.50 Kbytes)</a:documentation>
 						<data type="positiveInteger"/>
 					</attribute>
 				</group>
@@ -36,13 +43,16 @@
 					<choice>
 						<element name="option">
 							<attribute name="name">
-								<data type="normalizedString"/>
+								<a:documentation></a:documentation>
+								<data type="ID"/>
 							</attribute>
 							<attribute name="default">
+								<a:documentation></a:documentation>
 								<data type="boolean"/>
 							</attribute>
 							<optional>
 								<attribute name="description">
+									<a:documentation></a:documentation>
 									<data type="string"/>
 								</attribute>
 							</optional>
@@ -51,12 +61,17 @@
 						<element name="highlight">
 							<attribute name="name">
 								<data type="ID"/>
+								<a:documentation></a:documentation>
 							</attribute>
 							<attribute name="style">
+								<a:documentation></a:documentation>
 								<choice>
 									<value type="token">attribute</value>
+									<a:documentation></a:documentation>
 									<value type="token">brackets</value>
+									<a:documentation></a:documentation>
 									<value type="token">comment</value>
+									<a:documentation></a:documentation>
 									<value type="token">function</value>
 									<value type="token">keyword</value>
 									<value type="token">operator</value>
