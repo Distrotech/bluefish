@@ -788,6 +788,7 @@ static void external_filter_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		fd->bdm = bdm;
 
 		fd->selsave = doc_save_selection(bdm->bfwin->current_document);
+		/* TODO: this dialog is not very convenient, hitting enter should choose 'selection' */
 		dialog = gtk_message_dialog_new(GTK_WINDOW(bdm->bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Operate filter only on selection?"));
 		g_signal_connect(dialog,"response",G_CALLBACK(external_filter_dialog_response_lcb),fd);
 		gtk_widget_show_all(dialog);
