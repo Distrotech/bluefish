@@ -75,21 +75,20 @@
 							<attribute name="style">
 								<a:documentation>Language parser style</a:documentation>
 								<choice>
-									<a:documentation>(usually) SGML/XML tag attributes</a:documentation>
 									<value type="token">attribute</value>
-									<a:documentation>Braces, brackets and parenthesis</a:documentation>
+									<a:documentation>(usually) SGML/XML tag attributes</a:documentation>
 									<value type="token">brackets</value>
-									<a:documentation>Comments of all styles (C-style, Shell, XML, ...)</a:documentation>
+									<a:documentation>Braces, brackets and parenthesis</a:documentation>
 									<value type="token">comment</value>
-									<a:documentation>Functions in a programming language</a:documentation>
+									<a:documentation>Comments of all styles (C-style, Shell, XML, ...)</a:documentation>
 									<value type="token">function</value>
-									<a:documentation>Programming languages keywords</a:documentation>
+									<a:documentation>Functions in a programming language</a:documentation>
 									<value type="token">keyword</value>
-									<a:documentation></a:documentation>
+									<a:documentation>Programming languages keywords</a:documentation>
 									<value type="token">operator</value>
-									<a:documentation>Programmming languages </a:documentation>
-									<value type="token">preprocessor</value>
 									<a:documentation></a:documentation>
+									<value type="token">preprocessor</value>
+									<a:documentation>Programmming languages </a:documentation>
 									<value type="token">special-attribute</value>
 									<a:documentation></a:documentation>
 									<value type="token">special-function</value>
@@ -107,16 +106,17 @@
 									<value type="token">special-value</value>
 									<a:documentation></a:documentation>
 									<value type="token">string</value>
-									<a:documentation>(usually) SGML/XML tags</a:documentation>
+									<a:documentation></a:documentation>
 									<value type="token">tag</value>
-									<a:documentation></a:documentation>
+									<a:documentation>(usually) SGML/XML tags</a:documentation>
 									<value type="token">type</value>
-									<a:documentation>Value of a tag</a:documentation>
-									<value type="token">value</value>
 									<a:documentation></a:documentation>
+									<value type="token">value</value>
+									<a:documentation>Value of a tag</a:documentation>
 									<value type="token">variable</value>
 									<a:documentation></a:documentation>
 									<value type="token">warning</value>
+									<a:documentation></a:documentation>
 								</choice>
 							</attribute>
 							<empty/>
@@ -133,10 +133,12 @@
 							<element name="comment">
 								<a:documentation>Specify which line and block comments are possible for the smart comment function.</a:documentation>
 								<attribute name="type">
-									<a:documentation>Line or block comment</a:documentation>
+									<a:documentation>Type of comment</a:documentation>
 									<choice>
 										<value type="token">block</value>
+										<a:documentation>Block comment</a:documentation>
 										<value type="token">line</value>
+										<a:documentation>Line comment</a:documentation>
 									</choice>
 								</attribute>
 								<attribute name="start">
@@ -184,7 +186,7 @@
 
 	<define name="element.context">
 		<element name="context">
-			<a:documentation>The context defines a string of characters that are all 'symbol' characters for this context. A 'symbol' character is a character that may start or end the next match. Usually all spacing is a symbol, and in programming languages all operators are symbols. Contexts can be reused later by using an ID during definition and referencing this ID later.</a:documentation>
+			<a:documentation>The most important attribute of a context are the symbols, a string of characters that are all 'symbol' characters for this context. A 'symbol' character is a character that may start or end the next match. Usually all spacing is a symbol, and in programming languages all operators are symbols. Contexts can be reused later by using an ID during definition and referencing this ID later.</a:documentation>
 			<choice>
 				<group>
 					<attribute name="symbols">
@@ -226,23 +228,29 @@
 
 	<define name="element.element">
 		<element name="element">
+		<a:documentation>Language element that is syntax highlighted, autocompleted or has reference information. The most important attribute is 'pattern': a keyword (e.g. a function name) or a regular expression (if attribute 'is_regex' is set to '1'). It might contain other elements, contexts, groups and references. To reuse an element it must have only the 'idref' attribute.</a:documentation>
 			<choice>
 				<group>
 					<attribute name="pattern">
+						<a:documentation>Pattern: keyword, function, string, regular expression</a:documentation>
 						<data type="string"/>
 					</attribute>
 					<ref name="autocomplete.element"/>
 					<ref name="autocomplete.extended"/>
+					<ref name="class.notclass"/>
 					<optional>
 						<choice>
 							<attribute name="starts_block">
+								<a:documentation>Element pattern starts a block ('1')</a:documentation>
 								<data type="boolean"/>
 							</attribute>
 							<group>
 								<attribute name="ends_block" a:defaultValue="0">
+									<a:documentation>Element pattern ends a block ('1')</a:documentation>
 									<data type="boolean"/>
 								</attribute>
 								<attribute name="blockstartelement">
+									<a:documentation>ID of element containing start-pattern of block to end</a:documentation>
 									<data type="IDREF">
 										<param name="pattern">e\.[a-zA-Z0-9_.]+</param>
 									</data>
@@ -251,34 +259,46 @@
 						</choice>
 					</optional>
 					<optional>
+						<attribute name="blockhighlight">
+							<a:documentation>UNKNOWN / TODO</a:documentation><!-- only available with starts_block? -->
+							<data type="string"/>
+						</attribute>
+					</optional>
+					<optional>
 						<attribute name="case_insens" a:defaultValue="0">
+							<a:documentation>Pattern is case insensitive ('1') or not ('0')</a:documentation>
 							<data type="boolean"/>
 						</attribute>
 					</optional>
 					<optional>
 						<attribute name="ends_context" a:defaultValue="0">
+							<a:documentation>Pattern ends a preceding context ('1')</a:documentation>
 							<data type="boolean"/>
 						</attribute>
 					</optional>
 					<optional>
 						<attribute name="highlight">
+							<a:documentation>Link to highlight name/ID</a:documentation>
 							<data type="IDREF"/>
 						</attribute>
 					</optional>
 					<optional>
 						<attribute name="id">
 							<data type="ID">
+								<a:documentation>ID to reuse element</a:documentation>
 								<param name="pattern">e\.[a-zA-Z0-9_.]+</param>
 							</data>
 						</attribute>
 					</optional>
 					<optional>
 						<attribute name="is_regex" a:defaultValue="0">
+								<a:documentation>Pattern is a regular expression ('1')</a:documentation>
 							<data type="boolean"/>
 						</attribute>
 					</optional>
 					<optional>
 						<attribute name="mayfold">
+							<a:documentation>UNKNOWN / TODO</a:documentation>
 							<data type="boolean" a:defaultValue="0"/>
 						</attribute>
 					</optional>
@@ -292,6 +312,7 @@
 					</zeroOrMore>
 				</group>
 				<attribute name="idref">
+					<a:documentation>ID of element to reuse (no other attributes or elements are allowed)</a:documentation>
 					<data type="IDREF">
 						<param name="pattern">e\.[a-zA-Z0-9_.]+</param>
 					</data>
@@ -306,6 +327,7 @@
 			<ref name="autocomplete.attribute"/>
 			<ref name="autocomplete.element"/>
 			<ref name="autocomplete.extended"/>
+			<ref name="class.notclass"/>
 			<optional>
 				<attribute name="attribhighlight">
 					<data type="IDREF"/>
@@ -315,16 +337,6 @@
 				<attribute name="case_insens" a:defaultValue="0">
 					<data type="boolean"/>
 				</attribute>
-			</optional>
-			<optional>
-				<choice>
-					<attribute name="class">
-						<data type="IDREF"/>
-					</attribute>
-					<attribute name="notclass">
-						<data type="IDREF"/>
-					</attribute>
-				</choice>
 			</optional>
 			<optional>
 				<attribute name="highlight">
@@ -415,11 +427,11 @@
 
 	<define name="element.reference">
 		<element name="reference">
+		<a:documentation>The reference contains a description of elements or tags and must only contain valid PANGO markup and text accordingly to <a href="http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html">http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html</a>. For the moment PANGO markup is not checked for validity!</a:documentation>
 			<zeroOrMore>
 				<choice>
 					<text/>
 					<element>
-						<a:documentation>Only PANGO markup is allowed here. See <a href="http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html">http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html</a>.</a:documentation>
 						<anyName>
 							<!--<except>
 								<nsName ns="http://bluefish.openoffice.nl/ns/bflang/2.0"/>
@@ -434,16 +446,16 @@
 		</element><!-- reference -->
 	</define>
 
-
-
 	<define name="autocomplete.element">
 		<optional>
 			<attribute name="autocomplete" a:defaultValue="0">
+				<a:documentation></a:documentation>
 				<data type="boolean"/>
 			</attribute>
 		</optional>
 		<optional>
 			<attribute name="autocomplete_append">
+				<a:documentation></a:documentation>
 				<data type="string"/>
 			</attribute>
 		</optional>
@@ -452,16 +464,19 @@
 	<define name="autocomplete.attribute">
 		<optional>
 			<attribute name="attrib_autocomplete" a:defaultValue="0">
+				<a:documentation></a:documentation>
 				<data type="boolean"/>
 			</attribute>
 		</optional>
 		<optional>
 			<attribute name="attrib_autocomplete_append">
+				<a:documentation></a:documentation>
 				<data type="string"/>
 			</attribute>
 		</optional>
 		<optional>
 			<attribute name="attrib_autocomplete_backup_cursor">
+				<a:documentation></a:documentation>
 				<data type="positiveInteger"/>
 			</attribute>
 		</optional>
@@ -470,13 +485,30 @@
 	<define name="autocomplete.extended">
 		<optional>
 			<attribute name="autocomplete_string">
+				<a:documentation></a:documentation>
 				<data type="string"/>
 			</attribute>
 		</optional>
 		<optional>
 			<attribute name="autocomplete_backup_cursor">
+				<a:documentation></a:documentation>
 				<data type="positiveInteger"/>
 			</attribute>
+		</optional>
+	</define>
+
+	<define name="class.notclass">
+		<optional>
+			<choice>
+				<attribute name="class">
+					<a:documentation></a:documentation>
+					<data type="IDREF"/>
+				</attribute>
+				<attribute name="notclass">
+					<a:documentation></a:documentation>
+					<data type="IDREF"/>
+				</attribute>
+			</choice>
 		</optional>
 	</define>
 
