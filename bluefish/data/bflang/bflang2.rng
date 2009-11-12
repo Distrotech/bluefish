@@ -374,10 +374,132 @@
 			<zeroOrMore>
 				<choice>
 					<text/>
+					<element name="span">
+					<!--	span can have a lot of attributes:
+									
+						font[1], font_desc
+							
+						
+						A font description string, such as "Sans Italic 12". See pango_font_description_from_string() for a description of the format of the string representation . Note that any other span attributes will override this description. So if you have "Sans Italic" and also a style="normal" attribute, you will get Sans normal, not italic.
+						
+						font_family, face
+							
+						
+						A font family name
+						
+						font_size[1], size
+							
+						
+						Font size in 1024ths of a point, or one of the absolute sizes 'xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large', or one of the relative sizes 'smaller' or 'larger'. If you want to specify a absolute size, it's usually easier to take advantage of the ability to specify a partial font description using 'font'; you can use font='12.5' rather than size='12800'.
+						
+						font_style[1], style
+							
+						
+						One of 'normal', 'oblique', 'italic'
+						
+						font_weight[1], weight
+							
+						
+						One of 'ultralight', 'light', 'normal', 'bold', 'ultrabold', 'heavy', or a numeric weight
+						
+						font_variant[1], variant
+							
+						
+						One of 'normal' or 'smallcaps'
+						
+						font_stretch[1], stretch
+							
+						
+						One of 'ultracondensed', 'extracondensed', 'condensed', 'semicondensed', 'normal', 'semiexpanded', 'expanded', 'extraexpanded', 'ultraexpanded'
+						
+						foreground, fgcolor[1], color
+							
+						
+						An RGB color specification such as '#00FF00' or a color name such as 'red'
+						
+						background, bgcolor[1]
+							
+						
+						An RGB color specification such as '#00FF00' or a color name such as 'red'
+						
+						underline
+							
+						
+						One of 'none', 'single', 'double', 'low', 'error'
+						
+						underline_color
+							
+						
+						The color of underlines; an RGB color specification such as '#00FF00' or a color name such as 'red'
+						
+						rise
+							
+						
+						Vertical displacement, in 10000ths of an em. Can be negative for subscript, positive for superscript.
+						
+						strikethrough
+							
+						
+						'true' or 'false' whether to strike through the text
+						
+						strikethrough_color
+							
+						
+						The color of strikethrough lines; an RGB color specification such as '#00FF00' or a color name such as 'red'
+						
+						fallback
+							
+						
+						'true' or 'false' whether to enable fallback. If disabled, then characters will only be used from the closest matching font on the system. No fallback will be done to other fonts on the system that might contain the characters in the text. Fallback is enabled by default. Most applications should not disable fallback.
+						
+						lang
+							
+						
+						A language code, indicating the text language
+						
+						letter_spacing
+							
+						
+						Inter-letter spacing in 1024ths of a point.
+						
+						gravity
+							
+						
+						One of 'south', 'east', 'north', 'west', 'auto'.
+						
+						gravity_hint
+							
+						
+						One of 'natural', 'strong', 'line'. 					
+											
+										-->
+						<text/>
+					</element>
 					<element name="b">
 						<text/>
 					</element>
 					<element name="i">
+						<text/>
+					</element>
+					<element name="big">
+						<text/>
+					</element>
+					<element name="s">
+						<text/>
+					</element>
+					<element name="sub">
+						<text/>
+					</element>
+					<element name="sup">
+						<text/>
+					</element>
+					<element name="small">
+						<text/>
+					</element>
+					<element name="tt">
+						<text/>
+					</element>
+					<element name="u">
 						<text/>
 					</element>
 				</choice>
