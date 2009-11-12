@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         xmlns:rng="http://relaxng.org/ns/structure/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+	<a:documentation>Pango Markup.</a:documentation>
+
+	<start>
+		<ref name="pango.markup"/>
+	</start>
+
+	<define name="pango.markup">
+		<element name="span">
+			<a:documentation></a:documentation>
+			<choice>
+				<group>
+					<optional>
+						<choice>
+							<attribute name="face">
+								<data type="string"/>
+							</attribute>
+							<attribute name="font_family">
+								<data type="string"/>
+							</attribute>
+						</choice>
+					</optional>
+					<optional>
+						<choice>
+							<attribute name="size">
+								<ref name="pango.font.size"/>
+							</attribute>
+							<attribute name="font_size">
+								<ref name="pango.font.size"/>
+							</attribute>
+						</choice>
+					</optional>
+					<optional>
+						<choice>
+							<attribute name="style">
+								<ref name="pango.font.style"/>
+							</attribute>
+							<attribute name="font_style">
+								<ref name="pango.font.style"/>
+							</attribute>
+						</choice>
+					</optional>
+					<optional>
+						<choice>
+							<attribute name="weight">
+								<ref name="pango.font.weight"/>
+							</attribute>
+							<attribute name="font_weight">
+								<ref name="pango.font.weight"/>
+							</attribute>
+						</choice>
+					</optional>
+					<optional>
+						<choice>
+							<attribute name="variant">
+								<ref name="pango.font.variant"/>
+							</attribute>
+							<attribute name="font_variant">
+								<ref name="pango.font.variant"/>
+							</attribute>
+						</choice>
+					</optional>
+					<optional>
+						<choice>
+							<attribute name="stretch">
+								<ref name="pango.font.stretch"/>
+							</attribute>
+							<attribute name="font_stretch">
+								<ref name="pango.font.stretch"/>
+							</attribute>
+						</choice>
+					</optional>
+				</group>
+				<group>
+					<a:documentation>A font description string, such as "Sans Italic 12". Any other span attributes will override this description. So if you have "Sans Italic" and also a style="normal" attribute, you will get Sans normal, not italic.</a:documentation>
+					<choice>
+						<optional>
+							<attribute name="font">
+								<a:documentation></a:documentation>
+								<data type="string"/>
+							</attribute>
+						</optional>
+						<optional>
+							<attribute name="font_desc">
+								<a:documentation></a:documentation>
+								<data type="string"/>
+							</attribute>
+						</optional>
+					</choice>
+				</group>
+			</choice>
+			<text/>
+		</element>
+		<element name="b">
+			<text/>
+		</element>
+		<element name="i">
+			<text/>
+		</element>
+		<element name="big">
+			<text/>
+		</element>
+		<element name="s">
+			<text/>
+		</element>
+		<element name="sub">
+			<text/>
+		</element>
+		<element name="sup">
+			<text/>
+		</element>
+		<element name="small">
+			<text/>
+		</element>
+		<element name="tt">
+			<text/>
+		</element>
+		<element name="u">
+			<text/>
+		</element>
+	</define>
+	
+	<define name="pango.font.size">
+		<a:documentation>Font size as an absolute or a relative size or given as a numeric value. It's usually easier to take advantage of the ability to specify a partial font description using 'font'.</a:documentation>
+		<choice>
+			<a:documentation></a:documentation>
+			<value type="token">xx-small</value>
+			<a:documentation></a:documentation>
+			<value type="token">x-small</value>
+			<a:documentation></a:documentation>
+			<value type="token">small</value>
+			<a:documentation></a:documentation>
+			<value type="token">medium</value>
+			<a:documentation></a:documentation>
+			<value type="token">large</value>
+			<a:documentation></a:documentation>
+			<value type="token">x-large</value>
+			<a:documentation></a:documentation>
+			<value type="token">xx-large</value>
+			<a:documentation></a:documentation>
+			<value type="token">smaller</value>
+			<a:documentation></a:documentation>
+			<value type="token">larger</value>
+			<a:documentation>numeric value in 1024ths of a point</a:documentation>
+			<data type="positiveInteger"/>
+		</choice>	
+	</define>
+
+	<define name="pango.font.style">
+		<a:documentation>Font style.</a:documentation>
+		<choice>
+			<a:documentation></a:documentation>
+			<value type="token">normal</value>
+			<a:documentation></a:documentation>
+			<value type="token">oblique</value>
+			<a:documentation></a:documentation>
+			<value type="token">italic</value>
+		</choice>	
+	</define>
+
+	<define name="pango.font.weight">
+		<a:documentation>Font weight.</a:documentation>
+		<choice>
+			<a:documentation></a:documentation>
+			<value type="token">ultralight</value>
+			<a:documentation></a:documentation>
+			<value type="token">light</value>
+			<a:documentation></a:documentation>
+			<value type="token">normal</value>
+			<a:documentation></a:documentation>
+			<value type="token">bold</value>
+			<a:documentation></a:documentation>
+			<value type="token">ultrabold</value>
+			<a:documentation></a:documentation>
+			<value type="token">heavy</value>
+			<a:documentation>numeric value</a:documentation>
+			<data type="positiveInteger"/>
+		</choice>	
+	</define>
+
+	<define name="pango.font.variant">
+		<a:documentation>Font variant.</a:documentation>
+		<choice>
+			<a:documentation></a:documentation>
+			<value type="token">normal</value>
+			<a:documentation></a:documentation>
+			<value type="token">smallcaps</value>
+		</choice>	
+	</define>
+
+	<define name="pango.font.stretch">
+		<a:documentation>Font stretching.</a:documentation>
+		<choice>
+			<a:documentation></a:documentation>
+			<value type="token">ultracondensed</value>
+			<a:documentation></a:documentation>
+			<value type="token">extracondensed</value>
+			<a:documentation></a:documentation>
+			<value type="token">condensed</value>
+			<a:documentation></a:documentation>
+			<value type="token">semicondensed</value>
+			<a:documentation></a:documentation>
+			<value type="token">normal</value>
+			<a:documentation></a:documentation>
+			<value type="token">semiexpanded</value>
+			<a:documentation></a:documentation>
+			<value type="token">expanded</value>
+			<a:documentation></a:documentation>
+			<value type="token">extraexpanded</value>
+			<a:documentation></a:documentation>
+			<value type="token">ultraexpanded</value>
+		</choice>	
+	</define>
+
+</grammar>
