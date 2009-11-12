@@ -19,7 +19,7 @@
 		along with this program; if not, write to the Free Software
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
-<bflang name="Bflang2" matches="162" contexts="25" table="1064" xmlns="http://bluefish.openoffice.nl/ns/bflang/2.0">
+<bflang name="Bflang2" version="2.0" matches="162" contexts="25" table="1064">
 <header>
 	<mime type="application/x-bluefish-language2"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -32,7 +32,7 @@
 	<highlight name="tag" style="tag" />
 </header>
 <properties>
-	<comment id="comment.xml" type="block" start="&lt;!--" end="--&gt;" />
+	<comment type="block" start="&lt;!--" end="--&gt;" />
 	<default_spellcheck enabled="1" />
 </properties>
 <definition>
@@ -98,7 +98,7 @@
 			<reference>tag is added for convenience. Everything within tag is possible with a combination of multiple element and context tags.  </reference>
 				<context idref="c.innerpattern" />
 			</tag>
-			<tag name="group" id="t.group" highlight="tag" autocomplete_append="&gt;" attributes="highlight,autocomplete,autocomplete_append,autocomplete_backup_cursor,class,notclass,case_insens,is_regex,attrib_autocomplete_append,attrib_autocomplete_backup_cursor,attribhighlight,no_close" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+			<tag name="group" id="t.group" highlight="tag" autocomplete_append="&gt;" attributes="highlight,autocomplete,autocomplete_append,autocomplete_backup_cursor,class,notclass,case_insens,is_regex,attrib_autocomplete_append,attrib_autocomplete_backup_cursor,attribhighlight,no_close,sgml_shorttag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 			<reference>group is a tag that can be used to group multiple tags or multiple elements that share the same attribute values for the attributes highlight, autocomplete, autocomplete_append, class, case_insens, is_regex, attrib_autocomplete_append or attribhighlight. These attributes are then only set for the group tag, and not for the elements or tags immediately within this group tag.</reference>
 				<context id="c.group" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 				<element idref="e.comment"/>
