@@ -66,3 +66,9 @@ bflangdir = $(pkgdatadir)/bflang
 #	$(XMLCATALOG) --noout --del 'http://bluefish.openoffice.nl/DTD'
 #endif #REGISTER_XML_CATALOG
 
+# rename to check-local later
+check-bflang2:
+	xmllint --noout --noent --relaxng http://relaxng.org/relaxng.rng $(srcdir)/bflang2.rng
+	for file in $(srcdir)/*.bflang2 ; do \
+		xmllint --noout --noent --relaxng $(srcdir)/bflang2.rng $(file) ; \
+	done
