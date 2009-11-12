@@ -105,7 +105,9 @@
 						<choice>
 							<element name="comment">
 			<!--	id is not used				<attribute name="id">
-									<data type="ID"/>
+									<data type="ID">
+										<param name="pattern">comment\.[a-zA-Z]+</param>
+									</data>
 								</attribute>-->
 								<attribute name="type">
 									<choice>
@@ -166,7 +168,9 @@
 					</optional>
 					<optional>
 						<attribute name="id">
-							<data type="ID"/>
+							<data type="ID">
+								<param name="pattern">c\.[a-zA-Z0-9_.]+</param>
+							</data>
 						</attribute>
 					</optional>
 <!--	DEPRECATED				<optional>
@@ -176,7 +180,9 @@
 					</optional>-->
 				</group>
 				<attribute name="idref">
-					<data type="IDREF"/>
+					<data type="IDREF">
+						<param name="pattern">c\.[a-zA-Z0-9_.]+</param>
+					</data>
 				</attribute>
 			</choice>
 			<oneOrMore>
@@ -205,11 +211,13 @@
 								<data type="boolean"/>
 							</attribute>
 							<group>
-								<attribute name="blockstartelement">
-									<data type="IDREF"/>
-								</attribute>
 								<attribute name="ends_block" a:defaultValue="0">
 									<data type="boolean"/>
+								</attribute>
+								<attribute name="blockstartelement">
+									<data type="IDREF">
+										<param name="pattern">e\.[a-zA-Z0-9_.]+</param>
+									</data>
 								</attribute>
 							</group>
 						</choice>
@@ -231,7 +239,9 @@
 					</optional>
 					<optional>
 						<attribute name="id">
-							<data type="ID"/>
+							<data type="ID">
+								<param name="pattern">e\.[a-zA-Z0-9_.]+</param>
+							</data>
 						</attribute>
 					</optional>
 					<optional>
@@ -246,7 +256,9 @@
 					</optional>
 				</group>
 				<attribute name="idref">
-					<data type="IDREF"/>
+					<data type="IDREF">
+						<param name="pattern">e\.[a-zA-Z0-9_.]+</param>
+					</data>
 				</attribute>
 			</choice>
 			<zeroOrMore>
@@ -339,7 +351,9 @@
 					</optional>
 					<optional>
 						<attribute name="id">
-							<data type="ID"/>
+							<data type="ID">
+								<param name="pattern">t\.[a-zA-Z0-9_.]+</param>
+							</data>
 						</attribute>
 					</optional>
 					<optional>
@@ -354,7 +368,9 @@
 					</optional>
 				</group>
 				<attribute name="idref">
-					<data type="IDREF"/>
+					<data type="IDREF">
+						<param name="pattern">t\.[a-zA-Z0-9_.]+</param>
+					</data>
 				</attribute>
 			</choice>
 			<zeroOrMore>
@@ -530,6 +546,11 @@
 		<optional>
 			<attribute name="attrib_autocomplete_append">
 				<data type="string"/>
+			</attribute>
+		</optional>
+		<optional>
+			<attribute name="attrib_autocomplete_backup_cursor">
+				<data type="positiveInteger"/>
 			</attribute>
 		</optional>
 	</define>
