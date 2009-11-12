@@ -177,14 +177,14 @@
 			<element name="definition">
 				<a:documentation>The region of the language file that actually defines the language. This region is only loaded when a file of this type is opened in the editor. A language definition always starts with a &lt;context&gt; tag.</a:documentation>
 				<oneOrMore>
-					<ref name="element.context"/>
+					<ref name="bf.element.context"/>
 				</oneOrMore>
 			</element><!-- definition -->
 			<empty/>
 		</element><!-- bflang -->
 	</start>
 
-	<define name="element.context">
+	<define name="bf.element.context">
 		<element name="context">
 			<a:documentation>The most important attribute of a context are the symbols, a string of characters that are all 'symbol' characters for this context. A 'symbol' character is a character that may start or end the next match. Usually all spacing is a symbol, and in programming languages all operators are symbols. Contexts can be reused later by using an ID during definition and referencing this ID later.</a:documentation>
 			<choice>
@@ -193,12 +193,7 @@
 						<a:documentation>List of characters</a:documentation>
 						<data type="string"/>
 					</attribute>
-					<optional>
-						<attribute name="highlight">
-							<a:documentation>Highlight name/type</a:documentation>
-							<data type="IDREF"/>
-						</attribute>
-					</optional>
+					<ref name="bf.attribute.highlight"/>
 					<optional>
 						<attribute name="id">
 							<a:documentation>Context ID to reuse it later</a:documentation>
@@ -209,9 +204,9 @@
 					</optional>
 					<oneOrMore>
 						<choice>
-							<ref name="element.element"/>
-							<ref name="element.group"/>
-							<ref name="element.tag"/>
+							<ref name="bf.element.element"/>
+							<ref name="bf.element.group"/>
+							<ref name="bf.element.tag"/>
 						</choice>
 					</oneOrMore>
 				</group>
@@ -226,7 +221,7 @@
 		</element><!-- context -->
 	</define>
 
-	<define name="element.element">
+	<define name="bf.element.element">
 		<element name="element">
 		<a:documentation>Language element that is syntax highlighted, autocompleted or has reference information. The most important attribute is 'pattern': a keyword (e.g. a function name) or a regular expression (if attribute 'is_regex' is set to '1'). It might contain other elements, contexts, groups and references. To reuse an element it must have only the 'idref' attribute.</a:documentation>
 			<choice>
@@ -235,9 +230,12 @@
 						<a:documentation>Pattern: keyword, function, string, regular expression</a:documentation>
 						<data type="string"/>
 					</attribute>
-					<ref name="autocomplete.element"/>
-					<ref name="autocomplete.extended"/>
-					<ref name="class.notclass"/>
+					<ref name="bf.attribute.autocomplete.element"/>
+					<ref name="bf.attribute.autocomplete.extended"/>
+					<ref name="bf.attribute.class.notclass"/>
+					<ref name="bf.attribute.case_insens"/>
+					<ref name="bf.attribute.highlight"/>
+					<ref name="bf.attribute.is_regex"/>
 					<optional>
 						<choice>
 							<attribute name="starts_block">
@@ -265,21 +263,9 @@
 						</attribute>
 					</optional>
 					<optional>
-						<attribute name="case_insens" a:defaultValue="0">
-							<a:documentation>Pattern is case insensitive ('1') or not ('0')</a:documentation>
-							<data type="boolean"/>
-						</attribute>
-					</optional>
-					<optional>
 						<attribute name="ends_context" a:defaultValue="0">
 							<a:documentation>Pattern ends a preceding context ('1')</a:documentation>
 							<data type="boolean"/>
-						</attribute>
-					</optional>
-					<optional>
-						<attribute name="highlight">
-							<a:documentation>Link to highlight name/ID</a:documentation>
-							<data type="IDREF"/>
 						</attribute>
 					</optional>
 					<optional>
@@ -291,12 +277,6 @@
 						</attribute>
 					</optional>
 					<optional>
-						<attribute name="is_regex" a:defaultValue="0">
-								<a:documentation>Pattern is a regular expression ('1')</a:documentation>
-							<data type="boolean"/>
-						</attribute>
-					</optional>
-					<optional>
 						<attribute name="mayfold">
 							<a:documentation>UNKNOWN / TODO</a:documentation>
 							<data type="boolean" a:defaultValue="0"/>
@@ -304,10 +284,10 @@
 					</optional>
 					<zeroOrMore>
 						<choice>
-							<ref name="element.context"/>
-							<ref name="element.element"/>
-							<ref name="element.group"/>
-							<ref name="element.reference"/>
+							<ref name="bf.element.context"/>
+							<ref name="bf.element.element"/>
+							<ref name="bf.element.group"/>
+							<ref name="bf.element.reference"/>
 						</choice>
 					</zeroOrMore>
 				</group>
@@ -322,75 +302,55 @@
 		</element><!-- element -->
 	</define>
 
-	<define name="element.group">
+	<define name="bf.element.group">
 		<element name="group">
-			<ref name="autocomplete.attribute"/>
-			<ref name="autocomplete.element"/>
-			<ref name="autocomplete.extended"/>
-			<ref name="class.notclass"/>
-			<optional>
-				<attribute name="attribhighlight">
-					<data type="IDREF"/>
-				</attribute>
-			</optional>
-			<optional>
-				<attribute name="case_insens" a:defaultValue="0">
-					<data type="boolean"/>
-				</attribute>
-			</optional>
-			<optional>
-				<attribute name="highlight">
-					<data type="IDREF"/>
-				</attribute>
-			</optional>
-			<optional>
-				<attribute name="is_regex" a:defaultValue="0">
-					<data type="boolean"/>
-				</attribute>
-			</optional>
+			<a:documentation>Group multiple tags or elements that share the same attribute values for a subset of attributes: 'attrib_autocomplete_append', 'attribhighlight', 'autocomplete', 'autocomplete_append', 'case_insens', 'class', 'highlight', 'is_regex' and/or 'notclass'. These attributes are then only set for the group tag, and not for the elements or tags immediately within this group tag.</a:documentation>
+			<ref name="bf.attribute.autocomplete.attribute"/>
+			<ref name="bf.attribute.autocomplete.element"/>
+			<ref name="bf.attribute.autocomplete.extended"/>
+			<ref name="bf.attribute.attribhighlight"/>
+			<ref name="bf.attribute.case_insens"/>
+			<ref name="bf.attribute.class.notclass"/>
+			<ref name="bf.attribute.highlight"/>
+			<ref name="bf.attribute.is_regex"/>
 			<oneOrMore>
 				<choice>
-					<ref name="element.element"/>
-					<ref name="element.group"/>
-					<ref name="element.tag"/>
+					<ref name="bf.element.element"/>
+					<ref name="bf.element.group"/>
+					<ref name="bf.element.tag"/>
 				</choice>
 			</oneOrMore>
 			<empty/>
 		</element><!-- group -->
 	</define>
 
-	<define name="element.tag">
+	<define name="bf.element.tag">
 		<element name="tag">
+			<a:documentation>Convenience element for SGML/XML based languages. Everything within tag is possible with a combination of multiple element and context tags.</a:documentation>
 			<choice>
 				<group>
 					<attribute name="name">
+						<a:documentation>ID of element to reuse (no other attributes or elements are allowed)</a:documentation>
 						<data type="token"/>
 					</attribute>
-					<ref name="autocomplete.attribute"/>
-					<ref name="autocomplete.element"/>
-					<ref name="autocomplete.extended"/>
+					<ref name="bf.attribute.autocomplete.attribute"/>
+					<ref name="bf.attribute.autocomplete.element"/>
+					<ref name="bf.attribute.autocomplete.extended"/>
+					<ref name="bf.attribute.case_insens"/>
+					<ref name="bf.attribute.highlight"/>
+					<ref name="bf.attribute.is_regex"/>
 					<optional>
-						<attribute name="attributes">
-							<data type="string"/><!-- TODO: more like a list with commata? -->
-						</attribute>
-						<optional>
-							<attribute name="attribhighlight">
-								<data type="IDREF"/>
+						<group>
+							<attribute name="attributes">
+								<a:documentation>List of comma-separated attributes</a:documentation>
+								<data type="string"/><!-- TODO: more like a list with commata? -->
 							</attribute>
-						</optional>
-					</optional>
-					<optional>
-						<attribute name="case_insens" a:defaultValue="0">
-							<data type="boolean"/>
-						</attribute>
-					</optional>
-					<optional>
-						<attribute name="highlight">
-							<data type="IDREF"/>
-						</attribute>
+							<ref name="bf.attribute.attribhighlight"/>
+						</group>
 					</optional>
 					<optional>
 						<attribute name="id">
+							<a:documentation>ID to reuse tag</a:documentation>
 							<data type="ID">
 								<param name="pattern">t\.[a-zA-Z0-9_.]+</param>
 							</data>
@@ -398,25 +358,28 @@
 					</optional>
 					<optional>
 						<attribute name="no_close" a:defaultValue="0">
+							<a:documentation>Do not automatically close the tag ('1')</a:documentation>
 							<data type="boolean"/>
 						</attribute>
 					</optional>
 					<optional>
 						<attribute name="sgml_shorttag" a:defaultValue="0">
+							<a:documentation>Enable SGML Shorttags ('1')</a:documentation>
 							<data type="boolean"/>
 						</attribute>
 					</optional>
 					<zeroOrMore>
 						<choice>
-							<ref name="element.context"/>
-							<ref name="element.group"/>
-							<ref name="element.reference"/>
-							<ref name="element.tag"/>
+							<ref name="bf.element.context"/>
+							<ref name="bf.element.group"/>
+							<ref name="bf.element.reference"/>
+							<ref name="bf.element.tag"/>
 						</choice>
 					</zeroOrMore>
 				</group>
 				<attribute name="idref">
 					<data type="IDREF">
+						<a:documentation>ID of tag to reuse (no other attributes or elements are allowed)</a:documentation>
 						<param name="pattern">t\.[a-zA-Z0-9_.]+</param>
 					</data>
 				</attribute>
@@ -425,7 +388,7 @@
 		</element><!-- tag -->
 	</define>
 
-	<define name="element.reference">
+	<define name="bf.element.reference">
 		<element name="reference">
 		<a:documentation>The reference contains a description of elements or tags and must only contain valid PANGO markup and text accordingly to <a href="http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html">http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html</a>. For the moment PANGO markup is not checked for validity!</a:documentation>
 			<zeroOrMore>
@@ -446,69 +409,105 @@
 		</element><!-- reference -->
 	</define>
 
-	<define name="autocomplete.element">
+	<define name="bf.attribute.autocomplete.element">
 		<optional>
 			<attribute name="autocomplete" a:defaultValue="0">
-				<a:documentation></a:documentation>
+				<a:documentation>Enable ('1') or disable ('0') autocompletion feature for item</a:documentation>
 				<data type="boolean"/>
 			</attribute>
 		</optional>
 		<optional>
 			<attribute name="autocomplete_append">
-				<a:documentation></a:documentation>
+				<a:documentation>Automatically appended string to item</a:documentation>
 				<data type="string"/>
 			</attribute>
 		</optional>
 	</define>
 
-	<define name="autocomplete.attribute">
+	<define name="bf.attribute.autocomplete.attribute">
 		<optional>
 			<attribute name="attrib_autocomplete" a:defaultValue="0">
-				<a:documentation></a:documentation>
+				<a:documentation>Enable ('1') or disable ('0') autocompletion feature for attribute</a:documentation>
 				<data type="boolean"/>
 			</attribute>
 		</optional>
 		<optional>
 			<attribute name="attrib_autocomplete_append">
-				<a:documentation></a:documentation>
+				<a:documentation>Automatically appended string to attribute</a:documentation>
 				<data type="string"/>
 			</attribute>
 		</optional>
 		<optional>
 			<attribute name="attrib_autocomplete_backup_cursor">
-				<a:documentation></a:documentation>
+				<a:documentation>TODO</a:documentation>
 				<data type="positiveInteger"/>
 			</attribute>
 		</optional>
 	</define>
 
-	<define name="autocomplete.extended">
+	<define name="bf.attribute.autocomplete.extended">
 		<optional>
 			<attribute name="autocomplete_string">
-				<a:documentation></a:documentation>
+				<a:documentation>TODO</a:documentation>
 				<data type="string"/>
 			</attribute>
 		</optional>
 		<optional>
 			<attribute name="autocomplete_backup_cursor">
-				<a:documentation></a:documentation>
+				<a:documentation>TODO</a:documentation>
 				<data type="positiveInteger"/>
 			</attribute>
 		</optional>
 	</define>
 
-	<define name="class.notclass">
+	<define name="bf.attribute.class.notclass">
 		<optional>
 			<choice>
 				<attribute name="class">
-					<a:documentation></a:documentation>
+					<a:documentation>Enable item if option with ID is set/enabled</a:documentation>
 					<data type="IDREF"/>
 				</attribute>
 				<attribute name="notclass">
-					<a:documentation></a:documentation>
+					<a:documentation>Disable item if option with ID is set/enabled</a:documentation>
 					<data type="IDREF"/>
 				</attribute>
 			</choice>
+		</optional>
+	</define>
+
+	<define name="bf.attribute.attribhighlight">
+		<optional>
+			<attribute name="attribhighlight">
+				<a:documentation>Link attribute style to highlight name/ID</a:documentation>
+				<data type="IDREF"/>
+			</attribute>
+		</optional>
+	</define>
+
+	<define name="bf.attribute.case_insens">
+		<optional>
+			<attribute name="case_insens" a:defaultValue="0">
+				<a:documentation>Pattern is case insensitive ('1')</a:documentation>
+				<data type="boolean"/>
+			</attribute>
+		</optional>
+	</define>
+
+	<define name="bf.attribute.highlight">
+		<optional>
+			<attribute name="highlight">
+				<a:documentation>Link item style to highlight name/ID</a:documentation>
+				<data type="IDREF"/>
+			</attribute>
+		</optional>
+	</define>
+
+	<define name="bf.attribute.is_regex">
+		<optional>
+			<attribute name="is_regex" a:defaultValue="0">
+				<a:documentation>Pattern is a regular expression ('1')</a:documentation>
+				<data type="boolean"/>
+			</attribute>
 		</optional>
 	</define>
 
