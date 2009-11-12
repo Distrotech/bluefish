@@ -11,21 +11,21 @@
 		<element name="bflang">
 			<a:documentation>The root tag of a bflang2 file.</a:documentation>
 			<attribute name="name">
-				<a:documentation>A human readable name of the language that is defined. E.g. C, C++, JavaScript,...</a:documentation>
+				<a:documentation>A human readable name of the language that is defined. E.g. C, C++, JavaScript. The name mut be unique regarding the other language files,...</a:documentation>
 				<data type="normalizedString"/>
 			</attribute>
 			<optional>
 				<group>
 					<attribute name="contexts">
-						<a:documentation>context metadata. As illustration: contexts="100" (4.69 Kbytes)</a:documentation>
+						<a:documentation>The size of the context table. This value is an indication for the compiler how much memory should be allocated. It optimises the loading speed. As illustration: contexts="100" (4.69 Kbytes)</a:documentation>
 						<data type="positiveInteger"/>
 					</attribute>
 					<attribute name="matches">
-						<a:documentation>element/tag metadata. As illustration: matches="1752" (123.19 Kbytes)</a:documentation>
+						<a:documentation>The size of the matches table. This value is an indication for the compiler how much memory should be allocated. It optimises the loading speed. As illustration: matches="1752" (123.19 Kbytes)</a:documentation>
 						<data type="positiveInteger"/>
 					</attribute>
 					<attribute name="table">
-						<a:documentation>DFA tables, compiled patterns for each contex. As illustration: table="7906" (1976.50 Kbytes)</a:documentation>
+						<a:documentation>The size of the DFA table, compiled patterns for each contex. This value is an indication for the compiler how much memory should be allocated. It optimises the loading speed. As illustration: table="7906" (1976.50 Kbytes)</a:documentation>
 						<data type="positiveInteger"/>
 					</attribute>
 				</group>
@@ -33,6 +33,7 @@
 			<element name="header">
 				<oneOrMore>
 					<element name="mime">
+					<a:documentation>Every language file should have at least one unique mime type (compared to the other language files) in order to be available to the user.</a:documentation>
 						<attribute name="type">
 							<data type="token"/>
 						</attribute>
@@ -47,12 +48,12 @@
 								<data type="ID"/>
 							</attribute>
 							<attribute name="default">
-								<a:documentation></a:documentation>
+								<a:documentation>Value 0 or 1.</a:documentation>
 								<data type="boolean"/>
 							</attribute>
 							<optional>
 								<attribute name="description">
-									<a:documentation></a:documentation>
+									<a:documentation>Not used (yet).</a:documentation>
 									<data type="string"/>
 								</attribute>
 							</optional>
@@ -103,9 +104,9 @@
 					<oneOrMore>
 						<choice>
 							<element name="comment">
-								<attribute name="id">
+			<!--	id is not used				<attribute name="id">
 									<data type="ID"/>
-								</attribute>
+								</attribute>-->
 								<attribute name="type">
 									<choice>
 										<value type="token">block</value>
