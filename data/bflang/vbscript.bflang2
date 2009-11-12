@@ -23,7 +23,7 @@
 	<!ENTITY all-vbscript SYSTEM "all-vbscript.bfinc">
 ]>
 
-<bflang name="VBScript">
+<bflang name="VBScript" version="2.0">
 <header>
 	<mime type="application/x-vbscript"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -39,8 +39,8 @@
 	<highlight name="vbs-variable" style="variable"  />
 </header>
 <properties>
-	<comment id="vbs-apos" type="line" start="'" />
-	<comment id="vbs-rem" type="line" start="rem " />
+	<comment type="line" start="'" />
+	<comment type="line" start="rem " />
 </properties>
 
 <definition>

@@ -20,8 +20,8 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<element pattern="(" id="vbs(" starts_block="1" highlight="vbs-brackets" />
-<element pattern=")" highlight="vbs-brackets" ends_block="1" blockstartelement="vbs(" />
+<element pattern="(" id="e.vbs.lparen" starts_block="1" highlight="vbs-brackets" />
+<element pattern=")" highlight="vbs-brackets" ends_block="1" blockstartelement="e.vbs.lparen" />
 <group highlight="vbs-keyword" autocomplete="1" case_insens="1">
 	<element pattern="and" />
 	<element pattern="as" />
@@ -96,35 +96,35 @@
 <element pattern="[-\.]?[0-9]+" is_regex="1" highlight="vbs-value" case_insens="1"/>
 
 <group highlight="vbs-keyword" autocomplete="1" case_insens="1">
-	<element id="exit for" pattern="exit[\ \t]+for" is_regex="1" autocomplete_string="exit for" mayfold="1" />
-	<element id="exit do" pattern="exit[\ \t]+do" is_regex="1" autocomplete_string="exit do" mayfold="1" />
-	<element id="exit while" pattern="exit[\ \t]+while" is_regex="1" autocomplete_string="exit while" mayfold="1" />
-	<element id="exit sub" pattern="exit[\ \t]+sub" is_regex="1" autocomplete_string="exit sub" mayfold="1" />
-	<element id="exit function" pattern="exit[\ \t]+function" is_regex="1" autocomplete_string="exit function" mayfold="1" />
-	<element pattern="for" starts_block="1" mayfold="1" />
-	<element pattern="next" ends_block="1" blockstartelement="for" mayfold="1" />
-	<element pattern="do" starts_block="1" mayfold="1" />
-	<element pattern="loop" ends_block="1" blockstartelement="do" mayfold="1" />
-	<element pattern="while" starts_block="1" mayfold="1" />
-	<element pattern="wend" ends_block="1" blockstartelement="while" mayfold="1" />
-	<element pattern="sub" starts_block="1" mayfold="1" />
-	<element id="end sub" pattern="end[\ \t]+sub" is_regex="1" ends_block="1" blockstartelement="sub" autocomplete_string="end sub" mayfold="1" />
-	<element pattern="function" starts_block="1" mayfold="1" />
-	<element id="end function" pattern="end[\ \t]+function" is_regex="1" ends_block="1" blockstartelement="function" mayfold="1" autocomplete_string="end function" />
-	<element pattern="property" starts_block="1" mayfold="1" />
-	<element id="end property" pattern="end[\ \t]+property" is_regex="1" ends_block="1" blockstartelement="property" mayfold="1" autocomplete_string="end property" />
+	<element pattern="exit[\ \t]+for" is_regex="1" autocomplete_string="exit for" mayfold="1" />
+	<element pattern="exit[\ \t]+do" is_regex="1" autocomplete_string="exit do" mayfold="1" />
+	<element pattern="exit[\ \t]+while" is_regex="1" autocomplete_string="exit while" mayfold="1" />
+	<element pattern="exit[\ \t]+sub" is_regex="1" autocomplete_string="exit sub" mayfold="1" />
+	<element pattern="exit[\ \t]+function" is_regex="1" autocomplete_string="exit function" mayfold="1" />
+	<element id="e.vbs.for" pattern="for" starts_block="1" mayfold="1" />
+	<element pattern="next" ends_block="1" blockstartelement="e.vbs.for" mayfold="1" />
+	<element id="e.vbs.do" pattern="do" starts_block="1" mayfold="1" />
+	<element pattern="loop" ends_block="1" blockstartelement="e.vbs.do" mayfold="1" />
+	<element id="e.vbs.while" pattern="while" starts_block="1" mayfold="1" />
+	<element pattern="wend" ends_block="1" blockstartelement="e.vbs.while" mayfold="1" />
+	<element id="e.vbs.sub" pattern="sub" starts_block="1" mayfold="1" />
+	<element pattern="end[\ \t]+sub" is_regex="1" ends_block="1" blockstartelement="e.vbs.sub" autocomplete_string="end sub" mayfold="1" />
+	<element id="e.vbs.function" pattern="function" starts_block="1" mayfold="1" />
+	<element pattern="end[\ \t]+function" is_regex="1" ends_block="1" blockstartelement="e.vbs.function" mayfold="1" autocomplete_string="end function" />
+	<element id="e.vbs.property" pattern="property" starts_block="1" mayfold="1" />
+	<element pattern="end[\ \t]+property" is_regex="1" ends_block="1" blockstartelement="e.vbs.property" mayfold="1" autocomplete_string="end property" />
 	
 	<element pattern="if" highlight="vbs-keyword" />
-	<element pattern="then[\ \t]*[&#10;&#13;]" is_regex="1" starts_block="1" mayfold="1" autocomplete_string="then" highlight="vbs-keyword" />
-	<element id="end if" pattern="end[\ \t]+if" is_regex="1" ends_block="1" mayfold="1" autocomplete_string="end if" highlight="vbs-keyword" blockstartelement="then[\ \t]*[&#10;&#13;]" />
+	<element id="e.vbs.then" pattern="then[\ \t]*[&#10;&#13;]" is_regex="1" starts_block="1" mayfold="1" autocomplete_string="then" highlight="vbs-keyword" />
+	<element pattern="end[\ \t]+if" is_regex="1" ends_block="1" mayfold="1" autocomplete_string="end if" highlight="vbs-keyword" blockstartelement="e.vbs.then" />
 	<element pattern="then" highlight="vbs-keyword" />
 	
-	<element pattern="with" starts_block="1" mayfold="1" />
-	<element id="end with" pattern="end[\ \t]+with" is_regex="1" ends_block="1" blockstartelement="with" mayfold="1" autocomplete_string="end with" />
-	<element pattern="select" starts_block="1" mayfold="1" />
-	<element id="end select" pattern="end[\ \t]+select" is_regex="1" ends_block="1" blockstartelement="select" mayfold="1" autocomplete_string="end select" />
-	<element pattern="class" starts_block="1" mayfold="1" />
-	<element id="end class" pattern="end[\ \t]+class" is_regex="1" ends_block="1" blockstartelement="class" mayfold="1" autocomplete_string="end class" />
+	<element id="e.vbs.with" pattern="with" starts_block="1" mayfold="1" />
+	<element pattern="end[\ \t]+with" is_regex="1" ends_block="1" blockstartelement="e.vbs.with" mayfold="1" autocomplete_string="end with" />
+	<element id="e.vbs.select" pattern="select" starts_block="1" mayfold="1" />
+	<element pattern="end[\ \t]+select" is_regex="1" ends_block="1" blockstartelement="e.vbs.select" mayfold="1" autocomplete_string="end select" />
+	<element id="e.vbs.class" pattern="class" starts_block="1" mayfold="1" />
+	<element pattern="end[\ \t]+class" is_regex="1" ends_block="1" blockstartelement="e.vbs.class" mayfold="1" autocomplete_string="end class" />
 </group>
 
 <element pattern="\.?[a-zA-Z][a-zA-Z_0-9]*[\$%]?" is_regex="1" highlight="vbs-variable"/>
@@ -134,12 +134,12 @@
 		<element pattern="&#34;" highlight="vbs-string" ends_context="1" />
 	</context>
 </element>
-<element id="vbs-comment" pattern="'" highlight="vbs-comment">
+<element pattern="'" highlight="vbs-comment">
 	<context symbols="&#10;&#13;&gt;&lt; " highlight="vbs-comment">
 		<element pattern="[&#10;&#13;]" is_regex="1" highlight="vbs-comment" ends_context="1" />
 	</context>
 </element>
-<element id="vbs-rem" pattern="rem " highlight="vbs-comment" case_insens="1">
+<element pattern="rem " highlight="vbs-comment" case_insens="1">
 	<context symbols="&#10;&#13;&gt;&lt; " highlight="vbs-comment">
 		<element pattern="[&#10;&#13;]" is_regex="1" highlight="vbs-comment" ends_context="1" />
 	</context>
