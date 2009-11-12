@@ -28,13 +28,13 @@
 	<context symbols=" &#9;&#10;&#13;{}.;">
 		<element pattern="scroll" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="fixed" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-		<element id="css;" pattern=";" ends_context="1"/>
-		<element id="css}" pattern="}" ends_block="1" blockstartelement="css:bracket" highlight="brackets" ends_context="2"/>
+		<element id="e.css.end" pattern=";" ends_context="1"/>
+		<element id="e.css.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
 	</context>
 </element>
 <element pattern="background-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 	<reference>Sets the background color of an element</reference>
-	<context id="color" symbols=" &#9;&#10;&#13;{}.;">
+	<context id="c.css.color" symbols=" &#9;&#10;&#13;{}.;">
 		<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
 		<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
 		<group highlight="css-value" autocomplete="1" autocomplete_append=";">
@@ -56,8 +56,8 @@
 			<element pattern="white"/>
 			<element pattern="yellow"/>
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="background-image" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -77,8 +77,8 @@
 			<element pattern="bottom center" />
 			<element pattern="bottom right" />
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="background-repeat" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -90,12 +90,12 @@
 			<element pattern="repeat-y" />
 			<element pattern="no-repeat" />
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="border-bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context id="border-width" symbols=" &#9;&#10;&#13;{}.;">
+	<context id="c.css.border_width" symbols=" &#9;&#10;&#13;{}.;">
 		<group autocomplete="1" highlight="css-value" autocomplete_append=";">
 			<element pattern="thin"/>
 			<element pattern="medium"/>
@@ -104,15 +104,15 @@
 		<element pattern="[0-9]+em" is_regex="1" highlight="css-value" autocomplete_string=" em;"/>
 		<element pattern="[0-9]+ex" is_regex="1" highlight="css-value" autocomplete_string=" ex;"/>
 		<element pattern="[0-9]+px" is_regex="1" highlight="css-value" autocomplete_string=" px;"/>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="border-bottom-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context id="color" />
+	<context idref="c.css.color" />
 </element>
 <element pattern="border-bottom-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context id="border-style" symbols=" &#9;&#10;&#13;{}.;">
+	<context id="c.css.border_style" symbols=" &#9;&#10;&#13;{}.;">
 		<group autocomplete="1" highlight="css-value" autocomplete_append=";">
 			<element pattern="none"/>
 			<element pattern="hidden"/>
@@ -125,70 +125,70 @@
 			<element pattern="inset"/>
 			<element pattern="outset"/>
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>	
 </element>
 <element pattern="border-bottom-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="border-width" />
+	<context idref="c.css.border_width" />
 </element>
 <element pattern="border-collapse" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="border-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="color" />
+	<context idref="c.css.color" />
 </element>
 <element pattern="border-left" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="border-left-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="color" />
+	<context idref="c.css.color" />
 </element>
 <element pattern="border-left-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="border-style" />
+	<context idref="c.css.border_style" />
 </element>
 <element pattern="border-left-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="border-width" />
+	<context idref="c.css.border_width" />
 </element>
 <element pattern="border-right" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="border-right-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="color" />
+	<context idref="c.css.color" />
 </element>
 <element pattern="border-right-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="border-style" />
+	<context idref="c.css.border_style" />
 </element>
 <element pattern="border-right-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="border-width" />
+	<context idref="c.css.border_width" />
 </element>
 <element pattern="border-spacing" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="border-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="border-style" />
+	<context idref="c.css.border_style" />
 </element>
 <element pattern="border-top" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="border-top-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="color" />
+	<context idref="c.css.color" />
 </element>
 <element pattern="border-top-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="border-style" />
+	<context idref="c.css.border_style" />
 </element>
 <element pattern="border-top-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="border-width" />
+	<context idref="c.css.border_width" />
 </element>
 <element pattern="border-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="border-width" />
+	<context idref="c.css.border_width" />
 </element>
 <element pattern="border" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 	<reference>A shorthand property for setting the properties border-width, border-style, and border-color for the four borders in one declaration</reference>
 	<!-- TODO: The following does not work! -->
-	<!--<context idref="border-style" />
-	<context idref="color" />-->
+	<!--<context idref="c.css.border_style" />
+	<context idref="c.css.color" />-->
 </element>
 <element pattern="bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context id="box_offsets" symbols=" &#9;&#10;&#13;{}.;">
+	<context id="c.css.box_offsets" symbols=" &#9;&#10;&#13;{}.;">
 		<element pattern="auto" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="[0-9]+em" is_regex="1" highlight="css-value" autocomplete_string=" em;"/>
 		<element pattern="[0-9]+ex" is_regex="1" highlight="css-value" autocomplete_string=" ex;"/>
 		<element pattern="[0-9]+px" is_regex="1" highlight="css-value" autocomplete_string=" px;"/>
 		<element pattern="[0-9]+%" is_regex="1" highlight="css-value" autocomplete_string=" %;"/>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="clear" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -200,14 +200,14 @@
 			<element pattern="none"/>
 			<element pattern="inherit"/>
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="clip" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 	<reference><b>color</b> describes the foreground color of an element's text content.</reference>
-	<context idref="color" />
+	<context idref="c.css.color" />
 </element>
 <element pattern="content" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 	<context symbols=" &#9;&#10;&#13;{}.;">
@@ -223,8 +223,8 @@
 				<element pattern="&quot;" highlight="css-string" ends_context="1" />
 			</context>
 		</element>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="counter-increment" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
@@ -252,8 +252,8 @@
 			<element pattern="none"/>
 			<element pattern="inherit"/>
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="empty-cells" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -262,20 +262,20 @@
 		<element pattern="show"/>
 		<element pattern="hide"/>
 	</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>					
 </element>
 <element pattern="float" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context id="float" symbols=" &#9;&#10;&#13;{}.;">
+	<context id="c.css.float" symbols=" &#9;&#10;&#13;{}.;">
 		<group highlight="css-value" autocomplete="1" autocomplete_append=";">
 			<element pattern="left"/>
 			<element pattern="right"/>
 			<element pattern="none"/>
 			<element pattern="inherit"/>
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="font" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -297,8 +297,8 @@
 			<element pattern="smaller"/>
 		</group>
 		<element pattern="[0-9]+[ &#9;]*(pt|em|px|%)" is_regex="1" highlight="css-value" />
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="font-size-adjust" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -320,8 +320,8 @@
 			<element pattern="extra-expanded"/>
 			<element pattern="ultra-expanded"/>
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="font-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -331,16 +331,16 @@
 			<element pattern="italic"/>
 			<element pattern="oblique"/>
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="font-variant" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 	<context symbols=" &#9;&#10;&#13;{}.;">
 		<element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="small-caps" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>	
 <element pattern="font-weight" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -350,13 +350,13 @@
 		<element pattern="bolder" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="lighter" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="(100|200|300|400|500|600|700|800|900)" highlight="css-value" />
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>	
 <element pattern="height" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="box_offsets" />
+	<context idref="c.css.box_offsets" />
 </element>
 <element pattern="letter-spacing" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="line-height" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
@@ -366,8 +366,8 @@
 <context symbols=" &#9;&#10;&#13;{}.;">
 		<element pattern="inside" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="outside" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="list-style-type" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -388,47 +388,47 @@
 		<element pattern="upper-alpha" />
 		<element pattern="none" />
 	</group>
-	<element idref="css;" />
-	<element idref="css}" />
+	<element idref="e.css.end" />
+	<element idref="e.css.lbrace" />
 </context>
 </element>
 <element pattern="margin" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>If there is only one value, it applies to all sides. If there are two values, the top and bottom margins are set to the first value and the right and left margins are set to the second. If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom is set to the third. If there are four values, they apply to the top, right, bottom, and left, respectively. </reference>
 </element>
 <element pattern="margin-bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context id="length-percentage" symbols=" &#9;&#10;&#13;{}.;">
+	<context id="c.css.length_percentage" symbols=" &#9;&#10;&#13;{}.;">
 		<element pattern="[0-9]+em" is_regex="1" highlight="css-value" autocomplete_string=" em;"/>
 		<element pattern="[0-9]+ex" is_regex="1" highlight="css-value" autocomplete_string=" ex;"/>
 		<element pattern="[0-9]+px" is_regex="1" highlight="css-value" autocomplete_string=" px;"/>
 		<element pattern="[0-9]+%" is_regex="1" highlight="css-value" autocomplete_string=" %;"/>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="margin-left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-<context idref="length-percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="margin-right" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-<context idref="length-percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="margin-top" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-<context idref="length-percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="max-height" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-<context idref="length-percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="max-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-<context idref="length-percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="min-height" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-<context idref="length-percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="min-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-<context idref="length-percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="outline" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="outline-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="color" />
+	<context idref="c.css.color" />
 </element>
 <element pattern="outline-style" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="outline-width" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
@@ -438,24 +438,24 @@
 		<element pattern="hidden" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="scroll" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="auto" highlight="css-value" autocomplete_append=";"/>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="padding" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>If there is only one value, it applies to all sides. If there are two values, the top and bottom paddings are set to the first value and the right and left paddings are set to the second. If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom is set to the third. If there are four values, they apply to the top, right, bottom, and left, respectively.</reference>
 </element>
 <element pattern="padding-bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-<context idref="length-percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="padding-left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-<context idref="length-percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="padding-right" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-<context idref="length-percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="padding-top" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-<context idref="length-percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="position" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 	<reference><b>position</b>: The 'position' and 'float' properties determine which of the CSS2 positioning algorithms is used to calculate the position of a box</reference>
@@ -474,21 +474,21 @@ relative </reference>
 			<reference><b>fixed</b>: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. In the case of continuous media, the box is fixed with respect to the viewport (and doesn't move when scrolled). In the case of paged media, the box is fixed with respect to the page, even if that page is seen through a viewport (in the case of a print-preview, for example). Authors may wish to specify 'fixed' in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page.</reference>
 		</element>
 		<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="quotes" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="right" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="box_offsets" />
+	<context idref="c.css.box_offsets" />
 </element>
 <element pattern="table-layout" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <context symbols=" &#9;&#10;&#13;{}.;"><group autocomplete="1" highlight="css-value" autocomplete_append=";">
 		<element pattern="fixed"/>
 		<element pattern="auto"/>
 	</group>
-	<element idref="css;" />
-	<element idref="css}" />
+	<element idref="e.css.end" />
+	<element idref="e.css.lbrace" />
 </context>
 </element>
 <element pattern="text-align" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -500,8 +500,8 @@ relative </reference>
 			<element pattern="center"/>
 			<element pattern="justify"/>
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="text-decoration" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -516,8 +516,8 @@ relative </reference>
 				<reference>Text blinks (alternates between visible and invisible). Conforming user agents are not required to support this value.</reference>
 			</element>
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="text-indent" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -535,12 +535,12 @@ relative </reference>
 			<element pattern="uppercase"/>
 			<element pattern="lowercase"/>
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>	
 </element>
 <element pattern="top" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="box_offsets" />
+	<context idref="c.css.box_offsets" />
 </element>
 <element pattern="vertical-align" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 	<context symbols=" &#9;&#10;&#13;{}.;">
@@ -558,8 +558,8 @@ relative </reference>
 			<element pattern="bottom"/>
 		</group>
 		<!-- percentage and length are missing now!!! -->
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="visibility" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -570,8 +570,8 @@ relative </reference>
 			<element pattern="collapse"/>
 			<element pattern="inherit"/>
 		</group>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>
 </element>
 <element pattern="white-space" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -582,12 +582,12 @@ relative </reference>
 		<element pattern="nowrap" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="pre-wrap" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="pre-line" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-		<element idref="css;" />
-		<element idref="css}" />
+		<element idref="e.css.end" />
+		<element idref="e.css.lbrace" />
 	</context>		
 </element>
 <element pattern="width" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="word-spacing" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context idref="length-percentage" />
+	<context idref="c.css.length_percentage" />
 </element>
 <element pattern="z-index" autocomplete="1" highlight="css-property" autocomplete_append=": "/>

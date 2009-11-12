@@ -20,12 +20,12 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<element pattern="(" id="js(" starts_block="1" highlight="js-brackets" />
-<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="js(" />
-<element pattern="{" id="js{" starts_block="1" highlight="js-brackets" />
-<element pattern="}" highlight="js-brackets" ends_block="1" blockstartelement="js{" />
-<element pattern="[" id="js[" starts_block="1" highlight="js-brackets" />
-<element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="js[" />
+<element pattern="(" id="e.js.lparen" starts_block="1" highlight="js-brackets" />
+<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.js.lparen" />
+<element pattern="{" id="e.js.lbrace" starts_block="1" highlight="js-brackets" />
+<element pattern="}" highlight="js-brackets" ends_block="1" blockstartelement="e.js.lbrace" />
+<element pattern="[" id="e.js.lbracket" starts_block="1" highlight="js-brackets" />
+<element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="e.js.lbracket" />
 <!-- JavaScript Keywords -->
 <group highlight="js-keyword" autocomplete="1">
 	<element pattern="break" />
@@ -512,15 +512,15 @@
 		<element pattern="'" highlight="js-string" ends_context="1" />
 	</context>
 </element>
-<element id="js//" pattern="//" highlight="js-comment">
+<element id="e.js.linecomment" pattern="//" highlight="js-comment">
 	<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
 		<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
-		<element pattern="&lt;/script&gt;" case_insens="1" highlight="tag" ends_context="3" ends_block="1" blockstartelement="script"/>
+		<element pattern="&lt;/script&gt;" case_insens="1" highlight="html-tag" ends_context="3" ends_block="1" blockstartelement="t.html.script"/>
 	</context>
 </element>
-<element id="js/*" pattern="/*" starts_block="1" highlight="js-comment">
+<element id="e.js.lcomment" pattern="/*" starts_block="1" highlight="js-comment">
 	<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
-		<element pattern="*/" ends_block="1" blockstartelement="js/*" highlight="js-comment" mayfold="1" ends_context="1" />
-		<element pattern="&lt;/script&gt;" case_insens="1" highlight="tag" ends_context="3" ends_block="1" blockstartelement="script"/>
+		<element pattern="*/" ends_block="1" blockstartelement="e.js.lcomment" highlight="js-comment" mayfold="1" ends_context="1" />
+		<element pattern="&lt;/script&gt;" case_insens="1" highlight="html-tag" ends_context="3" ends_block="1" blockstartelement="t.html.script"/>
 	</context>
 </element>
