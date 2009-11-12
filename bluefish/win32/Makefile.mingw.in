@@ -54,3 +54,5 @@ installer: install strip prepare
 
 clean:
 	$(RM) -r Makefile.mingw $(BUILD_DIR)
+
+.NOTPARALLEL:
