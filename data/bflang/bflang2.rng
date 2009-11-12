@@ -156,6 +156,7 @@
 			<choice>
 				<group>
 					<attribute name="symbols">
+						<a:documentation>A string of characters that are all 'symbol' characters for this context. A 'symbol' character is a character that may start or end the next match. Usually all spacing is a symbol, and in programming languages all operators are symbols.</a:documentation>
 						<data type="string"/>
 					</attribute>
 					<optional>
@@ -168,23 +169,23 @@
 							<data type="ID"/>
 						</attribute>
 					</optional>
-					<optional>
+<!--	DEPRECATED				<optional>
 						<attribute name="spellcheck" a:defaultValue="0">
 							<data type="boolean"/>
 						</attribute>
-					</optional>
+					</optional>-->
 				</group>
 				<attribute name="idref">
 					<data type="IDREF"/>
 				</attribute>
 			</choice>
-			<zeroOrMore>
+			<oneOrMore>
 				<choice>
 					<ref name="element.element"/>
 					<ref name="element.group"/>
 					<ref name="element.tag"/>
 				</choice>
-			</zeroOrMore>
+			</oneOrMore>
 			<empty/>
 		</element><!-- context -->
 	</define>
@@ -295,13 +296,13 @@
 					<data type="boolean"/>
 				</attribute>
 			</optional>
-			<zeroOrMore>
+			<oneOrMore>
 				<choice>
 					<ref name="element.element"/>
 					<ref name="element.group"/>
 					<ref name="element.tag"/>
 				</choice>
-			</zeroOrMore>
+			</oneOrMore>
 			<empty/>
 		</element><!-- group -->
 	</define>

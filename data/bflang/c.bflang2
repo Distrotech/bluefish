@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="C" matches="2503" contexts="5" table="13953">
+<bflang name="C" matches="2503" contexts="5" table="13953" xmlns="http://bluefish.openoffice.nl/ns/bflang/2.0">
 <header>
 	<mime type="text/x-csrc"/>
 	<mime type="text/x-chdr"/>
@@ -42,7 +42,7 @@
 	<highlight name="glib-type" style="special-type" />	
 </header>
 <properties>
-	<comment id="/**/" type="block" start="/*" end="*/" />
+	<comment type="block" start="/*" end="*/" />
 	<smartindent characters="{" />
 </properties>
 <definition>
@@ -2547,26 +2547,26 @@
 </group>
 <element pattern="NULL" autocomplete="1" highlight="value" />
 <element pattern="&#34;" highlight="string">
-	<context symbols="\&#34;nrt" highlight="string" spellcheck="1">
+	<context symbols="\&#34;nrt" highlight="string">
 		<element pattern="\\." is_regex="1" highlight="string" />
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
 <element pattern="'" highlight="string">
-	<context symbols="\'" highlight="string" spellcheck="1">
+	<context symbols="\'" highlight="string" >
 		<element pattern="\\." is_regex="1" highlight="string" />
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-		<element id="{" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
-		<element id="[" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
-		<element id="(" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
-		<element id="commstart" pattern="/*" starts_block="1" highlight="comment">
-			<context symbols="*/&#9;&#10;&#13;" highlight="comment" spellcheck="1">
-				<element pattern="*/" ends_block="1" blockstartelement="commstart" highlight="comment" mayfold="1" ends_context="1" />
+		<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
+		<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
+		<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+		<element id="e.lcomment" pattern="/*" starts_block="1" highlight="comment">
+			<context symbols="*/&#9;&#10;&#13;" highlight="comment" >
+				<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
 			</context>
 		</element>
 		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
@@ -2577,6 +2577,7 @@
 			<element idref="commstart" />	
 		</context>
 	</element> -->
+
 	</context>
 </definition>
 </bflang>
