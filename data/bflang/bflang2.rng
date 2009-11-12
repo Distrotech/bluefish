@@ -73,7 +73,7 @@
 								<data type="ID"/>
 							</attribute>
 							<attribute name="style">
-								<a:documentation>Language parser style</a:documentation>
+								<a:documentation>Highlight style (pre-defined)</a:documentation>
 								<choice>
 									<value type="token">attribute</value>
 									<a:documentation>(usually) SGML/XML tag attributes</a:documentation>
@@ -106,7 +106,7 @@
 									<value type="token">special-value</value>
 									<a:documentation></a:documentation>
 									<value type="token">string</value>
-									<a:documentation></a:documentation>
+									<a:documentation>Strings, usually inside quotation marks</a:documentation>
 									<value type="token">tag</value>
 									<a:documentation>(usually) SGML/XML tags</a:documentation>
 									<value type="token">type</value>
@@ -154,9 +154,9 @@
 								<empty/>
 							</element><!-- comment -->
 							<element name="smartindent">
-								<a:documentation>Specify characters (followed by a return) that should increase the indenting.</a:documentation>
+								<a:documentation>Specify which characters (followed by a return) should increase the indenting.</a:documentation>
 								<attribute name="characters">
-									<a:documentation>Characters</a:documentation>
+									<a:documentation>List of characters</a:documentation>
 									<data type="string"/>
 								</attribute>
 								<empty/>
@@ -227,7 +227,7 @@
 			<choice>
 				<group>
 					<attribute name="pattern">
-						<a:documentation>Pattern: keyword, function, string, regular expression</a:documentation>
+						<a:documentation>Pattern: keyword, function, string, regular expression (limited)</a:documentation>
 						<data type="string"/>
 					</attribute>
 					<ref name="bf.attribute.autocomplete.element"/>
@@ -343,7 +343,9 @@
 						<group>
 							<attribute name="attributes">
 								<a:documentation>List of comma-separated attributes</a:documentation>
-								<data type="string"/><!-- TODO: more like a list with commata? -->
+								<data type="string">
+									<param name="pattern">[a-zA-Z0-9][a-zA-Z0-9:,-_]+</param>
+								</data><!-- TODO: more like a list with commata? -->
 							</attribute>
 							<ref name="bf.attribute.attribhighlight"/>
 						</group>
@@ -390,7 +392,7 @@
 
 	<define name="bf.element.reference">
 		<element name="reference">
-		<a:documentation>The reference contains a description of elements or tags and must only contain valid PANGO markup and text accordingly to <a href="http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html">http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html</a>. For the moment PANGO markup is not checked for validity!</a:documentation>
+		<a:documentation>The reference contains a description of elements or tags and must only contain valid PANGO markup and text according to <a href="http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html">http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html</a>. For the moment PANGO markup is not checked for validity!</a:documentation>
 			<zeroOrMore>
 				<choice>
 					<text/>
@@ -426,12 +428,6 @@
 
 	<define name="bf.attribute.autocomplete.attribute">
 		<optional>
-			<attribute name="attrib_autocomplete" a:defaultValue="0">
-				<a:documentation>Enable ('1') or disable ('0') autocompletion feature for attribute</a:documentation>
-				<data type="boolean"/>
-			</attribute>
-		</optional>
-		<optional>
 			<attribute name="attrib_autocomplete_append">
 				<a:documentation>Automatically appended string to attribute</a:documentation>
 				<data type="string"/>
@@ -439,7 +435,7 @@
 		</optional>
 		<optional>
 			<attribute name="attrib_autocomplete_backup_cursor">
-				<a:documentation>TODO</a:documentation>
+				<a:documentation>Set cursor position after auto-completion of attribute back by X characters</a:documentation>
 				<data type="positiveInteger"/>
 			</attribute>
 		</optional>
@@ -448,13 +444,13 @@
 	<define name="bf.attribute.autocomplete.extended">
 		<optional>
 			<attribute name="autocomplete_string">
-				<a:documentation>TODO</a:documentation>
+				<a:documentation>Auto-complete regular expression with this string</a:documentation>
 				<data type="string"/>
 			</attribute>
 		</optional>
 		<optional>
 			<attribute name="autocomplete_backup_cursor">
-				<a:documentation>TODO</a:documentation>
+				<a:documentation>Set cursor position after auto-completion back by X characters</a:documentation>
 				<data type="positiveInteger"/>
 			</attribute>
 		</optional>
