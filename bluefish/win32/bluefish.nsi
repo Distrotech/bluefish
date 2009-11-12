@@ -3,6 +3,7 @@
 ; 
 ;  The Bluefish Developers
 ;   Shawn Novak <Kernel86@gmail.com>
+;   Daniel Leidert <daniel.leidert@wgdd.de>
 ; 
 ;----------------------------------------------
 
@@ -69,6 +70,7 @@ Var FA_SelectAll
 Name						"${PRODUCT} v${VERSION}"
 OutFile					"${PRODUCT}-${VERSION}-setup.exe"
 InstallDir				"$PROGRAMFILES\${PRODUCT}"
+InstallDirRegKey		HKLM "${REG_USER_SET}" ""
 
 ; Tell Windows Vista and Windows 7 that we need admin rights to install
 RequestExecutionLevel admin
@@ -243,6 +245,8 @@ Section "Bluefish Editor" SecBluefish
 	WriteUninstaller "$INSTDIR\${UNINSTALL_EXE}"
 	SetOverwrite off
 
+	WriteRegStr HKLM "${REG_USER_SET}" "" "$INSTDIR"
+	WriteRegStr HKLM "${REG_USER_SET}" "Version" "${VERSION}"
 	WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayName" 		"${PRODUCT} ${VERSION}"
 	WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayIcon" 		"$INSTDIR\bluefish.ico"
 	WriteRegStr HKLM "${REG_UNINSTALL}" "UninstallString" "$INSTDIR\${UNINSTALL_EXE}"
@@ -405,6 +409,7 @@ Section "Uninstall"
 
 	Call un.UnRegisterFileTypes
 
+	DeleteRegKey HKLM "${REG_USER_SET}"
 	DeleteRegKey HKLM "${REG_UNINSTALL}"
 SectionEnd
 
