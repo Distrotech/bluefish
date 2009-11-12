@@ -250,7 +250,7 @@
 								<attribute name="blockstartelement">
 									<a:documentation>ID of element containing start-pattern of block to end</a:documentation>
 									<data type="IDREF">
-										<param name="pattern">e\.[a-zA-Z0-9_.]+</param>
+										<param name="pattern">[et]\.[a-zA-Z0-9_.]+</param>
 									</data>
 								</attribute>
 							</group>
@@ -263,9 +263,9 @@
 						</attribute>
 					</optional>
 					<optional>
-						<attribute name="ends_context" a:defaultValue="0">
-							<a:documentation>Pattern ends a preceding context ('1')</a:documentation>
-							<data type="boolean"/>
+						<attribute name="ends_context">
+							<a:documentation>Number of contexts to be ended</a:documentation>
+							<data type="positiveInteger"/>
 						</attribute>
 					</optional>
 					<optional>
