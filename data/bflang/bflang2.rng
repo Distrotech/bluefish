@@ -269,6 +269,12 @@
 						</attribute>
 					</optional>
 					<optional>
+						<attribute name="tagclose_from_blockstack">
+							<a:documentation>This is a special attribute that is only used for generic XML highlighting, and only for the element that starts the generic xml tag pattern. It enables automatic closure of the generic tag.</a:documentation>
+							<data type="boolean" a:defaultValue="0"/>
+						</attribute>
+					</optional>
+					<optional>
 						<attribute name="id">
 							<data type="ID">
 								<a:documentation>ID to reuse element</a:documentation>
@@ -366,16 +372,16 @@
 					</optional>
 					<optional>
 						<attribute name="sgml_shorttag" a:defaultValue="0">
-							<a:documentation>Enable SGML Shorttags ('1')</a:documentation>
+							<a:documentation>The tag does not need to be closed, like SGML Shorttags ('1'). This is currently only used in HTML for tags like &lt;br&gt;.</a:documentation>
 							<data type="boolean"/>
 						</attribute>
 					</optional>
 					<zeroOrMore>
 						<choice>
 							<ref name="bf.element.context"/>
-							<ref name="bf.element.group"/>
+							<!--<ref name="bf.element.group"/>-->
 							<ref name="bf.element.reference"/>
-							<ref name="bf.element.tag"/>
+							<!--<ref name="bf.element.tag"/>-->
 						</choice>
 					</zeroOrMore>
 				</group>
