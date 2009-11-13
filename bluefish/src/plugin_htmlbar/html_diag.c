@@ -374,7 +374,7 @@ GtkWidget *generic_table_inside_notebookframe(GtkWidget *notebook, const gchar *
 void generic_class_id_style_section(Thtml_diag *dg, gint firstattrwidget, GtkWidget *dgtable, gint firstrowintable, gchar **tagvalues, gint firsttagvalue) {
 	GtkWidget *but;
 
-	dg->attrwidget[firstattrwidget] = combo_with_popdown(tagvalues[firsttagvalue], dg->bfwin->session->classlist, 1);
+	dg->attrwidget[firstattrwidget] = combobox_with_popdown(tagvalues[firsttagvalue], dg->bfwin->session->classlist, 1);
 	bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->attrwidget[firstattrwidget], 0, 0.5, dgtable, 0, 1, firstrowintable+0, firstrowintable+1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[firstattrwidget], 1, 3, firstrowintable+0, firstrowintable+1);
 

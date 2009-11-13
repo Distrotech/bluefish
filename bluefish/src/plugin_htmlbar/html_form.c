@@ -108,15 +108,15 @@ static void formok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	gchar *thestring, *finalstring;
 
 	thestring = g_strdup(cap("<FORM"));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[4])->entry), cap("ACTION"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("METHOD"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), cap("ENCTYPE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry), cap("TARGET"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[4])->child), cap("ACTION"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("METHOD"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("ENCTYPE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[3])->child), cap("TARGET"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[2]), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
-	bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry));
+	bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(GTK_BIN(dg->combo[3])->child));
 	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, cap("</FORM>"));
 	} else {
@@ -151,27 +151,27 @@ void formdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	tmplist = duplicate_stringlist(bfwin->session->urllist, 1);
 	rel_link_list = g_list_concat(tmplist, rel_link_list);
 
-	dg->combo[4] = combo_with_popdown(tagvalues[0], rel_link_list, 1);
+	dg->combo[4] = combobox_with_popdown(tagvalues[0], rel_link_list, 1);
 
 	free_stringlist(rel_link_list);
 	}
 	
 	bf_mnemonic_label_tad_with_alignment(_("_Action:"), dg->combo[4], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 1, 8, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[4])->entry), 0, bfwin), 8, 10, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), file_but_new(GTK_WIDGET(GTK_BIN(dg->combo[4])->child), 0, bfwin), 8, 10, 0, 1);
 	
 	methodlist = g_list_append(methodlist, cap("GET"));
 	methodlist = g_list_append(methodlist, cap("POST"));
-	dg->combo[1] = combo_with_popdown(tagvalues[1], methodlist, 1);
+	dg->combo[1] = combobox_with_popdown(tagvalues[1], methodlist, 1);
 	g_list_free(methodlist);
 	bf_mnemonic_label_tad_with_alignment(_("Metho_d:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 2, 1, 2);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 2, 1, 2);
 
 	/* I need to add more types */
 	enctypelist = g_list_append(enctypelist, "application/x-www-form-urlencoded");
 	enctypelist = g_list_append(enctypelist, "multipart/form-data");
 	enctypelist = g_list_append(enctypelist, "text/plain");
-	dg->combo[2] = combo_with_popdown(tagvalues[2], enctypelist, 1);
+	dg->combo[2] = combobox_with_popdown(tagvalues[2], enctypelist, 1);
 	g_list_free(enctypelist);
 	bf_mnemonic_label_tad_with_alignment(_("_Enctype:"), dg->combo[2], 0, 0.5, dgtable, 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[2]), 4, 10, 1, 2);
@@ -179,9 +179,9 @@ void formdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	bfwin->session->targetlist = add_to_stringlist(bfwin->session->targetlist, "_top");
 	bfwin->session->targetlist = add_to_stringlist(bfwin->session->targetlist, "_blank");
 	bfwin->session->targetlist = add_to_stringlist(bfwin->session->targetlist, "_parent");
-	dg->combo[3] = combo_with_popdown(tagvalues[3], bfwin->session->targetlist, 1);
+	dg->combo[3] = combobox_with_popdown(tagvalues[3], bfwin->session->targetlist, 1);
 	bf_mnemonic_label_tad_with_alignment(_("_Target:"), dg->combo[3], 0, 0.5, dgtable, 0, 1, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[3])), 1, 10, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 1, 10, 2, 3);
 
 	dg->entry[2] = entry_with_text(custom, 1024);
 	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
@@ -325,7 +325,7 @@ static void buttondialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	thestring = g_strdup(cap("<INPUT"));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);	
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("TYPE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[1])->child)), cap("TYPE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
 
 	if (main_v->props.xhtml == 1) {
@@ -368,7 +368,7 @@ void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	tmplist = g_list_append(tmplist, "submit");
 	tmplist = g_list_append(tmplist, "reset");
 	tmplist = g_list_append(tmplist, "button");
-	dg->combo[1] = combo_with_popdown((tagvalues[2] == NULL || tagvalues[2][0] == '\0') ? "submit" : tagvalues[2], tmplist, 0);
+	dg->combo[1] = combobox_with_popdown((tagvalues[2] == NULL || tagvalues[2][0] == '\0') ? "submit" : tagvalues[2], tmplist, 0);
 	g_list_free(tmplist);
 	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 9, 2, 3);
@@ -705,9 +705,9 @@ void optgroupdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
 	gchar *thestring, *finalstring;
 	const char *text;
-	text = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[0])->entry));
+	text = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dg->combo[0])->child));
 	thestring = g_strdup(cap("<INPUT"));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[0])->entry), cap("TYPE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[0])->child), cap("TYPE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[0]), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[1]), cap("VALUE"), thestring, NULL);
 	if (strcmp(text, "radio")==0 || strcmp(text, "checkbox")==0) {
@@ -722,7 +722,7 @@ static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
 	if (strcmp(text, "file")==0) {
 		thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[2]), cap("ACCEPT"), thestring, NULL);
 	}
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[0])->entry), cap("CLASS"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[0])->child), cap("CLASS"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[1]), cap("ID"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[2]), cap("STYLE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[3]), cap("ONFOCUS"), thestring, NULL);
@@ -742,10 +742,10 @@ static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
 	html_diag_destroy_cb(NULL, dg);
 }
 
-static void inputdialog_typecombo_activate_lcb(GtkList *list, Thtml_diag *dg) {
+static void inputdialog_typecombo_activate_lcb(GtkWidget *widget, Thtml_diag *dg) {
 	/* hmm this function should check if the window is being destroyed... */
 	if (!dg->tobedestroyed) {
-		const gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(dg->combo[0])->entry));
+		const gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dg->combo[0])->child));
 		DEBUG_MSG("inputdialog_typecombo_activate_lcb, text=%s\n",text);
 		gtk_widget_set_sensitive(dg->check[0], (strcmp(text, "radio")==0 || strcmp(text, "checkbox")==0));
 		gtk_widget_set_sensitive(dg->spin[0], (strcmp(text, "hidden")!=0));
@@ -783,13 +783,13 @@ void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, const gchar *type) {
 		GList *poplist;
 		const gchar *type2 = (type) ? type : "text";
 		poplist = list_from_arglist(FALSE, "text", "password", "checkbox", "radio", "submit", "reset", "file", "hidden", "image", "button", NULL);
-		dg->combo[0] = combo_with_popdown(tagvalues[0] ? tagvalues[0] : type2, poplist, 0);
+		dg->combo[0] = combobox_with_popdown(tagvalues[0] ? tagvalues[0] : type2, poplist, 0);
 		g_list_free(poplist);
 	}
 	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[0], 0, 0.5, dgtable, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[0])), 1, 3, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[0])), 1, 3, 0, 1);
 
-	g_signal_connect(G_OBJECT(GTK_COMBO(dg->combo[0])->list), "selection-changed", G_CALLBACK(inputdialog_typecombo_activate_lcb), dg);
+	g_signal_connect(G_OBJECT(dg->combo[0]), "changed", G_CALLBACK(inputdialog_typecombo_activate_lcb), dg);
 
 	dg->entry[0] = entry_with_text(tagvalues[1], 256);
 	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[0], 0, 0.5, dgtable, 0, 1, 1, 2);
@@ -859,7 +859,7 @@ static void buttondialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	thestring = g_strdup(cap("<BUTTON"));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);	
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("TYPE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[1])->child)), cap("TYPE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
@@ -894,7 +894,7 @@ void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 9, 1, 2);
 	tmplist = list_from_arglist(FALSE, "", "submit", "reset", "button", NULL);
-	dg->combo[1] = combo_with_popdown(tagvalues[2], tmplist, 0);
+	dg->combo[1] = combobox_with_popdown(tagvalues[2], tmplist, 0);
 	g_list_free(tmplist);
 	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 9, 2, 3);
