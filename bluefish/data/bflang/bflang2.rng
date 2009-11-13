@@ -293,8 +293,6 @@
 					<zeroOrMore>
 						<choice>
 							<ref name="bf.element.context"/>
-							<ref name="bf.element.element"/>
-							<ref name="bf.element.group"/>
 							<ref name="bf.element.reference"/>
 						</choice>
 					</zeroOrMore>
