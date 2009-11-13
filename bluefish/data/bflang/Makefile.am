@@ -6,16 +6,15 @@ EXTRA_DIST = \
 
 MAINTAINERCLEANFILES = Makefile.in
 
-#bflangdtddir = $(datadir)/xml/$(PACKAGE)
-#bflangdtd_DATA = bflang.dtd catalog.xml
-
-bflang_DATA = \
+bflang_bfinc_files = \
 	all-html.bfinc \
 	all-javascript.bfinc \
 	all-php.bfinc \
 	all-vbscript.bfinc \
 	css-rules.bfinc \
-	css-selectors.bfinc \
+	css-selectors.bfinc
+
+bflang_bflang2_files = \
 	ada.bflang2 \
 	asp.bflang2 \
 	asp-vbscript.bflang2 \
@@ -42,7 +41,14 @@ bflang_DATA = \
 	xhtml.bflang2 \
 	xml.bflang2
 
+#bflangdtddir = $(datadir)/xml/$(PACKAGE)
+#bflangdtd_DATA = bflang.rng catalog.xml
+
 bflangdir = $(pkgdatadir)/bflang
+bflang_DATA = \
+	$(bflang_bfinc_files) \
+	$(bflang_bflang2_files) \
+	sample.bflang2
 
 #catalog.xml:
 #	$(XMLCATALOG) --noout --create \
@@ -50,7 +56,7 @@ bflangdir = $(pkgdatadir)/bflang
 #	  --add 'system' 'http://bluefish.openoffice.nl/DTD/bflang.dtd' 'bflang.dtd' \
 #	  --add 'rewriteURI' 'http://bluefish.openoffice.nl/DTD' '$(datadir)/xml/$(PACKAGE)' \
 #	  $@
-
+#
 #install-data-hook:
 #if REGISTER_XML_CATALOG
 #	$(XMLCATALOG) --noout \
@@ -66,9 +72,28 @@ bflangdir = $(pkgdatadir)/bflang
 #	$(XMLCATALOG) --noout --del 'http://bluefish.openoffice.nl/DTD'
 #endif #REGISTER_XML_CATALOG
 
-# rename to check-local later
-check-bflang2:
-	xmllint --noout --noent --relaxng http://relaxng.org/relaxng.rng $(srcdir)/bflang2.rng
-	for file in $(srcdir)/*.bflang2 ; do \
-		xmllint --noout --noent --relaxng $(srcdir)/bflang2.rng $(file) ; \
-	done
+#check-local: check-rng check-bflang2
+
+check-bflang2: $(bflang_bflang2_files)
+if HAVE_JING
+	$(JING) $(JING_FLAGS) $(srcdir)/bflang2.rng $^
+else
+if HAVE_XMLLINT
+	$(XMLLINT) $(XMLLINT_FLAGS) --noout --noent \
+	    --relaxng $(srcdir)/bflang2.rng $^
+else
+	@echo "Warning: RELAX NG schema not checked."
+endif
+endif
+
+check-rng: bflang2.rng
+if HAVE_JING
+	$(JING) $(JING_FLAGS) http://relaxng.org/relaxng.rng $<
+else
+if HAVE_XMLLINT
+	$(XMLLINT) $(XMLLINT_FLAGS) --noout --noent \
+	    --relaxng http://relaxng.org/relaxng.rng $<
+else
+	@echo "Warning: Bflang2 files not checked against RELAX NG schema."
+endif
+endif
