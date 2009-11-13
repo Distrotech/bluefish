@@ -552,7 +552,7 @@ if test "$exec_prefix" == "NONE"; then
 	AC_SUBST([exec_prefix])
 fi
 
-if test -n "$localedir"; then
+if test -z "$localedir"; then
 	localedir="${datadir}/locale"
 	AC_SUBST([localedir])
 fi
@@ -562,6 +562,8 @@ dnl *******************************
 dnl   Manpage macros
 dnl *******************************
 BF_PROG_MAN
+BF_PROG_JING
+BF_PROG_XMLLINT
 
 
 dnl *******************************
