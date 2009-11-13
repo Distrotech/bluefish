@@ -176,9 +176,9 @@
 			</optional>
 			<element name="definition">
 				<a:documentation>The region of the language file that actually defines the language. This region is only loaded when a file of this type is opened in the editor. A language definition always starts with a &lt;context&gt; tag.</a:documentation>
-				<oneOrMore>
+				<zeroOrMore>
 					<ref name="bf.element.context"/>
-				</oneOrMore>
+				</zeroOrMore>
 			</element><!-- definition -->
 			<empty/>
 		</element><!-- bflang -->
@@ -285,6 +285,12 @@
 					<optional>
 						<attribute name="mayfold">
 							<a:documentation>UNKNOWN / TODO</a:documentation>
+							<data type="boolean" a:defaultValue="0"/>
+						</attribute>
+					</optional>
+					<optional>
+						<attribute name="tagclose_from_blockstack">
+							<a:documentation>Context has XML end patterns that need autoclosing for generix xml tags ('1')</a:documentation>
 							<data type="boolean" a:defaultValue="0"/>
 						</attribute>
 					</optional>
