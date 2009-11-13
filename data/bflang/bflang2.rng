@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- <?xml-stylesheet type="text/xsl" href="" ?> -->
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
          xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         xmlns:xhtml="http://www.w3.org/1999/xhtml"
          xmlns:rng="http://relaxng.org/ns/structure/1.0"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
 
 	<!-- ns="http://bluefish.openoffice.nl/ns/bflang/2.0" -->
-	<a:documentation>RELAX NG flat schema for Bluefish Language Files (bflang) containing syntax highlighting and autocompletion information for the bluefish <a href="http://bluefish.openoffice.nl">Bluefish</a> editor.</a:documentation>
+	<a:documentation>RELAX NG flat schema for Bluefish Language Files (bflang) containing syntax highlighting and autocompletion information for the bluefish <xhtml:a href="http://bluefish.openoffice.nl">Bluefish</xhtml:a> editor.</a:documentation>
 
 	<start>
 		<element name="bflang">
@@ -396,7 +398,7 @@
 
 	<define name="bf.element.reference">
 		<element name="reference">
-		<a:documentation>The reference contains a description of elements or tags and must only contain valid PANGO markup and text according to <a href="http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html">http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html</a>. For the moment PANGO markup is not checked for validity!</a:documentation>
+		<a:documentation>The reference contains a description of elements or tags and must only contain valid PANGO markup and text according to <xhtml:a href="http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html">http://library.gnome.org/devel/pango/stable/PangoMarkupFormat.html</xhtml:a>. For the moment PANGO markup is not checked for validity!</a:documentation>
 			<zeroOrMore>
 				<choice>
 					<text/>
