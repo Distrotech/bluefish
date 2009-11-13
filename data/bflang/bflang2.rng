@@ -269,12 +269,6 @@
 						</attribute>
 					</optional>
 					<optional>
-						<attribute name="tagclose_from_blockstack">
-							<a:documentation>This is a special attribute that is only used for generic XML highlighting, and only for the element that starts the generic xml tag pattern. It enables automatic closure of the generic tag.</a:documentation>
-							<data type="boolean" a:defaultValue="0"/>
-						</attribute>
-					</optional>
-					<optional>
 						<attribute name="id">
 							<data type="ID">
 								<a:documentation>ID to reuse element</a:documentation>
@@ -290,7 +284,7 @@
 					</optional>
 					<optional>
 						<attribute name="tagclose_from_blockstack">
-							<a:documentation>Context has XML end patterns that need autoclosing for generix xml tags ('1')</a:documentation>
+							<a:documentation>Special attribute to enable automatic closure of the generic tags only used for generic XML highlighting, and only for the element that starts the generic xml tag pattern</a:documentation>
 							<data type="boolean" a:defaultValue="0"/>
 						</attribute>
 					</optional>
@@ -385,9 +379,7 @@
 					<zeroOrMore>
 						<choice>
 							<ref name="bf.element.context"/>
-							<!--<ref name="bf.element.group"/>-->
 							<ref name="bf.element.reference"/>
-							<!--<ref name="bf.element.tag"/>-->
 						</choice>
 					</zeroOrMore>
 				</group>
