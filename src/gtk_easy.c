@@ -268,6 +268,14 @@ void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox) {
 	DEBUG_MSG("integer_apply, config_var(%p)=%i\n", config_var, *config_var);
 }
 
+GtkWidget *combobox_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width) {
+	GtkWidget *returnwidget;
+	
+	returnwidget = combobox_with_popdown(setstring, which_list, editable);
+	gtk_widget_set_size_request(returnwidget, width , -1);
+	return returnwidget;
+}
+
 GtkWidget *boxed_combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable, GtkWidget *box) {
 	GtkWidget *returnwidget = combobox_with_popdown(setstring, which_list, editable);
 	gtk_box_pack_start(GTK_BOX(box), returnwidget, TRUE, TRUE, 3);
@@ -299,74 +307,6 @@ GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list, gb
 	}
 	/*gtk_combo_disable_activate(GTK_COMBO(returnwidget));
 	gtk_entry_set_activates_default (GTK_ENTRY (GTK_COMBO (returnwidget)->entry), TRUE);*/
-	return returnwidget;
-}
-
-/**
- * combo_with_popdown:
- * 	@setstring: #gchar* to set in textbox, if NULL it will be set ""
- * 	@which_list: #GList* to set in popdown widget
- * 	@editable: #gint if the combo should be editable (1 or 0)
- *
- * 	DEPRECATED Create new combo and preset some values
- *
- * Return value: #GtkWidget* pointer to created combo
- */
-GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint editable) {
-	GtkWidget *returnwidget;
-
-	returnwidget = gtk_combo_new();
-	gtk_combo_set_case_sensitive(GTK_COMBO(returnwidget),TRUE);
-	if (which_list != NULL) {
-		gtk_combo_set_popdown_strings(GTK_COMBO(returnwidget), which_list);
-	}
-	if (setstring != NULL) {
-		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(returnwidget)->entry), setstring);
-	} else {
-		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(returnwidget)->entry), "");
-	}
-	if (editable == 0) {
-		gtk_editable_set_editable(GTK_EDITABLE(GTK_ENTRY(GTK_COMBO(returnwidget)->entry)), FALSE);
-	}
-	gtk_combo_disable_activate(GTK_COMBO(returnwidget));
-	gtk_entry_set_activates_default (GTK_ENTRY (GTK_COMBO (returnwidget)->entry), TRUE);
-	return returnwidget;
-}
-/**
- * boxed_combo_with_popdown:
- * 	@setstring: #gchar* to set in textbox, if NULL it will be set ""
- * 	@which_list: #GList* to set in popdown widget
- * 	@editable: #gint if the combo should be editable (1 or 0)
- * @box: the #GtkWidget* box widget to add the combo to
- *
- * 	DEPRECATED create a new combo with presets like in combo_with_popdown()
- * and add it to the box
- *
- * Return value: #GtkWidget* pointer to created combo
- */
-GtkWidget *boxed_combo_with_popdown(const gchar * setstring, GList * which_list, gint editable, GtkWidget *box) {
-	GtkWidget *returnwidget;
-	
-	returnwidget = combo_with_popdown(setstring, which_list, editable);
-	gtk_box_pack_start(GTK_BOX(box), returnwidget, TRUE, TRUE, 3);
-	return returnwidget;
-}
-/**
- * combo_with_popdown_sized:
- * 	@setstring: #gchar* to set in textbox, if NULL it will be set ""
- * 	@which_list: #GList* to set in popdown widget
- * 	@editable: #gint if the combo should be editable (1 or 0)
- * @width: #gint with the width in pixels the widget should be
- *
- * 	Create new combo and preset some values, with a horizontal size
- *
- * Return value: #GtkWidget* pointer to created combo
- */
-GtkWidget *combo_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width) {
-	GtkWidget *returnwidget;
-	
-	returnwidget = combo_with_popdown(setstring, which_list, editable);
-	gtk_widget_set_size_request(returnwidget, width , -1);
 	return returnwidget;
 }
 
