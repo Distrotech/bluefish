@@ -1268,7 +1268,7 @@ static void generalfontdialog_lcb(gint type, GtkWidget * widget, Thtml_diag *dg)
   }
   if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->spin[1])))) {
     gchar *sizecombo, *tmpstr;
-    sizecombo = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(dg->combo[1])->child), 0, -1);
+    sizecombo = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[1]));
     if (strlen(sizecombo)) {
       tmpstr = g_strconcat(thestring, cap(" size=\"")
           ,sizecombo
@@ -1622,13 +1622,15 @@ void frameset_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 static void framedialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
   Tbfwin *bfwin = dg->bfwin;
-  gchar *thestring, *finalstring;
+  gchar *thestring, *finalstring, *tmp;
 
   thestring = g_strdup(cap("<FRAME"));
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("SRC"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("NAME"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[0])), cap("FRAMEBORDER"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[3])->child), cap("SCROLLING"), thestring, NULL);
+  tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[3]));
+  thestring = insert_string_if_string(tmp, cap("SCROLLING"), thestring, NULL);
+  g_free(tmp);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("MARGINWIDTH"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("MARGINHEIGHT"), thestring, NULL);
   thestring = insert_attr_if_checkbox(dg->check[1], cap("NORESIZE"), thestring);
