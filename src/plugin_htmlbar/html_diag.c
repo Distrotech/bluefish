@@ -282,22 +282,14 @@ void parse_integer_for_dialog(gchar * valuestring, GtkWidget * spin, GtkWidget *
 /********** DIALOG -> HTML FUNCTIONS *************/
 /*************************************************/
 
-gchar *insert_string_if_entry(GtkWidget * entry, gchar * itemname, gchar * string2add2, gchar *defaultvalue)
-{
+gchar *insert_string_if_string(const gchar *inputstring, gchar * itemname, gchar * string2add2, gchar *defaultvalue) {
+	gchar *tempstring=NULL, *value=NULL;
 
-	gchar *tempstring=NULL;
-	gchar *entryvalue=NULL, *value=NULL;
-
-	if (!entry) {
+	if (!inputstring)
 		value = defaultvalue;
-	} else {
-		entryvalue = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
-		if (strlen(entryvalue)) {
-			value = entryvalue;
-		} else{
-			value = defaultvalue;
-		} 
-	}
+	else
+		value = inputstring;
+
 	if (value) {
 		if (itemname) {
 			tempstring = g_strdup_printf("%s %s=\"%s\"", string2add2, itemname, value);
@@ -305,9 +297,20 @@ gchar *insert_string_if_entry(GtkWidget * entry, gchar * itemname, gchar * strin
 			tempstring = g_strdup_printf("%s %s", string2add2, value);
 		}
 		g_free(string2add2);
-		string2add2 = tempstring;
+		return tempstring;
 	}
-	if (entryvalue) {
+	return string2add2;
+}
+
+gchar *insert_string_if_entry(GtkWidget * entry, gchar * itemname, gchar * string2add2, gchar *defaultvalue)
+{
+	if (entry) {
+		gchar *retstring, *entryvalue;
+		entryvalue = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+		if (entryvalue[0]!='\0') {
+			retstring = insert_string_if_string(entryvalue, itemname, string2add2, defaultvalue);
+			return retstring;
+		}
 		g_free(entryvalue);
 	}
 	return string2add2;

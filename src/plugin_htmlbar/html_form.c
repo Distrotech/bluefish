@@ -247,318 +247,7 @@ void textareadialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 	if (custom)	g_free(custom);
 }
-/*
-static void textok_lcb(GtkWidget * widget, Thtml_diag *dg)
-{
-	gchar *thestring, *finalstring;
 
-	thestring = g_strdup(cap("<INPUT TYPE=\"TEXT\""));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
-	thestring = insert_integer_if_spin(dg->spin[1], cap("SIZE"), thestring, FALSE, 0);
-	thestring = insert_integer_if_spin(dg->spin[2], cap("MAXLENGTH"), thestring, FALSE, 0);
-/ *	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("SIZE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("MAXLENGTH"), thestring, NULL);* /
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);	
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
-	if (main_v->props.xhtml == 1) {
-		finalstring = g_strconcat(thestring, " />", NULL);
-	} else {
-		finalstring = g_strconcat(thestring, ">", NULL);
-	}
-	g_free(thestring);
-
-	if (dg->range.end == -1) {
-		doc_insert_two_strings(dg->doc, finalstring, NULL);
-	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
-	}
-	g_free(finalstring);
-	html_diag_destroy_cb(NULL, dg);
-}
-
-
-void textdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	GtkWidget *varbut;
-	static gchar *tagitems[] = { "name", "value", "size", "maxlength", NULL };
-	gchar *tagvalues[5];
-	gchar *custom = NULL;
-	GtkWidget *dgtable;
-	Thtml_diag *dg;
-
-	dg = html_diag_new(bfwin,_("Text"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
-
-	dgtable = html_diag_table_in_vbox(dg, 5, 10);
-
-	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
-
-	dg->entry[2] = entry_with_text(tagvalues[1], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 9, 1, 2);
-
-	varbut = php_var_but(dg->entry[1],NULL, dg->entry[2], dg, PHPFORM_TYPE_TEXT);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), varbut, 9, 10, 1, 2);
-
-	dg->spin[1] = spinbut_with_value(tagvalues[2], 0, 500, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 2, 3);
-	bf_mnemonic_label_tad_with_alignment(_("Si_ze:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 2, 3);
-
-	dg->spin[2] = spinbut_with_value(tagvalues[3], 0, 500, 1.0, 5.0);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 2, 3, 4);
-	bf_mnemonic_label_tad_with_alignment(_("Max _Length:"), dg->spin[2], 0, 0.5, dgtable, 0, 1, 3, 4);
-
-	dg->entry[3] = entry_with_text(custom, 1024);
-	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 4, 5);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 10, 4, 5);
-
-	html_diag_finish(dg, G_CALLBACK(textok_lcb));
-
-	if (custom)	g_free(custom);
-}
-
-static void buttondialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
-{
-	gchar *thestring, *finalstring;
-
-	thestring = g_strdup(cap("<INPUT"));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);	
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[1])->child)), cap("TYPE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
-
-	if (main_v->props.xhtml == 1) {
-		finalstring = g_strconcat(thestring, " />", NULL);
-	} else {
-		finalstring = g_strconcat(thestring, ">", NULL);
-	}
-	g_free(thestring);
-
-	if (dg->range.end == -1) {
-		doc_insert_two_strings(dg->doc, finalstring, NULL);
-	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
-	}
-	g_free(finalstring);
-	html_diag_destroy_cb(NULL, dg);
-}
-
-void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	static gchar *tagitems[] = { "name", "value", "type", NULL };
-	gchar *tagvalues[4];
-	gchar *custom = NULL;
-	GtkWidget *dgtable;
-	Thtml_diag *dg;
-	GList *tmplist=NULL;
-
-	dg = html_diag_new(bfwin,_("Button"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
-
-	dgtable = html_diag_table_in_vbox(dg, 5, 10);
-
-	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
-
-	dg->entry[2] = entry_with_text(tagvalues[1], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 9, 1, 2);
-
-	tmplist = g_list_append(tmplist, "submit");
-	tmplist = g_list_append(tmplist, "reset");
-	tmplist = g_list_append(tmplist, "button");
-	dg->combo[1] = combobox_with_popdown((tagvalues[2] == NULL || tagvalues[2][0] == '\0') ? "submit" : tagvalues[2], tmplist, 0);
-	g_list_free(tmplist);
-	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 9, 2, 3);
-
-	dg->entry[3] = entry_with_text(custom, 256);
-	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 9, 3, 4);
-
-	html_diag_finish(dg, G_CALLBACK(buttondialogok_lcb));
-
-	if (custom)	g_free(custom);
-}
-
-static void hiddenok_lcb(GtkWidget * widget, Thtml_diag *dg)
-{
-	gchar *thestring, *finalstring;
-	thestring = g_strdup(cap("<INPUT TYPE=\"HIDDEN\""));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
-	if (main_v->props.xhtml == 1) {
-		finalstring = g_strconcat(thestring," />", NULL);
-	} else {
-		finalstring = g_strconcat(thestring,">", NULL);
-	}
-	g_free(thestring);
-
-	if (dg->range.end == -1) {
-		doc_insert_two_strings(dg->doc, finalstring, NULL);
-	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
-	}
-	g_free(finalstring);
-	html_diag_destroy_cb(NULL, dg);
-}
-
-void hiddendialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	static gchar *tagitems[] = { "name", "value", NULL };
-	gchar *tagvalues[3];
-	gchar *custom = NULL;
-
-	GtkWidget *dgtable;
-	Thtml_diag *dg;
-
-	dg = html_diag_new(bfwin,_("Hidden"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
-
-	dgtable = html_diag_table_in_vbox(dg, 5, 10);
-	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
-
-	dg->entry[2] = entry_with_text(tagvalues[1], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 1, 2);
-
-	dg->entry[3] = entry_with_text(custom, 1024);
-	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 10, 2, 3);
-
-	html_diag_finish(dg, G_CALLBACK(hiddenok_lcb));
-
-	if (custom)	g_free(custom);
-}
-
-static void radiodialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
-{
-	gchar *thestring, *finalstring;
-
-	thestring = g_strdup(cap("<INPUT TYPE=\"RADIO\""));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);
-	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("CHECKED=\"checked\"") : cap("CHECKED"), thestring);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
-	if (main_v->props.xhtml == 1) {
-		finalstring = g_strconcat(thestring," />", NULL);
-	} else {
-		finalstring = g_strconcat(thestring,">", NULL);
-	}
-	g_free(thestring);
-
-	if (dg->range.end == -1) {
-		doc_insert_two_strings(dg->doc, finalstring, NULL);
-	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
-	}
-	g_free(finalstring);
-	html_diag_destroy_cb(NULL, dg);
-}
-
-
-void radiodialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	static gchar *tagitems[] = { "name", "value", "checked", NULL };
-	gchar *tagvalues[4];
-	gchar *custom = NULL;
-
-	GtkWidget *dgtable, *varbut;
-	Thtml_diag *dg;
-
-	dg = html_diag_new(bfwin,_("Radio Button"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
-
-	dgtable = html_diag_table_in_vbox(dg, 5, 10);
-	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
-
-	dg->entry[2] = entry_with_text(tagvalues[1], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 1, 2);
-
-	dg->check[1] = gtk_check_button_new();
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 2, 3);
-	bf_mnemonic_label_tad_with_alignment(_("Chec_ked:"), dg->check[1], 0, 0.5, dgtable, 0, 1, 2, 3);
-	parse_existence_for_dialog(tagvalues[2], dg->check[1]);
-
-	dg->entry[3] = entry_with_text(custom, 1024);
-	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 9, 3, 4);
-
-	varbut = php_var_but(dg->entry[1], dg->entry[2], dg->entry[3], dg, PHPFORM_TYPE_RADIO);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), varbut, 9, 10, 3, 4);
-
-	html_diag_finish(dg, G_CALLBACK(radiodialogok_lcb));
-
-	if (custom)	g_free(custom);
-}
-
-static void checkdialogok_lcb(GtkWidget * widget,Thtml_diag *dg )
-{
-	gchar *thestring, *finalstring;
-
-	thestring = g_strdup(cap("<INPUT TYPE=\"CHECKBOX\""));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);
-	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("CHECKED=\"checked\"") : cap("CHECKED"), thestring);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
-	if (main_v->props.xhtml == 1) {
-		finalstring = g_strconcat(thestring," />", NULL);
-	} else {
-		finalstring = g_strconcat(thestring,">", NULL);
-	}
-	g_free(thestring);
-
-	if (dg->range.end == -1) {
-		doc_insert_two_strings(dg->doc, finalstring, NULL);
-	} else {
-		doc_replace_text(dg->doc, finalstring, dg->range.pos, dg->range.end);
-	}
-	g_free(finalstring);
-	html_diag_destroy_cb(NULL, dg);
-}
-
-void checkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	static gchar *tagitems[] = { "name", "value", "checked", NULL };
-	gchar *tagvalues[4];
-	gchar *custom = NULL;
-	GtkWidget *dgtable, *varbut;
-	Thtml_diag *dg;
-
-	dg = html_diag_new(bfwin,_("Check Box"));
-	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
-
-	dgtable = html_diag_table_in_vbox(dg, 5, 10);
-	
-	dg->entry[1] = entry_with_text(tagvalues[0], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
-
-	dg->entry[2] = entry_with_text(tagvalues[1], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_Value:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 1, 2);
-
-	dg->check[1] = gtk_check_button_new();
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 2, 3);
-	bf_mnemonic_label_tad_with_alignment(_("Chec_ked:"), dg->check[1], 0, 0.5, dgtable, 0, 1, 2, 3);
-	parse_existence_for_dialog(tagvalues[2], dg->check[1]);
-
-	dg->entry[3] = entry_with_text(custom, 1024);
-	bf_mnemonic_label_tad_with_alignment(_("_Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 9, 3, 4);
-
-	varbut = php_var_but(dg->entry[1],NULL, dg->entry[3], dg, PHPFORM_TYPE_CHECK);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), varbut, 9, 10, 3, 4);
-
-	html_diag_finish(dg, G_CALLBACK(checkdialogok_lcb));
-
-	if (custom)	g_free(custom);
-}
-*/
 static void selectdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 {
 	gchar *thestring, *finalstring;
@@ -703,11 +392,11 @@ void optgroupdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 }
 
 static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
-	gchar *thestring, *finalstring;
+	gchar *thestring, *finalstring, *tmp;
 	const char *text;
-	text = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dg->combo[0])->child));
+	text = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[0]));
 	thestring = g_strdup(cap("<INPUT"));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[0])->child), cap("TYPE"), thestring, NULL);
+	thestring = insert_string_if_string(text, cap("TYPE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[0]), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[1]), cap("VALUE"), thestring, NULL);
 	if (strcmp(text, "radio")==0 || strcmp(text, "checkbox")==0) {
@@ -732,7 +421,7 @@ static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[7]), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
 	g_free(thestring);
-
+	g_free(text);
 	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, NULL);
 	} else {
@@ -745,7 +434,8 @@ static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
 static void inputdialog_typecombo_activate_lcb(GtkWidget *widget, Thtml_diag *dg) {
 	/* hmm this function should check if the window is being destroyed... */
 	if (!dg->tobedestroyed) {
-		const gchar *text = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(dg->combo[0])->child));
+		const gchar *text;
+		text = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[0]));
 		DEBUG_MSG("inputdialog_typecombo_activate_lcb, text=%s\n",text);
 		gtk_widget_set_sensitive(dg->check[0], (strcmp(text, "radio")==0 || strcmp(text, "checkbox")==0));
 		gtk_widget_set_sensitive(dg->spin[0], (strcmp(text, "hidden")!=0));
@@ -854,12 +544,14 @@ void inputdialog_rpopup(Tbfwin *bfwin, Ttagpopup *data) {
 }
 
 static void buttondialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
-	gchar *thestring, *finalstring;
+	gchar *thestring, *finalstring, *tmp;
 
 	thestring = g_strdup(cap("<BUTTON"));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);	
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[1])->child)), cap("TYPE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);
+	tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[1]));
+	thestring = insert_string_if_string(tmp, cap("TYPE"), thestring, NULL);
+	g_free(tmp);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
