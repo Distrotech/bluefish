@@ -282,8 +282,9 @@ void parse_integer_for_dialog(gchar * valuestring, GtkWidget * spin, GtkWidget *
 /********** DIALOG -> HTML FUNCTIONS *************/
 /*************************************************/
 
-gchar *insert_string_if_string(const gchar *inputstring, gchar * itemname, gchar * string2add2, gchar *defaultvalue) {
-	gchar *tempstring=NULL, *value=NULL;
+gchar *insert_string_if_string(const gchar *inputstring, gchar * itemname, gchar * string2add2, const gchar *defaultvalue) {
+	gchar *tempstring=NULL;
+	const gchar *value=NULL;
 
 	if (!inputstring)
 		value = defaultvalue;
