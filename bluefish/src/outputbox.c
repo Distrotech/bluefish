@@ -22,7 +22,6 @@
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
-#include <pcre.h>
 #include <stdlib.h>
 #include <string.h> /* strlen() */
 #include <sys/types.h>
@@ -52,9 +51,9 @@ typedef struct {
 	gint line_subpat;
 	gint output_subpat;
 	gboolean scrolled_once;
-	
-	pcre *pcre_c;
-	pcre_extra *pcre_s;
+	GRegex *reg;
+	/*pcre *pcre_c;
+	pcre_extra *pcre_s;*/
 } Toutput_def;
 
 typedef struct {
@@ -279,28 +278,38 @@ static gboolean scroll_to_lstore_path_idle_lcb(gpointer data) {
 
 void fill_output_box(gpointer data, gchar *string) {
 	GtkTreeIter iter;
-	int ovector[30];
+	/*int ovector[30];*/
 	int nummatches;
 	Toutputbox *ob = data;
+	gboolean match;
+	GMatchInfo *match_info=NULL;
 	
-	nummatches = pcre_exec(ob->def->pcre_c, ob->def->pcre_s,string, strlen(string), 0,0, ovector, 30);
-	if (nummatches > 0) {
+	match = g_regex_match(ob->def->reg,string,0,&match_info);
+	nummatches = g_match_info_get_match_count(match_info);
+	/*nummatches = pcre_exec(ob->def->pcre_c, ob->def->pcre_s,string, strlen(string), 0,0, ovector, 30);*/
+	if (match && nummatches > 0) {
 		/* we have a valid line */
-		const char *filename,*line,*output;
+		gchar *filename=NULL,*line=NULL,*output=NULL;
 		filename=line=output=NULL;
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
-		if (ob->def->file_subpat >= 0 && ovector[ob->def->file_subpat*2] >=0) {
+		if (ob->def->file_subpat >= 0 && nummatches >= ob->def->file_subpat) {
+			filename = g_match_info_fetch(match_info, ob->def->file_subpat);
+		}
+		if (ob->def->line_subpat >= 0 && nummatches >= ob->def->line_subpat) {
+			line = g_match_info_fetch(match_info, ob->def->line_subpat);
+		}
+		if (ob->def->output_subpat >= 0 && nummatches >= ob->def->output_subpat) {
+			output = g_match_info_fetch(match_info, ob->def->output_subpat);
+		}
+/*		if (ob->def->file_subpat >= 0 && ovector[ob->def->file_subpat*2] >=0) {
 			pcre_get_substring(string,ovector,nummatches,ob->def->file_subpat,&filename);
-/*			DEBUG_MSG("fill_output_box, filename from %d to %d\n", ob->def->pmatch[ob->def->file_subpat].rm_so ,ob->def->pmatch[ob->def->file_subpat].rm_eo);*/
 		}
 		if (ob->def->line_subpat >= 0&& ovector[ob->def->line_subpat*2] >=0) {
 			pcre_get_substring(string,ovector,nummatches,ob->def->line_subpat,&line);
-/*			DEBUG_MSG("fill_output_box, line from %d to %d\n", ob->def->pmatch[ob->def->line_subpat].rm_so ,ob->def->pmatch[ob->def->line_subpat].rm_eo);*/
 		}
 		if (ob->def->output_subpat >= 0&& ovector[ob->def->output_subpat*2] >=0) {
 			pcre_get_substring(string,ovector,nummatches,ob->def->output_subpat,&output);
-/*			DEBUG_MSG("fill_output_box, output from %d to %d\n", ob->def->pmatch[ob->def->output_subpat].rm_so ,ob->def->pmatch[ob->def->output_subpat].rm_eo);*/
-		}
+		}*/
 		DEBUG_MSG("fill_output_box, filename=%s, line=%s, output=%s\n",filename,line,output);
 		if (filename) {
 			GFile *addtolist;
@@ -339,6 +348,7 @@ void fill_output_box(gpointer data, gchar *string) {
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
 		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,2,string, -1);
 	}
+	g_match_info_free(match_info);
 	if (ob->bfwin->session->outputb_scroll_mode == 2) {
 		GtkAdjustment* vadj;
 		DEBUG_MSG("fill_output_box, scroll to end..\n");
@@ -349,11 +359,13 @@ void fill_output_box(gpointer data, gchar *string) {
 }
 
 static void outputbox_def_cleanup(Toutputbox *ob, gboolean do_shutdown) {
-	DEBUG_MSG("outputbox_def_cleanup, started\n");
+	DEBUG_MSG("outputbox_def_cleanup, started for ob %p with ob->def->reg %p\n",ob, ob->def->reg);
 	g_free(ob->def->command);
+	if (ob->def->reg)
+		g_regex_unref(ob->def->reg);
 	g_free(ob->def->pattern);
-	pcre_free(ob->def->pcre_c);
-	pcre_free(ob->def->pcre_s);
+	/*pcre_free(ob->def->pcre_c);
+	pcre_free(ob->def->pcre_s);*/
 	if (ob->def->docuri) 
 		g_object_unref(ob->def->docuri);
 	g_free(ob->def);
@@ -376,8 +388,9 @@ void outputbox_cleanup(Tbfwin *bfwin) {
 
 void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command) {
 	Toutputbox *ob;
-	const char *errptr;
-	gint erroffset;
+	/*const char *errptr;
+	gint erroffset;*/
+	GError *gerror=NULL;
 	DEBUG_MSG("outputbox, bfwin->outputbox=%p\n",bfwin->outputbox);
 	if (bfwin->outputbox) {
 		ob = OUTPUTBOX(bfwin->outputbox);
@@ -406,14 +419,23 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	
 /*	ob->def->show_all_output = show_all_output;*/
 	
-	ob->def->pcre_c = pcre_compile(ob->def->pattern, PCRE_UTF8,&errptr,&erroffset,NULL);
+	/*ob->def->pcre_c = pcre_compile(ob->def->pattern, PCRE_UTF8,&errptr,&erroffset,NULL);
 	if (ob->def->pcre_c == NULL) {
 		gchar *tmpstr = g_strdup_printf(_("Failed to compile outputbox pattern %s"),ob->def->pattern);
 		statusbar_message(bfwin,tmpstr,4);
 		g_free(tmpstr);
 		return;
 	}
-	ob->def->pcre_s = pcre_study(ob->def->pcre_c, 0,&errptr);
-	
+	ob->def->pcre_s = pcre_study(ob->def->pcre_c, 0,&errptr);*/
+	ob->def->reg = g_regex_new(ob->def->pattern, G_REGEX_OPTIMIZE, 0, &gerror);
+	if (gerror) {
+		gchar *tmpstr = g_strdup_printf(_("Failed to compile outputbox pattern %s: %s"),ob->def->pattern, gerror->message);
+		g_warning(tmpstr);
+		statusbar_message(bfwin,tmpstr,4);
+		g_error_free(gerror);
+		g_free(tmpstr);
+		ob->def->reg = NULL;
+		return;
+	}
 	outputbox_command(bfwin, command);
 }

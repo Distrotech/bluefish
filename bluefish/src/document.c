@@ -26,7 +26,6 @@
 #include <string.h>         /* strchr() */
 #include <regex.h>          /* regcomp() */
 #include <stdlib.h>         /* system() */
-#include <pcre.h>
 
 /*#define DEBUG*/
 
