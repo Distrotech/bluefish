@@ -50,6 +50,7 @@ typedef struct {
 	GtkWidget *max_recursion;
 	GtkWidget *grep_pattern;
 	GtkWidget *is_regex;
+	GtkWidget *regexwarn;
 	Tbfwin *bfwin;
 } Tfiles_advanced;
 
@@ -68,6 +69,7 @@ static gboolean files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 	GFile *baseuri;
 	gchar *basedir, *content_filter, *extension_filter;
 	gboolean retval;
+	GError *gerror=NULL;
 	extension_filter = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(tfs->find_pattern)->child), 0, -1);
 	basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
 	baseuri = g_file_new_for_uri(basedir);
@@ -81,8 +83,13 @@ static gboolean files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 				  ,
 				  strlen(extension_filter) == 0 ? NULL : extension_filter,
 				  strlen(content_filter) == 0 ? NULL : content_filter,
-				  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->is_regex)));
-
+				  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->is_regex)),
+				  &gerror);
+	if (!retval && gerror) {
+		gtk_label_set_line_wrap(GTK_LABEL(tfs->regexwarn),TRUE);
+		gtk_label_set_text(GTK_LABEL(tfs->regexwarn), gerror->message);
+		g_error_free(gerror);
+	}
 	g_free(basedir);
 	g_free(content_filter);
 	g_free(extension_filter);
@@ -217,6 +224,9 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	tfs->is_regex = checkbut_with_value(NULL, 0);
 	dialog_mnemonic_label_in_table(_("Is rege_x:"), tfs->is_regex, table, 0, 1, 1, 2);
 	gtk_table_attach(GTK_TABLE(table), tfs->is_regex, 1, 2, 1, 2, GTK_FILL, GTK_SHRINK, 0, 0);
+	
+	tfs->regexwarn = gtk_label_new(NULL);
+	gtk_table_attach(GTK_TABLE(table), tfs->regexwarn, 1, 2, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
 
 	gtk_dialog_set_response_sensitive(GTK_DIALOG(tfs->dialog), GTK_RESPONSE_ACCEPT, FALSE);
 	gtk_widget_show_all(GTK_DIALOG(tfs->dialog)->vbox);
