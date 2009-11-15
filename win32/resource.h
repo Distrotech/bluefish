@@ -1,0 +1,1 @@
+#define BLUEFISH_ICON			104

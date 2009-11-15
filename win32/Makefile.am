@@ -1,7 +1,9 @@
 EXTRA_DIST = \
 	bluefish.ico \
 	bluefish.nsi \
+	bluefish_rc.rc.in \
 	config.nsis \
 	installer_dep.sh \
-	Makefile.mingw.in
-
+	resource.h \
+	Makefile.mingw.in \
+	locale\English.nsh

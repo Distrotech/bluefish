@@ -1,0 +1,33 @@
+#include <winver.h>
+#include "resource.h"
+
+VS_VERSION_INFO VERSIONINFO
+  FILEVERSION 1,3,9,0
+  PRODUCTVERSION 1,3,9,0
+  FILEFLAGSMASK 0
+  FILEFLAGS 0
+  FILEOS VOS__WINDOWS32
+  FILETYPE VFT_APP
+  FILESUBTYPE VFT2_UNKNOWN
+  BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+      BLOCK "040904B0"
+      BEGIN
+        VALUE "CompanyName", "The Bluefish Developers"
+        VALUE "FileDescription", "Bluefish"
+        VALUE "FileVersion", "@VERSION@"
+        VALUE "InternalName", "@PACKAGE@"
+        VALUE "LegalCopyright", "Copyright (C) 1999-2009 Olivier Sessink and The Bluefish Developers."
+        VALUE "OriginalFilename", "@PACKAGE@.exe"
+        VALUE "ProductName", "Bluefish"
+        VALUE "ProductVersion", "@VERSION@"
+      END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+      VALUE "Translation", 0x409, 1200
+    END
+  END
+
+BLUEFISH_ICON			ICON "bluefish.ico"
