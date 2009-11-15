@@ -76,7 +76,7 @@ InstallDir				"$PROGRAMFILES\${PRODUCT}"
 ; Tell Windows Vista and Windows 7 that we need admin rights to install
 RequestExecutionLevel admin
 
-InstallDirRegKey		HKLM "${REG_USER_SET}" ""
+InstallDirRegKey HKCU "${REG_USER_SET}" ""
 SetCompressor /SOLID lzma
 ShowInstDetails show
 ShowUninstDetails show
@@ -179,6 +179,26 @@ ${StrTok}
 !macroend
 !define RegisterFileType `!insertmacro RegisterFileType`
 
+!macro RegisterHTMLType HWND
+	${NSD_GetState} ${HWND} $R0
+	${If} $R0 == ${BST_CHECKED}
+		ReadRegStr $R1 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
+		${If} $R1 != "${PRODUCT}"
+			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "Description" $R1
+			WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" "${PRODUCT}"
+
+			ReadRegStr $R2 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" ""
+			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command" $R2
+			WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+
+			ReadRegStr $R3 HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" ""
+			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command2" $R3
+			WriteRegStr HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+		${EndIf}
+	${EndIf}
+!macroend
+!define RegisterHTMLType `!insertmacro RegisterHTMLType`
+
 !macro Localize DEF LANG
 	LangString "${DEF}" "${LANG_{$LANG}}" "${${DEF}}"
 	!undef "${DEF}"
@@ -277,7 +297,26 @@ Page custom FileAssociations SetFileAssociations
 
 !insertmacro MUI_LANGUAGE	"English"
 ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
+; Translations needed for the following commented languages
+;;!insertmacro MUI_LANGUAGE	"Czech"
+;;!insertmacro MUI_LANGUAGE	"Danish"
+;;!insertmacro MUI_LANGUAGE	"Dutch"
+;;!insertmacro MUI_LANGUAGE	"Finnish"
+;;!insertmacro MUI_LANGUAGE	"French"
+;;!insertmacro MUI_LANGUAGE	"Galician"
+;;!insertmacro MUI_LANGUAGE	"German"
+;;!insertmacro MUI_LANGUAGE	"Italian"
+;;!insertmacro MUI_LANGUAGE	"Norwegian"
+;;!insertmacro MUI_LANGUAGE	"Portuguese"
+;;!insertmacro MUI_LANGUAGE	"PortugueseBR"
+;;!insertmacro MUI_LANGUAGE	"Russian"
+;;!insertmacro MUI_LANGUAGE	"Serbian"
+;;!insertmacro MUI_LANGUAGE	"Slovak"
+;;!insertmacro MUI_LANGUAGE	"Spanish"
 !insertmacro MUI_LANGUAGE	"Swedish"
+; NSIS Lacks a translation for this language
+;!insertmacro MUI_LANGUAGE	"Tamil"
+;;!insertmacro MUI_LANGUAGE	"Turkish"
 
 
 ; Sections
@@ -492,7 +531,8 @@ Section "Uninstall"
 	DeleteRegKey HKCU "${REG_USER_SET}\Aspell"
 	DeleteRegKey /ifempty HKCU ${REG_USER_SET}
 
-	Call un.UnRegisterFileTypes
+	Call un.UnRegisterFileTypes	
+	Call un.UnRegisterHTML
 
 	DeleteRegKey HKLM "${REG_UNINSTALL}"
 SectionEnd
@@ -624,10 +664,11 @@ Function SetFileAssociations
 	${RegisterFileType} $FA_Css 			"css" 		"text/css" 									"bfcssfile" "$(CT_CSS)"
 	${RegisterFileType} $FA_D 				"d" 			"text/x-dsrc" 								"bfdfile"	"$(CT_D)"
 	${RegisterFileType} $FA_Po 			"po" 			"text/x-gettext-translation" 			"bfpofile"	"$(CT_PO)"
-; HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor	Name
-; HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command	@
+
+	${RegisterHTMLType} $FA_Html
 	${RegisterFileType} $FA_Html 			"htm" 		"text/html" 								"0"	"0"
 	${RegisterFileType} $FA_Html 			"html" 		"text/html" 								"0"	"0"
+
 	${RegisterFileType} $FA_Java 			"java" 		"text/x-java" 								"bfjavafile"	"$(CT_JAVA)	"
 	${RegisterFileType} $FA_Js 			"js" 			"application/javascript" 				"bfjsfile"	"$(CT_JS)"
 	${RegisterFileType} $FA_Jsp 			"jsp" 		"application/x-jsp" 						"bfjspfile"	"$(CT_JSP)"
@@ -815,4 +856,27 @@ Function un.UnRegisterFileTypes
 	Pop $R0
 	Pop $1
 	Pop $0
+FunctionEnd
+
+Function un.UnRegisterHTML
+	Push $R1
+	Push $R2
+	Push $R3
+	
+	ReadRegStr $R1 HKLM "${REG_UNINSTALL}\Backup\HTML" "Description"
+	${If} $R1 != ""
+		WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" $R1
+	${EndIf}
+	ReadRegStr $R2 HKLM "${REG_UNINSTALL}\Backup\HTML" "command"
+	${If} $R2 != ""
+		WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" $R2
+	${EndIf}
+	ReadRegStr $R3 HKLM "${REG_UNINSTALL}\Backup\HTML" "command2"
+	${If} $R3 != ""
+		WriteRegStr HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" $R3
+	${EndIf}
+
+	Pop $R3
+	Pop $R2
+	Pop $R1
 FunctionEnd
