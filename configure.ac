@@ -46,8 +46,11 @@ case "$host" in
 	*-openbsd3.8)
 		AC_PROG_LN_S
 		$LN_S -f ../../config.status src/plugin_about/
+		$LN_S -f ../../config.status src/plugin_charmap/
 		$LN_S -f ../../config.status src/plugin_entities/
+		$LN_S -f ../../config.status src/plugin_infbrowser/
 		$LN_S -f ../../config.status src/plugin_htmlbar/
+		$LN_S -f ../../config.status src/plugin_snippets/
 		AC_MSG_NOTICE([Don't try to run '(g)make distcheck, because it will fail.])
 		OPENBSD_3_8_FIX=config.status
 		AC_SUBST([OPENBSD_3_8_FIX])
