@@ -392,8 +392,7 @@ void optgroupdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 }
 
 static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
-	gchar *thestring, *finalstring, *tmp;
-	const char *text;
+	gchar *thestring, *finalstring, *text;
 	text = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[0]));
 	thestring = g_strdup(cap("<INPUT"));
 	thestring = insert_string_if_string(text, cap("TYPE"), thestring, NULL);
