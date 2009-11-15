@@ -1182,38 +1182,42 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir, guint recursion)
 }
 
 gboolean open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
-	if (basedir) {
-		Topenadv *oa;
-		oa = g_new0(Topenadv, 1);
+	Topenadv *oa;
+	
+	if (!basedir || !name_filter)
+		return FALSE;
+		
+	oa = g_new0(Topenadv, 1);
 #ifdef LOAD_TIMER
-		oa->timer = g_timer_new();
+	oa->timer = g_timer_new();
 #endif
-		oa->bfwin = bfwin;
-		oa->recursive = recursive;
-		oa->max_recursion = max_recursion;
-		oa->matchname = matchname;
-		oa->topbasedir = basedir;
-		g_object_ref(oa->topbasedir);
-		if (name_filter) {
-			oa->extension_filter = g_strdup(name_filter);
-			oa->patspec = g_pattern_spec_new(name_filter);
-		}
-		if (content_filter) oa->content_filter = g_strdup(content_filter);
-		oa->use_regex = use_regex;
-		if (oa->use_regex) {
-			GError *gerror=NULL;
-			/*int erroffset;
-			oa->contentf_pcre = pcre_compile(oa->content_filter, 0, &error, &erroffset, NULL);*/
-			oa->content_reg = g_regex_new(oa->content_filter,0,0,&gerror);
-			if (gerror) {
-				g_warning("regex compile error %d: %s\n",gerror->code,gerror->message);
-				g_error_free(gerror);
-			}
+	oa->bfwin = bfwin;
+	oa->recursive = recursive;
+	oa->max_recursion = max_recursion;
+	oa->matchname = matchname;
+	oa->topbasedir = basedir;
+	g_object_ref(oa->topbasedir);
+	if (name_filter) {
+		oa->extension_filter = g_strdup(name_filter);
+		oa->patspec = g_pattern_spec_new(name_filter);
+	}
+	if (content_filter) oa->content_filter = g_strdup(content_filter);
+	oa->use_regex = use_regex;
+	if (oa->use_regex) {
+		GError *gerror=NULL;
+		/*int erroffset;
+		oa->contentf_pcre = pcre_compile(oa->content_filter, 0, &error, &erroffset, NULL);*/
+		oa->content_reg = g_regex_new(oa->content_filter,0,0,&gerror);
+		if (gerror) {
+			g_warning("regex compile error %d: %s\n",gerror->code,gerror->message);
+			g_error_free(gerror);
 			/* BUG: need more error handling here, and inform the user */
 			openadv_unref(oa);
+			return FALSE;
 		}
-		open_advanced_backend(oa, basedir, 0);
 	}
+
+	open_advanced_backend(oa, basedir, 0);
 	return TRUE;
 }
 
