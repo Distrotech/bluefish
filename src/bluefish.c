@@ -143,9 +143,6 @@ static gboolean startup_in_idle(gpointer data) {
 			fb2config_init();			/* filebrowser2config */
 			filters_rebuild();
 			main_v->tooltips = gtk_tooltips_new();
-			regcomp(&main_v->find_encoding,
-					"<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"[^;\"]+;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>",
-					REG_EXTENDED | REG_ICASE);
 			main_v->bmarkdata = bookmark_data_new();
 			/* create the first window */
 			startup->firstbfwin = g_new0(Tbfwin, 1);
@@ -339,9 +336,7 @@ int main(int argc, char *argv[])
 	DEBUG_MSG("calling fb2config_cleanup()\n");
 	fb2config_cleanup();
 	langmgr_cleanup();
-	regfree(&main_v->find_encoding);
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
-
 	return 0;
 }
 
