@@ -1181,7 +1181,7 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir, guint recursion)
 	queue_push(&oadqueue, oad, openadv_run);
 }
 
-gboolean open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
+gboolean open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex, GError **reterror) {
 	Topenadv *oa;
 	
 	if (!basedir || !name_filter)
@@ -1209,8 +1209,9 @@ gboolean open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, guint 
 		oa->contentf_pcre = pcre_compile(oa->content_filter, 0, &error, &erroffset, NULL);*/
 		oa->content_reg = g_regex_new(oa->content_filter,0,0,&gerror);
 		if (gerror) {
-			g_warning("regex compile error %d: %s\n",gerror->code,gerror->message);
-			g_error_free(gerror);
+			DEBUG_MSG("regex compile error %d: %s\n",gerror->code,gerror->message);
+			g_propagate_error(reterror,gerror);
+			/*do we need to free or not ????? g_error_free(gerror);*/
 			/* BUG: need more error handling here, and inform the user */
 			openadv_unref(oa);
 			return FALSE;
