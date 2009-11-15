@@ -20,9 +20,9 @@
 
 ; Aspell Strings
 !define DICT_INSTALLED "Latest version of this dictionary is installed, skipping download of:"
-!define DICT_DOWNLOAD "Downloading Spellchecker Dictionary..."
-!define DICT_FAILED "Dictionary Download failed:"
-!define DICT_EXTRACT "Extracting Dictionary..."
+!define DICT_DOWNLOAD "Downloading spellchecker dictionary..."
+!define DICT_FAILED "Dictionary download failed:"
+!define DICT_EXTRACT "Extracting dictionary..."
 
 ; GTK+ Strings
 !define GTK_DOWNLOAD "Downloading GTK+..."
@@ -31,10 +31,10 @@
 !define GTK_PATH "Installing GTK+ in the system path."
 
 ; Plugin Names
-!define PLUG_CHARMAP "Charmap"
+!define PLUG_CHARMAP "Character Map"
 !define PLUG_ENTITIES "Entities"
-!define PLUG_HTMLBAR "HTMLbar"
-!define PLUG_INFBROWSER "InfBrowser"
+!define PLUG_HTMLBAR "HTML Bar"
+!define PLUG_INFBROWSER "Info Browser"
 !define PLUG_SNIPPETS "Snippets"
 
 ; File Associations Page

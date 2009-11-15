@@ -152,7 +152,7 @@ ${StrTok}
 !macroend
 !define InstallAspellDict `!insertmacro InstallAspellDict`
 
-!macro RegisterFileType HWND EXT TYPE PROG DESC
+!macro RegisterFileType HWND EXT TYPE PROG DESC ICON
 	ReadRegStr $R1 HKCR ".${EXT}" "Content Type"
 	${If} $R1 != "${TYPE}"
 		WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "Content Type" $R1
@@ -167,8 +167,7 @@ ${StrTok}
 				WriteRegStr HKCR ".${EXT}" "" "${PROG}"
 			${EndIf}
 			WriteRegStr HKCR "${PROG}" "" "${DESC}"
-; Icon set coming soon
-;			WriteRegStr HKCR "${PROG}\DefaultIcon" "" ""
+			WriteRegStr HKCR "${PROG}\DefaultIcon" "" "$INSTDIR\${PROGRAM_EXE},${ICON}"
 			WriteRegStr HKCR "${PROG}\shell" "" "open"
 			WriteRegStr HKCR "${PROG}\shell\open" "" "Open"
 			WriteRegStr HKCR "${PROG}\shell\open\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
@@ -327,7 +326,6 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	SetOutPath "$INSTDIR"
 	SetOverwrite on
 	File "build\${PROGRAM_EXE}"
-	File "bluefish.ico"
 	File "build\libaspell-15.dll"
 	File "build\libenchant-1.dll"
 	File "build\libgnurx-0.dll"
@@ -376,7 +374,7 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	!insertmacro MUI_STARTMENU_WRITE_BEGIN "${PRODUCT}"
 		SetOverwrite on
 		CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
-		CreateShortCut "$SMPROGRAMS\$StartMenuFolder\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}" "" "$INSTDIR\bluefish.ico" 0
+		CreateShortCut "$SMPROGRAMS\$StartMenuFolder\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}"
 		CreateShortCut "$SMPROGRAMS\$StartMenuFolder\$(UNINSTALL_SHORTCUT).lnk" "$INSTDIR\${UNINSTALL_EXE}"
 		SetOverwrite off
 	!insertmacro MUI_STARTMENU_WRITE_END
@@ -650,42 +648,43 @@ FunctionEnd
 
 Function SetFileAssociations
 	;                     HWND					Extension	Mime Type									Handler	Content Type
-	${RegisterFileType} $FA_Ada 			"ada" 		"text/x-ada" 								"bfadafile"	"$(CT_ADA)"
-	${RegisterFileType} $FA_Asp 			"asp" 		"text/x-asp" 								"bfaspfile" "$(CT_ASP)"
-	${RegisterFileType} $FA_Sh 			"sh" 			"text/x-shellscript" 					"bfshfile"	"$(CT_SH)"
-	${RegisterFileType} $FA_BFProject 	"bfproject" "application/x-bluefish-project" 	"bfprojectfile"	"$(CT_BFPROJECT)"
-	${RegisterFileType} $FA_BFLang2 		"bflang2" 	"application/x-bluefish-language2" 	"bflang2file"	"$(CT_BFLANG2)"
-	${RegisterFileType} $FA_C 				"c" 			"text/x-csrc" 								"bfcfile"	"$(CT_C)"
-	${RegisterFileType} $FA_C 				"h" 			"text/x-chdr" 								"bfhfile"	"$(CT_H)"
-	${RegisterFileType} $FA_Cpp 			"cpp" 		"text/x-c++src" 							"bfcppfile"	"$(CT_CPP)"
-	${RegisterFileType} $FA_Cpp 			"cxx" 		"text/x-c++src" 							"bfcppfile"	"$(CT_CPP)"
-	${RegisterFileType} $FA_Cpp 			"cc" 			"text/x-c++src" 							"bfcppfile"	"$(CT_CPP)"
-	${RegisterFileType} $FA_Cpp 			"hpp" 		"text/x-c++hdr" 							"bfhppfile"	"$(CT_HPP)"
-	${RegisterFileType} $FA_Css 			"css" 		"text/css" 									"bfcssfile" "$(CT_CSS)"
-	${RegisterFileType} $FA_D 				"d" 			"text/x-dsrc" 								"bfdfile"	"$(CT_D)"
-	${RegisterFileType} $FA_Po 			"po" 			"text/x-gettext-translation" 			"bfpofile"	"$(CT_PO)"
+	${RegisterFileType} $FA_Ada 			"ada" 		"text/x-ada" 								"bfadafile"	"$(CT_ADA)"	1
+	${RegisterFileType} $FA_Asp 			"asp" 		"text/x-asp" 								"bfaspfile" "$(CT_ASP)"	2
+	${RegisterFileType} $FA_Sh 			"sh" 			"text/x-shellscript" 					"bfshfile"	"$(CT_SH)"	22
+	${RegisterFileType} $FA_BFProject 	"bfproject" "application/x-bluefish-project" 	"bfprojectfile"	"$(CT_BFPROJECT)"	4
+	${RegisterFileType} $FA_BFLang2 		"bflang2" 	"application/x-bluefish-language2" 	"bflang2file"	"$(CT_BFLANG2)"	3
+	${RegisterFileType} $FA_C 				"c" 			"text/x-csrc" 								"bfcfile"	"$(CT_C)"	5
+	${RegisterFileType} $FA_C 				"h" 			"text/x-chdr" 								"bfhfile"	"$(CT_H)"	10
+	${RegisterFileType} $FA_Cpp 			"cpp" 		"text/x-c++src" 							"bfcppfile"	"$(CT_CPP)"	6
+	${RegisterFileType} $FA_Cpp 			"cxx" 		"text/x-c++src" 							"bfcppfile"	"$(CT_CPP)"	6
+	${RegisterFileType} $FA_Cpp 			"cc" 			"text/x-c++src" 							"bfcppfile"	"$(CT_CPP)"	6
+	${RegisterFileType} $FA_Cpp 			"hpp" 		"text/x-c++hdr" 							"bfhppfile"	"$(CT_HPP)"	11
+	${RegisterFileType} $FA_Css 			"css" 		"text/css" 									"bfcssfile" "$(CT_CSS)"	7
+	${RegisterFileType} $FA_D 				"d" 			"text/x-dsrc" 								"bfdfile"	"$(CT_D)"	8
+	${RegisterFileType} $FA_Po 			"po" 			"text/x-gettext-translation" 			"bfpofile"	"$(CT_PO)"	9
 
 	${RegisterHTMLType} $FA_Html
-	${RegisterFileType} $FA_Html 			"htm" 		"text/html" 								"0"	"0"
-	${RegisterFileType} $FA_Html 			"html" 		"text/html" 								"0"	"0"
+	${RegisterFileType} $FA_Html 			"htm" 		"text/html" 								"0"	"0"	"0"
+	${RegisterFileType} $FA_Html 			"html" 		"text/html" 								"0"	"0"	"0"
 
-	${RegisterFileType} $FA_Java 			"java" 		"text/x-java" 								"bfjavafile"	"$(CT_JAVA)	"
-	${RegisterFileType} $FA_Js 			"js" 			"application/javascript" 				"bfjsfile"	"$(CT_JS)"
-	${RegisterFileType} $FA_Jsp 			"jsp" 		"application/x-jsp" 						"bfjspfile"	"$(CT_JSP)"
-	${RegisterFileType} $FA_Nsi 			"nsi" 		"text/x-nsi" 								"bfnsifile"	"$(CT_NSI)"
-	${RegisterFileType} $FA_Nsi 			"nsh" 		"text/x-nsh" 								"bfnshfile"	"$(CT_NSH)"
-	${RegisterFileType} $FA_Pl 			"pl" 			"application/x-perl" 					"bfplfile"	"$(CT_PL)"
-	${RegisterFileType} $FA_Php 			"php" 		"application/x-php" 						"bfphpfile"	"$(CT_PHP)"
-	${RegisterFileType} $FA_Php 			"php3" 		"application/x-php" 						"bfphpfile"	"$(CT_PHP)"
-	${RegisterFileType} $FA_Txt 			"txt" 		"text/plain" 								"bftxtfile"	"$(CT_TXT)"
-	${RegisterFileType} $FA_Py 			"py" 			"text/x-python" 							"bfpyfile"	"$(CT_PY)"
-	${RegisterFileType} $FA_Rb 			"rb" 			"text/x-ruby" 								"bfrbfile"	"$(CT_RB)"
-	${RegisterFileType} $FA_Smarty 		"smarty" 	"application/x-smarty" 					"bfsmartyfile"	"$(CT_SMARTY)"
-	${RegisterFileType} $FA_Vbs 			"vbs" 		"application/x-vbscript" 				"bfvbsfile"	"$(CT_VBS)"
-	${RegisterFileType} $FA_Vbs 			"vb" 			"application/x-vbscript" 				"bfvbsfile" "$(CT_VBS)"
-	${RegisterFileType} $FA_Xhtml 		"xhtml" 		"application/xhtml+xml" 				"bfxhtmlfile"	"$(CT_XHTML)"
-	${RegisterFileType} $FA_Xml 			"xml" 		"text/xml" 									"bfxmlfile"	"$(CT_XML)"
-	${RegisterFileType} $FA_Xml 			"xsl" 		"text/xml" 									"bfxslfile"	"$(CT_XSL)"
+	${RegisterFileType} $FA_Java 			"java" 		"text/x-java" 								"bfjavafile"	"$(CT_JAVA)"	13
+	${RegisterFileType} $FA_Js 			"js" 			"application/javascript" 				"bfjsfile"	"$(CT_JS)"	14
+	${RegisterFileType} $FA_Jsp 			"jsp" 		"application/x-jsp" 						"bfjspfile"	"$(CT_JSP)"	15
+	${RegisterFileType} $FA_Nsi 			"nsi" 		"text/x-nsi" 								"bfnsifile"	"$(CT_NSI)"	17
+	${RegisterFileType} $FA_Nsi 			"nsh" 		"text/x-nsh" 								"bfnshfile"	"$(CT_NSH)"	16
+	${RegisterFileType} $FA_Pl 			"pl" 			"application/x-perl" 					"bfplfile"	"$(CT_PL)"	18
+	${RegisterFileType} $FA_Php 			"php" 		"application/x-php" 						"bfphpfile"	"$(CT_PHP)"	19
+	${RegisterFileType} $FA_Php 			"php3" 		"application/x-php" 						"bfphpfile"	"$(CT_PHP)"	19
+	${RegisterFileType} $FA_Txt 			"txt" 		"text/plain" 								"bftxtfile"	"$(CT_TXT)"	24
+	${RegisterFileType} $FA_Py 			"py" 			"text/x-python" 							"bfpyfile"	"$(CT_PY)"	20
+	${RegisterFileType} $FA_Rb 			"rb" 			"text/x-ruby" 								"bfrbfile"	"$(CT_RB)"	21
+	${RegisterFileType} $FA_Smarty 		"smarty" 	"application/x-smarty" 					"bfsmartyfile"	"$(CT_SMARTY)"	23
+	${RegisterFileType} $FA_Vbs 			"vbs" 		"application/x-vbscript" 				"bfvbsfile"	"$(CT_VBS)"	25
+	${RegisterFileType} $FA_Vbs 			"vb" 			"application/x-vbscript" 				"bfvbsfile" "$(CT_VBS)"	25
+	${RegisterFileType} $FA_Xhtml 		"xhtml" 		"application/xhtml+xml" 				"bfxhtmlfile"	"$(CT_XHTML)"	26
+	${RegisterFileType} $FA_Xml 			"xml" 		"text/xml" 									"bfxmlfile"	"$(CT_XML)"	27
+	${RegisterFileType} $FA_Xml 			"xsl" 		"text/xml" 									"bfxslfile"	"$(CT_XSL)"	28
+	${RegisterFileType} $FA_Xml 			"xslt" 		"text/xml" 									"bfxslfile"	"$(CT_XSL)"	28
 FunctionEnd
 
 Function FileAssociations_SelectAll

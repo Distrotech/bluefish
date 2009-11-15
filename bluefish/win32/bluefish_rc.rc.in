@@ -2,8 +2,8 @@
 #include "resource.h"
 
 VS_VERSION_INFO VERSIONINFO
-  FILEVERSION 1,3,9,0
-  PRODUCTVERSION 1,3,9,0
+  FILEVERSION @SPLIT_VERSION@,0
+  PRODUCTVERSION @SPLIT_VERSION@,0
   FILEFLAGSMASK 0
   FILEFLAGS 0
   FILEOS VOS__WINDOWS32
@@ -18,7 +18,7 @@ VS_VERSION_INFO VERSIONINFO
         VALUE "FileDescription", "Bluefish"
         VALUE "FileVersion", "@VERSION@"
         VALUE "InternalName", "@PACKAGE@"
-        VALUE "LegalCopyright", "Copyright (C) 1999-2009 Olivier Sessink and The Bluefish Developers."
+        VALUE "LegalCopyright", "Copyright (C) 1999-2009 Olivier Sessink"
         VALUE "OriginalFilename", "@PACKAGE@.exe"
         VALUE "ProductName", "Bluefish"
         VALUE "ProductVersion", "@VERSION@"
@@ -30,4 +30,34 @@ VS_VERSION_INFO VERSIONINFO
     END
   END
 
-BLUEFISH_ICON			ICON "bluefish.ico"
+BLUEFISH_ICON	ICON "pixmaps/bluefish-icon.ico"
+
+ADA_ICON			ICON "pixmaps/bluefish-ada.ico"
+ASP_ICON			ICON "pixmaps/bluefish-asp.ico"
+BFLANG2_ICON	ICON "pixmaps/bluefish-bflang2.ico"
+BFPROJ_ICON		ICON "pixmaps/bluefish-bfproj.ico"
+C_ICON			ICON "pixmaps/bluefish-c.ico"
+CPP_ICON			ICON "pixmaps/bluefish-cpp.ico"
+CSS_ICON			ICON "pixmaps/bluefish-css.ico"
+D_ICON			ICON "pixmaps/bluefish-d.ico"
+GETTEXT_ICON	ICON "pixmaps/bluefish-gettext.ico"
+H_ICON			ICON "pixmaps/bluefish-h.ico"
+HPP_ICON			ICON "pixmaps/bluefish-hpp.ico"
+HTML_ICON		ICON "pixmaps/bluefish-html.ico"
+JAVA_ICON		ICON "pixmaps/bluefish-java.ico"
+JS_ICON			ICON "pixmaps/bluefish-js.ico"
+JSP_ICON			ICON "pixmaps/bluefish-jsp.ico"
+NSH_ICON			ICON "pixmaps/bluefish-nsh.ico"
+NSI_ICON			ICON "pixmaps/bluefish-nsi.ico"
+PERL_ICON		ICON "pixmaps/bluefish-perl.ico"
+PHP_ICON			ICON "pixmaps/bluefish-php.ico"
+PYTHON_ICON		ICON "pixmaps/bluefish-python.ico"
+RUBY_ICON		ICON "pixmaps/bluefish-ruby.ico"
+SHELL_ICON		ICON "pixmaps/bluefish-shell.ico"
+SMARTY_ICON		ICON "pixmaps/bluefish-smarty.ico"
+TEXT_ICON		ICON "pixmaps/bluefish-text.ico"
+VBSCRIPT_ICON	ICON "pixmaps/bluefish-vbscript.ico"
+XHTML_ICON		ICON "pixmaps/bluefish-xhtml.ico"
+XML_ICON			ICON "pixmaps/bluefish-xml.ico"
+XSLT_ICON		ICON "pixmaps/bluefish-xslt.ico"
+
