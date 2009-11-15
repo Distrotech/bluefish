@@ -916,7 +916,8 @@ typedef struct {
 	GPatternSpec* patspec;
 	gchar *content_filter;
 	gboolean use_regex;
-	pcre *contentf_pcre; /* a compiled content_filter */
+	/*pcre *contentf_pcre;*/ /* a compiled content_filter */
+	GRegex *content_reg;
 	GFile *topbasedir; /* the top directory where advanced open started */
 #ifdef LOAD_TIMER
 	GTimer *timer;
@@ -954,7 +955,8 @@ static void openadv_unref(Topenadv *oa) {
 		if (oa->extension_filter) g_free(oa->extension_filter);
 		if (oa->patspec) g_pattern_spec_free(oa->patspec);
 		if (oa->content_filter) g_free(oa->content_filter);
-		if (oa->contentf_pcre) pcre_free(oa->contentf_pcre);
+		/*if (oa->contentf_pcre) pcre_free(oa->contentf_pcre);*/
+		if (oa->content_reg) g_regex_unref(oa->content_reg);
 		if (oa->topbasedir) g_object_unref(oa->topbasedir);
 		g_free(oa);
 	}
@@ -973,10 +975,11 @@ static void open_adv_open_uri_cleanup(Topenadv_uri *oau) {
 
 static gboolean open_adv_content_matches_filter(gchar *buffer,goffset buflen, Topenadv_uri *oau) {
 	if (oau->oa->use_regex) {
-		int rc;
+		return g_regex_match(oau->oa->content_reg,buffer,0,NULL);
+		/*int rc;
 		int ovector[30];
 		rc = pcre_exec(oau->oa->contentf_pcre, NULL, buffer, buflen, 0, 0, ovector, 30);
-		return rc;
+		return rc;*/
 	} else {
 		return (strstr(buffer, oau->oa->content_filter) != NULL);
 	}
@@ -1178,7 +1181,7 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir, guint recursion)
 	queue_push(&oadqueue, oad, openadv_run);
 }
 
-void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
+gboolean open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
 	if (basedir) {
 		Topenadv *oa;
 		oa = g_new0(Topenadv, 1);
@@ -1198,14 +1201,20 @@ void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, guint max_
 		if (content_filter) oa->content_filter = g_strdup(content_filter);
 		oa->use_regex = use_regex;
 		if (oa->use_regex) {
-			const char *error;
-			int erroffset;
-			oa->contentf_pcre = pcre_compile(oa->content_filter, 0, &error, &erroffset, NULL);
-			/* BUG: need error handling here */
+			GError *gerror=NULL;
+			/*int erroffset;
+			oa->contentf_pcre = pcre_compile(oa->content_filter, 0, &error, &erroffset, NULL);*/
+			oa->content_reg = g_regex_new(oa->content_filter,0,0,&gerror);
+			if (gerror) {
+				g_warning("regex compile error %d: %s\n",gerror->code,gerror->message);
+				g_error_free(gerror);
+			}
+			/* BUG: need more error handling here, and inform the user */
 			openadv_unref(oa);
 		}
 		open_advanced_backend(oa, basedir, 0);
 	}
+	return TRUE;
 }
 
 /************************/

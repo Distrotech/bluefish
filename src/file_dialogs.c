@@ -63,11 +63,11 @@ static void files_advanced_win_findpattern_changed(GtkComboBox * combobox, Tfile
 	}
 }
 
-static void files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
+static gboolean files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 {
 	GFile *baseuri;
 	gchar *basedir, *content_filter, *extension_filter;
-
+	gboolean retval;
 	extension_filter = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(tfs->find_pattern)->child), 0, -1);
 	basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
 	baseuri = g_file_new_for_uri(basedir);
@@ -75,7 +75,7 @@ static void files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 	tfs->bfwin->session->searchlist =
 		add_to_history_stringlist(tfs->bfwin->session->searchlist, content_filter, FALSE, TRUE);
 
-	open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
+	retval = open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
 				  , 500
 				  , gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname))
 				  ,
@@ -90,6 +90,7 @@ static void files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 
 	tfs->bfwin->session->adv_open_recursive = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive));
 	tfs->bfwin->session->adv_open_matchname = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname));
+	return retval;
 }
 
 static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_advanced * tfs)
@@ -220,8 +221,9 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	gtk_dialog_set_response_sensitive(GTK_DIALOG(tfs->dialog), GTK_RESPONSE_ACCEPT, FALSE);
 	gtk_widget_show_all(GTK_DIALOG(tfs->dialog)->vbox);
 
-	if (gtk_dialog_run(GTK_DIALOG(tfs->dialog)) == GTK_RESPONSE_ACCEPT) {
-		files_advanced_win_ok_clicked(tfs);
+	while (gtk_dialog_run(GTK_DIALOG(tfs->dialog)) == GTK_RESPONSE_ACCEPT) {
+		if (files_advanced_win_ok_clicked(tfs))
+			break;
 	}
 
 	gtk_widget_destroy(tfs->dialog);
