@@ -5,4 +5,5 @@ EXTRA_DIST = \
 	config.nsis \
 	resource.h \
 	Makefile.mingw.in \
-	locale\English.nsh
+	locale/English.nsh \
+	locale/Swedish.nsh

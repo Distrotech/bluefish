@@ -294,6 +294,7 @@ Page custom FileAssociations SetFileAssociations
 ;----------------------------------------------
 !insertmacro MUI_RESERVEFILE_LANGDLL
 
+; English goes first as the default language
 !insertmacro MUI_LANGUAGE	"English"
 ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
 ; Translations needed for the following commented languages
@@ -388,7 +389,7 @@ Section "-GTK+ Installer" SecGTK
 		Pop $R0
 			StrCmp $R0 "success" +3
 				MessageBox MB_OK "$(GTK_FAILED) $R0"
-				Quit
+				Quit 
 		DetailPrint "$(GTK_INSTALL) (${GTK_FILENAME})"
 		ExecWait '"$TEMP\${GTK_FILENAME}"'
 		Delete "$TEMP\${GTK_FILENAME}"
@@ -400,7 +401,7 @@ SectionEnd
 
 SectionGroup "$(SECT_PLUGINS)" SecPlugins
 	SetOverwrite on
-	Section $(PLUG_CHARMAP) SecPlCharmap
+	Section "$(PLUG_CHARMAP)" SecPlCharmap
 		SetOutPath "$INSTDIR"
 		File "build\libgucharmap-7.dll"
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
@@ -408,25 +409,25 @@ SectionGroup "$(SECT_PLUGINS)" SecPlugins
 		SetOutPath "$INSTDIR\share\locale"
 		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
 	SectionEnd
-	Section $(PLUG_ENTITIES) SecPlEntities
+	Section "$(PLUG_ENTITIES)" SecPlEntities
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\entities.dll"
 		SetOutPath "$INSTDIR\share\locale"
 		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
 	SectionEnd
-	Section $(PLUG_HTMLBAR) SecPlHTMLbar
+	Section "$(PLUG_HTMLBAR)" SecPlHTMLbar
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\htmlbar.dll"
 		SetOutPath "$INSTDIR\share\locale"
 		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
 	SectionEnd
-	Section $(PLUG_INFBROWSER) SecPlInfBrowser
+	Section "$(PLUG_INFBROWSER)" SecPlInfBrowser
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\infbrowser.dll"
 		SetOutPath "$INSTDIR\share\locale"
 		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_snippets.mo" "build\share\locale\*"
 	SectionEnd
-	Section $(PLUG_SNIPPETS) SecPlSnippets
+	Section "$(PLUG_SNIPPETS)" SecPlSnippets
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\snippets.dll"
 		SetOutPath "$INSTDIR\share\locale"
@@ -504,7 +505,6 @@ SectionGroupEnd
 
 Section "Uninstall"
 	Delete "$INSTDIR\${PROGRAM_EXE}"
-	Delete "$INSTDIR\bluefish.ico"
 	Delete "$INSTDIR\libaspell-15.dll"
 	Delete "$INSTDIR\libenchant-1.dll"
 	Delete "$INSTDIR\libgnurx-0.dll"
@@ -524,6 +524,8 @@ Section "Uninstall"
 	Delete "$SMPROGRAMS\$R0\$(UNINSTALL_SHORTCUT).lnk"
 	RMDir "$SMPROGRAMS\$R0"
 	${EndIf}
+	DeleteRegValue HKCU ${REG_USER_SET} ""
+	DeleteRegValue HKCU ${REG_USER_SET} "Installer Language"
 	DeleteRegValue HKCU ${REG_USER_SET} "Package"
 	DeleteRegValue HKCU ${REG_USER_SET} "Start Menu Folder"
 	DeleteRegValue HKCU ${REG_USER_SET} "Version"
@@ -648,7 +650,7 @@ Function FileAssociations
 FunctionEnd
 
 Function SetFileAssociations
-	;                     HWND					Extension	Mime Type									Handler	Content Type
+	;                     HWND					Extension	Mime Type									Handler	Content Type	ICON Id
 	${RegisterFileType} $FA_Ada 			"ada" 		"text/x-ada" 								"bfadafile"	"$(CT_ADA)"	1
 	${RegisterFileType} $FA_Asp 			"asp" 		"text/x-asp" 								"bfaspfile" "$(CT_ASP)"	2
 	${RegisterFileType} $FA_Sh 			"sh" 			"text/x-shellscript" 					"bfshfile"	"$(CT_SH)"	22
