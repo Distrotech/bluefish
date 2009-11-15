@@ -313,6 +313,7 @@ ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
 ;;!insertmacro MUI_LANGUAGE	"Slovak"
 ;;!insertmacro MUI_LANGUAGE	"Spanish"
 !insertmacro MUI_LANGUAGE	"Swedish"
+${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 ; NSIS Lacks a translation for this language
 ;!insertmacro MUI_LANGUAGE	"Tamil"
 ;;!insertmacro MUI_LANGUAGE	"Turkish"
