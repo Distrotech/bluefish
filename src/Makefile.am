@@ -106,4 +106,4 @@ bluefish_unstable_SOURCES = \
 	undo_redo.h
 
 .rc.o:
-	$(WINDRES) -o $@ $<
+	$(CC) -E -xc -DRC_INVOKED -DSRCDIR=\"$(top_srcdir)/win32/pixmaps $< | $(WINDRES) -o $@
