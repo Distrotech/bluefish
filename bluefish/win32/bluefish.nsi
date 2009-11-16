@@ -439,7 +439,7 @@ SectionGroupEnd
 Section "$(SECT_SHORTCUT)" SecDesktopShortcut
 	SetOverwrite on
 	SetOutPath "$INSTDIR"
-	CreateShortCut "$DESKTOP\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}" "" "$INSTDIR\bluefish.ico" 0
+	CreateShortCut "$DESKTOP\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}"
 	SetOverwrite off
 SectionEnd
 
