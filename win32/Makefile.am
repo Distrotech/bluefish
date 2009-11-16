@@ -1,7 +1,35 @@
 EXTRA_DIST = \
-	bluefish.ico \
 	bluefish.nsi \
 	config.nsis \
 	Makefile.mingw.in \
 	locale/English.nsh \
-	locale/Swedish.nsh
+	locale/Swedish.nsh \
+	pixmaps/bluefish-ada.ico \
+	pixmaps/bluefish-asp.ico \
+	pixmaps/bluefish-bflang2.ico \
+	pixmaps/bluefish-bfproj.ico \
+	pixmaps/bluefish-c.ico \
+	pixmaps/bluefish-cpp.ico \
+	pixmaps/bluefish-css.ico \
+	pixmaps/bluefish-d.ico \
+	pixmaps/bluefish-gettext.ico \
+	pixmaps/bluefish-h.ico \
+	pixmaps/bluefish-hpp.ico \
+	pixmaps/bluefish-html.ico \
+	pixmaps/bluefish-icon.ico \
+	pixmaps/bluefish-java.ico \
+	pixmaps/bluefish-js.ico \
+	pixmaps/bluefish-jsp.ico \
+	pixmaps/bluefish-nsh.ico \
+	pixmaps/bluefish-nsi.ico \
+	pixmaps/bluefish-perl.ico \
+	pixmaps/bluefish-php.ico \
+	pixmaps/bluefish-python.ico \
+	pixmaps/bluefish-ruby.ico \
+	pixmaps/bluefish-shell.ico \
+	pixmaps/bluefish-smarty.ico \
+	pixmaps/bluefish-text.ico \
+	pixmaps/bluefish-vbscript.ico \
+	pixmaps/bluefish-xhtml.ico \
+	pixmaps/bluefish-xml.ico \
+	pixmaps/bluefish-xslt.ico
