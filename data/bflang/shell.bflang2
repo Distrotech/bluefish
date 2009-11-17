@@ -20,24 +20,26 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Shell" matches="29" contexts="3" table="82">
+<bflang name="Shell" version="2.0" matches="29" contexts="3" table="82">
 <header>
 	<mime type="application/x-shellscript"/>
 	<mime type="text/x-shellscript"/>
 	<mime type="text/x-sh"/>
-	<highlight name="string" style="string"   />
-	<highlight name="keyword" style="keyword"  />
-	<highlight name="value" style="value"  />
-	<highlight name="function" style="function"  />
+	<highlight name="brackets" style="brackets"  />
 	<highlight name="comment" style="comment"  />
+	<highlight name="function" style="function"  />
+	<highlight name="keyword" style="keyword"  />
+	<highlight name="string" style="string"   />
+	<highlight name="tag" style="tag"  />
+	<highlight name="value" style="value"  />
 	<highlight name="variable" style="variable"  />
 </header>
 <properties>
-	<comment id="#" type="line" start="#" />
+	<comment type="line" start="#" />
 </properties>
 
 <definition>
-<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;" spellcheck="0">
+<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 <element pattern="[0-9.]+" is_regex="1" highlight="value"/>
 <element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
 <element pattern="${[^}]+}" is_regex="1" case_insens="1" highlight="variable"/>
@@ -62,22 +64,22 @@
 	<element pattern="eval" />
 </group>
 
-<element id="{" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
-<element id="[" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
-<element id="(" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
+<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
+<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
+<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
 
 <element pattern="#" highlight="comment">
-<context symbols="&#10;&#13;" highlight="comment" spellcheck="1">
+<context symbols="&#10;&#13;" highlight="comment">
 	<element pattern="&#10;" highlight="comment" ends_context="1"/>
 	<element pattern="&#13;" highlight="comment" ends_context="1"/>
 </context>
 </element>
 <element pattern="'[^']*'" is_regex="1" highlight="string"/>
 <element pattern="&quot;" highlight="string">
-<context symbols="\&quot;${}" highlight="string" spellcheck="1">
+<context symbols="\&quot;${}" highlight="string">
 	<element pattern="\\." is_regex="1" highlight="tag" />
 	<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
 	<element pattern="${[^}]+}" is_regex="1" case_insens="1" highlight="variable"/>

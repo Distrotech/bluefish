@@ -46,8 +46,11 @@ case "$host" in
 	*-openbsd3.8)
 		AC_PROG_LN_S
 		$LN_S -f ../../config.status src/plugin_about/
+		$LN_S -f ../../config.status src/plugin_charmap/
 		$LN_S -f ../../config.status src/plugin_entities/
+		$LN_S -f ../../config.status src/plugin_infbrowser/
 		$LN_S -f ../../config.status src/plugin_htmlbar/
+		$LN_S -f ../../config.status src/plugin_snippets/
 		AC_MSG_NOTICE([Don't try to run '(g)make distcheck, because it will fail.])
 		OPENBSD_3_8_FIX=config.status
 		AC_SUBST([OPENBSD_3_8_FIX])
@@ -73,13 +76,22 @@ dnl ************************
 dnl   Compiler options
 dnl ************************
 
-AC_DISABLE_STATIC
-
 #AC_ARG_PROGRAM
 AC_PROG_CC
+m4_ifdef(
+[LT_INIT],
+[
+dnl libtool 2.x macros
+LT_INIT([disable-static dlopen win32-dll])
+LT_PROG_RC
+],[
+dnl libtool 1.4 macros.
+AC_DISABLE_STATIC
 AC_LIBTOOL_DLOPEN
 AC_LIBTOOL_WIN32_DLL
+AC_LIBTOOL_RC
 AC_PROG_LIBTOOL
+])
 m4_ifdef([DOLT], [DOLT])
 AC_ISC_POSIX
 AC_C_INLINE
@@ -114,6 +126,14 @@ case "$host" in
 	;;
 esac
 
+if test "x$native_win32" = "xyes"; then
+AC_CHECK_TOOL([WINDRES], [windres], [no])
+if test "x$WINDRES" = "xno"; then
+AC_MSG_ERROR([The tool 'windres' was not found. Aborting.])
+fi
+AC_PROG_SED
+AC_SUBST([SPLIT_VERSION], [`echo $VERSION | $SED -e 's/\./,/g'`])
+fi
 AM_CONDITIONAL([OS_WIN32], [test "x$native_win32" = "xyes"])
 
 dnl ************************
@@ -552,7 +572,7 @@ if test "$exec_prefix" == "NONE"; then
 	AC_SUBST([exec_prefix])
 fi
 
-if test -n "$localedir"; then
+if test -z "$localedir"; then
 	localedir="${datadir}/locale"
 	AC_SUBST([localedir])
 fi
@@ -562,6 +582,8 @@ dnl *******************************
 dnl   Manpage macros
 dnl *******************************
 BF_PROG_MAN
+BF_PROG_JING
+BF_PROG_XMLLINT
 
 
 dnl *******************************
@@ -591,6 +613,7 @@ AC_CONFIG_FILES([
 	src/plugin_infbrowser/po/Makefile.in
 	src/plugin_snippets/Makefile
 	src/plugin_snippets/po/Makefile.in
+	src/bluefish_rc.rc
 	win32/Makefile
 	win32/Makefile.mingw
 ])

@@ -1194,6 +1194,7 @@ static gint sort_bflang_list(gconstpointer a, gconstpointer b) {
 static void bflang_cleanup_scantable(Tbflang *bflang) {
 	gint i;
 	for (i=1;i<bflang->st->matches->len;i++) {
+		GSList *slist;
 		g_free(g_array_index(bflang->st->matches, Tpattern, i).reference);
 		g_free(g_array_index(bflang->st->matches, Tpattern, i).pattern);
 		/* TODO: cleanup autocomplete list */
@@ -1203,6 +1204,10 @@ static void bflang_cleanup_scantable(Tbflang *bflang) {
 		the same <group>
 		g_free(g_array_index(bflang->st->matches, Tpattern, i).selfhighlight);*/
 		g_free(g_array_index(bflang->st->matches, Tpattern, i).blockhighlight);
+		for (slist=g_array_index(bflang->st->matches, Tpattern, i).autocomp_items;slist;slist=g_slist_next(slist)) {
+			g_slice_free(Tpattern_autocomplete, slist->data);
+		}
+		g_slist_free(g_array_index(bflang->st->matches, Tpattern, i).autocomp_items);
 	}
 	for (i=1;i<bflang->st->contexts->len;i++) {
 		if (g_array_index(bflang->st->contexts, Tcontext, i).ac)

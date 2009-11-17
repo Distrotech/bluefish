@@ -1,0 +1,27 @@
+<!ENTITY comment.cblock '<comment id="comment.cblock" type="block" start="/*" end="*/" />'>
+<!ENTITY comment.cline  '<comment id="comment.cline"  type="line" start="//" />'>
+<!ENTITY comment.shell  '<comment id="comment.ishell" type="line" start="#" />'>
+<!ENTITY comment.xml    '<comment id="comment.xml"    type="block" start="&lt;!--" end="--&gt;" />'>
+
+<!ENTITY element.braces '
+	<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+	<element id="e.rbrace" pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
+'>
+
+<!ENTITY element.brackets '
+	<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+	<element id="e.rbracket" pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
+'>
+
+<!ENTITY element.parenthesis '
+	<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+	<element id="e.rparen" pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+'>
+
+<!ENTITY element.comment.cblock '
+	<element id="e.lcomment" pattern="/*" starts_block="1" highlight="comment">
+		<context symbols="*/&#9;&#10;&#13;" highlight="comment">
+			<element id="e.rcomment" pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
+		</context>
+	</element>
+'>

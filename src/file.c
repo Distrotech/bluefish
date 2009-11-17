@@ -40,6 +40,16 @@
 #if !GTK_CHECK_VERSION(2,14,0)
 #include "gtkmountoperation.h"
 #endif
+#undef OAD_MEMCOUNT
+#ifdef OAD_MEMCOUNT
+typedef struct {
+	gint allocdir;
+	gint allocuri;
+} Toad_memcount;
+
+Toad_memcount omemcount = {0,0}; 
+#endif /* OAD_MEMCOUNT */
+
 
 void DEBUG_URI(GFile * uri, gboolean newline)
 {
@@ -53,11 +63,12 @@ void DEBUG_URI(GFile * uri, gboolean newline)
 
 /******************************** queue functions ********************************/
 typedef struct {
-	guint worknum; /* number of elements that are being worked on */
 	GList *head; /* data structures that are *not* being worked on */
 	GList *tail;
-	guint max_worknum;
 	GStaticMutex mutex;
+	guint queuelen;
+	guint worknum; /* number of elements that are being worked on */
+	guint max_worknum;
 } Tqueue;
 
 static Tqueue ofqueue;
@@ -91,6 +102,7 @@ static void queue_run(Tqueue *queue, void (*activate_func) () )  {
 				queue->head = NULL;
 			else
 				queue->tail->next = NULL;
+			queue->queuelen--;
 			activate_func(curlst->data);
 			queue->worknum++;
 			g_list_free_1(curlst);
@@ -109,6 +121,7 @@ static void queue_worker_ready(Tqueue *queue, void (*activate_func) ()) {
 static void queue_push(Tqueue *queue, gpointer item, void (*activate_func) ()) {
 	g_static_mutex_lock(&queue->mutex);
 	queue->head = g_list_prepend(queue->head, item);
+	queue->queuelen++;
 	if (queue->tail==NULL)
 		queue->tail=queue->head;
 	queue_run(queue,activate_func);
@@ -122,6 +135,7 @@ static gboolean queue_remove(Tqueue *queue, gpointer item) {
 		if (curlst == queue->tail)
 			queue->tail = curlst->prev;
 		queue->head = g_list_remove_link(queue->head, curlst);
+		queue->queuelen--;
 		g_list_free_1(curlst);
 		g_static_mutex_unlock(&queue->mutex);
 		return TRUE; 
@@ -466,7 +480,7 @@ static void openfile_run(gpointer data);
 static void openfile_cleanup(Topenfile *of) {
 	g_object_unref(of->uri);
 	g_object_unref(of->cancel);
-	g_free(of);
+	g_slice_free(Topenfile,of);
 	/*ofqueue.worknum--;
 	process_ofqueue(NULL);*/
 	queue_worker_ready(&ofqueue, openfile_run);
@@ -558,7 +572,7 @@ static void openfile_run(gpointer data) {
 
 Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
-	of = g_new(Topenfile,1);
+	of = g_slice_new(Topenfile);
 	of->callback_data = callback_data;
 	of->callback_func = callback_func;
 	of->uri = uri;
@@ -896,12 +910,14 @@ typedef struct {
 	guint refcount;
 	Tbfwin *bfwin;
 	gboolean recursive;
+	guint max_recursion;
 	gboolean matchname;
 	gchar *extension_filter;
 	GPatternSpec* patspec;
 	gchar *content_filter;
 	gboolean use_regex;
-	pcre *contentf_pcre; /* a compiled content_filter */
+	/*pcre *contentf_pcre;*/ /* a compiled content_filter */
+	GRegex *content_reg;
 	GFile *topbasedir; /* the top directory where advanced open started */
 #ifdef LOAD_TIMER
 	GTimer *timer;
@@ -912,6 +928,7 @@ typedef struct {
 	Topenadv *oa;
 	GFile *basedir;
 	GFileEnumerator *gfe;
+	guint recursion;
 } Topenadv_dir;
 
 typedef struct {
@@ -938,7 +955,8 @@ static void openadv_unref(Topenadv *oa) {
 		if (oa->extension_filter) g_free(oa->extension_filter);
 		if (oa->patspec) g_pattern_spec_free(oa->patspec);
 		if (oa->content_filter) g_free(oa->content_filter);
-		if (oa->contentf_pcre) pcre_free(oa->contentf_pcre);
+		/*if (oa->contentf_pcre) pcre_free(oa->contentf_pcre);*/
+		if (oa->content_reg) g_regex_unref(oa->content_reg);
 		if (oa->topbasedir) g_object_unref(oa->topbasedir);
 		g_free(oa);
 	}
@@ -948,15 +966,20 @@ static void open_adv_open_uri_cleanup(Topenadv_uri *oau) {
 	g_object_unref(oau->uri);
 	g_object_unref(oau->finfo);
 	openadv_unref(oau->oa);
-	g_free(oau);
+#ifdef OAD_MEMCOUNT
+	omemcount.allocuri--;
+	g_print("allocuri=%d\n",omemcount.allocuri);
+#endif /* OAD_MEMCOUNT */
+	g_slice_free(Topenadv_uri,oau);
 }
 
 static gboolean open_adv_content_matches_filter(gchar *buffer,goffset buflen, Topenadv_uri *oau) {
 	if (oau->oa->use_regex) {
-		int rc;
+		return g_regex_match(oau->oa->content_reg,buffer,0,NULL);
+		/*int rc;
 		int ovector[30];
 		rc = pcre_exec(oau->oa->contentf_pcre, NULL, buffer, buflen, 0, 0, ovector, 30);
-		return rc;
+		return rc;*/
 	} else {
 		return (strstr(buffer, oau->oa->content_filter) != NULL);
 	}
@@ -1005,7 +1028,11 @@ static void openadv_content_filter_file(Topenadv *oa, GFile *uri, GFileInfo* fin
 	if (tmpdoc)
 		return;
 	
-	oau = g_new0(Topenadv_uri,1);
+	oau = g_slice_new0(Topenadv_uri);
+#ifdef OAD_MEMCOUNT
+	omemcount.allocuri++;
+	g_print("allocuri=%d, oadqueue=%d (%d), ofqueue=%d (%d)\n",omemcount.allocuri,oadqueue.queuelen,oadqueue.max_worknum,ofqueue.queuelen,ofqueue.max_worknum);
+#endif /* OAD_MEMCOUNT */
 	oau->oa = oa;
 	oa->refcount++;
 	oau->uri = uri;
@@ -1016,7 +1043,7 @@ static void openadv_content_filter_file(Topenadv *oa, GFile *uri, GFileInfo* fin
 	file_openfile_uri_async(uri, oa->bfwin, open_adv_content_filter_lcb, oau);
 }
 
-static void open_advanced_backend(Topenadv *oa, GFile *basedir);
+static void open_advanced_backend(Topenadv *oa, GFile *basedir, guint recursion);
 static void openadv_run(gpointer data);
 
 static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
@@ -1025,7 +1052,11 @@ static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
 	if (oad->gfe)
 		g_object_unref(oad->gfe);
 	openadv_unref(oad->oa);
-	g_free(oad);
+	g_slice_free(Topenadv_dir,oad);
+#ifdef OAD_MEMCOUNT
+	omemcount.allocdir--;
+	g_print("allocdir=%d, oadqueue.queuelen=%d\n",omemcount.allocdir,oadqueue.queuelen);
+#endif /* OAD_MEMCOUNT */
 	queue_worker_ready(&oadqueue, openadv_run);
 }
 
@@ -1045,13 +1076,15 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 	alldoclist = return_allwindows_documentlist();
 	while (tmplist) {
 		GFileInfo *finfo=tmplist->data;
-		if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_DIRECTORY && oad->oa->recursive) {
-			GFile *dir;
-			const gchar *name = g_file_info_get_name(finfo);
-			DEBUG_MSG("enumerator_next_files_lcb, %s is a dir\n",name);
-			dir = g_file_get_child(oad->basedir,name);
-			open_advanced_backend(oad->oa, dir);
-			g_object_unref(dir);
+		if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_DIRECTORY) {
+			if (oad->oa->recursive && oad->recursion < oad->oa->max_recursion) { 
+				GFile *dir;
+				const gchar *name = g_file_info_get_name(finfo);
+				DEBUG_MSG("enumerator_next_files_lcb, %s is a dir\n",name);
+				dir = g_file_get_child(oad->basedir,name);
+				open_advanced_backend(oad->oa, dir, oad->recursion+1);
+				g_object_unref(dir);
+			}
 		} else if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_REGULAR) {
 			GFile *child_uri;
 			const gchar *name = g_file_info_get_name(finfo);
@@ -1083,6 +1116,9 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 			} else {
 				doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
 			}
+		} else {
+			/* TODO: symlink support ?? */
+			/*g_print("%s is not a file and not a dir\n",g_file_info_get_name(finfo));*/
 		}
 		g_object_unref(finfo);
 		tmplist = g_list_next(tmplist);
@@ -1120,46 +1156,70 @@ static void openadv_run(gpointer data) {
 					,enumerate_children_lcb,oad);
 }
 
-static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
+static void open_advanced_backend(Topenadv *oa, GFile *basedir, guint recursion) {
 	Topenadv_dir *oad;
 	DEBUG_MSG("open_advanced_backend on basedir %p ",basedir);
 	DEBUG_URI(basedir,TRUE);
-	oad = g_new0(Topenadv_dir, 1);
+	oad = g_slice_new0(Topenadv_dir);
+#ifdef OAD_MEMCOUNT
+	omemcount.allocdir++;
+	g_print("allocdir=%d, oadqueue.queuelen=%d\n",omemcount.allocdir,oadqueue.queuelen);
+#endif /* OAD_MEMCOUNT */
 	oad->oa = oa;
 	oa->refcount++;
-
+	oad->recursion=recursion;
 	oad->basedir = basedir;
 	g_object_ref(oad->basedir);
+	
+	/* tune the queue, if there are VERY MANY files on the ofqueue, we limit the oadqueue */
+	if (oadqueue.max_worknum >= 8 && ofqueue.queuelen > 1024)
+		oadqueue.max_worknum = 2;
+	else if (oadqueue.max_worknum >= 2 && ofqueue.queuelen > 10240)
+		oadqueue.max_worknum = 1;
+	else if (oadqueue.max_worknum < 16 && ofqueue.queuelen < 1024)
+		oadqueue.max_worknum = 16;
 	queue_push(&oadqueue, oad, openadv_run);
 }
 
-void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
-	if (basedir) {
-		Topenadv *oa;
-		oa = g_new0(Topenadv, 1);
+gboolean open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex, GError **reterror) {
+	Topenadv *oa;
+	
+	if (!basedir || !name_filter)
+		return FALSE;
+		
+	oa = g_new0(Topenadv, 1);
 #ifdef LOAD_TIMER
-		oa->timer = g_timer_new();
+	oa->timer = g_timer_new();
 #endif
-		oa->bfwin = bfwin;
-		oa->recursive = recursive;
-		oa->matchname = matchname;
-		oa->topbasedir = basedir;
-		g_object_ref(oa->topbasedir);
-		if (name_filter) {
-			oa->extension_filter = g_strdup(name_filter);
-			oa->patspec = g_pattern_spec_new(name_filter);
-		}
-		if (content_filter) oa->content_filter = g_strdup(content_filter);
-		oa->use_regex = use_regex;
-		if (oa->use_regex) {
-			const char *error;
-			int erroffset;
-			oa->contentf_pcre = pcre_compile(oa->content_filter, 0, &error, &erroffset, NULL);
-			/* BUG: need error handling here */
-			openadv_unref(oa);
-		}
-		open_advanced_backend(oa, basedir);
+	oa->bfwin = bfwin;
+	oa->recursive = recursive;
+	oa->max_recursion = max_recursion;
+	oa->matchname = matchname;
+	oa->topbasedir = basedir;
+	g_object_ref(oa->topbasedir);
+	if (name_filter) {
+		oa->extension_filter = g_strdup(name_filter);
+		oa->patspec = g_pattern_spec_new(name_filter);
 	}
+	if (content_filter) oa->content_filter = g_strdup(content_filter);
+	oa->use_regex = use_regex;
+	if (oa->use_regex) {
+		GError *gerror=NULL;
+		/*int erroffset;
+		oa->contentf_pcre = pcre_compile(oa->content_filter, 0, &error, &erroffset, NULL);*/
+		oa->content_reg = g_regex_new(oa->content_filter,0,0,&gerror);
+		if (gerror) {
+			DEBUG_MSG("regex compile error %d: %s\n",gerror->code,gerror->message);
+			g_propagate_error(reterror,gerror);
+			/*do we need to free or not ????? g_error_free(gerror);*/
+			/* BUG: need more error handling here, and inform the user */
+			openadv_unref(oa);
+			return FALSE;
+		}
+	}
+
+	open_advanced_backend(oa, basedir, 0);
+	return TRUE;
 }
 
 /************************/

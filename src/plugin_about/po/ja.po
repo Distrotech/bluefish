@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-10-14 20:54+0700\n"
+"POT-Creation-Date: 2009-10-12 23:49+0200\n"
 "PO-Revision-Date: 2009-11-07 07:03+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
@@ -52,8 +52,14 @@ msgstr ""
 "このソフトウェアのリリースを手助けしてくれたすべての人に感謝します."
 
 #: src/plugin_about/about.c:143
-msgid "An open-source editor for experienced web designers and programmers, supporting many programming and markup languages, but focusing on creating dynamic and interactive websites."
-msgstr "経験を積んだウェブデザイナーやプログラマーのためのオープンソースなエディタです。多くのプログラミング言語やマークアップ言語をサポートしており、ダイナミック、インタラクティブなウェブサイトを作成する際に、大きな助けとなるでしょう。"
+msgid ""
+"An open-source editor for experienced web designers and programmers, "
+"supporting many programming and markup languages, but focusing on creating "
+"dynamic and interactive websites."
+msgstr ""
+"経験を積んだウェブデザイナーやプログラマーのためのオープンソースなエディタで"
+"す。多くのプログラミング言語やマークアップ言語をサポートしており、ダイナミッ"
+"ク、インタラクティブなウェブサイトを作成する際に、大きな助けとなるでしょう。"
 
 #. Translators: This is a special message that shouldn't be translated
 #. * literally. It is used in the about box to give credits to
@@ -73,7 +79,8 @@ msgstr ""
 
 #: src/plugin_about/about.c:195
 msgid "This version of Bluefish was built with:\n"
-msgstr "このバージョンの Bluefish は次のオプションを使用してコンパイルされています:\n"
+msgstr ""
+"このバージョンの Bluefish は次のオプションを使用してコンパイルされています:\n"
 
 #: src/plugin_about/about.c:216
 msgid "/_Help"
@@ -97,8 +104,9 @@ msgstr "/ヘルプ/ビルド情報(_B)..."
 
 #~ msgid "libaspell support, "
 #~ msgstr "libaspell サポート、 "
+
 #~ msgid "development checks support, "
 #~ msgstr "開発者のための確認用コード、"
+
 #~ msgid "i18n support, "
 #~ msgstr "国際化(i18n) サポート、"
-

@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Python" matches="2021" contexts="5" table="15390">
+<bflang name="Python" version="2.0" matches="2021" contexts="5" table="15390">
 <header>
 	<mime type="application/x-python"/>
 	<mime type="text/x-python" />
@@ -35,7 +35,7 @@
 	<highlight name="imports" style="preprocessor"   />	
 </header>
 <properties>
-	<comment id="#" type="line" start="#" />
+	<comment type="line" start="#" />
 	<smartindent characters=":" />
 </properties>
 
@@ -2062,7 +2062,7 @@
 	</context>
 </element>
 <element pattern="'" highlight="string">
-	<context symbols="\'" highlight="string" spellcheck="1">
+	<context symbols="\'" highlight="string">
 		<element pattern="\." is_regex="1"/>
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
@@ -2075,16 +2075,18 @@
 <element pattern="[0-9]+\.[0-9]+" is_regex="1" autocomplete="0" />
 <element pattern="[0-9]+" is_regex="1" autocomplete="0" />
 </group>
-<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
-<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
-<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
+<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
+<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
+<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
 <element pattern="#" highlight="comment">
-<context symbols="&#10;&#13;" highlight="comment" spellcheck="1">
+<context symbols="&#10;&#13;" highlight="comment">
 	<element pattern="&#10;" highlight="comment" ends_context="1"/>
 	<element pattern="&#13;" highlight="comment" ends_context="1"/>
 </context>
 </element>
-</context></definition></bflang>
+</context>
+</definition>
+</bflang>

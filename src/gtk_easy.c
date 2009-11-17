@@ -267,71 +267,46 @@ void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox) {
 	}
 	DEBUG_MSG("integer_apply, config_var(%p)=%i\n", config_var, *config_var);
 }
-/**
- * combo_with_popdown:
- * 	@setstring: #gchar* to set in textbox, if NULL it will be set ""
- * 	@which_list: #GList* to set in popdown widget
- * 	@editable: #gint if the combo should be editable (1 or 0)
- *
- * 	Create new combo and preset some values
- *
- * Return value: #GtkWidget* pointer to created combo
- */
-GtkWidget *combo_with_popdown(const gchar * setstring, GList * which_list, gint editable) {
-	GtkWidget *returnwidget;
 
-	returnwidget = gtk_combo_new();
-	gtk_combo_set_case_sensitive(GTK_COMBO(returnwidget),TRUE);
-	if (which_list != NULL) {
-		gtk_combo_set_popdown_strings(GTK_COMBO(returnwidget), which_list);
-	}
-	if (setstring != NULL) {
-		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(returnwidget)->entry), setstring);
-	} else {
-		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(returnwidget)->entry), "");
-	}
-	if (editable == 0) {
-		gtk_editable_set_editable(GTK_EDITABLE(GTK_ENTRY(GTK_COMBO(returnwidget)->entry)), FALSE);
-	}
-	gtk_combo_disable_activate(GTK_COMBO(returnwidget));
-	gtk_entry_set_activates_default (GTK_ENTRY (GTK_COMBO (returnwidget)->entry), TRUE);
-	return returnwidget;
-}
-/**
- * boxed_combo_with_popdown:
- * 	@setstring: #gchar* to set in textbox, if NULL it will be set ""
- * 	@which_list: #GList* to set in popdown widget
- * 	@editable: #gint if the combo should be editable (1 or 0)
- * @box: the #GtkWidget* box widget to add the combo to
- *
- * 	create a new combo with presets like in combo_with_popdown()
- * and add it to the box
- *
- * Return value: #GtkWidget* pointer to created combo
- */
-GtkWidget *boxed_combo_with_popdown(const gchar * setstring, GList * which_list, gint editable, GtkWidget *box) {
+GtkWidget *combobox_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width) {
 	GtkWidget *returnwidget;
 	
-	returnwidget = combo_with_popdown(setstring, which_list, editable);
+	returnwidget = combobox_with_popdown(setstring, which_list, editable);
+	gtk_widget_set_size_request(returnwidget, width , -1);
+	return returnwidget;
+}
+
+GtkWidget *boxed_combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable, GtkWidget *box) {
+	GtkWidget *returnwidget = combobox_with_popdown(setstring, which_list, editable);
 	gtk_box_pack_start(GTK_BOX(box), returnwidget, TRUE, TRUE, 3);
 	return returnwidget;
 }
-/**
- * combo_with_popdown_sized:
- * 	@setstring: #gchar* to set in textbox, if NULL it will be set ""
- * 	@which_list: #GList* to set in popdown widget
- * 	@editable: #gint if the combo should be editable (1 or 0)
- * @width: #gint with the width in pixels the widget should be
- *
- * 	Create new combo and preset some values, with a horizontal size
- *
- * Return value: #GtkWidget* pointer to created combo
- */
-GtkWidget *combo_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width) {
+
+GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable) {
 	GtkWidget *returnwidget;
-	
-	returnwidget = combo_with_popdown(setstring, which_list, editable);
-	gtk_widget_set_size_request(returnwidget, width , -1);
+	GList *tmplist;
+	gint activenum=-1,index=0;
+	if (editable)
+		returnwidget = gtk_combo_box_entry_new_text();
+	else
+		returnwidget = gtk_combo_box_new_text();
+	for (tmplist=g_list_first(which_list);tmplist;tmplist=g_list_next(tmplist)) {
+		if (tmplist->data) {
+			gtk_combo_box_append_text(GTK_COMBO_BOX(returnwidget),tmplist->data);
+			if (setstring && g_strcmp0(tmplist->data, setstring)==0) {
+				activenum=index;
+			}
+			index++;
+		}
+	}
+	if (activenum!=-1) {
+		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget),activenum);
+	} else if (setstring) {
+		gtk_combo_box_append_text(GTK_COMBO_BOX(returnwidget),setstring);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget),index);
+	}
+	/*gtk_combo_disable_activate(GTK_COMBO(returnwidget));
+	gtk_entry_set_activates_default (GTK_ENTRY (GTK_COMBO (returnwidget)->entry), TRUE);*/
 	return returnwidget;
 }
 

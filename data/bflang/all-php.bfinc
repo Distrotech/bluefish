@@ -25049,40 +25049,6 @@ or false.
 <element pattern="true" autocomplete="1" highlight="php-value"/>
 <element pattern="NULL" autocomplete="1" highlight="php-value"/>
 <element pattern="null" autocomplete="1" highlight="php-value"/>
-<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
-<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
-<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
-<element pattern="/*" starts_block="1" highlight="php-comment">
-	<context symbols="*/&#9;&#10;&#13;" highlight="php-comment">
-		<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="php-comment" mayfold="1" ends_context="1" />
-	</context>
-</element>
-<element id="php-variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable"/>
-<element pattern="&#34;" highlight="string">
-	<context symbols="\&#34;$ &#9;&#10;&#13;' -&lt;&gt;{}[]" highlight="string">
-		<element pattern="\\." highlight="string" is_regex="1" />
-		<element pattern="\$" highlight="string" />
-		<element idref="php-variable" />
-		<group class="sql-in-php-string" highlight="php-string-sql-keyword" case_insens="1">
-			<element pattern="SELECT" />
-			<element pattern="FROM" />
-			<element pattern="WHERE" />
-			<element pattern="ON" />
-			<element pattern="AS" />
-			<element pattern="ORDER" />
-			<element pattern="LEFT" />
-			<element pattern="INNER" />
-			<element pattern="JOIN" />
-			<element pattern="UPDATE" />
-			<element pattern="INSERT" />
-			<element pattern="DELETE" />
-		</group>
-		<element pattern="&#34;" highlight="string" ends_context="1" />
-	</context>
-</element>
 <element pattern="'" highlight="string">
 	<context symbols="\'" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />

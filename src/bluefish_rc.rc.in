@@ -1,0 +1,63 @@
+#include <winver.h>
+#include "resource.h"
+
+VS_VERSION_INFO VERSIONINFO
+  FILEVERSION @SPLIT_VERSION@,0
+  PRODUCTVERSION @SPLIT_VERSION@,0
+  FILEFLAGSMASK 0
+  FILEFLAGS 0
+  FILEOS VOS__WINDOWS32
+  FILETYPE VFT_APP
+  FILESUBTYPE VFT2_UNKNOWN
+  BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+      BLOCK "040904B0"
+      BEGIN
+        VALUE "CompanyName", "The Bluefish Developers"
+        VALUE "FileDescription", "Bluefish"
+        VALUE "FileVersion", "@VERSION@"
+        VALUE "InternalName", "@PACKAGE@"
+        VALUE "LegalCopyright", "Copyright (C) 1999-2009 Olivier Sessink"
+        VALUE "OriginalFilename", "@PACKAGE@.exe"
+        VALUE "ProductName", "Bluefish"
+        VALUE "ProductVersion", "@VERSION@"
+      END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+      VALUE "Translation", 0x409, 1200
+    END
+  END
+
+BLUEFISH_ICON	ICON SRCDIR/bluefish-icon.ico"
+
+ADA_ICON			ICON SRCDIR/bluefish-ada.ico"
+ASP_ICON			ICON SRCDIR/bluefish-asp.ico"
+BFLANG2_ICON	ICON SRCDIR/bluefish-bflang2.ico"
+BFPROJ_ICON		ICON SRCDIR/bluefish-bfproj.ico"
+C_ICON			ICON SRCDIR/bluefish-c.ico"
+CPP_ICON			ICON SRCDIR/bluefish-cpp.ico"
+CSS_ICON			ICON SRCDIR/bluefish-css.ico"
+D_ICON			ICON SRCDIR/bluefish-d.ico"
+GETTEXT_ICON	ICON SRCDIR/bluefish-gettext.ico"
+H_ICON			ICON SRCDIR/bluefish-h.ico"
+HPP_ICON			ICON SRCDIR/bluefish-hpp.ico"
+HTML_ICON		ICON SRCDIR/bluefish-html.ico"
+JAVA_ICON		ICON SRCDIR/bluefish-java.ico"
+JS_ICON			ICON SRCDIR/bluefish-js.ico"
+JSP_ICON			ICON SRCDIR/bluefish-jsp.ico"
+NSH_ICON			ICON SRCDIR/bluefish-nsh.ico"
+NSI_ICON			ICON SRCDIR/bluefish-nsi.ico"
+PERL_ICON		ICON SRCDIR/bluefish-perl.ico"
+PHP_ICON			ICON SRCDIR/bluefish-php.ico"
+PYTHON_ICON		ICON SRCDIR/bluefish-python.ico"
+RUBY_ICON		ICON SRCDIR/bluefish-ruby.ico"
+SHELL_ICON		ICON SRCDIR/bluefish-shell.ico"
+SMARTY_ICON		ICON SRCDIR/bluefish-smarty.ico"
+TEXT_ICON		ICON SRCDIR/bluefish-text.ico"
+VBSCRIPT_ICON	ICON SRCDIR/bluefish-vbscript.ico"
+XHTML_ICON		ICON SRCDIR/bluefish-xhtml.ico"
+XML_ICON			ICON SRCDIR/bluefish-xml.ico"
+XSLT_ICON		ICON SRCDIR/bluefish-xslt.ico"
+

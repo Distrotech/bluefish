@@ -3,6 +3,8 @@ SUBDIRS = po
 
 EXTRA_DIST = snippets.def
 
+DISTCLEANFILES = @OPENBSD_3_8_FIX@
+
 MAINTAINERCLEANFILES = Makefile.in
 
 DEFS += -DLOCALEDIR=\"$(localedir)\"

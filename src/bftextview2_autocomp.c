@@ -343,6 +343,7 @@ static void acwin_fill_tree(Tacwin *acw, GList *items, gchar *closetag) {
 		acw->w = acw->listwidth = MIN(len+20, 350);
 		gtk_widget_set_size_request(GTK_WIDGET(acw->tree),acw->listwidth,acw->h); /* ac_window */
 		g_free(longest);
+		g_object_unref(G_OBJECT(panlay));
 	}
 }
 
