@@ -1,5 +1,5 @@
 
-AUTOMAKE_OPTIONS = dist-bzip2 1.8
+AUTOMAKE_OPTIONS = dist-bzip2 dist-gzip dist-xz 1.8
 
 SUBDIRS = data desktop-data images man po src win32
 
