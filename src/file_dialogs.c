@@ -47,10 +47,8 @@ typedef struct {
 	GtkWidget *find_pattern;
 	GtkWidget *matchname;
 	GtkWidget *recursive;
-	GtkWidget *max_recursion;
 	GtkWidget *grep_pattern;
 	GtkWidget *is_regex;
-	GtkWidget *regexwarn;
 	Tbfwin *bfwin;
 } Tfiles_advanced;
 
@@ -64,32 +62,25 @@ static void files_advanced_win_findpattern_changed(GtkComboBox * combobox, Tfile
 	}
 }
 
-static gboolean files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
+static void files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 {
 	GFile *baseuri;
 	gchar *basedir, *content_filter, *extension_filter;
-	gboolean retval;
-	GError *gerror=NULL;
+
 	extension_filter = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(tfs->find_pattern)->child), 0, -1);
 	basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
 	baseuri = g_file_new_for_uri(basedir);
-	content_filter = gtk_combo_box_get_active_text(GTK_COMBO_BOX(tfs->grep_pattern));
+	content_filter = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->grep_pattern)->entry), 0, -1);
 	tfs->bfwin->session->searchlist =
 		add_to_history_stringlist(tfs->bfwin->session->searchlist, content_filter, FALSE, TRUE);
 
-	retval = open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
-				  , 500
+	open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
 				  , gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname))
 				  ,
 				  strlen(extension_filter) == 0 ? NULL : extension_filter,
 				  strlen(content_filter) == 0 ? NULL : content_filter,
-				  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->is_regex)),
-				  &gerror);
-	if (!retval && gerror) {
-		gtk_label_set_line_wrap(GTK_LABEL(tfs->regexwarn),TRUE);
-		gtk_label_set_text(GTK_LABEL(tfs->regexwarn), gerror->message);
-		g_error_free(gerror);
-	}
+				  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->is_regex)));
+
 	g_free(basedir);
 	g_free(content_filter);
 	g_free(extension_filter);
@@ -97,7 +88,6 @@ static gboolean files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 
 	tfs->bfwin->session->adv_open_recursive = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive));
 	tfs->bfwin->session->adv_open_matchname = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname));
-	return retval;
 }
 
 static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_advanced * tfs)
@@ -128,7 +118,6 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	unsigned int i = 0;
 
 	const gchar *fileExts[] = {
-		"*",
 		"*.c",
 		"*.cgi",
 		"*.cpp",
@@ -163,7 +152,7 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(alignment), vbox);
 
-	vbox2 = dialog_vbox_labeled(_("<b>Files</b>"), vbox);
+	vbox2 = dialog_vbox_labeled(_("<b>General</b>"), vbox);
 
 	table = dialog_table_in_vbox(2, 6, 0, vbox2, FALSE, FALSE, 6);
 
@@ -192,7 +181,7 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	g_signal_connect(G_OBJECT(tfs->find_pattern), "changed",
 					 G_CALLBACK(files_advanced_win_findpattern_changed), tfs);
 
-	table = dialog_table_in_vbox(3, 2, 0, vbox2, FALSE, FALSE, 0);
+	table = dialog_table_in_vbox(2, 2, 0, vbox2, FALSE, FALSE, 0);
 
 	tfs->matchname = checkbut_with_value(NULL, tfs->bfwin ? tfs->bfwin->session->adv_open_matchname : TRUE);
 	dialog_mnemonic_label_in_table(_("_Match on file name only:"), tfs->matchname, table, 0, 1, 0, 1);
@@ -201,10 +190,6 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	tfs->recursive = checkbut_with_value(NULL, tfs->bfwin ? tfs->bfwin->session->adv_open_recursive : TRUE);
 	dialog_mnemonic_label_in_table(_("_Recursive:"), tfs->recursive, table, 0, 1, 1, 2);
 	gtk_table_attach(GTK_TABLE(table), tfs->recursive, 1, 2, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 0);
-
-	tfs->max_recursion = spinbut_with_value("100", 1, 100000, 1, 10);
-	dialog_mnemonic_label_in_table(_("Ma_x recursion:"), tfs->max_recursion, table, 0, 1, 2, 3);
-	gtk_table_attach(GTK_TABLE(table), tfs->max_recursion, 1, 2, 2, 3, GTK_SHRINK, GTK_SHRINK, 0, 0);
 
 	alignment = gtk_alignment_new(0, 0, 1, 1);
 	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 12, 18, 12, 6);
@@ -217,23 +202,19 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	table = dialog_table_in_vbox(2, 4, 0, vbox2, FALSE, FALSE, 6);
 
 	/* TODO: This needs to be converted to use GtkComboBoxEntry */
-	tfs->grep_pattern = combobox_with_popdown("", bfwin->session->searchlist, TRUE);
-	dialog_mnemonic_label_in_table(_("Pa_ttern:"), tfs->grep_pattern, table, 0, 1, 0, 1);
+	tfs->grep_pattern = combo_with_popdown("", bfwin->session->searchlist, TRUE);
+	dialog_mnemonic_label_in_table(_("Pa_ttern:"), (GTK_COMBO(tfs->grep_pattern)->entry), table, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 1, 4, 0, 1);
 
 	tfs->is_regex = checkbut_with_value(NULL, 0);
 	dialog_mnemonic_label_in_table(_("Is rege_x:"), tfs->is_regex, table, 0, 1, 1, 2);
 	gtk_table_attach(GTK_TABLE(table), tfs->is_regex, 1, 2, 1, 2, GTK_FILL, GTK_SHRINK, 0, 0);
-	
-	tfs->regexwarn = gtk_label_new(NULL);
-	gtk_table_attach(GTK_TABLE(table), tfs->regexwarn, 1, 2, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
 
 	gtk_dialog_set_response_sensitive(GTK_DIALOG(tfs->dialog), GTK_RESPONSE_ACCEPT, FALSE);
 	gtk_widget_show_all(GTK_DIALOG(tfs->dialog)->vbox);
 
-	while (gtk_dialog_run(GTK_DIALOG(tfs->dialog)) == GTK_RESPONSE_ACCEPT) {
-		if (files_advanced_win_ok_clicked(tfs))
-			break;
+	if (gtk_dialog_run(GTK_DIALOG(tfs->dialog)) == GTK_RESPONSE_ACCEPT) {
+		files_advanced_win_ok_clicked(tfs);
 	}
 
 	gtk_widget_destroy(tfs->dialog);
@@ -337,7 +318,8 @@ static void open_url_cancel_lcb(GtkWidget * widget, Tou * ou)
 }
 static void open_url_ok_lcb(GtkWidget * widget, Tou * ou)
 {
-	gchar *url = gtk_combo_box_get_active_text(GTK_COMBO_BOX(ou->entry));
+	gchar *url = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(ou->entry)->entry),
+										0, -1);
 	DEBUG_MSG("open_url_ok_lcb, url=%s\n", url);
 	doc_new_from_input(ou->bfwin, url, FALSE, FALSE, -1);
 	g_free(url);
@@ -386,7 +368,7 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin * bfwin)
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	ou->entry = boxed_combobox_with_popdown("", urlhistory, TRUE, vbox);
+	ou->entry = boxed_combo_with_popdown("", urlhistory, TRUE, vbox);
 	free_stringlist(urlhistory);
 /*  ou->entry = boxed_entry_with_text("", 255, vbox); */
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 5);

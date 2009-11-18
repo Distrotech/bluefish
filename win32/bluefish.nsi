@@ -3,19 +3,16 @@
 ; 
 ;  The Bluefish Developers
 ;   Shawn Novak <Kernel86@gmail.com>
-;   Daniel Leidert <daniel.leidert@wgdd.de>
+; 
 ;----------------------------------------------
 
 
-; External Defines
+; Defines
 ;----------------------------------------------
 ;!define PACKAGE
 ;!define LOCALE
 ;!define VERSION
 
-
-; Defines
-;----------------------------------------------
 !define PRODUCT			"Bluefish"
 !define PUBLISHER			"The Bluefish Developers"
 !define HOMEPAGE			"http://bluefish.openoffice.nl/"
@@ -76,7 +73,6 @@ InstallDir				"$PROGRAMFILES\${PRODUCT}"
 ; Tell Windows Vista and Windows 7 that we need admin rights to install
 RequestExecutionLevel admin
 
-InstallDirRegKey HKCU "${REG_USER_SET}" ""
 SetCompressor /SOLID lzma
 ShowInstDetails show
 ShowUninstDetails show
@@ -108,9 +104,15 @@ ${StrTok}
 
 ; MUI configuration
 ;----------------------------------------------
-!define MUI_LANGDLL_REGISTRY_ROOT 		"HKCU"
-!define MUI_LANGDLL_REGISTRY_KEY 		${REG_USER_SET}
-!define MUI_LANGDLL_REGISTRY_VALUENAME "Installer Language"
+;!define MUI_ICON						".\bluefish-install.ico"
+;!define MUI_UNICON						".\bluefish-install.ico"
+;!define MUI_WELCOMEFINISHPAGE_BITMAP	".\bluefish-install.bmp"
+;!define MUI_HEADERIMAGE
+;!define MUI_HEADERIMAGE_BITMAP			".\bluefish-header.bmp"
+
+;!define MUI_LANGDLL_REGISTRY_ROOT 		"HKCU"
+;!define MUI_LANGDLL_REGISTRY_KEY 		${REG_USER_SET}
+;!define MUI_LANGDLL_REGISTRY_VALUENAME "Installer Language"
 
 !define MUI_COMPONENTSPAGE_SMALLDESC
 !define MUI_ABORTWARNING
@@ -119,15 +121,17 @@ ${StrTok}
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
-!define MUI_LICENSEPAGE_BUTTON			"$(LICENSEPAGE_BUTTON) >"
-!define MUI_LICENSEPAGE_TEXT_BOTTOM		"$(LICENSEPAGE_FOOTER)"
+!define MUI_LICENSEPAGE_BUTTON			"Next >"
+!define MUI_LICENSEPAGE_TEXT_BOTTOM		"$(^Name) is released under the GNU General Public License (GPL). The license is provided here for information purposes only. $_CLICK"
 
 !define MUI_STARTMENUPAGE_DEFAULTFOLDER		"${PRODUCT}"
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT		"HKCU"
 !define MUI_STARTMENUPAGE_REGISTRY_KEY 		${REG_USER_SET}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME	"Start Menu Folder"
 
-!define MUI_FINISHPAGE_LINK				"$(FINISHPAGE_LINK)"
+!define MUI_FINISHPAGE_RUN					"$INSTDIR\${PROGRAM_EXE}"
+!define MUI_FINISHPAGE_RUN_NOTCHECKED
+!define MUI_FINISHPAGE_LINK				"Visit the Bluefish Homepage"
 !define MUI_FINISHPAGE_LINK_LOCATION	"http://bluefish.openoffice.nl"
 
 
@@ -136,15 +140,15 @@ ${StrTok}
 !macro InstallAspellDict LANG VER
 	ReadRegStr $R0 HKCU "${REG_USER_SET}\Aspell\${LANG}" ""
 	${If} $R0 == ${VER}
-		DetailPrint "$(DICT_INSTALLED) ${LANG}"
+		DetailPrint "Latest ${LANG} dictionary is installed, skipping download. "
 	${Else}
-		DetailPrint "$(DICT_DOWNLOAD) (${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2)"
+		DetailPrint "Downloading Spellchecker Dictionary... (${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2)"
 		NSISdl::download "${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2" "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 		Pop $R0
 			StrCmp $R0 "success" +3
-				MessageBox MB_OK "$(DICT_FAILED) $R0"
+				MessageBox MB_OK "Dictionary Download failed: $R0"
 				Quit
-		DetailPrint "$(DICT_EXTRACT) (aspell6-${LANG}-${VER}.tbz2)"
+		DetailPrint "Extracting Dictionary... (aspell6-${LANG}-${VER}.tbz2)"
 		untgz::extract -d $INSTDIR -zbz2 -u "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 		WriteRegStr HKCU "${REG_USER_SET}\Aspell\${LANG}" "" "${VER}"
 		Delete "$TEMP\aspell6-${LANG}-${VER}.tbz2"
@@ -152,7 +156,7 @@ ${StrTok}
 !macroend
 !define InstallAspellDict `!insertmacro InstallAspellDict`
 
-!macro RegisterFileType HWND EXT TYPE PROG DESC ICON
+!macro RegisterFileType HWND EXT TYPE PROG DESC
 	ReadRegStr $R1 HKCR ".${EXT}" "Content Type"
 	${If} $R1 != "${TYPE}"
 		WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "Content Type" $R1
@@ -167,7 +171,7 @@ ${StrTok}
 				WriteRegStr HKCR ".${EXT}" "" "${PROG}"
 			${EndIf}
 			WriteRegStr HKCR "${PROG}" "" "${DESC}"
-			WriteRegStr HKCR "${PROG}\DefaultIcon" "" "$INSTDIR\${PROGRAM_EXE},${ICON}"
+;			WriteRegStr HKCR "${PROG}\DefaultIcon" "" ""
 			WriteRegStr HKCR "${PROG}\shell" "" "open"
 			WriteRegStr HKCR "${PROG}\shell\open" "" "Open"
 			WriteRegStr HKCR "${PROG}\shell\open\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
@@ -178,99 +182,6 @@ ${StrTok}
 !macroend
 !define RegisterFileType `!insertmacro RegisterFileType`
 
-!macro RegisterHTMLType HWND
-	${NSD_GetState} ${HWND} $R0
-	${If} $R0 == ${BST_CHECKED}
-		ReadRegStr $R1 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
-		${If} $R1 != "${PRODUCT}"
-			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "Description" $R1
-			WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" "${PRODUCT}"
-
-			ReadRegStr $R2 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" ""
-			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command" $R2
-			WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
-
-			ReadRegStr $R3 HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" ""
-			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command2" $R3
-			WriteRegStr HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
-		${EndIf}
-	${EndIf}
-!macroend
-!define RegisterHTMLType `!insertmacro RegisterHTMLType`
-
-!macro Localize DEF LANG
-	LangString "${DEF}" "${LANG_{$LANG}}" "${${DEF}}"
-	!undef "${DEF}"
-!macroend
-
-!macro LoadLocalization LANG INC
-	!include "${INC}"
-
-	!insertmacro Localize "LICENSEPAGE_BUTTON" "${LANG}"
-	!insertmacro Localize "LICENSEPAGE_FOOTER" "${LANG}"
-
-	!insertmacro Localize "FINISHPAGE_LINK" "${LANG}"
-
-	!insertmacro Localize "DICT_INSTALLED" "${LANG}"
-	!insertmacro Localize "DICT_DOWNLOAD" "${LANG}"
-	!insertmacro Localize "DICT_FAILED" "${LANG}"
-	!insertmacro Localize "DICT_EXTRACT" "${LANG}"
-
-	!insertmacro Localize "SECT_BLUEFISH" "${LANG}"
-	!insertmacro Localize "UNINSTALL_SHORTCUT" "${LANG}"
-
-	!insertmacro Localize "GTK_DOWNLOAD" "${LANG}"
-	!insertmacro Localize "GTK_FAILED" "${LANG}"
-	!insertmacro Localize "GTK_INSTALL" "${LANG}"
-
-	!insertmacro Localize "SECT_PLUGINS" "${LANG}"
-	!insertmacro Localize "PLUG_CHARMAP" "${LANG}"
-	!insertmacro Localize "PLUG_ENTITIES" "${LANG}"
-	!insertmacro Localize "PLUG_HTMLBAR" "${LANG}"
-	!insertmacro Localize "PLUG_INFBROWSER" "${LANG}"
-	!insertmacro Localize "PLUG_SNIPPETS" "${LANG}"
-
-	!insertmacro Localize "SECT_SHORTCUT" "${LANG}"
-
-	!insertmacro Localize "SECT_DICT" "${LANG}"
-
-	!insertmacro Localize "FA_TITLE" "${LANG}"
-	!insertmacro Localize "FA_HEADER" "${LANG}"
-	!insertmacro Localize "FA_SELECT" "${LANG}"
-	!insertmacro Localize "FA_UNSELECT" "${LANG}"
-
-	!insertmacro Localize "GTK_PATH" "${LANG}"
-
-	!insertmacro Localize "CT_ADA" "${LANG}"
-	!insertmacro Localize "CT_ASP" "${LANG}"
-	!insertmacro Localize "CT_SH" "${LANG}"
-	!insertmacro Localize "CT_BFPROJECT" "${LANG}"
-	!insertmacro Localize "CT_BFLANG2" "${LANG}"
-	!insertmacro Localize "CT_C" "${LANG}"
-	!insertmacro Localize "CT_H" "${LANG}"
-	!insertmacro Localize "CT_CPP" "${LANG}"
-	!insertmacro Localize "CT_HPP" "${LANG}"
-	!insertmacro Localize "CT_CSS" "${LANG}"
-	!insertmacro Localize "CT_D" "${LANG}"
-	!insertmacro Localize "CT_PO" "${LANG}"
-	!insertmacro Localize "CT_JAVA" "${LANG}"
-	!insertmacro Localize "CT_JS" "${LANG}"
-	!insertmacro Localize "CT_JSP" "${LANG}"
-	!insertmacro Localize "CT_NSI" "${LANG}"
-	!insertmacro Localize "CT_NSH" "${LANG}"
-	!insertmacro Localize "CT_PL" "${LANG}"
-	!insertmacro Localize "CT_PHP" "${LANG}"
-	!insertmacro Localize "CT_TXT" "${LANG}"
-	!insertmacro Localize "CT_PY" "${LANG}"
-	!insertmacro Localize "CT_RB" "${LANG}"
-	!insertmacro Localize "CT_SMARTY" "${LANG}"
-	!insertmacro Localize "CT_VBS" "${LANG}"
-	!insertmacro Localize "CT_XHTML" "${LANG}"
-	!insertmacro Localize "CT_XML" "${LANG}"
-	!insertmacro Localize "CT_XSL" "${LANG}"
-!macroend
-!define LoadLocalization `!insertmacro LoadLocalization`
-
 
 ; Pages
 ;----------------------------------------------
@@ -278,7 +189,7 @@ ${StrTok}
 !insertmacro MUI_PAGE_LICENSE				"..\COPYING"
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
-!insertmacro MUI_PAGE_STARTMENU			"${PRODUCT}"	$StartMenuFolder
+!insertmacro MUI_PAGE_STARTMENU			"Bluefish"	$StartMenuFolder
 !insertmacro MUI_PAGE_INSTFILES
 Page custom FileAssociations SetFileAssociations
 !define MUI_PAGE_CUSTOMFUNCTION_SHOW	DisableBackButton
@@ -289,45 +200,18 @@ Page custom FileAssociations SetFileAssociations
 !insertmacro MUI_UNPAGE_INSTFILES
 !insertmacro MUI_UNPAGE_FINISH
 
-
-; Locale
-;----------------------------------------------
-!insertmacro MUI_RESERVEFILE_LANGDLL
-
-; English goes first as the default language
-!insertmacro MUI_LANGUAGE	"English"
-${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
-; Translations needed for the following commented languages
-;;!insertmacro MUI_LANGUAGE	"Czech"
-;;!insertmacro MUI_LANGUAGE	"Danish"
-;;!insertmacro MUI_LANGUAGE	"Dutch"
-;;!insertmacro MUI_LANGUAGE	"Finnish"
-;;!insertmacro MUI_LANGUAGE	"French"
-;;!insertmacro MUI_LANGUAGE	"Galician"
-;;!insertmacro MUI_LANGUAGE	"German"
-;;!insertmacro MUI_LANGUAGE	"Italian"
-;;!insertmacro MUI_LANGUAGE	"Norwegian"
-;;!insertmacro MUI_LANGUAGE	"Portuguese"
-;;!insertmacro MUI_LANGUAGE	"PortugueseBR"
-;;!insertmacro MUI_LANGUAGE	"Russian"
-;;!insertmacro MUI_LANGUAGE	"Serbian"
-;;!insertmacro MUI_LANGUAGE	"Slovak"
-;;!insertmacro MUI_LANGUAGE	"Spanish"
-!insertmacro MUI_LANGUAGE	"Swedish"
-${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
-; NSIS Lacks a translation for this language
-;!insertmacro MUI_LANGUAGE	"Tamil"
-;;!insertmacro MUI_LANGUAGE	"Turkish"
+!insertmacro MUI_LANGUAGE 					"English"
 
 
 ; Sections
 ;----------------------------------------------
-Section "$(SECT_BLUEFISH)" SecBluefish
+Section "Bluefish Editor" SecBluefish
 	SectionIn 1 RO
 
 	SetOutPath "$INSTDIR"
 	SetOverwrite on
 	File "build\${PROGRAM_EXE}"
+	File "bluefish.ico"
 	File "build\libaspell-15.dll"
 	File "build\libenchant-1.dll"
 	File "build\libgnurx-0.dll"
@@ -358,10 +242,6 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	WriteUninstaller "$INSTDIR\${UNINSTALL_EXE}"
 	SetOverwrite off
 
-	WriteRegStr HKCU "${REG_USER_SET}" "" "$\"$INSTDIR$\""
-	WriteRegStr HKCU "${REG_USER_SET}" "Version" "${VERSION}"
-	WriteRegStr HKCU "${REG_USER_SET}" "Package" "${PACKAGE}"
-
 	WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayName" 		"${PRODUCT} ${VERSION}"
 	WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayIcon" 		"$INSTDIR\bluefish.ico"
 	WriteRegStr HKLM "${REG_UNINSTALL}" "UninstallString" "$INSTDIR\${UNINSTALL_EXE}"
@@ -372,25 +252,24 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	WriteRegDWORD HKLM "${REG_UNINSTALL}" "NoModify" "1"
 	WriteRegDWORD HKLM "${REG_UNINSTALL}" "NoRepair" "1"
 
-	!insertmacro MUI_LANGDLL_SAVELANGUAGE
-	!insertmacro MUI_STARTMENU_WRITE_BEGIN "${PRODUCT}"
+	!insertmacro MUI_STARTMENU_WRITE_BEGIN "Bluefish"
 		SetOverwrite on
 		CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
-		CreateShortCut "$SMPROGRAMS\$StartMenuFolder\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}"
-		CreateShortCut "$SMPROGRAMS\$StartMenuFolder\$(UNINSTALL_SHORTCUT).lnk" "$INSTDIR\${UNINSTALL_EXE}"
+		CreateShortCut "$SMPROGRAMS\$StartMenuFolder\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}" "" "$INSTDIR\bluefish.ico" 0
+		CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Uninstall ${PRODUCT}.lnk" "$INSTDIR\${UNINSTALL_EXE}"
 		SetOverwrite off
 	!insertmacro MUI_STARTMENU_WRITE_END
 SectionEnd
 
 Section "-GTK+ Installer" SecGTK
 	${If} $GTK_STATUS == ""
-		DetailPrint "$(GTK_DOWNLOAD) (${GTK_URL}/${GTK_FILENAME})"
+		DetailPrint "Downloading GTK+... (${GTK_URL}/${GTK_FILENAME})"
 		NSISdl::download "${GTK_URL}/${GTK_FILENAME}" "$TEMP\${GTK_FILENAME}"
 		Pop $R0
 			StrCmp $R0 "success" +3
-				MessageBox MB_OK "$(GTK_FAILED) $R0"
-				Quit 
-		DetailPrint "$(GTK_INSTALL) (${GTK_FILENAME})"
+				MessageBox MB_OK "GTK+ Download failed: $R0"
+				Quit
+		DetailPrint "Installing GTK+... (${GTK_FILENAME})"
 		ExecWait '"$TEMP\${GTK_FILENAME}"'
 		Delete "$TEMP\${GTK_FILENAME}"
 		Call GtkInstallPath
@@ -399,9 +278,9 @@ Section "-GTK+ Installer" SecGTK
 	${EndIf}
 SectionEnd
 
-SectionGroup "$(SECT_PLUGINS)" SecPlugins
+SectionGroup "Plugins" SecPlugins
 	SetOverwrite on
-	Section "$(PLUG_CHARMAP)" SecPlCharmap
+	Section "Charmap" SecPlCharmap
 		SetOutPath "$INSTDIR"
 		File "build\libgucharmap-7.dll"
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
@@ -409,25 +288,25 @@ SectionGroup "$(SECT_PLUGINS)" SecPlugins
 		SetOutPath "$INSTDIR\share\locale"
 		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
 	SectionEnd
-	Section "$(PLUG_ENTITIES)" SecPlEntities
+	Section "Entities" SecPlEntities
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\entities.dll"
 		SetOutPath "$INSTDIR\share\locale"
 		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_htmlbar.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
 	SectionEnd
-	Section "$(PLUG_HTMLBAR)" SecPlHTMLbar
+	Section "HTMLbar" SecPlHTMLbar
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\htmlbar.dll"
 		SetOutPath "$INSTDIR\share\locale"
 		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_infbrowser.mo" /x "*_snippets.mo" "build\share\locale\*"
 	SectionEnd
-	Section "$(PLUG_INFBROWSER)" SecPlInfBrowser
+	Section "InfBrowser" SecPlInfBrowser
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\infbrowser.dll"
 		SetOutPath "$INSTDIR\share\locale"
 		File /r /x "${PACKAGE}.mo" /x "*_about.mo" /x "*_charmap.mo" /x "*_entities.mo" /x "*_htmlbar.mo" /x "*_snippets.mo" "build\share\locale\*"
 	SectionEnd
-	Section "$(PLUG_SNIPPETS)" SecPlSnippets
+	Section "Snippets" SecPlSnippets
 		SetOutPath "$INSTDIR\lib\${PACKAGE}"
 		File "build\lib\${PACKAGE}\snippets.dll"
 		SetOutPath "$INSTDIR\share\locale"
@@ -436,17 +315,14 @@ SectionGroup "$(SECT_PLUGINS)" SecPlugins
 	SetOverwrite off
 SectionGroupEnd
 
-Section "$(SECT_SHORTCUT)" SecDesktopShortcut
+Section "Desktop Shortcut" SecDesktopShortcut
 	SetOverwrite on
 	SetOutPath "$INSTDIR"
-	CreateShortCut "$DESKTOP\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}"
+	CreateShortCut "$DESKTOP\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}" "" "$INSTDIR\bluefish.ico" 0
 	SetOverwrite off
 SectionEnd
 
-SectionGroup /e "$(SECT_DICT)" SecLang
-	Section /o "Czech" SecLangCs
-		${InstallAspellDict} "cs" "20040614-1"
-	SectionEnd
+SectionGroup /e "Spell-checking Languages" SecLang
 	Section /o "Danish" SecLangDa
 		${InstallAspellDict} "da" "1.4.42-1"
 	SectionEnd
@@ -461,9 +337,6 @@ SectionGroup /e "$(SECT_DICT)" SecLang
 	SectionEnd
 	Section /o "French" SecLangFr
 		${InstallAspellDict} "fr" "0.50-3"
-	SectionEnd
-	Section /o "Galician" SecLangGl
-		${InstallAspellDict} "gl" "0.5a-2"
 	SectionEnd
 	Section /o "German" SecLangDe
 		${InstallAspellDict} "de" "20030222"
@@ -505,6 +378,7 @@ SectionGroupEnd
 
 Section "Uninstall"
 	Delete "$INSTDIR\${PROGRAM_EXE}"
+	Delete "$INSTDIR\bluefish.ico"
 	Delete "$INSTDIR\libaspell-15.dll"
 	Delete "$INSTDIR\libenchant-1.dll"
 	Delete "$INSTDIR\libgnurx-0.dll"
@@ -521,19 +395,14 @@ Section "Uninstall"
 	ReadRegStr $R0 HKCU ${REG_USER_SET} "Start Menu Folder"
 	${If} $R0 != ""
 	Delete "$SMPROGRAMS\$R0\${PRODUCT}.lnk"
-	Delete "$SMPROGRAMS\$R0\$(UNINSTALL_SHORTCUT).lnk"
+	Delete "$SMPROGRAMS\$R0\Uninstall ${PRODUCT}.lnk"
 	RMDir "$SMPROGRAMS\$R0"
 	${EndIf}
-	DeleteRegValue HKCU ${REG_USER_SET} ""
-	DeleteRegValue HKCU ${REG_USER_SET} "Installer Language"
-	DeleteRegValue HKCU ${REG_USER_SET} "Package"
 	DeleteRegValue HKCU ${REG_USER_SET} "Start Menu Folder"
-	DeleteRegValue HKCU ${REG_USER_SET} "Version"
 	DeleteRegKey HKCU "${REG_USER_SET}\Aspell"
 	DeleteRegKey /ifempty HKCU ${REG_USER_SET}
 
-	Call un.UnRegisterFileTypes	
-	Call un.UnRegisterHTML
+	Call un.UnRegisterFileTypes
 
 	DeleteRegKey HKLM "${REG_UNINSTALL}"
 SectionEnd
@@ -547,13 +416,11 @@ Function .onInit
 		SectionSetSize ${SecGTK} ${GTK_SIZE}	; 6.69MB Download
 	${EndIf}
 
-	SectionSetSize ${SecLangCs}	6640		; 2.21MB Download
 	SectionSetSize ${SecLangDa} 12394		; 3.86MB Download
 	SectionSetSize ${SecLangNl} 4430		; 1.54MB Download
 	SectionSetSize ${SecLangEn} 3557		; 1.21MB Download
 	SectionSetSize ${SecLangFi} 2750		; 680KB Download
 	SectionSetSize ${SecLangFr} 17762		; 5.55MB Download
-	SectionSetSize ${SecLangGl}	814		; 299KB Download
 	SectionSetSize ${SecLangDe} 11355		; 3.63MB Download
 	SectionSetSize ${SecLangIt} 2119		; 690KB Download
 	SectionSetSize ${SecLangNb} 11040		; 3.47MB Download
@@ -566,23 +433,10 @@ Function .onInit
 	SectionSetSize ${SecLangSv} 3522		; 1.19MB Download
 	SectionSetSize ${SecLangTa} 283			; 112KB Download
 	SectionSetSize ${SecLangTr} 1554		; 534KB Download
-
-; Fix a bug from the 1.3.7 installers, Path should be REG_EXPAND_SZ or variable expansion breaks
-	Push $R1
-	Push $R2
-	ReadRegStr $R1 HKLM "${REG_UNINSTALL}" "DisplayVersion"
-	${If} $R1 == "1.3.7"
-		ReadRegStr $R2 HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
-		WriteRegExpandStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
-	${EndIf}
-	Pop $R2
-	Pop $R1
-
-	!insertmacro MUI_LANGDLL_DISPLAY
 FunctionEnd
 
 Function FileAssociations
-	!insertmacro MUI_HEADER_TEXT "$(FA_TITLE)" "$(FA_HEADER)"
+	!insertmacro MUI_HEADER_TEXT "File Associations" "Select the file types which you would like ${PRODUCT} to be the default editor."
 	nsDialogs::Create 1018
 	Pop $FA_Dialog
 	${If} $FA_Dialog == "error"
@@ -642,7 +496,7 @@ Function FileAssociations
 	${NSD_Check} $FA_BFProject
 	${NSD_Check} $FA_BFLang2
 
-	${NSD_CreateCheckBox} 40% 130u 30% 8u "$(FA_SELECT)"
+	${NSD_CreateCheckBox} 40% 130u 30% 8u "Select All"
 	Pop $FA_SelectAll
 	${NSD_OnClick} $FA_SelectAll FileAssociations_SelectAll
 
@@ -650,50 +504,49 @@ Function FileAssociations
 FunctionEnd
 
 Function SetFileAssociations
-	;                     HWND					Extension	Mime Type									Handler	Content Type	ICON Id
-	${RegisterFileType} $FA_Ada 			"ada" 		"text/x-ada" 								"bfadafile"	"$(CT_ADA)"	1
-	${RegisterFileType} $FA_Asp 			"asp" 		"text/x-asp" 								"bfaspfile" "$(CT_ASP)"	2
-	${RegisterFileType} $FA_Sh 			"sh" 			"text/x-shellscript" 					"bfshfile"	"$(CT_SH)"	22
-	${RegisterFileType} $FA_BFProject 	"bfproject" "application/x-bluefish-project" 	"bfprojectfile"	"$(CT_BFPROJECT)"	4
-	${RegisterFileType} $FA_BFLang2 		"bflang2" 	"application/x-bluefish-language2" 	"bflang2file"	"$(CT_BFLANG2)"	3
-	${RegisterFileType} $FA_C 				"c" 			"text/x-csrc" 								"bfcfile"	"$(CT_C)"	5
-	${RegisterFileType} $FA_C 				"h" 			"text/x-chdr" 								"bfhfile"	"$(CT_H)"	10
-	${RegisterFileType} $FA_Cpp 			"cpp" 		"text/x-c++src" 							"bfcppfile"	"$(CT_CPP)"	6
-	${RegisterFileType} $FA_Cpp 			"cxx" 		"text/x-c++src" 							"bfcppfile"	"$(CT_CPP)"	6
-	${RegisterFileType} $FA_Cpp 			"cc" 			"text/x-c++src" 							"bfcppfile"	"$(CT_CPP)"	6
-	${RegisterFileType} $FA_Cpp 			"hpp" 		"text/x-c++hdr" 							"bfhppfile"	"$(CT_HPP)"	11
-	${RegisterFileType} $FA_Css 			"css" 		"text/css" 									"bfcssfile" "$(CT_CSS)"	7
-	${RegisterFileType} $FA_D 				"d" 			"text/x-dsrc" 								"bfdfile"	"$(CT_D)"	8
-	${RegisterFileType} $FA_Po 			"po" 			"text/x-gettext-translation" 			"bfpofile"	"$(CT_PO)"	9
-
-	${RegisterHTMLType} $FA_Html
-	${RegisterFileType} $FA_Html 			"htm" 		"text/html" 								"0"	"0"	"0"
-	${RegisterFileType} $FA_Html 			"html" 		"text/html" 								"0"	"0"	"0"
-
-	${RegisterFileType} $FA_Java 			"java" 		"text/x-java" 								"bfjavafile"	"$(CT_JAVA)"	13
-	${RegisterFileType} $FA_Js 			"js" 			"application/javascript" 				"bfjsfile"	"$(CT_JS)"	14
-	${RegisterFileType} $FA_Jsp 			"jsp" 		"application/x-jsp" 						"bfjspfile"	"$(CT_JSP)"	15
-	${RegisterFileType} $FA_Nsi 			"nsi" 		"text/x-nsi" 								"bfnsifile"	"$(CT_NSI)"	17
-	${RegisterFileType} $FA_Nsi 			"nsh" 		"text/x-nsh" 								"bfnshfile"	"$(CT_NSH)"	16
-	${RegisterFileType} $FA_Pl 			"pl" 			"application/x-perl" 					"bfplfile"	"$(CT_PL)"	18
-	${RegisterFileType} $FA_Php 			"php" 		"application/x-php" 						"bfphpfile"	"$(CT_PHP)"	19
-	${RegisterFileType} $FA_Php 			"php3" 		"application/x-php" 						"bfphpfile"	"$(CT_PHP)"	19
-	${RegisterFileType} $FA_Txt 			"txt" 		"text/plain" 								"bftxtfile"	"$(CT_TXT)"	24
-	${RegisterFileType} $FA_Py 			"py" 			"text/x-python" 							"bfpyfile"	"$(CT_PY)"	20
-	${RegisterFileType} $FA_Rb 			"rb" 			"text/x-ruby" 								"bfrbfile"	"$(CT_RB)"	21
-	${RegisterFileType} $FA_Smarty 		"smarty" 	"application/x-smarty" 					"bfsmartyfile"	"$(CT_SMARTY)"	23
-	${RegisterFileType} $FA_Vbs 			"vbs" 		"application/x-vbscript" 				"bfvbsfile"	"$(CT_VBS)"	25
-	${RegisterFileType} $FA_Vbs 			"vb" 			"application/x-vbscript" 				"bfvbsfile" "$(CT_VBS)"	25
-	${RegisterFileType} $FA_Xhtml 		"xhtml" 		"application/xhtml+xml" 				"bfxhtmlfile"	"$(CT_XHTML)"	26
-	${RegisterFileType} $FA_Xml 			"xml" 		"text/xml" 									"bfxmlfile"	"$(CT_XML)"	27
-	${RegisterFileType} $FA_Xml 			"xsl" 		"text/xml" 									"bfxslfile"	"$(CT_XSL)"	28
-	${RegisterFileType} $FA_Xml 			"xslt" 		"text/xml" 									"bfxslfile"	"$(CT_XSL)"	28
+	;                     HWND					Extension	Mime Type									Handler	Content Type
+	${RegisterFileType} $FA_Ada 			"ada" 		"text/x-ada" 								"bfadafile"	"Ada Source File"
+	${RegisterFileType} $FA_Asp 			"asp" 		"text/x-asp" 								"bfaspfile" "ActiveServer Page Script"
+	${RegisterFileType} $FA_Sh 			"sh" 			"text/x-shellscript" 					"bfshfile"	"Bash Shell Script"
+; How do we open projects?
+	${RegisterFileType} $FA_BFProject 	"bfproject" "application/x-bluefish-project" 	"bfprojectfile"	"Bluefish Project"
+	${RegisterFileType} $FA_BFLang2 		"bflang2" 	"application/x-bluefish-language2" 	"bflang2file"	"Bluefish Language Definition File Version 2"
+	${RegisterFileType} $FA_C 				"c" 			"text/x-csrc" 								"bfcfile"	"C Source File"
+	${RegisterFileType} $FA_C 				"h" 			"text/x-chdr" 								"bfhfile"	"C Header File"
+	${RegisterFileType} $FA_Cpp 			"cpp" 		"text/x-c++src" 							"bfcppfile"	"C++ Source File"
+	${RegisterFileType} $FA_Cpp 			"cxx" 		"text/x-c++src" 							"bfcppfile"	"C++ Source File"
+	${RegisterFileType} $FA_Cpp 			"cc" 			"text/x-c++src" 							"bfcppfile"	"C++ Source File"
+	${RegisterFileType} $FA_Cpp 			"hpp" 		"text/x-c++hdr" 							"bfhppfile"	"C++ Header File"
+	${RegisterFileType} $FA_Css 			"cpp" 		"text/css" 									"bfcssfile" "Cascading Stylesheet"
+	${RegisterFileType} $FA_D 				"d" 			"text/x-dsrc" 								"bfdfile"	"D Source File"
+	${RegisterFileType} $FA_Po 			"po" 			"text/x-gettext-translation" 			"bfpofile"	"Gettext Translation"
+; HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor	Name
+; HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command	@
+	${RegisterFileType} $FA_Html 			"htm" 		"text/html" 								"0"	"0"
+	${RegisterFileType} $FA_Html 			"html" 		"text/html" 								"0"	"0"
+	${RegisterFileType} $FA_Java 			"java" 		"text/x-java" 								"bfjavafile"	"Java Source File"	
+	${RegisterFileType} $FA_Js 			"js" 			"application/javascript" 				"bfjsfile"	"JavaScript Script"
+	${RegisterFileType} $FA_Jsp 			"jsp" 		"application/x-jsp" 						"bfjspfile"	"JavaServer Pages Script"
+	${RegisterFileType} $FA_Nsi 			"nsi" 		"text/x-nsi" 								"bfnsifile"	"NSIS Script"
+	${RegisterFileType} $FA_Nsi 			"nsh" 		"text/x-nsh" 								"bfnshfile"	"NSIS Header File"
+	${RegisterFileType} $FA_Pl 			"pl" 			"application/x-perl" 					"bfplfile"	"Perl Script"
+	${RegisterFileType} $FA_Php 			"php" 		"application/x-php" 						"bfphpfile"	"PHP Script"
+	${RegisterFileType} $FA_Php 			"php3" 		"application/x-php" 						"bfphpfile"	"PHP Script"
+	${RegisterFileType} $FA_Txt 			"txt" 		"text/plain" 								"bftxtfile"	"Plain Text"
+	${RegisterFileType} $FA_Py 			"py" 			"text/x-python" 							"bfpyfile"	"Python Script"
+	${RegisterFileType} $FA_Rb 			"rb" 			"text/x-ruby" 								"bfrbfile"	"Ruby Script"
+	${RegisterFileType} $FA_Smarty 		"smarty" 	"application/x-smarty" 					"bfsmartyfile"	"Smarty Script"
+	${RegisterFileType} $FA_Vbs 			"vbs" 		"application/x-vbscript" 				"bfvbsfile"	"VisualBasic Script"
+	${RegisterFileType} $FA_Vbs 			"vb" 			"application/x-vbscript" 				"bfvbsfile" "VisualBasic Script"
+	${RegisterFileType} $FA_Xhtml 		"xhtml" 		"application/xhtml+xml" 				"bfxhtmlfile"	"XHTML File"
+	${RegisterFileType} $FA_Xml 			"xml" 		"text/xml" 									"bfxmlfile"	"XML File"
+	${RegisterFileType} $FA_Xml 			"xsl" 		"text/xml" 									"bfxslfile"	"XML Stylesheet"
 FunctionEnd
 
 Function FileAssociations_SelectAll
 	${NSD_GetState} $FA_SelectAll $R0
 	${If} $R0 == ${BST_CHECKED}
-		${NSD_SetText} $FA_SelectAll "$(FA_UNSELECT)"
+		${NSD_SetText} $FA_SelectAll "UnSelect All"
 		${NSD_Check} $FA_Ada
 		${NSD_Check} $FA_Asp
 		${NSD_Check} $FA_Sh
@@ -719,7 +572,7 @@ Function FileAssociations_SelectAll
 		${NSD_Check} $FA_Xhtml
 		${NSD_Check} $FA_Xml
 	${Else}
-		${NSD_SetText} $FA_SelectAll "$(FA_SELECT)"
+		${NSD_SetText} $FA_SelectAll "Select All"
 		${NSD_Uncheck} $FA_Ada
 		${NSD_Uncheck} $FA_Asp
 		${NSD_Uncheck} $FA_Sh
@@ -799,7 +652,7 @@ Function GtkInstallPath
 	Push $R1
 	Push $R2
 	Push $R3
-	DetailPrint "$(GTK_PATH)"
+	DetailPrint "Installing GTK+ in the system path."
 	; Get the current system path variable from the registry
 	ReadRegStr $R2 HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
 	; Get the installation path of GTK+ from the registry
@@ -812,7 +665,7 @@ Function GtkInstallPath
 	${If} $R1 == 0
 		StrCpy $R2 "$R2;$R3"
 		; Write the updated system path to the registry
-		WriteRegExpandStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
+		WriteRegStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
 		; Alert the system that an environment variable has been changed so it propagates
 		SendMessage ${HWND_BROADCAST} ${WM_SETTINGCHANGE} "0" "STR:Environment" /TIMEOUT=5000
 	${EndIf}
@@ -825,10 +678,6 @@ FunctionEnd
 
 ; Uninstaller Functions
 ;----------------------------------------------
-Function un.onInit
-	!insertmacro MUI_UNGETLANGUAGE
-FunctionEnd
-
 Function un.UnRegisterFileTypes
 	Push $0
 	Push $1
@@ -858,27 +707,4 @@ Function un.UnRegisterFileTypes
 	Pop $R0
 	Pop $1
 	Pop $0
-FunctionEnd
-
-Function un.UnRegisterHTML
-	Push $R1
-	Push $R2
-	Push $R3
-	
-	ReadRegStr $R1 HKLM "${REG_UNINSTALL}\Backup\HTML" "Description"
-	${If} $R1 != ""
-		WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" $R1
-	${EndIf}
-	ReadRegStr $R2 HKLM "${REG_UNINSTALL}\Backup\HTML" "command"
-	${If} $R2 != ""
-		WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" $R2
-	${EndIf}
-	ReadRegStr $R3 HKLM "${REG_UNINSTALL}\Backup\HTML" "command2"
-	${If} $R3 != ""
-		WriteRegStr HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" $R3
-	${EndIf}
-
-	Pop $R3
-	Pop $R2
-	Pop $R1
 FunctionEnd

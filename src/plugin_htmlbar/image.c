@@ -191,7 +191,7 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
   thestring = insert_string_if_entry(imdg->dg->entry[1], cap("NAME"), thestring, NULL);
   thestring = insert_string_if_entry(imdg->dg->entry[2], cap("ALT"), thestring, "");
   thestring = insert_string_if_entry(imdg->dg->entry[3], cap("USEMAP"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(imdg->dg->combo[0])->child), cap("ALIGN"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(imdg->dg->combo[0])->entry), cap("ALIGN"), thestring, NULL);
   thestring = insert_string_if_entry(imdg->dg->entry[4], NULL, thestring, NULL);
 
   finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
@@ -490,7 +490,7 @@ void image_insert_dialog_backend(gchar *filename,Tbfwin *bfwin, Ttagpopup *data,
   popuplist = g_list_append(popuplist, "top");
   popuplist = g_list_append(popuplist, "left");
   popuplist = g_list_append(popuplist, "right");
-  imdg->dg->combo[0] = combobox_with_popdown_sized(tagvalues[7], popuplist, 1, 90);
+  imdg->dg->combo[0] = combo_with_popdown_sized(tagvalues[7], popuplist, 1, 90);
   g_list_free(popuplist);
   bf_mnemonic_label_tad_with_alignment(_("_Align:"), imdg->dg->combo[0], 0, 0.5, dgtable, 3, 4, 1, 2);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->combo[0], 4, 6, 1, 2);

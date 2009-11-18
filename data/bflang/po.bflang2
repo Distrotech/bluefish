@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Po" version="2.0">
+<bflang name="Po">
 <header>
 	<mime type="text/x-gettext-translation"/>
 	<highlight name="string" style="string"  />
@@ -28,13 +28,13 @@
 	<highlight name="comment" style="comment"  />
 </header>
 <properties>
-	<comment type="line" start="#" />
+	<comment id="#" type="line" start="#" />
 </properties>
 
 <definition>
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 <element pattern="&#34;" highlight="string">
-	<context symbols="\&#34;nrt" highlight="string">
+	<context symbols="\&#34;nrt" highlight="string" spellcheck="1">
 		<element pattern="\\." is_regex="1" highlight="string" />
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>

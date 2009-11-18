@@ -20,7 +20,7 @@
 
 /*#define MINIMAL_REFCOUNTING*/
 
-/*#define HL_PROFILING*/
+#define HL_PROFILING
 #ifdef HL_PROFILING
 #include <unistd.h>
 #endif

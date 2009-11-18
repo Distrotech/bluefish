@@ -20,25 +20,21 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="ASP" version="2.0" matches="403" contexts="44" table="1275">
+<bflang name="ASP" matches="403" contexts="44" table="1275">
 <header>
 	<mime type="application/x-asp0"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
-	<highlight name="attribute" style="attribute"  />
-	<highlight name="brackets" style="brackets"  />
-	<highlight name="comment" style="comment"  />
-	<highlight name="entity" style="value"  />
-	<highlight name="function" style="function"  />
-	<highlight name="html-comment" style="comment"  />
-	<highlight name="keyword" style="keyword" />
-	<highlight name="region" style="function"  />
-	<highlight name="storage" style="special-keyword"  />
-	<highlight name="string" style="string"  />
 	<highlight name="tag" style="tag"  />
+	<highlight name="attribute" style="attribute"  />
+	<highlight name="string" style="string"  />
+	<highlight name="entity" style="value"  />
+	<highlight name="brackets" style="brackets"  />
+	<highlight name="keyword" style="keyword" />
 	<highlight name="value" style="value"  />
-	<highlight name="variable" style="variable"  />
+	<highlight name="function" style="function"  />
 	<highlight name="vbscript-comment" style="comment"  />
+	<highlight name="html-comment" style="comment"  />
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;%">
@@ -86,8 +82,8 @@
 </group>
 <!-- <element pattern="&lt;script[ &#9;].+javascript.+&gt;" is_regex="1" case_insens="1" highlight="keyword"/> -->
 
-<element id="e.vbscript" pattern="&lt;%" starts_block="1" highlight="region">
-	<context symbols=" '&#34;():.,/*-+=&gt;&lt;&amp; &#9;&#10;&#13;%" highlight="region">
+<element pattern="&lt;%" starts_block="1" highlight="region">
+	<context id="vbscript" autocomplete_case_insens="1" symbols=" '&#34;():.,/*-+=&gt;&lt;&amp; &#9;&#10;&#13;%" highlight="region">
 		<group autocomplete="1" case_insens="1" highlight="keyword">
 		<element pattern="and" />
 		<element pattern="as" />
@@ -156,21 +152,21 @@
 		<element pattern="&#34;" highlight="string">
 			<context symbols="&#34;" highlight="string">
 				<element pattern="&#34;" highlight="string" ends_context="1" />
-				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="e.vbscript" highlight="region" mayfold="1" />
+				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;%" highlight="region" mayfold="1" />
 			</context>
 		</element>
 		
 		<element pattern="'" highlight="vbscript-comment">
 			<context symbols="%&gt;&#10;" highlight="comment">
 				<element pattern="&#10;" ends_context="1" />
-				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="e.vbscript" highlight="region" mayfold="1" />
+				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;%" highlight="region" mayfold="1" />
 			</context>
 		</element>
 		
 		<element pattern="rem" case_insens="1" highlight="vbscript-comment">
 			<context symbols="%&gt;&#10;" highlight="comment">
 				<element pattern="&#10;" ends_context="1" />
-				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="e.vbscript" highlight="region" mayfold="1" />
+				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;%" highlight="region" mayfold="1" />
 			</context>
 		</element>
 		
@@ -180,18 +176,18 @@
 		<element pattern="exit[\ \t]+sub" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit sub" mayfold="1" />
 		<element pattern="exit[\ \t]+function" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit function" mayfold="1" />
 
-		<element id="e.asp.for" pattern="for" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
-		<element pattern="next" case_insens="1" ends_block="1" blockstartelement="e.asp.for" mayfold="1" highlight="keyword" />
-		<element id="e.asp.do" pattern="do" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
-		<element pattern="loop" case_insens="1" ends_block="1" blockstartelement="e.asp.do" mayfold="1" highlight="keyword" />
-		<element id="e.asp.while" pattern="while" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
-		<element pattern="wend" case_insens="1" ends_block="1" blockstartelement="e.asp.while" mayfold="1" highlight="keyword" />
-		<element id="e.asp.sub" pattern="sub" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
-		<element pattern="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.sub" autocomplete="1" autocomplete_string="end sub" mayfold="1" highlight="keyword" />
-		<element id="e.asp.function" pattern="function" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
-		<element pattern="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.function" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end function" />
-		<element id="e.asp.property" pattern="property" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
-		<element pattern="end[\ \t]+property" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.property" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end property" />
+		<element pattern="for" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
+		<element pattern="next" case_insens="1" ends_block="1" blockstartelement="for" mayfold="1" highlight="keyword" />
+		<element pattern="do" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
+		<element pattern="loop" case_insens="1" ends_block="1" blockstartelement="do" mayfold="1" highlight="keyword" />
+		<element pattern="while" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
+		<element pattern="wend" case_insens="1" ends_block="1" blockstartelement="while" mayfold="1" highlight="keyword" />
+		<element pattern="sub" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartelement="sub" autocomplete="1" autocomplete_string="end sub" mayfold="1" highlight="keyword" />
+		<element pattern="function" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartelement="function" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end function" />
+		<element pattern="property" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+property" is_regex="1" case_insens="1" ends_block="1" blockstartelement="property" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end property" />
 <!--
 		<element pattern="if[\ \t].+[\ \t]then[\ \t]*&#10;&#13;" starts_block="1" is_regex="1" case_insens="1" mayfold="1" highlight="keyword" autocomplete_string="if" />
 		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartelement="if[\ \t].+[\ \t]then[\ \t]*&#10;&#13;" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end if" />
@@ -199,14 +195,14 @@
 		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartelement="if.+then[\ \t]*&#10;&#13;" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end if" />
 -->
 
-		<element id="e.asp.with" pattern="with" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
-		<element pattern="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.with" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end with" />
-		<element id="e.asp.select" pattern="select" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
-		<element pattern="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.select" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end select" />
-		<element id="e.asp.class" pattern="class" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
-		<element pattern="end[\ \t]+class" is_regex="1" case_insens="1" ends_block="1" blockstartelement="e.asp.class" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end class" />
+		<element pattern="with" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartelement="with" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end with" />
+		<element pattern="select" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartelement="select" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end select" />
+		<element pattern="class" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+class" is_regex="1" case_insens="1" ends_block="1" blockstartelement="class" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end class" />
 
-		<element pattern="%&gt;" ends_block="1" blockstartelement="e.vbscript" highlight="region" mayfold="1" ends_context="1" />
+		<element pattern="%&gt;" ends_block="1" blockstartelement="&lt;%" highlight="region" mayfold="1" ends_context="1" />
 		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
 
 		<element pattern="[a-z][a-z_0-9]*[\$%]?" is_regex="1" case_insens="1" highlight="variable"/>
@@ -217,9 +213,9 @@
 	</context>
 </element>
 
-<element id="e.asp.comment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
+<element pattern="&lt;!--" highlight="html-comment" starts_block="1">
 	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
-		<element pattern="--&gt;" ends_block="1" blockstartelement="e.asp.comment" highlight="html-comment" mayfold="1" ends_context="1" />
+		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="html-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
 

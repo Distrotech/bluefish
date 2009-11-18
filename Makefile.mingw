@@ -14,4 +14,3 @@ clean:
 installer: config
 	$(MAKE) -C $(SUBDIRS) -f Makefile.mingw $@
 
-.NOTPARALLEL:

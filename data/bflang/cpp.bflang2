@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="C++" version="2.0" matches="85" contexts="7" table="376">
+<bflang name="C++" matches="85" contexts="7" table="376">
 <header>
 	<mime type="text/x-c++src"/>
 	<mime type="text/x-c++hdr"/>
@@ -29,18 +29,18 @@
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
 	<highlight name="keyword" style="keyword" />
-	<highlight name="storage-keyword" style="special-keyword" />
+	<highlight name="storage keyword" style="special-keyword" />
 	<highlight name="brackets" style="brackets" />
 	<highlight name="type" style="type" />
 	<highlight name="comment" style="comment" />
 	<highlight name="string" style="string" />
 	<highlight name="value" style="value" />
 	<highlight name="preprocessor" style="preprocessor" />
-	<highlight name="overloaded-operator" style="operator" />
+	<highlight name="overloaded operator" style="operator" />
 </header>
 <properties>
-	<comment type="block" start="/*" end="*/" />
-	<comment type="line" start="//" />
+	<comment id="/**/" type="block" start="/*" end="*/" />
+	<comment id="//" type="line" start="//" />
 	<smartindent characters="{" />
 </properties>
 <definition>
@@ -86,7 +86,7 @@
 	<element pattern="while" />
 	</group>
 
-	<group highlight="storage-keyword" autocomplete="1">
+	<group highlight="storage keyword" autocomplete="1">
 	<element pattern="auto" />
 	<element pattern="const" />
 	<element pattern="extern" />
@@ -119,53 +119,53 @@
 	<element pattern="false" autocomplete="1" highlight="value" />	
 	<element pattern="NULL" autocomplete="1" highlight="value" />
 
-	<element id="e.double_quote" pattern="&#34;" highlight="string">
+	<element id="double-quote" pattern="&#34;" highlight="string">
 		<context symbols="\&#34;nrt" highlight="string">
 			<element pattern="\\." is_regex="1" highlight="string" />
 			<element pattern="&#34;" highlight="string" ends_context="1" />
 		</context>
 	</element>
-	<element id="e.single_quote" pattern="'" highlight="string">
+	<element id="single-quote" pattern="'" highlight="string">
 		<context symbols="\'" highlight="string">
 			<element pattern="\\." is_regex="1" highlight="string" />
 			<element pattern="'" highlight="string" ends_context="1" />
 		</context>
 	</element>
 
-	<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
-	<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
-	<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
-	<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
-	<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-	<element id="e.rparen" pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+	<element id="{" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+	<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+	<element id="[" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+	<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+	<element id="(" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+	<element id=")" pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
 
-	<element id="e.lcomment" pattern="/*" starts_block="1" highlight="comment">
+	<element id="commstart" pattern="/*" starts_block="1" highlight="comment">
 		<context symbols="*/&#9;&#10;&#13;" highlight="comment">
-			<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
+			<element pattern="*/" ends_block="1" blockstartelement="commstart" highlight="comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
 	<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
 
-	<element id="e.number" pattern="[0-9.]+" is_regex="1" highlight="value"/>
+	<element id="number" pattern="[0-9.]+" is_regex="1" highlight="value"/>
 
 	<element pattern="cin">
 		<context symbols="&gt; ;()">
-			<element pattern="&gt;&gt;" highlight="overloaded-operator" />
-			<element idref="e.lparen" />
-			<element idref="e.rparen" />
-			<element idref="e.number" />
+			<element pattern="&gt;&gt;" highlight="overloaded operator" />
+			<element idref="(" />
+			<element idref=")" />
+			<element idref="number" />
 			<element pattern=";" ends_context="1" />
 		</context>
 	</element>
 	
 	<element pattern="cout">
 		<context symbols="&lt; ;&#34;&#39;()">
-			<element pattern="&lt;&lt;" highlight="overloaded-operator" />
-			<element idref="e.single_quote" />
-			<element idref="e.double_quote" />
-			<element idref="e.lparen" />
-			<element idref="e.rparen" />
-			<element idref="e.number" />
+			<element pattern="&lt;&lt;" highlight="overloaded operator" />
+			<element idref="single-quote" />
+			<element idref="double-quote" />
+			<element idref="(" />
+			<element idref=")" />
+			<element idref="number" />
 			<element pattern=";" ends_context="1" />
 		</context>
 	</element>

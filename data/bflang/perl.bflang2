@@ -20,18 +20,18 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Perl" version="2.0" matches="259" contexts="5" table="950">
+<bflang name="Perl" matches="259" contexts="5" table="950">
 <header>
 	<mime type="application/x-perl"/>
 	<mime type="text/x-perl" />
+	<highlight name="string" style="string"  />
 	<highlight name="brackets" style="brackets"  />
+	<highlight name="keyword" style="keyword"  />
+	<highlight name="value" style="value"  />
+	<highlight name="function" style="special-function"  />
 	<highlight name="built-in-function" style="function"  />
 	<highlight name="comment" style="comment"  />
-	<highlight name="function" style="special-function"  />
-	<highlight name="keyword" style="keyword"  />
 	<highlight name="pragma" style="preprocessor"   />
-	<highlight name="string" style="string"  />
-	<highlight name="value" style="value"  />
 	<highlight name="variable" style="variable"  />
 </header>
 <definition>
@@ -294,7 +294,7 @@
 	</context>
 </element>
 <element pattern="'" highlight="string">
-	<context symbols="\'" highlight="string">
+	<context symbols="\'" highlight="string" spellcheck="1">
 		<element pattern="\." is_regex="1"/>
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
@@ -304,12 +304,12 @@
 	<element pattern="[0-9]+\.[0-9]+" is_regex="1"  />
 	<element pattern="[0-9]+" is_regex="1"  />
 </group>
-<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
-<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
-<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
 <element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment" />
 
 </context>

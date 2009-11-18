@@ -282,15 +282,22 @@ void parse_integer_for_dialog(gchar * valuestring, GtkWidget * spin, GtkWidget *
 /********** DIALOG -> HTML FUNCTIONS *************/
 /*************************************************/
 
-gchar *insert_string_if_string(const gchar *inputstring, gchar * itemname, gchar * string2add2, const gchar *defaultvalue) {
+gchar *insert_string_if_entry(GtkWidget * entry, gchar * itemname, gchar * string2add2, gchar *defaultvalue)
+{
+
 	gchar *tempstring=NULL;
-	const gchar *value=NULL;
+	gchar *entryvalue=NULL, *value=NULL;
 
-	if (!inputstring)
+	if (!entry) {
 		value = defaultvalue;
-	else
-		value = inputstring;
-
+	} else {
+		entryvalue = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+		if (strlen(entryvalue)) {
+			value = entryvalue;
+		} else{
+			value = defaultvalue;
+		} 
+	}
 	if (value) {
 		if (itemname) {
 			tempstring = g_strdup_printf("%s %s=\"%s\"", string2add2, itemname, value);
@@ -298,20 +305,9 @@ gchar *insert_string_if_string(const gchar *inputstring, gchar * itemname, gchar
 			tempstring = g_strdup_printf("%s %s", string2add2, value);
 		}
 		g_free(string2add2);
-		return tempstring;
+		string2add2 = tempstring;
 	}
-	return string2add2;
-}
-
-gchar *insert_string_if_entry(GtkWidget * entry, gchar * itemname, gchar * string2add2, gchar *defaultvalue)
-{
-	if (entry) {
-		gchar *retstring, *entryvalue;
-		entryvalue = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
-		if (entryvalue[0]!='\0') {
-			retstring = insert_string_if_string(entryvalue, itemname, string2add2, defaultvalue);
-			return retstring;
-		}
+	if (entryvalue) {
 		g_free(entryvalue);
 	}
 	return string2add2;
@@ -378,7 +374,7 @@ GtkWidget *generic_table_inside_notebookframe(GtkWidget *notebook, const gchar *
 void generic_class_id_style_section(Thtml_diag *dg, gint firstattrwidget, GtkWidget *dgtable, gint firstrowintable, gchar **tagvalues, gint firsttagvalue) {
 	GtkWidget *but;
 
-	dg->attrwidget[firstattrwidget] = combobox_with_popdown(tagvalues[firsttagvalue], dg->bfwin->session->classlist, 1);
+	dg->attrwidget[firstattrwidget] = combo_with_popdown(tagvalues[firsttagvalue], dg->bfwin->session->classlist, 1);
 	bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->attrwidget[firstattrwidget], 0, 0.5, dgtable, 0, 1, firstrowintable+0, firstrowintable+1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[firstattrwidget], 1, 3, firstrowintable+0, firstrowintable+1);
 

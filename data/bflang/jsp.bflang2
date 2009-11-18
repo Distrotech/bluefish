@@ -20,28 +20,26 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="JSP" version="2.0">
+<bflang name="JSP">
 <header>
 	<mime type="application/x-jsp"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
 	<option name="autocomplete_tags" default="1" />
-	<highlight name="attribute" style="attribute"  />
-	<highlight name="brackets" style="brackets"  />
-	<highlight name="comment" style="comment"  />
 	<highlight name="keyword" style="keyword"  />
-	<highlight name="preprocessor" style="preprocessor" />
-	<highlight name="region" style="special-value"  />
 	<highlight name="special-keyword" style="special-keyword"  />
-	<highlight name="storage" style="special-keyword"  />
-	<highlight name="string" style="string"  />
-	<highlight name="tag" style="tag"  />
+	<highlight name="brackets" style="brackets"  />
 	<highlight name="type" style="type"  />
+	<highlight name="comment" style="comment"  />
+	<highlight name="string" style="string"  />
 	<highlight name="value" style="value"  />
+	<highlight name="preprocessor" style="preprocessor" />
+	<highlight name="tag" style="tag"  />
+	<highlight name="attribute" style="tag"  />
 </header>
 <properties>
-	<comment type="block" start="/*" end="*/" />
-	<comment type="line" start="//" />
+	<comment id="/**/" type="block" start="/*" end="*/" />
+	<comment id="//" type="line" start="//" />
 	<smartindent characters="{" />
 </properties>
 
@@ -88,7 +86,7 @@
 <tag name="optgroup" attributes="style,class,id,label" />
 </group>
 
-<element id="e.jsp.open" pattern="&lt;%" starts_block="1" highlight="region">
+<element pattern="&lt;%" starts_block="1" highlight="region">
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 <group autocomplete="1" highlight="keyword"> 
 <element pattern="assert" />
@@ -161,15 +159,15 @@
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-		<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
-		<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
-		<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
-		<element  id="e.lcomment" pattern="/*" starts_block="1" highlight="comment">
+		<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+		<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+		<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
+		<element pattern="/*" starts_block="1" highlight="comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="comment">
-				<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
+				<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
 			</context>
 		</element>
 		<element pattern="true" highlight="value"/>
@@ -177,7 +175,7 @@
 		<element pattern="null" highlight="value"/>
 		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
 		<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
-		<element pattern="%&gt;" ends_block="1" blockstartelement="e.jsp.open" ends_context="1"/>		
+		<element pattern="%&gt;" ends_block="1" blockstartelement="&lt;%" ends_context="1"/>		
 	</context>
 
 	

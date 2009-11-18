@@ -20,17 +20,17 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="XML" version="2.0" table="55" contexts="7" matches="16">
+<bflang name="XML" table="55" contexts="7" matches="16">
 <header>
 	<mime type="text/xml"/>
 	<mime type="application/xml"/>
-	<highlight name="assignment" style="brackets"  />
-	<highlight name="attribute" style="attribute"  />
-	<highlight name="comment" style="comment"  />
-	<highlight name="entity" style="value"  />
-	<highlight name="string" style="string"  />
-	<highlight name="tag" style="tag"  />
 	<highlight name="xml-declaration" style="preprocessor"  />
+	<highlight name="tag" style="tag"  />
+	<highlight name="attribute" style="attribute"  />
+	<highlight name="string" style="string"  />
+	<highlight name="entity" style="value"  />
+	<highlight name="comment" style="comment"  />
+	<highlight name="=" style="brackets"  />
 </header>
 <properties>
 	<comment type="block" start="&lt;!--" end="--&gt;" />
@@ -38,41 +38,41 @@
 </properties>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-	<element id="e.xml.open" pattern="&lt;?xml" highlight="xml-declaration" starts_block="1">
+	<element id="startxml" pattern="&lt;?xml" highlight="xml-declaration" starts_block="1">
 		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
 			<element pattern="[a-zA-Z0-9:-]+" is_regex="1" highlight="xml-declaration" />
-			<element pattern="?&gt;" ends_context="1" ends_block="1" blockstartelement="e.xml.open" highlight="xml-declaration" />
-			<element id="e.xml.stringstart" pattern="&#34;" highlight="string">
+			<element pattern="?&gt;" ends_context="1" ends_block="1" blockstartelement="startxml" highlight="xml-declaration" />
+			<element id="stringstart" pattern="&#34;" highlight="string">
 				<context symbols="&amp;;&#34;" highlight="string" >
-					<element id="e.xml.entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+					<element id="entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
 					<element pattern="&#34;" highlight="string" ends_context="1"/>
 				</context>
 			</element>
 		</context>
 	</element>
-	<element id="e.xml.lcomment" pattern="&lt;!--" highlight="comment" starts_block="1">
+	<element id="startcomment" pattern="&lt;!--" highlight="comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
-			<element pattern="--&gt;" ends_block="1" blockstartelement="e.xml.lcomment" highlight="comment" mayfold="1" ends_context="1" />
+			<element pattern="--&gt;" ends_block="1" blockstartelement="startcomment" highlight="comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
-	<element id="e.xml.tag.open" pattern="&lt;[_a-zA-Z0-9:-]+" is_regex="1" highlight="tag" starts_block="1" tagclose_from_blockstack="1">
+	<element id="starttag" pattern="&lt;[_a-zA-Z0-9:-]+" is_regex="1" highlight="tag" starts_block="1" tagclose_from_blockstack="1">
 		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
 			<element pattern="[_a-zA-Z0-9:-]+" is_regex="1" highlight="attribute" />
-			<element pattern="=" highlight="assignment" />
-			<element idref="e.xml.stringstart"/>
+			<element pattern="=" highlight="=" />
+			<element idref="stringstart"/>
 			<element pattern="'[^']+'" highlight="string" is_regex="1" />
-			<element pattern="/&gt;" highlight="tag" ends_context="1" ends_block="1" blockstartelement="e.xml.tag.open" />
+			<element pattern="/&gt;" highlight="tag" ends_context="1" ends_block="1" blockstartelement="starttag" />
 			<element pattern="&gt;" highlight="tag">
 				<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-					<element pattern="&lt;/[_a-zA-Z0-9:-]+&gt;" is_regex="1" highlight="tag" ends_context="2"  ends_block="1" blockstartelement="e.xml.tag.open" />
-					<element idref="e.xml.tag.open"/>
-					<element idref="e.xml.lcomment"/>
-					<element idref="e.xml.entity"/>
+					<element pattern="&lt;/[_a-zA-Z0-9:-]+&gt;" is_regex="1" highlight="tag" ends_context="2"  ends_block="1" blockstartelement="starttag" />
+					<element idref="starttag"/>
+					<element idref="startcomment"/>
+					<element idref="entity"/>
 				</context>
 			</element>
 		</context>
 	</element>
-	<element idref="e.xml.entity" />
+	<element idref="entity" />
 </context>
 </definition>
 </bflang>

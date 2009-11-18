@@ -442,7 +442,7 @@ static GtkWidget *prefs_combo(const gchar *title, const gchar *curval, GtkWidget
 	hbox = gtk_hbox_new(FALSE,3);
 	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(title), FALSE, FALSE, 3);
-	return_widget = boxed_combobox_with_popdown(curval, poplist, editable, hbox);
+	return_widget = boxed_combo_with_popdown(curval, poplist, editable, hbox);
 	return return_widget;
 }
 

@@ -20,21 +20,19 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Ada" version="2.0" matches="29" contexts="3" table="82">
+<bflang name="Ada" matches="29" contexts="3" table="82">
 <header>
 	<mime type="text/x-ada"/>
 	<mime type="text/x-adasrc"/>
-	<highlight name="brackets" style="brackets"  />
-	<highlight name="comment" style="comment"  />
-	<highlight name="function" style="function"  />
-	<highlight name="keyword" style="keyword"  />
 	<highlight name="string" style="string"   />
-	<highlight name="tag" style="tag"  />
+	<highlight name="keyword" style="keyword"  />
 	<highlight name="value" style="value"  />
+	<highlight name="function" style="function"  />
+	<highlight name="comment" style="comment"  />
 	<highlight name="variable" style="variable"  />
 </header>
 <properties>
-	<comment type="line" start="---" />
+	<comment id="--" type="line" start="---" />
 </properties>
 
 <definition>
@@ -124,8 +122,8 @@
 <element pattern="xor"/>
 </group>
 
-<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+<element id="(" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
 
 <element pattern="--[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
 <element pattern="'[^']*'" is_regex="1" highlight="string"/>

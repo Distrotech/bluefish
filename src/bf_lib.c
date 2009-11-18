@@ -42,11 +42,6 @@
 #include "bluefish.h"  /* for DEBUG_MSG and stuff like that */
 #include "bf_lib.h"    /* myself */
 
-/*#define REFP_REFS*/
-#ifdef REFP_REFS
-	gint num_refp_refs=0;
-#endif
-
 #ifdef REFP_DEBUG
 void refcpointer_ref(Trefcpointer *rp) {
 	rp->count++;
@@ -54,11 +49,7 @@ void refcpointer_ref(Trefcpointer *rp) {
 }
 #endif
 Trefcpointer *refcpointer_new(gpointer data) {
-	Trefcpointer *rp = g_slice_new(Trefcpointer);
-#ifdef REFP_REFS
-	num_refp_refs++;
-	g_print("num_refp_refs=%d\n",num_refp_refs);
-#endif
+	Trefcpointer *rp = g_new(Trefcpointer,1);
 	rp->data = data;
 	rp->count = 1;
 #ifdef REFP_DEBUG
@@ -73,12 +64,8 @@ void refcpointer_unref(Trefcpointer *rp) {
 	g_print("refcpointer_unref, %p refcount=%d %s\n",rp, rp->count, (rp->count ==0 ? "freeing data" : ""));
 #endif
 	if (rp->count <= 0) {
-#ifdef REFP_REFS
-		num_refp_refs--;
-		g_print("num_refp_refs=%d\n",num_refp_refs);
-#endif
 		g_free(rp->data);
-		g_slice_free(Trefcpointer,rp);
+		g_free(rp);
 	}
 }
 /*GFile *add_suffix_to_uri(GFile *file, const char *suffix) {

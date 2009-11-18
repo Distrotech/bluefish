@@ -28,25 +28,14 @@
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 ]>
-<bflang name="XHTML" version="2.0" table="8123" contexts="109" matches="1817">
+<bflang name="XHTML" table="8123" contexts="109" matches="1817">
 <header>
 	<mime type="application/xhtml+xml"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
 	<option name="autocomplete_tags" default="1" />
-	<option name="javascript_anchors_object" default="1" description="Anchors object" />
-	<option name="javascript_applets_object" default="1" description="Applet object" />
-	<option name="javascript_date_object" default="1" description="Date object" />
-	<option name="javascript_document_object" default="1" description="Document object" />
-	<option name="javascript_event_object" default="1" description="Event object" />
-	<option name="javascript_history_object" default="1" description="History object" />
-	<option name="javascript_location_object" default="1" description="Location object" />
-	<option name="javascript_math_object" default="1" description="Math object" />
-	<option name="javascript_navigator_object" default="1" description="Navigator object" />
-	<option name="javascript_node_object" default="1" description="Node object" />
-	<option name="javascript_screen_object" default="1" description="Screen object" />
-	<option name="javascript_string_object" default="1" description="String object" />
-	<option name="javascript_window_object" default="1" description="Window object" />
+	<option name="javascript_window_functions" default="1" description="window object"/>
+	<option name="javascript_document_functions" default="1" description="document object" />
 	<highlight name="tag" style="tag" />
 	<highlight name="reference-external-tag" style="special-tag" />
 	<highlight name="table-tag" style="special-tag2" />
@@ -84,70 +73,64 @@
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 <tag name="html" attributes="xmlns,version,&i18n;&xml;" highlight="tag" autocomplete_append=" xmlns=&quot;http://www.w3.org/1999/xhtml&quot; &gt;&#10;&#10;&lt;/html&gt;" autocomplete_backup_cursor="8" />
 <tag name="head" attributes="profile,&i18n;" highlight="tag" >
-	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
 	<tag name="meta" highlight="tag" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" />
 	<tag name="title" highlight="tag" attributes="&i18n;" />
 
-<tag id="t.xhtml.script" name="script" highlight="tag" attributes="charset,defer,language,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;" attribhighlight="attribute">
+<tag id="script" name="script" highlight="tag" attributes="charset,defer,language,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;" attribhighlight="attribute">
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
-	<element pattern="(" id="e.xhtml.js.lparen" starts_block="1" highlight="js-brackets" />
-	<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.xhtml.js.lparen" />
-	<element pattern="{" id="e.xhtml.js.lbrace" starts_block="1" highlight="js-brackets" />
-	<element pattern="}" highlight="js-brackets" ends_block="1" blockstartelement="e.xhtml.js.lbrace" />
-	<element pattern="[" id="e.xhtml.js.lbracket" starts_block="1" highlight="js-brackets" />
-	<element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="e.xhtml.js.lbracket" />
-	&all-javascript;
-	<element pattern="//" highlight="js-comment">
+&all-javascript;
+	<element id="js:linecomment" pattern="//" highlight="js-comment">
 		<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
 			<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
-			<element pattern="&lt;/script&gt;" highlight="tag" ends_context="3" ends_block="1" blockstartelement="t.xhtml.script"/>
+			<element pattern="&lt;/script&gt;" highlight="tag" ends_context="3" ends_block="1" blockstartelement="script"/>
 		</context>
 	</element>
-	<element id="e.xhtml.js.blockcomment" pattern="/*" starts_block="1" highlight="js-comment">
+	<element id="js:blockcomment" pattern="/*" starts_block="1" highlight="js-comment">
 		<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
-			<element pattern="*/" ends_block="1" blockstartelement="e.xhtml.js.blockcomment" highlight="js-comment" mayfold="1" ends_context="1" />
-			<element pattern="&lt;/script&gt;" highlight="tag" ends_context="3" ends_block="1" blockstartelement="t.xhtml.script"/>
+			<element pattern="*/" ends_block="1" blockstartelement="js:blockcomment" highlight="js-comment" mayfold="1" ends_context="1" />
+			<element pattern="&lt;/script&gt;" highlight="tag" ends_context="3" ends_block="1" blockstartelement="script"/>
 		</context>
-	</element> 
+	</element>
 </context>
 </tag>
 <tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
 	<context symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
 	
-		<element id="e.xhtml.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
+		<element id="css/*" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
-				<element pattern="*/" ends_block="1" blockstartelement="e.xhtml.css.lcomment" highlight="css-comment" ends_context="1" />
+				<element pattern="*/" ends_block="1" blockstartelement="css/*" highlight="css-comment" ends_context="1" />
 			</context>
 		</element>
 		&css-selectors;
-		<element id="e.css.lbrace" pattern="{" starts_block="1" highlight="brackets">
+		<element id="css:bracket" pattern="{" starts_block="1" highlight="brackets">
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
 				&css-rules;
-				<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
+				<element pattern="/*" starts_block="1" highlight="css-comment">
 					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
-						<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
+						<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="css-comment" mayfold="1" ends_context="1" />
 					</context>
 				</element>
 				<element pattern="&lt;/style&gt;" highlight="tag" ends_context="3" />
-				<element pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="brackets" ends_context="1" />
+				<element pattern="}" ends_block="1" blockstartelement="css:bracket" highlight="brackets" ends_context="1" />
 			</context>
 		</element>
 	</context>
 </tag>
 
 	<tag name="link" highlight="tag" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" />
-	<element id="e.html.comment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
+	<element id="html-comment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
-			<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.comment" highlight="html-comment" mayfold="1" ends_context="1" />
+			<element pattern="--&gt;" ends_block="1" blockstartelement="html-comment" highlight="html-comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
-	<element id="e.html.entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+	<element id="html-entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
 	</context>
 </tag>
 
 <tag name="body" highlight="tag" autocomplete_append="&gt;&#10;&#10;&lt;/body&gt;" autocomplete_backup_cursor="8" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-		<tag idref="t.xhtml.script" />
+		<tag idref="script" />
 		<group highlight="reference-external-tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 			<tag name="a" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" />
 			<tag name="img" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; /&gt;">
@@ -214,8 +197,8 @@
 			<tag name="tfoot" attributes="align,char,charoff,valign,&univ;,&i18n;,&evnt;" />
 			<tag name="thead" attributes="align,char,charoff,valign,&univ;,&i18n;,&evnt;" />
 		</group>
-		<element idref="e.html.comment" />
-		<element idref="e.html.entity"/>
+		<element idref="html-comment" />
+		<element idref="html-entity"/>
 	</context>
 </tag>
 </context>

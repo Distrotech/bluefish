@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Ruby" version="2.0">
+<bflang name="Ruby">
 <header>
 	<mime type="text/x-ruby"/>
 	<mime type="application/x-ruby"/>
@@ -34,7 +34,7 @@
 	<highlight name="requires" style="preprocessor"   />
 </header>
 <properties>
-	<comment type="line" start="#" />
+	<comment id="#" type="line" start="#" />
 </properties>
 
 <definition>
@@ -78,21 +78,21 @@
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
-<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
-<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
 
 <element pattern="@[^@][a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" autocomplete="0" highlight="instance-var"/>
 <element pattern="@@[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" autocomplete="0" highlight="class-var"/>
 <element pattern="[0-9]+\.[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
 <element pattern="[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
 <element pattern="#[^&#10;&#13;]+" is_regex="1" highlight="comment"/>
-<element id="e.lcomment" pattern="=begin" starts_block="1" highlight="comment">
-	<context symbols="*/&#9;&#10;&#13;" highlight="comment">
-		<element pattern="=end" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
+<element id="commstart" pattern="=begin" starts_block="1" highlight="comment">
+	<context symbols="*/&#9;&#10;&#13;" highlight="comment" spellcheck="1">
+		<element pattern="=end" ends_block="1" blockstartelement="commstart" highlight="comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
 		

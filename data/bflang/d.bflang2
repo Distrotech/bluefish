@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="D" version="2.0" matches="113" contexts="5" table="430">
+<bflang name="D" matches="113" contexts="5" table="430">
 <header>
 	<mime type="text/x-dsrc" />
 	<highlight name="keyword" style="keyword" />
@@ -152,18 +152,18 @@
 	</context>
 </element>
 
-<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
+<element id="{" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
 
-<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
+<element id="[" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
 
-<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+<element id="(" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
 
-<element id="e.lcomment" pattern="/*" starts_block="1" highlight="comment">
+<element id="commstart" pattern="/*" starts_block="1" highlight="comment">
 	<context symbols="*/&#9;&#10;&#13;" highlight="comment">
-		<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
+		<element pattern="*/" ends_block="1" blockstartelement="commstart" highlight="comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
 

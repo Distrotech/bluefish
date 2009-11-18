@@ -434,10 +434,10 @@ static void cs3d_select_row_lcb(GtkWidget *clist, gint row, gint column, GdkEven
 			gtk_clist_get_text(GTK_CLIST(diag->clist), diag->selected_row, 2, &text[2]);
 		}
 		if (text[0]) {
-			gtk_entry_set_text(GTK_ENTRY(GTK_BIN(diag->selector)->child), text[0]);
+			gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(diag->selector)->entry), text[0]);
 		}
-		gtk_entry_set_text(GTK_ENTRY(GTK_BIN(diag->property)->child), text[1]);
-		gtk_entry_set_text(GTK_ENTRY(GTK_BIN(diag->value)->child), text[2]);
+		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(diag->property)->entry), text[1]);
+		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(diag->value)->entry), text[2]);
 		DEBUG_MSG("cs3d_select_row_lcb, sele=%s, prop=%s, val=%s\n", text[0], text[1], text[2]);
 	}
 }
@@ -445,10 +445,10 @@ static void cs3d_select_row_lcb(GtkWidget *clist, gint row, gint column, GdkEven
 static void cs3d_unselect_row_lcb(GtkWidget *clist, gint row, gint column, GdkEventButton *event, Tcs3_diag *diag) {
 	diag->selected_row = -1;
 	if (diag->styletype == multistyle) {
-		gtk_entry_set_text(GTK_ENTRY(GTK_BIN(diag->selector)->child), "");
+		gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(diag->selector)->entry), "");
 	}
-	gtk_entry_set_text(GTK_ENTRY(GTK_BIN(diag->property)->child), "");
-	gtk_entry_set_text(GTK_ENTRY(GTK_BIN(diag->value)->child), "");
+	gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(diag->property)->entry), "");
+	gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(diag->value)->entry), "");
 }
 
 static void add_to_row(Tcs3_diag *diag, gint whichrow) {
@@ -456,13 +456,13 @@ static void add_to_row(Tcs3_diag *diag, gint whichrow) {
 	gint count, correct=1;
 	if (diag->styletype == multistyle) {
 		DEBUG_MSG("add_to_row, multistyle\n");
-		text[0] = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(diag->selector)->child), 0, -1);
-		text[1] = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(diag->property)->child), 0, -1);
-		text[2] = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(diag->value)->child), 0, -1);
+		text[0] = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->selector)->entry), 0, -1);
+		text[1] = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->property)->entry), 0, -1);
+		text[2] = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->value)->entry), 0, -1);
 	} else {
 		DEBUG_MSG("add_to_row, onestyle\n");
-		text[0] = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(diag->property)->child), 0, -1);
-		text[1] = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(diag->value)->child), 0, -1);
+		text[0] = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->property)->entry), 0, -1);
+		text[1] = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->value)->entry), 0, -1);
 		text[2] = NULL;
 	}
 	text[3] = NULL;
@@ -533,10 +533,10 @@ static void cs3d_add_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 	gchar *lst_selector, *lst_property, *lst_value;
 
 	if (diag->styletype == multistyle) { 
-		cmb_selector = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(diag->selector)->child), 0, -1);
+		cmb_selector = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->selector)->entry), 0, -1);
 	}
-	cmb_property = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(diag->property)->child), 0, -1);
-	cmb_value = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(diag->value)->child), 0, -1);
+	cmb_property = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->property)->entry), 0, -1);
+	cmb_value = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->value)->entry), 0, -1);
 
 	while (retval) {
 		if (diag->styletype == multistyle) {
@@ -592,25 +592,21 @@ static void cs3d_prop_activate_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 	Tcs3_arr *tmp;
 	gchar *tmpstr;
 
-	tmpstr = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(diag->property)->child), 0, -1);
+	tmpstr = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->property)->entry), 0, -1);
 	tmp = cs3_arr_from_property(tmpstr);
 	g_free(tmpstr);
 	if (tmp) {
-		GList *list, *tmplist;
+		GList *list;
 		list = pointer_arr2glist(tmp->possibilities);
 		if (list) {
 			gchar *tmpstr2=NULL;
 			if (!tmp->force_pos) {
-					tmpstr2 = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(diag->value)->child), 0, -1);
+					tmpstr2 = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->value)->entry), 0, -1);
 			}
-			for (tmplist=g_list_first(list);tmplist;tmplist=g_list_next(tmplist)) {
-				if (tmplist->data) {
-					gtk_combo_box_append_text(GTK_COMBO_BOX(diag->value),tmplist->data);
-				}
-			}
+			gtk_combo_set_popdown_strings(GTK_COMBO(diag->value), list);
 			g_list_free(list);
 			if (tmpstr2) {
-				gtk_entry_set_text(GTK_ENTRY(GTK_BIN(diag->value)->child), tmpstr2);
+				gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(diag->value)->entry), tmpstr2);
 				g_free(tmpstr2);
 			}
 			switch(tmp->buttype) {
@@ -624,7 +620,7 @@ static void cs3d_prop_activate_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 		} else {
 				gtk_widget_set_sensitive(diag->extra_but, FALSE);
 		}
-		gtk_entry_set_editable(GTK_ENTRY(GTK_BIN(diag->value)->child), !tmp->force_pos);
+		gtk_entry_set_editable(GTK_ENTRY(GTK_COMBO(diag->value)->entry), !tmp->force_pos);
 	} else {
 		gtk_widget_set_sensitive(diag->extra_but, FALSE);
 	}
@@ -658,7 +654,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	
 	if (diag->styletype == multistyle) {
 		tmplist = glist_with_html_tags(1);
-		diag->selector = combobox_with_popdown(NULL, tmplist,1);
+		diag->selector = combo_with_popdown(NULL, tmplist,1);
 		bf_mnemonic_label_tad_with_alignment(_("_Selector:"), diag->selector, 0, 0.5, table, 0, 1, 0, 1);
 		gtk_table_attach_defaults(GTK_TABLE(table), diag->selector, 1 ,5 , 0, 1);
 		g_list_free(tmplist);
@@ -671,13 +667,13 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 		count++;
 		tmp = cs3_arr[count];
 	}
-	diag->property = combobox_with_popdown(NULL, tmplist,1);
+	diag->property = combo_with_popdown(NULL, tmplist,1);
 	g_list_free(tmplist);
 	tmplist = NULL;
-	gtk_signal_connect(GTK_OBJECT(GTK_BIN(diag->property)->child), "activate", G_CALLBACK(cs3d_prop_activate_lcb), diag);
-	gtk_signal_connect(GTK_OBJECT(GTK_BIN(diag->property)->child), "changed", G_CALLBACK(cs3d_prop_activate_lcb), diag);
+	gtk_signal_connect(GTK_OBJECT(GTK_COMBO(diag->property)->entry), "activate", G_CALLBACK(cs3d_prop_activate_lcb), diag);
+	gtk_signal_connect(GTK_OBJECT(GTK_COMBO(diag->property)->entry), "changed", G_CALLBACK(cs3d_prop_activate_lcb), diag);
 
-	diag->value = combobox_with_popdown(NULL, tmplist,1);
+	diag->value = combo_with_popdown(NULL, tmplist,1);
 	bf_mnemonic_label_tad_with_alignment(_("_Property:"), diag->property, 0, 0.5, table, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), diag->property, 1, 5, 1, 2);
 	bf_mnemonic_label_tad_with_alignment(_("_Value:"), diag->value, 0, 0.5, table, 0, 1, 2, 3);
@@ -685,7 +681,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	
 	gtk_widget_realize(diag->win);
 
-	diag->extra_but = color_but_new(GTK_WIDGET(GTK_BIN(diag->value)->child), diag->win);
+	diag->extra_but = color_but_new(GTK_WIDGET(GTK_COMBO(diag->value)->entry), diag->win);
 	gtk_table_attach(GTK_TABLE(table), diag->extra_but, 5, 6, 2, 3, GTK_EXPAND, GTK_EXPAND, 0, 0);
 
 	/* the list widget and the buttons are in a horizontal box */

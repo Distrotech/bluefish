@@ -26,6 +26,7 @@
 #include <string.h>         /* strchr() */
 #include <regex.h>          /* regcomp() */
 #include <stdlib.h>         /* system() */
+#include <pcre.h>
 
 /*#define DEBUG*/
 
@@ -1311,30 +1312,6 @@ static void add_encoding_to_list(gchar *encoding) {
 	}
 }
 
-gchar *encoding_by_regex(const gchar *buffer, const gchar *pattern, guint subpat) {
-	GRegex *reg1;
-	GError *gerror=NULL;
-	GMatchInfo *matchinfo=NULL;
-	gchar *retstring=NULL;
-	gboolean retval;	
-	reg1 = g_regex_new(pattern,G_REGEX_CASELESS|G_REGEX_EXTENDED,0,&gerror);
-	if (gerror) {
-		g_warning("error while compiling regex pattern to search for encoding %d: %s\n",gerror->code,gerror->message);
-		g_error_free(gerror);
-		return NULL;
-	} else {
-		retval = g_regex_match(reg1,buffer,0,&matchinfo);
-		if (retval && g_match_info_get_match_count(matchinfo)>=subpat) {
-			retstring = g_match_info_fetch(matchinfo,subpat);
-			DEBUG_MSG("encoding_by_regex, detected encoding %s\n", retstring);
-		}
-		g_match_info_free(matchinfo);
-	}
-	g_regex_unref(reg1);
-	return retstring;
-} 
-
-
 /**
  * buffer_find_encoding:
  * @buffer: gchar* with \- terminated string
@@ -1351,25 +1328,37 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 	TODO right now only HTML is supported, but xml files should
 	use a different regex pattern to find the encoding */
 	{
-		gchar endingbyte='\0'; 
-		
-		if (buflen > main_v->props.encoding_search_Nbytes) {
-			/* we do a nasty trick to make regexec search only in the first N bytes */
-			endingbyte = buffer[main_v->props.encoding_search_Nbytes];
-			buffer[main_v->props.encoding_search_Nbytes] = '\0';
-		}
-		
+		regmatch_t pmatch[10];
+		gint retval;
 		/* <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 		OR  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=iso-8859-1" />
 		 */
-		tmpencoding = encoding_by_regex(buffer, "<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"[^;\"]+;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>", 1);
-		if (!tmpencoding) {
-			tmpencoding = encoding_by_regex(buffer, "encoding=\"([a-z0-9_-]+)\"", 1);
-		}
+		/* we do a nasty trick to make regexec search only in the first N bytes */
 		if (buflen > main_v->props.encoding_search_Nbytes) {
-			buffer[main_v->props.encoding_search_Nbytes] = endingbyte;
+			gchar tmp = buffer[main_v->props.encoding_search_Nbytes];
+			buffer[main_v->props.encoding_search_Nbytes] = '\0';
+			retval = regexec(&main_v->find_encoding,buffer,10,pmatch,0);
+			buffer[main_v->props.encoding_search_Nbytes] = tmp;
+		} else {
+			retval = regexec(&main_v->find_encoding,buffer,10,pmatch,0);
 		}
-		
+#ifdef DEBUG
+		if (retval) {
+			gchar errbuf[1024];
+			regerror(retval, &main_v->find_encoding, errbuf, 1024);
+			g_print("regexec error! %s\n", errbuf);
+		}
+#endif
+		if (retval==0 && pmatch[0].rm_so != -1 && pmatch[1].rm_so != -1) {
+			/* we have a match */
+			DEBUG_MSG("doc_buffer_to_textbox, match so=%d,eo=%d\n", pmatch[1].rm_so,pmatch[1].rm_eo);
+			tmpencoding = g_strndup(&buffer[pmatch[1].rm_so], pmatch[1].rm_eo-pmatch[1].rm_so);
+			DEBUG_MSG("doc_buffer_to_textbox, detected encoding %s\n", tmpencoding);
+		}
+#ifdef DEBUGPROFILING
+		times(&locals.tms1);
+		print_time_diff("encoding regex match", &locals.tms2, &locals.tms1);
+#endif
 	}
 	if (tmpencoding) {
 		DEBUG_MSG("doc_buffer_to_textbox, try encoding %s from <meta>\n", tmpencoding);

@@ -557,8 +557,8 @@ static void quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
   Tbfwin *bfwin = dg->bfwin;
 
   thestring = g_strdup(cap("<A"));
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("HREF"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("TARGET"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), cap("HREF"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("TARGET"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[2]), cap("NAME"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[4]), NULL, thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[5]), cap("ONCLICK"), thestring, NULL);
@@ -571,7 +571,7 @@ static void quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[12]), cap("ONKEYDOWN"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[13]), cap("ONKEYPRESS"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[14]), cap("ONKEYUP"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[0])->child), cap("CLASS"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[0])->entry), cap("CLASS"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[1]), cap("ID"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[2]), cap("STYLE"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[17]), cap("LANG"), thestring, NULL);
@@ -579,9 +579,9 @@ static void quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
   finalstring = g_strdup_printf("%s>", thestring);
   g_free(thestring);
 
-  bfwin->session->urllist = add_entry_to_stringlist(bfwin->session->urllist, GTK_WIDGET(GTK_BIN(dg->combo[2])->child));
-  bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(GTK_BIN(dg->combo[1])->child));
-  bfwin->session->classlist = add_entry_to_stringlist(bfwin->session->classlist, GTK_WIDGET(GTK_BIN(dg->attrwidget[0])->child));
+  bfwin->session->urllist = add_entry_to_stringlist(bfwin->session->urllist, GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry));
+  bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry));
+  bfwin->session->classlist = add_entry_to_stringlist(bfwin->session->classlist, GTK_WIDGET(GTK_COMBO(dg->attrwidget[0])->entry));
 
   if (dg->range.end == -1) {
     doc_insert_two_strings(dg->doc, finalstring, cap("</A>"));
@@ -614,18 +614,18 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
     tmplist = duplicate_stringlist(bfwin->session->urllist, 1);
     rel_link_list = g_list_concat(tmplist, rel_link_list);
 
-    dg->combo[2] = combobox_with_popdown(avalues[0], rel_link_list, 1);
+    dg->combo[2] = combo_with_popdown(avalues[0], rel_link_list, 1);
 
     free_stringlist(rel_link_list);
   }
-  file_but = file_but_new(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), 0, bfwin);
+  file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), 0, bfwin);
   gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 2, 3, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
   bf_mnemonic_label_tad_with_alignment(_("_HREF:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 0, 1);
-  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1, 2, 0, 1);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 2, 0, 1);
 
-  dg->combo[1] = combobox_with_popdown(avalues[1], bfwin->session->targetlist, 1);
+  dg->combo[1] = combo_with_popdown(avalues[1], bfwin->session->targetlist, 1);
   bf_mnemonic_label_tad_with_alignment(_("_Target:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
-  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 3, 1, 2);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 3, 1, 2);
 
   dg->entry[2] = entry_with_text(avalues[2], 256);
   bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 2, 3);
@@ -735,8 +735,8 @@ static void block_tag_editok_lcb(gint type, Thtml_diag * dg) {
   break;
   }
 
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("ALIGN"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("CLASS"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("ALIGN"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), cap("CLASS"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[1]), cap("STYLE"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[2]), cap("NAME"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[3]), cap("ID"), thestring, NULL);
@@ -744,7 +744,7 @@ static void block_tag_editok_lcb(gint type, Thtml_diag * dg) {
   finalstring = g_strdup_printf("%s>", thestring);
   g_free(thestring);
 
-  bfwin->session->classlist = add_entry_to_stringlist(bfwin->session->classlist, GTK_WIDGET(GTK_BIN(dg->combo[2])->child));
+  bfwin->session->classlist = add_entry_to_stringlist(bfwin->session->classlist, GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry));
 
   if (dg->range.end == -1) {
     doc_insert_two_strings(dg->doc, finalstring, endstring);
@@ -835,14 +835,14 @@ void block_tag_edit_dialog(Tbfwin *bfwin, gint type, Ttagpopup *data) {
   popuplist = g_list_append(NULL, "left");
   popuplist = g_list_append(popuplist, "center");
   popuplist = g_list_append(popuplist, "right");
-  dg->combo[1] = combobox_with_popdown(tagvalues[0], popuplist, 1);
+  dg->combo[1] = combo_with_popdown(tagvalues[0], popuplist, 1);
   g_list_free(popuplist);
   bf_mnemonic_label_tad_with_alignment(_("Ali_gn:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 0, 1);
-  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 2, 0, 1);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 2, 0, 1);
 
-  dg->combo[2] = combobox_with_popdown(tagvalues[1], bfwin->session->classlist, 1);
+  dg->combo[2] = combo_with_popdown(tagvalues[1], bfwin->session->classlist, 1);
   bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 1, 2);
-  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1, 2, 1, 2);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 2, 1, 2);
 
   dg->entry[1] = entry_with_text(tagvalues[2], 1024);
   bf_mnemonic_label_tad_with_alignment(_("St_yle:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 2, 3);
@@ -929,7 +929,7 @@ static void quickruleok_lcb(GtkWidget * widget, Thtml_diag * dg) {
   gchar *thestring, *finalstring;
 
   thestring = g_strdup(cap("<HR"));
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("ALIGN"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("ALIGN"), thestring, NULL);
   thestring = insert_integer_if_spin(dg->spin[1], cap("SIZE"), thestring, FALSE, 1);
   thestring = insert_integer_if_spin(dg->spin[2], cap("WIDTH"), thestring, GTK_TOGGLE_BUTTON(dg->check[1])->active,GTK_TOGGLE_BUTTON(dg->check[1])->active ? 100 : 0);
   thestring = insert_attr_if_checkbox(dg->check[2], main_v->props.xhtml == 1 ? cap("NOSHADE=\"noshade\"") : cap("NOSHADE"), thestring);
@@ -966,7 +966,7 @@ void quickrule_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   popdownlist = g_list_insert(popdownlist, "center", 0);
   popdownlist = g_list_insert(popdownlist, "left", 1);
   popdownlist = g_list_insert(popdownlist, "right", 2);
-  dg->combo[1] = combobox_with_popdown(hrvalues[0], popdownlist, 1);
+  dg->combo[1] = combo_with_popdown(hrvalues[0], popdownlist, 1);
   g_list_free(popdownlist);
   bf_mnemonic_label_tad_with_alignment(_("_Align:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 0, 1);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 4, 0, 1);
@@ -1009,14 +1009,14 @@ static void bodyok_lcb(GtkWidget * widget, Thtml_diag *dg) {
   thestring = g_strdup(cap("<BODY"));
   if (dg->entry[1]) {
     thestring = insert_string_if_entry(dg->entry[1], cap("BACKGROUND"), thestring, NULL);
-    thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("BGCOLOR"), thestring, NULL);
-    thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("TEXT"), thestring, NULL);
-    thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[3])->child), cap("LINK"), thestring, NULL);
-    thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[4])->child), cap("VLINK"), thestring, NULL);
-    thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[5])->child), cap("ALINK"), thestring, NULL);
+    thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("BGCOLOR"), thestring, NULL);
+    thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), cap("TEXT"), thestring, NULL);
+    thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry), cap("LINK"), thestring, NULL);
+    thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[4])->entry), cap("VLINK"), thestring, NULL);
+    thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[5])->entry), cap("ALINK"), thestring, NULL);
   }
   thestring = insert_string_if_entry(dg->entry[3], cap("STYLE"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[6])->child), cap("CLASS"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[6])->entry), cap("CLASS"), thestring, NULL);
   thestring = insert_string_if_entry(dg->entry[4], cap("ID"), thestring, NULL);
   thestring = insert_string_if_entry(dg->entry[5], cap("LANG"), thestring, NULL);
   thestring = insert_string_if_entry(dg->entry[6], cap("ONLOAD"), thestring, NULL);
@@ -1027,13 +1027,13 @@ static void bodyok_lcb(GtkWidget * widget, Thtml_diag *dg) {
   g_free(thestring);
 
   if (dg->entry[1]) {
-    bfwin->session->colorlist = add_entry_to_stringlist(bfwin->session->colorlist, GTK_WIDGET(GTK_BIN(dg->combo[1])->child));
-    bfwin->session->colorlist = add_entry_to_stringlist(bfwin->session->colorlist, GTK_WIDGET(GTK_BIN(dg->combo[2])->child));
-    bfwin->session->colorlist = add_entry_to_stringlist(bfwin->session->colorlist, GTK_WIDGET(GTK_BIN(dg->combo[3])->child));
-    bfwin->session->colorlist = add_entry_to_stringlist(bfwin->session->colorlist, GTK_WIDGET(GTK_BIN(dg->combo[4])->child));
-    bfwin->session->colorlist = add_entry_to_stringlist(bfwin->session->colorlist, GTK_WIDGET(GTK_BIN(dg->combo[5])->child));
+    bfwin->session->colorlist = add_entry_to_stringlist(bfwin->session->colorlist, GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry));
+    bfwin->session->colorlist = add_entry_to_stringlist(bfwin->session->colorlist, GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry));
+    bfwin->session->colorlist = add_entry_to_stringlist(bfwin->session->colorlist, GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry));
+    bfwin->session->colorlist = add_entry_to_stringlist(bfwin->session->colorlist, GTK_WIDGET(GTK_COMBO(dg->combo[4])->entry));
+    bfwin->session->colorlist = add_entry_to_stringlist(bfwin->session->colorlist, GTK_WIDGET(GTK_COMBO(dg->combo[5])->entry));
   }
-  bfwin->session->classlist = add_entry_to_stringlist(bfwin->session->classlist, GTK_WIDGET(GTK_BIN(dg->combo[6])->child));
+  bfwin->session->classlist = add_entry_to_stringlist(bfwin->session->classlist, GTK_WIDGET(GTK_COMBO(dg->combo[6])->entry));
 
   if (dg->range.end == -1) {
     doc_insert_two_strings(dg->doc, finalstring, cap("</BODY>"));
@@ -1075,7 +1075,7 @@ void body_dialog(Tbfwin *bfwin, Ttagpopup *data) {
     stylebut = style_but_new(dg->entry[3], dg->dialog);
     gtk_table_attach(GTK_TABLE(dgtable[1]), stylebut, 2, 3, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
 
-    dg->combo[6] = combobox_with_popdown(bodyvalues[7], bfwin->session->classlist, 1);
+    dg->combo[6] = combo_with_popdown(bodyvalues[7], bfwin->session->classlist, 1);
     gtk_table_attach_defaults(GTK_TABLE(dgtable[1]), dg->combo[6], 1, 2, 1, 2);
     bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->combo[6], 0, 0.5, dgtable[1], 0, 1, 1, 2);
 
@@ -1130,32 +1130,32 @@ void body_dialog(Tbfwin *bfwin, Ttagpopup *data) {
     bf_mnemonic_label_tad_with_alignment(_("Background _Image:"), dg->entry[1], 0, 0.5, dgtable[0], 0, 1, 0, 1);
     gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->entry[1], 1, 2, 0, 1);
 
-    dg->combo[1] = combobox_with_popdown(bodyvalues[1], bfwin->session->colorlist, 1);
-    color_but = color_but_new(GTK_BIN(dg->combo[1])->child, dg->dialog);
+    dg->combo[1] = combo_with_popdown(bodyvalues[1], bfwin->session->colorlist, 1);
+    color_but = color_but_new(GTK_COMBO(dg->combo[1])->entry, dg->dialog);
     gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2, 3, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
     gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[1], 1, 2, 1, 2);
     bf_mnemonic_label_tad_with_alignment(_("Back_ground Color:"), dg->combo[1], 0, 0.5, dgtable[0], 0, 1, 1, 2);
 
-    dg->combo[2] = combobox_with_popdown(bodyvalues[2], bfwin->session->colorlist, 1);
-    color_but = color_but_new(GTK_BIN(dg->combo[2])->child, dg->dialog);
+    dg->combo[2] = combo_with_popdown(bodyvalues[2], bfwin->session->colorlist, 1);
+    color_but = color_but_new(GTK_COMBO(dg->combo[2])->entry, dg->dialog);
     gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2, 3, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
     gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[2], 1, 2, 2, 3);
     bf_mnemonic_label_tad_with_alignment(_("_Text Color:"), dg->combo[2], 0, 0.5, dgtable[0], 0, 1, 2, 3);
 
-    dg->combo[3] = combobox_with_popdown(bodyvalues[3], bfwin->session->colorlist, 1);
-    color_but = color_but_new(GTK_BIN(dg->combo[3])->child, dg->dialog);
+    dg->combo[3] = combo_with_popdown(bodyvalues[3], bfwin->session->colorlist, 1);
+    color_but = color_but_new(GTK_COMBO(dg->combo[3])->entry, dg->dialog);
     gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2, 3, 3, 4, GTK_FILL, GTK_FILL, 0, 0);
     gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[3], 1, 2, 3, 4);
     bf_mnemonic_label_tad_with_alignment(_("_Link Color:"), dg->combo[3], 0, 0.5, dgtable[0], 0, 1, 3, 4);
 
-    dg->combo[4] = combobox_with_popdown(bodyvalues[4], bfwin->session->colorlist, 1);
-    color_but = color_but_new(GTK_BIN(dg->combo[4])->child, dg->dialog);
+    dg->combo[4] = combo_with_popdown(bodyvalues[4], bfwin->session->colorlist, 1);
+    color_but = color_but_new(GTK_COMBO(dg->combo[4])->entry, dg->dialog);
     gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2, 3, 4, 5, GTK_FILL, GTK_FILL, 0, 0);
     gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[4], 1, 2, 4, 5);
     bf_mnemonic_label_tad_with_alignment(_("_Visited Link Color:"), dg->combo[4], 0, 0.5, dgtable[0], 0, 1, 4, 5);
 
-    dg->combo[5] = combobox_with_popdown(bodyvalues[5], bfwin->session->colorlist, 1);
-    color_but = color_but_new(GTK_BIN(dg->combo[5])->child, dg->dialog);
+    dg->combo[5] = combo_with_popdown(bodyvalues[5], bfwin->session->colorlist, 1);
+    color_but = color_but_new(GTK_COMBO(dg->combo[5])->entry, dg->dialog);
     gtk_table_attach(GTK_TABLE(dgtable[0]), color_but, 2, 3, 5, 6, GTK_FILL, GTK_FILL, 0, 0);
     gtk_table_attach_defaults(GTK_TABLE(dgtable[0]), dg->combo[5], 1, 2, 5, 6);
     bf_mnemonic_label_tad_with_alignment(_("_Active Link Color:"), dg->combo[5], 0, 0.5, dgtable[0], 0, 1, 5, 6);
@@ -1179,8 +1179,8 @@ static void metaok_lcb(GtkWidget * widget, Thtml_diag *dg)
   gchar *thestring, *finalstring;
 
   thestring = g_strdup(cap("<META"));
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("HTTP-EQUIV"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("NAME"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("HTTP-EQUIV"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), cap("NAME"), thestring, NULL);
   thestring = insert_string_if_entry(dg->entry[1], cap("CONTENT"), thestring, NULL);
   thestring = insert_string_if_entry(dg->entry[2], cap("LANG"), thestring, NULL);
   if (main_v->props.xhtml == 1) {
@@ -1216,18 +1216,18 @@ void meta_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   dgtable = html_diag_table_in_vbox(dg, 5, 10);
   popuplist = list_from_arglist(FALSE, "abstract", "audience", "author", "copyright", "date", "description", "generator"
       , "keywords", "page-topic", "page-type", "publisher", "revisit-after", "robots", NULL);
-  dg->combo[2] = combobox_with_popdown(tagvalues[1], popuplist, 1);
+  dg->combo[2] = combo_with_popdown(tagvalues[1], popuplist, 1);
   bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 0, 1);
-  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1, 10, 0, 1);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 10, 0, 1);
   g_list_free(popuplist);
 
   /* extra field for Dublin Core meta tags: DC.foo ?*/
   popuplist = list_from_arglist(FALSE, "expires", "refresh", "content-encoding", "content-location", "content-language"
       ,"content-style-type", "content-script-type", "content-type", "ext-cache", "cache-control", "pragma", "set-cookie"
       , "PICS-Label", NULL);
-  dg->combo[1] = combobox_with_popdown(tagvalues[0], popuplist, 1);
+  dg->combo[1] = combo_with_popdown(tagvalues[0], popuplist, 1);
   bf_mnemonic_label_tad_with_alignment(_("_HTTP-EQUIV:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
-  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 10, 1, 2);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 10, 1, 2);
   g_list_free(popuplist);
 
   dg->entry[1] = entry_with_text(tagvalues[2], 512);
@@ -1268,7 +1268,7 @@ static void generalfontdialog_lcb(gint type, GtkWidget * widget, Thtml_diag *dg)
   }
   if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->spin[1])))) {
     gchar *sizecombo, *tmpstr;
-    sizecombo = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[1]));
+    sizecombo = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(dg->combo[1])->entry), 0, -1);
     if (strlen(sizecombo)) {
       tmpstr = g_strconcat(thestring, cap(" size=\"")
           ,sizecombo
@@ -1283,8 +1283,8 @@ static void generalfontdialog_lcb(gint type, GtkWidget * widget, Thtml_diag *dg)
     thestring = tmpstr;
     g_free(sizecombo);
   }
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("COLOR"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[3])->child), cap("FACE"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), cap("COLOR"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry), cap("FACE"), thestring, NULL);
   thestring = insert_string_if_entry(dg->entry[1], NULL, thestring, NULL);
   finalstring = g_strconcat(thestring, ">", NULL);
   g_free(thestring);
@@ -1333,23 +1333,23 @@ static void generalfontdialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *data) {
   popdownlist = g_list_insert(popdownlist, "+", 0);
   popdownlist = g_list_insert(popdownlist, "-", 1);
   popdownlist = g_list_insert(popdownlist, "", 2);
-  dg->combo[1] = combobox_with_popdown("", popdownlist, 0);
+  dg->combo[1] = combo_with_popdown("", popdownlist, 0);
   g_list_free(popdownlist);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Size")), 0, 1, 0, 1);
-  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 2, 0, 1);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 2, 0, 1);
   dg->spin[1] = spinbut_with_value(NULL, 0, 100, 1.0, 5.0);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 2, 3, 0, 1);
-  parse_integer_for_dialog(tagvalues[0], dg->spin[1], GTK_WIDGET(GTK_BIN(dg->combo[1])->child), NULL);
+  parse_integer_for_dialog(tagvalues[0], dg->spin[1], GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), NULL);
 
-  dg->combo[2] = combobox_with_popdown(tagvalues[2], bfwin->session->colorlist, 1);
-  color_but = color_but_new(GTK_BIN(dg->combo[2])->child, dg->dialog);
+  dg->combo[2] = combo_with_popdown(tagvalues[2], bfwin->session->colorlist, 1);
+  color_but = color_but_new(GTK_COMBO(dg->combo[2])->entry, dg->dialog);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Color")), 6, 7, 0, 1);
-  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 7, 9, 0, 1);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 7, 9, 0, 1);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but), 9, 10, 0, 1);
 
-  dg->combo[3] = combobox_with_popdown(tagvalues[1], bfwin->session->fontlist, 1);
+  dg->combo[3] = combo_with_popdown(tagvalues[1], bfwin->session->fontlist, 1);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Face")), 0, 1, 1, 2);
-  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 1, 10, 1, 2);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[3])), 1, 10, 1, 2);
 
   dg->entry[1] = entry_with_text(custom, 1024);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), gtk_label_new(_("Custom")), 1, 2, 2, 3);
@@ -1622,22 +1622,20 @@ void frameset_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 static void framedialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
   Tbfwin *bfwin = dg->bfwin;
-  gchar *thestring, *finalstring, *tmp;
+  gchar *thestring, *finalstring;
 
   thestring = g_strdup(cap("<FRAME"));
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("SRC"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("NAME"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("SRC"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), cap("NAME"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[0])), cap("FRAMEBORDER"), thestring, NULL);
-  tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[3]));
-  thestring = insert_string_if_string(tmp, cap("SCROLLING"), thestring, NULL);
-  g_free(tmp);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry), cap("SCROLLING"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("MARGINWIDTH"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("MARGINHEIGHT"), thestring, NULL);
   thestring = insert_attr_if_checkbox(dg->check[1], cap("NORESIZE"), thestring);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), NULL, thestring, NULL);
 
-  bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(GTK_BIN(dg->combo[2])->child));
-  bfwin->session->urllist = add_entry_to_stringlist(bfwin->session->urllist, GTK_WIDGET(GTK_BIN(dg->combo[1])->child));
+  bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry));
+  bfwin->session->urllist = add_entry_to_stringlist(bfwin->session->urllist, GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry));
 
   if (main_v->props.xhtml == 1) {
     finalstring = g_strconcat(thestring," />", NULL);
@@ -1671,13 +1669,13 @@ void frame_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
   dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
-  dg->combo[1] = combobox_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
-  file_but = file_but_new(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), 0, bfwin);
+  dg->combo[1] = combo_with_popdown(tagvalues[0], bfwin->session->urllist, 1);
+  file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), 0, bfwin);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 9, 10, 0, 1);
   bf_mnemonic_label_tad_with_alignment(_("_Source:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 0, 1);
-  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 9, 0, 1);
+  gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 9, 0, 1);
 
-  dg->combo[2] = combobox_with_popdown_sized(tagvalues[1], bfwin->session->targetlist, 1, 90);
+  dg->combo[2] = combo_with_popdown_sized(tagvalues[1], bfwin->session->targetlist, 1, 90);
   bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 1, 2);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[2], 1, 5, 1, 2);
 
@@ -1692,7 +1690,7 @@ void frame_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   popuplist = g_list_append(popuplist, "auto");
   popuplist = g_list_append(popuplist, "yes");
   popuplist = g_list_append(popuplist, "no");
-  dg->combo[3] = combobox_with_popdown_sized(tagvalues[3], popuplist, 0, 90);
+  dg->combo[3] = combo_with_popdown_sized(tagvalues[3], popuplist, 0, 90);
   g_list_free(popuplist);
   bf_mnemonic_label_tad_with_alignment(_("Scrollin_g:"), dg->combo[3], 0, 0.5, dgtable, 5, 6, 1, 2);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 6, 10, 1, 2);
@@ -1734,7 +1732,7 @@ static void embedok_lcb(GtkWidget * widget,Thtml_diag *dg )
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("WIDTH"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("HEIGHT"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[3])), cap("BORDER"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[1])->child)), cap("ALIGN"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("ALIGN"), thestring, NULL);
 
   if (main_v->props.xhtml == 1) {
     finalstring = g_strconcat(thestring, " />", NULL);
@@ -1762,7 +1760,7 @@ void embed_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   bf_mnemonic_label_tad_with_alignment(_("_Source:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 3, 0, 1);
 
-  dg->combo[1] = combobox_with_popdown("", recent_attribs.positionlist, 1);
+  dg->combo[1] = combo_with_popdown("", recent_attribs.positionlist, 1);
   bf_mnemonic_label_tad_with_alignment(_("_Align:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 2, 1, 2);
 
@@ -1786,8 +1784,8 @@ static void scriptok_lcb(GtkWidget * widget,Thtml_diag *dg ) {
 
   thestring = g_strdup(cap("<SCRIPT"));
   thestring = insert_string_if_entry(dg->entry[0], cap("SRC"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_BIN(dg->combo[0])->child, cap("LANGUAGE"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_BIN(dg->combo[1])->child, cap("TYPE"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_COMBO(dg->combo[0])->entry, cap("LANGUAGE"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_COMBO(dg->combo[1])->entry, cap("TYPE"), thestring, NULL);
   thestring = insert_string_if_entry(dg->entry[1], NULL, thestring, NULL);
   finalstring = g_strconcat(thestring, ">", NULL);
   endstring = cap("</SCRIPT>");
@@ -1832,14 +1830,14 @@ void script_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   tmplist2 = g_list_append(tmplist2, "text/plain");
   tmplist2 = g_list_append(tmplist2, "text/html");
 
-  dg->combo[0] = combobox_with_popdown(tagvalues[1], tmplist, 1);
+  dg->combo[0] = combo_with_popdown(tagvalues[1], tmplist, 1);
   gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
-  gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_BIN(dg->combo[0])->child));
-  gtk_entry_set_activates_default(GTK_ENTRY(GTK_BIN(dg->combo[0])->child), TRUE);
+  gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(dg->combo[0])->entry));
+  gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(dg->combo[0])->entry), TRUE);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), label, 0, 2, 1, 2);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[0], 2, 6, 1, 2);
 
-  dg->combo[1] = combobox_with_popdown(tagvalues[2], tmplist2, 1);
+  dg->combo[1] = combo_with_popdown(tagvalues[2], tmplist2, 1);
   bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[1], 0, 0.5, dgtable, 0, 2, 2, 3);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[1], 2, 6, 2, 3);
 
@@ -1856,13 +1854,13 @@ static void linkdialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
   gchar *thestring, *finalstring;
 
   thestring = g_strdup(cap("<LINK"));
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[0])->child), cap("HREF"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[0])->entry), cap("HREF"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[1]), cap("HREFLANG"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[2]), cap("TITLE"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[3])->child), cap("TYPE"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[4])->child), cap("REL"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[5])->child), cap("REV"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[6])->child), cap("MEDIA"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[3])->entry), cap("TYPE"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[4])->entry), cap("REL"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[5])->entry), cap("REV"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[6])->entry), cap("MEDIA"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[7]), cap("LANG"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[8]), NULL, thestring, NULL);
   finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
@@ -1907,12 +1905,12 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode) {
     rel_link_list = list_relative_document_filenames(bfwin->current_document);
     tmplist = duplicate_stringlist(bfwin->session->urllist, 1);
     rel_link_list = g_list_concat(tmplist, rel_link_list);
-    dg->attrwidget[0] = combobox_with_popdown(tagvalues[0], rel_link_list, 1);
+    dg->attrwidget[0] = combo_with_popdown(tagvalues[0], rel_link_list, 1);
     free_stringlist(rel_link_list);
   }
   bf_mnemonic_label_tad_with_alignment(_("_HREF:"), dg->attrwidget[0], 0, 0.5, dgtable, 0, 1, 0, 1);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[0], 1, 2, 0, 1);
-  but = file_but_new(GTK_BIN(dg->attrwidget[0])->child, 0, bfwin);
+  but = file_but_new(GTK_COMBO(dg->attrwidget[0])->entry, 0, bfwin);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), but, 2, 3, 0, 1);
 
   dg->attrwidget[1] = entry_with_text(tagvalues[1], 1024);
@@ -1937,7 +1935,7 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode) {
         tmp = tagvalues[3];
       break;
     }
-    dg->attrwidget[3] = combobox_with_popdown(tmp, tmplist, 1);
+    dg->attrwidget[3] = combo_with_popdown(tmp, tmplist, 1);
 
     g_list_free(tmplist);
   }
@@ -1959,11 +1957,11 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode) {
         tmp = tagvalues[4];
       break;
     }
-    dg->attrwidget[4] = combobox_with_popdown(tmp, tmplist, 1);
+    dg->attrwidget[4] = combo_with_popdown(tmp, tmplist, 1);
     bf_mnemonic_label_tad_with_alignment(_("_Forward Relation:"), dg->attrwidget[4], 0, 0.5, dgtable, 0, 1, 4, 5);
     gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[4], 1, 3, 4, 5);
 
-    dg->attrwidget[5] = combobox_with_popdown(tagvalues[5], tmplist, 1);
+    dg->attrwidget[5] = combo_with_popdown(tagvalues[5], tmplist, 1);
     bf_mnemonic_label_tad_with_alignment(_("_Reverse Relation:"), dg->attrwidget[5], 0, 0.5, dgtable, 0, 1, 5, 6);
     gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[5], 1, 3, 5, 6);
 
@@ -1972,7 +1970,7 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode) {
 
   {
     GList *tmplist = list_from_arglist(FALSE, "screen", "tty", "tv", "projection", "handheld", "print", "braille", "aural", "all", NULL);
-    dg->attrwidget[6] = combobox_with_popdown(tagvalues[6], tmplist, 1);
+    dg->attrwidget[6] = combo_with_popdown(tagvalues[6], tmplist, 1);
     g_list_free(tmplist);
   }
   bf_mnemonic_label_tad_with_alignment(_("Media:"), dg->attrwidget[6], 0, 0.5, dgtable, 0, 1, 6, 7);

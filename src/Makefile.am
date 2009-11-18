@@ -3,8 +3,6 @@ AUTOMAKE_OPTIONS = std-options
 
 SUBDIRS = pixmaps plugin_about plugin_entities plugin_htmlbar plugin_infbrowser plugin_snippets plugin_charmap
 
-EXTRA_DIST = bluefish_rc.rc.in resource.h
-
 MAINTAINERCLEANFILES = Makefile.in config.h.in
 
 DEFS += -DLOCALEDIR=\"$(localedir)\" -DPKGDATADIR=\"$(pkgdatadir)\" -DPKGLIBDIR=\"$(pkglibdir)\"
@@ -13,7 +11,6 @@ if OS_WIN32
 AM_LDFLAGS = -export-all-symbols
 DEFS += -DEXE_EXPORT_SYMBOLS
 LDADD = -lgnurx -lws2_32
-LDADD += bluefish_rc.o
 endif
 
 bin_PROGRAMS = bluefish-unstable
@@ -104,6 +101,3 @@ bluefish_unstable_SOURCES = \
 	stringlist.h \
 	undo_redo.c \
 	undo_redo.h
-
-.rc.o:
-	$(CC) -E -xc -DRC_INVOKED -DSRCDIR=\"$(top_srcdir)/win32/pixmaps $< | $(WINDRES) -o $@

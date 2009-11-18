@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Java" version="2.0" table="442" contexts="5" matches="96">
+<bflang name="Java" table="442" contexts="5" matches="96">
 <header>
 	<mime type="text/x-java"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -37,8 +37,8 @@
 	<highlight name="imports" style="preprocessor" />
 </header>
 <properties>
-	<comment type="block" start="/*" end="*/" />
-	<comment type="line" start="//" />
+	<comment id="/**/" type="block" start="/*" end="*/" />
+	<comment id="//" type="line" start="//" />
 	<smartindent characters="{" />
 </properties>
 
@@ -150,17 +150,17 @@
 	</context>
 </element>
 
-<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
-<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
-<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
 
 <element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
-<element id="e.lcomment" pattern="/*" starts_block="1" highlight="comment">
+<element pattern="/*" starts_block="1" highlight="comment">
 	<context symbols="*/&#9;&#10;&#13;" highlight="comment">
-		<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
+		<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
 

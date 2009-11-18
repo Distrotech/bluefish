@@ -114,8 +114,8 @@ static void frame_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	for (i = 0; i < count ; i++) {
 		gchar *tmpstr, *size, *name, *source;
 		size = gtk_editable_get_chars(GTK_EDITABLE(dg->entry[i]), 0, -1);
-		name = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(dg->combo[i])->child), 0, -1);
-		source = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(dg->combo[i+5])->child), 0, -1);
+		name = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(dg->combo[i])->entry), 0, -1);
+		source = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(dg->combo[i+5])->entry), 0, -1);
 		if (main_v->props.xhtml == 1) {
 			tmpstr = g_strconcat(frames, cap("<FRAME NAME=\""), name, cap("\" SRC=\""), source, "\" />\n", NULL);
 		} else {
@@ -215,10 +215,10 @@ void framewizard_dialog(Tbfwin *bfwin) {
 		dg->clist[i] = gtk_hbox_new(FALSE, 6);
 		gtk_box_pack_start(GTK_BOX(vbox), dg->clist[i], FALSE, FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Name:")), TRUE, TRUE, 0);
-		dg->combo[i] = boxed_combobox_with_popdown(NULL, bfwin->session->targetlist, 1, dg->clist[i]);
+		dg->combo[i] = boxed_combo_with_popdown(NULL, bfwin->session->targetlist, 1, dg->clist[i]);
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Source:")), TRUE, TRUE, 0);
-		dg->combo[i+5] = boxed_combobox_with_popdown(NULL, bfwin->session->urllist, 1, dg->clist[i]);
-		file_but = file_but_new(GTK_WIDGET(GTK_BIN(dg->combo[i+5])->child), 0, bfwin);
+		dg->combo[i+5] = boxed_combo_with_popdown(NULL, bfwin->session->urllist, 1, dg->clist[i]);
+		file_but = file_but_new(GTK_WIDGET(GTK_COMBO(dg->combo[i+5])->entry), 0, bfwin);
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), file_but, FALSE, FALSE, 0);		
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Size:")), TRUE, TRUE, 0);
 		dg->entry[i] = boxed_entry_with_text(NULL, 100, dg->clist[i]);
