@@ -360,15 +360,15 @@ quickstart_response_lcb(GtkDialog * dialog, gint response, TQuickStart * qstart)
 
 				if (strlen(stylemedia) > 0) {
 					if (strlen(styletitle) > 0) {
-						tmpstr2 = g_strdup_printf(" media=\"%s\" title=\"%s\">\n", stylemedia, styletitle);
+						tmpstr2 = g_strdup_printf(" media=\"%s\" title=\"%s\"%s", stylemedia, styletitle, endstr);
 					} else {
-						tmpstr2 = g_strdup_printf(" media=\"%s\">\n", stylemedia);
+						tmpstr2 = g_strdup_printf(" media=\"%s\"%s", stylemedia, endstr);
 					}
 				} else {
 					if (strlen(styletitle) > 0) {
-						tmpstr2 = g_strdup_printf(" title=\"%s\">\n", styletitle);
+						tmpstr2 = g_strdup_printf(" title=\"%s\"%s", styletitle, endstr);
 					} else {
-						tmpstr2 = g_strdup(">\n");
+						tmpstr2 = endstr;
 					}
 				}
 			} else {
