@@ -11,7 +11,7 @@ dnl ************************
 
 AC_PREREQ([2.59])
 
-AC_INIT([bluefish-unstable],[1.3.8],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
+AC_INIT([bluefish-unstable],[1.3.9],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 
 dnl Have to save them here!
 if test "${ac_configure_args+set}" != "set" ; then
