@@ -1,0 +1,362 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		sql.bflang2 $Revision: 5464 $
+ 
+		Copyright (C) 2009 Daniel Leidert
+
+		This program is free software; you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation; either version 2 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+-->
+
+<bflang name="SQL" version="2.0">
+<header>
+	<mime type="application/x-sqlite2"/>
+	<mime type="application/x-sqlite3"/>
+	<mime type="text/x-sql" />
+	<highlight name="authorization" style="warning" />
+	<highlight name="brackets" style="brackets"  />
+	<highlight name="comment" style="comment" />
+	<highlight name="data_function" style="special-function" />
+	<highlight name="function" style="function" />
+	<highlight name="function_def" style="special-keyword"  />
+	<highlight name="keyword" style="keyword" />
+	<highlight name="operator" style="operator" />
+	<highlight name="string" style="string" />
+	<highlight name="table" style="special-type" />
+	<highlight name="type" style="type" />
+	<highlight name="value" style="value" />
+	<highlight name="variable" style="variable" />
+</header>
+<properties>
+	<comment type="block" start="/*" end="*/" />
+	<comment type="line" start="--" /> 
+</properties>
+<definition>
+<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+
+<group autocomplete="1" case_insens="1" highlight="type">
+	<element pattern="CHAR" />
+	<element pattern="CHAR_LENGTH" />
+	<element pattern="CHARACTER" />
+	<element pattern="CHARACTER_LENGTH" />
+	<element pattern="DEC" />
+	<element pattern="DECIMAL" />
+	<element pattern="DOUBLE" />
+	<element pattern="FLOAT" />
+	<element pattern="INT" />
+	<element pattern="INTEGER" />
+	<element pattern="NATURAL" />
+	<element pattern="NCHAR" />
+	<element pattern="NUMERIC" />
+	<element pattern="SMALLINT" />
+	<element pattern="REAL" />
+	<element pattern="VARCHAR" />
+	<element pattern="VARYING" />
+</group>
+<group autocomplete="1" case_insens="1" highlight="keyword">
+	<element pattern="ACTION" />
+	<element pattern="ADD" />
+	<element pattern="ALLOCATE" />
+	<element pattern="ASSERTION" />
+	<element pattern="BEGIN" />
+	<element pattern="BIT" />
+	<element pattern="BIT_LENGTH" />
+	<element pattern="BOTH" />
+	<element pattern="CASCADE" />
+	<element pattern="CASCADED" />
+	<element pattern="CAST" />
+	<element pattern="CATALOG" />
+	<element pattern="CHECK" />
+	<element pattern="CLOSE" />
+	<element pattern="COALESCE" />
+	<element pattern="COLLATE" />
+	<element pattern="COLLATION" />
+	<element pattern="COLUMN" />
+	<element pattern="COMMIT" />
+	<element pattern="CONDITION" />
+	<element pattern="CONNECT" />
+	<element pattern="CONNECTION" />
+	<element pattern="CONSTRAINT" />
+	<element pattern="CONSTRAINTS" />
+	<element pattern="CONVERT" />
+	<element pattern="CORRESPONDING" />
+	<element pattern="CROSS" />
+	<element pattern="CURRENT" />
+	<element pattern="CURRENT_PATH" />
+	<element pattern="CURSOR" />
+	<element pattern="DEALLOCATE" />
+	<element pattern="DECLARE" />
+	<element pattern="DEFAULT" />
+	<element pattern="DEFERRABLE" />
+	<element pattern="DEFERRED" />
+	<element pattern="DESC" />
+	<element pattern="DESCRIBE" />
+	<element pattern="DESCRIPTOR" />
+	<element pattern="DETERMINISTIC" />
+	<element pattern="DIAGNOSTICS" />
+	<element pattern="DISCONNECT" />
+	<element pattern="DISTINCT" />
+	<element pattern="DOMAIN" />
+	<element pattern="END" />
+	<element pattern="ESCAPE" />
+	<element pattern="EXCEPT" />
+	<element pattern="EXCEPTION" />
+	<element pattern="EXEC" />
+	<element pattern="EXECUTE" />
+	<element pattern="EXISTS" />
+	<element pattern="EXIT" />
+	<element pattern="EXTERNAL" />
+	<element pattern="EXTRACT" />
+	<element pattern="FETCH" />
+	<element pattern="FOREIGN" />
+	<element pattern="FOUND" />
+	<element pattern="FULL" />
+	<element pattern="GET" />
+	<element pattern="GLOBAL" />
+	<element pattern="GO" />
+	<element pattern="HANDLER" />
+	<element pattern="IDENTITY" />
+	<element pattern="IMMEDIATE" />
+	<element pattern="INDICATOR" />
+	<element pattern="INITIALLY" />
+	<element pattern="INOUT" />
+	<element pattern="INPUT" />
+	<element pattern="INSENSITIVE" />
+	<element pattern="INTERSECT" />
+	<element pattern="INTERVAL" />
+	<element pattern="ISOLATION" />
+	<element pattern="LANGUAGE" />
+	<element pattern="LEADING" />
+	<element pattern="LEAVE" />
+	<element pattern="LEVEL" />
+	<element pattern="LOCAL" />
+	<element pattern="NAMES" />
+	<element pattern="NATIONAL" />
+	<element pattern="NULLIF" />
+	<element pattern="OCTET_LENGTH" />
+	<element pattern="ON" />
+	<element pattern="ONLY" />
+	<element pattern="OPEN" />
+	<element pattern="OPTION" />
+	<element pattern="OUT" />
+	<element pattern="OF" />
+	<element pattern="OUTPUT" />
+	<element pattern="OVERLAPS" />
+	<element pattern="PAD" />
+	<element pattern="PARTIAL" />
+	<element pattern="PATH" />
+	<element pattern="POSITION" />
+	<element pattern="PUBLIC" />
+	<element pattern="PRECISION" />
+	<element pattern="PREPARE" />
+	<element pattern="PRESERVE" />
+	<element pattern="PRIOR" />
+	<element pattern="READ" />
+	<element pattern="REFERENCES" />
+	<element pattern="RELATIVE" />
+	<element pattern="RESIGNAL" />
+	<element pattern="RESTRICT" />
+	<element pattern="RETURNS" />
+	<element pattern="ROLLBACK" />
+	<element pattern="ROWS" />
+	<element pattern="SCHEMA" />
+	<element pattern="SCROLL" />
+	<element pattern="SECTION" />
+	<element pattern="SIGNAL" />
+	<element pattern="SOME" />
+	<element pattern="SPACE" />
+	<element pattern="SPECIFIC" />
+	<element pattern="SQL" />
+	<element pattern="SQLCODE" />
+	<element pattern="SQLERROR" />
+	<element pattern="SQLEXCEPTION" />
+	<element pattern="SQLSTATE" />
+	<element pattern="SQLWARNING" />
+	<element pattern="TABLE" />
+	<element pattern="TEMPORARY" />
+	<element pattern="TO" />
+	<element pattern="TRAILING" />
+	<element pattern="TRANSACTION" />
+	<element pattern="TRANSLATE" />
+	<element pattern="TRANSLATION" />
+	<element pattern="UNDO" />
+	<element pattern="UNION" />
+	<element pattern="UNIQUE" />
+	<element pattern="UNKNOWN" />
+	<element pattern="USAGE" />
+	<element pattern="VIEW" />
+	<element pattern="WORK" />
+	<element pattern="WRITE" />
+	<element pattern="ZONE" />
+</group>
+<group autocomplete="1" case_insens="1" highlight="function_def">
+	<element pattern="CALL" />
+	<element pattern="CASE" />
+	<element pattern="CONTINUE" />
+	<element pattern="DO" />
+	<element pattern="ELSE" />
+	<element pattern="ELSEIF" />
+	<element pattern="FOR" />
+	<element pattern="FUNCTION" />
+	<element pattern="GOTO" />
+	<element pattern="IF" />
+	<element pattern="LOOP" />
+	<element pattern="MODULE" />
+	<element pattern="NEXT" />
+	<element pattern="REPEAT" />
+	<element pattern="RETURN" />
+	<element pattern="ROUTINE" />
+	<element pattern="PARAMETER" />
+	<element pattern="PROCEDURE" />
+	<element pattern="THEN" />
+	<element pattern="WHEN" />
+	<element pattern="WHENEVER" />
+	<element pattern="WHILE" />
+	<element pattern="WITH" />
+	<element pattern="UNTIL" />
+</group>
+<group autocomplete="1" case_insens="1" highlight="function">
+	<element pattern="ASC" />
+	<element pattern="AT" />
+	<element pattern="AVG" />
+	<element pattern="COUNT" />
+	<element pattern="CURRENT_DATE" />
+	<element pattern="CURRENT_TIME" />
+	<element pattern="CURRENT_TIMESTAMP" />
+	<element pattern="CURRENT_USER" />
+	<element pattern="DATE" />
+	<element pattern="DAY" />
+	<element pattern="FIRST" />
+	<element pattern="HOUR" />
+	<element pattern="LAST" />
+	<element pattern="LEFT" />
+	<element pattern="LOWER" />
+	<element pattern="MAX" />
+	<element pattern="MIN" />
+	<element pattern="MINUTE" />
+	<element pattern="MONTH" />
+	<element pattern="RIGHT" />
+	<element pattern="SIZE" />
+	<element pattern="SUBSTRING" />
+	<element pattern="SUM" />
+	<element pattern="TIME" />
+	<element pattern="TIMESTAMP" />
+	<element pattern="TIMEZONE_HOUR" />
+	<element pattern="TIMEZONE_MINUTE" />
+	<element pattern="TRIM" />
+	<element pattern="UPPER" />
+	<element pattern="YEAR" />
+</group>
+<group autocomplete="1" case_insens="1" highlight="data_function">
+	<element pattern="FROM" />
+	<element pattern="DELETE" />
+	<element pattern="INSERT" />
+	<element pattern="INTO" />
+	<element pattern="GROUP BY" />
+	<element pattern="INNER JOIN" />
+	<element pattern="LEFT JOIN" />
+	<element pattern="ORDER BY" />
+	<element pattern="OUTER JOIN" />
+	<element pattern="RIGHT JOIN" />
+	<element pattern="SELECT" />
+	<element pattern="SET" />
+	<element pattern="UPDATE" />
+	<element pattern="VALUE" />
+	<element pattern="VALUES" />
+	<element pattern="WHERE" />
+</group>
+<group autocomplete="1" case_insens="1" highlight="operator">
+	<element pattern="ALL" />
+	<element pattern="AND" />
+	<element pattern="ANY" />
+	<element pattern="ARE" />
+	<element pattern="AS" />
+	<element pattern="BETWEEN" />
+	<element pattern="CONTAINS" />
+	<element pattern="FALSE" />
+	<element pattern="HAVING" />
+	<element pattern="IN" />
+	<element pattern="IS" />
+	<element pattern="LIKE" />
+	<element pattern="MATCH" />
+	<element pattern="NO" />
+	<element pattern="NOT" />
+	<element pattern="NULL" />
+	<element pattern="OR" />
+	<element pattern="TRUE" />
+	<element pattern="USING" />
+</group>
+<group autocomplete="1" case_insens="1" highlight="table">
+	<element pattern="ALTER" />
+	<element pattern="COLUMN" />
+	<element pattern="CREATE" />
+	<element pattern="FOREIGN" />
+	<element pattern="INDEX" />
+	<element pattern="KEY" />
+	<element pattern="PRIMARY" />
+	<element pattern="TABLE" />
+</group>
+
+<group autocomplete="1" case_insens="1" highlight="authorization">
+	<element pattern="AUTHORIZATION" />
+	<element pattern="DROP" />
+	<element pattern="GRANT" />
+	<element pattern="GROUP" />
+	<element pattern="PRIVILEGES" />
+	<element pattern="REVOKE" />
+	<element pattern="SESSION" />
+	<element pattern="SESSION_USER" />
+	<element pattern="SYSTEM_USER" />
+	<element pattern="USER" />
+</group>
+
+<group highlight="value">
+	<element pattern="[0-9]+.?[0-9]*" is_regex="1"  />
+</group>
+
+<group highlight="variable">
+	<element pattern="@[a-z0-9]+" is_regex="1" />
+</group>
+
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;" highlight="string">
+		<element pattern="\." is_regex="1"/>
+		<element pattern="&#34;" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\." is_regex="1"/>
+		<element pattern="'" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
+<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
+<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+<element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment" />
+<element id="e.lcomment" pattern="/*" starts_block="1" highlight="comment">
+	<context symbols="*/&#9;&#10;&#13;" highlight="comment" >
+		<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+<element pattern="--[^&#10;]+" is_regex="1" highlight="comment"/>
+
+</context>
+</definition>
+</bflang>

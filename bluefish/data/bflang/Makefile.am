@@ -36,6 +36,7 @@ bflang_bflang2_files = \
 	ruby.bflang2 \
 	shell.bflang2 \
 	smarty.bflang2 \
+	sql.bflang2 \
 	text.bflang2 \
 	vbscript.bflang2 \
 	xhtml.bflang2 \
