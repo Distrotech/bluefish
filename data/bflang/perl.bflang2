@@ -30,9 +30,12 @@
 	<highlight name="function" style="special-function"  />
 	<highlight name="keyword" style="keyword"  />
 	<highlight name="pragma" style="preprocessor"   />
+	<highlight name="references" style="special-value"  />
+	<highlight name="special_keyword" style="special-keyword"  />
 	<highlight name="string" style="string"  />
 	<highlight name="value" style="value"  />
 	<highlight name="variable" style="variable"  />
+	<highlight name="warning" style="warning"  />
 </header>
 <properties>
 	<!-- <comment type="block" start="=start" end="=end" /> -->
@@ -48,24 +51,38 @@
 	<element pattern="each" />
 	<element pattern="else" />
 	<element pattern="elsif" />
-	<element pattern="__FILE__" />
 	<element pattern="for" />
 	<element pattern="foreach" />
 	<element pattern="if" />
 	<element pattern="last" />
-	<element pattern="__LINE__" />
 	<element pattern="local" />
 	<element pattern="my" />
 	<element pattern="next" />
 	<element pattern="our" />
-	<element pattern="package" />
-	<element pattern="__PACKAGE__" />
 	<element pattern="return" />
 	<element pattern="sub" />
 	<element pattern="unless" />
 	<element pattern="until" />
 	<element pattern="values" />
 	<element pattern="while" />
+	<element pattern="__BEGIN__" />
+	<element pattern="__END__" />
+	<element pattern="__FILE__" />
+	<element pattern="__LINE__" />
+	<element pattern="__PACKAGE__" />
+	<element pattern="BEGIN" />
+	<element pattern="BEGIN" />
+	<element pattern="STDIN" />
+	<element pattern="STDERR" />
+</group>
+<group autocomplete="1" highlight="special_keyword">
+	<element pattern="package" />
+	<element pattern="require" />
+	<element pattern="use" />
+</group>
+<group autocomplete="1" highlight="warning">
+	<element pattern="strict" />
+	<element pattern="warnings" />
 </group>
 <group autocomplete="1" highlight="pragma">
 	<element pattern="attributes" />
@@ -87,13 +104,10 @@
 	<element pattern="overload" />
 	<element pattern="re" />
 	<element pattern="sigtrap" />
-	<element pattern="strict" />
 	<element pattern="subs" />
 	<element pattern="utf8" />
 	<element pattern="vars" />
-	<element pattern="warnings" />
 </group>
-
 <group autocomplete="1" highlight="built-in-function">
 	<element pattern="abs" />
 	<element pattern="accept" />
@@ -206,6 +220,7 @@
 	<element pattern="prototype" />
 	<element pattern="push" />
 	<element pattern="quotemeta" />
+	<element pattern="qw" />
 	<element pattern="rand" />
 	<element pattern="read" />
 	<element pattern="readdir" />
@@ -276,6 +291,7 @@
 	<element pattern="unpack" />
 	<element pattern="unshift" />
 	<element pattern="untie" />
+	<element pattern="use" />
 	<element pattern="utime" />
 	<element pattern="values" />
 	<element pattern="vec" />
@@ -286,10 +302,23 @@
 	<element pattern="write" />
 </group>
 
-<group highlight="variable">
-	<element pattern="@$?[a-z_][a-z0-9-_]*" is_regex="1" />
-	<element pattern="%$?[a-z_][a-z0-9-_]*" is_regex="1" />
-	<element pattern="$[a-z_][a-z0-9-_]*" is_regex="1" />
+<group highlight="variable" case_insens="1">
+	<element pattern="@$?[a-z_][a-z0-9_]*" is_regex="1" />
+	<element pattern="%$?[a-z_][a-z0-9_]*" is_regex="1" />
+	<element pattern="$[a-z_][a-z0-9_]*" is_regex="1" />
+	<element pattern="&amp;[a-z_][a-z0-9_]*;" is_regex="1" />
+</group>
+<group highlight="value">
+	<element pattern="0x[0-9]+" is_regex="1"  />
+	<element pattern="[0-9]+\.[0-9]+" is_regex="1"  />
+	<element pattern="[0-9]+" is_regex="1"  />
+</group>
+<group highlight="pointer" case_insens="1"><!-- does not yet work - use context? -->
+	<element pattern="\@[a-z_][a-z0-9_]*" is_regex="1"  />
+	<element pattern="\$[a-z_][a-z0-9_]*" is_regex="1"  />
+	<element pattern="\%[a-z_][a-z0-9_]*" is_regex="1"  />
+	<element pattern="\&amp;[a-z_][a-z0-9_]*;" is_regex="1" />
+	<element pattern="\&amp;{[a-z_][a-z0-9_]*}()" is_regex="1" />
 </group>
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;" highlight="string">
@@ -303,11 +332,6 @@
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-<group highlight="value">
-	<element pattern="0x[0-9]+" is_regex="1"  />
-	<element pattern="[0-9]+\.[0-9]+" is_regex="1"  />
-	<element pattern="[0-9]+" is_regex="1"  />
-</group>
 <element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
 <element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
