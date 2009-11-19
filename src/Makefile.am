@@ -12,7 +12,7 @@ DEFS += -DLOCALEDIR=\"$(localedir)\" -DPKGDATADIR=\"$(pkgdatadir)\" -DPKGLIBDIR=
 if OS_WIN32
 AM_LDFLAGS = -export-all-symbols
 DEFS += -DEXE_EXPORT_SYMBOLS
-LDADD = -lgnurx -lws2_32
+LDADD = -lws2_32
 LDADD += bluefish_rc.o
 endif
 

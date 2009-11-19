@@ -527,9 +527,12 @@ AC_CHECK_HEADERS([stdlib.h unistd.h string.h strings.h errno.h stdio.h sys/stat.
 AC_CHECK_FUNCS([msgrcv msgsnd ctime ctime_r asctime asctime_r localtime])
 
 # with MingW32 we'll find regcomp() in -lgnurx; #593799
-AC_SEARCH_LIBS([regcomp], [gnurx regex], [AC_CHECK_FUNCS_ONCE([regcomp])])
+AC_SEARCH_LIBS([regcomp], [gnurx regex])
+
 # test for bind(), accept(), socket(); #593801 and #602133
-AC_SEARCH_LIBS([bind], [socket ws2_32], [AC_CHECK_FUNCS_ONCE([bind socket accept])])
+AC_SEARCH_LIBS([bind], [socket ws2_32])
+
+AC_CHECK_FUNCS_ONCE([regcomp bind socket accept])
 
 dnl **************************
 dnl   Spell checker
