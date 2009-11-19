@@ -459,21 +459,24 @@
 <!-- These objects appear to be case insensitive -->
 <group highlight="js-variable" autocomplete="1">
 	<element pattern="global"/>
-	<element pattern="navigator" class="javascript_navigator_object">
+	<group class="javascript_navigator_object">
+		<element pattern="navigator"/>
 		<element pattern="mimeTypes"/>
 		<element pattern="plugins"/>
-	</element>
+	</group>
 	<element pattern="screen" class="javascript_screen_object"/>
-	<element pattern="window" class="javascript_window_object">
-		<element pattern="document" class="javascript_document_object">
+	<group class="javascript_window_object">
+		<element pattern="window"/>
+		<group class="javascript_document_object">
+			<element pattern="document"/>
 			<element pattern="anchors" class="javascript_anchors_object"/>
 			<element pattern="applets" class="javascript_applets_object"/>
 			<element pattern="node" class="javascript_node_object"/>
-		</element>
+		</group>
 		<element pattern="event" class="javascript_event_object"/>
 		<element pattern="history" class="javascript_history_object"/>
 		<element pattern="location" class="javascript_location_object"/>
-	</element>
+	</group>
 </group>
 
 <group highlight="js-value" autocomplete="1">
