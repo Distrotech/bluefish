@@ -2,8 +2,6 @@ SUBDIRS = po
 
 EXTRA_DIST = charmap.def
 
-DISTCLEANFILES = @OPENBSD_3_8_FIX@
-
 MAINTAINERCLEANFILES = Makefile.in
 
 DEFS += -DLOCALEDIR=\"$(localedir)\"
