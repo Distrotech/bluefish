@@ -3,8 +3,6 @@ SUBDIRS = pixmaps po
 
 EXTRA_DIST = htmlbar.def
 
-DISTCLEANFILES = @OPENBSD_3_8_FIX@
-
 MAINTAINERCLEANFILES = Makefile.in
 
 DEFS += -DLOCALEDIR=\"$(localedir)\"

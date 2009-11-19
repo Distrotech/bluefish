@@ -5,8 +5,6 @@ EXTRA_DIST = about.def
 
 CLEANFILES = about_rev.h
 
-DISTCLEANFILES = @OPENBSD_3_8_FIX@
-
 MAINTAINERCLEANFILES = Makefile.in
 
 BUILT_SOURCES = about_rev.h

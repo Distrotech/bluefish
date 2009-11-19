@@ -42,20 +42,6 @@ AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [gettext domain])
 AM_GLIB_GNU_GETTEXT
 
 IT_PROG_INTLTOOL
-case "$host" in
-	*-openbsd3.8)
-		AC_PROG_LN_S
-		$LN_S -f ../../config.status src/plugin_about/
-		$LN_S -f ../../config.status src/plugin_charmap/
-		$LN_S -f ../../config.status src/plugin_entities/
-		$LN_S -f ../../config.status src/plugin_infbrowser/
-		$LN_S -f ../../config.status src/plugin_htmlbar/
-		$LN_S -f ../../config.status src/plugin_snippets/
-		AC_MSG_NOTICE([Don't try to run '(g)make distcheck, because it will fail.])
-		OPENBSD_3_8_FIX=config.status
-		AC_SUBST([OPENBSD_3_8_FIX])
-	;;
-esac
 dnl if AM_PO_SUBDIRS is available use it (most recent systems)
 dnl else try to use the very old AM_WITH_NLS
 dnl or try AM_GNU_GETTEXT at last 

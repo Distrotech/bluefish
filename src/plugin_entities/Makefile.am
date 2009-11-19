@@ -3,8 +3,6 @@ SUBDIRS = po
 
 EXTRA_DIST = entities.def
 
-DISTCLEANFILES = @OPENBSD_3_8_FIX@
-
 MAINTAINERCLEANFILES = Makefile.in
 
 DEFS += -DLOCALEDIR=\"$(localedir)\"

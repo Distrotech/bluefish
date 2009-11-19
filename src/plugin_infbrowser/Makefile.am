@@ -3,8 +3,6 @@ SUBDIRS = po
 
 EXTRA_DIST = infbrowser.def
 
-DISTCLEANFILES = @OPENBSD_3_8_FIX@
-
 MAINTAINERCLEANFILES = Makefile.in
 
 DEFS += -DLOCALEDIR=\"$(localedir)\" -DPKGDATADIR=\"$(pkgdatadir)\"
