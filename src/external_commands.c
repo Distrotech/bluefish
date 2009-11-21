@@ -116,16 +116,28 @@ static void externalp_unref(Texternalp *ep) {
 
 static gboolean start_command_write_lcb(GIOChannel *channel,GIOCondition condition,gpointer data) {
 	Texternalp *ep = data;
-	GError *error=NULL;
+	GError *gerror=NULL;
 	gsize bytes_written=0;
 	DEBUG_MSG("start_command_write_lcb, started, still %d bytes to go\n",strlen(ep->buffer_out_position));
 
-	g_io_channel_write_chars(channel,ep->buffer_out_position,-1,&bytes_written,&error);
+	g_io_channel_write_chars(channel,ep->buffer_out_position,-1,&bytes_written,&gerror);
+	if (gerror) {
+		g_warning("failed to write data to external program, %d: %s\n",gerror->code,gerror->message);
+		g_error_free(gerror);
+		gerror=NULL;
+		g_io_channel_shutdown(channel,TRUE,&gerror);
+		return FALSE;
+	}
 	DEBUG_MSG("start_command_write_lcb, %d bytes written\n",bytes_written);
 	ep->buffer_out_position += bytes_written;
 	if (strlen(ep->buffer_out) <= (ep->buffer_out_position - ep->buffer_out)) {
 		DEBUG_MSG("start_command_write_lcb, finished, shutting down channel\n");
-		g_io_channel_shutdown(channel,TRUE,&error);
+		g_io_channel_shutdown(channel,TRUE,&gerror);
+		if (gerror) {
+			g_warning("failed to close down data stream to external program, %d: %s\n",gerror->code,gerror->message);
+			g_error_free(gerror);
+			return FALSE;
+		}
 		if (ep->tmp_in) {
 			start_command_backend(ep);
 		} else {
@@ -148,14 +160,24 @@ static void spawn_setup_lcb(gpointer data) {
 }
 static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	Texternalp *ep = data;
+	GError *gerror=NULL;
 	DEBUG_MSG("child_watch_lcb, child exited with status=%d\n",status);
 	/* if there was a temporary output file, we should now open it and start to read it */
 	if (ep->tmp_out) {
-		ep->channel_out = g_io_channel_new_file(ep->tmp_out,"r",NULL);
+		
+		ep->channel_out = g_io_channel_new_file(ep->tmp_out,"r",&gerror);
 		DEBUG_MSG("child_watch_lcb, created channel_out from file %s\n",ep->tmp_out);
+		if (gerror) {
+			g_warning("failed to read data from external program, %d: %s\n",gerror->code,gerror->message);
+			g_error_free(gerror);
+		}
 	} else if (ep->inplace) {
 		ep->channel_out = g_io_channel_new_file(ep->inplace,"r",NULL);
 		DEBUG_MSG("child_watch_lcb, created channel_out from file %s\n",ep->inplace);
+		if (gerror) {
+			g_warning("failed to read data from external program, %d: %s\n",gerror->code,gerror->message);
+			g_error_free(gerror);
+		}
 	}
 	if (ep->tmp_out||ep->inplace){
 		ep->refcount++;
@@ -166,16 +188,6 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	g_spawn_close_pid(pid);
 	externalp_unref(ep);
 }
-
-/*static gint count_char(char *string, char mychar) {
-	gint retval = 0;
-	gchar *tmp = string;
-	while (*tmp) {
-		if (*tmp == mychar)
-			retval++;
-	}
-	return retval;
-}*/
 
 static void start_command_backend(Texternalp *ep) {
 #ifdef USEBINSH	
@@ -257,8 +269,13 @@ static void start_command_backend(Texternalp *ep) {
 		ep->channel_out = g_io_channel_unix_new(standard_output);
 		DEBUG_MSG("start_command_backend, created channel_out from pipe\n");
 	} else if (ep->fifo_out) {
-		ep->channel_out = g_io_channel_new_file(ep->fifo_out,"r",NULL);
+		ep->channel_out = g_io_channel_new_file(ep->fifo_out,"r",&error);
 		DEBUG_MSG("start_command_backend, created channel_out from fifo %s\n",ep->fifo_out);
+		if (error) {
+			g_warning("failed to start reading from file %s %d: %s\n",ep->fifo_out, error->code, error->message);
+			g_error_free(error);
+			return;
+		}
 	}
 	if (ep->channel_out_lcb && (ep->pipe_out || ep->fifo_out)) {
 		ep->refcount++;
@@ -271,8 +288,14 @@ static void start_command_backend(Texternalp *ep) {
 
 static void start_command(Texternalp *ep) {
 	if (ep->tmp_in) {
+		GError *gerror=NULL;
 		/* first create tmp_in, then start the real command in the callback */
-		ep->channel_in = g_io_channel_new_file(ep->tmp_in,"w",NULL);
+		ep->channel_in = g_io_channel_new_file(ep->tmp_in,"w",&gerror);
+		if (gerror) {
+			g_warning("failed to create input file for external program, %d: %s\n",gerror->code,gerror->message);
+			g_error_free(gerror);
+			return;	
+		}
 		ep->buffer_out = ep->buffer_out_position = doc_get_chars(ep->bfwin->current_document,ep->begin,ep->end);
 		g_io_channel_set_flags(ep->channel_in,G_IO_FLAG_NONBLOCK,NULL);
 		DEBUG_MSG("start_command, add watch for channel_in\n");
@@ -513,15 +536,19 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 	if (condition & G_IO_IN) {
 		gchar *buf=NULL;
 		gsize buflen=0,termpos=0;
-		GError *error=NULL;
-		GIOStatus status = g_io_channel_read_line(channel,&buf,&buflen,&termpos,&error);
+		GError *gerror=NULL;
+		GIOStatus status = g_io_channel_read_line(channel,&buf,&buflen,&termpos,&gerror);
 		while (status == G_IO_STATUS_NORMAL) {
 			if (buflen > 0) {
 				if (termpos < buflen) buf[termpos] = '\0';
 				fill_output_box(ep->bfwin->outputbox, buf);
 				g_free(buf);
 			}
-			status = g_io_channel_read_line(channel,&buf,&buflen,&termpos,&error);
+			status = g_io_channel_read_line(channel,&buf,&buflen,&termpos,&gerror);
+		}
+		if (gerror) {
+			g_warning("error while trying to read data for outputbox, %d: %s\n",gerror->code,gerror->message);
+			g_error_free(gerror);
 		}
 		if (status == G_IO_STATUS_EOF) {
 			GError *error=NULL;
@@ -561,9 +588,14 @@ static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,g
 		gchar *str_return;
 		gsize length;
 		GIOStatus status;
-		GError *error=NULL;
+		GError *gerror=NULL;
 		
-		status = g_io_channel_read_to_end(channel,&str_return,&length,&error);
+		status = g_io_channel_read_to_end(channel,&str_return,&length,&gerror);
+		if (gerror) {
+			g_warning("error while trying to read data for outputbox, %d: %s\n",gerror->code,gerror->message);
+			g_error_free(gerror);
+		}
+	
 		if (status == G_IO_STATUS_NORMAL && str_return) {
 			gint end=ep->end;
 			GError *error=NULL;
