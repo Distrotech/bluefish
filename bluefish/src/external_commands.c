@@ -30,6 +30,10 @@
 #include "gtk_easy.h"
 #include "outputbox.h"
 
+#ifndef WIN32
+#define USEBINSH
+#endif
+
 /*
  * for the external commands, the external filters, and the outputbox, we have some general code
  * to create the command, and to start the command
@@ -163,8 +167,6 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	externalp_unref(ep);
 }
 
-#define USEBINSH
-
 /*static gint count_char(char *string, char mychar) {
 	gint retval = 0;
 	gchar *tmp = string;
@@ -221,7 +223,9 @@ static void start_command_backend(Texternalp *ep) {
 	ep->refcount+=2; /* one reference for this function (cleared in the end), one reference for the child_watch function */
 	g_child_watch_add(ep->child_pid,child_watch_lcb,ep);
 	if (error) {
+		g_warning("error while trying to create a new process %d: %s\n",error->code,error->message);
 		DEBUG_MSG("start_command_backend, there is an error: %s!!\n",error->message);
+		g_error_free(error);
 		externalp_unref(ep);
 		return;
 	}
@@ -236,7 +240,8 @@ static void start_command_backend(Texternalp *ep) {
 		ep->channel_in = g_io_channel_new_file(ep->fifo_in,"w",&error);
 		if (error) {
 			DEBUG_MSG("start_command_backend, error connecting to fifo %s: %s\n",ep->fifo_in,error->message);
-			
+			g_warning("failed to create fifo %s %d: %s\n",ep->fifo_in, error->code, error->message);
+			g_error_free(error);
 			return;
 		}
 	}
