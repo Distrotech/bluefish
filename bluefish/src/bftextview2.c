@@ -1217,12 +1217,10 @@ gboolean bluefish_text_view_get_show_blocks(BluefishTextView * btv)
 	return (btv->show_blocks);
 }
 
-void bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show)
-{
+void bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show) {
 	g_return_if_fail(btv != NULL);
 
-	if (show == btv->show_blocks)
-	{
+	if (show == btv->show_blocks) {
 		return;
 	}
 	
@@ -1236,12 +1234,10 @@ gboolean bluefish_text_view_get_show_line_numbers(BluefishTextView * btv)
 	return (btv->show_line_numbers);
 }
 
-void bluefish_text_view_set_show_line_numbers(BluefishTextView * btv, gboolean show)
-{
+void bluefish_text_view_set_show_line_numbers(BluefishTextView * btv, gboolean show) {
 	g_return_if_fail(btv != NULL);
 
-	if (show == btv->show_line_numbers)
-	{
+	if (show == btv->show_line_numbers) {
 		return;
 	}
 	
@@ -1255,12 +1251,10 @@ gboolean bluefish_text_view_get_show_visible_spacing(BluefishTextView * btv)
 	return (btv->visible_spacing);
 }
 
-void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolean show)
-{
+void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolean show) {
 	g_return_if_fail(btv != NULL);
 
-	if (show == btv->visible_spacing)
-	{
+	if (show == btv->visible_spacing) {
 		return;
 	}
 	
@@ -1270,12 +1264,25 @@ void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolea
 
 #ifdef HAVE_LIBENCHANT
 void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check) {
-	g_print("bluefish_text_view_set_spell_check, spell_check=%d\n",spell_check);
-	if (btv->spell_check != spell_check) {
-		btv->spell_check = spell_check;
-		/* now activate or deactivate the spell check */
-		if (btv->spell_check)
-			bftextview2_schedule_scanning(btv);
+	GtkTextIter start,end;
+	GtkTextBuffer *buffer;
+
+	g_return_if_fail(btv != NULL);
+
+	if (btv->spell_check == spell_check) {
+		return;
+	}
+
+	btv->spell_check = spell_check;
+
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+	gtk_text_buffer_get_bounds(buffer,&start,&end);
+
+	if (btv->spell_check) {
+		gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
+		bftextview2_schedule_scanning(btv);
+	} else {
+		gtk_text_buffer_remove_tag_by_name(buffer, "_spellerror_", &start, &end);
 	}
 }
 #endif
