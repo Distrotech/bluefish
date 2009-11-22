@@ -224,18 +224,22 @@ void button_apply(gchar ** config_var, GtkWidget * entry)
 /**
  * string_apply:
  * @config_var: # gchar **, a pointer to a gchar pointer with where the content should be placed
- * 	@entry: the entry #GtkWidget * to read
+ * @widget: the entry #GtkWidget * to read
  *
  * 	free the old string in **config_var, and replaces it with the new string from entry
  *
  * Return value:	void
  */
-void string_apply(gchar ** config_var, GtkWidget * entry)
+void string_apply(gchar ** config_var, GtkWidget * widget)
 {
 	gchar *tmpstring;
 	DEBUG_MSG("string_apply, start\n");
 
-	tmpstring = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+	if (GTK_IS_COMBO_BOX(widget)) {
+		tmpstring = gtk_combo_box_get_active_text(GTK_COMBO_BOX(widget));
+	} else {
+		tmpstring = gtk_editable_get_chars(GTK_EDITABLE(widget), 0, -1);
+	}
 	DEBUG_MSG("string_apply, tmpstring(%p)=%s\n", tmpstring, tmpstring);
 	if (tmpstring) {
 		if (config_var != NULL) {
