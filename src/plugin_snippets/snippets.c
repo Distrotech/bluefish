@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snippets.c - plugin for snippets sidebar
  *
- * Copyright (C) 2006 Olivier Sessink
+ * Copyright (C) 2006-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -108,7 +108,7 @@ static GHashTable *snippets_register_session_config(GHashTable *configlist, Tses
 }
 
 static TBluefishPlugin bfplugin = {
-	"snippets",
+	"Code Snippets",
 	BFPLUGIN_VERSION,
 	sizeof(Tdocument),
 	sizeof(Tsessionvars),

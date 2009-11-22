@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * htmlbar.c - plugin for html toolbar
  *
- * Copyright (C) 2002-2005 Olivier Sessink
+ * Copyright (C) 2002-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -150,7 +150,7 @@ static GHashTable *htmlbar_register_session_config(GHashTable *configlist, Tsess
 }
 
 static TBluefishPlugin bfplugin = {
-	"htmlbar",
+	"HTML Features",
 	BFPLUGIN_VERSION,
 	sizeof(Tdocument),
 	sizeof(Tsessionvars),

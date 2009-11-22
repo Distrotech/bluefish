@@ -244,7 +244,7 @@ static GHashTable *about_register_session_config(GHashTable *configlist, Tsessio
 }
 
 static TBluefishPlugin bfplugin = {
-  "about dialog",
+  "About Dialog",
   BFPLUGIN_VERSION,
   sizeof(Tdocument),
   sizeof(Tsessionvars),
