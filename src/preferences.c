@@ -479,7 +479,7 @@ void sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 	integer_apply(&sessionvars->autocomplete, sprefs->prefs[autocomplete], TRUE);
 	integer_apply(&sessionvars->view_mbhl, sprefs->prefs[view_mbhl], TRUE);
 	integer_apply(&sessionvars->view_cline, sprefs->prefs[view_cline], TRUE);
-	string_apply(&sessionvars->default_mime_type, GTK_COMBO(sprefs->prefs[default_mime_type])->entry);
+	string_apply(&sessionvars->default_mime_type, sprefs->prefs[default_mime_type]);
 
 #ifdef HAVE_LIBENCHANT
 	integer_apply(&sessionvars->spell_check_default, sprefs->prefs[session_spell_check], TRUE);
@@ -535,9 +535,9 @@ static void create_plugin_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->lists[pluginconfig] = duplicate_arraylist(main_v->props.plugin_config);
 	pd->pd.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->pd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->pd.lstore));
-	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 1, NULL, pd, _("Message"), 0,FALSE);
+	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 1, NULL, pd, _("Name"), 0,FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 2, G_CALLBACK(plugin_1_toggled_lcb), pd, _("Enabled"), 1,FALSE);
-	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 1, NULL, pd, _("File"), 2,FALSE);
+	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 1, NULL, pd, _("Path to plugin"), 2,FALSE);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->pd.lview);
@@ -1402,7 +1402,7 @@ static void preferences_apply(Tprefdialog *pd) {
 
 	sessionprefs_apply(&pd->sprefs, main_v->session);
 
-	string_apply(&main_v->props.newfile_default_encoding, GTK_COMBO(pd->prefs[newfile_default_encoding])->entry);
+	string_apply(&main_v->props.newfile_default_encoding, pd->prefs[newfile_default_encoding]);
 	integer_apply(&main_v->props.auto_set_encoding_meta, pd->prefs[auto_set_encoding_meta], TRUE);
 	integer_apply(&main_v->props.backup_file, pd->prefs[backup_file], TRUE);
 /*	string_apply(&main_v->props.backup_suffix, pd->prefs[backup_suffix]);
@@ -1439,7 +1439,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
 
 	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
-	string_apply(&main_v->props.image_thumbnailtype, GTK_COMBO(pd->prefs[image_thumbnailtype])->entry);
+	string_apply(&main_v->props.image_thumbnailtype, pd->prefs[image_thumbnailtype]);
 	
 	main_v->props.autocomp_popup_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[autocomp_popup_mode]));
 	integer_apply(&main_v->props.load_reference, pd->prefs[load_reference], TRUE);
