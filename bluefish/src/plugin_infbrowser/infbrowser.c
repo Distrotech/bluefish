@@ -89,7 +89,7 @@ static GHashTable *infb_register_session_config(GHashTable *configlist, Tsession
 }
 
 static TBluefishPlugin bfplugin = {
-	"infbrowser",
+	"Info Browser",
 	BFPLUGIN_VERSION,
 	sizeof(Tdocument),
 	sizeof(Tsessionvars),

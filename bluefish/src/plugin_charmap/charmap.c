@@ -78,7 +78,7 @@ static GHashTable *charmap_register_session_config(GHashTable *configlist, Tsess
 }
 
 static TBluefishPlugin bfplugin = {
-  "charmap dialog",
+  "Character Map",
   BFPLUGIN_VERSION,
   sizeof(Tdocument),
   sizeof(Tsessionvars),
