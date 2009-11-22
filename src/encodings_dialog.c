@@ -175,7 +175,7 @@ enc_add_button_clicked(GtkButton * button, BluefishEncodingsDialog * dialog)
 		gtk_tree_model_filter_convert_iter_to_child_iter(GTK_TREE_MODEL_FILTER(model),
 														 &childIter, &filterIter);
 
-		gtk_list_store_set(dialog->priv->encStore, &childIter, COLUMN_IN_MENU, FALSE, -1);
+		gtk_list_store_set(dialog->priv->encStore, &childIter, COLUMN_IN_MENU, TRUE, -1);
 		enc_refilter(dialog);
 	}
 }
@@ -194,7 +194,7 @@ enc_remove_button_clicked(GtkButton * button, BluefishEncodingsDialog * dialog)
 		gtk_tree_model_filter_convert_iter_to_child_iter(GTK_TREE_MODEL_FILTER(model),
 														 &childIter, &filterIter);
 
-		gtk_list_store_set(dialog->priv->encStore, &childIter, COLUMN_IN_MENU, TRUE, -1);
+		gtk_list_store_set(dialog->priv->encStore, &childIter, COLUMN_IN_MENU, FALSE, -1);
 		enc_refilter(dialog);
 	}
 }
