@@ -213,7 +213,7 @@ static gchar *about_menu_translate(const gchar * path, gpointer data) {
 static void about_initgui(Tbfwin* bfwin) {
   GtkItemFactory *ifactory;
   static GtkItemFactoryEntry menu_items[] = {
-    {N_("/_Help"), NULL, NULL, 0, "<LastBranch>"},
+    {N_("/_Help"), NULL, NULL, 0, "<Branch>"},
     {N_("/Help/Bluefish _Homepage"), NULL, bluefish_url_show_lcb, 1, "<StockItem>", GTK_STOCK_HOME},
     {N_("/Help/Report a _Bug"), NULL, bluefish_url_show_lcb, 2, "<Item>"},
     {"/Help/sep1", NULL, NULL, 0, "<Separator>"},
