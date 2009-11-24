@@ -48,7 +48,7 @@
 		<element id="e.css.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="css-brackets" >
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
 				&css-rules;
-				<element pattern="e.css.lcomment" starts_block="1" highlight="css-comment">
+				<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
 						<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
 					</context>
