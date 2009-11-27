@@ -834,6 +834,7 @@ static Ttoolbaritem tbi[] = {
 	{"acronym", acronym_clicked_lcb, pixmap_acronym, N_("Acronym")},
 	{"insert", insert_clicked_lcb, pixmap_context, N_("Insert")},
 	{"delete", delete_clicked_lcb, pixmap_context, N_("Delete")},
+	/* 89 total right now (0-88) */
 	{"", NULL, 0, NULL} /* spacing */
 };
 
@@ -1109,7 +1110,7 @@ void htmlbar_toolbar(Thtmlbarwin *hbw) {
 	html_toolbar = gtk_toolbar_new();
 	gtk_toolbar_set_style(GTK_TOOLBAR(html_toolbar), GTK_TOOLBAR_ICONS);
 	html_toolbar_add_items(bfwin,html_toolbar, tbi, 15, 25);
-	html_toolbar_add_items_to_submenu(bfwin,html_toolbar, tbi, 79, 86, _("Context formatting"), pixmap_context);
+	html_toolbar_add_items_to_submenu(bfwin,html_toolbar, tbi, 79, 88, _("Context formatting"), pixmap_context);
 	html_toolbar_add_items(bfwin,html_toolbar, tbi, 25, 31);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" Fonts ")));
 
