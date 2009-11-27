@@ -39,6 +39,7 @@ typedef struct {
 	gint convert_symbol;
 	gint convert_special;
 	gint convert_xml;
+	gint IE_apos_workaround;
 } Tentitysetting;
 
 typedef struct {
@@ -342,12 +343,18 @@ gchar *utf8_to_entities(const gchar *inbuf, gboolean iso8859_1, gboolean symbols
 	return outbuf;
 }
 
-void doc_utf8_to_entities(Tdocument *doc, gint start, gint end, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml) {
+void doc_utf8_to_entities(Tdocument *doc, gint start, gint end, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml, gboolean IE_apos_workaround) {
 	gunichar unichar;
-	gchar *buf, *srcp;
+	gchar *buf, *srcp, *workaround=NULL;
 	guint docpos=start;
 	buf = doc_get_chars(doc,start,end);
 	srcp = buf;
+
+	if (xml && IE_apos_workaround) {
+		workaround = entities_xml[5];
+		entities_xml[5] = "#39";
+	}	
+	
 	unichar = g_utf8_get_char(buf);
 	while (unichar) {
 		gchar *entity;
@@ -363,6 +370,9 @@ void doc_utf8_to_entities(Tdocument *doc, gint start, gint end, gboolean iso8859
 		docpos++;
 	}
 	g_free(buf);
+	if (workaround) {
+		entities_xml[5] = workaround;
+	}
 }
 
 typedef enum {
@@ -378,6 +388,7 @@ typedef struct {
 	GtkWidget *symbol;
 	GtkWidget *special;
 	GtkWidget *xml;
+	GtkWidget *IE_apos_workaround;
 	Tentmode mode;
 	Tbfwin *bfwin;
 	Tentitysetting *eset;
@@ -393,14 +404,15 @@ static void ew_response_lcb(GtkDialog * dialog, gint response, Tentwin * ew) {
 		ew->eset->convert_symbol = GTK_TOGGLE_BUTTON(ew->symbol)->active;
 		ew->eset->convert_special = GTK_TOGGLE_BUTTON(ew->special)->active;
 		ew->eset->convert_xml = GTK_TOGGLE_BUTTON(ew->xml)->active;
-    
+		if (ew->IE_apos_workaround)
+			ew->eset->IE_apos_workaround = GTK_TOGGLE_BUTTON(ew->IE_apos_workaround)->active;
     
 		if (scope == 0 || (scope == 1 && doc_get_selection(ew->bfwin->current_document, &start, &end))) {
 			doc_unre_new_group_action_id(ew->bfwin->current_document,0);
 			if (ew->mode == mode_char2ent) {
 				doc_utf8_to_entities(ew->bfwin->current_document, start, end,  
 						GTK_TOGGLE_BUTTON(ew->iso8859_1)->active, GTK_TOGGLE_BUTTON(ew->symbol)->active, 
-						GTK_TOGGLE_BUTTON(ew->special)->active, GTK_TOGGLE_BUTTON(ew->xml)->active);
+						GTK_TOGGLE_BUTTON(ew->special)->active, GTK_TOGGLE_BUTTON(ew->xml)->active, ew->eset->IE_apos_workaround);
 			} else {
 				doc_entities_to_utf8(ew->bfwin->current_document, start, end, GTK_TOGGLE_BUTTON(ew->numerical)->active,
 						GTK_TOGGLE_BUTTON(ew->iso8859_1)->active, GTK_TOGGLE_BUTTON(ew->symbol)->active, 
@@ -415,7 +427,7 @@ static void ew_response_lcb(GtkDialog * dialog, gint response, Tentwin * ew) {
 				if (ew->mode == mode_char2ent) {
 					doc_utf8_to_entities(DOCUMENT(tmplist->data), 0, -1, 
 							GTK_TOGGLE_BUTTON(ew->iso8859_1)->active, GTK_TOGGLE_BUTTON(ew->symbol)->active, 
-							GTK_TOGGLE_BUTTON(ew->special)->active, GTK_TOGGLE_BUTTON(ew->xml)->active);
+							GTK_TOGGLE_BUTTON(ew->special)->active, GTK_TOGGLE_BUTTON(ew->xml)->active, ew->eset->IE_apos_workaround);
 				} else {
 					doc_entities_to_utf8(DOCUMENT(tmplist->data), 0, -1, GTK_TOGGLE_BUTTON(ew->numerical)->active,
 							GTK_TOGGLE_BUTTON(ew->iso8859_1)->active, GTK_TOGGLE_BUTTON(ew->symbol)->active, 
@@ -479,7 +491,15 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode, Tentitysetting *eset) {
 	ew->xml = gtk_check_button_new_with_mnemonic(_("Convert _XML characters < > & \" '"));
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->xml, FALSE, FALSE, 0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->xml),eset->convert_xml);
-  
+
+	if (mode == mode_char2ent) {
+		ew->IE_apos_workaround = gtk_check_button_new_with_mnemonic(_("Work around missing &apos; entity on IE"));
+		gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->IE_apos_workaround, FALSE, FALSE, 0);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->xml),eset->IE_apos_workaround);
+	} else{
+		ew->IE_apos_workaround = NULL;
+	}
+
 /*  g_signal_connect(ew->overlappingMatches, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,ew->overlappingMatches,_("After a match is found, start next search within that match."),NULL);*/
 	if (doc_has_selection(bfwin->current_document)) {
@@ -576,6 +596,7 @@ static GHashTable *entity_register_session_config(GHashTable *configlist, Tsessi
 	configlist = make_config_list_item(configlist, &es->c2e.convert_symbol, 'i', "c2e.convert_symbol:", 0);
 	configlist = make_config_list_item(configlist, &es->c2e.convert_special, 'i', "c2e.convert_special:", 0);
 	configlist = make_config_list_item(configlist, &es->c2e.convert_xml, 'i', "c2e.convert_xml:", 0);
+	configlist = make_config_list_item(configlist, &es->c2e.IE_apos_workaround, 'i', "c2e.IE_apos_workaround:", 0);
 	configlist = make_config_list_item(configlist, &es->e2c.convert_num, 'i', "e2c.convert_num:", 0);
 	configlist = make_config_list_item(configlist, &es->e2c.convert_iso, 'i', "e2c.convert_iso:", 0);
 	configlist = make_config_list_item(configlist, &es->e2c.convert_symbol, 'i', "e2c.convert_symbol:", 0);
