@@ -289,6 +289,12 @@ void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget
   case 67:
     doc_insert_two_strings(bfwin->current_document, cap("<FORM>"), cap("</FORM>"));
     break;
+  case 68:
+    doc_insert_two_strings(bfwin->current_document, cap("<INS>"), cap("</INS>"));
+    break;
+  case 69:
+    doc_insert_two_strings(bfwin->current_document, cap("<DEL>"), cap("</DEL>"));
+    break;
   default:
     break;
   }
