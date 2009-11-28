@@ -39,7 +39,7 @@
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element pattern="#[^&#10;]*" is_regex="1" highlight="comment"/>
+<element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
 <element pattern="msgid" autocomplete="1" highlight="keyword"/>
 <element pattern="msgstr" autocomplete="1" highlight="keyword"/>
 

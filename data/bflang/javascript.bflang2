@@ -64,7 +64,7 @@
 	&all-javascript;
 	<element pattern="//" highlight="js-comment">
 		<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
-			<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
+			<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="js-comment" ends_context="1" />
 		</context>
 	</element>
 	<element id="e.lcomment" pattern="/*" starts_block="1" highlight="js-comment">
