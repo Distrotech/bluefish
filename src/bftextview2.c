@@ -378,7 +378,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning %p\n", gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter), btv->needscanning);
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
 	start_offset = gtk_text_iter_get_offset(&start);
-	if (btv->enable_scanner && btv->auto_complete && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
+	if (btv->enable_scanner && btv->auto_complete && stringlen == 1 && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb: call autocomp_run\n");
 		autocomp_run(btv,FALSE);
 	}
@@ -789,7 +789,7 @@ static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIt
 										 GtkTextIter * oend, gpointer user_data)
 {
 	BluefishTextView *btv=user_data;
-	if (btv->enable_scanner && btv->auto_complete && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
+	if (btv->enable_scanner && btv->auto_complete && (gtk_text_iter_get_offset(oend) - gtk_text_iter_get_offset(obegin))==1 && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
 		autocomp_run(btv,FALSE);
 	}
 }
