@@ -142,7 +142,8 @@
 </element>
 <element pattern="//" highlight="php-comment">
 	<context id="c.php.short.linecomment" symbols="?&gt;&#10;&#13;" highlight="php-comment">
-		<element pattern="[&#10;&#13;]" is_regex="1" ends_context="1" />
+<!-- dos has \r\n -> we should never end a pattern between these two chars  -->
+		<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" ends_context="1" />
 		<element pattern="?&gt;" ends_context="2" ends_block="1" blockstartelement="e.php.short.open" highlight="php-block-tag" mayfold="1" />
 	</context>
 </element>
@@ -197,7 +198,7 @@ was disabled, this whole section is not parsed by the language manager, so the c
 </element>
 <element pattern="//" highlight="php-comment">
 	<context id="c.php.linecomment" symbols="?&gt;&#10;&#13;" highlight="php-comment">
-		<element pattern="[&#10;&#13;]" is_regex="1" ends_context="1" />
+		<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" ends_context="1" />
 		<element pattern="?&gt;" ends_context="2" ends_block="1" blockstartelement="e.php.open" highlight="php-block-tag" mayfold="1" />
 	</context>
 </element>
