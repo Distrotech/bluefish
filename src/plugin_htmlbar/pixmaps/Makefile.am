@@ -17,6 +17,7 @@ EXTRA_DIST = \
 	cssnewstyle.png \
 	cssspan.png \
 	cssstyle.png \
+	del.png \
 	dfn.png \
 	edit_tag.png \
 	email.png \
@@ -53,6 +54,7 @@ EXTRA_DIST = \
 	headings.png \
 	hrule.png \
 	image.png \
+	ins.png \
 	italic.png \
 	kbd.png \
 	linkstylesheet.png \
@@ -108,6 +110,7 @@ HTMLBAR = \
 	pixmap_cssnewstyle $(srcdir)/cssnewstyle.png \
 	pixmap_cssspan $(srcdir)/cssspan.png \
 	pixmap_cssstyle $(srcdir)/cssstyle.png \
+	pixmap_del $(srcdir)/del.png \
 	pixmap_dfn $(srcdir)/dfn.png \
 	pixmap_edit_tag $(srcdir)/edit_tag.png \
 	pixmap_email $(srcdir)/email.png \
@@ -143,6 +146,7 @@ HTMLBAR = \
 	pixmap_framewhiz $(srcdir)/framewhiz.png \
 	pixmap_headings $(srcdir)/headings.png \
 	pixmap_hrule $(srcdir)/hrule.png \
+	pixmap_ins $(srcdir)/ins.png \
 	pixmap_image $(srcdir)/image.png \
 	pixmap_italic $(srcdir)/italic.png \
 	pixmap_kbd $(srcdir)/kbd.png \

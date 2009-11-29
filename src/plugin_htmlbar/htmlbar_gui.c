@@ -355,8 +355,8 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/Tags/Format by context/Ci_tation"), NULL, general_html_menu_cb, 53, "<ImageItem>",pixmap_cite},
 		{N_("/Tags/Format by context/_Abbreviation"), NULL, general_html_menu_cb, 54, "<ImageItem>",pixmap_abbr},
 		{N_("/Tags/Format by context/Ac_ronym"), NULL, general_html_menu_cb, 55, "<ImageItem>",pixmap_acronym},
-		{N_("/Tags/Format by context/_Insert"), NULL, general_html_menu_cb, 68, "<ImageItem>",pixmap_context},
-		{N_("/Tags/Format by context/De_lete"), NULL, general_html_menu_cb, 69, "<ImageItem>",pixmap_context},
+		{N_("/Tags/Format by context/_Insert"), NULL, general_html_menu_cb, 68, "<ImageItem>",pixmap_ins},
+		{N_("/Tags/Format by context/De_lete"), NULL, general_html_menu_cb, 69, "<ImageItem>",pixmap_del},
 		{N_("/Tags/Format _general"), NULL, NULL, 0, "<Branch>"},
 		{"/Tags/Format general/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 		{N_("/Tags/Format general/_Paragraph"), "<control><alt>p", general_html_menu_cb, 5, "<ImageItem>",pixmap_paragraph},
@@ -832,8 +832,8 @@ static Ttoolbaritem tbi[] = {
 	{"cite", cite_clicked_lcb,  pixmap_cite, N_("Citation")},
 	{"abbr", abbr_clicked_lcb,  pixmap_abbr, N_("Abbreviation")},
 	{"acronym", acronym_clicked_lcb, pixmap_acronym, N_("Acronym")},
-	{"insert", insert_clicked_lcb, pixmap_context, N_("Insert")},
-	{"delete", delete_clicked_lcb, pixmap_context, N_("Delete")},
+	{"insert", insert_clicked_lcb, pixmap_ins, N_("Insert")},
+	{"delete", delete_clicked_lcb, pixmap_del, N_("Delete")},
 	/* 89 total right now (0-88) */
 	{"", NULL, 0, NULL} /* spacing */
 };
