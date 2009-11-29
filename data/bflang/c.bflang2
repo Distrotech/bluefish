@@ -2573,7 +2573,7 @@
 		<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
 	<element pattern="#(define|elif|else|endif|if|ifdef|ifndef|include)" is_regex="1" highlight="preprocessor" />
 <!--	<context symbols="/*&#10;&#13;" highlight="preprocessor">
-			<element pattern="[&#10;&#13;]" is_regex="1" ends_context="1" />
+			<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" ends_context="1" />
 			<element idref="e.lcomment" />	
 		</context>
 	</element> -->

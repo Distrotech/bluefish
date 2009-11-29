@@ -89,7 +89,7 @@
 <element pattern="@@[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" autocomplete="0" highlight="class-var"/>
 <element pattern="[0-9]+\.[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
 <element pattern="[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
-<element pattern="#[^&#10;&#13;]+" is_regex="1" highlight="comment"/>
+<element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
 <element id="e.lcomment" pattern="=begin" starts_block="1" highlight="comment">
 	<context symbols="*/&#9;&#10;&#13;" highlight="comment">
 		<element pattern="=end" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
