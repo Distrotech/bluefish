@@ -65,12 +65,6 @@ typedef struct {
 } Tfloatingview;
 #define FLOATINGVIEW(var) ((Tfloatingview *)(var))
 
-typedef struct {
-	gint so;
-	gint eo;
-} Tpasteoperation;
-#define PASTEOPERATION(var) ((Tpasteoperation *)(var))
-
 static void doc_set_statusbar_lang_encoding(Tdocument *doc);
 
 Tselectionsave *doc_save_selection(Tdocument *doc) {
