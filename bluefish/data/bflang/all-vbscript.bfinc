@@ -136,11 +136,11 @@
 </element>
 <element pattern="'" highlight="vbs-comment">
 	<context symbols="&#10;&#13;&gt;&lt; " highlight="vbs-comment">
-		<element pattern="[&#10;&#13;]" is_regex="1" highlight="vbs-comment" ends_context="1" />
+		<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="vbs-comment" ends_context="1" />
 	</context>
 </element>
 <element pattern="rem " highlight="vbs-comment" case_insens="1">
 	<context symbols="&#10;&#13;&gt;&lt; " highlight="vbs-comment">
-		<element pattern="[&#10;&#13;]" is_regex="1" highlight="vbs-comment" ends_context="1" />
+		<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="vbs-comment" ends_context="1" />
 	</context>
 </element>

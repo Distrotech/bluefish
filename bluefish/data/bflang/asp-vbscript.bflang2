@@ -107,7 +107,7 @@
 
 &all-html;
 <element id="e.asp.comment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
-	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
+	<context symbols="-&gt; &#9;&#10;&#13;&#35;" highlight="html-comment">
 		<element pattern="#include" highlight="asp-keyword" case_insens="1" />
 		<element pattern="--&gt;" ends_block="1" blockstartelement="e.asp.comment" highlight="html-comment" mayfold="1" ends_context="1" />
 	</context>
@@ -120,19 +120,19 @@
 	<context symbols="%&#34;" highlight="vbs-string">
 		<element pattern="&#34;" highlight="vbs-string" ends_context="1" />
 <!-- not working, yet
-		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="&gt;%" mayfold="1"/>
+		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="e.asp.block.start" mayfold="1"/>
 -->
 	</context>
 </element>
 <element pattern="'" highlight="vbs-comment">
 	<context symbols="%&#10;&#13;" highlight="vbs-comment">
-		<element pattern="[&#10;&#13;]" is_regex="1" highlight="vbs-comment" ends_context="1" />
+		<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="vbs-comment" ends_context="1" />
 		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="e.asp.block.start" mayfold="1"/>
 	</context>
 </element>
 <element pattern="rem " highlight="vbs-comment" case_insens="1">
 	<context symbols="%&#10;&#13;" highlight="vbs-comment">
-		<element pattern="[&#10;&#13;]" is_regex="1" highlight="vbs-comment" ends_context="1" />
+		<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="vbs-comment" ends_context="1" />
 		<element pattern="%&gt;" highlight="asp-block-tag" ends_context="2" ends_block="1" blockstartelement="e.asp.block.start" mayfold="1"/>
 	</context>
 </element>

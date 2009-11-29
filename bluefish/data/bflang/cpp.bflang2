@@ -144,7 +144,7 @@
 			<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
-	<element pattern="//[^&#10;&#13;]+" is_regex="1" highlight="comment"/>
+	<element pattern="//[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
 
 	<element id="e.number" pattern="[0-9.]+" is_regex="1" highlight="value"/>
 
