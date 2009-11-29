@@ -2474,7 +2474,7 @@ void doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean d
 #if !GLIB_CHECK_VERSION(2, 18, 0)
 	   /* check runtime glib version, check if remote file, and give warning if remote file on glib < 2.18 */
 		if (glib_major_version==2 && glib_minor_version<18 && !g_file_is_native(uri)) {
-			gchar *message = g_strdup_printf("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer.",glib_major_version,glib_minor_version,glib_micro_version);
+			gchar *message = g_strdup_printf(_("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."),glib_major_version,glib_minor_version,glib_micro_version);
 			statusbar_message(bfwin,message,20);
 			g_free(message);
 		}
