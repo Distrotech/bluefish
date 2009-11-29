@@ -1794,12 +1794,12 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	g_signal_connect(snrwin->matchCase, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->matchCase,_("Only match if case (upper/lower) is identical."),NULL);
 
-	snrwin->escapeChars = gtk_check_button_new_with_mnemonic(_("_Pattern contains escape-sequences"));
+	snrwin->escapeChars = gtk_check_button_new_with_mnemonic(_("Pattern contains escape-se_quences"));
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->escapeChars, FALSE, FALSE, 0);
 	g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->escapeChars,_("Pattern contains backslash escaped characters such as \\n \\t etc."),NULL);
 
-	snrwin->select_match = gtk_check_button_new_with_mnemonic(_("_Select matches"));
+	snrwin->select_match = gtk_check_button_new_with_mnemonic(_("Select matc_hes"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(snrwin->select_match),main_v->globses.snr_select_match);
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->select_match, FALSE, FALSE, 0);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->select_match,_("Select the matching text instead of just highlighting it"),NULL);
