@@ -370,7 +370,7 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin * bfwin)
 	if (glib_major_version == 2 && glib_minor_version < 18) {
 		gchar *message;
 		GtkWidget *label=gtk_label_new(NULL);
-		message = g_strdup_printf("<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 if you rely on remote file support.</b>",glib_major_version,glib_minor_version,glib_micro_version);
+		message = g_strdup_printf(_("<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 if you rely on remote file support.</b>"),glib_major_version,glib_minor_version,glib_micro_version);
 		gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 		gtk_label_set_markup(GTK_LABEL(label), message);
 		g_free(message);
@@ -775,7 +775,7 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
 #if !GLIB_CHECK_VERSION(2, 18, 0)
    /* check runtime glib version, check if remote file, and give warning if remote file on glib < 2.18 */
 	if (glib_major_version==2 && glib_minor_version<18 && !g_file_is_native(doc->uri)) {
-		gchar *message = g_strdup_printf("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer.",glib_major_version,glib_minor_version,glib_micro_version);
+		gchar *message = g_strdup_printf(_("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."),glib_major_version,glib_minor_version,glib_micro_version);
 		statusbar_message(BFWIN(doc->bfwin),message,20);
 		g_free(message);
 	}
@@ -1196,7 +1196,7 @@ void sync_dialog(Tbfwin *bfwin) {
 	if (glib_major_version == 2 && glib_minor_version < 18) {
 		gchar *message;
 		GtkWidget *label=gtk_label_new(NULL);
-		message = g_strdup_printf("<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 if you rely on remote file support.</b>",glib_major_version,glib_minor_version,glib_micro_version);
+		message = g_strdup_printf(_("<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 if you rely on remote file support.</b>"),glib_major_version,glib_minor_version,glib_micro_version);
 		gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 		gtk_label_set_markup(GTK_LABEL(label), message);
 		g_free(message);
