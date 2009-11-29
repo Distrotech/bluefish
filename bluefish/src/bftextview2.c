@@ -68,8 +68,11 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 	guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 	if ((elapsed + 20) >= USER_IDLE_EVENT_INTERVAL) {	/* avoid delaying again for less than 20 milliseconds */
 		DBG_AUTOCOMP("bftextview2_user_idle_timer, user is > %d milliseconds idle, autocomp=%d, mode=%d\n", elapsed,btv->auto_complete, main_v->props.autocomp_popup_mode);
-		if (btv->auto_complete && main_v->props.autocomp_popup_mode == 0)
+		if (btv->auto_complete && btv->needs_autocomp && main_v->props.autocomp_popup_mode == 0) {
 			autocomp_run(btv,FALSE);
+			DBG_AUTOCOMP("bftextview2_user_idle_timer, set needs_autocomp to FALSE\n");
+			btv->needs_autocomp=FALSE;
+		}
 		btv->user_idle = 0;
 		return FALSE;
 	} else {
@@ -270,7 +273,7 @@ an ideal candidate for speed optimization */
 static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location,
 									 GtkTextMark * arg2, gpointer widget)
 {
-
+	DBG_SIGNALS("bftextview2_mark_set_lcb\n");
 	if (BLUEFISH_TEXT_VIEW(widget)->bflang && BLUEFISH_TEXT_VIEW(widget)->bflang->st && arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
 		GtkTextIter it1, it2;
 		Tfoundblock *fblock = bftextview2_get_block_at_offset(BLUEFISH_TEXT_VIEW(widget),gtk_text_iter_get_offset(location));
@@ -355,6 +358,7 @@ static inline gboolean char_in_allsymbols(BluefishTextView * btv, gunichar uc) {
 static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
 										gint stringlen, BluefishTextView * btv)
 {
+	DBG_SIGNALS("bftextview2_insert_text_lcb\n");
 	stackcache_update_offsets(btv, gtk_text_iter_get_offset(iter), g_utf8_strlen(string,stringlen)); 
 }
 
@@ -363,7 +367,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 {
 	GtkTextIter start;
 	gint start_offset;
-	DBG_MSG("bftextview2_insert_text_after_lcb, stringlen=%d\n", stringlen);
+	DBG_SIGNALS("bftextview2_insert_text_after_lcb, stringlen=%d\n", stringlen);
 	if (!main_v->props.reduced_scan_triggers || stringlen > 1 || (stringlen==1 && char_in_allsymbols(btv, string[0]))) {
 		bftextview2_schedule_scanning(btv);
 	}
@@ -378,9 +382,11 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning %p\n", gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter), btv->needscanning);
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
 	start_offset = gtk_text_iter_get_offset(&start);
-	if (btv->enable_scanner && btv->auto_complete && stringlen == 1 && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
+	if (btv->enable_scanner && btv->needs_autocomp && btv->auto_complete && stringlen == 1 && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb: call autocomp_run\n");
 		autocomp_run(btv,FALSE);
+		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, set needs_autocomp to FALSE\n");
+		btv->needs_autocomp=FALSE;
 	}
 	bftextview2_reset_user_idle_timer(btv);
 	bftextview2_set_margin_size(btv);
@@ -789,14 +795,17 @@ static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIt
 										 GtkTextIter * oend, gpointer user_data)
 {
 	BluefishTextView *btv=user_data;
-	if (btv->enable_scanner && btv->auto_complete && (gtk_text_iter_get_offset(oend) - gtk_text_iter_get_offset(obegin))==1 && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
+	DBG_SIGNALS("bftextview2_delete_range_after_lcb\n");
+	if (btv->enable_scanner && btv->needs_autocomp && btv->auto_complete && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
 		autocomp_run(btv,FALSE);
+		DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, set needs_autocomp to FALSE\n");
+		btv->needs_autocomp=FALSE;
 	}
 }
 
 static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent) {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);
-	
+	DBG_SIGNALS("bluefish_text_view_key_press_event\n");
 	if (btv->autocomp) {
 		if (acwin_check_keypress(btv, kevent)) {
 			btv->key_press_was_autocomplete = TRUE;
@@ -809,6 +818,9 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 		autocomp_run(btv,TRUE);
 		return TRUE;
 	}
+	DBG_AUTOCOMP("bluefish_text_view_key_press_event, set needs_autocomp to TRUE\n");
+	btv->needs_autocomp=TRUE;
+	
 	if (main_v->props.editor_smart_cursor && !(kevent->state & GDK_CONTROL_MASK) && ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End))) {
 		GtkTextMark* imark;
 		GtkTextIter iter, currentpos, linestart;
@@ -1028,61 +1040,60 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->button_press_event (widget, event);
 }
 
-static gboolean bftextview2_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
+static gboolean bluefish_text_view_key_release_event(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
 	BluefishTextView *btv=user_data;
-	if (!btv->key_press_was_autocomplete && (kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
-		if (btv->auto_indent) {
-			gchar *string;
-			GtkTextIter itstart, itend;
-			GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-			gtk_text_buffer_get_iter_at_mark(buffer,&itend,gtk_text_buffer_get_insert(buffer));
-			itstart = itend;
-			/* set to the beginning of the previous line */
-			gtk_text_iter_backward_line(&itstart);
-			gtk_text_iter_set_line_index(&itstart, 0);
-			string = gtk_text_buffer_get_text(buffer,&itstart,&itend,TRUE);
-			if (string) {
-				gchar lastchar='\0', *indenting;
-				gint stringlen;
-				
-				stringlen = strlen(string);
-				if (stringlen>1) {
-					lastchar = string[stringlen-2];
-					/*g_print("lastchar=%c\n",lastchar);*/
-				}
-				/* now count the indenting in this string */
-				indenting = string;
-				while (*indenting == '\t' || *indenting == ' ') {
-					indenting++;
-				}
-				/* ending search, non-whitespace found, so terminate at this position */
-				*indenting = '\0';
-				if (lastchar!='\0' && main_v->props.smartindent && btv->bflang && btv->bflang->smartindentchars) {
-					if(strchr(btv->bflang->smartindentchars, lastchar)!=NULL) {
-						gchar *tmp, *tmp2;
-						if (main_v->props.editor_indent_wspaces)
-							tmp2 = bf_str_repeat(" ", BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
-						else 
-							tmp2 = g_strdup("	");
-						tmp = g_strconcat(string, tmp2,NULL);
-						g_free(string);
-						g_free(tmp2);
-						string = tmp;
-					}
-				}
-				if (string && string[0]!='\0') {
-					gboolean in_paste = DOCUMENT(btv->doc)->in_paste_operation;
-					/*g_print("bftextview2_key_release_lcb, autoindent, insert indenting\n");*/
-					/* a dirty trick: if in_paste_operation is set, there will be no call 
-					for doc_unre_new_group when indenting is inserted */
-					if (!in_paste)
-						DOCUMENT(btv->doc)->in_paste_operation=TRUE;
-					gtk_text_buffer_insert(buffer,&itend,string,-1);
-					if (!in_paste)
-						DOCUMENT(btv->doc)->in_paste_operation=FALSE;
-				}
-				g_free(string);
+	DBG_SIGNALS("bluefish_text_view_key_release_event\n");
+	if (!btv->key_press_was_autocomplete && btv->auto_indent && (kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
+		gchar *string;
+		GtkTextIter itstart, itend;
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+		gtk_text_buffer_get_iter_at_mark(buffer,&itend,gtk_text_buffer_get_insert(buffer));
+		itstart = itend;
+		/* set to the beginning of the previous line */
+		gtk_text_iter_backward_line(&itstart);
+		gtk_text_iter_set_line_index(&itstart, 0);
+		string = gtk_text_buffer_get_text(buffer,&itstart,&itend,TRUE);
+		if (string) {
+			gchar lastchar='\0', *indenting;
+			gint stringlen;
+			
+			stringlen = strlen(string);
+			if (stringlen>1) {
+				lastchar = string[stringlen-2];
+				/*g_print("lastchar=%c\n",lastchar);*/
 			}
+			/* now count the indenting in this string */
+			indenting = string;
+			while (*indenting == '\t' || *indenting == ' ') {
+				indenting++;
+			}
+			/* ending search, non-whitespace found, so terminate at this position */
+			*indenting = '\0';
+			if (lastchar!='\0' && main_v->props.smartindent && btv->bflang && btv->bflang->smartindentchars) {
+				if(strchr(btv->bflang->smartindentchars, lastchar)!=NULL) {
+					gchar *tmp, *tmp2;
+					if (main_v->props.editor_indent_wspaces)
+						tmp2 = bf_str_repeat(" ", BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
+					else 
+						tmp2 = g_strdup("	");
+					tmp = g_strconcat(string, tmp2,NULL);
+					g_free(string);
+					g_free(tmp2);
+					string = tmp;
+				}
+			}
+			if (string && string[0]!='\0') {
+				gboolean in_paste = DOCUMENT(btv->doc)->in_paste_operation;
+				/*g_print("bluefish_text_view_key_release_event, autoindent, insert indenting\n");*/
+				/* a dirty trick: if in_paste_operation is set, there will be no call 
+				for doc_unre_new_group when indenting is inserted */
+				if (!in_paste)
+					DOCUMENT(btv->doc)->in_paste_operation=TRUE;
+				gtk_text_buffer_insert(buffer,&itend,string,-1);
+				if (!in_paste)
+					DOCUMENT(btv->doc)->in_paste_operation=FALSE;
+			}
+			g_free(string);
 		}
 	}
 	return FALSE; /* we didn't handle all of the event */
@@ -1505,6 +1516,6 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 	g_signal_connect_after(G_OBJECT(buffer), "mark-set", G_CALLBACK(bftextview2_mark_set_lcb),textview);
 	g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb),textview);
 	g_signal_connect_after(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_after_lcb),textview);
-	g_signal_connect_after(G_OBJECT(textview), "key-release-event", G_CALLBACK(bftextview2_key_release_lcb), textview);
+	g_signal_connect_after(G_OBJECT(textview), "key-release-event", G_CALLBACK(bluefish_text_view_key_release_event), textview);
 	return GTK_WIDGET(textview);
 }

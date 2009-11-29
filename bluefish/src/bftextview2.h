@@ -392,15 +392,17 @@ struct _BluefishTextView {
 	GTimer *user_idle_timer;
 	guint user_idle; /* event ID for the timed function that handles user idle events such as autocompletion popups */
 	gpointer autocomp; /* a Tacwin* with the current autocompletion window */
-	gboolean showing_blockmatch;
+	gboolean needs_autocomp; /* a state of the widget, autocomplete is needed on user keyboard actions */
+	gboolean key_press_was_autocomplete; /* a state of the widget, if the last keypress was handled by the autocomplete popup window */
+	gboolean showing_blockmatch; /* a state of the widget if we are currently showing a blockmatch */
 
 	/* next three are used for margin painting */
 	gint margin_pixels_per_char;
 	gint margin_pixels_chars;
 	gint margin_pixels_block;
 	gint margin_pixels_symbol;
-	gboolean key_press_was_autocomplete;
 	
+	/* following options are simple true/false settings */
 	gboolean enable_scanner; /* only run scanner when TRUE, this is FALSE if the document is in the background for example */
 	gboolean auto_indent;
 	gboolean auto_complete;
