@@ -23,6 +23,7 @@ bflang_bflang2_files = \
 	cpp.bflang2 \
 	css.bflang2 \
 	d.bflang2 \
+	diff.bflang2 \
 	html.bflang2 \
 	java.bflang2 \
 	javascript.bflang2 \
