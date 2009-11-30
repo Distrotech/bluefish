@@ -181,7 +181,7 @@ HTMLBAR = \
 	pixmap_var $(srcdir)/var.png
 
 
-htmlbar_icons.c:
+htmlbar_icons.c: $(EXTRA_DIST)
 	$(GDK_PIXBUF_CSOURCE) --raw --extern --build-list $(HTMLBAR) > $@
 
 
