@@ -43,7 +43,7 @@ typedef struct {
 	GtkWidget *prefs[session_num_max];
 } Tsessionprefs;
 void sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars);
-Tsessionprefs *sessionprefs(Tsessionprefs *sprefs, Tsessionvars *sessionvars);
+Tsessionprefs *sessionprefs(const gchar *frame_title, Tsessionprefs *sprefs, Tsessionvars *sessionvars);
 void open_preferences_cb(GtkWidget *wid, gpointer data);
 void open_preferences_menu_cb(gpointer callback_data,guint action,GtkWidget *widget);
 
