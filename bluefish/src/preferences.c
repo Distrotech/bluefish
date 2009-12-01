@@ -486,11 +486,11 @@ void sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 #endif
 }
 
-Tsessionprefs *sessionprefs(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
+Tsessionprefs *sessionprefs(const gchar *frame_title, Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 	GList *poplist;
 	sprefs->vbox = gtk_vbox_new(FALSE,3);
 
-	sprefs->frame = gtk_frame_new(_("Initial document settings"));
+	sprefs->frame = gtk_frame_new(frame_title);
 	gtk_container_add(GTK_CONTAINER(sprefs->frame), sprefs->vbox);
 
 	poplist = g_list_sort(langmgr_get_languages_mimetypes(), (GCompareFunc)g_strcmp0);
@@ -1622,6 +1622,11 @@ static void preferences_dialog() {
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
 	pd->prefs[smartindent] = boxed_checkbut_with_value(_("Smart auto indenting"), main_v->props.smartindent, vbox2);
 
+	{
+		gchar *autocompmodes[] = {N_("Delayed"),N_("Immediately"), NULL};
+		pd->prefs[autocomp_popup_mode] = boxed_optionmenu_with_value(_("Show the automatic completion pop-up window"), main_v->props.autocomp_popup_mode, vbox2, autocompmodes);
+	}
+
 	pd->prefs[num_undo_levels] = prefs_integer(_("Number of actions in undo history"), main_v->props.num_undo_levels, vbox2, 50, 10000);
 	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
 
@@ -1629,7 +1634,7 @@ static void preferences_dialog() {
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Initial document settings"), WIDGETCOL,vbox1,-1);
 
-	sessionprefs(&pd->sprefs, main_v->session);
+	sessionprefs(_("Non-project initial document settings"), &pd->sprefs, main_v->session);
 	gtk_box_pack_start(GTK_BOX(vbox1), pd->sprefs.frame, FALSE, FALSE, 5);
 	
 	/*pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);*/
@@ -1639,18 +1644,20 @@ static void preferences_dialog() {
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("HTML"), WIDGETCOL,vbox1,-1);
 
-	frame = gtk_frame_new(_("HTML options"));
+	frame = gtk_frame_new(_("HTML toolbar / menu options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
+	vbox2 = gtk_vbox_new(FALSE, 4);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	pd->prefs[lowercase_tags] = boxed_checkbut_with_value(_("Lowercase HTML tags"), main_v->props.lowercase_tags, vbox2);
 	pd->prefs[allow_dep] = boxed_checkbut_with_value(_("Use deprecated tags (e.g. <font> and <nobr>)"), main_v->props.allow_dep, vbox2);
 	pd->prefs[format_by_context] = boxed_checkbut_with_value(_("Format according to accessibility guidelines (e.g. <strong> for <b>)"), main_v->props.format_by_context, vbox2);
 	pd->prefs[xhtml] = boxed_checkbut_with_value(_("Use XHTML style tags (<br />)"), main_v->props.xhtml, vbox2);
-	/*pd->prefs[insert_close_tag] = boxed_checkbut_with_value(_("Automatically close tags"), main_v->props.insert_close_tag, vbox2);
-	pd->prefs[close_tag_newline] = boxed_checkbut_with_value(_("Prepend close tags with a newline"), main_v->props.close_tag_newline, vbox2);*/
 
+	frame = gtk_frame_new(_("Auto update tag options"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 4);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[auto_update_meta_author] = boxed_checkbut_with_value(_("Automatically update author meta tag"), main_v->props.auto_update_meta_author, vbox2);
 	pd->prefs[auto_update_meta_date] = boxed_checkbut_with_value(_("Automatically update date meta tag"), main_v->props.auto_update_meta_date, vbox2);
 	pd->prefs[auto_update_meta_generator] = boxed_checkbut_with_value(_("Automatically update generator meta tag"), main_v->props.auto_update_meta_generator, vbox2);
@@ -1823,10 +1830,6 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
-	{
-		gchar *autocompmodes[] = {N_("Delayed"),N_("Immediately"), NULL};
-		pd->prefs[autocomp_popup_mode] = boxed_optionmenu_with_value(_("Show the automatic completion pop-up window"), main_v->props.autocomp_popup_mode, vbox2, autocompmodes);
-	}
 	pd->prefs[load_reference] = boxed_checkbut_with_value(_("Load reference information from language file"), main_v->props.load_reference, vbox2);
 	pd->prefs[show_autocomp_reference] = boxed_checkbut_with_value(_("Show reference information in autocompletion pop-up"), main_v->props.show_autocomp_reference, vbox2);
 	pd->prefs[show_tooltip_reference] = boxed_checkbut_with_value(_("Show reference information in tooltip window"), main_v->props.show_tooltip_reference, vbox2);
