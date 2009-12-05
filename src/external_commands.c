@@ -189,6 +189,18 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	externalp_unref(ep);
 }
 
+#ifndef USEBINSH
+static gint count_char(char *string, char mychar) {
+	gint retval = 0;
+	gchar *tmp = string;
+	while (*tmp) {
+		if (*tmp == mychar)
+			retval++;
+	}
+	return retval;
+}
+#endif
+
 static void start_command_backend(Texternalp *ep) {
 #ifdef USEBINSH	
 	gchar *argv[4];
