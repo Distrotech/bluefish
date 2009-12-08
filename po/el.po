@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-20 21:41-0800\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2009-12-08 21:45+0100\n"
 "PO-Revision-Date: 2004-12-09 12:11+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: no team\n"
@@ -16,589 +16,420 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../src/about.c:56
-msgid ""
-"Bluefish is an editor for experienced web designers and programmers. It "
-"supports many programming and markup languages, but focuses on editing "
-"dynamic and interactive websites. Bluefish is an open source development "
-"project, released under the GPL license.\n"
-"\n"
-"For more information, visit the Bluefish Website at http://bluefish."
-"openoffice.nl/\n"
-"\n"
-"This version of bluefish was compiled with the following options:\n"
+#: ../desktop-data/bluefish-unstable.desktop.in.h:1
+msgid "Bluefish Editor (SVN)"
 msgstr ""
 
-#: ../src/about.c:57
-msgid ""
-"Project leader:\n"
-"  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
-"\n"
-"Developers for this release:\n"
-"  Olivier Sessink\n"
-"   <olivier@bluefish.openoffice.nl>\n"
-"  Jim Hayward\n"
-"   <jimhayward@linuxexperience.net>\n"
-"  Daniel Leidert\n"
-"   <daniel.leidert@wgdd.de>\n"
-"  Oskar Świda\n"
-"   <swida@aragorn.pb.bialystok.pl>\n"
-"  Eugene Morenko(More)\n"
-"   <more@irpin.com>\n"
-"  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
-"\n"
-"Developers for previous releases:\n"
-"  Chris Mazuc\n"
-"  Neil Millar\n"
-"  Gero Takke\n"
-"  Bo Forslund\n"
-"  David Arno\n"
-"  Pablo De Napoli\n"
-"  Santiago Capel Torres\n"
-"  Rasmus Toftdahl Olesen\n"
-"   <rto@pohldata.dk>\n"
-"  Roland Steinbach\n"
-"   <roland@netzblick.de>\n"
-"  Christian Tellefsen\n"
-"   <chris@tellefsen.net>\n"
-"  Antti-Juhani Kaijanaho\n"
-"\n"
-"Documentation:\n"
-"  Scott White\n"
-"   <wwsw3@earthlink.net>\n"
-"  Michèle Garoche\n"
-"   <michele.garoche@easyconnect.fr>\n"
-"  Anita Lewis\n"
-"   <ajreiki@highstream.net>\n"
-"  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
-"  Daniel Blair\n"
-"   <joecamel@realcoders.org>\n"
-"  Olivier Sessink\n"
-"   <olivier@bluefish.openoffice.nl>\n"
-"  Denny Reeh\n"
-"\n"
-"Package Maintainers:\n"
-"  Debian:   Daniel Leidert\n"
-"   <daniel.leidert@wgdd.de>\n"
-"  Redhat:   Matthias Haase\n"
-"   <matthias_haase@bennewitz.com>\n"
-"  Mandrake: Todd Lyons\n"
-"   <todd@mrball.net>\n"
-"  Fink: Michèle Garoche\n"
-"   <michele.garoche@easyconnect.fr>\n"
-"\n"
-"If you know of anyone missing from this list, please let us know\n"
-"<bluefish@bluefish.openoffice.nl>\n"
-"\n"
-"Thanks to all who helped making this software available.\n"
+#: ../desktop-data/bluefish-unstable.desktop.in.h:2
+msgid "Web Development Editor (development version)"
 msgstr ""
 
-#: ../src/about.c:120
-msgid ""
-"Current translators:\n"
-"\n"
-"  Brazilian Portuguese: Anderson Rocha\n"
-"   <anderson@maxlinux.com.br>\n"
-"\n"
-"  Bulgarian: Peio Popov\n"
-"   <peio@peio.org>\n"
-"\n"
-"  Chinese: Ting Yang (Dormouse)\n"
-"   <mouselinux@163.com>\n"
-"\n"
-"  Chinese, Traditional: OLS3\n"
-"   <ols3@lxer.idv.tw>\n"
-"\n"
-"  Danish: Rasmus Toftdahl Olesen\n"
-"   <rto@pohldata.dk>\n"
-"\n"
-"  Finnish: Juho Roukala\n"
-"   <j.mr@luukku.com>\n"
-"\n"
-"  French: Michèle Garoche\n"
-"   <michele.garoche@easyconnect.fr>\n"
-"\n"
-"  German: Roland Steinbach\n"
-"   <roland@netzblick.de>\n"
-"\n"
-"  Hungarian: Péter Sáska\n"
-"   <sasek@ccsystem.hu>\n"
-"\n"
-"  Italian: Stefano Canepa\n"
-"   <sc@linux.it>\n"
-"\n"
-"  Japanese: Takeshi Hamasaki\n"
-"   <hma@syd.odn.ne.jp>\n"
-"\n"
-"  Norwegian: Christian Tellefsen\n"
-"   <chris@tellefsen.net>\n"
-"\n"
-"  Polish: Oskar Swida\n"
-"   <swida@aragorn.pb.bialystok.pl>\n"
-"\n"
-"  Portuguese: Lopo Pizarro\n"
-"   <lopopizarro@netcabo.pt>\n"
-"\n"
-"  Russian: Eugene Rupakov\n"
-"   <rupakov@jet.msk.su>\n"
-"\n"
-"  Serbian: Marko Milenović\n"
-"   <raven@sbb.co.yu>\n"
-"\n"
-"  Spanish: Walter Oscar Echarri\n"
-"   <wecharri@arnet.com.ar>\n"
-"\n"
-"  Swedish: David Smeringe\n"
-"   <david.smeringe@telia.com>\n"
-"\n"
-"  Tamil: Murugapandian Barathee\n"
-"   <barathee@yahoo.com>\n"
-"\n"
-"  Turkish: Oğuz Eren\n"
-"   <ogzeren@gmail.com>\n"
-"\n"
-msgstr ""
-
-#: ../src/about.c:163
-msgid "About Bluefish"
-msgstr "Περί Bluefish"
-
-#: ../src/about.c:193
-msgid ""
-"\n"
-"\n"
-"Resulting in the detection of:\n"
-msgstr ""
-
-#: ../src/about.c:226
+#: ../desktop-data/bluefish-unstable.xml.in.h:1
 #, fuzzy
-msgid "Info"
-msgstr "Μη αριθμημένα"
+msgid "Bluefish language definition file"
+msgstr "Ορισμός"
 
-#: ../src/about.c:228
-msgid "Authors"
-msgstr ""
-
-#: ../src/about.c:229
-msgid "Translators"
-msgstr "Μεταφραστές"
-
-#: ../src/authen2.c:172 ../src/authen.c:76
-msgid "Authentication required"
-msgstr ""
-
-#: ../src/authen2.c:178
-msgid "Your HTTP Proxy requires you to log in."
-msgstr ""
-
-#: ../src/authen2.c:185
-msgid "You must log in to access "
-msgstr ""
-
-#: ../src/authen2.c:199
+#: ../desktop-data/bluefish-unstable.xml.in.h:2
 #, fuzzy
-msgid "_Username:"
-msgstr "Όνομα χρήστη:"
+msgid "Bluefish project file"
+msgstr "Σφάλμα του Bluefish"
 
-#: ../src/authen2.c:204
-#, fuzzy
-msgid "_Domain:"
-msgstr "Κάθετη στοίχηση"
-
-#: ../src/authen2.c:207
-#, fuzzy
-msgid "_Pasword:"
-msgstr "Κωδικός:"
-
-#: ../src/authen.c:86
-#, c-format
-msgid "Authentication is required for %s."
-msgstr ""
-
-#: ../src/authen.c:92
-msgid "Username:"
-msgstr "Όνομα χρήστη:"
-
-#: ../src/authen.c:97
-msgid "Password:"
-msgstr "Κωδικός:"
-
-#: ../src/bf_lib.c:182 ../src/bf_lib.c:202
-msgid ""
-"Bluefish has trouble reading the filenames. Try to set the environment "
-"variable G_BROKEN_FILENAMES=1\n"
-msgstr ""
-
-#: ../src/bfspell.c:389
-msgid "Check Spelling"
-msgstr "Έλεγχος Ορθογραφίας"
-
-#: ../src/bfspell.c:393
-#, fuzzy
-msgid "Checking"
-msgstr "Τσεκαρισμένο"
-
-#: ../src/bfspell.c:402
-msgid "_Misspelled word:"
-msgstr ""
-
-#: ../src/bfspell.c:406
-msgid "Change _to:"
-msgstr ""
-
-#: ../src/bfspell.c:409
-#, fuzzy
-msgid "I_gnore"
-msgstr "Μη αριθμημένα"
-
-#: ../src/bfspell.c:410 ../src/snr2.c:1632
-msgid "_Replace"
-msgstr "_Αντικατάσταση"
-
-#: ../src/bfspell.c:423
-#, fuzzy
-msgid "In _document"
-msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
-
-#: ../src/bfspell.c:424
-#, fuzzy
-msgid "I_n selection"
-msgstr "Στην επιλογή"
-
-#: ../src/bfspell.c:433
-msgid "personal dictionary"
-msgstr "προσωπικό λεξικό"
-
-#: ../src/bfspell.c:436
-#, fuzzy
-msgid "session dictionary"
-msgstr "Προσωπικό λεξικό"
-
-#: ../src/bfspell.c:442
-msgid "Dictionary:"
-msgstr "Λεξικό:"
-
-#: ../src/bfspell.c:446
-msgid "_Add"
-msgstr "_Προσθήκη"
-
-#: ../src/bfspell.c:450
-msgid "Language:"
-msgstr "Γλώσσα:"
-
-#: ../src/bfspell.c:454
-#, fuzzy
-msgid "Set defa_ult"
-msgstr "Αριθμός γραμμής: "
-
-#: ../src/bfspell.c:458
-msgid "Filter:"
-msgstr "Φίλτρο:"
-
-#: ../src/bfspell.c:466
-msgid "no filter"
-msgstr "χωρίς φίλτρο"
-
-#: ../src/bfspell.c:468
-msgid "html filter"
-msgstr "φίλτρο html"
-
-#: ../src/bf-textview.c:188
-msgid "Expand all"
-msgstr ""
-
-#: ../src/bf-textview.c:191
+#: ../src/bftextview2.c:974
 #, fuzzy
 msgid "Collapse all"
 msgstr "Κλείσιμο _Όλων"
 
-#: ../src/bluefish.c:102
+#: ../src/bftextview2.c:977
+msgid "Expand all"
+msgstr ""
+
+#: ../src/bftextview2_spell.c:516
+#, fuzzy
+msgid "Spell check language"
+msgstr "Έλεγχος Ορθογραφίας..."
+
+#: ../src/blocksync.c:88
+msgid ""
+"Select the block to sync to other pages. Include the start-of-block and end-"
+"of-block markers in your selection."
+msgstr ""
+
+#: ../src/blocksync.c:93
+msgid "To proceed with the current selection click forward."
+msgstr ""
+
+#: ../src/blocksync.c:122
+msgid ""
+"Below is the block, including start and end marker. Please <b>select the "
+"start marker</b> in the text below."
+msgstr ""
+
+#: ../src/blocksync.c:157
+msgid "Please <b>select the end marker</b> in the text below."
+msgstr ""
+
+#: ../src/blocksync.c:195
 #, c-format
 msgid ""
-"\n"
-"Usage: %s [options] [filenames ...]\n"
+"Will replace the text between <i>%s</i> and <i>%s</i> in all documents "
+"opened in this window.\n"
+"<b>Proceed?</b>"
 msgstr ""
 
-#: ../src/bluefish.c:103
+#: ../src/blocksync.c:226
 msgid ""
-"\n"
-"Currently accepted options are:\n"
+"<span foreground=\"red\" weight=\"bold\">Please select the block of text to "
+"synchronize.</span>"
 msgstr ""
-"\n"
-"Δεκτές επιλογές ως τώρα:\n"
 
-#: ../src/bluefish.c:104
-msgid "-s           skip root check\n"
-msgstr "-s           αγνόηση ελέγχου για root\n"
+#: ../src/blocksync.c:240 ../src/blocksync.c:260
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">This marker exists more than once "
+"in the block.</span>"
+msgstr ""
 
-#: ../src/bluefish.c:105
-msgid "-v           current version\n"
-msgstr "-v          τρέχουσα έκδοση\n"
+#: ../src/blocksync.c:246
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">Select the text that marks the "
+"start of the block.</span>"
+msgstr ""
 
-#: ../src/bluefish.c:106
+#: ../src/blocksync.c:266
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">Select the text that marks the end "
+"of the block.</span>"
+msgstr ""
+
+#: ../src/blocksync.c:297
+msgid "Synchronize text block"
+msgstr ""
+
+#: ../src/bluefish.c:79
 #, fuzzy
-msgid "-n           open new window\n"
-msgstr "-v           τωρινή έκδοση\n"
+msgid "Bluefish Editor"
+msgstr "Προεπισκόπηση του Bluefish:"
 
-#: ../src/bluefish.c:107
-msgid "-p filename  open project\n"
+#: ../src/bluefish.c:79
+msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr ""
 
-#: ../src/bluefish.c:108
-msgid "-h           this help screen\n"
-msgstr "-h           αυτή η βοηθητική οθόνη\n"
-
-#: ../src/bluefish.c:186
+#: ../src/bluefish.c:123
 #, fuzzy
-msgid "parsing highlighting file..."
-msgstr "/Επιλογές/Λίστες/Υπογράμμιση σύνταξης"
-
-#: ../src/bluefish.c:207
-msgid "compiling highlighting patterns..."
-msgstr ""
-
-#: ../src/bluefish.c:220
-msgid "parsing custom menu file..."
-msgstr ""
-
-#: ../src/bluefish.c:232
-msgid "creating main gui..."
-msgstr ""
+msgid "starting up..."
+msgstr "Αποθήκευση αρχείου"
 
 #: ../src/bluefish.c:244
-msgid "showing main gui..."
+msgid "Open in existing window."
 msgstr ""
 
-#: ../src/bookmark.c:433
+#: ../src/bluefish.c:246
+msgid "Open in new window."
+msgstr ""
+
+#: ../src/bluefish.c:248
+msgid "Print version information."
+msgstr ""
+
+#: ../src/bluefish.c:274
+msgid " [FILE(S)]"
+msgstr ""
+
+#: ../src/bluefish.c:285
+#, c-format
+msgid ""
+"Error parsing command line options. %s\n"
+"Please run: %s -?\n"
+msgstr ""
+
+#: ../src/bookmark.c:465
 msgid "_Name:"
 msgstr "_Όνομα:"
 
-#: ../src/bookmark.c:438
+#: ../src/bookmark.c:470
 msgid "_Description:"
 msgstr "_Περιγραφή:"
 
-#: ../src/bookmark.c:440
+#: ../src/bookmark.c:472
 msgid "Temporary"
 msgstr "Προσωρινό"
 
-#: ../src/bookmark.c:567
+#: ../src/bookmark.c:605
 #, fuzzy, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "Είσαι σίγουρος για την αντικατάσταση;"
 
-#: ../src/bookmark.c:571
+#: ../src/bookmark.c:609
 msgid "Delete bookmarks?"
 msgstr "Διαγραφή σελιδοδεικτών;"
 
-#: ../src/bookmark.c:596 ../src/fref2.c:4387
+#: ../src/bookmark.c:639
 #, fuzzy, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Είσαι σίγουρος για την αντικατάσταση;"
 
-#: ../src/bookmark.c:600
+#: ../src/bookmark.c:643
 msgid "Delete permanent bookmark."
 msgstr ""
 
-#: ../src/bookmark.c:621
+#: ../src/bookmark.c:664
 msgid "Edit bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bookmark.c:678
+#: ../src/bookmark.c:721
 msgid "/Goto"
 msgstr ""
 
-#: ../src/bookmark.c:679
+#: ../src/bookmark.c:722
 #, fuzzy
 msgid "/Edit"
 msgstr "/_Επεξεργασία"
 
-#: ../src/bookmark.c:680
+#: ../src/bookmark.c:723
 #, fuzzy
 msgid "/Delete"
 msgstr " Σβήσιμο "
 
-#: ../src/bookmark.c:682
+#: ../src/bookmark.c:725
 #, fuzzy
 msgid "/Delete All in document"
 msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
 
-#: ../src/bookmark.c:683
+#: ../src/bookmark.c:726
 #, fuzzy
 msgid "/Delete All"
 msgstr "Διαγραφή όλων"
 
-#: ../src/bookmark.c:685
+#: ../src/bookmark.c:728
 #, fuzzy
 msgid "/Permanent by default"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/bookmark.c:687
+#: ../src/bookmark.c:730
 #, fuzzy
 msgid "/Show file"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/bookmark.c:688
+#: ../src/bookmark.c:731
 #, fuzzy
 msgid "/Show file/By name"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/bookmark.c:689
+#: ../src/bookmark.c:732
 #, fuzzy
 msgid "/Show file/By full path"
 msgstr "Θέση μενού"
 
-#: ../src/bookmark.c:690
+#: ../src/bookmark.c:733
 #, fuzzy
 msgid "/Show file/By full uri"
 msgstr "Θέση μενού"
 
-#: ../src/bookmark.c:691
+#: ../src/bookmark.c:734
 #, fuzzy
 msgid "/Show bookmark"
 msgstr "Μετάβαση σε σελιδοδείκτη"
 
-#: ../src/bookmark.c:692
+#: ../src/bookmark.c:735
 msgid "/Show bookmark/Name & Content"
 msgstr ""
 
-#: ../src/bookmark.c:693
+#: ../src/bookmark.c:736
 msgid "/Show bookmark/Content"
 msgstr ""
 
-#: ../src/bookmark.c:694
+#: ../src/bookmark.c:737
 #, fuzzy
 msgid "/Show bookmark/Name"
 msgstr "Μετάβαση σε σελιδοδείκτη"
 
-#: ../src/bookmark.c:1294 ../src/bookmark.c:1353
+#: ../src/bookmark.c:897
+msgid "/Both Name & Content"
+msgstr ""
+
+#: ../src/bookmark.c:898
+#, fuzzy
+msgid "/Content"
+msgstr "Περιε_χόμενο:"
+
+#: ../src/bookmark.c:899
+#, fuzzy
+msgid "/Name"
+msgstr "Όνομα"
+
+#: ../src/bookmark.c:962
+#, fuzzy
+msgid "First bookmark"
+msgstr "Επεξεργασία σελιδοσείκτη"
+
+#: ../src/bookmark.c:966
+#, fuzzy
+msgid "Previous bookmark"
+msgstr "Επεξεργασία σελιδοσείκτη"
+
+#: ../src/bookmark.c:970
+#, fuzzy
+msgid "Next bookmark"
+msgstr "Διαγραφή σελιδοδείκτη"
+
+#: ../src/bookmark.c:974
+#, fuzzy
+msgid "Last bookmark"
+msgstr "Επεξεργασία σελιδοσείκτη"
+
+#: ../src/bookmark.c:1565 ../src/bookmark.c:1613
 #, fuzzy
 msgid "Error adding bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bookmark.c:1295 ../src/bookmark.c:1354
+#: ../src/bookmark.c:1566 ../src/bookmark.c:1614
 #, fuzzy
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Κατάληξη αρχείου ασφαλείας"
 
-#: ../src/bookmark.c:1314
+#: ../src/bookmark.c:1581
 #, fuzzy
 msgid "Can't add bookmark"
 msgstr "Προσθήκη σελιδοδείκτη"
 
-#: ../src/bookmark.c:1315
+#: ../src/bookmark.c:1582
 msgid "You already have a bookmark here!"
 msgstr ""
 
-#: ../src/bookmark.c:1390
+#: ../src/bookmark.c:1650
 msgid "Delete all bookmarks."
 msgstr "Διαγραφή όλων των σελιδοδεικτών."
 
-#: ../src/bookmark.c:1430
-#, fuzzy
-msgid "File size changed in file \n"
-msgstr "Σφάλμα του Bluefish"
-
-#: ../src/bookmark.c:1434
-msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
-msgstr ""
-
-#: ../src/document.c:314
-#, fuzzy
-msgid "/Document/Highlight Syntax"
-msgstr "/Προβολή/Υπογράμμιση σύνταξης"
-
-#: ../src/document.c:451
+#: ../src/document.c:363
 msgid "Name: "
 msgstr "Όνομα: "
 
-#: ../src/document.c:452
+#: ../src/document.c:366
 #, fuzzy
 msgid ""
 "\n"
-"Type: "
-msgstr "Τύπος"
+"Language mode: "
+msgstr "Γλώσσα:"
 
-#: ../src/document.c:453
+#: ../src/document.c:370
 msgid ""
 "\n"
 "Encoding: "
 msgstr ""
 
-#: ../src/document.c:457
+#: ../src/document.c:379
+#, fuzzy
+msgid ""
+"\n"
+"Mime type: "
+msgstr "Τύποι αρχείων"
+
+#: ../src/document.c:385
+#, c-format
+msgid ""
+"\n"
+"Permissions: %s\n"
+"Uid: %u Gid: %u"
+msgstr ""
+
+#: ../src/document.c:390
 msgid ""
 "\n"
 "Size (on disk): "
 msgstr ""
 
-#: ../src/document.c:457
-msgid " bytes"
-msgstr " bytes"
-
-#: ../src/document.c:463
-msgid ""
-"\n"
-"Permissions: "
-msgstr ""
-
-#: ../src/document.c:470
+#: ../src/document.c:398
 msgid ""
 "\n"
 "Last modified: "
 msgstr ""
 
-#: ../src/document.c:527
+#: ../src/document.c:429
 #, fuzzy, c-format
 msgid "Untitled %d"
 msgstr "Άτιτλο"
 
-#: ../src/document.c:833
+#: ../src/document.c:603
 #, c-format
-msgid ""
-"Document %s is already open in another Bluefish window. Move it to this "
-"window?"
+msgid "Changed tab width to %d"
 msgstr ""
 
-#: ../src/document.c:1194
+#: ../src/document.c:766
+#, c-format
+msgid "Document %s is already open in another Bluefish window."
+msgstr ""
+
+#: ../src/document.c:768
+msgid "Move to this window"
+msgstr ""
+
+#: ../src/document.c:768
+msgid "Open readonly"
+msgstr ""
+
+#: ../src/document.c:768
+#, fuzzy
+msgid "Do not open"
+msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
+
+#: ../src/document.c:1052
+#, c-format
+msgid " Ln: %d, Col: %d, Char: %d"
+msgstr ""
+
+#: ../src/document.c:1054
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr ""
 
-#: ../src/document.c:1227 ../src/document.c:1228
-#, c-format
-msgid "  %s, %s"
-msgstr "  %s, %s"
+#: ../src/document.c:1075
+msgid " OVR"
+msgstr ""
 
-#: ../src/document.c:1630
+#: ../src/document.c:1075
+msgid " INS"
+msgstr ""
+
+#: ../src/document.c:1077
+msgid " RO"
+msgstr ""
+
+#: ../src/document.c:1094
+#, fuzzy
+msgid "Unknown"
+msgstr "Άγνωστο εικονίδιο"
+
+#: ../src/document.c:1471
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 
-#: ../src/document.c:2162 ../src/snr2.c:1496
+#: ../src/document.c:1673 ../src/snr2.c:1674
 msgid "Replace"
 msgstr "Αντικατάσταση"
 
-#: ../src/document.c:2167 ../src/fref2.c:4737 ../src/snr2.c:1493
+#: ../src/document.c:1678 ../src/snr2.c:1671
 msgid "Find"
 msgstr "Εύρεση"
 
-#: ../src/document.c:2175
+#: ../src/document.c:1686
 msgid "Delete bookmark"
 msgstr "Διαγραφή σελιδοδείκτη"
 
-#: ../src/document.c:2179
+#: ../src/document.c:1690
 msgid "Add bookmark"
 msgstr "Προσθήκη σελιδοδείκτη"
 
-#: ../src/document.c:2327 ../src/file_dialogs.c:337 ../src/file_dialogs.c:377
+#. if (main_v->props.backup_abort_action == 2)
+#. we have to ask the user
+#. we have to ask the user what to do
+#: ../src/document.c:1807 ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
 msgid "_Abort save"
 msgstr ""
 
-#: ../src/document.c:2327
+#: ../src/document.c:1807
 msgid "_Continue save in UTF-8"
 msgstr ""
 
-#: ../src/document.c:2338
+#: ../src/document.c:1818
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -607,47 +438,72 @@ msgid ""
 "Continue saving in UTF-8 encoding?"
 msgstr ""
 
-#: ../src/document.c:2342
+#: ../src/document.c:1822
 msgid "File encoding conversion failure"
 msgstr ""
 
-#: ../src/document.c:2574
+#: ../src/document.c:2068
 msgid "Previously: "
 msgstr ""
 
-#: ../src/document.c:3416
+#: ../src/document.c:2477 ../src/file_dialogs.c:778
+#, c-format
+msgid ""
+"Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
+"to 2.18.0 or newer."
+msgstr ""
+
+#. || (!file_exists_and_readable(doc->uri))
+#: ../src/document.c:2611
 msgid "Unable to open file"
 msgstr "Δεν είναι δυνατή η προσπέλαση του αρχείου"
 
-#: ../src/document.c:3438
+#: ../src/document.c:2621
+#, c-format
+msgid ""
+"If you revert \"%s\" to your last saved copy, your current changes will be "
+"permanently lost."
+msgstr ""
+
+#: ../src/document.c:2625
+msgid "Revert changes to last saved copy?"
+msgstr ""
+
+#: ../src/document.c:2661
 #, fuzzy
 msgid "_Unset file name"
 msgstr "όνομα αρχείου"
 
-#: ../src/document.c:3438
+#: ../src/document.c:2661
 #, fuzzy
 msgid "_Save"
 msgstr "Αποθήκευση"
 
-#: ../src/document.c:3440
+#. file is deleted on disk, what do we do now ?
+#: ../src/document.c:2663
 #, fuzzy, c-format
 msgid "File name: %s"
 msgstr "Όνομα αρχείου"
 
-#: ../src/document.c:3444
+#: ../src/document.c:2667
 msgid "File disappeared from disk\n"
 msgstr ""
 
-#: ../src/document.c:3461
+#: ../src/document.c:2686
 #, fuzzy
 msgid "_Ignore"
 msgstr "Μη αριθμημένα"
 
-#: ../src/document.c:3461
+#: ../src/document.c:2686
 msgid "_Reload"
 msgstr "_Επαναφόρτωση"
 
-#: ../src/document.c:3464
+#: ../src/document.c:2686
+#, fuzzy
+msgid "Check and reload all documents"
+msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
+
+#: ../src/document.c:2694
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -656,72 +512,142 @@ msgid ""
 "Old modification time is: %s"
 msgstr ""
 
-#: ../src/document.c:3468
+#: ../src/document.c:2698
 msgid "File has been modified by another process\n"
 msgstr ""
 
-#: ../src/document.c:3525
+#: ../src/document.c:2761
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:3525
+#: ../src/document.c:2761
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:3525
+#: ../src/document.c:2761
 #, fuzzy
 msgid "_Close"
 msgstr "Κλείσιμο"
 
-#: ../src/document.c:3525
+#: ../src/document.c:2761
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/document.c:3529
+#: ../src/document.c:2765
 #, fuzzy
 msgid "File "
 msgstr "/_Αρχεία"
 
-#: ../src/document.c:3529
+#: ../src/document.c:2765
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:3533
+#: ../src/document.c:2769
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:3656
+#: ../src/document.c:2889
 #, fuzzy
 msgid "Select file to insert"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/document.c:3664
+#: ../src/document.c:2897
 #, fuzzy
 msgid "No file to insert"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/document.c:3828
-#, c-format
-msgid "Statistics: %d lines, %d words, %d characters"
-msgstr "Στατιστικά: %d γραμμές, %d λέξεις, %d χαρακτήρες"
+#: ../src/document.c:3038
+#, fuzzy, c-format
+msgid "Statistics: "
+msgstr "Εύρεση"
 
-#: ../src/filebrowser2.c:990
+#: ../src/document.c:3039
+#, fuzzy, c-format
+msgid "%d line"
+msgid_plural "%d lines"
+msgstr[0] "Πήγαινε στη γραμμή"
+msgstr[1] "Πήγαινε στη γραμμή"
+
+#: ../src/document.c:3040
+#, fuzzy, c-format
+msgid "%d word"
+msgid_plural "%d words"
+msgstr[0] "%d από %d"
+msgstr[1] "%d από %d"
+
+#: ../src/document.c:3041
+#, fuzzy, c-format
+msgid "%d character"
+msgid_plural "%d characters"
+msgstr[0] "Προεπιλεγμένο σετ χαρακτήρων"
+msgstr[1] "Προεπιλεγμένο σετ χαρακτήρων"
+
+#: ../src/encodings_dialog.c:293
+msgid "_Available encodings:"
+msgstr ""
+
+#: ../src/encodings_dialog.c:339 ../src/encodings_dialog.c:395
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../src/encodings_dialog.c:345 ../src/encodings_dialog.c:400
+#: ../src/preferences.c:1669
+msgid "Encoding"
+msgstr "Κωδικοποίηση"
+
+#: ../src/encodings_dialog.c:372
+msgid "Encodings in _menu:"
+msgstr ""
+
+#: ../src/encodings_dialog.c:444
+msgid "Add or remove document encodings"
+msgstr ""
+
+#: ../src/filebrowser2.c:238
+msgid "Set documentroot and webroot"
+msgstr ""
+
+#: ../src/filebrowser2.c:247
+msgid ""
+"The <i>documentroot</i> is the place where Bluefish finds the file,\n"
+"the <i>webroot</i> is the location where those same files can be viewed on "
+"the webserver"
+msgstr ""
+
+#: ../src/filebrowser2.c:254
+#, fuzzy
+msgid "Documentroot"
+msgstr "Σχόλιο"
+
+#: ../src/filebrowser2.c:266
+msgid "Webroot"
+msgstr ""
+
+#: ../src/filebrowser2.c:1461
 #, fuzzy
 msgid "Could not rename\n"
 msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
 
-#: ../src/filebrowser2.c:1028
+#: ../src/filebrowser2.c:1533
 #, fuzzy
 msgid "New directory"
 msgstr "Προσωρινός κατάλογος:"
 
-#: ../src/filebrowser2.c:1032
+#: ../src/filebrowser2.c:1555 ../src/filebrowser2.c:1557
 #, fuzzy
 msgid "New file"
 msgstr "Νέο στυλ"
 
-#: ../src/filebrowser2.c:1117
+#. Do we really need to display the full path here?
+#. *
+#. * Having the filename in the both the primary and secondary text seems to be redundant.
+#. * Set back to just the primary text for now.
+#. *
+#. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
+#. * and then this might give you more indication if this is indeed the file you wanted to delete
+#.
+#: ../src/filebrowser2.c:1667
 #, fuzzy, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -730,1700 +656,1269 @@ msgstr ""
 "Είστε σίγουρος πως θέλετε να κλείσετε το \n"
 "%s ;"
 
-#: ../src/filebrowser2.c:1118
+#: ../src/filebrowser2.c:1668
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr ""
 
-#: ../src/filebrowser2.c:1229
+#: ../src/filebrowser2.c:1813
 #, fuzzy
 msgid "/_Open"
 msgstr "/Ε_πιλογές"
 
-#: ../src/filebrowser2.c:1230
+#: ../src/filebrowser2.c:1814
 #, fuzzy
 msgid "/Open _Advanced..."
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/filebrowser2.c:1231
+#: ../src/filebrowser2.c:1815
 msgid "/Rena_me"
 msgstr ""
 
-#: ../src/filebrowser2.c:1232
+#: ../src/filebrowser2.c:1816
 #, fuzzy
 msgid "/_Delete"
 msgstr " Σβήσιμο "
 
-#: ../src/filebrowser2.c:1234
+#: ../src/filebrowser2.c:1818
 #, fuzzy
 msgid "/New _File"
 msgstr "Νέο στυλ"
 
-#: ../src/filebrowser2.c:1235
+#: ../src/filebrowser2.c:1819
 #, fuzzy
 msgid "/_New Directory"
 msgstr "Προσωρινός κατάλογος:"
 
-#: ../src/filebrowser2.c:1237
+#: ../src/filebrowser2.c:1821
 #, fuzzy
 msgid "/_Refresh"
 msgstr "Ανανέωση εγγράφου"
 
-#: ../src/filebrowser2.c:1238
-msgid "/Show Full _Tree"
-msgstr ""
-
-#: ../src/filebrowser2.c:1239
-#, fuzzy
-msgid "/_Set as basedir"
-msgstr "Επιλεγμένο"
-
-#: ../src/filebrowser2.c:1241
+#: ../src/filebrowser2.c:1822
 #, fuzzy
 msgid "/Follow active document"
 msgstr "Σχόλιο"
 
-#: ../src/filebrowser2.c:1242
+#: ../src/filebrowser2.c:1823
+#, fuzzy
+msgid "/_Set as basedir"
+msgstr "Επιλεγμένο"
+
+#: ../src/filebrowser2.c:1824
+#, fuzzy
+msgid "/Set as documentroot"
+msgstr "Σχόλιο"
+
+#: ../src/filebrowser2.c:1826
+msgid "/Show Full _Tree"
+msgstr ""
+
+#: ../src/filebrowser2.c:1827
 #, fuzzy
 msgid "/Show hidden files"
 msgstr "Εμφάνιση κρυφών αρχείων"
 
-#: ../src/filebrowser2.c:1243
+#: ../src/filebrowser2.c:1828
 #, fuzzy
 msgid "/Show backup files"
 msgstr "Εμφάνιση αντιγράφων ασφαλείας"
 
-#: ../src/filebrowser2.c:1294
+#: ../src/filebrowser2.c:1829
+#, fuzzy
+msgid "/View mode"
+msgstr "/_Αρχείο"
+
+#: ../src/filebrowser2.c:1830
+msgid "/View mode/Tree"
+msgstr ""
+
+#: ../src/filebrowser2.c:1831
+msgid "/View mode/Dual"
+msgstr ""
+
+#: ../src/filebrowser2.c:1832
+msgid "/View mode/Flat"
+msgstr ""
+
+#. Add filter submenu
+#: ../src/filebrowser2.c:1910
 msgid "Filter"
 msgstr "Φίλτρο"
 
-#: ../src/filebrowser2.c:1949 ../src/gtk_easy.c:1343
-msgid "All files"
-msgstr "Όλα τα αρχεία"
+#: ../src/filebrowser2.c:1936 ../src/filefilter.c:479
+#, fuzzy
+msgid "Edit filter"
+msgstr "φίλτρο html"
 
-#: ../src/file.c:975
+#: ../src/filebrowser2.c:1940
+#, fuzzy
+msgid "Delete filter"
+msgstr "Επιλογή αρχείου"
+
+#: ../src/filebrowser2.c:1945 ../src/filefilter.c:474
+#, fuzzy
+msgid "New filter"
+msgstr "Νέο στυλ"
+
+#: ../src/file.c:751
 #, c-format
-msgid "Advanced open: finished searching files, %d documents open"
+msgid "Still loading %d file, finished %s"
+msgid_plural "Still loading %d files, finished %s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/file.c:756
+#, c-format
+msgid "All files loaded, finished %s"
 msgstr ""
 
-#: ../src/file.c:1218
+#: ../src/file.c:945
+#, fuzzy, c-format
+msgid "%d document open."
+msgid_plural "%d documents open."
+msgstr[0] "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
+msgstr[1] "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
+
+#: ../src/file.c:947
+msgid "Advanced open: Finished searching files. "
+msgstr ""
+
+#: ../src/file.c:1243
 msgid "_Skip"
 msgstr ""
 
-#: ../src/file.c:1218 ../src/file_dialogs.c:501 ../src/file_dialogs.c:524
-#: ../src/project.c:225
+#: ../src/file.c:1243 ../src/file_dialogs.c:610 ../src/file_dialogs.c:631
+#: ../src/project.c:242
 msgid "_Overwrite"
 msgstr "_Αντικατάσταση"
 
-#: ../src/file.c:1223
+#: ../src/file.c:1247
 #, c-format
-msgid "%s already exists, overwrite?"
+msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr ""
 
-#: ../src/file.c:1227
+#: ../src/file.c:1251
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "_Αντικατάσταση"
 
-#: ../src/file_dialogs.c:85
+#: ../src/file_autosave.c:225
+msgid "Autosave in progress..."
+msgstr ""
+
+#: ../src/file_dialogs.c:109
 #, fuzzy
 msgid "Select basedir"
 msgstr "Επιλεγμένο"
 
-#: ../src/file_dialogs.c:122
+#: ../src/file_dialogs.c:153
 msgid "Advanced open file selector"
 msgstr ""
 
-#: ../src/file_dialogs.c:131
-msgid "<b>General</b>"
-msgstr "<b>Γενικά</b>"
+#: ../src/file_dialogs.c:166
+#, fuzzy
+msgid "<b>Files</b>"
+msgstr "Γνωρίσματα"
 
-#: ../src/file_dialogs.c:137
+#: ../src/file_dialogs.c:175
 #, fuzzy
 msgid "Base _Dir:"
 msgstr "Βασικός υποκατάλογος"
 
-#: ../src/file_dialogs.c:139 ../src/gtk_easy.c:1227
-msgid "_Browse..."
-msgstr "_Περιήγηση..."
-
-#: ../src/file_dialogs.c:148
+#: ../src/file_dialogs.c:190
 #, fuzzy
 msgid "_Pattern:"
 msgstr "Επικόλληση"
 
-#: ../src/file_dialogs.c:153
+#: ../src/file_dialogs.c:198
+msgid "_Match on file name only:"
+msgstr ""
+
+#: ../src/file_dialogs.c:202
 msgid "_Recursive:"
 msgstr ""
 
-#: ../src/file_dialogs.c:156
+#: ../src/file_dialogs.c:206
+msgid "Ma_x recursion:"
+msgstr ""
+
+#: ../src/file_dialogs.c:215
 msgid "<b>Contains</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/file_dialogs.c:160
+#: ../src/file_dialogs.c:221
 #, fuzzy
 msgid "Pa_ttern:"
 msgstr "Επικόλληση"
 
-#: ../src/file_dialogs.c:164
+#: ../src/file_dialogs.c:225
 msgid "Is rege_x:"
 msgstr ""
 
-#: ../src/file_dialogs.c:224
+#: ../src/file_dialogs.c:311
 msgid "Select files"
 msgstr "Επιλογή αρχείων"
 
-#: ../src/file_dialogs.c:272
+#: ../src/file_dialogs.c:365
 msgid "Open URL"
 msgstr "Άνοιγμα URL"
 
-#: ../src/file_dialogs.c:276
+#: ../src/file_dialogs.c:373 ../src/file_dialogs.c:1199
+#, c-format
+msgid ""
+"<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
+"ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 "
+"if you rely on remote file support.</b>"
+msgstr ""
+
+#: ../src/file_dialogs.c:380
 msgid "<b>Open URL</b>"
 msgstr "<b>Άνοιγμα URL</b>"
 
-#: ../src/file_dialogs.c:337 ../src/file_dialogs.c:377
+#: ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
 msgid "_Continue save"
 msgstr ""
 
-#: ../src/file_dialogs.c:339
+#: ../src/file_dialogs.c:452
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr ""
 
-#: ../src/file_dialogs.c:343
+#: ../src/file_dialogs.c:456
 #, fuzzy
 msgid "File backup failure"
 msgstr "Δε βρέθηκε το όνομα συστήματος"
 
-#: ../src/file_dialogs.c:361
+#: ../src/file_dialogs.c:471
 #, fuzzy
-msgid ""
-"Could not save file:\n"
-"\""
+msgid "Could not save file "
 msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
 
-#: ../src/file_dialogs.c:365
-#, fuzzy
-msgid "File save failed!\n"
-msgstr "Σφάλμα του Bluefish"
-
-#: ../src/file_dialogs.c:382
+#: ../src/file_dialogs.c:490
 #, c-format
 msgid "File %s has been modified on disk, overwrite?"
 msgstr ""
 
-#: ../src/file_dialogs.c:384
+#: ../src/file_dialogs.c:492
 #, c-format
 msgid "Failed to check if %s has been modified on disk"
 msgstr ""
 
-#: ../src/file_dialogs.c:477
+#: ../src/file_dialogs.c:583
 #, fuzzy, c-format
 msgid "Move/rename %s to"
 msgstr "Σχόλιο"
 
-#: ../src/file_dialogs.c:477
+#: ../src/file_dialogs.c:583
 #, fuzzy, c-format
 msgid "Save %s as"
 msgstr "Αποθήκευση %s ως"
 
-#: ../src/file_dialogs.c:501 ../src/file_dialogs.c:524
-#: ../src/file_dialogs.c:788 ../src/project.c:225
+#: ../src/file_dialogs.c:610 ../src/file_dialogs.c:631
+#: ../src/file_dialogs.c:892 ../src/project.c:242
 msgid "_Cancel"
 msgstr "_Ακύρωση"
 
-#: ../src/file_dialogs.c:502
+#: ../src/file_dialogs.c:611
 #, c-format
 msgid "File %s exists and is open, overwrite?"
 msgstr ""
 
-#: ../src/file_dialogs.c:507
+#: ../src/file_dialogs.c:614
 msgid "The file you have selected is being edited in Bluefish."
 msgstr ""
 
-#: ../src/file_dialogs.c:525 ../src/project.c:226
+#: ../src/file_dialogs.c:632 ../src/project.c:244
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr ""
 
-#: ../src/file_dialogs.c:530 ../src/project.c:231
+#: ../src/file_dialogs.c:635 ../src/project.c:249
 #, fuzzy
 msgid "Do you want to replace the existing file?"
 msgstr "Είσαι σίγουρος για την αντικατάσταση;"
 
-#: ../src/file_dialogs.c:588
+#: ../src/file_dialogs.c:726
 #, fuzzy
 msgid ""
 "File:\n"
 "\""
 msgstr "Φίλτρο:"
 
-#: ../src/file_dialogs.c:592
+#: ../src/file_dialogs.c:727
+msgid "\" save is in progress"
+msgstr ""
+
+#: ../src/file_dialogs.c:729
 msgid "Save in progress!"
 msgstr ""
 
-#: ../src/file_dialogs.c:734 ../src/project.c:392
+#: ../src/file_dialogs.c:880
 msgid "Close _Without Saving"
 msgstr ""
 
-#: ../src/file_dialogs.c:737
+#: ../src/file_dialogs.c:883
 #, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr ""
 
-#: ../src/file_dialogs.c:742 ../src/file_dialogs.c:793 ../src/project.c:404
+#: ../src/file_dialogs.c:886 ../src/file_dialogs.c:896
 msgid "If you don't save your changes they will be lost."
 msgstr ""
 
-#: ../src/file_dialogs.c:788
+#: ../src/file_dialogs.c:892
 #, fuzzy
 msgid "Choose per _File"
 msgstr "Επιλογή ανά αρχείο"
 
-#: ../src/file_dialogs.c:788
+#: ../src/file_dialogs.c:892
 msgid "Close _All"
 msgstr "Κλείσιμο _Όλων"
 
-#: ../src/file_dialogs.c:788
+#: ../src/file_dialogs.c:892
 msgid "_Save All"
 msgstr "Απο_θήκευση Όλων"
 
-#: ../src/file_dialogs.c:792
-msgid "Multiple open files have been changed."
+#: ../src/file_dialogs.c:895
+msgid "One or more open files have been changed."
 msgstr ""
 
-#: ../src/fref2.c:788
-#, fuzzy, c-format
-msgid "Cannot load reference file %s\n"
-msgstr "Προεπισκόπηση του Bluefish:"
-
-#: ../src/fref2.c:793
-#, fuzzy, c-format
-msgid ""
-"Bad root element in reference file %s\n"
-"Should be <ref> or <r> and found %s"
-msgstr "Προεπισκόπηση του Bluefish:"
-
-#: ../src/fref2.c:870
-msgid "Load error"
-msgstr ""
-
-#: ../src/fref2.c:871
-msgid "Cannot load reference file, perhaps it is not well-formed."
-msgstr ""
-
-#: ../src/fref2.c:884
-#, fuzzy
-msgid "Bad root element in reference file"
-msgstr "Προεπισκόπηση του Bluefish:"
-
-#: ../src/fref2.c:885
-msgid ""
-" \n"
-"Should be <ref> or <r> "
-msgstr ""
-
-#: ../src/fref2.c:910
-#, fuzzy
-msgid "Bad reference"
-msgstr "Επεξεργασία προτιμήσεων"
-
-#: ../src/fref2.c:911
-msgid ""
-"This is probably an old reference file. \n"
-"Please update it to the new format."
-msgstr ""
-
-#: ../src/fref2.c:924
-#, fuzzy
-msgid "Loading reference"
-msgstr "Επεξεργασία προτιμήσεων"
-
-#: ../src/fref2.c:1023
-#, fuzzy
-msgid "Unloading reference"
-msgstr "/Επιλογές/Προτιμήσεις"
-
-#: ../src/fref2.c:1024
-msgid " Freeing reference memory "
-msgstr ""
-
-#: ../src/fref2.c:1544 ../src/fref2.c:3690 ../src/fref2.c:3698
-#, fuzzy
-msgid "Identifier"
-msgstr "Κέντρο"
-
-#: ../src/fref2.c:1564 ../src/fref2.c:1714
-#, fuzzy
-msgid "Kind"
-msgstr "Εύρεση"
-
-#: ../src/fref2.c:1570 ../src/fref2.c:1705 ../src/fref2.c:3683
-#: ../src/preferences.c:2094 ../src/preferences.c:2367
-msgid "Name"
-msgstr "Όνομα"
-
-#: ../src/fref2.c:1581
-#, fuzzy
-msgid "Type"
-msgstr "_Τύπος:"
-
-#: ../src/fref2.c:1592
-#, fuzzy
-msgid "Default value"
-msgstr "Επιλεγμένο"
-
-#: ../src/fref2.c:1603
-#, fuzzy
-msgid "Input type"
-msgstr "Μη αριθμημένα"
-
-#: ../src/fref2.c:1621
-msgid "Required"
-msgstr ""
-
-#: ../src/fref2.c:1625 ../src/fref2.c:1752 ../src/fref2.c:3537
-#: ../src/fref2.c:3683 ../src/fref2.c:4652
-msgid "Description"
-msgstr "Περιγραφή"
-
-#: ../src/fref2.c:1644
-#, fuzzy
-msgid "Values"
-msgstr "Τιμή"
-
-#: ../src/fref2.c:1674
-#, fuzzy
-msgid "Insert syntax"
-msgstr "Εισαγωγή εικόνας"
-
-#: ../src/fref2.c:1675
-msgid ""
-"All elements:\n"
-"%0,%1,... - value of parameter number 0,1,...%* - values of all parameters\n"
-"Tag element:\n"
-"%_ - only non-empty attributes\n"
-"%! - only required attributes\n"
-"%~ - only non-empty OR required attributes."
-msgstr ""
-
-#: ../src/fref2.c:1732
-#, fuzzy
-msgid "Insert text"
-msgstr "Εισαγωγή Ώρας"
-
-#: ../src/fref2.c:1737
-msgid " ? "
-msgstr ""
-
-#: ../src/fref2.c:1739
-msgid "Help"
-msgstr ""
-
-#: ../src/fref2.c:1769
-#, fuzzy
-msgid "Properties"
-msgstr "Ιδιότητα"
-
-#: ../src/fref2.c:1800
-#, fuzzy
-msgid "Add property"
-msgstr "Ιδιότητα"
-
-#: ../src/fref2.c:1804
-#, fuzzy
-msgid "Add ref definition"
-msgstr "Όρος προς ερμηνεία"
-
-#: ../src/fref2.c:1808
-msgid "Delete"
-msgstr "Διαγραφή"
-
-#: ../src/fref2.c:1997
-msgid "TAG: "
-msgstr ""
-
-#: ../src/fref2.c:2003
-msgid "PARENT TAGS: "
-msgstr ""
-
-#: ../src/fref2.c:2008
-msgid "FUNCTION: "
-msgstr ""
-
-#: ../src/fref2.c:2014
-msgid "RETURNS: "
-msgstr ""
-
-#: ../src/fref2.c:2019 ../src/fref2.c:2030 ../src/fref2.c:2041
-msgid "DEPENDENCIES: "
-msgstr ""
-
-#: ../src/fref2.c:2024
-msgid "PROPERTY: "
-msgstr ""
-
-#: ../src/fref2.c:2035
-msgid "SELECTOR: "
-msgstr ""
-
-#: ../src/fref2.c:2046
-msgid "VAR: "
-msgstr ""
-
-#: ../src/fref2.c:2052
-msgid "SNIPPET: "
-msgstr ""
-
-#: ../src/fref2.c:2064 ../src/fref2.c:2103
-msgid "PARAMS:\n"
-msgstr ""
-
-#: ../src/fref2.c:2076
-msgid "ATTRIBUTES:\n"
-msgstr ""
-
-#: ../src/fref2.c:2124
-msgid ""
-"\n"
-"NOTES:\n"
-msgstr ""
-
-#: ../src/fref2.c:2147
-msgid ""
-"\n"
-"EXAMPLES:\n"
-msgstr ""
-
-#: ../src/fref2.c:2164
-msgid ""
-"SEE ALSO:\n"
-" "
-msgstr ""
-
-#: ../src/fref2.c:2694
-msgid "Choose colour"
-msgstr ""
-
-#: ../src/fref2.c:3487 ../src/fref2.c:3563 ../src/fref2.c:3582
-#: ../src/fref2.c:3615 ../src/fref2.c:3636 ../src/fref2.c:3649
-#: ../src/fref2.c:3796 ../src/fref2.c:3830 ../src/fref2.c:4191
-#: ../src/fref2.c:4353 ../src/fref2.c:4405 ../src/fref2.c:4426
-msgid "Error"
-msgstr "Σφάλμα"
-
-#: ../src/fref2.c:3488
-msgid ""
-"Perhaps you didn't load a library, or you did not select a library to search "
-"in."
-msgstr ""
-
-#: ../src/fref2.c:3496
+#: ../src/file_dialogs.c:1142
 #, c-format
-msgid "Element %s not found"
+msgid "<span color=\"red\">%d failure</span>"
+msgid_plural "<span color=\"red\">%d failures</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/file_dialogs.c:1150
+msgid "incomplete finished"
 msgstr ""
 
-#: ../src/fref2.c:3500
-#, fuzzy
-msgid "Element search"
-msgstr "Ανανέωση εγγράφου"
+#: ../src/file_dialogs.c:1152
+msgid "completed"
+msgstr ""
 
-#: ../src/fref2.c:3537 ../src/fref2.c:4695
+#: ../src/file_dialogs.c:1193
+msgid "Upload / Download"
+msgstr ""
+
+#: ../src/file_dialogs.c:1194
 #, fuzzy
-msgid "New library"
+msgid "Upload"
+msgstr "_Επαναφόρτωση"
+
+#: ../src/file_dialogs.c:1194
+msgid "Download"
+msgstr ""
+
+#: ../src/file_dialogs.c:1208
+#, fuzzy
+msgid "Local directory"
 msgstr "Προσωρινός κατάλογος:"
 
-#: ../src/fref2.c:3537
+#: ../src/file_dialogs.c:1215
 #, fuzzy
-msgid "Library name"
-msgstr "Όνομα καταλόγου"
+msgid "Remote directory"
+msgstr "Προσωρινός κατάλογος:"
 
-#: ../src/fref2.c:3564
-msgid "Library has to have a name."
+#: ../src/file_dialogs.c:1220
+#, fuzzy
+msgid "Delete deprecated files"
+msgstr "Επιλογή αρχείων"
+
+#: ../src/file_dialogs.c:1221
+#, fuzzy
+msgid "Include hidden files"
+msgstr "Εμφάνιση κρυφών αρχείων"
+
+#. build a list of filters
+#: ../src/filefilter.c:214 ../src/gtk_easy.c:1364
+msgid "All files"
+msgstr "Όλα τα αρχεία"
+
+#: ../src/filefilter.c:561
+msgid "Hide files that match the filter"
 msgstr ""
 
-#: ../src/fref2.c:3583 ../src/fref2.c:3637 ../src/fref2.c:3831
-#: ../src/fref2.c:4192 ../src/fref2.c:4354 ../src/fref2.c:4427
-msgid "This library is readonly."
-msgstr ""
-
-#: ../src/fref2.c:3601
+#: ../src/filefilter.c:566
 #, fuzzy
-msgid "Delete library?"
-msgstr "Διαγραφή σελιδοδεικτών;"
+msgid "Add pattern"
+msgstr "Επικόλληση"
 
-#: ../src/fref2.c:3616
-msgid "You have to select a reference."
-msgstr ""
-
-#: ../src/fref2.c:3650
-msgid "Reference not loaded."
-msgstr ""
-
-#: ../src/fref2.c:3665 ../src/fref2.c:3679 ../src/fref2.c:4204
-#: ../src/fref2.c:4439
-msgid "Bad element"
-msgstr ""
-
-#: ../src/fref2.c:3666
-msgid "You can define notes for: library, group or element."
-msgstr ""
-
-#: ../src/fref2.c:3669
+#: ../src/filefilter.c:572 ../src/filefilter.c:584
 #, fuzzy
-msgid "New note"
-msgstr "Νέο έργο"
+msgid "Mime type"
+msgstr "Τύποι αρχείων"
 
-#: ../src/fref2.c:3669
-#, fuzzy
-msgid "Title"
-msgstr "_Τίτλος:"
+#: ../src/filefilter.c:575 ../src/filefilter.c:587
+msgid "Icon"
+msgstr "Εικονίδιο"
 
-#: ../src/fref2.c:3669
-#, fuzzy
-msgid "Text"
-msgstr "Πεδίο κειμένου"
-
-#: ../src/fref2.c:3680
-msgid "You can define group for: library or group."
-msgstr ""
-
-#: ../src/fref2.c:3683
-#, fuzzy
-msgid "New group"
-msgstr "Νέο έργο"
-
-#: ../src/fref2.c:3690
-#, fuzzy
-msgid "New description def"
-msgstr "Περιγραφή"
-
-#: ../src/fref2.c:3690
-#, fuzzy
-msgid "Description text"
-msgstr "Περιγραφή"
-
-#: ../src/fref2.c:3698
-#, fuzzy
-msgid "New values def"
-msgstr "Νέο Παράθυρο Bluefish"
-
-#: ../src/fref2.c:3698
-msgid "Values separated by comma"
-msgstr ""
-
-#: ../src/fref2.c:3797 ../src/fref2.c:4302
-msgid "Element has to have a name."
-msgstr ""
-
-#: ../src/fref2.c:3898 ../src/fref2.c:4128
-msgid "Missing value"
-msgstr ""
-
-#: ../src/fref2.c:3899 ../src/fref2.c:4129
-msgid "Property has to have a name."
-msgstr ""
-
-#: ../src/fref2.c:4020 ../src/fref2.c:4361
-#, fuzzy
-msgid "Definitions"
-msgstr "Ορισμός"
-
-#: ../src/fref2.c:4067
-#, fuzzy
-msgid "New property"
-msgstr "Νέο έργο"
-
-#: ../src/fref2.c:4205
-msgid "Please select library or group."
-msgstr ""
-
-#: ../src/fref2.c:4208
-msgid "New element"
-msgstr ""
-
-#: ../src/fref2.c:4301
-#, fuzzy
-msgid "No name"
-msgstr "Μη γνωστό όνομα αρχείου"
-
-#: ../src/fref2.c:4391
-#, fuzzy
-msgid "Delete definition?"
-msgstr "Ορισμός"
-
-#: ../src/fref2.c:4406
-msgid "This property is used by some elements. Cannot delete."
-msgstr ""
-
-#: ../src/fref2.c:4440
-msgid "Please use delete library instead."
-msgstr ""
-
-#: ../src/fref2.c:4446
-#, fuzzy
-msgid "Delete group"
-msgstr " Διαγραφή "
-
-#: ../src/fref2.c:4447
-msgid "Not implemented yet"
-msgstr ""
-
-#: ../src/fref2.c:4461
-#, fuzzy
-msgid "Delete group?"
-msgstr " Διαγραφή "
-
-#: ../src/fref2.c:4462
-#, fuzzy
-msgid "Do you really want to delete current entity?"
-msgstr "Είσαι σίγουρος για την αντικατάσταση;"
-
-#: ../src/fref2.c:4633
-msgid "Show info window"
-msgstr ""
-
-#: ../src/fref2.c:4641
-msgid "Insert"
-msgstr "Εισαγωγή"
-
-#: ../src/fref2.c:4644 ../src/fref2.c:4651
-msgid "Show"
-msgstr ""
-
-#: ../src/fref2.c:4657
-msgid "Attributes/Parameters"
-msgstr ""
-
-#: ../src/fref2.c:4662
-msgid "Notes"
-msgstr "Σημειώσεις"
-
-#: ../src/fref2.c:4667
-#, fuzzy
-msgid "Examples"
-msgstr "Δείγμα"
-
-#: ../src/fref2.c:4672
-#, fuzzy
-msgid "Links"
-msgstr "Σύνδεσμος"
-
-#: ../src/fref2.c:4681
-#, fuzzy
-msgid "Rescan directories"
-msgstr "Προεπισκόπηση του Bluefish:"
-
-#: ../src/fref2.c:4688 ../src/fref2.c:4694
-msgid "Edit"
-msgstr "Επεξεργασία"
-
-#: ../src/fref2.c:4698
-#, fuzzy
-msgid "Delete library"
-msgstr "Διαγραφή σελιδοδείκτη"
-
-#: ../src/fref2.c:4702
-msgid "New entity"
-msgstr ""
-
-#: ../src/fref2.c:4705
-#, fuzzy
-msgid "Note"
-msgstr "Σημειώσεις"
-
-#: ../src/fref2.c:4708
-msgid "Group"
-msgstr ""
-
-#: ../src/fref2.c:4711
-#, fuzzy
-msgid "Property definition"
-msgstr "Ορισμός"
-
-#: ../src/fref2.c:4714
-#, fuzzy
-msgid "Description definition"
-msgstr "Περιγραφή"
-
-#: ../src/fref2.c:4717
-#, fuzzy
-msgid "Values definition"
-msgstr "Ορισμός"
-
-#: ../src/fref2.c:4721
-#, fuzzy
-msgid "Element"
-msgstr "Γεγονότα"
-
-#: ../src/fref2.c:4725
-#, fuzzy
-msgid "Delete definition"
-msgstr "Ορισμός"
-
-#: ../src/fref2.c:4728
-#, fuzzy
-msgid "Delete entity"
-msgstr " Διαγραφή "
-
-#: ../src/gtk_easy.c:1056
+#: ../src/gtk_easy.c:1067
 #, c-format
 msgid "%d of %d"
 msgstr "%d από %d"
 
-#: ../src/gtk_easy.c:1162
+#: ../src/gtk_easy.c:1173
 msgid "Select File"
 msgstr "Επιλογή Αρχείου"
 
-#: ../src/gtk_easy.c:1329
-msgid "Show hidden files"
-msgstr "Εμφάνιση κρυφών αρχείων"
+#: ../src/gtk_easy.c:1244
+msgid "_Browse..."
+msgstr "_Περιήγηση..."
 
-#: ../src/gtk_easy.c:1330
+#: ../src/gtk_easy.c:1354
 msgid "Show backup files"
 msgstr "Εμφάνιση αντιγράφων ασφαλείας"
 
-#: ../src/gtk_easy.c:1393
+#: ../src/gtk_easy.c:1414
 #, fuzzy
 msgid "Character _Encoding:"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/gtk_easy.c:1407
+#: ../src/gtk_easy.c:1437
 msgid "Automatic detection"
 msgstr ""
 
-#: ../src/gui.c:261
+#: ../src/gtkmountoperation.c:125
+#, fuzzy
+msgid "Parent"
+msgstr "Στόχος"
+
+#: ../src/gtkmountoperation.c:126
+msgid "The parent window"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:133
+msgid "Is Showing"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:134
+msgid "Are we showing a dialog"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:141
+msgid "Screen"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:142
+msgid "The screen where this window will be displayed."
+msgstr ""
+
+#: ../src/gtkmountoperation.c:449
+msgid "Co_nnect"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:516
+msgid "Connect _anonymously"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:525
+msgid "Connect as u_ser:"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:563
+#, fuzzy
+msgid "_Username:"
+msgstr "Όνομα χρήστη:"
+
+#: ../src/gtkmountoperation.c:568
+#, fuzzy
+msgid "_Domain:"
+msgstr "Κάθετη στοίχηση"
+
+#: ../src/gtkmountoperation.c:574
+#, fuzzy
+msgid "_Password:"
+msgstr "Κωδικός:"
+
+#: ../src/gtkmountoperation.c:592
+msgid "Forget password _immediately"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:602
+msgid "Remember password until you _logout"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:612
+msgid "Remember _forever"
+msgstr ""
+
+#: ../src/gui.c:281
 msgid "Filebrowser"
 msgstr "Περιηγητής αρχείων"
 
-#: ../src/gui.c:262
+#: ../src/gui.c:282
 msgid "Bookmarks"
 msgstr "Σελίδοδείκτες"
 
-#: ../src/gui.c:264
-#, fuzzy
-msgid "Function reference"
-msgstr "/Επιλογές/Προτιμήσεις"
-
-#: ../src/gui.c:377
+#: ../src/gui.c:424
 msgid "New"
 msgstr "Νέο"
 
-#: ../src/gui.c:379
+#: ../src/gui.c:426
 msgid "Open..."
 msgstr "Άνοιγμα..."
 
-#: ../src/gui.c:381
+#: ../src/gui.c:428
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: ../src/gui.c:383
+#: ../src/gui.c:430
 msgid "Save As..."
 msgstr "Αποθήκευση Ως..."
 
-#: ../src/gui.c:385
+#: ../src/gui.c:432
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: ../src/gui.c:388
+#: ../src/gui.c:435
 msgid "Cut"
 msgstr "Αποκοπή"
 
-#: ../src/gui.c:390
+#: ../src/gui.c:437
 msgid "Copy"
 msgstr "Αντιγραφή"
 
-#: ../src/gui.c:392
+#: ../src/gui.c:439
 msgid "Paste"
 msgstr "Επικόλληση"
 
-#: ../src/gui.c:395
+#: ../src/gui.c:442
 msgid "Find..."
 msgstr "Εύρεση..."
 
-#: ../src/gui.c:397
+#: ../src/gui.c:444
 msgid "Replace..."
 msgstr "Αντικατάσταση..."
 
-#: ../src/gui.c:400
+#: ../src/gui.c:447
 msgid "Undo"
 msgstr "Αναίρεση"
 
-#: ../src/gui.c:402
+#: ../src/gui.c:449
 msgid "Redo"
 msgstr "Επαναφορά"
 
-#: ../src/gui.c:405
+#: ../src/gui.c:452
 msgid "Unindent"
 msgstr ""
 
-#: ../src/gui.c:407
+#: ../src/gui.c:454
 msgid "Indent"
 msgstr ""
 
-#: ../src/gui.c:414
-msgid "Spellcheck..."
-msgstr "Έλεγχος Ορθογραφίας..."
-
-#: ../src/gui.c:419
+#: ../src/gui.c:461
 msgid "View in browser"
 msgstr "Προβολή στον περιηγητή"
 
-#: ../src/gui.c:422
+#: ../src/gui.c:464
 msgid "Preferences..."
 msgstr "Προτιμήσεις..."
 
-#: ../src/gui.c:615
+#: ../src/gui.c:467
+msgid "Toggle Full Screen"
+msgstr ""
+
+#: ../src/gui.c:469
+msgid "Toggle Normal Screen"
+msgstr ""
+
+#: ../src/gui.c:916
+#, fuzzy
+msgid "Goto Line:"
+msgstr "Πήγαινε στη γραμμή"
+
+#: ../src/gui.c:931
 msgid "New Bluefish Window"
 msgstr "Νέο Παράθυρο Bluefish"
 
-#: ../src/gui.c:677
+#. Fake-label (for notebook_hide() and _show() ;)
+#: ../src/gui.c:990
 #, fuzzy
 msgid "Stand by..."
 msgstr "Διάστημα..."
 
-#: ../src/gui.c:873
-msgid "Goto line"
-msgstr "Πήγαινε στη γραμμή"
-
-#: ../src/gui.c:881
-msgid "_Line number:"
-msgstr "Αριθμός _γραμμής:"
-
-#: ../src/gui.c:887
-#, fuzzy
-msgid "From _selection"
-msgstr "Επιλογή γραμματοσειράς"
-
-#: ../src/gui.c:890
-#, fuzzy
-msgid "Keep _dialog"
-msgstr "Διάλογος εικόνων"
-
-#: ../src/gui.c:954
+#: ../src/gui.c:1153
 msgid "starting bluefish"
 msgstr ""
 
-#: ../src/highlight.c:439 ../src/highlight.c:451 ../src/highlight.c:478
-#: ../src/highlight.c:492
-#, fuzzy
-msgid "Syntax highlighting error for "
-msgstr "/Επιλογές/Λίστες/Υπογράμμιση σύνταξης"
-
-#: ../src/highlight.c:440
-#, c-format
-msgid "compiling pattern '%s': %s at offset %d"
-msgstr ""
-
-#: ../src/highlight.c:452
-#, c-format
-msgid "studying pattern '%s': %s"
-msgstr ""
-
-#: ../src/highlight.c:479
-#, c-format
-msgid "compiling 2nd pattern '%s': %s at offset %d"
-msgstr ""
-
-#: ../src/highlight.c:493
-#, c-format
-msgid "studying 2nd pattern '%s': %s"
-msgstr ""
-
-#: ../src/menu.c:218
+#: ../src/menu.c:209
 msgid "/_File"
 msgstr "/_Αρχείο"
 
-#: ../src/menu.c:220
+#: ../src/menu.c:211
 #, fuzzy
 msgid "/File/_New"
 msgstr "/Αρχείο/_Νέο"
 
-#: ../src/menu.c:221
+#: ../src/menu.c:212
 #, fuzzy
 msgid "/File/New _Window"
 msgstr "Αρχείο/_Δημιουργία"
 
-#: ../src/menu.c:222
+#: ../src/menu.c:213
 #, fuzzy
 msgid "/File/_Open..."
 msgstr "Αρχείο/_Άνοιγμα"
 
-#: ../src/menu.c:223
+#: ../src/menu.c:214
 #, fuzzy
-msgid "/File/Open _recent"
+msgid "/File/Open _Recent"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/menu.c:225
+#: ../src/menu.c:216
 #, fuzzy
 msgid "/File/Open Ad_vanced..."
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/menu.c:227
+#: ../src/menu.c:217
 #, fuzzy
 msgid "/File/Open _URL..."
 msgstr "Αρχείο/_Άνοιγμα"
 
-#: ../src/menu.c:229
+#: ../src/menu.c:218
 #, fuzzy
-msgid "/File/Open _from selection"
+msgid "/File/Open _From Selection"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/menu.c:231
-msgid "/File/_Save"
-msgstr "/Αρχείο/Απο_θήκευση"
-
-#: ../src/menu.c:232
-#, fuzzy
-msgid "/File/Save _As..."
-msgstr "/Αρχείο/Αποθήκευση _ώς"
-
-#: ../src/menu.c:233
-#, fuzzy
-msgid "/File/Sav_e All"
-msgstr "/Αρχείο/Αποθήκευση _όλων"
-
-#: ../src/menu.c:234
-#, fuzzy
-msgid "/File/Rever_t to Saved"
-msgstr "/Αρχείο/Μετακίνηση"
-
-#: ../src/menu.c:236
+#: ../src/menu.c:219
 #, fuzzy
 msgid "/File/_Insert..."
 msgstr "/Αρχείο/Εισαγωγή"
 
-#: ../src/menu.c:237
+#: ../src/menu.c:221
+msgid "/File/_Save"
+msgstr "/Αρχείο/Απο_θήκευση"
+
+#: ../src/menu.c:222
+#, fuzzy
+msgid "/File/Save _As..."
+msgstr "/Αρχείο/Αποθήκευση _ώς"
+
+#: ../src/menu.c:223
 #, fuzzy
 msgid "/File/Rena_me..."
 msgstr "Αρχείο/_Άνοιγμα"
 
-#: ../src/menu.c:239
+#: ../src/menu.c:224
+#, fuzzy
+msgid "/File/Sav_e All"
+msgstr "/Αρχείο/Αποθήκευση _όλων"
+
+#: ../src/menu.c:225
+#, fuzzy
+msgid "/File/Rever_t to Saved"
+msgstr "/Αρχείο/Μετακίνηση"
+
+#: ../src/menu.c:227
 #, fuzzy
 msgid "/File/_Close"
 msgstr "/Αρχείο/Κλείσιμο"
 
-#: ../src/menu.c:240
+#: ../src/menu.c:228
 #, fuzzy
 msgid "/File/Close A_ll"
 msgstr "/Αρχείο/Κλείσιμο όλων"
 
-#: ../src/menu.c:241
+#: ../src/menu.c:229
 #, fuzzy
 msgid "/File/Close Win_dow"
 msgstr "/Αρχείο/Κλείσιμο"
 
-#: ../src/menu.c:243
+#: ../src/menu.c:231
+msgid "/File/Upload \\/ Download"
+msgstr ""
+
+#: ../src/menu.c:233
 #, fuzzy
 msgid "/File/_Quit"
 msgstr "/Αρχείο/Έξοδος"
 
-#: ../src/menu.c:246
+#: ../src/menu.c:236
 msgid "/File/Run Python Script"
 msgstr ""
 
-#: ../src/menu.c:248
+#: ../src/menu.c:238
 msgid "/_Edit"
 msgstr "/_Επεξεργασία"
 
-#: ../src/menu.c:250
+#: ../src/menu.c:240
 #, fuzzy
 msgid "/Edit/_Undo"
 msgstr "/Επεξεργασία/Αναίρεση"
 
-#: ../src/menu.c:251
+#: ../src/menu.c:241
 #, fuzzy
 msgid "/Edit/_Redo"
 msgstr "/Επεξεργασία/Επαναφορά"
 
-#: ../src/menu.c:252
+#: ../src/menu.c:242
 #, fuzzy
 msgid "/Edit/Undo All"
 msgstr "/Επεξεργασία/Αναίρεση όλων"
 
-#: ../src/menu.c:253
+#: ../src/menu.c:243
 #, fuzzy
 msgid "/Edit/Redo All"
 msgstr "/Επεξεργασία/Επαναφορά όλων"
 
-#: ../src/menu.c:255
+#: ../src/menu.c:245
 #, fuzzy
 msgid "/Edit/Cu_t"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/menu.c:256
+#: ../src/menu.c:246
 #, fuzzy
 msgid "/Edit/_Copy"
 msgstr "/Επεξεργασία/Αντιγραφή"
 
-#: ../src/menu.c:257
+#: ../src/menu.c:247
 #, fuzzy
 msgid "/Edit/_Paste"
 msgstr "/Επεξεργασία/Επικόλληση"
 
-#: ../src/menu.c:259
+#: ../src/menu.c:249
 #, fuzzy
 msgid "/Edit/Select _All"
 msgstr "/Επεξεργασία/Επιλογή όλων"
 
-#: ../src/menu.c:261
+#: ../src/menu.c:251
 #, fuzzy
 msgid "/Edit/_Find..."
 msgstr "/Επεξεργασία/Εύρεση"
 
-#: ../src/menu.c:262
+#: ../src/menu.c:252
 #, fuzzy
 msgid "/Edit/Find A_gain"
 msgstr "/Επεξεργασία/Εύρεση επομένου"
 
-#: ../src/menu.c:263
+#: ../src/menu.c:253
 #, fuzzy
-msgid "/Edit/Find from selection"
+msgid "/Edit/Find From Selection"
 msgstr "/Επεξεργασία/Εύρεση γραμμής"
 
-#: ../src/menu.c:264
+#: ../src/menu.c:254
 #, fuzzy
 msgid "/Edit/R_eplace..."
 msgstr "/Επεξεργασία/Αντικατάσταση"
 
-#: ../src/menu.c:265
+#: ../src/menu.c:255
 #, fuzzy
 msgid "/Edit/Replace Agai_n"
 msgstr "/Επεξεργασία/Αντικατάσταση επομένου"
 
-#: ../src/menu.c:266
-#, fuzzy
-msgid "/Edit/Replace special"
-msgstr "/Επεξεργασία/Αντικατάσταση"
-
-#: ../src/menu.c:269
+#: ../src/menu.c:257
 #, fuzzy
 msgid "/Edit/_Indent"
 msgstr "/Επεξεργασία/Επικόλληση"
 
-#: ../src/menu.c:270
+#: ../src/menu.c:258
 #, fuzzy
 msgid "/Edit/_Unindent"
 msgstr "/Επεξεργασία/Επικόλληση"
 
-#: ../src/menu.c:272
-msgid "/Document/Add _Bookmark"
-msgstr ""
-
-#: ../src/menu.c:274
-#, fuzzy
-msgid "/Edit/Save Sett_ings"
-msgstr "/Επιλογές/Αποθήκευση πλήκτρων συντομίας"
-
-#: ../src/menu.c:275
+#: ../src/menu.c:260
 #, fuzzy
 msgid "/Edit/Save Shortcut _Keys"
 msgstr "/Επιλογές/Αποθήκευση πλήκτρων συντομίας"
 
-#: ../src/menu.c:276
+#: ../src/menu.c:261
 #, fuzzy
 msgid "/Edit/Preference_s"
 msgstr "Αναφορά PHP3..."
 
-#: ../src/menu.c:277
+#: ../src/menu.c:262
 #, fuzzy
 msgid "/_View"
 msgstr "/_Αρχείο"
 
-#: ../src/menu.c:279
+#: ../src/menu.c:264
+msgid "/View/_Full Screen"
+msgstr ""
+
+#: ../src/menu.c:266
 #, fuzzy
-msgid "/View/View _Main Toolbar"
+msgid "/View/_Main Toolbar"
 msgstr "/Επιλογές/Προβολή κύριας γραμμής εργαλείων"
 
-#: ../src/menu.c:280
+#: ../src/menu.c:267
 #, fuzzy
-msgid "/View/View _Custom Menu"
-msgstr "/_Προσαρμοσμένο μενού"
-
-#: ../src/menu.c:281
-#, fuzzy
-msgid "/View/View _Sidebar"
+msgid "/View/_Side Pane"
 msgstr "/Επιλογές/Προβολή κύριας γραμμής εργαλείων"
 
-#: ../src/menu.c:282
+#: ../src/menu.c:268
+msgid "/View/_Output Pane"
+msgstr ""
+
+#: ../src/menu.c:269
+#, fuzzy
+msgid "/View/Status_bar"
+msgstr "/Αρχείο/κοψ1"
+
+#: ../src/menu.c:270
 #, fuzzy
 msgid "/_Document"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:284
-#, fuzzy
-msgid "/Document/_Increase Tabsize"
-msgstr "Αριθμός γραμμής: "
-
-#: ../src/menu.c:285
-#, fuzzy
-msgid "/Document/_Decrease Tabsize"
-msgstr "Αριθμός γραμμής: "
-
-#: ../src/menu.c:286
+#: ../src/menu.c:272
 #, fuzzy
 msgid "/Document/_Auto Indent"
 msgstr "/Επιλογές/Λίστες"
 
-#: ../src/menu.c:288
+#: ../src/menu.c:273
 #, fuzzy
-msgid "/Document/Auto Close H_TML tags"
+msgid "/Document/Auto _Completion Popup"
 msgstr "/Επιλογές/Λίστες"
 
-#: ../src/menu.c:289
+#: ../src/menu.c:274
 msgid "/Document/_Wrap"
 msgstr ""
 
-#: ../src/menu.c:290
+#: ../src/menu.c:275
 #, fuzzy
 msgid "/Document/_Line Numbers"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/menu.c:292
+#: ../src/menu.c:276
 #, fuzzy
-msgid "/Document/Show _blocks"
+msgid "/Document/Show _Blocks"
 msgstr "/Επεξεργασία/Αποκοπή"
+
+#: ../src/menu.c:277
+#, fuzzy
+msgid "/Document/_Visible Spacing"
+msgstr "Σχόλιο"
+
+#: ../src/menu.c:279
+#, fuzzy
+msgid "/Document/_Spell Check"
+msgstr "/Επεξεργασία/Αποκοπή"
+
+#: ../src/menu.c:282
+#, fuzzy
+msgid "/Document/_Tab Size"
+msgstr "Αριθμός γραμμής: "
+
+#: ../src/menu.c:284
+#, fuzzy
+msgid "/Document/Tab Size/_Increase"
+msgstr "Αριθμός γραμμής: "
+
+#: ../src/menu.c:285
+#, fuzzy
+msgid "/Document/Tab Size/_Decrease"
+msgstr "Αριθμός γραμμής: "
+
+#: ../src/menu.c:287
+#, fuzzy
+msgid "/Document/Tab Size/_Reset"
+msgstr "Αριθμός γραμμής: "
+
+#: ../src/menu.c:288
+#, fuzzy
+msgid "/Document/_Font Size"
+msgstr "Σχόλιο"
+
+#: ../src/menu.c:290
+#, fuzzy
+msgid "/Document/Font Size/_Increase"
+msgstr "Αριθμός γραμμής: "
+
+#: ../src/menu.c:291
+#, fuzzy
+msgid "/Document/Font Size/_Decrease"
+msgstr "Αριθμός γραμμής: "
 
 #: ../src/menu.c:293
 #, fuzzy
-msgid "/Document/Show _symbols"
-msgstr "/Επεξεργασία/Αποκοπή"
+msgid "/Document/Font Size/_Reset"
+msgstr "Σχόλιο"
 
-#: ../src/menu.c:296
+#: ../src/menu.c:295
 #, fuzzy
 msgid "/Document/_Highlight Syntax"
 msgstr "/Προβολή/Υπογράμμιση σύνταξης"
 
 #: ../src/menu.c:297
-#, fuzzy
-msgid "/Document/_Update Highlighting"
-msgstr "/Προβολή/Ανανέωση υπογράμμισης"
+msgid "/Document/_Rescan Syntax & Spelling"
+msgstr ""
 
 #: ../src/menu.c:299
 #, fuzzy
-msgid "/Document/Document Ty_pe"
-msgstr "Σχόλιο"
+msgid "/Document/_Rescan Syntax"
+msgstr "/Προβολή/Υπογράμμιση σύνταξης"
 
 #: ../src/menu.c:301
+#, fuzzy
+msgid "/Document/Language _Mode"
+msgstr "/Επεξεργασία/Αποκοπή"
+
+#: ../src/menu.c:304
 #, fuzzy
 msgid "/Document/Character _Encoding"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/menu.c:305
-msgid "/Tools/Check _Spelling..."
-msgstr ""
-
 #: ../src/menu.c:307
 #, fuzzy
-msgid "/Document/_Floating window"
-msgstr "Αριθμός γραμμής: "
+msgid "/Document/Character Encoding/_Add or Remove..."
+msgstr "/Σχέδιο/διαχ1"
 
-#: ../src/menu.c:308
+#: ../src/menu.c:309
 #, fuzzy
-msgid "/Tools/Word _Count"
-msgstr "/Επεξεργασία/Αποκοπή"
+msgid "/Document/Add Boo_kmark"
+msgstr "Προσθήκη σελιδοδείκτη"
 
 #: ../src/menu.c:310
 #, fuzzy
-msgid "/Document/Move left"
-msgstr "/Επιλογές/Λίστες"
-
-#: ../src/menu.c:311
-#, fuzzy
-msgid "/Document/Move right"
-msgstr "Σχόλιο"
+msgid "/Document/Floati_ng Window"
+msgstr "Αριθμός γραμμής: "
 
 #: ../src/menu.c:312
+#, fuzzy
+msgid "/Document/Move Left"
+msgstr "/Επιλογές/Λίστες"
+
+#: ../src/menu.c:313
+#, fuzzy
+msgid "/Document/Move Right"
+msgstr "Σχόλιο"
+
+#: ../src/menu.c:314
 msgid "/_Go"
 msgstr ""
 
-#: ../src/menu.c:314
-msgid "/Go/_Previous document"
-msgstr ""
-
-#: ../src/menu.c:315
+#: ../src/menu.c:316
 #, fuzzy
-msgid "/Go/_Next document"
-msgstr "Σχόλιο"
+msgid "/Go/_Previous Document"
+msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
 #: ../src/menu.c:317
 #, fuzzy
-msgid "/Go/_First document"
-msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
+msgid "/Go/_Next Document"
+msgstr "Σχόλιο"
 
 #: ../src/menu.c:318
 #, fuzzy
-msgid "/Go/L_ast document"
+msgid "/Go/_First Document"
+msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
+
+#: ../src/menu.c:319
+#, fuzzy
+msgid "/Go/L_ast Document"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:320
+#: ../src/menu.c:321
+#, fuzzy
+msgid "/Go/F_irst Bookmark"
+msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
+
+#: ../src/menu.c:322
+msgid "/Go/P_revious Bookmark"
+msgstr ""
+
+#: ../src/menu.c:323
+#, fuzzy
+msgid "/Go/N_ext Bookmark"
+msgstr "Μετάβαση σε σελιδοδείκτη"
+
+#: ../src/menu.c:324
+#, fuzzy
+msgid "/Go/Last _Bookmark"
+msgstr "Μετάβαση σε σελιδοδείκτη"
+
+#: ../src/menu.c:326
 #, fuzzy
 msgid "/Go/Goto _Line"
 msgstr "Πήγαινε στη γραμμή"
 
-#: ../src/menu.c:321
+#: ../src/menu.c:327
 #, fuzzy
-msgid "/Go/Goto _Selection"
+msgid "/Go/Goto line number in _selection"
 msgstr "/Επεξεργασία/Εύρεση γραμμής"
 
-#: ../src/menu.c:322
+#: ../src/menu.c:328
 #, fuzzy
 msgid "/_Project"
 msgstr "/Σχέδιο/Αρχεία"
 
-#: ../src/menu.c:324
+#: ../src/menu.c:330
 msgid "/Project/_New Project"
 msgstr ""
 
-#: ../src/menu.c:325
+#: ../src/menu.c:331
 msgid "/Project/_Open Project..."
 msgstr ""
 
-#: ../src/menu.c:326
+#: ../src/menu.c:332
 #, fuzzy
-msgid "/Project/Open _recent"
+msgid "/Project/Open _Recent"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/menu.c:329
+#: ../src/menu.c:335
 #, fuzzy
 msgid "/Project/_Save"
 msgstr "/Αρχείο/Απο_θήκευση"
 
-#: ../src/menu.c:330
+#: ../src/menu.c:336
 #, fuzzy
 msgid "/Project/Save _as..."
 msgstr "/Αρχείο/Αποθήκευση _ώς"
 
-#: ../src/menu.c:331
+#: ../src/menu.c:337
 #, fuzzy
 msgid "/Project/Save & _close"
 msgstr "/Αρχείο/Αποθήκευση _ώς"
 
-#: ../src/menu.c:333
+#: ../src/menu.c:339
 msgid "/Project/E_dit Project Options..."
 msgstr ""
 
-#: ../src/menu.c:334
-msgid "/T_ools"
+#: ../src/menu.c:340
+#, fuzzy
+msgid "/_Tools"
 msgstr "/_Εξωτερικά"
 
-#: ../src/menu.c:506
+#: ../src/menu.c:343
 #, fuzzy
-msgid "/Document/Document Type"
-msgstr "Σχόλιο"
-
-#: ../src/menu.c:640
-#, fuzzy
-msgid "/Project/Open recent"
-msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
-
-#: ../src/menu.c:644
-#, fuzzy
-msgid "/File/Open recent"
-msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
-
-#: ../src/menu.c:823
-msgid "/Windows"
-msgstr ""
-
-#: ../src/menu.c:1047
-#, fuzzy
-msgid "/Tools/Outputbox/"
-msgstr "/Εξωτερικά/διαχ11"
-
-#: ../src/menu.c:1048
-msgid "/Tools/Commands/"
+msgid "/Tools/_Commands"
 msgstr "/Εξωτερικά/Εντολές/"
 
-#: ../src/menu.c:1049
+#: ../src/menu.c:345
 #, fuzzy
-msgid "/Tools/Filters/"
-msgstr "/Εξωτερικά/Φίλτρα/"
+msgid "/Tools/_Outputbox"
+msgstr "/Εξωτερικά/διαχ11"
 
-#: ../src/menu.c:1062
+#: ../src/menu.c:347
 #, fuzzy
-msgid "/Tools/Filters"
+msgid "/Tools/_Filters"
 msgstr "/Εξωτερικά/διαχ1"
 
-#: ../src/menu.c:1085
-#, fuzzy
-msgid "/External"
-msgstr "/_Εξωτερικά"
+#: ../src/menu.c:350
+msgid "/Tools/_Synchronize text block"
+msgstr ""
 
-#: ../src/menu.c:1087
+#: ../src/menu.c:351
 #, fuzzy
-msgid "/Tools/Commands"
-msgstr "/Εξωτερικά/Εντολές/"
+msgid "/Tools/Toggle _Comment"
+msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/menu.c:1115
+#: ../src/menu.c:352
 #, fuzzy
-msgid "/Tools/Outputbox"
-msgstr "/Εξωτερικά/διαχ11"
+msgid "/Tools/_Word Count"
+msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/menu.c:1159
+#: ../src/menu.c:354
+msgid "/Tools/Strip T_railing Whitespace"
+msgstr ""
+
+#: ../src/menu.c:355
+#, fuzzy
+msgid "/Tools/_Join lines"
+msgstr "/Εξωτερικά/διαχ1"
+
+#: ../src/menu.c:356
+#, fuzzy
+msgid "/Tools/Sp_lit lines"
+msgstr "/Εξωτερικά/διαχ1"
+
+#: ../src/menu.c:357
+msgid "/Tools/Indenting To T_abs"
+msgstr ""
+
+#: ../src/menu.c:358
+msgid "/Tools/Indenting To S_paces"
+msgstr ""
+
+#: ../src/menu.c:359
+msgid "/Tools/Split Into Col_umns"
+msgstr ""
+
+#: ../src/menu.c:516
+#, fuzzy
+msgid "/Document/Language Mode"
+msgstr "Αριθμός γραμμής: "
+
+#: ../src/menu.c:755
+#, fuzzy
+msgid "No default browser found"
+msgstr "Επιλεγμένο"
+
+#: ../src/menu.c:756
+msgid ""
+"You can set a default browser by going to:\n"
+"Edit->Preferences->External Commands"
+msgstr ""
+
+#. TODO: this dialog is not very convenient, hitting enter should choose 'selection'
+#: ../src/menu.c:792
+#, fuzzy
+msgid "Text area to filter"
+msgstr "Πεδίο κειμένου"
+
+#: ../src/menu.c:793
+msgid "All text"
+msgstr ""
+
+#: ../src/menu.c:794
+#, fuzzy
+msgid "Selected text only"
+msgstr "Επιλογή γραμματοσειράς"
+
+#: ../src/menu.c:951
 #, fuzzy
 msgid "/Document/Character Encoding"
 msgstr "/Σχέδιο/διαχ1"
 
-#: ../src/menu.c:1438
-msgid "This custom search and replace requires a selection"
+#: ../src/outputbox.c:226
+#, fuzzy
+msgid "Filename"
+msgstr "Όνομα αρχείου"
+
+#: ../src/outputbox.c:228
+#, fuzzy
+msgid "Line"
+msgstr "Τύλιγμα γραμμής"
+
+#: ../src/outputbox.c:230
+msgid "Output"
 msgstr ""
 
-#: ../src/menu.c:1536
-msgid "/_Custom menu"
-msgstr "/_Προσαρμοσμένο μενού"
-
-# src/html.c:736		ΝΤΚ
-#: ../src/menu.c:1538
-#, fuzzy
-msgid "/Custom menu/Edit custom menu..."
-msgstr "/Προσαρμοσμένο μενού/Διόρθωση"
-
-# src/html.c:736		ΝΤΚ
-#: ../src/menu.c:1539
-#, fuzzy
-msgid "/Custom menu/Reset"
-msgstr "/Προσαρμοσμένο μενού/διαχ"
-
-# src/html.c:736		ΝΤΚ
-#: ../src/menu.c:1540
-#, fuzzy
-msgid "/Custom menu/Load new"
-msgstr "/Προσαρμοσμένο μενού/διαχ"
-
-#: ../src/menu.c:1757
-#, fuzzy
-msgid "Search Pattern"
-msgstr "Εύρεση"
-
-#: ../src/menu.c:1758
-#, fuzzy
-msgid "Replace String"
-msgstr "Αντικατάσταση"
-
-#: ../src/menu.c:1761
-#, fuzzy
-msgid "Formatstring Before"
-msgstr "Κείμενο διαμόρφωσης πριν"
-
-#: ../src/menu.c:1762
-#, fuzzy
-msgid "Formatstring After"
-msgstr "Κείμενο διαμόρφωσης μετά"
-
-#: ../src/menu.c:1812
-msgid "The menupath you want to update does not exist yet"
-msgstr ""
-
-#: ../src/menu.c:1813
-msgid "Try 'add' instead."
-msgstr ""
-
-#: ../src/menu.c:1818
-msgid "The menupath you want to add already exists."
-msgstr ""
-
-#: ../src/menu.c:1827
-msgid "The menupath should start with a / character"
-msgstr ""
-
-#: ../src/menu.c:1990
-#, fuzzy
-msgid "Custom Menu Editor"
-msgstr "/_Προσαρμοσμένο μενού"
-
-#: ../src/menu.c:2001
-msgid "Add New Menu Entry"
-msgstr ""
-
-#: ../src/menu.c:2003
-msgid "Apply Changes"
-msgstr ""
-
-#: ../src/menu.c:2005
-msgid "Delete Menu Entry"
-msgstr ""
-
-#: ../src/menu.c:2008
-msgid "Close Discards Changes"
-msgstr ""
-
-#: ../src/menu.c:2010
-msgid "Save Changes and Exit"
-msgstr ""
-
-#: ../src/menu.c:2020
-#, fuzzy
-msgid "_Menu Path:"
-msgstr "Θέση μενού"
-
-#: ../src/menu.c:2041
-msgid "Menu path"
-msgstr "Θέση μενού"
-
-#: ../src/menu.c:2061
-#, fuzzy
-msgid "Number of _Variables:"
-msgstr "Αριθμός μεταβλητών"
-
-#: ../src/menu.c:2069
-msgid "Variables"
-msgstr "Μεταβλητές"
-
-#: ../src/menu.c:2088
-#, fuzzy
-msgid "Custom Dialo_g"
-msgstr "Διάλογος Πήγαινε"
-
-#: ../src/menu.c:2090
-#, fuzzy
-msgid "Custom Replace"
-msgstr "Εύρεση και Αντικατάσταση"
-
-#: ../src/menu.c:2102
-#, fuzzy
-msgid "_Replace:"
-msgstr "Αντικατάσταση"
-
-#: ../src/menu.c:2105
-#, fuzzy
-msgid "in current document"
-msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
-
-#: ../src/menu.c:2105
-msgid "from cursor"
-msgstr ""
-
-#: ../src/menu.c:2105
-#, fuzzy
-msgid "in selection"
-msgstr "Στην επιλογή"
-
-#: ../src/menu.c:2105
-#, fuzzy
-msgid "in all open documents"
-msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
-
-#: ../src/menu.c:2113
-#, fuzzy
-msgid "Matc_hing:"
-msgstr "Διάστημα"
-
-#: ../src/menu.c:2116
-msgid "normal"
-msgstr ""
-
-#: ../src/menu.c:2116
-#, fuzzy
-msgid "posix regular expressions"
-msgstr "Έκδοση HTML"
-
-#: ../src/menu.c:2116
-#, fuzzy
-msgid "perl regular expressions"
-msgstr "Έκδοση HTML"
-
-#: ../src/menu.c:2122
-#, fuzzy
-msgid "Case Se_nsitive"
-msgstr "Διαφορά πεζών-κεφαλαίων"
-
-#: ../src/outputbox.c:248
+#: ../src/outputbox.c:432
 #, c-format
-msgid "failed to compile outputbox pattern %s\n"
+msgid "Failed to compile outputbox pattern %s: %s"
 msgstr ""
 
-#: ../src/preferences.c:340
+#: ../src/preferences.c:275
 #, fuzzy
 msgid "Untitled"
 msgstr "Άτιτλο"
 
-#: ../src/preferences.c:440
+#: ../src/preferences.c:376
 msgid "Select font"
 msgstr "Επιλογή γραμματοσειράς"
 
-#: ../src/preferences.c:465
-#, fuzzy
-msgid "Select color"
-msgstr "Επιλογέας"
-
-#: ../src/preferences.c:761
-msgid "Message"
+#: ../src/preferences.c:497
+msgid "Default mime type for new files"
 msgstr ""
 
-#: ../src/preferences.c:762
+#: ../src/preferences.c:500
+#, fuzzy
+msgid "_Word wrap by default"
+msgstr "Τύλιγμα λέξης"
+
+#: ../src/preferences.c:501
+msgid "(Smart) Auto indenting"
+msgstr ""
+
+#: ../src/preferences.c:502
+msgid "Tab width"
+msgstr "Μέγεθος tab"
+
+#: ../src/preferences.c:503
+#, fuzzy
+msgid "Show line numbers"
+msgstr "Αριθμός _γραμμής:"
+
+#: ../src/preferences.c:504
+#, fuzzy
+msgid "Highlight current line"
+msgstr "/Προβολή/Υπογράμμιση σύνταξης"
+
+#: ../src/preferences.c:505
+msgid "Enable block folding"
+msgstr ""
+
+#: ../src/preferences.c:506
+msgid "Enable automatic completion pop-up"
+msgstr ""
+
+#: ../src/preferences.c:507
+#, fuzzy
+msgid "Highlight matching block begin-end"
+msgstr "Τύλιγμα λέξης"
+
+#: ../src/preferences.c:509
+msgid "Enable spell check"
+msgstr ""
+
+#: ../src/preferences.c:538 ../src/preferences.c:942 ../src/preferences.c:1153
+msgid "Name"
+msgstr "Όνομα"
+
+#: ../src/preferences.c:539
 #, fuzzy
 msgid "Enabled"
 msgstr "διόρθωση ετικέτας"
 
-#: ../src/preferences.c:763
-#, fuzzy
-msgid "File"
-msgstr "/_Αρχεία"
+#: ../src/preferences.c:540
+msgid "Path to plugin"
+msgstr ""
 
-#: ../src/preferences.c:856 ../src/preferences.c:948 ../src/preferences.c:1114
-#: ../src/preferences.c:2206 ../src/preferences.c:2276
+#: ../src/preferences.c:696
+msgid ""
+"Text styles are applied on top of each other. If multiple styles are applied "
+"to the same text, the top-most style in this list has the highest priority. "
+"Use drag and drop to re-order the text styles."
+msgstr ""
+
+#: ../src/preferences.c:705 ../src/preferences.c:998 ../src/preferences.c:1068
 msgid "Label"
 msgstr "Ταμπέλα"
 
-#: ../src/preferences.c:857
-msgid "Extensions"
-msgstr "Επεκτάσεις"
-
-#: ../src/preferences.c:858
-#, fuzzy
-msgid "Update chars"
-msgstr " Ανανέωση "
-
-#: ../src/preferences.c:859
-msgid "Icon"
-msgstr "Εικονίδιο"
-
-#: ../src/preferences.c:860
-#, fuzzy
-msgid "Editable"
-msgstr "διόρθωση ετικέτας"
-
-#: ../src/preferences.c:861
-#, fuzzy
-msgid "Content regex"
-msgstr "Περιεχόμενο"
-
-#: ../src/preferences.c:862
-msgid "Auto close tags mode"
-msgstr ""
-
-#: ../src/preferences.c:864 ../src/preferences.c:866
-#, fuzzy
-msgid "Language file"
-msgstr "Γλώσσα:"
-
-#: ../src/preferences.c:949
-#, fuzzy
-msgid "Inverse filter"
-msgstr "Διάλογος εικόνων"
-
-#: ../src/preferences.c:950
-#, fuzzy
-msgid "Filetypes in filter"
-msgstr " Σβήσιμο "
-
-#: ../src/preferences.c:1105
-msgid ""
-"Text styles are applied on top of each other. If multiple styles are applied "
-"to the same text, the top-most style has the highest priority. Use drag and "
-"drop to re-order the text styles."
-msgstr ""
-
-#: ../src/preferences.c:1126 ../src/preferences.c:1564
-#: ../src/preferences.c:2773
+#: ../src/preferences.c:717 ../src/preferences.c:1616
 #, fuzzy
 msgid "Foreground color"
 msgstr "Χρώμα φόντου"
 
-#: ../src/preferences.c:1127 ../src/preferences.c:1565
-#: ../src/preferences.c:2774
+#: ../src/preferences.c:718 ../src/preferences.c:1617
 #, fuzzy
 msgid "Background color"
 msgstr "Χρώμα φόντου"
 
-#: ../src/preferences.c:1128 ../src/preferences.c:1573
-msgid "don't change weight"
+#: ../src/preferences.c:719
+msgid "normal weight"
 msgstr ""
 
-#: ../src/preferences.c:1130 ../src/preferences.c:1575
+#: ../src/preferences.c:721
 #, fuzzy
-msgid "force non-bold weight"
+msgid "bold weight"
 msgstr "font-wight"
 
-#: ../src/preferences.c:1132 ../src/preferences.c:1577
-msgid "force bold weight"
+#: ../src/preferences.c:723
+msgid "normal style"
 msgstr ""
 
-#: ../src/preferences.c:1134 ../src/preferences.c:1583
-#, fuzzy
-msgid "don't change style"
-msgstr "Εισαγωγή νέου στυλ"
-
-#: ../src/preferences.c:1136 ../src/preferences.c:1585
-msgid "force non-italic style"
+#: ../src/preferences.c:725
+msgid "italic style"
 msgstr ""
 
-#: ../src/preferences.c:1138 ../src/preferences.c:1587
-msgid "force italic style"
-msgstr ""
-
-#: ../src/preferences.c:1498
-msgid "filetype"
-msgstr "τύπος αρχείου"
-
-#: ../src/preferences.c:1503
+#: ../src/preferences.c:728
 #, fuzzy
-msgid "Reset"
-msgstr "Frameset"
+msgid "Spell check"
+msgstr "Έλεγχος Ορθογραφίας..."
 
-#: ../src/preferences.c:1509
-#, fuzzy
-msgid "Pattern name"
-msgstr "Επικόλληση"
-
-#: ../src/preferences.c:1527 ../src/preferences.c:2368
-#, fuzzy
-msgid "Pattern"
-msgstr "Επικόλληση"
-
-#: ../src/preferences.c:1550
-msgid "Start pattern and end pattern"
-msgstr ""
-
-#: ../src/preferences.c:1552
-#, fuzzy
-msgid "Only start pattern"
-msgstr "Εύρεση"
-
-#: ../src/preferences.c:1554
-msgid "Subpattern from parent"
-msgstr ""
-
-#: ../src/preferences.c:1560
-#, fuzzy
-msgid "Start pattern"
-msgstr "Εύρεση"
-
-#: ../src/preferences.c:1561
-#, fuzzy
-msgid "End pattern"
-msgstr "Επικόλληση"
-
-#: ../src/preferences.c:1562
-#, fuzzy
-msgid "Case sensitive matching"
-msgstr "Διαφορά πεζών-κεφαλαίων"
-
-#: ../src/preferences.c:1563
-msgid "Parentmatch"
-msgstr ""
-
-#: ../src/preferences.c:2207 ../src/preferences.c:2277
-#: ../src/preferences.c:2372
+#: ../src/preferences.c:999 ../src/preferences.c:1069
+#: ../src/preferences.c:1158
 msgid "Command"
 msgstr "Εντολή"
 
-#: ../src/preferences.c:2208
+#: ../src/preferences.c:1000
 #, fuzzy
 msgid "Default browser"
 msgstr "Επιλεγμένο"
 
-#: ../src/preferences.c:2210
+#: ../src/preferences.c:1002
 msgid ""
 "<small><b>Input options</b>\n"
-"specify no options to read the input from the standard output\n"
-"%s local filename (available for local files)\n"
-"%i temporary fifo for input, equals %s if the document is not modified and "
+"start with a | to send the input to the standard input\n"
+"%f local filename (available for local files)\n"
+"%i temporary fifo for input, equals %f if the document is not modified and "
 "local\n"
-"%I temporary filename for input, equals %s if the document is not modified "
+"%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Other options</b>\n"
 "%c local directory of file (available for local files)\n"
@@ -2433,17 +1928,57 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:2280 ../src/preferences.c:2375
+#: ../src/preferences.c:1072
 msgid ""
 "<small><b>Input options</b>\n"
-"specify no options to read the input from the standard output\n"
-"%s local filename (available for local files)\n"
-"%i temporary fifo for input, equals %s if the document is not modified and "
+"start with a | to send the input to the standard input\n"
+"%f local filename (requires local file, cannot operate on selection)\n"
+"%i temporary fifo for input\n"
+"%I temporary filename for input\n"
+"<b>Output options</b>\n"
+"end with a | to read the output from the standard output\n"
+"%o temporary fifo\n"
+"%O temporary filename\n"
+"%t temporary filename for both input and output (for in-place-editing "
+"filters, cannot operate on selection)\n"
+"<b>Other options</b>\n"
+"%c local directory of file (requires local file)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else "
+"identical to %u</small>"
+msgstr ""
+
+#: ../src/preferences.c:1154
+#, fuzzy
+msgid "Pattern"
+msgstr "Επικόλληση"
+
+#: ../src/preferences.c:1155
+#, fuzzy
+msgid "File #"
+msgstr "/_Αρχεία"
+
+#: ../src/preferences.c:1156
+#, fuzzy
+msgid "Line #"
+msgstr "Τύλιγμα γραμμής"
+
+#: ../src/preferences.c:1157
+msgid "Output #"
+msgstr ""
+
+#: ../src/preferences.c:1160
+msgid ""
+"<small><b>Input options</b>\n"
+"start with a | to send the input to the standard input\n"
+"%f local filename (available for local files)\n"
+"%i temporary fifo for input, equals %f if the document is not modified and "
 "local\n"
-"%I temporary filename for input, equals %s if the document is not modified "
+"%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Output options</b>\n"
-"specify no options to read the output from the standard output\n"
+"end with a | to read the output from the standard output\n"
 "%o temporary fifo\n"
 "%O temporary filename\n"
 "%t temporary filename for both input and output (for in-place-editing "
@@ -2456,767 +1991,1484 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:2369
+#. label = gtk_label_new(NULL);
+#. gtk_label_set_markup(GTK_LABEL(label), _("<small>language dialog not yet ready..</small>"));
+#. gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
+#. skip column 0, the language name
+#. 1=text
+#: ../src/preferences.c:1310
 #, fuzzy
-msgid "File #"
-msgstr "/_Αρχεία"
+msgid "Option name"
+msgstr "Επιλογή"
 
-#: ../src/preferences.c:2370
+#. 2=boolean
+#: ../src/preferences.c:1311
 #, fuzzy
-msgid "Line #"
-msgstr "Τύλιγμα γραμμής"
+msgid "value"
+msgstr "Τιμή"
 
-#: ../src/preferences.c:2371
-msgid "Output #"
-msgstr ""
+#. 1=text
+#: ../src/preferences.c:1324
+#, fuzzy
+msgid "Highlight name"
+msgstr "Υπογράμμιση σα προεπιλογή"
 
-#: ../src/preferences.c:2373
-msgid "Show all output"
-msgstr ""
+#. the textstyle model
+#: ../src/preferences.c:1327
+#, fuzzy
+msgid "Textstyle"
+msgstr "Πεδίο κειμένου"
 
-#: ../src/preferences.c:2711 ../src/preferences.c:2712
+#: ../src/preferences.c:1568 ../src/preferences.c:1569
 msgid "left"
 msgstr "αριστερά"
 
-#: ../src/preferences.c:2711 ../src/preferences.c:2712
+#: ../src/preferences.c:1568 ../src/preferences.c:1569
 msgid "right"
 msgstr "δεξιά"
 
-#: ../src/preferences.c:2711
+#: ../src/preferences.c:1568
 msgid "top"
 msgstr "πάνω"
 
-#: ../src/preferences.c:2711
+#: ../src/preferences.c:1568
 msgid "bottom"
 msgstr "κάτω"
 
-#: ../src/preferences.c:2713
-msgid "no check"
+#: ../src/preferences.c:1570
+#, fuzzy
+msgid "Nothing"
+msgstr "Χωρίς σκιά"
+
+#: ../src/preferences.c:1570
+#, fuzzy
+msgid "Modified time and file size"
+msgstr " Σβήσιμο "
+
+#: ../src/preferences.c:1570
+msgid "Modified time"
 msgstr ""
 
-#: ../src/preferences.c:2713
-msgid "check mtime and size"
+#: ../src/preferences.c:1570
+#, fuzzy
+msgid "File size"
+msgstr "/_Αρχεία"
+
+#: ../src/preferences.c:1571
+msgid "All"
 msgstr ""
 
-#: ../src/preferences.c:2713
-msgid "check mtime"
+#: ../src/preferences.c:1571
+msgid "All except spaces"
 msgstr ""
 
-#: ../src/preferences.c:2713
-msgid "check size"
+#: ../src/preferences.c:1571
+msgid "All trailing"
 msgstr ""
 
-#: ../src/preferences.c:2724
+#: ../src/preferences.c:1571
+msgid "All except non-trailing spaces"
+msgstr ""
+
+#: ../src/preferences.c:1587
 msgid "Edit preferences"
 msgstr "Επεξεργασία προτιμήσεων"
 
-#: ../src/preferences.c:2752
-msgid "Editor"
-msgstr "Επεξεργαστής"
-
-#: ../src/preferences.c:2758
+#: ../src/preferences.c:1608
 #, fuzzy
-msgid "Editor startup options"
+msgid "Editor settings"
 msgstr "Ρυθμίσεις διορθωτή"
 
-#: ../src/preferences.c:2763
-msgid "Show splash-screen"
+#: ../src/preferences.c:1610
+msgid "Generic editor settings"
 msgstr ""
 
-#: ../src/preferences.c:2766
-msgid "Editor options"
-msgstr "Ρυθμίσεις διορθωτή"
-
-#: ../src/preferences.c:2771 ../src/preferences.c:2927
+#: ../src/preferences.c:1615
 msgid "Font"
 msgstr "Γραμματοσειρά"
 
-#: ../src/preferences.c:2776
-msgid "Tab width"
-msgstr "Μέγεθος tab"
+#: ../src/preferences.c:1618
+#, fuzzy
+msgid "Current line color"
+msgstr "Επιλογέας"
 
-#: ../src/preferences.c:2777
-msgid "Smart cursor positioning at line start"
+#: ../src/preferences.c:1619
+msgid "Visible whitespace color"
 msgstr ""
 
-#: ../src/preferences.c:2778
+#: ../src/preferences.c:1620
+#, fuzzy
+msgid "Show whitespace"
+msgstr "Εμφάνιση κρυφών"
+
+#: ../src/preferences.c:1621
+msgid "Smart Home/End cursor positioning"
+msgstr ""
+
+#: ../src/preferences.c:1622
 msgid "Use spaces to indent, not tabs"
 msgstr ""
 
-#: ../src/preferences.c:2779
-#, fuzzy
-msgid "Word wrap default"
-msgstr "Τύλιγμα λέξης"
-
-#: ../src/preferences.c:2780
-#, fuzzy
-msgid "Line numbers by default"
-msgstr "Αριθμός γραμμής: "
-
-#: ../src/preferences.c:2782
-#, fuzzy
-msgid "Block folding view by default"
-msgstr "Τύλιγμα λέξης"
-
-#: ../src/preferences.c:2783
-#, fuzzy
-msgid "Symbols view by default"
-msgstr "Αριθμός γραμμής: "
-
-#: ../src/preferences.c:2785
-#, fuzzy
-msgid "Highlight syntax by default"
-msgstr "/Προβολή/Υπογράμμιση σύνταξης"
-
-#: ../src/preferences.c:2786
-#, fuzzy
-msgid "Highlight # lines"
-msgstr "Υπογράμμιση σα προεπιλογή"
-
-#: ../src/preferences.c:2788
-#, fuzzy
-msgid "Undo options"
-msgstr "Ρυθμίσεις διορθωτή"
-
-#: ../src/preferences.c:2793
-msgid "Undo history size"
+#: ../src/preferences.c:1623
+msgid "Smart auto indenting"
 msgstr ""
 
-#: ../src/preferences.c:2794
+#: ../src/preferences.c:1626
+#, fuzzy
+msgid "Delayed"
+msgstr "Διαγραφή"
+
+#: ../src/preferences.c:1626
+msgid "Immediately"
+msgstr ""
+
+#: ../src/preferences.c:1627
+msgid "Show the automatic completion pop-up window"
+msgstr ""
+
+#: ../src/preferences.c:1630
+msgid "Number of actions in undo history"
+msgstr ""
+
+#: ../src/preferences.c:1631
 msgid "Clear undo history on save"
 msgstr ""
 
-#: ../src/preferences.c:2810
+#: ../src/preferences.c:1635 ../src/project.c:533
+#, fuzzy
+msgid "Initial document settings"
+msgstr "Αρχικό ύψος"
+
+#: ../src/preferences.c:1637
+msgid "Non-project initial document settings"
+msgstr ""
+
+#: ../src/preferences.c:1645
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:2815
-msgid "HTML options"
+#: ../src/preferences.c:1647
+#, fuzzy
+msgid "HTML toolbar / menu options"
 msgstr "Ρυθμίσεις HTML"
 
-#: ../src/preferences.c:2820
+#: ../src/preferences.c:1652
 msgid "Lowercase HTML tags"
 msgstr ""
 
-#: ../src/preferences.c:2821
+#: ../src/preferences.c:1653
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr ""
 
-#: ../src/preferences.c:2822
+#: ../src/preferences.c:1654
+msgid "Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: ../src/preferences.c:1655
 #, fuzzy
 msgid "Use XHTML style tags (<br />)"
 msgstr "Χρήση XHTML σύνταξης (όπως <br />)"
 
-#: ../src/preferences.c:2824
+#: ../src/preferences.c:1657
+msgid "Auto update tag options"
+msgstr ""
+
+#: ../src/preferences.c:1661
 msgid "Automatically update author meta tag"
 msgstr ""
 
-#: ../src/preferences.c:2825
+#: ../src/preferences.c:1662
 msgid "Automatically update date meta tag"
 msgstr ""
 
-#: ../src/preferences.c:2826
+#: ../src/preferences.c:1663
 msgid "Automatically update generator meta tag"
 msgstr ""
 
-#: ../src/preferences.c:2830
+#: ../src/preferences.c:1667
 msgid "Files"
 msgstr "Αρχεία"
 
-#: ../src/preferences.c:2835
-msgid "Encoding"
-msgstr "Κωδικοποίηση"
-
-#: ../src/preferences.c:2847
+#: ../src/preferences.c:1680
 #, fuzzy
-msgid "Default character set"
+msgid "Default character set for new files"
 msgstr "Προεπιλεγμένο σετ χαρακτήρων"
 
-#: ../src/preferences.c:2850
-msgid "Auto set <meta> encoding tag on change"
+#: ../src/preferences.c:1683
+msgid "Auto set <meta> HTML tag on encoding change"
 msgstr ""
 
-#: ../src/preferences.c:2852
-msgid "Backup"
-msgstr "Αντίγραφο ασφαλείας"
-
-#: ../src/preferences.c:2856
-msgid "Create backup on save"
+#: ../src/preferences.c:1685
+msgid "Backup files and recovery of modified documents"
 msgstr ""
 
-#: ../src/preferences.c:2857
-msgid "Backup file suffix"
+#: ../src/preferences.c:1689
+#, fuzzy
+msgid "Create backup file during file save"
 msgstr "Κατάληξη αρχείου ασφαλείας"
 
-#: ../src/preferences.c:2859
-msgid "save"
-msgstr "αποθήκευση"
-
-#: ../src/preferences.c:2859
+#: ../src/preferences.c:1691
 #, fuzzy
-msgid "abort"
-msgstr "Θέση μεταβλητής"
+msgid "Continue save"
+msgstr "Να _μην αποθηκευτεί"
 
-#: ../src/preferences.c:2859
-msgid "ask"
+#: ../src/preferences.c:1691
+#, fuzzy
+msgid "Abort save"
+msgstr "Να _μην αποθηκευτεί"
+
+#: ../src/preferences.c:1691
+msgid "Ask what to do"
 msgstr ""
 
-#: ../src/preferences.c:2860
+#: ../src/preferences.c:1692
 #, fuzzy
-msgid "Action on backup failure"
-msgstr "Δε βρέθηκε το όνομα συστήματος"
+msgid "If the backup fails"
+msgstr "Εμφάνιση αντιγράφων ασφαλείας"
 
-#: ../src/preferences.c:2862
+#: ../src/preferences.c:1694
 #, fuzzy
-msgid "Remove backupfile on close"
+msgid "Remove backup file on close"
 msgstr "Κατάληξη αρχείου ασφαλείας"
 
-#: ../src/preferences.c:2866
+#: ../src/preferences.c:1698
+msgid "Enable recovery of modified documents"
+msgstr ""
+
+#: ../src/preferences.c:1699
+msgid "Frequency to store changes (seconds)"
+msgstr ""
+
+#: ../src/preferences.c:1701
 msgid "Misc"
 msgstr ""
 
-#: ../src/preferences.c:2872
-msgid "Open files in already running bluefish window"
+#: ../src/preferences.c:1706
+msgid "Open commandline files in running bluefish process"
 msgstr ""
 
-#: ../src/preferences.c:2874
-msgid "File modified on disk check "
+#: ../src/preferences.c:1708
+msgid "Open commandline files in new window"
 msgstr ""
 
-#: ../src/preferences.c:2875
-msgid "Periodically check file on disk"
+#: ../src/preferences.c:1710
+msgid "File properties to check on disk for modifications"
 msgstr ""
 
-#: ../src/preferences.c:2876
-msgid "Number of files in 'Open recent'"
+#: ../src/preferences.c:1711
+msgid "Periodically check if file is modified on disk"
 msgstr ""
 
-#: ../src/preferences.c:2878
-msgid "File browser"
-msgstr "Περιηγητής αρχείων"
-
-#: ../src/preferences.c:2883
-msgid "Use separate file and directory view"
+#: ../src/preferences.c:1712
+msgid "Number of files in 'Open recent' menu"
 msgstr ""
 
-#: ../src/preferences.c:2884
-msgid "Unknown icon"
-msgstr "Άγνωστο εικονίδιο"
-
-#: ../src/preferences.c:2885
-msgid "Directory icon"
-msgstr ""
-
-#: ../src/preferences.c:2890
+#: ../src/preferences.c:1717
 msgid "User interface"
 msgstr ""
 
-#: ../src/preferences.c:2892
+#: ../src/preferences.c:1720
+#, fuzzy
+msgid "Startup options"
+msgstr "Ρυθμίσεις διορθωτή"
+
+#: ../src/preferences.c:1725
+msgid "Show splash-screen"
+msgstr ""
+
+#: ../src/preferences.c:1728
 msgid "General"
 msgstr "Γενικά"
 
-#: ../src/preferences.c:2897
+#: ../src/preferences.c:1733
 #, fuzzy
 msgid "Make HTML dialogs transient"
 msgstr "Διάλογος εικόνων"
 
-#: ../src/preferences.c:2898
+#: ../src/preferences.c:1734
 msgid ""
 "Notebook tab font \n"
 "(leave empty for gtk default)"
 msgstr ""
 
-#: ../src/preferences.c:2899
+#: ../src/preferences.c:1735
+msgid "Notebook tab color (doc modified)"
+msgstr ""
+
+#: ../src/preferences.c:1736
+msgid "Notebook tab color (doc loading)"
+msgstr ""
+
+#: ../src/preferences.c:1737
+msgid "Notebook tab color (doc error)"
+msgstr ""
+
+#: ../src/preferences.c:1738
 #, fuzzy
 msgid "Document notebook tab position"
 msgstr "Θέση του σημειωματάριου"
 
-#: ../src/preferences.c:2900
+#: ../src/preferences.c:1739
+msgid "Switch between tabs with <Alt>+0..9"
+msgstr ""
+
+#: ../src/preferences.c:1740
 #, fuzzy
 msgid "Sidebar notebook tab position"
 msgstr "Θέση του σημειωματάριου"
 
-#: ../src/preferences.c:2901
+#: ../src/preferences.c:1741
 #, fuzzy
 msgid "Sidebar location"
 msgstr "Τοποθεσία εικόνας"
 
-#: ../src/preferences.c:2905 ../src/preferences.c:2907
+#: ../src/preferences.c:1745 ../src/preferences.c:1747
 msgid "Dimensions"
 msgstr "Διαστάσεις"
 
-#: ../src/preferences.c:2911
+#: ../src/preferences.c:1752
+msgid "Leave dimensions to window manager"
+msgstr ""
+
+#: ../src/preferences.c:1753
 msgid "Restore last used dimensions"
 msgstr ""
 
-#: ../src/preferences.c:2912
+#: ../src/preferences.c:1754
 #, fuzzy
 msgid "Initial sidebar width"
 msgstr "Αρχικό πλάτος"
 
-#: ../src/preferences.c:2913
+#: ../src/preferences.c:1755
 #, fuzzy
 msgid "Initial window height"
 msgstr "Αρχικό ύψος"
 
-#: ../src/preferences.c:2914
+#: ../src/preferences.c:1756
 #, fuzzy
 msgid "Initial window width"
 msgstr "Αρχικό πλάτος"
 
-#: ../src/preferences.c:2920 ../src/preferences.c:2922
-#, fuzzy
-msgid "Reference library"
-msgstr "Ανανέωση εγγράφου"
-
-#: ../src/preferences.c:2928
-#, fuzzy
-msgid "Info background color"
-msgstr "Χρώμα φόντου"
-
-#: ../src/preferences.c:2929
-#, fuzzy
-msgid "Info foreground color"
-msgstr "Χρώμα φόντου"
-
-#: ../src/preferences.c:2978 ../src/rcfile.c:686
+#. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
+#. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
+#: ../src/preferences.c:1763 ../src/rcfile.c:778
 msgid "Images"
 msgstr "Εικόνες"
 
 # src/configure.c:355		ΝΤΚ
-#: ../src/preferences.c:2983
+#: ../src/preferences.c:1765
 msgid "Thumbnails"
 msgstr "Μικρογραφίες"
 
 # src/configure.c:355		ΝΤΚ
-#: ../src/preferences.c:2987
+#: ../src/preferences.c:1769
 #, fuzzy
 msgid "Thumbnail suffix"
 msgstr "Τύπος προεπισκόπησης"
 
 # src/configure.c:355		ΝΤΚ
-#: ../src/preferences.c:2991
+#: ../src/preferences.c:1772
 #, fuzzy
 msgid "Thumbnail filetype"
 msgstr "Τύπος προεπισκόπησης"
 
-#: ../src/preferences.c:2997 ../src/preferences.c:3001
-#, fuzzy
-msgid "File types"
-msgstr "Τύποι αρχείων"
-
-#: ../src/preferences.c:3009 ../src/preferences.c:3014
-#, fuzzy
-msgid "File filters"
-msgstr " Σβήσιμο "
-
-#: ../src/preferences.c:3022 ../src/preferences.c:3130
-#: ../src/preferences.c:3133
-#, fuzzy
-msgid "Syntax highlighting"
-msgstr "/Επιλογές/Λίστες/Υπογράμμιση σύνταξης"
-
-#: ../src/preferences.c:3028
-#, fuzzy
-msgid "Patterns"
-msgstr "Επικόλληση"
-
-#: ../src/preferences.c:3038
+#: ../src/preferences.c:1777
 #, fuzzy
 msgid "External commands"
 msgstr "/Εξωτερικά/Εντολές/"
 
-#: ../src/preferences.c:3045
+#: ../src/preferences.c:1779
 #, fuzzy
 msgid "Commands"
 msgstr "Εντολή"
 
-#: ../src/preferences.c:3053
+#: ../src/preferences.c:1787
 #, fuzzy
 msgid "External filters"
 msgstr "Εξωτερικά προγράμματα"
 
-#: ../src/preferences.c:3058
+#: ../src/preferences.c:1789
 #, fuzzy
 msgid "Filters"
 msgstr "Φίλτρο"
 
-#: ../src/preferences.c:3066 ../src/preferences.c:3071
+#: ../src/preferences.c:1797 ../src/preferences.c:1799
 msgid "Output parsers"
 msgstr ""
 
-#: ../src/preferences.c:3082 ../src/preferences.c:3083
+#: ../src/preferences.c:1807 ../src/preferences.c:1808
 msgid "Plugins"
 msgstr ""
 
-#: ../src/preferences.c:3091
-msgid "Servers"
-msgstr "Εξυπηρετητές"
-
-#: ../src/preferences.c:3093
-msgid "Remote servers"
-msgstr "Απομακρυσμένοι εξυπηρετητές"
-
-#: ../src/preferences.c:3098
-msgid "Zope compatibility mode"
-msgstr "Λειτουργία συμβατότητας με Zope"
-
-#: ../src/preferences.c:3102 ../src/preferences.c:3103
+#: ../src/preferences.c:1816 ../src/preferences.c:1817
 msgid "Text styles"
 msgstr ""
 
-#: ../src/preferences.c:3114
-msgid "Syntax scanning"
-msgstr ""
+#: ../src/preferences.c:1826
+#, fuzzy
+msgid "Language support"
+msgstr "Γλώσσα:"
 
-#: ../src/preferences.c:3117
+#: ../src/preferences.c:1828
 msgid "Advanced syntax scanning options"
 msgstr ""
 
-#: ../src/preferences.c:3121
-#, fuzzy
-msgid "Match block begin-end by default"
-msgstr "Τύλιγμα λέξης"
-
-#: ../src/preferences.c:3122
-#, fuzzy
-msgid "Highlight current line by default"
-msgstr "/Προβολή/Υπογράμμιση σύνταξης"
-
-#: ../src/preferences.c:3124
-#, fuzzy
-msgid "whole document"
-msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
-
-#: ../src/preferences.c:3124
-msgid "visible area"
+#: ../src/preferences.c:1833
+msgid "Load reference information from language file"
 msgstr ""
 
-#: ../src/preferences.c:3125
-msgid "Scan mode"
+#: ../src/preferences.c:1834
+msgid "Show reference information in autocompletion pop-up"
 msgstr ""
 
-#: ../src/project.c:125
+#: ../src/preferences.c:1835
+msgid "Show reference information in tooltip window"
+msgstr ""
+
+#: ../src/project.c:145
 msgid "New project"
 msgstr "Νέο έργο"
 
-#: ../src/project.c:212
+#: ../src/project.c:215
 #, fuzzy
 msgid "Enter Bluefish project filename"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/project.c:337
+#: ../src/project.c:338
 #, fuzzy
 msgid "Select Bluefish project filename"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/project.c:399
-#, fuzzy
-msgid "Save current project?"
-msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
-
-#: ../src/project.c:535
+#: ../src/project.c:484
 msgid "Create New Project"
 msgstr "Δημιουργία Νέου Έργου"
 
-#: ../src/project.c:538
+#: ../src/project.c:487
 msgid "Edit Project"
 msgstr "Επεξεργασία Έργου"
 
-#: ../src/project.c:561
+#: ../src/project.c:511
 #, c-format
-msgid "This project contains %d files"
-msgstr ""
+msgid "This project contains %d file"
+msgid_plural "This project contains %d files"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/project.c:573
+#: ../src/project.c:524
 msgid "Project _Name:"
 msgstr "_Όνομα Έργου:"
 
-#: ../src/project.c:577
-#, fuzzy
-msgid "_Basedir:"
-msgstr "Βασικός υποκατάλογος"
-
-#: ../src/project.c:581
-msgid "_Preview URL:"
-msgstr "_Προεπισκόπηση URL:"
-
-#: ../src/project.c:585
+#: ../src/project.c:528
 msgid "_Template:"
 msgstr "_Πρότυπο:"
 
-#: ../src/project.c:591
-#, fuzzy
-msgid "_Word wrap by default"
-msgstr "Τύλιγμα λέξης"
-
-#: ../src/project.c:602
+#: ../src/project.c:543
 msgid "Create _Project"
 msgstr ""
 
-#: ../src/project.c:642
+#: ../src/project.c:583
 msgid "Create project"
 msgstr ""
 
-#: ../src/project.c:646
+#: ../src/project.c:587
 msgid "Create project with currently opened documents"
 msgstr ""
 
-#: ../src/project.c:647
+#: ../src/project.c:588
 msgid "Create empty project"
 msgstr ""
 
-#: ../src/rcfile.c:680
-msgid "C programming"
-msgstr "Προγραμματισμός C"
-
-#: ../src/rcfile.c:682
+#. if the user does not have outputbox settings --> set them to defaults values
+#: ../src/rcfile.c:547
 #, fuzzy
-msgid "All web files"
-msgstr "Σε όλα τα ανοικτά αρχεία"
+msgid "make"
+msgstr "Εικόνα..."
 
-#: ../src/rcfile.c:684
-msgid "Java programming"
-msgstr "Προγραμματισμός Java"
-
-#: ../src/rcfile.c:688
+#: ../src/rcfile.c:548
 #, fuzzy
-msgid "Hide objectfiles"
-msgstr "Διάλεξε αρχεία"
+msgid "weblint HTML checker"
+msgstr "Ορθογραφία"
 
-#: ../src/rcfile.c:1037
+#: ../src/rcfile.c:549
+msgid "tidy HTML validator"
+msgstr ""
+
+#: ../src/rcfile.c:550
+msgid "javac"
+msgstr "javac"
+
+#: ../src/rcfile.c:551
+#, fuzzy
+msgid "xmllint XML checker"
+msgstr "Ορθογραφία"
+
+#: ../src/rcfile.c:552
+msgid "php"
+msgstr "php"
+
+#: ../src/rcfile.c:555
+#, fuzzy
+msgid "Sort"
+msgstr " Ταξινόμηση "
+
+#: ../src/rcfile.c:556
+msgid "Sort / Unique"
+msgstr ""
+
+#: ../src/rcfile.c:557
+msgid "Reverse lines"
+msgstr ""
+
+#: ../src/rcfile.c:558
+#, fuzzy
+msgid "Dos2unix"
+msgstr "Φίλτρο Dos2Unix"
+
+#: ../src/rcfile.c:559
+#, fuzzy
+msgid "Tidy HTML"
+msgstr "HTML"
+
+#: ../src/rcfile.c:560
+msgid "Strip empty lines"
+msgstr ""
+
+#: ../src/rcfile.c:561
+#, fuzzy
+msgid "Render HTML to text"
+msgstr "Εισαγωγή Ώρας"
+
+#: ../src/rcfile.c:564
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: ../src/rcfile.c:565
+msgid "Firefox"
+msgstr ""
+
+#: ../src/rcfile.c:566
+msgid "Opera"
+msgstr "Opera"
+
+#: ../src/rcfile.c:567
+msgid "Konqueror"
+msgstr ""
+
+#: ../src/rcfile.c:568
+msgid "Galeon"
+msgstr "Galeon"
+
+#: ../src/rcfile.c:569
+msgid "Epiphany"
+msgstr ""
+
+#: ../src/rcfile.c:570
+msgid "Kazehakase"
+msgstr ""
+
+#: ../src/rcfile.c:571
+msgid "Links2 (graphics)"
+msgstr ""
+
+#: ../src/rcfile.c:714
 #, fuzzy
 msgid "Untitled Project"
 msgstr "Άτιτλο"
 
-#: ../src/snr2.c:169
+#: ../src/rcfile.c:772
+msgid "C programming"
+msgstr "Προγραμματισμός C"
+
+#: ../src/rcfile.c:774
+#, fuzzy
+msgid "Web files"
+msgstr "Σε όλα τα ανοικτά αρχεία"
+
+#: ../src/rcfile.c:780
+#, fuzzy
+msgid "Hide objectfiles"
+msgstr "Διάλεξε αρχεία"
+
+#: ../src/snr2.c:234
 #, fuzzy
 msgid "Regular expression error: "
 msgstr "Έκδοση HTML"
 
-#: ../src/snr2.c:173 ../src/snr2.c:222
+#: ../src/snr2.c:238 ../src/snr2.c:287
 #, fuzzy
 msgid "Search failed"
 msgstr "Αποτυχία εύρεσης"
 
-#: ../src/snr2.c:218
+#: ../src/snr2.c:283
 #, fuzzy, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Έκδοση HTML"
 
-#: ../src/snr2.c:1252
+#: ../src/snr2.c:1379
 #, c-format
-msgid "Found %d matches, replaced %d"
-msgstr ""
+msgid "Found %d matches, "
+msgid_plural "Found %d matches, "
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/snr2.c:1254
+#: ../src/snr2.c:1380
+#, fuzzy, c-format
+msgid "replaced %d"
+msgid_plural "replaced %d"
+msgstr[0] "Αντικατάσταση"
+msgstr[1] "Αντικατάσταση"
+
+#: ../src/snr2.c:1385
 #, c-format
 msgid "Found %d matches"
-msgstr ""
+msgid_plural "Found %d matches"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/snr2.c:1296
+#. display warning that not all documents have yet finished loading
+#: ../src/snr2.c:1406
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
 "span>"
 msgstr ""
 
-#: ../src/snr2.c:1395 ../src/snr2.c:1733
+#: ../src/snr2.c:1531
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">No selection. Please select a block "
+"of text first.</span>"
+msgstr ""
+
+#: ../src/snr2.c:1570 ../src/snr2.c:1936
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
 "will continue at the beginning.</span>"
 msgstr ""
 
-#: ../src/snr2.c:1469
+#: ../src/snr2.c:1647
 #, fuzzy
 msgid "Entire document"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/snr2.c:1470
+#: ../src/snr2.c:1648
 msgid "Forward from cursor position"
 msgstr ""
 
-#: ../src/snr2.c:1471
+#: ../src/snr2.c:1649
 #, fuzzy
 msgid "Selection"
 msgstr "Επιλογή γραμματοσειράς"
 
-#: ../src/snr2.c:1472
+#: ../src/snr2.c:1650
 #, fuzzy
 msgid "All open files"
 msgstr "Σε όλα τα ανοικτά αρχεία"
 
-#: ../src/snr2.c:1476 ../src/snr2.c:1483
+#: ../src/snr2.c:1654 ../src/snr2.c:1661
 msgid "Normal"
 msgstr "Κανονικό"
 
-#: ../src/snr2.c:1477
+#: ../src/snr2.c:1655
 msgid "Entire word only"
 msgstr ""
 
-#: ../src/snr2.c:1478
+#: ../src/snr2.c:1656
 #, fuzzy
-msgid "POSIX"
-msgstr "Τύπος POSIX"
+msgid "POSIX style regular expression"
+msgstr "Έκδοση HTML"
 
-#: ../src/snr2.c:1479
+#: ../src/snr2.c:1657
 #, fuzzy
-msgid "PERL"
-msgstr "Τύπος PERL"
+msgid "PERL style regular expression"
+msgstr "Έκδοση HTML"
 
-#: ../src/snr2.c:1484
+#: ../src/snr2.c:1662
 msgid "Uppercase"
 msgstr "Κεφαλαία"
 
-#: ../src/snr2.c:1485
+#: ../src/snr2.c:1663
 msgid "Lowercase"
 msgstr "Πεζά"
 
-#: ../src/snr2.c:1521
+#: ../src/snr2.c:1701
 msgid "_Search for: "
 msgstr "Α_ναζήτηση για: "
 
-#: ../src/snr2.c:1525
+#: ../src/snr2.c:1705
 msgid "The pattern to look for"
 msgstr ""
 
-#: ../src/snr2.c:1540
+#: ../src/snr2.c:1720
 #, fuzzy
 msgid "Replace _with: "
 msgstr "_Αντικατάσταση με: "
 
-#: ../src/snr2.c:1544
+#: ../src/snr2.c:1724
 msgid "Replace matching text with"
 msgstr ""
 
-#: ../src/snr2.c:1552
+#: ../src/snr2.c:1732
 msgid "Sco_pe: "
 msgstr ""
 
-#: ../src/snr2.c:1556
+#: ../src/snr2.c:1736
 msgid "Where to look for the pattern."
 msgstr ""
 
-#: ../src/snr2.c:1562
+#: ../src/snr2.c:1742
 msgid "Found 0 matches, replaced 0"
 msgstr ""
 
-#: ../src/snr2.c:1562
+#: ../src/snr2.c:1742
 msgid "Found 0 matches"
 msgstr ""
 
-#: ../src/snr2.c:1572
+#: ../src/snr2.c:1752
 #, fuzzy
 msgid "<b>_Options</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/snr2.c:1586
+#: ../src/snr2.c:1767
 #, fuzzy
 msgid "Match Patter_n: "
 msgstr "Εύρεση"
 
-#: ../src/snr2.c:1590
+#: ../src/snr2.c:1771
 msgid "How to interpret the pattern."
 msgstr ""
 
-#: ../src/snr2.c:1597
+#: ../src/snr2.c:1778
 #, fuzzy
 msgid "Replace T_ype: "
 msgstr "Αντικατάσταση"
 
-#: ../src/snr2.c:1602
+#: ../src/snr2.c:1783
 #, fuzzy
 msgid "What to replace with."
 msgstr "_Αντικατάσταση με: "
 
-#: ../src/snr2.c:1606
+#: ../src/snr2.c:1787
 msgid "Allow o_verlapping matches"
 msgstr ""
 
-#: ../src/snr2.c:1609
+#: ../src/snr2.c:1790
 msgid "After a match is found, start next search within that match."
 msgstr ""
 
-#: ../src/snr2.c:1611
+#: ../src/snr2.c:1792
 #, fuzzy
-msgid "_Case sensitive matching"
+msgid "Case sensitive _matching"
 msgstr "Διαφορά πεζών-κεφαλαίων"
 
-#: ../src/snr2.c:1614
+#: ../src/snr2.c:1795
 msgid "Only match if case (upper/lower) is identical."
 msgstr ""
 
-#: ../src/snr2.c:1616
-#, fuzzy
-msgid "_Use escape chars"
-msgstr " Ανανέωση "
-
-#: ../src/snr2.c:1619
-msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+#: ../src/snr2.c:1797
+msgid "Pattern contains escape-se_quences"
 msgstr ""
 
-#: ../src/snr2.c:1621
+#: ../src/snr2.c:1800
+msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
+msgstr ""
+
+#: ../src/snr2.c:1802
+#, fuzzy
+msgid "Select matc_hes"
+msgstr "Επιλογή αρχείων"
+
+#: ../src/snr2.c:1805
+msgid "Select the matching text instead of just highlighting it"
+msgstr ""
+
+#: ../src/snr2.c:1807
 #, fuzzy
 msgid "_Bookmark matches"
 msgstr "Σελίδοδείκτες"
 
-#: ../src/snr2.c:1624
+#: ../src/snr2.c:1809
 msgid "Create a bookmark for each match"
 msgstr ""
 
-#: ../src/snr2.c:1629
+#: ../src/snr2.c:1814
 #, fuzzy
 msgid "Replace _All"
 msgstr "Αντικατάσταση _όλων"
 
-#: ../src/snr2.c:1635
+#: ../src/snr2.c:1817
+msgid "_Replace"
+msgstr "_Αντικατάσταση"
+
+#: ../src/snr2.c:1820
 #, fuzzy
 msgid "Find _All"
 msgstr "Εύρεση"
 
-#: ../src/stringlist.c:367
-msgid " Add "
-msgstr " Προσθήκη "
+#: ../src/snr2.c:2428
+msgid "Lines into columns"
+msgstr ""
 
-#: ../src/stringlist.c:369
-msgid " Update "
-msgstr " Ανανέωση "
+#: ../src/snr2.c:2440
+#, fuzzy
+msgid "Number of columns"
+msgstr "Αριθμός των _στηλών:"
 
-#: ../src/stringlist.c:371
-msgid " Delete "
-msgstr " Διαγραφή "
+#: ../src/snr2.c:2443
+msgid "Spread lines horizontally"
+msgstr ""
 
-#: ../src/stringlist.c:373
-msgid " Up "
-msgstr " Επάνω "
+#: ../src/snr2.c:2444
+msgid "Column separator"
+msgstr ""
 
-#: ../src/stringlist.c:375
-msgid " Down "
-msgstr " Κάτω "
+#: ../src/snr2.c:2446
+msgid "Fill empty entries"
+msgstr ""
 
-#: ../src/stringlist.c:377
-msgid " Sort "
-msgstr " Ταξινόμηση "
-
-#: ../src/undo_redo.c:460
+#: ../src/undo_redo.c:462
 #, fuzzy
 msgid "Undo in _all documents"
 msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
 
-#: ../src/undo_redo.c:460
+#: ../src/undo_redo.c:462
 #, fuzzy
 msgid "Undo only _this document"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/undo_redo.c:463
+#: ../src/undo_redo.c:465
 msgid "Undo this change in all documents?"
 msgstr ""
 
-#: ../src/undo_redo.c:463
+#: ../src/undo_redo.c:465
 msgid "This change concerns multiple documents."
 msgstr ""
 
-#~ msgid "Show hidden"
-#~ msgstr "Εμφάνιση κρυφών"
+#~ msgid "About Bluefish"
+#~ msgstr "Περί Bluefish"
+
+#, fuzzy
+#~ msgid "Info"
+#~ msgstr "Μη αριθμημένα"
+
+#~ msgid "Translators"
+#~ msgstr "Μεταφραστές"
+
+#~ msgid "Username:"
+#~ msgstr "Όνομα χρήστη:"
+
+#~ msgid "Password:"
+#~ msgstr "Κωδικός:"
+
+#~ msgid "Check Spelling"
+#~ msgstr "Έλεγχος Ορθογραφίας"
+
+#, fuzzy
+#~ msgid "Checking"
+#~ msgstr "Τσεκαρισμένο"
+
+#, fuzzy
+#~ msgid "I_gnore"
+#~ msgstr "Μη αριθμημένα"
+
+#, fuzzy
+#~ msgid "I_n selection"
+#~ msgstr "Στην επιλογή"
+
+#~ msgid "personal dictionary"
+#~ msgstr "προσωπικό λεξικό"
+
+#, fuzzy
+#~ msgid "session dictionary"
+#~ msgstr "Προσωπικό λεξικό"
+
+#~ msgid "Dictionary:"
+#~ msgstr "Λεξικό:"
+
+#~ msgid "_Add"
+#~ msgstr "_Προσθήκη"
+
+#, fuzzy
+#~ msgid "Set defa_ult"
+#~ msgstr "Αριθμός γραμμής: "
+
+#~ msgid "Filter:"
+#~ msgstr "Φίλτρο:"
+
+#~ msgid "no filter"
+#~ msgstr "χωρίς φίλτρο"
+
+#~ msgid ""
+#~ "\n"
+#~ "Currently accepted options are:\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Δεκτές επιλογές ως τώρα:\n"
+
+#~ msgid "-s           skip root check\n"
+#~ msgstr "-s           αγνόηση ελέγχου για root\n"
+
+#~ msgid "-v           current version\n"
+#~ msgstr "-v          τρέχουσα έκδοση\n"
+
+#, fuzzy
+#~ msgid "-n           open new window\n"
+#~ msgstr "-v           τωρινή έκδοση\n"
+
+#~ msgid "-h           this help screen\n"
+#~ msgstr "-h           αυτή η βοηθητική οθόνη\n"
+
+#, fuzzy
+#~ msgid "parsing highlighting file..."
+#~ msgstr "/Επιλογές/Λίστες/Υπογράμμιση σύνταξης"
+
+#, fuzzy
+#~ msgid "File size changed in file \n"
+#~ msgstr "Σφάλμα του Bluefish"
+
+#, fuzzy
+#~ msgid "/Document/Highlight Syntax"
+#~ msgstr "/Προβολή/Υπογράμμιση σύνταξης"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "Type: "
+#~ msgstr "Τύπος"
+
+#~ msgid " bytes"
+#~ msgstr " bytes"
+
+#~ msgid "  %s, %s"
+#~ msgstr "  %s, %s"
+
+#~ msgid "Statistics: %d lines, %d words, %d characters"
+#~ msgstr "Στατιστικά: %d γραμμές, %d λέξεις, %d χαρακτήρες"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Γενικά</b>"
+
+#, fuzzy
+#~ msgid "File save failed!\n"
+#~ msgstr "Σφάλμα του Bluefish"
+
+#, fuzzy
+#~ msgid "Cannot load reference file %s\n"
+#~ msgstr "Προεπισκόπηση του Bluefish:"
+
+#, fuzzy
+#~ msgid ""
+#~ "Bad root element in reference file %s\n"
+#~ "Should be <ref> or <r> and found %s"
+#~ msgstr "Προεπισκόπηση του Bluefish:"
+
+#, fuzzy
+#~ msgid "Bad root element in reference file"
+#~ msgstr "Προεπισκόπηση του Bluefish:"
+
+#, fuzzy
+#~ msgid "Bad reference"
+#~ msgstr "Επεξεργασία προτιμήσεων"
+
+#, fuzzy
+#~ msgid "Loading reference"
+#~ msgstr "Επεξεργασία προτιμήσεων"
+
+#, fuzzy
+#~ msgid "Unloading reference"
+#~ msgstr "/Επιλογές/Προτιμήσεις"
+
+#, fuzzy
+#~ msgid "Identifier"
+#~ msgstr "Κέντρο"
+
+#, fuzzy
+#~ msgid "Kind"
+#~ msgstr "Εύρεση"
+
+#, fuzzy
+#~ msgid "Type"
+#~ msgstr "_Τύπος:"
+
+#, fuzzy
+#~ msgid "Default value"
+#~ msgstr "Επιλεγμένο"
+
+#, fuzzy
+#~ msgid "Input type"
+#~ msgstr "Μη αριθμημένα"
+
+#, fuzzy
+#~ msgid "Values"
+#~ msgstr "Τιμή"
+
+#, fuzzy
+#~ msgid "Insert syntax"
+#~ msgstr "Εισαγωγή εικόνας"
+
+#, fuzzy
+#~ msgid "Properties"
+#~ msgstr "Ιδιότητα"
+
+#, fuzzy
+#~ msgid "Add property"
+#~ msgstr "Ιδιότητα"
+
+#, fuzzy
+#~ msgid "Add ref definition"
+#~ msgstr "Όρος προς ερμηνεία"
+
+#~ msgid "Error"
+#~ msgstr "Σφάλμα"
+
+#, fuzzy
+#~ msgid "Element search"
+#~ msgstr "Ανανέωση εγγράφου"
+
+#, fuzzy
+#~ msgid "New library"
+#~ msgstr "Προσωρινός κατάλογος:"
+
+#, fuzzy
+#~ msgid "Library name"
+#~ msgstr "Όνομα καταλόγου"
+
+#, fuzzy
+#~ msgid "Delete library?"
+#~ msgstr "Διαγραφή σελιδοδεικτών;"
+
+#, fuzzy
+#~ msgid "New note"
+#~ msgstr "Νέο έργο"
+
+#, fuzzy
+#~ msgid "Title"
+#~ msgstr "_Τίτλος:"
+
+#, fuzzy
+#~ msgid "New group"
+#~ msgstr "Νέο έργο"
+
+#, fuzzy
+#~ msgid "New description def"
+#~ msgstr "Περιγραφή"
+
+#, fuzzy
+#~ msgid "Description text"
+#~ msgstr "Περιγραφή"
+
+#, fuzzy
+#~ msgid "New values def"
+#~ msgstr "Νέο Παράθυρο Bluefish"
+
+#, fuzzy
+#~ msgid "Definitions"
+#~ msgstr "Ορισμός"
+
+#, fuzzy
+#~ msgid "New property"
+#~ msgstr "Νέο έργο"
+
+#, fuzzy
+#~ msgid "No name"
+#~ msgstr "Μη γνωστό όνομα αρχείου"
+
+#, fuzzy
+#~ msgid "Delete definition?"
+#~ msgstr "Ορισμός"
+
+#, fuzzy
+#~ msgid "Delete group"
+#~ msgstr " Διαγραφή "
+
+#, fuzzy
+#~ msgid "Delete group?"
+#~ msgstr " Διαγραφή "
+
+#, fuzzy
+#~ msgid "Do you really want to delete current entity?"
+#~ msgstr "Είσαι σίγουρος για την αντικατάσταση;"
+
+#~ msgid "Insert"
+#~ msgstr "Εισαγωγή"
+
+#~ msgid "Notes"
+#~ msgstr "Σημειώσεις"
+
+#, fuzzy
+#~ msgid "Examples"
+#~ msgstr "Δείγμα"
+
+#, fuzzy
+#~ msgid "Links"
+#~ msgstr "Σύνδεσμος"
+
+#, fuzzy
+#~ msgid "Rescan directories"
+#~ msgstr "Προεπισκόπηση του Bluefish:"
+
+#~ msgid "Edit"
+#~ msgstr "Επεξεργασία"
+
+#, fuzzy
+#~ msgid "Delete library"
+#~ msgstr "Διαγραφή σελιδοδείκτη"
+
+#, fuzzy
+#~ msgid "Note"
+#~ msgstr "Σημειώσεις"
+
+#, fuzzy
+#~ msgid "Property definition"
+#~ msgstr "Ορισμός"
+
+#, fuzzy
+#~ msgid "Description definition"
+#~ msgstr "Περιγραφή"
+
+#, fuzzy
+#~ msgid "Element"
+#~ msgstr "Γεγονότα"
+
+#, fuzzy
+#~ msgid "Delete definition"
+#~ msgstr "Ορισμός"
+
+#, fuzzy
+#~ msgid "Delete entity"
+#~ msgstr " Διαγραφή "
+
+#, fuzzy
+#~ msgid "Function reference"
+#~ msgstr "/Επιλογές/Προτιμήσεις"
+
+#, fuzzy
+#~ msgid "From _selection"
+#~ msgstr "Επιλογή γραμματοσειράς"
+
+#, fuzzy
+#~ msgid "Keep _dialog"
+#~ msgstr "Διάλογος εικόνων"
+
+#, fuzzy
+#~ msgid "Syntax highlighting error for "
+#~ msgstr "/Επιλογές/Λίστες/Υπογράμμιση σύνταξης"
+
+#, fuzzy
+#~ msgid "/Edit/Replace special"
+#~ msgstr "/Επεξεργασία/Αντικατάσταση"
+
+#, fuzzy
+#~ msgid "/Edit/Save Sett_ings"
+#~ msgstr "/Επιλογές/Αποθήκευση πλήκτρων συντομίας"
+
+#, fuzzy
+#~ msgid "/View/View _Custom Menu"
+#~ msgstr "/_Προσαρμοσμένο μενού"
+
+#, fuzzy
+#~ msgid "/Document/Auto Close H_TML tags"
+#~ msgstr "/Επιλογές/Λίστες"
+
+#, fuzzy
+#~ msgid "/Document/Show _symbols"
+#~ msgstr "/Επεξεργασία/Αποκοπή"
+
+#, fuzzy
+#~ msgid "/Document/_Update Highlighting"
+#~ msgstr "/Προβολή/Ανανέωση υπογράμμισης"
+
+#, fuzzy
+#~ msgid "/Project/Open recent"
+#~ msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
+
+#, fuzzy
+#~ msgid "/File/Open recent"
+#~ msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
+
+#, fuzzy
+#~ msgid "/Tools/Outputbox/"
+#~ msgstr "/Εξωτερικά/διαχ11"
+
+#~ msgid "/Tools/Commands/"
+#~ msgstr "/Εξωτερικά/Εντολές/"
+
+#, fuzzy
+#~ msgid "/Tools/Filters/"
+#~ msgstr "/Εξωτερικά/Φίλτρα/"
+
+#, fuzzy
+#~ msgid "/External"
+#~ msgstr "/_Εξωτερικά"
+
+#~ msgid "/_Custom menu"
+#~ msgstr "/_Προσαρμοσμένο μενού"
+
+# src/html.c:736		ΝΤΚ
+#, fuzzy
+#~ msgid "/Custom menu/Edit custom menu..."
+#~ msgstr "/Προσαρμοσμένο μενού/Διόρθωση"
+
+# src/html.c:736		ΝΤΚ
+#, fuzzy
+#~ msgid "/Custom menu/Reset"
+#~ msgstr "/Προσαρμοσμένο μενού/διαχ"
+
+# src/html.c:736		ΝΤΚ
+#, fuzzy
+#~ msgid "/Custom menu/Load new"
+#~ msgstr "/Προσαρμοσμένο μενού/διαχ"
+
+#, fuzzy
+#~ msgid "Search Pattern"
+#~ msgstr "Εύρεση"
+
+#, fuzzy
+#~ msgid "Replace String"
+#~ msgstr "Αντικατάσταση"
+
+#, fuzzy
+#~ msgid "Formatstring Before"
+#~ msgstr "Κείμενο διαμόρφωσης πριν"
+
+#, fuzzy
+#~ msgid "Formatstring After"
+#~ msgstr "Κείμενο διαμόρφωσης μετά"
+
+#, fuzzy
+#~ msgid "Custom Menu Editor"
+#~ msgstr "/_Προσαρμοσμένο μενού"
+
+#, fuzzy
+#~ msgid "_Menu Path:"
+#~ msgstr "Θέση μενού"
+
+#~ msgid "Menu path"
+#~ msgstr "Θέση μενού"
+
+#, fuzzy
+#~ msgid "Number of _Variables:"
+#~ msgstr "Αριθμός μεταβλητών"
+
+#~ msgid "Variables"
+#~ msgstr "Μεταβλητές"
+
+#, fuzzy
+#~ msgid "Custom Dialo_g"
+#~ msgstr "Διάλογος Πήγαινε"
+
+#, fuzzy
+#~ msgid "Custom Replace"
+#~ msgstr "Εύρεση και Αντικατάσταση"
+
+#, fuzzy
+#~ msgid "_Replace:"
+#~ msgstr "Αντικατάσταση"
+
+#, fuzzy
+#~ msgid "in current document"
+#~ msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
+
+#, fuzzy
+#~ msgid "in selection"
+#~ msgstr "Στην επιλογή"
+
+#, fuzzy
+#~ msgid "in all open documents"
+#~ msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
+
+#, fuzzy
+#~ msgid "Matc_hing:"
+#~ msgstr "Διάστημα"
+
+#, fuzzy
+#~ msgid "posix regular expressions"
+#~ msgstr "Έκδοση HTML"
+
+#, fuzzy
+#~ msgid "Case Se_nsitive"
+#~ msgstr "Διαφορά πεζών-κεφαλαίων"
+
+#, fuzzy
+#~ msgid "File"
+#~ msgstr "/_Αρχεία"
+
+#~ msgid "Extensions"
+#~ msgstr "Επεκτάσεις"
+
+#, fuzzy
+#~ msgid "Update chars"
+#~ msgstr " Ανανέωση "
+
+#, fuzzy
+#~ msgid "Editable"
+#~ msgstr "διόρθωση ετικέτας"
+
+#, fuzzy
+#~ msgid "Content regex"
+#~ msgstr "Περιεχόμενο"
+
+#, fuzzy
+#~ msgid "Language file"
+#~ msgstr "Γλώσσα:"
+
+#, fuzzy
+#~ msgid "Inverse filter"
+#~ msgstr "Διάλογος εικόνων"
+
+#, fuzzy
+#~ msgid "Filetypes in filter"
+#~ msgstr " Σβήσιμο "
+
+#, fuzzy
+#~ msgid "don't change style"
+#~ msgstr "Εισαγωγή νέου στυλ"
+
+#~ msgid "filetype"
+#~ msgstr "τύπος αρχείου"
+
+#, fuzzy
+#~ msgid "Reset"
+#~ msgstr "Frameset"
+
+#, fuzzy
+#~ msgid "Pattern name"
+#~ msgstr "Επικόλληση"
+
+#, fuzzy
+#~ msgid "Only start pattern"
+#~ msgstr "Εύρεση"
+
+#, fuzzy
+#~ msgid "Start pattern"
+#~ msgstr "Εύρεση"
+
+#~ msgid "Editor"
+#~ msgstr "Επεξεργαστής"
+
+#, fuzzy
+#~ msgid "Word wrap default"
+#~ msgstr "Τύλιγμα λέξης"
+
+#, fuzzy
+#~ msgid "Line numbers by default"
+#~ msgstr "Αριθμός γραμμής: "
+
+#, fuzzy
+#~ msgid "Block folding view by default"
+#~ msgstr "Τύλιγμα λέξης"
+
+#, fuzzy
+#~ msgid "Symbols view by default"
+#~ msgstr "Αριθμός γραμμής: "
+
+#, fuzzy
+#~ msgid "Highlight syntax by default"
+#~ msgstr "/Προβολή/Υπογράμμιση σύνταξης"
+
+#, fuzzy
+#~ msgid "Undo options"
+#~ msgstr "Ρυθμίσεις διορθωτή"
+
+#~ msgid "Backup"
+#~ msgstr "Αντίγραφο ασφαλείας"
+
+#~ msgid "Backup file suffix"
+#~ msgstr "Κατάληξη αρχείου ασφαλείας"
+
+#~ msgid "save"
+#~ msgstr "αποθήκευση"
+
+#, fuzzy
+#~ msgid "abort"
+#~ msgstr "Θέση μεταβλητής"
+
+#, fuzzy
+#~ msgid "Action on backup failure"
+#~ msgstr "Δε βρέθηκε το όνομα συστήματος"
+
+#~ msgid "File browser"
+#~ msgstr "Περιηγητής αρχείων"
+
+#, fuzzy
+#~ msgid "Reference library"
+#~ msgstr "Ανανέωση εγγράφου"
+
+#, fuzzy
+#~ msgid "Info background color"
+#~ msgstr "Χρώμα φόντου"
+
+#, fuzzy
+#~ msgid "Info foreground color"
+#~ msgstr "Χρώμα φόντου"
+
+#, fuzzy
+#~ msgid "File filters"
+#~ msgstr " Σβήσιμο "
+
+#, fuzzy
+#~ msgid "Syntax highlighting"
+#~ msgstr "/Επιλογές/Λίστες/Υπογράμμιση σύνταξης"
+
+#, fuzzy
+#~ msgid "Patterns"
+#~ msgstr "Επικόλληση"
+
+#~ msgid "Servers"
+#~ msgstr "Εξυπηρετητές"
+
+#~ msgid "Remote servers"
+#~ msgstr "Απομακρυσμένοι εξυπηρετητές"
+
+#~ msgid "Zope compatibility mode"
+#~ msgstr "Λειτουργία συμβατότητας με Zope"
+
+#, fuzzy
+#~ msgid "whole document"
+#~ msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
+
+#, fuzzy
+#~ msgid "Save current project?"
+#~ msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
+
+#, fuzzy
+#~ msgid "_Basedir:"
+#~ msgstr "Βασικός υποκατάλογος"
+
+#~ msgid "_Preview URL:"
+#~ msgstr "_Προεπισκόπηση URL:"
+
+#~ msgid "Java programming"
+#~ msgstr "Προγραμματισμός Java"
+
+#, fuzzy
+#~ msgid "POSIX"
+#~ msgstr "Τύπος POSIX"
+
+#, fuzzy
+#~ msgid "PERL"
+#~ msgstr "Τύπος PERL"
+
+#, fuzzy
+#~ msgid "_Case sensitive matching"
+#~ msgstr "Διαφορά πεζών-κεφαλαίων"
+
+#, fuzzy
+#~ msgid "_Use escape chars"
+#~ msgstr " Ανανέωση "
+
+#~ msgid " Add "
+#~ msgstr " Προσθήκη "
+
+#~ msgid " Update "
+#~ msgstr " Ανανέωση "
+
+#~ msgid " Delete "
+#~ msgstr " Διαγραφή "
+
+#~ msgid " Up "
+#~ msgstr " Επάνω "
+
+#~ msgid " Down "
+#~ msgstr " Κάτω "
 
 #, fuzzy
 #~ msgid "/File/Open recent/tearoff1"
@@ -3292,16 +3544,8 @@ msgstr ""
 #~ msgstr "/Επεξεργασία/διαχ2"
 
 #, fuzzy
-#~ msgid "/View/tearoff1"
-#~ msgstr "/Αρχείο/κοψ1"
-
-#, fuzzy
 #~ msgid "/Document/tearoff1"
 #~ msgstr "/Σχέδιο/διαχ1"
-
-#, fuzzy
-#~ msgid "/Document/sep1"
-#~ msgstr "Σχόλιο"
 
 #, fuzzy
 #~ msgid "/Document/sep2"
@@ -3362,10 +3606,6 @@ msgstr ""
 #~ msgid "General scanner preferences"
 #~ msgstr "Προεπισκόπηση του Bluefish:"
 
-#, fuzzy
-#~ msgid "Languages"
-#~ msgstr "Γλώσσα:"
-
 #~ msgid "Confirm replace"
 #~ msgstr "Επιβεβαίωση αντικατάστασης"
 
@@ -3388,10 +3628,6 @@ msgstr ""
 #~ msgid "Disabled"
 #~ msgstr "Μεταβλητές"
 
-#, fuzzy
-#~ msgid "Starts at:"
-#~ msgstr "Εύρεση"
-
 #~ msgid "Regular expression:"
 #~ msgstr "Κανονική έκφραση:"
 
@@ -3406,10 +3642,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Bookmark results"
 #~ msgstr "/Επιλογές/διαχ1"
-
-#, fuzzy
-#~ msgid "Bluefish tip:"
-#~ msgstr "Προεπισκόπηση του Bluefish:"
 
 #~ msgid "Edit color"
 #~ msgstr "Επεξεργασία χρώματος"
@@ -3430,9 +3662,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Opening directory..."
 #~ msgstr "Προσωρινός κατάλογος:"
-
-#~ msgid "Do_n't save"
-#~ msgstr "Να _μην αποθηκευτεί"
 
 #, fuzzy
 #~ msgid "Select font for reference view"
@@ -3594,9 +3823,6 @@ msgstr ""
 #~ msgid "Noframes"
 #~ msgstr "Χωρίς πλαίσια"
 
-#~ msgid "Target"
-#~ msgstr "Στόχος"
-
 #~ msgid "Form..."
 #~ msgstr "Φόρμα..."
 
@@ -3756,9 +3982,6 @@ msgstr ""
 #~ msgid "Property"
 #~ msgstr "Ιδιότητα"
 
-#~ msgid "Value"
-#~ msgstr "Τιμή"
-
 #~ msgid " _Add "
 #~ msgstr " _Προσθήκη "
 
@@ -3872,10 +4095,6 @@ msgstr ""
 #~ msgid "Is _percent"
 #~ msgstr "Είναι _ποσοστό"
 
-#, fuzzy
-#~ msgid "No _shading"
-#~ msgstr "Χωρίς σκιά"
-
 #~ msgid "Body"
 #~ msgstr "Σώμα"
 
@@ -3908,9 +4127,6 @@ msgstr ""
 
 #~ msgid "_HTTP-EQUIV:"
 #~ msgstr "_HTTP-EQUIV:"
-
-#~ msgid "Con_tent:"
-#~ msgstr "Περιε_χόμενο:"
 
 #, fuzzy
 #~ msgid "_Scheme:"
@@ -4019,9 +4235,6 @@ msgstr ""
 #~ msgid "Metho_d:"
 #~ msgstr "Μέ_θοδος:"
 
-#~ msgid "Text area"
-#~ msgstr "Πεδίο κειμένου"
-
 #~ msgid "Select"
 #~ msgstr "Επιλογή"
 
@@ -4031,9 +4244,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Multiple _Selections:"
 #~ msgstr "Πολλαπλές επιλογές"
-
-#~ msgid "Option"
-#~ msgstr "Επιλογή"
 
 #, fuzzy
 #~ msgid "_Label:"
@@ -5152,10 +5362,6 @@ msgstr ""
 #~ msgstr "Περιηγητές Ιστοσελίδων"
 
 #, fuzzy
-#~ msgid "Utilities and filters"
-#~ msgstr " Σβήσιμο "
-
-#, fuzzy
 #~ msgid "Ty_pe:"
 #~ msgstr "_Τύπος:"
 
@@ -5176,10 +5382,6 @@ msgstr ""
 #~ msgstr "<b>Γενικά</b>"
 
 #, fuzzy
-#~ msgid "<b>Attributes</b>"
-#~ msgstr "Γνωρίσματα"
-
-#, fuzzy
 #~ msgid "_Src:"
 #~ msgstr "_Πηγή:"
 
@@ -5198,37 +5400,11 @@ msgstr ""
 #~ msgid "_Head:"
 #~ msgstr "_Href:"
 
-#~ msgid "Galeon"
-#~ msgstr "Galeon"
-
-#~ msgid "Mozilla"
-#~ msgstr "Mozilla"
-
-#~ msgid "Opera"
-#~ msgstr "Opera"
-
 #~ msgid "Netscape"
 #~ msgstr "Netscape"
 
 #~ msgid "Gnome default"
 #~ msgstr "Προεπιλογή Gnome"
-
-#, fuzzy
-#~ msgid "make"
-#~ msgstr "Εικόνα..."
-
-#~ msgid "javac"
-#~ msgstr "javac"
-
-#, fuzzy
-#~ msgid "xmllint XML checker"
-#~ msgstr "Ορθογραφία"
-
-#~ msgid "php"
-#~ msgstr "php"
-
-#~ msgid "Dos2Unix filter"
-#~ msgstr "Φίλτρο Dos2Unix"
 
 #, fuzzy
 #~ msgid "Tidy cleanup filter"
@@ -5239,9 +5415,6 @@ msgstr ""
 
 #~ msgid "Number of _rows:"
 #~ msgstr "Αριθμός των _γραμμών:"
-
-#~ msgid "Number of colu_mns:"
-#~ msgstr "Αριθμός των _στηλών:"
 
 #, fuzzy
 #~ msgid "Table rows on one _line:"
@@ -5320,19 +5493,12 @@ msgstr ""
 #~ msgid "Unable to open file(s)\n"
 #~ msgstr "Δεν είναι δυνατή η προσπέλαση του αρχείου"
 
-#, fuzzy
-#~ msgid "searching files..."
-#~ msgstr "Αποθήκευση αρχείου"
-
 #~ msgid "_File Type:"
 #~ msgstr "Τύπος _Αρχείου:"
 
 #, fuzzy
 #~ msgid "Loading %d file(s)..."
 #~ msgstr "Αποθήκευση αρχείου"
-
-#~ msgid "Select file"
-#~ msgstr "Επιλογή αρχείου"
 
 #, fuzzy
 #~ msgid "_Doctype:"
@@ -5349,10 +5515,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "The filename was:\n"
 #~ msgstr "Μη γνωστό όνομα αρχείου"
-
-#, fuzzy
-#~ msgid "Could not open file\n"
-#~ msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
 
 #, fuzzy
 #~ msgid "Show main toolbar by default"
