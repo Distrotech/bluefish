@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-20 21:41-0800\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2009-12-08 21:45+0100\n"
 "PO-Revision-Date: 2000-12-01 21:48+0100\n"
 "Last-Translator: Sáska, Péter <sasek@webmail.acolyte.hu>\n"
 "Language-Team: madgyar <hu@li.org>\n"
@@ -18,609 +18,304 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../src/about.c:56
-msgid ""
-"Bluefish is an editor for experienced web designers and programmers. It "
-"supports many programming and markup languages, but focuses on editing "
-"dynamic and interactive websites. Bluefish is an open source development "
-"project, released under the GPL license.\n"
-"\n"
-"For more information, visit the Bluefish Website at http://bluefish."
-"openoffice.nl/\n"
-"\n"
-"This version of bluefish was compiled with the following options:\n"
+#: ../desktop-data/bluefish-unstable.desktop.in.h:1
+msgid "Bluefish Editor (SVN)"
 msgstr ""
-"A Bluefish a haladó webfejlesztők és programozók editorprogramja. Sokféle "
-"programozási- és leíró nyelvet támogat, de a dinamikus és interaktív website-"
-"ok fejlesztésére fókuszál. A Bluefish nyílt forráskódú fejlesztés, GPL "
-"licence-szel.\n"
-"\n"
-"További információkért látogasd meg a Bluefish weboldalait a http://bluefish."
-"openoffice.nl/ címen.\n"
-"\n"
-"A Bluefish ezen verziójának fordítási opciói az alábbiak voltak:\n"
 
-#: ../src/about.c:57
+#: ../desktop-data/bluefish-unstable.desktop.in.h:2
+msgid "Web Development Editor (development version)"
+msgstr ""
+
+#: ../desktop-data/bluefish-unstable.xml.in.h:1
 #, fuzzy
-msgid ""
-"Project leader:\n"
-"  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
-"\n"
-"Developers for this release:\n"
-"  Olivier Sessink\n"
-"   <olivier@bluefish.openoffice.nl>\n"
-"  Jim Hayward\n"
-"   <jimhayward@linuxexperience.net>\n"
-"  Daniel Leidert\n"
-"   <daniel.leidert@wgdd.de>\n"
-"  Oskar Świda\n"
-"   <swida@aragorn.pb.bialystok.pl>\n"
-"  Eugene Morenko(More)\n"
-"   <more@irpin.com>\n"
-"  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
-"\n"
-"Developers for previous releases:\n"
-"  Chris Mazuc\n"
-"  Neil Millar\n"
-"  Gero Takke\n"
-"  Bo Forslund\n"
-"  David Arno\n"
-"  Pablo De Napoli\n"
-"  Santiago Capel Torres\n"
-"  Rasmus Toftdahl Olesen\n"
-"   <rto@pohldata.dk>\n"
-"  Roland Steinbach\n"
-"   <roland@netzblick.de>\n"
-"  Christian Tellefsen\n"
-"   <chris@tellefsen.net>\n"
-"  Antti-Juhani Kaijanaho\n"
-"\n"
-"Documentation:\n"
-"  Scott White\n"
-"   <wwsw3@earthlink.net>\n"
-"  Michèle Garoche\n"
-"   <michele.garoche@easyconnect.fr>\n"
-"  Anita Lewis\n"
-"   <ajreiki@highstream.net>\n"
-"  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
-"  Daniel Blair\n"
-"   <joecamel@realcoders.org>\n"
-"  Olivier Sessink\n"
-"   <olivier@bluefish.openoffice.nl>\n"
-"  Denny Reeh\n"
-"\n"
-"Package Maintainers:\n"
-"  Debian:   Daniel Leidert\n"
-"   <daniel.leidert@wgdd.de>\n"
-"  Redhat:   Matthias Haase\n"
-"   <matthias_haase@bennewitz.com>\n"
-"  Mandrake: Todd Lyons\n"
-"   <todd@mrball.net>\n"
-"  Fink: Michèle Garoche\n"
-"   <michele.garoche@easyconnect.fr>\n"
-"\n"
-"If you know of anyone missing from this list, please let us know\n"
-"<bluefish@bluefish.openoffice.nl>\n"
-"\n"
-"Thanks to all who helped making this software available.\n"
-msgstr ""
-"A project vezetője:\n"
-"  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
-"\n"
-"Ezen kiadás fejlesztői:\n"
-"  Jim Hayward <jimhayward@linuxexperience.com>\n"
-"  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
-"  Christian Tellefsen <christian@tellefsen.net>\n"
-"  Eugene Morenko(More) <more@irpin.com>\n"
-"\n"
-"Az előző kiadások fejlesztői:\n"
-"  Chris Mazuc\n"
-"  Neil Millar\n"
-"  Gero Takke\n"
-"  Bo Forslund\n"
-"  David Arno\n"
-"  Pablo De Napoli\n"
-"  Santiago Capel Torres\n"
-"  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
-"  Roland Steinbach <roland@netzblick.de>\n"
-"  Christian Tellefsen <chris@tellefsen.net>\n"
-"  Antti-Juhani Kaijanaho\n"
-"\n"
-"Dokumentáció:\n"
-"  Alastair Porter <alastair@linuxexperience.com>\n"
-"  Daniel Blair <joecamel@realcoders.org>\n"
-"  Denny Reeh\n"
-"\n"
-"Csomagkészítők:\n"
-"  Debian:   Davide Puricelli <evo@debian.org>\n"
-"  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
-"  Mandrake: Todd Lyons <todd@mrball.net>\n"
-"\n"
-"Ha bárki hiányzik a fenti listáról, tudasd velünk:\n"
-"<bluefish@bluefish.openoffice.nl>\n"
-"\n"
-"Köszönet mindenkinek, aki segített a program létrehozásában.\n"
+msgid "Bluefish language definition file"
+msgstr "Meghatározás"
 
-#: ../src/about.c:120
+#: ../desktop-data/bluefish-unstable.xml.in.h:2
 #, fuzzy
-msgid ""
-"Current translators:\n"
-"\n"
-"  Brazilian Portuguese: Anderson Rocha\n"
-"   <anderson@maxlinux.com.br>\n"
-"\n"
-"  Bulgarian: Peio Popov\n"
-"   <peio@peio.org>\n"
-"\n"
-"  Chinese: Ting Yang (Dormouse)\n"
-"   <mouselinux@163.com>\n"
-"\n"
-"  Chinese, Traditional: OLS3\n"
-"   <ols3@lxer.idv.tw>\n"
-"\n"
-"  Danish: Rasmus Toftdahl Olesen\n"
-"   <rto@pohldata.dk>\n"
-"\n"
-"  Finnish: Juho Roukala\n"
-"   <j.mr@luukku.com>\n"
-"\n"
-"  French: Michèle Garoche\n"
-"   <michele.garoche@easyconnect.fr>\n"
-"\n"
-"  German: Roland Steinbach\n"
-"   <roland@netzblick.de>\n"
-"\n"
-"  Hungarian: Péter Sáska\n"
-"   <sasek@ccsystem.hu>\n"
-"\n"
-"  Italian: Stefano Canepa\n"
-"   <sc@linux.it>\n"
-"\n"
-"  Japanese: Takeshi Hamasaki\n"
-"   <hma@syd.odn.ne.jp>\n"
-"\n"
-"  Norwegian: Christian Tellefsen\n"
-"   <chris@tellefsen.net>\n"
-"\n"
-"  Polish: Oskar Swida\n"
-"   <swida@aragorn.pb.bialystok.pl>\n"
-"\n"
-"  Portuguese: Lopo Pizarro\n"
-"   <lopopizarro@netcabo.pt>\n"
-"\n"
-"  Russian: Eugene Rupakov\n"
-"   <rupakov@jet.msk.su>\n"
-"\n"
-"  Serbian: Marko Milenović\n"
-"   <raven@sbb.co.yu>\n"
-"\n"
-"  Spanish: Walter Oscar Echarri\n"
-"   <wecharri@arnet.com.ar>\n"
-"\n"
-"  Swedish: David Smeringe\n"
-"   <david.smeringe@telia.com>\n"
-"\n"
-"  Tamil: Murugapandian Barathee\n"
-"   <barathee@yahoo.com>\n"
-"\n"
-"  Turkish: Oğuz Eren\n"
-"   <ogzeren@gmail.com>\n"
-"\n"
-msgstr ""
-"Fordítók jelenleg:\n"
-"\n"
-"  Brazíliai portugál - Anderson Rocha\n"
-"   <anderson@maxlinux.com.br>\n"
-"\n"
-"  Dán - Rasmus Toftdahl Olesen\n"
-"   <rto@pohldata.dk>\n"
-"\n"
-"  Finn - Juho Roukala\n"
-"   <j.mr@luukku.com>\n"
-"\n"
-"  Francia - Roméo Viu-Berges\n"
-"   <apostledemencia@free.fr>\n"
-"\n"
-"  Kínai - Ting Yang (Dormouse)\n"
-"   <mouselinux@163.com>\n"
-"\n"
-"  Lengyel - Oskar Swida\n"
-"   <swida@aragorn.pb.bialystok.pl>\n"
-"\n"
-"  Magyar - Sáska Péter\n"
-"   <sasek@ccsystem.hu>\n"
-"\n"
-"  Német - Roland Steinbach\n"
-"   <roland@netzblick.de>\n"
-"\n"
-"  Olasz - Stefano Canepa\n"
-"   <sc@linux.it>\n"
-"\n"
-"  Orosz - Eugene Rupakov\n"
-"   <rupakov@jet.msk.su>\n"
-"\n"
-"  Portugál - Lopo Pizarro\n"
-"   <lopopizarro@netcabo.pt>\n"
-"\n"
-"  Spanyol - Walter Oscar Echarri\n"
-"   <wecharri@infovia.com.ar>\n"
-"\n"
-"  Svéd - David Smeringe\n"
-"   <david.smeringe@telia.com>\n"
-"\n"
-"  Szerb - Marko Milenović\n"
-"   <raven@sbb.co.yu>\n"
-"\n"
-"  Tamil - Murugapandian Barathee\n"
-"   <barathee@yahoo.com>\n"
-"\n"
+msgid "Bluefish project file"
+msgstr "Írd be a Bluefish projekt fájlnevét"
 
-#: ../src/about.c:163
-msgid "About Bluefish"
-msgstr "Infók a Bluefish-ről"
-
-#: ../src/about.c:193
-msgid ""
-"\n"
-"\n"
-"Resulting in the detection of:\n"
-msgstr ""
-
-#: ../src/about.c:226
-msgid "Info"
-msgstr "Info"
-
-#: ../src/about.c:228
-msgid "Authors"
-msgstr "Szerzők"
-
-#: ../src/about.c:229
-msgid "Translators"
-msgstr "Fordítók"
-
-#: ../src/authen2.c:172 ../src/authen.c:76
-msgid "Authentication required"
-msgstr "Azonosítás szükséges"
-
-#: ../src/authen2.c:178
-msgid "Your HTTP Proxy requires you to log in."
-msgstr ""
-
-#: ../src/authen2.c:185
-msgid "You must log in to access "
-msgstr ""
-
-#: ../src/authen2.c:199
-#, fuzzy
-msgid "_Username:"
-msgstr "Felhasználónév:"
-
-#: ../src/authen2.c:204
-#, fuzzy
-msgid "_Domain:"
-msgstr "_Függőleges igazítás:"
-
-#: ../src/authen2.c:207
-#, fuzzy
-msgid "_Pasword:"
-msgstr "Jelszó:"
-
-#: ../src/authen.c:86
-#, fuzzy, c-format
-msgid "Authentication is required for %s."
-msgstr ""
-"Azonosítás szükséges (%s)\n"
-"\n"
-"Realm: %s"
-
-#: ../src/authen.c:92
-msgid "Username:"
-msgstr "Felhasználónév:"
-
-#: ../src/authen.c:97
-msgid "Password:"
-msgstr "Jelszó:"
-
-#: ../src/bf_lib.c:182 ../src/bf_lib.c:202
-msgid ""
-"Bluefish has trouble reading the filenames. Try to set the environment "
-"variable G_BROKEN_FILENAMES=1\n"
-msgstr ""
-"A Bluefish-nek problémái vannak a fájlnevek olvasásával. Próbáld "
-"aG_BROKEN_FILENAMES=1 környezetiváltozó-beállítást\n"
-
-#: ../src/bfspell.c:389
-msgid "Check Spelling"
-msgstr "Helyesírás ellenőrzése"
-
-#: ../src/bfspell.c:393
-msgid "Checking"
-msgstr "Ellenőrzés"
-
-#: ../src/bfspell.c:402
-msgid "_Misspelled word:"
-msgstr "_Helytelenül írt szó:"
-
-#: ../src/bfspell.c:406
-msgid "Change _to:"
-msgstr "_Cserélje erre:"
-
-#: ../src/bfspell.c:409
-msgid "I_gnore"
-msgstr "F_igyelmen kívül hagy"
-
-#: ../src/bfspell.c:410 ../src/snr2.c:1632
-msgid "_Replace"
-msgstr "Cse_réli"
-
-#: ../src/bfspell.c:423
-msgid "In _document"
-msgstr "A _dokumentumban"
-
-#: ../src/bfspell.c:424
-msgid "I_n selection"
-msgstr "K_ijelölésben"
-
-#: ../src/bfspell.c:433
-msgid "personal dictionary"
-msgstr "személyes szótár"
-
-#: ../src/bfspell.c:436
-msgid "session dictionary"
-msgstr "session szótár"
-
-#: ../src/bfspell.c:442
-msgid "Dictionary:"
-msgstr "Szótár:"
-
-#: ../src/bfspell.c:446
-msgid "_Add"
-msgstr "Hozzá_ad"
-
-#: ../src/bfspell.c:450
-msgid "Language:"
-msgstr "Nyelv:"
-
-#: ../src/bfspell.c:454
-msgid "Set defa_ult"
-msgstr "Alapértelme_zettként beállít"
-
-#: ../src/bfspell.c:458
-msgid "Filter:"
-msgstr "Szűrő:"
-
-#: ../src/bfspell.c:466
-msgid "no filter"
-msgstr "nincs szűrés"
-
-#: ../src/bfspell.c:468
-msgid "html filter"
-msgstr "html szűrő"
-
-#: ../src/bf-textview.c:188
-msgid "Expand all"
-msgstr ""
-
-#: ../src/bf-textview.c:191
+#: ../src/bftextview2.c:974
 #, fuzzy
 msgid "Collapse all"
 msgstr "Mindet _bezárja"
 
-#: ../src/bluefish.c:102
+#: ../src/bftextview2.c:977
+msgid "Expand all"
+msgstr ""
+
+#: ../src/bftextview2_spell.c:516
+#, fuzzy
+msgid "Spell check language"
+msgstr "Helyesírás-ellenőrzés..."
+
+#: ../src/blocksync.c:88
+msgid ""
+"Select the block to sync to other pages. Include the start-of-block and end-"
+"of-block markers in your selection."
+msgstr ""
+
+#: ../src/blocksync.c:93
+msgid "To proceed with the current selection click forward."
+msgstr ""
+
+#: ../src/blocksync.c:122
+msgid ""
+"Below is the block, including start and end marker. Please <b>select the "
+"start marker</b> in the text below."
+msgstr ""
+
+#: ../src/blocksync.c:157
+msgid "Please <b>select the end marker</b> in the text below."
+msgstr ""
+
+#: ../src/blocksync.c:195
 #, c-format
 msgid ""
-"\n"
-"Usage: %s [options] [filenames ...]\n"
+"Will replace the text between <i>%s</i> and <i>%s</i> in all documents "
+"opened in this window.\n"
+"<b>Proceed?</b>"
 msgstr ""
-"\n"
-"Használat: %s [opciók] [fájlnevek]\n"
 
-#: ../src/bluefish.c:103
+#: ../src/blocksync.c:226
 msgid ""
-"\n"
-"Currently accepted options are:\n"
+"<span foreground=\"red\" weight=\"bold\">Please select the block of text to "
+"synchronize.</span>"
 msgstr ""
-"\n"
-"Jelenleg felismert kapcsolók:\n"
 
-#: ../src/bluefish.c:104
-msgid "-s           skip root check\n"
-msgstr "-s           root ellenőrzés elhagyása\n"
+#: ../src/blocksync.c:240 ../src/blocksync.c:260
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">This marker exists more than once "
+"in the block.</span>"
+msgstr ""
 
-#: ../src/bluefish.c:105
-msgid "-v           current version\n"
-msgstr "-v           verziószám kiírása\n"
+#: ../src/blocksync.c:246
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">Select the text that marks the "
+"start of the block.</span>"
+msgstr ""
 
-#: ../src/bluefish.c:106
-msgid "-n           open new window\n"
-msgstr "-v           új ablak megnyitása\n"
+#: ../src/blocksync.c:266
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">Select the text that marks the end "
+"of the block.</span>"
+msgstr ""
 
-#: ../src/bluefish.c:107
-msgid "-p filename  open project\n"
-msgstr "-p fájlnév   projekt megnyitása\n"
+#: ../src/blocksync.c:297
+msgid "Synchronize text block"
+msgstr ""
 
-#: ../src/bluefish.c:108
-msgid "-h           this help screen\n"
-msgstr "-h           ennek a súgónak a megjelenítése\n"
+#: ../src/bluefish.c:79
+#, fuzzy
+msgid "Bluefish Editor"
+msgstr "Bluefish tipp:"
 
-#: ../src/bluefish.c:186
-msgid "parsing highlighting file..."
-msgstr "szintaxiskiemelés-fájl értelmezése..."
+#: ../src/bluefish.c:79
+msgid "Visit us at http://bluefish.openoffice.nl"
+msgstr ""
 
-#: ../src/bluefish.c:207
-msgid "compiling highlighting patterns..."
-msgstr "kiemelési minták értelmezése..."
-
-#: ../src/bluefish.c:220
-msgid "parsing custom menu file..."
-msgstr "sajátmenü-fájl értelmezése..."
-
-#: ../src/bluefish.c:232
-msgid "creating main gui..."
-msgstr "grafikus felhasználói felület létrehozása..."
+#: ../src/bluefish.c:123
+#, fuzzy
+msgid "starting up..."
+msgstr "bluefish indítása"
 
 #: ../src/bluefish.c:244
-msgid "showing main gui..."
-msgstr "grafikus felhasználói felület megjelenítése..."
+msgid "Open in existing window."
+msgstr ""
 
-#: ../src/bookmark.c:433
+#: ../src/bluefish.c:246
+msgid "Open in new window."
+msgstr ""
+
+#: ../src/bluefish.c:248
+msgid "Print version information."
+msgstr ""
+
+#: ../src/bluefish.c:274
+msgid " [FILE(S)]"
+msgstr ""
+
+#: ../src/bluefish.c:285
+#, c-format
+msgid ""
+"Error parsing command line options. %s\n"
+"Please run: %s -?\n"
+msgstr ""
+
+#: ../src/bookmark.c:465
 msgid "_Name:"
 msgstr "_Név"
 
-#: ../src/bookmark.c:438
+#: ../src/bookmark.c:470
 msgid "_Description:"
 msgstr "_Leírás"
 
-#: ../src/bookmark.c:440
+#: ../src/bookmark.c:472
 msgid "Temporary"
 msgstr "Átmeneti"
 
-#: ../src/bookmark.c:567
+#: ../src/bookmark.c:605
 #, fuzzy, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "Valóban eltávolítod %s-t?"
 
-#: ../src/bookmark.c:571
+#: ../src/bookmark.c:609
 #, fuzzy
 msgid "Delete bookmarks?"
 msgstr "Állandó könyvjelző törlése."
 
-#: ../src/bookmark.c:596 ../src/fref2.c:4387
+#: ../src/bookmark.c:639
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Valóban eltávolítod %s-t?"
 
-#: ../src/bookmark.c:600
+#: ../src/bookmark.c:643
 msgid "Delete permanent bookmark."
 msgstr "Állandó könyvjelző törlése."
 
-#: ../src/bookmark.c:621
+#: ../src/bookmark.c:664
 msgid "Edit bookmark"
 msgstr "Könyvjelző szerkesztése"
 
-#: ../src/bookmark.c:678
+#: ../src/bookmark.c:721
 #, fuzzy
 msgid "/Goto"
 msgstr "/_Ugrás"
 
-#: ../src/bookmark.c:679
+#: ../src/bookmark.c:722
 #, fuzzy
 msgid "/Edit"
 msgstr "/S_zerkesztés"
 
-#: ../src/bookmark.c:680
+#: ../src/bookmark.c:723
 #, fuzzy
 msgid "/Delete"
 msgstr "/_Töröl "
 
-#: ../src/bookmark.c:682
+#: ../src/bookmark.c:725
 #, fuzzy
 msgid "/Delete All in document"
 msgstr "minden megnyitott dokumentumban"
 
-#: ../src/bookmark.c:683
+#: ../src/bookmark.c:726
 #, fuzzy
 msgid "/Delete All"
 msgstr " Töröl "
 
-#: ../src/bookmark.c:685
+#: ../src/bookmark.c:728
 #, fuzzy
 msgid "/Permanent by default"
 msgstr "Alapértelmezésben állandó könyvjelzőt hoz létre"
 
-#: ../src/bookmark.c:687
+#: ../src/bookmark.c:730
 #, fuzzy
 msgid "/Show file"
 msgstr "Nem adtál meg fájlnevet"
 
-#: ../src/bookmark.c:688
+#: ../src/bookmark.c:731
 #, fuzzy
 msgid "/Show file/By name"
 msgstr "Nem adtál meg fájlnevet"
 
-#: ../src/bookmark.c:689
+#: ../src/bookmark.c:732
 #, fuzzy
 msgid "/Show file/By full path"
 msgstr "Teljes könyvtárfát mutat"
 
-#: ../src/bookmark.c:690
+#: ../src/bookmark.c:733
 #, fuzzy
 msgid "/Show file/By full uri"
 msgstr "Teljes könyvtárfát mutat"
 
-#: ../src/bookmark.c:691
+#: ../src/bookmark.c:734
 #, fuzzy
 msgid "/Show bookmark"
 msgstr "Ugrás könyvjelzőre"
 
-#: ../src/bookmark.c:692
+#: ../src/bookmark.c:735
 msgid "/Show bookmark/Name & Content"
 msgstr ""
 
-#: ../src/bookmark.c:693
+#: ../src/bookmark.c:736
 msgid "/Show bookmark/Content"
 msgstr ""
 
-#: ../src/bookmark.c:694
+#: ../src/bookmark.c:737
 #, fuzzy
 msgid "/Show bookmark/Name"
 msgstr "Ugrás könyvjelzőre"
 
-#: ../src/bookmark.c:1294 ../src/bookmark.c:1353
+#: ../src/bookmark.c:897
+msgid "/Both Name & Content"
+msgstr ""
+
+#: ../src/bookmark.c:898
+#, fuzzy
+msgid "/Content"
+msgstr "Tar_talom"
+
+#: ../src/bookmark.c:899
+#, fuzzy
+msgid "/Name"
+msgstr "Név"
+
+#: ../src/bookmark.c:962
+#, fuzzy
+msgid "First bookmark"
+msgstr "Könyvjelző szerkesztése"
+
+#: ../src/bookmark.c:966
+#, fuzzy
+msgid "Previous bookmark"
+msgstr "Könyvjelző szerkesztése"
+
+#: ../src/bookmark.c:970
+#, fuzzy
+msgid "Next bookmark"
+msgstr "Állandó könyvjelző törlése."
+
+#: ../src/bookmark.c:974
+#, fuzzy
+msgid "Last bookmark"
+msgstr "Könyvjelző szerkesztése"
+
+#: ../src/bookmark.c:1565 ../src/bookmark.c:1613
 #, fuzzy
 msgid "Error adding bookmark"
 msgstr "Könyvjelző szerkesztése"
 
-#: ../src/bookmark.c:1295 ../src/bookmark.c:1354
+#: ../src/bookmark.c:1566 ../src/bookmark.c:1614
 #, fuzzy
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Névtelen fájlba nem tudok könyvjelzőt tenni."
 
-#: ../src/bookmark.c:1314
+#: ../src/bookmark.c:1581
 #, fuzzy
 msgid "Can't add bookmark"
 msgstr "Könyvjelző hozzáadása"
 
-#: ../src/bookmark.c:1315
+#: ../src/bookmark.c:1582
 msgid "You already have a bookmark here!"
 msgstr "Már van itt egy könyvjelző!"
 
-#: ../src/bookmark.c:1390
+#: ../src/bookmark.c:1650
 #, fuzzy
 msgid "Delete all bookmarks."
 msgstr "Állandó könyvjelző törlése."
 
-#: ../src/bookmark.c:1430
-#, fuzzy
-msgid "File size changed in file \n"
-msgstr ""
-"A karakterszám megváltozott a fájlban:\n"
-" %s."
-
-#: ../src/bookmark.c:1434
-#, fuzzy
-msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
-msgstr "A könyvjelző-pozíciók helytelenek lehetnek."
-
-#: ../src/document.c:314
-msgid "/Document/Highlight Syntax"
-msgstr "/Dokumentum/Szintaxiskiemelés"
-
-#: ../src/document.c:451
+#: ../src/document.c:363
 msgid "Name: "
 msgstr "Név: "
 
-#: ../src/document.c:452
+#: ../src/document.c:366
+#, fuzzy
 msgid ""
 "\n"
-"Type: "
-msgstr ""
-"\n"
-"Típus: "
+"Language mode: "
+msgstr "Nyelv:"
 
-#: ../src/document.c:453
+#: ../src/document.c:370
 msgid ""
 "\n"
 "Encoding: "
@@ -628,7 +323,24 @@ msgstr ""
 "\n"
 "Kódolás: "
 
-#: ../src/document.c:457
+#: ../src/document.c:379
+#, fuzzy
+msgid ""
+"\n"
+"Mime type: "
+msgstr "Fájltípusok"
+
+#: ../src/document.c:385
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Permissions: %s\n"
+"Uid: %u Gid: %u"
+msgstr ""
+"\n"
+"Jogosultságok: "
+
+#: ../src/document.c:390
 msgid ""
 "\n"
 "Size (on disk): "
@@ -636,19 +348,7 @@ msgstr ""
 "\n"
 "Méret (a lemezen): "
 
-#: ../src/document.c:457
-msgid " bytes"
-msgstr " bájt"
-
-#: ../src/document.c:463
-msgid ""
-"\n"
-"Permissions: "
-msgstr ""
-"\n"
-"Jogosultságok: "
-
-#: ../src/document.c:470
+#: ../src/document.c:398
 msgid ""
 "\n"
 "Last modified: "
@@ -656,58 +356,94 @@ msgstr ""
 "\n"
 "Utolsó módosítás: "
 
-#: ../src/document.c:527
+#: ../src/document.c:429
 #, c-format
 msgid "Untitled %d"
 msgstr "Névtelen %d"
 
-#: ../src/document.c:833
+#: ../src/document.c:603
 #, c-format
-msgid ""
-"Document %s is already open in another Bluefish window. Move it to this "
-"window?"
+msgid "Changed tab width to %d"
 msgstr ""
 
-#: ../src/document.c:1194
+#: ../src/document.c:766
+#, fuzzy, c-format
+msgid "Document %s is already open in another Bluefish window."
+msgstr "Fájlok megnyitása a már futó bluefish ablakában"
+
+#: ../src/document.c:768
+msgid "Move to this window"
+msgstr ""
+
+#: ../src/document.c:768
+msgid "Open readonly"
+msgstr ""
+
+#: ../src/document.c:768
+#, fuzzy
+msgid "Do not open"
+msgstr "Nem sikerült a fájl megnyitása:\n"
+
+#: ../src/document.c:1052
+#, fuzzy, c-format
+msgid " Ln: %d, Col: %d, Char: %d"
+msgstr " %d. sor, %d. oszlop"
+
+#: ../src/document.c:1054
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " %d. sor, %d. oszlop"
 
-#: ../src/document.c:1227 ../src/document.c:1228
-#, c-format
-msgid "  %s, %s"
-msgstr "  %s, %s"
+#: ../src/document.c:1075
+msgid " OVR"
+msgstr ""
 
-#: ../src/document.c:1630
+#: ../src/document.c:1075
+msgid " INS"
+msgstr ""
+
+#: ../src/document.c:1077
+msgid " RO"
+msgstr ""
+
+#: ../src/document.c:1094
+#, fuzzy
+msgid "Unknown"
+msgstr "Ismeretlen típusú fájl ikonja"
+
+#: ../src/document.c:1471
 msgid "Cannot display file, unknown characters found."
 msgstr "A fájlt nem lehet megjeleníteni, ismeretlen karakter(eke)t tartalmaz."
 
-#: ../src/document.c:2162 ../src/snr2.c:1496
+#: ../src/document.c:1673 ../src/snr2.c:1674
 msgid "Replace"
 msgstr "Cserél"
 
-#: ../src/document.c:2167 ../src/fref2.c:4737 ../src/snr2.c:1493
+#: ../src/document.c:1678 ../src/snr2.c:1671
 msgid "Find"
 msgstr "Keres"
 
-#: ../src/document.c:2175
+#: ../src/document.c:1686
 #, fuzzy
 msgid "Delete bookmark"
 msgstr "Állandó könyvjelző törlése."
 
-#: ../src/document.c:2179
+#: ../src/document.c:1690
 msgid "Add bookmark"
 msgstr "Könyvjelző hozzáadása"
 
-#: ../src/document.c:2327 ../src/file_dialogs.c:337 ../src/file_dialogs.c:377
+#. if (main_v->props.backup_abort_action == 2)
+#. we have to ask the user
+#. we have to ask the user what to do
+#: ../src/document.c:1807 ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
 msgid "_Abort save"
 msgstr "Mentés _megszakítása"
 
-#: ../src/document.c:2327
+#: ../src/document.c:1807
 msgid "_Continue save in UTF-8"
 msgstr "Mentés _folytatása UTF-8 kódolással"
 
-#: ../src/document.c:2338
+#: ../src/document.c:1818
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -720,47 +456,73 @@ msgstr ""
 "\n"
 "Folytassam a mentést UTF-8 kódolással?"
 
-#: ../src/document.c:2342
+#: ../src/document.c:1822
 msgid "File encoding conversion failure"
 msgstr "Hiba a fájl átkódolása közben"
 
-#: ../src/document.c:2574
+#: ../src/document.c:2068
 msgid "Previously: "
 msgstr "Előzőleg: "
 
-#: ../src/document.c:3416
+#: ../src/document.c:2477 ../src/file_dialogs.c:778
+#, c-format
+msgid ""
+"Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
+"to 2.18.0 or newer."
+msgstr ""
+
+#. || (!file_exists_and_readable(doc->uri))
+#: ../src/document.c:2611
 msgid "Unable to open file"
 msgstr "Nem lehet megnyitni a fájlt"
 
-#: ../src/document.c:3438
+#: ../src/document.c:2621
+#, fuzzy, c-format
+msgid ""
+"If you revert \"%s\" to your last saved copy, your current changes will be "
+"permanently lost."
+msgstr "A fájl végérvényesen törlődik."
+
+#: ../src/document.c:2625
+#, fuzzy
+msgid "Revert changes to last saved copy?"
+msgstr "Mented a névtelen fájl változásait?"
+
+#: ../src/document.c:2661
 #, fuzzy
 msgid "_Unset file name"
 msgstr "fájlnév"
 
-#: ../src/document.c:3438
+#: ../src/document.c:2661
 #, fuzzy
 msgid "_Save"
 msgstr "Mentés"
 
-#: ../src/document.c:3440
+#. file is deleted on disk, what do we do now ?
+#: ../src/document.c:2663
 #, fuzzy, c-format
 msgid "File name: %s"
 msgstr "Fájlnév"
 
-#: ../src/document.c:3444
+#: ../src/document.c:2667
 #, fuzzy
 msgid "File disappeared from disk\n"
 msgstr "Fájl módosulásának figyelése "
 
-#: ../src/document.c:3461
+#: ../src/document.c:2686
 msgid "_Ignore"
 msgstr "F_igyelmen kívül hagy"
 
-#: ../src/document.c:3461
+#: ../src/document.c:2686
 msgid "_Reload"
 msgstr "Új_ratölt"
 
-#: ../src/document.c:3464
+#: ../src/document.c:2686
+#, fuzzy
+msgid "Check and reload all documents"
+msgstr "minden megnyitott dokumentumban"
+
+#: ../src/document.c:2694
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -773,69 +535,142 @@ msgstr ""
 "Új módosítás időpontja: %s\n"
 "Előző módosítás időpontja: %s"
 
-#: ../src/document.c:3468
+#: ../src/document.c:2698
 msgid "File has been modified by another process\n"
 msgstr "A fájlt egy másik folyamat módosította\n"
 
-#: ../src/document.c:3525
+#: ../src/document.c:2761
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:3525
+#: ../src/document.c:2761
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:3525
+#: ../src/document.c:2761
 #, fuzzy
 msgid "_Close"
 msgstr "Bezárás"
 
-#: ../src/document.c:3525
+#: ../src/document.c:2761
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Mentés megszakítva.\n"
 
-#: ../src/document.c:3529
+#: ../src/document.c:2765
 #, fuzzy
 msgid "File "
 msgstr "Fájl #"
 
-#: ../src/document.c:3529
+#: ../src/document.c:2765
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:3533
+#: ../src/document.c:2769
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:3656
+#: ../src/document.c:2889
 msgid "Select file to insert"
 msgstr "Válaszd ki a beillesztendő fájlt"
 
-#: ../src/document.c:3664
+#: ../src/document.c:2897
 msgid "No file to insert"
 msgstr "Nincs beilleszthető fájl"
 
-#: ../src/document.c:3828
-#, c-format
-msgid "Statistics: %d lines, %d words, %d characters"
-msgstr "Statisztika: %d sor, %d szó, %d karakter"
+#: ../src/document.c:3038
+#, fuzzy, c-format
+msgid "Statistics: "
+msgstr "Kezdje:"
 
-#: ../src/filebrowser2.c:990
+#: ../src/document.c:3039
+#, fuzzy, c-format
+msgid "%d line"
+msgid_plural "%d lines"
+msgstr[0] "Ugrás sorra"
+msgstr[1] "Ugrás sorra"
+
+#: ../src/document.c:3040
+#, fuzzy, c-format
+msgid "%d word"
+msgid_plural "%d words"
+msgstr[0] "%d of %d"
+msgstr[1] "%d of %d"
+
+#: ../src/document.c:3041
+#, fuzzy, c-format
+msgid "%d character"
+msgid_plural "%d characters"
+msgstr[0] "Alapértelmezett karakterkészlet"
+msgstr[1] "Alapértelmezett karakterkészlet"
+
+#: ../src/encodings_dialog.c:293
+msgid "_Available encodings:"
+msgstr ""
+
+#: ../src/encodings_dialog.c:339 ../src/encodings_dialog.c:395
+msgid "Description"
+msgstr "Leírás"
+
+#: ../src/encodings_dialog.c:345 ../src/encodings_dialog.c:400
+#: ../src/preferences.c:1669
+msgid "Encoding"
+msgstr "Kódolás"
+
+#: ../src/encodings_dialog.c:372
+#, fuzzy
+msgid "Encodings in _menu:"
+msgstr ""
+"\n"
+"Kódolás: "
+
+#: ../src/encodings_dialog.c:444
+msgid "Add or remove document encodings"
+msgstr ""
+
+#: ../src/filebrowser2.c:238
+msgid "Set documentroot and webroot"
+msgstr ""
+
+#: ../src/filebrowser2.c:247
+msgid ""
+"The <i>documentroot</i> is the place where Bluefish finds the file,\n"
+"the <i>webroot</i> is the location where those same files can be viewed on "
+"the webserver"
+msgstr ""
+
+#: ../src/filebrowser2.c:254
+#, fuzzy
+msgid "Documentroot"
+msgstr "_Dokumentum"
+
+#: ../src/filebrowser2.c:266
+msgid "Webroot"
+msgstr ""
+
+#: ../src/filebrowser2.c:1461
 msgid "Could not rename\n"
 msgstr "Nem sikerült a fájl átnevezése\n"
 
-#: ../src/filebrowser2.c:1028
+#: ../src/filebrowser2.c:1533
 #, fuzzy
 msgid "New directory"
 msgstr "/Új _könyvtár"
 
-#: ../src/filebrowser2.c:1032
+#: ../src/filebrowser2.c:1555 ../src/filebrowser2.c:1557
 #, fuzzy
 msgid "New file"
 msgstr "/Ú_j fájl"
 
-#: ../src/filebrowser2.c:1117
+#. Do we really need to display the full path here?
+#. *
+#. * Having the filename in the both the primary and secondary text seems to be redundant.
+#. * Set back to just the primary text for now.
+#. *
+#. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
+#. * and then this might give you more indication if this is indeed the file you wanted to delete
+#.
+#: ../src/filebrowser2.c:1667
 #, fuzzy, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -844,156 +679,227 @@ msgstr ""
 "Biztosan törlöd a\n"
 "%s fájlt?"
 
-#: ../src/filebrowser2.c:1118
+#: ../src/filebrowser2.c:1668
 #, fuzzy, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "A fájl végérvényesen törlődik."
 
-#: ../src/filebrowser2.c:1229
+#: ../src/filebrowser2.c:1813
 msgid "/_Open"
 msgstr "/_Megnyit"
 
-#: ../src/filebrowser2.c:1230
+#: ../src/filebrowser2.c:1814
 #, fuzzy
 msgid "/Open _Advanced..."
 msgstr "/Megnyitás _opciókkal..."
 
-#: ../src/filebrowser2.c:1231
+#: ../src/filebrowser2.c:1815
 msgid "/Rena_me"
 msgstr "/Át_nevez"
 
-#: ../src/filebrowser2.c:1232
+#: ../src/filebrowser2.c:1816
 msgid "/_Delete"
 msgstr "/_Töröl "
 
-#: ../src/filebrowser2.c:1234
+#: ../src/filebrowser2.c:1818
 msgid "/New _File"
 msgstr "/Ú_j fájl"
 
-#: ../src/filebrowser2.c:1235
+#: ../src/filebrowser2.c:1819
 msgid "/_New Directory"
 msgstr "/Új _könyvtár"
 
-#: ../src/filebrowser2.c:1237
+#: ../src/filebrowser2.c:1821
 msgid "/_Refresh"
 msgstr "/_Frissít"
 
-#: ../src/filebrowser2.c:1238
-#, fuzzy
-msgid "/Show Full _Tree"
-msgstr "Teljes könyvtárfát mutat"
-
-#: ../src/filebrowser2.c:1239
-msgid "/_Set as basedir"
-msgstr "/_Alapkönyvtárként kijelöl"
-
-#: ../src/filebrowser2.c:1241
+#: ../src/filebrowser2.c:1822
 #, fuzzy
 msgid "/Follow active document"
 msgstr "/Ugrás/U_tolsó dokumentum"
 
-#: ../src/filebrowser2.c:1242
+#: ../src/filebrowser2.c:1823
+msgid "/_Set as basedir"
+msgstr "/_Alapkönyvtárként kijelöl"
+
+#: ../src/filebrowser2.c:1824
+#, fuzzy
+msgid "/Set as documentroot"
+msgstr "/Ugrás/_Következő dokumentum"
+
+#: ../src/filebrowser2.c:1826
+#, fuzzy
+msgid "/Show Full _Tree"
+msgstr "Teljes könyvtárfát mutat"
+
+#: ../src/filebrowser2.c:1827
 #, fuzzy
 msgid "/Show hidden files"
 msgstr "Rejtett fájlok mutatása"
 
-#: ../src/filebrowser2.c:1243
+#: ../src/filebrowser2.c:1828
 #, fuzzy
 msgid "/Show backup files"
 msgstr "Backup fájlok mutatása"
 
-#: ../src/filebrowser2.c:1294
+#: ../src/filebrowser2.c:1829
+#, fuzzy
+msgid "/View mode"
+msgstr "/_Megjelenítés"
+
+#: ../src/filebrowser2.c:1830
+msgid "/View mode/Tree"
+msgstr ""
+
+#: ../src/filebrowser2.c:1831
+msgid "/View mode/Dual"
+msgstr ""
+
+#: ../src/filebrowser2.c:1832
+msgid "/View mode/Flat"
+msgstr ""
+
+#. Add filter submenu
+#: ../src/filebrowser2.c:1910
 msgid "Filter"
 msgstr "Szűrő"
 
-#: ../src/filebrowser2.c:1949 ../src/gtk_easy.c:1343
-msgid "All files"
-msgstr "Minden fájl"
+#: ../src/filebrowser2.c:1936 ../src/filefilter.c:479
+#, fuzzy
+msgid "Edit filter"
+msgstr "html szűrő"
 
-#: ../src/file.c:975
+#: ../src/filebrowser2.c:1940
+#, fuzzy
+msgid "Delete filter"
+msgstr "Válassz fájlt"
+
+#: ../src/filebrowser2.c:1945 ../src/filefilter.c:474
+#, fuzzy
+msgid "New filter"
+msgstr "/Ú_j fájl"
+
+#: ../src/file.c:751
+#, c-format
+msgid "Still loading %d file, finished %s"
+msgid_plural "Still loading %d files, finished %s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/file.c:756
+#, c-format
+msgid "All files loaded, finished %s"
+msgstr ""
+
+#: ../src/file.c:945
 #, fuzzy, c-format
-msgid "Advanced open: finished searching files, %d documents open"
+msgid "%d document open."
+msgid_plural "%d documents open."
+msgstr[0] "A _dokumentumban"
+msgstr[1] "A _dokumentumban"
+
+#: ../src/file.c:947
+#, fuzzy
+msgid "Advanced open: Finished searching files. "
 msgstr "Megnyitás opciókkal"
 
-#: ../src/file.c:1218
+#: ../src/file.c:1243
 msgid "_Skip"
 msgstr "_Kihagyja"
 
-#: ../src/file.c:1218 ../src/file_dialogs.c:501 ../src/file_dialogs.c:524
-#: ../src/project.c:225
+#: ../src/file.c:1243 ../src/file_dialogs.c:610 ../src/file_dialogs.c:631
+#: ../src/project.c:242
 msgid "_Overwrite"
 msgstr "_Felülír"
 
-#: ../src/file.c:1223
+#: ../src/file.c:1247
 #, fuzzy, c-format
-msgid "%s already exists, overwrite?"
+msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s létezik és nyitva van, felülírjuk?"
 
-#: ../src/file.c:1227
+#: ../src/file.c:1251
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "_Felülír"
 
-#: ../src/file_dialogs.c:85
+#: ../src/file_autosave.c:225
+msgid "Autosave in progress..."
+msgstr ""
+
+#: ../src/file_dialogs.c:109
 msgid "Select basedir"
 msgstr "Alapkönyvtár választása"
 
-#: ../src/file_dialogs.c:122
+#: ../src/file_dialogs.c:153
 msgid "Advanced open file selector"
 msgstr "Megnyitás opciókkal"
 
-#: ../src/file_dialogs.c:131
-msgid "<b>General</b>"
-msgstr "<b>Általános</b>"
+#: ../src/file_dialogs.c:166
+#, fuzzy
+msgid "<b>Files</b>"
+msgstr "Attribútumok"
 
-#: ../src/file_dialogs.c:137
+#: ../src/file_dialogs.c:175
 #, fuzzy
 msgid "Base _Dir:"
 msgstr "Alapkönyvtár"
 
-#: ../src/file_dialogs.c:139 ../src/gtk_easy.c:1227
-msgid "_Browse..."
-msgstr "_Tallóz..."
-
-#: ../src/file_dialogs.c:148
+#: ../src/file_dialogs.c:190
 #, fuzzy
 msgid "_Pattern:"
 msgstr "_Minta:"
 
-#: ../src/file_dialogs.c:153
+#: ../src/file_dialogs.c:198
+msgid "_Match on file name only:"
+msgstr ""
+
+#: ../src/file_dialogs.c:202
 msgid "_Recursive:"
 msgstr "_Rekurzív:"
 
-#: ../src/file_dialogs.c:156
+#: ../src/file_dialogs.c:206
+#, fuzzy
+msgid "Ma_x recursion:"
+msgstr "_Rekurzív:"
+
+#: ../src/file_dialogs.c:215
 msgid "<b>Contains</b>"
 msgstr "<b>Tartalmaz</b>"
 
-#: ../src/file_dialogs.c:160
+#: ../src/file_dialogs.c:221
 msgid "Pa_ttern:"
 msgstr "_Minta:"
 
-#: ../src/file_dialogs.c:164
+#: ../src/file_dialogs.c:225
 msgid "Is rege_x:"
 msgstr "Rege_x-e:"
 
-#: ../src/file_dialogs.c:224
+#: ../src/file_dialogs.c:311
 msgid "Select files"
 msgstr "Válaszd ki a fájlokat"
 
-#: ../src/file_dialogs.c:272
+#: ../src/file_dialogs.c:365
 msgid "Open URL"
 msgstr "URL megnyitása"
 
-#: ../src/file_dialogs.c:276
+#: ../src/file_dialogs.c:373 ../src/file_dialogs.c:1199
+#, c-format
+msgid ""
+"<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
+"ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 "
+"if you rely on remote file support.</b>"
+msgstr ""
+
+#: ../src/file_dialogs.c:380
 #, fuzzy
 msgid "<b>Open URL</b>"
 msgstr "URL megnyitása"
 
-#: ../src/file_dialogs.c:337 ../src/file_dialogs.c:377
+#: ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
 msgid "_Continue save"
 msgstr "Mentés _folytatása"
 
-#: ../src/file_dialogs.c:339
+#: ../src/file_dialogs.c:452
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -1002,1450 +908,1008 @@ msgstr ""
 "Nem sikerült a %s fájl backupjának elkészítése. Ha folytatod, a "
 "fájlfelülíródik."
 
-#: ../src/file_dialogs.c:343
+#: ../src/file_dialogs.c:456
 msgid "File backup failure"
 msgstr "Sikertelen backup"
 
-#: ../src/file_dialogs.c:361
+#: ../src/file_dialogs.c:471
 #, fuzzy
-msgid ""
-"Could not save file:\n"
-"\""
+msgid "Could not save file "
 msgstr ""
 "A fájl nem írható:\n"
 "\""
 
-#: ../src/file_dialogs.c:365
-#, fuzzy
-msgid "File save failed!\n"
-msgstr "Mentés megszakítva.\n"
-
-#: ../src/file_dialogs.c:382
+#: ../src/file_dialogs.c:490
 #, fuzzy, c-format
 msgid "File %s has been modified on disk, overwrite?"
 msgstr "%s létezik és nyitva van, felülírjuk?"
 
-#: ../src/file_dialogs.c:384
+#: ../src/file_dialogs.c:492
 #, fuzzy, c-format
 msgid "Failed to check if %s has been modified on disk"
 msgstr "Fájl módosulásának figyelése "
 
-#: ../src/file_dialogs.c:477
+#: ../src/file_dialogs.c:583
 #, fuzzy, c-format
 msgid "Move/rename %s to"
 msgstr "Dokumentum áthelyezése/átnevezése"
 
-#: ../src/file_dialogs.c:477
+#: ../src/file_dialogs.c:583
 #, fuzzy, c-format
 msgid "Save %s as"
 msgstr "Mentés másként..."
 
-#: ../src/file_dialogs.c:501 ../src/file_dialogs.c:524
-#: ../src/file_dialogs.c:788 ../src/project.c:225
+#: ../src/file_dialogs.c:610 ../src/file_dialogs.c:631
+#: ../src/file_dialogs.c:892 ../src/project.c:242
 msgid "_Cancel"
 msgstr "_Mégsem"
 
-#: ../src/file_dialogs.c:502
+#: ../src/file_dialogs.c:611
 #, fuzzy, c-format
 msgid "File %s exists and is open, overwrite?"
 msgstr "%s létezik és nyitva van, felülírjuk?"
 
-#: ../src/file_dialogs.c:507
+#: ../src/file_dialogs.c:614
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "A kiválasztott fájlt a Bluefish szerkesztésre megnyitotta."
 
-#: ../src/file_dialogs.c:525 ../src/project.c:226
+#: ../src/file_dialogs.c:632 ../src/project.c:244
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "A \"%s\" nevű fájl már létezik."
 
-#: ../src/file_dialogs.c:530 ../src/project.c:231
+#: ../src/file_dialogs.c:635 ../src/project.c:249
 msgid "Do you want to replace the existing file?"
 msgstr "Biztosan cseréled a létező fájlt?"
 
-#: ../src/file_dialogs.c:588
+#: ../src/file_dialogs.c:726
 #, fuzzy
 msgid ""
 "File:\n"
 "\""
 msgstr "Szűrő:"
 
-#: ../src/file_dialogs.c:592
+#: ../src/file_dialogs.c:727
+msgid "\" save is in progress"
+msgstr ""
+
+#: ../src/file_dialogs.c:729
 msgid "Save in progress!"
 msgstr ""
 
-#: ../src/file_dialogs.c:734 ../src/project.c:392
+#: ../src/file_dialogs.c:880
 msgid "Close _Without Saving"
 msgstr ""
 
-#: ../src/file_dialogs.c:737
+#: ../src/file_dialogs.c:883
 #, fuzzy, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr "Mented a névtelen fájl változásait?"
 
-#: ../src/file_dialogs.c:742 ../src/file_dialogs.c:793 ../src/project.c:404
+#: ../src/file_dialogs.c:886 ../src/file_dialogs.c:896
 msgid "If you don't save your changes they will be lost."
 msgstr ""
 
-#: ../src/file_dialogs.c:788
+#: ../src/file_dialogs.c:892
 msgid "Choose per _File"
 msgstr "Választás _fájlonként"
 
-#: ../src/file_dialogs.c:788
+#: ../src/file_dialogs.c:892
 msgid "Close _All"
 msgstr "Mindet _bezárja"
 
-#: ../src/file_dialogs.c:788
+#: ../src/file_dialogs.c:892
 msgid "_Save All"
 msgstr "Mindet m_enti"
 
-#: ../src/file_dialogs.c:792
-msgid "Multiple open files have been changed."
+#: ../src/file_dialogs.c:895
+#, fuzzy
+msgid "One or more open files have been changed."
 msgstr "A megnyitott fájl(ok) módosult(ak)"
 
-#: ../src/fref2.c:788
-#, fuzzy, c-format
-msgid "Cannot load reference file %s\n"
-msgstr "Referencia-fájlok újraolvasása"
+#: ../src/file_dialogs.c:1142
+#, c-format
+msgid "<span color=\"red\">%d failure</span>"
+msgid_plural "<span color=\"red\">%d failures</span>"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/fref2.c:793
-#, fuzzy, c-format
-msgid ""
-"Bad root element in reference file %s\n"
-"Should be <ref> or <r> and found %s"
-msgstr "Referencia-fájlok újraolvasása"
-
-#: ../src/fref2.c:870
-msgid "Load error"
+#: ../src/file_dialogs.c:1150
+msgid "incomplete finished"
 msgstr ""
 
-#: ../src/fref2.c:871
-msgid "Cannot load reference file, perhaps it is not well-formed."
+#: ../src/file_dialogs.c:1152
+msgid "completed"
 msgstr ""
 
-#: ../src/fref2.c:884
+#: ../src/file_dialogs.c:1193
+msgid "Upload / Download"
+msgstr ""
+
+#: ../src/file_dialogs.c:1194
 #, fuzzy
-msgid "Bad root element in reference file"
-msgstr "Referencia-fájlok újraolvasása"
+msgid "Upload"
+msgstr "Új_ratölt"
 
-#: ../src/fref2.c:885
-msgid ""
-" \n"
-"Should be <ref> or <r> "
+#: ../src/file_dialogs.c:1194
+msgid "Download"
 msgstr ""
 
-#: ../src/fref2.c:910
+#: ../src/file_dialogs.c:1208
 #, fuzzy
-msgid "Bad reference"
-msgstr "Tulajdonságok szerkesztése"
-
-#: ../src/fref2.c:911
-msgid ""
-"This is probably an old reference file. \n"
-"Please update it to the new format."
-msgstr ""
-
-#: ../src/fref2.c:924
-#, fuzzy
-msgid "Loading reference"
-msgstr "Tulajdonságok szerkesztése"
-
-#: ../src/fref2.c:1023
-#, fuzzy
-msgid "Unloading reference"
-msgstr "Függvényreferencia"
-
-#: ../src/fref2.c:1024
-msgid " Freeing reference memory "
-msgstr ""
-
-#: ../src/fref2.c:1544 ../src/fref2.c:3690 ../src/fref2.c:3698
-#, fuzzy
-msgid "Identifier"
-msgstr "Középre"
-
-#: ../src/fref2.c:1564 ../src/fref2.c:1714
-#, fuzzy
-msgid "Kind"
-msgstr "Keres"
-
-#: ../src/fref2.c:1570 ../src/fref2.c:1705 ../src/fref2.c:3683
-#: ../src/preferences.c:2094 ../src/preferences.c:2367
-msgid "Name"
-msgstr "Név"
-
-#: ../src/fref2.c:1581
-#, fuzzy
-msgid "Type"
-msgstr "_Típus:"
-
-#: ../src/fref2.c:1592
-#, fuzzy
-msgid "Default value"
-msgstr "Alapértelmezett alapkönyvtár"
-
-#: ../src/fref2.c:1603
-#, fuzzy
-msgid "Input type"
-msgstr "Info típus"
-
-#: ../src/fref2.c:1621
-msgid "Required"
-msgstr ""
-
-#: ../src/fref2.c:1625 ../src/fref2.c:1752 ../src/fref2.c:3537
-#: ../src/fref2.c:3683 ../src/fref2.c:4652
-msgid "Description"
-msgstr "Leírás"
-
-#: ../src/fref2.c:1644
-#, fuzzy
-msgid "Values"
-msgstr "Érték"
-
-#: ../src/fref2.c:1674
-#, fuzzy
-msgid "Insert syntax"
-msgstr "Kép beszúrása"
-
-#: ../src/fref2.c:1675
-msgid ""
-"All elements:\n"
-"%0,%1,... - value of parameter number 0,1,...%* - values of all parameters\n"
-"Tag element:\n"
-"%_ - only non-empty attributes\n"
-"%! - only required attributes\n"
-"%~ - only non-empty OR required attributes."
-msgstr ""
-
-#: ../src/fref2.c:1732
-#, fuzzy
-msgid "Insert text"
-msgstr "Idő beszúrása"
-
-#: ../src/fref2.c:1737
-msgid " ? "
-msgstr ""
-
-#: ../src/fref2.c:1739
-#, fuzzy
-msgid "Help"
-msgstr "/_Segítség"
-
-#: ../src/fref2.c:1769
-#, fuzzy
-msgid "Properties"
-msgstr "Tulajdonság"
-
-#: ../src/fref2.c:1800
-#, fuzzy
-msgid "Add property"
-msgstr "Tulajdonság"
-
-#: ../src/fref2.c:1804
-#, fuzzy
-msgid "Add ref definition"
-msgstr "Fogalom"
-
-#: ../src/fref2.c:1808
-msgid "Delete"
-msgstr "Töröl"
-
-#: ../src/fref2.c:1997
-msgid "TAG: "
-msgstr ""
-
-#: ../src/fref2.c:2003
-msgid "PARENT TAGS: "
-msgstr ""
-
-#: ../src/fref2.c:2008
-msgid "FUNCTION: "
-msgstr ""
-
-#: ../src/fref2.c:2014
-msgid "RETURNS: "
-msgstr ""
-
-#: ../src/fref2.c:2019 ../src/fref2.c:2030 ../src/fref2.c:2041
-msgid "DEPENDENCIES: "
-msgstr ""
-
-#: ../src/fref2.c:2024
-msgid "PROPERTY: "
-msgstr ""
-
-#: ../src/fref2.c:2035
-msgid "SELECTOR: "
-msgstr ""
-
-#: ../src/fref2.c:2046
-msgid "VAR: "
-msgstr ""
-
-#: ../src/fref2.c:2052
-msgid "SNIPPET: "
-msgstr ""
-
-#: ../src/fref2.c:2064 ../src/fref2.c:2103
-msgid "PARAMS:\n"
-msgstr ""
-
-#: ../src/fref2.c:2076
-msgid "ATTRIBUTES:\n"
-msgstr ""
-
-#: ../src/fref2.c:2124
-msgid ""
-"\n"
-"NOTES:\n"
-msgstr ""
-
-#: ../src/fref2.c:2147
-msgid ""
-"\n"
-"EXAMPLES:\n"
-msgstr ""
-
-#: ../src/fref2.c:2164
-msgid ""
-"SEE ALSO:\n"
-" "
-msgstr ""
-
-#: ../src/fref2.c:2694
-msgid "Choose colour"
-msgstr ""
-
-#: ../src/fref2.c:3487 ../src/fref2.c:3563 ../src/fref2.c:3582
-#: ../src/fref2.c:3615 ../src/fref2.c:3636 ../src/fref2.c:3649
-#: ../src/fref2.c:3796 ../src/fref2.c:3830 ../src/fref2.c:4191
-#: ../src/fref2.c:4353 ../src/fref2.c:4405 ../src/fref2.c:4426
-msgid "Error"
-msgstr "Hiba"
-
-#: ../src/fref2.c:3488
-#, fuzzy
-msgid ""
-"Perhaps you didn't load a library, or you did not select a library to search "
-"in."
-msgstr ""
-"Lehet, hogy nem töltöttél be referenciát, vagy nem adtad meg, melyikben kell "
-"keresni."
-
-#: ../src/fref2.c:3496
-#, fuzzy, c-format
-msgid "Element %s not found"
-msgstr "A referencia nem található"
-
-#: ../src/fref2.c:3500
-#, fuzzy
-msgid "Element search"
-msgstr "Referencia keresése"
-
-#: ../src/fref2.c:3537 ../src/fref2.c:4695
-#, fuzzy
-msgid "New library"
+msgid "Local directory"
 msgstr "/Új _könyvtár"
 
-#: ../src/fref2.c:3537
+#: ../src/file_dialogs.c:1215
 #, fuzzy
-msgid "Library name"
-msgstr "Könyvtárnév"
+msgid "Remote directory"
+msgstr "/Új _könyvtár"
 
-#: ../src/fref2.c:3564
-msgid "Library has to have a name."
+#: ../src/file_dialogs.c:1220
+#, fuzzy
+msgid "Delete deprecated files"
+msgstr "Válaszd ki a fájlokat"
+
+#: ../src/file_dialogs.c:1221
+#, fuzzy
+msgid "Include hidden files"
+msgstr "Rejtett fájlok mutatása"
+
+#. build a list of filters
+#: ../src/filefilter.c:214 ../src/gtk_easy.c:1364
+msgid "All files"
+msgstr "Minden fájl"
+
+#: ../src/filefilter.c:561
+msgid "Hide files that match the filter"
 msgstr ""
 
-#: ../src/fref2.c:3583 ../src/fref2.c:3637 ../src/fref2.c:3831
-#: ../src/fref2.c:4192 ../src/fref2.c:4354 ../src/fref2.c:4427
-msgid "This library is readonly."
-msgstr ""
-
-#: ../src/fref2.c:3601
+#: ../src/filefilter.c:566
 #, fuzzy
-msgid "Delete library?"
-msgstr "Állandó könyvjelző törlése."
+msgid "Add pattern"
+msgstr "Befejező minta"
 
-#: ../src/fref2.c:3616
-msgid "You have to select a reference."
-msgstr ""
-
-#: ../src/fref2.c:3650
+#: ../src/filefilter.c:572 ../src/filefilter.c:584
 #, fuzzy
-msgid "Reference not loaded."
-msgstr "A referencia nem található"
+msgid "Mime type"
+msgstr "Fájltípusok"
 
-#: ../src/fref2.c:3665 ../src/fref2.c:3679 ../src/fref2.c:4204
-#: ../src/fref2.c:4439
-msgid "Bad element"
-msgstr ""
+#: ../src/filefilter.c:575 ../src/filefilter.c:587
+msgid "Icon"
+msgstr "Ikon"
 
-#: ../src/fref2.c:3666
-msgid "You can define notes for: library, group or element."
-msgstr ""
-
-#: ../src/fref2.c:3669
-#, fuzzy
-msgid "New note"
-msgstr "Új projekt"
-
-#: ../src/fref2.c:3669
-#, fuzzy
-msgid "Title"
-msgstr "_Cím"
-
-#: ../src/fref2.c:3669
-#, fuzzy
-msgid "Text"
-msgstr "Szövegmező"
-
-#: ../src/fref2.c:3680
-msgid "You can define group for: library or group."
-msgstr ""
-
-#: ../src/fref2.c:3683
-#, fuzzy
-msgid "New group"
-msgstr "Új projekt"
-
-#: ../src/fref2.c:3690
-#, fuzzy
-msgid "New description def"
-msgstr "Leírás"
-
-#: ../src/fref2.c:3690
-#, fuzzy
-msgid "Description text"
-msgstr "Leírás"
-
-#: ../src/fref2.c:3698
-#, fuzzy
-msgid "New values def"
-msgstr "Új Bluefish ablak"
-
-#: ../src/fref2.c:3698
-msgid "Values separated by comma"
-msgstr ""
-
-#: ../src/fref2.c:3797 ../src/fref2.c:4302
-msgid "Element has to have a name."
-msgstr ""
-
-#: ../src/fref2.c:3898 ../src/fref2.c:4128
-msgid "Missing value"
-msgstr ""
-
-#: ../src/fref2.c:3899 ../src/fref2.c:4129
-msgid "Property has to have a name."
-msgstr ""
-
-#: ../src/fref2.c:4020 ../src/fref2.c:4361
-#, fuzzy
-msgid "Definitions"
-msgstr "Meghatározás"
-
-#: ../src/fref2.c:4067
-#, fuzzy
-msgid "New property"
-msgstr "Új projekt"
-
-#: ../src/fref2.c:4205
-msgid "Please select library or group."
-msgstr ""
-
-#: ../src/fref2.c:4208
-msgid "New element"
-msgstr ""
-
-#: ../src/fref2.c:4301
-#, fuzzy
-msgid "No name"
-msgstr "Nem adtál meg fájlnevet"
-
-#: ../src/fref2.c:4391
-#, fuzzy
-msgid "Delete definition?"
-msgstr "Meghatározás"
-
-#: ../src/fref2.c:4406
-msgid "This property is used by some elements. Cannot delete."
-msgstr ""
-
-#: ../src/fref2.c:4440
-msgid "Please use delete library instead."
-msgstr ""
-
-#: ../src/fref2.c:4446
-#, fuzzy
-msgid "Delete group"
-msgstr " Töröl "
-
-#: ../src/fref2.c:4447
-msgid "Not implemented yet"
-msgstr ""
-
-#: ../src/fref2.c:4461
-#, fuzzy
-msgid "Delete group?"
-msgstr " Töröl "
-
-#: ../src/fref2.c:4462
-#, fuzzy
-msgid "Do you really want to delete current entity?"
-msgstr "Valóban eltávolítod %s-t?"
-
-#: ../src/fref2.c:4633
-msgid "Show info window"
-msgstr "Info ablak mutatása"
-
-#: ../src/fref2.c:4641
-msgid "Insert"
-msgstr "Beszúrás"
-
-#: ../src/fref2.c:4644 ../src/fref2.c:4651
-msgid "Show"
-msgstr ""
-
-#: ../src/fref2.c:4657
-msgid "Attributes/Parameters"
-msgstr "Attribútumok/Paraméterek"
-
-#: ../src/fref2.c:4662
-msgid "Notes"
-msgstr "Megjegyzés"
-
-#: ../src/fref2.c:4667
-#, fuzzy
-msgid "Examples"
-msgstr "Minta"
-
-#: ../src/fref2.c:4672
-#, fuzzy
-msgid "Links"
-msgstr "Link"
-
-#: ../src/fref2.c:4681
-#, fuzzy
-msgid "Rescan directories"
-msgstr "Referencia-fájlok újraolvasása"
-
-#: ../src/fref2.c:4688 ../src/fref2.c:4694
-msgid "Edit"
-msgstr "Szerkesztés"
-
-#: ../src/fref2.c:4698
-#, fuzzy
-msgid "Delete library"
-msgstr "Állandó könyvjelző törlése."
-
-#: ../src/fref2.c:4702
-msgid "New entity"
-msgstr ""
-
-#: ../src/fref2.c:4705
-#, fuzzy
-msgid "Note"
-msgstr "Megjegyzés"
-
-#: ../src/fref2.c:4708
-msgid "Group"
-msgstr ""
-
-#: ../src/fref2.c:4711
-#, fuzzy
-msgid "Property definition"
-msgstr "Meghatározás"
-
-#: ../src/fref2.c:4714
-#, fuzzy
-msgid "Description definition"
-msgstr "Leírás"
-
-#: ../src/fref2.c:4717
-#, fuzzy
-msgid "Values definition"
-msgstr "Meghatározás"
-
-#: ../src/fref2.c:4721
-#, fuzzy
-msgid "Element"
-msgstr "Események"
-
-#: ../src/fref2.c:4725
-#, fuzzy
-msgid "Delete definition"
-msgstr "Meghatározás"
-
-#: ../src/fref2.c:4728
-#, fuzzy
-msgid "Delete entity"
-msgstr "Menüpont törlése"
-
-#: ../src/gtk_easy.c:1056
+#: ../src/gtk_easy.c:1067
 #, c-format
 msgid "%d of %d"
 msgstr "%d of %d"
 
-#: ../src/gtk_easy.c:1162
+#: ../src/gtk_easy.c:1173
 #, fuzzy
 msgid "Select File"
 msgstr "Válassz fájlt"
 
-#: ../src/gtk_easy.c:1329
-msgid "Show hidden files"
-msgstr "Rejtett fájlok mutatása"
+#: ../src/gtk_easy.c:1244
+msgid "_Browse..."
+msgstr "_Tallóz..."
 
-#: ../src/gtk_easy.c:1330
+#: ../src/gtk_easy.c:1354
 msgid "Show backup files"
 msgstr "Backup fájlok mutatása"
 
-#: ../src/gtk_easy.c:1393
+#: ../src/gtk_easy.c:1414
 #, fuzzy
 msgid "Character _Encoding:"
 msgstr "/Dokumentum/_Karakterkészlet"
 
-#: ../src/gtk_easy.c:1407
+#: ../src/gtk_easy.c:1437
 #, fuzzy
 msgid "Automatic detection"
 msgstr "Author meta automatikus frissítése"
 
-#: ../src/gui.c:261
+#: ../src/gtkmountoperation.c:125
+#, fuzzy
+msgid "Parent"
+msgstr "Parentmatch"
+
+#: ../src/gtkmountoperation.c:126
+#, fuzzy
+msgid "The parent window"
+msgstr "Info ablak mutatása"
+
+#: ../src/gtkmountoperation.c:133
+msgid "Is Showing"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:134
+msgid "Are we showing a dialog"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:141
+msgid "Screen"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:142
+msgid "The screen where this window will be displayed."
+msgstr ""
+
+#: ../src/gtkmountoperation.c:449
+msgid "Co_nnect"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:516
+msgid "Connect _anonymously"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:525
+msgid "Connect as u_ser:"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:563
+#, fuzzy
+msgid "_Username:"
+msgstr "Felhasználónév:"
+
+#: ../src/gtkmountoperation.c:568
+#, fuzzy
+msgid "_Domain:"
+msgstr "_Függőleges igazítás:"
+
+#: ../src/gtkmountoperation.c:574
+#, fuzzy
+msgid "_Password:"
+msgstr "Jelszó:"
+
+#: ../src/gtkmountoperation.c:592
+msgid "Forget password _immediately"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:602
+msgid "Remember password until you _logout"
+msgstr ""
+
+#: ../src/gtkmountoperation.c:612
+msgid "Remember _forever"
+msgstr ""
+
+#: ../src/gui.c:281
 msgid "Filebrowser"
 msgstr "Fájlböngésző"
 
-#: ../src/gui.c:262
+#: ../src/gui.c:282
 msgid "Bookmarks"
 msgstr "Könyvjelzők"
 
-#: ../src/gui.c:264
-msgid "Function reference"
-msgstr "Függvényreferencia"
-
-#: ../src/gui.c:377
+#: ../src/gui.c:424
 msgid "New"
 msgstr "Új"
 
-#: ../src/gui.c:379
+#: ../src/gui.c:426
 #, fuzzy
 msgid "Open..."
 msgstr "Megnyitás..."
 
-#: ../src/gui.c:381
+#: ../src/gui.c:428
 msgid "Save"
 msgstr "Mentés"
 
-#: ../src/gui.c:383
+#: ../src/gui.c:430
 msgid "Save As..."
 msgstr "Mentés másként..."
 
-#: ../src/gui.c:385
+#: ../src/gui.c:432
 msgid "Close"
 msgstr "Bezárás"
 
-#: ../src/gui.c:388
+#: ../src/gui.c:435
 msgid "Cut"
 msgstr "Kivágás"
 
-#: ../src/gui.c:390
+#: ../src/gui.c:437
 msgid "Copy"
 msgstr "Másolás"
 
-#: ../src/gui.c:392
+#: ../src/gui.c:439
 msgid "Paste"
 msgstr "Beillesztés"
 
-#: ../src/gui.c:395
+#: ../src/gui.c:442
 #, fuzzy
 msgid "Find..."
 msgstr "Keres"
 
-#: ../src/gui.c:397
+#: ../src/gui.c:444
 #, fuzzy
 msgid "Replace..."
 msgstr "Cserél"
 
-#: ../src/gui.c:400
+#: ../src/gui.c:447
 msgid "Undo"
 msgstr "Visszavon"
 
-#: ../src/gui.c:402
+#: ../src/gui.c:449
 msgid "Redo"
 msgstr "Ismétel"
 
-#: ../src/gui.c:405
+#: ../src/gui.c:452
 msgid "Unindent"
 msgstr "Balra tol"
 
-#: ../src/gui.c:407
+#: ../src/gui.c:454
 msgid "Indent"
 msgstr "Jobbra tol"
 
-#: ../src/gui.c:414
-msgid "Spellcheck..."
-msgstr "Helyesírás-ellenőrzés..."
-
-#: ../src/gui.c:419
+#: ../src/gui.c:461
 msgid "View in browser"
 msgstr "Megtekintés böngészőben"
 
-#: ../src/gui.c:422
+#: ../src/gui.c:464
 msgid "Preferences..."
 msgstr "Tulajdonságok..."
 
-#: ../src/gui.c:615
+#: ../src/gui.c:467
+msgid "Toggle Full Screen"
+msgstr ""
+
+#: ../src/gui.c:469
+msgid "Toggle Normal Screen"
+msgstr ""
+
+#: ../src/gui.c:916
+#, fuzzy
+msgid "Goto Line:"
+msgstr "Ugrás sorra"
+
+#: ../src/gui.c:931
 msgid "New Bluefish Window"
 msgstr "Új Bluefish ablak"
 
-#: ../src/gui.c:677
+#. Fake-label (for notebook_hide() and _show() ;)
+#: ../src/gui.c:990
 msgid "Stand by..."
 msgstr "Stand by..."
 
-#: ../src/gui.c:873
-msgid "Goto line"
-msgstr "Ugrás sorra"
-
-#: ../src/gui.c:881
-msgid "_Line number:"
-msgstr "_Sor száma: "
-
-#: ../src/gui.c:887
-msgid "From _selection"
-msgstr "_Kijelölésből"
-
-#: ../src/gui.c:890
-msgid "Keep _dialog"
-msgstr "_Párbeszédablak maradjon nyitva"
-
-#: ../src/gui.c:954
+#: ../src/gui.c:1153
 msgid "starting bluefish"
 msgstr "bluefish indítása"
 
-#: ../src/highlight.c:439 ../src/highlight.c:451 ../src/highlight.c:478
-#: ../src/highlight.c:492
-#, fuzzy
-msgid "Syntax highlighting error for "
-msgstr "Szintaxiskiemelés"
-
-#: ../src/highlight.c:440
-#, c-format
-msgid "compiling pattern '%s': %s at offset %d"
-msgstr ""
-
-#: ../src/highlight.c:452
-#, c-format
-msgid "studying pattern '%s': %s"
-msgstr ""
-
-#: ../src/highlight.c:479
-#, c-format
-msgid "compiling 2nd pattern '%s': %s at offset %d"
-msgstr ""
-
-#: ../src/highlight.c:493
-#, c-format
-msgid "studying 2nd pattern '%s': %s"
-msgstr ""
-
-#: ../src/menu.c:218
+#: ../src/menu.c:209
 msgid "/_File"
 msgstr "/_Fájl"
 
-#: ../src/menu.c:220
+#: ../src/menu.c:211
 msgid "/File/_New"
 msgstr "/Fájl/Ú_j"
 
-#: ../src/menu.c:221
+#: ../src/menu.c:212
 msgid "/File/New _Window"
 msgstr "/Fájl/Új ablak"
 
-#: ../src/menu.c:222
+#: ../src/menu.c:213
 msgid "/File/_Open..."
 msgstr "/Fájl/_Megnyitás"
 
-#: ../src/menu.c:223
+#: ../src/menu.c:214
 #, fuzzy
-msgid "/File/Open _recent"
+msgid "/File/Open _Recent"
 msgstr "/Fájl/Utóbbi megnyitása"
 
-#: ../src/menu.c:225
+#: ../src/menu.c:216
 msgid "/File/Open Ad_vanced..."
 msgstr "/Fájl/Megnyitás _opciókkal..."
 
-#: ../src/menu.c:227
+#: ../src/menu.c:217
 msgid "/File/Open _URL..."
 msgstr "/Fájl/U_RL megnyitása..."
 
-#: ../src/menu.c:229
-msgid "/File/Open _from selection"
+#: ../src/menu.c:218
+#, fuzzy
+msgid "/File/Open _From Selection"
 msgstr "/Fájl/Kijelölés megnyitása"
 
-#: ../src/menu.c:231
+#: ../src/menu.c:219
+msgid "/File/_Insert..."
+msgstr "/Fájl/Fájl beszúrása..."
+
+#: ../src/menu.c:221
 msgid "/File/_Save"
 msgstr "/Fájl/M_entés"
 
-#: ../src/menu.c:232
+#: ../src/menu.c:222
 msgid "/File/Save _As..."
 msgstr "/Fájl/Mentés má_sként..."
 
-#: ../src/menu.c:233
+#: ../src/menu.c:223
+msgid "/File/Rena_me..."
+msgstr "/Fájl/Átnevezés"
+
+#: ../src/menu.c:224
 msgid "/File/Sav_e All"
 msgstr "/Fájl/Ment mi_ndent"
 
-#: ../src/menu.c:234
+#: ../src/menu.c:225
 #, fuzzy
 msgid "/File/Rever_t to Saved"
 msgstr "/Fájl/Visszatérés a mentett verzióhoz"
 
-#: ../src/menu.c:236
-msgid "/File/_Insert..."
-msgstr "/Fájl/Fájl beszúrása..."
-
-#: ../src/menu.c:237
-msgid "/File/Rena_me..."
-msgstr "/Fájl/Átnevezés"
-
-#: ../src/menu.c:239
+#: ../src/menu.c:227
 msgid "/File/_Close"
 msgstr "/Fájl/Be_zár"
 
-#: ../src/menu.c:240
+#: ../src/menu.c:228
 msgid "/File/Close A_ll"
 msgstr "/Fájl/M_indent bezár"
 
-#: ../src/menu.c:241
+#: ../src/menu.c:229
 msgid "/File/Close Win_dow"
 msgstr "/Fájl/Ablak bezárása"
 
-#: ../src/menu.c:243
+#: ../src/menu.c:231
+msgid "/File/Upload \\/ Download"
+msgstr ""
+
+#: ../src/menu.c:233
 msgid "/File/_Quit"
 msgstr "/Fájl/_Kilépés"
 
-#: ../src/menu.c:246
+#: ../src/menu.c:236
 msgid "/File/Run Python Script"
 msgstr ""
 
-#: ../src/menu.c:248
+#: ../src/menu.c:238
 msgid "/_Edit"
 msgstr "/S_zerkesztés"
 
-#: ../src/menu.c:250
+#: ../src/menu.c:240
 msgid "/Edit/_Undo"
 msgstr "/Szerkesztés/_Visszavon"
 
-#: ../src/menu.c:251
+#: ../src/menu.c:241
 msgid "/Edit/_Redo"
 msgstr "/Szerkesztés/Ú_jból"
 
-#: ../src/menu.c:252
+#: ../src/menu.c:242
 msgid "/Edit/Undo All"
 msgstr "/Szerkesztés/Mindent visszavon"
 
-#: ../src/menu.c:253
+#: ../src/menu.c:243
 msgid "/Edit/Redo All"
 msgstr "/Szerkesztés/Mindent újból"
 
-#: ../src/menu.c:255
+#: ../src/menu.c:245
 msgid "/Edit/Cu_t"
 msgstr "/Szerkesztés/_Kivág"
 
-#: ../src/menu.c:256
+#: ../src/menu.c:246
 msgid "/Edit/_Copy"
 msgstr "/Szerkesztés/_Másol"
 
-#: ../src/menu.c:257
+#: ../src/menu.c:247
 msgid "/Edit/_Paste"
 msgstr "/Szerkesztés/_Beilleszt"
 
-#: ../src/menu.c:259
+#: ../src/menu.c:249
 msgid "/Edit/Select _All"
 msgstr "/Szerkesztés/Min_dent kijelöl"
 
-#: ../src/menu.c:261
+#: ../src/menu.c:251
 msgid "/Edit/_Find..."
 msgstr "/Szerkesztés/Ke_resés..."
 
-#: ../src/menu.c:262
+#: ../src/menu.c:252
 msgid "/Edit/Find A_gain"
 msgstr "/Szerkesztés/Tovább keres"
 
-#: ../src/menu.c:263
-msgid "/Edit/Find from selection"
+#: ../src/menu.c:253
+#, fuzzy
+msgid "/Edit/Find From Selection"
 msgstr "/Fájl/Kijelölés keresése"
 
-#: ../src/menu.c:264
+#: ../src/menu.c:254
 msgid "/Edit/R_eplace..."
 msgstr "/Szerkesztés/C_sere..."
 
-#: ../src/menu.c:265
+#: ../src/menu.c:255
 msgid "/Edit/Replace Agai_n"
 msgstr "/Szerkesztés/Tovább cserél"
 
-#: ../src/menu.c:266
-msgid "/Edit/Replace special"
-msgstr "/Szerkesztés/Irányított csere"
-
-#: ../src/menu.c:269
+#: ../src/menu.c:257
 #, fuzzy
 msgid "/Edit/_Indent"
 msgstr "/Szerkesztés/J_obbra tol"
 
-#: ../src/menu.c:270
+#: ../src/menu.c:258
 #, fuzzy
 msgid "/Edit/_Unindent"
 msgstr "/Szerkesztés/B_alra tol"
 
-#: ../src/menu.c:272
-msgid "/Document/Add _Bookmark"
-msgstr "/Kö_nyvjelző hozzáadása"
-
-#: ../src/menu.c:274
-#, fuzzy
-msgid "/Edit/Save Sett_ings"
-msgstr "/Szerkesztés/Beállítások m_entése"
-
-#: ../src/menu.c:275
+#: ../src/menu.c:260
 msgid "/Edit/Save Shortcut _Keys"
 msgstr "/Szerkesztés/_Gyorsbillentyű-beállítások mentése"
 
-#: ../src/menu.c:276
+#: ../src/menu.c:261
 #, fuzzy
 msgid "/Edit/Preference_s"
 msgstr "/Szerkesztés/Beá_llítások"
 
-#: ../src/menu.c:277
+#: ../src/menu.c:262
 msgid "/_View"
 msgstr "/_Megjelenítés"
 
-#: ../src/menu.c:279
-msgid "/View/View _Main Toolbar"
-msgstr "/Megjelenítés/_Fő eszköztár"
+#: ../src/menu.c:264
+msgid "/View/_Full Screen"
+msgstr ""
 
-#: ../src/menu.c:280
-msgid "/View/View _Custom Menu"
-msgstr "/Megjelenítés/_Saját menü"
-
-#: ../src/menu.c:281
+#: ../src/menu.c:266
 #, fuzzy
-msgid "/View/View _Sidebar"
+msgid "/View/_Main Toolbar"
 msgstr "/Megjelenítés/_Fő eszköztár"
 
-#: ../src/menu.c:282
+#: ../src/menu.c:267
+#, fuzzy
+msgid "/View/_Side Pane"
+msgstr "/Megjelenítés/Bal oldali panel"
+
+#: ../src/menu.c:268
+#, fuzzy
+msgid "/View/_Output Pane"
+msgstr "/Megjelenítés/_Bal oldali panel"
+
+#: ../src/menu.c:269
+#, fuzzy
+msgid "/View/Status_bar"
+msgstr "/Fájl/tearoff1"
+
+#: ../src/menu.c:270
 msgid "/_Document"
 msgstr "_Dokumentum"
 
-#: ../src/menu.c:284
-msgid "/Document/_Increase Tabsize"
-msgstr "/Dokumentum/Tabulátorméretet _növel"
-
-#: ../src/menu.c:285
-msgid "/Document/_Decrease Tabsize"
-msgstr "/Dokumentum/Tabulátorméretet _csökkent"
-
-#: ../src/menu.c:286
+#: ../src/menu.c:272
 msgid "/Document/_Auto Indent"
 msgstr "/Dokumentum/_Automatikus behúzás"
 
-#: ../src/menu.c:288
-msgid "/Document/Auto Close H_TML tags"
-msgstr "/Dokumentum/HTML címkék automatikus bezárása"
+#: ../src/menu.c:273
+#, fuzzy
+msgid "/Document/Auto _Completion Popup"
+msgstr "/Dokumentum/_Automatikus behúzás"
 
-#: ../src/menu.c:289
+#: ../src/menu.c:274
 msgid "/Document/_Wrap"
 msgstr "/Dokumentum/Tö_rdelés"
 
-#: ../src/menu.c:290
+#: ../src/menu.c:275
 msgid "/Document/_Line Numbers"
 msgstr "/Dokumentum/_Sorok számozása"
 
-#: ../src/menu.c:292
+#: ../src/menu.c:276
 #, fuzzy
-msgid "/Document/Show _blocks"
+msgid "/Document/Show _Blocks"
 msgstr "/Dokumentum/Sz_avak száma"
+
+#: ../src/menu.c:277
+#, fuzzy
+msgid "/Document/_Visible Spacing"
+msgstr "/Dokumentum/sep1"
+
+#: ../src/menu.c:279
+#, fuzzy
+msgid "/Document/_Spell Check"
+msgstr "/Dokumentum/Tö_rdelés"
+
+#: ../src/menu.c:282
+#, fuzzy
+msgid "/Document/_Tab Size"
+msgstr "/Dokumentum/Tabulátorméretet _növel"
+
+#: ../src/menu.c:284
+#, fuzzy
+msgid "/Document/Tab Size/_Increase"
+msgstr "/Dokumentum/Tabulátorméretet _növel"
+
+#: ../src/menu.c:285
+#, fuzzy
+msgid "/Document/Tab Size/_Decrease"
+msgstr "/Dokumentum/Tabulátorméretet _csökkent"
+
+#: ../src/menu.c:287
+#, fuzzy
+msgid "/Document/Tab Size/_Reset"
+msgstr "/Dokumentum/Tabulátorméretet _növel"
+
+#: ../src/menu.c:288
+#, fuzzy
+msgid "/Document/_Font Size"
+msgstr "/Dokumentum/Dokumentumtípus"
+
+#: ../src/menu.c:290
+#, fuzzy
+msgid "/Document/Font Size/_Increase"
+msgstr "/Dokumentum/Tabulátorméretet _növel"
+
+#: ../src/menu.c:291
+#, fuzzy
+msgid "/Document/Font Size/_Decrease"
+msgstr "/Dokumentum/Tabulátorméretet _csökkent"
 
 #: ../src/menu.c:293
 #, fuzzy
-msgid "/Document/Show _symbols"
-msgstr "/Dokumentum/Sz_avak száma"
+msgid "/Document/Font Size/_Reset"
+msgstr "/Dokumentum/Dokumentumtípus"
 
-#: ../src/menu.c:296
+#: ../src/menu.c:295
 msgid "/Document/_Highlight Syntax"
 msgstr "/Dokumentum/S_zintaxiskiemelés"
 
 #: ../src/menu.c:297
-msgid "/Document/_Update Highlighting"
-msgstr "/Dokumentum/Szintaxiskiemelés _frissítése"
+msgid "/Document/_Rescan Syntax & Spelling"
+msgstr ""
 
 #: ../src/menu.c:299
-msgid "/Document/Document Ty_pe"
-msgstr "/Dokumentum/Dokumentumtípus"
+#, fuzzy
+msgid "/Document/_Rescan Syntax"
+msgstr "/Dokumentum/S_zintaxiskiemelés"
 
 #: ../src/menu.c:301
+#, fuzzy
+msgid "/Document/Language _Mode"
+msgstr "/Dokumentum/Sorok számozása"
+
+#: ../src/menu.c:304
 msgid "/Document/Character _Encoding"
 msgstr "/Dokumentum/_Karakterkészlet"
 
-#: ../src/menu.c:305
-msgid "/Tools/Check _Spelling..."
-msgstr "/Dokumentum/_Helyesírás ellenőrzése"
-
 #: ../src/menu.c:307
-msgid "/Document/_Floating window"
-msgstr "/Dokumentum/_Lebegő ablak"
+#, fuzzy
+msgid "/Document/Character Encoding/_Add or Remove..."
+msgstr "/Dokumentum/Karakterkészlet"
 
-#: ../src/menu.c:308
-msgid "/Tools/Word _Count"
-msgstr "/Dokumentum/Sz_avak száma"
+#: ../src/menu.c:309
+#, fuzzy
+msgid "/Document/Add Boo_kmark"
+msgstr "/Kö_nyvjelző hozzáadása"
 
 #: ../src/menu.c:310
 #, fuzzy
-msgid "/Document/Move left"
-msgstr "/Dokumentum/Automatikus behúzás"
-
-#: ../src/menu.c:311
-#, fuzzy
-msgid "/Document/Move right"
-msgstr "/Dokumentum/sep1"
+msgid "/Document/Floati_ng Window"
+msgstr "/Dokumentum/_Lebegő ablak"
 
 #: ../src/menu.c:312
+#, fuzzy
+msgid "/Document/Move Left"
+msgstr "/Dokumentum/Automatikus behúzás"
+
+#: ../src/menu.c:313
+#, fuzzy
+msgid "/Document/Move Right"
+msgstr "/Dokumentum/sep1"
+
+#: ../src/menu.c:314
 msgid "/_Go"
 msgstr "/_Ugrás"
 
-#: ../src/menu.c:314
-msgid "/Go/_Previous document"
+#: ../src/menu.c:316
+#, fuzzy
+msgid "/Go/_Previous Document"
 msgstr "/Ugrás/_Előző dokumentum"
 
-#: ../src/menu.c:315
-msgid "/Go/_Next document"
+#: ../src/menu.c:317
+#, fuzzy
+msgid "/Go/_Next Document"
 msgstr "/Ugrás/_Következő dokumentum"
 
-#: ../src/menu.c:317
-msgid "/Go/_First document"
+#: ../src/menu.c:318
+#, fuzzy
+msgid "/Go/_First Document"
 msgstr "/Ugrás/E_lső dokumentum"
 
-#: ../src/menu.c:318
-msgid "/Go/L_ast document"
+#: ../src/menu.c:319
+#, fuzzy
+msgid "/Go/L_ast Document"
 msgstr "/Ugrás/U_tolsó dokumentum"
 
-#: ../src/menu.c:320
+#: ../src/menu.c:321
+#, fuzzy
+msgid "/Go/F_irst Bookmark"
+msgstr "/Ugrás/E_lső dokumentum"
+
+#: ../src/menu.c:322
+#, fuzzy
+msgid "/Go/P_revious Bookmark"
+msgstr "/Ugrás/_Előző dokumentum"
+
+#: ../src/menu.c:323
+#, fuzzy
+msgid "/Go/N_ext Bookmark"
+msgstr "/Kö_nyvjelző hozzáadása"
+
+#: ../src/menu.c:324
+#, fuzzy
+msgid "/Go/Last _Bookmark"
+msgstr "/Kö_nyvjelző hozzáadása"
+
+#: ../src/menu.c:326
 msgid "/Go/Goto _Line"
 msgstr "/Ugrás/_Ugrás sorra"
 
-#: ../src/menu.c:321
-msgid "/Go/Goto _Selection"
+#: ../src/menu.c:327
+#, fuzzy
+msgid "/Go/Goto line number in _selection"
 msgstr "/Ugrás/Ugrás kijelölésre"
 
-#: ../src/menu.c:322
+#: ../src/menu.c:328
 msgid "/_Project"
 msgstr "/P_rojekt"
 
-#: ../src/menu.c:324
+#: ../src/menu.c:330
 msgid "/Project/_New Project"
 msgstr "/Projekt/Ú_j projekt"
 
-#: ../src/menu.c:325
+#: ../src/menu.c:331
 msgid "/Project/_Open Project..."
 msgstr "/Projekt/Projekt _megnyitása"
 
-#: ../src/menu.c:326
+#: ../src/menu.c:332
 #, fuzzy
-msgid "/Project/Open _recent"
+msgid "/Project/Open _Recent"
 msgstr "/Projekt/Utóbbi megnyitása"
 
-#: ../src/menu.c:329
+#: ../src/menu.c:335
 msgid "/Project/_Save"
 msgstr "/Projekt/M_entés"
 
-#: ../src/menu.c:330
+#: ../src/menu.c:336
 msgid "/Project/Save _as..."
 msgstr "/Projekt/Mentés má_sként"
 
-#: ../src/menu.c:331
+#: ../src/menu.c:337
 msgid "/Project/Save & _close"
 msgstr "/Projekt/Mentés és bezárás"
 
-#: ../src/menu.c:333
+#: ../src/menu.c:339
 msgid "/Project/E_dit Project Options..."
 msgstr "/Projekt/Projekt _tulajdonságainak szerkesztése"
 
-#: ../src/menu.c:334
-msgid "/T_ools"
+#: ../src/menu.c:340
+#, fuzzy
+msgid "/_Tools"
 msgstr "/_Külső"
 
-#: ../src/menu.c:506
-msgid "/Document/Document Type"
-msgstr "/Dokumentum/Dokumentumtípus"
-
-#: ../src/menu.c:640
-msgid "/Project/Open recent"
-msgstr "/Projekt/Utóbbi megnyitása"
-
-#: ../src/menu.c:644
-msgid "/File/Open recent"
-msgstr "/Fájl/Utóbbi megnyitása"
-
-#: ../src/menu.c:823
-msgid "/Windows"
-msgstr "/Ablakok"
-
-#: ../src/menu.c:1047
-msgid "/Tools/Outputbox/"
-msgstr "/Külső/Kimenetablak/"
-
-#: ../src/menu.c:1048
-msgid "/Tools/Commands/"
-msgstr "/Külső/Szűrők/"
-
-#: ../src/menu.c:1049
+#: ../src/menu.c:343
 #, fuzzy
-msgid "/Tools/Filters/"
-msgstr "/Külső/Böngészők/"
-
-#: ../src/menu.c:1062
-#, fuzzy
-msgid "/Tools/Filters"
-msgstr "/Külső/tearoff1"
-
-#: ../src/menu.c:1085
-msgid "/External"
-msgstr "/_Külső"
-
-#: ../src/menu.c:1087
-msgid "/Tools/Commands"
+msgid "/Tools/_Commands"
 msgstr "/Külső/Szűrők"
 
-#: ../src/menu.c:1115
-msgid "/Tools/Outputbox"
+#: ../src/menu.c:345
+#, fuzzy
+msgid "/Tools/_Outputbox"
 msgstr "/Külső/Kimenetablak"
 
-#: ../src/menu.c:1159
+#: ../src/menu.c:347
+#, fuzzy
+msgid "/Tools/_Filters"
+msgstr "/Külső/tearoff1"
+
+#: ../src/menu.c:350
+msgid "/Tools/_Synchronize text block"
+msgstr ""
+
+#: ../src/menu.c:351
+#, fuzzy
+msgid "/Tools/Toggle _Comment"
+msgstr "/Dokumentum/Sz_avak száma"
+
+#: ../src/menu.c:352
+#, fuzzy
+msgid "/Tools/_Word Count"
+msgstr "/Dokumentum/Sz_avak száma"
+
+#: ../src/menu.c:354
+msgid "/Tools/Strip T_railing Whitespace"
+msgstr ""
+
+#: ../src/menu.c:355
+#, fuzzy
+msgid "/Tools/_Join lines"
+msgstr "/Külső/tearoff1"
+
+#: ../src/menu.c:356
+#, fuzzy
+msgid "/Tools/Sp_lit lines"
+msgstr "/Külső/tearoff1"
+
+#: ../src/menu.c:357
+msgid "/Tools/Indenting To T_abs"
+msgstr ""
+
+#: ../src/menu.c:358
+msgid "/Tools/Indenting To S_paces"
+msgstr ""
+
+#: ../src/menu.c:359
+msgid "/Tools/Split Into Col_umns"
+msgstr ""
+
+#: ../src/menu.c:516
+#, fuzzy
+msgid "/Document/Language Mode"
+msgstr "/Dokumentum/Sorok számozása"
+
+#: ../src/menu.c:755
+#, fuzzy
+msgid "No default browser found"
+msgstr "Alapértelmezett alapkönyvtár"
+
+#: ../src/menu.c:756
+msgid ""
+"You can set a default browser by going to:\n"
+"Edit->Preferences->External Commands"
+msgstr ""
+
+#. TODO: this dialog is not very convenient, hitting enter should choose 'selection'
+#: ../src/menu.c:792
+#, fuzzy
+msgid "Text area to filter"
+msgstr "Szövegmező"
+
+#: ../src/menu.c:793
+msgid "All text"
+msgstr ""
+
+#: ../src/menu.c:794
+#, fuzzy
+msgid "Selected text only"
+msgstr "Betűtípus kiválasztása"
+
+#: ../src/menu.c:951
 msgid "/Document/Character Encoding"
 msgstr "/Dokumentum/Karakterkészlet"
 
-#: ../src/menu.c:1438
-msgid "This custom search and replace requires a selection"
-msgstr "A keresés/csere végrehajtásához kijelölés szükséges"
-
-#: ../src/menu.c:1536
-msgid "/_Custom menu"
-msgstr "/_Saját menü"
-
-#: ../src/menu.c:1538
-msgid "/Custom menu/Edit custom menu..."
-msgstr "/Saját menü/Saját menü szerkesztése..."
-
-#: ../src/menu.c:1539
+#: ../src/outputbox.c:226
 #, fuzzy
-msgid "/Custom menu/Reset"
-msgstr "/Saját menü/sep"
+msgid "Filename"
+msgstr "Fájlnév"
 
-#: ../src/menu.c:1540
+#: ../src/outputbox.c:228
 #, fuzzy
-msgid "/Custom menu/Load new"
-msgstr "/Saját menü/sep"
+msgid "Line"
+msgstr "Sor #"
 
-#: ../src/menu.c:1757
-msgid "Search Pattern"
-msgstr "Keresési minta"
-
-#: ../src/menu.c:1758
-msgid "Replace String"
-msgstr "Mire cserélje"
-
-#: ../src/menu.c:1761
-msgid "Formatstring Before"
-msgstr "Formázószöveg előtte"
-
-#: ../src/menu.c:1762
-msgid "Formatstring After"
-msgstr "Formázószöveg utána"
-
-#: ../src/menu.c:1812
-msgid "The menupath you want to update does not exist yet"
-msgstr "A frissítendő menüpont nem létezik"
-
-#: ../src/menu.c:1813
-msgid "Try 'add' instead."
-msgstr "Használd a 'hozzáadás'-t helyette."
-
-#: ../src/menu.c:1818
-msgid "The menupath you want to add already exists."
-msgstr "A hozzáadandó menüpont már létezik"
-
-#: ../src/menu.c:1827
-msgid "The menupath should start with a / character"
-msgstr "A menü útvonalának / karakterrel kell kezdődni"
-
-#: ../src/menu.c:1990
-msgid "Custom Menu Editor"
-msgstr "Sajátmenü-szerkesztő"
-
-#: ../src/menu.c:2001
-msgid "Add New Menu Entry"
-msgstr "Új menüpont hozzáadása"
-
-#: ../src/menu.c:2003
-msgid "Apply Changes"
-msgstr "Alkalmaz"
-
-#: ../src/menu.c:2005
-msgid "Delete Menu Entry"
-msgstr "Menüpont törlése"
-
-#: ../src/menu.c:2008
-msgid "Close Discards Changes"
-msgstr "Elvet, bezár"
-
-#: ../src/menu.c:2010
-msgid "Save Changes and Exit"
-msgstr "Ment, kilép"
-
-#: ../src/menu.c:2020
-msgid "_Menu Path:"
-msgstr "Menüpont elérési útvonala:"
-
-#: ../src/menu.c:2041
-msgid "Menu path"
-msgstr "Menüpont elérési útvonala"
-
-#: ../src/menu.c:2061
-msgid "Number of _Variables:"
-msgstr "Változók száma:"
-
-#: ../src/menu.c:2069
-msgid "Variables"
-msgstr "Változók"
-
-#: ../src/menu.c:2088
-msgid "Custom Dialo_g"
-msgstr "Saját párbeszédablak"
-
-#: ../src/menu.c:2090
+#: ../src/outputbox.c:230
 #, fuzzy
-msgid "Custom Replace"
-msgstr "Keresés és csere testreszabása"
+msgid "Output"
+msgstr "Kimenet #"
 
-#: ../src/menu.c:2102
-msgid "_Replace:"
-msgstr "Cserél:"
-
-#: ../src/menu.c:2105
-msgid "in current document"
-msgstr "aktuális dokumentumban"
-
-#: ../src/menu.c:2105
-msgid "from cursor"
-msgstr "kurzortól"
-
-#: ../src/menu.c:2105
-msgid "in selection"
-msgstr "kijelölésben"
-
-#: ../src/menu.c:2105
-msgid "in all open documents"
-msgstr "minden megnyitott dokumentumban"
-
-#: ../src/menu.c:2113
-msgid "Matc_hing:"
-msgstr "Megfelelés:"
-
-#: ../src/menu.c:2116
-msgid "normal"
-msgstr "normál"
-
-#: ../src/menu.c:2116
-#, fuzzy
-msgid "posix regular expressions"
-msgstr "posix reguláris kifejezések"
-
-#: ../src/menu.c:2116
-#, fuzzy
-msgid "perl regular expressions"
-msgstr "perl reguláris kifejezések"
-
-#: ../src/menu.c:2122
-msgid "Case Se_nsitive"
-msgstr "Kis/nagybetű megkülönbözteté_se"
-
-#: ../src/outputbox.c:248
+#: ../src/outputbox.c:432
 #, c-format
-msgid "failed to compile outputbox pattern %s\n"
+msgid "Failed to compile outputbox pattern %s: %s"
 msgstr ""
 
-#: ../src/preferences.c:340
+#: ../src/preferences.c:275
 #, fuzzy
 msgid "Untitled"
 msgstr "Névtelen %d"
 
-#: ../src/preferences.c:440
+#: ../src/preferences.c:376
 msgid "Select font"
 msgstr "Betűtípus kiválasztása"
 
-#: ../src/preferences.c:465
-#, fuzzy
-msgid "Select color"
-msgstr "Szelektor"
-
-#: ../src/preferences.c:761
-msgid "Message"
+#: ../src/preferences.c:497
+msgid "Default mime type for new files"
 msgstr ""
 
-#: ../src/preferences.c:762
+#: ../src/preferences.c:500
+msgid "_Word wrap by default"
+msgstr "Sorok _törése alapértelmezésben"
+
+#: ../src/preferences.c:501
+msgid "(Smart) Auto indenting"
+msgstr ""
+
+#: ../src/preferences.c:502
+msgid "Tab width"
+msgstr "Tabulátor szélessége"
+
+#: ../src/preferences.c:503
+#, fuzzy
+msgid "Show line numbers"
+msgstr "Rendezés a sor száma szerint"
+
+#: ../src/preferences.c:504
+#, fuzzy
+msgid "Highlight current line"
+msgstr "Szintaxiskiemelés alapértelmezett"
+
+#: ../src/preferences.c:505
+msgid "Enable block folding"
+msgstr ""
+
+#: ../src/preferences.c:506
+msgid "Enable automatic completion pop-up"
+msgstr ""
+
+#: ../src/preferences.c:507
+#, fuzzy
+msgid "Highlight matching block begin-end"
+msgstr "Sorok _törése alapértelmezésben"
+
+#: ../src/preferences.c:509
+msgid "Enable spell check"
+msgstr ""
+
+#: ../src/preferences.c:538 ../src/preferences.c:942 ../src/preferences.c:1153
+msgid "Name"
+msgstr "Név"
+
+#: ../src/preferences.c:539
 #, fuzzy
 msgid "Enabled"
 msgstr "Szerkeszthető"
 
-#: ../src/preferences.c:763
-#, fuzzy
-msgid "File"
-msgstr "Fájl #"
+#: ../src/preferences.c:540
+msgid "Path to plugin"
+msgstr ""
 
-#: ../src/preferences.c:856 ../src/preferences.c:948 ../src/preferences.c:1114
-#: ../src/preferences.c:2206 ../src/preferences.c:2276
+#: ../src/preferences.c:696
+msgid ""
+"Text styles are applied on top of each other. If multiple styles are applied "
+"to the same text, the top-most style in this list has the highest priority. "
+"Use drag and drop to re-order the text styles."
+msgstr ""
+
+#: ../src/preferences.c:705 ../src/preferences.c:998 ../src/preferences.c:1068
 msgid "Label"
 msgstr "Címke"
 
-#: ../src/preferences.c:857
-msgid "Extensions"
-msgstr "Kiterjesztések"
-
-#: ../src/preferences.c:858
-msgid "Update chars"
-msgstr "Frissítést kiváltó karakterek"
-
-#: ../src/preferences.c:859
-msgid "Icon"
-msgstr "Ikon"
-
-#: ../src/preferences.c:860
-msgid "Editable"
-msgstr "Szerkeszthető"
-
-#: ../src/preferences.c:861
-msgid "Content regex"
-msgstr "Tartalom (regex)"
-
-#: ../src/preferences.c:862
-msgid "Auto close tags mode"
-msgstr "Címkék automatikus bezárása"
-
-#: ../src/preferences.c:864 ../src/preferences.c:866
-#, fuzzy
-msgid "Language file"
-msgstr "Nyelv:"
-
-#: ../src/preferences.c:949
-#, fuzzy
-msgid "Inverse filter"
-msgstr "Inverz szűrés"
-
-#: ../src/preferences.c:950
-msgid "Filetypes in filter"
-msgstr "Fájltípusok a szűrőben"
-
-#: ../src/preferences.c:1105
-msgid ""
-"Text styles are applied on top of each other. If multiple styles are applied "
-"to the same text, the top-most style has the highest priority. Use drag and "
-"drop to re-order the text styles."
-msgstr ""
-
-#: ../src/preferences.c:1126 ../src/preferences.c:1564
-#: ../src/preferences.c:2773
+#: ../src/preferences.c:717 ../src/preferences.c:1616
 msgid "Foreground color"
 msgstr "Előtérszín"
 
-#: ../src/preferences.c:1127 ../src/preferences.c:1565
-#: ../src/preferences.c:2774
+#: ../src/preferences.c:718 ../src/preferences.c:1617
 msgid "Background color"
 msgstr "Háttérszín"
 
-#: ../src/preferences.c:1128 ../src/preferences.c:1573
-msgid "don't change weight"
-msgstr "vastagság nem változik"
-
-#: ../src/preferences.c:1130 ../src/preferences.c:1575
-msgid "force non-bold weight"
-msgstr "kötelezően nem-vastag"
-
-#: ../src/preferences.c:1132 ../src/preferences.c:1577
-msgid "force bold weight"
+#: ../src/preferences.c:719
+#, fuzzy
+msgid "normal weight"
 msgstr "kötelezően vastag"
 
-#: ../src/preferences.c:1134 ../src/preferences.c:1583
-msgid "don't change style"
-msgstr "ne váltson stílust"
+#: ../src/preferences.c:721
+#, fuzzy
+msgid "bold weight"
+msgstr "kötelezően vastag"
 
-#: ../src/preferences.c:1136 ../src/preferences.c:1585
-msgid "force non-italic style"
-msgstr "kötelezően nem dőlt"
+#: ../src/preferences.c:723
+#, fuzzy
+msgid "normal style"
+msgstr "normál"
 
-#: ../src/preferences.c:1138 ../src/preferences.c:1587
-msgid "force italic style"
+#: ../src/preferences.c:725
+#, fuzzy
+msgid "italic style"
 msgstr "kötelezően dőlt"
 
-#: ../src/preferences.c:1498
-msgid "filetype"
-msgstr "fájltípus"
-
-#: ../src/preferences.c:1503
+#: ../src/preferences.c:728
 #, fuzzy
-msgid "Reset"
-msgstr "Frameset"
+msgid "Spell check"
+msgstr "Helyesírás-ellenőrzés..."
 
-#: ../src/preferences.c:1509
-msgid "Pattern name"
-msgstr "Minta neve"
-
-#: ../src/preferences.c:1527 ../src/preferences.c:2368
-msgid "Pattern"
-msgstr "Minta"
-
-#: ../src/preferences.c:1550
-msgid "Start pattern and end pattern"
-msgstr "Kezdő és befejező minta"
-
-#: ../src/preferences.c:1552
-msgid "Only start pattern"
-msgstr "Csak kezdő minta"
-
-#: ../src/preferences.c:1554
-msgid "Subpattern from parent"
-msgstr "Alminta a szülő alapján"
-
-#: ../src/preferences.c:1560
-msgid "Start pattern"
-msgstr "Kezdő minta"
-
-#: ../src/preferences.c:1561
-msgid "End pattern"
-msgstr "Befejező minta"
-
-#: ../src/preferences.c:1562
-msgid "Case sensitive matching"
-msgstr "Kis/nagybetű megkülönböztetése"
-
-#: ../src/preferences.c:1563
-msgid "Parentmatch"
-msgstr "Parentmatch"
-
-#: ../src/preferences.c:2207 ../src/preferences.c:2277
-#: ../src/preferences.c:2372
+#: ../src/preferences.c:999 ../src/preferences.c:1069
+#: ../src/preferences.c:1158
 msgid "Command"
 msgstr "parancs"
 
-#: ../src/preferences.c:2208
+#: ../src/preferences.c:1000
 #, fuzzy
 msgid "Default browser"
 msgstr "Alapértelmezett alapkönyvtár"
 
-#: ../src/preferences.c:2210
+#: ../src/preferences.c:1002
 msgid ""
 "<small><b>Input options</b>\n"
-"specify no options to read the input from the standard output\n"
-"%s local filename (available for local files)\n"
-"%i temporary fifo for input, equals %s if the document is not modified and "
+"start with a | to send the input to the standard input\n"
+"%f local filename (available for local files)\n"
+"%i temporary fifo for input, equals %f if the document is not modified and "
 "local\n"
-"%I temporary filename for input, equals %s if the document is not modified "
+"%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Other options</b>\n"
 "%c local directory of file (available for local files)\n"
@@ -2455,17 +1919,54 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:2280 ../src/preferences.c:2375
+#: ../src/preferences.c:1072
 msgid ""
 "<small><b>Input options</b>\n"
-"specify no options to read the input from the standard output\n"
-"%s local filename (available for local files)\n"
-"%i temporary fifo for input, equals %s if the document is not modified and "
+"start with a | to send the input to the standard input\n"
+"%f local filename (requires local file, cannot operate on selection)\n"
+"%i temporary fifo for input\n"
+"%I temporary filename for input\n"
+"<b>Output options</b>\n"
+"end with a | to read the output from the standard output\n"
+"%o temporary fifo\n"
+"%O temporary filename\n"
+"%t temporary filename for both input and output (for in-place-editing "
+"filters, cannot operate on selection)\n"
+"<b>Other options</b>\n"
+"%c local directory of file (requires local file)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else "
+"identical to %u</small>"
+msgstr ""
+
+#: ../src/preferences.c:1154
+msgid "Pattern"
+msgstr "Minta"
+
+#: ../src/preferences.c:1155
+msgid "File #"
+msgstr "Fájl #"
+
+#: ../src/preferences.c:1156
+msgid "Line #"
+msgstr "Sor #"
+
+#: ../src/preferences.c:1157
+msgid "Output #"
+msgstr "Kimenet #"
+
+#: ../src/preferences.c:1160
+msgid ""
+"<small><b>Input options</b>\n"
+"start with a | to send the input to the standard input\n"
+"%f local filename (available for local files)\n"
+"%i temporary fifo for input, equals %f if the document is not modified and "
 "local\n"
-"%I temporary filename for input, equals %s if the document is not modified "
+"%I temporary filename for input, equals %f if the document is not modified "
 "and local\n"
 "<b>Output options</b>\n"
-"specify no options to read the output from the standard output\n"
+"end with a | to read the output from the standard output\n"
 "%o temporary fifo\n"
 "%O temporary filename\n"
 "%t temporary filename for both input and output (for in-place-editing "
@@ -2478,744 +1979,1837 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:2369
-msgid "File #"
-msgstr "Fájl #"
+#. label = gtk_label_new(NULL);
+#. gtk_label_set_markup(GTK_LABEL(label), _("<small>language dialog not yet ready..</small>"));
+#. gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
+#. skip column 0, the language name
+#. 1=text
+#: ../src/preferences.c:1310
+#, fuzzy
+msgid "Option name"
+msgstr "Választás"
 
-#: ../src/preferences.c:2370
-msgid "Line #"
-msgstr "Sor #"
+#. 2=boolean
+#: ../src/preferences.c:1311
+#, fuzzy
+msgid "value"
+msgstr "Érték"
 
-#: ../src/preferences.c:2371
-msgid "Output #"
-msgstr "Kimenet #"
+#. 1=text
+#: ../src/preferences.c:1324
+#, fuzzy
+msgid "Highlight name"
+msgstr "Ennyi sor kiemelésének frissítése"
 
-#: ../src/preferences.c:2373
-msgid "Show all output"
-msgstr "Minden kimenet mutatása"
+#. the textstyle model
+#: ../src/preferences.c:1327
+#, fuzzy
+msgid "Textstyle"
+msgstr "Szövegmező"
 
-#: ../src/preferences.c:2711 ../src/preferences.c:2712
+#: ../src/preferences.c:1568 ../src/preferences.c:1569
 msgid "left"
 msgstr "balra"
 
-#: ../src/preferences.c:2711 ../src/preferences.c:2712
+#: ../src/preferences.c:1568 ../src/preferences.c:1569
 msgid "right"
 msgstr "jobbra"
 
-#: ../src/preferences.c:2711
+#: ../src/preferences.c:1568
 msgid "top"
 msgstr "felül"
 
-#: ../src/preferences.c:2711
+#: ../src/preferences.c:1568
 msgid "bottom"
 msgstr "alul"
 
-#: ../src/preferences.c:2713
-msgid "no check"
-msgstr "nincs ellenőrzés"
+#: ../src/preferences.c:1570
+#, fuzzy
+msgid "Nothing"
+msgstr "_Nincs árnyék"
 
-#: ../src/preferences.c:2713
-msgid "check mtime and size"
+#: ../src/preferences.c:1570
+#, fuzzy
+msgid "Modified time and file size"
 msgstr "mtime és méret ellenőrzése"
 
-#: ../src/preferences.c:2713
-msgid "check mtime"
-msgstr "mtime ellenőrzése"
+#: ../src/preferences.c:1570
+msgid "Modified time"
+msgstr ""
 
-#: ../src/preferences.c:2713
-msgid "check size"
-msgstr "méret ellenőrzése"
+#: ../src/preferences.c:1570
+#, fuzzy
+msgid "File size"
+msgstr "Fájl #"
 
-#: ../src/preferences.c:2724
+#: ../src/preferences.c:1571
+msgid "All"
+msgstr ""
+
+#: ../src/preferences.c:1571
+msgid "All except spaces"
+msgstr ""
+
+#: ../src/preferences.c:1571
+msgid "All trailing"
+msgstr ""
+
+#: ../src/preferences.c:1571
+msgid "All except non-trailing spaces"
+msgstr ""
+
+#: ../src/preferences.c:1587
 msgid "Edit preferences"
 msgstr "Tulajdonságok szerkesztése"
 
-#: ../src/preferences.c:2752
-msgid "Editor"
-msgstr "Editor"
-
-#: ../src/preferences.c:2758
+#: ../src/preferences.c:1608
 #, fuzzy
-msgid "Editor startup options"
+msgid "Editor settings"
 msgstr "Editor beállításai"
 
-#: ../src/preferences.c:2763
-msgid "Show splash-screen"
+#: ../src/preferences.c:1610
+msgid "Generic editor settings"
 msgstr ""
 
-#: ../src/preferences.c:2766
-msgid "Editor options"
-msgstr "Editor beállításai"
-
-#: ../src/preferences.c:2771 ../src/preferences.c:2927
+#: ../src/preferences.c:1615
 msgid "Font"
 msgstr "Betű"
 
-#: ../src/preferences.c:2776
-msgid "Tab width"
-msgstr "Tabulátor szélessége"
+#: ../src/preferences.c:1618
+#, fuzzy
+msgid "Current line color"
+msgstr "Szelektor"
 
-#: ../src/preferences.c:2777
-msgid "Smart cursor positioning at line start"
+#: ../src/preferences.c:1619
+msgid "Visible whitespace color"
 msgstr ""
 
-#: ../src/preferences.c:2778
+#: ../src/preferences.c:1620
+#, fuzzy
+msgid "Show whitespace"
+msgstr "Rejtett fájlok mutatása"
+
+#: ../src/preferences.c:1621
+msgid "Smart Home/End cursor positioning"
+msgstr ""
+
+#: ../src/preferences.c:1622
 msgid "Use spaces to indent, not tabs"
 msgstr "Behúzás szóközökkel tabulátor helyett"
 
-#: ../src/preferences.c:2779
-msgid "Word wrap default"
-msgstr "Sortörés csak szóvégen"
+#: ../src/preferences.c:1623
+msgid "Smart auto indenting"
+msgstr ""
 
-#: ../src/preferences.c:2780
-msgid "Line numbers by default"
-msgstr "Sorszámozás alapértelmezett"
-
-#: ../src/preferences.c:2782
+#: ../src/preferences.c:1626
 #, fuzzy
-msgid "Block folding view by default"
-msgstr "Sorok _törése alapértelmezésben"
+msgid "Delayed"
+msgstr "Töröl"
 
-#: ../src/preferences.c:2783
-#, fuzzy
-msgid "Symbols view by default"
-msgstr "A fő eszköztár mutatása alapértelmezésben"
+#: ../src/preferences.c:1626
+msgid "Immediately"
+msgstr ""
 
-#: ../src/preferences.c:2785
-msgid "Highlight syntax by default"
-msgstr "Szintaxiskiemelés alapértelmezett"
+#: ../src/preferences.c:1627
+msgid "Show the automatic completion pop-up window"
+msgstr ""
 
-#: ../src/preferences.c:2786
-msgid "Highlight # lines"
-msgstr "Ennyi sor kiemelésének frissítése"
+#: ../src/preferences.c:1630
+msgid "Number of actions in undo history"
+msgstr ""
 
-#: ../src/preferences.c:2788
-#, fuzzy
-msgid "Undo options"
-msgstr "Editor beállításai"
-
-#: ../src/preferences.c:2793
-msgid "Undo history size"
-msgstr "Visszavonások száma"
-
-#: ../src/preferences.c:2794
+#: ../src/preferences.c:1631
 msgid "Clear undo history on save"
 msgstr "Mentéskor a visszavonható műveletek törlése"
 
-#: ../src/preferences.c:2810
+#: ../src/preferences.c:1635 ../src/project.c:533
+#, fuzzy
+msgid "Initial document settings"
+msgstr "Kezdő ablakmagasság"
+
+#: ../src/preferences.c:1637
+msgid "Non-project initial document settings"
+msgstr ""
+
+#: ../src/preferences.c:1645
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:2815
-msgid "HTML options"
-msgstr "HTML beállítások"
+#: ../src/preferences.c:1647
+#, fuzzy
+msgid "HTML toolbar / menu options"
+msgstr "A HTML eszköztár mutatása alapértelmezésben"
 
-#: ../src/preferences.c:2820
+#: ../src/preferences.c:1652
 msgid "Lowercase HTML tags"
 msgstr "Kisbetűs HTML címkék"
 
-#: ../src/preferences.c:2821
+#: ../src/preferences.c:1653
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Elavult címkék használatának engedélyezése (pl. <font> és <nobr>)"
 
-#: ../src/preferences.c:2822
+#: ../src/preferences.c:1654
+msgid "Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: ../src/preferences.c:1655
 msgid "Use XHTML style tags (<br />)"
 msgstr "XHTML szintaxis használata (mint <br />)"
 
-#: ../src/preferences.c:2824
+#: ../src/preferences.c:1657
+msgid "Auto update tag options"
+msgstr ""
+
+#: ../src/preferences.c:1661
 #, fuzzy
 msgid "Automatically update author meta tag"
 msgstr "Author meta automatikus frissítése"
 
-#: ../src/preferences.c:2825
+#: ../src/preferences.c:1662
 #, fuzzy
 msgid "Automatically update date meta tag"
 msgstr "Author meta automatikus frissítése"
 
-#: ../src/preferences.c:2826
+#: ../src/preferences.c:1663
 #, fuzzy
 msgid "Automatically update generator meta tag"
 msgstr "Author meta automatikus frissítése"
 
-#: ../src/preferences.c:2830
+#: ../src/preferences.c:1667
 msgid "Files"
 msgstr "Fájlok"
 
-#: ../src/preferences.c:2835
-msgid "Encoding"
-msgstr "Kódolás"
-
-#: ../src/preferences.c:2847
-msgid "Default character set"
+#: ../src/preferences.c:1680
+#, fuzzy
+msgid "Default character set for new files"
 msgstr "Alapértelmezett karakterkészlet"
 
-#: ../src/preferences.c:2850
-msgid "Auto set <meta> encoding tag on change"
+#: ../src/preferences.c:1683
+#, fuzzy
+msgid "Auto set <meta> HTML tag on encoding change"
 msgstr "<meta> kódolás címke automatikus beállítása változáskor"
 
-#: ../src/preferences.c:2852
-msgid "Backup"
-msgstr "Backup"
+#: ../src/preferences.c:1685
+msgid "Backup files and recovery of modified documents"
+msgstr ""
 
-#: ../src/preferences.c:2856
-msgid "Create backup on save"
+#: ../src/preferences.c:1689
+#, fuzzy
+msgid "Create backup file during file save"
 msgstr "Backup készítése mentéskor"
 
-#: ../src/preferences.c:2857
-msgid "Backup file suffix"
-msgstr "Backup fájl nevének utótagja"
+#: ../src/preferences.c:1691
+#, fuzzy
+msgid "Continue save"
+msgstr "Mentés _folytatása"
 
-#: ../src/preferences.c:2859
-msgid "save"
-msgstr "menti"
+#: ../src/preferences.c:1691
+#, fuzzy
+msgid "Abort save"
+msgstr "Mentés _megszakítása"
 
-#: ../src/preferences.c:2859
-msgid "abort"
-msgstr "megszakítja"
+#: ../src/preferences.c:1691
+msgid "Ask what to do"
+msgstr ""
 
-#: ../src/preferences.c:2859
-msgid "ask"
-msgstr "kérdez"
+#: ../src/preferences.c:1692
+#, fuzzy
+msgid "If the backup fails"
+msgstr "Backup fájlok mutatása"
 
-#: ../src/preferences.c:2860
-msgid "Action on backup failure"
-msgstr "Teendő sikertelen backup esetén"
-
-#: ../src/preferences.c:2862
-msgid "Remove backupfile on close"
+#: ../src/preferences.c:1694
+#, fuzzy
+msgid "Remove backup file on close"
 msgstr "Backup fájl törlése kilépéskor"
 
-#: ../src/preferences.c:2866
+#: ../src/preferences.c:1698
+msgid "Enable recovery of modified documents"
+msgstr ""
+
+#: ../src/preferences.c:1699
+msgid "Frequency to store changes (seconds)"
+msgstr ""
+
+#: ../src/preferences.c:1701
 msgid "Misc"
 msgstr "Egyéb"
 
-#: ../src/preferences.c:2872
-msgid "Open files in already running bluefish window"
+#: ../src/preferences.c:1706
+#, fuzzy
+msgid "Open commandline files in running bluefish process"
 msgstr "Fájlok megnyitása a már futó bluefish ablakában"
 
-#: ../src/preferences.c:2874
-msgid "File modified on disk check "
-msgstr "Fájl módosulásának figyelése "
-
-#: ../src/preferences.c:2875
-msgid "Periodically check file on disk"
+#: ../src/preferences.c:1708
+msgid "Open commandline files in new window"
 msgstr ""
 
-#: ../src/preferences.c:2876
-msgid "Number of files in 'Open recent'"
+#: ../src/preferences.c:1710
+msgid "File properties to check on disk for modifications"
+msgstr ""
+
+#: ../src/preferences.c:1711
+#, fuzzy
+msgid "Periodically check if file is modified on disk"
+msgstr "Fájl módosulásának figyelése "
+
+#: ../src/preferences.c:1712
+#, fuzzy
+msgid "Number of files in 'Open recent' menu"
 msgstr "Fájlok száma az 'Utóbbi megnyitása' menüben"
 
-#: ../src/preferences.c:2878
-msgid "File browser"
-msgstr "Fájlböngésző"
-
-#: ../src/preferences.c:2883
-msgid "Use separate file and directory view"
-msgstr "A fájlböngésző elválasztva mutassa a fájlokat és könyvtárakat"
-
-#: ../src/preferences.c:2884
-msgid "Unknown icon"
-msgstr "Ismeretlen típusú fájl ikonja"
-
-#: ../src/preferences.c:2885
-msgid "Directory icon"
-msgstr "Könyvtár ikonja"
-
-#: ../src/preferences.c:2890
+#: ../src/preferences.c:1717
 msgid "User interface"
 msgstr "Felület"
 
-#: ../src/preferences.c:2892
+#: ../src/preferences.c:1720
+#, fuzzy
+msgid "Startup options"
+msgstr "Editor beállításai"
+
+#: ../src/preferences.c:1725
+msgid "Show splash-screen"
+msgstr ""
+
+#: ../src/preferences.c:1728
 msgid "General"
 msgstr "Általános"
 
-#: ../src/preferences.c:2897
+#: ../src/preferences.c:1733
 msgid "Make HTML dialogs transient"
 msgstr "Átmeneti HTML-párbeszédablakok"
 
-#: ../src/preferences.c:2898
+#: ../src/preferences.c:1734
 #, fuzzy
 msgid ""
 "Notebook tab font \n"
 "(leave empty for gtk default)"
 msgstr "Fájlablak-fül betűtípusa (üres: gtk alapértelmezett)"
 
-#: ../src/preferences.c:2899
+#: ../src/preferences.c:1735
+msgid "Notebook tab color (doc modified)"
+msgstr ""
+
+#: ../src/preferences.c:1736
+msgid "Notebook tab color (doc loading)"
+msgstr ""
+
+#: ../src/preferences.c:1737
+msgid "Notebook tab color (doc error)"
+msgstr ""
+
+#: ../src/preferences.c:1738
 msgid "Document notebook tab position"
 msgstr "Dokumentumablak-fül elhelyezkedése"
 
-#: ../src/preferences.c:2900
+#: ../src/preferences.c:1739
+msgid "Switch between tabs with <Alt>+0..9"
+msgstr ""
+
+#: ../src/preferences.c:1740
 #, fuzzy
 msgid "Sidebar notebook tab position"
 msgstr "Baloldali panel füleinek elhelyezkedése"
 
-#: ../src/preferences.c:2901
+#: ../src/preferences.c:1741
 #, fuzzy
 msgid "Sidebar location"
 msgstr "_Kép helye:"
 
-#: ../src/preferences.c:2905 ../src/preferences.c:2907
+#: ../src/preferences.c:1745 ../src/preferences.c:1747
 msgid "Dimensions"
 msgstr "Méretek"
 
-#: ../src/preferences.c:2911
+#: ../src/preferences.c:1752
+msgid "Leave dimensions to window manager"
+msgstr ""
+
+#: ../src/preferences.c:1753
 msgid "Restore last used dimensions"
 msgstr "Utolsó méret visszaállítása"
 
-#: ../src/preferences.c:2912
+#: ../src/preferences.c:1754
 #, fuzzy
 msgid "Initial sidebar width"
 msgstr "Kezdő ablakszélesség"
 
-#: ../src/preferences.c:2913
+#: ../src/preferences.c:1755
 msgid "Initial window height"
 msgstr "Kezdő ablakmagasság"
 
-#: ../src/preferences.c:2914
+#: ../src/preferences.c:1756
 msgid "Initial window width"
 msgstr "Kezdő ablakszélesség"
 
-#: ../src/preferences.c:2920 ../src/preferences.c:2922
-#, fuzzy
-msgid "Reference library"
-msgstr "Referencia keresése"
-
-#: ../src/preferences.c:2928
-#, fuzzy
-msgid "Info background color"
-msgstr "Háttérszín"
-
-#: ../src/preferences.c:2929
-#, fuzzy
-msgid "Info foreground color"
-msgstr "Előtérszín"
-
-#: ../src/preferences.c:2978 ../src/rcfile.c:686
+#. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
+#. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
+#: ../src/preferences.c:1763 ../src/rcfile.c:778
 msgid "Images"
 msgstr "Képek"
 
-#: ../src/preferences.c:2983
+#: ../src/preferences.c:1765
 msgid "Thumbnails"
 msgstr "Thumbnail képek"
 
-#: ../src/preferences.c:2987
+#: ../src/preferences.c:1769
 msgid "Thumbnail suffix"
 msgstr "Thumbnail kép nevének utótagja"
 
-#: ../src/preferences.c:2991
+#: ../src/preferences.c:1772
 msgid "Thumbnail filetype"
 msgstr "Thumbnail kép típusa"
 
-#: ../src/preferences.c:2997 ../src/preferences.c:3001
-#, fuzzy
-msgid "File types"
-msgstr "Fájltípusok"
-
-#: ../src/preferences.c:3009 ../src/preferences.c:3014
-#, fuzzy
-msgid "File filters"
-msgstr "Fájlszűrők"
-
-#: ../src/preferences.c:3022 ../src/preferences.c:3130
-#: ../src/preferences.c:3133
-msgid "Syntax highlighting"
-msgstr "Szintaxiskiemelés"
-
-#: ../src/preferences.c:3028
-msgid "Patterns"
-msgstr "Minták"
-
-#: ../src/preferences.c:3038
+#: ../src/preferences.c:1777
 #, fuzzy
 msgid "External commands"
 msgstr "/Külső/Szűrők"
 
-#: ../src/preferences.c:3045
+#: ../src/preferences.c:1779
 #, fuzzy
 msgid "Commands"
 msgstr "parancs"
 
-#: ../src/preferences.c:3053
+#: ../src/preferences.c:1787
 #, fuzzy
 msgid "External filters"
 msgstr "Külső programok"
 
-#: ../src/preferences.c:3058
+#: ../src/preferences.c:1789
 #, fuzzy
 msgid "Filters"
 msgstr "Szűrő"
 
-#: ../src/preferences.c:3066 ../src/preferences.c:3071
+#: ../src/preferences.c:1797 ../src/preferences.c:1799
 msgid "Output parsers"
 msgstr "Értelmezők"
 
-#: ../src/preferences.c:3082 ../src/preferences.c:3083
+#: ../src/preferences.c:1807 ../src/preferences.c:1808
 msgid "Plugins"
 msgstr ""
 
-#: ../src/preferences.c:3091
-msgid "Servers"
-msgstr "Szerverek"
-
-#: ../src/preferences.c:3093
-msgid "Remote servers"
-msgstr "Távoli szerverek"
-
-#: ../src/preferences.c:3098
-msgid "Zope compatibility mode"
-msgstr "Zope kompatibilitás mód"
-
-#: ../src/preferences.c:3102 ../src/preferences.c:3103
+#: ../src/preferences.c:1816 ../src/preferences.c:1817
 msgid "Text styles"
 msgstr ""
 
-#: ../src/preferences.c:3114
+#: ../src/preferences.c:1826
 #, fuzzy
-msgid "Syntax scanning"
-msgstr "Méretezéssel"
+msgid "Language support"
+msgstr "Nyelv:"
 
-#: ../src/preferences.c:3117
+#: ../src/preferences.c:1828
 msgid "Advanced syntax scanning options"
 msgstr ""
 
-#: ../src/preferences.c:3121
-#, fuzzy
-msgid "Match block begin-end by default"
-msgstr "Sorok _törése alapértelmezésben"
-
-#: ../src/preferences.c:3122
-#, fuzzy
-msgid "Highlight current line by default"
-msgstr "Szintaxiskiemelés alapértelmezett"
-
-#: ../src/preferences.c:3124
-#, fuzzy
-msgid "whole document"
-msgstr "A _dokumentumban"
-
-#: ../src/preferences.c:3124
-msgid "visible area"
+#: ../src/preferences.c:1833
+msgid "Load reference information from language file"
 msgstr ""
 
-#: ../src/preferences.c:3125
-msgid "Scan mode"
+#: ../src/preferences.c:1834
+msgid "Show reference information in autocompletion pop-up"
 msgstr ""
 
-#: ../src/project.c:125
+#: ../src/preferences.c:1835
+msgid "Show reference information in tooltip window"
+msgstr ""
+
+#: ../src/project.c:145
 msgid "New project"
 msgstr "Új projekt"
 
-#: ../src/project.c:212
+#: ../src/project.c:215
 msgid "Enter Bluefish project filename"
 msgstr "Írd be a Bluefish projekt fájlnevét"
 
-#: ../src/project.c:337
+#: ../src/project.c:338
 msgid "Select Bluefish project filename"
 msgstr "Válassz Bluefish projekt fájlnevet"
 
-#: ../src/project.c:399
-#, fuzzy
-msgid "Save current project?"
-msgstr "Nem sikerült a projekt mentése"
-
-#: ../src/project.c:535
+#: ../src/project.c:484
 msgid "Create New Project"
 msgstr "Új projekt létrehozása"
 
-#: ../src/project.c:538
+#: ../src/project.c:487
 msgid "Edit Project"
 msgstr "Projekt szerkesztése"
 
-#: ../src/project.c:561
-#, c-format
-msgid "This project contains %d files"
-msgstr "A projekt %d fájlt tartalmaz"
+#: ../src/project.c:511
+#, fuzzy, c-format
+msgid "This project contains %d file"
+msgid_plural "This project contains %d files"
+msgstr[0] "A projekt %d fájlt tartalmaz"
+msgstr[1] "A projekt %d fájlt tartalmaz"
 
-#: ../src/project.c:573
+#: ../src/project.c:524
 msgid "Project _Name:"
 msgstr "Projekt _neve:"
 
-#: ../src/project.c:577
-msgid "_Basedir:"
-msgstr "_Alapkönyvtár:"
-
-#: ../src/project.c:581
-msgid "_Preview URL:"
-msgstr "URL az _előnézethez:"
-
-#: ../src/project.c:585
+#: ../src/project.c:528
 msgid "_Template:"
 msgstr "_Sablon:"
 
-#: ../src/project.c:591
-msgid "_Word wrap by default"
-msgstr "Sorok _törése alapértelmezésben"
-
-#: ../src/project.c:602
+#: ../src/project.c:543
 msgid "Create _Project"
 msgstr "_Projekt létrehozása"
 
-#: ../src/project.c:642
+#: ../src/project.c:583
 msgid "Create project"
 msgstr "Projekt létrehozása"
 
-#: ../src/project.c:646
+#: ../src/project.c:587
 msgid "Create project with currently opened documents"
 msgstr "Projekt létrehozása a megnyitott dokumentumokból"
 
-#: ../src/project.c:647
+#: ../src/project.c:588
 msgid "Create empty project"
 msgstr "Üres projekt létrehozása"
 
-#: ../src/rcfile.c:680
-msgid "C programming"
-msgstr "C programozás"
+#. if the user does not have outputbox settings --> set them to defaults values
+#: ../src/rcfile.c:547
+msgid "make"
+msgstr "make"
 
-#: ../src/rcfile.c:682
-msgid "All web files"
-msgstr "Minden webfájl"
+#: ../src/rcfile.c:548
+msgid "weblint HTML checker"
+msgstr "weblint HTML ellenőrző"
 
-#: ../src/rcfile.c:684
-msgid "Java programming"
-msgstr "Java programozás"
+#: ../src/rcfile.c:549
+msgid "tidy HTML validator"
+msgstr "tidy HTML ellenőrző"
 
-#: ../src/rcfile.c:688
-msgid "Hide objectfiles"
-msgstr "Objektumfájlok elrejtése"
+#: ../src/rcfile.c:550
+msgid "javac"
+msgstr "javac"
 
-#: ../src/rcfile.c:1037
+#: ../src/rcfile.c:551
+#, fuzzy
+msgid "xmllint XML checker"
+msgstr "weblint HTML ellenőrző"
+
+#: ../src/rcfile.c:552
+msgid "php"
+msgstr ""
+
+#: ../src/rcfile.c:555
+#, fuzzy
+msgid "Sort"
+msgstr " Rendez "
+
+#: ../src/rcfile.c:556
+msgid "Sort / Unique"
+msgstr ""
+
+#: ../src/rcfile.c:557
+#, fuzzy
+msgid "Reverse lines"
+msgstr "_Reverse Relation:"
+
+#: ../src/rcfile.c:558
+#, fuzzy
+msgid "Dos2unix"
+msgstr "Dos2Unix szűrő"
+
+#: ../src/rcfile.c:559
+#, fuzzy
+msgid "Tidy HTML"
+msgstr "HTML"
+
+#: ../src/rcfile.c:560
+msgid "Strip empty lines"
+msgstr ""
+
+#: ../src/rcfile.c:561
+#, fuzzy
+msgid "Render HTML to text"
+msgstr "Idő beszúrása"
+
+#: ../src/rcfile.c:564
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: ../src/rcfile.c:565
+msgid "Firefox"
+msgstr ""
+
+#: ../src/rcfile.c:566
+msgid "Opera"
+msgstr "Opera"
+
+#: ../src/rcfile.c:567
+msgid "Konqueror"
+msgstr ""
+
+#: ../src/rcfile.c:568
+msgid "Galeon"
+msgstr "Galeon"
+
+#: ../src/rcfile.c:569
+msgid "Epiphany"
+msgstr ""
+
+#: ../src/rcfile.c:570
+msgid "Kazehakase"
+msgstr ""
+
+#: ../src/rcfile.c:571
+msgid "Links2 (graphics)"
+msgstr ""
+
+#: ../src/rcfile.c:714
 msgid "Untitled Project"
 msgstr "Névtelen projekt"
 
-#: ../src/snr2.c:169
+#: ../src/rcfile.c:772
+msgid "C programming"
+msgstr "C programozás"
+
+#: ../src/rcfile.c:774
+#, fuzzy
+msgid "Web files"
+msgstr "Minden webfájl"
+
+#: ../src/rcfile.c:780
+msgid "Hide objectfiles"
+msgstr "Objektumfájlok elrejtése"
+
+#: ../src/snr2.c:234
 msgid "Regular expression error: "
 msgstr "Regex hiba: "
 
-#: ../src/snr2.c:173 ../src/snr2.c:222
+#: ../src/snr2.c:238 ../src/snr2.c:287
 msgid "Search failed"
 msgstr "Sikertelen keresés"
 
-#: ../src/snr2.c:218
+#: ../src/snr2.c:283
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Regex hiba: %s (offset %d)"
 
-#: ../src/snr2.c:1252
+#: ../src/snr2.c:1379
 #, c-format
-msgid "Found %d matches, replaced %d"
-msgstr ""
+msgid "Found %d matches, "
+msgid_plural "Found %d matches, "
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/snr2.c:1254
+#: ../src/snr2.c:1380
+#, fuzzy, c-format
+msgid "replaced %d"
+msgid_plural "replaced %d"
+msgstr[0] "Cserél"
+msgstr[1] "Cserél"
+
+#: ../src/snr2.c:1385
 #, c-format
 msgid "Found %d matches"
-msgstr ""
+msgid_plural "Found %d matches"
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../src/snr2.c:1296
+#. display warning that not all documents have yet finished loading
+#: ../src/snr2.c:1406
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
 "span>"
 msgstr ""
 
-#: ../src/snr2.c:1395 ../src/snr2.c:1733
+#: ../src/snr2.c:1531
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">No selection. Please select a block "
+"of text first.</span>"
+msgstr ""
+
+#: ../src/snr2.c:1570 ../src/snr2.c:1936
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
 "will continue at the beginning.</span>"
 msgstr ""
 
-#: ../src/snr2.c:1469
+#: ../src/snr2.c:1647
 #, fuzzy
 msgid "Entire document"
 msgstr "A _dokumentumban"
 
-#: ../src/snr2.c:1470
+#: ../src/snr2.c:1648
 msgid "Forward from cursor position"
 msgstr ""
 
-#: ../src/snr2.c:1471
+#: ../src/snr2.c:1649
 #, fuzzy
 msgid "Selection"
 msgstr "Betűtípus kiválasztása"
 
-#: ../src/snr2.c:1472
+#: ../src/snr2.c:1650
 #, fuzzy
 msgid "All open files"
 msgstr "Minden webfájl"
 
-#: ../src/snr2.c:1476 ../src/snr2.c:1483
+#: ../src/snr2.c:1654 ../src/snr2.c:1661
 msgid "Normal"
 msgstr "Normál"
 
-#: ../src/snr2.c:1477
+#: ../src/snr2.c:1655
 msgid "Entire word only"
 msgstr ""
 
-#: ../src/snr2.c:1478
+#: ../src/snr2.c:1656
 #, fuzzy
-msgid "POSIX"
-msgstr "POSIX típusú"
+msgid "POSIX style regular expression"
+msgstr "perl reguláris kifejezések"
 
-#: ../src/snr2.c:1479
+#: ../src/snr2.c:1657
 #, fuzzy
-msgid "PERL"
-msgstr "PERL típusú"
+msgid "PERL style regular expression"
+msgstr "perl reguláris kifejezések"
 
-#: ../src/snr2.c:1484
+#: ../src/snr2.c:1662
 msgid "Uppercase"
 msgstr "Cserélje nagybetűsre"
 
-#: ../src/snr2.c:1485
+#: ../src/snr2.c:1663
 msgid "Lowercase"
 msgstr "Cserélje kisbetűsre"
 
-#: ../src/snr2.c:1521
+#: ../src/snr2.c:1701
 #, fuzzy
 msgid "_Search for: "
 msgstr "Kere_sse: "
 
-#: ../src/snr2.c:1525
+#: ../src/snr2.c:1705
 msgid "The pattern to look for"
 msgstr ""
 
-#: ../src/snr2.c:1540
+#: ../src/snr2.c:1720
 #, fuzzy
 msgid "Replace _with: "
 msgstr "M_ire cserélje: "
 
-#: ../src/snr2.c:1544
+#: ../src/snr2.c:1724
 msgid "Replace matching text with"
 msgstr ""
 
-#: ../src/snr2.c:1552
+#: ../src/snr2.c:1732
 msgid "Sco_pe: "
 msgstr ""
 
-#: ../src/snr2.c:1556
+#: ../src/snr2.c:1736
 msgid "Where to look for the pattern."
 msgstr ""
 
-#: ../src/snr2.c:1562
+#: ../src/snr2.c:1742
 msgid "Found 0 matches, replaced 0"
 msgstr ""
 
-#: ../src/snr2.c:1562
+#: ../src/snr2.c:1742
 msgid "Found 0 matches"
 msgstr ""
 
-#: ../src/snr2.c:1572
+#: ../src/snr2.c:1752
 #, fuzzy
 msgid "<b>_Options</b>"
 msgstr "<b>Tartalmaz</b>"
 
-#: ../src/snr2.c:1586
+#: ../src/snr2.c:1767
 #, fuzzy
 msgid "Match Patter_n: "
 msgstr "Keresési minta"
 
-#: ../src/snr2.c:1590
+#: ../src/snr2.c:1771
 msgid "How to interpret the pattern."
 msgstr ""
 
-#: ../src/snr2.c:1597
+#: ../src/snr2.c:1778
 #, fuzzy
 msgid "Replace T_ype: "
 msgstr "Csere típusa:"
 
-#: ../src/snr2.c:1602
+#: ../src/snr2.c:1783
 #, fuzzy
 msgid "What to replace with."
 msgstr "M_ire cserélje: "
 
-#: ../src/snr2.c:1606
+#: ../src/snr2.c:1787
 #, fuzzy
 msgid "Allow o_verlapping matches"
 msgstr "Át_fedő keresés"
 
-#: ../src/snr2.c:1609
+#: ../src/snr2.c:1790
 msgid "After a match is found, start next search within that match."
 msgstr ""
 
-#: ../src/snr2.c:1611
+#: ../src/snr2.c:1792
 #, fuzzy
-msgid "_Case sensitive matching"
+msgid "Case sensitive _matching"
 msgstr "Kis/nagybetű megkülönböztetése"
 
-#: ../src/snr2.c:1614
+#: ../src/snr2.c:1795
 msgid "Only match if case (upper/lower) is identical."
 msgstr ""
 
-#: ../src/snr2.c:1616
+#: ../src/snr2.c:1797
 #, fuzzy
-msgid "_Use escape chars"
-msgstr "Frissítést kiváltó karakterek"
+msgid "Pattern contains escape-se_quences"
+msgstr "A minták escape szekvenciákat (\\n, \\t) tartalmaznak"
 
-#: ../src/snr2.c:1619
-msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+#: ../src/snr2.c:1800
+#, fuzzy
+msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
+msgstr "A minták escape szekvenciákat (\\n, \\t) tartalmaznak"
+
+#: ../src/snr2.c:1802
+#, fuzzy
+msgid "Select matc_hes"
+msgstr "Válaszd ki a fájlokat"
+
+#: ../src/snr2.c:1805
+msgid "Select the matching text instead of just highlighting it"
 msgstr ""
 
-#: ../src/snr2.c:1621
+#: ../src/snr2.c:1807
 #, fuzzy
 msgid "_Bookmark matches"
 msgstr "Könyvjelzők"
 
-#: ../src/snr2.c:1624
+#: ../src/snr2.c:1809
 msgid "Create a bookmark for each match"
 msgstr ""
 
-#: ../src/snr2.c:1629
+#: ../src/snr2.c:1814
 #, fuzzy
 msgid "Replace _All"
 msgstr "_Mindet cseréli"
 
-#: ../src/snr2.c:1635
+#: ../src/snr2.c:1817
+msgid "_Replace"
+msgstr "Cse_réli"
+
+#: ../src/snr2.c:1820
 #, fuzzy
 msgid "Find _All"
 msgstr "Keres"
 
-#: ../src/stringlist.c:367
-msgid " Add "
-msgstr " Hozzáad "
+#: ../src/snr2.c:2428
+msgid "Lines into columns"
+msgstr ""
 
-#: ../src/stringlist.c:369
-msgid " Update "
-msgstr " Frissít "
+#: ../src/snr2.c:2440
+#, fuzzy
+msgid "Number of columns"
+msgstr "Oszlopok szá_ma:"
 
-#: ../src/stringlist.c:371
-msgid " Delete "
-msgstr " Töröl "
+#: ../src/snr2.c:2443
+msgid "Spread lines horizontally"
+msgstr ""
 
-#: ../src/stringlist.c:373
-msgid " Up "
-msgstr " Fel "
+#: ../src/snr2.c:2444
+msgid "Column separator"
+msgstr ""
 
-#: ../src/stringlist.c:375
-msgid " Down "
-msgstr " Le "
+#: ../src/snr2.c:2446
+msgid "Fill empty entries"
+msgstr ""
 
-#: ../src/stringlist.c:377
-msgid " Sort "
-msgstr " Rendez "
-
-#: ../src/undo_redo.c:460
+#: ../src/undo_redo.c:462
 #, fuzzy
 msgid "Undo in _all documents"
 msgstr "minden megnyitott dokumentumban"
 
-#: ../src/undo_redo.c:460
+#: ../src/undo_redo.c:462
 #, fuzzy
 msgid "Undo only _this document"
 msgstr "A _dokumentumban"
 
-#: ../src/undo_redo.c:463
+#: ../src/undo_redo.c:465
 msgid "Undo this change in all documents?"
 msgstr ""
 
-#: ../src/undo_redo.c:463
+#: ../src/undo_redo.c:465
 msgid "This change concerns multiple documents."
 msgstr ""
 
+#~ msgid ""
+#~ "Bluefish is an editor for experienced web designers and programmers. It "
+#~ "supports many programming and markup languages, but focuses on editing "
+#~ "dynamic and interactive websites. Bluefish is an open source development "
+#~ "project, released under the GPL license.\n"
+#~ "\n"
+#~ "For more information, visit the Bluefish Website at http://bluefish."
+#~ "openoffice.nl/\n"
+#~ "\n"
+#~ "This version of bluefish was compiled with the following options:\n"
+#~ msgstr ""
+#~ "A Bluefish a haladó webfejlesztők és programozók editorprogramja. Sokféle "
+#~ "programozási- és leíró nyelvet támogat, de a dinamikus és interaktív "
+#~ "website-ok fejlesztésére fókuszál. A Bluefish nyílt forráskódú "
+#~ "fejlesztés, GPL licence-szel.\n"
+#~ "\n"
+#~ "További információkért látogasd meg a Bluefish weboldalait a http://"
+#~ "bluefish.openoffice.nl/ címen.\n"
+#~ "\n"
+#~ "A Bluefish ezen verziójának fordítási opciói az alábbiak voltak:\n"
+
 #, fuzzy
-#~ msgid "Show hidden"
-#~ msgstr "Rejtett fájlok mutatása"
+#~ msgid ""
+#~ "Project leader:\n"
+#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Developers for this release:\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Jim Hayward\n"
+#~ "   <jimhayward@linuxexperience.net>\n"
+#~ "  Daniel Leidert\n"
+#~ "   <daniel.leidert@wgdd.de>\n"
+#~ "  Oskar Świda\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "  Eugene Morenko(More)\n"
+#~ "   <more@irpin.com>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@linuxexperience.com>\n"
+#~ "\n"
+#~ "Developers for previous releases:\n"
+#~ "  Chris Mazuc\n"
+#~ "  Neil Millar\n"
+#~ "  Gero Takke\n"
+#~ "  Bo Forslund\n"
+#~ "  David Arno\n"
+#~ "  Pablo De Napoli\n"
+#~ "  Santiago Capel Torres\n"
+#~ "  Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "  Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "  Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "  Antti-Juhani Kaijanaho\n"
+#~ "\n"
+#~ "Documentation:\n"
+#~ "  Scott White\n"
+#~ "   <wwsw3@earthlink.net>\n"
+#~ "  Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "  Anita Lewis\n"
+#~ "   <ajreiki@highstream.net>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@linuxexperience.com>\n"
+#~ "  Daniel Blair\n"
+#~ "   <joecamel@realcoders.org>\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Denny Reeh\n"
+#~ "\n"
+#~ "Package Maintainers:\n"
+#~ "  Debian:   Daniel Leidert\n"
+#~ "   <daniel.leidert@wgdd.de>\n"
+#~ "  Redhat:   Matthias Haase\n"
+#~ "   <matthias_haase@bennewitz.com>\n"
+#~ "  Mandrake: Todd Lyons\n"
+#~ "   <todd@mrball.net>\n"
+#~ "  Fink: Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "If you know of anyone missing from this list, please let us know\n"
+#~ "<bluefish@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Thanks to all who helped making this software available.\n"
+#~ msgstr ""
+#~ "A project vezetője:\n"
+#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Ezen kiadás fejlesztői:\n"
+#~ "  Jim Hayward <jimhayward@linuxexperience.com>\n"
+#~ "  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
+#~ "  Christian Tellefsen <christian@tellefsen.net>\n"
+#~ "  Eugene Morenko(More) <more@irpin.com>\n"
+#~ "\n"
+#~ "Az előző kiadások fejlesztői:\n"
+#~ "  Chris Mazuc\n"
+#~ "  Neil Millar\n"
+#~ "  Gero Takke\n"
+#~ "  Bo Forslund\n"
+#~ "  David Arno\n"
+#~ "  Pablo De Napoli\n"
+#~ "  Santiago Capel Torres\n"
+#~ "  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
+#~ "  Roland Steinbach <roland@netzblick.de>\n"
+#~ "  Christian Tellefsen <chris@tellefsen.net>\n"
+#~ "  Antti-Juhani Kaijanaho\n"
+#~ "\n"
+#~ "Dokumentáció:\n"
+#~ "  Alastair Porter <alastair@linuxexperience.com>\n"
+#~ "  Daniel Blair <joecamel@realcoders.org>\n"
+#~ "  Denny Reeh\n"
+#~ "\n"
+#~ "Csomagkészítők:\n"
+#~ "  Debian:   Davide Puricelli <evo@debian.org>\n"
+#~ "  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
+#~ "  Mandrake: Todd Lyons <todd@mrball.net>\n"
+#~ "\n"
+#~ "Ha bárki hiányzik a fenti listáról, tudasd velünk:\n"
+#~ "<bluefish@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Köszönet mindenkinek, aki segített a program létrehozásában.\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Current translators:\n"
+#~ "\n"
+#~ "  Brazilian Portuguese: Anderson Rocha\n"
+#~ "   <anderson@maxlinux.com.br>\n"
+#~ "\n"
+#~ "  Bulgarian: Peio Popov\n"
+#~ "   <peio@peio.org>\n"
+#~ "\n"
+#~ "  Chinese: Ting Yang (Dormouse)\n"
+#~ "   <mouselinux@163.com>\n"
+#~ "\n"
+#~ "  Chinese, Traditional: OLS3\n"
+#~ "   <ols3@lxer.idv.tw>\n"
+#~ "\n"
+#~ "  Danish: Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "\n"
+#~ "  Finnish: Juho Roukala\n"
+#~ "   <j.mr@luukku.com>\n"
+#~ "\n"
+#~ "  French: Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "  German: Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "\n"
+#~ "  Hungarian: Péter Sáska\n"
+#~ "   <sasek@ccsystem.hu>\n"
+#~ "\n"
+#~ "  Italian: Stefano Canepa\n"
+#~ "   <sc@linux.it>\n"
+#~ "\n"
+#~ "  Japanese: Takeshi Hamasaki\n"
+#~ "   <hma@syd.odn.ne.jp>\n"
+#~ "\n"
+#~ "  Norwegian: Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "\n"
+#~ "  Polish: Oskar Swida\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "\n"
+#~ "  Portuguese: Lopo Pizarro\n"
+#~ "   <lopopizarro@netcabo.pt>\n"
+#~ "\n"
+#~ "  Russian: Eugene Rupakov\n"
+#~ "   <rupakov@jet.msk.su>\n"
+#~ "\n"
+#~ "  Serbian: Marko Milenović\n"
+#~ "   <raven@sbb.co.yu>\n"
+#~ "\n"
+#~ "  Spanish: Walter Oscar Echarri\n"
+#~ "   <wecharri@arnet.com.ar>\n"
+#~ "\n"
+#~ "  Swedish: David Smeringe\n"
+#~ "   <david.smeringe@telia.com>\n"
+#~ "\n"
+#~ "  Tamil: Murugapandian Barathee\n"
+#~ "   <barathee@yahoo.com>\n"
+#~ "\n"
+#~ "  Turkish: Oğuz Eren\n"
+#~ "   <ogzeren@gmail.com>\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Fordítók jelenleg:\n"
+#~ "\n"
+#~ "  Brazíliai portugál - Anderson Rocha\n"
+#~ "   <anderson@maxlinux.com.br>\n"
+#~ "\n"
+#~ "  Dán - Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "\n"
+#~ "  Finn - Juho Roukala\n"
+#~ "   <j.mr@luukku.com>\n"
+#~ "\n"
+#~ "  Francia - Roméo Viu-Berges\n"
+#~ "   <apostledemencia@free.fr>\n"
+#~ "\n"
+#~ "  Kínai - Ting Yang (Dormouse)\n"
+#~ "   <mouselinux@163.com>\n"
+#~ "\n"
+#~ "  Lengyel - Oskar Swida\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "\n"
+#~ "  Magyar - Sáska Péter\n"
+#~ "   <sasek@ccsystem.hu>\n"
+#~ "\n"
+#~ "  Német - Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "\n"
+#~ "  Olasz - Stefano Canepa\n"
+#~ "   <sc@linux.it>\n"
+#~ "\n"
+#~ "  Orosz - Eugene Rupakov\n"
+#~ "   <rupakov@jet.msk.su>\n"
+#~ "\n"
+#~ "  Portugál - Lopo Pizarro\n"
+#~ "   <lopopizarro@netcabo.pt>\n"
+#~ "\n"
+#~ "  Spanyol - Walter Oscar Echarri\n"
+#~ "   <wecharri@infovia.com.ar>\n"
+#~ "\n"
+#~ "  Svéd - David Smeringe\n"
+#~ "   <david.smeringe@telia.com>\n"
+#~ "\n"
+#~ "  Szerb - Marko Milenović\n"
+#~ "   <raven@sbb.co.yu>\n"
+#~ "\n"
+#~ "  Tamil - Murugapandian Barathee\n"
+#~ "   <barathee@yahoo.com>\n"
+#~ "\n"
+
+#~ msgid "About Bluefish"
+#~ msgstr "Infók a Bluefish-ről"
+
+#~ msgid "Info"
+#~ msgstr "Info"
+
+#~ msgid "Authors"
+#~ msgstr "Szerzők"
+
+#~ msgid "Translators"
+#~ msgstr "Fordítók"
+
+#~ msgid "Authentication required"
+#~ msgstr "Azonosítás szükséges"
+
+#, fuzzy
+#~ msgid "Authentication is required for %s."
+#~ msgstr ""
+#~ "Azonosítás szükséges (%s)\n"
+#~ "\n"
+#~ "Realm: %s"
+
+#~ msgid "Username:"
+#~ msgstr "Felhasználónév:"
+
+#~ msgid "Password:"
+#~ msgstr "Jelszó:"
+
+#~ msgid ""
+#~ "Bluefish has trouble reading the filenames. Try to set the environment "
+#~ "variable G_BROKEN_FILENAMES=1\n"
+#~ msgstr ""
+#~ "A Bluefish-nek problémái vannak a fájlnevek olvasásával. Próbáld "
+#~ "aG_BROKEN_FILENAMES=1 környezetiváltozó-beállítást\n"
+
+#~ msgid "Check Spelling"
+#~ msgstr "Helyesírás ellenőrzése"
+
+#~ msgid "Checking"
+#~ msgstr "Ellenőrzés"
+
+#~ msgid "_Misspelled word:"
+#~ msgstr "_Helytelenül írt szó:"
+
+#~ msgid "Change _to:"
+#~ msgstr "_Cserélje erre:"
+
+#~ msgid "I_gnore"
+#~ msgstr "F_igyelmen kívül hagy"
+
+#~ msgid "I_n selection"
+#~ msgstr "K_ijelölésben"
+
+#~ msgid "personal dictionary"
+#~ msgstr "személyes szótár"
+
+#~ msgid "session dictionary"
+#~ msgstr "session szótár"
+
+#~ msgid "Dictionary:"
+#~ msgstr "Szótár:"
+
+#~ msgid "_Add"
+#~ msgstr "Hozzá_ad"
+
+#~ msgid "Set defa_ult"
+#~ msgstr "Alapértelme_zettként beállít"
+
+#~ msgid "Filter:"
+#~ msgstr "Szűrő:"
+
+#~ msgid "no filter"
+#~ msgstr "nincs szűrés"
+
+#~ msgid ""
+#~ "\n"
+#~ "Usage: %s [options] [filenames ...]\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Használat: %s [opciók] [fájlnevek]\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Currently accepted options are:\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Jelenleg felismert kapcsolók:\n"
+
+#~ msgid "-s           skip root check\n"
+#~ msgstr "-s           root ellenőrzés elhagyása\n"
+
+#~ msgid "-v           current version\n"
+#~ msgstr "-v           verziószám kiírása\n"
+
+#~ msgid "-n           open new window\n"
+#~ msgstr "-v           új ablak megnyitása\n"
+
+#~ msgid "-p filename  open project\n"
+#~ msgstr "-p fájlnév   projekt megnyitása\n"
+
+#~ msgid "-h           this help screen\n"
+#~ msgstr "-h           ennek a súgónak a megjelenítése\n"
+
+#~ msgid "parsing highlighting file..."
+#~ msgstr "szintaxiskiemelés-fájl értelmezése..."
+
+#~ msgid "compiling highlighting patterns..."
+#~ msgstr "kiemelési minták értelmezése..."
+
+#~ msgid "parsing custom menu file..."
+#~ msgstr "sajátmenü-fájl értelmezése..."
+
+#~ msgid "creating main gui..."
+#~ msgstr "grafikus felhasználói felület létrehozása..."
+
+#~ msgid "showing main gui..."
+#~ msgstr "grafikus felhasználói felület megjelenítése..."
+
+#, fuzzy
+#~ msgid "File size changed in file \n"
+#~ msgstr ""
+#~ "A karakterszám megváltozott a fájlban:\n"
+#~ " %s."
+
+#, fuzzy
+#~ msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
+#~ msgstr "A könyvjelző-pozíciók helytelenek lehetnek."
+
+#~ msgid "/Document/Highlight Syntax"
+#~ msgstr "/Dokumentum/Szintaxiskiemelés"
+
+#~ msgid ""
+#~ "\n"
+#~ "Type: "
+#~ msgstr ""
+#~ "\n"
+#~ "Típus: "
+
+#~ msgid " bytes"
+#~ msgstr " bájt"
+
+#~ msgid "  %s, %s"
+#~ msgstr "  %s, %s"
+
+#~ msgid "Statistics: %d lines, %d words, %d characters"
+#~ msgstr "Statisztika: %d sor, %d szó, %d karakter"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Általános</b>"
+
+#, fuzzy
+#~ msgid "File save failed!\n"
+#~ msgstr "Mentés megszakítva.\n"
+
+#, fuzzy
+#~ msgid "Cannot load reference file %s\n"
+#~ msgstr "Referencia-fájlok újraolvasása"
+
+#, fuzzy
+#~ msgid ""
+#~ "Bad root element in reference file %s\n"
+#~ "Should be <ref> or <r> and found %s"
+#~ msgstr "Referencia-fájlok újraolvasása"
+
+#, fuzzy
+#~ msgid "Bad root element in reference file"
+#~ msgstr "Referencia-fájlok újraolvasása"
+
+#, fuzzy
+#~ msgid "Bad reference"
+#~ msgstr "Tulajdonságok szerkesztése"
+
+#, fuzzy
+#~ msgid "Loading reference"
+#~ msgstr "Tulajdonságok szerkesztése"
+
+#, fuzzy
+#~ msgid "Unloading reference"
+#~ msgstr "Függvényreferencia"
+
+#, fuzzy
+#~ msgid "Identifier"
+#~ msgstr "Középre"
+
+#, fuzzy
+#~ msgid "Kind"
+#~ msgstr "Keres"
+
+#, fuzzy
+#~ msgid "Type"
+#~ msgstr "_Típus:"
+
+#, fuzzy
+#~ msgid "Default value"
+#~ msgstr "Alapértelmezett alapkönyvtár"
+
+#, fuzzy
+#~ msgid "Input type"
+#~ msgstr "Info típus"
+
+#, fuzzy
+#~ msgid "Values"
+#~ msgstr "Érték"
+
+#, fuzzy
+#~ msgid "Insert syntax"
+#~ msgstr "Kép beszúrása"
+
+#, fuzzy
+#~ msgid "Help"
+#~ msgstr "/_Segítség"
+
+#, fuzzy
+#~ msgid "Properties"
+#~ msgstr "Tulajdonság"
+
+#, fuzzy
+#~ msgid "Add property"
+#~ msgstr "Tulajdonság"
+
+#, fuzzy
+#~ msgid "Add ref definition"
+#~ msgstr "Fogalom"
+
+#~ msgid "Error"
+#~ msgstr "Hiba"
+
+#, fuzzy
+#~ msgid ""
+#~ "Perhaps you didn't load a library, or you did not select a library to "
+#~ "search in."
+#~ msgstr ""
+#~ "Lehet, hogy nem töltöttél be referenciát, vagy nem adtad meg, melyikben "
+#~ "kell keresni."
+
+#, fuzzy
+#~ msgid "Element %s not found"
+#~ msgstr "A referencia nem található"
+
+#, fuzzy
+#~ msgid "Element search"
+#~ msgstr "Referencia keresése"
+
+#, fuzzy
+#~ msgid "New library"
+#~ msgstr "/Új _könyvtár"
+
+#, fuzzy
+#~ msgid "Library name"
+#~ msgstr "Könyvtárnév"
+
+#, fuzzy
+#~ msgid "Delete library?"
+#~ msgstr "Állandó könyvjelző törlése."
+
+#, fuzzy
+#~ msgid "Reference not loaded."
+#~ msgstr "A referencia nem található"
+
+#, fuzzy
+#~ msgid "New note"
+#~ msgstr "Új projekt"
+
+#, fuzzy
+#~ msgid "Title"
+#~ msgstr "_Cím"
+
+#, fuzzy
+#~ msgid "New group"
+#~ msgstr "Új projekt"
+
+#, fuzzy
+#~ msgid "New description def"
+#~ msgstr "Leírás"
+
+#, fuzzy
+#~ msgid "Description text"
+#~ msgstr "Leírás"
+
+#, fuzzy
+#~ msgid "New values def"
+#~ msgstr "Új Bluefish ablak"
+
+#, fuzzy
+#~ msgid "Definitions"
+#~ msgstr "Meghatározás"
+
+#, fuzzy
+#~ msgid "New property"
+#~ msgstr "Új projekt"
+
+#, fuzzy
+#~ msgid "No name"
+#~ msgstr "Nem adtál meg fájlnevet"
+
+#, fuzzy
+#~ msgid "Delete definition?"
+#~ msgstr "Meghatározás"
+
+#, fuzzy
+#~ msgid "Delete group"
+#~ msgstr " Töröl "
+
+#, fuzzy
+#~ msgid "Delete group?"
+#~ msgstr " Töröl "
+
+#, fuzzy
+#~ msgid "Do you really want to delete current entity?"
+#~ msgstr "Valóban eltávolítod %s-t?"
+
+#~ msgid "Insert"
+#~ msgstr "Beszúrás"
+
+#~ msgid "Attributes/Parameters"
+#~ msgstr "Attribútumok/Paraméterek"
+
+#~ msgid "Notes"
+#~ msgstr "Megjegyzés"
+
+#, fuzzy
+#~ msgid "Examples"
+#~ msgstr "Minta"
+
+#, fuzzy
+#~ msgid "Links"
+#~ msgstr "Link"
+
+#, fuzzy
+#~ msgid "Rescan directories"
+#~ msgstr "Referencia-fájlok újraolvasása"
+
+#~ msgid "Edit"
+#~ msgstr "Szerkesztés"
+
+#, fuzzy
+#~ msgid "Delete library"
+#~ msgstr "Állandó könyvjelző törlése."
+
+#, fuzzy
+#~ msgid "Note"
+#~ msgstr "Megjegyzés"
+
+#, fuzzy
+#~ msgid "Property definition"
+#~ msgstr "Meghatározás"
+
+#, fuzzy
+#~ msgid "Description definition"
+#~ msgstr "Leírás"
+
+#, fuzzy
+#~ msgid "Element"
+#~ msgstr "Események"
+
+#, fuzzy
+#~ msgid "Delete definition"
+#~ msgstr "Meghatározás"
+
+#, fuzzy
+#~ msgid "Delete entity"
+#~ msgstr "Menüpont törlése"
+
+#~ msgid "Function reference"
+#~ msgstr "Függvényreferencia"
+
+#~ msgid "_Line number:"
+#~ msgstr "_Sor száma: "
+
+#~ msgid "From _selection"
+#~ msgstr "_Kijelölésből"
+
+#~ msgid "Keep _dialog"
+#~ msgstr "_Párbeszédablak maradjon nyitva"
+
+#, fuzzy
+#~ msgid "Syntax highlighting error for "
+#~ msgstr "Szintaxiskiemelés"
+
+#~ msgid "/Edit/Replace special"
+#~ msgstr "/Szerkesztés/Irányított csere"
+
+#, fuzzy
+#~ msgid "/Edit/Save Sett_ings"
+#~ msgstr "/Szerkesztés/Beállítások m_entése"
+
+#~ msgid "/View/View _Custom Menu"
+#~ msgstr "/Megjelenítés/_Saját menü"
+
+#, fuzzy
+#~ msgid "/View/View _Sidebar"
+#~ msgstr "/Megjelenítés/_Fő eszköztár"
+
+#~ msgid "/Document/Auto Close H_TML tags"
+#~ msgstr "/Dokumentum/HTML címkék automatikus bezárása"
+
+#, fuzzy
+#~ msgid "/Document/Show _symbols"
+#~ msgstr "/Dokumentum/Sz_avak száma"
+
+#~ msgid "/Document/_Update Highlighting"
+#~ msgstr "/Dokumentum/Szintaxiskiemelés _frissítése"
+
+#~ msgid "/Tools/Check _Spelling..."
+#~ msgstr "/Dokumentum/_Helyesírás ellenőrzése"
+
+#~ msgid "/Project/Open recent"
+#~ msgstr "/Projekt/Utóbbi megnyitása"
+
+#~ msgid "/File/Open recent"
+#~ msgstr "/Fájl/Utóbbi megnyitása"
+
+#~ msgid "/Windows"
+#~ msgstr "/Ablakok"
+
+#~ msgid "/Tools/Outputbox/"
+#~ msgstr "/Külső/Kimenetablak/"
+
+#~ msgid "/Tools/Commands/"
+#~ msgstr "/Külső/Szűrők/"
+
+#, fuzzy
+#~ msgid "/Tools/Filters/"
+#~ msgstr "/Külső/Böngészők/"
+
+#~ msgid "/External"
+#~ msgstr "/_Külső"
+
+#~ msgid "This custom search and replace requires a selection"
+#~ msgstr "A keresés/csere végrehajtásához kijelölés szükséges"
+
+#~ msgid "/_Custom menu"
+#~ msgstr "/_Saját menü"
+
+#~ msgid "/Custom menu/Edit custom menu..."
+#~ msgstr "/Saját menü/Saját menü szerkesztése..."
+
+#, fuzzy
+#~ msgid "/Custom menu/Reset"
+#~ msgstr "/Saját menü/sep"
+
+#, fuzzy
+#~ msgid "/Custom menu/Load new"
+#~ msgstr "/Saját menü/sep"
+
+#~ msgid "Search Pattern"
+#~ msgstr "Keresési minta"
+
+#~ msgid "Replace String"
+#~ msgstr "Mire cserélje"
+
+#~ msgid "Formatstring Before"
+#~ msgstr "Formázószöveg előtte"
+
+#~ msgid "Formatstring After"
+#~ msgstr "Formázószöveg utána"
+
+#~ msgid "The menupath you want to update does not exist yet"
+#~ msgstr "A frissítendő menüpont nem létezik"
+
+#~ msgid "Try 'add' instead."
+#~ msgstr "Használd a 'hozzáadás'-t helyette."
+
+#~ msgid "The menupath you want to add already exists."
+#~ msgstr "A hozzáadandó menüpont már létezik"
+
+#~ msgid "The menupath should start with a / character"
+#~ msgstr "A menü útvonalának / karakterrel kell kezdődni"
+
+#~ msgid "Custom Menu Editor"
+#~ msgstr "Sajátmenü-szerkesztő"
+
+#~ msgid "Add New Menu Entry"
+#~ msgstr "Új menüpont hozzáadása"
+
+#~ msgid "Apply Changes"
+#~ msgstr "Alkalmaz"
+
+#~ msgid "Delete Menu Entry"
+#~ msgstr "Menüpont törlése"
+
+#~ msgid "Close Discards Changes"
+#~ msgstr "Elvet, bezár"
+
+#~ msgid "Save Changes and Exit"
+#~ msgstr "Ment, kilép"
+
+#~ msgid "_Menu Path:"
+#~ msgstr "Menüpont elérési útvonala:"
+
+#~ msgid "Menu path"
+#~ msgstr "Menüpont elérési útvonala"
+
+#~ msgid "Number of _Variables:"
+#~ msgstr "Változók száma:"
+
+#~ msgid "Variables"
+#~ msgstr "Változók"
+
+#~ msgid "Custom Dialo_g"
+#~ msgstr "Saját párbeszédablak"
+
+#, fuzzy
+#~ msgid "Custom Replace"
+#~ msgstr "Keresés és csere testreszabása"
+
+#~ msgid "_Replace:"
+#~ msgstr "Cserél:"
+
+#~ msgid "in current document"
+#~ msgstr "aktuális dokumentumban"
+
+#~ msgid "from cursor"
+#~ msgstr "kurzortól"
+
+#~ msgid "in selection"
+#~ msgstr "kijelölésben"
+
+#~ msgid "in all open documents"
+#~ msgstr "minden megnyitott dokumentumban"
+
+#~ msgid "Matc_hing:"
+#~ msgstr "Megfelelés:"
+
+#, fuzzy
+#~ msgid "posix regular expressions"
+#~ msgstr "posix reguláris kifejezések"
+
+#~ msgid "Case Se_nsitive"
+#~ msgstr "Kis/nagybetű megkülönbözteté_se"
+
+#, fuzzy
+#~ msgid "File"
+#~ msgstr "Fájl #"
+
+#~ msgid "Extensions"
+#~ msgstr "Kiterjesztések"
+
+#~ msgid "Update chars"
+#~ msgstr "Frissítést kiváltó karakterek"
+
+#~ msgid "Editable"
+#~ msgstr "Szerkeszthető"
+
+#~ msgid "Content regex"
+#~ msgstr "Tartalom (regex)"
+
+#~ msgid "Auto close tags mode"
+#~ msgstr "Címkék automatikus bezárása"
+
+#, fuzzy
+#~ msgid "Language file"
+#~ msgstr "Nyelv:"
+
+#, fuzzy
+#~ msgid "Inverse filter"
+#~ msgstr "Inverz szűrés"
+
+#~ msgid "Filetypes in filter"
+#~ msgstr "Fájltípusok a szűrőben"
+
+#~ msgid "don't change weight"
+#~ msgstr "vastagság nem változik"
+
+#~ msgid "force non-bold weight"
+#~ msgstr "kötelezően nem-vastag"
+
+#~ msgid "don't change style"
+#~ msgstr "ne váltson stílust"
+
+#~ msgid "force non-italic style"
+#~ msgstr "kötelezően nem dőlt"
+
+#~ msgid "filetype"
+#~ msgstr "fájltípus"
+
+#, fuzzy
+#~ msgid "Reset"
+#~ msgstr "Frameset"
+
+#~ msgid "Pattern name"
+#~ msgstr "Minta neve"
+
+#~ msgid "Start pattern and end pattern"
+#~ msgstr "Kezdő és befejező minta"
+
+#~ msgid "Only start pattern"
+#~ msgstr "Csak kezdő minta"
+
+#~ msgid "Subpattern from parent"
+#~ msgstr "Alminta a szülő alapján"
+
+#~ msgid "Start pattern"
+#~ msgstr "Kezdő minta"
+
+#~ msgid "Show all output"
+#~ msgstr "Minden kimenet mutatása"
+
+#~ msgid "no check"
+#~ msgstr "nincs ellenőrzés"
+
+#~ msgid "check mtime"
+#~ msgstr "mtime ellenőrzése"
+
+#~ msgid "check size"
+#~ msgstr "méret ellenőrzése"
+
+#~ msgid "Editor"
+#~ msgstr "Editor"
+
+#~ msgid "Word wrap default"
+#~ msgstr "Sortörés csak szóvégen"
+
+#~ msgid "Line numbers by default"
+#~ msgstr "Sorszámozás alapértelmezett"
+
+#, fuzzy
+#~ msgid "Block folding view by default"
+#~ msgstr "Sorok _törése alapértelmezésben"
+
+#, fuzzy
+#~ msgid "Symbols view by default"
+#~ msgstr "A fő eszköztár mutatása alapértelmezésben"
+
+#~ msgid "Highlight syntax by default"
+#~ msgstr "Szintaxiskiemelés alapértelmezett"
+
+#, fuzzy
+#~ msgid "Undo options"
+#~ msgstr "Editor beállításai"
+
+#~ msgid "Undo history size"
+#~ msgstr "Visszavonások száma"
+
+#~ msgid "HTML options"
+#~ msgstr "HTML beállítások"
+
+#~ msgid "Backup"
+#~ msgstr "Backup"
+
+#~ msgid "Backup file suffix"
+#~ msgstr "Backup fájl nevének utótagja"
+
+#~ msgid "save"
+#~ msgstr "menti"
+
+#~ msgid "abort"
+#~ msgstr "megszakítja"
+
+#~ msgid "ask"
+#~ msgstr "kérdez"
+
+#~ msgid "Action on backup failure"
+#~ msgstr "Teendő sikertelen backup esetén"
+
+#~ msgid "File modified on disk check "
+#~ msgstr "Fájl módosulásának figyelése "
+
+#~ msgid "File browser"
+#~ msgstr "Fájlböngésző"
+
+#~ msgid "Use separate file and directory view"
+#~ msgstr "A fájlböngésző elválasztva mutassa a fájlokat és könyvtárakat"
+
+#~ msgid "Directory icon"
+#~ msgstr "Könyvtár ikonja"
+
+#, fuzzy
+#~ msgid "Reference library"
+#~ msgstr "Referencia keresése"
+
+#, fuzzy
+#~ msgid "Info background color"
+#~ msgstr "Háttérszín"
+
+#, fuzzy
+#~ msgid "Info foreground color"
+#~ msgstr "Előtérszín"
+
+#, fuzzy
+#~ msgid "File filters"
+#~ msgstr "Fájlszűrők"
+
+#~ msgid "Syntax highlighting"
+#~ msgstr "Szintaxiskiemelés"
+
+#~ msgid "Patterns"
+#~ msgstr "Minták"
+
+#~ msgid "Servers"
+#~ msgstr "Szerverek"
+
+#~ msgid "Remote servers"
+#~ msgstr "Távoli szerverek"
+
+#~ msgid "Zope compatibility mode"
+#~ msgstr "Zope kompatibilitás mód"
+
+#, fuzzy
+#~ msgid "Syntax scanning"
+#~ msgstr "Méretezéssel"
+
+#, fuzzy
+#~ msgid "whole document"
+#~ msgstr "A _dokumentumban"
+
+#, fuzzy
+#~ msgid "Save current project?"
+#~ msgstr "Nem sikerült a projekt mentése"
+
+#~ msgid "_Basedir:"
+#~ msgstr "_Alapkönyvtár:"
+
+#~ msgid "_Preview URL:"
+#~ msgstr "URL az _előnézethez:"
+
+#~ msgid "Java programming"
+#~ msgstr "Java programozás"
+
+#, fuzzy
+#~ msgid "POSIX"
+#~ msgstr "POSIX típusú"
+
+#, fuzzy
+#~ msgid "PERL"
+#~ msgstr "PERL típusú"
+
+#, fuzzy
+#~ msgid "_Case sensitive matching"
+#~ msgstr "Kis/nagybetű megkülönböztetése"
+
+#, fuzzy
+#~ msgid "_Use escape chars"
+#~ msgstr "Frissítést kiváltó karakterek"
+
+#~ msgid " Add "
+#~ msgstr " Hozzáad "
+
+#~ msgid " Update "
+#~ msgstr " Frissít "
+
+#~ msgid " Delete "
+#~ msgstr " Töröl "
+
+#~ msgid " Up "
+#~ msgstr " Fel "
+
+#~ msgid " Down "
+#~ msgstr " Le "
 
 #~ msgid "/File/tearoff1"
 #~ msgstr "/Fájl/tearoff1"
@@ -3278,14 +3872,8 @@ msgstr ""
 #~ msgid "/Edit/sep6"
 #~ msgstr "/Szerkesztés/sep1"
 
-#~ msgid "/View/tearoff1"
-#~ msgstr "/Fájl/tearoff1"
-
 #~ msgid "/Document/tearoff1"
 #~ msgstr "/Dokumentum/tearoff1"
-
-#~ msgid "/Document/sep1"
-#~ msgstr "/Dokumentum/sep1"
 
 #~ msgid "/Document/sep2"
 #~ msgstr "/Dokumentum/sep2"
@@ -3343,10 +3931,6 @@ msgstr ""
 #~ msgid "General scanner preferences"
 #~ msgstr "Referencia-fájlok újraolvasása"
 
-#, fuzzy
-#~ msgid "Languages"
-#~ msgstr "Nyelv:"
-
 #~ msgid "Confirm replace"
 #~ msgstr "Csere jóváhagyása"
 
@@ -3374,15 +3958,8 @@ msgstr ""
 #~ msgid "Disabled"
 #~ msgstr "Nem engedélyezett"
 
-#~ msgid "Starts at:"
-#~ msgstr "Kezdje:"
-
 #~ msgid "Regular expression:"
 #~ msgstr "Reguláris kifejezés:"
-
-#, fuzzy
-#~ msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
-#~ msgstr "A minták escape szekvenciákat (\\n, \\t) tartalmaznak"
 
 #, fuzzy
 #~ msgid "_Match case"
@@ -3398,9 +3975,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Bookmark results"
 #~ msgstr "Könyvjelzők"
-
-#~ msgid "Bluefish tip:"
-#~ msgstr "Bluefish tipp:"
 
 #~ msgid ""
 #~ "This message is shown since you do not have any items in the Quickbar.\n"
@@ -3766,9 +4340,6 @@ msgstr ""
 #~ msgid "Property"
 #~ msgstr "Tulajdonság"
 
-#~ msgid "Value"
-#~ msgstr "Érték"
-
 #~ msgid " _Add "
 #~ msgstr " _Hozzáad "
 
@@ -3907,9 +4478,6 @@ msgstr ""
 #~ msgid "Is _percent"
 #~ msgstr "S_zázalékban"
 
-#~ msgid "No _shading"
-#~ msgstr "_Nincs árnyék"
-
 #~ msgid "Body"
 #~ msgstr "Törzs"
 
@@ -3945,9 +4513,6 @@ msgstr ""
 
 #~ msgid "_HTTP-EQUIV:"
 #~ msgstr "_HTTP-EQUIV"
-
-#~ msgid "Con_tent:"
-#~ msgstr "Tar_talom"
 
 #~ msgid "_Scheme:"
 #~ msgstr "_Séma"
@@ -4042,9 +4607,6 @@ msgstr ""
 #~ msgid "_Forward Relation:"
 #~ msgstr "_Forward Relation:"
 
-#~ msgid "_Reverse Relation:"
-#~ msgstr "_Reverse Relation:"
-
 #~ msgid "Media:"
 #~ msgstr "Media:"
 
@@ -4066,9 +4628,6 @@ msgstr ""
 #~ msgid "_Enctype:"
 #~ msgstr "_Enctype:"
 
-#~ msgid "Text area"
-#~ msgstr "Szövegmező"
-
 #~ msgid "Select"
 #~ msgstr "Választómező"
 
@@ -4077,9 +4636,6 @@ msgstr ""
 
 #~ msgid "Multiple _Selections:"
 #~ msgstr "Többszörö_s választás:"
-
-#~ msgid "Option"
-#~ msgstr "Választás"
 
 #~ msgid "_Label:"
 #~ msgstr "_Címke:"
@@ -5174,10 +5730,6 @@ msgstr ""
 #~ msgstr "Üres projekt létrehozása"
 
 #, fuzzy
-#~ msgid "<b>Attributes</b>"
-#~ msgstr "Attribútumok"
-
-#, fuzzy
 #~ msgid "_Src:"
 #~ msgstr "Forrá_s"
 
@@ -5199,39 +5751,11 @@ msgstr ""
 #~ msgid "_Head:"
 #~ msgstr "_Href:"
 
-#~ msgid "Galeon"
-#~ msgstr "Galeon"
-
-#~ msgid "Mozilla"
-#~ msgstr "Mozilla"
-
-#~ msgid "Opera"
-#~ msgstr "Opera"
-
 #~ msgid "Netscape"
 #~ msgstr "Netscape"
 
 #~ msgid "Gnome default"
 #~ msgstr "Gnome alapértelmezés"
-
-#~ msgid "make"
-#~ msgstr "make"
-
-#~ msgid "weblint HTML checker"
-#~ msgstr "weblint HTML ellenőrző"
-
-#~ msgid "tidy HTML validator"
-#~ msgstr "tidy HTML ellenőrző"
-
-#~ msgid "javac"
-#~ msgstr "javac"
-
-#, fuzzy
-#~ msgid "xmllint XML checker"
-#~ msgstr "weblint HTML ellenőrző"
-
-#~ msgid "Dos2Unix filter"
-#~ msgstr "Dos2Unix szűrő"
 
 #~ msgid "Tidy cleanup filter"
 #~ msgstr "Tidy szűrő"
@@ -5241,9 +5765,6 @@ msgstr ""
 
 #~ msgid "Number of _rows:"
 #~ msgstr "So_rok száma:"
-
-#~ msgid "Number of colu_mns:"
-#~ msgstr "Oszlopok szá_ma:"
 
 #~ msgid "Table rows on one _line:"
 #~ msgstr "Táblasorok beszúrása egyet_len sorba:"
@@ -5348,9 +5869,6 @@ msgstr ""
 #~ msgid "Loading %d file(s)..."
 #~ msgstr "%d fájl betöltése..."
 
-#~ msgid "Select file"
-#~ msgstr "Válassz fájlt"
-
 #~ msgid "_Doctype:"
 #~ msgstr "_Dokumentumtípus"
 
@@ -5363,9 +5881,6 @@ msgstr ""
 #~ msgid "The filename was:\n"
 #~ msgstr "A fájlnév:\n"
 
-#~ msgid "Could not open file\n"
-#~ msgstr "Nem sikerült a fájl megnyitása:\n"
-
 #~ msgid "Could not view file in browser, the file does not yet have a name\n"
 #~ msgstr "A fájlnak még nincs neve, nem lehet böngészőben megnézni\n"
 
@@ -5377,9 +5892,6 @@ msgstr ""
 
 #~ msgid "Show custom menu by default"
 #~ msgstr "A felhasználói menü mutatása alapértelmezésben"
-
-#~ msgid "Show HTML toolbar by default"
-#~ msgstr "A HTML eszköztár mutatása alapértelmezésben"
 
 #, fuzzy
 #~ msgid "Do you want to save the project?"
@@ -5416,9 +5928,6 @@ msgstr ""
 #~ msgid "/Document/Wrap"
 #~ msgstr "/Dokumentum/Tördelés"
 
-#~ msgid "/Document/Line Numbers"
-#~ msgstr "/Dokumentum/Sorok számozása"
-
 #~ msgid "/Document/Auto Close HTML tags"
 #~ msgstr "/Dokumentum/HTML címkék automatikus bezárása"
 
@@ -5431,9 +5940,6 @@ msgstr ""
 #~ msgid "/View/View Custom Menu"
 #~ msgstr "/Megjelenítés/Saját menü"
 
-#~ msgid "Sort by line number"
-#~ msgstr "Rendezés a sor száma szerint"
-
 #~ msgid "/Project/Save"
 #~ msgstr "/Projekt/Mentés"
 
@@ -5445,12 +5951,6 @@ msgstr ""
 
 #~ msgid "/Project/Edit Project Options..."
 #~ msgstr "/Projekt/Projekt tulajdonságainak szerkesztése"
-
-#~ msgid "/View/View Left Panel"
-#~ msgstr "/Megjelenítés/Bal oldali panel"
-
-#~ msgid "/View/View _Left Panel"
-#~ msgstr "/Megjelenítés/_Bal oldali panel"
 
 #~ msgid "Initial left panel width"
 #~ msgstr "Bal panel kezdő szélessége"

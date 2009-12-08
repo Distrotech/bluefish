@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-10-12 23:49+0200\n"
+"POT-Creation-Date: 2009-12-08 21:45+0100\n"
 "PO-Revision-Date: 2009-11-08 22:53+0100\n"
 "Last-Translator: elve <elve@savage-elve.net>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -35,11 +35,11 @@ msgstr "Bluefish taal definitie bestand"
 msgid "Bluefish project file"
 msgstr "Bluefish project bestand"
 
-#: ../src/bftextview2.c:990
+#: ../src/bftextview2.c:974
 msgid "Collapse all"
 msgstr "Alles inklappen"
 
-#: ../src/bftextview2.c:993
+#: ../src/bftextview2.c:977
 msgid "Expand all"
 msgstr "Alles uitklappen"
 
@@ -130,23 +130,23 @@ msgstr "Bezoek ons op http://bluefish.openoffice.nl"
 msgid "starting up..."
 msgstr "Bluefish wordt gestart..."
 
-#: ../src/bluefish.c:247
+#: ../src/bluefish.c:244
 msgid "Open in existing window."
 msgstr "Open in bestaand venster."
 
-#: ../src/bluefish.c:249
+#: ../src/bluefish.c:246
 msgid "Open in new window."
 msgstr "Open in nieuw venster."
 
-#: ../src/bluefish.c:251
+#: ../src/bluefish.c:248
 msgid "Print version information."
 msgstr "Print versie informatie."
 
-#: ../src/bluefish.c:277
+#: ../src/bluefish.c:274
 msgid " [FILE(S)]"
 msgstr " [FILE(S)]"
 
-#: ../src/bluefish.c:288
+#: ../src/bluefish.c:285
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
@@ -273,31 +273,31 @@ msgstr "Volgende bladwĳzer"
 msgid "Last bookmark"
 msgstr "Laatste bladwĳzer"
 
-#: ../src/bookmark.c:1521 ../src/bookmark.c:1574
+#: ../src/bookmark.c:1565 ../src/bookmark.c:1613
 msgid "Error adding bookmark"
 msgstr "Fout bĳ toevoegen bladwĳzer"
 
-#: ../src/bookmark.c:1522 ../src/bookmark.c:1575
+#: ../src/bookmark.c:1566 ../src/bookmark.c:1614
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Kan geen bladwĳzers toevoegen aan niet opgeslagen bestanden."
 
-#: ../src/bookmark.c:1541
+#: ../src/bookmark.c:1581
 msgid "Can't add bookmark"
 msgstr "Kan bladwĳzer niet toevoegen"
 
-#: ../src/bookmark.c:1542
+#: ../src/bookmark.c:1582
 msgid "You already have a bookmark here!"
 msgstr "U heeft daar al een bladwĳzer!"
 
-#: ../src/bookmark.c:1611
+#: ../src/bookmark.c:1650
 msgid "Delete all bookmarks."
 msgstr "Verwĳder alle bladwĳzers."
 
-#: ../src/document.c:366
+#: ../src/document.c:363
 msgid "Name: "
 msgstr "Naam: "
 
-#: ../src/document.c:369
+#: ../src/document.c:366
 msgid ""
 "\n"
 "Language mode: "
@@ -305,7 +305,7 @@ msgstr ""
 "\n"
 "Taal mode: "
 
-#: ../src/document.c:373
+#: ../src/document.c:370
 msgid ""
 "\n"
 "Encoding: "
@@ -313,7 +313,7 @@ msgstr ""
 "\n"
 "Codering: "
 
-#: ../src/document.c:382
+#: ../src/document.c:379
 msgid ""
 "\n"
 "Mime type: "
@@ -321,7 +321,7 @@ msgstr ""
 "\n"
 "Mime type: "
 
-#: ../src/document.c:388
+#: ../src/document.c:385
 #, c-format
 msgid ""
 "\n"
@@ -332,7 +332,7 @@ msgstr ""
 "Permissie's:%s\n"
 "UID:%u GID:%u"
 
-#: ../src/document.c:393
+#: ../src/document.c:390
 msgid ""
 "\n"
 "Size (on disk): "
@@ -340,7 +340,7 @@ msgstr ""
 "\n"
 "Grootte (op schĳf): "
 
-#: ../src/document.c:401
+#: ../src/document.c:398
 msgid ""
 "\n"
 "Last modified: "
@@ -348,91 +348,91 @@ msgstr ""
 "\n"
 "Laatste wĳziging: "
 
-#: ../src/document.c:432
+#: ../src/document.c:429
 #, c-format
 msgid "Untitled %d"
 msgstr "Naamloos %d"
 
-#: ../src/document.c:606
+#: ../src/document.c:603
 #, c-format
 msgid "Changed tab width to %d"
 msgstr "Tab-grootte veranderd naar %d"
 
-#: ../src/document.c:769
+#: ../src/document.c:766
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "Document %s is al geopend in een ander Bluefish venster."
 
-#: ../src/document.c:771
+#: ../src/document.c:768
 msgid "Move to this window"
 msgstr "Verplaats naar dit venster"
 
-#: ../src/document.c:771
+#: ../src/document.c:768
 msgid "Open readonly"
 msgstr "Open alleen-lezen"
 
-#: ../src/document.c:771
+#: ../src/document.c:768
 msgid "Do not open"
 msgstr "Niet openen"
 
-#: ../src/document.c:1055
+#: ../src/document.c:1052
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " Ln: %d, Kol: %d, Char: %d"
 
-#: ../src/document.c:1057
+#: ../src/document.c:1054
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " Ln: %d, Kol:%d"
 
-#: ../src/document.c:1078
+#: ../src/document.c:1075
 msgid " OVR"
 msgstr " OVR"
 
-#: ../src/document.c:1078
+#: ../src/document.c:1075
 msgid " INS"
 msgstr " INS"
 
-#: ../src/document.c:1080
+#: ../src/document.c:1077
 msgid " RO"
 msgstr " RO"
 
-#: ../src/document.c:1097
+#: ../src/document.c:1094
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: ../src/document.c:1456
+#: ../src/document.c:1471
 msgid "Cannot display file, unknown characters found."
 msgstr "Kan bestand niet laten zien; Onbekende karakters gevonden."
 
-#: ../src/document.c:1669 ../src/snr2.c:1674
+#: ../src/document.c:1673 ../src/snr2.c:1674
 msgid "Replace"
 msgstr "Vervangen"
 
-#: ../src/document.c:1674 ../src/snr2.c:1671
+#: ../src/document.c:1678 ../src/snr2.c:1671
 msgid "Find"
 msgstr "Zoek"
 
-#: ../src/document.c:1682
+#: ../src/document.c:1686
 msgid "Delete bookmark"
 msgstr "Verwĳder bladwĳzer"
 
-#: ../src/document.c:1686
+#: ../src/document.c:1690
 msgid "Add bookmark"
 msgstr "Bladwĳzer toevoegen"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1803 ../src/file_dialogs.c:430 ../src/file_dialogs.c:467
+#: ../src/document.c:1807 ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
 msgid "_Abort save"
 msgstr "Opslaan afbreken"
 
-#: ../src/document.c:1803
+#: ../src/document.c:1807
 msgid "_Continue save in UTF-8"
 msgstr "Opslaan hervatten in UTF-8"
 
-#: ../src/document.c:1814
+#: ../src/document.c:1818
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -445,21 +445,28 @@ msgstr ""
 "\n"
 "Doorgaan met opslaan in UTF-8 codering ?"
 
-#: ../src/document.c:1818
+#: ../src/document.c:1822
 msgid "File encoding conversion failure"
 msgstr "Bestands codering conversie fout"
 
-#: ../src/document.c:2064
+#: ../src/document.c:2068
 msgid "Previously: "
 msgstr "Voorheen: "
 
+#: ../src/document.c:2477 ../src/file_dialogs.c:778
+#, c-format
+msgid ""
+"Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
+"to 2.18.0 or newer."
+msgstr ""
+
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2586
+#: ../src/document.c:2611
 msgid "Unable to open file"
 msgstr "Kan bestand niet openen"
 
 # c-format
-#: ../src/document.c:2596
+#: ../src/document.c:2621
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -468,41 +475,41 @@ msgstr ""
 "Als u \"%s\" terugdraait naar de laast opgeslagen versie gaan uwhuidige "
 "wijzigingen verloren."
 
-#: ../src/document.c:2600
+#: ../src/document.c:2625
 msgid "Revert changes to last saved copy?"
 msgstr "Veranderingen terugdraaien tot laatst opgeslagen versie?"
 
-#: ../src/document.c:2634
+#: ../src/document.c:2661
 msgid "_Unset file name"
 msgstr "Bestandsnaam wissen"
 
-#: ../src/document.c:2634
+#: ../src/document.c:2661
 msgid "_Save"
 msgstr "Opslaan"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:2636
+#: ../src/document.c:2663
 #, c-format
 msgid "File name: %s"
 msgstr "Bestandnaam: %s"
 
-#: ../src/document.c:2640
+#: ../src/document.c:2667
 msgid "File disappeared from disk\n"
 msgstr "Bestand verdwenen van schĳf\n"
 
-#: ../src/document.c:2659
+#: ../src/document.c:2686
 msgid "_Ignore"
 msgstr "Negeren"
 
-#: ../src/document.c:2659
+#: ../src/document.c:2686
 msgid "_Reload"
 msgstr "Herladen"
 
-#: ../src/document.c:2659
+#: ../src/document.c:2686
 msgid "Check and reload all documents"
 msgstr "Test en herlaad alle documenten"
 
-#: ../src/document.c:2667
+#: ../src/document.c:2694
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -515,90 +522,90 @@ msgstr ""
 "Nieuwe wĳzigings tĳd is: %s\n"
 "Oude wĳzigings tĳd is: %s"
 
-#: ../src/document.c:2671
+#: ../src/document.c:2698
 msgid "File has been modified by another process\n"
 msgstr "Bestand is gewĳzigd door een ander proces\n"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2761
 msgid "_Retry"
 msgstr "Opnieuw"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2761
 msgid "Retry _all failed"
 msgstr "Alle gefaalde opnieuw"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2761
 msgid "_Close"
 msgstr "Sluiten"
 
-#: ../src/document.c:2734
+#: ../src/document.c:2761
 msgid "Close all _failed"
 msgstr "Alle gefaalde sluiten"
 
-#: ../src/document.c:2738
+#: ../src/document.c:2765
 msgid "File "
 msgstr "Bestand "
 
-#: ../src/document.c:2738
+#: ../src/document.c:2765
 msgid " failed to load."
 msgstr " laden mislukt."
 
-#: ../src/document.c:2742
+#: ../src/document.c:2769
 msgid "File failed to load\n"
 msgstr "Bestand laden mislukt\n"
 
-#: ../src/document.c:2862
+#: ../src/document.c:2889
 msgid "Select file to insert"
 msgstr "Selecteer bestand om in te voegen"
 
-#: ../src/document.c:2870
+#: ../src/document.c:2897
 msgid "No file to insert"
 msgstr "Geen bestand om in te voegen"
 
-#: ../src/document.c:3010
+#: ../src/document.c:3038
 #, c-format
 msgid "Statistics: "
 msgstr "Statistieken: "
 
-#: ../src/document.c:3011
+#: ../src/document.c:3039
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d regel"
 msgstr[1] "% regels"
 
-#: ../src/document.c:3012
+#: ../src/document.c:3040
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d woord"
 msgstr[1] "%d woorden"
 
-#: ../src/document.c:3013
+#: ../src/document.c:3041
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d karakter"
 msgstr[1] "%d karakters"
 
-#: ../src/encodings_dialog.c:329
+#: ../src/encodings_dialog.c:293
 msgid "_Available encodings:"
 msgstr "Beschikbare coderingen"
 
-#: ../src/encodings_dialog.c:381 ../src/encodings_dialog.c:452
+#: ../src/encodings_dialog.c:339 ../src/encodings_dialog.c:395
 msgid "Description"
 msgstr "Beschrĳving:"
 
-#: ../src/encodings_dialog.c:391 ../src/encodings_dialog.c:461
-#: ../src/preferences.c:1661
+#: ../src/encodings_dialog.c:345 ../src/encodings_dialog.c:400
+#: ../src/preferences.c:1669
 msgid "Encoding"
 msgstr "Codering"
 
-#: ../src/encodings_dialog.c:427
+#: ../src/encodings_dialog.c:372
 msgid "Encodings in _menu:"
 msgstr "Coderingen in menu:"
 
-#: ../src/encodings_dialog.c:511
+#: ../src/encodings_dialog.c:444
 msgid "Add or remove document encodings"
 msgstr "Verwijder of voeg coderingen toe"
 
@@ -743,44 +750,44 @@ msgstr "Fileter verwĳderen"
 msgid "New filter"
 msgstr "Nieuw filter"
 
-#: ../src/file.c:709
+#: ../src/file.c:751
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "Nog steeds bezig met %d bestand, %s is gereed"
 msgstr[1] "Nog steeds bezig met %d bestanden, %s is gereed"
 
-#: ../src/file.c:714
+#: ../src/file.c:756
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "Alle bestanden geladen, klaar met %s"
 
-#: ../src/file.c:900
+#: ../src/file.c:945
 #, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
 msgstr[0] "%d document open."
 msgstr[1] "%d documenten open."
 
-#: ../src/file.c:902
+#: ../src/file.c:947
 msgid "Advanced open: Finished searching files. "
 msgstr "Geavanceerd openen: Gereed met zoeken naar bestanden. "
 
-#: ../src/file.c:1155
+#: ../src/file.c:1243
 msgid "_Skip"
 msgstr "Overslaan"
 
-#: ../src/file.c:1155 ../src/file_dialogs.c:592 ../src/file_dialogs.c:613
+#: ../src/file.c:1243 ../src/file_dialogs.c:610 ../src/file_dialogs.c:631
 #: ../src/project.c:242
 msgid "_Overwrite"
 msgstr "Overschrĳven"
 
-#: ../src/file.c:1159
+#: ../src/file.c:1247
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s kan niet gekopieerd worden, het bestaat al, overschrĳven?"
 
-#: ../src/file.c:1163
+#: ../src/file.c:1251
 msgid "Overwrite file?"
 msgstr "Bestand overschrĳven?"
 
@@ -788,63 +795,77 @@ msgstr "Bestand overschrĳven?"
 msgid "Autosave in progress..."
 msgstr "Automatisch opslaan bezig..."
 
-#: ../src/file_dialogs.c:99
+#: ../src/file_dialogs.c:109
 msgid "Select basedir"
 msgstr "Selecteer basis map"
 
-#: ../src/file_dialogs.c:142
+#: ../src/file_dialogs.c:153
 msgid "Advanced open file selector"
 msgstr "Geavanceerde bestands selectie"
 
-#: ../src/file_dialogs.c:155
-msgid "<b>General</b>"
-msgstr "<b>Algemeen</b>"
+#: ../src/file_dialogs.c:166
+#, fuzzy
+msgid "<b>Files</b>"
+msgstr "<b>Bevat</b>"
 
-#: ../src/file_dialogs.c:164
+#: ../src/file_dialogs.c:175
 msgid "Base _Dir:"
 msgstr "Basis-map:"
 
-#: ../src/file_dialogs.c:179
+#: ../src/file_dialogs.c:190
 msgid "_Pattern:"
 msgstr "Patroon:"
 
-#: ../src/file_dialogs.c:187
+#: ../src/file_dialogs.c:198
 msgid "_Match on file name only:"
 msgstr "Vergelijk alleen op bestands naam:"
 
-#: ../src/file_dialogs.c:191
+#: ../src/file_dialogs.c:202
 msgid "_Recursive:"
 msgstr "Recursief:"
 
-#: ../src/file_dialogs.c:200
+#: ../src/file_dialogs.c:206
+#, fuzzy
+msgid "Ma_x recursion:"
+msgstr "Recursief:"
+
+#: ../src/file_dialogs.c:215
 msgid "<b>Contains</b>"
 msgstr "<b>Bevat</b>"
 
-#: ../src/file_dialogs.c:206
+#: ../src/file_dialogs.c:221
 msgid "Pa_ttern:"
 msgstr "Patroon:"
 
-#: ../src/file_dialogs.c:210
+#: ../src/file_dialogs.c:225
 msgid "Is rege_x:"
 msgstr "Is regex:"
 
-#: ../src/file_dialogs.c:292
+#: ../src/file_dialogs.c:311
 msgid "Select files"
 msgstr "Kies bestanden"
 
-#: ../src/file_dialogs.c:347
+#: ../src/file_dialogs.c:365
 msgid "Open URL"
 msgstr "Open URL"
 
-#: ../src/file_dialogs.c:362
+#: ../src/file_dialogs.c:373 ../src/file_dialogs.c:1199
+#, c-format
+msgid ""
+"<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
+"ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 "
+"if you rely on remote file support.</b>"
+msgstr ""
+
+#: ../src/file_dialogs.c:380
 msgid "<b>Open URL</b>"
 msgstr "<b>Open URL</b>"
 
-#: ../src/file_dialogs.c:430 ../src/file_dialogs.c:467
+#: ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
 msgid "_Continue save"
 msgstr "Opslaan hervatten"
 
-#: ../src/file_dialogs.c:434
+#: ../src/file_dialogs.c:452
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -853,58 +874,58 @@ msgstr ""
 "Een reservebestand voor %s kon niet worden gemaakt. Als u doorgaat zal dit "
 "bestand worden overschreven."
 
-#: ../src/file_dialogs.c:438
+#: ../src/file_dialogs.c:456
 msgid "File backup failure"
 msgstr "Bestands reservekopie fout"
 
-#: ../src/file_dialogs.c:453
+#: ../src/file_dialogs.c:471
 msgid "Could not save file "
 msgstr "Kon bestand niet opslaan "
 
-#: ../src/file_dialogs.c:472
+#: ../src/file_dialogs.c:490
 #, c-format
 msgid "File %s has been modified on disk, overwrite?"
 msgstr "Bestand %s is gewĳzigd op schĳf; Overschrĳven ?"
 
-#: ../src/file_dialogs.c:474
+#: ../src/file_dialogs.c:492
 #, c-format
 msgid "Failed to check if %s has been modified on disk"
 msgstr "Niet gelukt om te testen of %s is gewĳzigd op schĳf"
 
-#: ../src/file_dialogs.c:565
+#: ../src/file_dialogs.c:583
 #, c-format
 msgid "Move/rename %s to"
 msgstr "Verplaats/hernoem %s naar"
 
-#: ../src/file_dialogs.c:565
+#: ../src/file_dialogs.c:583
 #, c-format
 msgid "Save %s as"
 msgstr "Opslaan van %s als"
 
-#: ../src/file_dialogs.c:592 ../src/file_dialogs.c:613
-#: ../src/file_dialogs.c:874 ../src/project.c:242
+#: ../src/file_dialogs.c:610 ../src/file_dialogs.c:631
+#: ../src/file_dialogs.c:892 ../src/project.c:242
 msgid "_Cancel"
 msgstr "Annuleren"
 
-#: ../src/file_dialogs.c:593
+#: ../src/file_dialogs.c:611
 #, c-format
 msgid "File %s exists and is open, overwrite?"
 msgstr "Bestand %s bestaat en is geopend; Overschrĳven ?"
 
-#: ../src/file_dialogs.c:596
+#: ../src/file_dialogs.c:614
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Het bestand wat u heeft geselecteerd is geopend in Bluefish."
 
-#: ../src/file_dialogs.c:614 ../src/project.c:244
+#: ../src/file_dialogs.c:632 ../src/project.c:244
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Een bestand genaamd \"%s\" bestaat al."
 
-#: ../src/file_dialogs.c:617 ../src/project.c:249
+#: ../src/file_dialogs.c:635 ../src/project.c:249
 msgid "Do you want to replace the existing file?"
 msgstr "Wilt u het bestaande bestand vervangen?"
 
-#: ../src/file_dialogs.c:708
+#: ../src/file_dialogs.c:726
 msgid ""
 "File:\n"
 "\""
@@ -912,88 +933,88 @@ msgstr ""
 "Bestand:\n"
 "\""
 
-#: ../src/file_dialogs.c:709
+#: ../src/file_dialogs.c:727
 msgid "\" save is in progress"
 msgstr "\" wordt opgeslagen"
 
-#: ../src/file_dialogs.c:711
+#: ../src/file_dialogs.c:729
 msgid "Save in progress!"
 msgstr "Opslaan bezig!"
 
-#: ../src/file_dialogs.c:862
+#: ../src/file_dialogs.c:880
 msgid "Close _Without Saving"
 msgstr "Sluiten zonder opslaan"
 
-#: ../src/file_dialogs.c:865
+#: ../src/file_dialogs.c:883
 #, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr "Veranderingen opslaan naar \"%s\" voor sluiten?"
 
-#: ../src/file_dialogs.c:868 ../src/file_dialogs.c:878
+#: ../src/file_dialogs.c:886 ../src/file_dialogs.c:896
 msgid "If you don't save your changes they will be lost."
 msgstr "Als u niet opslaat zullen de veranderingen verloren gaan."
 
-#: ../src/file_dialogs.c:874
+#: ../src/file_dialogs.c:892
 msgid "Choose per _File"
 msgstr "Per bestand kiezen"
 
-#: ../src/file_dialogs.c:874
+#: ../src/file_dialogs.c:892
 msgid "Close _All"
 msgstr "Alles sluiten"
 
-#: ../src/file_dialogs.c:874
+#: ../src/file_dialogs.c:892
 msgid "_Save All"
 msgstr "Alles opslaan"
 
-#: ../src/file_dialogs.c:877
+#: ../src/file_dialogs.c:895
 msgid "One or more open files have been changed."
 msgstr "Een of meerdere open bestanden zĳn gewĳzigd."
 
-#: ../src/file_dialogs.c:1124
+#: ../src/file_dialogs.c:1142
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
 msgstr[0] "<span color=\"red\">%d mislukt</span>"
 msgstr[1] "<span color=\"red\">%d mislukt</span>"
 
-#: ../src/file_dialogs.c:1132
+#: ../src/file_dialogs.c:1150
 msgid "incomplete finished"
 msgstr "incompleet gereed"
 
-#: ../src/file_dialogs.c:1134
+#: ../src/file_dialogs.c:1152
 msgid "completed"
 msgstr "klaar"
 
-#: ../src/file_dialogs.c:1175
+#: ../src/file_dialogs.c:1193
 msgid "Upload / Download"
 msgstr "Upload / Download"
 
-#: ../src/file_dialogs.c:1176
+#: ../src/file_dialogs.c:1194
 msgid "Upload"
 msgstr "Upload"
 
-#: ../src/file_dialogs.c:1176
+#: ../src/file_dialogs.c:1194
 msgid "Download"
 msgstr "Download"
 
-#: ../src/file_dialogs.c:1190
+#: ../src/file_dialogs.c:1208
 msgid "Local directory"
 msgstr "Directory lokaal"
 
-#: ../src/file_dialogs.c:1197
+#: ../src/file_dialogs.c:1215
 msgid "Remote directory"
 msgstr "Directory elders"
 
-#: ../src/file_dialogs.c:1202
+#: ../src/file_dialogs.c:1220
 msgid "Delete deprecated files"
 msgstr "Verwijder overbodige bestanden"
 
-#: ../src/file_dialogs.c:1203
+#: ../src/file_dialogs.c:1221
 msgid "Include hidden files"
 msgstr "Inclusief verborgen bestanden"
 
 #. build a list of filters
-#: ../src/filefilter.c:214 ../src/gtk_easy.c:1385
+#: ../src/filefilter.c:214 ../src/gtk_easy.c:1364
 msgid "All files"
 msgstr "Alle bestanden"
 
@@ -1013,28 +1034,28 @@ msgstr "Mime type"
 msgid "Icon"
 msgstr "Icoon"
 
-#: ../src/gtk_easy.c:1088
+#: ../src/gtk_easy.c:1067
 #, c-format
 msgid "%d of %d"
 msgstr "%d van %d"
 
-#: ../src/gtk_easy.c:1194
+#: ../src/gtk_easy.c:1173
 msgid "Select File"
 msgstr "Kies bestand"
 
-#: ../src/gtk_easy.c:1265
+#: ../src/gtk_easy.c:1244
 msgid "_Browse..."
 msgstr "Bladeren..."
 
-#: ../src/gtk_easy.c:1375
+#: ../src/gtk_easy.c:1354
 msgid "Show backup files"
 msgstr "Laat reserve bestanden zien"
 
-#: ../src/gtk_easy.c:1435
+#: ../src/gtk_easy.c:1414
 msgid "Character _Encoding:"
 msgstr "Karakter Codering:"
 
-#: ../src/gtk_easy.c:1458
+#: ../src/gtk_easy.c:1437
 msgid "Automatic detection"
 msgstr "Automatische detectie"
 
@@ -1607,11 +1628,11 @@ msgstr "Hulpmiddelen/Splits in colommen"
 msgid "/Document/Language Mode"
 msgstr "/Document/Taal modus"
 
-#: ../src/menu.c:839
+#: ../src/menu.c:755
 msgid "No default browser found"
 msgstr "Geen standaard browser gevonden"
 
-#: ../src/menu.c:840
+#: ../src/menu.c:756
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
@@ -1619,29 +1640,40 @@ msgstr ""
 "U kunt een standaard browser instellen door te gaan naar:\n"
 "Bewerken->Voorkeuren->Externe commando's"
 
-#: ../src/menu.c:875
-msgid "Operate filter only on selection?"
-msgstr "Filter alleen toepassen op selectie?"
+#. TODO: this dialog is not very convenient, hitting enter should choose 'selection'
+#: ../src/menu.c:792
+#, fuzzy
+msgid "Text area to filter"
+msgstr "Externe filters"
 
-#: ../src/menu.c:1031
+#: ../src/menu.c:793
+msgid "All text"
+msgstr ""
+
+#: ../src/menu.c:794
+#, fuzzy
+msgid "Selected text only"
+msgstr "Selecteer font"
+
+#: ../src/menu.c:951
 msgid "/Document/Character Encoding"
 msgstr "/Document/Karakter Codering"
 
-#: ../src/outputbox.c:227
+#: ../src/outputbox.c:226
 msgid "Filename"
 msgstr "Bestandnaam"
 
-#: ../src/outputbox.c:229
+#: ../src/outputbox.c:228
 msgid "Line"
 msgstr "Regel"
 
-#: ../src/outputbox.c:231
+#: ../src/outputbox.c:230
 msgid "Output"
 msgstr "Uitvoer"
 
-#: ../src/outputbox.c:411
-#, c-format
-msgid "Failed to compile outputbox pattern %s"
+#: ../src/outputbox.c:432
+#, fuzzy, c-format
+msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "Compileren mislukt van uitvoer vlak patroon %s"
 
 #: ../src/preferences.c:275
@@ -1651,10 +1683,6 @@ msgstr "Naamloos"
 #: ../src/preferences.c:376
 msgid "Select font"
 msgstr "Selecteer font"
-
-#: ../src/preferences.c:493 ../src/preferences.c:1630
-msgid "Initial document settings"
-msgstr "Initiële document instellingen"
 
 #: ../src/preferences.c:497
 msgid "Default mime type for new files"
@@ -1696,17 +1724,17 @@ msgstr "Blok begin-eind oplichten"
 msgid "Enable spell check"
 msgstr "Spelling controleren"
 
-#: ../src/preferences.c:538
-msgid "Message"
-msgstr "Bericht"
+#: ../src/preferences.c:538 ../src/preferences.c:942 ../src/preferences.c:1153
+msgid "Name"
+msgstr "Naam"
 
 #: ../src/preferences.c:539
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
 #: ../src/preferences.c:540
-msgid "File"
-msgstr "Bestand "
+msgid "Path to plugin"
+msgstr ""
 
 #: ../src/preferences.c:696
 msgid ""
@@ -1749,10 +1777,6 @@ msgstr "schuin gedrukt"
 #: ../src/preferences.c:728
 msgid "Spell check"
 msgstr "Spelling controleren"
-
-#: ../src/preferences.c:942 ../src/preferences.c:1153
-msgid "Name"
-msgstr "Naam"
 
 #: ../src/preferences.c:999 ../src/preferences.c:1069
 #: ../src/preferences.c:1158
@@ -2000,141 +2024,169 @@ msgstr "Gebruik spatie's voor inspringen, geen tabs"
 msgid "Smart auto indenting"
 msgstr "Slim automatisch inspringen"
 
-#: ../src/preferences.c:1625
+#: ../src/preferences.c:1626
+msgid "Delayed"
+msgstr "Vertraagd"
+
+#: ../src/preferences.c:1626
+msgid "Immediately"
+msgstr "Direct"
+
+#: ../src/preferences.c:1627
+msgid "Show the automatic completion pop-up window"
+msgstr "Automatische completering venster weergave"
+
+#: ../src/preferences.c:1630
 msgid "Number of actions in undo history"
 msgstr "Aantal acties in ongedaan maken historie"
 
-#: ../src/preferences.c:1626
+#: ../src/preferences.c:1631
 msgid "Clear undo history on save"
 msgstr "Geschiedenis ongedaan maken wissen bĳ opslaan"
 
-#: ../src/preferences.c:1640
+#: ../src/preferences.c:1635 ../src/project.c:533
+msgid "Initial document settings"
+msgstr "Initiële document instellingen"
+
+#: ../src/preferences.c:1637
+#, fuzzy
+msgid "Non-project initial document settings"
+msgstr "Initiële document instellingen"
+
+#: ../src/preferences.c:1645
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:1642
-msgid "HTML options"
+#: ../src/preferences.c:1647
+#, fuzzy
+msgid "HTML toolbar / menu options"
 msgstr "HTML optie's"
 
-#: ../src/preferences.c:1647
+#: ../src/preferences.c:1652
 msgid "Lowercase HTML tags"
 msgstr "Kleine letter HTML tags"
 
-#: ../src/preferences.c:1648
+#: ../src/preferences.c:1653
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Gebruik verouderde tags (bĳv. <font> en <nobr>)"
 
-#: ../src/preferences.c:1649
+#: ../src/preferences.c:1654
+msgid "Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+
+#: ../src/preferences.c:1655
 msgid "Use XHTML style tags (<br />)"
 msgstr "Gebruik XHTML syntaxis (zoals <br />)"
 
-#. pd->prefs[insert_close_tag] = boxed_checkbut_with_value(_("Automatically close tags"), main_v->props.insert_close_tag, vbox2);
-#. pd->prefs[close_tag_newline] = boxed_checkbut_with_value(_("Prepend close tags with a newline"), main_v->props.close_tag_newline, vbox2);
-#: ../src/preferences.c:1653
+#: ../src/preferences.c:1657
+msgid "Auto update tag options"
+msgstr ""
+
+#: ../src/preferences.c:1661
 msgid "Automatically update author meta tag"
 msgstr "Automatisch aanpassen van author meta tag"
 
-#: ../src/preferences.c:1654
+#: ../src/preferences.c:1662
 msgid "Automatically update date meta tag"
 msgstr "Automatisch aanpassen van update meta tag"
 
-#: ../src/preferences.c:1655
+#: ../src/preferences.c:1663
 msgid "Automatically update generator meta tag"
 msgstr "Automatisch aanpassen van generator meta tag"
 
-#: ../src/preferences.c:1659
+#: ../src/preferences.c:1667
 msgid "Files"
 msgstr "Bestanden"
 
-#: ../src/preferences.c:1672
+#: ../src/preferences.c:1680
 msgid "Default character set for new files"
 msgstr "Standaard karakterset voor nieuwe bestanden"
 
-#: ../src/preferences.c:1675
+#: ../src/preferences.c:1683
 msgid "Auto set <meta> HTML tag on encoding change"
 msgstr "Automatisch <meta> HTML tag aanpassen bĳ coderingsverandering"
 
-#: ../src/preferences.c:1677
+#: ../src/preferences.c:1685
 msgid "Backup files and recovery of modified documents"
 msgstr "Reservebestanden en herstellen van gewijzigde documenten"
 
-#: ../src/preferences.c:1681
+#: ../src/preferences.c:1689
 msgid "Create backup file during file save"
 msgstr "Maak reservebestand bĳ opslaan"
 
-#: ../src/preferences.c:1683
+#: ../src/preferences.c:1691
 msgid "Continue save"
 msgstr "Doorgaan met opslaan"
 
-#: ../src/preferences.c:1683
+#: ../src/preferences.c:1691
 msgid "Abort save"
 msgstr "Opslaan afbreken"
 
-#: ../src/preferences.c:1683
+#: ../src/preferences.c:1691
 msgid "Ask what to do"
 msgstr "Vraag wat te doen"
 
-#: ../src/preferences.c:1684
+#: ../src/preferences.c:1692
 msgid "If the backup fails"
 msgstr "Als de reservekopie mislukt"
 
-#: ../src/preferences.c:1686
+#: ../src/preferences.c:1694
 msgid "Remove backup file on close"
 msgstr "Verwĳder reservebestand bĳ sluiten"
 
-#: ../src/preferences.c:1690
+#: ../src/preferences.c:1698
 msgid "Enable recovery of modified documents"
 msgstr "Gebruik herstelmogelijkheid voor gewijzigde documenten"
 
-#: ../src/preferences.c:1691
+#: ../src/preferences.c:1699
 msgid "Frequency to store changes (seconds)"
 msgstr "Frequentie om wijzigingen op te slaan (seconden)"
 
-#: ../src/preferences.c:1693
+#: ../src/preferences.c:1701
 msgid "Misc"
 msgstr "Diversen"
 
-#: ../src/preferences.c:1698
+#: ../src/preferences.c:1706
 msgid "Open commandline files in running bluefish process"
 msgstr "Open commando-regel bestanden in een al geopend Bluefish proces"
 
-#: ../src/preferences.c:1700
+#: ../src/preferences.c:1708
 msgid "Open commandline files in new window"
 msgstr "Open commando-regel bestanden in een nieuw venster"
 
-#: ../src/preferences.c:1702
+#: ../src/preferences.c:1710
 msgid "File properties to check on disk for modifications"
 msgstr "Bestandseigenschappen op schĳf ter controle voor wĳzigingen"
 
-#: ../src/preferences.c:1703
+#: ../src/preferences.c:1711
 msgid "Periodically check if file is modified on disk"
 msgstr "Periodiek controleren of bestand is gewĳzigd op schĳf"
 
-#: ../src/preferences.c:1704
+#: ../src/preferences.c:1712
 msgid "Number of files in 'Open recent' menu"
 msgstr "Aantal bestanden in 'Recent geopend' menu"
 
-#: ../src/preferences.c:1709
+#: ../src/preferences.c:1717
 msgid "User interface"
 msgstr "Gebruikers interface"
 
-#: ../src/preferences.c:1712
+#: ../src/preferences.c:1720
 msgid "Startup options"
 msgstr "Opstart optie's"
 
-#: ../src/preferences.c:1717
+#: ../src/preferences.c:1725
 msgid "Show splash-screen"
 msgstr "Toon splash-screen"
 
-#: ../src/preferences.c:1720
+#: ../src/preferences.c:1728
 msgid "General"
 msgstr "Algemeen"
 
-#: ../src/preferences.c:1725
+#: ../src/preferences.c:1733
 msgid "Make HTML dialogs transient"
 msgstr "HTML dialogen altĳd vooraan"
 
-#: ../src/preferences.c:1726
+#: ../src/preferences.c:1734
 msgid ""
 "Notebook tab font \n"
 "(leave empty for gtk default)"
@@ -2142,133 +2194,121 @@ msgstr ""
 "Notebook tab font\n"
 "(Laat leeg voor gtk standaard)"
 
-#: ../src/preferences.c:1727
+#: ../src/preferences.c:1735
 msgid "Notebook tab color (doc modified)"
 msgstr "Notebook tab kleur (document veranderd)"
 
-#: ../src/preferences.c:1728
+#: ../src/preferences.c:1736
 msgid "Notebook tab color (doc loading)"
 msgstr "Notebook tab kleur (document laadt)"
 
-#: ../src/preferences.c:1729
+#: ../src/preferences.c:1737
 msgid "Notebook tab color (doc error)"
 msgstr "Notebook tab kleur (document error)"
 
-#: ../src/preferences.c:1730
+#: ../src/preferences.c:1738
 msgid "Document notebook tab position"
 msgstr "Document notebook tab positie"
 
-#: ../src/preferences.c:1731
+#: ../src/preferences.c:1739
 msgid "Switch between tabs with <Alt>+0..9"
 msgstr "Wissel tussen tabs met Alt>+0..9"
 
-#: ../src/preferences.c:1732
+#: ../src/preferences.c:1740
 msgid "Sidebar notebook tab position"
 msgstr "Zĳbalk notebook tab positie"
 
-#: ../src/preferences.c:1733
+#: ../src/preferences.c:1741
 msgid "Sidebar location"
 msgstr "Locatie van zĳbalk"
 
-#: ../src/preferences.c:1737 ../src/preferences.c:1739
+#: ../src/preferences.c:1745 ../src/preferences.c:1747
 msgid "Dimensions"
 msgstr "Afmetingen"
 
-#: ../src/preferences.c:1744
+#: ../src/preferences.c:1752
 msgid "Leave dimensions to window manager"
 msgstr "Laat afmetingen over aan vensterbeheer"
 
-#: ../src/preferences.c:1745
+#: ../src/preferences.c:1753
 msgid "Restore last used dimensions"
 msgstr "Herstel laatst gebruikte afmetingen"
 
-#: ../src/preferences.c:1746
+#: ../src/preferences.c:1754
 msgid "Initial sidebar width"
 msgstr "Initiële zijbalk breedte"
 
-#: ../src/preferences.c:1747
+#: ../src/preferences.c:1755
 msgid "Initial window height"
 msgstr "Initiële venster hoogte"
 
-#: ../src/preferences.c:1748
+#: ../src/preferences.c:1756
 msgid "Initial window width"
 msgstr "Initiële venster breedte"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:1755 ../src/rcfile.c:706
+#: ../src/preferences.c:1763 ../src/rcfile.c:778
 msgid "Images"
 msgstr "Afbeeldingen"
 
-#: ../src/preferences.c:1757
+#: ../src/preferences.c:1765
 msgid "Thumbnails"
 msgstr "Voorbeeldafbeelding"
 
-#: ../src/preferences.c:1761
+#: ../src/preferences.c:1769
 msgid "Thumbnail suffix"
 msgstr "Voorbeeldafbeelding (thumbnail) achtervoegsel"
 
-#: ../src/preferences.c:1764
+#: ../src/preferences.c:1772
 msgid "Thumbnail filetype"
 msgstr "Voorbeeldafbeelding (thumbnail) type"
 
-#: ../src/preferences.c:1769
+#: ../src/preferences.c:1777
 msgid "External commands"
 msgstr "Externe commando's"
 
-#: ../src/preferences.c:1771
+#: ../src/preferences.c:1779
 msgid "Commands"
 msgstr "Commando's"
 
-#: ../src/preferences.c:1779
+#: ../src/preferences.c:1787
 msgid "External filters"
 msgstr "Externe filters"
 
-#: ../src/preferences.c:1781
+#: ../src/preferences.c:1789
 msgid "Filters"
 msgstr "Filters"
 
-#: ../src/preferences.c:1789 ../src/preferences.c:1791
+#: ../src/preferences.c:1797 ../src/preferences.c:1799
 msgid "Output parsers"
 msgstr "Uitvoer parser"
 
-#: ../src/preferences.c:1799 ../src/preferences.c:1800
+#: ../src/preferences.c:1807 ../src/preferences.c:1808
 msgid "Plugins"
 msgstr "Plugins"
 
-#: ../src/preferences.c:1808 ../src/preferences.c:1809
+#: ../src/preferences.c:1816 ../src/preferences.c:1817
 msgid "Text styles"
 msgstr "Tekst stĳlen"
 
-#: ../src/preferences.c:1818
+#: ../src/preferences.c:1826
 msgid "Language support"
 msgstr "Taal ondersteuning"
 
-#: ../src/preferences.c:1820
+#: ../src/preferences.c:1828
 msgid "Advanced syntax scanning options"
 msgstr "Geavanceerde syntax scanning optie's"
 
-#: ../src/preferences.c:1826
-msgid "Delayed"
-msgstr "Vertraagd"
-
-#: ../src/preferences.c:1826
-msgid "Immediately"
-msgstr "Direct"
-
-#: ../src/preferences.c:1827
-msgid "Show the automatic completion pop-up window"
-msgstr "Automatische completering venster weergave"
-
-#: ../src/preferences.c:1829
+#: ../src/preferences.c:1833
 msgid "Load reference information from language file"
 msgstr "Laadt referentie informatie uit taal definities"
 
-#: ../src/preferences.c:1830
+#: ../src/preferences.c:1834
 msgid "Show reference information in autocompletion pop-up"
 msgstr "Referentie informatie weergave in automatische completering"
 
-#: ../src/preferences.c:1831
+#: ../src/preferences.c:1835
 msgid "Show reference information in tooltip window"
 msgstr "Referentie informatie weergave bij muis"
 
@@ -2294,6 +2334,7 @@ msgstr "Project bewerken"
 
 # c-format
 #: ../src/project.c:511
+#, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
 msgstr[0] "Dit project bevat %d bestand"
@@ -2324,99 +2365,103 @@ msgid "Create empty project"
 msgstr "Leeg project aanmaken"
 
 #. if the user does not have outputbox settings --> set them to defaults values
-#: ../src/rcfile.c:476
+#: ../src/rcfile.c:547
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:477
+#: ../src/rcfile.c:548
 msgid "weblint HTML checker"
 msgstr "weblint HTML checker"
 
-#: ../src/rcfile.c:478
+#: ../src/rcfile.c:549
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:479
+#: ../src/rcfile.c:550
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:480
+#: ../src/rcfile.c:551
 msgid "xmllint XML checker"
 msgstr "xmllint XML checker"
 
-#: ../src/rcfile.c:481
+#: ../src/rcfile.c:552
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:484
+#: ../src/rcfile.c:555
 msgid "Sort"
 msgstr "Sorteren"
 
-#: ../src/rcfile.c:485
+#: ../src/rcfile.c:556
+msgid "Sort / Unique"
+msgstr ""
+
+#: ../src/rcfile.c:557
 msgid "Reverse lines"
 msgstr "Regels omdraaien"
 
-#: ../src/rcfile.c:486
+#: ../src/rcfile.c:558
 msgid "Dos2unix"
 msgstr "Dos2unix"
 
-#: ../src/rcfile.c:487
+#: ../src/rcfile.c:559
 msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
-#: ../src/rcfile.c:488
+#: ../src/rcfile.c:560
 msgid "Strip empty lines"
 msgstr "Verwijder lege regels"
 
-#: ../src/rcfile.c:489
+#: ../src/rcfile.c:561
 msgid "Render HTML to text"
 msgstr "Maak tekst van HTML"
 
-#: ../src/rcfile.c:492
+#: ../src/rcfile.c:564
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:493
+#: ../src/rcfile.c:565
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:494
+#: ../src/rcfile.c:566
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:495
+#: ../src/rcfile.c:567
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:496
+#: ../src/rcfile.c:568
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:497
+#: ../src/rcfile.c:569
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:498
+#: ../src/rcfile.c:570
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:499
+#: ../src/rcfile.c:571
 msgid "Links2 (graphics)"
 msgstr "Links2 (graphics)"
 
-#: ../src/rcfile.c:642
+#: ../src/rcfile.c:714
 msgid "Untitled Project"
 msgstr "Naamloos Project"
 
-#: ../src/rcfile.c:700
+#: ../src/rcfile.c:772
 msgid "C programming"
 msgstr "C programmeren"
 
-#: ../src/rcfile.c:702
+#: ../src/rcfile.c:774
 msgid "Web files"
 msgstr "Web bestanden"
 
-#: ../src/rcfile.c:708
+#: ../src/rcfile.c:780
 msgid "Hide objectfiles"
 msgstr "Object bestanden verbergen"
 
@@ -2590,7 +2635,8 @@ msgid "Only match if case (upper/lower) is identical."
 msgstr "Alleen resultaat als kast (hoofdletter/kleine letter) identiek is."
 
 #: ../src/snr2.c:1797
-msgid "_Pattern contains escape-sequences"
+#, fuzzy
+msgid "Pattern contains escape-se_quences"
 msgstr "Patroon bevat escape combinaties"
 
 #: ../src/snr2.c:1800
@@ -2598,7 +2644,8 @@ msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr "Patroon bevat backslash escape karakters zoals \\n, \\t etc."
 
 #: ../src/snr2.c:1802
-msgid "_Select matches"
+#, fuzzy
+msgid "Select matc_hes"
 msgstr "Selecteer gevonden resultaat"
 
 #: ../src/snr2.c:1805
@@ -2625,23 +2672,23 @@ msgstr "Vervangen"
 msgid "Find _All"
 msgstr "Zoek Alles"
 
-#: ../src/snr2.c:2422
+#: ../src/snr2.c:2428
 msgid "Lines into columns"
 msgstr "Regels in kolommen"
 
-#: ../src/snr2.c:2434
+#: ../src/snr2.c:2440
 msgid "Number of columns"
 msgstr "Aantal kolommen"
 
-#: ../src/snr2.c:2437
+#: ../src/snr2.c:2443
 msgid "Spread lines horizontally"
 msgstr "Verspreid regels horizontaal"
 
-#: ../src/snr2.c:2438
+#: ../src/snr2.c:2444
 msgid "Column separator"
 msgstr "Kolomscheiding"
 
-#: ../src/snr2.c:2440
+#: ../src/snr2.c:2446
 msgid "Fill empty entries"
 msgstr "Vul lege plaatsen"
 
@@ -2660,6 +2707,18 @@ msgstr "Deze verandering in alle documenten ongedaan maken?"
 #: ../src/undo_redo.c:465
 msgid "This change concerns multiple documents."
 msgstr "Deze verandering betreft meerdere documenten."
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Algemeen</b>"
+
+#~ msgid "Operate filter only on selection?"
+#~ msgstr "Filter alleen toepassen op selectie?"
+
+#~ msgid "Message"
+#~ msgstr "Bericht"
+
+#~ msgid "File"
+#~ msgstr "Bestand "
 
 #~ msgid ""
 #~ "\n"
