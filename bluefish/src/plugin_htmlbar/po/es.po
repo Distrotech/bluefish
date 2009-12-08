@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-11-09 20:04+0100\n"
-"PO-Revision-Date: 2009-10-19 15:58+0200\n"
+"PO-Revision-Date: 2009-12-04 12:01+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: ES <gnome-es@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "¿Actualizar este valor de %s a %s?"
 
 #: src/plugin_htmlbar/html2.c:638
 msgid "Cascading Style Sheet Builder"
-msgstr "Constructor de hojas de estilo"
+msgstr "Constructor de hojas de estilo en cascada"
 
 # src/html.c:1797
 # src/html_form.c:398
@@ -87,7 +87,7 @@ msgstr "Valor"
 # src/stringlist.c:142
 #: src/plugin_htmlbar/html2.c:715
 msgid " _Add "
-msgstr "_Agregar "
+msgstr "_Añadir "
 
 # src/stringlist.c:147
 # src/stringlist.c:143
@@ -111,7 +111,7 @@ msgstr "_Estilo..."
 # src/project.c:56
 #: src/plugin_htmlbar/html2.c:1096
 msgid "Bluefish: Select color"
-msgstr "Bluefish - Selector de colores"
+msgstr "Bluefish: Seleccionar color"
 
 # src/configure.c:298
 # src/configure.c:318
@@ -177,7 +177,7 @@ msgstr "/Etiquetas/Encabezados/H_6"
 # src/menu.c:168
 #: src/plugin_htmlbar/htmlbar_gui.c:214
 msgid "/Tags/_Special"
-msgstr "/Etiquetas/E_speciales"
+msgstr "/Etiquetas/E_special"
 
 # src/menu.c:167
 # src/menu.c:169
@@ -327,7 +327,7 @@ msgstr "/Etiquetas/Especiales/Acentos/Mayúsculas/J-Z/O circunflejo Ô"
 # src/menu.c:178
 #: src/plugin_htmlbar/htmlbar_gui.c:243
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Etiquetas/Especiales/Acentos/Mayúsculas/J-Z/OEligadura Œ"
+msgstr "/Etiquetas/Especiales/Acentos/Mayúsculas/J-Z/OE ligadura Œ"
 
 # src/menu.c:194
 # src/menu.c:196
@@ -1550,26 +1550,26 @@ msgstr "Correo electrónico..."
 # src/configure.c:304 src/configure.c:358 src/toolbars.c:266
 #: src/plugin_htmlbar/htmlbar_gui.c:755
 msgid "Font..."
-msgstr "Fuente..."
+msgstr "Tipografía..."
 
 # src/toolbars.c:265
 # src/toolbars.c:269
 #: src/plugin_htmlbar/htmlbar_gui.c:756
 msgid "Base Font Size..."
-msgstr "Tamaño fuente base..."
+msgstr "Tamaño tipografía base..."
 
 # src/toolbars.c:268
 # src/toolbars.c:272
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:758
 msgid "Font Size +1"
-msgstr "Tamaño de fuente +1"
+msgstr "Tamaño de tipografía +1"
 
 # src/toolbars.c:271
 # src/toolbars.c:275
 #: src/plugin_htmlbar/htmlbar_gui.c:759
 msgid "Font Size -1"
-msgstr "Tamaño de fuente -1"
+msgstr "Tamaño de tipografía -1"
 
 # src/toolbars.c:275
 # src/toolbars.c:279
@@ -1587,7 +1587,7 @@ msgstr "Subíndice"
 # src/toolbars.c:286
 #: src/plugin_htmlbar/htmlbar_gui.c:762
 msgid "Superscript"
-msgstr "Supraíndice"
+msgstr "Superíndice"
 
 # src/toolbars.c:285
 # src/toolbars.c:289
@@ -1667,7 +1667,7 @@ msgstr "Encabezado..."
 # src/toolbars.c:324
 #: src/plugin_htmlbar/htmlbar_gui.c:777
 msgid "Table Data..."
-msgstr "Datos..."
+msgstr "Datos ..."
 
 # src/html.c:1053 src/toolbars.c:324
 # src/html_table.c:68 src/toolbars.c:328
@@ -1860,13 +1860,13 @@ msgstr "Crear hoja de estilo..."
 # src/toolbars.c:436
 #: src/plugin_htmlbar/htmlbar_gui.c:812
 msgid "Span..."
-msgstr "Etiqueta span..."
+msgstr "Span..."
 
 # src/toolbars.c:434
 # src/toolbars.c:438
 #: src/plugin_htmlbar/htmlbar_gui.c:813
 msgid "Div..."
-msgstr "Etiqueta div..."
+msgstr "Div..."
 
 # src/html.c:1844 src/toolbars.c:440
 # src/html.c:1128 src/toolbars.c:444
@@ -1936,7 +1936,7 @@ msgstr "Acrónimo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:946
 msgid "Remove from quickbar"
-msgstr "Eliminar de la Barra rápida"
+msgstr "Eliminar de la barra rápida"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:947
 msgid "Move Left"
@@ -1952,7 +1952,7 @@ msgstr "Mover a la derecha"
 # src/toolbars.c:262
 #: src/plugin_htmlbar/htmlbar_gui.c:988
 msgid "Add to quickbar"
-msgstr "Añadir de la Barra rápida "
+msgstr "Añadir a la barra rápida "
 
 # src/toolbars.c:258
 # src/toolbars.c:262
@@ -1980,7 +1980,7 @@ msgstr "Formato del contexto"
 # src/toolbars.c:307
 #: src/plugin_htmlbar/htmlbar_gui.c:1104
 msgid " Fonts "
-msgstr " Fuentes"
+msgstr " Tipografías "
 
 # src/toolbars.c:338
 # src/toolbars.c:342
@@ -2016,7 +2016,7 @@ msgstr " CSS "
 # src/toolbars.c:510
 #: src/plugin_htmlbar/html.c:385
 msgid "Insert Time"
-msgstr "Insertar Hora"
+msgstr "Insertar hora"
 
 # src/html.c:2096
 # src/html.c:1380
@@ -2029,49 +2029,49 @@ msgstr " _Hora (%i/%i/%i) "
 # src/html.c:1351
 #: src/plugin_htmlbar/html.c:398
 msgid "  Day of the _week (Sunday)"
-msgstr "  Día de la _semana (Domingo)"
+msgstr "  Día de la _semana (domingo)"
 
 # src/html.c:2070
 # src/html.c:1354
 #: src/plugin_htmlbar/html.c:401
 msgid "  Day of the _week (Monday)"
-msgstr "  Día de la _semana (Lunes)"
+msgstr "  Día de la _semana (lunes)"
 
 # src/html.c:2073
 # src/html.c:1357
 #: src/plugin_htmlbar/html.c:404
 msgid "  Day of the _week (Tuesday)"
-msgstr "  Día de la _semana (Martes)"
+msgstr "  Día de la _semana (martes)"
 
 # src/html.c:2076
 # src/html.c:1360
 #: src/plugin_htmlbar/html.c:407
 msgid "  Day of the _week (Wednesday)"
-msgstr "  Día de la _semana (Miércoles)"
+msgstr "  Día de la _semana (miércoles)"
 
 # src/html.c:2079
 # src/html.c:1363
 #: src/plugin_htmlbar/html.c:410
 msgid "  Day of the _week (Thursday)"
-msgstr "  Día de la _semana (Jueves)"
+msgstr "  Día de la _semana (jueves)"
 
 # src/html.c:2082
 # src/html.c:1366
 #: src/plugin_htmlbar/html.c:413
 msgid "  Day of the _week (Friday)"
-msgstr "  Día de la _semana (Viernes)"
+msgstr "  Día de la _semana (viernes)"
 
 # src/html.c:2085
 # src/html.c:1369
 #: src/plugin_htmlbar/html.c:416
 msgid "  Day of the _week (Saturday)"
-msgstr "  Día de la _semana (Sábado)"
+msgstr "  Día de la _semana (sábado)"
 
 # src/html.c:2088
 # src/html.c:1372
 #: src/plugin_htmlbar/html.c:419
 msgid "You appear to have a non existant day!\n"
-msgstr "Parece tener un día inexistente!\n"
+msgstr "Parece tener un día que no existe\n"
 
 # src/html.c:2096
 # src/html.c:1380
@@ -2096,7 +2096,7 @@ msgstr " _Cadena de fecha Unix (%s)"
 
 #: src/plugin_htmlbar/html.c:443
 msgid "  ISO-8601 Ti_me "
-msgstr "  ISO-8601 Ti_me "
+msgstr "  Hora ISO-8601 "
 
 # src/html.c:817
 # src/html.c:759
@@ -2112,13 +2112,13 @@ msgstr "Atributos"
 # src/html.c:766 src/wml.c:250
 #: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:1911
 msgid "_HREF:"
-msgstr "_HREF"
+msgstr "_HREF:"
 
 # src/html.c:828 src/html.c:1503
 # src/html.c:770 src/html_form.c:104
 #: src/plugin_htmlbar/html.c:627 src/plugin_htmlbar/html_form.c:183
 msgid "_Target:"
-msgstr "_Objetivo"
+msgstr "_Objetivo:"
 
 # src/html.c:833 src/html.c:1407 src/html.c:1521 src/html.c:1541
 # src/html.c:1575 src/html.c:1626 src/html.c:1663 src/html.c:1715
@@ -2135,7 +2135,7 @@ msgstr "_Objetivo"
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
 #: src/plugin_htmlbar/image.c:469
 msgid "_Name:"
-msgstr "_Nombre"
+msgstr "_Nombre:"
 
 # src/html.c:659
 # src/html.c:602 src/wml.c:127 src/wml.c:364
@@ -2169,7 +2169,7 @@ msgstr "_Idioma"
 #: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:477
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Custo_m:"
-msgstr "_Personalizar"
+msgstr "_Personal:"
 
 #: src/plugin_htmlbar/html.c:648 src/plugin_htmlbar/html.c:1096
 #: src/plugin_htmlbar/html_form.c:829
@@ -2226,7 +2226,7 @@ msgstr "Div"
 # src/html.c:1015 src/html.c:1093 src/html_table.c:99
 #: src/plugin_htmlbar/html.c:805
 msgid "Span"
-msgstr "Espaciado"
+msgstr "Span"
 
 # src/html.c:872 src/html.c:1071 src/html.c:1142 src/html.c:1198
 # src/html.c:1279 src/html.c:1955 src/images.c:241
@@ -2244,7 +2244,7 @@ msgstr "_Alinear:"
 #: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
 #: src/plugin_htmlbar/image_dialog.c:396
 msgid "Cl_ass:"
-msgstr "Cl_ase"
+msgstr "Cl_ase:"
 
 # src/html.c:1844 src/toolbars.c:440
 # src/html.c:1128 src/toolbars.c:444
@@ -2252,14 +2252,14 @@ msgstr "Cl_ase"
 #: src/plugin_htmlbar/html_diag.c:386 src/plugin_htmlbar/html_table.c:96
 #: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
 msgid "St_yle:"
-msgstr "E_stilo"
+msgstr "E_stilo:"
 
 # src/wml.c:123 src/wml.c:163 src/wml.c:203 src/wml.c:246 src/wml.c:304
 # src/wml.c:360 src/wml.c:398
 #: src/plugin_htmlbar/html.c:859 src/plugin_htmlbar/html.c:1084
 #: src/plugin_htmlbar/html_diag.c:382
 msgid "_ID:"
-msgstr "_ID"
+msgstr "_ID:"
 
 # src/html.c:863
 # src/html.c:804
@@ -2298,7 +2298,7 @@ msgstr "A_ncho:"
 # src/html.c:831
 #: src/plugin_htmlbar/html.c:987
 msgid "Is _percent"
-msgstr "¿En _porcentaje?"
+msgstr "En _porcentaje"
 
 # src/html.c:896
 # src/html.c:837
@@ -2397,13 +2397,13 @@ msgstr "E_squema:"
 # src/html.c:883
 #: src/plugin_htmlbar/html.c:1320
 msgid "Font"
-msgstr "Tipo de letra"
+msgstr "Tipografía"
 
 # src/html.c:998
 # src/html.c:939
 #: src/plugin_htmlbar/html.c:1323
 msgid "Base Font"
-msgstr "Fuente base"
+msgstr "Tipografía base"
 
 # src/html.c:879 src/html.c:950 src/html.c:1006 src/html.c:1674
 # src/html.c:1809
@@ -2438,7 +2438,7 @@ msgstr "Cara"
 # src/images.c:256
 #: src/plugin_htmlbar/html.c:1355
 msgid "Custom"
-msgstr "Personalizar"
+msgstr "Personal"
 
 # src/html.c:910
 # src/html.c:851
@@ -2519,7 +2519,7 @@ msgstr "_Agregar elementos <frame>"
 #: src/plugin_htmlbar/html.c:1675 src/plugin_htmlbar/html.c:1760
 #: src/plugin_htmlbar/html.c:1819 src/plugin_htmlbar/image_dialog.c:320
 msgid "_Source:"
-msgstr "F_uente:"
+msgstr "_Origen:"
 
 # src/html.c:1428
 # src/html.c:1079
@@ -2537,7 +2537,7 @@ msgstr "_Alto del margen:"
 # src/html.c:1072
 #: src/plugin_htmlbar/html.c:1695
 msgid "Scrollin_g:"
-msgstr "_Deslizar:"
+msgstr "_Desplazamiento:"
 
 # src/html.c:1342 src/toolbars.c:352
 # src/html.c:555 src/html.c:993 src/toolbars.c:356
@@ -2549,13 +2549,13 @@ msgstr "_Borde del marco:"
 # src/html.c:1098
 #: src/plugin_htmlbar/html.c:1704
 msgid "No _Resize:"
-msgstr "_Tamaño fijo:"
+msgstr "No __redimensionar:"
 
 # src/html.c:1921
 # src/html.c:1205
 #: src/plugin_htmlbar/html.c:1754
 msgid "Embed"
-msgstr "Incrustado"
+msgstr "Incrustar"
 
 # src/html.c:1095 src/html.c:1358 src/html.c:1410 src/html.c:1413
 # src/html.c:1947 src/images.c:235
@@ -2624,7 +2624,7 @@ msgstr "_Idioma:"
 # src/images.c:256
 #: src/plugin_htmlbar/html.c:1984
 msgid "_Custom:"
-msgstr "_Personalizar:"
+msgstr "_Personal:"
 
 # src/html.c:1478
 # src/html_form.c:79
@@ -2648,7 +2648,7 @@ msgstr "Méto_do:"
 # src/html_form.c:100 src/wml.c:271
 #: src/plugin_htmlbar/html_form.c:176
 msgid "_Enctype:"
-msgstr "_Enctype:"
+msgstr "_Codificación:"
 
 # src/html.c:1570
 # src/html_form.c:171
@@ -2679,7 +2679,7 @@ msgstr "_Selecciones múltiples:"
 # src/menu.c:475
 #: src/plugin_htmlbar/html_form.c:644
 msgid "Option"
-msgstr "Opciones"
+msgstr "Opción"
 
 # src/html.c:1053 src/toolbars.c:324
 # src/wml.c:319
@@ -2706,7 +2706,7 @@ msgstr "Entrada"
 # src/html_form.c:325 src/html_form.c:369
 #: src/plugin_htmlbar/html_form.c:803
 msgid "_Checked:"
-msgstr "_Seleccionada:"
+msgstr "_Marcada:"
 
 # src/html.c:1681
 # src/html_form.c:282
@@ -2871,7 +2871,7 @@ msgstr "_Usemap:"
 # src/images.c:224
 #: src/plugin_htmlbar/image.c:473
 msgid "Alternate _text:"
-msgstr "_Texto alterno:"
+msgstr "_Texto alternativo:"
 
 # src/images.c:246
 # src/images.c:245
@@ -2901,7 +2901,7 @@ msgstr "Seleccionar archivos para la creación de miniaturas"
 # src/html.c:1072
 #: src/plugin_htmlbar/image.c:917
 msgid "Scaling (%)"
-msgstr "Cambiar de escala (%)"
+msgstr "Escalado (%)"
 
 # src/html.c:886 src/html.c:1189 src/html.c:1270 src/html.c:1931
 # src/images.c:212
@@ -3129,7 +3129,7 @@ msgstr "Filas en una _línea:"
 
 #: src/plugin_htmlbar/wizards.c:88
 msgid "_Indent table code:"
-msgstr "Código de _sangrado tabla:"
+msgstr "Sangrar código de tabla:"
 
 # src/wizards.c:137
 # src/wizards.c:132
