@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-12-08 21:45+0100\n"
-"PO-Revision-Date: 2009-11-08 22:53+0100\n"
+"PO-Revision-Date: 2009-12-09 21:26+0100\n"
 "Last-Translator: elve <elve@savage-elve.net>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -459,6 +459,8 @@ msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
+"Uw glib versie  (%d.%d.%d) werkt onbetrouwbaar met netwerk bestanden. "
+"Gebruik 2.18.0 of nieuwer."
 
 #. || (!file_exists_and_readable(doc->uri))
 #: ../src/document.c:2611
@@ -804,9 +806,8 @@ msgid "Advanced open file selector"
 msgstr "Geavanceerde bestands selectie"
 
 #: ../src/file_dialogs.c:166
-#, fuzzy
 msgid "<b>Files</b>"
-msgstr "<b>Bevat</b>"
+msgstr "<b>Bestanden</b>"
 
 #: ../src/file_dialogs.c:175
 msgid "Base _Dir:"
@@ -825,9 +826,8 @@ msgid "_Recursive:"
 msgstr "Recursief:"
 
 #: ../src/file_dialogs.c:206
-#, fuzzy
 msgid "Ma_x recursion:"
-msgstr "Recursief:"
+msgstr "Maximum recursie"
 
 #: ../src/file_dialogs.c:215
 msgid "<b>Contains</b>"
@@ -856,6 +856,9 @@ msgid ""
 "ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 "
 "if you rely on remote file support.</b>"
 msgstr ""
+"<b>Uw glib versie (%d.%d.%d) werkt onbetrouwbaar met netwerk bestanden "
+"(bijv. smb, ftp, sftp of webdav). Gebruik een versie na 2.18.0 als u netwerk "
+"bestanden gebruikt.</b>"
 
 #: ../src/file_dialogs.c:380
 msgid "<b>Open URL</b>"
@@ -1642,18 +1645,16 @@ msgstr ""
 
 #. TODO: this dialog is not very convenient, hitting enter should choose 'selection'
 #: ../src/menu.c:792
-#, fuzzy
 msgid "Text area to filter"
-msgstr "Externe filters"
+msgstr "Te filteren tekst"
 
 #: ../src/menu.c:793
 msgid "All text"
-msgstr ""
+msgstr "Alle tekst"
 
 #: ../src/menu.c:794
-#, fuzzy
 msgid "Selected text only"
-msgstr "Selecteer font"
+msgstr "Alleen geselecteerde tekst"
 
 #: ../src/menu.c:951
 msgid "/Document/Character Encoding"
@@ -1672,9 +1673,9 @@ msgid "Output"
 msgstr "Uitvoer"
 
 #: ../src/outputbox.c:432
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
-msgstr "Compileren mislukt van uitvoer vlak patroon %s"
+msgstr "Compileren van van uitvoer vlak patroon %s mislukt: %s"
 
 #: ../src/preferences.c:275
 msgid "Untitled"
@@ -1734,7 +1735,7 @@ msgstr "Ingeschakeld"
 
 #: ../src/preferences.c:540
 msgid "Path to plugin"
-msgstr ""
+msgstr "Pad naar plugin"
 
 #: ../src/preferences.c:696
 msgid ""
@@ -2049,18 +2050,16 @@ msgid "Initial document settings"
 msgstr "Initiële document instellingen"
 
 #: ../src/preferences.c:1637
-#, fuzzy
 msgid "Non-project initial document settings"
-msgstr "Initiële document instellingen"
+msgstr "Non-project initiële document instellingen"
 
 #: ../src/preferences.c:1645
 msgid "HTML"
 msgstr "HTML"
 
 #: ../src/preferences.c:1647
-#, fuzzy
 msgid "HTML toolbar / menu options"
-msgstr "HTML optie's"
+msgstr "HTML menu en werkbalk optie's"
 
 #: ../src/preferences.c:1652
 msgid "Lowercase HTML tags"
@@ -2073,6 +2072,7 @@ msgstr "Gebruik verouderde tags (bĳv. <font> en <nobr>)"
 #: ../src/preferences.c:1654
 msgid "Format according to accessibility guidelines (e.g. <strong> for <b>)"
 msgstr ""
+"Maak op volgens toegankelijkheids-richtlijnen (bijv. <strong> i.p.v. <b>)"
 
 #: ../src/preferences.c:1655
 msgid "Use XHTML style tags (<br />)"
@@ -2080,7 +2080,7 @@ msgstr "Gebruik XHTML syntaxis (zoals <br />)"
 
 #: ../src/preferences.c:1657
 msgid "Auto update tag options"
-msgstr ""
+msgstr "Automatische tag bijwerk opties"
 
 #: ../src/preferences.c:1661
 msgid "Automatically update author meta tag"
@@ -2395,7 +2395,7 @@ msgstr "Sorteren"
 
 #: ../src/rcfile.c:556
 msgid "Sort / Unique"
-msgstr ""
+msgstr "Sorteer / Uniek"
 
 #: ../src/rcfile.c:557
 msgid "Reverse lines"
@@ -2635,7 +2635,6 @@ msgid "Only match if case (upper/lower) is identical."
 msgstr "Alleen resultaat als kast (hoofdletter/kleine letter) identiek is."
 
 #: ../src/snr2.c:1797
-#, fuzzy
 msgid "Pattern contains escape-se_quences"
 msgstr "Patroon bevat escape combinaties"
 
@@ -2644,9 +2643,8 @@ msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr "Patroon bevat backslash escape karakters zoals \\n, \\t etc."
 
 #: ../src/snr2.c:1802
-#, fuzzy
 msgid "Select matc_hes"
-msgstr "Selecteer gevonden resultaat"
+msgstr "Selecteer gevonden resultaten"
 
 #: ../src/snr2.c:1805
 msgid "Select the matching text instead of just highlighting it"
