@@ -300,8 +300,8 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 		prwin->project = prj;
 		prwin->session = prj->session;
 		DEBUG_MSG("project_open_from_file, project %p will be in existing prwin=%p\n",prj,bfwin);
-		/* now we need to clean the session, and reset it to the session from the project */
-		/* free_session(bfwin->session); there is no session specific to a window anymore, only a global one*/
+		/* destroy the current empty document, it should use settings from the new session */
+		doc_destroy(bfwin->current_document, TRUE);
 	} else {
 		/* we will open a new Bluefish window for this project */
 		DEBUG_MSG("project_open_from_file, we need a new window\n");
