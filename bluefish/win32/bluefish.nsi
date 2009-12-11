@@ -108,6 +108,7 @@ ${StrTok}
 
 ; MUI configuration
 ;----------------------------------------------
+!define MUI_LANGDLL_ALLLANGUAGES
 !define MUI_LANGDLL_REGISTRY_ROOT 		"HKCU"
 !define MUI_LANGDLL_REGISTRY_KEY 		${REG_USER_SET}
 !define MUI_LANGDLL_REGISTRY_VALUENAME "Installer Language"
@@ -297,24 +298,28 @@ Page custom FileAssociations SetFileAssociations
 ; English goes first as the default language
 !insertmacro MUI_LANGUAGE	"English"
 ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
+!insertmacro MUI_LANGUAGE	"Czech"
+${LoadLocalization}	"CZECH"	"locale\Czech.nsh"
+!insertmacro MUI_LANGUAGE	"French"
+${LoadLocalization}	"FRENCH"	"locale\French.nsh"
+!insertmacro MUI_LANGUAGE	"Galician"
+${LoadLocalization}	"GALICIAN"	"locale\Galician.nsh"
+!insertmacro MUI_LANGUAGE	"Norwegian"
+${LoadLocalization}	"NORWEGIAN"	"locale\Norwegian.nsh"
+!insertmacro MUI_LANGUAGE	"Swedish"
+${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 ; Translations needed for the following commented languages
-;;!insertmacro MUI_LANGUAGE	"Czech"
 ;;!insertmacro MUI_LANGUAGE	"Danish"
 ;;!insertmacro MUI_LANGUAGE	"Dutch"
 ;;!insertmacro MUI_LANGUAGE	"Finnish"
-;;!insertmacro MUI_LANGUAGE	"French"
-;;!insertmacro MUI_LANGUAGE	"Galician"
 ;;!insertmacro MUI_LANGUAGE	"German"
 ;;!insertmacro MUI_LANGUAGE	"Italian"
-;;!insertmacro MUI_LANGUAGE	"Norwegian"
 ;;!insertmacro MUI_LANGUAGE	"Portuguese"
 ;;!insertmacro MUI_LANGUAGE	"PortugueseBR"
 ;;!insertmacro MUI_LANGUAGE	"Russian"
 ;;!insertmacro MUI_LANGUAGE	"Serbian"
 ;;!insertmacro MUI_LANGUAGE	"Slovak"
 ;;!insertmacro MUI_LANGUAGE	"Spanish"
-!insertmacro MUI_LANGUAGE	"Swedish"
-${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 ; NSIS Lacks a translation for this language
 ;!insertmacro MUI_LANGUAGE	"Tamil"
 ;;!insertmacro MUI_LANGUAGE	"Turkish"

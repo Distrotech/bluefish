@@ -10,17 +10,17 @@
 
 ; Section Names
 !define SECT_BLUEFISH "Bluefish Editor"
-!define SECT_PLUGINS "Tillägg"
-!define SECT_SHORTCUT "Skrivbordsgenväg"
-!define SECT_DICT "Översättningsordlistor (Internetanslutning behövs för nerladdning)"
+!define SECT_PLUGINS "TillÃ¤gg"
+!define SECT_SHORTCUT "SkrivbordsgenvÃ¤g"
+!define SECT_DICT "Ã–versÃ¤ttningsordlistor (Internetanslutning behÃ¶vs fÃ¶r nerladdning)"
 
 ; License Page
-!define LICENSEPAGE_BUTTON "Nästa"
-!define LICENSEPAGE_FOOTER "${PRODUCT} är publicerat under GNU General Public License. Licensen inkluderas endast som information. $_CLICK"
+!define LICENSEPAGE_BUTTON "NÃ¤sta"
+!define LICENSEPAGE_FOOTER "${PRODUCT} Ã¤r publicerat under GNU General Public License. Licensen inkluderas endast som information. $_CLICK"
 
 ; Aspell Strings
-!define DICT_INSTALLED "Senaste versionen av denna ordlista är redan installerad, hoppar över nerladdning av:"
-!define DICT_DOWNLOAD "Laddar ner översättningsordlista..."
+!define DICT_INSTALLED "Senaste versionen av denna ordlista Ã¤r redan installerad, hoppar Ã¶ver nerladdning av:"
+!define DICT_DOWNLOAD "Laddar ner Ã¶versÃ¤ttningsordlista..."
 !define DICT_FAILED "Nerladdning av ordlista misslyckades:"
 !define DICT_EXTRACT "Packar upp ordlista..."
 
@@ -31,36 +31,36 @@
 !define GTK_PATH "Installerar GTK+ i systemmappen."
 
 ; Plugin Names
-!define PLUG_CHARMAP "Teckenuppsättning"
+!define PLUG_CHARMAP "TeckenuppsÃ¤ttning"
 !define PLUG_ENTITIES "Enheter"
-!define PLUG_HTMLBAR "HTML fält"
+!define PLUG_HTMLBAR "HTML fÃ¤lt"
 !define PLUG_INFBROWSER "Informationsvisare"
 !define PLUG_SNIPPETS "Snippets"
 
 ; File Associations Page
 !define FA_TITLE "Filassociationer"
-!define FA_HEADER "Välj de filtyper du vill ska associeras med ${PRODUCT}."
+!define FA_HEADER "VÃ¤lj de filtyper du vill ska associeras med ${PRODUCT}."
 !define FA_SELECT "Markera Alla"
 !define FA_UNSELECT "Avmarkera Alla"
 
 ; Misc
-!define FINISHPAGE_LINK "Besök Bluefish Hemsidan"
+!define FINISHPAGE_LINK "BesÃ¶k Bluefish Hemsidan"
 !define UNINSTALL_SHORTCUT "Avinstallera ${PRODUCT}"
 
 ; Content Types
-!define CT_ADA	"Ada Källfil"
+!define CT_ADA	"Ada KÃ¤llfil"
 !define CT_ASP "ActiveServer Sidskript"
 !define CT_SH	"Bash Skalskript"
 !define CT_BFPROJECT	"Bluefish Projekt"
-!define CT_BFLANG2	"Bluefish Språkfil Version 2"
-!define CT_C	"C Källfil"
+!define CT_BFLANG2	"Bluefish SprÃ¥kfil Version 2"
+!define CT_C	"C KÃ¤llfil"
 !define CT_H	"C Headerfil"
-!define CT_CPP	"C++ Källfil"
+!define CT_CPP	"C++ KÃ¤llfil"
 !define CT_HPP	"C++ Headerfil"
 !define CT_CSS "Omlott Stilmall"
-!define CT_D	"D Källfil"
-!define CT_PO	"Gettext Översättning"
-!define CT_JAVA	"Java Källfil"	
+!define CT_D	"D KÃ¤llfil"
+!define CT_PO	"Gettext Ã–versÃ¤ttning"
+!define CT_JAVA	"Java KÃ¤llfil"	
 !define CT_JS	"JavaScript Skript"
 !define CT_JSP	"JavaServer Sidskript"
 !define CT_NSI	"NSIS Skript"
