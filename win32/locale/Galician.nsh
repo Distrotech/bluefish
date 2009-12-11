@@ -5,7 +5,7 @@
 ;  The Bluefish Developers
 ;
 ;  Translators:
-;   Shawn Novak <Kernel86@gmail.com>
+;   Xose M (Pika) <pikamoku@gmail.com>
 ;----------------------------------------------
 
 ; Section Names
