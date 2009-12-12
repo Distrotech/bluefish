@@ -304,24 +304,34 @@ ${LoadLocalization}	"CZECH"	"locale\Czech.nsh"
 ${LoadLocalization}	"FRENCH"	"locale\French.nsh"
 !insertmacro MUI_LANGUAGE	"Galician"
 ${LoadLocalization}	"GALICIAN"	"locale\Galician.nsh"
+!insertmacro MUI_LANGUAGE	"Japanese"
+${LoadLocalization}	"JAPANESE"	"locale\Japanese.nsh"
 !insertmacro MUI_LANGUAGE	"Norwegian"
 ${LoadLocalization}	"NORWEGIAN"	"locale\Norwegian.nsh"
 !insertmacro MUI_LANGUAGE	"Swedish"
 ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 ; Translations needed for the following commented languages
+;;!insertmacro MUI_LANGUAGE	"Bulgarian"
 ;;!insertmacro MUI_LANGUAGE	"Danish"
 ;;!insertmacro MUI_LANGUAGE	"Dutch"
 ;;!insertmacro MUI_LANGUAGE	"Finnish"
 ;;!insertmacro MUI_LANGUAGE	"German"
+;;!insertmacro MUI_LANGUAGE	"Greek"
+;;!insertmacro MUI_LANGUAGE	"Hungarian"
 ;;!insertmacro MUI_LANGUAGE	"Italian"
+;;!insertmacro MUI_LANGUAGE	"Korean"
+;;!insertmacro MUI_LANGUAGE	"Polish"
 ;;!insertmacro MUI_LANGUAGE	"Portuguese"
 ;;!insertmacro MUI_LANGUAGE	"PortugueseBR"
+;;!insertmacro MUI_LANGUAGE	"Romanian"
 ;;!insertmacro MUI_LANGUAGE	"Russian"
 ;;!insertmacro MUI_LANGUAGE	"Serbian"
+;;!insertmacro MUI_LANGUAGE	"SimpChinese"
 ;;!insertmacro MUI_LANGUAGE	"Slovak"
 ;;!insertmacro MUI_LANGUAGE	"Spanish"
 ; NSIS Lacks a translation for this language
 ;!insertmacro MUI_LANGUAGE	"Tamil"
+;;!insertmacro MUI_LANGUAGE	"TradChinese"
 ;;!insertmacro MUI_LANGUAGE	"Turkish"
 
 
@@ -449,6 +459,9 @@ Section "$(SECT_SHORTCUT)" SecDesktopShortcut
 SectionEnd
 
 SectionGroup /e "$(SECT_DICT)" SecLang
+	Section /o "Bulgarian" SecLangBg
+		${InstallAspellDict} "bg" "4.1-0"
+	SectionEnd
 	Section /o "Czech" SecLangCs
 		${InstallAspellDict} "cs" "20040614-1"
 	SectionEnd
@@ -473,6 +486,12 @@ SectionGroup /e "$(SECT_DICT)" SecLang
 	Section /o "German" SecLangDe
 		${InstallAspellDict} "de" "20030222"
 	SectionEnd
+	Section /o "Greek" SecLangEl
+		${InstallAspellDict} "el" "0.50-3"
+	SectionEnd
+	Section /o "Hungarian" SecLangHu
+		${InstallAspellDict} "hu" "0.99.4.2-0"
+	SectionEnd
 	Section /o "Italian" SecLangIt
 		${InstallAspellDict} "it" "2.2_20050523"
 	SectionEnd
@@ -484,6 +503,9 @@ SectionGroup /e "$(SECT_DICT)" SecLang
 	SectionEnd
 	Section /o "Portuguese (Brazilian)" SecLangPt_BR
 		${InstallAspellDict} "pt_BR" "20090702-0"
+	SectionEnd
+	Section /o "Romanian" SecLangRo
+		${InstallAspellDict} "ro" "3.1"
 	SectionEnd
 	Section /o "Russian" SecLangRu
 		${InstallAspellDict} "ru" "0.99f7-1"
@@ -552,6 +574,7 @@ Function .onInit
 		SectionSetSize ${SecGTK} ${GTK_SIZE}	; 6.69MB Download
 	${EndIf}
 
+	SectionSetSize ${SecLangBg} 2501		; 842KB Download
 	SectionSetSize ${SecLangCs}	6640		; 2.21MB Download
 	SectionSetSize ${SecLangDa} 12394		; 3.86MB Download
 	SectionSetSize ${SecLangNl} 4430		; 1.54MB Download
@@ -560,10 +583,13 @@ Function .onInit
 	SectionSetSize ${SecLangFr} 17762		; 5.55MB Download
 	SectionSetSize ${SecLangGl}	814		; 299KB Download
 	SectionSetSize ${SecLangDe} 11355		; 3.63MB Download
+	SectionSetSize ${SecLangEl} 12975		; 4.03MB Download
+	SectionSetSize ${SecLangHu} 7098		; 1.74MB Download
 	SectionSetSize ${SecLangIt} 2119		; 690KB Download
 	SectionSetSize ${SecLangNb} 11040		; 3.47MB Download
 	SectionSetSize ${SecLangPt_PT} 734		; 273KB Download
 	SectionSetSize ${SecLangPt_BR} 7946	; 2.54MB Download
+	SectionSetSize ${SecLangRo} 30943		; 9.64MB Download
 	SectionSetSize ${SecLangRu} 5904		; 1.87MB Download
 	SectionSetSize ${SecLangSr} 12196		; 4.35MB Download
 	SectionSetSize ${SecLangSk} 3810		; 1.34MB Download
