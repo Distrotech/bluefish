@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-08 21:45+0100\n"
-"PO-Revision-Date: 2009-09-18 14:40+0200\n"
+"POT-Creation-Date: 2009-12-14 18:21+0100\n"
+"PO-Revision-Date: 2009-12-14 17:04+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,13 +35,12 @@ msgid "Bluefish project file"
 msgstr "Bluefish proiektuaren fitxategia"
 
 #: ../src/bftextview2.c:974
-#, fuzzy
 msgid "Collapse all"
-msgstr "_Itxi dena"
+msgstr "Tolestu guztiak"
 
 #: ../src/bftextview2.c:977
 msgid "Expand all"
-msgstr ""
+msgstr "Zabaldu guztiak"
 
 #: ../src/bftextview2_spell.c:516
 msgid "Spell check language"
@@ -78,6 +77,9 @@ msgid ""
 "opened in this window.\n"
 "<b>Proceed?</b>"
 msgstr ""
+"<i>%s</i> eta <i>%s</i> arteko testua ordeztuko da leiho honetan irekitako "
+"dokumentu guztietan.\n"
+"<b>Jarraitu?</b>"
 
 #: ../src/blocksync.c:226
 msgid ""
@@ -243,19 +245,16 @@ msgid "/Show bookmark/Name"
 msgstr "/Erakutsi laster-marka/Izena"
 
 #: ../src/bookmark.c:897
-#, fuzzy
 msgid "/Both Name & Content"
-msgstr "/Erakutsi laster-marka/Izena eta edukia"
+msgstr "/Bai izena bai edukia"
 
 #: ../src/bookmark.c:898
-#, fuzzy
 msgid "/Content"
-msgstr "_Konektatu"
+msgstr "/Edukia"
 
 #: ../src/bookmark.c:899
-#, fuzzy
 msgid "/Name"
-msgstr "Izena"
+msgstr "/Izena"
 
 #: ../src/bookmark.c:962
 msgid "First bookmark"
@@ -298,13 +297,12 @@ msgid "Name: "
 msgstr "Izena: "
 
 #: ../src/document.c:366
-#, fuzzy
 msgid ""
 "\n"
 "Language mode: "
 msgstr ""
 "\n"
-"Azken aldatze-data: "
+"Hizkuntzaren modua: "
 
 #: ../src/document.c:370
 msgid ""
@@ -400,7 +398,7 @@ msgstr " IS"
 
 #: ../src/document.c:1094
 msgid "Unknown"
-msgstr ""
+msgstr "Ezezaguna"
 
 #: ../src/document.c:1471
 msgid "Cannot display file, unknown characters found."
@@ -750,10 +748,10 @@ msgid "New filter"
 msgstr "Iragazki berria"
 
 #: ../src/file.c:751
-#, fuzzy, c-format
+#, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
-msgstr[0] "Oraindik %d fitxategi kargatzen, %s amaituta"
+msgstr[0] "Oraindik fitxategi %d kargatzen, %s amaituta"
 msgstr[1] "Oraindik %d fitxategi kargatzen, %s amaituta"
 
 #: ../src/file.c:756
@@ -878,11 +876,8 @@ msgid "File backup failure"
 msgstr "Huts egin du fitxategiaren babeskopia egitean"
 
 #: ../src/file_dialogs.c:471
-#, fuzzy
 msgid "Could not save file "
-msgstr ""
-"Ezin izan da fitxategia gorde:\n"
-"\""
+msgstr "Ezin izan da fitxategia gorde "
 
 #: ../src/file_dialogs.c:490
 #, c-format
@@ -976,8 +971,8 @@ msgstr "Irekitako hainbat fitxategi bat edo gehiago aldatu egin dira."
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<span color=\"red\">Hutsegite %d</span>"
+msgstr[1] "<span color=\"red\">%d hutsegite</span>"
 
 #: ../src/file_dialogs.c:1150
 msgid "incomplete finished"
@@ -1025,9 +1020,8 @@ msgid "Hide files that match the filter"
 msgstr "Ezkutatu fitxategiak (iragazkiarekin bat datoztenak)"
 
 #: ../src/filefilter.c:566
-#, fuzzy
 msgid "Add pattern"
-msgstr "Eredua"
+msgstr "Gehitu eredua"
 
 #: ../src/filefilter.c:572 ../src/filefilter.c:584
 msgid "Mime type"
@@ -1480,9 +1474,8 @@ msgid "/Document/Character _Encoding"
 msgstr "/Dokumentua/_Karaktere-kodeketa"
 
 #: ../src/menu.c:307
-#, fuzzy
 msgid "/Document/Character Encoding/_Add or Remove..."
-msgstr "/Dokumentua/Karaktere-kodeketa"
+msgstr "/Dokumentua/Karaktere-kodeketa/_Gehitu edo kendu..."
 
 #: ../src/menu.c:309
 msgid "/Document/Add Boo_kmark"
@@ -1664,24 +1657,21 @@ msgid "/Document/Character Encoding"
 msgstr "/Dokumentua/Karaktere-kodeketa"
 
 #: ../src/outputbox.c:226
-#, fuzzy
 msgid "Filename"
-msgstr "Fitxategi-izena: %s"
+msgstr "Fitxategi-izena"
 
 #: ../src/outputbox.c:228
-#, fuzzy
 msgid "Line"
-msgstr "Lerro-zk."
+msgstr "Lerroa"
 
 #: ../src/outputbox.c:230
-#, fuzzy
 msgid "Output"
-msgstr "Irteera-zk."
+msgstr "Irteera"
 
 #: ../src/outputbox.c:432
 #, fuzzy, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
-msgstr "huts egin du %s ereduaren irteerako kutxa konpilatzean\n"
+msgstr "Huts egin du %s ereduaren irteerako kutxa konpilatzean"
 
 #: ../src/preferences.c:275
 msgid "Untitled"
@@ -1983,19 +1973,19 @@ msgstr "Fitxategi-tamaina"
 
 #: ../src/preferences.c:1571
 msgid "All"
-msgstr ""
+msgstr "Denak"
 
 #: ../src/preferences.c:1571
 msgid "All except spaces"
-msgstr ""
+msgstr "Denak zuriuneak ezik"
 
 #: ../src/preferences.c:1571
 msgid "All trailing"
-msgstr ""
+msgstr "Lerro amaierako zuriune guztiak"
 
 #: ../src/preferences.c:1571
 msgid "All except non-trailing spaces"
-msgstr ""
+msgstr "Soberako zuriune mota denak"
 
 #: ../src/preferences.c:1587
 msgid "Edit preferences"
@@ -2015,16 +2005,15 @@ msgstr "Letra-tipoa"
 
 #: ../src/preferences.c:1618
 msgid "Current line color"
-msgstr ""
+msgstr "Uneko lerroaren kolorea"
 
 #: ../src/preferences.c:1619
 msgid "Visible whitespace color"
-msgstr ""
+msgstr "Zuriune ikusgaiaren kolorea"
 
 #: ../src/preferences.c:1620
-#, fuzzy
 msgid "Show whitespace"
-msgstr "Erakutsi harrerako pantaila"
+msgstr "Erakutsi zuriunea"
 
 #: ../src/preferences.c:1621
 msgid "Smart Home/End cursor positioning"
@@ -2212,15 +2201,15 @@ msgstr ""
 
 #: ../src/preferences.c:1735
 msgid "Notebook tab color (doc modified)"
-msgstr ""
+msgstr "Koadernoaren kolorea (aldatutako dok.)"
 
 #: ../src/preferences.c:1736
 msgid "Notebook tab color (doc loading)"
-msgstr ""
+msgstr "Koadernoaren kolorea (dok. kargatzean)"
 
 #: ../src/preferences.c:1737
 msgid "Notebook tab color (doc error)"
-msgstr ""
+msgstr "Koadernoaren kolorea (dok. errorea)"
 
 #: ../src/preferences.c:1738
 msgid "Document notebook tab position"
@@ -2349,10 +2338,10 @@ msgid "Edit Project"
 msgstr "Editatu proiektua"
 
 #: ../src/project.c:511
-#, fuzzy, c-format
+#, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
-msgstr[0] "Proiektu honek %d fitxategi dauzka"
+msgstr[0] "Proiektu honek fitxategi %d dauka"
 msgstr[1] "Proiektu honek %d fitxategi dauzka"
 
 #: ../src/project.c:524
@@ -2564,14 +2553,12 @@ msgid "Entire word only"
 msgstr "Hitz osoa soilik"
 
 #: ../src/snr2.c:1656
-#, fuzzy
 msgid "POSIX style regular expression"
-msgstr "Adierazpen erregularraren errorea: "
+msgstr "POSIX estiloko adierazpen erregularra"
 
 #: ../src/snr2.c:1657
-#, fuzzy
 msgid "PERL style regular expression"
-msgstr "Adierazpen erregularraren errorea: "
+msgstr "PERL estiloko adierazpen erregularra"
 
 #: ../src/snr2.c:1662
 msgid "Uppercase"
@@ -2651,15 +2638,15 @@ msgid "Only match if case (upper/lower) is identical."
 msgstr "Bat etorriko da maiuskulak/minuskulak berdinak badira."
 
 #: ../src/snr2.c:1797
+#, fuzzy
 msgid "Pattern contains escape-se_quences"
-msgstr ""
+msgstr "_Ereduak ihes sekuentziak ditu"
 
 #: ../src/snr2.c:1800
-#, fuzzy
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr ""
-"Kendu ihes-ikurra \\n, \\t, e.a. bezalako alderantzizko barradun ihes-"
-"sekuentzietatik."
+"Ereduak ihes-ikurra \\n, \\t, e.a. bezalako alderantzizko barradun ihes-"
+"karaktereak ditu."
 
 #: ../src/snr2.c:1802
 #, fuzzy
@@ -2737,25 +2724,3 @@ msgstr "Aldaketa hau hainbat dokumentutan aplikatu da."
 
 #~ msgid "File"
 #~ msgstr "Fitxategia"
-
-#~ msgid ""
-#~ "\n"
-#~ "File type: "
-#~ msgstr ""
-#~ "\n"
-#~ "Fitxategi-mota: "
-
-#~ msgid "  %s, %s"
-#~ msgstr "  %s, %s"
-
-#~ msgid "File save failed!\n"
-#~ msgstr "Huts egin du fitxategia gordetzean.\n"
-
-#~ msgid "POSIX"
-#~ msgstr "POSIX"
-
-#~ msgid "PERL"
-#~ msgstr "PERL"
-
-#~ msgid "_Use escape chars"
-#~ msgstr "_Erabili ihes-sekuentziak"
