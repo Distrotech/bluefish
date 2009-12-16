@@ -16,7 +16,7 @@ LDADD = -lws2_32
 LDADD += bluefish_rc.o
 endif
 
-bin_PROGRAMS = bluefish-unstable
+bin_PROGRAMS = bluefish
 
 #
 #
@@ -33,7 +33,7 @@ bin_PROGRAMS = bluefish-unstable
 #
 #
 
-bluefish_unstable_SOURCES = \
+bluefish_SOURCES = \
 	bf_lib.c \
 	bf_lib.h \
 	blocksync.c \
