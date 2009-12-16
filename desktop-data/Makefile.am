@@ -10,8 +10,8 @@ CLEANFILES = \
 MAINTAINERCLEANFILES = Makefile.in
 
 
-fdomenu_in_files  = bluefish-unstable.desktop.in
-fdomime_in_files  = bluefish-unstable.xml.in
+fdomenu_in_files  = bluefish.desktop.in
+fdomime_in_files  = bluefish.xml.in
 
 
 if INSTALL_FDOMENU
