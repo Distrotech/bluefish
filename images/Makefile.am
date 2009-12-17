@@ -58,7 +58,7 @@ install-data-local:
 if INSTALL_SPLASH
 	test -z "$(pkgdatadir)" || \
 		$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
-	$(INSTALL_DATA) $(srcdir)/bluefish-splash-nb2.png \
+	$(INSTALL_DATA) $(srcdir)/bluefish-splash-nb3.png \
 		$(DESTDIR)$(pkgdatadir)/bluefish_splash.png
 endif #INSTALL_SPLASH
 if INSTALL_ICONS
