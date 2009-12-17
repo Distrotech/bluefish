@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-08 21:45+0100\n"
+"POT-Creation-Date: 2009-12-16 20:57-0800\n"
 "PO-Revision-Date: 2004-12-09 12:11+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: no team\n"
@@ -16,20 +16,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:1
-msgid "Bluefish Editor (SVN)"
+#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:79
+#, fuzzy
+msgid "Bluefish Editor"
+msgstr "Προεπισκόπηση του Bluefish:"
+
+#: ../desktop-data/bluefish.desktop.in.h:2
+msgid "Web Development Editor"
 msgstr ""
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:2
-msgid "Web Development Editor (development version)"
-msgstr ""
-
-#: ../desktop-data/bluefish-unstable.xml.in.h:1
+#: ../desktop-data/bluefish.xml.in.h:1
 #, fuzzy
 msgid "Bluefish language definition file"
 msgstr "Ορισμός"
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:2
+#: ../desktop-data/bluefish.xml.in.h:2
 #, fuzzy
 msgid "Bluefish project file"
 msgstr "Σφάλμα του Bluefish"
@@ -103,11 +104,6 @@ msgstr ""
 #: ../src/blocksync.c:297
 msgid "Synchronize text block"
 msgstr ""
-
-#: ../src/bluefish.c:79
-#, fuzzy
-msgid "Bluefish Editor"
-msgstr "Προεπισκόπηση του Bluefish:"
 
 #: ../src/bluefish.c:79
 msgid "Visit us at http://bluefish.openoffice.nl"

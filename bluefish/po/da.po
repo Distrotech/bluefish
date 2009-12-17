@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-08 21:45+0100\n"
+"POT-Creation-Date: 2009-12-16 20:57-0800\n"
 "PO-Revision-Date: 2004-11-26 22:30+0100\n"
 "Last-Translator: Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
 "Language-Team: None\n"
@@ -14,21 +14,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:1
+#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:79
 #, fuzzy
-msgid "Bluefish Editor (SVN)"
+msgid "Bluefish Editor"
 msgstr "Bluefish tip:"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:2
-msgid "Web Development Editor (development version)"
+#: ../desktop-data/bluefish.desktop.in.h:2
+msgid "Web Development Editor"
 msgstr ""
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:1
+#: ../desktop-data/bluefish.xml.in.h:1
 #, fuzzy
 msgid "Bluefish language definition file"
 msgstr "Definition"
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:2
+#: ../desktop-data/bluefish.xml.in.h:2
 #, fuzzy
 msgid "Bluefish project file"
 msgstr "Indtast Bluefish projekt filnavn"
@@ -102,11 +102,6 @@ msgstr ""
 #: ../src/blocksync.c:297
 msgid "Synchronize text block"
 msgstr ""
-
-#: ../src/bluefish.c:79
-#, fuzzy
-msgid "Bluefish Editor"
-msgstr "Bluefish tip:"
 
 #: ../src/bluefish.c:79
 msgid "Visit us at http://bluefish.openoffice.nl"
@@ -2809,6 +2804,10 @@ msgstr ""
 #: ../src/undo_redo.c:465
 msgid "This change concerns multiple documents."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Bluefish Editor (SVN)"
+#~ msgstr "Bluefish tip:"
 
 #~ msgid "<b>General</b>"
 #~ msgstr "<b>Generél</b>"
