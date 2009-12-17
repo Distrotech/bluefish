@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-08 21:45+0100\n"
+"POT-Creation-Date: 2009-12-16 20:57-0800\n"
 "PO-Revision-Date: 2009-08-02 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -16,19 +16,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8 bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:1
-msgid "Bluefish Editor (SVN)"
-msgstr "Bluefish Editor (SVN)"
+#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:79
+msgid "Bluefish Editor"
+msgstr "Bluefish Editor"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:2
-msgid "Web Development Editor (development version)"
+#: ../desktop-data/bluefish.desktop.in.h:2
+#, fuzzy
+msgid "Web Development Editor"
 msgstr "Teksteditor for webutvikling (betautgave)"
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:1
+#: ../desktop-data/bluefish.xml.in.h:1
 msgid "Bluefish language definition file"
 msgstr "Språkdefinisjonsfil for Bluefish"
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:2
+#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish project file"
 msgstr "Bluefish prosjektfil"
 
@@ -111,10 +112,6 @@ msgstr ""
 #: ../src/blocksync.c:297
 msgid "Synchronize text block"
 msgstr "Synkronisering av tekstblokk"
-
-#: ../src/bluefish.c:79
-msgid "Bluefish Editor"
-msgstr "Bluefish Editor"
 
 #: ../src/bluefish.c:79
 msgid "Visit us at http://bluefish.openoffice.nl"
@@ -2717,6 +2714,9 @@ msgstr "Angre endringen i alle dokumenter?"
 #: ../src/undo_redo.c:465
 msgid "This change concerns multiple documents."
 msgstr "Denne endringen vil berøre flere dokumenter."
+
+#~ msgid "Bluefish Editor (SVN)"
+#~ msgstr "Bluefish Editor (SVN)"
 
 #~ msgid "<b>General</b>"
 #~ msgstr "<b>Kilde</b>"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable 1.3.8\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-08 21:45+0100\n"
+"POT-Creation-Date: 2009-12-16 20:57-0800\n"
 "PO-Revision-Date: 2009-12-09 00:48+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech translators <diskuze@lists.l10n.cz>\n"
@@ -16,19 +16,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:1
-msgid "Bluefish Editor (SVN)"
-msgstr "Editor Bluefish (SVN)"
+#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:79
+msgid "Bluefish Editor"
+msgstr "Editor Bluefish"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:2
-msgid "Web Development Editor (development version)"
+#: ../desktop-data/bluefish.desktop.in.h:2
+#, fuzzy
+msgid "Web Development Editor"
 msgstr "Editor pro vývojáře webů (vývojová verze)"
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:1
+#: ../desktop-data/bluefish.xml.in.h:1
 msgid "Bluefish language definition file"
 msgstr "Soubor Bluefish s definicí jazyka"
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:2
+#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish project file"
 msgstr "Projektový soubor Bluefish"
 
@@ -114,10 +115,6 @@ msgstr ""
 #: ../src/blocksync.c:297
 msgid "Synchronize text block"
 msgstr "Synchronizace bloku textu"
-
-#: ../src/bluefish.c:79
-msgid "Bluefish Editor"
-msgstr "Editor Bluefish"
 
 #: ../src/bluefish.c:79
 msgid "Visit us at http://bluefish.openoffice.nl"
@@ -2714,6 +2711,9 @@ msgstr "Vrátit tuto změnu ve všech dokumentech?"
 #: ../src/undo_redo.c:465
 msgid "This change concerns multiple documents."
 msgstr "Tato změna se dotkne více dokumentů."
+
+#~ msgid "Bluefish Editor (SVN)"
+#~ msgstr "Editor Bluefish (SVN)"
 
 #~ msgid "<b>General</b>"
 #~ msgstr "<b>Obecné</b>"

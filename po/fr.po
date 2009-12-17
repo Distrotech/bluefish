@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 1.3.8\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-08 21:45+0100\n"
+"POT-Creation-Date: 2009-12-16 20:57-0800\n"
 "PO-Revision-Date: 2009-12-04 15:09+0100 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
@@ -20,19 +20,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8 bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:1
-msgid "Bluefish Editor (SVN)"
-msgstr "Éditeur Bluefish (SVN)"
+#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:79
+msgid "Bluefish Editor"
+msgstr "Éditeur Bluefish"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:2
-msgid "Web Development Editor (development version)"
+#: ../desktop-data/bluefish.desktop.in.h:2
+#, fuzzy
+msgid "Web Development Editor"
 msgstr "Éditeur de développement web (version de développement)"
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:1
+#: ../desktop-data/bluefish.xml.in.h:1
 msgid "Bluefish language definition file"
 msgstr "Fichier de définition de language Bluefish"
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:2
+#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish project file"
 msgstr "Fichier de projet Bluefish"
 
@@ -118,10 +119,6 @@ msgstr ""
 #: ../src/blocksync.c:297
 msgid "Synchronize text block"
 msgstr "Synchroniser le bloc de texte"
-
-#: ../src/bluefish.c:79
-msgid "Bluefish Editor"
-msgstr "Éditeur Bluefish"
 
 #: ../src/bluefish.c:79
 msgid "Visit us at http://bluefish.openoffice.nl"
@@ -2727,3 +2724,6 @@ msgstr "Annuler ce changement dans tous les documents ?"
 #: ../src/undo_redo.c:465
 msgid "This change concerns multiple documents."
 msgstr "Ce changement affecte de multiple documents."
+
+#~ msgid "Bluefish Editor (SVN)"
+#~ msgstr "Éditeur Bluefish (SVN)"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-08 21:45+0100\n"
+"POT-Creation-Date: 2009-12-16 20:57-0800\n"
 "PO-Revision-Date: 2006-02-10 23:32+0530\n"
 "Last-Translator: Murugapandian barathee <barathee@gmail.com>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -18,21 +18,21 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Bookmarks: -1,-1,-1,94,-1,-1,-1,-1,-1,-1\n"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:1
+#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:79
 #, fuzzy
-msgid "Bluefish Editor (SVN)"
+msgid "Bluefish Editor"
 msgstr "நீலமீன் டிப்ஸ்:"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:2
-msgid "Web Development Editor (development version)"
+#: ../desktop-data/bluefish.desktop.in.h:2
+msgid "Web Development Editor"
 msgstr ""
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:1
+#: ../desktop-data/bluefish.xml.in.h:1
 #, fuzzy
 msgid "Bluefish language definition file"
 msgstr "விளக்கம்"
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:2
+#: ../desktop-data/bluefish.xml.in.h:2
 #, fuzzy
 msgid "Bluefish project file"
 msgstr "நீலமீன் செயல்திட்ட கோப்பின் பெயரை அளிக்கவும்"
@@ -106,11 +106,6 @@ msgstr ""
 #: ../src/blocksync.c:297
 msgid "Synchronize text block"
 msgstr ""
-
-#: ../src/bluefish.c:79
-#, fuzzy
-msgid "Bluefish Editor"
-msgstr "நீலமீன் டிப்ஸ்:"
 
 #: ../src/bluefish.c:79
 msgid "Visit us at http://bluefish.openoffice.nl"
@@ -2809,6 +2804,10 @@ msgstr ""
 #: ../src/undo_redo.c:465
 msgid "This change concerns multiple documents."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Bluefish Editor (SVN)"
+#~ msgstr "நீலமீன் டிப்ஸ்:"
 
 #~ msgid "<b>General</b>"
 #~ msgstr "<b>பொது</b>"

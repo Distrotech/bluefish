@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-08 21:45+0100\n"
+"POT-Creation-Date: 2009-12-16 20:57-0800\n"
 "PO-Revision-Date: 2004-12-08 18:48-0300\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -14,21 +14,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:1
+#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:79
 #, fuzzy
-msgid "Bluefish Editor (SVN)"
+msgid "Bluefish Editor"
 msgstr "Bluefish 提示："
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:2
-msgid "Web Development Editor (development version)"
+#: ../desktop-data/bluefish.desktop.in.h:2
+msgid "Web Development Editor"
 msgstr ""
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:1
+#: ../desktop-data/bluefish.xml.in.h:1
 #, fuzzy
 msgid "Bluefish language definition file"
 msgstr "定义"
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:2
+#: ../desktop-data/bluefish.xml.in.h:2
 #, fuzzy
 msgid "Bluefish project file"
 msgstr "输入 Bluefish 项目文件名"
@@ -102,11 +102,6 @@ msgstr ""
 #: ../src/blocksync.c:297
 msgid "Synchronize text block"
 msgstr ""
-
-#: ../src/bluefish.c:79
-#, fuzzy
-msgid "Bluefish Editor"
-msgstr "Bluefish 提示："
 
 #: ../src/bluefish.c:79
 msgid "Visit us at http://bluefish.openoffice.nl"
@@ -2808,6 +2803,10 @@ msgstr ""
 #: ../src/undo_redo.c:465
 msgid "This change concerns multiple documents."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Bluefish Editor (SVN)"
+#~ msgstr "Bluefish 提示："
 
 #~ msgid "<b>General</b>"
 #~ msgstr "<b>常规</b>"

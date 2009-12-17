@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable 1.3.8\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-11 15:18+0100\n"
+"POT-Creation-Date: 2009-12-16 20:57-0800\n"
 "PO-Revision-Date: 2009-12-10 09:26+0100\n"
 "Last-Translator: Xose M. <pikamoku@gmail.com>\n"
 "Language-Team:  none\n"
@@ -16,19 +16,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:1
-msgid "Bluefish Editor (SVN)"
-msgstr "Editor Bluefish (SVN)"
+#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:79
+msgid "Bluefish Editor"
+msgstr "Editor Bluefish"
 
-#: ../desktop-data/bluefish-unstable.desktop.in.h:2
-msgid "Web Development Editor (development version)"
+#: ../desktop-data/bluefish.desktop.in.h:2
+#, fuzzy
+msgid "Web Development Editor"
 msgstr "Editor de Creación Web (versión en desenvolvemento)"
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:1
+#: ../desktop-data/bluefish.xml.in.h:1
 msgid "Bluefish language definition file"
 msgstr "Ficheiro de definicións do Bluefish"
 
-#: ../desktop-data/bluefish-unstable.xml.in.h:2
+#: ../desktop-data/bluefish.xml.in.h:2
 msgid "Bluefish project file"
 msgstr "Ficheiro do proxecto Bluefish"
 
@@ -115,10 +116,6 @@ msgstr ""
 #: ../src/blocksync.c:297
 msgid "Synchronize text block"
 msgstr "Sincroniza o bloque de texto"
-
-#: ../src/bluefish.c:79
-msgid "Bluefish Editor"
-msgstr "Editor Bluefish"
 
 #: ../src/bluefish.c:79
 msgid "Visit us at http://bluefish.openoffice.nl"
@@ -566,18 +563,21 @@ msgid "Statistics: "
 msgstr "Estatísticas:"
 
 #: ../src/document.c:3039
+#, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d liña"
 msgstr[1] "%d liñas"
 
 #: ../src/document.c:3040
+#, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d palabra"
 msgstr[1] "%d palabras"
 
 #: ../src/document.c:3041
+#, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caracter"
@@ -746,6 +746,7 @@ msgid "New filter"
 msgstr "Novo Filtro"
 
 #: ../src/file.c:751
+#, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "Cargando %d ficheiro, rematado %s"
@@ -757,6 +758,7 @@ msgid "All files loaded, finished %s"
 msgstr "Todolos ficheiros cargados, cargados %s"
 
 #: ../src/file.c:945
+#, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
 msgstr[0] "%d documento aberto."
@@ -1667,6 +1669,7 @@ msgid "Output"
 msgstr "Saída"
 
 #: ../src/outputbox.c:432
+#, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "Erro ó construír o patrón de saída %s: %s"
 
@@ -2328,6 +2331,7 @@ msgid "Edit Project"
 msgstr "Editar proxecto"
 
 #: ../src/project.c:511
+#, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
 msgstr[0] "Este proxecto contén %d ficheiro"
@@ -2472,18 +2476,21 @@ msgid "Regular expression error: %s at offset %d"
 msgstr "Erro na expresión regular: %s en %d"
 
 #: ../src/snr2.c:1379
+#, c-format
 msgid "Found %d matches, "
 msgid_plural "Found %d matches, "
 msgstr[0] "Atopada %d coincidencia, "
 msgstr[1] "Atopadas %d coincidencias, "
 
 #: ../src/snr2.c:1380
+#, c-format
 msgid "replaced %d"
 msgid_plural "replaced %d"
 msgstr[0] "Substituído %d"
 msgstr[1] "Substituídos %d"
 
 #: ../src/snr2.c:1385
+#, c-format
 msgid "Found %d matches"
 msgid_plural "Found %d matches"
 msgstr[0] "Atopada %d coincidencia"
@@ -2495,8 +2502,8 @@ msgid ""
 "<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
 "span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Ainda non se cargaron todolos documentos"
-"</span>"
+"<span foreground=\"red\" weight=\"bold\">Ainda non se cargaron todolos "
+"documentos</span>"
 
 #: ../src/snr2.c:1531
 msgid ""
@@ -2696,3 +2703,5 @@ msgstr "Desfacer o troco en todolos documentos?"
 msgid "This change concerns multiple documents."
 msgstr "Este troco afectalle a varios documentos."
 
+#~ msgid "Bluefish Editor (SVN)"
+#~ msgstr "Editor Bluefish (SVN)"
