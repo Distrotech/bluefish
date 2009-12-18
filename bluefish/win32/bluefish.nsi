@@ -298,6 +298,8 @@ Page custom FileAssociations SetFileAssociations
 ; English goes first as the default language
 !insertmacro MUI_LANGUAGE	"English"
 ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
+!insertmacro MUI_LANGUAGE	"Basque"
+${LoadLocalization}	"BASQUE"	"locale\Basque.nsh"
 !insertmacro MUI_LANGUAGE	"Czech"
 ${LoadLocalization}	"CZECH"	"locale\Czech.nsh"
 !insertmacro MUI_LANGUAGE	"French"
