@@ -1411,11 +1411,11 @@ GList *glist_from_gslist(GSList *src) {
 gchar *bf_portable_time(const time_t *timep) {
 	gchar *retstr=NULL;
 #ifdef HAVE_CTIME_R
-	retstr = g_new(gchar, 128);
+	retstr = g_new0(gchar, 128);
 	ctime_r(timep,retstr);
 #else
 #ifdef HAVE_ASCTIME_R
-	retstr = g_new(gchar, 128);
+	retstr = g_new0(gchar, 128);
 	asctime_r(localtime(timep),retstr);
 #else
 #ifdef HAVE_CTIME
@@ -1427,7 +1427,6 @@ gchar *bf_portable_time(const time_t *timep) {
 #endif /* HAVE_CTIME */
 #endif /* HAVE_ASCTIME_R */
 #endif /* HAVE_CTIME_R */
-	retstr[strlen(retstr) - 1] = '\0';
 	return retstr;
 }
 
