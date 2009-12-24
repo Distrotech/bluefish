@@ -118,7 +118,7 @@ if test "x$WINDRES" = "xno"; then
 AC_MSG_ERROR([The tool 'windres' was not found. Aborting.])
 fi
 AC_PROG_SED
-AC_SUBST([SPLIT_VERSION], [`echo $VERSION | $SED -e 's/\./,/g'`])
+AC_SUBST([SPLIT_VERSION], [`echo $VERSION | $SED -e 's/-.*//' | $SED -e 's/\./,/g'`])
 fi
 AM_CONDITIONAL([OS_WIN32], [test "x$native_win32" = "xyes"])
 
