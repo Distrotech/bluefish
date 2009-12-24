@@ -2,7 +2,14 @@ EXTRA_DIST = \
 	bluefish.nsi \
 	config.nsis \
 	Makefile.mingw.in \
+	locale/Basque.nsh \
+	locale/Czech.nsh \
 	locale/English.nsh \
+	lcoale/French.nsh \
+	locale/Galician.nsh \
+	locale/German.nsh \
+	locale/Japanese.nsh \
+	locale/Norwegian.nsh \
 	locale/Swedish.nsh \
 	pixmaps/bluefish-ada.ico \
 	pixmaps/bluefish-asp.ico \

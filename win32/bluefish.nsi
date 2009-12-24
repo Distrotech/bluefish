@@ -84,10 +84,10 @@ ShowUninstDetails show
 
 ; Installer version information
 ;----------------------------------------------
-VIProductVersion "${VERSION}.0"
+VIProductVersion "2.0.0.0"
 VIAddVersionKey "ProductName" "${PRODUCT}"
 VIAddVersionKey "FileVersion" "${VERSION}"
-VIAddVersionKey "ProductVersion" "1.3"
+VIAddVersionKey "ProductVersion" "2.0"
 VIAddVersionKey "LegalCopyright" ""
 VIAddVersionKey "FileDescription" "Bluefish Installer"
 
@@ -381,7 +381,7 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	WriteRegStr HKCU "${REG_USER_SET}" "Package" "${PACKAGE}"
 
 	WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayName" 		"${PRODUCT} ${VERSION}"
-	WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayIcon" 		"$INSTDIR\bluefish.ico"
+	WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayIcon" 		"$INSTDIR\${PROGRAM_EXE}"
 	WriteRegStr HKLM "${REG_UNINSTALL}" "UninstallString" "$INSTDIR\${UNINSTALL_EXE}"
 	WriteRegStr HKLM "${REG_UNINSTALL}" "Publisher" 		"${PUBLISHER}"
 	WriteRegStr HKLM "${REG_UNINSTALL}" "URLInfoAbout" 	"${HOMEPAGE}"
@@ -611,6 +611,18 @@ Function .onInit
 	${EndIf}
 	Pop $R2
 	Pop $R1
+
+; If we're updating from bluefish-unstable to bluefish we should uninstall first
+  Push $R1
+  Push $R2
+    ReadRegStr $R1 HKCU ${REG_USER_SET} "Package"
+    ${If} $R1 == "bluefish-unstable"
+      MessageBox MB_OKCANCEL "An unstable release of ${PRODUCT} is installed. Should previous versions be removed before we continue (Recommended)." IDCANCEL +3
+      ReadRegStr $R2 HKLM ${REG_UNINSTALL} "UninstallString"
+      ExecWait '"C:\Program Files (x86)\Bluefish\${UNINSTALL_EXE}"'
+    ${EndIf}
+  Pop $R2
+  Pop $R1
 
 	!insertmacro MUI_LANGDLL_DISPLAY
 FunctionEnd
