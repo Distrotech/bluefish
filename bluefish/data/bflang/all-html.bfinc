@@ -20,6 +20,12 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
+<element id="e.html.lcomment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
+	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
+		<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.lcomment" highlight="html-comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+
 <tag name="html" case_insens="1" sgml_shorttag="1" attributes="version,&i18n;" highlight="html-tag" autocomplete_append="&gt;&#10;&#10;&lt;/html&gt;" autocomplete_backup_cursor="8">
 	<reference>Defines an HTML document</reference>
 </tag>
@@ -60,12 +66,13 @@
 				<element pattern="&lt;/script&gt;" highlight="html-tag" case_insens="1" ends_context="3" ends_block="1" blockstartelement="t.html.script"/>
 			</context>
 		</element>
+		<element idref="e.html.lcomment"/>
 	</context>
 </tag>
 
 <tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;,media,title,type" attribhighlight="html-attribute" autocomplete_append="&gt;&#10;&#10;&lt;/style&gt;" autocomplete_backup_cursor="9" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<context symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
-	
+		<element idref="e.html.lcomment"/>	
 		<element id="e.html.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
 				<element pattern="*/" ends_block="1" blockstartelement="e.html.css.lcomment" highlight="css-comment" ends_context="1" />
@@ -353,11 +360,5 @@
 		<reference>Groups the header content in a table</reference>
 	</tag>
 </group>
-
-<element id="e.html.lcomment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
-	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
-		<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.lcomment" highlight="html-comment" mayfold="1" ends_context="1" />
-	</context>
-</element>
 
 <element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="html-entity" />
