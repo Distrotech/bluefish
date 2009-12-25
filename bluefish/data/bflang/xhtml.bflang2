@@ -28,7 +28,7 @@
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 ]>
-<bflang name="XHTML" version="2.0" table="8123" contexts="109" matches="1817">
+<bflang name="XHTML" version="2.0" table="10259" contexts="109" matches="2118">
 <header>
 	<mime type="application/xhtml+xml"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -82,7 +82,7 @@
 
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-<tag name="html" attributes="xmlns,version,&i18n;&xml;" highlight="tag" autocomplete_append=" xmlns=&quot;http://www.w3.org/1999/xhtml&quot; &gt;&#10;&#10;&lt;/html&gt;" autocomplete_backup_cursor="8" />
+<tag name="html" attributes="xmlns,version,&i18n;,&xml;" attribhighlight="attribute" highlight="tag" autocomplete_append=" xmlns=&quot;http://www.w3.org/1999/xhtml&quot; &gt;&#10;&#10;&lt;/html&gt;" autocomplete_backup_cursor="8" />
 <tag name="head" attributes="profile,&i18n;" highlight="tag" >
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 	<tag name="meta" highlight="tag" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" />
@@ -195,14 +195,14 @@
 		</group>
 		<group highlight="form-tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 			<tag name="fieldset" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="form" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="input" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="label" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="legend" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="optgroup" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="option" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="select" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="textarea" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="form" attributes="&univ;,&i18n;,&evnt;,accept,accept-charset,action,enctype,method,onsubmit,onreset"/>
+			<tag name="input" attributes="&univ;,&i18n;,&evnt;,type,name,value,checked,disabled,readonly,size,maxlength,src,alt,usemap,onselect,onchange,accept,accesskey,tabindex,onfocus,onblur"/>
+			<tag name="label" attributes="&univ;,&i18n;,&evnt;,accesskey,for,onfocus,onblur"/>
+			<tag name="legend" attributes="&univ;,&i18n;,&evnt;,accesskey"/>
+			<tag name="optgroup" attributes="&univ;,&i18n;,&evnt;,disabled,label"/>
+			<tag name="option" attributes="&univ;,&i18n;,&evnt;,selected,disabled,label,value"/>
+			<tag name="select" attributes="&univ;,&i18n;,&evnt;,name,size,multiple,disabled,tabindex,onfocus,onblur,onchange"/>
+			<tag name="textarea" attributes="&univ;,&i18n;,&evnt;,name,rows,cols,disabled,readonly,onselect,onchange"/>
 		</group>
 		<group highlight="table-tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 			<tag name="table" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" autocomplete_append=" summary=&quot;&quot; &gt;" />
