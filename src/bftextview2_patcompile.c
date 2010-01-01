@@ -269,7 +269,7 @@ static void merge_queues(GQueue *target, GQueue *src) {
 }
 
 static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean regexpart_ends_regex);
-
+#if 0
 static GQueue *run_subpatterns_OLD(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gint *regexpartpos, gboolean regexpart_ends_regex) {
 	gint j=0;
 	gboolean escaped=FALSE;
@@ -307,7 +307,7 @@ static GQueue *run_subpatterns_OLD(Tscantable *st, gchar *regexpart,gint16 conte
 	g_free(target);
 	return mergednewpositions;
 }
-
+#endif /* 0 */
 static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gint *regexpartpos, gboolean regexpart_ends_regex) {
 	gint j=0;
 	gchar *target;
