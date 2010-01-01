@@ -451,7 +451,7 @@ AC_ARG_ENABLE(
 	[python],
 	AC_HELP_STRING(
 		[--enable-python],
-		[enable (or disable) the building of the python plugin @<:@default=auto->yes@:>@]
+		[enable (or disable) HIGHLY EXPERIMENTAL python integration @<:@default=auto->no@:>@]
 	),
 	[enable_python="$enableval"],
 	[enable_python="no"]
