@@ -2688,6 +2688,7 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,GError *gerro
 
 		newtime = (time_t)g_file_info_get_attribute_uint64(new,G_FILE_ATTRIBUTE_TIME_MODIFIED);
 		origtime = (time_t)g_file_info_get_attribute_uint64(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED);
+		g_print("doc_activate_modified_lcb, newtime=%ld, origtime=%ld, newsize=%"G_GOFFSET_FORMAT", origsize=%"G_GOFFSET_FORMAT"\n",newtime,origtime,g_file_info_get_size(new),g_file_info_get_size(orig));
 		newtimestr = bf_portable_time(&newtime);
 		oldtimestr = bf_portable_time(&origtime);
 
