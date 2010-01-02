@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		xhtml.bflang2 $Revision$
  
-		Copyright (C) 2008-2009 Olivier Sessink
+		Copyright (C) 2008-2010 Olivier Sessink
 
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 ]>
-<bflang name="XHTML" version="2.0" table="10259" contexts="109" matches="2118">
+<bflang name="XHTML" version="2.0" table="10265" contexts="109" matches="2118">
 <header>
 	<mime type="application/xhtml+xml"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -88,6 +88,13 @@
 	<tag name="meta" highlight="tag" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" />
 	<tag name="title" highlight="tag" attributes="&i18n;" />
 
+<element id="e.html.comment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
+	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
+		<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.comment" highlight="html-comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+<element id="e.html.entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+
 <tag id="t.xhtml.script" name="script" highlight="tag" attributes="charset,defer,language,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;" attribhighlight="attribute">
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
 	<element pattern="(" id="e.xhtml.js.lparen" starts_block="1" highlight="js-brackets" />
@@ -108,12 +115,13 @@
 			<element pattern="*/" ends_block="1" blockstartelement="e.xhtml.js.blockcomment" highlight="js-comment" mayfold="1" ends_context="1" />
 			<element pattern="&lt;/script&gt;" highlight="tag" ends_context="3" ends_block="1" blockstartelement="t.xhtml.script"/>
 		</context>
-	</element> 
+	</element>
+	<element idref="e.html.comment"/>
 </context>
 </tag>
 <tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
 	<context symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
-	
+		<element idref="e.html.comment"/>
 		<element id="e.xhtml.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
 				<element pattern="*/" ends_block="1" blockstartelement="e.xhtml.css.lcomment" highlight="css-comment" ends_context="1" />
@@ -136,12 +144,7 @@
 </tag>
 
 	<tag name="link" highlight="tag" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" />
-	<element id="e.html.comment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
-		<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
-			<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.comment" highlight="html-comment" mayfold="1" ends_context="1" />
-		</context>
-	</element>
-	<element id="e.html.entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+
 	</context>
 </tag>
 
