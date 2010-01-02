@@ -5,7 +5,7 @@ EXTRA_DIST = \
 	locale/Basque.nsh \
 	locale/Czech.nsh \
 	locale/English.nsh \
-	lcoale/French.nsh \
+	locale/French.nsh \
 	locale/Galician.nsh \
 	locale/German.nsh \
 	locale/Japanese.nsh \
