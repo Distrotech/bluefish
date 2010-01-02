@@ -386,6 +386,9 @@ void doc_set_tooltip(Tdocument *doc) {
 			g_free(tmp);
 		}
 		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_SIZE)) {
+			DEBUG_MSG("doc_set_tooltip: size for %s is %"G_GOFFSET_FORMAT"\n", 
+						gtk_label_get_text(GTK_LABEL(doc->tab_menu)),
+						g_file_info_get_size(doc->fileinfo));
 			sizestr = g_format_size_for_display(g_file_info_get_size(doc->fileinfo));
 			retstr = g_string_append(retstr, _("\nSize (on disk): "));
 			retstr = g_string_append(retstr, sizestr);
