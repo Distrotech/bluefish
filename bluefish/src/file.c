@@ -803,18 +803,38 @@ void file_asyncfileinfo_cancel(gpointer fi) {
 	g_cancellable_cancel(((Tfileinfo *)fi)->cancel);
 }
 static void fill_fileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
-	GFileInfo *info = NULL;
+	GFileInfo *info;
 	GError *error=NULL;
 	Tfileinfo *fi=user_data;
 	
 	info = g_file_query_info_finish(fi->uri,res,&error);
+	DEBUG_MSG("fill_fileinfo_lcb got fileinfo %p for fi %p\n",info,fi);
 	if (info) {
 		if (fi->doc->fileinfo) {
 			g_object_unref(fi->doc->fileinfo);
 		}
 		fi->doc->fileinfo = info;
 		g_object_ref(info);
-		doc_set_tooltip(fi->doc);
+#ifdef DEBUG
+		/* weird.. since I (Olivier) have a SSD in my laptop I sometimes receive wrong values 
+			for the file size here. And then I get a 'file changed on disk' error.
+			But the file did not change at all, just the first time the recorded size 
+			was wrong. Right now I get 16384 bytes (2^14) for a 7918 byte file. */
+		if (g_file_info_has_attribute(info, G_FILE_ATTRIBUTE_STANDARD_SIZE)) {
+			gchar *curi = g_file_get_uri(fi->uri); 
+			DEBUG_MSG("fill_fileinfo_lcb: in fi %p size for %s is %"G_GOFFSET_FORMAT"\n", 
+						fi,curi,g_file_info_get_size(info));
+			g_free(curi);
+		} else {
+			g_print("no file size in file info ???\n");	
+		}
+#endif
+		/*doc_set_tooltip(fi->doc);*/
+	} else if (error) {
+		gchar *curi = g_file_get_uri(fi->uri);
+		g_warning("error getting file info for %s: %s\n",curi,error->message);
+		g_error_free(error);
+		g_free(curi);	
 	}
 	fi->doc->action.info = NULL;
 	if (fi->doc->action.close_doc) {
@@ -822,12 +842,12 @@ static void fill_fileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer 
 	}
 	g_object_unref(fi->uri);
 	g_object_unref(fi->cancel);
-	g_free(fi);
+	g_slice_free(Tfileinfo,fi);
 }
 
 void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri) {
 	Tfileinfo *fi;
-	fi = g_new(Tfileinfo,1);
+	fi = g_slice_new(Tfileinfo);
 	DEBUG_MSG("file_doc_fill_fileinfo, started for doc %p and uri %p at fi=%p\n",doc,uri,fi);
 	fi->doc = doc;
 	fi->doc->action.info = fi;
@@ -836,7 +856,7 @@ void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri) {
 	fi->cancel = g_cancellable_new();
 	
 	g_file_query_info_async(fi->uri,BF_FILEINFO
-					,G_FILE_QUERY_INFO_NONE
+					,G_FILE_QUERY_INFO_NONE /* so we do follow symlinks */
 					,G_PRIORITY_LOW
 					,fi->cancel
 					,fill_fileinfo_lcb,fi);
