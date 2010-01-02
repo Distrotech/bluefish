@@ -247,7 +247,7 @@ static void checkmodified_cleanup(Tcheckmodified *cm) {
 	g_object_unref(cm->uri);
 	g_object_unref(cm->cancel);
 	g_object_unref(cm->orig_finfo);
-	g_free(cm);
+	g_slice_free(Tcheckmodified,cm);
 }
 void checkmodified_cancel(Tcheckmodified *cm) {
 	g_cancellable_cancel(cm->cancel);
@@ -267,25 +267,25 @@ static gboolean checkmodified_is_modified(GFileInfo *orig, GFileInfo *new) {
 
 static void checkmodified_asyncfileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	GFileInfo *info;
-	GError *error=NULL;
+	GError *gerror=NULL;
 	Tcheckmodified *cm = user_data;
-	info = g_file_query_info_finish(cm->uri,res,&error);
+	info = g_file_query_info_finish(cm->uri,res,&gerror);
 	if (info) {
 		if (checkmodified_is_modified(cm->orig_finfo, info)) {
 			cm->callback_func(CHECKMODIFIED_MODIFIED, NULL, cm->orig_finfo, info, cm->callback_data);
 		} else {
 			cm->callback_func(CHECKMODIFIED_OK, NULL, cm->orig_finfo, info, cm->callback_data);
 		}
-	} else if (error) {
+		g_object_unref(info);
+	} else if (gerror) {
 		/* error condition */
 		DEBUG_MSG("************************ checkmodified_asyncfileinfo_lcb, non-handled error condition\n");
-		g_warning("while checking file modification on disk, received error %d: %s\n",error->code,error->message);
-		cm->callback_func(CHECKMODIFIED_ERROR, error, NULL, NULL, cm->callback_data);
-		g_error_free(error);
+		g_warning("while checking file modification on disk, received error %d: %s\n",gerror->code,gerror->message);
+		cm->callback_func(CHECKMODIFIED_ERROR, gerror, NULL, NULL, cm->callback_data);
+		g_error_free(gerror);
 	}
 	checkmodified_cleanup(cm);
 }
-
 
 Tcheckmodified *file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data) {
 	Tcheckmodified *cm;
@@ -293,7 +293,7 @@ Tcheckmodified *file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, Che
 		callback_func(CHECKMODIFIED_OK, NULL, NULL, NULL, callback_data);
 		return NULL;
 	}
-	cm = g_new(Tcheckmodified,1);
+	cm = g_slice_new(Tcheckmodified);
 	cm->callback_func = callback_func;
 	cm->callback_data = callback_data;
 	g_object_ref(uri);
