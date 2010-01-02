@@ -28,7 +28,7 @@
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 ]>
-<bflang name="XHTML" version="2.0" table="10265" contexts="109" matches="2118">
+<bflang name="XHTML" version="2.0" table="10375" contexts="110" matches="2139">
 <header>
 	<mime type="application/xhtml+xml"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -183,6 +183,7 @@
 			<tag name="hr" attributes="&univ;" autocomplete_append=" /&gt;"/>
 			<tag name="kbd" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="li" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="noscript" attributes="&univ;,&i18n;,&evnt;,&xml;"/>
 			<tag name="ol" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="p" attributes="&univ;,&evnt;"/>
 			<tag name="pre" attributes="&univ;,&i18n;,&evnt;"/>
