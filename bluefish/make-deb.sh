@@ -28,6 +28,9 @@
 
 set -e
 
+echo "Non-functional at the moment! Exiting."
+exit -1
+
 cat << EOF
 
 ******************************************************************************
