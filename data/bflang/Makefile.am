@@ -1,8 +1,8 @@
 
 EXTRA_DIST = \
-	$(bflang_DATA)
-
-#CLEANFILES = catalog.xml
+	$(bflang_DATA) \
+	$(bflangrng_DATA) \
+	$(bflangxml_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 
@@ -43,36 +43,29 @@ bflang_bflang2_files = \
 	xhtml.bflang2 \
 	xml.bflang2
 
-#bflangdtddir = $(datadir)/xml/$(PACKAGE)
-#bflangdtd_DATA = bflang.rng catalog.xml
-
 bflangdir = $(pkgdatadir)/bflang
 bflang_DATA = \
 	$(bflang_bfinc_files) \
 	$(bflang_bflang2_files) \
 	sample.bflang2
 
-#catalog.xml:
-#	$(XMLCATALOG) --noout --create \
-#	  --add 'public' 'Bluefish/DTD/Bflang' 'bflang.dtd' \
-#	  --add 'system' 'http://bluefish.openoffice.nl/DTD/bflang.dtd' 'bflang.dtd' \
-#	  --add 'rewriteURI' 'http://bluefish.openoffice.nl/DTD' '$(datadir)/xml/$(PACKAGE)' \
-#	  $@
-#
-#install-data-hook:
-#if REGISTER_XML_CATALOG
-#	$(XMLCATALOG) --noout \
-#	  --add 'public' 'Bluefish/DTD/Bflang' 'bflang.dtd' \
-#	  --add 'system' 'http://bluefish.openoffice.nl/DTD/bflang.dtd' 'bflang.dtd' \
-#	  --add 'rewriteURI' 'http://bluefish.openoffice.nl/DTD' '$(datadir)/xml/$(PACKAGE)' \
-#	  $(DESTDIR)$(XML_CATALOG_FILE)
-#endif #REGISTER_XML_CATALOG
-#
-#uninstall-hook:
-#if REGISTER_XML_CATALOG
-#	$(XMLCATALOG) --noout --del 'bflang.dtd'
-#	$(XMLCATALOG) --noout --del 'http://bluefish.openoffice.nl/DTD'
-#endif #REGISTER_XML_CATALOG
+bflangxmldir = $(datadir)/xml/$(PACKAGE)
+bflangxml_DATA = catalog.xml
+
+bflangrngdir = $(datadir)/xml/$(PACKAGE)/2.0
+bflangrng_DATA = bflang2.rng
+
+install-data-hook:
+if REGISTER_XML_CATALOG
+	$(XMLCATALOG) --noout \
+	  --add 'delegateURI' 'http://bluefish.openoffice.nl/ns/bflang/2.0/' '$(datadir)/xml/$(PACKAGE)' \
+	  $(DESTDIR)$(XML_CATALOG_FILE)
+endif #REGISTER_XML_CATALOG
+
+uninstall-hook:
+if REGISTER_XML_CATALOG
+	$(XMLCATALOG) --noout --del 'http://bluefish.openoffice.nl/ns/bflang/2.0/'
+endif #REGISTER_XML_CATALOG
 
 #check-local: check-rng check-bflang2
 
