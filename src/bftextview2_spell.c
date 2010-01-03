@@ -36,6 +36,9 @@
 #include "bftextview2_spell.h"
 #include "document.h"
 
+/*#undef DBG_SPELL
+#define DBG_SPELL g_print*/
+
 #define MAX_CONTINUOUS_SPELLCHECK_INTERVAL 0.1 /* float in seconds */
 
 static EnchantBroker *eb;
@@ -68,25 +71,29 @@ static void dicts_load_first_lcb(const char * const lang_tag,const char * const 
 	Tbfwin *bfwin=data;
 	if (!bfwin->ed) {
 		bfwin->ed = (void *)enchant_broker_request_dict(eb, lang_tag);
+		DBG_SPELL("loaded first available dictionary %s at %p\n", lang_tag, bfwin->ed);
 		if (bfwin->ed) {
 			g_free(bfwin->session->spell_lang);
 			bfwin->session->spell_lang = g_strdup(lang_tag);
-		} 
+		}
 	}
 }
 
 void unload_spell_dictionary(Tbfwin *bfwin) {
+	DBG_SPELL("unload_spell_dictionary, bfwin=%p, ed=%p\n",bfwin,bfwin->ed);
 	if (bfwin->ed)
 		enchant_broker_free_dict(eb, (EnchantDict *)bfwin->ed);
 
 }
 
 static gboolean load_dictionary(Tbfwin *bfwin) {
+	DBG_SPELL("load_dictionary called for bfwin %p which has session->spell_lang=%s\n",bfwin, bfwin->session->spell_lang);
 	if (bfwin->ed)
 		enchant_broker_free_dict(eb, (EnchantDict *)bfwin->ed);
+
 	if (bfwin->session->spell_lang && bfwin->session->spell_lang[0]!='\0' && enchant_broker_dict_exists(eb,bfwin->session->spell_lang)) {
 		bfwin->ed = (void *)enchant_broker_request_dict(eb, bfwin->session->spell_lang);
-		DBG_SPELL("loaded dictionary %s\n", bfwin->session->spell_lang);
+		DBG_SPELL("loaded dictionary %s at %p\n", bfwin->session->spell_lang, bfwin->ed);
 		return (bfwin->ed != NULL);
 	} else {
 		bfwin->ed = NULL;
@@ -100,7 +107,7 @@ static void spellcheck_word(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTe
 	gchar *tocheck;
 	
 	tocheck = gtk_text_buffer_get_text(buffer, start,end, FALSE);
-	DBG_SPELL("spellcheck_word, check word %s\n",tocheck);
+	DBG_SPELL("spellcheck_word, check word %s in dictionary %p\n",tocheck,BFWIN(DOCUMENT(btv->doc)->bfwin)->ed);
 	if (enchant_dict_check((EnchantDict *)BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck, strlen(tocheck)) != 0) {
 		DBG_SPELL("'%s' *not* spelled correctly!\n", tocheck);
 		gtk_text_buffer_apply_tag_by_name(buffer, "_spellerror_", start, end);
@@ -363,7 +370,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 		DBG_SPELL("bftextview2_run_spellcheck, no region to spellcheck found... return FALSE\n");
 		return FALSE;
 	}
-	DBG_SPELL("bftextview2_run_spellcheck, loop1 from %d to %d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&eo));
+	DBG_SPELL("bftextview2_run_spellcheck, in bfwin=%p, bfwin->ed=%p loop1 from %d to %d\n",DOCUMENT(btv->doc)->bfwin,BFWIN(DOCUMENT(btv->doc)->bfwin)->ed,gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&eo));
 	timer = g_timer_new();
 	iter=so;
 	do {

@@ -52,10 +52,20 @@ static void free_session(Tsessionvars *session) {
 	free_arraylist(session->bmarks);
 	free_stringlist(session->recent_files);
 	free_stringlist(session->recent_dirs);
-	if (session->opendir) g_free(session->opendir);
-	if (session->savedir) g_free(session->savedir);
-	if (session->encoding) g_free(session->encoding);
-	if (session->last_filefilter) g_free(session->last_filefilter);
+	g_free(session->opendir);
+	g_free(session->savedir);
+	g_free(session->encoding);
+	g_free(session->last_filefilter);
+	g_free(session->default_mime_type);
+	g_free(session->webroot);
+	g_free(session->documentroot);
+	g_free(session->sync_local_uri);
+	g_free(session->sync_remote_uri);
+	g_free(session->convertcolumn_separator);
+	g_free(session->convertcolumn_fillempty);
+#ifdef HAVE_LIBENCHANT
+	g_free(session->spell_lang);
+#endif
 	g_free(session);
 }
 
@@ -286,6 +296,7 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 	retval = rcfile_parse_project(prj, fromuri);
 	if (!retval) {
 		DEBUG_MSG("project_open_from_file, failed parsing the project\n");
+		/* TODO: use project_destroy() */
 		bookmark_data_cleanup(prj->bmarkdata);
 		g_free(prj->session);
 		g_free(prj);
