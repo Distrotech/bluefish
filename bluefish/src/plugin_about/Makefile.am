@@ -26,7 +26,7 @@ about_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/about.def
 endif
 
 about_rev.h: about_rev.h.tmp
-	@if test ! -e $@ -o -n "`diff $< $@`" ; then cp $< $@ ; fi
+	@if test ! -e $@ || test -n "`diff $< $@`" ; then cp $< $@ ; fi
        
 about_rev.h.tmp:
 	@SVN_REVISION=`LANG=C svnversion -n ${top_srcdir} || echo exported` ; \
