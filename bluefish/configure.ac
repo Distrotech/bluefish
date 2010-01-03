@@ -333,11 +333,14 @@ AC_ARG_WITH(
 	[iconpath="${datadir}/pixmaps"]
 )
 
+AC_MSG_CHECKING([for system XML catalog])
 if ! test -f "$xmlcatalog" ; then
+	AC_MSG_RESULT([not found])
 	AC_MSG_NOTICE([The given systems XML catalog $xmlcatalog seems to be unavailable.])
 	AC_MSG_NOTICE([We will not try to update it after installation.])
 	XML_CATALOG_FILE=""
 else
+	AC_MSG_RESULT([$xmlcatalog])
 	XML_CATALOG_FILE="$xmlcatalog"
 fi
 	
@@ -451,7 +454,7 @@ AC_ARG_ENABLE(
 	[python],
 	AC_HELP_STRING(
 		[--enable-python],
-		[enable (or disable) HIGHLY EXPERIMENTAL python integration @<:@default=auto->no@:>@]
+		[enable (or disable) python integration (HIGHLY EXPERIMENTAL) @<:@default=no@:>@]
 	),
 	[enable_python="$enableval"],
 	[enable_python="no"]
