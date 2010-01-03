@@ -345,6 +345,8 @@ typedef struct {
 	gint spell_check_default;
 	gchar *spell_lang;
 #endif
+	/* if you add strings or lists to the session, please make sure they are free'ed 
+	in free_session() in project.c */
 	gchar *default_mime_type;
 	gchar *convertcolumn_separator;
 	gchar *convertcolumn_fillempty;
