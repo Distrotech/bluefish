@@ -258,6 +258,7 @@ static gboolean checkmodified_is_modified(GFileInfo *orig, GFileInfo *new) {
 	/* modified_check_type;  0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
 	if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
 		if (g_file_info_get_attribute_uint64(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED) != g_file_info_get_attribute_uint64(new,G_FILE_ATTRIBUTE_TIME_MODIFIED)) return TRUE;
+		if (g_file_info_get_attribute_uint32(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC) != g_file_info_get_attribute_uint32(new,G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC)) return TRUE;
 	}
 	if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 3) {
 		if (g_file_info_get_size(orig) != g_file_info_get_size(new)) return TRUE;
@@ -303,7 +304,7 @@ Tcheckmodified *file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, Che
 	g_object_ref(curinfo);
 	cm->cancel = g_cancellable_new();
 	/* if the user chooses ignore, the size, mtime and etag are copied into doc->fileinfo */
-	g_file_query_info_async(uri,"time::modified,standard::size,etag::value"
+	g_file_query_info_async(uri,"time::modified,time::modified-usec,standard::size,etag::value"
 					,G_FILE_QUERY_INFO_NONE
 					,G_PRIORITY_DEFAULT
 					,cm->cancel /*cancellable*/

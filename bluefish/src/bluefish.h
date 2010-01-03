@@ -97,7 +97,7 @@ extern void g_none(gchar * first, ...);
 
 #include <gio/gio.h>
 
-#define BF_FILEINFO "standard::name,standard::display-name,standard::size,standard::type,unix::mode,unix::uid,unix::gid,time::modified,etag::value,standard::fast-content-type"
+#define BF_FILEINFO "standard::name,standard::display-name,standard::size,standard::type,unix::mode,unix::uid,unix::gid,time::modified,time::modified-usec,etag::value,standard::fast-content-type"
 #include "bftextview2.h"
 
 #ifndef G_GOFFSET_FORMAT
