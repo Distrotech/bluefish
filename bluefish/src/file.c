@@ -302,8 +302,8 @@ Tcheckmodified *file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, Che
 	cm->orig_finfo = curinfo;
 	g_object_ref(curinfo);
 	cm->cancel = g_cancellable_new();
-
-	g_file_query_info_async(uri,"standard::size,unix::mode,unix::uid,unix::gid,time::modified"
+	/* if the user chooses ignore, the size, mtime and etag are copied into doc->fileinfo */
+	g_file_query_info_async(uri,"time::modified,standard::size,etag::value"
 					,G_FILE_QUERY_INFO_NONE
 					,G_PRIORITY_DEFAULT
 					,cm->cancel /*cancellable*/
@@ -336,7 +336,7 @@ static void checkNsave_cleanup(TcheckNsave *cns) {
 	g_object_unref(cns->uri);
 	g_object_unref(cns->cancelab);
 	if (cns->finfo) g_object_unref(cns->finfo);
-	g_free(cns);
+	g_slice_free(TcheckNsave,cns);
 }
 
 static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *res, gpointer user_data) {
@@ -427,7 +427,7 @@ static void file_checkNsave_run(gpointer data) {
 
 gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, gboolean backup, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
 	TcheckNsave *cns;
-	cns = g_new0(TcheckNsave,1);
+	cns = g_slice_new0(TcheckNsave);
 	cns->cancelab = g_cancellable_new();
 	/*cns->etag=NULL;*/
 	cns->callback_data = callback_data;
@@ -593,7 +593,7 @@ typedef struct {
 
 static void fileintodoc_cleanup(Tfileintodoc *fid) {
 	g_object_unref(fid->uri);
-	g_free(fid);
+	g_slice_free(Tfileintodoc,fid);
 }
 
 static void fileintodoc_lcb(Topenfile_status status,GError *gerror,gchar *buffer,goffset buflen ,gpointer data) {
@@ -658,7 +658,7 @@ static void fileintodoc_lcb(Topenfile_status status,GError *gerror,gchar *buffer
 /* used for template loading, and for file_insert */
 void file_into_doc(Tdocument *doc, GFile *uri, gboolean isTemplate) {
 	Tfileintodoc *fid;
-	fid = g_new(Tfileintodoc,1);
+	fid = g_slice_new(Tfileintodoc);
 	fid->bfwin = doc->bfwin;
 	fid->doc = doc;
 	fid->isTemplate = isTemplate;
