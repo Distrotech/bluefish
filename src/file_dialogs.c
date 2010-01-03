@@ -489,6 +489,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status, GError *
 			if (status == CHECKANDSAVE_ERROR_MODIFIED) {
 				tmpstr = g_strdup_printf(_("File %s has been modified on disk, overwrite?"), utf8uri);
 			} else {
+				/* TODO: this bit of code can never be reached ! it can be removed */
 				tmpstr = g_strdup_printf(_("Failed to check if %s has been modified on disk"), utf8uri);
 			}
 			g_free(utf8uri);
