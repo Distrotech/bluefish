@@ -2691,7 +2691,10 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,GError *gerro
 
 		newtime = (time_t)g_file_info_get_attribute_uint64(new,G_FILE_ATTRIBUTE_TIME_MODIFIED);
 		origtime = (time_t)g_file_info_get_attribute_uint64(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED);
-		g_print("doc_activate_modified_lcb, newtime=%ld, origtime=%ld, newsize=%"G_GOFFSET_FORMAT", origsize=%"G_GOFFSET_FORMAT"\n",newtime,origtime,g_file_info_get_size(new),g_file_info_get_size(orig));
+		g_print("doc_activate_modified_lcb, newtime=%ld,%d origtime=%ld,%d newsize=%"G_GOFFSET_FORMAT" origsize=%"G_GOFFSET_FORMAT"\n",
+							newtime,g_file_info_get_attribute_uint32(new,G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC),
+							origtime,g_file_info_get_attribute_uint32(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC),
+							g_file_info_get_size(new),g_file_info_get_size(orig));
 		newtimestr = bf_portable_time(&newtime);
 		oldtimestr = bf_portable_time(&origtime);
 
@@ -2704,12 +2707,17 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,GError *gerro
 		g_free(tmpstr);
 		g_free(newtimestr);
 		g_free(oldtimestr);
-		if (retval == 0) { /* ignore */
-			if (doc->fileinfo) {
+		if (retval == 0) { /* ignore */ 
+			/*if (doc->fileinfo) {
 				g_object_unref(doc->fileinfo);
 			}
 			doc->fileinfo = new;
-			g_object_ref(doc->fileinfo);
+			g_object_ref(doc->fileinfo);*/
+			GTimeVal mtime;
+			g_file_info_set_size(doc->fileinfo, g_file_info_get_size(new));
+			g_file_info_get_modification_time(new, &mtime);
+			g_file_info_set_modification_time(doc->fileinfo, &mtime);
+			g_file_info_set_attribute_string(doc->fileinfo, "etag::value",g_file_info_get_attribute_string(new, "etag::value"));
 			doc_set_tooltip(doc);
 		} else if (retval == 1) { /* reload */
 			doc_reload(doc, new, FALSE);

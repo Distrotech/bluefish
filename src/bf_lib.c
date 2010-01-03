@@ -1427,6 +1427,11 @@ gchar *bf_portable_time(const time_t *timep) {
 #endif /* HAVE_CTIME */
 #endif /* HAVE_ASCTIME_R */
 #endif /* HAVE_CTIME_R */
+	if (retstr) { /* one or more of the above functions end with a newline */
+		int len = strlen(retstr);
+		if (retstr[len-1]=='\n')
+			retstr[len-1]='\0';
+	}
 	return retstr;
 }
 
