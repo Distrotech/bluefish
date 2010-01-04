@@ -28,7 +28,7 @@
 ]>
 
 
-<bflang name="Mediawiki" version="2.0" matches="998" contexts="67" table="4566">
+<bflang name="Mediawiki" version="2.0" matches="999" contexts="67" table="4566">
 
 <header>
    <mime type="text/x-mediawiki"/>
@@ -102,7 +102,8 @@
 </group>
 <group is_regex="1" highlight="wiki">
 	<!-- Lists -->
-      <element pattern="&#10;[\#\*]+[^\#\*]" />
+      <element pattern="&#10;[\#\*]" />
+      <element pattern="&#10;[\#\*]+" />
 		<!-- Indent with no marking -->
       <element pattern="&#10;:"  />
 		<!-- Definition list -->
@@ -111,7 +112,8 @@
 <!-- Pre-formatted text -->
 <element pattern="&#10; " is_regex="1" highlight="pre" />
 <!-- wiki template -->
-<element pattern="\{\{[^\}]+\}\}" is_regex="1" highlight="wiki"/>
+
+<element pattern="&#10;?\{\{[^\}]*\}\}" is_regex="1" highlight="wiki"/>
 <!-- wiki table -->
 <group is_regex="1" highlight="wiki_table">	
 <element  pattern="&#10; *\{|" is_regex="1" highlight="wiki_table" />
