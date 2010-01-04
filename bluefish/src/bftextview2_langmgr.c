@@ -185,6 +185,7 @@ static void langmgr_load_default_styles(void) {
 		{"special-attribute","#FF0000","","","","0",NULL},
 		{"brackets","#000000","","1","0","0",NULL},
 		{"warning","#FF0000","","1","0","0",NULL},
+		{"special-warning","","#FF0000","","","",NULL},
 		{NULL,NULL,NULL,NULL,NULL,NULL,NULL}
 	};
 	while (arr[i][0]) {
