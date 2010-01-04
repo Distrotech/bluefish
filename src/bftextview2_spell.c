@@ -36,8 +36,8 @@
 #include "bftextview2_spell.h"
 #include "document.h"
 
-/*#undef DBG_SPELL
-#define DBG_SPELL g_print*/
+#undef DBG_SPELL
+#define DBG_SPELL g_print
 
 #define MAX_CONTINUOUS_SPELLCHECK_INTERVAL 0.1 /* float in seconds */
 
@@ -80,17 +80,33 @@ static void dicts_load_first_lcb(const char * const lang_tag,const char * const 
 }
 
 void unload_spell_dictionary(Tbfwin *bfwin) {
-	DBG_SPELL("unload_spell_dictionary, bfwin=%p, ed=%p\n",bfwin,bfwin->ed);
-	if (bfwin->ed)
+	if (bfwin->ed) {
+#ifdef ENCHANT_1_4
+		DBG_SPELL("unload_spell_dictionary, bfwin=%p, ed=%p\n",bfwin,bfwin->ed);
 		enchant_broker_free_dict(eb, (EnchantDict *)bfwin->ed);
-
+#else
+		/* enchant < 1.4.0 does not do refcounting, so we have to check ourselves if we are the last window that
+		is using this dictionary */
+		GList *tmplist;
+		gboolean in_use=FALSE;
+		for (tmplist=g_list_first(main_v->bfwinlist);tmplist;tmplist=g_list_next(tmplist)) {
+			if (tmplist->data != bfwin && BFWIN(tmplist->data)->ed == bfwin->ed) {
+				in_use=TRUE;
+				DBG_SPELL("keep dictionary %p, it is in use by bfwin %p\n",bfwin->ed, tmplist->data);
+				break;
+			}
+		}
+		if (!in_use) {
+			DBG_SPELL("free dictionary %p, it is not in use\n",bfwin->ed);
+			enchant_broker_free_dict(eb, (EnchantDict *)bfwin->ed);
+		}
+#endif
+	}
 }
 
 static gboolean load_dictionary(Tbfwin *bfwin) {
 	DBG_SPELL("load_dictionary called for bfwin %p which has session->spell_lang=%s\n",bfwin, bfwin->session->spell_lang);
-	if (bfwin->ed)
-		enchant_broker_free_dict(eb, (EnchantDict *)bfwin->ed);
-
+	unload_spell_dictionary(bfwin);
 	if (bfwin->session->spell_lang && bfwin->session->spell_lang[0]!='\0' && enchant_broker_dict_exists(eb,bfwin->session->spell_lang)) {
 		bfwin->ed = (void *)enchant_broker_request_dict(eb, bfwin->session->spell_lang);
 		DBG_SPELL("loaded dictionary %s at %p\n", bfwin->session->spell_lang, bfwin->ed);
