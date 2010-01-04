@@ -81,7 +81,7 @@ static void dicts_load_first_lcb(const char * const lang_tag,const char * const 
 
 void unload_spell_dictionary(Tbfwin *bfwin) {
 	if (bfwin->ed) {
-#ifdef ENCHANT_1_4
+#ifdef HAVE_LIBENCHANT_1_4
 		DBG_SPELL("unload_spell_dictionary, bfwin=%p, ed=%p\n",bfwin,bfwin->ed);
 		enchant_broker_free_dict(eb, (EnchantDict *)bfwin->ed);
 #else
