@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
       Bluefish HTML Editor
-      shell.bflang2
+      mediawiki.bflang2 $Revision: 5613 $
  
       Copyright (C) 2009 Olivier Sessink
 
@@ -131,31 +131,31 @@
 <element id="e.title6" pattern="&#10;======" is_regex="1" starts_block="1" autocomplete="1" 
 autocomplete_append=" ======" autocomplete_backup_cursor="7">
    <context symbols="=">
-   <element pattern="======" ends_block="1" blockstartelement="e.title6" ends_context="1" />
+   <element pattern="======" ends_block="1" blockstartelement="e.title6" ends_context="1" highlight="title" />
    </context>
 </element> 
 <element id="e.title5" pattern="&#10;=====" is_regex="1" starts_block="1" autocomplete="1" 
 autocomplete_append=" =====" autocomplete_backup_cursor="6">
    <context symbols="=">
-   <element pattern="=====" ends_block="1" blockstartelement="e.title5" ends_context="1" />
+   <element pattern="=====" ends_block="1" blockstartelement="e.title5" ends_context="1" highlight="title" />
    </context>
 </element>
 <element id="e.title4" pattern="&#10;====" is_regex="1" starts_block="1" autocomplete="1" 
 autocomplete_append=" ====" autocomplete_backup_cursor="5">
    <context symbols="=">
-   <element pattern="====" ends_block="1" blockstartelement="e.title4" ends_context="1" />
+   <element pattern="====" ends_block="1" blockstartelement="e.title4" ends_context="1" highlight="title" />
    </context>
 </element> 
 <element id="e.title3" pattern="&#10;===" is_regex="1" starts_block="1" autocomplete="1" 
 autocomplete_append=" ===" autocomplete_backup_cursor="4">
    <context symbols="=">
-    <element pattern="===" ends_block="1" blockstartelement="e.title3" ends_context="1" />
+    <element pattern="===" ends_block="1" blockstartelement="e.title3" ends_context="1" highlight="title" />
    </context>
 </element> 
 <element id="e.title2" pattern="&#10;==" is_regex="1" starts_block="1" autocomplete="1" 
 autocomplete_append=" ==" autocomplete_backup_cursor="3">
    <context symbols="=">
-    <element pattern="==" ends_block="1" blockstartelement="e.title2" ends_context="1" />
+    <element pattern="==" ends_block="1" blockstartelement="e.title2" ends_context="1" highlight="title" />
    </context>
 </element>
 
