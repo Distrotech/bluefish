@@ -55,16 +55,24 @@ bflangxml_DATA = catalog.xml
 bflangrngdir = $(datadir)/xml/$(PACKAGE)/2.0
 bflangrng_DATA = bflang2.rng
 
+# If you are a packager and rely on $(DESTDIR), then the package catalog
+# will not get registered in the systems catalog. Use your packaging files
+# and scripts to register this entry.
 install-data-hook:
 if REGISTER_XML_CATALOG
-	$(XMLCATALOG) --noout \
-	  --add 'delegateURI' 'http://bluefish.openoffice.nl/ns/bflang/2.0/' '$(datadir)/xml/$(PACKAGE)' \
-	  $(DESTDIR)$(XML_CATALOG_FILE)
+	if test -z "$(DESTDIR)" -a -f $(XML_CATALOG_FILE) ; then \
+		$(XMLCATALOG) --noout --add 'delegateURI' \
+		    'http://bluefish.openoffice.nl/ns/bflang/2.0/' '$(datadir)/xml/$(PACKAGE)' \
+		    $(XML_CATALOG_FILE) || true ; \
+	fi
 endif #REGISTER_XML_CATALOG
 
 uninstall-hook:
 if REGISTER_XML_CATALOG
-	$(XMLCATALOG) --noout --del 'http://bluefish.openoffice.nl/ns/bflang/2.0/'
+	if test -z "$(DESTDIR)" ; then \
+		$(XMLCATALOG) --noout --del 'http://bluefish.openoffice.nl/ns/bflang/2.0/' \
+		    $(XML_CATALOG_FILE) || true ; \
+	fi
 endif #REGISTER_XML_CATALOG
 
 #check-local: check-rng check-bflang2
