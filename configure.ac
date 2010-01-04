@@ -408,6 +408,10 @@ if test "x$enable_spell_check" != "xno"; then
 		[
 		 BF_dependencies="$BF_dependencies enchant"
 		 AC_DEFINE([HAVE_LIBENCHANT], [1], [Define to 1 if you have the `enchant' library (-lenchant).])
+                 PKG_CHECK_EXISTS(
+			[enchant >= 1.4],
+			[AC_DEFINE([HAVE_LIBENCHANT_1_4], [1], [Define to 1 if you have the `enchant' library (-lenchant) >= 1.4.])]
+		 )
 		],
 		[
 		 AC_CHECK_HEADERS(
