@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		shell.bflang2 $Revision$
  
-		Copyright (C) 2008,2009 Olivier Sessink
+		Copyright (C) 2008-2010 Olivier Sessink
 
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Shell" version="2.0" matches="29" contexts="3" table="82">
+<bflang name="Shell" version="2.0" table="291" contexts="4" matches="86" >
 <header>
 	<mime type="application/x-shellscript"/>
 	<mime type="text/x-shellscript"/>
@@ -41,27 +41,78 @@
 <definition>
 <context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 <element pattern="[0-9.]+" is_regex="1" highlight="value"/>
-<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
-<element pattern="${[^}]+}" is_regex="1" case_insens="1" highlight="variable"/>
+<element pattern="\$+[!@?*#\${a-zA-Z0-9_][}a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="variable"/>
+
 <group autocomplete="1" highlight="function">
-	<element pattern="print" />
-	<element pattern="echo" />
-	<element pattern="setopt" />
 	<element pattern="alias" />
-	<element pattern="set" />
-	<element pattern="if" />
-	<element pattern="then" />
-	<element pattern="else" />
-	<element pattern="fi" />
-	<element pattern="for" />
-	<element pattern="in" />
-	<element pattern="do" />
-	<element pattern="done" />
-	<element pattern="while"/>
-	<element pattern="case" />
-	<element pattern="esac" />
-	<element pattern="break" />
-	<element pattern="eval" />
+   <element pattern="bg" />
+   <element pattern="bind" />
+   <element pattern="break" />
+   <element pattern="builtin" />
+   <element pattern="caller" />
+   <element pattern="cd" />
+   <element pattern="command" />
+   <element pattern="compgen" />
+   <element pattern="complete" />
+   <element pattern="compopt" />
+   <element pattern="continue" />
+   <element pattern="declare" />
+   <element pattern="dirs" />
+   <element pattern="disown" />
+   <element pattern="do" />
+   <element pattern="done" />
+   <element pattern="echo" />
+   <element pattern="elif" />
+   <element pattern="else" />
+   <element pattern="enable" />
+   <element pattern="eval" />
+   <element pattern="exec" />
+   <element pattern="exit" />
+   <element pattern="export" />
+   <element pattern="fc" />
+   <element pattern="fg" />
+   <element pattern="fi" />
+   <element pattern="for" />
+   <element pattern="function" />
+   <element pattern="getopts" />
+   <element pattern="hash" />
+   <element pattern="help" />
+   <element pattern="history" />
+   <element pattern="if" />
+   <element pattern="in" />
+   <element pattern="jobs" />
+   <element pattern="kill" />
+   <element pattern="let" />
+   <element pattern="local" />
+   <element pattern="logout" />
+   <element pattern="mapfile" />
+   <element pattern="popd" />
+   <element pattern="printf" />
+   <element pattern="pushd" />
+   <element pattern="pwd" />
+   <element pattern="read" />
+   <element pattern="readarray" />
+   <element pattern="readonly" />
+   <element pattern="return" />
+	<element pattern="select" />
+   <element pattern="set" />
+   <element pattern="shift" />
+   <element pattern="shopt" />
+   <element pattern="source" />
+   <element pattern="suspend" />
+   <element pattern="test" />
+   <element pattern="then" />
+   <element pattern="times" />
+   <element pattern="trap" />
+   <element pattern="type" />
+   <element pattern="typeset" />
+   <element pattern="ulimit" />
+   <element pattern="umask" />
+   <element pattern="unalias" />
+   <element pattern="unset" />
+	<element pattern="until" />
+   <element pattern="wait" />
+   <element pattern="while" />
 </group>
 
 <element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
@@ -81,8 +132,7 @@
 <element pattern="&quot;" highlight="string">
 <context symbols="\&quot;${}" highlight="string">
 	<element pattern="\\." is_regex="1" highlight="tag" />
-	<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
-	<element pattern="${[^}]+}" is_regex="1" case_insens="1" highlight="variable"/>
+	<element pattern="\$+[!@?*#\${a-zA-Z0-9_][}a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="variable"/>
 	<element pattern="&quot;" highlight="string" ends_context="1"/>
 </context>
 </element>
