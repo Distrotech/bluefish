@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snippets_gui.c - plugin for snippets sidebar
  *
- * Copyright (C) 2006-2009 Olivier Sessink
+ * Copyright (C) 2006-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -482,9 +482,10 @@ static gboolean snippets_treetip_lcb(GtkWidget *widget,gint x,gint y,gboolean ke
 				N_("To exchange snippets with others use import or export")
 			};
 			gtk_tooltip_set_text(tooltipwidget, _(arr[g_random_int_range(0,3)]));
+			return TRUE;
 		}
 	}
-	return TRUE;
+	return FALSE;
 }
 
 static void snippetview_drag_data_get_lcb(GtkWidget *widget, GdkDragContext *ctx,GtkSelectionData *data, guint info, guint time,gpointer user_data)  {
