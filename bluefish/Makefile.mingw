@@ -5,7 +5,6 @@ all: installer
 config: config.status
 config.status: configure $(SUBDIRS)/config.nsis
 	$< CONFIG_SITE=$(SUBDIRS)/config.nsis --disable-rpath
-	#sed -i -e 's/-rpath \$$([^)]\+)//g' src/plugin_*/Makefile
 
 clean:
 	$(MAKE) -C $(SUBDIRS) -f Makefile.mingw $@
