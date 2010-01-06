@@ -146,7 +146,8 @@ ${StrTok}
 				MessageBox MB_OK "$(DICT_FAILED) $R0"
 				Quit
 		DetailPrint "$(DICT_EXTRACT) (aspell6-${LANG}-${VER}.tbz2)"
-		untgz::extract -d $INSTDIR -zbz2 -u "$TEMP\aspell6-${LANG}-${VER}.tbz2"
+		untgz::extract "-d" "$INSTDIR" "-u" "-zbz2" "$TEMP\aspell6-${LANG}-${VER}.tbz2"
+		StrCmp $0 "success" 0 +2
 		WriteRegStr HKCU "${REG_USER_SET}\Aspell\${LANG}" "" "${VER}"
 		Delete "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 	${EndIf}
