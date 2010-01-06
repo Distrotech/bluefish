@@ -39,7 +39,7 @@
 
 ; File Associations Page
 !define FA_TITLE "Associations de fichiers"
-!define FA_HEADER "Sélectionner les types de fichier que vous souhaitez associer à $ (PRODUCT)."
+!define FA_HEADER "Sélectionner les types de fichier que vous souhaitez associer à ${PRODUCT}."
 !define FA_SELECT "Tout sélectionner"
 !define FA_UNSELECT "Tout désélectionner"
 
