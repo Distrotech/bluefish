@@ -488,7 +488,7 @@ SectionGroup /e "$(SECT_DICT)" SecLang
 		${InstallAspellDict} "gl" "0.5a-2"
 	SectionEnd
 	Section /o "German" SecLangDe
-		${InstallAspellDict} "de" "20030222"
+		${InstallAspellDict} "de" "20030222-1"
 	SectionEnd
 	Section /o "Greek" SecLangEl
 		${InstallAspellDict} "el" "0.50-3"
