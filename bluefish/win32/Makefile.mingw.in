@@ -45,12 +45,14 @@ prepare:
 	cp -f /local/lib/aspell-0.60/*.kbd              $(BUILD_DIR)/lib/aspell-0.60/
 	cp -f /local/share/enchant/enchant.ordering     $(BUILD_DIR)/share/enchant/
 
-installer: install strip prepare
+nsis:
 	$(MAKENSIS) -V3 \
 	    -DPACKAGE="$(BLUEFISH_PACKAGE)" \
 	    -DVERSION="$(BLUEFISH_VERSION)" \
 	    -DLOCALES="$(BLUEFISH_LOCALES)" \
 	    bluefish.nsi
+
+installer: install strip prepare nsis
 
 clean:
 	$(RM) -r Makefile.mingw $(BUILD_DIR)
