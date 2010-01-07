@@ -1,4 +1,4 @@
-﻿;----------------------------------------------
+;----------------------------------------------
 ; Bluefish Windows NSIS Install Script
 ;  Basque Language Header
 ; 
