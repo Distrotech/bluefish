@@ -174,7 +174,7 @@ void bluefish_load_plugins(void) {
 	main_v->props.plugin_config = NULL;
 
 #ifdef NSIS
-	bluefish_scan_dir_load_plugins(&oldlist,"./lib/"PACKAGE);
+	bluefish_scan_dir_load_plugins(&oldlist,g_build_path(G_DIR_SEPARATOR_S,".","lib",PACKAGE,NULL));
 #else
 	bluefish_scan_dir_load_plugins(&oldlist,PKGLIBDIR);
 #endif
