@@ -16,19 +16,19 @@
 
 ; Defines
 ;----------------------------------------------
-!define PRODUCT			"Bluefish"
-!define PUBLISHER			"The Bluefish Developers"
-!define HOMEPAGE			"http://bluefish.openoffice.nl/"
-!define HELPURL			"http://bluefish.openoffice.nl/manual/"
-!define PROGRAM_EXE		"${PACKAGE}.exe"
+!define PRODUCT		"Bluefish"
+!define PUBLISHER	"The Bluefish Developers"
+!define HOMEPAGE	"http://bluefish.openoffice.nl/"
+!define HELPURL		"http://bluefish.openoffice.nl/manual/"
+!define PROGRAM_EXE	"${PACKAGE}.exe"
 !define UNINSTALL_EXE	"bluefish-uninst.exe"
 
-!define GTK_URL			"http://internap.dl.sourceforge.net/project/pidgin/GTK%2B%20for%20Windows/2.14.7%20Rev%20A"
+!define GTK_URL		"http://internap.dl.sourceforge.net/project/pidgin/GTK%2B%20for%20Windows/2.14.7%20Rev%20A"
 !define GTK_FILENAME 	"gtk-runtime-2.14.7-rev-a.exe"
-!define GTK_SIZE			"34549" ; Install size in Kilobytes
-!define AS_DICT_URL		"http://www.muleslow.net/files/aspell/lang"
+!define GTK_SIZE	"34549" ; Install size in Kilobytes
+!define AS_DICT_URL	"http://www.muleslow.net/files/aspell/lang"
 
-!define REG_USER_SET		"Software\${PRODUCT}"
+!define REG_USER_SET	"Software\${PRODUCT}"
 !define REG_UNINSTALL	"Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}"
 
 !define GTK_MIN_VERSION	"2.14.7"
@@ -69,9 +69,9 @@ Var FA_SelectAll
 
 ; Installer configuration settings
 ;----------------------------------------------
-Name						"${PRODUCT} v${VERSION}"
-OutFile					"${PRODUCT}-${VERSION}-setup.exe"
-InstallDir				"$PROGRAMFILES\${PRODUCT}"
+Name		"${PRODUCT} v${VERSION}"
+OutFile		"${PRODUCT}-${VERSION}-setup.exe"
+InstallDir	"$PROGRAMFILES\${PRODUCT}"
 
 ; Tell Windows Vista and Windows 7 that we need admin rights to install
 RequestExecutionLevel admin
@@ -109,9 +109,9 @@ ${StrTok}
 ; MUI configuration
 ;----------------------------------------------
 !define MUI_LANGDLL_ALLLANGUAGES
-!define MUI_LANGDLL_REGISTRY_ROOT 		"HKCU"
-!define MUI_LANGDLL_REGISTRY_KEY 		${REG_USER_SET}
-!define MUI_LANGDLL_REGISTRY_VALUENAME "Installer Language"
+!define MUI_LANGDLL_REGISTRY_ROOT 	"HKCU"
+!define MUI_LANGDLL_REGISTRY_KEY 	${REG_USER_SET}
+!define MUI_LANGDLL_REGISTRY_VALUENAME	"Installer Language"
 
 !define MUI_COMPONENTSPAGE_SMALLDESC
 !define MUI_ABORTWARNING
@@ -128,7 +128,7 @@ ${StrTok}
 !define MUI_STARTMENUPAGE_REGISTRY_KEY 		${REG_USER_SET}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME	"Start Menu Folder"
 
-!define MUI_FINISHPAGE_LINK				"$(FINISHPAGE_LINK)"
+!define MUI_FINISHPAGE_LINK		"$(FINISHPAGE_LINK)"
 !define MUI_FINISHPAGE_LINK_LOCATION	"http://bluefish.openoffice.nl"
 
 
@@ -303,7 +303,7 @@ ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
 !insertmacro MUI_LANGUAGE	"Basque"
 ${LoadLocalization}	"BASQUE"	"locale\Basque.nsh"
 !insertmacro MUI_LANGUAGE	"Czech"
-${LoadLocalization}	"CZECH"	"locale\Czech.nsh"
+${LoadLocalization}	"CZECH"		"locale\Czech.nsh"
 !insertmacro MUI_LANGUAGE	"French"
 ${LoadLocalization}	"FRENCH"	"locale\French.nsh"
 !insertmacro MUI_LANGUAGE	"Galician"
@@ -335,7 +335,7 @@ ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 ;;!insertmacro MUI_LANGUAGE	"Slovak"
 ;;!insertmacro MUI_LANGUAGE	"Spanish"
 ; NSIS Lacks a translation for this language
-;!insertmacro MUI_LANGUAGE	"Tamil"
+;;!insertmacro MUI_LANGUAGE	"Tamil"
 ;;!insertmacro MUI_LANGUAGE	"TradChinese"
 ;;!insertmacro MUI_LANGUAGE	"Turkish"
 
