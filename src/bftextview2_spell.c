@@ -69,7 +69,7 @@ static gboolean bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTe
 
 static void dicts_load_first_lcb(const char * const lang_tag,const char * const provider_name,const char * const provider_desc,const char * const provider_file,void *data) {
 	Tbfwin *bfwin=data;
-	if (!bfwin->ed) {
+	if (!bfwin->ed && lang_tag) {
 		bfwin->ed = (void *)enchant_broker_request_dict(eb, lang_tag);
 		DBG_SPELL("loaded first available dictionary %s at %p\n", lang_tag, bfwin->ed);
 		if (bfwin->ed) {
