@@ -142,14 +142,14 @@ ${StrTok}
 		DetailPrint "$(DICT_DOWNLOAD) (${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2)"
 		NSISdl::download "${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2" "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 		Pop $R0
-			StrCmp $R0 "success" +3
-				MessageBox MB_OK "$(DICT_FAILED) $R0"
-				Quit
+		StrCmp $R0 "success" +3
+			MessageBox MB_OK "$(DICT_FAILED) $R0"
+			Quit
 		DetailPrint "$(DICT_EXTRACT) (aspell6-${LANG}-${VER}.tbz2)"
 		untgz::extract "-d" "$INSTDIR" "-u" "-zbz2" "$TEMP\aspell6-${LANG}-${VER}.tbz2"
-		StrCmp $0 "success" 0 +2
-		WriteRegStr HKCU "${REG_USER_SET}\Aspell\${LANG}" "" "${VER}"
-		Delete "$TEMP\aspell6-${LANG}-${VER}.tbz2"
+		StrCmp $R0 "success" 0 +2
+			WriteRegStr HKCU "${REG_USER_SET}\Aspell\${LANG}" "" "${VER}"
+			Delete "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 	${EndIf}
 !macroend
 !define InstallAspellDict `!insertmacro InstallAspellDict`
