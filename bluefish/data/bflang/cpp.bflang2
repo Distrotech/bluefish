@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		cpp.bflang2 $Revision$
  
-		Copyright (C) 2008-2009 Olivier Sessink
+		Copyright (C) 2008-2010 Olivier Sessink
 
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="C++" version="2.0" matches="85" contexts="7" table="376">
+<bflang name="C++" version="2.0" table="382" contexts="7" matches="92">
 <header>
 	<mime type="text/x-c++src"/>
 	<mime type="text/x-c++hdr"/>
@@ -31,7 +31,7 @@
 	<highlight name="keyword" style="keyword" />
 	<highlight name="storage-keyword" style="special-keyword" />
 	<highlight name="brackets" style="brackets" />
-	<highlight name="type" style="type" />
+	<highlight name="data-type" style="special-type" />
 	<highlight name="comment" style="comment" />
 	<highlight name="string" style="string" />
 	<highlight name="value" style="value" />
@@ -97,7 +97,7 @@
 	<element pattern="volatile" />
 	</group>
 
-	<group highlight="type" autocomplete="1">
+	<group highlight="data-type" autocomplete="1">
 		<element pattern="bool"/>
 		<element pattern="char"><reference><b></b> <b>char</b> is the character storage type, which is 1 byte (8bits)</reference></element>
 		<element pattern="double"><reference><b></b> double is the big floating point storage type, which is 4 or 8 byte (32 or 64bits)</reference></element>
@@ -113,7 +113,16 @@
 		<element pattern="wchar_t" />
 	</group>
 	
-	<element pattern="#(include|if|else|endif|ifdef|ifndef|define)" is_regex="1" highlight="preprocessor" />	
+	<group highlight="preprocessor" autocomplete="1">
+		<element pattern="#include" />
+		<element pattern="#if" />
+		<element pattern="#else" /> 
+		<element pattern="#endif" />
+		<element pattern="#ifdef" />
+		<element pattern="#ifndef" />
+		<element pattern="#define" />
+		<element pattern="#pragma" />
+	</group>	
 	
 	<element pattern="true" autocomplete="1" highlight="value" />	
 	<element pattern="false" autocomplete="1" highlight="value" />	
