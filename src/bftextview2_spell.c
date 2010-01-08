@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_spell.c
  *
- * Copyright (C) 2009 Olivier Sessink
+ * Copyright (C) 2009-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -105,9 +105,9 @@ void unload_spell_dictionary(Tbfwin *bfwin) {
 }
 
 static gboolean load_dictionary(Tbfwin *bfwin) {
-	DBG_SPELL("load_dictionary called for bfwin %p which has session->spell_lang=%s\n",bfwin, bfwin->session->spell_lang);
 	unload_spell_dictionary(bfwin);
 	if (bfwin->session->spell_lang && bfwin->session->spell_lang[0]!='\0' && enchant_broker_dict_exists(eb,bfwin->session->spell_lang)) {
+	    DBG_SPELL("load_dictionary called for bfwin %p which has session->spell_lang=%s\n",bfwin, bfwin->session->spell_lang);
 		bfwin->ed = (void *)enchant_broker_request_dict(eb, bfwin->session->spell_lang);
 		DBG_SPELL("loaded dictionary %s at %p\n", bfwin->session->spell_lang, bfwin->ed);
 		return (bfwin->ed != NULL);
