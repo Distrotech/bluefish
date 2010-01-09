@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * quickstart.c - quickstart dialog
  *
- * Copyright (C) 2005-2009 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2010 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -389,7 +389,7 @@ quickstart_response_lcb(GtkDialog * dialog, gint response, TQuickStart * qstart)
 		}
 
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(qstart->stylearea))) {
-			stylearea = g_strdup("<style>\n\n</style>\n");
+			stylearea = g_strdup("<style type=\"text/css\">\n\n</style>\n");
 		} else {
 			stylearea = g_strdup("");
 		}
