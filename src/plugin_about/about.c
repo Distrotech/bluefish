@@ -2,7 +2,7 @@
  * about.c - the About dialog
  *
  * Copyright (C) 2004 Eugene Morenko(More) more@irpin.com
- * Copyright (C) 2008-2009 Olivier Sessink
+ * Copyright (C) 2008-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -119,7 +119,7 @@ static void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget
   };
 
   const gchar *copyright =
-    "Copyright \xc2\xa9 1998-2009 Olivier Sessink and others.\n";
+    "Copyright \xc2\xa9 1998-2010 Olivier Sessink and others.\n";
 
   /* wrap the license here,
    * the "wrap-license" property is only available with GTK >= 2.8
