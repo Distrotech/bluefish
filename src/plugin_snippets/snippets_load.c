@@ -60,6 +60,7 @@ leaves are of some type:
 
 #include "snippets.h"
 #include "snippets_load.h"
+#include "../config.h"
 #include "../bf_lib.h"
 
 /* GdkPixbuf RGBA C-Source image dump */
@@ -268,18 +269,27 @@ static gboolean snippets_load_finished_lcb(gpointer data) {
 	return FALSE;
 }
 
-static gchar *get_snipfile(void) {
+static gchar *get_snipfile(gboolean forload) {
 	GFile *uri;
 	gchar *filename;
 	uri = user_bfdir("snippets");
 	filename = g_file_get_path(uri);
 	g_object_unref(uri);
+	if (forload) {
+		/* if it does not exist, return PKGDATADIR"/snippets" so we start with the default file */
+		uri = return_first_existing_filename(filename, PKGDATADIR"/snippets","data/snippets","../data/snippets",NULL);	
+		g_free(filename);
+		filename = g_file_get_path(uri);
+		g_object_unref(uri);
+	}
 	return filename;
 }
 
 static gpointer snippets_load_async(gpointer data) {
-	gchar *filename = get_snipfile();
+	gchar *filename = get_snipfile(TRUE);
 	xmlDocPtr doc;
+	if (!filename)
+		return NULL;
 	DEBUG_MSG("snippets_load, filename=%s\n",filename);
 	doc = xmlParseFile(filename);
 	g_free(filename);
@@ -294,7 +304,7 @@ void snippets_load(void) {
 gboolean snippets_store_lcb(gpointer data) {
 	DEBUG_MSG("snippets_store_lcb, started\n");
 	if (snippets_v.doc) {
-		gchar *snipfile = get_snipfile();
+		gchar *snipfile = get_snipfile(FALSE);
 		xmlSaveFormatFile(snipfile, snippets_v.doc, 1);
 		g_free(snipfile);
 	}
