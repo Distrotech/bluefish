@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		xslt.bflang2 $Rev$
+ 
+		Copyright (C) 2010 Daniel Leidert
+
+		This program is free software; you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation; either version 2 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+-->
+<!-- TODO: Add generic XML and (X)HTML support via options! Add EXSLT support! -->
+<bflang name="XSLT" version="2.0">
+<header>
+	<mime type="application/xslt+xml" />
+	<option name="xslt_2" default="0" description="Load XSLT 2.0 support." />
+	<highlight name="assignment" style="brackets" />
+	<highlight name="attribute" style="attribute" />
+	<highlight name="entity" style="value" />
+	<highlight name="string" style="string" />
+	<highlight name="tag" style="tag" />
+	<highlight name="tag-comment" style="comment" />
+	<highlight name="tag-condition" style="operator" />
+	<highlight name="tag-element" style="special-tag" />
+	<highlight name="tag-fallback" style="special-function" />
+	<highlight name="tag-function" style="function" />
+	<highlight name="tag-import" style="warning" />
+	<highlight name="tag-number" style="value" />
+	<highlight name="tag-param" style="variable" />
+	<highlight name="tag-preprocessor" style="preprocessor" />
+	<highlight name="tag-text" style="string" />
+	<highlight name="tag-value" style="value" />
+	<highlight name="xml-comment" style="comment" />
+	<highlight name="xml-declaration" style="preprocessor" />
+</header>
+<properties>
+	<comment type="block" start="&lt;!--" end="--&gt;" />
+	<default_spellcheck enabled="0" />
+</properties>
+<definition>
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+
+<element id="e.xml.open" pattern="&lt;?xml" highlight="xml-declaration" starts_block="1">
+	<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
+		<element pattern="[a-zA-Z0-9:-]+" is_regex="1" highlight="xml-declaration" />
+		<element pattern="?&gt;" ends_context="1" ends_block="1" blockstartelement="e.xml.open" highlight="xml-declaration" />
+		<element id="e.xml.stringstart" pattern="&#34;" highlight="string">
+			<context symbols="&amp;;&#34;" highlight="string" >
+				<element id="e.xml.entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+				<element pattern="&#34;" highlight="string" ends_context="1"/>
+			</context>
+		</element>
+	</context>
+</element>
+
+<element id="e.xml.lcomment" pattern="&lt;!--" highlight="xml-comment" starts_block="1">
+	<context symbols="-&gt; &#9;&#10;&#13;" highlight="xml-comment">
+		<element pattern="--&gt;" ends_block="1" blockstartelement="e.xml.lcomment" highlight="xml-comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+
+<!-- TODO: better use something like e.xml.tag.open for this tag to solve: (1) every xmlns:* element might be allowed, (2) transorm is an alias, (3) version 1 vs 2 via class/notclass -->
+<tag name="xsl:stylesheet" attributes="id,extension-element-prefixes,exclude-result-prefixes,version,xmlns" attribhighlight="attribute" autocomplete="1" autocomplete_append=" xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&#10;                version=&quot;1.0&quot;&gt;" highlight="tag">
+	<reference>The xsl:stylesheet element represents a stylesheet in an XML document. xsl:transform is allowed synonymously.</reference>
+
+	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+
+		<group attrib_autocomplete_append="=&quot;&quot;" highlight="tag-import" attribhighlight="attribute">
+			<tag name="xsl:include" attributes="href" autocomplete_append=" href=&quot;&quot; /&gt;">
+				<reference>Include another XSLT stylesheet.</reference>
+			</tag>
+			<tag name="xsl:import" attributes="href" autocomplete_append=" href=&quot;&quot; /&gt;">
+				<reference>Import another XSLT stylesheet.</reference>
+			</tag>
+		</group>
+
+		<group attrib_autocomplete_append="=&quot;&quot;" highlight="tag-preprocessor" attribhighlight="attribute">
+			<tag name="xsl:deciaml-format" attributes="name,decimal-separator,grouping-separator,infinity,minus-sign,NaN,percent,per-mille,zero-digit,digit,pattern-separator">
+				<reference>Declare a decimal-format, which controls the interpretation of a format pattern used by the format-number() function.</reference>
+			</tag>
+			<tag name="xsl:key" attributes="name,match,use" autocomplete_append=" name=&quot;&quot; match=&quot;&quot; use=&quot;&quot; /&gt;">
+				<reference>Declare keys. The name attribute specifies the name. The value attribute specifies a QName, which is expanded. And the match attribute is a Pattern. An xsl:key element gives information about the keys of any node that matches the pattern specified in the match attribute.</reference>
+			</tag>
+			<tag name="xsl:namespace-alias" attributes="stylesheet-prefix,result-prefix" autocomplete_append=" stylesheet-prefix=&quot;&quot; result-prefix=&quot;&quot; /&gt;">
+				<reference>Declare that one namespace URI is an alias for another namespace URI.</reference>
+			</tag>
+			<tag name="xsl:output" attributes="method,version,encoding,omit-xml-declaration,standalone,doctype-public,doctype-system,cdata-section-elements,indent,media-type" autocomplete_append=" /&gt;">
+				<reference>Specify how the result tree should be output.</reference>
+			</tag>
+			<tag name="xsl:preserve-space" attributes="elements" autocomplete_append=" elements=&quot;&quot; /&gt;">
+				<reference>Preserve leading or trailing whitespace in these elements.</reference>
+			</tag>
+			<tag name="xsl:strip-space" attributes="elements" autocomplete_append=" elements=&quot;&quot; /&gt;">
+				<reference>Strip leading or trailing whitespace in these elements.</reference>
+			</tag>
+		</group>
+
+		<tag name="xsl:attribute-set" attributes="name,use-attribute-sets" autocomplete_append=" name=&quot;&quot;" attrib_autocomplete_append="=&quot;&quot;" highlight="tag-element" attribhighlight="attribute">
+			<reference>Define a named set of attributes.</reference>
+			<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+				<tag name="xsl:attribute" attributes="name,namespace" autocomplete_append=" name=&quot;&quot;" attrib_autocomplete_append="=&quot;&quot;" highlight="tag-element" attribhighlight="attribute" id="t.xslt.attribute">
+					<reference>Add attributes to a result element, whether created literally or by instruction.</reference>
+				</tag>
+				<!-- <element idref="e.xml.tag.open" /> -->
+				<element idref="e.xml.lcomment" />
+				<element idref="e.xml.entity" />
+			</context>
+		</tag>
+
+		<tag name="xsl:template" attributes="name,match,priority,mode" highlight="tag" attribhighlight="attribute">
+			<reference>Define a template rule.</reference>
+			<context id="c.xslt.generic" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+
+				<group autocomplete="1" attrib_autocomplete_append="=&quot;&quot;" attribhighlight="attribute">
+					<group autocomplete_append=" name=&quot;&quot;" highlight="tag-param">
+						<tag name="xsl:param" attributes="name,select">
+							<reference>Bind a variable to a value. The given one is the default for the binding and can be overridden when calling the template.</reference>
+						</tag>
+						<tag name="xsl:variable" attributes="name,select">
+							<reference>Bind a variable to a value.</reference>
+						</tag>
+						<tag name="xsl:with-param" attributes="name,select">
+							<reference>Pass parameter with value to template.</reference>
+						</tag>
+					</group>
+					<group highlight="tag-element">
+						<tag name="xsl:element" attributes="name,namespace,use-attribute-sets" autocomplete_append=" name=&quot;&quot;">
+							<reference>Create an element with a computed name.</reference>
+						</tag>
+						<tag idref="t.xslt.attribute" />
+					</group>
+					<group highlight="tag-value">
+						<tag name="xsl:copy" attributes="use-attribute-sets">
+							<reference>Copy the current node.</reference>
+						</tag>
+						<tag name="xsl:copy-of" attributes="select" autocomplete_append=" select=&quot;&quot;">
+							<reference>Insert a result tree fragment into the result tree.</reference>
+						</tag>
+						<tag name="xsl:value-of" attributes="select,disable-output-escaping" autocomplete_append=" select=&quot;&quot;">
+							<reference>Create a text node in the result tree.</reference>
+						</tag>
+					</group>
+					<group highlight="tag">
+						<tag name="xsl:apply-imports" autocomplete_append=" /&gt;" highlight="tag">
+							<reference>Invoke an overridden template rule.</reference>
+						</tag>
+						<tag name="xsl:apply-templates" attributes="mode,select">
+							<reference>Apply template rules.</reference>
+						</tag>
+						<tag name="xsl:call-template" attributes="name" autocomplete_append=" name=&quot;&quot;">
+							<reference>Invoke a template by name.</reference>
+						</tag>
+					</group>
+					<group highlight="tag-condition">
+						<tag name="xsl:choose" autocomplete_append="&gt;&#10;&#10;&lt;/xsl:choose&gt;" autocomplete_backup_cursor="14">
+							<reference>Select one among a number of possible alternatives: a dequence of xsl:when followed by an optional xsl:otherwise.</reference>
+						</tag>
+						<tag name="xsl:if" attributes="test" autocomplete_append=" test=&quot;&quot;&gt;&#10;&#10;&lt;/xsl:if&gt;" autocomplete_backup_cursor="10">
+							<reference>Specify an expression. If the result is true, then the content template is instantiated.</reference>
+						</tag>
+						<tag name="xsl:otherwise" autocomplete_append="&gt;&#10;&#10;&lt;/xsl:otherwise&gt;" autocomplete_backup_cursor="17">
+							<reference>If no xsl:when is true, the content of the xsl:otherwise element is instantiated.</reference>
+						</tag>
+						<tag name="xsl:when" attributes="test" autocomplete_append="&gt;&#10;&#10;&lt;/xsl:when&gt;" autocomplete_backup_cursor="12">
+							<reference>Specify an expression. Each of the xsl:when elements is tested in turn. The content of the first, and only the first xsl:when element, whose test is true, is instantiated.</reference>
+						</tag>
+					</group>
+					<group highlight="tag-function">
+						<tag name="xsl:for-each" attributes="select" autocomplete_append=" select=&quot;&quot;">
+							<reference>Instantiate a template for each node selected by the XPath expression.</reference>
+						</tag>
+						<tag name="xsl:sort" attributes="select,lang,data-type,oder,case-order" autocomplete_append=" /&gt;">
+							<reference>Specifies the primary, secondary, ... sort keys and order.</reference>
+						</tag>
+					</group>
+					<tag name="xsl:comment" highlight="tag-comment">
+						<reference>Create a comment node in the result tree.</reference>
+					</tag>
+					<tag name="xsl:fallback" highlight="tag-fallback">
+						<reference>Perform a fallback action for an instruction element.</reference>
+					</tag>
+					<tag name="xsl:message" attributes="terminate" highlight="tag-comment">
+						<reference>Send a message (in a way that is dependent on the XSLT processor). The message might terminate the process.</reference>
+					</tag>
+					<tag name="xsl:number" attributes="level,count,from,value,format,lang,letter-value,grouping-separator,grouping-size" highlight="tag-number">
+						<reference>Insert a formatted number into the result tree.</reference>
+					</tag>
+					<tag name="xsl:processing-instruction" attributes="name" autocomplete_append=" name=&quot;&quot;" highlight="tag-preprocessor">
+						<reference>Create a processing instruction node in the result tree.</reference>
+					</tag>
+					<tag name="xsl:text" attributes="disable-output-escaping" highlight="tag-text">
+						<reference>Create a text node with the same string-value in the result tree.</reference>
+					</tag>
+				</group>
+
+				<element id="e.xml.tag.open" pattern="&lt;[_a-zA-Z0-9:-]+" is_regex="1" highlight="tag-element" starts_block="1" tagclose_from_blockstack="1">
+					<reference>Generic XML elements are allowed here too.</reference>
+					<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
+						<element pattern="[_a-zA-Z0-9:-]+" is_regex="1" highlight="attribute" />
+						<element pattern="=" highlight="assignment" />
+						<element idref="e.xml.stringstart"/>
+						<element pattern="'[^']+'" highlight="string" is_regex="1" />
+						<element pattern="/&gt;" highlight="tag" ends_context="1" ends_block="1" blockstartelement="e.xml.tag.open" />
+						<element pattern="&gt;" highlight="tag">
+							<context idref="c.xslt.generic" />
+						</element>
+					</context>
+				</element>
+				<element idref="e.xml.lcomment" />
+				<element idref="e.xml.entity" />
+			</context>
+		</tag>
+		
+		<element idref="e.xml.tag.open" />
+		<element idref="e.xml.lcomment" />
+		<element idref="e.xml.entity" />
+	</context>
+
+</tag>
+
+</context>
+</definition>
+</bflang>
