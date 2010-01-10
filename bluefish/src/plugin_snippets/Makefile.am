@@ -5,7 +5,7 @@ EXTRA_DIST = snippets.def
 
 MAINTAINERCLEANFILES = Makefile.in
 
-DEFS += -DLOCALEDIR=\"$(localedir)\"
+DEFS += -DLOCALEDIR=\"$(localedir)\" -DPKGDATADIR=\"$(pkgdatadir)\"
 
 snippetsdir = $(pkglibdir)
 snippets_LTLIBRARIES = snippets.la
