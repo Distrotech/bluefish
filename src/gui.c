@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gui.c - the main GUI
  *
- * Copyright (C) 2002-2009 Olivier Sessink
+ * Copyright (C) 2002-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -114,6 +114,7 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	if ((bfwin->last_notebook_page == cur) 
 		&& (bfwin->current_document != NULL)
 		&& (bfwin->current_document == g_list_nth_data(bfwin->documentlist, cur))) {
+	    if (bfwin->project && bfwin->project->close) project_final_close(bfwin, FALSE);
 		DEBUG_MSG("notebook_changed, NOT CHANGED cur=%d, documentlist[cur]==current_document (=%p), RETURNING\n",cur,bfwin->current_document);
 		return;
 	}
