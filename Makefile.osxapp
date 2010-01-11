@@ -1,0 +1,31 @@
+BUILD_DIR = $(CURDIR)/Bluefish.app/
+
+all: create-app
+
+config: config.status
+config.status: configure config.site/config.osxapp
+	$(CURDIR)/$< CONFIG_SITE=config.site/config.osxapp
+
+clean:
+	[ ! -f Makefile ] || $(MAKE) $(AM_MAKEFLAGS) distclean
+	$(RM) -r $(BUILD_DIR)
+
+create-app: prepare-temp
+	# create the OSX app
+	@echo "Done."
+
+prepare-temp: install
+	# copy your stuff into $(BUILD_DIR)/Contents/Resources/lib/
+
+install: build
+	mkdir -p $(BUILD_DIR)
+	$(MAKE) $(AM_MAKEFLAGS) install DESTDIR=$(BUILD_DIR) \
+	    DATADIRNAME="Contents/Resources/share"
+
+build: config
+	$(MAKE) $(AM_MAKEFLAGS) \
+	    pkgdatadir="../Resources/share/bluefish/" \
+	    localedir="../Resources/share/locale/" \
+	    DATADIRNAME="Contents/Resources/share"
+
+.PHONY: all config clean create-app prepare-temp install build
