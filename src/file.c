@@ -559,7 +559,7 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 		}
 		g_error_free(error);
 	} else {
-		DEBUG_MSG("openfile_async_lcb, finished, received %d bytes\n",size);
+		DEBUG_MSG("openfile_async_lcb, finished, received %zd bytes\n",size);
 		of->callback_func(OPENFILE_FINISHED,NULL,buffer,size, of->callback_data);
 		openfile_cleanup(of);
 		g_free(buffer);

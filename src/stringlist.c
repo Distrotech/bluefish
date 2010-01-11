@@ -172,9 +172,9 @@ gchar **string_to_array(gchar *string) {
 			arraycount++;
 			if (arraycount == arraysize-2) { /* we need 1 spare entry in the array */
 				arraysize += ARRAYBLOCKSIZE;  /* and arraysize starts at 1, arraycount at 0 */
-				DEBUG_MSG("string_to_array, arraycount=%d, about to increase arraysize to %d, sizeof(array(%p))=%d\n", arraycount, arraysize, array, sizeof(&array));
+				DEBUG_MSG("string_to_array, arraycount=%d, about to increase arraysize to %d, sizeof(array(%p))=%ld\n", arraycount, arraysize, array, sizeof(&array));
 				array = g_realloc(array, arraysize * sizeof(char *));
-				DEBUG_MSG("string_to_array, arraysize=%d, array(%p), sizeof(array)=%d\n", arraysize, array, sizeof(&array));
+				DEBUG_MSG("string_to_array, arraysize=%d, array(%p), sizeof(array)=%ld\n", arraysize, array, sizeof(&array));
 			}
 			count = -1;
 		} else {
@@ -186,7 +186,7 @@ gchar **string_to_array(gchar *string) {
 			newstringsize += BUFBLOCKSIZE;
 			DEBUG_MSG("string_to_array, about to increase newstring(%p) to %d bytes\n", newstring, newstringsize);
 			newstring = g_realloc(newstring, newstringsize * sizeof(char));
-			DEBUG_MSG("string_to_array, newstringsize=%d, sizeof(newstring(%p))=%d\n", newstringsize, newstring, sizeof(newstring));
+			DEBUG_MSG("string_to_array, newstringsize=%d, sizeof(newstring(%p))=%ld\n", newstringsize, newstring, sizeof(newstring));
 		}
 	}
 	

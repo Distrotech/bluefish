@@ -112,7 +112,7 @@ static gboolean socket_data_in_lcb(GIOChannel * source, GIOCondition condition, 
 	status = g_io_channel_read_line(source, &instring, &instringlen, &termpos, &error);
 	DEBUG_MSG("socket_data_in_lcb, status=%d\n",status);
 	while(status ==G_IO_STATUS_NORMAL && instringlen>0) {
-		DEBUG_MSG("received data instring=%p, instringlen=%d, termpos=%d\n",instring, instringlen, termpos);
+		DEBUG_MSG("received data instring=%p, instringlen=%zd, termpos=%zd\n",instring, instringlen, termpos);
 		instring[termpos]='\0';
 		handle_message(instring, instringlen);
 		g_free(instring);
