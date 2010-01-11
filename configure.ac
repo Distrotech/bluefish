@@ -563,20 +563,29 @@ dnl   Locations
 dnl ************************
 
 if test "$prefix" == "NONE"; then
-	prefix="${ac_default_prefix}"
-	AC_SUBST([prefix])
+	AC_SUBST([prefix],[${ac_default_prefix}])
 fi
 
 if test "$exec_prefix" == "NONE"; then
-	exec_prefix="${prefix}"
-	AC_SUBST([exec_prefix])
+	AC_SUBST([exec_prefix],[${prefix}])
 fi
 
 if test -z "$localedir"; then
-	localedir="${datadir}/locale"
-	AC_SUBST([localedir])
+	AC_SUBST([localedir],[${datadir}/locale])
 fi
 
+if test -z "$docdir"; then
+	AC_SUBST(
+		[docdir],
+		[
+		 m4_ifset(
+			[AC_PACKAGE_TARNAME],
+			[${datadir}'/doc/${PACKAGE_TARNAME}'],
+			[${datadir}'/doc/${PACKAGE}']
+		 )
+		]
+	)
+fi
 
 dnl *******************************
 dnl   Manpage macros
