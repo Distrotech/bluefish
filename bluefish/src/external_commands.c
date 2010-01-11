@@ -118,7 +118,7 @@ static gboolean start_command_write_lcb(GIOChannel *channel,GIOCondition conditi
 	Texternalp *ep = data;
 	GError *gerror=NULL;
 	gsize bytes_written=0;
-	DEBUG_MSG("start_command_write_lcb, started, still %d bytes to go\n",strlen(ep->buffer_out_position));
+	DEBUG_MSG("start_command_write_lcb, started, still %zd bytes to go\n",strlen(ep->buffer_out_position));
 
 	g_io_channel_write_chars(channel,ep->buffer_out_position,-1,&bytes_written,&gerror);
 	if (gerror) {
@@ -128,7 +128,7 @@ static gboolean start_command_write_lcb(GIOChannel *channel,GIOCondition conditi
 		g_io_channel_shutdown(channel,TRUE,&gerror);
 		return FALSE;
 	}
-	DEBUG_MSG("start_command_write_lcb, %d bytes written\n",bytes_written);
+	DEBUG_MSG("start_command_write_lcb, %zd bytes written\n",bytes_written);
 	ep->buffer_out_position += bytes_written;
 	if (strlen(ep->buffer_out) <= (ep->buffer_out_position - ep->buffer_out)) {
 		DEBUG_MSG("start_command_write_lcb, finished, shutting down channel\n");

@@ -244,7 +244,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			return returnvalue;
 		}
 		nmatch = (want_submatches) ? reg_pat.re_nsub+1 : 1;
-		DEBUG_MSG("search_backend, expr. contains %d sub search_patterns\n", reg_pat.re_nsub );
+		DEBUG_MSG("search_backend, expr. contains %zd sub search_patterns\n", reg_pat.re_nsub );
 		pmatch = g_malloc(nmatch*sizeof(regmatch_t));
 		retval = regexec(&reg_pat, buf+byte_offset, nmatch, pmatch, 0);
 		DEBUG_MSG("search_backend, regexec retval=%d\n", retval);
@@ -921,7 +921,7 @@ static gboolean replace_current_match(Tbfwin *bfwin) {
 		doc_set_modified(bfwin->current_document, 1);
 
 		lenadded = strlen(tmpstr) - (LASTSNR2(bfwin->snr2)->result.end - LASTSNR2(bfwin->snr2)->result.start);
-		DEBUG_MSG("lenadded=%d (streln=%d, end-start=%d)\n",lenadded,strlen(tmpstr),(LASTSNR2(bfwin->snr2)->result.end - LASTSNR2(bfwin->snr2)->result.start));
+		DEBUG_MSG("lenadded=%d (strlen=%zd, end-start=%d)\n",lenadded,strlen(tmpstr),(LASTSNR2(bfwin->snr2)->result.end - LASTSNR2(bfwin->snr2)->result.start));
 		g_free(tmpstr);
 		/* empty the last match */
 		if (LASTSNR2(bfwin->snr2)->result.pmatch) {

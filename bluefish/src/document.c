@@ -3101,7 +3101,7 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 					itend = itstart;
 					gtk_text_iter_forward_chars(&itend,BFWIN(doc->bfwin)->session->editor_tab_width);
 					buf = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
-					DEBUG_MSG("tab_width=%d, strlen(buf)=%d, buf='%s'\n",BFWIN(doc->bfwin)->session->editor_tab_width,strlen(buf),buf);
+					DEBUG_MSG("tab_width=%d, strlen(buf)=%zd, buf='%s'\n",BFWIN(doc->bfwin)->session->editor_tab_width,strlen(buf),buf);
 					while (cont && buf[i] != '\0') {
 						cont = (buf[i] == ' ');
 						DEBUG_MSG("doc_indent_selection, buf[%d]='%c'\n",i,buf[i]);

@@ -484,7 +484,7 @@ gchar *unexpand_string(const gchar *original, const char specialchar, Tconvert_t
 	Tconvert_table *tmpentry;
 	
 	orig = g_strdup(original);
-	DEBUG_MSG("original='%s', strlen()=%d\n",original,strlen(original));
+	DEBUG_MSG("original='%s', strlen()=%zd\n",original,strlen(original));
 	tosearchfor = g_malloc(tablesize(table)+1);
 	DEBUG_MSG("tablesize(table)=%d, alloc'ed %d bytes for tosearchfor\n",tablesize(table), tablesize(table)+1);
 	tmp = tosearchfor;
@@ -496,7 +496,7 @@ gchar *unexpand_string(const gchar *original, const char specialchar, Tconvert_t
 	}
 	*tmp = '\0';
 	DEBUG_MSG("unexpand_string, tosearchfor='%s'\n",tosearchfor);
-	DEBUG_MSG("alloc'ing %d bytes\n", (countchars(original, tosearchfor) + strlen(original) + 1));
+	DEBUG_MSG("alloc'ing %zd bytes\n", (countchars(original, tosearchfor) + strlen(original) + 1));
 	retval = g_malloc((countchars(original, tosearchfor) + strlen(original) + 1) * sizeof(gchar));
 	dest = retval;
 	prev = orig;
@@ -673,7 +673,7 @@ guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffse
 		exit(156);
 	}
 #endif
-	DEBUG_MSG("utf8_byteoffset_to_charsoffset_cached, string %p has strlen %d, looking for byteoffset %ld, starting in cache at i=%d\n", string, strlen(string),byteoffset,i);
+	DEBUG_MSG("utf8_byteoffset_to_charsoffset_cached, string %p has strlen %zd, looking for byteoffset %ld, starting in cache at i=%d\n", string, strlen(string),byteoffset,i);
 
 	while (i > 0 && utf8_offset_cache.last_byteoffset[i] > byteoffset) {
 		i--;
