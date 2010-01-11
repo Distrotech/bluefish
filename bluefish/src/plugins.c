@@ -173,7 +173,7 @@ void bluefish_load_plugins(void) {
 	DEBUG_MSG("bluefish_load_plugins, oldlist %p len=%d\n",oldlist,g_list_length(oldlist));
 	main_v->props.plugin_config = NULL;
 
-#ifdef NSIS || OSXAPP
+#if defined(NSIS) || defined(OSXAPP)
 #ifdef RELPLUGINPATH
 	bluefish_scan_dir_load_plugins(&oldlist,g_build_path(G_DIR_SEPARATOR_S,RELPLUGINPATH,"lib",PACKAGE,NULL));
 #else /* RELPLUGINPATH */
