@@ -18,5 +18,5 @@ enable_xml_catalog_update=no
 enable_update_databases=no
 enable_maintainer_mode=yes
 LDFLAGS="-Wl,--as-needed -Wl,-O1"
-CFLAGS="-g -Wall -O2 -DOSXAPP -DRELPLUGINPATH=\"../Resources/lib\""
+CFLAGS="-g -Wall -O2 -DOSXAPP -DRELPLUGINPATH=\\\"../Resources/lib\\\""
 CPPFLAGS="-g -Wall -O2"
