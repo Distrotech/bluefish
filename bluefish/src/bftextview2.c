@@ -1042,6 +1042,9 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 
 static gboolean bluefish_text_view_key_release_event(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
 	BluefishTextView *btv=user_data;
+	/* sometimes we receive a release event for a key that was not pressed in the textview widget!
+	for example if you use the keyboard to navigate the menu, and press enter to activate an item, a 
+	key release event is received in the textview widget.... so we have to check that ! */
 	DBG_SIGNALS("bluefish_text_view_key_release_event\n");
 	if (!btv->key_press_was_autocomplete && btv->auto_indent && (kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
 		gchar *string;
