@@ -173,11 +173,14 @@ void bluefish_load_plugins(void) {
 	DEBUG_MSG("bluefish_load_plugins, oldlist %p len=%d\n",oldlist,g_list_length(oldlist));
 	main_v->props.plugin_config = NULL;
 
-#ifdef NSIS
+#ifdef NSIS || OSXAPP
+#ifdef RELPLUGINPATH
+	bluefish_scan_dir_load_plugins(&oldlist,g_build_path(G_DIR_SEPARATOR_S,RELPLUGINPATH,"lib",PACKAGE,NULL));
+#else /* RELPLUGINPATH */
 	bluefish_scan_dir_load_plugins(&oldlist,g_build_path(G_DIR_SEPARATOR_S,".","lib",PACKAGE,NULL));
-#else
+#else /* NSIS || OSXAPP */
 	bluefish_scan_dir_load_plugins(&oldlist,PKGLIBDIR);
-#endif
+#endif /* NSIS || OSXAPP */
 /* #ifdef DEVELOPMENT */
 	{
 		gchar*dir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/",NULL);
