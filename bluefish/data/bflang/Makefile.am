@@ -1,6 +1,7 @@
 
 EXTRA_DIST = \
 	$(bflang_DATA) \
+	$(bflangsample_DATA) \
 	$(bflangrng_DATA) \
 	$(bflangxml_DATA)
 
@@ -46,8 +47,10 @@ bflang_bflang2_files = \
 bflangdir = $(pkgdatadir)/bflang
 bflang_DATA = \
 	$(bflang_bfinc_files) \
-	$(bflang_bflang2_files) \
-	sample.bflang2
+	$(bflang_bflang2_files)
+
+bflangsampledir = $(docdir)/bflang
+bflangsample_DATA = sample.bflang2
 
 bflangxmldir = $(datadir)/xml/$(PACKAGE)
 bflangxml_DATA = catalog.xml
