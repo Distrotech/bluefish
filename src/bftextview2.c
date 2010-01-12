@@ -804,15 +804,15 @@ static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIt
 }
 
 static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent) {
+	gboolean retval;
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);
 	DBG_SIGNALS("bluefish_text_view_key_press_event\n");
 	if (btv->autocomp) {
 		if (acwin_check_keypress(btv, kevent)) {
-			btv->key_press_was_autocomplete = TRUE;
+			btv->key_press_inserted_char = FALSE;
 			return TRUE;
 		}
 	}
-	btv->key_press_was_autocomplete = FALSE;
 	if (btv->enable_scanner && (kevent->state & GDK_CONTROL_MASK) && kevent->keyval == ' ') {
 		/* <ctrl><space> manually opens the auto completion */
 		autocomp_run(btv,TRUE);
@@ -858,24 +858,29 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 	}
 
 	if (kevent->keyval == GDK_Tab && main_v->props.editor_indent_wspaces) {
-			GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));			
-			GtkTextMark* imark;
-			GtkTextIter iter;
-			gchar *string;
-			gint numchars;
-			/* replace the tab with spaces if the user wants that. 
-			However, some users want the tab key to arrive at the next tab stop. so if the tab width is 
-			4 and there are two characters already, bluefish should insert only 2 characters */
-			string = bf_str_repeat(" ", BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
-			imark = gtk_text_buffer_get_insert(buffer);
-			gtk_text_buffer_get_iter_at_mark(buffer,&iter,imark);
-			numchars = BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width-(gtk_text_iter_get_line_offset(&iter) % BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
-			gtk_text_buffer_insert(buffer,&iter,string,numchars);
-			g_free(string);
-			return TRUE;
-		}
-
-	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->key_press_event (widget, kevent);
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));			
+		GtkTextMark* imark;
+		GtkTextIter iter;
+		gchar *string;
+		gint numchars;
+		/* replace the tab with spaces if the user wants that. 
+		However, some users want the tab key to arrive at the next tab stop. so if the tab width is 
+		4 and there are two characters already, bluefish should insert only 2 characters */
+		string = bf_str_repeat(" ", BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
+		imark = gtk_text_buffer_get_insert(buffer);
+		gtk_text_buffer_get_iter_at_mark(buffer,&iter,imark);
+		numchars = BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width-(gtk_text_iter_get_line_offset(&iter) % BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
+		gtk_text_buffer_insert(buffer,&iter,string,numchars);
+		g_free(string);
+		return TRUE;
+	}
+	
+	retval = GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->key_press_event (widget, kevent);
+	if (retval) {
+		DBG_SIGNALS("parent handled the event, set key_press_inserted_char to TRUE\n");
+		btv->key_press_inserted_char = TRUE;
+	}
+	return retval;
 }
 
 static void bftextview2_block_toggle_fold(BluefishTextView *btv, Tfoundblock *fblock) {
@@ -1045,8 +1050,8 @@ static gboolean bluefish_text_view_key_release_event(GtkWidget *widget,GdkEventK
 	/* sometimes we receive a release event for a key that was not pressed in the textview widget!
 	for example if you use the keyboard to navigate the menu, and press enter to activate an item, a 
 	key release event is received in the textview widget.... so we have to check that ! */
-	DBG_SIGNALS("bluefish_text_view_key_release_event\n");
-	if (!btv->key_press_was_autocomplete && btv->auto_indent && (kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
+	DBG_SIGNALS("bluefish_text_view_key_release_event, key_press_inserted_char=%d\n",btv->key_press_inserted_char);
+	if (btv->key_press_inserted_char && btv->auto_indent && (kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
 		gchar *string;
 		GtkTextIter itstart, itend;
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
@@ -1099,6 +1104,7 @@ static gboolean bluefish_text_view_key_release_event(GtkWidget *widget,GdkEventK
 			g_free(string);
 		}
 	}
+	btv->key_press_inserted_char = FALSE; /* after the key release we set this to FALSE */
 	return FALSE; /* we didn't handle all of the event */
 }
 
