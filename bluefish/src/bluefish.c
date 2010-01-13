@@ -212,31 +212,12 @@ static gboolean startup_in_idle(gpointer data) {
 
 int main(int argc, char *argv[])
 {
-/* Dynamically create paths for Win32 */	
-#ifdef WIN32
- 	gchar *path = g_malloc0(MAX_PATH+1);
-	if (GetModuleFileName(NULL, path, MAX_PATH)) {
-		/* set current working directory */
-		gchar *cwd = g_malloc0(strlen(path+1));
-		strncpy(cwd, path, (strrchr(path,'\\')-path));
-		if (cwd) {
-			SetCurrentDirectory(cwd);
-			DEBUG_MSG("Current directory set to: %s\n", cwd);
-		}
-		g_free(cwd);
-	}
-	else {
-		g_print("Configuration file(s) could not be found.\nExiting now.\n");
-		g_free(path);
-		bluefish_exit_request();	
-	}
-	g_free(path);
-#endif
-
 	gboolean arg_curwindow = FALSE, arg_newwindow=FALSE;
 	gchar **files = NULL;
 	Tstartup *startup;
-
+#ifdef WIN32
+ 	gchar *path;
+ #endif
 	GError *error = NULL;
 	GOptionContext *context;
 	const GOptionEntry options[] = {
@@ -294,8 +275,6 @@ int main(int argc, char *argv[])
 	startup = g_new0(Tstartup,1);
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
-	rcfile_check_directory();
-	rcfile_parse_main();
 
 	if (files != NULL) {
 		gchar **tmp = files;
@@ -308,6 +287,30 @@ int main(int argc, char *argv[])
 		g_strfreev(files);
 	}
 
+	/* Dynamically create paths for Win32 *after* we have converted the relative
+	filenames from the commandline to GFile objects */	
+#ifdef WIN32
+ 	path = g_malloc0(MAX_PATH+1);
+	if (GetModuleFileName(NULL, path, MAX_PATH)) {
+		/* set current working directory */
+		gchar *cwd = g_malloc0(strlen(path+1));
+		strncpy(cwd, path, (strrchr(path,'\\')-path));
+		if (cwd) {
+			SetCurrentDirectory(cwd);
+			DEBUG_MSG("Current directory set to: %s\n", cwd);
+		}
+		g_free(cwd);
+	}
+	else {
+		g_print("Configuration file(s) could not be found.\nExiting now.\n");
+		g_free(path);
+		bluefish_exit_request();	
+	}
+	g_free(path);
+#endif
+
+	rcfile_check_directory();
+	rcfile_parse_main();
 	if (main_v->props.open_in_running_bluefish) {
 #ifdef WITH_MSG_QUEUE
 		/* start message queue as early as possible so a running bluefish process has a lot of 
