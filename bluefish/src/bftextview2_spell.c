@@ -506,6 +506,14 @@ static void bftextview2_preferences_menu_lcb(GtkWidget *widget, gpointer data) {
 			g_free(bfwin->session->spell_lang);
 		bfwin->session->spell_lang = g_strdup(gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)));
 		if (load_dictionary(bfwin)) {
+			GList *tmplist;			
+			/* now mark all documents in this window with 'need_spellcheck'*/
+			for (tmplist=g_list_first(bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
+				Tdocument *doc = DOCUMENT(tmplist->data);
+				GtkTextIter start,end;
+				gtk_text_buffer_get_bounds(doc->buffer,&start,&end);
+				gtk_text_buffer_apply_tag(doc->buffer, BLUEFISH_TEXT_VIEW(doc->view)->needspellcheck, &start, &end);
+			}
 			bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 		}
 	}
