@@ -345,7 +345,7 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag * imdg)
 	if (imdg->of) {
 		openfile_cancel(imdg->of);
 	}
-	g_print("image_filename_changed: filename=%s\n", gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0])));
+	DEBUG_MSG("image_filename_changed: filename=%s\n", gtk_entry_get_text(GTK_ENTRY(imdg->dg->entry[0])));
 
 	/* the entry usually has a relative filename, so we should make it absolute 
 	   using the basedir of the document */
@@ -353,8 +353,15 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag * imdg)
 	/* we should use the full path to create the thumbnail filename */
 	tmp = strstr(filename, "://");
 	if ((tmp == NULL && filename[0] != '/') && imdg->dg->doc->uri) {
+		/* a relative path. create the absolute path. */
 		GFile *parent = g_file_get_parent(imdg->dg->doc->uri);
-		fullfilename = g_file_resolve_relative_path(parent, filename);
+		gchar *tmp; 
+		/* filename is an URI, not a file path. the function g_file_resolve_relative_path
+		does not handle URI parts like %20 (a space) */
+		tmp = g_uri_unescape_string(filename, NULL);
+		DEBUG_MSG("unescaped filename=%s\n",tmp);
+		fullfilename = g_file_resolve_relative_path(parent, tmp);
+		g_free(tmp);
 		g_object_unref(parent);
 	} else if (tmp != NULL || filename[0] == '/') {
 		fullfilename = g_file_new_for_uri(filename);
@@ -365,6 +372,7 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag * imdg)
 	if (fullfilename && g_file_query_exists(fullfilename, NULL)) {
 		gchar *name, *msg;
 		gchar *path = g_file_get_path(fullfilename);
+		DEBUG_MSG("path for fullfilename=%s\n",path);
 		imdg->pbloader = pbloader_from_filename(path);
 		g_free(path);
 
