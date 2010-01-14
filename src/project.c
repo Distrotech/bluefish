@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * project.c - project functionality
  *
- * Copyright (C) 2003-2009 Olivier Sessink
+ * Copyright (C) 2003-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,6 +41,8 @@
 #include "preferences.h"
 
 static void free_session(Tsessionvars *session) {
+	/* call free_session for any of the plugins that have free_session defined */
+	bfplugins_session_cleanup(session);
 	free_stringlist(session->classlist);
 	free_stringlist(session->colorlist);
 	free_stringlist(session->targetlist);

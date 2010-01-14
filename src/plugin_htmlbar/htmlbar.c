@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * htmlbar.c - plugin for html toolbar
  *
- * Copyright (C) 2002-2009 Olivier Sessink
+ * Copyright (C) 2002-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -75,7 +75,7 @@ static void htmlbar_init(void) {
 	htmlbar_v.quickbar_items = NULL;
 	htmlbar_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,
 					NULL /* == g_direct_equal() */,
-					NULL,NULL);
+					NULL,g_free);
 	DEBUG_MSG("htmlbar_init, will add doc_view_button_press %p\n",htmlbar_doc_view_button_press);
 	main_v->doc_view_populate_popup_cbs = g_slist_prepend(main_v->doc_view_populate_popup_cbs,htmlbar_doc_view_populate_popup);
 	main_v->doc_view_button_press_cbs = g_slist_prepend(main_v->doc_view_button_press_cbs,htmlbar_doc_view_button_press);
@@ -148,6 +148,10 @@ static GHashTable *htmlbar_register_session_config(GHashTable *configlist, Tsess
 	configlist = make_config_list_item(configlist, &hbs->view_htmlbar, 'i', "htmlbar_view:", 0);
 	return configlist;
 }
+static void htmlbar_session_cleanup(Tsessionvars *session) {
+	g_hash_table_remove(htmlbar_v.lookup,session);
+}
+
 
 static TBluefishPlugin bfplugin = {
 	"HTML Features",
@@ -169,8 +173,8 @@ static TBluefishPlugin bfplugin = {
 	htmlbar_cleanup_gui,
 	htmlbar_register_globses_config,
 	htmlbar_register_session_config,
+	htmlbar_session_cleanup,
 	NULL, /* binary compatibility */
-	NULL,
 	NULL,
 	NULL
 };

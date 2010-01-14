@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * plugins.c - handle plugin loading
  *
- * Copyright (C) 2005,2006 Olivier Sessink
+ * Copyright (C) 2005-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -236,3 +236,13 @@ GHashTable *bfplugins_register_session_config(GHashTable *list, Tsessionvars *se
 	return list;
 }
 
+void bfplugins_session_cleanup(Tsessionvars *session) {
+	GSList *tmplist = main_v->plugins;
+	while (tmplist) {
+		TBluefishPlugin *bfplugin = tmplist->data;
+		if (bfplugin->session_cleanup) {
+			bfplugin->session_cleanup(session);
+		}
+		tmplist =  g_slist_next(tmplist);
+	}
+}
