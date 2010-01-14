@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snippets.c - plugin for snippets sidebar
  *
- * Copyright (C) 2006-2009 Olivier Sessink
+ * Copyright (C) 2006-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ static void snippets_init(void) {
 #endif
 	snippets_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,
 					NULL /* == g_direct_equal() */,
-					NULL,NULL);
+					NULL,g_free);
 	snippets_v.store = gtk_tree_store_new(NUM_COLUMNS /* Total number of columns */,GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,snippets_sidepanel_initgui);
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);
@@ -107,6 +107,10 @@ static GHashTable *snippets_register_session_config(GHashTable *configlist, Tses
 	return configlist;
 }
 
+static void snippets_session_cleanup(Tsessionvars *session) {
+	g_hash_table_remove(snippets_v.lookup,session);
+}
+
 static TBluefishPlugin bfplugin = {
 	"Code Snippets",
 	BFPLUGIN_VERSION,
@@ -127,8 +131,8 @@ static TBluefishPlugin bfplugin = {
 	snippets_cleanup_gui,
 	snippets_register_globses_config,
 	snippets_register_session_config,
+	snippets_session_cleanup,
 	NULL, /* binary compatibility */
-	NULL,
 	NULL,
 	NULL
 };

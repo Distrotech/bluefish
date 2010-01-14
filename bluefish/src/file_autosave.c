@@ -237,7 +237,6 @@ static gboolean run_autosave(gpointer data) {
 		autosave_save_journal();
 		return TRUE;
 	}
-	
 	return TRUE;
 }
 
@@ -248,7 +247,7 @@ static inline void autosave_recover(Tbfwin *bfwin, GFile *file) {
 	tmplist = g_list_first(list);
 	while (tmplist) {
 		gchar **arr = (gchar **)tmplist->data;
-		GFile *uri=NULL, *recover_uri;
+		GFile *recover_uri;
 		if (count_array(arr)!=3) {
 			tmplist = g_list_next(tmplist);
 			continue;
@@ -257,7 +256,7 @@ static inline void autosave_recover(Tbfwin *bfwin, GFile *file) {
 		DEBUG_MSG("recover %s for %s\n",arr[0],arr[1]);
 		recover_uri = g_file_new_for_uri(arr[0]);
 		if (arr[1] && arr[1][0] != '\0') {
-			uri = g_file_new_for_uri(arr[1]);
+			GFile *uri = g_file_new_for_uri(arr[1]);
 			file_doc_from_uri(bfwin, uri, recover_uri, NULL, -1, -1, FALSE);
 		} else {
 			Tdocument *doc = doc_new_loading_in_background(bfwin, NULL, NULL, FALSE);

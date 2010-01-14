@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
 * entities.c -
 *
-* Copyright (C) 2006-2009 Olivier Sessink
+* Copyright (C) 2006-2010 Olivier Sessink
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -543,7 +543,7 @@ static void entity_init(void) {
 #endif /* ENABLE_NLS */
 	entities_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,
 					NULL /* == g_direct_equal() */,
-					NULL,NULL);
+					NULL,g_free);
 /*  gchar *tmp, *tmp2;
 / * const gchar *orig = "hallo &amp; &test &uuml; ä;";* /
 	const gchar *orig = "&alpha;";
@@ -604,6 +604,9 @@ static GHashTable *entity_register_session_config(GHashTable *configlist, Tsessi
 	configlist = make_config_list_item(configlist, &es->e2c.convert_xml, 'i', "e2c.convert_xml:", 0);
 	return configlist;
 }
+static void entity_session_cleanup(Tsessionvars *session) {
+	g_hash_table_remove(entities_v.lookup,session);
+}
 
 static TBluefishPlugin bfplugin = {
 	"Convert Entities",
@@ -625,8 +628,8 @@ static TBluefishPlugin bfplugin = {
 	entity_cleanup_gui,
 	entity_register_globses_config,
 	entity_register_session_config,
+	entity_session_cleanup,
 	NULL, /* binary compatibility */
-	NULL,
 	NULL,
 	NULL
 };

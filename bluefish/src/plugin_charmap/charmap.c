@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * charmap.c - the charmap panel
  *
- * Copyright (C) 2009 Olivier Sessink
+ * Copyright (C) 2009-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ static void charmap_init(void) {
 #endif /* ENABLE_NLS */
 	charmap_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,
 					NULL /* == g_direct_equal() */,
-					NULL,NULL);
+					NULL,g_free);
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,charmap_sidepanel_initgui);
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,charmap_sidepanel_destroygui);
 }
@@ -70,6 +70,9 @@ Tcharmapsession *get_charmap_session(gpointer session) {
 	}
 	return cms;
 }
+static void charmap_session_cleanup(Tsessionvars *session) {
+	g_hash_table_remove(charmap_v.lookup,session);
+}
 
 static GHashTable *charmap_register_session_config(GHashTable *configlist, Tsessionvars *session) {
 	Tcharmapsession *cms = get_charmap_session(session);
@@ -97,7 +100,7 @@ static TBluefishPlugin bfplugin = {
   charmap_cleanup_gui,
   charmap_register_globses_config,
   charmap_register_session_config,
-  NULL, /* binary compatibility */
+  charmap_session_cleanup,
   NULL,
   NULL,
   NULL

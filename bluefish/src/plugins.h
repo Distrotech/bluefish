@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * plugins.h - plugin structure
  *
- * Copyright (C) 2005 Olivier Sessink
+ * Copyright (C) 2005-2010 Olivier Sessink
  * heavily inspired by code from Eugene Morenko(More)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -54,11 +54,10 @@ typedef struct {
 	
 	GHashTable *(*register_globses_config)(GHashTable *configlist);
 	GHashTable *(*register_session_config)(GHashTable *configlist, Tsessionvars *session);
-
+	void (*session_cleanup) (Tsessionvars *session);
 	gpointer extra1; /* for binary compatibility */
 	gpointer extra2;
 	gpointer extra3;
-	gpointer extra4;
 } TBluefishPlugin;
 
 #define BFPLUGIN(var) ((TBluefishPlugin *)var)
@@ -75,7 +74,7 @@ void bfplugins_enforce_session(gpointer data, gpointer user_data);
 
 GHashTable *bfplugins_register_globses_config(GHashTable *list);
 GHashTable *bfplugins_register_session_config(GHashTable *list,Tsessionvars *session);
-
+void bfplugins_session_cleanup(Tsessionvars *session);
 #ifdef __cplusplus
 };
 #endif
