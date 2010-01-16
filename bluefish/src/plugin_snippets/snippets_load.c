@@ -279,6 +279,9 @@ static gchar *get_snipfile(gboolean forload) {
 		/* if it does not exist, return PKGDATADIR"/snippets" so we start with the default file */
 		uri = return_first_existing_filename(filename, PKGDATADIR"/snippets","data/snippets","../data/snippets",NULL);	
 		g_free(filename);
+		if (!uri) {
+			return NULL;
+		}
 		filename = g_file_get_path(uri);
 		g_object_unref(uri);
 	}
@@ -288,8 +291,10 @@ static gchar *get_snipfile(gboolean forload) {
 static gpointer snippets_load_async(gpointer data) {
 	gchar *filename = get_snipfile(TRUE);
 	xmlDocPtr doc;
-	if (!filename)
+	if (!filename) {
+		snippets_load_finished_lcb(NULL);
 		return NULL;
+	}
 	DEBUG_MSG("snippets_load, filename=%s\n",filename);
 	doc = xmlParseFile(filename);
 	g_free(filename);
