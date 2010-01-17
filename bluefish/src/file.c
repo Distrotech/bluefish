@@ -61,6 +61,7 @@ void DEBUG_URI(GFile * uri, gboolean newline)
 	g_free(name);
 }
 
+
 /******************************** queue functions ********************************/
 typedef struct {
 	GList *head; /* data structures that are *not* being worked on */
@@ -73,6 +74,7 @@ typedef struct {
 
 static Tqueue ofqueue;
 static Tqueue sfqueue;
+static Tqueue fiqueue;
 static Tqueue oadqueue;
 
 static void queue_init(Tqueue *queue, guint max_worknum) {
@@ -85,6 +87,7 @@ static void queue_init(Tqueue *queue, guint max_worknum) {
 void file_static_queues_init(void) {
 	queue_init(&ofqueue, 16);
 	queue_init(&oadqueue, 16);
+	queue_init(&fiqueue, 16);
 	queue_init(&sfqueue, 16);
 }
 
@@ -142,6 +145,57 @@ static gboolean queue_remove(Tqueue *queue, gpointer item) {
 	}
 	return FALSE;
 }
+
+/********************************** wait for mount functions **********************************/ 
+
+static GList *fileinfo_wait_for_mount=NULL;
+static GList *openfile_wait_for_mount=NULL;
+static GMountOperation *gmo=NULL; /* we do only 1 mount operation at a 
+		time to avoid multiple mount calls for the same volume, resulting in multiple authentication
+		popups for the user. In 99.9% of the cases when the user is loading multiple files that need
+		mounting they will be from the same server anyway  */
+
+typedef struct {
+	Tdocument *doc;
+	GFile *uri;
+	GCancellable *cancel;
+} Tfileinfo;
+
+static void openfile_cleanup(Topenfile *of);
+static void openfile_run(gpointer data);
+static void fill_fileinfo_cleanup(Tfileinfo *fi);
+static void fill_fileinfo_run(gpointer data);
+
+static void resume_after_wait_for_mount(void) {
+	GList *tmplist;
+	tmplist = g_list_first(openfile_wait_for_mount);
+	while (tmplist) {
+		Topenfile *of2=tmplist->data;
+		if (!g_cancellable_is_cancelled(of2->cancel)) {
+			queue_push(&ofqueue, of2, openfile_run);
+		} else {
+			of2->callback_func(OPENFILE_ERROR_CANCELLED,NULL,NULL,0, of2->callback_data);
+			openfile_cleanup(of2);
+		}
+		tmplist=g_list_next(tmplist);
+	}
+	g_list_free(openfile_wait_for_mount);
+	openfile_wait_for_mount=NULL;
+	
+	tmplist = g_list_first(fileinfo_wait_for_mount);
+	while (tmplist) {
+		Tfileinfo *fi2=tmplist->data;
+		if (!g_cancellable_is_cancelled(fi2->cancel)) {
+			queue_push(&fiqueue, fi2, fill_fileinfo_run);
+		} else {
+			fill_fileinfo_cleanup(fi2);
+		}
+		tmplist=g_list_next(tmplist);
+	}
+	g_list_free(fileinfo_wait_for_mount);
+	fileinfo_wait_for_mount=NULL;
+}
+
 
 /*************************** FILE DELETE ASYNC ******************************/
 typedef struct {
@@ -470,14 +524,6 @@ GFile *backup_uri_from_orig_uri(GFile * origuri) {
 
 /*************************** OPEN FILE ASYNC ******************************/
 
-static GList *wait_for_mount=NULL;
-GMountOperation *gmo=NULL; /* we do only 1 mount operation at a 
-		time to avoid multiple mount calls for the same volume, resulting in multiple authentication
-		popups for the user. In 99.9% of the cases when the user is loading multiple files that need
-		mounting they will be from the same server anyway  */
-
-static void openfile_run(gpointer data);
-
 static void openfile_cleanup(Topenfile *of) {
 	g_object_unref(of->uri);
 	g_object_unref(of->cancel);
@@ -501,7 +547,6 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 
 static void openfile_async_mount_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Topenfile *of = user_data;
-	GList *tmplist;
 	GError *error=NULL;
 	if (g_file_mount_enclosing_volume_finish(of->uri,res,&error)) {
 		/* open again */
@@ -511,21 +556,7 @@ static void openfile_async_mount_lcb(GObject *source_object,GAsyncResult *res,gp
 		of->callback_func(OPENFILE_ERROR,error,NULL,0, of->callback_data);		
 	}
 	gmo=NULL;
-	tmplist = g_list_first(wait_for_mount);
-	while (tmplist) {
-		Topenfile *of2=tmplist->data;
-		if (!g_cancellable_is_cancelled(of2->cancel)) {
-			DEBUG_MSG("openfile_async_mount_lcb, push 'wait_for_mount' %p back on queue\n", of2);
-			queue_push(&ofqueue, of2, openfile_run);
-		} else {
-			DEBUG_MSG("openfile_async_mount_lcb, loading %p was cancelled, call callback and cleanup\n", of2);
-			of2->callback_func(OPENFILE_ERROR_CANCELLED,NULL,NULL,0, of2->callback_data);
-			openfile_cleanup(of2);
-		}
-		tmplist=g_list_next(tmplist);
-	}
-	g_list_free(wait_for_mount);
-	wait_for_mount=NULL;
+	resume_after_wait_for_mount();
 }
 
 static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
@@ -548,8 +579,8 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 						,of->cancel
 						,openfile_async_mount_lcb,of);
 			} else {
-				DEBUG_MSG("push %p on 'wait_for_mount' list and remove from queue\n", of);
-				wait_for_mount = g_list_prepend(wait_for_mount, of);
+				DEBUG_MSG("push %p on 'openfile_wait_for_mount' list and remove from queue\n", of);
+				openfile_wait_for_mount = g_list_prepend(openfile_wait_for_mount, of);
 				queue_worker_ready(&ofqueue, openfile_run);
 			}
 		} else {
@@ -794,15 +825,30 @@ static void file2doc_lcb(Topenfile_status status,GError *gerror,gchar *buffer,go
 	}
 }
 
-typedef struct {
-	Tdocument *doc;
-	GFile *uri;
-	GCancellable *cancel;
-} Tfileinfo;
+static void fill_fileinfo_cleanup(Tfileinfo *fi) {
+	g_object_unref(fi->uri);
+	g_object_unref(fi->cancel);
+	g_slice_free(Tfileinfo,fi);
+}
 
 void file_asyncfileinfo_cancel(gpointer fi) {
 	g_cancellable_cancel(((Tfileinfo *)fi)->cancel);
 }
+
+static void fill_fileinfo_async_mount_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	Tfileinfo *fi=user_data;
+	GError *error=NULL;
+	if (g_file_mount_enclosing_volume_finish(fi->uri,res,&error)) {
+		fill_fileinfo_run(fi);
+	} else {
+		g_warning("failed to mount with error %d %s!!\n",error->code,error->message);
+		queue_worker_ready(&fiqueue, fill_fileinfo_run);
+		fill_fileinfo_cleanup(fi);
+	}
+	gmo=NULL;
+	resume_after_wait_for_mount();
+}
+
 static void fill_fileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	GFileInfo *info;
 	GError *error=NULL;
@@ -832,18 +878,43 @@ static void fill_fileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer 
 #endif
 		/*doc_set_tooltip(fi->doc);*/
 	} else if (error) {
-		gchar *curi = g_file_get_uri(fi->uri);
-		g_warning("error getting file info for %s: %s\n",curi,error->message);
-		g_error_free(error);
-		g_free(curi);	
+		if (error->code == G_IO_ERROR_NOT_MOUNTED) {
+			if (gmo==NULL) {
+				DEBUG_MSG("fill_fileinfo_lcb, not mounted, try to mount!!\n");
+				gmo = gtk_mount_operation_new(DOCUMENT(fi->doc)->bfwin?(GtkWindow *)BFWIN(DOCUMENT(fi->doc)->bfwin)->main_window:NULL);
+				g_file_mount_enclosing_volume(fi->uri
+						,G_MOUNT_MOUNT_NONE
+						,gmo
+						,fi->cancel
+						,fill_fileinfo_async_mount_lcb,fi);
+			} else {
+				DEBUG_MSG("push %p on 'openfile_wait_for_mount' list and remove from queue\n", of);
+				fileinfo_wait_for_mount = g_list_prepend(fileinfo_wait_for_mount, fi);
+				queue_worker_ready(&fiqueue, fill_fileinfo_run);
+			}
+			return; /* do not cleanup! */ 
+		} else {
+			gchar *curi = g_file_get_uri(fi->uri);
+			g_warning("error getting file info for %s: %s\n",curi,error->message);
+			g_error_free(error);
+			g_free(curi);
+		}	
 	}
 	fi->doc->action.info = NULL;
 	if (fi->doc->action.close_doc) {
 		doc_close_single_backend(fi->doc, FALSE, fi->doc->action.close_window);
 	}
-	g_object_unref(fi->uri);
-	g_object_unref(fi->cancel);
-	g_slice_free(Tfileinfo,fi);
+	queue_worker_ready(&fiqueue, fill_fileinfo_run);
+	fill_fileinfo_cleanup(fi);
+}
+
+static void fill_fileinfo_run(gpointer data) {
+	Tfileinfo *fi=data;
+	g_file_query_info_async(fi->uri,BF_FILEINFO
+					,G_FILE_QUERY_INFO_NONE /* so we do follow symlinks */
+					,G_PRIORITY_LOW
+					,fi->cancel
+					,fill_fileinfo_lcb,fi);
 }
 
 void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri) {
@@ -855,12 +926,7 @@ void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri) {
 	g_object_ref(uri);
 	fi->uri = uri;
 	fi->cancel = g_cancellable_new();
-	
-	g_file_query_info_async(fi->uri,BF_FILEINFO
-					,G_FILE_QUERY_INFO_NONE /* so we do follow symlinks */
-					,G_PRIORITY_LOW
-					,fi->cancel
-					,fill_fileinfo_lcb,fi);
+	queue_push(&fiqueue, fi, fill_fileinfo_run);
 }
 
 void file_doc_retry_uri(Tdocument *doc) {
