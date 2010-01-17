@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * charmap_gui.c - the charmap panel
  *
- * Copyright (C) 2009 Olivier Sessink
+ * Copyright (C) 2009-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+/*#define DEBUG*/
 
 #include "charmap.h"
 #include "charmap_gui.h"
@@ -90,13 +91,7 @@ static const guint8 charmap_icon[] =
   "\216\374\376\373\1\246\250\245\214\374\376\373"};
 
 void charmap_sidepanel_destroygui(Tbfwin *bfwin) {
-	Tcharmapwin *cm;
-	cm = g_hash_table_lookup(charmap_v.lookup,bfwin);
-	DEBUG_MSG("charmap_sidepanel_destroygui, found cm=%p for bfwin %p\n",cm,bfwin);
-	if (cm) {
-		/* hmm nothing to destroy except the widget ?!?!?!?!*/
-		g_free(cm);
-	}
+	g_hash_table_remove(charmap_v.lookup,bfwin);
 }
 
 static void insert_unichar(Tcharmapwin *cm, gunichar wc) {

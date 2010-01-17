@@ -38,7 +38,6 @@ static void charmap_init(void) {
 }
 
 static void charmap_initgui(Tbfwin* bfwin) {
-	
 }
 
 static void charmap_enforce_session(Tbfwin* bfwin) {

@@ -53,6 +53,7 @@ Tsnippetssession *snippets_get_session(Tsessionvars *session) {
 		sns = g_new0(Tsnippetssession,1);
 		sns->show_as_menu = TRUE;
 		g_hash_table_insert(snippets_v.lookup,session,sns);
+		DEBUG_MSG("create snippetsession %p for session %p\n",sns,session);
 	}
 	return sns;
 }
@@ -62,6 +63,7 @@ Tsnippetswin *snippets_get_win(Tbfwin *bfwin) {
 		snw = g_new0(Tsnippetswin,1);
 		snw->bfwin = bfwin;
 		g_hash_table_insert(snippets_v.lookup,bfwin,snw);
+		DEBUG_MSG("create snippetwindow %p for bfwin %p\n",snw,bfwin);
 	}
 	return snw;	
 }
@@ -93,6 +95,7 @@ static void snippets_cleanup(void) {
 
 static void snippets_cleanup_gui(Tbfwin *bfwin) {
 	/* BUG: clean the keys and structures in the hashtable */
+	g_hash_table_remove(snippets_v.lookup,bfwin);
 }
 
 static GHashTable *snippets_register_globses_config(GHashTable *configlist) {
