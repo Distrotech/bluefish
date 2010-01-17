@@ -241,6 +241,7 @@ void bfplugins_session_cleanup(Tsessionvars *session) {
 	while (tmplist) {
 		TBluefishPlugin *bfplugin = tmplist->data;
 		if (bfplugin->session_cleanup) {
+			/*g_print("cleanup session %p for plugin %p\n",session,bfplugin);*/
 			bfplugin->session_cleanup(session);
 		}
 		tmplist =  g_slist_next(tmplist);

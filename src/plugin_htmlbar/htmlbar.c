@@ -127,6 +127,7 @@ static void htmlbar_cleanup(void) {
 
 static void htmlbar_cleanup_gui(Tbfwin *bfwin) {
 	/* BUG: clean the keys and structures in the hashtable */
+	g_hash_table_remove(htmlbar_v.lookup,bfwin);
 }
 
 static GHashTable *htmlbar_register_globses_config(GHashTable *configlist) {
