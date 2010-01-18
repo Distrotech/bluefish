@@ -51,6 +51,9 @@ static void charmap_enforce_session(Tbfwin* bfwin) {
 	}
 }
 static void charmap_cleanup(void) {
+	g_hash_table_unref(charmap_v.lookup);
+	main_v->sidepanel_initgui=g_slist_remove(main_v->sidepanel_initgui,charmap_sidepanel_initgui);
+	main_v->sidepanel_destroygui=g_slist_remove(main_v->sidepanel_destroygui,charmap_sidepanel_destroygui);
 }
 
 static void charmap_cleanup_gui(Tbfwin *bfwin) {

@@ -80,17 +80,10 @@ static void snippets_enforce_session(Tbfwin* bfwin) {
 	}
 }
 static void snippets_cleanup(void) {
-	/*GList *tmplist = g_list_first(gtk_window_list_toplevels());
-	while (tmplist) {
-		if (GTK_IS_WIDGET(tmplist->data)) {
-			const gchar *role= gtk_window_get_role ((GtkWindow*)tmplist->data);
-			if (role && strcmp(role,"html_dialog") ==0) {
-				gtk_widget_hide(GTK_WIDGET(tmplist->data));
-				window_destroy(GTK_WIDGET(tmplist->data));
-			}
-		}
-		tmplist = g_list_next(tmplist);
-	}*/
+	g_hash_table_unref(snippets_v.lookup);
+	g_object_unref(snippets_v.store);
+	main_v->sidepanel_initgui = g_slist_remove(main_v->sidepanel_initgui,snippets_sidepanel_initgui);
+	main_v->sidepanel_destroygui = g_slist_remove(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);
 }
 
 static void snippets_cleanup_gui(Tbfwin *bfwin) {
