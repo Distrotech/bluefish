@@ -123,6 +123,12 @@ static void htmlbar_cleanup(void) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
+
+	free_stringlist(htmlbar_v.quickbar_items);
+	g_hash_table_unref(htmlbar_v.lookup);
+	main_v->doc_view_populate_popup_cbs = g_slist_remove(main_v->doc_view_populate_popup_cbs,htmlbar_doc_view_populate_popup);
+	main_v->doc_view_button_press_cbs = g_slist_remove(main_v->doc_view_button_press_cbs,htmlbar_doc_view_button_press);
+
 }
 
 static void htmlbar_cleanup_gui(Tbfwin *bfwin) {

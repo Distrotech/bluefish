@@ -580,7 +580,9 @@ static void entity_initgui(Tbfwin* bfwin) {
 	gtk_widget_show_all(bfwin->menubar);
 }
 static void entity_enforce_session(Tbfwin* bfwin) {}
-static void entity_cleanup(void) {}
+static void entity_cleanup(void) {
+	g_hash_table_unref(entities_v.lookup);
+}
 static void entity_cleanup_gui(Tbfwin *bfwin) {}
 static GHashTable *entity_register_globses_config(GHashTable *configlist) {return configlist;}
 static GHashTable *entity_register_session_config(GHashTable *configlist, Tsessionvars *session) {
