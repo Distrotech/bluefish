@@ -488,33 +488,30 @@ static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
 }
 
-void filetype_menus_empty() {
-	GList *tmplist = g_list_first(main_v->bfwinlist);
+void free_bfw_dynmenu_list(GList *list) {
+	GList *tmplist = g_list_first(list);
 	while (tmplist) {
-		Tbfwin *bfwin = BFWIN(tmplist->data);
-		GList *tmplist2 = g_list_first(bfwin->menu_filetypes);
-		while (tmplist2) {
-			Tbfw_dynmenu *bdm = BFW_DYNMENU(tmplist2->data);
+		Tbfw_dynmenu *bdm = BFW_DYNMENU(tmplist->data);
+		if (bdm->signal_id!=0)
 			g_signal_handler_disconnect(bdm->menuitem,bdm->signal_id);
-			gtk_widget_destroy(bdm->menuitem);
-			g_slice_free(Tbfw_dynmenu,bdm);
-			tmplist2 = g_list_next(tmplist2);
-		}
+		gtk_widget_destroy(bdm->menuitem);
+		g_slice_free(Tbfw_dynmenu,bdm);
 		tmplist = g_list_next(tmplist);
 	}
+	g_list_free(list);
 }
 
 void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	GSList *group=NULL;
 	GtkWidget *parent_menu;
-	GList *tmplist;
+	GList *tmplist, *list;
 	if (!item_factory) {
 		item_factory = gtk_item_factory_from_widget(bfwin->menubar);
 	}
 	DEBUG_MSG("filetype_menu_rebuild, adding filetypes in menu\n");
 	bfwin->menu_filetypes = NULL;
 	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Language Mode"));
-	tmplist = g_list_last(langmgr_get_languages());
+	list = tmplist = g_list_last(langmgr_get_languages());
 	while (tmplist) {
 		Tbflang *bflang = (Tbflang *)tmplist->data;
 		Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
@@ -528,6 +525,7 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		bfwin->menu_filetypes = g_list_prepend(bfwin->menu_filetypes, bdm);
 		tmplist = g_list_previous(tmplist);
 	}
+	g_list_free(list);
 }
 
 /*
@@ -851,6 +849,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
+			bdm->signal_id=0;
 			DEBUG_MSG("external_menu_rebuild,Adding filter %s with command %s to the menu\n", arr[0], arr[1]);
 			bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools/Filters",arr[0],G_CALLBACK(external_filter_lcb),bdm,-1);
 			DEBUG_MSG("external_menu_rebuild,creating,bfwin=%p,bdm=%p,menuitem=%p\n",bfwin,bdm,bdm->menuitem);
@@ -872,6 +871,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
+			bdm->signal_id=0;
 			if (arr[2][0] == '1') {
 				bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools",arr[0],G_CALLBACK(external_command_lcb),bdm,1);
 			} else {
@@ -902,6 +902,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->data = arr;
 			bdm->bfwin = bfwin;
+			bdm->signal_id=0;
 			DEBUG_MSG("external_menu_rebuild,Adding outputbox %s with command %s to the menu\n", arr[0], arr[5]);
 			bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools/Outputbox",arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)bdm,-1);
 			bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox,bdm);
@@ -959,6 +960,7 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 			g_free (label);
 			bdm->data = strarr[1];
 			bdm->bfwin = bfwin;
+			bdm->signal_id=0;
 			g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(menu_current_document_encoding_change), (gpointer) bdm);
 			gtk_widget_show(bdm->menuitem);
 			gtk_menu_insert(GTK_MENU(parent_menu), bdm->menuitem, 1);
