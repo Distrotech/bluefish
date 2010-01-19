@@ -2793,4 +2793,7 @@ void fb2config_cleanup(void)
 	}
 	g_list_free(FB2CONFIG(main_v->fb2config)->uri_in_refresh);
 	FB2CONFIG(main_v->fb2config)->uri_in_refresh = NULL;
+	g_hash_table_unref(FB2CONFIG(main_v->fb2config)->filesystem_itable);
+	g_object_unref(FB2CONFIG(main_v->fb2config)->filesystem_tstore);
+	g_free(main_v->fb2config);
 }

@@ -397,6 +397,7 @@ static GtkWidget *snip_rpopup_create_menu(Tsnippetswin *snw, xmlNodePtr cur) {
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/New snippet"), (state!=2));
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete branch"), (state==1));
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Export"), (state!=0));
+	g_object_unref(menumaker);
 	return menu;
 }
 

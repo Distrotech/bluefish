@@ -714,6 +714,7 @@ void gui_apply_settings(Tbfwin *bfwin) {
 
 static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	GList *tmplist;
+	GtkItemFactory* ifactory; 
 	/* call all cleanup functions here */
 	/*remove_window_entry_from_all_windows(bfwin);*/
 	
@@ -728,8 +729,13 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 		left */
 		tmplist = g_list_first(bfwin->documentlist);
 	}
+	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 	g_list_free(bfwin->menu_recent_files);
 	g_list_free(bfwin->menu_recent_projects);
+	free_bfw_dynmenu_list(bfwin->menu_filetypes);
+	free_bfw_dynmenu_list(bfwin->menu_external);
+	free_bfw_dynmenu_list(bfwin->menu_outputbox);
+	free_bfw_dynmenu_list(bfwin->menu_encodings);
 #ifdef HAVE_LIBENCHANT
 	unload_spell_dictionary(bfwin);
 #endif
@@ -737,6 +743,7 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	bmark_cleanup(bfwin);
 	outputbox_cleanup(bfwin);
 	snr2_cleanup(bfwin);
+	g_object_unref(ifactory);
 }
 
 void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
