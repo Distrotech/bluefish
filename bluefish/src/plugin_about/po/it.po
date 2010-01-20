@@ -1,32 +1,38 @@
 # Bluefish, Italian translation
 # Copyright (C) 2000, 2001 Free Software Foundation, Inc.
 # Marco Cassisa <marco@linox.tecnoprogress.it>
-# Andrea Scialpi <solopec@tiscalinet.it> 2000 
+# Andrea Scialpi <solopec@tiscalinet.it> 2000
 # Stefano Canepa <sc@linux.it> 2003, 2004
+# Roberto Bellingeri <bellingeri@netguru.it> 2010
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish gtk2-port\n"
+"Project-Id-Version: Bluefish\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-12-08 21:46+0100\n"
-"PO-Revision-Date: 2004-11-26 10:05+0100\n"
-"Last-Translator: Stefano Canepa <sc@linux.it>\n"
-"Language-Team: Italian <tp@lists.linux.it>\n"
+"PO-Revision-Date: 2010-01-17 00:04+0100\n"
+"Last-Translator: Roberto Bellingeri <bellingeri@netguru.it>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n!=1;\n"
 
 #: src/plugin_about/about.c:83
 msgid ""
 "\n"
 "Developers of previous releases:"
 msgstr ""
+"\n"
+"Sviluppatori delle versioni precedenti:"
 
 #: src/plugin_about/about.c:98
 msgid ""
 "\n"
 "Package maintainers:"
 msgstr ""
+"\n"
+"Package maintainers:"
 
 #: src/plugin_about/about.c:105
 msgid ""
@@ -34,19 +40,21 @@ msgid ""
 "If you know of anyone missing from this list,\n"
 "please let us know via <bluefish@bluefish.openoffice.nl>."
 msgstr ""
+"\n"
+"Se sapete che qualcuno manca a questo elenco,\n"
+"vi invitiamo a contattarci a <bluefish@bluefish.openoffice.nl>."
 
 #: src/plugin_about/about.c:106
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
 msgstr ""
+"\n"
+"Grazie a tutti coloro che hanno contribuito rendendo questo software disponibile."
 
 #: src/plugin_about/about.c:143
-msgid ""
-"An open-source editor for experienced web designers and programmers, "
-"supporting many programming and markup languages, but focusing on creating "
-"dynamic and interactive websites."
-msgstr ""
+msgid "An open-source editor for experienced web designers and programmers, supporting many programming and markup languages, but focusing on creating dynamic and interactive websites."
+msgstr "Un editor open-source per web designer esperti e programmatori, supporta molti linguaggi di programmazione e di markup, ma specifico per la creazione di siti web dinamici e interattivi."
 
 #. Translators: This is a special message that shouldn't be translated
 #. * literally. It is used in the about box to give credits to
@@ -57,13 +65,17 @@ msgstr ""
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
 #: src/plugin_about/about.c:153
-#, fuzzy
 msgid "translator-credits"
-msgstr "Traduttori"
+msgstr ""
+"Free Translation Project - Sezione Italiana <tp@lists.linux.it>\n"
+"Marco Cassisa <marco@linox.tecnoprogress.it>\n"
+"Andrea Scialpi <solopec@tiscalinet.it>\n"
+"Stefano Canepa <sc@linux.it>\n"
+"Roberto Bellingeri <bellingeri@netguru.it>"
 
 #: src/plugin_about/about.c:195
 msgid "This version of Bluefish was built with:\n"
-msgstr ""
+msgstr "Questa versione di Bluefish è stata compilata con:\n"
 
 #: src/plugin_about/about.c:216
 msgid "/_Help"
@@ -71,20 +83,19 @@ msgstr "/A_iuto"
 
 #: src/plugin_about/about.c:217
 msgid "/Help/Bluefish _Homepage"
-msgstr ""
+msgstr "/A_iuto/_Homepage di Bluefish"
 
 #: src/plugin_about/about.c:218
 msgid "/Help/Report a _Bug"
-msgstr ""
+msgstr "/A_iuto/_Segnala un problema"
 
 #: src/plugin_about/about.c:220
 msgid "/Help/_About..."
-msgstr "/A_iuto/Infomazioni"
+msgstr "/A_iuto/_Infomazioni"
 
 #: src/plugin_about/about.c:221
-#, fuzzy
 msgid "/Help/_Build Info..."
-msgstr "/A_iuto/Infomazioni"
+msgstr "/A_iuto/Infomazioni di _compilazione..."
 
 #~ msgid ""
 #~ "Bluefish is an editor for experienced web designers and programmers. It "
@@ -352,12 +363,10 @@ msgstr "/A_iuto/Infomazioni"
 #~ "  Ungherese - Péter Sáska\n"
 #~ "   <sasek@ccsystem.hu>\n"
 #~ "\n"
-
 #~ msgid "About Bluefish"
 #~ msgstr "Bluefish"
-
 #~ msgid "Info"
 #~ msgstr "Informazioni"
-
 #~ msgid "Authors"
 #~ msgstr "Autori"
+
