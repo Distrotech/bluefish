@@ -1,0 +1,248 @@
+# Copyright (C) YEAR The Bluefish Development Team.
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Yuri Chornoivan <yurchor@ukr.net>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: bluefish 2.0.0-rc2\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2010-01-19 16:42+0200\n"
+"PO-Revision-Date: 2010-01-19 20:53+0200\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/plugin_snippets/snippets_gui.c:270
+msgid "Set accelerator key"
+msgstr "Встановити клавішу-акселератор"
+
+#: src/plugin_snippets/snippets_gui.c:302
+msgid "Snippet export filename"
+msgstr "Назва файла експорту фрагмента"
+
+#: src/plugin_snippets/snippets_gui.c:312
+msgid "Snippet import filename"
+msgstr "Назва файла імпорту фрагмента"
+
+#: src/plugin_snippets/snippets_gui.c:351
+msgid "/_New snippet"
+msgstr "/С_творити фрагмент"
+
+#: src/plugin_snippets/snippets_gui.c:352
+msgid "/_Edit snippet"
+msgstr "/_Змінити фрагмент"
+
+#: src/plugin_snippets/snippets_gui.c:353
+msgid "/_Delete snippet"
+msgstr "/_Вилучити фрагмент"
+
+#: src/plugin_snippets/snippets_gui.c:354
+msgid "/Delete branch"
+msgstr "/Вилучити гілку"
+
+#: src/plugin_snippets/snippets_gui.c:356
+msgid "/Set snippet _accelerator"
+msgstr "/Встановити _акселератор фрагмента"
+
+#: src/plugin_snippets/snippets_gui.c:358
+msgid "/Expand all"
+msgstr "/Розгорнути всі"
+
+#: src/plugin_snippets/snippets_gui.c:359
+msgid "/Collapse all"
+msgstr "/Згорнути всі"
+
+#: src/plugin_snippets/snippets_gui.c:361
+msgid "/Show as menu"
+msgstr "/Показати як меню"
+
+#: src/plugin_snippets/snippets_gui.c:363
+msgid "/Export"
+msgstr "/Експортувати"
+
+#: src/plugin_snippets/snippets_gui.c:364
+msgid "/Import"
+msgstr "/Імпортувати"
+
+#: src/plugin_snippets/snippets_gui.c:480
+msgid "Click the right mouse button to add, edit or delete snippets."
+msgstr ""
+"Клацніть правою кнопкою миші, щоб додати, змінити або вилучити фрагменти."
+
+#: src/plugin_snippets/snippets_gui.c:481
+msgid "Use drag and drop to re-order snippets"
+msgstr "Для впорядкування фрагментів скористайтеся перетягуванням зі скиданням"
+
+#: src/plugin_snippets/snippets_gui.c:482
+msgid "To exchange snippets with others use import or export"
+msgstr ""
+"Щоб здійснити обмін фрагментами з іншими користувачами, скористайтеся "
+"імпортуванням та експортуванням"
+
+#: src/plugin_snippets/snippets_gui.c:640
+msgid "snippets"
+msgstr "фрагменти"
+
+#: src/plugin_snippets/snippets_gui.c:671
+msgid "/View/Snippets Menu"
+msgstr "/Перегляд/Меню фрагментів"
+
+#: src/plugin_snippets/snippets_leaf_insert.c:101
+msgid "[cursor position or selection]"
+msgstr "[позиція курсора або позначене]"
+
+#: src/plugin_snippets/snippets_leaf_snr.c:154
+msgid "Search for: '"
+msgstr "Шукати «"
+
+#: src/plugin_snippets/snippets_leaf_snr.c:154
+msgid "', replace with: '"
+msgstr "», замінити «"
+
+#: src/plugin_snippets/snippets_wizard.c:112
+msgid "Entire document"
+msgstr "У всьому документі"
+
+#: src/plugin_snippets/snippets_wizard.c:113
+msgid "Forward from cursor position"
+msgstr "Вперед від позиції курсора"
+
+#: src/plugin_snippets/snippets_wizard.c:114
+msgid "Selection"
+msgstr "Позначене"
+
+#: src/plugin_snippets/snippets_wizard.c:115
+msgid "All open files"
+msgstr "Всі відкриті файли"
+
+#: src/plugin_snippets/snippets_wizard.c:119
+msgid "Normal"
+msgstr "Звичайний"
+
+#: src/plugin_snippets/snippets_wizard.c:120
+msgid "Entire word only"
+msgstr "Лише цілі слова"
+
+#: src/plugin_snippets/snippets_wizard.c:121
+msgid "POSIX"
+msgstr "POSIX"
+
+#: src/plugin_snippets/snippets_wizard.c:122
+msgid "PERL"
+msgstr "PERL"
+
+#: src/plugin_snippets/snippets_wizard.c:133
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right."
+msgstr ""
+"Вкажіть параметри пошуку та ключ пошуку. Можна використовувати заповнювачі "
+"%0, %1, ...%5, які буде замінено значеннями, після активації цього пункту. "
+"Вказати назви заповнювачів можна праворуч."
+
+#: src/plugin_snippets/snippets_wizard.c:140
+msgid "_Search for: "
+msgstr "_Шукати: "
+
+#: src/plugin_snippets/snippets_wizard.c:144
+msgid "Replace _with: "
+msgstr "Замінити _на: "
+
+#: src/plugin_snippets/snippets_wizard.c:151
+msgid "Sco_pe: "
+msgstr "_Область пошуку: "
+
+#: src/plugin_snippets/snippets_wizard.c:158
+msgid "Match Patter_n: "
+msgstr "Ша_блон відповідності: "
+
+#: src/plugin_snippets/snippets_wizard.c:161
+msgid "Case sensitive _matching"
+msgstr "З _врахуванням регістру"
+
+#: src/plugin_snippets/snippets_wizard.c:162
+msgid "Only match if case (upper/lower) is identical."
+msgstr ""
+"Встановлювати відповідність, лише якщо збігається регістр символів "
+"(верхній/нижній)."
+
+#: src/plugin_snippets/snippets_wizard.c:165
+msgid "_Use escape chars"
+msgstr "Вико_ристовувати керівні послідовності"
+
+#: src/plugin_snippets/snippets_wizard.c:166
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgstr "Зняти екранування з керівних символів, зокрема \\n, \\t тощо."
+
+#: src/plugin_snippets/snippets_wizard.c:339
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right."
+msgstr ""
+"<i>Перед</i>текст буде вставлено перед позицією курсора або поточним "
+"позначеним текстом. <i>Після</i>текст буде вставлено після позиції курсора "
+"або поточного позначеного тексту. Можна використовувати заповнювачі %0, %1, ."
+"..%9, які буде замінено значеннями, після активації цього пункту. Вказати "
+"назви заповнювачів можна праворуч."
+
+#: src/plugin_snippets/snippets_wizard.c:345
+msgid "<i>Before</i> text"
+msgstr "<i>Перед</i>текст"
+
+#: src/plugin_snippets/snippets_wizard.c:355
+msgid "<i>After</i> text"
+msgstr "<i>Після</i>текст"
+
+#: src/plugin_snippets/snippets_wizard.c:363
+msgid "Number"
+msgstr "Номер"
+
+#: src/plugin_snippets/snippets_wizard.c:365
+msgid "Name"
+msgstr "Назва"
+
+#: src/plugin_snippets/snippets_wizard.c:367
+msgid "Is file path"
+msgstr "Шлях до файла"
+
+#: src/plugin_snippets/snippets_wizard.c:493
+msgid "Enter the name of the branch:"
+msgstr "Введіть назву гілки:"
+
+#: src/plugin_snippets/snippets_wizard.c:585
+msgid "Name of the new item:"
+msgstr "Назва нового запису:"
+
+#: src/plugin_snippets/snippets_wizard.c:590
+msgid "Description:"
+msgstr "Опис:"
+
+#: src/plugin_snippets/snippets_wizard.c:640
+msgid "Select what you want to add"
+msgstr "Вкажіть, що ви маєте намір додати"
+
+#: src/plugin_snippets/snippets_wizard.c:642
+msgid "Branch"
+msgstr "Гілка"
+
+#: src/plugin_snippets/snippets_wizard.c:644
+msgid "Insert string"
+msgstr "Вставити рядок"
+
+#: src/plugin_snippets/snippets_wizard.c:646
+msgid "Search and replace pattern"
+msgstr "Шаблон пошуку з заміною"
+
+#: src/plugin_snippets/snippets_wizard.c:753
+msgid "New snippet"
+msgstr "Новий фрагмент"
+
