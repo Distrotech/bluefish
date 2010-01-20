@@ -1,0 +1,2720 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Yuri Chornoivan <yurchor@ukr.net>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2010-01-19 16:33+0200\n"
+"PO-Revision-Date: 2010-01-19 19:56+0200\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian <translation@linux.org.ua>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 1.0\n"
+
+#: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:79
+msgid "Bluefish Editor"
+msgstr "Редактор Bluefish"
+
+#: ../desktop-data/bluefish.desktop.in.h:2
+msgid "Web Development Editor"
+msgstr "Редактор для веб-розробки"
+
+#: ../desktop-data/bluefish.xml.in.h:1
+msgid "Bluefish language definition file"
+msgstr "Файл визначення мов Bluefish"
+
+#: ../desktop-data/bluefish.xml.in.h:2
+msgid "Bluefish project file"
+msgstr "Файл проекту Bluefish"
+
+#: ../src/bftextview2.c:974
+msgid "Collapse all"
+msgstr "Згорнути всі"
+
+#: ../src/bftextview2.c:977
+msgid "Expand all"
+msgstr "Розгорнути всі"
+
+#: ../src/bftextview2_spell.c:524
+msgid "Spell check language"
+msgstr "Мова перевірки правопису"
+
+#: ../src/blocksync.c:88
+msgid ""
+"Select the block to sync to other pages. Include the start-of-block and end-"
+"of-block markers in your selection."
+msgstr ""
+"Позначте блок для синхронізації з іншими сторінками. До позначеного "
+"фрагмента входитимуть позначки початку блоку та кінця блоку."
+
+#: ../src/blocksync.c:93
+msgid "To proceed with the current selection click forward."
+msgstr "Щоб виконати дію з поточним вибором, натисніть «Вперед»."
+
+#: ../src/blocksync.c:122
+msgid ""
+"Below is the block, including start and end marker. Please <b>select the "
+"start marker</b> in the text below."
+msgstr ""
+"Нижче наведено блок, разом з позначками початку і кінця. Будь ласка, <b>"
+"виберіть позначку початку</b> у тексті, наведеному нижче."
+
+#: ../src/blocksync.c:157
+msgid "Please <b>select the end marker</b> in the text below."
+msgstr "Будь ласка, <b>вкажіть позначку кінця</b> у наведеному нижче тексті."
+
+#: ../src/blocksync.c:195
+#, c-format
+msgid ""
+"Will replace the text between <i>%s</i> and <i>%s</i> in all documents "
+"opened in this window.\n"
+"<b>Proceed?</b>"
+msgstr ""
+"Замінить текст між <i>%s</i> and <i>%s</i> у всіх документах, відкритих у "
+"цьому вікні.\n"
+"<b>Продовжити?</b>"
+
+#: ../src/blocksync.c:226
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">Please select the block of text to "
+"synchronize.</span>"
+msgstr ""
+"<span foreground=\"red\" weight=\"bold\">Будь ласка, позначте блок тексту, "
+"який слід синхронізувати.</span>"
+
+#: ../src/blocksync.c:240 ../src/blocksync.c:260
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">This marker exists more than once "
+"in the block.</span>"
+msgstr ""
+"<span foreground=\"red\" weight=\"bold\">Цю позначку використано у блоці "
+"декілька разів.</span>"
+
+#: ../src/blocksync.c:246
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">Select the text that marks the "
+"start of the block.</span>"
+msgstr ""
+"<span foreground=\"red\" weight=\"bold\">Позначте фрагмент тексту, який "
+"відповідає початку блоку.</span>"
+
+#: ../src/blocksync.c:266
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">Select the text that marks the end "
+"of the block.</span>"
+msgstr ""
+"<span foreground=\"red\" weight=\"bold\">Позначте фрагмент тексту, який "
+"відповідає кінцю блоку.</span>"
+
+#: ../src/blocksync.c:297
+msgid "Synchronize text block"
+msgstr "Синхронізувати текстовий блок"
+
+#: ../src/bluefish.c:79
+msgid "Visit us at http://bluefish.openoffice.nl"
+msgstr "Відвідайте нашу сторінку: http://bluefish.openoffice.nl"
+
+#: ../src/bluefish.c:123
+msgid "starting up..."
+msgstr "запуск…"
+
+#: ../src/bluefish.c:244
+msgid "Open in existing window."
+msgstr "Відкрити у існуючому вікні."
+
+#: ../src/bluefish.c:246
+msgid "Open in new window."
+msgstr "Відкрити у новому вікні."
+
+#: ../src/bluefish.c:248
+msgid "Print version information."
+msgstr "Вивести дані щодо версії програми."
+
+#: ../src/bluefish.c:274
+msgid " [FILE(S)]"
+msgstr " [ФАЙЛИ]"
+
+#: ../src/bluefish.c:285
+#, c-format
+msgid ""
+"Error parsing command line options. %s\n"
+"Please run: %s -?\n"
+msgstr ""
+"Помилка під час спроби обробки параметрів командного рядка. %s\n"
+"Будь ласка, ознайомтеся з текстом, виведеним командою: %s -?\n"
+
+#: ../src/bookmark.c:465
+msgid "_Name:"
+msgstr "_Назва:"
+
+#: ../src/bookmark.c:470
+msgid "_Description:"
+msgstr "_Опис:"
+
+#: ../src/bookmark.c:472
+msgid "Temporary"
+msgstr "Тимчасовий"
+
+#: ../src/bookmark.c:605
+#, c-format
+msgid "Do you really want to delete all bookmarks for %s?"
+msgstr "Ви справді бажаєте вилучити всі закладки з %s?"
+
+#: ../src/bookmark.c:609
+msgid "Delete bookmarks?"
+msgstr "Вилучити закладки?"
+
+#: ../src/bookmark.c:639
+#, c-format
+msgid "Do you really want to delete %s?"
+msgstr "Ви справді бажаєте вилучити %s?"
+
+#: ../src/bookmark.c:643
+msgid "Delete permanent bookmark."
+msgstr "Вилучити сталу закладку."
+
+#: ../src/bookmark.c:664
+msgid "Edit bookmark"
+msgstr "Змінити закладку"
+
+#: ../src/bookmark.c:721
+msgid "/Goto"
+msgstr "/Перейти"
+
+#: ../src/bookmark.c:722
+msgid "/Edit"
+msgstr "/Змінити"
+
+#: ../src/bookmark.c:723
+msgid "/Delete"
+msgstr "/Вилучити"
+
+#: ../src/bookmark.c:725
+msgid "/Delete All in document"
+msgstr "/Вилучити всі у документі"
+
+#: ../src/bookmark.c:726
+msgid "/Delete All"
+msgstr "/Вилучити всі"
+
+#: ../src/bookmark.c:728
+msgid "/Permanent by default"
+msgstr "/Типово робити сталою"
+
+#: ../src/bookmark.c:730
+msgid "/Show file"
+msgstr "/Показ файла"
+
+#: ../src/bookmark.c:731
+msgid "/Show file/By name"
+msgstr "/Показ файла/За назвою"
+
+#: ../src/bookmark.c:732
+msgid "/Show file/By full path"
+msgstr "/Показ файла/За повним шляхом"
+
+#: ../src/bookmark.c:733
+msgid "/Show file/By full uri"
+msgstr "/Показ файла/За повною адресою"
+
+#: ../src/bookmark.c:734
+msgid "/Show bookmark"
+msgstr "/Показ закладки"
+
+#: ../src/bookmark.c:735
+msgid "/Show bookmark/Name & Content"
+msgstr "/Показ закладки/Назва і вміст"
+
+#: ../src/bookmark.c:736
+msgid "/Show bookmark/Content"
+msgstr "/Показ закладки/Вміст"
+
+#: ../src/bookmark.c:737
+msgid "/Show bookmark/Name"
+msgstr "/Показ закладки/Назва"
+
+#: ../src/bookmark.c:897
+msgid "/Both Name & Content"
+msgstr "/Показувати і назву, і вміст"
+
+#: ../src/bookmark.c:898
+msgid "/Content"
+msgstr "/Вміст"
+
+#: ../src/bookmark.c:899
+msgid "/Name"
+msgstr "/Назва"
+
+#: ../src/bookmark.c:962
+msgid "First bookmark"
+msgstr "Перша закладка"
+
+#: ../src/bookmark.c:966
+msgid "Previous bookmark"
+msgstr "Попередня закладка"
+
+#: ../src/bookmark.c:970
+msgid "Next bookmark"
+msgstr "Наступна закладка"
+
+#: ../src/bookmark.c:974
+msgid "Last bookmark"
+msgstr "Остання закладка"
+
+#: ../src/bookmark.c:1565 ../src/bookmark.c:1613
+msgid "Error adding bookmark"
+msgstr "Помилка під час спроби додавання закладки"
+
+#: ../src/bookmark.c:1566 ../src/bookmark.c:1614
+msgid "Cannot add bookmarks to unsaved files."
+msgstr "Не можна додавати закладки до незбережених файлів."
+
+#: ../src/bookmark.c:1581
+msgid "Can't add bookmark"
+msgstr "Не вдалося додати закладку"
+
+#: ../src/bookmark.c:1582
+msgid "You already have a bookmark here!"
+msgstr "У цьому місці вже існує закладка!"
+
+#: ../src/bookmark.c:1650
+msgid "Delete all bookmarks."
+msgstr "Вилучити всі закладки."
+
+#: ../src/document.c:363
+msgid "Name: "
+msgstr "Назва: "
+
+#: ../src/document.c:366
+msgid ""
+"\n"
+"Language mode: "
+msgstr ""
+"\n"
+"Режим мови: "
+
+#: ../src/document.c:370
+msgid ""
+"\n"
+"Encoding: "
+msgstr ""
+"\n"
+"Кодування: "
+
+#: ../src/document.c:379
+msgid ""
+"\n"
+"Mime type: "
+msgstr ""
+"\n"
+"Тип MIME: "
+
+#: ../src/document.c:385
+#, c-format
+msgid ""
+"\n"
+"Permissions: %s\n"
+"Uid: %u Gid: %u"
+msgstr ""
+"\n"
+"Права доступу: %s\n"
+"Uid: %u Gid: %u"
+
+#: ../src/document.c:390
+msgid ""
+"\n"
+"Size (on disk): "
+msgstr ""
+"\n"
+"Розмір (на диску): "
+
+#: ../src/document.c:398
+msgid ""
+"\n"
+"Last modified: "
+msgstr ""
+"\n"
+"Останні зміни: "
+
+#: ../src/document.c:429
+#, c-format
+msgid "Untitled %d"
+msgstr "Без назви %d"
+
+#: ../src/document.c:603
+#, c-format
+msgid "Changed tab width to %d"
+msgstr "Змінено ширину табуляції на %d"
+
+#: ../src/document.c:766
+#, c-format
+msgid "Document %s is already open in another Bluefish window."
+msgstr "Документ %s вже відкрито у іншому вікні Bluefish."
+
+#: ../src/document.c:768
+msgid "Move to this window"
+msgstr "Пересунути до цього вікна"
+
+#: ../src/document.c:768
+msgid "Open readonly"
+msgstr "Відкрити лише для читання"
+
+#: ../src/document.c:768
+msgid "Do not open"
+msgstr "Не відкривати"
+
+#: ../src/document.c:1052
+#, c-format
+msgid " Ln: %d, Col: %d, Char: %d"
+msgstr " Ряд: %d, Поз: %d, Символ: %d"
+
+#: ../src/document.c:1054
+#, c-format
+msgid " Ln: %d, Col: %d"
+msgstr " Ряд: %d, Поз: %d"
+
+#: ../src/document.c:1075
+msgid " OVR"
+msgstr " ЗАМ"
+
+#: ../src/document.c:1075
+msgid " INS"
+msgstr " ВСТ"
+
+#: ../src/document.c:1077
+msgid " RO"
+msgstr " ЛЧ"
+
+#: ../src/document.c:1094
+msgid "Unknown"
+msgstr "Невідомо"
+
+#: ../src/document.c:1471
+msgid "Cannot display file, unknown characters found."
+msgstr "Не вдалося показати вміст файла, виявлено невідомі символи."
+
+#: ../src/document.c:1673 ../src/snr2.c:1674
+msgid "Replace"
+msgstr "Замінити"
+
+#: ../src/document.c:1678 ../src/snr2.c:1671
+msgid "Find"
+msgstr "Знайти"
+
+#: ../src/document.c:1686
+msgid "Delete bookmark"
+msgstr "Вилучити закладку"
+
+#: ../src/document.c:1690
+msgid "Add bookmark"
+msgstr "Додати закладку"
+
+#. if (main_v->props.backup_abort_action == 2)
+#. we have to ask the user
+#. we have to ask the user what to do
+#: ../src/document.c:1807 ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
+msgid "_Abort save"
+msgstr "П_ерервати збереження"
+
+#: ../src/document.c:1807
+msgid "_Continue save in UTF-8"
+msgstr "П_родовжити збереження у UTF-8"
+
+#: ../src/document.c:1818
+#, c-format
+msgid ""
+"Failed to convert %s to character encoding %s. Encoding failed on character "
+"'%s' at line %d column %d\n"
+"\n"
+"Continue saving in UTF-8 encoding?"
+msgstr ""
+"Не вдалося перекодувати %s у %s. Помилка кодування на символі «%s» у рядку "
+"%d, позиція %d.\n"
+"\n"
+"Зберегти дані у кодуванні UTF-8?"
+
+#: ../src/document.c:1822
+msgid "File encoding conversion failure"
+msgstr "Помилка під час зміни кодування файла"
+
+#: ../src/document.c:2068
+msgid "Previously: "
+msgstr "Раніше: "
+
+#: ../src/document.c:2477 ../src/file_dialogs.c:778
+#, c-format
+msgid ""
+"Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
+"to 2.18.0 or newer."
+msgstr ""
+"Ваша версія glib (%d.%d.%d) містить помилки у роботі з віддаленими файлами. "
+"Будь ласка, оновіть бібліотеку до версії 2.18.0 або новішої."
+
+#. || (!file_exists_and_readable(doc->uri))
+#: ../src/document.c:2611
+msgid "Unable to open file"
+msgstr "Не вдалося відкрити файл"
+
+#: ../src/document.c:2621
+#, c-format
+msgid ""
+"If you revert \"%s\" to your last saved copy, your current changes will be "
+"permanently lost."
+msgstr ""
+"Якщо ви відновите останню збережену копію «%s», ваші поточні зміни буде "
+"назавжди втрачено."
+
+#: ../src/document.c:2625
+msgid "Revert changes to last saved copy?"
+msgstr "Повернутися до останньої збереженої копії?"
+
+#: ../src/document.c:2661
+msgid "_Unset file name"
+msgstr "С_кинути назву файла"
+
+#: ../src/document.c:2661
+msgid "_Save"
+msgstr "З_берегти"
+
+#. file is deleted on disk, what do we do now ?
+#: ../src/document.c:2663
+#, c-format
+msgid "File name: %s"
+msgstr "Назва файла: %s"
+
+#: ../src/document.c:2667
+msgid "File disappeared from disk\n"
+msgstr "Файл зник з диска.\n"
+
+#: ../src/document.c:2686
+msgid "_Ignore"
+msgstr "_Ігнорувати"
+
+#: ../src/document.c:2686
+msgid "_Reload"
+msgstr "П_ерезавантажити"
+
+#: ../src/document.c:2686
+msgid "Check and reload all documents"
+msgstr "Перевірити і перезавантажити всі документи"
+
+#: ../src/document.c:2694
+#, c-format
+msgid ""
+"Filename: %s\n"
+"\n"
+"New modification time is: %s\n"
+"Old modification time is: %s"
+msgstr ""
+"Файл: %s\n"
+"\n"
+"Новий час зміни: %s\n"
+"Попередній час зміни: %s"
+
+#: ../src/document.c:2698
+msgid "File has been modified by another process\n"
+msgstr "Файл було змінено сторонньою програмою.\n"
+
+#: ../src/document.c:2761
+msgid "_Retry"
+msgstr "П_овторити спробу"
+
+#: ../src/document.c:2761
+msgid "Retry _all failed"
+msgstr "Повторити для _всіх з помилками"
+
+#: ../src/document.c:2761
+msgid "_Close"
+msgstr "_Закрити"
+
+#: ../src/document.c:2761
+msgid "Close all _failed"
+msgstr "Закрити всі з по_милками"
+
+#: ../src/document.c:2765
+msgid "File "
+msgstr "Файл "
+
+#: ../src/document.c:2765
+msgid " failed to load."
+msgstr " не вдалося завантажити."
+
+#: ../src/document.c:2769
+msgid "File failed to load\n"
+msgstr "Не вдалося завантажити файл\n"
+
+#: ../src/document.c:2889
+msgid "Select file to insert"
+msgstr "Виберіть файл для вставки"
+
+#: ../src/document.c:2897
+msgid "No file to insert"
+msgstr "Не вказано файла для вставки"
+
+#: ../src/document.c:3038
+#, c-format
+msgid "Statistics: "
+msgstr "Статистика: "
+
+#: ../src/document.c:3039
+#, c-format
+msgid "%d line"
+msgid_plural "%d lines"
+msgstr[0] "%d рядок"
+msgstr[1] "%d рядки"
+msgstr[2] "%d рядків"
+
+#: ../src/document.c:3040
+#, c-format
+msgid "%d word"
+msgid_plural "%d words"
+msgstr[0] "%d слово"
+msgstr[1] "%d слова"
+msgstr[2] "%d слів"
+
+#: ../src/document.c:3041
+#, c-format
+msgid "%d character"
+msgid_plural "%d characters"
+msgstr[0] "%d символ"
+msgstr[1] "%d символи"
+msgstr[2] "%d символів"
+
+#: ../src/encodings_dialog.c:293
+msgid "_Available encodings:"
+msgstr "_Можливі кодування:"
+
+#: ../src/encodings_dialog.c:339 ../src/encodings_dialog.c:395
+msgid "Description"
+msgstr "Опис"
+
+#: ../src/encodings_dialog.c:345 ../src/encodings_dialog.c:400
+#: ../src/preferences.c:1669
+msgid "Encoding"
+msgstr "Кодування"
+
+#: ../src/encodings_dialog.c:372
+msgid "Encodings in _menu:"
+msgstr "Кодування у _меню:"
+
+#: ../src/encodings_dialog.c:444
+msgid "Add or remove document encodings"
+msgstr "Додавання або вилучення кодувань документів"
+
+#: ../src/filebrowser2.c:238
+msgid "Set documentroot and webroot"
+msgstr "Встановлення теки документів або веб-теки"
+
+#: ../src/filebrowser2.c:247
+msgid ""
+"The <i>documentroot</i> is the place where Bluefish finds the file,\n"
+"the <i>webroot</i> is the location where those same files can be viewed on "
+"the webserver"
+msgstr ""
+"<i>Тека документів</i> — це місце, у якому Bluefish шукатиме файл,\n"
+"<i>веб-тека</i> — адреса, за якою ці файли можна переглядати на веб-сервері."
+
+#: ../src/filebrowser2.c:254
+msgid "Documentroot"
+msgstr "Тека документів"
+
+#: ../src/filebrowser2.c:266
+msgid "Webroot"
+msgstr "Веб-тека"
+
+#: ../src/filebrowser2.c:1461
+msgid "Could not rename\n"
+msgstr "Не вдалося перейменувати\n"
+
+#: ../src/filebrowser2.c:1533
+msgid "New directory"
+msgstr "Новий каталог"
+
+#: ../src/filebrowser2.c:1555 ../src/filebrowser2.c:1557
+msgid "New file"
+msgstr "Новий файл"
+
+#. Do we really need to display the full path here?
+#. *
+#. * Having the filename in the both the primary and secondary text seems to be redundant.
+#. * Set back to just the primary text for now.
+#. *
+#. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
+#. * and then this might give you more indication if this is indeed the file you wanted to delete
+#.
+#: ../src/filebrowser2.c:1667
+#, c-format
+msgid ""
+"Are you sure you want to delete\n"
+"\"%s\"?"
+msgstr ""
+"Ви справді бажаєте вилучити\n"
+"«%s»?"
+
+#: ../src/filebrowser2.c:1668
+#, c-format
+msgid "If you delete %s, it will be permanently lost."
+msgstr "Якщо ви вилучите %s, дані з нього буде назавжди втрачено."
+
+#: ../src/filebrowser2.c:1813
+msgid "/_Open"
+msgstr "/_Відкрити"
+
+#: ../src/filebrowser2.c:1814
+msgid "/Open _Advanced..."
+msgstr "/Відкрити з _додатковими параметрами…"
+
+#: ../src/filebrowser2.c:1815
+msgid "/Rena_me"
+msgstr "/Пере_йменувати"
+
+#: ../src/filebrowser2.c:1816
+msgid "/_Delete"
+msgstr "/В_илучити"
+
+#: ../src/filebrowser2.c:1818
+msgid "/New _File"
+msgstr "/Створити _файл"
+
+#: ../src/filebrowser2.c:1819
+msgid "/_New Directory"
+msgstr "/_Створити каталог"
+
+#: ../src/filebrowser2.c:1821
+msgid "/_Refresh"
+msgstr "/_Оновити"
+
+#: ../src/filebrowser2.c:1822
+msgid "/Follow active document"
+msgstr "/Слідувати за активним документом"
+
+#: ../src/filebrowser2.c:1823
+msgid "/_Set as basedir"
+msgstr "/_Зробити базовою текою"
+
+#: ../src/filebrowser2.c:1824
+msgid "/Set as documentroot"
+msgstr "/Зробити текою документів"
+
+#: ../src/filebrowser2.c:1826
+msgid "/Show Full _Tree"
+msgstr "/Показувати все _дерево"
+
+#: ../src/filebrowser2.c:1827
+msgid "/Show hidden files"
+msgstr "/Показувати приховані файли"
+
+#: ../src/filebrowser2.c:1828
+msgid "/Show backup files"
+msgstr "/Показувати файли резервних копій"
+
+#: ../src/filebrowser2.c:1829
+msgid "/View mode"
+msgstr "/Режим перегляду"
+
+#: ../src/filebrowser2.c:1830
+msgid "/View mode/Tree"
+msgstr "/Режим перегляду/Дерево"
+
+#: ../src/filebrowser2.c:1831
+msgid "/View mode/Dual"
+msgstr "/Режим перегляду/Дві панелі"
+
+#: ../src/filebrowser2.c:1832
+msgid "/View mode/Flat"
+msgstr "/Режим перегляду/Плоский"
+
+#. Add filter submenu
+#: ../src/filebrowser2.c:1910
+msgid "Filter"
+msgstr "Фільтр"
+
+#: ../src/filebrowser2.c:1936 ../src/filefilter.c:479
+msgid "Edit filter"
+msgstr "Редагувати фільтр"
+
+#: ../src/filebrowser2.c:1940
+msgid "Delete filter"
+msgstr "Вилучити фільтр"
+
+#: ../src/filebrowser2.c:1945 ../src/filefilter.c:474
+msgid "New filter"
+msgstr "Створити фільтр"
+
+#: ../src/file.c:751
+#, c-format
+msgid "Still loading %d file, finished %s"
+msgid_plural "Still loading %d files, finished %s"
+msgstr[0] "Залишилося завантажити %d файл, завершено %s"
+msgstr[1] "Залишилося завантажити %d файли, завершено %s"
+msgstr[2] "Залишилося завантажити %d файлів, завершено %s"
+
+#: ../src/file.c:756
+#, c-format
+msgid "All files loaded, finished %s"
+msgstr "Всі файли завантажено, завершено %s"
+
+#: ../src/file.c:945
+#, c-format
+msgid "%d document open."
+msgid_plural "%d documents open."
+msgstr[0] "Відкрито %d документ."
+msgstr[1] "Відкрито %d документи."
+msgstr[2] "Відкрито %d документів."
+
+#: ../src/file.c:947
+msgid "Advanced open: Finished searching files. "
+msgstr "Відкриття з додатковими можливостями: пошук файлів завершено. "
+
+#: ../src/file.c:1243
+msgid "_Skip"
+msgstr "Пр_опустити"
+
+#: ../src/file.c:1243 ../src/file_dialogs.c:610 ../src/file_dialogs.c:631
+#: ../src/project.c:242
+msgid "_Overwrite"
+msgstr "П_ерезаписати"
+
+#: ../src/file.c:1247
+#, c-format
+msgid "%s cannot be copied, it already exists, overwrite?"
+msgstr "%s не вдалося скопіювати, файл з такою назвою вже існує, перезаписати?"
+
+#: ../src/file.c:1251
+msgid "Overwrite file?"
+msgstr "Перезаписати файл?"
+
+#: ../src/file_autosave.c:225
+msgid "Autosave in progress..."
+msgstr "Виконується автозбереження…"
+
+#: ../src/file_dialogs.c:109
+msgid "Select basedir"
+msgstr "Вибір базової теки"
+
+#: ../src/file_dialogs.c:153
+msgid "Advanced open file selector"
+msgstr "Інструмент вибору файлів з додатковими можливостями"
+
+#: ../src/file_dialogs.c:166
+msgid "<b>Files</b>"
+msgstr "<b>Файли</b>"
+
+#: ../src/file_dialogs.c:175
+msgid "Base _Dir:"
+msgstr "Базова _тека:"
+
+#: ../src/file_dialogs.c:190
+msgid "_Pattern:"
+msgstr "_Шаблон:"
+
+#: ../src/file_dialogs.c:198
+msgid "_Match on file name only:"
+msgstr "_Відповідність лише за назвою:"
+
+#: ../src/file_dialogs.c:202
+msgid "_Recursive:"
+msgstr "_Рекурсивно:"
+
+#: ../src/file_dialogs.c:206
+msgid "Ma_x recursion:"
+msgstr "_Макс. рекурсія:"
+
+#: ../src/file_dialogs.c:215
+msgid "<b>Contains</b>"
+msgstr "<b>Містить</b>"
+
+#: ../src/file_dialogs.c:221
+msgid "Pa_ttern:"
+msgstr "Ша_блон:"
+
+#: ../src/file_dialogs.c:225
+msgid "Is rege_x:"
+msgstr "_Форм. вираз:"
+
+#: ../src/file_dialogs.c:311
+msgid "Select files"
+msgstr "Вибір файлів"
+
+#: ../src/file_dialogs.c:365
+msgid "Open URL"
+msgstr "Відкрити URL"
+
+#: ../src/file_dialogs.c:373 ../src/file_dialogs.c:1199
+#, c-format
+msgid ""
+"<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, "
+"ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 "
+"if you rely on remote file support.</b>"
+msgstr ""
+"<b>Ваша версія glib (%d.%d.%d) працює з помилками з віддаленими файлами "
+"(smb, "
+"ftp, sftp, webdav тощо). Будь ласка, оновіть glib до версії, новішої за 2.18."
+"0, якщо вам потрібна підтримка роботи з віддаленими файлами.</b>"
+
+#: ../src/file_dialogs.c:380
+msgid "<b>Open URL</b>"
+msgstr "<b>Відкрити URL</b>"
+
+#: ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
+msgid "_Continue save"
+msgstr "П_родовжити збереження"
+
+#: ../src/file_dialogs.c:452
+#, c-format
+msgid ""
+"A backupfile for %s could not be created. If you continue, this file will be "
+"overwritten."
+msgstr ""
+"Не вдалося створити файл резервної копії %s. Якщо ви продовжите виконання "
+"дії, цей файл буде перезаписано."
+
+#: ../src/file_dialogs.c:456
+msgid "File backup failure"
+msgstr "Помилка створення резервної копії файла"
+
+#: ../src/file_dialogs.c:471
+msgid "Could not save file "
+msgstr "Не вдалося зберегти файл "
+
+#: ../src/file_dialogs.c:490
+#, c-format
+msgid "File %s has been modified on disk, overwrite?"
+msgstr "Файл %s було змінено на диску, перезаписати?"
+
+#: ../src/file_dialogs.c:492
+#, c-format
+msgid "Failed to check if %s has been modified on disk"
+msgstr "Не вдалося перевірити, чи було %s змінено на диску"
+
+#: ../src/file_dialogs.c:583
+#, c-format
+msgid "Move/rename %s to"
+msgstr "Пересунути або перейменувати %s до"
+
+#: ../src/file_dialogs.c:583
+#, c-format
+msgid "Save %s as"
+msgstr "Зберегти %s як"
+
+#: ../src/file_dialogs.c:610 ../src/file_dialogs.c:631
+#: ../src/file_dialogs.c:892 ../src/project.c:242
+msgid "_Cancel"
+msgstr "_Скасувати"
+
+#: ../src/file_dialogs.c:611
+#, c-format
+msgid "File %s exists and is open, overwrite?"
+msgstr "Файл з назвою %s вже існує, його відкрито. Перезаписати файл?"
+
+#: ../src/file_dialogs.c:614
+msgid "The file you have selected is being edited in Bluefish."
+msgstr "Файл, який ви позначили вже редагується у Bluefish."
+
+#: ../src/file_dialogs.c:632 ../src/project.c:244
+#, c-format
+msgid "A file named \"%s\" already exists."
+msgstr "Файл з назвою «%s» вже існує."
+
+#: ../src/file_dialogs.c:635 ../src/project.c:249
+msgid "Do you want to replace the existing file?"
+msgstr "Бажаєте замінити існуючий файл?"
+
+#: ../src/file_dialogs.c:726
+msgid ""
+"File:\n"
+"\""
+msgstr ""
+"Файл:\n"
+"«"
+
+#: ../src/file_dialogs.c:727
+msgid "\" save is in progress"
+msgstr "» зберігається"
+
+#: ../src/file_dialogs.c:729
+msgid "Save in progress!"
+msgstr "Збереження не завершено!"
+
+#: ../src/file_dialogs.c:880
+msgid "Close _Without Saving"
+msgstr "Закрити _без збереження"
+
+#: ../src/file_dialogs.c:883
+#, c-format
+msgid "Save changes to \"%s\" before closing?"
+msgstr "Зберегти зміни у «%s»?"
+
+#: ../src/file_dialogs.c:886 ../src/file_dialogs.c:896
+msgid "If you don't save your changes they will be lost."
+msgstr "Якщо ви не збержете внесені зміни, їх буде втрачено."
+
+#: ../src/file_dialogs.c:892
+msgid "Choose per _File"
+msgstr "Визначитися _окремо"
+
+#: ../src/file_dialogs.c:892
+msgid "Close _All"
+msgstr "Закрити _всі"
+
+#: ../src/file_dialogs.c:892
+msgid "_Save All"
+msgstr "_Зберегти всі"
+
+#: ../src/file_dialogs.c:895
+msgid "One or more open files have been changed."
+msgstr "Один або декілька відкритих файлів було змінено."
+
+#: ../src/file_dialogs.c:1142
+#, c-format
+msgid "<span color=\"red\">%d failure</span>"
+msgid_plural "<span color=\"red\">%d failures</span>"
+msgstr[0] "<span color=\"red\">%d помилка</span>"
+msgstr[1] "<span color=\"red\">%d помилки</span>"
+msgstr[2] "<span color=\"red\">%d помилок</span>"
+
+#: ../src/file_dialogs.c:1150
+msgid "incomplete finished"
+msgstr "завершено не повністю"
+
+#: ../src/file_dialogs.c:1152
+msgid "completed"
+msgstr "виконано"
+
+#: ../src/file_dialogs.c:1193
+msgid "Upload / Download"
+msgstr "Вивантаження/Звантаження"
+
+#: ../src/file_dialogs.c:1194
+msgid "Upload"
+msgstr "Вивантажити"
+
+#: ../src/file_dialogs.c:1194
+msgid "Download"
+msgstr "Звантажити"
+
+#: ../src/file_dialogs.c:1208
+msgid "Local directory"
+msgstr "Локальний каталог"
+
+#: ../src/file_dialogs.c:1215
+msgid "Remote directory"
+msgstr "Віддалений каталог"
+
+#: ../src/file_dialogs.c:1220
+msgid "Delete deprecated files"
+msgstr "Вилучити застарілі файли"
+
+#: ../src/file_dialogs.c:1221
+msgid "Include hidden files"
+msgstr "Включати приховані файли"
+
+#. build a list of filters
+#: ../src/filefilter.c:214 ../src/gtk_easy.c:1364
+msgid "All files"
+msgstr "Всі файли"
+
+#: ../src/filefilter.c:561
+msgid "Hide files that match the filter"
+msgstr "Приховувати файли, що відповідають фільтру"
+
+#: ../src/filefilter.c:566
+msgid "Add pattern"
+msgstr "Додати шаблон"
+
+#: ../src/filefilter.c:572 ../src/filefilter.c:584
+msgid "Mime type"
+msgstr "Тип MIME"
+
+#: ../src/filefilter.c:575 ../src/filefilter.c:587
+msgid "Icon"
+msgstr "Піктограма"
+
+#: ../src/gtk_easy.c:1067
+#, c-format
+msgid "%d of %d"
+msgstr "%d з %d"
+
+#: ../src/gtk_easy.c:1173
+msgid "Select File"
+msgstr "Виберіть файл"
+
+#: ../src/gtk_easy.c:1244
+msgid "_Browse..."
+msgstr "О_гляд…"
+
+#: ../src/gtk_easy.c:1354
+msgid "Show backup files"
+msgstr "Показувати файли резервних копій"
+
+#: ../src/gtk_easy.c:1414
+msgid "Character _Encoding:"
+msgstr "_Кодування символів:"
+
+#: ../src/gtk_easy.c:1437
+msgid "Automatic detection"
+msgstr "Автоматичне виявлення"
+
+#: ../src/gtkmountoperation.c:125
+msgid "Parent"
+msgstr "Батьківське"
+
+#: ../src/gtkmountoperation.c:126
+msgid "The parent window"
+msgstr "Батьківське вікно"
+
+#: ../src/gtkmountoperation.c:133
+msgid "Is Showing"
+msgstr "Показ"
+
+#: ../src/gtkmountoperation.c:134
+msgid "Are we showing a dialog"
+msgstr "Чи показувати діалогове вікно"
+
+#: ../src/gtkmountoperation.c:141
+msgid "Screen"
+msgstr "Екран"
+
+#: ../src/gtkmountoperation.c:142
+msgid "The screen where this window will be displayed."
+msgstr "Екран, на якому має бути показано це вікно."
+
+#: ../src/gtkmountoperation.c:449
+msgid "Co_nnect"
+msgstr "З’_єднатися"
+
+#: ../src/gtkmountoperation.c:516
+msgid "Connect _anonymously"
+msgstr "_Анонімне з’єднання"
+
+#: ../src/gtkmountoperation.c:525
+msgid "Connect as u_ser:"
+msgstr "З’єднання від і_мені:"
+
+#: ../src/gtkmountoperation.c:563
+msgid "_Username:"
+msgstr "_Користувач:"
+
+#: ../src/gtkmountoperation.c:568
+msgid "_Domain:"
+msgstr "_Домен:"
+
+#: ../src/gtkmountoperation.c:574
+msgid "_Password:"
+msgstr "П_ароль:"
+
+#: ../src/gtkmountoperation.c:592
+msgid "Forget password _immediately"
+msgstr "_Не зберігати пароль"
+
+#: ../src/gtkmountoperation.c:602
+msgid "Remember password until you _logout"
+msgstr "Зберегти пароль до _виходу з запису"
+
+#: ../src/gtkmountoperation.c:612
+msgid "Remember _forever"
+msgstr "Зберегти н_азавжди"
+
+#: ../src/gui.c:281
+msgid "Filebrowser"
+msgstr "Навігація файлами"
+
+#: ../src/gui.c:282
+msgid "Bookmarks"
+msgstr "Закладки"
+
+#: ../src/gui.c:424
+msgid "New"
+msgstr "Створити"
+
+#: ../src/gui.c:426
+msgid "Open..."
+msgstr "Відкрити…"
+
+#: ../src/gui.c:428
+msgid "Save"
+msgstr "Зберегти"
+
+#: ../src/gui.c:430
+msgid "Save As..."
+msgstr "Зберегти як…"
+
+#: ../src/gui.c:432
+msgid "Close"
+msgstr "Закрити"
+
+#: ../src/gui.c:435
+msgid "Cut"
+msgstr "Вирізати"
+
+#: ../src/gui.c:437
+msgid "Copy"
+msgstr "Копіювати"
+
+#: ../src/gui.c:439
+msgid "Paste"
+msgstr "Вставити"
+
+#: ../src/gui.c:442
+msgid "Find..."
+msgstr "Знайти…"
+
+#: ../src/gui.c:444
+msgid "Replace..."
+msgstr "Замінити…"
+
+#: ../src/gui.c:447
+msgid "Undo"
+msgstr "Вернути"
+
+#: ../src/gui.c:449
+msgid "Redo"
+msgstr "Повторити"
+
+#: ../src/gui.c:452
+msgid "Unindent"
+msgstr "Скасувати відступ"
+
+#: ../src/gui.c:454
+msgid "Indent"
+msgstr "Збільшити відступ"
+
+#: ../src/gui.c:461
+msgid "View in browser"
+msgstr "Переглянути у переглядачі інтернету"
+
+#: ../src/gui.c:464
+msgid "Preferences..."
+msgstr "Налаштування..."
+
+#: ../src/gui.c:467
+msgid "Toggle Full Screen"
+msgstr "Увімкнути/Вимкнути повноекранний режим"
+
+#: ../src/gui.c:469
+msgid "Toggle Normal Screen"
+msgstr "Увімкнути/Вимкнути звичайний режим"
+
+#: ../src/gui.c:916
+msgid "Goto Line:"
+msgstr "Перейти до рядка:"
+
+#: ../src/gui.c:931
+msgid "New Bluefish Window"
+msgstr "Нове вікно Bluefish"
+
+#. Fake-label (for notebook_hide() and _show() ;)
+#: ../src/gui.c:990
+msgid "Stand by..."
+msgstr "Зачекайте…"
+
+#: ../src/gui.c:1153
+msgid "starting bluefish"
+msgstr "запуск bluefish"
+
+#: ../src/menu.c:209
+msgid "/_File"
+msgstr "/_Файл"
+
+#: ../src/menu.c:211
+msgid "/File/_New"
+msgstr "/Файл/_Створити"
+
+#: ../src/menu.c:212
+msgid "/File/New _Window"
+msgstr "/Файл/Нове _вікно"
+
+#: ../src/menu.c:213
+msgid "/File/_Open..."
+msgstr "/Файл/_Відкрити…"
+
+#: ../src/menu.c:214
+msgid "/File/Open _Recent"
+msgstr "/Файл/Відкрити _недавній"
+
+#: ../src/menu.c:216
+msgid "/File/Open Ad_vanced..."
+msgstr "/Файл/Відкриття з _додатковими можливостями…"
+
+#: ../src/menu.c:217
+msgid "/File/Open _URL..."
+msgstr "/Файл/Відкрити _адресу…"
+
+#: ../src/menu.c:218
+msgid "/File/Open _From Selection"
+msgstr "/Файл/Відкрити за _позначенням"
+
+#: ../src/menu.c:219
+msgid "/File/_Insert..."
+msgstr "/Файл/Вс_тавити..."
+
+#: ../src/menu.c:221
+msgid "/File/_Save"
+msgstr "/Файл/_Зберегти"
+
+#: ../src/menu.c:222
+msgid "/File/Save _As..."
+msgstr "/Файл/Зберегти _як…"
+
+#: ../src/menu.c:223
+msgid "/File/Rena_me..."
+msgstr "/Файл/Переймен_увати…"
+
+#: ../src/menu.c:224
+msgid "/File/Sav_e All"
+msgstr "/Файл/Збе_регти всі"
+
+#: ../src/menu.c:225
+msgid "/File/Rever_t to Saved"
+msgstr "/Файл/Повер_нутися до збереженого"
+
+#: ../src/menu.c:227
+msgid "/File/_Close"
+msgstr "/Файл/За_крити"
+
+#: ../src/menu.c:228
+msgid "/File/Close A_ll"
+msgstr "/Файл/Закр_ити всі"
+
+#: ../src/menu.c:229
+msgid "/File/Close Win_dow"
+msgstr "/Файл/Закрити вікн_о"
+
+#: ../src/menu.c:231
+msgid "/File/Upload \\/ Download"
+msgstr "/Файл/Вивантажити\\/Звантажити"
+
+#: ../src/menu.c:233
+msgid "/File/_Quit"
+msgstr "/Файл/Ви_йти"
+
+#: ../src/menu.c:236
+msgid "/File/Run Python Script"
+msgstr "/Файли/Виконати скрипт Python"
+
+#: ../src/menu.c:238
+msgid "/_Edit"
+msgstr "/_Правка"
+
+#: ../src/menu.c:240
+msgid "/Edit/_Undo"
+msgstr "/Правка/В_ернути"
+
+#: ../src/menu.c:241
+msgid "/Edit/_Redo"
+msgstr "/Правка/П_овторити"
+
+#: ../src/menu.c:242
+msgid "/Edit/Undo All"
+msgstr "/Правка/Вернути все"
+
+#: ../src/menu.c:243
+msgid "/Edit/Redo All"
+msgstr "/Правка/Повторити все"
+
+#: ../src/menu.c:245
+msgid "/Edit/Cu_t"
+msgstr "/Правка/_Вирізати"
+
+#: ../src/menu.c:246
+msgid "/Edit/_Copy"
+msgstr "/Правка/_Копіювати"
+
+#: ../src/menu.c:247
+msgid "/Edit/_Paste"
+msgstr "/Правка/Вст_авити"
+
+#: ../src/menu.c:249
+msgid "/Edit/Select _All"
+msgstr "/Правка/Вибрати вс_е"
+
+#: ../src/menu.c:251
+msgid "/Edit/_Find..."
+msgstr "/Правка/З_найти..."
+
+#: ../src/menu.c:252
+msgid "/Edit/Find A_gain"
+msgstr "/Правка/Знайти наст_упний"
+
+#: ../src/menu.c:253
+msgid "/Edit/Find From Selection"
+msgstr "/Правка/Знайти за позначеним"
+
+#: ../src/menu.c:254
+msgid "/Edit/R_eplace..."
+msgstr "/Правка/За_мінити…"
+
+#: ../src/menu.c:255
+msgid "/Edit/Replace Agai_n"
+msgstr "/Правка/Замінити насту_пний"
+
+#: ../src/menu.c:257
+msgid "/Edit/_Indent"
+msgstr "/Правка/З_більшити відступ"
+
+#: ../src/menu.c:258
+msgid "/Edit/_Unindent"
+msgstr "/Правка/З_меншити відступ"
+
+#: ../src/menu.c:260
+msgid "/Edit/Save Shortcut _Keys"
+msgstr "/Правка/Зберегти к_лавіатурні скорочення"
+
+#: ../src/menu.c:261
+msgid "/Edit/Preference_s"
+msgstr "/Правка/Нала_штування"
+
+#: ../src/menu.c:262
+msgid "/_View"
+msgstr "/П_ерегляд"
+
+#: ../src/menu.c:264
+msgid "/View/_Full Screen"
+msgstr "/Перегляд/По_вноекранний режим"
+
+#: ../src/menu.c:266
+msgid "/View/_Main Toolbar"
+msgstr "/Перегляд/_Головна панель"
+
+#: ../src/menu.c:267
+msgid "/View/_Side Pane"
+msgstr "/Перегляд/_Бічна панель"
+
+#: ../src/menu.c:268
+msgid "/View/_Output Pane"
+msgstr "/Перегляд/Панель в_иводу даних"
+
+#: ../src/menu.c:269
+msgid "/View/Status_bar"
+msgstr "/Перегляд/Сму_жка стану"
+
+#: ../src/menu.c:270
+msgid "/_Document"
+msgstr "/Д_окумент"
+
+#: ../src/menu.c:272
+msgid "/Document/_Auto Indent"
+msgstr "/Документ/_Автовідступ"
+
+#: ../src/menu.c:273
+msgid "/Document/Auto _Completion Popup"
+msgstr "/Документ/_Контекстне автодоповнення"
+
+#: ../src/menu.c:274
+msgid "/Document/_Wrap"
+msgstr "/Документ/_Розбиття на рядки"
+
+#: ../src/menu.c:275
+msgid "/Document/_Line Numbers"
+msgstr "/Документ/_Номери рядків"
+
+#: ../src/menu.c:276
+msgid "/Document/Show _Blocks"
+msgstr "/Документ/Показувати _блоки"
+
+#: ../src/menu.c:277
+msgid "/Document/_Visible Spacing"
+msgstr "/Документ/В_ізуалізація пробілів"
+
+#: ../src/menu.c:279
+msgid "/Document/_Spell Check"
+msgstr "/Документ/П_еревірка правопису"
+
+#: ../src/menu.c:282
+msgid "/Document/_Tab Size"
+msgstr "/Документ/Р_озмір табуляції"
+
+#: ../src/menu.c:284
+msgid "/Document/Tab Size/_Increase"
+msgstr "/Документ/Розмір табуляції/З_більшити"
+
+#: ../src/menu.c:285
+msgid "/Document/Tab Size/_Decrease"
+msgstr "/Документ/Розмір табуляції/З_меншити"
+
+#: ../src/menu.c:287
+msgid "/Document/Tab Size/_Reset"
+msgstr "/Документ/Розмір табуляції/В_ідновити"
+
+#: ../src/menu.c:288
+msgid "/Document/_Font Size"
+msgstr "/Документ/Розмір _шрифту"
+
+#: ../src/menu.c:290
+msgid "/Document/Font Size/_Increase"
+msgstr "/Документ/Розмір шрифту/З_більшити"
+
+#: ../src/menu.c:291
+msgid "/Document/Font Size/_Decrease"
+msgstr "/Документ/Розмір шрифту/З_меншити"
+
+#: ../src/menu.c:293
+msgid "/Document/Font Size/_Reset"
+msgstr "/Документ/Розмір шрифту/В_ідновити"
+
+#: ../src/menu.c:295
+msgid "/Document/_Highlight Syntax"
+msgstr "/Документ/Під_свічування синтаксису"
+
+#: ../src/menu.c:297
+msgid "/Document/_Rescan Syntax & Spelling"
+msgstr "/Документ/Повтор_ити перевірку синтаксису та правопису"
+
+#: ../src/menu.c:299
+msgid "/Document/_Rescan Syntax"
+msgstr "/Документ/Повтори_ти перевірку синтаксису"
+
+#: ../src/menu.c:301
+msgid "/Document/Language _Mode"
+msgstr "/Документ/_Режим мови"
+
+#: ../src/menu.c:304
+msgid "/Document/Character _Encoding"
+msgstr "/Документ/Кодуванн_я символів"
+
+#: ../src/menu.c:307
+msgid "/Document/Character Encoding/_Add or Remove..."
+msgstr "/Документ/Кодування символів/_Додати або вилучити…"
+
+#: ../src/menu.c:309
+msgid "/Document/Add Boo_kmark"
+msgstr "/Документ/Додати за_кладку"
+
+#: ../src/menu.c:310
+msgid "/Document/Floati_ng Window"
+msgstr "/Документ/Від’_єднане вікно"
+
+#: ../src/menu.c:312
+msgid "/Document/Move Left"
+msgstr "/Документ/Пересунути ліворуч"
+
+#: ../src/menu.c:313
+msgid "/Document/Move Right"
+msgstr "/Документ/Пересунути праворуч"
+
+#: ../src/menu.c:314
+msgid "/_Go"
+msgstr "/Пе_рехід"
+
+#: ../src/menu.c:316
+msgid "/Go/_Previous Document"
+msgstr "/Перехід/П_опередній документ"
+
+#: ../src/menu.c:317
+msgid "/Go/_Next Document"
+msgstr "/Перехід/_Наступний документ"
+
+#: ../src/menu.c:318
+msgid "/Go/_First Document"
+msgstr "/Перехід/_Перший документ"
+
+#: ../src/menu.c:319
+msgid "/Go/L_ast Document"
+msgstr "/Перехід/О_станній документ"
+
+#: ../src/menu.c:321
+msgid "/Go/F_irst Bookmark"
+msgstr "/Перехід/Пер_ша закладка"
+
+#: ../src/menu.c:322
+msgid "/Go/P_revious Bookmark"
+msgstr "/Перехід/Поп_ередня закладка"
+
+#: ../src/menu.c:323
+msgid "/Go/N_ext Bookmark"
+msgstr "/Перехід/Н_аступна закладка"
+
+#: ../src/menu.c:324
+msgid "/Go/Last _Bookmark"
+msgstr "/Перехід/Остання _закладка"
+
+#: ../src/menu.c:326
+msgid "/Go/Goto _Line"
+msgstr "/Перехід/Перейти до _рядка"
+
+#: ../src/menu.c:327
+msgid "/Go/Goto line number in _selection"
+msgstr "/Перехід/Перейти за номером рядка у позна_ченому"
+
+#: ../src/menu.c:328
+msgid "/_Project"
+msgstr "/Пр_оект"
+
+#: ../src/menu.c:330
+msgid "/Project/_New Project"
+msgstr "/Проект/С_творити проект"
+
+#: ../src/menu.c:331
+msgid "/Project/_Open Project..."
+msgstr "/Проект/_Відкрити проект…"
+
+#: ../src/menu.c:332
+msgid "/Project/Open _Recent"
+msgstr "/Проект/Відкрити _недавній"
+
+#: ../src/menu.c:335
+msgid "/Project/_Save"
+msgstr "/Проект/_Зберегти"
+
+#: ../src/menu.c:336
+msgid "/Project/Save _as..."
+msgstr "/Проект/Зберегти _як…"
+
+#: ../src/menu.c:337
+msgid "/Project/Save & _close"
+msgstr "/Проект/Зберегти і з_акрити"
+
+#: ../src/menu.c:339
+msgid "/Project/E_dit Project Options..."
+msgstr "/Проект/З_мінити параметри проекту…"
+
+#: ../src/menu.c:340
+msgid "/_Tools"
+msgstr "/_Інструменти"
+
+#: ../src/menu.c:343
+msgid "/Tools/_Commands"
+msgstr "/Інструменти/_Команди"
+
+#: ../src/menu.c:345
+msgid "/Tools/_Outputbox"
+msgstr "/Інструменти/_Панель виводу даних"
+
+#: ../src/menu.c:347
+msgid "/Tools/_Filters"
+msgstr "/Інструменти/_Фільтри"
+
+#: ../src/menu.c:350
+msgid "/Tools/_Synchronize text block"
+msgstr "/Інструменти/_Синхронізація текстового блоку"
+
+#: ../src/menu.c:351
+msgid "/Tools/Toggle _Comment"
+msgstr "/Інструменти/Додати\\/Вилучити позначку к_оментаря"
+
+#: ../src/menu.c:352
+msgid "/Tools/_Word Count"
+msgstr "/Інструменти/Підра_хунок слів"
+
+#: ../src/menu.c:354
+msgid "/Tools/Strip T_railing Whitespace"
+msgstr "/Інструменти/Вилучити про_біли в кінці"
+
+#: ../src/menu.c:355
+msgid "/Tools/_Join lines"
+msgstr "/Інструменти/Об’_єднати рядки"
+
+#: ../src/menu.c:356
+msgid "/Tools/Sp_lit lines"
+msgstr "/Інструменти/Роз_ділити рядки"
+
+#: ../src/menu.c:357
+msgid "/Tools/Indenting To T_abs"
+msgstr "/Інструменти/Відступ _табуляторами"
+
+#: ../src/menu.c:358
+msgid "/Tools/Indenting To S_paces"
+msgstr "/Інструменти/Відступ про_білами"
+
+#: ../src/menu.c:359
+msgid "/Tools/Split Into Col_umns"
+msgstr "/Інструменти/Розділити на стовб_чики"
+
+#: ../src/menu.c:516
+msgid "/Document/Language Mode"
+msgstr "/Документ/Режим мови"
+
+#: ../src/menu.c:755
+msgid "No default browser found"
+msgstr "Не знайдено типового переглядача"
+
+#: ../src/menu.c:756
+msgid ""
+"You can set a default browser by going to:\n"
+"Edit->Preferences->External Commands"
+msgstr ""
+"Ви можете визначити типовий переглядач за допомогою пункту меню:\n"
+"Правка->Налаштування->Зовнішні команди"
+
+#. TODO: this dialog is not very convenient, hitting enter should choose 'selection'
+#: ../src/menu.c:792
+msgid "Text area to filter"
+msgstr "Ділянка тексту для фільтрування"
+
+#: ../src/menu.c:793
+msgid "All text"
+msgstr "Весь текст"
+
+#: ../src/menu.c:794
+msgid "Selected text only"
+msgstr "Лише позначений текст"
+
+#: ../src/menu.c:951
+msgid "/Document/Character Encoding"
+msgstr "/Документ/Кодування символів"
+
+#: ../src/outputbox.c:226
+msgid "Filename"
+msgstr "Назва файла"
+
+#: ../src/outputbox.c:228
+msgid "Line"
+msgstr "Рядок"
+
+#: ../src/outputbox.c:230
+msgid "Output"
+msgstr "Вивід"
+
+#: ../src/outputbox.c:432
+#, c-format
+msgid "Failed to compile outputbox pattern %s: %s"
+msgstr "Не вдалося зібрати шаблон панелі виводу даних %s: %s"
+
+#: ../src/preferences.c:275
+msgid "Untitled"
+msgstr "Без назви"
+
+#: ../src/preferences.c:376
+msgid "Select font"
+msgstr "Виберіть шрифт"
+
+#: ../src/preferences.c:497
+msgid "Default mime type for new files"
+msgstr "Типовий тип MIME для нових файлів"
+
+#: ../src/preferences.c:500
+msgid "_Word wrap by default"
+msgstr "_Типово переносити рядки"
+
+#: ../src/preferences.c:501
+msgid "(Smart) Auto indenting"
+msgstr "Кмітливий автовідступ"
+
+#: ../src/preferences.c:502
+msgid "Tab width"
+msgstr "Ширина табуляції"
+
+#: ../src/preferences.c:503
+msgid "Show line numbers"
+msgstr "Показувати номери рядків"
+
+#: ../src/preferences.c:504
+msgid "Highlight current line"
+msgstr "Підсвічувати поточний рядок"
+
+#: ../src/preferences.c:505
+msgid "Enable block folding"
+msgstr "Увімкнути згортання блоків"
+
+#: ../src/preferences.c:506
+msgid "Enable automatic completion pop-up"
+msgstr "Увімкнути контекстне автозавершення"
+
+#: ../src/preferences.c:507
+msgid "Highlight matching block begin-end"
+msgstr "Підсвічувати пари початку-завершення блоку"
+
+#: ../src/preferences.c:509
+msgid "Enable spell check"
+msgstr "Увімкнути перевірку правопису"
+
+#: ../src/preferences.c:538 ../src/preferences.c:942 ../src/preferences.c:1153
+msgid "Name"
+msgstr "Назва"
+
+#: ../src/preferences.c:539
+msgid "Enabled"
+msgstr "Увімкнено"
+
+#: ../src/preferences.c:540
+msgid "Path to plugin"
+msgstr "Шлях до додатка"
+
+#: ../src/preferences.c:696
+msgid ""
+"Text styles are applied on top of each other. If multiple styles are applied "
+"to the same text, the top-most style in this list has the highest priority. "
+"Use drag and drop to re-order the text styles."
+msgstr ""
+"Стилі тексту накладаються один на одний. Якщо до одного фрагмента тексту "
+"застосовано декілька стилів, стиль, що перебуває вище у списку, матиме вищий "
+"пріоритет. Перевпорядкування списку можна здійснити перетягуванням пунктів "
+"стилів тексту."
+
+#: ../src/preferences.c:705 ../src/preferences.c:998 ../src/preferences.c:1068
+msgid "Label"
+msgstr "Мітка"
+
+#: ../src/preferences.c:717 ../src/preferences.c:1616
+msgid "Foreground color"
+msgstr "Колір тексту"
+
+#: ../src/preferences.c:718 ../src/preferences.c:1617
+msgid "Background color"
+msgstr "Колір тла"
+
+#: ../src/preferences.c:719
+msgid "normal weight"
+msgstr "звичайний"
+
+#: ../src/preferences.c:721
+msgid "bold weight"
+msgstr "напівжирний"
+
+#: ../src/preferences.c:723
+msgid "normal style"
+msgstr "звичайний"
+
+#: ../src/preferences.c:725
+msgid "italic style"
+msgstr "курсив"
+
+#: ../src/preferences.c:728
+msgid "Spell check"
+msgstr "Перевірка правопису"
+
+#: ../src/preferences.c:999 ../src/preferences.c:1069
+#: ../src/preferences.c:1158
+msgid "Command"
+msgstr "Команда"
+
+#: ../src/preferences.c:1000
+msgid "Default browser"
+msgstr "Типовий переглядач"
+
+#: ../src/preferences.c:1002
+msgid ""
+"<small><b>Input options</b>\n"
+"start with a | to send the input to the standard input\n"
+"%f local filename (available for local files)\n"
+"%i temporary fifo for input, equals %f if the document is not modified and "
+"local\n"
+"%I temporary filename for input, equals %f if the document is not modified "
+"and local\n"
+"<b>Other options</b>\n"
+"%c local directory of file (available for local files)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else "
+"identical to %u</small>"
+msgstr ""
+"<small><b>Параметри вхідних даних</b>\n"
+"почніть з | , щоб надіслати на вхід програми дані зі стандартного вхідного "
+"каналу даних\n"
+"%f назва локального файла (для локальних файлів)\n"
+"%i тимчасовий буфер fifo вхідних даних, еквівалентний до %f, якщо документ "
+"не було змінено і він є локальним\n"
+"%I тимчасова назва файла вхідних даних, еквівалентний до %f, якщо документ "
+"не було змінено і він є локальним\n"
+"<b>Інші параметри</b>\n"
+"%c локальний каталог файла (для локальних файлів)\n"
+"%n назва файла без шляху до нього (для всіх файлів з назвами)\n"
+"%u адреса (для всіх файлів з назвами)\n"
+"%p адреса попереднього перегляду, якщо у параметрах проекту вказано базовий "
+"каталог та каталог попереднього перегляду, інакше еквівалентний до %u</small>"
+
+#: ../src/preferences.c:1072
+msgid ""
+"<small><b>Input options</b>\n"
+"start with a | to send the input to the standard input\n"
+"%f local filename (requires local file, cannot operate on selection)\n"
+"%i temporary fifo for input\n"
+"%I temporary filename for input\n"
+"<b>Output options</b>\n"
+"end with a | to read the output from the standard output\n"
+"%o temporary fifo\n"
+"%O temporary filename\n"
+"%t temporary filename for both input and output (for in-place-editing "
+"filters, cannot operate on selection)\n"
+"<b>Other options</b>\n"
+"%c local directory of file (requires local file)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else "
+"identical to %u</small>"
+msgstr ""
+"<small><b>Параметри вхідних даних</b>\n"
+"почніть з | , щоб надіслати на вхід програми дані зі стандартного вхідного "
+"каналу даних\n"
+"%f назва локального файла (для локальних файлів, не працюватиме з "
+"позначеними фрагментами)\n"
+"%i тимчасовий буфер fifo вхідних даних\n"
+"%I тимчасова назва файла вхідних даних\n"
+"<b>Параметри вихідних даних</b>\n"
+"завершіть | , щоб надіслати на вихід дані зі стандартного вихідного каналу "
+"даних\n"
+"%o тимчасовий буфер fifo\n"
+"%O тимчасова назва файла\n"
+"%t тимчасова назва файла вхідних і вихідних даних (для фільтрів "
+"безпосереднього редагування, не працюватиме для позначених фрагментів)\n"
+"<b>Інші параметри</b>\n"
+"%c локальний каталог файла (лише для локальних файлів)\n"
+"%n назва файла без шляху до нього (для всіх файлів з назвами)\n"
+"%u адреса (для всіх файлів з назвами)\n"
+"%p адреса попереднього перегляду, якщо у параметрах проекту вказано базовий "
+"каталог та каталог попереднього перегляду, інакше еквівалентний до %u</small>"
+
+#: ../src/preferences.c:1154
+msgid "Pattern"
+msgstr "Шаблон"
+
+#: ../src/preferences.c:1155
+msgid "File #"
+msgstr "Номер файла"
+
+#: ../src/preferences.c:1156
+msgid "Line #"
+msgstr "Номер рядка"
+
+#: ../src/preferences.c:1157
+msgid "Output #"
+msgstr "Номер виводу"
+
+#: ../src/preferences.c:1160
+msgid ""
+"<small><b>Input options</b>\n"
+"start with a | to send the input to the standard input\n"
+"%f local filename (available for local files)\n"
+"%i temporary fifo for input, equals %f if the document is not modified and "
+"local\n"
+"%I temporary filename for input, equals %f if the document is not modified "
+"and local\n"
+"<b>Output options</b>\n"
+"end with a | to read the output from the standard output\n"
+"%o temporary fifo\n"
+"%O temporary filename\n"
+"%t temporary filename for both input and output (for in-place-editing "
+"filters)\n"
+"<b>Other options</b>\n"
+"%c local directory of file (available for local files)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else "
+"identical to %u</small>"
+msgstr ""
+"<small><b>Параметри вхідних даних</b>\n"
+"почніть з | , щоб надіслати на вхід програми дані зі стандартного вхідного "
+"каналу даних\n"
+"%f назва локального файла (для локальних файлів, не працюватиме з "
+"позначеними фрагментами)\n"
+"%i тимчасовий буфер fifo вхідних даних\n"
+"%I тимчасова назва файла вхідних даних\n"
+"<b>Параметри вихідних даних</b>\n"
+"завершіть | , щоб надіслати на вихід дані зі стандартного вихідного каналу "
+"даних\n"
+"%o тимчасовий буфер fifo\n"
+"%O тимчасова назва файла\n"
+"%t тимчасова назва файла вхідних і вихідних даних (для фільтрів "
+"безпосереднього редагування, не працюватиме для позначених фрагментів)\n"
+"<b>Інші параметри</b>\n"
+"%c локальний каталог файла (лише для локальних файлів)\n"
+"%n назва файла без шляху до нього (для всіх файлів з назвами)\n"
+"%u адреса (для всіх файлів з назвами)\n"
+"%p адреса попереднього перегляду, якщо у параметрах проекту вказано базовий "
+"каталог та каталог попереднього перегляду, інакше еквівалентний до %u</small>"
+
+#. label = gtk_label_new(NULL);
+#. gtk_label_set_markup(GTK_LABEL(label), _("<small>language dialog not yet ready..</small>"));
+#. gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
+#. skip column 0, the language name
+#. 1=text
+#: ../src/preferences.c:1310
+msgid "Option name"
+msgstr "Назва параметра"
+
+#. 2=boolean
+#: ../src/preferences.c:1311
+msgid "value"
+msgstr "значення"
+
+#. 1=text
+#: ../src/preferences.c:1324
+msgid "Highlight name"
+msgstr "Назва підсвічування"
+
+#. the textstyle model
+#: ../src/preferences.c:1327
+msgid "Textstyle"
+msgstr "Стиль тексту"
+
+#: ../src/preferences.c:1568 ../src/preferences.c:1569
+msgid "left"
+msgstr "ліворуч"
+
+#: ../src/preferences.c:1568 ../src/preferences.c:1569
+msgid "right"
+msgstr "праворуч"
+
+#: ../src/preferences.c:1568
+msgid "top"
+msgstr "вгорі"
+
+#: ../src/preferences.c:1568
+msgid "bottom"
+msgstr "внизу"
+
+#: ../src/preferences.c:1570
+msgid "Nothing"
+msgstr "Нічого"
+
+#: ../src/preferences.c:1570
+msgid "Modified time and file size"
+msgstr "Час зміни і розмір файла"
+
+#: ../src/preferences.c:1570
+msgid "Modified time"
+msgstr "Час зміни"
+
+#: ../src/preferences.c:1570
+msgid "File size"
+msgstr "Розмір файла"
+
+#: ../src/preferences.c:1571
+msgid "All"
+msgstr "Всі"
+
+#: ../src/preferences.c:1571
+msgid "All except spaces"
+msgstr "Всі, окрім пробілів"
+
+#: ../src/preferences.c:1571
+msgid "All trailing"
+msgstr "Всі, окрім кінцевих"
+
+#: ../src/preferences.c:1571
+msgid "All except non-trailing spaces"
+msgstr "Всі, окрім некінцевих пробілів"
+
+#: ../src/preferences.c:1587
+msgid "Edit preferences"
+msgstr "Змінити налаштування"
+
+#: ../src/preferences.c:1608
+msgid "Editor settings"
+msgstr "Параметри редактора"
+
+#: ../src/preferences.c:1610
+msgid "Generic editor settings"
+msgstr "Загальні параметри редактора"
+
+#: ../src/preferences.c:1615
+msgid "Font"
+msgstr "Шрифт"
+
+#: ../src/preferences.c:1618
+msgid "Current line color"
+msgstr "Колір поточного рядка"
+
+#: ../src/preferences.c:1619
+msgid "Visible whitespace color"
+msgstr "Колір видимих пробілів"
+
+#: ../src/preferences.c:1620
+msgid "Show whitespace"
+msgstr "Показувати пробіли"
+
+#: ../src/preferences.c:1621
+msgid "Smart Home/End cursor positioning"
+msgstr "Кмітливе позиціонування за Home/End"
+
+#: ../src/preferences.c:1622
+msgid "Use spaces to indent, not tabs"
+msgstr "Використовувати для відступів лише пробіли"
+
+#: ../src/preferences.c:1623
+msgid "Smart auto indenting"
+msgstr "Кмітливий автовідступ"
+
+#: ../src/preferences.c:1626
+msgid "Delayed"
+msgstr "З затримкою"
+
+#: ../src/preferences.c:1626
+msgid "Immediately"
+msgstr "Негайно"
+
+#: ../src/preferences.c:1627
+msgid "Show the automatic completion pop-up window"
+msgstr "Показувати контекстне вікно автозавершення"
+
+#: ../src/preferences.c:1630
+msgid "Number of actions in undo history"
+msgstr "Кількість дій у журналі скасування"
+
+#: ../src/preferences.c:1631
+msgid "Clear undo history on save"
+msgstr "Спорожняти журнал скасування при виході"
+
+#: ../src/preferences.c:1635 ../src/project.c:533
+msgid "Initial document settings"
+msgstr "Початкові параметри документів"
+
+#: ../src/preferences.c:1637
+msgid "Non-project initial document settings"
+msgstr "Початкові параметри документів, що не належать до проектів"
+
+#: ../src/preferences.c:1645
+msgid "HTML"
+msgstr "HTML"
+
+#: ../src/preferences.c:1647
+msgid "HTML toolbar / menu options"
+msgstr "Параметри панелі та меню HTML"
+
+#: ../src/preferences.c:1652
+msgid "Lowercase HTML tags"
+msgstr "Теґи HTML малими літерами"
+
+#: ../src/preferences.c:1653
+msgid "Use deprecated tags (e.g. <font> and <nobr>)"
+msgstr "Використовувати застарілі теґи (наприклад, <font> і <nobr>)"
+
+#: ../src/preferences.c:1654
+msgid "Format according to accessibility guidelines (e.g. <strong> for <b>)"
+msgstr ""
+"Форматувати відповідно до вимог доступності (наприклад, <strong> замість <b>)"
+
+#: ../src/preferences.c:1655
+msgid "Use XHTML style tags (<br />)"
+msgstr "Використовувати теґи у стилі XHTML (<br />)"
+
+#: ../src/preferences.c:1657
+msgid "Auto update tag options"
+msgstr "Автооновлення параметрів теґів"
+
+#: ../src/preferences.c:1661
+msgid "Automatically update author meta tag"
+msgstr "Автоматичне оновлення метатеґу автора"
+
+#: ../src/preferences.c:1662
+msgid "Automatically update date meta tag"
+msgstr "Автоматичне оновлення метатеґу дати"
+
+#: ../src/preferences.c:1663
+msgid "Automatically update generator meta tag"
+msgstr "Автоматично оновлювати метатеґ інструменту створення"
+
+#: ../src/preferences.c:1667
+msgid "Files"
+msgstr "Файли"
+
+#: ../src/preferences.c:1680
+msgid "Default character set for new files"
+msgstr "Типове кодування нових файлів"
+
+#: ../src/preferences.c:1683
+msgid "Auto set <meta> HTML tag on encoding change"
+msgstr "Автоматично встановлювати теґ HTML <meta> після зміни кодування"
+
+#: ../src/preferences.c:1685
+msgid "Backup files and recovery of modified documents"
+msgstr "Резервне копіювання та відновлення змінених документів"
+
+#: ../src/preferences.c:1689
+msgid "Create backup file during file save"
+msgstr "Створювати резервні копії під час збереження"
+
+#: ../src/preferences.c:1691
+msgid "Continue save"
+msgstr "Продовжити зберігання"
+
+#: ../src/preferences.c:1691
+msgid "Abort save"
+msgstr "Перервати зберігання"
+
+#: ../src/preferences.c:1691
+msgid "Ask what to do"
+msgstr "Запитати про подальші дії"
+
+#: ../src/preferences.c:1692
+msgid "If the backup fails"
+msgstr "Якщо резервне копіювання зазнає невдачі"
+
+#: ../src/preferences.c:1694
+msgid "Remove backup file on close"
+msgstr "Вилучати файли резервних копій під час закриття"
+
+#: ../src/preferences.c:1698
+msgid "Enable recovery of modified documents"
+msgstr "Увімкнути відновлення змінених документів"
+
+#: ../src/preferences.c:1699
+msgid "Frequency to store changes (seconds)"
+msgstr "Частота збереження змін (у секундах)"
+
+#: ../src/preferences.c:1701
+msgid "Misc"
+msgstr "Інше"
+
+#: ../src/preferences.c:1706
+msgid "Open commandline files in running bluefish process"
+msgstr "Відкривати файли командного рядка у запущеному процесі bluefish"
+
+#: ../src/preferences.c:1708
+msgid "Open commandline files in new window"
+msgstr "Відкривати файли командного рядка у новому вікні"
+
+#: ../src/preferences.c:1710
+msgid "File properties to check on disk for modifications"
+msgstr "Властивості файла, за зміною яких слід стежити на диску"
+
+#: ../src/preferences.c:1711
+msgid "Periodically check if file is modified on disk"
+msgstr "Періодично перевіряти, чи не було змінено файл на диску"
+
+#: ../src/preferences.c:1712
+msgid "Number of files in 'Open recent' menu"
+msgstr "Кількість пунктів у меню «Відкрити недавній»"
+
+#: ../src/preferences.c:1717
+msgid "User interface"
+msgstr "Інтерфейс користувача"
+
+#: ../src/preferences.c:1720
+msgid "Startup options"
+msgstr "Параметри запуску"
+
+#: ../src/preferences.c:1725
+msgid "Show splash-screen"
+msgstr "Показувати вікно вітання"
+
+#: ../src/preferences.c:1728
+msgid "General"
+msgstr "Загальне"
+
+#: ../src/preferences.c:1733
+msgid "Make HTML dialogs transient"
+msgstr "Зробити діалогові вікна HTML перехідними"
+
+#: ../src/preferences.c:1734
+msgid ""
+"Notebook tab font \n"
+"(leave empty for gtk default)"
+msgstr ""
+"Шрифт вкладки нотаток \n"
+"(залиште порожнім для типового gtk)"
+
+#: ../src/preferences.c:1735
+msgid "Notebook tab color (doc modified)"
+msgstr "Колір вкладки нотаток (змінено)"
+
+#: ../src/preferences.c:1736
+msgid "Notebook tab color (doc loading)"
+msgstr "Колір вкладки нотаток (завантажується)"
+
+#: ../src/preferences.c:1737
+msgid "Notebook tab color (doc error)"
+msgstr "Колір вкладки нотаток (помилка)"
+
+#: ../src/preferences.c:1738
+msgid "Document notebook tab position"
+msgstr "Розташування вкладки нотаток документа"
+
+#: ../src/preferences.c:1739
+msgid "Switch between tabs with <Alt>+0..9"
+msgstr "Перемикання між вкладками за <Alt>+0..9"
+
+#: ../src/preferences.c:1740
+msgid "Sidebar notebook tab position"
+msgstr "Розташування вкладки нотаток бічної панелі"
+
+#: ../src/preferences.c:1741
+msgid "Sidebar location"
+msgstr "Розташування бічної панелі"
+
+#: ../src/preferences.c:1745 ../src/preferences.c:1747
+msgid "Dimensions"
+msgstr "Розміри"
+
+#: ../src/preferences.c:1752
+msgid "Leave dimensions to window manager"
+msgstr "Розміри визначає інструмент керування вікнами"
+
+#: ../src/preferences.c:1753
+msgid "Restore last used dimensions"
+msgstr "Відновлювати попередні розміри"
+
+#: ../src/preferences.c:1754
+msgid "Initial sidebar width"
+msgstr "Початкова ширина бічної панелі"
+
+#: ../src/preferences.c:1755
+msgid "Initial window height"
+msgstr "Початкова висота вікна"
+
+#: ../src/preferences.c:1756
+msgid "Initial window width"
+msgstr "Початкова ширина вікна"
+
+#. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
+#. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
+#: ../src/preferences.c:1763 ../src/rcfile.c:778
+msgid "Images"
+msgstr "Зображення"
+
+#: ../src/preferences.c:1765
+msgid "Thumbnails"
+msgstr "Мініатюри"
+
+#: ../src/preferences.c:1769
+msgid "Thumbnail suffix"
+msgstr "Суфікс мініатюр"
+
+#: ../src/preferences.c:1772
+msgid "Thumbnail filetype"
+msgstr "Тип файлів мініатюр"
+
+#: ../src/preferences.c:1777
+msgid "External commands"
+msgstr "Зовнішні команди"
+
+#: ../src/preferences.c:1779
+msgid "Commands"
+msgstr "Команди"
+
+#: ../src/preferences.c:1787
+msgid "External filters"
+msgstr "Зовнішні фільтри"
+
+#: ../src/preferences.c:1789
+msgid "Filters"
+msgstr "Фільтри"
+
+#: ../src/preferences.c:1797 ../src/preferences.c:1799
+msgid "Output parsers"
+msgstr "Обробка виведених даних"
+
+#: ../src/preferences.c:1807 ../src/preferences.c:1808
+msgid "Plugins"
+msgstr "Додатки"
+
+#: ../src/preferences.c:1816 ../src/preferences.c:1817
+msgid "Text styles"
+msgstr "Стилі тексту"
+
+#: ../src/preferences.c:1826
+msgid "Language support"
+msgstr "Підтримка мов"
+
+#: ../src/preferences.c:1828
+msgid "Advanced syntax scanning options"
+msgstr "Додаткові параметри сканування синтаксису"
+
+#: ../src/preferences.c:1833
+msgid "Load reference information from language file"
+msgstr "Завантажити додаткові відомості з файла мови"
+
+#: ../src/preferences.c:1834
+msgid "Show reference information in autocompletion pop-up"
+msgstr "Показувати довідкові відомості на панелі автозавершення"
+
+#: ../src/preferences.c:1835
+msgid "Show reference information in tooltip window"
+msgstr "Показувати додаткові відомості у вікні підказки"
+
+#: ../src/project.c:145
+msgid "New project"
+msgstr "Новий проект"
+
+#: ../src/project.c:215
+msgid "Enter Bluefish project filename"
+msgstr "Введіть назву файла проекту Bluefish"
+
+#: ../src/project.c:338
+msgid "Select Bluefish project filename"
+msgstr "Виберіть назву файла проекту Bluefish"
+
+#: ../src/project.c:484
+msgid "Create New Project"
+msgstr "Створити проект"
+
+#: ../src/project.c:487
+msgid "Edit Project"
+msgstr "Змінити проект"
+
+#: ../src/project.c:511
+#, c-format
+msgid "This project contains %d file"
+msgid_plural "This project contains %d files"
+msgstr[0] "Цей проект містить %d файл"
+msgstr[1] "Цей проект містить %d файли"
+msgstr[2] "Цей проект містить %d файлів"
+
+#: ../src/project.c:524
+msgid "Project _Name:"
+msgstr "_Назва проекту:"
+
+#: ../src/project.c:528
+msgid "_Template:"
+msgstr "_Шаблон:"
+
+#: ../src/project.c:543
+msgid "Create _Project"
+msgstr "Створити _проект"
+
+#: ../src/project.c:583
+msgid "Create project"
+msgstr "&Створити проект"
+
+#: ../src/project.c:587
+msgid "Create project with currently opened documents"
+msgstr "Створити проект з відкритими зараз документами"
+
+#: ../src/project.c:588
+msgid "Create empty project"
+msgstr "Створити порожній проект"
+
+#. if the user does not have outputbox settings --> set them to defaults values
+#: ../src/rcfile.c:547
+msgid "make"
+msgstr "make"
+
+#: ../src/rcfile.c:548
+msgid "weblint HTML checker"
+msgstr "перевірка weblint HTML"
+
+#: ../src/rcfile.c:549
+msgid "tidy HTML validator"
+msgstr "перевірка tidy HTML"
+
+#: ../src/rcfile.c:550
+msgid "javac"
+msgstr "javac"
+
+#: ../src/rcfile.c:551
+msgid "xmllint XML checker"
+msgstr "перевірка xmllint XML"
+
+#: ../src/rcfile.c:552
+msgid "php"
+msgstr "php"
+
+#: ../src/rcfile.c:555
+msgid "Sort"
+msgstr "Впорядкувати"
+
+#: ../src/rcfile.c:556
+msgid "Sort / Unique"
+msgstr "Впорядкувати/Вилучити повтори"
+
+#: ../src/rcfile.c:557
+msgid "Reverse lines"
+msgstr "Зворотний порядок рядків"
+
+#: ../src/rcfile.c:558
+msgid "Dos2unix"
+msgstr "Dos2unix"
+
+#: ../src/rcfile.c:559
+msgid "Tidy HTML"
+msgstr "Tidy HTML"
+
+#: ../src/rcfile.c:560
+msgid "Strip empty lines"
+msgstr "Вилучити порожні рядки"
+
+#: ../src/rcfile.c:561
+msgid "Render HTML to text"
+msgstr "Показати HTML як текст"
+
+#: ../src/rcfile.c:564
+msgid "Mozilla"
+msgstr "Mozilla"
+
+#: ../src/rcfile.c:565
+msgid "Firefox"
+msgstr "Firefox"
+
+#: ../src/rcfile.c:566
+msgid "Opera"
+msgstr "Opera"
+
+#: ../src/rcfile.c:567
+msgid "Konqueror"
+msgstr "Konqueror"
+
+#: ../src/rcfile.c:568
+msgid "Galeon"
+msgstr "Galeon"
+
+#: ../src/rcfile.c:569
+msgid "Epiphany"
+msgstr "Epiphany"
+
+#: ../src/rcfile.c:570
+msgid "Kazehakase"
+msgstr "Kazehakase"
+
+#: ../src/rcfile.c:571
+msgid "Links2 (graphics)"
+msgstr "Links2 (графічний)"
+
+#: ../src/rcfile.c:714
+msgid "Untitled Project"
+msgstr "Проект без назви"
+
+#: ../src/rcfile.c:772
+msgid "C programming"
+msgstr "Програмування на C"
+
+#: ../src/rcfile.c:774
+msgid "Web files"
+msgstr "Веб-файли"
+
+#: ../src/rcfile.c:780
+msgid "Hide objectfiles"
+msgstr "Приховати об’єктні файли"
+
+#: ../src/snr2.c:234
+msgid "Regular expression error: "
+msgstr "Помилка у формальному виразі: "
+
+#: ../src/snr2.c:238 ../src/snr2.c:287
+msgid "Search failed"
+msgstr "Помилка пошуку"
+
+#: ../src/snr2.c:283
+#, c-format
+msgid "Regular expression error: %s at offset %d"
+msgstr "Помилка у формальному виразі: %s на позиції %d"
+
+#: ../src/snr2.c:1379
+#, c-format
+msgid "Found %d matches, "
+msgid_plural "Found %d matches, "
+msgstr[0] "Знайдено %d відповідник, "
+msgstr[1] "Знайдено %d відповідники, "
+msgstr[2] "Знайдено %d відповідників, "
+
+#: ../src/snr2.c:1380
+#, c-format
+msgid "replaced %d"
+msgid_plural "replaced %d"
+msgstr[0] "замінено %d"
+msgstr[1] "замінено %d"
+msgstr[2] "замінено %d"
+
+#: ../src/snr2.c:1385
+#, c-format
+msgid "Found %d matches"
+msgid_plural "Found %d matches"
+msgstr[0] "Знайдено %d відповідник"
+msgstr[1] "Знайдено %d відповідники"
+msgstr[2] "Знайдено %d відповідників"
+
+#. display warning that not all documents have yet finished loading
+#: ../src/snr2.c:1406
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
+"span>"
+msgstr ""
+"<span foreground=\"red\" weight=\"bold\">Не всі документи ще завантажено</"
+"span>"
+
+#: ../src/snr2.c:1531
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">No selection. Please select a block "
+"of text first.</span>"
+msgstr ""
+"<span foreground=\"red\" weight=\"bold\">Нічого не позначено. Спочатку "
+"позначте фрагмент тексту або блок.</span>"
+
+#: ../src/snr2.c:1570 ../src/snr2.c:1936
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
+"will continue at the beginning.</span>"
+msgstr ""
+"<span foreground=\"red\" weight=\"bold\">Відповідників більше не знайдено, "
+"наступний пошук буде виконано від початку документа.</span>"
+
+#: ../src/snr2.c:1647
+msgid "Entire document"
+msgstr "У всьому документі"
+
+#: ../src/snr2.c:1648
+msgid "Forward from cursor position"
+msgstr "Вперед від позиції курсора"
+
+#: ../src/snr2.c:1649
+msgid "Selection"
+msgstr "Позначене"
+
+#: ../src/snr2.c:1650
+msgid "All open files"
+msgstr "Всі відкриті файли"
+
+#: ../src/snr2.c:1654 ../src/snr2.c:1661
+msgid "Normal"
+msgstr "Звичайний"
+
+#: ../src/snr2.c:1655
+msgid "Entire word only"
+msgstr "Лише цілі слова"
+
+#: ../src/snr2.c:1656
+msgid "POSIX style regular expression"
+msgstr "Формальний вираз у стилі POSIX"
+
+#: ../src/snr2.c:1657
+msgid "PERL style regular expression"
+msgstr "Формальний вираз у стилі PERL"
+
+#: ../src/snr2.c:1662
+msgid "Uppercase"
+msgstr "Верхній регістр"
+
+#: ../src/snr2.c:1663
+msgid "Lowercase"
+msgstr "Нижній регістр"
+
+#: ../src/snr2.c:1701
+msgid "_Search for: "
+msgstr "_Шукати: "
+
+#: ../src/snr2.c:1705
+msgid "The pattern to look for"
+msgstr "Ключ пошуку"
+
+#: ../src/snr2.c:1720
+msgid "Replace _with: "
+msgstr "Замінити _на: "
+
+#: ../src/snr2.c:1724
+msgid "Replace matching text with"
+msgstr "Текст, яким слід замінити відповідники"
+
+#: ../src/snr2.c:1732
+msgid "Sco_pe: "
+msgstr "_Область пошуку: "
+
+#: ../src/snr2.c:1736
+msgid "Where to look for the pattern."
+msgstr "Область, у якій слід виконати пошук за ключем."
+
+#: ../src/snr2.c:1742
+msgid "Found 0 matches, replaced 0"
+msgstr "Знайдено 0 відповідників, замінено 0"
+
+#: ../src/snr2.c:1742
+msgid "Found 0 matches"
+msgstr "Не знайдено жодного збігу."
+
+#: ../src/snr2.c:1752
+msgid "<b>_Options</b>"
+msgstr "<b>_Параметри</b>"
+
+#: ../src/snr2.c:1767
+msgid "Match Patter_n: "
+msgstr "Ша_блон відповідності: "
+
+#: ../src/snr2.c:1771
+msgid "How to interpret the pattern."
+msgstr "Спосіб обробки шаблону."
+
+#: ../src/snr2.c:1778
+msgid "Replace T_ype: "
+msgstr "_Тип заміни: "
+
+#: ../src/snr2.c:1783
+msgid "What to replace with."
+msgstr "Спосіб визначення замінника."
+
+#: ../src/snr2.c:1787
+msgid "Allow o_verlapping matches"
+msgstr "Дозволити пере_криття відповідників"
+
+#: ../src/snr2.c:1790
+msgid "After a match is found, start next search within that match."
+msgstr ""
+"Після виявлення відповідника, розпочинати наступний пошук з цього "
+"відповідника."
+
+#: ../src/snr2.c:1792
+msgid "Case sensitive _matching"
+msgstr "З _врахуванням регістру"
+
+#: ../src/snr2.c:1795
+msgid "Only match if case (upper/lower) is identical."
+msgstr ""
+"Встановлювати відповідність, лише якщо збігається регістр символів "
+"(верхній/нижній)."
+
+#: ../src/snr2.c:1797
+msgid "Pattern contains escape-se_quences"
+msgstr "Шаблон містить к_ерівні послідовності"
+
+#: ../src/snr2.c:1800
+msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
+msgstr ""
+"Шаблон містить екрановані похилою рискою символи, зокрема \\n, \\t тощо."
+
+#: ../src/snr2.c:1802
+msgid "Select matc_hes"
+msgstr "Позначити ві_дповідники"
+
+#: ../src/snr2.c:1805
+msgid "Select the matching text instead of just highlighting it"
+msgstr "Позначити текст відповідників, а не лише підсвічувати його"
+
+#: ../src/snr2.c:1807
+msgid "_Bookmark matches"
+msgstr "_Закладки на відповідниках"
+
+#: ../src/snr2.c:1809
+msgid "Create a bookmark for each match"
+msgstr "Створити закладки для всіх відповідників"
+
+#: ../src/snr2.c:1814
+msgid "Replace _All"
+msgstr "Замінити вс_і"
+
+#: ../src/snr2.c:1817
+msgid "_Replace"
+msgstr "_Замінити"
+
+#: ../src/snr2.c:1820
+msgid "Find _All"
+msgstr "Знайти _всі"
+
+#: ../src/snr2.c:2428
+msgid "Lines into columns"
+msgstr "Рядки у стовпчики"
+
+#: ../src/snr2.c:2440
+msgid "Number of columns"
+msgstr "Кількість стовпчиків"
+
+#: ../src/snr2.c:2443
+msgid "Spread lines horizontally"
+msgstr "Розподілити рядки горизонтально"
+
+#: ../src/snr2.c:2444
+msgid "Column separator"
+msgstr "Роздільник стовпчиків"
+
+#: ../src/snr2.c:2446
+msgid "Fill empty entries"
+msgstr "Заповнити порожні елементи"
+
+#: ../src/undo_redo.c:462
+msgid "Undo in _all documents"
+msgstr "Скасувати у _всіх документах"
+
+#: ../src/undo_redo.c:462
+msgid "Undo only _this document"
+msgstr "Скасувати _лише у цьому документі"
+
+#: ../src/undo_redo.c:465
+msgid "Undo this change in all documents?"
+msgstr "Скасувати цю зміну у всіх документах?"
+
+#: ../src/undo_redo.c:465
+msgid "This change concerns multiple documents."
+msgstr "Ця зміна стосується декількох документів."
+
