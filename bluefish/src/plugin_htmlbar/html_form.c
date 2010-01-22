@@ -201,6 +201,7 @@ static void textareaok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("ROWS"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("COLS"), thestring, NULL);
+	/* thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("READONLY=\"readonly\"") : cap("READONLY="), thestring); */
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
@@ -216,8 +217,8 @@ static void textareaok_lcb(GtkWidget * widget, Thtml_diag *dg)
 }
 
 void textareadialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	static gchar *tagitems[] = { "name", "value", "rows", "cols", NULL };
-	gchar *tagvalues[5];
+	static gchar *tagitems[] = { "name", "value", "rows", "cols", "readonly", NULL };
+	gchar *tagvalues[6];
 	gchar *custom = NULL;
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
@@ -238,6 +239,11 @@ void textareadialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	dg->spin[2] = spinbut_with_value(tagvalues[3], 0, 500, 1.0, 5.0);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 2, 2, 3);
 	bf_mnemonic_label_tad_with_alignment(_("Co_ls:"), dg->spin[2], 0, 0.5, dgtable, 0, 1, 2, 3);
+
+	/* dg->check[1] = gtk_check_button_new();
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(_("Rea_d only:"), dg->check[1], 0, 0.5, dgtable, 0, 1, 3, 4);
+	parse_existence_for_dialog(tagvalues[4], dg->check[1]); */
 
 	dg->entry[2] = entry_with_text(custom, 1024);
 	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
