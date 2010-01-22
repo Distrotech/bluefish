@@ -1639,7 +1639,7 @@ static void framedialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
   g_free(tmp);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("MARGINWIDTH"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("MARGINHEIGHT"), thestring, NULL);
-  thestring = insert_attr_if_checkbox(dg->check[1], cap("NORESIZE"), thestring);
+  thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("NORESIZE=\"noresize\"") : cap("NORESIZE"), thestring);
   thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), NULL, thestring, NULL);
 
   bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(GTK_BIN(dg->combo[2])->child));

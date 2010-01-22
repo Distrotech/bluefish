@@ -255,7 +255,7 @@ static void selectdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	thestring = g_strdup(cap("<SELECT"));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("SIZE"), thestring, NULL);
-	thestring = insert_attr_if_checkbox(dg->check[1], cap("MULTIPLE"), thestring);
+	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("MULTIPLE=\"multiple\"") : cap("MULTIPLE"), thestring);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
@@ -310,7 +310,7 @@ static void optiondialogok_lcb(GtkWidget * widget,Thtml_diag *dg )
 	thestring = g_strdup(cap("<OPTION"));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("VALUE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("LABEL"), thestring, NULL);
-	thestring = insert_attr_if_checkbox(dg->check[1], cap("SELECTED"), thestring);
+	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("SELECTED=\"selected\"") : cap("SELECTED"), thestring);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
