@@ -283,7 +283,7 @@ static void table_head_and_data_dialogok_lcb(gint type, GtkWidget * widget, Thtm
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("VALIGN"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[3])->child), cap("BGCOLOR"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[4])->child), cap("CLASS"), thestring, NULL);
-	thestring = insert_attr_if_checkbox(dg->check[1], cap("NOWRAP"), thestring);
+	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("NOWRAP=\"nowrap\"") : cap("NOWRAP"), thestring);
 	thestring = insert_string_if_entry(dg->entry[2], cap("STYLE"), thestring, NULL);
 	thestring = insert_string_if_entry(dg->entry[1], NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
