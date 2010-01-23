@@ -38,6 +38,8 @@ the trailing slash. So it is convenient to use directories without trailing slas
 alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're supposed to do
 */
 
+/*#define DBG_FBREFCOUNT*/
+
 #include <gtk/gtk.h>
 #include <string.h>
 
@@ -176,6 +178,10 @@ static void DEBUG_TPATH(GtkTreeModel * model, GtkTreePath * path, gboolean newli
 	g_free(filename);
 }
 
+#ifdef DBG_FBREFCOUNT
+	guint fake_finfo_ref = 0;
+#endif
+
 static void uri_hash_destroy(gpointer data)
 {
 	g_object_unref((GObject *) data);
@@ -300,6 +306,9 @@ static GFileInfo *fake_directory_fileinfo(const gchar * name)
 {
 	GFileInfo *finfo;
 	finfo = g_file_info_new();
+#ifdef DBG_FBREFCOUNT
+	fake_finfo_ref++;
+#endif
 	g_file_info_set_display_name(finfo, name);
 	g_file_info_set_name(finfo, name);
 	g_file_info_set_edit_name(finfo, name);
@@ -428,6 +437,9 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 			DEBUG_MSG("add dummy directory\n");
 			fb2_add_filesystem_entry(newiter, dummy_uri, dummy_finfo, FALSE);
 			g_object_unref(dummy_uri);
+#ifdef DBG_FBREFCOUNT
+			fake_finfo_ref--;
+#endif
 			g_object_unref(dummy_finfo);
 		}
 		g_free(display_name);
@@ -452,6 +464,9 @@ static void fb2_treestore_delete(GtkTreeStore * tstore, GtkTreeIter * iter) {
 	DEBUG_MSG("fb2_treestore_delete, unref d_uri %p and finfo %p\n",
 			  d_uri, finfo);
 	g_object_unref(d_uri);
+#ifdef DBG_FBREFCOUNT
+	fake_finfo_ref--;
+#endif
 	g_object_unref(finfo);
 }
 
@@ -542,6 +557,9 @@ static void fb2_enumerate_next_files_lcb(GObject * source_object, GAsyncResult *
 	tmplist = g_list_first(list);
 	while (tmplist) {
 		GFileInfo *finfo = tmplist->data;
+#ifdef DBG_FBREFCOUNT
+		fake_finfo_ref++;
+#endif
 		if (g_file_info_has_attribute(finfo, G_FILE_ATTRIBUTE_STANDARD_NAME)) {
 			const gchar *name;
 			GFile *newchild;
@@ -556,6 +574,9 @@ static void fb2_enumerate_next_files_lcb(GObject * source_object, GAsyncResult *
 				("fb2_enumerate_next_files_lcb, weird, finfo=%p does not have attribute name ???\n",
 				 finfo);
 		}
+#ifdef DBG_FBREFCOUNT
+	fake_finfo_ref--;
+#endif
 		g_object_unref(finfo);
 		tmplist = g_list_next(tmplist);
 	}
@@ -2779,6 +2800,18 @@ void fb2config_init(void)
 	DEBUG_MSG("fb2config_init, finished\n");
 }
 
+static gboolean treestore_foreach_cleanup(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data) {
+	GFile *uri;
+	GFileInfo *finfo;
+	gtk_tree_model_get(model, iter, FILEINFO_COLUMN, &finfo, URI_COLUMN, &uri, -1);
+#ifdef DBG_FBREFCOUNT
+	fake_finfo_ref--;
+#endif
+	g_object_unref(finfo);
+	g_object_unref(uri);
+	return FALSE;
+}
+
 /* avoid segfaults during bluefish exit */
 void fb2config_cleanup(void)
 {
@@ -2794,6 +2827,13 @@ void fb2config_cleanup(void)
 	g_list_free(FB2CONFIG(main_v->fb2config)->uri_in_refresh);
 	FB2CONFIG(main_v->fb2config)->uri_in_refresh = NULL;
 	g_hash_table_unref(FB2CONFIG(main_v->fb2config)->filesystem_itable);
+	
+	
+	gtk_tree_model_foreach(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
+										treestore_foreach_cleanup,NULL);
+#ifdef DBG_FBREFCOUNT
+	g_print("fake_finfo_ref=%d\n",fake_finfo_ref);
+#endif
 	g_object_unref(FB2CONFIG(main_v->fb2config)->filesystem_tstore);
 	g_free(main_v->fb2config);
 }
