@@ -94,6 +94,7 @@ void notebook_show(Tbfwin *bfwin) {
 
 static gboolean notebook_changed_activate_current_document_lcb(gpointer data) {
 	doc_activate(BFWIN(data)->current_document);
+	BFWIN(data)->notebook_changed_doc_activate_id = 0;
 	return FALSE;	
 }
 
@@ -153,12 +154,12 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	bfwin->last_notebook_page = cur;
 	DEBUG_MSG("notebook_changed, current_document=%p, first flush the queue\n",bfwin->current_document);
 	/* slightly lower than default priority so we make sure any events are handled first */
-	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+1, notebook_changed_activate_current_document_lcb, bfwin, NULL);
-	/* now we flush the queue first, so that we don't call doc_activate 
-	on _this_ document if the user has another close click in the queue * /
-	flush_queue();
-	DEBUG_MSG("notebook_changed, after flushing the queue, call doc_activate()\n");
-	doc_activate(bfwin->current_document);*/
+	if (bfwin->notebook_changed_doc_activate_id ==0) {
+		bfwin->notebook_changed_doc_activate_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+1, notebook_changed_activate_current_document_lcb, bfwin, NULL);
+	}
+	/* BUG: what if bfwin is free'ed in the meantime ?? this can happen during a window close.
+	we either should stop the notebook changed() signal when the window is going to be closed
+	or we should stop this idle callback */
 	DEBUG_MSG("notebook_changed, finished\n");
 }
 
@@ -718,6 +719,8 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	/* call all cleanup functions here */
 	/*remove_window_entry_from_all_windows(bfwin);*/
 	
+	g_signal_handler_disconnect(bfwin->notebook,bfwin->notebook_switch_signal);
+	
 	/* all documents have to be freed for this window */
 	tmplist = g_list_first(bfwin->documentlist);
 	DEBUG_MSG("gui_bfwin_cleanup, have %d documents in window %p\n",g_list_length(bfwin->documentlist),bfwin);
@@ -744,6 +747,10 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	outputbox_cleanup(bfwin);
 	snr2_cleanup(bfwin);
 	g_object_unref(ifactory);
+	
+	if (bfwin->notebook_changed_doc_activate_id != 0) {
+		g_source_remove(bfwin->notebook_changed_doc_activate_id);
+	}
 }
 
 void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
