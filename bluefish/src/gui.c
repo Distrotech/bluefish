@@ -1101,8 +1101,11 @@ typedef struct {
 	Tbfwin *bfwin;
 } Tstatusbar_remove;
 
+/* BUG: how do we make bluefish *not* pop a statusbar message 
+if the window has been closed (and bfwin is free'ed -> SEGFAULT) */
 static gint statusbar_remove(gpointer sr) {
 	gtk_statusbar_remove(GTK_STATUSBAR(((Tstatusbar_remove *)sr)->bfwin->statusbar), 0, ((Tstatusbar_remove *)sr)->message_id);
+	/*((Tstatusbar_remove *)sr)->bfwin->statusbar_pop_id=0;*/
 	g_slice_free(Tstatusbar_remove,sr);
 	return FALSE;
 }
@@ -1112,8 +1115,9 @@ void statusbar_message(Tbfwin *bfwin,const gchar *message, gint seconds) {
 		Tstatusbar_remove *sr = g_slice_new(Tstatusbar_remove);
 		sr->bfwin = bfwin;
 		sr->message_id = gtk_statusbar_push(GTK_STATUSBAR(bfwin->statusbar), 0, message);
-		/*gtk_timeout_add(time, statusbar_remove, sr);*/
-		g_timeout_add_seconds(seconds, statusbar_remove, sr);
+		/*if (bfwin->statusbar_pop_id==0) {*/
+			/*bfwin->statusbar_pop_id =*/ g_timeout_add_seconds(seconds, statusbar_remove, sr);
+		/*}*/
 	}
 }
 
