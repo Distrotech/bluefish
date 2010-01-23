@@ -11,7 +11,7 @@
 ; Section Names
 !define SECT_BLUEFISH "Редактор Bluefish"
 !define SECT_PLUGINS "Додатки"
-!define SECT_SHORTCUT "Desktop Shortcut"
+!define SECT_SHORTCUT "Піктограма на стільниці"
 !define SECT_DICT "Файли перевірки правопису (для звантаження потрібне з’єднання з мережею інтернет)"
 
 ; License Page
