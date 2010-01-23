@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_autocomp.c
  *
- * Copyright (C) 2008,2009 Olivier Sessink
+ * Copyright (C) 2008,2009,2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -164,6 +164,8 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 		if (ACWIN(btv->autocomp)->newprefix && strlen(ACWIN(btv->autocomp)->newprefix) > strlen(ACWIN(btv->autocomp)->prefix)) {
 			gtk_text_buffer_insert_at_cursor(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),ACWIN(btv->autocomp)->newprefix+strlen(ACWIN(btv->autocomp)->prefix),-1);
 		}
+		/* now we have to re-position the autocomplete window */
+		autocomp_run(btv,FALSE);
 		return TRUE;
 	break;
 	case GDK_Right:
@@ -294,7 +296,7 @@ static gboolean acwin_position_at_cursor(BluefishTextView *btv) {
 	gdk_window_get_origin(gtk_text_view_get_window(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT),&x,&y);
 
 	sh = gdk_screen_get_height(screen);
-	g_print("rect.y+y=%d, acw->h=%d, sh=%d\n",rect.y+y,ACWIN(btv->autocomp)->h,sh);
+	DBG_AUTOCOMP("rect.y+y=%d, acw->h=%d, sh=%d\n",rect.y+y,ACWIN(btv->autocomp)->h,sh);
 	if (rect.y+y+ACWIN(btv->autocomp)->h > sh) {
 		gtk_window_move(GTK_WINDOW(ACWIN(btv->autocomp)->win),rect.x+x ,rect.y+y+rect.height-ACWIN(btv->autocomp)->h);
 		return FALSE;
