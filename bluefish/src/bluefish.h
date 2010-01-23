@@ -397,6 +397,7 @@ typedef struct {
 	GtkWidget *menubar;
 	gint last_notebook_page;	/* a check to see if the notebook changed to a new page */
 	gulong notebook_switch_signal;
+	guint notebook_changed_doc_activate_id;
 	GtkWidget *gotoline_entry;
 	GtkWidget *notebook;
 	GtkWidget *notebook_fake;
