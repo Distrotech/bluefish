@@ -309,8 +309,10 @@ GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list, gb
 		gtk_combo_box_append_text(GTK_COMBO_BOX(returnwidget),setstring);
 		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget),index);
 	}
-	child = gtk_bin_get_child(GTK_BIN(returnwidget));
-	gtk_entry_set_activates_default(GTK_ENTRY(child), TRUE);
+	if (GTK_IS_COMBO_BOX_ENTRY(returnwidget)) {
+		child = gtk_bin_get_child(GTK_BIN(returnwidget));
+		gtk_entry_set_activates_default(GTK_ENTRY(child), TRUE);
+	}
 	return returnwidget;
 }
 
