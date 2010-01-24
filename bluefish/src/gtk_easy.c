@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gtk_easy.c
  *
- * Copyright (C) 1999-2009 Olivier Sessink
+ * Copyright (C) 1999-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -287,7 +287,7 @@ GtkWidget *boxed_combobox_with_popdown(const gchar * setstring, GList * which_li
 }
 
 GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable) {
-	GtkWidget *returnwidget;
+	GtkWidget *child, *returnwidget;
 	GList *tmplist;
 	gint activenum=-1,index=0;
 	if (editable)
@@ -309,8 +309,8 @@ GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list, gb
 		gtk_combo_box_append_text(GTK_COMBO_BOX(returnwidget),setstring);
 		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget),index);
 	}
-	/*gtk_combo_disable_activate(GTK_COMBO(returnwidget));
-	gtk_entry_set_activates_default (GTK_ENTRY (GTK_COMBO (returnwidget)->entry), TRUE);*/
+	child = gtk_bin_get_child(GTK_BIN(returnwidget));
+	gtk_entry_set_activates_default(GTK_ENTRY(child), TRUE);
 	return returnwidget;
 }
 
