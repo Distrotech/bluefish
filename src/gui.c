@@ -720,8 +720,10 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	/*remove_window_entry_from_all_windows(bfwin);*/
 	
 	bfwin->statusbar = NULL; /* make sure no new statusbar messages have to be popped */
-	if (bfwin->statusbar_pop_id!=0)
+	if (bfwin->statusbar_pop_id!=0) {
 		g_source_remove(bfwin->statusbar_pop_id);
+		bfwin->statusbar_pop_id=0;
+	}
 	
 	g_signal_handler_disconnect(bfwin->notebook,bfwin->notebook_switch_signal);
 	
