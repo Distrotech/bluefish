@@ -719,6 +719,8 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	/* call all cleanup functions here */
 	/*remove_window_entry_from_all_windows(bfwin);*/
 	
+	bfwin->statusbar = NULL; /* make sure no new statusbar messages have to be popped */
+	
 	g_signal_handler_disconnect(bfwin->notebook,bfwin->notebook_switch_signal);
 	
 	/* all documents have to be freed for this window */
