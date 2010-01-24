@@ -2082,9 +2082,10 @@ static gboolean dirmenu_idle_cleanup_lcb(gpointer callback_data)
 
 	cont = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(oldmodel), &iter);
 	while (cont) {
-		GFile *uri;
+		GFile *uri=NULL;
 		gtk_tree_model_get(GTK_TREE_MODEL(oldmodel), &iter, DIR_URI_COLUMN, &uri, -1);
-		g_object_unref(uri);
+		if (uri)
+			g_object_unref(uri);
 		/* hmm if this last remove results in an empty listtore there is a crash?? */
 		cont = gtk_list_store_remove(GTK_LIST_STORE(oldmodel), &iter);
 	}
@@ -2220,7 +2221,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(fb2->dirmenu_v), &setiter);
 	g_signal_handler_unblock(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 	DEBUG_MSG("dirmenu_set_curdir, activated!\n");
-	g_idle_add(dirmenu_idle_cleanup_lcb, oldmodel);
+	g_idle_add_full(G_PRIORITY_LOW,dirmenu_idle_cleanup_lcb, oldmodel, NULL);
 }
 
 static void dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
