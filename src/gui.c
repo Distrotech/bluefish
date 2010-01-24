@@ -720,6 +720,8 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	/*remove_window_entry_from_all_windows(bfwin);*/
 	
 	bfwin->statusbar = NULL; /* make sure no new statusbar messages have to be popped */
+	if (bfwin->statusbar_pop_id!=0)
+		g_source_remove(bfwin->statusbar_pop_id);
 	
 	g_signal_handler_disconnect(bfwin->notebook,bfwin->notebook_switch_signal);
 	
@@ -1103,23 +1105,21 @@ typedef struct {
 	Tbfwin *bfwin;
 } Tstatusbar_remove;
 
-/* BUG: how do we make bluefish *not* pop a statusbar message 
-if the window has been closed (and bfwin is free'ed -> SEGFAULT) */
-static gint statusbar_remove(gpointer sr) {
-	gtk_statusbar_remove(GTK_STATUSBAR(((Tstatusbar_remove *)sr)->bfwin->statusbar), 0, ((Tstatusbar_remove *)sr)->message_id);
-	/*((Tstatusbar_remove *)sr)->bfwin->statusbar_pop_id=0;*/
-	g_slice_free(Tstatusbar_remove,sr);
+static gboolean statusbar_pop_lcb(gpointer data) {
+	if (BFWIN(data)->statusbar)
+		gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(data)->statusbar),0);
+	BFWIN(data)->statusbar_pop_id = 0;
 	return FALSE;
 }
 
 void statusbar_message(Tbfwin *bfwin,const gchar *message, gint seconds) {
 	if (bfwin->statusbar) {
-		Tstatusbar_remove *sr = g_slice_new(Tstatusbar_remove);
-		sr->bfwin = bfwin;
-		sr->message_id = gtk_statusbar_push(GTK_STATUSBAR(bfwin->statusbar), 0, message);
-		/*if (bfwin->statusbar_pop_id==0) {*/
-			/*bfwin->statusbar_pop_id =*/ g_timeout_add_seconds(seconds, statusbar_remove, sr);
-		/*}*/
+		if (bfwin->statusbar_pop_id!=0) {
+			g_source_remove(bfwin->statusbar_pop_id);
+			gtk_statusbar_pop(GTK_STATUSBAR(bfwin->statusbar),0);
+		}
+		gtk_statusbar_push(GTK_STATUSBAR(bfwin->statusbar), 0, message);
+		bfwin->statusbar_pop_id = g_timeout_add_seconds(seconds, statusbar_pop_lcb, bfwin);
 	}
 }
 
