@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-08 21:46+0100\n"
+"POT-Creation-Date: 2010-01-25 21:41+0100\n"
 "PO-Revision-Date: 2009-12-09 21:27+0100\n"
 "Last-Translator: elve <elve@savage-elve.net>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -54,8 +54,8 @@ msgstr "Selector:"
 msgid "_Property:"
 msgstr "Eigenschap:"
 
-#: src/plugin_htmlbar/html2.c:683 src/plugin_htmlbar/html_form.c:339
-#: src/plugin_htmlbar/html_form.c:488 src/plugin_htmlbar/html_form.c:585
+#: src/plugin_htmlbar/html2.c:683 src/plugin_htmlbar/html_form.c:345
+#: src/plugin_htmlbar/html_form.c:494 src/plugin_htmlbar/html_form.c:591
 msgid "_Value:"
 msgstr "Waarde:"
 
@@ -1278,7 +1278,7 @@ msgstr "Span..."
 msgid "Div..."
 msgstr "Div..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:822 src/plugin_htmlbar/html_form.c:514
+#: src/plugin_htmlbar/htmlbar_gui.c:822 src/plugin_htmlbar/html_form.c:520
 msgid "Style"
 msgstr "Stĳl"
 
@@ -1454,7 +1454,7 @@ msgstr "  ISO-8601 Tĳd "
 msgid "Quick Anchor"
 msgstr "Snel anker"
 
-#: src/plugin_htmlbar/html.c:615 src/plugin_htmlbar/html_form.c:469
+#: src/plugin_htmlbar/html.c:615 src/plugin_htmlbar/html_form.c:475
 msgid "Attributes"
 msgstr "Attributen"
 
@@ -1468,9 +1468,9 @@ msgstr "Doel:"
 
 #: src/plugin_htmlbar/html.c:637 src/plugin_htmlbar/html.c:861
 #: src/plugin_htmlbar/html.c:1226 src/plugin_htmlbar/html.c:1687
-#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:285
-#: src/plugin_htmlbar/html_form.c:484 src/plugin_htmlbar/html_form.c:581
-#: src/plugin_htmlbar/image.c:469
+#: src/plugin_htmlbar/html_form.c:232 src/plugin_htmlbar/html_form.c:291
+#: src/plugin_htmlbar/html_form.c:490 src/plugin_htmlbar/html_form.c:587
+#: src/plugin_htmlbar/image.c:493
 msgid "_Name:"
 msgstr "Naam:"
 
@@ -1487,16 +1487,16 @@ msgstr "Taal:"
 #: src/plugin_htmlbar/html.c:1003 src/plugin_htmlbar/html.c:1098
 #: src/plugin_htmlbar/html.c:1252 src/plugin_htmlbar/html.c:1621
 #: src/plugin_htmlbar/html.c:1724 src/plugin_htmlbar/html.c:1853
-#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
-#: src/plugin_htmlbar/html_form.c:298 src/plugin_htmlbar/html_form.c:594
+#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:249
+#: src/plugin_htmlbar/html_form.c:304 src/plugin_htmlbar/html_form.c:600
 #: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
-#: src/plugin_htmlbar/html_table.c:369 src/plugin_htmlbar/image.c:477
+#: src/plugin_htmlbar/html_table.c:369 src/plugin_htmlbar/image.c:502
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Custo_m:"
 msgstr "Aangepast:"
 
 #: src/plugin_htmlbar/html.c:654 src/plugin_htmlbar/html.c:1102
-#: src/plugin_htmlbar/html_form.c:518
+#: src/plugin_htmlbar/html_form.c:524
 msgid "Events"
 msgstr "Gebeurtenissen"
 
@@ -1576,7 +1576,7 @@ msgid "Horizontal Rule"
 msgstr "Horizontale Lĳn"
 
 #: src/plugin_htmlbar/html.c:977 src/plugin_htmlbar/html.c:1772
-#: src/plugin_htmlbar/image.c:495 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/image.c:520 src/plugin_htmlbar/image_dialog.c:429
 msgid "_Align:"
 msgstr "Uitlĳnen:"
 
@@ -1588,7 +1588,7 @@ msgstr "Hoogte:"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:990 src/plugin_htmlbar/html.c:1776
 #: src/plugin_htmlbar/html_table.c:140 src/plugin_htmlbar/html_table.c:388
-#: src/plugin_htmlbar/image.c:453 src/plugin_htmlbar/image_dialog.c:361
+#: src/plugin_htmlbar/image.c:477 src/plugin_htmlbar/image_dialog.c:361
 msgid "_Width:"
 msgstr "Breedte:"
 
@@ -1728,11 +1728,11 @@ msgstr "Ongeordend"
 msgid "Style:"
 msgstr "Stĳl:"
 
-#: src/plugin_htmlbar/html.c:1595 src/plugin_htmlbar/html_form.c:240
+#: src/plugin_htmlbar/html.c:1595 src/plugin_htmlbar/html_form.c:241
 msgid "Co_ls:"
 msgstr "Kolommen:"
 
-#: src/plugin_htmlbar/html.c:1599 src/plugin_htmlbar/html_form.c:236
+#: src/plugin_htmlbar/html.c:1599 src/plugin_htmlbar/html_form.c:237
 msgid "_Rows:"
 msgstr "Rĳen:"
 
@@ -1778,7 +1778,7 @@ msgid "Script"
 msgstr "Script"
 
 #: src/plugin_htmlbar/html.c:1849 src/plugin_htmlbar/html.c:1950
-#: src/plugin_htmlbar/html_form.c:478 src/plugin_htmlbar/html_form.c:590
+#: src/plugin_htmlbar/html_form.c:484 src/plugin_htmlbar/html_form.c:596
 msgid "_Type:"
 msgstr "Type:"
 
@@ -1830,75 +1830,75 @@ msgstr "Methode:"
 msgid "_Enctype:"
 msgstr "Codering type:"
 
-#: src/plugin_htmlbar/html_form.c:225
+#: src/plugin_htmlbar/html_form.c:226
 msgid "Text area"
 msgstr "Tekstinvoerblok"
 
-#: src/plugin_htmlbar/html_form.c:279
+#: src/plugin_htmlbar/html_form.c:285
 msgid "Select"
 msgstr "Keuzelĳst"
 
-#: src/plugin_htmlbar/html_form.c:290 src/plugin_htmlbar/html_form.c:497
+#: src/plugin_htmlbar/html_form.c:296 src/plugin_htmlbar/html_form.c:503
 msgid "Si_ze:"
 msgstr "Grootte:"
 
-#: src/plugin_htmlbar/html_form.c:294
+#: src/plugin_htmlbar/html_form.c:300
 msgid "Multiple _Selections:"
 msgstr "Meerdere keuzes:"
 
-#: src/plugin_htmlbar/html_form.c:333
+#: src/plugin_htmlbar/html_form.c:339
 msgid "Option"
 msgstr "Optie"
 
-#: src/plugin_htmlbar/html_form.c:343 src/plugin_htmlbar/html_form.c:386
+#: src/plugin_htmlbar/html_form.c:349 src/plugin_htmlbar/html_form.c:392
 msgid "_Label:"
 msgstr "Label:"
 
-#: src/plugin_htmlbar/html_form.c:348
+#: src/plugin_htmlbar/html_form.c:354
 msgid "_Selected:"
 msgstr "Geselecteerd:"
 
-#: src/plugin_htmlbar/html_form.c:381
+#: src/plugin_htmlbar/html_form.c:387
 msgid "Option group"
 msgstr "Optie groep"
 
-#: src/plugin_htmlbar/html_form.c:464
+#: src/plugin_htmlbar/html_form.c:470
 msgid "Input"
 msgstr "Invoer"
 
-#: src/plugin_htmlbar/html_form.c:492
+#: src/plugin_htmlbar/html_form.c:498
 msgid "_Checked:"
 msgstr "Aangevinkt:"
 
-#: src/plugin_htmlbar/html_form.c:501
+#: src/plugin_htmlbar/html_form.c:507
 msgid "Max _Length:"
 msgstr "Max Lengte:"
 
-#: src/plugin_htmlbar/html_form.c:505
+#: src/plugin_htmlbar/html_form.c:511
 msgid "_Accept:"
 msgstr "Accept:"
 
-#: src/plugin_htmlbar/html_form.c:509
+#: src/plugin_htmlbar/html_form.c:515
 msgid "C_ustom:"
 msgstr "Aangepast:"
 
-#: src/plugin_htmlbar/html_form.c:521
+#: src/plugin_htmlbar/html_form.c:527
 msgid "On_Focus:"
 msgstr "OnFocus:"
 
-#: src/plugin_htmlbar/html_form.c:525
+#: src/plugin_htmlbar/html_form.c:531
 msgid "On_Blur:"
 msgstr "OnBlur:"
 
-#: src/plugin_htmlbar/html_form.c:529
+#: src/plugin_htmlbar/html_form.c:535
 msgid "On_Select:"
 msgstr "OnSelect:"
 
-#: src/plugin_htmlbar/html_form.c:533
+#: src/plugin_htmlbar/html_form.c:539
 msgid "On_Change:"
 msgstr "OnChange:"
 
-#: src/plugin_htmlbar/html_form.c:575
+#: src/plugin_htmlbar/html_form.c:581
 msgid "Button"
 msgstr "Knop"
 
@@ -1941,92 +1941,88 @@ msgid "No Wra_p:"
 msgstr "Geen omloop:"
 
 #. TODO: use error info in gerror
-#: src/plugin_htmlbar/image.c:290
+#: src/plugin_htmlbar/image.c:305
 msgid "Loading image failed..."
 msgstr "Laden van afbeelding mislukt..."
 
-#: src/plugin_htmlbar/image.c:362
+#: src/plugin_htmlbar/image.c:387
 #, c-format
 msgid "Loading file %s..."
 msgstr "Bestand %s wordt geladen..."
 
-#: src/plugin_htmlbar/image.c:414
+#: src/plugin_htmlbar/image.c:445
 msgid "Insert thumbnail"
 msgstr "Voeg voorbeeldafbeelding in"
 
-#: src/plugin_htmlbar/image.c:416
-msgid "Insert image"
-msgstr "Afbeelding invoegen"
-
-#: src/plugin_htmlbar/image.c:422 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:449 src/plugin_htmlbar/image_dialog.c:340
 msgid "Preview"
 msgstr "Voorbeeld"
 
-#: src/plugin_htmlbar/image.c:444
+#: src/plugin_htmlbar/image.c:468
 msgid "_Image location:"
 msgstr "Locatie van afbeelding:"
 
-#: src/plugin_htmlbar/image.c:460
+#: src/plugin_htmlbar/image.c:484
 msgid "Hei_ght:"
 msgstr "Hoogte:"
 
-#: src/plugin_htmlbar/image.c:465 src/plugin_htmlbar/image_dialog.c:404
+#: src/plugin_htmlbar/image.c:489 src/plugin_htmlbar/image_dialog.c:404
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
-#: src/plugin_htmlbar/image.c:473
+#: src/plugin_htmlbar/image.c:497
 msgid "Alternate _text:"
 msgstr "Alternatieve tekst:"
 
-#: src/plugin_htmlbar/image.c:481 src/plugin_htmlbar/image_dialog.c:438
+#: src/plugin_htmlbar/image.c:506 src/plugin_htmlbar/image_dialog.c:438
 msgid "_Hspace:"
 msgstr "Horizontale ruimte:"
 
-#: src/plugin_htmlbar/image.c:485 src/plugin_htmlbar/image_dialog.c:442
+#: src/plugin_htmlbar/image.c:510 src/plugin_htmlbar/image_dialog.c:442
 msgid "_Vspace:"
 msgstr "Verticale ruimte:"
 
-#: src/plugin_htmlbar/image.c:499
+#: src/plugin_htmlbar/image.c:524
 msgid "Borde_r:"
 msgstr "Rand:"
 
-#: src/plugin_htmlbar/image.c:882
+#: src/plugin_htmlbar/image.c:927
 msgid "Select files for thumbnail creation"
 msgstr "Selecteer bestanden voor voorbeeldafbeelding creatie"
 
-#: src/plugin_htmlbar/image.c:917
+#: src/plugin_htmlbar/image.c:967
 msgid "Scaling (%)"
 msgstr "Schaal  (%)"
 
-#: src/plugin_htmlbar/image.c:921 src/plugin_htmlbar/image.c:929
+#: src/plugin_htmlbar/image.c:971 src/plugin_htmlbar/image.c:979
 msgid "Width"
 msgstr "Breedte"
 
-#: src/plugin_htmlbar/image.c:925 src/plugin_htmlbar/image.c:957
+#: src/plugin_htmlbar/image.c:975 src/plugin_htmlbar/image.c:1015
 msgid "Height"
 msgstr "Hoogte"
 
-#: src/plugin_htmlbar/image.c:946
+#: src/plugin_htmlbar/image.c:998
 msgid "Multi thumbnail"
 msgstr "Meervoudige voorbeeldafbeelding"
 
-#: src/plugin_htmlbar/image.c:952
+#: src/plugin_htmlbar/image.c:1004
 msgid "By scaling"
 msgstr "Met schaal"
 
-#: src/plugin_htmlbar/image.c:953
+#: src/plugin_htmlbar/image.c:1007
 msgid "By width, keep aspect ratio"
 msgstr "Met breedte, behoud verhoudingen"
 
-#: src/plugin_htmlbar/image.c:954
+#: src/plugin_htmlbar/image.c:1010
 msgid "By height, keep aspect ratio"
 msgstr "Met hoogte,behoud verhoudingen"
 
-#: src/plugin_htmlbar/image.c:955
+#: src/plugin_htmlbar/image.c:1013
 msgid "By width and height, ignore aspect ratio"
 msgstr "Met hoogte en breedte,negeer verhoudingen"
 
-#: src/plugin_htmlbar/image.c:979
+#: src/plugin_htmlbar/image.c:1039
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2224,6 +2220,9 @@ msgstr "Bron:"
 #: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "Grootte:"
+
+#~ msgid "Insert image"
+#~ msgstr "Afbeelding invoegen"
 
 #, fuzzy
 #~ msgid "_Rel:"

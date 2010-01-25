@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-08 21:46+0100\n"
+"POT-Creation-Date: 2010-01-25 21:41+0100\n"
 "PO-Revision-Date: 2004-12-08 18:48-0300\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -50,8 +50,8 @@ msgstr "选择(_S)："
 msgid "_Property:"
 msgstr "属性(_P)："
 
-#: src/plugin_htmlbar/html2.c:683 src/plugin_htmlbar/html_form.c:339
-#: src/plugin_htmlbar/html_form.c:488 src/plugin_htmlbar/html_form.c:585
+#: src/plugin_htmlbar/html2.c:683 src/plugin_htmlbar/html_form.c:345
+#: src/plugin_htmlbar/html_form.c:494 src/plugin_htmlbar/html_form.c:591
 msgid "_Value:"
 msgstr "值(_V)："
 
@@ -1285,7 +1285,7 @@ msgstr "Span..."
 msgid "Div..."
 msgstr "Div..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:822 src/plugin_htmlbar/html_form.c:514
+#: src/plugin_htmlbar/htmlbar_gui.c:822 src/plugin_htmlbar/html_form.c:520
 msgid "Style"
 msgstr "样式"
 
@@ -1461,7 +1461,7 @@ msgstr ""
 msgid "Quick Anchor"
 msgstr "锚点"
 
-#: src/plugin_htmlbar/html.c:615 src/plugin_htmlbar/html_form.c:469
+#: src/plugin_htmlbar/html.c:615 src/plugin_htmlbar/html_form.c:475
 msgid "Attributes"
 msgstr "属性"
 
@@ -1475,9 +1475,9 @@ msgstr "目标(_T)："
 
 #: src/plugin_htmlbar/html.c:637 src/plugin_htmlbar/html.c:861
 #: src/plugin_htmlbar/html.c:1226 src/plugin_htmlbar/html.c:1687
-#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:285
-#: src/plugin_htmlbar/html_form.c:484 src/plugin_htmlbar/html_form.c:581
-#: src/plugin_htmlbar/image.c:469
+#: src/plugin_htmlbar/html_form.c:232 src/plugin_htmlbar/html_form.c:291
+#: src/plugin_htmlbar/html_form.c:490 src/plugin_htmlbar/html_form.c:587
+#: src/plugin_htmlbar/image.c:493
 msgid "_Name:"
 msgstr "名称(_N)："
 
@@ -1495,16 +1495,16 @@ msgstr "语言(_L)："
 #: src/plugin_htmlbar/html.c:1003 src/plugin_htmlbar/html.c:1098
 #: src/plugin_htmlbar/html.c:1252 src/plugin_htmlbar/html.c:1621
 #: src/plugin_htmlbar/html.c:1724 src/plugin_htmlbar/html.c:1853
-#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
-#: src/plugin_htmlbar/html_form.c:298 src/plugin_htmlbar/html_form.c:594
+#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:249
+#: src/plugin_htmlbar/html_form.c:304 src/plugin_htmlbar/html_form.c:600
 #: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
-#: src/plugin_htmlbar/html_table.c:369 src/plugin_htmlbar/image.c:477
+#: src/plugin_htmlbar/html_table.c:369 src/plugin_htmlbar/image.c:502
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Custo_m:"
 msgstr "自定义(_M)："
 
 #: src/plugin_htmlbar/html.c:654 src/plugin_htmlbar/html.c:1102
-#: src/plugin_htmlbar/html_form.c:518
+#: src/plugin_htmlbar/html_form.c:524
 msgid "Events"
 msgstr "事件"
 
@@ -1584,7 +1584,7 @@ msgid "Horizontal Rule"
 msgstr "水平线"
 
 #: src/plugin_htmlbar/html.c:977 src/plugin_htmlbar/html.c:1772
-#: src/plugin_htmlbar/image.c:495 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/image.c:520 src/plugin_htmlbar/image_dialog.c:429
 msgid "_Align:"
 msgstr "对齐(_A)："
 
@@ -1596,7 +1596,7 @@ msgstr "高度(_H)："
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:990 src/plugin_htmlbar/html.c:1776
 #: src/plugin_htmlbar/html_table.c:140 src/plugin_htmlbar/html_table.c:388
-#: src/plugin_htmlbar/image.c:453 src/plugin_htmlbar/image_dialog.c:361
+#: src/plugin_htmlbar/image.c:477 src/plugin_htmlbar/image_dialog.c:361
 msgid "_Width:"
 msgstr "宽度(_W)："
 
@@ -1738,11 +1738,11 @@ msgstr "无序(_U)"
 msgid "Style:"
 msgstr "样式："
 
-#: src/plugin_htmlbar/html.c:1595 src/plugin_htmlbar/html_form.c:240
+#: src/plugin_htmlbar/html.c:1595 src/plugin_htmlbar/html_form.c:241
 msgid "Co_ls:"
 msgstr "列(_L)："
 
-#: src/plugin_htmlbar/html.c:1599 src/plugin_htmlbar/html_form.c:236
+#: src/plugin_htmlbar/html.c:1599 src/plugin_htmlbar/html_form.c:237
 msgid "_Rows:"
 msgstr "行(_R)："
 
@@ -1788,7 +1788,7 @@ msgid "Script"
 msgstr "脚本"
 
 #: src/plugin_htmlbar/html.c:1849 src/plugin_htmlbar/html.c:1950
-#: src/plugin_htmlbar/html_form.c:478 src/plugin_htmlbar/html_form.c:590
+#: src/plugin_htmlbar/html_form.c:484 src/plugin_htmlbar/html_form.c:596
 msgid "_Type:"
 msgstr "类型(_T)："
 
@@ -1842,75 +1842,75 @@ msgstr "方法(_D)："
 msgid "_Enctype:"
 msgstr "编码类型(_E)："
 
-#: src/plugin_htmlbar/html_form.c:225
+#: src/plugin_htmlbar/html_form.c:226
 msgid "Text area"
 msgstr "文本域"
 
-#: src/plugin_htmlbar/html_form.c:279
+#: src/plugin_htmlbar/html_form.c:285
 msgid "Select"
 msgstr "选择"
 
-#: src/plugin_htmlbar/html_form.c:290 src/plugin_htmlbar/html_form.c:497
+#: src/plugin_htmlbar/html_form.c:296 src/plugin_htmlbar/html_form.c:503
 msgid "Si_ze:"
 msgstr "大小(_Z)："
 
-#: src/plugin_htmlbar/html_form.c:294
+#: src/plugin_htmlbar/html_form.c:300
 msgid "Multiple _Selections:"
 msgstr "多选(_S)："
 
-#: src/plugin_htmlbar/html_form.c:333
+#: src/plugin_htmlbar/html_form.c:339
 msgid "Option"
 msgstr "选项"
 
-#: src/plugin_htmlbar/html_form.c:343 src/plugin_htmlbar/html_form.c:386
+#: src/plugin_htmlbar/html_form.c:349 src/plugin_htmlbar/html_form.c:392
 msgid "_Label:"
 msgstr "标签(_L)："
 
-#: src/plugin_htmlbar/html_form.c:348
+#: src/plugin_htmlbar/html_form.c:354
 msgid "_Selected:"
 msgstr "已选(_S)："
 
-#: src/plugin_htmlbar/html_form.c:381
+#: src/plugin_htmlbar/html_form.c:387
 msgid "Option group"
 msgstr "选项组"
 
-#: src/plugin_htmlbar/html_form.c:464
+#: src/plugin_htmlbar/html_form.c:470
 msgid "Input"
 msgstr "输入"
 
-#: src/plugin_htmlbar/html_form.c:492
+#: src/plugin_htmlbar/html_form.c:498
 msgid "_Checked:"
 msgstr "已选中(_C)："
 
-#: src/plugin_htmlbar/html_form.c:501
+#: src/plugin_htmlbar/html_form.c:507
 msgid "Max _Length:"
 msgstr "最大长度(_L)："
 
-#: src/plugin_htmlbar/html_form.c:505
+#: src/plugin_htmlbar/html_form.c:511
 msgid "_Accept:"
 msgstr "接受(_A)："
 
-#: src/plugin_htmlbar/html_form.c:509
+#: src/plugin_htmlbar/html_form.c:515
 msgid "C_ustom:"
 msgstr "自定义(_U)："
 
-#: src/plugin_htmlbar/html_form.c:521
+#: src/plugin_htmlbar/html_form.c:527
 msgid "On_Focus:"
 msgstr "获得焦点时(_F)："
 
-#: src/plugin_htmlbar/html_form.c:525
+#: src/plugin_htmlbar/html_form.c:531
 msgid "On_Blur:"
 msgstr "模糊时(_B)："
 
-#: src/plugin_htmlbar/html_form.c:529
+#: src/plugin_htmlbar/html_form.c:535
 msgid "On_Select:"
 msgstr "选中时(_S)："
 
-#: src/plugin_htmlbar/html_form.c:533
+#: src/plugin_htmlbar/html_form.c:539
 msgid "On_Change:"
 msgstr "改变时(_C)："
 
-#: src/plugin_htmlbar/html_form.c:575
+#: src/plugin_htmlbar/html_form.c:581
 msgid "Button"
 msgstr "按钮"
 
@@ -1953,93 +1953,89 @@ msgid "No Wra_p:"
 msgstr "不换行(_P)："
 
 #. TODO: use error info in gerror
-#: src/plugin_htmlbar/image.c:290
+#: src/plugin_htmlbar/image.c:305
 #, fuzzy
 msgid "Loading image failed..."
 msgstr "正在载入文件..."
 
-#: src/plugin_htmlbar/image.c:362
+#: src/plugin_htmlbar/image.c:387
 #, fuzzy, c-format
 msgid "Loading file %s..."
 msgstr "正在载入文件..."
 
-#: src/plugin_htmlbar/image.c:414
+#: src/plugin_htmlbar/image.c:445
 msgid "Insert thumbnail"
 msgstr "插入相册"
 
-#: src/plugin_htmlbar/image.c:416
-msgid "Insert image"
-msgstr "插入图像"
-
-#: src/plugin_htmlbar/image.c:422 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:449 src/plugin_htmlbar/image_dialog.c:340
 msgid "Preview"
 msgstr "预览"
 
-#: src/plugin_htmlbar/image.c:444
+#: src/plugin_htmlbar/image.c:468
 msgid "_Image location:"
 msgstr "图像位置(_I)："
 
-#: src/plugin_htmlbar/image.c:460
+#: src/plugin_htmlbar/image.c:484
 msgid "Hei_ght:"
 msgstr "高度(_G)："
 
-#: src/plugin_htmlbar/image.c:465 src/plugin_htmlbar/image_dialog.c:404
+#: src/plugin_htmlbar/image.c:489 src/plugin_htmlbar/image_dialog.c:404
 msgid "_Usemap:"
 msgstr "使用映射(_U)："
 
-#: src/plugin_htmlbar/image.c:473
+#: src/plugin_htmlbar/image.c:497
 msgid "Alternate _text:"
 msgstr "替代文本(_T)："
 
-#: src/plugin_htmlbar/image.c:481 src/plugin_htmlbar/image_dialog.c:438
+#: src/plugin_htmlbar/image.c:506 src/plugin_htmlbar/image_dialog.c:438
 msgid "_Hspace:"
 msgstr "水平距离(_H)："
 
-#: src/plugin_htmlbar/image.c:485 src/plugin_htmlbar/image_dialog.c:442
+#: src/plugin_htmlbar/image.c:510 src/plugin_htmlbar/image_dialog.c:442
 msgid "_Vspace:"
 msgstr "垂直距离(_V)："
 
-#: src/plugin_htmlbar/image.c:499
+#: src/plugin_htmlbar/image.c:524
 msgid "Borde_r:"
 msgstr "边框(_R)："
 
-#: src/plugin_htmlbar/image.c:882
+#: src/plugin_htmlbar/image.c:927
 msgid "Select files for thumbnail creation"
 msgstr "选择用于生成相册的文件"
 
-#: src/plugin_htmlbar/image.c:917
+#: src/plugin_htmlbar/image.c:967
 msgid "Scaling (%)"
 msgstr "缩放 (%)"
 
-#: src/plugin_htmlbar/image.c:921 src/plugin_htmlbar/image.c:929
+#: src/plugin_htmlbar/image.c:971 src/plugin_htmlbar/image.c:979
 msgid "Width"
 msgstr "宽度"
 
-#: src/plugin_htmlbar/image.c:925 src/plugin_htmlbar/image.c:957
+#: src/plugin_htmlbar/image.c:975 src/plugin_htmlbar/image.c:1015
 msgid "Height"
 msgstr "高度"
 
-#: src/plugin_htmlbar/image.c:946
+#: src/plugin_htmlbar/image.c:998
 msgid "Multi thumbnail"
 msgstr "多相册"
 
-#: src/plugin_htmlbar/image.c:952
+#: src/plugin_htmlbar/image.c:1004
 msgid "By scaling"
 msgstr "根据比例"
 
-#: src/plugin_htmlbar/image.c:953
+#: src/plugin_htmlbar/image.c:1007
 msgid "By width, keep aspect ratio"
 msgstr "根据宽度，保持高宽比"
 
-#: src/plugin_htmlbar/image.c:954
+#: src/plugin_htmlbar/image.c:1010
 msgid "By height, keep aspect ratio"
 msgstr "根据高度，保持高宽比"
 
-#: src/plugin_htmlbar/image.c:955
+#: src/plugin_htmlbar/image.c:1013
 msgid "By width and height, ignore aspect ratio"
 msgstr "根据和宽度和高度，忽略高宽比"
 
-#: src/plugin_htmlbar/image.c:979
+#: src/plugin_htmlbar/image.c:1039
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2250,6 +2246,9 @@ msgstr "源代码："
 #: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "大小："
+
+#~ msgid "Insert image"
+#~ msgstr "插入图像"
 
 #, fuzzy
 #~ msgid "_Rel:"

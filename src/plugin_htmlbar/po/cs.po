@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable 1.3.8\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-08 21:46+0100\n"
+"POT-Creation-Date: 2010-01-25 21:41+0100\n"
 "PO-Revision-Date: 2009-12-09 00:54+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech translators <diskuze@lists.l10n.cz>\n"
@@ -52,8 +52,8 @@ msgstr "_Selektor:"
 msgid "_Property:"
 msgstr "_Vlastnost:"
 
-#: src/plugin_htmlbar/html2.c:683 src/plugin_htmlbar/html_form.c:339
-#: src/plugin_htmlbar/html_form.c:488 src/plugin_htmlbar/html_form.c:585
+#: src/plugin_htmlbar/html2.c:683 src/plugin_htmlbar/html_form.c:345
+#: src/plugin_htmlbar/html_form.c:494 src/plugin_htmlbar/html_form.c:591
 msgid "_Value:"
 msgstr "_Hodnota:"
 
@@ -1276,7 +1276,7 @@ msgstr "Segment…"
 msgid "Div..."
 msgstr "Blok…"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:822 src/plugin_htmlbar/html_form.c:514
+#: src/plugin_htmlbar/htmlbar_gui.c:822 src/plugin_htmlbar/html_form.c:520
 msgid "Style"
 msgstr "Styl"
 
@@ -1452,7 +1452,7 @@ msgstr "  Čas dle _ISO-8601 "
 msgid "Quick Anchor"
 msgstr "Kotva <a>"
 
-#: src/plugin_htmlbar/html.c:615 src/plugin_htmlbar/html_form.c:469
+#: src/plugin_htmlbar/html.c:615 src/plugin_htmlbar/html_form.c:475
 msgid "Attributes"
 msgstr "Atributy"
 
@@ -1466,9 +1466,9 @@ msgstr "_Cíl (target):"
 
 #: src/plugin_htmlbar/html.c:637 src/plugin_htmlbar/html.c:861
 #: src/plugin_htmlbar/html.c:1226 src/plugin_htmlbar/html.c:1687
-#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:285
-#: src/plugin_htmlbar/html_form.c:484 src/plugin_htmlbar/html_form.c:581
-#: src/plugin_htmlbar/image.c:469
+#: src/plugin_htmlbar/html_form.c:232 src/plugin_htmlbar/html_form.c:291
+#: src/plugin_htmlbar/html_form.c:490 src/plugin_htmlbar/html_form.c:587
+#: src/plugin_htmlbar/image.c:493
 msgid "_Name:"
 msgstr "_Název (name):"
 
@@ -1485,16 +1485,16 @@ msgstr "_Jazyk (language):"
 #: src/plugin_htmlbar/html.c:1003 src/plugin_htmlbar/html.c:1098
 #: src/plugin_htmlbar/html.c:1252 src/plugin_htmlbar/html.c:1621
 #: src/plugin_htmlbar/html.c:1724 src/plugin_htmlbar/html.c:1853
-#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
-#: src/plugin_htmlbar/html_form.c:298 src/plugin_htmlbar/html_form.c:594
+#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:249
+#: src/plugin_htmlbar/html_form.c:304 src/plugin_htmlbar/html_form.c:600
 #: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
-#: src/plugin_htmlbar/html_table.c:369 src/plugin_htmlbar/image.c:477
+#: src/plugin_htmlbar/html_table.c:369 src/plugin_htmlbar/image.c:502
 #: src/plugin_htmlbar/image_dialog.c:408
 msgid "Custo_m:"
 msgstr "_Vlastní:"
 
 #: src/plugin_htmlbar/html.c:654 src/plugin_htmlbar/html.c:1102
-#: src/plugin_htmlbar/html_form.c:518
+#: src/plugin_htmlbar/html_form.c:524
 msgid "Events"
 msgstr "Události"
 
@@ -1574,7 +1574,7 @@ msgid "Horizontal Rule"
 msgstr "Vodorovná linka <hr>"
 
 #: src/plugin_htmlbar/html.c:977 src/plugin_htmlbar/html.c:1772
-#: src/plugin_htmlbar/image.c:495 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/image.c:520 src/plugin_htmlbar/image_dialog.c:429
 msgid "_Align:"
 msgstr "Z_arovnání (align):"
 
@@ -1586,7 +1586,7 @@ msgstr "_Výška (height):"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:990 src/plugin_htmlbar/html.c:1776
 #: src/plugin_htmlbar/html_table.c:140 src/plugin_htmlbar/html_table.c:388
-#: src/plugin_htmlbar/image.c:453 src/plugin_htmlbar/image_dialog.c:361
+#: src/plugin_htmlbar/image.c:477 src/plugin_htmlbar/image_dialog.c:361
 msgid "_Width:"
 msgstr "Šíř_ka (width):"
 
@@ -1726,11 +1726,11 @@ msgstr "_Neřazený"
 msgid "Style:"
 msgstr "Styl:"
 
-#: src/plugin_htmlbar/html.c:1595 src/plugin_htmlbar/html_form.c:240
+#: src/plugin_htmlbar/html.c:1595 src/plugin_htmlbar/html_form.c:241
 msgid "Co_ls:"
 msgstr "S_loupce (cols):"
 
-#: src/plugin_htmlbar/html.c:1599 src/plugin_htmlbar/html_form.c:236
+#: src/plugin_htmlbar/html.c:1599 src/plugin_htmlbar/html_form.c:237
 msgid "_Rows:"
 msgstr "Řád_ky (rows):"
 
@@ -1776,7 +1776,7 @@ msgid "Script"
 msgstr "Skript <script>"
 
 #: src/plugin_htmlbar/html.c:1849 src/plugin_htmlbar/html.c:1950
-#: src/plugin_htmlbar/html_form.c:478 src/plugin_htmlbar/html_form.c:590
+#: src/plugin_htmlbar/html_form.c:484 src/plugin_htmlbar/html_form.c:596
 msgid "_Type:"
 msgstr "Typ (_type):"
 
@@ -1828,75 +1828,75 @@ msgstr "Způsob (metho_d):"
 msgid "_Enctype:"
 msgstr "Typ kódování (_enctype):"
 
-#: src/plugin_htmlbar/html_form.c:225
+#: src/plugin_htmlbar/html_form.c:226
 msgid "Text area"
 msgstr "Textová oblast (textarea)"
 
-#: src/plugin_htmlbar/html_form.c:279
+#: src/plugin_htmlbar/html_form.c:285
 msgid "Select"
 msgstr "Výběr <select>"
 
-#: src/plugin_htmlbar/html_form.c:290 src/plugin_htmlbar/html_form.c:497
+#: src/plugin_htmlbar/html_form.c:296 src/plugin_htmlbar/html_form.c:503
 msgid "Si_ze:"
 msgstr "Velikost (si_ze):"
 
-#: src/plugin_htmlbar/html_form.c:294
+#: src/plugin_htmlbar/html_form.c:300
 msgid "Multiple _Selections:"
 msgstr "Vícenásobný _výběr:"
 
-#: src/plugin_htmlbar/html_form.c:333
+#: src/plugin_htmlbar/html_form.c:339
 msgid "Option"
 msgstr "Volba <option>"
 
-#: src/plugin_htmlbar/html_form.c:343 src/plugin_htmlbar/html_form.c:386
+#: src/plugin_htmlbar/html_form.c:349 src/plugin_htmlbar/html_form.c:392
 msgid "_Label:"
 msgstr "Popisek (_label):"
 
-#: src/plugin_htmlbar/html_form.c:348
+#: src/plugin_htmlbar/html_form.c:354
 msgid "_Selected:"
 msgstr "Vybráno (_selected):"
 
-#: src/plugin_htmlbar/html_form.c:381
+#: src/plugin_htmlbar/html_form.c:387
 msgid "Option group"
 msgstr "Skupina voleb <optgroup>"
 
-#: src/plugin_htmlbar/html_form.c:464
+#: src/plugin_htmlbar/html_form.c:470
 msgid "Input"
 msgstr "Vstup <input>"
 
-#: src/plugin_htmlbar/html_form.c:492
+#: src/plugin_htmlbar/html_form.c:498
 msgid "_Checked:"
 msgstr "_Zaškrtnuto (checked):"
 
-#: src/plugin_htmlbar/html_form.c:501
+#: src/plugin_htmlbar/html_form.c:507
 msgid "Max _Length:"
 msgstr "Maximální dé_lka:"
 
-#: src/plugin_htmlbar/html_form.c:505
+#: src/plugin_htmlbar/html_form.c:511
 msgid "_Accept:"
 msgstr "Akceptované MIME (_accept):"
 
-#: src/plugin_htmlbar/html_form.c:509
+#: src/plugin_htmlbar/html_form.c:515
 msgid "C_ustom:"
 msgstr "_Vlastní:"
 
-#: src/plugin_htmlbar/html_form.c:521
+#: src/plugin_htmlbar/html_form.c:527
 msgid "On_Focus:"
 msgstr "Při zaměření (on_Focus):"
 
-#: src/plugin_htmlbar/html_form.c:525
+#: src/plugin_htmlbar/html_form.c:531
 msgid "On_Blur:"
 msgstr "Při ztrátě zaměření (on_Blur):"
 
-#: src/plugin_htmlbar/html_form.c:529
+#: src/plugin_htmlbar/html_form.c:535
 msgid "On_Select:"
 msgstr "Při vyběru (on_Select):"
 
-#: src/plugin_htmlbar/html_form.c:533
+#: src/plugin_htmlbar/html_form.c:539
 msgid "On_Change:"
 msgstr "Při změně (on_Change):"
 
-#: src/plugin_htmlbar/html_form.c:575
+#: src/plugin_htmlbar/html_form.c:581
 msgid "Button"
 msgstr "Tlačítko <button>"
 
@@ -1939,92 +1939,88 @@ msgid "No Wra_p:"
 msgstr "Nezalamovat (nowrap):"
 
 #. TODO: use error info in gerror
-#: src/plugin_htmlbar/image.c:290
+#: src/plugin_htmlbar/image.c:305
 msgid "Loading image failed..."
 msgstr "Načtení souboru se nezdařilo…"
 
-#: src/plugin_htmlbar/image.c:362
+#: src/plugin_htmlbar/image.c:387
 #, c-format
 msgid "Loading file %s..."
 msgstr "Načítá se soubor %s…"
 
-#: src/plugin_htmlbar/image.c:414
+#: src/plugin_htmlbar/image.c:445
 msgid "Insert thumbnail"
 msgstr "Vložení miniatury"
 
-#: src/plugin_htmlbar/image.c:416
-msgid "Insert image"
-msgstr "Vložení obrázku"
-
-#: src/plugin_htmlbar/image.c:422 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:449 src/plugin_htmlbar/image_dialog.c:340
 msgid "Preview"
 msgstr "Náhled"
 
-#: src/plugin_htmlbar/image.c:444
+#: src/plugin_htmlbar/image.c:468
 msgid "_Image location:"
 msgstr "_Umístění obrázku:"
 
-#: src/plugin_htmlbar/image.c:460
+#: src/plugin_htmlbar/image.c:484
 msgid "Hei_ght:"
 msgstr "_Výška (height):"
 
-#: src/plugin_htmlbar/image.c:465 src/plugin_htmlbar/image_dialog.c:404
+#: src/plugin_htmlbar/image.c:489 src/plugin_htmlbar/image_dialog.c:404
 msgid "_Usemap:"
 msgstr "Použít mapu (_usemap):"
 
-#: src/plugin_htmlbar/image.c:473
+#: src/plugin_htmlbar/image.c:497
 msgid "Alternate _text:"
 msgstr "Alternativní te_xt (alt):"
 
-#: src/plugin_htmlbar/image.c:481 src/plugin_htmlbar/image_dialog.c:438
+#: src/plugin_htmlbar/image.c:506 src/plugin_htmlbar/image_dialog.c:438
 msgid "_Hspace:"
 msgstr "Vodorovný prostor (_hspace):"
 
-#: src/plugin_htmlbar/image.c:485 src/plugin_htmlbar/image_dialog.c:442
+#: src/plugin_htmlbar/image.c:510 src/plugin_htmlbar/image_dialog.c:442
 msgid "_Vspace:"
 msgstr "Svislý prostor (_vspace):"
 
-#: src/plugin_htmlbar/image.c:499
+#: src/plugin_htmlbar/image.c:524
 msgid "Borde_r:"
 msgstr "Rámeček (borde_r):"
 
-#: src/plugin_htmlbar/image.c:882
+#: src/plugin_htmlbar/image.c:927
 msgid "Select files for thumbnail creation"
 msgstr "Výběr souborů pro vytvoření miniatur"
 
-#: src/plugin_htmlbar/image.c:917
+#: src/plugin_htmlbar/image.c:967
 msgid "Scaling (%)"
 msgstr "Měřítko (%)"
 
-#: src/plugin_htmlbar/image.c:921 src/plugin_htmlbar/image.c:929
+#: src/plugin_htmlbar/image.c:971 src/plugin_htmlbar/image.c:979
 msgid "Width"
 msgstr "Šířka"
 
-#: src/plugin_htmlbar/image.c:925 src/plugin_htmlbar/image.c:957
+#: src/plugin_htmlbar/image.c:975 src/plugin_htmlbar/image.c:1015
 msgid "Height"
 msgstr "Výška"
 
-#: src/plugin_htmlbar/image.c:946
+#: src/plugin_htmlbar/image.c:998
 msgid "Multi thumbnail"
 msgstr "Více miniatur"
 
-#: src/plugin_htmlbar/image.c:952
+#: src/plugin_htmlbar/image.c:1004
 msgid "By scaling"
 msgstr "Určené měřítkem"
 
-#: src/plugin_htmlbar/image.c:953
+#: src/plugin_htmlbar/image.c:1007
 msgid "By width, keep aspect ratio"
 msgstr "Určené šířkou, dodržení poměru"
 
-#: src/plugin_htmlbar/image.c:954
+#: src/plugin_htmlbar/image.c:1010
 msgid "By height, keep aspect ratio"
 msgstr "Určené výškou, dodržení poměru"
 
-#: src/plugin_htmlbar/image.c:955
+#: src/plugin_htmlbar/image.c:1013
 msgid "By width and height, ignore aspect ratio"
 msgstr "Určené šířkou a výškou, ignorování poměru"
 
-#: src/plugin_htmlbar/image.c:979
+#: src/plugin_htmlbar/image.c:1039
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2222,3 +2218,6 @@ msgstr "Zdroj:"
 #: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "Velikost:"
+
+#~ msgid "Insert image"
+#~ msgstr "Vložení obrázku"
