@@ -888,7 +888,7 @@ static void fill_fileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer 
 						,fi->cancel
 						,fill_fileinfo_async_mount_lcb,fi);
 			} else {
-				DEBUG_MSG("push %p on 'openfile_wait_for_mount' list and remove from queue\n", of);
+				DEBUG_MSG("push %p on 'fileinfo_wait_for_mount' list and remove from queue\n", fi);
 				fileinfo_wait_for_mount = g_list_prepend(fileinfo_wait_for_mount, fi);
 				queue_worker_ready(&fiqueue, fill_fileinfo_run);
 			}
