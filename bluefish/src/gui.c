@@ -556,9 +556,14 @@ static void notebook_reordered_lcb(GtkNotebook *notebook,GtkWidget *child,guint 
 	DEBUG_MSG("notebook_reordered_lcb, done\n");
 }
 
-void gui_notebook_bind_signals(Tbfwin *bfwin) {
-	bfwin->notebook_switch_signal = g_signal_connect_after(G_OBJECT(bfwin->notebook),"switch-page",G_CALLBACK(notebook_switch_page_lcb), bfwin);
-	g_signal_connect(G_OBJECT(bfwin->notebook), "page-reordered", G_CALLBACK(notebook_reordered_lcb), bfwin);
+void gui_notebook_block_signals(Tbfwin *bfwin) {
+	g_signal_handlers_block_matched(bfwin->notebook, G_SIGNAL_MATCH_FUNC,
+				0, 0, NULL, notebook_switch_page_lcb, NULL);
+}
+
+void gui_notebook_unblock_signals(Tbfwin *bfwin) {
+	g_signal_handlers_unblock_matched(bfwin->notebook, G_SIGNAL_MATCH_FUNC,
+				0, 0, NULL, notebook_switch_page_lcb, NULL);
 }
 
 void gui_notebook_bind_tab_signals(Tbfwin *bfwin) {
@@ -573,13 +578,6 @@ void gui_notebook_bind_tab_signals(Tbfwin *bfwin) {
 	g_signal_connect(G_OBJECT(bfwin->notebook), "tab7", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 7);
 	g_signal_connect(G_OBJECT(bfwin->notebook), "tab8", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 8);
 	g_signal_connect(G_OBJECT(bfwin->notebook), "tab9", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 9);
-}
-
-void gui_notebook_unbind_signals(Tbfwin *bfwin) {
-	if (bfwin->notebook_switch_signal != 0) {
-		g_signal_handler_disconnect(G_OBJECT(bfwin->notebook),bfwin->notebook_switch_signal);
-		bfwin->notebook_switch_signal = 0;
-	}
 }
 
 void gui_notebook_set_tab_accels(Tbfwin *bfwin) {
@@ -720,12 +718,11 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	/*remove_window_entry_from_all_windows(bfwin);*/
 	
 	bfwin->statusbar = NULL; /* make sure no new statusbar messages have to be popped */
+
 	if (bfwin->statusbar_pop_id!=0) {
 		g_source_remove(bfwin->statusbar_pop_id);
 		bfwin->statusbar_pop_id=0;
 	}
-	
-	g_signal_handler_disconnect(bfwin->notebook,bfwin->notebook_switch_signal);
 	
 	/* all documents have to be freed for this window */
 	tmplist = g_list_first(bfwin->documentlist);
@@ -738,6 +735,10 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 		left */
 		tmplist = g_list_first(bfwin->documentlist);
 	}
+
+	g_signal_handlers_disconnect_matched(bfwin->notebook, G_SIGNAL_MATCH_FUNC,
+				0, 0, NULL, notebook_switch_page_lcb, NULL);
+
 	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 	g_list_free(bfwin->menu_recent_files);
 	g_list_free(bfwin->menu_recent_projects);
@@ -1063,7 +1064,9 @@ void gui_create_main(Tbfwin *bfwin) {
 	g_slist_foreach(main_v->plugins, bfplugins_gui, bfwin);
 
 	/* We have to know when the notebook changes */
-	gui_notebook_bind_signals(bfwin);
+	g_signal_connect_after(G_OBJECT(bfwin->notebook),"switch-page",G_CALLBACK(notebook_switch_page_lcb), bfwin);
+	g_signal_connect(G_OBJECT(bfwin->notebook), "page-reordered", G_CALLBACK(notebook_reordered_lcb), bfwin);
+
 	if (main_v->props.switch_tabs_by_altx) {
 		gui_notebook_set_tab_accels(bfwin);
 		gui_notebook_bind_tab_signals(bfwin);

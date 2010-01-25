@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gui.h - global function for the GUI
  *
- * Copyright (C) 2002-2009 Olivier Sessink
+ * Copyright (C) 2002-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,8 +44,8 @@ void gui_apply_settings(Tbfwin *bfwin);
 void gui_set_undo_redo_widgets(Tbfwin *bfwin,gboolean undo, gboolean redo);
 void gui_set_document_widgets(Tdocument *doc);
 
-void gui_notebook_bind_signals(Tbfwin *bfwin);
-void gui_notebook_unbind_signals(Tbfwin *bfwin);
+void gui_notebook_block_signals(Tbfwin *bfwin);
+void gui_notebook_unblock_signals(Tbfwin *bfwin);
 void gui_create_main(Tbfwin *bfwin);
 void gui_show_main(Tbfwin *bfwin);
 void statusbar_message(Tbfwin *bfwin,const gchar *message, gint seconds);
