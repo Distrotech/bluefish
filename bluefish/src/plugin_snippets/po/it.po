@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-12-08 21:47+0100\n"
+"POT-Creation-Date: 2010-01-25 21:41+0100\n"
 "PO-Revision-Date: 2010-01-17 00:21+0100\n"
 "Last-Translator: Roberto Bellingeri <bellingeri@netguru.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -70,23 +70,25 @@ msgstr "/Esporta"
 msgid "/Import"
 msgstr "/Importa"
 
-#: src/plugin_snippets/snippets_gui.c:480
+#: src/plugin_snippets/snippets_gui.c:481
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr "Clicca col destro per aggiungere, modificare o cancellare i ritagli."
 
-#: src/plugin_snippets/snippets_gui.c:481
+#: src/plugin_snippets/snippets_gui.c:482
 msgid "Use drag and drop to re-order snippets"
 msgstr "Trascina per ri-ordinare i ritagli"
 
-#: src/plugin_snippets/snippets_gui.c:482
+#: src/plugin_snippets/snippets_gui.c:483
 msgid "To exchange snippets with others use import or export"
-msgstr "Per scambiare i ritagli con altri usa le funzioni di importazione ed esportazione"
+msgstr ""
+"Per scambiare i ritagli con altri usa le funzioni di importazione ed "
+"esportazione"
 
-#: src/plugin_snippets/snippets_gui.c:640
+#: src/plugin_snippets/snippets_gui.c:642
 msgid "snippets"
 msgstr "ritagli"
 
-#: src/plugin_snippets/snippets_gui.c:671
+#: src/plugin_snippets/snippets_gui.c:673
 msgid "/View/Snippets Menu"
 msgstr "/Visualizza/Menù ritagli"
 
@@ -135,8 +137,14 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:133
-msgid "Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."
-msgstr "Specificate il modello di ricerca e sostituzione. Potete utilizzare i segnaposto %0, %1, ...%5 per richiedere valori quando viene attivato. Date a questi segnaposto un nome appropriato sulla destra."
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right."
+msgstr ""
+"Specificate il modello di ricerca e sostituzione. Potete utilizzare i "
+"segnaposto %0, %1, ...%5 per richiedere valori quando viene attivato. Date a "
+"questi segnaposto un nome appropriato sulla destra."
 
 #: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
@@ -167,16 +175,22 @@ msgid "_Use escape chars"
 msgstr "_Usa carattere escape"
 
 #: src/plugin_snippets/snippets_wizard.c:166
-msgid ""
-"Unescape backslash escaped characters such as \\n"
-", \\t etc."
-msgstr ""
-"Elimina le barre rovesciate dei caratteri di escape come \\n"
-", \\t ecc."
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgstr "Elimina le barre rovesciate dei caratteri di escape come \\n, \\t ecc."
 
 #: src/plugin_snippets/snippets_wizard.c:339
-msgid "The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."
-msgstr "Il testo <i>precedente</i> verrà inserito prima della posizione del cursore o della selezione, il testo <i>successivo</i> verrà inserito dopo la posizione dl cursore o della selezione. Potete utilizzare i segnaposto %0, %1, ...%9 per richiedere valori quando viene attivato. Date a questi segnaposto un nome appropriato sulla destra."
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right."
+msgstr ""
+"Il testo <i>precedente</i> verrà inserito prima della posizione del cursore "
+"o della selezione, il testo <i>successivo</i> verrà inserito dopo la "
+"posizione dl cursore o della selezione. Potete utilizzare i segnaposto %0, %"
+"1, ...%9 per richiedere valori quando viene attivato. Date a questi "
+"segnaposto un nome appropriato sulla destra."
 
 #: src/plugin_snippets/snippets_wizard.c:345
 msgid "<i>Before</i> text"
@@ -229,4 +243,3 @@ msgstr "Modello di ricerca e sostituzione"
 #: src/plugin_snippets/snippets_wizard.c:753
 msgid "New snippet"
 msgstr "Nuovo ritaglio"
-
