@@ -339,6 +339,7 @@ int main(int argc, char *argv[])
 	DEBUG_MSG("calling fb2config_cleanup()\n");
 	fb2config_cleanup();
 	langmgr_cleanup();
+	xmlCleanupParser();
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
 	return 0;
 }

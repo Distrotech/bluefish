@@ -1991,7 +1991,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	if (doc->uri && bfwin->session) { /* in a special situation the bfwin does not have a session: if a project window is closing */
 		add_to_recent_list(doc->bfwin,doc->uri, 1, FALSE);
 	}
-	gui_notebook_unbind_signals(BFWIN(doc->bfwin));
+	gui_notebook_block_signals(BFWIN(doc->bfwin));
 	if (doc->newdoc_autodetect_lang_id) {
 		g_source_remove(doc->newdoc_autodetect_lang_id);
 		doc->newdoc_autodetect_lang_id=0;
@@ -2021,7 +2021,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 							 gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),doc->view->parent));
 	DEBUG_MSG("doc_destroy, removed widget from notebook (doc=%p), delay_activation=%d\n",doc,delay_activation);
 	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n",doc);
-	gui_notebook_bind_signals(BFWIN(doc->bfwin));
+	gui_notebook_unblock_signals(BFWIN(doc->bfwin));
 	if (!delay_activation) {
 		notebook_changed(BFWIN(doc->bfwin),-1);
 	}
