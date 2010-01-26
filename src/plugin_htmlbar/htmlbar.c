@@ -25,6 +25,7 @@
 #include "../rcfile.h"
 #include "../document.h"
 #include "../gtk_easy.h"
+#include "../stringlist.h"
 #include "htmlbar_gui.h"
 #include "rpopup.h"
 Thtmlbar htmlbar_v;
