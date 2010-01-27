@@ -823,11 +823,11 @@ Function GtkVersionCheck
 		; Check the major version
 		${StrTok} $R1 $R0 "." "0" "1"
 		${StrTok} $R2 ${GTK_MIN_VERSION} "." "0" "1"
-		${If} $R1 >= $R2
+		${If} $R1 == $R2
 			; Check the minor version
 			${StrTok} $R1 $R0 "." "1" "1"
 			${StrTok} $R2 ${GTK_MIN_VERSION} "." "1" "1"
-			${If} $R1 >= $R2
+			${If} $R1 == $R2
 				; Check the patch level
 				${StrTok} $R1 $R0 "." "2" "1"
 				${StrTok} $R2 ${GTK_MIN_VERSION} "." "2" "1"
@@ -836,9 +836,13 @@ Function GtkVersionCheck
 				${Else}
 					StrCpy $GTK_STATUS ""
 				${EndIf}
+			${ElseIf} $R1 > $R2
+				StrCpy $GTK_STATUS "installed"
 			${Else}
 				StrCpy $GTK_STATUS ""
 			${EndIf}
+		${ElseIf} $R1 > $R2
+			StrCpy $GTK_STATUS "installed"	
 		${Else}
 			StrCpy $GTK_STATUS ""
 		${EndIf}
