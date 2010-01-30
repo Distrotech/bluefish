@@ -4,13 +4,16 @@ EXTRA_DIST = \
 	Makefile.mingw.in \
 	locale/Basque.nsh \
 	locale/Czech.nsh \
+	locale/Dutch.nsh \
 	locale/English.nsh \
 	locale/French.nsh \
 	locale/Galician.nsh \
 	locale/German.nsh \
+	locale/Italian.nsh \
 	locale/Japanese.nsh \
 	locale/Norwegian.nsh \
 	locale/Swedish.nsh \
+	locale/Ukrainian.nsh \
 	pixmaps/bluefish-ada.ico \
 	pixmaps/bluefish-asp.ico \
 	pixmaps/bluefish-bflang2.ico \
