@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		shell.bflang2 $Revision: 5464 $
+		diff.bflang2 $Revision: 5464 $
  
-		Copyright (C) 2008,2009 Olivier Sessink
+		Copyright (C) 2008-2010 Olivier Sessink
 
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -20,27 +20,28 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Diff/Patch" version="2.0">
+<bflang name="Diff/Patch" version="2.0" table="27" contexts="2" matches="6">
 <header>
 	<mime type="text/x-diff"/>
 	<mime type="text/x-patch"/>
-	<highlight name="added" style="special-value" />
-	<highlight name="fileinfo" style="warning" />
-	<highlight name="removed" style="value" />
-	<highlight name="line" style="comment" />
+	<highlight name="added" style="special-function" />
+	<highlight name="comment" style="comment" />
+	<highlight name="fileinfo" style="operator" />
 	<highlight name="index" style="keyword" />
+	<highlight name="line" style="tag" />
+	<highlight name="removed" style="function" />
 </header>
 <properties>
-	<comment type="line" start="#" />
+	<comment type="comment" start="#" />
 </properties>
 
 <definition>
-<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<element pattern="&#10;Index:[^&#10;&#13;]+" is_regex="1" highlight="index" /><!-- doesn't catch first line! -->
-<element pattern="&#10;\+\+\+[^&#10;&#13;]+" is_regex="1" highlight="fileinfo" />
-<element pattern="&#10;---[^&#10;&#13;]+" is_regex="1" highlight="fileinfo" />
-<element pattern="&#10;\+[^&#10;&#13;]*" is_regex="1" highlight="added" />
-<element pattern="&#10;-[^&#10;&#13;]*" is_regex="1" highlight="removed" />
+<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;&#45;">
+<element pattern="[&#10;]?Index:[^&#10;&#13;]+" is_regex="1" highlight="index" />
+<element pattern="&#10;(\+\+\+ |--- )[^&#10;&#13;]+" is_regex="1" highlight="fileinfo" />
+<element pattern="&#10;(&gt;|\+)[^\+&#10;&#13;]*" is_regex="1" highlight="added" />
+<element pattern="&#10;(&lt;|-)[^&#45;&#10;&#13;]*" is_regex="1" highlight="removed" />
+<element pattern="&#10;(@@|[0-9])[^&#10;&#13;]*" is_regex="1" highlight="line"/>
 
 <!-- <element id="e.diff.removed" pattern="&#10;-" starts_block="1" mayfold="0" highlight="removed"/>
 <element pattern="&#10;[^-]" is_regex="1" ends_block="1" blockstartelement="e.diff.removed" highlight="removed"/>
