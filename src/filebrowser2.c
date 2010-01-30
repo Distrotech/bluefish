@@ -1762,11 +1762,21 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 * fb2, guint callback_acti
 	case 8:
 		{
 			GtkTreePath *fs_path;
+			GtkTreeIter iter;
+
 			fs_path = fb2_fspath_from_dir_selection(fb2);
 			DEBUG_MSG("fb2rpopup_rpopup_action_lcb, fs_path=%p\n", fs_path);
 			refilter_dirlist(fb2, fs_path);
 			gtk_tree_path_free(fs_path);
-			fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
+			if (fb2->bfwin->session->filebrowser_focus_follow) {
+				fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
+			}
+			gtk_tree_model_get_iter_first(fb2->dir_tsort, &iter);
+			fs_path = gtk_tree_model_get_path(fb2->dir_tsort, &iter);
+			if(!gtk_tree_view_row_expanded(GTK_TREE_VIEW(fb2->dir_v), fs_path)) {
+				gtk_tree_view_expand_row(GTK_TREE_VIEW(fb2->dir_v), fs_path, FALSE);
+			}
+			gtk_tree_path_free(fs_path);
 		}
 		break;
 	case 9:
