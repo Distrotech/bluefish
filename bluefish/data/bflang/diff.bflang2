@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 		Bluefish HTML Editor
 		diff.bflang2 $Revision: 5464 $
@@ -36,19 +36,19 @@
 </properties>
 
 <definition>
-<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;&#45;">
-<element pattern="[&#10;]?Index:[^&#10;&#13;]+" is_regex="1" highlight="index" />
-<element pattern="&#10;(\+\+\+ |--- )[^&#10;&#13;]+" is_regex="1" highlight="fileinfo" />
-<element pattern="&#10;(&gt;|\+)[^\+&#10;&#13;]*" is_regex="1" highlight="added" />
-<element pattern="&#10;(&lt;|-)[^&#45;&#10;&#13;]*" is_regex="1" highlight="removed" />
-<element pattern="&#10;(@@|[0-9])[^&#10;&#13;]*" is_regex="1" highlight="line"/>
+	<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;&#45;">
+	<element pattern="[&#10;]?Index:[^&#10;&#13;]+" is_regex="1" highlight="index" />
+	<element pattern="&#10;(\+\+\+ |--- )[^&#10;&#13;]+" is_regex="1" highlight="fileinfo" />
+	<element pattern="&#10;(&gt;|\+)[^&#10;&#13;]*" is_regex="1" highlight="added" />
+	<element pattern="&#10;(&lt;|-)[^&#10;&#13;]*" is_regex="1" highlight="removed" />
+	<element pattern="&#10;(@@|[0-9])[^&#10;&#13;]*" is_regex="1" highlight="line"/>
 
-<!-- <element id="e.diff.removed" pattern="&#10;-" starts_block="1" mayfold="0" highlight="removed"/>
-<element pattern="&#10;[^-]" is_regex="1" ends_block="1" blockstartelement="e.diff.removed" highlight="removed"/>
+	<!-- <element id="e.diff.removed" pattern="&#10;-" starts_block="1" mayfold="0" highlight="removed"/>
+	<element pattern="&#10;[^-]" is_regex="1" ends_block="1" blockstartelement="e.diff.removed" highlight="removed"/>
+	
+	<element id="e.diff.added" pattern="&#10;+" starts_block="1" mayfold="0" highlight="added"/>
+	<element pattern="&#10;[^+]" is_regex="1" ends_block="1" blockstartelement="e.diff.added" highlight="added"/> -->
 
-<element id="e.diff.added" pattern="&#10;+" starts_block="1" mayfold="0" highlight="added"/>
-<element pattern="&#10;[^+]" is_regex="1" ends_block="1" blockstartelement="e.diff.added" highlight="added"/> -->
-
-</context>
+	</context>
 </definition>
 </bflang>
