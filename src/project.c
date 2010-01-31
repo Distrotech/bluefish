@@ -321,15 +321,19 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 		prwin = gui_new_window(prj);
 	}
 	tmplist = g_list_last(prj->files);
-	while (tmplist) {
-		GFile *uri;
-		if (strstr ((gchar *) tmplist->data, "://") == NULL)
-			uri = g_file_new_for_path((gchar *) tmplist->data);
-		else
-			uri = g_file_new_for_uri((gchar *) tmplist->data);
-		doc_new_from_uri(prwin, uri, NULL, (prj->files->next==NULL), TRUE, -1, -1);
-		g_object_unref(uri);
-		tmplist = g_list_previous(tmplist);
+	if (tmplist) {
+		while (tmplist) {
+			GFile *uri;
+			if (strstr ((gchar *) tmplist->data, "://") == NULL)
+				uri = g_file_new_for_path((gchar *) tmplist->data);
+			else
+				uri = g_file_new_for_uri((gchar *) tmplist->data);
+			doc_new_from_uri(prwin, uri, NULL, !(prj->files->prev==NULL), TRUE, -1, -1);
+			g_object_unref(uri);
+			tmplist = g_list_previous(tmplist);
+		}
+	} else {
+		doc_new(bfwin, FALSE);
 	}
 	DEBUG_MSG("project_open_from_file, new window with files ready at prwin=%p\n",prwin);
 	setup_bfwin_for_project(prwin);
