@@ -454,6 +454,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.autosave_location_mode, "autosave_location_mode:", 0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.autosave_file_prefix,"autosave_file_prefix:","");
 	init_prop_string    (&config_rc, &main_v->props.autosave_file_suffix,"autosave_file_suffix:","#");
+	init_prop_string    (&config_rc, &main_v->props.language,"language:","");
 	return config_rc;
 }
 
