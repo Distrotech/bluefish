@@ -916,7 +916,7 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		xmlFree(aname);
 	}
 	DBG_PARSING("found <context> (empty=%d) with id=%s, idref=%s\n",is_empty, id, idref);
-	if (is_empty && idref && !id && !symbols && !highlight && !autocomplete_case_insens) {
+	if (idref && idref[0] && !id && !symbols && !highlight && !autocomplete_case_insens) {
 		DBG_PARSING("lookup context %s in hash table..\n",idref);
 		context = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, idref));
 		g_free(idref);
