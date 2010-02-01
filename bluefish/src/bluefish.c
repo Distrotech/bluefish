@@ -311,6 +311,9 @@ int main(int argc, char *argv[])
 
 	rcfile_check_directory();
 	rcfile_parse_main();
+	if (main_v->props.language!=NULL && main_v->props.language[0]!='\0') {
+		setlocale(LC_ALL, main_v->props.language);
+	}
 	if (main_v->props.open_in_running_bluefish) {
 #ifdef WITH_MSG_QUEUE
 		/* start message queue as early as possible so a running bluefish process has a lot of 
