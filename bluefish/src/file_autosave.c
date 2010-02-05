@@ -260,8 +260,7 @@ static inline void autosave_recover(Tbfwin *bfwin, GFile *file) {
 			file_doc_from_uri(bfwin, uri, recover_uri, NULL, -1, -1, FALSE);
 		} else {
 			Tdocument *doc = doc_new_loading_in_background(bfwin, NULL, NULL, FALSE);
-			file_into_doc(doc, recover_uri, FALSE);
-			doc_set_modified(doc, TRUE);
+			file_into_doc(doc, recover_uri, FALSE, TRUE);
 			doc->autosave_uri = recover_uri;
 			doc->autosaved = register_autosave_journal(recover_uri, NULL, NULL);
 		}
