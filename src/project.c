@@ -632,7 +632,9 @@ void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 			main_window_delete_event_lcb(NULL,NULL,bfwin);
 		} else {
 			project_save_and_mark_closed(bfwin);
-			if (have_modified_documents(bfwin->documentlist)) {
+			if (!bfwin->documentlist) {
+				project_final_close(bfwin,FALSE);				
+			} else if (have_modified_documents(bfwin->documentlist)) {
 					Tclose_mode retval = multiple_files_modified_dialog(bfwin);
 				switch (retval) {
 				case close_mode_cancel:
