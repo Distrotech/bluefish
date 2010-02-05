@@ -2913,7 +2913,7 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 
 		doc_unre_new_group(bfwin->current_document);
 		uri = g_file_new_for_uri(tmpfilename);
-		file_into_doc(bfwin->current_document, uri, FALSE);
+		file_into_doc(bfwin->current_document, uri, FALSE, FALSE);
 		g_object_unref(uri);
 		g_free(tmpfilename);
 		/* doc_file_to_textbox(bfwin->current_document, tmpfilename, TRUE, FALSE);

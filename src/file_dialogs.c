@@ -1087,7 +1087,7 @@ void file_new_cb(GtkWidget * widget, Tbfwin * bfwin)
 		GFile *uri;
 		uri = g_file_new_for_uri(bfwin->project->template);
 		if (uri) {
-			file_into_doc(bfwin->current_document, uri, TRUE);
+			file_into_doc(bfwin->current_document, uri, TRUE, FALSE);
 			g_object_unref(uri);
 		}
 		/*doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);

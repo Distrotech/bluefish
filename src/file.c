@@ -621,6 +621,7 @@ typedef struct {
 	Tdocument *doc;
 	GFile *uri;
 	gboolean isTemplate;
+	gboolean untiledRecovery;
 } Tfileintodoc;
 
 static void fileintodoc_cleanup(Tfileintodoc *fid) {
@@ -632,7 +633,7 @@ static void fileintodoc_lcb(Topenfile_status status,GError *gerror,gchar *buffer
 	Tfileintodoc *fid = data;
 	switch (status) {
 		case OPENFILE_FINISHED:
-			if (fid->isTemplate) {
+			if (fid->isTemplate || fid->untiledRecovery) {
 				doc_buffer_to_textbox(fid->doc, buffer, buflen, FALSE, TRUE);
 	/*			DEBUG_MSG("fileintodoc_lcb, fid->doc->hl=%p, %s, first=%p\n",fid->doc->hl,fid->doc->hl->type,((GList *)g_list_first(main_v->filetypelist))->data);*/
 				doc_reset_filetype(fid->doc, fid->doc->uri, buffer, buflen);
@@ -640,6 +641,9 @@ static void fileintodoc_lcb(Topenfile_status status,GError *gerror,gchar *buffer
 				doc_set_status(fid->doc, DOC_STATUS_COMPLETE);
 				bfwin_docs_not_complete(fid->doc->bfwin, FALSE);
 				fid->doc->action.load = NULL;
+				if (fid->untiledRecovery) {
+					doc_set_modified(fid->doc, TRUE);
+				}
 			} else { /* file_insert, convert to UTF-8 and insert it! */
 				gchar *encoding, *newbuf;
 				newbuf = buffer_find_encoding(buffer, buflen, &encoding, BFWIN(fid->doc->bfwin)->session->encoding);
@@ -688,13 +692,14 @@ static void fileintodoc_lcb(Topenfile_status status,GError *gerror,gchar *buffer
 }
 
 /* used for template loading, and for file_insert */
-void file_into_doc(Tdocument *doc, GFile *uri, gboolean isTemplate) {
+void file_into_doc(Tdocument *doc, GFile *uri, gboolean isTemplate, gboolean untiledRecovery) {
 	Tfileintodoc *fid;
 	fid = g_slice_new(Tfileintodoc);
 	fid->bfwin = doc->bfwin;
 	fid->doc = doc;
 	fid->isTemplate = isTemplate;
-	if (isTemplate) {
+	fid->untiledRecovery = untiledRecovery;
+	if (isTemplate || untiledRecovery) {
 		doc_set_status(doc, DOC_STATUS_LOADING);
 		bfwin_docs_not_complete(doc->bfwin, TRUE);
 	}
