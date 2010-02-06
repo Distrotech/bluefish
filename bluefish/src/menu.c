@@ -681,14 +681,14 @@ void recent_menu_init(Tbfwin *bfwin) {
 /* when a project is opened, the recent menu should show the recent files
 from that project */
 void recent_menu_init_project(Tbfwin *bfwin) {
-	gint num;
+	/*gint num;*/
 	GList *tmplist = g_list_first(bfwin->menu_recent_files);
 	while (tmplist) {
 		gtk_widget_destroy(tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
-	num = g_list_length(bfwin->session->recent_files) - main_v->props.max_recent_files;
-	bfwin->menu_recent_files = recent_menu_from_list(bfwin, g_list_nth(bfwin->session->recent_files, (num > 0)?num:0), FALSE);
+	g_list_free(bfwin->menu_recent_files);
+	bfwin->menu_recent_files = recent_menu_from_list(bfwin, bfwin->session->recent_files, FALSE);
 }
 
 /* Add_to_recent_list
