@@ -59,7 +59,7 @@ can enable/disable this complete section with this option
 </properties>
 <definition>
 <!-- within <definition> the actual language description is found. A language definition always
-starts with a <context> tag.
+starts with a <context> tag, and contains ONE SINGLE context tag.
  -->
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 <!-- <context symbols="LIST OF CHARACTERS" highlight="HIGHLIGHT-TYPE" id="IDENTIFIER"
@@ -132,13 +132,28 @@ the start-of-block-element
 	</context>
 </element>
 <!--
-an element may also start a new context. whenever this pattern is found the engine switches to this context
+an element may also start a new context for the scanner. 
+whenever this pattern is found the engine switches to this context
 and starts scanning only the patterns defined in this context. To do this define <context></context> 
-between <element> and </element>. within this <context> there can be entirely different patterns.  
+between <element> and </element>. within this <context> there are entirely different patterns. There
+can be only 1 context within an element. 
 
-often there is an end of the context too. in order to do this have an element INSIDE the inner context that
-has ends_context="NUM" where NUM specifies the number of contexts that are ended by this element. Because
+There is an end of the context too in most languages. To make the scanner switch back to the previous context
+an element INSIDE the inner context that has ends_context="NUM" where NUM specifies the number of contexts 
+that are ended by this element. Because
 context may be nested there may be several contexts inside each other.
+
+Basically context switches work like a stack. Lets take the example
+------------
+i = 1;
+/* text */
+i = 1 + 1;
+------------
+pattern '/*' exists in the initial context, but when it is found, the initial context is pushed on the 
+context stack, and the scanner switches to a new context context (for c-style-comment). In this context
+there exists only a single pattern: '*/'
+The scanner now continues until it finds */, at this point it pops 1 context from the stack, and thus in 
+this example it continues with the initial context 
 -->
 
 <!-- next is a nested context example, inside a php comment, there may be the end of the php block. Note that
