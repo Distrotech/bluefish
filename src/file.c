@@ -1817,7 +1817,7 @@ void sync_directory(GFile *basedir, GFile *targetdir, gboolean delete_deprecated
 
 /* code to handle a file from the commandline, the filebrowser or from the message queue */
 
-void file_handle(GFile *uri, Tbfwin *bfwin) {
+void file_handle(GFile *uri, Tbfwin *bfwin, gchar *mimetype) {
 	GFileInfo *finfo;
 	GError *error=NULL;
 #ifdef WIN32
@@ -1826,27 +1826,32 @@ void file_handle(GFile *uri, Tbfwin *bfwin) {
 #else
 	const gchar *mime;
 #endif
-	finfo = g_file_query_info(uri,"standard::fast-content-type",G_FILE_QUERY_INFO_NONE,NULL,&error);
-	if (error) {
-		g_print("file_handle got error %d: %s\n",error->code,error->message);
-		g_error_free(error);
-		return;
-	}
+	if (!mimetype) {
+		finfo = g_file_query_info(uri,"standard::fast-content-type",G_FILE_QUERY_INFO_NONE,NULL,&error);
+		if (error) {
+			g_print("file_handle got error %d: %s\n",error->code,error->message);
+			g_error_free(error);
+			return;
+		}
 #ifdef WIN32
-	cont_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
-	mime= g_content_type_get_mime_type(cont_type);
+		cont_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+		mime= g_content_type_get_mime_type(cont_type);
 #else
-	mime = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+		mime = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 #endif
+	} else {
+		mime = mimetype;	
+	}
+	DEBUG_MSG("file_handle, got mime type %s\n",mime);
 	if (strcmp(mime, "application/x-bluefish-project")==0) {
 		project_open_from_file(bfwin, uri);
 	} else if (strncmp(mime, "image",5)==0) {
-		/* TODO: do something with the image */
+		/* TODO: do something with the image, fire the image dialog? insert a tag? */
 		g_print("file-handle, handling images is not yet implemented\n");
 	} else {
 		doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1);
 	}
 #ifdef WIN32
-	g_free(mime);
+	if (!mimetype) g_free(mime);
 #endif
 }

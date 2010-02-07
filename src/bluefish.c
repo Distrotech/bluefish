@@ -170,7 +170,7 @@ static gboolean startup_in_idle(gpointer data) {
 				DEBUG_MSG("startup_in_idle, we have filenames, load them\n");
 				startup->firstbfwin->focus_next_new_doc = TRUE;
 				while (tmplist) {
-					file_handle((GFile *)tmplist->data, startup->firstbfwin);
+					file_handle((GFile *)tmplist->data, startup->firstbfwin, NULL);
 					tmplist = g_list_next(tmplist);
 				}
 			}
