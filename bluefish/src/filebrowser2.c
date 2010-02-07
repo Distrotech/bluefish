@@ -1422,10 +1422,11 @@ static GFile *fb2_uri_from_dir_selection(Tfilebrowser2 * fb2)
  *
  * opens the file, project or inserts the image pointer to by 'uri'
  */
+/*
 static void handle_activate_on_file(Tfilebrowser2 * fb2, GFile * uri, gchar *mimetype) {
 	if (mimetype) {
 		if (strncmp(mimetype, "image", 5) == 0) {
-			/* image! */
+			/ * image! * /
 			g_print("handle_activate_on_file, TODO, handle image activate!\n");
 		} else if (strcmp(mimetype, "application/x-bluefish-project") == 0) {
 			project_open_from_file(fb2->bfwin, uri);
@@ -1435,7 +1436,7 @@ static void handle_activate_on_file(Tfilebrowser2 * fb2, GFile * uri, gchar *mim
 	doc_new_from_uri(fb2->bfwin, uri, NULL, FALSE, FALSE, -1, -1);
 	DEBUG_MSG("handle_activate_on_file, finished\n");
 }
-
+*/
 static void fb2rpopup_refresh(Tfilebrowser2 * fb2)
 {
 	GFile *baseuri = NULL;
@@ -1722,8 +1723,10 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 * fb2, guint callback_acti
 		{
 			gchar *mime=NULL;
 			GFile *uri = fb2_uri_from_file_selection(fb2,&mime);
-			if (uri)
-				handle_activate_on_file(fb2, uri, mime);
+			if (uri) {
+				/*handle_activate_on_file(fb2, uri, mime);*/
+				file_handle(uri, fb2->bfwin,mime);
+			}
 		}
 		break;
 	case 2:
@@ -2029,7 +2032,8 @@ static gboolean dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * even
 				DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", basename);
 				g_free(basename);
 #endif
-				handle_activate_on_file(fb2, uri,mime);
+				file_handle(uri, fb2->bfwin,mime);
+				/*handle_activate_on_file(fb2, uri,mime);*/
 			}
 			/* BUG??: do we need to free mime here ?? */
 		}
@@ -2068,8 +2072,8 @@ static gboolean file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * eve
 				DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", basename);
 				g_free(basename);
 #endif
-
-				handle_activate_on_file(fb2, uri,mime);
+				file_handle(uri, fb2->bfwin,mime);
+				/*handle_activate_on_file(fb2, uri,mime);*/
 			}
 #ifdef DEBUG
 			else {
