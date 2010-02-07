@@ -1847,7 +1847,23 @@ void file_handle(GFile *uri, Tbfwin *bfwin, gchar *mimetype) {
 		project_open_from_file(bfwin, uri);
 	} else if (strncmp(mime, "image",5)==0) {
 		/* TODO: do something with the image, fire the image dialog? insert a tag? */
-		g_print("file-handle, handling images is not yet implemented\n");
+		if (bfwin && bfwin->current_document) {
+			gchar *curi=NULL, *tmp;
+			if (bfwin->current_document->uri) {
+				GFile *docparent = g_file_get_parent(bfwin->current_document->uri);
+				curi = g_file_get_relative_path(docparent, uri);
+				g_object_unref(docparent);
+			}
+			if (!curi) {
+				curi = g_file_get_uri(uri);
+			}
+			if (curi) {
+				tmp = g_strdup_printf("<img src=\"%s\" alt=\"\" />",curi);
+				doc_insert_two_strings(bfwin->current_document, tmp,NULL);
+				g_free(tmp);
+				g_free(curi);
+			}
+		}
 	} else {
 		doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1);
 	}
