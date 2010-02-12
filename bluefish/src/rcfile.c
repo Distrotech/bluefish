@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rcfile.c - loading and parsing of the configfiles
  *
- * Copyright (C) 2000-2009 Olivier Sessink
+ * Copyright (C) 2000-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -542,7 +542,7 @@ void rcfile_parse_main(void)  {
 	g_object_unref(file);
 	if (main_v->props.encoding_search_Nbytes< 1000) main_v->props.encoding_search_Nbytes = 2048;
 	/* do some default configuration for the lists */
-
+#ifndef WIN32
 	if (main_v->props.external_outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","cd %c && make|",NULL));
@@ -571,6 +571,7 @@ void rcfile_parse_main(void)  {
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Kazehakase"), "kazehakase '%p'&","0",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Links2 (graphics)"), "links2 -g '%p'&","0",NULL));
 	}
+#endif /* ifndef WIN32 */
 }
 
 gint rcfile_save_main(void) {
