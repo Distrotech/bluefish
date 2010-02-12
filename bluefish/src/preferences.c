@@ -88,8 +88,10 @@ enum {
 	smartindent,
 	drop_at_drop_pos,             /* drop at drop position instead of cursor position */
 	link_management,              /* perform link management */
+#ifndef WIN32
 	open_in_running_bluefish,     /* open commandline documents in already running session*/
 	open_in_new_window, 
+#endif /* ifndef WIN32 */
 	load_reference,
 	show_autocomp_reference,
 	show_tooltip_reference,
@@ -1415,8 +1417,10 @@ static void preferences_apply(Tprefdialog *pd) {
 	
 	integer_apply(&main_v->props.num_undo_levels, pd->prefs[num_undo_levels], FALSE);
 	integer_apply(&main_v->props.clear_undo_on_save, pd->prefs[clear_undo_on_save], TRUE);
+#ifndef WIN32
 	integer_apply(&main_v->props.open_in_running_bluefish, pd->prefs[open_in_running_bluefish], TRUE);
 	integer_apply(&main_v->props.open_in_new_window, pd->prefs[open_in_new_window], TRUE);
+#endif /* ifndef WIN32 */
 	main_v->props.modified_check_type = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[modified_check_type]));
 	integer_apply(&main_v->props.do_periodic_check, pd->prefs[do_periodic_check], TRUE);
 	integer_apply(&main_v->props.max_recent_files, pd->prefs[max_recent_files], FALSE);
@@ -1558,9 +1562,11 @@ void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
 	}
 }
 
+#ifndef WIN32
 static void open_in_running_bluefish_toggled_lcb(GtkWidget *widget, Tprefdialog *pd) {
 	gtk_widget_set_sensitive(pd->prefs[open_in_new_window], GTK_TOGGLE_BUTTON(widget)->active);
 }
+#endif /* ifndef WIN32 */
 
 static void preferences_dialog() {
 	Tprefdialog *pd;
@@ -1703,10 +1709,12 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
+#ifndef WIN32
 	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(_("Open commandline files in running bluefish process"),main_v->props.open_in_running_bluefish, vbox2);
 	g_signal_connect(pd->prefs[open_in_running_bluefish], "toggled", G_CALLBACK(open_in_running_bluefish_toggled_lcb), pd);
 	pd->prefs[open_in_new_window] = boxed_checkbut_with_value(_("Open commandline files in new window"),main_v->props.open_in_new_window, vbox2);
 	gtk_widget_set_sensitive(pd->prefs[open_in_new_window], main_v->props.open_in_running_bluefish);
+#endif /* ifndef WIN32 */
 	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File properties to check on disk for modifications"), main_v->props.modified_check_type, vbox2, modified_check_types);
 	pd->prefs[do_periodic_check] = boxed_checkbut_with_value(_("Periodically check if file is modified on disk"), main_v->props.do_periodic_check, vbox2);
 	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent' menu"), main_v->props.max_recent_files, vbox2, 3, 100);
