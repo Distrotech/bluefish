@@ -93,7 +93,9 @@ static GFile * create_autosave_path(Tdocument *doc) {
 			path = unique_path(dir, base);
 			g_free(base);
 		} else {
-			path = unique_path(dir, "no-name");
+			/* because the actual saving is done async multi-threaded, a file with 
+			this name might be created a moment after we check.  */
+			path = unique_path(dir, gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 		}
 		retval = g_file_new_for_path(path);
 		g_free(path); 
