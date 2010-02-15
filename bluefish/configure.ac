@@ -452,6 +452,7 @@ PKG_CHECK_MODULES(
 )
 AM_CONDITIONAL([ENABLE_CHARMAP_PLUGIN], [test "x$build_charmap_plugin" = "xyes"])
 
+AC_SEARCH_LIBS([log10], [m])
 AC_SEARCH_LIBS([nanosleep], [posix4 rt])
 
 AC_ARG_ENABLE(
