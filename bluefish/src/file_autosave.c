@@ -79,7 +79,22 @@ during startup:
 #include "file.h"
 #include "document.h"
 
-static GFile * create_autosave_path(Tdocument *doc) {
+static GHashTable *autosave_uri_list(void) {
+	GList *tmplist;
+	GHashTable *hasht = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
+	
+	tmplist=g_list_first(main_v->autosave_progress);
+	while (tmplist) {
+		Tdocument *doc=tmplist->data;
+		if (doc->autosave_uri) {
+			g_hash_table_insert(hasht,g_file_get_path(doc->autosave_uri),GINT_TO_POINTER(1));
+		}
+		tmplist = g_list_next(tmplist);
+	}	
+	return hasht;
+}
+
+static GFile * create_autosave_path(Tdocument *doc, GHashTable *excludehash) {
 	GFile *retval;
 	DEBUG_MSG("create_autosave_path\n");
 	if (main_v->props.autosave_location_mode!=0 &&  (main_v->props.autosave_file_prefix==NULL||main_v->props.autosave_file_prefix[0]=='\0')
@@ -90,12 +105,12 @@ static GFile * create_autosave_path(Tdocument *doc) {
 		gchar *path, *dir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/autosave/",NULL);
 		if (doc->uri) {
 			gchar *base = g_file_get_basename(doc->uri);
-			path = unique_path(dir, base);
+			path = unique_path(dir, base, excludehash);
 			g_free(base);
 		} else {
 			/* because the actual saving is done async multi-threaded, a file with 
 			this name might be created a moment after we check.  */
-			path = unique_path(dir, gtk_label_get_text(GTK_LABEL(doc->tab_label)));
+			path = unique_path(dir, gtk_label_get_text(GTK_LABEL(doc->tab_label)), excludehash);
 		}
 		retval = g_file_new_for_path(path);
 		g_free(path); 
@@ -206,12 +221,13 @@ static void autosave_complete_lcb(gint status,gint error_info,gpointer data) {
 	}	
 }
 
-static inline void autosave(Tdocument *doc) {
+static inline void autosave(Tdocument *doc, GHashTable *hasht) {
 	Trefcpointer *buffer;
 	DEBUG_MSG("autosave doc %p\n",doc);
 	if (!doc->autosave_uri) {
-		doc->autosave_uri = create_autosave_path(doc);
-	} 
+		doc->autosave_uri = create_autosave_path(doc, hasht);
+		g_hash_table_insert(hasht, g_file_get_path(doc->autosave_uri), GINT_TO_POINTER(1));
+	}
 	buffer = refcpointer_new(doc_get_chars(doc, 0, -1));
 	doc->autosave_action = file_checkNsave_uri_async(doc->autosave_uri, NULL, buffer, strlen(buffer->data), FALSE, FALSE, (CheckNsaveAsyncCallback)autosave_complete_lcb, doc);
 	refcpointer_unref(buffer);
@@ -224,7 +240,9 @@ static gboolean run_autosave(gpointer data) {
 		return TRUE;
 	
 	if (main_v->need_autosave) {
+		GHashTable *hasht;
 		all_bfwin_statusbar_message(_("Autosave in progress..."), 1);
+		hasht = autosave_uri_list();
 		main_v->autosave_progress = main_v->need_autosave;
 		main_v->need_autosave=NULL;
 		tmplist=g_list_first(main_v->autosave_progress);
@@ -232,9 +250,10 @@ static gboolean run_autosave(gpointer data) {
 			Tdocument *doc=tmplist->data;
 			doc->autosave_progress = doc->need_autosave;
 			doc->need_autosave=NULL;
-			autosave(doc);
+			autosave(doc, hasht);
 			tmplist = g_list_next(tmplist);
 		}
+		g_hash_table_destroy(hasht);
 	} else {
 		autosave_save_journal();
 		return TRUE;
@@ -259,9 +278,11 @@ static inline void autosave_recover(Tbfwin *bfwin, GFile *file) {
 		recover_uri = g_file_new_for_uri(arr[0]);
 		if (arr[1] && arr[1][0] != '\0') {
 			GFile *uri = g_file_new_for_uri(arr[1]);
+			DEBUG_MSG("recover named document \n");
 			file_doc_from_uri(bfwin, uri, recover_uri, NULL, -1, -1, FALSE);
 		} else {
 			Tdocument *doc = doc_new_loading_in_background(bfwin, NULL, NULL, FALSE);
+			DEBUG_MSG("recover unnamed document into %p\n",doc);
 			file_into_doc(doc, recover_uri, FALSE, TRUE);
 			doc->autosave_uri = recover_uri;
 			doc->autosaved = register_autosave_journal(recover_uri, NULL, NULL);
