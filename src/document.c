@@ -652,7 +652,7 @@ gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
 	if (!doc) {
 		return FALSE;
 	}
-	if (doc->modified || doc->uri) {
+	if (doc->modified || doc->uri || doc->autosave_uri || doc->status == DOC_STATUS_LOADING) {
 		return FALSE;
 	}
 	if (gtk_text_buffer_get_char_count(doc->buffer) > 0) {
