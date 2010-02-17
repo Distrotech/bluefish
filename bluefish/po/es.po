@@ -3,13 +3,13 @@
 # <pdenapo@dm.uba.ar> .
 # Copyright (C) 2002 Walter Echarri
 # <wecharri@yahoo.com>
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2009.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-12-16 20:57-0800\n"
-"PO-Revision-Date: 2009-12-04 12:09+0100\n"
+"PO-Revision-Date: 2010-02-17 12:21+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: ES <gnome-es@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,9 +23,8 @@ msgid "Bluefish Editor"
 msgstr "Editor Bluefish"
 
 #: ../desktop-data/bluefish.desktop.in.h:2
-#, fuzzy
 msgid "Web Development Editor"
-msgstr "Editor de desarrollo web (versión de desarrollo)"
+msgstr "Editor de desarrollo web"
 
 # src/toolbars.c:417
 # src/toolbars.c:421
@@ -526,6 +525,8 @@ msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
+"Su versión de Glib ((%d.%d.%d) es poco fiable con archivos remotos. "
+"Actualice a la versión 2.18.0 o superior."
 
 # src/snr.c:212
 # src/snr2.c:591
@@ -931,9 +932,8 @@ msgid "Advanced open file selector"
 msgstr "Selector avanzado de archivos abiertos"
 
 #: ../src/file_dialogs.c:166
-#, fuzzy
 msgid "<b>Files</b>"
-msgstr "Atributos"
+msgstr "<b>Archivos</b>"
 
 # src/callbacks.c:620
 # src/project.c:207
@@ -956,9 +956,8 @@ msgid "_Recursive:"
 msgstr "_Recursivo:"
 
 #: ../src/file_dialogs.c:206
-#, fuzzy
 msgid "Ma_x recursion:"
-msgstr "_Recursivo:"
+msgstr "_Recursividad máxima:"
 
 # src/html.c:1901
 # src/html.c:1185
@@ -993,6 +992,9 @@ msgid ""
 "ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 "
 "if you rely on remote file support.</b>"
 msgstr ""
+"<b>Su versión de Glib (%d.%d.%d) trabaja de manera poco fiable con archivos "
+"remotos (smb, ftp, sftp, webdav etc.). Actualice una versión de Glib "
+"superior a la 2.18.0 si quiere confiar en el soporte de archivos remotos.</b>"
 
 #: ../src/file_dialogs.c:380
 msgid "<b>Open URL</b>"
@@ -1996,20 +1998,18 @@ msgstr ""
 # src/html_form.c:171
 #. TODO: this dialog is not very convenient, hitting enter should choose 'selection'
 #: ../src/menu.c:792
-#, fuzzy
 msgid "Text area to filter"
-msgstr "Área de Texto"
+msgstr "Área de texto que filtrar"
 
 #: ../src/menu.c:793
 msgid "All text"
-msgstr ""
+msgstr "Todo texto"
 
 # src/html.c:1797
 # src/html_form.c:398
 #: ../src/menu.c:794
-#, fuzzy
 msgid "Selected text only"
-msgstr "Selecciona tipografía"
+msgstr "Selecciona texto solamente"
 
 #: ../src/menu.c:951
 msgid "/Document/Character Encoding"
@@ -2030,9 +2030,9 @@ msgid "Output"
 msgstr "Salida"
 
 #: ../src/outputbox.c:432
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
-msgstr "Falló al compilar el patrón %s del cuadro de salida"
+msgstr "Falló al compilar el patrón %s: %s del cuadro de salida"
 
 # src/interface.c:325 src/interface.c:498
 # src/document.c:356
@@ -2121,7 +2121,7 @@ msgstr "Activado"
 
 #: ../src/preferences.c:540
 msgid "Path to plugin"
-msgstr ""
+msgstr "Ruta al complemento"
 
 #: ../src/preferences.c:696
 msgid ""
@@ -2494,7 +2494,6 @@ msgstr "Configuración inicial del documento"
 # src/configure.c:321
 # src/configure.c:375
 #: ../src/preferences.c:1637
-#, fuzzy
 msgid "Non-project initial document settings"
 msgstr "Configuración inicial del documento"
 
@@ -2504,9 +2503,8 @@ msgid "HTML"
 msgstr "HTML"
 
 #: ../src/preferences.c:1647
-#, fuzzy
 msgid "HTML toolbar / menu options"
-msgstr "Mostrar en forma predeterminada Barra de Herramientas HTML"
+msgstr "Barra de herramientas HTML / opciones de menú"
 
 #: ../src/preferences.c:1652
 msgid "Lowercase HTML tags"
@@ -2519,6 +2517,7 @@ msgstr "Usar etiquetas obsoletas (ej. <font> y <nobr>)"
 #: ../src/preferences.c:1654
 msgid "Format according to accessibility guidelines (e.g. <strong> for <b>)"
 msgstr ""
+"Formatear de acuerdo a las guías de accesibilidad (ej. <strong> para <b>)"
 
 #: ../src/preferences.c:1655
 msgid "Use XHTML style tags (<br />)"
@@ -2526,7 +2525,7 @@ msgstr "Usar etiquetas de estilo XHTML (como <br />)"
 
 #: ../src/preferences.c:1657
 msgid "Auto update tag options"
-msgstr ""
+msgstr "Actualizar automáticamente opciones de etiquetas"
 
 #: ../src/preferences.c:1661
 msgid "Automatically update author meta tag"
@@ -2885,7 +2884,7 @@ msgstr " Ordenar "
 
 #: ../src/rcfile.c:556
 msgid "Sort / Unique"
-msgstr ""
+msgstr "Ordenar / Único"
 
 #: ../src/rcfile.c:557
 msgid "Reverse lines"
@@ -3164,7 +3163,6 @@ msgstr ""
 "Coincidir sólo si la capitalización (mayúsculas/minúsculas) es idéntica."
 
 #: ../src/snr2.c:1797
-#, fuzzy
 msgid "Pattern contains escape-se_quences"
 msgstr "El _patrón contiene secuencias de escape"
 
@@ -3177,7 +3175,6 @@ msgstr ""
 # src/bluefish.c:339
 # src/bluefish.c:486
 #: ../src/snr2.c:1802
-#, fuzzy
 msgid "Select matc_hes"
 msgstr "_Seleccionar coincidencias"
 
