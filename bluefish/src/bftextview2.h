@@ -411,6 +411,8 @@ struct _BluefishTextView {
 	gboolean show_blocks;
 	gboolean showsymbols;
 	gboolean visible_spacing;
+	gboolean show_right_margin;
+	guint right_margin_pos;
 #ifdef HAVE_LIBENCHANT
 	gboolean spell_check;
 #endif
@@ -438,6 +440,12 @@ gboolean bluefish_text_view_get_show_line_numbers(BluefishTextView * btv);
 void bluefish_text_view_set_show_line_numbers(BluefishTextView * btv, gboolean show);
 gboolean bluefish_text_view_get_show_visible_spacing(BluefishTextView * btv);
 void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolean show);
+
+gboolean bluefish_text_view_get_show_right_margin(BluefishTextView * btv);
+void bluefish_text_view_set_show_right_margin(BluefishTextView * btv, gboolean show);
+guint bluefish_text_view_get_right_margin_pos(BluefishTextView * btv);
+void bluefish_text_view_set_right_margin_pos(BluefishTextView * btv, guint pos);
+
 #ifdef HAVE_LIBENCHANT
 void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check);
 #endif

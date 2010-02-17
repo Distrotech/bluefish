@@ -3318,5 +3318,9 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		bluefish_text_view_set_spell_check(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), GTK_CHECK_MENU_ITEM(widget)->active);
 #endif
 		break;
+	case 14:
+		bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+																  GTK_CHECK_MENU_ITEM(widget)->active);
+		break;
 	}
 }
