@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		xml.bflang2 $Revision$
  
-		Copyright (C) 2008 Olivier Sessink
+		Copyright (C) 2008-2010 Olivier Sessink
 
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="XML" version="2.0" table="55" contexts="7" matches="16">
+<bflang name="XML" version="2.0" table="60" contexts="8" matches="18">
 <header>
 	<mime type="text/xml"/>
 	<mime type="application/xml"/>
@@ -42,10 +42,16 @@
 		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
 			<element pattern="[a-zA-Z0-9:-]+" is_regex="1" highlight="xml-declaration" />
 			<element pattern="?&gt;" ends_context="1" ends_block="1" blockstartelement="e.xml.open" highlight="xml-declaration" />
-			<element id="e.xml.stringstart" pattern="&#34;" highlight="string">
+			<element id="e.xml.doublequote" pattern="&#34;" highlight="string">
 				<context symbols="&amp;;&#34;" highlight="string" >
 					<element id="e.xml.entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
 					<element pattern="&#34;" highlight="string" ends_context="1"/>
+				</context>
+			</element>
+			<element id="e.xml.singlequote" pattern="'" highlight="string">
+				<context symbols="&amp;;\'" highlight="string" >
+					<element id="e.xml.entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+					<element pattern="'" highlight="string" ends_context="1"/>
 				</context>
 			</element>
 		</context>
@@ -59,8 +65,8 @@
 		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
 			<element pattern="[_a-zA-Z0-9:-]+" is_regex="1" highlight="attribute" />
 			<element pattern="=" highlight="assignment" />
-			<element idref="e.xml.stringstart"/>
-			<element pattern="'[^']+'" highlight="string" is_regex="1" />
+			<element idref="e.xml.doublequote"/>
+			<element idref="e.xml.singlequote"/>
 			<element pattern="/&gt;" highlight="tag" ends_context="1" ends_block="1" blockstartelement="e.xml.tag.open" />
 			<element pattern="&gt;" highlight="tag">
 				<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
