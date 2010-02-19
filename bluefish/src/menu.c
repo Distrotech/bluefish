@@ -515,6 +515,7 @@ void template_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	if (!item_factory) {
 		item_factory = gtk_item_factory_from_widget(bfwin->menubar);
 	}
+	free_bfw_dynmenu_list(bfwin->menu_templates);
 	DEBUG_MSG("template_menu_rebuild, adding filetypes in menu\n");
 	bfwin->menu_templates = NULL;
 	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/File/New From Template"));
@@ -850,24 +851,10 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 	GList *tmplist;
 
 	/* first cleanup all menu's */
-	tmplist = g_list_first(bfwin->menu_external);
-	while (tmplist) {
-		Tbfw_dynmenu *bdm = (Tbfw_dynmenu *)tmplist->data;
-		DEBUG_MSG("external_menu_rebuild,destroying,bfwin=%p,bdm=%p,menuitem=%p\n",bfwin,bdm,bdm->menuitem);
-		gtk_widget_destroy(bdm->menuitem);
-		g_slice_free(Tbfw_dynmenu,bdm);
-		tmplist = g_list_next(tmplist);
-	}
-	g_list_free(bfwin->menu_external);
+	free_bfw_dynmenu_list(bfwin->menu_external);
 	bfwin->menu_external = NULL;
 
-	tmplist = g_list_first(bfwin->menu_outputbox);
-	while (tmplist) {
-		gtk_widget_destroy(BFW_DYNMENU(tmplist->data)->menuitem);
-		g_slice_free(Tbfw_dynmenu,BFW_DYNMENU(tmplist->data));
-		tmplist = g_list_next(tmplist);
-	}
-	g_list_free(bfwin->menu_outputbox);
+	free_bfw_dynmenu_list(bfwin->menu_outputbox);
 	bfwin->menu_outputbox = NULL;
 
 	/*create_parent_and_tearoff(N_("/Tools/Outputbox/"), gtk_item_factory_from_widget(bfwin->menubar));
@@ -973,14 +960,8 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 	GSList *group=NULL;
 	GtkWidget *parent_menu;
 	GList *tmplist;
-	tmplist = g_list_first(bfwin->menu_encodings);
-	while (tmplist) {
-		Tbfw_dynmenu *bdm = tmplist->data;
-		gtk_widget_destroy(GTK_WIDGET(bdm->menuitem));
-		g_slice_free(Tbfw_dynmenu,bdm);
-		tmplist = g_list_next(tmplist);
-	}
-	g_list_free(bfwin->menu_encodings);
+	
+	free_bfw_dynmenu_list(bfwin->menu_encodings);
 	bfwin->menu_encodings = NULL;
 
 	tmplist = g_list_last(main_v->globses.encodings);
