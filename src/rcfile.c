@@ -655,6 +655,7 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 	init_prop_integer(&configlist, &session->spell_check_default, "spell_check_default:", 1, FALSE);
 #endif
 	init_prop_string(&configlist, &session->default_mime_type,"default_mime_type:",NULL);
+	init_prop_string(&configlist, &session->template,"template:",NULL);
 	init_prop_string_with_escape(&configlist, &session->webroot, "webroot:", NULL);
 	init_prop_string_with_escape(&configlist, &session->documentroot, "documentroot:", NULL);
 	init_prop_limitedstringlist(&configlist, &session->searchlist, "searchlist:", 10, FALSE);
@@ -717,7 +718,6 @@ static GHashTable *return_project_configlist(Tproject *project) {
 	GHashTable *configlist = g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free);
 	init_prop_string(&configlist, &project->name,"name:",_("Untitled Project"));
 	init_prop_stringlist(&configlist, &project->files, "files:", FALSE);
-	init_prop_string(&configlist, &project->template,"template:","");
 /*	init_prop_stringlist(&configlist, &project->recentfiles, "recentfiles:", FALSE); / * should be changed to use the session->recent_files */
 	configlist = return_session_configlist(configlist, project->session);
 	return configlist;
