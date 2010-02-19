@@ -46,6 +46,7 @@
 ; Misc
 !define FINISHPAGE_LINK "Visit the Bluefish Homepage"
 !define UNINSTALL_SHORTCUT "Uninstall ${PRODUCT}"
+!define FILETYPE_REGISTERING "Registering File Type:"
 
 ; Content Types
 !define CT_ADA	"Ada Source File"
@@ -59,10 +60,12 @@
 !define CT_HPP	"C++ Header File"
 !define CT_CSS "Cascading Stylesheet"
 !define CT_D	"D Source File"
+!define CT_DIFF "Diff/Patch File"
 !define CT_PO	"Gettext Translation"
 !define CT_JAVA	"Java Source File"	
 !define CT_JS	"JavaScript Script"
 !define CT_JSP	"JavaServer Pages Script"
+!define CT_MW	"MediaWiki File"
 !define CT_NSI	"NSIS Script"
 !define CT_NSH	"NSIS Header File"
 !define CT_PL	"Perl Script"

@@ -6,7 +6,6 @@
 ;   Daniel Leidert <daniel.leidert@wgdd.de>
 ;----------------------------------------------
 
-
 ; External Defines
 ;----------------------------------------------
 ;!define PACKAGE
@@ -104,6 +103,7 @@ VIAddVersionKey "FileDescription" "Bluefish Installer"
 !include "StrFunc.nsh"
 ${StrStr}
 ${StrTok}
+${UnStrStr}
 
 
 ; MUI configuration
@@ -140,37 +140,39 @@ ${StrTok}
 		DetailPrint "$(DICT_INSTALLED) ${LANG}"
 	${Else}
 		DetailPrint "$(DICT_DOWNLOAD) (${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2)"
+		Delete "$TEMP\aspell6-${LANG}-${VER}.tbz2" ; Should never happen but just in case
 		NSISdl::download "${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2" "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 		Pop $R0
-		StrCmp $R0 "success" +3
-			MessageBox MB_OK "$(DICT_FAILED) $R0"
-			Goto download_dict_failed
+		StrCmp $R0 "success" +4
+			MessageBox MB_OK "$(DICT_FAILED) $R0" ; Alert the user that the download failed
+			Delete "$TEMP\aspell6-${LANG}-${VER}.tbz2" ; Remove possible partially downloaded file
+			Return ; Failed to download a dictionary, leave gracefully
 		DetailPrint "$(DICT_EXTRACT) (aspell6-${LANG}-${VER}.tbz2)"
 		untgz::extract "-d" "$INSTDIR" "-u" "-zbz2" "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 		Pop $R0
 		StrCmp $R0 "success" 0 +2
 			WriteRegStr HKCU "${REG_USER_SET}\Aspell\${LANG}" "" "${VER}"
 		Delete "$TEMP\aspell6-${LANG}-${VER}.tbz2"
-		download_dict_failed:
-			;; nothing to do
 	${EndIf}
 !macroend
 !define InstallAspellDict `!insertmacro InstallAspellDict`
 
 !macro RegisterFileType HWND EXT TYPE PROG DESC ICON
-	ReadRegStr $R1 HKCR ".${EXT}" "Content Type"
-	${If} $R1 != "${TYPE}"
+	ReadRegStr $R1 HKCR ".${EXT}" "Content Type" ; Read the current mimetype
+	${If} $R1 != "${TYPE}" ; If the current mimetype is the same as what we want skip changing it
 		WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "Content Type" $R1
 		WriteRegStr HKCR ".${EXT}" "Content Type" "${TYPE}"
-	${EndIf}
-	${NSD_GetState} ${HWND} $R0
-	${If} ${PROG} != "0"
-		${If} $R0 == ${BST_CHECKED}
-			ReadRegStr $R1 HKCR ".${EXT}" ""
-			${If} $R1 != "${PROG}"
+	${EndIf} ; Proper mimetype has been set
+	${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
+	${If} ${PROG} != "0" ; If set to 0 this denotes a special case such as for HTML and we need to skip this section
+		${If} $R0 == ${BST_CHECKED} ; The user has selected to associate this file type with Bluefish
+			DetailPrint "$(FILETYPE_REGISTERING)${DESC}..." ; Let the user know we're registering this file type
+			ReadRegStr $R1 HKCR ".${EXT}" "" ; Read the current class
+			${If} $R1 != "${PROG}" ; If the current class is different that ours set it for Bluefish
 				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "" $R1
 				WriteRegStr HKCR ".${EXT}" "" "${PROG}"
-			${EndIf}
+			${EndIf} ; Else the class is already set for Bluefish so we needn't change it
+			; The following should only be needed once and could be in the above IF block with some more checks
 			WriteRegStr HKCR "${PROG}" "" "${DESC}"
 			WriteRegStr HKCR "${PROG}\DefaultIcon" "" "$INSTDIR\${PROGRAM_EXE},${ICON}"
 			WriteRegStr HKCR "${PROG}\shell" "" "open"
@@ -178,7 +180,7 @@ ${StrTok}
 			WriteRegStr HKCR "${PROG}\shell\open\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
 			; This is just so the un.UnRegisterFileTypes function removes all the bf*file entries
 			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\${PROG}" "" ""
-		${EndIf}
+		${EndIf} ; Bluefish will not be associated with this file type
 	${EndIf}
 !macroend
 !define RegisterFileType `!insertmacro RegisterFileType`
@@ -411,6 +413,7 @@ SectionEnd
 Section "-GTK+ Installer" SecGTK
 	${If} $GTK_STATUS == ""
 		DetailPrint "$(GTK_DOWNLOAD) (${GTK_URL}/${GTK_FILENAME})"
+		Delete "$TEMP\${GTK_FILENAME}" ; Should never happen but just in case
 		NSISdl::download "${GTK_URL}/${GTK_FILENAME}" "$TEMP\${GTK_FILENAME}"
 		Pop $R0
 			StrCmp $R0 "success" +3
@@ -661,36 +664,40 @@ Function FileAssociations
 	Pop $FA_Css
 	${NSD_CreateCheckBox} 5% 80u 40% 8u "D (.d)"
 	Pop $FA_D
-	${NSD_CreateCheckBox} 5% 90u 40% 8u "Gettext PO (.po)"
+	${NSD_CreateCheckBox} 5% 90u 40% 8u "Diff (.diff; .patch)"
+	Pop $FA_D
+	${NSD_CreateCheckBox} 5% 100u 40% 8u "Gettext PO (.po)"
 	Pop $FA_Po
-	${NSD_CreateCheckBox} 5% 100u 40% 8u "HTML (.htm; .html)"
+	${NSD_CreateCheckBox} 5% 110u 40% 8u "HTML (.htm; .html)"
 	Pop $FA_Html
-	${NSD_CreateCheckBox} 5% 110u 40% 8u "Java (.java)"
+	${NSD_CreateCheckBox} 5% 120u 40% 8u "Java (.java)"
 	Pop $FA_Java
-	
+
 	${NSD_CreateCheckBox} 55% 0u 40% 8u "JavaScript (.js)"
 	Pop $FA_Js
 	${NSD_CreateCheckBox} 55% 10u 40% 8u "JavaServer Pages (.jsp)"
 	Pop $FA_Jsp
-	${NSD_CreateCheckBox} 55% 20u 40% 8u "NSIS (.nsi; .nsh)"
+	${NSD_CreateCheckBox} 55% 20u 40% 8u "MediaWiki File (.mw)"
+	Pop $FA_Jsp
+	${NSD_CreateCheckBox} 55% 30u 40% 8u "NSIS (.nsi; .nsh)"
 	Pop $FA_Nsi
-	${NSD_CreateCheckBox} 55% 30u 40% 8u "Perl (.pl)"
+	${NSD_CreateCheckBox} 55% 40u 40% 8u "Perl (.pl)"
 	Pop $FA_Pl
-	${NSD_CreateCheckBox} 55% 40u 40% 8u "PHP (.php; .php3)"
+	${NSD_CreateCheckBox} 55% 50u 40% 8u "PHP (.php; .php3)"
 	Pop $FA_Php
-	${NSD_CreateCheckBox} 55% 50u 40% 8u "Plain Text (.txt)"
+	${NSD_CreateCheckBox} 55% 60u 40% 8u "Plain Text (.txt)"
 	Pop $FA_Txt
-	${NSD_CreateCheckBox} 55% 60u 40% 8u "Python (.py)"
+	${NSD_CreateCheckBox} 55% 70u 40% 8u "Python (.py)"
 	Pop $FA_Py
-	${NSD_CreateCheckBox} 55% 70u 40% 8u "Ruby (.rb)"
+	${NSD_CreateCheckBox} 55% 80u 40% 8u "Ruby (.rb)"
 	Pop $FA_Rb
-	${NSD_CreateCheckBox} 55% 80u 40% 8u "Smarty (.smarty)"
+	${NSD_CreateCheckBox} 55% 90u 40% 8u "Smarty (.smarty)"
 	Pop $FA_Smarty
-	${NSD_CreateCheckBox} 55% 90u 40% 8u "VisualBasic Script (.vbs; .vb)"
+	${NSD_CreateCheckBox} 55% 100u 40% 8u "VisualBasic Script (.vbs; .vb)"
 	Pop $FA_Vbs
-	${NSD_CreateCheckBox} 55% 100u 40% 8u "XHTML (.xhtml)"
+	${NSD_CreateCheckBox} 55% 110u 40% 8u "XHTML (.xhtml)"
 	Pop $FA_Xhtml
-	${NSD_CreateCheckBox} 55% 110u 40% 8u "XML (.xml; .xsl)"
+	${NSD_CreateCheckBox} 55% 120u 40% 8u "XML (.xml; .xsl)"
 	Pop $FA_Xml
 	
 	${NSD_Check} $FA_BFProject
@@ -703,45 +710,49 @@ Function FileAssociations
 	nsDialogs::Show
 FunctionEnd
 
+!define BF_FILE_CLASSES "bfdifffile,bfmwfile,bfadafile,bfaspfile,bfshfile,bfprojectfile,bflang2file,bfcfile,bfhfile,bfcppfile,bfhppfile,bfcssfile,bfdfile,bfpofile,bfjavafile,bfjsfile,bfjspfile,bfnsifile,bfnshfile,bfplfile,bfphpfile,bftxtfile,bfpyfile,bfrbfile,bfsmartyfile,bfvbsfile,bfxhtmlfile,bfxmlfile,bfxslfile"
 Function SetFileAssociations
-	;                     HWND					Extension	Mime Type									Handler	Content Type	ICON Id
-	${RegisterFileType} $FA_Ada 			"ada" 		"text/x-ada" 								"bfadafile"	"$(CT_ADA)"	1
-	${RegisterFileType} $FA_Asp 			"asp" 		"text/x-asp" 								"bfaspfile" "$(CT_ASP)"	2
-	${RegisterFileType} $FA_Sh 			"sh" 			"text/x-shellscript" 					"bfshfile"	"$(CT_SH)"	22
-	${RegisterFileType} $FA_BFProject 	"bfproject" "application/x-bluefish-project" 	"bfprojectfile"	"$(CT_BFPROJECT)"	4
-	${RegisterFileType} $FA_BFLang2 		"bflang2" 	"application/x-bluefish-language2" 	"bflang2file"	"$(CT_BFLANG2)"	3
-	${RegisterFileType} $FA_C 				"c" 			"text/x-csrc" 								"bfcfile"	"$(CT_C)"	5
-	${RegisterFileType} $FA_C 				"h" 			"text/x-chdr" 								"bfhfile"	"$(CT_H)"	10
-	${RegisterFileType} $FA_Cpp 			"cpp" 		"text/x-c++src" 							"bfcppfile"	"$(CT_CPP)"	6
-	${RegisterFileType} $FA_Cpp 			"cxx" 		"text/x-c++src" 							"bfcppfile"	"$(CT_CPP)"	6
-	${RegisterFileType} $FA_Cpp 			"cc" 			"text/x-c++src" 							"bfcppfile"	"$(CT_CPP)"	6
-	${RegisterFileType} $FA_Cpp 			"hpp" 		"text/x-c++hdr" 							"bfhppfile"	"$(CT_HPP)"	11
-	${RegisterFileType} $FA_Css 			"css" 		"text/css" 									"bfcssfile" "$(CT_CSS)"	7
-	${RegisterFileType} $FA_D 				"d" 			"text/x-dsrc" 								"bfdfile"	"$(CT_D)"	8
-	${RegisterFileType} $FA_Po 			"po" 			"text/x-gettext-translation" 			"bfpofile"	"$(CT_PO)"	9
+	;                     HWND			Extension	Mime Type		Handler	Content Type	ICON Id
+	${RegisterFileType} $FA_Ada  	"ada" 	"text/x-ada" 			"bfadafile" "$(CT_ADA)" 1
+	${RegisterFileType} $FA_Asp  	"asp" 	"text/x-asp" 			"bfaspfile" "$(CT_ASP)" 2
+	${RegisterFileType} $FA_Sh  	"sh" 		"text/x-shellscript" 		"bfshfile" "$(CT_SH)" 22
+	${RegisterFileType} $FA_BFProject 	"bfproject" 	"application/x-bluefish-project" 	"bfprojectfile" "$(CT_BFPROJECT)" 4
+	${RegisterFileType} $FA_BFLang2 	"bflang2" 	"application/x-bluefish-language2" 		"bflang2file" "$(CT_BFLANG2)" 3
+	${RegisterFileType} $FA_C  		"c" 		"text/x-csrc" 			"bfcfile" "$(CT_C)" 5
+	${RegisterFileType} $FA_C  		"h" 		"text/x-chdr" 			"bfhfile" "$(CT_H)" 10
+	${RegisterFileType} $FA_Cpp 	"cpp" 	"text/x-c++src" 		"bfcppfile" "$(CT_CPP)" 6
+	${RegisterFileType} $FA_Cpp 	"cxx" 	"text/x-c++src" 		"bfcppfile" "$(CT_CPP)" 6
+	${RegisterFileType} $FA_Cpp 	"cc" 		"text/x-c++src" 		"bfcppfile" "$(CT_CPP)" 6
+	${RegisterFileType} $FA_Cpp 	"hpp" 	"text/x-c++hdr" 		"bfhppfile" "$(CT_HPP)" 11
+	${RegisterFileType} $FA_Css 	"css" 	"text/css" 			"bfcssfile" "$(CT_CSS)" 7
+	${RegisterFileType} $FA_D 		"d" 		"text/x-dsrc" 			"bfdfile" "$(CT_D)" 8
+	${RegisterFileType} $FA_Diff 	"diff" 	"text/x-diff" 			"bfdifffile" "$(CT_DIFF)" 100
+	${RegisterFileType} $FA_Diff 	"patch" 	"text/x-patch" 			"bfdifffile" "$(CT_DIFF)" 100
+	${RegisterFileType} $FA_Po  	"po" 		"text/x-gettext-translation" 	"bfpofile" "$(CT_PO)" 9
+	${RegisterFileType} $FA_Java 	"java" 	"text/x-java" 			"bfjavafile" "$(CT_JAVA)" 13
+	${RegisterFileType} $FA_Js  	"js" 		"application/javascript" 		"bfjsfile" "$(CT_JS)" 14
+	${RegisterFileType} $FA_Jsp 	"jsp" 	"application/x-jsp" 		"bfjspfile" "$(CT_JSP)" 15
+	${RegisterFileType} $FA_Mw  	"mw" 		"text/x-mediawiki" 		"bfmwfile" "$(CT_MW)" 100
+	${RegisterFileType} $FA_Nsi 	"nsi" 	"text/x-nsi" 			"bfnsifile" "$(CT_NSI)" 17
+	${RegisterFileType} $FA_Nsi 	"nsh" 	"text/x-nsh" 			"bfnshfile" "$(CT_NSH)" 16
+	${RegisterFileType} $FA_Pl  	"pl" 		"application/x-perl" 		"bfplfile" "$(CT_PL)" 18
+	${RegisterFileType} $FA_Php 	"php" 	"application/x-php" 		"bfphpfile" "$(CT_PHP)" 19
+	${RegisterFileType} $FA_Php 	"php3" 	"application/x-php" 		"bfphpfile" "$(CT_PHP)" 19
+	${RegisterFileType} $FA_Txt 	"txt" 	"text/plain" 			"bftxtfile" "$(CT_TXT)" 24
+	${RegisterFileType} $FA_Py  	"py" 		"text/x-python" 		"bfpyfile" "$(CT_PY)" 20
+	${RegisterFileType} $FA_Rb  	"rb" 		"text/x-ruby" 			"bfrbfile" "$(CT_RB)" 21
+	${RegisterFileType} $FA_Smarty 	"smarty" 	"application/x-smarty" 		"bfsmartyfile" "$(CT_SMARTY)" 23
+	${RegisterFileType} $FA_Vbs 	"vbs" 	"application/x-vbscript" 		"bfvbsfile" "$(CT_VBS)" 25
+	${RegisterFileType} $FA_Vbs 	"vb" 		"application/x-vbscript" 		"bfvbsfile" "$(CT_VBS)" 25
+	${RegisterFileType} $FA_Xhtml 	"xhtml" 	"application/xhtml+xml" 		"bfxhtmlfile" "$(CT_XHTML)" 26
+	${RegisterFileType} $FA_Xml 	"xml" 	"text/xml" 			"bfxmlfile" "$(CT_XML)" 27
+	${RegisterFileType} $FA_Xml 	"xsl" 	"application/xslt+xml" 		"bfxslfile" "$(CT_XSL)" 28
+	${RegisterFileType} $FA_Xml 	"xslt" 	"application/xslt+xml" 		"bfxslfile" "$(CT_XSL)" 28
 
+    ; HTML is a special case
 	${RegisterHTMLType} $FA_Html
-	${RegisterFileType} $FA_Html 			"htm" 		"text/html" 								"0"	"0"	"0"
-	${RegisterFileType} $FA_Html 			"html" 		"text/html" 								"0"	"0"	"0"
-
-	${RegisterFileType} $FA_Java 			"java" 		"text/x-java" 								"bfjavafile"	"$(CT_JAVA)"	13
-	${RegisterFileType} $FA_Js 			"js" 			"application/javascript" 				"bfjsfile"	"$(CT_JS)"	14
-	${RegisterFileType} $FA_Jsp 			"jsp" 		"application/x-jsp" 						"bfjspfile"	"$(CT_JSP)"	15
-	${RegisterFileType} $FA_Nsi 			"nsi" 		"text/x-nsi" 								"bfnsifile"	"$(CT_NSI)"	17
-	${RegisterFileType} $FA_Nsi 			"nsh" 		"text/x-nsh" 								"bfnshfile"	"$(CT_NSH)"	16
-	${RegisterFileType} $FA_Pl 			"pl" 			"application/x-perl" 					"bfplfile"	"$(CT_PL)"	18
-	${RegisterFileType} $FA_Php 			"php" 		"application/x-php" 						"bfphpfile"	"$(CT_PHP)"	19
-	${RegisterFileType} $FA_Php 			"php3" 		"application/x-php" 						"bfphpfile"	"$(CT_PHP)"	19
-	${RegisterFileType} $FA_Txt 			"txt" 		"text/plain" 								"bftxtfile"	"$(CT_TXT)"	24
-	${RegisterFileType} $FA_Py 			"py" 			"text/x-python" 							"bfpyfile"	"$(CT_PY)"	20
-	${RegisterFileType} $FA_Rb 			"rb" 			"text/x-ruby" 								"bfrbfile"	"$(CT_RB)"	21
-	${RegisterFileType} $FA_Smarty 		"smarty" 	"application/x-smarty" 					"bfsmartyfile"	"$(CT_SMARTY)"	23
-	${RegisterFileType} $FA_Vbs 			"vbs" 		"application/x-vbscript" 				"bfvbsfile"	"$(CT_VBS)"	25
-	${RegisterFileType} $FA_Vbs 			"vb" 			"application/x-vbscript" 				"bfvbsfile" "$(CT_VBS)"	25
-	${RegisterFileType} $FA_Xhtml 		"xhtml" 		"application/xhtml+xml" 				"bfxhtmlfile"	"$(CT_XHTML)"	26
-	${RegisterFileType} $FA_Xml 			"xml" 		"text/xml" 									"bfxmlfile"	"$(CT_XML)"	27
-	${RegisterFileType} $FA_Xml 			"xsl" 		"text/xml" 									"bfxslfile"	"$(CT_XSL)"	28
-	${RegisterFileType} $FA_Xml 			"xslt" 		"text/xml" 									"bfxslfile"	"$(CT_XSL)"	28
+	${RegisterFileType} $FA_Html	"htm" 	"text/html" 		"0"	"0"	"0"
+	${RegisterFileType} $FA_Html	"html" 	"text/html" 		"0"	"0"	"0"
 FunctionEnd
 
 Function FileAssociations_SelectAll
@@ -757,11 +768,13 @@ Function FileAssociations_SelectAll
 		${NSD_Check} $FA_Cpp
 		${NSD_Check} $FA_Css
 		${NSD_Check} $FA_D
+		${NSD_Check} $FA_Diff
 		${NSD_Check} $FA_Po
 		${NSD_Check} $FA_Html
 		${NSD_Check} $FA_Java
 		${NSD_Check} $FA_Js
 		${NSD_Check} $FA_Jsp
+		${NSD_Check} $FA_Mw
 		${NSD_Check} $FA_Nsi
 		${NSD_Check} $FA_Pl
 		${NSD_Check} $FA_Php
@@ -783,11 +796,13 @@ Function FileAssociations_SelectAll
 		${NSD_Uncheck} $FA_Cpp
 		${NSD_Uncheck} $FA_Css
 		${NSD_Uncheck} $FA_D
+		${NSD_Uncheck} $FA_Diff
 		${NSD_Uncheck} $FA_Po
 		${NSD_Uncheck} $FA_Html
 		${NSD_Uncheck} $FA_Java
 		${NSD_Uncheck} $FA_Js
 		${NSD_Uncheck} $FA_Jsp
+		${NSD_Uncheck} $FA_Mw
 		${NSD_Uncheck} $FA_Nsi
 		${NSD_Uncheck} $FA_Pl
 		${NSD_Uncheck} $FA_Php
@@ -892,26 +907,41 @@ Function un.UnRegisterFileTypes
 	Push $1
 	Push $R0
 	Push $R1
-	
+	Push $R2
+	Push $R3
+
 	StrCpy $1 0
 	StrCpy $0 "init"
 	${While} $0 != ""
 		EnumRegKey $0 HKLM "${REG_UNINSTALL}\Backup\HKCR" $1
 		IntOp $1 $1 + 1
 		${If} $0 != ""
-			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" ""
-			${If} $R0 == ""
-				DeleteRegKey HKCR $0
-			${Else}
-				WriteRegStr HKCR $0 "" $R0
-			${EndIf}
-			ReadRegStr $R1 HKLM "{REG_UNINSTALL\Backup\HKCR\$0" "Content Type"
-			${If} $R1 != ""
-				WriteRegStr HKCR $0 "Content Type" $R1
-			${EndIf}
+			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "" ; Read stored class
+			ReadRegStr $R2 HKCR $0 "" ; Read current class
+			${UnStrStr} $R3 ${BF_FILE_CLASSES} $R2 ; Check if current class is a Bluefish class
+;			MessageBox MB_OK "Loop: $0\nCurrent: $R2\nStrStr: $R3"
+			${If} $R3 != "" ; If the current class is a Bluefish class continue restoring the stored class
+				${If} $R0 == "" ; If the stored class is unset simply remove it
+					DeleteRegValue HKCR $0 ""
+					DeleteRegKey /ifempty HKCR $0
+				${Else} ; Else the stored class needs to be restored
+					WriteRegStr HKCR $0 "" $R0
+				${EndIf} ; Stored class has been restored
+				ClearErrors ; make sure we don't have any old errors lingering about
+				ReadRegStr $R2 HKCR $0 "Content Type" ; Try to read the current mimetype
+				IfErrors +7 ; If we deleted the key we'll get an error and should skip the restoring the mimetype and otherwise restore it
+					ReadRegStr $R1 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "Content Type" ; Read stored mimetype
+					${If} $R1 != "" ; Restore stored mimetype
+						WriteRegStr HKCR $0 "Content Type" $R1
+					${Else} ; We didn't store a mimetype so we should unset this value
+						DeleteRegValue HKCR $0 "Content Type"
+					${EndIf} ; Stored mimetype has been restored
+			${EndIf} ; The current class wasn't a Bluefish class so don't touch it
 		${EndIf}
-	${EndWhile}	
-	
+	${EndWhile}
+
+	Pop $R3
+	Pop $R2
 	Pop $R1
 	Pop $R0
 	Pop $1
