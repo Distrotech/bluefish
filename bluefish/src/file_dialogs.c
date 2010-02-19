@@ -1081,18 +1081,12 @@ void file_close_all_cb(GtkWidget * widget, Tbfwin * bfwin)
 void file_new_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	Tdocument *doc;
-	doc = doc_new(bfwin, FALSE);
-	switch_to_document_by_pointer(bfwin, doc);
-	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
-		GFile *uri;
-		uri = g_file_new_for_uri(bfwin->project->template);
-		if (uri) {
-			file_into_doc(bfwin->current_document, uri, TRUE, FALSE);
-			g_object_unref(uri);
-		}
-		/*doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);
-		   doc_activate(doc); */
+	GFile *template=NULL;
+	if (bfwin->session->template && bfwin->session->template[0]) {
+		template = g_file_new_for_uri(bfwin->session->template);
 	}
+	doc = doc_new_with_template(bfwin, template, TRUE);
+	switch_to_document_by_pointer(bfwin, doc);
 }
 
 static void file_reload_all_modified_check_lcb(Tcheckmodified_status status, GError *gerror,

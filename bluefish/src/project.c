@@ -59,6 +59,7 @@ static void free_session(Tsessionvars *session) {
 	g_free(session->encoding);
 	g_free(session->last_filefilter);
 	g_free(session->default_mime_type);
+	g_free(session->template);
 	g_free(session->webroot);
 	g_free(session->documentroot);
 	g_free(session->sync_local_uri);
@@ -82,6 +83,7 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 		session->savedir = g_strdup(main_v->session->savedir);
 		session->last_filefilter = g_strdup(main_v->session->last_filefilter);
 		session->default_mime_type = g_strdup(main_v->session->default_mime_type);
+		session->template = g_strdup(main_v->session->template);
 #ifdef HAVE_LIBENCHANT
 		session->spell_lang = g_strdup(main_v->session->spell_lang);
 		session->spell_check_default = main_v->session->spell_check_default;
@@ -194,7 +196,6 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
-	prj->template = g_strdup("");
 	if (bfwin) {
 		bfwin->session = prj->session;
 		setup_bfwin_for_project(bfwin);
@@ -365,7 +366,6 @@ static void project_destroy(Tproject *project) {
 	if (project->uri)
 		g_object_unref(project->uri);
 	g_free(project->name);
-	g_free(project->template);
 	g_free(project);
 }
 
@@ -421,7 +421,6 @@ gboolean project_final_close(Tbfwin *bfwin, gboolean close_win) {
 
 typedef enum {
 	name,
-	template,
 	projecteditor_entries_num
 } Tprojecteditor_entries;
 
@@ -462,7 +461,6 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	gtk_widget_hide(pred->win);
 	DEBUG_MSG("project_edit_ok_clicked_lcb, Tproject at %p, bfwin at %p\n",prj,pred->bfwin);
 	string_apply(&prj->name, pred->entries[name]);
-	string_apply(&prj->template, pred->entries[template]);
 	sessionprefs_apply(&pred->sprefs, pred->project->session);
 	if (pred->bfwin == NULL) {
 		pred->bfwin = gui_new_window(pred->project);
@@ -541,11 +539,11 @@ void project_edit(Tbfwin *bfwin) {
 	bf_mnemonic_label_tad_with_alignment(_("Project _Name:"), pred->entries[name], 1, 0.5, table, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[name], 2, 3, 0, 1);
 
-	pred->entries[template] = entry_with_text(pred->project->template, 255);
+/*	pred->entries[template] = entry_with_text(pred->project->template, 255);
 	bf_mnemonic_label_tad_with_alignment(_("_Template:"), pred->entries[template], 1, 0.5, table, 0, 1, 3, 4);
 	but = file_but_new(pred->entries[template], 1, NULL);
 	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);*/
 
 	sessionprefs(_("Initial document settings"),&pred->sprefs, pred->project->session);
 	gtk_box_pack_start(GTK_BOX(vbox), pred->sprefs.frame, FALSE, FALSE, 6);

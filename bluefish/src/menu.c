@@ -509,7 +509,7 @@ static void menu_template_lcb(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
 	GFile *uri;
 	
 	uri = g_file_new_for_uri(arr[1]);
-	doc_new_with_template(bdm->bfwin, uri);
+	doc_new_with_template(bdm->bfwin, uri, FALSE);
 	g_object_unref(uri);
 }
 

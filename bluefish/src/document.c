@@ -2383,11 +2383,11 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	return doc;
 }
 
-Tdocument *doc_new_with_template(Tbfwin* bfwin, GFile *uri) {
+Tdocument *doc_new_with_template(Tbfwin* bfwin, GFile *uri, gboolean force_new) {
 	Tdocument *doc;
 	if (!uri)
 		return doc_new(bfwin, FALSE);
-	doc = doc_new_backend(bfwin, FALSE, FALSE);
+	doc = doc_new_backend(bfwin, force_new, FALSE);
 	file_into_doc(doc, uri, TRUE, FALSE);
 	gtk_widget_show(doc->view);
 	return doc;

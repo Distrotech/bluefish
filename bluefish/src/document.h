@@ -99,7 +99,7 @@ void document_unset_filename(Tdocument *doc);
 gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean window_closing);
 void document_set_show_symbols(Tdocument *doc, gboolean value);
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
-Tdocument *doc_new_with_template(Tbfwin* bfwin, GFile *uri);
+Tdocument *doc_new_with_template(Tbfwin* bfwin, GFile *uri, gboolean force_new);
 Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GFile *uri, GFileInfo *finfo, gboolean readonly);
 void doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset);
 void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gboolean move_to_this_win, gint goto_line);

@@ -349,6 +349,7 @@ typedef struct {
 	/* if you add strings or lists to the session, please make sure they are free'ed 
 	in free_session() in project.c */
 	gchar *default_mime_type;
+	gchar *template;
 	gchar *convertcolumn_separator;
 	gchar *convertcolumn_fillempty;
 	gchar *webroot;
@@ -376,7 +377,6 @@ typedef struct {
 	GFile *uri;
 	gchar *name;
 	GList *files;
-	gchar *template;
 	gpointer editor;
 	Tsessionvars *session;
 	gpointer bmarkdata;			/* project bookmarks */
