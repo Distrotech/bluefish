@@ -574,6 +574,13 @@ void rcfile_parse_main(void)  {
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Links2 (graphics)"), "links2 -g '%p'&","0",NULL));
 	}
 #endif /* ifndef WIN32 */
+	if (main_v->props.templates==NULL) {
+		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("C Header"), PKGDATADIR"/templates/C Header", NULL));
+		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("C Header GPL"), PKGDATADIR"/templates/C Header GPL", NULL));
+		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("XHTML 1.0"), PKGDATADIR"/templates/XHTML 1.0", NULL));
+		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("HTML 5"), PKGDATADIR"/templates/HTML 5", NULL));
+		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("PHP"), PKGDATADIR"/templates/PHP", NULL));
+	}
 }
 
 gint rcfile_save_main(void) {

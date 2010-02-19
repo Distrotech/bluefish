@@ -1083,7 +1083,7 @@ void file_new_cb(GtkWidget * widget, Tbfwin * bfwin)
 	Tdocument *doc;
 	GFile *template=NULL;
 	if (bfwin->session->template && bfwin->session->template[0]) {
-		template = g_file_new_for_uri(bfwin->session->template);
+		template = g_file_new_for_commandline_arg(bfwin->session->template);
 	}
 	doc = doc_new_with_template(bfwin, template, TRUE);
 	switch_to_document_by_pointer(bfwin, doc);

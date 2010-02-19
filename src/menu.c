@@ -506,9 +506,7 @@ void free_bfw_dynmenu_list(GList *list) {
 
 static void menu_template_lcb(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
 	gchar **arr = bdm->data;
-	GFile *uri;
-	
-	uri = g_file_new_for_uri(arr[1]);
+	GFile *uri = g_file_new_for_commandline_arg(arr[1]);
 	doc_new_with_template(bdm->bfwin, uri, FALSE);
 	g_object_unref(uri);
 }
