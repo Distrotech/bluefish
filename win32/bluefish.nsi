@@ -159,17 +159,17 @@ ${UnStrStr}
 
 !macro RegisterFileType HWND EXT TYPE PROG DESC ICON
 	ReadRegStr $R1 HKCR ".${EXT}" "Content Type" ; Read the current mimetype
+	ReadRegStr $R2 HKCR ".${EXT}" "" ; Read the current class
 	${If} $R1 != "${TYPE}" ; If the current mimetype is the same as what we want skip changing it
 		WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "Content Type" $R1
+		WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "" $R2
 		WriteRegStr HKCR ".${EXT}" "Content Type" "${TYPE}"
 	${EndIf} ; Proper mimetype has been set
 	${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
 	${If} ${PROG} != "0" ; If set to 0 this denotes a special case such as for HTML and we need to skip this section
 		${If} $R0 == ${BST_CHECKED} ; The user has selected to associate this file type with Bluefish
 			DetailPrint "$(FILETYPE_REGISTERING)${DESC}..." ; Let the user know we're registering this file type
-			ReadRegStr $R1 HKCR ".${EXT}" "" ; Read the current class
-			${If} $R1 != "${PROG}" ; If the current class is different that ours set it for Bluefish
-				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "" $R1
+			${If} $R2 != "${PROG}" ; If the current class is different that ours set it for Bluefish
 				WriteRegStr HKCR ".${EXT}" "" "${PROG}"
 			${EndIf} ; Else the class is already set for Bluefish so we needn't change it
 			; The following should only be needed once and could be in the above IF block with some more checks
@@ -919,7 +919,6 @@ Function un.UnRegisterFileTypes
 			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "" ; Read stored class
 			ReadRegStr $R2 HKCR $0 "" ; Read current class
 			${UnStrStr} $R3 ${BF_FILE_CLASSES} $R2 ; Check if current class is a Bluefish class
-;			MessageBox MB_OK "Loop: $0\nCurrent: $R2\nStrStr: $R3"
 			${If} $R3 != "" ; If the current class is a Bluefish class continue restoring the stored class
 				${If} $R0 == "" ; If the stored class is unset simply remove it
 					DeleteRegValue HKCR $0 ""
@@ -929,7 +928,8 @@ Function un.UnRegisterFileTypes
 				${EndIf} ; Stored class has been restored
 				ClearErrors ; make sure we don't have any old errors lingering about
 				ReadRegStr $R2 HKCR $0 "Content Type" ; Try to read the current mimetype
-				IfErrors +7 ; If we deleted the key we'll get an error and should skip the restoring the mimetype and otherwise restore it
+				IfErrors +8 ; If we deleted the key we'll get an error and should skip restoring the mimetype, else restore it
+					ClearErrors
 					ReadRegStr $R1 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "Content Type" ; Read stored mimetype
 					${If} $R1 != "" ; Restore stored mimetype
 						WriteRegStr HKCR $0 "Content Type" $R1
