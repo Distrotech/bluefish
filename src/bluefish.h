@@ -215,7 +215,6 @@ typedef struct {
 	GList *external_command;	/* array: name,command,is_default_browser */
 	GList *external_filter;		/* array: name,command */
 	GList *external_outputbox;	/* array:name,command,....... */
-
 	/*gint defaulthighlight; *//* highlight documents by default */
 	gint transient_htdialogs;	/* set html dialogs transient ro the main window */
 	gint leave_to_window_manager;	/* don't set any dimensions, leave all to window manager */
@@ -283,6 +282,7 @@ typedef struct {
 	gchar *autosave_file_prefix;
 	gchar *autosave_file_suffix;
 	gchar *language;
+	GList *templates; /* array of name:URI */
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
@@ -429,10 +429,11 @@ typedef struct {
 	GList *menu_external;
 	GList *menu_encodings;
 	GList *menu_outputbox;
-	GList *menu_windows;
+	/*GList *menu_windows;*/
 	GtkWidget *menu_cmenu;
 	GList *menu_cmenu_entries;
 	GList *menu_filetypes;
+	GList *menu_templates;
 #ifdef HAVE_LIBENCHANT
 	gpointer *ed;				/* EnchantDict */
 #endif

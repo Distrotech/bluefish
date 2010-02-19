@@ -209,6 +209,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{"/File/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/_New"), "<control>n", menu_file_operations_cb, 1, "<StockItem>", GTK_STOCK_NEW},
+	{N_("/File/New From Template"), NULL, NULL, 0, "<Branch>"},
+	{"/File/New From Template/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/New _Window"), "<shift><control>n", gui_window_menu_cb, 1, "<Item>"},
 	{N_("/File/_Open..."), "<control>O", menu_file_operations_cb, 2, "<StockItem>", GTK_STOCK_OPEN},
 	{N_("/File/Open _Recent"), NULL, NULL, 0, "<Branch>"},
@@ -502,6 +504,37 @@ void free_bfw_dynmenu_list(GList *list) {
 	g_list_free(list);
 }
 
+static void menu_template_lcb(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
+	gchar **arr = bdm->data;
+	g_print("TODO: load template %s\n",arr[1]);
+}
+
+void template_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
+	GtkWidget *parent_menu;
+	GList *tmplist;
+	if (!item_factory) {
+		item_factory = gtk_item_factory_from_widget(bfwin->menubar);
+	}
+	DEBUG_MSG("template_menu_rebuild, adding filetypes in menu\n");
+	bfwin->menu_templates = NULL;
+	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/File/New From Template"));
+	tmplist = g_list_last(main_v->props.templates);
+	while (tmplist) {
+		gchar **arr = (gchar **)tmplist->data;
+		if (arr && arr[0] && arr[1]) {
+			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
+			bdm->data = arr;
+			bdm->bfwin = bfwin;
+			bdm->menuitem = gtk_menu_item_new_with_label(arr[0]);
+			bdm->signal_id = g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(menu_template_lcb), (gpointer) bdm);
+			gtk_widget_show(bdm->menuitem);
+			gtk_menu_insert(GTK_MENU(parent_menu), bdm->menuitem, 1);
+			bfwin->menu_templates = g_list_prepend(bfwin->menu_templates, bdm);
+		}
+		tmplist = g_list_previous(tmplist);
+	}
+}
+
 void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	GSList *group=NULL;
 	GtkWidget *parent_menu;
@@ -559,6 +592,7 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	setup_toggle_item(item_factory, "/Document/Auto Indent", bfwin->session->autoindent);
 	set_project_menu_widgets(bfwin, FALSE);
 	filetype_menu_rebuild(bfwin, item_factory);
+	template_menu_rebuild(bfwin, item_factory);
 }
 
 
