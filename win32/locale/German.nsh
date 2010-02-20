@@ -19,7 +19,7 @@
 !define LICENSEPAGE_FOOTER "${PRODUCT} wird unter der GNU General Public License (GPL) veröffentlicht. Die Lizenz dient der Information. $_CLICK"
 
 ; Aspell Strings
-!define DICT_INSTALLED "Die aktuellste Version des Wörterbuches ist bereits installiert, Download wird übersprungen:"
+!define DICT_INSTALLED "Die aktuellste Version des Wörterbuches ist bereits installiert. Der Download wird übersprungen:"
 !define DICT_DOWNLOAD "Herunterladen des Wörterbuches..."
 !define DICT_FAILED "Das Herunterladen des Wörterbuches ist fehlgeschlagen:"
 !define DICT_EXTRACT "Entpacken des Wörterbuches..."
@@ -46,10 +46,12 @@
 ; Misc
 !define FINISHPAGE_LINK "Besuchen Sie die Bluefish Webseite"
 !define UNINSTALL_SHORTCUT "${PRODUCT} deinstallieren"
+!define FILETYPE_REGISTER "Registriere Dateityp:"
+!define UNSTABLE_UPGRADE "Eine Entwicklerversion von ${PRODUCT} ist installiert.$\nSollen alle älteren Versionen entferent werden, bevor mit der Installation fortgefahren wird? (Empfohlen)"
 
 ; Content Types
 !define CT_ADA	"Ada Quelldatei"
-!define CT_ASP "ActiveServer Page Skript"
+!define CT_ASP	"ActiveServer Page Skript"
 !define CT_SH	"Bash Shellskript"
 !define CT_BFPROJECT	"Bluefish Projektdatei"
 !define CT_BFLANG2	"Bluefish Sprach- und Syntaxunterstützung (Version 2)"
@@ -57,12 +59,14 @@
 !define CT_H	"C Header"
 !define CT_CPP	"C++ Quelldatei"
 !define CT_HPP	"C++ Header"
-!define CT_CSS "Cascading Style Sheet"
+!define CT_CSS	"Cascading Style Sheet"
 !define CT_D	"D Quelldatei"
+!define CT_DIFF	"Diff/Patch Datei"
 !define CT_PO	"Gettext Übersetzung"
 !define CT_JAVA	"Java Quelldatei"	
 !define CT_JS	"JavaScript Skript"
 !define CT_JSP	"JavaServer Pages Skript"
+!define CT_MW	"MediaWiki Datei"
 !define CT_NSI	"NSIS Skript"
 !define CT_NSH	"NSIS Header"
 !define CT_PL	"Perl Skript"
@@ -73,5 +77,5 @@
 !define CT_SMARTY	"Smarty Skript"
 !define CT_VBS	"VisualBasic Skript"
 !define CT_XHTML	"XHTML"
-!define CT_XML	"XML"
-!define CT_XSL	"XSL"
+!define CT_XML	"XML Datei"
+!define CT_XSL	"XSL Stylesheet"
