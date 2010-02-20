@@ -749,7 +749,7 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 			if (btv->show_right_margin) {
 				GdkRectangle rect, rect2;
 				cairo_t *cr;
-				guint pix = btv->margin_pixels_per_char * btv->right_margin_pos;
+				guint pix = btv->margin_pixels_per_char * main_v->props.right_margin_pos;
 				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
 				rect2=rect;
 				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget),GTK_TEXT_WINDOW_TEXT,rect.x,rect.y,&rect2.x,&rect2.y);
@@ -1315,22 +1315,6 @@ void bluefish_text_view_set_show_right_margin(BluefishTextView * btv, gboolean s
 	gtk_widget_queue_draw(GTK_WIDGET(btv));
 }
 
-guint bluefish_text_view_get_right_margin_pos(BluefishTextView * btv)
-{
-	return (btv->right_margin_pos);
-}
-
-void bluefish_text_view_set_right_margin_pos(BluefishTextView * btv, guint pos) {
-	g_return_if_fail(btv != NULL);
-
-	if (pos == btv->right_margin_pos) {
-		return;
-	}
-	
-	btv->right_margin_pos = pos;
-	gtk_widget_queue_draw(GTK_WIDGET(btv));
-}
-
 #ifdef HAVE_LIBENCHANT
 void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check) {
 	GtkTextIter start,end;
@@ -1549,7 +1533,6 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	/*font_desc = pango_font_description_from_string("Monospace 10");
 	gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
 	pango_font_description_free(font_desc);*/
-	textview->right_margin_pos=80;
 	bftextview2_set_margin_size(textview);
 }
 
