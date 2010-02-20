@@ -754,7 +754,7 @@ static Ttoolbaritem tbi[] = {
 	{"breakclear", breakclear_clicked_lcb, pixmap_breakall, N_("Break and clear")},
 	{"nbsp", nbsp_clicked_lcb, pixmap_nbsp, N_("Non-breaking space")},
 	{"", NULL, 0, NULL}, /* spacing */
-	{"anchor...", quickanchor_clicked_lcb,pixmap_anchor , N_("Anchor...")},
+	{"anchor...", quickanchor_clicked_lcb,pixmap_anchor , N_("Anchor / Hyperlink...")},
 	{"rule...", quickrule_clicked_lcb, pixmap_hrule, N_("Rule...")},
 	{"center", center_clicked_lcb,  pixmap_center, N_("Center")},
 	{"rightjustify", rightjustify_clicked_lcb, pixmap_right, N_("Right Justify")},
