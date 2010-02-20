@@ -6,7 +6,7 @@
  *
  * Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach
- * Copyright (C) 2002-2009 Olivier Sessink
+ * Copyright (C) 2002-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -359,7 +359,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Tools/Sp_lit lines"), NULL, menu_file_operations_cb, 34, "<Item>"},
 	{N_("/Tools/Indenting To T_abs"), NULL, menu_file_operations_cb, 30, "<Item>"},
 	{N_("/Tools/Indenting To S_paces"), NULL, menu_file_operations_cb, 31, "<Item>"},
-	{N_("/Tools/Split Into Col_umns"), NULL, menu_file_operations_cb, 36, "<Item>"},
+	{N_("/Tools/Merge Lines Into Col_umns"), NULL, menu_file_operations_cb, 36, "<Item>"},
 };
 
 #ifdef ENABLE_NLS
