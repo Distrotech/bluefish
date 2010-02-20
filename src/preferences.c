@@ -477,6 +477,8 @@ static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget
 /* session preferences */
 
 void sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
+	gchar *template_name=NULL;
+	GList *tmplist;
 	integer_apply(&sessionvars->wrap_text_default, sprefs->prefs[session_wrap_text], TRUE);
 	integer_apply(&sessionvars->autoindent, sprefs->prefs[autoindent], TRUE);
 	integer_apply(&sessionvars->editor_tab_width, sprefs->prefs[editor_tab_width], FALSE);
@@ -487,13 +489,25 @@ void sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
 	integer_apply(&sessionvars->view_cline, sprefs->prefs[view_cline], TRUE);
 	string_apply(&sessionvars->default_mime_type, sprefs->prefs[default_mime_type]);
 
+	string_apply(&template_name, sprefs->prefs[template]);
+	g_free(sessionvars->template);
+	sessionvars->template=NULL;
+	for (tmplist=g_list_first(main_v->props.templates);tmplist;tmplist=g_list_next(tmplist)) {
+		gchar **arr=tmplist->data;
+		if (g_strcmp0(arr[0], template_name)==0) {			
+			sessionvars->template = g_strdup(arr[1]);
+		}
+	}
+	g_free(template_name);
+
 #ifdef HAVE_LIBENCHANT
 	integer_apply(&sessionvars->spell_check_default, sprefs->prefs[session_spell_check], TRUE);
 #endif
 }
 
 Tsessionprefs *sessionprefs(const gchar *frame_title, Tsessionprefs *sprefs, Tsessionvars *sessionvars) {
-	GList *poplist;
+	GList *poplist, *tmplist;
+	gchar *curtemplate=NULL;
 	sprefs->vbox = gtk_vbox_new(FALSE,3);
 
 	sprefs->frame = gtk_frame_new(frame_title);
@@ -501,6 +515,19 @@ Tsessionprefs *sessionprefs(const gchar *frame_title, Tsessionprefs *sprefs, Tse
 
 	poplist = g_list_sort(langmgr_get_languages_mimetypes(), (GCompareFunc)g_strcmp0);
 	sprefs->prefs[default_mime_type] = prefs_combo(_("Default mime type for new files"),sessionvars->default_mime_type, sprefs->vbox, poplist, TRUE);
+	g_list_free(poplist);
+
+	poplist=NULL;
+	for (tmplist=g_list_first(main_v->props.templates);tmplist;tmplist=g_list_next(tmplist)) {
+		gchar **arr=tmplist->data;
+		poplist = g_list_prepend(poplist, arr[0]);
+		if (g_strcmp0(arr[1], sessionvars->template)==0) {
+			curtemplate = arr[0];
+		}
+	}
+	poplist = g_list_sort(poplist, (GCompareFunc)g_strcmp0);
+	poplist = g_list_prepend(poplist,_("None"));
+	sprefs->prefs[template] = prefs_combo(_("Default template"),curtemplate?curtemplate:_("None"), sprefs->vbox, poplist, FALSE);
 	g_list_free(poplist);
 
 	sprefs->prefs[session_wrap_text] = boxed_checkbut_with_value(_("_Word wrap by default"), sessionvars->wrap_text_default, sprefs->vbox);
