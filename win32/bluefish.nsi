@@ -101,7 +101,6 @@ VIAddVersionKey "FileDescription" "Bluefish Installer"
 !include "WinMessages.nsh"
 !include "LogicLib.nsh"
 !include "nsDialogs.nsh"
-
 !include "StrFunc.nsh"
 ${StrStr}
 ${StrTok}
@@ -300,13 +299,13 @@ ${UnStrStr}
 ; Pages
 ;----------------------------------------------
 !insertmacro MUI_PAGE_WELCOME
-!insertmacro MUI_PAGE_LICENSE				"..\COPYING"
+!insertmacro MUI_PAGE_LICENSE 		"..\COPYING"
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_STARTMENU			"${PRODUCT}"	$StartMenuFolder
 !insertmacro MUI_PAGE_INSTFILES
 Page custom FileAssociations SetFileAssociations
-!define MUI_PAGE_CUSTOMFUNCTION_SHOW	DisableBackButton
+!define MUI_PAGE_CUSTOMFUNCTION_SHOW 	DisableBackButton
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_UNPAGE_WELCOME
@@ -320,50 +319,51 @@ Page custom FileAssociations SetFileAssociations
 !insertmacro MUI_RESERVEFILE_LANGDLL
 
 ; English goes first as the default language
-!insertmacro MUI_LANGUAGE	"English"
+!insertmacro MUI_LANGUAGE	"English" 	; 1033
 ${LoadLocalization}	"ENGLISH"	"locale\English.nsh"
-!insertmacro MUI_LANGUAGE	"Basque"
+!insertmacro MUI_LANGUAGE	"Basque" 	; 1069
 ${LoadLocalization}	"BASQUE"	"locale\Basque.nsh"
-!insertmacro MUI_LANGUAGE	"Czech"
+!insertmacro MUI_LANGUAGE	"Czech" 	; 1029
 ${LoadLocalization}	"CZECH"		"locale\Czech.nsh"
-!insertmacro MUI_LANGUAGE	"Dutch"
+!insertmacro MUI_LANGUAGE	"Dutch" 	; 1043
 ${LoadLocalization}	"DUTCH" 	"locale\Dutch.nsh"
-!insertmacro MUI_LANGUAGE	"French"
+!insertmacro MUI_LANGUAGE	"French" 	; 1036
 ${LoadLocalization}	"FRENCH"	"locale\French.nsh"
-!insertmacro MUI_LANGUAGE	"Galician"
+!insertmacro MUI_LANGUAGE	"Galician" 	; 1110
 ${LoadLocalization}	"GALICIAN"	"locale\Galician.nsh"
-!insertmacro MUI_LANGUAGE	"German"
+!insertmacro MUI_LANGUAGE	"German" 	; 1031
 ${LoadLocalization}	"GERMAN"	"locale\German.nsh"
-!insertmacro MUI_LANGUAGE	"Italian"
+!insertmacro MUI_LANGUAGE	"Italian" 	; 1040
 ${LoadLocalization}	"ITALIAN"	"locale\Italian.nsh"
-!insertmacro MUI_LANGUAGE	"Japanese"
+!insertmacro MUI_LANGUAGE	"Japanese" 	; 1041
 ${LoadLocalization}	"JAPANESE"	"locale\Japanese.nsh"
-!insertmacro MUI_LANGUAGE	"Norwegian"
+!insertmacro MUI_LANGUAGE	"Norwegian" ; 2068
 ${LoadLocalization}	"NORWEGIAN"	"locale\Norwegian.nsh"
-!insertmacro MUI_LANGUAGE	"Swedish"
+!insertmacro MUI_LANGUAGE	"Swedish" 	; 1053
 ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
-!insertmacro MUI_LANGUAGE	"Ukrainian"
+!insertmacro MUI_LANGUAGE	"Ukrainian" ; 1058
 ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
 ; Translations needed for the following commented languages
-;;!insertmacro MUI_LANGUAGE	"Bulgarian"
-;;!insertmacro MUI_LANGUAGE	"Danish"
-;;!insertmacro MUI_LANGUAGE	"Finnish"
-;;!insertmacro MUI_LANGUAGE	"Greek"
-;;!insertmacro MUI_LANGUAGE	"Hungarian"
-;;!insertmacro MUI_LANGUAGE	"Korean"
-;;!insertmacro MUI_LANGUAGE	"Polish"
-;;!insertmacro MUI_LANGUAGE	"Portuguese"
-;;!insertmacro MUI_LANGUAGE	"PortugueseBR"
-;;!insertmacro MUI_LANGUAGE	"Romanian"
-;;!insertmacro MUI_LANGUAGE	"Russian"
-;;!insertmacro MUI_LANGUAGE	"Serbian"
-;;!insertmacro MUI_LANGUAGE	"SimpChinese"
-;;!insertmacro MUI_LANGUAGE	"Slovak"
-;;!insertmacro MUI_LANGUAGE	"Spanish"
+;;!insertmacro MUI_LANGUAGE	"Bulgarian" 	; 1026
+;;!insertmacro MUI_LANGUAGE	"Danish" 	; 1030
+;;!insertmacro MUI_LANGUAGE	"Finnish" 	; 1035
+;;!insertmacro MUI_LANGUAGE	"Greek" 	; 1032
+;;!insertmacro MUI_LANGUAGE	"Hungarian" 	; 1038
+;;!insertmacro MUI_LANGUAGE	"Korean" 	; 1042
+;;!insertmacro MUI_LANGUAGE	"Polish" 	; 1045
+;;!insertmacro MUI_LANGUAGE	"Portuguese" 	; 2070
+;;!insertmacro MUI_LANGUAGE	"PortugueseBR" 	; 1046
+;;!insertmacro MUI_LANGUAGE	"Romanian" 	; 1048
+;;!insertmacro MUI_LANGUAGE	"Russian" 	; 1049
+;;!insertmacro MUI_LANGUAGE	"Serbian" 	; 3098
+;;!insertmacro MUI_LANGUAGE	"SimpChinese" 	; 2052
+;;!insertmacro MUI_LANGUAGE	"Slovak" 	; 1051
+;;!insertmacro MUI_LANGUAGE	"Spanish" 	; 1034
+;;!insertmacro MUI_LANGUAGE	"TradChinese" 	; 1028
+;;!insertmacro MUI_LANGUAGE	"Turkish" 	; 1055
+
 ; NSIS Lacks a translation for this language
-;;!insertmacro MUI_LANGUAGE	"Tamil"
-;;!insertmacro MUI_LANGUAGE	"TradChinese"
-;;!insertmacro MUI_LANGUAGE	"Turkish"
+;!insertmacro MUI_LANGUAGE	"Tamil" 	; 1097
 
 
 ; Sections
@@ -491,6 +491,9 @@ Section "$(SECT_SHORTCUT)" SecDesktopShortcut
 SectionEnd
 
 SectionGroup /e "$(SECT_DICT)" SecLang
+	Section /o "Brazilian Portuguese" SecLangPt_BR
+		${InstallAspellDict} "pt_BR" "20090702-0"
+	SectionEnd
 	Section /o "Bulgarian" SecLangBg
 		${InstallAspellDict} "bg" "4.1-0"
 	SectionEnd
@@ -503,7 +506,7 @@ SectionGroup /e "$(SECT_DICT)" SecLang
 	Section /o "Dutch" SecLangNl
 		${InstallAspellDict} "nl" "0.50-2"
 	SectionEnd
-	Section "English" SecLangEn
+	Section /o "English" SecLangEn
 		${InstallAspellDict} "en" "6.0-0"
 	SectionEnd
 	Section /o "Finnish" SecLangFi
@@ -532,9 +535,6 @@ SectionGroup /e "$(SECT_DICT)" SecLang
 	SectionEnd
 	Section /o "Portuguese" SecLangPt_PT
 		${InstallAspellDict} "pt_PT" "20070510-0"
-	SectionEnd
-	Section /o "Portuguese (Brazilian)" SecLangPt_BR
-		${InstallAspellDict} "pt_BR" "20090702-0"
 	SectionEnd
 	Section /o "Romanian" SecLangRo
 		${InstallAspellDict} "ro" "3.1"
@@ -686,6 +686,81 @@ Function .onInit
 	Pop $R0
 
 	!insertmacro MUI_LANGDLL_DISPLAY
+
+	${Switch} $LANGUAGE
+		${Case} 1026 ; Bulgarian
+			SectionSetFlags ${SecLangBg} ${SF_SELECTED}
+			${Break}
+		${Case} 1029 ; Czech
+			SectionSetFlags ${SecLangCs} ${SF_SELECTED}
+			${Break}
+		${Case} 1030 ; Danish
+			SectionSetFlags ${SecLangDa} ${SF_SELECTED}
+			${Break}
+		${Case} 1031 ; German
+			SectionSetFlags ${SecLangDe} ${SF_SELECTED}
+			${Break}
+		${Case} 1032 ; Greek
+			SectionSetFlags ${SecLangEl} ${SF_SELECTED}
+			${Break}
+		${Case} 1033 ; English
+			SectionSetFlags ${SecLangEn} ${SF_SELECTED}
+			${Break}
+		${Case} 1034 ; Spanish
+			SectionSetFlags ${SecLangEs} ${SF_SELECTED}
+			${Break}
+		${Case} 1035 ; Finnish
+			SectionSetFlags ${SecLangFi} ${SF_SELECTED}
+			${Break}
+		${Case} 1036 ; French
+			SectionSetFlags ${SecLangFr} ${SF_SELECTED}
+			${Break}
+		${Case} 1038 ; Hungarian
+			SectionSetFlags ${SecLangHu} ${SF_SELECTED}
+			${Break}
+		${Case} 1040 ; Italian
+			SectionSetFlags ${SecLangIt} ${SF_SELECTED}
+			${Break}
+		${Case} 1043 ; Dutch
+    		SectionSetFlags ${SecLangNl} ${SF_SELECTED}
+    		${Break}
+		${Case} 1046 ; Brazilion Portuguese
+			SectionSetFlags ${SecLangPt_BR} ${SF_SELECTED}
+			${Break}
+		${Case} 1048 ; Romanian
+			SectionSetFlags ${SecLangRo} ${SF_SELECTED}
+			${Break}
+		${Case} 1049 ; Russian
+			SectionSetFlags ${SecLangRu} ${SF_SELECTED}
+			${Break}
+		${Case} 1051 ; Slovak
+			SectionSetFlags ${SecLangSk} ${SF_SELECTED}
+			${Break}
+		${Case} 1053 ; Swedish
+			SectionSetFlags ${SecLangSv} ${SF_SELECTED}
+			${Break}
+		${Case} 1055 ; Turkish
+			SectionSetFlags ${SecLangTr} ${SF_SELECTED}
+			${Break}
+		${Case} 1097 ; Tamil
+			SectionSetFlags ${SecLangTa} ${SF_SELECTED}
+			${Break}
+		${Case} 1110 ; Galician
+			SectionSetFlags ${SecLangGl} ${SF_SELECTED}
+			${Break}
+		${Case} 2068 ; Norwegian
+			SectionSetFlags ${SecLangNb} ${SF_SELECTED}
+			${Break}
+		${Case} 2070 ; Portuguese
+			SectionSetFlags ${SecLangPt_PT} ${SF_SELECTED}
+			${Break}
+		${Case} 3098 ; Serbian
+			SectionSetFlags ${SecLangSr} ${SF_SELECTED}
+			${Break}
+		${Default}
+			SectionSetFlags ${SecLangEn} ${SF_SELECTED}
+			${Break}
+	${EndSwitch}
 FunctionEnd
 
 Function FileAssociations
