@@ -822,7 +822,7 @@ static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIt
 
 static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent) {
 	gboolean retval;
-	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);
+	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	DBG_SIGNALS("bluefish_text_view_key_press_event\n");
 	if (btv->autocomp) {
 		if (acwin_check_keypress(btv, kevent)) {
@@ -841,7 +841,7 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 	if (main_v->props.editor_smart_cursor && !(kevent->state & GDK_CONTROL_MASK) && ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End))) {
 		GtkTextMark* imark;
 		GtkTextIter iter, currentpos, linestart;
-		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+		GtkTextBuffer *buffer = GTK_TEXT_VIEW(btv)->buffer;
 
 		imark = gtk_text_buffer_get_insert(buffer);
 		gtk_text_buffer_get_iter_at_mark(buffer, &currentpos, imark);
@@ -873,9 +873,26 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 		gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(btv), gtk_text_buffer_get_insert(buffer));
 		return TRUE;
 	}
-
+	if (main_v->props.editor_tab_indent_sel && (kevent->keyval == GDK_Tab || kevent->keyval == GDK_KP_Tab || kevent->keyval == GDK_ISO_Left_Tab) 
+			&& (!(kevent->state & GDK_CONTROL_MASK)) ) { /* shift-tab is also known as GDK_ISO_Left_Tab */
+		GtkTextIter so, eo;
+		gboolean have_selection;
+		have_selection = gtk_text_buffer_get_selection_bounds(GTK_TEXT_VIEW(btv)->buffer, &so, &eo); 
+		if (have_selection) {
+			if (kevent->state & GDK_SHIFT_MASK) {
+				/* unindent block */
+				doc_indent_selection(btv->doc, TRUE);
+				return TRUE;
+			}
+			if ((gtk_text_iter_starts_line(&so) && gtk_text_iter_ends_line(&eo)) 
+					|| (gtk_text_iter_get_line(&so) != gtk_text_iter_get_line(&eo))) {
+				doc_indent_selection(btv->doc, FALSE);
+				return TRUE;
+			}
+		}
+	}
 	if (kevent->keyval == GDK_Tab && main_v->props.editor_indent_wspaces) {
-		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));			
+		GtkTextBuffer *buffer = GTK_TEXT_VIEW(btv)->buffer;			
 		GtkTextMark* imark;
 		GtkTextIter iter;
 		gchar *string;

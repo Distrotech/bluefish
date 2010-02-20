@@ -205,6 +205,7 @@ typedef struct {
 	gchar *editor_font_string;	/* editor font */
 	gint editor_smart_cursor;
 	gint editor_indent_wspaces;	/* indent with spaces, not tabs */
+	gint editor_tab_indent_sel; /* tab key will indent a selected block */
 	gchar *tab_font_string;		/* notebook tabs font */
 	/*  gchar *tab_color_normal; *//* notebook tabs text color normal.  This is just NULL! */
 	gchar *tab_color_modified;	/* tab text color when doc is modified and unsaved */
