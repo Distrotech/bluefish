@@ -35,6 +35,7 @@
 
 ; Variables
 ;----------------------------------------------
+Var HKEY
 Var GTK_STATUS
 Var StartMenuFolder
 
@@ -77,8 +78,8 @@ InstallDir	"$PROGRAMFILES\${PRODUCT}"
 ; Tell Windows Vista and Windows 7 that we need admin rights to install
 RequestExecutionLevel admin
 
-InstallDirRegKey HKCU "${REG_USER_SET}" ""
 SetCompressor /SOLID lzma
+InstallDirRegKey HKCU "${REG_USER_SET}" ""
 ShowInstDetails show
 ShowUninstDetails show
 
@@ -136,7 +137,12 @@ ${UnStrStr}
 ; Macros
 ;----------------------------------------------
 !macro InstallAspellDict LANG VER
-	ReadRegStr $R0 HKCU "${REG_USER_SET}\Aspell\${LANG}" ""
+	${If} $HKEY == "HKLM"
+		ReadRegStr $R0 HKLM "${REG_USER_SET}\Aspell\${LANG}" ""
+	${Else}
+		ReadRegStr $R0 HKCU "${REG_USER_SET}\Aspell\${LANG}" ""
+	${EndIf}
+
 	${If} $R0 == ${VER}
 		DetailPrint "$(DICT_INSTALLED) ${LANG}"
 	${Else}
@@ -151,8 +157,12 @@ ${UnStrStr}
 		DetailPrint "$(DICT_EXTRACT) (aspell6-${LANG}-${VER}.tbz2)"
 		untgz::extract "-d" "$INSTDIR" "-u" "-zbz2" "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 		Pop $R0
-		StrCmp $R0 "success" 0 +2
-			WriteRegStr HKCU "${REG_USER_SET}\Aspell\${LANG}" "" "${VER}"
+		StrCmp $R0 "success" 0 +6
+			${If} $HKEY == "HKLM"
+				WriteRegStr HKLM "${REG_USER_SET}\Aspell\${LANG}" "" "${VER}"
+			${Else}
+				WriteRegStr HKCU "${REG_USER_SET}\Aspell\${LANG}" "" "${VER}"
+			${EndIf}
 		Delete "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 	${EndIf}
 !macroend
@@ -162,8 +172,13 @@ ${UnStrStr}
 	ReadRegStr $R1 HKCR ".${EXT}" "Content Type" ; Read the current mimetype
 	ReadRegStr $R2 HKCR ".${EXT}" "" ; Read the current class
 	${If} $R1 != "${TYPE}" ; If the current mimetype is the same as what we want skip changing it
-		WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "Content Type" $R1
-		WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "" $R2
+		${If} $HKEY == "HKLM"
+			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "Content Type" $R1
+			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "" $R2
+		${Else}
+			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "Content Type" $R1
+			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "" $R2
+		${EndIf}
 		WriteRegStr HKCR ".${EXT}" "Content Type" "${TYPE}"
 	${EndIf} ; Proper mimetype has been set
 	${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
@@ -185,7 +200,11 @@ ${UnStrStr}
 				WriteRegStr HKCR ".${EXT}\ScriptEngine" "" "JScript"
 			${EndIf}
 			; This is just so the un.UnRegisterFileTypes function removes all the bf*file entries
-			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\${PROG}" "" ""
+			${If} $HKEY == "HKLM"
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\${PROG}" "" ""
+			${Else}
+				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\${PROG}" "" ""
+			${EndIf}
 		${EndIf} ; Bluefish will not be associated with this file type
 	${EndIf}
 !macroend
@@ -194,18 +213,34 @@ ${UnStrStr}
 !macro RegisterHTMLType HWND
 	${NSD_GetState} ${HWND} $R0
 	${If} $R0 == ${BST_CHECKED}
-		ReadRegStr $R1 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
-		${If} $R1 != "${PRODUCT}"
-			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "Description" $R1
-			WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" "${PRODUCT}"
+		${If} $HKEY == "HKLM"
+			ReadRegStr $R1 HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
+			${If} $R1 != "${PRODUCT}"
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "Description" $R1
+				WriteRegStr HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" "${PRODUCT}"
 
-			ReadRegStr $R2 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" ""
-			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command" $R2
-			WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+				ReadRegStr $R2 HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" ""
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command" $R2
+				WriteRegStr HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
 
-			ReadRegStr $R3 HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" ""
-			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command2" $R3
-			WriteRegStr HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+				ReadRegStr $R3 HKLM "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" ""
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command2" $R3
+				WriteRegStr HKLM "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+			${EndIf}
+		${Else}
+			ReadRegStr $R1 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
+			${If} $R1 != "${PRODUCT}"
+				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HTML" "Description" $R1
+				WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" "${PRODUCT}"
+
+				ReadRegStr $R2 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" ""
+				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HTML" "command" $R2
+				WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+
+				ReadRegStr $R3 HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" ""
+				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HTML" "command2" $R3
+				WriteRegStr HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+			${EndIf}
 		${EndIf}
 	${EndIf}
 !macroend
@@ -404,19 +439,35 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	WriteUninstaller "$INSTDIR\${UNINSTALL_EXE}"
 	SetOverwrite off
 
-	WriteRegStr HKCU "${REG_USER_SET}" "" "$\"$INSTDIR$\""
-	WriteRegStr HKCU "${REG_USER_SET}" "Version" "${VERSION}"
-	WriteRegStr HKCU "${REG_USER_SET}" "Package" "${PACKAGE}"
+	${If} $HKEY == "HKLM"
+		WriteRegStr HKLM "${REG_USER_SET}" "" "$\"$INSTDIR$\""
+		WriteRegStr HKLM "${REG_USER_SET}" "Version" "${VERSION}"
+		WriteRegStr HKLM "${REG_USER_SET}" "Package" "${PACKAGE}"
 
-	WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayName" 		"${PRODUCT} ${VERSION}"
-	WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayIcon" 		"$INSTDIR\${PROGRAM_EXE}"
-	WriteRegStr HKLM "${REG_UNINSTALL}" "UninstallString" "$INSTDIR\${UNINSTALL_EXE}"
-	WriteRegStr HKLM "${REG_UNINSTALL}" "Publisher" 		"${PUBLISHER}"
-	WriteRegStr HKLM "${REG_UNINSTALL}" "URLInfoAbout" 	"${HOMEPAGE}"
-	WriteRegStr HKLM "${REG_UNINSTALL}" "HelpLink" 			"${HELPURL}"
-	WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayVersion" 	"${VERSION}"
-	WriteRegDWORD HKLM "${REG_UNINSTALL}" "NoModify" "1"
-	WriteRegDWORD HKLM "${REG_UNINSTALL}" "NoRepair" "1"
+		WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayName" 		"${PRODUCT} ${VERSION}"
+		WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayIcon" 		"$INSTDIR\${PROGRAM_EXE}"
+		WriteRegStr HKLM "${REG_UNINSTALL}" "UninstallString" "$INSTDIR\${UNINSTALL_EXE}"
+		WriteRegStr HKLM "${REG_UNINSTALL}" "Publisher" 		"${PUBLISHER}"
+		WriteRegStr HKLM "${REG_UNINSTALL}" "URLInfoAbout" 	"${HOMEPAGE}"
+		WriteRegStr HKLM "${REG_UNINSTALL}" "HelpLink" 			"${HELPURL}"
+		WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayVersion" 	"${VERSION}"
+		WriteRegDWORD HKLM "${REG_UNINSTALL}" "NoModify" "1"
+		WriteRegDWORD HKLM "${REG_UNINSTALL}" "NoRepair" "1"
+	${Else}
+		WriteRegStr HKCU "${REG_USER_SET}" "" "$\"$INSTDIR$\""
+		WriteRegStr HKCU "${REG_USER_SET}" "Version" "${VERSION}"
+		WriteRegStr HKCU "${REG_USER_SET}" "Package" "${PACKAGE}"
+
+		WriteRegStr HKCU "${REG_UNINSTALL}" "DisplayName" 		"${PRODUCT} ${VERSION}"
+		WriteRegStr HKCU "${REG_UNINSTALL}" "DisplayIcon" 		"$INSTDIR\${PROGRAM_EXE}"
+		WriteRegStr HKCU "${REG_UNINSTALL}" "UninstallString" "$INSTDIR\${UNINSTALL_EXE}"
+		WriteRegStr HKCU "${REG_UNINSTALL}" "Publisher" 		"${PUBLISHER}"
+		WriteRegStr HKCU "${REG_UNINSTALL}" "URLInfoAbout" 	"${HOMEPAGE}"
+		WriteRegStr HKCU "${REG_UNINSTALL}" "HelpLink" 			"${HELPURL}"
+		WriteRegStr HKCU "${REG_UNINSTALL}" "DisplayVersion" 	"${VERSION}"
+		WriteRegDWORD HKCU "${REG_UNINSTALL}" "NoModify" "1"
+		WriteRegDWORD HKCU "${REG_UNINSTALL}" "NoRepair" "1"
+	${EndIf}
 
 	!insertmacro MUI_LANGDLL_SAVELANGUAGE
 	!insertmacro MUI_STARTMENU_WRITE_BEGIN "${PRODUCT}"
@@ -577,30 +628,65 @@ Section "Uninstall"
 	RMDir  "$INSTDIR"
 	Delete "$DESKTOP\${PRODUCT}.lnk"
 
-	ReadRegStr $R0 HKCU ${REG_USER_SET} "Start Menu Folder"
+	${If} $HKEY == "HKLM"
+		ReadRegStr $R0 HKLM ${REG_USER_SET} "Start Menu Folder"
+	${Else}
+		ReadRegStr $R0 HKCU ${REG_USER_SET} "Start Menu Folder"
+	${EndIf}
+
 	${If} $R0 != ""
 	Delete "$SMPROGRAMS\$R0\${PRODUCT}.lnk"
 	Delete "$SMPROGRAMS\$R0\$(UNINSTALL_SHORTCUT).lnk"
 	RMDir "$SMPROGRAMS\$R0"
 	${EndIf}
-	DeleteRegValue HKCU ${REG_USER_SET} ""
-	DeleteRegValue HKCU ${REG_USER_SET} "Installer Language"
-	DeleteRegValue HKCU ${REG_USER_SET} "Package"
-	DeleteRegValue HKCU ${REG_USER_SET} "Start Menu Folder"
-	DeleteRegValue HKCU ${REG_USER_SET} "Version"
-	DeleteRegKey HKCU "${REG_USER_SET}\Aspell"
-	DeleteRegKey /ifempty HKCU ${REG_USER_SET}
+
+	${If} $HKEY == "HKLM"
+		DeleteRegValue HKLM ${REG_USER_SET} ""
+		DeleteRegValue HKLM ${REG_USER_SET} "Installer Language"
+		DeleteRegValue HKLM ${REG_USER_SET} "Package"
+		DeleteRegValue HKLM ${REG_USER_SET} "Start Menu Folder"
+		DeleteRegValue HKLM ${REG_USER_SET} "Version"
+		DeleteRegKey HKLM "${REG_USER_SET}\Aspell"
+		DeleteRegKey /ifempty HKLM ${REG_USER_SET}
+	${Else}
+		DeleteRegValue HKCU ${REG_USER_SET} ""
+		DeleteRegValue HKCU ${REG_USER_SET} "Installer Language"
+		DeleteRegValue HKCU ${REG_USER_SET} "Package"
+		DeleteRegValue HKCU ${REG_USER_SET} "Start Menu Folder"
+		DeleteRegValue HKCU ${REG_USER_SET} "Version"
+		DeleteRegKey HKCU "${REG_USER_SET}\Aspell"
+		DeleteRegKey /ifempty HKCU ${REG_USER_SET}
+	${EndIf}
 
 	Call un.UnRegisterFileTypes	
 	Call un.UnRegisterHTML
 
-	DeleteRegKey HKLM "${REG_UNINSTALL}"
+	${If} $HKEY == "HKLM"
+		DeleteRegKey HKLM "${REG_UNINSTALL}"
+	${Else}
+		DeleteRegKey HKCU "${REG_UNINSTALL}"
+	${EndIf}
 SectionEnd
 
 
 ; Installer Functions
 ;----------------------------------------------
 Function .onInit
+	!insertmacro MUI_LANGDLL_DISPLAY
+
+	UserInfo::GetAccountType
+	Pop $0
+	UserInfo::GetName
+	Pop $1
+
+	${If} $1 == ""
+	${OrIf} $0 == "Admin"
+	${OrIf} $0 == "Power"
+		StrCpy $HKEY "HKLM"
+	${Else}
+		StrCpy $HKEY "HKCU"
+	${EndIf}
+	
 	Call GtkVersionCheck
 	${If} $GTK_STATUS == ""	
 		SectionSetSize ${SecGTK} ${GTK_SIZE}	; 6.69MB Download
@@ -634,19 +720,33 @@ Function .onInit
 	Push $R0
 	Push $R1
 	Push $R2
-	ReadRegStr $R1 HKLM "${REG_UNINSTALL}" "DisplayVersion"
-	ReadRegStr $R2 HKCU ${REG_USER_SET} "Package"
+	${If} $HKEY == "HKLM"
+		ReadRegStr $R1 HKLM "${REG_UNINSTALL}" "DisplayVersion"
+		ReadRegStr $R2 HKLM ${REG_USER_SET} "Package"
+	${Else}
+		ReadRegStr $R1 HKCU "${REG_UNINSTALL}" "DisplayVersion"
+		ReadRegStr $R2 HKCU ${REG_USER_SET} "Package"
+	${EndIf}
 	${If} $R2 == "bluefish-unstable"
-	MessageBox MB_OKCANCEL "$(UNSTABLE_UPGRADE)" IDCANCEL +3
-	ReadRegStr $R2 HKLM ${REG_UNINSTALL} "UninstallString"
-	ExecWait '"$R2"'
+		MessageBox MB_OKCANCEL "$(UNSTABLE_UPGRADE)" IDCANCEL +7
+			${If} $HKEY == "HKLM"
+				ReadRegStr $R2 HKLM ${REG_UNINSTALL} "UninstallString"
+			${Else}
+				ReadRegStr $R2 HKLM ${REG_UNINSTALL} "UninstallString"
+			${EndIf}
+			ExecWait '"$R2"'
 	${EndIf}
 
 ;; Bugfix section-- :( 
 ; Fix a bug from the 1.3.7 installers, Path should be REG_EXPAND_SZ or variable expansion breaks
 	${If} $R1 == "1.3.7"
-		ReadRegStr $R2 HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
-		WriteRegExpandStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
+		${If} $HKEY == "HKLM"
+			ReadRegStr $R2 HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
+			WriteRegExpandStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
+		${Else}
+			ReadRegStr $R2 HKCU "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
+			WriteRegExpandStr HKCU "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
+		${EndIf}
 	${EndIf}
 
 ; Fix would be uninstall problems prior to 2.0.0-1
@@ -659,7 +759,11 @@ Function .onInit
 	${OrIf} $R1 == "2.0.0-rc3-1"
 	${OrIf} $R1 == "2.0.0"
 	${OrIf} $R1 == "2.0.0-1"
-		ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" ; Read stored class
+		${If} $HKEY == "HKLM"
+			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" ; Read stored class
+		${Else}
+			ReadRegStr $R0 HKCU "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" ; Read stored class
+		${EndIf}
 		ReadRegStr $R2 HKCR ".vbs" "" ; Read current class
 		${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
 			WriteRegStr HKCR ".vbs" "" "VBScript"
@@ -670,7 +774,11 @@ Function .onInit
 			WriteRegStr HKCR "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" "VBScript"
 		${EndIf}
 
-		ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\.js" "" ; Read stored class
+		${If} $HKEY == "HKLM"
+			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\.js" "" ; Read stored class
+		${Else}
+			ReadRegStr $R0 HKCU "${REG_UNINSTALL}\Backup\HKCR\.js" "" ; Read stored class
+		${EndIf}
 		ReadRegStr $R2 HKCR ".js" "" ; Read current class
 		${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
 			WriteRegStr HKCR ".js" "" "JScript"
@@ -681,86 +789,174 @@ Function .onInit
 			WriteRegStr HKCR "${REG_UNINSTALL}\Backup\HKCR\.js" "" "JScript"
 		${EndIf}
 	${EndIf}
+
+; Get installed dictionaries and select them or if Bluefish isn't installed selected the
+;  dictionary that matches the language chosen by the user defaulting to English if there
+;  is no corresponding dictionary
+	${If} $R1 != ""
+		StrCpy $R2 0
+		StrCpy $R0 "init"
+		${While} $R0 != ""
+			${If} $HKEY == "HKLM"
+				EnumRegKey $R0 HKLM "${REG_USER_SET}\Aspell" $R2
+			${Else}
+				EnumRegKey $R0 HKCU "${REG_USER_SET}\Aspell" $R2
+			${EndIf}
+			IntOp $R2 $R2 + 1
+			${Switch} $R0
+				${Case} "bg"
+					SectionSetFlags ${SecLangBg} ${SF_SELECTED}
+					${Break}
+				${Case} "cs"
+					SectionSetFlags ${SecLangCs} ${SF_SELECTED}
+					${Break}
+				${Case} "da"
+					SectionSetFlags ${SecLangDa} ${SF_SELECTED}
+					${Break}
+				${Case} "de"
+					SectionSetFlags ${SecLangDe} ${SF_SELECTED}
+					${Break}
+				${Case} "el"
+					SectionSetFlags ${SecLangEl} ${SF_SELECTED}
+					${Break}
+				${Case} "en"
+					SectionSetFlags ${SecLangEn} ${SF_SELECTED}
+					${Break}
+				${Case} "es"
+					SectionSetFlags ${SecLangEs} ${SF_SELECTED}
+					${Break}
+				${Case} "fi"
+					SectionSetFlags ${SecLangFi} ${SF_SELECTED}
+					${Break}
+				${Case} "fr"
+					SectionSetFlags ${SecLangFr} ${SF_SELECTED}
+					${Break}
+				${Case} "hu"
+					SectionSetFlags ${SecLangHu} ${SF_SELECTED}
+					${Break}
+				${Case} "it"
+					SectionSetFlags ${SecLangIt} ${SF_SELECTED}
+					${Break}
+				${Case} "nl"
+					SectionSetFlags ${SecLangNl} ${SF_SELECTED}
+					${Break}
+				${Case} "pt_br"
+					SectionSetFlags ${SecLangPt_BR} ${SF_SELECTED}
+					${Break}
+				${Case} "ro"
+					SectionSetFlags ${SecLangRo} ${SF_SELECTED}
+					${Break}
+				${Case} "ru"
+					SectionSetFlags ${SecLangRu} ${SF_SELECTED}
+					${Break}
+				${Case} "sk"
+					SectionSetFlags ${SecLangSk} ${SF_SELECTED}
+					${Break}
+				${Case} "sv"
+					SectionSetFlags ${SecLangSv} ${SF_SELECTED}
+					${Break}
+				${Case} "tr"
+					SectionSetFlags ${SecLangTr} ${SF_SELECTED}
+					${Break}
+				${Case} "ta"
+					SectionSetFlags ${SecLangTa} ${SF_SELECTED}
+					${Break}
+				${Case} "gl"
+					SectionSetFlags ${SecLangGl} ${SF_SELECTED}
+					${Break}
+				${Case} "nb"
+					SectionSetFlags ${SecLangNb} ${SF_SELECTED}
+					${Break}
+				${Case} "pt_pt"
+					SectionSetFlags ${SecLangPt_PT} ${SF_SELECTED}
+					${Break}
+				${Case} "sr"
+					SectionSetFlags ${SecLangSr} ${SF_SELECTED}
+					${Break}
+				${Default}
+					${Break}
+			${EndSwitch}
+		${EndWhile}
+	${Else}
+		${Switch} $LANGUAGE
+			${Case} 1026 ; Bulgarian
+				SectionSetFlags ${SecLangBg} ${SF_SELECTED}
+				${Break}
+			${Case} 1029 ; Czech
+				SectionSetFlags ${SecLangCs} ${SF_SELECTED}
+				${Break}
+			${Case} 1030 ; Danish
+				SectionSetFlags ${SecLangDa} ${SF_SELECTED}
+				${Break}
+			${Case} 1031 ; German
+				SectionSetFlags ${SecLangDe} ${SF_SELECTED}
+				${Break}
+			${Case} 1032 ; Greek
+				SectionSetFlags ${SecLangEl} ${SF_SELECTED}
+				${Break}
+			${Case} 1033 ; English
+				SectionSetFlags ${SecLangEn} ${SF_SELECTED}
+				${Break}
+			${Case} 1034 ; Spanish
+				SectionSetFlags ${SecLangEs} ${SF_SELECTED}
+				${Break}
+			${Case} 1035 ; Finnish
+				SectionSetFlags ${SecLangFi} ${SF_SELECTED}
+				${Break}
+			${Case} 1036 ; French
+				SectionSetFlags ${SecLangFr} ${SF_SELECTED}
+				${Break}
+			${Case} 1038 ; Hungarian
+				SectionSetFlags ${SecLangHu} ${SF_SELECTED}
+				${Break}
+			${Case} 1040 ; Italian
+				SectionSetFlags ${SecLangIt} ${SF_SELECTED}
+				${Break}
+			${Case} 1043 ; Dutch
+				SectionSetFlags ${SecLangNl} ${SF_SELECTED}
+				${Break}
+			${Case} 1046 ; Brazilion Portuguese
+				SectionSetFlags ${SecLangPt_BR} ${SF_SELECTED}
+				${Break}
+			${Case} 1048 ; Romanian
+				SectionSetFlags ${SecLangRo} ${SF_SELECTED}
+				${Break}
+			${Case} 1049 ; Russian
+				SectionSetFlags ${SecLangRu} ${SF_SELECTED}
+				${Break}
+			${Case} 1051 ; Slovak
+				SectionSetFlags ${SecLangSk} ${SF_SELECTED}
+				${Break}
+			${Case} 1053 ; Swedish
+				SectionSetFlags ${SecLangSv} ${SF_SELECTED}
+				${Break}
+			${Case} 1055 ; Turkish
+				SectionSetFlags ${SecLangTr} ${SF_SELECTED}
+				${Break}
+			${Case} 1097 ; Tamil
+				SectionSetFlags ${SecLangTa} ${SF_SELECTED}
+				${Break}
+			${Case} 1110 ; Galician
+				SectionSetFlags ${SecLangGl} ${SF_SELECTED}
+				${Break}
+			${Case} 2068 ; Norwegian
+				SectionSetFlags ${SecLangNb} ${SF_SELECTED}
+				${Break}
+			${Case} 2070 ; Portuguese
+				SectionSetFlags ${SecLangPt_PT} ${SF_SELECTED}
+				${Break}
+			${Case} 3098 ; Serbian
+				SectionSetFlags ${SecLangSr} ${SF_SELECTED}
+				${Break}
+			${Default}
+				SectionSetFlags ${SecLangEn} ${SF_SELECTED}
+				${Break}
+		${EndSwitch}
+	${EndIf}
+
 	Pop $R2
 	Pop $R1
 	Pop $R0
-
-	!insertmacro MUI_LANGDLL_DISPLAY
-
-	${Switch} $LANGUAGE
-		${Case} 1026 ; Bulgarian
-			SectionSetFlags ${SecLangBg} ${SF_SELECTED}
-			${Break}
-		${Case} 1029 ; Czech
-			SectionSetFlags ${SecLangCs} ${SF_SELECTED}
-			${Break}
-		${Case} 1030 ; Danish
-			SectionSetFlags ${SecLangDa} ${SF_SELECTED}
-			${Break}
-		${Case} 1031 ; German
-			SectionSetFlags ${SecLangDe} ${SF_SELECTED}
-			${Break}
-		${Case} 1032 ; Greek
-			SectionSetFlags ${SecLangEl} ${SF_SELECTED}
-			${Break}
-		${Case} 1033 ; English
-			SectionSetFlags ${SecLangEn} ${SF_SELECTED}
-			${Break}
-		${Case} 1034 ; Spanish
-			SectionSetFlags ${SecLangEs} ${SF_SELECTED}
-			${Break}
-		${Case} 1035 ; Finnish
-			SectionSetFlags ${SecLangFi} ${SF_SELECTED}
-			${Break}
-		${Case} 1036 ; French
-			SectionSetFlags ${SecLangFr} ${SF_SELECTED}
-			${Break}
-		${Case} 1038 ; Hungarian
-			SectionSetFlags ${SecLangHu} ${SF_SELECTED}
-			${Break}
-		${Case} 1040 ; Italian
-			SectionSetFlags ${SecLangIt} ${SF_SELECTED}
-			${Break}
-		${Case} 1043 ; Dutch
-    		SectionSetFlags ${SecLangNl} ${SF_SELECTED}
-    		${Break}
-		${Case} 1046 ; Brazilion Portuguese
-			SectionSetFlags ${SecLangPt_BR} ${SF_SELECTED}
-			${Break}
-		${Case} 1048 ; Romanian
-			SectionSetFlags ${SecLangRo} ${SF_SELECTED}
-			${Break}
-		${Case} 1049 ; Russian
-			SectionSetFlags ${SecLangRu} ${SF_SELECTED}
-			${Break}
-		${Case} 1051 ; Slovak
-			SectionSetFlags ${SecLangSk} ${SF_SELECTED}
-			${Break}
-		${Case} 1053 ; Swedish
-			SectionSetFlags ${SecLangSv} ${SF_SELECTED}
-			${Break}
-		${Case} 1055 ; Turkish
-			SectionSetFlags ${SecLangTr} ${SF_SELECTED}
-			${Break}
-		${Case} 1097 ; Tamil
-			SectionSetFlags ${SecLangTa} ${SF_SELECTED}
-			${Break}
-		${Case} 1110 ; Galician
-			SectionSetFlags ${SecLangGl} ${SF_SELECTED}
-			${Break}
-		${Case} 2068 ; Norwegian
-			SectionSetFlags ${SecLangNb} ${SF_SELECTED}
-			${Break}
-		${Case} 2070 ; Portuguese
-			SectionSetFlags ${SecLangPt_PT} ${SF_SELECTED}
-			${Break}
-		${Case} 3098 ; Serbian
-			SectionSetFlags ${SecLangSr} ${SF_SELECTED}
-			${Break}
-		${Default}
-			SectionSetFlags ${SecLangEn} ${SF_SELECTED}
-			${Break}
-	${EndSwitch}
 FunctionEnd
 
 Function FileAssociations
@@ -952,8 +1148,11 @@ Function GtkVersionCheck
 	Push $R0
 	Push $R1
 	Push $R2
-	; Get the current installed version of GTK+ from the registry
-	ReadRegStr $R0 HKLM "Software\GTK\2.0" "Version"
+	; Get the current user's installed version of GTK+ from the registry
+	ReadRegStr $R0 HKCU "Software\GTK\2.0" "Version"
+	${If} $R0 == "" ; If the user doesn't have GTK+ installed check also HKLM
+		ReadRegStr $R0 HKLM "Software\GTK\2.0" "Version"
+	${EndIf}
 	; If we were unable to retrieve the current GTK+ version from the registry
 	;  we can assume that it is not currently installed
 	StrLen $R1 $R0
@@ -998,10 +1197,17 @@ Function GtkInstallPath
 	Push $R2
 	Push $R3
 	DetailPrint "$(GTK_PATH)"
-	; Get the current system path variable from the registry
-	ReadRegStr $R2 HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
-	; Get the installation path of GTK+ from the registry
-	ReadRegStr $R3 HKLM "Software\GTK\2.0" "DllPath"
+	${If} $HKEY == "HKLM"
+		; Get the current system path variable from the registry
+		ReadRegStr $R2 HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
+	${Else}
+		; Get the current system path variable from the registry
+		ReadRegStr $R2 HKCU "Environment" "Path"
+	${EndIf}
+	ReadRegStr $R3 HKCU "Software\GTK\2.0" "DllPath" ; Get the installation path of GTK+ from the registry
+	${If} $R3 == "" ; We already know GTK+ is installed so if our read from HKCU failed try HKLM
+		ReadRegStr $R3 HKLM "Software\GTK\2.0" "DllPath"
+	${EndIf}
 	; Check if the GTK+ path is found in the current system path
 	${StrStr} $R0 $R2 $R3
 	; If the GTK+ path was not found in the system path ${StrStr} will return an
@@ -1010,7 +1216,11 @@ Function GtkInstallPath
 	${If} $R1 == 0
 		StrCpy $R2 "$R2;$R3"
 		; Write the updated system path to the registry
-		WriteRegExpandStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
+		${If} $HKEY == "HKLM"
+			WriteRegExpandStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
+		${Else}
+			WriteRegExpandStr HKCU "Environment" "Path" $R2
+		${EndIf}
 		; Alert the system that an environment variable has been changed so it propagates
 		SendMessage ${HWND_BROADCAST} ${WM_SETTINGCHANGE} "0" "STR:Environment" /TIMEOUT=5000
 	${EndIf}
@@ -1024,6 +1234,19 @@ FunctionEnd
 ; Uninstaller Functions
 ;----------------------------------------------
 Function un.onInit
+	UserInfo::GetAccountType
+	Pop $0
+	UserInfo::GetName
+	Pop $1
+
+	${If} $1 == ""
+	${OrIf} $0 == "Admin"
+	${OrIf} $0 == "Power"
+		StrCpy $HKEY "HKLM"
+	${Else}
+		StrCpy $HKEY "HKCU"
+	${EndIf}
+
 	!insertmacro MUI_UNGETLANGUAGE
 FunctionEnd
 
@@ -1038,10 +1261,18 @@ Function un.UnRegisterFileTypes
 	StrCpy $1 0
 	StrCpy $0 "init"
 	${While} $0 != ""
-		EnumRegKey $0 HKLM "${REG_UNINSTALL}\Backup\HKCR" $1
+		${If} $HKEY == "HKLM"
+			EnumRegKey $0 HKLM "${REG_UNINSTALL}\Backup\HKCR" $1
+		${Else}
+			EnumRegKey $0 HKCU "${REG_UNINSTALL}\Backup\HKCR" $1
+		${EndIf}
 		IntOp $1 $1 + 1
 		${If} $0 != ""
-			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "" ; Read stored class
+			${If} $HKEY == "HKLM"
+				ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "" ; Read stored class
+			${Else}
+				ReadRegStr $R0 HKCU "${REG_UNINSTALL}\Backup\HKCR\$0" "" ; Read stored class
+			${EndIf}
 			ReadRegStr $R2 HKCR $0 "" ; Read current class
 			${UnStrStr} $R3 ${BF_FILE_CLASSES} $R2 ; Check if current class is a Bluefish class
 			${If} $R0 == $R2 ; If the current class is the same as we stored
@@ -1054,9 +1285,13 @@ Function un.UnRegisterFileTypes
 				${EndIf} ; Stored class has been restored
 				ClearErrors ; make sure we don't have any old errors lingering about
 				ReadRegStr $R2 HKCR $0 "Content Type" ; Try to read the current mimetype
-				IfErrors +8 ; If we deleted the key we'll get an error and should skip restoring the mimetype, else restore it
+				IfErrors +12 ; If we deleted the key we'll get an error and should skip restoring the mimetype, else restore it
 					ClearErrors
-					ReadRegStr $R1 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "Content Type" ; Read stored mimetype
+					${If} $HKEY == "HKLM"
+						ReadRegStr $R1 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "Content Type" ; Read stored mimetype
+					${Else}
+						ReadRegStr $R1 HKCU "${REG_UNINSTALL}\Backup\HKCR\$0" "Content Type" ; Read stored mimetype
+					${EndIf}
 					${If} $R1 != "" ; Restore stored mimetype
 						WriteRegStr HKCR $0 "Content Type" $R1
 					${Else} ; We didn't store a mimetype so we should unset this value
@@ -1078,20 +1313,33 @@ Function un.UnRegisterHTML
 	Push $R1
 	Push $R2
 	Push $R3
-	
-	ReadRegStr $R1 HKLM "${REG_UNINSTALL}\Backup\HTML" "Description"
-	${If} $R1 != ""
-		WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" $R1
+	${If} $HKEY == "HKLM"
+		ReadRegStr $R1 HKLM "${REG_UNINSTALL}\Backup\HTML" "Description"
+		${If} $R1 != ""
+			WriteRegStr HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" $R1
+		${EndIf}
+		ReadRegStr $R2 HKLM "${REG_UNINSTALL}\Backup\HTML" "command"
+		${If} $R2 != ""
+			WriteRegStr HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" $R2
+		${EndIf}
+		ReadRegStr $R3 HKLM "${REG_UNINSTALL}\Backup\HTML" "command2"
+		${If} $R3 != ""
+			WriteRegStr HKLM "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" $R3
+		${EndIf}
+	${Else}
+		ReadRegStr $R1 HKCU "${REG_UNINSTALL}\Backup\HTML" "Description"
+		${If} $R1 != ""
+			WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" $R1
+		${EndIf}
+		ReadRegStr $R2 HKCU "${REG_UNINSTALL}\Backup\HTML" "command"
+		${If} $R2 != ""
+			WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" $R2
+		${EndIf}
+		ReadRegStr $R3 HKCU "${REG_UNINSTALL}\Backup\HTML" "command2"
+		${If} $R3 != ""
+			WriteRegStr HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" $R3
+		${EndIf}
 	${EndIf}
-	ReadRegStr $R2 HKLM "${REG_UNINSTALL}\Backup\HTML" "command"
-	${If} $R2 != ""
-		WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" $R2
-	${EndIf}
-	ReadRegStr $R3 HKLM "${REG_UNINSTALL}\Backup\HTML" "command2"
-	${If} $R3 != ""
-		WriteRegStr HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" $R3
-	${EndIf}
-
 	Pop $R3
 	Pop $R2
 	Pop $R1
