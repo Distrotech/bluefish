@@ -48,11 +48,13 @@ Var FA_C
 Var FA_Cpp
 Var FA_Css
 Var FA_D
+Var FA_Diff
 Var FA_Po
 Var FA_Html
 Var FA_Java
 Var FA_Js
 Var FA_Jsp
+Var FA_Mw
 Var FA_Nsi
 Var FA_Pl
 Var FA_Php
@@ -168,7 +170,7 @@ ${UnStrStr}
 	${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
 	${If} ${PROG} != "0" ; If set to 0 this denotes a special case such as for HTML and we need to skip this section
 		${If} $R0 == ${BST_CHECKED} ; The user has selected to associate this file type with Bluefish
-			DetailPrint "$(FILETYPE_REGISTERING)${DESC}..." ; Let the user know we're registering this file type
+;			DetailPrint "$(FILETYPE_REGISTERING)${DESC}..." ; Let the user know we're registering this file type
 			${If} $R2 != "${PROG}" ; If the current class is different that ours set it for Bluefish
 				WriteRegStr HKCR ".${EXT}" "" "${PROG}"
 			${EndIf} ; Else the class is already set for Bluefish so we needn't change it
@@ -178,6 +180,11 @@ ${UnStrStr}
 			WriteRegStr HKCR "${PROG}\shell" "" "open"
 			WriteRegStr HKCR "${PROG}\shell\open" "" "Open"
 			WriteRegStr HKCR "${PROG}\shell\open\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+			${If} ${EXT} == "VBS" ; VBS needs a registered Script Handler
+				WriteRegStr HKCR ".${EXT}\ScriptEngine" "" "VBScript"
+			${ElseIf} ${EXT} == "JS" ; JS needs a registered Script Handler
+				WriteRegStr HKCR ".${EXT}\ScriptEngine" "" "JScript"
+			${EndIf}
 			; This is just so the un.UnRegisterFileTypes function removes all the bf*file entries
 			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\${PROG}" "" ""
 		${EndIf} ; Bluefish will not be associated with this file type
@@ -206,8 +213,15 @@ ${UnStrStr}
 !define RegisterHTMLType `!insertmacro RegisterHTMLType`
 
 !macro Localize DEF LANG
-	LangString "${DEF}" "${LANG_{$LANG}}" "${${DEF}}"
-	!undef "${DEF}"
+	!if ${LANG} == "ENGLISH"
+		!define DEFAULT_${DEF} "${${DEF}}"
+	!endif
+	!ifdef "${DEF}"
+		LangString "${DEF}" "${LANG_{$LANG}}" "${${DEF}}"
+		!undef "${DEF}"
+	!else
+		LangString "${DEF}" "${LANG_{$LANG}}" "${DEFAULT_${DEF}}"
+	!endif
 !macroend
 
 !macro LoadLocalization LANG INC
@@ -225,6 +239,8 @@ ${UnStrStr}
 
 	!insertmacro Localize "SECT_BLUEFISH" "${LANG}"
 	!insertmacro Localize "UNINSTALL_SHORTCUT" "${LANG}"
+	!insertmacro Localize "FILETYPE_REGISTER" "${LANG}"
+	!insertmacro Localize "UNSTABLE_UPGRADE" "${LANG}"
 
 	!insertmacro Localize "GTK_DOWNLOAD" "${LANG}"
 	!insertmacro Localize "GTK_FAILED" "${LANG}"
@@ -259,10 +275,12 @@ ${UnStrStr}
 	!insertmacro Localize "CT_HPP" "${LANG}"
 	!insertmacro Localize "CT_CSS" "${LANG}"
 	!insertmacro Localize "CT_D" "${LANG}"
+	!insertmacro Localize "CT_DIFF" "${LANG}"
 	!insertmacro Localize "CT_PO" "${LANG}"
 	!insertmacro Localize "CT_JAVA" "${LANG}"
 	!insertmacro Localize "CT_JS" "${LANG}"
 	!insertmacro Localize "CT_JSP" "${LANG}"
+	!insertmacro Localize "CT_MW" "${LANG}"
 	!insertmacro Localize "CT_NSI" "${LANG}"
 	!insertmacro Localize "CT_NSH" "${LANG}"
 	!insertmacro Localize "CT_PL" "${LANG}"
@@ -309,7 +327,7 @@ ${LoadLocalization}	"BASQUE"	"locale\Basque.nsh"
 !insertmacro MUI_LANGUAGE	"Czech"
 ${LoadLocalization}	"CZECH"		"locale\Czech.nsh"
 !insertmacro MUI_LANGUAGE	"Dutch"
-${LoadLocalization}	"DUTCH"	"locale\Dutch.nsh"
+${LoadLocalization}	"DUTCH" 	"locale\Dutch.nsh"
 !insertmacro MUI_LANGUAGE	"French"
 ${LoadLocalization}	"FRENCH"	"locale\French.nsh"
 !insertmacro MUI_LANGUAGE	"Galician"
@@ -589,13 +607,13 @@ Function .onInit
 	${EndIf}
 
 	SectionSetSize ${SecLangBg} 2501		; 842KB Download
-	SectionSetSize ${SecLangCs}	6640		; 2.21MB Download
+	SectionSetSize ${SecLangCs} 6640		; 2.21MB Download
 	SectionSetSize ${SecLangDa} 12394		; 3.86MB Download
 	SectionSetSize ${SecLangNl} 4430		; 1.54MB Download
 	SectionSetSize ${SecLangEn} 3557		; 1.21MB Download
 	SectionSetSize ${SecLangFi} 2750		; 680KB Download
 	SectionSetSize ${SecLangFr} 17762		; 5.55MB Download
-	SectionSetSize ${SecLangGl}	814		; 299KB Download
+	SectionSetSize ${SecLangGl} 814		; 299KB Download
 	SectionSetSize ${SecLangDe} 11355		; 3.63MB Download
 	SectionSetSize ${SecLangEl} 12975		; 4.03MB Download
 	SectionSetSize ${SecLangHu} 7098		; 1.74MB Download
@@ -609,31 +627,63 @@ Function .onInit
 	SectionSetSize ${SecLangSk} 3810		; 1.34MB Download
 	SectionSetSize ${SecLangEs} 1198		; 403KB Download
 	SectionSetSize ${SecLangSv} 3522		; 1.19MB Download
-	SectionSetSize ${SecLangTa} 283			; 112KB Download
+	SectionSetSize ${SecLangTa} 283 		; 112KB Download
 	SectionSetSize ${SecLangTr} 1554		; 534KB Download
 
-; Fix a bug from the 1.3.7 installers, Path should be REG_EXPAND_SZ or variable expansion breaks
+; If we're updating from bluefish-unstable to bluefish we should uninstall first
+	Push $R0
 	Push $R1
 	Push $R2
 	ReadRegStr $R1 HKLM "${REG_UNINSTALL}" "DisplayVersion"
+	ReadRegStr $R2 HKCU ${REG_USER_SET} "Package"
+	${If} $R2 == "bluefish-unstable"
+	MessageBox MB_OKCANCEL "$(UNSTABLE_UPGRADE)" IDCANCEL +3
+	ReadRegStr $R2 HKLM ${REG_UNINSTALL} "UninstallString"
+	ExecWait '"$R2"'
+	${EndIf}
+
+;; Bugfix section-- :( 
+; Fix a bug from the 1.3.7 installers, Path should be REG_EXPAND_SZ or variable expansion breaks
 	${If} $R1 == "1.3.7"
 		ReadRegStr $R2 HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
 		WriteRegExpandStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
 	${EndIf}
+
+; Fix would be uninstall problems prior to 2.0.0-1
+	${If} $R1 == "1.3.7"
+	${OrIf} $R1 == "1.3.8"
+	${OrIf} $R1 == "1.3.9"
+	${OrIf} $R1 == "2.0.0-rc1"
+	${OrIf} $R1 == "2.0.0-rc2"
+	${OrIf} $R1 == "2.0.0-rc3"
+	${OrIf} $R1 == "2.0.0-rc3-1"
+	${OrIf} $R1 == "2.0.0"
+	${OrIf} $R1 == "2.0.0-1"
+		ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" ; Read stored class
+		ReadRegStr $R2 HKCR ".vbs" "" ; Read current class
+		${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
+			WriteRegStr HKCR ".vbs" "" "VBScript"
+		${ElseIf} $R2 == "bfvbsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
+			WriteRegStr HKCR ".vbs\ScriptEngine" "" "VBScript"
+		${EndIf}
+		${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
+			WriteRegStr HKCR "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" "VBScript"
+		${EndIf}
+
+		ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\.js" "" ; Read stored class
+		ReadRegStr $R2 HKCR ".js" "" ; Read current class
+		${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
+			WriteRegStr HKCR ".js" "" "JScript"
+		${ElseIf} $R2 == "bfjsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
+			WriteRegStr HKCR ".js\ScriptEngine" "" "JScript"
+		${EndIf}
+		${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
+			WriteRegStr HKCR "${REG_UNINSTALL}\Backup\HKCR\.js" "" "JScript"
+		${EndIf}
+	${EndIf}
 	Pop $R2
 	Pop $R1
-
-; If we're updating from bluefish-unstable to bluefish we should uninstall first
-  Push $R1
-  Push $R2
-    ReadRegStr $R1 HKCU ${REG_USER_SET} "Package"
-    ${If} $R1 == "bluefish-unstable"
-      MessageBox MB_OKCANCEL "An unstable release of ${PRODUCT} is installed. Should previous versions be removed before we continue (Recommended)." IDCANCEL +3
-      ReadRegStr $R2 HKLM ${REG_UNINSTALL} "UninstallString"
-      ExecWait '"C:\Program Files (x86)\Bluefish\${UNINSTALL_EXE}"'
-    ${EndIf}
-  Pop $R2
-  Pop $R1
+	Pop $R0
 
 	!insertmacro MUI_LANGDLL_DISPLAY
 FunctionEnd
@@ -665,7 +715,7 @@ Function FileAssociations
 	${NSD_CreateCheckBox} 5% 80u 40% 8u "D (.d)"
 	Pop $FA_D
 	${NSD_CreateCheckBox} 5% 90u 40% 8u "Diff (.diff; .patch)"
-	Pop $FA_D
+	Pop $FA_Diff
 	${NSD_CreateCheckBox} 5% 100u 40% 8u "Gettext PO (.po)"
 	Pop $FA_Po
 	${NSD_CreateCheckBox} 5% 110u 40% 8u "HTML (.htm; .html)"
@@ -678,7 +728,7 @@ Function FileAssociations
 	${NSD_CreateCheckBox} 55% 10u 40% 8u "JavaServer Pages (.jsp)"
 	Pop $FA_Jsp
 	${NSD_CreateCheckBox} 55% 20u 40% 8u "MediaWiki File (.mw)"
-	Pop $FA_Jsp
+	Pop $FA_Mw
 	${NSD_CreateCheckBox} 55% 30u 40% 8u "NSIS (.nsi; .nsh)"
 	Pop $FA_Nsi
 	${NSD_CreateCheckBox} 55% 40u 40% 8u "Perl (.pl)"
@@ -919,11 +969,12 @@ Function un.UnRegisterFileTypes
 			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "" ; Read stored class
 			ReadRegStr $R2 HKCR $0 "" ; Read current class
 			${UnStrStr} $R3 ${BF_FILE_CLASSES} $R2 ; Check if current class is a Bluefish class
-			${If} $R3 != "" ; If the current class is a Bluefish class continue restoring the stored class
+			${If} $R0 == $R2 ; If the current class is the same as we stored
+			${OrIf} $R3 != "" ; Or if the current class is a Bluefish class continue restoring the stored class
 				${If} $R0 == "" ; If the stored class is unset simply remove it
 					DeleteRegValue HKCR $0 ""
 					DeleteRegKey /ifempty HKCR $0
-				${Else} ; Else the stored class needs to be restored
+				${ElseIf} $R0 != $R2 ; Else the stored class needs to be restored
 					WriteRegStr HKCR $0 "" $R0
 				${EndIf} ; Stored class has been restored
 				ClearErrors ; make sure we don't have any old errors lingering about
