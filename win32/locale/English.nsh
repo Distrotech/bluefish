@@ -46,7 +46,8 @@
 ; Misc
 !define FINISHPAGE_LINK "Visit the Bluefish Homepage"
 !define UNINSTALL_SHORTCUT "Uninstall ${PRODUCT}"
-!define FILETYPE_REGISTERING "Registering File Type:"
+!define FILETYPE_REGISTER "Registering File Type:"
+!define UNSTABLE_UPGRADE "An unstable release of ${PRODUCT} is installed. Should previous versions be removed before we continue (Recommended)."
 
 ; Content Types
 !define CT_ADA	"Ada Source File"
