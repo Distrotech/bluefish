@@ -109,6 +109,7 @@ enum {
 	main_window_w,
 	autosave,
 	autosave_time,
+	language,
 	property_num_max
 };
 
@@ -1287,7 +1288,13 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.switch_tabs_by_altx, pd->prefs[switch_tabs_by_altx], TRUE);
 	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
 	main_v->props.left_panel_left = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[left_panel_left]));
-
+	
+	string_apply(&main_v->props.language, pd->prefs[language]);
+	if (g_strcmp0(main_v->props.language, _("Auto"))==0) {
+		g_free(main_v->props.language);
+		main_v->props.language=NULL;
+	}
+	
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
 
 	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
@@ -1587,6 +1594,10 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	
+	poplist = list_from_arglist(FALSE, _("Auto"), "NL", "DE", "ES", NULL);
+	pd->prefs[language] = pd->prefs[newfile_default_encoding] = prefs_combo(_("Language"),(main_v->props.language&&main_v->props.language[0])?main_v->props.language:_("Auto"), vbox2, poplist, FALSE);
+	g_list_free(poplist);
 
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font \n(leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
