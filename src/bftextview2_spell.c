@@ -563,6 +563,13 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 	dl.menu = submenu;
 	dl.group=NULL;
 	enchant_broker_list_dicts(eb, list_dicts_lcb, &dl);
+	
+	menuitem = gtk_image_menu_item_new_with_label(_("Add to dictionary"));
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	/* TODO: implement! */
+	menuitem = gtk_image_menu_item_new_with_label(_("Ignore spelling"));
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	/* TODO: implement! */
 
 	if (!BFWIN(doc->bfwin)->ed)
 		return;
