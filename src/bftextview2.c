@@ -64,11 +64,9 @@ static GdkColor st_cline_color;
 
 /****************************** utility functions ******************************/
 
-gboolean bf_text_iter_line_start_of_text(GtkTextIter *iter) {
-	GtkTextIter linestart;
+gboolean bf_text_iter_line_start_of_text(GtkTextIter *iter, GtkTextIter *realend) {
 	gtk_text_iter_set_line_offset(iter, 0);
-	/*gtk_text_iter_backward_cursor_positions(iter, gtk_text_iter_get_line_offset(iter));*/
-	linestart = *iter;
+	*realend = *iter;
 	while (g_unichar_isspace(gtk_text_iter_get_char(iter))) {
 		if (gtk_text_iter_ends_line(iter))
 			return FALSE;
@@ -77,13 +75,12 @@ gboolean bf_text_iter_line_start_of_text(GtkTextIter *iter) {
 	return TRUE;
 }
 
-gboolean bf_text_iter_line_end_of_text(GtkTextIter *iter) {
-	GtkTextIter linestart;
+gboolean bf_text_iter_line_end_of_text(GtkTextIter *iter, GtkTextIter *realend) {
 	if (!gtk_text_iter_ends_line(iter))
 		gtk_text_iter_forward_to_line_end(iter);
 	if (gtk_text_iter_starts_line(iter))
 		return FALSE;
-	linestart = *iter;
+	*realend = *iter;
 	if (gtk_text_iter_is_end(iter))
 		gtk_text_iter_backward_char(iter);
 	while (g_unichar_isspace(gtk_text_iter_get_char(iter))) {
@@ -883,13 +880,14 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 		iter = currentpos;
 
 		if ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home)) {
-			gtk_text_iter_backward_cursor_positions(&iter, gtk_text_iter_get_line_offset(&iter));
+			/*gtk_text_iter_backward_cursor_positions(&iter, gtk_text_iter_get_line_offset(&iter));
 			linestart = iter;
 
 			while (g_unichar_isspace(gtk_text_iter_get_char (&iter)) && !gtk_text_iter_ends_line(&iter))
-				gtk_text_iter_forward_char (&iter);
+				gtk_text_iter_forward_char (&iter);*/
+			bf_text_iter_line_start_of_text(&iter, &linestart);
 		} else { /* (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End) */
-			if (!gtk_text_iter_ends_line(&iter))
+			/*if (!gtk_text_iter_ends_line(&iter))
 				gtk_text_iter_forward_to_line_end(&iter);
 			linestart = iter;
 			if (gtk_text_iter_is_end (&iter) && !gtk_text_iter_starts_line (&iter))
@@ -897,7 +895,8 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 			while (g_unichar_isspace (gtk_text_iter_get_char (&iter)) && !gtk_text_iter_starts_line (&iter))
 				gtk_text_iter_backward_char(&iter);
 			if ((!gtk_text_iter_starts_line (&iter) || !gtk_text_iter_ends_line (&iter)) && !g_unichar_isspace (gtk_text_iter_get_char (&iter)))
-				gtk_text_iter_forward_char(&iter);
+				gtk_text_iter_forward_char(&iter);*/
+			bf_text_iter_line_end_of_text(&iter, &linestart);
 		}
 		if (gtk_text_iter_compare(&currentpos, &iter) == 0)
 			iter = linestart;
@@ -914,15 +913,28 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 		gboolean have_selection;
 		have_selection = gtk_text_buffer_get_selection_bounds(GTK_TEXT_VIEW(btv)->buffer, &so, &eo); 
 		if (have_selection) {
+			GtkTextIter eol1, eol2, sol1, sol2;
 			if (kevent->state & GDK_SHIFT_MASK) {
 				/* unindent block */
 				doc_indent_selection(btv->doc, TRUE);
 				return TRUE;
 			}
-			if ((gtk_text_iter_starts_line(&so) && gtk_text_iter_ends_line(&eo)) 
-					|| (gtk_text_iter_get_line(&so) != gtk_text_iter_get_line(&eo))) {
+			if (gtk_text_iter_get_line(&so) != gtk_text_iter_get_line(&eo)) {
 				doc_indent_selection(btv->doc, FALSE);
 				return TRUE;
+			}
+			/* if the start and end are *around* the text (so either at the start or end or
+			in the indenting) we indent */
+			eol1=eo;
+			sol2=so;
+			if (bf_text_iter_line_end_of_text(&eol1, &eol2) && bf_text_iter_line_start_of_text(&sol2, &sol1)) {
+				if ((gtk_text_iter_equal(&so, &sol1) || gtk_text_iter_equal(&so, &sol2) 
+						|| gtk_text_iter_in_range(&so,&sol1,&sol2) ) 
+						&& (gtk_text_iter_equal(&eo, &eol1) || gtk_text_iter_equal(&eo, &eol2) 
+						|| gtk_text_iter_in_range(&eo,&eol1,&eol2))) {
+					doc_indent_selection(btv->doc, FALSE);
+					return TRUE;
+				}
 			}
 		}
 	}
