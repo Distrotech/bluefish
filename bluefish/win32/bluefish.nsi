@@ -111,9 +111,6 @@ ${UnStrStr}
 ; MUI configuration
 ;----------------------------------------------
 !define MUI_LANGDLL_ALLLANGUAGES
-!define MUI_LANGDLL_REGISTRY_ROOT 	"HKCU"
-!define MUI_LANGDLL_REGISTRY_KEY 	${REG_USER_SET}
-!define MUI_LANGDLL_REGISTRY_VALUENAME	"Installer Language"
 
 !define MUI_COMPONENTSPAGE_SMALLDESC
 !define MUI_ABORTWARNING
@@ -125,13 +122,8 @@ ${UnStrStr}
 !define MUI_LICENSEPAGE_BUTTON			"$(LICENSEPAGE_BUTTON) >"
 !define MUI_LICENSEPAGE_TEXT_BOTTOM		"$(LICENSEPAGE_FOOTER)"
 
-!define MUI_STARTMENUPAGE_DEFAULTFOLDER		"${PRODUCT}"
-!define MUI_STARTMENUPAGE_REGISTRY_ROOT		"HKCU"
-!define MUI_STARTMENUPAGE_REGISTRY_KEY 		${REG_USER_SET}
-!define MUI_STARTMENUPAGE_REGISTRY_VALUENAME	"Start Menu Folder"
-
 !define MUI_FINISHPAGE_LINK		"$(FINISHPAGE_LINK)"
-!define MUI_FINISHPAGE_LINK_LOCATION	"http://bluefish.openoffice.nl"
+!define MUI_FINISHPAGE_LINK_LOCATION	"http://bluefish.openoffice.nl/"
 
 
 ; Macros
@@ -476,6 +468,9 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 		WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayVersion" 	"${VERSION}"
 		WriteRegDWORD HKLM "${REG_UNINSTALL}" "NoModify" "1"
 		WriteRegDWORD HKLM "${REG_UNINSTALL}" "NoRepair" "1"
+
+		WriteRegStr HKLM "${REG_USER_SET}" "Installer Language" $LANGUAGE ; Replace macro MUI_LANGDLL_SAVELANGUAGE
+		WriteRegStr HKLM "${REG_USER_SET}" "Start Menu Folder" $StartMenuFolder ; Replace macros MUI_STARTMENU_WRITE_*
 	${Else}
 		WriteRegStr HKCU "${REG_USER_SET}" "" "$\"$INSTDIR$\"" ; Replace InstallDirRegKey function
 		WriteRegStr HKCU "${REG_USER_SET}" "Version" "${VERSION}"
@@ -490,16 +485,16 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 		WriteRegStr HKCU "${REG_UNINSTALL}" "DisplayVersion" 	"${VERSION}"
 		WriteRegDWORD HKCU "${REG_UNINSTALL}" "NoModify" "1"
 		WriteRegDWORD HKCU "${REG_UNINSTALL}" "NoRepair" "1"
+
+		WriteRegStr HKCU "${REG_USER_SET}" "Installer Language" $LANGUAGE ; Replace macro MUI_LANGDLL_SAVELANGUAGE
+		WriteRegStr HKCU "${REG_USER_SET}" "Start Menu Folder" $StartMenuFolder ; Replace macros MUI_STARTMENU_WRITE_*
 	${EndIf}
 
-	!insertmacro MUI_LANGDLL_SAVELANGUAGE
-	!insertmacro MUI_STARTMENU_WRITE_BEGIN "${PRODUCT}"
-		SetOverwrite on
-		CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
-		CreateShortCut "$SMPROGRAMS\$StartMenuFolder\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}"
-		CreateShortCut "$SMPROGRAMS\$StartMenuFolder\$(UNINSTALL_SHORTCUT).lnk" "$INSTDIR\${UNINSTALL_EXE}"
-		SetOverwrite off
-	!insertmacro MUI_STARTMENU_WRITE_END
+	SetOverwrite on
+	CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
+	CreateShortCut "$SMPROGRAMS\$StartMenuFolder\${PRODUCT}.lnk" "$INSTDIR\${PROGRAM_EXE}"
+	CreateShortCut "$SMPROGRAMS\$StartMenuFolder\$(UNINSTALL_SHORTCUT).lnk" "$INSTDIR\${UNINSTALL_EXE}"
+	SetOverwrite off
 SectionEnd
 
 Section "-GTK+ Installer" SecGTK
@@ -695,8 +690,6 @@ SectionEnd
 ; Installer Functions
 ;----------------------------------------------
 Function .onInit
-	!insertmacro MUI_LANGDLL_DISPLAY
-
 	UserInfo::GetAccountType
 	Pop $0
 	UserInfo::GetName
@@ -712,6 +705,18 @@ Function .onInit
 		${Else} ; Otherwise load the stored path of the previous installation
 			StrCpy $INSTDIR $R0
 		${EndIf}
+		ReadRegStr $R0 HKLM "${REG_USER_SET}" "Installer Language" ; Replace defining MUI_LANGDLL_REGISTRY_*
+		${If} $R0 == "" ; Bluefish hasn't been installed so display the language selection dialog
+			!insertmacro MUI_LANGDLL_DISPLAY
+		${Else} ; Else load the stored language
+			StrCpy $LANGUAGE $R0
+		${EndIf}
+		ReadRegStr $R0 HKLM "${REG_USER_SET}" "Start Menu Folder" ; Replace MUI_STARTMENUPAGE_REGISTRY_*
+		${If} $R0 == "" ; Set default folder
+			StrCpy $StartMenuFolder "${PRODUCT}"
+		${Else} ; Load stored folder
+			StrCpy $StartMenuFolder $R0
+		${EndIf}
 	${Else}
 		StrCpy $HKEY "HKCU"
 		SetShellVarContext current
@@ -720,6 +725,16 @@ Function .onInit
 			StrCpy $INSTDIR "$PROFILE\Programs\${PRODUCT}"
 		${Else} ; Otherwise load the stored path of the previous installation
 			StrCpy $INSTDIR $R0
+		${EndIf}
+		ReadRegStr $R0 HKCU "${REG_USER_SET}" "Installer Language" ; Replace defining MUI_LANGDLL_REGISTRY_*
+		${If} $R0 == "" ; Bluefish hasn't been installed so display the language selection dialog
+			!insertmacro MUI_LANGDLL_DISPLAY
+		${Else} ; Else load the stored language
+			StrCpy $LANGUAGE $R0
+		${EndIf}
+		ReadRegStr $R0 HKCU "${REG_USER_SET}" "Start Menu Folder" ; Replace MUI_STARTMENUPAGE_REGISTRY_*
+		${If} $R0 != "" ; Load stored name
+			StrCpy $StartMenuFolder $R0
 		${EndIf}
 	${EndIf}
 	
@@ -783,6 +798,12 @@ Function .onInit
 			ReadRegStr $R2 HKCU "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
 			WriteRegExpandStr HKCU "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
 		${EndIf}
+	${EndIf}
+
+	${If} $HKEY == "HKLM"
+		ReadRegStr $R1 HKLM ${REG_USER_SET} "Version"
+	${Else}
+		ReadRegStr $R1 HKCU ${REG_USER_SET} "Version"
 	${EndIf}
 
 ; Fix would be uninstall problems prior to 2.0.0-1
@@ -1271,24 +1292,28 @@ Function un.onInit
 	${OrIf} $0 == "Power"
 		StrCpy $HKEY "HKLM"
 		SetShellVarContext all
+
 		ReadRegStr $R0 HKLM "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
-		${If} $R0 == "" ; If Bluefish hasn't been installed set the default privileged path
-			StrCpy $INSTDIR "$PROGRAMFILES32\${PRODUCT}"
-		${Else} ; Otherwise load the stored path of the previous installation
-			StrCpy $INSTDIR $R0
-		${EndIf}
+		StrCpy $INSTDIR $R0
+
+		ReadRegStr $R0 HKLM "${REG_USER_SET}" "Installer Language" ; Replace defining MUI_LANGDLL_REGISTRY_*
+		StrCpy $LANGUAGE $R0 ; Replace macro MUI_UNGETLANGUAGE
+
+		ReadRegStr $R0 HKLM "${REG_USER_SET}" "Start Menu Folder" ; Replace MUI_STARTMENUPAGE_REGISTRY_*
+		StrCpy $StartMenuFolder $R0 ; Replace macro MUI_STARTMENU_GETFOLDER
 	${Else}
 		StrCpy $HKEY "HKCU"
 		SetShellVarContext current
-		ReadRegStr $R0 HKCU "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
-		${If} $R0 == "" ; If Bluefish hasn't been installed set the default privileged path
-			StrCpy $INSTDIR "$PROFILE\Programs\${PRODUCT}"
-		${Else} ; Otherwise load the stored path of the previous installation
-			StrCpy $INSTDIR $R0
-		${EndIf}
-	${EndIf}
 
-	!insertmacro MUI_UNGETLANGUAGE
+		ReadRegStr $R0 HKCU "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
+		StrCpy $INSTDIR $R0
+
+		ReadRegStr $R0 HKCU "${REG_USER_SET}" "Installer Language" ; Replace defining MUI_LANGDLL_REGISTRY_*
+		StrCpy $LANGUAGE $R0 ; Replace macro MUI_UNGETLANGUAGE
+
+		ReadRegStr $R0 HKCU "${REG_USER_SET}" "Start Menu Folder" ; Replace MUI_STARTMENUPAGE_REGISTRY_*
+		StrCpy $StartMenuFolder $R0 ; Replace macro MUI_STARTMENU_GETFOLDER
+	${EndIf}
 FunctionEnd
 
 Function un.UnRegisterFileTypes
