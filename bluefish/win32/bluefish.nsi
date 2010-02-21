@@ -28,6 +28,7 @@
 !define AS_DICT_URL	"http://www.muleslow.net/files/aspell/lang"
 
 !define REG_USER_SET	"Software\${PRODUCT}"
+!define REG_CLASS_SET	"Software\Classes"
 !define REG_UNINSTALL	"Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}"
 
 !define GTK_MIN_VERSION	"2.14.7"
@@ -73,13 +74,12 @@ Var FA_SelectAll
 ;----------------------------------------------
 Name		"${PRODUCT} v${VERSION}"
 OutFile		"${PRODUCT}-${VERSION}-setup.exe"
-InstallDir	"$PROGRAMFILES\${PRODUCT}"
+InstallDir	"$PROGRAMFILES32\${PRODUCT}"
 
 ; Tell Windows Vista and Windows 7 that we need admin rights to install
 RequestExecutionLevel admin
 
 SetCompressor /SOLID lzma
-InstallDirRegKey HKCU "${REG_USER_SET}" ""
 ShowInstDetails show
 ShowUninstDetails show
 
@@ -169,43 +169,66 @@ ${UnStrStr}
 !define InstallAspellDict `!insertmacro InstallAspellDict`
 
 !macro RegisterFileType HWND EXT TYPE PROG DESC ICON
-	ReadRegStr $R1 HKCR ".${EXT}" "Content Type" ; Read the current mimetype
-	ReadRegStr $R2 HKCR ".${EXT}" "" ; Read the current class
-	${If} $R1 != "${TYPE}" ; If the current mimetype is the same as what we want skip changing it
-		${If} $HKEY == "HKLM"
+	${If} $HKEY == "HKLM"
+		ReadRegStr $R1 HKCR ".${EXT}" "Content Type" ; Read the current mimetype
+		ReadRegStr $R2 HKCR ".${EXT}" "" ; Read the current class
+		${If} $R1 != "${TYPE}" ; If the current mimetype is the same as what we want skip changing it
 			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "Content Type" $R1
 			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "" $R2
-		${Else}
-			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "Content Type" $R1
-			WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "" $R2
-		${EndIf}
-		WriteRegStr HKCR ".${EXT}" "Content Type" "${TYPE}"
-	${EndIf} ; Proper mimetype has been set
-	${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
-	${If} ${PROG} != "0" ; If set to 0 this denotes a special case such as for HTML and we need to skip this section
-		${If} $R0 == ${BST_CHECKED} ; The user has selected to associate this file type with Bluefish
-;			DetailPrint "$(FILETYPE_REGISTERING)${DESC}..." ; Let the user know we're registering this file type
-			${If} $R2 != "${PROG}" ; If the current class is different that ours set it for Bluefish
-				WriteRegStr HKCR ".${EXT}" "" "${PROG}"
-			${EndIf} ; Else the class is already set for Bluefish so we needn't change it
-			; The following should only be needed once and could be in the above IF block with some more checks
-			WriteRegStr HKCR "${PROG}" "" "${DESC}"
-			WriteRegStr HKCR "${PROG}\DefaultIcon" "" "$INSTDIR\${PROGRAM_EXE},${ICON}"
-			WriteRegStr HKCR "${PROG}\shell" "" "open"
-			WriteRegStr HKCR "${PROG}\shell\open" "" "Open"
-			WriteRegStr HKCR "${PROG}\shell\open\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
-			${If} ${EXT} == "VBS" ; VBS needs a registered Script Handler
-				WriteRegStr HKCR ".${EXT}\ScriptEngine" "" "VBScript"
-			${ElseIf} ${EXT} == "JS" ; JS needs a registered Script Handler
-				WriteRegStr HKCR ".${EXT}\ScriptEngine" "" "JScript"
-			${EndIf}
-			; This is just so the un.UnRegisterFileTypes function removes all the bf*file entries
-			${If} $HKEY == "HKLM"
+			WriteRegStr HKCR ".${EXT}" "Content Type" "${TYPE}"
+		${EndIf} ; Proper mimetype has been set
+		${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
+		${If} ${PROG} != "0" ; If set to 0 this denotes a special case such as for HTML and we need to skip this section
+			${If} $R0 == ${BST_CHECKED} ; The user has selected to associate this file type with Bluefish
+;				DetailPrint "$(FILETYPE_REGISTERING)${DESC}..." ; Let the user know we're registering this file type
+				${If} $R2 != "${PROG}" ; If the current class is different that ours set it for Bluefish
+					WriteRegStr HKCR ".${EXT}" "" "${PROG}"
+				${EndIf} ; Else the class is already set for Bluefish so we needn't change it
+				; The following should only be needed once and could be in the above IF block with some more checks
+				WriteRegStr HKCR "${PROG}" "" "${DESC}"
+				WriteRegStr HKCR "${PROG}\DefaultIcon" "" "$INSTDIR\${PROGRAM_EXE},${ICON}"
+				WriteRegStr HKCR "${PROG}\shell" "" "open"
+				WriteRegStr HKCR "${PROG}\shell\open" "" "Open"
+				WriteRegStr HKCR "${PROG}\shell\open\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+				${If} ${EXT} == "VBS" ; VBS needs a registered Script Handler
+					WriteRegStr HKCR ".${EXT}\ScriptEngine" "" "VBScript"
+				${ElseIf} ${EXT} == "JS" ; JS needs a registered Script Handler
+					WriteRegStr HKCR ".${EXT}\ScriptEngine" "" "JScript"
+				${EndIf}
+				; This is just so the un.UnRegisterFileTypes function removes all the bf*file entries
 				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\${PROG}" "" ""
-			${Else}
+			${EndIf} ; Bluefish will not be associated with this file type
+		${EndIf}
+	${Else}
+		ReadRegStr $R1 HKCU "${REG_CLASS_SET}\.${EXT}" "Content Type" ; Read the current mimetype
+		ReadRegStr $R2 HKCU "${REG_CLASS_SET}\.${EXT}" "" ; Read the current class
+		${If} $R1 != "${TYPE}" ; If the current mimetype is the same as what we want skip changing it
+			WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "Content Type" $R1
+			WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.${EXT}" "" $R2
+			WriteRegStr HKCU "${REG_CLASS_SET}\.${EXT}" "Content Type" "${TYPE}"
+		${EndIf} ; Proper mimetype has been set
+		${NSD_GetState} ${HWND} $R0 ; Read the status of the checkbox for this file type
+		${If} ${PROG} != "0" ; If set to 0 this denotes a special case such as for HTML and we need to skip this section
+			${If} $R0 == ${BST_CHECKED} ; The user has selected to associate this file type with Bluefish
+;				DetailPrint "$(FILETYPE_REGISTERING)${DESC}..." ; Let the user know we're registering this file type
+				${If} $R2 != "${PROG}" ; If the current class is different that ours set it for Bluefish
+					WriteRegStr HKCU "${REG_CLASS_SET}\.${EXT}" "" "${PROG}"
+				${EndIf} ; Else the class is already set for Bluefish so we needn't change it
+				; The following should only be needed once and could be in the above IF block with some more checks
+				WriteRegStr HKCU "${REG_CLASS_SET}\${PROG}" "" "${DESC}"
+				WriteRegStr HKCU "${REG_CLASS_SET}\${PROG}\DefaultIcon" "" "$INSTDIR\${PROGRAM_EXE},${ICON}"
+				WriteRegStr HKCU "${REG_CLASS_SET}\${PROG}\shell" "" "open"
+				WriteRegStr HKCU "${REG_CLASS_SET}\${PROG}\shell\open" "" "Open"
+				WriteRegStr HKCU "${REG_CLASS_SET}\${PROG}\shell\open\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+				${If} ${EXT} == "VBS" ; VBS needs a registered Script Handler
+					WriteRegStr HKCU "${REG_CLASS_SET}\.${EXT}\ScriptEngine" "" "VBScript"
+				${ElseIf} ${EXT} == "JS" ; JS needs a registered Script Handler
+					WriteRegStr HKCU "${REG_CLASS_SET}\.${EXT}\ScriptEngine" "" "JScript"
+				${EndIf}
+				; This is just so the un.UnRegisterFileTypes function removes all the bf*file entries
 				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\${PROG}" "" ""
-			${EndIf}
-		${EndIf} ; Bluefish will not be associated with this file type
+			${EndIf} ; Bluefish will not be associated with this file type
+		${EndIf}
 	${EndIf}
 !macroend
 !define RegisterFileType `!insertmacro RegisterFileType`
@@ -440,7 +463,7 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	SetOverwrite off
 
 	${If} $HKEY == "HKLM"
-		WriteRegStr HKLM "${REG_USER_SET}" "" "$\"$INSTDIR$\""
+		WriteRegStr HKLM "${REG_USER_SET}" "" "$\"$INSTDIR$\"" ; Replace InstallDirRegKey function
 		WriteRegStr HKLM "${REG_USER_SET}" "Version" "${VERSION}"
 		WriteRegStr HKLM "${REG_USER_SET}" "Package" "${PACKAGE}"
 
@@ -454,7 +477,7 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 		WriteRegDWORD HKLM "${REG_UNINSTALL}" "NoModify" "1"
 		WriteRegDWORD HKLM "${REG_UNINSTALL}" "NoRepair" "1"
 	${Else}
-		WriteRegStr HKCU "${REG_USER_SET}" "" "$\"$INSTDIR$\""
+		WriteRegStr HKCU "${REG_USER_SET}" "" "$\"$INSTDIR$\"" ; Replace InstallDirRegKey function
 		WriteRegStr HKCU "${REG_USER_SET}" "Version" "${VERSION}"
 		WriteRegStr HKCU "${REG_USER_SET}" "Package" "${PACKAGE}"
 
@@ -678,13 +701,26 @@ Function .onInit
 	Pop $0
 	UserInfo::GetName
 	Pop $1
-
 	${If} $1 == ""
 	${OrIf} $0 == "Admin"
 	${OrIf} $0 == "Power"
 		StrCpy $HKEY "HKLM"
+		SetShellVarContext all
+		ReadRegStr $R0 HKLM "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
+		${If} $R0 == "" ; If Bluefish hasn't been installed set the default privileged path
+			StrCpy $INSTDIR "$PROGRAMFILES32\${PRODUCT}"
+		${Else} ; Otherwise load the stored path of the previous installation
+			StrCpy $INSTDIR $R0
+		${EndIf}
 	${Else}
 		StrCpy $HKEY "HKCU"
+		SetShellVarContext current
+		ReadRegStr $R0 HKLM "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
+		${If} $R0 == "" ; If Bluefish hasn't been installed set the default privileged path
+			StrCpy $INSTDIR "$PROFILE\Programs\${PRODUCT}"
+		${Else} ; Otherwise load the stored path of the previous installation
+			StrCpy $INSTDIR $R0
+		${EndIf}
 	${EndIf}
 	
 	Call GtkVersionCheck
@@ -761,32 +797,48 @@ Function .onInit
 	${OrIf} $R1 == "2.0.0-1"
 		${If} $HKEY == "HKLM"
 			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" ; Read stored class
+			ReadRegStr $R2 HKCR ".vbs" "" ; Read current class
+			${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
+				WriteRegStr HKCR ".vbs" "" "VBScript"
+			${ElseIf} $R2 == "bfvbsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
+				WriteRegStr HKCR ".vbs\ScriptEngine" "" "VBScript"
+			${EndIf}
+			${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" "VBScript"
+			${EndIf}
+
+			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\.js" "" ; Read stored class
+			ReadRegStr $R2 HKCR ".js" "" ; Read current class
+			${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
+				WriteRegStr HKCR ".js" "" "JScript"
+			${ElseIf} $R2 == "bfjsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
+				WriteRegStr HKCR ".js\ScriptEngine" "" "JScript"
+			${EndIf}
+			${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.js" "" "JScript"
+			${EndIf}
 		${Else}
 			ReadRegStr $R0 HKCU "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" ; Read stored class
-		${EndIf}
-		ReadRegStr $R2 HKCR ".vbs" "" ; Read current class
-		${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
-			WriteRegStr HKCR ".vbs" "" "VBScript"
-		${ElseIf} $R2 == "bfvbsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
-			WriteRegStr HKCR ".vbs\ScriptEngine" "" "VBScript"
-		${EndIf}
-		${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
-			WriteRegStr HKCR "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" "VBScript"
-		${EndIf}
+			ReadRegStr $R2 HKCU "${REG_CLASS_SET}\.vbs" "" ; Read current class
+			${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
+				WriteRegStr HKCU "${REG_CLASS_SET}\.vbs" "" "VBScript"
+			${ElseIf} $R2 == "bfvbsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
+				WriteRegStr HKCU "${REG_CLASS_SET}\.vbs\ScriptEngine" "" "VBScript"
+			${EndIf}
+			${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
+				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" "VBScript"
+			${EndIf}
 
-		${If} $HKEY == "HKLM"
 			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\.js" "" ; Read stored class
-		${Else}
-			ReadRegStr $R0 HKCU "${REG_UNINSTALL}\Backup\HKCR\.js" "" ; Read stored class
-		${EndIf}
-		ReadRegStr $R2 HKCR ".js" "" ; Read current class
-		${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
-			WriteRegStr HKCR ".js" "" "JScript"
-		${ElseIf} $R2 == "bfjsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
-			WriteRegStr HKCR ".js\ScriptEngine" "" "JScript"
-		${EndIf}
-		${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
-			WriteRegStr HKCR "${REG_UNINSTALL}\Backup\HKCR\.js" "" "JScript"
+			ReadRegStr $R2 HKCU "${REG_CLASS_SET}\.js" "" ; Read current class
+			${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
+				WriteRegStr HKCU "${REG_CLASS_SET}\.js" "" "JScript"
+			${ElseIf} $R2 == "bfjsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
+				WriteRegStr HKCU "${REG_CLASS_SET}\.js\ScriptEngine" "" "JScript"
+			${EndIf}
+			${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
+				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.js" "" "JScript"
+			${EndIf}
 		${EndIf}
 	${EndIf}
 
@@ -1238,13 +1290,26 @@ Function un.onInit
 	Pop $0
 	UserInfo::GetName
 	Pop $1
-
 	${If} $1 == ""
 	${OrIf} $0 == "Admin"
 	${OrIf} $0 == "Power"
 		StrCpy $HKEY "HKLM"
+		SetShellVarContext all
+		ReadRegStr $R0 HKLM "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
+		${If} $R0 == "" ; If Bluefish hasn't been installed set the default privileged path
+			StrCpy $INSTDIR "$PROGRAMFILES32\${PRODUCT}"
+		${Else} ; Otherwise load the stored path of the previous installation
+			StrCpy $INSTDIR $R0
+		${EndIf}
 	${Else}
 		StrCpy $HKEY "HKCU"
+		SetShellVarContext current
+		ReadRegStr $R0 HKLM "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
+		${If} $R0 == "" ; If Bluefish hasn't been installed set the default privileged path
+			StrCpy $INSTDIR "$PROFILE\Programs\${PRODUCT}"
+		${Else} ; Otherwise load the stored path of the previous installation
+			StrCpy $INSTDIR $R0
+		${EndIf}
 	${EndIf}
 
 	!insertmacro MUI_UNGETLANGUAGE
@@ -1263,41 +1328,58 @@ Function un.UnRegisterFileTypes
 	${While} $0 != ""
 		${If} $HKEY == "HKLM"
 			EnumRegKey $0 HKLM "${REG_UNINSTALL}\Backup\HKCR" $1
+			IntOp $1 $1 + 1
+			${If} $0 != ""
+				ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "" ; Read stored class
+				ReadRegStr $R2 HKCR $0 "" ; Read current class
+				${UnStrStr} $R3 ${BF_FILE_CLASSES} $R2 ; Check if current class is a Bluefish class
+				${If} $R0 == $R2 ; If the current class is the same as we stored
+				${OrIf} $R3 != "" ; Or if the current class is a Bluefish class continue restoring the stored class
+					${If} $R0 == "" ; If the stored class is unset simply remove it
+						DeleteRegValue HKCR $0 ""
+						DeleteRegKey /ifempty HKCR $0
+					${ElseIf} $R0 != $R2 ; Else the stored class needs to be restored
+						WriteRegStr HKCR $0 "" $R0
+					${EndIf} ; Stored class has been restored
+					ClearErrors ; make sure we don't have any old errors lingering about
+					ReadRegStr $R2 HKCR $0 "Content Type" ; Try to read the current mimetype
+					IfErrors +8 ; If we deleted the key we'll get an error and should skip restoring the mimetype, else restore it
+						ClearErrors
+						ReadRegStr $R1 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "Content Type" ; Read stored mimetype
+							${If} $R1 != "" ; Restore stored mimetype
+							WriteRegStr HKCR $0 "Content Type" $R1
+						${Else} ; We didn't store a mimetype so we should unset this value
+							DeleteRegValue HKCR $0 "Content Type"
+						${EndIf} ; Stored mimetype has been restored
+				${EndIf} ; The current class wasn't a Bluefish class so don't touch it
+			${EndIf}
 		${Else}
 			EnumRegKey $0 HKCU "${REG_UNINSTALL}\Backup\HKCR" $1
-		${EndIf}
-		IntOp $1 $1 + 1
-		${If} $0 != ""
-			${If} $HKEY == "HKLM"
-				ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "" ; Read stored class
-			${Else}
+			IntOp $1 $1 + 1
+			${If} $0 != ""
 				ReadRegStr $R0 HKCU "${REG_UNINSTALL}\Backup\HKCR\$0" "" ; Read stored class
-			${EndIf}
-			ReadRegStr $R2 HKCR $0 "" ; Read current class
-			${UnStrStr} $R3 ${BF_FILE_CLASSES} $R2 ; Check if current class is a Bluefish class
-			${If} $R0 == $R2 ; If the current class is the same as we stored
-			${OrIf} $R3 != "" ; Or if the current class is a Bluefish class continue restoring the stored class
-				${If} $R0 == "" ; If the stored class is unset simply remove it
-					DeleteRegValue HKCR $0 ""
-					DeleteRegKey /ifempty HKCR $0
-				${ElseIf} $R0 != $R2 ; Else the stored class needs to be restored
-					WriteRegStr HKCR $0 "" $R0
-				${EndIf} ; Stored class has been restored
-				ClearErrors ; make sure we don't have any old errors lingering about
-				ReadRegStr $R2 HKCR $0 "Content Type" ; Try to read the current mimetype
-				IfErrors +12 ; If we deleted the key we'll get an error and should skip restoring the mimetype, else restore it
-					ClearErrors
-					${If} $HKEY == "HKLM"
-						ReadRegStr $R1 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "Content Type" ; Read stored mimetype
-					${Else}
+				ReadRegStr $R2 HKCU "${REG_CLASS_SET}\$0" "" ; Read current class
+				${UnStrStr} $R3 ${BF_FILE_CLASSES} $R2 ; Check if current class is a Bluefish class
+				${If} $R0 == $R2 ; If the current class is the same as we stored
+				${OrIf} $R3 != "" ; Or if the current class is a Bluefish class continue restoring the stored class
+					${If} $R0 == "" ; If the stored class is unset simply remove it
+						DeleteRegValue HKCU "${REG_CLASS_SET}\$0" ""
+						DeleteRegKey /ifempty HKCU "${REG_CLASS_SET}\$0"
+					${ElseIf} $R0 != $R2 ; Else the stored class needs to be restored
+						WriteRegStr HKCU "${REG_CLASS_SET}\$0" "" $R0
+					${EndIf} ; Stored class has been restored
+					ClearErrors ; make sure we don't have any old errors lingering about
+					ReadRegStr $R2 HKCU "${REG_CLASS_SET}\$0" "Content Type" ; Try to read the current mimetype
+					IfErrors +8 ; If we deleted the key we'll get an error and should skip restoring the mimetype, else restore it
+						ClearErrors
 						ReadRegStr $R1 HKCU "${REG_UNINSTALL}\Backup\HKCR\$0" "Content Type" ; Read stored mimetype
-					${EndIf}
-					${If} $R1 != "" ; Restore stored mimetype
-						WriteRegStr HKCR $0 "Content Type" $R1
-					${Else} ; We didn't store a mimetype so we should unset this value
-						DeleteRegValue HKCR $0 "Content Type"
-					${EndIf} ; Stored mimetype has been restored
-			${EndIf} ; The current class wasn't a Bluefish class so don't touch it
+							${If} $R1 != "" ; Restore stored mimetype
+							WriteRegStr HKCU "${REG_CLASS_SET}\$0" "Content Type" $R1
+						${Else} ; We didn't store a mimetype so we should unset this value
+							DeleteRegValue HKCU "${REG_CLASS_SET}\$0" "Content Type"
+						${EndIf} ; Stored mimetype has been restored
+				${EndIf} ; The current class wasn't a Bluefish class so don't touch it
+			${EndIf}
 		${EndIf}
 	${EndWhile}
 
