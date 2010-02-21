@@ -715,7 +715,7 @@ Function .onInit
 	${Else}
 		StrCpy $HKEY "HKCU"
 		SetShellVarContext current
-		ReadRegStr $R0 HKLM "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
+		ReadRegStr $R0 HKCU "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
 		${If} $R0 == "" ; If Bluefish hasn't been installed set the default privileged path
 			StrCpy $INSTDIR "$PROFILE\Programs\${PRODUCT}"
 		${Else} ; Otherwise load the stored path of the previous installation
@@ -795,50 +795,26 @@ Function .onInit
 	${OrIf} $R1 == "2.0.0-rc3-1"
 	${OrIf} $R1 == "2.0.0"
 	${OrIf} $R1 == "2.0.0-1"
-		${If} $HKEY == "HKLM"
-			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" ; Read stored class
-			ReadRegStr $R2 HKCR ".vbs" "" ; Read current class
-			${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
-				WriteRegStr HKCR ".vbs" "" "VBScript"
-			${ElseIf} $R2 == "bfvbsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
-				WriteRegStr HKCR ".vbs\ScriptEngine" "" "VBScript"
-			${EndIf}
-			${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
-				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" "VBScript"
-			${EndIf}
+		ReadRegStr $R0 HKCU "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" ; Read stored class
+		ReadRegStr $R2 HKCR ".vbs" "" ; Read current class
+		${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
+			WriteRegStr HKCR ".vbs" "" "VBScript"
+		${ElseIf} $R2 == "bfvbsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
+		WriteRegStr HKCR ".vbs\ScriptEngine" "" "VBScript"
+		${EndIf}
+		${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
+			WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" "VBScript"
+		${EndIf}
 
-			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\.js" "" ; Read stored class
-			ReadRegStr $R2 HKCR ".js" "" ; Read current class
-			${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
-				WriteRegStr HKCR ".js" "" "JScript"
-			${ElseIf} $R2 == "bfjsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
-				WriteRegStr HKCR ".js\ScriptEngine" "" "JScript"
-			${EndIf}
-			${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
-				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HKCR\.js" "" "JScript"
-			${EndIf}
-		${Else}
-			ReadRegStr $R0 HKCU "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" ; Read stored class
-			ReadRegStr $R2 HKCU "${REG_CLASS_SET}\.vbs" "" ; Read current class
-			${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
-				WriteRegStr HKCU "${REG_CLASS_SET}\.vbs" "" "VBScript"
-			${ElseIf} $R2 == "bfvbsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
-				WriteRegStr HKCU "${REG_CLASS_SET}\.vbs\ScriptEngine" "" "VBScript"
-			${EndIf}
-			${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
-				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.vbs" "" "VBScript"
-			${EndIf}
-
-			ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\.js" "" ; Read stored class
-			ReadRegStr $R2 HKCU "${REG_CLASS_SET}\.js" "" ; Read current class
-			${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
-				WriteRegStr HKCU "${REG_CLASS_SET}\.js" "" "JScript"
-			${ElseIf} $R2 == "bfjsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
-				WriteRegStr HKCU "${REG_CLASS_SET}\.js\ScriptEngine" "" "JScript"
-			${EndIf}
-			${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
-				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.js" "" "JScript"
-			${EndIf}
+		ReadRegStr $R0 HKCU "${REG_UNINSTALL}\Backup\HKCR\.js" "" ; Read stored class
+		ReadRegStr $R2 HKCR ".js" "" ; Read current class
+		${If} $R2 == "" ; This class should never be empty, may indicated a previous Bluefish uninstallation
+			WriteRegStr HKCR ".js" "" "JScript"
+		${ElseIf} $R2 == "bfjsfile" ; This is our class so we're probably doing an upgrade so specify the missing ScriptEngine
+			WriteRegStr HKCR ".js\ScriptEngine" "" "JScript"
+		${EndIf}
+		${If} $R0 == "" ; Update our stored class so we can restore it properly when uninstalling
+			WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HKCR\.js" "" "JScript"
 		${EndIf}
 	${EndIf}
 
@@ -1304,7 +1280,7 @@ Function un.onInit
 	${Else}
 		StrCpy $HKEY "HKCU"
 		SetShellVarContext current
-		ReadRegStr $R0 HKLM "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
+		ReadRegStr $R0 HKCU "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
 		${If} $R0 == "" ; If Bluefish hasn't been installed set the default privileged path
 			StrCpy $INSTDIR "$PROFILE\Programs\${PRODUCT}"
 		${Else} ; Otherwise load the stored path of the previous installation
