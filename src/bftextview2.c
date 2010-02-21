@@ -62,6 +62,41 @@ G_DEFINE_TYPE(BluefishTextView, bluefish_text_view, GTK_TYPE_TEXT_VIEW)
 static GdkColor st_whitespace_color;
 static GdkColor st_cline_color;
 
+/****************************** utility functions ******************************/
+
+gboolean bf_text_iter_line_start_of_text(GtkTextIter *iter) {
+	GtkTextIter linestart;
+	gtk_text_iter_set_line_offset(iter, 0);
+	/*gtk_text_iter_backward_cursor_positions(iter, gtk_text_iter_get_line_offset(iter));*/
+	linestart = *iter;
+	while (g_unichar_isspace(gtk_text_iter_get_char(iter))) {
+		if (gtk_text_iter_ends_line(iter))
+			return FALSE;
+		gtk_text_iter_forward_char(iter);
+	}
+	return TRUE;
+}
+
+gboolean bf_text_iter_line_end_of_text(GtkTextIter *iter) {
+	GtkTextIter linestart;
+	if (!gtk_text_iter_ends_line(iter))
+		gtk_text_iter_forward_to_line_end(iter);
+	if (gtk_text_iter_starts_line(iter))
+		return FALSE;
+	linestart = *iter;
+	if (gtk_text_iter_is_end(iter))
+		gtk_text_iter_backward_char(iter);
+	while (g_unichar_isspace(gtk_text_iter_get_char(iter))) {
+		if (gtk_text_iter_starts_line(iter))
+			return FALSE;
+		gtk_text_iter_backward_char(iter);
+	}
+	if (!gtk_text_iter_ends_line(iter) && !g_unichar_isspace(gtk_text_iter_get_char(iter)))
+		gtk_text_iter_forward_char(iter);
+	return TRUE;
+}
+
+/*************************** end of utility functions **************************/
 static gboolean bftextview2_user_idle_timer(gpointer data)
 {
 	BluefishTextView *btv = data;
