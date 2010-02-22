@@ -178,7 +178,6 @@ typedef struct {
 	gint is_symlink;			/* file is a symbolic link */
 	gulong del_txt_id;			/* text delete signal */
 	gulong ins_txt_id;			/* text insert signal */
-	/*gulong ins_aft_txt_id; *//* text insert-after signal, for auto-indenting */
 	guint newdoc_autodetect_lang_id;	/* a timer function that runs for new documents to detect their mime type  */
 	unre_t unre;
 	GtkWidget *view;
@@ -191,9 +190,7 @@ typedef struct {
 	gint need_highlighting;		/* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
 	gboolean highlightstate;	/* does this document use highlighting ? */
 	gboolean wrapstate;			/* does this document use wrap? */
-	gboolean symstate;			/* does this document show symbols? */
-	gboolean overwrite_mode;	/* is document in overwrite mode */
-	gboolean autoclosingtag;	/* does the document use autoclosing of tags */
+	gboolean overwrite_mode;	/* is keyboard in overwrite mode */
 	gpointer floatingview;		/* a 2nd textview widget that has its own window */
 	gpointer bfwin;
 	GtkTreeIter *bmark_parent;	/* if NULL this document doesn't have bookmarks, if
@@ -308,7 +305,9 @@ typedef struct {
 	GList *reference_files;		/* all reference files */
 	GList *recent_projects;
 	GList *encodings;			/* all encodings you can choose from */
+#ifdef WITH_MSG_QUEUE
 	gint msg_queue_poll_time;	/* milliseconds, automatically tuned to your system */
+#endif
 } Tglobalsession;
 
 typedef struct {
@@ -392,7 +391,6 @@ typedef struct {
 	gboolean focus_next_new_doc;	/* for documents loading in the background, switch to the first that is finished loading */
 	gint num_docs_not_completed;	/* number of documents that are loading or closing */
 	GList *documentlist;		/* document.c and others: all Tdocument objects */
-	GTimer *idletimer;
 	Tdocument *last_activated_doc;
 	Tproject *project;			/* might be NULL for a default project */
 	GtkWidget *main_window;
@@ -431,8 +429,6 @@ typedef struct {
 	GList *menu_external;
 	GList *menu_encodings;
 	GList *menu_outputbox;
-	/*GList *menu_windows;*/
-	GtkWidget *menu_cmenu;
 	GList *menu_cmenu_entries;
 	GList *menu_filetypes;
 	GList *menu_templates;
@@ -443,17 +439,12 @@ typedef struct {
 	   in the file where it is needed */
 	gpointer outputbox;
 	gpointer bfspell;
-/*	gpointer filebrowser;*/
 	gpointer fb2;				/* filebrowser2 gui */
 	gpointer snr2;
 	GtkTreeView *bmark;
 	GtkTreeModelFilter *bmarkfilter;
 	gchar *bmark_search_prefix;
 	gpointer bmarkdata;			/* a link to the global main_v->bmarkdata, OR project->bmarkdata */
-/*	GtkTreeStore *bookmarkstore; / * this is a link to project->bookmarkstore OR main_v->bookmarkstore
-											  and it is only here for convenience !!!! * /
-	GHashTable *bmark_files;     / * no way, I have to have list of file iters. Other way I 
-	                                cannot properly load bmarks for closed files */
 } Tbfwin;
 
 typedef struct {
