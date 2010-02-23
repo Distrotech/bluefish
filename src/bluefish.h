@@ -388,6 +388,7 @@ typedef struct {
 typedef struct {
 	Tsessionvars *session;		/* points to the global session, or to the project session */
 	Tdocument *current_document;	/* one object out of the documentlist, the current visible document */
+	Tdocument *prev_document;
 	gboolean focus_next_new_doc;	/* for documents loading in the background, switch to the first that is finished loading */
 	gint num_docs_not_completed;	/* number of documents that are loading or closing */
 	GList *documentlist;		/* document.c and others: all Tdocument objects */

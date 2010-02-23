@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * document.c - the document
  *
- * Copyright (C) 1998-2009 Olivier Sessink
+ * Copyright (C) 1998-2010 Olivier Sessink
  * Copyright (C) 1998 Chris Mazuc
  * some additions Copyright (C) 2004 Eugene Morenko(More)
  *
@@ -2020,6 +2020,9 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	if (bfwin->current_document == doc) {
 		bfwin->current_document = NULL;
 	}
+	if (bfwin->prev_document == doc) {
+		bfwin->prev_document = NULL;
+	}
 	/* then we remove the page from the notebook */
 	DEBUG_MSG("about to remove widget from notebook (doc=%p, current_document=%p)\n",doc,bfwin->current_document);
 	gtk_notebook_remove_page(GTK_NOTEBOOK(bfwin->notebook),
@@ -2028,7 +2031,12 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n",doc);
 	gui_notebook_unblock_signals(BFWIN(doc->bfwin));
 	if (!delay_activation) {
-		notebook_changed(BFWIN(doc->bfwin),-1);
+		gint newpage=-1;
+		if (bfwin->prev_document) {
+			newpage = gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),bfwin->prev_document->view->parent);
+			gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook),newpage);
+		}
+		notebook_changed(BFWIN(doc->bfwin),newpage);
 	}
 	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed()\n",doc);
 	/* now we really start to destroy the document */
