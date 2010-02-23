@@ -145,6 +145,7 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 		/*g_print("notebook_changed, set enable_scanner to FALSE for doc %p\n",bfwin->current_document);*/
 		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = FALSE;
 	}
+	bfwin->prev_document = bfwin->current_document;
 	bfwin->current_document = g_list_nth_data(bfwin->documentlist, cur);
 	if (bfwin->current_document == NULL) {
 		DEBUG_MSG("notebook_changed, WEIRD 2, doclist[%d] == NULL, RETURNING\n",cur);
@@ -157,10 +158,6 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	if (bfwin->notebook_changed_doc_activate_id ==0) {
 		bfwin->notebook_changed_doc_activate_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+1, notebook_changed_activate_current_document_lcb, bfwin, NULL);
 	}
-	/* BUG: what if bfwin is free'ed in the meantime ?? this can happen during a window close.
-	we either should stop the notebook changed() signal when the window is going to be closed
-	or we should stop this idle callback */
-	DEBUG_MSG("notebook_changed, finished\n");
 }
 
 gboolean bfwin_has_doc(Tbfwin *bfwin, Tdocument *doc) {
