@@ -470,6 +470,21 @@ void bftextview2_spell_cleanup(void) {
 	eb=NULL;
 }
 
+static void recheck_document(Tdocument *doc) {
+	GtkTextIter start,end;
+	gtk_text_buffer_get_bounds(doc->buffer,&start,&end);
+	gtk_text_buffer_apply_tag(doc->buffer, BLUEFISH_TEXT_VIEW(doc->view)->needspellcheck, &start, &end);
+}
+
+static void recheck_bfwin(Tbfwin *bfwin) {
+	GList *tmplist;
+	for (tmplist=g_list_first(bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
+		recheck_document(DOCUMENT(tmplist->data));
+	}
+	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+}
+
+
 static gboolean get_misspelled_word_at_bevent(BluefishTextView *btv, GtkTextIter *wordstart, GtkTextIter *wordend) {
 	GtkTextTag *misspelled;
 	
@@ -481,6 +496,35 @@ static gboolean get_misspelled_word_at_bevent(BluefishTextView *btv, GtkTextIter
 			return TRUE;
 	}
 	return FALSE;
+}
+
+static void bftextview2_add_word_backend(BluefishTextView *btv, Tbfwin *bfwin, gboolean to_dict) {
+	GtkTextIter so,eo;
+	gchar *word;
+	if (!get_misspelled_word_at_bevent(btv, &so,&eo)) 
+		return;
+	
+	word = gtk_text_buffer_get_text(GTK_TEXT_VIEW(btv)->buffer,&so,&eo,FALSE);
+	if (to_dict) {
+#ifdef HAVE_LIBENCHANT_1_4
+		enchant_dict_add((EnchantDict *)bfwin->ed, word,strlen(word));
+#else
+		enchant_dict_add_to_pwl((EnchantDict *)bfwin->ed, word,strlen(word));
+#endif
+	} else {
+		enchant_dict_add_to_session((EnchantDict *)bfwin->ed, word,strlen(word));
+	}
+	recheck_bfwin(bfwin);
+}
+
+static void bftexview2_add_word_to_dict(GtkWidget *widget, gpointer data) {
+	Tdocument*doc = data;
+	bftextview2_add_word_backend(BLUEFISH_TEXT_VIEW(doc->view), BFWIN(doc->bfwin), TRUE);
+}
+
+static void bftexview2_add_word_to_ses(GtkWidget *widget, gpointer data) {
+	Tdocument*doc = data;
+	bftextview2_add_word_backend(BLUEFISH_TEXT_VIEW(doc->view), BFWIN(doc->bfwin), FALSE);
 }
 
 static void bftextview2_suggestion_menu_lcb(GtkWidget *widget, gpointer data) {
@@ -566,10 +610,10 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 	
 	menuitem = gtk_image_menu_item_new_with_label(_("Add to dictionary"));
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
-	/* TODO: implement! */
+	g_signal_connect(menuitem, "activate", G_CALLBACK(bftexview2_add_word_to_dict), doc);
 	menuitem = gtk_image_menu_item_new_with_label(_("Ignore spelling"));
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
-	/* TODO: implement! */
+	g_signal_connect(menuitem, "activate", G_CALLBACK(bftexview2_add_word_to_ses), doc);
 
 	if (!BFWIN(doc->bfwin)->ed)
 		return;
