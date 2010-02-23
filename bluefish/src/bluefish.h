@@ -463,7 +463,8 @@ typedef struct {
 	gpointer fb2config;			/* filebrowser2config */
 	GList *filefilters;			/* initialized by fb2config functions */
 	Tdocument *bevent_doc;
-	gint bevent_charoffset;
+	gint bevent_charoffset; 	/* for example used in the spellcheck code to find on which 
+											word the user clicked */
 	gpointer bmarkdata;
 	gint num_untitled_documents;
 	GtkTooltips *tooltips;
