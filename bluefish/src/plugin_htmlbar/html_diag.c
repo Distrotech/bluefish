@@ -21,7 +21,7 @@
 #include <gtk/gtk.h>
 #include <string.h>	/* strrchr */
 #include <stdlib.h> /* strtod */
-/* #define DEBUG */
+/*#define DEBUG */
 
 #include "htmlbar.h"
 #include "../gtk_easy.h" /* window_full() */
@@ -83,24 +83,27 @@ Thtml_diag *html_diag_new(Tbfwin *bfwin, gchar *title) {
 		g_print("html_diag_new, current marks: insert=%d, selection=%d\n",gtk_text_iter_get_offset(&iter1),gtk_text_iter_get_offset(&iter2));
 	}
 #endif
-	{
-		if (!gtk_text_buffer_get_mark(bfwin->current_document->buffer,"diag_ins")) {
-			GtkTextIter iter;
-			GtkTextMark* mark = gtk_text_buffer_get_mark(bfwin->current_document->buffer,"insert");
-			gtk_text_buffer_get_iter_at_mark(bfwin->current_document->buffer,&iter,mark);
-			dg->mark_ins = gtk_text_buffer_create_mark(bfwin->current_document->buffer,"diag_ins",&iter,TRUE);
-			mark = gtk_text_buffer_get_mark(bfwin->current_document->buffer,"selection_bound");
-			gtk_text_buffer_get_iter_at_mark(bfwin->current_document->buffer,&iter,mark);
-			dg->mark_sel = gtk_text_buffer_create_mark(bfwin->current_document->buffer,"diag_sel",&iter,TRUE);
-		} else {
-			dg->mark_ins = dg->mark_sel = NULL;
-		}
+
+	if (!gtk_text_buffer_get_mark(bfwin->current_document->buffer,"diag_ins")) {
+		GtkTextIter iter;
+		GtkTextMark* mark = gtk_text_buffer_get_mark(bfwin->current_document->buffer,"insert");
+		gtk_text_buffer_get_iter_at_mark(bfwin->current_document->buffer,&iter,mark);
+		dg->mark_ins = gtk_text_buffer_create_mark(bfwin->current_document->buffer,"diag_ins",&iter,TRUE);
+		DEBUG_MSG("html_diag_new, setting diag_ins at %d",gtk_text_iter_get_offset(&iter));
+		mark = gtk_text_buffer_get_mark(bfwin->current_document->buffer,"selection_bound");
+		gtk_text_buffer_get_iter_at_mark(bfwin->current_document->buffer,&iter,mark);
+		dg->mark_sel = gtk_text_buffer_create_mark(bfwin->current_document->buffer,"diag_sel",&iter,TRUE);
+		DEBUG_MSG(" and diag_sel at %d\n",gtk_text_iter_get_offset(&iter));
+	} else {
+		DEBUG_MSG("html_diag_new, another dialog is open, marking mark_ins and mark_sel = NULL\n");
+		dg->mark_ins = dg->mark_sel = NULL;
 	}
+
 	dg->range.pos = -1;
 	dg->range.end = -1;
 	if (main_v->props.transient_htdialogs) {
 		/* must be set before realizing */
-		DEBUG_MSG("html_diag_finish, setting dg->dialog=%p transient!\n", dg->dialog);
+		DEBUG_MSG("html_diag_new, setting dg->dialog=%p transient!\n", dg->dialog);
 		gtk_window_set_transient_for(GTK_WINDOW(dg->dialog), GTK_WINDOW(bfwin->main_window));
 	}
 
