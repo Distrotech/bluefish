@@ -608,19 +608,20 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 	dl.group=NULL;
 	enchant_broker_list_dicts(eb, list_dicts_lcb, &dl);
 	
-	menuitem = gtk_image_menu_item_new_with_label(_("Add to dictionary"));
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
-	g_signal_connect(menuitem, "activate", G_CALLBACK(bftexview2_add_word_to_dict), doc);
-	menuitem = gtk_image_menu_item_new_with_label(_("Ignore spelling"));
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
-	g_signal_connect(menuitem, "activate", G_CALLBACK(bftexview2_add_word_to_ses), doc);
-
 	if (!BFWIN(doc->bfwin)->ed)
 		return;
 	
 	if (get_misspelled_word_at_bevent(BLUEFISH_TEXT_VIEW(doc->view), &wordstart, &wordend)) {
 		gchar *word, **suggestions;
 		size_t n_suggs;
+
+		menuitem = gtk_image_menu_item_new_with_label(_("Add to dictionary"));
+		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+		g_signal_connect(menuitem, "activate", G_CALLBACK(bftexview2_add_word_to_dict), doc);
+		menuitem = gtk_image_menu_item_new_with_label(_("Ignore spelling"));
+		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+		g_signal_connect(menuitem, "activate", G_CALLBACK(bftexview2_add_word_to_ses), doc);
+
 		word = gtk_text_buffer_get_text(GTK_TEXT_VIEW(doc->view)->buffer, &wordstart,&wordend,FALSE);
 		DBG_SPELL("list alternatives for %s\n", word);
 		suggestions = enchant_dict_suggest((EnchantDict *)BFWIN(doc->bfwin)->ed, word,strlen(word), &n_suggs);
