@@ -1697,6 +1697,8 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	}
 
 	snrwin->search = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
+	if (bfwin->session->searchlist)
+		gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->search), 0);
 	g_object_unref(history);
 	dialog_mnemonic_label_in_table(_("_Search for: "), snrwin->search, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->search, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL,
