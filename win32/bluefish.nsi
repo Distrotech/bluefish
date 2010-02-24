@@ -333,6 +333,7 @@ ${UnStrStr}
 	!insertmacro Localize "CT_NSI" "${LANG}"
 	!insertmacro Localize "CT_NSH" "${LANG}"
 	!insertmacro Localize "CT_PL" "${LANG}"
+	!insertmacro Localize "CT_INC" "${LANG}"
 	!insertmacro Localize "CT_PHP" "${LANG}"
 	!insertmacro Localize "CT_TXT" "${LANG}"
 	!insertmacro Localize "CT_PY" "${LANG}"
@@ -646,17 +647,9 @@ Section "Uninstall"
 	RMDir  "$INSTDIR"
 	Delete "$DESKTOP\${PRODUCT}.lnk"
 
-	${If} $HKEY == "HKLM"
-		ReadRegStr $R0 HKLM ${REG_USER_SET} "Start Menu Folder"
-	${Else}
-		ReadRegStr $R0 HKCU ${REG_USER_SET} "Start Menu Folder"
-	${EndIf}
-
-	${If} $R0 != ""
-	Delete "$SMPROGRAMS\$R0\${PRODUCT}.lnk"
-	Delete "$SMPROGRAMS\$R0\$(UNINSTALL_SHORTCUT).lnk"
-	RMDir "$SMPROGRAMS\$R0"
-	${EndIf}
+	Delete "$SMPROGRAMS\$StartMenuFolder\${PRODUCT}.lnk"
+	Delete "$SMPROGRAMS\$StartMenuFolder\$(UNINSTALL_SHORTCUT).lnk"
+	RMDir "$SMPROGRAMS\$StartMenuFolder"
 
 	${If} $HKEY == "HKLM"
 		DeleteRegValue HKLM ${REG_USER_SET} ""
@@ -665,6 +658,7 @@ Section "Uninstall"
 		DeleteRegValue HKLM ${REG_USER_SET} "Start Menu Folder"
 		DeleteRegValue HKLM ${REG_USER_SET} "Version"
 		DeleteRegKey HKLM "${REG_USER_SET}\Aspell"
+		DeleteRegKey HKLM "${REG_USER_SET}\Plugins"
 		DeleteRegKey /ifempty HKLM ${REG_USER_SET}
 	${Else}
 		DeleteRegValue HKCU ${REG_USER_SET} ""
@@ -673,6 +667,7 @@ Section "Uninstall"
 		DeleteRegValue HKCU ${REG_USER_SET} "Start Menu Folder"
 		DeleteRegValue HKCU ${REG_USER_SET} "Version"
 		DeleteRegKey HKCU "${REG_USER_SET}\Aspell"
+		DeleteRegKey HKCU "${REG_USER_SET}\Plugins"
 		DeleteRegKey /ifempty HKCU ${REG_USER_SET}
 	${EndIf}
 
@@ -733,7 +728,9 @@ Function .onInit
 			StrCpy $LANGUAGE $R0
 		${EndIf}
 		ReadRegStr $R0 HKCU "${REG_USER_SET}" "Start Menu Folder" ; Replace MUI_STARTMENUPAGE_REGISTRY_*
-		${If} $R0 != "" ; Load stored name
+		${If} $R0 == "" ; Set default folder
+			StrCpy $StartMenuFolder "${PRODUCT}"
+		${Else} ; Load stored folder
 			StrCpy $StartMenuFolder $R0
 		${EndIf}
 	${EndIf}
@@ -1053,7 +1050,7 @@ Function FileAssociations
 	Pop $FA_Nsi
 	${NSD_CreateCheckBox} 55% 40u 40% 8u "Perl (.pl)"
 	Pop $FA_Pl
-	${NSD_CreateCheckBox} 55% 50u 40% 8u "PHP (.php; .php3)"
+	${NSD_CreateCheckBox} 55% 50u 40% 8u "PHP (.php; .php3; .inc)"
 	Pop $FA_Php
 	${NSD_CreateCheckBox} 55% 60u 40% 8u "Plain Text (.txt)"
 	Pop $FA_Txt
@@ -1061,7 +1058,7 @@ Function FileAssociations
 	Pop $FA_Py
 	${NSD_CreateCheckBox} 55% 80u 40% 8u "Ruby (.rb)"
 	Pop $FA_Rb
-	${NSD_CreateCheckBox} 55% 90u 40% 8u "Smarty (.smarty)"
+	${NSD_CreateCheckBox} 55% 90u 40% 8u "Smarty (.tpl)"
 	Pop $FA_Smarty
 	${NSD_CreateCheckBox} 55% 100u 40% 8u "VisualBasic Script (.vbs; .vb)"
 	Pop $FA_Vbs
@@ -1107,11 +1104,12 @@ Function SetFileAssociations
 	${RegisterFileType} $FA_Nsi 	"nsh" 	"text/x-nsh" 			"bfnshfile" "$(CT_NSH)" 16
 	${RegisterFileType} $FA_Pl  	"pl" 		"application/x-perl" 		"bfplfile" "$(CT_PL)" 18
 	${RegisterFileType} $FA_Php 	"php" 	"application/x-php" 		"bfphpfile" "$(CT_PHP)" 19
+	${RegisterFileType} $FA_Php 	"inc" 	"application/x-php" 		"bfphpfile" "$(CT_INC)" 19
 	${RegisterFileType} $FA_Php 	"php3" 	"application/x-php" 		"bfphpfile" "$(CT_PHP)" 19
 	${RegisterFileType} $FA_Txt 	"txt" 	"text/plain" 			"bftxtfile" "$(CT_TXT)" 24
 	${RegisterFileType} $FA_Py  	"py" 		"text/x-python" 		"bfpyfile" "$(CT_PY)" 20
 	${RegisterFileType} $FA_Rb  	"rb" 		"text/x-ruby" 			"bfrbfile" "$(CT_RB)" 21
-	${RegisterFileType} $FA_Smarty 	"smarty" 	"application/x-smarty" 		"bfsmartyfile" "$(CT_SMARTY)" 23
+	${RegisterFileType} $FA_Smarty 	"tpl" 	"application/x-smarty" 		"bfsmartyfile" "$(CT_SMARTY)" 23
 	${RegisterFileType} $FA_Vbs 	"vbs" 	"application/x-vbscript" 		"bfvbsfile" "$(CT_VBS)" 25
 	${RegisterFileType} $FA_Vbs 	"vb" 		"application/x-vbscript" 		"bfvbsfile" "$(CT_VBS)" 25
 	${RegisterFileType} $FA_Xhtml 	"xhtml" 	"application/xhtml+xml" 		"bfxhtmlfile" "$(CT_XHTML)" 26
