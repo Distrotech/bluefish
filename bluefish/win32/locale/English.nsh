@@ -71,6 +71,7 @@
 !define CT_NSH	"NSIS Header File"
 !define CT_PL	"Perl Script"
 !define CT_PHP	"PHP Script"
+!define CT_INC	"PHP Include Script"
 !define CT_TXT	"Plain Text"
 !define CT_PY	"Python Script"
 !define CT_RB	"Ruby Script"
