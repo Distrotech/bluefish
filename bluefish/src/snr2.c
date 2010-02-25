@@ -2282,11 +2282,9 @@ void toggle_comment(Tdocument *doc) {
 	gboolean ret;
 	
 	if (!BLUEFISH_TEXT_VIEW(doc->view)->bflang) {
-		g_print("commentcode_test, no bflang, returning\n");
 		return;
 	}
 	if (!BLUEFISH_TEXT_VIEW(doc->view)->bflang->line && !BLUEFISH_TEXT_VIEW(doc->view)->bflang->block) {
-		g_print("commentcode_test, no line or block in bflang %p, returning\n",BLUEFISH_TEXT_VIEW(doc->view)->bflang);
 		return;
 	}
 	
@@ -2295,6 +2293,7 @@ void toggle_comment(Tdocument *doc) {
 		gchar *buf;
 		GList *tmplist = g_list_first(BLUEFISH_TEXT_VIEW(doc->view)->bflang->comments);
 		buf = gtk_text_buffer_get_text(doc->buffer, &its, &ite, FALSE);
+		DEBUG_MSG("toggle_comment, remove comment\n");
 		while (tmplist) {
 			Tcomment *tmp = (Tcomment *)tmplist->data;
 			if (strncmp(tmp->so, buf, strlen(tmp->so))==0) {
@@ -2308,6 +2307,7 @@ void toggle_comment(Tdocument *doc) {
 		}
 		g_free(buf);
 	} else { /* add comment */
+		DEBUG_MSG("toggle_comment, add comment\n");
 		if (gtk_text_buffer_get_has_selection(doc->buffer)) {
 			if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->block 
 						&& (!BLUEFISH_TEXT_VIEW(doc->view)->bflang->line 
