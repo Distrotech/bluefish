@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * external_commands.c - backend for external commands, filters and the outputbox
  *
- * Copyright (C) 2005-2008 Olivier Sessink
+ * Copyright (C) 2005-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -60,7 +60,12 @@ typedef struct {
 	gchar *inplace;
 	gboolean pipe_in;
 	gboolean pipe_out;
-	
+
+	#ifdef WIN32
+		gpointer pipe_in_handle;
+		gpointer pipe_out_handle;
+	#endif
+
 	gboolean include_stderr;
 	
 	GIOChannel* channel_in;
@@ -85,11 +90,21 @@ static void externalp_unref(Texternalp *ep) {
 		DEBUG_MSG("externalp_unref, cleanup!\n");
 		if (ep->commandstring) g_free(ep->commandstring);
 		if (ep->fifo_in) {
-			unlink(ep->fifo_in);
+			#ifdef WIN32
+				CloseHandle(ep->fifo_in_handle);
+				g_free(ep->fifo_in_handle);
+			#else
+				unlink(ep->fifo_in);
+			#endif
 			g_free(ep->fifo_in);
 		}
 		if (ep->fifo_out) {
-			unlink(ep->fifo_out);
+			#ifdef WIN32
+				CloseHandle(ep->fifo_out_handle);
+				g_free(ep->fifo_out_handle);
+			#else
+				unlink(ep->fifo_out);
+			#endif
 			g_free(ep->fifo_out);
 		}
 		if (ep->tmp_in) {
@@ -189,18 +204,6 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	externalp_unref(ep);
 }
 
-#ifndef USEBINSH
-static gint count_char(char *string, char mychar) {
-	gint retval = 0;
-	gchar *tmp = string;
-	while (*tmp) {
-		if (*tmp == mychar)
-			retval++;
-	}
-	return retval;
-}
-#endif
-
 static void start_command_backend(Texternalp *ep) {
 #ifdef USEBINSH	
 	gchar *argv[4];
@@ -216,10 +219,28 @@ static void start_command_backend(Texternalp *ep) {
 	argv[2] = ep->commandstring;
 	argv[3] = NULL;
 #else
-	argv = g_malloc(sizeof(char *)*(count_char(ep->commandstring, ' ')+1));
+    g_shell_parse_argv(ep->commandstring, NULL, &argv, NULL);
 #endif
 	DEBUG_MSG("start_command_backend,commandstring=%s\n",ep->commandstring);
-#ifndef WIN32
+	ep->include_stderr = FALSE;
+#ifdef WIN32
+	if (ep->fifo_in) {
+		ep->fifo_in = g_strdup("\\\\.\\pipe\\bluefish_in");
+		if ((ep->fifo_in_handle = CreateNamedPipe(ep->fifo_in, PIPE_ACCESS_INBOUND, PIPE_TYPE_BYTE | PIPE_NOWAIT, 
+			 PIPE_UNLIMITED_INSTANCES, 2048, 2048, 100, NULL)) == INVALID_HANDLE_VALUE) {
+			g_print("some error happened creating fifo %s??\n", ep->fifo_in);
+			return;
+		}
+	}
+	if (ep->fifo_out) {
+		ep->fifo_out = g_strdup("\\\\.\\pipe\\bluefish_out");
+		if ((ep->fifo_out_handle = CreateNamedPipe(ep->fifo_out, PIPE_ACCESS_OUTBOUND, PIPE_TYPE_BYTE | PIPE_NOWAIT, 
+			 PIPE_UNLIMITED_INSTANCES, 2048, 2048, 100, NULL)) == INVALID_HANDLE_VALUE) {
+			g_print("some error happened creating fifo %s??\n", ep->fifo_out);
+			return;
+		}
+	}
+#else
 	if (ep->fifo_in) {
 		if (mkfifo(ep->fifo_in, 0600) != 0) {
 			g_print("some error happened creating fifo %s??\n",ep->fifo_in);
@@ -233,17 +254,13 @@ static void start_command_backend(Texternalp *ep) {
 			return;
 		}
 	}
-#else
-	DEBUG_MSG("start_command_backend,commandstring=%s\n",ep->commandstring);
-	DEBUG_MSG("unsupported function mkfifo\n");
-	ep->include_stderr = FALSE;
 #endif
 	DEBUG_MSG("start_command_backend, pipe_in=%d, pipe_out=%d, fifo_in=%s, fifo_out=%s,include_stderr=%d\n",ep->pipe_in,ep->pipe_out,ep->fifo_in,ep->fifo_out,ep->include_stderr);
 	DEBUG_MSG("start_command_backend, about to spawn process /bin/sh -c %s\n",argv[2]);
-	g_spawn_async_with_pipes(NULL,argv,NULL,G_SPAWN_DO_NOT_REAP_CHILD,(ep->include_stderr)?spawn_setup_lcb:NULL,ep,&ep->child_pid,
+	g_spawn_async_with_pipes(NULL, argv, NULL, G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH, (ep->include_stderr)?spawn_setup_lcb:NULL, ep, &ep->child_pid, 
 				(ep->pipe_in) ? &standard_input : NULL,
 				(ep->pipe_out) ? &standard_output : NULL,
-				NULL,&error);
+				NULL, &error);
 	ep->refcount+=2; /* one reference for this function (cleared in the end), one reference for the child_watch function */
 	g_child_watch_add(ep->child_pid,child_watch_lcb,ep);
 	if (error) {
@@ -256,7 +273,11 @@ static void start_command_backend(Texternalp *ep) {
 	flush_queue();
 	if (ep->pipe_in) {
 		DEBUG_MSG("start_command_backend, creating channel_in from pipe\n");
-		ep->channel_in = g_io_channel_unix_new(standard_input);
+		#ifdef WIN32
+			ep->channel_in = g_io_channel_win32_new_fd(standard_input);
+		#else
+			ep->channel_in = g_io_channel_unix_new(standard_input);
+		#endif
 	} else if (ep->fifo_in) {
 		DEBUG_MSG("start_command_backend, connecting channel_in to fifo %s\n",ep->fifo_in);
 		/* problem: this can hang if there is no process actually reading from this fifo... so if the 
@@ -278,7 +299,11 @@ static void start_command_backend(Texternalp *ep) {
 		g_io_add_watch(ep->channel_in,G_IO_OUT,start_command_write_lcb,ep);
 	}
 	if (ep->pipe_out) {
-		ep->channel_out = g_io_channel_unix_new(standard_output);
+		#ifdef WIN32
+			ep->channel_out = g_io_channel_win32_new_fd(standard_output);
+		#else
+			ep->channel_out = g_io_channel_unix_new(standard_output);
+		#endif
 		DEBUG_MSG("start_command_backend, created channel_out from pipe\n");
 	} else if (ep->fifo_out) {
 		ep->channel_out = g_io_channel_new_file(ep->fifo_out,"r",&error);
@@ -358,7 +383,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	if (!ep->bfwin->current_document) {
 		return NULL;
 	}
-	
+
 	formatstring = g_strstrip(g_strdup(formatstr));
 	formatstringlen = strlen(formatstring);
 
@@ -448,7 +473,11 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		curi = g_file_get_uri(ep->bfwin->current_document->uri);
 
 		if (need_local || (is_local_non_modified && (need_tmpin||need_fifoin))) {
-			localfilename = strrchr(localname, '/')+1;
+			#ifdef WIN32
+				localfilename = strrchr(localname, '\\')+1;
+			#else
+				localfilename = strrchr(localname, '/')+1;
+			#endif
 			items += 2;
 		}
 		if (need_preview_uri) {
@@ -460,7 +489,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	if (need_fifoin) items++;
 	if (need_fifoout) items++;
 	if (need_inplace) items++;
-	
+
 	table = g_new(Tconvert_table, items+1);
 	if (need_filename) {
 		table[cur].my_int = 'n';
