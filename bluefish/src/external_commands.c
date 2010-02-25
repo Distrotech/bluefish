@@ -62,8 +62,8 @@ typedef struct {
 	gboolean pipe_out;
 
 	#ifdef WIN32
-		gpointer pipe_in_handle;
-		gpointer pipe_out_handle;
+		gpointer fifo_in_handle;
+		gpointer fifo_out_handle;
 	#endif
 
 	gboolean include_stderr;
@@ -222,8 +222,8 @@ static void start_command_backend(Texternalp *ep) {
     g_shell_parse_argv(ep->commandstring, NULL, &argv, NULL);
 #endif
 	DEBUG_MSG("start_command_backend,commandstring=%s\n",ep->commandstring);
-	ep->include_stderr = FALSE;
 #ifdef WIN32
+	ep->include_stderr = FALSE;
 	if (ep->fifo_in) {
 		ep->fifo_in = g_strdup("\\\\.\\pipe\\bluefish_in");
 		if ((ep->fifo_in_handle = CreateNamedPipe(ep->fifo_in, PIPE_ACCESS_INBOUND, PIPE_TYPE_BYTE | PIPE_NOWAIT, 
