@@ -307,24 +307,26 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 {
 	DBG_SIGNALS("bftextview2_mark_set_lcb\n");
 	if (BLUEFISH_TEXT_VIEW(widget)->bflang && BLUEFISH_TEXT_VIEW(widget)->bflang->st && arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
-		GtkTextIter it1, it2;
-		Tfoundblock *fblock = bftextview2_get_block_at_offset(BLUEFISH_TEXT_VIEW(widget),gtk_text_iter_get_offset(location));
-		if (BLUEFISH_TEXT_VIEW(widget)->showing_blockmatch) {
-			gtk_text_buffer_get_bounds(buffer, &it1, &it2);
-			gtk_text_buffer_remove_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
-			BLUEFISH_TEXT_VIEW(widget)->showing_blockmatch = FALSE;
-		}
-		DBG_SIGNALS("bftextview2_mark_set_lcb, 'insert' set at %d\n",gtk_text_iter_get_offset(location));		
-		if (fblock) {
-			GtkTextIter it3, it4;
-			if (fblock->start2_o != BF2_OFFSET_UNDEFINED) {
-				bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
-				DBG_MSG("found a block to highlight the start (%d:%d) and end (%d:%d)\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_offset(&it3),gtk_text_iter_get_offset(&it4));
-				gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
-				gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it3, &it4);
-				BLUEFISH_TEXT_VIEW(widget)->showing_blockmatch = TRUE;
-			} else {
-				DBG_MSG("block has no end - no matching\n");
+		if (BLUEFISH_TEXT_VIEW(widget)->show_mbhl) {
+			GtkTextIter it1, it2;
+			Tfoundblock *fblock = bftextview2_get_block_at_offset(BLUEFISH_TEXT_VIEW(widget),gtk_text_iter_get_offset(location));
+			if (BLUEFISH_TEXT_VIEW(widget)->showing_blockmatch) {
+				gtk_text_buffer_get_bounds(buffer, &it1, &it2);
+				gtk_text_buffer_remove_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
+				BLUEFISH_TEXT_VIEW(widget)->showing_blockmatch = FALSE;
+			}
+			DBG_SIGNALS("bftextview2_mark_set_lcb, 'insert' set at %d\n",gtk_text_iter_get_offset(location));		
+			if (fblock) {
+				GtkTextIter it3, it4;
+				if (fblock->start2_o != BF2_OFFSET_UNDEFINED) {
+					bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
+					DBG_MSG("found a block to highlight the start (%d:%d) and end (%d:%d)\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_offset(&it3),gtk_text_iter_get_offset(&it4));
+					gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
+					gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it3, &it4);
+					BLUEFISH_TEXT_VIEW(widget)->showing_blockmatch = TRUE;
+				} else {
+					DBG_MSG("block has no end - no matching\n");
+				}
 			}
 		}
 		
@@ -1379,6 +1381,22 @@ void bluefish_text_view_set_show_right_margin(BluefishTextView * btv, gboolean s
 	gtk_widget_queue_draw(GTK_WIDGET(btv));
 }
 
+gboolean bluefish_text_view_get_show_mbhl(BluefishTextView * btv)
+{
+	return (btv->show_mbhl);
+}
+
+void bluefish_text_view_set_show_mbhl(BluefishTextView * btv, gboolean show) {
+	g_return_if_fail(btv != NULL);
+
+	if (show == btv->show_mbhl) {
+		return;
+	}
+	
+	btv->show_mbhl = show;
+	gtk_widget_queue_draw(GTK_WIDGET(btv));
+}
+
 #ifdef HAVE_LIBENCHANT
 void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check) {
 	GtkTextIter start,end;
@@ -1570,12 +1588,14 @@ void bluefish_text_view_multiset(BluefishTextView *btv
 			, gint view_line_numbers
 			, gint view_blocks
 			, gint autoindent
-			, gint autocomplete) {
+			, gint autocomplete
+			, gint show_mbhl) {
 	btv->doc = doc;
 	btv->show_line_numbers = view_line_numbers;
 	btv->show_blocks = view_blocks;
 	btv->auto_indent = autoindent;
 	btv->auto_complete= autocomplete;
+	btv->show_mbhl = show_mbhl;
 }
 
 static void bluefish_text_view_init(BluefishTextView * textview)

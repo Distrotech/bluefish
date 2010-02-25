@@ -318,7 +318,7 @@ typedef struct {
 	gint view_cline;			/* highlight current line by default */
 	gint view_blocks;			/* show blocks on the left side by default */
 	gint autocomplete;			/* whether or not to enable autocomplete by default for each new document */
-	gint view_mbhl;				/* show matching block begin-end by default */
+	gint show_mbhl;				/* show matching block begin-end by default */
 	gint snr_is_expanded;
 	gint sync_delete_deprecated;
 	gint sync_include_hidden;

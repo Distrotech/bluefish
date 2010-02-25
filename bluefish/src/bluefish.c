@@ -89,7 +89,7 @@ static void init_default_session(Tsessionvars *session) {
 			= session->view_cline
 			= session->view_blocks
 			= session->autocomplete
-			= session->view_mbhl
+			= session->show_mbhl
 			= 1;
 #ifdef HAVE_LIBENCHANT
 	session->spell_check_default = 1;

@@ -661,7 +661,7 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 	init_prop_integer(&configlist, &session->view_cline, "view_cline:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_blocks, "view_blocks:", 1, FALSE);
 	init_prop_integer(&configlist, &session->autocomplete, "autocomplete:", 1, FALSE);
-	init_prop_integer(&configlist, &session->view_mbhl, "view_mbhl:", 1, FALSE);
+	init_prop_integer(&configlist, &session->show_mbhl, "show_mbhl:", 1, FALSE);
 #ifdef HAVE_LIBENCHANT
 	init_prop_integer(&configlist, &session->spell_check_default, "spell_check_default:", 1, FALSE);
 #endif
