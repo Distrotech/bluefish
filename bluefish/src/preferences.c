@@ -120,6 +120,7 @@ enum {
 	extfilters,
 	extoutputbox,
 #endif /* ifndef WIN32 */
+	templates,
 	pluginconfig,
 	textstyles,
 	highlight_styles,
@@ -189,6 +190,7 @@ typedef struct {
 	GtkWidget *fixed;
 	Tlistpref ftd; /* FileTypeDialog */
 	Tlistpref ffd; /* FileFilterDialog */
+	Tlistpref tg; /* template gui */
 	Ttextstylepref tsd; /* TextStyleDialog */
 	Thldialog hld;
 	GtkListStore *lang_files;
@@ -1037,6 +1039,76 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 }
 #endif /* ifndef WIN32 */
+/********* template manager GUI */
+static void set_template_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
+	if (count_array(strarr)==2) {
+		gtk_list_store_set(GTK_LIST_STORE(pd->tg.lstore), iter
+				,0,strarr[0],1,strarr[1],2,strarr,-1);
+	}
+}
+
+static void template_apply_change(Tprefdialog *pd, gint type, gchar *path, gchar *newval, gint index) {
+	pref_apply_change(pd->tg.lstore,2,type,path,newval,index);
+}
+static void template_0_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
+	template_apply_change(pd, 1, path, newtext, 0);
+}
+static void template_1_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
+	template_apply_change(pd, 1, path, newtext, 1);
+}
+static void add_new_template_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	gchar **strarr;
+	GtkTreeIter iter;
+	strarr = pref_create_empty_strarr(2);
+	gtk_list_store_append(GTK_LIST_STORE(pd->tg.lstore), &iter);
+	set_template_strarr_in_list(&iter, strarr,pd);
+	pd->lists[templates] = g_list_append(pd->lists[templates], strarr);
+	pd->tg.insertloc = -1;
+}
+static void delete_template_lcb(GtkWidget *wid, Tprefdialog *pd) {
+	pref_delete_strarr(pd, &pd->tg, 2);
+}
+
+static void create_template_gui(Tprefdialog *pd, GtkWidget *vbox1) {
+	GList *tmplist;
+	GtkWidget *hbox, *but, *scrolwin;
+	pd->lists[templates] = duplicate_arraylist(main_v->props.templates);
+	pd->tg.lstore = gtk_list_store_new(3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
+	pd->tg.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->tg.lstore));
+	pref_create_column(GTK_TREE_VIEW(pd->tg.lview), 1, G_CALLBACK(template_0_edited_lcb), pd, _("Name"), 0,TRUE);
+	pref_create_column(GTK_TREE_VIEW(pd->tg.lview), 1, G_CALLBACK(template_1_edited_lcb), pd, _("File"), 1,TRUE);
+
+	scrolwin = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+	gtk_container_add(GTK_CONTAINER(scrolwin), pd->tg.lview);
+	gtk_widget_set_size_request(scrolwin, 200, 190);
+	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
+	tmplist = g_list_first(pd->lists[templates]);
+	while (tmplist) {
+		gint arrcount;
+		gchar **strarr = (gchar **)tmplist->data;
+		arrcount = count_array(strarr);
+		if (arrcount==2) {
+			GtkTreeIter iter;
+			gtk_list_store_append(GTK_LIST_STORE(pd->tg.lstore), &iter);
+			set_template_strarr_in_list(&iter, strarr,pd);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->od.lview), TRUE);
+	pd->tg.thelist = &pd->lists[templates];
+	pd->tg.insertloc = -1;
+	g_signal_connect(G_OBJECT(pd->tg.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->tg);
+	g_signal_connect(G_OBJECT(pd->tg.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->tg);
+
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox, FALSE, FALSE, 2);
+	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_template_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
+	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_template_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
+}
+
 
 /********* bflangdialog */
 static gchar *string_path_to_child_string_path(GtkTreeModelFilter *lfilter, const gchar *path) {
@@ -1205,7 +1277,8 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	pd->lists[extfilters] = NULL;
 	pd->lists[extoutputbox] = NULL;
 #endif /* ifndef WIN32 */
-
+	free_arraylist(pd->lists[templates]);
+	pd->lists[templates] = NULL;
 #ifndef WIN32
 /*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list));*/
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->bd.lview));
@@ -1316,6 +1389,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	free_arraylist(main_v->props.external_outputbox);
 	main_v->props.external_outputbox = duplicate_arraylist(pd->lists[extoutputbox]);
 #endif /* ifndef WIN32 */
+	free_arraylist(main_v->props.templates);
+	main_v->props.templates = duplicate_arraylist(pd->lists[templates]);
 
 	DEBUG_MSG("preferences_apply: free old textstyles, and building new list\n");
 	free_arraylist(main_v->props.textstyles);
@@ -1526,8 +1601,8 @@ static void preferences_dialog() {
 	pd->prefs[auto_update_meta_generator] = boxed_checkbut_with_value(_("Automatically update generator meta tag"), main_v->props.auto_update_meta_generator, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Files"), WIDGETCOL,vbox1,-1);
+	gtk_tree_store_append(pd->nstore, &iter, NULL);
+	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("Files"), WIDGETCOL,vbox1,-1);
 
 	frame = gtk_frame_new(_("Encoding"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -1576,8 +1651,19 @@ static void preferences_dialog() {
 	pd->prefs[do_periodic_check] = boxed_checkbut_with_value(_("Periodically check if file is modified on disk"), main_v->props.do_periodic_check, vbox2);
 	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent' menu"), main_v->props.max_recent_files, vbox2, 3, 100);
 
-	vbox1 = gtk_vbox_new(FALSE, 5);
 
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_tree_store_append(pd->nstore, &auxit, &iter);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Templates"), WIDGETCOL,vbox1,-1);
+
+	frame = gtk_frame_new(_("Templates"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	create_template_gui(pd,vbox2);
+
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
 	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("User interface"), WIDGETCOL,vbox1,-1);
 
