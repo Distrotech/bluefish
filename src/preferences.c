@@ -1095,7 +1095,7 @@ static void create_template_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->od.lview), TRUE);
+	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->tg.lview), TRUE);
 	pd->tg.thelist = &pd->lists[templates];
 	pd->tg.insertloc = -1;
 	g_signal_connect(G_OBJECT(pd->tg.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->tg);
