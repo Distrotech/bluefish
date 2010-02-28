@@ -166,6 +166,7 @@ while getopts "chvf:" options; do
 		v)
 			DEBUG="--debug"
 			VERBOSE="--verbose"
+			set -x
 		;;
 	esac
 done
