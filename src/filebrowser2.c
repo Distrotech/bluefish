@@ -255,6 +255,7 @@ static void set_documentroot_dialog(Tbfwin * bfwin, GFile * uri)
 
 	tmp = g_file_get_uri(uri);
 	drd->doc_entry = entry_with_text(tmp, 512);
+	gtk_entry_set_editable(GTK_ENTRY(drd->doc_entry), FALSE);
 	g_free(tmp);
 	gtk_table_attach_defaults(GTK_TABLE(table), drd->doc_entry, 1, 2, 1, 2);
 	dialog_mnemonic_label_in_table(_("Documentroot"), drd->doc_entry, table, 0, 1, 1, 2);
@@ -1928,6 +1929,7 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 * fb2, gboolean is_direct
 	if (!is_directory) {
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Open Advanced..."),
 								 FALSE);
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Set as documentroot"), FALSE);
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Set as basedir"), FALSE);
 	}
 	if (!is_file) {
