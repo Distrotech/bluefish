@@ -1838,14 +1838,15 @@ void file_handle(GFile *uri, Tbfwin *bfwin, gchar *mimetype) {
 		mime= g_content_type_get_mime_type(cont_type);
 #else
 		mime = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+		/* mime may be NULL in some cases (reproducable on Ubuntu 9.10 on a smb:// link ) */
 #endif
 	} else {
 		mime = mimetype;	
 	}
 	DEBUG_MSG("file_handle, got mime type %s\n",mime);
-	if (strcmp(mime, "application/x-bluefish-project")==0) {
+	if (mime && strcmp(mime, "application/x-bluefish-project")==0) {
 		project_open_from_file(bfwin, uri);
-	} else if (strncmp(mime, "image",5)==0) {
+	} else if (mime && strncmp(mime, "image",5)==0) {
 		/* TODO: do something with the image, fire the image dialog? insert a tag? */
 		if (bfwin && bfwin->current_document) {
 			gchar *curi=NULL, *tmp;
