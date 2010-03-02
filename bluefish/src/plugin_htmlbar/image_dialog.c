@@ -18,6 +18,7 @@
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+/*#define DEBUG*/
 
 #include <string.h>
 #include "htmlbar.h"
@@ -647,6 +648,7 @@ pbloader_size_prepared (GdkPixbufLoader *pbloader,
 												gint height,
 												BluefishImageDialog *dialog)
 {
+	DEBUG_MSG("pbloader_size_prepared, width=%d, height=%d\n",width,height);
 	dialog->priv->origWidth = width;
 	dialog->priv->origHeight = height;
 	
@@ -654,6 +656,7 @@ pbloader_size_prepared (GdkPixbufLoader *pbloader,
 		gfloat scale = width/256.0;
 		gdk_pixbuf_loader_set_size (pbloader, width/scale, height/scale);	
 	}
+	DEBUG_MSG("pbloader_size_prepared, done\n");
 }
 
 static GdkPixbufLoader *
@@ -696,15 +699,16 @@ static void
 image_dialog_set_source (BluefishImageDialog *dialog)
 {
 	gchar *relpath = NULL;
-	
+	DEBUG_MSG("image_dialog_set_source, started\n");
 	if (dialog->priv->doc->uri != NULL) {
 		gchar *curi1, *curi2;
 		curi1 = g_file_get_uri(dialog->priv->doc->uri);
 		curi2 = g_file_get_uri(dialog->priv->fileuri);
+		DEBUG_MSG("curi1=%s, curi2=%s\n",curi1,curi2);
 		relpath = create_relative_link_to(curi1,curi2);
 		DEBUG_MSG("image_dialog_set_source, relpath=%s\n",relpath);
 		g_free(curi1);
-		g_free(curi2);		
+		g_free(curi2);
 	}
 		
 	if (relpath)
@@ -743,7 +747,7 @@ image_dialog_preview_loaded (BluefishImageDialog *dialog)
 {
 	GFileInfo *fileinfo;
 	GError *error = NULL;
-	
+	DEBUG_MSG("image_dialog_preview_loaded, started\n");
 	if (dialog->priv->previewInfo) {
 		gtk_widget_destroy (dialog->priv->previewInfo);
 		dialog->priv->previewInfo = NULL;	
@@ -800,7 +804,7 @@ image_dialog_load_preview (Topenfile_status status,
 {
 	BluefishImageDialog *imageDialog = callback_data;
 	gboolean cleanup = TRUE;
-	
+	DEBUG_MSG("image_dialog_load_preview, started with status %d\n",status);
 	switch (status)
 	{
 		case OPENFILE_ERROR:
@@ -817,7 +821,7 @@ image_dialog_load_preview (Topenfile_status status,
 		{
 			GdkPixbuf *pixbuf;
 			GError *error= NULL;
-			
+			DEBUG_MSG("limage_dialog_load_preview, oading data into pixbuf\n");
 			if (gdk_pixbuf_loader_write (imageDialog->priv->pbloader,(guchar *) buffer, buflen, &error) 
 					&& gdk_pixbuf_loader_close (imageDialog->priv->pbloader, &error)) {
 						
@@ -867,20 +871,21 @@ image_dialog_remove_preview (BluefishImageDialog *dialog)
 }
 
 static void
-image_dialog_set_preview (BluefishImageDialog *dialog, const gchar *mimetype)
+image_dialog_set_preview(BluefishImageDialog *dialog, const gchar *mimetype)
 {
+	DEBUG_MSG("image_dialog_set_preview, started\n");
 	if (dialog->priv->preview)
 		image_dialog_remove_preview (dialog);
-
-	if (!g_file_has_uri_scheme (dialog->priv->fileuri, "file"))
-		image_dialog_set_preview_info (dialog, _("\n\n\t<b>Loading preview...</b>\t\n\n"));
+	DEBUG_MSG("image_dialog_set_preview, removed previous preview, loading new preview\n");
+	if (!g_file_has_uri_scheme(dialog->priv->fileuri, "file"))
+		image_dialog_set_preview_info(dialog, _("\n\n\t<b>Loading preview...</b>\t\n\n"));
 		
-	dialog->priv->pbloader = pbloader_get_for_mime_type (mimetype);
+	dialog->priv->pbloader = pbloader_get_for_mime_type(mimetype);
 		
 	g_signal_connect (dialog->priv->pbloader, "size-prepared",
 										G_CALLBACK (pbloader_size_prepared), dialog);
 		
-	dialog->priv->openfile = file_openfile_uri_async (dialog->priv->fileuri,NULL, image_dialog_load_preview, dialog);
+	dialog->priv->openfile = file_openfile_uri_async(dialog->priv->fileuri,NULL, image_dialog_load_preview, dialog);
 }
 
 static void
@@ -888,30 +893,35 @@ image_dialog_check_is_image_file (BluefishImageDialog *dialog)
 {
 	GFileInfo *fileinfo;
 	GError *error = NULL;
-
 	fileinfo = g_file_query_info (dialog->priv->fileuri,
 																G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
 																G_FILE_QUERY_INFO_NONE,
 																NULL,
 																&error);
-
 	if (error == NULL) {
 		if (g_file_info_has_attribute (fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE)) {
-			const gchar *contenttype = g_file_info_get_content_type (fileinfo);
-
-			if (contenttype && g_content_type_is_a (contenttype, "image/*")) {
-				gchar *mimetype = NULL;
+#ifdef WIN32
+			const gchar *contenttype, *mimetype=NULL;
+			contenttype = g_file_info_get_content_type(fileinfo);
+			if (contenttype)
+				mimetype = g_content_type_get_mime_type(contenttype);
+#else
+			gchar *mimetype = g_file_info_get_content_type(fileinfo);
+#endif
+			DEBUG_MSG("found mimetype %s\n",mimetype);
+			if (mimetype && strncmp(mimetype, "image/",6)==0) {
+				image_dialog_set_preview(dialog, mimetype);
+#ifdef WIN32
 				
-				mimetype = g_content_type_get_mime_type (contenttype);				
-				image_dialog_set_preview (dialog, mimetype);
-				
-				if (mimetype)
-					g_free (mimetype);
+				g_free (mimetype);
+#endif
 			}
 		}
 	} 
-	else
+	else {
+		g_warning("failed to find if image mimetype %s\n",error->message);
 		g_error_free (error);
+	}
 	
 	if (fileinfo)
 		g_object_unref (fileinfo);
@@ -1020,11 +1030,11 @@ filebutton_clicked (GtkButton *button,
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
 	{	
 		gchar *stringuri = NULL;
-			
+		
 		gtk_widget_hide (GTK_WIDGET (dialog));
 	
 		stringuri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog));
-		
+		DEBUG_MSG("filebutton_clicked, stringuri=%s\n",stringuri);
 		if (imageDialog->priv->fileuri) {
 			g_object_unref (imageDialog->priv->fileuri);
 			imageDialog->priv->fileuri = NULL;

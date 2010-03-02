@@ -3235,13 +3235,13 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 	if (curdoc->uri == NULL) {
 		return NULL;
 	}
-	curi = g_file_get_parse_name(curdoc->uri);
+	curi = g_file_get_uri(curdoc->uri);
 
 	tmplist = g_list_first(BFWIN(curdoc->bfwin)->documentlist);
 	while (tmplist) {
 		Tdocument *tmpdoc = tmplist->data;
 		if (tmpdoc != curdoc && tmpdoc->uri != NULL) {
-			gchar *tmp = g_file_get_parse_name(tmpdoc->uri);
+			gchar *tmp = g_file_get_uri(tmpdoc->uri);
 			retlist = g_list_prepend(retlist,create_relative_link_to(curi, tmp));
 			g_free(tmp);
 		}
