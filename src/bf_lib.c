@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG 
 
 #include "config.h"
 
@@ -980,9 +980,10 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
 	eff_link_to_filepath = most_efficient_filename(g_strdup(link_to_filepath));
 	DEBUG_MSG("eff_current: '%s'\n",eff_current_filepath);
 	DEBUG_MSG("eff_link_to: '%s'\n",eff_link_to_filepath);
-	/* get the size of the directory of the current_filename */
-	current_filename_length = strlen(strrchr(eff_current_filepath, DIRCHR))-1;
-	link_to_filename_length = strlen(strrchr(eff_link_to_filepath, DIRCHR))-1;
+	/* get the size of the directory of the current_filename. we work on URI's
+	so we always use the / as character */
+	current_filename_length = strlen(strrchr(eff_current_filepath, '/'))-1;
+	link_to_filename_length = strlen(strrchr(eff_link_to_filepath, '/'))-1;
 	DEBUG_MSG("create_relative_link_to, filenames: current: %d, link_to:%d\n", current_filename_length,link_to_filename_length); 
 	current_dirname_length = strlen(eff_current_filepath) - current_filename_length;
 	link_to_dirname_length = strlen(eff_link_to_filepath) - link_to_filename_length;
@@ -1008,7 +1009,7 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
 	/* this is the common length, but we need the common directories */
 	if (eff_current_filepath[common_lenght] != DIRCHR) {
 		gchar *ltmp = &eff_current_filepath[common_lenght];
-		while ((*ltmp != DIRCHR) && (common_lenght > 0)) {
+		while ((*ltmp != '/') && (common_lenght > 0)) {
 			common_lenght--;
 			ltmp--;
 		}
@@ -1019,7 +1020,7 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
 	   is compared to the link_to_file, that is the amount of ../ we need to add */
 	deeper_dirs = 0;
 	for (count = common_lenght+1; count <= current_dirname_length; count++) {
-		if (eff_current_filepath[count] == DIRCHR) {
+		if (eff_current_filepath[count] == '/') {
 			deeper_dirs++;
 			DEBUG_MSG("create_relative_link_to, on count=%d, deeper_dirs=%d\n", count, deeper_dirs);
 		}
