@@ -1553,6 +1553,18 @@ void bmark_add_extern(Tdocument *doc, gint offset, const gchar *name, const gcha
 	}
 }
 
+void bmark_toggle(Tdocument *doc, gint offset, const gchar *name, const gchar *text) {
+	Tbmark *bmark;
+	bmark = bmark_get_bmark_at_line(doc, offset);
+	if (bmark) {
+		bmark_check_remove(BFWIN(doc->bfwin),bmark); /* check  if we should remove a filename too */
+		bmark_unstore(BFWIN(doc->bfwin), bmark);
+		bmark_free(bmark);
+	} else {
+		bmark_add_extern(doc, offset, name, text, !main_v->globses.bookmarks_default_store);
+	}
+}
+
 void bmark_add(Tbfwin * bfwin) {
 	GtkTextIter it, it2;
 	gint offset;

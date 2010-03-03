@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bf_lib.c - non-GUI general functions
  *
- * Copyright (C) 2000-2006 Olivier Sessink
+ * Copyright (C) 2000-20010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG 
+/*#define DEBUG */
 
 #include "config.h"
 
