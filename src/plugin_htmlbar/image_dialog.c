@@ -906,7 +906,7 @@ image_dialog_check_is_image_file (BluefishImageDialog *dialog)
 			if (contenttype)
 				mimetype = g_content_type_get_mime_type(contenttype);
 #else
-			gchar *mimetype = g_file_info_get_content_type(fileinfo);
+			const gchar *mimetype = g_file_info_get_content_type(fileinfo);
 #endif
 			DEBUG_MSG("found mimetype %s\n",mimetype);
 			if (mimetype && strncmp(mimetype, "image/",6)==0) {

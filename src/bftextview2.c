@@ -1079,26 +1079,36 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 		if (event->button == 1) {
 			gint x, y;
 			GtkTextIter it;
+
+			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, 0,event->y, &x, &y);
+			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &it, y, &x);
+
+			if (event->type == GDK_2BUTTON_PRESS) {
+				GdkRegion *region;
+				bmark_toggle(btv->doc, gtk_text_iter_get_offset(&it), NULL, NULL);
+				/* redraw margin */
+				region = gdk_drawable_get_clip_region(event->window);
+				gdk_window_invalidate_region(event->window, region, FALSE);
+				gdk_region_destroy(region);
+
+				return TRUE;
+			}
 			if (btv->show_blocks && event->x >= btv->margin_pixels_chars) { /* get the offset that equals the folding area */
-				gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, 0,
-													  event->y, &x, &y);
+				
 				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &it, y, &x);
 				DBG_FOLD("fold/unfold at offset %d (line %d)\n",gtk_text_iter_get_offset(&it),gtk_text_iter_get_line(&it));
 				bftextview2_toggle_fold(btv, &it);
-				/*block_mark = bftv_get_first_block_at_line(BF_TEXTVIEW(widget), &it, TRUE);
-				if (block_mark)
-					bftv_fold(BF_TEXTVIEW(widget), block_mark, TRUE);*/
 				return TRUE;
-			} else if (event->x < btv->margin_pixels_chars) {
-				GtkTextIter it2;
-				/* select line */
-				gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, 0,
-													  event->y, &x, &y);
-				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &it, y, &x);
-				it2 = it;
-				gtk_text_iter_forward_to_line_end(&it2);
-				DBG_MSG("select from %d to %d\n",gtk_text_iter_get_offset(&it),gtk_text_iter_get_offset(&it2));
-				gtk_text_buffer_select_range(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),&it,&it2);
+			}
+			if (event->x < btv->margin_pixels_chars) {
+				if (!gtk_text_iter_ends_line(&it)) {
+					GtkTextIter it2;
+					/* select line */
+					it2 = it;
+					gtk_text_iter_forward_to_line_end(&it2);
+					DBG_MSG("select from %d to %d\n",gtk_text_iter_get_offset(&it),gtk_text_iter_get_offset(&it2));
+					gtk_text_buffer_select_range(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),&it,&it2);
+				}
 				return TRUE;
 			}
 		} else if (event->button == 3 && btv->show_blocks && event->x >= btv->margin_pixels_chars) {
