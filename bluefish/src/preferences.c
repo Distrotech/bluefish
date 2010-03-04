@@ -541,7 +541,7 @@ Tsessionprefs *sessionprefs(const gchar *frame_title, Tsessionprefs *sprefs, Tse
 	sprefs->prefs[view_cline] = boxed_checkbut_with_value(_("Highlight current line"), sessionvars->view_cline, sprefs->vbox);
 	sprefs->prefs[view_blocks] = boxed_checkbut_with_value(_("Enable block folding"), sessionvars->view_blocks, sprefs->vbox);
 	sprefs->prefs[autocomplete] = boxed_checkbut_with_value(_("Enable automatic completion pop-up"), sessionvars->autocomplete, sprefs->vbox);
-	sprefs->prefs[show_mbhl] = boxed_checkbut_with_value(_("Highlight matching block begin-end"), sessionvars->show_mbhl, sprefs->vbox);
+	sprefs->prefs[show_mbhl] = boxed_checkbut_with_value(_("Highlight block delimiters"), sessionvars->show_mbhl, sprefs->vbox);
 #ifdef HAVE_LIBENCHANT
 	sprefs->prefs[session_spell_check] = boxed_checkbut_with_value(_("Enable spell check"), sessionvars->spell_check_default, sprefs->vbox);
 #endif
