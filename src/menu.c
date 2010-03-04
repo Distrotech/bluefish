@@ -278,7 +278,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/Show _Blocks"), NULL, doc_menu_lcb, 5, "<ToggleItem>"},
 	{N_("/Document/_Visible Spacing"), NULL, doc_menu_lcb, 6, "<ToggleItem>"},
 	{N_("/Document/Show Right Margin"), NULL, doc_menu_lcb, 14, "<ToggleItem>"},
-	{N_("/Document/Highlight block bounds"), NULL, doc_menu_lcb, 15, "<ToggleItem>"},
+	{N_("/Document/Highlight block delimiters"), NULL, doc_menu_lcb, 15, "<ToggleItem>"},
 #ifdef HAVE_LIBENCHANT
 	{N_("/Document/_Spell Check"), NULL, doc_menu_lcb, 13, "<ToggleItem>"},
 #endif
