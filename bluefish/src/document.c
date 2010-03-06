@@ -1272,12 +1272,23 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 			gtk_text_buffer_insert(doc->buffer,&seconditer,after_str,-1);
 			/* now the only thing left is to move the selection and insert mark back to their correct places
 			to preserve the users selection */
-			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itinsert,insert);
-			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,select);
-			gtk_text_iter_forward_chars(firstiter, g_utf8_strlen(before_str, -1));
-			gtk_text_buffer_select_range(doc->buffer,&itinsert,&itselect);
+			if (have_diag_marks) {
+				DEBUG_MSG("doc_insert_two_strings, reset selection with diag_marks\n");
+				gtk_text_buffer_get_iter_at_mark(doc->buffer,&itinsert,insert);
+				gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,select);
+				gtk_text_iter_forward_chars(firstiter, g_utf8_strlen(before_str, -1));
+				gtk_text_buffer_select_range(doc->buffer,&itinsert,&itselect);
+			} else {
+				gtk_text_buffer_get_iter_at_mark(doc->buffer,&seconditer,secondat);
+				gtk_text_iter_backward_chars(&seconditer, g_utf8_strlen(after_str, -1));
+				gtk_text_buffer_move_mark(doc->buffer,secondat,&seconditer);
+			}
 		}
 
+	}
+	if (have_diag_marks) {
+		gtk_text_buffer_delete_mark(doc->buffer,insert);
+		gtk_text_buffer_delete_mark(doc->buffer,select);
 	}
 	doc_unre_new_group(doc);
 	DEBUG_MSG("doc_insert_two_strings, finished\n");
