@@ -1529,6 +1529,14 @@ static Tbmark *bmark_get_bmark_at_line(Tdocument *doc, gint offset) {
 	return NULL;
 }
 
+static void bmark_warn_unsaved_file(Tbfwin *bfwin) {
+	message_dialog_new(bfwin->main_window,
+								 GTK_MESSAGE_ERROR,
+								 GTK_BUTTONS_CLOSE,
+								 _("Error adding bookmark"),
+								 _("Cannot add bookmarks to unsaved files."));
+}
+
 /**
  * bmark_add_extern
  * @doc: a #Tdocument* with the document
@@ -1541,6 +1549,12 @@ static Tbmark *bmark_get_bmark_at_line(Tdocument *doc, gint offset) {
  * this function.
  */
 void bmark_add_extern(Tdocument *doc, gint offset, const gchar *name, const gchar *text, gboolean is_temp) {
+	if (!doc)
+		return;
+	if (!doc->uri) {
+		bmark_warn_unsaved_file(doc->bfwin);
+		return;
+	}
 	DEBUG_MSG("adding bookmark at offset %d with name %s\n",offset,name); /* dummy */
 	if (!bmark_get_bmark_at_line(doc, offset)) {
 		if (text) {
@@ -1555,6 +1569,12 @@ void bmark_add_extern(Tdocument *doc, gint offset, const gchar *name, const gcha
 
 void bmark_toggle(Tdocument *doc, gint offset, const gchar *name, const gchar *text) {
 	Tbmark *bmark;
+	if (!doc)
+		return;
+	if (!doc->uri) {
+		bmark_warn_unsaved_file(doc->bfwin);
+		return;
+	}
 	bmark = bmark_get_bmark_at_line(doc, offset);
 	if (bmark) {
 		bmark_check_remove(BFWIN(doc->bfwin),bmark); /* check  if we should remove a filename too */
@@ -1571,11 +1591,7 @@ void bmark_add(Tbfwin * bfwin) {
 	gboolean has_mark;
 	/* check for unnamed document */
 	if (!DOCUMENT(bfwin->current_document)->uri) {
-		message_dialog_new(bfwin->main_window,
-								 GTK_MESSAGE_ERROR,
-								 GTK_BUTTONS_CLOSE,
-								 _("Error adding bookmark"),
-								 _("Cannot add bookmarks to unsaved files."));
+		bmark_warn_unsaved_file(bfwin);
 		/*Please save the file first. A Save button in this dialog would be cool -- Alastair*/
 		return;
 	}

@@ -2996,13 +2996,13 @@ void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin) {
 void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GtkTextMark *mark;
 	Tdocument *doc = bfwin->current_document;
-	g_print("edit_paste_cb, create new undo group\n");
+	DEBUG_MSG("edit_paste_cb, create new undo group\n");
 	doc_unre_new_group(doc);
 	doc->in_paste_operation=TRUE;
 	DEBUG_MSG("edit_paste_cb, pasting clipboard\n");
 	gtk_text_buffer_paste_clipboard (doc->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
 	doc->in_paste_operation=FALSE;
-	g_print("edit_paste_cb, finished, create new undo group\n");
+	DEBUG_MSG("edit_paste_cb, finished, create new undo group\n");
 	doc_unre_new_group(doc);
 	mark = gtk_text_buffer_get_insert(bfwin->current_document->buffer);
 	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(bfwin->current_document->view), mark);
