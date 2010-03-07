@@ -1,5 +1,5 @@
 
-SUBDIRS = bflang bflib
+SUBDIRS = bflang bflib templates
 
 EXTRA_DIST = $(bfdata_DATA)
 

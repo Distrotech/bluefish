@@ -604,6 +604,7 @@ AC_CONFIG_FILES([
 	data/Makefile
 	data/bflang/Makefile
 	data/bflib/Makefile
+	data/templates/Makefile
 	desktop-data/Makefile
 	images/Makefile
 	man/Makefile
