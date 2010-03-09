@@ -24,6 +24,7 @@
 	<!ENTITY i18n "dir,lang">
 	<!ENTITY univ "class,id,style,title">
 	<!ENTITY evnt "onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup">
+	<!-- <!ENTITY all-xhtml SYSTEM "all-xhtml.bfinc"> -->
 	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
@@ -83,10 +84,12 @@
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 <tag name="html" attributes="xmlns,version,&i18n;,&xml;" attribhighlight="attribute" highlight="tag" autocomplete_append=" xmlns=&quot;http://www.w3.org/1999/xhtml&quot; &gt;&#10;&#10;&lt;/html&gt;" autocomplete_backup_cursor="8" />
+
 <tag name="head" attributes="profile,&i18n;" highlight="tag" >
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 	<tag name="meta" highlight="tag" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" />
-	<tag name="title" highlight="tag" attributes="&i18n;" />
+	<tag name="title" highlight="tag" attributes="&i18n;" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" />
+	<tag name="base" highlight="tag" attributes="href,target" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" />
 
 <element id="e.html.comment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
 	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
@@ -162,11 +165,18 @@
 		<group highlight="tag" attribhighlight="attribute"  attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 			<tag name="abbr" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="acronym" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="address" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="area" attributes="&univ;,&i18n;,&evnt;,alt,accesskey,coords,href,nohref,onblur,onfocus,shape,tabindex,target"/>
 			<tag name="b" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="bdo" attributes="&univ;,&i18n;,dir"/>
+			<tag name="big" attributes="&univ;,&i18n;,dir"/>
 			<tag name="blockquote" attributes="&univ;,&i18n;,&evnt;,cite"/>
 			<tag name="br" attributes="&univ;" autocomplete_append=" /&gt;"/>
-			<tag name="code" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="button" attributes="&univ;,&i18n;,&evnt;,accesskey,disabled,name,onblur,onfocus,tabindex,type,value"/>
 			<tag name="cite" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="code" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="col" attributes="&univ;,&i18n;,&evnt;,align,char,charoff,span,valign,width"/>
+			<tag name="colgroup" attributes="&univ;,&i18n;,&evnt;,align,char,charoff,span,valign,width"/>
 			<tag name="del" attributes="&univ;,&i18n;,&evnt;,cite,datetime"/>
 			<tag name="dd" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="dfn" attributes="&univ;,&i18n;,&evnt;"/>
