@@ -1008,7 +1008,6 @@ typedef struct {
 	GPatternSpec* patspec;
 	gchar *content_filter;
 	gboolean use_regex;
-	/*pcre *contentf_pcre;*/ /* a compiled content_filter */
 	GRegex *content_reg;
 	GFile *topbasedir; /* the top directory where advanced open started */
 #ifdef LOAD_TIMER
@@ -1047,7 +1046,6 @@ static void openadv_unref(Topenadv *oa) {
 		if (oa->extension_filter) g_free(oa->extension_filter);
 		if (oa->patspec) g_pattern_spec_free(oa->patspec);
 		if (oa->content_filter) g_free(oa->content_filter);
-		/*if (oa->contentf_pcre) pcre_free(oa->contentf_pcre);*/
 		if (oa->content_reg) g_regex_unref(oa->content_reg);
 		if (oa->topbasedir) g_object_unref(oa->topbasedir);
 		g_free(oa);
@@ -1068,10 +1066,6 @@ static void open_adv_open_uri_cleanup(Topenadv_uri *oau) {
 static gboolean open_adv_content_matches_filter(gchar *buffer,goffset buflen, Topenadv_uri *oau) {
 	if (oau->oa->use_regex) {
 		return g_regex_match(oau->oa->content_reg,buffer,0,NULL);
-		/*int rc;
-		int ovector[30];
-		rc = pcre_exec(oau->oa->contentf_pcre, NULL, buffer, buflen, 0, 0, ovector, 30);
-		return rc;*/
 	} else {
 		return (strstr(buffer, oau->oa->content_filter) != NULL);
 	}
@@ -1297,8 +1291,6 @@ gboolean open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, guint 
 	oa->use_regex = use_regex;
 	if (oa->use_regex) {
 		GError *gerror=NULL;
-		/*int erroffset;
-		oa->contentf_pcre = pcre_compile(oa->content_filter, 0, &error, &erroffset, NULL);*/
 		oa->content_reg = g_regex_new(oa->content_filter,0,0,&gerror);
 		if (gerror) {
 			DEBUG_MSG("regex compile error %d: %s\n",gerror->code,gerror->message);
