@@ -52,8 +52,6 @@ typedef struct {
 	gint output_subpat;
 	gboolean scrolled_once;
 	GRegex *reg;
-	/*pcre *pcre_c;
-	pcre_extra *pcre_s;*/
 } Toutput_def;
 
 typedef struct {
@@ -286,7 +284,6 @@ void fill_output_box(gpointer data, gchar *string) {
 	
 	match = g_regex_match(ob->def->reg,string,0,&match_info);
 	nummatches = g_match_info_get_match_count(match_info);
-	/*nummatches = pcre_exec(ob->def->pcre_c, ob->def->pcre_s,string, strlen(string), 0,0, ovector, 30);*/
 	if (match && nummatches > 0) {
 		/* we have a valid line */
 		gchar *filename=NULL,*line=NULL,*output=NULL;
@@ -301,15 +298,6 @@ void fill_output_box(gpointer data, gchar *string) {
 		if (ob->def->output_subpat >= 0 && nummatches >= ob->def->output_subpat) {
 			output = g_match_info_fetch(match_info, ob->def->output_subpat);
 		}
-/*		if (ob->def->file_subpat >= 0 && ovector[ob->def->file_subpat*2] >=0) {
-			pcre_get_substring(string,ovector,nummatches,ob->def->file_subpat,&filename);
-		}
-		if (ob->def->line_subpat >= 0&& ovector[ob->def->line_subpat*2] >=0) {
-			pcre_get_substring(string,ovector,nummatches,ob->def->line_subpat,&line);
-		}
-		if (ob->def->output_subpat >= 0&& ovector[ob->def->output_subpat*2] >=0) {
-			pcre_get_substring(string,ovector,nummatches,ob->def->output_subpat,&output);
-		}*/
 		DEBUG_MSG("fill_output_box, filename=%s, line=%s, output=%s\n",filename,line,output);
 		if (filename) {
 			GFile *addtolist;
@@ -364,8 +352,6 @@ static void outputbox_def_cleanup(Toutputbox *ob, gboolean do_shutdown) {
 	if (ob->def->reg)
 		g_regex_unref(ob->def->reg);
 	g_free(ob->def->pattern);
-	/*pcre_free(ob->def->pcre_c);
-	pcre_free(ob->def->pcre_s);*/
 	if (ob->def->docuri) 
 		g_object_unref(ob->def->docuri);
 	g_free(ob->def);
@@ -419,14 +405,6 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	
 /*	ob->def->show_all_output = show_all_output;*/
 	
-	/*ob->def->pcre_c = pcre_compile(ob->def->pattern, PCRE_UTF8,&errptr,&erroffset,NULL);
-	if (ob->def->pcre_c == NULL) {
-		gchar *tmpstr = g_strdup_printf(_("Failed to compile outputbox pattern %s"),ob->def->pattern);
-		statusbar_message(bfwin,tmpstr,4);
-		g_free(tmpstr);
-		return;
-	}
-	ob->def->pcre_s = pcre_study(ob->def->pcre_c, 0,&errptr);*/
 	ob->def->reg = g_regex_new(ob->def->pattern, G_REGEX_OPTIMIZE, 0, &gerror);
 	if (gerror) {
 		gchar *tmpstr = g_strdup_printf(_("Failed to compile outputbox pattern %s: %s"),ob->def->pattern, gerror->message);
