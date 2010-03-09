@@ -430,7 +430,15 @@ fi
 _gdk_tgt=`$PKG_CONFIG --variable=target gdk-2.0`
 AM_CONDITIONAL([GDK_TARGET_QUARTZ], [test x$_gdk_tgt = xquartz])
 if test "x$_gdk_tgt" = xquartz; then 
-	BF_dependencies="$BF_dependencies ige-mac-integration"
+#	BF_dependencies="$BF_dependencies ige-mac-integration"
+	PKG_CHECK_MODULES([IGE_MAC],[ige-mac-integration])
+	AC_SUBST(IGE_MAC_LIBS)
+   AC_SUBST(IGE_MAC_CFLAGS)
+   CFLAGS="$CFLAGS $IGE_MAC_CFLAGS"
+   LIBS="$LIBS $IGE_MAC_LIBS"
+   
+	AC_DEFINE([MAC_INTEGRATION],,[ige Mac OSX integration])
+	AC_MSG_WARN([gdk target is $_gdk_tgt])
 fi
 
 PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])

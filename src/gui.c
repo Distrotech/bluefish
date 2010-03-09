@@ -381,6 +381,9 @@ gboolean left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean
 	}
 	if (!first_time) {
 		gtk_widget_unref(bfwin->notebook_box);
+#ifdef MAC_INTEGRATION
+		ige_mac_menu_sync(GTK_MENU_SHELL(bfwin->menubar));
+#endif
 	}
 	return TRUE;
 }
@@ -483,6 +486,9 @@ void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
 	menuitem_set_sensitive(bfwin->menubar, "/Edit/Undo All", undo);
 	menuitem_set_sensitive(bfwin->menubar, "/Edit/Redo", redo);
 	menuitem_set_sensitive(bfwin->menubar, "/Edit/Redo All", redo);
+#ifdef MAC_INTEGRATION
+	ige_mac_menu_sync(GTK_MENU_SHELL(bfwin->menubar));
+#endif
 }
 
 void gui_set_document_widgets(Tdocument *doc) {
@@ -529,6 +535,9 @@ void gui_set_document_widgets(Tdocument *doc) {
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Replace Again", !doc->readonly);
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Indent", !doc->readonly);
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Unindent", !doc->readonly);
+#ifdef MAC_INTEGRATION
+	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(doc->bfwin)->menubar));
+#endif
 
 }
 /*
@@ -1098,6 +1107,10 @@ void gui_create_main(Tbfwin *bfwin) {
 void gui_show_main(Tbfwin *bfwin) {
 	DEBUG_MSG("gui_show_main, before show\n");
 	/* don't use show_all since some widgets are and should be hidden */
+#ifdef MAC_INTEGRATION
+	gtk_widget_hide(bfwin->menubar);
+	ige_mac_menu_set_menu_bar(GTK_MENU_SHELL(bfwin->menubar));
+#endif
 	gtk_widget_show(bfwin->main_window);
 
 }
