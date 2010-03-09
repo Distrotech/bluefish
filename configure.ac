@@ -425,23 +425,26 @@ if test "x$enable_spell_check" != "xno"; then
 	)
 fi
 
+PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
+
 # from https://sourceforge.net/apps/trac/gtk-osx/wiki/Integrate
 # to integrate bluefish in the OSX GUI
+AC_MSG_CHECKING([for ige Mac OSX integration])
 _gdk_tgt=`$PKG_CONFIG --variable=target gdk-2.0`
-AM_CONDITIONAL([GDK_TARGET_QUARTZ], [test x$_gdk_tgt = xquartz])
-if test "x$_gdk_tgt" = xquartz; then 
-#	BF_dependencies="$BF_dependencies ige-mac-integration"
-	PKG_CHECK_MODULES([IGE_MAC],[ige-mac-integration])
-	AC_SUBST(IGE_MAC_LIBS)
-   AC_SUBST(IGE_MAC_CFLAGS)
-   CFLAGS="$CFLAGS $IGE_MAC_CFLAGS"
-   LIBS="$LIBS $IGE_MAC_LIBS"
-   
-	AC_DEFINE([MAC_INTEGRATION],,[ige Mac OSX integration])
-	AC_MSG_WARN([gdk target is $_gdk_tgt])
+if test "x$_gdk_tgt" = "xquartz"; then
+	BF_igemacintegration="ige-mac-integration"
+	AC_MSG_RESULT([gdk target is $_gdk_tgt])
+else
+	AC_MSG_RESULT([no])
 fi
 
-PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
+PKG_CHECK_MODULES(
+	[BLUEFISH_IGEMAC],
+	[$BF_igemacintegration]
+	[
+	 AC_DEFINE([MAC_INTEGRATION], [1], [Define to 1 for ige Mac OSX integration.])
+	]
+)
 
 # optionally build the charmap plugin if gucharmap is available
 PKG_CHECK_MODULES(
@@ -570,8 +573,8 @@ dnl ************************
 dnl   Final Cflags/Libs
 dnl ************************
 
-CFLAGS="$CFLAGS $BLUEFISH_REQUIRED_CFLAGS"
-LIBS="$LIBS $BLUEFISH_REQUIRED_LIBS"
+CFLAGS="$CFLAGS $BLUEFISH_REQUIRED_CFLAGS $BLUEFISH_IGEMAC_CFLAGS"
+LIBS="$LIBS $BLUEFISH_REQUIRED_LIBS $BLUEFISH_IGEMAC_LIBS"
 
 
 dnl ************************
