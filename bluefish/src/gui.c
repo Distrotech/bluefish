@@ -22,12 +22,17 @@
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
+
 #include <time.h>      /* nanosleep() */
 #include <string.h>    /* strchr() */
 #include <unistd.h>    /* exit() */
 #include <stdlib.h>    /* exit() on Solaris */
 
 #include "config.h"
+
+#ifdef MAC_INTEGRATION
+#include <ige-mac-integration.h>
+#endif
 
 #include "bluefish.h"
 #include "bf_lib.h"         /* get_int_from_string() */
@@ -1105,12 +1110,26 @@ void gui_create_main(Tbfwin *bfwin) {
 }
 
 void gui_show_main(Tbfwin *bfwin) {
-	DEBUG_MSG("gui_show_main, before show\n");
 	/* don't use show_all since some widgets are and should be hidden */
 #ifdef MAC_INTEGRATION
+	GtkWidget *menuitem;
+	GtkItemFactory *ifactory;
+	IgeMacMenuGroup *group;
 	gtk_widget_hide(bfwin->menubar);
 	ige_mac_menu_set_menu_bar(GTK_MENU_SHELL(bfwin->menubar));
+	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
+	menuitem = gtk_item_factory_get_widget(ifactory, _("/File/Quit"));
+	ige_mac_menu_set_quit_menu_item(GTK_MENU_ITEM(menuitem));
+
+	group = ige_mac_menu_add_app_menu_group ();
+	ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(menuitem),NULL);
+	
+	/*ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(about_item),NULL);*/
+	menuitem = gtk_item_factory_get_widget(ifactory, _("/Edit/Preferences"));
+	group = ige_mac_menu_add_app_menu_group();
+	ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(menuitem),NULL);
 #endif
+	DEBUG_MSG("gui_show_main, before show\n");
 	gtk_widget_show(bfwin->main_window);
 
 }
