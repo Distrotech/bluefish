@@ -434,17 +434,17 @@ _gdk_tgt=`$PKG_CONFIG --variable=target gdk-2.0`
 if test "x$_gdk_tgt" = "xquartz"; then
 	BF_igemacintegration="ige-mac-integration"
 	AC_MSG_RESULT([gdk target is $_gdk_tgt])
+	PKG_CHECK_MODULES(
+		[BLUEFISH_IGEMAC],
+		[$BF_igemacintegration],
+		[
+		 AC_DEFINE([MAC_INTEGRATION], [1], [Define to 1 for ige Mac OSX integration.])
+		]
+	)
 else
 	AC_MSG_RESULT([no])
 fi
 
-PKG_CHECK_MODULES(
-	[BLUEFISH_IGEMAC],
-	[$BF_igemacintegration]
-	[
-	 AC_DEFINE([MAC_INTEGRATION], [1], [Define to 1 for ige Mac OSX integration.])
-	]
-)
 
 # optionally build the charmap plugin if gucharmap is available
 PKG_CHECK_MODULES(
