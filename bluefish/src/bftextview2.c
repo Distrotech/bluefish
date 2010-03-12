@@ -399,29 +399,31 @@ static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * it
 static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
 										gint stringlen, BluefishTextView * btv)
 {
-	GtkTextIter start;
-	gint start_offset;
+	GtkTextIter start, end;
+	/*gint start_offset;*/
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb, stringlen=%d\n", stringlen);
 	if (!main_v->props.reduced_scan_triggers || stringlen > 1 || (stringlen==1 && char_in_allsymbols(btv, string[0]))) {
 		bftextview2_schedule_scanning(btv);
 	}
 	/* mark the text that is changed */
-	start = *iter;
+	end = start = *iter;
 	gtk_text_iter_backward_chars(&start, stringlen);
 
-#ifdef HAVE_LIBENCHANT
-	DBG_SPELL("bftextview2_insert_text_after_lcb, mark area from %d to %d with tag 'needspellcheck' %p\n", gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needspellcheck);
-	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, iter);
-#endif /*HAVE_LIBENCHANT*/
 	DBG_SIGNALS("bftextview2_insert_text_after_lcb: mark text from %d to %d as needscanning %p\n", gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter), btv->needscanning);
 	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
-	start_offset = gtk_text_iter_get_offset(&start);
+	/*start_offset = gtk_text_iter_get_offset(&start);*/
 	if (btv->enable_scanner && btv->needs_autocomp && btv->auto_complete && stringlen == 1 && (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb: call autocomp_run\n");
 		autocomp_run(btv,FALSE);
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, set needs_autocomp to FALSE\n");
 		btv->needs_autocomp=FALSE;
 	}
+
+#ifdef HAVE_LIBENCHANT
+	DBG_SPELL("bftextview2_insert_text_after_lcb, mark area from %d to %d with tag 'needspellcheck' %p\n", gtk_text_iter_get_offset(&start), gtk_text_iter_get_offset(iter), btv->needspellcheck);
+	gtk_text_buffer_apply_tag(buffer, btv->needspellcheck, &start, &end);
+#endif /*HAVE_LIBENCHANT*/
+
 	bftextview2_reset_user_idle_timer(btv);
 	bftextview2_set_margin_size(btv);
 }
@@ -828,7 +830,7 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	while (loop < 32 && gtk_text_iter_backward_char(&begin) && !g_unichar_isspace(gtk_text_iter_get_char(&begin)))
 		loop++;
 	loop=0;
-	while (loop < 32 && gtk_text_iter_backward_char(&begin) && !g_unichar_isspace(gtk_text_iter_get_char(&end)))
+	while (loop < 32 && gtk_text_iter_forward_char(&end) && !g_unichar_isspace(gtk_text_iter_get_char(&end)))
 		loop++;
 	/*gtk_text_iter_backward_word_start(&begin);
 	gtk_text_iter_forward_word_end(&end);*/

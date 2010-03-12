@@ -400,6 +400,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 		} else { /* no scantable */
 			eo2=eo;
 		}
+		gtk_text_buffer_remove_tag_by_name(GTK_TEXT_VIEW(btv)->buffer, "_spellerror_", &iter, &eo2);
 		DBG_SPELL("bftextview2_run_spellcheck, loop2 from %d to %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&eo2));
 		while (cont2 && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) { /* loop from iter to eo2 */
 			loop++;
