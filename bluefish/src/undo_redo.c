@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * undo_redo.c - imrpoved undo/redo functionality
  *
- * Copyright (C) 2001-2008 Olivier Sessink
+ * Copyright (C) 2001-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -168,11 +168,14 @@ static gint doc_undo(Tdocument *doc) {
 		/* hmm, when this group is created, the doc->modified is not yet in the 'undo' state
 		because activate is not yet called, so this group will have the wrong 'changed' value*/
 		doc->unre.current = unregroup_new(doc,0);
+		DEBUG_MSG("doc_undo, set 'changed' in newly created group %p to %d\n",doc->unre.current, curgroup->changed);
 		doc->unre.current->changed = curgroup->changed;
 	} else if (doc->unre.first) {
 		/* we have to undo the first one in the list */
 		DEBUG_MSG("doc_undo, current group is empty--> undo the entries of the previous group\n");
 		curgroup = doc->unre.first->data;
+		DEBUG_MSG("doc_undo, set 'changed' in empty group %p to %d\n",doc->unre.current, curgroup->changed);
+		doc->unre.current->changed = curgroup->changed;
 		doc->unre.first = g_list_remove(doc->unre.first, curgroup);
 		doc->unre.num_groups--;
 		/* what happens when this was the last entry in the list?*/
@@ -294,17 +297,12 @@ static void doc_unre_start(Tdocument *doc) {
 }
 
 static void doc_unre_finish(Tdocument *doc, gint cursorpos) {
+	GtkTextIter iter;
 	DEBUG_MSG("doc_unre_finish, started\n");
 	/* now re-establish the signals */
 	doc_bind_signals(doc);
-/*	if (doc->highlightstate) {
-		doc_need_highlighting(doc);
-	}*/
-	{
-		GtkTextIter iter;
-		gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,cursorpos);
-		gtk_text_buffer_place_cursor(doc->buffer,&iter);
-	}
+	gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,cursorpos);
+	gtk_text_buffer_place_cursor(doc->buffer,&iter);
 }
 
 /**
