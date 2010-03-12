@@ -610,18 +610,18 @@ so we keep it at 12 for the moment
 /* #define UTF8_BYTECHARDEBUG */
 
 typedef struct {
-#ifdef DEVELOPMENT
-	gchar *last_buf;
-#endif
 	/* the two arrays must be grouped and in this order, because they are moved back 
 	one position in ONE memmove() call */
-	guint  last_byteoffset[UTF8_OFFSET_CACHE_SIZE];
-	guint  last_charoffset[UTF8_OFFSET_CACHE_SIZE];
+	guint last_byteoffset[UTF8_OFFSET_CACHE_SIZE];
+	guint last_charoffset[UTF8_OFFSET_CACHE_SIZE];
 #ifdef UTF8_BYTECHARDEBUG
 	guint numcalls_since_reset;
 	unsigned long long int numbytes_parsed;
 	guint numcalls_cached_since_reset;
 	unsigned long long int numbytes_cached_parsed;
+#endif
+#ifdef DEVELOPMENT
+	gchar *last_buf;
 #endif
 } Tutf8_offset_cache;
 
@@ -639,12 +639,46 @@ static Tutf8_offset_cache utf8_offset_cache;
 __inline__ 
 #endif
 void utf8_offset_cache_reset() {
+	g_print("reset utf8-offset-cache\n");
 #ifdef UTF8_BYTECHARDEBUG
 	g_print("UTF8_BYTECHARDEBUG: called %d times for total %llu bytes\n",utf8_offset_cache.numcalls_since_reset,utf8_offset_cache.numbytes_parsed);
 	g_print("UTF8_BYTECHARDEBUG: cache HIT %d times, reduced to %llu bytes, cache size %d\n",utf8_offset_cache.numcalls_cached_since_reset,utf8_offset_cache.numbytes_cached_parsed,UTF8_OFFSET_CACHE_SIZE);
 #endif
 	memset(&utf8_offset_cache, 0, sizeof(Tutf8_offset_cache));
 }
+
+guint utf8_charoffset_to_byteoffset_cached(const gchar *string, guint charoffset) {
+	guint i=UTF8_OFFSET_CACHE_SIZE-1, retval;
+	
+	if (charoffset ==0) return 0;
+	/*g_print("requested charoffset %d\n",charoffset);*/
+	while (i > 0 && utf8_offset_cache.last_charoffset[i] > charoffset) {
+		i--;
+	}
+	/*g_print("cache pos %d has charoffset %d and byteoffset %d\n",i,utf8_offset_cache.last_charoffset[i],utf8_offset_cache.last_byteoffset[i]);*/
+	if (i > 0) {
+		const gchar *tmp;
+		if (utf8_offset_cache.last_charoffset[i] == charoffset) {
+			return utf8_offset_cache.last_byteoffset[i];
+		}
+		tmp = string+utf8_offset_cache.last_byteoffset[i];
+		retval = (g_utf8_offset_to_pointer(tmp, charoffset-utf8_offset_cache.last_charoffset[i])-tmp)+utf8_offset_cache.last_byteoffset[i];
+		/*g_print("non-cached byteoffset %d, cached byteoffset %d for charoffset %d\n",(g_utf8_offset_to_pointer(string, charoffset)-string),retval,charoffset);*/
+	} else {
+		retval = (g_utf8_offset_to_pointer(string, charoffset)-string);
+		/*g_print("non-cached byteoffset %d for charoffset %d\n",retval,charoffset);*/
+	}
+	if (i == (UTF8_OFFSET_CACHE_SIZE-1)) {
+		/* add this new calculation to the cache */
+		/* this is a nasty trick to move all guint entries one back in the array, so we can add the new one */
+		memmove(&utf8_offset_cache.last_byteoffset[0], &utf8_offset_cache.last_byteoffset[1], (UTF8_OFFSET_CACHE_SIZE+UTF8_OFFSET_CACHE_SIZE-1)*sizeof(guint));
+		/*g_print("add byteoffset %d charoffset %d to position %d in the cache\n",retval,charoffset,UTF8_OFFSET_CACHE_SIZE-1);*/
+		utf8_offset_cache.last_byteoffset[UTF8_OFFSET_CACHE_SIZE-1] = retval;
+		utf8_offset_cache.last_charoffset[UTF8_OFFSET_CACHE_SIZE-1] = charoffset;
+	}
+	return retval;
+}
+
 /**
  * utf8_byteoffset_to_charsoffset_cached:
  * @string: the gchar * you want to count

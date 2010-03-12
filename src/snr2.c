@@ -3,7 +3,7 @@
  *
  * Copyright (C) 2000,2001,2002,2003,2004 Olivier Sessink
  * Copyright (C) 2005,2006,2007 James Hayward and Olivier Sessink
- * Copyright (C) 2009 Olivier Sessink
+ * Copyright (C) 2009,2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -205,7 +205,6 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 	Tsearch_result returnvalue;
 	int (*f) ();
 	gint patlen, match, i;
-
 	returnvalue.start = -1;
 	returnvalue.end = -1;
 	returnvalue.bstart = -1;
@@ -272,6 +271,54 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		}
 		/* regex part end */
 	} else if (matchtype == match_perl) {
+		GError *gerror=NULL;
+		GRegex* gregex;
+		GMatchInfo *match_info=NULL;
+		gboolean retval;
+		guint char_offset = utf8_byteoffset_to_charsoffset_cached(buf, byte_offset);
+		
+		gregex = g_regex_new(search_pattern,
+									(is_case_sens?G_REGEX_MULTILINE|G_REGEX_DOTALL:G_REGEX_CASELESS|G_REGEX_MULTILINE|G_REGEX_DOTALL),
+									G_REGEX_MATCH_NEWLINE_ANY,
+									&gerror);
+		if (gerror) {
+			gchar *errstring;
+			errstring = g_strdup_printf(_("Regular expression error: %s"), gerror->message);
+			message_dialog_new(bfwin->main_window,
+									 GTK_MESSAGE_WARNING,
+							 	 	 GTK_BUTTONS_OK,
+									 _("Search failed"),
+									 errstring);
+			g_free(errstring);
+			returnvalue.errorcode=1;
+			g_error_free(gerror);
+			return returnvalue;
+		}
+		retval = g_regex_match_full(gregex,buf,-1,char_offset,G_REGEX_MATCH_NEWLINE_ANY,&match_info, NULL);
+		if (retval) {
+			gint so,eo;
+			g_match_info_fetch_pos(match_info, 0, &so,&eo);
+			returnvalue.bstart = so;
+			returnvalue.bend = eo;
+			DEBUG_MSG("search_backend, gregex, found bstart=%d, bend=%d\n",so,eo);
+			if (want_submatches) {
+				gint i;
+				returnvalue.nmatch = g_match_info_get_match_count(match_info);
+				if (returnvalue.nmatch) /* it includes the parent match */ 
+						returnvalue.nmatch--;
+				returnvalue.pmatch = g_malloc((returnvalue.nmatch+1)*sizeof(regmatch_t));
+				for (i=0;i<returnvalue.nmatch;i++) {
+					g_match_info_fetch_pos(match_info, i+1, &so,&eo);
+					returnvalue.pmatch[i].rm_so = so;
+					returnvalue.pmatch[i].rm_eo = eo;
+					DEBUG_MSG("search_backend, gregex, submatch %d has start %d and end %d\n",i,so,eo);
+				}
+			}
+		}
+		g_match_info_free(match_info);
+		g_regex_unref(gregex);
+/******************* old libpcre code ****************/
+#ifdef OLD_PCRE_CODE
 		pcre *pcre_c;
 		const char *err=NULL;
 		int erroffset=0;
@@ -321,6 +368,8 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			free`ed by the calling function! */
 		}
 		pcre_free(pcre_c);
+#endif /* OLD_PCRE_CODE */		
+/******************* end of old libpcre code ****************/				
 	} else {
 		/* non regex part start */
 		if (!is_case_sens) {
@@ -347,6 +396,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 
 	/* if we have a valid result, we now calculate the character offsets for this result */
 	if (returnvalue.bstart >= 0 && returnvalue.bend >= 0) {
+		DEBUG_MSG("converting byte offsets to char offsets...\n");
 		if (returnvalue.bstart >= 0) {
 			returnvalue.start = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.bstart);
 		}
@@ -361,13 +411,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 				returnvalue.pmatch[i].rm_eo = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.pmatch[i].rm_eo);
 			}
 		}
-	} else {
-		returnvalue.start = -1;
-		returnvalue.end = -1;
-		returnvalue.bstart = -1;
-		returnvalue.bend = -1;
 	}
-
 	DEBUG_MSG("search_backend, returning result.start=%d, result.end=%d, bstart=%d, bend=%d\n", returnvalue.start, returnvalue.end, returnvalue.bstart, returnvalue.bend);
 	return returnvalue;
 }
@@ -686,10 +730,12 @@ actions, so the first char in buf is actually number offset in the text widget *
 		}
 #endif
 		/* doc_replace_text_backend needs CHARACTER positions, not bytes !! */
+		
 		doc_replace_text_backend(doc, tmpstr, result.start + offset, result.end + offset);
 		if (*replacelen == -1) {
 			*replacelen = g_utf8_strlen(tmpstr, -1);
 		}
+		DEBUG_MSG("replace_backend, replaced from %d to %d (offset=%d, replacelen=%d)\n",result.start + offset, result.end + offset, offset, *replacelen);
 		g_free(tmpstr);
 	}
 	if (matchtype == match_posix) {
@@ -2050,6 +2096,7 @@ void split_lines(Tdocument *doc) {
 	}
 	
 	p = buf = doc_get_chars(doc,start,end);
+	utf8_offset_cache_reset();
 	doc_unre_new_group(doc);
 	
 	requested_size = 80;
@@ -2112,6 +2159,8 @@ void split_lines(Tdocument *doc) {
 void convert_identing(Tdocument *doc, gboolean to_tabs) {
 	gint i=0,wstart=0,coffset=0,indenting=0,tabsize;
 	gchar *buf = doc_get_chars(doc,0,-1);
+
+	utf8_offset_cache_reset();
 	tabsize = doc_get_tabsize(doc);
 	/*g_print("got tabsize %d\n",tabsize);*/
 	doc_unre_new_group(doc);
@@ -2163,6 +2212,8 @@ static void add_line_comment(Tdocument *doc, const gchar *commentstring, gint st
 	commentstring_len = g_utf8_strlen(commentstring,-1);
 	
 	buf = doc_get_chars(doc,start,end);
+	utf8_offset_cache_reset();
+	
 	coffset=start;
 	doc_unre_new_group(doc);
 	while (buf[i] != '\0') {
@@ -2343,6 +2394,7 @@ static void convert_to_columns_backend(Tdocument *doc, gint so, gint eo, gint nu
 	guint offset=0,separatorlen;
 	/* get buffer */
 	buf = doc_get_chars(doc,so,eo);
+	utf8_offset_cache_reset();
 	/* buffer to list */
 	buflist = get_list_from_buffer(buf, NULL, FALSE);
 	g_free(buf);
