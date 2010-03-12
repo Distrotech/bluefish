@@ -639,7 +639,6 @@ static Tutf8_offset_cache utf8_offset_cache;
 __inline__ 
 #endif
 void utf8_offset_cache_reset() {
-	g_print("reset utf8-offset-cache\n");
 #ifdef UTF8_BYTECHARDEBUG
 	g_print("UTF8_BYTECHARDEBUG: called %d times for total %llu bytes\n",utf8_offset_cache.numcalls_since_reset,utf8_offset_cache.numbytes_parsed);
 	g_print("UTF8_BYTECHARDEBUG: cache HIT %d times, reduced to %llu bytes, cache size %d\n",utf8_offset_cache.numcalls_cached_since_reset,utf8_offset_cache.numbytes_cached_parsed,UTF8_OFFSET_CACHE_SIZE);
