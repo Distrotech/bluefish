@@ -45,7 +45,7 @@
 
 #include "config.h"
 
-#include <pcre.h>             /* pcre_compile */
+/*#include <pcre.h>*/             /* pcre_compile */
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>        /* _before_ regex.h for freeBSD */
@@ -304,11 +304,9 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			if (want_submatches) {
 				gint i;
 				returnvalue.nmatch = g_match_info_get_match_count(match_info);
-				if (returnvalue.nmatch) /* it includes the parent match */ 
-						returnvalue.nmatch--;
 				returnvalue.pmatch = g_malloc((returnvalue.nmatch+1)*sizeof(regmatch_t));
 				for (i=0;i<returnvalue.nmatch;i++) {
-					g_match_info_fetch_pos(match_info, i+1, &so,&eo);
+					g_match_info_fetch_pos(match_info, i, &so,&eo);
 					returnvalue.pmatch[i].rm_so = so;
 					returnvalue.pmatch[i].rm_eo = eo;
 					DEBUG_MSG("search_backend, gregex, submatch %d has start %d and end %d\n",i,so,eo);
