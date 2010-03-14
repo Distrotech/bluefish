@@ -546,7 +546,18 @@ void rcfile_parse_main(void)  {
 	g_object_unref(file);
 	if (main_v->props.encoding_search_Nbytes< 1000) main_v->props.encoding_search_Nbytes = 2048;
 	/* do some default configuration for the lists */
-#ifndef WIN32
+#ifdef WIN32
+
+#else
+#ifdef PLATFORM_DARWIN
+	if (main_v->props.external_command==NULL) {
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Safari"), "open -a Safari '%p'","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Firefox"), "open -a Firefox '%p'","1",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Opera"), "open -a Opera '%p'","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("chmod a+x"), "chmod a+x %f","0",NULL));
+	}
+
+#else
 	if (main_v->props.external_outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","cd %c && make|",NULL));
@@ -566,16 +577,18 @@ void rcfile_parse_main(void)  {
 		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Render HTML to text"),"lynx -force_html -dump %i |",NULL));
 	}
 	if (main_v->props.external_command==NULL) {
-		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Mozilla"), "mozilla -remote 'openURL(%p)' || mozilla '%p'&","0",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Firefox"), "firefox -remote 'openURL(%p)' || firefox '%p'&","1",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Opera"), "opera -remote 'openURL(%p)' || opera '%p'&","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Mozilla"), "mozilla -remote 'openURL(%p)' || mozilla '%p'&","0",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Konqueror"), "konqueror '%p'&","0",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Galeon"), "galeon -n  '%p'&","0",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Epiphany"), "epiphany-browser -n '%p'&","0",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Kazehakase"), "kazehakase '%p'&","0",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Links2 (graphics)"), "links2 -g '%p'&","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("chmod a+x"), "chmod a+x %s","0",NULL));
 	}
-#endif /* ifndef WIN32 */
+#endif /* ifdef else PLATFORM_DARWIN */
+#endif /* ifdef else WIN32 */
 	if (main_v->props.templates==NULL) {
 		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("C Header"), PKGDATADIR"/templates/C Header", NULL));
 		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("C Header GPL"), PKGDATADIR"/templates/C Header GPL", NULL));
