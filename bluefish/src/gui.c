@@ -1130,6 +1130,9 @@ void gui_show_main(Tbfwin *bfwin) {
 	group = ige_mac_menu_add_app_menu_group();
 	ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(menuitem),NULL);
 	ige_mac_menu_set_global_key_handler_enabled(TRUE);
+
+	/* MACTODO: add focus in and focus out event so we can sync the menu
+	when we switch to a different bluefish window */
 #endif
 	DEBUG_MSG("gui_show_main, before show\n");
 	gtk_widget_show(bfwin->main_window);
