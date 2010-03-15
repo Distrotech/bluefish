@@ -2,7 +2,7 @@
  * bluefish.c - the main function
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2009 Olivier Sessink
+ * Copyright (C) 1999-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -66,6 +66,12 @@ Tmain *main_v;
 /********************************/
 /* functions used in bluefish.c */
 /********************************/
+/*#define STARTUP_PROFILING*/
+
+#ifdef STARTUP_PROFILING
+static GTimer *startuptimer;
+#endif
+
 #ifndef __GNUC__
 void g_none(gchar * first, ...)
 {
@@ -113,7 +119,10 @@ typedef struct {
 
 static gboolean startup_in_idle(gpointer data) {
 	Tstartup *startup=data;
-	DEBUG_MSG("startup_in_idle, started state=%d\n",startup->state);
+	DEBUG_MSG("startup_in_idle, started state=%d, elapsed=\n",startup->state);
+#ifdef STARTUP_PROFILING
+	g_print("startup_in_idle, state=%d, elapsed=%d\n",startup->state,(gint)(g_timer_elapsed(startuptimer,NULL)*1000.0));
+#endif
 	switch (startup->state) {
 		case 0:
 #ifndef NOSPLASH
@@ -232,6 +241,14 @@ int main(int argc, char *argv[])
 		{NULL}
 	};
 
+	if (!g_thread_supported())
+		g_thread_init(NULL);
+/*  gdk_threads_init ();*/
+
+#ifdef STARTUP_PROFILING
+	startuptimer = g_timer_new();
+#endif /* STARTUP_PROFILING */
+
 #ifdef ENABLE_NLS
 	setlocale(LC_ALL, "");
 	bindtextdomain(PACKAGE, LOCALEDIR);
@@ -240,9 +257,6 @@ int main(int argc, char *argv[])
 	textdomain(PACKAGE);
 #endif							/* ENABLE_NLS */
 
-	if (!g_thread_supported())
-		g_thread_init(NULL);
-/*  gdk_threads_init ();*/
 	gtk_rc_parse_string ("style \"bluefish-small-close-button-style\"\n"
                        "{\n"
                           "GtkWidget::focus-padding = 0\n"
