@@ -550,13 +550,26 @@ void rcfile_parse_main(void)  {
 
 #else
 #ifdef PLATFORM_DARWIN
+	if (main_v->props.external_outputbox==NULL) {
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","cd %c && make|",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+) \\(([0-9:]+)\\) (.*)","1","2","3","weblint '%f'|",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("tidy HTML validator"),"line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","perltidy -qe '%I'|",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("javac"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac '%f'|",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("xmllint XML checker"),"([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\: (.*)","1","2","3","xmllint --noout --valid '%f'|",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("php"),"(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)","2","3","1","php '%f'|",NULL));
+	}
+	if (main_v->props.external_filter==NULL) {
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Sort"),"|sort|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Sort / Uniq"),"|sort|uniq|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Tidy HTML"),"|perltidy -b|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Strip empty lines"),"|egrep -v '^[ \t]*$'|",NULL));
+	}
 	if (main_v->props.external_command==NULL) {
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Safari"), "open -a Safari '%p'","0",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Firefox"), "open -a Firefox '%p'","1",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Opera"), "open -a Opera '%p'","0",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("chmod a+x"), "chmod a+x %f","0",NULL));
 	}
-
 #else
 	if (main_v->props.external_outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
