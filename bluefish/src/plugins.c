@@ -99,6 +99,7 @@ static void bluefish_scan_dir_load_plugins(GList **oldlist,const gchar *indirnam
 	gchar *dirname = ending_slash(indirname);
 
 	DEBUG_MSG("bluefish_scan_dir_load_plugins, loading from %s\n",dirname);
+	DEBUG_PATH("plugins are loaded from %s\n",dirname);
 	gdir = g_dir_open(dirname ,0,&error);
 	if (error) {
 		/* BUG: handle the error  */

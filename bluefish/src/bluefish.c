@@ -323,6 +323,13 @@ int main(int argc, char *argv[])
 	g_free(path);
 #endif
 
+#ifdef DEBUG_PATHS
+	{
+		gchar *cwd = g_get_current_dir();
+		g_print("current directory=%s\n",cwd);
+		g_free(cwd);
+	}
+#endif
 	rcfile_check_directory();
 	rcfile_parse_main();
 	if (main_v->props.language!=NULL && main_v->props.language[0]!='\0') {

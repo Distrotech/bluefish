@@ -225,7 +225,7 @@ static gboolean become_client(void)
 gboolean ipc_bf2bf_start(GList *filenames, gboolean new_window) {
 
 	ibf.path = socket_filename();
-
+	DEBUG_PATH("create socket %s\n",ibf.path);
 	if (socket_is_valid(ibf.path)) {
 		if (become_client()) {
 			GList *tmplist = g_list_first(filenames);

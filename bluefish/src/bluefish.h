@@ -24,6 +24,8 @@
 /* if you define DEBUG here you will get debug output from all Bluefish parts */
 /* #define DEBUG */
 
+#define DEBUG_PATHS
+
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
 
@@ -69,6 +71,17 @@ extern void g_none(gchar * first, ...);
 #define DEBUG_MSG_C g_none
 #define DEBUG_MSG_E g_none
 #define DEBUG_MSG_W g_none
+#endif							/* __GNUC__ || __SUNPRO_C */
+#endif							/* DEBUG */
+
+#ifdef DEBUG_PATHS
+#define DEBUG_PATH g_print
+#else
+#if defined(__GNUC__) || defined(__SUNPRO_C)
+#define DEBUG_PATH(args...)
+ /**/
+#else							/* notdef __GNUC__ || __SUNPRO_C */
+extern void g_none(gchar * first, ...);
 #endif							/* __GNUC__ || __SUNPRO_C */
 #endif							/* DEBUG */
 
