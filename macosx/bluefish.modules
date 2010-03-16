@@ -6,9 +6,12 @@
  <!--<include href="./Source/jhbuild/modulesets/gnome-suites-2.28.modules" />-->
  <repository type="svn" name="bluefish-svn" default="yes" href="https://bluefish.svn.sourceforge.net/svnroot/" />
  <autotools id="bluefish-svn" 
- autogen-template="%(srcdir)s/%(autogen-sh)s &amp;&amp; %(srcdir)s/configure --libdir %(libdir)s %(autogenargs)s --disable-nls CONFIG_SITE=config.site/config.osxapp"
- makeargs='pkgdatadir="./share/bluefish" localedir="./share/locale/"'
- makeinstallargs='"DESTDIR=/path/to/bundle/dir"' >
+ autogen-template="%(srcdir)s/%(autogen-sh)s"
+ makeargs='-f Makefile.osxapp clean all'
+ makeinstallargs='-f Makefile.osxapp' >
+ 
+ <!-- autogen-template="%(srcdir)s/%(autogen-sh)s &amp;&amp; %(srcdir)s/configure - - prefix=/ - - libdir %(libdir)s %(autogenargs)s CONFIG_SITE=maxosx/config.osxapp" -->
+
  <branch repo="bluefish-svn" module="bluefish/trunk/bluefish"/>
  <dependencies>
  <dep package="intltool"/>
