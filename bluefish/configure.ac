@@ -638,8 +638,9 @@ AC_OUTPUT
 dnl *******************************
 dnl   Feedback
 dnl *******************************
-AC_MSG_NOTICE([
------------
-If you like this program, please let me know and send me
-a postcard and tell me what city/country you're from
------------])
+#AC_MSG_NOTICE([
+#-----------
+#If you like this program, please let me know and send me
+#a postcard and tell me what city/country you're from
+#-----------])
+#
