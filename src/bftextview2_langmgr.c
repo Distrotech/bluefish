@@ -1273,6 +1273,7 @@ static void scan_bflang2files(const gchar *dir) {
 	GError *error = NULL;
 	GPatternSpec *ps = g_pattern_spec_new("*.bflang2");
 	GDir *gd = g_dir_open(dir, 0, &error);
+	DEBUG_PATH("load language files from %s\n",dir);
 	if (!error) {
 		filename = g_dir_read_name(gd);
 		while (filename) {
