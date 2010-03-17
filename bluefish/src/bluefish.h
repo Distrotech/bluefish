@@ -90,6 +90,10 @@ extern void g_none(gchar * first, ...);
 #else							/* ENABLE_NLS */
 #define _(String)(String)
 #define N_(String)(String)
+#define ngettext(Msgid1, Msgid2, N) \
+	((N) == 1 \
+	? ((void) (Msgid2), (const char *) (Msgid1)) \
+	: ((void) (Msgid1), (const char *) (Msgid2)))
 #endif							/* ENABLE_NLS */
 
 
