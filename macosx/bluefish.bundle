@@ -18,7 +18,7 @@
          app. If you leave out the path, the current directory is
          used. Note the usage of an environment variable here again.
     -->
-    <destination overwrite="yes">${env:HOME}/Desktop</destination>
+    <destination overwrite="yes">${project}/../</destination>
 
     <!-- Comment this out to keep the install names in binaries -->
     <run-install-name-tool/>
@@ -97,7 +97,7 @@
        /Developer/Applications/Utilities/Icon Composer.app to import
        artwork and create the file. -->
   <data dest="${bundle}/Contents/Resources">
-    ${project}/macosx/bluefish.icns
+    ${project}/bluefish.icns
   </data>
 
   <!-- This is where theme commands go. You can copy them in from your
@@ -105,7 +105,7 @@
        change the source path. -->
 
   <data dest="${bundle}/Contents/Resources/etc/gtk-2.0/gtkrc">
-    ${project}/macosx/gtkrc
+    ${project}/gtkrc
   </data>
 
   <!-- Icon themes to copy. The "icons" property can be either of
@@ -119,6 +119,7 @@
 	<!-- TODO  Set to auto and specify missing icons -->
   <icon-theme icons="auto">
     Tango
-  </icon-theme 
+  </icon-theme>
 
 </app-bundle>
+
