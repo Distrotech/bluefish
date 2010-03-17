@@ -60,13 +60,9 @@
   <data>${prefix}/lib/bluefish</data>
 	
 
-  <!-- locale (TODO copied from gedit, does bluefish need them?) -->
-  <data>${prefix}/share/locale</data>
-  <data>${prefix}/lib/charset.alias</data>
-
   <!-- Themes (TODO copied from gedit, does bluefish need them?) -->
-  <data>${prefix}/share/themes</data>
-
+ <data>${prefix}/share/themes</data>
+ <data>${prefix}/share/gtk-engines</data>
   <!-- Translation filenames, one for each program or library that you
        want to copy in to the bundle. The "dest" attribute is
        optional, as usual. Bundler will find all translations of that
@@ -93,24 +89,24 @@
   <!-- Copy in the themes data. You may want to trim this to save space
        in your bundle. -->
   <data>
-    ${prefix}/share/themes
+    ${prefix}/share/themes/Clearlooks
   </data>
 
   <!-- Copy icons. Note that the .icns file is an Apple format which
        contains up to 4 sizes of icon. You can use
        /Developer/Applications/Utilities/Icon Composer.app to import
-       artwork and create the file. >
+       artwork and create the file. -->
   <data dest="${bundle}/Contents/Resources">
-    ${project}/Giggle.icns
-  </data -->
+    ${project}/macosx/bluefish.icns
+  </data>
 
   <!-- This is where theme commands go. You can copy them in from your
        theme of choice if they provide and example, or you can just
-       change the source path. 
+       change the source path. -->
 
   <data dest="${bundle}/Contents/Resources/etc/gtk-2.0/gtkrc">
-    ${project}/gtkrc
-  </data>-->
+    ${project}/macosx/gtkrc
+  </data>
 
   <!-- Icon themes to copy. The "icons" property can be either of
        "auto", "all", or "none". All or none should be
@@ -119,10 +115,10 @@
        the strings from all copied binaries, and matching them against
        icon names. To be safe, you should use "all". "none" is useful
        if you want just the index.theme file but no icons, mostly
-       needed for the "hicolor" base theme.
-  >
+       needed for the "hicolor" base theme.  -->
+	<!-- TODO  Set to auto and specify missing icons -->
   <icon-theme icons="auto">
     Tango
-  </icon-theme -->
+  </icon-theme 
 
 </app-bundle>
