@@ -215,6 +215,9 @@ static gboolean startup_in_idle(gpointer data) {
 			return FALSE;
 		break;
 	}
+#ifdef STARTUP_PROFILING
+	g_print("startup_in_idle, end of state=%d, elapsed=%d\n",startup->state,(gint)(g_timer_elapsed(startuptimer,NULL)*1000.0));
+#endif
 	startup->state++;
 	return TRUE;	
 }
