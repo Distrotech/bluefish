@@ -1617,14 +1617,14 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
 			if (result.end >0) {
 				/*LASTSNR2(snrwin->bfwin->snr2)->replace = TRUE;*/
-				gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);
+				/*gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);*/
 				gtk_widget_grab_focus(snrwin->replaceButton);
 				gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_REPLACE);
 				LASTSNR2(bfwin->snr2)->result = result;
 				DEBUG_MSG("snr_response_lcb, pmatch=%p, nmatch=%d\n",LASTSNR2(bfwin->snr2)->result.pmatch, LASTSNR2(bfwin->snr2)->result.nmatch);
-			} else {
+			}/* else {
 				gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
-			}
+			}*/
 		}
 	}
 	break;
@@ -1633,7 +1633,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 			LASTSNR2(snrwin->bfwin->snr2)->replaces++;
 			snr_update_count_label(snrwin);
 			/* now run another find */
-			gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
+			/*gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);*/
 			gtk_dialog_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_FIND);
 		}
 	break;
@@ -1647,7 +1647,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		LASTSNR2(snrwin->bfwin->snr2)->matches = ret;
 		LASTSNR2(snrwin->bfwin->snr2)->replaces = ret;
 		snr_update_count_label(snrwin);
-		gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
+		/*gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);*/
 	break;
 	case SNR_RESPONSE_FIND_ALL:
 		ret = search_multiple(snrwin->bfwin, startpos, endpos);
@@ -1858,18 +1858,18 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	if (dialogType == BF_REPLACE_DIALOG) {
 		snrwin->replaceAllButton =
 			gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), _("Replace _All"), SNR_RESPONSE_REPLACE_ALL);
-		gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_REPLACE_ALL, FALSE);
+		/*gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_REPLACE_ALL, FALSE);*/
 		snrwin->replaceButton =
 			gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), _("_Replace"), SNR_RESPONSE_REPLACE);
-		gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_REPLACE, FALSE);
+		/*gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_REPLACE, FALSE);*/
 	} else {
 		snrwin->findAllButton = gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), _("Find _All"), SNR_RESPONSE_FIND_ALL);
-		gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND_ALL, FALSE);
+		/*gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND_ALL, FALSE);*/
 	}
 	snrwin->findButton =
 		gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_FIND, SNR_RESPONSE_FIND);
-	gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND, FALSE);
-
+	/*gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND, FALSE);*/
+	snr_comboboxentry_changed(GTK_COMBO_BOX(snrwin->matchPattern), snrwin);
 	gtk_widget_show_all(GTK_WIDGET(GTK_BOX(GTK_DIALOG(snrwin->dialog)->vbox)));
 	gtk_widget_hide(snrwin->warninglabel);
 

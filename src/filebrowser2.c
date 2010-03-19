@@ -621,13 +621,10 @@ static void fb2_fill_dir_async(GtkTreeIter * parent, GFile * uri)
 
 		fb2_treestore_mark_children_refresh1(FB2CONFIG(main_v->fb2config)->filesystem_tstore,
 											 parent);
-
 		uir = g_slice_new0(Turi_in_refresh);
 		uir->parent = parent;
-		/*uir->p_uri = uri;*/
 		uir->uri = uri;
 		g_object_ref(uir->uri);
-		/*g_object_ref(uir->p_uri);*/
 		DEBUG_MSG("fb2_fill_dir_async, opening ");
 		DEBUG_GFILE(uir->uri, TRUE);
 		uir->cancel = g_cancellable_new();
@@ -638,7 +635,6 @@ static void fb2_fill_dir_async(GtkTreeIter * parent, GFile * uri)
 		FB2CONFIG(main_v->fb2config)->uri_in_refresh =
 		g_list_prepend(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
 	}
-
 }
 
 /**
@@ -2702,6 +2698,9 @@ void fb2_update_settings_from_session(Tbfwin * bfwin)
 		} else {
 			fb2_set_basedir(bfwin, NULL);
 		}
+		/* TODO: fb2_set_basedir already calls refilter in most cases (not if the 
+		requested basedir was already the active basedir), so
+		we can optimise this and call refilter only when really needed. */
 		if (need_refilter) {
 			if (fb2->dir_tfilter)
 				gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
