@@ -1388,7 +1388,7 @@ gint bmark_margin_get_initial_bookmark(Tdocument * doc, GtkTextIter *fromit, gpo
  * will use offset if itoffset is NULL
  * will use itoffset if not NULL
  */
-static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset, const gchar *name, const gchar *text, gboolean is_temp) {
+static Tbmark *bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset, const gchar *name, const gchar *text, gboolean is_temp) {
 	Tbmark *m;
 	gchar *displaytext = NULL;
 	GtkTextIter it;
@@ -1423,6 +1423,7 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 		bmark_store(BFWIN(doc->bfwin), m);
 	}
 	gtk_widget_queue_draw(doc->view);
+	return m;
 }
 
 /**
@@ -1456,6 +1457,7 @@ static gchar *bmark_text_for_offset(Tdocument *doc, GtkTextIter *itoffset, gint 
 /* this function will add a bookmark to the current document at current cursor / selection */
 static void bmark_add_current_doc_backend(Tbfwin *bfwin, const gchar *name, gint offset, gboolean is_temp) {
 	GtkTextIter it, eit, sit;
+	Tbmark *m;
 	DEBUG_MSG("bmark_add_backend, adding bookmark at offset=%d for bfwin=%p\n",offset,bfwin);
 	/* create bookmark */
 	gtk_text_buffer_get_iter_at_offset(DOCUMENT(bfwin->current_document)->buffer,&it,offset);
@@ -1463,18 +1465,20 @@ static void bmark_add_current_doc_backend(Tbfwin *bfwin, const gchar *name, gint
 	if (gtk_text_buffer_get_selection_bounds(DOCUMENT(bfwin->current_document)->buffer,&sit,&eit)
 				&& gtk_text_iter_in_range(&it,&sit,&eit)) {
 		gchar *text = gtk_text_iter_get_text(&sit, &eit);
-		bmark_add_backend(DOCUMENT(bfwin->current_document), &sit, offset, name, text, is_temp);
+		m = bmark_add_backend(DOCUMENT(bfwin->current_document), &sit, offset, name, text, is_temp);
 		g_free(text);
 
 	} else {
 		gchar *text;
 		text = bmark_text_for_offset(DOCUMENT(bfwin->current_document), &it, offset);
-		bmark_add_backend(DOCUMENT(bfwin->current_document), &it, offset, name, text, is_temp);
+		m = bmark_add_backend(DOCUMENT(bfwin->current_document), &it, offset, name, text, is_temp);
 		g_free(text);
 	}
-	if (bfwin->bmark) {
-		/* only if there is a left panel we should do this */
-		gtk_tree_view_expand_all(bfwin->bmark);
+	if (bfwin->bmark) { /* only if there is a left panel we should do this */
+		GtkTreePath *path;
+		path = gtk_tree_model_get_path(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&m->iter);
+		gtk_tree_view_expand_to_path(bfwin->bmark,path);
+		gtk_tree_path_free(path);
 		gtk_widget_grab_focus(bfwin->current_document->view);
 	}
 }
