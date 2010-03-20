@@ -176,6 +176,7 @@ void bluefish_load_plugins(void) {
 
 #if defined(NSIS) || defined(OSXAPP)
 #ifdef RELPLUGINPATH
+	g_print("using RELPLUGINPATH\n");
 	bluefish_scan_dir_load_plugins(&oldlist,g_build_path(G_DIR_SEPARATOR_S,RELPLUGINPATH,"lib",PACKAGE,NULL));
 #else /* RELPLUGINPATH */
 	bluefish_scan_dir_load_plugins(&oldlist,g_build_path(G_DIR_SEPARATOR_S,".","lib",PACKAGE,NULL));
