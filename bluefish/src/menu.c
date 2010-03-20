@@ -30,6 +30,11 @@
 /* #define DEBUG */
 
 #include "bluefish.h"
+
+#ifdef MAC_INTEGRATION
+#include <ige-mac-integration.h>
+#endif
+
 #include "bf_lib.h"			/* append_string_to_file() */
 #include "bookmark.h"
 #include "dialog_utils.h"
@@ -537,6 +542,9 @@ void template_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		}
 		tmplist = g_list_previous(tmplist);
 	}
+#ifdef MAC_INTEGRATION
+	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
+#endif
 }
 
 void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
@@ -564,6 +572,10 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		tmplist = g_list_previous(tmplist);
 	}
 	g_list_free(list);
+#ifdef MAC_INTEGRATION
+	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
+#endif
+
 }
 
 /*
@@ -702,6 +714,9 @@ GList *recent_menu_from_list(Tbfwin *bfwin, GList *startat, gboolean is_project)
 		retlist = g_list_append(retlist, create_recent_entry(bfwin,tmplist->data,is_project,FALSE));
 		tmplist = g_list_next(tmplist);
 	}
+#ifdef MAC_INTEGRATION
+	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
+#endif
 	return retlist;
 }
 
@@ -767,6 +782,9 @@ void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean i
 		bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, FALSE,TRUE);
 	}
 	g_free(filename);
+#ifdef MAC_INTEGRATION
+	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
+#endif
 }
 
 /*****************/
@@ -936,6 +954,9 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
+#ifdef MAC_INTEGRATION
+	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
+#endif
 }
 
 static void menu_current_document_encoding_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
@@ -988,6 +1009,9 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 		}
 		tmplist = g_list_previous(tmplist);
 	}
+#ifdef MAC_INTEGRATION
+	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
+#endif
 }
 
 void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filetype, gchar *encoding) {
