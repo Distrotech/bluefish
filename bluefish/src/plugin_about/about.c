@@ -55,7 +55,17 @@ static void bluefish_url_show_lcb(Tbfwin *bfwin, guint callback_action, GtkWidge
       bluefish_url_show("http://bluefish.openoffice.nl");
       break;
     case 2:
-      bluefish_url_show("http://bugzilla.gnome.org/enter_bug.cgi?product=bluefish");
+      bluefish_url_show(g_strconcat("http://bugzilla.gnome.org/enter_bug.cgi?product=bluefish",
+#ifdef WIN32
+        ";op_sys=Windows",
+#endif /* WIN32 */
+        ";version="
+#ifdef SVN_REVISION
+        "development (SVN TRUNK)",
+#else /* SVN_REVISION */
+        PACKAGE_VERSION,
+#endif /* SVN_REVISION */
+        NULL));
       break;
     default:
       DEBUG_MSG_C("uh-oh: bluefish_url_show_cb, unknown action %d\n",callback_action);
