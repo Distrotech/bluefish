@@ -65,8 +65,17 @@ static void bluefish_url_show_lcb(Tbfwin *bfwin, guint callback_action, GtkWidge
 #else /* SVN_REVISION */
         PACKAGE_VERSION,
 #endif /* SVN_REVISION */
-        ";comment=",g_uri_escape_string(g_strconcat("\n\nBluefish was configured with:\n",
-            CONFIGURE_OPTIONS, "\n", NULL),NULL,FALSE),
+        ";comment=",
+        g_uri_escape_string(
+          g_strconcat(
+#ifdef SVN_REVISION
+            "SVN revision ", SVN_REVISION, "\n\n"
+#endif /* SVN_REVISION */
+            "Bluefish was configured with: ", CONFIGURE_OPTIONS, "\n",
+            NULL
+          ),
+          NULL,FALSE
+        ),
         NULL));
       break;
     default:
