@@ -1869,7 +1869,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	snrwin->findButton =
 		gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_FIND, SNR_RESPONSE_FIND);
 	/*gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND, FALSE);*/
-	snr_comboboxentry_changed(GTK_COMBO_BOX(snrwin->matchPattern), snrwin);
+	snr_comboboxentry_changed(GTK_COMBO_BOX_ENTRY(snrwin->matchPattern), snrwin);
 	gtk_widget_show_all(GTK_WIDGET(GTK_BOX(GTK_DIALOG(snrwin->dialog)->vbox)));
 	gtk_widget_hide(snrwin->warninglabel);
 
