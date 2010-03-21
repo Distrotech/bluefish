@@ -847,11 +847,13 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 		gunichar uc;
 		uc = gtk_text_iter_get_char(&iter);
 		if (uc > 128) {
-			newpos = 0;
-		} else {
-			DBG_AUTOCOMP("scanning %c\n",uc);
-			newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
+				/* multibyte characters cannot be matched by the engine. character
+				1 in ascii is "SOH (start of heading)". we need this to support a
+				pattern like [^#]* .  */
+			uc = 1;
 		}
+		DBG_AUTOCOMP("scanning %c\n",uc);
+		newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
 		if (newpos == 0 || uc == '\0') {
 			DBG_AUTOCOMP("newpos=%d...\n",newpos);
 			if (g_array_index(btv->bflang->st->table,Ttablerow, pos).match) {
