@@ -782,8 +782,8 @@ static GtkTreeIter *fb2_build_dir(GFile * uri)
 			while (!gfile_uri_is_parent(parent_uri, tmp2, FALSE)) {
 				GFile *tmp3 = g_file_get_parent(tmp2);
 				if (!tmp3) {
-					g_warning("tried to get parent for %s, parent_uri=%s, uri=%s\n",g_file_get_uri(tmp2),g_file_get_uri(parent_uri),g_file_get_uri(uri));
-					exit(123);
+					g_critical("uh-oh: fb2_build_dir, tried to get parent for %s, parent_uri=%s, uri=%s\n",g_file_get_uri(tmp2),g_file_get_uri(parent_uri),g_file_get_uri(uri));
+					exit(123); /* TODO: must be g_return_val_if_reached() or handle the situation */
 				}
 				g_object_unref(tmp2);
 				tmp2 = tmp3;
