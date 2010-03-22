@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snippets_wizard.c - plugin for snippets sidebar
  *
- * Copyright (C) 2006,2009 Olivier Sessink
+ * Copyright (C) 2006,2009,2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <string.h>
 
@@ -193,10 +193,12 @@ static gpointer snippets_build_pageSnr(Tsnipwiz *snwiz, GtkWidget *dialog_action
 				i++;
 			} else if (xmlStrEqual(cur->name, (const xmlChar *)"searchpat")) {
 				tmpstr = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+				DEBUG_MSG("searchpattern: %s\n",tmpstr);
 				gtk_entry_set_text(GTK_ENTRY(p->searchpat),(gchar *)tmpstr);
 				g_free(tmpstr);
 			} else if (xmlStrEqual(cur->name, (const xmlChar *)"replacepat")) {
 				tmpstr = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+				DEBUG_MSG("replacepattern: %s\n",tmpstr);
 				gtk_entry_set_text(GTK_ENTRY(p->replace),(gchar *)tmpstr);
 				g_free(tmpstr);
 			}
@@ -296,8 +298,8 @@ static gint snippets_test_pageSnr(Tsnipwiz *snwiz, gpointer data) {
 	
 	search = gtk_editable_get_chars(GTK_EDITABLE(p->searchpat),0,-1);
 	replace = gtk_editable_get_chars(GTK_EDITABLE(p->replace),0,-1);
-	xmlNewChild(childn,NULL,(const xmlChar *)"searchpat",(const xmlChar *)search);
-	xmlNewChild(childn,NULL,(const xmlChar *)"replacepat",(const xmlChar *)replace);
+	xmlNewTextChild(childn,NULL,(const xmlChar *)"searchpat",(const xmlChar *)search);
+	xmlNewTextChild(childn,NULL,(const xmlChar *)"replacepat",(const xmlChar *)replace);
 	for (i = 0; i <  6; i++) {
 		gchar *tmpstr;
 		tmpstr = gtk_editable_get_chars(GTK_EDITABLE(p->entries[i]),0,-1);
