@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snippets_leaf_snr.c - plugin for snippets sidebar
  *
- * Copyright (C) 2006 Olivier Sessink
+ * Copyright (C) 2006-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -145,6 +145,8 @@ static void snippets_snr_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_var
 			searchpat = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
 		} else if (xmlStrEqual(cur->name, (const xmlChar *)"replacepat")) {
 			replacepat = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+			if (!replacepat)
+				replacepat = g_strdup("");
 		}
 	}
 	if (!searchpat) {
@@ -212,6 +214,8 @@ void snippets_activate_leaf_snr(Tsnippetswin *snw, xmlNodePtr parent) {
 				searchpat = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
 			} else if (xmlStrEqual(cur->name, (const xmlChar *)"replacepat")) {
 				replacepat = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+				if (!replacepat)
+					replacepat=g_strdup("");
 			}
 			cur = cur->next;
 		}
