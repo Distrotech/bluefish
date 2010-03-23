@@ -768,8 +768,8 @@ static GtkTreeIter *fb2_build_dir(GFile * uri)
 
 #ifdef DEBUG
 	if (parent_uri == NULL) {
-		g_print("parent_uri should not be NULL\n");
-		exit(123);
+		g_critical("parent_uri should not be NULL\n");
+		g_return_val_if_fail(NULL);
 	}
 #endif
 	if (parent_uri) {							/* now loop to create all directories in the treestore that were not in the treestore yet */
@@ -783,7 +783,7 @@ static GtkTreeIter *fb2_build_dir(GFile * uri)
 				GFile *tmp3 = g_file_get_parent(tmp2);
 				if (!tmp3) {
 					g_critical("uh-oh: fb2_build_dir, tried to get parent for %s, parent_uri=%s, uri=%s\n",g_file_get_uri(tmp2),g_file_get_uri(parent_uri),g_file_get_uri(uri));
-					exit(123); /* TODO: must be g_return_val_if_reached() or handle the situation */
+					g_return_val_if_reached(0); /* TODO: must be g_return_val_if_reached() or handle the situation */
 				}
 				g_object_unref(tmp2);
 				tmp2 = tmp3;
@@ -931,8 +931,10 @@ void fb2_focus_document(Tbfwin * bfwin, Tdocument * doc)
 		   could disturb the user... hmmm... */
 		dir_uri = g_file_get_parent(doc->uri);
 #ifdef DEVELOPMENT
-		if (!dir_uri)
-			exit(334);
+		if (!dir_uri) {
+			g_critical("dir_uri should not be NULL\n");
+			g_return_if_reached();
+		}
 #endif
 		fb2_focus_dir(FILEBROWSER2(bfwin->fb2), dir_uri, FALSE);
 		g_object_unref(dir_uri);
@@ -2715,8 +2717,10 @@ GtkWidget *fb2_init(Tbfwin * bfwin)
 	Tfilebrowser2 *fb2;
 	GtkCellRenderer *renderer;
 #ifdef DEVELOPMENT
-	if (!bfwin->session)
-		exit(321);
+	if (!bfwin->session) {
+		g_critical("bfwin->session should not be NULL\n");
+		g_return_val_if_reached(NULL);
+	}
 #endif
 	fb2 = g_new0(Tfilebrowser2, 1);
 	fb2->filebrowser_viewmode = bfwin->session->filebrowser_viewmode;
