@@ -614,6 +614,16 @@ static void fb2_enumerate_children_lcb(GObject * source_object, GAsyncResult * r
 	}
 }
 
+static gboolean fb2_fill_dir_async_low_priority(gpointer data) {
+	Turi_in_refresh *uir=data;
+/*	g_print("start fill dir async low priority\n");*/
+	g_file_enumerate_children_async(uir->uri,
+										"standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
+										G_FILE_QUERY_INFO_NONE, G_PRIORITY_LOW, uir->cancel,
+										fb2_enumerate_children_lcb, uir);
+	return FALSE;
+}
+
 static void fb2_fill_dir_async(GtkTreeIter * parent, GFile * uri)
 {
 	if (fb2_get_uri_in_refresh(uri) == NULL) {
@@ -628,12 +638,13 @@ static void fb2_fill_dir_async(GtkTreeIter * parent, GFile * uri)
 		DEBUG_MSG("fb2_fill_dir_async, opening ");
 		DEBUG_GFILE(uir->uri, TRUE);
 		uir->cancel = g_cancellable_new();
-		g_file_enumerate_children_async(uir->uri,
+		/*g_file_enumerate_children_async(uir->uri,
 										"standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
 										G_FILE_QUERY_INFO_NONE, G_PRIORITY_LOW, uir->cancel,
-										fb2_enumerate_children_lcb, uir);
+										fb2_enumerate_children_lcb, uir);*/
 		FB2CONFIG(main_v->fb2config)->uri_in_refresh =
 		g_list_prepend(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
+		g_idle_add_full(G_PRIORITY_LOW,fb2_fill_dir_async_low_priority,uir, NULL);
 	}
 }
 

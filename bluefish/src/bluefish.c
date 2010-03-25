@@ -66,7 +66,7 @@ Tmain *main_v;
 /********************************/
 /* functions used in bluefish.c */
 /********************************/
-/*#define STARTUP_PROFILING*/
+#define STARTUP_PROFILING
 
 #ifdef STARTUP_PROFILING
 static GTimer *startuptimer;
