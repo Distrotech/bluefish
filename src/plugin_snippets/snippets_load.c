@@ -302,8 +302,15 @@ static gpointer snippets_load_async(gpointer data) {
 	return NULL;
 }
 
-void snippets_load(void) {
+static gboolean snippets_load_low_priority(gpointer data) {
 	g_thread_create(snippets_load_async, NULL, FALSE, NULL);
+/*	g_print("snippets_load_low_priority\n");*/
+	return FALSE;
+}
+
+void snippets_load(void) {
+	/*g_thread_create(snippets_load_async, NULL, FALSE, NULL);*/
+	g_idle_add_full(G_PRIORITY_LOW, snippets_load_low_priority, NULL, NULL);
 }
 
 gboolean snippets_store_lcb(gpointer data) {
@@ -383,7 +390,6 @@ static gpointer snippets_import_async(gpointer data) {
 	g_idle_add_full(G_PRIORITY_LOW, snippets_import_load_finished_lcb, si, NULL);	
 	return NULL;
 }
-
 
 void snippets_import_node(xmlNodePtr branch, const gchar *filename) {
 	Tsnippets_import *si;
