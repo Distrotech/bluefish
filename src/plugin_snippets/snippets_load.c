@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snippets_load.c - plugin for snippets sidebar
  *
- * Copyright (C) 2006 Olivier Sessink
+ * Copyright (C) 2006-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
