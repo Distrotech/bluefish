@@ -112,7 +112,7 @@ typedef struct {
 	Tbfwin *firstbfwin;
 	GList *filenames;
 #ifndef NOSPLASH
-	GtkWidget *splash_window;
+	gpointer splash;
 #endif							/* NOSPLASH */	
 	guint state;
 } Tstartup;
@@ -128,8 +128,7 @@ static gboolean startup_in_idle(gpointer data) {
 #ifndef NOSPLASH
 			if (main_v->props.show_splash_screen) {
 				/* start splash screen somewhere here */
-				startup->splash_window = start_splash_screen();
-				splash_screen_set_label(_("starting up..."));
+				startup->splash = start_splash_screen();
 			}
 #endif							/* NOSPLASH */
 			bluefish_load_plugins();
@@ -208,7 +207,7 @@ static gboolean startup_in_idle(gpointer data) {
 			modified_on_disk_check_init();
 #ifndef NOSPLASH
 			if (main_v->props.show_splash_screen) {
-				gtk_widget_destroy(startup->splash_window);
+				splash_screen_destroy(startup->splash);
 			}
 #endif							/* NOSPLASH */
 			g_free(startup);

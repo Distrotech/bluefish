@@ -61,14 +61,9 @@
 typedef struct {
 	GtkWidget *window;
 	GtkWidget *label;
-} Tsplashscreen;
+	GFile *uri;
+} Tsplash;
 
-/******************************/
-/* global vars for this module */
-/******************************/
-#ifndef NOSPLASH
-static Tsplashscreen splashscreen;
-#endif
 /**************************/
 /* start of the functions */
 /**************************/
@@ -1189,32 +1184,30 @@ void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget
 
 #ifndef NOSPLASH
 
-void splash_screen_set_label(gchar *label) {
-#ifdef DEBUG
-	g_print("Setting splash label to %s\n", label);
-#endif
-	gtk_label_set(GTK_LABEL(splashscreen.label),label);
+void splash_screen_destroy(gpointer splashscreen) {
+	gtk_widget_destroy(((Tsplash *)splashscreen)->window);
+	g_slice_free(Tsplash,splashscreen);
 }
 
-GtkWidget *start_splash_screen() {
+static void splash_screen_gui(Tsplash *splashscreen, GdkPixbuf *pixbuf) {
 	GtkWidget *image, *vbox;
 	GdkColor color;
 
-	splashscreen.window = window_with_title(PACKAGE_STRING, GTK_WIN_POS_CENTER_ALWAYS, 0);
-	gtk_window_set_decorated(GTK_WINDOW(splashscreen.window), FALSE);
-	gtk_window_set_role(GTK_WINDOW(splashscreen.window), "splash");
-	gtk_window_set_resizable(GTK_WINDOW(splashscreen.window),FALSE);
+	splashscreen->window = window_with_title(PACKAGE_STRING, GTK_WIN_POS_CENTER_ALWAYS, 0);
+	gtk_window_set_decorated(GTK_WINDOW(splashscreen->window), FALSE);
+	gtk_window_set_role(GTK_WINDOW(splashscreen->window), "splash");
+	gtk_window_set_resizable(GTK_WINDOW(splashscreen->window),FALSE);
 	color.red = 65535;
 	color.blue = 65535;
 	color.green = 65535;
-	gtk_widget_modify_bg(splashscreen.window, GTK_STATE_NORMAL,&color);
+	gtk_widget_modify_bg(splashscreen->window, GTK_STATE_NORMAL,&color);
 
 	vbox = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(splashscreen.window), vbox);
+	gtk_container_add(GTK_CONTAINER(splashscreen->window), vbox);
 	gtk_widget_show(vbox);
-	splashscreen.label = gtk_label_new(_("starting bluefish"));
-	gtk_box_pack_end(GTK_BOX(vbox),splashscreen.label , FALSE, FALSE, 0);
-	gtk_widget_show(splashscreen.label);
+	splashscreen->label = gtk_label_new(_("starting up..."));
+	gtk_box_pack_end(GTK_BOX(vbox),splashscreen->label , FALSE, FALSE, 0);
+	gtk_widget_show(splashscreen->label);
 	/*{
 		GError *error=NULL;
 		GdkPixbuf* pixbuf= gdk_pixbuf_new_from_file(BLUEFISH_SPLASH_FILENAME,&error);
@@ -1228,12 +1221,47 @@ GtkWidget *start_splash_screen() {
 			gtk_widget_show(image);
 		}
 	}*/
-	image = gtk_image_new_from_file(BLUEFISH_SPLASH_FILENAME);
+	/*image = gtk_image_new_from_file(BLUEFISH_SPLASH_FILENAME);*/
+	image = gtk_image_new_from_pixbuf(pixbuf);
 	gtk_box_pack_end(GTK_BOX(vbox), image, FALSE, FALSE, 0);
 	gtk_widget_show(image);
-	gtk_widget_show(splashscreen.window);
+	gtk_widget_show(splashscreen->window);
 	DEBUG_MSG("start_splash_screen, should be visible\n");
-	return splashscreen.window;
+}
+
+static void splash_load_finished_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	Tsplash *splashscreen=user_data;
+	gboolean ret;
+	gchar *buffer=NULL;
+	gsize buflen=0;
+	GError *gerror=NULL;
+	GdkPixbufLoader *pbloader;
+	GdkPixbuf *pixbuf;
+	ret = g_file_load_contents_finish(splashscreen->uri,res,&buffer,&buflen,NULL,&gerror);
+	if (gerror) {
+		g_print("load splash error %s\n",gerror->message);
+		g_error_free(gerror);
+		return;
+	}
+	pbloader = gdk_pixbuf_loader_new_with_type("png",NULL);
+	if (gdk_pixbuf_loader_write(pbloader, (const guchar *) buffer, buflen, &gerror)
+				&& gdk_pixbuf_loader_close(pbloader, &gerror)) {
+		pixbuf = gdk_pixbuf_loader_get_pixbuf(pbloader);
+		splash_screen_gui(splashscreen, pixbuf);
+	}
+	if (gerror) {
+		g_print("load splash error %s\n",gerror->message);
+		g_error_free(gerror);
+	}
+	g_object_unref(pbloader);
+	g_object_unref(splashscreen->uri);
+}
+
+gpointer start_splash_screen(void) {
+	Tsplash* splashscreen = g_slice_new0(Tsplash);
+	splashscreen->uri = g_file_new_for_path(BLUEFISH_SPLASH_FILENAME);
+	g_file_load_contents_async(splashscreen->uri,NULL,splash_load_finished_lcb,splashscreen);
+	return splashscreen;
 }
 #endif /* #ifndef NOSPLASH */
 void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
