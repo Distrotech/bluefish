@@ -1,0 +1,1081 @@
+<?xml version="1.0"?>
+<snippets>
+<branch title=" C ">
+<leaf title="Comment" type="insert">
+<before>/*</before>
+<after>*/</after>
+</leaf>
+<leaf title="Walk GList" type="insert">
+<before>GList *tmplist;
+tmplist = g_list_first(%0);
+while(tmplist){
+	</before>
+<after>
+	tmplist = g_list_next(tmplist);
+}</after>
+<param num="0" name="GList Name"/>
+</leaf>
+<leaf title="define" type="insert">
+<before>#define %0
+</before>
+<after>
+</after>
+<param num="0" name="#define Name"/>
+</leaf>
+<leaf title="ifdef" type="insert">
+<before>
+#ifdef %0
+</before>
+<after>
+#endif /* %0 */
+</after>
+<param num="0" name="#ifdef Name"/>
+</leaf>
+</branch>
+<branch title="Apache">
+<leaf title="Basic Authentication" type="insert">
+<before>AuthName "%1"
+AuthType Basic
+require valid-user
+AuthUserFile %0
+</before>
+<after></after>
+<param num="0" name="Full Path to Password File"/>
+<param num="1" name="Security Description"/>
+</leaf>
+<leaf title="Deny Access to .inc" type="insert">
+<before>&lt;FilesMatch "\.inc$"&gt;
+	Order allow,deny
+	Deny from all
+&lt;/FilesMatch&gt;</before>
+<after></after>
+</leaf>
+</branch>
+<branch title="DHTML">
+<leaf title="Auto-submit Select Box" type="insert">
+<before>&lt;form action="%0" method="%1" name="%2"&gt;
+	&lt;select name="%3" onchange="document.%1.submit();"&gt;
+	</before>
+<after>&lt;/select&gt;
+	&lt;noscript&gt;
+		&lt;input type="submit" value="Go" /&gt;
+	&lt;/noscript&gt;
+&lt;/form&gt;</after>
+<param num="0" name="Form Action"/>
+<param num="1" name='Form Method ("get" or "post")'/>
+<param num="2" name="Form Name"/>
+<param num="3" name="Select Name"/>
+</leaf>
+<leaf title="Image Rollover" type="insert">
+<before>&lt;img src="%1" id="%0" onmouseover="this.src='%2';" onmouseout="this.src='%1';" /&gt;</before>
+<after></after>
+<param num="0" name="&lt;img&gt; ID"/>
+<param num="1" name="onmouseout src"/>
+<param num="2" name="onmouseover src"/>
+</leaf>
+</branch>
+<branch title="DocBook">
+<leaf title="Date" type="insert">
+<before>&lt;date&gt;%0&lt;/date&gt;</before>
+<after></after>
+<param num="0" name="Date"/>
+</leaf>
+<branch title="Figures">
+<branch title="Figure">
+<leaf title="SGML" type="insert">
+<before>&lt;para&gt;&lt;figure float="0"&gt;
+	&lt;title&gt;%0&lt;/title&gt;
+	&lt;screenshot&gt;&lt;mediaobject&gt;
+	&lt;imageobject&gt;
+	&lt;imagedata fileref="%1" format="%2"&gt;
+	&lt;/imageobject&gt;
+	&lt;textobject&gt;
+	&lt;phrase&gt;%3&lt;/phrase&gt;
+	&lt;/textobject&gt;
+	&lt;/mediaobject&gt;&lt;/screenshot&gt;
+&lt;/figure&gt;&lt;/para&gt;
+</before>
+<after></after>
+<param num="0" name="Title"/>
+<param num="1" name="Image Location"/>
+<param num="2" name="Format"/>
+<param num="3" name="Phrase"/>
+</leaf>
+<leaf title="XML" type="insert">
+<before>&lt;para&gt;&lt;figure float="0"&gt;
+	&lt;title&gt;%0&lt;/title&gt;
+	&lt;screenshot&gt;&lt;mediaobject&gt;
+	&lt;imageobject&gt;
+	&lt;imagedata fileref="%1" format="%2"/&gt;
+	&lt;/imageobject&gt;
+	&lt;textobject&gt;
+	&lt;phrase&gt;%3&lt;/phrase&gt;
+	&lt;/textobject&gt;
+	&lt;/mediaobject&gt;&lt;/screenshot&gt;
+&lt;/figure&gt;&lt;/para&gt;
+</before>
+<after></after>
+<param num="0" name="Title"/>
+<param num="1" name="Image Location"/>
+<param num="2" name="Format"/>
+<param num="3" name="Phrase"/>
+</leaf>
+</branch>
+<branch title="Image Object">
+<leaf title="SGML" type="insert">
+<before>&lt;imageobject&gt;
+	&lt;imagedata fileref="%0" format="%1"&gt;
+&lt;/imageobject&gt;
+</before>
+<after></after>
+<param num="0" name="Image Location"/>
+<param num="1" name="Format"/>
+</leaf>
+<leaf title="XML" type="insert">
+<before>&lt;imageobject&gt;
+	&lt;imagedata fileref="%0" format="%1"/&gt;
+&lt;/imageobject&gt;
+</before>
+<after></after>
+<param num="0" name="Image Location"/>
+<param num="1" name="Format"/>
+</leaf>
+</branch>
+<branch title="Inline Image">
+<leaf title="SGML" type="insert">
+<before>&lt;inlinemediaobject&gt;
+	&lt;imageobject&gt;
+	&lt;imagedata fileref="%1" format="%2"&gt;
+	&lt;/imageobject&gt;
+	&lt;textobject&gt;
+	&lt;phrase&gt;%3&lt;/phrase&gt;
+	&lt;/textobject&gt;
+&lt;/inlinemediaobject&gt;</before>
+<after></after>
+<param num="0" name="Image Location"/>
+<param num="1" name="Format"/>
+<param num="2" name="Phrase"/>
+</leaf>
+<leaf title="XML" type="insert">
+<before>&lt;inlinemediaobject&gt;
+	&lt;imageobject&gt;
+	&lt;imagedata fileref="%1" format="%2"/&gt;
+	&lt;/imageobject&gt;
+	&lt;textobject&gt;
+	&lt;phrase&gt;%3&lt;/phrase&gt;
+	&lt;/textobject&gt;
+&lt;/inlinemediaobject&gt;</before>
+<after></after>
+<param num="0" name="Image Location"/>
+<param num="1" name="Format"/>
+<param num="2" name="Phrase"/>
+</leaf>
+</branch>
+</branch>
+<branch title="GUI">
+<leaf title="Key Cap" type="insert">
+<before>&lt;keycap&gt;</before>
+<after>&lt;/keycap&gt;</after>
+</leaf>
+<leaf title="Key Symbol" type="insert">
+<before>&lt;keysym&gt;%0&lt;/keysym&gt;</before>
+<after></after>
+<param num="0" name="Key Symbol"/>
+</leaf>
+<leaf title="Menu Choice" type="insert">
+<before>&lt;menuchoice&gt;
+	&lt;shortcut&gt;
+		&lt;keycombo&gt;&lt;keysym&gt;%0&lt;/keysym&gt;&lt;/keycombo&gt;
+	&lt;/shortcut&gt;
+	&lt;guimenu&gt;%1&lt;/guimenu&gt;
+	&lt;guimenuitem&gt;%2&lt;/guimenuitem&gt;
+&lt;/menuchoice&gt;
+</before>
+<after></after>
+<param num="0" name="Key Symbol"/>
+<param num="1" name="Menu"/>
+<param num="2" name="Menu Item"/>
+</leaf>
+</branch>
+<branch title="Headers">
+<leaf title="Article" type="insert">
+<before>&lt;article&gt;
+</before>
+<after>
+&lt;/article&gt;</after>
+</leaf>
+<leaf title="Article Info" type="insert">
+<before>&lt;articleinfo&gt;
+</before>
+<after>
+&lt;/articleinfo&gt;</after>
+</leaf>
+<branch title="Authors">
+<leaf title="Author" type="insert">
+<before>&lt;author&gt;
+	&lt;firstname&gt;%0&lt;/firstname&gt;
+	&lt;surname&gt;%1&lt;/surname&gt;
+&lt;/author&gt;</before>
+<after></after>
+<param num="0" name="First Name"/>
+<param num="1" name="Surname"/>
+</leaf>
+<leaf title="Author Group" type="insert">
+<before>&lt;authorgroup&gt;
+</before>
+<after>
+&lt;/authorgroup&gt;</after>
+</leaf>
+<leaf title="Copyright" type="insert">
+<before>&lt;copyright&gt;
+	&lt;year&gt;%0&lt;/year&gt;
+	&lt;holder&gt;%1&lt;/holder&gt;
+&lt;/copyright&gt;</before>
+<after></after>
+<param num="0" name="Year"/>
+<param num="1" name="Holder"/>
+</leaf>
+</branch>
+<branch title="DocTypes">
+<leaf title="Article" type="insert">
+<before>&lt;!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V%0//EN" [
+</before>
+<after>]&gt;</after>
+<param num="0" name="Version"/>
+</leaf>
+<leaf title="Book" type="insert">
+<before>&lt;!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V%0//EN" [
+</before>
+<after>]&gt;</after>
+<param num="0" name="Version"/>
+</leaf>
+</branch>
+<branch title="Entity">
+<leaf title="Complex Entity" type="insert">
+<before>&lt;!ENTITY %0 "%1"&gt;</before>
+<after></after>
+<param num="0" name="Entity Name"/>
+<param num="1" name="Entity Definition"/>
+</leaf>
+<leaf title="Simple Entity" type="insert">
+<before>&lt;!ENTITY %0 "%0"&gt;</before>
+<after></after>
+<param num="0" name="Entity Name"/>
+</leaf>
+<leaf title="System Entity" type="insert">
+<before>&lt;!ENTITY %0 SYSTEM "%0"&gt;</before>
+<after></after>
+<param num="0" name="Entity Name"/>
+</leaf>
+</branch>
+<branch title="History">
+<leaf title="Revision" type="insert">
+<before>&lt;revision&gt;
+	&lt;revnumber&gt;%0&lt;/revnumber&gt;
+	&lt;date&gt;%1&lt;/date&gt;
+	&lt;authorinitials&gt;%2&lt;/authorinitials&gt;
+	&lt;revremark&gt;%3&lt;/revremark&gt;
+&lt;/revision&gt;</before>
+<after></after>
+<param num="0" name="Revision Number"/>
+<param num="1" name="Revision Date"/>
+<param num="2" name="Author's Initials"/>
+<param num="3" name="Remark"/>
+</leaf>
+<leaf title="Revision History" type="insert">
+<before>&lt;revhistory&gt;
+</before>
+<after>
+&lt;/revhistory&gt;</after>
+</leaf>
+<leaf title="Legal Notice" type="insert">
+<before>&lt;legalnotice&gt;
+&lt;para&gt;</before>
+<after>&lt;/para&gt;
+&lt;/legalnotice&gt;</after>
+</leaf>
+</branch>
+</branch>
+<branch title="Layout">
+<leaf title="Acronym" type="insert">
+<before>&lt;acronym&gt;
+</before>
+<after>&lt;/acronym&gt;</after>
+</leaf>
+<leaf title="Application" type="insert">
+<before>&lt;application&gt;
+</before>
+<after>&lt;/application&gt;</after>
+</leaf>
+<leaf title="Computer Output" type="insert">
+<before>&lt;computeroutput&gt;
+</before>
+<after>&lt;/computeroutput&gt;
+</after>
+</leaf>
+<leaf title="Emphasis" type="insert">
+<before>&lt;emphasis&gt;</before>
+<after>&lt;/emphasis&gt;</after>
+</leaf>
+<leaf title="Option" type="insert">
+<before>&lt;option&gt;</before>
+<after>&lt;/option&gt;
+</after>
+</leaf>
+</branch>
+<branch title="Links">
+<leaf title="External Link with Text" type="insert">
+<before>&lt;ulink url="%0"&gt;%1&lt;/ulink&gt;
+</before>
+<after></after>
+<param num="0" name="Link URL"/>
+<param num="1" name="Text"/>
+</leaf>
+<branch title="External Link without Text">
+<leaf title="SGML" type="insert">
+<before>&lt;ulink url="%0"&gt;
+</before>
+<after></after>
+<param num="0" name="Link URL"/>
+</leaf>
+<leaf title="XML" type="insert">
+<before>&lt;ulink url="%0"/&gt;
+</before>
+<after></after>
+<param num="0" name="Link URL"/>
+</leaf>
+</branch>
+<branch title="Internal Link">
+<leaf title="SGML" type="insert">
+<before>&lt;xref linkend="%0"&gt;
+</before>
+<after></after>
+<param num="0" name="Link ID"/>
+</leaf>
+<leaf title="XML" type="insert">
+<before>&lt;xref linkend="%0"/&gt;
+</before>
+<after></after>
+<param num="0" name="Link ID"/>
+</leaf>
+</branch>
+</branch>
+<branch title="Lists">
+<leaf title="Itemized List" type="insert">
+<before>&lt;itemizedlist&gt;
+	  &lt;listitem&gt;&lt;para&gt;</before>
+<after>&lt;/para&gt;&lt;/listitem&gt;
+&lt;/itemizedlist&gt;</after>
+</leaf>
+<leaf title="List Item" type="insert">
+<before>&lt;listitem&gt;&lt;para&gt;</before>
+<after>&lt;/para&gt;&lt;/listitem&gt;</after>
+</leaf>
+<leaf title="Ordered List" type="insert">
+<before>&lt;orderedlist&gt;
+	  &lt;listitem&gt;&lt;para&gt;</before>
+<after>&lt;/para&gt;&lt;/listitem&gt;
+&lt;/orderedlist&gt;</after>
+</leaf>
+<leaf title="Variable List" type="insert">
+<before>&lt;variablelist&gt;&lt;title&gt;%0&lt;/title&gt;
+	&lt;varlistentry&gt;&lt;term&gt;%1&lt;/term&gt;
+	&lt;listitem&gt;&lt;para&gt;%2&lt;/para&gt;&lt;/listitem&gt;
+	&lt;/varlistentry&gt;
+&lt;/variablelist&gt;</before>
+<after></after>
+<param num="0" name="Title"/>
+<param num="1" name="Term"/>
+<param num="2" name="Item"/>
+</leaf>
+<leaf title="Variable List Entry" type="insert">
+<before>&lt;varlistentry&gt;&lt;term&gt;%0&lt;/term&gt;
+	&lt;listitem&gt;&lt;para&gt;%1&lt;/para&gt;&lt;/listitem&gt;
+&lt;/varlistentry&gt;
+</before>
+<after></after>
+<param num="0" name="Term"/>
+<param num="1" name="Item"/>
+</leaf>
+<leaf title="Paragraph" type="insert">
+<before>&lt;para&gt;</before>
+<after>&lt;/para&gt;</after>
+</leaf>
+</branch>
+<branch title="Procedures">
+<leaf title="Procedure" type="insert">
+<before>&lt;procedure&gt;&lt;title&gt;%0&lt;/title&gt;
+	&lt;step&gt;&lt;para&gt;
+</before>
+<after>&lt;/para&gt;
+&lt;/step&gt;
+&lt;/procedure&gt;
+
+</after>
+<param num="0" name="Title"/>
+</leaf>
+<leaf title="Step" type="insert">
+<before>&lt;step&gt;&lt;para&gt;
+</before>
+<after>&lt;/para&gt;
+
+
+</after>
+</leaf>
+<leaf title="Substep" type="insert">
+<before>&lt;substeps&gt;
+	&lt;step&gt;&lt;para&gt;
+</before>
+<after>&lt;/para&gt;&lt;/step&gt;
+&lt;/substeps&gt;
+
+
+
+</after>
+</leaf>
+<leaf title="Program Listing" type="insert">
+<before>&lt;programlisting&gt;</before>
+<after>&lt;/programlisting&gt;</after>
+</leaf>
+</branch>
+<branch title="Sections">
+<leaf title="Section With ID" type="insert">
+<before>&lt;sect%0 id="%1"&gt;
+&lt;title&gt;%2&lt;/title&gt;
+&lt;/sect%0&gt;
+</before>
+<after>
+</after>
+<param num="0" name="Section Number"/>
+<param num="1" name="Section ID"/>
+<param num="2" name="Title"/>
+</leaf>
+<leaf title="Simple Section" type="insert">
+<before>&lt;sect%0&gt;
+&lt;title&gt;%1&lt;/title&gt;
+&lt;/sect%0&gt;
+</before>
+<after>
+</after>
+<param num="0" name="Section Number"/>
+<param num="1" name="Title"/>
+</leaf>
+</branch>
+<branch title="Tables">
+<leaf title="Entry" type="insert">
+<before>&lt;entry align="%0" valign="%1"&gt;</before>
+<after>&lt;/entry&gt;
+</after>
+<param num="0" name="Horizontal Alignment"/>
+<param num="1" name="Vertical Alignment"/>
+</leaf>
+<leaf title="Informal Table" type="insert">
+<before>&lt;informaltable&gt;&lt;tgroup cols="%0" colsep="%1" rowsep="%2"&gt;</before>
+<after>
+&lt;/informaltable&gt;</after>
+<param num="0" name="# cols"/>
+<param num="1" name="Column Separator"/>
+<param num="2" name="Row Separator"/>
+</leaf>
+<leaf title="Row" type="insert">
+<before>&lt;row&gt;
+	&lt;entry align="%0" valign="%1"&gt;</before>
+<after>&lt;/entry&gt;
+&lt;/row&gt;
+</after>
+<param num="0" name="Horizontal Alignment"/>
+<param num="1" name="Vertical Alignment"/>
+</leaf>
+</branch>
+<branch title="Warnings">
+<leaf title="Important" type="insert">
+<before>&lt;important&gt;&lt;para&gt;</before>
+<after>&lt;/para&gt;&lt;/important&gt;
+
+</after>
+</leaf>
+<leaf title="Note" type="insert">
+<before>&lt;note&gt;&lt;para&gt;</before>
+<after>&lt;/para&gt;&lt;/note&gt;
+
+</after>
+</leaf>
+<leaf title="Tip" type="insert">
+<before>&lt;tip&gt;&lt;para&gt;</before>
+<after>&lt;/para&gt;&lt;/tip&gt;
+
+</after>
+</leaf>
+<leaf title="Warning" type="insert">
+<before>&lt;warning&gt;&lt;para&gt;
+</before>
+<after>&lt;/para&gt;&lt;/warning&gt;
+</after>
+</leaf>
+</branch>
+</branch>
+<branch title="HTML">
+<leaf title='"Made with Bluefish" Link' type="insert">
+<before>&lt;a href="http://bluefish.openoffice.nl/"&gt;Made with Bluefish HTML editor.&lt;/a&gt;</before>
+<after></after>
+</leaf>
+<leaf title="Any paired tag" type="insert">
+<before>&lt;%0&gt;</before>
+<after>&lt;/%0&gt;</after>
+<param num="0" name="Tag Name"/>
+</leaf>
+<leaf title="Any single tag" type="insert">
+<before>&lt;%0 /&gt;</before>
+<after></after>
+<param num="0" name="Tag Name"/>
+</leaf>
+<leaf title="Any tag with 'class' attribute" type="insert">
+<before>&lt;%0 class="%1"&gt;</before>
+<after>&lt;/%0&gt;</after>
+<param num="0" name="Tag Name"/>
+<param num="1" name="Class"/>
+</leaf>
+<leaf title="Any tag with 'id' attribute" type="insert">
+<before>&lt;%0 id="%1"&gt;</before>
+<after>&lt;/%0&gt;</after>
+<param num="0" name="Tag Name"/>
+<param num="1" name="Unique ID"/>
+</leaf>
+<leaf title="Any tag with 'style' attribute" type="insert">
+<before>&lt;%0 style="%1"&gt;</before>
+<after>&lt;/%0&gt;</after>
+<param num="0" name="Tag Name"/>
+<param num="1" name="Style"/>
+</leaf>
+<leaf title="Comment" type="insert">
+<before>&lt;!-- %0</before>
+<after> --&gt;</after>
+<param num="0" name="Comment Text"/>
+</leaf>
+<branch title="DOCTYPEs">
+<leaf title="HTML Frameset" type="insert">
+<before>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd"&gt;</before>
+<after></after>
+</leaf>
+<leaf title="HTML Strict" type="insert">
+<before>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"&gt;</before>
+<after></after>
+</leaf>
+<leaf title="HTML Transitional" type="insert">
+<before>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;</before>
+<after></after>
+</leaf>
+<leaf title="XHTML Frameset" type="insert">
+<before>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd"&gt;</before>
+<after></after>
+</leaf>
+<leaf title="XHTML Strict" type="insert">
+<before>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</before>
+<after></after>
+</leaf>
+<leaf title="XHTML Transitional" type="insert">
+<before>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-loose.dtd"&gt;</before>
+<after></after>
+</leaf>
+<leaf title="External Stylesheet" type="insert">
+<before>&lt;link rel="stylesheet" type="text/css" href="%0" /&gt;</before>
+<after></after>
+<param num="0" name="Stylesheet"/>
+</leaf>
+</branch>
+<branch title="Forms">
+<leaf title="&lt;form&gt;" type="insert">
+<before>&lt;form action="%0" method="%1"&gt;</before>
+<after>&lt;/form&gt;</after>
+<param num="0" name="Action"/>
+<param num="1" name="Method"/>
+</leaf>
+<leaf title="&lt;input&gt; Checkbox" type="insert">
+<before>&lt;input type="checkbox" name="%0" value="%1" /&gt;</before>
+<after></after>
+<param num="0" name="Name"/>
+<param num="1" name="Checked Value"/>
+</leaf>
+<leaf title="&lt;input&gt; File" type="insert">
+<before>&lt;input type="file" name="%0" /&gt;</before>
+<after></after>
+<param num="0" name="Name"/>
+</leaf>
+<leaf title="&lt;input&gt; Password" type="insert">
+<before>&lt;input type="password" name="%0" value="%1" /&gt;</before>
+<after></after>
+<param num="0" name="Name"/>
+</leaf>
+<leaf title="&lt;input&gt; Radio" type="insert">
+<before>&lt;input type="radio" name="%0" value="%1" /&gt;</before>
+<after></after>
+<param num="0" name="Name"/>
+<param num="1" name="Checked Value"/>
+</leaf>
+<leaf title="&lt;input&gt; Submit" type="insert">
+<before>&lt;input type="submit" name="%0" value="%1" /&gt;</before>
+<after></after>
+<param num="0" name="Name"/>
+<param num="1" name="Button Text"/>
+</leaf>
+<leaf title="&lt;input&gt; Text" type="insert">
+<before>&lt;input type="text" name="%0" value="%1" /&gt;</before>
+<after></after>
+<param num="0" name="Name"/>
+<param num="1" name="Default Value"/>
+</leaf>
+<leaf title="&lt;label&gt;" type="insert">
+<before>&lt;label for="%0"&gt;</before>
+<after>&lt;/label&gt;</after>
+<param num="0" name="For"/>
+</leaf>
+<leaf title="&lt;option&gt;" type="insert">
+<before>&lt;option value="%0"&gt;%1</before>
+<after>&lt;/option&gt;</after>
+<param num="0" name="Value"/>
+<param num="1" name="Option Text"/>
+</leaf>
+<leaf title="&lt;select&gt;" type="insert">
+<before>&lt;select name="%0"&gt;</before>
+<after>&lt;/select&gt;</after>
+<param num="0" name="Name"/>
+<param num="1" name=""/>
+</leaf>
+<leaf title="Hyperlinked Anchor" type="insert">
+<before>&lt;a href="%0" title="%1"&gt;%2</before>
+<after>&lt;/a&gt;</after>
+<param num="0" name="Link Destination"/>
+<param num="1" name="Title"/>
+<param num="2" name="Linked Text"/>
+</leaf>
+<leaf title="Image" type="insert">
+<before>&lt;img src="%0" height="%1" width="%2" alt="%3" /&gt;</before>
+<after></after>
+<param num="0" name="Image src"/>
+<param num="1" name="Height"/>
+<param num="2" name="Width"/>
+<param num="3" name="alt Text"/>
+</leaf>
+<leaf title="Link" type="insert">
+<before>&lt;link rel="%0" type="%1" href="%2" /&gt;</before>
+<after></after>
+<param num="0" name="Relationship"/>
+<param num="1" name="Type"/>
+<param num="2" name="href"/>
+</leaf>
+</branch>
+<branch title="Meta">
+<leaf title="HTTP Refresh" type="insert">
+<before>&lt;meta http-equiv="refresh" content="%0; URL=%1"&gt;</before>
+<after></after>
+<param num="0" name="Refresh time (seconds)"/>
+<param num="1" name="Destination URL"/>
+</leaf>
+<leaf title="Meta tag" type="insert">
+<before>&lt;meta name="%0" content="%1" /&gt;</before>
+<after></after>
+<param num="0" name="Name"/>
+<param num="1" name="Content"/>
+</leaf>
+<leaf title="Named Anchor" type="insert">
+<before>&lt;a name="%0"&gt;</before>
+<after>&lt;/a&gt;</after>
+<param num="0" name="Name"/>
+</leaf>
+<leaf title="Script" type="insert">
+<before>&lt;script type="application/x-javascript"&gt;
+	&lt;!--
+
+	--&gt;
+&lt;/script&gt;</before>
+<after></after>
+</leaf>
+</branch>
+</branch>
+<branch title="PHP+HTML">
+<leaf title="Checkbox" type="insert">
+<before>&lt;input type="checkbox" name="%0" value="%1" &lt;?php if (isset($%0)) { echo 'checked'; } ?&gt;&gt;</before>
+<after></after>
+<param num="0" name="&lt;input&gt; Name"/>
+<param num="1" name="Checked Value"/>
+</leaf>
+<leaf title="Form" type="insert">
+<before>&lt;form method="POST" action="&lt;?php echo $SCRIPT_NAME ?&gt;"&gt;
+
+</before>
+<after>&lt;/form&gt;</after>
+</leaf>
+<leaf title="Form + Action" type="insert">
+<before>&lt;?php if (isset($submitted)) {
+//form submit code here
+} else { ?&gt;
+&lt;form method="POST" action="&lt;?php echo $SCRIPT_NAME ?&gt;"&gt;
+
+&lt;input type="submit" name="submitted" value="%0"&gt;&lt;/form&gt;
+&lt;?php } // end of form ?&gt;</before>
+<after></after>
+<param num="0" name="Submit Button Text"/>
+</leaf>
+<branch title="General">
+<leaf title="Calendar Table" type="insert">
+<before>&lt;?php
+	$now = getdate(time());
+	$time = mktime(0,0,0, $now['mon'], 1, $now['year']);
+	$date = getdate($time);
+	$dayTotal = cal_days_in_month(0, $date['mon'], $date['year']);
+	//Print the calendar header with the month name.
+	print '&lt;table&gt;&lt;tr&gt;&lt;td colspan="7"&gt;&lt;strong&gt;' . $date['month'] . '&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;';
+	for ($i = 0; $i &lt; 6; $i++) {
+		print '&lt;tr&gt;';
+		for ($j = 1; $j &lt;= 7; $j++) {
+			$dayNum = $j + $i*7 - $date['wday'];
+			//Print a cell with the day number in it.  If it is today, highlight it.
+			print '&lt;td';
+			if ($dayNum &gt; 0 &amp;&amp; $dayNum &lt;= $dayTotal) {
+				print ($dayNum == $now['mday']) ? ' style="background: #ccc;"&gt;' : '&gt;';
+				print $dayNum;
+			}
+			else {
+				//Print a blank cell if no date falls on that day, but the row is unfinished.
+				print '&gt;';
+			}
+			print '&lt;/td&gt;';
+		}
+		print '&lt;/tr&gt;';
+		if ($dayNum &gt;= $dayTotal &amp;&amp; $i != 6)
+			break;
+	}
+	print '&lt;/table&gt;';
+?&gt;</before>
+<after></after>
+</leaf>
+</branch>
+<branch title="Selectbox">
+<leaf title="From Array" type="insert">
+<before>&lt;select name="%0"&gt;
+&lt;?php
+while(list($key, $val)=each($%1)) {
+	if (isset($%0) &amp;&amp; ($%0 == $val)) {
+		echo '&lt;option value="'.$key.'" selected&gt;'.$val.'&lt;/option&gt;';
+	} else {
+		echo '&lt;option value="'.$key.'"&gt;'.$val.'&lt;/option&gt;';
+	}
+}
+?&gt;&lt;/select&gt;</before>
+<after></after>
+<param num="0" name="&lt;select&gt; Name"/>
+<param num="1" name="Name of Array w/ Options"/>
+</leaf>
+<leaf title="From MySQL Result Set" type="insert">
+<before>&lt;select name="%0"&gt;
+&lt;?php
+while($row = mysql_fetch_row($%1)) {
+	if (isset($%0) &amp;&amp; ($%0 == $row[%2])) {
+	\techo '&lt;option value="'.$row[%2].'" selected&gt;'.$row[%3].'&lt;/option&gt;';
+	} else {
+	\techo '&lt;option value="'.$row[%2].'"&gt;'.$row[%3].'&lt;/option&gt;';
+	}
+}
+?&gt;&lt;/select&gt;</before>
+<after></after>
+<param num="0" name="&lt;select&gt; Name"/>
+<param num="1" name="Query Result Handle"/>
+<param num="2" name="Value Index"/>
+<param num="3" name="Label Index"/>
+</leaf>
+<leaf title="Text Input" type="insert">
+<before>&lt;input type="text" name="%0" value="&lt;?php if (isset($%0)) { echo $%0; } ?&gt;"&gt;</before>
+<after></after>
+<param num="0" name="&lt;input&gt; Name"/>
+</leaf>
+<leaf title="Textarea" type="insert">
+<before>&lt;textarea name="%0" rows="20" cols="40"&gt;&lt;?php if (isset($%0)) { echo $%0; } ?&gt;&lt;/textarea&gt;</before>
+<after></after>
+<param num="0" name="&lt;textarea&gt; name"/>
+</leaf>
+</branch>
+</branch>
+<branch title="PHP">
+<branch title="File">
+<leaf title="Include" type="insert">
+<before>include_once(%0);
+</before>
+<after></after>
+<param num="0" name="Filename (quoted or variable with $)"/>
+</leaf>
+<leaf title="Open and Print" type="insert">
+<before>$fd = fopen(%0, 'r');
+while (!feof($fd)) {
+	$buffer = fgets($fd, 4096);
+	echo $buffer;
+}
+fclose($fd);</before>
+<after></after>
+<param num="0" name="Filename (quoted or variable with $)"/>
+</leaf>
+<leaf title="Require" type="insert">
+<before>require_once(%0);
+</before>
+<after></after>
+<param num="0" name="Filename (quote or variable with $)"/>
+</leaf>
+</branch>
+<branch title="General">
+<branch title="Date">
+<leaf title="D Month YYYY" type="insert">
+<before>print date('j F Y');</before>
+<after></after>
+</leaf>
+<leaf title="DD MM YY" type="insert">
+<before>print date('d/m/y');</before>
+<after></after>
+</leaf>
+<leaf title="HH MM SS" type="insert">
+<before>print date('H:i:s');</before>
+<after></after>
+</leaf>
+<leaf title="HH MM SS (AM PM)" type="insert">
+<before>print date('h:i:s A');</before>
+<after></after>
+</leaf>
+<leaf title="MM DD YY" type="insert">
+<before>print date('m/d/y');</before>
+<after></after>
+</leaf>
+<leaf title="Month Dth, YYYY" type="insert">
+<before>print date('F jS, Y');</before>
+<after></after>
+</leaf>
+<leaf title="Define Constant" type="insert">
+<before>define('%0', %1);</before>
+<after></after>
+<param num="0" name="Constant Name (unquoted string)"/>
+<param num="1" name="Value (quoted or variable with $)"/>
+</leaf>
+<leaf title="Iterate over Array" type="insert">
+<before>foreach ($%0 as $key =&gt; $value) {
+	</before>
+<after>
+}
+</after>
+<param num="0" name="Array Name"/>
+</leaf>
+<leaf title="Location header" type="insert">
+<before>header('Location: '.%0);</before>
+<after></after>
+<param num="0" name="Destination URL (quoted or variable with $)"/>
+</leaf>
+<leaf title="Loop (for)" type="insert">
+<before>for ($%0 = %1; $%0 &lt;= %2; $%0++) {
+ </before>
+<after>
+}
+</after>
+<param num="0" name="Iterator Variable Name"/>
+<param num="1" name="Start Value"/>
+<param num="2" name="End Value"/>
+</leaf>
+<leaf title="Pretty Print Array" type="insert">
+<before>print_r($%0);</before>
+<after></after>
+<param num="0" name="Array Name"/>
+</leaf>
+<leaf title="Save Uploaded Files" type="insert">
+<before>foreach ($_FILES as $key=&gt;$value) {
+	$temp = $_FILES[$key]['tmp_name'];
+	$filename = strtolower(str_replace(' ', '', $_FILES[$key]['name']));
+	$dest = '%0' . $filename;
+	if ($temp) {
+		if (!move_uploaded_file($tempLoc, $dest))
+			$message .= "&lt;p&gt;An error occurred uploading &lt;strong&gt;$filename&lt;/strong&gt;.  Please try again.&lt;p&gt;";
+		else {
+			chmod($dest, 0775);
+			$message .= '&lt;p&gt;' . $filename . 'successfully uploaded to "%0".&lt;/p&gt;';
+		}
+	}
+}</before>
+<after></after>
+<param num="0" name="Destination Directory"/>
+</leaf>
+<leaf title="Send Mail" type="insert">
+<before>mail("%0", "%1", $%2);
+</before>
+<after></after>
+<param num="0" name="Destination Address"/>
+<param num="1" name="Subject Line"/>
+<param num="2" name="Message Body (variable name)"/>
+</leaf>
+<leaf title="Set Cookie" type="insert">
+<before>setcookie(%0, %1, %2, %3, %4, '%5');</before>
+<after></after>
+<param num="0" name="Cookie name (quoted or variable with $)"/>
+<param num="1" name="Cookie Value (quoted or variable with $)"/>
+<param num="2" name="Seconds to Expire (quoted or variable with $)"/>
+<param num="3" name="Cookie Path (quoted or variable with $)"/>
+<param num="4" name="Cookie Domain (quoted or variable with $)"/>
+<param num="5" name="Secure (0 or 1)"/>
+</leaf>
+<leaf title="Simple Data Cleanse" type="insert">
+<before>trim(htmlspecialchars(%0));</before>
+<after>1</after>
+</leaf>
+</branch>
+</branch>
+<branch title="MySQL">
+<leaf title="Connect" type="insert">
+<before>$mysql_id = mysql_connect('%0', '%1', '%2');
+mysql_select_db('%3', $mysql_id);
+</before>
+<after></after>
+<param num="0" name="Host Name"/>
+<param num="1" name="Username"/>
+<param num="2" name="Password"/>
+<param num="3" name="Database Name"/>
+</leaf>
+<leaf title="Fetch Row" type="insert">
+<before>while ($%1 = mysql_fetch_row($%0)) {
+	echo $%1[0];
+</before>
+<after>
+}
+mysql_free_result($%0);
+</after>
+<param num="0" name="Result Variable Name"/>
+<param num="1" name="Row Variable Name"/>
+</leaf>
+<leaf title="Query" type="insert">
+<before>$%0 = mysql_query(%1, %2);
+</before>
+<after></after>
+<param num="0" name="Result Variable Name"/>
+<param num="1" name="Connection ID Name"/>
+<param num="2" name="Query String (quoted or variable with $)"/>
+</leaf>
+</branch>
+<branch title="ODBC">
+<leaf title="Connect" type="insert">
+<before>$odbc_id = odbc_connect('%0', '%1', '%2');
+</before>
+<after></after>
+<param num="0" name="ODBC Data Source Name"/>
+<param num="1" name="Username"/>
+<param num="2" name="Password"/>
+</leaf>
+<leaf title="Execute Query" type="insert">
+<before>$%0 = odbc_exec(%1, %2);
+</before>
+<after></after>
+<param num="0" name="Result Variable Name"/>
+<param num="1" name="ODBC Connection ID Name"/>
+<param num="2" name="Query String (quoted or variable with $)"/>
+</leaf>
+<leaf title="Fetch Row" type="insert">
+<before>while($success = odbc_fetch_row($%0)) {
+	
+}</before>
+<after></after>
+<param num="0" name="Result Variable Name"/>
+</leaf>
+<leaf title="PHP Tags" type="insert">
+<before>
+&lt;?php
+</before>
+<after>
+?&gt;
+</after>
+</leaf>
+</branch>
+<branch title="Test">
+<leaf title="In Array" type="insert">
+<before>if (in_array($%0, $%1)) {
+	</before>
+<after>
+}</after>
+<param num="0" name="Test Variable"/>
+<param num="1" name="Array Name"/>
+</leaf>
+<leaf title="Is Defined" type="insert">
+<before>if (defined($%0)) {
+	</before>
+<after>
+}</after>
+<param num="0" name="Test Constant"/>
+</leaf>
+<leaf title="Is NOT Set" type="insert">
+<before>if (!isset($%0)) {
+	</before>
+<after>
+}</after>
+<param num="0" name="Test Variable"/>
+</leaf>
+<leaf title="Is Set" type="insert">
+<before>if (isset($%0)) {
+	</before>
+<after>
+}</after>
+<param num="0" name="Test Variable"/>
+</leaf>
+</branch>
+</branch>
+<branch title="Replace">
+<branch title="Convert In Selection">
+<leaf title="&lt;td&gt; to &lt;th&gt;" type="snr" casesens="0" matchtype="posix" region="selection">
+<searchpat>(&lt;|&lt;/)(td)([^&gt;]*)(&gt;)</searchpat>
+<replacepat>\0th\2&gt;</replacepat>
+</leaf>
+<leaf title="Spaces (4) to Single Tabs" type="snr" casesens="0" matchtype="posix" region="selection">
+<searchpat>(    )</searchpat>
+<replacepat>	</replacepat>
+</leaf>
+<leaf title="Spaces (8) to Single Tabs" type="snr" casesens="0" matchtype="posix" region="selection">
+<searchpat>(        )</searchpat>
+<replacepat>	</replacepat>
+</leaf>
+<leaf title="Tabs to Spaces (4)" type="snr" casesens="0" matchtype="posix" region="selection">
+<searchpat>(	)</searchpat>
+<replacepat>    </replacepat>
+</leaf>
+<leaf title="Tabs to Spaces (8)" type="snr" casesens="0" matchtype="posix" region="selection">
+<searchpat>(	)</searchpat>
+<replacepat>        </replacepat>
+</leaf>
+</branch>
+<branch title="Strip">
+<leaf title="Any tag in Selection" type="snr" casesens="0" matchtype="posix" region="selection">
+<searchpat>(&lt;/?%0( *| +[^&gt;]*)&gt;)</searchpat>
+<replacepat></replacepat>
+<param num="0" name="Tag Name"/>
+</leaf>
+<leaf title="End of line Whitespace" type="snr" casesens="0" matchtype="perl" region="selection">
+<searchpat>(?&lt;=\S)\s*(?=(\n|\r))</searchpat>
+<replacepat></replacepat>
+</leaf>
+<leaf title="Font tags" type="snr" casesens="0" matchtype="posix" region="beginning">
+<searchpat>(&lt;font[^&gt;]*&gt;|&lt;/font&gt;)</searchpat>
+<replacepat></replacepat>
+</leaf>
+</branch>
+</branch>
+<branch title="SQL">
+<leaf title="Select All" type="insert">
+<before>SELECT * FROM %0</before>
+<after></after>
+<param num="0" name="Table Name"/>
+</leaf>
+<leaf title="Select All w/ Left Join" type="insert">
+<before>SELECT * FROM %0 LEFT JOIN %1 ON %2</before>
+<after></after>
+<param num="0" name="Table"/>
+<param num="1" name="Join Table"/>
+<param num="2" name="Full ON clause"/>
+</leaf>
+<leaf title="Select Conditional" type="insert">
+<before>SELECT * FROM %0 WHERE %1 %2 '%3'</before>
+<after></after>
+<param num="0" name="Table Name"/>
+<param num="1" name="Comparison Field"/>
+<param num="2" name="Comparison (=, &gt;, &lt;, &lt;&gt;, etc.)"/>
+<param num="3" name="Compare Against (w\/o quotes)"/>
+</leaf>
+</branch>
+</snippets>
