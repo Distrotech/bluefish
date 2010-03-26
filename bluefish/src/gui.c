@@ -1112,7 +1112,7 @@ void gui_show_main(Tbfwin *bfwin) {
 	GtkItemFactory *ifactory;
 	IgeMacMenuGroup *group;
 	gtk_widget_hide(bfwin->menubar);
-	ige_mac_menu_set_menu_bar(GTK_MENU_SHELL(bfwin->menubar));
+	
 	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 	menuitem = gtk_item_factory_get_widget(ifactory, _("/File/Quit"));
 	ige_mac_menu_set_quit_menu_item(GTK_MENU_ITEM(menuitem));
