@@ -5,8 +5,7 @@ EXTRA_DIST = $(bfdata_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 
-bfdata_DATA = \
-	encodings 
-
 bfdatadir = $(pkgdatadir)
-
+bfdata_DATA = \
+	encodings \
+	snippets
