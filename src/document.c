@@ -1223,6 +1223,9 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 	GtkTextIter itinsert, itselect;
 	GtkTextMark *insert, *select;
 	gboolean have_diag_marks = FALSE;
+	
+	doc_unre_new_group(doc);
+	doc_unbind_signals(doc);
 	insert = gtk_text_buffer_get_mark(doc->buffer,"diag_ins");
 	select = gtk_text_buffer_get_mark(doc->buffer,"diag_sel");
 	if (insert && select) {
@@ -1238,8 +1241,11 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 	DEBUG_MSG("doc_insert_two_strings, current marks: itinsert=%d, itselect=%d\n",gtk_text_iter_get_offset(&itinsert),gtk_text_iter_get_offset(&itselect));
 	if (gtk_text_iter_equal(&itinsert, &itselect)) {
 		/* no selection */
+		gint pos;
 		gchar *double_str = g_strconcat(before_str, after_str, NULL);
+		pos = gtk_text_iter_get_offset(&itinsert);
 		DEBUG_MSG("doc_insert_two_strings, no selection, insert strings together as one string\n");
+		doc_unre_add(doc, double_str, pos, pos + g_utf8_strlen(double_str, -1), UndoInsert);
 		gtk_text_buffer_insert(doc->buffer,&itinsert,double_str,-1);
 		g_free(double_str);
 		if (after_str && strlen(after_str)) {
@@ -1253,6 +1259,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 	} else { /* there is a selection */
 		GtkTextMark *secondat;
 		GtkTextIter *firstiter, seconditer;
+		gint pos;
 		if (gtk_text_iter_compare(&itinsert,&itselect) < 0) {
 			DEBUG_MSG("doc_insert_two_strings, selection, with diag_marks=%d, first iter is itinsert at %d\n",have_diag_marks,gtk_text_iter_get_offset(&itinsert));
 			firstiter = &itinsert;
@@ -1263,12 +1270,16 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 			secondat = insert;
 		}
 		/* there is a selection */
-		DEBUG_MSG("doc_insert_two_strings, insert first string at %d\n",gtk_text_iter_get_offset(firstiter));
+		pos = gtk_text_iter_get_offset(firstiter);
+		DEBUG_MSG("doc_insert_two_strings, insert first string at %d\n",pos);
+		doc_unre_add(doc, before_str, pos, pos + g_utf8_strlen(before_str,-1), UndoInsert);
 		gtk_text_buffer_insert(doc->buffer,firstiter,before_str,-1);
 		if (after_str && strlen(after_str)) {
 			/* the buffer is changed, reset the select iterator */
 			gtk_text_buffer_get_iter_at_mark(doc->buffer,&seconditer,secondat);
-			DEBUG_MSG("doc_insert_two_strings, insert second string at mark %p at %d\n",secondat,gtk_text_iter_get_offset(firstiter));
+			pos = gtk_text_iter_get_offset(&seconditer);
+			DEBUG_MSG("doc_insert_two_strings, insert second string at mark %p at %d\n",secondat,pos);
+			doc_unre_add(doc, after_str, pos, pos + g_utf8_strlen(after_str, -1), UndoInsert);
 			gtk_text_buffer_insert(doc->buffer,&seconditer,after_str,-1);
 			/* now the only thing left is to move the selection and insert mark back to their correct places
 			to preserve the users selection */
@@ -1291,6 +1302,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 		gtk_text_buffer_delete_mark(doc->buffer,select);
 	}
 	doc_unre_new_group(doc);
+	doc_bind_signals(doc);
 	DEBUG_MSG("doc_insert_two_strings, finished\n");
 }
 
