@@ -18,7 +18,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#define BMARKSEARCH
 /*#define DEBUG*/
 
 #include <gtk/gtk.h>
@@ -611,12 +610,8 @@ static void bmark_popup_menu_deldoc(Tbfwin *bfwin) {
 			g_free(pstr);
 			if (retval == 0)
 				return;
-#ifdef BMARKSEARCH
 			gtk_tree_model_filter_convert_iter_to_child_iter(GTK_TREE_MODEL_FILTER(model),&realiter,&iter);
 			bmark_del_children_backend(bfwin, &realiter);
-#else
-			bmark_del_children_backend(bfwin, &iter);
-#endif
 		}
 	}
 	gtk_widget_grab_focus(bfwin->current_document->view);
@@ -846,7 +841,6 @@ static void bmark_next_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 static void bmark_last_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	bookmark_menu_cb(bfwin,4,widget);
 }
-#ifdef BMARKSEARCH
 
 static gboolean bmark_search_filter_func(GtkTreeModel *model, GtkTreeIter  *iter, gpointer data) {
 	GtkTreeIter piter;
@@ -927,8 +921,6 @@ static gboolean bmark_search_button_press(GtkWidget *widget, GdkEventButton *eve
 }
 #endif
 
-#endif /* BMARKSEARCH */
-
 /* Initialize bookmarks gui for window */
 GtkWidget *bmark_gui(Tbfwin * bfwin)
 {
@@ -941,7 +933,6 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 	   Tree View is in bfwin->bmark
 	 */
 	vbox = gtk_vbox_new(FALSE, 1);
-#ifdef BMARKSEARCH
 	entry = gtk_entry_new();
 #if GTK_CHECK_VERSION(2,16,0)
 	gtk_entry_set_icon_from_stock(GTK_ENTRY(entry), GTK_ENTRY_ICON_PRIMARY, GTK_STOCK_FIND);
@@ -952,7 +943,6 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 #endif
 	g_signal_connect(G_OBJECT(entry), "changed", G_CALLBACK(bmark_search_changed), bfwin);
 	gtk_box_pack_start(GTK_BOX(vbox), entry, FALSE, TRUE, 0);
-#endif
 	hbox = gtk_toolbar_new();
 	gtk_toolbar_set_icon_size(GTK_TOOLBAR(hbox),GTK_ICON_SIZE_MENU);
 	gtk_toolbar_set_style(GTK_TOOLBAR(hbox),GTK_TOOLBAR_ICONS);
@@ -976,14 +966,10 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
 
-#ifdef BMARKSEARCH
 	bfwin->bmarkfilter = (GtkTreeModelFilter *)gtk_tree_model_filter_new(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),NULL);
 	gtk_tree_model_filter_set_visible_func(bfwin->bmarkfilter, bmark_search_filter_func, bfwin, NULL);
 	bfwin->bmark = (GtkTreeView *)gtk_tree_view_new_with_model(GTK_TREE_MODEL(bfwin->bmarkfilter));
 	g_object_unref(bfwin->bmarkfilter);
-#else
-	bfwin->bmark = gtk_tree_view_new_with_model(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore));
-#endif /* BMARKSEARCH */
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "text", NAME_COLUMN, NULL);
 	gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_AUTOSIZE);
@@ -1198,14 +1184,10 @@ void bmark_reload(Tbfwin * bfwin) {
 void bmark_set_store(Tbfwin * bfwin) {
 	DEBUG_MSG("bmark_set_store set store %p for bfwin %p\n",BMARKDATA(bfwin->bmarkdata)->bookmarkstore,bfwin);
 	if (BMARKDATA(bfwin->bmarkdata)->bookmarkstore && bfwin->bmark) {
-#ifdef BMARKSEARCH
 		bfwin->bmarkfilter = (GtkTreeModelFilter *)gtk_tree_model_filter_new(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), NULL);
 		gtk_tree_model_filter_set_visible_func(bfwin->bmarkfilter, bmark_search_filter_func, bfwin, NULL);
 		gtk_tree_view_set_model(bfwin->bmark, GTK_TREE_MODEL(bfwin->bmarkfilter));
 		g_object_unref(bfwin->bmarkfilter);
-#else
-		gtk_tree_view_set_model(bfwin->bmark, GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore));
-#endif
 	}
 }
 
