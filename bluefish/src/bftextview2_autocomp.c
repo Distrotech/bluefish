@@ -45,7 +45,7 @@ static void acwin_cleanup(BluefishTextView * btv) {
 	if (btv->autocomp) {
 		g_free(ACWIN(btv->autocomp)->prefix);
 		gtk_widget_destroy(ACWIN(btv->autocomp)->win);
-		g_free(ACWIN(btv->autocomp));
+		g_slice_free(Tacwin, btv->autocomp);
 		btv->autocomp = NULL;
 	}
 }
@@ -231,7 +231,7 @@ static Tacwin *acwin_create(BluefishTextView *btv) {
 	Tacwin * acw;
 	GtkTreeSelection* selection;
 
-	acw = g_new0(Tacwin,1);
+	acw = g_slice_new0(Tacwin);
 	acw->btv = btv;
 	acw->win = gtk_window_new(GTK_WINDOW_POPUP);
 	gtk_widget_set_app_paintable(acw->win, TRUE);

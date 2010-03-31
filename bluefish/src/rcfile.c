@@ -95,15 +95,13 @@ typedef struct {
 } Tconfig_list_item;
 
 static GHashTable *main_configlist=NULL;
+
 static void free_configlist(GHashTable *configlist) {
 	g_hash_table_destroy(configlist);
-/*	GList *tmplist = g_list_first(configlist);
-	while(tmplist) {
-		Tconfig_list_item *cli = tmplist->data;
-		g_free(cli);
-		tmplist = g_list_next(tmplist);
-	}
-	g_list_free(configlist);*/
+}
+
+static void free_config_list_item(gpointer data) {
+	g_slice_free(Tconfig_list_item,data);
 }
 
 /*this should add 1 empty entry to the configuration list */
@@ -114,7 +112,7 @@ GHashTable *make_config_list_item(GHashTable * config_list, void *pointer_to_var
 		DEBUG_MSG("make_config_list_item, pointer to var = NULL !\n");
 		return config_list;
 	}
-	config_list_item = g_malloc(sizeof(Tconfig_list_item));
+	config_list_item = g_slice_new(Tconfig_list_item);
 	config_list_item->pointer = pointer_to_var;
 	config_list_item->type = type_of_var;
 	config_list_item->identifier = name_of_var;
@@ -535,7 +533,7 @@ void rcfile_parse_main(void)  {
 	memset(&main_v->props, 0, sizeof(Tproperties));
 
 	/*Make the config_rc list ready for filling with data and set default values */
-	main_configlist = props_init_main(g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free));
+	main_configlist = props_init_main(g_hash_table_new_full(g_str_hash,g_str_equal,NULL, free_config_list_item));
 
 	file = user_bfdir(CURCONFIG);
 	if (!parse_config_file(main_configlist, file)) {
@@ -652,7 +650,7 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 }
 
 static GHashTable *return_globalsession_configlist(gboolean init_values) {
-	GHashTable *config_rc = g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free);
+	GHashTable *config_rc = g_hash_table_new_full(g_str_hash,g_str_equal,NULL, free_config_list_item);
 	init_prop_integer   (&config_rc, &main_v->globses.main_window_h, "main_window_height:", 400, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.main_window_w, "main_window_width:", 600, init_values); /* negative width means maximized */
 	init_prop_integer   (&config_rc, &main_v->globses.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250, init_values);
@@ -753,7 +751,7 @@ static void setup_session_after_parse(Tsessionvars *session) {
 }
 
 static GHashTable *return_project_configlist(Tproject *project) {
-	GHashTable *configlist = g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free);
+	GHashTable *configlist = g_hash_table_new_full(g_str_hash,g_str_equal,NULL, free_config_list_item);
 	init_prop_string(&configlist, &project->name,"name:",_("Untitled Project"));
 	init_prop_stringlist(&configlist, &project->files, "files:", FALSE);
 /*	init_prop_stringlist(&configlist, &project->recentfiles, "recentfiles:", FALSE); / * should be changed to use the session->recent_files */
