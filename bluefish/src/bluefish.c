@@ -111,9 +111,6 @@ static void init_default_session(Tsessionvars *session) {
 typedef struct {
 	Tbfwin *firstbfwin;
 	GList *filenames;
-#ifndef NOSPLASH
-	gpointer splash;
-#endif							/* NOSPLASH */	
 	guint state;
 } Tstartup;
 
@@ -125,12 +122,6 @@ static gboolean startup_in_idle(gpointer data) {
 #endif
 	switch (startup->state) {
 		case 0:
-#ifndef NOSPLASH
-			if (main_v->props.show_splash_screen) {
-				/* start splash screen somewhere here */
-				startup->splash = start_splash_screen();
-			}
-#endif							/* NOSPLASH */
 			bluefish_load_plugins();
 			main_v->session = g_new0(Tsessionvars, 1);
 			init_default_session(main_v->session);
@@ -205,11 +196,6 @@ static gboolean startup_in_idle(gpointer data) {
 		case 4:
 			doc_scroll_to_cursor(BFWIN(startup->firstbfwin)->current_document);
 			modified_on_disk_check_init();
-#ifndef NOSPLASH
-			if (main_v->props.show_splash_screen) {
-				splash_screen_destroy(startup->splash);
-			}
-#endif							/* NOSPLASH */
 			g_free(startup);
 			return FALSE;
 		break;
