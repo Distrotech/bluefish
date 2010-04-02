@@ -55,12 +55,10 @@ endif #INSTALL_THEMEICONS
 
 install-data-local:
 	@$(NORMAL_INSTALL)
-if INSTALL_SPLASH
 	test -z "$(pkgdatadir)" || \
 		$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
 	$(INSTALL_DATA) $(srcdir)/bluefish-splash-nb3.png \
 		$(DESTDIR)$(pkgdatadir)/bluefish_splash.png
-endif #INSTALL_SPLASH
 if INSTALL_ICONS
 	test -z "$(iconpath)" || \
 		$(mkinstalldirs) $(DESTDIR)$(iconpath)
@@ -86,9 +84,7 @@ endif #INSTALL_THEMEICONS
 
 
 uninstall-hook:
-if INSTALL_SPLASH
 	rm -f $(DESTDIR)$(pkgdatadir)/bluefish_splash.png
-endif #INSTALL_SPLASH
 if INSTALL_ICONS
 	rm -f $(DESTDIR)$(iconpath)/$(PACKAGE).png
 	rm -f $(DESTDIR)$(iconpath)/application-x-bluefish-project.png
