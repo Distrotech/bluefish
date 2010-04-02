@@ -202,23 +202,6 @@ AC_ARG_ENABLE(
 	]
 )
 
-AC_ARG_ENABLE(
-	[splash-screen],
-	AC_HELP_STRING(
-		[--enable-splash-screen],
-		[enable (or disable) the splash screen @<:@default=yes@:>@]
-	),
-	[
-	 if test "x$enableval" = "xno"; then
-		 AC_DEFINE([NOSPLASH], [1], [Define to 1 if you want to disable the splash screen.])
-	 fi
-	],
-	[enable_splash_screen=yes]
-)
-
-dnl if splash-screen is disabled, we don't need to install the icon
-AM_CONDITIONAL([INSTALL_SPLASH], [test "x$enable_splash_screen" != "xno"])
-
 dnl To create our catalog and maybe update the systems XML catalog, we need xmlcatalog.
 dnl But because several systems like Debian or Mac use their own system, so let the user
 dnl decide, if he wants to update the sytems catalog.

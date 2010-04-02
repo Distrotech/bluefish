@@ -40,7 +40,6 @@
 
 enum {
 	do_periodic_check,
-	editor_show_splash_screen,    /* show splash screen at start-up */
 	editor_font_string,           /* editor font */
 	editor_smart_cursor,
 	editor_indent_wspaces,
@@ -1294,9 +1293,6 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 }
 static void preferences_apply(Tprefdialog *pd) {
 	DEBUG_MSG("preferences_apply, started\n");
-#ifndef NOSPLASH
-	integer_apply(&main_v->props.show_splash_screen, pd->prefs[editor_show_splash_screen], TRUE);
-#endif /* #ifndef NOSPLASH */
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
@@ -1667,16 +1663,7 @@ static void preferences_dialog() {
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
 	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("User interface"), WIDGETCOL,vbox1,-1);
 
-#ifndef NOSPLASH
-	frame = gtk_frame_new(_("Startup options"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-
-	pd->prefs[editor_show_splash_screen] = boxed_checkbut_with_value(_("Show splash-screen"), main_v->props.show_splash_screen, vbox2);
-#endif /* #ifndef NOSPLASH */
-
-   frame = gtk_frame_new(_("General"));
+	frame = gtk_frame_new(_("General"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);

@@ -30,7 +30,7 @@
 #include <unistd.h>      /* getopt() */
 
 #include "../config.h"
-#include "../bluefish.h" /* BLUEFISH_SPLASH_FILENAME */
+#include "../bluefish.h"
 
 #ifdef ENABLE_NLS
 #undef _

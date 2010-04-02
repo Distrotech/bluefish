@@ -430,9 +430,6 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1, TRUE);
 	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1, TRUE);
 	init_prop_integer (&config_rc, &main_v->props.open_in_new_window,"open_in_new_window:",1, TRUE);
-#ifndef NOSPLASH
-	init_prop_integer(&config_rc, &main_v->props.show_splash_screen, "show_splash_screen:", 1, TRUE);
-#endif
 	init_prop_arraylist (&config_rc, &main_v->props.plugin_config, "plugin_config:", 3, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_FG],"editor_fg:","#000000");
 	init_prop_string    (&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_BG],"editor_bg:","#FFFFFF");
