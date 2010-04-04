@@ -2878,6 +2878,9 @@ void doc_activate(Tdocument *doc) {
 	doc_set_statusbar_lncol(doc);
 	doc_set_statusbar_insovr(doc);
 	doc_set_statusbar_lang_encoding(doc);
+#ifdef MAC_INTEGRATION
+	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(doc->bfwin)->menubar));
+#endif
 
 /*	doc_scroll_to_cursor(doc);*/
 	if (doc->uri) {
