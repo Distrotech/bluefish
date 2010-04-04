@@ -1074,7 +1074,9 @@ void gui_create_main(Tbfwin *bfwin) {
 		gui_notebook_set_tab_accels(bfwin);
 		gui_notebook_bind_tab_signals(bfwin);
 	}
-	
+#ifdef MAC_INTEGRATION
+	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
+#endif	
 	/* everything is ready - we can start loading documents */
 	/* start to open an empty doc */
 	file_new_cb(NULL, bfwin);
