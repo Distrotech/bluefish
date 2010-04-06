@@ -29,6 +29,8 @@
 
 /*#define DEBUG*/
 
+#include "bluefish.h"
+
 #ifdef DEBUGPROFILING
 #ifdef WIN32
 #undef DEBUGPROFILING
@@ -37,7 +39,10 @@
 #endif
 #endif
 
-#include "bluefish.h"
+#ifdef MAC_INTEGRATION
+#include <ige-mac-integration.h>
+#endif
+
 #include "bf_lib.h"
 #include "bftextview2.h"
 #include "bftextview2_langmgr.h"

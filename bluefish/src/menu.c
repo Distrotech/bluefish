@@ -542,9 +542,9 @@ void template_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		}
 		tmplist = g_list_previous(tmplist);
 	}
-#ifdef MAC_INTEGRATION
+/*#ifdef MAC_INTEGRATION
 	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif
+#endif*/
 }
 
 void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
@@ -572,9 +572,9 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		tmplist = g_list_previous(tmplist);
 	}
 	g_list_free(list);
-#ifdef MAC_INTEGRATION
+/*#ifdef MAC_INTEGRATION
 	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif
+#endif*/
 
 }
 
@@ -594,9 +594,6 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_item_factory_create_items(item_factory, nmenu_items, menu_items, bfwin);
 	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), accel_group);
 	bfwin->menubar = gtk_item_factory_get_widget(item_factory, "<bluefishmain>");
-#ifdef MAC_INTEGRATION
-	ige_mac_menu_set_menu_bar(GTK_MENU_SHELL(bfwin->menubar));
-#endif
 	gtk_box_pack_start(GTK_BOX(vbox), bfwin->menubar, FALSE, TRUE, 0);
 	gtk_accel_map_add_entry("<bluefishmain>/Edit/Indent", GDK_period, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Edit/Unindent", GDK_comma, GDK_CONTROL_MASK);
@@ -717,9 +714,9 @@ GList *recent_menu_from_list(Tbfwin *bfwin, GList *startat, gboolean is_project)
 		retlist = g_list_append(retlist, create_recent_entry(bfwin,tmplist->data,is_project,FALSE));
 		tmplist = g_list_next(tmplist);
 	}
-#ifdef MAC_INTEGRATION
+/*#ifdef MAC_INTEGRATION
 	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif
+#endif*/
 	return retlist;
 }
 
@@ -785,9 +782,9 @@ void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean i
 		bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, FALSE,TRUE);
 	}
 	g_free(filename);
-#ifdef MAC_INTEGRATION
+/*#ifdef MAC_INTEGRATION
 	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif
+#endif*/
 }
 
 /*****************/
@@ -957,9 +954,9 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
-#ifdef MAC_INTEGRATION
+/*#ifdef MAC_INTEGRATION
 	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif
+#endif*/
 }
 
 static void menu_current_document_encoding_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
@@ -1012,9 +1009,9 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 		}
 		tmplist = g_list_previous(tmplist);
 	}
-#ifdef MAC_INTEGRATION
+/*#ifdef MAC_INTEGRATION
 	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif
+#endif*/
 }
 
 void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filetype, gchar *encoding) {
