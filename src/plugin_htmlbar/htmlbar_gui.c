@@ -473,7 +473,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 	} else {
 		DEBUG_MSG("htmlbar_build_menu, ERROR, no htmlbarsession in hasht %p for session %p!!?!?!?!?\n",htmlbar_v.lookup,bfwin->session);
 	}
-	
+	g_print("htmlbar_build_menu, finished\n");
 	gtk_widget_show_all(bfwin->menubar);
 }
 

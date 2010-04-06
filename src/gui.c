@@ -376,9 +376,9 @@ gboolean left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean
 	}
 	if (!first_time) {
 		gtk_widget_unref(bfwin->notebook_box);
-#ifdef MAC_INTEGRATION
+/*#ifdef MAC_INTEGRATION
 		ige_mac_menu_sync(GTK_MENU_SHELL(bfwin->menubar));
-#endif
+#endif*/
 	}
 	return TRUE;
 }
@@ -481,9 +481,9 @@ void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
 	menuitem_set_sensitive(bfwin->menubar, "/Edit/Undo All", undo);
 	menuitem_set_sensitive(bfwin->menubar, "/Edit/Redo", redo);
 	menuitem_set_sensitive(bfwin->menubar, "/Edit/Redo All", redo);
-#ifdef MAC_INTEGRATION
+/*#ifdef MAC_INTEGRATION
 	ige_mac_menu_sync(GTK_MENU_SHELL(bfwin->menubar));
-#endif
+#endif*/
 }
 
 void gui_set_document_widgets(Tdocument *doc) {
@@ -530,9 +530,9 @@ void gui_set_document_widgets(Tdocument *doc) {
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Replace Again", !doc->readonly);
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Indent", !doc->readonly);
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Unindent", !doc->readonly);
-#ifdef MAC_INTEGRATION
+/*#ifdef MAC_INTEGRATION
 	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(doc->bfwin)->menubar));
-#endif
+#endif*/
 
 }
 /*
@@ -1074,10 +1074,11 @@ void gui_create_main(Tbfwin *bfwin) {
 		gui_notebook_set_tab_accels(bfwin);
 		gui_notebook_bind_tab_signals(bfwin);
 	}
-#ifdef MAC_INTEGRATION
+/*#ifdef MAC_INTEGRATION
+	g_print("sync after bfplugins_gui\n");
 	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
 #endif	
-	/* everything is ready - we can start loading documents */
+*/	/* everything is ready - we can start loading documents */
 	/* start to open an empty doc */
 	file_new_cb(NULL, bfwin);
 
@@ -1109,6 +1110,8 @@ void gui_show_main(Tbfwin *bfwin) {
 	IgeMacMenuGroup *group;
 	gtk_widget_hide(bfwin->menubar);
 	
+	ige_mac_menu_set_menu_bar(GTK_MENU_SHELL(bfwin->menubar));
+
 	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 	menuitem = gtk_item_factory_get_widget(ifactory, _("/File/Quit"));
 	ige_mac_menu_set_quit_menu_item(GTK_MENU_ITEM(menuitem));
@@ -1187,9 +1190,9 @@ void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync
 		make_main_toolbar(bfwin);
 	}
 	widget_set_visible(bfwin->main_toolbar_hb,visible);
-#ifdef MAC_INTEGRATION
+/*#ifdef MAC_INTEGRATION
 	ige_mac_menu_sync(GTK_MENU_SHELL(bfwin->menubar));
-#endif
+#endif*/
 }
 
 void tb_fullscreen_cb(GtkWidget *widget, Tbfwin *bfwin) {
@@ -1220,9 +1223,9 @@ void gui_statusbar_show_hide_toggle(Tbfwin *bfwin, gboolean visible, gboolean sy
 	widget_set_visible(bfwin->statusbar_lncol,visible);
 	widget_set_visible(bfwin->statusbar_insovr,visible);
 	widget_set_visible(bfwin->statusbar_editmode,visible);
-#ifdef MAC_INTEGRATION
+/*#ifdef MAC_INTEGRATION
 	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif
+#endif*/
 
 }
 
