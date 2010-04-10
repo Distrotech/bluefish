@@ -1741,8 +1741,8 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	}
 
 	snrwin->search = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
-	if (bfwin->session->searchlist)
-		gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->search), 0);
+	/*if (bfwin->session->searchlist)
+		gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->search), 0);*/
 	g_object_unref(history);
 	dialog_mnemonic_label_in_table(_("_Search for: "), snrwin->search, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->search, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL,
@@ -1869,11 +1869,11 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	snrwin->findButton =
 		gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_FIND, SNR_RESPONSE_FIND);
 	/*gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND, FALSE);*/
-	snr_comboboxentry_changed(GTK_COMBO_BOX_ENTRY(snrwin->matchPattern), snrwin);
+	snr_comboboxentry_changed(GTK_COMBO_BOX_ENTRY(snrwin->search), snrwin);
 	gtk_widget_show_all(GTK_WIDGET(GTK_BOX(GTK_DIALOG(snrwin->dialog)->vbox)));
 	gtk_widget_hide(snrwin->warninglabel);
 
-    if (gtk_text_buffer_get_selection_bounds(bfwin->current_document->buffer, &start, &end)) {
+/*    if (gtk_text_buffer_get_selection_bounds(bfwin->current_document->buffer, &start, &end)) {
         gchar * buffer = gtk_text_buffer_get_text(bfwin->current_document->buffer, &start, &end, FALSE);
 
         if (strchr(buffer, '\n') == NULL) {
@@ -1881,7 +1881,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
             gtk_editable_select_region(GTK_EDITABLE(GTK_BIN(snrwin->search)->child), 0, -1);
         }
         if (buffer)    g_free(buffer);
-    }
+    }*/
 
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->scope), 0);
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->matchPattern), 0);
