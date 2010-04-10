@@ -1741,6 +1741,8 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	}
 
 	snrwin->search = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
+	/* this kills the primary selection, which is annoying if you want to 
+	search/replace within the selection  */
 	/*if (bfwin->session->searchlist)
 		gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->search), 0);*/
 	g_object_unref(history);
@@ -1872,7 +1874,8 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	snr_comboboxentry_changed(GTK_COMBO_BOX_ENTRY(snrwin->search), snrwin);
 	gtk_widget_show_all(GTK_WIDGET(GTK_BOX(GTK_DIALOG(snrwin->dialog)->vbox)));
 	gtk_widget_hide(snrwin->warninglabel);
-
+		/* this kills the primary selection, which is annoying if you want to 
+		search/replace within the selection  */
 /*    if (gtk_text_buffer_get_selection_bounds(bfwin->current_document->buffer, &start, &end)) {
         gchar * buffer = gtk_text_buffer_get_text(bfwin->current_document->buffer, &start, &end, FALSE);
 
