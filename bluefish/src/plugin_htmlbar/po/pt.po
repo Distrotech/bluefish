@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: last_pt\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-01-25 21:41+0100\n"
+"POT-Creation-Date: 2010-03-07 20:07+0100\n"
 "PO-Revision-Date: 2004-12-04 21:45+0000\n"
 "Last-Translator: Lopo Pizarro <lopo-pizarro@netcabo.pt>\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
@@ -108,12 +108,12 @@ msgid "Bluefish: Select color"
 msgstr "Bluefish: Selecionar cor"
 
 # src/configure.c:363
-#: src/plugin_htmlbar/htmlbar.c:36
+#: src/plugin_htmlbar/htmlbar.c:37
 msgid "Edit color"
 msgstr "Editar côr"
 
 # src/rpopup.c:328
-#: src/plugin_htmlbar/htmlbar.c:44
+#: src/plugin_htmlbar/htmlbar.c:45
 msgid "Edit tag"
 msgstr "Editar etiqueta"
 
@@ -1299,7 +1299,8 @@ msgstr "Espaço sem quebra"
 # src/toolbars.c:243
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:757
-msgid "Anchor..."
+#, fuzzy
+msgid "Anchor / Hyperlink..."
 msgstr "Âncora..."
 
 # src/toolbars.c:245
@@ -1865,7 +1866,7 @@ msgstr "Idioma:"
 #: src/plugin_htmlbar/html_form.c:304 src/plugin_htmlbar/html_form.c:600
 #: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
 #: src/plugin_htmlbar/html_table.c:369 src/plugin_htmlbar/image.c:502
-#: src/plugin_htmlbar/image_dialog.c:408
+#: src/plugin_htmlbar/image_dialog.c:409
 msgid "Custo_m:"
 msgstr "Personalizado:"
 
@@ -1944,15 +1945,15 @@ msgstr "Alinhar"
 
 # src/html.c:901
 #: src/plugin_htmlbar/html.c:850 src/plugin_htmlbar/html.c:1086
-#: src/plugin_htmlbar/html_diag.c:382 src/plugin_htmlbar/html_table.c:97
+#: src/plugin_htmlbar/html_diag.c:385 src/plugin_htmlbar/html_table.c:97
 #: src/plugin_htmlbar/html_table.c:245 src/plugin_htmlbar/html_table.c:359
-#: src/plugin_htmlbar/image_dialog.c:396
+#: src/plugin_htmlbar/image_dialog.c:397
 msgid "Cl_ass:"
 msgstr "Cl_asse:"
 
 # src/html.c:905 src/html.c:1317 src/toolbars.c:452
 #: src/plugin_htmlbar/html.c:854 src/plugin_htmlbar/html.c:1079
-#: src/plugin_htmlbar/html_diag.c:390 src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html_diag.c:393 src/plugin_htmlbar/html_table.c:102
 #: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:364
 msgid "St_yle:"
 msgstr "Estilo:"
@@ -1960,7 +1961,7 @@ msgstr "Estilo:"
 # src/html.c:897 src/wml.c:123 src/wml.c:163 src/wml.c:203 src/wml.c:246
 # src/wml.c:304 src/wml.c:360 src/wml.c:398
 #: src/plugin_htmlbar/html.c:865 src/plugin_htmlbar/html.c:1090
-#: src/plugin_htmlbar/html_diag.c:386
+#: src/plugin_htmlbar/html_diag.c:389
 msgid "_ID:"
 msgstr "_ID:"
 
@@ -1972,13 +1973,13 @@ msgstr "Régua Horizontal"
 # src/html.c:994 src/html.c:1422 src/html_table.c:79 src/html_table.c:145
 # src/html_table.c:202 src/html_table.c:276 src/images.c:232
 #: src/plugin_htmlbar/html.c:977 src/plugin_htmlbar/html.c:1772
-#: src/plugin_htmlbar/image.c:520 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/image.c:520 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Align:"
 msgstr "_Alinhar:"
 
 # src/html.c:1411 src/html_table.c:210 src/html_table.c:284 src/images.c:216
 #: src/plugin_htmlbar/html.c:984 src/plugin_htmlbar/html.c:1780
-#: src/plugin_htmlbar/html_table.c:395 src/plugin_htmlbar/image_dialog.c:370
+#: src/plugin_htmlbar/html_table.c:395 src/plugin_htmlbar/image_dialog.c:371
 msgid "_Height:"
 msgstr "Altura:"
 
@@ -1987,7 +1988,7 @@ msgstr "Altura:"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:990 src/plugin_htmlbar/html.c:1776
 #: src/plugin_htmlbar/html_table.c:140 src/plugin_htmlbar/html_table.c:388
-#: src/plugin_htmlbar/image.c:477 src/plugin_htmlbar/image_dialog.c:361
+#: src/plugin_htmlbar/image.c:477 src/plugin_htmlbar/image_dialog.c:362
 msgid "_Width:"
 msgstr "Largura:"
 
@@ -2180,7 +2181,7 @@ msgstr "_Adicionar elementos <frame>"
 
 # src/html.c:1240
 #: src/plugin_htmlbar/html.c:1683 src/plugin_htmlbar/html.c:1768
-#: src/plugin_htmlbar/html.c:1827 src/plugin_htmlbar/image_dialog.c:320
+#: src/plugin_htmlbar/html.c:1827 src/plugin_htmlbar/image_dialog.c:321
 msgid "_Source:"
 msgstr "Código Fonte:"
 
@@ -2456,7 +2457,7 @@ msgid "Insert thumbnail"
 msgstr "Inserir imagem em miniatura"
 
 # src/images.c:188
-#: src/plugin_htmlbar/image.c:449 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:449 src/plugin_htmlbar/image_dialog.c:341
 msgid "Preview"
 msgstr "Pré-visualizar"
 
@@ -2471,7 +2472,7 @@ msgid "Hei_ght:"
 msgstr "Altura:"
 
 # src/images.c:251
-#: src/plugin_htmlbar/image.c:489 src/plugin_htmlbar/image_dialog.c:404
+#: src/plugin_htmlbar/image.c:489 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
@@ -2481,12 +2482,12 @@ msgid "Alternate _text:"
 msgstr "_Texto alternativo:"
 
 # src/images.c:237
-#: src/plugin_htmlbar/image.c:506 src/plugin_htmlbar/image_dialog.c:438
+#: src/plugin_htmlbar/image.c:506 src/plugin_htmlbar/image_dialog.c:439
 msgid "_Hspace:"
 msgstr "Espaço _Horizontal:"
 
 # src/images.c:243
-#: src/plugin_htmlbar/image.c:510 src/plugin_htmlbar/image_dialog.c:442
+#: src/plugin_htmlbar/image.c:510 src/plugin_htmlbar/image_dialog.c:443
 msgid "_Vspace:"
 msgstr "Espaço _Vertical:"
 
@@ -2548,56 +2549,56 @@ msgstr ""
 "%x: largura da maniatura  %y: latura da miniatura\n"
 "%b: tamanho original (bytes)"
 
-#: src/plugin_htmlbar/image_dialog.c:377
+#: src/plugin_htmlbar/image_dialog.c:378
 #, fuzzy
 msgid "_Reset Dimensions"
 msgstr "Dimensões"
 
 # src/images.c:221
-#: src/plugin_htmlbar/image_dialog.c:388
+#: src/plugin_htmlbar/image_dialog.c:389
 #, fuzzy
 msgid "Alternate te_xt:"
 msgstr "_Texto alternativo:"
 
 # src/toolbars.c:427
-#: src/plugin_htmlbar/image_dialog.c:392
+#: src/plugin_htmlbar/image_dialog.c:393
 #, fuzzy
 msgid "_Long description:"
 msgstr "_Descrição:"
 
 # src/html.c:897 src/wml.c:123 src/wml.c:163 src/wml.c:203 src/wml.c:246
 # src/wml.c:304 src/wml.c:360 src/wml.c:398
-#: src/plugin_htmlbar/image_dialog.c:400
+#: src/plugin_htmlbar/image_dialog.c:401
 #, fuzzy
 msgid "I_D:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:419
+#: src/plugin_htmlbar/image_dialog.c:420
 msgid "_Use Transitional options"
 msgstr ""
 
 # src/html.c:1196 src/html.c:1247 src/html.c:1250 src/html.c:1418
 # src/html_table.c:98 src/images.c:226
-#: src/plugin_htmlbar/image_dialog.c:434
+#: src/plugin_htmlbar/image_dialog.c:435
 #, fuzzy
 msgid "_Border:"
 msgstr "Bo_rda:"
 
-#: src/plugin_htmlbar/image_dialog.c:773
+#: src/plugin_htmlbar/image_dialog.c:777
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:778
+#: src/plugin_htmlbar/image_dialog.c:782
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:876
+#: src/plugin_htmlbar/image_dialog.c:881
 msgid ""
 "\n"
 "\n"
@@ -2606,20 +2607,20 @@ msgid ""
 msgstr ""
 
 # src/bluefish.c:617
-#: src/plugin_htmlbar/image_dialog.c:979
+#: src/plugin_htmlbar/image_dialog.c:989
 #, fuzzy
 msgid "Select Image"
 msgstr "Selecionar ficheiro"
 
 # src/configure.c:427 src/interface.c:777 src/interface.c:934
-#: src/plugin_htmlbar/image_dialog.c:987
+#: src/plugin_htmlbar/image_dialog.c:997
 #, fuzzy
 msgid "All images"
 msgstr "Imagens"
 
 # src/images.c:182
-#: src/plugin_htmlbar/image_dialog.c:1219
-#: src/plugin_htmlbar/image_dialog.c:1331
+#: src/plugin_htmlbar/image_dialog.c:1229
+#: src/plugin_htmlbar/image_dialog.c:1341
 #, fuzzy
 msgid "Insert Image"
 msgstr "Inserir imagem"

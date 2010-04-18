@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-01-25 21:41+0100\n"
+"POT-Creation-Date: 2010-03-07 20:07+0100\n"
 "PO-Revision-Date: 2004-12-08 18:48-0300\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -87,11 +87,11 @@ msgstr "样式(_S)..."
 msgid "Bluefish: Select color"
 msgstr "Bluefish：选择颜色"
 
-#: src/plugin_htmlbar/htmlbar.c:36
+#: src/plugin_htmlbar/htmlbar.c:37
 msgid "Edit color"
 msgstr "编辑颜色"
 
-#: src/plugin_htmlbar/htmlbar.c:44
+#: src/plugin_htmlbar/htmlbar.c:45
 msgid "Edit tag"
 msgstr "编辑标签"
 
@@ -1043,7 +1043,8 @@ msgstr "不间断空格"
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:757
-msgid "Anchor..."
+#, fuzzy
+msgid "Anchor / Hyperlink..."
 msgstr "锚点..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:758
@@ -1499,7 +1500,7 @@ msgstr "语言(_L)："
 #: src/plugin_htmlbar/html_form.c:304 src/plugin_htmlbar/html_form.c:600
 #: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
 #: src/plugin_htmlbar/html_table.c:369 src/plugin_htmlbar/image.c:502
-#: src/plugin_htmlbar/image_dialog.c:408
+#: src/plugin_htmlbar/image_dialog.c:409
 msgid "Custo_m:"
 msgstr "自定义(_M)："
 
@@ -1562,20 +1563,20 @@ msgid "Ali_gn:"
 msgstr "对齐(_G)："
 
 #: src/plugin_htmlbar/html.c:850 src/plugin_htmlbar/html.c:1086
-#: src/plugin_htmlbar/html_diag.c:382 src/plugin_htmlbar/html_table.c:97
+#: src/plugin_htmlbar/html_diag.c:385 src/plugin_htmlbar/html_table.c:97
 #: src/plugin_htmlbar/html_table.c:245 src/plugin_htmlbar/html_table.c:359
-#: src/plugin_htmlbar/image_dialog.c:396
+#: src/plugin_htmlbar/image_dialog.c:397
 msgid "Cl_ass:"
 msgstr "Cl_ass："
 
 #: src/plugin_htmlbar/html.c:854 src/plugin_htmlbar/html.c:1079
-#: src/plugin_htmlbar/html_diag.c:390 src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html_diag.c:393 src/plugin_htmlbar/html_table.c:102
 #: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:364
 msgid "St_yle:"
 msgstr "样式(_Y)："
 
 #: src/plugin_htmlbar/html.c:865 src/plugin_htmlbar/html.c:1090
-#: src/plugin_htmlbar/html_diag.c:386
+#: src/plugin_htmlbar/html_diag.c:389
 msgid "_ID:"
 msgstr "_ID:"
 
@@ -1584,19 +1585,19 @@ msgid "Horizontal Rule"
 msgstr "水平线"
 
 #: src/plugin_htmlbar/html.c:977 src/plugin_htmlbar/html.c:1772
-#: src/plugin_htmlbar/image.c:520 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/image.c:520 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Align:"
 msgstr "对齐(_A)："
 
 #: src/plugin_htmlbar/html.c:984 src/plugin_htmlbar/html.c:1780
-#: src/plugin_htmlbar/html_table.c:395 src/plugin_htmlbar/image_dialog.c:370
+#: src/plugin_htmlbar/html_table.c:395 src/plugin_htmlbar/image_dialog.c:371
 msgid "_Height:"
 msgstr "高度(_H)："
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:990 src/plugin_htmlbar/html.c:1776
 #: src/plugin_htmlbar/html_table.c:140 src/plugin_htmlbar/html_table.c:388
-#: src/plugin_htmlbar/image.c:477 src/plugin_htmlbar/image_dialog.c:361
+#: src/plugin_htmlbar/image.c:477 src/plugin_htmlbar/image_dialog.c:362
 msgid "_Width:"
 msgstr "宽度(_W)："
 
@@ -1751,7 +1752,7 @@ msgid "_Add <frame> elements"
 msgstr "添加 <frame> 元素(_A)"
 
 #: src/plugin_htmlbar/html.c:1683 src/plugin_htmlbar/html.c:1768
-#: src/plugin_htmlbar/html.c:1827 src/plugin_htmlbar/image_dialog.c:320
+#: src/plugin_htmlbar/html.c:1827 src/plugin_htmlbar/image_dialog.c:321
 msgid "_Source:"
 msgstr "源代码(_S)："
 
@@ -1967,7 +1968,7 @@ msgstr "正在载入文件..."
 msgid "Insert thumbnail"
 msgstr "插入相册"
 
-#: src/plugin_htmlbar/image.c:449 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:449 src/plugin_htmlbar/image_dialog.c:341
 msgid "Preview"
 msgstr "预览"
 
@@ -1979,7 +1980,7 @@ msgstr "图像位置(_I)："
 msgid "Hei_ght:"
 msgstr "高度(_G)："
 
-#: src/plugin_htmlbar/image.c:489 src/plugin_htmlbar/image_dialog.c:404
+#: src/plugin_htmlbar/image.c:489 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr "使用映射(_U)："
 
@@ -1987,11 +1988,11 @@ msgstr "使用映射(_U)："
 msgid "Alternate _text:"
 msgstr "替代文本(_T)："
 
-#: src/plugin_htmlbar/image.c:506 src/plugin_htmlbar/image_dialog.c:438
+#: src/plugin_htmlbar/image.c:506 src/plugin_htmlbar/image_dialog.c:439
 msgid "_Hspace:"
 msgstr "水平距离(_H)："
 
-#: src/plugin_htmlbar/image.c:510 src/plugin_htmlbar/image_dialog.c:442
+#: src/plugin_htmlbar/image.c:510 src/plugin_htmlbar/image_dialog.c:443
 msgid "_Vspace:"
 msgstr "垂直距离(_V)："
 
@@ -2047,50 +2048,50 @@ msgstr ""
 "%x: 相册宽度  %y: 相册高度\n"
 "%b: 原大小(字节)"
 
-#: src/plugin_htmlbar/image_dialog.c:377
+#: src/plugin_htmlbar/image_dialog.c:378
 #, fuzzy
 msgid "_Reset Dimensions"
 msgstr "窗口大小"
 
-#: src/plugin_htmlbar/image_dialog.c:388
+#: src/plugin_htmlbar/image_dialog.c:389
 #, fuzzy
 msgid "Alternate te_xt:"
 msgstr "替代文本(_T)："
 
-#: src/plugin_htmlbar/image_dialog.c:392
+#: src/plugin_htmlbar/image_dialog.c:393
 #, fuzzy
 msgid "_Long description:"
 msgstr "描述(_D)："
 
-#: src/plugin_htmlbar/image_dialog.c:400
+#: src/plugin_htmlbar/image_dialog.c:401
 #, fuzzy
 msgid "I_D:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:419
+#: src/plugin_htmlbar/image_dialog.c:420
 msgid "_Use Transitional options"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:434
+#: src/plugin_htmlbar/image_dialog.c:435
 #, fuzzy
 msgid "_Border:"
 msgstr "边框(_R)："
 
-#: src/plugin_htmlbar/image_dialog.c:773
+#: src/plugin_htmlbar/image_dialog.c:777
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:778
+#: src/plugin_htmlbar/image_dialog.c:782
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:876
+#: src/plugin_htmlbar/image_dialog.c:881
 msgid ""
 "\n"
 "\n"
@@ -2098,18 +2099,18 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:979
+#: src/plugin_htmlbar/image_dialog.c:989
 #, fuzzy
 msgid "Select Image"
 msgstr "选择文件"
 
-#: src/plugin_htmlbar/image_dialog.c:987
+#: src/plugin_htmlbar/image_dialog.c:997
 #, fuzzy
 msgid "All images"
 msgstr "图像"
 
-#: src/plugin_htmlbar/image_dialog.c:1219
-#: src/plugin_htmlbar/image_dialog.c:1331
+#: src/plugin_htmlbar/image_dialog.c:1229
+#: src/plugin_htmlbar/image_dialog.c:1341
 #, fuzzy
 msgid "Insert Image"
 msgstr "插入图像"

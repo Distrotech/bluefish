@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-01-25 21:41+0100\n"
+"POT-Creation-Date: 2010-03-07 20:07+0100\n"
 "PO-Revision-Date: 2000-12-01 21:48+0100\n"
 "Last-Translator: Sáska, Péter <sasek@webmail.acolyte.hu>\n"
 "Language-Team: madgyar <hu@li.org>\n"
@@ -91,11 +91,11 @@ msgstr "_Stílus..."
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Színválasztás"
 
-#: src/plugin_htmlbar/htmlbar.c:36
+#: src/plugin_htmlbar/htmlbar.c:37
 msgid "Edit color"
 msgstr "Szín szerkesztése"
 
-#: src/plugin_htmlbar/htmlbar.c:44
+#: src/plugin_htmlbar/htmlbar.c:45
 msgid "Edit tag"
 msgstr "Címke szerkesztése"
 
@@ -1143,7 +1143,8 @@ msgstr "Nem törhető szóköz"
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:757
-msgid "Anchor..."
+#, fuzzy
+msgid "Anchor / Hyperlink..."
 msgstr "Horgony..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:758
@@ -1600,7 +1601,7 @@ msgstr "Nye_lv"
 #: src/plugin_htmlbar/html_form.c:304 src/plugin_htmlbar/html_form.c:600
 #: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
 #: src/plugin_htmlbar/html_table.c:369 src/plugin_htmlbar/image.c:502
-#: src/plugin_htmlbar/image_dialog.c:408
+#: src/plugin_htmlbar/image_dialog.c:409
 msgid "Custo_m:"
 msgstr "_Egyéb"
 
@@ -1663,20 +1664,20 @@ msgid "Ali_gn:"
 msgstr "I_gazítás"
 
 #: src/plugin_htmlbar/html.c:850 src/plugin_htmlbar/html.c:1086
-#: src/plugin_htmlbar/html_diag.c:382 src/plugin_htmlbar/html_table.c:97
+#: src/plugin_htmlbar/html_diag.c:385 src/plugin_htmlbar/html_table.c:97
 #: src/plugin_htmlbar/html_table.c:245 src/plugin_htmlbar/html_table.c:359
-#: src/plugin_htmlbar/image_dialog.c:396
+#: src/plugin_htmlbar/image_dialog.c:397
 msgid "Cl_ass:"
 msgstr "_Osztály"
 
 #: src/plugin_htmlbar/html.c:854 src/plugin_htmlbar/html.c:1079
-#: src/plugin_htmlbar/html_diag.c:390 src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html_diag.c:393 src/plugin_htmlbar/html_table.c:102
 #: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:364
 msgid "St_yle:"
 msgstr "Stíl_us"
 
 #: src/plugin_htmlbar/html.c:865 src/plugin_htmlbar/html.c:1090
-#: src/plugin_htmlbar/html_diag.c:386
+#: src/plugin_htmlbar/html_diag.c:389
 msgid "_ID:"
 msgstr "_Azonosító"
 
@@ -1685,19 +1686,19 @@ msgid "Horizontal Rule"
 msgstr "Vízszintes vonal (HR)"
 
 #: src/plugin_htmlbar/html.c:977 src/plugin_htmlbar/html.c:1772
-#: src/plugin_htmlbar/image.c:520 src/plugin_htmlbar/image_dialog.c:429
+#: src/plugin_htmlbar/image.c:520 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Align:"
 msgstr "Ig_azítás"
 
 #: src/plugin_htmlbar/html.c:984 src/plugin_htmlbar/html.c:1780
-#: src/plugin_htmlbar/html_table.c:395 src/plugin_htmlbar/image_dialog.c:370
+#: src/plugin_htmlbar/html_table.c:395 src/plugin_htmlbar/image_dialog.c:371
 msgid "_Height:"
 msgstr "_Magasság"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:990 src/plugin_htmlbar/html.c:1776
 #: src/plugin_htmlbar/html_table.c:140 src/plugin_htmlbar/html_table.c:388
-#: src/plugin_htmlbar/image.c:477 src/plugin_htmlbar/image_dialog.c:361
+#: src/plugin_htmlbar/image.c:477 src/plugin_htmlbar/image_dialog.c:362
 msgid "_Width:"
 msgstr "_Szélesség"
 
@@ -1852,7 +1853,7 @@ msgid "_Add <frame> elements"
 msgstr "<frame> elemek hozzá_adása"
 
 #: src/plugin_htmlbar/html.c:1683 src/plugin_htmlbar/html.c:1768
-#: src/plugin_htmlbar/html.c:1827 src/plugin_htmlbar/image_dialog.c:320
+#: src/plugin_htmlbar/html.c:1827 src/plugin_htmlbar/image_dialog.c:321
 msgid "_Source:"
 msgstr "Forrá_s"
 
@@ -2068,7 +2069,7 @@ msgstr "Fájlok betöltése..."
 msgid "Insert thumbnail"
 msgstr "Thumbnail beszúrása"
 
-#: src/plugin_htmlbar/image.c:449 src/plugin_htmlbar/image_dialog.c:340
+#: src/plugin_htmlbar/image.c:449 src/plugin_htmlbar/image_dialog.c:341
 msgid "Preview"
 msgstr "Előnézet"
 
@@ -2080,7 +2081,7 @@ msgstr "_Kép helye:"
 msgid "Hei_ght:"
 msgstr "Ma_gasság:"
 
-#: src/plugin_htmlbar/image.c:489 src/plugin_htmlbar/image_dialog.c:404
+#: src/plugin_htmlbar/image.c:489 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
@@ -2088,11 +2089,11 @@ msgstr "_Usemap:"
 msgid "Alternate _text:"
 msgstr "Helye_ttesítő szöveg:"
 
-#: src/plugin_htmlbar/image.c:506 src/plugin_htmlbar/image_dialog.c:438
+#: src/plugin_htmlbar/image.c:506 src/plugin_htmlbar/image_dialog.c:439
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: src/plugin_htmlbar/image.c:510 src/plugin_htmlbar/image_dialog.c:442
+#: src/plugin_htmlbar/image.c:510 src/plugin_htmlbar/image_dialog.c:443
 msgid "_Vspace:"
 msgstr "_Vspace:"
 
@@ -2148,50 +2149,50 @@ msgstr ""
 "%x: thumbnail szélessség  %y: thumbnail magasság\n"
 "%b: eredeti méret (byte)"
 
-#: src/plugin_htmlbar/image_dialog.c:377
+#: src/plugin_htmlbar/image_dialog.c:378
 #, fuzzy
 msgid "_Reset Dimensions"
 msgstr "Méretek"
 
-#: src/plugin_htmlbar/image_dialog.c:388
+#: src/plugin_htmlbar/image_dialog.c:389
 #, fuzzy
 msgid "Alternate te_xt:"
 msgstr "Helye_ttesítő szöveg:"
 
-#: src/plugin_htmlbar/image_dialog.c:392
+#: src/plugin_htmlbar/image_dialog.c:393
 #, fuzzy
 msgid "_Long description:"
 msgstr "_Leírás"
 
-#: src/plugin_htmlbar/image_dialog.c:400
+#: src/plugin_htmlbar/image_dialog.c:401
 #, fuzzy
 msgid "I_D:"
 msgstr "_Azonosító"
 
-#: src/plugin_htmlbar/image_dialog.c:419
+#: src/plugin_htmlbar/image_dialog.c:420
 msgid "_Use Transitional options"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:434
+#: src/plugin_htmlbar/image_dialog.c:435
 #, fuzzy
 msgid "_Border:"
 msgstr "Sze_gély"
 
-#: src/plugin_htmlbar/image_dialog.c:773
+#: src/plugin_htmlbar/image_dialog.c:777
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:778
+#: src/plugin_htmlbar/image_dialog.c:782
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:876
+#: src/plugin_htmlbar/image_dialog.c:881
 msgid ""
 "\n"
 "\n"
@@ -2199,18 +2200,18 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:979
+#: src/plugin_htmlbar/image_dialog.c:989
 #, fuzzy
 msgid "Select Image"
 msgstr "Válassz fájlt"
 
-#: src/plugin_htmlbar/image_dialog.c:987
+#: src/plugin_htmlbar/image_dialog.c:997
 #, fuzzy
 msgid "All images"
 msgstr "Minden fájl"
 
-#: src/plugin_htmlbar/image_dialog.c:1219
-#: src/plugin_htmlbar/image_dialog.c:1331
+#: src/plugin_htmlbar/image_dialog.c:1229
+#: src/plugin_htmlbar/image_dialog.c:1341
 #, fuzzy
 msgid "Insert Image"
 msgstr "Kép beszúrása"

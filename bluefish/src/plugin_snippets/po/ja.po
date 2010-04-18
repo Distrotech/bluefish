@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-01-25 21:41+0100\n"
+"POT-Creation-Date: 2010-04-18 22:43+0200\n"
 "PO-Revision-Date: 2010-01-22 23:30+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
@@ -97,11 +97,11 @@ msgstr "/表示/スニペットメニュー"
 msgid "[cursor position or selection]"
 msgstr "[カーソル位置 または 選択範囲]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:154
+#: src/plugin_snippets/snippets_leaf_snr.c:156
 msgid "Search for: '"
 msgstr "検索する文字列: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:154
+#: src/plugin_snippets/snippets_leaf_snr.c:156
 msgid "', replace with: '"
 msgstr "', 置換文字列: '"
 
@@ -180,7 +180,7 @@ msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr ""
 "バックスラッシュでエスケープされた文字 \\n, \\t などのエスケープを外す。"
 
-#: src/plugin_snippets/snippets_wizard.c:339
+#: src/plugin_snippets/snippets_wizard.c:341
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -194,54 +194,54 @@ msgstr ""
 "尋ねるようにすることができます。これらのプレースホルダーに適当な名前を付けて"
 "ください（右側）。"
 
-#: src/plugin_snippets/snippets_wizard.c:345
+#: src/plugin_snippets/snippets_wizard.c:347
 msgid "<i>Before</i> text"
 msgstr "テキストの<i>前</i>"
 
-#: src/plugin_snippets/snippets_wizard.c:355
+#: src/plugin_snippets/snippets_wizard.c:357
 msgid "<i>After</i> text"
 msgstr "文字列<i>の後</i>"
 
-#: src/plugin_snippets/snippets_wizard.c:363
+#: src/plugin_snippets/snippets_wizard.c:365
 msgid "Number"
 msgstr "番号"
 
-#: src/plugin_snippets/snippets_wizard.c:365
+#: src/plugin_snippets/snippets_wizard.c:367
 msgid "Name"
 msgstr "名前"
 
-#: src/plugin_snippets/snippets_wizard.c:367
+#: src/plugin_snippets/snippets_wizard.c:369
 msgid "Is file path"
 msgstr "ファイルのパス名"
 
-#: src/plugin_snippets/snippets_wizard.c:493
+#: src/plugin_snippets/snippets_wizard.c:495
 msgid "Enter the name of the branch:"
 msgstr "ブランチの名前を入力:"
 
-#: src/plugin_snippets/snippets_wizard.c:585
+#: src/plugin_snippets/snippets_wizard.c:587
 msgid "Name of the new item:"
 msgstr "新しい項目の名前:"
 
-#: src/plugin_snippets/snippets_wizard.c:590
+#: src/plugin_snippets/snippets_wizard.c:592
 msgid "Description:"
 msgstr "説明:"
 
-#: src/plugin_snippets/snippets_wizard.c:640
+#: src/plugin_snippets/snippets_wizard.c:642
 msgid "Select what you want to add"
 msgstr "追加したいものを選択"
 
-#: src/plugin_snippets/snippets_wizard.c:642
+#: src/plugin_snippets/snippets_wizard.c:644
 msgid "Branch"
 msgstr "ブランチ"
 
-#: src/plugin_snippets/snippets_wizard.c:644
+#: src/plugin_snippets/snippets_wizard.c:646
 msgid "Insert string"
 msgstr "文字列を挿入"
 
-#: src/plugin_snippets/snippets_wizard.c:646
+#: src/plugin_snippets/snippets_wizard.c:648
 msgid "Search and replace pattern"
 msgstr "パターンの検索と置換"
 
-#: src/plugin_snippets/snippets_wizard.c:753
+#: src/plugin_snippets/snippets_wizard.c:755
 msgid "New snippet"
 msgstr "新規スニペット"
