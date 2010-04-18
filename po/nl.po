@@ -24,9 +24,8 @@ msgid "Bluefish Editor"
 msgstr "Bluefish Editor"
 
 #: ../desktop-data/bluefish.desktop.in.h:2
-#, fuzzy
 msgid "Web Development Editor"
-msgstr "Web Ontwikkeling Editor (ontwikkelversie)"
+msgstr "Web Ontwikkeling Editor"
 
 #: ../desktop-data/bluefish.xml.in.h:1
 msgid "Bluefish language definition file"
@@ -49,14 +48,12 @@ msgid "Spell check language"
 msgstr "Spelling taal"
 
 #: ../src/bftextview2_spell.c:619
-#, fuzzy
 msgid "Add to dictionary"
-msgstr "Sessie  woordenboek"
+msgstr "Voeg toe aan woordenboek"
 
 #: ../src/bftextview2_spell.c:622
-#, fuzzy
 msgid "Ignore spelling"
-msgstr "Controleer spelling"
+msgstr "Negeer spelling"
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -1220,13 +1217,11 @@ msgid "Stand by..."
 msgstr "Stand by..."
 
 #: ../src/gui.c:1116
-#, fuzzy
 msgid "/File/Quit"
-msgstr "/Bestand/A_fsluiten"
+msgstr "/Bestand/Afsluiten"
 
 #. ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(about_item),NULL);
 #: ../src/gui.c:1123
-#, fuzzy
 msgid "/Edit/Preferences"
 msgstr "/Bewerken/V_oorkeuren"
 
@@ -1239,9 +1234,8 @@ msgid "/File/_New"
 msgstr "/Bestand/_Nieuw"
 
 #: ../src/menu.c:217 ../src/menu.c:529
-#, fuzzy
 msgid "/File/New From Template"
-msgstr "/Bestand/Open van selectie"
+msgstr "/Bestand/Open van sjabloon"
 
 #: ../src/menu.c:219
 msgid "/File/New _Window"
@@ -1440,14 +1434,12 @@ msgid "/Document/_Visible Spacing"
 msgstr "/Document/Zichtbare _spatiering"
 
 #: ../src/menu.c:285
-#, fuzzy
 msgid "/Document/Show Right Margin"
-msgstr "/Document/Verschuif naar rechts"
+msgstr "/Document/Toon rechtermargeechts"
 
 #: ../src/menu.c:286
-#, fuzzy
 msgid "/Document/Highlight block delimiters"
-msgstr "/Document/Synta_x weergeven"
+msgstr "/Document/Blok uiteinden oplichten"
 
 #: ../src/menu.c:288
 msgid "/Document/_Spell Check"
@@ -1650,9 +1642,8 @@ msgid "/Tools/Indenting To S_paces"
 msgstr "/Extra/Inspringen Naar Sp_aties"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Tools/Merge Lines Into Col_umns"
-msgstr "/Extra/Splits In _Kolommen"
+msgstr "/Extra/Voeg Samen In _Kolommen"
 
 #: ../src/menu.c:559
 msgid "/Document/Language Mode"
@@ -1721,9 +1712,8 @@ msgid "None"
 msgstr ""
 
 #: ../src/preferences.c:539
-#, fuzzy
 msgid "Default template"
-msgstr "Standaard browser"
+msgstr "Standaard sjabloon"
 
 #: ../src/preferences.c:542
 msgid "_Word wrap by default"
@@ -1754,9 +1744,8 @@ msgid "Enable automatic completion pop-up"
 msgstr "Automatische completering popup"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Highlight block delimiters"
-msgstr "Blok begin-eind oplichten"
+msgstr "Blok uiteinden oplichten"
 
 #: ../src/preferences.c:551
 msgid "Enable spell check"
@@ -2056,9 +2045,8 @@ msgid "Visible whitespace color"
 msgstr "Zichtbare witruimte kleur"
 
 #: ../src/preferences.c:1562
-#, fuzzy
 msgid "Right margin position"
-msgstr "Rechter marge"
+msgstr "Rechter marge positie"
 
 #: ../src/preferences.c:1563
 msgid "Show whitespace"
@@ -2223,9 +2211,8 @@ msgid "Number of files in 'Open recent' menu"
 msgstr "Aantal bestanden in 'Recent geopend' menu"
 
 #: ../src/preferences.c:1662 ../src/preferences.c:1664
-#, fuzzy
 msgid "Templates"
-msgstr "Sjabloon:"
+msgstr "Sjablonen"
 
 #: ../src/preferences.c:1673
 msgid "User interface"
@@ -2236,11 +2223,8 @@ msgid "General"
 msgstr "Algemeen"
 
 #: ../src/preferences.c:1681
-#, fuzzy
 msgid "Language"
-msgstr ""
-"\n"
-"Taal mode: "
+msgstr "Taal"
 
 #: ../src/preferences.c:1684
 msgid "Make HTML dialogs transient"
@@ -2450,9 +2434,8 @@ msgid "Sort"
 msgstr "Sorteren"
 
 #: ../src/rcfile.c:558 ../src/rcfile.c:580
-#, fuzzy
 msgid "Sort / Uniq"
-msgstr "Sorteer / Uniek"
+msgstr "Sort / Uniq"
 
 #: ../src/rcfile.c:559 ../src/rcfile.c:583
 msgid "Tidy HTML"
@@ -2523,18 +2506,16 @@ msgid "C Header GPL"
 msgstr ""
 
 #: ../src/rcfile.c:603
-#, fuzzy
 msgid "XHTML 1.0"
-msgstr "HTML"
+msgstr "XHTML 1.0"
 
 #: ../src/rcfile.c:604
-#, fuzzy
 msgid "HTML 5"
-msgstr "HTML"
+msgstr "HTML 5"
 
 #: ../src/rcfile.c:605
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #: ../src/rcfile.c:752
 msgid "Untitled Project"
@@ -2561,9 +2542,9 @@ msgid "Search failed"
 msgstr "Zoeken mislukt"
 
 #: ../src/snr2.c:286
-#, fuzzy, c-format
+#, c-format
 msgid "Regular expression error: %s"
-msgstr "Reguliere expressie error: "
+msgstr "Reguliere expressie error: %s"
 
 #: ../src/snr2.c:328
 #, c-format
