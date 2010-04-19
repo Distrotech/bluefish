@@ -9,10 +9,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.0\n"
+"Project-Id-Version: Bluefish 2.0.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2010-04-18 22:43+0200\n"
-"PO-Revision-Date: 2010-03-08 11:20+0100 \n"
+"PO-Revision-Date: 2010-04-19 11:15+0200 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1224,13 +1224,11 @@ msgid "Stand by..."
 msgstr "Veuillez patienter..."
 
 #: ../src/gui.c:1116
-#, fuzzy
 msgid "/File/Quit"
 msgstr "/Fichier/_Quitter"
 
 #. ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(about_item),NULL);
 #: ../src/gui.c:1123
-#, fuzzy
 msgid "/Edit/Preferences"
 msgstr "/Éditer/Pré_férences"
 
@@ -2466,7 +2464,7 @@ msgstr "Ôter les lignes vides"
 
 #: ../src/rcfile.c:563
 msgid "Safari"
-msgstr ""
+msgstr "Safari"
 
 #: ../src/rcfile.c:564 ../src/rcfile.c:588
 msgid "Firefox"
@@ -2478,7 +2476,7 @@ msgstr "Opera"
 
 #: ../src/rcfile.c:566 ../src/rcfile.c:596
 msgid "chmod a+x"
-msgstr ""
+msgstr "chmod a+x"
 
 #: ../src/rcfile.c:581
 msgid "Reverse lines"
@@ -2561,9 +2559,9 @@ msgid "Search failed"
 msgstr "Échec de la recherche"
 
 #: ../src/snr2.c:286
-#, fuzzy, c-format
+#, c-format
 msgid "Regular expression error: %s"
-msgstr "Erreur d'expression régulière : "
+msgstr "Erreur d'expression régulière : %s"
 
 #: ../src/snr2.c:328
 #, c-format
