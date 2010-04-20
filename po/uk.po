@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2010-04-18 22:43+0200\n"
-"PO-Revision-Date: 2010-01-19 19:56+0200\n"
+"PO-Revision-Date: 2010-04-20 18:34+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.0\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:85
@@ -47,11 +47,11 @@ msgstr "Мова перевірки правопису"
 
 #: ../src/bftextview2_spell.c:619
 msgid "Add to dictionary"
-msgstr ""
+msgstr "Додати до словника"
 
 #: ../src/bftextview2_spell.c:622
 msgid "Ignore spelling"
-msgstr ""
+msgstr "Ігнорувати правопис"
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -1219,15 +1219,13 @@ msgid "Stand by..."
 msgstr "Зачекайте…"
 
 #: ../src/gui.c:1116
-#, fuzzy
 msgid "/File/Quit"
-msgstr "/Файл/Ви_йти"
+msgstr "/Файл/Вийти"
 
 #. ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(about_item),NULL);
 #: ../src/gui.c:1123
-#, fuzzy
 msgid "/Edit/Preferences"
-msgstr "/Правка/Нала_штування"
+msgstr "/Правка/Параметри"
 
 #: ../src/menu.c:214
 msgid "/_File"
@@ -1238,9 +1236,8 @@ msgid "/File/_New"
 msgstr "/Файл/_Створити"
 
 #: ../src/menu.c:217 ../src/menu.c:529
-#, fuzzy
 msgid "/File/New From Template"
-msgstr "/Файл/Відкрити за _позначенням"
+msgstr "/Файл/Створити з шаблона"
 
 #: ../src/menu.c:219
 msgid "/File/New _Window"
@@ -1439,14 +1436,12 @@ msgid "/Document/_Visible Spacing"
 msgstr "/Документ/В_ізуалізація пробілів"
 
 #: ../src/menu.c:285
-#, fuzzy
 msgid "/Document/Show Right Margin"
-msgstr "/Документ/Пересунути праворуч"
+msgstr "/Документ/Показувати праве поле"
 
 #: ../src/menu.c:286
-#, fuzzy
 msgid "/Document/Highlight block delimiters"
-msgstr "/Документ/Під_свічування синтаксису"
+msgstr "/Документ/Підсвічування меж блоків"
 
 #: ../src/menu.c:288
 msgid "/Document/_Spell Check"
@@ -1649,9 +1644,8 @@ msgid "/Tools/Indenting To S_paces"
 msgstr "/Інструменти/Відступ про_білами"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Tools/Merge Lines Into Col_umns"
-msgstr "/Інструменти/Розділити на стовб_чики"
+msgstr "/Інструменти/Об’єднати рядки у стовбч_ики"
 
 #: ../src/menu.c:559
 msgid "/Document/Language Mode"
@@ -1717,11 +1711,11 @@ msgstr "Типовий тип MIME для нових файлів"
 
 #: ../src/preferences.c:538 ../src/preferences.c:539
 msgid "None"
-msgstr ""
+msgstr "Немає"
 
 #: ../src/preferences.c:539
 msgid "Default template"
-msgstr ""
+msgstr "Типовий шаблон"
 
 #: ../src/preferences.c:542
 msgid "_Word wrap by default"
@@ -1752,9 +1746,8 @@ msgid "Enable automatic completion pop-up"
 msgstr "Увімкнути контекстне автозавершення"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Highlight block delimiters"
-msgstr "Підсвічувати пари початку-завершення блоку"
+msgstr "Підсвічувати межі блоку"
 
 #: ../src/preferences.c:551
 msgid "Enable spell check"
@@ -1956,9 +1949,8 @@ msgstr ""
 "каталог та каталог попереднього перегляду, інакше еквівалентний до %u</small>"
 
 #: ../src/preferences.c:1084
-#, fuzzy
 msgid "File"
-msgstr "Файл "
+msgstr "Файл"
 
 #. label = gtk_label_new(NULL);
 #. gtk_label_set_markup(GTK_LABEL(label), _("<small>language dialog not yet ready..</small>"));
@@ -1987,7 +1979,7 @@ msgstr "Стиль тексту"
 #: ../src/preferences.c:1368 ../src/preferences.c:1680
 #: ../src/preferences.c:1681
 msgid "Auto"
-msgstr ""
+msgstr "Авто"
 
 #: ../src/preferences.c:1510 ../src/preferences.c:1511
 msgid "left"
@@ -2063,7 +2055,7 @@ msgstr "Колір видимих пробілів"
 
 #: ../src/preferences.c:1562
 msgid "Right margin position"
-msgstr ""
+msgstr "Розташування правого поля"
 
 #: ../src/preferences.c:1563
 msgid "Show whitespace"
@@ -2228,9 +2220,8 @@ msgid "Number of files in 'Open recent' menu"
 msgstr "Кількість пунктів у меню «Відкрити недавній»"
 
 #: ../src/preferences.c:1662 ../src/preferences.c:1664
-#, fuzzy
 msgid "Templates"
-msgstr "_Шаблон:"
+msgstr "Шаблони"
 
 #: ../src/preferences.c:1673
 msgid "User interface"
@@ -2241,11 +2232,8 @@ msgid "General"
 msgstr "Загальне"
 
 #: ../src/preferences.c:1681
-#, fuzzy
 msgid "Language"
-msgstr ""
-"\n"
-"Режим мови: "
+msgstr "Мова"
 
 #: ../src/preferences.c:1684
 msgid "Make HTML dialogs transient"
@@ -2455,7 +2443,6 @@ msgid "Sort"
 msgstr "Впорядкувати"
 
 #: ../src/rcfile.c:558 ../src/rcfile.c:580
-#, fuzzy
 msgid "Sort / Uniq"
 msgstr "Впорядкувати/Вилучити повтори"
 
@@ -2469,7 +2456,7 @@ msgstr "Вилучити порожні рядки"
 
 #: ../src/rcfile.c:563
 msgid "Safari"
-msgstr ""
+msgstr "Safari"
 
 #: ../src/rcfile.c:564 ../src/rcfile.c:588
 msgid "Firefox"
@@ -2481,7 +2468,7 @@ msgstr "Opera"
 
 #: ../src/rcfile.c:566 ../src/rcfile.c:596
 msgid "chmod a+x"
-msgstr ""
+msgstr "chmod a+x"
 
 #: ../src/rcfile.c:581
 msgid "Reverse lines"
@@ -2521,25 +2508,23 @@ msgstr "Links2 (графічний)"
 
 #: ../src/rcfile.c:601
 msgid "C Header"
-msgstr ""
+msgstr "Заголовок C"
 
 #: ../src/rcfile.c:602
 msgid "C Header GPL"
-msgstr ""
+msgstr "Заголовок C (GPL)"
 
 #: ../src/rcfile.c:603
-#, fuzzy
 msgid "XHTML 1.0"
-msgstr "HTML"
+msgstr "XHTML 1.0"
 
 #: ../src/rcfile.c:604
-#, fuzzy
 msgid "HTML 5"
-msgstr "HTML"
+msgstr "HTML 5"
 
 #: ../src/rcfile.c:605
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #: ../src/rcfile.c:752
 msgid "Untitled Project"
@@ -2566,9 +2551,9 @@ msgid "Search failed"
 msgstr "Помилка пошуку"
 
 #: ../src/snr2.c:286
-#, fuzzy, c-format
+#, c-format
 msgid "Regular expression error: %s"
-msgstr "Помилка у формальному виразі: "
+msgstr "Помилка у формальному виразі: %s"
 
 #: ../src/snr2.c:328
 #, c-format
