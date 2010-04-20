@@ -1,18 +1,18 @@
 # Czech translations for bluefish-unstable package.
 # Copyright (C) 2009 THE bluefish-unstable'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the bluefish-unstable package.
-# Marek Černocký <marek@manet.cz>, 2009.
 #
+# Marek Černocký <marek@manet.cz>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable 1.3.8\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2010-04-18 22:43+0200\n"
-"PO-Revision-Date: 2009-12-29 11:04+0100\n"
+"PO-Revision-Date: 2010-04-20 18:48+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
-"Language-Team: Czech translators <diskuze@lists.l10n.cz>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
@@ -46,11 +46,11 @@ msgstr "Kontrolovat pravopis jazyka"
 
 #: ../src/bftextview2_spell.c:619
 msgid "Add to dictionary"
-msgstr ""
+msgstr "Přidat do slovníku"
 
 #: ../src/bftextview2_spell.c:622
 msgid "Ignore spelling"
-msgstr ""
+msgstr "Ignorovat pravopis"
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -353,7 +353,7 @@ msgstr "Nepojmenovaný %d"
 #: ../src/document.c:611
 #, c-format
 msgid "Changed tab width to %d"
-msgstr "Šířka tabelátoru změněna na %d"
+msgstr "Šířka tabulátoru změněna na %d"
 
 #: ../src/document.c:774
 #, c-format
@@ -1220,15 +1220,13 @@ msgid "Stand by..."
 msgstr "V pohotovosti…"
 
 #: ../src/gui.c:1116
-#, fuzzy
 msgid "/File/Quit"
-msgstr "/Soubor/Ukonči_t…"
+msgstr "/Soubor/Ukončit"
 
 #. ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(about_item),NULL);
 #: ../src/gui.c:1123
-#, fuzzy
 msgid "/Edit/Preferences"
-msgstr "/Upravit/Předvol_by"
+msgstr "/Upravit/Předvolby"
 
 #: ../src/menu.c:214
 msgid "/_File"
@@ -1239,9 +1237,8 @@ msgid "/File/_New"
 msgstr "/Soubor/_Nový"
 
 #: ../src/menu.c:217 ../src/menu.c:529
-#, fuzzy
 msgid "/File/New From Template"
-msgstr "/Soubor/Otevřít z vý_běru…"
+msgstr "/Soubor/Otevřít ze šablony"
 
 #: ../src/menu.c:219
 msgid "/File/New _Window"
@@ -1440,14 +1437,12 @@ msgid "/Document/_Visible Spacing"
 msgstr "/Dokument/Viditelné _mezery"
 
 #: ../src/menu.c:285
-#, fuzzy
 msgid "/Document/Show Right Margin"
-msgstr "/Dokument/Posunout vpravo"
+msgstr "/Dokument/Zobrazit pravý okraj"
 
 #: ../src/menu.c:286
-#, fuzzy
 msgid "/Document/Highlight block delimiters"
-msgstr "/Dokument/Zvýrazňování synta_xe"
+msgstr "/Dokument/Zvýrazňovat hranice bloků"
 
 #: ../src/menu.c:288
 msgid "/Document/_Spell Check"
@@ -1455,19 +1450,19 @@ msgstr "/Dokument/_Kontrola pravopisu"
 
 #: ../src/menu.c:291
 msgid "/Document/_Tab Size"
-msgstr "/Dokument/Velikost ta_belátoru"
+msgstr "/Dokument/Velikost ta_bulátoru"
 
 #: ../src/menu.c:293
 msgid "/Document/Tab Size/_Increase"
-msgstr "/Dokument/Velikost tabelátoru/_Zvýšit"
+msgstr "/Dokument/Velikost tabulátoru/_Zvýšit"
 
 #: ../src/menu.c:294
 msgid "/Document/Tab Size/_Decrease"
-msgstr "/Dokument/Velikost tabelátoru/Snížit"
+msgstr "/Dokument/Velikost tabulátoru/Snížit"
 
 #: ../src/menu.c:296
 msgid "/Document/Tab Size/_Reset"
-msgstr "/Dokument/Velikost tabelátoru/_Původní"
+msgstr "/Dokument/Velikost tabulátoru/_Původní"
 
 #: ../src/menu.c:297
 msgid "/Document/_Font Size"
@@ -1643,16 +1638,15 @@ msgstr "/Nástroje/Roz_dělit řádky"
 
 #: ../src/menu.c:366
 msgid "/Tools/Indenting To T_abs"
-msgstr "/Nástroje/Odsazování na _tabelátory"
+msgstr "/Nástroje/Odsazování na _tabulátory"
 
 #: ../src/menu.c:367
 msgid "/Tools/Indenting To S_paces"
 msgstr "/Nástroje/Odsazování na _mezery"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Tools/Merge Lines Into Col_umns"
-msgstr "/Nástroje/Rozsadit na sloup_ce"
+msgstr "/Nástroje/Rozsadit řádky na sloup_ce"
 
 #: ../src/menu.c:559
 msgid "/Document/Language Mode"
@@ -1718,11 +1712,11 @@ msgstr "Výchozí typ MIME pro nové soubory"
 
 #: ../src/preferences.c:538 ../src/preferences.c:539
 msgid "None"
-msgstr ""
+msgstr "Žádná"
 
 #: ../src/preferences.c:539
 msgid "Default template"
-msgstr ""
+msgstr "Výchozí šablona"
 
 #: ../src/preferences.c:542
 msgid "_Word wrap by default"
@@ -1734,7 +1728,7 @@ msgstr "(Chytré) automatické odsazování"
 
 #: ../src/preferences.c:544
 msgid "Tab width"
-msgstr "Šířka tabelátoru"
+msgstr "Šířka tabulátoru"
 
 #: ../src/preferences.c:545
 msgid "Show line numbers"
@@ -1753,9 +1747,8 @@ msgid "Enable automatic completion pop-up"
 msgstr "Povolit vyskakování automatického dokončování"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Highlight block delimiters"
-msgstr "Zvýrazňovat odpovídající začátek-konec bloku"
+msgstr "Zvýrazňovat hranice bloku"
 
 #: ../src/preferences.c:551
 msgid "Enable spell check"
@@ -1980,7 +1973,7 @@ msgstr "Textový styl"
 #: ../src/preferences.c:1368 ../src/preferences.c:1680
 #: ../src/preferences.c:1681
 msgid "Auto"
-msgstr ""
+msgstr "Automaticky"
 
 #: ../src/preferences.c:1510 ../src/preferences.c:1511
 msgid "left"
@@ -2056,7 +2049,7 @@ msgstr "Barva viditelných mezer"
 
 #: ../src/preferences.c:1562
 msgid "Right margin position"
-msgstr ""
+msgstr "Pozice pravého okraje"
 
 #: ../src/preferences.c:1563
 msgid "Show whitespace"
@@ -2068,7 +2061,7 @@ msgstr "Chytré umisťování kurzoru na začátek/konec"
 
 #: ../src/preferences.c:1565
 msgid "Use spaces to indent, not tabs"
-msgstr "K odsazování používat mezery, ne tabelátory "
+msgstr "K odsazování používat mezery, ne tabulátory "
 
 #: ../src/preferences.c:1566
 msgid "Smart auto indenting"
@@ -2220,9 +2213,8 @@ msgid "Number of files in 'Open recent' menu"
 msgstr "Počet souborů v nabídce „Otevřít nedávné“"
 
 #: ../src/preferences.c:1662 ../src/preferences.c:1664
-#, fuzzy
 msgid "Templates"
-msgstr "Ša_blona:"
+msgstr "Šablony"
 
 #: ../src/preferences.c:1673
 msgid "User interface"
@@ -2233,11 +2225,8 @@ msgid "General"
 msgstr "Obecné"
 
 #: ../src/preferences.c:1681
-#, fuzzy
 msgid "Language"
-msgstr ""
-"\n"
-"Režim jazyka: "
+msgstr "Jazyk"
 
 #: ../src/preferences.c:1684
 msgid "Make HTML dialogs transient"
@@ -2447,7 +2436,6 @@ msgid "Sort"
 msgstr "Seřadit"
 
 #: ../src/rcfile.c:558 ../src/rcfile.c:580
-#, fuzzy
 msgid "Sort / Uniq"
 msgstr "Seřadit / Jedinečnost"
 
@@ -2461,7 +2449,7 @@ msgstr "Odstranit prázdné řádky"
 
 #: ../src/rcfile.c:563
 msgid "Safari"
-msgstr ""
+msgstr "Safari"
 
 #: ../src/rcfile.c:564 ../src/rcfile.c:588
 msgid "Firefox"
@@ -2473,7 +2461,7 @@ msgstr "Opera"
 
 #: ../src/rcfile.c:566 ../src/rcfile.c:596
 msgid "chmod a+x"
-msgstr ""
+msgstr "chmod a+x"
 
 #: ../src/rcfile.c:581
 msgid "Reverse lines"
@@ -2481,7 +2469,7 @@ msgstr "Otočit pořadí řádků"
 
 #: ../src/rcfile.c:582
 msgid "Dos2unix"
-msgstr "Dos2unix"
+msgstr "Formát textového souboru"
 
 #: ../src/rcfile.c:585
 msgid "Render HTML to text"
@@ -2513,25 +2501,23 @@ msgstr "Links2 (grafický)"
 
 #: ../src/rcfile.c:601
 msgid "C Header"
-msgstr ""
+msgstr "Hlavičkový soubor C"
 
 #: ../src/rcfile.c:602
 msgid "C Header GPL"
-msgstr ""
+msgstr "Hlavičkový soubor C s GPL"
 
 #: ../src/rcfile.c:603
-#, fuzzy
 msgid "XHTML 1.0"
-msgstr "HTML"
+msgstr "XHTML 1.0"
 
 #: ../src/rcfile.c:604
-#, fuzzy
 msgid "HTML 5"
-msgstr "HTML"
+msgstr "HTML 5"
 
 #: ../src/rcfile.c:605
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #: ../src/rcfile.c:752
 msgid "Untitled Project"
@@ -2558,9 +2544,9 @@ msgid "Search failed"
 msgstr "Chyba při hledání"
 
 #: ../src/snr2.c:286
-#, fuzzy, c-format
+#, c-format
 msgid "Regular expression error: %s"
-msgstr "Chyba regulárního výrazu: "
+msgstr "Chyba regulárního výrazu: %s"
 
 #: ../src/snr2.c:328
 #, c-format
