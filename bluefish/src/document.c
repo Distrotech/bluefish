@@ -1377,30 +1377,28 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 	gsize wsize;
 	GError *error=NULL;
 	gchar *tmpencoding = NULL;
+	GList *tmplist;
+	gchar endingbyte='\0';
 	/* the first try is if the encoding is set in the file
 	TODO right now only HTML is supported, but xml files should
 	use a different regex pattern to find the encoding */
-	{
-		gchar endingbyte='\0'; 
-		
-		if (buflen > main_v->props.encoding_search_Nbytes) {
-			/* we do a nasty trick to make regexec search only in the first N bytes */
-			endingbyte = buffer[main_v->props.encoding_search_Nbytes];
-			buffer[main_v->props.encoding_search_Nbytes] = '\0';
-		}
-		
-		/* <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-		OR  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=iso-8859-1" />
-		 */
-		tmpencoding = encoding_by_regex(buffer, "<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"[^;\"]+;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>", 1);
-		if (!tmpencoding) {
-			tmpencoding = encoding_by_regex(buffer, "encoding=\"([a-z0-9_-]+)\"", 1);
-		}
-		if (buflen > main_v->props.encoding_search_Nbytes) {
-			buffer[main_v->props.encoding_search_Nbytes] = endingbyte;
-		}
-		
+	if (buflen > main_v->props.encoding_search_Nbytes) {
+		/* we do a nasty trick to make regexec search only in the first N bytes */
+		endingbyte = buffer[main_v->props.encoding_search_Nbytes];
+		buffer[main_v->props.encoding_search_Nbytes] = '\0';
 	}
+	
+	/* <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	OR  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=iso-8859-1" />
+	 */
+	tmpencoding = encoding_by_regex(buffer, "<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"[^;\"]+;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>", 1);
+	if (!tmpencoding) {
+		tmpencoding = encoding_by_regex(buffer, "encoding=\"([a-z0-9_-]+)\"", 1);
+	}
+	if (buflen > main_v->props.encoding_search_Nbytes) {
+		buffer[main_v->props.encoding_search_Nbytes] = endingbyte;
+	}
+
 	if (tmpencoding) {
 		DEBUG_MSG("doc_buffer_to_textbox, try encoding %s from <meta>\n", tmpencoding);
 		newbuf = g_convert(buffer,-1,"UTF-8",tmpencoding,NULL, &wsize, &error);
@@ -1446,21 +1444,33 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 		return g_strdup(buffer);
 	}
 
-	{
-		GList *tmplist;
-		DEBUG_MSG("doc_buffer_to_textbox, tried the most obvious encodings, nothing found.. go trough list\n");
-		tmplist = g_list_first(main_v->globses.encodings);
-		while (tmplist) {
-			gchar **enc = tmplist->data;
-			DEBUG_MSG("doc_buffer_to_textbox, trying encoding %s\n", enc[1]);
+	DEBUG_MSG("doc_buffer_to_textbox, tried the most obvious encodings, nothing found.. go trough list\n");
+	tmplist = g_list_first(main_v->globses.encodings);
+	while (tmplist) {
+		gchar **enc = tmplist->data;
+		if (enc[2] && enc[2][0]=='1') {
+			DEBUG_MSG("doc_buffer_to_textbox, trying user set encoding %s\n", enc[1]);
 			newbuf = g_convert(buffer,-1,"UTF-8",enc[1],NULL, &wsize, NULL);
 			if (newbuf) {
 				*encoding = g_strdup(enc[1]);
 				return newbuf;
 			}
-			tmplist = g_list_next(tmplist);
 		}
+		tmplist = g_list_next(tmplist);
 	}
+	while (tmplist) {
+		gchar **enc = tmplist->data;
+		if (enc[2] || enc[2][0]!='1') {
+			DEBUG_MSG("doc_buffer_to_textbox, trying other encoding %s\n", enc[1]);
+			newbuf = g_convert(buffer,-1,"UTF-8",enc[1],NULL, &wsize, NULL);
+			if (newbuf) {
+				*encoding = g_strdup(enc[1]);
+				return newbuf;
+			}
+		}
+		tmplist = g_list_next(tmplist);
+	}
+
 	return NULL;
 }
 
