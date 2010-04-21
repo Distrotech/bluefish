@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish-unstable 1.3.8\n"
+"Project-Id-Version: bluefish 2.0.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-04-18 22:43+0200\n"
-"PO-Revision-Date: 2009-12-10 09:26+0100\n"
+"POT-Creation-Date: 2010-04-21 09:15+0200\n"
+"PO-Revision-Date: 2010-04-21 11:32+0200\n"
 "Last-Translator: Xose M. <pikamoku@gmail.com>\n"
 "Language-Team:  none\n"
 "MIME-Version: 1.0\n"
@@ -21,9 +21,8 @@ msgid "Bluefish Editor"
 msgstr "Editor Bluefish"
 
 #: ../desktop-data/bluefish.desktop.in.h:2
-#, fuzzy
 msgid "Web Development Editor"
-msgstr "Editor de Creación Web (versión en desenvolvemento)"
+msgstr "Editor de Desenvolvemento de sitios Web"
 
 #: ../desktop-data/bluefish.xml.in.h:1
 msgid "Bluefish language definition file"
@@ -47,11 +46,11 @@ msgstr "Idioma do corrector"
 
 #: ../src/bftextview2_spell.c:619
 msgid "Add to dictionary"
-msgstr ""
+msgstr "Engadir ó diccionario"
 
 #: ../src/bftextview2_spell.c:622
 msgid "Ignore spelling"
-msgstr ""
+msgstr "Ignorar comprobación"
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -400,38 +399,38 @@ msgstr " RO"
 msgid "Unknown"
 msgstr "Descoñecido"
 
-#: ../src/document.c:1507
+#: ../src/document.c:1517
 msgid "Cannot display file, unknown characters found."
 msgstr "Non se pode mostrar o ficheiro: atoparonse caracteres descoñecidos"
 
-#: ../src/document.c:1709 ../src/snr2.c:1718
+#: ../src/document.c:1719 ../src/snr2.c:1718
 msgid "Replace"
 msgstr "Substituír"
 
-#: ../src/document.c:1714 ../src/snr2.c:1715
+#: ../src/document.c:1724 ../src/snr2.c:1715
 msgid "Find"
 msgstr "Buscar"
 
-#: ../src/document.c:1722
+#: ../src/document.c:1732
 msgid "Delete bookmark"
 msgstr "Borrar marcador"
 
-#: ../src/document.c:1726
+#: ../src/document.c:1736
 msgid "Add bookmark"
 msgstr "Engadir marcador"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1843 ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
+#: ../src/document.c:1853 ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
 msgid "_Abort save"
 msgstr "_Abortar gardar"
 
-#: ../src/document.c:1843
+#: ../src/document.c:1853
 msgid "_Continue save in UTF-8"
 msgstr "_Continuar gardardando en UTF-8"
 
-#: ../src/document.c:1854
+#: ../src/document.c:1864
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -444,15 +443,15 @@ msgstr ""
 "\n"
 "¿Continuar gardando coa codificación UTF-8?"
 
-#: ../src/document.c:1858
+#: ../src/document.c:1868
 msgid "File encoding conversion failure"
 msgstr "Erro na conversión da codificación do ficheiro"
 
-#: ../src/document.c:2112
+#: ../src/document.c:2122
 msgid "Previously: "
 msgstr "Anteriormente: "
 
-#: ../src/document.c:2532 ../src/file_dialogs.c:779
+#: ../src/document.c:2542 ../src/file_dialogs.c:779
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -462,11 +461,11 @@ msgstr ""
 "actualize a 2.18.0 ou máis novo."
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2666
+#: ../src/document.c:2676
 msgid "Unable to open file"
 msgstr "Non se puido abrilo ficheiro"
 
-#: ../src/document.c:2676
+#: ../src/document.c:2686
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -474,41 +473,41 @@ msgid ""
 msgstr ""
 "Se voltas \"%s\" á última copia gardada, perderás os trocos realizados."
 
-#: ../src/document.c:2680
+#: ../src/document.c:2690
 msgid "Revert changes to last saved copy?"
 msgstr "¿Voltar  \"%s\" ó estado da última copia gardada?"
 
-#: ../src/document.c:2716
+#: ../src/document.c:2726
 msgid "_Unset file name"
 msgstr "_Nome de ficheiro non etablecido"
 
-#: ../src/document.c:2716
+#: ../src/document.c:2726
 msgid "_Save"
 msgstr "Gardar"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:2718
+#: ../src/document.c:2728
 #, c-format
 msgid "File name: %s"
 msgstr "Nome do ficheiro: %s"
 
-#: ../src/document.c:2722
+#: ../src/document.c:2732
 msgid "File disappeared from disk\n"
 msgstr "Ficheiro non atopado\n"
 
-#: ../src/document.c:2741
+#: ../src/document.c:2751
 msgid "_Ignore"
 msgstr "_Ignorar"
 
-#: ../src/document.c:2741
+#: ../src/document.c:2751
 msgid "_Reload"
 msgstr "_Voltar a cargar"
 
-#: ../src/document.c:2741
+#: ../src/document.c:2751
 msgid "Check and reload all documents"
 msgstr "Verificar e recargar todolos documentos"
 
-#: ../src/document.c:2753
+#: ../src/document.c:2763
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -521,66 +520,66 @@ msgstr ""
 "Data modificación recente: %s\n"
 "Data modificación anterior: %s"
 
-#: ../src/document.c:2757
+#: ../src/document.c:2767
 msgid "File has been modified by another process\n"
 msgstr "O ficheiro foi modificado por outro proceso.\n"
 
-#: ../src/document.c:2825
+#: ../src/document.c:2835
 msgid "_Retry"
 msgstr "_Retentar"
 
-#: ../src/document.c:2825
+#: ../src/document.c:2835
 msgid "Retry _all failed"
 msgstr "Tentar todo fallou"
 
-#: ../src/document.c:2825
+#: ../src/document.c:2835
 msgid "_Close"
 msgstr "Pechar"
 
-#: ../src/document.c:2825
+#: ../src/document.c:2835
 msgid "Close all _failed"
 msgstr "Fallou PecharTodo."
 
-#: ../src/document.c:2829
+#: ../src/document.c:2839
 msgid "File "
 msgstr "Ficheiro"
 
-#: ../src/document.c:2829
+#: ../src/document.c:2839
 msgid " failed to load."
 msgstr " fallou a carga"
 
-#: ../src/document.c:2833
+#: ../src/document.c:2843
 msgid "File failed to load\n"
 msgstr "Fallou  a carga do ficheiro\n"
 
-#: ../src/document.c:2956
+#: ../src/document.c:2966
 msgid "Select file to insert"
 msgstr "Elexir ficheiro a insertar"
 
-#: ../src/document.c:2964
+#: ../src/document.c:2974
 msgid "No file to insert"
 msgstr "Ningún ficheiro para insertar"
 
-#: ../src/document.c:3105
+#: ../src/document.c:3115
 #, c-format
 msgid "Statistics: "
 msgstr "Estatísticas:"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3116
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d liña"
 msgstr[1] "%d liñas"
 
-#: ../src/document.c:3107
+#: ../src/document.c:3117
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d palabra"
 msgstr[1] "%d palabras"
 
-#: ../src/document.c:3108
+#: ../src/document.c:3118
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
@@ -823,9 +822,8 @@ msgid "_Recursive:"
 msgstr "_Recursiva:"
 
 #: ../src/file_dialogs.c:206
-#, fuzzy
 msgid "Ma_x recursion:"
-msgstr "_Recursiva:"
+msgstr "Ma_x recursion:"
 
 #: ../src/file_dialogs.c:215
 msgid "<b>Contains</b>"
@@ -1216,15 +1214,13 @@ msgid "Stand by..."
 msgstr "Agarde..."
 
 #: ../src/gui.c:1116
-#, fuzzy
 msgid "/File/Quit"
-msgstr "/Ficheiro/_Sair"
+msgstr "/Ficheiro/Sair"
 
 #. ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(about_item),NULL);
 #: ../src/gui.c:1123
-#, fuzzy
 msgid "/Edit/Preferences"
-msgstr "/Editar/_Preferencias"
+msgstr "/Editar/Preferencias"
 
 #: ../src/menu.c:214
 msgid "/_File"
@@ -1235,9 +1231,8 @@ msgid "/File/_New"
 msgstr "/Ficheiro/_Novo"
 
 #: ../src/menu.c:217 ../src/menu.c:529
-#, fuzzy
 msgid "/File/New From Template"
-msgstr "/Ficheiro/Abrir _dende selección"
+msgstr "/Ficheiro/Abrir _dende plantilla"
 
 #: ../src/menu.c:219
 msgid "/File/New _Window"
@@ -1436,14 +1431,12 @@ msgid "/Document/_Visible Spacing"
 msgstr "/Documento/Espaciado Visible"
 
 #: ../src/menu.c:285
-#, fuzzy
 msgid "/Document/Show Right Margin"
-msgstr "/Documento/Mover Dereita"
+msgstr "/Documento/Amosar marxen dereito"
 
 #: ../src/menu.c:286
-#, fuzzy
 msgid "/Document/Highlight block delimiters"
-msgstr "/Documento/_Realzar Sintaxe"
+msgstr "/Documento/Remarcar inicio e fin do bloque"
 
 #: ../src/menu.c:288
 msgid "/Document/_Spell Check"
@@ -1646,9 +1639,8 @@ msgid "/Tools/Indenting To S_paces"
 msgstr "/Ferramentas/Aliñar a Espazos"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Tools/Merge Lines Into Col_umns"
-msgstr "/Ferramentas/Dividir en Columnas"
+msgstr "/Ferramentas/Xuntar liñas en Columnas"
 
 #: ../src/menu.c:559
 msgid "/Document/Language Mode"
@@ -1668,9 +1660,8 @@ msgstr ""
 
 #. TODO: this dialog is not very convenient, hitting enter should choose 'selection'
 #: ../src/menu.c:847
-#, fuzzy
 msgid "Text area to filter"
-msgstr "Área de Texto"
+msgstr "Área de Texto a filtrar"
 
 #: ../src/menu.c:848
 msgid "All text"
@@ -1715,11 +1706,11 @@ msgstr "Valores MIME por defecto para novos documentos"
 
 #: ../src/preferences.c:538 ../src/preferences.c:539
 msgid "None"
-msgstr ""
+msgstr "Ningún"
 
 #: ../src/preferences.c:539
 msgid "Default template"
-msgstr ""
+msgstr "Plantilla por defecto"
 
 #: ../src/preferences.c:542
 msgid "_Word wrap by default"
@@ -1750,7 +1741,6 @@ msgid "Enable automatic completion pop-up"
 msgstr "Activar pop-up de autocompletar"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Highlight block delimiters"
 msgstr "Realzar inicio e remate do bloque coincidente"
 
@@ -1949,7 +1939,6 @@ msgstr ""
 "identical to %u</small>"
 
 #: ../src/preferences.c:1084
-#, fuzzy
 msgid "File"
 msgstr "Ficheiro"
 
@@ -1980,7 +1969,7 @@ msgstr "Estilo do texto"
 #: ../src/preferences.c:1368 ../src/preferences.c:1680
 #: ../src/preferences.c:1681
 msgid "Auto"
-msgstr ""
+msgstr "Automático"
 
 #: ../src/preferences.c:1510 ../src/preferences.c:1511
 msgid "left"
@@ -2056,7 +2045,7 @@ msgstr "Cor dos espazos en blanco visibles"
 
 #: ../src/preferences.c:1562
 msgid "Right margin position"
-msgstr ""
+msgstr "Posición da marxe dereita"
 
 #: ../src/preferences.c:1563
 msgid "Show whitespace"
@@ -2221,7 +2210,6 @@ msgid "Number of files in 'Open recent' menu"
 msgstr "Número de ficheiros en 'Abrir recente'"
 
 #: ../src/preferences.c:1662 ../src/preferences.c:1664
-#, fuzzy
 msgid "Templates"
 msgstr "_Plantilla:"
 
@@ -2234,11 +2222,8 @@ msgid "General"
 msgstr "Xeral"
 
 #: ../src/preferences.c:1681
-#, fuzzy
 msgid "Language"
-msgstr ""
-"\n"
-"Linguaxe: "
+msgstr "Idioma"
 
 #: ../src/preferences.c:1684
 msgid "Make HTML dialogs transient"
@@ -2447,7 +2432,6 @@ msgid "Sort"
 msgstr "Ordenar "
 
 #: ../src/rcfile.c:558 ../src/rcfile.c:580
-#, fuzzy
 msgid "Sort / Uniq"
 msgstr "Ordenar / Unico"
 
@@ -2461,7 +2445,7 @@ msgstr "Quitar as liñas baldeiras"
 
 #: ../src/rcfile.c:563
 msgid "Safari"
-msgstr ""
+msgstr "Safari"
 
 #: ../src/rcfile.c:564 ../src/rcfile.c:588
 msgid "Firefox"
@@ -2473,7 +2457,7 @@ msgstr "Opera"
 
 #: ../src/rcfile.c:566 ../src/rcfile.c:596
 msgid "chmod a+x"
-msgstr ""
+msgstr "chmod a+x"
 
 #: ../src/rcfile.c:581
 msgid "Reverse lines"
@@ -2513,25 +2497,23 @@ msgstr "Links2 (graphics)"
 
 #: ../src/rcfile.c:601
 msgid "C Header"
-msgstr ""
+msgstr "Encabezado C"
 
 #: ../src/rcfile.c:602
 msgid "C Header GPL"
-msgstr ""
+msgstr "GPL encabezado C"
 
 #: ../src/rcfile.c:603
-#, fuzzy
 msgid "XHTML 1.0"
-msgstr "HTML"
+msgstr "HTML 1.0"
 
 #: ../src/rcfile.c:604
-#, fuzzy
 msgid "HTML 5"
-msgstr "HTML"
+msgstr "HTML 5"
 
 #: ../src/rcfile.c:605
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #: ../src/rcfile.c:752
 msgid "Untitled Project"
@@ -2558,9 +2540,9 @@ msgid "Search failed"
 msgstr "Fallou a búsqueda"
 
 #: ../src/snr2.c:286
-#, fuzzy, c-format
+#, c-format
 msgid "Regular expression error: %s"
-msgstr "Error expresión regular:"
+msgstr "Error expresión regular: %s"
 
 #: ../src/snr2.c:328
 #, c-format
