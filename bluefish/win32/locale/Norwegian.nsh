@@ -44,7 +44,7 @@
 !define FA_UNSELECT "Fjern alle"
 
 ; Misc
-!define FINISHPAGE_LINK "Besøk vår nettside."
+!define FINISHPAGE_LINK "Besøk nettsiden vår."
 !define UNINSTALL_SHORTCUT "Avinstaller ${PRODUCT}"
 
 ; Content Types
