@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-03-07 20:07+0100\n"
-"PO-Revision-Date: 2009-08-20 12:00+0100\n"
+"POT-Creation-Date: 2010-04-19 17:43+0200\n"
+"PO-Revision-Date: 2010-04-21 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -427,9 +427,8 @@ msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Tags/Spesielle/Valuta/_Yen tegn ¥"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:297
-#, fuzzy
 msgid "/Tags/Special/Currency/_Euro €"
-msgstr "/Tags/Spesielle/Valuta/_Euro "
+msgstr "/Tags/Spesielle/Valuta/_Euro €"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:298
 msgid "/Tags/Special/_Math-Science"
@@ -652,14 +651,12 @@ msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/Tags/Formater fra kontekst/Ak_ronym (acronym)"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:358
-#, fuzzy
 msgid "/Tags/Format by context/_Insert"
-msgstr "/Tags/Formater fra kontekst/_Definer (dfn)"
+msgstr "/Tags/Formater fra kontekst/Sett _Inn"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:359
-#, fuzzy
 msgid "/Tags/Format by context/De_lete"
-msgstr "/Tags/Formater fra kontekst/_Definer (dfn)"
+msgstr "/Tags/Formater fra kontekst/S_lett"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:360
 msgid "/Tags/Format _general"
@@ -1035,9 +1032,8 @@ msgstr "Non-breaking space"
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:757
-#, fuzzy
 msgid "Anchor / Hyperlink..."
-msgstr "Anker"
+msgstr "Anker / Hyperlink..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:758
 msgid "Rule..."
@@ -1446,9 +1442,8 @@ msgid "  Unix Date _String (%s)"
 msgstr "  Unix datostreng (%s)"
 
 #: src/plugin_htmlbar/html.c:449
-#, fuzzy
 msgid "  ISO-8601 Ti_me "
-msgstr "  ISO-8601 Ti_d (%s)"
+msgstr "  ISO-8601 Ti_d"
 
 #: src/plugin_htmlbar/html.c:609
 msgid "Quick Anchor"
