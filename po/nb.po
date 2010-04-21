@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-04-18 22:43+0200\n"
-"PO-Revision-Date: 2009-08-02 12:00+0100\n"
+"POT-Creation-Date: 2010-04-21 23:04+0200\n"
+"PO-Revision-Date: 2010-04-19 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,9 +21,8 @@ msgid "Bluefish Editor"
 msgstr "Bluefish Editor"
 
 #: ../desktop-data/bluefish.desktop.in.h:2
-#, fuzzy
 msgid "Web Development Editor"
-msgstr "Teksteditor for webutvikling (betautgave)"
+msgstr "Teksteditor for webutvikling"
 
 #: ../desktop-data/bluefish.xml.in.h:1
 msgid "Bluefish language definition file"
@@ -35,7 +34,7 @@ msgstr "Bluefish prosjektfil"
 
 #: ../src/bftextview2.c:1064
 msgid "Collapse all"
-msgstr "Skjul _alle"
+msgstr "Skjul alle"
 
 #: ../src/bftextview2.c:1067
 msgid "Expand all"
@@ -46,22 +45,20 @@ msgid "Spell check language"
 msgstr "Språk for stavekontroll"
 
 #: ../src/bftextview2_spell.c:619
-#, fuzzy
 msgid "Add to dictionary"
-msgstr " Legg til hurtigmeny "
+msgstr "Legg til i ordboken"
 
 #: ../src/bftextview2_spell.c:622
-#, fuzzy
 msgid "Ignore spelling"
-msgstr "Stavekontroll"
+msgstr "Ignorer stavefeil"
 
 #: ../src/blocksync.c:88
 msgid ""
 "Select the block to sync to other pages. Include the start-of-block and end-"
 "of-block markers in your selection."
 msgstr ""
-"Velg blokken som skal synkroniseres til andre sider. Ta med start-of-blockog "
-"end-of-block markører i teksten du merker."
+"Velg blokken som skal synkroniseres mot andre sider. Ta med start-of-block "
+"og end-of-block markører i teksten du merker."
 
 #: ../src/blocksync.c:93
 msgid "To proceed with the current selection click forward."
@@ -77,7 +74,7 @@ msgstr ""
 
 #: ../src/blocksync.c:157
 msgid "Please <b>select the end marker</b> in the text below."
-msgstr "Velg sluttposisjon i teksten nedenfor."
+msgstr "Velg <b>sluttposisjon</b> i teksten nedenfor."
 
 #: ../src/blocksync.c:195
 #, c-format
@@ -86,22 +83,25 @@ msgid ""
 "opened in this window.\n"
 "<b>Proceed?</b>"
 msgstr ""
+"Teksten mellom <i>%s</i> og <i>%s</s> vil bli erstattet i alle åpne "
+"dokumenter i dette vinduet.\n"
+"<b>Fortsette?</b>"
 
 #: ../src/blocksync.c:226
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Please select the block of text to "
 "synchronize.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Velg tekstblokken som "
-"skalsynkroniseres.</span>"
+"<span foreground=\"red\" weight=\"bold\">Velg tekstblokken som skal "
+"synkroniseres.</span>"
 
 #: ../src/blocksync.c:240 ../src/blocksync.c:260
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">This marker exists more than once "
 "in the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Denne markeringen eksisterer flere "
-"steder i tekstblokken.</span>"
+"<span foreground=\"red\" weight=\"bold\">Denne markeringen eksisterer mer "
+"enn ett sted i tekstblokken.</span>"
 
 #: ../src/blocksync.c:246
 msgid ""
@@ -116,12 +116,12 @@ msgid ""
 "<span foreground=\"red\" weight=\"bold\">Select the text that marks the end "
 "of the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Velg sluttposisjon for blokken.</"
-"span>"
+"<span foreground=\"red\" weight=\"bold\">Velg teksten som indikerer slutten "
+"på blokken</span>"
 
 #: ../src/blocksync.c:297
 msgid "Synchronize text block"
-msgstr "Synkronisering av tekstblokk"
+msgstr "Synkronisere tekstblokk"
 
 #: ../src/bluefish.c:85
 msgid "Visit us at http://bluefish.openoffice.nl"
@@ -137,7 +137,7 @@ msgstr "Åpne i nytt vindu."
 
 #: ../src/bluefish.c:226
 msgid "Print version information."
-msgstr "Skriv versjonsinformasjon"
+msgstr "Skriv versjonsinformasjon."
 
 #: ../src/bluefish.c:257
 msgid " [FILE(S)]"
@@ -149,7 +149,7 @@ msgid ""
 "Error parsing command line options. %s\n"
 "Please run: %s -?\n"
 msgstr ""
-"Feil i kommandolinjeopsjoner. %s\n"
+"Feil i kommandolinjeparametre. %s\n"
 "For hjelp, kjør: %s -?\n"
 
 #: ../src/bookmark.c:464
@@ -167,7 +167,7 @@ msgstr "Midlertidig"
 #: ../src/bookmark.c:604
 #, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
-msgstr "Vil du virkelig slette alle bokmerkende tilhørende %s?"
+msgstr "Er du sikker på at du vil slette alle bokmerkene for %s?"
 
 #: ../src/bookmark.c:608
 msgid "Delete bookmarks?"
@@ -176,11 +176,11 @@ msgstr "Slett bokmerker?"
 #: ../src/bookmark.c:634
 #, c-format
 msgid "Do you really want to delete %s?"
-msgstr "Vil du virkelig slette %s?"
+msgstr "Er du sikker på at du vil slette %s?"
 
 #: ../src/bookmark.c:638
 msgid "Delete permanent bookmark."
-msgstr "Slett permanent bokmerke"
+msgstr "Slett permanent bokmerke."
 
 #: ../src/bookmark.c:659
 msgid "Edit bookmark"
@@ -243,19 +243,16 @@ msgid "/Show bookmark/Name"
 msgstr "/Vis bokmerke/Navn"
 
 #: ../src/bookmark.c:891
-#, fuzzy
 msgid "/Both Name & Content"
-msgstr "/Vis bokmerke/Navn og Innhold"
+msgstr "/Både navn og innhold"
 
 #: ../src/bookmark.c:892
-#, fuzzy
 msgid "/Content"
-msgstr "Innhold:"
+msgstr "/Innhold"
 
 #: ../src/bookmark.c:893
-#, fuzzy
 msgid "/Name"
-msgstr "Navn"
+msgstr "/Navn"
 
 #: ../src/bookmark.c:952
 msgid "First bookmark"
@@ -279,11 +276,11 @@ msgstr "Feil med bokmerke"
 
 #: ../src/bookmark.c:1523 ../src/bookmark.c:1628
 msgid "Cannot add bookmarks to unsaved files."
-msgstr "Kan ikke lage bokmerker i navnløse filer."
+msgstr "Kan ikke legge til bokmerker før filen er lagret og gitt navn."
 
 #: ../src/bookmark.c:1595
 msgid "Can't add bookmark"
-msgstr "Kan ikke legge til bokmerke"
+msgstr "Kunne ikke legge til bokmerke"
 
 #: ../src/bookmark.c:1596
 msgid "You already have a bookmark here!"
@@ -298,11 +295,12 @@ msgid "Name: "
 msgstr "Navn: "
 
 #: ../src/document.c:371
-#, fuzzy
 msgid ""
 "\n"
 "Language mode: "
-msgstr "Språk:"
+msgstr ""
+"\n"
+"Språkmodus:"
 
 #: ../src/document.c:375
 msgid ""
@@ -310,7 +308,7 @@ msgid ""
 "Encoding: "
 msgstr ""
 "\n"
-"Encoding: "
+"Tegnsett: "
 
 #: ../src/document.c:384
 msgid ""
@@ -397,42 +395,41 @@ msgid " RO"
 msgstr " RO"
 
 #: ../src/document.c:1102
-#, fuzzy
 msgid "Unknown"
-msgstr "Ukjent ikon"
+msgstr "Ukjent"
 
-#: ../src/document.c:1507
+#: ../src/document.c:1517
 msgid "Cannot display file, unknown characters found."
 msgstr "Filen kan ikke vises, ukjente tegn funnet"
 
-#: ../src/document.c:1709 ../src/snr2.c:1718
+#: ../src/document.c:1719 ../src/snr2.c:1718
 msgid "Replace"
 msgstr "Erstatt"
 
-#: ../src/document.c:1714 ../src/snr2.c:1715
+#: ../src/document.c:1724 ../src/snr2.c:1715
 msgid "Find"
 msgstr "Finn"
 
-#: ../src/document.c:1722
+#: ../src/document.c:1732
 msgid "Delete bookmark"
 msgstr "Slett bokmerke"
 
-#: ../src/document.c:1726
+#: ../src/document.c:1736
 msgid "Add bookmark"
 msgstr "Nytt bokmerke"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1843 ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
+#: ../src/document.c:1853 ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
 msgid "_Abort save"
 msgstr "_Avbryt lagring"
 
-#: ../src/document.c:1843
+#: ../src/document.c:1853
 msgid "_Continue save in UTF-8"
 msgstr "Fortsett lagring som UTF-8"
 
-#: ../src/document.c:1854
+#: ../src/document.c:1864
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -445,70 +442,72 @@ msgstr ""
 "\n"
 "Fortsett lagring med UTF-8 som tegnsett?"
 
-#: ../src/document.c:1858
+#: ../src/document.c:1868
 msgid "File encoding conversion failure"
 msgstr "Feil ved konvertering av tegnsett"
 
-#: ../src/document.c:2112
+#: ../src/document.c:2122
 msgid "Previously: "
 msgstr "Tidligere: "
 
-#: ../src/document.c:2532 ../src/file_dialogs.c:779
+#: ../src/document.c:2542 ../src/file_dialogs.c:779
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
+"Din glib-versjon (%d.%d.%d) har kjente problemer ved åpning av eksterne "
+"filer Du bør oppgradere til versjon 2.18.0 eller nyere."
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2666
+#: ../src/document.c:2676
 msgid "Unable to open file"
 msgstr "Kunne ikke åpne filen"
 
-#: ../src/document.c:2676
+#: ../src/document.c:2686
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr ""
-"Hvis du tilbakestiller \"%s\" til den lagrede versjonen,vil du miste "
-"endringene dine."
+"Dette tilbakestiller \"%s\" til den sist lagrade versjonen.Du vil miste alle "
+"endringer gjort etter forrige gang du lagret filen."
 
-#: ../src/document.c:2680
+#: ../src/document.c:2690
 msgid "Revert changes to last saved copy?"
 msgstr "Tilbakestill filen til siste lagrede versjon?"
 
-#: ../src/document.c:2716
+#: ../src/document.c:2726
 msgid "_Unset file name"
 msgstr "Fjern filnavn"
 
-#: ../src/document.c:2716
+#: ../src/document.c:2726
 msgid "_Save"
 msgstr "_Lagre"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:2718
+#: ../src/document.c:2728
 #, c-format
 msgid "File name: %s"
 msgstr "Filnavn: %s"
 
-#: ../src/document.c:2722
+#: ../src/document.c:2732
 msgid "File disappeared from disk\n"
 msgstr "Filen forsvant fra filsystemet\n"
 
-#: ../src/document.c:2741
+#: ../src/document.c:2751
 msgid "_Ignore"
 msgstr "_Ignorer"
 
-#: ../src/document.c:2741
+#: ../src/document.c:2751
 msgid "_Reload"
 msgstr "Les på nytt"
 
-#: ../src/document.c:2741
+#: ../src/document.c:2751
 msgid "Check and reload all documents"
 msgstr "Sjekk og last alle dokumenter på nytt"
 
-#: ../src/document.c:2753
+#: ../src/document.c:2763
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -521,71 +520,71 @@ msgstr ""
 "Filen ble sist endret: %s\n"
 "Versjonen som er åpen ble sist endret: %s"
 
-#: ../src/document.c:2757
+#: ../src/document.c:2767
 msgid "File has been modified by another process\n"
 msgstr "Filen har blitt endret av en annen prosess.\n"
 
-#: ../src/document.c:2825
+#: ../src/document.c:2835
 msgid "_Retry"
 msgstr "P_røv på nytt"
 
-#: ../src/document.c:2825
+#: ../src/document.c:2835
 msgid "Retry _all failed"
 msgstr "Prøv _alle feilede på nytt"
 
-#: ../src/document.c:2825
+#: ../src/document.c:2835
 msgid "_Close"
 msgstr "Lukk"
 
-#: ../src/document.c:2825
+#: ../src/document.c:2835
 msgid "Close all _failed"
 msgstr "Lukk alle feilede"
 
-#: ../src/document.c:2829
+#: ../src/document.c:2839
 msgid "File "
 msgstr "Fil "
 
-#: ../src/document.c:2829
+#: ../src/document.c:2839
 msgid " failed to load."
 msgstr " kunne ikke lastes."
 
-#: ../src/document.c:2833
+#: ../src/document.c:2843
 msgid "File failed to load\n"
 msgstr "Filen kunne ikke lastes inn\n"
 
-#: ../src/document.c:2956
+#: ../src/document.c:2966
 msgid "Select file to insert"
 msgstr "Velg en fil"
 
-#: ../src/document.c:2964
+#: ../src/document.c:2974
 msgid "No file to insert"
 msgstr "Du må velge en fil"
 
-#: ../src/document.c:3105
-#, fuzzy, c-format
+#: ../src/document.c:3115
+#, c-format
 msgid "Statistics: "
-msgstr "Starter på:"
+msgstr "Statistikk: "
 
-#: ../src/document.c:3106
+#: ../src/document.c:3116
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d linje"
+msgstr[1] "%d linjer"
 
-#: ../src/document.c:3107
-#, fuzzy, c-format
+#: ../src/document.c:3117
+#, c-format
 msgid "%d word"
 msgid_plural "%d words"
-msgstr[0] "%d av %d"
-msgstr[1] "%d av %d"
+msgstr[0] "%d ord"
+msgstr[1] "%d ord"
 
-#: ../src/document.c:3108
+#: ../src/document.c:3118
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d tegn"
+msgstr[1] "%d tegn"
 
 #: ../src/encodings_dialog.c:293
 msgid "_Available encodings:"
@@ -662,7 +661,7 @@ msgstr ""
 #: ../src/filebrowser2.c:1700
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
-msgstr "Hvis du sletter %s, kan den ikke gjenopprettes."
+msgstr "Dette vil permanent slette %s."
 
 #: ../src/filebrowser2.c:1857
 msgid "/_Open"
@@ -750,10 +749,10 @@ msgid "New filter"
 msgstr "Nytt filter"
 
 #: ../src/file.c:788
-#, fuzzy, c-format
+#, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
-msgstr[0] "Laster %d filer, ferdig med %s"
+msgstr[0] "Laster %d fil, ferdig med %s"
 msgstr[1] "Laster %d filer, ferdig med %s"
 
 #: ../src/file.c:793
@@ -769,9 +768,8 @@ msgstr[0] "%d dokument åpent."
 msgstr[1] "%d dokumenter åpne."
 
 #: ../src/file.c:1038
-#, fuzzy
 msgid "Advanced open: Finished searching files. "
-msgstr "Åpne (avansert)"
+msgstr "Avansert åpne: Søk fullført."
 
 #: ../src/file.c:1327
 msgid "_Skip"
@@ -804,9 +802,8 @@ msgid "Advanced open file selector"
 msgstr "Åpne (avansert)"
 
 #: ../src/file_dialogs.c:166
-#, fuzzy
 msgid "<b>Files</b>"
-msgstr "Attributter"
+msgstr "<b>Filer</b>"
 
 #: ../src/file_dialogs.c:175
 msgid "Base _Dir:"
@@ -825,9 +822,8 @@ msgid "_Recursive:"
 msgstr "_Rekursivt:"
 
 #: ../src/file_dialogs.c:206
-#, fuzzy
 msgid "Ma_x recursion:"
-msgstr "_Rekursivt:"
+msgstr "Mak_s rekursjon:"
 
 #: ../src/file_dialogs.c:215
 msgid "<b>Contains</b>"
@@ -856,6 +852,9 @@ msgid ""
 "ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 "
 "if you rely on remote file support.</b>"
 msgstr ""
+"<b>Din glib-versjon (%d.%d.%d) har kjente problemer med eksterne filer (smb, "
+"ftp, sftp, webdav etc.). Du bør oppgradere til en versjon av glib som er "
+"nyere enn 2.18.0."
 
 #: ../src/file_dialogs.c:380
 msgid "<b>Open URL</b>"
@@ -879,11 +878,8 @@ msgid "File backup failure"
 msgstr "Backupfeil"
 
 #: ../src/file_dialogs.c:471
-#, fuzzy
 msgid "Could not save file "
-msgstr ""
-"Kunne ikke lagre fil:\n"
-"\""
+msgstr "Kunne ikke lagre filen "
 
 #: ../src/file_dialogs.c:490
 #, c-format
@@ -938,17 +934,16 @@ msgstr ""
 "\""
 
 #: ../src/file_dialogs.c:728
-#, fuzzy
 msgid "\" save is in progress"
-msgstr "Lagring pågår!"
+msgstr "\" lagrer"
 
 #: ../src/file_dialogs.c:730
 msgid "Save in progress!"
-msgstr "Lagring pågår!"
+msgstr "Lagrer!"
 
 #: ../src/file_dialogs.c:881
 msgid "Close _Without Saving"
-msgstr "Lukk uten å lagre"
+msgstr "Lukk _uten å lagre"
 
 #: ../src/file_dialogs.c:884
 #, c-format
@@ -979,8 +974,8 @@ msgstr "En eller flere fil(er) har blitt endret"
 #, c-format
 msgid "<span color=\"red\">%d failure</span>"
 msgid_plural "<span color=\"red\">%d failures</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<span color=\"red\">%d feil</span>"
+msgstr[1] "<span color=\"red\">%d feil</span>"
 
 #: ../src/file_dialogs.c:1145
 msgid "incomplete finished"
@@ -1028,9 +1023,8 @@ msgid "Hide files that match the filter"
 msgstr "Skjul filer som matcher filteret"
 
 #: ../src/filefilter.c:567
-#, fuzzy
 msgid "Add pattern"
-msgstr "Sluttmønster"
+msgstr "Legg til mønster"
 
 #: ../src/filefilter.c:573 ../src/filefilter.c:585
 msgid "Mime type"
@@ -1123,7 +1117,7 @@ msgstr "Husk passordet inntil du _logger ut"
 
 #: ../src/gtkmountoperation.c:612
 msgid "Remember _forever"
-msgstr "_Husk passordet til senere bruk"
+msgstr "Lagre passordet"
 
 #: ../src/gui.c:275
 msgid "Filebrowser"
@@ -1219,13 +1213,11 @@ msgid "Stand by..."
 msgstr "Vennligst vent..."
 
 #: ../src/gui.c:1116
-#, fuzzy
 msgid "/File/Quit"
 msgstr "/Fil/Av_slutt"
 
 #. ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(about_item),NULL);
 #: ../src/gui.c:1123
-#, fuzzy
 msgid "/Edit/Preferences"
 msgstr "/Rediger/Endre inn_stillinger"
 
@@ -1238,9 +1230,8 @@ msgid "/File/_New"
 msgstr "/Fil/_Ny"
 
 #: ../src/menu.c:217 ../src/menu.c:529
-#, fuzzy
 msgid "/File/New From Template"
-msgstr "/Fil/Åpne _fra markert tekst"
+msgstr "/Fil/Lag ny fra mal"
 
 #: ../src/menu.c:219
 msgid "/File/New _Window"
@@ -1439,23 +1430,20 @@ msgid "/Document/_Visible Spacing"
 msgstr "/Dokument/Vis spesialtegn"
 
 #: ../src/menu.c:285
-#, fuzzy
 msgid "/Document/Show Right Margin"
-msgstr "/Dokument/Flytt mot høyre"
+msgstr "/Dokument/Vis høyremarg"
 
 #: ../src/menu.c:286
-#, fuzzy
 msgid "/Document/Highlight block delimiters"
-msgstr "/Dokument/_Marker syntaks"
+msgstr "/Dokument/_Marker blokkdelere"
 
 #: ../src/menu.c:288
-#, fuzzy
 msgid "/Document/_Spell Check"
-msgstr "/Dokument/Linjebrekk"
+msgstr "/Dokument/_Stavekontroll"
 
 #: ../src/menu.c:291
 msgid "/Document/_Tab Size"
-msgstr "/Dokument/Tab-lengde"
+msgstr "/Dokument/_Tab-størrelse"
 
 #: ../src/menu.c:293
 msgid "/Document/Tab Size/_Increase"
@@ -1506,9 +1494,8 @@ msgid "/Document/Character _Encoding"
 msgstr "/Dokument/T_egnsett"
 
 #: ../src/menu.c:316
-#, fuzzy
 msgid "/Document/Character Encoding/_Add or Remove..."
-msgstr "/Dokument/Tegnsett"
+msgstr "/Dokument/Tegnsett/_Legg til eller fjern..."
 
 #: ../src/menu.c:318
 msgid "/Document/Add Boo_kmark"
@@ -1651,9 +1638,8 @@ msgid "/Tools/Indenting To S_paces"
 msgstr "/Verktøy/Endre indentering til Mellomrom"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Tools/Merge Lines Into Col_umns"
-msgstr "/Verktøy/Del opp i kolonner"
+msgstr "/Verktøy/Slå sammen linjer i kolonner"
 
 #: ../src/menu.c:559
 msgid "/Document/Language Mode"
@@ -1673,42 +1659,37 @@ msgstr ""
 
 #. TODO: this dialog is not very convenient, hitting enter should choose 'selection'
 #: ../src/menu.c:847
-#, fuzzy
 msgid "Text area to filter"
-msgstr "Tekstfelt"
+msgstr "Velg tekstområde som skal filtreres"
 
 #: ../src/menu.c:848
 msgid "All text"
-msgstr ""
+msgstr "All tekst"
 
 #: ../src/menu.c:849
-#, fuzzy
 msgid "Selected text only"
-msgstr "Velg skrift"
+msgstr "Kun markert tekst"
 
 #: ../src/menu.c:992
 msgid "/Document/Character Encoding"
 msgstr "/Dokument/Tegnsett"
 
 #: ../src/outputbox.c:224
-#, fuzzy
 msgid "Filename"
-msgstr "Filnavn: %s"
+msgstr "Filnavn"
 
 #: ../src/outputbox.c:226
-#, fuzzy
 msgid "Line"
-msgstr "Linje #"
+msgstr "Linje"
 
 #: ../src/outputbox.c:228
-#, fuzzy
 msgid "Output"
-msgstr "Output #"
+msgstr "Output"
 
 #: ../src/outputbox.c:410
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
-msgstr "kunne ikke kompilere filter %s for output-boksen\n"
+msgstr "Kunne ikke kompilere outputboks-filter %s: %s"
 
 #: ../src/preferences.c:290
 msgid "Untitled"
@@ -1723,14 +1704,12 @@ msgid "Default mime type for new files"
 msgstr "Standard mime-type for nye filer"
 
 #: ../src/preferences.c:538 ../src/preferences.c:539
-#, fuzzy
 msgid "None"
-msgstr "Notat"
+msgstr "Ingen"
 
 #: ../src/preferences.c:539
-#, fuzzy
 msgid "Default template"
-msgstr "Standardverdi"
+msgstr "Standardmal"
 
 #: ../src/preferences.c:542
 msgid "_Word wrap by default"
@@ -1761,14 +1740,12 @@ msgid "Enable automatic completion pop-up"
 msgstr "Bruk autocomplete pop-up"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Highlight block delimiters"
-msgstr "Syntaksmarker # linjer"
+msgstr "Marker blokkdelere"
 
 #: ../src/preferences.c:551
-#, fuzzy
 msgid "Enable spell check"
-msgstr "Stavekontroll"
+msgstr "Utfør stavekontroll"
 
 #: ../src/preferences.c:580 ../src/preferences.c:1005
 #: ../src/preferences.c:1083
@@ -1781,7 +1758,7 @@ msgstr "Aktivert"
 
 #: ../src/preferences.c:582
 msgid "Path to plugin"
-msgstr ""
+msgstr "Sti til plugin"
 
 #: ../src/preferences.c:738
 msgid ""
@@ -1789,9 +1766,9 @@ msgid ""
 "to the same text, the top-most style in this list has the highest priority. "
 "Use drag and drop to re-order the text styles."
 msgstr ""
-"Tekststiler legges lagvis. Hvis flere stiler brukes på den sammesamme "
-"teksten, vil den øverste tilen få høyest prioritet.Dra og slipp stiler for å "
-"endre rekkefølgen."
+"Tekststiler legges lagvis. Hvis flere stiler brukes på den samme teksten, "
+"vil den øverste stilen få høyest prioritet. Dra og slipp stiler for å endre "
+"rekkefølgen."
 
 #: ../src/preferences.c:747 ../src/preferences.c:850 ../src/preferences.c:920
 msgid "Label"
@@ -1799,7 +1776,7 @@ msgstr "Label"
 
 #: ../src/preferences.c:759 ../src/preferences.c:1558
 msgid "Foreground color"
-msgstr "Forgrunnsfarge"
+msgstr "Tekstfarge"
 
 #: ../src/preferences.c:760 ../src/preferences.c:1559
 msgid "Background color"
@@ -1834,7 +1811,6 @@ msgid "Default browser"
 msgstr "Standard browser"
 
 #: ../src/preferences.c:854
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1850,16 +1826,16 @@ msgid ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 msgstr ""
-"<small><b>Input alternativer</b>\n"
+"<small><b>Inputalternativer</b>\n"
 "start med en | for å sende input til standard input\n"
-"%s lokalt filnavn (for lokale filer)\n"
-"%i midlertidig fifo for input, er lik %s hvis dokumentet er uendret og "
+"%s fokalt filnavn (for lokale filer)\n"
+"%i midlertidig fifo for input, er lik %f hvis dokumentet er uendret og "
 "lokalt\n"
-"%I midlertidig filnavn for input, er lik %s dersom dokmentet er uendret og "
+"%I midlertidig filnavn for input, er lik %f dersom dokmentet er uendret og "
 "lokalt\n"
 "<b>Andre alternativer</b>\n"
 "%c lokal katalog (for lokale filer)\n"
-"%n filnavn uten katalogtre (tilgjengelig for alle navngitte filer)\n"
+"%n filnavn uten katalogsti (tilgjengelig for alle navngitte filer)\n"
 "%u URL (tilgjengelig for alle navngitte filer)\n"
 "%p URL for forhåndsvisning hvis basekatalog og forhåndsvisningskatalog er "
 "satt i prosjektinnstillingene, ellers identisk til %u</small>"
@@ -1884,9 +1860,9 @@ msgid ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 msgstr ""
-"<small><b>Input alternativer</b>\n"
+"<small><b>Inputalternativer</b>\n"
 "start med en | for å sende input til standard input\n"
-"%s lokalt filnavn (for lokale filer, gjelder ikke for markert tekst)\n"
+"%f lokalt filnavn (for lokale filer, gjelder ikke for markert tekst)\n"
 "%i midlertidig fifo for input\n"
 "%I midlertidig filnavn for input<b>Output alternativer</b>\n"
 "avslutt med en | for å lese output fra standard output\n"
@@ -1896,7 +1872,7 @@ msgstr ""
 "redigeringsfiltre. Fungerer ikke på markert tekst.)\n"
 "<b>Andre alternativer</b>\n"
 "%c lokal katalog (for lokale filer)\n"
-"%n filnavn uten katalogtre (tilgjengelig for alle navngitte filer)\n"
+"%n filnavn uten katalogsti (tilgjengelig for alle navngitte filer)\n"
 "%u URL (tilgjengelig for alle navngitte filer)\n"
 "%p URL for forhåndsvisning, når basekatalog og forhåndsvisningskatalog er "
 "satt i prosjektinnstillingene, ellers identisk til %u</small>"
@@ -1918,7 +1894,6 @@ msgid "Output #"
 msgstr "Output #"
 
 #: ../src/preferences.c:1012
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1940,14 +1915,14 @@ msgid ""
 "%p preview URL if basedir and preview dir are set in project settings, else "
 "identical to %u</small>"
 msgstr ""
-"<small><b>Input alternativer</b>\n"
+"<small><b>Inputalternativer</b>\n"
 "start med en | for å sende input til standard input\n"
-"%s lokalt filnavn (for lokale filer)\n"
-"%i midlertidig fifo for input, er lik %s hvis dokumentet er uendret og "
+"%f lokalt filnavn (for lokale filer)\n"
+"%i midlertidig fifo for input, er lik %f hvis dokumentet er uendret og "
 "lokalt\n"
-"%I midlertidig filnavn for input, er lik %s dersom dokmentet er uendret og "
+"%I midlertidig filnavn for input, er lik %f hvis dokmentet er uendret og "
 "lokalt\n"
-"<b>Output alternativer</b>\n"
+"<b>Outputalternativer</b>\n"
 "avslutt med en | for å lese output fra standard output\n"
 "%o midlertidig fifo\n"
 "%O midlertidig filnavn\n"
@@ -1990,9 +1965,8 @@ msgstr "Tekststil"
 
 #: ../src/preferences.c:1368 ../src/preferences.c:1680
 #: ../src/preferences.c:1681
-#, fuzzy
 msgid "Auto"
-msgstr "Utviklere"
+msgstr "Automatisk"
 
 #: ../src/preferences.c:1510 ../src/preferences.c:1511
 msgid "left"
@@ -2028,19 +2002,19 @@ msgstr "Filstørrelse"
 
 #: ../src/preferences.c:1513
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: ../src/preferences.c:1513
 msgid "All except spaces"
-msgstr ""
+msgstr "Alle unntatt mellomrom"
 
 #: ../src/preferences.c:1513
 msgid "All trailing"
-msgstr ""
+msgstr "Alle på slutten av linjer"
 
 #: ../src/preferences.c:1513
 msgid "All except non-trailing spaces"
-msgstr ""
+msgstr "Alle unntatt mellomrom på slutten av linjer"
 
 #: ../src/preferences.c:1529
 msgid "Edit preferences"
@@ -2059,23 +2033,20 @@ msgid "Font"
 msgstr "Skrift"
 
 #: ../src/preferences.c:1560
-#, fuzzy
 msgid "Current line color"
-msgstr "Velg farge"
+msgstr "Markering av aktiv linje"
 
 #: ../src/preferences.c:1561
 msgid "Visible whitespace color"
-msgstr ""
+msgstr "Markering av blanke tegn"
 
 #: ../src/preferences.c:1562
-#, fuzzy
 msgid "Right margin position"
-msgstr "Høyre marg på"
+msgstr "Posisjon for høyre marg"
 
 #: ../src/preferences.c:1563
-#, fuzzy
 msgid "Show whitespace"
-msgstr "Vis skjulte"
+msgstr "Vis blanke tegn"
 
 #: ../src/preferences.c:1564
 msgid "Smart Home/End cursor positioning"
@@ -2119,18 +2090,16 @@ msgid "Initial document settings"
 msgstr "Standardinnstillinger"
 
 #: ../src/preferences.c:1580
-#, fuzzy
 msgid "Non-project initial document settings"
-msgstr "Standardinnstillinger"
+msgstr "Standardinnstillinger for dokumenter (utenfor prosjekt)"
 
 #: ../src/preferences.c:1588
 msgid "HTML"
 msgstr "HTML"
 
 #: ../src/preferences.c:1590
-#, fuzzy
 msgid "HTML toolbar / menu options"
-msgstr "Vis HTML-verktøylinje som standard"
+msgstr "HTML-verktøylinje / menyvalg"
 
 #: ../src/preferences.c:1595
 msgid "Lowercase HTML tags"
@@ -2143,6 +2112,7 @@ msgstr "Bruk utdaterte tags (e.g. <font> og <nobr>)"
 #: ../src/preferences.c:1597
 msgid "Format according to accessibility guidelines (e.g. <strong> for <b>)"
 msgstr ""
+"Formater etter retningslinjer for tilgjengelighet (f.eks <strong> for <b>)"
 
 #: ../src/preferences.c:1598
 msgid "Use XHTML style tags (<br />)"
@@ -2150,7 +2120,7 @@ msgstr "Bruk XHTML-syntaks (som <br />)"
 
 #: ../src/preferences.c:1600
 msgid "Auto update tag options"
-msgstr ""
+msgstr "Oppdater tag-alternativer automatisk"
 
 #: ../src/preferences.c:1604
 msgid "Automatically update author meta tag"
@@ -2237,9 +2207,8 @@ msgid "Number of files in 'Open recent' menu"
 msgstr "Antall filer i 'Nylig åpnede' menyen"
 
 #: ../src/preferences.c:1662 ../src/preferences.c:1664
-#, fuzzy
 msgid "Templates"
-msgstr "Mal:"
+msgstr "Maler"
 
 #: ../src/preferences.c:1673
 msgid "User interface"
@@ -2250,9 +2219,8 @@ msgid "General"
 msgstr "Generelt"
 
 #: ../src/preferences.c:1681
-#, fuzzy
 msgid "Language"
-msgstr "Språk:"
+msgstr "Språk"
 
 #: ../src/preferences.c:1684
 msgid "Make HTML dialogs transient"
@@ -2262,19 +2230,21 @@ msgstr "Behold HTML dialoger øverst"
 msgid ""
 "Notebook tab font \n"
 "(leave empty for gtk default)"
-msgstr "Skrifttype for tabs(la være tom for standardtekst)"
+msgstr ""
+"Skrifttype for tabs \n"
+"(tom: bruk gtk-standard)"
 
 #: ../src/preferences.c:1686
 msgid "Notebook tab color (doc modified)"
-msgstr ""
+msgstr "Tab-farge for notisblokk (modifisert dokument)"
 
 #: ../src/preferences.c:1687
 msgid "Notebook tab color (doc loading)"
-msgstr ""
+msgstr "Tab-farge for notisblokk (laster dokument)"
 
 #: ../src/preferences.c:1688
 msgid "Notebook tab color (doc error)"
-msgstr ""
+msgstr "Tab-farge for notisblokk (dokumentfeil)"
 
 #: ../src/preferences.c:1689
 msgid "Document notebook tab position"
@@ -2403,15 +2373,15 @@ msgid "Edit Project"
 msgstr "Rediger prosjekt"
 
 #: ../src/project.c:538
-#, fuzzy, c-format
+#, c-format
 msgid "This project contains %d file"
 msgid_plural "This project contains %d files"
-msgstr[0] "Dette prosjektet inneholder %d filer"
+msgstr[0] "Dette prosjektet inneholder %d fil"
 msgstr[1] "Dette prosjektet inneholder %d filer"
 
 #: ../src/project.c:551
 msgid "Project _Name:"
-msgstr "Prosjekt_Navn:"
+msgstr "Prosjekt_navn:"
 
 #: ../src/project.c:570
 msgid "Create _Project"
@@ -2423,7 +2393,7 @@ msgstr "Opprett prosjekt"
 
 #: ../src/project.c:614
 msgid "Create project with currently opened documents"
-msgstr "Opprett prosjekt bestående av de åpne dokumentene"
+msgstr "Opprett prosjekt basert på de åpne dokumentene"
 
 #: ../src/project.c:615
 msgid "Create empty project"
@@ -2460,7 +2430,7 @@ msgstr "Sorter"
 
 #: ../src/rcfile.c:558 ../src/rcfile.c:580
 msgid "Sort / Uniq"
-msgstr ""
+msgstr "Sort / Uniq"
 
 #: ../src/rcfile.c:559 ../src/rcfile.c:583
 msgid "Tidy HTML"
@@ -2472,7 +2442,7 @@ msgstr "Fjern tomme linjer"
 
 #: ../src/rcfile.c:563
 msgid "Safari"
-msgstr ""
+msgstr "Safari"
 
 #: ../src/rcfile.c:564 ../src/rcfile.c:588
 msgid "Firefox"
@@ -2484,7 +2454,7 @@ msgstr "Opera"
 
 #: ../src/rcfile.c:566 ../src/rcfile.c:596
 msgid "chmod a+x"
-msgstr ""
+msgstr "chmod a+x"
 
 #: ../src/rcfile.c:581
 msgid "Reverse lines"
@@ -2492,7 +2462,7 @@ msgstr "Reverser linjerekkefølge"
 
 #: ../src/rcfile.c:582
 msgid "Dos2unix"
-msgstr "Dos2Unix filter"
+msgstr "Dos2Unix"
 
 #: ../src/rcfile.c:585
 msgid "Render HTML to text"
@@ -2523,27 +2493,24 @@ msgid "Links2 (graphics)"
 msgstr "Links2 (grafikk)"
 
 #: ../src/rcfile.c:601
-#, fuzzy
 msgid "C Header"
-msgstr "Tabelloverskrift"
+msgstr "C header"
 
 #: ../src/rcfile.c:602
 msgid "C Header GPL"
-msgstr ""
+msgstr "C Header GPL"
 
 #: ../src/rcfile.c:603
-#, fuzzy
 msgid "XHTML 1.0"
-msgstr "HTML"
+msgstr "XHTML 1.0"
 
 #: ../src/rcfile.c:604
-#, fuzzy
 msgid "HTML 5"
-msgstr "HTML"
+msgstr "HTML 5"
 
 #: ../src/rcfile.c:605
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #: ../src/rcfile.c:752
 msgid "Untitled Project"
@@ -2570,9 +2537,9 @@ msgid "Search failed"
 msgstr "Ingen treff"
 
 #: ../src/snr2.c:286
-#, fuzzy, c-format
+#, c-format
 msgid "Regular expression error: %s"
-msgstr "Feil i regexp: "
+msgstr "Feil i regexp: %s"
 
 #: ../src/snr2.c:328
 #, c-format
@@ -2583,8 +2550,8 @@ msgstr "Feil i regexp: %s ved offset %d"
 #, c-format
 msgid "Found %d matches, "
 msgid_plural "Found %d matches, "
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Fant %d treff, "
+msgstr[1] "Fant %d treff, "
 
 #: ../src/snr2.c:1424
 #, c-format
@@ -2650,14 +2617,12 @@ msgid "Entire word only"
 msgstr "Kun hele ord"
 
 #: ../src/snr2.c:1700
-#, fuzzy
 msgid "POSIX style regular expression"
-msgstr "perl-kompatible regulære uttrykk"
+msgstr "POSIX-standard regulære uttrykk"
 
 #: ../src/snr2.c:1701
-#, fuzzy
 msgid "PERL style regular expression"
-msgstr "perl-kompatible regulære uttrykk"
+msgstr "PERL-standard regulære uttrykk"
 
 #: ../src/snr2.c:1706
 msgid "Uppercase"
@@ -2685,7 +2650,7 @@ msgstr "Erstatt tekst med"
 
 #: ../src/snr2.c:1780
 msgid "Sco_pe: "
-msgstr ""
+msgstr "Søkeområde: "
 
 #: ../src/snr2.c:1784
 msgid "Where to look for the pattern."
@@ -2736,17 +2701,14 @@ msgid "Only match if case (upper/lower) is identical."
 msgstr "Indikerer bare et treff dersom store/små bokstaver er like."
 
 #: ../src/snr2.c:1845
-#, fuzzy
 msgid "Pattern contains escape-se_quences"
-msgstr "Uttrykket inneholder backslash escape sekvenser (\\n, \\t)"
+msgstr "Uttrykket inneholder escape-sekvenser (\\n, \\t)"
 
 #: ../src/snr2.c:1848
-#, fuzzy
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
-msgstr "Tillater bruk av spesialtegn som \\n, \\t etc."
+msgstr "Tillater bruk av spesialtegn som \\n, \\t etc i søkeuttrykket."
 
 #: ../src/snr2.c:1850
-#, fuzzy
 msgid "Select matc_hes"
 msgstr "Velg treff"
 
@@ -2776,7 +2738,7 @@ msgstr "Finn _Alle"
 
 #: ../src/snr2.c:2483
 msgid "Lines into columns"
-msgstr ""
+msgstr "Linjer til kolonner"
 
 #: ../src/snr2.c:2495
 msgid "Number of columns"
@@ -2784,15 +2746,15 @@ msgstr "Antall kolonner"
 
 #: ../src/snr2.c:2498
 msgid "Spread lines horizontally"
-msgstr ""
+msgstr "Spre linjer horisontalt"
 
 #: ../src/snr2.c:2499
 msgid "Column separator"
-msgstr ""
+msgstr "Kolonnedeler"
 
 #: ../src/snr2.c:2501
 msgid "Fill empty entries"
-msgstr ""
+msgstr "Fyll tomme innslag"
 
 #: ../src/undo_redo.c:460
 msgid "Undo in _all documents"
