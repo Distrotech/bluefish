@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2010-04-18 22:43+0200\n"
-"PO-Revision-Date: 2010-02-17 12:21+0100\n"
+"PO-Revision-Date: 2010-04-22 13:34+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: ES <gnome-es@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -55,16 +55,14 @@ msgstr "Idioma del corrector ortográfico"
 # src/toolbars.c:258
 # src/toolbars.c:262
 #: ../src/bftextview2_spell.c:619
-#, fuzzy
 msgid "Add to dictionary"
-msgstr "Añadir de la Barra rápida "
+msgstr "Añadir al diccionario"
 
 # src/html.c:1724 src/html.c:1768
 # src/html_form.c:325 src/html_form.c:369
 #: ../src/bftextview2_spell.c:622
-#, fuzzy
 msgid "Ignore spelling"
-msgstr "Corregir ortografía"
+msgstr "Ignorar ortografía"
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -742,7 +740,7 @@ msgstr "No se pudo renombrar\n"
 
 #: ../src/filebrowser2.c:1565
 msgid "New directory"
-msgstr "Directorio nuevo"
+msgstr "Carpeta nueva"
 
 # src/html2.c:387
 # src/html2.c:382
@@ -804,7 +802,7 @@ msgstr "/_Archivo nuevo"
 
 #: ../src/filebrowser2.c:1863
 msgid "/_New Directory"
-msgstr "/_Directorio nuevo"
+msgstr "/Carpeta nue_va"
 
 # src/toolbars.c:482
 #: ../src/filebrowser2.c:1865
@@ -821,7 +819,7 @@ msgstr "/Seguir documento activo"
 # src/html_form.c:398
 #: ../src/filebrowser2.c:1867
 msgid "/_Set as basedir"
-msgstr "/_Establecer como directorio base"
+msgstr "/_Establecer como carpeta base"
 
 # src/toolbars.c:252
 # src/toolbars.c:256
@@ -935,7 +933,7 @@ msgstr "Autoguardado en progreso..."
 # src/html_form.c:398
 #: ../src/file_dialogs.c:109
 msgid "Select basedir"
-msgstr "Seleccionar el directorio base"
+msgstr "Seleccionar la carpeta base"
 
 #: ../src/file_dialogs.c:153
 msgid "Advanced open file selector"
@@ -949,7 +947,7 @@ msgstr "<b>Archivos</b>"
 # src/project.c:207
 #: ../src/file_dialogs.c:175
 msgid "Base _Dir:"
-msgstr "Directorio base:"
+msgstr "Carpeta _base:"
 
 # src/toolbars.c:163
 # src/toolbars.c:165
@@ -1170,11 +1168,11 @@ msgstr "Descargar"
 
 #: ../src/file_dialogs.c:1203
 msgid "Local directory"
-msgstr "Directorio local"
+msgstr "Carpeta local"
 
 #: ../src/file_dialogs.c:1210
 msgid "Remote directory"
-msgstr "Directorio remoto"
+msgstr "Carpeta remota"
 
 # src/bluefish.c:339
 # src/bluefish.c:486
@@ -1431,17 +1429,15 @@ msgstr "Espere..."
 # src/menu.c:115
 # src/menu.c:115
 #: ../src/gui.c:1116
-#, fuzzy
 msgid "/File/Quit"
-msgstr "/Archivo/_Salir"
+msgstr "/Archivo/Salir"
 
 # src/toolbars.c:469
 # src/toolbars.c:514
 #. ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(about_item),NULL);
 #: ../src/gui.c:1123
-#, fuzzy
 msgid "/Edit/Preferences"
-msgstr "/Editar/_Preferencias"
+msgstr "/Editar/Preferencias"
 
 # src/menu.c:101
 # src/menu.c:100
@@ -1458,9 +1454,8 @@ msgstr "/Archivo/_Nuevo"
 # src/menu.c:104
 # src/menu.c:103
 #: ../src/menu.c:217 ../src/menu.c:529
-#, fuzzy
 msgid "/File/New From Template"
-msgstr "/Archivo/Abrir _desde selección"
+msgstr "/Archivo/Nuevo desde plantilla"
 
 # src/menu.c:103
 # src/menu.c:102
@@ -1746,16 +1741,14 @@ msgstr "/Documento/Espaciado _visible"
 # src/toolbars.c:252
 # src/toolbars.c:256
 #: ../src/menu.c:285
-#, fuzzy
 msgid "/Document/Show Right Margin"
-msgstr "/Documento/Mover a la derecha"
+msgstr "/Documento/Mostrar margen derecho"
 
 # src/highlight.c:312 src/interface.c:125 src/menu.c:142
 # src/highlight.c:398 src/interface.c:145 src/menu.c:143
 #: ../src/menu.c:286
-#, fuzzy
 msgid "/Document/Highlight block delimiters"
-msgstr "/Documento/_Resaltar sintaxis"
+msgstr "/Documento/Resaltar delimitadores de bloque"
 
 #: ../src/menu.c:288
 msgid "/Document/_Spell Check"
@@ -2014,9 +2007,8 @@ msgid "/Tools/Indenting To S_paces"
 msgstr "/Herramientas/San_grar con espacios"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Tools/Merge Lines Into Col_umns"
-msgstr "/Herramientas/Dividir en col_umnas"
+msgstr "/Herramientas/Unir líneas en col_umnas"
 
 # src/highlight.c:312 src/interface.c:125 src/menu.c:142
 # src/highlight.c:398 src/interface.c:145 src/menu.c:143
@@ -2099,16 +2091,14 @@ msgstr "Tipo mime predeterminado para archivos nuevos"
 # src/toolbars.c:356
 # src/toolbars.c:360
 #: ../src/preferences.c:538 ../src/preferences.c:539
-#, fuzzy
 msgid "None"
-msgstr "Notas"
+msgstr "Ninguno"
 
 # src/html.c:1797
 # src/html_form.c:398
 #: ../src/preferences.c:539
-#, fuzzy
 msgid "Default template"
-msgstr "Directorio base predeterminado"
+msgstr "Plantilla predeterminada"
 
 # src/html.c:1233 src/html.c:1314
 # src/configure.c:311
@@ -2148,9 +2138,8 @@ msgstr "Activar el completado automático emergente"
 
 # src/configure.c:313
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Highlight block delimiters"
-msgstr "Resaltar # líneas"
+msgstr "Resaltar delimitadores de bloque"
 
 # src/html.c:1724 src/html.c:1768
 # src/html_form.c:325 src/html_form.c:369
@@ -2272,12 +2261,12 @@ msgstr ""
 "%I archivo temporal de entrada, igual que %f si el documento no se modifica "
 "en local\n"
 "<b>Otras opciones</b>\n"
-"%c directorio local del archivo (disponible para archivos locales)\n"
+"%c carpeta local del archivo (disponible para archivos locales)\n"
 "%n nombre del archivo sin ruta (disponible para todos los archivos con "
 "nombre)\n"
 "%u URL (disponible para todos los archivos con nombre)\n"
-"%p previsualizar URL si el directorio base y el directorio de vista previa "
-"están configurados en el proyecto, idéntico a %u</small>"
+"%p previsualizar URL si las carpetas base y de vista previa están "
+"configuradas en el proyecto, idéntico a %u</small>"
 
 #: ../src/preferences.c:924
 msgid ""
@@ -2312,12 +2301,12 @@ msgstr ""
 "%t nombre del archivo temporal para entrada y salida (para editar filtros "
 "localmente, no puede operar con una selección)\n"
 "<b>Otras opciones</b>\n"
-"%c directorio local del archivo (requiere un archivo local)\n"
+"%c carpeta local del archivo (requiere un archivo local)\n"
 "%n nombre de archivo sin ruta (disponible para todos los archivos con "
 "nombre)\n"
 "%u URL (disponible para todos los archivos con nombre)\n"
-"%p previsualizar URL si el directorio base y el directorio de vista previa "
-"están configurados en el proyecto, idéntico a %u</small>"
+"%p previsualizar URL si las carpetas base de vista previa están configuradas "
+"en el proyecto, idéntico a %u</small>"
 
 # src/toolbars.c:163
 # src/toolbars.c:165
@@ -2374,12 +2363,12 @@ msgstr ""
 "%O nombre del archivo temporal\n"
 "%t nombre del archivo temporal para entrada y salida (para editar filtros)\n"
 "<b>Otras opciones</b>\n"
-"%c directorio local del archivo (disponible para archivos locales)\n"
+"%c carpeta local del archivo (disponible para archivos locales)\n"
 "%n nombre de archivo sin ruta (disponible para todos los archivos con "
 "nombre)\n"
 "%u URL (disponible para todos los archivos con nombre)\n"
-"%p previsualizar URL si el directorio base y el directorio de vista previa "
-"están configurados en el proyecto, idéntico a %u</small>"
+"%p previsualizar URL si las carpetas base y de vista previa están "
+"configuradas en el proyecto, idéntico a %u</small>"
 
 # src/callbacks.c:579
 # src/project.c:165
@@ -2423,9 +2412,8 @@ msgstr "Estilo de texto"
 
 #: ../src/preferences.c:1368 ../src/preferences.c:1680
 #: ../src/preferences.c:1681
-#, fuzzy
 msgid "Auto"
-msgstr "Autores"
+msgstr "Automático"
 
 # src/html.c:1797
 # src/html_form.c:398
@@ -2519,7 +2507,7 @@ msgstr "Color de espacios en blanco visible"
 
 #: ../src/preferences.c:1562
 msgid "Right margin position"
-msgstr ""
+msgstr "Posición del margen derecho"
 
 #: ../src/preferences.c:1563
 msgid "Show whitespace"
@@ -2699,9 +2687,8 @@ msgstr "Número de archivos en el menú «Abrir reciente»"
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
 #: ../src/preferences.c:1662 ../src/preferences.c:1664
-#, fuzzy
 msgid "Templates"
-msgstr "_Plantilla:"
+msgstr "Plantillas"
 
 #: ../src/preferences.c:1673
 msgid "User interface"
@@ -2712,9 +2699,8 @@ msgid "General"
 msgstr "General"
 
 #: ../src/preferences.c:1681
-#, fuzzy
 msgid "Language"
-msgstr "_Idioma"
+msgstr "Idioma"
 
 # src/configure.c:342
 # src/configure.c:393
@@ -2958,7 +2944,6 @@ msgid "Sort"
 msgstr " Ordenar "
 
 #: ../src/rcfile.c:558 ../src/rcfile.c:580
-#, fuzzy
 msgid "Sort / Uniq"
 msgstr "Ordenar / Único"
 
@@ -2973,7 +2958,7 @@ msgstr "Eliminar líneas vacías"
 
 #: ../src/rcfile.c:563
 msgid "Safari"
-msgstr ""
+msgstr "Safari"
 
 #: ../src/rcfile.c:564 ../src/rcfile.c:588
 msgid "Firefox"
@@ -2985,7 +2970,7 @@ msgstr "Opera"
 
 #: ../src/rcfile.c:566 ../src/rcfile.c:596
 msgid "chmod a+x"
-msgstr ""
+msgstr "chmod a+x"
 
 #: ../src/rcfile.c:581
 msgid "Reverse lines"
@@ -3028,29 +3013,26 @@ msgstr "Links2 (gráficos)"
 # src/html.c:1182 src/toolbars.c:329
 # src/html_table.c:197 src/toolbars.c:333
 #: ../src/rcfile.c:601
-#, fuzzy
 msgid "C Header"
-msgstr "Encabezado"
+msgstr "Cabecera C"
 
 #: ../src/rcfile.c:602
 msgid "C Header GPL"
-msgstr ""
+msgstr "Cabecera C GPL"
 
 # src/configure.c:349
 #: ../src/rcfile.c:603
-#, fuzzy
 msgid "XHTML 1.0"
-msgstr "HTML"
+msgstr "XHTML 1.0"
 
 # src/configure.c:349
 #: ../src/rcfile.c:604
-#, fuzzy
 msgid "HTML 5"
-msgstr "HTML"
+msgstr "HTML 5"
 
 #: ../src/rcfile.c:605
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 # src/interface.c:325 src/interface.c:498
 # src/document.c:356
@@ -3085,9 +3067,9 @@ msgstr "Falló la búsqueda"
 
 # src/snr2.c:594
 #: ../src/snr2.c:286
-#, fuzzy, c-format
+#, c-format
 msgid "Regular expression error: %s"
-msgstr "Error en expresión regular:"
+msgstr "Error en expresión regular: %s"
 
 # src/snr2.c:594
 #: ../src/snr2.c:328
