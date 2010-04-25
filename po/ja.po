@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-04-18 22:43+0200\n"
-"PO-Revision-Date: 2010-01-23 00:06+0700\n"
+"POT-Creation-Date: 2010-04-22 22:24+0700\n"
+"PO-Revision-Date: 2010-04-22 22:24+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -47,14 +47,12 @@ msgid "Spell check language"
 msgstr "スペルチェックする言語"
 
 #: ../src/bftextview2_spell.c:619
-#, fuzzy
 msgid "Add to dictionary"
-msgstr "セッション辞書"
+msgstr "辞書に追加"
 
 #: ../src/bftextview2_spell.c:622
-#, fuzzy
 msgid "Ignore spelling"
-msgstr "スペルをチェック中"
+msgstr "綴りを無視"
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -402,38 +400,38 @@ msgstr " 読み込み専用"
 msgid "Unknown"
 msgstr "未知の言語"
 
-#: ../src/document.c:1507
+#: ../src/document.c:1517
 msgid "Cannot display file, unknown characters found."
 msgstr "ファイルを表示できません、不明な文字が見つかりました。"
 
-#: ../src/document.c:1709 ../src/snr2.c:1718
+#: ../src/document.c:1719 ../src/snr2.c:1718
 msgid "Replace"
 msgstr "置換"
 
-#: ../src/document.c:1714 ../src/snr2.c:1715
+#: ../src/document.c:1724 ../src/snr2.c:1715
 msgid "Find"
 msgstr "検索"
 
-#: ../src/document.c:1722
+#: ../src/document.c:1732
 msgid "Delete bookmark"
 msgstr "ブックマークを削除する"
 
-#: ../src/document.c:1726
+#: ../src/document.c:1736
 msgid "Add bookmark"
 msgstr "ブックマークを追加する"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1843 ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
+#: ../src/document.c:1853 ../src/file_dialogs.c:448 ../src/file_dialogs.c:485
 msgid "_Abort save"
 msgstr "保存中止(_A)"
 
-#: ../src/document.c:1843
+#: ../src/document.c:1853
 msgid "_Continue save in UTF-8"
 msgstr "UTF-8 で保存を続ける(_C)"
 
-#: ../src/document.c:1854
+#: ../src/document.c:1864
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -446,15 +444,15 @@ msgstr ""
 "\n"
 "文字コード UTF-8 で保存を続けますか?"
 
-#: ../src/document.c:1858
+#: ../src/document.c:1868
 msgid "File encoding conversion failure"
 msgstr "ファイルの文字コード変換に失敗しました"
 
-#: ../src/document.c:2112
+#: ../src/document.c:2122
 msgid "Previously: "
 msgstr "元: "
 
-#: ../src/document.c:2532 ../src/file_dialogs.c:779
+#: ../src/document.c:2542 ../src/file_dialogs.c:779
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -464,11 +462,11 @@ msgstr ""
 "には不十分です。 2.18.0 以上のバージョンにアップグレードしてください。"
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2666
+#: ../src/document.c:2676
 msgid "Unable to open file"
 msgstr "ファイルをオープンできません"
 
-#: ../src/document.c:2676
+#: ../src/document.c:2686
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -477,41 +475,41 @@ msgstr ""
 "ファイル \"%s\"について 一つ前の保存から行われた変更を破棄すると、その変更は"
 "失われます。"
 
-#: ../src/document.c:2680
+#: ../src/document.c:2690
 msgid "Revert changes to last saved copy?"
 msgstr "一つ前の保存から行われた変更を破棄しますか？"
 
-#: ../src/document.c:2716
+#: ../src/document.c:2726
 msgid "_Unset file name"
 msgstr "ファイル名の設定を外す(_U)"
 
-#: ../src/document.c:2716
+#: ../src/document.c:2726
 msgid "_Save"
 msgstr "保存(_S)"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:2718
+#: ../src/document.c:2728
 #, c-format
 msgid "File name: %s"
 msgstr "ファイル名: %s"
 
-#: ../src/document.c:2722
+#: ../src/document.c:2732
 msgid "File disappeared from disk\n"
 msgstr "ディスクからファイルがなくなりました\n"
 
-#: ../src/document.c:2741
+#: ../src/document.c:2751
 msgid "_Ignore"
 msgstr "無視(_I)"
 
-#: ../src/document.c:2741
+#: ../src/document.c:2751
 msgid "_Reload"
 msgstr "再読込み(_R)"
 
-#: ../src/document.c:2741
+#: ../src/document.c:2751
 msgid "Check and reload all documents"
 msgstr "すべての文書を確認し開き直す"
 
-#: ../src/document.c:2753
+#: ../src/document.c:2763
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -524,66 +522,66 @@ msgstr ""
 "新しい最終更新日時: %s\n"
 "  古い最終更新日時: %s"
 
-#: ../src/document.c:2757
+#: ../src/document.c:2767
 msgid "File has been modified by another process\n"
 msgstr "ファイルは他のプロセスによって変更されています\n"
 
-#: ../src/document.c:2825
+#: ../src/document.c:2835
 msgid "_Retry"
 msgstr "再試行(_R)"
 
-#: ../src/document.c:2825
+#: ../src/document.c:2835
 msgid "Retry _all failed"
 msgstr "失敗したすべての文書をもう一度開く(_A)"
 
-#: ../src/document.c:2825
+#: ../src/document.c:2835
 msgid "_Close"
 msgstr "閉じる(_C)"
 
-#: ../src/document.c:2825
+#: ../src/document.c:2835
 msgid "Close all _failed"
 msgstr "失敗したすべての文書を閉じる(_F)"
 
-#: ../src/document.c:2829
+#: ../src/document.c:2839
 msgid "File "
 msgstr "ファイル"
 
-#: ../src/document.c:2829
+#: ../src/document.c:2839
 msgid " failed to load."
 msgstr " 読み込みに失敗しました。"
 
-#: ../src/document.c:2833
+#: ../src/document.c:2843
 msgid "File failed to load\n"
 msgstr "ファイルの読み込みに失敗しました\n"
 
-#: ../src/document.c:2956
+#: ../src/document.c:2966
 msgid "Select file to insert"
 msgstr "挿入するファイルの選択"
 
-#: ../src/document.c:2964
+#: ../src/document.c:2974
 msgid "No file to insert"
 msgstr "挿入するファイルがありません"
 
-#: ../src/document.c:3105
+#: ../src/document.c:3115
 #, c-format
 msgid "Statistics: "
 msgstr "統計:"
 
-#: ../src/document.c:3106
+#: ../src/document.c:3116
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d 行"
 msgstr[1] "%d 行"
 
-#: ../src/document.c:3107
+#: ../src/document.c:3117
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d 語"
 msgstr[1] "%d 語"
 
-#: ../src/document.c:3108
+#: ../src/document.c:3118
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
@@ -1217,15 +1215,13 @@ msgid "Stand by..."
 msgstr "しばらくお待ちください..."
 
 #: ../src/gui.c:1116
-#, fuzzy
 msgid "/File/Quit"
-msgstr "/ファイル/終了(_Q)"
+msgstr "/ファイル/終了"
 
 #. ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(about_item),NULL);
 #: ../src/gui.c:1123
-#, fuzzy
 msgid "/Edit/Preferences"
-msgstr "/編集/環境設定(_S)"
+msgstr "/編集/環境設定"
 
 #: ../src/menu.c:214
 msgid "/_File"
@@ -1236,9 +1232,8 @@ msgid "/File/_New"
 msgstr "/ファイル/新規(_N)"
 
 #: ../src/menu.c:217 ../src/menu.c:529
-#, fuzzy
 msgid "/File/New From Template"
-msgstr "/ファイル/選択したファイルを開く(_F)"
+msgstr "/ファイル/テンプレートから新規ファイルを開く"
 
 #: ../src/menu.c:219
 msgid "/File/New _Window"
@@ -1437,14 +1432,12 @@ msgid "/Document/_Visible Spacing"
 msgstr "/文書/空白を可視化(_V)"
 
 #: ../src/menu.c:285
-#, fuzzy
 msgid "/Document/Show Right Margin"
-msgstr "/文書/右に移動"
+msgstr "/文書/右側余白を表示"
 
 #: ../src/menu.c:286
-#, fuzzy
 msgid "/Document/Highlight block delimiters"
-msgstr "/文書/文法解析による色分け(_H)"
+msgstr "/文書/ブロック区切りをハイライト"
 
 #: ../src/menu.c:288
 msgid "/Document/_Spell Check"
@@ -1647,9 +1640,8 @@ msgid "/Tools/Indenting To S_paces"
 msgstr "/ツール/インデントをスペースに(_P)"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Tools/Merge Lines Into Col_umns"
-msgstr "/ツール/カラムに分割(_U)"
+msgstr "/ツール/複数の行を整列(_U)"
 
 #: ../src/menu.c:559
 msgid "/Document/Language Mode"
@@ -1715,12 +1707,11 @@ msgstr "新規ファイル用のデフォルト MIMEタイプ"
 
 #: ../src/preferences.c:538 ../src/preferences.c:539
 msgid "None"
-msgstr ""
+msgstr "指定しない"
 
 #: ../src/preferences.c:539
-#, fuzzy
 msgid "Default template"
-msgstr "デフォルトの値"
+msgstr "デフォルトのテンプレート"
 
 #: ../src/preferences.c:542
 msgid "_Word wrap by default"
@@ -1751,9 +1742,8 @@ msgid "Enable automatic completion pop-up"
 msgstr "自動補完ポップアップウィンドウを有効にする"
 
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Highlight block delimiters"
-msgstr "一致したブロックの初めから終わりをハイライトする"
+msgstr "ブロック区切りをハイライトする"
 
 #: ../src/preferences.c:551
 msgid "Enable spell check"
@@ -1979,7 +1969,7 @@ msgstr "テキストスタイル"
 #: ../src/preferences.c:1368 ../src/preferences.c:1680
 #: ../src/preferences.c:1681
 msgid "Auto"
-msgstr ""
+msgstr "自動"
 
 #: ../src/preferences.c:1510 ../src/preferences.c:1511
 msgid "left"
@@ -2055,7 +2045,7 @@ msgstr "空白文字につける色"
 
 #: ../src/preferences.c:1562
 msgid "Right margin position"
-msgstr ""
+msgstr "右側余白の位置"
 
 #: ../src/preferences.c:1563
 msgid "Show whitespace"
@@ -2221,9 +2211,8 @@ msgid "Number of files in 'Open recent' menu"
 msgstr "[最近開いたファイル]リストの最大表示数"
 
 #: ../src/preferences.c:1662 ../src/preferences.c:1664
-#, fuzzy
 msgid "Templates"
-msgstr "テンプレート(_T):"
+msgstr "テンプレート"
 
 #: ../src/preferences.c:1673
 msgid "User interface"
@@ -2234,11 +2223,8 @@ msgid "General"
 msgstr "全般"
 
 #: ../src/preferences.c:1681
-#, fuzzy
 msgid "Language"
-msgstr ""
-"\n"
-"言語モード:"
+msgstr "言語"
 
 #: ../src/preferences.c:1684
 msgid "Make HTML dialogs transient"
@@ -2270,7 +2256,7 @@ msgstr "文書名タブの位置"
 
 #: ../src/preferences.c:1690
 msgid "Switch between tabs with <Alt>+0..9"
-msgstr "<Alt>+0..9 でタブを切り替えることができます"
+msgstr "<Alt>+0..9 でタブを切り替える"
 
 #: ../src/preferences.c:1691
 msgid "Sidebar notebook tab position"
@@ -2447,7 +2433,6 @@ msgid "Sort"
 msgstr "行単位で正順に並べ替え"
 
 #: ../src/rcfile.c:558 ../src/rcfile.c:580
-#, fuzzy
 msgid "Sort / Uniq"
 msgstr "行単位で正順に並べ替え → 重複行まとめ"
 
@@ -2461,7 +2446,7 @@ msgstr "空行を削除する"
 
 #: ../src/rcfile.c:563
 msgid "Safari"
-msgstr ""
+msgstr "Safari"
 
 #: ../src/rcfile.c:564 ../src/rcfile.c:588
 msgid "Firefox"
@@ -2473,7 +2458,7 @@ msgstr "Opera で確認"
 
 #: ../src/rcfile.c:566 ../src/rcfile.c:596
 msgid "chmod a+x"
-msgstr ""
+msgstr "実行可能属性をオン"
 
 #: ../src/rcfile.c:581
 msgid "Reverse lines"
@@ -2513,25 +2498,23 @@ msgstr "Links2 (グラフィック版) で確認"
 
 #: ../src/rcfile.c:601
 msgid "C Header"
-msgstr ""
+msgstr "C言語ヘッダファイル"
 
 #: ../src/rcfile.c:602
 msgid "C Header GPL"
-msgstr ""
+msgstr "C言語ヘッダファイル GPL"
 
 #: ../src/rcfile.c:603
-#, fuzzy
 msgid "XHTML 1.0"
-msgstr "HTML"
+msgstr "XHTML 1.0"
 
 #: ../src/rcfile.c:604
-#, fuzzy
 msgid "HTML 5"
-msgstr "HTML"
+msgstr "HTML 5"
 
 #: ../src/rcfile.c:605
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #: ../src/rcfile.c:752
 msgid "Untitled Project"
@@ -2558,9 +2541,9 @@ msgid "Search failed"
 msgstr "検索に失敗"
 
 #: ../src/snr2.c:286
-#, fuzzy, c-format
+#, c-format
 msgid "Regular expression error: %s"
-msgstr "正規表現エラー: "
+msgstr "正規表現エラー: %s"
 
 #: ../src/snr2.c:328
 #, c-format
@@ -2760,11 +2743,11 @@ msgstr "すべてを検索(_A)"
 
 #: ../src/snr2.c:2483
 msgid "Lines into columns"
-msgstr "行をカラムに"
+msgstr "行を列に区切る"
 
 #: ../src/snr2.c:2495
 msgid "Number of columns"
-msgstr "カラムの数"
+msgstr "列の数"
 
 #: ../src/snr2.c:2498
 msgid "Spread lines horizontally"
@@ -2772,7 +2755,7 @@ msgstr "行の内容を水平方向に広げる"
 
 #: ../src/snr2.c:2499
 msgid "Column separator"
-msgstr "カラムの区切り"
+msgstr "列の区切り"
 
 #: ../src/snr2.c:2501
 msgid "Fill empty entries"
