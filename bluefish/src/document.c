@@ -1308,6 +1308,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 	}
 	doc_unre_new_group(doc);
 	doc_bind_signals(doc);
+	doc_set_modified(doc, 1);
 	DEBUG_MSG("doc_insert_two_strings, finished\n");
 }
 

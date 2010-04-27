@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * html_diag.c - general functions to create HTML dialogs
  *
- * Copyright (C) 2000-2002 Olivier Sessink
+ * Copyright (C) 2000-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ Trecent_attribs recent_attribs;
 void html_diag_destroy_cb(GtkWidget * widget, Thtml_diag *dg) {
 	dg->tobedestroyed = TRUE;
 	DEBUG_MSG("html_diag_destroy_cb, widget=%p, dg=%p, dg->dialog=%p\n",widget,dg,dg->dialog);
-	if (dg->mark_ins) {
+	if (gtk_text_buffer_get_mark(dg->doc->buffer,"diag_ins") == dg->mark_ins) { 
 		gtk_text_buffer_delete_mark(dg->doc->buffer,dg->mark_ins);
 		gtk_text_buffer_delete_mark(dg->doc->buffer,dg->mark_sel);
 	}
