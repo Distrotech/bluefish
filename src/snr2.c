@@ -275,7 +275,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		GRegex* gregex;
 		GMatchInfo *match_info=NULL;
 		gboolean retval;
-		guint char_offset = utf8_byteoffset_to_charsoffset_cached(buf, byte_offset);
+		/*guint char_offset = utf8_byteoffset_to_charsoffset_cached(buf, byte_offset);*/
 		
 		gregex = g_regex_new(search_pattern,
 									(is_case_sens?G_REGEX_MULTILINE|G_REGEX_DOTALL:G_REGEX_CASELESS|G_REGEX_MULTILINE|G_REGEX_DOTALL),
@@ -294,13 +294,14 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			g_error_free(gerror);
 			return returnvalue;
 		}
-		retval = g_regex_match_full(gregex,buf,-1,char_offset,G_REGEX_MATCH_NEWLINE_ANY,&match_info, NULL);
+		DEBUG_MSG("search_backend, calling g_regex_match_full with byte_offset %d\n",byte_offset);
+		retval = g_regex_match_full(gregex,buf,-1,byte_offset,G_REGEX_MATCH_NEWLINE_ANY,&match_info, NULL);
 		if (retval) {
 			gint so,eo;
 			g_match_info_fetch_pos(match_info, 0, &so,&eo);
 			returnvalue.bstart = so;
 			returnvalue.bend = eo;
-			DEBUG_MSG("search_backend, gregex, found bstart=%d, bend=%d\n",so,eo);
+			DEBUG_MSG("search_backend, gregex, found match, found bstart=%d, bend=%d\n",so,eo);
 			if (want_submatches) {
 				gint i;
 				returnvalue.nmatch = g_match_info_get_match_count(match_info);
@@ -312,6 +313,11 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 					DEBUG_MSG("search_backend, gregex, submatch %d has start %d and end %d\n",i,so,eo);
 				}
 			}
+		} else {
+			returnvalue.bstart = -1;
+			returnvalue.bend = -1;
+			returnvalue.start = -1;
+			returnvalue.end = -1;		
 		}
 		g_match_info_free(match_info);
 		g_regex_unref(gregex);
@@ -559,6 +565,10 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
 	gchar *retval;
 	gint i, size;
 	DEBUG_MSG("reg_replace, started for pattern='%s',standardescape=%d, offset=%d\n",replace_pattern,standardescape,offset);
+	
+	if (!replace_pattern || replace_pattern[0]=='\0')
+		return g_strdup("");
+	
 	if (result.nmatch <= 10) size = (result.nmatch == 0 ) ? 0 : result.nmatch;
 	else size= 10;
 
@@ -1684,7 +1694,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	GtkListStore *history;
 	GList *list;
 	GtkTreeIter iter;
-	GtkTextIter start, end;
+	/*GtkTextIter start, end;*/
 	unsigned int i = 0;
 
 	const gchar *scope[] = {
