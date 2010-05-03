@@ -737,9 +737,11 @@ static void mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * bu
 	case OPENFILE_ERROR_CANCELLED:{
 			/* TODO: should we warn the user ?? */
 #ifdef DEBUG
+			{
 			gchar *path = g_file_get_path(i2t->imagename);
 			DEBUG_MSG("mt_openfile_lcb, some error! status=%d for image %s\n", status, path);
 			g_free(path);
+			}
 #endif
 		}
 		break;

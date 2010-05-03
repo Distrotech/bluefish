@@ -85,9 +85,9 @@ gint count_array(gchar **array) {
  * Return value: #gchar* newly allocated string
  */
 gchar *array_to_string(gchar **array) {
-	g_return_val_if_fail(array,g_strdup(""));
 	gchar **tmp, *escaped1, *finalstring;
 	gint newsize=1;
+	g_return_val_if_fail(array,g_strdup(""));
 	DEBUG_MSG("array_to_string, started\n");
 	finalstring = g_malloc0(newsize);
 	tmp = array;

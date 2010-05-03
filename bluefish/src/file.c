@@ -225,9 +225,9 @@ static void delete_recursive(GFile *dir) {
 		return;
 	}
 	do {
-		finfo = g_file_enumerator_next_file(enumer,NULL,&error);
 		GFile *child;
 		const gchar *name;
+		finfo = g_file_enumerator_next_file(enumer,NULL,&error);
 		if (error) {
 			g_print("delete_recursive, next file, got error %d %s\n",error->code,error->message);
 			g_error_free(error);
