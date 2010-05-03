@@ -350,8 +350,8 @@ static void acwin_fill_tree(Tacwin *acw, GList *items, gchar *closetag) {
 }
 
 static void print_ac_items(GCompletion *gc) {
-	DBG_AUTOCOMP("autocompletion has %d items:",g_list_length(g_list_first(gc->items)));
 	GList *tmplist = g_list_first(gc->items);
+	DBG_AUTOCOMP("autocompletion has %d items:",g_list_length(g_list_first(gc->items)));
 	while (tmplist) {
 		DBG_AUTOCOMP(" %s",(char *)tmplist->data);
 		tmplist = g_list_next(tmplist);
