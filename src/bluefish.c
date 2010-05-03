@@ -209,8 +209,8 @@ static gboolean startup_in_idle(gpointer data) {
 
 int main(int argc, char *argv[])
 {
-	gboolean arg_curwindow = FALSE, arg_newwindow=FALSE;
-	gchar **files = NULL;
+	static gboolean arg_curwindow = FALSE, arg_newwindow=FALSE;
+	static gchar **files = NULL;
 	Tstartup *startup;
 #ifdef WIN32
  	gchar *path;
