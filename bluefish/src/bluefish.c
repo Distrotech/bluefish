@@ -73,7 +73,7 @@ static GTimer *startuptimer;
 #endif
 
 #ifndef __GNUC__
-void g_none(gchar * first, ...)
+void g_none(char * first, ...)
 {
 	return;
 }

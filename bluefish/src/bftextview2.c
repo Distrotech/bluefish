@@ -428,7 +428,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	bftextview2_set_margin_size(btv);
 }
 
-static void print_fstack(Tfoundstack * fstack)
+/*static void print_fstack(Tfoundstack * fstack)
 {
 	DBG_MARGIN("got fstack %p for next position", fstack);
 	if (fstack) {
@@ -436,7 +436,7 @@ static void print_fstack(Tfoundstack * fstack)
 				g_queue_get_length(fstack->blockstack));
 	}
 	DBG_MARGIN("\n");
-}
+}*/
 
 static inline void paint_margin_expand(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
 /*	gtk_paint_box(GTK_WIDGET(btv)->style, event->window, GTK_STATE_ACTIVE,
@@ -541,10 +541,6 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 		fstack = get_stackcache_at_offset(btv, gtk_text_iter_get_offset(startvisible), &siter);
 		if (fstack) {
 			num_blocks = get_num_foldable_blocks(fstack);
-			DBG_MARGIN
-				("EXPOSE: got fstack %p with line %d and charoffset %d and num_blocks %d for start position %d\n",
-				 fstack, fstack->line, fstack->charoffset, num_blocks,
-				 gtk_text_iter_get_offset(startvisible));
 		} else {
 			DBG_MARGIN("EXPOSE: no fstack for position %d, siter=%p\n",gtk_text_iter_get_offset(startvisible),siter);
 			num_blocks = 0;
@@ -627,14 +623,12 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 					}
 					/*DBG_FOLD("search block at line %d, curline_o=%d, nextline_o=%d\n",i,curline_o,nextline_o);*/
 					if (fstackpos > nextline_o) {
-						DBG_FOLD("found fstack for line %d, num_blocks=%d..\n",fstack->line,num_blocks);
 						if (num_blocks > 0) {
 							paint_margin_line(btv,event,w,height);
 						}
 						break;
 					}
 					if (fstackpos <= nextline_o && fstackpos >= curline_o) {
-						DBG_FOLD("found fstack %p (charoffset %d) for current line %d, pushedblock=%p,poppedblock=%p\n",fstack, fstack->charoffset, fstack->line,fstack->pushedblock,fstack->poppedblock);
 						if (fstack->pushedblock && fstack->pushedblock->foldable) {
 							if (fstack->pushedblock->folded)
 								paint_margin_collapse(btv,event,w,height);
