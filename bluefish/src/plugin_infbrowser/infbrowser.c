@@ -36,11 +36,11 @@ static GdkCursor *regular_cursor;
 
 Tinfb infb_v;
 
-inline void set_normal_cursor(GtkTextView *view) {
+void set_normal_cursor(GtkTextView *view) {
 	gdk_window_set_cursor (gtk_text_view_get_window (GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT), regular_cursor);
 }
 
-inline void set_link_cursor(GtkTextView *view) {
+void set_link_cursor(GtkTextView *view) {
 	gdk_window_set_cursor (gtk_text_view_get_window (GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT), hand_cursor);
 }
 

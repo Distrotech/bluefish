@@ -53,7 +53,7 @@ the character list [a-z]
 */
 
 static gint pointersort_compare(gconstpointer a, gconstpointer b) {
-	return a-b;
+	return a>b?-1:(a==b?0:1);
 }
 
 /* returns a list of tags that are used in this language */
