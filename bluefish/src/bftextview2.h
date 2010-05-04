@@ -164,8 +164,16 @@ either on the start or on the end there is no symbol.
 #include <gtk/gtk.h>
 #include "config.h"
 
+#if defined(__GNUC__) || (defined(__SUNPRO_C) && __SUNPRO_C > 0x580)
 #define DBG_NONE(args...)
  /**/
+#else                                                   /* notdef __GNUC__ || __SUNPRO_C */
+extern void g_none(char * first, ...);
+#define DBG_NONE g_none
+#endif  
+ /**/
+
+
 
 #define BF2_OFFSET_UNDEFINED G_MAXUINT32
 
