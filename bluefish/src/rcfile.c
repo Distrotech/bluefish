@@ -542,9 +542,25 @@ void rcfile_parse_main(void)  {
 	if (main_v->props.encoding_search_Nbytes< 1000) main_v->props.encoding_search_Nbytes = 2048;
 	/* do some default configuration for the lists */
 #ifdef WIN32
-
-#else
-#ifdef PLATFORM_DARWIN
+	if (main_v->props.external_outputbox==NULL) {
+		/* if the user does not have outputbox settings --> set them to defaults values */
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("php"),"(.*) in (.*:\\\\[a-zA-Z0-9\\\\_.-]+) on line ([0-9]+)","2","3","1","php '%f'|",NULL));
+	}
+	if (main_v->props.external_filter==NULL) {
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Sort"),"|sort|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Sort / Uniq"),"|sort|uniq|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Reverse lines"),"|tac|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Dos2unix"),"|dos2unix|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Tidy HTML"),"|tidy|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Strip empty lines"),"|egrep -v '^[ \t]*$'|",NULL));
+	}
+	if (main_v->props.external_command==NULL) {
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Firefox"), "\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" '%p'","1",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Internet Explorer"), "\"C:\\Program Files\\Internet Explorer\\iexplore.exe\" '%p'","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Opera"), "\"C:\\Program Files\\Opera\\opera.exe\" '%p'","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Safari"), "\"C:\\Program Files\\Safari\\safari.exe\" '%p'","0",NULL));
+	}
+#elif PLATFORM_DARWIN
 	if (main_v->props.external_outputbox==NULL) {
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","cd %c && make|",NULL));
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+) \\(([0-9:]+)\\) (.*)","1","2","3","weblint '%f'|",NULL));
@@ -595,8 +611,7 @@ void rcfile_parse_main(void)  {
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Links2 (graphics)"), "links2 -g '%p'&","0",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("chmod a+x"), "chmod a+x %s","0",NULL));
 	}
-#endif /* ifdef else PLATFORM_DARWIN */
-#endif /* ifdef else WIN32 */
+#endif /* ifdef WIN32 elif PLATFORM_DARWIN */
 	if (main_v->props.templates==NULL) {
 		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("C Header"), PKGDATADIR"/templates/C Header", NULL));
 		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("C Header GPL"), PKGDATADIR"/templates/C Header GPL", NULL));
