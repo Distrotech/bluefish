@@ -120,11 +120,9 @@ enum {
 
 #define FILETYPES_ARRAY_LEN 8
 enum {
-#ifndef WIN32
 	extcommands,
 	extfilters,
 	extoutputbox,
-#endif /* ifndef WIN32 */
 	templates,
 	pluginconfig,
 	textstyles,
@@ -199,11 +197,9 @@ typedef struct {
 	Ttextstylepref tsd; /* TextStyleDialog */
 	Thldialog hld;
 	GtkListStore *lang_files;
-#ifndef WIN32
 	Tlistpref bd;
 	Tlistpref ed;
 	Tlistpref od;
-#endif /* ifndef WIN32 */
 	Tplugindialog pd;
 	Tbflangpref bld;
 } Tprefdialog;
@@ -811,7 +807,6 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 
 /************ external commands code ****************/
 
-#ifndef WIN32
 static void set_extcommands_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount = count_array(strarr);
 	if (arrcount==3) {
@@ -1043,7 +1038,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_outputbox_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 }
-#endif /* ifndef WIN32 */
+
 /********* template manager GUI */
 static void set_template_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	if (count_array(strarr)==2) {
@@ -1274,24 +1269,20 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	free_arraylist(pd->lists[highlight_styles]);
 	free_arraylist(pd->lists[bflang_options]);
 	pd->lists[highlight_styles] = NULL;
-#ifndef WIN32
 	free_arraylist(pd->lists[extcommands]);
 	free_arraylist(pd->lists[extfilters]);
 	free_arraylist(pd->lists[extoutputbox]);
 	pd->lists[extcommands] = NULL;
 	pd->lists[extfilters] = NULL;
 	pd->lists[extoutputbox] = NULL;
-#endif /* ifndef WIN32 */
 	free_arraylist(pd->lists[templates]);
 	pd->lists[templates] = NULL;
-#ifndef WIN32
 /*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list));*/
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->bd.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
 /*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ed.combo)->list));*/
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ed.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
-#endif /* ifndef WIN32 */
 	DEBUG_MSG("preferences_destroy_lcb, about to destroy the window\n");
 	window_destroy(pd->win);
 	main_v->prefdialog = NULL;
@@ -1383,14 +1374,13 @@ static void preferences_apply(Tprefdialog *pd) {
 	free_arraylist(main_v->props.plugin_config);
 	main_v->props.plugin_config = duplicate_arraylist(pd->lists[pluginconfig]);
 
-#ifndef WIN32
 	free_arraylist(main_v->props.external_command);
 	main_v->props.external_command = duplicate_arraylist(pd->lists[extcommands]);
 	free_arraylist(main_v->props.external_filter);
 	main_v->props.external_filter = duplicate_arraylist(pd->lists[extfilters]);
 	free_arraylist(main_v->props.external_outputbox);
 	main_v->props.external_outputbox = duplicate_arraylist(pd->lists[extoutputbox]);
-#endif /* ifndef WIN32 */
+
 	free_arraylist(main_v->props.templates);
 	main_v->props.templates = duplicate_arraylist(pd->lists[templates]);
 
@@ -1724,7 +1714,6 @@ static void preferences_dialog() {
 	pd->prefs[image_thumbnailtype] = prefs_combo(_("Thumbnail filetype"),main_v->props.image_thumbnailtype, vbox2, poplist, FALSE);
 	g_list_free(poplist);
 
-#ifndef WIN32
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("External commands"), WIDGETCOL,vbox1,-1);
@@ -1754,7 +1743,6 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_outputbox_gui(pd, vbox2);
-#endif /* ifndef WIN32 */
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
