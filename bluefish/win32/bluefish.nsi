@@ -129,10 +129,11 @@ ${UnStrStr}
 ; Macros
 ;----------------------------------------------
 !macro InstallAspellDict LANG VER
-	${If} $HKEY == "HKLM"
-		ReadRegStr $R0 HKLM "${REG_USER_SET}\Aspell\${LANG}" ""
-	${Else}
+	${If} $HKEY == "HKCU"
+	${OrIf} $HKEY == "Classic"
 		ReadRegStr $R0 HKCU "${REG_USER_SET}\Aspell\${LANG}" ""
+	${Else}
+		ReadRegStr $R0 HKLM "${REG_USER_SET}\Aspell\${LANG}" ""
 	${EndIf}
 
 	${If} $R0 == ${VER}
@@ -150,10 +151,11 @@ ${UnStrStr}
 		untgz::extract "-d" "$INSTDIR" "-u" "-zbz2" "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 		Pop $R0
 		StrCmp $R0 "success" 0 +6
-			${If} $HKEY == "HKLM"
-				WriteRegStr HKLM "${REG_USER_SET}\Aspell\${LANG}" "" "${VER}"
-			${Else}
+			${If} $HKEY == "HKCU"
+			${OrIf} $HKEY == "Classic"
 				WriteRegStr HKCU "${REG_USER_SET}\Aspell\${LANG}" "" "${VER}"
+			${Else}
+				WriteRegStr HKLM "${REG_USER_SET}\Aspell\${LANG}" "" "${VER}"
 			${EndIf}
 		Delete "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 	${EndIf}
@@ -162,6 +164,7 @@ ${UnStrStr}
 
 !macro RegisterFileType HWND EXT TYPE PROG DESC ICON
 	${If} $HKEY == "HKLM"
+	${OrIf} $HKEY == "Classic"
 		ReadRegStr $R1 HKCR ".${EXT}" "Content Type" ; Read the current mimetype
 		ReadRegStr $R2 HKCR ".${EXT}" "" ; Read the current class
 		${If} $R1 != "${TYPE}" ; If the current mimetype is the same as what we want skip changing it
@@ -228,21 +231,8 @@ ${UnStrStr}
 !macro RegisterHTMLType HWND
 	${NSD_GetState} ${HWND} $R0
 	${If} $R0 == ${BST_CHECKED}
-		${If} $HKEY == "HKLM"
-			ReadRegStr $R1 HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
-			${If} $R1 != "${PRODUCT}"
-				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "Description" $R1
-				WriteRegStr HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" "${PRODUCT}"
-
-				ReadRegStr $R2 HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" ""
-				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command" $R2
-				WriteRegStr HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
-
-				ReadRegStr $R3 HKLM "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" ""
-				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command2" $R3
-				WriteRegStr HKLM "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
-			${EndIf}
-		${Else}
+		${If} $HKEY == "HKCU"
+		${OrIf} $HKEY == "Classic"
 			ReadRegStr $R1 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
 			${If} $R1 != "${PRODUCT}"
 				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HTML" "Description" $R1
@@ -255,6 +245,20 @@ ${UnStrStr}
 				ReadRegStr $R3 HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" ""
 				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HTML" "command2" $R3
 				WriteRegStr HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+			${EndIf}
+		${Else}
+			ReadRegStr $R1 HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
+			${If} $R1 != "${PRODUCT}"
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "Description" $R1
+				WriteRegStr HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" "${PRODUCT}"
+
+				ReadRegStr $R2 HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" ""
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command" $R2
+				WriteRegStr HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+
+				ReadRegStr $R3 HKLM "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" ""
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command2" $R3
+				WriteRegStr HKLM "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
 			${EndIf}
 		${EndIf}
 	${EndIf}
@@ -428,7 +432,6 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	File "build\libaspell-15.dll"
 	File "build\libenchant-1.dll"
 	File "build\libgnurx-0.dll"
-	File "build\libpcre-0.dll"
 	File "build\libxml2-2.dll"
 
 	SetOutPath "$INSTDIR\docs"
@@ -456,6 +459,7 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 	SetOverwrite off
 
 	${If} $HKEY == "HKLM"
+	${OrIf} $HKEY == "Classic"
 		WriteRegStr HKLM "${REG_USER_SET}" "" "$\"$INSTDIR$\"" ; Replace InstallDirRegKey function
 		WriteRegStr HKLM "${REG_USER_SET}" "Version" "${VERSION}"
 		WriteRegStr HKLM "${REG_USER_SET}" "Package" "${PACKAGE}"
@@ -651,16 +655,8 @@ Section "Uninstall"
 	Delete "$SMPROGRAMS\$StartMenuFolder\$(UNINSTALL_SHORTCUT).lnk"
 	RMDir "$SMPROGRAMS\$StartMenuFolder"
 
-	${If} $HKEY == "HKLM"
-		DeleteRegValue HKLM ${REG_USER_SET} ""
-		DeleteRegValue HKLM ${REG_USER_SET} "Installer Language"
-		DeleteRegValue HKLM ${REG_USER_SET} "Package"
-		DeleteRegValue HKLM ${REG_USER_SET} "Start Menu Folder"
-		DeleteRegValue HKLM ${REG_USER_SET} "Version"
-		DeleteRegKey HKLM "${REG_USER_SET}\Aspell"
-		DeleteRegKey HKLM "${REG_USER_SET}\Plugins"
-		DeleteRegKey /ifempty HKLM ${REG_USER_SET}
-	${Else}
+	${If} $HKEY == "HKCU"
+	${OrIf} $HKEY == "Classic"
 		DeleteRegValue HKCU ${REG_USER_SET} ""
 		DeleteRegValue HKCU ${REG_USER_SET} "Installer Language"
 		DeleteRegValue HKCU ${REG_USER_SET} "Package"
@@ -669,12 +665,22 @@ Section "Uninstall"
 		DeleteRegKey HKCU "${REG_USER_SET}\Aspell"
 		DeleteRegKey HKCU "${REG_USER_SET}\Plugins"
 		DeleteRegKey /ifempty HKCU ${REG_USER_SET}
+	${Else}
+		DeleteRegValue HKLM ${REG_USER_SET} ""
+		DeleteRegValue HKLM ${REG_USER_SET} "Installer Language"
+		DeleteRegValue HKLM ${REG_USER_SET} "Package"
+		DeleteRegValue HKLM ${REG_USER_SET} "Start Menu Folder"
+		DeleteRegValue HKLM ${REG_USER_SET} "Version"
+		DeleteRegKey HKLM "${REG_USER_SET}\Aspell"
+		DeleteRegKey HKLM "${REG_USER_SET}\Plugins"
+		DeleteRegKey /ifempty HKLM ${REG_USER_SET}
 	${EndIf}
 
 	Call un.UnRegisterFileTypes	
 	Call un.UnRegisterHTML
 
 	${If} $HKEY == "HKLM"
+	${OrIf} $HKEY == "Classic"
 		DeleteRegKey HKLM "${REG_UNINSTALL}"
 	${Else}
 		DeleteRegKey HKCU "${REG_UNINSTALL}"
@@ -692,21 +698,36 @@ Function .onInit
 	${If} $1 == ""
 	${OrIf} $0 == "Admin"
 	${OrIf} $0 == "Power"
-		StrCpy $HKEY "HKLM"
+		ReadRegStr $R0 HKLM "${REG_USER_SET}" ""
+		${If} $R0 != ""
+			StrCpy $HKEY "Classic"
+		${Else}
+			StrCpy $HKEY "HKLM"
+		${EndIf}
 		SetShellVarContext all
-		ReadRegStr $R0 HKLM "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
+		${If} $HKEY != "Classic"
+			ReadRegStr $R0 HKLM "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
+		${EndIf}
 		${If} $R0 == "" ; If Bluefish hasn't been installed set the default privileged path
 			StrCpy $INSTDIR "$PROGRAMFILES32\${PRODUCT}"
 		${Else} ; Otherwise load the stored path of the previous installation
 			StrCpy $INSTDIR $R0
 		${EndIf}
-		ReadRegStr $R0 HKLM "${REG_USER_SET}" "Installer Language" ; Replace defining MUI_LANGDLL_REGISTRY_*
+		${If} $HKEY == "Classic"
+			ReadRegStr $R0 HKCU "${REG_USER_SET}" "Installer Language" ; Replace defining MUI_LANGDLL_REGISTRY_*
+		${Else}
+			ReadRegStr $R0 HKLM "${REG_USER_SET}" "Installer Language" ; Replace defining MUI_LANGDLL_REGISTRY_*
+		${EndIf}
 		${If} $R0 == "" ; Bluefish hasn't been installed so display the language selection dialog
 			!insertmacro MUI_LANGDLL_DISPLAY
 		${Else} ; Else load the stored language
 			StrCpy $LANGUAGE $R0
 		${EndIf}
-		ReadRegStr $R0 HKLM "${REG_USER_SET}" "Start Menu Folder" ; Replace MUI_STARTMENUPAGE_REGISTRY_*
+		${If} $HKEY == "Classic"
+			ReadRegStr $R0 HKCU "${REG_USER_SET}" "Start Menu Folder" ; Replace MUI_STARTMENUPAGE_REGISTRY_*
+		${Else}
+			ReadRegStr $R0 HKLM "${REG_USER_SET}" "Start Menu Folder" ; Replace MUI_STARTMENUPAGE_REGISTRY_*
+		${EndIf}
 		${If} $R0 == "" ; Set default folder
 			StrCpy $StartMenuFolder "${PRODUCT}"
 		${Else} ; Load stored folder
@@ -769,6 +790,7 @@ Function .onInit
 	Push $R1
 	Push $R2
 	${If} $HKEY == "HKLM"
+	${OrIf} $HKEY == "Classic"
 		ReadRegStr $R1 HKLM "${REG_UNINSTALL}" "DisplayVersion"
 		ReadRegStr $R2 HKLM ${REG_USER_SET} "Package"
 	${Else}
@@ -778,6 +800,7 @@ Function .onInit
 	${If} $R2 == "bluefish-unstable"
 		MessageBox MB_OKCANCEL "$(UNSTABLE_UPGRADE)" IDCANCEL +7
 			${If} $HKEY == "HKLM"
+			${OrIf} $HKEY == "Classic"
 				ReadRegStr $R2 HKLM ${REG_UNINSTALL} "UninstallString"
 			${Else}
 				ReadRegStr $R2 HKLM ${REG_UNINSTALL} "UninstallString"
@@ -789,6 +812,7 @@ Function .onInit
 ; Fix a bug from the 1.3.7 installers, Path should be REG_EXPAND_SZ or variable expansion breaks
 	${If} $R1 == "1.3.7"
 		${If} $HKEY == "HKLM"
+		${OrIf} $HKEY == "Classic"
 			ReadRegStr $R2 HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
 			WriteRegExpandStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
 		${Else}
@@ -798,6 +822,7 @@ Function .onInit
 	${EndIf}
 
 	${If} $HKEY == "HKLM"
+	${OrIf} $HKEY == "Classic"
 		ReadRegStr $R1 HKLM ${REG_USER_SET} "Version"
 	${Else}
 		ReadRegStr $R1 HKCU ${REG_USER_SET} "Version"
@@ -843,10 +868,11 @@ Function .onInit
 		StrCpy $R2 0
 		StrCpy $R0 "init"
 		${While} $R0 != ""
-			${If} $HKEY == "HKLM"
-				EnumRegKey $R0 HKLM "${REG_USER_SET}\Aspell" $R2
-			${Else}
+			${If} $HKEY == "HKCU"
+			${OrIf} $HKEY == "Classic"
 				EnumRegKey $R0 HKCU "${REG_USER_SET}\Aspell" $R2
+			${Else}
+				EnumRegKey $R0 HKLM "${REG_USER_SET}\Aspell" $R2
 			${EndIf}
 			IntOp $R2 $R2 + 1
 			${Switch} $R0
@@ -1245,6 +1271,7 @@ Function GtkInstallPath
 	Push $R3
 	DetailPrint "$(GTK_PATH)"
 	${If} $HKEY == "HKLM"
+	${OrIf} $HKEY == "Classic"
 		; Get the current system path variable from the registry
 		ReadRegStr $R2 HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path"
 	${Else}
@@ -1264,6 +1291,7 @@ Function GtkInstallPath
 		StrCpy $R2 "$R2;$R3"
 		; Write the updated system path to the registry
 		${If} $HKEY == "HKLM"
+		${OrIf} $HKEY == "Classic"
 			WriteRegExpandStr HKLM "System\CurrentControlSet\Control\Session Manager\Environment" "Path" $R2
 		${Else}
 			WriteRegExpandStr HKCU "Environment" "Path" $R2
@@ -1288,16 +1316,31 @@ Function un.onInit
 	${If} $1 == ""
 	${OrIf} $0 == "Admin"
 	${OrIf} $0 == "Power"
-		StrCpy $HKEY "HKLM"
+		ReadRegStr $R0 HKLM "${REG_USER_SET}" ""
+		${If} $R0 != ""
+			StrCpy $HKEY "Classic"
+		${Else}
+			StrCpy $HKEY "HKLM"
+		${EndIf}
 		SetShellVarContext all
 
-		ReadRegStr $R0 HKLM "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
+		${If} $HKEY != "Classic"
+			ReadRegStr $R0 HKLM "${REG_USER_SET}" "" ; Replace InstallDirRegKey function
+		${EndIf}
 		StrCpy $INSTDIR $R0
 
-		ReadRegStr $R0 HKLM "${REG_USER_SET}" "Installer Language" ; Replace defining MUI_LANGDLL_REGISTRY_*
+		${If} $HKEY == "Classic"
+			ReadRegStr $R0 HKCU "${REG_USER_SET}" "Installer Language" ; Replace defining MUI_LANGDLL_REGISTRY_*
+		${Else}
+			ReadRegStr $R0 HKLM "${REG_USER_SET}" "Installer Language" ; Replace defining MUI_LANGDLL_REGISTRY_*
+		${EndIf}
 		StrCpy $LANGUAGE $R0 ; Replace macro MUI_UNGETLANGUAGE
 
-		ReadRegStr $R0 HKLM "${REG_USER_SET}" "Start Menu Folder" ; Replace MUI_STARTMENUPAGE_REGISTRY_*
+		${If} $HKEY == "Classic"
+			ReadRegStr $R0 HKCU "${REG_USER_SET}" "Start Menu Folder" ; Replace MUI_STARTMENUPAGE_REGISTRY_*
+		${Else}
+			ReadRegStr $R0 HKLM "${REG_USER_SET}" "Start Menu Folder" ; Replace MUI_STARTMENUPAGE_REGISTRY_*
+		${EndIf}
 		StrCpy $StartMenuFolder $R0 ; Replace macro MUI_STARTMENU_GETFOLDER
 	${Else}
 		StrCpy $HKEY "HKCU"
@@ -1326,6 +1369,7 @@ Function un.UnRegisterFileTypes
 	StrCpy $0 "init"
 	${While} $0 != ""
 		${If} $HKEY == "HKLM"
+		${OrIf} $HKEY == "Classic"
 			EnumRegKey $0 HKLM "${REG_UNINSTALL}\Backup\HKCR" $1
 			IntOp $1 $1 + 1
 			${If} $0 != ""
@@ -1406,6 +1450,19 @@ Function un.UnRegisterHTML
 		ReadRegStr $R3 HKLM "${REG_UNINSTALL}\Backup\HTML" "command2"
 		${If} $R3 != ""
 			WriteRegStr HKLM "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" $R3
+		${EndIf}
+	${ElseIf} $HKEY == "Classic"
+		ReadRegStr $R1 HKLM "${REG_UNINSTALL}\Backup\HTML" "Description"
+		${If} $R1 != ""
+			WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" $R1
+		${EndIf}
+		ReadRegStr $R2 HKLM "${REG_UNINSTALL}\Backup\HTML" "command"
+		${If} $R2 != ""
+			WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" $R2
+		${EndIf}
+		ReadRegStr $R3 HKLM "${REG_UNINSTALL}\Backup\HTML" "command2"
+		${If} $R3 != ""
+			WriteRegStr HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" $R3
 		${EndIf}
 	${Else}
 		ReadRegStr $R1 HKCU "${REG_UNINSTALL}\Backup\HTML" "Description"
