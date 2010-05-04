@@ -460,9 +460,15 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 
 	${If} $HKEY == "HKLM"
 	${OrIf} $HKEY == "Classic"
-		WriteRegStr HKLM "${REG_USER_SET}" "" "$\"$INSTDIR$\"" ; Replace InstallDirRegKey function
-		WriteRegStr HKLM "${REG_USER_SET}" "Version" "${VERSION}"
-		WriteRegStr HKLM "${REG_USER_SET}" "Package" "${PACKAGE}"
+		${If} $HKEY == "Classic"
+			WriteRegStr HKCU "${REG_USER_SET}" "" "$INSTDIR" ; Replace InstallDirRegKey function
+			WriteRegStr HKCU "${REG_USER_SET}" "Version" "${VERSION}"
+			WriteRegStr HKCU "${REG_USER_SET}" "Package" "${PACKAGE}"
+		${Else}
+			WriteRegStr HKLM "${REG_USER_SET}" "" "$INSTDIR" ; Replace InstallDirRegKey function
+			WriteRegStr HKLM "${REG_USER_SET}" "Version" "${VERSION}"
+			WriteRegStr HKLM "${REG_USER_SET}" "Package" "${PACKAGE}"
+		${EndIf}
 
 		WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayName" 		"${PRODUCT} ${VERSION}"
 		WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayIcon" 		"$INSTDIR\${PROGRAM_EXE}"
@@ -698,7 +704,7 @@ Function .onInit
 	${If} $1 == ""
 	${OrIf} $0 == "Admin"
 	${OrIf} $0 == "Power"
-		ReadRegStr $R0 HKLM "${REG_USER_SET}" ""
+		ReadRegStr $R0 HKCU "${REG_USER_SET}" ""
 		${If} $R0 != ""
 			StrCpy $HKEY "Classic"
 		${Else}
@@ -792,16 +798,20 @@ Function .onInit
 	${If} $HKEY == "HKLM"
 	${OrIf} $HKEY == "Classic"
 		ReadRegStr $R1 HKLM "${REG_UNINSTALL}" "DisplayVersion"
-		ReadRegStr $R2 HKLM ${REG_USER_SET} "Package"
+		${If} $HKEY == "Classic"
+			ReadRegStr $R2 HKCU ${REG_USER_SET} "Package"
+		${Else}
+			ReadRegStr $R2 HKLM ${REG_USER_SET} "Package"
+		${EndIf}
 	${Else}
 		ReadRegStr $R1 HKCU "${REG_UNINSTALL}" "DisplayVersion"
 		ReadRegStr $R2 HKCU ${REG_USER_SET} "Package"
 	${EndIf}
 	${If} $R2 == "bluefish-unstable"
 		MessageBox MB_OKCANCEL "$(UNSTABLE_UPGRADE)" IDCANCEL +7
-			${If} $HKEY == "HKLM"
+			${If} $HKEY == "HKCU"
 			${OrIf} $HKEY == "Classic"
-				ReadRegStr $R2 HKLM ${REG_UNINSTALL} "UninstallString"
+				ReadRegStr $R2 HKCU ${REG_UNINSTALL} "UninstallString"
 			${Else}
 				ReadRegStr $R2 HKLM ${REG_UNINSTALL} "UninstallString"
 			${EndIf}
@@ -821,11 +831,11 @@ Function .onInit
 		${EndIf}
 	${EndIf}
 
-	${If} $HKEY == "HKLM"
+	${If} $HKEY == "HKCU"
 	${OrIf} $HKEY == "Classic"
-		ReadRegStr $R1 HKLM ${REG_USER_SET} "Version"
-	${Else}
 		ReadRegStr $R1 HKCU ${REG_USER_SET} "Version"
+	${Else}
+		ReadRegStr $R1 HKLM ${REG_USER_SET} "Version"
 	${EndIf}
 
 ; Fix would be uninstall problems prior to 2.0.0-1
@@ -1316,7 +1326,7 @@ Function un.onInit
 	${If} $1 == ""
 	${OrIf} $0 == "Admin"
 	${OrIf} $0 == "Power"
-		ReadRegStr $R0 HKLM "${REG_USER_SET}" ""
+		ReadRegStr $R0 HKCU "${REG_USER_SET}" ""
 		${If} $R0 != ""
 			StrCpy $HKEY "Classic"
 		${Else}
