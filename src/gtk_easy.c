@@ -233,8 +233,6 @@ void button_apply(gchar ** config_var, GtkWidget * entry)
 void string_apply(gchar ** config_var, GtkWidget * widget)
 {
 	gchar *tmpstring;
-	DEBUG_MSG("string_apply, start\n");
-
 	if (GTK_IS_COMBO_BOX(widget)) {
 		tmpstring = gtk_combo_box_get_active_text(GTK_COMBO_BOX(widget));
 	} else {

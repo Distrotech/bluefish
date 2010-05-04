@@ -1622,6 +1622,7 @@ static void preferences_dialog() {
 	}
 	pd->prefs[newfile_default_encoding] = prefs_combo(_("Default character set for new files"),main_v->props.newfile_default_encoding, vbox2, poplist, TRUE);
 	g_list_free(poplist);
+	poplist=NULL;
 
 	pd->prefs[auto_set_encoding_meta] = boxed_checkbut_with_value(_("Auto set <meta> HTML tag on encoding change"), main_v->props.auto_set_encoding_meta, vbox2);
 
@@ -1678,7 +1679,7 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
 	poplist = list_from_arglist(FALSE, _("Auto"), "NL", "DE", "ES", NULL);
-	pd->prefs[language] = pd->prefs[newfile_default_encoding] = prefs_combo(_("Language"),(main_v->props.language&&main_v->props.language[0])?main_v->props.language:_("Auto"), vbox2, poplist, FALSE);
+	pd->prefs[language] = prefs_combo(_("Language"),(main_v->props.language&&main_v->props.language[0])?main_v->props.language:_("Auto"), vbox2, poplist, FALSE);
 	g_list_free(poplist);
 
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
