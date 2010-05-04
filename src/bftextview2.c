@@ -870,6 +870,7 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 	
 	if (main_v->props.editor_smart_cursor && !(kevent->state & GDK_CONTROL_MASK) && ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End))) {
 		GtkTextMark* imark;
+		gboolean ret;
 		GtkTextIter iter, currentpos, linestart;
 		GtkTextBuffer *buffer = GTK_TEXT_VIEW(btv)->buffer;
 
@@ -883,7 +884,7 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 
 			while (g_unichar_isspace(gtk_text_iter_get_char (&iter)) && !gtk_text_iter_ends_line(&iter))
 				gtk_text_iter_forward_char (&iter);*/
-			bf_text_iter_line_start_of_text(&iter, &linestart);
+			ret = bf_text_iter_line_start_of_text(&iter, &linestart);
 		} else { /* (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End) */
 			/*if (!gtk_text_iter_ends_line(&iter))
 				gtk_text_iter_forward_to_line_end(&iter);
@@ -894,16 +895,18 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 				gtk_text_iter_backward_char(&iter);
 			if ((!gtk_text_iter_starts_line (&iter) || !gtk_text_iter_ends_line (&iter)) && !g_unichar_isspace (gtk_text_iter_get_char (&iter)))
 				gtk_text_iter_forward_char(&iter);*/
-			bf_text_iter_line_end_of_text(&iter, &linestart);
+			ret = bf_text_iter_line_end_of_text(&iter, &linestart);
 		}
-		if (gtk_text_iter_compare(&currentpos, &iter) == 0)
-			iter = linestart;
-		if (kevent->state & GDK_SHIFT_MASK)
-			gtk_text_buffer_move_mark(buffer, imark, &iter);
-		else
-			gtk_text_buffer_place_cursor(buffer, &iter);
-		gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(btv), gtk_text_buffer_get_insert(buffer));
-		return TRUE;
+		if (ret) {
+			if (gtk_text_iter_compare(&currentpos, &iter) == 0)
+				iter = linestart;
+			if (kevent->state & GDK_SHIFT_MASK)
+				gtk_text_buffer_move_mark(buffer, imark, &iter);
+			else
+				gtk_text_buffer_place_cursor(buffer, &iter);
+			gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(btv), gtk_text_buffer_get_insert(buffer));
+			return TRUE;
+		}
 	}
 	if (main_v->props.editor_tab_indent_sel && (kevent->keyval == GDK_Tab || kevent->keyval == GDK_KP_Tab || kevent->keyval == GDK_ISO_Left_Tab) 
 			&& (!(kevent->state & GDK_CONTROL_MASK)) ) { /* shift-tab is also known as GDK_ISO_Left_Tab */
