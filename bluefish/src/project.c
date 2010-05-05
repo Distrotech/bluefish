@@ -155,7 +155,7 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 	bmark_set_store(bfwin);
 	/* normally there is always a current_document, but this function might be called in the transition
 	after all documents are just closed */
-	if (bfwin->current_document) gui_set_title(bfwin, bfwin->current_document);
+	if (bfwin->current_document) gui_set_title(bfwin, bfwin->current_document, 0);
 
 	gui_apply_session(bfwin);
 	set_project_menu_widgets(bfwin, FALSE);
@@ -479,7 +479,7 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 		pred->bfwin->session = pred->project->session;
 		setup_bfwin_for_project(pred->bfwin);
 	} else {
-		gui_set_title(pred->bfwin, pred->bfwin->current_document);
+		gui_set_title(pred->bfwin, pred->bfwin->current_document, 0);
 	}
 /* set_project_menu_widgets(pred->bfwin, TRUE);*/
 	project_save(pred->bfwin,FALSE);
