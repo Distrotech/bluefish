@@ -2,7 +2,7 @@
  * bookmark.c - bookmarks
  *
  * Copyright (C) 2003 Oskar Swida
- * modifications (C) 2004-2009 Olivier Sessink
+ * modifications (C) 2004-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -499,26 +499,34 @@ void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 	gtk_widget_destroy(dlg);
 }
 
-static void bmark_popup_menu_goto(Tbfwin *bfwin) {
-	Tbmark *b;
+static void bmark_activate(Tbfwin *bfwin, Tbmark *b) {
 	GtkTextIter it;
 
-	b = get_current_bmark(bfwin);
-	if (b) {
-		if ( b->doc && b->mark ) {
-			/* recalculate offset */
-			gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
-			b->offset = gtk_text_iter_get_offset(&it);
-		}
-		DEBUG_MSG("bmark_popup_menu_goto, bmark at %p, filepath at %p\n",b, b->filepath);
-		DEBUG_MSG("bmark_popup_menu_goto, calling doc_new_from_uri with goto_offset %d\n",b->offset);
-		doc_new_from_uri(bfwin, b->filepath, NULL, FALSE, FALSE, -1, b->offset);
-		/* remove selection */
-		if ( b->doc ) {
-			gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,gtk_text_buffer_get_insert(b->doc->buffer));
-			gtk_text_buffer_move_mark_by_name(b->doc->buffer, "selection_bound", &it);
-		}
+	if (!b)
+		return;
+
+	if ( b->doc && b->mark ) {
+		/* recalculate offset */
+		gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
+		b->offset = gtk_text_iter_get_offset(&it);
+	}
+	DEBUG_MSG("bmark_popup_menu_goto, bmark at %p, filepath at %p\n",b, b->filepath);
+	DEBUG_MSG("bmark_popup_menu_goto, calling doc_new_from_uri with goto_offset %d\n",b->offset);
+	doc_new_from_uri(bfwin, b->filepath, NULL, FALSE, FALSE, -1, b->offset);
+	/* remove selection */
+	if ( b->doc ) {
+		gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,gtk_text_buffer_get_insert(b->doc->buffer));
+		gtk_text_buffer_move_mark_by_name(b->doc->buffer, "selection_bound", &it);
+		gtk_widget_grab_focus(b->doc->view);
+	} else {
 		gtk_widget_grab_focus(bfwin->current_document->view);
+	}
+}
+
+static void bmark_popup_menu_goto(Tbfwin *bfwin) {
+	Tbmark *b = get_current_bmark(bfwin);
+	if (b) {
+		bmark_activate(bfwin, b);
 	}
 }
 /*
@@ -791,43 +799,51 @@ static gboolean bmark_event_mouseclick(GtkWidget * widget, GdkEventButton * even
 }
 
 static void bmark_selection_changed_lcb(GtkTreeSelection *treeselection,Tbfwin * bfwin) {
+	/* this is not the best way to activate bookmarks. according to the gtk documentation:
+	Emitted whenever the selection has (possibly) changed. Please note that this signal is 
+	mostly a hint. It may only be emitted once when a range of rows are selected, and it 
+	may occasionally be emitted when nothing has happened.
+	
+	THUS: we should better use the mouse click event to find the correct bookmark to 
+	activate.
+	*/
 	DEBUG_MSG("bmark_selection_changed_lcb, started\n");
 	bmark_popup_menu_goto(bfwin);
 }
 
 void bookmark_menu_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
-	GtkTreeModel *model;
+	GtkTreeModel *model = GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore);
 	GtkTreeIter iter;
+	Tdocument *doc = bfwin->current_document;
+	gboolean haveiter=TRUE;
 	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(bfwin->bmark));
-	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
-		gboolean success=TRUE;
-		switch (action) {
-			case 1:/* first */ {
-				GtkTreePath *path= gtk_tree_model_get_path(model,&iter);
-				gtk_tree_path_up(path);
-				gtk_tree_path_down(path);
-				success = gtk_tree_model_get_iter(model,&iter,path);
-				gtk_tree_path_free(path);
-			} break;
-			case 2: 	/* previous */ {
+	
+	if (!doc || !doc->bmark_parent)
+		return;
+	
+	if (action == 1) /* first */ {
+			GtkTreeIter tmp;
+			haveiter = gtk_tree_model_iter_children(model,&tmp,doc->bmark_parent);
+			gtk_tree_model_filter_convert_child_iter_to_iter(bfwin->bmarkfilter,&iter,&tmp);
+	} else if (action == 4) /* last */ {
+			gint num;
+			GtkTreeIter tmp;
+			num = gtk_tree_model_iter_n_children(model,doc->bmark_parent);
+			gtk_tree_model_iter_nth_child(model,&tmp,doc->bmark_parent,num-1);
+			gtk_tree_model_filter_convert_child_iter_to_iter(bfwin->bmarkfilter,&iter,&tmp);
+	} else {
+		if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
+			if (action == 2) 	/* previous */ {
 				GtkTreePath *path= gtk_tree_model_get_path(model,&iter);
 				gtk_tree_path_prev(path);
-				success = gtk_tree_model_get_iter(model,&iter,path);
+				haveiter = gtk_tree_model_get_iter(model,&iter,path);
 				gtk_tree_path_free(path);
-			} break;
-			case 3:/* next */
-				success = gtk_tree_model_iter_next(model,&iter);
-			break;
-			case 4: /* last */ {
-				GtkTreeIter parent;
-				gint num;
-				success = gtk_tree_model_iter_parent(model,&parent,&iter);
-				num = gtk_tree_model_iter_n_children(model,&parent);
-				gtk_tree_model_iter_nth_child(model,&iter,&parent,num-1);
-			} break;
+			} else if (action == 3)/* next */ {
+				haveiter = gtk_tree_model_iter_next(model,&iter);
+			}
 		}
-		if (success) gtk_tree_selection_select_iter(selection,&iter);
 	}
+	if (haveiter) gtk_tree_selection_select_iter(selection,&iter);
 }
 static void bmark_first_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	bookmark_menu_cb(bfwin,1,widget);
