@@ -445,7 +445,7 @@ void doc_set_title(Tdocument *doc) {
 	g_free(label_string);
 	g_free(tabmenu_string);
 	if (doc == BFWIN(doc->bfwin)->current_document) {
-		gui_set_title(doc->bfwin, doc);
+		gui_set_title(doc->bfwin, doc, 0);
 	}
 }
 
@@ -837,7 +837,7 @@ void doc_set_status(Tdocument *doc, gint status) {
  *
  * Return value: void
  **/
-void doc_set_modified(Tdocument *doc, gint value) {
+void doc_set_modified(Tdocument *doc, gboolean value) {
 	DEBUG_MSG("doc_set_modified, started, doc=%p, value=%d\n", doc, value);
 	if (value) {
 		need_autosave(doc);
@@ -846,10 +846,12 @@ void doc_set_modified(Tdocument *doc, gint value) {
 	}
 	if (doc->modified != value) {
 		gchar *color= NULL;
+		gint change = (value-doc->modified);		
 		doc->modified = value;
 		if (doc->modified)
 			color = main_v->props.tab_color_modified;
 		doc_set_label_color(doc, color);
+		gui_set_title(BFWIN(doc->bfwin), BFWIN(doc->bfwin)->current_document, change);
 	}
 #ifdef DEBUG
 	else {
@@ -2890,7 +2892,7 @@ void doc_activate(Tdocument *doc) {
 
 	DEBUG_MSG("doc_activate, calling gui_set_document_widgets()\n");
 	gui_set_document_widgets(doc);
-	gui_set_title(BFWIN(doc->bfwin), doc);
+	gui_set_title(BFWIN(doc->bfwin), doc, 0);
 	doc_set_statusbar_lncol(doc);
 	doc_set_statusbar_insovr(doc);
 	doc_set_statusbar_lang_encoding(doc);

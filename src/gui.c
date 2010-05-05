@@ -383,11 +383,18 @@ gboolean left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean
 	return TRUE;
 }
 
-void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
+void gui_set_title(Tbfwin *bfwin, Tdocument *doc, gint num_modified_change) {
 	gchar *title, *prfilepart;
 	gint modified_docs;
 	const gchar *tablabel;
+	
 	modified_docs = have_modified_documents(bfwin->documentlist);
+	if (num_modified_change != 0 && (modified_docs > 1 
+			|| (modified_docs==0 && num_modified_change!=-1) 
+			|| (modified_docs==1 && num_modified_change!=1))) {
+		/* no title change */
+		return;
+	}
 	tablabel = gtk_label_get_text(GTK_LABEL(doc->tab_label));
 	if (doc->uri) {
 		gchar *curi = g_file_get_uri(doc->uri);
