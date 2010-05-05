@@ -384,15 +384,25 @@ gboolean left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean
 }
 
 void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
-	gchar *title, *prfilepart;
+	gchar *title, *prfilepart, *curi=NULL;
+	gint modified_docs;
 	const gchar *tablabel;
+	modified_docs = have_modified_documents(bfwin->documentlist);
 	tablabel = gtk_label_get_text(GTK_LABEL(doc->tab_label));
+	if (doc->uri)
+		curi = g_file_get_uri(doc->uri);
+	else
+		curi = g_strdup("***");
 	if (bfwin->project) {
-		prfilepart = g_strconcat(bfwin->project->name," - ",tablabel,NULL);
+		prfilepart = g_strconcat(bfwin->project->name," - ",tablabel," (", curi, ")",NULL);
 	} else {
-		prfilepart = g_strdup(tablabel);
+		prfilepart = g_strconcat(tablabel, " (", curi, ")", NULL);
 	}
-	title = g_strconcat(prfilepart, " - Bluefish "VERSION,NULL);
+	if (modified_docs==0) {
+		title = g_strconcat(prfilepart, " - Bluefish "VERSION,NULL);
+	} else {
+		title = g_strconcat("* ", prfilepart, " - Bluefish "VERSION,NULL);
+	}
 	gtk_window_set_title(GTK_WINDOW(bfwin->main_window),title);
 	/*rename_window_entry_in_all_windows(bfwin, title);*/
 	g_free(title);
