@@ -105,7 +105,7 @@ VIAddVersionKey "FileDescription" "Bluefish Installer"
 !include "StrFunc.nsh"
 ${StrStr}
 ${StrTok}
-${UnStrStr}
+${UnStrLoc}
 
 
 ; MUI configuration
@@ -483,7 +483,7 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 		WriteRegStr HKLM "${REG_USER_SET}" "Installer Language" $LANGUAGE ; Replace macro MUI_LANGDLL_SAVELANGUAGE
 		WriteRegStr HKLM "${REG_USER_SET}" "Start Menu Folder" $StartMenuFolder ; Replace macros MUI_STARTMENU_WRITE_*
 	${Else}
-		WriteRegStr HKCU "${REG_USER_SET}" "" "$\"$INSTDIR$\"" ; Replace InstallDirRegKey function
+		WriteRegStr HKCU "${REG_USER_SET}" "" "$INSTDIR" ; Replace InstallDirRegKey function
 		WriteRegStr HKCU "${REG_USER_SET}" "Version" "${VERSION}"
 		WriteRegStr HKCU "${REG_USER_SET}" "Package" "${PACKAGE}"
 
@@ -1374,6 +1374,7 @@ Function un.UnRegisterFileTypes
 	Push $R1
 	Push $R2
 	Push $R3
+	Push $R4
 
 	StrCpy $1 0
 	StrCpy $0 "init"
@@ -1385,12 +1386,12 @@ Function un.UnRegisterFileTypes
 			${If} $0 != ""
 				ReadRegStr $R0 HKLM "${REG_UNINSTALL}\Backup\HKCR\$0" "" ; Read stored class
 				ReadRegStr $R2 HKCR $0 "" ; Read current class
-				${UnStrStr} $R3 ${BF_FILE_CLASSES} $R2 ; Check if current class is a Bluefish class
+				${UnStrLoc} $R3 ${BF_FILE_CLASSES} $R2 "<" ; Check if current class is a Bluefish class
+				StrLen $R4 ${BF_FILE_CLASSES}
 				${If} $R0 == $R2 ; If the current class is the same as we stored
-				${OrIf} $R3 != "" ; Or if the current class is a Bluefish class continue restoring the stored class
+				${OrIf} $R3 != $R4 ; Or if the current class is a Bluefish class continue restoring the stored class
 					${If} $R0 == "" ; If the stored class is unset simply remove it
-						DeleteRegValue HKCR $0 ""
-						DeleteRegKey /ifempty HKCR $0
+						DeleteRegKey HKCR $0
 					${ElseIf} $R0 != $R2 ; Else the stored class needs to be restored
 						WriteRegStr HKCR $0 "" $R0
 					${EndIf} ; Stored class has been restored
@@ -1412,12 +1413,12 @@ Function un.UnRegisterFileTypes
 			${If} $0 != ""
 				ReadRegStr $R0 HKCU "${REG_UNINSTALL}\Backup\HKCR\$0" "" ; Read stored class
 				ReadRegStr $R2 HKCU "${REG_CLASS_SET}\$0" "" ; Read current class
-				${UnStrStr} $R3 ${BF_FILE_CLASSES} $R2 ; Check if current class is a Bluefish class
+				${UnStrLoc} $R3 ${BF_FILE_CLASSES} $R2 "<" ; Check if current class is a Bluefish class
+				StrLen $R4 ${BF_FILE_CLASSES}
 				${If} $R0 == $R2 ; If the current class is the same as we stored
-				${OrIf} $R3 != "" ; Or if the current class is a Bluefish class continue restoring the stored class
+				${OrIf} $R3 != $R4 ; Or if the current class is a Bluefish class continue restoring the stored class
 					${If} $R0 == "" ; If the stored class is unset simply remove it
-						DeleteRegValue HKCU "${REG_CLASS_SET}\$0" ""
-						DeleteRegKey /ifempty HKCU "${REG_CLASS_SET}\$0"
+						DeleteRegKey HKCU "${REG_CLASS_SET}\$0"
 					${ElseIf} $R0 != $R2 ; Else the stored class needs to be restored
 						WriteRegStr HKCU "${REG_CLASS_SET}\$0" "" $R0
 					${EndIf} ; Stored class has been restored
@@ -1436,6 +1437,7 @@ Function un.UnRegisterFileTypes
 		${EndIf}
 	${EndWhile}
 
+	Pop $R4
 	Pop $R3
 	Pop $R2
 	Pop $R1
