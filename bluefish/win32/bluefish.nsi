@@ -76,7 +76,7 @@ Name		"${PRODUCT} v${VERSION}"
 OutFile		"${PRODUCT}-${VERSION}-setup.exe"
 InstallDir	"$PROGRAMFILES32\${PRODUCT}"
 
-; Tell Windows Vista and Windows 7 that we need admin rights to install
+; Tell Windows Vista and Windows 7 that we want admin rights to install
 RequestExecutionLevel admin
 
 SetCompressor /SOLID lzma
@@ -86,10 +86,10 @@ ShowUninstDetails show
 
 ; Installer version information
 ;----------------------------------------------
-VIProductVersion "2.0.0.0"
+VIProductVersion "2.0.1.0"
 VIAddVersionKey "ProductName" "${PRODUCT}"
 VIAddVersionKey "FileVersion" "${VERSION}"
-VIAddVersionKey "ProductVersion" "2.0"
+VIAddVersionKey "ProductVersion" "${VERSION}"
 VIAddVersionKey "LegalCopyright" ""
 VIAddVersionKey "FileDescription" "Bluefish Installer"
 
@@ -141,16 +141,16 @@ ${UnStrLoc}
 	${Else}
 		DetailPrint "$(DICT_DOWNLOAD) (${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2)"
 		Delete "$TEMP\aspell6-${LANG}-${VER}.tbz2" ; Should never happen but just in case
-		NSISdl::download "${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2" "$TEMP\aspell6-${LANG}-${VER}.tbz2"
+		inetc::get /TRANSLATE "$(INETC_DOWN)" "$(INETC_CONN)" "$(INETC_TSEC)" "$(INETC_TMIN)" "$(INETC_THOUR)" "$(INETC_TPLUR)" "$(INETC_PROGRESS)" "$(INETC_REMAIN)" "${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2" "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 		Pop $R0
-		StrCmp $R0 "success" +4
-			MessageBox MB_OK "$(DICT_FAILED) $R0" ; Alert the user that the download failed
+		StrCmp $R0 "OK" +4
+			MessageBox MB_OK|MB_ICONEXCLAMATION "$(DICT_FAILED) $R0" ; Alert the user that the download failed
 			Delete "$TEMP\aspell6-${LANG}-${VER}.tbz2" ; Remove possible partially downloaded file
 			Return ; Failed to download a dictionary, leave gracefully
 		DetailPrint "$(DICT_EXTRACT) (aspell6-${LANG}-${VER}.tbz2)"
 		untgz::extract "-d" "$INSTDIR" "-u" "-zbz2" "$TEMP\aspell6-${LANG}-${VER}.tbz2"
 		Pop $R0
-		StrCmp $R0 "success" 0 +6
+		StrCmp $R0 "success" 0 +7
 			${If} $HKEY == "HKCU"
 			${OrIf} $HKEY == "Classic"
 				WriteRegStr HKCU "${REG_USER_SET}\Aspell\${LANG}" "" "${VER}"
@@ -298,6 +298,8 @@ ${UnStrLoc}
 	!insertmacro Localize "GTK_DOWNLOAD" "${LANG}"
 	!insertmacro Localize "GTK_FAILED" "${LANG}"
 	!insertmacro Localize "GTK_INSTALL" "${LANG}"
+	!insertmacro Localize "GTK_PATH" "${LANG}"
+	!insertmacro Localize "GTK_REQUIRED" "${LANG}"
 
 	!insertmacro Localize "SECT_PLUGINS" "${LANG}"
 	!insertmacro Localize "PLUG_CHARMAP" "${LANG}"
@@ -315,7 +317,14 @@ ${UnStrLoc}
 	!insertmacro Localize "FA_SELECT" "${LANG}"
 	!insertmacro Localize "FA_UNSELECT" "${LANG}"
 
-	!insertmacro Localize "GTK_PATH" "${LANG}"
+	!insertmacro Localize "INETC_DOWN" "${LANG}"
+	!insertmacro Localize "INETC_CONN" "${LANG}"
+	!insertmacro Localize "INETC_TSEC" "${LANG}"
+	!insertmacro Localize "INETC_TMIN" "${LANG}"
+	!insertmacro Localize "INETC_THOUR" "${LANG}"
+	!insertmacro Localize "INETC_TPLUR" "${LANG}"
+	!insertmacro Localize "INETC_PROGRESS" "${LANG}"
+	!insertmacro Localize "INETC_REMAIN" "${LANG}"
 
 	!insertmacro Localize "CT_ADA" "${LANG}"
 	!insertmacro Localize "CT_ASP" "${LANG}"
@@ -512,11 +521,11 @@ Section "-GTK+ Installer" SecGTK
 	${If} $GTK_STATUS == ""
 		DetailPrint "$(GTK_DOWNLOAD) (${GTK_URL}/${GTK_FILENAME})"
 		Delete "$TEMP\${GTK_FILENAME}" ; Should never happen but just in case
-		NSISdl::download "${GTK_URL}/${GTK_FILENAME}" "$TEMP\${GTK_FILENAME}"
+		inetc::get /TRANSLATE "$(INETC_DOWN)" "$(INETC_CONN)" "$(INETC_TSEC)" "$(INETC_TMIN)" "$(INETC_THOUR)" "$(INETC_TPLUR)" "$(INETC_PROGRESS)" "$(INETC_REMAIN)" "${GTK_URL}/${GTK_FILENAME}" "$TEMP\${GTK_FILENAME}"
 		Pop $R0
-			StrCmp $R0 "success" +3
-				MessageBox MB_OK "$(GTK_FAILED) $R0"
-				Quit 
+			StrCmp $R0 "OK" +3
+				MessageBox MB_OK|MB_ICONEXCLAMATION "$(GTK_FAILED) $R0$\n$\n$(GTK_REQUIRED)"
+				Return
 		DetailPrint "$(GTK_INSTALL) (${GTK_FILENAME})"
 		ExecWait '"$TEMP\${GTK_FILENAME}"'
 		Delete "$TEMP\${GTK_FILENAME}"
