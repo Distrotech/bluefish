@@ -1113,7 +1113,7 @@ Function FileAssociations
 	nsDialogs::Show
 FunctionEnd
 
-!define BF_FILE_CLASSES "bfdifffile,bfmwfile,bfadafile,bfaspfile,bfshfile,bfprojectfile,bflang2file,bfcfile,bfhfile,bfcppfile,bfhppfile,bfcssfile,bfdfile,bfpofile,bfjavafile,bfjsfile,bfjspfile,bfnsifile,bfnshfile,bfplfile,bfphpfile,bftxtfile,bfpyfile,bfrbfile,bfsmartyfile,bfvbsfile,bfxhtmlfile,bfxmlfile,bfxslfile"
+!define BF_FILE_CLASSES "bf_must_be_first,bfdifffile,bfmwfile,bfadafile,bfaspfile,bfshfile,bfprojectfile,bflang2file,bfcfile,bfhfile,bfcppfile,bfhppfile,bfcssfile,bfdfile,bfpofile,bfjavafile,bfjsfile,bfjspfile,bfnsifile,bfnshfile,bfplfile,bfphpfile,bftxtfile,bfpyfile,bfrbfile,bfsmartyfile,bfvbsfile,bfxhtmlfile,bfxmlfile,bfxslfile"
 Function SetFileAssociations
 	;                     HWND			Extension	Mime Type		Handler	Content Type	ICON Id
 	${RegisterFileType} $FA_Ada  	"ada" 	"text/x-ada" 			"bfadafile" "$(CT_ADA)" 1
