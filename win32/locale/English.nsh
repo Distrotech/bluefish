@@ -29,6 +29,7 @@
 !define GTK_FAILED "GTK+ Download failed:"
 !define GTK_INSTALL "Installing GTK+..."
 !define GTK_PATH "Installing GTK+ in the system path."
+!define GTK_REQUIRED "Please install GTK+ 2.14.7 or higher and make sure it is in your PATH before running Bluefish."
 
 ; Plugin Names
 !define PLUG_CHARMAP "Character Map"
@@ -48,6 +49,17 @@
 !define UNINSTALL_SHORTCUT "Uninstall ${PRODUCT}"
 !define FILETYPE_REGISTER "Registering File Type:"
 !define UNSTABLE_UPGRADE "An unstable release of ${PRODUCT} is installed.$\nShould previous versions be removed before we continue (Recommended)?"
+
+; InetC Plugin Translations
+;  /TRANSLATE downloading connecting second minute hour plural progress remaining
+!define INETC_DOWN "Downloading %s"
+!define INETC_CONN "Connecting ..."
+!define INETC_TSEC "second"
+!define INETC_TMIN "minute"
+!define INETC_THOUR "hour"
+!define INETC_TPLUR "s"
+!define INETC_PROGRESS "%dkB (%d%%) of %dkB @ %d.%01dkB/s"
+!define INETC_REMAIN " (%d %s%s remaining)"
 
 ; Content Types
 !define CT_ADA	"Ada Source File"
