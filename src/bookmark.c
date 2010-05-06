@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -415,6 +415,12 @@ static void bmark_unstore(Tbfwin * bfwin, Tbmark * b)
 	b->strarr = NULL;
 }
 
+static Tbmark *get_bmark_at_iter(GtkTreeModel *model, GtkTreeIter *iter) {
+	Tbmark *retval = NULL;
+	gtk_tree_model_get(model,iter,PTR_COLUMN, &retval, -1);
+	return retval;
+}
+
 /* get value from pointer column */
 static Tbmark *get_current_bmark(Tbfwin * bfwin)
 {
@@ -428,7 +434,7 @@ static Tbmark *get_current_bmark(Tbfwin * bfwin)
 				GtkTreeIter iter;
 				GtkTreeModel *model = gtk_tree_view_get_model(bfwin->bmark);
 				gtk_tree_model_get_iter(model, &iter, path);
-				gtk_tree_model_get(model,&iter,PTR_COLUMN, &retval, -1);
+				retval = get_bmark_at_iter(model, &iter);
 			} else {
 				DEBUG_MSG("get_current_bmark, error, depth=%d\n",gtk_tree_path_get_depth(path));
 			}
@@ -499,7 +505,7 @@ void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 	gtk_widget_destroy(dlg);
 }
 
-static void bmark_activate(Tbfwin *bfwin, Tbmark *b) {
+static void bmark_activate(Tbfwin *bfwin, Tbmark *b, gboolean select_bmark) {
 	GtkTextIter it;
 
 	if (!b)
@@ -510,8 +516,8 @@ static void bmark_activate(Tbfwin *bfwin, Tbmark *b) {
 		gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
 		b->offset = gtk_text_iter_get_offset(&it);
 	}
-	DEBUG_MSG("bmark_popup_menu_goto, bmark at %p, filepath at %p\n",b, b->filepath);
-	DEBUG_MSG("bmark_popup_menu_goto, calling doc_new_from_uri with goto_offset %d\n",b->offset);
+	DEBUG_MSG("bmark_activate, bmark at %p, filepath at %p\n",b, b->filepath);
+	DEBUG_MSG("bmark_activate, calling doc_new_from_uri with goto_offset %d\n",b->offset);
 	doc_new_from_uri(bfwin, b->filepath, NULL, FALSE, FALSE, -1, b->offset);
 	/* remove selection */
 	if ( b->doc ) {
@@ -521,14 +527,20 @@ static void bmark_activate(Tbfwin *bfwin, Tbmark *b) {
 	} else {
 		gtk_widget_grab_focus(bfwin->current_document->view);
 	}
+	if (select_bmark) {
+		GtkTreeIter fiter;
+		gtk_tree_model_filter_convert_child_iter_to_iter(bfwin->bmarkfilter,&fiter,&b->iter);
+		gtk_tree_selection_select_iter(gtk_tree_view_get_selection(bfwin->bmark), &fiter);
+	}
+	
 }
 
-static void bmark_popup_menu_goto(Tbfwin *bfwin) {
+/*static void bmark_goto_selected(Tbfwin *bfwin) {
 	Tbmark *b = get_current_bmark(bfwin);
 	if (b) {
-		bmark_activate(bfwin, b);
+		bmark_activate(bfwin, b, FALSE);
 	}
-}
+}*/
 /*
  * removes the bookmark from the treestore, and if it is the last remaining bookmark
  * for the document, it will remove the parent iter (the filename) from the treestore as well
@@ -658,9 +670,9 @@ static void bmark_popup_menu_del(Tbfwin *bfwin) {
 static void bmark_rpopup_action_lcb(gpointer data, guint action, GtkWidget *widget) {
 	Tbfwin *bfwin = BFWIN(data);
 	switch (action) {
-		case 1:
-			bmark_popup_menu_goto(bfwin);
-		break;
+		/*case 1:
+			bmark_goto_selected(bfwin);
+		break;*/
 		case 2: {
 			Tbmark *m = get_current_bmark(bfwin);
 			if (!m) return;
@@ -721,7 +733,7 @@ static void bmark_rpopup_action_lcb(gpointer data, guint action, GtkWidget *widg
 }
 
 static GtkItemFactoryEntry bmark_rpopup_menu_entries[] = {
-	{ N_("/Goto"),		NULL,	bmark_rpopup_action_lcb,		1,	"<Item>" },
+	/*{ N_("/Goto"),		NULL,	bmark_rpopup_action_lcb,		1,	"<Item>" },*/
 	{ N_("/Edit"),NULL,	bmark_rpopup_action_lcb,	2,	"<Item>" },
 	{ N_("/Delete"),NULL,	bmark_rpopup_action_lcb,	3,	"<Item>" },
 	{ "/sep1",						NULL,	NULL,									0,	"<Separator>" },
@@ -752,7 +764,7 @@ static GtkWidget *bmark_popup_menu(Tbfwin * bfwin, gboolean show_bmark_specific,
 	menu = gtk_item_factory_get_widget(menumaker, "<Bookmarks>");
 
 	if (!show_bmark_specific) {
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Goto"), FALSE);
+		/*gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Goto"), FALSE);*/
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit"), FALSE);
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete"), FALSE);
 	}
@@ -771,24 +783,33 @@ static GtkWidget *bmark_popup_menu(Tbfwin * bfwin, gboolean show_bmark_specific,
 	return menu;
 }
 
-/* right mouse click */
+static void bmark_row_activated(GtkTreeView * tree, GtkTreePath * path,
+									GtkTreeViewColumn * column, Tbfwin *bfwin) {
+	GtkTreeIter iter;
+	gtk_tree_model_get_iter(GTK_TREE_MODEL(bfwin->bmarkfilter), &iter, path);
+	bmark_activate(bfwin, get_bmark_at_iter(GTK_TREE_MODEL(bfwin->bmarkfilter), &iter), FALSE);	
+}
+
+/* mouse click */
 static gboolean bmark_event_mouseclick(GtkWidget * widget, GdkEventButton * event, Tbfwin * bfwin) {
 	GtkTreePath *path;
 	gboolean show_bmark_specific = FALSE, show_file_specific = FALSE;
 	if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(bfwin->bmark), event->x, event->y, &path, NULL, NULL, NULL)) {
 		if (path) {
 			gint depth = gtk_tree_path_get_depth(path);
-			gtk_tree_path_free(path);
+			
 			if (depth==2) {
 				show_bmark_specific = TRUE;
 				show_file_specific = TRUE;
-/*				if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
-					bmark_popup_menu_goto(bfwin);
-					return TRUE;
-				}*/
+				if (event->button == 1) {
+					GtkTreeIter iter;
+					gtk_tree_model_get_iter(GTK_TREE_MODEL(bfwin->bmarkfilter), &iter, path);
+					bmark_activate(bfwin, get_bmark_at_iter(GTK_TREE_MODEL(bfwin->bmarkfilter), &iter), FALSE);
+				}
 			} else if (depth == 1) {
 				show_file_specific = TRUE;
 			}
+			gtk_tree_path_free(path);
 		}
 	}
 	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {	/* right mouse click */
@@ -798,53 +819,51 @@ static gboolean bmark_event_mouseclick(GtkWidget * widget, GdkEventButton * even
 	return FALSE;
 }
 
-static void bmark_selection_changed_lcb(GtkTreeSelection *treeselection,Tbfwin * bfwin) {
-	/* this is not the best way to activate bookmarks. according to the gtk documentation:
+/*static void bmark_selection_changed_lcb(GtkTreeSelection *treeselection,Tbfwin * bfwin) {
+	/ * this is not the best way to activate bookmarks. according to the gtk documentation:
 	Emitted whenever the selection has (possibly) changed. Please note that this signal is 
 	mostly a hint. It may only be emitted once when a range of rows are selected, and it 
 	may occasionally be emitted when nothing has happened.
 	
 	THUS: we should better use the mouse click event to find the correct bookmark to 
 	activate.
-	*/
+	* /
 	DEBUG_MSG("bmark_selection_changed_lcb, started\n");
-	bmark_popup_menu_goto(bfwin);
-}
+	bmark_goto_selected(bfwin);
+}*/
 
 void bookmark_menu_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	GtkTreeModel *model = GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore);
 	GtkTreeIter iter;
 	Tdocument *doc = bfwin->current_document;
-	gboolean haveiter=TRUE;
 	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(bfwin->bmark));
 	
 	if (!doc || !doc->bmark_parent)
 		return;
 	
 	if (action == 1) /* first */ {
-			GtkTreeIter tmp;
-			haveiter = gtk_tree_model_iter_children(model,&tmp,doc->bmark_parent);
-			gtk_tree_model_filter_convert_child_iter_to_iter(bfwin->bmarkfilter,&iter,&tmp);
+			if (gtk_tree_model_iter_children(model,&iter,doc->bmark_parent))
+				bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
 	} else if (action == 4) /* last */ {
-			gint num;
-			GtkTreeIter tmp;
-			num = gtk_tree_model_iter_n_children(model,doc->bmark_parent);
-			gtk_tree_model_iter_nth_child(model,&tmp,doc->bmark_parent,num-1);
-			gtk_tree_model_filter_convert_child_iter_to_iter(bfwin->bmarkfilter,&iter,&tmp);
+			gint num = gtk_tree_model_iter_n_children(model,doc->bmark_parent);
+			if (gtk_tree_model_iter_nth_child(model,&iter,doc->bmark_parent,num-1))
+				bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
 	} else {
 		if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
 			if (action == 2) 	/* previous */ {
 				GtkTreePath *path= gtk_tree_model_get_path(model,&iter);
 				gtk_tree_path_prev(path);
-				haveiter = gtk_tree_model_get_iter(model,&iter,path);
+				if (gtk_tree_model_get_iter(model,&iter,path))
+					bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
 				gtk_tree_path_free(path);
 			} else if (action == 3)/* next */ {
-				haveiter = gtk_tree_model_iter_next(model,&iter);
+				if (gtk_tree_model_iter_next(model,&iter))
+					bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
 			}
 		}
 	}
-	if (haveiter) gtk_tree_selection_select_iter(selection,&iter);
 }
+
 static void bmark_first_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	bookmark_menu_cb(bfwin,1,widget);
 }
@@ -999,12 +1018,13 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(vbox), scroll, TRUE, TRUE, 0);
 	g_signal_connect(G_OBJECT(bfwin->bmark), "button-press-event",
 					 G_CALLBACK(bmark_event_mouseclick), bfwin);
+	g_signal_connect(G_OBJECT(bfwin->bmark), "row-activated", G_CALLBACK(bmark_row_activated),bfwin);
 	gtk_tree_view_expand_all(bfwin->bmark);
-	{
+	/*{
 		GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(bfwin->bmark));
 		gtk_tree_selection_set_mode(selection,GTK_SELECTION_BROWSE);
 		g_signal_connect(G_OBJECT(selection), "changed",G_CALLBACK(bmark_selection_changed_lcb), bfwin);
-	}
+	}*/
 
 	return vbox;
 }
