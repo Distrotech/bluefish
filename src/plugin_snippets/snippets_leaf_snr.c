@@ -146,7 +146,7 @@ static void snippets_snr_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_var
 		} else if (xmlStrEqual(cur->name, (const xmlChar *)"replacepat")) {
 			replacepat = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
 			if (!replacepat)
-				replacepat = g_strdup("");
+			replacepat = (guchar *) g_strdup("");
 		}
 	}
 	if (!searchpat) {
@@ -215,7 +215,7 @@ void snippets_activate_leaf_snr(Tsnippetswin *snw, xmlNodePtr parent) {
 			} else if (xmlStrEqual(cur->name, (const xmlChar *)"replacepat")) {
 				replacepat = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
 				if (!replacepat)
-					replacepat=g_strdup("");
+					replacepat= (guchar *) g_strdup("");
 			}
 			cur = cur->next;
 		}
