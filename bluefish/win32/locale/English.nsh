@@ -18,6 +18,11 @@
 !define LICENSEPAGE_BUTTON "Next"
 !define LICENSEPAGE_FOOTER "${PRODUCT} is released under the GNU General Public License. The license is provided here for informational purposes only. $_CLICK"
 
+; General Download Messages
+!define DOWN_LOCAL "Local copy of %s found..."
+!define DOWN_CHKSUM "Checksum verified..."
+!define DOWN_CHKSUM_ERROR "Checksum mismatch..."
+
 ; Aspell Strings
 !define DICT_INSTALLED "Latest version of this dictionary is installed, skipping download of:"
 !define DICT_DOWNLOAD "Downloading spellchecker dictionary..."
