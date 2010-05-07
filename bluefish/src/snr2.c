@@ -460,13 +460,16 @@ Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_patte
 		DEBUG_MSG("search_doc, received a result (start=%d), adding startpos (%d) to it\n", result.start, startpos);
 		result.start += startpos;
 		result.end += startpos;
+		if (want_submatches && matchtype != match_normal) {
+			gint i;
+			for (i=0;i<result.nmatch;i++) {
+				result.pmatch[i].rm_so += startpos;
+				result.pmatch[i].rm_eo += startpos;
+			}			
+		}
 		LASTSNR2(bfwin->snr2)->result.start = result.start;
 		LASTSNR2(bfwin->snr2)->result.end = result.end;
 		LASTSNR2(bfwin->snr2)->doc = document;
-		if (matchtype != match_normal) {
-			/* BUG: copy the subpatterns */
-
-		}
 	} else {
 		LASTSNR2(bfwin->snr2)->result.start = -1;
 		LASTSNR2(bfwin->snr2)->result.end =  -1;
@@ -970,6 +973,7 @@ static gboolean replace_current_match(Tbfwin *bfwin) {
 		 */
 
 		doc_unre_new_group(bfwin->current_document);
+		DEBUG_MSG("replace_current_match, replace from %d to %d with %s\n",LASTSNR2(bfwin->snr2)->result.start,LASTSNR2(bfwin->snr2)->result.end, tmpstr);
 		doc_replace_text_backend(bfwin->current_document, tmpstr, LASTSNR2(bfwin->snr2)->result.start,LASTSNR2(bfwin->snr2)->result.end);
 		doc_unre_new_group(bfwin->current_document);
 		doc_set_modified(bfwin->current_document, 1);
@@ -1627,7 +1631,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
 			if (result.end >0) {
 				/*LASTSNR2(snrwin->bfwin->snr2)->replace = TRUE;*/
-				/*gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);*/
+				gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);
 				gtk_widget_grab_focus(snrwin->replaceButton);
 				gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_REPLACE);
 				LASTSNR2(bfwin->snr2)->result = result;
