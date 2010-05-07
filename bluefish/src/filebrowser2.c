@@ -780,7 +780,7 @@ static GtkTreeIter *fb2_build_dir(GFile * uri)
 #ifdef DEBUG
 	if (parent_uri == NULL) {
 		g_critical("parent_uri should not be NULL\n");
-		g_return_val_if_fail(NULL);
+		g_return_val_if_reached(NULL);
 	}
 #endif
 	if (parent_uri) {							/* now loop to create all directories in the treestore that were not in the treestore yet */
