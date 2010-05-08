@@ -1,11 +1,12 @@
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Oskar Świda <swida@aragorn.pb.bialystok.pl>, 2006
+# Quick-Master SI, Paweł Worobiak <dawajpoczte@gmail.com>, 2010
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-03-07 20:07+0100\n"
+"POT-Creation-Date: 2010-02-15 14:57+0100\n"
 "PO-Revision-Date: 2004-11-30 01:14-0300\n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
@@ -38,7 +39,7 @@ msgid "Sco_pe:"
 msgstr "Zak_res:"
 
 #: src/plugin_entities/entities.c:472
-#, fuzzy
+
 msgid "Convert numerical encoded characters &#99;"
 msgstr "Konwertuj znaki numeryczne"
 
@@ -55,43 +56,43 @@ msgid "Convert spe_cial characters"
 msgstr "Konwertuj znaki spe_cjalne"
 
 #: src/plugin_entities/entities.c:491
-#, fuzzy
+
 msgid "Convert _XML characters < > & \" '"
 msgstr "Konwertuj znaki _xml takie jak <>&"
 
 #: src/plugin_entities/entities.c:496
 msgid "Work around missing &apos; entity on IE"
-msgstr ""
+msgstr "Pracuj wokół błędnych encji &apos; dla IE"
 
 #: src/plugin_entities/entities.c:568
-#, fuzzy
+
 msgid "/Tools/Entities To Characters..."
-msgstr "/Edycja/Zamiana specjalna/Encje do znaków"
+msgstr "/Narzędzia/Encje do znaków"
 
 #: src/plugin_entities/entities.c:569
-#, fuzzy
+
 msgid "/Tools/Characters To Entities..."
-msgstr "/Edycja/Zamiana specjalna/Znaki do encji"
+msgstr "/Narzędzia/Znaki do encji"
 
 #: src/plugin_entities/entities.c:570
-#, fuzzy
+
 msgid "/Tools/URL Encode"
-msgstr "/Edycja/Zamiana specjalna/Znaki do encji"
+msgstr "/Narzędzia/Kodowanie URL"
 
 #: src/plugin_entities/entities.c:571
-#, fuzzy
+
 msgid "/Tools/URL Decode"
-msgstr "/Edycja/Zamiana specjalna/Znaki do encji"
+msgstr "/Narzędzia/Dekoduj URL"
 
 #: src/plugin_entities/entities.c:572
-#, fuzzy
+
 msgid "/Tools/To Lowercase"
-msgstr "/Edycja/Zamiana specjalna/Znaki do encji"
+msgstr "/Narzędzia/Zmień na małe litery"
 
 #: src/plugin_entities/entities.c:573
-#, fuzzy
+
 msgid "/Tools/To Uppercase"
-msgstr "/Edycja/Zamiana specjalna/Znaki do encji"
+msgstr "/Narzędzia/Zmień na WIELKIE LITERY"
 
 #, fuzzy
 #~ msgid "/Tools/URL decode selection"

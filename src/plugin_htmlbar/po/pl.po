@@ -1,11 +1,12 @@
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Oskar Świda <swida@aragorn.pb.bialystok.pl>, 2006
+# Quick-Master SI, Paweł Worobiak <dawajpoczte@gmail.com>, 2010
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-03-07 20:07+0100\n"
+"POT-Creation-Date: 2010-02-15 14:57+0100\n"
 "PO-Revision-Date: 2004-11-30 01:14-0300\n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
@@ -22,24 +23,24 @@ msgid "_Update"
 msgstr " _Odśwież "
 
 #: src/plugin_htmlbar/html2.c:506
-#, fuzzy, c-format
+
 msgid "The %s %s property already exists.\n"
-msgstr "Podana ścieżka już istnieje."
+msgstr "Podana właściwość: %s ścieżka już istnieje.\n"
 
 #: src/plugin_htmlbar/html2.c:508
-#, fuzzy, c-format
+
 msgid "The %s property already exists.\n"
-msgstr "Podana ścieżka już istnieje."
+msgstr "Podana właściwość: %s już istnieje.\n"
 
 #: src/plugin_htmlbar/html2.c:511
-#, c-format
+
 msgid "Update its value from %s to %s?"
-msgstr ""
+msgstr "Czy zaktualizować wartość z %s na %s?"
 
 #: src/plugin_htmlbar/html2.c:642
 #, fuzzy
 msgid "Cascading Style Sheet Builder"
-msgstr "Okno dialogowe CSS"
+msgstr "Budowa kaskadowego arkusza stylów CSS"
 
 #: src/plugin_htmlbar/html2.c:662
 msgid "_Selector:"
@@ -76,7 +77,7 @@ msgstr " _Odśwież "
 
 #: src/plugin_htmlbar/html2.c:725
 msgid " _Delete "
-msgstr " _Kasuj "
+msgstr " Usuń "
 
 #: src/plugin_htmlbar/html2.c:978 src/plugin_htmlbar/html2.c:1015
 msgid "_Style..."
@@ -88,11 +89,11 @@ msgstr "Bluefish: Wybierz kolor"
 
 #: src/plugin_htmlbar/htmlbar.c:37
 msgid "Edit color"
-msgstr "Edytuj kolor"
+msgstr "Zmień kolor"
 
 #: src/plugin_htmlbar/htmlbar.c:45
 msgid "Edit tag"
-msgstr "Edytuj znacznik"
+msgstr "Zmień znacznik"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:204
 #, fuzzy
@@ -428,9 +429,9 @@ msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Znaczniki/Specjalne/Waluty/_Yen ¥"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:297
-#, fuzzy
+
 msgid "/Tags/Special/Currency/_Euro €"
-msgstr "/Znaczniki/Specjalne/Waluty/_Euro "
+msgstr "/Znaczniki/Specjalne/Waluty/_Euro €"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:298
 msgid "/Tags/Special/_Math-Science"
@@ -569,7 +570,7 @@ msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Znaczniki/Specjalne/Inne/Złama_ny słupek ¦"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:335
-#, fuzzy
+
 msgid "/Tags/Special/Other/Soft _hyphen -"
 msgstr "/Znaczniki/Specjalne/Inne/Miękki z_nacznik -"
 
@@ -654,14 +655,14 @@ msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/Znaczniki/Format kontekstowy/Akronim"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:358
-#, fuzzy
+
 msgid "/Tags/Format by context/_Insert"
-msgstr "/Znaczniki/Format kontekstowy/Definicja"
+msgstr "/Znaczniki/Format kontekstowy/Wstaw"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:359
-#, fuzzy
+
 msgid "/Tags/Format by context/De_lete"
-msgstr "/Znaczniki/Format kontekstowy/Definicja"
+msgstr "/Znaczniki/Format kontekstowy/Usuń"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:360
 msgid "/Tags/Format _general"
@@ -824,7 +825,7 @@ msgid "/Tags/_Comment"
 msgstr "/Znaczniki/_Komentarz"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:408
-#, fuzzy
+
 msgid "/D_ialogs"
 msgstr "/Okna dialogowe"
 
@@ -1001,7 +1002,7 @@ msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/Okna dialogowe/_Edytuj znacznik przy kursorze..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:461
-#, fuzzy
+
 msgid "/View/_HTML Toolbar"
 msgstr "/Widok/Pokaż pasek _HTML"
 
@@ -1015,7 +1016,7 @@ msgstr "Treść..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:750
 msgid "Bold"
-msgstr "Pogrubione"
+msgstr "Pogrubienie"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:751
 msgid "Italic"
@@ -1039,8 +1040,7 @@ msgstr "Twardy odstęp"
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:757
-#, fuzzy
-msgid "Anchor / Hyperlink..."
+msgid "Anchor..."
 msgstr "Odnośnik..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:758
@@ -1053,7 +1053,7 @@ msgstr "Wyśrodkowanie"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:760
 msgid "Right Justify"
-msgstr "Do prawej"
+msgstr "Wyrównanie do prawej"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:761
 msgid "Comment"
@@ -1495,7 +1495,7 @@ msgstr "_Język:"
 #: src/plugin_htmlbar/html_form.c:304 src/plugin_htmlbar/html_form.c:600
 #: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
 #: src/plugin_htmlbar/html_table.c:369 src/plugin_htmlbar/image.c:502
-#: src/plugin_htmlbar/image_dialog.c:409
+#: src/plugin_htmlbar/image_dialog.c:408
 msgid "Custo_m:"
 msgstr "Wła_sne:"
 
@@ -1558,20 +1558,20 @@ msgid "Ali_gn:"
 msgstr "Poł_ożenie:"
 
 #: src/plugin_htmlbar/html.c:850 src/plugin_htmlbar/html.c:1086
-#: src/plugin_htmlbar/html_diag.c:385 src/plugin_htmlbar/html_table.c:97
+#: src/plugin_htmlbar/html_diag.c:382 src/plugin_htmlbar/html_table.c:97
 #: src/plugin_htmlbar/html_table.c:245 src/plugin_htmlbar/html_table.c:359
-#: src/plugin_htmlbar/image_dialog.c:397
+#: src/plugin_htmlbar/image_dialog.c:396
 msgid "Cl_ass:"
 msgstr "Kl_asa:"
 
 #: src/plugin_htmlbar/html.c:854 src/plugin_htmlbar/html.c:1079
-#: src/plugin_htmlbar/html_diag.c:393 src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html_diag.c:390 src/plugin_htmlbar/html_table.c:102
 #: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:364
 msgid "St_yle:"
 msgstr "St_yl:"
 
 #: src/plugin_htmlbar/html.c:865 src/plugin_htmlbar/html.c:1090
-#: src/plugin_htmlbar/html_diag.c:389
+#: src/plugin_htmlbar/html_diag.c:386
 msgid "_ID:"
 msgstr "_ID:"
 
@@ -1580,19 +1580,19 @@ msgid "Horizontal Rule"
 msgstr "Linia pozioma"
 
 #: src/plugin_htmlbar/html.c:977 src/plugin_htmlbar/html.c:1772
-#: src/plugin_htmlbar/image.c:520 src/plugin_htmlbar/image_dialog.c:430
+#: src/plugin_htmlbar/image.c:520 src/plugin_htmlbar/image_dialog.c:429
 msgid "_Align:"
 msgstr "Poł_ożenie:"
 
 #: src/plugin_htmlbar/html.c:984 src/plugin_htmlbar/html.c:1780
-#: src/plugin_htmlbar/html_table.c:395 src/plugin_htmlbar/image_dialog.c:371
+#: src/plugin_htmlbar/html_table.c:395 src/plugin_htmlbar/image_dialog.c:370
 msgid "_Height:"
 msgstr "W_ysokość:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:990 src/plugin_htmlbar/html.c:1776
 #: src/plugin_htmlbar/html_table.c:140 src/plugin_htmlbar/html_table.c:388
-#: src/plugin_htmlbar/image.c:477 src/plugin_htmlbar/image_dialog.c:362
+#: src/plugin_htmlbar/image.c:477 src/plugin_htmlbar/image_dialog.c:361
 msgid "_Width:"
 msgstr "S_zerokość:"
 
@@ -1702,7 +1702,7 @@ msgstr "_Kopiuj do:"
 
 #: src/plugin_htmlbar/html.c:1460
 msgid "Blin_d copy to:"
-msgstr "'Śle_pa' kopia do:"
+msgstr "Ukryta kopia do:"
 
 #: src/plugin_htmlbar/html.c:1464
 msgid "with _Subject:"
@@ -1745,7 +1745,7 @@ msgid "_Add <frame> elements"
 msgstr "_Dodaj elementy <frame>"
 
 #: src/plugin_htmlbar/html.c:1683 src/plugin_htmlbar/html.c:1768
-#: src/plugin_htmlbar/html.c:1827 src/plugin_htmlbar/image_dialog.c:321
+#: src/plugin_htmlbar/html.c:1827 src/plugin_htmlbar/image_dialog.c:320
 msgid "_Source:"
 msgstr "Źró_dło:"
 
@@ -1946,20 +1946,20 @@ msgstr "Bez _zawijania:"
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:305
-#, fuzzy
+
 msgid "Loading image failed..."
-msgstr "Ładuję plik(i)..."
+msgstr "Wczytywanie obrazka nie powiodło się..."
 
 #: src/plugin_htmlbar/image.c:387
-#, fuzzy, c-format
+
 msgid "Loading file %s..."
-msgstr "Ładuję plik(i)..."
+msgstr "Wczytywanie pliku %s..."
 
 #: src/plugin_htmlbar/image.c:445
 msgid "Insert thumbnail"
 msgstr "Wstaw miniaturę"
 
-#: src/plugin_htmlbar/image.c:449 src/plugin_htmlbar/image_dialog.c:341
+#: src/plugin_htmlbar/image.c:449 src/plugin_htmlbar/image_dialog.c:340
 msgid "Preview"
 msgstr "Podgląd"
 
@@ -1971,7 +1971,7 @@ msgstr "Lokalizacja _obrazka:"
 msgid "Hei_ght:"
 msgstr "W_ysokość:"
 
-#: src/plugin_htmlbar/image.c:489 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/image.c:489 src/plugin_htmlbar/image_dialog.c:404
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
@@ -1979,11 +1979,11 @@ msgstr "_Usemap:"
 msgid "Alternate _text:"
 msgstr "Alternatywny _tekst:"
 
-#: src/plugin_htmlbar/image.c:506 src/plugin_htmlbar/image_dialog.c:439
+#: src/plugin_htmlbar/image.c:506 src/plugin_htmlbar/image_dialog.c:438
 msgid "_Hspace:"
 msgstr "Odstęp po_ziomy:"
 
-#: src/plugin_htmlbar/image.c:510 src/plugin_htmlbar/image_dialog.c:443
+#: src/plugin_htmlbar/image.c:510 src/plugin_htmlbar/image_dialog.c:442
 msgid "_Vspace:"
 msgstr "Odstęp p_ionowy:"
 
@@ -2039,70 +2039,78 @@ msgstr ""
 "%x: szerokość miniatury  %y: wysokość miniatury\n"
 "%b: rozmiar oryginalny (bajty)"
 
-#: src/plugin_htmlbar/image_dialog.c:378
-#, fuzzy
-msgid "_Reset Dimensions"
-msgstr "Wymiary"
+#: src/plugin_htmlbar/image_dialog.c:377
 
-#: src/plugin_htmlbar/image_dialog.c:389
-#, fuzzy
+msgid "_Reset Dimensions"
+msgstr "Przywróć wymiary"
+
+#: src/plugin_htmlbar/image_dialog.c:388
+
 msgid "Alternate te_xt:"
 msgstr "Alternatywny _tekst:"
 
-#: src/plugin_htmlbar/image_dialog.c:393
-#, fuzzy
+#: src/plugin_htmlbar/image_dialog.c:392
+
 msgid "_Long description:"
 msgstr "_Opis:"
 
-#: src/plugin_htmlbar/image_dialog.c:401
-#, fuzzy
+#: src/plugin_htmlbar/image_dialog.c:400
+
 msgid "I_D:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:420
+#: src/plugin_htmlbar/image_dialog.c:419
 msgid "_Use Transitional options"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:435
+#: src/plugin_htmlbar/image_dialog.c:434
 #, fuzzy
 msgid "_Border:"
 msgstr "Ob_ramowanie:"
 
-#: src/plugin_htmlbar/image_dialog.c:777
+#: src/plugin_htmlbar/image_dialog.c:773
 #, c-format
 msgid ""
 "\n"
 "%s"
-msgstr ""
+msgstr  ""
+"\n"
+"%s"
 
-#: src/plugin_htmlbar/image_dialog.c:782
+#: src/plugin_htmlbar/image_dialog.c:778
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
+"\n"
+"%d x %d pixeli"
 
-#: src/plugin_htmlbar/image_dialog.c:881
+#: src/plugin_htmlbar/image_dialog.c:876
 msgid ""
 "\n"
 "\n"
 "\t<b>Loading preview...</b>\t\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"\t<b>Ładowanie podglądu...</b>\t\n"
+"\n"
 
-#: src/plugin_htmlbar/image_dialog.c:989
-#, fuzzy
+#: src/plugin_htmlbar/image_dialog.c:979
+
 msgid "Select Image"
-msgstr "Wybierz plik"
+msgstr "Wybierz obrazek"
 
-#: src/plugin_htmlbar/image_dialog.c:997
-#, fuzzy
+#: src/plugin_htmlbar/image_dialog.c:987
+
 msgid "All images"
-msgstr "Obrazki"
+msgstr "Wszystkie obrazki"
 
-#: src/plugin_htmlbar/image_dialog.c:1229
-#: src/plugin_htmlbar/image_dialog.c:1341
-#, fuzzy
+#: src/plugin_htmlbar/image_dialog.c:1219
+#: src/plugin_htmlbar/image_dialog.c:1331
+
 msgid "Insert Image"
 msgstr "Wstaw obrazek"
 
