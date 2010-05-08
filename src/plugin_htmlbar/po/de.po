@@ -2,14 +2,14 @@
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Knud Franzkowiak <knud.franzkowiak@gmx.net>, 2000.
 # Roland Steinbach <roland@netzblick.de>, 2001-2004.
-# Daniel Leidert <daniel.leidert@wgdd.de>, 2006, 2009.
+# Daniel Leidert <daniel.leidert@wgdd.de>, 2006, 2009, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 2.0.0\n"
+"Project-Id-Version: bluefish 2.0.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-03-07 20:07+0100\n"
-"PO-Revision-Date: 2009-12-21 03:42+0100\n"
+"POT-Creation-Date: 2010-05-07 18:43+0200\n"
+"PO-Revision-Date: 2010-05-07 08:04+0200\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -1033,9 +1033,8 @@ msgstr "Festes Leerzeichen"
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:757
-#, fuzzy
 msgid "Anchor / Hyperlink..."
-msgstr "Verweisanker..."
+msgstr "Verweisanker / Verlinkung..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:758
 msgid "Rule..."
@@ -1983,43 +1982,43 @@ msgstr "_Vertikaler Abstand:"
 msgid "Borde_r:"
 msgstr "_Rand:"
 
-#: src/plugin_htmlbar/image.c:927
+#: src/plugin_htmlbar/image.c:929
 msgid "Select files for thumbnail creation"
 msgstr "Wähle Dateien für Thumbnail-Erzeugung aus"
 
-#: src/plugin_htmlbar/image.c:967
+#: src/plugin_htmlbar/image.c:969
 msgid "Scaling (%)"
 msgstr "Skalieren (%)"
 
-#: src/plugin_htmlbar/image.c:971 src/plugin_htmlbar/image.c:979
+#: src/plugin_htmlbar/image.c:973 src/plugin_htmlbar/image.c:981
 msgid "Width"
 msgstr "Breite"
 
-#: src/plugin_htmlbar/image.c:975 src/plugin_htmlbar/image.c:1015
+#: src/plugin_htmlbar/image.c:977 src/plugin_htmlbar/image.c:1017
 msgid "Height"
 msgstr "Höhe"
 
-#: src/plugin_htmlbar/image.c:998
+#: src/plugin_htmlbar/image.c:1000
 msgid "Multi thumbnail"
 msgstr "Mehrere Thumbnails"
 
-#: src/plugin_htmlbar/image.c:1004
+#: src/plugin_htmlbar/image.c:1006
 msgid "By scaling"
 msgstr "Durch Skalieren"
 
-#: src/plugin_htmlbar/image.c:1007
+#: src/plugin_htmlbar/image.c:1009
 msgid "By width, keep aspect ratio"
 msgstr "Mit Breite, Seitenverhältnis beibehalten"
 
-#: src/plugin_htmlbar/image.c:1010
+#: src/plugin_htmlbar/image.c:1012
 msgid "By height, keep aspect ratio"
 msgstr "Mit Höhe, Seitenverhältnis beibehalten"
 
-#: src/plugin_htmlbar/image.c:1013
+#: src/plugin_htmlbar/image.c:1015
 msgid "By width and height, ignore aspect ratio"
 msgstr "Mit Breite und Höhe, Seitenverhältnis anpassen"
 
-#: src/plugin_htmlbar/image.c:1039
+#: src/plugin_htmlbar/image.c:1041
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"

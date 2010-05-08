@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 2.0.0\n"
+"Project-Id-Version: bluefish 2.0.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2010-04-18 22:43+0200\n"
-"PO-Revision-Date: 2010-01-23 17:25+0100\n"
+"PO-Revision-Date: 2010-05-07 07:47+0200\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -48,11 +48,11 @@ msgstr "Sprache für die Rechtschreibprüfung"
 
 #: ../src/bftextview2_spell.c:619
 msgid "Add to dictionary"
-msgstr ""
+msgstr "Zum Wörterbuch hinzufügen"
 
 #: ../src/bftextview2_spell.c:622
 msgid "Ignore spelling"
-msgstr ""
+msgstr "Rechtschreibung ignorieren"
 
 #: ../src/blocksync.c:88
 msgid ""
@@ -1219,15 +1219,13 @@ msgid "Stand by..."
 msgstr "Warten..."
 
 #: ../src/gui.c:1116
-#, fuzzy
 msgid "/File/Quit"
-msgstr "/Datei/_Beenden"
+msgstr "/Datei/Beenden"
 
 #. ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(about_item),NULL);
 #: ../src/gui.c:1123
-#, fuzzy
 msgid "/Edit/Preferences"
-msgstr "/Bearbeiten/Ei_nstellungen"
+msgstr "/Bearbeiten/Einstellungen"
 
 #: ../src/menu.c:214
 msgid "/_File"
@@ -1238,9 +1236,8 @@ msgid "/File/_New"
 msgstr "/Datei/_Neu"
 
 #: ../src/menu.c:217 ../src/menu.c:529
-#, fuzzy
 msgid "/File/New From Template"
-msgstr "/Datei/A_uswahl öffnen"
+msgstr "/Datei/Neu aus Template"
 
 #: ../src/menu.c:219
 msgid "/File/New _Window"
@@ -1439,14 +1436,12 @@ msgid "/Document/_Visible Spacing"
 msgstr "/Dokument/_Leerzeichen anzeigen"
 
 #: ../src/menu.c:285
-#, fuzzy
 msgid "/Document/Show Right Margin"
-msgstr "/Dokument/Nach rechts"
+msgstr "/Dokument/Rechten Begrenzer anzeigen"
 
 #: ../src/menu.c:286
-#, fuzzy
 msgid "/Document/Highlight block delimiters"
-msgstr "/Dokument/Syntax_hervorhebung"
+msgstr "/Dokument/Blockbegrenzer hervorheben"
 
 #: ../src/menu.c:288
 msgid "/Document/_Spell Check"
@@ -1649,9 +1644,8 @@ msgid "/Tools/Indenting To S_paces"
 msgstr "/Werkzeuge/Einrückung mit L_eerzeichen ersetzen"
 
 #: ../src/menu.c:368
-#, fuzzy
 msgid "/Tools/Merge Lines Into Col_umns"
-msgstr "/Werkzeuge/In Spalten a_uftrennen"
+msgstr ""
 
 #: ../src/menu.c:559
 msgid "/Document/Language Mode"
@@ -1718,11 +1712,11 @@ msgstr "Standarddateityp für neue Dateien"
 
 #: ../src/preferences.c:538 ../src/preferences.c:539
 msgid "None"
-msgstr ""
+msgstr "Keines"
 
 #: ../src/preferences.c:539
 msgid "Default template"
-msgstr ""
+msgstr "Standardtemplate"
 
 #: ../src/preferences.c:542
 msgid "_Word wrap by default"
@@ -1755,9 +1749,8 @@ msgstr "Auto-Vervollständigen (Popup)"
 
 #
 #: ../src/preferences.c:549
-#, fuzzy
 msgid "Highlight block delimiters"
-msgstr "Zugehöriges Block-Ende hervorheben"
+msgstr "Blockbegrenzer hervorheben"
 
 #: ../src/preferences.c:551
 msgid "Enable spell check"
@@ -1982,7 +1975,7 @@ msgstr "Textstil"
 #: ../src/preferences.c:1368 ../src/preferences.c:1680
 #: ../src/preferences.c:1681
 msgid "Auto"
-msgstr ""
+msgstr "Automatisch"
 
 #: ../src/preferences.c:1510 ../src/preferences.c:1511
 msgid "left"
@@ -2058,7 +2051,7 @@ msgstr "Farbe zur Darstellung von Leerzeichen"
 
 #: ../src/preferences.c:1562
 msgid "Right margin position"
-msgstr ""
+msgstr "Position des rechten Begrenzers"
 
 #: ../src/preferences.c:1563
 msgid "Show whitespace"
@@ -2236,9 +2229,8 @@ msgid "Number of files in 'Open recent' menu"
 msgstr "Anzahl Dateien im 'Vorherige öffnen'-Menü"
 
 #: ../src/preferences.c:1662 ../src/preferences.c:1664
-#, fuzzy
 msgid "Templates"
-msgstr "_Vorlage:"
+msgstr "Templates"
 
 #: ../src/preferences.c:1673
 msgid "User interface"
@@ -2249,11 +2241,8 @@ msgid "General"
 msgstr "Allgemein"
 
 #: ../src/preferences.c:1681
-#, fuzzy
 msgid "Language"
-msgstr ""
-"\n"
-"Sprachemodus: "
+msgstr "Sprache"
 
 #: ../src/preferences.c:1684
 msgid "Make HTML dialogs transient"
@@ -2462,9 +2451,8 @@ msgid "Sort"
 msgstr "Sortieren"
 
 #: ../src/rcfile.c:558 ../src/rcfile.c:580
-#, fuzzy
 msgid "Sort / Uniq"
-msgstr "Sortieren und Duplikate entfernen"
+msgstr "Sortieren / Duplikate entfernen"
 
 #: ../src/rcfile.c:559 ../src/rcfile.c:583
 msgid "Tidy HTML"
@@ -2476,7 +2464,7 @@ msgstr "Leere Zeilen entfernen"
 
 #: ../src/rcfile.c:563
 msgid "Safari"
-msgstr ""
+msgstr "Safari"
 
 #: ../src/rcfile.c:564 ../src/rcfile.c:588
 msgid "Firefox"
@@ -2488,7 +2476,7 @@ msgstr "Opera"
 
 #: ../src/rcfile.c:566 ../src/rcfile.c:596
 msgid "chmod a+x"
-msgstr ""
+msgstr "Ausführbar machen (chmod a+x)"
 
 #: ../src/rcfile.c:581
 msgid "Reverse lines"
@@ -2528,25 +2516,23 @@ msgstr "Links2 (grafisch)"
 
 #: ../src/rcfile.c:601
 msgid "C Header"
-msgstr ""
+msgstr "C Header"
 
 #: ../src/rcfile.c:602
 msgid "C Header GPL"
-msgstr ""
+msgstr "C Header mit GPL"
 
 #: ../src/rcfile.c:603
-#, fuzzy
 msgid "XHTML 1.0"
-msgstr "HTML"
+msgstr "XHTML 1.0"
 
 #: ../src/rcfile.c:604
-#, fuzzy
 msgid "HTML 5"
-msgstr "HTML"
+msgstr "HTML 5"
 
 #: ../src/rcfile.c:605
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
 #: ../src/rcfile.c:752
 msgid "Untitled Project"
@@ -2574,9 +2560,9 @@ msgid "Search failed"
 msgstr "Suche fehl geschlagen"
 
 #: ../src/snr2.c:286
-#, fuzzy, c-format
+#, c-format
 msgid "Regular expression error: %s"
-msgstr "Fehler im regulären Ausdruck: "
+msgstr "Fehler im regulären Ausdruck: %s"
 
 #: ../src/snr2.c:328
 #, c-format
@@ -2804,7 +2790,7 @@ msgstr ""
 
 #: ../src/undo_redo.c:460
 msgid "Undo in _all documents"
-msgstr "In allen Dokumenten rückgängig machen"
+msgstr "In _allen Dokumenten rückgängig machen"
 
 #: ../src/undo_redo.c:460
 msgid "Undo only _this document"
