@@ -228,8 +228,8 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	update_project_filelist(bfwin, bfwin->project);
 /*	bfwin->project->recentfiles = limit_stringlist(bfwin->project->recentfiles, main_v->props.max_recent_files, TRUE);*/
 
-	bfwin->project->session->searchlist = limit_stringlist(bfwin->project->session->searchlist, 10, FALSE);
-	bfwin->project->session->replacelist = limit_stringlist(bfwin->project->session->replacelist, 10, FALSE);
+	bfwin->project->session->searchlist = limit_stringlist(bfwin->project->session->searchlist, 10, TRUE);
+	bfwin->project->session->replacelist = limit_stringlist(bfwin->project->session->replacelist, 10, TRUE);
 	bfwin->project->session->urllist = limit_stringlist(bfwin->project->session->urllist, 10, TRUE);
 	bmark_store_all(bfwin);
 
