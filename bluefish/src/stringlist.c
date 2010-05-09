@@ -501,7 +501,7 @@ gboolean put_stringlist(GFile * file, GList * which_list, gboolean is_arraylist)
 	/*return put_stringlist_limited(file,which_list, -1, is_arraylist);*/
 	GString *strbuffer;
 	GError *gerror=NULL;
-	GList *tmplist;
+	GList *tmplist = g_list_first(which_list);;
 	
 	strbuffer = g_string_sized_new(1024);
 	if (is_arraylist) {
@@ -547,6 +547,7 @@ GList *remove_from_stringlist(GList *which_list, const gchar * string) {
 
 static void unlink_before(GList *tmplist) {
 	GList *prev = tmplist->prev;
+	DEBUG_MSG("unlink_before, freeing starting at %s\n",(gchar *)tmplist->data);
 	if (prev) {
 		prev->next = NULL;
 	}
