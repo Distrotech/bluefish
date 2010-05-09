@@ -7,6 +7,7 @@
 ;   Daniel Leidert <daniel.leidert@wgdd.de>
 ;----------------------------------------------
 
+!define BF_FILE_CLASSES "bf_must_be_first,bfdifffile,bfmwfile,bfadafile,bfaspfile,bfshfile,bfprojectfile,bflang2file,bfcfile,bfhfile,bfcppfile,bfhppfile,bfcssfile,bfdfile,bfpofile,bfjavafile,bfjsfile,bfjspfile,bfnsifile,bfnshfile,bfplfile,bfphpfile,bftxtfile,bfpyfile,bfrbfile,bfsmartyfile,bfvbsfile,bfxhtmlfile,bfxmlfile,bfxslfile"
 Function FileAssociations
 	!insertmacro MUI_HEADER_TEXT "$(FA_TITLE)" "$(FA_HEADER)"
 	nsDialogs::Create 1018
@@ -79,8 +80,9 @@ Function FileAssociations
 	nsDialogs::Show
 FunctionEnd
 
-!define BF_FILE_CLASSES "bf_must_be_first,bfdifffile,bfmwfile,bfadafile,bfaspfile,bfshfile,bfprojectfile,bflang2file,bfcfile,bfhfile,bfcppfile,bfhppfile,bfcssfile,bfdfile,bfpofile,bfjavafile,bfjsfile,bfjspfile,bfnsifile,bfnshfile,bfplfile,bfphpfile,bftxtfile,bfpyfile,bfrbfile,bfsmartyfile,bfvbsfile,bfxhtmlfile,bfxmlfile,bfxslfile"
+; Note: Make sure to add or remove handlers from the BF_FILE_CLASSES define when changing
 Function SetFileAssociations
+
 	;                     HWND			Extension	Mime Type		Handler	Content Type	ICON Id
 	${RegisterFileType} $FA_Ada  	"ada" 	"text/x-ada" 			"bfadafile" "$(CT_ADA)" 1
 	${RegisterFileType} $FA_Asp  	"asp" 	"text/x-asp" 			"bfaspfile" "$(CT_ASP)" 2

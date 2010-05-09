@@ -11,7 +11,7 @@
 ; External Defines
 ;----------------------------------------------
 !ifndef PACKAGE
-	!define PACKAGE "bluefish-nodef"
+	!define PACKAGE "bluefish"
 !endif
 ;!define LOCALE
 !ifndef VERSION
@@ -28,16 +28,16 @@
 !define PROGRAM_EXE	"${PACKAGE}.exe"
 !define UNINSTALL_EXE	"bluefish-uninst.exe"
 
+!define GTK_MIN_VERSION	"2.14.7"
 !define GTK_URL		"http://internap.dl.sourceforge.net/project/pidgin/GTK%2B%20for%20Windows/2.14.7%20Rev%20A"
 !define GTK_FILENAME 	"gtk-runtime-2.14.7-rev-a.exe"
 !define GTK_SIZE	"34549" ; Install size in Kilobytes
+
 !define AS_DICT_URL	"http://www.muleslow.net/files/aspell/lang"
 
 !define REG_USER_SET	"Software\${PRODUCT}"
 !define REG_CLASS_SET	"Software\Classes"
 !define REG_UNINSTALL	"Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT}"
-
-!define GTK_MIN_VERSION	"2.14.7"
 
 
 ; Variables
@@ -125,20 +125,18 @@ ${UnStrLoc}
 
 ; MUI configuration
 ;----------------------------------------------
-!define MUI_LANGDLL_ALLLANGUAGES
-
-!define MUI_COMPONENTSPAGE_SMALLDESC
+;!define MUI_LANGDLL_ALLLANGUAGES
 !define MUI_ABORTWARNING
 !define MUI_UNABORTWARNING
-!define MUI_FINISHPAGE_NOREBOOTSUPPORT
-!define MUI_FINISHPAGE_NOAUTOCLOSE
-!define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 !define MUI_LICENSEPAGE_BUTTON			"$(LICENSEPAGE_BUTTON) >"
 !define MUI_LICENSEPAGE_TEXT_BOTTOM		"$(LICENSEPAGE_FOOTER)"
-
+!define MUI_COMPONENTSPAGE_SMALLDESC
+!define MUI_FINISHPAGE_NOREBOOTSUPPORT
+!define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_FINISHPAGE_LINK		"$(FINISHPAGE_LINK)"
 !define MUI_FINISHPAGE_LINK_LOCATION	"http://bluefish.openoffice.nl/"
+!define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 
 ; Macros
@@ -259,10 +257,14 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 			WriteRegStr HKCU "${REG_USER_SET}" "" "$INSTDIR" ; Replace InstallDirRegKey function
 			WriteRegStr HKCU "${REG_USER_SET}" "Version" "${VERSION}"
 			WriteRegStr HKCU "${REG_USER_SET}" "Package" "${PACKAGE}"
+			WriteRegStr HKCU "${REG_USER_SET}" "Installer Language" $LANGUAGE ; Replace macro MUI_LANGDLL_SAVELANGUAGE
+			WriteRegStr HKCU "${REG_USER_SET}" "Start Menu Folder" $StartMenuFolder ; Replace macros MUI_STARTMENU_WRITE_*
 		${Else}
 			WriteRegStr HKLM "${REG_USER_SET}" "" "$INSTDIR" ; Replace InstallDirRegKey function
 			WriteRegStr HKLM "${REG_USER_SET}" "Version" "${VERSION}"
 			WriteRegStr HKLM "${REG_USER_SET}" "Package" "${PACKAGE}"
+			WriteRegStr HKLM "${REG_USER_SET}" "Installer Language" $LANGUAGE ; Replace macro MUI_LANGDLL_SAVELANGUAGE
+			WriteRegStr HKLM "${REG_USER_SET}" "Start Menu Folder" $StartMenuFolder ; Replace macros MUI_STARTMENU_WRITE_*
 		${EndIf}
 
 		WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayName" 		"${PRODUCT} ${VERSION}"
@@ -274,13 +276,12 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 		WriteRegStr HKLM "${REG_UNINSTALL}" "DisplayVersion" 	"${VERSION}"
 		WriteRegDWORD HKLM "${REG_UNINSTALL}" "NoModify" "1"
 		WriteRegDWORD HKLM "${REG_UNINSTALL}" "NoRepair" "1"
-
-		WriteRegStr HKLM "${REG_USER_SET}" "Installer Language" $LANGUAGE ; Replace macro MUI_LANGDLL_SAVELANGUAGE
-		WriteRegStr HKLM "${REG_USER_SET}" "Start Menu Folder" $StartMenuFolder ; Replace macros MUI_STARTMENU_WRITE_*
 	${Else}
 		WriteRegStr HKCU "${REG_USER_SET}" "" "$INSTDIR" ; Replace InstallDirRegKey function
 		WriteRegStr HKCU "${REG_USER_SET}" "Version" "${VERSION}"
 		WriteRegStr HKCU "${REG_USER_SET}" "Package" "${PACKAGE}"
+		WriteRegStr HKCU "${REG_USER_SET}" "Installer Language" $LANGUAGE ; Replace macro MUI_LANGDLL_SAVELANGUAGE
+		WriteRegStr HKCU "${REG_USER_SET}" "Start Menu Folder" $StartMenuFolder ; Replace macros MUI_STARTMENU_WRITE_*
 
 		WriteRegStr HKCU "${REG_UNINSTALL}" "DisplayName" 		"${PRODUCT} ${VERSION}"
 		WriteRegStr HKCU "${REG_UNINSTALL}" "DisplayIcon" 		"$INSTDIR\${PROGRAM_EXE}"
@@ -291,9 +292,6 @@ Section "$(SECT_BLUEFISH)" SecBluefish
 		WriteRegStr HKCU "${REG_UNINSTALL}" "DisplayVersion" 	"${VERSION}"
 		WriteRegDWORD HKCU "${REG_UNINSTALL}" "NoModify" "1"
 		WriteRegDWORD HKCU "${REG_UNINSTALL}" "NoRepair" "1"
-
-		WriteRegStr HKCU "${REG_USER_SET}" "Installer Language" $LANGUAGE ; Replace macro MUI_LANGDLL_SAVELANGUAGE
-		WriteRegStr HKCU "${REG_USER_SET}" "Start Menu Folder" $StartMenuFolder ; Replace macros MUI_STARTMENU_WRITE_*
 	${EndIf}
 
 	SetOverwrite on
@@ -306,7 +304,7 @@ SectionEnd
 Section "-GTK+ Installer" SecGTK
 	${If} $GTK_STATUS == ""
 		!ifdef TAGALONG
-			IfFileExists "$EXEDIR\${GTK_FILENAME}" 0 +14
+			IfFileExists "$EXEDIR\redist\${GTK_FILENAME}" 0 +14
 				${StrRep} $R1 "$(DOWN_LOCAL)" "%s" "${GTK_FILENAME}"
 				DetailPrint "$R1"
 				md5dll::GetMD5File "$EXEDIR\${GTK_FILENAME}"
@@ -314,10 +312,10 @@ Section "-GTK+ Installer" SecGTK
   				${If} $R0 == ${MD5_${GTK_FILENAME}}
   					DetailPrint "$(DOWN_CHKSUM)"
   					ExecWait '"$TEMP\${GTK_FILENAME}"'
-  					Goto +16
+  					Goto +16 ; Jump to 'Call GtkInstallPath'
   				${Else}
   					DetailPrint "$(DOWN_CHKSUM_ERROR)"
-  					Goto +3
+  					Goto +3 ; Jump to '!endif'+1
   				${EndIf}
 		!endif
 		DetailPrint "$(GTK_DOWNLOAD) (${GTK_URL}/${GTK_FILENAME})"
@@ -458,7 +456,6 @@ Section "Uninstall"
 	Delete "$INSTDIR\libenchant-1.dll"
 	Delete "$INSTDIR\libgnurx-0.dll"
 	Delete "$INSTDIR\libgucharmap-7.dll"
-	Delete "$INSTDIR\libpcre-0.dll"
 	Delete "$INSTDIR\libxml2-2.dll"
 	RMDir /r "$INSTDIR\docs"
 	RMDir /r "$INSTDIR\lib"

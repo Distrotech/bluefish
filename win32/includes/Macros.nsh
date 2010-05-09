@@ -19,7 +19,7 @@
 		DetailPrint "$(DICT_INSTALLED) ${LANG}"
 	${Else}
 		!ifdef TAGALONG
-			IfFileExists "$EXEDIR\aspell6-${LANG}-${VER}.tbz2" 0 +15
+			IfFileExists "$EXEDIR\redist\aspell6-${LANG}-${VER}.tbz2" 0 +15
 				${StrRep} $R1 "$(DOWN_LOCAL)" "%s" "aspell6-${LANG}-${VER}.tbz2"
 				DetailPrint "$R1"
 				md5dll::GetMD5File "$EXEDIR\aspell6-${LANG}-${VER}.tbz2"
@@ -28,10 +28,10 @@
   					DetailPrint "$(DOWN_CHKSUM)"
   					untgz::extract "-d" "$INSTDIR" "-u" "-zbz2" "$EXEDIR\aspell6-${LANG}-${VER}.tbz2"
   					Pop $R0
-  					Goto +17
+  					Goto +17 ; Jump to 'StrCmp $R0 "success"'
   				${Else}
   					DetailPrint "$(DOWN_CHKSUM_ERROR)"
-  					Goto +3
+  					Goto +3 ; Jump to '!endif'+1
   				${EndIf}
 		!endif
 		DetailPrint "$(DICT_DOWNLOAD) (${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2)"
