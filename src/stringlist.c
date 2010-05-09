@@ -456,7 +456,7 @@ GList *get_stringlist(GFile * filename, GList * which_list) {
  * if maxentries is 0 all entries will be stored
  *
  * Return value: #gboolean TRUE on success, FALSE on failure
- */
+ * /
 gboolean put_stringlist_limited(GFile * file, GList * which_list, gint maxentries, gboolean is_arraylist) {
 	GString *strbuffer;
 	GError *error=NULL;
@@ -495,10 +495,39 @@ gboolean put_stringlist_limited(GFile * file, GList * which_list, gint maxentrie
 	g_string_free(strbuffer,TRUE);
 	DEBUG_MSG("put_stringlist_limited, finished, filedescriptor closed\n");
 	return TRUE;
-}
+}*/
 
 gboolean put_stringlist(GFile * file, GList * which_list, gboolean is_arraylist) {
-	return put_stringlist_limited(file,which_list, -1, is_arraylist);
+	/*return put_stringlist_limited(file,which_list, -1, is_arraylist);*/
+	GString *strbuffer;
+	GError *gerror=NULL;
+	GList *tmplist;
+	
+	strbuffer = g_string_sized_new(1024);
+	if (is_arraylist) {
+		while (tmplist) {
+			gchar *tmp = array_to_string(tmplist->data);
+			strbuffer = g_string_append(strbuffer,tmp);
+			g_free(tmp);
+			strbuffer = g_string_append_c(strbuffer,'\n');
+			tmplist = g_list_next(tmplist);
+		}
+	} else {
+		while (tmplist) {
+			strbuffer = g_string_append(strbuffer,(char *) tmplist->data);
+			strbuffer = g_string_append_c(strbuffer,'\n');
+			tmplist = g_list_next(tmplist);
+		}
+	}
+	g_file_replace_contents(file,strbuffer->str,strbuffer->len
+				,NULL,FALSE,G_FILE_CREATE_PRIVATE,NULL,NULL,&gerror);
+	if (gerror) {
+		g_warning("save stringlist error %d %s\n",gerror->code,gerror->message);
+		g_error_free(gerror);
+		return FALSE;
+	}
+	g_string_free(strbuffer,TRUE);
+	return TRUE;
 }
 
 GList *remove_from_stringlist(GList *which_list, const gchar * string) {
