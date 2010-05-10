@@ -308,11 +308,11 @@ Section "-GTK+ Installer" SecGTK
 			IfFileExists "$EXEDIR\redist\${GTK_FILENAME}" 0 +14
 				${StrRep} $R1 "$(DOWN_LOCAL)" "%s" "${GTK_FILENAME}"
 				DetailPrint "$R1"
-				md5dll::GetMD5File "$EXEDIR\${GTK_FILENAME}"
+				md5dll::GetMD5File "$EXEDIR\redist\${GTK_FILENAME}"
   				Pop $R0
   				${If} $R0 == ${MD5_${GTK_FILENAME}}
   					DetailPrint "$(DOWN_CHKSUM)"
-  					ExecWait '"$TEMP\${GTK_FILENAME}"'
+  					ExecWait '"$EXEDIR\redist\${GTK_FILENAME}"'
   					Goto +16 ; Jump to 'Call GtkInstallPath'
   				${Else}
   					DetailPrint "$(DOWN_CHKSUM_ERROR)"
