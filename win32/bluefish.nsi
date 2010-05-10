@@ -113,12 +113,13 @@ VIAddVersionKey "FileDescription" "Bluefish Installer"
 !include "LogicLib.nsh"
 !include "nsDialogs.nsh"
 !include "StrFunc.nsh"
-${StrRep}
+${StrLoc}
 ${StrStr}
 ${StrTok}
 ${UnStrLoc}
 
 !ifdef TAGALONG
+	${StrRep}
 	!include "includes\Checksums.nsh"
 !endif
 
