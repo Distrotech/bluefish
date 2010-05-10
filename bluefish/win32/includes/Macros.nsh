@@ -81,7 +81,7 @@
 		ReadRegStr $R0 HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
 	${EndIf}
 	
-	${If} $R0 != "${PRODUCT}"
+	${If} $R0 == "${PRODUCT}"
 		${NSD_Check} $FA_Html
 	${EndIf}
 !macroend
@@ -156,8 +156,36 @@
 !macro RegisterHTMLType HWND
 	${NSD_GetState} ${HWND} $R0
 	${If} $R0 == ${BST_CHECKED}
-		${If} $HKEY == "HKCU"
+		${If} $HKEY == "HKLM"
 		${OrIf} $HKEY == "Classic"
+			ReadRegStr $R1 HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
+			${If} $R1 != "${PRODUCT}"
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "Description" $R1
+				${If} $HKEY == "Classic"
+					WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" "${PRODUCT}"
+				${Else}
+					WriteRegStr HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" "${PRODUCT}"
+				${EndIf}
+
+				${If} $HKEY == "Classic"
+					ReadRegStr $R2 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" ""
+					WriteRegStr HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+				${Else}
+					ReadRegStr $R2 HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" ""
+					WriteRegStr HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+				${EndIf}
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command" $R2
+
+				${If} $HKEY == "Classic"
+					ReadRegStr $R3 HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" ""
+					WriteRegStr HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+				${Else}
+					ReadRegStr $R3 HKLM "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" ""
+					WriteRegStr HKLM "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
+				${EndIf}
+				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command2" $R3
+			${EndIf}
+		${Else}
 			ReadRegStr $R1 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
 			${If} $R1 != "${PRODUCT}"
 				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HTML" "Description" $R1
@@ -170,20 +198,6 @@
 				ReadRegStr $R3 HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" ""
 				WriteRegStr HKCU "${REG_UNINSTALL}\Backup\HTML" "command2" $R3
 				WriteRegStr HKCU "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
-			${EndIf}
-		${Else}
-			ReadRegStr $R1 HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
-			${If} $R1 != "${PRODUCT}"
-				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "Description" $R1
-				WriteRegStr HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description" "${PRODUCT}"
-
-				ReadRegStr $R2 HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" ""
-				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command" $R2
-				WriteRegStr HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
-
-				ReadRegStr $R3 HKLM "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" ""
-				WriteRegStr HKLM "${REG_UNINSTALL}\Backup\HTML" "command2" $R3
-				WriteRegStr HKLM "Software\Microsoft\Shared\HTML\Default Editor\shell\edit\command" "" "$\"$INSTDIR\${PROGRAM_EXE}$\" $\"%1$\""
 			${EndIf}
 		${EndIf}
 	${EndIf}

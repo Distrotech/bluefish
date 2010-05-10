@@ -56,10 +56,7 @@ Function FileAssociations
 	${SelectIfRegistered} $FA_Po "po"
 	${NSD_CreateCheckBox} 5% 110u 40% 8u "HTML (.htm; .html)"
 	Pop $FA_Html
-		ReadRegStr $R0 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
-			${If} $R0 != "${PRODUCT}"
-				${NSD_Check} $FA_Html
-			${EndIf}
+	${SelectIfRegisteredHTML}
 	${NSD_CreateCheckBox} 5% 120u 40% 8u "Java (.java)"
 	Pop $FA_Java
 	${SelectIfRegistered} $FA_Java "java"
