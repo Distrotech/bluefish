@@ -57,6 +57,36 @@
 !macroend
 !define InstallAspellDict `!insertmacro InstallAspellDict`
 
+!macro SelectIfRegistered HWND EXT
+	${If} $HKEY == "HKLM"
+	${OrIf} $HKEY == "Classic"
+		ReadRegStr $R0 HKCR ".${EXT}" ""
+	${Else}
+		ReadRegStr $R2 HKCU "${REG_CLASS_SET}\.${EXT}" ""
+	${EndIf}
+		
+	${StrLoc} $R1 ${BF_FILE_CLASSES} $R0 "<"
+	StrLen $R2 ${BF_FILE_CLASSES}
+	${If} $R1 != $R2
+		${NSD_Check} ${HWND}
+	${EndIf}
+!macroend
+!define SelectIfRegistered `!insertmacro SelectIfRegistered`
+
+!macro SelectIfRegisteredHTML
+	${If} $HKEY == "HKCU"
+	${OrIf} $HKEY == "Classic"
+		ReadRegStr $R0 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
+	${Else}
+		ReadRegStr $R0 HKLM "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
+	${EndIf}
+	
+	${If} $R0 != "${PRODUCT}"
+		${NSD_Check} $FA_Html
+	${EndIf}
+!macroend
+!define SelectIfRegisteredHTML `!insertmacro SelectIfRegisteredHTML`
+
 !macro RegisterFileType HWND EXT TYPE PROG DESC ICON
 	${If} $HKEY == "HKLM"
 	${OrIf} $HKEY == "Classic"

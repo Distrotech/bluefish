@@ -18,60 +18,95 @@ Function FileAssociations
 
 	${NSD_CreateCheckBox} 5% 0u 40% 8u "Ada (.ada)"
 	Pop $FA_Ada
+	${SelectIfRegistered} $FA_Ada "ada"
 	${NSD_CreateCheckBox} 5% 10u 40% 8u "ActiveServer Pages (.asp)"
 	Pop $FA_Asp
+	${SelectIfRegistered} $FA_Asp "asp"
 	${NSD_CreateCheckBox} 5% 20u 40% 8u "Bash (.sh)"
 	Pop $FA_Sh
+	${SelectIfRegistered} $FA_Sh "sh"
 	${NSD_CreateCheckBox} 5% 30u 40% 8u "Bluefish Project (.bfproject)"
 	Pop $FA_BFProject
+	${NSD_Check} $FA_BFProject
 	${NSD_CreateCheckBox} 5% 40u 40% 8u "Bluefish Language (.bflang2)"
 	Pop $FA_BFLang2
+	${NSD_Check} $FA_BFLang2
 	${NSD_CreateCheckBox} 5% 50u 40% 8u "C (.c; .h)"
 	Pop $FA_C
+	${SelectIfRegistered} $FA_C "c"
+	${SelectIfRegistered} $FA_C "h"
 	${NSD_CreateCheckBox} 5% 60u 40% 8u "C++ (.cpp; .cxx; .cc; .hpp)"
 	Pop $FA_Cpp
+	${SelectIfRegistered} $FA_Cpp "cpp"
+	${SelectIfRegistered} $FA_Cpp "cxx"
+	${SelectIfRegistered} $FA_Cpp "cc"
+	${SelectIfRegistered} $FA_Cpp "hpp"
 	${NSD_CreateCheckBox} 5% 70u 40% 8u "CSS (.css)"
 	Pop $FA_Css
+	${SelectIfRegistered} $FA_Css "css"
 	${NSD_CreateCheckBox} 5% 80u 40% 8u "D (.d)"
 	Pop $FA_D
+	${SelectIfRegistered} $FA_D "d"
 	${NSD_CreateCheckBox} 5% 90u 40% 8u "Diff (.diff; .patch)"
 	Pop $FA_Diff
+	${SelectIfRegistered} $FA_Diff "diff"
+	${SelectIfRegistered} $FA_Diff "patch"
 	${NSD_CreateCheckBox} 5% 100u 40% 8u "Gettext PO (.po)"
 	Pop $FA_Po
+	${SelectIfRegistered} $FA_Po "po"
 	${NSD_CreateCheckBox} 5% 110u 40% 8u "HTML (.htm; .html)"
 	Pop $FA_Html
+		ReadRegStr $R0 HKCU "Software\Microsoft\Internet Explorer\Default HTML Editor" "Description"
+			${If} $R0 != "${PRODUCT}"
+				${NSD_Check} $FA_Html
+			${EndIf}
 	${NSD_CreateCheckBox} 5% 120u 40% 8u "Java (.java)"
 	Pop $FA_Java
+	${SelectIfRegistered} $FA_Java "java"
 
 	${NSD_CreateCheckBox} 55% 0u 40% 8u "JavaScript (.js)"
 	Pop $FA_Js
+	${SelectIfRegistered} $FA_Js "js"
 	${NSD_CreateCheckBox} 55% 10u 40% 8u "JavaServer Pages (.jsp)"
 	Pop $FA_Jsp
+	${SelectIfRegistered} $FA_Jsp "jsp"
 	${NSD_CreateCheckBox} 55% 20u 40% 8u "MediaWiki File (.mw)"
 	Pop $FA_Mw
+	${SelectIfRegistered} $FA_Mw "mw"
 	${NSD_CreateCheckBox} 55% 30u 40% 8u "NSIS (.nsi; .nsh)"
 	Pop $FA_Nsi
+	${SelectIfRegistered} $FA_Nsi "nsi"
+	${SelectIfRegistered} $FA_Nsi "nsh"
 	${NSD_CreateCheckBox} 55% 40u 40% 8u "Perl (.pl)"
 	Pop $FA_Pl
-	${NSD_CreateCheckBox} 55% 50u 40% 8u "PHP (.php; .php3; .inc)"
+	${SelectIfRegistered} $FA_Pl "pl"
+	${NSD_CreateCheckBox} 55% 50u 40% 8u "PHP (.php; .php3)"
 	Pop $FA_Php
+	${SelectIfRegistered} $FA_Php "php"
+	${SelectIfRegistered} $FA_Php "php3"
 	${NSD_CreateCheckBox} 55% 60u 40% 8u "Plain Text (.txt)"
 	Pop $FA_Txt
+	${SelectIfRegistered} $FA_Txt "txt"
 	${NSD_CreateCheckBox} 55% 70u 40% 8u "Python (.py)"
 	Pop $FA_Py
+	${SelectIfRegistered} $FA_Py "py"
 	${NSD_CreateCheckBox} 55% 80u 40% 8u "Ruby (.rb)"
 	Pop $FA_Rb
+	${SelectIfRegistered} $FA_Rb "rb"
 	${NSD_CreateCheckBox} 55% 90u 40% 8u "Smarty (.tpl)"
 	Pop $FA_Smarty
+	${SelectIfRegistered} $FA_Smarty "tpl"
 	${NSD_CreateCheckBox} 55% 100u 40% 8u "VisualBasic Script (.vbs; .vb)"
 	Pop $FA_Vbs
+	${SelectIfRegistered} $FA_Vbs "vbs"
+	${SelectIfRegistered} $FA_Vbs "vb"
 	${NSD_CreateCheckBox} 55% 110u 40% 8u "XHTML (.xhtml)"
 	Pop $FA_Xhtml
+	${SelectIfRegistered} $FA_Xhtml "xhtml"
 	${NSD_CreateCheckBox} 55% 120u 40% 8u "XML (.xml; .xsl)"
 	Pop $FA_Xml
-	
-	${NSD_Check} $FA_BFProject
-	${NSD_Check} $FA_BFLang2
+	${SelectIfRegistered} $FA_Xml "xml"
+	${SelectIfRegistered} $FA_Xml "xsl"
 
 	${NSD_CreateCheckBox} 40% 130u 30% 8u "$(FA_SELECT)"
 	Pop $FA_SelectAll
@@ -82,7 +117,6 @@ FunctionEnd
 
 ; Note: Make sure to add or remove handlers from the BF_FILE_CLASSES define when changing
 Function SetFileAssociations
-
 	;                     HWND			Extension	Mime Type		Handler	Content Type	ICON Id
 	${RegisterFileType} $FA_Ada  	"ada" 	"text/x-ada" 			"bfadafile" "$(CT_ADA)" 1
 	${RegisterFileType} $FA_Asp  	"asp" 	"text/x-asp" 			"bfaspfile" "$(CT_ASP)" 2
@@ -108,7 +142,6 @@ Function SetFileAssociations
 	${RegisterFileType} $FA_Nsi 	"nsh" 	"text/x-nsh" 			"bfnshfile" "$(CT_NSH)" 16
 	${RegisterFileType} $FA_Pl  	"pl" 		"application/x-perl" 		"bfplfile" "$(CT_PL)" 18
 	${RegisterFileType} $FA_Php 	"php" 	"application/x-php" 		"bfphpfile" "$(CT_PHP)" 19
-	${RegisterFileType} $FA_Php 	"inc" 	"application/x-php" 		"bfphpfile" "$(CT_INC)" 19
 	${RegisterFileType} $FA_Php 	"php3" 	"application/x-php" 		"bfphpfile" "$(CT_PHP)" 19
 	${RegisterFileType} $FA_Txt 	"txt" 	"text/plain" 			"bftxtfile" "$(CT_TXT)" 24
 	${RegisterFileType} $FA_Py  	"py" 		"text/x-python" 		"bfpyfile" "$(CT_PY)" 20
