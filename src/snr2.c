@@ -212,6 +212,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 	returnvalue.pmatch = NULL;
 	returnvalue.nmatch = 0;
 	returnvalue.errorcode = 0;
+	returnvalue.doc=NULL;
 	if ((!search_pattern) || (!buf)) {
 		DEBUG_MSG("search_backend, search_pattern or buf is NULL\n");
 		return returnvalue;
@@ -522,16 +523,19 @@ void doc_show_result(Tdocument *doc, GtkWindow *window, gint start, gint end, gb
  * When called several times, the search continues from where it left off last time.
  * The current 'search-position' is stored in the internal last_snr2 structure.
  *
- * Return value: #Tsearch_all_result
+ * Return value: #Tsearch_result
  **/
-Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gboolean unescape, gboolean want_submatches) {
+Tsearch_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gboolean unescape, gboolean want_submatches) {
 	GList *tmplist;
-	Tsearch_all_result result_all;
+	Tsearch_result result_all;
 
 	DEBUG_MSG("search_all, started\n");
 	result_all.start = -1;
 	result_all.end = -1;
 	result_all.doc = NULL;
+	result_all.errorcode=0;
+	result_all.nmatch=0;
+	result_all.pmatch=NULL;
 
 	if (LASTSNR2(bfwin->snr2)->doc) {
 		DEBUG_MSG("search_all, continuing previous search at doc %p\n",LASTSNR2(bfwin->snr2)->doc);
@@ -546,11 +550,11 @@ Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types 
 
 		result = search_doc(bfwin,(Tdocument *)tmplist->data, search_pattern, matchtype, is_case_sens, LASTSNR2(bfwin->snr2)->result.end, -1, unescape, want_submatches);
 		if (result.end > 0) {
-			result_all.start = result.start;
-			result_all.end = result.end;
-			result_all.doc = tmplist->data;
+/*			result_all.start = result.start;
+			result_all.end = result.end;*/
+			result.doc = tmplist->data;
 			DEBUG_MSG("search_all, found!! start=%d, end=%d, doc=%p\n", result.start, result.end, tmplist->data);
-			return result_all;
+			return result;
 		}
 		tmplist = g_list_next(tmplist);
 		if (tmplist) {
@@ -1062,17 +1066,14 @@ static gint search_multiple(Tbfwin *bfwin, gint startpos, gint endpos) {
 static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, gint startpos, gint endpos, gboolean want_submatches) {
 	Tsearch_result result = {0,0,0,0,NULL,0,0};
 	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
-		Tsearch_all_result result_all;
 		snr2_doc_remove_highlight(LASTSNR2(bfwin->snr2)->doc);
-		result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
-		result.start = result_all.start;
-		result.end = result_all.end;
-		if (result_all.end > 0) {
-			doc_show_result(result_all.doc, dialog, result_all.start, result_all.end, LASTSNR2(bfwin->snr2)->select_match);
+		result = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
+		if (result.end > 0) {
+			doc_show_result(result.doc, dialog, result.start, result.end, LASTSNR2(bfwin->snr2)->select_match);
 			if (bfwin->current_document->uri && LASTSNR2(bfwin->snr2)->bookmark_results) {
-				gchar *text = doc_get_chars(result_all.doc, result_all.start, result_all.end);
-				DEBUG_MSG("search_single_and_show, adding bookmark '%s' at %d\n", text, result_all.start);
-				bmark_add_extern(result_all.doc, result_all.start, LASTSNR2(bfwin->snr2)->search_pattern, text, !main_v->globses.bookmarks_default_store);
+				gchar *text = doc_get_chars(result.doc, result.start, result.end);
+				DEBUG_MSG("search_single_and_show, adding bookmark '%s' at %d\n", text, result.start);
+				bmark_add_extern(result.doc, result.start, LASTSNR2(bfwin->snr2)->search_pattern, text, !main_v->globses.bookmarks_default_store);
 				g_free(text);
 			}
 		}
