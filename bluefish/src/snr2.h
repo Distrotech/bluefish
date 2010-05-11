@@ -34,15 +34,15 @@ typedef struct {
 	they should be freed by the calling function! */
 	regmatch_t *pmatch;
 	gint nmatch;
-	
+	Tdocument *doc; /* used when searching all documents */
 	gint errorcode; /* 0 means no error */
 } Tsearch_result;
 
-typedef struct {
+/*typedef struct {
 	gint start;
 	gint end;
 	Tdocument *doc;
-} Tsearch_all_result;
+} Tsearch_all_result;*/
 
 typedef enum { match_normal, match_word, match_posix, match_perl } Tmatch_types;
 
