@@ -13,7 +13,7 @@ m4_foreach_w(
 	[AC_lingua],
 	[$1],
 	[
-	 AC_MSG_NOTICE([Having lingua ]AC_lingua)
+	 dnl AC_MSG_NOTICE([Having lingua ]AC_lingua)dnl debugging
 	 AH_TEMPLATE(AS_TR_CPP([HAVE_LINGUA_]AC_lingua), [Define to 1 for ] AC_lingua [ lingua support.])
 	 AC_DEFINE(AS_TR_CPP([HAVE_LINGUA_]AC_lingua))
 	]
