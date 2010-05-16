@@ -1237,7 +1237,7 @@ static void bflang_cleanup(Tbflang *bflang) {
 	free_stringlist(bflang->mimetypes);
 	g_slice_free(Tbflang,bflang);
 }
-
+#ifdef MEMORY_LEAK_DEBUG
 void langmgr_cleanup(void) {
 	GList *tmplist = g_list_first(langmgr.bflang_list);
 	while (tmplist) {
@@ -1246,6 +1246,7 @@ void langmgr_cleanup(void) {
 	}
 	g_list_free(langmgr.bflang_list);
 }
+#endif
 
 static void register_bflanguage(Tbflang *bflang) {
 	if (bflang) {
