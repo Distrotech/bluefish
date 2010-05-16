@@ -339,10 +339,9 @@ int main(int argc, char *argv[])
 
 	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, NULL);
 	DEBUG_MSG("main, before gtk_main()\n");
-/*  gdk_threads_enter ();*/
 	gtk_main();
-/*  gdk_threads_leave ();*/
 	DEBUG_MSG("main, after gtk_main()\n");
+
 	autosave_cleanup();
 #ifdef WITH_MSG_QUEUE
 	/* do the cleanup */
@@ -350,11 +349,16 @@ int main(int argc, char *argv[])
 #else
 	ipc_bf2bf_cleanup();
 #endif /* WITH_MSG_QUEUE */
+
+#ifdef MEMORY_LEAK_DEBUG
 	DEBUG_MSG("calling fb2config_cleanup()\n");
 	fb2config_cleanup();
 	langmgr_cleanup();
 	xmlCleanupParser();
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
+#else
+	exit(0);
+#endif
 	return 0;
 }
 

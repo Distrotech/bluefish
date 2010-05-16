@@ -2831,6 +2831,8 @@ void fb2config_init(void)
 	DEBUG_MSG("fb2config_init, finished\n");
 }
 
+#ifdef MEMORY_LEAK_DEBUG
+
 static gboolean treestore_foreach_cleanup(GtkTreeModel *model,GtkTreePath *path,GtkTreeIter *iter,gpointer data) {
 	GFile *uri;
 	GFileInfo *finfo;
@@ -2868,3 +2870,4 @@ void fb2config_cleanup(void)
 	g_object_unref(FB2CONFIG(main_v->fb2config)->filesystem_tstore);
 	g_free(main_v->fb2config);
 }
+#endif
