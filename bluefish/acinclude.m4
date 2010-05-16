@@ -1,3 +1,25 @@
+dnl @synopsis BF_DEFINE_LINGUAS
+dnl
+dnl @summary Define HAVE_LINGUA_$lang for every language of ALL_LINGUAS
+dnl
+dnl Make defines in config.h for every every language of ALL_LINGUAS. This
+dnl will be used for the language support list in preferences.
+dnl
+dnl @author Daniel Leidert <daniel.leidert@wgdd.de>
+dnl @version $Date$
+dnl @license AllPermissive
+AC_DEFUN([BF_DEFINE_LINGUAS],[
+m4_foreach_w(
+	[AC_lingua],
+	[$1],
+	[
+	 AC_MSG_NOTICE([Having lingua ]AC_lingua)
+	 AH_TEMPLATE(AS_TR_CPP([HAVE_LINGUA_]AC_lingua), [Define to 1 for ] AC_lingua [ lingua support.])
+	 AC_DEFINE(AS_TR_CPP([HAVE_LINGUA_]AC_lingua))
+	]
+)
+]) # BF_DEFINE_LINGUAS
+
 dnl @synopsis BF_PROG_JING
 dnl
 dnl @summary Determine if we can use the 'jing' program.
