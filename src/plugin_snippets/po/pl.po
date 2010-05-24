@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-02-15 14:57+0100\n"
+"POT-Creation-Date: 2010-05-24 20:31+0200\n"
 "PO-Revision-Date: 2004-11-30 01:14-0300\n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
@@ -68,7 +68,8 @@ msgstr "/Importuj"
 
 #: src/plugin_snippets/snippets_gui.c:481
 msgid "Click the right mouse button to add, edit or delete snippets."
-msgstr "Kliknij prawym przyciskiem myszy aby dodać, zmienić lub usunąc skrawki."
+msgstr ""
+"Kliknij prawym przyciskiem myszy aby dodać, zmienić lub usunąc skrawki."
 
 #: src/plugin_snippets/snippets_gui.c:482
 msgid "Use drag and drop to re-order snippets"
@@ -90,16 +91,15 @@ msgstr "/Widok/Meny skrawków"
 msgid "[cursor position or selection]"
 msgstr "[pozycja kursora lub zaznaczenie]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:154
+#: src/plugin_snippets/snippets_leaf_snr.c:156
 msgid "Search for: '"
 msgstr "Szukaj: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:154
+#: src/plugin_snippets/snippets_leaf_snr.c:156
 msgid "', replace with: '"
 msgstr "', zastąp: '"
 
 #: src/plugin_snippets/snippets_wizard.c:112
-
 msgid "Entire document"
 msgstr "Cały dokument"
 
@@ -108,7 +108,6 @@ msgid "Forward from cursor position"
 msgstr "W przód od pozycji kursora"
 
 #: src/plugin_snippets/snippets_wizard.c:114
-
 msgid "Selection"
 msgstr "Zaznaczenie"
 
@@ -138,9 +137,10 @@ msgid ""
 "placeholders to ask for values when you activate this item. Give these "
 "placeholders an appropriate name on the right."
 msgstr ""
-"Określ wzorzec wyszukiwania i zastępowania. Możesz użyć %0, %1, ...%5 wartości"
-"zastępczych aby odwołać się do tych wartości kiedy zostaną aktywowane. Te wartości "
-"zastępcze zostaną nadane na odpowiedniej nazwie po prawej stronie."
+"Określ wzorzec wyszukiwania i zastępowania. Możesz użyć %0, %1, ...%5 "
+"wartościzastępczych aby odwołać się do tych wartości kiedy zostaną "
+"aktywowane. Te wartości zastępcze zostaną nadane na odpowiedniej nazwie po "
+"prawej stronie."
 
 #: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
@@ -174,67 +174,68 @@ msgstr "Użyj specjalnych znaków wyjścia (tzw. escape char)"
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr "Usuń znaki backslasha użytych znaków wyjścia np. \\n, \\t itd."
 
-#: src/plugin_snippets/snippets_wizard.c:339
+#: src/plugin_snippets/snippets_wizard.c:341
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
 "position or the current selection. You may use %0, %1, ...%9 placeholders to "
 "ask for values when you activate this item. Give these placeholders an "
 "appropriate name on the right."
-msgstr "<i>Przed</i> tekstem zostanie wstawiony przed pozycją  kursora lub "
-"bieżącym zaznaczeniem, <i>Za</i> tekstem zostanie wstawione za pozycją kursora lub "
-"bieżącym zaznaczeniem. Możesz użyć %0, %1, ...%9 znaków zastępczych aby "
-"aby odwołać się do tych wartości kiedy zostaną aktywowane. Te wartości "
-"zastępcze zostaną nadane na odpowiedniej nazwie po prawej stronie."
+msgstr ""
+"<i>Przed</i> tekstem zostanie wstawiony przed pozycją  kursora lub bieżącym "
+"zaznaczeniem, <i>Za</i> tekstem zostanie wstawione za pozycją kursora lub "
+"bieżącym zaznaczeniem. Możesz użyć %0, %1, ...%9 znaków zastępczych aby aby "
+"odwołać się do tych wartości kiedy zostaną aktywowane. Te wartości zastępcze "
+"zostaną nadane na odpowiedniej nazwie po prawej stronie."
 
-#: src/plugin_snippets/snippets_wizard.c:345
+#: src/plugin_snippets/snippets_wizard.c:347
 msgid "<i>Before</i> text"
 msgstr "<i>Przed</i> tekstem"
 
-#: src/plugin_snippets/snippets_wizard.c:355
+#: src/plugin_snippets/snippets_wizard.c:357
 msgid "<i>After</i> text"
 msgstr "<i>Za</i> tekście"
 
-#: src/plugin_snippets/snippets_wizard.c:363
+#: src/plugin_snippets/snippets_wizard.c:365
 msgid "Number"
 msgstr "Numer"
 
-#: src/plugin_snippets/snippets_wizard.c:365
+#: src/plugin_snippets/snippets_wizard.c:367
 msgid "Name"
 msgstr "Nazwa"
 
-#: src/plugin_snippets/snippets_wizard.c:367
+#: src/plugin_snippets/snippets_wizard.c:369
 msgid "Is file path"
 msgstr "Ścieżka do pliku"
 
-#: src/plugin_snippets/snippets_wizard.c:493
+#: src/plugin_snippets/snippets_wizard.c:495
 msgid "Enter the name of the branch:"
 msgstr "Podaj nazwę nowej gałęzi"
 
-#: src/plugin_snippets/snippets_wizard.c:585
+#: src/plugin_snippets/snippets_wizard.c:587
 msgid "Name of the new item:"
 msgstr "Nazwa nowego elementu"
 
-#: src/plugin_snippets/snippets_wizard.c:590
+#: src/plugin_snippets/snippets_wizard.c:592
 msgid "Description:"
 msgstr "Opis"
 
-#: src/plugin_snippets/snippets_wizard.c:640
+#: src/plugin_snippets/snippets_wizard.c:642
 msgid "Select what you want to add"
 msgstr "Wybierz co zamierzasz dodać"
 
-#: src/plugin_snippets/snippets_wizard.c:642
+#: src/plugin_snippets/snippets_wizard.c:644
 msgid "Branch"
 msgstr "Gałąź"
 
-#: src/plugin_snippets/snippets_wizard.c:644
+#: src/plugin_snippets/snippets_wizard.c:646
 msgid "Insert string"
 msgstr "Wstaw wyrażenie"
 
-#: src/plugin_snippets/snippets_wizard.c:646
+#: src/plugin_snippets/snippets_wizard.c:648
 msgid "Search and replace pattern"
 msgstr "Szukaj i zamień wzorzec"
 
-#: src/plugin_snippets/snippets_wizard.c:753
+#: src/plugin_snippets/snippets_wizard.c:755
 msgid "New snippet"
 msgstr "Nowy skrawek"

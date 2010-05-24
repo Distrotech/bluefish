@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-02-15 14:57+0100\n"
+"POT-Creation-Date: 2010-05-24 20:31+0200\n"
 "PO-Revision-Date: 4/9/2006 \n"
 "Last-Translator: Oskar Świda (oskar.swida@gmail.com)\n"
 "Language-Team: None\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: src/plugin_about/about.c:83
+#: src/plugin_about/about.c:104
 msgid ""
 "\n"
 "Developers of previous releases:"
@@ -22,7 +22,7 @@ msgstr ""
 "\n"
 "Deweloperzy poprzednich wydań:"
 
-#: src/plugin_about/about.c:98
+#: src/plugin_about/about.c:119
 msgid ""
 "\n"
 "Package maintainers:"
@@ -30,7 +30,7 @@ msgstr ""
 "\n"
 "Opiekunowie paczki"
 
-#: src/plugin_about/about.c:105
+#: src/plugin_about/about.c:126
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
@@ -40,8 +40,7 @@ msgstr ""
 "Jeśli ktoś na tej liście został pominięty,\n"
 "proszę powiadom nas: <bluefish@bluefish.openoffice.nl>."
 
-
-#: src/plugin_about/about.c:106
+#: src/plugin_about/about.c:127
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
@@ -49,7 +48,7 @@ msgstr ""
 "\n"
 "Dziękujemy wszystkim, którzy przyczynili się do rozwoju tego oprogramowania."
 
-#: src/plugin_about/about.c:143
+#: src/plugin_about/about.c:164
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
@@ -67,36 +66,36 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:153
-
+#: src/plugin_about/about.c:174
 msgid "translator-credits"
-msgstr "Infrmacje o tłumaczeniu:\n"
+msgstr ""
+"Infrmacje o tłumaczeniu:\n"
 "Polska lokalizacja Bluefish została przygotowana przez:\n"
 "QUICK-MASTER SI, Paweł Worobiak <dawajpoczte@gmail.com>\n"
 "Bazuje na tłumaczeniu: Oskar Świda <swida@aragorn.pb.bialystok.pl>, 2004"
 
-#: src/plugin_about/about.c:195
-msgid "This version of Bluefish was built with:\n"
-msgstr "Ta wersja Bluefish została zbudowana przy użyciu następujących opcji:\n"
-
 #: src/plugin_about/about.c:216
+msgid "This version of Bluefish was built with:\n"
+msgstr ""
+"Ta wersja Bluefish została zbudowana przy użyciu następujących opcji:\n"
+
+#: src/plugin_about/about.c:237
 msgid "/_Help"
 msgstr "/_Pomoc"
 
-#: src/plugin_about/about.c:217
+#: src/plugin_about/about.c:238
 msgid "/Help/Bluefish _Homepage"
 msgstr "/Pomoc/Strona domowa Bluefish"
 
-#: src/plugin_about/about.c:218
+#: src/plugin_about/about.c:239
 msgid "/Help/Report a _Bug"
 msgstr "/Pomoc/Zgłoś _Błąd"
 
-#: src/plugin_about/about.c:220
+#: src/plugin_about/about.c:241
 msgid "/Help/_About..."
 msgstr "/Pomoc/O programie..."
 
-#: src/plugin_about/about.c:221
-
+#: src/plugin_about/about.c:242
 msgid "/Help/_Build Info..."
 msgstr "/Pomoc/Informacje o wersji..."
 
