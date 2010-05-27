@@ -530,13 +530,6 @@ Tsearch_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 	Tsearch_result result_all;
 
 	DEBUG_MSG("search_all, started\n");
-	result_all.start = -1;
-	result_all.end = -1;
-	result_all.doc = NULL;
-	result_all.errorcode=0;
-	result_all.nmatch=0;
-	result_all.pmatch=NULL;
-
 	if (LASTSNR2(bfwin->snr2)->doc) {
 		DEBUG_MSG("search_all, continuing previous search at doc %p\n",LASTSNR2(bfwin->snr2)->doc);
 		tmplist = g_list_find(bfwin->documentlist, LASTSNR2(bfwin->snr2)->doc);
@@ -562,6 +555,14 @@ Tsearch_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 		}
 	}
 	DEBUG_MSG("search_all, not found..\n");
+	result_all.start = -1;
+	result_all.end = -1;
+	result_all.bstart = -1;
+	result_all.bend = -1;
+	result_all.doc = NULL;
+	result_all.errorcode=0;
+	result_all.nmatch=0;
+	result_all.pmatch=NULL;
 	return result_all;
 }
 
