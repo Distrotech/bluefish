@@ -164,6 +164,20 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 #endif
 }
 
+static void project_destroy(Tproject *project) {
+	DEBUG_MSG("project_destroy, project=%p, project->session=%p\n",project,project->session);
+	bookmark_data_cleanup(project->bmarkdata);
+	if (project->files) 
+		free_stringlist(project->files);
+	if (project->session)
+		free_session(project->session);
+	if (project->uri)
+		g_object_unref(project->uri);
+	if (project->name)
+		g_free(project->name);
+	g_free(project);
+}
+
 /* bfwin is allowed to be NULL for an empty project */
 static Tproject *create_new_project(Tbfwin *bfwin) {
 	Tproject *prj;
@@ -311,10 +325,11 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 	retval = rcfile_parse_project(prj, fromuri);
 	if (!retval) {
 		DEBUG_MSG("project_open_from_file, failed parsing the project\n");
-		/* TODO: use project_destroy() */
+		project_destroy(prj);
+		/* TODO: use project_destroy() 
 		bookmark_data_cleanup(prj->bmarkdata);
 		g_free(prj->session);
-		g_free(prj);
+		g_free(prj);*/
 		return;
 	}
 	add_to_recent_list(bfwin,fromuri, FALSE, TRUE);
@@ -368,17 +383,6 @@ static void project_open(Tbfwin *bfwin) {
 	dialog = file_chooser_dialog(bfwin, _("Select Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE, "bfproject", FALSE);
 	g_signal_connect(dialog, "response", G_CALLBACK(project_open_response_lcb), bfwin);
 	gtk_widget_show_all(dialog);
-}
-
-static void project_destroy(Tproject *project) {
-	DEBUG_MSG("project_destroy, project=%p, project->session=%p\n",project,project->session);
-	bookmark_data_cleanup(project->bmarkdata);
-	free_stringlist(project->files);
-	free_session(project->session);
-	if (project->uri)
-		g_object_unref(project->uri);
-	g_free(project->name);
-	g_free(project);
 }
 
 void project_save_and_mark_closed(Tbfwin *bfwin) {
@@ -449,10 +453,11 @@ static void project_edit_destroy_lcb(GtkWidget *widget, Tprojecteditor *pred) {
 	DEBUG_MSG("project_edit_destroy_lcb, called for pred=%p\n",pred);
 /*	gtk_widget_destroy(pred->win);*/
 	if (pred->destroy_project_on_close) {
-		project_destroy(pred->project);
 		if (pred->bfwin) {
 			setup_bfwin_for_nonproject(pred->bfwin);
 		}
+		project_destroy(pred->project);
+		pred->project=NULL;
 	}
 	if (pred->project) {
 		pred->project->editor = NULL;
