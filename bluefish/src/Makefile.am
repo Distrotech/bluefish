@@ -84,6 +84,8 @@ bluefish_SOURCES = \
 	gui.h \
 	ipc_bf2bf.c \
 	ipc_bf2bf.h \
+	languages.c \
+	languages.h \
 	menu.c \
 	menu.h \
 	msg_queue.c \

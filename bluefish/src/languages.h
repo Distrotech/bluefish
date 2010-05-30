@@ -1,8 +1,7 @@
 /* Bluefish HTML Editor
  * languages.h - available languages
  *
- * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2010 Olivier Sessink
+ * Copyright (C) 2010 Daniel Leidert
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,17 +21,8 @@
 #ifndef __LANGUAGES_H_
 #define __LANGUAGES_H_
 
-static const bf_translation_lang_t {
-	const char * lang;
-	const char * lang_native;
-	const char * lang_iso639_1;
-	const char * lang_iso639_2;
-	const char * lang_iso639_3;
-	const char * lang_locale;
-} p_languages[] = {
-	{ N_( "English" ), "English", "en", "eng", "eng", "en_EN" },
-	{ N_( "German" ), "Deutsch", "de", "deu", "deu", "de_DE" },
-	{ N_( "Gallician" ), "Galego", "gl", "glg", "glg", "gl_GL" }
-}
+GList * lingua_list_sorted (void);
+gchar * lingua_lang_to_locale (const gchar *lang);
+gchar * lingua_locale_to_lang (const gchar *locale);
 
 #endif /* __LANGUAGES_H_ */
