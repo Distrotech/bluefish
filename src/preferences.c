@@ -43,6 +43,7 @@
 #include "rcfile.h"
 #include "file_autosave.h"
 #include "stringlist.h"    /* duplicate_arraylist*/
+#include "languages.h"
 
 enum {
 	do_periodic_check,
@@ -1359,6 +1360,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	if (g_strcmp0(main_v->props.language, _("Auto"))==0) {
 		g_free(main_v->props.language);
 		main_v->props.language=NULL;
+	} else {
+		main_v->props.language=lingua_lang_to_locale(main_v->props.language);
 	}
 	
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
@@ -1668,8 +1671,8 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
-	poplist = list_from_arglist(FALSE, _("Auto"), "NL", "DE", "ES", NULL);
-	pd->prefs[language] = prefs_combo(_("Language"),(main_v->props.language&&main_v->props.language[0])?main_v->props.language:_("Auto"), vbox2, poplist, FALSE);
+	poplist = lingua_list_sorted();
+	pd->prefs[language] = prefs_combo(_("Language"),(main_v->props.language&&main_v->props.language[0])?lingua_locale_to_lang(main_v->props.language):_("Auto"), vbox2, poplist, FALSE);
 	g_list_free(poplist);
 
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);

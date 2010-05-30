@@ -493,6 +493,7 @@ typedef struct {
 								   is initialized */
 	GSList *sidepanel_destroygui;	/* plugins can register a function here that is called when the side pane
 									   is destroyed */
+	GHashTable *linguas;
 } Tmain;
 
 extern EXPORT Tmain *main_v;
