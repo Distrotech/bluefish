@@ -166,7 +166,7 @@ lingua_lang_to_locale (const gchar *lang) {
 	return g_strdup(linguas[i].locale);
 }
 
-gchar *
+const gchar *
 lingua_locale_to_lang (const gchar *locale) {
 	gint i;
 
