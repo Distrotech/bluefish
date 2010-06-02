@@ -171,5 +171,5 @@ lingua_locale_to_lang (const gchar *locale) {
 	gint i;
 
 	i = GPOINTER_TO_INT(g_hash_table_lookup(main_v->linguas, locale));
-	return g_strdup(linguas[i].native);
+	return linguas[i].native;
 }
