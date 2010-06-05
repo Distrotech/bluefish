@@ -196,13 +196,11 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag * imdg)
 		}
 		thestring = insert_integer_if_spin(imdg->dg->spin[3], cap("HSPACE"), thestring, FALSE, 0);
 		thestring = insert_integer_if_spin(imdg->dg->spin[4], cap("VSPACE"), thestring, FALSE, 0);
-		thestring = insert_string_if_entry(imdg->dg->entry[1], cap("NAME"), thestring, NULL);
-		thestring = insert_string_if_entry(imdg->dg->entry[2], cap("ALT"), thestring, "");
-		thestring = insert_string_if_entry(imdg->dg->entry[3], cap("USEMAP"), thestring, NULL);
-		thestring =
-			insert_string_if_entry(GTK_WIDGET(GTK_BIN(imdg->dg->combo[0])->child), cap("ALIGN"), thestring,
-								   NULL);
-		thestring = insert_string_if_entry(imdg->dg->entry[4], NULL, thestring, NULL);
+		thestring = insert_string_if_entry(GTK_ENTRY(imdg->dg->entry[1]), cap("NAME"), thestring, NULL);
+		thestring = insert_string_if_entry(GTK_ENTRY(imdg->dg->entry[2]), cap("ALT"), thestring, "");
+		thestring = insert_string_if_entry(GTK_ENTRY(imdg->dg->entry[3]), cap("USEMAP"), thestring, NULL);
+		thestring = insert_string_if_combobox(GTK_COMBO_BOX(imdg->dg->combo[0]), cap("ALIGN"), thestring,NULL);
+		thestring = insert_string_if_entry(GTK_ENTRY(imdg->dg->entry[4]), NULL, thestring, NULL);
 
 		finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
 		g_free(thestring);
