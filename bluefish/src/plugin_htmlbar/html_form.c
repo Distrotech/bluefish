@@ -2,7 +2,7 @@
  * html_form.c - html form dialogs
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2005 Olivier Sessink
+ * Copyright (C) 1999-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -108,11 +108,11 @@ static void formok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	gchar *thestring, *finalstring;
 
 	thestring = g_strdup(cap("<FORM"));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[4])->child), cap("ACTION"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("METHOD"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("ENCTYPE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[3])->child), cap("TARGET"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[2]), NULL, thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[4]), cap("ACTION"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("METHOD"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("ENCTYPE"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("TARGET"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 

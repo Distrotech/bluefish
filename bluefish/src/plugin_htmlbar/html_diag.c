@@ -306,18 +306,37 @@ gchar *insert_string_if_string(const gchar *inputstring, gchar * itemname, gchar
 	return string2add2;
 }
 
-gchar *insert_string_if_entry(GtkWidget * entry, gchar * itemname, gchar * string2add2, gchar *defaultvalue)
+gchar *insert_string_if_entry(GtkEntry* entry, gchar * itemname, gchar * string2add2, gchar *defaultvalue)
 {
 	if (entry) {
 		gchar *retstring, *entryvalue;
 		entryvalue = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
 		if (entryvalue[0]!='\0') {
 			retstring = insert_string_if_string(entryvalue, itemname, string2add2, defaultvalue);
+			g_free(entryvalue);
 			return retstring;
 		}
 		g_free(entryvalue);
 	}
 	return string2add2;
+}
+
+gchar *insert_string_if_combobox(GtkComboBox *combobox, gchar * itemname, gchar * string2add2, gchar *defaultvalue) {
+	gchar *value, *retstring;
+	if (!combobox)
+		return string2add2;
+	
+	value = gtk_combo_box_get_active_text(combobox);
+	if (!value)
+		return string2add2;
+	
+	if (value[0]=='\0') {
+		retstring = string2add2;
+	} else {
+		retstring = insert_string_if_string(value, itemname, string2add2, defaultvalue);
+	}
+	g_free(value);
+	return retstring;
 }
 
 gchar *insert_integer_if_spin(GtkWidget * spin, gchar * itemname, gchar * string2add2, gboolean ispercentage, gint dontinsertonvalue) {
