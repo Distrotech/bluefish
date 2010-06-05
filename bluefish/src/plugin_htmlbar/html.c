@@ -743,10 +743,10 @@ static void block_tag_editok_lcb(gint type, Thtml_diag * dg) {
 
   thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
   thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("CLASS"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[1]), cap("STYLE"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[2]), cap("NAME"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[3]), cap("ID"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[4]), NULL, thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), cap("STYLE"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("NAME"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[3]), cap("ID"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[4]), NULL, thestring, NULL);
   finalstring = g_strdup_printf("%s>", thestring);
   g_free(thestring);
 
@@ -935,11 +935,11 @@ static void quickruleok_lcb(GtkWidget * widget, Thtml_diag * dg) {
   gchar *thestring, *finalstring;
 
   thestring = g_strdup(cap("<HR"));
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("ALIGN"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
   thestring = insert_integer_if_spin(dg->spin[1], cap("SIZE"), thestring, FALSE, 1);
   thestring = insert_integer_if_spin(dg->spin[2], cap("WIDTH"), thestring, GTK_TOGGLE_BUTTON(dg->check[1])->active,GTK_TOGGLE_BUTTON(dg->check[1])->active ? 100 : 0);
   thestring = insert_attr_if_checkbox(dg->check[2], main_v->props.xhtml == 1 ? cap("NOSHADE=\"noshade\"") : cap("NOSHADE"), thestring);
-  thestring = insert_string_if_entry(dg->entry[1], NULL, thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
   finalstring = g_strdup_printf(main_v->props.xhtml == 1 ? "%s />" : "%s>", thestring);
   g_free(thestring);
 
@@ -1014,21 +1014,21 @@ static void bodyok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 
   thestring = g_strdup(cap("<BODY"));
   if (dg->entry[1]) {
-    thestring = insert_string_if_entry(dg->entry[1], cap("BACKGROUND"), thestring, NULL);
-    thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("BGCOLOR"), thestring, NULL);
-    thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("TEXT"), thestring, NULL);
-    thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[3])->child), cap("LINK"), thestring, NULL);
-    thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[4])->child), cap("VLINK"), thestring, NULL);
-    thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[5])->child), cap("ALINK"), thestring, NULL);
+    thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), cap("BACKGROUND"), thestring, NULL);
+    thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("BGCOLOR"), thestring, NULL);
+    thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("TEXT"), thestring, NULL);
+    thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("LINK"), thestring, NULL);
+    thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[4]), cap("VLINK"), thestring, NULL);
+    thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[5]), cap("ALINK"), thestring, NULL);
   }
-  thestring = insert_string_if_entry(dg->entry[3], cap("STYLE"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[6])->child), cap("CLASS"), thestring, NULL);
-  thestring = insert_string_if_entry(dg->entry[4], cap("ID"), thestring, NULL);
-  thestring = insert_string_if_entry(dg->entry[5], cap("LANG"), thestring, NULL);
-  thestring = insert_string_if_entry(dg->entry[6], cap("ONLOAD"), thestring, NULL);
-  thestring = insert_string_if_entry(dg->entry[7], cap("ONUNLOAD"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[3]), cap("STYLE"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[6]), cap("CLASS"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[4]), cap("ID"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[5]), cap("LANG"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[6]), cap("ONLOAD"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[7]), cap("ONUNLOAD"), thestring, NULL);
 
-  thestring = insert_string_if_entry(dg->entry[2], NULL, thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), NULL, thestring, NULL);
   finalstring = g_strconcat(thestring, ">\n", NULL);
   g_free(thestring);
 
@@ -1185,15 +1185,15 @@ static void metaok_lcb(GtkWidget * widget, Thtml_diag *dg)
   gchar *thestring, *finalstring;
 
   thestring = g_strdup(cap("<META"));
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("HTTP-EQUIV"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("NAME"), thestring, NULL);
-  thestring = insert_string_if_entry(dg->entry[1], cap("CONTENT"), thestring, NULL);
-  thestring = insert_string_if_entry(dg->entry[2], cap("LANG"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("HTTP-EQUIV"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("NAME"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), cap("CONTENT"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("LANG"), thestring, NULL);
   if (main_v->props.xhtml == 1) {
-    thestring = insert_string_if_entry(dg->entry[2], cap("XML:LANG"), thestring, NULL);
+    thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("XML:LANG"), thestring, NULL);
   }
-  thestring = insert_string_if_entry(dg->entry[3], cap("SCHEME"), thestring, NULL);
-  thestring = insert_string_if_entry(dg->entry[4], NULL, thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[3]), cap("SCHEME"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[4]), NULL, thestring, NULL);
   finalstring = g_strconcat(thestring,main_v->props.xhtml == 1 ? " />" : ">", NULL);
   g_free(thestring);
 
@@ -1289,9 +1289,9 @@ static void generalfontdialog_lcb(gint type, GtkWidget * widget, Thtml_diag *dg)
     thestring = tmpstr;
     g_free(sizecombo);
   }
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("COLOR"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[3])->child), cap("FACE"), thestring, NULL);
-  thestring = insert_string_if_entry(dg->entry[1], NULL, thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("COLOR"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("FACE"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
   finalstring = g_strconcat(thestring, ">", NULL);
   g_free(thestring);
 
@@ -1533,8 +1533,8 @@ static void framesetdialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
   gchar *thestring, *finalstring;
 
   thestring = g_strdup(cap("<FRAMESET"));
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("COLS"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("ROWS"), thestring, NULL);
+  thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[1])), cap("COLS"), thestring, NULL);
+  thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[2])), cap("ROWS"), thestring, NULL);
   finalstring = g_strconcat(thestring, ">", NULL);
   g_free(thestring);
 
@@ -1631,16 +1631,16 @@ static void framedialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
   gchar *thestring, *finalstring, *tmp;
 
   thestring = g_strdup(cap("<FRAME"));
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("SRC"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("NAME"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[0])), cap("FRAMEBORDER"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("SRC"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("NAME"), thestring, NULL);
+  thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[0])), cap("FRAMEBORDER"), thestring, NULL);
   tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[3]));
   thestring = insert_string_if_string(tmp, cap("SCROLLING"), thestring, NULL);
   g_free(tmp);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("MARGINWIDTH"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("MARGINHEIGHT"), thestring, NULL);
+  thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("MARGINWIDTH"), thestring, NULL);
+  thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[2])), cap("MARGINHEIGHT"), thestring, NULL);
   thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("NORESIZE=\"noresize\"") : cap("NORESIZE"), thestring);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), NULL, thestring, NULL);
+  thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[1])), NULL, thestring, NULL);
 
   bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(GTK_BIN(dg->combo[2])->child));
   bfwin->session->urllist = add_entry_to_stringlist(bfwin->session->urllist, GTK_WIDGET(GTK_BIN(dg->combo[1])->child));
@@ -1736,11 +1736,11 @@ static void embedok_lcb(GtkWidget * widget,Thtml_diag *dg )
   gchar *thestring, *finalstring;
 
   thestring = g_strdup(cap("<EMBED"));
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("SRC"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("WIDTH"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("HEIGHT"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[3])), cap("BORDER"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[1])->child)), cap("ALIGN"), thestring, NULL);
+  thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[1])), cap("SRC"), thestring, NULL);
+  thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("WIDTH"), thestring, NULL);
+  thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[2])), cap("HEIGHT"), thestring, NULL);
+  thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[3])), cap("BORDER"), thestring, NULL);
+  thestring = insert_string_if_entry((GTK_ENTRY(GTK_BIN(dg->combo[1])->child)), cap("ALIGN"), thestring, NULL);
 
   if (main_v->props.xhtml == 1) {
     finalstring = g_strconcat(thestring, " />", NULL);
@@ -1791,10 +1791,10 @@ static void scriptok_lcb(GtkWidget * widget,Thtml_diag *dg ) {
   gchar *thestring, *finalstring, *endstring;
 
   thestring = g_strdup(cap("<SCRIPT"));
-  thestring = insert_string_if_entry(dg->entry[0], cap("SRC"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_BIN(dg->combo[0])->child, cap("LANGUAGE"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_BIN(dg->combo[1])->child, cap("TYPE"), thestring, NULL);
-  thestring = insert_string_if_entry(dg->entry[1], NULL, thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[0]), cap("SRC"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[0]), cap("LANGUAGE"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("TYPE"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
   finalstring = g_strconcat(thestring, ">", NULL);
   endstring = cap("</SCRIPT>");
   g_free(thestring);
@@ -1862,15 +1862,15 @@ static void linkdialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
   gchar *thestring, *finalstring;
 
   thestring = g_strdup(cap("<LINK"));
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[0])->child), cap("HREF"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[1]), cap("HREFLANG"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[2]), cap("TITLE"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[3])->child), cap("TYPE"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[4])->child), cap("REL"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[5])->child), cap("REV"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[6])->child), cap("MEDIA"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[7]), cap("LANG"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[8]), NULL, thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->attrwidget[0]), cap("HREF"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->attrwidget[1]), cap("HREFLANG"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->attrwidget[2]), cap("TITLE"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->attrwidget[3]), cap("TYPE"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->attrwidget[4]), cap("REL"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->attrwidget[5]), cap("REV"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->attrwidget[6]), cap("MEDIA"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->attrwidget[7]), cap("LANG"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->attrwidget[8]), NULL, thestring, NULL);
   finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
   g_free(thestring);
 
