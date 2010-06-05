@@ -563,25 +563,25 @@ static void quickanchorok_lcb(GtkWidget * widget, Thtml_diag * dg)
   Tbfwin *bfwin = dg->bfwin;
 
   thestring = g_strdup(cap("<A"));
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("HREF"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("TARGET"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[2]), cap("NAME"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[4]), NULL, thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[5]), cap("ONCLICK"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[6]), cap("ONDBLCLICK"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[7]), cap("ONMOUSEOVER"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[8]), cap("ONMOUSEDOWN"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[9]), cap("ONMOUSEMOVE"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[10]), cap("ONMOUSEOUT"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[11]), cap("ONMOUSEUP"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[12]), cap("ONKEYDOWN"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[13]), cap("ONKEYPRESS"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[14]), cap("ONKEYUP"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[0])->child), cap("CLASS"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[1]), cap("ID"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[2]), cap("STYLE"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[17]), cap("LANG"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[18]), cap("TITLE"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(GTK_BIN(dg->combo[2])->child), cap("HREF"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("TARGET"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("NAME"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[4]), NULL, thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[5]), cap("ONCLICK"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[6]), cap("ONDBLCLICK"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[7]), cap("ONMOUSEOVER"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[8]), cap("ONMOUSEDOWN"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[9]), cap("ONMOUSEMOVE"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[10]), cap("ONMOUSEOUT"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[11]), cap("ONMOUSEUP"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[12]), cap("ONKEYDOWN"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[13]), cap("ONKEYPRESS"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[14]), cap("ONKEYUP"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(GTK_BIN(dg->attrwidget[0])->child), cap("CLASS"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->attrwidget[1]), cap("ID"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->attrwidget[2]), cap("STYLE"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[17]), cap("LANG"), thestring, NULL);
+  thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[18]), cap("TITLE"), thestring, NULL);
   finalstring = g_strdup_printf("%s>", thestring);
   g_free(thestring);
 
@@ -741,8 +741,8 @@ static void block_tag_editok_lcb(gint type, Thtml_diag * dg) {
   break;
   }
 
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("ALIGN"), thestring, NULL);
-  thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("CLASS"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
+  thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("CLASS"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[1]), cap("STYLE"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[2]), cap("NAME"), thestring, NULL);
   thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[3]), cap("ID"), thestring, NULL);
