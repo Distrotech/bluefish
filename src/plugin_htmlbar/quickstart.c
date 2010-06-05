@@ -181,7 +181,7 @@ quickstart_load_metatags(GtkListStore * lstore)
 		"http-equiv=\"content-type\" content=\"application/xhtml+xml; charset=UTF-8\"",
 		"http-equiv=\"content-style-type\" content=\"text/css\"",
 		"http-equiv=\"expires\" content=\"0\"",
-		"http-equiv=\"refresh\" content=\"5; URL=http://\"",
+		/*"http-equiv=\"refresh\" content=\"5; URL=http://\"",*/
 	};
 
 	for (i = 0; i < G_N_ELEMENTS(metaTags); i++) {
