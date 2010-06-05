@@ -1284,6 +1284,7 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 /*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ed.combo)->list));*/
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ed.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
+	lingua_cleanup();
 	DEBUG_MSG("preferences_destroy_lcb, about to destroy the window\n");
 	window_destroy(pd->win);
 	main_v->prefdialog = NULL;
