@@ -24,5 +24,5 @@
 GList * lingua_list_sorted (void);
 gchar * lingua_lang_to_locale (const gchar *lang);
 const gchar * lingua_locale_to_lang (const gchar *locale);
-
+void lingua_cleanup(void);
 #endif /* __LANGUAGES_H_ */

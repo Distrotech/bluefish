@@ -21,6 +21,8 @@
 #include "bluefish.h"
 #include "languages.h"
 
+GHashTable *lingua_table = NULL;
+
 typedef struct {
 	gchar* translated;
 	gchar* native;
@@ -122,21 +124,18 @@ static const linguas_t linguas[] = {
 
 static void
 lingua_build_hasht (void) {
-	GHashTable *hasht;
 	gint i;
 
-	if (main_v->linguas) return;
+	if (lingua_table) return;
 
-	hasht = g_hash_table_new_full(g_str_hash, g_str_equal, NULL, NULL);
+	lingua_table = g_hash_table_new_full(g_str_hash, g_str_equal, NULL, NULL);
 	for (i=0; i<G_N_ELEMENTS(linguas); i++)
 	{
 		if (linguas[i].native && linguas[i].locale) {
-			g_hash_table_insert(hasht, (gpointer) linguas[i].native, GINT_TO_POINTER(i));
-			g_hash_table_insert(hasht, (gpointer) linguas[i].locale, GINT_TO_POINTER(i));
+			g_hash_table_insert(lingua_table, (gpointer) linguas[i].native, GINT_TO_POINTER(i));
+			g_hash_table_insert(lingua_table, (gpointer) linguas[i].locale, GINT_TO_POINTER(i));
 		}
 	}
-	
-	main_v->linguas = hasht; 
 }
 
 GList *
@@ -144,7 +143,6 @@ lingua_list_sorted (void) {
 	GList *list = NULL;
 	gint i;
 
-	lingua_build_hasht();
 	for (i=0; i<G_N_ELEMENTS(linguas); i++)
 	{
 		if (linguas[i].native) {
@@ -157,19 +155,29 @@ lingua_list_sorted (void) {
 	return list;
 }
 
-
 gchar *
 lingua_lang_to_locale (const gchar *lang) {
 	gint i;
+	if (!lingua_table)
+		lingua_build_hasht();
 
-	i = GPOINTER_TO_INT(g_hash_table_lookup(main_v->linguas, lang));
+	i = GPOINTER_TO_INT(g_hash_table_lookup(lingua_table, lang));
 	return g_strdup(linguas[i].locale);
 }
 
 const gchar *
 lingua_locale_to_lang (const gchar *locale) {
 	gint i;
+	if (!lingua_table)
+		lingua_build_hasht();
 
-	i = GPOINTER_TO_INT(g_hash_table_lookup(main_v->linguas, locale));
+	i = GPOINTER_TO_INT(g_hash_table_lookup(lingua_table, locale));
 	return linguas[i].native;
+}
+
+void lingua_cleanup(void) {
+	if (lingua_table) {
+		g_hash_table_destroy(lingua_table);
+		lingua_table = NULL;
+	}
 }
