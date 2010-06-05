@@ -2,7 +2,7 @@
  * html_table.c - table dialoges
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2005 Olivier Sessink
+ * Copyright (C) 1999-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -185,7 +185,9 @@ static void tablerowdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[1]));
 	thestring = insert_string_if_string(tmp, cap("ALIGN"), thestring, NULL);
 	g_free(tmp);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[2])->child)), cap("VALIGN"), thestring, NULL);
+	tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[2]));
+	thestring = insert_string_if_string(tmp, cap("VALIGN"), thestring, NULL);
+	g_free(tmp);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[3])->child)), cap("BGCOLOR"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[4])->child)), cap("CLASS"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("STYLE"), thestring, NULL);
