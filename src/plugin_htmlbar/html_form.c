@@ -198,11 +198,10 @@ static void textareaok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	gchar *thestring, *finalstring;
 
 	thestring = g_strdup(cap("<TEXTAREA"));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("ROWS"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("COLS"), thestring, NULL);
-	/* thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("READONLY=\"readonly\"") : cap("READONLY="), thestring); */
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), NULL, thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("ROWS"), thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[2])), cap("COLS"), thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[2])), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
@@ -259,10 +258,10 @@ static void selectdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	gchar *thestring, *finalstring;
 
 	thestring = g_strdup(cap("<SELECT"));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("SIZE"), thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("SIZE"), thestring, NULL);
 	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("MULTIPLE=\"multiple\"") : cap("MULTIPLE"), thestring);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), NULL, thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[2])), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
@@ -314,8 +313,8 @@ static void optiondialogok_lcb(GtkWidget * widget,Thtml_diag *dg )
 	gchar *thestring, *finalstring;
 
 	thestring = g_strdup(cap("<OPTION"));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("VALUE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("LABEL"), thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[1])), cap("VALUE"), thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[2])), cap("LABEL"), thestring, NULL);
 	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("SELECTED=\"selected\"") : cap("SELECTED"), thestring);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
@@ -364,7 +363,7 @@ static void optgroupdialogok_lcb(GtkWidget * widget,Thtml_diag *dg )
 	gchar *thestring, *finalstring;
 
 	thestring = g_strdup(cap("<OPTGROUP"));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("LABEL"), thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[1])), cap("LABEL"), thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
@@ -402,8 +401,8 @@ static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
 	text = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[0]));
 	thestring = g_strdup(cap("<INPUT"));
 	thestring = insert_string_if_string(text, cap("TYPE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[0]), cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[1]), cap("VALUE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[0]), cap("NAME"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), cap("VALUE"), thestring, NULL);
 	if (strcmp(text, "radio")==0 || strcmp(text, "checkbox")==0) {
 		thestring = insert_attr_if_checkbox(dg->check[0], main_v->props.xhtml == 1 ? cap("CHECKED=\"checked\"") : cap("CHECKED"), thestring);
 	}
@@ -414,16 +413,16 @@ static void inputdialogok_lcb(GtkWidget * widget,Thtml_diag *dg) {
 		thestring = insert_integer_if_spin(dg->spin[1], cap("MAXLENGTH"), thestring, FALSE, 0);
 	}
 	if (strcmp(text, "file")==0) {
-		thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[2]), cap("ACCEPT"), thestring, NULL);
+		thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("ACCEPT"), thestring, NULL);
 	}
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->attrwidget[0])->child), cap("CLASS"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[1]), cap("ID"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[2]), cap("STYLE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[3]), cap("ONFOCUS"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[4]), cap("ONBLUR"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[5]), cap("ONSELECT"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[6]), cap("ONCHANGE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->entry[7]), NULL, thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->attrwidget[0]), cap("CLASS"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->attrwidget[1]), cap("ID"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->attrwidget[2]), cap("STYLE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[3]), cap("ONFOCUS"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[4]), cap("ONBLUR"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[5]), cap("ONSELECT"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[6]), cap("ONCHANGE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[7]), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
 	g_free(thestring);
 	g_free(text);
@@ -549,15 +548,13 @@ void inputdialog_rpopup(Tbfwin *bfwin, Ttagpopup *data) {
 }
 
 static void buttondialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
-	gchar *thestring, *finalstring, *tmp;
+	gchar *thestring, *finalstring;
 
 	thestring = g_strdup(cap("<BUTTON"));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);
-	tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[1]));
-	thestring = insert_string_if_string(tmp, cap("TYPE"), thestring, NULL);
-	g_free(tmp);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[1])), cap("NAME"), thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[2])), cap("VALUE"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("TYPE"), thestring, NULL);
+	thestring = insert_string_if_entry((GTK_ENTRY(dg->entry[3])), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
