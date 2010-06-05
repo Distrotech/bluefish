@@ -98,7 +98,8 @@ void fill_dialogvalues(gchar *dialogitems[], gchar *dialogvalues[]
 void parse_existence_for_dialog(gchar * valuestring, GtkWidget * checkbox);
 void parse_integer_for_dialog(gchar * valuestring, GtkWidget * spin, GtkWidget * entry, GtkWidget * checkbox);
 gchar *insert_string_if_string(const gchar *inputstring, gchar * itemname, gchar * string2add2, const gchar *defaultvalue);
-gchar *insert_string_if_entry(GtkWidget * entry, gchar * itemname, gchar * string2add2, gchar *defaultvalue);
+gchar *insert_string_if_entry(GtkEntry * entry, gchar * itemname, gchar * string2add2, gchar *defaultvalue);
+gchar *insert_string_if_combobox(GtkComboBox *combobox, gchar * itemname, gchar * string2add2, gchar *defaultvalue);
 gchar *insert_integer_if_spin(GtkWidget * spin, gchar * itemname, gchar * string2add2, gboolean ispercentage, gint dontinsertonvalue);
 gchar *insert_attr_if_checkbox(GtkWidget * checkbox, gchar * itemname, gchar *string2add2);
 gchar *format_entry_into_string(GtkEntry * entry, gchar * formatstring);

@@ -34,27 +34,21 @@
 
 static void tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
-	gchar *thestring, *finalstring, *tmp;
+	gchar *thestring, *finalstring;
 
 	thestring = g_strdup(cap("<TABLE"));
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("CELLPADDING"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[3])), cap("CELLSPACING"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[4])), cap("BORDER"), thestring, NULL);
-	tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[1]));
-	thestring = insert_string_if_string(tmp, cap("ALIGN"), thestring, NULL);
-	g_free(tmp);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[2])->child)), cap("VALIGN"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[3])->child)), cap("BGCOLOR"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->spin[1]), cap("CELLPADDING"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->spin[3]), cap("CELLSPACING"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->spin[4]), cap("BORDER"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("VALIGN"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("BGCOLOR"), thestring, NULL);
 	thestring = insert_integer_if_spin(dg->spin[2], cap("WIDTH"), thestring, GTK_TOGGLE_BUTTON(dg->check[1])->active, 0);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[4])->child)), cap("CLASS"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("STYLE"), thestring, NULL);
-	tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[5]));
-	thestring = insert_string_if_string(tmp, cap("FRAME"), thestring, NULL);
-	g_free(tmp);
-	tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[6]));
-	thestring = insert_string_if_string(tmp, cap("RULES"), thestring, NULL);
-	g_free(tmp);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), NULL, thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(GTK_BIN(dg->combo[4])->child), cap("CLASS"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("STYLE"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[5]), cap("FRAME"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[6]), cap("RULES"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
@@ -179,19 +173,15 @@ void tabledialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 static void tablerowdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 {
-	gchar *thestring, *finalstring, *tmp;
+	gchar *thestring, *finalstring;
 
 	thestring = g_strdup(cap("<TR"));
-	tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[1]));
-	thestring = insert_string_if_string(tmp, cap("ALIGN"), thestring, NULL);
-	g_free(tmp);
-	tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[2]));
-	thestring = insert_string_if_string(tmp, cap("VALIGN"), thestring, NULL);
-	g_free(tmp);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[3])->child)), cap("BGCOLOR"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_BIN(dg->combo[4])->child)), cap("CLASS"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[2])), cap("STYLE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), NULL, thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("ALIGN"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("VALIGN"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("BGCOLOR"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[4]), cap("CLASS"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("STYLE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
 	
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
@@ -281,13 +271,13 @@ static void table_head_and_data_dialogok_lcb(gint type, GtkWidget * widget, Thtm
 	thestring = insert_integer_if_spin(dg->spin[3], cap("HEIGHT"), thestring, GTK_TOGGLE_BUTTON(dg->check[3])->active,0);
 	thestring = insert_integer_if_spin(dg->spin[5], cap("COLSPAN"), thestring, FALSE, 0);
 	thestring = insert_integer_if_spin(dg->spin[4], cap("ROWSPAN"), thestring, FALSE, 0);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[1])->child), cap("ALIGN"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[2])->child), cap("VALIGN"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[3])->child), cap("BGCOLOR"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_BIN(dg->combo[4])->child), cap("CLASS"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("VALIGN"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("BGCOLOR"), thestring, NULL);
+	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[4]), cap("CLASS"), thestring, NULL);
 	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("NOWRAP=\"nowrap\"") : cap("NOWRAP"), thestring);
-	thestring = insert_string_if_entry(dg->entry[2], cap("STYLE"), thestring, NULL);
-	thestring = insert_string_if_entry(dg->entry[1], NULL, thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("STYLE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
