@@ -47,5 +47,7 @@ fi
 if [ x`echo "x$1" | sed -e "s/^x-psn_.*//"` == x ]; then
     shift 1
 fi
-
-$EXEC "$bundle_contents/MacOS/$name-bin" "$@" $EXTRA_ARGS
+cd ${bundle}/Contents/MacOS
+pwd
+echo 'current dir'
+$EXEC "$bundle_contents/MacOS/bluefish" "$@" $EXTRA_ARGS
