@@ -736,8 +736,7 @@ actions, so the first char in buf is actually number offset in the text widget *
 			tmp1 = g_utf8_strdown(replacing,-1);
 			tmp2 = g_utf8_strdown(tmpstr,-1);
 			if (g_utf8_strlen(tmpstr, -1) != g_utf8_strlen(replacing, -1) || strcmp(tmp1,tmp2)!=0) {
-				g_print("you found a bug: uppercase/lowercase replace found a different string\n");
-				exit(155);
+				g_error("you found a bug: uppercase/lowercase replace found a different string\n");
 			}
 			g_free(tmp1);
 			g_free(tmp2);
