@@ -1,8 +1,7 @@
 templatesdir = $(pkgdatadir)/templates
-dist_templates_DATA =
-
-#	C\ header \
-#	C\ header\ GPL \
-#	HTML\ 5 \
-#	PHP \
-#	XHTML\ 1.0
+dist_templates_DATA = \
+	C_header \
+	C_header_GPL \
+	HTML_5 \
+	PHP \
+	XHTML_1.0

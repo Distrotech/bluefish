@@ -613,10 +613,10 @@ void rcfile_parse_main(void)  {
 	}
 #endif /* ifdef WIN32 elif PLATFORM_DARWIN */
 	if (main_v->props.templates==NULL) {
-		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("C Header"), PKGDATADIR"/templates/C Header", NULL));
-		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("C Header GPL"), PKGDATADIR"/templates/C Header GPL", NULL));
-		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("XHTML 1.0"), PKGDATADIR"/templates/XHTML 1.0", NULL));
-		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("HTML 5"), PKGDATADIR"/templates/HTML 5", NULL));
+		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("C Header"), PKGDATADIR"/templates/C_Header", NULL));
+		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("C Header GPL"), PKGDATADIR"/templates/C_Header_GPL", NULL));
+		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("XHTML 1.0"), PKGDATADIR"/templates/XHTML_1.0", NULL));
+		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("HTML 5"), PKGDATADIR"/templates/HTML_5", NULL));
 		main_v->props.templates = g_list_append(main_v->props.templates, array_from_arglist(_("PHP"), PKGDATADIR"/templates/PHP", NULL));
 	}
 }
