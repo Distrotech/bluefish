@@ -141,7 +141,6 @@ static gboolean startup_in_idle(gpointer data) {
 			set_default_icon();
 			fb2config_init();			/* filebrowser2config */
 			filters_rebuild();
-			main_v->tooltips = gtk_tooltips_new();
 			main_v->bmarkdata = bookmark_data_new();
 			/* create the first window */
 			startup->firstbfwin = g_new0(Tbfwin, 1);

@@ -984,19 +984,19 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 
 	but = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GOTO_TOP,GTK_ICON_SIZE_MENU),"");
 	g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(bmark_first_lcb),bfwin);
-	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(but),main_v->tooltips,_("First bookmark"),"");
+	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(but),_("First bookmark"));
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),but,-1);
 	but = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU),"");
 	g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(bmark_previous_lcb),bfwin);
-	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(but),main_v->tooltips,_("Previous bookmark"),"");
+	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(but),_("Previous bookmark"));
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),but,-1);
 	but = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GO_DOWN,GTK_ICON_SIZE_MENU),"");
 	g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(bmark_next_lcb),bfwin);
-	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(but),main_v->tooltips,_("Next bookmark"),"");
+	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(but),_("Next bookmark"));
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),but,-1);
 	but = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GOTO_BOTTOM,GTK_ICON_SIZE_MENU),"");
 	g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(bmark_last_lcb),bfwin);
-	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(but),main_v->tooltips,_("Last bookmark"),"");
+	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(but),_("Last bookmark"));
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),but,-1);
 
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
