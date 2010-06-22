@@ -499,9 +499,6 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode, Tentitysetting *eset) {
 	} else{
 		ew->IE_apos_workaround = NULL;
 	}
-
-/*  g_signal_connect(ew->overlappingMatches, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
-	gtk_tooltips_set_tip(main_v->tooltips,ew->overlappingMatches,_("After a match is found, start next search within that match."),NULL);*/
 	if (doc_has_selection(bfwin->current_document)) {
 		gtk_combo_box_set_active(GTK_COMBO_BOX(ew->scope), 1);
 	} else {

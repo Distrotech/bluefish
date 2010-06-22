@@ -409,7 +409,7 @@ void doc_set_tooltip(Tdocument *doc) {
 		}
 	}
 	tmp = g_string_free(retstr,FALSE);
-	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, tmp, "");
+	gtk_widget_set_tooltip_text( doc->tab_eventbox, tmp);
 	g_free(tmp);
 }
 /**

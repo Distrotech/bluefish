@@ -482,7 +482,6 @@ typedef struct {
 											word the user clicked */
 	gpointer bmarkdata;
 	gint num_untitled_documents;
-	GtkTooltips *tooltips;
 	gchar *securedir;			/* temporary rwx------ directory for secure file creation */
 	GSList *plugins;
 	GSList *doc_view_populate_popup_cbs;	/* plugins can register functions here that need to

@@ -2,6 +2,7 @@
  * infb_gui.c - plugin for information browser
  *
  * Copyright (C) 2007 Oskar Świda
+ * Copyright (C) 2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -534,38 +535,25 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	
 	win->btn_home = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_HOME,GTK_ICON_SIZE_MENU),"");
 	g_signal_connect(G_OBJECT(win->btn_home),"clicked",G_CALLBACK(infb_midx_clicked),bfwin);
-	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->btn_home),main_v->tooltips,_("Documentation index"),"");
+	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(win->btn_home),_("Documentation index"));
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->btn_home,0);
 
 	win->btn_idx = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_INDEX,GTK_ICON_SIZE_MENU),"");
 	g_signal_connect(G_OBJECT(win->btn_idx),"clicked",G_CALLBACK(infb_idx_clicked),bfwin);
-	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->btn_idx),main_v->tooltips,_("Document index"),"");
+	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(win->btn_idx),_("Document index"));
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->btn_idx,1);
 
 	win->btn_up = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU),"");
 	g_signal_connect(G_OBJECT(win->btn_up),"clicked",G_CALLBACK(infb_up_clicked),bfwin);
-	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->btn_up),main_v->tooltips,_("Upper level"),"");
+	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(win->btn_up),_("Upper level"));
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->btn_up,2);
 
 	
 	win->saved = gtk_menu_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_FLOPPY,GTK_ICON_SIZE_MENU),"");
 	g_signal_connect(G_OBJECT(win->saved),"clicked",G_CALLBACK(infb_save_clicked),win);
-	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->saved),main_v->tooltips,_("Save current view"),"");
-	gtk_menu_tool_button_set_arrow_tooltip(GTK_MENU_TOOL_BUTTON(win->saved),main_v->tooltips,_("Go to selected fragment"),"");
+	gtk_tool_item_set_tooltip_text(GTK_TOOL_ITEM(win->saved),_("Save current view"));
+	gtk_menu_tool_button_set_arrow_tooltip_text(GTK_MENU_TOOL_BUTTON(win->saved),_("Go to selected fragment"));
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->saved,3);
-
-
-		
-	/*win->btn_add = gtk_button_new();
-	gtk_container_add(GTK_CONTAINER(win->btn_add), gtk_image_new_from_stock(GTK_STOCK_NEW,GTK_ICON_SIZE_MENU));
-	g_signal_connect (win->btn_add, "clicked",G_CALLBACK (infb_add_clicked), bfwin);
-	gtk_tooltips_set_tip(main_v->tooltips, win->btn_add, _("Add document"), "");
-	gtk_box_pack_end(GTK_BOX(box3), win->btn_add, FALSE, FALSE, 2);	
-	win->btn_del = gtk_button_new();
-	gtk_container_add(GTK_CONTAINER(win->btn_del), gtk_image_new_from_stock(GTK_STOCK_DELETE,GTK_ICON_SIZE_MENU));
-	g_signal_connect (win->btn_del, "clicked",G_CALLBACK (infb_del_clicked), bfwin);
-	gtk_tooltips_set_tip(main_v->tooltips, win->btn_del, _("Remove document"), "");
-	gtk_box_pack_end(GTK_BOX(box3), win->btn_del, FALSE, FALSE, 2);*/	
 
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 

@@ -1424,7 +1424,8 @@ static gboolean snr_focus_in_lcb(GtkWidget *widget, GdkEventFocus *event, TSNRWi
 /* the following two functions are a trick to get a tooltip working on top of a gtkcombobox */
 static void set_combo_tooltip(GtkWidget *widget, gpointer data)
 {
-	if (GTK_IS_BUTTON (widget)) gtk_tooltips_set_tip(main_v->tooltips, widget,(gchar *)data, NULL);
+	if (GTK_IS_BUTTON (widget))
+		gtk_widget_set_tooltip_text(widget, (gchar *)data);
 }
 static void realize_combo_set_tooltip(GtkWidget *combo, gpointer data)
 {
@@ -1850,26 +1851,26 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 		gtk_check_button_new_with_mnemonic(_("Allow o_verlapping matches"));
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->overlappingMatches, FALSE, FALSE, 0);
 	g_signal_connect(snrwin->overlappingMatches, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
-	gtk_tooltips_set_tip(main_v->tooltips,snrwin->overlappingMatches,_("After a match is found, start next search within that match."),NULL);
+	gtk_widget_set_tooltip_text(snrwin->overlappingMatches,_("After a match is found, start next search within that match."));
 
 	snrwin->matchCase = gtk_check_button_new_with_mnemonic(_("Case sensitive _matching"));
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->matchCase, FALSE, FALSE, 0);
 	g_signal_connect(snrwin->matchCase, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
-	gtk_tooltips_set_tip(main_v->tooltips,snrwin->matchCase,_("Only match if case (upper/lower) is identical."),NULL);
+	gtk_widget_set_tooltip_text(snrwin->matchCase,_("Only match if case (upper/lower) is identical."));
 
 	snrwin->escapeChars = gtk_check_button_new_with_mnemonic(_("Pattern contains escape-se_quences"));
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->escapeChars, FALSE, FALSE, 0);
 	g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
-	gtk_tooltips_set_tip(main_v->tooltips,snrwin->escapeChars,_("Pattern contains backslash escaped characters such as \\n \\t etc."),NULL);
+	gtk_widget_set_tooltip_text(snrwin->escapeChars,_("Pattern contains backslash escaped characters such as \\n \\t etc."));
 
 	snrwin->select_match = gtk_check_button_new_with_mnemonic(_("Select matc_hes"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(snrwin->select_match),main_v->globses.snr_select_match);
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->select_match, FALSE, FALSE, 0);
-	gtk_tooltips_set_tip(main_v->tooltips,snrwin->select_match,_("Select the matching text instead of just highlighting it"),NULL);
+	gtk_widget_set_tooltip_text(snrwin->select_match,_("Select the matching text instead of just highlighting it"));
 
 	snrwin->bookmarks = gtk_check_button_new_with_mnemonic(_("_Bookmark matches"));
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->bookmarks, FALSE, FALSE, 0);
-	gtk_tooltips_set_tip(main_v->tooltips,snrwin->bookmarks,_("Create a bookmark for each match"),NULL);
+	gtk_widget_set_tooltip_text(snrwin->bookmarks,_("Create a bookmark for each match"));
 
 	gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
 	if (dialogType == BF_REPLACE_DIALOG) {
