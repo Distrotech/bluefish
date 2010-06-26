@@ -1,0 +1,26 @@
+<ui>
+  <menubar name="MainMenu">
+    <menu name="FileMenu" action="FileMenuAction">
+    <menuitem name="NewWindow" action="NewWindowAction" />
+      <menuitem name="Quit" action="QuitAction" />
+      <placeholder name="FileMenuAdditions" />
+    </menu>
+    <placeholder name="PluginPlaceholder" />
+    <menu name="DocumentMenu" action="DocumentMenuAction">
+      <menuitem name="Clear" action="ClearAction"/>
+      <menuitem name="Lookup" action="LookupAction"/>
+      <menu name="LanguageModeMenu" action="LanguageModeMenuAction">
+      <placeholder name="LanguageModePlaceholder" />
+      </menu>
+    </menu>
+  </menubar>
+  
+  <toolbar name="MainToolbar" action="MainMenuBarAction">
+    <placeholder name="ToolItems">
+      <separator/>
+      <toolitem name="Clear" action="ClearAction"/>
+      <toolitem name="Lookup" action="LookupAction"/>
+      <separator/>
+    </placeholder>
+  </toolbar>
+</ui>
