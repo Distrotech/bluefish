@@ -180,6 +180,7 @@ static void new_window() {
 					, actionname
 					, GTK_UI_MANAGER_MENUITEM
 					, FALSE);
+		group = gtk_radio_action_get_group(raction);
 		tmplist = g_list_next(tmplist);
 	}
 
