@@ -43,12 +43,12 @@ static void set_action_toggle_wo_activate(GtkActionGroup *actiongroup, const gch
 /* Create callbacks that implement our Actions */
 static void rescan_syntax_action(GtkAction * action, gpointer user_data)
 {
-	g_print("rescan syntax\n");
+	g_print("rescan syntax, bfwin=%p\n",user_data);
 }
 
 static void auto_indent_action(GtkAction * action, gpointer user_data)
 {
-	g_print("auto indent = %d\n",gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)));
+	g_print("auto indent = %d on bfwin=%p\n",gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)), user_data);
 }
 
 static void quit_action(GtkAction * action, gpointer user_data)
@@ -95,7 +95,7 @@ static GtkToggleActionEntry toggleactions[] = {
 
 static void anchor_action(GtkAction * action, gpointer user_data)
 {
-	g_print("anchor\n");
+	g_print("anchor, bfwin=%p\n",user_data);
 }
 
 
@@ -122,16 +122,16 @@ static const gchar * htmlui = "<ui>"
 	"</toolbar>"
 "</ui>";
 
-static void plugin_gui(GtkUIManager *menu_manager) {
+static void plugin_gui(Tbfwin *bfwin) {
 	GtkActionGroup *htmlactiongroup;	/* Packing group for our Actions */
 	GError *error;				/* For reporting exceptions or errors */
 	
 	htmlactiongroup = gtk_action_group_new("HTMLActions");
 	gtk_action_group_add_actions(htmlactiongroup, htmlentries,
-								 G_N_ELEMENTS(htmlentries), NULL);
-	gtk_ui_manager_insert_action_group(menu_manager, htmlactiongroup, 0);
+								 G_N_ELEMENTS(htmlentries), bfwin);
+	gtk_ui_manager_insert_action_group(bfwin->uimanager, htmlactiongroup, 0);
 /*	gtk_ui_manager_add_ui_from_file(menu_manager, "htmlui.xml", &error);*/
-	gtk_ui_manager_add_ui_from_string(menu_manager, htmlui, -1, &error);
+	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, htmlui, -1, &error);
 	if (error) {
 		g_message("building html menus failed: %s", error->message);
 		g_error_free(error);
@@ -141,9 +141,9 @@ static void plugin_gui(GtkUIManager *menu_manager) {
 	
 } 
 
-static void language_mode_changed(GtkAction *action, gpointer user_data) {
+static void language_mode_toggled_cb(GtkAction *action, gpointer user_data) {
 	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
-		g_print("language_mode_changed, active action=%s\n",gtk_action_get_name(action));
+		g_print("language_mode_toggled_cb, bfwin=%p, active action=%s\n",user_data, gtk_action_get_name(action));
 	}
 }
 
@@ -167,7 +167,7 @@ static void build_language_mode_menu(Tbfwin *bfwin) {
                                                          NULL,
                                                          0);
 		gtk_radio_action_set_group(raction, group);
-		g_signal_connect(raction, "changed", G_CALLBACK(language_mode_changed), bfwin);
+		g_signal_connect(raction, "toggled", G_CALLBACK(language_mode_toggled_cb), bfwin);
 		gtk_action_group_add_action(bfwin->action_group, GTK_ACTION(raction));
 		gtk_ui_manager_add_ui(bfwin->uimanager, gtk_ui_manager_new_merge_id(bfwin->uimanager)
 					, "/MainMenu/DocumentMenu/LanguageModeMenu"
@@ -189,7 +189,7 @@ typedef struct {
 } Tbfw_dynmenu;
 
 static void encoding_activate_cb(GtkMenuItem *widget, Tbfw_dynmenu *bdm) {
-	g_print("encoding_activate_cb, bdm=%p\n",bdm);
+	g_print("encoding_activate_cb, bfwin=%p\n",bdm->bfwin);
 }
 
 /* an example how to use GtkMenuItem to build a dynamic menu */
@@ -211,6 +211,7 @@ static void build_encoding_menu(Tbfwin *bfwin) {
 	group = NULL;
 	while (tmplist) {
 		Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
+		bdm->bfwin=bfwin;
 		bdm->menuitem = gtk_radio_menu_item_new_with_label(group, (gchar *)tmplist->data);
 		g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(encoding_activate_cb), (gpointer) bdm);
 		gtk_widget_show(bdm->menuitem);
@@ -239,8 +240,8 @@ static Tbfwin *new_window(void) {
 	bfwin->uimanager = gtk_ui_manager_new();
 	bfwin->action_group = gtk_action_group_new("TestActions");
 	gtk_action_group_set_translation_domain(bfwin->action_group, "blah");
-	gtk_action_group_add_actions(bfwin->action_group, entries, n_entries, NULL);
-	gtk_action_group_add_toggle_actions(bfwin->action_group, toggleactions, G_N_ELEMENTS(toggleactions), NULL);
+	gtk_action_group_add_actions(bfwin->action_group, entries, n_entries, bfwin);
+	gtk_action_group_add_toggle_actions(bfwin->action_group, toggleactions, G_N_ELEMENTS(toggleactions), bfwin);
 	gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->action_group, 0);
 
 	/* Read in the UI from our XML file */
@@ -255,7 +256,7 @@ static Tbfwin *new_window(void) {
 	build_language_mode_menu(bfwin);
 	build_encoding_menu(bfwin);
 
-	plugin_gui(bfwin->uimanager);
+	plugin_gui(bfwin);
 
 	/* Connect up important signals */
 	g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
