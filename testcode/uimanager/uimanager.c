@@ -26,6 +26,7 @@ gcc -o uimanager uimanager.c -O2 -Wall `pkg-config --libs --cflags gtk+-2.0`
 
 typedef struct {
 	GtkUIManager *uimanager;
+	GtkActionGroup *action_group;
 } Tbfwin;
 
 static void set_action_toggle_wo_activate(GtkActionGroup *actiongroup, const gchar *actionname, gboolean value) {
@@ -68,7 +69,7 @@ static GtkActionEntry entries[] = {
 	{"FileMenuAction", NULL, "_File"},	/* name, stock id, label */
 	{"DocumentMenuAction", NULL, "_Document"},
 	{"LanguageModeMenuAction", NULL, "_Language Mode"},
-	
+	{"EncodingMenuAction", NULL, "Character _Encoding"},
 	{"NewWindowAction", NULL, "New _Window", "<shift><control>n", "Create new window", G_CALLBACK(new_window_action)},
 
 
@@ -146,39 +147,11 @@ static void language_mode_changed(GtkAction *action, gpointer user_data) {
 	}
 }
 
-
-static Tbfwin *new_window(void) {
+/* an example how to use GtkUIManager to build a dynamic menu */
+static void build_language_mode_menu(Tbfwin *bfwin) {
 	GList *langlist, *tmplist;
 	GSList *group;
-	GtkActionGroup *action_group;	/* Packing group for our Actions */
-	GError *error;				/* For reporting exceptions or errors */
-	GtkWidget *window;			/* The main window */
-	GtkWidget *menu_box;		/* Packing box for the menu and toolbars */
-	GtkWidget *menubar;			/* The actual menubar */
-	GtkWidget *toolbar;			/* The actual toolbar */
-	Tbfwin *bfwin;
-	
-	bfwin = g_slice_new0(Tbfwin);
-	/* Create our objects */
-	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	menu_box = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(window), menu_box);
 
-	bfwin->uimanager = gtk_ui_manager_new();
-	action_group = gtk_action_group_new("TestActions");
-	gtk_action_group_set_translation_domain(action_group, "blah");
-	gtk_action_group_add_actions(action_group, entries, n_entries, NULL);
-	gtk_action_group_add_toggle_actions(action_group, toggleactions, G_N_ELEMENTS(toggleactions), NULL);
-	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 0);
-
-	/* Read in the UI from our XML file */
-	error = NULL;
-	gtk_ui_manager_add_ui_from_file(bfwin->uimanager, "mainui.xml", &error);
-	if (error) {
-		g_message("building menus failed: %s", error->message);
-		g_error_free(error);
-		error = NULL;
-	}
 	/* add a dynamic radiogroup */
 	langlist = g_list_prepend(NULL, "Generic XML");
 	langlist = g_list_prepend(langlist, "HTML");
@@ -195,7 +168,7 @@ static Tbfwin *new_window(void) {
                                                          0);
 		gtk_radio_action_set_group(raction, group);
 		g_signal_connect(raction, "changed", G_CALLBACK(language_mode_changed), bfwin);
-		gtk_action_group_add_action(action_group, GTK_ACTION(raction));
+		gtk_action_group_add_action(bfwin->action_group, GTK_ACTION(raction));
 		gtk_ui_manager_add_ui(bfwin->uimanager, gtk_ui_manager_new_merge_id(bfwin->uimanager)
 					, "/MainMenu/DocumentMenu/LanguageModeMenu"
 					, (gchar *)tmplist->data
@@ -205,6 +178,82 @@ static Tbfwin *new_window(void) {
 		group = gtk_radio_action_get_group(raction);
 		tmplist = g_list_next(tmplist);
 	}
+	
+}
+
+typedef struct {
+	Tbfwin *bfwin;
+	GtkWidget *menuitem;
+	gpointer data;
+	gulong signal_id;
+} Tbfw_dynmenu;
+
+static void encoding_activate_cb(GtkMenuItem *widget, Tbfw_dynmenu *bdm) {
+	g_print("encoding_activate_cb, bdm=%p\n",bdm);
+}
+
+/* an example how to use GtkMenuItem to build a dynamic menu */
+static void build_encoding_menu(Tbfwin *bfwin) {
+	GList *enclist, *tmplist;
+	GSList *group=NULL;
+	GtkMenuItem *mitem;
+	GtkMenu *menu;
+	
+	/* add a dynamic radiogroup */
+	enclist = g_list_prepend(NULL, "UTF-8");
+	enclist = g_list_prepend(enclist, "iso-8859-1");
+	enclist = g_list_prepend(enclist, "BIG-5");
+	
+	mitem = (GtkMenuItem *)gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/DocumentMenu/EncodingMenu");
+	menu = (GtkMenu *)gtk_menu_new();
+	gtk_menu_item_set_submenu(mitem, (GtkWidget *)menu);
+	tmplist = g_list_first(enclist);
+	group = NULL;
+	while (tmplist) {
+		Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
+		bdm->menuitem = gtk_radio_menu_item_new_with_label(group, (gchar *)tmplist->data);
+		g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(encoding_activate_cb), (gpointer) bdm);
+		gtk_widget_show(bdm->menuitem);
+		gtk_menu_insert(GTK_MENU(menu), bdm->menuitem, 1);
+		group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(bdm->menuitem));
+
+		tmplist = g_list_next(tmplist);
+	}
+} 
+
+static Tbfwin *new_window(void) {
+	
+	GError *error;				/* For reporting exceptions or errors */
+	GtkWidget *window;			/* The main window */
+	GtkWidget *menu_box;		/* Packing box for the menu and toolbars */
+	GtkWidget *menubar;			/* The actual menubar */
+	GtkWidget *toolbar;			/* The actual toolbar */
+	Tbfwin *bfwin;
+	
+	bfwin = g_slice_new0(Tbfwin);
+	/* Create our objects */
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	menu_box = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(window), menu_box);
+
+	bfwin->uimanager = gtk_ui_manager_new();
+	bfwin->action_group = gtk_action_group_new("TestActions");
+	gtk_action_group_set_translation_domain(bfwin->action_group, "blah");
+	gtk_action_group_add_actions(bfwin->action_group, entries, n_entries, NULL);
+	gtk_action_group_add_toggle_actions(bfwin->action_group, toggleactions, G_N_ELEMENTS(toggleactions), NULL);
+	gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->action_group, 0);
+
+	/* Read in the UI from our XML file */
+	error = NULL;
+	gtk_ui_manager_add_ui_from_file(bfwin->uimanager, "mainui.xml", &error);
+	if (error) {
+		g_message("building menus failed: %s", error->message);
+		g_error_free(error);
+		error = NULL;
+	}
+
+	build_language_mode_menu(bfwin);
+	build_encoding_menu(bfwin);
 
 	plugin_gui(bfwin->uimanager);
 
