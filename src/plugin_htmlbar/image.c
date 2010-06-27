@@ -187,10 +187,10 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag * imdg)
 
 		thestring =
 			insert_integer_if_spin(imdg->dg->spin[0], cap("WIDTH"), thestring,
-								   GTK_TOGGLE_BUTTON(imdg->dg->check[0])->active, 0);
+								   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(imdg->dg->check[0])), 0);
 		thestring =
 			insert_integer_if_spin(imdg->dg->spin[1], cap("HEIGHT"), thestring,
-								   GTK_TOGGLE_BUTTON(imdg->dg->check[1])->active, 0);
+								   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(imdg->dg->check[1])), 0);
 		if (!main_v->props.xhtml) {
 			thestring = insert_integer_if_spin(imdg->dg->spin[2], cap("BORDER"), thestring, FALSE, 1);
 		}
@@ -404,8 +404,8 @@ static void image_adjust_changed(GtkAdjustment * adj, Timage_diag * imdg)
 		return;
 	}
 
-	tn_width = imdg->adjustment->value * gdk_pixbuf_get_width(imdg->pb);
-	tn_height = imdg->adjustment->value * gdk_pixbuf_get_height(imdg->pb);
+	tn_width = gtk_adjustment_get_value(imdg->adjustment) * gdk_pixbuf_get_width(imdg->pb);
+	tn_height = gtk_adjustment_get_value(imdg->adjustment) * gdk_pixbuf_get_height(imdg->pb);
 
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[0]), tn_width);
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[1]), tn_height);
@@ -902,13 +902,13 @@ static void multi_thumbnail_ok_clicked(GtkWidget * widget, Tmuthudia * mtd)
 
 	gtk_widget_hide(mtd->win);
 
-	if (GTK_TOGGLE_BUTTON(mtd->radio[0])->active) {
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mtd->radio[0]))) {
 		main_v->globses.image_thumbnailsizing_type = 0;
-	} else if (GTK_TOGGLE_BUTTON(mtd->radio[1])->active) {
+	} else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mtd->radio[1]))) {
 		main_v->globses.image_thumbnailsizing_type = 1;
-	} else if (GTK_TOGGLE_BUTTON(mtd->radio[2])->active) {
+	} else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mtd->radio[2]))) {
 		main_v->globses.image_thumbnailsizing_type = 2;
-	} else if (GTK_TOGGLE_BUTTON(mtd->radio[3])->active) {
+	} else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mtd->radio[3]))) {
 		main_v->globses.image_thumbnailsizing_type = 3;
 	}
 	{
@@ -960,16 +960,16 @@ static void multi_thumbnail_cancel_clicked(GtkWidget * widget, Tmuthudia * mtd)
 static void multi_thumbnail_radio_toggled_lcb(GtkToggleButton * togglebutton, Tmuthudia * mtd)
 {
 	/* only call this for activate, not for de-activate */
-	if (togglebutton->active) {
-		if (GTK_TOGGLE_BUTTON(mtd->radio[0])->active) {
+	if (gtk_toggle_button_get_active(togglebutton)) {
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mtd->radio[0]))) {
 			gtk_widget_hide(mtd->spins[1]);
 			gtk_widget_hide(mtd->spinlabels[1]);
 			gtk_label_set_text(GTK_LABEL(mtd->spinlabels[0]), _("Scaling (%)"));
-		} else if (GTK_TOGGLE_BUTTON(mtd->radio[1])->active) {
+		} else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mtd->radio[1]))) {
 			gtk_widget_hide(mtd->spins[1]);
 			gtk_widget_hide(mtd->spinlabels[1]);
 			gtk_label_set_text(GTK_LABEL(mtd->spinlabels[0]), _("Width"));
-		} else if (GTK_TOGGLE_BUTTON(mtd->radio[2])->active) {
+		} else if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mtd->radio[2]))) {
 			gtk_widget_hide(mtd->spins[1]);
 			gtk_widget_hide(mtd->spinlabels[1]);
 			gtk_label_set_text(GTK_LABEL(mtd->spinlabels[0]), _("Height"));

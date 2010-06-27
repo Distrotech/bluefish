@@ -358,7 +358,7 @@ gchar *insert_attr_if_checkbox(GtkWidget * checkbox, gchar * itemname, gchar *st
 
 	gchar *tempstring;
 	
-	if (GTK_TOGGLE_BUTTON(checkbox)->active) {
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(checkbox))) {
 		tempstring = g_strdup_printf("%s %s",string2add2, itemname);
 		g_free(string2add2);
 		string2add2 = tempstring;

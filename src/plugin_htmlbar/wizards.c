@@ -35,8 +35,8 @@ static void table_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	rows = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(dg->spin[1]));
 	cols = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(dg->spin[2]));
 
-	if (GTK_TOGGLE_BUTTON(dg->check[1])->active) {
-		if (GTK_TOGGLE_BUTTON(dg->check[2])->active) {
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[1]))) {
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2]))) {
 			tablerowstart = cap("\t<TR>");
 		} else {
 			tablerowstart = cap("<TR>");
@@ -44,7 +44,7 @@ static void table_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 		rowdata = bf_str_repeat(cap("<TD></TD>"), cols);
 	} else {
 		tablerowstart = cap("<TR>\n");
-		if (GTK_TOGGLE_BUTTON(dg->check[2])->active) {
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2]))) {
 			rowdata = bf_str_repeat(cap("\t<TD></TD>\n"), cols);
 		} else {
 			rowdata = bf_str_repeat(cap("<TD></TD>\n"), cols);
@@ -96,7 +96,7 @@ static void frame_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	gint i, count;
 	gboolean need_comma=FALSE;
 
-	if (GTK_TOGGLE_BUTTON(dg->check[0])->active) {
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[0]))) {
 		dtd = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\"\n\t\"http://www.w3.org/TR/html4/frameset.dtd\">";
 	} else {
 		dtd = "";
@@ -114,8 +114,8 @@ static void frame_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	for (i = 0; i < count ; i++) {
 		gchar *tmpstr, *size, *name, *source;
 		size = gtk_editable_get_chars(GTK_EDITABLE(dg->entry[i]), 0, -1);
-		name = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(dg->combo[i])->child), 0, -1);
-		source = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(dg->combo[i+5])->child), 0, -1);
+		name = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(dg->combo[i]))), 0, -1);
+		source = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(dg->combo[i+5]))), 0, -1);
 		if (main_v->props.xhtml == 1) {
 			tmpstr = g_strconcat(frames, cap("<FRAME NAME=\""), name, cap("\" SRC=\""), source, "\" />\n", NULL);
 		} else {
@@ -139,7 +139,7 @@ static void frame_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 		g_free(source);
 	}
 	
-	if (GTK_TOGGLE_BUTTON(dg->radio[1])->active) {
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->radio[1]))) {
 		frameset = g_strconcat(cap("<FRAMESET COLS=\""), sizes, "\">\n", NULL);
 	} else {
 		frameset = g_strconcat(cap("<FRAMESET ROWS=\""), sizes, "\">\n", NULL);
@@ -218,7 +218,7 @@ void framewizard_dialog(Tbfwin *bfwin) {
 		dg->combo[i] = boxed_combobox_with_popdown(NULL, bfwin->session->targetlist, 1, dg->clist[i]);
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Source:")), TRUE, TRUE, 0);
 		dg->combo[i+5] = boxed_combobox_with_popdown(NULL, bfwin->session->urllist, 1, dg->clist[i]);
-		file_but = file_but_new(GTK_WIDGET(GTK_BIN(dg->combo[i+5])->child), 0, bfwin);
+		file_but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[i+5]))), 0, bfwin);
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), file_but, FALSE, FALSE, 0);		
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Size:")), TRUE, TRUE, 0);
 		dg->entry[i] = boxed_entry_with_text(NULL, 100, dg->clist[i]);
