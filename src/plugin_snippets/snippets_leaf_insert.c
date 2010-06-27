@@ -53,7 +53,7 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	xmlChar *after=NULL;
 	xmlNodePtr cur;
 	int i=0;
-	GtkWidget *table, *label;
+	GtkWidget *table, *label, *vbox;
 	gchar *tmpstr;
 	
 	title = xmlGetProp(leaf, (const xmlChar *)"title");
@@ -66,7 +66,8 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 							NULL);
 	xmlFree(title);
 	gtk_dialog_set_default_response (GTK_DIALOG(sid->dialog),GTK_RESPONSE_ACCEPT);
-	gtk_box_set_spacing(GTK_BOX(GTK_DIALOG(sid->dialog)->vbox),6);
+	vbox = gtk_dialog_get_content_area(GTK_DIALOG(sid->dialog));
+	gtk_box_set_spacing(GTK_BOX(vbox),6);
 	table = gtk_table_new(num_vars+1, 3, FALSE);
 	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 6);
@@ -112,7 +113,7 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	gtk_table_attach(GTK_TABLE (table), label, 0, 2, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 	
 	sid->textentry[i] = NULL;
-	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(sid->dialog)->vbox),table);
+	gtk_container_add(GTK_CONTAINER(vbox),table);
 	
 	gtk_widget_show_all(sid->dialog);
 	

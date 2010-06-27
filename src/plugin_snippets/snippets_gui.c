@@ -344,7 +344,7 @@ void snippets_show_as_menu(Tsnippetswin *snw, gboolean enable) {
 
 void snip_rpopup_toggle_cb(Tsnippetswin *snw,guint action,GtkWidget *widget) {
 	Tsnippetssession *sns = snippets_get_session(snw->bfwin->session);
-	sns->show_as_menu = GTK_CHECK_MENU_ITEM(widget)->active;
+	sns->show_as_menu = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 	snippets_show_as_menu(snw, sns->show_as_menu);
 }
 static GtkItemFactoryEntry snip_rpopup_menu_entries[] = {
@@ -490,7 +490,7 @@ static gboolean snippets_treetip_lcb(GtkWidget *widget,gint x,gint y,gboolean ke
 }
 
 static void snippetview_drag_data_get_lcb(GtkWidget *widget, GdkDragContext *ctx,GtkSelectionData *data, guint info, guint time,gpointer user_data)  {
-	if (data->target == gdk_atom_intern("BLUEFISH_SNIPPET", FALSE)) {
+	if (gtk_selection_data_get_target(data) == gdk_atom_intern("BLUEFISH_SNIPPET", FALSE)) {
 		GtkTreePath *path;
 		GtkTreeIter iter;
 		GtkTreeSelection *selection;
@@ -503,7 +503,7 @@ static void snippetview_drag_data_get_lcb(GtkWidget *widget, GdkDragContext *ctx
 		if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return;		
 		path = gtk_tree_model_get_path(GTK_TREE_MODEL(snippets_v.store),&iter);
 		strpath = gtk_tree_path_to_string(path);
-		gtk_selection_data_set(data, data->target, 8, (guchar *) strpath, strlen(strpath));
+		gtk_selection_data_set(data, gtk_selection_data_get_target(data), 8, (guchar *) strpath, strlen(strpath));
 		DEBUG_MSG("snippetview_drag_data_get_lcb, set path %p (%s)\n",strpath,strpath);
 		gtk_tree_path_free(path);
 	}
@@ -512,11 +512,11 @@ static void snippetview_drag_data_get_lcb(GtkWidget *widget, GdkDragContext *ctx
 static void snippetview_drag_data_received_lcb(GtkWidget *widget, GdkDragContext *context,guint x, guint y, GtkSelectionData *sd,guint info, guint time, gpointer user_data) {
 	g_signal_stop_emission_by_name(widget, "drag_data_received");
 	DEBUG_MSG("snippetview_drag_data_received_lcb received node %p (%s)\n",sd->data, sd->data);
-	if (sd->target == gdk_atom_intern("BLUEFISH_SNIPPET", FALSE) && sd->data) {
+	if (gtk_selection_data_get_target(sd) == gdk_atom_intern("BLUEFISH_SNIPPET", FALSE) && gtk_selection_data_get_data(sd)) {
 		GtkTreePath *destpath = NULL, *srcpath;
 		GtkTreeViewDropPosition position;
 		
-		srcpath = gtk_tree_path_new_from_string((gchar *)sd->data);
+		srcpath = gtk_tree_path_new_from_string((gchar *)gtk_selection_data_get_data(sd));
 		
 		if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget), x, y,&destpath, &position)) {
 			GtkTreeIter srciter, destiter, newiter, parentiter;
