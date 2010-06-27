@@ -15,7 +15,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-gcc -o uimanager uimanager.c -O2 -Wall `pkg-config --libs --cflags gtk+-2.0`
+gcc -o uimanager uimanager.c -O2 -Wall `pkg-config --libs --cflags gtk+-2.0` -DG_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE
 
 
  */
@@ -31,15 +31,15 @@ typedef struct {
 
 static void set_action_toggle_wo_activate(GtkActionGroup *actiongroup, const gchar *actionname, gboolean value) {
 	GtkAction *action = gtk_action_group_get_action(actiongroup, actionname);
+	g_print("block %p.. ",action);
 	gtk_action_block_activate(action);
+	g_print("set %d.. ",value);
 	gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), value);
+	g_print("unblock.. ");
 	gtk_action_unblock_activate(action);
+	g_print("done!\n");
 }
 
-/*static void doc_sync_menu() {
-	set_action_toggle_wo_activate(action_group, TRUE);
-}
-*/
 /* Create callbacks that implement our Actions */
 static void rescan_syntax_action(GtkAction * action, gpointer user_data)
 {
@@ -215,20 +215,23 @@ static void build_encoding_menu(Tbfwin *bfwin) {
 		bdm->menuitem = gtk_radio_menu_item_new_with_label(group, (gchar *)tmplist->data);
 		g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(encoding_activate_cb), (gpointer) bdm);
 		gtk_widget_show(bdm->menuitem);
-		gtk_menu_insert(GTK_MENU(menu), bdm->menuitem, 1);
+		gtk_menu_shell_insert(GTK_MENU_SHELL(menu),bdm->menuitem,0);
 		group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(bdm->menuitem));
-
 		tmplist = g_list_next(tmplist);
 	}
 } 
 
+static void test_button_clicked_cb(GtkWidget *widget, Tbfwin *bfwin) {
+	set_action_toggle_wo_activate(bfwin->action_group, "AutoIndentAction", FALSE);
+}
+
 static Tbfwin *new_window(void) {
-	
 	GError *error;				/* For reporting exceptions or errors */
 	GtkWidget *window;			/* The main window */
 	GtkWidget *menu_box;		/* Packing box for the menu and toolbars */
 	GtkWidget *menubar;			/* The actual menubar */
 	GtkWidget *toolbar;			/* The actual toolbar */
+	GtkWidget *button, *hbox;
 	Tbfwin *bfwin;
 	
 	bfwin = g_slice_new0(Tbfwin);
@@ -275,6 +278,11 @@ static Tbfwin *new_window(void) {
 							   gtk_ui_manager_get_accel_group
 							   (bfwin->uimanager));
 
+	hbox = gtk_hbox_new(FALSE,0);
+	gtk_box_pack_start(GTK_BOX(menu_box), hbox, FALSE, FALSE, 0);
+	button = gtk_button_new_with_label("test toggle off");
+	g_signal_connect(button, "clicked", G_CALLBACK(test_button_clicked_cb), bfwin);
+	gtk_box_pack_start(GTK_BOX(menu_box), button, FALSE, FALSE, 0);
 	/* Show the window and run the main loop, we're done! */
 	gtk_widget_show_all(window);
 	
