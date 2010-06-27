@@ -2,8 +2,8 @@ dnl ************************
 dnl configure.ac
 dnl $Id$
 dnl
-dnl Copyright (C) 2002-2009 Olivier Sessink
-dnl Copyright (C) 2006-2009 Daniel Leidert
+dnl Copyright (C) 2002-2010 Olivier Sessink
+dnl Copyright (C) 2006-2010 Daniel Leidert
 dnl
 dnl This file is free software. The copyright owner gives unlimited
 dnl permission to copy, distribute and modify it.
@@ -175,7 +175,9 @@ AC_ARG_ENABLE(
 		 AC_DEFINE([DEVELOPMENT], [1], [Define to 1 if you want to have development checks.])
 		 CFLAGS="$CFLAGS -DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES"
 		 CFLAGS="$CFLAGS -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED"
-		 CFLAGS="$CFLAGS -DG_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE"
+		 CFLAGS="$CFLAGS -DG_DISABLE_DEPRECATED"
+dnl		 CFLAGS="$CFLAGS -DGTK_DISABLE_DEPRECATED"
+dnl		 CFLAGS="$CFLAGS -DGSEAL_ENABLE"
 	 fi
 	]
 )
@@ -365,14 +367,14 @@ else
 fi
 
 BF_dependencies="\
-gtk+-2.0 >= 2.12 \
-gmodule-2.0 >= 2.12 \
+gtk+-2.0 >= 2.18 \
+gmodule-2.0 >= 2.22 \
 gobject-2.0 \
-glib-2.0 \
+glib-2.0 >= 2.22\
 pango \
 gdk-pixbuf-2.0 \
 gdk-2.0 \
-$GIO_PC >= 2.16 \
+$GIO_PC >= 2.22 \
 gthread-2.0 \
 libxml-2.0"
 
