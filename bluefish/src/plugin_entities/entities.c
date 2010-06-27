@@ -443,7 +443,7 @@ static void ew_response_lcb(GtkDialog * dialog, gint response, Tentwin * ew) {
 
 static void entity_dialog(Tbfwin *bfwin, Tentmode mode, Tentitysetting *eset) {
 	Tentwin *ew;
-	GtkWidget *hbox;
+	GtkWidget *alignment, *hbox, *vbox;
   
 	ew = g_new(Tentwin,1);
 	ew->bfwin = bfwin;
@@ -454,12 +454,19 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode, Tentitysetting *eset) {
 			GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
 			GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, 
 			NULL);
+	gtk_dialog_set_has_separator(GTK_DIALOG(ew->dialog), FALSE);
 	g_signal_connect(G_OBJECT(ew->dialog), "response", G_CALLBACK(ew_response_lcb), ew);
 	window_delete_on_escape(GTK_WINDOW(ew->dialog));
-	gtk_container_set_border_width(GTK_CONTAINER(ew->dialog),10);
-	gtk_box_set_spacing(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox),10);
-	hbox = gtk_hbox_new(FALSE,50);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), hbox, FALSE, FALSE, 0);
+
+	alignment = gtk_alignment_new(0, 0, 1, 1);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 12, 12, 6, 6);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), alignment, TRUE, TRUE, 0);
+
+	vbox = gtk_vbox_new(FALSE, 6);
+	gtk_container_add(GTK_CONTAINER(alignment), vbox);
+
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
 	ew->scope = gtk_combo_box_new_text();
 	gtk_combo_box_append_text(GTK_COMBO_BOX(ew->scope), _("In current document"));
@@ -470,31 +477,31 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode, Tentitysetting *eset) {
   
 	if (mode == mode_ent2char) {
 		ew->numerical = gtk_check_button_new_with_mnemonic(_("Convert numerical encoded characters &#99;"));
-		gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->numerical, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(vbox), ew->numerical, FALSE, FALSE, 0);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->numerical),eset->convert_num);
 	} else {
 		ew->numerical = NULL;
 	}
 
 	ew->iso8859_1 = gtk_check_button_new_with_mnemonic(_("Convert _iso-8859-1 characters"));
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->iso8859_1, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), ew->iso8859_1, FALSE, FALSE, 0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->iso8859_1),eset->convert_iso);
   
+	ew->special = gtk_check_button_new_with_mnemonic(_("Convert spe_cial characters"));
+	gtk_box_pack_start(GTK_BOX(vbox), ew->special, FALSE, FALSE, 0);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->special),eset->convert_special);
+
 	ew->symbol = gtk_check_button_new_with_mnemonic(_("Convert _symbol characters"));
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->symbol, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), ew->symbol, FALSE, FALSE, 0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->symbol),eset->convert_symbol);
   
-	ew->special = gtk_check_button_new_with_mnemonic(_("Convert spe_cial characters"));
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->special, FALSE, FALSE, 0);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->special),eset->convert_special);
-  
 	ew->xml = gtk_check_button_new_with_mnemonic(_("Convert _XML characters < > & \" '"));
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->xml, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), ew->xml, FALSE, FALSE, 0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->xml),eset->convert_xml);
 
 	if (mode == mode_char2ent) {
 		ew->IE_apos_workaround = gtk_check_button_new_with_mnemonic(_("Work around missing &apos; entity on IE"));
-		gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->IE_apos_workaround, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(vbox), ew->IE_apos_workaround, FALSE, FALSE, 0);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->xml),eset->IE_apos_workaround);
 	} else{
 		ew->IE_apos_workaround = NULL;
