@@ -24,6 +24,9 @@ gcc -o uimanager uimanager.c -O2 -Wall `pkg-config --libs --cflags gtk+-2.0`
 
 #include "inline_icons.c"
 
+typedef struct {
+	GtkUIManager *uimanager;
+} Tbfwin;
 
 static void set_action_toggle_wo_activate(GtkActionGroup *actiongroup, const gchar *actionname, gboolean value) {
 	GtkAction *action = gtk_action_group_get_action(actiongroup, actionname);
@@ -52,7 +55,7 @@ static void quit_action(GtkAction * action, gpointer user_data)
 	gtk_main_quit();
 }
 
-static void new_window();
+static Tbfwin * new_window();
 
 static void new_window_action(GtkAction * action, gpointer user_data)
 {
@@ -137,37 +140,40 @@ static void plugin_gui(GtkUIManager *menu_manager) {
 	
 } 
 
-static void language_mode_changed(GtkWidget *widget, gpointer user_data) {
-	g_print("language_mode_changed, widget=%p\n",widget);
+static void language_mode_changed(GtkAction *action, gpointer user_data) {
+	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
+		g_print("language_mode_changed, active action=%s\n",gtk_action_get_name(action));
+	}
 }
 
 
-static void new_window() {
+static Tbfwin *new_window(void) {
 	GList *langlist, *tmplist;
 	GSList *group;
-	GtkUIManager *menu_manager;	/* The magic widget! */
 	GtkActionGroup *action_group;	/* Packing group for our Actions */
 	GError *error;				/* For reporting exceptions or errors */
 	GtkWidget *window;			/* The main window */
 	GtkWidget *menu_box;		/* Packing box for the menu and toolbars */
 	GtkWidget *menubar;			/* The actual menubar */
 	GtkWidget *toolbar;			/* The actual toolbar */
-
+	Tbfwin *bfwin;
+	
+	bfwin = g_slice_new0(Tbfwin);
 	/* Create our objects */
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	menu_box = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(window), menu_box);
 
-	menu_manager = gtk_ui_manager_new();
+	bfwin->uimanager = gtk_ui_manager_new();
 	action_group = gtk_action_group_new("TestActions");
 	gtk_action_group_set_translation_domain(action_group, "blah");
 	gtk_action_group_add_actions(action_group, entries, n_entries, NULL);
 	gtk_action_group_add_toggle_actions(action_group, toggleactions, G_N_ELEMENTS(toggleactions), NULL);
-	gtk_ui_manager_insert_action_group(menu_manager, action_group, 0);
+	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 0);
 
 	/* Read in the UI from our XML file */
 	error = NULL;
-	gtk_ui_manager_add_ui_from_file(menu_manager, "mainui.xml", &error);
+	gtk_ui_manager_add_ui_from_file(bfwin->uimanager, "mainui.xml", &error);
 	if (error) {
 		g_message("building menus failed: %s", error->message);
 		g_error_free(error);
@@ -188,9 +194,9 @@ static void new_window() {
                                                          NULL,
                                                          0);
 		gtk_radio_action_set_group(raction, group);
-		g_signal_connect(raction, "changed", G_CALLBACK(language_mode_changed), NULL);
+		g_signal_connect(raction, "changed", G_CALLBACK(language_mode_changed), bfwin);
 		gtk_action_group_add_action(action_group, GTK_ACTION(raction));
-		gtk_ui_manager_add_ui(menu_manager, gtk_ui_manager_new_merge_id(menu_manager)
+		gtk_ui_manager_add_ui(bfwin->uimanager, gtk_ui_manager_new_merge_id(bfwin->uimanager)
 					, "/MainMenu/DocumentMenu/LanguageModeMenu"
 					, (gchar *)tmplist->data
 					, actionname
@@ -200,29 +206,29 @@ static void new_window() {
 		tmplist = g_list_next(tmplist);
 	}
 
-	plugin_gui(menu_manager);
+	plugin_gui(bfwin->uimanager);
 
 	/* Connect up important signals */
 	g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
-	gtk_ui_manager_set_add_tearoffs(menu_manager, TRUE);
+	gtk_ui_manager_set_add_tearoffs(bfwin->uimanager, TRUE);
 
 	/* Get the menubar and the toolbar and put them in the vertical packing box */
-	menubar = gtk_ui_manager_get_widget(menu_manager, "/MainMenu");
+	menubar = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu");
 	gtk_box_pack_start(GTK_BOX(menu_box), menubar, FALSE, FALSE, 0);
-	toolbar = gtk_ui_manager_get_widget(menu_manager, "/MainToolbar");
+	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainToolbar");
 	gtk_box_pack_start(GTK_BOX(menu_box), toolbar, FALSE, FALSE, 0);
 /*	toolbar = gtk_ui_manager_get_widget(menu_manager, "/HTMLToolbar");
 	gtk_box_pack_start(GTK_BOX(menu_box), toolbar, FALSE, FALSE, 0);
 */	/* Make sure that the accelerators work */
 	gtk_window_add_accel_group(GTK_WINDOW(window),
 							   gtk_ui_manager_get_accel_group
-							   (menu_manager));
+							   (bfwin->uimanager));
 
 	/* Show the window and run the main loop, we're done! */
 	gtk_widget_show_all(window);
 	
-	
+	return bfwin;
 }
 
 
