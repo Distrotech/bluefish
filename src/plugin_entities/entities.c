@@ -398,25 +398,25 @@ static void ew_response_lcb(GtkDialog * dialog, gint response, Tentwin * ew) {
 	if (response == GTK_RESPONSE_ACCEPT) {
 		gint start=0, end=-1;
 		gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(ew->scope));
-			if (ew->numerical)
-				ew->eset->convert_num = GTK_TOGGLE_BUTTON(ew->numerical)->active;
-		ew->eset->convert_iso = GTK_TOGGLE_BUTTON(ew->iso8859_1)->active;
-		ew->eset->convert_symbol = GTK_TOGGLE_BUTTON(ew->symbol)->active;
-		ew->eset->convert_special = GTK_TOGGLE_BUTTON(ew->special)->active;
-		ew->eset->convert_xml = GTK_TOGGLE_BUTTON(ew->xml)->active;
+		if (ew->numerical)
+			ew->eset->convert_num = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->numerical));
+		ew->eset->convert_iso = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->iso8859_1));
+		ew->eset->convert_symbol = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->symbol));
+		ew->eset->convert_special = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->special));
+		ew->eset->convert_xml = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->xml));
 		if (ew->IE_apos_workaround)
-			ew->eset->IE_apos_workaround = GTK_TOGGLE_BUTTON(ew->IE_apos_workaround)->active;
+			ew->eset->IE_apos_workaround = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->IE_apos_workaround));
     
 		if (scope == 0 || (scope == 1 && doc_get_selection(ew->bfwin->current_document, &start, &end))) {
 			doc_unre_new_group_action_id(ew->bfwin->current_document,0);
 			if (ew->mode == mode_char2ent) {
 				doc_utf8_to_entities(ew->bfwin->current_document, start, end,  
-						GTK_TOGGLE_BUTTON(ew->iso8859_1)->active, GTK_TOGGLE_BUTTON(ew->symbol)->active, 
-						GTK_TOGGLE_BUTTON(ew->special)->active, GTK_TOGGLE_BUTTON(ew->xml)->active, ew->eset->IE_apos_workaround);
+						gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->iso8859_1)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->symbol)),
+						gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->special)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->xml)), ew->eset->IE_apos_workaround);
 			} else {
-				doc_entities_to_utf8(ew->bfwin->current_document, start, end, GTK_TOGGLE_BUTTON(ew->numerical)->active,
-						GTK_TOGGLE_BUTTON(ew->iso8859_1)->active, GTK_TOGGLE_BUTTON(ew->symbol)->active, 
-						GTK_TOGGLE_BUTTON(ew->special)->active, GTK_TOGGLE_BUTTON(ew->xml)->active);
+				doc_entities_to_utf8(ew->bfwin->current_document, start, end, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->numerical)),
+						gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->iso8859_1)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->symbol)),
+						gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->special)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->xml)));
 			}
 			doc_unre_new_group_action_id(ew->bfwin->current_document,0);
 		} else /* (scope == 2) */ {
@@ -426,12 +426,12 @@ static void ew_response_lcb(GtkDialog * dialog, gint response, Tentwin * ew) {
 				doc_unre_new_group_action_id(DOCUMENT(tmplist->data), unre_action_id);
 				if (ew->mode == mode_char2ent) {
 					doc_utf8_to_entities(DOCUMENT(tmplist->data), 0, -1, 
-							GTK_TOGGLE_BUTTON(ew->iso8859_1)->active, GTK_TOGGLE_BUTTON(ew->symbol)->active, 
-							GTK_TOGGLE_BUTTON(ew->special)->active, GTK_TOGGLE_BUTTON(ew->xml)->active, ew->eset->IE_apos_workaround);
+							gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->iso8859_1)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->symbol)),
+							gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->special)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->xml)), ew->eset->IE_apos_workaround);
 				} else {
-					doc_entities_to_utf8(DOCUMENT(tmplist->data), 0, -1, GTK_TOGGLE_BUTTON(ew->numerical)->active,
-							GTK_TOGGLE_BUTTON(ew->iso8859_1)->active, GTK_TOGGLE_BUTTON(ew->symbol)->active, 
-							GTK_TOGGLE_BUTTON(ew->special)->active, GTK_TOGGLE_BUTTON(ew->xml)->active);
+					doc_entities_to_utf8(DOCUMENT(tmplist->data), 0, -1, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->numerical)),
+							gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->iso8859_1)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->symbol)),
+							gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->special)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(ew->xml)));
 				}
 				doc_unre_new_group_action_id(DOCUMENT(tmplist->data),0);
 			}
@@ -444,6 +444,7 @@ static void ew_response_lcb(GtkDialog * dialog, gint response, Tentwin * ew) {
 static void entity_dialog(Tbfwin *bfwin, Tentmode mode, Tentitysetting *eset) {
 	Tentwin *ew;
 	GtkWidget *hbox;
+	GtkWidget *vbox;
   
 	ew = g_new(Tentwin,1);
 	ew->bfwin = bfwin;
@@ -454,12 +455,14 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode, Tentitysetting *eset) {
 			GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
 			GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, 
 			NULL);
+	gtk_dialog_set_has_separator(GTK_DIALOG(ew->dialog), FALSE);
 	g_signal_connect(G_OBJECT(ew->dialog), "response", G_CALLBACK(ew_response_lcb), ew);
 	window_delete_on_escape(GTK_WINDOW(ew->dialog));
 	gtk_container_set_border_width(GTK_CONTAINER(ew->dialog),10);
-	gtk_box_set_spacing(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox),10);
+	vbox = gtk_dialog_get_content_area(GTK_DIALOG(ew->dialog));
+	gtk_box_set_spacing(GTK_BOX(vbox),10);
 	hbox = gtk_hbox_new(FALSE,50);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), hbox, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
 	ew->scope = gtk_combo_box_new_text();
 	gtk_combo_box_append_text(GTK_COMBO_BOX(ew->scope), _("In current document"));
@@ -470,31 +473,31 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode, Tentitysetting *eset) {
   
 	if (mode == mode_ent2char) {
 		ew->numerical = gtk_check_button_new_with_mnemonic(_("Convert numerical encoded characters &#99;"));
-		gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->numerical, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(vbox), ew->numerical, FALSE, FALSE, 0);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->numerical),eset->convert_num);
 	} else {
 		ew->numerical = NULL;
 	}
 
 	ew->iso8859_1 = gtk_check_button_new_with_mnemonic(_("Convert _iso-8859-1 characters"));
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->iso8859_1, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), ew->iso8859_1, FALSE, FALSE, 0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->iso8859_1),eset->convert_iso);
   
 	ew->symbol = gtk_check_button_new_with_mnemonic(_("Convert _symbol characters"));
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->symbol, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), ew->symbol, FALSE, FALSE, 0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->symbol),eset->convert_symbol);
   
 	ew->special = gtk_check_button_new_with_mnemonic(_("Convert spe_cial characters"));
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->special, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), ew->special, FALSE, FALSE, 0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->special),eset->convert_special);
   
 	ew->xml = gtk_check_button_new_with_mnemonic(_("Convert _XML characters < > & \" '"));
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->xml, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), ew->xml, FALSE, FALSE, 0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->xml),eset->convert_xml);
 
 	if (mode == mode_char2ent) {
 		ew->IE_apos_workaround = gtk_check_button_new_with_mnemonic(_("Work around missing &apos; entity on IE"));
-		gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->IE_apos_workaround, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(vbox), ew->IE_apos_workaround, FALSE, FALSE, 0);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->xml),eset->IE_apos_workaround);
 	} else{
 		ew->IE_apos_workaround = NULL;
