@@ -24,15 +24,27 @@ gcc -o uimanager uimanager.c -O2 -Wall `pkg-config --libs --cflags gtk+-2.0`
 
 #include "inline_icons.c"
 
-/* Create callbacks that implement our Actions */
-static void lookup_character_action(GtkAction * action, gpointer user_data)
-{
-	g_print("lookup\n");
+
+static void set_action_toggle_wo_activate(GtkActionGroup *actiongroup, const gchar *actionname, gboolean value) {
+	GtkAction *action = gtk_action_group_get_action(actiongroup, actionname);
+	gtk_action_block_activate(action);
+	gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), value);
+	gtk_action_unblock_activate(action);
 }
 
-static void clear_character_action(GtkAction * action, gpointer user_data)
+/*static void doc_sync_menu() {
+	set_action_toggle_wo_activate(action_group, TRUE);
+}
+*/
+/* Create callbacks that implement our Actions */
+static void rescan_syntax_action(GtkAction * action, gpointer user_data)
 {
-	g_print("clear\n");
+	g_print("rescan syntax\n");
+}
+
+static void auto_indent_action(GtkAction * action, gpointer user_data)
+{
+	g_print("auto indent = %d\n",gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)));
 }
 
 static void quit_action(GtkAction * action, gpointer user_data)
@@ -56,15 +68,11 @@ static GtkActionEntry entries[] = {
 	
 	{"NewWindowAction", NULL, "New _Window", "<shift><control>n", "Create new window", G_CALLBACK(new_window_action)},
 
-	{"LookupAction", GTK_STOCK_FIND,	/* name, stock id */
-	 "_Lookup", "<control>L",	/* label, accelerator */
-	 "Look-up the character drawn",	/* tooltip */
-	 G_CALLBACK(lookup_character_action)},
 
-	{"ClearAction", GTK_STOCK_OPEN,
-	 "_Clear", "<control>C",
-	 "Clear the drawing area",
-	 G_CALLBACK(clear_character_action)},
+	{"RescanSyntaxAction", NULL,
+	 "Rescan _syntax", "F5",
+	 "Re-scan the language syntax",
+	 G_CALLBACK(rescan_syntax_action)},
 
 	{"QuitAction", GTK_STOCK_QUIT,
 	 "_Quit", "<control>Q",
@@ -73,6 +81,13 @@ static GtkActionEntry entries[] = {
 };
 
 static guint n_entries = G_N_ELEMENTS(entries);
+
+static GtkToggleActionEntry toggleactions[] = {
+	{"AutoIndentAction", NULL,	/* name, stock id */
+	 "Auto _Indent", NULL,	/* label, accelerator */
+	 "Enable automatic indenting",	/* tooltip */
+	 G_CALLBACK(auto_indent_action), 0}
+};
 
 static void anchor_action(GtkAction * action, gpointer user_data)
 {
@@ -147,6 +162,7 @@ static void new_window() {
 	action_group = gtk_action_group_new("TestActions");
 	gtk_action_group_set_translation_domain(action_group, "blah");
 	gtk_action_group_add_actions(action_group, entries, n_entries, NULL);
+	gtk_action_group_add_toggle_actions(action_group, toggleactions, G_N_ELEMENTS(toggleactions), NULL);
 	gtk_ui_manager_insert_action_group(menu_manager, action_group, 0);
 
 	/* Read in the UI from our XML file */

@@ -7,19 +7,21 @@
     </menu>
     <placeholder name="PluginPlaceholder" />
     <menu name="DocumentMenu" action="DocumentMenuAction">
-      <menuitem name="Clear" action="ClearAction"/>
-      <menuitem name="Lookup" action="LookupAction"/>
+      <menuitem name="Auto Indent" action="AutoIndentAction"/>
+      <separator/>
+      <menuitem name="Rescan syntax" action="RescanSyntaxAction"/>
       <menu name="LanguageModeMenu" action="LanguageModeMenuAction">
       <placeholder name="LanguageModePlaceholder" />
       </menu>
+      <separator/>
     </menu>
   </menubar>
   
   <toolbar name="MainToolbar" action="MainMenuBarAction">
     <placeholder name="ToolItems">
       <separator/>
-      <toolitem name="Clear" action="ClearAction"/>
-      <toolitem name="Lookup" action="LookupAction"/>
+      <toolitem name="Rescan syntax" action="RescanSyntaxAction"/>
+      <toolitem name="Auto Indent" action="AutoIndentAction"/>
       <separator/>
     </placeholder>
   </toolbar>
