@@ -63,7 +63,7 @@ static gboolean infb_motion_notify_event (GtkWidget  *text_view,  GdkEventMotion
  	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(text_view));
  	gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW(text_view), &iter, x, y);
  	tags = gtk_text_iter_get_tags (&iter);
-   if (GTK_WIDGET_VISIBLE(win->tip_window))
+   if (gtk_widget_get_visible(win->tip_window))
    	gtk_widget_hide(win->tip_window);
 	 for (tagp = tags;  tagp != NULL;  tagp = tagp->next)
     {    	
@@ -71,7 +71,7 @@ static gboolean infb_motion_notify_event (GtkWidget  *text_view,  GdkEventMotion
 		gpointer type,tipv;
 		
 		tipv = g_object_get_data (G_OBJECT (tag), "tip");
-		if (tipv && !GTK_WIDGET_VISIBLE(win->tip_window)) {
+		if (tipv && !gtk_widget_get_visible(win->tip_window)) {
 			gtk_label_set_markup(GTK_LABEL(win->tip_label),(gchar*)tipv);
 	  		gdk_window_get_pointer (NULL, &x, &y, NULL);		
   			gtk_window_move (GTK_WINDOW(win->tip_window), x + 8, y + 16); 			
@@ -97,7 +97,7 @@ static gboolean infb_motion_notify_event (GtkWidget  *text_view,  GdkEventMotion
     }
    
   	if (tags) g_slist_free (tags);
-  	gdk_window_get_pointer (text_view->window, NULL, NULL, NULL);
+  	gdk_window_get_pointer (gtk_text_view_get_window(GTK_TEXT_VIEW(text_view), GTK_TEXT_WINDOW_WIDGET), NULL, NULL, NULL);
   	return FALSE;
 }
 
@@ -119,7 +119,7 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
 	Tinfbwin *win = (Tinfbwin*)g_hash_table_lookup(infb_v.windows,bfwin);
    
    if (event->button == 1) {
-   	if (win && GTK_WIDGET_VISIBLE(win->tip_window))
+   	if (win && gtk_widget_get_visible(win->tip_window))
    		gtk_widget_hide_all(win->tip_window);
    	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (widget));
    	gtk_text_buffer_get_selection_bounds (buffer, &start, &end);
@@ -504,12 +504,12 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 static gint infb_tip_paint(GtkWidget *tip)
 {
   if (!tip) return FALSE;
-  if (!GTK_WIDGET_VISIBLE(tip)) return FALSE;
-  gtk_paint_flat_box (tip->style, tip->window,
+  if (!gtk_widget_get_visible(tip)) return FALSE;
+  gtk_paint_flat_box (gtk_widget_get_style(tip), gtk_widget_get_window(tip),
                       GTK_STATE_NORMAL, GTK_SHADOW_ETCHED_IN,
                       NULL, tip, "",
                       0, 0, -1, -1);  
-  gtk_paint_shadow (tip->style, tip->window,
+  gtk_paint_shadow (gtk_widget_get_style(tip), gtk_widget_get_window(tip),
                       GTK_STATE_NORMAL, GTK_SHADOW_ETCHED_IN,
                       NULL, tip, "",
                       0, 0, -1, -1);                        
