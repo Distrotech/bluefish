@@ -1082,7 +1082,9 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, 0,event->y, &x, &y);
 			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &it, y, &x);
 
-			if (event->type == GDK_2BUTTON_PRESS) {
+			if (event->type == GDK_2BUTTON_PRESS
+					&& (event->x > (btv->margin_pixels_chars))
+					&& (event->x < (btv->margin_pixels_chars + btv->margin_pixels_symbol))) {
 				GdkRegion *region;
 				bmark_toggle(btv->doc, gtk_text_iter_get_offset(&it), NULL, NULL);
 				/* redraw margin */
@@ -1092,7 +1094,8 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 
 				return TRUE;
 			}
-			if (btv->show_blocks && event->x >= btv->margin_pixels_chars) { /* get the offset that equals the folding area */
+			if (btv->show_blocks
+					&& (event->x > (btv->margin_pixels_chars + btv->margin_pixels_symbol))) { /* get the offset that equals the folding area */
 				
 				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &it, y, &x);
 				DBG_FOLD("fold/unfold at offset %d (line %d)\n",gtk_text_iter_get_offset(&it),gtk_text_iter_get_line(&it));
@@ -1110,7 +1113,8 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 				}
 				return TRUE;
 			}
-		} else if (event->button == 3 && btv->show_blocks && event->x >= btv->margin_pixels_chars) {
+		} else if (event->button == 3
+				&& btv->show_blocks && (event->x > btv->margin_pixels_chars)) {
 			gtk_menu_popup(GTK_MENU(bftextview2_fold_menu(btv)), NULL, NULL, NULL, NULL, event->button,event->time);
 			return TRUE;
 		}
