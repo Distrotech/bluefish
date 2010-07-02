@@ -445,10 +445,20 @@ static inline void paint_margin_expand(BluefishTextView *btv,GdkEventExpose * ev
 					GTK_WIDGET(btv), NULL, 23, 28, w + (height / 2));
 	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, w + (height / 2) + 4, w + height, 25);*/
-	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->base_gc[GTK_WIDGET_STATE(btv)], TRUE,btv->margin_pixels_chars+btv->margin_pixels_symbol+1, w + (height / 2) - 4, 8,8);
-	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], FALSE,btv->margin_pixels_chars+btv->margin_pixels_symbol+1, w + (height / 2) - 4, 8,8);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+5,w + (height / 2) + 5,btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + height);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+3,w + (height / 2), btv->margin_pixels_chars+btv->margin_pixels_symbol+7,w + (height / 2));
+	GtkStateType state;
+	GtkStyle *style;
+
+	state = gtk_widget_get_state(GTK_WIDGET(btv));
+	style = gtk_widget_get_style(GTK_WIDGET(btv));
+
+	gdk_draw_rectangle(GDK_DRAWABLE(event->window), style->base_gc[state],
+			TRUE,btv->margin_pixels_chars+btv->margin_pixels_symbol+1, w + (height / 2) - 4, 8,8);
+	gdk_draw_rectangle(GDK_DRAWABLE(event->window),style->fg_gc[state],
+			FALSE,btv->margin_pixels_chars+btv->margin_pixels_symbol+1, w + (height / 2) - 4, 8,8);
+	gdk_draw_line(GDK_DRAWABLE(event->window),style->fg_gc[state],
+			btv->margin_pixels_chars+btv->margin_pixels_symbol+5,w + (height / 2) + 5, btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + height);
+	gdk_draw_line(GDK_DRAWABLE(event->window),style->fg_gc[state],
+			btv->margin_pixels_chars+btv->margin_pixels_symbol+3,w + (height / 2), btv->margin_pixels_chars+btv->margin_pixels_symbol+7, w + (height / 2));
 }
 
 static inline void paint_margin_collapse(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
@@ -460,16 +470,35 @@ static inline void paint_margin_collapse(BluefishTextView *btv,GdkEventExpose * 
 					GTK_WIDGET(btv), NULL, w + (height / 2) -2, w + (height / 2) +2, 25);
 	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, w + (height / 2) + 4, w + height, 25);*/
-	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->base_gc[GTK_WIDGET_STATE(btv)], TRUE,btv->margin_pixels_chars+btv->margin_pixels_symbol+1, w + (height / 2) - 4, 8,8);
-	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], FALSE,btv->margin_pixels_chars+btv->margin_pixels_symbol+1, w + (height / 2) - 4, 8,8);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+5,w + (height / 2)-2,btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + (height / 2)+2);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+5,w + (height / 2) + 5,btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + height);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+3,w + (height / 2), btv->margin_pixels_chars+btv->margin_pixels_symbol+7,w + (height / 2));
+	GtkStateType state;
+	GtkStyle *style;
+
+	state = gtk_widget_get_state(GTK_WIDGET(btv));
+	style = gtk_widget_get_style(GTK_WIDGET(btv));
+
+	gdk_draw_rectangle(GDK_DRAWABLE(event->window), style->base_gc[state],
+			TRUE, btv->margin_pixels_chars+btv->margin_pixels_symbol+1, w + (height / 2) - 4, 8,8);
+	gdk_draw_rectangle(GDK_DRAWABLE(event->window), style->fg_gc[state],
+			FALSE, btv->margin_pixels_chars+btv->margin_pixels_symbol+1, w + (height / 2) - 4, 8,8);
+	gdk_draw_line(GDK_DRAWABLE(event->window), style->fg_gc[state],
+			btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + (height / 2)-2, btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + (height / 2)+2);
+	gdk_draw_line(GDK_DRAWABLE(event->window), style->fg_gc[state],
+			btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + (height / 2) + 5,btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + height);
+	gdk_draw_line(GDK_DRAWABLE(event->window), style->fg_gc[state],
+			btv->margin_pixels_chars+btv->margin_pixels_symbol+3, w + (height / 2), btv->margin_pixels_chars+btv->margin_pixels_symbol+7,w + (height / 2));
 }
 
 static inline void paint_margin_blockend(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w, btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + (height/2));
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w+(height/2), btv->margin_pixels_chars+btv->margin_pixels_symbol+8, w + (height/2));
+	GtkStateType state;
+	GtkStyle *style;
+
+	state = gtk_widget_get_state(GTK_WIDGET(btv));
+	style = gtk_widget_get_style(GTK_WIDGET(btv));
+
+	gdk_draw_line(GDK_DRAWABLE(event->window), style->fg_gc[state],
+			btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w, btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + (height/2));
+	gdk_draw_line(GDK_DRAWABLE(event->window), style->fg_gc[state],
+			btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w+(height/2), btv->margin_pixels_chars+btv->margin_pixels_symbol+8, w + (height/2));
 /*	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, w, w + (height / 2), 25);
 	gtk_paint_hline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
@@ -477,13 +506,27 @@ static inline void paint_margin_blockend(BluefishTextView *btv,GdkEventExpose * 
 }
 
 static inline void paint_margin_line(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w, btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + height);
+	GtkStateType state;
+	GtkStyle *style;
+
+	state = gtk_widget_get_state(GTK_WIDGET(btv));
+	style = gtk_widget_get_style(GTK_WIDGET(btv));
+
+	gdk_draw_line(GDK_DRAWABLE(event->window), style->fg_gc[state],
+			btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w, btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + height);
 	/*gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, w, w + height, 25);*/
 }
 
 static inline void paint_margin_symbol(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
-	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], TRUE,btv->margin_pixels_chars+2, w + (height / 2) - 4, 8,8);
+	GtkStateType state;
+	GtkStyle *style;
+
+	state = gtk_widget_get_state(GTK_WIDGET(btv));
+	style = gtk_widget_get_style(GTK_WIDGET(btv));
+
+	gdk_draw_rectangle(GDK_DRAWABLE(event->window),style->fg_gc[state],
+			TRUE, btv->margin_pixels_chars+2, w + (height / 2) - 4, 8,8);
 }
 
 static gint get_num_foldable_blocks(Tfoundstack *fstack) {
@@ -525,7 +568,8 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 
 	if (btv->show_line_numbers) {
 		GtkTextIter cursorit;
-		gtk_text_buffer_get_iter_at_mark(GTK_TEXT_VIEW(btv)->buffer, &cursorit, gtk_text_buffer_get_insert(GTK_TEXT_VIEW(btv)->buffer));
+		gtk_text_buffer_get_iter_at_mark(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),
+				&cursorit, gtk_text_buffer_get_insert(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv))));
 		cursor_line = gtk_text_iter_get_line(&cursorit);
 	}
 
@@ -584,9 +628,11 @@ static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, Gt
 					string = g_strdup_printf("<b>%d</b>", 1 + i);
 				else
 					string = g_strdup_printf("%d", 1 + i);
+
 				pango_layout_set_markup(panlay, string, -1);
-				gtk_paint_layout(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), FALSE, NULL,
-								 GTK_WIDGET(btv), NULL, 2, w, panlay);
+				gtk_paint_layout(gtk_widget_get_style(GTK_WIDGET(btv)), event->window,
+						gtk_widget_get_state(GTK_WIDGET(btv)), FALSE, NULL, GTK_WIDGET(btv), NULL, 2, w, panlay);
+
 				g_free(string);
 			}
 			/* symbols */
@@ -738,7 +784,7 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 		paint_margin(btv, event, &startvisible, &endvisible);
 		event_handled = TRUE;
 	} else {
-		 if (GTK_WIDGET_IS_SENSITIVE(btv)
+		 if (gtk_widget_is_sensitive(GTK_WIDGET(btv))
 				&& (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
 				&& (BFWIN(DOCUMENT(btv->doc)->bfwin)->session->view_cline)) {
 			GdkRectangle rect;
@@ -872,7 +918,7 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 		GtkTextMark* imark;
 		gboolean ret;
 		GtkTextIter iter, currentpos, linestart;
-		GtkTextBuffer *buffer = GTK_TEXT_VIEW(btv)->buffer;
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 
 		imark = gtk_text_buffer_get_insert(buffer);
 		gtk_text_buffer_get_iter_at_mark(buffer, &currentpos, imark);
@@ -912,7 +958,7 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 			&& (!(kevent->state & GDK_CONTROL_MASK)) ) { /* shift-tab is also known as GDK_ISO_Left_Tab */
 		GtkTextIter so, eo;
 		gboolean have_selection;
-		have_selection = gtk_text_buffer_get_selection_bounds(GTK_TEXT_VIEW(btv)->buffer, &so, &eo); 
+		have_selection = gtk_text_buffer_get_selection_bounds(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), &so, &eo);
 		if (have_selection) {
 			GtkTextIter eol1, eol2, sol1, sol2;
 			if (kevent->state & GDK_SHIFT_MASK) {
@@ -940,7 +986,7 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 		}
 	}
 	if (kevent->keyval == GDK_Tab && main_v->props.editor_indent_wspaces) {
-		GtkTextBuffer *buffer = GTK_TEXT_VIEW(btv)->buffer;			
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 		GtkTextMark* imark;
 		GtkTextIter iter;
 		gchar *string;
@@ -1227,14 +1273,15 @@ void bluefish_text_view_rescan(BluefishTextView * btv) {
 gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter *its, GtkTextIter *ite) {
 	GtkTextIter tmpits, tmpite;
 	GtkTextTag *comment_tag = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"comment");
-	if (gtk_text_buffer_get_selection_bounds(GTK_TEXT_VIEW(btv)->buffer,&tmpits,&tmpite)) {
+	if (gtk_text_buffer_get_selection_bounds(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),&tmpits,&tmpite)) {
 		/* how to test ? */
 		*its = tmpits;
 		*ite = tmpite;
 		return FALSE;
 	} else {
 		gboolean retval;
-		gtk_text_buffer_get_iter_at_mark(GTK_TEXT_VIEW(btv)->buffer, &tmpits, gtk_text_buffer_get_insert(GTK_TEXT_VIEW(btv)->buffer));
+		gtk_text_buffer_get_iter_at_mark(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),
+				&tmpits, gtk_text_buffer_get_insert(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv))));
 		/* for line comments the \n is usually not part of the comment anymore, so move back one char */
 		if (gtk_text_iter_ends_line(&tmpits))
 			gtk_text_iter_backward_char(&tmpits);
@@ -1439,8 +1486,8 @@ static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint
 		/* get position */
 		if (keyboard_tip) {
 			gint offset;
-			g_object_get(GTK_TEXT_VIEW(btv)->buffer,"cursor-position", &offset, NULL);
-			gtk_text_buffer_get_iter_at_offset(GTK_TEXT_VIEW(btv)->buffer, &iter, offset);
+			g_object_get(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),"cursor-position", &offset, NULL);
+			gtk_text_buffer_get_iter_at_offset(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), &iter, offset);
 		} else {
 			gint bx, by, trailing;
 			/*g_print("get iter at mouse position %d %d\n",x,y);*/
@@ -1493,7 +1540,7 @@ static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint
 			DBG_TOOLTIP("we have a match in context %d, has_patternhash=%d\n",contextnum,(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).patternhash!=NULL));
 			if (g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).patternhash) {
 				gint pattern_id;
-				gchar *key = gtk_text_buffer_get_text(GTK_TEXT_VIEW(btv)->buffer,&mstart,&iter,TRUE);
+				gchar *key = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),&mstart,&iter,TRUE);
 				pattern_id = GPOINTER_TO_INT(g_hash_table_lookup(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).patternhash, key)); 
 				if (pattern_id && g_array_index(btv->bflang->st->matches,Tpattern, pattern_id).reference) {
 					DBG_TOOLTIP("key=%s, value=%s\n",key,g_array_index(btv->bflang->st->matches,Tpattern, pattern_id).reference);

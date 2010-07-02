@@ -400,7 +400,8 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 		} else { /* no scantable */
 			eo2=eo;
 		}
-		gtk_text_buffer_remove_tag_by_name(GTK_TEXT_VIEW(btv)->buffer, "_spellerror_", &iter, &eo2);
+		gtk_text_buffer_remove_tag_by_name(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),
+				"_spellerror_", &iter, &eo2);
 		DBG_SPELL("bftextview2_run_spellcheck, loop2 from %d to %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&eo2));
 		while (cont2 && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) { /* loop from iter to eo2 */
 			loop++;
@@ -490,7 +491,8 @@ static gboolean get_misspelled_word_at_bevent(BluefishTextView *btv, GtkTextIter
 	GtkTextTag *misspelled;
 	
 	misspelled = gtk_text_tag_table_lookup(langmgr_get_tagtable(), "_spellerror_");
-	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_VIEW(btv)->buffer,wordstart,main_v->bevent_charoffset);
+	gtk_text_buffer_get_iter_at_offset(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),
+			wordstart, main_v->bevent_charoffset);
 	if (gtk_text_iter_has_tag(wordstart, misspelled)) {
 		*wordend=*wordstart;
 		if (gtk_text_iter_backward_to_tag_toggle(wordstart,misspelled) && gtk_text_iter_forward_to_tag_toggle(wordend,misspelled))
@@ -505,7 +507,7 @@ static void bftextview2_add_word_backend(BluefishTextView *btv, Tbfwin *bfwin, g
 	if (!get_misspelled_word_at_bevent(btv, &so,&eo)) 
 		return;
 	
-	word = gtk_text_buffer_get_text(GTK_TEXT_VIEW(btv)->buffer,&so,&eo,FALSE);
+	word = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), &so, &eo, FALSE);
 	if (to_dict) {
 #ifdef HAVE_LIBENCHANT_1_4
 		enchant_dict_add((EnchantDict *)bfwin->ed, word,strlen(word));
@@ -540,16 +542,16 @@ static void bftextview2_suggestion_menu_lcb(GtkWidget *widget, gpointer data) {
 		gtk_text_buffer_remove_tag_by_name(doc->buffer, "_spellerror_", &wordstart, &wordend);*/
 		start = gtk_text_iter_get_offset(&wordstart);
 		end = gtk_text_iter_get_offset(&wordend);
-		doc_replace_text(doc, gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)), start, end);
+		doc_replace_text(doc, gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))), start, end);
 	}
 }
 
 static void bftextview2_preferences_menu_lcb(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
-	if (GTK_CHECK_MENU_ITEM(widget)->active) {
+	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
 		if (bfwin->session->spell_lang)
 			g_free(bfwin->session->spell_lang);
-		bfwin->session->spell_lang = g_strdup(gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)));
+		bfwin->session->spell_lang = g_strdup(gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
 		if (load_dictionary(bfwin)) {
 			GList *tmplist;			
 			/* now mark all documents in this window with 'need_spellcheck'*/
@@ -623,7 +625,8 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 		g_signal_connect(menuitem, "activate", G_CALLBACK(bftexview2_add_word_to_ses), doc);
 
-		word = gtk_text_buffer_get_text(GTK_TEXT_VIEW(doc->view)->buffer, &wordstart,&wordend,FALSE);
+		word = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(doc->view)),
+				&wordstart, &wordend, FALSE);
 		DBG_SPELL("list alternatives for %s\n", word);
 		suggestions = enchant_dict_suggest((EnchantDict *)BFWIN(doc->bfwin)->ed, word,strlen(word), &n_suggs);
 		if (suggestions) {
