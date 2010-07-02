@@ -715,8 +715,8 @@ void doc_move_to_window(Tdocument *doc, Tbfwin *oldwin, Tbfwin *newwin)
 		DEBUG_MSG("doc_move_to_window, the document no longer exists in oldwin %p\n",oldwin);
 		return;
 	}
-	tab_widget = doc->tab_eventbox->parent;
-	scroll = doc->view->parent;
+	tab_widget = gtk_widget_get_parent(doc->tab_eventbox);
+	scroll = gtk_widget_get_parent(doc->view);
 	gtk_widget_ref(scroll);
 	gtk_widget_ref(tab_widget);
 	gtk_widget_ref(doc->tab_menu);
@@ -1675,7 +1675,7 @@ void doc_get_iter_location(Tdocument *doc, GtkTextIter *iter, GdkRectangle *rect
 					, GTK_TEXT_WINDOW_TEXT
 					, rect.x,rect.y,&itx,&ity);
 	/* the following function will return the position of the total text widget */
-	gdk_window_get_origin(doc->view->window,&px,&py);
+	gdk_window_get_origin(gtk_widget_get_window(doc->view), &px, &py);
 
 	DEBUG_MSG("doc_get_iter_location, px=%d, itx=%d,border=%d\n",px,itx,gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT));
 	DEBUG_MSG("doc_get_iter_location, py=%d, ity=%d,border=%d\n",py,ity,gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_TOP));
@@ -1695,7 +1695,8 @@ void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter 
 	gint xpos, ypos;
 	GtkTextWindowType wintype;
 
-	wintype = gtk_text_view_get_window_type(GTK_TEXT_VIEW(doc->view), doc->view->window);
+	wintype = gtk_text_view_get_window_type(GTK_TEXT_VIEW(doc->view),
+			gtk_widget_get_window(doc->view));
 	gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(doc->view), wintype,bevent->x, bevent->y,
 					  &xpos, &ypos);
 	xpos += gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
@@ -2047,7 +2048,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	(in notebook_changed())
 	after the document is gone from the GUI we complete the destroy, to destroy only the notebook
 	page we ref+ the scrolthingie, remove the page, and unref it again */
-	g_object_ref_sink(doc->view->parent);
+	g_object_ref_sink(gtk_widget_get_parent(doc->view));
 
 	if (doc->floatingview) {
 		gtk_widget_destroy(FLOATINGVIEW(doc->floatingview)->window);
@@ -2067,21 +2068,22 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	/* then we remove the page from the notebook */
 	DEBUG_MSG("about to remove widget from notebook (doc=%p, current_document=%p)\n",doc,bfwin->current_document);
 	gtk_notebook_remove_page(GTK_NOTEBOOK(bfwin->notebook),
-							 gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),doc->view->parent));
+			gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook), gtk_widget_get_parent(doc->view)));
 	DEBUG_MSG("doc_destroy, removed widget from notebook (doc=%p), delay_activation=%d\n",doc,delay_activation);
 	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n",doc);
 	gui_notebook_unblock_signals(BFWIN(doc->bfwin));
 	if (!delay_activation) {
 		gint newpage=-1;
 		if (bfwin->prev_document) {
-			newpage = gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),bfwin->prev_document->view->parent);
+			newpage = gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),
+					gtk_widget_get_parent(bfwin->prev_document->view));
 			gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook),newpage);
 		}
 		notebook_changed(BFWIN(doc->bfwin),newpage);
 	}
 	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed()\n",doc);
 	/* now we really start to destroy the document */
-	g_object_unref(GTK_OBJECT(doc->view->parent));
+	g_object_unref(GTK_OBJECT(gtk_widget_get_parent(doc->view)));
 	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {
 			gchar *tmp, *tmp2;
@@ -2290,7 +2292,7 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 /*	document_set_line_numbers(newdoc, newdoc->linenumberstate); set in the widget by default*/
 /*	document_set_show_blocks(newdoc, newdoc->blocksstate); set in the widget by default */
 	newdoc->tab_label = gtk_label_new(NULL);
-	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
+	gtk_widget_set_can_focus(newdoc->tab_label, FALSE);
 	if (strlen(main_v->props.tab_font_string)) {
 		apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
 	}
@@ -3338,30 +3340,29 @@ void file_floatingview_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *w
 }
 
 void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	gboolean active;
+
+	active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+
 	switch(callback_action) {
 	case 1:
-		bfwin->current_document->wrapstate = GTK_CHECK_MENU_ITEM(widget)->active;
+		bfwin->current_document->wrapstate = active;
 		doc_set_wrap(bfwin->current_document);
 		break;
 	case 2:
-		bluefish_text_view_set_show_line_numbers(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-															  GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_show_line_numbers(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 3:
-		bluefish_text_view_set_auto_complete(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-														 GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_auto_complete(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 4:
-		bluefish_text_view_set_auto_indent(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-													  GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_auto_indent(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 5:
-		bluefish_text_view_set_show_blocks(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-													  GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_show_blocks(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 6:
-		bluefish_text_view_set_show_visible_spacing(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-																  GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_show_visible_spacing(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 7:
 		doc_font_size(CURDOC(bfwin), 1);
@@ -3383,16 +3384,14 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		break;
 	case 13:
 #ifdef HAVE_LIBENCHANT
-		bluefish_text_view_set_spell_check(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_spell_check(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 #endif
 		break;
 	case 14:
-		bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-																  GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 15:
-		bluefish_text_view_set_show_mbhl(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-																  GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_show_mbhl(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	}
 }
