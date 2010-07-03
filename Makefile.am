@@ -1,7 +1,7 @@
 
 AUTOMAKE_OPTIONS = dist-bzip2 1.8
 
-SUBDIRS = data desktop-data images man po src win32
+SUBDIRS = data desktop-data images man po src win32 macosx
 
 PO_SUBDIRS = \
 	po \
