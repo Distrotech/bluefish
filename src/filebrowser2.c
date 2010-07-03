@@ -246,7 +246,7 @@ static void set_documentroot_dialog(Tbfwin * bfwin, GFile * uri)
 									GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT, GTK_STOCK_OK,
 									GTK_RESPONSE_ACCEPT, NULL);
 	g_signal_connect(G_OBJECT(drd->win), "response", G_CALLBACK(drd_response_lcb), drd);
-	table = dialog_table_in_vbox_defaults(2, 2, 5, GTK_DIALOG(drd->win)->vbox);
+	table = dialog_table_in_vbox_defaults(2, 2, 5, gtk_dialog_get_content_area(GTK_DIALOG(drd->win)));
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label),
 						 _
@@ -1837,9 +1837,9 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 * fb2, guint callback_acti
 
 static void fb2rpopup_filter_toggled_lcb(GtkWidget * widget, Tfilebrowser2 * fb2)
 {
-	if (GTK_CHECK_MENU_ITEM(widget)->active) {
+	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
 		/* loop trough the filters for a filter with this name */
-		const gchar *name = gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child));
+		const gchar *name = gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget))));
 		Tfilter *filter = find_filter_by_name(name);
 		DEBUG_MSG("fb2rpopup_filter_toggled_lcb, setting curfilter to %p from name %s\n", filter,
 				  name);
@@ -2383,17 +2383,26 @@ static void fb2_file_v_drag_data_received(GtkWidget * widget, GdkDragContext * c
 {
 
 	gchar *stringdata;
+	const guchar *seldata;
+	gint format;
+	gint length;
 	GFile *destdir = fb2->currentdir;
+
 	g_object_ref(destdir);
 
 	g_signal_stop_emission_by_name(widget, "drag_data_received");
-	if ((data->length == 0) || (data->format != 8)
+
+	format = gtk_selection_data_get_format(data);
+	length = gtk_selection_data_get_length(data);
+	seldata = gtk_selection_data_get_data(data);
+
+	if ((length == 0) || (format != 8)
 		|| ((info != TARGET_STRING) && (info != TARGET_URI_LIST))) {
 		gtk_drag_finish(context, FALSE, TRUE, time);
 		return;
 	}
-	stringdata = g_strndup((gchar *) data->data, data->length);
-	DEBUG_MSG("fb2_file_v_drag_data_received, stringdata='%s', len=%d\n", stringdata, data->length);
+	stringdata = g_strndup((gchar *) seldata, length);
+	DEBUG_MSG("fb2_file_v_drag_data_received, stringdata='%s', len=%d\n", stringdata, length);
 	if (destdir) {
 		if (strchr(stringdata, '\n') == NULL) {	/* no newlines, probably a single file */
 			GSList *list = NULL;
@@ -2419,6 +2428,9 @@ static void fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * co
 										 Tfilebrowser2 * fb2)
 {
 	gchar *stringdata;
+	const guchar *seldata;
+	gint format;
+	gint length;
 	GFile *destdir = NULL;
 	GtkTreePath *path;
 	/* if we don't do this, we get this text: Gtk-WARNING **: You must override the default 
@@ -2429,13 +2441,17 @@ static void fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * co
 	   default handler in gtktreeview.c to get an idea what your handler should do.  */
 	g_signal_stop_emission_by_name(widget, "drag_data_received");
 
-	if ((data->length == 0) || (data->format != 8)
+	format = gtk_selection_data_get_format(data);
+	length = gtk_selection_data_get_length(data);
+	seldata = gtk_selection_data_get_data(data);
+
+	if ((length == 0) || (format != 8)
 		|| ((info != TARGET_STRING) && (info != TARGET_URI_LIST))) {
 		gtk_drag_finish(context, FALSE, TRUE, time);
 		return;
 	}
-	stringdata = g_strndup((gchar *) data->data, data->length);
-	DEBUG_MSG("fb2_dir_v_drag_data_received, stringdata='%s', len=%d\n", stringdata, data->length);
+	stringdata = g_strndup((gchar *) seldata, length);
+	DEBUG_MSG("fb2_dir_v_drag_data_received, stringdata='%s', len=%d\n", stringdata, length);
 	/* first find the destination directory */
 	gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->dir_v), x, y, &path, NULL, NULL, NULL);
 	if (path) {
