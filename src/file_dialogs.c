@@ -56,8 +56,7 @@ typedef struct {
 
 static void files_advanced_win_findpattern_changed(GtkComboBox * combobox, Tfiles_advanced * tfs)
 {
-	if (strlen(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(tfs->find_pattern)->child)))
-		> 0) {
+	if (strlen(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(tfs->find_pattern))))) > 0) {
 		gtk_dialog_set_response_sensitive(GTK_DIALOG(tfs->dialog), GTK_RESPONSE_ACCEPT, TRUE);
 	} else {
 		gtk_dialog_set_response_sensitive(GTK_DIALOG(tfs->dialog), GTK_RESPONSE_ACCEPT, FALSE);
@@ -70,7 +69,7 @@ static gboolean files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 	gchar *basedir, *content_filter, *extension_filter;
 	gboolean retval;
 	GError *gerror=NULL;
-	extension_filter = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(tfs->find_pattern)->child), 0, -1);
+	extension_filter = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(tfs->find_pattern))), 0, -1);
 	basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
 	baseuri = g_file_new_for_uri(basedir);
 	content_filter = gtk_combo_box_get_active_text(GTK_COMBO_BOX(tfs->grep_pattern));
@@ -121,7 +120,7 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 
 void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 {
-	GtkWidget *alignment, *button, *table, *vbox, *vbox2;
+	GtkWidget *alignment, *button, *carea, *table, *vbox, *vbox2;
 	GtkListStore *lstore;
 	GtkTreeIter iter;
 	Tfiles_advanced *tfs;
@@ -149,17 +148,18 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	tfs = g_new(Tfiles_advanced, 1);
 	tfs->bfwin = bfwin;
 
-	tfs->dialog =
-		gtk_dialog_new_with_buttons(_("Advanced open file selector"),
-									GTK_WINDOW(tfs->bfwin->main_window),
-									GTK_DIALOG_DESTROY_WITH_PARENT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-									GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+	tfs->dialog = gtk_dialog_new_with_buttons(_("Advanced open file selector"),
+			GTK_WINDOW(tfs->bfwin->main_window),
+			GTK_DIALOG_DESTROY_WITH_PARENT,
+			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+			GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
 
 	gtk_dialog_set_has_separator(GTK_DIALOG(tfs->dialog), FALSE);
+	carea = gtk_dialog_get_content_area(GTK_DIALOG(tfs->dialog));
 
 	alignment = gtk_alignment_new(0, 0, 1, 1);
 	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 12, 0, 12, 6);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(tfs->dialog)->vbox), alignment, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(carea), alignment, FALSE, FALSE, 0);
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(alignment), vbox);
 
@@ -208,7 +208,7 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 
 	alignment = gtk_alignment_new(0, 0, 1, 1);
 	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 12, 18, 12, 6);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(tfs->dialog)->vbox), alignment, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(carea), alignment, FALSE, FALSE, 0);
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(alignment), vbox);
 
@@ -229,7 +229,7 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	gtk_table_attach(GTK_TABLE(table), tfs->regexwarn, 1, 2, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
 
 	gtk_dialog_set_response_sensitive(GTK_DIALOG(tfs->dialog), GTK_RESPONSE_ACCEPT, FALSE);
-	gtk_widget_show_all(GTK_DIALOG(tfs->dialog)->vbox);
+	gtk_widget_show_all(carea);
 
 	while (gtk_dialog_run(GTK_DIALOG(tfs->dialog)) == GTK_RESPONSE_ACCEPT) {
 		if (files_advanced_win_ok_clicked(tfs))
@@ -1182,11 +1182,18 @@ static void sync_dialog_response_lcb(GtkDialog *dialog,gint response_id,gpointer
 
 void sync_dialog(Tbfwin *bfwin) {
 	Tsyncdialog *sd;
-	GtkWidget *hbox;
+	GtkWidget *carea, *hbox;
+
 	sd = g_new0(Tsyncdialog,1);
 	sd->bfwin = bfwin;
-	sd->dialog = gtk_dialog_new_with_buttons(_("Upload / Download"),GTK_WINDOW(bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT
-				,_("Upload"),1,_("Download"),2,GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE,NULL);
+	sd->dialog = gtk_dialog_new_with_buttons(_("Upload / Download"),
+			GTK_WINDOW(bfwin->main_window),
+			GTK_DIALOG_DESTROY_WITH_PARENT,
+			_("Upload"),1,_("Download"), 2,
+			GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE,NULL);
+
+	carea = gtk_dialog_get_content_area(GTK_DIALOG(sd->dialog));
+
 #if !GLIB_CHECK_VERSION(2, 18, 0)
 	if (glib_major_version == 2 && glib_minor_version < 18) {
 		gchar *message;
@@ -1198,28 +1205,29 @@ void sync_dialog(Tbfwin *bfwin) {
 		gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), label, FALSE,FALSE,4);
 	}
 #endif
+
 	hbox = gtk_hbox_new(FALSE,4);
 	sd->entry_local = gtk_entry_new();
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Local directory")), FALSE,FALSE,4);
 	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_local, TRUE,TRUE,4);
 	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_local, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), FALSE,FALSE,4);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), hbox, FALSE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(carea), hbox, FALSE,FALSE,4);
 
 	hbox = gtk_hbox_new(FALSE,4);
 	sd->entry_remote = gtk_entry_new();
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Remote directory")), FALSE,FALSE,4);
 	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_remote, TRUE,TRUE,4);
 	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_remote, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), FALSE,FALSE,4);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), hbox, FALSE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(carea), hbox, FALSE,FALSE,4);
 	
-	sd->delete_deprecated = boxed_checkbut_with_value(_("Delete deprecated files"), bfwin->session->sync_delete_deprecated, GTK_DIALOG(sd->dialog)->vbox);
-	sd->include_hidden = boxed_checkbut_with_value(_("Include hidden files"), bfwin->session->sync_include_hidden, GTK_DIALOG(sd->dialog)->vbox);
+	sd->delete_deprecated = boxed_checkbut_with_value(_("Delete deprecated files"), bfwin->session->sync_delete_deprecated, carea);
+	sd->include_hidden = boxed_checkbut_with_value(_("Include hidden files"), bfwin->session->sync_include_hidden, carea);
 
 	sd->messagelabel = gtk_label_new(NULL);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), sd->messagelabel, FALSE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(carea), sd->messagelabel, FALSE, FALSE, 4);
 
 	sd->progress = gtk_progress_bar_new();
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), sd->progress, FALSE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(carea), sd->progress, FALSE, FALSE, 4);
 	
 	if (bfwin->session->sync_local_uri && bfwin->session->sync_local_uri[0]!='\0') {
 		gtk_entry_set_text(GTK_ENTRY(sd->entry_local), bfwin->session->sync_local_uri);
@@ -1255,4 +1263,3 @@ void modified_on_disk_check_init(void) {
 		main_v->periodic_check_id = 0;
 	}
 }
-
