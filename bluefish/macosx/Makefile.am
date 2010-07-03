@@ -1,3 +1,4 @@
 EXTRA_DIST = \
 	config.osxapp \
-	bluefish.plist
+	bluefish.plist \
+	bluefish.icns
