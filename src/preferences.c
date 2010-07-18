@@ -50,6 +50,7 @@ enum {
 	editor_font_string,           /* editor font */
 	editor_smart_cursor,
 	editor_indent_wspaces,
+	editor_tab_indent_sel,
 	tab_font_string,              /* notebook tabs font */
 	/*tab_color_normal,*/           /* notebook tabs text color normal.  This is just NULL! */
 	tab_color_modified,           /* tab text color when doc is modified and unsaved*/
@@ -1295,6 +1296,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
+	integer_apply(&main_v->props.editor_tab_indent_sel, pd->prefs[editor_tab_indent_sel], TRUE);
 	integer_apply(&main_v->props.smartindent, pd->prefs[smartindent], TRUE);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_ED_FG], pd->prefs[editor_fg]);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_ED_BG], pd->prefs[editor_bg]);
@@ -1557,6 +1559,8 @@ static void preferences_dialog() {
 	pd->prefs[visible_ws_mode] = boxed_optionmenu_with_value(_("Show whitespace"), main_v->props.visible_ws_mode, vbox2, visible_ws_modes);
 	pd->prefs[editor_smart_cursor] = boxed_checkbut_with_value(_("Smart Home/End cursor positioning"), main_v->props.editor_smart_cursor, vbox2);
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
+	pd->prefs[editor_tab_indent_sel] = boxed_checkbut_with_value(_("Tab key indents selection"), main_v->props.editor_tab_indent_sel, vbox2);
+	
 	pd->prefs[smartindent] = boxed_checkbut_with_value(_("Smart auto indenting"), main_v->props.smartindent, vbox2);
 
 	{
