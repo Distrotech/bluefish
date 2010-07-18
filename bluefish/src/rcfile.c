@@ -436,6 +436,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE],"cline_bg:","#E0E0E0");
 	init_prop_string    (&config_rc, &main_v->props.btv_color_str[BTV_COLOR_WHITESPACE],"visible_ws:","#FF0000");
 	init_prop_string    (&config_rc, &main_v->props.btv_color_str[BTV_COLOR_RIGHT_MARGIN],"right_margin:","#990000");
+	init_prop_string    (&config_rc, &main_v->props.btv_color_str[BTV_COLOR_CURSOR],"cursor_color:","");
 	init_prop_arraylist (&config_rc, &main_v->props.textstyles, "textstyles3:", 6, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.block_folding_mode, "block_folding_mode:", 1, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.highlight_styles, "highlight_styles:", 3, TRUE);
