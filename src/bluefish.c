@@ -251,8 +251,8 @@ int main(int argc, char *argv[])
                           "xthickness = 0\n"
                           "ythickness = 0\n"
                        "}\n"
-                       "widget \"*.bluefish-small-close-button\" style \"bluefish-small-close-button-style\"");
-
+                       "widget \"*.bluefish-small-close-button\" style \"bluefish-small-close-button-style\""
+                       );
 	context = g_option_context_new(_(" [FILE(S)]"));
 #ifdef ENABLE_NLS
 	g_option_context_add_main_entries(context, options, PACKAGE);

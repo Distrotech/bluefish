@@ -1294,6 +1294,17 @@ void bftextview2_parse_static_colors(void) {
 	if (!(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE] && gdk_color_parse(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], &st_whitespace_color))) {
 		gdk_color_parse("#ff0000",&st_whitespace_color);
 	}
+	if (main_v->props.btv_color_str[BTV_COLOR_CURSOR] != NULL && main_v->props.btv_color_str[BTV_COLOR_CURSOR][0] != '\0') {
+		gchar *tmp;
+		tmp = g_strconcat(
+				"style \"bluefish-cursor\" {"
+				"GtkTextView::cursor-color = \"",
+				main_v->props.btv_color_str[BTV_COLOR_CURSOR],
+				"\"}"
+				"class \"GtkTextView\" style \"bluefish-cursor\"", NULL);
+		gtk_rc_parse_string(tmp);
+		g_free(tmp);
+	}
 }
 
 void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors) {
