@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file_dialogs.c - file dialogs
  *
- * Copyright (C) 2005-2009 Olivier Sessink
+ * Copyright (C) 2005-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -79,7 +79,7 @@ static gboolean files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 
 	retval = open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
 				  , 500
-				  , gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname))
+				  , !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname))
 				  ,
 				  strlen(extension_filter) == 0 ? NULL : extension_filter,
 				  strlen(content_filter) == 0 ? NULL : content_filter,
@@ -96,7 +96,7 @@ static gboolean files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 	g_object_unref(baseuri);
 
 	tfs->bfwin->session->adv_open_recursive = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive));
-	tfs->bfwin->session->adv_open_matchname = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname));
+	tfs->bfwin->session->adv_open_matchname = !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname));
 	return retval;
 }
 
@@ -194,8 +194,8 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 
 	table = dialog_table_in_vbox(3, 2, 0, vbox2, FALSE, FALSE, 0);
 
-	tfs->matchname = checkbut_with_value(NULL, tfs->bfwin ? tfs->bfwin->session->adv_open_matchname : TRUE);
-	dialog_mnemonic_label_in_table(_("_Match on file name only:"), tfs->matchname, table, 0, 1, 0, 1);
+	tfs->matchname = checkbut_with_value(NULL, tfs->bfwin ? !tfs->bfwin->session->adv_open_matchname : FALSE);
+	dialog_mnemonic_label_in_table(_("Pattern matches _full path:"), tfs->matchname, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), tfs->matchname, 1, 2, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
 
 	tfs->recursive = checkbut_with_value(NULL, tfs->bfwin ? tfs->bfwin->session->adv_open_recursive : TRUE);
