@@ -42,6 +42,10 @@
 #include "bluefish.h"  /* for DEBUG_MSG and stuff like that */
 #include "bf_lib.h"    /* myself */
 
+#ifdef DEVELOPMENT
+#include <stdlib.h>
+#endif
+
 /*#define REFP_REFS*/
 #ifdef REFP_REFS
 	gint num_refp_refs=0;
