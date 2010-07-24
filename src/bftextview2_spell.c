@@ -45,6 +45,8 @@ static EnchantBroker *eb;
 static guint loops_per_timer=1000;
 
 static gboolean bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
+	GtkTextTag *misspelled;
+	
 	/* first find a region that needs a spellcheck */
 	gtk_text_buffer_get_start_iter(buffer, start);
 	if (!gtk_text_iter_begins_tag(start,btv->needspellcheck) ) {
@@ -63,6 +65,16 @@ static gboolean bftextview2_find_region2spellcheck(BluefishTextView * btv, GtkTe
 			DBG_MSG("BUG: we should never get here\n");
 			return FALSE;
 		}
+	}
+	/* if the region is within a misspelled word, enlarge it to the total misspelled word
+	(this fixes the situation where you add a space in the middle of "forgotthespace" and only 
+	the space is scanned again) */
+	misspelled = gtk_text_tag_table_lookup(langmgr_get_tagtable(), "_spellerror_");
+	if (gtk_text_iter_has_tag(start, misspelled) && !gtk_text_iter_begins_tag(start,misspelled)) {
+		gtk_text_iter_backward_to_tag_toggle(start, misspelled);
+	}
+	if (gtk_text_iter_has_tag(end, misspelled) && !gtk_text_iter_ends_tag(start,misspelled)) {
+		gtk_text_iter_forward_to_tag_toggle(end, misspelled);
 	}
 	return TRUE;
 }
