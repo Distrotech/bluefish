@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snippets_leaf_insert.c - plugin for snippets sidebar
  *
- * Copyright (C) 2006,2009 Olivier Sessink
+ * Copyright (C) 2006,2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,6 +55,9 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	int i=0;
 	GtkWidget *table, *label;
 	gchar *tmpstr;
+	gchar *tmpb=NULL, *tmpa=NULL;
+	gboolean free_tmpab=FALSE;
+	gint beforelen,afterlen;
 	
 	title = xmlGetProp(leaf, (const xmlChar *)"title");
 	sid = g_new0(Tsnippet_insert_dialog,1);
@@ -93,21 +96,31 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 			i++;
 		} else if (xmlStrEqual(cur->name, (const xmlChar *)"before")) {
 			before = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+			beforelen = before?strlen((gchar *)before):0;
 		} else if (xmlStrEqual(cur->name, (const xmlChar *)"after")) {
 			after = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+			afterlen = after?strlen((gchar *)after):0;
 		}
 	}
+	if (beforelen > 30)
+		tmpb = g_strndup((gchar *)before, 30);
+	if (afterlen > 30) 
+		tmpa = g_strndup((gchar *)after, 30);
 	if (before && after) {
-		tmpstr = g_strconcat((gchar *)before,_("[cursor position or selection]"),(gchar *)after,NULL);
+		tmpstr = g_strconcat((gchar *)(tmpb?tmpb:before),_("[cursor position or selection]"),(gchar *)(tmpa?tmpa:after),NULL);
 	} else if (before) {
-		tmpstr = g_strdup((gchar *)before);
+		tmpstr = g_strdup((gchar *)(tmpb?tmpb:before));
 	} else if (after) {
-		tmpstr = g_strdup((gchar *)after);
+		tmpstr = g_strdup((gchar *)(tmpa?tmpa:after));
 	} else {
 		tmpstr = g_strdup("An error has occurred with this item");
 	}
 	label = gtk_label_new(tmpstr);
 	g_free(tmpstr);
+	if (free_tmpab) {
+		g_free(tmpa);
+		g_free(tmpb);
+	}
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
 	gtk_table_attach(GTK_TABLE (table), label, 0, 2, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 	
