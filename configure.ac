@@ -619,6 +619,7 @@ AC_CONFIG_FILES([
 	src/plugin_snippets/Makefile
 	src/plugin_snippets/po/Makefile.in
 	src/bluefish_rc.rc
+	macosx/Makefile
 	win32/Makefile
 	win32/Makefile.mingw
 ])

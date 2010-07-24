@@ -2,6 +2,10 @@ EXTRA_DIST = \
 	bluefish.nsi \
 	config.nsis \
 	Makefile.mingw.in \
+	includes/Checksums.nsh \
+	includes/Functions.nsh \
+	includes/Macros.nsh \
+	includes/UnFunctions.nsh \
 	locale/Basque.nsh \
 	locale/Czech.nsh \
 	locale/Dutch.nsh \
