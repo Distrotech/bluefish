@@ -49,8 +49,7 @@ static int snippets_insert_num_params(xmlNodePtr parent) {
 static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_vars) {
 	Tsnippet_insert_dialog *sid;
 	xmlChar *title;
-	xmlChar *before=NULL;
-	xmlChar *after=NULL;
+	gchar *before=NULL, *after=NULL;
 	xmlNodePtr cur;
 	int i=0;
 	GtkWidget *table, *label;
@@ -95,17 +94,23 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 			g_free(final_name);
 			i++;
 		} else if (xmlStrEqual(cur->name, (const xmlChar *)"before")) {
-			before = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+			before = (gchar *)xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
 			beforelen = before?strlen((gchar *)before):0;
 		} else if (xmlStrEqual(cur->name, (const xmlChar *)"after")) {
-			after = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+			after = (gchar *)xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
 			afterlen = after?strlen((gchar *)after):0;
 		}
 	}
-	if (beforelen > 30)
-		tmpb = g_strndup((gchar *)before, 30);
-	if (afterlen > 30) 
-		tmpa = g_strndup((gchar *)after, 30);
+	if (beforelen > 30) {
+		gchar *tmp = g_strndup((gchar *)before, 30);
+		tmpb = g_strconcat(tmp, " etc. etc.",NULL);
+		g_free(tmp);
+	}
+	if (afterlen > 30) { 
+		gchar *tmp = g_strndup((gchar *)after, 30);
+		tmpa = g_strconcat(tmp, " etc. etc.",NULL);
+		g_free(tmp);
+	}
 	if (before && after) {
 		tmpstr = g_strconcat((gchar *)(tmpb?tmpb:before),_("[cursor position or selection]"),(gchar *)(tmpa?tmpa:after),NULL);
 	} else if (before) {
