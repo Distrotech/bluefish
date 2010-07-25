@@ -55,7 +55,6 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	GtkWidget *table, *label;
 	gchar *tmpstr;
 	gchar *tmpb=NULL, *tmpa=NULL;
-	gboolean free_tmpab=FALSE;
 	gint beforelen,afterlen;
 	
 	title = xmlGetProp(leaf, (const xmlChar *)"title");
@@ -122,10 +121,8 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	}
 	label = gtk_label_new(tmpstr);
 	g_free(tmpstr);
-	if (free_tmpab) {
-		g_free(tmpa);
-		g_free(tmpb);
-	}
+	g_free(tmpa);
+	g_free(tmpb);
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
 	gtk_table_attach(GTK_TABLE (table), label, 0, 2, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 	
