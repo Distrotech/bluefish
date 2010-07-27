@@ -38,6 +38,8 @@
 #include "stringlist.h"
 #include "undo_redo.h"
 
+static gchar *modified_on_disk_warning_string(const gchar *filename, GFileInfo *oldfinfo, GFileInfo *newfinfo);
+
 /**************************************************************************/
 /* the start of the callback functions for the menu, acting on a document */
 /**************************************************************************/
@@ -483,18 +485,24 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status, GError *
 		{
 			/* we have to ask the user what to do */
 			const gchar *buttons[] = { _("_Abort save"), _("_Continue save"), NULL };
+			GFileInfo *newfinfo;
+			GError *gerror=NULL;
 			gint retval;
 			gchar *tmpstr, *utf8uri;
-			utf8uri = g_file_get_uri(doc->uri);
-			if (status == CHECKANDSAVE_ERROR_MODIFIED) {
-				tmpstr = g_strdup_printf(_("File %s has been modified on disk, overwrite?"), utf8uri);
-			} else {
-				/* TODO: this bit of code can never be reached ! it can be removed */
-				tmpstr = g_strdup_printf(_("Failed to check if %s has been modified on disk"), utf8uri);
+			
+			newfinfo = g_file_query_info(doc->uri,G_FILE_ATTRIBUTE_STANDARD_SIZE","G_FILE_ATTRIBUTE_TIME_MODIFIED,0,NULL,&gerror);
+			if (gerror) {
+				g_warning("file was modified on disk, but now an error??");
+				g_error_free(gerror);
+				return CHECKNSAVE_CONT;
 			}
+			utf8uri = g_file_get_uri(doc->uri);
+			tmpstr = modified_on_disk_warning_string(utf8uri, doc->fileinfo, newfinfo);
+			/*g_strdup_printf(_("File %s has been modified on disk, overwrite?"), utf8uri);*/
 			g_free(utf8uri);
+			g_object_unref(newfinfo);
 			retval =
-				message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_WARNING, buttons, "",
+				message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_WARNING, buttons, _("File changed on disk\n"),
 										 tmpstr);
 			g_free(tmpstr);
 			if (retval == 0) {
@@ -1233,6 +1241,115 @@ void sync_dialog(Tbfwin *bfwin) {
 	
 	sd->signal_id = g_signal_connect(sd->dialog, "response", G_CALLBACK(sync_dialog_response_lcb), sd);
 	gtk_widget_show_all(sd->dialog);
+}
+
+static gchar *modified_on_disk_warning_string(const gchar *filename, GFileInfo *oldfinfo, GFileInfo *newfinfo) {
+	gchar *tmpstr, *oldtimestr, *newtimestr;
+	time_t newtime,oldtime;
+	gsize oldsize,newsize;
+
+	newtime = (time_t)g_file_info_get_attribute_uint64(newfinfo,G_FILE_ATTRIBUTE_TIME_MODIFIED);
+	oldtime = (time_t)g_file_info_get_attribute_uint64(oldfinfo,G_FILE_ATTRIBUTE_TIME_MODIFIED);
+	newtimestr = bf_portable_time(&newtime);
+	oldtimestr = bf_portable_time(&oldtime);
+	newsize = g_file_info_get_size(newfinfo);
+	oldsize = g_file_info_get_size(oldfinfo);
+	/*g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);*/
+	tmpstr = g_strdup_printf(_("Filename:%s changed on disk.\n\nOriginal modification time was %s\nNew modification time is %s\nOriginal size was %"G_GSSIZE_FORMAT"\nNew size is %"G_GSSIZE_FORMAT""), 
+						filename, 
+						oldtimestr, newtimestr,
+						oldsize, newsize);
+	g_free(newtimestr);
+	g_free(oldtimestr);
+	return tmpstr;
+}
+
+static void doc_activate_modified_lcb(Tcheckmodified_status status,GError *gerror,GFileInfo *orig, GFileInfo *new, gpointer callback_data) {
+	Tdocument *doc = callback_data;
+	switch (status) {
+	case CHECKMODIFIED_ERROR:
+		DEBUG_MSG("doc_activate_modified_lcb, CHECKMODIFIED_ERROR ??\n");
+		if (gerror->code == G_IO_ERROR_NOT_FOUND) {
+			gchar *tmpstr;
+			gint retval;
+			const gchar *buttons[] = {_("_Unset file name"),_("_Save"), NULL};
+			/* file is deleted on disk, what do we do now ? */
+			tmpstr = g_strdup_printf(_("File name: %s"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
+			retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+													 GTK_MESSAGE_WARNING,
+													 buttons,
+													 _("File disappeared from disk\n"),
+													 tmpstr);
+			g_free(tmpstr);
+			if (retval == 1) { /* save */
+				doc_save_backend(doc, FALSE, FALSE, FALSE, FALSE);
+			} else { /* unset */
+				document_unset_filename(doc);
+			}
+		} else {
+			/* TODO: warn the user */	
+		}
+	break;
+	case CHECKMODIFIED_CANCELLED:
+		DEBUG_MSG("doc_activate_modified_lcb, CHECKMODIFIED_CANCELLED\n");
+	break;
+	case CHECKMODIFIED_MODIFIED:
+		{
+		gchar *tmpstr/*, *oldtimestr, *newtimestr*/;
+		gint retval;
+		const gchar *buttons[] = {_("_Ignore"),_("_Reload"),_("Check and reload all documents"), NULL};
+		/*time_t newtime,origtime;
+		
+		newtime = (time_t)g_file_info_get_attribute_uint64(new,G_FILE_ATTRIBUTE_TIME_MODIFIED);
+		origtime = (time_t)g_file_info_get_attribute_uint64(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED);
+		g_print("doc_activate_modified_lcb, newtime=%ld,%d origtime=%ld,%d newsize=%"G_GOFFSET_FORMAT" origsize=%"G_GOFFSET_FORMAT"\n",
+							newtime,g_file_info_get_attribute_uint32(new,G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC),
+							origtime,g_file_info_get_attribute_uint32(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC),
+							g_file_info_get_size(new),g_file_info_get_size(orig));
+		newtimestr = bf_portable_time(&newtime);
+		oldtimestr = bf_portable_time(&origtime);
+
+		tmpstr = g_strdup_printf(_("Filename: %s\n\nNew modification time is: %s\nOld modification time is: %s"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), newtimestr, oldtimestr);
+		*/
+		tmpstr = modified_on_disk_warning_string(gtk_label_get_text(GTK_LABEL(doc->tab_menu)), orig, new);
+		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+													 GTK_MESSAGE_WARNING,
+													 buttons,
+													 _("File changed on disk\n"),
+													 tmpstr);
+		g_free(tmpstr);
+		/*g_free(newtimestr);
+		g_free(oldtimestr);*/
+		if (retval == 0) { /* ignore */ 
+			/*if (doc->fileinfo) {
+				g_object_unref(doc->fileinfo);
+			}
+			doc->fileinfo = new;
+			g_object_ref(doc->fileinfo);*/
+			GTimeVal mtime;
+			g_file_info_set_size(doc->fileinfo, g_file_info_get_size(new));
+			g_file_info_get_modification_time(new, &mtime);
+			g_file_info_set_modification_time(doc->fileinfo, &mtime);
+			g_file_info_set_attribute_string(doc->fileinfo, "etag::value",g_file_info_get_attribute_string(new, "etag::value"));
+			doc_set_tooltip(doc);
+		} else if (retval == 1) { /* reload */
+			doc_reload(doc, new, FALSE);
+		} else { /* reload all modified documents */
+			file_reload_all_modified(doc->bfwin);
+		}
+		}
+	break;
+	case CHECKMODIFIED_OK:
+		/* do nothing */
+	break;
+	}
+	doc->action.checkmodified = NULL;
+}
+
+void doc_start_modified_check(Tdocument *doc) {
+	if (doc->uri && doc->fileinfo && !doc->action.checkmodified && !doc->action.save) { /* don't check during another check, or during save */
+		doc->action.checkmodified = file_checkmodified_uri_async(doc->uri, doc->fileinfo, doc_activate_modified_lcb, doc);
+	}
 }
 
 static gboolean modified_on_disk_check_lcb(gpointer data) {
