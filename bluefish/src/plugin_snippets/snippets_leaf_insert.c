@@ -46,6 +46,54 @@ static int snippets_insert_num_params(xmlNodePtr parent) {
 	return num;
 }
 
+static gchar *snippets_strings2ui(const gchar *before, gint beforelen, const gchar *after, gint afterlen) {
+	gchar *retval;
+	gchar *tmpb=NULL, *tmpa=NULL;
+
+	if (beforelen > 30) {
+		gchar *tmp = g_strndup((gchar *)before, 30);
+		tmpb = g_strconcat(tmp, " etc. etc.",NULL);
+		g_free(tmp);
+	}
+	if (afterlen > 30) { 
+		gchar *tmp = g_strndup((gchar *)after, 30);
+		tmpa = g_strconcat(tmp, " etc. etc.",NULL);
+		g_free(tmp);
+	}
+	if (before && after) {
+		retval = g_strconcat((gchar *)(tmpb?tmpb:before),_("[cursor position or selection]"),(gchar *)(tmpa?tmpa:after),NULL);
+	} else if (before) {
+		retval = g_strdup((gchar *)(tmpb?tmpb:before));
+	} else if (after) {
+		retval = g_strdup((gchar *)(tmpa?tmpa:after));
+	} else {
+		retval = g_strdup("An error has occurred with this item");
+	}
+	g_free(tmpa);
+	g_free(tmpb);
+	return retval;
+}
+
+gchar *snippets_tooltip_from_insert_content(xmlNodePtr leaf) {
+	xmlNodePtr cur;
+	gchar *tmpstr;
+	gchar *before, *after;
+	gint beforelen,afterlen;
+	for (cur = leaf->xmlChildrenNode;cur != NULL;cur = cur->next) {
+		if (xmlStrEqual(cur->name, (const xmlChar *)"before")) {
+			before = (gchar *)xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+			beforelen = before?strlen((gchar *)before):0;
+		} else if (xmlStrEqual(cur->name, (const xmlChar *)"after")) {
+			after = (gchar *)xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+			afterlen = after?strlen((gchar *)after):0;
+		}
+	}
+	tmpstr = snippets_strings2ui(before, beforelen, after, afterlen);
+	xmlFree(before);
+	xmlFree(after);
+	return tmpstr;
+}
+
 static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_vars) {
 	Tsnippet_insert_dialog *sid;
 	xmlChar *title;
@@ -54,7 +102,6 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	int i=0;
 	GtkWidget *table, *label;
 	gchar *tmpstr;
-	gchar *tmpb=NULL, *tmpa=NULL;
 	gint beforelen,afterlen;
 	
 	title = xmlGetProp(leaf, (const xmlChar *)"title");
@@ -100,38 +147,16 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 			afterlen = after?strlen((gchar *)after):0;
 		}
 	}
-	if (beforelen > 30) {
-		gchar *tmp = g_strndup((gchar *)before, 30);
-		tmpb = g_strconcat(tmp, " etc. etc.",NULL);
-		g_free(tmp);
-	}
-	if (afterlen > 30) { 
-		gchar *tmp = g_strndup((gchar *)after, 30);
-		tmpa = g_strconcat(tmp, " etc. etc.",NULL);
-		g_free(tmp);
-	}
-	if (before && after) {
-		tmpstr = g_strconcat((gchar *)(tmpb?tmpb:before),_("[cursor position or selection]"),(gchar *)(tmpa?tmpa:after),NULL);
-	} else if (before) {
-		tmpstr = g_strdup((gchar *)(tmpb?tmpb:before));
-	} else if (after) {
-		tmpstr = g_strdup((gchar *)(tmpa?tmpa:after));
-	} else {
-		tmpstr = g_strdup("An error has occurred with this item");
-	}
+	tmpstr = snippets_strings2ui(before, beforelen, after, afterlen);
 	label = gtk_label_new(tmpstr);
 	g_free(tmpstr);
-	g_free(tmpa);
-	g_free(tmpb);
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
 	gtk_table_attach(GTK_TABLE (table), label, 0, 2, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
 	
 	sid->textentry[i] = NULL;
 	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(sid->dialog)->vbox),table);
 	
-	gtk_widget_show_all(sid->dialog);
-	
-	
+	gtk_widget_show_all(sid->dialog);	
 	if (gtk_dialog_run(GTK_DIALOG(sid->dialog))==GTK_RESPONSE_ACCEPT) {
 		Tconvert_table *ctable;
 		gchar *before_final=NULL, *after_final=NULL;
@@ -160,7 +185,6 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	gtk_widget_destroy(sid->dialog);
 	g_free(sid);
 }
-
 
 void snippets_activate_leaf_insert(Tsnippetswin *snw, xmlNodePtr parent) {
 
