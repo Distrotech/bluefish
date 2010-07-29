@@ -437,43 +437,60 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 	return FALSE; /* pass the event on */
 }
 
+static gchar *snippets_gen_treetip_string(xmlNodePtr cur) {
+	if (cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
+		xmlChar *tooltip, *accelerator;
+		gchar *tooltip2=NULL, *accelerator2=NULL;
+		tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
+		accelerator = xmlGetProp(cur, (const xmlChar *)"accelerator");
+		if (tooltip) {
+			tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
+			xmlFree(tooltip);
+		} else {
+			xmlChar *type = xmlGetProp(cur, (const xmlChar *)"type");
+			if (type && xmlStrEqual(type, (const xmlChar *)"insert")) {
+				gchar *tmp = snippets_tooltip_from_insert_content(cur);
+				tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
+				g_free(tmp);
+			} /*else if (type && xmlStrEqual(type, (const xmlChar *)"snr")) {
+				TODO
+			}*/
+			if (type)
+				xmlFree(type);	
+		}
+		if (accelerator) {
+			accelerator2 = g_markup_escape_text((gchar *)accelerator,-1);
+			xmlFree(accelerator);
+		}
+		if (tooltip2 && !accelerator2) {
+			return tooltip2;
+		} else if (accelerator2 && !tooltip2) {
+			return accelerator2;
+		} else if (tooltip2 && accelerator2) {
+			gchar *tmp;
+			tmp = g_strconcat(tooltip2, "\n", accelerator2, NULL);
+			g_free(tooltip2);
+			g_free(accelerator2);
+			return tmp;
+		}
+	}
+	return NULL;
+}
+
 static gboolean snippets_treetip_lcb(GtkWidget *widget,gint x,gint y,gboolean keyboard_tip, GtkTooltip *tooltipwidget, gpointer user_data) {
 	Tsnippetswin *snw = user_data;
 	if (snippets_v.doc) {
 		GtkTreePath *path;	
 		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(snw->view), x, y, &path, NULL, NULL, NULL)) {
+			gchar *tooltip;
 			xmlNodePtr cur = snippetview_get_node_at_path(path);
 			DEBUG_MSG("snippets_treetip_lcb, found node %p for path %p\n",cur,path); 
-			if (cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
-				xmlChar *tooltip, *accelerator;
-				gchar *tooltip2=NULL, *accelerator2=NULL;
-				tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
-				accelerator = xmlGetProp(cur, (const xmlChar *)"accelerator");
-				if (tooltip) {
-					tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
-					xmlFree(tooltip);
-				}
-				if (accelerator) {
-					accelerator2 = g_markup_escape_text((gchar *)accelerator,-1);
-					xmlFree(accelerator);
-				}
-				if (tooltip2 && !accelerator2) {
-					gtk_tooltip_set_markup(tooltipwidget, tooltip2);
-					g_free(tooltip2);
-					return TRUE;
-				} else if (accelerator2 && !tooltip2) {
-					gtk_tooltip_set_markup(tooltipwidget, accelerator2);
-					g_free(accelerator2);
-					return TRUE;
-				} else if (tooltip2 && accelerator2) {
-					gchar *tmp;
-					tmp = g_strconcat(tooltip2, "\n", accelerator2, NULL);
-					gtk_tooltip_set_markup(tooltipwidget, tmp);
-					g_free(tooltip2);
-					g_free(accelerator2);
-					g_free(tmp);
-					return TRUE;
-				}
+			tooltip = snippets_gen_treetip_string(cur);
+			if (tooltip) {
+				gtk_tooltip_set_markup(tooltipwidget, tooltip);
+				g_free(tooltip);
+				gtk_tree_path_free(path);
+				return TRUE;
 			}
 			gtk_tree_path_free(path);
 		} else {

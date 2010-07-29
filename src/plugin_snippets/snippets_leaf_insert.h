@@ -21,6 +21,7 @@
 #ifndef SNIPPETS_LEAF_INSERT_H
 #define SNIPPETS_LEAF_INSERT_H
 
+gchar *snippets_tooltip_from_insert_content(xmlNodePtr leaf);
 void snippets_activate_leaf_insert(Tsnippetswin *snw, xmlNodePtr parent);
 
 
