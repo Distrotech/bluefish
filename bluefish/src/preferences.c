@@ -100,6 +100,7 @@ enum {
 	open_in_running_bluefish,     /* open commandline documents in already running session*/
 	open_in_new_window, 
 #endif /* ifndef WIN32 */
+	register_recent_mode,
 	load_reference,
 	show_autocomp_reference,
 	show_tooltip_reference,
@@ -1342,6 +1343,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.open_in_running_bluefish, pd->prefs[open_in_running_bluefish], TRUE);
 	integer_apply(&main_v->props.open_in_new_window, pd->prefs[open_in_new_window], TRUE);
 #endif /* ifndef WIN32 */
+	main_v->props.register_recent_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[register_recent_mode]));
 	main_v->props.modified_check_type = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[modified_check_type]));
 	integer_apply(&main_v->props.do_periodic_check, pd->prefs[do_periodic_check], TRUE);
 	integer_apply(&main_v->props.max_recent_files, pd->prefs[max_recent_files], FALSE);
@@ -1657,7 +1659,10 @@ static void preferences_dialog() {
 	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File properties to check on disk for modifications"), main_v->props.modified_check_type, vbox2, modified_check_types);
 	pd->prefs[do_periodic_check] = boxed_checkbut_with_value(_("Periodically check if file is modified on disk"), main_v->props.do_periodic_check, vbox2);
 	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent' menu"), main_v->props.max_recent_files, vbox2, 3, 100);
-
+	{
+		gchar *registerrecentmodes[] = {N_("Never"), N_("All files"), N_("Only project files"), NULL};
+		pd->prefs[register_recent_mode] = boxed_optionmenu_with_value(_("Register recent files with your desktop"), main_v->props.register_recent_mode, vbox2, registerrecentmodes);
+	}
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
