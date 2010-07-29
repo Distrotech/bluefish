@@ -745,12 +745,24 @@ void recent_menu_init_project(Tbfwin *bfwin) {
 	bfwin->menu_recent_files = recent_menu_from_list(bfwin, bfwin->session->recent_files, FALSE);
 }
 
+static void register_recent(gchar *curi, gboolean is_project) {
+	if (main_v->props.register_recent_mode==0)
+		return;
+	if(is_project) {
+		gtk_recent_manager_add_item(main_v->recentm, curi);
+		return;
+	}
+	if (main_v->props.register_recent_mode==1) {
+		gtk_recent_manager_add_item(main_v->recentm, curi);
+	}
+}
 /* Add_to_recent_list
  * This should be called when a new file is opened, i.e. from
  * file_open_cb, it adds a new entry which also appears in the
  * menu bar, and (if nessecary) deletes the last entry */
 void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean is_project) {
 	gchar *filename = g_file_get_uri(file);
+	register_recent(filename,is_project);
 	if (closed_file) {
 		GList *tmplist = g_list_first(main_v->bfwinlist);
 		while (tmplist) {

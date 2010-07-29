@@ -193,6 +193,7 @@ static gboolean startup_in_idle(gpointer data) {
 			gui_show_main(startup->firstbfwin);
 		break;
 		case 4:
+			main_v->recentm = gtk_recent_manager_get_default();
 			doc_scroll_to_cursor(BFWIN(startup->firstbfwin)->current_document);
 			modified_on_disk_check_init();
 			g_free(startup);
@@ -331,6 +332,7 @@ int main(int argc, char *argv[])
 		msg_queue_start(startup->filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) );
 #else
 		if (!ipc_bf2bf_start(startup->filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) )) {
+			gdk_notify_startup_complete();
 			exit(0);
 		}
 #endif /* WITH_MSG_QUEUE */
