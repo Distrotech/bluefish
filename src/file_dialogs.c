@@ -1202,7 +1202,7 @@ void sync_dialog(Tbfwin *bfwin) {
 		gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 		gtk_label_set_markup(GTK_LABEL(label), message);
 		g_free(message);
-		gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), label, FALSE,FALSE,4);
+		gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(sd->dialog))), label, FALSE,FALSE,4);
 	}
 #endif
 

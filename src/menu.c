@@ -429,8 +429,8 @@ static GtkWidget *remove_menuitem_in_list_by_label(const gchar *labelstring, GLi
 	tmplist = g_list_first(*menuitemlist);
 	while (tmplist) {
 		DEBUG_MSG("remove_recent_entry, tmplist=%p, data=%p\n", tmplist, tmplist->data);
-		DEBUG_MSG("remove_recent_entry, tmplist->data=%s\n",GTK_LABEL(GTK_BIN(tmplist->data)->child)->label);
-		if(!strcmp(GTK_LABEL(GTK_BIN(tmplist->data)->child)->label, labelstring)) {
+		DEBUG_MSG("remove_recent_entry, tmplist->data=%s\n",GTK_LABEL(gtk_bin_get_child(GTK_BIN(tmplist->data)))->label);
+		if(!strcmp(gtk_label_get_label(GTK_LABEL(gtk_bin_get_child(GTK_BIN(tmplist->data)))), labelstring)) {
 			tmp = tmplist->data;
 			*menuitemlist = g_list_remove(*menuitemlist, tmplist->data);
 			DEBUG_MSG("remove_recent_entry, returning %p\n", tmp);
@@ -491,7 +491,7 @@ static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory)
 
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
 	DEBUG_MSG("menu_current_document_type_change, started for bflang %p\n", bdm->data);
-	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
+	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem))) {
 		doc_set_mimetype(bdm->bfwin->current_document, ((Tbflang *)bdm->data)->mimetypes->data);
 	}
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
@@ -662,7 +662,7 @@ static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 }
 
 static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	GFile *uri = g_file_new_for_uri(GTK_LABEL(GTK_BIN(widget)->child)->label);
+	GFile *uri = g_file_new_for_uri(gtk_label_get_label(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
 	if (uri) {
 		project_open_from_file(bfwin, uri);
 		add_to_recent_list(bfwin,uri, 0, TRUE);
@@ -674,7 +674,7 @@ static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
  * This function should be called when a menu from the Open Recent list
  * has been selected. */
 static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	GFile *uri = g_file_new_for_uri(GTK_LABEL(GTK_BIN(widget)->child)->label);
+	GFile *uri = g_file_new_for_uri(gtk_label_get_label(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
 	if (uri) {
 		doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1);
 		add_to_recent_list(bfwin,uri, 0, FALSE);
@@ -767,7 +767,7 @@ void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean i
 				if(g_list_length(*worklist) > main_v->props.max_recent_files) {
 					tmp = remove_recent_entry(bfwin,"last",is_project);
 					if (tmp) {
-						DEBUG_MSG("add_to_recent_list, list too long, entry %s to be deleted\n", GTK_LABEL(GTK_BIN(tmp)->child)->label);
+						DEBUG_MSG("add_to_recent_list, list too long, entry %s to be deleted\n", GTK_LABEL(gtk_bin_get_child(GTK_BIN(tmp)))->label);
 						gtk_widget_hide(tmp);
 						gtk_widget_destroy(tmp);
 					}
@@ -960,7 +960,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 }
 
 static void menu_current_document_encoding_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
-	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
+	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem))) {
 		gchar *encoding = (gchar *)bdm->data;
 		Tbfwin *bfwin = bdm->bfwin;
 		DEBUG_MSG("menu_current_document_encoding_change, encoding=%s\n",encoding);
@@ -1016,7 +1016,7 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 
 void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filetype, gchar *encoding) {
 	Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(bfwin->menu_filetypes, filetype);
-	if (bdm && filetype && bdm->menuitem && !GTK_CHECK_MENU_ITEM(bdm->menuitem)->active) {
+	if (bdm && filetype && bdm->menuitem && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bdm->menuitem))) {
 		g_signal_handler_disconnect(G_OBJECT(bdm->menuitem),bdm->signal_id);
 		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(bdm->menuitem), TRUE);
 		bdm->signal_id = g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) bdm);

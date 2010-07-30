@@ -58,7 +58,7 @@ static GtkMenuItem *menuitem_from_path(SnippetsMenu *sm, GtkTreePath *path) {
 			mshell = NULL;
 	}
 	DEBUG_MSG("indices[%d]=%d mitem=%p, mshell=%p\n",i,TREEPATH(path)->indices[i],mitem, mshell);
-	/*g_print("return mitem=%p with label %s\n", mitem, gtk_label_get_text(GTK_LABEL(GTK_BIN(mitem)->child)));*/
+	/*g_print("return mitem=%p with label %s\n", mitem, gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(mitem)))));*/
 	return mitem;
 }
 

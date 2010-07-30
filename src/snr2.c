@@ -133,7 +133,7 @@ static void move_window_away_from_cursor(Tdocument *doc, GtkWindow *win, GtkText
 	GdkRectangle itrect;
 
 	/* get window coordinates, try to include the decorations */
-	gdk_window_get_frame_extents(GTK_WIDGET(win)->window,&winrect);
+	gdk_window_get_frame_extents(gtk_widget_get_window(GTK_WIDGET(win)),&winrect);
 
 	doc_get_iter_location(doc, iter, &itrect);
 	DEBUG_MSG("move_window_away_from_cursor, itx=%d-%d,ity=%d-%d, winx=%d-%d, winy=%d-%d\n",itrect.x,itrect.x+itrect.width,itrect.y,itrect.y+itrect.height,winrect.x,winrect.x+winrect.width,winrect.y,winrect.y+winrect.height);
@@ -1484,7 +1484,7 @@ static void snr_combobox_changed(GtkComboBox * combobox, TSNRWin * snrwin)
 static void snr_comboboxentry_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin)
 {
     if (comboboxentry == GTK_COMBO_BOX_ENTRY(snrwin->search)) {
-    	if (strlen(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child))) > 0) {
+    	if (strlen(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))))) > 0) {
     		gtk_widget_set_sensitive(snrwin->findButton, TRUE);
     		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
     			gtk_widget_set_sensitive(snrwin->replaceAllButton, TRUE);
@@ -1550,13 +1550,13 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 
 	matchtype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->matchPattern));
-	search_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child));
+	search_pattern = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))));
 				/* gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->search));*/
 	DEBUG_MSG("snr_response_lcb, scope=%d, dialogtype=%d, response=%d\n",scope,snrwin->dialogType,response);
 
 	DEBUG_MSG("snr_response_lcb, search_pattern=%s\n",search_pattern);
 	if (snrwin->dialogType == BF_REPLACE_DIALOG) {
-		replace_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->replace)->child));
+		replace_pattern = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))));
 					/* gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->replace));*/
 		replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
 	}
@@ -1575,9 +1575,9 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		if (LASTSNR2(snrwin->bfwin->snr2)->result.start == -1) {
 			DEBUG_MSG("result.start == -1: setup new search\n");
 			/* snrwin->replaceType */
-			setup_new_snr2(snrwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active,
-					GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active, GTK_TOGGLE_BUTTON(snrwin->select_match)->active,
-					GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, matchtype, replacetype, (snrwin->dialogType == BF_REPLACE_DIALOG), replace_pattern);
+			setup_new_snr2(snrwin, search_pattern, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->escapeChars)),
+					gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->matchCase)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->select_match)),
+					gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->bookmarks)), scope, matchtype, replacetype, (snrwin->dialogType == BF_REPLACE_DIALOG), replace_pattern);
 			if (LASTSNR2(bfwin->snr2)->placetype_option==beginning) {
 				startpos = 0;
 				endpos = -1;
@@ -1745,7 +1745,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	g_signal_connect_after(G_OBJECT(snrwin->dialog), "focus-in-event", G_CALLBACK(snr_focus_in_lcb), snrwin);
 	g_free(title);
 
-	table = dialog_table_in_vbox(numrows, 2, 6, GTK_DIALOG(snrwin->dialog)->vbox, FALSE, FALSE, 0);
+	table = dialog_table_in_vbox(numrows, 2, 6, gtk_dialog_get_content_area(GTK_DIALOG(snrwin->dialog)), FALSE, FALSE, 0);
 
 	history = gtk_list_store_new(1, G_TYPE_STRING);
 	list = g_list_last(bfwin->session->searchlist);
@@ -1817,7 +1817,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	gtk_expander_set_use_markup(GTK_EXPANDER(snrwin->expander), TRUE);
 	gtk_expander_set_spacing(GTK_EXPANDER(snrwin->expander), 6);
 	gtk_expander_set_expanded(GTK_EXPANDER(snrwin->expander), bfwin->session->snr_is_expanded);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(snrwin->dialog)->vbox), snrwin->expander, FALSE, FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(snrwin->dialog))), snrwin->expander, FALSE, FALSE, 12);
 	vbox = gtk_vbox_new(FALSE, 6);
 	gtk_container_add(GTK_CONTAINER(snrwin->expander), vbox);
 
@@ -1888,7 +1888,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 		gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_FIND, SNR_RESPONSE_FIND);
 	/*gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND, FALSE);*/
 	snr_comboboxentry_changed(GTK_COMBO_BOX_ENTRY(snrwin->search), snrwin);
-	gtk_widget_show_all(GTK_WIDGET(GTK_BOX(GTK_DIALOG(snrwin->dialog)->vbox)));
+	gtk_widget_show_all(GTK_WIDGET(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(snrwin->dialog)))));
 	gtk_widget_hide(snrwin->warninglabel);
 		/* this kills the primary selection, which is annoying if you want to 
 		search/replace within the selection  */
@@ -1896,8 +1896,8 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
         gchar * buffer = gtk_text_buffer_get_text(bfwin->current_document->buffer, &start, &end, FALSE);
 
         if (strchr(buffer, '\n') == NULL) {
-            gtk_entry_set_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child), buffer);
-            gtk_editable_select_region(GTK_EDITABLE(GTK_BIN(snrwin->search)->child), 0, -1);
+            gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))), buffer);
+            gtk_editable_select_region(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(snrwin->search))), 0, -1);
         }
         if (buffer)    g_free(buffer);
     }*/
@@ -2482,9 +2482,9 @@ static void convert_to_columns_lcb(GtkDialog * dialog, gint response, Tconvertco
 			g_free(BFWIN(cc->doc->bfwin)->session->convertcolumn_fillempty);
 		BFWIN(cc->doc->bfwin)->session->convertcolumn_separator = g_strdup(separator);
 		BFWIN(cc->doc->bfwin)->session->convertcolumn_fillempty = g_strdup(fillempty);
-		BFWIN(cc->doc->bfwin)->session->convertcolumn_horizontally = GTK_TOGGLE_BUTTON(cc->horizontally)->active;
+		BFWIN(cc->doc->bfwin)->session->convertcolumn_horizontally = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(cc->horizontally));
 		
-		convert_to_columns_backend(cc->doc, start, end, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(cc->numcolumns)), GTK_TOGGLE_BUTTON(cc->horizontally)->active, separator, fillempty);
+		convert_to_columns_backend(cc->doc, start, end, gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(cc->numcolumns)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(cc->horizontally)), separator, fillempty);
 	}
 	gtk_widget_destroy(cc->dialog);
 	g_free(cc);	
@@ -2504,17 +2504,17 @@ void convert_to_columns(Tdocument *doc) {
 	g_signal_connect(G_OBJECT(cc->dialog), "response", G_CALLBACK(convert_to_columns_lcb), cc);
 	window_delete_on_escape(GTK_WINDOW(cc->dialog));
 	gtk_container_set_border_width(GTK_CONTAINER(cc->dialog),10);
-	gtk_box_set_spacing(GTK_BOX(GTK_DIALOG(cc->dialog)->vbox),10);
+	gtk_box_set_spacing(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(cc->dialog))),10);
 
 	cc->numcolumns = spinbut_with_value("2", 2, 99, 1, 5);
 	hbox = gtk_hbox_new(FALSE,5);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Number of columns")), FALSE,FALSE,0);
 	gtk_box_pack_start(GTK_BOX(hbox), cc->numcolumns, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(cc->dialog)->vbox), hbox, FALSE, FALSE, 0);
-	cc->horizontally = boxed_checkbut_with_value(_("Spread lines horizontally"), BFWIN(cc->doc->bfwin)->session->convertcolumn_horizontally, GTK_DIALOG(cc->dialog)->vbox );
-	cc->separator = boxed_full_entry(_("Column separator"), BFWIN(cc->doc->bfwin)->session->convertcolumn_separator,99, GTK_DIALOG(cc->dialog)->vbox);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(cc->dialog))), hbox, FALSE, FALSE, 0);
+	cc->horizontally = boxed_checkbut_with_value(_("Spread lines horizontally"), BFWIN(cc->doc->bfwin)->session->convertcolumn_horizontally, gtk_dialog_get_content_area(GTK_DIALOG(cc->dialog)) );
+	cc->separator = boxed_full_entry(_("Column separator"), BFWIN(cc->doc->bfwin)->session->convertcolumn_separator,99, gtk_dialog_get_content_area(GTK_DIALOG(cc->dialog)));
 	
-	cc->fillempty = boxed_full_entry(_("Fill empty entries"), BFWIN(cc->doc->bfwin)->session->convertcolumn_fillempty,99, GTK_DIALOG(cc->dialog)->vbox);
+	cc->fillempty = boxed_full_entry(_("Fill empty entries"), BFWIN(cc->doc->bfwin)->session->convertcolumn_fillempty,99, gtk_dialog_get_content_area(GTK_DIALOG(cc->dialog)));
 	gtk_widget_show_all(cc->dialog);
 }
 

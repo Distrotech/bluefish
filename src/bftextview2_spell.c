@@ -547,7 +547,7 @@ static void bftextview2_suggestion_menu_lcb(GtkWidget *widget, gpointer data) {
 	GtkTextIter wordstart,wordend;
 	if (main_v->bevent_doc != doc)
 		return;
-	DBG_SPELL("chosen %s\n",gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)));
+	DBG_SPELL("chosen %s\n",gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
 	if (get_misspelled_word_at_bevent(BLUEFISH_TEXT_VIEW(doc->view), &wordstart, &wordend)) {
 		gint start,end;
 		/* no need to remove the tag because the text with this tag is deleted by the replace
@@ -661,7 +661,7 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 /*
 static void bftextview2_preferences_menu_enable_lcb(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
-	bfwin->session->spell_enable = GTK_CHECK_MENU_ITEM(widget)->active;
+	bfwin->session->spell_enable = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(bfwin->toolbar_spell),bfwin->session->spell_enable);
 }
 
@@ -678,7 +678,7 @@ void bftextview2_populate_preferences_popup(GtkMenu *menu, Tdocument *doc) {
 
 /*void bftextview2_gui_toggle_spell_check(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
-	bfwin->session->spell_enable = GTK_TOGGLE_BUTTON(widget)->active;
+	bfwin->session->spell_enable = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
 	if (bfwin->current_document && bfwin->current_document->view) {
 		/ * the signal is also emitted when the toggle button gets it's initial value during the building of the window * /
 		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));

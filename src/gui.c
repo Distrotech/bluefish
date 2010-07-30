@@ -493,7 +493,7 @@ void make_main_toolbar(Tbfwin *bfwin) {
 }
 
 void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
-	if (GTK_WIDGET_VISIBLE(bfwin->main_toolbar_hb)) {
+	if (gtk_widget_get_visible(bfwin->main_toolbar_hb)) {
 		gtk_widget_set_sensitive(bfwin->toolbar_redo, redo);
 		gtk_widget_set_sensitive(bfwin->toolbar_undo, undo);
 	}
@@ -656,7 +656,7 @@ static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *
 				main_v->globses.main_window_h = event->height;
 				DEBUG_MSG("gui_main_window_configure_event_lcb, not maximized, setting width=%d, height=%d\n",main_v->globses.main_window_w,main_v->globses.main_window_h);
 			}
-		} else if (revent->type == GDK_WINDOW_STATE && GTK_WIDGET_VISIBLE(bfwin->main_window) ) {
+		} else if (revent->type == GDK_WINDOW_STATE && gtk_widget_get_visible(bfwin->main_window) ) {
 			GdkEventWindowState *event = (GdkEventWindowState *)revent;
 			DEBUG_MSG("gui_main_window_configure_event_lcb, window state event, state=%d, globses_main_window_w=%d\n",event->new_window_state,main_v->globses.main_window_w);
 			if ((event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED) && main_v->globses.main_window_w > 0) {
@@ -681,12 +681,12 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 	int mode = 0;
 	gchar *stringdata;
 
-	if ((data->length == 0) || (data->format != 8) || ((info != TARGET_STRING) && (info != TARGET_URI_LIST))) {
+	if ((gtk_selection_data_get_length(data) == 0) || (gtk_selection_data_get_format(data) != 8) || ((info != TARGET_STRING) && (info != TARGET_URI_LIST))) {
 		DEBUG_MSG("on_drag_data_cb, currently unknown DnD object, need to do string comparision\n");
 		gtk_drag_finish(context, FALSE, TRUE, time);
 		return;
 	}
-	stringdata = g_strndup((gchar *)data->data, data->length);
+	stringdata = g_strndup((gchar *)gtk_selection_data_get_data(data), gtk_selection_data_get_length(data));
 	if (strchr(stringdata,'\n')) {
 		gchar **arr, **tmp;
 		tmp = arr = g_strsplit(stringdata, "\n", -1);
@@ -727,7 +727,7 @@ void gui_apply_settings(Tbfwin *bfwin) {
 		gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook),main_v->props.leftpanel_tabposition);
 
 		/* check if the left panel needs to move over to the right */
-		if (main_v->props.left_panel_left && bfwin->leftpanel_notebook == GTK_PANED(bfwin->hpane)->child1) {
+		if (main_v->props.left_panel_left && bfwin->leftpanel_notebook == gtk_paned_get_child1(GTK_PANED(bfwin->hpane))) {
 			DEBUG_MSG("gui_apply_settings, left panel is on the right location\n");
 		} else {
 			left_panel_show_hide_toggle(bfwin,FALSE, FALSE, FALSE);
@@ -941,7 +941,7 @@ static void gotoline_close_button_clicked(GtkButton *button, Tbfwin* bfwin)
 
 void gui_gotoline_frame_show(Tbfwin *bfwin, guint callback_action, GtkWidget *widget)
 {
-	if (!GTK_WIDGET_VISIBLE(bfwin->gotoline_frame))
+	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
 		gtk_widget_show(bfwin->gotoline_frame);
 
 	gtk_widget_grab_focus(bfwin->gotoline_entry);
@@ -1221,11 +1221,11 @@ void tb_fullscreen_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	cmi = GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item(gtk_item_factory_from_widget(bfwin->menubar), "/View/Full Screen"));
 	if (!cmi)
 		return;
-	gtk_check_menu_item_set_active(cmi, !cmi->active); 
+	gtk_check_menu_item_set_active(cmi, !gtk_check_menu_item_get_active(cmi)); 
 }
 
 void gui_fullscreen_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
-	if (GTK_CHECK_MENU_ITEM(widget)->active) {
+	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
 		gtk_window_fullscreen(GTK_WINDOW(bfwin->main_window));
 		gtk_widget_hide(bfwin->toolbar_fullscreen);
 		gtk_widget_show(bfwin->toolbar_normalscreen);
@@ -1251,7 +1251,7 @@ void gui_statusbar_show_hide_toggle(Tbfwin *bfwin, gboolean visible, gboolean sy
 }
 
 void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
-	gboolean active = GTK_CHECK_MENU_ITEM(widget)->active;
+	gboolean active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 	DEBUG_MSG("gui_toggle_hidewidget_cb, action=%d, active=%d\n",action,active);
 	switch (action) {
 	case 1:
