@@ -321,7 +321,18 @@ Last name: &lt;input type=&quot;text&quot; name=&quot;lname&quot; /&gt;&lt;br /&
 		</reference>
 	</tag>
 	<tag name="input" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,accept,accesskey,align,alt,checked,disabled,ismap,maxlength,name,onblur,onchange,onfocus,onselect,readonly,size,src,tabindex,type,usemap,value">
-		<reference>Defines an input control</reference>
+		<reference>Defines an input control for a form. The input field has many forms depending on the type attribute.
+&lt;input type=&quot;button&quot; name=&quot;foo&quot; value=&quot;title&quot; /&gt;
+&lt;input type=&quot;checkbox&quot; name=&quot;foo&quot; value=&quot;title&quot; checked=&quotchecked&quot /&gt;
+&lt;input type=&quot;file&quot; name=&quot;foo&quot; value=&quot;title&quot; accept=&quot;text/plain&quot; /&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;foo&quot; value=&quot;title&quot; /&gt;
+&lt;input type=&quot;image&quot; name=&quot;foo&quot; value=&quot;title&quot; src=&quot;submit.png&quot; alt=&quot;Submit&quot; /&gt;
+&lt;input type=&quot;password&quot; name=&quot;foo&quot; value=&quot;title&quot; /&gt;
+&lt;input type=&quot;radio&quot; name=&quot;foo&quot; value=&quot;title&quot; /&gt;
+&lt;input type=&quot;reset&quot; name=&quot;foo&quot; value=&quot;title&quot; /&gt;
+&lt;input type=&quot;submit&quot; name=&quot;foo&quot; value=&quot;title&quot; /&gt;
+&lt;input type=&quot;text&quot; name=&quot;foo&quot; value=&quot;title&quot; maxlenght=&quot;50&quot; /&gt;
+</reference>
 	</tag>
 	<tag name="isindex" case_insens="1" sgml_shorttag="1" attributes="class,dir,id,lang,prompt,style,title">
 		<reference>Defines an input control</reference>
@@ -339,10 +350,21 @@ Last name: &lt;input type=&quot;text&quot; name=&quot;lname&quot; /&gt;&lt;br /&
 		<reference>Defines an option in a select list</reference>
 	</tag>
 	<tag name="select" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,multiple,name,onblur,onchange,onfocus,size,tabindex">
-		<reference>Defines a select list (drop-down list)</reference>
+		<reference>Defines a select list (drop-down list)
+&lt;select name=&quot;favourite&quot;&gt;
+  &lt;option value=&quot;vi&quot;&gt;Vi&lt;/option&gt;
+  &lt;option value=&quot;joe&quot;&gt;Joe&lt;/option&gt;
+  &lt;option value=&quot;bluefish&quot; selected=&quot;selected&quot;&gt;Bluefish&lt;/option&gt;
+  &lt;option value=&quot;gedit&quot;&gt;Gedit&lt;/option&gt;
+&lt;/select&gt;
+</reference>
 	</tag>
 	<tag name="textarea" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,cols,disabled,name,onblur,onchange,onfocus,onselect,readonly,rows,tabindex">
-		<reference>Defines a multi-line text input control</reference>
+		<reference>Defines a multi-line text input control
+&lt;textarea rows=&quot;2&quot; cols=&quot;20&quot;&gt;
+Initial text here.
+&lt;/textarea&gt;
+</reference>
 	</tag>
 </group>
 
