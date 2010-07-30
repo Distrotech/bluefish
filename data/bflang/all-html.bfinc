@@ -104,10 +104,15 @@
 
 <group highlight="html-reference-external-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<tag name="a" case_insens="1" sgml_shorttag="1" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" >
-		<reference>The a tag inserts an anchor into a document</reference>
+		<reference>The a tag defines an anchor, but it is usually referred to as a link or a hyperlink. An anchor can be used in two ways:
+1. To create a link to another document, by using the href attribute &lt;a href=&quot;http://example/&quot;&gt;text to click on&lt;/a&gt;
+2. To create a bookmark inside a document, by using the name attribute &lt;a name=&quot;foo&quot;&gt;&lt;/a&gt;
+</reference>
 	</tag>
 	<tag name="img" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; &gt;" >
-		<reference>The img tag inserts an image into a document</reference>
+		<reference>The img tag inserts an image into a document.
+It is mostly used as &lt;img src=&quot;example.jpg&quot; width=&quot;100&quot; height=&quot;100&quot; alt=&quot;text to show when image isnot loaded&quot;/&gt;
+		</reference>
 	</tag>
 	<tag name="object" case_insens="1" sgml_shorttag="1" attributes="align,archive,border,classid,codebase,codetype,data,declare,height,hspace,name,standby,tabindex,type,usemap,vspace,width,&univ;,&i18n;,&evnt;">
 		<reference>Defines an embedded object</reference>
@@ -117,7 +122,7 @@
 
 <group highlight="html-tag" attribhighlight="html-attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<tag name="abbr" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Defines an embedded object</reference>
+		<reference>Defines an abbreviation</reference>
 	</tag>
 	<tag name="acronym" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 		<reference>Defines an acronym</reference>
@@ -267,7 +272,7 @@
 		<reference>Defines the default font face, size and color for the text in a document (<b>deprecated</b>)</reference>
 	</tag>
 	<tag name="center" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-		<reference>Center text (<b>deprecated</b>)</reference>
+		<reference>Center text (<b>deprecated</b>). Use style=&quot;text-align: center;&quot; instead.</reference>
 	</tag>
 	<tag name="dir" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,compact">
 		<reference>Defines a list of directory titles (<b>deprecated</b>)</reference>
@@ -306,7 +311,14 @@
 		<reference>Defines a border around elements in a form</reference>
 	</tag>
 	<tag name="form" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accept,accept-charset,action,enctype,method,name,onreset,onsubmit,target">
-		<reference>Defines an HTML form for user input</reference>
+		<reference>Defines an HTML form for user input. The action attribute defines where a submit will be sent to. The form tag usually surrounds other form elements such as input, textarea and buttons.
+A simple example is:
+&lt;form action=&quot;form_action.php&quot; method=&quot;get&quot;&gt;
+First name: &lt;input type=&quot;text&quot; name=&quot;fname&quot; /&gt;&lt;br /&gt;
+Last name: &lt;input type=&quot;text&quot; name=&quot;lname&quot; /&gt;&lt;br /&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&gt;
+&lt;/form&gt;		
+		</reference>
 	</tag>
 	<tag name="input" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;,&i18n;,&evnt;,accept,accesskey,align,alt,checked,disabled,ismap,maxlength,name,onblur,onchange,onfocus,onselect,readonly,size,src,tabindex,type,usemap,value">
 		<reference>Defines an input control</reference>
