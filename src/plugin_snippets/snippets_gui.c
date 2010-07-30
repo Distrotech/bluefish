@@ -617,7 +617,7 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	GdkPixbuf *pixbuf;
-	GtkWidget *image;
+	GtkWidget *image, *entry, *vbox;
 	GtkWidget *scrolwin;
 /*	GtkTreeSelection *selection;*/
 	GtkTargetEntry bfsnippet[] = {{"BLUEFISH_SNIPPET", GTK_TARGET_SAME_APP, 0}};
@@ -626,6 +626,17 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	
 	snw = snippets_get_win(bfwin);	
 	DEBUG_MSG("snippets_sidepanel_initgui, snw=%p, store=%p\n",snw,snippets_v.store);
+	vbox = gtk_vbox_new(FALSE,1);
+	
+	entry = gtk_entry_new();
+#if GTK_CHECK_VERSION(2,16,0)
+	gtk_entry_set_icon_from_stock(GTK_ENTRY(entry), GTK_ENTRY_ICON_PRIMARY, GTK_STOCK_FIND);
+	gtk_entry_set_icon_activatable(GTK_ENTRY(entry), GTK_ENTRY_ICON_PRIMARY, TRUE);
+#endif
+	/*g_signal_connect(G_OBJECT(entry), "changed", G_CALLBACK(bmark_search_changed), bfwin);*/
+	gtk_box_pack_start(GTK_BOX(vbox), entry, FALSE, TRUE, 0);
+
+	
 	snw->view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(snippets_v.store));
 /*	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(snw->view));
 	gtk_tree_selection_set_mode(selection,GTK_SELECTION_NONE);*/
@@ -656,7 +667,8 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), snw->view);
-	gtk_notebook_insert_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),scrolwin,image,gtk_label_new(_("snippets")),2);
+	gtk_box_pack_start(GTK_BOX(vbox),scrolwin,TRUE,TRUE,1);
+	gtk_notebook_insert_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),vbox,image,gtk_label_new(_("snippets")),2);
 	g_object_set(snw->view, "has-tooltip", TRUE, NULL);
 	g_signal_connect(snw->view, "query-tooltip",G_CALLBACK(snippets_treetip_lcb), snw);
 	/*snw->ttips = tree_tips_new_full(snw->bfwin,GTK_TREE_VIEW(snw->view),snippets_treetip_lcb);*/
