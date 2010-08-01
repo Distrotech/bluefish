@@ -3209,6 +3209,92 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 	return retlist;
 }
 
+static gchar *doc_text_under_cursor(Tdocument *doc) {
+	GtkTextIter iter;
+	GSList *taglist, *tmplist;
+	gchar *retval=NULL;
+	gint len;
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, gtk_text_buffer_get_insert(doc->buffer));
+	taglist = gtk_text_iter_get_tags(&iter);
+	for (tmplist=taglist;tmplist;tmplist=tmplist->next) {
+		GtkTextIter so,eo;
+		GtkTextTag *tag=tmplist->data;
+		so=eo=iter;
+		if (!gtk_text_iter_begins_tag(&so, tag))
+			gtk_text_iter_backward_to_tag_toggle(&so, tag);
+		if (!gtk_text_iter_ends_tag(&eo, tag))
+			gtk_text_iter_forward_to_tag_toggle(&eo, tag);
+		/* use the smallest string */
+		if (retval && g_utf8_strlen(retval,-1) > (gtk_text_iter_get_offset(&eo)-gtk_text_iter_get_offset(&so))) {
+			g_free(retval);
+			retval=NULL;
+		}
+		if (!retval)
+			retval = gtk_text_buffer_get_text(doc->buffer, &so,&eo,TRUE);
+	}
+	if (!retval)
+		return NULL;
+
+	/* remove any surrounding quotes */
+	len = strlen(retval);
+	if (retval[0] == '"' && retval[len-1] == '"') {
+		memmove(retval, retval+1, len-2);
+		retval[len-2]='\0';
+	}
+	
+	return retval;
+}
+
+typedef struct {
+	GFile *uri;
+	Tdocument *doc;
+} Tjumpcheckfile;
+
+static void doc_jump_query_exists_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	GFileInfo *finfo;
+	Tjumpcheckfile *jcf = user_data;
+	GError *gerror=NULL;
+	
+	finfo = g_file_query_info_finish(jcf->uri,res,&gerror);
+	if (gerror) {
+		g_print("%s\n",gerror->message);
+		g_error_free(gerror);
+	}
+	if (finfo) {
+		doc_new_from_uri(jcf->doc->bfwin, jcf->uri, finfo, FALSE, FALSE, -1, -1);
+		g_object_unref(finfo);
+	}
+	g_object_unref(jcf->uri);
+	g_slice_free(Tjumpcheckfile, jcf);
+}
+
+static void doc_jump_check_file(Tdocument *doc, const gchar *filename) {
+	Tjumpcheckfile *jcf;
+	jcf = g_slice_new(Tjumpcheckfile);
+	jcf->doc = doc;
+	if (!doc->uri || (filename[0]=='/' || strncmp(filename, "file://",7)==0)) {
+		jcf->uri = g_file_new_for_commandline_arg(filename);
+	} else {
+		GFile *parent = g_file_get_parent(doc->uri);
+		jcf->uri = g_file_resolve_relative_path(parent,filename);
+		g_object_unref(parent);
+	}
+	/* as for BF_FILEINFO, if the file is not yet open, we can re-use the finfo for the to open document */
+	g_file_query_info_async(jcf->uri,BF_FILEINFO,0,G_PRIORITY_HIGH,NULL,doc_jump_query_exists_lcb,jcf);
+}
+
+static void doc_jump(Tdocument *doc) {
+	gchar *string;
+	/* see what's under the cursor */
+	string = doc_text_under_cursor(doc);
+	if (!string)
+		return;
+	DEBUG_MSG("doc_jump, got string %s\n",string);
+	/* check if this is an existing file */
+	doc_jump_check_file(doc, string);
+	g_free(string);
+}
+
 static void floatingview_destroy_lcb(GtkWidget *widget, Tdocument *doc) {
 	DEBUG_MSG("floatingview_destroy_lcb, called for doc=%p, doc->floatingview=%p\n",doc,doc->floatingview);
 	if (doc->floatingview) {
@@ -3307,6 +3393,9 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	case 15:
 		bluefish_text_view_set_show_mbhl(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
 																  GTK_CHECK_MENU_ITEM(widget)->active);
+		break;
+	case 16:
+		doc_jump(CURDOC(bfwin));
 		break;
 	}
 }

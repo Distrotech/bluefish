@@ -334,6 +334,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{"/Go/sep3", NULL, NULL, 0, "<Separator>"},
 	{N_("/Go/Goto _Line"), "<control>l", gui_gotoline_frame_show, 1, "<StockItem>", GTK_STOCK_JUMP_TO},
 	{N_("/Go/Goto line number in _selection"), NULL, go_to_line_from_selection_cb, 1, "<Item>"},
+	{N_("/Go/Jump to reference"), "<control>j", doc_menu_lcb, 16, "<Item>"},
 	{N_("/_Project"), NULL, NULL, 0, "<Branch>"},
 	{"/Project/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Project/_New Project"), NULL, project_menu_cb, 6, "<Item>"},
