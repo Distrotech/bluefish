@@ -29,6 +29,7 @@ GtkTextTag *langmrg_lookup_tag_highlight(const gchar *lang, const gchar *highlig
 GtkTextTagTable *langmgr_get_tagtable(void);
 Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype);
 GList *langmgr_get_languages_mimetypes(void);
+gboolean langmgr_in_highlight_tags(GtkTextTag *tag);
 #ifdef HAVE_LIBENCHANT
 GtkTextTag **langmgr_no_spellcheck_tags(void);
 GtkTextTag **langmgr_need_spellcheck_tags(void);

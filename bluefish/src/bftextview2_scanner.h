@@ -24,6 +24,7 @@
 
 #include "bftextview2.h"
 
+GQueue *get_contextstack_at_position(BluefishTextView * btv, GtkTextIter *position);
 Tfoundstack *get_stackcache_next(BluefishTextView * bt2, GSequenceIter ** siter);
 Tfoundstack *get_stackcache_first(BluefishTextView * bt2, GSequenceIter ** retsiter);
 Tfoundstack *get_stackcache_at_offset(BluefishTextView * btv, guint offset, GSequenceIter ** retsiter);

@@ -3214,16 +3214,21 @@ static gchar *doc_text_under_cursor(Tdocument *doc) {
 	GSList *taglist, *tmplist;
 	gchar *retval=NULL;
 	gint len;
+	GtkTextIter so,eo;
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, gtk_text_buffer_get_insert(doc->buffer));
+
 	taglist = gtk_text_iter_get_tags(&iter);
 	for (tmplist=taglist;tmplist;tmplist=tmplist->next) {
-		GtkTextIter so,eo;
 		GtkTextTag *tag=tmplist->data;
+		/* avoid tags like needscanning, folded, blockheader and such */
+		if (!langmgr_in_highlight_tags(tag))
+			continue; 
 		so=eo=iter;
 		if (!gtk_text_iter_begins_tag(&so, tag))
 			gtk_text_iter_backward_to_tag_toggle(&so, tag);
 		if (!gtk_text_iter_ends_tag(&eo, tag))
 			gtk_text_iter_forward_to_tag_toggle(&eo, tag);
+		g_print("found tag %p from %d to %d\n",tag,gtk_text_iter_get_offset(&so), gtk_text_iter_get_offset(&eo));
 		/* use the smallest string */
 		if (retval && g_utf8_strlen(retval,-1) > (gtk_text_iter_get_offset(&eo)-gtk_text_iter_get_offset(&so))) {
 			g_free(retval);
@@ -3232,6 +3237,31 @@ static gchar *doc_text_under_cursor(Tdocument *doc) {
 		if (!retval)
 			retval = gtk_text_buffer_get_text(doc->buffer, &so,&eo,TRUE);
 	}
+/*	if (!retval) {
+		guint loop;
+		so=eo=iter;
+		g_print("so and eo at %d\n",gtk_text_iter_get_offset(&so));
+		loop=0;
+		while (loop < 32 && gtk_text_iter_backward_char(&so) && !g_unichar_isspace(gtk_text_iter_get_char(&so)))
+			loop++;
+		loop=0;
+		while (loop < 32 && gtk_text_iter_forward_char(&eo) && !g_unichar_isspace(gtk_text_iter_get_char(&eo)))
+			loop++;
+		
+		
+		if (!gtk_text_iter_starts_word(&so)) {
+			gtk_text_iter_backward_word_start(&so);
+			g_print("moved to %d\n",gtk_text_iter_get_offset(&so));
+		}
+		if (!gtk_text_iter_ends_word(&eo)) {
+			gtk_text_iter_forward_word_end(&eo);
+			g_print("moved to %d\n",gtk_text_iter_get_offset(&eo));
+		}
+		retval = gtk_text_buffer_get_text(doc->buffer, &so,&eo,TRUE);
+	}*/
+	if (!retval)
+		retval = bf_get_identifier_at_iter(BLUEFISH_TEXT_VIEW(doc->view), &iter);
+	
 	if (!retval)
 		return NULL;
 

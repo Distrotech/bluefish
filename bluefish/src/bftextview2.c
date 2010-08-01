@@ -64,6 +64,36 @@ static GdkColor st_cline_color;
 
 /****************************** utility functions ******************************/
 
+static inline gboolean is_symbol(BluefishTextView *btv, gint contextnum, gunichar uc) {
+	if (uc > 127)
+		return FALSE;
+	return (g_array_index(btv->bflang->st->table, Ttablerow, g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).identstate).row[uc] != g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).identstate);
+}
+
+gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter) {
+	GQueue *contextstack;
+	guint16 contextnum;
+	GtkTextIter so,eo;
+
+	so=eo=*iter;
+	if (!btv->bflang || !btv->bflang->st) {
+		while (gtk_text_iter_backward_char(&so) && !g_unichar_isspace(gtk_text_iter_get_char(&so))) {};
+		gtk_text_iter_forward_char(&so);
+		while (!g_unichar_isspace(gtk_text_iter_get_char(&eo)) && gtk_text_iter_forward_char(&eo)) {};
+		
+		return gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), &so,&eo,TRUE);
+	}
+	contextstack = get_contextstack_at_position(btv, iter);
+	if (g_queue_get_length(contextstack)>0)
+		contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
+	else
+		contextnum = 1;
+
+	while (gtk_text_iter_backward_char(&so) && !is_symbol(btv,contextnum,gtk_text_iter_get_char(&so))) {};
+	while (gtk_text_iter_forward_char(&eo) && !is_symbol(btv,contextnum,gtk_text_iter_get_char(&eo))) {};
+	return gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), &so,&eo,TRUE); 
+}
+
 gboolean bf_text_iter_line_start_of_text(GtkTextIter *iter, GtkTextIter *realend) {
 	gtk_text_iter_set_line_offset(iter, 0);
 	*realend = *iter;
