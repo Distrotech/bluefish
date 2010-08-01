@@ -3228,7 +3228,7 @@ static gchar *doc_text_under_cursor(Tdocument *doc) {
 			gtk_text_iter_backward_to_tag_toggle(&so, tag);
 		if (!gtk_text_iter_ends_tag(&eo, tag))
 			gtk_text_iter_forward_to_tag_toggle(&eo, tag);
-		g_print("found tag %p from %d to %d\n",tag,gtk_text_iter_get_offset(&so), gtk_text_iter_get_offset(&eo));
+		/*g_print("found tag %p from %d to %d\n",tag,gtk_text_iter_get_offset(&so), gtk_text_iter_get_offset(&eo));*/
 		/* use the smallest string */
 		if (retval && g_utf8_strlen(retval,-1) > (gtk_text_iter_get_offset(&eo)-gtk_text_iter_get_offset(&so))) {
 			g_free(retval);
@@ -3237,28 +3237,7 @@ static gchar *doc_text_under_cursor(Tdocument *doc) {
 		if (!retval)
 			retval = gtk_text_buffer_get_text(doc->buffer, &so,&eo,TRUE);
 	}
-/*	if (!retval) {
-		guint loop;
-		so=eo=iter;
-		g_print("so and eo at %d\n",gtk_text_iter_get_offset(&so));
-		loop=0;
-		while (loop < 32 && gtk_text_iter_backward_char(&so) && !g_unichar_isspace(gtk_text_iter_get_char(&so)))
-			loop++;
-		loop=0;
-		while (loop < 32 && gtk_text_iter_forward_char(&eo) && !g_unichar_isspace(gtk_text_iter_get_char(&eo)))
-			loop++;
-		
-		
-		if (!gtk_text_iter_starts_word(&so)) {
-			gtk_text_iter_backward_word_start(&so);
-			g_print("moved to %d\n",gtk_text_iter_get_offset(&so));
-		}
-		if (!gtk_text_iter_ends_word(&eo)) {
-			gtk_text_iter_forward_word_end(&eo);
-			g_print("moved to %d\n",gtk_text_iter_get_offset(&eo));
-		}
-		retval = gtk_text_buffer_get_text(doc->buffer, &so,&eo,TRUE);
-	}*/
+
 	if (!retval)
 		retval = bf_get_identifier_at_iter(BLUEFISH_TEXT_VIEW(doc->view), &iter);
 	
@@ -3268,6 +3247,9 @@ static gchar *doc_text_under_cursor(Tdocument *doc) {
 	/* remove any surrounding quotes */
 	len = strlen(retval);
 	if (retval[0] == '"' && retval[len-1] == '"') {
+		memmove(retval, retval+1, len-2);
+		retval[len-2]='\0';
+	} else if (retval[0] == '\'' && retval[len-1] == '\'') {
 		memmove(retval, retval+1, len-2);
 		retval[len-2]='\0';
 	}
@@ -3305,8 +3287,11 @@ static void doc_jump_check_file(Tdocument *doc, const gchar *filename) {
 	if (!doc->uri || (filename[0]=='/' || strncmp(filename, "file://",7)==0)) {
 		jcf->uri = g_file_new_for_commandline_arg(filename);
 	} else {
+		gchar *tmp;
 		GFile *parent = g_file_get_parent(doc->uri);
-		jcf->uri = g_file_resolve_relative_path(parent,filename);
+		tmp = g_uri_unescape_string(filename, NULL);
+		jcf->uri = g_file_resolve_relative_path(parent,tmp);
+		g_free(tmp);
 		g_object_unref(parent);
 	}
 	/* as for BF_FILEINFO, if the file is not yet open, we can re-use the finfo for the to open document */
