@@ -787,7 +787,9 @@ static void bmark_row_activated(GtkTreeView * tree, GtkTreePath * path,
 									GtkTreeViewColumn * column, Tbfwin *bfwin) {
 	GtkTreeIter iter;
 	gtk_tree_model_get_iter(GTK_TREE_MODEL(bfwin->bmarkfilter), &iter, path);
-	bmark_activate(bfwin, get_bmark_at_iter(GTK_TREE_MODEL(bfwin->bmarkfilter), &iter), FALSE);	
+	if (gtk_tree_path_get_depth(path)==2) {
+		bmark_activate(bfwin, get_bmark_at_iter(GTK_TREE_MODEL(bfwin->bmarkfilter), &iter), FALSE);
+	}
 }
 
 /* mouse click */
