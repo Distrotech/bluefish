@@ -276,6 +276,7 @@ typedef struct {
 	/* key conversion */
 	gint open_in_running_bluefish;	/* open commandline documents in already running process */
 	gint open_in_new_window;	/* open commandline files in a new window as opposed to an existing window */
+	gint register_recent_mode; /* 0=none,1=all,2=project only*/
 	GList *plugin_config;		/* array, 0=filename, 1=enabled, 2=name */
 	gchar *btv_color_str[BTV_COLOR_COUNT];	/* editor colors */
 	GList *textstyles;			/* tet styles: name,foreground,background,weight,style */
@@ -483,6 +484,7 @@ typedef struct {
 	gpointer bmarkdata;
 	gint num_untitled_documents;
 	gchar *securedir;			/* temporary rwx------ directory for secure file creation */
+	GtkRecentManager *recentm;
 	GSList *plugins;
 	GSList *doc_view_populate_popup_cbs;	/* plugins can register functions here that need to
 											   be called when the right-click menu in the document is populated */

@@ -255,17 +255,17 @@ void foundstack_free_lcb(gpointer data, gpointer btv) {
 	g_queue_foreach(fstack->contextstack,foundcontext_foreach_unref_lcb,btv);
 	
 	if (fstack->poppedblock)
-		foundblock_unref(fstack->poppedblock, gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
+		foundblock_unref(fstack->poppedblock, GTK_TEXT_VIEW(btv)->buffer);
 	if (fstack->poppedcontext) {
 		DBG_FCONTEXTREFCOUNT("calling unref for poppedcontext on %p\n",fstack->poppedcontext);
-		foundcontext_unref(fstack->poppedcontext, gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
+		foundcontext_unref(fstack->poppedcontext, GTK_TEXT_VIEW(btv)->buffer);
 	}
 #endif
 	if (fstack->pushedblock)
-		foundblock_unref(fstack->pushedblock, gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
+		foundblock_unref(fstack->pushedblock, GTK_TEXT_VIEW(btv)->buffer);
 	if (fstack->pushedcontext) {
 		DBG_FCONTEXTREFCOUNT("calling unref for pushedcontext on %p\n",fstack->pushedcontext);
-		foundcontext_unref(fstack->pushedcontext, gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
+		foundcontext_unref(fstack->pushedcontext, GTK_TEXT_VIEW(btv)->buffer);
 	}
 	g_queue_free(fstack->blockstack);
 	g_queue_free(fstack->contextstack);
@@ -811,7 +811,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	return !gtk_text_iter_is_end(&iter); 
 }
 
-static GQueue *get_contextstack_at_position(BluefishTextView * btv, GtkTextIter *position) {
+GQueue *get_contextstack_at_position(BluefishTextView * btv, GtkTextIter *position) {
 	Tfoundstack *fstack;
 	GQueue *retqueue = g_queue_new();
 	fstack = get_stackcache_at_offset(btv, gtk_text_iter_get_offset(position), NULL);
@@ -955,7 +955,6 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 	g_queue_free(contextstack);
 	return FALSE;
 }
-
 
 void cleanup_scanner(BluefishTextView *btv) {
 	GtkTextIter begin,end;

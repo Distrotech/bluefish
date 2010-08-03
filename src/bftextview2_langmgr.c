@@ -61,6 +61,7 @@ typedef struct {
 	GHashTable *bflang_options; /* key: a NULL terminated char **array with first value the language name,
 											second value the option name, third NULL
 											and as value a gchar * with the value of the option */
+	GtkTextTag **highlight_tags; /* text used for highlighting, so not _needscanning_ or _needspellcheck_ or _folded_ and such */
 #ifdef HAVE_LIBENCHANT
 	GtkTextTag **need_spellcheck_tags;
 	GtkTextTag **no_spellcheck_tags;
@@ -194,9 +195,20 @@ static void langmgr_load_default_styles(void) {
 	}
 }
 
+static GtkTextTag **texttag_array_from_list(GList *thelist) {
+	gint i=0;
+	GList *tmplist;
+	GtkTextTag **retval = (GtkTextTag **)g_new0(gpointer, g_list_length(thelist)+1);
+	for (tmplist = g_list_first(thelist);tmplist;tmplist=tmplist->next) {
+		retval[i] = tmplist->data;
+		i++;
+	}
+	g_list_free(thelist);
+	return retval;
+}
+
 void langmgr_reload_user_styles(void) {
-	GList *tmplist, *needlist=NULL,*noscanlist=NULL;
-	gint i;
+	GList *tmplist, *needlist=NULL,*noscanlist=NULL,*highlightlist=NULL;
 
 	if (main_v->props.textstyles == NULL) {
 		langmgr_load_default_styles();
@@ -209,6 +221,7 @@ void langmgr_reload_user_styles(void) {
 		gchar **arr = (gchar **)tmplist->data;
 		if (count_array(arr)==6) {
 			tag = langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
+			highlightlist = g_list_prepend(highlightlist, tag);
 #ifdef HAVE_LIBENCHANT
 			if (arr[5][0]=='1')
 				needlist = g_list_prepend(needlist, tag);
@@ -217,25 +230,10 @@ void langmgr_reload_user_styles(void) {
 #endif
 		}
 	}
+	langmgr.highlight_tags = texttag_array_from_list(highlightlist);
 #ifdef HAVE_LIBENCHANT
-	langmgr.need_spellcheck_tags = (GtkTextTag **) g_new0(gpointer, g_list_length(needlist)+1);
-	i=0;
-	for (tmplist = g_list_first(needlist);tmplist;tmplist=tmplist->next) {
-		/*DBG_SPELL("tag %p in need_spellcheck_tags[%d]\n",tmplist->data,i);*/
-		langmgr.need_spellcheck_tags[i] = tmplist->data;
-		i++;
-	}
-	DBG_SPELL("have %d items in need_spellcheck_tags %p\n",i,langmgr.need_spellcheck_tags);
-	g_list_free(needlist);
-	langmgr.no_spellcheck_tags = (GtkTextTag **) g_new0(gpointer, g_list_length(noscanlist)+1);
-	i=0;
-	for (tmplist = g_list_first(noscanlist);tmplist;tmplist=tmplist->next) {
-		/*DBG_SPELL("tag %p in no_spellcheck_tags[%d]\n",tmplist->data,i);*/
-		langmgr.no_spellcheck_tags[i] = tmplist->data;
-		i++;
-	}
-	DBG_SPELL("have %d items in no_spellcheck_tags %p\n",i,langmgr.no_spellcheck_tags);
-	g_list_free(noscanlist);
+	langmgr.need_spellcheck_tags = texttag_array_from_list(needlist);
+	langmgr.no_spellcheck_tags = texttag_array_from_list(noscanlist);
 #endif
 }
 
@@ -1174,6 +1172,17 @@ GList *langmgr_get_languages_mimetypes(void) {
 	}
 	return retlist;
 }
+
+gboolean langmgr_in_highlight_tags(GtkTextTag *tag) {
+	gint i=0;
+	while (langmgr.highlight_tags[i]) {
+		if (langmgr.highlight_tags[i] == tag)
+			return TRUE;
+		i++;
+	}
+	return FALSE;
+}
+
 #ifdef HAVE_LIBENCHANT
 GtkTextTag **langmgr_no_spellcheck_tags(void) {
 	return langmgr.no_spellcheck_tags;
@@ -1181,7 +1190,6 @@ GtkTextTag **langmgr_no_spellcheck_tags(void) {
 GtkTextTag **langmgr_need_spellcheck_tags(void) {
 	return langmgr.need_spellcheck_tags;
 }
-
 #endif
 
 GList *langmgr_get_languages(void) {

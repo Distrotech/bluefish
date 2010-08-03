@@ -437,6 +437,8 @@ GType bluefish_text_view_get_type (void);
 GtkWidget * bftextview2_new(void);
 GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer);
 
+gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter);
+
 gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
 void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);
 gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);
@@ -469,5 +471,6 @@ void bluefish_text_view_multiset(BluefishTextView *btv
 			, gint autoindent
 			, gint autocomplete
 			, gint show_mbhl);
+
 
 #endif

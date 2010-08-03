@@ -2720,92 +2720,6 @@ void doc_reload(Tdocument *doc, GFileInfo *newfinfo, gboolean warn_user) {
 	file_doc_fill_from_uri(doc, doc->uri, doc->fileinfo, cursorpos);
 }
 
-static void doc_activate_modified_lcb(Tcheckmodified_status status,GError *gerror,GFileInfo *orig, GFileInfo *new, gpointer callback_data) {
-	Tdocument *doc = callback_data;
-	switch (status) {
-	case CHECKMODIFIED_ERROR:
-		DEBUG_MSG("doc_activate_modified_lcb, CHECKMODIFIED_ERROR ??\n");
-		if (gerror->code == G_IO_ERROR_NOT_FOUND) {
-			gchar *tmpstr;
-			gint retval;
-			const gchar *buttons[] = {_("_Unset file name"),_("_Save"), NULL};
-			/* file is deleted on disk, what do we do now ? */
-			tmpstr = g_strdup_printf(_("File name: %s"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
-			retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
-													 GTK_MESSAGE_WARNING,
-													 buttons,
-													 _("File disappeared from disk\n"),
-													 tmpstr);
-			g_free(tmpstr);
-			if (retval == 1) { /* save */
-				doc_save_backend(doc, FALSE, FALSE, FALSE, FALSE);
-			} else { /* unset */
-				document_unset_filename(doc);
-			}
-		} else {
-			/* TODO: warn the user */	
-		}
-	break;
-	case CHECKMODIFIED_CANCELLED:
-		DEBUG_MSG("doc_activate_modified_lcb, CHECKMODIFIED_CANCELLED\n");
-	break;
-	case CHECKMODIFIED_MODIFIED:
-		{
-		gchar *tmpstr, *oldtimestr, *newtimestr;
-		gint retval;
-		const gchar *buttons[] = {_("_Ignore"),_("_Reload"),_("Check and reload all documents"), NULL};
-		time_t newtime,origtime;
-
-		newtime = (time_t)g_file_info_get_attribute_uint64(new,G_FILE_ATTRIBUTE_TIME_MODIFIED);
-		origtime = (time_t)g_file_info_get_attribute_uint64(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED);
-		g_print("doc_activate_modified_lcb, newtime=%ld,%d origtime=%ld,%d newsize=%"G_GOFFSET_FORMAT" origsize=%"G_GOFFSET_FORMAT"\n",
-							newtime,g_file_info_get_attribute_uint32(new,G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC),
-							origtime,g_file_info_get_attribute_uint32(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC),
-							g_file_info_get_size(new),g_file_info_get_size(orig));
-		newtimestr = bf_portable_time(&newtime);
-		oldtimestr = bf_portable_time(&origtime);
-
-		tmpstr = g_strdup_printf(_("Filename: %s\n\nNew modification time is: %s\nOld modification time is: %s"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), newtimestr, oldtimestr);
-		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
-													 GTK_MESSAGE_WARNING,
-													 buttons,
-													 _("File has been modified by another process\n"),
-													 tmpstr);
-		g_free(tmpstr);
-		g_free(newtimestr);
-		g_free(oldtimestr);
-		if (retval == 0) { /* ignore */ 
-			/*if (doc->fileinfo) {
-				g_object_unref(doc->fileinfo);
-			}
-			doc->fileinfo = new;
-			g_object_ref(doc->fileinfo);*/
-			GTimeVal mtime;
-			g_file_info_set_size(doc->fileinfo, g_file_info_get_size(new));
-			g_file_info_get_modification_time(new, &mtime);
-			g_file_info_set_modification_time(doc->fileinfo, &mtime);
-			g_file_info_set_attribute_string(doc->fileinfo, "etag::value",g_file_info_get_attribute_string(new, "etag::value"));
-			doc_set_tooltip(doc);
-		} else if (retval == 1) { /* reload */
-			doc_reload(doc, new, FALSE);
-		} else { /* reload all modified documents */
-			file_reload_all_modified(doc->bfwin);
-		}
-		}
-	break;
-	case CHECKMODIFIED_OK:
-		/* do nothing */
-	break;
-	}
-	doc->action.checkmodified = NULL;
-}
-
-void doc_start_modified_check(Tdocument *doc) {
-	if (doc->uri && doc->fileinfo && !doc->action.checkmodified && !doc->action.save) { /* don't check during another check, or during save */
-		doc->action.checkmodified = file_checkmodified_uri_async(doc->uri, doc->fileinfo, doc_activate_modified_lcb, doc);
-	}
-}
-
 static gboolean doc_close_from_activate(gpointer data) {
 	doc_close_single_backend(DOCUMENT(data), FALSE, FALSE);
 	return FALSE;
@@ -3297,6 +3211,107 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 	return retlist;
 }
 
+static gchar *doc_text_under_cursor(Tdocument *doc) {
+	GtkTextIter iter;
+	GSList *taglist, *tmplist;
+	gchar *retval=NULL;
+	gint len;
+	GtkTextIter so,eo;
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, gtk_text_buffer_get_insert(doc->buffer));
+
+	taglist = gtk_text_iter_get_tags(&iter);
+	for (tmplist=taglist;tmplist;tmplist=tmplist->next) {
+		GtkTextTag *tag=tmplist->data;
+		/* avoid tags like needscanning, folded, blockheader and such */
+		if (!langmgr_in_highlight_tags(tag))
+			continue; 
+		so=eo=iter;
+		if (!gtk_text_iter_begins_tag(&so, tag))
+			gtk_text_iter_backward_to_tag_toggle(&so, tag);
+		if (!gtk_text_iter_ends_tag(&eo, tag))
+			gtk_text_iter_forward_to_tag_toggle(&eo, tag);
+		/*g_print("found tag %p from %d to %d\n",tag,gtk_text_iter_get_offset(&so), gtk_text_iter_get_offset(&eo));*/
+		/* use the smallest string */
+		if (retval && g_utf8_strlen(retval,-1) > (gtk_text_iter_get_offset(&eo)-gtk_text_iter_get_offset(&so))) {
+			g_free(retval);
+			retval=NULL;
+		}
+		if (!retval)
+			retval = gtk_text_buffer_get_text(doc->buffer, &so,&eo,TRUE);
+	}
+
+	if (!retval)
+		retval = bf_get_identifier_at_iter(BLUEFISH_TEXT_VIEW(doc->view), &iter);
+	
+	if (!retval)
+		return NULL;
+
+	/* remove any surrounding quotes */
+	len = strlen(retval);
+	if (retval[0] == '"' && retval[len-1] == '"') {
+		memmove(retval, retval+1, len-2);
+		retval[len-2]='\0';
+	} else if (retval[0] == '\'' && retval[len-1] == '\'') {
+		memmove(retval, retval+1, len-2);
+		retval[len-2]='\0';
+	}
+	
+	return retval;
+}
+
+typedef struct {
+	GFile *uri;
+	Tdocument *doc;
+} Tjumpcheckfile;
+
+static void doc_jump_query_exists_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	GFileInfo *finfo;
+	Tjumpcheckfile *jcf = user_data;
+	GError *gerror=NULL;
+	
+	finfo = g_file_query_info_finish(jcf->uri,res,&gerror);
+	if (gerror) {
+		g_print("%s\n",gerror->message);
+		g_error_free(gerror);
+	}
+	if (finfo) {
+		doc_new_from_uri(jcf->doc->bfwin, jcf->uri, finfo, FALSE, FALSE, -1, -1);
+		g_object_unref(finfo);
+	}
+	g_object_unref(jcf->uri);
+	g_slice_free(Tjumpcheckfile, jcf);
+}
+
+static void doc_jump_check_file(Tdocument *doc, const gchar *filename) {
+	Tjumpcheckfile *jcf;
+	jcf = g_slice_new(Tjumpcheckfile);
+	jcf->doc = doc;
+	if (!doc->uri || (filename[0]=='/' || strncmp(filename, "file://",7)==0)) {
+		jcf->uri = g_file_new_for_commandline_arg(filename);
+	} else {
+		gchar *tmp;
+		GFile *parent = g_file_get_parent(doc->uri);
+		tmp = g_uri_unescape_string(filename, NULL);
+		jcf->uri = g_file_resolve_relative_path(parent,tmp);
+		g_free(tmp);
+		g_object_unref(parent);
+	}
+	/* as for BF_FILEINFO, if the file is not yet open, we can re-use the finfo for the to open document */
+	g_file_query_info_async(jcf->uri,BF_FILEINFO,0,G_PRIORITY_HIGH,NULL,doc_jump_query_exists_lcb,jcf);
+}
+
+static void doc_jump(Tdocument *doc) {
+	gchar *string;
+	/* see what's under the cursor */
+	string = doc_text_under_cursor(doc);
+	if (!string)
+		return;
+	DEBUG_MSG("doc_jump, got string %s\n",string);
+	/* check if this is an existing file */
+	doc_jump_check_file(doc, string);
+	g_free(string);
+}
+
 static void floatingview_destroy_lcb(GtkWidget *widget, Tdocument *doc) {
 	DEBUG_MSG("floatingview_destroy_lcb, called for doc=%p, doc->floatingview=%p\n",doc,doc->floatingview);
 	if (doc->floatingview) {
@@ -3340,29 +3355,30 @@ void file_floatingview_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *w
 }
 
 void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	gboolean active;
-
-	active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
-
 	switch(callback_action) {
 	case 1:
 		bfwin->current_document->wrapstate = active;
 		doc_set_wrap(bfwin->current_document);
 		break;
 	case 2:
-		bluefish_text_view_set_show_line_numbers(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
+		bluefish_text_view_set_show_line_numbers(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+															  GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 3:
-		bluefish_text_view_set_auto_complete(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
+		bluefish_text_view_set_auto_complete(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+														 GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 4:
-		bluefish_text_view_set_auto_indent(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
+		bluefish_text_view_set_auto_indent(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+													  GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 5:
-		bluefish_text_view_set_show_blocks(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
+		bluefish_text_view_set_show_blocks(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+													  GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 6:
-		bluefish_text_view_set_show_visible_spacing(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
+		bluefish_text_view_set_show_visible_spacing(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+																  GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 7:
 		doc_font_size(CURDOC(bfwin), 1);
@@ -3384,14 +3400,19 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		break;
 	case 13:
 #ifdef HAVE_LIBENCHANT
-		bluefish_text_view_set_spell_check(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
+		bluefish_text_view_set_spell_check(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), GTK_CHECK_MENU_ITEM(widget)->active);
 #endif
 		break;
 	case 14:
-		bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
+		bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+																  GTK_CHECK_MENU_ITEM(widget)->active);
 		break;
 	case 15:
-		bluefish_text_view_set_show_mbhl(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
+		bluefish_text_view_set_show_mbhl(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+																  GTK_CHECK_MENU_ITEM(widget)->active);
+		break;
+	case 16:
+		doc_jump(CURDOC(bfwin));
 		break;
 	}
 }
