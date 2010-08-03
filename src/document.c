@@ -3355,30 +3355,29 @@ void file_floatingview_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *w
 }
 
 void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	switch(callback_action) {
+	gboolean active;
+
+    active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+
+    switch(callback_action) {
 	case 1:
 		bfwin->current_document->wrapstate = active;
 		doc_set_wrap(bfwin->current_document);
 		break;
 	case 2:
-		bluefish_text_view_set_show_line_numbers(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-															  GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_show_line_numbers(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 3:
-		bluefish_text_view_set_auto_complete(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-														 GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_auto_complete(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 4:
-		bluefish_text_view_set_auto_indent(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-													  GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_auto_indent(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 5:
-		bluefish_text_view_set_show_blocks(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-													  GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_show_blocks(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 6:
-		bluefish_text_view_set_show_visible_spacing(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-																  GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_show_visible_spacing(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 7:
 		doc_font_size(CURDOC(bfwin), 1);
@@ -3400,16 +3399,14 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		break;
 	case 13:
 #ifdef HAVE_LIBENCHANT
-		bluefish_text_view_set_spell_check(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_spell_check(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 #endif
 		break;
 	case 14:
-		bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-																  GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 15:
-		bluefish_text_view_set_show_mbhl(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-																  GTK_CHECK_MENU_ITEM(widget)->active);
+		bluefish_text_view_set_show_mbhl(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 16:
 		doc_jump(CURDOC(bfwin));

@@ -255,17 +255,17 @@ void foundstack_free_lcb(gpointer data, gpointer btv) {
 	g_queue_foreach(fstack->contextstack,foundcontext_foreach_unref_lcb,btv);
 	
 	if (fstack->poppedblock)
-		foundblock_unref(fstack->poppedblock, GTK_TEXT_VIEW(btv)->buffer);
+		foundblock_unref(fstack->poppedblock, gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
 	if (fstack->poppedcontext) {
 		DBG_FCONTEXTREFCOUNT("calling unref for poppedcontext on %p\n",fstack->poppedcontext);
-		foundcontext_unref(fstack->poppedcontext, GTK_TEXT_VIEW(btv)->buffer);
+		foundcontext_unref(fstack->poppedcontext, gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
 	}
 #endif
 	if (fstack->pushedblock)
-		foundblock_unref(fstack->pushedblock, GTK_TEXT_VIEW(btv)->buffer);
+		foundblock_unref(fstack->pushedblock, gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
 	if (fstack->pushedcontext) {
 		DBG_FCONTEXTREFCOUNT("calling unref for pushedcontext on %p\n",fstack->pushedcontext);
-		foundcontext_unref(fstack->pushedcontext, GTK_TEXT_VIEW(btv)->buffer);
+		foundcontext_unref(fstack->pushedcontext, gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
 	}
 	g_queue_free(fstack->blockstack);
 	g_queue_free(fstack->contextstack);
