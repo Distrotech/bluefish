@@ -225,6 +225,7 @@ extern void g_none(char * first, ...);
 
 #ifdef IDENTSTORING
 typedef struct {
+	gpointer doc;
 	gchar *curi;
 	guint line;
 } Tjumpdata;
@@ -481,6 +482,8 @@ GType bluefish_text_view_get_type (void);
 
 GtkWidget * bftextview2_new(void);
 GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer);
+
+void bftextview2_identifier_hash_init(gpointer bfwin);
 
 gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter);
 

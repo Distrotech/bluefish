@@ -1281,6 +1281,11 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 
 Tbfwin *gui_new_window(Tproject *project) {
 	Tbfwin *bfwin = g_new0(Tbfwin,1);
+#ifdef IDENTSTORING
+	bftextview2_identifier_hash_init(bfwin);
+#endif /* IDENTSTORING */
+
+	
 	if (project) {
 		bfwin->project = project;
 		bfwin->session = project->session;

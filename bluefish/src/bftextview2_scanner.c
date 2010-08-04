@@ -25,6 +25,7 @@
 #include <unistd.h>
 #endif
 /* for the design docs see bftextview2.h */
+#include "bluefish.h"
 #include "bftextview2_scanner.h"
 /* use 
 G_SLICE=always-malloc valgrind --tool=memcheck --leak-check=full --num-callers=32 --freelist-vol=100000000 src/bluefish-unstable
@@ -524,11 +525,33 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 }
 
 #ifdef IDENTSTORING
+
+static Tjumpkey *identifier_jumpkey_new(gpointer bflang, gint16 context, gchar *name) {
+	Tjumpkey *ijk = g_slice_new0(Tjumpkey);
+	ijk->bflang = bflang;
+	ijk->context = context;
+	ijk->name = g_strdup(name);
+	return ijk;
+}
+
+static Tjumpdata *identifier_jumpdata_new(Tdocument *doc, guint line) {
+	Tjumpdata *ijd = g_slice_new0(Tjumpdata);
+	ijd->doc = doc;
+	if (doc->uri)
+		ijd->curi = g_file_get_uri(doc->uri);
+	return ijd;
+}
+
 static inline void found_identifier(BluefishTextView * btv, GtkTextIter *start, GtkTextIter *end, Tscanning *scanning) {
 	if (scanning->identmode == 1) {
+		Tjumpkey *ijk;
+		Tjumpdata *ijd;
 		gchar *tmp;
 		tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
 		g_print("found identifier %s\n",tmp);
+		ijk = identifier_jumpkey_new(btv->bflang, scanning->context, tmp);
+		ijd = identifier_jumpdata_new(DOCUMENT(btv->doc), gtk_text_iter_get_line(start));
+		g_hash_table_insert(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk, ijd);
 		g_free(tmp);
 	}
 	scanning->identmode = 0;
