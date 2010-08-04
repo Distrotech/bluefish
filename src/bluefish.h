@@ -20,6 +20,8 @@
  */
 /* indented with indent -ts4 -kr -l110   */
 
+/*#define IDENTSTORING*/
+
 /* #define HL_PROFILING */
 /* if you define DEBUG here you will get debug output from all Bluefish parts */
 /* #define DEBUG */

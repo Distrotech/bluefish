@@ -65,7 +65,7 @@ static GdkColor st_cline_color;
 /****************************** utility functions ******************************/
 
 #ifdef IDENTSTORING
-gboolean identifier_jump_equal(gconstpointer k1, gconstpointer k2) {
+static gboolean identifier_jump_equal(gconstpointer k1, gconstpointer k2) {
 	if (JUMPKEY(k1)->bflang != JUMPKEY(k2)->bflang)
 		return FALSE;
 	if (JUMPKEY(k1)->context != JUMPKEY(k2)->context)
@@ -74,22 +74,41 @@ gboolean identifier_jump_equal(gconstpointer k1, gconstpointer k2) {
 		return FALSE;
 	return TRUE;
 } 
+static guint identifier_jump_hash(gconstpointer v) {
+	g_int_hash(
+		g_int_hash(
+			g_direct_hash(JUMPKEY(v)->bflang) 
+		* JUMPKEY(v)->context)
+	* g_str_hash(JUMPKEY(v)->name));
+}
+static void identifier_jump_key_free(gpointer p) {
+	g_slice_free(Tjumpkey, p);
+}
+static void identifier_jump_data_free(gpointer p) {
+	g_slice_free(Tjumpdata, p);
+}
 
-guint identifier_jump_hash(gconstpointer v) {
-	g_int_hash(g_int_hash(g_direct_hash(JUMPKEY(v)->bflang) * JUMPKEY(v)->context) * g_str_hash(JUMPKEY(v)->name));
-} 
-
-gboolean identifier_ac_equal(gconstpointer k1, gconstpointer k2) {
-	if (JUMPKEY(k1)->bflang != JUMPKEY(k2)->bflang)
+static gboolean identifier_ac_equal(gconstpointer k1, gconstpointer k2) {
+	if (ACKEY(k1)->bflang != ACKEY(k2)->bflang)
 		return FALSE;
-	if (JUMPKEY(k1)->context != JUMPKEY(k2)->context)
+	if (ACKEY(k1)->context != ACKEY(k2)->context)
 		return FALSE;
 	return TRUE;
 } 
+static guint identifier_ac_hash(gconstpointer v) {
+	g_int_hash(g_direct_hash(ACKEY(v)->bflang) * ACKEY(v)->context);
+}
+static void identifier_ac_key_free(gpointer p) {
+	g_slice_free(Tackey, p);
+}
+static void identifier_ac_data_free(gpointer p) {
+	g_object_unref(p);
+}
 
-guint identifier_ac_hash(gconstpointer v) {
-	g_int_hash(g_direct_hash(JUMPKEY(v)->bflang) * JUMPKEY(v)->context);
-} 
+void bftextview2_identifier_hash_init(gpointer bfwin) {
+	BFWIN(bfwin)->identifier_jump = g_hash_table_new_full(identifier_jump_hash,identifier_jump_equal,identifier_jump_key_free,identifier_jump_data_free);
+	BFWIN(bfwin)->identifier_ac = g_hash_table_new_full(identifier_ac_hash,identifier_ac_equal,identifier_ac_key_free,identifier_ac_data_free);
+}
 #endif /* IDENTSTORING */
 
 
