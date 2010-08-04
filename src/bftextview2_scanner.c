@@ -43,6 +43,7 @@ typedef struct {
 	GQueue *blockstack;
 	GTimer *timer;
 	gint16 context;
+	guint8 identmode;
 } Tscanning;
 #ifdef HL_PROFILING
 typedef struct {
@@ -467,6 +468,9 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 	DBG_SCANNING("found_match for pattern %d %s at charoffset %d, starts_block=%d,ends_block=%d, nextcontext=%d (current=%d)\n",match.patternum,pat.pattern, gtk_text_iter_get_offset(&match.start),pat.starts_block,pat.ends_block,pat.nextcontext,scanning->context);
 /*	DBG_MSG("pattern no. %d (%s) matches (%d:%d) --> nextcontext=%d\n", match.patternum, scantable.matches[match.patternum].message,
 			gtk_text_iter_get_offset(&match.start), gtk_text_iter_get_offset(&match.end), scantable.matches[match.patternum].nextcontext);*/
+#ifdef IDENTSTORING
+	scanning->identmode = pat.identmode;
+#endif /* IDENTSTORING */
 
 	if (pat.selftag) {
 		DBG_SCANNING("apply tag %p from %d to %d\n",pat.selftag,gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
@@ -518,6 +522,18 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 	else
 		return pat.nextcontext;
 }
+
+#ifdef IDENTSTORING
+static inline void found_identifier(BluefishTextView * btv, GtkTextIter *start, GtkTextIter *end, Tscanning *scanning) {
+	if (scanning->identmode == 1) {
+		gchar *tmp;
+		tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
+		g_print("found identifier %s\n",tmp);
+		g_free(tmp);
+	}
+	scanning->identmode = 0;
+}
+#endif /* IDENTSTORING */
 
 static gboolean bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
 	/* first find a region that needs scanning */
@@ -658,6 +674,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 #endif
 
 	scanning.context = 1;
+#ifdef IDENTSTORING
+	scanning.identmode = 0;
+#endif /* IDENTSTORING */
+
 	DBG_MSG("bftextview2_run_scanner for btv %p..\n",btv);
 	if (!btv->bflang->st) {
 		DBG_MSG("no scantable, nothing to scan, returning...\n");
@@ -751,6 +771,11 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				scanning.context = found_match(btv, match,&scanning);
 				DBG_SCANNING("after match context=%d\n",scanning.context);
 			}
+#ifdef IDENTSTORING
+			else if (pos == g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).identstate){
+				found_identifier(btv, &mstart, &iter, &scanning);
+			}
+#endif /* IDENTSTORING */
 			if (gtk_text_iter_equal(&mstart,&iter) && !last_character_run) {
 				gtk_text_iter_forward_char(&iter);
 #ifdef HL_PROFILING

@@ -461,6 +461,11 @@ typedef struct {
 	GtkTreeModelFilter *bmarkfilter;
 	gchar *bmark_search_prefix;
 	gpointer bmarkdata;			/* a link to the global main_v->bmarkdata, OR project->bmarkdata */
+#ifdef IDENTSTORING
+	GHashTable *identifier_jump;
+	GHashTable *identifier_ac;
+#endif /* IDENTSTORING */
+
 } Tbfwin;
 
 typedef struct {
