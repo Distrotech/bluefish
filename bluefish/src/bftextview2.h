@@ -156,6 +156,27 @@ a -> state 1
 as you see, the scanner is stuck in state 1 (the identstate) if
 either on the start or on the end there is no symbol.
 
+======== Autocompleting patterns =============
+for autocompletion we keep a GCompletion in each context. This is filled with 
+all the patterns during XML load.
+
+we use a similar scanning engine as above that can tell us where the string that 
+the user is typing started, and in which context the curor position is. Once
+we know the context we know which GCompletion structure to use, so we can get 
+a list of possible completion strings.
+
+======= Storing found function names and such for jump and autocompletion ======
+
+for jump: found functions names are stored in a hashtable 
+bfwin->identifier_jump as
+key Tbflang-context-name -> value Tdocument-linenumber
+
+for autocompletion they are added to a GCompletion
+the GCompletion can be found in hashtable
+bfwin->identifier_ac with 
+key Tbflang-context -> value GCompletion
+
+
 */
 
 #ifndef _BFTEXTVIEW2_H_
@@ -173,7 +194,7 @@ extern void g_none(char * first, ...);
 #endif  
  /**/
 
-
+/*#define IDENTSTORING*/
 
 #define BF2_OFFSET_UNDEFINED G_MAXUINT32
 
@@ -201,6 +222,27 @@ extern void g_none(char * first, ...);
 /*****************************************************************/
 /* building the automata and autocompletion cache */
 /*****************************************************************/
+
+#ifdef IDENTSTORING
+typedef struct {
+	gchar *curi;
+	guint line;
+} Tjumpdata;
+
+typedef struct {
+	gpointer bflang;
+	gint16 context;
+	gchar *name;
+} Tjumpkey;
+#define JUMPKEY(var) ((Tjumpkey *)var)
+
+typedef struct {
+	gpointer bflang;
+	gint16 context;
+} Tackey;
+#define ACKEY(var) ((Tackey *)var)
+
+#endif /* IDENTSTORING */
 
 typedef struct {
 	gboolean autocomplete_case_insens;
@@ -246,6 +288,9 @@ typedef struct {
 	guint8 case_insens;
 	guint8 is_regex;
 	guint8 tagclose_from_blockstack; /* this is a generix xml close tag that needs the blockstack to autoclose */
+#ifdef IDENTSTORING
+	guint8 identmode;
+#endif /* IDENTSTORING */
 	/*gboolean may_fold;  not yet used */
 	/*gboolean highlight_other_end; not yet used */
 } Tpattern;

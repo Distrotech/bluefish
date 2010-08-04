@@ -64,6 +64,35 @@ static GdkColor st_cline_color;
 
 /****************************** utility functions ******************************/
 
+#ifdef IDENTSTORING
+gboolean identifier_jump_equal(gconstpointer k1, gconstpointer k2) {
+	if (JUMPKEY(k1)->bflang != JUMPKEY(k2)->bflang)
+		return FALSE;
+	if (JUMPKEY(k1)->context != JUMPKEY(k2)->context)
+		return FALSE;
+	if (g_strcmp0(JUMPKEY(k1)->name,JUMPKEY(k2)->name)!=0)
+		return FALSE;
+	return TRUE;
+} 
+
+guint identifier_jump_hash(gconstpointer v) {
+	g_int_hash(g_int_hash(g_direct_hash(JUMPKEY(v)->bflang) * JUMPKEY(v)->context) * g_str_hash(JUMPKEY(v)->name));
+} 
+
+gboolean identifier_ac_equal(gconstpointer k1, gconstpointer k2) {
+	if (JUMPKEY(k1)->bflang != JUMPKEY(k2)->bflang)
+		return FALSE;
+	if (JUMPKEY(k1)->context != JUMPKEY(k2)->context)
+		return FALSE;
+	return TRUE;
+} 
+
+guint identifier_ac_hash(gconstpointer v) {
+	g_int_hash(g_direct_hash(JUMPKEY(v)->bflang) * JUMPKEY(v)->context);
+} 
+#endif /* IDENTSTORING */
+
+
 static inline gboolean is_symbol(BluefishTextView *btv, gint contextnum, gunichar uc) {
 	if (uc > 127)
 		return FALSE;

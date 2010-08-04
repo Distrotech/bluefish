@@ -729,6 +729,13 @@ static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang
 	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = (gchar *)selfhighlight;
 	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = (gchar *)blockhighlight;
 	g_array_index(st->matches, Tpattern, matchnum).tagclose_from_blockstack = tagclose_from_blockstack;
+#ifdef IDENTSTORING
+	if (strcmp(pattern,"function")==0) {
+		g_array_index(st->matches, Tpattern, matchnum).identmode = 1;
+	} else {
+		g_array_index(st->matches, Tpattern, matchnum).identmode = 0;
+	}
+#endif /* IDENTSTORING */
 	return matchnum;
 }
 
