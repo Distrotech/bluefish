@@ -2985,8 +2985,10 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
+	if (!bfwin->current_document)
+		return;
 	bfwin->current_document->highlightstate = bfwin->current_document->highlightstate-1;
-	g_print("doc_toggle_highlighting_cb, set enable_scanner=%d\n",bfwin->current_document->highlightstate);
+	DEBUG_MSG("doc_toggle_highlighting_cb, set enable_scanner=%d\n",bfwin->current_document->highlightstate);
 	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = bfwin->current_document->highlightstate;
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 }
@@ -3356,10 +3358,12 @@ void file_floatingview_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *w
 
 void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	gboolean active;
+	if (!bfwin->current_document)
+		return;
 
-    active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
-
-    switch(callback_action) {
+	active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+	
+	switch(callback_action) {
 	case 1:
 		bfwin->current_document->wrapstate = active;
 		doc_set_wrap(bfwin->current_document);

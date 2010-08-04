@@ -327,6 +327,8 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 }
 
 gboolean left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show, gboolean sync_menu) {
+	if (!bfwin->middlebox || !bfwin->notebook_box)
+		return FALSE;
 	DEBUG_MSG("left_panel_show_hide_toggle, bfwin=%p, first_time=%d, show=%d, sync_menu=%d\n",bfwin,first_time,show,sync_menu);
 	if (sync_menu) {
 		DEBUG_MSG("left_panel_show_hide_toggle, trying to sync menu\n");
@@ -344,7 +346,8 @@ gboolean left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean
 		} else {
 			gtk_container_remove(GTK_CONTAINER(bfwin->hpane), bfwin->notebook_box);
 			gtk_widget_destroy(bfwin->hpane);
-			left_panel_cleanup(bfwin); 
+			left_panel_cleanup(bfwin);
+			bfwin->hpane = NULL;
 		}
 	}
 	if (show) {
@@ -1203,6 +1206,8 @@ void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget
 }
 
 void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
+	if (!bfwin->main_toolbar_hb)
+		return;
 	if (sync_menu) {
 		DEBUG_MSG("gui_set_main_toolbar_visible, trying to sync menu\n");
 		setup_toggle_item_from_widget(bfwin->menubar, "/View/Main Toolbar", visible);
@@ -1237,6 +1242,8 @@ void gui_fullscreen_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 }
 
 void gui_statusbar_show_hide_toggle(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
+	if (!bfwin->statusbar)
+		return;
 	if (sync_menu) {
 		setup_toggle_item_from_widget(bfwin->menubar, "/View/Statusbar", visible);
 	}
