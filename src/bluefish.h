@@ -501,4 +501,22 @@ extern EXPORT Tmain *main_v;
 /* public functions from bluefish.c */
 void bluefish_exit_request(void);
 
+/* backwards compatibility */
+#if !GTK_CHECK_VERSION(2,18,0)
+#define gtk_widget_set_can_focus(arg, arg2) (arg2 ? GTK_WIDGET_SET_FLAGS(arg, GTK_CAN_FOCUS) : GTK_WIDGET_UNSET_FLAGS(arg, GTK_CAN_FOCUS))
+#define gtk_widget_get_allocation(arg1, arg2) (*(arg2) = arg1->allocation)
+#define gtk_dialog_get_content_area(arg) (GTK_DIALOG(arg)->vbox)
+#define gtk_widget_get_window(arg) (GTK_WIDGET(arg)->window)
+#define gtk_widget_get_visible(arg) (GTK_WIDGET_VISIBLE(arg))
+#define gtk_widget_set_can_default(arg, arg2) (arg2 ? GTK_WIDGET_SET_FLAGS(arg, GTK_CAN_DEFAULT) : GTK_WIDGET_UNSET_FLAGS(arg, GTK_CAN_DEFAULT)) 
+#define gtk_dialog_get_action_area(arg) (GTK_DIALOG(arg)->action_area)
+#define gtk_selection_data_get_data(arg) (arg->data)
+#define gtk_selection_data_get_length(arg) (arg->length)
+#define gtk_selection_data_get_format(arg) (arg->format)
+#define gtk_selection_data_get_target(arg) (arg->target)
+#define gtk_widget_get_state(arg) GTK_WIDGET_STATE(arg)
+#define gtk_widget_is_sensitive(arg) GTK_WIDGET_IS_SENSITIVE(arg)
+#define gtk_adjustment_get_upper(arg) (GTK_ADJUSTMENT(arg)->upper)
+#endif /* GTK_CHECK_VERSION(2,18,0) */
+
 #endif							/* __BLUEFISH_H_ */

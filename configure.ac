@@ -367,14 +367,14 @@ else
 fi
 
 BF_dependencies="\
-gtk+-2.0 >= 2.18 \
-gmodule-2.0 >= 2.22 \
+gtk+-2.0 >= 2.12 \
+gmodule-2.0 >= 2.16 \
 gobject-2.0 \
-glib-2.0 >= 2.22\
+glib-2.0 >= 2.16 \
 pango \
 gdk-pixbuf-2.0 \
 gdk-2.0 \
-$GIO_PC >= 2.22 \
+$GIO_PC >= 2.16 \
 gthread-2.0 \
 libxml-2.0"
 
