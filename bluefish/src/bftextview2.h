@@ -393,6 +393,7 @@ typedef struct {
 	Tcomment *line; /* preferred line comment */
 	Tcomment *block; /* preferred block comment */
 	gchar *smartindentchars;
+	gchar *smartoutdentchars;
 #ifdef HAVE_LIBENCHANT
 	gboolean default_spellcheck;
 #endif
@@ -452,6 +453,8 @@ struct _BluefishTextView {
 	gboolean key_press_inserted_char; /* FALSE if the key press was used by autocomplete popup, or simply not in our widget */
 	/*gboolean key_press_was_autocomplete;  a state of the widget, if the last keypress was handled by the autocomplete popup window */
 	gboolean showing_blockmatch; /* a state of the widget if we are currently showing a blockmatch */
+	gboolean insert_was_auto_indent; /* a state of the widget if the last keypress (enter) caused 
+													autoindent (so we should unindent on a closing bracket */
 
 	/* next three are used for margin painting */
 	gint margin_pixels_per_char;

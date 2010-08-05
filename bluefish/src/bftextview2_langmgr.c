@@ -41,6 +41,7 @@ typedef struct {
 	Tcomment *line; /* while not finished */
 	Tcomment *block;/* while not finished */
 	gchar *smartindentchars;
+	gchar *smartoutdentchars;
 	Tbflang *bflang;
 	gboolean load_completion;
 	gboolean load_reference;
@@ -325,6 +326,7 @@ static gboolean build_lang_finished_lcb(gpointer data)
 		bfparser->bflang->no_st = TRUE;
 	}
 	bfparser->bflang->smartindentchars = bfparser->smartindentchars;
+	bfparser->bflang->smartoutdentchars = bfparser->smartoutdentchars;
 #ifdef HAVE_LIBENCHANT
 	bfparser->bflang->default_spellcheck = bfparser->default_spellcheck;
 #endif
@@ -1060,6 +1062,12 @@ static gpointer build_lang_thread(gpointer data)
 					while (xmlTextReaderMoveToNextAttribute(reader)) {
 						xmlChar *aname = xmlTextReaderName(reader);
 						set_string_if_attribute_name(reader,aname,(xmlChar *)"characters", &bfparser->smartindentchars);
+						xmlFree(aname);
+					}
+				} else if (xmlStrEqual(name2,(xmlChar *)"smartoutdent")) {
+					while (xmlTextReaderMoveToNextAttribute(reader)) {
+						xmlChar *aname = xmlTextReaderName(reader);
+						set_string_if_attribute_name(reader,aname,(xmlChar *)"characters", &bfparser->smartoutdentchars);
 						xmlFree(aname);
 					}
 #ifdef HAVE_LIBENCHANT
