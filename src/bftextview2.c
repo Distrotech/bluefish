@@ -1220,50 +1220,72 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->button_press_event (widget, event);
 }
 
+static gchar *get_prevline_indenting(GtkTextBuffer *buffer, GtkTextIter *itend, gchar *lastchar) {
+	gchar *string;
+	gchar *indenting;
+	gint stringlen;
+
+	GtkTextIter itstart;
+	
+	itstart = *itend;
+	/* set to the beginning of the previous line */
+	gtk_text_iter_backward_line(&itstart);
+	gtk_text_iter_set_line_index(&itstart, 0);
+	string = gtk_text_buffer_get_text(buffer,&itstart,itend,TRUE);
+	if (!string)
+		return NULL;
+
+	stringlen = strlen(string);
+	if (stringlen>1) {
+		*lastchar = string[stringlen-2];
+	}
+	/* now count the indenting in this string */
+	indenting = string;
+	while (*indenting == '\t' || *indenting == ' ') {
+		indenting++;
+	}
+	/* ending search, non-whitespace found, so terminate at this position */
+	*indenting = '\0';
+	return string;	
+}
+
 static gboolean bluefish_text_view_key_release_event(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
 	BluefishTextView *btv=user_data;
+	gboolean prev_insert_was_auto_indent=btv->insert_was_auto_indent;
+	btv->insert_was_auto_indent = FALSE;
+	
 	/* sometimes we receive a release event for a key that was not pressed in the textview widget!
 	for example if you use the keyboard to navigate the menu, and press enter to activate an item, a 
 	key release event is received in the textview widget.... so we have to check that ! */
-	DBG_SIGNALS("bluefish_text_view_key_release_event, key_press_inserted_char=%d\n",btv->key_press_inserted_char);
-	if (btv->key_press_inserted_char && btv->auto_indent && (kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
+	if (!btv->key_press_inserted_char)
+		return FALSE;	
+	btv->key_press_inserted_char = FALSE; /* after the check we set this to FALSE */
+
+	if (!btv->auto_indent)
+		return FALSE;	
+	/*g_print("bluefish_text_view_key_release_event, working on keyval %d\n",kevent->keyval);*/
+	if ((kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
 		gchar *string;
-		GtkTextIter itstart, itend;
+		gchar lastchar='\0';
+		GtkTextIter itend;
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 		gtk_text_buffer_get_iter_at_mark(buffer,&itend,gtk_text_buffer_get_insert(buffer));
-		itstart = itend;
-		/* set to the beginning of the previous line */
-		gtk_text_iter_backward_line(&itstart);
-		gtk_text_iter_set_line_index(&itstart, 0);
-		string = gtk_text_buffer_get_text(buffer,&itstart,&itend,TRUE);
+		string = get_prevline_indenting(buffer, &itend, &lastchar);
+		/*g_print("bluefish_text_view_key_release_event, previoud indenting '%s'\n",string);*/
 		if (string) {
-			gchar lastchar='\0', *indenting;
-			gint stringlen;
-			
-			stringlen = strlen(string);
-			if (stringlen>1) {
-				lastchar = string[stringlen-2];
-				/*g_print("lastchar=%c\n",lastchar);*/
-			}
-			/* now count the indenting in this string */
-			indenting = string;
-			while (*indenting == '\t' || *indenting == ' ') {
-				indenting++;
-			}
-			/* ending search, non-whitespace found, so terminate at this position */
-			*indenting = '\0';
-			if (lastchar!='\0' && main_v->props.smartindent && btv->bflang && btv->bflang->smartindentchars) {
-				if(strchr(btv->bflang->smartindentchars, lastchar)!=NULL) {
-					gchar *tmp, *tmp2;
-					if (main_v->props.editor_indent_wspaces)
-						tmp2 = bf_str_repeat(" ", BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
-					else 
-						tmp2 = g_strdup("	");
-					tmp = g_strconcat(string, tmp2,NULL);
-					g_free(string);
-					g_free(tmp2);
-					string = tmp;
-				}
+			/*g_print("bluefish_text_view_key_release_event, lastchar=%c, smartindentchars=%s\n",lastchar, btv->bflang->smartindentchars);*/
+			if (lastchar!='\0' && main_v->props.smartindent 
+						&& btv->bflang && btv->bflang->smartindentchars 
+						&& strchr(btv->bflang->smartindentchars, lastchar)!=NULL) {
+				gchar *tmp, *tmp2;
+				if (main_v->props.editor_indent_wspaces)
+					tmp2 = bf_str_repeat(" ", BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
+				else 
+					tmp2 = g_strdup("	");
+				tmp = g_strconcat(string, tmp2,NULL);
+				g_free(string);
+				g_free(tmp2);
+				string = tmp;
 			}
 			if (string && string[0]!='\0') {
 				gboolean in_paste = DOCUMENT(btv->doc)->in_paste_operation;
@@ -1275,11 +1297,36 @@ static gboolean bluefish_text_view_key_release_event(GtkWidget *widget,GdkEventK
 				gtk_text_buffer_insert(buffer,&itend,string,-1);
 				if (!in_paste)
 					DOCUMENT(btv->doc)->in_paste_operation=FALSE;
+				btv->insert_was_auto_indent=TRUE;
 			}
 			g_free(string);
 		}
+	} else if (main_v->props.smartindent && prev_insert_was_auto_indent
+				&& btv->bflang && btv->bflang->smartoutdentchars 
+				&& strchr(btv->bflang->smartoutdentchars, kevent->keyval)!=NULL) {
+		GtkTextIter itend, itstart;
+		gunichar uc;
+		/* reduce the indenting one level back */
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+		gtk_text_buffer_get_iter_at_mark(buffer,&itend,gtk_text_buffer_get_insert(buffer));
+		gtk_text_iter_backward_char(&itend);
+		itstart = itend;
+		gtk_text_iter_backward_char(&itstart);
+		uc = gtk_text_iter_get_char(&itstart);
+		/*g_print("found indenting char '%c'\n",uc);*/
+		if (uc == '\t') {
+			gtk_text_buffer_delete(buffer,&itstart,&itend);
+		} else if (uc == ' ') {
+			int i=1;
+			/* if a space was the previous char, we need N spaces to unindent */
+			while (uc == ' ' && i<BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width) {
+				gtk_text_iter_backward_char(&itstart);
+				uc = gtk_text_iter_get_char(&itstart);
+				i++;
+			}
+			gtk_text_buffer_delete(buffer,&itstart,&itend);
+		}
 	}
-	btv->key_press_inserted_char = FALSE; /* after the key release we set this to FALSE */
 	return FALSE; /* we didn't handle all of the event */
 }
 
