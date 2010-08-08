@@ -26,10 +26,11 @@
 /* if you define DEBUG here you will get debug output from all Bluefish parts */
 /* #define DEBUG */
 
-#define DEBUG_PATHS
-
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
+
+/*#define MEMORY_LEAK_DEBUG*/
+/*#define DEBUG_PATHS*/
 
 #define ENABLEPLUGINS
 
