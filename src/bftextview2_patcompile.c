@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_patcompile.c
  *
- * Copyright (C) 2008,2009 Olivier Sessink
+ * Copyright (C) 2008,2009,2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -710,7 +710,7 @@ void match_set_reference(Tscantable *st, guint16 matchnum, const gchar *referenc
 
 static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang, const gchar *selfhighlight, const gchar *blockhighlight, gint16 context, gint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint16 blockstartpattern, gboolean case_insens, gboolean is_regex
-				, gboolean tagclose_from_blockstack) {
+				, gboolean tagclose_from_blockstack, guint8 identmode) {
 	guint matchnum;
 /* add the match */
 	if (context == nextcontext)
@@ -730,12 +730,8 @@ static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang
 	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = (gchar *)blockhighlight;
 	g_array_index(st->matches, Tpattern, matchnum).tagclose_from_blockstack = tagclose_from_blockstack;
 #ifdef IDENTSTORING
-	if (strcmp(pattern,"function")==0) {
-		g_array_index(st->matches, Tpattern, matchnum).identmode = 1;
-	} else {
-		g_array_index(st->matches, Tpattern, matchnum).identmode = 0;
-	}
-#endif /* IDENTSTORING */
+	g_array_index(st->matches, Tpattern, matchnum).identmode = identmode;
+#endif
 	return matchnum;
 }
 
@@ -752,7 +748,7 @@ void compile_existing_match(Tscantable *st,guint16 matchnum, gint16 context) {
 guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *pattern, const gchar *lang, const gchar *selfhighlight, const gchar *blockhighlight
 				, gboolean is_regex,gboolean case_insens, gint16 context, gint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
-				, gboolean tagclose_from_blockstack)  {
+				, gboolean tagclose_from_blockstack, guint8 identmode)  {
 	guint16 matchnum;
 
 	if (!pattern || pattern[0] == '\0') {
@@ -760,7 +756,7 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *pattern, const gcha
 		return 0;
 	}
 	matchnum = new_match(st, pattern, lang, selfhighlight, blockhighlight, context, nextcontext, starts_block, ends_block, blockstartpattern, case_insens, is_regex
-				, tagclose_from_blockstack);
+				, tagclose_from_blockstack, identmode);
 	DBG_PATCOMPILE("add_keyword_to_scanning_table,pattern=%s,starts_block=%d,ends_block=%d,blockstartpattern=%d, context=%d,nextcontext=%d and got matchnum %d\n",pattern, starts_block, ends_block, blockstartpattern,context,nextcontext,matchnum);
 	
 	if (is_regex) {

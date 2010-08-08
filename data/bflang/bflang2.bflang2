@@ -85,7 +85,7 @@
 			<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 			<element idref="e.comment"/>
 			<element idref="e.entity" />
-			<tag id="t.element" name="element" highlight="pattern-tag" autocomplete_append=" pattern=&quot;&quot; /&gt;" attributes="id,idref,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,notclass,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string,autocomplete_backup_cursor,mayfold" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+			<tag id="t.element" name="element" highlight="pattern-tag" autocomplete_append=" pattern=&quot;&quot; /&gt;" attributes="id,idref,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,notclass,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string,autocomplete_backup_cursor,mayfold,identifier_mode" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 			<reference>Element is an actual language element that is syntax highlighted, autocompleted or has reference information. The most important attribute is pattern. The pattern may be a keyword (such as <b>function</b>) or a regular expression pattern (such as <b>[0-9]+</b>) if attribute is_regex is set to 1.  </reference>
 				<context id="c.innerpattern" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 					<element idref="e.comment"/>

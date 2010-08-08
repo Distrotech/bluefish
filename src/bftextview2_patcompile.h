@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_patcompile.h
  *
- * Copyright (C) 2008,2009 Olivier Sessink
+ * Copyright (C) 2008,2009,2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ void compile_existing_match(Tscantable *st,guint16 matchnum, gint16 context);
 guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *pattern, const gchar *lang, const gchar *selfhighlight, const gchar *blockhighlight
 				, gboolean is_regex,gboolean case_insens, gint16 context, gint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
-				, gboolean tagclose_from_blockstack);
+				, gboolean tagclose_from_blockstack, guint8 identmode);
 void print_DFA(Tscantable *st, char start, char end);
 void print_scantable_stats(const gchar *lang, const gchar *file, Tscantable *st);
 Tscantable *scantable_new(guint size_table, guint size_matches, guint size_contexts);
