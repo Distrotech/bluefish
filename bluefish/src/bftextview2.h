@@ -488,8 +488,10 @@ GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer);
 
 void bftextview2_identifier_hash_init(gpointer bfwin);
 
-gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter);
-
+gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter, gint *context);
+#ifdef IDENTSTORING
+Tjumpdata *bftextview2_lookup_identifier(gpointer bfwin, gint context, const gchar *text);
+#endif
 gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
 void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);
 gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);

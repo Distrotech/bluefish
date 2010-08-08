@@ -3209,7 +3209,7 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 	return retlist;
 }
 
-static gchar *doc_text_under_cursor(Tdocument *doc) {
+static gchar *doc_text_under_cursor(Tdocument *doc, gint *context) {
 	GtkTextIter iter;
 	GSList *taglist, *tmplist;
 	gchar *retval=NULL;
@@ -3239,7 +3239,7 @@ static gchar *doc_text_under_cursor(Tdocument *doc) {
 	}
 
 	if (!retval)
-		retval = bf_get_identifier_at_iter(BLUEFISH_TEXT_VIEW(doc->view), &iter);
+		retval = bf_get_identifier_at_iter(BLUEFISH_TEXT_VIEW(doc->view), &iter, context);
 	
 	if (!retval)
 		return NULL;
@@ -3253,7 +3253,6 @@ static gchar *doc_text_under_cursor(Tdocument *doc) {
 		memmove(retval, retval+1, len-2);
 		retval[len-2]='\0';
 	}
-	
 	return retval;
 }
 
@@ -3300,13 +3299,23 @@ static void doc_jump_check_file(Tdocument *doc, const gchar *filename) {
 
 static void doc_jump(Tdocument *doc) {
 	gchar *string;
+	gint context;
 	/* see what's under the cursor */
-	string = doc_text_under_cursor(doc);
+	string = doc_text_under_cursor(doc, &context);
 	if (!string)
 		return;
 	DEBUG_MSG("doc_jump, got string %s\n",string);
 	/* check if this is an existing file */
 	doc_jump_check_file(doc, string);
+
+#ifdef IDENTSTORING
+	{	
+		Tjumpdata *ijd = bftextview2_lookup_identifier(doc->bfwin, context, string);
+		g_print("doc_jump, doc=%p, line=%d\n", ijd->doc, ijd->line)
+	}
+#endif
+
+
 	g_free(string);
 }
 
