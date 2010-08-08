@@ -566,7 +566,7 @@ static inline void found_identifier(BluefishTextView * btv, GtkTextIter *start, 
 		tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
 		g_print("found identifier %s\n",tmp);
 		ijk = identifier_jumpkey_new(btv->bflang, scanning->context, tmp);
-		ijd = identifier_jumpdata_new(DOCUMENT(btv->doc), gtk_text_iter_get_line(start));
+		ijd = identifier_jumpdata_new(DOCUMENT(btv->doc), gtk_text_iter_get_line(end)+1);
 		g_hash_table_insert(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk, ijd);
 		compl = identifier_ac_get_completion(btv, scanning->context);
 		items = g_list_prepend(NULL, tmp);

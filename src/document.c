@@ -3217,10 +3217,10 @@ static gchar *doc_text_under_cursor(Tdocument *doc, gint *context) {
 	GtkTextIter so,eo;
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, gtk_text_buffer_get_insert(doc->buffer));
 
-	taglist = gtk_text_iter_get_tags(&iter);
+/*	taglist = gtk_text_iter_get_tags(&iter);
 	for (tmplist=taglist;tmplist;tmplist=tmplist->next) {
 		GtkTextTag *tag=tmplist->data;
-		/* avoid tags like needscanning, folded, blockheader and such */
+		/ * avoid tags like needscanning, folded, blockheader and such * /
 		if (!langmgr_in_highlight_tags(tag))
 			continue;
 		so=eo=iter;
@@ -3228,15 +3228,14 @@ static gchar *doc_text_under_cursor(Tdocument *doc, gint *context) {
 			gtk_text_iter_backward_to_tag_toggle(&so, tag);
 		if (!gtk_text_iter_ends_tag(&eo, tag))
 			gtk_text_iter_forward_to_tag_toggle(&eo, tag);
-		/*g_print("found tag %p from %d to %d\n",tag,gtk_text_iter_get_offset(&so), gtk_text_iter_get_offset(&eo));*/
-		/* use the smallest string */
+		/ * use the smallest string * /
 		if (retval && g_utf8_strlen(retval,-1) > (gtk_text_iter_get_offset(&eo)-gtk_text_iter_get_offset(&so))) {
 			g_free(retval);
 			retval=NULL;
 		}
 		if (!retval)
 			retval = gtk_text_buffer_get_text(doc->buffer, &so,&eo,TRUE);
-	}
+	}*/
 
 	if (!retval)
 		retval = bf_get_identifier_at_iter(BLUEFISH_TEXT_VIEW(doc->view), &iter, context);
@@ -3309,13 +3308,19 @@ static void doc_jump(Tdocument *doc) {
 	doc_jump_check_file(doc, string);
 
 #ifdef IDENTSTORING
+	g_print("context=%d\n",context);
 	if (context != -1) {
 		Tjumpdata *ijd = bftextview2_lookup_identifier(doc->bfwin, BLUEFISH_TEXT_VIEW(doc->view), context, string);
-		g_print("doc_jump, doc=%p, line=%d\n", ijd->doc, ijd->line);
+		if (ijd) {
+			g_print("got doc=%p (index=%d), line=%d\n",ijd->doc, g_list_index(BFWIN(doc->bfwin)->documentlist, ijd->doc), ijd->line);
+			if (ijd->doc && g_list_index(BFWIN(doc->bfwin)->documentlist, ijd->doc)!=-1) {
+				g_print("jump! doc=%p, line=%d\n",ijd->doc, ijd->line);
+				switch_to_document_by_pointer(doc->bfwin,ijd->doc);
+				doc_select_line(ijd->doc, ijd->line, TRUE);
+			}
+		}
 	}
 #endif
-
-
 	g_free(string);
 }
 

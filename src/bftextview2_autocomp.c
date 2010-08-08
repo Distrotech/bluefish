@@ -307,12 +307,17 @@ static gboolean acwin_position_at_cursor(BluefishTextView *btv) {
 }
 
 /* not only fills the tree, but calculates and sets the required width as well */
-static void acwin_fill_tree(Tacwin *acw, GList *items, gchar *closetag) {
+static void acwin_fill_tree(Tacwin *acw, GList *items, GList *items2, gchar *closetag) {
 	GList *tmplist,*list=NULL;
 	gchar *longest=NULL;
 	guint numitems=0,longestlen=1;
 	if (items)
 		list = g_list_copy(items);
+	g_print("got %d items\n",g_list_length(items));
+	g_print("got %d items2\n",g_list_length(items2));
+	if (items2)
+		list = g_list_concat(g_list_copy(items2), list);
+	g_print("got %d list\n",g_list_length(list));
 	if (closetag)
 		list = g_list_prepend(list, closetag);
 	list = tmplist = g_list_sort(list, (GCompareFunc) g_strcmp0);
@@ -421,7 +426,7 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 		) {
 		/* we have a prefix or it is user requested, and we have a context with autocompletion or we have blockstack-tag-auto-closing */
 		gchar *newprefix=NULL, *prefix, *closetag=NULL;
-		GList *items=NULL;
+		GList *items=NULL, *items2=NULL;
 		/*print_ac_items(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac);*/
 
 		prefix = gtk_text_buffer_get_text(buffer,&iter,&cursorpos,TRUE);
@@ -453,16 +458,18 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 				iak.bflang = btv->bflang;
 				iak.context = contextnum;
 				compl = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_ac, &iak);
+				g_print("got completion %p for context %d\n",compl,contextnum);
 				if (compl) {
-					GList *items2;
 					gchar *newprefix2=NULL;
 					items2 = g_completion_complete(compl,prefix,&newprefix2);
+					g_print("got %d identifier_items\n",g_list_length(items2));
+					/* TODO: use newprefix2 ? */
+					g_free(newprefix2);
 				}			
 			}
 #endif
 		}
-
-		if (closetag || (items!=NULL && (items->next != NULL || strcmp(items->data,prefix)!=0)) ) {
+		if (closetag || items2 || (items!=NULL && (items->next != NULL || strcmp(items->data,prefix)!=0)) ) {
 					/* do not popup if there are 0 items, and also not if there is 1 item which equals the prefix */
 			GtkTreeSelection *selection;
 			GtkTreeIter it;
@@ -480,7 +487,7 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 			if (newprefix) {
 				ACWIN(btv->autocomp)->newprefix = g_strdup(newprefix);
 			}
-			acwin_fill_tree(ACWIN(btv->autocomp), items, closetag);
+			acwin_fill_tree(ACWIN(btv->autocomp), items, items2, closetag);
 			below = acwin_position_at_cursor(btv);
 			gtk_widget_show(ACWIN(btv->autocomp)->win);
 			selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
