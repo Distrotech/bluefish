@@ -974,6 +974,11 @@ static void gui_create_gotoline_frame(Tbfwin *bfwin) {
 void gui_create_main(Tbfwin *bfwin) {
 	GtkWidget *vbox;
 	DEBUG_MSG("gui_create_main, bfwin=%p, main_window_w=%d\n",bfwin,main_v->globses.main_window_w);
+
+#ifdef IDENTSTORING
+	bftextview2_identifier_hash_init(bfwin);
+#endif /* IDENTSTORING */
+
 	bfwin->main_window = window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
 	gtk_widget_realize(bfwin->main_window);
@@ -1281,11 +1286,8 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 
 Tbfwin *gui_new_window(Tproject *project) {
 	Tbfwin *bfwin = g_new0(Tbfwin,1);
-#ifdef IDENTSTORING
-	bftextview2_identifier_hash_init(bfwin);
-#endif /* IDENTSTORING */
+	g_print("gui_new_window, start bfwin %p\n",bfwin);
 
-	
 	if (project) {
 		bfwin->project = project;
 		bfwin->session = project->session;

@@ -226,7 +226,6 @@ extern void g_none(char * first, ...);
 #ifdef IDENTSTORING
 typedef struct {
 	gpointer doc;
-	gchar *curi;
 	guint line;
 } Tjumpdata;
 
@@ -490,7 +489,7 @@ void bftextview2_identifier_hash_init(gpointer bfwin);
 
 gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter, gint *context);
 #ifdef IDENTSTORING
-Tjumpdata *bftextview2_lookup_identifier(gpointer bfwin, gint context, const gchar *text);
+Tjumpdata *bftextview2_lookup_identifier(gpointer bfwin, BluefishTextView *btv, gint context, const gchar *text);
 #endif
 gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
 void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);

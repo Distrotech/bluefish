@@ -446,6 +446,20 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 		if (g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac) {
 			items = g_completion_complete(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac,prefix,&newprefix);
 			DBG_AUTOCOMP("got %d autocompletion items for prefix %s in context %d, newprefix=%s\n",g_list_length(items),prefix,contextnum,newprefix);
+#ifdef IDENTSTORING
+			{
+				Tackey iak;
+				GCompletion *compl;
+				iak.bflang = btv->bflang;
+				iak.context = contextnum;
+				compl = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_ac, &iak);
+				if (compl) {
+					GList *items2;
+					gchar *newprefix2=NULL;
+					items2 = g_completion_complete(compl,prefix,&newprefix2);
+				}			
+			}
+#endif
 		}
 
 		if (closetag || (items!=NULL && (items->next != NULL || strcmp(items->data,prefix)!=0)) ) {

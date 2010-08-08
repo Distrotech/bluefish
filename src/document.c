@@ -3222,7 +3222,7 @@ static gchar *doc_text_under_cursor(Tdocument *doc, gint *context) {
 		GtkTextTag *tag=tmplist->data;
 		/* avoid tags like needscanning, folded, blockheader and such */
 		if (!langmgr_in_highlight_tags(tag))
-			continue; 
+			continue;
 		so=eo=iter;
 		if (!gtk_text_iter_begins_tag(&so, tag))
 			gtk_text_iter_backward_to_tag_toggle(&so, tag);
@@ -3299,7 +3299,7 @@ static void doc_jump_check_file(Tdocument *doc, const gchar *filename) {
 
 static void doc_jump(Tdocument *doc) {
 	gchar *string;
-	gint context;
+	gint context=-1;
 	/* see what's under the cursor */
 	string = doc_text_under_cursor(doc, &context);
 	if (!string)
@@ -3309,9 +3309,9 @@ static void doc_jump(Tdocument *doc) {
 	doc_jump_check_file(doc, string);
 
 #ifdef IDENTSTORING
-	{	
-		Tjumpdata *ijd = bftextview2_lookup_identifier(doc->bfwin, context, string);
-		g_print("doc_jump, doc=%p, line=%d\n", ijd->doc, ijd->line)
+	if (context != -1) {
+		Tjumpdata *ijd = bftextview2_lookup_identifier(doc->bfwin, BLUEFISH_TEXT_VIEW(doc->view), context, string);
+		g_print("doc_jump, doc=%p, line=%d\n", ijd->doc, ijd->line);
 	}
 #endif
 
