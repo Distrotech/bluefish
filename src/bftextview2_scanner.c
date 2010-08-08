@@ -542,17 +542,36 @@ static Tjumpdata *identifier_jumpdata_new(Tdocument *doc, guint line) {
 	return ijd;
 }
 
+static GCompletion *identifier_ac_get_completion(BluefishTextView * btv, gint16 context) {
+	Tackey iak;
+	GCompletion *compl;
+	iak.bflang = btv->bflang;
+	iak.context = scanning->context;
+	compl = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_ac, &iak);
+	if (!compl) {
+		Tackey *iakp = g_slice_new0(Tackey);
+		*iakp=iak;
+		compl = g_completion_new(NULL);
+		g_hash_table_insert(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_ac, iakp, compl);
+   }
+}
+
 static inline void found_identifier(BluefishTextView * btv, GtkTextIter *start, GtkTextIter *end, Tscanning *scanning) {
 	if (scanning->identmode == 1) {
 		Tjumpkey *ijk;
 		Tjumpdata *ijd;
+		GCompletion *compl;
 		gchar *tmp;
 		tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
 		g_print("found identifier %s\n",tmp);
 		ijk = identifier_jumpkey_new(btv->bflang, scanning->context, tmp);
 		ijd = identifier_jumpdata_new(DOCUMENT(btv->doc), gtk_text_iter_get_line(start));
 		g_hash_table_insert(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk, ijd);
-		g_free(tmp);
+		compl = identifier_ac_get_completion(btv, scanning->context);
+		items = g_list_prepend(NULL, tmp);
+		g_completion_add_items(compl, items);
+		/*g_list_free(items);*/
+		/*g_free(tmp);*/
 	}
 	scanning->identmode = 0;
 }

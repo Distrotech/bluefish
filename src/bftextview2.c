@@ -109,6 +109,16 @@ void bftextview2_identifier_hash_init(gpointer bfwin) {
 	BFWIN(bfwin)->identifier_jump = g_hash_table_new_full(identifier_jump_hash,identifier_jump_equal,identifier_jump_key_free,identifier_jump_data_free);
 	BFWIN(bfwin)->identifier_ac = g_hash_table_new_full(identifier_ac_hash,identifier_ac_equal,identifier_ac_key_free,identifier_ac_data_free);
 }
+
+Tjumpdata *bftextview2_lookup_identifier(gpointer bfwin, gint context, const gchar *text) {
+	Tjumpkey ijk;
+	Tjumpdata *ijd;
+	ijk->bflang = btv;
+	ijk->context = context;
+	ijk->name = text
+	ijd = g_hash_table_lookup(BFWIN(bfwin)->identifier_jump, &ijk);
+	return ijd;
+}
 #endif /* IDENTSTORING */
 
 
@@ -118,9 +128,8 @@ static inline gboolean is_symbol(BluefishTextView *btv, gint contextnum, gunicha
 	return (g_array_index(btv->bflang->st->table, Ttablerow, g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).identstate).row[uc] != g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).identstate);
 }
 
-gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter) {
+gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter, gint *contextnum) {
 	GQueue *contextstack;
-	guint16 contextnum;
 	GtkTextIter so,eo;
 
 	so=eo=*iter;
@@ -133,13 +142,13 @@ gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter) {
 	}
 	contextstack = get_contextstack_at_position(btv, iter);
 	if (g_queue_get_length(contextstack)>0)
-		contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
+		*contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
 	else
-		contextnum = 1;
+		*contextnum = 1;
 
-	while (gtk_text_iter_backward_char(&so) && !is_symbol(btv,contextnum,gtk_text_iter_get_char(&so))) {};
+	while (gtk_text_iter_backward_char(&so) && !is_symbol(btv,*contextnum,gtk_text_iter_get_char(&so))) {};
 	gtk_text_iter_forward_char(&so);
-	while (gtk_text_iter_forward_char(&eo) && !is_symbol(btv,contextnum,gtk_text_iter_get_char(&eo))) {};
+	while (gtk_text_iter_forward_char(&eo) && !is_symbol(btv,*contextnum,gtk_text_iter_get_char(&eo))) {};
 	return gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), &so,&eo,TRUE); 
 }
 
