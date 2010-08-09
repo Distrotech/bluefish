@@ -800,6 +800,9 @@ void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	DEBUG_MSG("main_window_destroy_lcb, will destroy the window now\n");
 	gtk_widget_destroy(bfwin->main_window);
 	DEBUG_MSG("main_window_destroy_lcb, going to free bfwin %p\n",bfwin);
+#ifdef IDENTSTORING
+	bftextview2_identifier_hash_destroy(bfwin);
+#endif
 	g_free(bfwin);
 	
 	if (NULL == main_v->bfwinlist) {

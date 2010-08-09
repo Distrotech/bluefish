@@ -228,6 +228,7 @@ typedef struct {
 	gpointer doc;
 	guint line;
 } Tjumpdata;
+#define JUMPDATA(var) ((Tjumpdata *)var)
 
 typedef struct {
 	gpointer bflang;
@@ -484,8 +485,11 @@ GType bluefish_text_view_get_type (void);
 
 GtkWidget * bftextview2_new(void);
 GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer);
-
+#ifdef IDENTSTORING
+void bftextview2_identifier_hash_remove_doc(gpointer bfwin, gpointer doc);
+void bftextview2_identifier_hash_destroy(gpointer bfwin);
 void bftextview2_identifier_hash_init(gpointer bfwin);
+#endif
 
 gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter, gint *context);
 #ifdef IDENTSTORING

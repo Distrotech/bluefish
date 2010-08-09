@@ -75,20 +75,7 @@ static gboolean identifier_jump_equal(gconstpointer k1, gconstpointer k2) {
 	return TRUE;
 } 
 static guint identifier_jump_hash(gconstpointer v) {
-	gint tmp;
-/*	guint bflanghash, namehash, contexthash, intermediate1;
-	g_print("identifier_jump_hash, bflang=%p, context=%d, name=%s\n",JUMPKEY(v)->bflang,JUMPKEY(v)->context,JUMPKEY(v)->name );
-	bflanghash = g_direct_hash(JUMPKEY(v)->bflang);
-	g_print("identifier_jump_hash, bflanghash=%d\n",bflanghash);
-	namehash = g_str_hash(JUMPKEY(v)->name);
-	g_print("identifier_jump_hash, namehash=%d\n",namehash);
-	contexthash = g_int_hash(JUMPKEY(v)->context);
-	g_print("identifier_jump_hash, contexthash=%d\n",contexthash);
-	intermediate1 = g_int_hash(bflanghash * contexthash);
-	g_print("identifier_jump_hash, intermediate1=%d\n",intermediate1);
-	return g_int_hash(intermediate1 * namehash);
-*/
-	tmp = g_str_hash(JUMPKEY(v)->name) * g_direct_hash(JUMPKEY(v)->bflang) * JUMPKEY(v)->context;
+	gint tmp = g_str_hash(JUMPKEY(v)->name) * g_direct_hash(JUMPKEY(v)->bflang) * JUMPKEY(v)->context;
 	return g_int_hash(&tmp);
 }
 static void identifier_jump_key_free(gpointer p) {
@@ -104,7 +91,7 @@ static gboolean identifier_ac_equal(gconstpointer k1, gconstpointer k2) {
 	if (ACKEY(k1)->context != ACKEY(k2)->context)
 		return FALSE;
 	return TRUE;
-} 
+}
 static guint identifier_ac_hash(gconstpointer v) {
 	gint bflanghash = g_direct_hash(ACKEY(v)->bflang) * ACKEY(v)->context;
 	return g_int_hash(&bflanghash);
@@ -116,8 +103,47 @@ static void identifier_ac_data_free(gpointer p) {
 	g_object_unref(p);
 }
 
+static gboolean identifier_remove_by_doc(gpointer key,gpointer value,gpointer user_data) {
+	if (JUMPDATA(value)->doc == user_data)
+		return TRUE;
+	return FALSE;
+}
+
+void bftextview2_identifier_hash_remove_doc(gpointer bfwin, gpointer doc) {
+	GHashTableIter iter;
+	gpointer key, value;
+	
+	/* iterate of the jump table to find the strings that have to be removed
+	from the GCompletion structures in the autocompletion table */
+	g_hash_table_iter_init (&iter, BFWIN(bfwin)->identifier_jump);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		if (JUMPDATA(value)->doc == doc) {
+			Tackey iak;
+			GCompletion *compl;
+			
+			iak.bflang = JUMPKEY(key)->bflang;
+			iak.context = JUMPKEY(key)->context;
+			compl = g_hash_table_lookup(BFWIN(bfwin)->identifier_ac, &iak);
+			if (compl) {
+				GList *items = g_list_append(NULL, JUMPKEY(key)->name);
+				g_completion_remove_items(compl, items);
+				g_list_free(items);
+			}
+		}
+	}
+
+	g_hash_table_foreach_remove(BFWIN(bfwin)->identifier_jump,identifier_remove_by_doc,doc);
+}
+
+
+void bftextview2_identifier_hash_destroy(gpointer bfwin) {
+	g_hash_table_destroy(BFWIN(bfwin)->identifier_jump);
+	BFWIN(bfwin)->identifier_jump=NULL;
+	g_hash_table_destroy(BFWIN(bfwin)->identifier_ac);
+	BFWIN(bfwin)->identifier_ac = NULL;
+}
+
 void bftextview2_identifier_hash_init(gpointer bfwin) {
-	g_print("adding hash tables to bfwin %p\n",bfwin);
 	BFWIN(bfwin)->identifier_jump = g_hash_table_new_full(identifier_jump_hash,identifier_jump_equal,identifier_jump_key_free,identifier_jump_data_free);
 	BFWIN(bfwin)->identifier_ac = g_hash_table_new_full(identifier_ac_hash,identifier_ac_equal,identifier_ac_key_free,identifier_ac_data_free);
 }

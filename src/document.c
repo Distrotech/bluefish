@@ -2071,6 +2071,9 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	DEBUG_MSG("doc_destroy, removed widget from notebook (doc=%p), delay_activation=%d\n",doc,delay_activation);
 	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n",doc);
 	gui_notebook_unblock_signals(BFWIN(doc->bfwin));
+#ifdef IDENTSTORING
+	bftextview2_identifier_hash_remove_doc(doc->bfwin, doc);
+#endif
 	if (!delay_activation) {
 		gint newpage=-1;
 		if (bfwin->prev_document) {
