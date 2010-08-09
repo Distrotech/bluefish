@@ -148,6 +148,7 @@ gboolean snippets_accelerator_activated_lcb(GtkAccelGroup *accel_group,GObject *
 }
 
 static void accelerator_cbdata_free(gpointer data) {
+	DEBUG_MSG("accelerator_cbdata_free, free %p\n", data);
 	g_slice_free(Taccelerator_cbdata, data);
 }
 
@@ -170,7 +171,7 @@ static void snippets_connect_accelerators_from_doc(Tsnippetswin *snw, xmlNodePtr
 					hcbdata = g_slice_new(Taccelerator_cbdata);
 					hcbdata->snw = snw;
 					hcbdata->cur = cur;
-					DEBUG_MSG("snippets_connect_accelerators_from_doc, connecting accelerator %s\n",accelerator);
+					DEBUG_MSG("snippets_connect_accelerators_from_doc, connecting accelerator %s to data %p\n",accelerator, hcbdata);
 					closure = g_cclosure_new(G_CALLBACK(snippets_accelerator_activated_lcb),hcbdata,(GClosureNotify)accelerator_cbdata_free);
 					gtk_accel_group_connect(accel_group,key,mod,GTK_ACCEL_VISIBLE, closure);
 				}
@@ -181,7 +182,7 @@ static void snippets_connect_accelerators_from_doc(Tsnippetswin *snw, xmlNodePtr
 	}
 }
 
-static void snippets_rebuild_accelerators(void) {
+void snippets_rebuild_accelerators(void) {
 	/* loop over all windows and rebuild the accelerators */
 	GList *tmplist;
 	for (tmplist=g_list_first(main_v->bfwinlist);tmplist;tmplist=tmplist->next) {
@@ -450,8 +451,10 @@ static gchar *snippets_gen_treetip_string(xmlNodePtr cur) {
 			xmlChar *type = xmlGetProp(cur, (const xmlChar *)"type");
 			if (type && xmlStrEqual(type, (const xmlChar *)"insert")) {
 				gchar *tmp = snippets_tooltip_from_insert_content(cur);
-				tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
-				g_free(tmp);
+				if (tmp) {
+					tooltip2 = g_markup_escape_text(tmp,-1);
+					g_free(tmp);
+				}
 			} /*else if (type && xmlStrEqual(type, (const xmlChar *)"snr")) {
 				TODO
 			}*/

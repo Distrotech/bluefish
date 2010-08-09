@@ -60,6 +60,7 @@ leaves are of some type:
 
 #include "snippets.h"
 #include "snippets_load.h"
+#include "snippets_gui.h"
 #include "../config.h"
 #include "../bf_lib.h"
 
@@ -248,6 +249,7 @@ static gboolean snippets_load_finished_lcb(gpointer data) {
 			if (xmlStrEqual(cur->name, (const xmlChar *) "snippets")) {
 				snippets_v.doc = doc;
 				walk_tree(cur, NULL);
+				snippets_rebuild_accelerators();
 				DEBUG_MSG("snippets_load_finished_lcb, finished walking tree\n");
 				return FALSE;
 			}
