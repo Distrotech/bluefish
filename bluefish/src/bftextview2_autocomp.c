@@ -463,8 +463,10 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 					gchar *newprefix2=NULL;
 					items2 = g_completion_complete(compl,prefix,&newprefix2);
 					g_print("got %d identifier_items\n",g_list_length(items2));
-					/* TODO: use newprefix2 ? */
-					g_free(newprefix2);
+					if (!newprefix)
+						newprefix = newprefix2;
+					else
+						g_free(newprefix2);
 				}			
 			}
 #endif
@@ -480,6 +482,8 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 			} else {
 				g_free(ACWIN(btv->autocomp)->prefix);
 				g_free(ACWIN(btv->autocomp)->newprefix);
+				ACWIN(btv->autocomp)->prefix = NULL;
+				ACWIN(btv->autocomp)->newprefix = NULL;
 				gtk_list_store_clear(ACWIN(btv->autocomp)->store);
 			}
 			ACWIN(btv->autocomp)->contextnum = contextnum;

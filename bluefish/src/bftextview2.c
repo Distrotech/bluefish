@@ -78,10 +78,13 @@ static guint identifier_jump_hash(gconstpointer v) {
 	gint tmp = g_str_hash(JUMPKEY(v)->name) * g_direct_hash(JUMPKEY(v)->bflang) * JUMPKEY(v)->context;
 	return g_int_hash(&tmp);
 }
-static void identifier_jump_key_free(gpointer p) {
+void identifier_jump_key_free(gpointer p) {
+	g_print("identifier_jump_key_free %p\n",p);
+	g_free(JUMPKEY(p)->name);
 	g_slice_free(Tjumpkey, p);
 }
 static void identifier_jump_data_free(gpointer p) {
+	g_print("identifier_jump_data_free\n");
 	g_slice_free(Tjumpdata, p);
 }
 
@@ -97,10 +100,12 @@ static guint identifier_ac_hash(gconstpointer v) {
 	return g_int_hash(&bflanghash);
 }
 static void identifier_ac_key_free(gpointer p) {
+	g_print("identifier_ac_key_free\n");
 	g_slice_free(Tackey, p);
 }
 static void identifier_ac_data_free(gpointer p) {
-	g_object_unref(p);
+	g_print("identifier_ac_data_free\n");
+	g_completion_free(p);
 }
 
 static gboolean identifier_remove_by_doc(gpointer key,gpointer value,gpointer user_data) {
@@ -112,7 +117,7 @@ static gboolean identifier_remove_by_doc(gpointer key,gpointer value,gpointer us
 void bftextview2_identifier_hash_remove_doc(gpointer bfwin, gpointer doc) {
 	GHashTableIter iter;
 	gpointer key, value;
-	
+	g_print("bftextview2_identifier_hash_remove_doc, start for bfwin=%p, doc=%p\n",bfwin, doc);
 	/* iterate of the jump table to find the strings that have to be removed
 	from the GCompletion structures in the autocompletion table */
 	g_hash_table_iter_init (&iter, BFWIN(bfwin)->identifier_jump);
@@ -126,6 +131,7 @@ void bftextview2_identifier_hash_remove_doc(gpointer bfwin, gpointer doc) {
 			compl = g_hash_table_lookup(BFWIN(bfwin)->identifier_ac, &iak);
 			if (compl) {
 				GList *items = g_list_append(NULL, JUMPKEY(key)->name);
+				g_print("remove item %p(%s)\n",JUMPKEY(key)->name,JUMPKEY(key)->name);
 				g_completion_remove_items(compl, items);
 				g_list_free(items);
 			}
@@ -133,6 +139,7 @@ void bftextview2_identifier_hash_remove_doc(gpointer bfwin, gpointer doc) {
 	}
 
 	g_hash_table_foreach_remove(BFWIN(bfwin)->identifier_jump,identifier_remove_by_doc,doc);
+	g_print("bftextview2_identifier_hash_remove_doc, done for bfwin=%p, doc=%p\n",bfwin, doc);
 }
 
 
@@ -837,13 +844,13 @@ static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, G
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x,rect.y+rect.height/1.5,&x,&y);
 			if (uc == '\t' && (trailing || main_v->props.visible_ws_mode !=2)) {  
 				/* draw tab */
-				cairo_move_to(cr, x + 3, y - 3);
+				cairo_move_to(cr, x + 3.5, y - 2.5);
 				cairo_rel_line_to(cr, 0, 3);
 				cairo_rel_line_to(cr, rect.width - 6, 0);
 				cairo_rel_line_to(cr, 0, -3);
 			} else if ((uc == 160||uc==8239) && (trailing || main_v->props.visible_ws_mode !=2)) {
 				/* draw nbsp (8239= narrow-nbsp)*/
-				cairo_move_to(cr, x + 1, y);
+				cairo_move_to(cr, x + 1, y-0.5);
 				cairo_rel_line_to(cr,rect.width - 2, 0);
 			} else if (main_v->props.visible_ws_mode==0 || (main_v->props.visible_ws_mode!=1 &&trailing) ) {
 				/* draw space */
