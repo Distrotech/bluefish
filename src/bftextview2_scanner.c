@@ -530,7 +530,7 @@ static Tjumpkey *identifier_jumpkey_new(gpointer bflang, gint16 context, gchar *
 	Tjumpkey *ijk = g_slice_new0(Tjumpkey);
 	ijk->bflang = bflang;
 	ijk->context = context;
-	ijk->name = g_strdup(name);
+	ijk->name = name; /* don't dup the string, we allocate that memory only once and re-use the same block in the completion and in this key  */
 	return ijk;
 }
 
@@ -559,20 +559,29 @@ static GCompletion *identifier_ac_get_completion(BluefishTextView * btv, gint16 
 static inline void found_identifier(BluefishTextView * btv, GtkTextIter *start, GtkTextIter *end, Tscanning *scanning) {
 	if (scanning->identmode == 1) {
 		Tjumpkey *ijk;
-		Tjumpdata *ijd;
+		Tjumpdata *ijd, *oldijd;
 		GCompletion *compl;
 		gchar *tmp;
 		GList *items;
+		
 		tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
-		g_print("found identifier %s\n",tmp);
+		g_print("found identifier %s at %p\n",tmp, tmp);
 		ijk = identifier_jumpkey_new(btv->bflang, scanning->context, tmp);
-		ijd = identifier_jumpdata_new(DOCUMENT(btv->doc), gtk_text_iter_get_line(end)+1);
-		g_hash_table_insert(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk, ijd);
-		compl = identifier_ac_get_completion(btv, scanning->context);
-		items = g_list_prepend(NULL, tmp);
-		g_completion_add_items(compl, items);
-		/*g_list_free(items);*/
-		/*g_free(tmp);*/
+		oldijd = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk);
+		if (oldijd) {
+			/* it exists, now only update the line number, don't add to the completion */
+			if (oldijd->doc == btv->doc)
+				oldijd->line = gtk_text_iter_get_line(end)+1;
+			identifier_jump_key_free(ijk); /* that will free tmp as well */
+		} else {
+			ijd = identifier_jumpdata_new(DOCUMENT(btv->doc), gtk_text_iter_get_line(end)+1);
+			g_hash_table_insert(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk, ijd);
+			compl = identifier_ac_get_completion(btv, scanning->context);
+			items = g_list_prepend(NULL, tmp);
+			g_completion_add_items(compl, items);
+			g_list_free(items);
+			/*don't free tmp, we use this piece of memory both in the jumpkey and in the completion */
+		}
 	}
 	scanning->identmode = 0;
 }
