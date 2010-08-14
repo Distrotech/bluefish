@@ -46,6 +46,7 @@
 #include "bf_lib.h"
 #include "bftextview2.h"
 #include "bftextview2_langmgr.h"
+#include "bftextview2_identifier.h"
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"

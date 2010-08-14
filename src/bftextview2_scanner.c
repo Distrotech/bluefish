@@ -27,6 +27,7 @@
 /* for the design docs see bftextview2.h */
 #include "bluefish.h"
 #include "bftextview2_scanner.h"
+#include "bftextview2_identifier.h"
 /* use 
 G_SLICE=always-malloc valgrind --tool=memcheck --leak-check=full --num-callers=32 --freelist-vol=100000000 src/bluefish-unstable
 to memory-debug this code
@@ -524,69 +525,6 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 		return pat.nextcontext;
 }
 
-#ifdef IDENTSTORING
-
-static Tjumpkey *identifier_jumpkey_new(gpointer bflang, gint16 context, gchar *name) {
-	Tjumpkey *ijk = g_slice_new0(Tjumpkey);
-	ijk->bflang = bflang;
-	ijk->context = context;
-	ijk->name = name; /* don't dup the string, we allocate that memory only once and re-use the same block in the completion and in this key  */
-	return ijk;
-}
-
-static Tjumpdata *identifier_jumpdata_new(Tdocument *doc, guint line) {
-	Tjumpdata *ijd = g_slice_new0(Tjumpdata);
-	ijd->doc = doc;
-	ijd->line = line;
-	return ijd;
-}
-
-static GCompletion *identifier_ac_get_completion(BluefishTextView * btv, gint16 context) {
-	Tackey iak;
-	GCompletion *compl;
-	iak.bflang = btv->bflang;
-	iak.context = context;
-	compl = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_ac, &iak);
-	if (!compl) {
-		Tackey *iakp = g_slice_new0(Tackey);
-		*iakp=iak;
-		compl = g_completion_new(NULL);
-		g_hash_table_insert(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_ac, iakp, compl);
-   }
-   return compl;
-}
-
-static inline void found_identifier(BluefishTextView * btv, GtkTextIter *start, GtkTextIter *end, Tscanning *scanning) {
-	if (scanning->identmode == 1) {
-		Tjumpkey *ijk;
-		Tjumpdata *ijd, *oldijd;
-		GCompletion *compl;
-		gchar *tmp;
-		GList *items;
-		
-		tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
-		g_print("found identifier %s at %p\n",tmp, tmp);
-		ijk = identifier_jumpkey_new(btv->bflang, scanning->context, tmp);
-		oldijd = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk);
-		if (oldijd) {
-			/* it exists, now only update the line number, don't add to the completion */
-			if (oldijd->doc == btv->doc)
-				oldijd->line = gtk_text_iter_get_line(end)+1;
-			identifier_jump_key_free(ijk); /* that will free tmp as well */
-		} else {
-			ijd = identifier_jumpdata_new(DOCUMENT(btv->doc), gtk_text_iter_get_line(end)+1);
-			g_hash_table_insert(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk, ijd);
-			compl = identifier_ac_get_completion(btv, scanning->context);
-			items = g_list_prepend(NULL, tmp);
-			g_completion_add_items(compl, items);
-			g_list_free(items);
-			/*don't free tmp, we use this piece of memory both in the jumpkey and in the completion */
-		}
-	}
-	scanning->identmode = 0;
-}
-#endif /* IDENTSTORING */
-
 static gboolean bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
 	/* first find a region that needs scanning */
 	gtk_text_buffer_get_start_iter(buffer, start);
@@ -710,6 +648,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	guint pos = 0, newpos;
 	gboolean normal_run=TRUE, last_character_run=FALSE;
 	gint loop=0;
+#ifdef IDENTSTORING
+	GtkTextIter itcursor;
+#endif
 #ifdef HL_PROFILING
 	gdouble stage1=0;
 	gdouble stage2;
@@ -792,7 +733,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		gtk_text_iter_forward_to_end(&end);
 	else
 		end = *visible_end;
-
+#ifdef IDENTSTORING
+	gtk_text_buffer_get_iter_at_mark(buffer, &itcursor, gtk_text_buffer_get_insert(buffer));
+#endif
 	do {
 		gunichar uc;
 		loop++;
@@ -825,7 +768,13 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 			}
 #ifdef IDENTSTORING
 			else if (pos == g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).identstate){
-				found_identifier(btv, &mstart, &iter, &scanning);
+				/* ignore if the cursor is within the range, because it could be that the user is still typing the name */
+				if (!gtk_text_iter_in_range(&itcursor, &mstart, &iter) 
+								&& !gtk_text_iter_equal(&itcursor, &mstart) 
+								&& !gtk_text_iter_equal(&itcursor, &iter)) {
+					found_identifier(btv, &mstart, &iter, scanning.context, scanning.identmode);
+					scanning.identmode = 0;
+				}
 			}
 #endif /* IDENTSTORING */
 			if (gtk_text_iter_equal(&mstart,&iter) && !last_character_run) {
@@ -1054,6 +1003,9 @@ void cleanup_scanner(BluefishTextView *btv) {
 #ifdef HL_PROFILING
 	g_print("cleanup_scanner, num_marks=%d, fblock_refcount=%d,fcontext_refcount=%d,fstack_refcount=%d\n",hl_profiling.num_marks,hl_profiling.fblock_refcount,hl_profiling.fcontext_refcount,hl_profiling.fstack_refcount);
 #endif
+#ifdef IDENTSTORING
+	bftextview2_identifier_hash_remove_doc(DOCUMENT(btv->doc)->bfwin, btv->doc);
+#endif /* IDENTSTORING */
 
 }
 

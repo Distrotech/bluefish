@@ -223,28 +223,6 @@ extern void g_none(char * first, ...);
 /* building the automata and autocompletion cache */
 /*****************************************************************/
 
-#ifdef IDENTSTORING
-typedef struct {
-	gpointer doc;
-	guint line;
-} Tjumpdata;
-#define JUMPDATA(var) ((Tjumpdata *)var)
-
-typedef struct {
-	gpointer bflang;
-	gint16 context;
-	gchar *name;
-} Tjumpkey;
-#define JUMPKEY(var) ((Tjumpkey *)var)
-
-typedef struct {
-	gpointer bflang;
-	gint16 context;
-} Tackey;
-#define ACKEY(var) ((Tackey *)var)
-
-#endif /* IDENTSTORING */
-
 typedef struct {
 	gboolean autocomplete_case_insens;
 	GCompletion* ac; /* autocompletion items in this context */
@@ -485,16 +463,6 @@ GType bluefish_text_view_get_type (void);
 
 GtkWidget * bftextview2_new(void);
 GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer);
-#ifdef IDENTSTORING
-void bftextview2_identifier_hash_remove_doc(gpointer bfwin, gpointer doc);
-void bftextview2_identifier_hash_destroy(gpointer bfwin);
-void bftextview2_identifier_hash_init(gpointer bfwin);
-#endif
-
-gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter, gint *context);
-#ifdef IDENTSTORING
-Tjumpdata *bftextview2_lookup_identifier(gpointer bfwin, BluefishTextView *btv, gint context, const gchar *text);
-#endif
 gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
 void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);
 gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);

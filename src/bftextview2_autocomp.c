@@ -22,8 +22,8 @@
 #include <gdk/gdkkeysyms.h>
 #include "bluefish.h"
 #include "bftextview2_scanner.h"
+#include "bftextview2_identifier.h"
 #include "bftextview2_autocomp.h"
-
 
 typedef struct {
 	BluefishTextView * btv;
@@ -453,11 +453,7 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 			DBG_AUTOCOMP("got %d autocompletion items for prefix %s in context %d, newprefix=%s\n",g_list_length(items),prefix,contextnum,newprefix);
 #ifdef IDENTSTORING
 			{
-				Tackey iak;
-				GCompletion *compl;
-				iak.bflang = btv->bflang;
-				iak.context = contextnum;
-				compl = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_ac, &iak);
+				GCompletion *compl = identifier_ac_get_completion(btv, contextnum, FALSE);
 				g_print("got completion %p for context %d\n",compl,contextnum);
 				if (compl) {
 					gchar *newprefix2=NULL;
