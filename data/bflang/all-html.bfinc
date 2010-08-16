@@ -71,7 +71,7 @@
 </tag>
 
 <tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;,media,title,type" attribhighlight="html-attribute" autocomplete_append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" autocomplete_backup_cursor="9" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
-	<context symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
+	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
 		<element idref="e.html.lcomment"/>
 		<element id="e.html.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">

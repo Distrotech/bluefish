@@ -32,6 +32,7 @@
 	<highlight name="css-comment" style="comment" />
 	<highlight name="css-html-tag" style="tag"  />
 	<highlight name="css-html-classid" style="tag" />
+	<highlight name="css-html-media" style="special-tag" />
 	<highlight name="css-keyword" style="keyword"  />
 	<highlight name="css-property" style="special-keyword"  />
 	<highlight name="css-string" style="string" />
@@ -44,20 +45,21 @@
 	<smartoutdent characters="}" />
 </properties>
 <definition>
-	<context symbols=" &#9;&#10;&#13;{}.,:#">
+	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}.,:#">
+		<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
+			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
+				<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
+			</context>
+		</element>		
 		&css-selectors;
 		<element id="e.css.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="css-brackets" >
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
 				&css-rules;
-				<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
-					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
-						<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
-					</context>
-				</element>
+				<element idref="e.css.lcomment" />
 				<element pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="1"/>
 			</context>
 		</element>
-		<element idref="e.css.lcomment" />
+		
 	</context>
 </definition>
 </bflang>

@@ -69,6 +69,7 @@
 	<highlight name="css-comment" style="comment" />
 	<highlight name="css-html-tag" style="tag"  />
 	<highlight name="css-html-classid" style="tag" />
+	<highlight name="css-html-media" style="special-tag" />
 	<highlight name="css-keyword" style="keyword"  />
 	<highlight name="css-property" style="special-keyword"  />
 	<highlight name="css-string" style="string" />
@@ -123,7 +124,7 @@
 </context>
 </tag>
 <tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
-	<context symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
+	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
 		<element idref="e.html.comment"/>
 		<element id="e.xhtml.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
