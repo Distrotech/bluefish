@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -20,12 +20,14 @@
 
 /*#define MINIMAL_REFCOUNTING*/
 
-/*#define HL_PROFILING*/
+#define HL_PROFILING
 #ifdef HL_PROFILING
 #include <unistd.h>
 #endif
 /* for the design docs see bftextview2.h */
+#include "bluefish.h"
 #include "bftextview2_scanner.h"
+#include "bftextview2_identifier.h"
 /* use 
 G_SLICE=always-malloc valgrind --tool=memcheck --leak-check=full --num-callers=32 --freelist-vol=100000000 src/bluefish-unstable
 to memory-debug this code
@@ -43,6 +45,7 @@ typedef struct {
 	GQueue *blockstack;
 	GTimer *timer;
 	gint16 context;
+	guint8 identmode;
 } Tscanning;
 #ifdef HL_PROFILING
 typedef struct {
@@ -467,6 +470,9 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 	DBG_SCANNING("found_match for pattern %d %s at charoffset %d, starts_block=%d,ends_block=%d, nextcontext=%d (current=%d)\n",match.patternum,pat.pattern, gtk_text_iter_get_offset(&match.start),pat.starts_block,pat.ends_block,pat.nextcontext,scanning->context);
 /*	DBG_MSG("pattern no. %d (%s) matches (%d:%d) --> nextcontext=%d\n", match.patternum, scantable.matches[match.patternum].message,
 			gtk_text_iter_get_offset(&match.start), gtk_text_iter_get_offset(&match.end), scantable.matches[match.patternum].nextcontext);*/
+#ifdef IDENTSTORING
+	scanning->identmode = pat.identmode;
+#endif /* IDENTSTORING */
 
 	if (pat.selftag) {
 		DBG_SCANNING("apply tag %p from %d to %d\n",pat.selftag,gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
@@ -642,6 +648,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	guint pos = 0, newpos;
 	gboolean normal_run=TRUE, last_character_run=FALSE;
 	gint loop=0;
+#ifdef IDENTSTORING
+	GtkTextIter itcursor;
+#endif
 #ifdef HL_PROFILING
 	gdouble stage1=0;
 	gdouble stage2;
@@ -658,6 +667,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 #endif
 
 	scanning.context = 1;
+#ifdef IDENTSTORING
+	scanning.identmode = 0;
+#endif /* IDENTSTORING */
+
 	DBG_MSG("bftextview2_run_scanner for btv %p..\n",btv);
 	if (!btv->bflang->st) {
 		DBG_MSG("no scantable, nothing to scan, returning...\n");
@@ -720,7 +733,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		gtk_text_iter_forward_to_end(&end);
 	else
 		end = *visible_end;
-
+#ifdef IDENTSTORING
+	gtk_text_buffer_get_iter_at_mark(buffer, &itcursor, gtk_text_buffer_get_insert(buffer));
+#endif
 	do {
 		gunichar uc;
 		loop++;
@@ -751,6 +766,17 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				scanning.context = found_match(btv, match,&scanning);
 				DBG_SCANNING("after match context=%d\n",scanning.context);
 			}
+#ifdef IDENTSTORING
+			else if (pos == g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).identstate){
+				/* ignore if the cursor is within the range, because it could be that the user is still typing the name */
+				if (!gtk_text_iter_in_range(&itcursor, &mstart, &iter) 
+								&& !gtk_text_iter_equal(&itcursor, &mstart) 
+								&& !gtk_text_iter_equal(&itcursor, &iter)) {
+					found_identifier(btv, &mstart, &iter, scanning.context, scanning.identmode);
+					scanning.identmode = 0;
+				}
+			}
+#endif /* IDENTSTORING */
 			if (gtk_text_iter_equal(&mstart,&iter) && !last_character_run) {
 				gtk_text_iter_forward_char(&iter);
 #ifdef HL_PROFILING
@@ -977,6 +1003,9 @@ void cleanup_scanner(BluefishTextView *btv) {
 #ifdef HL_PROFILING
 	g_print("cleanup_scanner, num_marks=%d, fblock_refcount=%d,fcontext_refcount=%d,fstack_refcount=%d\n",hl_profiling.num_marks,hl_profiling.fblock_refcount,hl_profiling.fcontext_refcount,hl_profiling.fstack_refcount);
 #endif
+#ifdef IDENTSTORING
+	bftextview2_identifier_hash_remove_doc(DOCUMENT(btv->doc)->bfwin, btv->doc);
+#endif /* IDENTSTORING */
 
 }
 

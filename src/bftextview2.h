@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -156,6 +156,27 @@ a -> state 1
 as you see, the scanner is stuck in state 1 (the identstate) if
 either on the start or on the end there is no symbol.
 
+======== Autocompleting patterns =============
+for autocompletion we keep a GCompletion in each context. This is filled with 
+all the patterns during XML load.
+
+we use a similar scanning engine as above that can tell us where the string that 
+the user is typing started, and in which context the curor position is. Once
+we know the context we know which GCompletion structure to use, so we can get 
+a list of possible completion strings.
+
+======= Storing found function names and such for jump and autocompletion ======
+
+for jump: found functions names are stored in a hashtable 
+bfwin->identifier_jump as
+key Tbflang-context-name -> value Tdocument-linenumber
+
+for autocompletion they are added to a GCompletion
+the GCompletion can be found in hashtable
+bfwin->identifier_ac with 
+key Tbflang-context -> value GCompletion
+
+
 */
 
 #ifndef _BFTEXTVIEW2_H_
@@ -173,7 +194,7 @@ extern void g_none(char * first, ...);
 #endif  
  /**/
 
-
+/*#define IDENTSTORING*/
 
 #define BF2_OFFSET_UNDEFINED G_MAXUINT32
 
@@ -246,6 +267,9 @@ typedef struct {
 	guint8 case_insens;
 	guint8 is_regex;
 	guint8 tagclose_from_blockstack; /* this is a generix xml close tag that needs the blockstack to autoclose */
+#ifdef IDENTSTORING
+	guint8 identmode;
+#endif /* IDENTSTORING */
 	/*gboolean may_fold;  not yet used */
 	/*gboolean highlight_other_end; not yet used */
 } Tpattern;
@@ -347,6 +371,7 @@ typedef struct {
 	Tcomment *line; /* preferred line comment */
 	Tcomment *block; /* preferred block comment */
 	gchar *smartindentchars;
+	gchar *smartoutdentchars;
 #ifdef HAVE_LIBENCHANT
 	gboolean default_spellcheck;
 #endif
@@ -406,6 +431,8 @@ struct _BluefishTextView {
 	gboolean key_press_inserted_char; /* FALSE if the key press was used by autocomplete popup, or simply not in our widget */
 	/*gboolean key_press_was_autocomplete;  a state of the widget, if the last keypress was handled by the autocomplete popup window */
 	gboolean showing_blockmatch; /* a state of the widget if we are currently showing a blockmatch */
+	gboolean insert_was_auto_indent; /* a state of the widget if the last keypress (enter) caused 
+													autoindent (so we should unindent on a closing bracket */
 
 	/* next three are used for margin painting */
 	gint margin_pixels_per_char;
@@ -436,8 +463,6 @@ GType bluefish_text_view_get_type (void);
 
 GtkWidget * bftextview2_new(void);
 GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer);
-
-gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter);
 
 gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
 void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);

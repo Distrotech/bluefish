@@ -6,7 +6,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -20,14 +20,17 @@
  */
 /* indented with indent -ts4 -kr -l110   */
 
+/*#define IDENTSTORING*/
+
 /* #define HL_PROFILING */
 /* if you define DEBUG here you will get debug output from all Bluefish parts */
 /* #define DEBUG */
 
-#define DEBUG_PATHS
-
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
+
+/*#define MEMORY_LEAK_DEBUG*/
+/*#define DEBUG_PATHS*/
 
 #define ENABLEPLUGINS
 
@@ -461,6 +464,11 @@ typedef struct {
 	GtkTreeModelFilter *bmarkfilter;
 	gchar *bmark_search_prefix;
 	gpointer bmarkdata;			/* a link to the global main_v->bmarkdata, OR project->bmarkdata */
+#ifdef IDENTSTORING
+	GHashTable *identifier_jump;
+	GHashTable *identifier_ac;
+#endif /* IDENTSTORING */
+
 } Tbfwin;
 
 typedef struct {

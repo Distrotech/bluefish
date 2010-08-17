@@ -8,7 +8,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -628,7 +628,9 @@ void quickanchor_dialog(Tbfwin *bfwin, Ttagpopup *data) {
   gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 2, 3, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
   bf_mnemonic_label_tad_with_alignment(_("_HREF:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 0, 1);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1, 2, 0, 1);
-
+	if (bfwin->session->targetlist==NULL) {
+		bfwin->session->targetlist = list_from_arglist(TRUE, "_top", "_blank", "_parent", "_selfs", NULL);
+	}
   dg->combo[1] = combobox_with_popdown(avalues[1], bfwin->session->targetlist, 1);
   bf_mnemonic_label_tad_with_alignment(_("_Target:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
   gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 3, 1, 2);

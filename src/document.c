@@ -7,7 +7,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -46,6 +46,7 @@
 #include "bf_lib.h"
 #include "bftextview2.h"
 #include "bftextview2_langmgr.h"
+#include "bftextview2_identifier.h"
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
@@ -2072,6 +2073,9 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	DEBUG_MSG("doc_destroy, removed widget from notebook (doc=%p), delay_activation=%d\n",doc,delay_activation);
 	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n",doc);
 	gui_notebook_unblock_signals(BFWIN(doc->bfwin));
+#ifdef IDENTSTORING
+	bftextview2_identifier_hash_remove_doc(doc->bfwin, doc);
+#endif
 	if (!delay_activation) {
 		gint newpage=-1;
 		if (bfwin->prev_document) {
@@ -3213,7 +3217,7 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 	return retlist;
 }
 
-static gchar *doc_text_under_cursor(Tdocument *doc) {
+static gchar *doc_text_under_cursor(Tdocument *doc, gint *context) {
 	GtkTextIter iter;
 	GSList *taglist, *tmplist;
 	gchar *retval=NULL;
@@ -3221,29 +3225,28 @@ static gchar *doc_text_under_cursor(Tdocument *doc) {
 	GtkTextIter so,eo;
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, gtk_text_buffer_get_insert(doc->buffer));
 
-	taglist = gtk_text_iter_get_tags(&iter);
+/*	taglist = gtk_text_iter_get_tags(&iter);
 	for (tmplist=taglist;tmplist;tmplist=tmplist->next) {
 		GtkTextTag *tag=tmplist->data;
-		/* avoid tags like needscanning, folded, blockheader and such */
+		/ * avoid tags like needscanning, folded, blockheader and such * /
 		if (!langmgr_in_highlight_tags(tag))
-			continue; 
+			continue;
 		so=eo=iter;
 		if (!gtk_text_iter_begins_tag(&so, tag))
 			gtk_text_iter_backward_to_tag_toggle(&so, tag);
 		if (!gtk_text_iter_ends_tag(&eo, tag))
 			gtk_text_iter_forward_to_tag_toggle(&eo, tag);
-		/*g_print("found tag %p from %d to %d\n",tag,gtk_text_iter_get_offset(&so), gtk_text_iter_get_offset(&eo));*/
-		/* use the smallest string */
+		/ * use the smallest string * /
 		if (retval && g_utf8_strlen(retval,-1) > (gtk_text_iter_get_offset(&eo)-gtk_text_iter_get_offset(&so))) {
 			g_free(retval);
 			retval=NULL;
 		}
 		if (!retval)
 			retval = gtk_text_buffer_get_text(doc->buffer, &so,&eo,TRUE);
-	}
+	}*/
 
 	if (!retval)
-		retval = bf_get_identifier_at_iter(BLUEFISH_TEXT_VIEW(doc->view), &iter);
+		retval = bf_get_identifier_at_iter(BLUEFISH_TEXT_VIEW(doc->view), &iter, context);
 	
 	if (!retval)
 		return NULL;
@@ -3257,7 +3260,6 @@ static gchar *doc_text_under_cursor(Tdocument *doc) {
 		memmove(retval, retval+1, len-2);
 		retval[len-2]='\0';
 	}
-	
 	return retval;
 }
 
@@ -3304,13 +3306,29 @@ static void doc_jump_check_file(Tdocument *doc, const gchar *filename) {
 
 static void doc_jump(Tdocument *doc) {
 	gchar *string;
+	gint context=-1;
 	/* see what's under the cursor */
-	string = doc_text_under_cursor(doc);
+	string = doc_text_under_cursor(doc, &context);
 	if (!string)
 		return;
 	DEBUG_MSG("doc_jump, got string %s\n",string);
 	/* check if this is an existing file */
 	doc_jump_check_file(doc, string);
+
+#ifdef IDENTSTORING
+	g_print("context=%d\n",context);
+	if (context != -1) {
+		Tjumpdata *ijd = bftextview2_lookup_identifier(doc->bfwin, BLUEFISH_TEXT_VIEW(doc->view), context, string);
+		if (ijd) {
+			g_print("got doc=%p (index=%d), line=%d\n",ijd->doc, g_list_index(BFWIN(doc->bfwin)->documentlist, ijd->doc), ijd->line);
+			if (ijd->doc && g_list_index(BFWIN(doc->bfwin)->documentlist, ijd->doc)!=-1) {
+				g_print("jump! doc=%p, line=%d\n",ijd->doc, ijd->line);
+				switch_to_document_by_pointer(doc->bfwin,ijd->doc);
+				doc_select_line(ijd->doc, ijd->line, TRUE);
+			}
+		}
+	}
+#endif
 	g_free(string);
 }
 
