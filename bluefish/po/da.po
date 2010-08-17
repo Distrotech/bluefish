@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-08-10 16:50+0200\n"
-"PO-Revision-Date: 2010-08-14 22:30+0100\n"
+"POT-Creation-Date: 2010-08-17 09:43+0200\n"
+"PO-Revision-Date: 2010-08-17 15:30+0200\n"
 "Last-Translator: Finn Gruwier Larsen <finngruwierlarsen@gmail.com>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -31,11 +31,11 @@ msgstr "Bluefish sprogdefinitionsfil"
 msgid "Bluefish project file"
 msgstr "Bluefish projektfil"
 
-#: ../src/bftextview2.c:1188
+#: ../src/bftextview2.c:1112
 msgid "Collapse all"
 msgstr "Luk alle"
 
-#: ../src/bftextview2.c:1191
+#: ../src/bftextview2.c:1115
 msgid "Expand all"
 msgstr "Udvid alle"
 
@@ -68,8 +68,8 @@ msgid ""
 "Below is the block, including start and end marker. Please <b>select the "
 "start marker</b> in the text below."
 msgstr ""
-"Nedenfor vises blokken inklusive start- og slutmarkør. <b>Vælg "
-"startmarkør</b> i teksten nedenfor."
+"Nedenfor vises blokken inklusive start- og slutmarkør. <b>Vælg startmarkør</"
+"b> i teksten nedenfor."
 
 #: ../src/blocksync.c:157
 msgid "Please <b>select the end marker</b> in the text below."
@@ -82,8 +82,8 @@ msgid ""
 "opened in this window.\n"
 "<b>Proceed?</b>"
 msgstr ""
-"Vil erstatte teksten imellem <i>%s</i> og <i>%s</i> i alle dokumenter, "
-"som åbnes i dette vindue.\n"
+"Vil erstatte teksten imellem <i>%s</i> og <i>%s</i> i alle dokumenter, som "
+"åbnes i dette vindue.\n"
 "<b>Proceed?</b>"
 
 #: ../src/blocksync.c:226
@@ -99,24 +99,24 @@ msgid ""
 "<span foreground=\"red\" weight=\"bold\">This marker exists more than once "
 "in the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Denne markør forekommer mere end "
-"én gang i blokken.</span>"
+"<span foreground=\"red\" weight=\"bold\">Denne markør forekommer mere end én "
+"gang i blokken.</span>"
 
 #: ../src/blocksync.c:246
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Select the text that marks the "
 "start of the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Vælg tekst, der markerer "
-"starten af blokken.</span>"
+"<span foreground=\"red\" weight=\"bold\">Vælg tekst, der markerer starten af "
+"blokken.</span>"
 
 #: ../src/blocksync.c:266
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Select the text that marks the end "
 "of the block.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Vælg tekst, der markerer "
-"slutningen af blokken.</span>"
+"<span foreground=\"red\" weight=\"bold\">Vælg tekst, der markerer slutningen "
+"af blokken.</span>"
 
 #: ../src/blocksync.c:297
 msgid "Synchronize text block"
@@ -286,11 +286,11 @@ msgstr "Du har allerede et bogmærke her!"
 msgid "Delete all bookmarks."
 msgstr "Slet alle bogmærker."
 
-#: ../src/document.c:368
+#: ../src/document.c:369
 msgid "Name: "
 msgstr "Navn: "
 
-#: ../src/document.c:371
+#: ../src/document.c:372
 msgid ""
 "\n"
 "Language mode: "
@@ -298,7 +298,7 @@ msgstr ""
 "\n"
 "Sprog: "
 
-#: ../src/document.c:375
+#: ../src/document.c:376
 msgid ""
 "\n"
 "Encoding: "
@@ -306,7 +306,7 @@ msgstr ""
 "\n"
 "Tegnkodning:"
 
-#: ../src/document.c:384
+#: ../src/document.c:385
 msgid ""
 "\n"
 "Mime type: "
@@ -314,7 +314,7 @@ msgstr ""
 "\n"
 "MIME-type"
 
-#: ../src/document.c:390
+#: ../src/document.c:391
 #, c-format
 msgid ""
 "\n"
@@ -325,7 +325,7 @@ msgstr ""
 "Tilladelser: %s\n"
 "Uid: %u Gid: %u"
 
-#: ../src/document.c:398
+#: ../src/document.c:399
 msgid ""
 "\n"
 "Size (on disk): "
@@ -333,7 +333,7 @@ msgstr ""
 "\n"
 "Størrelse (på disk): "
 
-#: ../src/document.c:406
+#: ../src/document.c:407
 msgid ""
 "\n"
 "Last modified: "
@@ -341,91 +341,91 @@ msgstr ""
 "\n"
 "Sidst ændret: "
 
-#: ../src/document.c:437
+#: ../src/document.c:438
 #, c-format
 msgid "Untitled %d"
 msgstr "Unavngivet %d"
 
-#: ../src/document.c:611
+#: ../src/document.c:612
 #, c-format
 msgid "Changed tab width to %d"
 msgstr "Ændrede tabulering til %d"
 
-#: ../src/document.c:774
+#: ../src/document.c:775
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "Dokumentet %s er allerede åbent i et andet Bluefish-vindue."
 
-#: ../src/document.c:776
+#: ../src/document.c:777
 msgid "Move to this window"
 msgstr "Skift til dette vindue"
 
-#: ../src/document.c:776
+#: ../src/document.c:777
 msgid "Open readonly"
 msgstr "Åbn skrivebeskyttet"
 
-#: ../src/document.c:776
+#: ../src/document.c:777
 msgid "Do not open"
 msgstr "Åbn ikke"
 
-#: ../src/document.c:1062
+#: ../src/document.c:1063
 #, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr "Ln: %d, kol: %d, tegn: %d"
 
-#: ../src/document.c:1064
+#: ../src/document.c:1065
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr "Ln: %d, kol: %d"
 
-#: ../src/document.c:1085
+#: ../src/document.c:1086
 msgid " OVR"
 msgstr " OVR"
 
-#: ../src/document.c:1085
+#: ../src/document.c:1086
 msgid " INS"
 msgstr " INDS"
 
-#: ../src/document.c:1087
+#: ../src/document.c:1088
 msgid " RO"
 msgstr " BESK"
 
-#: ../src/document.c:1104
+#: ../src/document.c:1105
 msgid "Unknown"
 msgstr "Ukendt"
 
-#: ../src/document.c:1520
+#: ../src/document.c:1521
 msgid "Cannot display file, unknown characters found."
 msgstr "Kan ikke vise fil; ukendte tegn fundet."
 
-#: ../src/document.c:1722 ../src/snr2.c:1734
+#: ../src/document.c:1723 ../src/snr2.c:1734
 msgid "Replace"
 msgstr "Erstat"
 
-#: ../src/document.c:1727 ../src/snr2.c:1731
+#: ../src/document.c:1728 ../src/snr2.c:1731
 msgid "Find"
 msgstr "Søg"
 
-#: ../src/document.c:1735
+#: ../src/document.c:1736
 msgid "Delete bookmark"
 msgstr "Slet bogmærke"
 
-#: ../src/document.c:1739
+#: ../src/document.c:1740
 msgid "Add bookmark"
 msgstr "Tilføj bogmærke"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:1856 ../src/file_dialogs.c:450 ../src/file_dialogs.c:487
+#: ../src/document.c:1857 ../src/file_dialogs.c:450 ../src/file_dialogs.c:487
 msgid "_Abort save"
 msgstr "_Afbryd gemning"
 
-#: ../src/document.c:1856
+#: ../src/document.c:1857
 msgid "_Continue save in UTF-8"
 msgstr "_Fortsæt med at gemme i UTF-8"
 
-#: ../src/document.c:1867
+#: ../src/document.c:1868
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -433,34 +433,34 @@ msgid ""
 "\n"
 "Continue saving in UTF-8 encoding?"
 msgstr ""
-"Kunne ikke konvertere %s til tegnkodning %s. Kodning gik i stå ved "
-"tegnet '%s' på linje %d, kolonne %d\n"
+"Kunne ikke konvertere %s til tegnkodning %s. Kodning gik i stå ved tegnet '%"
+"s' på linje %d, kolonne %d\n"
 "\n"
 "Vil du fortsat gemme i tegnkodningen UTF-8?"
 
-#: ../src/document.c:1871
+#: ../src/document.c:1872
 msgid "File encoding conversion failure"
 msgstr "Fejl ved konvertering af tegnkodning"
 
-#: ../src/document.c:2128
+#: ../src/document.c:2129
 msgid "Previously: "
 msgstr "Tidligere: "
 
-#: ../src/document.c:2548 ../src/file_dialogs.c:787
+#: ../src/document.c:2549 ../src/file_dialogs.c:787
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
 "to 2.18.0 or newer."
 msgstr ""
-"Din glib-version (%d.%d.%d) er upålidelig med fjerne filer. Opgradér venligst "
-"til 2.18.0 eller nyere."
+"Din glib-version (%d.%d.%d) er upålidelig med fjerne filer. Opgradér "
+"venligst til 2.18.0 eller nyere."
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2682
+#: ../src/document.c:2683
 msgid "Unable to open file"
 msgstr "Kunne ikke åbne filen"
 
-#: ../src/document.c:2692
+#: ../src/document.c:2693
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -469,66 +469,66 @@ msgstr ""
 "Hvis du reverterer \"%s\" til din sidst gemte kopi, vil dine aktuelle "
 "ændringer gå tabt."
 
-#: ../src/document.c:2696
+#: ../src/document.c:2697
 msgid "Revert changes to last saved copy?"
 msgstr "Gå tilbage til sidst gemte kopi?"
 
-#: ../src/document.c:2755
+#: ../src/document.c:2756
 msgid "_Retry"
 msgstr "_Prøv igen"
 
-#: ../src/document.c:2755
+#: ../src/document.c:2756
 msgid "Retry _all failed"
 msgstr "Prøv _alle fejlede igen"
 
-#: ../src/document.c:2755
+#: ../src/document.c:2756
 msgid "_Close"
 msgstr "_Luk"
 
-#: ../src/document.c:2755
+#: ../src/document.c:2756
 msgid "Close all _failed"
 msgstr "Luk alle fejlede"
 
-#: ../src/document.c:2759
+#: ../src/document.c:2760
 msgid "File "
 msgstr "Fil "
 
-#: ../src/document.c:2759
+#: ../src/document.c:2760
 msgid " failed to load."
 msgstr " kunne ikke åbnes."
 
-#: ../src/document.c:2763
+#: ../src/document.c:2764
 msgid "File failed to load\n"
 msgstr "Fejl ved åbning af fil\n"
 
-#: ../src/document.c:2886
+#: ../src/document.c:2887
 msgid "Select file to insert"
 msgstr "Vælg fil, der skal indsættes"
 
-#: ../src/document.c:2894
+#: ../src/document.c:2895
 msgid "No file to insert"
 msgstr "Ingen fil valgt til indsættelse"
 
-#: ../src/document.c:3035
+#: ../src/document.c:3036
 #, c-format
 msgid "Statistics: "
 msgstr "Statistik:"
 
-#: ../src/document.c:3036
+#: ../src/document.c:3037
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d linje"
 msgstr[1] "%d linjer"
 
-#: ../src/document.c:3037
+#: ../src/document.c:3038
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d ord"
 msgstr[1] "%d ord"
 
-#: ../src/document.c:3038
+#: ../src/document.c:3039
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
@@ -1411,7 +1411,7 @@ msgstr "/Dokument/Vis _blokke"
 
 #: ../src/menu.c:284
 msgid "/Document/_Visible Spacing"
-msgstr "/Dokument/_Synlig spatiering"
+msgstr "/Dokument/S_ynlig spatiering"
 
 #: ../src/menu.c:285
 msgid "/Document/Show Right Margin"
@@ -1519,19 +1519,19 @@ msgstr "/Gå til/_Sidste Dokument"
 
 #: ../src/menu.c:330
 msgid "/Go/F_irst Bookmark"
-msgstr "/Gå til/F_ørste bogmærke"
+msgstr "/Gå til/Første _bogmærke"
 
 #: ../src/menu.c:331
 msgid "/Go/P_revious Bookmark"
-msgstr "/Gå til/F_orrige bogmærke"
+msgstr "/Gå til/Forrige bo_gmærke"
 
 #: ../src/menu.c:332
 msgid "/Go/N_ext Bookmark"
-msgstr "/Gå til/_Næste bogmærke"
+msgstr "/Gå til/Næste bog_mærke"
 
 #: ../src/menu.c:333
 msgid "/Go/Last _Bookmark"
-msgstr "/Gå til/_Sidste bogmærke"
+msgstr "/Gå til/Sidste bogm_ærke"
 
 #: ../src/menu.c:335
 msgid "/Go/Goto _Line"
@@ -1611,7 +1611,7 @@ msgstr "/Værktøjer/_Fjern efterfølgende whitespace"
 
 #: ../src/menu.c:365
 msgid "/Tools/_Join lines"
-msgstr "/Værktøjer/_Forén linjer"
+msgstr "/Værktøjer/F_orén linjer"
 
 #: ../src/menu.c:366
 msgid "/Tools/Sp_lit lines"
@@ -1755,7 +1755,9 @@ msgid ""
 "Use drag and drop to re-order the text styles."
 msgstr ""
 "Teksttypografier tilføjes oven i hinanden. Hvis flere teksttypografier er "
-"tilføjet til den samme tekst, er det den øverste teksttype i listen, der har " " højest prioritet. Brug evt. træk-og-slip for at omarrangere typografierne."
+"tilføjet til den samme tekst, er det den øverste teksttype i listen, der "
+"har  højest prioritet. Brug evt. træk-og-slip for at omarrangere "
+"typografierne."
 
 #: ../src/preferences.c:747 ../src/preferences.c:849 ../src/preferences.c:919
 msgid "Label"
@@ -1818,12 +1820,14 @@ msgstr ""
 "%f lokalt filnavn (tilgængeligt for lokale filer)\n"
 "%i midlertidig fifo for input, svarer til %f hvis dokumentet ikke er ændret "
 "og lokalt\n"
-"%I midlertidigt filnavn for input, svarer til %f hvis dokumentet ikke er " "ændret og lokalt\n"
+"%I midlertidigt filnavn for input, svarer til %f hvis dokumentet ikke er "
+"ændret og lokalt\n"
 "<b>Andre valg</b>\n"
 "%c filens lokale mappe (tilgængelig for lokale filer)\n"
 "%n filnavn uden sti (tilgængelig for alle navngivne filer)\n"
 "%u URL (tilgængelig for alle navngivne filer)\n"
-"%p smugkik-URL hvis basismappe og smugkigmappe er sat i " "projektindstillingerne, ellers identisk med %u</small>"
+"%p smugkik-URL hvis basismappe og smugkigmappe er sat i "
+"projektindstillingerne, ellers identisk med %u</small>"
 
 #: ../src/preferences.c:923
 msgid ""
@@ -1853,13 +1857,14 @@ msgstr ""
 "afslut med en | for at læse output fra standardoutput\n"
 "%o midlertidig fifo\n"
 "%O midlertidigt filenavn\n"
-"%t midlertidigt filnavn for både input og output (for in-place-redigering "
-"af filtre, kan ikke arbejde på udvalg)\n"
+"%t midlertidigt filnavn for både input og output (for in-place-redigering af "
+"filtre, kan ikke arbejde på udvalg)\n"
 "<b>Andre valg</b>\n"
 "%c filens lokale mappe (kræver lokal fil)\n"
 "%n filnavn uden sti (tilgængelig for alle navngivne filer)\n"
 "%u URL (tilgængelig for alle navngivne filer)\n"
-"%p smugkik-URL hvis basismappe og smugkigmappe er sat i " "projektindstillingerne, ellers identisk med %u</small>"
+"%p smugkik-URL hvis basismappe og smugkigmappe er sat i "
+"projektindstillingerne, ellers identisk med %u</small>"
 
 #: ../src/preferences.c:1005
 msgid "Pattern"
@@ -1903,18 +1908,20 @@ msgstr ""
 "%f lokalt filnavn (tilgængeligt for lokale filer)\n"
 "%i midlertidig fifo for input, svarer til %f hvis dokumentet ikke er ændret "
 "og lokalt\n"
-"%I midlertidigt filnavn for input, svarer til %f hvis dokumentet ikke er " "ændret og lokalt\n"
+"%I midlertidigt filnavn for input, svarer til %f hvis dokumentet ikke er "
+"ændret og lokalt\n"
 "<b>Outputvalg</b>\n"
 "afslut med en | for at læse output fra standardoutput\n"
 "%o midlertidig fifo\n"
 "%O midlertidigt filenavn\n"
-"%t midlertidigt filnavn for både input og output (for in-place-redigering "
-"af filtre\n"
+"%t midlertidigt filnavn for både input og output (for in-place-redigering af "
+"filtre\n"
 "<b>Andre valg</b>\n"
 "%c filens lokale mappe (tilgængelig for lokale filer)\n"
 "%n filnavn uden sti (tilgængelig for alle navngivne filer)\n"
 "%u URL (tilgængelig for alle navngivne filer)\n"
-"%p smugkik-URL hvis basismappe og smugkigmappe er sat i " "projektindstillingerne, ellers identisk med %u</small>"
+"%p smugkik-URL hvis basismappe og smugkigmappe er sat i "
+"projektindstillingerne, ellers identisk med %u</small>"
 
 #: ../src/preferences.c:1083
 msgid "File"
@@ -2068,7 +2075,6 @@ msgstr "Antal aktioner i fortrydelseshistorik"
 msgid "Clear undo history on save"
 msgstr "Slet fortrydelseshistorik, når der gemmes"
 
-
 #. pred->entries[template] = entry_with_text(pred->project->template, 255);
 #. bf_mnemonic_label_tad_with_alignment(_("_Template:"), pred->entries[template], 1, 0.5, table, 0, 1, 3, 4);
 #. but = file_but_new(pred->entries[template], 1, NULL);
@@ -2100,8 +2106,9 @@ msgstr "Brug forældede tags (f. eks. <font> and <nobr>)"
 
 #: ../src/preferences.c:1600
 msgid "Format according to accessibility guidelines (e.g. <strong> for <b>)"
-msgstr "Formatér i overensstemmelse med retningslinjer for tilgængelighed"
-"(f. eks. <strong> i stedet for <b>)"
+msgstr ""
+"Formatér i overensstemmelse med retningslinjer for tilgængelighed(f. eks. "
+"<strong> i stedet for <b>)"
 
 #: ../src/preferences.c:1601
 msgid "Use XHTML style tags (<br />)"
@@ -2231,7 +2238,8 @@ msgstr "Gør HTML-dialoger transiente"
 msgid ""
 "Notebook tab font \n"
 "(leave empty for gtk default)"
-msgstr "Skrifttype for notesblok-tabs \n"
+msgstr ""
+"Skrifttype for notesblok-tabs \n"
 "(lad være tom for GTK standard)"
 
 #: ../src/preferences.c:1693
@@ -2304,7 +2312,6 @@ msgstr "Thumbnail-endelse"
 msgid "Thumbnail filetype"
 msgstr "Thumbnail-filtype"
 
-
 #: ../src/preferences.c:1735
 msgid "External commands"
 msgstr "Eksterne/kommandoer"
@@ -2331,7 +2338,7 @@ msgstr "Plugins"
 
 #: ../src/preferences.c:1774 ../src/preferences.c:1775
 msgid "Text styles"
-msgstr ""
+msgstr "Typografier"
 
 #: ../src/preferences.c:1784
 msgid "Language support"
@@ -2595,7 +2602,8 @@ msgid ""
 "<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
 "will continue at the beginning.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Yderligere forekomster ikke fundet. " "Næste søgning vil starte forfra ved begyndelsen.</span>"
+"<span foreground=\"red\" weight=\"bold\">Yderligere forekomster ikke fundet. "
+"Næste søgning vil starte forfra ved begyndelsen.</span>"
 
 #: ../src/snr2.c:1707
 msgid "Entire document"
@@ -2695,8 +2703,8 @@ msgstr "Tillad o_verlappende forekomster"
 
 #: ../src/snr2.c:1854
 msgid "After a match is found, start next search within that match."
-msgstr "Når en forekomst er fundet, start den næste søgning indeni denne "
-"forekomst."
+msgstr ""
+"Når en forekomst er fundet, start den næste søgning indeni denne forekomst."
 
 #: ../src/snr2.c:1856
 msgid "Case sensitive _matching"
@@ -2738,6 +2746,10 @@ msgstr "Erstat _alle"
 msgid "_Replace"
 msgstr "_Erstat"
 
+#: ../src/snr2.c:1884
+msgid "Find _All"
+msgstr "Find _alle"
+
 #: ../src/snr2.c:2499
 msgid "Lines into columns"
 msgstr "Linjer til kolonner"
@@ -2773,4 +2785,3 @@ msgstr "Fortryd denne ændring i alle dokumenter?"
 #: ../src/undo_redo.c:463
 msgid "This change concerns multiple documents."
 msgstr "Denne ændring angår flere dokumenter."
-
