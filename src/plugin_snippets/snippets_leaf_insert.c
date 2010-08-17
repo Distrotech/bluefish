@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -77,8 +77,8 @@ static gchar *snippets_strings2ui(const gchar *before, gint beforelen, const gch
 gchar *snippets_tooltip_from_insert_content(xmlNodePtr leaf) {
 	xmlNodePtr cur;
 	gchar *tmpstr;
-	gchar *before, *after;
-	gint beforelen,afterlen;
+	gchar *before=NULL, *after=NULL;
+	gint beforelen=0,afterlen=0;
 	for (cur = leaf->xmlChildrenNode;cur != NULL;cur = cur->next) {
 		if (xmlStrEqual(cur->name, (const xmlChar *)"before")) {
 			before = (gchar *)xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);

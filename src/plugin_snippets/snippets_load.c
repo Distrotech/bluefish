@@ -5,7 +5,7 @@
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -60,6 +60,7 @@ leaves are of some type:
 
 #include "snippets.h"
 #include "snippets_load.h"
+#include "snippets_gui.h"
 #include "../config.h"
 #include "../bf_lib.h"
 
@@ -248,6 +249,7 @@ static gboolean snippets_load_finished_lcb(gpointer data) {
 			if (xmlStrEqual(cur->name, (const xmlChar *) "snippets")) {
 				snippets_v.doc = doc;
 				walk_tree(cur, NULL);
+				snippets_rebuild_accelerators();
 				DEBUG_MSG("snippets_load_finished_lcb, finished walking tree\n");
 				return FALSE;
 			}
