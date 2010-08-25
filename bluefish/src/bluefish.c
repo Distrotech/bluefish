@@ -375,11 +375,9 @@ void bluefish_exit_request()
 	g_list_free(tmplist);
 	tmplist = g_list_first(main_v->bfwinlist);
 	while (tmplist) {
-		main_window_delete_event_lcb(NULL,NULL,BFWIN(tmplist->data));
-/*		if (tmpb) {
-			file_close_all_cb(NULL, BFWIN(tmplist->data));
-		}*/
+		Tbfwin *bfwin = BFWIN(tmplist->data);
 		tmplist = g_list_next(tmplist);
+		main_window_delete_event_lcb(NULL,NULL,bfwin);
 	}
 	/* if we still have modified documents we don't do a thing,
 	   if we don't have them we can quit */
