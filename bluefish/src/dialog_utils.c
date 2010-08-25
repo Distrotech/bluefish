@@ -487,7 +487,7 @@ message_dialog_new_multi(GtkWidget *parent,
 	gint response;
 	int i = 0;
 		
-	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+	dialog = gtk_message_dialog_new((GtkWindow *)parent,
 												GTK_DIALOG_DESTROY_WITH_PARENT,
 												type,
 												GTK_BUTTONS_NONE,
