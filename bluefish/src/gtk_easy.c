@@ -1362,7 +1362,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChoose
 		GtkFileFilter* ff;
 		ff = gtk_file_filter_new();
 		gtk_file_filter_set_name(ff,_("All files"));
-		gtk_file_filter_add_custom(ff, GTK_FILE_FILTER_DISPLAY_NAME, 
+		gtk_file_filter_add_custom(ff, GTK_FILE_FILTER_DISPLAY_NAME | GTK_FILE_FILTER_MIME_TYPE,
 		                           (GtkFileFilterFunc) file_chooser_custom_filter_func,
                                    new_fchooser_filter(dialog, viewbackup, NULL),g_free);
 		gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
@@ -1370,7 +1370,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChoose
 			Tfilter *filter =tmplist->data;
 			ff = gtk_file_filter_new();
 			gtk_file_filter_set_name(ff,filter->name);
-			gtk_file_filter_add_custom(ff, GTK_FILE_FILTER_DISPLAY_NAME, 
+			gtk_file_filter_add_custom(ff, GTK_FILE_FILTER_DISPLAY_NAME | GTK_FILE_FILTER_MIME_TYPE,
 			                           (GtkFileFilterFunc) file_chooser_custom_filter_func,
                                        new_fchooser_filter(dialog, viewbackup, filter),g_free);
 			gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
