@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * stringlist.c - functions that deal with stringlists
  *
- * Copyright (C) 1999-2002 Olivier Sessink
+ * Copyright (C) 1999-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -87,27 +87,30 @@ gint count_array(gchar **array) {
 gchar *array_to_string(gchar **array) {
 	gchar **tmp, *escaped1, *finalstring;
 	gint newsize=1;
+	gsize allocsize=64;
 	g_return_val_if_fail(array,g_strdup(""));
-	DEBUG_MSG("array_to_string, started\n");
-	finalstring = g_malloc0(newsize);
+	finalstring = g_malloc0(allocsize);
 	tmp = array;
 	while(*tmp) {
-		DEBUG_MSG("array_to_string, *tmp = %s\n", *tmp);
+		/*DEBUG_MSG("array_to_string, *tmp = %s\n", *tmp);*/
 		escaped1 = escape_string(*tmp, TRUE);
 		newsize += strlen(escaped1)+1;
-		finalstring = g_realloc(finalstring, newsize);
+		if (newsize > allocsize) {
+			allocsize = MAX(newsize, (allocsize * 2));
+			finalstring = g_realloc(finalstring, allocsize);
+		}
 		strcat(finalstring, escaped1);
 		finalstring[newsize-2] = ':';
 		finalstring[newsize-1] = '\0';
 		g_free(escaped1);
 		tmp++;
-	}	
-	DEBUG_MSG("array_to_string, finalstring = %s\n", finalstring);
+	}
+	DEBUG_MSG("array_to_string, len(finalstring) = %d\n", strlen(finalstring));
 	return finalstring;
 }
 
-#define ARRAYBLOCKSIZE 6
-#define BUFBLOCKSIZE 60
+#define ARRAYBLOCKSIZE 8
+#define BUFBLOCKSIZE 64
 /**
  * string_to_array:
  * @string: #gchar* with the string to convert
@@ -293,7 +296,7 @@ gint free_stringlist(GList * which_list)
 
 	tmplist = g_list_first(which_list);
 	while (tmplist != NULL) {
-		DEBUG_MSG("free_stringlist, tmplist->data(%p)\n", tmplist->data);
+		/*DEBUG_MSG("free_stringlist, tmplist->data(%p)\n", tmplist->data);*/
 		g_free(tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
@@ -863,5 +866,4 @@ void dump_arraylist(GList *list) {
 	}
 }
 #endif
-
 
