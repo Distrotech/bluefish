@@ -18,22 +18,21 @@
 	${If} $R0 == ${VER}
 		DetailPrint "$(DICT_INSTALLED) ${LANG}"
 	${Else}
-		!ifdef TAGALONG
-			IfFileExists "$EXEDIR\redist\aspell6-${LANG}-${VER}.tbz2" 0 +15
-				${StrRep} $R1 "$(DOWN_LOCAL)" "%s" "aspell6-${LANG}-${VER}.tbz2"
-				DetailPrint "$R1"
-				md5dll::GetMD5File "$EXEDIR\redist\aspell6-${LANG}-${VER}.tbz2"
+		IfFileExists "$EXEDIR\redist\aspell6-${LANG}-${VER}.tbz2" 0 +15
+			${StrRep} $R1 "$(DOWN_LOCAL)" "%s" "aspell6-${LANG}-${VER}.tbz2"
+			DetailPrint "$R1"
+			md5dll::GetMD5File "$EXEDIR\redist\aspell6-${LANG}-${VER}.tbz2"
+  			Pop $R0
+  			${If} $R0 == ${MD5_${LANG}_${VER}}
+  				DetailPrint "$(DOWN_CHKSUM)"
+  				untgz::extract "-d" "$INSTDIR" "-u" "-zbz2" "$EXEDIR\redist\aspell6-${LANG}-${VER}.tbz2"
   				Pop $R0
-  				${If} $R0 == ${MD5_${LANG}_${VER}}
-  					DetailPrint "$(DOWN_CHKSUM)"
-  					untgz::extract "-d" "$INSTDIR" "-u" "-zbz2" "$EXEDIR\redist\aspell6-${LANG}-${VER}.tbz2"
-  					Pop $R0
-  					Goto +17 ; Jump to 'StrCmp $R0 "success"'
-  				${Else}
-  					DetailPrint "$(DOWN_CHKSUM_ERROR)"
-  					Goto +3 ; Jump to '!endif'+1
-  				${EndIf}
-		!endif
+  				Goto +17 ; Jump to 'StrCmp $R0 "success"'
+  			${Else}
+  				DetailPrint "$(DOWN_CHKSUM_ERROR)"
+  				Goto +2 ; Jump to '${EndIf}'+1
+  			${EndIf}
+
 		DetailPrint "$(DICT_DOWNLOAD) (${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2)"
 		Delete "$TEMP\aspell6-${LANG}-${VER}.tbz2" ; Should never happen but just in case
 		inetc::get /TRANSLATE "$(INETC_DOWN)" "$(INETC_CONN)" "$(INETC_TSEC)" "$(INETC_TMIN)" "$(INETC_THOUR)" "$(INETC_TPLUR)" "$(INETC_PROGRESS)" "$(INETC_REMAIN)" "${AS_DICT_URL}/aspell6-${LANG}-${VER}.tbz2" "$TEMP\aspell6-${LANG}-${VER}.tbz2"
@@ -62,13 +61,15 @@
 	${OrIf} $HKEY == "Classic"
 		ReadRegStr $R0 HKCR ".${EXT}" ""
 	${Else}
-		ReadRegStr $R2 HKCU "${REG_CLASS_SET}\.${EXT}" ""
+		ReadRegStr $R0 HKCU "${REG_CLASS_SET}\.${EXT}" ""
 	${EndIf}
-		
-	${StrLoc} $R1 ${BF_FILE_CLASSES} $R0 "<"
-	StrLen $R2 ${BF_FILE_CLASSES}
-	${If} $R1 != $R2
-		${NSD_Check} ${HWND}
+
+	${If} $R0 != ""
+		${StrLoc} $R1 ${BF_FILE_CLASSES} $R0 "<"
+		StrLen $R2 ${BF_FILE_CLASSES}
+		${If} $R1 != $R2
+			${NSD_Check} ${HWND}
+		${EndIf}
 	${EndIf}
 !macroend
 !define SelectIfRegistered `!insertmacro SelectIfRegistered`

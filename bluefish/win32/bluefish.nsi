@@ -29,7 +29,7 @@
 !define UNINSTALL_EXE	"bluefish-uninst.exe"
 
 !define GTK_MIN_VERSION	"2.14.7"
-!define GTK_URL		"http://internap.dl.sourceforge.net/project/pidgin/GTK%2B%20for%20Windows/2.14.7%20Rev%20A"
+!define GTK_URL		"http://downloads.sourceforge.net/project/pidgin/GTK%2B%20for%20Windows/2.14.7%20Rev%20A"
 !define GTK_FILENAME 	"gtk-runtime-2.14.7-rev-a.exe"
 !define GTK_SIZE	"34549" ; Install size in Kilobytes
 
@@ -79,11 +79,7 @@ Var FA_SelectAll
 ; Installer configuration settings
 ;----------------------------------------------
 Name		"${PRODUCT} v${VERSION}"
-!ifdef TAGALONG
-	OutFile		"${PRODUCT}-${VERSION}-tagalong-setup.exe"
-!else
-	OutFile		"${PRODUCT}-${VERSION}-setup.exe"
-!endif
+OutFile		"${PRODUCT}-${VERSION}-setup.exe"
 InstallDir	"$PROGRAMFILES32\${PRODUCT}"
 
 ; Tell Windows Vista and Windows 7 that we want admin rights to install
@@ -96,7 +92,7 @@ ShowUninstDetails show
 
 ; Installer version information
 ;----------------------------------------------
-VIProductVersion "2.0.1.0"
+VIProductVersion "2.0.2.0"
 VIAddVersionKey "ProductName" "${PRODUCT}"
 VIAddVersionKey "FileVersion" "${VERSION}"
 VIAddVersionKey "ProductVersion" "${VERSION}"
@@ -117,11 +113,9 @@ ${StrLoc}
 ${StrStr}
 ${StrTok}
 ${UnStrLoc}
+${StrRep}
+!include "includes\Checksums.nsh"
 
-!ifdef TAGALONG
-	${StrRep}
-	!include "includes\Checksums.nsh"
-!endif
 
 
 ; MUI configuration
@@ -304,26 +298,39 @@ SectionEnd
 
 Section "-GTK+ Installer" SecGTK
 	${If} $GTK_STATUS == ""
-		!ifdef TAGALONG
-			IfFileExists "$EXEDIR\redist\${GTK_FILENAME}" 0 +14
-				${StrRep} $R1 "$(DOWN_LOCAL)" "%s" "${GTK_FILENAME}"
-				DetailPrint "$R1"
-				md5dll::GetMD5File "$EXEDIR\redist\${GTK_FILENAME}"
-  				Pop $R0
-  				${If} $R0 == ${MD5_${GTK_FILENAME}}
-  					DetailPrint "$(DOWN_CHKSUM)"
-  					ExecWait '"$EXEDIR\redist\${GTK_FILENAME}"'
-  					Goto +16 ; Jump to 'Call GtkInstallPath'
-  				${Else}
-  					DetailPrint "$(DOWN_CHKSUM_ERROR)"
-  					Goto +3 ; Jump to '!endif'+1
-  				${EndIf}
-		!endif
-		DetailPrint "$(GTK_DOWNLOAD) (${GTK_URL}/${GTK_FILENAME})"
+		IfFileExists "$EXEDIR\redist\${GTK_FILENAME}" 0 +13
+			${StrRep} $R1 "$(DOWN_LOCAL)" "%s" "${GTK_FILENAME}"
+			DetailPrint "$R1"
+			md5dll::GetMD5File "$EXEDIR\redist\${GTK_FILENAME}"
+  			Pop $R0
+  			${If} $R0 == ${MD5_${GTK_FILENAME}}
+  				DetailPrint "$(DOWN_CHKSUM)"
+  				ExecWait '"$EXEDIR\redist\${GTK_FILENAME}"'
+  				Goto +30 ; Jump to 'Call GtkInstallPath'
+  			${Else}
+  				DetailPrint "$(DOWN_CHKSUM_ERROR)"
+  				Goto +2 ; Jump to '${EndIf}+1
+  			${EndIf}
+
+		IntFmt $R1 "%u" 0
+		IntCmp $R1 0 +3 +3 0
+			DetailPrint "Download Retry $R1 of 5..."
+			DetailPrint "$(GTK_DOWNLOAD) (${GTK_URL}/${GTK_FILENAME})"
 		Delete "$TEMP\${GTK_FILENAME}" ; Should never happen but just in case
 		inetc::get /TRANSLATE "$(INETC_DOWN)" "$(INETC_CONN)" "$(INETC_TSEC)" "$(INETC_TMIN)" "$(INETC_THOUR)" "$(INETC_TPLUR)" "$(INETC_PROGRESS)" "$(INETC_REMAIN)" "${GTK_URL}/${GTK_FILENAME}" "$TEMP\${GTK_FILENAME}"
 		Pop $R0
-			StrCmp $R0 "OK" +3
+			StrCmp $R0 "OK" +13
+			StrCmp $R0 "Terminated" +11
+			StrCmp $R0 "Cancelled" +10
+			StrCmp $R0 "Transfer Error" +6
+			StrCmp $R0 "Connection Error" +5
+			StrCmp $R0 "SendRequest Error" +4
+			StrCmp $R0 "File Not Found (404)" +3
+			StrCmp $R0 "Request Error" +2
+			StrCmp $R0 "Server Error" +1
+			IntCmp $R1 5 +3 0 0
+				IntOp $R1 $R1 + 1
+				Goto -16
 				MessageBox MB_OK|MB_ICONEXCLAMATION "$(GTK_FAILED) $R0$\n$\n$(GTK_REQUIRED)"
 				Return
 		DetailPrint "$(GTK_INSTALL) (${GTK_FILENAME})"
