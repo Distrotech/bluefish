@@ -220,7 +220,9 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Open _Recent"), NULL, NULL, 0, "<Branch>"},
 	{"/File/Open Recent/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/Open Ad_vanced..."), "<shift><control>O", menu_file_operations_cb, 3, "<Item>"},
+#ifndef WIN32
 	{N_("/File/Open _URL..."), NULL, menu_file_operations_cb, 25, "<Item>"},
+#endif /*ifndef WIN32*/
 	{N_("/File/Open _From Selection"), NULL, menu_file_operations_cb, 26, "<Item>"},
 	{N_("/File/_Insert..."), NULL, file_insert_menucb, 1, "<Item>"},
 	{"/File/sep1", NULL, NULL, 0, "<Separator>"},
