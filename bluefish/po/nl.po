@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: bluefish 2.0.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2010-09-02 22:37+0200\n"
-"PO-Revision-Date: 2010-05-08 16:15+0200 \n"
+"PO-Revision-Date: 2010-09-02 23:05+0200\n"
 "Last-Translator: elve <elve@savage-elve.net>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -769,7 +769,7 @@ msgstr "Patroon:"
 
 #: ../src/file_dialogs.c:199
 msgid "Pattern matches _full path:"
-msgstr ""
+msgstr "Patroon beschrijft volledige pad:"
 
 #: ../src/file_dialogs.c:203
 msgid "_Recursive:"
@@ -836,9 +836,8 @@ msgid "Could not save file "
 msgstr "Kon bestand niet opslaan "
 
 #: ../src/file_dialogs.c:504 ../src/file_dialogs.c:1321
-#, fuzzy
 msgid "File changed on disk\n"
-msgstr "Bestandsgrootte gewĳzigd in bestand\n"
+msgstr "Bestand gewĳzigd op disk\n"
 
 #: ../src/file_dialogs.c:591
 #, c-format
@@ -963,7 +962,7 @@ msgstr "Inclusief verborgen bestanden"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1257
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -1555,7 +1554,7 @@ msgstr "/Ga/Ga naar regelnummer in _selectie"
 
 #: ../src/menu.c:340
 msgid "/Go/Jump to reference"
-msgstr ""
+msgstr "/Ga/Spring naar referentie"
 
 #: ../src/menu.c:341
 msgid "/_Project"
@@ -2032,9 +2031,8 @@ msgid "Font"
 msgstr "Lettertype"
 
 #: ../src/preferences.c:1559
-#, fuzzy
 msgid "Cursor color"
-msgstr "Actieve regel kleur"
+msgstr "Cursor kleur"
 
 #: ../src/preferences.c:1560
 msgid "Current line color"
@@ -2062,7 +2060,7 @@ msgstr "Gebruik spatie's voor inspringen, geen tabs"
 
 #: ../src/preferences.c:1566
 msgid "Tab key indents selection"
-msgstr ""
+msgstr "Selectie inpringen met tab toets"
 
 #: ../src/preferences.c:1568
 msgid "Smart auto indenting"
@@ -2215,18 +2213,16 @@ msgid "Number of files in 'Open recent' menu"
 msgstr "Aantal bestanden in 'Recent geopend' menu"
 
 #: ../src/preferences.c:1662
-#, fuzzy
 msgid "Never"
-msgstr "Servers"
+msgstr "Nooit"
 
 #: ../src/preferences.c:1662
-#, fuzzy
 msgid "Only project files"
-msgstr "Bluefish project bestand"
+msgstr "Alleen project bestanden"
 
 #: ../src/preferences.c:1663
 msgid "Register recent files with your desktop"
-msgstr ""
+msgstr "Registreer recente bestanden bij uw bureaublad"
 
 #: ../src/preferences.c:1668 ../src/preferences.c:1670
 msgid "Templates"
