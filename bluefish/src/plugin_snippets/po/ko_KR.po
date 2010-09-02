@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable 1.3.5\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-05-24 20:31+0200\n"
+"POT-Creation-Date: 2010-09-01 21:42+0200\n"
 "PO-Revision-Date: 2009-05-26 08:48+0900\n"
 "Last-Translator: Jin-Hwan Jeong 정진환 <yongdoria@gmail.com>\n"
 "Language-Team: \n"
@@ -15,172 +15,172 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=0;\n"
 
-#: src/plugin_snippets/snippets_gui.c:270
+#: src/plugin_snippets/snippets_gui.c:271
 msgid "Set accelerator key"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:302
+#: src/plugin_snippets/snippets_gui.c:303
 #, fuzzy
 msgid "Snippet export filename"
 msgstr "프로젝트 파일명 선택"
 
-#: src/plugin_snippets/snippets_gui.c:312
+#: src/plugin_snippets/snippets_gui.c:313
 #, fuzzy
 msgid "Snippet import filename"
 msgstr "프로젝트 파일명 선택"
 
-#: src/plugin_snippets/snippets_gui.c:351
+#: src/plugin_snippets/snippets_gui.c:352
 #, fuzzy
 msgid "/_New snippet"
 msgstr "/새 폴더(_D)"
 
-#: src/plugin_snippets/snippets_gui.c:352
+#: src/plugin_snippets/snippets_gui.c:353
 #, fuzzy
 msgid "/_Edit snippet"
 msgstr "/편집(_E)"
 
-#: src/plugin_snippets/snippets_gui.c:353
+#: src/plugin_snippets/snippets_gui.c:354
 #, fuzzy
 msgid "/_Delete snippet"
 msgstr "Slet Menu Punkt"
 
-#: src/plugin_snippets/snippets_gui.c:354
+#: src/plugin_snippets/snippets_gui.c:355
 #, fuzzy
 msgid "/Delete branch"
 msgstr "Slet bogmærke"
 
-#: src/plugin_snippets/snippets_gui.c:356
+#: src/plugin_snippets/snippets_gui.c:357
 msgid "/Set snippet _accelerator"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:358
+#: src/plugin_snippets/snippets_gui.c:359
 #, fuzzy
 msgid "/Expand all"
 msgstr "/외부"
 
-#: src/plugin_snippets/snippets_gui.c:359
+#: src/plugin_snippets/snippets_gui.c:360
 #, fuzzy
 msgid "/Collapse all"
 msgstr "Luk _Alle"
 
-#: src/plugin_snippets/snippets_gui.c:361
+#: src/plugin_snippets/snippets_gui.c:362
 msgid "/Show as menu"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:363
+#: src/plugin_snippets/snippets_gui.c:364
 msgid "/Export"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:364
+#: src/plugin_snippets/snippets_gui.c:365
 msgid "/Import"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:481
+#: src/plugin_snippets/snippets_gui.c:501
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:482
+#: src/plugin_snippets/snippets_gui.c:502
 msgid "Use drag and drop to re-order snippets"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:483
+#: src/plugin_snippets/snippets_gui.c:503
 msgid "To exchange snippets with others use import or export"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:642
+#: src/plugin_snippets/snippets_gui.c:674
 msgid "snippets"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:673
+#: src/plugin_snippets/snippets_gui.c:705
 msgid "/View/Snippets Menu"
 msgstr ""
 
-#: src/plugin_snippets/snippets_leaf_insert.c:101
+#: src/plugin_snippets/snippets_leaf_insert.c:63
 msgid "[cursor position or selection]"
 msgstr ""
 
-#: src/plugin_snippets/snippets_leaf_snr.c:156
+#: src/plugin_snippets/snippets_leaf_snr.c:155
 #, fuzzy
 msgid "Search for: '"
 msgstr "찾기(_F):"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:156
+#: src/plugin_snippets/snippets_leaf_snr.c:155
 #, fuzzy
 msgid "', replace with: '"
 msgstr "치환(_W): "
 
-#: src/plugin_snippets/snippets_wizard.c:112
+#: src/plugin_snippets/snippets_wizard.c:111
 msgid "Entire document"
 msgstr "전체 문서"
 
-#: src/plugin_snippets/snippets_wizard.c:113
+#: src/plugin_snippets/snippets_wizard.c:112
 msgid "Forward from cursor position"
 msgstr "커서 위치에서 앞으로"
 
-#: src/plugin_snippets/snippets_wizard.c:114
+#: src/plugin_snippets/snippets_wizard.c:113
 msgid "Selection"
 msgstr "선택"
 
-#: src/plugin_snippets/snippets_wizard.c:115
+#: src/plugin_snippets/snippets_wizard.c:114
 msgid "All open files"
 msgstr "전체 열린 파일"
 
-#: src/plugin_snippets/snippets_wizard.c:119
+#: src/plugin_snippets/snippets_wizard.c:118
 msgid "Normal"
 msgstr "보통"
 
-#: src/plugin_snippets/snippets_wizard.c:120
+#: src/plugin_snippets/snippets_wizard.c:119
 msgid "Entire word only"
 msgstr "전체 단어만"
 
-#: src/plugin_snippets/snippets_wizard.c:121
+#: src/plugin_snippets/snippets_wizard.c:120
 msgid "POSIX"
 msgstr "POSIX"
 
-#: src/plugin_snippets/snippets_wizard.c:122
+#: src/plugin_snippets/snippets_wizard.c:121
 msgid "PERL"
 msgstr "PERL"
 
-#: src/plugin_snippets/snippets_wizard.c:133
+#: src/plugin_snippets/snippets_wizard.c:132
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
 "placeholders an appropriate name on the right."
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:140
+#: src/plugin_snippets/snippets_wizard.c:139
 msgid "_Search for: "
 msgstr "찾기(_F):"
 
-#: src/plugin_snippets/snippets_wizard.c:144
+#: src/plugin_snippets/snippets_wizard.c:143
 msgid "Replace _with: "
 msgstr "치환(_W): "
 
-#: src/plugin_snippets/snippets_wizard.c:151
+#: src/plugin_snippets/snippets_wizard.c:150
 msgid "Sco_pe: "
 msgstr "범위(_P):"
 
-#: src/plugin_snippets/snippets_wizard.c:158
+#: src/plugin_snippets/snippets_wizard.c:157
 msgid "Match Patter_n: "
 msgstr "패턴 일치(_N):"
 
-#: src/plugin_snippets/snippets_wizard.c:161
+#: src/plugin_snippets/snippets_wizard.c:160
 msgid "Case sensitive _matching"
 msgstr "대소문자 구분 일치(_M)"
 
-#: src/plugin_snippets/snippets_wizard.c:162
+#: src/plugin_snippets/snippets_wizard.c:161
 msgid "Only match if case (upper/lower) is identical."
 msgstr "대소문자가 동일하다면 일치만"
 
-#: src/plugin_snippets/snippets_wizard.c:165
+#: src/plugin_snippets/snippets_wizard.c:164
 msgid "_Use escape chars"
 msgstr "Escape 문자 사용(_U)"
 
-#: src/plugin_snippets/snippets_wizard.c:166
+#: src/plugin_snippets/snippets_wizard.c:165
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:341
+#: src/plugin_snippets/snippets_wizard.c:340
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -189,58 +189,58 @@ msgid ""
 "appropriate name on the right."
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:347
+#: src/plugin_snippets/snippets_wizard.c:346
 msgid "<i>Before</i> text"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:357
+#: src/plugin_snippets/snippets_wizard.c:356
 msgid "<i>After</i> text"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:365
+#: src/plugin_snippets/snippets_wizard.c:364
 msgid "Number"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:367
+#: src/plugin_snippets/snippets_wizard.c:366
 msgid "Name"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:369
+#: src/plugin_snippets/snippets_wizard.c:368
 msgid "Is file path"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:495
+#: src/plugin_snippets/snippets_wizard.c:494
 msgid "Enter the name of the branch:"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:587
+#: src/plugin_snippets/snippets_wizard.c:586
 msgid "Name of the new item:"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:592
+#: src/plugin_snippets/snippets_wizard.c:591
 #, fuzzy
 msgid "Description:"
 msgstr "요약(_D):"
 
-#: src/plugin_snippets/snippets_wizard.c:642
+#: src/plugin_snippets/snippets_wizard.c:641
 msgid "Select what you want to add"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:644
+#: src/plugin_snippets/snippets_wizard.c:643
 msgid "Branch"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:646
+#: src/plugin_snippets/snippets_wizard.c:645
 #, fuzzy
 msgid "Insert string"
 msgstr "Indsæt billede"
 
-#: src/plugin_snippets/snippets_wizard.c:648
+#: src/plugin_snippets/snippets_wizard.c:647
 #, fuzzy
 msgid "Search and replace pattern"
 msgstr "Søge Mønster"
 
-#: src/plugin_snippets/snippets_wizard.c:755
+#: src/plugin_snippets/snippets_wizard.c:754
 #, fuzzy
 msgid "New snippet"
 msgstr "Nyt projekt"
