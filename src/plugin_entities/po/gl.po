@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 2.0.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-05-24 20:31+0200\n"
+"POT-Creation-Date: 2010-09-01 21:42+0200\n"
 "PO-Revision-Date: 2010-04-21 15:50+0200\n"
 "Last-Translator: Xose M. <pikamoku@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,74 +16,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/plugin_entities/entities.c:452
+#: src/plugin_entities/entities.c:451
 msgid "Characters to entities"
 msgstr "Caracteres a entidades"
 
-#: src/plugin_entities/entities.c:452
+#: src/plugin_entities/entities.c:451
 msgid "Entities to characters"
 msgstr "Entidades a caracteres"
 
-#: src/plugin_entities/entities.c:465
+#: src/plugin_entities/entities.c:471
 msgid "In current document"
 msgstr "No documento actual"
 
-#: src/plugin_entities/entities.c:466
+#: src/plugin_entities/entities.c:472
 msgid "In selection"
 msgstr "Na selección"
 
-#: src/plugin_entities/entities.c:467
+#: src/plugin_entities/entities.c:473
 msgid "In all documents"
 msgstr "En tódolos documentos"
 
-#: src/plugin_entities/entities.c:468
+#: src/plugin_entities/entities.c:474
 msgid "Sco_pe:"
 msgstr "Ámbito"
 
-#: src/plugin_entities/entities.c:472
+#: src/plugin_entities/entities.c:478
 msgid "Convert numerical encoded characters &#99;"
 msgstr "Converter caracteres numéricos codificados &#99;"
 
-#: src/plugin_entities/entities.c:479
+#: src/plugin_entities/entities.c:485
 msgid "Convert _iso-8859-1 characters"
 msgstr "Converter caracteres iso-8859-1"
 
-#: src/plugin_entities/entities.c:483
-msgid "Convert _symbol characters"
-msgstr "Converter caracteres de símbolos"
-
-#: src/plugin_entities/entities.c:487
+#: src/plugin_entities/entities.c:489
 msgid "Convert spe_cial characters"
 msgstr "Converter caracteres especiais"
 
-#: src/plugin_entities/entities.c:491
+#: src/plugin_entities/entities.c:493
+msgid "Convert _symbol characters"
+msgstr "Converter caracteres de símbolos"
+
+#: src/plugin_entities/entities.c:497
 msgid "Convert _XML characters < > & \" '"
 msgstr "Converter caracteres XML < > & \" '"
 
-#: src/plugin_entities/entities.c:496
+#: src/plugin_entities/entities.c:502
 msgid "Work around missing &apos; entity on IE"
 msgstr "Desbotar a entidade &apos; perdida no IE"
 
-#: src/plugin_entities/entities.c:568
+#: src/plugin_entities/entities.c:571
 msgid "/Tools/Entities To Characters..."
 msgstr "/Ferramentas/Entidades A Caracteres..."
 
-#: src/plugin_entities/entities.c:569
+#: src/plugin_entities/entities.c:572
 msgid "/Tools/Characters To Entities..."
 msgstr "/Ferramentas/Caracteres A Entidades..."
 
-#: src/plugin_entities/entities.c:570
+#: src/plugin_entities/entities.c:573
 msgid "/Tools/URL Encode"
 msgstr "/Ferramentas/Codificar URL"
 
-#: src/plugin_entities/entities.c:571
+#: src/plugin_entities/entities.c:574
 msgid "/Tools/URL Decode"
 msgstr "/Ferramentas/Decodificar URL"
 
-#: src/plugin_entities/entities.c:572
+#: src/plugin_entities/entities.c:575
 msgid "/Tools/To Lowercase"
 msgstr "/Ferramentas/A Minúsculas"
 
-#: src/plugin_entities/entities.c:573
+#: src/plugin_entities/entities.c:576
 msgid "/Tools/To Uppercase"
 msgstr "/Ferramentas/A Maiúsculas"
