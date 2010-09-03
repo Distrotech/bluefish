@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-09-02 22:37+0200\n"
+"POT-Creation-Date: 2010-09-03 10:58+0200\n"
 "PO-Revision-Date: 2010-05-08 16:15+0200 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
@@ -967,7 +967,7 @@ msgstr "Inclure les fichiers cachés"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1257
-#, fuzzy, c-format
+# c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -980,7 +980,8 @@ msgstr ""
 "\n"
 "Heure de l'ancienne modification : %s\n"
 "Heure de la nouvelle modification : %s\n"
-"Taille originale : %"
+"Taille originale : %lu\n"
+"Nouvelle taille : %lu"
 
 #: ../src/file_dialogs.c:1278
 msgid "_Unset file name"
