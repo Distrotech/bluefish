@@ -30,7 +30,7 @@ typedef struct {
 } linguas_t;
 
 static const linguas_t linguas[] = {
-	{ N_( "English" ), "English", "en", "en_EN" },
+	{ N_( "English" ), "English", "en", "C" }, /* or better en_GB? */
 #ifdef HAVE_LINGUA_BG
 	{ N_( "Bulgarian"), "Български", "bg", "bg_BG" },
 #endif
