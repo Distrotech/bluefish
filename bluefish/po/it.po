@@ -3,13 +3,14 @@
 # Marco Cassisa <marco@linox.tecnoprogress.it>
 # Andrea Scialpi <solopec@tiscalinet.it> 2000
 # Stefano Canepa <sc@linux.it> 2003, 2004
+# Roberto Bellingeri <bellingeri@netguru.it> 2010
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 2.0.1\n"
+"Project-Id-Version: bluefish 2.0.\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-09-02 22:37+0200\n"
-"PO-Revision-Date: 2010-05-08 16:15+0200 \n"
+"POT-Creation-Date: 2010-09-05 02:14+0200\n"
+"PO-Revision-Date: 2010-09-04 21:38+0100\n"
 "Last-Translator: Roberto Bellingeri <bellingeri@netguru.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -766,7 +767,7 @@ msgstr "Mode_llo:"
 
 #: ../src/file_dialogs.c:199
 msgid "Pattern matches _full path:"
-msgstr ""
+msgstr "Percorso completo dei modelli di ricerca:"
 
 #: ../src/file_dialogs.c:203
 msgid "_Recursive:"
@@ -778,7 +779,7 @@ msgstr "Ma_ssima ricorsione:"
 
 #: ../src/file_dialogs.c:216
 msgid "<b>Contains</b>"
-msgstr "<b>Contiene<b>"
+msgstr "<b>Contiene</b>"
 
 #: ../src/file_dialogs.c:222
 msgid "Pa_ttern:"
@@ -809,7 +810,7 @@ msgstr ""
 
 #: ../src/file_dialogs.c:381
 msgid "<b>Open URL</b>"
-msgstr "<b>Apri URL<b>"
+msgstr "<b>Apri URL</b>"
 
 #: ../src/file_dialogs.c:449 ../src/file_dialogs.c:486
 msgid "_Continue save"
@@ -833,9 +834,8 @@ msgid "Could not save file "
 msgstr "Impossibile salvare il file"
 
 #: ../src/file_dialogs.c:504 ../src/file_dialogs.c:1321
-#, fuzzy
 msgid "File changed on disk\n"
-msgstr "La dimensione del file è cambiata\n"
+msgstr "File modificato sul disco\n"
 
 #: ../src/file_dialogs.c:591
 #, c-format
@@ -960,7 +960,7 @@ msgstr "Includi file nascosti"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1257
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -969,10 +969,12 @@ msgid ""
 "Original size was %lu\n"
 "New size is %lu"
 msgstr ""
-"Nome file: %s\n"
+"Nome del file:%s cambiato sul disco. \n"
 "\n"
-"Ora della nuova modifica: %s\n"
-"Ora della vecchia modifica: %s"
+"La data di modifica originale era %s\n"
+"La nuova data di modifica è %s\n"
+"La dimensione originale era %lu\n"
+"La nuova dimensione è %lu"
 
 #: ../src/file_dialogs.c:1278
 msgid "_Unset file name"
@@ -1242,11 +1244,11 @@ msgstr "/File/Apri avan_zato..."
 
 #: ../src/menu.c:225
 msgid "/File/Open _URL..."
-msgstr "/File/_Apri URL..."
+msgstr "/File/Apri _URL..."
 
 #: ../src/menu.c:228
 msgid "/File/Open _From Selection"
-msgstr "/File/Apri dalla _selezione"
+msgstr "/File/Apri dalla s_elezione"
 
 #: ../src/menu.c:229
 msgid "/File/_Insert..."
@@ -1270,7 +1272,7 @@ msgstr "/File/Sal_va tutti"
 
 #: ../src/menu.c:235
 msgid "/File/Rever_t to Saved"
-msgstr "/File/_Ripristina"
+msgstr "/File/Ri_pristina"
 
 #: ../src/menu.c:237
 msgid "/File/_Close"
@@ -1398,11 +1400,11 @@ msgstr "/_Documento"
 
 #: ../src/menu.c:282
 msgid "/Document/_Auto Indent"
-msgstr "/Documento/Indentazione automatica"
+msgstr "/Documento/_Indentazione automatica"
 
 #: ../src/menu.c:283
 msgid "/Document/Auto _Completion Popup"
-msgstr "/Documento/Pop-up di completamento automatico"
+msgstr "/Documento/_Pop-up di completamento automatico"
 
 #: ../src/menu.c:284
 msgid "/Document/_Wrap"
@@ -1414,7 +1416,7 @@ msgstr "/Documento/Numeri di _riga"
 
 #: ../src/menu.c:286
 msgid "/Document/Show _Blocks"
-msgstr "/Documento/Mostra blocchi"
+msgstr "/Documento/Mostra _blocchi"
 
 #: ../src/menu.c:287
 msgid "/Document/_Visible Spacing"
@@ -1446,7 +1448,7 @@ msgstr "/Documento/Dimensione tabulatore/_Diminusci"
 
 #: ../src/menu.c:299
 msgid "/Document/Tab Size/_Reset"
-msgstr "/Documento/Dimensione _tabulatore/_Reset"
+msgstr "/Documento/Dimensione tabulatore/_Reset"
 
 #: ../src/menu.c:300
 msgid "/Document/_Font Size"
@@ -1466,7 +1468,7 @@ msgstr "/Documento/Dimensione carattere/_Reset"
 
 #: ../src/menu.c:307
 msgid "/Document/_Highlight Syntax"
-msgstr "/Documento/Evidenzia _sintassi"
+msgstr "/Documento/_Evidenzia sintassi"
 
 #: ../src/menu.c:309
 msgid "/Document/_Rescan Syntax & Spelling"
@@ -1474,7 +1476,7 @@ msgstr "/Documento/_Analizza nuovamente sintassi e ortografia"
 
 #: ../src/menu.c:311
 msgid "/Document/_Rescan Syntax"
-msgstr "/Documento/Analizza nuovamente la _sintassi"
+msgstr "/Documento/Analizza _nuovamente la sintassi"
 
 #: ../src/menu.c:313
 msgid "/Document/Language _Mode"
@@ -1510,15 +1512,15 @@ msgstr "/V_ai"
 
 #: ../src/menu.c:328
 msgid "/Go/_Previous Document"
-msgstr "/Vai/_Documento precedente"
+msgstr "/Vai/Documento _precedente"
 
 #: ../src/menu.c:329
 msgid "/Go/_Next Document"
-msgstr "/Vai/P_rossimo documento"
+msgstr "/Vai/Documento _successivo"
 
 #: ../src/menu.c:330
 msgid "/Go/_First Document"
-msgstr "/Vai/_Primo documento"
+msgstr "/Vai/Primo _documento"
 
 #: ../src/menu.c:331
 msgid "/Go/L_ast Document"
@@ -1526,32 +1528,31 @@ msgstr "/Vai/_Ultimo documento"
 
 #: ../src/menu.c:333
 msgid "/Go/F_irst Bookmark"
-msgstr "/Vai/Pr_imo segnalibro"
+msgstr "/Vai/Pri_mo segnalibro"
 
 #: ../src/menu.c:334
 msgid "/Go/P_revious Bookmark"
-msgstr "/Vai/_Segnalibro precedente"
+msgstr "/Vai/Segnalibro pr_ecedente"
 
 #: ../src/menu.c:335
 msgid "/Go/N_ext Bookmark"
-msgstr "/Vai/Pr_ossimo segnalibro"
+msgstr "/Vai/Segnalibro su_ccessivo"
 
 #: ../src/menu.c:336
 msgid "/Go/Last _Bookmark"
-msgstr "/Vai/_Ultimo segnalibro"
+msgstr "/Vai/U_ltimo segnalibro"
 
 #: ../src/menu.c:338
 msgid "/Go/Goto _Line"
-msgstr "/Vai/_Vai alla riga"
+msgstr "/Vai/Vai alla _riga"
 
 #: ../src/menu.c:339
 msgid "/Go/Goto line number in _selection"
-msgstr "/Vai/Vai al numero di riga nella _selezione"
+msgstr "/Vai/Vai al numero di r_iga nella selezione"
 
 #: ../src/menu.c:340
-#, fuzzy
 msgid "/Go/Jump to reference"
-msgstr "Guida delle funzioni"
+msgstr "/Vai/Salta al riferimento"
 
 #: ../src/menu.c:341
 msgid "/_Project"
@@ -1575,7 +1576,7 @@ msgstr "/Progetto/_Salva"
 
 #: ../src/menu.c:349
 msgid "/Project/Save _as..."
-msgstr "/Progetto/Salv_a con nome..."
+msgstr "/Progetto/Sa_lva con nome..."
 
 #: ../src/menu.c:350
 msgid "/Project/Save & _close"
@@ -1611,7 +1612,7 @@ msgstr "/Strumenti/Commenti"
 
 #: ../src/menu.c:365
 msgid "/Tools/_Word Count"
-msgstr "/Strumenti/_Conteggio parole"
+msgstr "/Strumenti/Conte_ggio parole"
 
 #: ../src/menu.c:367
 msgid "/Tools/Strip T_railing Whitespace"
@@ -1672,7 +1673,7 @@ msgstr "/Documento/Codifica caratteri"
 
 #: ../src/outputbox.c:223
 msgid "Filename"
-msgstr "Nome file"
+msgstr "Nome del file"
 
 #: ../src/outputbox.c:225
 msgid "Line"
@@ -2030,9 +2031,8 @@ msgid "Font"
 msgstr "Carattere"
 
 #: ../src/preferences.c:1559
-#, fuzzy
 msgid "Cursor color"
-msgstr "Colore della linea attuale"
+msgstr "Colore del cursore"
 
 #: ../src/preferences.c:1560
 msgid "Current line color"
@@ -2059,9 +2059,8 @@ msgid "Use spaces to indent, not tabs"
 msgstr "Usa spazi per indentare, non tabulazioni"
 
 #: ../src/preferences.c:1566
-#, fuzzy
 msgid "Tab key indents selection"
-msgstr "nella selezione"
+msgstr "Il tasto Tab indenta la selezione"
 
 #: ../src/preferences.c:1568
 msgid "Smart auto indenting"
@@ -2215,18 +2214,17 @@ msgid "Number of files in 'Open recent' menu"
 msgstr "Numero di file in 'Apri recenti'"
 
 #: ../src/preferences.c:1662
-#, fuzzy
 msgid "Never"
-msgstr "Server"
+msgstr "Mai"
 
 #: ../src/preferences.c:1662
-#, fuzzy
 msgid "Only project files"
-msgstr "File di progetto di Bluefish"
+msgstr "Solo file di progetto"
 
+# English version should say something like "Register recent files with your desktop's recent files menu".
 #: ../src/preferences.c:1663
 msgid "Register recent files with your desktop"
-msgstr ""
+msgstr "Registra i file recenti nel menu di sistema"
 
 #: ../src/preferences.c:1668 ../src/preferences.c:1670
 msgid "Templates"
