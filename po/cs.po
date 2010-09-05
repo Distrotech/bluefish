@@ -1,16 +1,16 @@
-# Czech translations for bluefish-unstable package.
-# Copyright (C) 2009 THE bluefish-unstable'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the bluefish-unstable package.
-#
+# Czech  language file for Bluefish.
+# Copyright (C) 2009 Free Software Foundation, Inc.
 # Marek Černocký <marek@manet.cz>, 2009, 2010.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 2.0.1\n"
+"Project-Id-Version: bluefish 2.0.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-09-02 22:37+0200\n"
-"PO-Revision-Date: 2010-05-08 16:15+0200 \n"
+"POT-Creation-Date: 2010-09-03 19:50+0200\n"
+"PO-Revision-Date: 2010-09-03 19:57+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -770,7 +770,7 @@ msgstr "_Maska:"
 
 #: ../src/file_dialogs.c:199
 msgid "Pattern matches _full path:"
-msgstr ""
+msgstr "Vzor odpovídá _plné cestě:"
 
 #: ../src/file_dialogs.c:203
 msgid "_Recursive:"
@@ -838,9 +838,8 @@ msgid "Could not save file "
 msgstr "Nelze uložit soubor"
 
 #: ../src/file_dialogs.c:504 ../src/file_dialogs.c:1321
-#, fuzzy
 msgid "File changed on disk\n"
-msgstr "Soubor zmizel z disku\n"
+msgstr "Soubor byl na disku změněn\n"
 
 #: ../src/file_dialogs.c:591
 #, c-format
@@ -966,7 +965,7 @@ msgstr "Zahrnout skryté soubory"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1257
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -975,10 +974,12 @@ msgid ""
 "Original size was %lu\n"
 "New size is %lu"
 msgstr ""
-"Název souboru: %s\n"
+"Název souboru: %s změněn na disku.\n"
 "\n"
-"Nový čas změny je: %s\n"
-"Starý čas změny je: %s"
+"Původní čas změny byl %s\n"
+"Nový čas změněny je %s\n"
+"Původní velikost byla %lu\n"
+"Nová velikost je %lu"
 
 #: ../src/file_dialogs.c:1278
 msgid "_Unset file name"
@@ -1556,7 +1557,7 @@ msgstr "/Jít/Jít na číslo řádku ve vý_běru"
 
 #: ../src/menu.c:340
 msgid "/Go/Jump to reference"
-msgstr ""
+msgstr "/Jít/Jít na odkaz"
 
 #: ../src/menu.c:341
 msgid "/_Project"
@@ -2033,9 +2034,8 @@ msgid "Font"
 msgstr "Písmo"
 
 #: ../src/preferences.c:1559
-#, fuzzy
 msgid "Cursor color"
-msgstr "Barva aktuálního řádku"
+msgstr "Barva kurzoru"
 
 #: ../src/preferences.c:1560
 msgid "Current line color"
@@ -2063,7 +2063,7 @@ msgstr "K odsazování používat mezery, ne tabulátory "
 
 #: ../src/preferences.c:1566
 msgid "Tab key indents selection"
-msgstr ""
+msgstr "Klávesa Tab odsazuje výběr"
 
 #: ../src/preferences.c:1568
 msgid "Smart auto indenting"
@@ -2216,16 +2216,15 @@ msgstr "Počet souborů v nabídce „Otevřít nedávné“"
 
 #: ../src/preferences.c:1662
 msgid "Never"
-msgstr ""
+msgstr "Nikdy"
 
 #: ../src/preferences.c:1662
-#, fuzzy
 msgid "Only project files"
-msgstr "Projektový soubor Bluefish"
+msgstr "Pouze projektové soubory"
 
 #: ../src/preferences.c:1663
 msgid "Register recent files with your desktop"
-msgstr ""
+msgstr "Registrovat nedávné soubory ve svém pracovním prostředím"
 
 #: ../src/preferences.c:1668 ../src/preferences.c:1670
 msgid "Templates"
