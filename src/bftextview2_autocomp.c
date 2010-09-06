@@ -353,7 +353,7 @@ static void acwin_fill_tree(Tacwin *acw, GList *items, GList *items2, gchar *clo
 	}
 }
 
-static void print_ac_items(GCompletion *gc) {
+/* static void print_ac_items(GCompletion *gc) {
 	GList *tmplist = g_list_first(gc->items);
 	DBG_AUTOCOMP("autocompletion has %d items:",g_list_length(g_list_first(gc->items)));
 	while (tmplist) {
@@ -361,7 +361,7 @@ static void print_ac_items(GCompletion *gc) {
 		tmplist = g_list_next(tmplist);
 	}
 	DBG_AUTOCOMP("\n");
-}
+} */
 
 void autocomp_stop(BluefishTextView *btv) {
 	acwin_cleanup(btv);
