@@ -3214,10 +3214,10 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 
 static gchar *doc_text_under_cursor(Tdocument *doc, gint *context) {
 	GtkTextIter iter;
-	GSList *taglist, *tmplist;
+/*	GSList *taglist, *tmplist; */
 	gchar *retval=NULL;
 	gint len;
-	GtkTextIter so,eo;
+/*	GtkTextIter so,eo; */
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, gtk_text_buffer_get_insert(doc->buffer));
 
 /*	taglist = gtk_text_iter_get_tags(&iter);
