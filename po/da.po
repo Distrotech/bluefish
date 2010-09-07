@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish SVN\n"
+"Project-Id-Version: Bluefish 2.0.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-09-02 22:37+0200\n"
-"PO-Revision-Date: 2010-08-17 22:54+0200\n"
+"POT-Creation-Date: 2010-09-07 14:38+0200\n"
+"PO-Revision-Date: 2010-09-07 17:01+0200\n"
 "Last-Translator: Finn Gruwier Larsen <finngruwierlarsen@gmail.com>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -954,7 +954,7 @@ msgstr "Inkludér skjulte filer"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1257
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -966,8 +966,8 @@ msgstr ""
 "Filnavn: %s er blevet ændret på disken.\n"
 "\n"
 "Oprindeligt ændringstidspunkt var %s\n"
-"Nyt ændringstidspunkt er %s\n"
-"Oprindelig størrelse var %"
+"Oprindelig størrelse var lu%\n"
+"Ny størrelse er %lu"
 
 #: ../src/file_dialogs.c:1278
 msgid "_Unset file name"
