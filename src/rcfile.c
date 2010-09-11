@@ -732,7 +732,7 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 	init_prop_integer   (&configlist, &session->filebrowser_show_hidden_files, "fb_show_hidden_f:", 0, FALSE);
 	init_prop_integer   (&configlist, &session->filebrowser_show_backup_files, "fb_show_backup_f:", 0, FALSE);
 	init_prop_integer   (&configlist, &session->filebrowser_focus_follow, "fb_focus_follow:", 1, FALSE);
-	init_prop_integer   (&configlist, &session->filebrowser_viewmode, "fb_viewmode:", 2, FALSE);
+	init_prop_integer   (&configlist, &session->filebrowser_viewmode, "fb_viewmode:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->bookmarks_filename_mode,"bookmarks_filename_mode:",1, FALSE);
 	init_prop_integer   (&configlist, &session->bookmarks_show_mode,"bookmarks_show_mode:",0, FALSE);
 	init_prop_integer   (&configlist, &session->bmarksearchmode,"bmarksearchmode:",0, FALSE);
