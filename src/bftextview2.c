@@ -496,7 +496,7 @@ static inline void paint_margin_collapse(BluefishTextView *btv,cairo_t *cr,gint 
 	gdk_cairo_set_source_color(cr, &gtk_widget_get_style(GTK_WIDGET(btv))->fg[GTK_WIDGET_STATE(btv)]);
 	cairo_rectangle(cr, btv->margin_pixels_chars+btv->margin_pixels_symbol+1.5, w + (height / 2) - 3.5, 8,8);
 	cairo_move_to(cr, btv->margin_pixels_chars+btv->margin_pixels_symbol+5.5, w + (height / 2)-2);
-	cairo_line_to(cr, btv->margin_pixels_chars+btv->margin_pixels_symbol+5.5, (height / 2)+3);
+	cairo_line_to(cr, btv->margin_pixels_chars+btv->margin_pixels_symbol+5.5, w + (height / 2)+3);
 	cairo_move_to(cr, btv->margin_pixels_chars+btv->margin_pixels_symbol+5.5, w + (height/2) + 5);
 	cairo_line_to(cr, btv->margin_pixels_chars+btv->margin_pixels_symbol+5.5, w+height+0.5);
 	cairo_move_to(cr, btv->margin_pixels_chars+btv->margin_pixels_symbol+3, w + (height / 2)+0.5);
