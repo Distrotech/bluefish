@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_scanner.c
  *
- * Copyright (C) 2008,2009 Olivier Sessink
+ * Copyright (C) 2008,2009,2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -861,10 +861,7 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 	iter = *mstart;
 
 	contextstack = get_contextstack_at_position(btv, &iter);
-	if (g_queue_get_length(contextstack)>0)
-		*contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
-	else
-		*contextnum = 1;
+	*contextnum = g_queue_get_length(contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(contextstack)): 1;
 	pos = g_array_index(btv->bflang->st->contexts,Tcontext, *contextnum).startstate;
 	DBG_AUTOCOMP("start scanning at offset %d with context %d and position %d\n",gtk_text_iter_get_offset(&iter),*contextnum,pos);
 	while (!gtk_text_iter_equal(&iter, cursorpos)) {
