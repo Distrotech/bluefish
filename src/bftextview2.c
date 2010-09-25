@@ -1350,6 +1350,65 @@ gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter *its,
 	return FALSE;
 }
 
+Tcomment *bluefish_text_view_get_comment(BluefishTextView *btv, GtkTextIter *it, Tcomment_type preferred_type) {
+	/* get the context, and then retrieve the preferred comment type for that context */
+	GQueue *contextstack;
+	GList *tmplist;
+	guint16 contextnum=0;
+	
+	if (!btv->bflang)
+		return NULL;
+	
+	if (!btv->bflang->st)
+		return NULL;
+	
+	contextstack = get_contextstack_at_position(btv, it);
+/*	g_print("bluefish_text_view_get_comment, got contextstack %p with len %d\n",contextstack,contextstack->length);*/
+	if (!contextstack)
+		return NULL;
+	
+	for (tmplist = g_list_first(contextstack->head);contextnum!=1;tmplist=g_list_next(tmplist)) {
+		guint8 line,block;
+		if (tmplist) {
+			contextnum = GPOINTER_TO_INT(tmplist->data);
+		} else {
+			contextnum = 1;
+		}
+/*		g_print("bluefish_text_view_get_comment, contextnum=%d\n",contextnum);*/
+		line = g_array_index(btv->bflang->st->contexts,Tcontext,contextnum).comment_line;
+		block = g_array_index(btv->bflang->st->contexts,Tcontext,contextnum).comment_block;
+/*		g_print("bluefish_text_view_get_comment, comment_line=%d, comment_block=%d\n",line,block);*/
+		if (line == COMMENT_INDEX_NONE && block == COMMENT_INDEX_NONE)
+			return NULL;
+		
+		if (  (line == COMMENT_INDEX_INHERIT && block == COMMENT_INDEX_INHERIT)
+			|| (line == COMMENT_INDEX_INHERIT && block == COMMENT_INDEX_NONE)
+			|| (line == COMMENT_INDEX_NONE && block == COMMENT_INDEX_INHERIT)
+			)
+			continue;
+		
+		if (preferred_type == block) {
+			if (block == COMMENT_INDEX_NONE) {
+				return &g_array_index(btv->bflang->st->comments,Tcomment,line);
+			} else if (block == COMMENT_INDEX_INHERIT) {
+				continue;
+			} else {
+				return &g_array_index(btv->bflang->st->comments,Tcomment,block);
+			}
+		} else {
+			if (line == COMMENT_INDEX_NONE) {
+				return &g_array_index(btv->bflang->st->comments,Tcomment,block);
+			} else if (line == COMMENT_INDEX_INHERIT) {
+				continue;
+			} else {
+				return &g_array_index(btv->bflang->st->comments,Tcomment,line);
+			}
+		}
+	}
+	return NULL;
+}
+
+
 gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv)
 {
 	return (btv->auto_complete);

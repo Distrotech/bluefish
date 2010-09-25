@@ -77,7 +77,10 @@
 	<highlight name="html-comment" style="comment" />
 </header>
 <properties>
-	<comment type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="cblockcomment" type="block" start="/*" end="*/" />
+	<comment id="c++linecomment" type="line" start="//" />
+	<comment id="scriptcomment" type="line" start="#" />
 	<default_spellcheck enabled="1" />
 </properties>
 

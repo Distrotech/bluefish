@@ -222,6 +222,9 @@ extern void g_none(char * first, ...);
 /* building the automata and autocompletion cache */
 /*****************************************************************/
 
+#define COMMENT_INDEX_INHERIT 255
+#define COMMENT_INDEX_NONE 254
+
 typedef struct {
 	gboolean autocomplete_case_insens;
 	GCompletion* ac; /* autocompletion items in this context */
@@ -235,6 +238,10 @@ typedef struct {
 					except the characters (symbols) thay may be the begin or end of an identifier such
 					as whitespace, ();[]{}*+-/ etc. */
 	guint8 has_tagclose_from_blockstack; /* this context has xml end patterns that need autoclosing for generix xml tags, based on the tag that is on top of the blockstack */
+	guint8 comment_block; /* block comment index in array scantable->comments 
+				or COMMENT_INDEX_INHERIT (which means inherit) 
+				or COMMENT_INDEX_NONE if there is no block comment  */
+	guint8 comment_line; /* index in array scantable->comments for line comments; see comment_block */
 /*#ifdef HAVE_LIBENCHANT_OLD
 	guint8 needspellcheck;
 #endif / *HAVE_LIBENCHANT*/
@@ -281,14 +288,6 @@ typedef struct {
 	guint16 match;			/* 0 == no match, refers to the index number in array 'matches' */
 } Ttablerow; /* a row in the DFA, right now exactly 256 bytes */
 
-typedef struct {
-	guint8 allsymbols[128]; /* this lookup table holds all symbols for all contexts, and is used to trigger scanning if reduced_scan_triggers is enabled */
-	GArray *table; /* dynamic sized array of Ttablerow: the DFA table */
-	GArray *contexts; /* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
-	GArray *matches; /* dynamic sized array of Tpattern */
-} Tscantable;
-
-
 typedef enum {
 	comment_type_block,
 	comment_type_line
@@ -299,6 +298,14 @@ typedef struct {
 	gchar *eo;
 	Tcomment_type type;
 } Tcomment;
+
+typedef struct {
+	guint8 allsymbols[128]; /* this lookup table holds all symbols for all contexts, and is used to trigger scanning if reduced_scan_triggers is enabled */
+	GArray *table; /* dynamic sized array of Ttablerow: the DFA table, max 65.... entries, we use a guint16 as index */
+	GArray *contexts; /* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
+	GArray *matches; /* dynamic sized array of Tpattern */
+	GArray *comments; /* Tcomment, has max. 256 entries, we use a guint8 as index */
+} Tscantable;
 
 /*****************************************************************/
 /* scanning the text and caching the results */
@@ -366,9 +373,12 @@ typedef struct {
 						we want to remove all tags and want to re-highlight */
 	gchar *filename; /* the .bflang2 file */
 	Tscantable *st; /* NULL or complete */
-	GList *comments; /* NULL or complete */
-	Tcomment *line; /* preferred line comment */
-	Tcomment *block; /* preferred block comment */
+
+/*
+	GList *comments; / * NULL or complete * /
+	Tcomment *line; / * preferred line comment * /
+	Tcomment *block; / * preferred block comment * /
+*/
 	gchar *smartindentchars;
 	gchar *smartoutdentchars;
 #ifdef HAVE_LIBENCHANT
@@ -486,7 +496,7 @@ void bluefish_text_view_scan_cleanup(BluefishTextView * btv);
 void bluefish_text_view_rescan(BluefishTextView * btv);
 void bftextview2_schedule_scanning(BluefishTextView * btv);
 gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter *its, GtkTextIter *ite);
-
+Tcomment *bluefish_text_view_get_comment(BluefishTextView *btv, GtkTextIter *it, Tcomment_type preferred_type);
 void bluefish_text_view_multiset(BluefishTextView *btv
 			, gpointer doc
 			, gint view_line_numbers

@@ -80,12 +80,15 @@
 	<highlight name="css-pseudo-element" style="keyword" />
 </header>
 <properties>
-	<comment type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="cblockcomment" type="block" start="/*" end="*/" />
+	<comment id="c++linecomment" type="line" start="//" />
+	<comment id="scriptcomment" type="line" start="#" />
 	<default_spellcheck enabled="1" />
 </properties>
 
 <definition>
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" commentid_block="htmlcomment" commentid_line="none">
 &all-html;
 </context>
 </definition>
