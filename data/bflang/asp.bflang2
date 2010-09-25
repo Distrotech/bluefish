@@ -40,7 +40,7 @@
 	<highlight name="vbscript-comment" style="comment"  />
 </header>
 <definition>
-<context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;%">
+<context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;-%">
 <group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" >
 <tag name="html" />
 <tag name="head" />
