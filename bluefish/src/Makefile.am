@@ -61,6 +61,8 @@ bluefish_SOURCES = \
 	dialog_utils.c \
 	dialog_utils.h \
 	document.c \
+	doc_comments.h \
+	doc_comments.c \
 	document.h \
 	encodings_dialog.c \
 	encodings_dialog.h \

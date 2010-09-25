@@ -818,10 +818,10 @@ Tscantable *scantable_new(guint size_table, guint size_matches, guint size_conte
 	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), size_table);
 	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), size_contexts);
 	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), size_matches);
+	st->comments = g_array_sized_new(TRUE,FALSE,sizeof(Tcomment), 8);
 	st->matches->len = 1; /* match 0 means no match */
 	st->contexts->len = 1; /* a match with nextcontext 0 means no context change, so we cannot use context 0 */
-
-#ifdef HAVE_LIBENCHANT
+#ifdef HAVE_LIBENCHANT_OLD
 	/* TODO: for the moment we always set to 1, but this should become a parameter to this function call */ 
 	/*g_array_index(st->contexts, Tcontext, 1).needspellcheck = 1;*/
 #endif /*HAVE_LIBENCHANT*/
