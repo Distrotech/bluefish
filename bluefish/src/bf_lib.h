@@ -48,9 +48,10 @@ void refcpointer_ref(Trefcpointer *rp);
 #endif
 void refcpointer_unref(Trefcpointer *rp);
 
-GFile *add_suffix_to_uri(GFile *file, const char *suffix);
-const gchar *full_path_utf8_from_uri(GFile *uri);
-gchar *filename_utf8_from_uri(GFile *uri);
+/*GFile *add_suffix_to_uri(GFile *file, const char *suffix);*/
+/*const gchar *full_path_utf8_from_uri(GFile *uri);*/
+/*gchar *filename_utf8_from_uri(GFile *uri);*/
+/*gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname);*/
 
 GList *urilist_to_stringlist(GList *urilist);
 void free_urilist(GList *urilist);
@@ -64,15 +65,14 @@ GFile *user_bfdir(const gchar *filename);
 gchar *filename_utf8_from_full_path_utf8(const gchar *full_path_utf8);
 
 gchar *get_filename_on_disk_encoding(const gchar *utf8filename);
-gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname);
+
 gboolean string_is_color(const gchar *color);
 gchar *filemode_to_string(mode_t statmode);
-gchar *return_root_with_protocol(const gchar *url);
+/*gchar *return_root_with_protocol(const gchar *url);*/
 void pointer_switch_addresses(gpointer *a, gpointer *b);
 void list_switch_order(GList *first, GList *second);
 gboolean file_copy(gchar *source, gchar *dest);
-gint find_common_prefixlen_in_stringlist(GList *stringlist);
-gboolean append_string_to_file(gchar *filename, gchar *string);
+/*gint find_common_prefixlen_in_stringlist(GList *stringlist);*/
 /*guint countchars(const gchar *string, const gchar *chars);*/
 gint table_convert_char2int(Tconvert_table *table, const gchar *my_char, Ttcc2i_mode mode);
 gchar *table_convert_int2char(Tconvert_table *table, gint my_int);
@@ -92,17 +92,17 @@ guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffse
 
 gchar *strip_any_whitespace(gchar *string);
 gchar *trunc_on_char(gchar * string, gchar which_char);
-gchar *strip_common_path(char *to_filename, char *from_filename);
+/*gchar *strip_common_path(char *to_filename, char *from_filename);*/
 gchar *most_efficient_filename(gchar *filename);
 gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepath);
 
 gchar *strip_trailing_slash(gchar *input);
 gchar *ending_slash(const gchar *dirname);
-gchar *path_get_dirname_with_ending_slash(const gchar *filename);
-gboolean full_path_exists(const gchar *full_path);
+/*gchar *path_get_dirname_with_ending_slash(const gchar *filename);*/
+/*gboolean full_path_exists(const gchar *full_path);*/
 /*gboolean file_exists_and_readable(const gchar * filename);*/
 GFile *return_first_existing_filename(const gchar * filename, ...);
-gboolean filename_test_extensions(gchar **extensions, const gchar *filename);
+/*gboolean filename_test_extensions(gchar **extensions, const gchar *filename);*/
 gchar *bf_str_repeat(const gchar * str, gint number_of);
 gint get_int_from_string(const gchar *string);
 gchar *unique_path(const gchar *basedir, const gchar *prefix, GHashTable *excludehash);
