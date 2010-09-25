@@ -23,6 +23,7 @@
 #include <gtk/gtk.h>
 #include <stdlib.h>				/* exit() on Solaris */
 #include <time.h>				/* nanosleep */
+#include <signal.h> /* sigaction */
 
 #include "bluefish.h"
 #include <libxml/parser.h>
@@ -101,6 +102,20 @@ static void init_default_session(Tsessionvars *session) {
 #endif
 	session->snr_position_x = session->snr_position_y = -1;
 	session->editor_tab_width = 3;
+}
+
+static void sigterm_handler(int signalnum, siginfo_t *si, void *data) {
+	g_print("caught SIGTERM, exiting...\n");
+	bluefish_exit_request();
+}
+
+static void handle_signals(void) {
+	struct sigaction sa;
+	sa.sa_sigaction = sigterm_handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_restorer = NULL;
+	sigaction(SIGTERM, &sa, NULL);
 }
 
 /*********************/
@@ -195,6 +210,7 @@ static gboolean startup_in_idle(gpointer data) {
 			main_v->recentm = gtk_recent_manager_get_default();
 			doc_scroll_to_cursor(BFWIN(startup->firstbfwin)->current_document);
 			modified_on_disk_check_init();
+			handle_signals();
 			g_free(startup);
 			return FALSE;
 		break;
