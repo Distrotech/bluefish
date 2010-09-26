@@ -20,6 +20,8 @@
 #ifndef __DOC_COMMENTS_H_
 #define __DOC_COMMENTS_H_
 
+#include "document.h"
+
 void toggle_comment(Tdocument *doc);
 
 #endif	/* __DOC_COMMENTS_H_ */
