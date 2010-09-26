@@ -19,10 +19,11 @@
 /*#define DEBUG*/
 
 #include "bluefish.h"
-#include "bftextview2.h"
-#include "document.h"
-#include "undo_redo.h"
 #include "bf_lib.h"
+#include "bftextview2.h"
+#include "doc_comments.h"
+#include "undo_redo.h"
+
 
 static void add_line_comment(Tdocument *doc, const gchar *commentstring, gint start, gint end) {
 	gint i=0,coffset,commentstring_len;
