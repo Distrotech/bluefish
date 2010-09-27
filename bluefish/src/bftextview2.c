@@ -328,15 +328,53 @@ static inline Tfoundblock *bftextview2_get_block_at_offset(BluefishTextView *btv
 	return NULL;
 }
 
+static gboolean mark_set_idle_lcb(gpointer widget) {
+	BluefishTextView *btv=widget;
+	
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+	GtkTextIter it1, it2, location;
+	Tfoundblock *fblock;
+
+	gtk_text_buffer_get_iter_at_mark(buffer, &location, gtk_text_buffer_get_insert(buffer));
+	fblock = bftextview2_get_block_at_offset(btv,gtk_text_iter_get_offset(&location));
+	if (btv->showing_blockmatch) {
+		gtk_text_buffer_get_bounds(buffer, &it1, &it2);
+		gtk_text_buffer_remove_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
+		btv->showing_blockmatch = FALSE;
+	}
+	DBG_SIGNALS("mark_set_idle_lcb, 'insert' set at %d\n",gtk_text_iter_get_offset(&location));		
+	if (fblock) {
+		GtkTextIter it3, it4;
+		if (fblock->start2_o != BF2_OFFSET_UNDEFINED) {
+			bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
+			DBG_MSG("mark_set_idle_lcb, found a block to highlight the start (%d:%d) and end (%d:%d)\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_offset(&it3),gtk_text_iter_get_offset(&it4));
+			gtk_text_buffer_apply_tag(buffer, btv->blockmatch, &it1, &it2);
+			gtk_text_buffer_apply_tag(buffer, btv->blockmatch, &it3, &it4);
+			btv->showing_blockmatch = TRUE;
+		} else {
+			DBG_MSG("mark_set_idle_lcb, block has no end - no matching\n");
+		}
+	}
+
+	btv->mark_set_idle = 0;
+	return FALSE;
+}
+
 /* this function slows down scrolling when you hold the cursor pressed, because 
 it is called for every cursor position change. This function is therefore
 an ideal candidate for speed optimization */
 static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location,
 									 GtkTextMark * arg2, gpointer widget)
 {
+	BluefishTextView *btv=BLUEFISH_TEXT_VIEW(widget);
 	DBG_SIGNALS("bftextview2_mark_set_lcb\n");
-	if (BLUEFISH_TEXT_VIEW(widget)->bflang && BLUEFISH_TEXT_VIEW(widget)->bflang->st && arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
-		if (BLUEFISH_TEXT_VIEW(widget)->show_mbhl) {
+	if (btv->bflang && btv->bflang->st && arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
+		if (btv->show_mbhl) {
+			/*if (!btv->mark_set_idle)
+				btv->mark_set_idle = g_idle_add_full(G_PRIORITY_LOW, mark_set_idle_lcb, widget, NULL);*/
+			btv->needs_blockmatch = TRUE;
+
+/*
 			GtkTextIter it1, it2;
 			Tfoundblock *fblock = bftextview2_get_block_at_offset(BLUEFISH_TEXT_VIEW(widget),gtk_text_iter_get_offset(location));
 			if (BLUEFISH_TEXT_VIEW(widget)->showing_blockmatch) {
@@ -357,14 +395,15 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 					DBG_MSG("block has no end - no matching\n");
 				}
 			}
+*/
 		}
 		
-		if (BLUEFISH_TEXT_VIEW(widget)->autocomp) {
-			autocomp_stop(BLUEFISH_TEXT_VIEW(widget));
+		if (btv->autocomp) {
+			autocomp_stop(btv);
 		}
-		if (BLUEFISH_TEXT_VIEW(widget)->user_idle) {
-			g_source_remove(BLUEFISH_TEXT_VIEW(widget)->user_idle);
-			BLUEFISH_TEXT_VIEW(widget)->user_idle=0;
+		if (btv->user_idle) {
+			g_source_remove(btv->user_idle);
+			btv->user_idle=0;
 		}
 		/*bftextview2_reset_user_idle_timer(BLUEFISH_TEXT_VIEW(widget));*/
 	}
@@ -771,11 +810,6 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);
 	gboolean event_handled = FALSE;
 
-	/* expose should not schedule any scanning !?!?!?! it doesn't change text so why schedule a scanning run ????????
-	/ * Optimally this should only scan the visible area and only if necessary * /
-	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
-		bftextview2_schedule_scanning(btv);
-	*/
 	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT)) {
 		GtkTextIter startvisible, endvisible;
 		GdkRectangle rect;
@@ -903,7 +937,7 @@ static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIt
 static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent) {
 	gboolean retval;
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
-	DBG_SIGNALS("bluefish_text_view_key_press_event\n");
+	DBG_SIGNALS("bluefish_text_view_key_press_event, keyval=%d\n",kevent->keyval);
 	if (btv->autocomp) {
 		if (acwin_check_keypress(btv, kevent)) {
 			btv->key_press_inserted_char = FALSE;
@@ -1121,7 +1155,7 @@ static GtkWidget *bftextview2_fold_menu(BluefishTextView *btv) {
 
 
 static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event) {
-	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);
+	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 
 	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_LEFT)) {
 		DBG_SIGNALS("bluefish_text_view_button_press_event\n");
@@ -1220,16 +1254,21 @@ static gchar *get_prevline_indenting(GtkTextBuffer *buffer, GtkTextIter *itend, 
 	return string;	
 }
 
-static gboolean bluefish_text_view_key_release_event(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
-	BluefishTextView *btv=user_data;
+static gboolean bluefish_text_view_key_release_event(GtkWidget *widget,GdkEventKey *kevent) {
+	BluefishTextView *btv=BLUEFISH_TEXT_VIEW(widget);
 	gboolean prev_insert_was_auto_indent=btv->insert_was_auto_indent;
 	btv->insert_was_auto_indent = FALSE;
+	
+	DBG_SIGNALS("bluefish_text_view_key_release_event, keyval=%d\n",kevent->keyval);
+	
+	if (!btv->mark_set_idle)
+		btv->mark_set_idle = g_idle_add_full(G_PRIORITY_HIGH_IDLE, mark_set_idle_lcb, widget, NULL);
 	
 	/* sometimes we receive a release event for a key that was not pressed in the textview widget!
 	for example if you use the keyboard to navigate the menu, and press enter to activate an item, a 
 	key release event is received in the textview widget.... so we have to check that ! */
 	if (!btv->key_press_inserted_char)
-		return FALSE;	
+		return FALSE;
 	btv->key_press_inserted_char = FALSE; /* after the check we set this to FALSE */
 
 	if (!btv->auto_indent)
@@ -1759,6 +1798,7 @@ static void bluefish_text_view_class_init(BluefishTextViewClass * klass)
 	widget_class->button_press_event = bluefish_text_view_button_press_event;
 	widget_class->expose_event = bluefish_text_view_expose_event;
 	widget_class->key_press_event = bluefish_text_view_key_press_event;
+	widget_class->key_release_event = bluefish_text_view_key_release_event;
 	widget_class->query_tooltip = bluefish_text_view_query_tooltip;
 	widget_class->focus_out_event = bluefish_text_view_focus_out_event;
 }
@@ -1822,6 +1862,6 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 	g_signal_connect_after(G_OBJECT(buffer), "mark-set", G_CALLBACK(bftextview2_mark_set_lcb),textview);
 	g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb),textview);
 	g_signal_connect_after(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_after_lcb),textview);
-	g_signal_connect_after(G_OBJECT(textview), "key-release-event", G_CALLBACK(bluefish_text_view_key_release_event), textview);
+	/*g_signal_connect_after(G_OBJECT(textview), "key-release-event", G_CALLBACK(bluefish_text_view_key_release_event), textview);*/
 	return GTK_WIDGET(textview);
 }

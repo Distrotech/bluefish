@@ -435,8 +435,11 @@ struct _BluefishTextView {
 	guint scanner_delayed; /* event ID for the timeout function that handles the delayed scanning. 0 if no timeout function is running */
 	GTimer *user_idle_timer;
 	guint user_idle; /* event ID for the timed function that handles user idle events such as autocompletion popups */
+	guint mark_set_idle; /* event ID for the mark_set idle function that avoids showing matching block bounds while 
+								you hold the arrow key to scroll quickly */
 	gpointer autocomp; /* a Tacwin* with the current autocompletion window */
 	gboolean needs_autocomp; /* a state of the widget, autocomplete is needed on user keyboard actions */
+	gboolean needs_blockmatch; /* a state of the widget, if the cursor position was changed */
 	gboolean key_press_inserted_char; /* FALSE if the key press was used by autocomplete popup, or simply not in our widget */
 	/*gboolean key_press_was_autocomplete;  a state of the widget, if the last keypress was handled by the autocomplete popup window */
 	gboolean showing_blockmatch; /* a state of the widget if we are currently showing a blockmatch */
