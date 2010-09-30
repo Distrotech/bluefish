@@ -34,6 +34,7 @@
 #include "bftextview2_langmgr.h"
 #include "bftextview2_spell.h"
 #include "document.h"
+#include "xml_entity.h"
 
 /*#undef DBG_SPELL
 #define DBG_SPELL g_print*/
@@ -137,7 +138,17 @@ static void spellcheck_word(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTe
 	DBG_SPELL("spellcheck_word, check word %s in dictionary %p\n",tocheck,BFWIN(DOCUMENT(btv->doc)->bfwin)->ed);
 	if (enchant_dict_check((EnchantDict *)BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck, strlen(tocheck)) != 0) {
 		DBG_SPELL("'%s' *not* spelled correctly!\n", tocheck);
-		gtk_text_buffer_apply_tag_by_name(buffer, "_spellerror_", start, end);
+		if (g_utf8_strchr(tocheck, -1, '&')) {
+			gchar *tocheck_conv = xmlentities2utf8(tocheck);
+			/* check for entities */
+			if (enchant_dict_check((EnchantDict *)BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck_conv, strlen(tocheck_conv)) != 0) {
+				DBG_SPELL("'%s' *not* spelled correctly!\n", tocheck_conv);
+				gtk_text_buffer_apply_tag_by_name(buffer, "_spellerror_", start, end);
+			}
+			g_free(tocheck_conv);
+		} else {
+			gtk_text_buffer_apply_tag_by_name(buffer, "_spellerror_", start, end);
+		}
 	} else {
 		DBG_SPELL("'%s' spelled correctly!\n", tocheck);
 	}
@@ -551,7 +562,14 @@ static void bftextview2_suggestion_menu_lcb(GtkWidget *widget, gpointer data) {
 		gtk_text_buffer_remove_tag_by_name(doc->buffer, "_spellerror_", &wordstart, &wordend);*/
 		start = gtk_text_iter_get_offset(&wordstart);
 		end = gtk_text_iter_get_offset(&wordend);
-		doc_replace_text(doc, gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)), start, end);
+		if (BFWIN(DOCUMENT(data)->bfwin)->session->spell_insert_entities) {
+			gchar *word;
+			word = utf82xmlentities(gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)), TRUE, TRUE, TRUE, TRUE, TRUE);
+			doc_replace_text(doc, word, start, end);
+			g_free(word);
+		} else {
+			doc_replace_text(doc, gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)), start, end);
+		}
 	}
 }
 
@@ -575,6 +593,10 @@ static void bftextview2_preferences_menu_lcb(GtkWidget *widget, gpointer data) {
 	}
 }
 
+static void bftexview2_spell_insert_entities(GtkWidget *widget, gpointer data) {
+	BFWIN(DOCUMENT(data)->bfwin)->session->spell_insert_entities = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+}
+
 typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *menu;
@@ -593,6 +615,18 @@ static void list_dicts_lcb(const char * const lang_tag,const char * const provid
 	}
 	g_signal_connect(menuitem, "activate", G_CALLBACK(bftextview2_preferences_menu_lcb), dl->bfwin);
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(dl->menu), GTK_WIDGET(menuitem));
+}
+
+static gboolean pure_ascii(const gchar *string) {
+	gunichar uchar;
+	gchar *tmp = string;
+	do {
+		uchar = g_utf8_get_char(tmp);
+		if (uchar > 127)
+			return FALSE;
+		tmp = g_utf8_next_char(tmp);
+	} while (*tmp!='\0');
+	return TRUE;
 }
 
 void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
@@ -626,6 +660,11 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 	if (get_misspelled_word_at_bevent(BLUEFISH_TEXT_VIEW(doc->view), &wordstart, &wordend)) {
 		gchar *word, **suggestions;
 		size_t n_suggs;
+		gboolean have_non_ascii = FALSE;
+
+		word = gtk_text_buffer_get_text(GTK_TEXT_VIEW(doc->view)->buffer, &wordstart,&wordend,FALSE);
+		DBG_SPELL("list alternatives for %s\n", word);
+		suggestions = enchant_dict_suggest((EnchantDict *)BFWIN(doc->bfwin)->ed, word,strlen(word), &n_suggs);
 
 		menuitem = gtk_image_menu_item_new_with_label(_("Add to dictionary"));
 		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
@@ -634,9 +673,23 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 		g_signal_connect(menuitem, "activate", G_CALLBACK(bftexview2_add_word_to_ses), doc);
 
-		word = gtk_text_buffer_get_text(GTK_TEXT_VIEW(doc->view)->buffer, &wordstart,&wordend,FALSE);
-		DBG_SPELL("list alternatives for %s\n", word);
-		suggestions = enchant_dict_suggest((EnchantDict *)BFWIN(doc->bfwin)->ed, word,strlen(word), &n_suggs);
+		if (suggestions) {
+			gint i;
+			for (i=0; i<n_suggs; i++) {
+				if (!pure_ascii(suggestions[i])) {
+					have_non_ascii = TRUE;
+					break;
+				}
+			}
+		}
+		
+		if (have_non_ascii) {
+			menuitem = gtk_check_menu_item_new_with_label(_("Insert special characters as entities"));
+			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), BFWIN(doc->bfwin)->session->spell_insert_entities);
+			gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+			g_signal_connect(menuitem, "activate", G_CALLBACK(bftexview2_spell_insert_entities), doc);
+		}
+
 		if (suggestions) {
 			GtkWidget *menuitem;
 			gint i;
