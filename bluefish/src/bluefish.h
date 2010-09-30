@@ -362,6 +362,7 @@ typedef struct {
 	   A Tsessionvar INTO A NEW Tsessionvar AND ADJUST THE SIZES!!!!!!!!!!!!!!!!!!!!!! */
 #ifdef HAVE_LIBENCHANT
 	gint spell_check_default;
+	gint spell_insert_entities;
 	gchar *spell_lang;
 #endif
 	/* if you add strings or lists to the session, please make sure they are free'ed 

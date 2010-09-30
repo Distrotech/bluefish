@@ -111,7 +111,9 @@ bluefish_SOURCES = \
 	stringlist.c \
 	stringlist.h \
 	undo_redo.c \
-	undo_redo.h
+	undo_redo.h \
+	xml_entity.c \
+	xml_entity.h
 
 .rc.o:
 	$(CC) -E -xc -DRC_INVOKED -DSRCDIR=\"$(top_srcdir)/win32/pixmaps $< | $(WINDRES) -o $@
