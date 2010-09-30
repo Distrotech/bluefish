@@ -43,6 +43,7 @@
 #include "bookmark.h"
 #include "plugins.h"
 #include "preferences.h"
+#include "bftextview2_spell.h"
 
 static void free_session(Tsessionvars *session) {
 	/* call free_session for any of the plugins that have free_session defined */
@@ -137,7 +138,7 @@ static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	bfwin->bmarkdata = bfwin->project->bmarkdata;
 	bmark_set_store(bfwin);
 	bmark_reload(bfwin);
-
+	reload_spell_dictionary(bfwin);
 	gui_apply_session(bfwin);
 	set_project_menu_widgets(bfwin, TRUE);
 #ifdef MAC_INTEGRATION
