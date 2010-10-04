@@ -319,7 +319,7 @@ Section "-GTK+ Installer" SecGTK
 		Delete "$TEMP\${GTK_FILENAME}" ; Should never happen but just in case
 		inetc::get /TRANSLATE "$(INETC_DOWN)" "$(INETC_CONN)" "$(INETC_TSEC)" "$(INETC_TMIN)" "$(INETC_THOUR)" "$(INETC_TPLUR)" "$(INETC_PROGRESS)" "$(INETC_REMAIN)" "${GTK_URL}/${GTK_FILENAME}" "$TEMP\${GTK_FILENAME}"
 		Pop $R0
-			StrCmp $R0 "OK" +13
+			StrCmp $R0 "OK" +14
 			StrCmp $R0 "Terminated" +11
 			StrCmp $R0 "Cancelled" +10
 			StrCmp $R0 "Transfer Error" +6
