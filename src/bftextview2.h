@@ -373,16 +373,11 @@ typedef struct {
 						we want to remove all tags and want to re-highlight */
 	gchar *filename; /* the .bflang2 file */
 	Tscantable *st; /* NULL or complete */
-
-/*
-	GList *comments; / * NULL or complete * /
-	Tcomment *line; / * preferred line comment * /
-	Tcomment *block; / * preferred block comment * /
-*/
 	gchar *smartindentchars;
 	gchar *smartoutdentchars;
 #ifdef HAVE_LIBENCHANT
 	gboolean default_spellcheck;
+	gboolean spell_decode_entities;
 #endif
 	gboolean no_st; /* no scantable, for Text, don't try to load the scantable if st=NULL */
 	gboolean parsing; /* set to TRUE when a thread is parsing the scantable already */
