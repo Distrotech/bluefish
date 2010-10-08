@@ -624,7 +624,7 @@ static void bftextview2_suggestion_menu_lcb(GtkWidget *widget, gpointer data) {
 		end = gtk_text_iter_get_offset(&wordend);
 		if (BFWIN(DOCUMENT(data)->bfwin)->session->spell_insert_entities) {
 			gchar *word;
-			word = utf82xmlentities(gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)), TRUE, TRUE, TRUE, TRUE, TRUE);
+			word = utf82xmlentities(gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)), TRUE, TRUE, TRUE, TRUE, TRUE, FALSE);
 			doc_replace_text(doc, word, start, end);
 			g_free(word);
 		} else {

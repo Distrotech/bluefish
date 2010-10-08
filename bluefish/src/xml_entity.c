@@ -148,7 +148,7 @@ gunichar xmlentity2unichar(const gchar *entity,gboolean numerical, gboolean iso8
 	return -1;
 }
 
-gchar *unichar2xmlentity(gunichar uchar, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml, gboolean numerical) {
+gchar *unichar2xmlentity(gunichar uchar, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml, gboolean numerical, gboolean IE_apos_workaround) {
 	gint16 indx;
 	if (iso8859_1 && uchar >= 161 && uchar < 255) {
 		return g_strconcat("&", entities_iso8859_1[uchar - 161], ";", NULL);
@@ -163,6 +163,8 @@ gchar *unichar2xmlentity(gunichar uchar, gboolean iso8859_1, gboolean symbols, g
 	}
 	if (xml) {
 		indx = index_in_array2(entity_unicode_xml, uchar);
+		if (indx == 5 && IE_apos_workaround)
+			return g_strconcat("&#39;", NULL);
 		if (indx != -1) return g_strconcat("&", entities_xml[indx], ";", NULL);
 	}
 	if (uchar > 127 && numerical) {
@@ -220,14 +222,14 @@ gchar *xmlentities2utf8(const gchar *inbuf) {
 	return outbuf;
 }
 
-gchar *utf82xmlentities(const gchar *inbuf, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml, gboolean numerical) {
+gchar *utf82xmlentities(const gchar *inbuf, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml, gboolean numerical, gboolean IE_apos_workaround) {
 	gchar *outbuf;
 	const gchar *srcp = inbuf;
 	gunichar unichar = g_utf8_get_char(inbuf);
 	/* we use a lot of memory for this function, but it makes the code simple */
 	outbuf = g_malloc0(8 * strlen(inbuf)*sizeof(gchar));
 	while (unichar) {
-		gchar *entity = unichar2xmlentity(unichar, iso8859_1, symbols, specials, xml, numerical);
+		gchar *entity = unichar2xmlentity(unichar, iso8859_1, symbols, specials, xml, numerical, IE_apos_workaround);
 		if (entity) {
 			outbuf = strncat(outbuf, entity, 8);
 			g_free(entity);

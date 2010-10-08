@@ -21,9 +21,9 @@
 #define __XML_ENTITY_H_
 
 gunichar xmlentity2unichar(const gchar *entity,gboolean numerical, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml);
-gchar *unichar2xmlentity(gunichar uchar, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml, gboolean numerical);
-
 gchar *xmlentities2utf8(const gchar *inbuf);
-gchar *utf82xmlentities(const gchar *inbuf, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml, gboolean numerical);
+
+gchar *unichar2xmlentity(gunichar uchar, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml, gboolean numerical, gboolean IE_apos_workaround);
+gchar *utf82xmlentities(const gchar *inbuf, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml, gboolean numerical, gboolean IE_apos_workaround);
 
 #endif /* __XML_ENTITY_H_  */
