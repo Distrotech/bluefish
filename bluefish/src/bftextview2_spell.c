@@ -400,14 +400,14 @@ static inline gboolean text_iter_next_word_bounds(GtkTextIter *soword, GtkTextIt
 	
 	uc = gtk_text_iter_get_char(eoword);
 	DBG_SPELL("text_iter_next_word_bounds, uc=%c\n",uc);
-	while (uc == '\'' || uc == ';' || uc == '&') {
+	while (uc == '\'' || (enable_entities && (uc == ';' || uc == '&'))) {
 		GtkTextIter iter = *eoword;
 		DBG_SPELL("text_iter_next_word_bounds, in loop, uc=%c\n",uc);
 		if (uc == '\'' && gtk_text_iter_forward_char(&iter)) {
 			if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
 				gtk_text_iter_forward_word_end(eoword);
 			}
-		} else if (uc == '&') {
+		} else if (enable_entities && uc == '&') {
 			if (!forward_to_end_of_entity(&iter))
 				return TRUE; /* no entity, return previous word end */
 
@@ -420,7 +420,7 @@ static inline gboolean text_iter_next_word_bounds(GtkTextIter *soword, GtkTextIt
 				return TRUE;
 			}
 			
-		} else if (uc == ';') {
+		} else if (enable_entities && uc == ';') {
 			GtkTextIter tmp = *soword;
 			DBG_SPELL("text_iter_next_word_bounds, soword uc=%c\n",gtk_text_iter_get_char(soword));
 			if (gtk_text_iter_backward_char(&tmp) && gtk_text_iter_get_char(&tmp) == '&') {
@@ -482,7 +482,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 			GtkTextIter wordstart=iter;
 			loop++;
 			DBG_SPELL("iter at %d, now forward to word end\n",gtk_text_iter_get_offset(&iter));
-			if (text_iter_next_word_bounds(&wordstart, &iter, TRUE) && gtk_text_iter_compare(&iter, &eo2) <= 0) {
+			if (text_iter_next_word_bounds(&wordstart, &iter, btv->bflang->spell_decode_entities) && gtk_text_iter_compare(&iter, &eo2) <= 0) {
 				DBG_SPELL("iter at %d, backward wordstart at %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&wordstart));
 				
 /*
@@ -684,7 +684,7 @@ static void list_dicts_lcb(const char * const lang_tag,const char * const provid
 
 static gboolean pure_ascii(const gchar *string) {
 	gunichar uchar;
-	gchar *tmp = string;
+	const gchar *tmp = string;
 	do {
 		uchar = g_utf8_get_char(tmp);
 		if (uchar > 127)

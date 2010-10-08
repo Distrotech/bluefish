@@ -95,7 +95,7 @@
 	<comment id="c++linecomment" type="line" start="//" />
 	<comment id="scriptcomment" type="line" start="#" />
 	<smartindent characters="{" />
-	<default_spellcheck enabled="1" />
+	<default_spellcheck enabled="1" spell_decode_entities="1" />
 </properties>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="htmlcomment" commentid_line="none">

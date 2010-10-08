@@ -47,6 +47,7 @@ typedef struct {
 	gboolean autoclose_tags;
 #ifdef HAVE_LIBENCHANT
 	gboolean default_spellcheck;
+	gboolean spell_decode_entities;
 #endif
 } Tbflangparsing;
 
@@ -174,7 +175,7 @@ static void langmgr_load_default_styles(void) {
 		{"special-function","#990000","","","","0",NULL},
 		{"keyword","#000000","","1","0","0",NULL},
 		{"special-keyword","#005050","","1","","0",NULL},
-		{"value","#0000FF","","0","0","0",NULL},
+		{"value","#0000FF","","0","0","1",NULL},
 		{"special-value","#0000FF","","1","","0",NULL},
 		{"variable","#990000","","1","0","0",NULL},
 		{"operator","#C86400","","0","0","0",NULL},
@@ -327,6 +328,7 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	bfparser->bflang->smartoutdentchars = bfparser->smartoutdentchars;
 #ifdef HAVE_LIBENCHANT
 	bfparser->bflang->default_spellcheck = bfparser->default_spellcheck;
+	bfparser->bflang->spell_decode_entities = bfparser->spell_decode_entities;
 #endif
 	bfparser->bflang->parsing=FALSE;
 	DBG_PARSING("build_lang_finished_lcb..\n");
@@ -1117,6 +1119,7 @@ static gpointer build_lang_thread(gpointer data)
 					while (xmlTextReaderMoveToNextAttribute(reader)) {
 						xmlChar *aname = xmlTextReaderName(reader);
 						set_boolean_if_attribute_name(reader,aname,(xmlChar *)"enabled", &bfparser->default_spellcheck);
+						set_boolean_if_attribute_name(reader,aname,(xmlChar *)"spell_decode_entities", &bfparser->spell_decode_entities);
 						xmlFree(aname);
 					}
 #endif
