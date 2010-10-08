@@ -144,8 +144,10 @@ static void spellcheck_word(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTe
 			gchar *tocheck_conv = xmlentities2utf8(tocheck);
 			/* check for entities */
 			if (enchant_dict_check((EnchantDict *)BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck_conv, strlen(tocheck_conv)) != 0) {
-				DBG_SPELL("'%s' *not* spelled correctly!\n", tocheck_conv);
+				DBG_SPELL("'%s' after entity conversion (%s) *not* spelled correctly!\n", tocheck, tocheck_conv);
 				gtk_text_buffer_apply_tag_by_name(buffer, "_spellerror_", start, end);
+			} else {
+				DBG_SPELL("'%s' after entity conversion (%s) spelled correctly!\n", tocheck, tocheck_conv);
 			}
 			g_free(tocheck_conv);
 		} else {
@@ -155,22 +157,6 @@ static void spellcheck_word(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTe
 		DBG_SPELL("'%s' spelled correctly!\n", tocheck);
 	}
 	g_free(tocheck);
-}
-
-/* handle apostrophe in word gracefully */ 
-static inline gboolean text_iter_forward_real_word_end(GtkTextIter *it) {
-	GtkTextIter iter;
-	if (!gtk_text_iter_forward_word_end(it))
-		return FALSE;
-	if (gtk_text_iter_get_char(it) != '\'')
-		return TRUE;
-	iter = *it;
-	if (gtk_text_iter_forward_char(&iter)) {
-		if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
-			return (gtk_text_iter_forward_word_end(it));
-		}
-	}
-	return TRUE;
 }
 
 #ifdef HAVE_LIBENCHANT_OLD
@@ -378,7 +364,7 @@ static gboolean get_next_region(BluefishTextView * btv, GtkTextIter *so, GtkText
 			}
 			g_slist_free(tmpslist);
 		}
-		if (feo) {
+		if (feo || btv->bflang->default_spellcheck) {
 			*eo = iter;
 			return TRUE;
 		}
@@ -387,7 +373,7 @@ static gboolean get_next_region(BluefishTextView * btv, GtkTextIter *so, GtkText
 	return FALSE;
 }
 
-static gboolean forward_to_end_of_entity(GtkTextIter *iter) {
+static inline gboolean forward_to_end_of_entity(GtkTextIter *iter) {
 	gint i=0;
 	GtkTextIter tmpiter=*iter;
 	while(gtk_text_iter_get_char(&tmpiter) != ';') {
@@ -397,7 +383,59 @@ static gboolean forward_to_end_of_entity(GtkTextIter *iter) {
 		if (i > 8)
 			return FALSE;
 	}
+	/* forward one more char */
+	gtk_text_iter_forward_char(&tmpiter);
 	*iter = tmpiter;
+	return TRUE;
+}
+
+/* handle apostrophe and entities in word gracefully */ 
+static inline gboolean text_iter_next_word_bounds(GtkTextIter *soword, GtkTextIter *eoword, gboolean enable_entities) {
+	gunichar uc;
+	
+	if (!gtk_text_iter_forward_word_end(eoword))
+		return FALSE;
+	*soword = *eoword;
+	gtk_text_iter_backward_word_start(soword);
+	
+	uc = gtk_text_iter_get_char(eoword);
+	DBG_SPELL("text_iter_next_word_bounds, uc=%c\n",uc);
+	while (uc == '\'' || uc == ';' || uc == '&') {
+		GtkTextIter iter = *eoword;
+		DBG_SPELL("text_iter_next_word_bounds, in loop, uc=%c\n",uc);
+		if (uc == '\'' && gtk_text_iter_forward_char(&iter)) {
+			if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
+				gtk_text_iter_forward_word_end(eoword);
+			}
+		} else if (uc == '&') {
+			if (!forward_to_end_of_entity(&iter))
+				return TRUE; /* no entity, return previous word end */
+
+			*eoword = iter;
+			if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
+				/* continue in the loop */
+				gtk_text_iter_forward_word_end(eoword);
+			} else {
+				/* after the entity the word stops, return TRUE */
+				return TRUE;
+			}
+			
+		} else if (uc == ';') {
+			GtkTextIter tmp = *soword;
+			DBG_SPELL("text_iter_next_word_bounds, soword uc=%c\n",gtk_text_iter_get_char(soword));
+			if (gtk_text_iter_backward_char(&tmp) && gtk_text_iter_get_char(&tmp) == '&') {
+				/* the word probably starts with an entity */
+				*soword = tmp;
+				DBG_SPELL("text_iter_next_word_bounds, word starts with an enity, forward eoword one position\n");
+				gtk_text_iter_forward_char(eoword);
+			} else {
+				DBG_SPELL("text_iter_next_word_bounds, tmp uc=%c\n",gtk_text_iter_get_char(&tmp));
+				return TRUE;
+			}
+		}
+		uc = gtk_text_iter_get_char(eoword);
+		DBG_SPELL("text_iter_next_word_bounds, new uc=%c\n",uc);
+	}
 	return TRUE;
 }
 
@@ -441,14 +479,13 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 		gtk_text_buffer_remove_tag_by_name(GTK_TEXT_VIEW(btv)->buffer, "_spellerror_", &iter, &eo2);
 		DBG_SPELL("bftextview2_run_spellcheck, loop2 from %d to %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&eo2));
 		while (cont2 && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) { /* loop from iter to eo2 */
+			GtkTextIter wordstart=iter;
 			loop++;
 			DBG_SPELL("iter at %d, now forward to word end\n",gtk_text_iter_get_offset(&iter));
-			if (gtk_text_iter_forward_word_end(&iter) && gtk_text_iter_compare(&iter, &eo2) <= 0) {
-				GtkTextIter wordstart=iter;
-				gtk_text_iter_backward_word_start(&wordstart);
+			if (text_iter_next_word_bounds(&wordstart, &iter, TRUE) && gtk_text_iter_compare(&iter, &eo2) <= 0) {
 				DBG_SPELL("iter at %d, backward wordstart at %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&wordstart));
 				
-				/* handle apostrophe gracefully */
+/*
 				if (gtk_text_iter_get_char(&iter) == '\'') {
 					DBG_SPELL("handle apostrophe, forward to next word end\n");
 					if (gtk_text_iter_forward_char(&iter)) {
@@ -456,14 +493,14 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 							gtk_text_iter_forward_word_end(&iter);
 						}
 					}
-				} else if (gtk_text_iter_get_char(&iter) == '&' && forward_to_end_of_entity(&iter)) { /* handle entities gracefully */
+				} else if (gtk_text_iter_get_char(&iter) == '&' && forward_to_end_of_entity(&iter)) { / * handle entities gracefully * /
 					DBG_SPELL("handle entity, forward to next word end\n");
 					if (gtk_text_iter_forward_char(&iter)) {
 						if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
 							gtk_text_iter_forward_word_end(&iter);
 						}
 					}
-				}
+				}*/
 				/* check word */
 #ifdef SPELL_PROFILING
 				profile_words++;
