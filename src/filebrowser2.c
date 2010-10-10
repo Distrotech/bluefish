@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filebrowser2.c - the filebrowser v2
  *
- * Copyright (C) 2002,2003,2004,2005,2006,2007,2008,2009 Olivier Sessink
+ * Copyright (C) 2002-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're 
 #include "gtk_easy.h"			/* destroy_disposable_menu_cb() */
 #include "menu.h"				/* menu_translate() */
 #include "project.h"
-#include "stringlist.h"			/* count_array() */
+#include "stringlist.h"			/* add_to_history_stringlist() */
 #include "filefilter.h"
 
 typedef struct {

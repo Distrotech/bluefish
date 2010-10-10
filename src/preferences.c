@@ -556,7 +556,7 @@ Tsessionprefs *sessionprefs(const gchar *frame_title, Tsessionprefs *sprefs, Tse
 /************ plugin code ****************/
 static void set_plugin_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
-	arrcount = count_array(strarr);
+	arrcount = g_strv_length(strarr);
 	if (arrcount==3) {
 		DEBUG_MSG("set_plugin_strarr_in_list, arrcount=%d, file=%s\n",arrcount,strarr[0]);
 		gtk_list_store_set(GTK_LIST_STORE(pd->pd.lstore), iter
@@ -590,7 +590,7 @@ static void create_plugin_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		while (tmplist) {
 			gint arrcount;
 			gchar **strarr = (gchar **)tmplist->data;
-			arrcount = count_array(strarr);
+			arrcount = g_strv_length(strarr);
 			if (arrcount==3) {
 				GtkTreeIter iter;
 				gtk_list_store_append(GTK_LIST_STORE(pd->pd.lstore), &iter);
@@ -612,7 +612,7 @@ static void create_plugin_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 
 static void set_textstyle_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
-	arrcount = count_array(strarr);
+	arrcount = g_strv_length(strarr);
 	if (arrcount==6) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->tsd.lstore), iter
 				,0,strarr[0],1,strarr,-1);
@@ -774,13 +774,13 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		GList *tmplist = g_list_first(pd->lists[textstyles]); /* the order of this list has a meaning !!! */
 		while (tmplist) {
 			gchar **strarr = (gchar **)tmplist->data;
-			gint count = count_array(strarr);
+			gint count = g_strv_length(strarr);
 			if (count==6) {
 				GtkTreeIter iter;
 				gtk_list_store_append(GTK_LIST_STORE(pd->tsd.lstore), &iter);
 				set_textstyle_strarr_in_list(&iter, strarr,pd);
 			} else {
-				g_print("invalid/outdated textstyle with length %d\n",count_array(strarr));
+				g_print("invalid/outdated textstyle with length %d\n",g_strv_length(strarr));
 			}
 			tmplist = g_list_next(tmplist);
 		}
@@ -811,7 +811,7 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 /************ external commands code ****************/
 
 static void set_extcommands_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
-	gint arrcount = count_array(strarr);
+	gint arrcount = g_strv_length(strarr);
 	if (arrcount==3) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->bd.lstore), iter
 				,0,strarr[0],1,strarr[1],2,(strarr[2][0]=='1'),3,strarr,-1);
@@ -884,7 +884,7 @@ static void create_extcommands_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 /************ external filters?? code ****************/
 
 static void set_external_filters_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
-	gint arrcount = count_array(strarr);
+	gint arrcount = g_strv_length(strarr);
 	if (arrcount==2) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->ed.lstore), iter
 				,0,strarr[0],1,strarr[1],2,strarr,-1);
@@ -954,7 +954,7 @@ static void create_filters_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 
 static void set_outputbox_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
-	arrcount = count_array(strarr);
+	arrcount = g_strv_length(strarr);
 	if (arrcount==6) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->od.lstore), iter
 				,0,strarr[0],1,strarr[1],2,strarr[2],3,strarr[3]
@@ -1019,7 +1019,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		while (tmplist) {
 			gint arrcount;
 			gchar **strarr = (gchar **)tmplist->data;
-			arrcount = count_array(strarr);
+			arrcount = g_strv_length(strarr);
 			if (arrcount==6) {
 				GtkTreeIter iter;
 				gtk_list_store_append(GTK_LIST_STORE(pd->od.lstore), &iter);
@@ -1044,7 +1044,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 
 /********* template manager GUI */
 static void set_template_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
-	if (count_array(strarr)==2) {
+	if (g_strv_length(strarr)==2) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->tg.lstore), iter
 				,0,strarr[0],1,strarr[1],2,strarr,-1);
 	}
@@ -1090,7 +1090,7 @@ static void create_template_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	while (tmplist) {
 		gint arrcount;
 		gchar **strarr = (gchar **)tmplist->data;
-		arrcount = count_array(strarr);
+		arrcount = g_strv_length(strarr);
 		if (arrcount==2) {
 			GtkTreeIter iter;
 			gtk_list_store_append(GTK_LIST_STORE(pd->tg.lstore), &iter);
@@ -1188,7 +1188,7 @@ static void fill_bflang_gui(Tprefdialog *pd) {
 	GList *tmplist = g_list_first(g_list_sort(pd->lists[bflang_options],sort_array2_lcb));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
-		if (count_array(strarr)==3) {
+		if (g_strv_length(strarr)==3) {
 			GtkTreeIter iter;
 			gtk_list_store_append(GTK_LIST_STORE(pd->bld.lstore), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(pd->bld.lstore), &iter
@@ -1201,7 +1201,7 @@ static void fill_bflang_gui(Tprefdialog *pd) {
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
 		/*g_print("found %s:%s:%s\n",strarr[0],strarr[1],strarr[2]);*/
-		if (count_array(strarr)==3) {
+		if (g_strv_length(strarr)==3) {
 			GtkTreeIter iter;
 			gtk_list_store_append(GTK_LIST_STORE(pd->bld.lstore2), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(pd->bld.lstore2), &iter

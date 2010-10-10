@@ -1320,7 +1320,7 @@ static void add_encoding_to_list(gchar *encoding) {
 
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
-		if (count_array(tmparr)==3 && g_ascii_strcasecmp(tmparr[1], encoding) == 0) {
+		if (g_strv_length(tmparr)==3 && g_ascii_strcasecmp(tmparr[1], encoding) == 0) {
 			if (tmparr[2][0]!='1') { /* enable this encoding */
 				g_print("enable encoding %s\n",tmparr[0]);
 				g_free(tmparr[2]);

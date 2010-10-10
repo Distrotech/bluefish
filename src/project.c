@@ -206,7 +206,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 		tmplist = g_list_first(bfwin->session->bmarks);
 		while (tmplist) {
 			gchar **entry = (gchar**)tmplist->data;
-			if (count_array(entry) > 2) {
+			if (g_strv_length(entry) > 2) {
 				GList *tmplist2 = g_list_first(prj->files);
 				while (tmplist2) {
 					if (strcmp(tmplist2->data, entry[2])==0) {

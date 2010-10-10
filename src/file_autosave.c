@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file_autosave.c - autosave 
  *
- * Copyright (C) 2009 Olivier Sessink
+ * Copyright (C) 2009-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -268,7 +268,7 @@ static inline void autosave_recover(Tbfwin *bfwin, GFile *file) {
 	while (tmplist) {
 		gchar **arr = (gchar **)tmplist->data;
 		GFile *recover_uri;
-		if (count_array(arr)!=3) {
+		if (g_strv_length(arr)!=3) {
 			tmplist = g_list_next(tmplist);
 			continue;
 		}

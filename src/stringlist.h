@@ -2,7 +2,7 @@
  * stringlist.h - functions that deal with stringlists
  *
  * Copyright (C) 1999 Olivier Sessink and Hylke van der Schaaf
- * Copyright (C) 2000-2003 Olivier Sessink
+ * Copyright (C) 2000-2010 Olivier Sessink
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,8 +26,6 @@
 /*void estrl_dialog(GList **which_list, gchar *title, gint what_list
 				, gint column_num, gchar **column_titles, void (*post_dialog_func)());*/
 
-/*gint count_array(gchar **array);*/
-#define count_array g_strv_length
 gchar *array_to_string(gchar **array);
 gchar **string_to_array(gchar *string);
 gchar **array_from_arglist(const gchar *string1, ...);
@@ -41,8 +39,6 @@ gboolean put_stringlist_limited(GFile * file, GList * which_list, gint maxentrie
 gboolean put_stringlist(GFile * file, GList * which_list, gboolean is_arraylist);
 
 gint free_arraylist(GList * which_list);
-/*gchar **duplicate_stringarray(gchar **array);*/
-#define duplicate_stringarray g_strdupv
 GList *duplicate_arraylist(GList *arraylist);
 
 /* removes a string from a stringlist if it is the same */

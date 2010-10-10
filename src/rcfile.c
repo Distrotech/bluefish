@@ -345,10 +345,10 @@ static gboolean parse_config_file(GHashTable * config_list, GFile * file)
 					break;
 				case 'a':
 					tmparray = string_to_array(tmpstring);
-					if (tmpitem->len <= 0 || tmpitem->len == count_array(tmparray)) {
+					if (tmpitem->len <= 0 || tmpitem->len == g_strv_length(tmparray)) {
 						* (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmparray);
 					} else {
-						DEBUG_MSG("parse_config_file, not storing array, count_array() != tmpitem->len\n");
+						DEBUG_MSG("parse_config_file, not storing array, g_strv_length() != tmpitem->len\n");
 						g_strfreev(tmparray);
 					}
 					DEBUG_MSG("parse_config_file, *(void **)tmpitem->pointer=%p\n", *(void **) tmpitem->pointer);
