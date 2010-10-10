@@ -29,7 +29,7 @@
 #include "bf_lib.h"
 #include "pixmap.h"
 #include "gui.h" /* statusbar_message() */
-#include "stringlist.h" /* count_array() */
+/* #include "stringlist.h"  count_array() */
 
 #ifdef WIN32
 #define DIRSTR "\\"
@@ -80,7 +80,7 @@ GtkTreeModel *treemodel_from_arraylist(GList *list, gint numcols) {
 	
 	for (tmplist=g_list_first(list);tmplist;tmplist=tmplist->next){
 		gchar **arr = (gchar **)tmplist->data;
-		if (count_array(arr) >= numcols-1) {
+		if (g_strv_length(arr) >= numcols-1) {
 			gtk_list_store_append(GTK_LIST_STORE(retm),&iter);
 			for (i=0;i<numcols-1;i++) {
 				g_print("set column %d to value %s\n",i,arr[i]);
@@ -936,7 +936,7 @@ Tmultientrywidget *build_multi_entry_window(gchar *title,GCallback ok_func
 	gint arrlen,i;
 	GtkWidget *table,*hbox,*but;
 
-	arrlen = count_array(labelarr);
+	arrlen = g_strv_length(labelarr);
 	if (arrlen >10) arrlen = 10;
 	Tmultientrywidget *mew = g_new0(Tmultientrywidget,1);
 	mew->data = data;

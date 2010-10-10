@@ -47,30 +47,6 @@
 /************************************************************************/
 /************************************************************************/
 
-/* DEPRECATED BY g_strv_length
- * count_array:
- * @array: #gchar** with the NULL terminated array to count
- *
- * counts the number of entries in a NULL terminated array
- *
- * Return value: #gint with number of entries
- * /
-gint count_array(gchar **array) {
-	gint count=0;
-	gchar **tmpchar=array;
-	
-	if (!tmpchar) {
-		DEBUG_MSG("count_array, no array!?!?\n");
-		return 0;
-	}
-
-	while (*tmpchar != NULL) {
-		count++;
-		tmpchar++;
-	}
-	return count;
-}
-*/
 /**
  * array_to_string:
  * @array: #gchar** with NULL terminated array
@@ -337,17 +313,6 @@ gint free_arraylist(GList * which_list)
 	which_list = NULL;
 	return 1;
 }
-/* deprecated by g_strdupv
-gchar **duplicate_stringarray(gchar **array) {
-	gchar **newchar;
-	gint i;
-
-	newchar = g_malloc0((count_array(array)+1)*sizeof(gchar *));
-	for (i=0; array[i] != NULL ; i++) {
-		newchar[i] = g_strdup(array[i]);
-	}
-	return newchar;
-}*/
 
 GList *duplicate_arraylist(GList *arraylist) {
 	GList *tmplist;
@@ -355,7 +320,7 @@ GList *duplicate_arraylist(GList *arraylist) {
 
 	tmplist = g_list_first(arraylist);
 	while (tmplist != NULL) {
-		newlist = g_list_append(newlist, duplicate_stringarray((gchar **)tmplist->data));
+		newlist = g_list_append(newlist, g_strdupv((gchar **)tmplist->data));
 		tmplist = g_list_next(tmplist);
 	}
 	return newlist;
@@ -751,7 +716,7 @@ GList *arraylist_append_identical_from_list(GList *thelist, GList *source, const
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
 		if (array_n_strings_identical(compare, (const gchar **)tmparr, case_sensitive, testlevel)==0) {
-			thelist = g_list_append(thelist, duplicate_stringarray(tmparr));
+			thelist = g_list_append(thelist, g_strdupv(tmparr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -823,10 +788,10 @@ GList *arraylist_load_new_identifiers_from_list(GList *mylist, GList *deflist, g
 	GList *tmplist = g_list_first(deflist);
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
-		if (count_array(tmparr) >= uniquelevel) {
+		if (g_strv_length(tmparr) >= uniquelevel) {
 			if (!arraylist_value_exists(mylist, (const gchar **)tmparr, uniquelevel, TRUE)) {
 				DEBUG_MSG("arraylist_load_new_identifiers, adding %s to thelist\n",tmparr[0]);
-				mylist = g_list_append(mylist, duplicate_stringarray(tmparr));
+				mylist = g_list_append(mylist, g_strdupv(tmparr));
 			}
 		}
 		tmplist = g_list_next(tmplist);

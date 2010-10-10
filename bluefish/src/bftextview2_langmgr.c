@@ -220,7 +220,7 @@ void langmgr_reload_user_styles(void) {
 	for (tmplist = g_list_last(main_v->props.textstyles);tmplist;tmplist=tmplist->prev) {
 		GtkTextTag *tag;
 		gchar **arr = (gchar **)tmplist->data;
-		if (count_array(arr)==6) {
+		if (g_strv_length(arr)==6) {
 			tag = langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
 			highlightlist = g_list_prepend(highlightlist, tag);
 #ifdef HAVE_LIBENCHANT
@@ -427,13 +427,13 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 						/* the user-set style does not exist, create an empty user-set style */
 						gchar *arr[] = {use_textstyle,"","","","",NULL};
 						g_warning("textstyle %s is set by the user but does not exist\n",use_textstyle);
-						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, duplicate_stringarray(arr));
+						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv(arr));
 					}
 				} else if (style) { /* no textstyle was configured, set the provided style */
 					if (!gtk_text_tag_table_lookup(langmgr.tagtable,style)) {
 						gchar *arr[] = {style,"","","","",NULL};
 						g_warning("textstyle %s is set in the language file but does not exist\n",style);
-						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, duplicate_stringarray(arr));
+						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv(arr));
 					}
 					g_hash_table_insert(langmgr.configured_styles,array_from_arglist(bflang->name,name,NULL),g_strdup(style));
 					main_v->props.highlight_styles = g_list_prepend(main_v->props.highlight_styles, array_from_arglist(bflang->name,name,style,NULL));

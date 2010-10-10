@@ -905,7 +905,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		/*  arr[0] = name
 		 *  arr[1] = command
 		 */
-		if (count_array(arr)==2) {
+		if (g_strv_length(arr)==2) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
@@ -927,7 +927,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		 *  arr[1] = command
 		 *  arr[2] = is_default_browser
 		 */
-		if (count_array(arr)==3) {
+		if (g_strv_length(arr)==3) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
@@ -958,7 +958,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		 * arr[5] = command
 		 * arr[6] = show_all_output
 		 */
-		if (count_array(arr)==6) {
+		if (g_strv_length(arr)==6) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->data = arr;
 			bdm->bfwin = bfwin;
@@ -1009,7 +1009,7 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Document/Character Encoding"));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
-		if (count_array(strarr)==3 && strarr[2][0]=='1') {
+		if (g_strv_length(strarr)==3 && strarr[2][0]=='1') {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			gchar *label = g_strdup_printf ("%s (%s)", strarr[0], strarr[1]);
 			/*g_print("add encoding %s:%s:%s to the menu\n",strarr[0],strarr[1],strarr[2]);*/

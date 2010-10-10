@@ -1158,7 +1158,7 @@ void bmark_reload(Tbfwin * bfwin) {
 	tmplist = g_list_first(bfwin->session->bmarks);
 	while (tmplist) {
 		gchar **items = (gchar **) tmplist->data;
-		if (items && count_array(items) == 6) {
+		if (items && g_strv_length(items) == 6) {
 			gchar *ptr;
 			Tbmark *b;
 			b = g_slice_new0(Tbmark);

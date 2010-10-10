@@ -144,7 +144,7 @@ static void bluefish_scan_dir_load_plugins(GList **oldlist,const gchar *indirnam
 					}
 				} else { /* no plugname ==> failed to load */
 					DEBUG_MSG("bluefish_scan_dir_load_plugins, returned NULL -> load failed\n");
-					if (arr && count_array(arr)>=2) {
+					if (arr && g_strv_length(arr)>=2) {
 						g_free(arr[1]);
 						arr[1] = g_strdup("1");
 					} else {
