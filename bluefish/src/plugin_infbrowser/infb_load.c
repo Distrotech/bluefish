@@ -105,7 +105,7 @@ static gboolean reference_file_known(gchar * path)
 	GList *tmplist = g_list_first(main_v->globses.reference_files);
 	while (tmplist) {
 		gchar **arr = tmplist->data;
-		if (count_array(arr) == 4 && strcmp(arr[1], path) == 0) {
+		if (g_strv_length(arr) == 4 && strcmp(arr[1], path) == 0) {
 			return TRUE;
 		}
 		tmplist = g_list_next(tmplist);
@@ -176,7 +176,7 @@ void infb_load(void) {
 	reflist = g_list_first(main_v->globses.reference_files);
 	while (reflist) {
 		gchar **tmparray = reflist->data;
-		if (count_array(tmparray) == 4) {
+		if (g_strv_length(tmparray) == 4) {
 			if (access(tmparray[1], R_OK) == 0) {
 				if (strcmp(tmparray[2],"dtd")==0)
 					node2 = xmlNewChild(n_dtd,NULL,BAD_CAST "fileref",BAD_CAST tmparray[1]);
