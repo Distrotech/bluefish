@@ -137,13 +137,16 @@ static void spellcheck_word(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTe
 	gchar *tocheck;
 	
 	tocheck = gtk_text_buffer_get_text(buffer, start,end, FALSE);
+	if (!tocheck)
+		return;
+	
 	DBG_SPELL("spellcheck_word, check word %s in dictionary %p\n",tocheck,BFWIN(DOCUMENT(btv->doc)->bfwin)->ed);
 	if (enchant_dict_check((EnchantDict *)BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck, strlen(tocheck)) != 0) {
 		DBG_SPELL("'%s' *not* spelled correctly!\n", tocheck);
 		if (g_utf8_strchr(tocheck, -1, '&')) {
 			gchar *tocheck_conv = xmlentities2utf8(tocheck);
 			/* check for entities */
-			if (enchant_dict_check((EnchantDict *)BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck_conv, strlen(tocheck_conv)) != 0) {
+			if (tocheck_conv && enchant_dict_check((EnchantDict *)BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck_conv, strlen(tocheck_conv)) != 0) {
 				DBG_SPELL("'%s' after entity conversion (%s) *not* spelled correctly!\n", tocheck, tocheck_conv);
 				gtk_text_buffer_apply_tag_by_name(buffer, "_spellerror_", start, end);
 			} else {
