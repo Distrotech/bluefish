@@ -406,11 +406,12 @@ static inline gboolean text_iter_next_word_bounds(GtkTextIter *soword, GtkTextIt
 		if (uc == '\'' && gtk_text_iter_forward_char(&iter)) {
 			if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
 				gtk_text_iter_forward_word_end(eoword);
+			} else {
+				return TRUE;
 			}
 		} else if (enable_entities && uc == '&') {
 			if (!forward_to_end_of_entity(&iter))
 				return TRUE; /* no entity, return previous word end */
-
 			*eoword = iter;
 			if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
 				/* continue in the loop */
@@ -432,6 +433,9 @@ static inline gboolean text_iter_next_word_bounds(GtkTextIter *soword, GtkTextIt
 				DBG_SPELL("text_iter_next_word_bounds, tmp uc=%c\n",gtk_text_iter_get_char(&tmp));
 				return TRUE;
 			}
+		} else {
+			/* is it possible to get here? */
+			return TRUE;
 		}
 		uc = gtk_text_iter_get_char(eoword);
 		DBG_SPELL("text_iter_next_word_bounds, new uc=%c\n",uc);
