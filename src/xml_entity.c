@@ -179,7 +179,7 @@ gchar *xmlentities2utf8(const gchar *inbuf) {
 	const gchar *found, *prevfound;
 	gchar *outbuf, *outbufloc;
 
-	outbuf = g_malloc0(strlen(inbuf));
+	outbuf = g_malloc0(strlen(inbuf)+1);
 	prevfound = inbuf;
 	outbufloc = outbuf;
 	found = g_utf8_strchr(inbuf,-1, '&');
