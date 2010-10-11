@@ -395,6 +395,7 @@ static inline gboolean forward_to_end_of_entity(GtkTextIter *iter) {
 /* handle apostrophe and entities in word gracefully */ 
 static inline gboolean text_iter_next_word_bounds(GtkTextIter *soword, GtkTextIter *eoword, gboolean enable_entities) {
 	gunichar uc;
+	gboolean handled_starting_entity=FALSE;
 	
 	if (!gtk_text_iter_forward_word_end(eoword))
 		return FALSE;
@@ -426,15 +427,24 @@ static inline gboolean text_iter_next_word_bounds(GtkTextIter *soword, GtkTextIt
 			
 		} else if (enable_entities && uc == ';') {
 			GtkTextIter tmp = *soword;
-			DBG_SPELL("text_iter_next_word_bounds, soword uc=%c\n",gtk_text_iter_get_char(soword));
-			if (gtk_text_iter_backward_char(&tmp) && gtk_text_iter_get_char(&tmp) == '&') {
+			if (!handled_starting_entity && gtk_text_iter_backward_char(&tmp) && gtk_text_iter_get_char(&tmp) == '&') {
 				/* the word probably starts with an entity */
 				*soword = tmp;
 				DBG_SPELL("text_iter_next_word_bounds, word starts with an enity, forward eoword one position\n");
 				gtk_text_iter_forward_char(eoword);
+				if (g_unichar_isalpha(gtk_text_iter_get_char(eoword))) {
+					gtk_text_iter_forward_word_end(eoword);
+				}
+				handled_starting_entity=TRUE;
 			} else {
-				DBG_SPELL("text_iter_next_word_bounds, tmp uc=%c\n",gtk_text_iter_get_char(&tmp));
-				return TRUE;
+				tmp = *eoword;
+				gtk_text_iter_forward_char(&tmp);
+				if (g_unichar_isalpha(gtk_text_iter_get_char(&tmp))) {
+					gtk_text_iter_forward_word_end(eoword);
+				} else {
+					DBG_SPELL("text_iter_next_word_bounds, tmp uc=%c\n",gtk_text_iter_get_char(&tmp));
+					return TRUE;
+				}
 			}
 		} else {
 			/* is it possible to get here? */
