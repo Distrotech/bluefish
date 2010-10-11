@@ -141,10 +141,9 @@ void doc_utf8_to_entities(Tdocument *doc, gint start, gint end, gboolean iso8859
 		/*entity = entity_for_unichar(unichar, iso8859_1, symbols, specials, xml);*/
 		entity = unichar2xmlentity(unichar, iso8859_1, symbols, specials, xml, numerical, IE_apos_workaround);
 		if (entity) {
-			gchar *replacew = g_strconcat("&", entity, ";", NULL);
-			doc_replace_text_backend(doc,replacew,docpos,docpos+1);
-			docpos += (strlen(replacew)-1);
-			g_free(replacew);
+			doc_replace_text_backend(doc,entity,docpos,docpos+1);
+			docpos += (strlen(entity)-1);
+			g_free(entity);
 		}
 		srcp = g_utf8_next_char(srcp);
 		unichar = g_utf8_get_char (srcp);
