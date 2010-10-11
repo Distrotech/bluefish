@@ -312,11 +312,11 @@ static void acwin_fill_tree(Tacwin *acw, GList *items, GList *items2, gchar *clo
 	guint numitems=0,longestlen=1;
 	if (items)
 		list = g_list_copy(items);
-	g_print("got %d items\n",g_list_length(items));
-	g_print("got %d items2\n",g_list_length(items2));
+	/*g_print("got %d items\n",g_list_length(items));
+	g_print("got %d items2\n",g_list_length(items2));*/
 	if (items2)
 		list = g_list_concat(g_list_copy(items2), list);
-	g_print("got %d list\n",g_list_length(list));
+	/*g_print("got %d list\n",g_list_length(list));*/
 	if (closetag)
 		list = g_list_prepend(list, closetag);
 	list = tmplist = g_list_sort(list, (GCompareFunc) g_strcmp0);

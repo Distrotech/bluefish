@@ -735,6 +735,13 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 		gboolean have_non_ascii = FALSE;
 
 		word = gtk_text_buffer_get_text(GTK_TEXT_VIEW(doc->view)->buffer, &wordstart,&wordend,FALSE);
+		
+		if (g_utf8_strchr(word, -1, '&') && g_utf8_strchr(word, -1, ';')) {
+			gchar *tmp = xmlentities2utf8(word);
+			g_free(word);
+			word=tmp;
+		}
+		
 		DBG_SPELL("list alternatives for %s\n", word);
 		suggestions = enchant_dict_suggest((EnchantDict *)BFWIN(doc->bfwin)->ed, word,strlen(word), &n_suggs);
 
