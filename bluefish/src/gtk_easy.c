@@ -204,11 +204,14 @@ void button_apply(gchar ** config_var, GtkWidget * entry)
 {
 	const gchar *tmpstring;
 	DEBUG_MSG("button_apply, start\n");
+	
+	if (!config_var || !entry)
+		return;
 
 	tmpstring = gtk_button_get_label(GTK_BUTTON(entry));
 	DEBUG_MSG("button_apply, tmpstring(%p)=%s\n", tmpstring, tmpstring);
 	if (tmpstring) {
-		if (config_var != NULL) {
+		if (*config_var != NULL) {
 			g_free(*config_var);
 		}
 		*config_var = g_strdup(tmpstring);  /* copy */ 
@@ -232,6 +235,10 @@ void button_apply(gchar ** config_var, GtkWidget * entry)
 void string_apply(gchar ** config_var, GtkWidget * widget)
 {
 	gchar *tmpstring;
+
+	if (!config_var || !widget)
+		return;	
+	
 	if (GTK_IS_COMBO_BOX(widget)) {
 		tmpstring = gtk_combo_box_get_active_text(GTK_COMBO_BOX(widget));
 	} else {
@@ -239,7 +246,7 @@ void string_apply(gchar ** config_var, GtkWidget * widget)
 	}
 	DEBUG_MSG("string_apply, tmpstring(%p)=%s\n", tmpstring, tmpstring);
 	if (tmpstring) {
-		if (config_var != NULL) {
+		if (*config_var != NULL) {
 			g_free(*config_var);
 		}
 		*config_var = tmpstring;
