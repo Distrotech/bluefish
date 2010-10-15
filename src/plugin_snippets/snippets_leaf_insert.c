@@ -101,7 +101,7 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	int i=0;
 	GtkWidget *table, *label;
 	gchar *tmpstr;
-	gint beforelen,afterlen;
+	gint beforelen=0,afterlen=0;
 	
 	title = xmlGetProp(leaf, (const xmlChar *)"title");
 	sid = g_new0(Tsnippet_insert_dialog,1);

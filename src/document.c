@@ -2744,7 +2744,10 @@ void doc_activate(Tdocument *doc) {
 		exit(44);
 	}
 #endif
-	if (doc == NULL || doc == BFWIN(doc->bfwin)->last_activated_doc || doc->action.close_doc) {
+	if (doc == NULL)
+		return;
+	
+	if (doc == BFWIN(doc->bfwin)->last_activated_doc || doc->action.close_doc) {
 		/* DO enable the scanner, because it is disabled in notebook_changed(), but if the last document is also the new document it needs to be re-enabled again */
 		BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
 		DEBUG_MSG("doc_activate, not doing anything, doc=%p, last_avtivated_doc=%p, close_doc=%d\n",doc, BFWIN(doc->bfwin)->last_activated_doc, doc->action.close_doc);

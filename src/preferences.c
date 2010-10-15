@@ -1175,6 +1175,8 @@ static gboolean bflang_gui_filter_func_lcb(GtkTreeModel *model,GtkTreeIter *iter
 static gint sort_array2_lcb(gconstpointer a,gconstpointer b) {
 	const gchar **arra=(const gchar **)a, **arrb=(const gchar **)b;
 	gint ret;
+	if (a==NULL && b==NULL)
+		return 0;
 	ret = (a!=NULL)-(b!=NULL);
 	if (ret==0) {
 		ret = g_strcmp0(arra[0],arrb[0]);
