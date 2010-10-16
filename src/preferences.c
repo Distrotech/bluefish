@@ -1172,20 +1172,18 @@ static gboolean bflang_gui_filter_func_lcb(GtkTreeModel *model,GtkTreeIter *iter
 	g_free (name);
 	return visible;
 }
+
 static gint sort_array2_lcb(gconstpointer a,gconstpointer b) {
 	const gchar **arra=(const gchar **)a, **arrb=(const gchar **)b;
 	gint ret;
-	if (a==NULL && b==NULL)
-		return 0;
-	ret = (a!=NULL)-(b!=NULL);
-	if (ret==0) {
-		ret = g_strcmp0(arra[0],arrb[0]);
-		if (ret == 0) {
-			ret = g_strcmp0(arra[1],arrb[1]);
-		}
-	}
-	return ret;
+	if (a==NULL || b==NULL)
+		return a-b;
+	ret = g_strcmp0(arra[0],arrb[0]);
+	if (ret != 0)
+		return ret;
+	return g_strcmp0(arra[1],arrb[1]);
 }
+
 static void fill_bflang_gui(Tprefdialog *pd) {
 	GList *tmplist = g_list_first(g_list_sort(pd->lists[bflang_options],sort_array2_lcb));
 	while (tmplist) {
