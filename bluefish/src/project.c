@@ -138,7 +138,9 @@ static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	bfwin->bmarkdata = bfwin->project->bmarkdata;
 	bmark_set_store(bfwin);
 	bmark_reload(bfwin);
+#ifdef HAVE_LIBENCHANT
 	reload_spell_dictionary(bfwin);
+#endif
 	gui_apply_session(bfwin);
 	set_project_menu_widgets(bfwin, TRUE);
 #ifdef MAC_INTEGRATION
