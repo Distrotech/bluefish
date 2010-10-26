@@ -819,7 +819,8 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
  **/
 void file_save_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
-	doc_save_backend(bfwin->current_document, FALSE, FALSE, FALSE, FALSE);
+	if (bfwin->current_document)
+		doc_save_backend(bfwin->current_document, FALSE, FALSE, FALSE, FALSE);
 }
 
 /**
@@ -833,7 +834,8 @@ void file_save_cb(GtkWidget * widget, Tbfwin * bfwin)
  **/
 void file_save_as_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
-	doc_save_backend(bfwin->current_document, TRUE, FALSE, FALSE, FALSE);
+	if (bfwin->current_document)
+		doc_save_backend(bfwin->current_document, TRUE, FALSE, FALSE, FALSE);
 }
 
 /**
@@ -847,7 +849,8 @@ void file_save_as_cb(GtkWidget * widget, Tbfwin * bfwin)
  **/
 void file_move_to_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
-	doc_save_backend(bfwin->current_document, TRUE, TRUE, FALSE, FALSE);
+	if (bfwin->current_document)
+		doc_save_backend(bfwin->current_document, TRUE, TRUE, FALSE, FALSE);
 }
 
 /**
@@ -1006,7 +1009,8 @@ gboolean doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboo
  **/
 void file_close_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
-	doc_close_single_backend(bfwin->current_document, FALSE, FALSE);
+	if (bfwin->current_document)
+		doc_close_single_backend(bfwin->current_document, FALSE, FALSE);
 }
 
 void doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window, Tclose_mode close_mode)

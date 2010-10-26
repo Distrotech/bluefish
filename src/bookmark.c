@@ -523,7 +523,7 @@ static void bmark_activate(Tbfwin *bfwin, Tbmark *b, gboolean select_bmark) {
 		gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,gtk_text_buffer_get_insert(b->doc->buffer));
 		gtk_text_buffer_move_mark_by_name(b->doc->buffer, "selection_bound", &it);
 		gtk_widget_grab_focus(b->doc->view);
-	} else {
+	} else if (bfwin->current_document) {
 		gtk_widget_grab_focus(bfwin->current_document->view);
 	}
 	if (select_bmark) {
@@ -633,7 +633,8 @@ static void bmark_popup_menu_deldoc(Tbfwin *bfwin) {
 			bmark_del_children_backend(bfwin, &realiter);
 		}
 	}
-	gtk_widget_grab_focus(bfwin->current_document->view);
+	if (bfwin->current_document)
+		gtk_widget_grab_focus(bfwin->current_document->view);
 }
 
 static void bmark_popup_menu_del(Tbfwin *bfwin) {
@@ -663,7 +664,8 @@ static void bmark_popup_menu_del(Tbfwin *bfwin) {
 		bmark_unstore(bfwin, b);
 		bmark_free(b);
 	}
-	gtk_widget_grab_focus(bfwin->current_document->view);
+	if (bfwin->current_document)
+		gtk_widget_grab_focus(bfwin->current_document->view);
 }
 
 static void bmark_rpopup_action_lcb(gpointer data, guint action, GtkWidget *widget) {
@@ -1477,6 +1479,8 @@ static gchar *bmark_text_for_offset(Tdocument *doc, GtkTextIter *itoffset, gint 
 static void bmark_add_current_doc_backend(Tbfwin *bfwin, const gchar *name, gint offset, gboolean is_temp) {
 	GtkTextIter it, eit, sit;
 	Tbmark *m;
+	if (!bfwin->current_document)
+		return;
 	DEBUG_MSG("bmark_add_backend, adding bookmark at offset=%d for bfwin=%p\n",offset,bfwin);
 	/* create bookmark */
 	gtk_text_buffer_get_iter_at_offset(DOCUMENT(bfwin->current_document)->buffer,&it,offset);
@@ -1613,7 +1617,7 @@ void bmark_add(Tbfwin * bfwin) {
 	gint offset;
 	gboolean has_mark;
 	/* check for unnamed document */
-	if (!DOCUMENT(bfwin->current_document)->uri) {
+	if (!bfwin->current_document || !DOCUMENT(bfwin->current_document)->uri) {
 		bmark_warn_unsaved_file(bfwin);
 		/*Please save the file first. A Save button in this dialog would be cool -- Alastair*/
 		return;
@@ -1692,7 +1696,7 @@ void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
 	const gchar *buttons[] = {GTK_STOCK_NO, GTK_STOCK_YES, NULL};
 	GtkTreeIter tmpiter;
 
-	if (bfwin==NULL) return;
+	if (bfwin==NULL || !bfwin->current_document) return;
 
 	if (ask)	{
 	  retval = message_dialog_new_multi(bfwin->main_window,

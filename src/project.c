@@ -344,7 +344,8 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 		prwin->session = prj->session;
 		DEBUG_MSG("project_open_from_file, project %p will be in existing prwin=%p\n",prj,bfwin);
 		/* destroy the current empty document, it should use settings from the new session */
-		doc_destroy(bfwin->current_document, TRUE);
+		if (bfwin->current_document)
+			doc_destroy(bfwin->current_document, TRUE);
 	} else {
 		/* we will open a new Bluefish window for this project */
 		DEBUG_MSG("project_open_from_file, we need a new window\n");

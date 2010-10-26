@@ -581,7 +581,8 @@ static void recheck_bfwin(Tbfwin *bfwin) {
 	for (tmplist=g_list_first(bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
 		recheck_document(DOCUMENT(tmplist->data));
 	}
-	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+	if (bfwin->current_document)
+		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 }
 
 
@@ -659,8 +660,8 @@ static void mark_all_docs_needspelling(Tbfwin *bfwin) {
 		gtk_text_buffer_get_bounds(doc->buffer,&start,&end);
 		gtk_text_buffer_apply_tag(doc->buffer, BLUEFISH_TEXT_VIEW(doc->view)->needspellcheck, &start, &end);
 	}
-	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
-	
+	if (bfwin->current_document)
+		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 }
 
 static void bftextview2_preferences_menu_lcb(GtkWidget *widget, gpointer data) {

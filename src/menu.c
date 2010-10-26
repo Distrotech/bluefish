@@ -82,7 +82,8 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		file_open_advanced_cb(NULL,bfwin);
 	break;
 	case 4:
-		doc_reload(bfwin->current_document, NULL, TRUE);
+		if (bfwin->current_document)
+			doc_reload(bfwin->current_document, NULL, TRUE);
 	break;
 	case 5:
 		file_save_cb(NULL, bfwin);
@@ -496,7 +497,7 @@ static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory)
 
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
 	DEBUG_MSG("menu_current_document_type_change, started for bflang %p\n", bdm->data);
-	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
+	if (GTK_CHECK_MENU_ITEM(menuitem)->active && bdm->bfwin->current_document) {
 		doc_set_mimetype(bdm->bfwin->current_document, ((Tbflang *)bdm->data)->mimetypes->data);
 	}
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
@@ -840,7 +841,7 @@ static void external_filter_dialog_response_lcb(GtkWidget *widget,gint response_
 	gint begin=0,end=-1;
 	gtk_widget_destroy(widget);
 	doc_restore_selection(fd->selsave, TRUE); /* the restore will also free the Tselectionsave */
-	if (response_id == 1) {
+	if (response_id == 1 && fd->bdm->bfwin->current_document) {
 		doc_get_selection(fd->bdm->bfwin->current_document,&begin,&end);
 	}
 	filter_command(fd->bdm->bfwin, arr[1],begin,end);
@@ -853,7 +854,7 @@ static void external_filter_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	/* if we have a selection, and the filter can be used on a selection,
 	 we should ask if it should be the complete file or the selection */
 
-	if (operatable_on_selection(arr[1]) && (doc_has_selection(bdm->bfwin->current_document))) {
+	if (operatable_on_selection(arr[1]) && (bdm->bfwin->current_document && doc_has_selection(bdm->bfwin->current_document))) {
 		GtkWidget *dialog, *but;
 		Tfilterdialog *fd;
 		fd = g_slice_new(Tfilterdialog);
@@ -981,7 +982,7 @@ static void menu_current_document_encoding_change(GtkMenuItem *menuitem,Tbfw_dyn
 		gchar *encoding = (gchar *)bdm->data;
 		Tbfwin *bfwin = bdm->bfwin;
 		DEBUG_MSG("menu_current_document_encoding_change, encoding=%s\n",encoding);
-		if (encoding) {
+		if (encoding && bfwin->current_document) {
 			if ((!bfwin->current_document->encoding || strcmp(encoding,bfwin->current_document->encoding)!=0)) {
 				if (bfwin->current_document->encoding) g_free(bfwin->current_document->encoding);
 				bfwin->current_document->encoding = g_strdup(encoding);

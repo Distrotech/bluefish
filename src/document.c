@@ -2255,7 +2255,7 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 	Tdocument *newdoc;
 
 	/* test if the current document is empty and nameless, if so we return that */
-	if (!force_new && g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
+	if (!force_new && bfwin->current_document && g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
 		newdoc = bfwin->current_document;
 		DEBUG_MSG("doc_new_backend, returning existing doc %p\n",newdoc);
 		return newdoc;
@@ -2564,7 +2564,7 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 	}
 	DEBUG_MSG("doc_new_from_input, input=%s, delay_activate=%d\n",input,delay_activate);
 	if (strchr(input, '/')==NULL) { /* no slashes in the path, relative ?*/
-		if (bfwin->current_document->uri) {
+		if (bfwin->current_document && bfwin->current_document->uri) {
 			uri = g_file_resolve_relative_path(bfwin->current_document->uri, input);
 		} else {
 			/* relative path to what ?!?!?! */
@@ -2884,6 +2884,9 @@ void file_open_from_selection(Tbfwin *bfwin) {
  **/
 void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	gchar *tmpfilename=NULL;
+	if (!bfwin->current_document)
+		return;
+	
 	{
 		GtkWidget *dialog;
 		dialog = file_chooser_dialog(bfwin, _("Select file to insert"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, FALSE, NULL, TRUE);
@@ -2919,6 +2922,9 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
  * Return value: void
  **/
 void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	if (!bfwin->current_document)
+		return;
+	
 	doc_unre_new_group(bfwin->current_document);
 	gtk_text_buffer_cut_clipboard(bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),TRUE);
 	doc_unre_new_group(bfwin->current_document);
@@ -2934,6 +2940,8 @@ void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	if (!bfwin->current_document)
+		return;
 	gtk_text_buffer_copy_clipboard(bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD));
 }
 
@@ -2949,6 +2957,8 @@ void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin) {
 void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GtkTextMark *mark;
 	Tdocument *doc = bfwin->current_document;
+	if (!bfwin->current_document)
+		return;
 	DEBUG_MSG("edit_paste_cb, create new undo group\n");
 	doc_unre_new_group(doc);
 	doc->in_paste_operation=TRUE;
@@ -2973,6 +2983,9 @@ void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
  **/
 void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GtkTextIter itstart, itend;
+	if (!bfwin->current_document)
+		return;
+	
 	gtk_text_buffer_get_bounds(bfwin->current_document->buffer,&itstart,&itend);
 	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer,"insert",&itstart);
 	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer,"selection_bound",&itend);
@@ -2989,6 +3002,8 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
+	if (!bfwin->current_document)
+		return;
 	bfwin->current_document->highlightstate = bfwin->current_document->highlightstate-1;
 	g_print("doc_toggle_highlighting_cb, set enable_scanner=%d\n",bfwin->current_document->highlightstate);
 	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = bfwin->current_document->highlightstate;
@@ -3029,6 +3044,9 @@ void all_documents_apply_settings() {
 void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 	guint chars = 0, lines = 0, words = 0;
 	gchar *allchars, *wc_message;
+
+	if (!bfwin->current_document)
+		return;
 
 	allchars = doc_get_chars(bfwin->current_document, 0, -1);
 	wordcount(allchars, &chars, &lines, &words);
@@ -3373,6 +3391,8 @@ void file_floatingview_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *w
 }
 
 void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	if (!bfwin->current_document)
+		return;
 	switch(callback_action) {
 	case 1:
 		bfwin->current_document->wrapstate = GTK_CHECK_MENU_ITEM(widget)->active;

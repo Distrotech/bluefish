@@ -944,6 +944,8 @@ static gint replace_all(Tbfwin *bfwin,const gchar *search_pattern, Tmatch_types 
 static gboolean replace_current_match(Tbfwin *bfwin) {
 	GtkTextIter itstart,itend;
 	GtkTextTag *tag;
+	if (!bfwin->current_document)
+		return FALSE;
 	gtk_text_buffer_get_iter_at_offset(bfwin->current_document->buffer,&itstart,LASTSNR2(bfwin->snr2)->result.start);
 	gtk_text_buffer_get_iter_at_offset(bfwin->current_document->buffer,&itend,LASTSNR2(bfwin->snr2)->result.end);
 	DEBUG_MSG("replace_current_match, get iters at %d and %d\n",LASTSNR2(bfwin->snr2)->result.start,LASTSNR2(bfwin->snr2)->result.end);
@@ -1055,7 +1057,7 @@ static gint search_multiple(Tbfwin *bfwin, gint startpos, gint endpos) {
 			count += search_doc_multiple_backend(bfwin,DOCUMENT(tmplist->data), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, 0, -1, LASTSNR2(bfwin->snr2)->unescape);
 			tmplist = g_list_next(tmplist);
 		}
-	} else {
+	} else if (bfwin->current_document) {
 		count = search_doc_multiple_backend(bfwin,DOCUMENT(bfwin->current_document), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape);
 	}
 	DEBUG_MSG("search_multiple, done\n");
@@ -1069,7 +1071,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
 		result = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
 		if (result.end > 0) {
 			doc_show_result(result.doc, dialog, result.start, result.end, LASTSNR2(bfwin->snr2)->select_match);
-			if (bfwin->current_document->uri && LASTSNR2(bfwin->snr2)->bookmark_results) {
+			if (result.doc->uri && LASTSNR2(bfwin->snr2)->bookmark_results) {
 				gchar *text = doc_get_chars(result.doc, result.start, result.end);
 				DEBUG_MSG("search_single_and_show, adding bookmark '%s' at %d\n", text, result.start);
 				bmark_add_extern(result.doc, result.start, LASTSNR2(bfwin->snr2)->search_pattern, text, !main_v->globses.bookmarks_default_store);
@@ -1077,7 +1079,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
 			}
 		}
 		return result;
-	} else {
+	} else if (bfwin->current_document) {
 		DEBUG_MSG("search_single_and_show, startpos=%d, endpos=%d\n",startpos,endpos);
 		snr2_doc_remove_highlight(bfwin->current_document);
 		result = search_doc(bfwin,bfwin->current_document, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
@@ -1093,6 +1095,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
 		}
 		return result;
 	}
+	return result;
 }
 
 /*****************************************************/
@@ -1134,7 +1137,7 @@ gint snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
 					, matchtype
 					, is_case_sens
 					, startpos, endpos, replace_pattern
-					, BFWIN(doc->bfwin)->current_document
+					, doc
 					, string
 					, unescape, 0 /* unre_id */);
 	}

@@ -87,7 +87,8 @@ void notebook_show(Tbfwin *bfwin) {
 }*/
 
 static gboolean notebook_changed_activate_current_document_lcb(gpointer data) {
-	doc_activate(BFWIN(data)->current_document);
+	if (BFWIN(data)->current_document)
+		doc_activate(BFWIN(data)->current_document);
 	BFWIN(data)->notebook_changed_doc_activate_id = 0;
 	return FALSE;	
 }
@@ -192,6 +193,9 @@ static void notebook_switch_page_lcb(GtkWidget *notebook,GtkNotebookPage *page,g
 
 void gui_notebook_move(Tbfwin *bfwin, gboolean move_left) {
 	GtkWidget *tmp;
+	
+	if (!bfwin->current_document)
+		return;
 	
 	tmp = gtk_widget_get_parent(bfwin->current_document->view);
 	DEBUG_MSG("gui_notebook_move, found scrolwin %p\n",tmp);
@@ -386,6 +390,9 @@ void gui_set_title(Tbfwin *bfwin, Tdocument *doc, gint num_modified_change) {
 	gchar *title, *prfilepart;
 	gint modified_docs;
 	const gchar *tablabel;
+	
+	if (!doc)
+		return;
 	
 	modified_docs = have_modified_documents(bfwin->documentlist);
 	if (num_modified_change != 0 && (modified_docs > 1 
@@ -903,6 +910,9 @@ static void gotoline_entry_changed(GtkEditable *editable, Tbfwin *bfwin)
 	guint linecount;
 	GtkTextIter iter;
 
+	if (!bfwin->current_document)
+		return;
+
 	linestr = gtk_editable_get_chars(editable, 0, -1);
 	linenum = get_int_from_string(linestr);
 	g_free(linestr);
@@ -937,8 +947,8 @@ static void gotoline_close_button_clicked(GtkButton *button, Tbfwin* bfwin)
                                      0, 0, NULL,
                                      gotoline_entry_changed,
                                      NULL);
-                                     
-	gtk_widget_grab_focus(bfwin->current_document->view);
+	if (bfwin->current_document)                          
+		gtk_widget_grab_focus(bfwin->current_document->view);
 }
 
 void gui_gotoline_frame_show(Tbfwin *bfwin, guint callback_action, GtkWidget *widget)
@@ -1198,6 +1208,9 @@ void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget
 	gchar *string;
 	GtkClipboard* cb;
 	gint linenum;
+
+	if (!bfwin->current_document)
+		return;
 
 	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
 	string = gtk_clipboard_wait_for_text(cb);
