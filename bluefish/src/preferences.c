@@ -1421,7 +1421,8 @@ static void preferences_apply(Tprefdialog *pd) {
 			gui_apply_settings(bfwin);
 			left_panel_rebuild(bfwin);
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling doc_force_activate\n");
-			doc_force_activate(bfwin->current_document);
+			if (bfwin->current_document)
+				doc_force_activate(bfwin->current_document);
 #ifdef MAC_INTEGRATION
 			ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
 #endif

@@ -1155,12 +1155,12 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(fb->entry)),0,-1);
 	/* if setfile is empty we should probably use the current document basedir ? right? */
 	if (!setfile || strlen(setfile)==0) {
-		if (fb->bfwin && fb->bfwin->current_document->uri) {
+		if (fb->bfwin && fb->bfwin->current_document && fb->bfwin->current_document->uri) {
 			if (setfile) g_free(setfile);
 			setfile = g_file_get_uri(fb->bfwin->current_document->uri);
 		} else
 				setfile = NULL;
-	} else if (setfile && setfile[0] != '/' && strchr(setfile, ':')==NULL && fb->bfwin && fb->bfwin->current_document->uri) {
+	} else if (setfile && setfile[0] != '/' && strchr(setfile, ':')==NULL && fb->bfwin && fb->bfwin->current_document && fb->bfwin->current_document->uri) {
 		/* if setfile is a relative name, we should try to make it a full path. relative names
 		cannot start with a slash or with a scheme (such as file://)
 		 */
@@ -1195,7 +1195,7 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	g_free(setfile);
 	DEBUG_MSG("file_but_clicked_lcb, return_file returned %s\n",tmpstring);
 	if (tmpstring) {
-		if (!fb->fullpath && fb->bfwin) {
+		if (!fb->fullpath && fb->bfwin && fb->bfwin->current_document ) {
 			if (fb->bfwin->current_document->uri != NULL) {
 				gchar *doc_curi;
 				/* the function g_file_get_relative_path cannot create links that don't 

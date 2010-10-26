@@ -212,6 +212,9 @@ static void start_command_backend(Texternalp *ep) {
 	gint standard_input=0,standard_output=0;
 	GError *error=NULL;
 
+	if (!ep->bfwin->current_document)
+		return;
+
 #ifdef USEBINSH
 	argv[0] = "/bin/sh";
 	argv[1] = "-c";
@@ -323,6 +326,9 @@ static void start_command_backend(Texternalp *ep) {
 }
 
 static void start_command(Texternalp *ep) {
+	if (!ep->bfwin->current_document)
+		return;
+	
 	if (ep->tmp_in) {
 		GError *gerror=NULL;
 		/* first create tmp_in, then start the real command in the callback */
@@ -640,10 +646,12 @@ static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,g
 			gint end=ep->end;
 			GError *error=NULL;
 			DEBUG_MSG("filter_io_watch_lcb, received '%s'\n",str_return);
-			if (ep->end == -1) {
-				end = gtk_text_buffer_get_char_count(ep->bfwin->current_document->buffer);
+			if (ep->bfwin->current_document) {
+				if (ep->end == -1) {
+					end = gtk_text_buffer_get_char_count(ep->bfwin->current_document->buffer);
+				}
+				doc_replace_text(ep->bfwin->current_document, str_return, ep->begin, end);
 			}
-			doc_replace_text(ep->bfwin->current_document, str_return, ep->begin, end);
 			g_io_channel_shutdown(channel,TRUE,&error);
 			externalp_unref(ep);
 			g_free(str_return);
