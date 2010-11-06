@@ -308,6 +308,7 @@ GtkTextTag *langmrg_lookup_tag_highlight(const gchar *lang, const gchar *highlig
 
 static void foreachdoc_lcb(Tdocument *doc, gpointer data) {
 	if (BLUEFISH_TEXT_VIEW(doc->view)->bflang == data) {
+/*		g_print("calling bluefish_text_view_rescan for %p\n",doc);*/
 		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(doc->view));
 	}
 }
@@ -1147,8 +1148,8 @@ static gpointer build_lang_thread(gpointer data)
 		bflang->tags = bftextview2_scantable_rematch_highlights(bfparser->st, bflang->name);
 	}
 	DBG_PARSING("build_lang_thread finished bflang=%p\n",bflang);
-	/* when done call mainloop */
-	g_idle_add_full(G_PRIORITY_LOW,build_lang_finished_lcb, bfparser,NULL);
+	/* when done call mainloop, see the top of bftextview2.c why we use priority 122 here */
+	g_idle_add_full(122,build_lang_finished_lcb, bfparser,NULL);
 	return bflang;
 }
 
