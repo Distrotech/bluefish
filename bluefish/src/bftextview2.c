@@ -52,8 +52,11 @@ G_PRIORITY_DEFAULT_IDLE 200 	Use this for default priority idle functions. In GL
 G_PRIORITY_LOW 300
 */
 #define SCANNING_IDLE_PRIORITY -50
-#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 121 /* a higher priority makes bluefish go greyed-out (it will not redraw if required while the loop is running)
-																	and a much lower priority (tried 250) will first draw all textstules on screen before the
+/* a newly loaded language file generates a priority 122 event to notice all documents to be rescanned.
+to make sure that we don't scan or spellcheck a file that will be scanned again we do timeout
+scanning in a lower priority timeout  */
+#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 125 /* a higher priority makes bluefish go greyed-out (it will not redraw if required while the loop is running)
+																	and a much lower priority (tried 250) will first draw all textstyles on screen before the
 																	next burst of scanning is done */
 
 G_DEFINE_TYPE(BluefishTextView, bluefish_text_view, GTK_TYPE_TEXT_VIEW)
