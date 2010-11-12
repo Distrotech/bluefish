@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		css-selectors.bfinc $Revision: 4947 $
  
-		Copyright (C) 2008-2009 Olivier Sessink
+		Copyright (C) 2008-2010 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -124,8 +124,10 @@
 	<element pattern=":visited"/>
 </group>
 <group highlight="css-html-classid">
-	<element pattern="\.[a-z0-9._]+" is_regex="1" case_insens="1" />
-	<element pattern="#[a-z0-9._]+" is_regex="1" case_insens="1" />
+	<element pattern="\.[a-z_][a-z0-9._-]+" is_regex="1" case_insens="1" />
+	<element pattern="#[a-z_][a-z0-9._-]+" is_regex="1" case_insens="1" />
+	<element pattern="\.[-][^0-9][a-z0-9._-]+" is_regex="1" case_insens="1" />
+	<element pattern="#[-][^0-9][a-z0-9._-]+" is_regex="1" case_insens="1" />
 </group>
 <group highlight="css-html-media">
 	<element pattern="@media">
