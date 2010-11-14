@@ -771,14 +771,15 @@ while(list($key, $val)=each($%1)) {
 &lt;?php
 while($row = mysql_fetch_row($%1)) {
 	if (isset($%0) &amp;&amp; ($%0 == $row[%2])) {
-	\techo '&lt;option value="'.$row[%2].'" selected&gt;'.$row[%3].'&lt;/option&gt;';
+		echo '&lt;option value="'.$row[%2].'" selected&gt;'.$row[%3].'&lt;/option&gt;';
 	} else {
-	\techo '&lt;option value="'.$row[%2].'"&gt;'.$row[%3].'&lt;/option&gt;';
+		echo '&lt;option value="'.$row[%2].'"&gt;'.$row[%3].'&lt;/option&gt;';
 	}
 }
-?&gt;&lt;/select&gt;</before>
+?&gt;
+&lt;/select&gt;</before>
 <after></after>
-<param num="0" name="&lt;select&gt; Name"/>
+<param num="0" name="Select Name"/>
 <param num="1" name="Query Result Handle"/>
 <param num="2" name="Value Index"/>
 <param num="3" name="Label Index"/>
