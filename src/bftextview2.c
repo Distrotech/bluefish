@@ -1357,11 +1357,11 @@ static gboolean bluefish_text_view_key_release_event(GtkWidget * widget, GdkEven
 	   for example if you use the keyboard to navigate the menu, and press enter to activate an item, a 
 	   key release event is received in the textview widget.... so we have to check that ! */
 	if (!btv->key_press_inserted_char)
-		return FALSE;
+		return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->key_release_event(widget, kevent);
 	btv->key_press_inserted_char = FALSE;	/* after the check we set this to FALSE */
 
 	if (!btv->auto_indent)
-		return FALSE;
+		return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->key_release_event(widget, kevent);
 	/*g_print("bluefish_text_view_key_release_event, working on keyval %d\n",kevent->keyval); */
 	if ((kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter)
 		&& !((kevent->state & GDK_SHIFT_MASK) || (kevent->state & GDK_CONTROL_MASK)
@@ -1428,7 +1428,7 @@ static gboolean bluefish_text_view_key_release_event(GtkWidget * widget, GdkEven
 			gtk_text_buffer_delete(buffer, &itstart, &itend);
 		}
 	}
-	return FALSE;				/* we didn't handle all of the event */
+	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->key_release_event(widget, kevent);
 }
 
 /* called for example by doc_reload() */
