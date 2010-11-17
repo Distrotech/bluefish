@@ -19,7 +19,7 @@
 
 /*#define MINIMAL_REFCOUNTING*/
 
-/*#define HL_PROFILING*/
+#define HL_PROFILING
 #ifdef HL_PROFILING
 #include <unistd.h>
 #endif
@@ -60,10 +60,13 @@ typedef struct {
 	gint fcontext_refcount;
 	gint fstack_refcount;
 	gint num_marks;
-	guint num_runs;
+	guint total_runs;
+	guint total_chars;
+	guint total_marks;
+	guint total_time_ms;
 } Thl_profiling;
 
-Thl_profiling hl_profiling = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+Thl_profiling hl_profiling = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 #endif
 
 guint loops_per_timer=1000; /* a tunable to avoid asking time too often. this is auto-tuned. */ 
@@ -805,10 +808,13 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	gtk_text_buffer_apply_tag(buffer,btv->needscanning,&iter,&orig_end);
 	/*g_array_free(matchstack,TRUE);*/
 #ifdef HL_PROFILING
-	hl_profiling.num_runs++;
 	stage4 = g_timer_elapsed(scanning.timer,NULL);
+	hl_profiling.total_runs++;
+	hl_profiling.total_marks += hl_profiling.num_marks;
+	hl_profiling.total_chars += hl_profiling.numchars;
+	hl_profiling.total_time_ms += (gint)(1000.0*stage4); 
 	g_print("scanning run %d (%d ms): %d, %d, %d, %d; loops=%d,chars=%d,blocks %d/%d (%d) contexts %d/%d (%d) scancache %d refcs %d(%dKb),%d(%dKb),%d(%dKb) marks %d\n"
-		,hl_profiling.num_runs
+		,hl_profiling.total_runs
 		,(gint)(1000.0*stage4)
 		,(gint)(1000.0*stage1)
 		,(gint)(1000.0*stage2-stage1)
@@ -823,6 +829,12 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		,hl_profiling.fstack_refcount,(gint)(hl_profiling.fstack_refcount*sizeof(Tfoundstack)/1024.0)
 		,hl_profiling.num_marks
 		);
+	g_print("average %d chars/s %d chars/run, %d marks/s, %d marks/run\n"
+			,(guint)(1000.0*hl_profiling.total_chars / hl_profiling.total_time_ms )
+			,(guint)(1.0*hl_profiling.total_chars / hl_profiling.total_runs )
+			,(guint)(1000.0*hl_profiling.total_marks / hl_profiling.total_time_ms )
+			,(guint)(1.0*hl_profiling.total_marks / hl_profiling.total_runs )
+			);
 #endif
 	/* tune the loops_per_timer, try to have 10 timer checks per loop, so we have around 10% deviation from the set interval */
 	if (normal_run)
