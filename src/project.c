@@ -391,7 +391,10 @@ static void project_open(Tbfwin *bfwin) {
 void project_save_and_mark_closed(Tbfwin *bfwin) {
 	if (bfwin->project) {
 		project_save(bfwin, FALSE);
-		add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
+
+		if (bfwin->project->uri)
+			add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
+
 		bfwin->project->close=TRUE;
 	}
 }
