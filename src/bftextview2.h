@@ -193,7 +193,7 @@ extern void g_none(char * first, ...);
 #endif  
  /**/
 
-/*#define IDENTSTORING*/
+#define IDENTSTORING
 
 #define BF2_OFFSET_UNDEFINED G_MAXUINT32
 
