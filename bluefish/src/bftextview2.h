@@ -212,6 +212,7 @@ extern void g_none(char * first, ...);
 #define DBG_BLOCKMATCH DBG_NONE
 #define DBG_TOOLTIP DBG_NONE
 #define DBG_SPELL DBG_NONE
+#define DBG_IDENTIFIER DBG_NONE
 
 #define NUMSCANCHARS 127 /* 128 is ascii, but the last character is never scanned (DEL)
 		and the Ttablerow has one more 16bit value. By setting this to 127 instead of 128

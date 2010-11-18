@@ -38,13 +38,13 @@ static guint identifier_jump_hash(gconstpointer v) {
 }
 
 static void identifier_jump_key_free(gpointer p) {
-	g_print("identifier_jump_key_free %p\n",p);
+	DBG_IDENTIFIER("identifier_jump_key_free %p\n",p);
 	g_free(JUMPKEY(p)->name);
 	g_slice_free(Tjumpkey, p);
 }
 
 static void identifier_jump_data_free(gpointer p) {
-	g_print("identifier_jump_data_free\n");
+	DBG_IDENTIFIER("identifier_jump_data_free\n");
 	g_slice_free(Tjumpdata, p);
 }
 
@@ -62,12 +62,12 @@ static guint identifier_ac_hash(gconstpointer v) {
 }
 
 static void identifier_ac_key_free(gpointer p) {
-	g_print("identifier_ac_key_free\n");
+	DBG_IDENTIFIER("identifier_ac_key_free\n");
 	g_slice_free(Tackey, p);
 }
 
 static void identifier_ac_data_free(gpointer p) {
-	g_print("identifier_ac_data_free\n");
+	DBG_IDENTIFIER("identifier_ac_data_free\n");
 	g_completion_free(p);
 }
 
@@ -80,7 +80,7 @@ static gboolean identifier_remove_by_doc(gpointer key,gpointer value,gpointer us
 void bftextview2_identifier_hash_remove_doc(gpointer bfwin, gpointer doc) {
 	GHashTableIter iter;
 	gpointer key, value;
-	g_print("bftextview2_identifier_hash_remove_doc, start for bfwin=%p, doc=%p\n",bfwin, doc);
+	DBG_IDENTIFIER("bftextview2_identifier_hash_remove_doc, start for bfwin=%p, doc=%p\n",bfwin, doc);
 	/* iterate of the jump table to find the strings that have to be removed
 	from the GCompletion structures in the autocompletion table */
 	g_hash_table_iter_init (&iter, BFWIN(bfwin)->identifier_jump);
@@ -94,7 +94,7 @@ void bftextview2_identifier_hash_remove_doc(gpointer bfwin, gpointer doc) {
 			compl = g_hash_table_lookup(BFWIN(bfwin)->identifier_ac, &iak);
 			if (compl) {
 				GList *items = g_list_append(NULL, JUMPKEY(key)->name);
-				g_print("remove item %p(%s)\n",JUMPKEY(key)->name,JUMPKEY(key)->name);
+				DBG_IDENTIFIER("remove item %p(%s)\n",JUMPKEY(key)->name,JUMPKEY(key)->name);
 				g_completion_remove_items(compl, items);
 				g_list_free(items);
 			}
@@ -102,7 +102,7 @@ void bftextview2_identifier_hash_remove_doc(gpointer bfwin, gpointer doc) {
 	}
 
 	g_hash_table_foreach_remove(BFWIN(bfwin)->identifier_jump,identifier_remove_by_doc,doc);
-	g_print("bftextview2_identifier_hash_remove_doc, done for bfwin=%p, doc=%p\n",bfwin, doc);
+	DBG_IDENTIFIER("bftextview2_identifier_hash_remove_doc, done for bfwin=%p, doc=%p\n",bfwin, doc);
 }
 
 void bftextview2_identifier_hash_destroy(gpointer bfwin) {
@@ -167,7 +167,7 @@ void found_identifier(BluefishTextView * btv, GtkTextIter *start, GtkTextIter *e
 		GList *items;
 		
 		tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
-		g_print("found identifier %s at %p\n",tmp, tmp);
+		DBG_IDENTIFIER("found identifier %s at %p\n",tmp, tmp);
 		ijk = identifier_jumpkey_new(btv->bflang, context, tmp);
 		oldijd = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk);
 		if (oldijd) {
