@@ -674,7 +674,7 @@ static inline void paint_margin(BluefishTextView * btv, GdkEventExpose * event, 
 	}
 
 	/* to see how many blocks are active here */
-	if (gtk_text_iter_is_start(startvisible) && (g_sequence_get_length(btv->scancache.stackcaches) != 0)) {
+	if (G_UNLIKELY(gtk_text_iter_is_start(startvisible) && (g_sequence_get_length(btv->scancache.stackcaches) != 0))) {
 		siter = g_sequence_get_begin_iter(btv->scancache.stackcaches);
 		if (!g_sequence_iter_is_end(siter)) {
 			fstack = g_sequence_get(siter);
@@ -718,7 +718,7 @@ static inline void paint_margin(BluefishTextView * btv, GdkEventExpose * event, 
 
 		gtk_text_iter_set_line(&it, i);
 
-		if (gtk_text_iter_has_tag(&it, folded)) {
+		if (G_UNLIKELY(gtk_text_iter_has_tag(&it, folded))) {
 			DBG_FOLD("line %d is hidden\n", i);
 		} else {
 			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(btv), &it, &w, &height);
@@ -742,7 +742,7 @@ static inline void paint_margin(BluefishTextView * btv, GdkEventExpose * event, 
 				while (bmarkline != -1 && bmarkline < i) {
 					bmarkline = bmark_margin_get_next_bookmark((Tdocument *) btv->doc, &bmark);
 				}
-				if (bmarkline == i) {
+				if (G_UNLIKELY(bmarkline == i)) {
 					paint_margin_symbol(btv, cr, w, height);
 				}
 			}
@@ -836,7 +836,7 @@ static inline void paint_spaces(BluefishTextView * btv, GdkEventExpose * event, 
 		GdkRectangle rect;
 		gint x, y;
 		uc = gtk_text_iter_get_char(&iter);
-		if (BTV_ISWS(uc)) {
+		if (G_UNLIKELY(BTV_ISWS(uc))) {
 			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv), &iter, &rect);
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, rect.x,
 												  rect.y + rect.height / 1.5, &x, &y);
@@ -856,11 +856,11 @@ static inline void paint_spaces(BluefishTextView * btv, GdkEventExpose * event, 
 				cairo_move_to(cr, x, y);
 				cairo_arc(cr, x, y, 0.75, 0, 2 * M_PI);
 			}
-		} else if (uc != '\n' && uc != '\r') {
+		} else if (G_UNLIKELY(uc != '\n' && uc != '\r')) {
 			trailing = FALSE;
 		}
 
-		if (gtk_text_iter_starts_line(&iter)) {
+		if (G_UNLIKELY(gtk_text_iter_starts_line(&iter))) {
 			trailing = TRUE;
 		}
 		gtk_text_iter_backward_char(&iter);
