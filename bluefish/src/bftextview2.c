@@ -68,7 +68,7 @@ static GdkColor st_cline_color;
 
 static inline gboolean is_symbol(BluefishTextView * btv, gint contextnum, gunichar uc)
 {
-	if (uc > 127)
+	if (G_UNLIKELY(uc > 127))
 		return FALSE;
 	return (g_array_index
 			(btv->bflang->st->table, Ttablerow,

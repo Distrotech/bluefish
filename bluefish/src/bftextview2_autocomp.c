@@ -398,9 +398,10 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 	GtkTextBuffer *buffer;
 	gint contextnum;
 	gunichar uc;
+	guint16 identstate;
 	Tfoundblock *fblock = NULL;	/* needed for the special case to close generix xml tags based on the top of the blockstack */
 
-	if (!btv->bflang || !btv->bflang->st)
+	if (G_UNLIKELY(!btv->bflang || !btv->bflang->st))
 		return;
 
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
@@ -415,16 +416,15 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 				 gtk_text_iter_get_offset(&iter), contextnum, gtk_text_iter_get_offset(&cursorpos));
 	/* see if character at cursor is end or symbol */
 	uc = gtk_text_iter_get_char(&cursorpos);
-	if (uc < NUMSCANCHARS) {
-		guint16 identstate = g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).identstate;
-		if (g_array_index(btv->bflang->st->table, Ttablerow, identstate).row[uc] == identstate) {
-			/* current character is not a symbol! */
-			DBG_AUTOCOMP("autocomp_run, character at cursor %d '%c' is not a symbol, return\n", uc,
-						 (char) uc);
-			acwin_cleanup(btv);
-			return;
-		}
-	} else {
+	if (G_UNLIKELY(uc > NUMSCANCHARS))
+		return;
+	
+	identstate = g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).identstate;
+	if (g_array_index(btv->bflang->st->table, Ttablerow, identstate).row[uc] == identstate) {
+		/* current character is not a symbol! */
+		DBG_AUTOCOMP("autocomp_run, character at cursor %d '%c' is not a symbol, return\n", uc,
+					 (char) uc);
+		acwin_cleanup(btv);
 		return;
 	}
 
