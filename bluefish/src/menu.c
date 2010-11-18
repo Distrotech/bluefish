@@ -645,26 +645,30 @@ static GtkWidget *create_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 /*******************************************************************/
 
 static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboolean is_project) {
-	GList *tmplist;
-	GList **worklist;
-	gpointer tmp;
+	if (filename)
+	{
+		GList *tmplist;
+		GList **worklist;
+		gpointer tmp;
 
-	worklist = (is_project) ? &bfwin->menu_recent_projects : &bfwin->menu_recent_files;
+		worklist = (is_project) ? &bfwin->menu_recent_projects : &bfwin->menu_recent_files;
 
-	if(strcmp(filename, "last") ==0) {
-		tmplist = g_list_first(*worklist);
-		if (tmplist) {
-			tmp = tmplist->data;
-			DEBUG_MSG("remove_recent_entry, remove last entry\n");
-			*worklist = g_list_remove(*worklist, tmplist->data);
-			return tmp;
+		if(strcmp(filename, "last") ==0) {
+			tmplist = g_list_first(*worklist);
+			if (tmplist) {
+				tmp = tmplist->data;
+				DEBUG_MSG("remove_recent_entry, remove last entry\n");
+				*worklist = g_list_remove(*worklist, tmplist->data);
+				return tmp;
+			} else {
+				DEBUG_MSG("remove_recent_entry, worklist contained no items, returning NULL\n");
+				return NULL;
+			}
 		} else {
-			DEBUG_MSG("remove_recent_entry, worklist contained no items, returning NULL\n");
-			return NULL;
+			return remove_menuitem_in_list_by_label(filename, worklist);
 		}
-	}	else {
-		return remove_menuitem_in_list_by_label(filename, worklist);
-	}
+	} else
+		return NULL;
 }
 
 static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
@@ -768,38 +772,41 @@ static void register_recent(gchar *curi, gboolean is_project) {
  * menu bar, and (if nessecary) deletes the last entry */
 void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean is_project) {
 	gchar *filename = g_file_get_uri(file);
-	register_recent(filename,is_project);
-	if (closed_file) {
-		GList *tmplist = g_list_first(main_v->bfwinlist);
-		while (tmplist) {
-			Tbfwin *curbfwin = BFWIN(tmplist->data);
-			if (!curbfwin->project || curbfwin == bfwin || is_project) {
-				GtkWidget *tmp;
-				GList **worklist;
-				worklist = (is_project) ? &curbfwin->menu_recent_projects : &curbfwin->menu_recent_files;
+	if (filename)
+	{
+		register_recent(filename,is_project);
+		if (closed_file) {
+			GList *tmplist = g_list_first(main_v->bfwinlist);
+			while (tmplist) {
+				Tbfwin *curbfwin = BFWIN(tmplist->data);
+				if (!curbfwin->project || curbfwin == bfwin || is_project) {
+					GtkWidget *tmp;
+					GList **worklist;
+					worklist = (is_project) ? &curbfwin->menu_recent_projects : &curbfwin->menu_recent_files;
 
-				/* First of all, create the entry and insert it at the list*/
-				*worklist = g_list_append(*worklist,create_recent_entry(curbfwin,filename,is_project,TRUE));
+					/* First of all, create the entry and insert it at the list*/
+					*worklist = g_list_append(*worklist,create_recent_entry(curbfwin,filename,is_project,TRUE));
 
-				DEBUG_MSG("add_to_recent_list, inserted item in menu\n");
-				if(g_list_length(*worklist) > main_v->props.max_recent_files) {
-					tmp = remove_recent_entry(bfwin,"last",is_project);
-					if (tmp) {
-						DEBUG_MSG("add_to_recent_list, list too long, entry %s to be deleted\n", GTK_LABEL(GTK_BIN(tmp)->child)->label);
-						gtk_widget_hide(tmp);
-						gtk_widget_destroy(tmp);
+					DEBUG_MSG("add_to_recent_list, inserted item in menu\n");
+					if(g_list_length(*worklist) > main_v->props.max_recent_files) {
+						tmp = remove_recent_entry(bfwin,"last",is_project);
+						if (tmp) {
+							DEBUG_MSG("add_to_recent_list, list too long, entry %s to be deleted\n", GTK_LABEL(GTK_BIN(tmp)->child)->label);
+							gtk_widget_hide(tmp);
+							gtk_widget_destroy(tmp);
+						}
 					}
 				}
+				tmplist = g_list_next(tmplist);
 			}
-			tmplist = g_list_next(tmplist);
 		}
+		if (is_project) {
+			main_v->globses.recent_projects = add_to_history_stringlist(main_v->globses.recent_projects, filename, FALSE,TRUE);
+		} else {
+			bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, FALSE,TRUE);
+		}
+		g_free(filename);
 	}
-	if (is_project) {
-		main_v->globses.recent_projects = add_to_history_stringlist(main_v->globses.recent_projects, filename, FALSE,TRUE);
-	} else {
-		bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, FALSE,TRUE);
-	}
-	g_free(filename);
 /*#ifdef MAC_INTEGRATION
 	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
 #endif*/
