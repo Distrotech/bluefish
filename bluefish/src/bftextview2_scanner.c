@@ -758,8 +758,8 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		DBG_SCANNING("scanning %d %c in pos %d..",gtk_text_iter_get_offset(&iter),uc,pos);
 		newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
 		DBG_SCANNING(" got newpos %d\n",newpos);
-		if (newpos == 0 || uc == '\0') {
-			if (g_array_index(btv->bflang->st->table,Ttablerow, pos).match) {
+		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
+			if (G_UNLIKELY(g_array_index(btv->bflang->st->table,Ttablerow, pos).match)) {
 				Tmatch match;
 				match.patternum = g_array_index(btv->bflang->st->table,Ttablerow, pos).match;
 				match.start = mstart;
@@ -769,7 +769,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				DBG_SCANNING("after match context=%d\n",scanning.context);
 			}
 #ifdef IDENTSTORING
-			else if (pos == g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).identstate){
+			else if (G_UNLIKELY(scanning.identmode != 0 && pos == g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).identstate)) {
 				/* ignore if the cursor is within the range, because it could be that the user is still typing the name */
 				if (!gtk_text_iter_in_range(&itcursor, &mstart, &iter) 
 								&& !gtk_text_iter_equal(&itcursor, &mstart) 
@@ -787,7 +787,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 			}
 			mstart = iter;
 			newpos = g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).startstate;
-		} else if (!last_character_run){
+		} else if (G_LIKELY(!last_character_run)){
 			gtk_text_iter_forward_char(&iter);
 #ifdef HL_PROFILING
 			hl_profiling.numchars++;
@@ -795,7 +795,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		}
 		pos = newpos;
 		normal_run = !gtk_text_iter_equal(&iter, &end);
-		if (!normal_run) {
+		if (G_UNLIKELY(!normal_run)) {
 			/* only if last_character_run is FALSE and normal_run is FALSE we set last_character run to TRUE */
 			last_character_run = 1 - last_character_run;
 		}
