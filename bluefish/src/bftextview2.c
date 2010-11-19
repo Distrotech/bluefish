@@ -946,7 +946,7 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 			}
 		}
 	}
-	return (event_handled ? TRUE : GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->expose_event(widget, event));
+	return event_handled;
 }
 
 static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
