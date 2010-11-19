@@ -482,6 +482,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.block_folding_mode, "block_folding_mode:", 1, TRUE);
 	init_prop_arraylist(&config_rc, &main_v->props.highlight_styles, "highlight_styles:", 3, TRUE);
 	init_prop_arraylist(&config_rc, &main_v->props.bflang_options, "bflang_options:", 3, TRUE);
+	init_prop_string(&config_rc, &main_v->props.autocomp_accel_string, "autocomp_accel_string:", "");
 	init_prop_integer(&config_rc, &main_v->props.load_reference, "load_reference:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.show_autocomp_reference, "show_autocomp_reference:", 1,
 					  TRUE);

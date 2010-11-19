@@ -1403,7 +1403,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.bflang_options = duplicate_arraylist(pd->lists[bflang_options]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
-	bftextview2_parse_static_colors();
+	bftextview2_init_globals();
 	langmgr_reload_user_options();
 	langmgr_reload_user_styles();
 	langmgr_reload_user_highlights();

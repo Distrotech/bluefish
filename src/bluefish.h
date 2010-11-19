@@ -285,6 +285,7 @@ typedef struct {
 	gint block_folding_mode;
 	GList *highlight_styles;
 	GList *bflang_options;		/* array with: lang_name, option_name, value */
+	gchar *autocomp_accel_string;
 	gboolean load_reference;
 	gboolean show_autocomp_reference;
 	gboolean show_tooltip_reference;
@@ -489,6 +490,8 @@ typedef struct {
 	Tdocument *bevent_doc;
 	gint bevent_charoffset; 	/* for example used in the spellcheck code to find on which 
 											word the user clicked */
+	guint autocomp_accel_key;				 /* by default <ctrl><space> activates autocompletion */
+	GdkModifierType autocomp_accel_mods; /* but this shortcut is also used to switch input languages for example by chinese users */
 	gpointer bmarkdata;
 	gint num_untitled_documents;
 	gchar *securedir;			/* temporary rwx------ directory for secure file creation */

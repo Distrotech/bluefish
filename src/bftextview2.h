@@ -475,7 +475,7 @@ gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
 void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);
 gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);
 void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable);
-void bftextview2_parse_static_colors(void);
+void bftextview2_init_globals(void);
 void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors);
 void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime);
 gboolean bluefish_text_view_get_show_blocks(BluefishTextView * btv);
