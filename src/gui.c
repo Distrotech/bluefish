@@ -53,6 +53,9 @@
 #include "undo_redo.h"      /* undo_cb() redo_cb() etc. */
 #include "plugins.h"
 #include "rcfile.h"
+#ifdef IDENTSTORING
+#include "bftextview2_identifier.h"
+#endif /* IDENTSTORING */
 #ifdef HAVE_LIBENCHANT
 #include "bftextview2_spell.h"
 #endif /*HAVE_LIBENCHANT*/
