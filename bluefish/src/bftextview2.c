@@ -1014,7 +1014,7 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 			return TRUE;
 		}
 	}
-	if (btv->enable_scanner && (kevent->state & GDK_CONTROL_MASK) && kevent->keyval == ' ') {
+	if (btv->enable_scanner && (kevent->state & main_v->autocomp_accel_mods) && kevent->keyval == main_v->autocomp_accel_key) {
 		/* <ctrl><space> manually opens the auto completion */
 		autocomp_run(btv, TRUE);
 		return TRUE;
@@ -1576,7 +1576,7 @@ void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable)
 	btv->auto_indent = enable;
 }
 
-void bftextview2_parse_static_colors(void)
+static void bftextview2_parse_static_colors(void)
 {
 	if (!
 		(main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE]
@@ -1598,6 +1598,19 @@ void bftextview2_parse_static_colors(void)
 		gtk_rc_parse_string(tmp);
 		g_free(tmp);
 	}
+}
+
+void bftextview2_init_globals(void) {
+	bftextview2_parse_static_colors();
+	if (main_v->props.autocomp_accel_string && main_v->props.autocomp_accel_string[0] != '\0') { 
+		gtk_accelerator_parse(main_v->props.autocomp_accel_string,&main_v->autocomp_accel_key,&main_v->autocomp_accel_mods);
+		if (gtk_accelerator_valid(main_v->autocomp_accel_key,main_v->autocomp_accel_mods)) {
+			return;
+		}
+		g_warning("%s is not a valid shortcut key combination\n",main_v->props.autocomp_accel_string);
+	}
+	main_v->autocomp_accel_key = ' ';
+	main_v->autocomp_accel_mods = GDK_CONTROL_MASK;
 }
 
 void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)

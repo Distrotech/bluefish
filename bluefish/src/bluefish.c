@@ -152,7 +152,7 @@ static gboolean startup_in_idle(gpointer data) {
 								  g_file_get_uri(uri));
 				g_object_unref(uri);
 			}
-			bftextview2_parse_static_colors();
+			bftextview2_init_globals();
 			langmgr_init();
 #ifdef HAVE_LIBENCHANT
 			bftextview2_spell_init();
