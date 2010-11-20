@@ -923,7 +923,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			DEBUG_MSG("external_menu_rebuild,creating,bfwin=%p,bdm=%p,menuitem=%p\n",bfwin,bdm,bdm->menuitem);
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
 		} else {
-			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_filter; array count =%d\n",count_array(arr));
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_filter; array count =%d\n",g_strv_length(arr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -947,7 +947,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			}
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
 		} else {
-			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_command; array count =%d\n",count_array(arr));
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_command; array count =%d\n",g_strv_length(arr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -975,7 +975,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools/Outputbox",arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)bdm,-1);
 			bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox,bdm);
 		} else {
-			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_outputbox; array count =%d\n",count_array(arr));
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_outputbox; array count =%d\n",g_strv_length(arr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
