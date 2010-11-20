@@ -100,6 +100,7 @@ enum {
 	open_in_new_window, 
 #endif /* ifndef WIN32 */
 	register_recent_mode,
+	autocomp_accel_string,
 	load_reference,
 	show_autocomp_reference,
 	show_tooltip_reference,
@@ -1376,6 +1377,11 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.image_thumbnailtype, pd->prefs[image_thumbnailtype]);
 	
 	main_v->props.autocomp_popup_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[autocomp_popup_mode]));
+
+	if (main_v->props.autocomp_accel_string)
+		g_free(main_v->props.autocomp_accel_string);
+	main_v->props.autocomp_accel_string = g_strdup(gtk_button_get_label(GTK_BUTTON(pd->prefs[autocomp_accel_string])));
+
 	integer_apply(&main_v->props.load_reference, pd->prefs[load_reference], TRUE);
 	integer_apply(&main_v->props.show_autocomp_reference, pd->prefs[show_autocomp_reference], TRUE);
 	integer_apply(&main_v->props.show_tooltip_reference, pd->prefs[show_tooltip_reference], TRUE);
@@ -1572,6 +1578,7 @@ static void preferences_dialog() {
 		gchar *autocompmodes[] = {N_("Delayed"),N_("Immediately"), NULL};
 		pd->prefs[autocomp_popup_mode] = boxed_optionmenu_with_value(_("Show the automatic completion pop-up window"), main_v->props.autocomp_popup_mode, vbox2, autocompmodes);
 	}
+	pd->prefs[autocomp_accel_string] = boxed_accelerator_button(_("Autocompletion shortcut key combination"), main_v->props.autocomp_accel_string, vbox2);
 
 	pd->prefs[num_undo_levels] = prefs_integer(_("Number of actions in undo history"), main_v->props.num_undo_levels, vbox2, 50, 10000);
 	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
