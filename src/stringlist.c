@@ -80,7 +80,7 @@ gchar *array_to_string(gchar **array) {
 		g_free(escaped1);
 		tmp++;
 	}
-	DEBUG_MSG("array_to_string, len(finalstring) = %d\n", strlen(finalstring));
+	DEBUG_MSG("array_to_string, len(finalstring) = %zd\n", strlen(finalstring));
 	return finalstring;
 }
 
