@@ -276,6 +276,17 @@ void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox) {
 	DEBUG_MSG("integer_apply, config_var(%p)=%i\n", config_var, *config_var);
 }
 
+static void boxed_widget(const gchar *labeltext, GtkWidget *widget, GtkWidget *box) {
+	GtkWidget *hbox, *label;
+
+	hbox = gtk_hbox_new(FALSE,3);
+	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
+	label = gtk_label_new_with_mnemonic(labeltext);
+	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 3);
+	gtk_box_pack_start(GTK_BOX(hbox), widget, FALSE, FALSE, 3);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), widget);
+}
+
 GtkWidget *combobox_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width) {
 	GtkWidget *returnwidget;
 	
@@ -375,15 +386,9 @@ GtkWidget *boxed_entry_with_text(const gchar * setstring, gint max_lenght, GtkWi
  * Return value: #GtkWidget* pointer to the new entry widget
  */
 GtkWidget *boxed_full_entry(const gchar * labeltext, gchar * setstring,gint max_lenght, GtkWidget * box) {
-	GtkWidget *hbox, *return_widget, *label;
-
-	hbox = gtk_hbox_new(FALSE,3);
-	label = gtk_label_new_with_mnemonic(labeltext);
-	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 3);
-	return_widget = boxed_entry_with_text(setstring, max_lenght, hbox);
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), return_widget);
-	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
-
+	GtkWidget *return_widget;
+	return_widget = entry_with_text(setstring, max_lenght);
+	boxed_widget(labeltext, return_widget, box);
 	return return_widget;
 }
 /**
@@ -562,13 +567,10 @@ GtkWidget *optionmenu_with_value(gchar **options, gint curval) {
 
 GtkWidget *boxed_optionmenu_with_value(const gchar *labeltext, gint curval, GtkWidget *box, gchar **options) {
 	GtkWidget *returnwidget;
-	GtkWidget *hbox;
-
-	hbox = gtk_hbox_new(FALSE,3);
-	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(labeltext), FALSE, FALSE, 3);
+	
 	returnwidget = optionmenu_with_value(options, curval);
-	gtk_box_pack_start(GTK_BOX(hbox), returnwidget, FALSE, FALSE, 3);
+	boxed_widget(labeltext, returnwidget, box);
+	
 	return returnwidget;
 }
 
@@ -970,6 +972,8 @@ Tmultientrywidget *build_multi_entry_window(gchar *title,GCallback ok_func
 	gtk_widget_show_all(mew->win);
 }
 #endif
+
+#ifdef NEED_HIG_DIALOG
 /**************************************************************************/
 /***********************  BUTTON DIALOG FUNCTIONS  ************************/
 /**************************************************************************/
@@ -1028,7 +1032,8 @@ static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *second
 	gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
 	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
 }
-
+#endif /*NEED_HIG_DIALOG*/
+#ifdef NEED_PROGRESSBAR
 /************************************************************************/
 /*********************** PROGRESS-BAR FUNCTIONS *************************/
 /************************************************************************/
@@ -1137,6 +1142,7 @@ gpointer progress_popup(GtkWidget *win,gchar *title, guint maxvalue) {
 	
 	return (gpointer) p;
 }
+#endif /* NEED_PROGRESSBAR */
 
 /************************************************************************/
 /************************ file_but_* FUNCTIONS **************************/
@@ -1562,6 +1568,29 @@ gchar *ask_accelerator_dialog(const gchar *title) {
 	}
 	gtk_widget_destroy(dialog1);
 	return retval;
+}
+
+static void accelerator_button_clicked_lcb(GtkWidget *widget, gpointer data) {
+	gchar *tmpstr;
+	tmpstr = ask_accelerator_dialog(_("Press shortcut key combination"));
+	if (tmpstr && tmpstr[0] != '\0') {
+		gtk_button_set_label(GTK_BUTTON(widget), tmpstr);
+	}
+	g_free(tmpstr);
+}
+
+GtkWidget *accelerator_button(const gchar *accel) {
+	GtkWidget *retval;
+	
+	retval = gtk_button_new_with_label(accel);
+	g_signal_connect(G_OBJECT(retval), "clicked", G_CALLBACK(accelerator_button_clicked_lcb), retval);
+	return retval;
+}
+GtkWidget *boxed_accelerator_button(const gchar *labeltext, const gchar *accel, GtkWidget *box) {
+	GtkWidget *returnwidget;
+	returnwidget = accelerator_button(accel);
+	boxed_widget(labeltext, returnwidget, box);
+	return returnwidget;
 }
 
 gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe) {
