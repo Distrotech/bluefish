@@ -539,6 +539,11 @@ AC_DEFINE([WITH_SPC], [1], [Don't define to 1 if you want to build without spell
 AC_FUNC_SELECT_ARGTYPES
 AC_HEADER_TIME
 
+dnl **************************
+dnl   Types
+dnl **************************
+
+BF_TYPE_SOCKLEN_T
 
 dnl ************************
 dnl   Final Cflags/Libs

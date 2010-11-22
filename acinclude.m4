@@ -107,3 +107,53 @@ AC_MSG_RESULT([$XMLLINT_FLAGS])
 fi
 AM_CONDITIONAL([HAVE_XMLLINT], [test "x$XMLLINT" != "x"])
 ]) # BF_PROG_XMLLINT
+
+# http://bugzilla-attachments.gnome.org/attachment.cgi?id=158735
+# Bluefish uses socklen_t in an accept() call in ipc_bf2bf.c, but some
+# old systems do not have a socklen_t type. This check is mostly the same
+# as the one in Gnulib, with minor changes.
+# https://bugzilla.gnome.org/615762
+AC_DEFUN([BF_TYPE_SOCKLEN_T],[
+AC_CHECK_TYPE(
+	[socklen_t],
+	[],
+	[
+	 AC_MSG_CHECKING([for socklen_t equivalent])
+	 AC_CACHE_VAL(
+		[bf_cv_socklen_t_equiv],
+		[
+		 bf_cv_socklen_t_equiv=
+		 for arg2 in "struct sockaddr" void; do
+			for t in int size_t "unsigned int" "long int" "unsigned long int"; do
+				AC_COMPILE_IFELSE(
+					[AC_LANG_PROGRAM(
+[[#include <sys/types.h>
+#include <sys/socket.h>
+
+int getpeername (int, $arg2 *, $t *);]],
+[[$t len;
+getpeername (0, 0, &len);]]
+					)],
+					[bf_cv_socklen_t_equiv="$t"]
+				)
+				test "$bf_cv_socklen_t_equiv" != "" && break
+			done
+			test "$bf_cv_socklen_t_equiv" != "" && break
+		done
+		]
+	 )
+	 if test "$bf_cv_socklen_t_equiv" = ""; then
+		AC_MSG_ERROR([Cannot find a type to use in place of socklen_t])
+	 fi
+	 AC_MSG_RESULT([$bf_cv_socklen_t_equiv])
+	 AC_DEFINE_UNQUOTED([socklen_t], [$bf_cv_socklen_t_equiv], [type to use in place of socklen_t if not defined])
+	],
+     	[
+#include <sys/types.h>
+#if HAVE_SYS_SOCKET_H
+# include <sys/socket.h>
+#endif
+	]
+)
+]) # BF_TYPE_SOCKLEN_T
+
