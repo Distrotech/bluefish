@@ -1461,9 +1461,16 @@ gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its
 	GtkTextIter tmpits, tmpite;
 	GtkTextTag *comment_tag = gtk_text_tag_table_lookup(langmgr_get_tagtable(), "comment");
 	if (gtk_text_buffer_get_selection_bounds(GTK_TEXT_VIEW(btv)->buffer, &tmpits, &tmpite)) {
-		/* how to test ? */
 		*its = tmpits;
 		*ite = tmpite;
+		/* first test if the selection starts the tag */
+		if (gtk_text_iter_begins_tag(&tmpits, comment_tag) && gtk_text_iter_ends_tag(&tmpite, comment_tag)
+			|| gtk_text_iter_begins_tag(&tmpite, comment_tag) && gtk_text_iter_ends_tag(&tmpits, comment_tag)
+			) {
+			DEBUG_MSG("bluefish_text_view_in_comment, selection toggles comment, return TRUE\n");
+			return TRUE;
+		}
+		DEBUG_MSG("bluefish_text_view_in_comment, selection does NOT toggle comment, return FALSE\n");
 		return FALSE;
 	} else {
 		gboolean retval;
