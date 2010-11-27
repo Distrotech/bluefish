@@ -181,6 +181,7 @@ void toggle_comment(Tdocument *doc) {
 		g_free(buf);
 	} else { /* add comment */
 		gboolean sameline, selection=FALSE;
+		gint offsets,offsete,extraoffset=0;
 		Tcomment *comment;
 		DEBUG_MSG("toggle_comment, add comment\n");
 		if (gtk_text_buffer_get_has_selection(doc->buffer)) {
@@ -195,15 +196,20 @@ void toggle_comment(Tdocument *doc) {
 		DEBUG_MSG("toggle_comment, comment=%p\n",comment);
 	 	if (!comment)
 	 		return;
-	 	
+		offsets = gtk_text_iter_get_offset(&its);
+		offsete = gtk_text_iter_get_offset(&ite);
 	 	if (comment->type == comment_type_line) {
-	 		add_line_comment(doc, comment->so, gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite));
+	 		add_line_comment(doc, comment->so, offsets,offsete);
+	 		extraoffset = strlen(comment->so);
 	 	} else {
 			add_block_comment(doc, comment->so, comment->eo, gtk_text_iter_get_offset(&its), gtk_text_iter_get_offset(&ite));
+			extraoffset = strlen(comment->so) + strlen(comment->eo);
 		}
 		if (selection) {
-			/* TODO: if selection, move the start of the selection strlen(comment->so) back */
-		   
+			/* the buffer has changes, so we have to re-set the iters from the offsets */
+			gtk_text_buffer_get_iter_at_offset(doc->buffer, &its, offsets);
+			gtk_text_buffer_get_iter_at_offset(doc->buffer, &ite, offsete+extraoffset);
+			gtk_text_buffer_select_range(doc->buffer,&its,&ite);
 		}
 	}
 }
