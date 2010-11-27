@@ -180,18 +180,18 @@ void toggle_comment(Tdocument *doc) {
 		}
 		g_free(buf);
 	} else { /* add comment */
-		gboolean sameline;
+		gboolean sameline, selection=FALSE;
 		Tcomment *comment;
 		DEBUG_MSG("toggle_comment, add comment\n");
 		if (gtk_text_buffer_get_has_selection(doc->buffer)) {
 			sameline = gtk_text_iter_get_line(&its)==gtk_text_iter_get_line(&ite);
-			comment = bluefish_text_view_get_comment(BLUEFISH_TEXT_VIEW(doc->view), &its, sameline?comment_type_line:comment_type_block);
+			selection=TRUE;
 		 } else {
 		 	gtk_text_iter_set_line_offset(&its,0);
 		 	gtk_text_iter_forward_to_line_end(&ite);
 		 	sameline = gtk_text_iter_get_line(&its)==gtk_text_iter_get_line(&ite);
-		 	comment = bluefish_text_view_get_comment(BLUEFISH_TEXT_VIEW(doc->view), &its, sameline?comment_type_line:comment_type_block);
 		}
+		comment = bluefish_text_view_get_comment(BLUEFISH_TEXT_VIEW(doc->view), &its, sameline?comment_type_line:comment_type_block);
 		DEBUG_MSG("toggle_comment, comment=%p\n",comment);
 	 	if (!comment)
 	 		return;
@@ -200,6 +200,10 @@ void toggle_comment(Tdocument *doc) {
 	 		add_line_comment(doc, comment->so, gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite));
 	 	} else {
 			add_block_comment(doc, comment->so, comment->eo, gtk_text_iter_get_offset(&its), gtk_text_iter_get_offset(&ite));
+		}
+		if (selection) {
+			/* TODO: if selection, move the start of the selection strlen(comment->so) back */
+		   
 		}
 	}
 }
