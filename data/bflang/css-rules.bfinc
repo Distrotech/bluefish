@@ -596,4 +596,7 @@ relative </reference>
 		<reference>The two length values of the 'border-radius' properties define the radii of a quarter ellipse that defines the shape of the corner. The first value is the horizontal radius (or vertical if the 'writing-mode' is vertical). If the second length is omitted it is equal to the first (and the corner is thus a quarter circle). If either length is zero, the corner is square, not rounded. The border radius also causes the element's background to be rounded, even if the border is 'none'. Negative values are not allowed. </reference>
 		<context idref="c.css.length_percentage"/><!-- re-use the c.css.length_percentage context -->
 	</element>
+	<element pattern="transform" autocomplete="1" highlight="css-property" autocomplete_append=": ">
+		<reference>transform is a new css3 rule, which ca call various transformation functions such as rotate(), skew(), scale(), scalex(), scaley().</reference>		
+	</element>		
 </group>
