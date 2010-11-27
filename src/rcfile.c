@@ -582,6 +582,7 @@ void rcfile_parse_main(void)
 
 	file = user_bfdir(CURCONFIG);
 	if (!parse_config_file(main_configlist, file)) {
+		g_warning("no configfile %s, try to convert config files from older versions\n",CURCONFIG);
 		/* probably there is no configfile. try to migrate the configfile from a previous 
 		   version */
 		migrate_config_files(main_configlist, file);
