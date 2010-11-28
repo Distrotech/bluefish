@@ -543,7 +543,9 @@ dnl **************************
 dnl   Types
 dnl **************************
 
-BF_TYPE_SOCKLEN_T
+if test "x$native_win32" = "xno"; then
+	BF_TYPE_SOCKLEN_T
+fi
 
 dnl ************************
 dnl   Final Cflags/Libs
