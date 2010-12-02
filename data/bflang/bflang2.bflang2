@@ -5,9 +5,9 @@
  
 		Copyright (C) 2008-2010 Olivier Sessink
 
-		This program is free software; you can redistribute it and/or modify
+	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation; either version 2 of the License, or
+		the Free Software Foundation, either version 3 of the License, or
 		(at your option) any later version.
 
 		This program is distributed in the hope that it will be useful,
@@ -16,8 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program; if not, write to the Free Software
-		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
 <bflang name="Bflang2" version="2.0" table="1075" contexts="25" matches="134">
@@ -69,7 +68,9 @@
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" >
 			<element idref="e.comment"/>
 			<element idref="e.entity" />
-			<tag id="t.tagcomment" name="comment" highlight="tag" attributes="type,start,end" autocomplete_append=" type=&quot;&quot; start=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
+			<tag id="t.tagcomment" name="comment" highlight="tag" attributes="type,start,end,id" autocomplete_append=" type=&quot;&quot; start=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+			<reference>The comment tag specifies which comment syntax is possible in this language. This is used by the 'toggle comment' feature. In some languages this is context specific (for example Javascript inside HTML has a different comment than HTML). The id attribute can be used to set a certain comment type for a certain context.</reference>
+			</tag>
 			<tag name="smartindent" highlight="tag" attributes="characters" autocomplete_append=" characters=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
 			<tag name="default_spellcheck" highlight="tag" attributes="enabled" autocomplete_append=" enabled=&quot;1&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;1&quot;"/>
 		</context>
@@ -79,7 +80,7 @@
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" >
 		<element idref="e.comment"/>
 		<element idref="e.entity" />
-		<tag name="context" id="t.context" highlight="tag" autocomplete_append=" symbols=&quot;&quot; &gt;" attributes="id,idref,symbols,highlight,spellcheck" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+		<tag name="context" id="t.context" highlight="tag" autocomplete_append=" symbols=&quot;&quot; &gt;" attributes="id,idref,symbols,highlight,commentid_block,commentid_line" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 			<reference>Every definition starts with a context. The most important attribute of a context are the symbols. Symbols is a string with all characters that may be at the start or end of a pattern (for example whitespace in most programming languages, or &lt; and &gt; in XML, SGML and HTML), or characters that are a pattern themselves (for example a bracket [ ).</reference>
 			<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 			<element idref="e.comment"/>

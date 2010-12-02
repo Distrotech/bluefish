@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <libxml/xmlreader.h>
@@ -37,9 +36,9 @@ typedef struct {
 	GHashTable *contexts;
 	/*GHashTable *setoptions;*/
 	Tscantable *st; /* while not finished */
-	GList *comments; /* while not finished */
-	Tcomment *line; /* while not finished */
-	Tcomment *block;/* while not finished */
+	GHashTable *commentid_table; /* a hash table with a comment ID string as key and an integer position in the GArray as value */
+/*	Tcomment *line; / * while not finished * /
+	Tcomment *block;/ * while not finished */
 	gchar *smartindentchars;
 	gchar *smartoutdentchars;
 	Tbflang *bflang;
@@ -48,6 +47,7 @@ typedef struct {
 	gboolean autoclose_tags;
 #ifdef HAVE_LIBENCHANT
 	gboolean default_spellcheck;
+	gboolean spell_decode_entities;
 #endif
 } Tbflangparsing;
 
@@ -175,7 +175,7 @@ static void langmgr_load_default_styles(void) {
 		{"special-function","#990000","","","","0",NULL},
 		{"keyword","#000000","","1","0","0",NULL},
 		{"special-keyword","#005050","","1","","0",NULL},
-		{"value","#0000FF","","0","0","0",NULL},
+		{"value","#0000FF","","0","0","1",NULL},
 		{"special-value","#0000FF","","1","","0",NULL},
 		{"variable","#990000","","1","0","0",NULL},
 		{"operator","#C86400","","0","0","0",NULL},
@@ -220,7 +220,7 @@ void langmgr_reload_user_styles(void) {
 	for (tmplist = g_list_last(main_v->props.textstyles);tmplist;tmplist=tmplist->prev) {
 		GtkTextTag *tag;
 		gchar **arr = (gchar **)tmplist->data;
-		if (count_array(arr)==6) {
+		if (g_strv_length(arr)==6) {
 			tag = langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
 			highlightlist = g_list_prepend(highlightlist, tag);
 #ifdef HAVE_LIBENCHANT
@@ -308,6 +308,7 @@ GtkTextTag *langmrg_lookup_tag_highlight(const gchar *lang, const gchar *highlig
 
 static void foreachdoc_lcb(Tdocument *doc, gpointer data) {
 	if (BLUEFISH_TEXT_VIEW(doc->view)->bflang == data) {
+/*		g_print("calling bluefish_text_view_rescan for %p\n",doc);*/
 		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(doc->view));
 	}
 }
@@ -318,9 +319,8 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	Tbflangparsing *bfparser=data;
 	if (bfparser->st) {
 		bfparser->bflang->st = bfparser->st;
-		bfparser->bflang->comments = bfparser->comments;
-		bfparser->bflang->line = bfparser->line;
-		bfparser->bflang->block = bfparser->block;
+		/*bfparser->bflang->line = bfparser->line;
+		bfparser->bflang->block = bfparser->block;*/
 /*		g_print("build_lang_finished_lcb, bflang %p, line=%p, block=%p\n",bfparser->bflang, bfparser->bflang->line, bfparser->bflang->block);*/
 	} else {
 		bfparser->bflang->no_st = TRUE;
@@ -329,6 +329,7 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	bfparser->bflang->smartoutdentchars = bfparser->smartoutdentchars;
 #ifdef HAVE_LIBENCHANT
 	bfparser->bflang->default_spellcheck = bfparser->default_spellcheck;
+	bfparser->bflang->spell_decode_entities = bfparser->spell_decode_entities;
 #endif
 	bfparser->bflang->parsing=FALSE;
 	DBG_PARSING("build_lang_finished_lcb..\n");
@@ -339,6 +340,7 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	/* cleanup the parsing structure */
 	g_hash_table_destroy(bfparser->patterns);
 	g_hash_table_destroy(bfparser->contexts);
+	g_hash_table_destroy(bfparser->commentid_table);
 	/*g_hash_table_destroy(bfparser->setoptions);*/
 	g_slice_free(Tbflangparsing,bfparser);
 	return FALSE;
@@ -426,13 +428,13 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 						/* the user-set style does not exist, create an empty user-set style */
 						gchar *arr[] = {use_textstyle,"","","","",NULL};
 						g_warning("textstyle %s is set by the user but does not exist\n",use_textstyle);
-						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, duplicate_stringarray(arr));
+						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv(arr));
 					}
 				} else if (style) { /* no textstyle was configured, set the provided style */
 					if (!gtk_text_tag_table_lookup(langmgr.tagtable,style)) {
 						gchar *arr[] = {style,"","","","",NULL};
 						g_warning("textstyle %s is set in the language file but does not exist\n",style);
-						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, duplicate_stringarray(arr));
+						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv(arr));
 					}
 					g_hash_table_insert(langmgr.configured_styles,array_from_arglist(bflang->name,name,NULL),g_strdup(style));
 					main_v->props.highlight_styles = g_list_prepend(main_v->props.highlight_styles, array_from_arglist(bflang->name,name,style,NULL));
@@ -897,8 +899,36 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 	/*g_free(attribhighlight);*/
 }
 
+static guint8 get_first_comment_of_type(Tbflangparsing *bfparser, Tcomment_type type) {
+	gint i=0;
+	while (g_array_index(bfparser->st->comments, Tcomment, i).so) {
+		if (g_array_index(bfparser->st->comments, Tcomment, i).type == type)
+			return i;
+		i++;
+	}
+	return COMMENT_INDEX_NONE;
+}
+
+static void set_commentid(Tbflangparsing *bfparser, gboolean topevel_context, guint8 *toset, const gchar *string, Tcomment_type type) {
+	*toset = COMMENT_INDEX_INHERIT;
+	if (string) {
+		if (g_strcmp0(string, "none")==0) {
+			*toset = COMMENT_INDEX_NONE;
+		} else {
+			gint tmp = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->commentid_table, string));
+			if (tmp != 0)
+				*toset = (guint8)(tmp-1);
+		}
+	}
+	if (topevel_context && *toset == COMMENT_INDEX_INHERIT) {
+		/* set the first block comment as default for the toplevel context */
+		*toset = get_first_comment_of_type(bfparser, type);
+	}
+}
+
+
 static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack) {
-	gchar *symbols=NULL, *highlight=NULL, *id=NULL, *idref=NULL;
+	gchar *symbols=NULL, *highlight=NULL, *id=NULL, *idref=NULL, *commentid_block=NULL, *commentid_line=NULL;
 	gboolean autocomplete_case_insens=FALSE,is_empty;
 #ifdef HAVE_LIBENCHANT_OLD
 	gboolean spellcheck=FALSE;
@@ -911,6 +941,8 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"idref",&idref);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"symbols",&symbols);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"highlight",&highlight);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"commentid_block",&commentid_block);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"commentid_line",&commentid_line);
 #ifdef HAVE_LIBENCHANT_OLD
 		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"spellcheck",&spellcheck);
 #endif
@@ -936,6 +968,17 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		DBG_PARSING("insert context %s into hash table as %d\n",id,context);
 		g_hash_table_insert(bfparser->contexts, g_strdup(id), GINT_TO_POINTER(context));
 	}
+	set_commentid(bfparser
+					, (g_queue_get_length(contextstack)==1)
+					, &g_array_index(bfparser->st->contexts, Tcontext, context).comment_block
+					, commentid_block
+					, comment_type_block);
+	set_commentid(bfparser
+					, (g_queue_get_length(contextstack)==1)
+					, &g_array_index(bfparser->st->contexts, Tcontext, context).comment_line
+					, commentid_line
+					, comment_type_line);
+
 	g_free(id);
 	g_free(symbols);
 	/*g_free(highlight); stored in the structure */
@@ -981,7 +1024,8 @@ static gpointer build_lang_thread(gpointer data)
 		g_hash_table_insert(bfparser->setoptions,g_strdup(tmplist->data),GINT_TO_POINTER(1));
 	}*/
 	bfparser->st = scantable_new(bflang->size_table,bflang->size_matches,bflang->size_contexts);
-
+	bfparser->commentid_table = g_hash_table_new_full(g_str_hash, g_str_equal,xmlFree,NULL);
+	
 	tmp = lookup_user_option(bflang->name, "load_reference");
 	bfparser->load_reference = !(tmp && tmp[0]=='0');
 	tmp = lookup_user_option(bflang->name, "load_completion");
@@ -1038,29 +1082,27 @@ static gpointer build_lang_thread(gpointer data)
 			while (xmlTextReaderRead(reader)==1) {
 				xmlChar *name2 = xmlTextReaderName(reader);
 				if (xmlStrEqual(name2,(xmlChar *)"comment")) {
-					gchar *type=NULL;
-					Tcomment *com = g_slice_new0(Tcomment);
+					gchar *typestr=NULL, *id=NULL;
+					Tcomment com = {NULL, NULL, 0};
 					while (xmlTextReaderMoveToNextAttribute(reader)) {
 						xmlChar *aname = xmlTextReaderName(reader);
-						set_string_if_attribute_name(reader,aname,(xmlChar *)"start", &com->so);
-						set_string_if_attribute_name(reader,aname,(xmlChar *)"end", &com->eo);
-						set_string_if_attribute_name(reader,aname,(xmlChar *)"type", &type);
+						set_string_if_attribute_name(reader,aname,(xmlChar *)"start", &com.so);
+						set_string_if_attribute_name(reader,aname,(xmlChar *)"end", &com.eo);
+						set_string_if_attribute_name(reader,aname,(xmlChar *)"type", &typestr);
+						set_string_if_attribute_name(reader,aname,(xmlChar *)"id", &id);
 						xmlFree(aname);
 					}
-					if (com && com->so && type && (strcmp(type, "line")==0 || com->eo)) {
-						com->type=strcmp(type, "line")==0 ? comment_type_line : comment_type_block;
-						bfparser->comments = g_list_prepend(bfparser->comments, com);
-						if (com->type==comment_type_line && bfparser->line==NULL)
-							bfparser->line=com;
-						else if (com->type==comment_type_block && bfparser->block==NULL)
-							bfparser->block=com;
-						/*g_print("adding comment %s, line=%p, block=%p\n",com->so,bfparser->line,bfparser->block);*/
+					com.type= g_strcmp0(typestr, "block")==0 ? comment_type_block : comment_type_line; 
+					if (com.so && (com.type==comment_type_line || com.eo)) {
+						g_array_append_val(bfparser->st->comments, com);
+						if (id)
+							g_hash_table_insert(bfparser->commentid_table, id, GINT_TO_POINTER(bfparser->st->comments->len));
 					} else {
-						if (com->so) xmlFree(com->so);
-						if (com->eo) xmlFree(com->eo);
-						g_slice_free(Tcomment, com);
+						xmlFree(com.so);
+						xmlFree(com.eo);
+						xmlFree(id);
 					}
-					xmlFree(type);
+					xmlFree(typestr);
 				} else if (xmlStrEqual(name2,(xmlChar *)"smartindent")) {
 					while (xmlTextReaderMoveToNextAttribute(reader)) {
 						xmlChar *aname = xmlTextReaderName(reader);
@@ -1078,6 +1120,7 @@ static gpointer build_lang_thread(gpointer data)
 					while (xmlTextReaderMoveToNextAttribute(reader)) {
 						xmlChar *aname = xmlTextReaderName(reader);
 						set_boolean_if_attribute_name(reader,aname,(xmlChar *)"enabled", &bfparser->default_spellcheck);
+						set_boolean_if_attribute_name(reader,aname,(xmlChar *)"spell_decode_entities", &bfparser->spell_decode_entities);
 						xmlFree(aname);
 					}
 #endif
@@ -1105,8 +1148,8 @@ static gpointer build_lang_thread(gpointer data)
 		bflang->tags = bftextview2_scantable_rematch_highlights(bfparser->st, bflang->name);
 	}
 	DBG_PARSING("build_lang_thread finished bflang=%p\n",bflang);
-	/* when done call mainloop */
-	g_idle_add_full(G_PRIORITY_LOW,build_lang_finished_lcb, bfparser,NULL);
+	/* when done call mainloop, see the top of bftextview2.c why we use priority 122 here */
+	g_idle_add_full(122,build_lang_finished_lcb, bfparser,NULL);
 	return bflang;
 }
 

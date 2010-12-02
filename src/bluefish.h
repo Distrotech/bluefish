@@ -15,8 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /* indented with indent -ts4 -kr -l110   */
 
@@ -286,6 +285,7 @@ typedef struct {
 	gint block_folding_mode;
 	GList *highlight_styles;
 	GList *bflang_options;		/* array with: lang_name, option_name, value */
+	gchar *autocomp_accel_string;
 	gboolean load_reference;
 	gboolean show_autocomp_reference;
 	gboolean show_tooltip_reference;
@@ -363,6 +363,7 @@ typedef struct {
 	   A Tsessionvar INTO A NEW Tsessionvar AND ADJUST THE SIZES!!!!!!!!!!!!!!!!!!!!!! */
 #ifdef HAVE_LIBENCHANT
 	gint spell_check_default;
+	gint spell_insert_entities;
 	gchar *spell_lang;
 #endif
 	/* if you add strings or lists to the session, please make sure they are free'ed 
@@ -489,6 +490,8 @@ typedef struct {
 	Tdocument *bevent_doc;
 	gint bevent_charoffset; 	/* for example used in the spellcheck code to find on which 
 											word the user clicked */
+	guint autocomp_accel_key;				 /* by default <ctrl><space> activates autocompletion */
+	GdkModifierType autocomp_accel_mods; /* but this shortcut is also used to switch input languages for example by chinese users */
 	gpointer bmarkdata;
 	gint num_untitled_documents;
 	gchar *securedir;			/* temporary rwx------ directory for secure file creation */

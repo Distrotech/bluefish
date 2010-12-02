@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_scanner.c
  *
- * Copyright (C) 2008,2009 Olivier Sessink
+ * Copyright (C) 2008,2009,2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*#define MINIMAL_REFCOUNTING*/
@@ -61,10 +60,13 @@ typedef struct {
 	gint fcontext_refcount;
 	gint fstack_refcount;
 	gint num_marks;
-	guint num_runs;
+	guint total_runs;
+	guint total_chars;
+	guint total_marks;
+	guint total_time_ms;
 } Thl_profiling;
 
-Thl_profiling hl_profiling = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+Thl_profiling hl_profiling = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 #endif
 
 guint loops_per_timer=1000; /* a tunable to avoid asking time too often. this is auto-tuned. */ 
@@ -194,7 +196,7 @@ void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 }
 
 static void foundblock_unref(Tfoundblock *fblock, GtkTextBuffer *buffer) {
-	if (fblock->refcount <= 0) 
+	if (G_UNLIKELY(fblock->refcount <= 0)) 
 		g_warning("fblock %p is unref'ed but should not exist anymore!\n",fblock);
 	DBG_FBLOCKREFCOUNT("unref fblock %p;",fblock);
 	fblock->refcount--;
@@ -210,12 +212,12 @@ static void foundblock_unref(Tfoundblock *fblock, GtkTextBuffer *buffer) {
 }
 
 static void foundblock_foreach_unref_lcb(gpointer data,gpointer user_data) {
-	if (data)
+	if (G_LIKELY(data))
 		foundblock_unref(data,gtk_text_view_get_buffer(user_data));
 }
 
 static void foundblock_foreach_ref_lcb(gpointer data,gpointer user_data) {
-	if (data) {
+	if (G_LIKELY(data)) {
 		((Tfoundblock *)data)->refcount++;
 		DBG_FBLOCKREFCOUNT("foreach ref fblock %p; refcount is %d\n",((Tfoundblock *)data),((Tfoundblock *)data)->refcount);
 	}
@@ -237,12 +239,12 @@ static void foundcontext_unref(Tfoundcontext *fcontext, GtkTextBuffer *buffer) {
 }
 
 static void foundcontext_foreach_unref_lcb(gpointer data,gpointer user_data) {
-	if (data)
+	if (G_LIKELY(data))
 		foundcontext_unref(data,gtk_text_view_get_buffer(user_data));
 }
 
 static void foundcontext_foreach_ref_lcb(gpointer data,gpointer user_data) {
-	if (data) {
+	if (G_LIKELY(data)) {
 		((Tfoundcontext *)data)->refcount++;
 		DBG_FCONTEXTREFCOUNT("foreach ref: refcount for fcontext %p is %d\n",data,((Tfoundcontext *)data)->refcount);
 	}
@@ -337,7 +339,7 @@ static void print_blockstack(BluefishTextView * btv, Tscanning *scanning) {
 }*/
 
 static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, const Tmatch match, Tscanning *scanning) {
-	if (scanning->blockstack->length > 100) {
+	if (G_UNLIKELY(scanning->blockstack->length > 100)) {
 		/* if a file has thousands of blockstarts this results in thousands of Tfoundblock structures, but 
 		worse: also thousands of copies of the blockstack in the scancache --> 1000 * 0.5 * 1000 queue elements.
 		to avoid this we return NULL here if the blockstack is > 100. If we return NULL here
@@ -384,7 +386,7 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuff
 			foundblock_unref(fblock, buffer);
 		}
 		fblock = g_queue_pop_head(scanning->blockstack);
-		if (fblock) {
+		if (G_LIKELY(fblock)) {
 			/* we should unref the fblock here, because it is popped from scanning->blockstack, but we want to add a reference too
 			because we return a reference to the calling function */
 			DBG_BLOCKMATCH("popped block for pattern %d (%s) from blockstack\n",fblock->patternum, g_array_index(btv->bflang->st->matches,Tpattern,fblock->patternum).pattern);
@@ -393,7 +395,7 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuff
 		else we pop until we have the right startpattern */
 	} while (fblock && fblock->patternum != pat->blockstartpattern && pat->blockstartpattern != -1);
 	/*print_blockstack(btv,scanning);*/
-	if (fblock) {
+	if (G_LIKELY(fblock)) {
 		GtkTextIter iter;
 		DBG_BLOCKMATCH("found the matching start of the block\n");
 		/* TODO: see comments in start_of_block how to reduce the number of GtkTextMark's */
@@ -554,7 +556,7 @@ static gboolean bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuff
 }
 
 static void foundblock_foreach_clear_end_lcb(gpointer data,gpointer user_data) {
-	if (data) {
+	if (G_LIKELY(data)) {
 		((Tfoundblock *)data)->start2_o = BF2_OFFSET_UNDEFINED;
 		((Tfoundblock *)data)->end2_o = BF2_OFFSET_UNDEFINED;
 		((Tfoundblock *)data)->foldable = FALSE;
@@ -562,7 +564,7 @@ static void foundblock_foreach_clear_end_lcb(gpointer data,gpointer user_data) {
 }
 
 static void foundcontext_foreach_clear_end_lcb(gpointer data,gpointer user_data) {
-	if (data)
+	if (G_LIKELY(data))
 		((Tfoundcontext *)data)->end_o = BF2_OFFSET_UNDEFINED;
 }
 
@@ -571,7 +573,7 @@ static void reconstruct_stack(BluefishTextView * btv, GtkTextBuffer *buffer, Gtk
 	DBG_SCANNING("reconstruct_stack at position %d\n",gtk_text_iter_get_offset(position));
 	fstack = get_stackcache_at_offset(btv, gtk_text_iter_get_offset(position), NULL);
 	DBG_SCANCACHE("reconstruct_stack, got fstack %p with charoffset_o=%d to reconstruct stack at position %d\n",fstack,fstack->charoffset_o,gtk_text_iter_get_offset(position));
-	if (fstack) {
+	if (G_LIKELY(fstack)) {
 		Tfoundcontext *fcontext;
 		scanning->contextstack = g_queue_copy(fstack->contextstack);
 		fcontext = g_queue_peek_head(scanning->contextstack);
@@ -742,7 +744,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 #ifdef HL_PROFILING
 		hl_profiling.numloops++;
 #endif
-		if (last_character_run) {
+		if (G_UNLIKELY(last_character_run)) {
 			uc = '\0';
 		} else {
 			uc = gtk_text_iter_get_char(&iter);
@@ -756,8 +758,8 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		DBG_SCANNING("scanning %d %c in pos %d..",gtk_text_iter_get_offset(&iter),uc,pos);
 		newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
 		DBG_SCANNING(" got newpos %d\n",newpos);
-		if (newpos == 0 || uc == '\0') {
-			if (g_array_index(btv->bflang->st->table,Ttablerow, pos).match) {
+		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
+			if (G_UNLIKELY(g_array_index(btv->bflang->st->table,Ttablerow, pos).match)) {
 				Tmatch match;
 				match.patternum = g_array_index(btv->bflang->st->table,Ttablerow, pos).match;
 				match.start = mstart;
@@ -767,17 +769,17 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				DBG_SCANNING("after match context=%d\n",scanning.context);
 			}
 #ifdef IDENTSTORING
-			else if (pos == g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).identstate){
+			else if (G_UNLIKELY(scanning.identmode != 0 && pos == g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).identstate)) {
 				/* ignore if the cursor is within the range, because it could be that the user is still typing the name */
-				if (!gtk_text_iter_in_range(&itcursor, &mstart, &iter) 
+				if (G_LIKELY(!gtk_text_iter_in_range(&itcursor, &mstart, &iter) 
 								&& !gtk_text_iter_equal(&itcursor, &mstart) 
-								&& !gtk_text_iter_equal(&itcursor, &iter)) {
+								&& !gtk_text_iter_equal(&itcursor, &iter))) {
 					found_identifier(btv, &mstart, &iter, scanning.context, scanning.identmode);
 					scanning.identmode = 0;
 				}
 			}
 #endif /* IDENTSTORING */
-			if (gtk_text_iter_equal(&mstart,&iter) && !last_character_run) {
+			if (G_LIKELY(gtk_text_iter_equal(&mstart,&iter) && !last_character_run)) {
 				gtk_text_iter_forward_char(&iter);
 #ifdef HL_PROFILING
 				hl_profiling.numchars++;
@@ -785,7 +787,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 			}
 			mstart = iter;
 			newpos = g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).startstate;
-		} else if (!last_character_run){
+		} else if (G_LIKELY(!last_character_run)){
 			gtk_text_iter_forward_char(&iter);
 #ifdef HL_PROFILING
 			hl_profiling.numchars++;
@@ -793,7 +795,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		}
 		pos = newpos;
 		normal_run = !gtk_text_iter_equal(&iter, &end);
-		if (!normal_run) {
+		if (G_UNLIKELY(!normal_run)) {
 			/* only if last_character_run is FALSE and normal_run is FALSE we set last_character run to TRUE */
 			last_character_run = 1 - last_character_run;
 		}
@@ -806,10 +808,13 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	gtk_text_buffer_apply_tag(buffer,btv->needscanning,&iter,&orig_end);
 	/*g_array_free(matchstack,TRUE);*/
 #ifdef HL_PROFILING
-	hl_profiling.num_runs++;
 	stage4 = g_timer_elapsed(scanning.timer,NULL);
+	hl_profiling.total_runs++;
+	hl_profiling.total_marks += hl_profiling.num_marks;
+	hl_profiling.total_chars += hl_profiling.numchars;
+	hl_profiling.total_time_ms += (gint)(1000.0*stage4); 
 	g_print("scanning run %d (%d ms): %d, %d, %d, %d; loops=%d,chars=%d,blocks %d/%d (%d) contexts %d/%d (%d) scancache %d refcs %d(%dKb),%d(%dKb),%d(%dKb) marks %d\n"
-		,hl_profiling.num_runs
+		,hl_profiling.total_runs
 		,(gint)(1000.0*stage4)
 		,(gint)(1000.0*stage1)
 		,(gint)(1000.0*stage2-stage1)
@@ -824,6 +829,12 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		,hl_profiling.fstack_refcount,(gint)(hl_profiling.fstack_refcount*sizeof(Tfoundstack)/1024.0)
 		,hl_profiling.num_marks
 		);
+	g_print("average %d chars/s %d chars/run, %d marks/s, %d marks/run\n"
+			,(guint)(1000.0*hl_profiling.total_chars / hl_profiling.total_time_ms )
+			,(guint)(1.0*hl_profiling.total_chars / hl_profiling.total_runs )
+			,(guint)(1000.0*hl_profiling.total_marks / hl_profiling.total_time_ms )
+			,(guint)(1.0*hl_profiling.total_marks / hl_profiling.total_runs )
+			);
 #endif
 	/* tune the loops_per_timer, try to have 10 timer checks per loop, so we have around 10% deviation from the set interval */
 	if (normal_run)
@@ -862,16 +873,13 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 	iter = *mstart;
 
 	contextstack = get_contextstack_at_position(btv, &iter);
-	if (g_queue_get_length(contextstack)>0)
-		*contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
-	else
-		*contextnum = 1;
+	*contextnum = g_queue_get_length(contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(contextstack)): 1;
 	pos = g_array_index(btv->bflang->st->contexts,Tcontext, *contextnum).startstate;
 	DBG_AUTOCOMP("start scanning at offset %d with context %d and position %d\n",gtk_text_iter_get_offset(&iter),*contextnum,pos);
 	while (!gtk_text_iter_equal(&iter, cursorpos)) {
 		gunichar uc;
 		uc = gtk_text_iter_get_char(&iter);
-		if (uc > 128) {
+		if (G_UNLIKELY(uc > 128)) {
 				/* multibyte characters cannot be matched by the engine. character
 				1 in ascii is "SOH (start of heading)". we need this to support a
 				pattern like [^#]* .  */
@@ -879,9 +887,9 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 		}
 		DBG_AUTOCOMP("scanning %c\n",uc);
 		newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
-		if (newpos == 0 || uc == '\0') {
+		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
 			DBG_AUTOCOMP("newpos=%d...\n",newpos);
-			if (g_array_index(btv->bflang->st->table,Ttablerow, pos).match) {
+			if (G_UNLIKELY(g_array_index(btv->bflang->st->table,Ttablerow, pos).match)) {
 				if (g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext < 0) {
 					gint num  = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
 					while (num != 0) {
@@ -896,7 +904,7 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 				}
 				DBG_AUTOCOMP("found match %d, new context is %d\n",g_array_index(btv->bflang->st->table,Ttablerow, pos).match,*contextnum);
 			}
-			if (gtk_text_iter_equal(mstart,&iter)) {
+			if (G_LIKELY(gtk_text_iter_equal(mstart,&iter))) {
 				gtk_text_iter_forward_char(&iter);
 			}
 			*mstart = iter;
@@ -927,15 +935,15 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 	while (!gtk_text_iter_equal(&iter, &end)) {
 		gunichar uc;
 		uc = gtk_text_iter_get_char(&iter);
-		if (uc > 128) {
+		if (G_UNLIKELY(uc > 128)) {
 			newpos = 0;
 		} else {
 			DBG_TOOLTIP("scanning %c\n",uc);
 			newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
 		}
-		if (newpos == 0 || uc == '\0') {
+		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
 			DBG_TOOLTIP("newpos=%d...\n",newpos);
-			if (g_array_index(btv->bflang->st->table,Ttablerow, pos).match) {
+			if (G_UNLIKELY(g_array_index(btv->bflang->st->table,Ttablerow, pos).match)) {
 				DBG_MSG("found match %d, retthismatch=%d\n",g_array_index(btv->bflang->st->table,Ttablerow, pos).match,retthismatch);
 				if (retthismatch) {
 					*position = iter;

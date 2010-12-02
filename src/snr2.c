@@ -16,8 +16,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*
  * THIS IS THE BACKEND FLOW DIAGRAM
@@ -945,6 +944,8 @@ static gint replace_all(Tbfwin *bfwin,const gchar *search_pattern, Tmatch_types 
 static gboolean replace_current_match(Tbfwin *bfwin) {
 	GtkTextIter itstart,itend;
 	GtkTextTag *tag;
+	if (!bfwin->current_document)
+		return FALSE;
 	gtk_text_buffer_get_iter_at_offset(bfwin->current_document->buffer,&itstart,LASTSNR2(bfwin->snr2)->result.start);
 	gtk_text_buffer_get_iter_at_offset(bfwin->current_document->buffer,&itend,LASTSNR2(bfwin->snr2)->result.end);
 	DEBUG_MSG("replace_current_match, get iters at %d and %d\n",LASTSNR2(bfwin->snr2)->result.start,LASTSNR2(bfwin->snr2)->result.end);
@@ -1056,7 +1057,7 @@ static gint search_multiple(Tbfwin *bfwin, gint startpos, gint endpos) {
 			count += search_doc_multiple_backend(bfwin,DOCUMENT(tmplist->data), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, 0, -1, LASTSNR2(bfwin->snr2)->unescape);
 			tmplist = g_list_next(tmplist);
 		}
-	} else {
+	} else if (bfwin->current_document) {
 		count = search_doc_multiple_backend(bfwin,DOCUMENT(bfwin->current_document), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape);
 	}
 	DEBUG_MSG("search_multiple, done\n");
@@ -1070,7 +1071,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
 		result = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
 		if (result.end > 0) {
 			doc_show_result(result.doc, dialog, result.start, result.end, LASTSNR2(bfwin->snr2)->select_match);
-			if (bfwin->current_document->uri && LASTSNR2(bfwin->snr2)->bookmark_results) {
+			if (result.doc->uri && LASTSNR2(bfwin->snr2)->bookmark_results) {
 				gchar *text = doc_get_chars(result.doc, result.start, result.end);
 				DEBUG_MSG("search_single_and_show, adding bookmark '%s' at %d\n", text, result.start);
 				bmark_add_extern(result.doc, result.start, LASTSNR2(bfwin->snr2)->search_pattern, text, !main_v->globses.bookmarks_default_store);
@@ -1078,7 +1079,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
 			}
 		}
 		return result;
-	} else {
+	} else if (bfwin->current_document) {
 		DEBUG_MSG("search_single_and_show, startpos=%d, endpos=%d\n",startpos,endpos);
 		snr2_doc_remove_highlight(bfwin->current_document);
 		result = search_doc(bfwin,bfwin->current_document, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
@@ -1094,6 +1095,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
 		}
 		return result;
 	}
+	return result;
 }
 
 /*****************************************************/
@@ -1135,7 +1137,7 @@ gint snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
 					, matchtype
 					, is_case_sens
 					, startpos, endpos, replace_pattern
-					, BFWIN(doc->bfwin)->current_document
+					, doc
 					, string
 					, unescape, 0 /* unre_id */);
 	}
@@ -2216,192 +2218,6 @@ void convert_identing(Tdocument *doc, gboolean to_tabs) {
 	}
 	g_free(buf);
 	doc_unre_new_group(doc);
-}
-
-static void add_line_comment(Tdocument *doc, const gchar *commentstring, gint start, gint end) {
-	gint i=0,coffset,commentstring_len;
-	gchar *buf;
-
-	if (start!=0)	
-		start--; /* include a possible newline character if 
-			the selection started at te first character of a line */
-
-	commentstring_len = g_utf8_strlen(commentstring,-1);
-	
-	buf = doc_get_chars(doc,start,end);
-	utf8_offset_cache_reset();
-	
-	coffset=start;
-	doc_unre_new_group(doc);
-	while (buf[i] != '\0') {
-		if (i==0 || (buf[i]=='\n' && buf[i+1]!='\0')) {
-			gint cstart;
-			cstart = utf8_byteoffset_to_charsoffset_cached(buf, i+1);
-			doc_replace_text_backend(doc, commentstring, coffset+cstart, coffset+cstart);
-			coffset += commentstring_len;
-		}
-		i++;
-	}
-	g_free(buf);
-	doc_unre_new_group(doc);
-}
-
-static void remove_line_comment(Tdocument *doc, const gchar *buf, const gchar *commentstring, gint start, gint end) {
-	gint commentstring_len,i=0,coffset;
-	gboolean newline;
-
-	commentstring_len=strlen(commentstring);
-	doc_unre_new_group(doc);
-	coffset=start;
-	newline=TRUE;
-	while (buf[i] != '\0') {
-		if (buf[i]=='\n') {
-			newline=TRUE;
-		} else if (newline) {
-			if (strncmp(&buf[i], commentstring, commentstring_len)==0) {
-				gint cstart = utf8_byteoffset_to_charsoffset_cached(buf, i);
-				doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cstart+commentstring_len);
-				coffset -= commentstring_len;
-			}
-			newline=FALSE;
-		}
-		i++;
-	}
-	doc_unre_new_group(doc);
-}
-
-static void add_block_comment(Tdocument *doc, const gchar *so_commentstring, const gchar *eo_commentstring, gint start, gint end) {
-	gint offset;
-	
-	doc_unre_new_group(doc);
-	
-	doc_replace_text_backend(doc, so_commentstring, start, start);
-	offset = g_utf8_strlen(so_commentstring,-1);
-	doc_replace_text_backend(doc, eo_commentstring, end+offset, end+offset);
-
-	doc_unre_new_group(doc);
-}
-
-static void remove_block_comment(Tdocument *doc, const gchar *buf, const gchar *so_commentstring, const gchar *eo_commentstring, gint start, gint end) {
-	gint i=0,n=0,coffset,eo_commentstring_len;
-	gint so=0,eo;
-	
-	doc_unre_new_group(doc);
-	/* first see if there is an start-of-block */
-	coffset=start;
-	
-	while (buf[i] != '\0') {
-		if (n==0 && (buf[i]==' '||buf[i]=='\n'||buf[i]=='\t')) {
-			/* do nothing */
-		} else if (buf[i]==so_commentstring[n]) {
-			if (n==0)
-				so=i;
-			n++;
-			if (so_commentstring[n]=='\0') {
-				eo = i;
-				break;
-			}
-		} else {
-			break;
-		}
-		i++;
-	}
-	if (n == strlen(so_commentstring)) {
-		gint cstart,cend;
-		cstart = utf8_byteoffset_to_charsoffset_cached(buf, so);
-		cend = so+strlen(so_commentstring);
-		doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cend);
-		coffset -= (cend-cstart); 
-	}
-	
-	/* now find the end-of-block */
-	i=strlen(buf)-1;
-	eo_commentstring_len = strlen(eo_commentstring)-1; 
-	n=eo_commentstring_len;
-	while (i>=0) {
-		if (n==eo_commentstring_len && (buf[i]==' '||buf[i]=='\n'||buf[i]=='\t')) {
-			/* do nothing */
-		} else if (buf[i]==eo_commentstring[n]) {
-			if (n==eo_commentstring_len) {
-				eo=n+1;
-			}
-			if (n==0) {
-				so = i;
-				break;
-			}
-			n--;	
-		} else {
-			break;
-		}
-		i--;
-	}
-	if (n==0) {
-		gint cstart,cend;
-		cstart = utf8_byteoffset_to_charsoffset_cached(buf, so);
-		cend = so+strlen(eo_commentstring);
-		doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cend);
-	}
-	
-	doc_unre_new_group(doc);
-}
-
-void toggle_comment(Tdocument *doc) {
-	GtkTextIter its,ite;
-	gboolean ret;
-	
-	if (!BLUEFISH_TEXT_VIEW(doc->view)->bflang) {
-		return;
-	}
-	if (!BLUEFISH_TEXT_VIEW(doc->view)->bflang->line && !BLUEFISH_TEXT_VIEW(doc->view)->bflang->block) {
-		return;
-	}
-	
-	ret = bluefish_text_view_in_comment(BLUEFISH_TEXT_VIEW(doc->view), &its, &ite);
-	if (ret) { /* remove comment */
-		gchar *buf;
-		GList *tmplist = g_list_first(BLUEFISH_TEXT_VIEW(doc->view)->bflang->comments);
-		buf = gtk_text_buffer_get_text(doc->buffer, &its, &ite, FALSE);
-		DEBUG_MSG("toggle_comment, remove comment\n");
-		while (tmplist) {
-			Tcomment *tmp = (Tcomment *)tmplist->data;
-			if (strncmp(tmp->so, buf, strlen(tmp->so))==0) {
-				if (tmp->type == comment_type_block)
-					remove_block_comment(doc, buf, tmp->so, tmp->eo, gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite));
-				else
-					remove_line_comment(doc, buf, tmp->so, gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite));
-				break;
-			}
-			tmplist=tmplist->next;
-		}
-		g_free(buf);
-	} else { /* add comment */
-		DEBUG_MSG("toggle_comment, add comment\n");
-		if (gtk_text_buffer_get_has_selection(doc->buffer)) {
-			if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->block 
-						&& (!BLUEFISH_TEXT_VIEW(doc->view)->bflang->line 
-								|| (gtk_text_iter_get_line(&its)!=gtk_text_iter_get_line(&ite)))) {
-				add_block_comment(doc, BLUEFISH_TEXT_VIEW(doc->view)->bflang->block->so
-							, BLUEFISH_TEXT_VIEW(doc->view)->bflang->block->eo
-							, gtk_text_iter_get_offset(&its)
-							, gtk_text_iter_get_offset(&ite));
-			} else if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->line) {
-				add_line_comment(doc, BLUEFISH_TEXT_VIEW(doc->view)->bflang->line->so, gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite));
-			}
-		 } else {
-		 	gtk_text_iter_set_line_offset(&its,0);
-		 	gtk_text_iter_forward_to_line_end(&ite);
-		 	/*if (gtk_text_iter_get_char(&ite)=='\n') 
-		 		gtk_text_iter_backward_char(&ite);*/
-		 	if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->line) {
-		 		add_line_comment(doc, BLUEFISH_TEXT_VIEW(doc->view)->bflang->line->so, gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite));
-		 	} else if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->block) {
-				add_block_comment(doc, BLUEFISH_TEXT_VIEW(doc->view)->bflang->block->so
-							, BLUEFISH_TEXT_VIEW(doc->view)->bflang->block->eo
-							, gtk_text_iter_get_offset(&its)
-							, gtk_text_iter_get_offset(&ite));
-			}
-		}
-	}
 }
 
 static void convert_to_columns_backend(Tdocument *doc, gint so, gint eo, gint numcolumns, gboolean spread_horiz, const gchar *separator, const gchar *fillempty) {

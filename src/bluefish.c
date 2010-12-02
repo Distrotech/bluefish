@@ -15,8 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*#define DEBUG */
@@ -24,6 +23,10 @@
 #include <gtk/gtk.h>
 #include <stdlib.h>				/* exit() on Solaris */
 #include <time.h>				/* nanosleep */
+
+#ifndef WIN32
+#include <signal.h>             /* sigaction */
+#endif
 
 #include "bluefish.h"
 #include <libxml/parser.h>
@@ -104,6 +107,22 @@ static void init_default_session(Tsessionvars *session) {
 	session->editor_tab_width = 3;
 }
 
+#ifndef WIN32
+static void sigterm_handler(int signalnum, siginfo_t *si, void *data) {
+	g_print("caught SIGTERM, exiting...\n");
+	bluefish_exit_request();
+}
+
+static void handle_signals(void) {
+	struct sigaction sa;
+	sa.sa_sigaction = sigterm_handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_restorer = NULL;
+	sigaction(SIGTERM, &sa, NULL);
+}
+#endif
+
 /*********************/
 /* the main function */
 /*********************/
@@ -133,7 +152,7 @@ static gboolean startup_in_idle(gpointer data) {
 								  g_file_get_uri(uri));
 				g_object_unref(uri);
 			}
-			bftextview2_parse_static_colors();
+			bftextview2_init_globals();
 			langmgr_init();
 #ifdef HAVE_LIBENCHANT
 			bftextview2_spell_init();
@@ -196,6 +215,9 @@ static gboolean startup_in_idle(gpointer data) {
 			main_v->recentm = gtk_recent_manager_get_default();
 			doc_scroll_to_cursor(BFWIN(startup->firstbfwin)->current_document);
 			modified_on_disk_check_init();
+#ifndef WIN32            
+			handle_signals();
+#endif            
 			g_free(startup);
 			return FALSE;
 		break;

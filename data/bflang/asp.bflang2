@@ -5,9 +5,9 @@
  
 		Copyright (C) 2008 Olivier Sessink
 
-		This program is free software; you can redistribute it and/or modify
+	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation; either version 2 of the License, or
+		the Free Software Foundation, either version 3 of the License, or
 		(at your option) any later version.
 
 		This program is distributed in the hope that it will be useful,
@@ -16,8 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program; if not, write to the Free Software
-		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
 <bflang name="ASP" version="2.0" matches="403" contexts="44" table="1275">
@@ -40,8 +39,15 @@
 	<highlight name="variable" style="variable"  />
 	<highlight name="vbscript-comment" style="comment"  />
 </header>
+<properties>
+	<comment id="htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="cblockcomment" type="block" start="/*" end="*/" />
+	<comment id="c++linecomment" type="line" start="//" />
+	<comment id="scriptcomment" type="line" start="#" />
+	<default_spellcheck enabled="1" spell_decode_entities="1" />
+</properties>
 <definition>
-<context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;%">
+<context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;-%" commentid_block="htmlcomment" commentid_line="none">
 <group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" >
 <tag name="html" />
 <tag name="head" />

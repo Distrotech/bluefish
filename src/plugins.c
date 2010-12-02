@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*#define DEBUG*/
@@ -145,7 +144,7 @@ static void bluefish_scan_dir_load_plugins(GList **oldlist,const gchar *indirnam
 					}
 				} else { /* no plugname ==> failed to load */
 					DEBUG_MSG("bluefish_scan_dir_load_plugins, returned NULL -> load failed\n");
-					if (arr && count_array(arr)>=2) {
+					if (arr && g_strv_length(arr)>=2) {
 						g_free(arr[1]);
 						arr[1] = g_strdup("1");
 					} else {

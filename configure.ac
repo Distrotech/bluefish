@@ -3,7 +3,7 @@ dnl configure.ac
 dnl $Id$
 dnl
 dnl Copyright (C) 2002-2010 Olivier Sessink
-dnl Copyright (C) 2006-2010 Daniel Leidert
+dnl Copyright (C) 2006-2009 Daniel Leidert
 dnl
 dnl This file is free software. The copyright owner gives unlimited
 dnl permission to copy, distribute and modify it.
@@ -11,7 +11,7 @@ dnl ************************
 
 AC_PREREQ([2.59])
 
-AC_INIT([bluefish],[2.0+gtk3],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
+AC_INIT([bluefish],[2.0.3],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 
 dnl Have to save them here!
 if test "${ac_configure_args+set}" != "set" ; then
@@ -544,6 +544,13 @@ AC_DEFINE([WITH_SPC], [1], [Don't define to 1 if you want to build without spell
 AC_FUNC_SELECT_ARGTYPES
 AC_HEADER_TIME
 
+dnl **************************
+dnl   Types
+dnl **************************
+
+if test "x$native_win32" = "xno"; then
+	BF_TYPE_SOCKLEN_T
+fi
 
 dnl ************************
 dnl   Final Cflags/Libs

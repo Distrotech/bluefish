@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*
@@ -194,7 +193,7 @@ extern void g_none(char * first, ...);
 #endif  
  /**/
 
-/*#define IDENTSTORING*/
+#define IDENTSTORING
 
 #define BF2_OFFSET_UNDEFINED G_MAXUINT32
 
@@ -213,6 +212,7 @@ extern void g_none(char * first, ...);
 #define DBG_BLOCKMATCH DBG_NONE
 #define DBG_TOOLTIP DBG_NONE
 #define DBG_SPELL DBG_NONE
+#define DBG_IDENTIFIER DBG_NONE
 
 #define NUMSCANCHARS 127 /* 128 is ascii, but the last character is never scanned (DEL)
 		and the Ttablerow has one more 16bit value. By setting this to 127 instead of 128
@@ -222,6 +222,9 @@ extern void g_none(char * first, ...);
 /*****************************************************************/
 /* building the automata and autocompletion cache */
 /*****************************************************************/
+
+#define COMMENT_INDEX_INHERIT 255
+#define COMMENT_INDEX_NONE 254
 
 typedef struct {
 	gboolean autocomplete_case_insens;
@@ -236,6 +239,10 @@ typedef struct {
 					except the characters (symbols) thay may be the begin or end of an identifier such
 					as whitespace, ();[]{}*+-/ etc. */
 	guint8 has_tagclose_from_blockstack; /* this context has xml end patterns that need autoclosing for generix xml tags, based on the tag that is on top of the blockstack */
+	guint8 comment_block; /* block comment index in array scantable->comments 
+				or COMMENT_INDEX_INHERIT (which means inherit) 
+				or COMMENT_INDEX_NONE if there is no block comment  */
+	guint8 comment_line; /* index in array scantable->comments for line comments; see comment_block */
 /*#ifdef HAVE_LIBENCHANT_OLD
 	guint8 needspellcheck;
 #endif / *HAVE_LIBENCHANT*/
@@ -282,14 +289,6 @@ typedef struct {
 	guint16 match;			/* 0 == no match, refers to the index number in array 'matches' */
 } Ttablerow; /* a row in the DFA, right now exactly 256 bytes */
 
-typedef struct {
-	guint8 allsymbols[128]; /* this lookup table holds all symbols for all contexts, and is used to trigger scanning if reduced_scan_triggers is enabled */
-	GArray *table; /* dynamic sized array of Ttablerow: the DFA table */
-	GArray *contexts; /* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
-	GArray *matches; /* dynamic sized array of Tpattern */
-} Tscantable;
-
-
 typedef enum {
 	comment_type_block,
 	comment_type_line
@@ -300,6 +299,14 @@ typedef struct {
 	gchar *eo;
 	Tcomment_type type;
 } Tcomment;
+
+typedef struct {
+	guint8 allsymbols[128]; /* this lookup table holds all symbols for all contexts, and is used to trigger scanning if reduced_scan_triggers is enabled */
+	GArray *table; /* dynamic sized array of Ttablerow: the DFA table, max 65.... entries, we use a guint16 as index */
+	GArray *contexts; /* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
+	GArray *matches; /* dynamic sized array of Tpattern */
+	GArray *comments; /* Tcomment, has max. 256 entries, we use a guint8 as index */
+} Tscantable;
 
 /*****************************************************************/
 /* scanning the text and caching the results */
@@ -367,13 +374,11 @@ typedef struct {
 						we want to remove all tags and want to re-highlight */
 	gchar *filename; /* the .bflang2 file */
 	Tscantable *st; /* NULL or complete */
-	GList *comments; /* NULL or complete */
-	Tcomment *line; /* preferred line comment */
-	Tcomment *block; /* preferred block comment */
 	gchar *smartindentchars;
 	gchar *smartoutdentchars;
 #ifdef HAVE_LIBENCHANT
 	gboolean default_spellcheck;
+	gboolean spell_decode_entities;
 #endif
 	gboolean no_st; /* no scantable, for Text, don't try to load the scantable if st=NULL */
 	gboolean parsing; /* set to TRUE when a thread is parsing the scantable already */
@@ -426,8 +431,11 @@ struct _BluefishTextView {
 	guint scanner_delayed; /* event ID for the timeout function that handles the delayed scanning. 0 if no timeout function is running */
 	GTimer *user_idle_timer;
 	guint user_idle; /* event ID for the timed function that handles user idle events such as autocompletion popups */
+	guint mark_set_idle; /* event ID for the mark_set idle function that avoids showing matching block bounds while 
+								you hold the arrow key to scroll quickly */
 	gpointer autocomp; /* a Tacwin* with the current autocompletion window */
 	gboolean needs_autocomp; /* a state of the widget, autocomplete is needed on user keyboard actions */
+	gboolean needs_blockmatch; /* a state of the widget, if the cursor position was changed */
 	gboolean key_press_inserted_char; /* FALSE if the key press was used by autocomplete popup, or simply not in our widget */
 	/*gboolean key_press_was_autocomplete;  a state of the widget, if the last keypress was handled by the autocomplete popup window */
 	gboolean showing_blockmatch; /* a state of the widget if we are currently showing a blockmatch */
@@ -468,7 +476,7 @@ gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
 void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);
 gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);
 void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable);
-void bftextview2_parse_static_colors(void);
+void bftextview2_init_globals(void);
 void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors);
 void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime);
 gboolean bluefish_text_view_get_show_blocks(BluefishTextView * btv);
@@ -488,7 +496,7 @@ void bluefish_text_view_scan_cleanup(BluefishTextView * btv);
 void bluefish_text_view_rescan(BluefishTextView * btv);
 void bftextview2_schedule_scanning(BluefishTextView * btv);
 gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter *its, GtkTextIter *ite);
-
+Tcomment *bluefish_text_view_get_comment(BluefishTextView *btv, GtkTextIter *it, Tcomment_type preferred_type);
 void bluefish_text_view_multiset(BluefishTextView *btv
 			, gpointer doc
 			, gint view_line_numbers

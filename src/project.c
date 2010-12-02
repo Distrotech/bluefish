@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*#define DEBUG*/
@@ -44,6 +43,7 @@
 #include "bookmark.h"
 #include "plugins.h"
 #include "preferences.h"
+#include "bftextview2_spell.h"
 
 static void free_session(Tsessionvars *session) {
 	/* call free_session for any of the plugins that have free_session defined */
@@ -138,7 +138,9 @@ static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	bfwin->bmarkdata = bfwin->project->bmarkdata;
 	bmark_set_store(bfwin);
 	bmark_reload(bfwin);
-
+#ifdef HAVE_LIBENCHANT
+	reload_spell_dictionary(bfwin);
+#endif
 	gui_apply_session(bfwin);
 	set_project_menu_widgets(bfwin, TRUE);
 #ifdef MAC_INTEGRATION
@@ -206,7 +208,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 		tmplist = g_list_first(bfwin->session->bmarks);
 		while (tmplist) {
 			gchar **entry = (gchar**)tmplist->data;
-			if (count_array(entry) > 2) {
+			if (g_strv_length(entry) > 2) {
 				GList *tmplist2 = g_list_first(prj->files);
 				while (tmplist2) {
 					if (strcmp(tmplist2->data, entry[2])==0) {
@@ -342,7 +344,8 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 		prwin->session = prj->session;
 		DEBUG_MSG("project_open_from_file, project %p will be in existing prwin=%p\n",prj,bfwin);
 		/* destroy the current empty document, it should use settings from the new session */
-		doc_destroy(bfwin->current_document, TRUE);
+		if (bfwin->current_document)
+			doc_destroy(bfwin->current_document, TRUE);
 	} else {
 		/* we will open a new Bluefish window for this project */
 		DEBUG_MSG("project_open_from_file, we need a new window\n");
@@ -388,7 +391,10 @@ static void project_open(Tbfwin *bfwin) {
 void project_save_and_mark_closed(Tbfwin *bfwin) {
 	if (bfwin->project) {
 		project_save(bfwin, FALSE);
-		add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
+
+		if (bfwin->project->uri)
+			add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
+
 		bfwin->project->close=TRUE;
 	}
 }

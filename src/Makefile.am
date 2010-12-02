@@ -61,6 +61,8 @@ bluefish_SOURCES = \
 	dialog_utils.c \
 	dialog_utils.h \
 	document.c \
+	doc_comments.h \
+	doc_comments.c \
 	document.h \
 	encodings_dialog.c \
 	encodings_dialog.h \
@@ -109,7 +111,9 @@ bluefish_SOURCES = \
 	stringlist.c \
 	stringlist.h \
 	undo_redo.c \
-	undo_redo.h
+	undo_redo.h \
+	xml_entity.c \
+	xml_entity.h
 
 .rc.o:
 	$(CC) -E -xc -DRC_INVOKED -DSRCDIR=\"$(top_srcdir)/win32/pixmaps $< | $(WINDRES) -o $@

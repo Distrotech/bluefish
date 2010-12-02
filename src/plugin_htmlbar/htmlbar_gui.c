@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
 #include <string.h>
@@ -473,7 +472,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 	} else {
 		DEBUG_MSG("htmlbar_build_menu, ERROR, no htmlbarsession in hasht %p for session %p!!?!?!?!?\n",htmlbar_v.lookup,bfwin->session);
 	}
-	g_print("htmlbar_build_menu, finished\n");
+	DEBUG_MSG("htmlbar_build_menu, finished\n");
 	gtk_widget_show_all(bfwin->menubar);
 }
 

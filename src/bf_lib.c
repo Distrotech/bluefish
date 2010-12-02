@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*#define DEBUG */
@@ -76,7 +75,7 @@ void refcpointer_unref(Trefcpointer *rp) {
 #ifdef REFP_DEBUG
 	g_print("refcpointer_unref, %p refcount=%d %s\n",rp, rp->count, (rp->count ==0 ? "freeing data" : ""));
 #endif
-	if (rp->count <= 0) {
+	if (G_UNLIKELY(rp->count <= 0)) {
 #ifdef REFP_REFS
 		num_refp_refs--;
 		g_print("num_refp_refs=%d\n",num_refp_refs);
@@ -299,13 +298,13 @@ void list_switch_order(GList *first, GList *second) {
 	second->data = tmp;
 }
 
-static gint length_common_prefix(gchar *first, gchar *second) {
+/*static gint length_common_prefix(gchar *first, gchar *second) {
 	gint i=0;
 	while (first[i] == second[i] && first[i] != '\0') {
 		i++;
 	}
 	return i;
-}
+}*/
 /**
  * find_common_prefix_in_stringlist:
  * @stringlist: a #GList* with strings
@@ -318,7 +317,7 @@ static gint length_common_prefix(gchar *first, gchar *second) {
  * 
  * Return value: #gint with number of common characters
  **/
-gint find_common_prefixlen_in_stringlist(GList *stringlist) {
+/*gint find_common_prefixlen_in_stringlist(GList *stringlist) {
 	gchar *firststring;
 	gint commonlen;
 	GList *tmplist;
@@ -336,7 +335,7 @@ gint find_common_prefixlen_in_stringlist(GList *stringlist) {
 		tmplist = g_list_next(tmplist);
 	}
 	return commonlen;
-}
+}*/
 /**
  * countchars:
  * @string: a gchar * to count the chars in
@@ -751,115 +750,6 @@ guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffse
 }
 
 /**
- * escapestring:
- * @original: a gchar * to escape
- * @delimiter: a gchar that needs escaping, use '\0' if you don't need one
- *
- * this function will backslash escape \n, \t, and \ characters, and if 
- * there is a delimiter it will also be escaped
- * 
- * Return value: a newly allocated gchar * that is escaped
- **/
-/*gchar *old_escapestring(gchar *original, gchar delimiter)
-{
-	gchar *tmp, *newstring, *escapedchars;
-	guint newsize, pos=0;
-
-	* count the size of the new string *
-	escapedchars = g_strdup_printf("\n\t\\%c", delimiter);
-	DEBUG_MSG("escapestring, escapedchars=%s, extra length=%d\n", escapedchars, countchars(original, escapedchars));
-	newsize = countchars(original, escapedchars) + strlen(original) + 1;
-	newstring = g_malloc0(newsize * sizeof(gchar));
-	g_free(escapedchars);
-	DEBUG_MSG("escapestring, original=%s, newsize=%d\n", original, newsize);
-
-	tmp = original;
-	while (*tmp != '\0') {
-		switch (*tmp) {
-		case '\\':
-			strcat(newstring, "\\\\");
-			pos +=2;
-		break;
-		case '\n':
-			strcat(newstring, "\\n");
-			pos +=2;
-		break;
-		case '\t':
-			strcat(newstring, "\\t");
-			pos +=2;
-		break;
-		default:
-			if (*tmp == delimiter) {
-				newstring[pos] = '\\';
-				newstring[pos+1] = delimiter;
-				pos +=2;			
-			} else {
-				newstring[pos] = *tmp;
-				pos++;
-			}
-		break;
-		}
-		newstring[pos] = '\0';
-		tmp++;
-	}
-	DEBUG_MSG("escapestring, newstring = %s\n", newstring);
-	return newstring;
-}*/
-
-/**
- * unescapestring:
- * @original: a gchar * to unescape
- *
- * this function will backslash unescape \n, \t, and \\ sequences to 
- * their characters, and if there is any other escaped character 
- * it will be replaced without the backslash
- * 
- * Return value: a newly allocated gchar * that is unescaped
- **/
-/*gchar *old_unescapestring(gchar *original)
-{
-	gchar *tmp1, *tmp2, *newstring;
-	guint newsize;
-	gint escaped;
-
-	newsize = strlen(original) + 1;
-	newstring = g_malloc0(newsize * sizeof(gchar));
-	DEBUG_MSG("unescapestring, original=%s, newsize = %d\n", original, newsize);
-
-	tmp1 = original;
-	tmp2 = newstring;
-	escaped = 0;
-	while (*tmp1 != '\0') {
-		if (escaped) {
-			switch (*tmp1) {
-			case '\\':
-				*tmp2++ = '\\';
-			break;
-			case 'n':
-				*tmp2++ = '\n';
-			break;
-			case 't':
-				*tmp2++ = '\t';
-			break;
-			default:
-				*tmp2++ = *tmp1;
-			break;
-			}
-
-			escaped = 0;
-		} else {
-			if (*tmp1 == '\\')
-				escaped = 1;
-			else
-				*tmp2++ = *tmp1;
-		}
-		tmp1++;
-	}
-	DEBUG_MSG("unescapestring, newstring = %s\n", newstring);
-	return newstring;
-}*/
-
-/**
  * strip_any_whitespace:
  * @string: a gchar * to strip
  *
@@ -869,6 +759,7 @@ guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffse
  * 
  * Return value: the same gchar * as passed to the function
  **/
+/* used only in the htmlbar plugin */
 gchar *strip_any_whitespace(gchar *string) {
 	gint count=0, len;
 
@@ -1123,14 +1014,14 @@ gchar *ending_slash(const gchar *dirname) {
  *
  * Return value: a newly allocated gchar * dirname that does end on a '/', or NULL on failure
  **/
-gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
+/*gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
 	gchar *tmp = strrchr(filename, DIRCHR);
 	if (tmp) {
 		return g_strndup(filename, (tmp - filename + 1));
 	} else {
 		return NULL;
 	}
-}
+}*/
 
 /**
  * full_path_exists:
@@ -1185,7 +1076,7 @@ GFile *return_first_existing_filename(const gchar *filename, ...) {
  *
  * Return value: gboolean, TRUE if the file has one of the extensions in the array
  **/
-gboolean filename_test_extensions(gchar **extensions, const gchar *filename) {
+/*gboolean filename_test_extensions(gchar **extensions, const gchar *filename) {
 	gint fnlen;
 	if (!extensions) {
 		return FALSE;
@@ -1200,7 +1091,7 @@ gboolean filename_test_extensions(gchar **extensions, const gchar *filename) {
 		extensions++;
 	}
 	return FALSE;
-}
+}*/
 
 /**
  * bf_str_repeat:
@@ -1558,4 +1449,3 @@ gchar *get_hostname_from_uri(GFile *uri) {
 	g_free(tmp); 
 	return retval;
 }
-

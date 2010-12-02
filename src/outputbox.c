@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*#define DEBUG*/ 
@@ -77,7 +76,8 @@ static void ob_lview_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkT
 	if (file && strlen(file)) {
 		doc_new_from_input(ob->bfwin, file, FALSE,FALSE, lineval);
 	} else if (lineval > 0){
-		doc_select_line(ob->bfwin->current_document, lineval, TRUE);
+		if (ob->bfwin->current_document)
+			doc_select_line(ob->bfwin->current_document, lineval, TRUE);
 	}
 	g_free(line);
 	g_free(file);
@@ -397,7 +397,7 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	
 	ob->def = g_new0(Toutput_def,1);
 	ob->def->pattern = g_strdup(pattern);
-	if (bfwin->current_document->uri) {
+	if (bfwin->current_document && bfwin->current_document->uri) {
 		ob->def->docuri = bfwin->current_document->uri;
 		g_object_ref(ob->def->docuri);
 	}

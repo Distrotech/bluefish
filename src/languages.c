@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "bluefish.h"
@@ -31,7 +30,7 @@ typedef struct {
 } linguas_t;
 
 static const linguas_t linguas[] = {
-	{ N_( "English" ), "English", "en", "en_EN" },
+	{ N_( "English" ), "English", "en", "C" }, /* or better en_GB? */
 #ifdef HAVE_LINGUA_BG
 	{ N_( "Bulgarian"), "Български", "bg", "bg_BG" },
 #endif

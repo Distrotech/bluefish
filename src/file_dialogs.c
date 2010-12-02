@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* indented with indent -ts4 -kr -l110   */
@@ -820,7 +819,8 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
  **/
 void file_save_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
-	doc_save_backend(bfwin->current_document, FALSE, FALSE, FALSE, FALSE);
+	if (bfwin->current_document)
+		doc_save_backend(bfwin->current_document, FALSE, FALSE, FALSE, FALSE);
 }
 
 /**
@@ -834,7 +834,8 @@ void file_save_cb(GtkWidget * widget, Tbfwin * bfwin)
  **/
 void file_save_as_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
-	doc_save_backend(bfwin->current_document, TRUE, FALSE, FALSE, FALSE);
+	if (bfwin->current_document)
+		doc_save_backend(bfwin->current_document, TRUE, FALSE, FALSE, FALSE);
 }
 
 /**
@@ -848,7 +849,8 @@ void file_save_as_cb(GtkWidget * widget, Tbfwin * bfwin)
  **/
 void file_move_to_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
-	doc_save_backend(bfwin->current_document, TRUE, TRUE, FALSE, FALSE);
+	if (bfwin->current_document)
+		doc_save_backend(bfwin->current_document, TRUE, TRUE, FALSE, FALSE);
 }
 
 /**
@@ -1007,7 +1009,8 @@ gboolean doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboo
  **/
 void file_close_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
-	doc_close_single_backend(bfwin->current_document, FALSE, FALSE);
+	if (bfwin->current_document)
+		doc_close_single_backend(bfwin->current_document, FALSE, FALSE);
 }
 
 void doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window, Tclose_mode close_mode)
@@ -1262,7 +1265,11 @@ static gchar *modified_on_disk_warning_string(const gchar *filename, GFileInfo *
 	newsize = g_file_info_get_size(newfinfo);
 	oldsize = g_file_info_get_size(oldfinfo);
 	/*g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);*/
-	tmpstr = g_strdup_printf(_("Filename:%s changed on disk.\n\nOriginal modification time was %s\nNew modification time is %s\nOriginal size was %"G_GSSIZE_FORMAT"\nNew size is %"G_GSSIZE_FORMAT""), 
+	tmpstr = g_strdup_printf(_("Filename:%s changed on disk.\n\n"
+										"Original modification time was %s\n"
+										"New modification time is %s\n"
+										"Original size was %lu\n"
+										"New size is %lu"), 
 						filename, 
 						oldtimestr, newtimestr,
 						oldsize, newsize);

@@ -16,8 +16,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <gtk/gtk.h>
@@ -1321,7 +1320,7 @@ static void add_encoding_to_list(gchar *encoding) {
 
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
-		if (count_array(tmparr)==3 && g_ascii_strcasecmp(tmparr[1], encoding) == 0) {
+		if (g_strv_length(tmparr)==3 && g_ascii_strcasecmp(tmparr[1], encoding) == 0) {
 			if (tmparr[2][0]!='1') { /* enable this encoding */
 				g_print("enable encoding %s\n",tmparr[0]);
 				g_free(tmparr[2]);
@@ -2258,7 +2257,7 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 	Tdocument *newdoc;
 
 	/* test if the current document is empty and nameless, if so we return that */
-	if (!force_new && g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
+	if (!force_new && bfwin->current_document && g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
 		newdoc = bfwin->current_document;
 		DEBUG_MSG("doc_new_backend, returning existing doc %p\n",newdoc);
 		return newdoc;
@@ -2567,7 +2566,7 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 	}
 	DEBUG_MSG("doc_new_from_input, input=%s, delay_activate=%d\n",input,delay_activate);
 	if (strchr(input, '/')==NULL) { /* no slashes in the path, relative ?*/
-		if (bfwin->current_document->uri) {
+		if (bfwin->current_document && bfwin->current_document->uri) {
 			uri = g_file_resolve_relative_path(bfwin->current_document->uri, input);
 		} else {
 			/* relative path to what ?!?!?! */
@@ -2747,7 +2746,10 @@ void doc_activate(Tdocument *doc) {
 		exit(44);
 	}
 #endif
-	if (doc == NULL || doc == BFWIN(doc->bfwin)->last_activated_doc || doc->action.close_doc) {
+	if (doc == NULL)
+		return;
+	
+	if (doc == BFWIN(doc->bfwin)->last_activated_doc || doc->action.close_doc) {
 		/* DO enable the scanner, because it is disabled in notebook_changed(), but if the last document is also the new document it needs to be re-enabled again */
 		BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
 		DEBUG_MSG("doc_activate, not doing anything, doc=%p, last_avtivated_doc=%p, close_doc=%d\n",doc, BFWIN(doc->bfwin)->last_activated_doc, doc->action.close_doc);
@@ -2884,6 +2886,9 @@ void file_open_from_selection(Tbfwin *bfwin) {
  **/
 void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	gchar *tmpfilename=NULL;
+	if (!bfwin->current_document)
+		return;
+	
 	{
 		GtkWidget *dialog;
 		dialog = file_chooser_dialog(bfwin, _("Select file to insert"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, FALSE, NULL, TRUE);
@@ -2919,6 +2924,9 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
  * Return value: void
  **/
 void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	if (!bfwin->current_document)
+		return;
+	
 	doc_unre_new_group(bfwin->current_document);
 	gtk_text_buffer_cut_clipboard(bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),TRUE);
 	doc_unre_new_group(bfwin->current_document);
@@ -2934,6 +2942,8 @@ void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin) {
+	if (!bfwin->current_document)
+		return;
 	gtk_text_buffer_copy_clipboard(bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD));
 }
 
@@ -2949,6 +2959,8 @@ void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin) {
 void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GtkTextMark *mark;
 	Tdocument *doc = bfwin->current_document;
+	if (!bfwin->current_document)
+		return;
 	DEBUG_MSG("edit_paste_cb, create new undo group\n");
 	doc_unre_new_group(doc);
 	doc->in_paste_operation=TRUE;
@@ -2973,6 +2985,9 @@ void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
  **/
 void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GtkTextIter itstart, itend;
+	if (!bfwin->current_document)
+		return;
+	
 	gtk_text_buffer_get_bounds(bfwin->current_document->buffer,&itstart,&itend);
 	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer,"insert",&itstart);
 	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer,"selection_bound",&itend);
@@ -3031,6 +3046,9 @@ void all_documents_apply_settings() {
 void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 	guint chars = 0, lines = 0, words = 0;
 	gchar *allchars, *wc_message;
+
+	if (!bfwin->current_document)
+		return;
 
 	allchars = doc_get_chars(bfwin->current_document, 0, -1);
 	wordcount(allchars, &chars, &lines, &words);
@@ -3219,10 +3237,10 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 
 static gchar *doc_text_under_cursor(Tdocument *doc, gint *context) {
 	GtkTextIter iter;
-	GSList *taglist, *tmplist;
+/*	GSList *taglist, *tmplist; */
 	gchar *retval=NULL;
 	gint len;
-	GtkTextIter so,eo;
+/*	GtkTextIter so,eo; */
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, gtk_text_buffer_get_insert(doc->buffer));
 
 /*	taglist = gtk_text_iter_get_tags(&iter);
@@ -3379,8 +3397,7 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	if (!bfwin->current_document)
 		return;
 
-	active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
-	
+	active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)); 
 	switch(callback_action) {
 	case 1:
 		bfwin->current_document->wrapstate = active;

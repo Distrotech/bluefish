@@ -19,8 +19,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <gtk/gtk.h>
 #include <stdlib.h>			/* atoi */
@@ -39,6 +38,7 @@
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
+#include "doc_comments.h"
 #include "encodings_dialog.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"            /* window_full, bf_stock_ok_button */
@@ -82,7 +82,8 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		file_open_advanced_cb(NULL,bfwin);
 	break;
 	case 4:
-		doc_reload(bfwin->current_document, NULL, TRUE);
+		if (bfwin->current_document)
+			doc_reload(bfwin->current_document, NULL, TRUE);
 	break;
 	case 5:
 		file_save_cb(NULL, bfwin);
@@ -221,7 +222,11 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Open _Recent"), NULL, NULL, 0, "<Branch>"},
 	{"/File/Open Recent/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/File/Open Ad_vanced..."), "<shift><control>O", menu_file_operations_cb, 3, "<Item>"},
+#ifndef WIN32
+#ifndef MAC_INTEGRATION
 	{N_("/File/Open _URL..."), NULL, menu_file_operations_cb, 25, "<Item>"},
+#endif /*ifndef MAC_INTEGRATION*/
+#endif /*ifndef WIN32*/
 	{N_("/File/Open _From Selection"), NULL, menu_file_operations_cb, 26, "<Item>"},
 	{N_("/File/_Insert..."), NULL, file_insert_menucb, 1, "<Item>"},
 	{"/File/sep1", NULL, NULL, 0, "<Separator>"},
@@ -492,7 +497,7 @@ static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory)
 
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
 	DEBUG_MSG("menu_current_document_type_change, started for bflang %p\n", bdm->data);
-	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem))) {
+	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) && bdm->bfwin->current_document) {
 		doc_set_mimetype(bdm->bfwin->current_document, ((Tbflang *)bdm->data)->mimetypes->data);
 	}
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
@@ -640,26 +645,30 @@ static GtkWidget *create_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 /*******************************************************************/
 
 static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboolean is_project) {
-	GList *tmplist;
-	GList **worklist;
-	gpointer tmp;
+	if (filename)
+	{
+		GList *tmplist;
+		GList **worklist;
+		gpointer tmp;
 
-	worklist = (is_project) ? &bfwin->menu_recent_projects : &bfwin->menu_recent_files;
+		worklist = (is_project) ? &bfwin->menu_recent_projects : &bfwin->menu_recent_files;
 
-	if(strcmp(filename, "last") ==0) {
-		tmplist = g_list_first(*worklist);
-		if (tmplist) {
-			tmp = tmplist->data;
-			DEBUG_MSG("remove_recent_entry, remove last entry\n");
-			*worklist = g_list_remove(*worklist, tmplist->data);
-			return tmp;
+		if(strcmp(filename, "last") ==0) {
+			tmplist = g_list_first(*worklist);
+			if (tmplist) {
+				tmp = tmplist->data;
+				DEBUG_MSG("remove_recent_entry, remove last entry\n");
+				*worklist = g_list_remove(*worklist, tmplist->data);
+				return tmp;
+			} else {
+				DEBUG_MSG("remove_recent_entry, worklist contained no items, returning NULL\n");
+				return NULL;
+			}
 		} else {
-			DEBUG_MSG("remove_recent_entry, worklist contained no items, returning NULL\n");
-			return NULL;
+			return remove_menuitem_in_list_by_label(filename, worklist);
 		}
-	}	else {
-		return remove_menuitem_in_list_by_label(filename, worklist);
-	}
+	} else
+		return NULL;
 }
 
 static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
@@ -763,38 +772,41 @@ static void register_recent(gchar *curi, gboolean is_project) {
  * menu bar, and (if nessecary) deletes the last entry */
 void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean is_project) {
 	gchar *filename = g_file_get_uri(file);
-	register_recent(filename,is_project);
-	if (closed_file) {
-		GList *tmplist = g_list_first(main_v->bfwinlist);
-		while (tmplist) {
-			Tbfwin *curbfwin = BFWIN(tmplist->data);
-			if (!curbfwin->project || curbfwin == bfwin || is_project) {
-				GtkWidget *tmp;
-				GList **worklist;
-				worklist = (is_project) ? &curbfwin->menu_recent_projects : &curbfwin->menu_recent_files;
+	if (filename)
+	{
+		register_recent(filename,is_project);
+		if (closed_file) {
+			GList *tmplist = g_list_first(main_v->bfwinlist);
+			while (tmplist) {
+				Tbfwin *curbfwin = BFWIN(tmplist->data);
+				if (!curbfwin->project || curbfwin == bfwin || is_project) {
+					GtkWidget *tmp;
+					GList **worklist;
+					worklist = (is_project) ? &curbfwin->menu_recent_projects : &curbfwin->menu_recent_files;
 
-				/* First of all, create the entry and insert it at the list*/
-				*worklist = g_list_append(*worklist,create_recent_entry(curbfwin,filename,is_project,TRUE));
+					/* First of all, create the entry and insert it at the list*/
+					*worklist = g_list_append(*worklist,create_recent_entry(curbfwin,filename,is_project,TRUE));
 
-				DEBUG_MSG("add_to_recent_list, inserted item in menu\n");
-				if(g_list_length(*worklist) > main_v->props.max_recent_files) {
-					tmp = remove_recent_entry(bfwin,"last",is_project);
-					if (tmp) {
-						DEBUG_MSG("add_to_recent_list, list too long, entry %s to be deleted\n", GTK_LABEL(gtk_bin_get_child(GTK_BIN(tmp)))->label);
-						gtk_widget_hide(tmp);
-						gtk_widget_destroy(tmp);
+					DEBUG_MSG("add_to_recent_list, inserted item in menu\n");
+					if(g_list_length(*worklist) > main_v->props.max_recent_files) {
+						tmp = remove_recent_entry(bfwin,"last",is_project);
+						if (tmp) {
+							DEBUG_MSG("add_to_recent_list, list too long, entry %s to be deleted\n", GTK_LABEL(GTK_BIN(tmp)->child)->label);
+							gtk_widget_hide(tmp);
+							gtk_widget_destroy(tmp);
+						}
 					}
 				}
+				tmplist = g_list_next(tmplist);
 			}
-			tmplist = g_list_next(tmplist);
 		}
+		if (is_project) {
+			main_v->globses.recent_projects = add_to_history_stringlist(main_v->globses.recent_projects, filename, FALSE,TRUE);
+		} else {
+			bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, FALSE,TRUE);
+		}
+		g_free(filename);
 	}
-	if (is_project) {
-		main_v->globses.recent_projects = add_to_history_stringlist(main_v->globses.recent_projects, filename, FALSE,TRUE);
-	} else {
-		bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, FALSE,TRUE);
-	}
-	g_free(filename);
 /*#ifdef MAC_INTEGRATION
 	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
 #endif*/
@@ -836,7 +848,7 @@ static void external_filter_dialog_response_lcb(GtkWidget *widget,gint response_
 	gint begin=0,end=-1;
 	gtk_widget_destroy(widget);
 	doc_restore_selection(fd->selsave, TRUE); /* the restore will also free the Tselectionsave */
-	if (response_id == 1) {
+	if (response_id == 1 && fd->bdm->bfwin->current_document) {
 		doc_get_selection(fd->bdm->bfwin->current_document,&begin,&end);
 	}
 	filter_command(fd->bdm->bfwin, arr[1],begin,end);
@@ -849,7 +861,7 @@ static void external_filter_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	/* if we have a selection, and the filter can be used on a selection,
 	 we should ask if it should be the complete file or the selection */
 
-	if (operatable_on_selection(arr[1]) && (doc_has_selection(bdm->bfwin->current_document))) {
+	if (operatable_on_selection(arr[1]) && (bdm->bfwin->current_document && doc_has_selection(bdm->bfwin->current_document))) {
 		GtkWidget *dialog, *but;
 		Tfilterdialog *fd;
 		fd = g_slice_new(Tfilterdialog);
@@ -901,7 +913,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		/*  arr[0] = name
 		 *  arr[1] = command
 		 */
-		if (count_array(arr)==2) {
+		if (g_strv_length(arr)==2) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
@@ -911,7 +923,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			DEBUG_MSG("external_menu_rebuild,creating,bfwin=%p,bdm=%p,menuitem=%p\n",bfwin,bdm,bdm->menuitem);
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
 		} else {
-			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_filter; array count =%d\n",count_array(arr));
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_filter; array count =%d\n",g_strv_length(arr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -923,7 +935,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		 *  arr[1] = command
 		 *  arr[2] = is_default_browser
 		 */
-		if (count_array(arr)==3) {
+		if (g_strv_length(arr)==3) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
@@ -935,7 +947,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			}
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
 		} else {
-			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_command; array count =%d\n",count_array(arr));
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_command; array count =%d\n",g_strv_length(arr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -954,7 +966,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		 * arr[5] = command
 		 * arr[6] = show_all_output
 		 */
-		if (count_array(arr)==6) {
+		if (g_strv_length(arr)==6) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->data = arr;
 			bdm->bfwin = bfwin;
@@ -963,7 +975,7 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools/Outputbox",arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)bdm,-1);
 			bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox,bdm);
 		} else {
-			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_outputbox; array count =%d\n",count_array(arr));
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_outputbox; array count =%d\n",g_strv_length(arr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -977,7 +989,7 @@ static void menu_current_document_encoding_change(GtkMenuItem *menuitem,Tbfw_dyn
 		gchar *encoding = (gchar *)bdm->data;
 		Tbfwin *bfwin = bdm->bfwin;
 		DEBUG_MSG("menu_current_document_encoding_change, encoding=%s\n",encoding);
-		if (encoding) {
+		if (encoding && bfwin->current_document) {
 			if ((!bfwin->current_document->encoding || strcmp(encoding,bfwin->current_document->encoding)!=0)) {
 				if (bfwin->current_document->encoding) g_free(bfwin->current_document->encoding);
 				bfwin->current_document->encoding = g_strdup(encoding);
@@ -1005,7 +1017,7 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Document/Character Encoding"));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
-		if (count_array(strarr)==3 && strarr[2][0]=='1') {
+		if (g_strv_length(strarr)==3 && strarr[2][0]=='1') {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			gchar *label = g_strdup_printf ("%s (%s)", strarr[0], strarr[1]);
 			/*g_print("add encoding %s:%s:%s to the menu\n",strarr[0],strarr[1],strarr[2]);*/

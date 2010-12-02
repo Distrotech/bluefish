@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* #define DEBUG */
@@ -30,7 +29,7 @@
 #include "bf_lib.h"
 #include "pixmap.h"
 #include "gui.h" /* statusbar_message() */
-#include "stringlist.h" /* count_array() */
+/* #include "stringlist.h"  count_array() */
 
 #ifdef WIN32
 #define DIRSTR "\\"
@@ -81,7 +80,7 @@ GtkTreeModel *treemodel_from_arraylist(GList *list, gint numcols) {
 	
 	for (tmplist=g_list_first(list);tmplist;tmplist=tmplist->next){
 		gchar **arr = (gchar **)tmplist->data;
-		if (count_array(arr) >= numcols-1) {
+		if (g_strv_length(arr) >= numcols-1) {
 			gtk_list_store_append(GTK_LIST_STORE(retm),&iter);
 			for (i=0;i<numcols-1;i++) {
 				g_print("set column %d to value %s\n",i,arr[i]);
@@ -205,11 +204,14 @@ void button_apply(gchar ** config_var, GtkWidget * entry)
 {
 	const gchar *tmpstring;
 	DEBUG_MSG("button_apply, start\n");
+	
+	if (!config_var || !entry)
+		return;
 
 	tmpstring = gtk_button_get_label(GTK_BUTTON(entry));
 	DEBUG_MSG("button_apply, tmpstring(%p)=%s\n", tmpstring, tmpstring);
 	if (tmpstring) {
-		if (config_var != NULL) {
+		if (*config_var != NULL) {
 			g_free(*config_var);
 		}
 		*config_var = g_strdup(tmpstring);  /* copy */ 
@@ -233,6 +235,10 @@ void button_apply(gchar ** config_var, GtkWidget * entry)
 void string_apply(gchar ** config_var, GtkWidget * widget)
 {
 	gchar *tmpstring;
+
+	if (!config_var || !widget)
+		return;	
+	
 	if (GTK_IS_COMBO_BOX(widget)) {
 		tmpstring = gtk_combo_box_get_active_text(GTK_COMBO_BOX(widget));
 	} else {
@@ -240,7 +246,7 @@ void string_apply(gchar ** config_var, GtkWidget * widget)
 	}
 	DEBUG_MSG("string_apply, tmpstring(%p)=%s\n", tmpstring, tmpstring);
 	if (tmpstring) {
-		if (config_var != NULL) {
+		if (*config_var != NULL) {
 			g_free(*config_var);
 		}
 		*config_var = tmpstring;
@@ -268,6 +274,17 @@ void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox) {
 		*config_var = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget));
 	}
 	DEBUG_MSG("integer_apply, config_var(%p)=%i\n", config_var, *config_var);
+}
+
+static void boxed_widget(const gchar *labeltext, GtkWidget *widget, GtkWidget *box) {
+	GtkWidget *hbox, *label;
+
+	hbox = gtk_hbox_new(FALSE,3);
+	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
+	label = gtk_label_new_with_mnemonic(labeltext);
+	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 3);
+	gtk_box_pack_start(GTK_BOX(hbox), widget, FALSE, FALSE, 3);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), widget);
 }
 
 GtkWidget *combobox_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width) {
@@ -369,15 +386,9 @@ GtkWidget *boxed_entry_with_text(const gchar * setstring, gint max_lenght, GtkWi
  * Return value: #GtkWidget* pointer to the new entry widget
  */
 GtkWidget *boxed_full_entry(const gchar * labeltext, gchar * setstring,gint max_lenght, GtkWidget * box) {
-	GtkWidget *hbox, *return_widget, *label;
-
-	hbox = gtk_hbox_new(FALSE,3);
-	label = gtk_label_new_with_mnemonic(labeltext);
-	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 3);
-	return_widget = boxed_entry_with_text(setstring, max_lenght, hbox);
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), return_widget);
-	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
-
+	GtkWidget *return_widget;
+	return_widget = entry_with_text(setstring, max_lenght);
+	boxed_widget(labeltext, return_widget, box);
 	return return_widget;
 }
 /**
@@ -556,13 +567,10 @@ GtkWidget *optionmenu_with_value(gchar **options, gint curval) {
 
 GtkWidget *boxed_optionmenu_with_value(const gchar *labeltext, gint curval, GtkWidget *box, gchar **options) {
 	GtkWidget *returnwidget;
-	GtkWidget *hbox;
-
-	hbox = gtk_hbox_new(FALSE,3);
-	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(labeltext), FALSE, FALSE, 3);
+	
 	returnwidget = optionmenu_with_value(options, curval);
-	gtk_box_pack_start(GTK_BOX(hbox), returnwidget, FALSE, FALSE, 3);
+	boxed_widget(labeltext, returnwidget, box);
+	
 	return returnwidget;
 }
 
@@ -937,7 +945,7 @@ Tmultientrywidget *build_multi_entry_window(gchar *title,GCallback ok_func
 	gint arrlen,i;
 	GtkWidget *table,*hbox,*but;
 
-	arrlen = count_array(labelarr);
+	arrlen = g_strv_length(labelarr);
 	if (arrlen >10) arrlen = 10;
 	Tmultientrywidget *mew = g_new0(Tmultientrywidget,1);
 	mew->data = data;
@@ -964,6 +972,8 @@ Tmultientrywidget *build_multi_entry_window(gchar *title,GCallback ok_func
 	gtk_widget_show_all(mew->win);
 }
 #endif
+
+#ifdef NEED_HIG_DIALOG
 /**************************************************************************/
 /***********************  BUTTON DIALOG FUNCTIONS  ************************/
 /**************************************************************************/
@@ -1022,7 +1032,8 @@ static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *second
 	gtk_label_set_justify (GTK_LABEL (label), GTK_JUSTIFY_LEFT);
 	gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
 }
-
+#endif /*NEED_HIG_DIALOG*/
+#ifdef NEED_PROGRESSBAR
 /************************************************************************/
 /*********************** PROGRESS-BAR FUNCTIONS *************************/
 /************************************************************************/
@@ -1131,6 +1142,7 @@ gpointer progress_popup(GtkWidget *win,gchar *title, guint maxvalue) {
 	
 	return (gpointer) p;
 }
+#endif /* NEED_PROGRESSBAR */
 
 /************************************************************************/
 /************************ file_but_* FUNCTIONS **************************/
@@ -1149,12 +1161,12 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(fb->entry)),0,-1);
 	/* if setfile is empty we should probably use the current document basedir ? right? */
 	if (!setfile || strlen(setfile)==0) {
-		if (fb->bfwin && fb->bfwin->current_document->uri) {
+		if (fb->bfwin && fb->bfwin->current_document && fb->bfwin->current_document->uri) {
 			if (setfile) g_free(setfile);
 			setfile = g_file_get_uri(fb->bfwin->current_document->uri);
 		} else
 				setfile = NULL;
-	} else if (setfile && setfile[0] != '/' && strchr(setfile, ':')==NULL && fb->bfwin && fb->bfwin->current_document->uri) {
+	} else if (setfile && setfile[0] != '/' && strchr(setfile, ':')==NULL && fb->bfwin && fb->bfwin->current_document && fb->bfwin->current_document->uri) {
 		/* if setfile is a relative name, we should try to make it a full path. relative names
 		cannot start with a slash or with a scheme (such as file://)
 		 */
@@ -1189,7 +1201,7 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	g_free(setfile);
 	DEBUG_MSG("file_but_clicked_lcb, return_file returned %s\n",tmpstring);
 	if (tmpstring) {
-		if (!fb->fullpath && fb->bfwin) {
+		if (!fb->fullpath && fb->bfwin && fb->bfwin->current_document ) {
 			if (fb->bfwin->current_document->uri != NULL) {
 				gchar *doc_curi;
 				/* the function g_file_get_relative_path cannot create links that don't 
@@ -1362,7 +1374,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChoose
 		GtkFileFilter* ff;
 		ff = gtk_file_filter_new();
 		gtk_file_filter_set_name(ff,_("All files"));
-		gtk_file_filter_add_custom(ff, GTK_FILE_FILTER_DISPLAY_NAME, 
+		gtk_file_filter_add_custom(ff, GTK_FILE_FILTER_DISPLAY_NAME | GTK_FILE_FILTER_MIME_TYPE,
 		                           (GtkFileFilterFunc) file_chooser_custom_filter_func,
                                    new_fchooser_filter(dialog, viewbackup, NULL),g_free);
 		gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
@@ -1370,7 +1382,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChoose
 			Tfilter *filter =tmplist->data;
 			ff = gtk_file_filter_new();
 			gtk_file_filter_set_name(ff,filter->name);
-			gtk_file_filter_add_custom(ff, GTK_FILE_FILTER_DISPLAY_NAME, 
+			gtk_file_filter_add_custom(ff, GTK_FILE_FILTER_DISPLAY_NAME | GTK_FILE_FILTER_MIME_TYPE,
 			                           (GtkFileFilterFunc) file_chooser_custom_filter_func,
                                        new_fchooser_filter(dialog, viewbackup, filter),g_free);
 			gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
@@ -1460,7 +1472,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChoose
 /************************************************************************/
 
 static void ungroupradoiitems(GtkWidget *menu) {
-	GList *tmplist = g_list_first(gtk_container_get_children(GTK_MENU_SHELL(menu)));
+	GList *tmplist = g_list_first(gtk_container_get_children(GTK_CONTAINER(menu)));
 	while (tmplist) {
 		GtkWidget *sub;
 		DEBUG_MSG("ungroupradiomenuitems, another item\n");
@@ -1556,6 +1568,29 @@ gchar *ask_accelerator_dialog(const gchar *title) {
 	}
 	gtk_widget_destroy(dialog1);
 	return retval;
+}
+
+static void accelerator_button_clicked_lcb(GtkWidget *widget, gpointer data) {
+	gchar *tmpstr;
+	tmpstr = ask_accelerator_dialog(_("Press shortcut key combination"));
+	if (tmpstr && tmpstr[0] != '\0') {
+		gtk_button_set_label(GTK_BUTTON(widget), tmpstr);
+	}
+	g_free(tmpstr);
+}
+
+GtkWidget *accelerator_button(const gchar *accel) {
+	GtkWidget *retval;
+	
+	retval = gtk_button_new_with_label(accel);
+	g_signal_connect(G_OBJECT(retval), "clicked", G_CALLBACK(accelerator_button_clicked_lcb), retval);
+	return retval;
+}
+GtkWidget *boxed_accelerator_button(const gchar *labeltext, const gchar *accel, GtkWidget *box) {
+	GtkWidget *returnwidget;
+	returnwidget = accelerator_button(accel);
+	boxed_widget(labeltext, returnwidget, box);
+	return returnwidget;
 }
 
 gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe) {

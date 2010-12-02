@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*#define SPELL_PROFILING*/
 
@@ -35,6 +34,7 @@
 #include "bftextview2_langmgr.h"
 #include "bftextview2_spell.h"
 #include "document.h"
+#include "xml_entity.h"
 
 /*#undef DBG_SPELL
 #define DBG_SPELL g_print*/
@@ -117,13 +117,15 @@ void unload_spell_dictionary(Tbfwin *bfwin) {
 }
 
 static gboolean load_dictionary(Tbfwin *bfwin) {
-	unload_spell_dictionary(bfwin);
+	DBG_SPELL("load_dictionary for bfwin %p, bfwin->ed=%p\n", bfwin, bfwin->ed);
+	unload_spell_dictionary(bfwin);	
 	if (bfwin->session->spell_lang && bfwin->session->spell_lang[0]!='\0' && enchant_broker_dict_exists(eb,bfwin->session->spell_lang)) {
-	    DBG_SPELL("load_dictionary called for bfwin %p which has session->spell_lang=%s\n",bfwin, bfwin->session->spell_lang);
+	   DBG_SPELL("load_dictionary called for bfwin %p which has session->spell_lang=%s\n",bfwin, bfwin->session->spell_lang);
 		bfwin->ed = (void *)enchant_broker_request_dict(eb, bfwin->session->spell_lang);
 		DBG_SPELL("loaded dictionary %s at %p\n", bfwin->session->spell_lang, bfwin->ed);
 		return (bfwin->ed != NULL);
 	} else {
+		DBG_SPELL("load_dictionary, no setting, load first available\n");
 		bfwin->ed = NULL;
 		/* load the first existing enchant dict */
 		enchant_broker_list_dicts(eb,dicts_load_first_lcb,bfwin);
@@ -135,30 +137,29 @@ static void spellcheck_word(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTe
 	gchar *tocheck;
 	
 	tocheck = gtk_text_buffer_get_text(buffer, start,end, FALSE);
+	if (!tocheck)
+		return;
+	
 	DBG_SPELL("spellcheck_word, check word %s in dictionary %p\n",tocheck,BFWIN(DOCUMENT(btv->doc)->bfwin)->ed);
 	if (enchant_dict_check((EnchantDict *)BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck, strlen(tocheck)) != 0) {
 		DBG_SPELL("'%s' *not* spelled correctly!\n", tocheck);
-		gtk_text_buffer_apply_tag_by_name(buffer, "_spellerror_", start, end);
+		if (g_utf8_strchr(tocheck, -1, '&')) {
+			gchar *tocheck_conv = xmlentities2utf8(tocheck);
+			/* check for entities */
+			if (tocheck_conv && enchant_dict_check((EnchantDict *)BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck_conv, strlen(tocheck_conv)) != 0) {
+				DBG_SPELL("'%s' after entity conversion (%s) *not* spelled correctly!\n", tocheck, tocheck_conv);
+				gtk_text_buffer_apply_tag_by_name(buffer, "_spellerror_", start, end);
+			} else {
+				DBG_SPELL("'%s' after entity conversion (%s) spelled correctly!\n", tocheck, tocheck_conv);
+			}
+			g_free(tocheck_conv);
+		} else {
+			gtk_text_buffer_apply_tag_by_name(buffer, "_spellerror_", start, end);
+		}
 	} else {
 		DBG_SPELL("'%s' spelled correctly!\n", tocheck);
 	}
 	g_free(tocheck);
-}
-
-/* handle apostrophe in word gracefully */ 
-static inline gboolean text_iter_forward_real_word_end(GtkTextIter *it) {
-	GtkTextIter iter;
-	if (!gtk_text_iter_forward_word_end(it))
-		return FALSE;
-	if (gtk_text_iter_get_char(it) != '\'')
-		return TRUE;
-	iter = *it;
-	if (gtk_text_iter_forward_char(&iter)) {
-		if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
-			return (gtk_text_iter_forward_word_end(it));
-		}
-	}
-	return TRUE;
 }
 
 #ifdef HAVE_LIBENCHANT_OLD
@@ -366,13 +367,93 @@ static gboolean get_next_region(BluefishTextView * btv, GtkTextIter *so, GtkText
 			}
 			g_slist_free(tmpslist);
 		}
-		if (feo) {
+		if (feo || btv->bflang->default_spellcheck) {
 			*eo = iter;
 			return TRUE;
 		}
 	}
 	DBG_SPELL("get_next_region, return FALSE\n");
 	return FALSE;
+}
+
+static inline gboolean forward_to_end_of_entity(GtkTextIter *iter) {
+	gint i=0;
+	GtkTextIter tmpiter=*iter;
+	while(gtk_text_iter_get_char(&tmpiter) != ';') {
+		if (!gtk_text_iter_forward_char(&tmpiter))
+			return FALSE;
+		i++;
+		if (i > 8)
+			return FALSE;
+	}
+	/* forward one more char */
+	gtk_text_iter_forward_char(&tmpiter);
+	*iter = tmpiter;
+	return TRUE;
+}
+
+/* handle apostrophe and entities in word gracefully */ 
+static inline gboolean text_iter_next_word_bounds(GtkTextIter *soword, GtkTextIter *eoword, gboolean enable_entities) {
+	gunichar uc;
+	gboolean handled_starting_entity=FALSE;
+	
+	if (!gtk_text_iter_forward_word_end(eoword))
+		return FALSE;
+	*soword = *eoword;
+	gtk_text_iter_backward_word_start(soword);
+	
+	uc = gtk_text_iter_get_char(eoword);
+	DBG_SPELL("text_iter_next_word_bounds, uc=%c\n",uc);
+	while (uc == '\'' || (enable_entities && (uc == ';' || uc == '&'))) {
+		GtkTextIter iter = *eoword;
+		DBG_SPELL("text_iter_next_word_bounds, in loop, uc=%c\n",uc);
+		if (uc == '\'' && gtk_text_iter_forward_char(&iter)) {
+			if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
+				gtk_text_iter_forward_word_end(eoword);
+			} else {
+				return TRUE;
+			}
+		} else if (enable_entities && uc == '&') {
+			if (!forward_to_end_of_entity(&iter))
+				return TRUE; /* no entity, return previous word end */
+			*eoword = iter;
+			if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
+				/* continue in the loop */
+				gtk_text_iter_forward_word_end(eoword);
+			} else {
+				/* after the entity the word stops, return TRUE */
+				return TRUE;
+			}
+			
+		} else if (enable_entities && uc == ';') {
+			GtkTextIter tmp = *soword;
+			if (!handled_starting_entity && gtk_text_iter_backward_char(&tmp) && gtk_text_iter_get_char(&tmp) == '&') {
+				/* the word probably starts with an entity */
+				*soword = tmp;
+				DBG_SPELL("text_iter_next_word_bounds, word starts with an enity, forward eoword one position\n");
+				gtk_text_iter_forward_char(eoword);
+				if (g_unichar_isalpha(gtk_text_iter_get_char(eoword))) {
+					gtk_text_iter_forward_word_end(eoword);
+				}
+				handled_starting_entity=TRUE;
+			} else {
+				tmp = *eoword;
+				gtk_text_iter_forward_char(&tmp);
+				if (g_unichar_isalpha(gtk_text_iter_get_char(&tmp))) {
+					gtk_text_iter_forward_word_end(eoword);
+				} else {
+					DBG_SPELL("text_iter_next_word_bounds, tmp uc=%c\n",gtk_text_iter_get_char(&tmp));
+					return TRUE;
+				}
+			}
+		} else {
+			/* is it possible to get here? */
+			return TRUE;
+		}
+		uc = gtk_text_iter_get_char(eoword);
+		DBG_SPELL("text_iter_next_word_bounds, new uc=%c\n",uc);
+	}
+	return TRUE;
 }
 
 gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
@@ -416,14 +497,13 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 				"_spellerror_", &iter, &eo2);
 		DBG_SPELL("bftextview2_run_spellcheck, loop2 from %d to %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&eo2));
 		while (cont2 && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) { /* loop from iter to eo2 */
+			GtkTextIter wordstart=iter;
 			loop++;
 			DBG_SPELL("iter at %d, now forward to word end\n",gtk_text_iter_get_offset(&iter));
-			if (gtk_text_iter_forward_word_end(&iter) && gtk_text_iter_compare(&iter, &eo2) <= 0) {
-				GtkTextIter wordstart=iter;
-				gtk_text_iter_backward_word_start(&wordstart);
+			if (text_iter_next_word_bounds(&wordstart, &iter, btv->bflang->spell_decode_entities) && gtk_text_iter_compare(&iter, &eo2) <= 0) {
 				DBG_SPELL("iter at %d, backward wordstart at %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&wordstart));
 				
-				/* handle apostrophe gracefully */
+/*
 				if (gtk_text_iter_get_char(&iter) == '\'') {
 					DBG_SPELL("handle apostrophe, forward to next word end\n");
 					if (gtk_text_iter_forward_char(&iter)) {
@@ -431,7 +511,14 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 							gtk_text_iter_forward_word_end(&iter);
 						}
 					}
-				}
+				} else if (gtk_text_iter_get_char(&iter) == '&' && forward_to_end_of_entity(&iter)) { / * handle entities gracefully * /
+					DBG_SPELL("handle entity, forward to next word end\n");
+					if (gtk_text_iter_forward_char(&iter)) {
+						if (g_unichar_isalpha(gtk_text_iter_get_char(&iter))) {
+							gtk_text_iter_forward_word_end(&iter);
+						}
+					}
+				}*/
 				/* check word */
 #ifdef SPELL_PROFILING
 				profile_words++;
@@ -495,7 +582,8 @@ static void recheck_bfwin(Tbfwin *bfwin) {
 	for (tmplist=g_list_first(bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
 		recheck_document(DOCUMENT(tmplist->data));
 	}
-	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+	if (bfwin->current_document)
+		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 }
 
 
@@ -554,8 +642,28 @@ static void bftextview2_suggestion_menu_lcb(GtkWidget *widget, gpointer data) {
 		gtk_text_buffer_remove_tag_by_name(doc->buffer, "_spellerror_", &wordstart, &wordend);*/
 		start = gtk_text_iter_get_offset(&wordstart);
 		end = gtk_text_iter_get_offset(&wordend);
-		doc_replace_text(doc, gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))), start, end);
+		if (BFWIN(DOCUMENT(data)->bfwin)->session->spell_insert_entities) {
+			gchar *word;
+			word = utf82xmlentities(gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))), TRUE, TRUE, TRUE, TRUE, TRUE, FALSE);
+			doc_replace_text(doc, word, start, end);
+			g_free(word);
+		} else {
+			doc_replace_text(doc, gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))), start, end);
+		}
 	}
+}
+
+static void mark_all_docs_needspelling(Tbfwin *bfwin) {
+	GList *tmplist;			
+	/* now mark all documents in this window with 'need_spellcheck'*/
+	for (tmplist=g_list_first(bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
+		Tdocument *doc = DOCUMENT(tmplist->data);
+		GtkTextIter start,end;
+		gtk_text_buffer_get_bounds(doc->buffer,&start,&end);
+		gtk_text_buffer_apply_tag(doc->buffer, BLUEFISH_TEXT_VIEW(doc->view)->needspellcheck, &start, &end);
+	}
+	if (bfwin->current_document)
+		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 }
 
 static void bftextview2_preferences_menu_lcb(GtkWidget *widget, gpointer data) {
@@ -565,17 +673,13 @@ static void bftextview2_preferences_menu_lcb(GtkWidget *widget, gpointer data) {
 			g_free(bfwin->session->spell_lang);
 		bfwin->session->spell_lang = g_strdup(gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
 		if (load_dictionary(bfwin)) {
-			GList *tmplist;			
-			/* now mark all documents in this window with 'need_spellcheck'*/
-			for (tmplist=g_list_first(bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
-				Tdocument *doc = DOCUMENT(tmplist->data);
-				GtkTextIter start,end;
-				gtk_text_buffer_get_bounds(doc->buffer,&start,&end);
-				gtk_text_buffer_apply_tag(doc->buffer, BLUEFISH_TEXT_VIEW(doc->view)->needspellcheck, &start, &end);
-			}
-			bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+			mark_all_docs_needspelling(bfwin);
 		}
 	}
+}
+
+static void bftexview2_spell_insert_entities(GtkWidget *widget, gpointer data) {
+	BFWIN(DOCUMENT(data)->bfwin)->session->spell_insert_entities = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 }
 
 typedef struct {
@@ -596,6 +700,18 @@ static void list_dicts_lcb(const char * const lang_tag,const char * const provid
 	}
 	g_signal_connect(menuitem, "activate", G_CALLBACK(bftextview2_preferences_menu_lcb), dl->bfwin);
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(dl->menu), GTK_WIDGET(menuitem));
+}
+
+static gboolean pure_ascii(const gchar *string) {
+	gunichar uchar;
+	const gchar *tmp = string;
+	do {
+		uchar = g_utf8_get_char(tmp);
+		if (uchar > 127)
+			return FALSE;
+		tmp = g_utf8_next_char(tmp);
+	} while (*tmp!='\0');
+	return TRUE;
 }
 
 void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
@@ -629,6 +745,18 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 	if (get_misspelled_word_at_bevent(BLUEFISH_TEXT_VIEW(doc->view), &wordstart, &wordend)) {
 		gchar *word, **suggestions;
 		size_t n_suggs;
+		gboolean have_non_ascii = FALSE;
+
+		word = gtk_text_buffer_get_text(doc->buffer, &wordstart,&wordend,FALSE);
+		
+		if (g_utf8_strchr(word, -1, '&') && g_utf8_strchr(word, -1, ';')) {
+			gchar *tmp = xmlentities2utf8(word);
+			g_free(word);
+			word=tmp;
+		}
+		
+		DBG_SPELL("list alternatives for %s\n", word);
+		suggestions = enchant_dict_suggest((EnchantDict *)BFWIN(doc->bfwin)->ed, word,strlen(word), &n_suggs);
 
 		menuitem = gtk_image_menu_item_new_with_label(_("Add to dictionary"));
 		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
@@ -637,10 +765,23 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 		gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 		g_signal_connect(menuitem, "activate", G_CALLBACK(bftexview2_add_word_to_ses), doc);
 
-		word = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(doc->view)),
-				&wordstart, &wordend, FALSE);
-		DBG_SPELL("list alternatives for %s\n", word);
-		suggestions = enchant_dict_suggest((EnchantDict *)BFWIN(doc->bfwin)->ed, word,strlen(word), &n_suggs);
+		if (suggestions) {
+			gint i;
+			for (i=0; i<n_suggs; i++) {
+				if (!pure_ascii(suggestions[i])) {
+					have_non_ascii = TRUE;
+					break;
+				}
+			}
+		}
+		
+		if (have_non_ascii) {
+			menuitem = gtk_check_menu_item_new_with_label(_("Insert special characters as entities"));
+			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), BFWIN(doc->bfwin)->session->spell_insert_entities);
+			gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+			g_signal_connect(menuitem, "activate", G_CALLBACK(bftexview2_spell_insert_entities), doc);
+		}
+
 		if (suggestions) {
 			GtkWidget *menuitem;
 			gint i;
@@ -657,6 +798,13 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 		g_free(word);
 	}
 }
+
+void reload_spell_dictionary(Tbfwin *bfwin) {
+	if (load_dictionary(bfwin)) {
+		mark_all_docs_needspelling(bfwin);
+	}
+}
+
 
 /*
 static void bftextview2_preferences_menu_enable_lcb(GtkWidget *widget, gpointer data) {

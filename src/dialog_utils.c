@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* #define DEBUG */
@@ -487,7 +486,7 @@ message_dialog_new_multi(GtkWidget *parent,
 	gint response;
 	int i = 0;
 		
-	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+	dialog = gtk_message_dialog_new((GtkWindow *)parent,
 												GTK_DIALOG_DESTROY_WITH_PARENT,
 												type,
 												GTK_BUTTONS_NONE,

@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filebrowser2.c - the filebrowser v2
  *
- * Copyright (C) 2002,2003,2004,2005,2006,2007,2008,2009 Olivier Sessink
+ * Copyright (C) 2002-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*#define DEBUG*/
@@ -53,7 +52,7 @@ alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're 
 #include "gtk_easy.h"			/* destroy_disposable_menu_cb() */
 #include "menu.h"				/* menu_translate() */
 #include "project.h"
-#include "stringlist.h"			/* count_array() */
+#include "stringlist.h"			/* add_to_history_stringlist() */
 #include "filefilter.h"
 
 typedef struct {
@@ -1781,7 +1780,7 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 * fb2, guint callback_acti
 			DEBUG_MSG("fb2rpopup_rpopup_action_lcb, fs_path=%p\n", fs_path);
 			refilter_dirlist(fb2, fs_path);
 			gtk_tree_path_free(fs_path);
-			if (fb2->bfwin->session->filebrowser_focus_follow) {
+			if (fb2->bfwin->session->filebrowser_focus_follow && fb2->bfwin->current_document) {
 				fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
 			}
 			gtk_tree_model_get_iter_first(fb2->dir_tsort, &iter);
@@ -1794,7 +1793,8 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 * fb2, guint callback_acti
 		break;
 	case 9:
 		refilter_dirlist(fb2, NULL);
-		fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
+		if (fb2->bfwin->current_document)
+			fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
 		break;
 	case 10:
 		{
@@ -1805,7 +1805,7 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 * fb2, guint callback_acti
 	case 15:
 		fb2->bfwin->session->filebrowser_focus_follow =
 			gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
-		if (fb2->bfwin->session->filebrowser_focus_follow) {
+		if (fb2->bfwin->session->filebrowser_focus_follow && fb2->bfwin->current_document) {
 			fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
 		}
 		break;

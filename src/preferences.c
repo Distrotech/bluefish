@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /*#define DEBUG*/
@@ -101,6 +100,7 @@ enum {
 	open_in_new_window, 
 #endif /* ifndef WIN32 */
 	register_recent_mode,
+	autocomp_accel_string,
 	load_reference,
 	show_autocomp_reference,
 	show_tooltip_reference,
@@ -557,7 +557,7 @@ Tsessionprefs *sessionprefs(const gchar *frame_title, Tsessionprefs *sprefs, Tse
 /************ plugin code ****************/
 static void set_plugin_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
-	arrcount = count_array(strarr);
+	arrcount = g_strv_length(strarr);
 	if (arrcount==3) {
 		DEBUG_MSG("set_plugin_strarr_in_list, arrcount=%d, file=%s\n",arrcount,strarr[0]);
 		gtk_list_store_set(GTK_LIST_STORE(pd->pd.lstore), iter
@@ -591,7 +591,7 @@ static void create_plugin_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		while (tmplist) {
 			gint arrcount;
 			gchar **strarr = (gchar **)tmplist->data;
-			arrcount = count_array(strarr);
+			arrcount = g_strv_length(strarr);
 			if (arrcount==3) {
 				GtkTreeIter iter;
 				gtk_list_store_append(GTK_LIST_STORE(pd->pd.lstore), &iter);
@@ -613,7 +613,7 @@ static void create_plugin_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 
 static void set_textstyle_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
-	arrcount = count_array(strarr);
+	arrcount = g_strv_length(strarr);
 	if (arrcount==6) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->tsd.lstore), iter
 				,0,strarr[0],1,strarr,-1);
@@ -775,13 +775,13 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		GList *tmplist = g_list_first(pd->lists[textstyles]); /* the order of this list has a meaning !!! */
 		while (tmplist) {
 			gchar **strarr = (gchar **)tmplist->data;
-			gint count = count_array(strarr);
+			gint count = g_strv_length(strarr);
 			if (count==6) {
 				GtkTreeIter iter;
 				gtk_list_store_append(GTK_LIST_STORE(pd->tsd.lstore), &iter);
 				set_textstyle_strarr_in_list(&iter, strarr,pd);
 			} else {
-				g_print("invalid/outdated textstyle with length %d\n",count_array(strarr));
+				g_print("invalid/outdated textstyle with length %d\n",g_strv_length(strarr));
 			}
 			tmplist = g_list_next(tmplist);
 		}
@@ -812,7 +812,7 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 /************ external commands code ****************/
 
 static void set_extcommands_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
-	gint arrcount = count_array(strarr);
+	gint arrcount = g_strv_length(strarr);
 	if (arrcount==3) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->bd.lstore), iter
 				,0,strarr[0],1,strarr[1],2,(strarr[2][0]=='1'),3,strarr,-1);
@@ -885,7 +885,7 @@ static void create_extcommands_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 /************ external filters?? code ****************/
 
 static void set_external_filters_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
-	gint arrcount = count_array(strarr);
+	gint arrcount = g_strv_length(strarr);
 	if (arrcount==2) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->ed.lstore), iter
 				,0,strarr[0],1,strarr[1],2,strarr,-1);
@@ -955,7 +955,7 @@ static void create_filters_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 
 static void set_outputbox_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
-	arrcount = count_array(strarr);
+	arrcount = g_strv_length(strarr);
 	if (arrcount==6) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->od.lstore), iter
 				,0,strarr[0],1,strarr[1],2,strarr[2],3,strarr[3]
@@ -1020,7 +1020,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		while (tmplist) {
 			gint arrcount;
 			gchar **strarr = (gchar **)tmplist->data;
-			arrcount = count_array(strarr);
+			arrcount = g_strv_length(strarr);
 			if (arrcount==6) {
 				GtkTreeIter iter;
 				gtk_list_store_append(GTK_LIST_STORE(pd->od.lstore), &iter);
@@ -1045,7 +1045,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 
 /********* template manager GUI */
 static void set_template_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
-	if (count_array(strarr)==2) {
+	if (g_strv_length(strarr)==2) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->tg.lstore), iter
 				,0,strarr[0],1,strarr[1],2,strarr,-1);
 	}
@@ -1091,7 +1091,7 @@ static void create_template_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	while (tmplist) {
 		gint arrcount;
 		gchar **strarr = (gchar **)tmplist->data;
-		arrcount = count_array(strarr);
+		arrcount = g_strv_length(strarr);
 		if (arrcount==2) {
 			GtkTreeIter iter;
 			gtk_list_store_append(GTK_LIST_STORE(pd->tg.lstore), &iter);
@@ -1173,23 +1173,23 @@ static gboolean bflang_gui_filter_func_lcb(GtkTreeModel *model,GtkTreeIter *iter
 	g_free (name);
 	return visible;
 }
+
 static gint sort_array2_lcb(gconstpointer a,gconstpointer b) {
 	const gchar **arra=(const gchar **)a, **arrb=(const gchar **)b;
 	gint ret;
-	ret = (a!=NULL)-(b!=NULL);
-	if (ret==0) {
-		ret = g_strcmp0(arra[0],arrb[0]);
-		if (ret == 0) {
-			ret = g_strcmp0(arra[1],arrb[1]);
-		}
-	}
-	return ret;
+	if (a==NULL || b==NULL)
+		return a-b;
+	ret = g_strcmp0(arra[0],arrb[0]);
+	if (ret != 0)
+		return ret;
+	return g_strcmp0(arra[1],arrb[1]);
 }
+
 static void fill_bflang_gui(Tprefdialog *pd) {
 	GList *tmplist = g_list_first(g_list_sort(pd->lists[bflang_options],sort_array2_lcb));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
-		if (count_array(strarr)==3) {
+		if (g_strv_length(strarr)==3) {
 			GtkTreeIter iter;
 			gtk_list_store_append(GTK_LIST_STORE(pd->bld.lstore), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(pd->bld.lstore), &iter
@@ -1202,7 +1202,7 @@ static void fill_bflang_gui(Tprefdialog *pd) {
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
 		/*g_print("found %s:%s:%s\n",strarr[0],strarr[1],strarr[2]);*/
-		if (count_array(strarr)==3) {
+		if (g_strv_length(strarr)==3) {
 			GtkTreeIter iter;
 			gtk_list_store_append(GTK_LIST_STORE(pd->bld.lstore2), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(pd->bld.lstore2), &iter
@@ -1377,6 +1377,11 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.image_thumbnailtype, pd->prefs[image_thumbnailtype]);
 	
 	main_v->props.autocomp_popup_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[autocomp_popup_mode]));
+
+	if (main_v->props.autocomp_accel_string)
+		g_free(main_v->props.autocomp_accel_string);
+	main_v->props.autocomp_accel_string = g_strdup(gtk_button_get_label(GTK_BUTTON(pd->prefs[autocomp_accel_string])));
+
 	integer_apply(&main_v->props.load_reference, pd->prefs[load_reference], TRUE);
 	integer_apply(&main_v->props.show_autocomp_reference, pd->prefs[show_autocomp_reference], TRUE);
 	integer_apply(&main_v->props.show_tooltip_reference, pd->prefs[show_tooltip_reference], TRUE);
@@ -1404,7 +1409,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.bflang_options = duplicate_arraylist(pd->lists[bflang_options]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
-	bftextview2_parse_static_colors();
+	bftextview2_init_globals();
 	langmgr_reload_user_options();
 	langmgr_reload_user_styles();
 	langmgr_reload_user_highlights();
@@ -1422,7 +1427,8 @@ static void preferences_apply(Tprefdialog *pd) {
 			gui_apply_settings(bfwin);
 			left_panel_rebuild(bfwin);
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling doc_force_activate\n");
-			doc_force_activate(bfwin->current_document);
+			if (bfwin->current_document)
+				doc_force_activate(bfwin->current_document);
 #ifdef MAC_INTEGRATION
 			ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
 #endif
@@ -1572,6 +1578,7 @@ static void preferences_dialog() {
 		gchar *autocompmodes[] = {N_("Delayed"),N_("Immediately"), NULL};
 		pd->prefs[autocomp_popup_mode] = boxed_optionmenu_with_value(_("Show the automatic completion pop-up window"), main_v->props.autocomp_popup_mode, vbox2, autocompmodes);
 	}
+	pd->prefs[autocomp_accel_string] = boxed_accelerator_button(_("Autocompletion shortcut key combination"), main_v->props.autocomp_accel_string, vbox2);
 
 	pd->prefs[num_undo_levels] = prefs_integer(_("Number of actions in undo history"), main_v->props.num_undo_levels, vbox2, 50, 10000);
 	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);

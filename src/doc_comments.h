@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
- * htmlbar_gui.h
+ * doc_comments.h
  *
- * Copyright (C) 2005 Olivier Sessink
+ * Copyright (C) 2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,12 +16,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-extern const guint8 pixmap_css_small[];
-extern const guint8 pixmap_php3[];
-extern const guint8 pixmap_edit_tag[];
-void htmlbar_view_toolbar(Thtmlbarwin *hbw, gboolean show);
-GtkWidget *htmlbar_pixmap(const guint8 *data);
-void htmlbar_build_menu(Thtmlbarwin *hbw);
-void htmlbar_toolbar(Thtmlbarwin *hbw);
 
+#ifndef __DOC_COMMENTS_H_
+#define __DOC_COMMENTS_H_
+
+#include "document.h"
+
+void toggle_comment(Tdocument *doc);
+
+#endif	/* __DOC_COMMENTS_H_ */

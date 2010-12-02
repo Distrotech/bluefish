@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef __GTK_EASY_H_
@@ -42,10 +41,9 @@ void info_dialog(GtkWidget *win,gchar * primary, gchar * secondary);*/
 gint multi_warning_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
 gint multi_query_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);*/
 /* Progress bar */
-void progress_set(gpointer gp, guint value);
+/*void progress_set(gpointer gp, guint value);
 gpointer progress_popup(GtkWidget *win,gchar *title, guint maxvalue);
-void progress_destroy(gpointer gp);
-
+void progress_destroy(gpointer gp);*/
 void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state);
 #define setup_toggle_item_from_widget(var1, var2, var3) setup_toggle_item(gtk_item_factory_from_widget(var1), var2, var3)
 #define menuitem_set_sensitive(menubar, path, state) gtk_widget_set_sensitive(gtk_item_factory_get_widget(gtk_item_factory_from_widget(menubar), path), state)
@@ -104,6 +102,9 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChoose
 void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu);
 
 gchar *ask_accelerator_dialog(const gchar *title);
+GtkWidget *accelerator_button(const gchar *accel);
+GtkWidget *boxed_accelerator_button(const gchar *labeltext, const gchar *accel, GtkWidget *box);
+
 gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe);
 GtkWidget *color_but_new2(GtkWidget *entry);
 #endif

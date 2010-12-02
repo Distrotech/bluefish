@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * stringlist.c - functions that deal with stringlists
  *
- * Copyright (C) 1999-2002 Olivier Sessink
+ * Copyright (C) 1999-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* #define DEBUG */
@@ -48,30 +47,6 @@
 /************************************************************************/
 /************************************************************************/
 
-/* DEPRECATED BY g_strv_length
- * count_array:
- * @array: #gchar** with the NULL terminated array to count
- *
- * counts the number of entries in a NULL terminated array
- *
- * Return value: #gint with number of entries
- * /
-gint count_array(gchar **array) {
-	gint count=0;
-	gchar **tmpchar=array;
-	
-	if (!tmpchar) {
-		DEBUG_MSG("count_array, no array!?!?\n");
-		return 0;
-	}
-
-	while (*tmpchar != NULL) {
-		count++;
-		tmpchar++;
-	}
-	return count;
-}
-*/
 /**
  * array_to_string:
  * @array: #gchar** with NULL terminated array
@@ -87,27 +62,30 @@ gint count_array(gchar **array) {
 gchar *array_to_string(gchar **array) {
 	gchar **tmp, *escaped1, *finalstring;
 	gint newsize=1;
+	gsize allocsize=64;
 	g_return_val_if_fail(array,g_strdup(""));
-	DEBUG_MSG("array_to_string, started\n");
-	finalstring = g_malloc0(newsize);
+	finalstring = g_malloc0(allocsize);
 	tmp = array;
 	while(*tmp) {
-		DEBUG_MSG("array_to_string, *tmp = %s\n", *tmp);
+		/*DEBUG_MSG("array_to_string, *tmp = %s\n", *tmp);*/
 		escaped1 = escape_string(*tmp, TRUE);
 		newsize += strlen(escaped1)+1;
-		finalstring = g_realloc(finalstring, newsize);
+		if (newsize > allocsize) {
+			allocsize = MAX(newsize, (allocsize * 2));
+			finalstring = g_realloc(finalstring, allocsize);
+		}
 		strcat(finalstring, escaped1);
 		finalstring[newsize-2] = ':';
 		finalstring[newsize-1] = '\0';
 		g_free(escaped1);
 		tmp++;
-	}	
-	DEBUG_MSG("array_to_string, finalstring = %s\n", finalstring);
+	}
+	DEBUG_MSG("array_to_string, len(finalstring) = %zd\n", strlen(finalstring));
 	return finalstring;
 }
 
-#define ARRAYBLOCKSIZE 6
-#define BUFBLOCKSIZE 60
+#define ARRAYBLOCKSIZE 8
+#define BUFBLOCKSIZE 64
 /**
  * string_to_array:
  * @string: #gchar* with the string to convert
@@ -293,7 +271,7 @@ gint free_stringlist(GList * which_list)
 
 	tmplist = g_list_first(which_list);
 	while (tmplist != NULL) {
-		DEBUG_MSG("free_stringlist, tmplist->data(%p)\n", tmplist->data);
+		/*DEBUG_MSG("free_stringlist, tmplist->data(%p)\n", tmplist->data);*/
 		g_free(tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
@@ -335,17 +313,6 @@ gint free_arraylist(GList * which_list)
 	which_list = NULL;
 	return 1;
 }
-/* deprecated by g_strdupv
-gchar **duplicate_stringarray(gchar **array) {
-	gchar **newchar;
-	gint i;
-
-	newchar = g_malloc0((count_array(array)+1)*sizeof(gchar *));
-	for (i=0; array[i] != NULL ; i++) {
-		newchar[i] = g_strdup(array[i]);
-	}
-	return newchar;
-}*/
 
 GList *duplicate_arraylist(GList *arraylist) {
 	GList *tmplist;
@@ -353,7 +320,7 @@ GList *duplicate_arraylist(GList *arraylist) {
 
 	tmplist = g_list_first(arraylist);
 	while (tmplist != NULL) {
-		newlist = g_list_append(newlist, duplicate_stringarray((gchar **)tmplist->data));
+		newlist = g_list_append(newlist, g_strdupv((gchar **)tmplist->data));
 		tmplist = g_list_next(tmplist);
 	}
 	return newlist;
@@ -749,7 +716,7 @@ GList *arraylist_append_identical_from_list(GList *thelist, GList *source, const
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
 		if (array_n_strings_identical(compare, (const gchar **)tmparr, case_sensitive, testlevel)==0) {
-			thelist = g_list_append(thelist, duplicate_stringarray(tmparr));
+			thelist = g_list_append(thelist, g_strdupv(tmparr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -821,10 +788,10 @@ GList *arraylist_load_new_identifiers_from_list(GList *mylist, GList *deflist, g
 	GList *tmplist = g_list_first(deflist);
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
-		if (count_array(tmparr) >= uniquelevel) {
+		if (g_strv_length(tmparr) >= uniquelevel) {
 			if (!arraylist_value_exists(mylist, (const gchar **)tmparr, uniquelevel, TRUE)) {
 				DEBUG_MSG("arraylist_load_new_identifiers, adding %s to thelist\n",tmparr[0]);
-				mylist = g_list_append(mylist, duplicate_stringarray(tmparr));
+				mylist = g_list_append(mylist, g_strdupv(tmparr));
 			}
 		}
 		tmplist = g_list_next(tmplist);
@@ -863,5 +830,4 @@ void dump_arraylist(GList *list) {
 	}
 }
 #endif
-
 

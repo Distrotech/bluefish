@@ -5,9 +5,9 @@
  
 		Copyright (C) 2008-2010 Olivier Sessink
 
-		This program is free software; you can redistribute it and/or modify
+	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation; either version 2 of the License, or
+		the Free Software Foundation, either version 3 of the License, or
 		(at your option) any later version.
 
 		This program is distributed in the hope that it will be useful,
@@ -16,8 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program; if not, write to the Free Software
-		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
 <bflang name="XML" version="2.0" table="60" contexts="8" matches="18">
@@ -33,11 +32,11 @@
 	<highlight name="xml-declaration" style="preprocessor"  />
 </header>
 <properties>
-	<comment type="block" start="&lt;!--" end="--&gt;" />
-	<default_spellcheck enabled="1" />
+	<comment id="htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<default_spellcheck enabled="1" spell_decode_entities="1" />
 </properties>
 <definition>
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="htmlcomment" commentid_line="none">
 	<element id="e.xml.open" pattern="&lt;?xml" highlight="xml-declaration" starts_block="1">
 		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
 			<element pattern="[a-zA-Z0-9:-]+" is_regex="1" highlight="xml-declaration" />

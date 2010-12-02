@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /* #define DEBUG */
 
@@ -102,7 +101,7 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	int i=0;
 	GtkWidget *table, *label, *vbox;
 	gchar *tmpstr;
-	gint beforelen,afterlen;
+	gint beforelen=0,afterlen=0;
 	
 	title = xmlGetProp(leaf, (const xmlChar *)"title");
 	sid = g_new0(Tsnippet_insert_dialog,1);

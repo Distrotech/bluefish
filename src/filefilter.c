@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filefilter.c - 
  *
- * Copyright (C) 2002,2003,2004,2005,2006,2007 Olivier Sessink
+ * Copyright (C) 2002-2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,8 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* #define DEBUG */
@@ -33,7 +32,6 @@
 #include "file.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"        /* destroy_disposable_menu_cb() */
-#include "stringlist.h"      /* count_array() */
 
 typedef struct {
 	gchar *pattern;

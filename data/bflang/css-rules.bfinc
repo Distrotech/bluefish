@@ -5,9 +5,9 @@
  
 		Copyright (C) 2008-2009 Olivier Sessink
 
-		This program is free software; you can redistribute it and/or modify
+	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation; either version 2 of the License, or
+		the Free Software Foundation, either version 3 of the License, or
 		(at your option) any later version.
 
 		This program is distributed in the hope that it will be useful,
@@ -16,8 +16,7 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program; if not, write to the Free Software
-		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
 <element pattern="background" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -597,4 +596,7 @@ relative </reference>
 		<reference>The two length values of the 'border-radius' properties define the radii of a quarter ellipse that defines the shape of the corner. The first value is the horizontal radius (or vertical if the 'writing-mode' is vertical). If the second length is omitted it is equal to the first (and the corner is thus a quarter circle). If either length is zero, the corner is square, not rounded. The border radius also causes the element's background to be rounded, even if the border is 'none'. Negative values are not allowed. </reference>
 		<context idref="c.css.length_percentage"/><!-- re-use the c.css.length_percentage context -->
 	</element>
+	<element pattern="transform" autocomplete="1" highlight="css-property" autocomplete_append=": ">
+		<reference>transform is a new css3 rule, which ca call various transformation functions such as rotate(), skew(), scale(), scalex(), scaley().</reference>		
+	</element>		
 </group>
