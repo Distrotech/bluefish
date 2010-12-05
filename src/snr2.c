@@ -1115,10 +1115,15 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
 gint snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
 							Tmatch_types matchtype, gint is_case_sens, const gchar *replace_pattern,
 							gboolean unescape) {
+	gint retval;
+	Tbfwin *bfwin = doc->bfwin;
+	Tlast_snr2 last_snr2_bck = *LASTSNR2(bfwin->snr2);
+	gchar *last_search_pattern_bck = g_strdup(LASTSNR2(bfwin->snr2)->search_pattern);
+
 	DEBUG_MSG("snr2_run_extern_replace, search_pattern=%s, replace_pattern=%s, unescape=%d, matchtype=%d\n",search_pattern,replace_pattern,unescape,matchtype);
 
 	if (region == 3) { /* in all open files */
-		return replace_all(BFWIN(doc->bfwin),search_pattern
+		retval = replace_all(BFWIN(doc->bfwin),search_pattern
 					, matchtype
 					, is_case_sens
 					, replace_pattern
@@ -1133,7 +1138,7 @@ gint snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
 				return 0;
 			}
 		}
-		return replace_doc_multiple(BFWIN(doc->bfwin),search_pattern
+		retval = replace_doc_multiple(BFWIN(doc->bfwin),search_pattern
 					, matchtype
 					, is_case_sens
 					, startpos, endpos, replace_pattern
@@ -1141,6 +1146,10 @@ gint snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
 					, string
 					, unescape, 0 /* unre_id */);
 	}
+	g_free(LASTSNR2(bfwin->snr2)->search_pattern);
+	*LASTSNR2(bfwin->snr2) = last_snr2_bck;
+	LASTSNR2(bfwin->snr2)->search_pattern = last_search_pattern_bck;
+	return retval;
 }
 
 /**
@@ -1157,7 +1166,16 @@ gint snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
  **/
 Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens, gint offset) {
 	/*Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gboolean unescape, gboolean want_submatches*/
-	return search_doc(BFWIN(doc->bfwin),doc, search_pattern, matchtype, is_case_sens, offset, -1, FALSE, FALSE);
+	Tsearch_result ret;
+	Tbfwin *bfwin = doc->bfwin;
+	Tlast_snr2 last_snr2_bck = *LASTSNR2(bfwin->snr2);
+	gchar *last_search_pattern_bck = g_strdup(LASTSNR2(bfwin->snr2)->search_pattern);
+	DEBUG_MSG("doc_search_run_extern, started\n");
+	ret = search_doc(BFWIN(doc->bfwin),doc, search_pattern, matchtype, is_case_sens, offset, -1, FALSE, FALSE);
+	g_free(LASTSNR2(bfwin->snr2)->search_pattern);
+	*LASTSNR2(bfwin->snr2) = last_snr2_bck;
+	LASTSNR2(bfwin->snr2)->search_pattern = last_search_pattern_bck;
+	return ret;
 }
 
 /*****************************************************/
@@ -1288,6 +1306,7 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 		gchar *last_search_pattern_bck = g_strdup(LASTSNR2(bfwin->snr2)->search_pattern);
 		gchar *search_pattern, *fulltext;
 		Tsearch_result result;
+		DEBUG_MSG("update_encoding_meta_in_file, last_snr2_bck->result.end=%d\n",last_snr2_bck.result.end);
 		/* first find if there is a meta encoding tag already */
 		search_pattern = "<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"([^;]*);[ \t\n]*charset=[a-z0-9-]*\"[ \t\n]*(/?)>";
 		fulltext = doc_get_chars(doc, 0, -1);
@@ -1984,17 +2003,19 @@ void replace_cb(GtkWidget *widget, Tbfwin *bfwin) {
 void search_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	gint startpos=0,endpos=-1;
 	Tsearch_result result;
-
+	DEBUG_MSG("search_again_cb, last doc=%p, doc=%p last end=%d\n", LASTSNR2(bfwin->snr2)->doc, bfwin->current_document, LASTSNR2(bfwin->snr2)->result.end);
 	if (LASTSNR2(bfwin->snr2)->doc == bfwin->current_document) {
 		if (LASTSNR2(bfwin->snr2)->result.end > 0) {
 			if (LASTSNR2(bfwin->snr2)->overlapping_search) {
 				startpos = LASTSNR2(bfwin->snr2)->result.start + 1;
+				DEBUG_MSG("search_again_cb, start again at previous start+1=%d\n",startpos);
 			} else {
 				startpos = LASTSNR2(bfwin->snr2)->result.end;
+				DEBUG_MSG("search_again_cb, start again at previous end=%d\n",startpos);
 			}
 		}
 	}
-
+	
 	result = search_single_and_show(bfwin, NULL, startpos, endpos, FALSE);
 	if (result.end > 0) {
 		LASTSNR2(bfwin->snr2)->matches++;
