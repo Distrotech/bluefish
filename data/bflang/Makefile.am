@@ -13,7 +13,8 @@ bflang_bfinc_files = \
 	all-php.bfinc \
 	all-vbscript.bfinc \
 	css-rules.bfinc \
-	css-selectors.bfinc
+	css-selectors.bfinc \
+	wordpress.bfinc
 
 bflang_bflang2_files = \
 	ada.bflang2 \
@@ -42,6 +43,7 @@ bflang_bflang2_files = \
 	sql.bflang2 \
 	text.bflang2 \
 	vbscript.bflang2 \
+	wordpress.bflang2 \
 	xhtml.bflang2 \
 	xml.bflang2
 
