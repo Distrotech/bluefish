@@ -53,10 +53,10 @@ Tbmark. When the user clicks in the Gtktreeview widget, we can get
 immediately a pointer to the Tbmark, and that has the Gtktextmark, so that
 is very easy, and very fast!
 
-But now we have one problem: all normal windows do share the same bookmarks list.
-So it is probably the most logical to have them store the same Gtktreestore as
-well. The best way is to have the project functions create/destroy the
-gtktreestore when they convert a window (Tbfwin) into a project window.
+All normal (non-project) windows do share the same bookmarks list.
+So they store the same Gtktreestore as well. The project functions 
+create a new gtktreestore when they convert a window (Tbfwin)
+into a project window.
 */
 
 #define BMARK_SHOW_NUM_TEXT_CHARS 20
@@ -835,50 +835,89 @@ static gboolean bmark_event_mouseclick(GtkWidget * widget, GdkEventButton * even
 	bmark_goto_selected(bfwin);
 }*/
 
-void bookmark_menu_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
+static void bmark_first_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	GtkTreeModel *model = GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore);
 	GtkTreeIter iter;
-	Tdocument *doc = bfwin->current_document;
-	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(bfwin->bmark));
 	
-	if (!doc || !doc->bmark_parent)
+	if (!CURDOC(bfwin) || !CURDOC(bfwin)->bmark_parent)
 		return;
 	
-	if (action == 1) /* first */ {
-			if (gtk_tree_model_iter_children(model,&iter,doc->bmark_parent))
-				bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
-	} else if (action == 4) /* last */ {
-			gint num = gtk_tree_model_iter_n_children(model,doc->bmark_parent);
-			if (gtk_tree_model_iter_nth_child(model,&iter,doc->bmark_parent,num-1))
-				bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
-	} else {
-		if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
-			if (action == 2) 	/* previous */ {
-				GtkTreePath *path= gtk_tree_model_get_path(model,&iter);
-				gtk_tree_path_prev(path);
-				if (gtk_tree_model_get_iter(model,&iter,path))
-					bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
-				gtk_tree_path_free(path);
-			} else if (action == 3)/* next */ {
-				if (gtk_tree_model_iter_next(model,&iter))
-					bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
-			}
-		}
+	if (gtk_tree_model_iter_children(model,&iter,CURDOC(bfwin)->bmark_parent))
+		bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
+}
+static void bmark_previous_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	GtkTextMark *insert;
+	GtkTextIter titer;
+	Tbmark *bmark=NULL;
+	gint line;
+	
+	if (!CURDOC(bfwin) || !CURDOC(bfwin)->bmark_parent)
+		return;
+	
+	insert = gtk_text_buffer_get_insert(CURDOC(bfwin)->buffer);
+	gtk_text_buffer_get_iter_at_mark(CURDOC(bfwin)->buffer, &titer, insert);
+	gtk_text_iter_set_line_offset(&titer, 0);
+	line = bmark_margin_get_initial_bookmark(CURDOC(bfwin), &titer, (gpointer)&bmark);
+	if (-1 == line || line > gtk_text_iter_get_line(&titer))
+		return;
+
+	bmark_activate(bfwin, bmark, TRUE);
+}
+
+static void bmark_next_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	GtkTextMark *insert;
+	GtkTextIter titer;
+	Tbmark *bmark=NULL;
+	gint line;
+	
+	if (!CURDOC(bfwin) || !CURDOC(bfwin)->bmark_parent)
+		return;
+	
+	insert = gtk_text_buffer_get_insert(CURDOC(bfwin)->buffer);
+	gtk_text_buffer_get_iter_at_mark(CURDOC(bfwin)->buffer, &titer, insert);
+	gtk_text_iter_forward_to_line_end(&titer);
+	line = bmark_margin_get_initial_bookmark(CURDOC(bfwin), &titer, (gpointer)&bmark);
+	if (-1 == line)
+		return;
+	if (line <= gtk_text_iter_get_line(&titer)) {
+		/* get the 'next' bookmark */
+		if (-1 == bmark_margin_get_next_bookmark(CURDOC(bfwin), (gpointer)&bmark))
+			return;
+	}
+	bmark_activate(bfwin, bmark, TRUE);
+}
+static void bmark_last_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	GtkTreeModel *model = GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore);
+	GtkTreeIter iter;
+	gint num;
+
+	if (!CURDOC(bfwin) || !CURDOC(bfwin)->bmark_parent)
+		return;
+
+	num = gtk_tree_model_iter_n_children(model,CURDOC(bfwin)->bmark_parent);
+	if (gtk_tree_model_iter_nth_child(model,&iter,CURDOC(bfwin)->bmark_parent,num-1))
+		bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
+}
+void bookmark_menu_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
+	switch (action) {
+		case 1:
+		bmark_first_lcb(widget, bfwin);
+		break;
+		case 2:
+		bmark_previous_lcb(widget, bfwin);
+		break;
+		case 3:
+		bmark_next_lcb(widget, bfwin);		
+		break;
+		case 4:
+		bmark_last_lcb(widget, bfwin);
+		break;
+		default:
+		g_warning("invalid menu action for bookmark menu, please report as bluefish bug\n ");
+		break;
 	}
 }
 
-static void bmark_first_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	bookmark_menu_cb(bfwin,1,widget);
-}
-static void bmark_previous_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	bookmark_menu_cb(bfwin,2,widget);
-}
-static void bmark_next_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	bookmark_menu_cb(bfwin,3,widget);
-}
-static void bmark_last_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	bookmark_menu_cb(bfwin,4,widget);
-}
 
 static gboolean bmark_search_filter_func(GtkTreeModel *model, GtkTreeIter  *iter, gpointer data) {
 	GtkTreeIter piter;
@@ -1270,7 +1309,7 @@ void bmark_clean_for_doc(Tdocument * doc) {
 static gboolean bookmark_reposition(Tbmark *mark, gint offset) {
 	gint doclen = gtk_text_buffer_get_char_count(mark->doc->buffer);
 	gint bandwidth = offset>0?2*offset:-2*offset;
-	if (bandwidth < 10*strlen(mark->text)) bandwidth = 10*strlen(mark->text);
+	if (bandwidth < 5*strlen(mark->text)) bandwidth = 5*strlen(mark->text);
 	/* search for the bookmark near the old positions */
 
 	while (TRUE) {
