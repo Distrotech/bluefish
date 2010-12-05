@@ -239,7 +239,14 @@ void string_apply(gchar ** config_var, GtkWidget * widget)
 	if (!config_var || !widget)
 		return;	
 	
-	if (GTK_IS_COMBO_BOX(widget)) {
+	if (GTK_IS_FONT_BUTTON(widget)) {
+		tmpstring = g_strdup(gtk_font_button_get_font_name(GTK_FONT_BUTTON(widget)));
+	} else if (GTK_IS_COLOR_BUTTON(widget)) {
+		GdkColor color;
+
+		gtk_color_button_get_color(GTK_COLOR_BUTTON(widget), &color);
+		tmpstring = gdk_color_to_string(&color);
+	} else if (GTK_IS_COMBO_BOX(widget)) {
 		tmpstring = gtk_combo_box_get_active_text(GTK_COMBO_BOX(widget));
 	} else {
 		tmpstring = gtk_editable_get_chars(GTK_EDITABLE(widget), 0, -1);
