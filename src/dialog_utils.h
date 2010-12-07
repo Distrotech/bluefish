@@ -39,6 +39,9 @@ dialog_button_new_with_image_in_table(const gchar *labeltext, gint pixmap, const
 	GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);
 
 GtkWidget *
+dialog_check_button_new(const gchar *labeltext, gint active);
+
+GtkWidget *
 dialog_check_button_in_table(const gchar *labeltext, gint active, GtkWidget *table, guint left_attach,
 	guint right_attach, guint top_attach, guint bottom_attach);
 
@@ -47,11 +50,32 @@ dialog_color_button_in_table(const gchar *color, const gchar *title, GtkWidget *
 	guint right_attach, guint top_attach, guint bottom_attach);
 
 GtkWidget *
+dialog_combo_box_text_from_list(const GList *options, const gchar *value);
+
+GtkWidget *
+dialog_combo_box_text_labeled_from_list(const GList *options, const gchar *value, const gchar *labeltext,
+	GtkWidget *box, guint padding);
+
+GtkWidget *
+dialog_combo_box_text_new(const gchar **options, gint index);
+
+GtkWidget *
+dialog_combo_box_text_in_table(const gchar **options, gint index, GtkWidget *table, guint left_attach,
+	guint right_attach, guint top_attach, guint bottom_attach);
+
+GtkWidget *
 dialog_combo_box_text_labeled(const gchar *labeltext, const gchar **options, gint index, GtkWidget *box, guint padding);
+
+GtkWidget *
+dialog_entry_in_table(const gchar *text, GtkWidget *table, guint left_attach, guint right_attach, guint top_attach,
+	guint bottom_attach);
 
 void
 dialog_mnemonic_label_in_table(const gchar *labeltext, GtkWidget *m_widget, GtkWidget *table, guint left_attach,
 	guint right_attach, guint top_attach, guint bottom_attach);
+
+GtkWidget *
+dialog_spin_button_new(gfloat lower, gfloat upper, const gint value);
 
 GtkWidget *
 dialog_spin_button_in_table(gfloat lower, gfloat upper, const gint value, GtkWidget *table, guint left_attach,
