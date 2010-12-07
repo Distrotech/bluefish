@@ -456,13 +456,14 @@ void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 		gtk_dialog_new_with_buttons(dialogtitle, GTK_WINDOW(bfwin->main_window), GTK_DIALOG_MODAL,
 									GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
 	button = gtk_button_new_from_stock(GTK_STOCK_OK);
-	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default(button, TRUE);
 	gtk_dialog_add_action_widget(GTK_DIALOG(dlg), button, GTK_RESPONSE_OK);
 
 	table = gtk_table_new(2, 3, FALSE);
 	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 6);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dlg)->vbox), table, FALSE, FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dlg))),
+			table, FALSE, FALSE, 12);
 
 	name = entry_with_text(m->name, 200);
 	gtk_entry_set_activates_default(GTK_ENTRY(name), TRUE);
@@ -487,7 +488,7 @@ void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 		m->name = g_strdup(gtk_entry_get_text(GTK_ENTRY(name)));
 		g_free(m->description);
 		m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
-		m->is_temp = GTK_TOGGLE_BUTTON(istemp)->active;
+		m->is_temp = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(istemp));
 		tmpstr = bmark_showname(bfwin, m);
 		gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &m->iter, NAME_COLUMN,
 						   tmpstr,-1);

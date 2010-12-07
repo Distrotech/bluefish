@@ -42,8 +42,8 @@ static void tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("VALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("BGCOLOR"), thestring, NULL);
-	thestring = insert_integer_if_spin(dg->spin[2], cap("WIDTH"), thestring, GTK_TOGGLE_BUTTON(dg->check[1])->active, 0);
-	thestring = insert_string_if_entry(GTK_ENTRY(GTK_BIN(dg->combo[4])->child), cap("CLASS"), thestring, NULL);
+	thestring = insert_integer_if_spin(dg->spin[2], cap("WIDTH"), thestring, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[1])), 0);
+	thestring = insert_string_if_entry(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(dg->combo[4]))), cap("CLASS"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("STYLE"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[5]), cap("FRAME"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[6]), cap("RULES"), thestring, NULL);
@@ -123,7 +123,7 @@ void tabledialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[2], 3, 5, 1, 2);
 
 	dg->combo[3] = combobox_with_popdown_sized(tagvalues[5], bfwin->session->colorlist, 1, 80);
-	var_but = color_but_new(GTK_BIN(dg->combo[3])->child, dg->dialog);
+	var_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[3])), dg->dialog);
 	bf_mnemonic_label_tad_with_alignment(_("Backgrou_nd Color:"), dg->combo[3], 0, 0.5, dgtable, 2, 3, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 3, 4, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), var_but, 4, 5, 2, 3);
@@ -237,7 +237,7 @@ void tablerowdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 3, 5, 0, 1);
 
 	dg->combo[3] = combobox_with_popdown_sized(tagvalues[2], bfwin->session->colorlist, 1, 90);
-	color_but = color_but_new(GTK_BIN(dg->combo[3])->child, dg->dialog);
+	color_but = color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[3])), dg->dialog);
 	bf_mnemonic_label_tad_with_alignment(_("Backgrou_nd Color:"), dg->combo[3], 0, 0.5, dgtable, 2, 3, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but), 4, 5, 1, 2);
@@ -266,8 +266,8 @@ static void table_head_and_data_dialogok_lcb(gint type, GtkWidget * widget, Thtm
 	} else {
 		thestring = g_strdup(cap("<TH"));
 	}
-	thestring = insert_integer_if_spin(dg->spin[1], cap("WIDTH"), thestring, GTK_TOGGLE_BUTTON(dg->check[2])->active,0);
-	thestring = insert_integer_if_spin(dg->spin[3], cap("HEIGHT"), thestring, GTK_TOGGLE_BUTTON(dg->check[3])->active,0);
+	thestring = insert_integer_if_spin(dg->spin[1], cap("WIDTH"), thestring, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2])),0);
+	thestring = insert_integer_if_spin(dg->spin[3], cap("HEIGHT"), thestring, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3])),0);
 	thestring = insert_integer_if_spin(dg->spin[5], cap("COLSPAN"), thestring, FALSE, 0);
 	thestring = insert_integer_if_spin(dg->spin[4], cap("ROWSPAN"), thestring, FALSE, 0);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
@@ -390,7 +390,7 @@ static void table_head_and_data_dialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *d
 	dg->combo[3] = combobox_with_popdown_sized(tagvalues[6], bfwin->session->colorlist, 1, 80);
 	bf_mnemonic_label_tad_with_alignment(_("Backgrou_nd Color:"), dg->combo[3], 1, 0.5, dgtable, 4, 5, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 5, 6, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but_new(GTK_BIN(dg->combo[3])->child, dg->dialog)), 6, 7, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[3])), dg->dialog)), 6, 7, 2, 3);
 
 	if (type == 1) {
 		html_diag_finish(dg, G_CALLBACK(tabledatadialogok_lcb));

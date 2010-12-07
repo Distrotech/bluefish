@@ -318,7 +318,8 @@ static void infbw_dialog_response_lcb(GtkDialog * dialog, gint response, gpointe
 	}
 
 	if (newpage != edata->current_page) {
-		gtk_container_remove(GTK_CONTAINER(GTK_DIALOG(edata->dialog)->vbox), edata->current_pagepointer);
+		GtkWidget *vbox = gtk_dialog_get_content_area(GTK_DIALOG(edata->dialog));
+		gtk_container_remove(GTK_CONTAINER(vbox), edata->current_pagepointer);
 		switch (newpage) {
 		case infbw_type:
 			edata->current_pagepointer  = create_page_type(edata->dialog, edata); 
@@ -333,7 +334,7 @@ static void infbw_dialog_response_lcb(GtkDialog * dialog, gint response, gpointe
 			edata->current_pagepointer  = create_page_dtd_remote(edata->dialog, edata);
 			break;
 		}
-		gtk_container_add(GTK_CONTAINER(GTK_DIALOG(edata->dialog)->vbox), edata->current_pagepointer);
+		gtk_container_add(GTK_CONTAINER(vbox), edata->current_pagepointer);
 		edata->current_page = newpage;
 	}
 	gtk_widget_show_all(edata->dialog);
@@ -349,7 +350,7 @@ void infb_add_item(Tbfwin * bfwin)
 									GTK_RESPONSE_REJECT, GTK_STOCK_GO_FORWARD, 1, NULL);
 
 	edata->current_pagepointer = create_page_type(edata->dialog, edata);	
-	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(edata->dialog)->vbox), edata->current_pagepointer);
+	gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(edata->dialog))), edata->current_pagepointer);
 	edata->current_page = infbw_type;
 	gtk_widget_show_all(edata->dialog);
 	g_signal_connect(G_OBJECT(edata->dialog), "response", G_CALLBACK(infbw_dialog_response_lcb),
@@ -495,11 +496,12 @@ static void infbwdel_dialog_response_lcb(GtkDialog * dialog, gint response, gpoi
 	}
 	newpage = ddata->current_page + 1;
 	if (newpage != ddata->current_page) {
-		gtk_container_remove(GTK_CONTAINER(GTK_DIALOG(ddata->dialog)->vbox), ddata->current_pagepointer);
+		GtkWidget *vbox = gtk_dialog_get_content_area(GTK_DIALOG(ddata->dialog));
+		gtk_container_remove(GTK_CONTAINER(vbox), ddata->current_pagepointer);
 		if (newpage == infbwdel_select) {
 			ddata->current_pagepointer = create_page_select_confirm(ddata->dialog, ddata);
 		}
-		gtk_container_add(GTK_CONTAINER(GTK_DIALOG(ddata->dialog)->vbox), ddata->current_pagepointer);
+		gtk_container_add(GTK_CONTAINER(vbox), ddata->current_pagepointer);
 		ddata->current_page = newpage;
 	}
 	gtk_widget_show_all(ddata->dialog);
@@ -511,7 +513,7 @@ void infb_del_item(Tbfwin * bfwin)
 	ddata->bfwin = bfwin;
 
 	ddata->current_pagepointer = create_page_select(ddata->dialog, ddata);
-	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(ddata->dialog)->vbox), ddata->current_pagepointer);
+	gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(ddata->dialog))), ddata->current_pagepointer);
 	gtk_widget_show_all(ddata->dialog);
 	g_signal_connect(G_OBJECT(ddata->dialog), "response", G_CALLBACK(infbwdel_dialog_response_lcb),
 					 ddata);

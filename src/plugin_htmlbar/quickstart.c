@@ -346,7 +346,7 @@ quickstart_response_lcb(GtkDialog * dialog, gint response, TQuickStart * qstart)
 			model = gtk_combo_box_get_model(GTK_COMBO_BOX(qstart->stylelinktype));
 			gtk_tree_model_get(model, &iter, 0, &name, -1);
 
-			stylehref = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(qstart->stylehref)->child), 0, -1);
+			stylehref = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(qstart->stylehref))), 0, -1);
 			qstart->bfwin->session->urllist = add_to_stringlist(qstart->bfwin->session->urllist, stylehref);
 			stylemedia = gtk_editable_get_chars(GTK_EDITABLE(qstart->stylemedia), 0, -1);
 			styletitle = gtk_editable_get_chars(GTK_EDITABLE(qstart->styletitle), 0, -1);
@@ -393,7 +393,7 @@ quickstart_response_lcb(GtkDialog * dialog, gint response, TQuickStart * qstart)
 			stylearea = g_strdup("");
 		}
 
-		tmpstr2 = gtk_editable_get_chars(GTK_EDITABLE(GTK_BIN(qstart->scriptsrc)->child), 0, -1);
+		tmpstr2 = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(qstart->scriptsrc))), 0, -1);
 		if (strlen(tmpstr2) > 0) {
 			scriptsrc =
 				g_strconcat("<script type=\"text/javascript\" src=\"", tmpstr2, "\"></script>\n", NULL);
@@ -621,7 +621,7 @@ void
 quickstart_dialog_new(Tbfwin * bfwin)
 {
 	TQuickStart *qstart;
-	GtkWidget *dialog, *table, *frame, *page, *alignment;
+	GtkWidget *dialog, *table, *frame, *page, *alignment, *vbox;
 	GtkListStore *headStore;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
@@ -643,9 +643,10 @@ quickstart_dialog_new(Tbfwin * bfwin)
 										 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 										 GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, NULL);
 	gtk_dialog_set_has_separator(GTK_DIALOG(dialog), FALSE);
+	vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 	g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(quickstart_response_lcb), qstart);
 
-	table = dialog_table_in_vbox_defaults(4, 3, 6, GTK_DIALOG(dialog)->vbox);
+	table = dialog_table_in_vbox_defaults(4, 3, 6, vbox);
 
 	qstart->dtd = gtk_combo_box_new_text();
 	for (i = 0; i < G_N_ELEMENTS(dtds); i++) {
@@ -704,7 +705,7 @@ quickstart_dialog_new(Tbfwin * bfwin)
 	alignment = gtk_alignment_new(0, 0.5, 0, 0);
 	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 6, 8, 4, 0);
 	gtk_container_add(GTK_CONTAINER(alignment), qstart->openNewDoc);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), alignment, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), alignment, FALSE, FALSE, 0);
 
 	gtk_widget_show_all(dialog);
 }

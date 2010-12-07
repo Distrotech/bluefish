@@ -658,7 +658,7 @@ set_plugin_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd)
 static void
 plugin_1_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle, gchar *path, Tprefdialog *pd)
 {
-	gchar *val = g_strdup(cellrenderertoggle->active ? "0" : "1");
+	gchar *val = g_strdup(gtk_cell_renderer_toggle_get_active(cellrenderertoggle) ? "0" : "1");
 	pref_apply_change(pd->pd.lstore, 3, 2, path, val, 1);
 	g_free(val);
 }
@@ -809,7 +809,7 @@ textstyle_radio_changed(GtkToggleButton *togglebutton, gpointer user_data)
 {
 	Tprefdialog *pd = (Tprefdialog *) user_data;
 	DEBUG_MSG("textstyle_radio_changed\n");
-	if (pd->tsd.curstrarr && togglebutton->active)
+	if (pd->tsd.curstrarr && gtk_toggle_button_get_active(togglebutton))
 	{
 		int index = 3;
 		gchar *val = "0";
@@ -846,7 +846,7 @@ static void textstyle_spellcheck_changed(GtkToggleButton *togglebutton, gpointer
 	if (pd->tsd.curstrarr)
 	{
 		if (pd->tsd.curstrarr[5]) g_free(pd->tsd.curstrarr[5]);
-		pd->tsd.curstrarr[5] = g_strdup(togglebutton->active?"1":"0");
+		pd->tsd.curstrarr[5] = g_strdup(gtk_toggle_button_get_active(togglebutton)?"1":"0");
 	}
 }
 #endif
@@ -975,7 +975,7 @@ extcommands_1_edited_lcb(GtkCellRendererText *cellrenderertext, gchar *path, gch
 static void
 extcommands_2_edited_lcb(GtkCellRendererToggle *cellrenderertoggle, gchar *path, Tprefdialog *pd)
 {
-	pref_apply_change(pd->bd.lstore, 3, 2, path, cellrenderertoggle->active ? "0" : "1", 2);
+	pref_apply_change(pd->bd.lstore, 3, 2, path, gtk_cell_renderer_toggle_get_active(cellrenderertoggle) ? "0" : "1", 2);
 }
 static void
 add_new_extcommands_lcb(GtkWidget *wid, Tprefdialog *pd)
@@ -1361,7 +1361,7 @@ string_path_to_child_string_path(GtkTreeModelFilter *lfilter, const gchar *path)
 static void
 bflang_1_edited_lcb(GtkCellRendererToggle *cellrenderertoggle, gchar *path, Tprefdialog *pd)
 {
-	gchar *cpath, *val = g_strdup(cellrenderertoggle->active ? "0" : "1");
+	gchar *cpath, *val = g_strdup(gtk_cell_renderer_toggle_get_active(cellrenderertoggle) ? "0" : "1");
 	cpath = string_path_to_child_string_path(pd->bld.lfilter, path);
 	pref_apply_change(GTK_LIST_STORE(pd->bld.lstore), 3, 2, cpath, val, 2);
 	g_free(val);
@@ -1713,34 +1713,34 @@ preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd)
 static void
 leave_to_window_manager_toggled_lcb(GtkToggleButton *togglebutton, gpointer user_data)
 {
-	gtk_widget_set_sensitive(GTK_WIDGET(user_data), !togglebutton->active);
+	gtk_widget_set_sensitive(GTK_WIDGET(user_data), !gtk_toggle_button_get_active(togglebutton));
 }
 
 static void
 restore_dimensions_toggled_lcb(GtkToggleButton *togglebutton, Tprefdialog *pd)
 {
-	gtk_widget_set_sensitive(pd->prefs[left_panel_width], !togglebutton->active);
-	gtk_widget_set_sensitive(pd->prefs[main_window_h], !togglebutton->active);
-	gtk_widget_set_sensitive(pd->prefs[main_window_w], !togglebutton->active);
+	gtk_widget_set_sensitive(pd->prefs[left_panel_width], !gtk_toggle_button_get_active(togglebutton));
+	gtk_widget_set_sensitive(pd->prefs[main_window_h], !gtk_toggle_button_get_active(togglebutton));
+	gtk_widget_set_sensitive(pd->prefs[main_window_w], !gtk_toggle_button_get_active(togglebutton));
 }
 
 static void
 load_reference_toggled_lcb(GtkToggleButton *togglebutton, Tprefdialog *pd)
 {
-	if (!togglebutton->active)
+	if (!gtk_toggle_button_get_active(togglebutton))
 	{
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->prefs[show_autocomp_reference]), FALSE);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->prefs[show_tooltip_reference]), FALSE);
 	}
 
-	gtk_widget_set_sensitive(pd->prefs[show_autocomp_reference], togglebutton->active);
-	gtk_widget_set_sensitive(pd->prefs[show_tooltip_reference], togglebutton->active);
+	gtk_widget_set_sensitive(pd->prefs[show_autocomp_reference], gtk_toggle_button_get_active(togglebutton));
+	gtk_widget_set_sensitive(pd->prefs[show_tooltip_reference], gtk_toggle_button_get_active(togglebutton));
 }
 
 static void
 prefs_togglebutton_toggled_lcb(GtkToggleButton *togglebutton, gpointer user_data)
 {
-	gtk_widget_set_sensitive(GTK_WIDGET(user_data), togglebutton->active);
+	gtk_widget_set_sensitive(GTK_WIDGET(user_data), gtk_toggle_button_get_active(togglebutton));
 }
 
 void
@@ -1788,7 +1788,7 @@ preftree_cursor_changed_cb(GtkTreeView *treeview, gpointer user_data)
 static void
 open_in_running_bluefish_toggled_lcb(GtkWidget *widget, Tprefdialog *pd)
 {
-	gtk_widget_set_sensitive(pd->prefs[open_in_new_window], GTK_TOGGLE_BUTTON(widget)->active);
+	gtk_widget_set_sensitive(pd->prefs[open_in_new_window], gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
 }
 #endif /* ifndef WIN32 */
 

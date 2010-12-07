@@ -493,7 +493,8 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 		} else { /* no scantable */
 			eo2=eo;
 		}
-		gtk_text_buffer_remove_tag_by_name(GTK_TEXT_VIEW(btv)->buffer, "_spellerror_", &iter, &eo2);
+		gtk_text_buffer_remove_tag_by_name(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),
+				"_spellerror_", &iter, &eo2);
 		DBG_SPELL("bftextview2_run_spellcheck, loop2 from %d to %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&eo2));
 		while (cont2 && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) { /* loop from iter to eo2 */
 			GtkTextIter wordstart=iter;
@@ -590,7 +591,8 @@ static gboolean get_misspelled_word_at_bevent(BluefishTextView *btv, GtkTextIter
 	GtkTextTag *misspelled;
 	
 	misspelled = gtk_text_tag_table_lookup(langmgr_get_tagtable(), "_spellerror_");
-	gtk_text_buffer_get_iter_at_offset(GTK_TEXT_VIEW(btv)->buffer,wordstart,main_v->bevent_charoffset);
+	gtk_text_buffer_get_iter_at_offset(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),
+			wordstart, main_v->bevent_charoffset);
 	if (gtk_text_iter_has_tag(wordstart, misspelled)) {
 		*wordend=*wordstart;
 		if (gtk_text_iter_backward_to_tag_toggle(wordstart,misspelled) && gtk_text_iter_forward_to_tag_toggle(wordend,misspelled))
@@ -605,7 +607,7 @@ static void bftextview2_add_word_backend(BluefishTextView *btv, Tbfwin *bfwin, g
 	if (!get_misspelled_word_at_bevent(btv, &so,&eo)) 
 		return;
 	
-	word = gtk_text_buffer_get_text(GTK_TEXT_VIEW(btv)->buffer,&so,&eo,FALSE);
+	word = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), &so, &eo, FALSE);
 	if (to_dict) {
 #ifdef HAVE_LIBENCHANT_1_4
 		enchant_dict_add((EnchantDict *)bfwin->ed, word,strlen(word));
@@ -633,7 +635,7 @@ static void bftextview2_suggestion_menu_lcb(GtkWidget *widget, gpointer data) {
 	GtkTextIter wordstart,wordend;
 	if (main_v->bevent_doc != doc)
 		return;
-	DBG_SPELL("chosen %s\n",gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)));
+	DBG_SPELL("chosen %s\n",gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
 	if (get_misspelled_word_at_bevent(BLUEFISH_TEXT_VIEW(doc->view), &wordstart, &wordend)) {
 		gint start,end;
 		/* no need to remove the tag because the text with this tag is deleted by the replace
@@ -642,11 +644,11 @@ static void bftextview2_suggestion_menu_lcb(GtkWidget *widget, gpointer data) {
 		end = gtk_text_iter_get_offset(&wordend);
 		if (BFWIN(DOCUMENT(data)->bfwin)->session->spell_insert_entities) {
 			gchar *word;
-			word = utf82xmlentities(gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)), TRUE, TRUE, TRUE, TRUE, TRUE, FALSE);
+			word = utf82xmlentities(gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))), TRUE, TRUE, TRUE, TRUE, TRUE, FALSE);
 			doc_replace_text(doc, word, start, end);
 			g_free(word);
 		} else {
-			doc_replace_text(doc, gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)), start, end);
+			doc_replace_text(doc, gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))), start, end);
 		}
 	}
 }
@@ -666,10 +668,10 @@ static void mark_all_docs_needspelling(Tbfwin *bfwin) {
 
 static void bftextview2_preferences_menu_lcb(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
-	if (GTK_CHECK_MENU_ITEM(widget)->active) {
+	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
 		if (bfwin->session->spell_lang)
 			g_free(bfwin->session->spell_lang);
-		bfwin->session->spell_lang = g_strdup(gtk_label_get_text(GTK_LABEL(GTK_BIN(widget)->child)));
+		bfwin->session->spell_lang = g_strdup(gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
 		if (load_dictionary(bfwin)) {
 			mark_all_docs_needspelling(bfwin);
 		}
@@ -745,7 +747,7 @@ void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc) {
 		size_t n_suggs;
 		gboolean have_non_ascii = FALSE;
 
-		word = gtk_text_buffer_get_text(GTK_TEXT_VIEW(doc->view)->buffer, &wordstart,&wordend,FALSE);
+		word = gtk_text_buffer_get_text(doc->buffer, &wordstart,&wordend,FALSE);
 		
 		if (g_utf8_strchr(word, -1, '&') && g_utf8_strchr(word, -1, ';')) {
 			gchar *tmp = xmlentities2utf8(word);
@@ -807,7 +809,7 @@ void reload_spell_dictionary(Tbfwin *bfwin) {
 /*
 static void bftextview2_preferences_menu_enable_lcb(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
-	bfwin->session->spell_enable = GTK_CHECK_MENU_ITEM(widget)->active;
+	bfwin->session->spell_enable = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(bfwin->toolbar_spell),bfwin->session->spell_enable);
 }
 
@@ -824,7 +826,7 @@ void bftextview2_populate_preferences_popup(GtkMenu *menu, Tdocument *doc) {
 
 /*void bftextview2_gui_toggle_spell_check(GtkWidget *widget, gpointer data) {
 	Tbfwin *bfwin=data;
-	bfwin->session->spell_enable = GTK_TOGGLE_BUTTON(widget)->active;
+	bfwin->session->spell_enable = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
 	if (bfwin->current_document && bfwin->current_document->view) {
 		/ * the signal is also emitted when the toggle button gets it's initial value during the building of the window * /
 		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
