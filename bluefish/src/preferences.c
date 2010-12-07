@@ -1722,29 +1722,6 @@ restore_dimensions_toggled_lcb(GtkToggleButton *togglebutton, Tprefdialog *pd)
 	gtk_widget_set_sensitive(pd->prefs[left_panel_width], !togglebutton->active);
 	gtk_widget_set_sensitive(pd->prefs[main_window_h], !togglebutton->active);
 	gtk_widget_set_sensitive(pd->prefs[main_window_w], !togglebutton->active);
-	/*
-	 if (togglebutton == GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]))
-	 {
-	 gtk_widget_set_sensitive(pd->prefs[left_panel_width], !togglebutton->active);
-	 gtk_widget_set_sensitive(pd->prefs[main_window_h], !togglebutton->active);
-	 gtk_widget_set_sensitive(pd->prefs[main_window_w], !togglebutton->active);
-	 }
-	 else if (togglebutton == GTK_TOGGLE_BUTTON(pd->prefs[leave_to_window_manager]))
-	 {
-	 gtk_widget_set_sensitive(pd->prefs[restore_dimensions], !togglebutton->active);
-
-	 gtk_widget_set_sensitive(pd->prefs[left_panel_width], !togglebutton->active
-	 && !GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions])->active);
-	 gtk_widget_set_sensitive(pd->prefs[main_window_h], !togglebutton->active
-	 && !GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions])->active);
-	 gtk_widget_set_sensitive(pd->prefs[main_window_w], !togglebutton->active
-	 && !GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions])->active);
-	 }
-	 else
-	 {
-	 g_print("restore_dimensions_toggled_lcb, unknown togglebutton\n");
-	 }
-	 */
 }
 
 static void
@@ -1936,7 +1913,7 @@ preferences_dialog()
 	vbox2 = dialog_vbox_labeled(_("<b>Tabs</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(2, 1, 0, vbox2);
 
-	pd->prefs[editor_indent_wspaces] = dialog_check_button_in_table(_("_Insert spaces instead of tabs"),
+	pd->prefs[editor_indent_wspaces] = dialog_check_button_in_table(_("Insert _spaces instead of tabs"),
 		main_v->props.editor_indent_wspaces, table, 0, 1, 0, 1);
 	pd->prefs[editor_tab_indent_sel] = dialog_check_button_in_table(_("_Tab key indents selection"),
 		main_v->props.editor_tab_indent_sel, table, 0, 1, 1, 2);
@@ -1984,7 +1961,7 @@ preferences_dialog()
 
 	pd->prefs[cline_bg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE],
 		_("Current line color"), table, 1, 2, 3, 4);
-	dialog_mnemonic_label_in_table(_("Current _line color:"), pd->prefs[cline_bg], table, 0, 1, 3, 4);
+	dialog_mnemonic_label_in_table(_("Cu_rrent line color:"), pd->prefs[cline_bg], table, 0, 1, 3, 4);
 
 	pd->prefs[visible_ws] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE],
 		_("Visible whitespace color"), table, 1, 2, 4, 5);
@@ -2014,28 +1991,28 @@ preferences_dialog()
 
 	vbox2 = dialog_vbox_labeled(_("<b>Backup</b>"), vbox1);
 
-	pd->prefs[backup_file] = dialog_check_button_new(_("Create backup file during file save"),
+	pd->prefs[backup_file] = dialog_check_button_new(_("Create _backup file during file save"),
 		main_v->props.backup_file);
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[backup_file], FALSE, FALSE, 0);
 	vbox3 = gtk_vbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), vbox3, FALSE, FALSE, 0);
-	pd->prefs[backup_cleanuponclose] = dialog_check_button_new(_("Remove backup file on close"),
+	pd->prefs[backup_cleanuponclose] = dialog_check_button_new(_("_Remove backup file on close"),
 		main_v->props.backup_cleanuponclose);
 	gtk_box_pack_start(GTK_BOX(vbox3), pd->prefs[backup_cleanuponclose], FALSE, FALSE, 0);
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox3), hbox, FALSE, FALSE, 0);
-	pd->prefs[backup_abort_action] = dialog_combo_box_text_labeled(_("If backup fails:"), failureactions,
+	pd->prefs[backup_abort_action] = dialog_combo_box_text_labeled(_("If back_up fails:"), failureactions,
 		main_v->props.backup_abort_action, hbox, 0);
 	prefs_togglebutton_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[backup_file]), vbox3);
 	g_signal_connect(G_OBJECT(pd->prefs[backup_file]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_lcb), vbox3);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Document Recovery</b>"), vbox1);
 
-	pd->prefs[autosave] = dialog_check_button_new(_("Enable recovery of modified documents"), main_v->props.autosave);
+	pd->prefs[autosave] = dialog_check_button_new(_("_Enable recovery of modified documents"), main_v->props.autosave);
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[autosave], FALSE, FALSE, 0);
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	label = dialog_box_label_new(_("Frequency to store changes (seconds):"), 0, 0.5, hbox, 0);
+	label = dialog_box_label_new(_("_Frequency to store changes (seconds):"), 0, 0.5, hbox, 0);
 	pd->prefs[autosave_time] = dialog_spin_button_new(10, 600, main_v->props.autosave_time);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[autosave_time]);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[autosave_time], FALSE, FALSE, 0);
@@ -2055,11 +2032,11 @@ preferences_dialog()
 		tmplist = g_list_next(tmplist);
 	}
 	pd->prefs[newfile_default_encoding] = dialog_combo_box_text_labeled_from_list(poplist,
-		main_v->props.newfile_default_encoding, _("Default character set for new files:"), hbox, 0);
+		main_v->props.newfile_default_encoding, _("_Default character set for new files:"), hbox, 0);
 	g_list_free(poplist);
 	poplist = NULL;
 
-	pd->prefs[auto_set_encoding_meta] = dialog_check_button_new(_("Auto set <meta> HTML tag on encoding change"),
+	pd->prefs[auto_set_encoding_meta] = dialog_check_button_new(_("Auto set <meta> _HTML tag on encoding change"),
 		main_v->props.auto_set_encoding_meta);
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[auto_set_encoding_meta], FALSE, FALSE, 0);
 
@@ -2067,16 +2044,16 @@ preferences_dialog()
 
 #ifndef WIN32
 	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(
-		_("Open commandline files in running bluefish process"), main_v->props.open_in_running_bluefish, vbox2);
+		_("Open co_mmandline files in running bluefish process"), main_v->props.open_in_running_bluefish, vbox2);
 	g_signal_connect(pd->prefs[open_in_running_bluefish], "toggled", G_CALLBACK(open_in_running_bluefish_toggled_lcb), pd);
-	pd->prefs[open_in_new_window] = boxed_checkbut_with_value(_("Open commandline files in new window"),
+	pd->prefs[open_in_new_window] = boxed_checkbut_with_value(_("Open commandline files in new _window"),
 		main_v->props.open_in_new_window, vbox2);
 	gtk_widget_set_sensitive(pd->prefs[open_in_new_window], main_v->props.open_in_running_bluefish);
 #endif /* ifndef WIN32 */
-	pd->prefs[do_periodic_check] = boxed_checkbut_with_value(_("Periodically check if file is modified on disk"),
+	pd->prefs[do_periodic_check] = boxed_checkbut_with_value(_("_Periodically check if file is modified on disk"),
 		main_v->props.do_periodic_check, vbox2);
 	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(
-		_("File properties to check on disk for modifications"), main_v->props.modified_check_type, vbox2,
+		_("File properties to check on dis_k for modifications"), main_v->props.modified_check_type, vbox2,
 		modified_check_types);
 
 	/*
@@ -2143,9 +2120,9 @@ preferences_dialog()
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	pd->prefs[document_tabposition] = dialog_combo_box_text_labeled(_("Tab position:"), notebooktabpositions,
+	pd->prefs[document_tabposition] = dialog_combo_box_text_labeled(_("_Tab position:"), notebooktabpositions,
 		main_v->props.document_tabposition, hbox, 0);
-	pd->prefs[switch_tabs_by_altx] = dialog_check_button_new(_("Switch between tabs with <Alt>+0..9"),
+	pd->prefs[switch_tabs_by_altx] = dialog_check_button_new(_("_Switch between tabs with <Alt>+0..9"),
 		main_v->props.switch_tabs_by_altx);
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[switch_tabs_by_altx], FALSE, FALSE, 0);
 
@@ -2155,11 +2132,11 @@ preferences_dialog()
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
 	poplist = lingua_list_sorted();
 	pd->prefs[language] = dialog_combo_box_text_labeled_from_list(poplist, (main_v->props.language
-		&& main_v->props.language[0]) ? lingua_locale_to_lang(main_v->props.language) : _("Auto"), _("Language:"),
+		&& main_v->props.language[0]) ? lingua_locale_to_lang(main_v->props.language) : _("Auto"), _("_Language:"),
 		hbox, 0);
 	g_list_free(poplist);
 
-	pd->prefs[transient_htdialogs] = dialog_check_button_new(_("Make HTML dialogs transient"),
+	pd->prefs[transient_htdialogs] = dialog_check_button_new(_("_Make HTML dialogs transient"),
 		main_v->props.transient_htdialogs);
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[transient_htdialogs], FALSE, FALSE, 0);
 
@@ -2167,11 +2144,11 @@ preferences_dialog()
 	table = dialog_table_in_vbox_defaults(2, 4, 0, vbox2);
 
 	pd->prefs[max_recent_files] = dialog_spin_button_in_table(3, 25, main_v->props.max_recent_files, table, 1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("Number of files in 'Open recent' menu:"), pd->prefs[max_recent_files], table, 0,
+	dialog_mnemonic_label_in_table(_("_Number of files in 'Open recent' menu:"), pd->prefs[max_recent_files], table, 0,
 		1, 0, 1);
 	pd->prefs[register_recent_mode] = dialog_combo_box_text_in_table(registerrecentmodes,
 		main_v->props.register_recent_mode, table, 1, 4, 1, 2);
-	dialog_mnemonic_label_in_table(_("Register recent files with your desktop:"), pd->prefs[register_recent_mode],
+	dialog_mnemonic_label_in_table(_("_Register recent files with your desktop:"), pd->prefs[register_recent_mode],
 		table, 0, 1, 1, 2);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Sidebar</b>"), vbox1);
@@ -2179,10 +2156,10 @@ preferences_dialog()
 
 	pd->prefs[left_panel_left] = dialog_combo_box_text_in_table(panellocations, main_v->props.left_panel_left, table,
 		1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("Location:"), pd->prefs[left_panel_left], table, 0, 1, 0, 1);
+	dialog_mnemonic_label_in_table(_("Locatio_n:"), pd->prefs[left_panel_left], table, 0, 1, 0, 1);
 	pd->prefs[leftpanel_tabposition] = dialog_combo_box_text_in_table(notebooktabpositions,
 		main_v->props.leftpanel_tabposition, table, 1, 2, 1, 2);
-	dialog_mnemonic_label_in_table(_("Tab position:"), pd->prefs[leftpanel_tabposition], table, 0, 1, 1, 2);
+	dialog_mnemonic_label_in_table(_("Tab _position:"), pd->prefs[leftpanel_tabposition], table, 0, 1, 1, 2);
 
 	frame = gtk_frame_new(NULL);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
@@ -2237,15 +2214,15 @@ preferences_dialog()
 
 	pd->prefs[tab_color_error] = dialog_color_button_in_table(main_v->props.tab_color_error,
 		_("Document error tab color"), table, 1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("Document tab error color:"), pd->prefs[tab_color_error], table, 0, 1, 0, 1);
+	dialog_mnemonic_label_in_table(_("Document tab _error color:"), pd->prefs[tab_color_error], table, 0, 1, 0, 1);
 
 	pd->prefs[tab_color_loading] = dialog_color_button_in_table(main_v->props.tab_color_loading,
 		_("Document loading tab color"), table, 1, 2, 1, 2);
-	dialog_mnemonic_label_in_table(_("Document tab loading color:"), pd->prefs[tab_color_loading], table, 0, 1, 1, 2);
+	dialog_mnemonic_label_in_table(_("Document tab loadin_g color:"), pd->prefs[tab_color_loading], table, 0, 1, 1, 2);
 
 	pd->prefs[tab_color_modified] = dialog_color_button_in_table(main_v->props.tab_color_modified,
 		_("Document modified tab color"), table, 1, 2, 2, 3);
-	dialog_mnemonic_label_in_table(_("Document tab modified color:"), pd->prefs[tab_color_modified], table, 0, 1, 2, 3);
+	dialog_mnemonic_label_in_table(_("Document tab _modified color:"), pd->prefs[tab_color_modified], table, 0, 1, 2, 3);
 
 	/*
 	 *	Images
