@@ -184,9 +184,9 @@ void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state) {
 		g_print("Cannot set-up menu widget %s\n",path);
 		return;
 	}
-	if ((GTK_CHECK_MENU_ITEM(toggle)->active) != state) {
+	if ((gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(toggle))) != state) {
 		/*gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(toggle), state);*/
-		GTK_CHECK_MENU_ITEM(toggle)->active = state;
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(toggle),state);
 	}
 }
 
@@ -276,7 +276,7 @@ void string_apply(gchar ** config_var, GtkWidget * widget)
  */
 void integer_apply(gint *config_var, GtkWidget * widget, gboolean is_checkbox) {
 	if (is_checkbox) {
-		*config_var = (GTK_TOGGLE_BUTTON(widget)->active);
+		*config_var = (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
 	} else {
 		*config_var = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(widget));
 	}
@@ -776,7 +776,7 @@ GtkWidget *bf_allbuttons_backend(const gchar *label, gboolean w_mnemonic, gint b
 			gtk_container_add(GTK_CONTAINER(button), new_pixmap(bf_pixmaptype));
 		}
 	}
-	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default(button, TRUE);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
 	return button;
 }
@@ -841,7 +841,7 @@ GtkWidget *bf_allbuttons_backend(const gchar *label, gboolean w_mnemonic, gint b
  */
 GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data) {
 	GtkWidget *button = gtk_button_new_from_stock(stock_id);
-	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
+	gtk_widget_set_can_default(button,TRUE);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
 	return button;
 }
@@ -1005,7 +1005,7 @@ static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *second
 	gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
 	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 
-	vbox = GTK_DIALOG (dialog)->vbox;
+	vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 	
 	hbox = gtk_hbox_new (FALSE, 12);
 	gtk_container_set_border_width (GTK_CONTAINER (hbox), 12);
@@ -1141,7 +1141,7 @@ gpointer progress_popup(GtkWidget *win,gchar *title, guint maxvalue) {
 	/* Label, if applicable. Append pretty icon! */
 	hig_dialog_backend(GTK_DIALOG (p->owner), title, NULL, GTK_STOCK_DIALOG_INFO);
 
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (p->owner)->vbox),
+	gtk_box_pack_start (GTK_BOX (gtk_dialog_get_content_area(GTK_DIALOG(p->owner))),
                         p->bar, TRUE, TRUE, 12);
 
 	p->timer = gtk_timeout_add (500, progress_update, p);
@@ -1312,7 +1312,7 @@ static gboolean file_chooser_custom_filter_func(GtkFileFilterInfo *filter_info,g
 	gint ret;
 	Tfchooser_filter *cf = data;
 	if (!filter_info->display_name || filter_info->display_name[0] == '\0') return FALSE; /* error condition ?? */
-	if (!GTK_TOGGLE_BUTTON(cf->show_backup)->active) {
+	if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(cf->show_backup))) {
 		gint namelen = strlen(filter_info->display_name);
 		if (filter_info->display_name[namelen-1] == '~' ) return FALSE;
 	}
@@ -1479,7 +1479,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, const gchar *title, GtkFileChoose
 /************************************************************************/
 
 static void ungroupradoiitems(GtkWidget *menu) {
-	GList *tmplist = g_list_first(GTK_MENU_SHELL(menu)->children);
+	GList *tmplist = g_list_first(gtk_container_get_children(GTK_CONTAINER(menu)));
 	while (tmplist) {
 		GtkWidget *sub;
 		DEBUG_MSG("ungroupradiomenuitems, another item\n");
@@ -1552,18 +1552,18 @@ gchar *ask_accelerator_dialog(const gchar *title) {
 	gtk_dialog_set_has_separator(GTK_DIALOG(dialog1), FALSE);
 	
 	label1 = gtk_label_new("<b>Keystroke choice </b>");
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog1)->vbox), label1, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog1))), label1, FALSE, FALSE, 0);
 	gtk_label_set_use_markup(GTK_LABEL(label1), TRUE);
 	gtk_label_set_justify(GTK_LABEL(label1), GTK_JUSTIFY_CENTER);
 	gtk_misc_set_padding(GTK_MISC(label1), 2, 2);
 	
 	label2 = gtk_label_new("\nPress requested key combination.\nPlease use Ctrl, Shift, Alt key with any other key.\n<i>Esc to cancel, Delete to remove the accelerator.</i>");
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog1)->vbox), label2, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog1))), label2, FALSE, FALSE, 0);
 	gtk_label_set_use_markup(GTK_LABEL(label2), TRUE);
 	gtk_label_set_justify(GTK_LABEL(label2), GTK_JUSTIFY_CENTER);
 	gtk_misc_set_padding(GTK_MISC(label2), 2, 2);
 	
-	gtk_button_box_set_layout(GTK_BUTTON_BOX(GTK_DIALOG(dialog1)->action_area), GTK_BUTTONBOX_END);
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(gtk_dialog_get_action_area(GTK_DIALOG(dialog1))), GTK_BUTTONBOX_END);
 	g_signal_connect(G_OBJECT(dialog1),"key-press-event",G_CALLBACK(accelerator_key_press_lcb),dialog1);
 	
 	gtk_widget_show_all(dialog1);

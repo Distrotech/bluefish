@@ -115,7 +115,7 @@ static void formok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
-	bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(GTK_BIN(dg->combo[3])->child));
+	bfwin->session->targetlist = add_entry_to_stringlist(bfwin->session->targetlist, GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[3]))));
 	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, cap("</FORM>"));
 	} else {
@@ -157,7 +157,7 @@ void formdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	
 	bf_mnemonic_label_tad_with_alignment(_("_Action:"), dg->combo[4], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 1, 8, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), file_but_new(GTK_WIDGET(GTK_BIN(dg->combo[4])->child), 0, bfwin), 8, 10, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[4]))), 0, bfwin), 8, 10, 0, 1);
 	
 	methodlist = g_list_append(methodlist, cap("GET"));
 	methodlist = g_list_append(methodlist, cap("POST"));

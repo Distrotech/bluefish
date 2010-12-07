@@ -87,7 +87,7 @@ static void bs_page_no_selection(Tbsdialog *bsdialog) {
 	const gchar *stext = _("Select the block to sync to other pages. Include the start-of-block and end-of-block markers in your selection.");	
 	
 	vbox = gtk_vbox_new(FALSE,6);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(bsdialog->dialog)->vbox), vbox, TRUE,TRUE,5);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(bsdialog->dialog))), vbox, TRUE,TRUE,5);
 	if (doc_has_selection(bsdialog->bfwin->current_document)) {
 		tmp1 = g_strconcat(stext, " ", _("To proceed with the current selection click forward."), NULL);
 	} else {
@@ -116,7 +116,7 @@ static void bs_page_start_marker(Tbsdialog *bsdialog, const gchar *text) {
 	GtkTextIter start,end;
 	GtkTextMark *mark;
 	vbox = gtk_vbox_new(FALSE,6);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(bsdialog->dialog)->vbox), vbox, TRUE,TRUE,5);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(bsdialog->dialog))), vbox, TRUE,TRUE,5);
 	
 	label	= gtk_label_new(_("Below is the block, including start and end marker. Please <b>select the start marker</b> in the text below."));
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
@@ -151,7 +151,7 @@ static void bs_page_end_marker(Tbsdialog *bsdialog, const gchar *text) {
 	GtkTextIter start,end;
 	GtkTextMark *mark;
 	vbox = gtk_vbox_new(FALSE,6);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(bsdialog->dialog)->vbox), vbox, TRUE,TRUE,5);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(bsdialog->dialog))), vbox, TRUE,TRUE,5);
 	
 	label	= gtk_label_new(_("Please <b>select the end marker</b> in the text below."));
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
@@ -198,7 +198,7 @@ static void bs_page_summary(Tbsdialog *bsdialog) {
 	g_free(tmp2);
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(bsdialog->dialog)->vbox), label, TRUE,TRUE,5);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(bsdialog->dialog))), label, TRUE,TRUE,5);
 	gtk_widget_show_all(bsdialog->dialog);
 
 	bsdialog->child = label;

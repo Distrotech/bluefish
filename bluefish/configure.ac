@@ -173,6 +173,11 @@ AC_ARG_ENABLE(
 	[
 	 if test "x$enableval" != "xno"; then
 		 AC_DEFINE([DEVELOPMENT], [1], [Define to 1 if you want to have development checks.])
+		 CFLAGS="$CFLAGS -DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES"
+		 CFLAGS="$CFLAGS -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED"
+		 CFLAGS="$CFLAGS -DG_DISABLE_DEPRECATED"
+dnl		 CFLAGS="$CFLAGS -DGTK_DISABLE_DEPRECATED"
+		 CFLAGS="$CFLAGS -DGSEAL_ENABLE"
 	 fi
 	]
 )
@@ -363,9 +368,9 @@ fi
 
 BF_dependencies="\
 gtk+-2.0 >= 2.12 \
-gmodule-2.0 >= 2.12 \
+gmodule-2.0 >= 2.16 \
 gobject-2.0 \
-glib-2.0 \
+glib-2.0 >= 2.16 \
 pango \
 gdk-pixbuf-2.0 \
 gdk-2.0 \

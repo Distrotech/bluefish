@@ -203,6 +203,7 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 	GtkCellRenderer *renderer;
 	GtkWidget *vbox2, *but, *image;
 	Toutputbox *ob;
+	GtkAllocation allocation;
 	
 	ob = g_new0(Toutputbox,1);
 	DEBUG_MSG("init_output_box, created %p\n",ob);
@@ -212,7 +213,8 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 
 	ob->hbox = gtk_hbox_new(FALSE,0);
 	gtk_paned_add2(GTK_PANED(bfwin->vpane), ob->hbox);
-	gtk_paned_set_position(GTK_PANED(bfwin->vpane),(gint)(bfwin->vpane->allocation.height * 0.8));
+	gtk_widget_get_allocation(bfwin->vpane, &allocation);
+	gtk_paned_set_position(GTK_PANED(bfwin->vpane),(gint)(allocation.height * 0.8));
 
 	ob->lstore = gtk_list_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
 	ob->lfilter = GTK_TREE_MODEL_FILTER(gtk_tree_model_filter_new(GTK_TREE_MODEL(ob->lstore),NULL));
@@ -341,7 +343,7 @@ void fill_output_box(gpointer data, gchar *string) {
 		GtkAdjustment* vadj;
 		DEBUG_MSG("fill_output_box, scroll to end..\n");
 		vadj = gtk_tree_view_get_vadjustment(GTK_TREE_VIEW(ob->lview));
-		gtk_adjustment_set_value(vadj, vadj->upper);		
+		gtk_adjustment_set_value(vadj, gtk_adjustment_get_upper(vadj));		
 		
 	}
 }

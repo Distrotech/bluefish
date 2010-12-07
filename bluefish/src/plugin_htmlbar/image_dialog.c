@@ -279,7 +279,7 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 
 	alignment = gtk_alignment_new(0, 0, 1, 1);
 	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 6, 12, 6, 6);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), alignment, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), alignment, TRUE, TRUE, 0);
 
 	vbox = gtk_vbox_new(FALSE, 6);
 	gtk_container_add(GTK_CONTAINER(alignment), vbox);

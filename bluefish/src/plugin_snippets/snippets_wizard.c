@@ -463,7 +463,7 @@ static gint snippets_test_pageInsert(Tsnipwiz *snwiz, gpointer data) {
 		if (strlen(tmpstr)>0) {
 			tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"param", NULL);
 			xmlSetProp(tmpn, (const xmlChar *)"name", (const xmlChar *)tmpstr);
-			if (GTK_TOGGLE_BUTTON(p2->is_file[i])->active) {
+			if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(p2->is_file[i]))) {
 				xmlSetProp(tmpn, (const xmlChar *)"is_file", (const xmlChar *)"1");
 			}
 		}
@@ -715,21 +715,22 @@ static void snipwiz_dialog_response_lcb(GtkDialog *dialog, gint response, Tsnipw
 		break;
 	}
 	if (snwiz->pagenum != newpagenum) {
+		GtkWidget *vbox = gtk_dialog_get_content_area(GTK_DIALOG(snwiz->dialog));
 		switch (newpagenum) { /* build a new page */
 			case page_type:
-				snwiz->pagestruct = snippets_build_pageType(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+				snwiz->pagestruct = snippets_build_pageType(snwiz, vbox);
 			break;
 			case page_name:
-				snwiz->pagestruct = snippets_build_pageName(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+				snwiz->pagestruct = snippets_build_pageName(snwiz, vbox);
 			break;
 			case page_branch:
-				snwiz->pagestruct = snippets_build_pageBranch(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+				snwiz->pagestruct = snippets_build_pageBranch(snwiz, vbox);
 			break;
 			case page_insert:
-				snwiz->pagestruct = snippets_build_pageInsert(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+				snwiz->pagestruct = snippets_build_pageInsert(snwiz, vbox);
 			break;
 			case page_snr:
-				snwiz->pagestruct = snippets_build_pageSnr(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+				snwiz->pagestruct = snippets_build_pageSnr(snwiz, vbox);
 			break;
 			case page_finished:
 				gtk_widget_destroy(snwiz->dialog);
@@ -747,6 +748,7 @@ static void snipwiz_dialog_response_lcb(GtkDialog *dialog, gint response, Tsnipw
 
 void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr node) {
 	Tsnipwiz *snwiz;
+	GtkWidget *vbox;
 	
 	snwiz = g_new0(Tsnipwiz,1);
 	snwiz->snw = snw;
@@ -758,6 +760,7 @@ void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr node) {
 					NULL);
 	gtk_window_set_default_size(GTK_WINDOW(snwiz->dialog),500,400);
 	g_signal_connect(G_OBJECT(snwiz->dialog), "response", G_CALLBACK(snipwiz_dialog_response_lcb), snwiz);
+	vbox = gtk_dialog_get_content_area(GTK_DIALOG(snwiz->dialog));
 	if (node) {
 		if (xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
 			xmlChar *type = xmlGetProp(node, (const xmlChar *)"type");
@@ -766,18 +769,18 @@ void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr node) {
 			} else if (xmlStrEqual(type, (const xmlChar *)"snr")) {
 				snwiz->choice = 2;
 			} 
-			snwiz->pagestruct = snippets_build_pageName(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+			snwiz->pagestruct = snippets_build_pageName(snwiz, vbox);
 			snwiz->pagenum = page_name;
 		} else {
-			snwiz->pagestruct = snippets_build_pageBranch(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+			snwiz->pagestruct = snippets_build_pageBranch(snwiz, vbox);
 			snwiz->pagenum = page_branch;
 		}
 	} else {
 		if (!snw->lastclickednode) {
-			snwiz->pagestruct = snippets_build_pageBranch(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+			snwiz->pagestruct = snippets_build_pageBranch(snwiz, vbox);
 			snwiz->pagenum = page_branch;
 		} else {
-			snwiz->pagestruct = snippets_build_pageType(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
+			snwiz->pagestruct = snippets_build_pageType(snwiz, vbox);
 			snwiz->pagenum = page_type;
 		}
 	}

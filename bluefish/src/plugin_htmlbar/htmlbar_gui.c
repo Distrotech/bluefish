@@ -182,11 +182,11 @@ static void htmlbar_view_lcb(Thtmlbarwin *hbw,guint action,GtkWidget *widget) {
 	Thtmlbarsession *hbs;
 	hbs = g_hash_table_lookup(htmlbar_v.lookup,hbw->bfwin->session);
 	if (hbs) {
-		hbs->view_htmlbar = GTK_CHECK_MENU_ITEM(widget)->active;
+		hbs->view_htmlbar = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 	} else {
 		DEBUG_MSG("htmlbar_view_lcb, ERROR, no htmlbarsession ???\n");
 	}
-	htmlbar_view_toolbar(hbw, GTK_CHECK_MENU_ITEM(widget)->active);
+	htmlbar_view_toolbar(hbw, gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)));
 }
 
 #ifdef ENABLE_NLS
