@@ -272,6 +272,19 @@ dialog_combo_box_text_labeled_from_list(const GList *options, const gchar *value
 }
 
 GtkWidget *
+dialog_combo_box_text_from_list_in_table(const GList *options, const gchar *value, GtkWidget *table, guint left_attach,
+	guint right_attach, guint top_attach, guint bottom_attach)
+{
+	GtkWidget *combobox;
+
+	combobox = dialog_combo_box_text_from_list(options, value);
+	gtk_table_attach(GTK_TABLE (table), combobox, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
+		GTK_SHRINK, 0, 0);
+
+	return combobox;
+}
+
+GtkWidget *
 dialog_combo_box_text_new(const gchar **options, gint index)
 {
 	GtkWidget *combobox;
