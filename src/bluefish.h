@@ -198,6 +198,8 @@ typedef struct {
 	guint newdoc_autodetect_lang_id;	/* a timer function that runs for new documents to detect their mime type  */
 	unre_t unre;
 	GtkWidget *view;
+	GtkWidget *slave; /* used in split view for the bottom view */
+	GtkWidget *vsplit; /* used for split view */
 	GtkWidget *tab_label;
 	GtkWidget *tab_eventbox;
 	GtkWidget *tab_menu;

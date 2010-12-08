@@ -727,7 +727,7 @@ gchar *textbuffer_get_all_chars(GtkTextBuffer *buffer) {
  * Return value: #GtkWidget* to this_widget
  */
 GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring) {
-	if (fontstring) {
+	if (fontstring && fontstring[0] != '\0') {
 		PangoFontDescription *font_desc;
 		font_desc = pango_font_description_from_string(fontstring);
 		gtk_widget_modify_font(this_widget, font_desc);

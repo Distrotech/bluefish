@@ -1484,6 +1484,8 @@ static Tbmark *bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint off
 		bmark_store(BFWIN(doc->bfwin), m);
 	}
 	gtk_widget_queue_draw(doc->view);
+	if (doc->slave)
+		gtk_widget_queue_draw(doc->slave);
 	return m;
 }
 

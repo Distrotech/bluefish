@@ -156,9 +156,13 @@ static gboolean locate_current_tag(Tdocument *doc, const GtkTextIter *iter) {
 }
 
 /* TODO: a </tag> should not count as editable tag!!! */
-void rpopup_bevent_in_html_code(Tdocument *doc, GtkTextIter *iter) {
-	locate_current_tag(doc, iter);
-	locate_color(doc, iter);
+void rpopup_bevent_in_html_code(Tdocument *doc) {
+	if (main_v->bevent_doc == doc) {
+		GtkTextIter iter;
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, main_v->bevent_charoffset);
+		locate_current_tag(doc, &iter);
+		locate_color(doc, &iter);
+	}
 }
 /*
 static void input_tag_splitter(Tbfwin *bfwin, gpointer data)
