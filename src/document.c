@@ -2582,7 +2582,7 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 }
 
 static GtkWidget *doc_create_slave_view(Tdocument *doc) {
-	GtkWidget *scrolwin;
+	GtkWidget *scroll;
 	DEBUG_MSG("doc_create_slave_view, create slave view for %p\n",doc->view);
 	doc->slave = bftextview2_new_slave(BLUEFISH_TEXT_VIEW(doc->view));
 	g_signal_connect(G_OBJECT(doc->slave), "toggle-overwrite",
@@ -2595,15 +2595,21 @@ static GtkWidget *doc_create_slave_view(Tdocument *doc) {
 		G_CALLBACK(doc_view_button_press_lcb), doc);
 
 	apply_font_style(doc->slave, main_v->props.editor_font_string);
-	scrolwin = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), doc->slave);
-	return scrolwin;
+	scroll = gtk_scrolled_window_new(NULL, NULL);
+	g_signal_connect(scroll, "scroll-event", G_CALLBACK(doc_scroll_event_lcb), doc);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
+									   GTK_POLICY_AUTOMATIC,
+									   GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
+											(scroll), GTK_SHADOW_IN);
+	gtk_container_add(GTK_CONTAINER(scroll), doc->slave);
+	/*gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scroll), doc->slave);*/
+	return scroll;
 }
 
 static gboolean doc_split_scroll(gpointer data) {
 	Tdocument *doc=data;
-	GtkAdjustment* adjust = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(gtk_widget_get_parent(gtk_widget_get_parent(doc->slave))));
+	GtkAdjustment* adjust = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(gtk_widget_get_parent(doc->slave)));
 	gtk_adjustment_set_value(adjust, gtk_adjustment_get_lower(adjust)+gtk_adjustment_get_page_size(adjust));
 	return FALSE;
 }
