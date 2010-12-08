@@ -57,6 +57,10 @@ dialog_combo_box_text_labeled_from_list(const GList *options, const gchar *value
 	GtkWidget *box, guint padding);
 
 GtkWidget *
+dialog_combo_box_text_from_list_in_table(const GList *options, const gchar *value, GtkWidget *table, guint left_attach,
+	guint right_attach, guint top_attach, guint bottom_attach);
+
+GtkWidget *
 dialog_combo_box_text_new(const gchar **options, gint index);
 
 GtkWidget *

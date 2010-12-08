@@ -157,7 +157,7 @@ typedef struct
 	GtkWidget *bold_radio[2];
 	GtkWidget *italic_radio[2];
 #ifdef HAVE_LIBENCHANT
-GtkWidget *need_spellcheck;
+	GtkWidget *need_spellcheck;
 #endif
 } Ttextstylepref;
 
@@ -458,32 +458,6 @@ font_button_lcb(GtkWidget *wid, GtkWidget *entry)
 	gtk_widget_show(fsd);
 }
 
-/*static void color_dialog_response_lcb(GtkDialog *fsd,gint response,GtkWidget *entry) {
- if (response == GTK_RESPONSE_OK) {
- GdkColor cc;
- gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(GTK_COLOR_SELECTION_DIALOG(fsd)->colorsel),&cc);
- gtk_entry_set_text(GTK_ENTRY(entry), gdk_color_to_hexstring(&cc,TRUE));
- }
- gtk_widget_destroy(GTK_WIDGET(fsd));
- }
-
- static void color_button_lcb(GtkWidget *wid, GtkWidget *entry) {
- GtkWidget *fsd;
- const gchar *cname;
- GdkColor cc;
- fsd = gtk_color_selection_dialog_new(_("Select color"));
- cname = gtk_entry_get_text(GTK_ENTRY(entry)); / * do NOT free, this is an internal pointer * /
- if (strlen(cname)) {
- gdk_color_parse(cname,&cc);
- gtk_color_selection_set_current_color(GTK_COLOR_SELECTION(GTK_COLOR_SELECTION_DIALOG(fsd)->colorsel), &cc);
- }
- g_signal_connect(GTK_OBJECT(fsd),"response",G_CALLBACK(color_dialog_response_lcb),entry);
- gtk_window_set_transient_for(GTK_WINDOW(GTK_DIALOG(fsd)), GTK_WINDOW(gtk_widget_get_toplevel(entry)));
- gtk_window_set_modal(GTK_WINDOW(GTK_DIALOG(fsd)), TRUE);
- gtk_window_set_destroy_with_parent(GTK_WINDOW(GTK_DIALOG(fsd)), TRUE);
- gtk_widget_show(fsd);
- }*/
-
 static GtkWidget *
 prefs_string(const gchar *title, const gchar *curval, GtkWidget *box, Tprefdialog *pd, Tprefstringtype prefstringtype)
 {
@@ -508,23 +482,8 @@ prefs_string(const gchar *title, const gchar *curval, GtkWidget *box, Tprefdialo
 	{
 		GtkWidget *but = bf_gtkstock_button(GTK_STOCK_SELECT_FONT, G_CALLBACK(font_button_lcb), return_widget);
 		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 3);
-	}/*	 else if (prefstringtype == string_color) {
-	 GtkWidget *but = bf_gtkstock_button(GTK_STOCK_SELECT_COLOR, G_CALLBACK(color_button_lcb), return_widget);
-	 gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 3);
-	 }*/
-	return return_widget;
-}
+	}
 
-static GtkWidget *
-prefs_combo(const gchar *title, const gchar *curval, GtkWidget *box, GList *poplist, gboolean editable)
-{
-	GtkWidget *return_widget;
-	GtkWidget *hbox;
-
-	hbox = gtk_hbox_new(FALSE, 3);
-	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(title), FALSE, FALSE, 3);
-	return_widget = boxed_combobox_with_popdown(curval, poplist, editable, hbox);
 	return return_widget;
 }
 
@@ -590,18 +549,25 @@ sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars)
 }
 
 Tsessionprefs *
-sessionprefs(const gchar *frame_title, Tsessionprefs *sprefs, Tsessionvars *sessionvars)
+sessionprefs(const gchar *label, Tsessionprefs *sprefs, Tsessionvars *sessionvars)
 {
-	GList *poplist, *tmplist;
 	gchar *curtemplate = NULL;
-	sprefs->vbox = gtk_vbox_new(FALSE, 3);
+	GList *poplist, *tmplist;
+	GtkWidget *table, *vbox2;
 
-	sprefs->frame = gtk_frame_new(frame_title);
+	sprefs->frame = gtk_frame_new(NULL);
+	gtk_frame_set_shadow_type(GTK_FRAME(sprefs->frame), GTK_SHADOW_IN);
+	sprefs->vbox = gtk_vbox_new(FALSE, 12);
+	gtk_container_set_border_width(GTK_CONTAINER(sprefs->vbox), 6);
 	gtk_container_add(GTK_CONTAINER(sprefs->frame), sprefs->vbox);
 
+	vbox2 = dialog_vbox_labeled(label, sprefs->vbox);
+	table = dialog_table_in_vbox_defaults(3, 6, 0, vbox2);
+
 	poplist = g_list_sort(langmgr_get_languages_mimetypes(), (GCompareFunc) g_strcmp0);
-	sprefs->prefs[default_mime_type] = prefs_combo(_("Default mime type for new files"),
-		sessionvars->default_mime_type, sprefs->vbox, poplist, TRUE);
+	sprefs->prefs[default_mime_type] = dialog_combo_box_text_from_list_in_table(poplist,
+		sessionvars->default_mime_type, table, 1, 6, 0, 1);
+	dialog_mnemonic_label_in_table(_("_Mime type:"), sprefs->prefs[default_mime_type], table, 0, 1, 0, 1);
 	g_list_free(poplist);
 
 	poplist = NULL;
@@ -616,28 +582,38 @@ sessionprefs(const gchar *frame_title, Tsessionprefs *sprefs, Tsessionvars *sess
 	}
 	poplist = g_list_sort(poplist, (GCompareFunc) g_strcmp0);
 	poplist = g_list_prepend(poplist, _("None"));
-	sprefs->prefs[template] = prefs_combo(_("Default template"), curtemplate ? curtemplate : _("None"), sprefs->vbox,
-		poplist, FALSE);
+	sprefs->prefs[template] = dialog_combo_box_text_from_list_in_table(poplist, curtemplate ? curtemplate : _("None"),
+		table, 1, 6, 1, 2);
+	dialog_mnemonic_label_in_table(_("_Template:"), sprefs->prefs[template], table, 0, 1, 1, 2);
 	g_list_free(poplist);
 
-	sprefs->prefs[session_wrap_text] = boxed_checkbut_with_value(_("_Word wrap by default"),
-		sessionvars->wrap_text_default, sprefs->vbox);
-	sprefs->prefs[autoindent] = boxed_checkbut_with_value(_("(Smart) Auto indenting"), sessionvars->autoindent,
-		sprefs->vbox);
-	sprefs->prefs[editor_tab_width] = prefs_integer(_("Tab width"), sessionvars->editor_tab_width, sprefs->vbox, 1, 50);
-	sprefs->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Show line numbers"),
-		sessionvars->view_line_numbers, sprefs->vbox);
-	sprefs->prefs[view_cline] = boxed_checkbut_with_value(_("Highlight current line"), sessionvars->view_cline,
-		sprefs->vbox);
-	sprefs->prefs[view_blocks] = boxed_checkbut_with_value(_("Enable block folding"), sessionvars->view_blocks,
-		sprefs->vbox);
-	sprefs->prefs[autocomplete] = boxed_checkbut_with_value(_("Enable automatic completion pop-up"),
-		sessionvars->autocomplete, sprefs->vbox);
-	sprefs->prefs[show_mbhl] = boxed_checkbut_with_value(_("Highlight block delimiters"), sessionvars->show_mbhl,
-		sprefs->vbox);
+	sprefs->prefs[editor_tab_width] = dialog_spin_button_in_table(1, 50, sessionvars->editor_tab_width, table, 1, 2, 2,
+		3);
+	dialog_mnemonic_label_in_table(_("Tab _width:"), sprefs->prefs[editor_tab_width], table, 0, 1, 2, 3);
+
+	table = dialog_table_in_vbox_defaults(7, 1, 0, vbox2);
+
+	sprefs->prefs[autocomplete] = dialog_check_button_in_table(_("Enable a_uto-completion"), sessionvars->autocomplete,
+		table, 0, 1, 0, 1);
+	sprefs->prefs[view_blocks] = dialog_check_button_in_table(_("Enable _block folding"), sessionvars->view_blocks,
+		table, 0, 1, 1, 2);
+	sprefs->prefs[show_mbhl] = dialog_check_button_in_table(_("Highlight block _delimiters"), sessionvars->show_mbhl,
+		table, 0, 1, 2, 3);
+	sprefs->prefs[view_cline] = dialog_check_button_in_table(_("_Highlight current line"), sessionvars->view_cline,
+		table, 0, 1, 3, 4);
+	sprefs->prefs[view_line_numbers] = dialog_check_button_in_table(_("Show line _numbers"),
+		sessionvars->view_line_numbers, table, 0, 1, 4, 5);
+	sprefs->prefs[autoindent] = dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table,
+		0, 1, 5, 6);
+	sprefs->prefs[session_wrap_text] = dialog_check_button_in_table(_("Wra_p lines"), sessionvars->wrap_text_default,
+		table, 0, 1, 6, 7);
+
 #ifdef HAVE_LIBENCHANT
-	sprefs->prefs[session_spell_check] = boxed_checkbut_with_value(_("Enable spell check"), sessionvars->spell_check_default, sprefs->vbox);
+	sprefs->prefs[session_spell_check] = dialog_check_button_new(_("_Enable spell check"),
+		sessionvars->spell_check_default);
+	gtk_box_pack_start(GTK_BOX(vbox2), sprefs->prefs[session_spell_check], FALSE, FALSE, 0);
 #endif
+
 	gtk_widget_show_all(sprefs->frame);
 	return sprefs;
 }
@@ -840,13 +816,15 @@ textstyle_radio_changed(GtkToggleButton *togglebutton, gpointer user_data)
 	}
 }
 #ifdef HAVE_LIBENCHANT
-static void textstyle_spellcheck_changed(GtkToggleButton *togglebutton, gpointer user_data)
+static void
+textstyle_spellcheck_changed(GtkToggleButton *togglebutton, gpointer user_data)
 {
-	Tprefdialog *pd = (Tprefdialog *)user_data;
+	Tprefdialog *pd = (Tprefdialog *) user_data;
 	if (pd->tsd.curstrarr)
 	{
-		if (pd->tsd.curstrarr[5]) g_free(pd->tsd.curstrarr[5]);
-		pd->tsd.curstrarr[5] = g_strdup(gtk_toggle_button_get_active(togglebutton)?"1":"0");
+		if (pd->tsd.curstrarr[5])
+			g_free(pd->tsd.curstrarr[5]);
+		pd->tsd.curstrarr[5] = g_strdup(gtk_toggle_button_get_active(togglebutton) ? "1" : "0");
 	}
 }
 #endif
@@ -901,7 +879,7 @@ create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1)
 	gtk_box_pack_start(GTK_BOX(vbox), pd->tsd.italic_radio[1], FALSE, FALSE, 0);
 #ifdef HAVE_LIBENCHANT
 	pd->tsd.need_spellcheck = gtk_check_button_new_with_label(_("Spell check"));
-	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.need_spellcheck, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), pd->tsd.need_spellcheck, FALSE, FALSE, 0);
 #endif
 
 	{
@@ -1910,7 +1888,7 @@ preferences_dialog()
 	pd->prefs[right_margin_pos] = prefs_integer(_("Right margin position"), main_v->props.right_margin_pos, vbox2, 1,
 		1000);
 
-	vbox2 = dialog_vbox_labeled(_("<b>Tabs</b>"), vbox1);
+	vbox2 = dialog_vbox_labeled(_("<b>Tab Stops</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(2, 1, 0, vbox2);
 
 	pd->prefs[editor_indent_wspaces] = dialog_check_button_in_table(_("Insert _spaces instead of tabs"),
@@ -1974,7 +1952,7 @@ preferences_dialog()
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Initial document settings"), WIDGETCOL, vbox1, -1);
 
-	sessionprefs(_("Non-project initial document settings"), &pd->sprefs, main_v->session);
+	sessionprefs(_("<b>Non Project Defaults</b>"), &pd->sprefs, main_v->session);
 	gtk_box_pack_start(GTK_BOX(vbox1), pd->sprefs.frame, FALSE, FALSE, 5);
 
 	/*
