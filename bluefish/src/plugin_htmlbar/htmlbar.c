@@ -60,9 +60,7 @@ static void htmlbar_doc_view_populate_popup(GtkTextView *textview,GtkMenu *menu,
 static void htmlbar_doc_view_button_press(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("htmlbar_doc_view_button_press, called\n");
 	if (bevent->button == 3) {
-		GtkTextIter iter;
-		doc_get_iter_at_bevent(doc, bevent, &iter);
-		rpopup_bevent_in_html_code(doc, &iter); 	 
+		rpopup_bevent_in_html_code(doc);
 	}
 }
 

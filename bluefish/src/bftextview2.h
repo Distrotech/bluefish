@@ -175,7 +175,14 @@ the GCompletion can be found in hashtable
 bfwin->identifier_ac with 
 key Tbflang-context -> value GCompletion
 
+======= Split view / slave widget =======
 
+a slave widget is a widget that does not do scanning itself, it doesn't 
+have a scanning table, it doesn't have any settings. It relies for all
+of these things on the master widget. On a master widget btv->master will
+point to itself, on a slave widget btv->master will point to the master.
+
+The slave widget should always be destroyed before the master. 
 */
 
 #ifndef _BFTEXTVIEW2_H_
@@ -418,9 +425,12 @@ typedef struct _BluefishTextViewClass BluefishTextViewClass;
 
 struct _BluefishTextView {
 	GtkTextView parent;
-/*	Tscantable *scantable;*/
+	gpointer master; /* points usually to self, but in the case of a slave widget 
+					(two widgets showing the same buffer it will point to the master widget) */
+	gpointer slave; /* usually NULL, but might point to a slave widget */
 	Tbflang *bflang; /* Tbflang */
 	gpointer doc; /* Tdocument */
+	GtkTextBuffer *buffer;
 	GtkTextTag *needscanning;
 #ifdef HAVE_LIBENCHANT
 	GtkTextTag *needspellcheck;
@@ -433,6 +443,12 @@ struct _BluefishTextView {
 	guint user_idle; /* event ID for the timed function that handles user idle events such as autocompletion popups */
 	guint mark_set_idle; /* event ID for the mark_set idle function that avoids showing matching block bounds while 
 								you hold the arrow key to scroll quickly */
+	gulong insert_text_id;
+	gulong insert_text_after_id;
+	gulong mark_set_id;
+	gulong delete_range_id;
+	gulong delete_range_after_id;
+	
 	gpointer autocomp; /* a Tacwin* with the current autocompletion window */
 	gboolean needs_autocomp; /* a state of the widget, autocomplete is needed on user keyboard actions */
 	gboolean needs_blockmatch; /* a state of the widget, if the cursor position was changed */
@@ -469,8 +485,7 @@ struct _BluefishTextViewClass {
 
 GType bluefish_text_view_get_type (void);
 
-GtkWidget * bftextview2_new(void);
-GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer);
+
 gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
 void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);
 gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);
@@ -504,5 +519,8 @@ void bluefish_text_view_multiset(BluefishTextView *btv
 			, gint autocomplete
 			, gint show_mbhl);
 
+GtkWidget * bftextview2_new(void);
+GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer);
+GtkWidget *bftextview2_new_slave(BluefishTextView *master);
 
 #endif

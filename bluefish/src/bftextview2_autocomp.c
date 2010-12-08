@@ -119,6 +119,7 @@ gboolean acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 			GtkTreeSelection *selection;
 			GtkTreeIter it;
 			GtkTreeModel *model;
+			BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
 			selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 			if (selection && gtk_tree_selection_get_selected(selection, &model, &it)) {
 				gchar *string;
@@ -127,18 +128,18 @@ gboolean acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 				gint backup_chars = 0;
 				gtk_tree_model_get(model, &it, 1, &string, -1);
 				/*g_print("context %d has patternhash %p, string=%s\n",ACWIN(btv->autocomp)->contextnum, g_array_index(btv->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).patternhash, string); */
-				if (g_array_index(btv->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).
+				if (g_array_index(master->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).
 					patternhash) {
 					/*g_print("looking in context %d patternhash for '%s'\n",ACWIN(btv->autocomp)->contextnum, string); */
 					pattern_id =
 						GPOINTER_TO_INT(g_hash_table_lookup
 										(g_array_index
-										 (btv->bflang->st->contexts, Tcontext,
+										 (master->bflang->st->contexts, Tcontext,
 										  ACWIN(btv->autocomp)->contextnum).patternhash, string));
 					DBG_AUTOCOMP("got pattern_id=%d\n", pattern_id);
 					if (pattern_id) {
 						GSList *tmpslist =
-							g_array_index(btv->bflang->st->matches, Tpattern, pattern_id).autocomp_items;
+							g_array_index(master->bflang->st->matches, Tpattern, pattern_id).autocomp_items;
 						/* a pattern MAY have multiple autocomplete items. This code is not efficient iof in the future some 
 						   patterns would have many autocomplete items. I don't expect this, so I leave this as it is right now  */
 						while (tmpslist) {
@@ -208,7 +209,8 @@ static void acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	if (!g_array_index(acw->btv->bflang->st->contexts, Tcontext, acw->contextnum).patternhash
+	BluefishTextView *master = BLUEFISH_TEXT_VIEW(acw->btv->master);
+	if (!g_array_index(master->bflang->st->contexts, Tcontext, acw->contextnum).patternhash
 		|| !main_v->props.show_autocomp_reference)
 		return;
 
@@ -218,14 +220,14 @@ static void acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw
 		if (key) {
 			gint pattern_id =
 				GPOINTER_TO_INT(g_hash_table_lookup
-								(g_array_index(acw->btv->bflang->st->contexts, Tcontext, acw->contextnum).
+								(g_array_index(master->bflang->st->contexts, Tcontext, acw->contextnum).
 								 patternhash, key));
-			if (pattern_id && g_array_index(acw->btv->bflang->st->matches, Tpattern, pattern_id).reference) {
+			if (pattern_id && g_array_index(master->bflang->st->matches, Tpattern, pattern_id).reference) {
 				GtkRequisition requisition;
 				DBG_AUTOCOMP("show %s\n",
-							 g_array_index(acw->btv->bflang->st->matches, Tpattern, pattern_id).reference);
+							 g_array_index(master->bflang->st->matches, Tpattern, pattern_id).reference);
 				gtk_label_set_markup(GTK_LABEL(acw->reflabel),
-									 g_array_index(acw->btv->bflang->st->matches, Tpattern,
+									 g_array_index(master->bflang->st->matches, Tpattern,
 												   pattern_id).reference);
 				gtk_widget_show(acw->reflabel);
 				gtk_widget_size_request(acw->reflabel, &requisition);
@@ -396,12 +398,13 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 {
 	GtkTextIter cursorpos, iter;
 	GtkTextBuffer *buffer;
+	BluefishTextView *master=BLUEFISH_TEXT_VIEW(btv->master);
 	gint contextnum;
 	gunichar uc;
 	guint16 identstate;
 	Tfoundblock *fblock = NULL;	/* needed for the special case to close generix xml tags based on the top of the blockstack */
 
-	if (G_UNLIKELY(!btv->bflang || !btv->bflang->st))
+	if (G_UNLIKELY(!master->bflang || !master->bflang->st))
 		return;
 
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
@@ -411,7 +414,7 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 	gtk_text_iter_set_line_offset(&iter, 0);
 
 
-	scan_for_autocomp_prefix(btv, &iter, &cursorpos, &contextnum);
+	scan_for_autocomp_prefix(master, &iter, &cursorpos, &contextnum);
 	DBG_AUTOCOMP("autocomp_run, got possible match start at %d in context %d, cursor is at %d\n",
 				 gtk_text_iter_get_offset(&iter), contextnum, gtk_text_iter_get_offset(&cursorpos));
 	/* see if character at cursor is end or symbol */
@@ -419,8 +422,8 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 	if (G_UNLIKELY(uc > NUMSCANCHARS))
 		return;
 	
-	identstate = g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).identstate;
-	if (g_array_index(btv->bflang->st->table, Ttablerow, identstate).row[uc] == identstate) {
+	identstate = g_array_index(master->bflang->st->contexts, Tcontext, contextnum).identstate;
+	if (g_array_index(master->bflang->st->table, Ttablerow, identstate).row[uc] == identstate) {
 		/* current character is not a symbol! */
 		DBG_AUTOCOMP("autocomp_run, character at cursor %d '%c' is not a symbol, return\n", uc,
 					 (char) uc);
@@ -428,10 +431,10 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 		return;
 	}
 
-	if (g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).has_tagclose_from_blockstack) {
+	if (g_array_index(master->bflang->st->contexts, Tcontext, contextnum).has_tagclose_from_blockstack) {
 		Tfoundstack *fstack;
 		GSequenceIter *siter = NULL;
-		fstack = get_stackcache_at_offset(btv, gtk_text_iter_get_offset(&cursorpos), &siter);
+		fstack = get_stackcache_at_offset(master, gtk_text_iter_get_offset(&cursorpos), &siter);
 		if (fstack) {
 			fblock = g_queue_peek_head(fstack->blockstack);
 			DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n",
@@ -449,9 +452,9 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 		}
 	}
 	if ((user_requested || !gtk_text_iter_equal(&iter, &cursorpos))
-		&& (g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).ac != NULL
+		&& (g_array_index(master->bflang->st->contexts, Tcontext, contextnum).ac != NULL
 			|| (fblock
-				&& g_array_index(btv->bflang->st->matches, Tpattern,
+				&& g_array_index(master->bflang->st->matches, Tpattern,
 								 fblock->patternum).tagclose_from_blockstack)
 		)
 		) {
@@ -479,15 +482,15 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 				closetag = NULL;
 			}
 		}
-		if (g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).ac) {
+		if (g_array_index(master->bflang->st->contexts, Tcontext, contextnum).ac) {
 			items =
-				g_completion_complete(g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).ac,
+				g_completion_complete(g_array_index(master->bflang->st->contexts, Tcontext, contextnum).ac,
 									  prefix, &newprefix);
 			DBG_AUTOCOMP("got %d autocompletion items for prefix %s in context %d, newprefix=%s\n",
 						 g_list_length(items), prefix, contextnum, newprefix);
 #ifdef IDENTSTORING
 			{
-				GCompletion *compl = identifier_ac_get_completion(btv, contextnum, FALSE);
+				GCompletion *compl = identifier_ac_get_completion(master, contextnum, FALSE);
 				g_print("got completion %p for context %d\n", compl, contextnum);
 				if (compl) {
 					gchar *newprefix2 = NULL;
@@ -547,7 +550,7 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 		g_free(prefix);
 	} else {
 		DBG_AUTOCOMP("no autocompletion data for context %d (ac=%p), or no prefix\n", contextnum,
-					 g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).ac);
+					 g_array_index(master->bflang->st->contexts, Tcontext, contextnum).ac);
 		acwin_cleanup(btv);
 	}
 }

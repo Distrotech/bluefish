@@ -328,7 +328,7 @@ gint document_return_num_notcomplete(GList *doclist) {
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	if (!bfwin->current_document) return;
 	if (!BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner) {
-		g_print("doc_update_highlighting, set enable_scanner to TRUE\n");
+		DEBUG_MSG("doc_update_highlighting, set enable_scanner to TRUE\n");
 		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = TRUE;
 	}
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
@@ -345,11 +345,10 @@ void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *wid
  * Return value: void
  **/
 void doc_set_wrap(Tdocument * doc) {
-	if (doc->wrapstate) {
-		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_WORD);
-	} else {
-		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_NONE);
-	}
+	GtkWrapMode wmode = doc->wrapstate ? GTK_WRAP_WORD : GTK_WRAP_NONE;
+	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),wmode);
+	if (doc->slave)
+		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->slave),wmode);
 }
 /**
  * doc_set_tooltip:
@@ -558,6 +557,8 @@ void doc_set_tabsize(Tdocument *doc, gint tabsize) {
 	tab_array = pango_tab_array_new(1, TRUE);
 	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, pixels);
 	gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->view), tab_array);
+	if (doc->slave)
+		gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->slave), tab_array);
 	pango_tab_array_free(tab_array);
 }
 
@@ -614,6 +615,8 @@ void doc_change_tabsize(Tdocument *doc,gint direction) {
 	/*g_print("doc_change_tabsize, set setsize=%d\n",setsize);*/
 	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, setsize);
 	gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->view), tab_array);
+	if (doc->slave)
+		gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->slave), tab_array);
 	pango_tab_array_free(tab_array);
 }
 
@@ -622,6 +625,8 @@ void doc_font_size(Tdocument *doc, gint direction) {
 		PangoFontDescription *font_desc;
 		font_desc = pango_font_description_from_string(main_v->props.editor_font_string);
 		gtk_widget_modify_font(doc->view, font_desc);
+		if (doc->slave)
+			gtk_widget_modify_font(doc->slave, font_desc);
 		pango_font_description_free(font_desc);
 		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char=0;
 	} else {
@@ -639,6 +644,8 @@ void doc_font_size(Tdocument *doc, gint direction) {
 			pango_font_description_set_size(font_desc, size);
 		}
 		gtk_widget_modify_font(doc->view, font_desc);
+		if (doc->slave)
+			gtk_widget_modify_font(doc->slave, font_desc);
 		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char=0;
 	}
 
@@ -708,7 +715,7 @@ gboolean test_only_empty_doc_left(GList *doclist) {
  */
 void doc_move_to_window(Tdocument *doc, Tbfwin *oldwin, Tbfwin *newwin)
 {
-	GtkWidget *tab_widget, *scroll;
+	GtkWidget *tab_widget;
 	DEBUG_MSG("doc_move_to_window, oldwin=%p, newwin=%p, doc=%p\n",oldwin,newwin,doc);
 	/* first test if the document still exists in the old window */
 	if (g_list_index(oldwin->documentlist, doc)==-1 || !bfwin_exists(oldwin) || !bfwin_exists(newwin)) {
@@ -716,8 +723,7 @@ void doc_move_to_window(Tdocument *doc, Tbfwin *oldwin, Tbfwin *newwin)
 		return;
 	}
 	tab_widget = gtk_widget_get_parent(doc->tab_eventbox);
-	scroll = gtk_widget_get_parent(doc->view);
-	gtk_widget_ref(scroll);
+	gtk_widget_ref(doc->vsplit);
 	gtk_widget_ref(tab_widget);
 	gtk_widget_ref(doc->tab_menu);
 	DEBUG_MSG("doc_move_to_window, tab_label=%p, tab_widget=%p\n",doc->tab_label, tab_widget);
@@ -727,14 +733,14 @@ void doc_move_to_window(Tdocument *doc, Tbfwin *oldwin, Tbfwin *newwin)
 	DEBUG_MSG("doc_move_to_window, removed doc=%p from oldwin %p\n",doc,oldwin);
 	doc->bfwin = newwin;
 	newwin->documentlist = g_list_append(newwin->documentlist, doc);
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(newwin->notebook), scroll, tab_widget, doc->tab_menu);
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(newwin->notebook), doc->vsplit, tab_widget, doc->tab_menu);
 	DEBUG_MSG("doc_move_to_window, appended doc=%p to newwin %p\n",doc,newwin);
 
-	gtk_widget_unref(scroll);
+	gtk_widget_unref(doc->vsplit);
 	gtk_widget_unref(tab_widget);
 	gtk_widget_unref(doc->tab_menu);
 
-	gtk_widget_show_all(scroll);
+	gtk_widget_show_all(doc->vsplit);
 	gtk_widget_show_all(tab_widget);
 	gtk_widget_show(doc->tab_menu);
 
@@ -1322,7 +1328,7 @@ static void add_encoding_to_list(gchar *encoding) {
 		gchar **tmparr = tmplist->data;
 		if (g_strv_length(tmparr)==3 && g_ascii_strcasecmp(tmparr[1], encoding) == 0) {
 			if (tmparr[2][0]!='1') { /* enable this encoding */
-				g_print("enable encoding %s\n",tmparr[0]);
+				DEBUG_MSG("enable encoding %s\n",tmparr[0]);
 				g_free(tmparr[2]);
 				tmparr[2]=g_strdup("1");
 				changed=TRUE;
@@ -1691,17 +1697,6 @@ void doc_get_cursor_location(Tdocument *doc, gint *x, gint *y) {
 	doc_get_iter_location(doc, &iter, x, y);
 }
 */
-void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter *iter) {
-	gint xpos, ypos;
-	GtkTextWindowType wintype;
-
-	wintype = gtk_text_view_get_window_type(GTK_TEXT_VIEW(doc->view),
-			gtk_widget_get_window(doc->view));
-	gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(doc->view), wintype,bevent->x, bevent->y,
-					  &xpos, &ypos);
-	xpos += gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
-	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), iter, xpos, ypos);
-}
 
 static void rpopup_add_bookmark_lcb(GtkWidget *widget, Tdocument *doc) {
 	bmark_add_at_bevent(doc);
@@ -2044,16 +2039,21 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		doc->newdoc_autodetect_lang_id=0;
 	}
 
-	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(),
+	/* NOT USED ANYMORE: to make this go really quick, we first only destroy the notebook page and run flush_queue(),
 	(in notebook_changed())
 	after the document is gone from the GUI we complete the destroy, to destroy only the notebook
 	page we ref+ the scrolthingie, remove the page, and unref it again */
-	g_object_ref_sink(gtk_widget_get_parent(doc->view));
+	/*g_object_ref_sink(gtk_widget_get_parent(doc->view));*/
 
 	if (doc->floatingview) {
 		gtk_widget_destroy(FLOATINGVIEW(doc->floatingview)->window);
 		doc->floatingview = NULL;
 	}
+	if (doc->slave) {
+		gtk_widget_destroy(doc->slave);
+		doc->slave=NULL;
+	}
+	
 	/* now we remove the document from the document list */
 	bfwin->documentlist = g_list_remove(bfwin->documentlist, doc);
 	DEBUG_MSG("removed %p from documentlist, list %p length=%d\n",doc
@@ -2068,7 +2068,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	/* then we remove the page from the notebook */
 	DEBUG_MSG("about to remove widget from notebook (doc=%p, current_document=%p)\n",doc,bfwin->current_document);
 	gtk_notebook_remove_page(GTK_NOTEBOOK(bfwin->notebook),
-			gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook), gtk_widget_get_parent(doc->view)));
+			gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook), doc->vsplit));
 	DEBUG_MSG("doc_destroy, removed widget from notebook (doc=%p), delay_activation=%d\n",doc,delay_activation);
 	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n",doc);
 	gui_notebook_unblock_signals(BFWIN(doc->bfwin));
@@ -2079,14 +2079,14 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		gint newpage=-1;
 		if (bfwin->prev_document) {
 			newpage = gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),
-					gtk_widget_get_parent(bfwin->prev_document->view));
+					doc->vsplit);
 			gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook),newpage);
 		}
 		notebook_changed(BFWIN(doc->bfwin),newpage);
 	}
-	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed()\n",doc);
-	/* now we really start to destroy the document */
-	g_object_unref(GTK_OBJECT(gtk_widget_get_parent(doc->view)));
+	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed(), vsplit=%p\n",doc,doc->vsplit);
+	/* NOT USED ANYMORE: now we really start to destroy the document */
+	/*g_object_unref(G_OBJECT(doc->view));*/
 	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {
 			gchar *tmp, *tmp2;
@@ -2255,6 +2255,7 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly) {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
+	GtkWidget *hbox, *button;
 
 	/* test if the current document is empty and nameless, if so we return that */
 	if (!force_new && bfwin->current_document && g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
@@ -2296,9 +2297,7 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 /*	document_set_show_blocks(newdoc, newdoc->blocksstate); set in the widget by default */
 	newdoc->tab_label = gtk_label_new(NULL);
 	gtk_widget_set_can_focus(newdoc->tab_label, FALSE);
-	if (strlen(main_v->props.tab_font_string)) {
-		apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
-	}
+	apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
 	newdoc->tab_menu = gtk_label_new(NULL);
 	newdoc->tab_eventbox = gtk_event_box_new();
 	gtk_event_box_set_visible_window(GTK_EVENT_BOX(newdoc->tab_eventbox), FALSE);
@@ -2341,25 +2340,26 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 	gtk_widget_show(scroll);
 
 	DEBUG_MSG("doc_new_backend, appending doc to notebook\n");
-	{
-		GtkWidget *hbox, *button;
 
-		hbox = gtk_hbox_new(FALSE, 6);
-
-		button = bluefish_small_close_button_new();
-		g_signal_connect(button, "clicked", G_CALLBACK (doc_close_but_clicked_lcb), newdoc);
-
-		gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
-		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_eventbox, TRUE, TRUE, 0);
-		gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
-		gtk_widget_show_all(hbox);
-		gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->notebook), scroll ,hbox, newdoc->tab_menu);
-		gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(bfwin->notebook), scroll, TRUE);
-	}
+	hbox = gtk_hbox_new(FALSE, 6);
+	button = bluefish_small_close_button_new();
+	g_signal_connect(button, "clicked", G_CALLBACK (doc_close_but_clicked_lcb), newdoc);
+	gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
+	gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_eventbox, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+	gtk_widget_show_all(hbox);
+	
+	newdoc->vsplit = gtk_vpaned_new();
+	gtk_paned_add1(GTK_PANED(newdoc->vsplit), scroll);
+	gtk_widget_show(newdoc->vsplit);
+	DEBUG_MSG("doc_new_backend, vsplit at %p\n",newdoc->vsplit);
+	
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->notebook), newdoc->vsplit ,hbox, newdoc->tab_menu);
+	gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(bfwin->notebook), newdoc->vsplit, TRUE);
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize(newdoc, BFWIN(bfwin)->session->editor_tab_width);
 
-	DEBUG_MSG("doc_new_backend, need_highlighting=%d\n", newdoc->need_highlighting);
+	DEBUG_MSG("doc_new_backend, doc %p need_highlighting=%d\n", newdoc, newdoc->need_highlighting);
 	return newdoc;
 }
 
@@ -2580,91 +2580,60 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 		g_object_unref(uri);
 	}
 }
-/*
-void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win) {
-	GSList *tmpslist;
-	gboolean one_doc=(g_slist_length(urislist)==1);
-	bfwin->focus_next_new_doc = !one_doc;
-	tmpslist = urislist;
-	while (tmpslist) {
-		GFile *uri;
-		if (strstr ((gchar *) tmpslist->data, "://") == NULL)
-			uri = g_file_new_for_path((gchar *) tmpslist->data);
-		else
-			uri = g_file_new_for_uri((gchar *) tmpslist->data);
-		doc_new_from_uri(bfwin, uri, NULL, !one_doc, move_to_this_win, -1, -1);
-		g_object_unref(uri);
-		tmpslist = g_slist_next(tmpslist);
+
+static GtkWidget *doc_create_slave_view(Tdocument *doc) {
+	GtkWidget *scrolwin;
+	DEBUG_MSG("doc_create_slave_view, create slave view for %p\n",doc->view);
+	doc->slave = bftextview2_new_slave(BLUEFISH_TEXT_VIEW(doc->view));
+	g_signal_connect(G_OBJECT(doc->slave), "toggle-overwrite",
+		G_CALLBACK(doc_view_toggle_overwrite_lcb), doc);
+	g_signal_connect_after(G_OBJECT(doc->slave), "populate-popup",
+		G_CALLBACK(doc_view_populate_popup_lcb), doc);
+	g_signal_connect(G_OBJECT(doc->slave), "button-release-event",
+		G_CALLBACK(doc_view_button_release_lcb), doc);
+	g_signal_connect(G_OBJECT(doc->slave), "button-press-event",
+		G_CALLBACK(doc_view_button_press_lcb), doc);
+
+	apply_font_style(doc->slave, main_v->props.editor_font_string);
+	scrolwin = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), doc->slave);
+	return scrolwin;
+}
+
+static gboolean doc_split_scroll(gpointer data) {
+	Tdocument *doc=data;
+	GtkAdjustment* adjust = gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(gtk_widget_get_parent(gtk_widget_get_parent(doc->slave))));
+	gtk_adjustment_set_value(adjust, gtk_adjustment_get_lower(adjust)+gtk_adjustment_get_page_size(adjust));
+	return FALSE;
+}
+
+void doc_split_view(Tdocument *doc, gboolean enable) {
+	GtkWidget *botscrol;
+
+	if (enable == (doc->slave!=NULL))
+		return;
+
+	if (enable) {
+		GdkRectangle rect;
+		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(doc->view), &rect);
+		botscrol = doc_create_slave_view(doc);
+		DEBUG_MSG("doc_split_view, add %p to pane2\n",botscrol);
+		gtk_paned_pack2(GTK_PANED(doc->vsplit), botscrol, TRUE, FALSE);
+		gtk_widget_show(doc->slave);
+		gtk_widget_show(botscrol);
+		gtk_paned_set_position(GTK_PANED(doc->vsplit), rect.height/2);
+		DEBUG_MSG("doc_split_view, rect.height=%d, set split at %d\n",rect.height,rect.height/2);
+		g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, doc_split_scroll, doc, NULL);
+	} else {
+		botscrol = gtk_widget_get_parent(gtk_widget_get_parent(doc->slave));
+		DEBUG_MSG("doc_split_view, destroy %p\n",botscrol);
+		gtk_widget_destroy(botscrol);
+		doc->slave = NULL;
 	}
-	DEBUG_MSG("docs_new_from_uris, done, all documents loading in background\n");
-}*/
+	DEBUG_MSG("doc_split_view, done\n");
+}
 
-/**
- * docs_new_from_files:
- * @bfwin: #Tbfwin* with the window to open the document in
- * @file_list: #GList with filenames to open.
- * @move_to_this_win: #gboolean if the file needs to be moved to this window if it is open already
- *
- * Open a number of new documents from files in stringlist file_list.
- * If a file is open already in another window, it might be moved to this window, else
- * nothing is done for this file
- * Report files with problems to user.
- * If more than 8 files are opened at once, a modal progressbar is shown while loading.
- *
- * Return value: void
- **/
-/* void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this_win) {
-	GList *tmplist, *errorlist=NULL;
-	gboolean delay = (g_list_length(file_list) > 1);
-	gpointer pbar = NULL;
-	gint i = 0;
-	DEBUG_MSG("docs_new_from_files, lenght=%d\n", g_list_length(file_list));
-
-	/ * Hide the notebook and show a progressbar while
-	 * adding several files. * /
-	if(g_list_length(file_list) > 8) {
-		notebook_hide(bfwin);
-		pbar = progress_popup(bfwin->main_window,_("Loading files..."), g_list_length(file_list));
-	}
-
-	tmplist = g_list_first(file_list);
-	while (tmplist) {
-		DEBUG_MSG("docs_new_from_files, about to open %s, delay=%d\n", (gchar *) tmplist->data, delay);
-		if (!doc_new_with_file(bfwin,(gchar *) tmplist->data, delay, move_to_this_win)) {
-			errorlist = g_list_append(errorlist, g_strdup((gchar *) tmplist->data));
-		}
-		if(pbar) {
-			progress_set(pbar, ++i);
-			flush_queue();
-		}
-		tmplist = g_list_next(tmplist);
-	}
-	if (errorlist){
-		gchar *message, *tmp;
-		tmp = stringlist_to_string(errorlist, "\n");
-		message = g_strconcat(_("These files could not opened:\n\n"), tmp, NULL);
-		g_free(tmp);
-		warning_dialog(bfwin->main_window,_("Unable to open file(s)\n"), message);
-		g_free(message);
-	}
-	free_stringlist(errorlist);
-
-	if (delay) {
-		DEBUG_MSG("since we delayed the highlighting, we set the notebook and filebrowser page now\n");
-
-		/ * Destroy the progressbar and show the notebook when finished. * /
-		progress_destroy(pbar);
-		notebook_show(bfwin);
-
-		gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook),g_list_length(bfwin->documentlist) - 1);
-		notebook_changed(bfwin,-1);
-		if (bfwin->current_document && bfwin->current_document->filename) {
-			/ *filebrowser_open_dir(bfwin,bfwin->current_document->filename); is called by doc_activate() * /
-			doc_activate(bfwin->current_document);
-		}
-	}
-	gui_set_title(bfwin, bfwin->current_document);
-}*/
 
 /**
  * doc_reload:
@@ -3293,7 +3262,7 @@ static void doc_jump_query_exists_lcb(GObject *source_object,GAsyncResult *res,g
 	
 	finfo = g_file_query_info_finish(jcf->uri,res,&gerror);
 	if (gerror) {
-		g_print("%s\n",gerror->message);
+		DEBUG_MSG("%s\n",gerror->message);
 		g_error_free(gerror);
 	}
 	if (finfo) {
@@ -3334,13 +3303,13 @@ static void doc_jump(Tdocument *doc) {
 	doc_jump_check_file(doc, string);
 
 #ifdef IDENTSTORING
-	g_print("context=%d\n",context);
+	DEBUG_MSG("context=%d\n",context);
 	if (context != -1) {
 		Tjumpdata *ijd = bftextview2_lookup_identifier(doc->bfwin, BLUEFISH_TEXT_VIEW(doc->view), context, string);
 		if (ijd) {
-			g_print("got doc=%p (index=%d), line=%d\n",ijd->doc, g_list_index(BFWIN(doc->bfwin)->documentlist, ijd->doc), ijd->line);
+			DEBUG_MSG("got doc=%p (index=%d), line=%d\n",ijd->doc, g_list_index(BFWIN(doc->bfwin)->documentlist, ijd->doc), ijd->line);
 			if (ijd->doc && g_list_index(BFWIN(doc->bfwin)->documentlist, ijd->doc)!=-1) {
-				g_print("jump! doc=%p, line=%d\n",ijd->doc, ijd->line);
+				DEBUG_MSG("jump! doc=%p, line=%d\n",ijd->doc, ijd->line);
 				switch_to_document_by_pointer(doc->bfwin,ijd->doc);
 				doc_select_line(ijd->doc, ijd->line, TRUE);
 			}
@@ -3375,11 +3344,8 @@ static void new_floatingview(Tdocument *doc) {
 	fv->window = window_full2(title, GTK_WIN_POS_NONE, 5, G_CALLBACK(floatingview_destroy_lcb), doc, TRUE, NULL);
 	g_free(title);
 	gtk_window_set_role(GTK_WINDOW(fv->window), "floatingview");
-	fv->textview = gtk_text_view_new_with_buffer(doc->buffer);
-	gtk_text_view_set_editable(GTK_TEXT_VIEW(fv->textview),FALSE);
-	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(fv->textview),FALSE);
+	fv->textview = bftextview2_new_slave(BLUEFISH_TEXT_VIEW(doc->view));
 	apply_font_style(fv->textview, main_v->props.editor_font_string);
-	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(fv->textview), GTK_WRAP_WORD);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), fv->textview);
@@ -3449,6 +3415,9 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		break;
 	case 16:
 		doc_jump(CURDOC(bfwin));
+		break;
+	case 17:
+		doc_split_view(CURDOC(bfwin), gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)));
 		break;
 	}
 }
