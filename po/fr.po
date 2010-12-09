@@ -5,20 +5,20 @@
 # romeo viuberges <apostledemencia@free.fr>, 2003.
 # Romeo VIU-BERGES <romda@free.fr>, 2003.
 # Michèle Garoche <michele.garoche@easyconnect.fr>, 2004.
-# Frédéric Falsetti <falsetti@clansco.org>,2009.
+# Frédéric Falsetti <falsetti@clansco.org>,2009,2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-08 21:58-0800\n"
-"PO-Revision-Date: 2010-12-05 11:15+0100 \n"
+"POT-Creation-Date: 2010-12-09 15:51+0100\n"
+"PO-Revision-Date: 2010-12-09 15:45+0100 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:88
@@ -1447,9 +1447,8 @@ msgid "/Document/Highlight block delimiters"
 msgstr "/Document/Colorer les délimiteurs de blocs"
 
 #: ../src/menu.c:292
-#, fuzzy
 msgid "/Document/Split view"
-msgstr "/Document/Vérifier l'orthographe"
+msgstr "/Document/Vue scindée"
 
 #: ../src/menu.c:294
 msgid "/Document/_Spell Check"
@@ -1718,46 +1717,38 @@ msgid "Select font"
 msgstr "Sélection de police"
 
 #: ../src/preferences.c:572
-#, fuzzy
 msgid "_Mime type:"
-msgstr "Type mime"
+msgstr "Type mime :"
 
 #: ../src/preferences.c:586 ../src/preferences.c:587
 msgid "None"
 msgstr "Aucun"
 
 #: ../src/preferences.c:589
-#, fuzzy
 msgid "_Template:"
-msgstr "Modèles"
+msgstr "Modèle :"
 
 #: ../src/preferences.c:594
-#, fuzzy
 msgid "Tab _width:"
-msgstr "Largeur de tabulation"
+msgstr "Largeur de tabulation :"
 
 #: ../src/preferences.c:598
-#, fuzzy
 msgid "Enable a_uto-completion"
-msgstr "Activer les popups de complétion automatique"
+msgstr "Activer la complétion automatique"
 
 #: ../src/preferences.c:600
-#, fuzzy
 msgid "Enable _block folding"
 msgstr "Activer le pliage par blocs"
 
 #: ../src/preferences.c:602
-#, fuzzy
 msgid "Highlight block _delimiters"
 msgstr "Colorer les délimiteurs de blocs"
 
 #: ../src/preferences.c:604
-#, fuzzy
 msgid "_Highlight current line"
 msgstr "Coloration syntaxique de la ligne active"
 
 #: ../src/preferences.c:606
-#, fuzzy
 msgid "Show line _numbers"
 msgstr "Afficher les numéros de ligne"
 
@@ -1767,10 +1758,9 @@ msgstr "auto-indentation intelligente"
 
 #: ../src/preferences.c:610
 msgid "Wra_p lines"
-msgstr ""
+msgstr "Replier les lignes"
 
 #: ../src/preferences.c:614
-#, fuzzy
 msgid "_Enable spell check"
 msgstr "Activer la vérification orthographique"
 
@@ -2064,11 +2054,11 @@ msgstr "Les fichiers de projet seulement"
 
 #: ../src/preferences.c:1823
 msgid "jpeg"
-msgstr ""
+msgstr "jpeg"
 
 #: ../src/preferences.c:1823
 msgid "png"
-msgstr ""
+msgstr "png"
 
 #: ../src/preferences.c:1825
 msgid "All"
@@ -2095,21 +2085,18 @@ msgid "Editor settings"
 msgstr "Paramètres de l'éditeur"
 
 #: ../src/preferences.c:1867
-#, fuzzy
 msgid "<b>Auto-completion</b>"
 msgstr "<b>Autocomplétion</b>"
 
 #: ../src/preferences.c:1872
 msgid "Show _pop-up window:"
-msgstr "Afficher le popup :"
+msgstr "Afficher la fenêtre contextuelle :"
 
 #: ../src/preferences.c:1876
-#, fuzzy
 msgid "Shortcut _key combination:"
 msgstr "Combinaison de touches de raccourci"
 
 #: ../src/preferences.c:1878
-#, fuzzy
 msgid "<b>Options</b>"
 msgstr "<b>_Options</b>"
 
@@ -2118,23 +2105,20 @@ msgid "Smart Home/_End cursor positioning"
 msgstr "Positionnement intelligent du curseur début/fin"
 
 #: ../src/preferences.c:1885
-#, fuzzy
 msgid "Show right _margin at column:"
-msgstr "Position de la marge droite"
+msgstr "Position de la marge droite:"
 
 #: ../src/preferences.c:1894
 msgid "Show _whitespace:"
 msgstr "Afficher les espaces"
 
 #: ../src/preferences.c:1897
-#, fuzzy
 msgid "<b>Tab Stops</b>"
 msgstr "<b>Tabulations</b>"
 
 #: ../src/preferences.c:1900
-#, fuzzy
 msgid "Insert _spaces instead of tabs"
-msgstr "Utiliser des espaces pour indenter plutôt que des tabulations"
+msgstr "Utiliser des espaces plutôt que des tabulations"
 
 #: ../src/preferences.c:1902
 msgid "_Tab key indents selection"
@@ -2189,7 +2173,6 @@ msgid "Current line color"
 msgstr "Couleur de la ligne courante"
 
 #: ../src/preferences.c:1948
-#, fuzzy
 msgid "Cu_rrent line color:"
 msgstr "Couleur de la ligne courante"
 
@@ -2207,85 +2190,71 @@ msgstr "Paramètres initiaux de l'éditeur"
 
 #: ../src/preferences.c:1961
 msgid "<b>Non Project Defaults</b>"
-msgstr ""
+msgstr "<b>Par défaut pour les documents hors projets</b>"
 
 #: ../src/preferences.c:1974
 msgid "Files"
 msgstr "Fichiers"
 
 #: ../src/preferences.c:1976
-#, fuzzy
 msgid "<b>Backup</b>"
-msgstr "<b>Tabulations</b>"
+msgstr "<b>Sauvegarde</b>"
 
 #: ../src/preferences.c:1978
-#, fuzzy
 msgid "Create _backup file during file save"
 msgstr "Créer une sauvegarde à l'enregistrement"
 
 #: ../src/preferences.c:1983
-#, fuzzy
 msgid "_Remove backup file on close"
 msgstr "Supprimer la sauvegarde à la fermeture"
 
 #: ../src/preferences.c:1988
-#, fuzzy
 msgid "If back_up fails:"
 msgstr "Si la sauvegarde échoue"
 
 #: ../src/preferences.c:1993
 msgid "<b>Document Recovery</b>"
-msgstr ""
+msgstr "Récupération des documents"
 
 #: ../src/preferences.c:1995
-#, fuzzy
 msgid "_Enable recovery of modified documents"
 msgstr "Activer la récupération des documents modifiés"
 
 #: ../src/preferences.c:1999
-#, fuzzy
 msgid "_Frequency to store changes (seconds):"
 msgstr "Fréquence d'enregistrement des modifications (secondes)"
 
 #: ../src/preferences.c:2006
-#, fuzzy
 msgid "<b>Encoding</b>"
 msgstr "Encodage"
 
 #: ../src/preferences.c:2019
-#, fuzzy
 msgid "_Default character set for new files:"
 msgstr "Jeu de caractères par défaut pour les nouveaux fichiers"
 
 #: ../src/preferences.c:2023
-#, fuzzy
 msgid "Auto set <meta> _HTML tag on encoding change"
 msgstr ""
 "Mettre à jour les balises <meta> correspondantes lors de la modification de "
 "l'encodage"
 
 #: ../src/preferences.c:2027 ../src/preferences.c:2113
-#, fuzzy
 msgid "<b>Misc</b>"
-msgstr "<b>Fichiers</b>"
+msgstr "<b>Divers</b>"
 
 #: ../src/preferences.c:2031
-#, fuzzy
 msgid "Open co_mmandline files in running bluefish process"
 msgstr "Ouvrir les fichiers de commande dans le processus Bluefish actif"
 
 #: ../src/preferences.c:2033
-#, fuzzy
 msgid "Open commandline files in new _window"
 msgstr "Ouvrir les fichiers de commande dans une nouvelle fenêtre"
 
 #: ../src/preferences.c:2037
-#, fuzzy
 msgid "_Periodically check if file is modified on disk"
 msgstr "Vérifier périodiquement si le fichier est modifié sur le disque"
 
 #: ../src/preferences.c:2040
-#, fuzzy
 msgid "File properties to check on dis_k for modifications"
 msgstr "Propriétés du fichier à vérifier sur le disque pour les modifications"
 
@@ -2340,129 +2309,108 @@ msgid "User interface"
 msgstr "Interface utilisateur"
 
 #: ../src/preferences.c:2103
-#, fuzzy
 msgid "<b>Document Tabs</b>"
-msgstr "<b>Tabulations</b>"
+msgstr "<b>Onglets</b>"
 
 #: ../src/preferences.c:2107
 msgid "_Tab position:"
-msgstr ""
+msgstr "Position des onglets :"
 
 #: ../src/preferences.c:2109
-#, fuzzy
 msgid "_Switch between tabs with <Alt>+0..9"
-msgstr "\tBasculer entre les onglets avec <Alt>+0..9"
+msgstr "Basculer entre les onglets avec <Alt>+0..9"
 
 #: ../src/preferences.c:2119
-#, fuzzy
 msgid "_Language:"
-msgstr "Langage"
+msgstr "Langue :"
 
 #: ../src/preferences.c:2123
-#, fuzzy
 msgid "_Make HTML dialogs transient"
-msgstr "Garder les boîtes de dialogues HTML au premier plan"
+msgstr "Dialogues HTML progressifs"
 
 #: ../src/preferences.c:2127
-#, fuzzy
 msgid "<b>Recent Files</b>"
-msgstr "<b>Fichiers</b>"
+msgstr "<b>Fichiers récents</b>"
 
 #: ../src/preferences.c:2131
-#, fuzzy
 msgid "_Number of files in 'Open recent' menu:"
 msgstr "Nombre de fichiers dans 'Récemment ouvert'"
 
 #: ../src/preferences.c:2135
-#, fuzzy
 msgid "_Register recent files with your desktop:"
 msgstr "Enregistrer les fichiers récents sur le bureau"
 
 #: ../src/preferences.c:2138
-#, fuzzy
 msgid "<b>Sidebar</b>"
-msgstr "<b>Fichiers</b>"
+msgstr "<b>Panneau latéral</b>"
 
 #: ../src/preferences.c:2143
 msgid "Locatio_n:"
-msgstr ""
+msgstr "Position :"
 
 #: ../src/preferences.c:2146
 msgid "Tab _position:"
-msgstr ""
+msgstr "Position des onglets :"
 
 #: ../src/preferences.c:2155
 msgid "Dimensions"
 msgstr "Dimensions"
 
 #: ../src/preferences.c:2157
-#, fuzzy
 msgid "<b>Dimensions</b>"
 msgstr "Dimensions"
 
 #: ../src/preferences.c:2159
-#, fuzzy
 msgid "_Leave dimensions to window manager"
 msgstr "Laisser le gestionnaire de fenêtres gérer les dimensions"
 
 #: ../src/preferences.c:2166
-#, fuzzy
 msgid "_Restore last used dimensions"
 msgstr "Restaurer les dernières dimensions utilisées"
 
 #: ../src/preferences.c:2174
-#, fuzzy
 msgid "Initial _sidebar width:"
 msgstr "Largeur initiale du panneau latéral"
 
 #: ../src/preferences.c:2176
-#, fuzzy
 msgid "Initial window _height:"
 msgstr "Hauteur initiale de la fenêtre"
 
 #: ../src/preferences.c:2178
-#, fuzzy
 msgid "Initial window _width:"
 msgstr "Largeur initiale de la fenêtre"
 
 #: ../src/preferences.c:2193
-#, fuzzy
 msgid ""
 "Document tab font \n"
 "(leave empty for gtk default)"
 msgstr ""
-"Police des onglets Notebook\n"
+"Documents, police des onglets\n"
 " (ne pas remplir pour le GTK par défaut)"
 
 #: ../src/preferences.c:2200
-#, fuzzy
 msgid "Document error tab color"
-msgstr "Position de l'onglet"
+msgstr "Documents, onglet d'erreur"
 
 #: ../src/preferences.c:2201
-#, fuzzy
 msgid "Document tab _error color:"
-msgstr "Couleur de la ligne courante"
+msgstr "Documents, onglet d'erreur :"
 
 #: ../src/preferences.c:2204
-#, fuzzy
 msgid "Document loading tab color"
-msgstr "Couleur de la ligne courante"
+msgstr "Documents, onglet chargement en cours"
 
 #: ../src/preferences.c:2205
-#, fuzzy
 msgid "Document tab loadin_g color:"
-msgstr "Couleur de la ligne courante"
+msgstr "Documents, onglet chargement en cours :"
 
 #: ../src/preferences.c:2208
-#, fuzzy
 msgid "Document modified tab color"
-msgstr "Position de l'onglet"
+msgstr "Documents, onglet modifié"
 
 #: ../src/preferences.c:2209
-#, fuzzy
 msgid "Document tab _modified color:"
-msgstr "Couleur de la ligne courante"
+msgstr "Documents, onglet modifié :"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
@@ -2471,19 +2419,16 @@ msgid "Images"
 msgstr "Images"
 
 #: ../src/preferences.c:2223
-#, fuzzy
 msgid "<b>Thumbnails</b>"
 msgstr "Vignettes"
 
 #: ../src/preferences.c:2228
-#, fuzzy
 msgid "Thumbnail _filetype:"
 msgstr "Type de fichier des vignettes"
 
 #: ../src/preferences.c:2230
-#, fuzzy
 msgid "Thumbnail _suffix:"
-msgstr "Suffixe de vignette"
+msgstr "Suffixe des vignettes"
 
 #: ../src/preferences.c:2237
 msgid "External commands"
@@ -2519,22 +2464,19 @@ msgstr "Languages"
 
 #: ../src/preferences.c:2307
 msgid "<b>Reference Information</b>"
-msgstr ""
+msgstr "Références"
 
 #: ../src/preferences.c:2310
-#, fuzzy
 msgid "_Load from language file"
 msgstr "Charger les informations de références du fichier de language"
 
 #: ../src/preferences.c:2312
-#, fuzzy
 msgid "Show in auto-completion _pop-up window"
-msgstr "Afficher le popup de complétion automatique"
+msgstr "Afficher dans la fenêtre contextuelle de complétion"
 
 #: ../src/preferences.c:2314
-#, fuzzy
 msgid "Show in _tooltip window"
-msgstr "Afficher le popup :"
+msgstr "Afficher dans l'infobulle"
 
 #: ../src/project.c:187
 msgid "New project"
@@ -2574,7 +2516,7 @@ msgstr "_Nom du projet :"
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
 #: ../src/project.c:571
 msgid "<b>Project Defaults</b>"
-msgstr ""
+msgstr "<b>Paramètres par défaut</b>"
 
 #: ../src/project.c:581
 msgid "Create _Project"
@@ -2998,67 +2940,3 @@ msgstr "Annuler ce changement dans tous les documents ?"
 #: ../src/undo_redo.c:462
 msgid "This change concerns multiple documents."
 msgstr "Ce changement affecte de multiple documents."
-
-#~ msgid "Default mime type for new files"
-#~ msgstr "Type mime par défaut pour les nouveaux documents"
-
-#~ msgid "Default template"
-#~ msgstr "Modèle par défaut"
-
-#~ msgid "_Word wrap by default"
-#~ msgstr "_Césure par défaut"
-
-#~ msgid "(Smart) Auto indenting"
-#~ msgstr "auto-indentation (intelligente)"
-
-#~ msgid "<b>Features</b>"
-#~ msgstr "<b>Fonctionnalités</b>"
-
-#~ msgid "Non-project initial document settings"
-#~ msgstr "Paramètres initiaux des documents hors projets"
-
-#~ msgid "Backup files and recovery of modified documents"
-#~ msgstr "Sauvegarde des fichiers et récupération des documents modifiés"
-
-#~ msgid "Misc"
-#~ msgstr "Divers"
-
-#~ msgid "General"
-#~ msgstr "Général"
-
-#~ msgid "Notebook tab color (doc modified)"
-#~ msgstr "Couleur de l'onglet (document modifié)"
-
-#~ msgid "Notebook tab color (doc loading)"
-#~ msgstr "Couleur de l'onglet (ouverture du document)"
-
-#~ msgid "Notebook tab color (doc error)"
-#~ msgstr "Couleur de l'onglet (erreur de document)"
-
-#~ msgid "Sidebar notebook tab position"
-#~ msgstr "Position de l'onglet du panneau latéral"
-
-#~ msgid "Sidebar location"
-#~ msgstr "Emplacement du panneau latéral"
-
-#~ msgid "Advanced syntax scanning options"
-#~ msgstr "Options de balayage syntaxique complexe"
-
-#~ msgid "Show reference information in autocompletion pop-up"
-#~ msgstr ""
-#~ "Afficher les informations de référence dans le popup d'autocomplétion"
-
-#~ msgid "Show reference information in tooltip window"
-#~ msgstr "Afficher les informations de référence dans une infobulle"
-
-#~ msgid "Generic editor settings"
-#~ msgstr "Paramètres génériques de l'éditeur"
-
-#~ msgid "Font"
-#~ msgstr "Police"
-
-#~ msgid "Autocompletion shortcut key combination"
-#~ msgstr "Autocomplétion des touches de raccourcis"
-
-#~ msgid "HTML toolbar / menu options"
-#~ msgstr "Barre d'outils HTML /  menu des options"
