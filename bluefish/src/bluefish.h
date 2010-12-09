@@ -228,6 +228,7 @@ typedef struct {
 	gchar *tab_color_loading;	/* tab text color when doc is loading */
 	gchar *tab_color_error;		/* tab text color when doc has errors */
 	gint visible_ws_mode;
+	gint display_right_margin;
 	gint right_margin_pos;
 	/* new replacements: */
 	GList *external_command;	/* array: name,command,is_default_browser */

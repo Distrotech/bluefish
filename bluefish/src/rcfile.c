@@ -403,6 +403,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_string(&config_rc, &main_v->props.tab_color_loading, "tab_color_loading:", "#C7C7C7");
 	init_prop_string(&config_rc, &main_v->props.tab_color_error, "tab_color_error:", "#FF0000");
 	init_prop_integer(&config_rc, &main_v->props.visible_ws_mode, "visible_ws_mode:", 3, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.display_right_margin, "display_right_margin:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.right_margin_pos, "right_margin_pos:", 80, TRUE);
 	init_prop_arraylist(&config_rc, &main_v->props.external_command, "external_command:", 3, TRUE);
 	init_prop_arraylist(&config_rc, &main_v->props.external_filter, "external_filter:", 2, TRUE);
