@@ -1864,15 +1864,16 @@ preferences_dialog()
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
 	gtk_tree_store_set(pd->nstore, &iter, NAMECOL, _("Editor settings"), WIDGETCOL, frame, -1);
 
-	vbox2 = dialog_vbox_labeled(_("<b>Autocompletion</b>"), vbox1);
+	vbox2 = dialog_vbox_labeled(_("<b>Auto-completion</b>"), vbox1);
+	table = dialog_table_in_vbox_defaults(2, 2, 0, vbox2);
 
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	pd->prefs[autocomp_popup_mode] = dialog_combo_box_text_labeled(_("Show _pop-up window:"), autocompmodes,
-		main_v->props.autocomp_popup_mode, hbox, 0);
+	pd->prefs[autocomp_popup_mode] = dialog_combo_box_text_in_table(autocompmodes,
+		main_v->props.autocomp_popup_mode, table, 1, 2, 0, 1);
+	dialog_mnemonic_label_in_table(_("Show _pop-up window:"), pd->prefs[autocomp_popup_mode], table, 0, 1, 0, 1);
 
-	pd->prefs[autocomp_accel_string] = boxed_accelerator_button(_("Shortcut _key combination"),
-		main_v->props.autocomp_accel_string, vbox2);
+	pd->prefs[autocomp_accel_string] = accelerator_button(main_v->props.autocomp_accel_string);
+	gtk_table_attach(GTK_TABLE(table), pd->prefs[autocomp_accel_string], 1, 2, 1, 2, GTK_FILL, GTK_SHRINK, 0, 0);
+	dialog_mnemonic_label_in_table(_("Shortcut _key combination:"), pd->prefs[autocomp_accel_string], table, 0, 1, 1, 2);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Options</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
