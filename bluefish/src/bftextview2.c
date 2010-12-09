@@ -1633,9 +1633,10 @@ void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors
 void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar * mime)
 {
 	GtkTextIter start, end;
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+	GtkTextBuffer *buffer;
 	Tbflang *bflang = langmgr_get_bflang_for_mimetype(mime);
 	BluefishTextView *master=btv->master;
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(master));
 	/* remove all highlighting */
 	cleanup_scanner(master);
 	DBG_MSG("bluefish_text_view_set_mimetype, found bflang %p for mimetype %s\n", bflang, mime);
