@@ -1833,7 +1833,7 @@ preferences_dialog()
 	}
 
 	main_v->prefdialog = pd = g_new0(Tprefdialog,1);
-	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
+	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_CENTER, 6, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
 
 	dvbox = gtk_vbox_new(FALSE, 5);
 	dhbox = gtk_hbox_new(FALSE, 5);
@@ -2348,13 +2348,13 @@ preferences_dialog()
 
 		gtk_box_pack_start(GTK_BOX(dvbox), ahbox, FALSE, FALSE, 0);
 		but = bf_gtkstock_button(GTK_STOCK_APPLY, G_CALLBACK(preferences_apply_clicked_lcb), pd);
-		gtk_box_pack_start(GTK_BOX(ahbox), but, TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 0);
 
 		but = bf_stock_cancel_button(G_CALLBACK(preferences_cancel_clicked_lcb), pd);
-		gtk_box_pack_start(GTK_BOX(ahbox), but, TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 0);
 
 		but = bf_stock_ok_button(G_CALLBACK(preferences_ok_clicked_lcb), pd);
-		gtk_box_pack_start(GTK_BOX(ahbox), but, TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 6);
 		gtk_window_set_default(GTK_WINDOW(pd->win), but);
 	}
 
