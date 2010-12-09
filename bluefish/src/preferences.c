@@ -487,9 +487,9 @@ prefs_string(const gchar *title, const gchar *curval, GtkWidget *box, Tprefdialo
 
 	return return_widget;
 }
-
+/*
 static GtkWidget *
-prefs_integer(const gchar *title, const gint curval, GtkWidget *box, /*Tprefdialog *pd,*/gfloat lower, gfloat upper)
+prefs_integer(const gchar *title, const gint curval, GtkWidget *box, gfloat lower, gfloat upper)
 {
 	GtkWidget *return_widget;
 	GtkWidget *hbox;
@@ -513,7 +513,7 @@ prefs_integer(const gchar *title, const gint curval, GtkWidget *box, /*Tprefdial
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(title), FALSE, FALSE, 3);
 	gtk_box_pack_start(GTK_BOX(hbox), return_widget, TRUE, TRUE, 3);
 	return return_widget;
-}
+}*/
 /* session preferences */
 
 void
@@ -1885,6 +1885,7 @@ preferences_dialog()
 		main_v->props.display_right_margin, table, 0, 1, 2, 3);
 	pd->prefs[right_margin_pos]
 		= dialog_spin_button_in_table(1, 500, main_v->props.right_margin_pos, table, 1, 2, 2, 3);
+	prefs_togglebutton_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[display_right_margin]), pd->prefs[right_margin_pos]);
 	g_signal_connect(G_OBJECT(pd->prefs[display_right_margin]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_lcb), pd->prefs[right_margin_pos]);
 
 	hbox = gtk_hbox_new(FALSE, 12);
