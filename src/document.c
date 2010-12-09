@@ -2634,7 +2634,7 @@ void doc_split_view(Tdocument *doc, gboolean enable) {
 		DEBUG_MSG("doc_split_view, rect.height=%d, set split at %d\n",rect.height,rect.height/2);
 		g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, doc_split_scroll, doc, NULL);
 	} else {
-		botscrol = gtk_widget_get_parent(gtk_widget_get_parent(doc->slave));
+		botscrol = gtk_widget_get_parent(doc->slave);
 		DEBUG_MSG("doc_split_view, destroy %p\n",botscrol);
 		gtk_widget_destroy(botscrol);
 		doc->slave = NULL;
