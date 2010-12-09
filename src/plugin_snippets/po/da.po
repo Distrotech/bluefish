@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 2.0.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-09-01 21:42+0200\n"
+"POT-Creation-Date: 2010-12-08 22:01-0800\n"
 "PO-Revision-Date: 2010-08-29 22:30+0100\n"
 "Last-Translator: Finn Gruwier Larsen <finngruwierlarsen@gmail.com>\n"
 "Language-Team: None\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
@@ -92,11 +93,11 @@ msgstr "/Vis/Snip-menu"
 msgid "[cursor position or selection]"
 msgstr "[cursorposition eller udvalg]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:155
+#: src/plugin_snippets/snippets_leaf_snr.c:156
 msgid "Search for: '"
 msgstr "Søg efter: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:155
+#: src/plugin_snippets/snippets_leaf_snr.c:156
 msgid "', replace with: '"
 msgstr "', erstat med: '"
 
@@ -186,8 +187,8 @@ msgid ""
 msgstr ""
 "Teksten i <i>før</i> vil blive indsat før cursorpositionen eller det "
 "aktuelle udvalg. Teksten i <i>efter</i> vil blive indsat efter "
-"cursorpositionen eller det aktuelle udvalg. Du kan bruge pladsholderne %0, %"
-"1, ...%9 til at spørge på værdier, når du aktiverer dette punkt. Giv disse "
+"cursorpositionen eller det aktuelle udvalg. Du kan bruge pladsholderne %0, "
+"%1, ...%9 til at spørge på værdier, når du aktiverer dette punkt. Giv disse "
 "pladsholdere passende navne til højre."
 
 #: src/plugin_snippets/snippets_wizard.c:346
@@ -238,6 +239,6 @@ msgstr "Indsæt streng"
 msgid "Search and replace pattern"
 msgstr "Søg-og-erstat-mønster"
 
-#: src/plugin_snippets/snippets_wizard.c:754
+#: src/plugin_snippets/snippets_wizard.c:756
 msgid "New snippet"
 msgstr "Ny snip"
