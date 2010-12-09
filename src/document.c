@@ -2983,7 +2983,7 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	if (!bfwin->current_document)
 		return;
-	bfwin->current_document->highlightstate = bfwin->current_document->highlightstate-1;
+	bfwin->current_document->highlightstate = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 	DEBUG_MSG("doc_toggle_highlighting_cb, set enable_scanner=%d\n",bfwin->current_document->highlightstate);
 	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = bfwin->current_document->highlightstate;
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
