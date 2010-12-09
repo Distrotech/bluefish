@@ -57,6 +57,7 @@ enum
 	tab_color_loading, /* tab text color when doc is loading */
 	tab_color_error, /* tab text color when doc has errors */
 	visible_ws_mode,
+	display_right_margin,
 	right_margin_pos,
 	/*defaulthighlight,*//* highlight documents by default */
 	transient_htdialogs, /* set html dialogs transient ro the main window */
@@ -520,6 +521,7 @@ sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars)
 {
 	gchar *template_name = NULL;
 	GList *tmplist;
+
 	integer_apply(&sessionvars->wrap_text_default, sprefs->prefs[session_wrap_text], TRUE);
 	integer_apply(&sessionvars->autoindent, sprefs->prefs[autoindent], TRUE);
 	integer_apply(&sessionvars->editor_tab_width, sprefs->prefs[editor_tab_width], FALSE);
@@ -603,8 +605,8 @@ sessionprefs(const gchar *label, Tsessionprefs *sprefs, Tsessionvars *sessionvar
 		table, 0, 1, 3, 4);
 	sprefs->prefs[view_line_numbers] = dialog_check_button_in_table(_("Show line _numbers"),
 		sessionvars->view_line_numbers, table, 0, 1, 4, 5);
-	sprefs->prefs[autoindent] = dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table,
-		0, 1, 5, 6);
+	sprefs->prefs[autoindent] = dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent,
+		table, 0, 1, 5, 6);
 	sprefs->prefs[session_wrap_text] = dialog_check_button_in_table(_("Wra_p lines"), sessionvars->wrap_text_default,
 		table, 0, 1, 6, 7);
 
@@ -1530,6 +1532,7 @@ preferences_apply(Tprefdialog *pd)
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE], pd->prefs[cline_bg]);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], pd->prefs[visible_ws]);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_CURSOR], pd->prefs[cursor_color]);
+	integer_apply(&main_v->props.display_right_margin, pd->prefs[display_right_margin], TRUE);
 	integer_apply(&main_v->props.right_margin_pos, pd->prefs[right_margin_pos], FALSE);
 	main_v->props.visible_ws_mode = gtk_combo_box_get_active(GTK_COMBO_BOX (pd->prefs[visible_ws_mode]));
 	/*integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);*/
@@ -1871,22 +1874,23 @@ preferences_dialog()
 	pd->prefs[autocomp_accel_string] = boxed_accelerator_button(_("Shortcut _key combination"),
 		main_v->props.autocomp_accel_string, vbox2);
 
-	vbox2 = dialog_vbox_labeled(_("<b>Features</b>"), vbox1);
-
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	pd->prefs[visible_ws_mode] = dialog_combo_box_text_labeled(_("Show _whitespace:"), visible_ws_modes,
-		main_v->props.visible_ws_mode, hbox, 0);
-
+	vbox2 = dialog_vbox_labeled(_("<b>Options</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
 
 	pd->prefs[smartindent] = dialog_check_button_in_table(_("Smart auto indentin_g"), main_v->props.smartindent, table,
 		0, 1, 0, 1);
 	pd->prefs[editor_smart_cursor] = dialog_check_button_in_table(_("Smart Home/_End cursor positioning"),
 		main_v->props.editor_smart_cursor, table, 0, 1, 1, 2);
+	pd->prefs[display_right_margin] = dialog_check_button_in_table(_("Show right _margin at column:"),
+		main_v->props.display_right_margin, table, 0, 1, 2, 3);
+	pd->prefs[right_margin_pos]
+		= dialog_spin_button_in_table(1, 500, main_v->props.right_margin_pos, table, 1, 2, 2, 3);
+	g_signal_connect(G_OBJECT(pd->prefs[display_right_margin]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_lcb), pd->prefs[right_margin_pos]);
 
-	pd->prefs[right_margin_pos] = prefs_integer(_("Right margin position"), main_v->props.right_margin_pos, vbox2, 1,
-		1000);
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
+	pd->prefs[visible_ws_mode] = dialog_combo_box_text_labeled(_("Show _whitespace:"), visible_ws_modes,
+		main_v->props.visible_ws_mode, hbox, 0);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Tab Stops</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(2, 1, 0, vbox2);

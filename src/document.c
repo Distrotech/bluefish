@@ -2277,6 +2277,8 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 			, BFWIN(bfwin)->session->autoindent
 			, BFWIN(bfwin)->session->autocomplete
 			, BFWIN(bfwin)->session->show_mbhl);
+	bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(newdoc->view),
+		main_v->props.display_right_margin);
 #ifdef HAVE_LIBENCHANT
 	BLUEFISH_TEXT_VIEW(newdoc->view)->spell_check = BFWIN(bfwin)->session->spell_check_default;
 #endif
