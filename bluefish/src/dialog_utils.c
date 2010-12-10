@@ -294,7 +294,7 @@ dialog_combo_box_text_new(const gchar **options, gint index)
 
 	tmp = options;
 	while (*tmp)
-		gtk_combo_box_append_text(GTK_COMBO_BOX (combobox), *tmp++);
+		gtk_combo_box_append_text(GTK_COMBO_BOX (combobox), gettext(*tmp++));
 
 	gtk_combo_box_set_active(GTK_COMBO_BOX (combobox), index);
 
