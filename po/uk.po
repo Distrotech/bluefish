@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 2.0.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-08 21:58-0800\n"
+"POT-Creation-Date: 2010-12-10 18:53-0800\n"
 "PO-Revision-Date: 2010-05-08 16:15+0200 \n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -1058,6 +1058,18 @@ msgstr "_Кодування символів:"
 #: ../src/gtk_easy.c:1456
 msgid "Automatic detection"
 msgstr "Автоматичне виявлення"
+
+#: ../src/gtk_easy.c:1554
+msgid "<b>Keystroke choice </b>"
+msgstr ""
+
+#: ../src/gtk_easy.c:1560
+msgid ""
+"\n"
+"Press requested key combination.\n"
+"Please use Ctrl, Shift, Alt key with any other key.\n"
+"<i>Esc to cancel, Delete to remove the accelerator.</i>"
+msgstr ""
 
 #: ../src/gtk_easy.c:1582
 msgid "Press shortcut key combination"

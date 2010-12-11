@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-08 21:58-0800\n"
+"POT-Creation-Date: 2010-12-10 18:53-0800\n"
 "PO-Revision-Date: 2005-01-19 11:34+0800\n"
 "Last-Translator: OLS3 <ols3@lxer.idv.tw>\n"
 "Language-Team: zh_TW <i18n-translation@b2d.org.tw>\n"
@@ -1086,6 +1086,18 @@ msgstr "/文件(D)/字元編碼(_E)"
 #, fuzzy
 msgid "Automatic detection"
 msgstr "自動更新作者 meta 標記"
+
+#: ../src/gtk_easy.c:1554
+msgid "<b>Keystroke choice </b>"
+msgstr ""
+
+#: ../src/gtk_easy.c:1560
+msgid ""
+"\n"
+"Press requested key combination.\n"
+"Please use Ctrl, Shift, Alt key with any other key.\n"
+"<i>Esc to cancel, Delete to remove the accelerator.</i>"
+msgstr ""
 
 #: ../src/gtk_easy.c:1582
 msgid "Press shortcut key combination"

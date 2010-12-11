@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-08 21:58-0800\n"
+"POT-Creation-Date: 2010-12-10 18:53-0800\n"
 "PO-Revision-Date: 2009-12-14 17:04+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
@@ -1051,6 +1051,18 @@ msgstr "_Karaktere-kodeketa:"
 #: ../src/gtk_easy.c:1456
 msgid "Automatic detection"
 msgstr "Detekzio automatikoa"
+
+#: ../src/gtk_easy.c:1554
+msgid "<b>Keystroke choice </b>"
+msgstr ""
+
+#: ../src/gtk_easy.c:1560
+msgid ""
+"\n"
+"Press requested key combination.\n"
+"Please use Ctrl, Shift, Alt key with any other key.\n"
+"<i>Esc to cancel, Delete to remove the accelerator.</i>"
+msgstr ""
 
 #: ../src/gtk_easy.c:1582
 msgid "Press shortcut key combination"
