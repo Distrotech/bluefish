@@ -32,6 +32,7 @@ bflang_bflang2_files = \
 	jsp.bflang2 \
 	mediawiki.bflang2 \
 	nsis.bflang2 \
+	pascal.bflang2 \
 	perl.bflang2 \
 	php.bflang2 \
 	po.bflang2 \
