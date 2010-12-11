@@ -546,6 +546,8 @@ void gui_set_document_widgets(Tdocument *doc) {
 			bluefish_text_view_get_show_visible_spacing(BLUEFISH_TEXT_VIEW(doc->view)));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
 			"/Document/Wrap", doc->wrapstate);
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
+			"/Document/Split view", (doc->slave!=NULL));
 #ifdef HAVE_LIBENCHANT
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
 			"/Document/Spell Check",
