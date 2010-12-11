@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		pascal.bflang2 $Revision: 6069 $
+		pascal.bflang2 $Revision: $
  
 		Copyright (C) 2010 Olivier Sessink
 
@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="Pascal" version="2.0" matches="150" contexts="5" table="565">
+<bflang name="Pascal" version="2.0" matches="151" contexts="5" table="566">
 <header>
 	<mime type="text/x-pascal"/>
 
@@ -36,7 +36,7 @@
 	<comment type="block" start="(*" end="*)" />
 </properties>
 <definition>
-	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+	<context symbols=". ;(){}[]:\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;"> 
 
 <group highlight="function" autocomplete="1" case_insens="1">
 	<element pattern="abs" />
