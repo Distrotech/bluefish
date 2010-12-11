@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable 1.3.5\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-08 21:58-0800\n"
+"POT-Creation-Date: 2010-12-10 18:53-0800\n"
 "PO-Revision-Date: 2009-05-26 08:48+0900\n"
 "Last-Translator: Jin-Hwan Jeong 정진환 <yongdoria@gmail.com>\n"
 "Language-Team: \n"
@@ -1064,6 +1064,18 @@ msgstr "문자 엔코딩(_E):"
 #: ../src/gtk_easy.c:1456
 msgid "Automatic detection"
 msgstr "자동 탐지"
+
+#: ../src/gtk_easy.c:1554
+msgid "<b>Keystroke choice </b>"
+msgstr ""
+
+#: ../src/gtk_easy.c:1560
+msgid ""
+"\n"
+"Press requested key combination.\n"
+"Please use Ctrl, Shift, Alt key with any other key.\n"
+"<i>Esc to cancel, Delete to remove the accelerator.</i>"
+msgstr ""
 
 #: ../src/gtk_easy.c:1582
 msgid "Press shortcut key combination"

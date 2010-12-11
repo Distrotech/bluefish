@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-09 15:51+0100\n"
+"POT-Creation-Date: 2010-12-10 18:53-0800\n"
 "PO-Revision-Date: 2010-12-09 15:45+0100 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:88
@@ -1063,6 +1063,18 @@ msgstr "_Encodage des caractères"
 #: ../src/gtk_easy.c:1456
 msgid "Automatic detection"
 msgstr "Détection automatique"
+
+#: ../src/gtk_easy.c:1554
+msgid "<b>Keystroke choice </b>"
+msgstr ""
+
+#: ../src/gtk_easy.c:1560
+msgid ""
+"\n"
+"Press requested key combination.\n"
+"Please use Ctrl, Shift, Alt key with any other key.\n"
+"<i>Esc to cancel, Delete to remove the accelerator.</i>"
+msgstr ""
 
 #: ../src/gtk_easy.c:1582
 msgid "Press shortcut key combination"
