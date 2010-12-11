@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-10 18:53-0800\n"
+"POT-Creation-Date: 2010-12-11 10:07+0100\n"
 "PO-Revision-Date: 2010-12-09 15:45+0100 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:88
@@ -1066,7 +1066,7 @@ msgstr "Détection automatique"
 
 #: ../src/gtk_easy.c:1554
 msgid "<b>Keystroke choice </b>"
-msgstr ""
+msgstr "<b>raccourci-clavier</b>"
 
 #: ../src/gtk_easy.c:1560
 msgid ""
@@ -1075,6 +1075,10 @@ msgid ""
 "Please use Ctrl, Shift, Alt key with any other key.\n"
 "<i>Esc to cancel, Delete to remove the accelerator.</i>"
 msgstr ""
+"\n"
+"Entrez la combinaison de touches désirée\n"
+"Utiliser Ctrl, Shift, Alt en combinaison avec une autre touche.\n"
+"<i>Esc pour abandonner, Suppr pour désactiver le raccourci.</i>"
 
 #: ../src/gtk_easy.c:1582
 msgid "Press shortcut key combination"
@@ -2106,7 +2110,7 @@ msgstr "Afficher la fenêtre contextuelle :"
 
 #: ../src/preferences.c:1876
 msgid "Shortcut _key combination:"
-msgstr "Combinaison de touches de raccourci"
+msgstr "Combinaison de touches de raccourci :"
 
 #: ../src/preferences.c:1878
 msgid "<b>Options</b>"
@@ -2118,7 +2122,7 @@ msgstr "Positionnement intelligent du curseur début/fin"
 
 #: ../src/preferences.c:1885
 msgid "Show right _margin at column:"
-msgstr "Position de la marge droite:"
+msgstr "Position de la marge droite :"
 
 #: ../src/preferences.c:1894
 msgid "Show _whitespace:"
@@ -2142,7 +2146,7 @@ msgstr "<b>Annulation</b>"
 
 #: ../src/preferences.c:1910
 msgid "_Number of actions in history:"
-msgstr "Nombre d'actions dans l'historique"
+msgstr "Nombre d'actions dans l'historique :"
 
 #: ../src/preferences.c:1911
 msgid "Clear _history on save"
@@ -2158,7 +2162,7 @@ msgstr "<b>Fonte</b>"
 
 #: ../src/preferences.c:1926
 msgid "_Editor font:"
-msgstr "Fonte de l'éditeur:"
+msgstr "Fonte de l'éditeur :"
 
 #: ../src/preferences.c:1931 ../src/preferences.c:2196
 msgid "<b>Colors</b>"
@@ -2222,7 +2226,7 @@ msgstr "Supprimer la sauvegarde à la fermeture"
 
 #: ../src/preferences.c:1988
 msgid "If back_up fails:"
-msgstr "Si la sauvegarde échoue"
+msgstr "Si la sauvegarde échoue :"
 
 #: ../src/preferences.c:1993
 msgid "<b>Document Recovery</b>"
@@ -2234,7 +2238,7 @@ msgstr "Activer la récupération des documents modifiés"
 
 #: ../src/preferences.c:1999
 msgid "_Frequency to store changes (seconds):"
-msgstr "Fréquence d'enregistrement des modifications (secondes)"
+msgstr "Fréquence d'enregistrement des modifications (secondes) :"
 
 #: ../src/preferences.c:2006
 msgid "<b>Encoding</b>"
@@ -2242,7 +2246,7 @@ msgstr "Encodage"
 
 #: ../src/preferences.c:2019
 msgid "_Default character set for new files:"
-msgstr "Jeu de caractères par défaut pour les nouveaux fichiers"
+msgstr "Jeu de caractères par défaut pour les nouveaux fichiers :"
 
 #: ../src/preferences.c:2023
 msgid "Auto set <meta> _HTML tag on encoding change"
@@ -2268,7 +2272,8 @@ msgstr "Vérifier périodiquement si le fichier est modifié sur le disque"
 
 #: ../src/preferences.c:2040
 msgid "File properties to check on dis_k for modifications"
-msgstr "Propriétés du fichier à vérifier sur le disque pour les modifications"
+msgstr ""
+"Propriétés du fichier à vérifier sur le disque pour les modifications :"
 
 #: ../src/preferences.c:2053
 msgid "HTML"
@@ -2346,11 +2351,11 @@ msgstr "<b>Fichiers récents</b>"
 
 #: ../src/preferences.c:2131
 msgid "_Number of files in 'Open recent' menu:"
-msgstr "Nombre de fichiers dans 'Récemment ouvert'"
+msgstr "Nombre de fichiers dans 'Récemment ouvert :'"
 
 #: ../src/preferences.c:2135
 msgid "_Register recent files with your desktop:"
-msgstr "Enregistrer les fichiers récents sur le bureau"
+msgstr "Enregistrer les fichiers récents sur le bureau :"
 
 #: ../src/preferences.c:2138
 msgid "<b>Sidebar</b>"
@@ -2382,15 +2387,15 @@ msgstr "Restaurer les dernières dimensions utilisées"
 
 #: ../src/preferences.c:2174
 msgid "Initial _sidebar width:"
-msgstr "Largeur initiale du panneau latéral"
+msgstr "Largeur initiale du panneau latéral :"
 
 #: ../src/preferences.c:2176
 msgid "Initial window _height:"
-msgstr "Hauteur initiale de la fenêtre"
+msgstr "Hauteur initiale de la fenêtre :"
 
 #: ../src/preferences.c:2178
 msgid "Initial window _width:"
-msgstr "Largeur initiale de la fenêtre"
+msgstr "Largeur initiale de la fenêtre :"
 
 #: ../src/preferences.c:2193
 msgid ""
@@ -2436,11 +2441,11 @@ msgstr "Vignettes"
 
 #: ../src/preferences.c:2228
 msgid "Thumbnail _filetype:"
-msgstr "Type de fichier des vignettes"
+msgstr "Type de fichier des vignettes :"
 
 #: ../src/preferences.c:2230
 msgid "Thumbnail _suffix:"
-msgstr "Suffixe des vignettes"
+msgstr "Suffixe des vignettes :"
 
 #: ../src/preferences.c:2237
 msgid "External commands"
