@@ -2295,8 +2295,6 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 											(scroll), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
 	newdoc->highlightstate=1;
-/*	document_set_line_numbers(newdoc, newdoc->linenumberstate); set in the widget by default*/
-/*	document_set_show_blocks(newdoc, newdoc->blocksstate); set in the widget by default */
 	newdoc->tab_label = gtk_label_new(NULL);
 	gtk_widget_set_can_focus(newdoc->tab_label, FALSE);
 	apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
@@ -2605,7 +2603,7 @@ static GtkWidget *doc_create_slave_view(Tdocument *doc) {
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
 											(scroll), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scroll), doc->slave);
-	/*gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scroll), doc->slave);*/
+	doc_set_tabsize(doc, BFWIN(doc->bfwin)->session->editor_tab_width);
 	return scroll;
 }
 
