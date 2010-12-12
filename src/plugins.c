@@ -177,7 +177,7 @@ void bluefish_load_plugins(void) {
 #ifdef RELPLUGINPATH
 	DEBUG_MSG("using RELPLUGINPATH\n");
 	gchar *path = g_build_path(G_DIR_SEPARATOR_S,RELPLUGINPATH,"lib",PACKAGE,NULL);
-	bluefish_scan_dir_load_plugins(&oldlist,);
+	bluefish_scan_dir_load_plugins(&oldlist, path);
 	g_free(path);
 #else /* RELPLUGINPATH */
 	gchar *path = g_build_path(G_DIR_SEPARATOR_S,".","lib",PACKAGE,NULL);
