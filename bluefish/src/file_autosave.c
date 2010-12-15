@@ -227,8 +227,11 @@ static inline void autosave(Tdocument *doc, GHashTable *hasht) {
 		doc->autosave_uri = create_autosave_path(doc, hasht);
 		g_hash_table_insert(hasht, g_file_get_path(doc->autosave_uri), GINT_TO_POINTER(1));
 	}
+
 	buffer = refcpointer_new(doc_get_chars(doc, 0, -1));
-	doc->autosave_action = file_checkNsave_uri_async(doc->autosave_uri, NULL, buffer, strlen(buffer->data), FALSE, FALSE, (CheckNsaveAsyncCallback)autosave_complete_lcb, doc);
+	if (buffer->data) {
+		doc->autosave_action = file_checkNsave_uri_async(doc->autosave_uri, NULL, buffer, strlen(buffer->data), FALSE, FALSE, (CheckNsaveAsyncCallback)autosave_complete_lcb, doc);
+	}
 	refcpointer_unref(buffer);
 }
 
