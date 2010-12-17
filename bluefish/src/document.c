@@ -2614,6 +2614,8 @@ static gboolean doc_split_scroll(gpointer data) {
 	return FALSE;
 }
 
+static void floatingview_destroy_lcb(GtkWidget *widget, Tdocument *doc);
+
 void doc_split_view(Tdocument *doc, gboolean enable) {
 	GtkWidget *botscrol;
 
@@ -2622,6 +2624,10 @@ void doc_split_view(Tdocument *doc, gboolean enable) {
 
 	if (enable) {
 		GdkRectangle rect;
+		
+		if (doc->floatingview)
+			floatingview_destroy_lcb(NULL, doc);
+		
 		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(doc->view), &rect);
 		botscrol = doc_create_slave_view(doc);
 		DEBUG_MSG("doc_split_view, add %p to pane2\n",botscrol);
@@ -2639,7 +2645,6 @@ void doc_split_view(Tdocument *doc, gboolean enable) {
 	}
 	DEBUG_MSG("doc_split_view, done\n");
 }
-
 
 /**
  * doc_reload:
@@ -3338,6 +3343,9 @@ static void new_floatingview(Tdocument *doc) {
 	Tfloatingview *fv;
 	gchar *title;
 	GtkWidget *scrolwin;
+	if (doc->slave)
+		doc_split_view(doc, FALSE);
+	
 	if (doc->floatingview) {
 		fv = FLOATINGVIEW(doc->floatingview);
 		gtk_window_present(GTK_WINDOW(fv->window));
@@ -3354,7 +3362,7 @@ static void new_floatingview(Tdocument *doc) {
 	apply_font_style(fv->textview, main_v->props.editor_font_string);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), fv->textview);
+	gtk_container_add(GTK_CONTAINER(scrolwin), fv->textview);
 	gtk_container_add(GTK_CONTAINER(fv->window),scrolwin);
 	gtk_window_set_default_size(GTK_WINDOW(fv->window),600,600);
 	gtk_widget_show_all(fv->window);
