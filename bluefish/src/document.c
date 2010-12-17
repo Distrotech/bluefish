@@ -2029,7 +2029,6 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 
 	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n",doc);
 	bmark_clean_for_doc(doc);
-
 	if (doc->uri && bfwin->session) { /* in a special situation the bfwin does not have a session: if a project window is closing */
 		add_to_recent_list(doc->bfwin,doc->uri, 1, FALSE);
 	}
@@ -2087,6 +2086,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed(), vsplit=%p\n",doc,doc->vsplit);
 	/* NOT USED ANYMORE: now we really start to destroy the document */
 	/*g_object_unref(G_OBJECT(doc->view));*/
+	remove_autosave(doc);
 	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {
 			gchar *tmp, *tmp2;
