@@ -26,6 +26,7 @@ bflang_bflang2_files = \
 	css.bflang2 \
 	d.bflang2 \
 	diff.bflang2 \
+	highlighter.bflang2 \
 	html.bflang2 \
 	java.bflang2 \
 	javascript.bflang2 \
