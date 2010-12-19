@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#define DEBUG
+/*#define DEBUG*/
 
 #include "bluefish.h"
 #include "bf_lib.h"
@@ -82,7 +82,10 @@ void join_lines(Tdocument *doc) {
 	
 	while (buf[i] != '\0') {
 		if (in_split) {
-			if (buf[i] != '\t' && buf[i] != ' ') {
+			if (buf[i] == '\n' || buf[i] == '\r') {
+				in_split = FALSE;
+				DEBUG_MSG("join_lines, don't join empty line at byte %d\n",i);
+			} else if (buf[i] != '\t' && buf[i] != ' ') {
 				eo_line_split = i;
 				in_split = FALSE;
 				cstart = utf8_byteoffset_to_charsoffset_cached(buf, so_line_split);
@@ -90,8 +93,6 @@ void join_lines(Tdocument *doc) {
 				DEBUG_MSG("join_lines, replace from %d to %d, coffset=%d\n",cstart+coffset,cend+coffset,coffset);
 				doc_replace_text_backend(doc, " ", cstart+coffset, cend+coffset);
 				coffset += (1 - (cend - cstart));
-			} else if(buf[i] == '\n' || buf[i] == '\r') {
-				in_split = FALSE;
 			}
 		} else {
 			if (buf[i] == '\n') {
@@ -133,14 +134,19 @@ void split_lines(Tdocument *doc) {
 		if (count > requested_size) {
 			gchar *new_indenting, *tmp1, *tmp2;
 			DEBUG_MSG("split_lines, count=%d, startws=%d, endws=%d, coffset=%d\n",count,startws,endws,coffset);
-			tmp1 = g_utf8_offset_to_pointer(buf, starti);
-			tmp2 = g_utf8_offset_to_pointer(buf, endi);
-			new_indenting = g_strndup(tmp1, (tmp2-tmp1));
+			if (starti == endi) {
+				new_indenting = g_strdup("\n");
+			} else {
+				tmp1 = g_utf8_offset_to_pointer(buf, starti);
+				tmp2 = g_utf8_offset_to_pointer(buf, endi);
+				new_indenting = g_strndup(tmp1, (tmp2-tmp1));
+				DEBUG_MSG("tmp1=%p, tmp2=%p, len=%d, new_indenting='%s'\n",tmp1,tmp2,(tmp2-tmp1),new_indenting);
+			}
 			DEBUG_MSG("split_lines, replace from %d to %d with new indenting\n",startws+coffset,endws+coffset);
+			count = charpos - endws;
 			doc_replace_text_backend(doc, new_indenting, startws+coffset, endws+coffset);
 			coffset += (g_utf8_strlen(new_indenting,-1) - (endws-startws));
-			DEBUG_MSG("split_lines, new coffset=%d\n",coffset);
-			count=0;
+			DEBUG_MSG("split_lines, new coffset=%d, new count=%d\n",coffset,count);
 			startws=charpos;
 			endws=charpos;
 			g_free(new_indenting);
