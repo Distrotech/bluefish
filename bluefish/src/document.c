@@ -2297,7 +2297,8 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 	newdoc->highlightstate=1;
 	newdoc->tab_label = gtk_label_new(NULL);
 	gtk_widget_set_can_focus(newdoc->tab_label, FALSE);
-	apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
+	if (!main_v->props.use_system_tab_font)
+		apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
 	newdoc->tab_menu = gtk_label_new(NULL);
 	newdoc->tab_eventbox = gtk_event_box_new();
 	gtk_event_box_set_visible_window(GTK_EVENT_BOX(newdoc->tab_eventbox), FALSE);
