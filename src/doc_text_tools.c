@@ -65,20 +65,15 @@ void strip_trailing_spaces(Tdocument *doc) {
 	doc_unre_new_group(doc);
 }
 
-void join_lines(Tdocument *doc) {
-	gint i=0,cstart,cend,start,end,coffset;
+static void join_lines_backend(Tdocument *doc, gint start, gint end) {
+	gint i=0,cstart,cend,coffset;
 	gchar *buf;
 	gboolean in_split=FALSE;
 	gint so_line_split=0,eo_line_split=0;
 	
-	if (!doc_get_selection(doc, &start, &end)) {
-		start=0;
-		end=-1;
-	}
 	coffset=start;
 	buf = doc_get_chars(doc,start,end);
 	utf8_offset_cache_reset();
-	doc_unre_new_group(doc);
 	
 	while (buf[i] != '\0') {
 		if (in_split) {
@@ -108,25 +103,30 @@ void join_lines(Tdocument *doc) {
 		i++;
 	}
 	g_free(buf);
-	doc_unre_new_group(doc);
+
 }
 
-void split_lines(Tdocument *doc) {
-	gint coffset=0,count=0,start,end,tabsize;
-	gint startws=0, endws=0,starti=0,endi=-1,requested_size; /* ws= whitespace, i=indenting */
-	gint charpos;
-	gchar *buf,*p;
-	gunichar c;
-	tabsize = doc_get_tabsize(doc);
+void join_lines(Tdocument *doc) {
+	gint start, end;
 	if (!doc_get_selection(doc, &start, &end)) {
 		start=0;
 		end=-1;
 	}
-	
+	doc_unre_new_group(doc);
+	join_lines_backend(doc, start, end);
+	doc_unre_new_group(doc);
+}
+
+static void split_lines_backend(Tdocument *doc, gint start, gint end) {
+	gint coffset=0,count=0,tabsize;
+	gint startws=0, endws=0,starti=0,endi=-1,requested_size; /* ws= whitespace, i=indenting */
+	gint charpos;
+	gchar *buf,*p;
+	gunichar c;
+
+	tabsize = doc_get_tabsize(doc);
 	p = buf = doc_get_chars(doc,start,end);
 	utf8_offset_cache_reset();
-	doc_unre_new_group(doc);
-	
 	requested_size = main_v->props.right_margin_pos;
 	coffset = charpos=start;
 	c=g_utf8_get_char(p);
@@ -185,13 +185,30 @@ void split_lines(Tdocument *doc) {
 		c=g_utf8_get_char(p);
 	}
 	g_free(buf);
-	doc_unre_new_group(doc);
-
 }
 
+void split_lines(Tdocument *doc) {
+	gint start, end;
+	if (!doc_get_selection(doc, &start, &end)) {
+		start=0;
+		end=-1;
+	}
+	doc_unre_new_group(doc);
+	split_lines_backend(doc, start, end);
+	doc_unre_new_group(doc);
+}
+
+
 void rewrap_lines(Tdocument *doc) {
-	join_lines(doc);
-	split_lines(doc);
+	gint start, end;
+	if (!doc_get_selection(doc, &start, &end)) {
+		start=0;
+		end=-1;
+	}
+	doc_unre_new_group(doc);
+	join_lines_backend(doc, start, end);
+	split_lines_backend(doc, start, end);
+	doc_unre_new_group(doc);
 }
 
 /* from spaces to tabs or from tabs to spaces */
