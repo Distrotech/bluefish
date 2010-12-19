@@ -1011,12 +1011,12 @@ gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end) {
 	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,mark);
 	mark = gtk_text_buffer_get_selection_bound(doc->buffer);
 	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itend,mark);
+	if (gtk_text_iter_equal(&itstart, &itend))
+		return FALSE;
+	
 	*start = gtk_text_iter_get_offset(&itstart);
 	*end = gtk_text_iter_get_offset(&itend);
 	DEBUG_MSG("doc_get_selection, start=%d, end=%d\n", *start, *end);
-	if (*start == *end) {
-		return FALSE;
-	}
 	if (*start > *end) {
 		gint tmp = *start;
 		*start = *end;
@@ -3023,25 +3023,29 @@ void all_documents_apply_settings() {
  *
  * Return value: void
  **/
-void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
+void word_count_cb(Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
+	gint start=0,end=-1;
+	gboolean has_selection;
 	guint chars = 0, lines = 0, words = 0;
-	gchar *allchars, *wc_message;
+	gchar *allchars, *wc_message, *tmp1, *tmp2, *tmp3;
 
 	if (!bfwin->current_document)
 		return;
+	
+	has_selection = doc_get_selection(CURDOC(bfwin), &start, &end);
+	allchars = doc_get_chars(bfwin->current_document, start, end);
 
-	allchars = doc_get_chars(bfwin->current_document, 0, -1);
 	wordcount(allchars, &chars, &lines, &words);
 	g_free(allchars);
-
-	wc_message = g_strconcat(
-			g_strdup_printf(_("Statistics: ")),
-			g_strdup_printf(ngettext("%d line", "%d lines", lines), lines), ", ",
-			g_strdup_printf(ngettext("%d word", "%d words", words), words), ", ",
-			g_strdup_printf(ngettext("%d character", "%d characters", chars), chars),
-			NULL);
-	statusbar_message (bfwin,wc_message, 5);
-	g_free (wc_message);
+	tmp1 = g_strdup_printf(ngettext("%d line", "%d lines", lines), lines);
+	tmp2 = g_strdup_printf(ngettext("%d word", "%d words", words), words);
+	tmp3 = g_strdup_printf(ngettext("%d character", "%d characters", chars), chars);
+	wc_message = g_strconcat(has_selection ? _("Selection statistics: ") : _("Statistics: "),tmp1, ", ",tmp2, ", ",tmp3, NULL);
+	statusbar_message (bfwin,wc_message, 7);
+	g_free(wc_message);
+	g_free(tmp1);
+	g_free(tmp2);
+	g_free(tmp3);
 }
 /**
  * doc_indent_selection:
