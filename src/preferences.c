@@ -2045,7 +2045,7 @@ preferences_dialog()
 
 	pd->prefs[lowercase_tags] = dialog_check_button_in_table(_("Use lo_wercase HTML tags"),
 															 main_v->props.lowercase_tags, table, 0, 1, 0, 1);
-	pd->prefs[allow_dep] = dialog_check_button_in_table(_("Use de_preciated tags (e.g. <font> and <nobr>)"),
+	pd->prefs[allow_dep] = dialog_check_button_in_table(_("Use de_precated tags (e.g. <font> and <nobr>)"),
 														main_v->props.allow_dep, table, 0, 1, 1, 2);
 	pd->prefs[format_by_context] =
 		dialog_check_button_in_table(_
