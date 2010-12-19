@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="Bflang2" version="2.0" table="1075" contexts="25" matches="134">
+<bflang name="Bflang2" version="2.0" table="1157" contexts="26" matches="143">
 <header>
 	<mime type="application/x-bluefish-language2"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -73,7 +73,7 @@
 			</tag>
 			<tag name="smartindent" highlight="tag" attributes="characters" autocomplete_append=" characters=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
 			<tag name="smartoutdent" highlight="tag" attributes="characters" autocomplete_append=" characters=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
-			<tag name="default_spellcheck" highlight="tag" attributes="enabled" autocomplete_append=" enabled=&quot;1&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;1&quot;"/>
+			<tag name="default_spellcheck" highlight="tag" attributes="enabled,spell_decode_entities" autocomplete_append=" enabled=&quot;1&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;1&quot;"/>
 		</context>
 	</tag>
 	<tag name="definition" highlight="tag" autocomplete_append="&gt;">
