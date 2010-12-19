@@ -39,6 +39,7 @@
 #include "dialog_utils.h"
 #include "document.h"
 #include "doc_comments.h"
+#include "doc_text_tools.h"
 #include "encodings_dialog.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"            /* window_full, bf_stock_ok_button */

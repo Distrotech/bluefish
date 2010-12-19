@@ -63,6 +63,8 @@ bluefish_SOURCES = \
 	document.c \
 	doc_comments.h \
 	doc_comments.c \
+	doc_text_tools.h \
+	doc_text_tools.c \
 	document.h \
 	encodings_dialog.c \
 	encodings_dialog.h \
