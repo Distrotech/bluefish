@@ -911,7 +911,7 @@ gchar *doc_get_chars(Tdocument *doc, gint start, gint end) {
 	} else if (end == -1) {
 		gtk_text_buffer_get_end_iter(doc->buffer, &itend);
 	} else {
-		DEBUG_MSG("doc_get_chars, end < -1, returning NULL\n");
+		g_warning("invalid call to doc_get_chars, end < -1, returning NULL\n");
 		return NULL;
 	}
 	DEBUG_MSG("doc_get_chars, retrieving string, start=%d, end=%d\n", start, end);
