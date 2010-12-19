@@ -175,6 +175,9 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 36:
 		convert_to_columns(CURDOC(bfwin));
 	break;
+	case 37:
+		rewrap_lines(CURDOC(bfwin));
+	break;
 #ifdef HAVE_PYTHON
 	case 99:
 		{
@@ -370,6 +373,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Tools/Strip T_railing Whitespace"), NULL, menu_file_operations_cb, 29, "<Item>"},
 	{N_("/Tools/_Join lines"), NULL, menu_file_operations_cb, 33, "<Item>"},
 	{N_("/Tools/Sp_lit lines"), NULL, menu_file_operations_cb, 34, "<Item>"},
+	{N_("/Tools/Rewrap _lines"), NULL, menu_file_operations_cb, 37, "<Item>"},
 	{N_("/Tools/Indenting To T_abs"), NULL, menu_file_operations_cb, 30, "<Item>"},
 	{N_("/Tools/Indenting To S_paces"), NULL, menu_file_operations_cb, 31, "<Item>"},
 	{N_("/Tools/Merge Lines Into Col_umns"), NULL, menu_file_operations_cb, 36, "<Item>"},
