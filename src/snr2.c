@@ -2195,6 +2195,11 @@ void split_lines(Tdocument *doc) {
 
 }
 
+void rewrap_lines(Tdocument *doc) {
+	join_lines(doc);
+	split_lines(doc);
+}
+
 /* from spaces to tabs or from tabs to spaces */
 void convert_identing(Tdocument *doc, gboolean to_tabs) {
 	gint i=0,wstart=0,coffset=0,indenting=0,tabsize;
