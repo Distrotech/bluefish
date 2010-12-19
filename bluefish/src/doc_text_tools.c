@@ -68,7 +68,7 @@ void strip_trailing_spaces(Tdocument *doc) {
 void join_lines(Tdocument *doc) {
 	gint i=0,cstart,cend,start,end,coffset;
 	gchar *buf;
-	gboolean in_split;
+	gboolean in_split=FALSE;
 	gint so_line_split=0,eo_line_split=0;
 	
 	if (!doc_get_selection(doc, &start, &end)) {
@@ -89,7 +89,7 @@ void join_lines(Tdocument *doc) {
 				cend = utf8_byteoffset_to_charsoffset_cached(buf, eo_line_split);
 				DEBUG_MSG("join_lines, replace from %d to %d, coffset=%d\n",cstart+coffset,cend+coffset,coffset);
 				doc_replace_text_backend(doc, " ", cstart+coffset, cend+coffset);
-				coffset += (1 - (eo_line_split - so_line_split));
+				coffset += (1 - (cend - cstart));
 			} else if(buf[i] == '\n' || buf[i] == '\r') {
 				in_split = FALSE;
 			}
@@ -126,16 +126,17 @@ void split_lines(Tdocument *doc) {
 	utf8_offset_cache_reset();
 	doc_unre_new_group(doc);
 	
-	requested_size = 80;
-	charpos=start;
+	requested_size = main_v->props.right_margin_pos;
+	coffset = charpos=start;
 	c=g_utf8_get_char(p);
 	while (c != '\0') {
 		if (count > requested_size) {
 			gchar *new_indenting, *tmp1, *tmp2;
+			DEBUG_MSG("split_lines, count=%d, startws=%d, endws=%d, coffset=%d\n",count,startws,endws,coffset);
 			tmp1 = g_utf8_offset_to_pointer(buf, starti);
 			tmp2 = g_utf8_offset_to_pointer(buf, endi);
 			new_indenting = g_strndup(tmp1, (tmp2-tmp1));
-			DEBUG_MSG("split_lines, startws=%d,endws=%d, coffset=%d\n",startws,endws,coffset);
+			DEBUG_MSG("split_lines, replace from %d to %d with new indenting\n",startws+coffset,endws+coffset);
 			doc_replace_text_backend(doc, new_indenting, startws+coffset, endws+coffset);
 			coffset += (g_utf8_strlen(new_indenting,-1) - (endws-startws));
 			DEBUG_MSG("split_lines, new coffset=%d\n",coffset);
@@ -149,14 +150,14 @@ void split_lines(Tdocument *doc) {
 			if (startws<endws) {
 				startws=charpos;
 				endws=charpos;
-				DEBUG_MSG("set startws to %d\n",startws);
+				DEBUG_MSG("tab, set startws to %d\n",startws);
 			}
 		} else if (c == ' ') {
 			count++;
 			if (startws<endws) {
 				startws=charpos;
 				endws=charpos;
-				DEBUG_MSG("set startws to %d\n",startws);
+				DEBUG_MSG("space, set startws to %d\n",startws);
 			}
 		} else if (c=='\n') {
 			count=0;
