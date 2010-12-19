@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#define DEBUG
 
 #include "bluefish.h"
 #include "bf_lib.h"
@@ -65,8 +66,10 @@ void strip_trailing_spaces(Tdocument *doc) {
 }
 
 void join_lines(Tdocument *doc) {
-	gint i=0,j,cstart,start,end,coffset;
+	gint i=0,cstart,cend,start,end,coffset;
 	gchar *buf;
+	gboolean in_split;
+	gint so_line_split=0,eo_line_split=0;
 	
 	if (!doc_get_selection(doc, &start, &end)) {
 		start=0;
@@ -74,16 +77,25 @@ void join_lines(Tdocument *doc) {
 	}
 	coffset=start;
 	buf = doc_get_chars(doc,start,end);
+	utf8_offset_cache_reset();
 	doc_unre_new_group(doc);
+	
 	while (buf[i] != '\0') {
-		if (buf[i] == '\n' || buf[i] == '\r') {
-			cstart = utf8_byteoffset_to_charsoffset_cached(buf, i);
-			j=i+1;
-			/* remove indenting for the next line too */
-			while (buf[j]=='\r'||buf[j]=='\n'||buf[j]==' '||buf[j]=='\t')
-				j++;
-			doc_replace_text_backend(doc, " ", cstart+coffset, cstart+(j-i)+coffset);
-			coffset += (1 - (j-i));
+		if (in_split) {
+			if (buf[i] != '\n' && buf[i] != '\r' && buf[i] != '\t' && buf[i] != ' ') {
+				eo_line_split = i;
+				in_split = FALSE;
+				cstart = utf8_byteoffset_to_charsoffset_cached(buf, so_line_split);
+				cend = utf8_byteoffset_to_charsoffset_cached(buf, eo_line_split);
+				DEBUG_MSG("join_lines, replace from %d to %d, coffset=%d\n",cstart+coffset,cend+coffset,coffset);
+				doc_replace_text_backend(doc, " ", cstart+coffset, cend+coffset);
+				coffset += (1 - (eo_line_split - so_line_split));
+			}
+		} else {
+			if (buf[i] == '\n' || buf[i] == '\r') {
+				so_line_split = i;
+				in_split = TRUE;
+			}
 		}
 		i++;
 	}
@@ -116,10 +128,10 @@ void split_lines(Tdocument *doc) {
 			tmp1 = g_utf8_offset_to_pointer(buf, starti);
 			tmp2 = g_utf8_offset_to_pointer(buf, endi);
 			new_indenting = g_strndup(tmp1, (tmp2-tmp1));
-			DEBUG_MSG("startws=%d,endws=%d\n",startws,endws);
+			DEBUG_MSG("split_lines, startws=%d,endws=%d, coffset=%d\n",startws,endws,coffset);
 			doc_replace_text_backend(doc, new_indenting, startws+coffset, endws+coffset);
 			coffset += (g_utf8_strlen(new_indenting,-1) - (endws-startws));
-			DEBUG_MSG("new coffset=%d\n",coffset);
+			DEBUG_MSG("split_lines, new coffset=%d\n",coffset);
 			count=0;
 			startws=charpos;
 			endws=charpos;
