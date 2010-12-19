@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h>				/* strcmp() */
@@ -508,8 +508,9 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 
 	poplist = g_list_sort(langmgr_get_languages_mimetypes(), (GCompareFunc) g_strcmp0);
 	sprefs->prefs[default_mime_type] = dialog_combo_box_text_from_list_in_table(poplist,
-																				sessionvars->default_mime_type,
-																				table, 1, 6, 0, 1);
+																				sessionvars->
+																				default_mime_type, table, 1,
+																				6, 0, 1);
 	dialog_mnemonic_label_in_table(_("_Mime type:"), sprefs->prefs[default_mime_type], table, 0, 1, 0, 1);
 	g_list_free(poplist);
 
@@ -600,7 +601,7 @@ create_plugin_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->pd.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 350);
+	gtk_widget_set_size_request(scrolwin, 200, 200);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 
 	{
@@ -683,11 +684,35 @@ textstyle_selection_changed_cb(GtkTreeSelection * selection, Tprefdialog * pd)
 	DEBUG_MSG("textstyle_selection_changed_cb, started\n");
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
 		gchar **strarr;
+		GdkColor color;
+
 		gtk_tree_model_get(model, &iter, 1, &strarr, -1);
 		pd->tsd.curstrarr = NULL;
 		DEBUG_MSG("textstyle_selection_changed_cb, setting %s, strarr=%p\n", strarr[0], strarr);
-		gtk_entry_set_text(GTK_ENTRY(pd->tsd.fg_color), strarr[1]);
-		gtk_entry_set_text(GTK_ENTRY(pd->tsd.bg_color), strarr[2]);
+
+		if (gdk_color_parse(strarr[1], &color)) {
+			DEBUG_MSG("textstyle_selection_changed_cb, strarr[1]=%s\n", strarr[1]);
+			gtk_color_button_set_color(GTK_COLOR_BUTTON(pd->tsd.fg_color), &color);
+			gtk_color_button_set_alpha(GTK_COLOR_BUTTON(pd->tsd.fg_color), 65535);
+		} else {
+			color.blue = 0;
+			color.green = 0;
+			color.red = 0;
+			gtk_color_button_set_color(GTK_COLOR_BUTTON(pd->tsd.fg_color), &color);
+			gtk_color_button_set_alpha(GTK_COLOR_BUTTON(pd->tsd.fg_color), 0);
+		}
+		if (gdk_color_parse(strarr[2], &color)) {
+			DEBUG_MSG("textstyle_selection_changed_cb, strarr[2]=%s\n", strarr[2]);
+			gtk_color_button_set_color(GTK_COLOR_BUTTON(pd->tsd.bg_color), &color);
+			gtk_color_button_set_alpha(GTK_COLOR_BUTTON(pd->tsd.bg_color), 65535);
+		} else {
+			color.blue = 0;
+			color.green = 0;
+			color.red = 0;
+			gtk_color_button_set_color(GTK_COLOR_BUTTON(pd->tsd.bg_color), &color);
+			gtk_color_button_set_alpha(GTK_COLOR_BUTTON(pd->tsd.bg_color), 0);
+		}
+
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[0]), (strarr[3][0] != '1'));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[1]), (strarr[3][0] == '1'));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[0]), (strarr[4][0] != '1'));
@@ -702,19 +727,23 @@ textstyle_selection_changed_cb(GtkTreeSelection * selection, Tprefdialog * pd)
 }
 
 static void
-textstyle_entry_changed(GtkEditable * editable, gpointer user_data)
+textstyle_color_button_color_set(GtkColorButton * button, gpointer user_data)
 {
 	Tprefdialog *pd = (Tprefdialog *) user_data;
-	GtkEntry *entry = GTK_ENTRY(editable);
-	DEBUG_MSG("textstyle_entry_changed\n");
+	DEBUG_MSG("textstyle_color_button_color_set\n");
 	if (pd->tsd.curstrarr) {
 		int index = 2;
-		if (((GtkWidget *) entry) == pd->tsd.fg_color) {
+		GdkColor color;
+
+		if (((GtkWidget *) button) == pd->tsd.fg_color) {
 			index = 1;
 		}
+
 		if (pd->tsd.curstrarr[index])
 			g_free(pd->tsd.curstrarr[index]);
-		pd->tsd.curstrarr[index] = gtk_editable_get_chars(GTK_EDITABLE(entry), 0, -1);
+
+		gtk_color_button_get_color(GTK_COLOR_BUTTON(button), &color);
+		pd->tsd.curstrarr[index] = gdk_color_to_string(&color);
 		DEBUG_MSG("textstyle_radio_changed, changing arr[%d] to %s\n", index, pd->tsd.curstrarr[index]);
 	}
 }
@@ -770,15 +799,16 @@ textstyle_spellcheck_changed(GtkToggleButton * togglebutton, gpointer user_data)
 static void
 create_textstyle_gui(Tprefdialog * pd, GtkWidget * vbox1)
 {
-	GtkWidget *hbox, *vbox, *hbox2, *but, *scrolwin, *label;
+	GtkWidget *but, *hbox, *hbox2, *label, *scrolwin, *table, *vbox;
 	GtkTreeSelection *select;
 	DEBUG_MSG("create_textstyle_gui\n");
-	label
-		=
-		gtk_label_new(_
-					  ("Text styles are applied on top of each other. If multiple styles are applied to the same text, the top-most style in this list has the highest priority. Use drag and drop to re-order the text styles."));
+	label = gtk_label_new(NULL);
+	gtk_label_set_markup(GTK_LABEL(label),
+						 _
+						 ("<small>Text styles are applied on top of each other. If multiple styles are applied to the same text, the top-most style in this list has the highest priority. Use drag and drop to re-order the text styles.</small>"));
 	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
-	gtk_box_pack_start(GTK_BOX(vbox1), label, FALSE, TRUE, 2);
+	gtk_misc_set_alignment(GTK_MISC(label), 0, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), label, TRUE, TRUE, 2);
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 2);
@@ -794,28 +824,30 @@ create_textstyle_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->tsd.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 350);
+	gtk_widget_set_size_request(scrolwin, 200, 300);
 	gtk_box_pack_start(GTK_BOX(hbox), scrolwin, TRUE, TRUE, 2);
 
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 5);
-	pd->tsd.fg_color = prefs_string(_("Foreground color"), "", vbox, pd, string_color);
-	pd->tsd.bg_color = prefs_string(_("Background color"), "", vbox, pd, string_color);
-	pd->tsd.bold_radio[0] = gtk_radio_button_new_with_label(NULL, _("normal weight"));
-	gtk_box_pack_start(GTK_BOX(vbox), pd->tsd.bold_radio[0], FALSE, FALSE, 0);
+	table = dialog_table_in_vbox(2, 2, 0, vbox, FALSE, FALSE, 0);
+
+	pd->tsd.fg_color = dialog_color_button_in_table(NULL, _("Foreground color"), table, 1, 2, 0, 1);
+	dialog_mnemonic_label_in_table(_("_Foreground color:"), pd->tsd.fg_color, table, 0, 1, 0, 1);
+	pd->tsd.bg_color = dialog_color_button_in_table(NULL, _("Background color"), table, 1, 2, 1, 2);
+	dialog_mnemonic_label_in_table(_("_Background color:"), pd->tsd.bg_color, table, 0, 1, 1, 2);
+
+	table = dialog_table_in_vbox(5, 1, 0, vbox, FALSE, FALSE, 12);
+
+	pd->tsd.bold_radio[0] = dialog_radio_button_in_table(NULL, _("_Normal weight"), table, 0, 1, 0, 1);
 	pd->tsd.bold_radio[1] =
-		gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.bold_radio[0]),
-													_("bold weight"));
-	gtk_box_pack_start(GTK_BOX(vbox), pd->tsd.bold_radio[1], FALSE, FALSE, 0);
-	pd->tsd.italic_radio[0] = gtk_radio_button_new_with_label(NULL, _("normal style"));
-	gtk_box_pack_start(GTK_BOX(vbox), pd->tsd.italic_radio[0], FALSE, FALSE, 0);
+		dialog_radio_button_from_widget_in_table(GTK_RADIO_BUTTON(pd->tsd.bold_radio[0]), _("Bold _weight"),
+												 table, 0, 1, 1, 2);
+	pd->tsd.italic_radio[0] = dialog_radio_button_in_table(NULL, _("Normal st_yle"), table, 0, 1, 2, 3);
 	pd->tsd.italic_radio[1] =
-		gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.italic_radio[0]),
-													_("italic style"));
-	gtk_box_pack_start(GTK_BOX(vbox), pd->tsd.italic_radio[1], FALSE, FALSE, 0);
+		dialog_radio_button_from_widget_in_table(GTK_RADIO_BUTTON(pd->tsd.italic_radio[0]),
+												 _("_Italic style"), table, 0, 1, 3, 4);
 #ifdef HAVE_LIBENCHANT
-	pd->tsd.need_spellcheck = gtk_check_button_new_with_label(_("Spell check"));
-	gtk_box_pack_start(GTK_BOX(vbox), pd->tsd.need_spellcheck, FALSE, FALSE, 0);
+	pd->tsd.need_spellcheck = dialog_check_button_in_table(_("_Spell check"), FALSE, table, 0, 1, 4, 5);
 #endif
 
 	{
@@ -839,16 +871,22 @@ create_textstyle_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	g_signal_connect(G_OBJECT(pd->tsd.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->tsd);
 	g_signal_connect(G_OBJECT(pd->tsd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->tsd);
 
-	g_signal_connect(G_OBJECT(pd->tsd.fg_color), "changed", G_CALLBACK(textstyle_entry_changed), pd);
-	g_signal_connect(G_OBJECT(pd->tsd.bg_color), "changed", G_CALLBACK(textstyle_entry_changed), pd);
+	g_signal_connect(G_OBJECT(pd->tsd.fg_color), "color-set", G_CALLBACK(textstyle_color_button_color_set),
+					 pd);
+	g_signal_connect(G_OBJECT(pd->tsd.bg_color), "color-set", G_CALLBACK(textstyle_color_button_color_set),
+					 pd);
+
 	g_signal_connect(G_OBJECT(pd->tsd.bold_radio[0]), "toggled", G_CALLBACK(textstyle_radio_changed), pd);
 	g_signal_connect(G_OBJECT(pd->tsd.bold_radio[1]), "toggled", G_CALLBACK(textstyle_radio_changed), pd);
+
 	g_signal_connect(G_OBJECT(pd->tsd.italic_radio[0]), "toggled", G_CALLBACK(textstyle_radio_changed), pd);
 	g_signal_connect(G_OBJECT(pd->tsd.italic_radio[1]), "toggled", G_CALLBACK(textstyle_radio_changed), pd);
+
 #ifdef HAVE_LIBENCHANT
 	g_signal_connect(G_OBJECT(pd->tsd.need_spellcheck), "toggled", G_CALLBACK(textstyle_spellcheck_changed),
 					 pd);
 #endif
+
 	hbox2 = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox2, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_textstyle_lcb), pd);
@@ -933,7 +971,7 @@ create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->bd.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 210);
+	gtk_widget_set_size_request(scrolwin, 200, 200);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	{
 		GList *tmplist = g_list_first(pd->lists[extcommands]);
@@ -1027,7 +1065,7 @@ create_filters_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ed.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 190);
+	gtk_widget_set_size_request(scrolwin, 200, 200);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	{
 		GList *tmplist = g_list_first(pd->lists[extfilters]);
@@ -1163,7 +1201,7 @@ create_outputbox_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->od.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 190);
+	gtk_widget_set_size_request(scrolwin, 200, 200);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	{
 		GList *tmplist = g_list_first(pd->lists[extoutputbox]);
@@ -1255,7 +1293,7 @@ create_template_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->tg.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 190);
+	gtk_widget_set_size_request(scrolwin, 200, 200);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	tmplist = g_list_first(pd->lists[templates]);
 	while (tmplist) {
@@ -1413,10 +1451,6 @@ create_bflang_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter, bflang_gui_filter_func_lcb, pd, NULL);
 	pd->bld.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter));
 
-	/*label = gtk_label_new(NULL);
-	   gtk_label_set_markup(GTK_LABEL(label), _("<small>language dialog not yet ready..</small>"));
-	   gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2); */
-	/* skip column 0, the language name */
 	pref_create_column(GTK_TREE_VIEW(pd->bld.lview), 1 /* 1=text */ , NULL, NULL, _("Option name"), 1, FALSE);
 	pref_create_column(GTK_TREE_VIEW(pd->bld.lview), 2 /* 2=boolean */ , G_CALLBACK(bflang_1_edited_lcb), pd,
 					   _("value"), 2, FALSE);
@@ -1425,7 +1459,6 @@ create_bflang_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->bld.lview);
-
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 
 	pd->bld.lstore2 = gtk_list_store_new(4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER);
@@ -1449,7 +1482,6 @@ create_bflang_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->bld.lview2);
-
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 
 	fill_bflang_gui(pd);
@@ -1995,8 +2027,8 @@ preferences_dialog()
 		tmplist = g_list_next(tmplist);
 	}
 	pd->prefs[newfile_default_encoding] = dialog_combo_box_text_labeled_from_list(poplist,
-																				  main_v->
-																				  props.newfile_default_encoding,
+																				  main_v->props.
+																				  newfile_default_encoding,
 																				  _
 																				  ("_Default character set for new files:"),
 																				  hbox, 0);
@@ -2113,9 +2145,9 @@ preferences_dialog()
 	poplist = lingua_list_sorted();
 	pd->prefs[language] = dialog_combo_box_text_labeled_from_list(poplist, (main_v->props.language
 																			&& main_v->props.language[0]) ?
-																  lingua_locale_to_lang(main_v->
-																						props.language) :
-																  _("Auto"), _("_Language:"), hbox, 0);
+																  lingua_locale_to_lang(main_v->props.
+																						language) : _("Auto"),
+																  _("_Language:"), hbox, 0);
 	g_list_free(poplist);
 
 	pd->prefs[transient_htdialogs] = dialog_check_button_new(_("_Make HTML dialogs transient"),
