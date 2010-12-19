@@ -82,7 +82,7 @@ void join_lines(Tdocument *doc) {
 	
 	while (buf[i] != '\0') {
 		if (in_split) {
-			if (buf[i] != '\n' && buf[i] != '\r' && buf[i] != '\t' && buf[i] != ' ') {
+			if (buf[i] != '\t' && buf[i] != ' ') {
 				eo_line_split = i;
 				in_split = FALSE;
 				cstart = utf8_byteoffset_to_charsoffset_cached(buf, so_line_split);
@@ -90,11 +90,18 @@ void join_lines(Tdocument *doc) {
 				DEBUG_MSG("join_lines, replace from %d to %d, coffset=%d\n",cstart+coffset,cend+coffset,coffset);
 				doc_replace_text_backend(doc, " ", cstart+coffset, cend+coffset);
 				coffset += (1 - (eo_line_split - so_line_split));
+			} else if(buf[i] == '\n' || buf[i] == '\r') {
+				in_split = FALSE;
 			}
 		} else {
-			if (buf[i] == '\n' || buf[i] == '\r') {
+			if (buf[i] == '\n') {
 				so_line_split = i;
 				in_split = TRUE;
+			} else if (buf[i] == '\r') {
+				so_line_split = i;
+				in_split = TRUE;
+				if (buf[i+1] == '\n')
+					i++;
 			}
 		}
 		i++;
