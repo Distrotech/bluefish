@@ -50,6 +50,7 @@ enum {
 	editor_smart_cursor,
 	editor_indent_wspaces,
 	editor_tab_indent_sel,
+	use_system_tab_font,
 	tab_font_string,			/* notebook tabs font */
 	/*tab_color_normal, *//* notebook tabs text color normal.  This is just NULL! */
 	tab_color_modified,			/* tab text color when doc is modified and unsaved */
@@ -398,62 +399,6 @@ listpref_row_deleted(GtkTreeModel * treemodel, GtkTreePath * arg1, Tlistpref * l
 		}
 		lp->insertloc = -1;
 	}
-}
-
-static void
-font_dialog_response_lcb(GtkDialog * fsd, gint response, GtkWidget * entry)
-{
-	DEBUG_MSG("font_dialog_response_lcb, response=%d\n", response);
-	if (response == GTK_RESPONSE_OK) {
-		gchar *fontname;
-		fontname = gtk_font_selection_dialog_get_font_name(GTK_FONT_SELECTION_DIALOG(fsd));
-		gtk_entry_set_text(GTK_ENTRY(entry), fontname);
-		g_free(fontname);
-	}
-	gtk_widget_destroy(GTK_WIDGET(fsd));
-}
-
-static void
-font_button_lcb(GtkWidget * wid, GtkWidget * entry)
-{
-	GtkWidget *fsd;
-	const gchar *fontname;
-	fsd = gtk_font_selection_dialog_new(_("Select font"));
-	fontname = gtk_entry_get_text(GTK_ENTRY(entry));	/* do NOT free, this is an internal pointer */
-	if (strlen(fontname)) {
-		gtk_font_selection_dialog_set_font_name(GTK_FONT_SELECTION_DIALOG(fsd), fontname);
-	}
-	g_signal_connect(GTK_OBJECT(fsd), "response", G_CALLBACK(font_dialog_response_lcb), entry);
-	gtk_window_set_transient_for(GTK_WINDOW(GTK_DIALOG(fsd)), GTK_WINDOW(gtk_widget_get_toplevel(entry)));
-	gtk_window_set_modal(GTK_WINDOW(GTK_DIALOG(fsd)), TRUE);
-	gtk_window_set_destroy_with_parent(GTK_WINDOW(GTK_DIALOG(fsd)), TRUE);
-	gtk_widget_show(fsd);
-}
-
-static GtkWidget *
-prefs_string(const gchar * title, const gchar * curval, GtkWidget * box, Tprefdialog * pd,
-			 Tprefstringtype prefstringtype)
-{
-	GtkWidget *hbox, *return_widget;
-
-	hbox = gtk_hbox_new(FALSE, 3);
-	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(title), FALSE, FALSE, 3);
-	if (prefstringtype == string_color) {
-		return_widget = boxed_entry_with_text(curval, 8, hbox);
-		gtk_entry_set_width_chars(GTK_ENTRY(return_widget), 8);
-		gtk_box_pack_start(GTK_BOX(hbox), color_but_new2(return_widget), FALSE, FALSE, 3);
-	} else
-		return_widget = boxed_entry_with_text(curval, 1023, hbox);
-	if (prefstringtype == file) {
-		gtk_box_pack_start(GTK_BOX(hbox), file_but_new(return_widget, 1, NULL), FALSE, FALSE, 3);
-	} else if (prefstringtype == font) {
-		GtkWidget *but =
-			bf_gtkstock_button(GTK_STOCK_SELECT_FONT, G_CALLBACK(font_button_lcb), return_widget);
-		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 3);
-	}
-
-	return return_widget;
 }
 
 /* session preferences */
@@ -1589,6 +1534,8 @@ preferences_apply(Tprefdialog * pd)
 		integer_apply(&main_v->globses.main_window_h, pd->prefs[main_window_h], FALSE);
 		integer_apply(&main_v->globses.main_window_w, pd->prefs[main_window_w], FALSE);
 	}
+
+	integer_apply(&main_v->props.use_system_tab_font, pd->prefs[use_system_tab_font], TRUE);
 	string_apply(&main_v->props.tab_font_string, pd->prefs[tab_font_string]);
 	string_apply(&main_v->props.tab_color_modified, pd->prefs[tab_color_modified]);
 	string_apply(&main_v->props.tab_color_loading, pd->prefs[tab_color_loading]);
@@ -2228,8 +2175,18 @@ preferences_dialog()
 	gtk_container_add(GTK_CONTAINER(frame), vbox1);
 	vbox2 = dialog_vbox_labeled(_("<b>Font</b>"), vbox1);
 
-	pd->prefs[tab_font_string] = prefs_string(_("Document tab font \n(leave empty for gtk default)"),
-											  main_v->props.tab_font_string, vbox2, pd, string_font);
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
+	pd->prefs[use_system_tab_font] = dialog_check_button_new(_("_Use system document tab font"), main_v->props.use_system_tab_font);
+	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[use_system_tab_font], FALSE, FALSE, 0);
+
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
+	label = dialog_box_label_new(_("_Document tab font:"), 0, 0.5, hbox, 0);
+	pd->prefs[tab_font_string] = gtk_font_button_new_with_font(main_v->props.tab_font_string);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[tab_font_string]);
+	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[tab_font_string], FALSE, FALSE, 0);
+	gtk_widget_set_sensitive(hbox, !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->prefs[use_system_tab_font])));
 
 	vbox2 = dialog_vbox_labeled(_("<b>Colors</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
