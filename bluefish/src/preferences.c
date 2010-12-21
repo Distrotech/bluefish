@@ -1675,6 +1675,12 @@ prefs_togglebutton_toggled_lcb(GtkToggleButton * togglebutton, gpointer user_dat
 	gtk_widget_set_sensitive(GTK_WIDGET(user_data), gtk_toggle_button_get_active(togglebutton));
 }
 
+static void
+prefs_togglebutton_toggled_not_lcb(GtkToggleButton * togglebutton, gpointer user_data)
+{
+	gtk_widget_set_sensitive(GTK_WIDGET(user_data), !gtk_toggle_button_get_active(togglebutton));
+}
+
 void
 preftree_cursor_changed_cb(GtkTreeView * treeview, gpointer user_data)
 {
@@ -2187,6 +2193,7 @@ preferences_dialog()
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[tab_font_string]);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[tab_font_string], FALSE, FALSE, 0);
 	gtk_widget_set_sensitive(hbox, !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->prefs[use_system_tab_font])));
+	g_signal_connect(G_OBJECT(pd->prefs[use_system_tab_font]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_not_lcb), hbox);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Colors</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
