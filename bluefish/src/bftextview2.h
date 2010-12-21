@@ -437,6 +437,7 @@ struct _BluefishTextView {
 #endif /*HAVE_LIBENCHANT*/
 	GtkTextTag *blockmatch;
 	Tscancache scancache;
+	
 	guint scanner_idle; /* event ID for the idle function that handles the scanning. 0 if no idle function is running */
 	guint scanner_delayed; /* event ID for the timeout function that handles the delayed scanning. 0 if no timeout function is running */
 	GTimer *user_idle_timer;
@@ -457,6 +458,8 @@ struct _BluefishTextView {
 	gboolean showing_blockmatch; /* a state of the widget if we are currently showing a blockmatch */
 	gboolean insert_was_auto_indent; /* a state of the widget if the last keypress (enter) caused 
 													autoindent (so we should unindent on a closing bracket */
+	gboolean needremovetags; /* after we have removed all old highlighting, we set this to FALSE
+										but after a change that needs highlighting we set this to TRUE again */
 
 	/* next three are used for margin painting */
 	gint margin_pixels_per_char;
