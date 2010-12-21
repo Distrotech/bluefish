@@ -18,6 +18,11 @@
  */
 
 /*#define MINIMAL_REFCOUNTING*/
+/*#define VALGRIND_PROFILING*/
+
+#ifdef VALGRIND_PROFILING
+#include <valgrind/callgrind.h>
+#endif
 
 #define HL_PROFILING
 #ifdef HL_PROFILING
@@ -31,7 +36,11 @@
 G_SLICE=always-malloc valgrind --tool=memcheck --leak-check=full --num-callers=32 --freelist-vol=100000000 src/bluefish-unstable
 to memory-debug this code
 */
+#ifdef VALGRIND_PROFILING
+#define MAX_CONTINUOUS_SCANNING_INTERVAL 1.0 /* float in seconds */
+#else
 #define MAX_CONTINUOUS_SCANNING_INTERVAL 0.1 /* float in seconds */
+#endif
 
 typedef struct {
 	GtkTextIter start;
@@ -678,11 +687,16 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		DBG_MSG("no scantable, nothing to scan, returning...\n");
 		return FALSE;
 	}
-
+#ifdef VALGRIND_PROFILING
+	CALLGRIND_START_INSTRUMENTATION;
+#endif /* VALGRIND_PROFILING */	
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 
 	if (!bftextview2_find_region2scan(btv, buffer, &start, &end)) {
 		DBG_MSG("nothing to scan here.. return FALSE\n");
+#ifdef VALGRIND_PROFILING
+		CALLGRIND_STOP_INSTRUMENTATION;
+#endif /* VALGRIND_PROFILING */
 		return FALSE;
 	}
 	/* start timer */
@@ -694,6 +708,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		if (gtk_text_iter_compare(&start,visible_end)>0) {
 			DBG_DELAYSCANNING("start of region that needs scanning is beyond visible_end, return TRUE\n");
 			g_timer_destroy(scanning.timer);
+#ifdef VALGRIND_PROFILING
+			CALLGRIND_STOP_INSTRUMENTATION;
+#endif /* VALGRIND_PROFILING */
 			return TRUE;
 		}
 		if (gtk_text_iter_compare(&end,visible_end)>0) {
@@ -725,7 +742,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	invalid tags and blocks. right now we remove all, but most are likely
 	still valid. 
 	This function takes a lot of time!!!!!!!!!! */
-	remove_old_scan_results(btv, buffer, &start);
+	if (btv->needremovetags) {
+		remove_old_scan_results(btv, buffer, &start);
+		btv->needremovetags = FALSE;
+	}
 	/* because we remove all to the end we have to rescan to the end (I know this
 	is stupid, should become smarter in the future )*/
 #ifdef HL_PROFILING
@@ -844,6 +864,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	g_queue_foreach(scanning.contextstack,foundcontext_foreach_unref_lcb,btv);
 	g_queue_free(scanning.contextstack);
 	g_queue_free(scanning.blockstack);
+#ifdef VALGRIND_PROFILING
+	CALLGRIND_STOP_INSTRUMENTATION;
+#endif /* VALGRIND_PROFILING */
 	DBG_MSG("cleaned scanning run, finished this run\n");
 	return !gtk_text_iter_is_end(&iter); 
 }
