@@ -323,8 +323,8 @@ typedef struct {
 	guint32 end1_o;
 	guint32 start2_o;
 	guint32 end2_o;
+	guint32 refcount; /* free on 0 */
 	gint16 patternum; /* which pattern (number of the array element in scantable->matches) */
-	guint16 refcount; /* free on 0 */
 	guint8 folded;
 	guint8 foldable; /* FALSE on a single line */
 } Tfoundblock; /* once a start-of-block is found start1 and end1 are set
@@ -340,8 +340,8 @@ typedef struct {
 typedef struct {
 	guint32 start_o;
 	guint32 end_o;
+	guint32 refcount; /* free on 0 */
 	gint16 context; /* number of the element in scantable->contexts */
-	guint16 refcount; /* free on 0 */
 } Tfoundcontext; /* once a start-of-context is found start is set
 						and the Tfoundcontext is added to the GtkTextMark as "context"
 						and the Tfoundcontext is added to the current contextstack.
