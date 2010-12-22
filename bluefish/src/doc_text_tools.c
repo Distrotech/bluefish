@@ -133,14 +133,16 @@ static void split_lines_backend(Tdocument *doc, gint start, gint end) {
 	while (c != '\0') {
 		if (count > requested_size) {
 			gchar *new_indenting, *tmp1, *tmp2;
-			DEBUG_MSG("split_lines, count=%d, startws=%d, endws=%d, coffset=%d\n",count,startws,endws,coffset);
+			 if (startws>=endws)
+			 	endws=charpos;
+			DEBUG_MSG("split_lines, count=%d, startws=%d, endws=%d, coffset=%d c='%c'\n",count,startws,endws,coffset,c);
 			if (starti == endi) {
 				new_indenting = g_strdup("\n");
 			} else {
 				tmp1 = g_utf8_offset_to_pointer(buf, starti);
 				tmp2 = g_utf8_offset_to_pointer(buf, endi);
 				new_indenting = g_strndup(tmp1, (tmp2-tmp1));
-				DEBUG_MSG("tmp1=%p, tmp2=%p, len=%d, new_indenting='%s'\n",tmp1,tmp2,(tmp2-tmp1),new_indenting);
+				DEBUG_MSG("tmp1=%p, tmp2=%p, len=%d, new_indenting='%s'\n",tmp1,tmp2,(gint)(tmp2-tmp1),new_indenting);
 			}
 			DEBUG_MSG("split_lines, replace from %d to %d with new indenting\n",startws+coffset,endws+coffset);
 			count = charpos - endws;
