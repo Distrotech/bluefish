@@ -191,7 +191,8 @@ static gboolean startup_in_idle(gpointer data) {
 					tmplist = g_list_next(tmplist);
 				}
 			}
-			bmark_reload(startup->firstbfwin);
+			if (startup->firstbfwin->session == main_v->session)
+				bmark_reload(startup->firstbfwin); /* do not reload bookmarks for a project */
 			/* set GTK settings, must be AFTER the menu is created */
 			{
 				gchar *shortcutfilename;
