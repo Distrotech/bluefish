@@ -692,6 +692,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	GtkTextIter itcursor;
 #endif
 #ifdef HL_PROFILING
+	guint startpos;
 	gdouble stage1=0;
 	gdouble stage2;
 	gdouble stage3;
@@ -751,6 +752,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 
 	DBG_SCANNING("scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
 #ifdef HL_PROFILING
+	startpos = gtk_text_iter_get_offset(&start);
 	stage1 = g_timer_elapsed(scanning.timer,NULL);
 #endif
 	iter = mstart = start;
@@ -862,13 +864,14 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	hl_profiling.total_marks += hl_profiling.num_marks;
 	hl_profiling.total_chars += hl_profiling.numchars;
 	hl_profiling.total_time_ms += (gint)(1000.0*stage4); 
-	g_print("scanning run %d (%d ms): %d, %d, %d, %d; loops=%d,chars=%d,blocks %d/%d (%d) contexts %d/%d (%d) scancache %d refcs %d(%dKb),%d(%dKb),%d(%dKb) marks %d\n"
+	g_print("scanning run %d (%d ms): %d, %d, %d, %d; from %d-%d, loops=%d,chars=%d,blocks %d/%d (%d) contexts %d/%d (%d) scancache %d refcs %d(%dKb),%d(%dKb),%d(%dKb) marks %d\n"
 		,hl_profiling.total_runs
 		,(gint)(1000.0*stage4)
 		,(gint)(1000.0*stage1)
 		,(gint)(1000.0*stage2-stage1)
 		,(gint)(1000.0*stage3-stage2)
 		,(gint)(1000.0*stage4-stage3)
+		,startpos,gtk_text_iter_get_offset(&iter)
 		,hl_profiling.numloops,hl_profiling.numchars
 		,hl_profiling.numblockstart,hl_profiling.numblockend,hl_profiling.longest_blockstack
 		,hl_profiling.numcontextstart,hl_profiling.numcontextend,hl_profiling.longest_contextstack
