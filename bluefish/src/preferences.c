@@ -495,7 +495,7 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 		dialog_check_button_in_table(_("Show line _numbers"), sessionvars->view_line_numbers, table, 0, 1, 4,
 									 5);
 	sprefs->prefs[display_right_margin] =
-		dialog_check_button_in_table(_("Show right margin"), sessionvars->display_right_margin, table, 0, 1,
+		dialog_check_button_in_table(_("Show _right margin"), sessionvars->display_right_margin, table, 0, 1,
 									 5, 6);
 	sprefs->prefs[autoindent] =
 		dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table, 0, 1, 6, 7);
