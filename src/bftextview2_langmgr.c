@@ -843,7 +843,6 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 	tmp2 = lookup_user_option(bfparser->bflang->name,notclass);
 	if ((class && tmp && tmp[0]!='1')||(notclass && tmp2 && tmp2[0]=='1')){
 		DBG_PARSING("group disabled, class=%s, notclass=%s, skip to end of group, my depth=%d\n",class,notclass,depth);
-		printf("group disabled, class=%s, notclass=%s, skip to end of group, my depth=%d\n",class,notclass,depth);
 		skip_to_end_tag(reader, depth);
 	} else {
 		while (xmlTextReaderRead(reader)==1) {
