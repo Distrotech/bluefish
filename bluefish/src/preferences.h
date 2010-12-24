@@ -25,6 +25,7 @@ enum
 	session_wrap_text,
 	view_line_numbers,
 	editor_tab_width,	/* editor tabwidth */
+	editor_indent_wspaces,
 	autoindent,			/* autoindent code */
 	autocomplete,
 	view_blocks,

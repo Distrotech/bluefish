@@ -1069,7 +1069,7 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 			}
 		}
 	}
-	if (kevent->keyval == GDK_Tab && main_v->props.editor_indent_wspaces) {
+	if (kevent->keyval == GDK_Tab && BFWIN(DOCUMENT(btv->doc))->session->editor_indent_wspaces) {
 		GtkTextBuffer *buffer = buffer;
 		GtkTextMark *imark;
 		GtkTextIter iter;
@@ -1369,7 +1369,7 @@ static gboolean bluefish_text_view_key_release_event(GtkWidget * widget, GdkEven
 				&& btv->bflang && btv->bflang->smartindentchars
 				&& strchr(btv->bflang->smartindentchars, lastchar) != NULL) {
 				gchar *tmp, *tmp2;
-				if (main_v->props.editor_indent_wspaces)
+				if (BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_indent_wspaces)
 					tmp2 = bf_str_repeat(" ", BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
 				else
 					tmp2 = g_strdup("	");
