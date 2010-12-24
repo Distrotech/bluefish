@@ -453,9 +453,8 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 
 	poplist = g_list_sort(langmgr_get_languages_mimetypes(), (GCompareFunc) g_strcmp0);
 	sprefs->prefs[default_mime_type] = dialog_combo_box_text_from_list_in_table(poplist,
-																				sessionvars->
-																				default_mime_type, table, 1,
-																				6, 0, 1);
+																				sessionvars->default_mime_type,
+																				table, 1, 6, 0, 1);
 	dialog_mnemonic_label_in_table(_("_Mime type:"), sprefs->prefs[default_mime_type], table, 0, 1, 0, 1);
 	g_list_free(poplist);
 
@@ -495,12 +494,13 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 	sprefs->prefs[view_line_numbers] =
 		dialog_check_button_in_table(_("Show line _numbers"), sessionvars->view_line_numbers, table, 0, 1, 4,
 									 5);
-	sprefs->prefs[autoindent] =
-		dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table, 0, 1, 5, 6);
-	sprefs->prefs[session_wrap_text] =
-		dialog_check_button_in_table(_("Wra_p lines"), sessionvars->wrap_text_default, table, 0, 1, 6, 7);
 	sprefs->prefs[display_right_margin] =
-		dialog_check_button_in_table(_("Show right margin"), sessionvars->display_right_margin, table, 0, 1, 7, 8);
+		dialog_check_button_in_table(_("Show right margin"), sessionvars->display_right_margin, table, 0, 1,
+									 5, 6);
+	sprefs->prefs[autoindent] =
+		dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table, 0, 1, 6, 7);
+	sprefs->prefs[session_wrap_text] =
+		dialog_check_button_in_table(_("Wra_p lines"), sessionvars->wrap_text_default, table, 0, 1, 7, 8);
 
 #ifdef HAVE_LIBENCHANT
 	sprefs->prefs[session_spell_check] = dialog_check_button_new(_("_Enable spell check"),
@@ -1829,7 +1829,14 @@ preferences_dialog()
 								   0, 1, 1, 2);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Options</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
+
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
+	pd->prefs[right_margin_pos] =
+		dialog_spin_button_labeled(1, 500, main_v->props.right_margin_pos,
+								   _("Right _margin/split line end position:"), hbox, 0);
+
+	table = dialog_table_in_vbox_defaults(2, 2, 0, vbox2);
 
 	pd->prefs[smartindent] =
 		dialog_check_button_in_table(_("Smart auto indentin_g"), main_v->props.smartindent, table, 0, 1, 0,
@@ -1837,17 +1844,12 @@ preferences_dialog()
 	pd->prefs[editor_smart_cursor] =
 		dialog_check_button_in_table(_("Smart Home/_End cursor positioning"),
 									 main_v->props.editor_smart_cursor, table, 0, 1, 1, 2);
-	
-	
-	pd->prefs[right_margin_pos]
-		= dialog_spin_button_in_table(1, 500, main_v->props.right_margin_pos, table, 1, 2, 2, 3);
-	dialog_mnemonic_label_in_table(_("Right margin position:"), pd->prefs[right_margin_pos], table,
-								   0, 1, 2, 3);
-	
+
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	pd->prefs[visible_ws_mode] = dialog_combo_box_text_labeled(_("Visible _whitespace mode:"), visible_ws_modes,
-															   main_v->props.visible_ws_mode, hbox, 0);
+	pd->prefs[visible_ws_mode] =
+		dialog_combo_box_text_labeled(_("Visible _whitespace mode:"), visible_ws_modes,
+									  main_v->props.visible_ws_mode, hbox, 0);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Tab Stops</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(2, 1, 0, vbox2);
@@ -1978,8 +1980,8 @@ preferences_dialog()
 		tmplist = g_list_next(tmplist);
 	}
 	pd->prefs[newfile_default_encoding] = dialog_combo_box_text_labeled_from_list(poplist,
-																				  main_v->props.
-																				  newfile_default_encoding,
+																				  main_v->
+																				  props.newfile_default_encoding,
 																				  _
 																				  ("_Default character set for new files:"),
 																				  hbox, 0);
@@ -2096,9 +2098,9 @@ preferences_dialog()
 	poplist = lingua_list_sorted();
 	pd->prefs[language] = dialog_combo_box_text_labeled_from_list(poplist, (main_v->props.language
 																			&& main_v->props.language[0]) ?
-																  lingua_locale_to_lang(main_v->props.
-																						language) : _("Auto"),
-																  _("_Language:"), hbox, 0);
+																  lingua_locale_to_lang(main_v->
+																						props.language) :
+																  _("Auto"), _("_Language:"), hbox, 0);
 	g_list_free(poplist);
 
 	pd->prefs[transient_htdialogs] = dialog_check_button_new(_("_Make HTML dialogs transient"),
@@ -2181,7 +2183,8 @@ preferences_dialog()
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	pd->prefs[use_system_tab_font] = dialog_check_button_new(_("_Use system document tab font"), main_v->props.use_system_tab_font);
+	pd->prefs[use_system_tab_font] =
+		dialog_check_button_new(_("_Use system document tab font"), main_v->props.use_system_tab_font);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[use_system_tab_font], FALSE, FALSE, 0);
 
 	hbox = gtk_hbox_new(FALSE, 12);
@@ -2190,8 +2193,11 @@ preferences_dialog()
 	pd->prefs[tab_font_string] = gtk_font_button_new_with_font(main_v->props.tab_font_string);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[tab_font_string]);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[tab_font_string], FALSE, FALSE, 0);
-	gtk_widget_set_sensitive(hbox, !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->prefs[use_system_tab_font])));
-	g_signal_connect(G_OBJECT(pd->prefs[use_system_tab_font]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_not_lcb), hbox);
+	gtk_widget_set_sensitive(hbox,
+							 !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
+														   (pd->prefs[use_system_tab_font])));
+	g_signal_connect(G_OBJECT(pd->prefs[use_system_tab_font]), "toggled",
+					 G_CALLBACK(prefs_togglebutton_toggled_not_lcb), hbox);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Colors</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
