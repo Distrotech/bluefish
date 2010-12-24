@@ -17,6 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*#define HL_PROFILING*/
 /*#define MINIMAL_REFCOUNTING*/
 /*#define VALGRIND_PROFILING*/
 
@@ -24,7 +25,6 @@
 #include <valgrind/callgrind.h>
 #endif
 
-#define HL_PROFILING
 #ifdef HL_PROFILING
 #include <unistd.h>
 #endif
@@ -55,6 +55,7 @@ typedef struct {
 	gint16 context;
 	guint8 identmode;
 } Tscanning;
+
 #ifdef HL_PROFILING
 typedef struct {
 	gint longest_contextstack;
