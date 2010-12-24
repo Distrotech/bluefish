@@ -434,6 +434,23 @@ dialog_spin_button_in_table(gfloat lower, gfloat upper, const gint value, GtkWid
 	return button;
 }
 
+GtkWidget *
+dialog_spin_button_labeled(gfloat lower, gfloat upper, const gint value, const gchar * labeltext,
+						   GtkWidget * box, guint padding)
+{
+	GtkWidget *button;
+	GtkWidget *label;
+
+	button = dialog_spin_button_new(lower, upper, value);
+
+	label = dialog_box_label_new(labeltext, 0, 0.5, box, padding);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), button);
+
+	gtk_box_pack_start(GTK_BOX(box), button, FALSE, FALSE, 0);
+
+	return button;
+}
+
 /**
  * dialog_box_label_new:
  * 	@labeltext:	#const gchar * The label text.

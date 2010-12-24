@@ -67,6 +67,7 @@ GtkWidget *dialog_entry_in_table(const gchar * text, GtkWidget * table, guint le
 								 guint top_attach, guint bottom_attach);
 
 void
+
 dialog_mnemonic_label_in_table(const gchar * labeltext, GtkWidget * m_widget, GtkWidget * table,
 							   guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);
 
@@ -84,6 +85,9 @@ GtkWidget *dialog_spin_button_in_table(gfloat lower, gfloat upper, const gint va
 									   guint left_attach, guint right_attach, guint top_attach,
 									   guint bottom_attach);
 
+GtkWidget *dialog_spin_button_labeled(gfloat lower, gfloat upper, const gint value, const gchar * labeltext,
+									  GtkWidget * box, guint padding);
+
 GtkWidget *dialog_vbox_new(GtkWidget * box);
 
 GtkWidget *dialog_box_label_new(const gchar * labeltext, gfloat xalign, gfloat yalign, GtkWidget * box,
@@ -99,6 +103,7 @@ GtkWidget *dialog_table_in_vbox(gint rows, gint cols, gint borderWidth, GtkWidge
 GtkWidget *dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget * box);
 
 void
+
 message_dialog_new(GtkWidget * parent, GtkMessageType type, GtkButtonsType button, const gchar * primaryText,
 				   const gchar * secondaryText);
 
