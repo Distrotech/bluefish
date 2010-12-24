@@ -69,6 +69,7 @@ typedef struct {
 	gint fblock_refcount;
 	gint fcontext_refcount;
 	gint fstack_refcount;
+	gint queue_count;
 	gint num_marks;
 	guint total_runs;
 	guint total_chars;
@@ -76,7 +77,7 @@ typedef struct {
 	guint total_time_ms;
 } Thl_profiling;
 
-Thl_profiling hl_profiling = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+Thl_profiling hl_profiling = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 #endif
 
 guint loops_per_timer=1000; /* a tunable to avoid asking time too often. this is auto-tuned. */ 
@@ -290,12 +291,13 @@ void foundstack_free_lcb(gpointer data, gpointer btv) {
 		DBG_FCONTEXTREFCOUNT("foundstack_free_lcb, calling unref for pushedcontext on %p\n",fstack->pushedcontext);
 		foundcontext_unref(fstack->pushedcontext, gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
 	}
+#ifdef HL_PROFILING
+	hl_profiling.fstack_refcount--;
+	hl_profiling.queue_count -= (g_queue_get_length(fstack->blockstack) + g_queue_get_length(fstack->contextstack));
+#endif
 	g_queue_free(fstack->blockstack);
 	g_queue_free(fstack->contextstack);
 	g_slice_free(Tfoundstack,fstack);
-#ifdef HL_PROFILING
-	hl_profiling.fstack_refcount--;
-#endif
 }
 
 static inline void add_to_scancache(BluefishTextView * btv,GtkTextBuffer *buffer,Tscanning *scanning, guint charoffset_o, Tfoundblock *fblock, Tfoundcontext *fcontext) {
@@ -304,6 +306,7 @@ static inline void add_to_scancache(BluefishTextView * btv,GtkTextBuffer *buffer
 	fstack = g_slice_new0(Tfoundstack);
 #ifdef HL_PROFILING
 	hl_profiling.fstack_refcount++;
+	hl_profiling.queue_count += g_queue_get_length(scanning->contextstack) + g_queue_get_length(scanning->blockstack);
 #endif
 	fstack->contextstack = g_queue_copy(scanning->contextstack);
 	fstack->blockstack = g_queue_copy(scanning->blockstack);
@@ -391,6 +394,9 @@ static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBu
 		fblock->start2_o = BF2_OFFSET_UNDEFINED;
 		fblock->end2_o = BF2_OFFSET_UNDEFINED;
 		fblock->patternum = match.patternum;
+#ifdef HL_PROFILING
+		hl_profiling.queue_count++;
+#endif
 		g_queue_push_head(scanning->blockstack,fblock);
 		/*print_blockstack(btv,scanning);*/
 		return fblock;
@@ -410,6 +416,9 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuff
 		}
 #endif
 		fblock = g_queue_pop_head(scanning->blockstack);
+#ifdef HL_PROFILING
+		hl_profiling.queue_count--;
+#endif
 		if (G_LIKELY(fblock)) {
 			/* we should unref the fblock here, because it is popped from scanning->blockstack, but we want to add a reference too
 			because we return a reference to the calling function */
@@ -458,6 +467,9 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,GtkText
 				foundcontext_unref(fcontext, buffer);
 			} 
 #endif
+#ifdef HL_PROFILING
+			hl_profiling.queue_count--;
+#endif
 			fcontext = g_queue_pop_head(scanning->contextstack);
 			DBG_SCANNING("popped %p, stack len now %d\n",fcontext,g_queue_get_length(scanning->contextstack));
 			DBG_SCANNING("found_context_change, popped context %d from the stack, stack len %d\n",fcontext->context,g_queue_get_length(scanning->contextstack));
@@ -489,8 +501,11 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,GtkText
 		fcontext->start_o = gtk_text_iter_get_offset(&match.end);
 		fcontext->end_o = BF2_OFFSET_UNDEFINED;
 		fcontext->context = pat->nextcontext;
+#ifdef HL_PROFILING
+		hl_profiling.queue_count++;
+#endif
 		g_queue_push_head(scanning->contextstack, fcontext);
-		
+	
 		DBG_FCONTEXTREFCOUNT("refcount for NEW fcontext %p is %d\n",fcontext,fcontext->refcount);
 		DBG_SCANNING("found_context_change, pushed nextcontext %d onto the stack, stack len %d\n",pat->nextcontext,g_queue_get_length(scanning->contextstack));
 		return fcontext;
@@ -611,6 +626,9 @@ static void reconstruct_stack(BluefishTextView * btv, GtkTextBuffer *buffer, Gtk
 	DBG_SCANCACHE("reconstruct_stack, got fstack %p with charoffset_o=%d to reconstruct stack at position %d\n",fstack,fstack->charoffset_o,gtk_text_iter_get_offset(position));
 	if (G_LIKELY(fstack)) {
 		Tfoundcontext *fcontext;
+#ifdef HL_PROFILING
+		hl_profiling.queue_count += g_queue_get_length(fstack->contextstack) + g_queue_get_length(fstack->blockstack);
+#endif
 		scanning->contextstack = g_queue_copy(fstack->contextstack);
 		fcontext = g_queue_peek_head(scanning->contextstack);
 		if (fcontext)
@@ -865,7 +883,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	hl_profiling.total_marks += hl_profiling.num_marks;
 	hl_profiling.total_chars += hl_profiling.numchars;
 	hl_profiling.total_time_ms += (gint)(1000.0*stage4); 
-	g_print("scanning run %d (%d ms): %d, %d, %d, %d; from %d-%d, loops=%d,chars=%d,blocks %d/%d (%d) contexts %d/%d (%d) scancache %d refcs %d(%dKb),%d(%dKb),%d(%dKb) marks %d\n"
+	g_print("scanning run %d (%d ms): %d, %d, %d, %d; from %d-%d, loops=%d,chars=%d,blocks %d/%d (%d) contexts %d/%d (%d) scancache %d, marks %d\n"
 		,hl_profiling.total_runs
 		,(gint)(1000.0*stage4)
 		,(gint)(1000.0*stage1)
@@ -877,10 +895,13 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		,hl_profiling.numblockstart,hl_profiling.numblockend,hl_profiling.longest_blockstack
 		,hl_profiling.numcontextstart,hl_profiling.numcontextend,hl_profiling.longest_contextstack
 		,g_sequence_get_length(btv->scancache.stackcaches)
+		,hl_profiling.num_marks
+		);
+	g_print("memory scancache %d(%dKb+%dKb) fstack %d(%dKb) fcontext %d(%dKb) queue %d(%dKb)\n"
+		,hl_profiling.fstack_refcount,(gint)(hl_profiling.fstack_refcount*sizeof(Tfoundstack)/1024.0),(gint)(hl_profiling.fstack_refcount*40/1024.0)
 		,hl_profiling.fblock_refcount,(gint)(hl_profiling.fblock_refcount*sizeof(Tfoundblock)/1024.0)
 		,hl_profiling.fcontext_refcount,(gint)(hl_profiling.fcontext_refcount*sizeof(Tfoundcontext)/1024.0)
-		,hl_profiling.fstack_refcount,(gint)(hl_profiling.fstack_refcount*sizeof(Tfoundstack)/1024.0)
-		,hl_profiling.num_marks
+		,hl_profiling.queue_count,(gint)(hl_profiling.queue_count*sizeof(GList)/1024.0)
 		);
 	g_print("average %d chars/s %d chars/run, %d marks/s, %d marks/run\n"
 			,(guint)(1000.0*hl_profiling.total_chars / hl_profiling.total_time_ms )
@@ -896,6 +917,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 #ifndef MINIMAL_REFCOUNTING
 	g_queue_foreach(scanning.blockstack,foundblock_foreach_unref_lcb,btv);
 	g_queue_foreach(scanning.contextstack,foundcontext_foreach_unref_lcb,btv);
+#endif
+#ifdef HL_PROFILING
+	hl_profiling.queue_count -= (g_queue_get_length(scanning.contextstack)+g_queue_get_length(scanning.blockstack));
 #endif
 	g_queue_free(scanning.contextstack);
 	g_queue_free(scanning.blockstack);
