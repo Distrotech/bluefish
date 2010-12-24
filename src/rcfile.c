@@ -396,7 +396,6 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "monospace 10");
 	init_prop_integer(&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.editor_tab_indent_sel, "editor_tab_indent_sel:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.use_system_tab_font, "use_system_tab_font:", 1, TRUE);
 	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
@@ -901,6 +900,7 @@ static GHashTable *return_session_configlist(GHashTable * configlist, Tsessionva
 	init_prop_integer(&configlist, &session->wrap_text_default, "wrap_text_default:", 1, FALSE);
 	init_prop_integer(&configlist, &session->autoindent, "autoindent:", 1, FALSE);
 	init_prop_integer(&configlist, &session->editor_tab_width, "editor_tab_width:", 3, FALSE);
+	init_prop_integer(&configlist, &session->editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
 	init_prop_integer(&configlist, &session->view_line_numbers, "view_line_numbers:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_cline, "view_cline:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_blocks, "view_blocks:", 1, FALSE);

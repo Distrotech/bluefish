@@ -48,7 +48,6 @@ enum {
 	do_periodic_check,
 	editor_font_string,			/* editor font */
 	editor_smart_cursor,
-	editor_indent_wspaces,
 	editor_tab_indent_sel,
 	use_system_tab_font,
 	tab_font_string,			/* notebook tabs font */
@@ -410,6 +409,7 @@ sessionprefs_apply(Tsessionprefs * sprefs, Tsessionvars * sessionvars)
 
 	integer_apply(&sessionvars->autoindent, sprefs->prefs[autoindent], TRUE);
 	integer_apply(&sessionvars->editor_tab_width, sprefs->prefs[editor_tab_width], FALSE);
+	integer_apply(&sessionvars->editor_indent_wspaces, sprefs->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&sessionvars->view_line_numbers, sprefs->prefs[view_line_numbers], TRUE);
 	integer_apply(&sessionvars->view_blocks, sprefs->prefs[view_blocks], TRUE);
 	integer_apply(&sessionvars->autocomplete, sprefs->prefs[autocomplete], TRUE);
@@ -449,12 +449,12 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 	gtk_container_add(GTK_CONTAINER(sprefs->frame), sprefs->vbox);
 
 	vbox2 = dialog_vbox_labeled(label, sprefs->vbox);
-	table = dialog_table_in_vbox_defaults(3, 6, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(13, 2, 0, vbox2);
 
 	poplist = g_list_sort(langmgr_get_languages_mimetypes(), (GCompareFunc) g_strcmp0);
 	sprefs->prefs[default_mime_type] = dialog_combo_box_text_from_list_in_table(poplist,
 																				sessionvars->default_mime_type,
-																				table, 1, 6, 0, 1);
+																				table, 1, 2, 0, 1);
 	dialog_mnemonic_label_in_table(_("_Mime type:"), sprefs->prefs[default_mime_type], table, 0, 1, 0, 1);
 	g_list_free(poplist);
 
@@ -469,8 +469,7 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 	poplist = g_list_sort(poplist, (GCompareFunc) g_strcmp0);
 	poplist = g_list_prepend(poplist, _("None"));
 	sprefs->prefs[template] =
-		dialog_combo_box_text_from_list_in_table(poplist, curtemplate ? curtemplate : _("None"), table, 1, 6,
-												 1, 2);
+		dialog_combo_box_text_from_list_in_table(poplist, curtemplate ? curtemplate : _("None"), table, 1, 2, 1, 2);
 	dialog_mnemonic_label_in_table(_("_Template:"), sprefs->prefs[template], table, 0, 1, 1, 2);
 	g_list_free(poplist);
 
@@ -478,34 +477,31 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 		dialog_spin_button_in_table(1, 50, sessionvars->editor_tab_width, table, 1, 2, 2, 3);
 	dialog_mnemonic_label_in_table(_("Tab _width:"), sprefs->prefs[editor_tab_width], table, 0, 1, 2, 3);
 
-	table = dialog_table_in_vbox_defaults(8, 1, 0, vbox2);
+	sprefs->prefs[editor_indent_wspaces] = dialog_check_button_in_table(_("Insert _spaces instead of tabs"),
+																	sessionvars->editor_indent_wspaces,
+																	table, 0, 1, 3, 4);
+
 
 	sprefs->prefs[autocomplete] =
-		dialog_check_button_in_table(_("Enable a_uto-completion"), sessionvars->autocomplete, table, 0, 1, 0,
-									 1);
+		dialog_check_button_in_table(_("Enable a_uto-completion"), sessionvars->autocomplete, table, 0,1,4,5);
 	sprefs->prefs[view_blocks] =
-		dialog_check_button_in_table(_("Enable _block folding"), sessionvars->view_blocks, table, 0, 1, 1, 2);
+		dialog_check_button_in_table(_("Enable _block folding"), sessionvars->view_blocks, table, 0, 1, 5, 6);
 	sprefs->prefs[show_mbhl] =
-		dialog_check_button_in_table(_("Highlight block _delimiters"), sessionvars->show_mbhl, table, 0, 1, 2,
-									 3);
+		dialog_check_button_in_table(_("Highlight block _delimiters"), sessionvars->show_mbhl, table, 0, 1, 6,7);
 	sprefs->prefs[view_cline] =
-		dialog_check_button_in_table(_("_Highlight current line"), sessionvars->view_cline, table, 0, 1, 3,
-									 4);
+		dialog_check_button_in_table(_("_Highlight current line"), sessionvars->view_cline, table, 0, 1, 7,8);
 	sprefs->prefs[view_line_numbers] =
-		dialog_check_button_in_table(_("Show line _numbers"), sessionvars->view_line_numbers, table, 0, 1, 4,
-									 5);
+		dialog_check_button_in_table(_("Show line _numbers"), sessionvars->view_line_numbers, table, 0, 1, 8,9);
 	sprefs->prefs[display_right_margin] =
-		dialog_check_button_in_table(_("Show _right margin"), sessionvars->display_right_margin, table, 0, 1,
-									 5, 6);
+		dialog_check_button_in_table(_("Show _right margin indicator"), sessionvars->display_right_margin, table, 0, 1,9,10);
 	sprefs->prefs[autoindent] =
-		dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table, 0, 1, 6, 7);
+		dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table, 0, 1, 10, 11);
 	sprefs->prefs[session_wrap_text] =
-		dialog_check_button_in_table(_("Wra_p lines"), sessionvars->wrap_text_default, table, 0, 1, 7, 8);
+		dialog_check_button_in_table(_("Wra_p lines"), sessionvars->wrap_text_default, table, 0, 1, 11, 12);
 
 #ifdef HAVE_LIBENCHANT
-	sprefs->prefs[session_spell_check] = dialog_check_button_new(_("_Enable spell check"),
-																 sessionvars->spell_check_default);
-	gtk_box_pack_start(GTK_BOX(vbox2), sprefs->prefs[session_spell_check], FALSE, FALSE, 0);
+	sprefs->prefs[session_spell_check] = dialog_check_button_in_table(_("_Enable spell check"),
+																 sessionvars->spell_check_default, table, 0, 1, 12, 13);
 #endif
 
 	gtk_widget_show_all(sprefs->frame);
@@ -1475,7 +1471,6 @@ preferences_apply(Tprefdialog * pd)
 	DEBUG_MSG("preferences_apply, started\n");
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
-	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&main_v->props.editor_tab_indent_sel, pd->prefs[editor_tab_indent_sel], TRUE);
 	integer_apply(&main_v->props.smartindent, pd->prefs[smartindent], TRUE);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_ED_FG], pd->prefs[editor_fg]);
@@ -1854,9 +1849,6 @@ preferences_dialog()
 	vbox2 = dialog_vbox_labeled(_("<b>Tab Stops</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(2, 1, 0, vbox2);
 
-	pd->prefs[editor_indent_wspaces] = dialog_check_button_in_table(_("Insert _spaces instead of tabs"),
-																	main_v->props.editor_indent_wspaces,
-																	table, 0, 1, 0, 1);
 	pd->prefs[editor_tab_indent_sel] =
 		dialog_check_button_in_table(_("_Tab key indents selection"), main_v->props.editor_tab_indent_sel,
 									 table, 0, 1, 1, 2);

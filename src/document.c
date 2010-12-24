@@ -3123,7 +3123,7 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 				gint offsetstart = gtk_text_iter_get_offset(&itstart);
 				gchar *indentstring;
 				gint indentlen;
-				if (main_v->props.editor_indent_wspaces) {
+				if (BFWIN(doc->bfwin)->session->editor_indent_wspaces) {
 					indentstring = bf_str_repeat(" ", BFWIN(doc->bfwin)->session->editor_tab_width);
 					indentlen = BFWIN(doc->bfwin)->session->editor_tab_width;
 				} else {
@@ -3170,7 +3170,7 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 		} else { /* indent */
 			gchar *indentstring;
 			gint indentlen;
-			if (main_v->props.editor_indent_wspaces) {
+			if (BFWIN(doc->bfwin)->session->editor_indent_wspaces) {
 				indentstring = bf_str_repeat(" ", BFWIN(doc->bfwin)->session->editor_tab_width);
 				indentlen = BFWIN(doc->bfwin)->session->editor_tab_width;
 			} else {

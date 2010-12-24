@@ -220,7 +220,6 @@ typedef struct {
 	gint do_periodic_check;
 	gchar *editor_font_string;	/* editor font */
 	gint editor_smart_cursor;
-	gint editor_indent_wspaces;	/* indent with spaces, not tabs */
 	gint editor_tab_indent_sel; /* tab key will indent a selected block */
 	gint use_system_tab_font;
 	gchar *tab_font_string;		/* notebook tabs font */
@@ -335,6 +334,7 @@ typedef struct {
 	gint wrap_text_default;		/* by default wrap text */
 	gint autoindent;			/* autoindent code */
 	gint editor_tab_width;		/* editor tabwidth */
+	gint editor_indent_wspaces;	/* indent with spaces, not tabs */
 	gint view_line_numbers;		/* view line numbers on the left side by default */
 	gint view_cline;			/* highlight current line by default */
 	gint view_blocks;			/* show blocks on the left side by default */
