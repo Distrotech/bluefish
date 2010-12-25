@@ -66,7 +66,8 @@ static GdkColor st_cline_color;
 
 /****************************** utility functions ******************************/
 
-static inline gboolean is_symbol(BluefishTextView * btv, gint contextnum, gunichar uc)
+static inline gboolean
+is_symbol(BluefishTextView * btv, gint contextnum, gunichar uc)
 {
 	if (G_UNLIKELY(uc > 127))
 		return FALSE;
@@ -77,7 +78,8 @@ static inline gboolean is_symbol(BluefishTextView * btv, gint contextnum, gunich
 																			Tcontext, contextnum).identstate);
 }
 
-gchar *bf_get_identifier_at_iter(BluefishTextView * btv, GtkTextIter * iter, gint * contextnum)
+gchar *
+bf_get_identifier_at_iter(BluefishTextView * btv, GtkTextIter * iter, gint * contextnum)
 {
 	GQueue *contextstack;
 	GtkTextIter so, eo;
@@ -106,7 +108,8 @@ gchar *bf_get_identifier_at_iter(BluefishTextView * btv, GtkTextIter * iter, gin
 	return gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), &so, &eo, TRUE);
 }
 
-gboolean bf_text_iter_line_start_of_text(GtkTextIter * iter, GtkTextIter * realend)
+gboolean
+bf_text_iter_line_start_of_text(GtkTextIter * iter, GtkTextIter * realend)
 {
 	gtk_text_iter_set_line_offset(iter, 0);
 	*realend = *iter;
@@ -118,7 +121,8 @@ gboolean bf_text_iter_line_start_of_text(GtkTextIter * iter, GtkTextIter * reale
 	return TRUE;
 }
 
-gboolean bf_text_iter_line_end_of_text(GtkTextIter * iter, GtkTextIter * realend)
+gboolean
+bf_text_iter_line_end_of_text(GtkTextIter * iter, GtkTextIter * realend)
 {
 	if (!gtk_text_iter_ends_line(iter))
 		gtk_text_iter_forward_to_line_end(iter);
@@ -138,14 +142,17 @@ gboolean bf_text_iter_line_end_of_text(GtkTextIter * iter, GtkTextIter * realend
 }
 
 /*************************** end of utility functions **************************/
-static gboolean bftextview2_user_idle_timer(gpointer data)
+static gboolean
+bftextview2_user_idle_timer(gpointer data)
 {
 	BluefishTextView *btv = data;
 	guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 	if ((elapsed + 20) >= USER_IDLE_EVENT_INTERVAL) {	/* avoid delaying again for less than 20 milliseconds */
 		DBG_AUTOCOMP("bftextview2_user_idle_timer, user is > %d milliseconds idle, autocomp=%d, mode=%d\n",
-					 elapsed, BLUEFISH_TEXT_VIEW(btv->master)->auto_complete, main_v->props.autocomp_popup_mode);
-		if (BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && btv->needs_autocomp && main_v->props.autocomp_popup_mode == 0) {
+					 elapsed, BLUEFISH_TEXT_VIEW(btv->master)->auto_complete,
+					 main_v->props.autocomp_popup_mode);
+		if (BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && btv->needs_autocomp
+			&& main_v->props.autocomp_popup_mode == 0) {
 			autocomp_run(btv, FALSE);
 			DBG_AUTOCOMP("bftextview2_user_idle_timer, set needs_autocomp to FALSE\n");
 			btv->needs_autocomp = FALSE;
@@ -163,7 +170,8 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 	}
 }
 
-static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
+static void
+bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 {
 	DBG_AUTOCOMP("bftextview2_reset_user_idle_timer: timer reset\n");
 	g_timer_start(btv->user_idle_timer);	/* the timer is used both for delayed scanning AND for the delayed popup */
@@ -178,7 +186,8 @@ static void bftextview2_set_margin_size(BluefishTextView * btv);
 static gboolean bftextview2_scanner_idle(gpointer data);
 static gboolean bftextview2_scanner_timeout(gpointer data);
 
-static gboolean bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
+static gboolean
+bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
 {
 	if (!btv->bflang) {
 		if (in_idle)
@@ -310,7 +319,8 @@ static gboolean bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idl
 	return TRUE;				/* call me again */
 }
 
-static gboolean bftextview2_scanner_idle(gpointer data)
+static gboolean
+bftextview2_scanner_idle(gpointer data)
 {
 	DBG_MSG("bftextview2_scanner_idle callback started\n");
 	if (!((BluefishTextView *) data)->enable_scanner)
@@ -318,7 +328,8 @@ static gboolean bftextview2_scanner_idle(gpointer data)
 	return bftextview2_scanner_scan((BluefishTextView *) data, TRUE);
 }
 
-static gboolean bftextview2_scanner_timeout(gpointer data)
+static gboolean
+bftextview2_scanner_timeout(gpointer data)
 {
 	if (!((BluefishTextView *) data)->enable_scanner)
 		return FALSE;
@@ -326,19 +337,24 @@ static gboolean bftextview2_scanner_timeout(gpointer data)
 	return bftextview2_scanner_scan((BluefishTextView *) data, FALSE);
 }
 
-void bftextview2_schedule_scanning(BluefishTextView * btv)
+void
+bftextview2_schedule_scanning(BluefishTextView * btv)
 {
-	DBG_MSG("bftextview2_schedule_scanning, enable=%d, bflang=%p,scanner_idle=%d\n", BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner,
-			BLUEFISH_TEXT_VIEW(btv->master)->bflang, BLUEFISH_TEXT_VIEW(btv->master)->scanner_idle);
-	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && BLUEFISH_TEXT_VIEW(btv->master)->bflang && BLUEFISH_TEXT_VIEW(btv->master)->scanner_idle == 0) {
+	DBG_MSG("bftextview2_schedule_scanning, enable=%d, bflang=%p,scanner_idle=%d\n",
+			BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner, BLUEFISH_TEXT_VIEW(btv->master)->bflang,
+			BLUEFISH_TEXT_VIEW(btv->master)->scanner_idle);
+	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && BLUEFISH_TEXT_VIEW(btv->master)->bflang
+		&& BLUEFISH_TEXT_VIEW(btv->master)->scanner_idle == 0) {
 		DBG_DELAYSCANNING("scheduling scanning in idle function with priority %d\n", SCANNING_IDLE_PRIORITY);
-		BLUEFISH_TEXT_VIEW(btv->master)->scanner_idle = g_idle_add_full(SCANNING_IDLE_PRIORITY, bftextview2_scanner_idle, btv->master, NULL);
+		BLUEFISH_TEXT_VIEW(btv->master)->scanner_idle =
+			g_idle_add_full(SCANNING_IDLE_PRIORITY, bftextview2_scanner_idle, btv->master, NULL);
 	}
 }
 
-static void bftextview2_get_iters_at_foundblock(GtkTextBuffer * buffer, Tfoundblock * fblock,
-												GtkTextIter * it1, GtkTextIter * it2,
-												GtkTextIter * it3, GtkTextIter * it4)
+static void
+bftextview2_get_iters_at_foundblock(GtkTextBuffer * buffer, Tfoundblock * fblock,
+									GtkTextIter * it1, GtkTextIter * it2,
+									GtkTextIter * it3, GtkTextIter * it4)
 {
 	gtk_text_buffer_get_iter_at_offset(buffer, it1, fblock->start1_o);
 	gtk_text_buffer_get_iter_at_offset(buffer, it2, fblock->end1_o);
@@ -346,7 +362,8 @@ static void bftextview2_get_iters_at_foundblock(GtkTextBuffer * buffer, Tfoundbl
 	gtk_text_buffer_get_iter_at_offset(buffer, it4, fblock->end2_o);
 }
 
-static inline Tfoundblock *bftextview2_get_block_at_offset(BluefishTextView * btv, guint offset)
+static inline Tfoundblock *
+bftextview2_get_block_at_offset(BluefishTextView * btv, guint offset)
 {
 	Tfoundstack *fstack;
 	GSequenceIter *siter;
@@ -367,7 +384,8 @@ static inline Tfoundblock *bftextview2_get_block_at_offset(BluefishTextView * bt
 	return NULL;
 }
 
-static gboolean mark_set_idle_lcb(gpointer widget)
+static gboolean
+mark_set_idle_lcb(gpointer widget)
 {
 	BluefishTextView *btv = widget;
 
@@ -405,13 +423,13 @@ static gboolean mark_set_idle_lcb(gpointer widget)
 /* this function slows down scrolling when you hold the cursor pressed, because 
 it is called for every cursor position change. This function is therefore
 an ideal candidate for speed optimization */
-static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location,
-									 GtkTextMark * arg2, gpointer widget)
+static void
+bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location, GtkTextMark * arg2, gpointer widget)
 {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	DBG_SIGNALS("bftextview2_mark_set_lcb\n");
 	if (arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
-		
+
 		if (btv->autocomp)
 			autocomp_stop(btv);
 
@@ -427,12 +445,13 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 	}
 }
 
-static void bftextview2_set_margin_size(BluefishTextView * btv)
+static void
+bftextview2_set_margin_size(BluefishTextView * btv)
 {
 	/* TODO: this should be calculated based on the number of lines in the text,
 	   whether or not we have bookmarks, and whether or not we have block folding */
 	gint lines, count, newsize;
-	DBG_MSG("bftextview2_set_margin_size, called for %p\n",btv);
+	DBG_MSG("bftextview2_set_margin_size, called for %p\n", btv);
 	if (BLUEFISH_TEXT_VIEW(btv->master)->show_line_numbers) {
 		PangoLayout *panlay;
 		lines = gtk_text_buffer_get_line_count(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
@@ -446,11 +465,13 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 			count = 1 + log10(lines);
 		else
 			count = 2;
-		BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_chars = 4 + count * BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_per_char;
+		BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_chars =
+			4 + count * BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_per_char;
 	} else {
 		BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_chars = 0;
 	}
-	if (BLUEFISH_TEXT_VIEW(btv->master)->show_blocks && g_sequence_get_length(BLUEFISH_TEXT_VIEW(btv->master)->scancache.stackcaches) > 0) {
+	if (BLUEFISH_TEXT_VIEW(btv->master)->show_blocks
+		&& g_sequence_get_length(BLUEFISH_TEXT_VIEW(btv->master)->scancache.stackcaches) > 0) {
 		BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_block = 12;
 	} else {
 		BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_block = 0;
@@ -461,15 +482,16 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 		BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_symbol = 0;
 	}
 	/*g_print("lines=%d,count=%d,pixels_per_char=%d\n",lines,count,btv->margin_pixels_per_char); */
-	newsize = BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_chars 
-										 + BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_block 
-										 + BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_symbol;
-	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT,newsize);
+	newsize = BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_chars
+		+ BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_block
+		+ BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_symbol;
+	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, newsize);
 	if (btv->slave)
-		gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv->slave), GTK_TEXT_WINDOW_LEFT,newsize);
+		gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv->slave), GTK_TEXT_WINDOW_LEFT, newsize);
 }
 
-static inline gboolean char_in_allsymbols(BluefishTextView * btv, gunichar uc)
+static inline gboolean
+char_in_allsymbols(BluefishTextView * btv, gunichar uc)
 {
 	if (uc > 127)
 		return FALSE;
@@ -482,23 +504,29 @@ static inline gboolean char_in_allsymbols(BluefishTextView * btv, gunichar uc)
 	return FALSE;
 }
 
-static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
-										gint stringlen, BluefishTextView * btv)
+static void
+bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
+							gint stringlen, BluefishTextView * btv)
 {
-	DBG_SIGNALS("bftextview2_insert_text_lcb, btv=%p, master=%p\n",btv,btv->master);
-	if (btv==btv->master)
-		stackcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), gtk_text_iter_get_offset(iter), g_utf8_strlen(string, stringlen));
+	DBG_SIGNALS("bftextview2_insert_text_lcb, btv=%p, master=%p\n", btv, btv->master);
+	if (btv == btv->master)
+		stackcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), gtk_text_iter_get_offset(iter),
+								  g_utf8_strlen(string, stringlen));
 }
 
-static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
-											  gint stringlen, BluefishTextView * btv)
+static void
+bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
+								  gint stringlen, BluefishTextView * btv)
 {
 	GtkTextIter start, end;
 	/*gint start_offset; */
-	DBG_SIGNALS("bftextview2_insert_text_after_lcb, btv=%p, master=%p, stringlen=%d\n", btv, btv->master, stringlen);
+	DBG_SIGNALS("bftextview2_insert_text_after_lcb, btv=%p, master=%p, stringlen=%d\n", btv, btv->master,
+				stringlen);
 
-	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp && BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && stringlen == 1
-		&& (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
+	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
+		&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && stringlen == 1 && (btv->autocomp
+																				|| main_v->props.
+																				autocomp_popup_mode != 0)) {
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb: call autocomp_run\n");
 		autocomp_run(btv, FALSE);
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, set needs_autocomp to FALSE\n");
@@ -508,7 +536,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	bftextview2_reset_user_idle_timer(btv);
 	bftextview2_set_margin_size(BLUEFISH_TEXT_VIEW(btv->master));
 
-	if (btv!=btv->master)
+	if (btv != btv->master)
 		return;
 
 	if (!main_v->props.reduced_scan_triggers || stringlen > 1
@@ -543,12 +571,17 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	DBG_MARGIN("\n");
 }*/
 
-static inline void paint_margin_expand(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
+static inline void
+paint_margin_expand(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
 {
-	gdk_cairo_set_source_color(cr, &gtk_widget_get_style(GTK_WIDGET(btv))->base[gtk_widget_get_state(GTK_WIDGET(btv))]);
+	gdk_cairo_set_source_color(cr,
+							   &gtk_widget_get_style(GTK_WIDGET(btv))->
+							   base[gtk_widget_get_state(GTK_WIDGET(btv))]);
 	cairo_rectangle(cr, btv->margin_pixels_chars + btv->margin_pixels_symbol + 2, w + (height / 2) - 3, 7, 7);
 	cairo_fill(cr);
-	gdk_cairo_set_source_color(cr, &gtk_widget_get_style(GTK_WIDGET(btv))->fg[gtk_widget_get_state(GTK_WIDGET(btv))]);
+	gdk_cairo_set_source_color(cr,
+							   &gtk_widget_get_style(GTK_WIDGET(btv))->
+							   fg[gtk_widget_get_state(GTK_WIDGET(btv))]);
 	cairo_rectangle(cr, btv->margin_pixels_chars + btv->margin_pixels_symbol + 1.5, w + (height / 2) - 3.5, 8,
 					8);
 	cairo_move_to(cr, btv->margin_pixels_chars + btv->margin_pixels_symbol + 5.5, w + (height / 2) + 5);
@@ -558,12 +591,17 @@ static inline void paint_margin_expand(BluefishTextView * btv, cairo_t * cr, gin
 	cairo_stroke(cr);
 }
 
-static inline void paint_margin_collapse(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
+static inline void
+paint_margin_collapse(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
 {
-	gdk_cairo_set_source_color(cr, &gtk_widget_get_style(GTK_WIDGET(btv))->base[gtk_widget_get_state(GTK_WIDGET(btv))]);
+	gdk_cairo_set_source_color(cr,
+							   &gtk_widget_get_style(GTK_WIDGET(btv))->
+							   base[gtk_widget_get_state(GTK_WIDGET(btv))]);
 	cairo_rectangle(cr, btv->margin_pixels_chars + btv->margin_pixels_symbol + 2, w + (height / 2) - 3, 7, 7);
 	cairo_fill(cr);
-	gdk_cairo_set_source_color(cr, &gtk_widget_get_style(GTK_WIDGET(btv))->fg[gtk_widget_get_state(GTK_WIDGET(btv))]);
+	gdk_cairo_set_source_color(cr,
+							   &gtk_widget_get_style(GTK_WIDGET(btv))->
+							   fg[gtk_widget_get_state(GTK_WIDGET(btv))]);
 	cairo_rectangle(cr, btv->margin_pixels_chars + btv->margin_pixels_symbol + 1.5, w + (height / 2) - 3.5, 8,
 					8);
 	cairo_move_to(cr, btv->margin_pixels_chars + btv->margin_pixels_symbol + 5.5, w + (height / 2) - 2);
@@ -575,7 +613,8 @@ static inline void paint_margin_collapse(BluefishTextView * btv, cairo_t * cr, g
 	cairo_stroke(cr);
 }
 
-static inline void paint_margin_blockend(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
+static inline void
+paint_margin_blockend(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
 {
 	/*gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[gtk_widget_get_state(GTK_WIDGET(btv))],btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w, btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + (height/2));
 	   gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[gtk_widget_get_state(GTK_WIDGET(btv))],btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w+(height/2), btv->margin_pixels_chars+btv->margin_pixels_symbol+8, w + (height/2)); */
@@ -586,7 +625,8 @@ static inline void paint_margin_blockend(BluefishTextView * btv, cairo_t * cr, g
 	cairo_stroke(cr);
 }
 
-static inline void paint_margin_line(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
+static inline void
+paint_margin_line(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
 {
 /*	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[gtk_widget_get_state(GTK_WIDGET(btv))],btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w, btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + height);*/
 	cairo_move_to(cr, btv->margin_pixels_chars + btv->margin_pixels_symbol + 5.5, w);
@@ -594,13 +634,15 @@ static inline void paint_margin_line(BluefishTextView * btv, cairo_t * cr, gint 
 	cairo_stroke(cr);
 }
 
-static inline void paint_margin_symbol(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
+static inline void
+paint_margin_symbol(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
 {
 	cairo_rectangle(cr, btv->margin_pixels_chars + 2, w + (height / 2) - 4, 8, 8);
 	cairo_fill(cr);
 }
 
-static gint get_num_foldable_blocks(Tfoundstack * fstack)
+static gint
+get_num_foldable_blocks(Tfoundstack * fstack)
 {
 	guint count = 0;
 	GList *tmplist = fstack->blockstack->head;
@@ -612,11 +654,12 @@ static gint get_num_foldable_blocks(Tfoundstack * fstack)
 	return count;
 }
 
-static inline void paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * startvisible,
-								GtkTextIter * endvisible)
+static inline void
+paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * startvisible,
+			 GtkTextIter * endvisible)
 {
 	Tfoundstack *fstack = NULL;
-	BluefishTextView *master=btv->master;
+	BluefishTextView *master = btv->master;
 	GSequenceIter *siter = NULL;
 	guint num_blocks;
 	gint cursor_line = -1;
@@ -628,20 +671,23 @@ static inline void paint_margin(BluefishTextView * btv, GdkEventExpose * event, 
 	gint bmarkline = -1;
 	cairo_t *cr;
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-	DBG_MSG("paint_margin called for %p\n",btv);
+	DBG_MSG("paint_margin called for %p\n", btv);
 	cr = gdk_cairo_create(event->window);
 	cairo_set_line_width(cr, 1);
-	gdk_cairo_set_source_color(cr, &gtk_widget_get_style(GTK_WIDGET(btv))->fg[gtk_widget_get_state(GTK_WIDGET(btv))]);
+	gdk_cairo_set_source_color(cr,
+							   &gtk_widget_get_style(GTK_WIDGET(btv))->
+							   fg[gtk_widget_get_state(GTK_WIDGET(btv))]);
 
 	if (master->show_line_numbers) {
 		GtkTextIter cursorit;
-		gtk_text_buffer_get_iter_at_mark(buffer, &cursorit,
-										 gtk_text_buffer_get_insert(buffer));
+		gtk_text_buffer_get_iter_at_mark(buffer, &cursorit, gtk_text_buffer_get_insert(buffer));
 		cursor_line = gtk_text_iter_get_line(&cursorit);
 	}
 
 	/* to see how many blocks are active here */
-	if (G_UNLIKELY(gtk_text_iter_is_start(startvisible) && (g_sequence_get_length(master->scancache.stackcaches) != 0))) {
+	if (G_UNLIKELY
+		(gtk_text_iter_is_start(startvisible)
+		 && (g_sequence_get_length(master->scancache.stackcaches) != 0))) {
 		siter = g_sequence_get_begin_iter(master->scancache.stackcaches);
 		if (!g_sequence_iter_is_end(siter)) {
 			fstack = g_sequence_get(siter);
@@ -671,7 +717,7 @@ static inline void paint_margin(BluefishTextView * btv, GdkEventExpose * event, 
 	it = *startvisible;
 	panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "x");
 
-	folded =	gtk_text_tag_table_lookup(langmgr_get_tagtable(),"_folded_");
+	folded = gtk_text_tag_table_lookup(langmgr_get_tagtable(), "_folded_");
 	if (master->showsymbols) {
 		bmarkline = bmark_margin_get_initial_bookmark((Tdocument *) master->doc, startvisible, &bmark);
 	}
@@ -779,8 +825,9 @@ main_v->props.visible_ws_mode:
 2 = All trailing
 3 = All except non-trailing spaces 
 */
-static inline void paint_spaces(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * startvisible,
-								GtkTextIter * endvisible)
+static inline void
+paint_spaces(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * startvisible,
+			 GtkTextIter * endvisible)
 {
 	GtkTextIter iter;
 	cairo_t *cr;
@@ -832,7 +879,8 @@ static inline void paint_spaces(BluefishTextView * btv, GdkEventExpose * event, 
 	cairo_destroy(cr);
 }
 
-static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
+static gboolean
+bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
@@ -913,19 +961,20 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 	return event_handled;
 }
 
-static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
-										 GtkTextIter * oend, gpointer user_data)
+static void
+bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
+							 GtkTextIter * oend, gpointer user_data)
 {
 	gint loop;
 	GtkTextIter begin = *obegin, end = *oend;
 	BluefishTextView *btv = user_data;
 	DBG_SIGNALS("bftextview2_delete_range_lcb\n");
-	
+
 	if (btv->master != btv) {
 		bftextview2_reset_user_idle_timer(btv);
 		return;
 	}
-	
+
 	loop = gtk_text_iter_get_offset(obegin);	/* re-use the loop variable */
 	DBG_SCANCACHE("bftextview2_delete_range_lcb, delete from %d to %d\n", gtk_text_iter_get_offset(obegin),
 				  gtk_text_iter_get_offset(oend));
@@ -961,20 +1010,24 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	bftextview2_schedule_scanning(btv);
 }
 
-static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
-											   GtkTextIter * oend, gpointer user_data)
+static void
+bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
+								   GtkTextIter * oend, gpointer user_data)
 {
 	BluefishTextView *btv = user_data;
-	DBG_SIGNALS("bftextview2_delete_range_after_lcb, btv=%p, master=%p, needs_autocomp=%d\n",btv, btv->master, btv->needs_autocomp);
-	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp && BLUEFISH_TEXT_VIEW(btv->master)->auto_complete
-		&& (btv->autocomp || main_v->props.autocomp_popup_mode != 0)) {
+	DBG_SIGNALS("bftextview2_delete_range_after_lcb, btv=%p, master=%p, needs_autocomp=%d\n", btv,
+				btv->master, btv->needs_autocomp);
+	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
+		&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && (btv->autocomp
+															  || main_v->props.autocomp_popup_mode != 0)) {
 		autocomp_run(btv, FALSE);
 		DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, set needs_autocomp to FALSE\n");
 		btv->needs_autocomp = FALSE;
 	}
 }
 
-static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
+static gboolean
+bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 {
 	gboolean retval;
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
@@ -985,7 +1038,8 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 			return TRUE;
 		}
 	}
-	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && (kevent->state & main_v->autocomp_accel_mods) && kevent->keyval == main_v->autocomp_accel_key) {
+	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && (kevent->state & main_v->autocomp_accel_mods)
+		&& kevent->keyval == main_v->autocomp_accel_key) {
 		/* <ctrl><space> manually opens the auto completion */
 		autocomp_run(btv, TRUE);
 		return TRUE;
@@ -1069,7 +1123,9 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 			}
 		}
 	}
-	if (kevent->keyval == GDK_Tab && BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_indent_wspaces) {
+	if ((kevent->keyval == GDK_Tab && !(kevent->state & GDK_SHIFT_MASK)
+		 && !(kevent->state & GDK_CONTROL_MASK))
+		&& BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_indent_wspaces) {
 		GtkTextBuffer *buffer = buffer;
 		GtkTextMark *imark;
 		GtkTextIter iter;
@@ -1098,7 +1154,8 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 	return retval;
 }
 
-static void bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * fblock)
+static void
+bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * fblock)
 {
 
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
@@ -1133,7 +1190,8 @@ static void bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * 
 	fblock->folded = (!fblock->folded);
 }
 
-static void bftextview2_toggle_fold(BluefishTextView * btv, GtkTextIter * iter)
+static void
+bftextview2_toggle_fold(BluefishTextView * btv, GtkTextIter * iter)
 {
 	Tfoundstack *fstack;
 	GSequenceIter *siter;
@@ -1174,7 +1232,8 @@ static void bftextview2_toggle_fold(BluefishTextView * btv, GtkTextIter * iter)
 	}
 }
 
-static void bftextview2_collapse_expand_all_toggle(BluefishTextView * btv, gboolean collapse)
+static void
+bftextview2_collapse_expand_all_toggle(BluefishTextView * btv, gboolean collapse)
 {
 	GSequenceIter *siter = NULL;
 	Tfoundstack *fstack;
@@ -1186,17 +1245,20 @@ static void bftextview2_collapse_expand_all_toggle(BluefishTextView * btv, gbool
 	}
 }
 
-static void bftextview2_collapse_all_lcb(GtkMenuItem * mitem, BluefishTextView * btv)
+static void
+bftextview2_collapse_all_lcb(GtkMenuItem * mitem, BluefishTextView * btv)
 {
 	bftextview2_collapse_expand_all_toggle(btv, TRUE);
 }
 
-static void bftextview2_expand_all_lcb(GtkMenuItem * mitem, BluefishTextView * btv)
+static void
+bftextview2_expand_all_lcb(GtkMenuItem * mitem, BluefishTextView * btv)
 {
 	bftextview2_collapse_expand_all_toggle(btv, FALSE);
 }
 
-static GtkWidget *bftextview2_fold_menu(BluefishTextView * btv)
+static GtkWidget *
+bftextview2_fold_menu(BluefishTextView * btv)
 {
 	GtkWidget *mitem, *menu = gtk_menu_new();
 	mitem = gtk_menu_item_new_with_label(_("Collapse all"));
@@ -1210,20 +1272,21 @@ static GtkWidget *bftextview2_fold_menu(BluefishTextView * btv)
 	return menu;
 }
 
-static void bftextview2_get_iter_at_bevent(BluefishTextView *btv, GdkEventButton *bevent, GtkTextIter *iter) {
+static void
+bftextview2_get_iter_at_bevent(BluefishTextView * btv, GdkEventButton * bevent, GtkTextIter * iter)
+{
 	gint xpos, ypos;
 	GtkTextWindowType wintype;
 
-	wintype = gtk_text_view_get_window_type(GTK_TEXT_VIEW(btv),
-			gtk_widget_get_window(GTK_WIDGET(btv)));
-	gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), wintype,bevent->x, bevent->y,
-					  &xpos, &ypos);
-	xpos += gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_LEFT);
+	wintype = gtk_text_view_get_window_type(GTK_TEXT_VIEW(btv), gtk_widget_get_window(GTK_WIDGET(btv)));
+	gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), wintype, bevent->x, bevent->y, &xpos, &ypos);
+	xpos += gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT);
 	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(btv), iter, xpos, ypos);
 }
 
 
-static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event)
+static gboolean
+bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event)
 {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
@@ -1302,7 +1365,8 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->button_press_event(widget, event);
 }
 
-static gchar *get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * lastchar)
+static gchar *
+get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * lastchar)
 {
 	gchar *string;
 	gchar *indenting;
@@ -1332,7 +1396,8 @@ static gchar *get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * itend
 	return string;
 }
 
-static gboolean bluefish_text_view_key_release_event(GtkWidget * widget, GdkEventKey * kevent)
+static gboolean
+bluefish_text_view_key_release_event(GtkWidget * widget, GdkEventKey * kevent)
 {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	gboolean prev_insert_was_auto_indent = btv->insert_was_auto_indent;
@@ -1422,12 +1487,14 @@ static gboolean bluefish_text_view_key_release_event(GtkWidget * widget, GdkEven
 }
 
 /* called for example by doc_reload() */
-void bluefish_text_view_scan_cleanup(BluefishTextView * btv)
+void
+bluefish_text_view_scan_cleanup(BluefishTextView * btv)
 {
 	cleanup_scanner(btv);
 }
 
-void bluefish_text_view_rescan(BluefishTextView * btv)
+void
+bluefish_text_view_rescan(BluefishTextView * btv)
 {
 	DBG_MSG("bluefish_text_view_rescan, btv=%p, lang=%p\n", btv, btv->bflang);
 	cleanup_scanner(btv->master);
@@ -1448,7 +1515,8 @@ void bluefish_text_view_rescan(BluefishTextView * btv)
 	/* returns TRUE if 
 	   there is a selection and a comment start and end is inside the selection
 	   OR no selection and cursor is inside a comment */
-gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its, GtkTextIter * ite)
+gboolean
+bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its, GtkTextIter * ite)
 {
 	GtkTextIter tmpits, tmpite;
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
@@ -1458,7 +1526,8 @@ gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its
 		*ite = tmpite;
 		/* first test if the selection starts the tag */
 		if ((gtk_text_iter_begins_tag(&tmpits, comment_tag) && gtk_text_iter_ends_tag(&tmpite, comment_tag))
-			|| (gtk_text_iter_begins_tag(&tmpite, comment_tag) && gtk_text_iter_ends_tag(&tmpits, comment_tag))
+			|| (gtk_text_iter_begins_tag(&tmpite, comment_tag)
+				&& gtk_text_iter_ends_tag(&tmpits, comment_tag))
 			) {
 			DEBUG_MSG("bluefish_text_view_in_comment, selection toggles comment, return TRUE\n");
 			return TRUE;
@@ -1467,8 +1536,7 @@ gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its
 		return FALSE;
 	} else {
 		gboolean retval;
-		gtk_text_buffer_get_iter_at_mark(buffer, &tmpits,
-										 gtk_text_buffer_get_insert(buffer));
+		gtk_text_buffer_get_iter_at_mark(buffer, &tmpits, gtk_text_buffer_get_insert(buffer));
 		/* for line comments the \n is usually not part of the comment anymore, so move back one char */
 		if (gtk_text_iter_ends_line(&tmpits))
 			gtk_text_iter_backward_char(&tmpits);
@@ -1483,8 +1551,8 @@ gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its
 	return FALSE;
 }
 
-Tcomment *bluefish_text_view_get_comment(BluefishTextView * btv, GtkTextIter * it,
-										 Tcomment_type preferred_type)
+Tcomment *
+bluefish_text_view_get_comment(BluefishTextView * btv, GtkTextIter * it, Tcomment_type preferred_type)
 {
 	/* get the context, and then retrieve the preferred comment type for that context */
 	GQueue *contextstack;
@@ -1547,12 +1615,14 @@ Tcomment *bluefish_text_view_get_comment(BluefishTextView * btv, GtkTextIter * i
 }
 
 
-gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv)
+gboolean
+bluefish_text_view_get_auto_complete(BluefishTextView * btv)
 {
 	return (BLUEFISH_TEXT_VIEW(btv->master)->auto_complete);
 }
 
-void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable)
+void
+bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable)
 {
 	g_return_if_fail(btv != NULL);
 
@@ -1563,12 +1633,14 @@ void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enabl
 	BLUEFISH_TEXT_VIEW(btv->master)->auto_complete = enable;
 }
 
-gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv)
+gboolean
+bluefish_text_view_get_auto_indent(BluefishTextView * btv)
 {
 	return (BLUEFISH_TEXT_VIEW(btv->master)->auto_indent);
 }
 
-void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable)
+void
+bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable)
 {
 	g_return_if_fail(btv != NULL);
 
@@ -1579,16 +1651,15 @@ void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable)
 	BLUEFISH_TEXT_VIEW(btv->master)->auto_indent = enable;
 }
 
-static void bftextview2_parse_static_colors(void)
+static void
+bftextview2_parse_static_colors(void)
 {
-	if (!
-		(main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE]
-		 && gdk_color_parse(main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE], &st_cline_color))) {
+	if (!(main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE]
+		  && gdk_color_parse(main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE], &st_cline_color))) {
 		gdk_color_parse("#e0e0e0", &st_cline_color);
 	}
-	if (!
-		(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE]
-		 && gdk_color_parse(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], &st_whitespace_color))) {
+	if (!(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE]
+		  && gdk_color_parse(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], &st_whitespace_color))) {
 		gdk_color_parse("#ff0000", &st_whitespace_color);
 	}
 	if (main_v->props.btv_color_str[BTV_COLOR_CURSOR] != NULL
@@ -1603,23 +1674,27 @@ static void bftextview2_parse_static_colors(void)
 	}
 }
 
-void bftextview2_init_globals(void) {
+void
+bftextview2_init_globals(void)
+{
 	bftextview2_parse_static_colors();
-	if (main_v->props.autocomp_accel_string && main_v->props.autocomp_accel_string[0] != '\0') { 
-		gtk_accelerator_parse(main_v->props.autocomp_accel_string,&main_v->autocomp_accel_key,&main_v->autocomp_accel_mods);
-		if (gtk_accelerator_valid(main_v->autocomp_accel_key,main_v->autocomp_accel_mods)) {
+	if (main_v->props.autocomp_accel_string && main_v->props.autocomp_accel_string[0] != '\0') {
+		gtk_accelerator_parse(main_v->props.autocomp_accel_string, &main_v->autocomp_accel_key,
+							  &main_v->autocomp_accel_mods);
+		if (gtk_accelerator_valid(main_v->autocomp_accel_key, main_v->autocomp_accel_mods)) {
 			return;
 		}
-		g_warning("%s is not a valid shortcut key combination\n",main_v->props.autocomp_accel_string);
+		g_warning("%s is not a valid shortcut key combination\n", main_v->props.autocomp_accel_string);
 	}
 	main_v->autocomp_accel_key = ' ';
 	main_v->autocomp_accel_mods = GDK_CONTROL_MASK;
 }
 
-void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
+void
+bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 {
 	GdkColor color;
-	DEBUG_MSG("bluefish_text_view_set_colors, started for %p\n",btv);
+	DEBUG_MSG("bluefish_text_view_set_colors, started for %p\n", btv);
 	if (colors[BTV_COLOR_ED_BG] && gdk_color_parse(colors[BTV_COLOR_ED_BG], &color)) {
 		gtk_widget_modify_base(GTK_WIDGET(btv), GTK_STATE_NORMAL, &color);
 		if (btv->slave)
@@ -1630,15 +1705,16 @@ void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors
 		if (btv->slave)
 			gtk_widget_modify_text(GTK_WIDGET(btv->slave), GTK_STATE_NORMAL, &color);
 	}
-	
+
 }
 
-void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar * mime)
+void
+bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar * mime)
 {
 	GtkTextIter start, end;
 	GtkTextBuffer *buffer;
 	Tbflang *bflang = langmgr_get_bflang_for_mimetype(mime);
-	BluefishTextView *master=btv->master;
+	BluefishTextView *master = btv->master;
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(master));
 	/* remove all highlighting */
 	cleanup_scanner(master);
@@ -1657,15 +1733,17 @@ void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar * mime)
 	} else {
 		master->bflang = NULL;
 	}
-	DBG_MSG("bluefish_text_view_set_mimetype, done for %p\n",btv);
+	DBG_MSG("bluefish_text_view_set_mimetype, done for %p\n", btv);
 }
 
-gboolean bluefish_text_view_get_show_blocks(BluefishTextView * btv)
+gboolean
+bluefish_text_view_get_show_blocks(BluefishTextView * btv)
 {
 	return (btv->show_blocks);
 }
 
-void bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show)
+void
+bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show)
 {
 	g_return_if_fail(btv != NULL);
 
@@ -1680,12 +1758,14 @@ void bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show)
 		gtk_widget_queue_draw(GTK_WIDGET(btv->slave));
 }
 
-gboolean bluefish_text_view_get_show_line_numbers(BluefishTextView * btv)
+gboolean
+bluefish_text_view_get_show_line_numbers(BluefishTextView * btv)
 {
 	return (btv->show_line_numbers);
 }
 
-void bluefish_text_view_set_show_line_numbers(BluefishTextView * btv, gboolean show)
+void
+bluefish_text_view_set_show_line_numbers(BluefishTextView * btv, gboolean show)
 {
 	g_return_if_fail(btv != NULL);
 
@@ -1700,12 +1780,14 @@ void bluefish_text_view_set_show_line_numbers(BluefishTextView * btv, gboolean s
 		gtk_widget_queue_draw(GTK_WIDGET(btv->slave));
 }
 
-gboolean bluefish_text_view_get_show_visible_spacing(BluefishTextView * btv)
+gboolean
+bluefish_text_view_get_show_visible_spacing(BluefishTextView * btv)
 {
 	return (btv->visible_spacing);
 }
 
-void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolean show)
+void
+bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolean show)
 {
 	g_return_if_fail(btv != NULL);
 
@@ -1719,12 +1801,14 @@ void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolea
 		gtk_widget_queue_draw(GTK_WIDGET(btv->slave));
 }
 
-gboolean bluefish_text_view_get_show_right_margin(BluefishTextView * btv)
+gboolean
+bluefish_text_view_get_show_right_margin(BluefishTextView * btv)
 {
 	return (btv->show_right_margin);
 }
 
-void bluefish_text_view_set_show_right_margin(BluefishTextView * btv, gboolean show)
+void
+bluefish_text_view_set_show_right_margin(BluefishTextView * btv, gboolean show)
 {
 	g_return_if_fail(btv != NULL);
 
@@ -1738,12 +1822,14 @@ void bluefish_text_view_set_show_right_margin(BluefishTextView * btv, gboolean s
 		gtk_widget_queue_draw(GTK_WIDGET(btv->slave));
 }
 
-gboolean bluefish_text_view_get_show_mbhl(BluefishTextView * btv)
+gboolean
+bluefish_text_view_get_show_mbhl(BluefishTextView * btv)
 {
 	return (btv->show_mbhl);
 }
 
-void bluefish_text_view_set_show_mbhl(BluefishTextView * btv, gboolean show)
+void
+bluefish_text_view_set_show_mbhl(BluefishTextView * btv, gboolean show)
 {
 	g_return_if_fail(btv != NULL);
 
@@ -1758,7 +1844,8 @@ void bluefish_text_view_set_show_mbhl(BluefishTextView * btv, gboolean show)
 }
 
 #ifdef HAVE_LIBENCHANT
-void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check)
+void
+bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check)
 {
 	GtkTextIter start, end;
 	GtkTextBuffer *buffer;
@@ -1783,8 +1870,9 @@ void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_c
 }
 #endif
 
-static gboolean bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean keyboard_tip,
-												 GtkTooltip * tooltip)
+static gboolean
+bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean keyboard_tip,
+								 GtkTooltip * tooltip)
 {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
@@ -1851,14 +1939,15 @@ static gboolean bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gin
 					gtk_text_iter_get_offset(&iter));
 		if (scan_for_tooltip(master, &mstart, &iter, &contextnum)) {
 			DBG_TOOLTIP("we have a match in context %d, has_patternhash=%d\n", contextnum,
-						(g_array_index(master->bflang->st->contexts, Tcontext, contextnum).patternhash != NULL));
+						(g_array_index(master->bflang->st->contexts, Tcontext, contextnum).patternhash !=
+						 NULL));
 			if (g_array_index(master->bflang->st->contexts, Tcontext, contextnum).patternhash) {
 				gint pattern_id;
 				gchar *key = gtk_text_buffer_get_text(buffer, &mstart, &iter, TRUE);
 				pattern_id =
 					GPOINTER_TO_INT(g_hash_table_lookup
-									(g_array_index(master->bflang->st->contexts, Tcontext, contextnum).
-									 patternhash, key));
+									(g_array_index
+									 (master->bflang->st->contexts, Tcontext, contextnum).patternhash, key));
 				if (pattern_id && g_array_index(master->bflang->st->matches, Tpattern, pattern_id).reference) {
 					DBG_TOOLTIP("key=%s, value=%s\n", key,
 								g_array_index(master->bflang->st->matches, Tpattern, pattern_id).reference);
@@ -1876,7 +1965,8 @@ static gboolean bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gin
 	return FALSE;
 }
 
-static gboolean bluefish_text_view_focus_out_event(GtkWidget * widget, GdkEventFocus * event)
+static gboolean
+bluefish_text_view_focus_out_event(GtkWidget * widget, GdkEventFocus * event)
 {
 	if (BLUEFISH_TEXT_VIEW(widget)->autocomp) {
 		autocomp_stop(BLUEFISH_TEXT_VIEW(widget));
@@ -1884,7 +1974,8 @@ static gboolean bluefish_text_view_focus_out_event(GtkWidget * widget, GdkEventF
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->focus_out_event(widget, event);
 }
 
-static void bluefish_text_view_finalize(GObject * object)
+static void
+bluefish_text_view_finalize(GObject * object)
 {
 	BluefishTextView *btv;
 	BluefishTextViewClass *klass;
@@ -1895,7 +1986,7 @@ static void bluefish_text_view_finalize(GObject * object)
 	if (btv->master != btv && BLUEFISH_TEXT_VIEW(btv->master)->slave == btv) {
 		BLUEFISH_TEXT_VIEW(btv->master)->slave = NULL;
 	}
-	
+
 	if (btv->scanner_delayed) {
 		g_source_remove(btv->scanner_delayed);
 		btv->scanner_delayed = 0;
@@ -1919,7 +2010,7 @@ static void bluefish_text_view_finalize(GObject * object)
 		btv->user_idle_timer = NULL;
 	}
 	if (btv->buffer) {
-		DBG_MSG("bluefish_text_view_finalize %p, disconnect signals from buffer %p\n",btv,btv->buffer);
+		DBG_MSG("bluefish_text_view_finalize %p, disconnect signals from buffer %p\n", btv, btv->buffer);
 		if (btv->insert_text_id)
 			g_signal_handler_disconnect(btv->buffer, btv->insert_text_id);
 		if (btv->insert_text_after_id)
@@ -1963,7 +2054,8 @@ static GObject *bluefish_text_view_create(GType type, guint n_construct_properti
 	return (obj);
 }*/
 
-static void bluefish_text_view_class_init(BluefishTextViewClass * klass)
+static void
+bluefish_text_view_class_init(BluefishTextViewClass * klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
@@ -1979,8 +2071,9 @@ static void bluefish_text_view_class_init(BluefishTextViewClass * klass)
 	widget_class->focus_out_event = bluefish_text_view_focus_out_event;
 }
 
-void bluefish_text_view_multiset(BluefishTextView * btv, gpointer doc, gint view_line_numbers,
-								 gint view_blocks, gint autoindent, gint autocomplete, gint show_mbhl)
+void
+bluefish_text_view_multiset(BluefishTextView * btv, gpointer doc, gint view_line_numbers,
+							gint view_blocks, gint autoindent, gint autocomplete, gint show_mbhl)
 {
 	BLUEFISH_TEXT_VIEW(btv->master)->doc = doc;
 	BLUEFISH_TEXT_VIEW(btv->master)->show_line_numbers = view_line_numbers;
@@ -1990,7 +2083,8 @@ void bluefish_text_view_multiset(BluefishTextView * btv, gpointer doc, gint view
 	BLUEFISH_TEXT_VIEW(btv->master)->show_mbhl = show_mbhl;
 }
 
-static void bluefish_text_view_init(BluefishTextView * textview)
+static void
+bluefish_text_view_init(BluefishTextView * textview)
 {
 	GtkTextTagTable *ttt;
 /*	PangoFontDescription *font_desc;*/
@@ -2010,7 +2104,8 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	   pango_font_description_free(font_desc); */
 }
 
-GtkWidget *bftextview2_new(void)
+GtkWidget *
+bftextview2_new(void)
 {
 	BluefishTextView *textview = g_object_new(BLUEFISH_TYPE_TEXT_VIEW,
 											  "has-tooltip", TRUE, NULL);
@@ -2021,40 +2116,49 @@ GtkWidget *bftextview2_new(void)
 	return GTK_WIDGET(textview);
 }
 
-GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
+GtkWidget *
+bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 {
 	BluefishTextView *textview = (BluefishTextView *) bftextview2_new();
 
 	g_return_val_if_fail(textview != NULL, NULL);
-	DBG_MSG("bftextview2_new_with_buffer, textview=%p, buffer=%p\n",textview,buffer);
+	DBG_MSG("bftextview2_new_with_buffer, textview=%p, buffer=%p\n", textview, buffer);
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(textview), buffer);
 	textview->buffer = buffer;
-	textview->insert_text_id = g_signal_connect(G_OBJECT(buffer), "insert-text", G_CALLBACK(bftextview2_insert_text_lcb), textview);
-	textview->insert_text_after_id = g_signal_connect_after(G_OBJECT(buffer), "insert-text", G_CALLBACK(bftextview2_insert_text_after_lcb),
-						   textview);
-	textview->mark_set_id = g_signal_connect_after(G_OBJECT(buffer), "mark-set", G_CALLBACK(bftextview2_mark_set_lcb), textview);
-	textview->delete_range_id = g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb), textview);
-	textview->delete_range_after_id = g_signal_connect_after(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_after_lcb),
-						   textview);
+	textview->insert_text_id =
+		g_signal_connect(G_OBJECT(buffer), "insert-text", G_CALLBACK(bftextview2_insert_text_lcb), textview);
+	textview->insert_text_after_id =
+		g_signal_connect_after(G_OBJECT(buffer), "insert-text", G_CALLBACK(bftextview2_insert_text_after_lcb),
+							   textview);
+	textview->mark_set_id =
+		g_signal_connect_after(G_OBJECT(buffer), "mark-set", G_CALLBACK(bftextview2_mark_set_lcb), textview);
+	textview->delete_range_id =
+		g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb),
+						 textview);
+	textview->delete_range_after_id =
+		g_signal_connect_after(G_OBJECT(buffer), "delete-range",
+							   G_CALLBACK(bftextview2_delete_range_after_lcb), textview);
 	return GTK_WIDGET(textview);
 }
 
-GtkWidget *bftextview2_new_slave(BluefishTextView *master) {
+GtkWidget *
+bftextview2_new_slave(BluefishTextView * master)
+{
 	BluefishTextView *textview;
 	GtkTextBuffer *buffer;
-	
+
 	g_return_val_if_fail(master != NULL, NULL);
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(master));
-	DBG_MSG("bftextview2_new_slave, master=%p, buffer=%p\n",master,buffer);
+	DBG_MSG("bftextview2_new_slave, master=%p, buffer=%p\n", master, buffer);
 	textview = (BluefishTextView *) bftextview2_new_with_buffer(buffer);
 	g_return_val_if_fail(textview != NULL, NULL);
-	
+
 	textview->master = master;
 	master->slave = textview;
-	DBG_MSG("bftextview2_new_slave, created slave %p for master %p\n",textview, master);
+	DBG_MSG("bftextview2_new_slave, created slave %p for master %p\n", textview, master);
 	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(textview), GTK_TEXT_WINDOW_LEFT,
-										 BLUEFISH_TEXT_VIEW(master)->margin_pixels_chars 
-										 + BLUEFISH_TEXT_VIEW(master)->margin_pixels_block 
+										 BLUEFISH_TEXT_VIEW(master)->margin_pixels_chars
+										 + BLUEFISH_TEXT_VIEW(master)->margin_pixels_block
 										 + BLUEFISH_TEXT_VIEW(master)->margin_pixels_symbol);
 	return GTK_WIDGET(textview);
 }
