@@ -28,7 +28,7 @@
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 ]>
-<bflang name="XHTML" version="2.0" table="10375" contexts="110" matches="2139">
+<bflang name="XHTML" version="2.0" table="11421" contexts="121" matches="2355">
 <header>
 	<mime type="application/xhtml+xml"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -136,12 +136,12 @@
 		&css-selectors;
 		<element id="e.css.lbrace" pattern="{" starts_block="1" highlight="brackets">
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
-				&css-rules;
 				<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
 						<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
 					</context>
-				</element>
+				</element>			
+				&css-rules;
 				<element pattern="&lt;/style&gt;" highlight="tag" ends_context="3" />
 				<element pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="brackets" ends_context="1" />
 			</context>
