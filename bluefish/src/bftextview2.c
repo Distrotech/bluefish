@@ -1069,7 +1069,7 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 			}
 		}
 	}
-	if (kevent->keyval == GDK_Tab && BFWIN(DOCUMENT(btv->doc))->session->editor_indent_wspaces) {
+	if (kevent->keyval == GDK_Tab && BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_indent_wspaces) {
 		GtkTextBuffer *buffer = buffer;
 		GtkTextMark *imark;
 		GtkTextIter iter;
