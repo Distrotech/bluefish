@@ -1126,7 +1126,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 	if ((kevent->keyval == GDK_Tab && !(kevent->state & GDK_SHIFT_MASK)
 		 && !(kevent->state & GDK_CONTROL_MASK))
 		&& BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_indent_wspaces) {
-		GtkTextBuffer *buffer = buffer;
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 		GtkTextMark *imark;
 		GtkTextIter iter;
 		gchar *string;
