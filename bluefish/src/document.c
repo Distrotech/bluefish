@@ -532,7 +532,7 @@ doc_reset_filetype(Tdocument * doc, GFile * newuri, gconstpointer buf, gssize bu
 	gboolean uncertain = FALSE;
 	gchar *filename = NULL, *conttype;
 #ifdef WIN32
-	gchar *mimetype;
+	gchar *tmp;
 #endif
 
 	if (newuri)
@@ -540,28 +540,18 @@ doc_reset_filetype(Tdocument * doc, GFile * newuri, gconstpointer buf, gssize bu
 	conttype = g_content_type_guess(filename, buf, buflen, &uncertain);
 
 #ifdef WIN32
-	mimetype = g_content_type_get_mime_type(conttype);
+	/* on WIN32 conttype does not contain a MIME type, that has to be converted */
+	tmp = g_content_type_get_mime_type(conttype);
+	g_free(conttype);
+	conttype = tmp;
 #endif
-
-	DEBUG_MSG("doc_reset_filetype,conttype=%s\n", conttype);
-	g_free(filename);
-
-#ifdef WIN32
-	doc_set_mimetype(doc, mimetype);
-	g_free(mimetype);
-#else
-	if (strcmp(conttype, "text/html") == 0) {
-		gchar *string = doc_get_chars(doc, 0, -1);
-		if (string && g_regex_match_simple("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML", string, 0, 0)) {
-			g_free(string);
-			g_free(conttype);
-			conttype = g_strdup("application/xhtml+xml");
-		}
+	if (strcmp(conttype, "text/html") == 0 && buf && strstr(buf, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML")!=NULL) {
+		g_free(conttype);
+		conttype = g_strdup("application/xhtml+xml");
 	}
 
 	doc_set_mimetype(doc, conttype);
-#endif
-
+	g_free(filename);
 	g_free(conttype);
 }
 
