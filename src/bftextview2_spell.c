@@ -163,10 +163,10 @@ static void spellcheck_word(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTe
 }
 
 #ifdef HAVE_LIBENCHANT_OLD
-static gint OLD_foundstack_needspellcheck(BluefishTextView * btv, Tfoundstack *fstack) {
+static gint OLD_foundstack_needspellcheck(BluefishTextView * btv, Tfound *found) {
 	guint16 contextnum;
-	if (g_queue_get_length(fstack->contextstack))
-		contextnum = ((Tfoundcontext *)g_queue_peek_head(fstack->contextstack))->context;
+	if (g_queue_get_length(found->contextstack))
+		contextnum = ((Tfoundcontext *)g_queue_peek_head(found->contextstack))->context;
 	else
 		contextnum = 1;
 	DBG_SPELL("context %d has spellcheck=%d\n",contextnum, g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).needspellcheck);
@@ -188,7 +188,7 @@ static gint OLD_foundstack_needspellcheck(BluefishTextView * btv, Tfoundstack *f
 gboolean OLD_bftextview2_run_spellcheck(BluefishTextView * btv) {
 	GtkTextIter so,eo,iter;
 	GtkTextBuffer *buffer;
-	Tfoundstack *fstack;
+	Tfound *found;
 	GSequenceIter *siter=NULL;
 	GTimer *timer;
 	gint loop=0, loops_per_timer=100;
@@ -217,47 +217,47 @@ gboolean OLD_bftextview2_run_spellcheck(BluefishTextView * btv) {
 		gboolean cont2=TRUE;
 		if (btv->bflang->st) {
 			/**** find the start within this region of a context that needs spellcheck */
-			fstack = get_stackcache_at_position(btv, &iter, &siter);
-			if (fstack || !g_array_index(btv->bflang->st->contexts,Tcontext, 1).needspellcheck) {
-				if(!fstack) {
-					fstack = get_stackcache_first(btv, &siter);
-					if (fstack->charoffset > eo_offset) {
+			found = get_stackcache_at_position(btv, &iter, &siter);
+			if (found || !g_array_index(btv->bflang->st->contexts,Tcontext, 1).needspellcheck) {
+				if(!found) {
+					found = get_stackcache_first(btv, &siter);
+					if (found->charoffset > eo_offset) {
 						/* nothing to do ! */
-						DBG_SPELL("bftextview2_run_spellcheck, next starting fstack beyond eo (1), we're finished\n");
+						DBG_SPELL("bftextview2_run_spellcheck, next starting found beyond eo (1), we're finished\n");
 						cont=FALSE;
 						cont2=FALSE;
 						iter=eo;
 					}
 				}
-				while (fstack && fstack->charoffset < eo_offset && !foundstack_needspellcheck(btv,fstack)) {
-					fstack = get_stackcache_next(btv, &siter);
+				while (found && found->charoffset < eo_offset && !foundstack_needspellcheck(btv,found)) {
+					found = get_stackcache_next(btv, &siter);
 				}
 				
-				if (fstack && fstack->charoffset < eo_offset) {
-					/* advance the iter to the charoffset of fstack, but keep at the same place if the iter is already further */
-					if (fstack->charoffset > gtk_text_iter_get_offset(&iter)) {
-						gtk_text_iter_set_offset(&iter, fstack->charoffset);
+				if (found && found->charoffset < eo_offset) {
+					/* advance the iter to the charoffset of found, but keep at the same place if the iter is already further */
+					if (found->charoffset > gtk_text_iter_get_offset(&iter)) {
+						gtk_text_iter_set_offset(&iter, found->charoffset);
 						DBG_SPELL("bftextview2_run_spellcheck, advance iter to %d\n",gtk_text_iter_get_offset(&iter));
 					}
 				} else {
-					DBG_SPELL("bftextview2_run_spellcheck, next starting fstack beyond eo (2), we're finished\n");
+					DBG_SPELL("bftextview2_run_spellcheck, next starting found beyond eo (2), we're finished\n");
 					cont=FALSE;
 					cont2=FALSE;
 					iter=eo;
 				}
-			} else { /* no fstack and the default context needs spellcheck */
+			} else { /* no found and the default context needs spellcheck */
 				DBG_SPELL("bftextview2_run_spellcheck, default context, keep iter at %d\n",gtk_text_iter_get_offset(&iter));
-				fstack = get_stackcache_first(btv, &siter);
+				found = get_stackcache_first(btv, &siter);
 			}
 	
 			/***** now find the end of this context to spellcheck */
 			if (cont && cont2) {
-				while(fstack && fstack->charoffset < eo_offset && foundstack_needspellcheck(btv,fstack)) {
-					fstack = get_stackcache_next(btv, &siter);
+				while(found && found->charoffset < eo_offset && foundstack_needspellcheck(btv,found)) {
+					found = get_stackcache_next(btv, &siter);
 				}
-				if (fstack && fstack->charoffset < eo_offset) {
+				if (found && found->charoffset < eo_offset) {
 					/* set eo2 to the end of the context(s) that needs spellcheck */
-					gtk_text_iter_set_offset(&eo2, fstack->charoffset);
+					gtk_text_iter_set_offset(&eo2, found->charoffset);
 					DBG_SPELL("bftextview2_run_spellcheck, set eo2 to %d\n",gtk_text_iter_get_offset(&eo2));
 				} else {
 					/* no next, set end iter to eo */

@@ -319,11 +319,11 @@ typedef struct {
 /* scanning the text and caching the results */
 /*****************************************************************/
 typedef struct {
+	Tfoundblock *parentfblock;
 	guint32 start1_o;
 	guint32 end1_o;
 	guint32 start2_o;
 	guint32 end2_o;
-	guint32 refcount; /* free on 0 */
 	gint16 patternum; /* which pattern (number of the array element in scantable->matches) */
 	guint8 folded;
 	guint8 foldable; /* FALSE on a single line */
@@ -338,9 +338,9 @@ typedef struct {
 						of the stack is copied into Tscancache */
 
 typedef struct {
+	Tfoundcontext *parentfcontext;
 	guint32 start_o;
 	guint32 end_o;
-	guint32 refcount; /* free on 0 */
 	gint16 context; /* number of the element in scantable->contexts */
 } Tfoundcontext; /* once a start-of-context is found start is set
 						and the Tfoundcontext is added to the GtkTextMark as "context"
@@ -353,21 +353,43 @@ typedef struct {
 						of the stack is copied into Tscancache */
 
 typedef struct {
-	GQueue *contextstack; /* a stack of Tfoundcontext */
-	GQueue *blockstack;  /* a stack of Tfoundblock */
-	Tfoundcontext *poppedcontext;
-	Tfoundcontext *pushedcontext;
-	Tfoundblock *poppedblock;
-	Tfoundblock *pushedblock;
+	Tfoundcontext *fcontext; /* on mode 4 or 8 this refers to the last pushed context, which is the current context. 
+			if bit 1 is set this points to the the pushed context, which is the new current context
+			if bit 2 is set this points to the popped context, the current context is its parent! */
+	Tfoundblock *fblock; /* on mode 1 or 2 this refers to the last pushed block, which is the current block.
+			if bit 3 is set this points to the new pushed block which is the current block
+			if bit 4 is set this points to the popped block, the current block is its parent! */ 
 	guint32 charoffset_o;
-} Tfoundstack;
+	guint8 foundmode; /*
+			bit 1 (=1) = context push
+			bit 2 (=2) = context pop
+			bit 3 (=4) = block push
+			bit 4 (=8) = block pop
+			so mode 5 = context push & block push
+			so mode 10 = context pop & block pop */
+} Tfound;
+
+#define FOUNDMODE_CONTEXTPUSH 0x01
+#define FOUNDMODE_CONTEXTPOP 0x02
+#define FOUNDMODE_BLOCKPUSH 0x04
+#define FOUNDMODE_BLOCKPOP 0x08
+
+#define IS_FOUNDMODE_CONTEXTPUSH(i)   (i & FOUNDMODE_CONTEXTPUSH)
+#define IS_FOUNDMODE_CONTEXTPOP(i)   (i & FOUNDMODE_CONTEXTPOP)
+#define IS_FOUNDMODE_BLOCKPUSH(i)   (i & FOUNDMODE_BLOCKPUSH)
+#define IS_FOUNDMODE_BLOCKPOP(i)   (i & FOUNDMODE_BLOCKPOP)
+
+#define SET_FOUNDMODE_CONTEXTPUSH(i)   (i |= FOUNDMODE_CONTEXTPUSH)
+#define SET_FOUNDMODE_CONTEXTPOP(i)   (i |= FOUNDMODE_CONTEXTPOP)
+#define SET_FOUNDMODE_BLOCKPUSH(i)   (i |= FOUNDMODE_BLOCKPUSH)
+#define SET_FOUNDMODE_BLOCKPOP(i)   (i |= FOUNDMODE_BLOCKPOP)
 
 typedef struct {
-	GSequence* stackcaches; /* a sorted structure of Tfoundstack for
+	GSequence* foundcaches; /* a sorted structure of Tfound for
 				each position where the stack changes so we can restart scanning
 				on any location */
-	/*gint stackcache_need_update_charoffset;*/ /* from this character offset and further there
-				have been changes in the buffer so the caches need updating */
+	guint32 valid_cache_offset; /* from 0 to this offset the cache is considered valid. after this 
+						position the cache could be outdated */ 
 } Tscancache;
 /********************************/
 /* language manager */

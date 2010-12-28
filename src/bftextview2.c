@@ -365,21 +365,21 @@ bftextview2_get_iters_at_foundblock(GtkTextBuffer * buffer, Tfoundblock * fblock
 static inline Tfoundblock *
 bftextview2_get_block_at_offset(BluefishTextView * btv, guint offset)
 {
-	Tfoundstack *fstack;
+	Tfound *found;
 	GSequenceIter *siter;
-	fstack = get_stackcache_at_offset(btv, offset, &siter);
-	while (fstack) {
-		/*g_print("check fstack %p with charoffset_o=%d\n",fstack,fstack->charoffset_o); */
-		if (fstack->pushedblock
-			&& (fstack->pushedblock->start1_o == offset || fstack->pushedblock->end1_o == offset)) {
-			return fstack->pushedblock;
-		} else if (fstack->poppedblock
-				   && (fstack->poppedblock->start2_o == offset || fstack->poppedblock->end2_o == offset)) {
-			return fstack->poppedblock;
+	found = get_stackcache_at_offset(btv, offset, &siter);
+	while (found) {
+		/*g_print("check found %p with charoffset_o=%d\n",found,found->charoffset_o); */
+		if (found->pushedblock
+			&& (found->pushedblock->start1_o == offset || found->pushedblock->end1_o == offset)) {
+			return found->pushedblock;
+		} else if (found->poppedblock
+				   && (found->poppedblock->start2_o == offset || found->poppedblock->end2_o == offset)) {
+			return found->poppedblock;
 		}
-		if (fstack->charoffset_o > offset)
+		if (found->charoffset_o > offset)
 			break;
-		fstack = get_stackcache_next(btv, &siter);
+		found = get_stackcache_next(btv, &siter);
 	}
 	return NULL;
 }
@@ -561,12 +561,12 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 
 }
 
-/*static void print_fstack(Tfoundstack * fstack)
+/*static void print_found(Tfound * found)
 {
-	DBG_MARGIN("got fstack %p for next position", fstack);
-	if (fstack) {
-		DBG_MARGIN(" with line %d and charoffset %d and %d blocks", fstack->line, fstack->charoffset,
-				g_queue_get_length(fstack->blockstack));
+	DBG_MARGIN("got found %p for next position", found);
+	if (found) {
+		DBG_MARGIN(" with line %d and charoffset %d and %d blocks", found->line, found->charoffset,
+				g_queue_get_length(found->blockstack));
 	}
 	DBG_MARGIN("\n");
 }*/
@@ -642,10 +642,10 @@ paint_margin_symbol(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
 }
 
 static gint
-get_num_foldable_blocks(Tfoundstack * fstack)
+get_num_foldable_blocks(Tfound * found)
 {
 	guint count = 0;
-	GList *tmplist = fstack->blockstack->head;
+	GList *tmplist = found->blockstack->head;
 	while (tmplist) {
 		if (((Tfoundblock *) (tmplist->data))->foldable)
 			count++;
@@ -658,7 +658,7 @@ static inline void
 paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * startvisible,
 			 GtkTextIter * endvisible)
 {
-	Tfoundstack *fstack = NULL;
+	Tfound *found = NULL;
 	BluefishTextView *master = btv->master;
 	GSequenceIter *siter = NULL;
 	guint num_blocks;
@@ -690,29 +690,29 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 		 && (g_sequence_get_length(master->scancache.stackcaches) != 0))) {
 		siter = g_sequence_get_begin_iter(master->scancache.stackcaches);
 		if (!g_sequence_iter_is_end(siter)) {
-			fstack = g_sequence_get(siter);
+			found = g_sequence_get(siter);
 		}
 		num_blocks = 0;
-		DBG_MARGIN("EXPOSE: start at begin, set num_blocks %d, fstack=%p\n", num_blocks, fstack);
+		DBG_MARGIN("EXPOSE: start at begin, set num_blocks %d, found=%p\n", num_blocks, found);
 	} else {
-		fstack = get_stackcache_at_offset(master, gtk_text_iter_get_offset(startvisible), &siter);
-		if (fstack) {
-			num_blocks = get_num_foldable_blocks(fstack);
+		found = get_stackcache_at_offset(master, gtk_text_iter_get_offset(startvisible), &siter);
+		if (found) {
+			num_blocks = get_num_foldable_blocks(found);
 		} else {
-			DBG_MARGIN("EXPOSE: no fstack for position %d, siter=%p\n",
+			DBG_MARGIN("EXPOSE: no found for position %d, siter=%p\n",
 					   gtk_text_iter_get_offset(startvisible), siter);
 			num_blocks = 0;
 		}
 	}
-	/* in the case that the *first* fstack is relevant, we don't need
-	   the 'next' fstack */
-	if (!fstack || fstack->charoffset_o < gtk_text_iter_get_offset(startvisible)) {
-		DBG_MARGIN("get next fstack..\n");
+	/* in the case that the *first* found is relevant, we don't need
+	   the 'next' found */
+	if (!found || found->charoffset_o < gtk_text_iter_get_offset(startvisible)) {
+		DBG_MARGIN("get next found..\n");
 		if (siter)
-			fstack = get_stackcache_next(master, &siter);
+			found = get_stackcache_next(master, &siter);
 	}
-	/*DBG_MARGIN("first fstack ");
-	   print_fstack(fstack); */
+	/*DBG_MARGIN("first found ");
+	   print_found(found); */
 
 	it = *startvisible;
 	panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "x");
@@ -771,36 +771,36 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 					gtk_text_iter_forward_to_line_end(&nextline);
 				}
 				nextline_o = gtk_text_iter_get_offset(&nextline);
-				while (fstack) {
-					guint fstackpos = fstack->charoffset_o;
-					if (fstack->pushedblock) {
+				while (found) {
+					guint foundpos = found->charoffset_o;
+					if (found->pushedblock) {
 						/* on a pushedblock we should look where the block match start, charoffset_o is the end of the 
 						   match, so multiline patterns are drawn on the wrong line */
-						fstackpos = fstack->pushedblock->start1_o;
+						foundpos = found->pushedblock->start1_o;
 					}
 					/*DBG_FOLD("search block at line %d, curline_o=%d, nextline_o=%d\n",i,curline_o,nextline_o); */
-					if (fstackpos > nextline_o) {
+					if (foundpos > nextline_o) {
 						if (num_blocks > 0) {
 							paint_margin_line(master, cr, w, height);
 						}
 						break;
 					}
-					if (fstackpos <= nextline_o && fstackpos >= curline_o) {
-						if (fstack->pushedblock && fstack->pushedblock->foldable) {
-							if (fstack->pushedblock->folded)
+					if (foundpos <= nextline_o && foundpos >= curline_o) {
+						if (found->pushedblock && found->pushedblock->foldable) {
+							if (found->pushedblock->folded)
 								paint_margin_collapse(master, cr, w, height);
 							else
 								paint_margin_expand(master, cr, w, height);
 
-							num_blocks = get_num_foldable_blocks(fstack);
+							num_blocks = get_num_foldable_blocks(found);
 							break;
-						} else if (fstack->poppedblock && fstack->poppedblock->foldable) {
+						} else if (found->poppedblock && found->poppedblock->foldable) {
 							paint_margin_blockend(master, cr, w, height);
-							num_blocks = get_num_foldable_blocks(fstack);
+							num_blocks = get_num_foldable_blocks(found);
 							break;
 						}
 					}
-					fstack = get_stackcache_next(master, &siter);
+					found = get_stackcache_next(master, &siter);
 				}
 			}
 		}
@@ -1193,7 +1193,7 @@ bftextview2_block_toggle_fold(BluefishTextView * btv, Tfoundblock * fblock)
 static void
 bftextview2_toggle_fold(BluefishTextView * btv, GtkTextIter * iter)
 {
-	Tfoundstack *fstack;
+	Tfound *found;
 	GSequenceIter *siter;
 	GtkTextIter tmpiter;
 	guint offset, nextline_o;
@@ -1207,28 +1207,28 @@ bftextview2_toggle_fold(BluefishTextView * btv, GtkTextIter * iter)
 		gtk_text_iter_forward_to_line_end(&tmpiter);
 	}
 	nextline_o = gtk_text_iter_get_offset(&tmpiter);
-	/* returns the fstack PRIOR to iter, or the fstack excactly at iter,
+	/* returns the found PRIOR to iter, or the found excactly at iter,
 	   but this fails if the iter is the start of the buffer */
-	fstack = get_stackcache_at_offset(btv, offset, &siter);
-	if (!fstack) {
+	found = get_stackcache_at_offset(btv, offset, &siter);
+	if (!found) {
 		/* is this 'if' block still required? I think get_stackcache_at_offset() now returns the first iter already */
-		DBG_FOLD("no fstack, retrieve first iter\n");
-		fstack = get_stackcache_first(btv, &siter);
+		DBG_FOLD("no found, retrieve first iter\n");
+		found = get_stackcache_first(btv, &siter);
 	}
-	while (fstack && fstack->charoffset_o < nextline_o) {
-		if (fstack->pushedblock && fstack->pushedblock->foldable && fstack->pushedblock->start1_o >= offset)
+	while (found && found->charoffset_o < nextline_o) {
+		if (found->pushedblock && found->pushedblock->foldable && found->pushedblock->start1_o >= offset)
 			break;
-		fstack = get_stackcache_next(btv, &siter);	/* should be the first fstack AFTER iter */
+		found = get_stackcache_next(btv, &siter);	/* should be the first found AFTER iter */
 	}
-	/*while (fstack && (fstack->charoffset_o < offset || !fstack->pushedblock || !fstack->pushedblock->foldable)) {
-	   fstack = get_stackcache_next(btv, &siter); / * should be the first fstack AFTER iter * /
-	   if (fstack && fstack->pushedblock && fstack->pushedblock->foldable)
+	/*while (found && (found->charoffset_o < offset || !found->pushedblock || !found->pushedblock->foldable)) {
+	   found = get_stackcache_next(btv, &siter); / * should be the first found AFTER iter * /
+	   if (found && found->pushedblock && found->pushedblock->foldable)
 	   break;
 	   } */
-	if (fstack && fstack->pushedblock && fstack->pushedblock->start1_o >= offset
-		&& fstack->pushedblock->start1_o <= nextline_o && fstack->pushedblock->foldable) {
-		DBG_FOLD("toggle fold on fstack=%p\n", fstack);
-		bftextview2_block_toggle_fold(btv, fstack->pushedblock);
+	if (found && found->pushedblock && found->pushedblock->start1_o >= offset
+		&& found->pushedblock->start1_o <= nextline_o && found->pushedblock->foldable) {
+		DBG_FOLD("toggle fold on found=%p\n", found);
+		bftextview2_block_toggle_fold(btv, found->pushedblock);
 	}
 }
 
@@ -1236,12 +1236,12 @@ static void
 bftextview2_collapse_expand_all_toggle(BluefishTextView * btv, gboolean collapse)
 {
 	GSequenceIter *siter = NULL;
-	Tfoundstack *fstack;
-	fstack = get_stackcache_first(btv, &siter);
-	while (fstack) {
-		if (fstack->pushedblock && fstack->pushedblock->foldable && fstack->pushedblock->folded != collapse)
-			bftextview2_block_toggle_fold(btv, fstack->pushedblock);
-		fstack = get_stackcache_next(btv, &siter);
+	Tfound *found;
+	found = get_stackcache_first(btv, &siter);
+	while (found) {
+		if (found->pushedblock && found->pushedblock->foldable && found->pushedblock->folded != collapse)
+			bftextview2_block_toggle_fold(btv, found->pushedblock);
+		found = get_stackcache_next(btv, &siter);
 	}
 }
 
@@ -1677,6 +1677,7 @@ bftextview2_parse_static_colors(void)
 void
 bftextview2_init_globals(void)
 {
+	g_print("sizeof(Tfound)=%d, sizeof(Tfoundcontext)=%d,sizeof(Tfoundblock)=%d\n",sizeof(Tfound),sizeof(Tfoundcontext),sizeof(Tfoundblock));
 	bftextview2_parse_static_colors();
 	if (main_v->props.autocomp_accel_string && main_v->props.autocomp_accel_string[0] != '\0') {
 		gtk_accelerator_parse(main_v->props.autocomp_accel_string, &main_v->autocomp_accel_key,
