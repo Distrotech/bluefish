@@ -395,8 +395,8 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 		hl_profiling.found_refcount++;
 #endif
 		found->foundmode = mode;
-		found->fblock = fblock;
-		found->fcontext = fcontext;
+		found->fblock = scanning->curfblock;
+		found->fcontext = scanning->curfcontext;
 		found->charoffset_o = gtk_text_iter_get_offset(&match.end);
 		DBG_SCANCACHE("found_match, put found %p in the cache at charoffset_o %d with mode %d fblock %p fcontext %p\n",found,found->charoffset_o,found->foundmode, found->fblock,found->fcontext);
 		g_sequence_insert_sorted(btv->scancache.foundcaches,found,foundcache_compare_charoffset_o,NULL);
@@ -437,7 +437,7 @@ static void reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position, 
 	Tfound *found;
 	DBG_SCANNING("reconstruct_scanning at position %d\n",gtk_text_iter_get_offset(position));
 	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), NULL);
-	DBG_SCANCACHE("reconstruct_stack, got found %p with charoffset_o=%d to reconstruct stack at position %d\n",found,found->charoffset_o,gtk_text_iter_get_offset(position));
+	DBG_SCANCACHE("reconstruct_stack, got found %p to reconstruct stack at position %d\n",found,gtk_text_iter_get_offset(position));
 	if (G_LIKELY(found)) {
 		scanning->curfblock = found->fblock;
 		scanning->curfcontext = found->fcontext;
@@ -446,6 +446,7 @@ static void reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position, 
 		} else {
 			scanning->context = 1;
 		}
+		DBG_SCANNING("reconstruct_stack, curfblock=%p, curfcontext=%p, context=%d\n", scanning->curfblock, scanning->curfcontext, scanning->context);
 	} else {
 		DBG_SCANNING("nothing to reconstruct\n");
 		scanning->curfcontext = NULL;
