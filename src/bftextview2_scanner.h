@@ -24,10 +24,10 @@
 #include "bftextview2.h"
 
 GQueue *get_contextstack_at_position(BluefishTextView * btv, GtkTextIter *position);
-Tfoundstack *get_stackcache_next(BluefishTextView * bt2, GSequenceIter ** siter);
-Tfoundstack *get_stackcache_first(BluefishTextView * bt2, GSequenceIter ** retsiter);
-Tfoundstack *get_stackcache_at_offset(BluefishTextView * btv, guint offset, GSequenceIter ** retsiter);
-void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset);
+Tfound *get_foundcache_next(BluefishTextView * bt2, GSequenceIter ** siter);
+Tfound *get_foundcache_first(BluefishTextView * bt2, GSequenceIter ** retsiter);
+Tfound *get_foundcache_at_offset(BluefishTextView * btv, guint offset, GSequenceIter ** retsiter);
+void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset);
 guint16 get_context_and_startposition(BluefishTextView * bt2, GtkTextIter *position);
 gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_end);
 void scan_for_prefix_start(BluefishTextView *btv, guint16 contextnum, GtkTextIter *start, GtkTextIter *cursor);

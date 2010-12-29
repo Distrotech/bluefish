@@ -367,19 +367,18 @@ bftextview2_get_block_at_offset(BluefishTextView * btv, guint offset)
 {
 	Tfound *found;
 	GSequenceIter *siter;
-	found = get_stackcache_at_offset(btv, offset, &siter);
+	found = get_foundcache_at_offset(btv, offset, &siter);
 	while (found) {
-		/*g_print("check found %p with charoffset_o=%d\n",found,found->charoffset_o); */
-		if (found->pushedblock
-			&& (found->pushedblock->start1_o == offset || found->pushedblock->end1_o == offset)) {
-			return found->pushedblock;
-		} else if (found->poppedblock
-				   && (found->poppedblock->start2_o == offset || found->poppedblock->end2_o == offset)) {
-			return found->poppedblock;
+		if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode) 
+				&& (found->fblock->start1_o == offset || found->fblock->end1_o == offset)) {
+			return found->fblock;
+		} else if (IS_FOUNDMODE_BLOCKPOP(found->foundmode)
+				   && (found->fblock->start2_o == offset || found->fblock->end2_o == offset)) {
+			return found->fblock;
 		}
 		if (found->charoffset_o > offset)
 			break;
-		found = get_stackcache_next(btv, &siter);
+		found = get_foundcache_next(btv, &siter);
 	}
 	return NULL;
 }
@@ -471,7 +470,7 @@ bftextview2_set_margin_size(BluefishTextView * btv)
 		BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_chars = 0;
 	}
 	if (BLUEFISH_TEXT_VIEW(btv->master)->show_blocks
-		&& g_sequence_get_length(BLUEFISH_TEXT_VIEW(btv->master)->scancache.stackcaches) > 0) {
+		&& g_sequence_get_length(BLUEFISH_TEXT_VIEW(btv->master)->scancache.foundcaches) > 0) {
 		BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_block = 12;
 	} else {
 		BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_block = 0;
@@ -510,7 +509,7 @@ bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * 
 {
 	DBG_SIGNALS("bftextview2_insert_text_lcb, btv=%p, master=%p\n", btv, btv->master);
 	if (btv == btv->master)
-		stackcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), gtk_text_iter_get_offset(iter),
+		foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), gtk_text_iter_get_offset(iter),
 								  g_utf8_strlen(string, stringlen));
 }
 
@@ -645,11 +644,10 @@ static gint
 get_num_foldable_blocks(Tfound * found)
 {
 	guint count = 0;
-	GList *tmplist = found->blockstack->head;
-	while (tmplist) {
-		if (((Tfoundblock *) (tmplist->data))->foldable)
-			count++;
-		tmplist = g_list_next(tmplist);
+	Tfoundblock *tmpfblock = found->fblock;
+	while (tmpfblock) {
+		tmpfblock = (Tfoundblock *)tmpfblock->parentfblock;
+		count++;
 	}
 	return count;
 }
@@ -687,15 +685,15 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 	/* to see how many blocks are active here */
 	if (G_UNLIKELY
 		(gtk_text_iter_is_start(startvisible)
-		 && (g_sequence_get_length(master->scancache.stackcaches) != 0))) {
-		siter = g_sequence_get_begin_iter(master->scancache.stackcaches);
+		 && (g_sequence_get_length(master->scancache.foundcaches) != 0))) {
+		siter = g_sequence_get_begin_iter(master->scancache.foundcaches);
 		if (!g_sequence_iter_is_end(siter)) {
 			found = g_sequence_get(siter);
 		}
 		num_blocks = 0;
 		DBG_MARGIN("EXPOSE: start at begin, set num_blocks %d, found=%p\n", num_blocks, found);
 	} else {
-		found = get_stackcache_at_offset(master, gtk_text_iter_get_offset(startvisible), &siter);
+		found = get_foundcache_at_offset(master, gtk_text_iter_get_offset(startvisible), &siter);
 		if (found) {
 			num_blocks = get_num_foldable_blocks(found);
 		} else {
@@ -709,7 +707,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 	if (!found || found->charoffset_o < gtk_text_iter_get_offset(startvisible)) {
 		DBG_MARGIN("get next found..\n");
 		if (siter)
-			found = get_stackcache_next(master, &siter);
+			found = get_foundcache_next(master, &siter);
 	}
 	/*DBG_MARGIN("first found ");
 	   print_found(found); */
@@ -757,7 +755,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 			}
 			/* block folding.
 			   - to find out if we need an expander/collapse, we need to see if there is a pushedblock on the
-			   blockstack which has 'foldable' for any stackcache that is on this line.
+			   blockstack which has 'foldable' for any foundcache that is on this line.
 			   - to find if we need an end-of-block we need to see if there is a poppedblock on this line
 			   which has 'foldable'
 			   - to find out if we need a line or nothing we need to know the number of expanded blocks on the stack
@@ -773,10 +771,10 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 				nextline_o = gtk_text_iter_get_offset(&nextline);
 				while (found) {
 					guint foundpos = found->charoffset_o;
-					if (found->pushedblock) {
+					if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode)) {
 						/* on a pushedblock we should look where the block match start, charoffset_o is the end of the 
 						   match, so multiline patterns are drawn on the wrong line */
-						foundpos = found->pushedblock->start1_o;
+						foundpos = found->fblock->start1_o;
 					}
 					/*DBG_FOLD("search block at line %d, curline_o=%d, nextline_o=%d\n",i,curline_o,nextline_o); */
 					if (foundpos > nextline_o) {
@@ -786,21 +784,21 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 						break;
 					}
 					if (foundpos <= nextline_o && foundpos >= curline_o) {
-						if (found->pushedblock && found->pushedblock->foldable) {
-							if (found->pushedblock->folded)
+						if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode) && found->fblock->foldable) {
+							if (found->fblock->folded)
 								paint_margin_collapse(master, cr, w, height);
 							else
 								paint_margin_expand(master, cr, w, height);
 
 							num_blocks = get_num_foldable_blocks(found);
 							break;
-						} else if (found->poppedblock && found->poppedblock->foldable) {
+						} else if (IS_FOUNDMODE_BLOCKPOP(found->foundmode) && found->fblock->foldable) {
 							paint_margin_blockend(master, cr, w, height);
 							num_blocks = get_num_foldable_blocks(found);
 							break;
 						}
 					}
-					found = get_stackcache_next(master, &siter);
+					found = get_foundcache_next(master, &siter);
 				}
 			}
 		}
@@ -978,7 +976,7 @@ bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	loop = gtk_text_iter_get_offset(obegin);	/* re-use the loop variable */
 	DBG_SCANCACHE("bftextview2_delete_range_lcb, delete from %d to %d\n", gtk_text_iter_get_offset(obegin),
 				  gtk_text_iter_get_offset(oend));
-	stackcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), loop, loop - gtk_text_iter_get_offset(oend));
+	foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), loop, loop - gtk_text_iter_get_offset(oend));
 
 	/* mark the surroundings of the text that will be deleted */
 
@@ -1209,26 +1207,26 @@ bftextview2_toggle_fold(BluefishTextView * btv, GtkTextIter * iter)
 	nextline_o = gtk_text_iter_get_offset(&tmpiter);
 	/* returns the found PRIOR to iter, or the found excactly at iter,
 	   but this fails if the iter is the start of the buffer */
-	found = get_stackcache_at_offset(btv, offset, &siter);
+	found = get_foundcache_at_offset(btv, offset, &siter);
 	if (!found) {
-		/* is this 'if' block still required? I think get_stackcache_at_offset() now returns the first iter already */
+		/* is this 'if' block still required? I think get_foundcache_at_offset() now returns the first iter already */
 		DBG_FOLD("no found, retrieve first iter\n");
-		found = get_stackcache_first(btv, &siter);
+		found = get_foundcache_first(btv, &siter);
 	}
 	while (found && found->charoffset_o < nextline_o) {
-		if (found->pushedblock && found->pushedblock->foldable && found->pushedblock->start1_o >= offset)
+		if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode) && found->fblock->foldable && found->fblock->start1_o >= offset)
 			break;
-		found = get_stackcache_next(btv, &siter);	/* should be the first found AFTER iter */
+		found = get_foundcache_next(btv, &siter);	/* should be the first found AFTER iter */
 	}
 	/*while (found && (found->charoffset_o < offset || !found->pushedblock || !found->pushedblock->foldable)) {
-	   found = get_stackcache_next(btv, &siter); / * should be the first found AFTER iter * /
+	   found = get_foundcache_next(btv, &siter); / * should be the first found AFTER iter * /
 	   if (found && found->pushedblock && found->pushedblock->foldable)
 	   break;
 	   } */
-	if (found && found->pushedblock && found->pushedblock->start1_o >= offset
-		&& found->pushedblock->start1_o <= nextline_o && found->pushedblock->foldable) {
+	if (found && IS_FOUNDMODE_BLOCKPUSH(found->foundmode) && found->fblock->start1_o >= offset
+		&& found->fblock->start1_o <= nextline_o && found->fblock->foldable) {
 		DBG_FOLD("toggle fold on found=%p\n", found);
-		bftextview2_block_toggle_fold(btv, found->pushedblock);
+		bftextview2_block_toggle_fold(btv, found->fblock);
 	}
 }
 
@@ -1237,11 +1235,11 @@ bftextview2_collapse_expand_all_toggle(BluefishTextView * btv, gboolean collapse
 {
 	GSequenceIter *siter = NULL;
 	Tfound *found;
-	found = get_stackcache_first(btv, &siter);
+	found = get_foundcache_first(btv, &siter);
 	while (found) {
-		if (found->pushedblock && found->pushedblock->foldable && found->pushedblock->folded != collapse)
-			bftextview2_block_toggle_fold(btv, found->pushedblock);
-		found = get_stackcache_next(btv, &siter);
+		if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode) && found->fblock->foldable && found->fblock->folded != collapse)
+			bftextview2_block_toggle_fold(btv, found->fblock);
+		found = get_foundcache_next(btv, &siter);
 	}
 }
 
@@ -2003,7 +2001,7 @@ bluefish_text_view_finalize(GObject * object)
 	if (btv->autocomp) {
 		autocomp_stop(btv);
 	}
-	if (btv->scancache.stackcaches) {
+	if (btv->scancache.foundcaches) {
 		scancache_destroy(btv);
 	}
 	if (btv->user_idle_timer) {
@@ -2090,7 +2088,7 @@ bluefish_text_view_init(BluefishTextView * textview)
 	GtkTextTagTable *ttt;
 /*	PangoFontDescription *font_desc;*/
 	textview->user_idle_timer = g_timer_new();
-	textview->scancache.stackcaches = g_sequence_new(NULL);
+	textview->scancache.foundcaches = g_sequence_new(NULL);
 	bluefish_text_view_set_colors(textview, main_v->props.btv_color_str);
 	textview->showsymbols = TRUE;
 	ttt = langmgr_get_tagtable();

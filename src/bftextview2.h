@@ -58,7 +58,7 @@ nextcontext -1), we revert to the previous context
    - the positions change when text is inserted or deleted, but never their order. a GSequence
      allows us to update the offsets for the stacks without re-sorting the entire tree
  - same holds for the blocks. we keep a blockstack, and we keep a cache of the blockstack in the
-   same stackcache as where we keep the contextstack.
+   same foundcache as where we keep the contextstack.
 
 - to paint the margin and detect if we can expand/collapse blocks, we can use this same
   scancache. Along with walking the lines we walk the GSequence and see if there are new
@@ -205,7 +205,7 @@ extern void g_none(char * first, ...);
 #define BF2_OFFSET_UNDEFINED G_MAXUINT32
 
 #define DBG_MSG DBG_NONE
-#define DBG_SCANCACHE DBG_NONE
+#define DBG_SCANCACHE g_print
 #define DBG_FCONTEXTREFCOUNT DBG_NONE
 #define DBG_FBLOCKREFCOUNT DBG_NONE
 #define DBG_PATCOMPILE DBG_NONE
@@ -319,7 +319,7 @@ typedef struct {
 /* scanning the text and caching the results */
 /*****************************************************************/
 typedef struct {
-	Tfoundblock *parentfblock;
+	gpointer parentfblock;
 	guint32 start1_o;
 	guint32 end1_o;
 	guint32 start2_o;
@@ -338,7 +338,7 @@ typedef struct {
 						of the stack is copied into Tscancache */
 
 typedef struct {
-	Tfoundcontext *parentfcontext;
+	gpointer parentfcontext;
 	guint32 start_o;
 	guint32 end_o;
 	gint16 context; /* number of the element in scantable->contexts */

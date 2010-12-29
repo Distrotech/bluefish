@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define HL_PROFILING*/
+#define HL_PROFILING
 /*#define MINIMAL_REFCOUNTING*/
 /*#define VALGRIND_PROFILING*/
 
@@ -69,7 +69,6 @@ typedef struct {
 	gint fblock_refcount;
 	gint fcontext_refcount;
 	gint found_refcount;
-	gint queue_count;
 	gint num_marks;
 	guint total_runs;
 	guint total_chars;
@@ -77,7 +76,7 @@ typedef struct {
 	guint total_time_ms;
 } Thl_profiling;
 
-Thl_profiling hl_profiling = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+Thl_profiling hl_profiling = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 #endif
 
 guint loops_per_timer=1000; /* a tunable to avoid asking time too often. this is auto-tuned. */ 
@@ -130,7 +129,7 @@ Tfound *get_foundcache_at_offset(BluefishTextView * btv, guint offset, GSequence
 	return found;
 }
 
-void foundstack_free_lcb(gpointer data, gpointer btv);
+void found_free_lcb(gpointer data, gpointer btv);
 
 /** 
  * foundcache_update_offsets
@@ -154,28 +153,43 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 				found = get_foundcache_next(btv, &siter);
 				DBG_SCANCACHE("foundcache_update_offsets, remove found %p with charoffset_o=%d\n",found,found->charoffset_o);
 				g_sequence_remove(tmpsiter);
-				foundstack_free_lcb(tmpfound, btv);
+				found_free_lcb(tmpfound, btv);
 			} else {
 				found = get_foundcache_next(btv, &siter);
 			}
 		}		
 	}
 	if (found) {
-		GList *tmplist;
+		Tfoundcontext *tmpfcontext;
+		Tfoundblock *tmpfblock;
 		DBG_SCANCACHE("foundcache_update_offsets, handle first found %p on offset %d complete stack\n",found, found->charoffset_o);
 		/* for the first found, we have to update the end-offsets for all contexts/blocks on the stack */
-		for (tmplist=found->contextstack->head;tmplist;tmplist=tmplist->next) {
-			Tfoundcontext *fcontext=tmplist->data;
-			if (fcontext->end_o != BF2_OFFSET_UNDEFINED)
-				fcontext->end_o += offset;
+
+		if (IS_FOUNDMODE_CONTEXTPOP(found->foundmode))
+			tmpfcontext = (Tfoundcontext *)found->fcontext->parentfcontext;
+		else
+			tmpfcontext = found->fcontext;
+		
+		while(tmpfcontext) {
+			if (tmpfcontext->end_o != BF2_OFFSET_UNDEFINED)
+				tmpfcontext->end_o += offset;
+			tmpfcontext = (Tfoundcontext *)tmpfcontext->parentfcontext;
 		}
-		for (tmplist=found->blockstack->head;tmplist;tmplist=tmplist->next) {
-			Tfoundblock *fblock=tmplist->data;
-			if (fblock->start2_o != BF2_OFFSET_UNDEFINED)
-				fblock->start2_o += offset;
-			if (fblock->end2_o != BF2_OFFSET_UNDEFINED)
-				fblock->end2_o += offset;
+
+		if (IS_FOUNDMODE_BLOCKPOP(found->foundmode))
+			tmpfblock = (Tfoundblock *)found->fblock->parentfblock;
+		else
+			tmpfblock = found->fblock;
+		
+		while(tmpfblock) {
+			if (tmpfblock->start2_o != BF2_OFFSET_UNDEFINED)
+				tmpfblock->start2_o += offset;
+			if (tmpfblock->end2_o != BF2_OFFSET_UNDEFINED)
+				tmpfblock->end2_o += offset;
+			
+			tmpfblock = (Tfoundblock *)tmpfblock->parentfblock;
 		}
+		
 		DBG_SCANCACHE("foundcache_update_offsets, handled first found %p, requesting next\n",found);
 		/*this offset is *before* 'position' found->charoffset_o += offset;*/
 		found = get_foundcache_next(btv, &siter);
@@ -184,21 +198,21 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	while (found) {
 		DBG_SCANCACHE("foundcache_update_offsets, about to update found %p with charoffset %d\n",found,found->charoffset_o);
 		/* for all further founds, we only handle the pushedblock and pushedcontext */
-		if (found->pushedcontext) {
-			if (found->pushedcontext->start_o != BF2_OFFSET_UNDEFINED)
-				found->pushedcontext->start_o += offset;
-			if (found->pushedcontext->end_o != BF2_OFFSET_UNDEFINED)
-				found->pushedcontext->end_o += offset;
+		if (IS_FOUNDMODE_CONTEXTPUSH(found->foundmode)) {
+			if (found->fcontext->start_o != BF2_OFFSET_UNDEFINED)
+				found->fcontext->start_o += offset;
+			if (found->fcontext->end_o != BF2_OFFSET_UNDEFINED)
+				found->fcontext->end_o += offset;
 		}
-		if (found->pushedblock) {
-			if (found->pushedblock->start1_o != BF2_OFFSET_UNDEFINED)
-				found->pushedblock->start1_o += offset;
-			if (found->pushedblock->end1_o != BF2_OFFSET_UNDEFINED)
-				found->pushedblock->end1_o += offset;
-			if (found->pushedblock->start2_o != BF2_OFFSET_UNDEFINED)
-				found->pushedblock->start2_o += offset;
-			if (found->pushedblock->end2_o != BF2_OFFSET_UNDEFINED)
-				found->pushedblock->end2_o += offset;
+		if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode)) {
+			if (found->fblock->start1_o != BF2_OFFSET_UNDEFINED)
+				found->fblock->start1_o += offset;
+			if (found->fblock->end1_o != BF2_OFFSET_UNDEFINED)
+				found->fblock->end1_o += offset;
+			if (found->fblock->start2_o != BF2_OFFSET_UNDEFINED)
+				found->fblock->start2_o += offset;
+			if (found->fblock->end2_o != BF2_OFFSET_UNDEFINED)
+				found->fblock->end2_o += offset;
 		}
 		/*g_print("startpos=%d, offset=%d, found=%p, update charoffset_o from %d to %d\n",startpos,offset, found,found->charoffset_o,found->charoffset_o+offset);*/
 		found->charoffset_o += offset;
@@ -206,81 +220,23 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	}
 }
 
-#define foundblock_ref(fblock) ((Tfoundblock *)fblock)->refcount++
-
-static void foundblock_unref(Tfoundblock *fblock, GtkTextBuffer *buffer) {
-	if (G_UNLIKELY(fblock->refcount <= 0)) 
-		g_warning("fblock %p is unref'ed but should not exist anymore!\n",fblock);
-	DBG_FBLOCKREFCOUNT("unref fblock %p;",fblock);
-	fblock->refcount--;
-	DBG_FBLOCKREFCOUNT(" refcount is %d\n",fblock->refcount);
-	if (fblock->refcount == 0) {
-		/* remove marks */
-		DBG_FBLOCKREFCOUNT("UNREF start cleanup foundblock %p\n",fblock);
-		g_slice_free(Tfoundblock,fblock);
-#ifdef HL_PROFILING
-		hl_profiling.fblock_refcount--;
-#endif
-	}
-}
-#ifndef MINIMAL_REFCOUNTING
-static void foundblock_foreach_unref_lcb(gpointer data,gpointer user_data) {
-	if (G_LIKELY(data))
-		foundblock_unref(data,gtk_text_view_get_buffer(user_data));
-}
-
-static void foundblock_foreach_ref_lcb(gpointer data,gpointer user_data) {
-	if (G_LIKELY(data)) {
-		foundblock_ref(data);
-		DBG_FBLOCKREFCOUNT("foreach ref fblock %p; refcount is %d\n",((Tfoundblock *)data),((Tfoundblock *)data)->refcount);
-	}
-}
-#endif
-
-#define foundcontext_ref(fcontext) ((Tfoundcontext *)fcontext)->refcount++;
-
-static void foundcontext_unref(Tfoundcontext *fcontext, GtkTextBuffer *buffer) {
-	if (fcontext->refcount <= 0) 
-		g_warning("fcontext %p is unref'ed but should not exist anymore!\n",fcontext);
-	fcontext->refcount--;
-	DBG_FCONTEXTREFCOUNT("unref: refcount for fcontext %p is %d\n",fcontext,fcontext->refcount);
-	if (fcontext->refcount == 0) {
-		/* remove marks */
-		DBG_FCONTEXTREFCOUNT("unref: start cleanup foundcontext %p\n",fcontext);
-		g_slice_free(Tfoundcontext,fcontext);
-#ifdef HL_PROFILING
-		hl_profiling.fcontext_refcount--;
-#endif
-	}
-}
-#ifndef MINIMAL_REFCOUNTING
-static void foundcontext_foreach_unref_lcb(gpointer data,gpointer user_data) {
-	if (G_LIKELY(data))
-		foundcontext_unref(data,gtk_text_view_get_buffer(user_data));
-}
-
-static void foundcontext_foreach_ref_lcb(gpointer data,gpointer user_data) {
-	if (G_LIKELY(data)) {
-		foundcontext_ref(data);
-		DBG_FCONTEXTREFCOUNT("foreach ref: refcount for fcontext %p is %d\n",data,((Tfoundcontext *)data)->refcount);
-	}
-}
-#endif /* MINIMAL_REFCOUNTING */
-
 void found_free_lcb(gpointer data, gpointer btv) {
 	Tfound *found = data;
 
-	if (found->pushedblock) {
-		DBG_FCONTEXTREFCOUNT("foundstack_free_lcb, calling unref for pushedblock on %p\n",found->pushedblock);
-		foundblock_unref(found->pushedblock, gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
+	if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode)) {
+#ifdef HL_PROFILING
+		hl_profiling.fblock_refcount--;
+#endif
+		g_slice_free(Tfoundblock, found->fblock);
 	}
-	if (found->pushedcontext) {
-		DBG_FCONTEXTREFCOUNT("foundstack_free_lcb, calling unref for pushedcontext on %p\n",found->pushedcontext);
-		foundcontext_unref(found->pushedcontext, gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
+	if (IS_FOUNDMODE_CONTEXTPUSH(found->foundmode)) {
+#ifdef HL_PROFILING
+		hl_profiling.fcontext_refcount--;
+#endif
+		g_slice_free(Tfoundcontext, found->fcontext);
 	}
 #ifdef HL_PROFILING
 	hl_profiling.found_refcount--;
-	hl_profiling.queue_count -= (g_queue_get_length(found->blockstack) + g_queue_get_length(found->contextstack));
 #endif
 	g_slice_free(Tfound,found);
 }
@@ -303,6 +259,7 @@ static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,const Tma
 	DBG_BLOCKMATCH("put block for pattern %d (%s) on blockstack\n",match.patternum,g_array_index(btv->bflang->st->matches,Tpattern,match.patternum).pattern);
 #ifdef HL_PROFILING
 	hl_profiling.numblockstart++;
+	hl_profiling.fblock_refcount++;
 #endif
 	fblock = g_slice_new0(Tfoundblock);
 	fblock->start1_o = gtk_text_iter_get_offset(&match.start);
@@ -321,17 +278,17 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,const Tmatc
 	GtkTextIter iter;
 	DBG_BLOCKMATCH("found end of block with blockstartpattern %d\n",pat->blockstartpattern);
 
-	if (G_UNLIKELY(!scanning.curfblock))
+	if (G_UNLIKELY(!scanning->curfblock))
 		return NULL;
 	
 #ifdef HL_PROFILING
 	hl_profiling.numblockend++;
 #endif
-	fblock = scanning.curfblock->parent;
+	fblock = (Tfoundblock *)scanning->curfblock->parentfblock;
 	while (fblock && fblock->patternum != pat->blockstartpattern && pat->blockstartpattern != -1) {
-		fblock = fblock->parent;
+		fblock = (Tfoundblock *)fblock->parentfblock;
 	}
-	scanning.curfblock = fblock;
+	scanning->curfblock = fblock;
 
 	if (G_UNLIKELY(!fblock)) {
 		DBG_BLOCKMATCH("no matching start-of-block found\n");
@@ -345,7 +302,7 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,const Tmatc
 	
 	gtk_text_buffer_get_iter_at_offset(btv->buffer,&iter,fblock->end1_o);
 	if (pat->blocktag) {
-		gtk_text_buffer_apply_tag(buffer,pat->blocktag, &iter, &match.start);
+		gtk_text_buffer_apply_tag(btv->buffer,pat->blocktag, &iter, &match.start);
 	}
 	if ((gtk_text_iter_get_line(&iter)+1) < gtk_text_iter_get_line(&match.start)) {
 		fblock->foldable = TRUE;
@@ -354,7 +311,7 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,const Tmatc
 }
 
 static inline Tfoundcontext *found_context_change(BluefishTextView * btv,const Tmatch match, Tscanning *scanning, Tpattern *pat) {
-	Tfoundcontext *fcontext=NULL;
+	Tfoundcontext *fcontext=scanning->curfcontext;
 	/* check if we change up or down the stack */
 	if (pat->nextcontext < 0) {
 		gint num = -1 * pat->nextcontext;
@@ -362,27 +319,29 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,const T
 		hl_profiling.numcontextend++;
 #endif
 		/* pop, but don't pop if there is nothing to pop (because of an error in the language file) */
-		while (num > 0 && scanning->curfcontext) {
-			scanning->fcontext = scanning->fcontext->parentfcontext;
+		while (num > 0 && fcontext) {
 			DBG_SCANNING("found_context_change, popped context %d from the stack\n",fcontext->context);
 			fcontext->end_o = gtk_text_iter_get_offset(&match.start);
 			if (g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag) {
 				GtkTextIter iter;
-				gtk_text_buffer_get_iter_at_offset(buffer,&iter,fcontext->start_o);
+				gtk_text_buffer_get_iter_at_offset(btv->buffer,&iter,fcontext->start_o);
 				gtk_text_buffer_apply_tag(btv->buffer,g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag, &iter, &match.start);
 			}
+			fcontext = (Tfoundcontext *)fcontext->parentfcontext;
 			num--;
 		}
+		scanning->curfcontext = fcontext;
 		return fcontext;
 	} else {
 #ifdef HL_PROFILING
 		hl_profiling.numcontextstart++;
+		hl_profiling.fcontext_refcount++;
 #endif
 		fcontext = g_slice_new0(Tfoundcontext);
 		fcontext->start_o = gtk_text_iter_get_offset(&match.end);
 		fcontext->end_o = BF2_OFFSET_UNDEFINED;
 		fcontext->context = pat->nextcontext;
-		fcontext->parent = scanning->curfcontext;
+		fcontext->parentfcontext = scanning->curfcontext;
 		DBG_SCANNING("found_context_change, pushed nextcontext %d onto the stack\n",pat->nextcontext);
 		return fcontext;
 	}
@@ -409,30 +368,33 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 	}
 
 	if (pat.starts_block) {
-		fblock = found_start_of_block(btv, buffer, match, scanning);
+		fblock = found_start_of_block(btv, match, scanning);
 		SET_FOUNDMODE_BLOCKPUSH(mode);
 	} else if (pat.ends_block) {
-		fblock = found_end_of_block(btv, buffer, match, scanning, &pat);
+		fblock = found_end_of_block(btv, match, scanning, &pat);
 		SET_FOUNDMODE_BLOCKPOP(mode);
 	}
 
 	if (pat.nextcontext != 0 && pat.nextcontext != scanning->context) {
-		fcontext = found_context_change(btv, buffer, match, scanning, &pat);
+		fcontext = found_context_change(btv, match, scanning, &pat);
 		if (pat.nextcontext < 0) {
-			SET_FOUNDMODE_BLOCKPOP(mode);
-			retcontext = (fcontext && fcontext->parentfcontext ? fcontext->parentfcontext->context : 1);
+			SET_FOUNDMODE_CONTEXTPOP(mode);
+			retcontext = (fcontext && fcontext->parentfcontext ? ((Tfoundcontext *)fcontext->parentfcontext)->context : 1);
 		} else {
-			SET_FOUNDMODE_BLOCKPUSH(mode);
+			SET_FOUNDMODE_CONTEXTPUSH(mode);
 			retcontext = fcontext->context;
 		}
 	}
 	if (fblock || fcontext) {
 		found = g_slice_new0(Tfound);
-		found->foundmode = foundmode;
+#ifdef HL_PROFILING
+		hl_profiling.found_refcount++;
+#endif
+		found->foundmode = mode;
 		found->fblock = fblock;
 		found->fcontext = fcontext;
-		found->charoffset_o = charoffset_o;
-		DBG_SCANCACHE("found_match, put found %p in the cache at charoffset_o %d with mode %d fblock %p fcontext %p\n",found,found->charoffset_o,foundmode, found->fblock,found->fcontext);
+		found->charoffset_o = gtk_text_iter_get_offset(&match.end);
+		DBG_SCANCACHE("found_match, put found %p in the cache at charoffset_o %d with mode %d fblock %p fcontext %p\n",found,found->charoffset_o,found->foundmode, found->fblock,found->fcontext);
 		g_sequence_insert_sorted(btv->scancache.foundcaches,found,foundcache_compare_charoffset_o,NULL);
 	}
 
@@ -467,22 +429,18 @@ static gboolean bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuff
 	return TRUE;
 }
 
-static void reconstruct_scanning(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTextIter *position, Tscanning *scanning) {
+static void reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position, Tscanning *scanning) {
 	Tfound *found;
 	DBG_SCANNING("reconstruct_scanning at position %d\n",gtk_text_iter_get_offset(position));
 	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), NULL);
 	DBG_SCANCACHE("reconstruct_stack, got found %p with charoffset_o=%d to reconstruct stack at position %d\n",found,found->charoffset_o,gtk_text_iter_get_offset(position));
 	if (G_LIKELY(found)) {
-		Tfoundcontext *fcontext;
-#ifdef HL_PROFILING
-		hl_profiling.queue_count += g_queue_get_length(found->contextstack) + g_queue_get_length(found->blockstack);
-#endif
-		if (FOUNDMODE_POPPEDBLOCK(scanning->foundmode)) {
+		if (IS_FOUNDMODE_BLOCKPOP(found->foundmode)) {
 			scanning->curfblock = (found->fblock ? found->fblock->parentfblock : NULL);
 		} else {
 			scanning->curfblock = found->fblock;
 		}
-		if (FOUNDMODE_POPPEDCONTEXT(scanning->foundmode)) {
+		if (IS_FOUNDMODE_CONTEXTPOP(found->foundmode)) {
 			scanning->curfcontext = (found->fcontext ? found->fcontext->parentfcontext : NULL);
 		} else {
 			scanning->curfcontext = found->fcontext;
@@ -517,29 +475,29 @@ static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buf
 	/ * TODO see if there are any old blockstack or context changes * /
 
 }*/
-static void remove_all_highlighting_in_area(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
+static void remove_all_highlighting_in_area(BluefishTextView *btv, GtkTextIter *start, GtkTextIter *end) {
 	GList *tmplist = g_list_first(btv->bflang->tags);
 	while (tmplist) {
-		gtk_text_buffer_remove_tag(buffer, (GtkTextTag *)tmplist->data, start, end);
+		gtk_text_buffer_remove_tag(btv->buffer, (GtkTextTag *)tmplist->data, start, end);
 		tmplist = g_list_next(tmplist);
 	}
 }
 
-static void remove_old_scan_results(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *fromhere) {
+static void remove_old_scan_results(BluefishTextView *btv, GtkTextIter *fromhere) {
 	GtkTextIter end;
 	GSequenceIter *sit1,*sit2;
 	Tfound fakefound;
 
-	gtk_text_buffer_get_end_iter(buffer,&end);
+	gtk_text_buffer_get_end_iter(btv->buffer,&end);
 	DBG_SCANCACHE("remove_old_scan_results: remove tags from charoffset %d to %d\n",gtk_text_iter_get_offset(fromhere),gtk_text_iter_get_offset(&end));
-	remove_old_highlighting(btv, buffer, fromhere, &end);
+	remove_all_highlighting_in_area(btv, fromhere, &end);
 	fakefound.charoffset_o = gtk_text_iter_get_offset(fromhere);
 	sit1 = g_sequence_search(btv->scancache.foundcaches,&fakefound,foundcache_compare_charoffset_o,NULL);
 	if (sit1 && !g_sequence_iter_is_end(sit1)) {
 		sit2 = g_sequence_get_end_iter(btv->scancache.foundcaches);
 		DBG_SCANCACHE("sit1=%p, sit2=%p\n",sit1,sit2);
 		DBG_SCANCACHE("remove_old_scan_results: remove foundcache entries %d to %d\n",g_sequence_iter_get_position(sit1),g_sequence_iter_get_position(sit2));
-		g_sequence_foreach_range(sit1,sit2,foundstack_free_lcb,btv);
+		g_sequence_foreach_range(sit1,sit2,found_free_lcb,btv);
 		g_sequence_remove_range(sit1,sit2);
 	} else{
 		DBG_SCANCACHE("no sit1, no cleanup ??\n");
@@ -628,7 +586,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		scanning.curfblock = NULL;
 	} else {
 		/* reconstruct the context stack and the block stack */
-		reconstruct_stack(btv, buffer, &iter, &scanning);
+		reconstruct_scanning(btv, &iter, &scanning);
 		pos = g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).startstate;
 		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d\n",scanning.context,pos);
 	}
@@ -647,7 +605,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	else
 		end = *visible_end;*/
 #ifdef IDENTSTORING
-	gtk_text_buffer_get_iter_at_mark(buffer, &itcursor, gtk_text_buffer_get_insert(buffer));
+	gtk_text_buffer_get_iter_at_mark(btv->buffer, &itcursor, gtk_text_buffer_get_insert(btv->buffer));
 #endif
 	do {
 		gunichar uc;
@@ -712,11 +670,11 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		}
 	} while ((normal_run || last_character_run) && (loop%loops_per_timer!=0 || g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL));
 	DBG_SCANNING("scanned from %d to position %d, (end=%d, orig_end=%d) which took %f microseconds, loops_per_timer=%d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&end),gtk_text_iter_get_offset(&orig_end),g_timer_elapsed(scanning.timer,NULL),loops_per_timer);
-	gtk_text_buffer_remove_tag(buffer, btv->needscanning, &start , &iter);
+	gtk_text_buffer_remove_tag(btv->buffer, btv->needscanning, &start , &iter);
 	
 	/* because we do not yet have an algorithm to find out where our previous scanning runs are still valid
 	we have to re-scan all the text up to the end */
-	gtk_text_buffer_apply_tag(buffer,btv->needscanning,&iter,&orig_end);
+	gtk_text_buffer_apply_tag(btv->buffer,btv->needscanning,&iter,&orig_end);
 	/*g_array_free(matchstack,TRUE);*/
 #ifdef HL_PROFILING
 	stage4 = g_timer_elapsed(scanning.timer,NULL);
@@ -738,11 +696,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		,g_sequence_get_length(btv->scancache.foundcaches)
 		,hl_profiling.num_marks
 		);
-	g_print("memory scancache %d(%dKb+%dKb) found %d(%dKb) fcontext %d(%dKb) queue %d(%dKb)\n"
+	g_print("memory scancache %d(%dKb+%dKb) found %d(%dKb) fcontext %d(%dKb)\n"
 		,hl_profiling.found_refcount,(gint)(hl_profiling.found_refcount*sizeof(Tfound)/1024.0),(gint)(hl_profiling.found_refcount*40/1024.0)
 		,hl_profiling.fblock_refcount,(gint)(hl_profiling.fblock_refcount*sizeof(Tfoundblock)/1024.0)
 		,hl_profiling.fcontext_refcount,(gint)(hl_profiling.fcontext_refcount*sizeof(Tfoundcontext)/1024.0)
-		,hl_profiling.queue_count,(gint)(hl_profiling.queue_count*sizeof(GList)/1024.0)
 		);
 	g_print("average %d chars/s %d chars/run, %d marks/s, %d marks/run\n"
 			,(guint)(1000.0*hl_profiling.total_chars / hl_profiling.total_time_ms )
@@ -755,18 +712,11 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	if (normal_run)
 		loops_per_timer = MAX(loop/10,200);
 	g_timer_destroy(scanning.timer);
-#ifndef MINIMAL_REFCOUNTING
-	g_queue_foreach(scanning.blockstack,foundblock_foreach_unref_lcb,btv);
-	g_queue_foreach(scanning.contextstack,foundcontext_foreach_unref_lcb,btv);
-#endif
-#ifdef HL_PROFILING
-	hl_profiling.queue_count -= (g_queue_get_length(scanning.contextstack)+g_queue_get_length(scanning.blockstack));
-#endif
-	g_queue_free(scanning.contextstack);
-	g_queue_free(scanning.blockstack);
+
 #ifdef VALGRIND_PROFILING
 	CALLGRIND_STOP_INSTRUMENTATION;
 #endif /* VALGRIND_PROFILING */
+
 	DBG_MSG("cleaned scanning run, finished this run\n");
 	return !gtk_text_iter_is_end(&iter); 
 }
@@ -776,13 +726,11 @@ GQueue *get_contextstack_at_position(BluefishTextView * btv, GtkTextIter *positi
 	GQueue *retqueue = g_queue_new();
 	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), NULL);
 	if (found) {
-		GList *tmplist;
-
-		tmplist = found->contextstack->head;
-		while (tmplist) {
-			gint cont = ((Tfoundcontext *)tmplist->data)->context;
-			g_queue_push_tail(retqueue, GINT_TO_POINTER(cont));
-			tmplist = g_list_next(tmplist);
+		Tfoundcontext *tmpfcontext = found->fcontext;
+		while (tmpfcontext) {
+			gint context = tmpfcontext->context;
+			g_queue_push_tail(retqueue, GINT_TO_POINTER(context));
+			tmpfcontext = (Tfoundcontext *)tmpfcontext->parentfcontext;
 		}
 	}
 	return retqueue;
@@ -915,14 +863,12 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 
 void cleanup_scanner(BluefishTextView *btv) {
 	GtkTextIter begin,end;
-	GtkTextBuffer *buffer;
 	GSequenceIter *sit1,*sit2;
 
-	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-	gtk_text_buffer_get_bounds(buffer,&begin,&end);
-	gtk_text_buffer_remove_all_tags(buffer,&begin,&end);
+	gtk_text_buffer_get_bounds(btv->buffer,&begin,&end);
+	gtk_text_buffer_remove_all_tags(btv->buffer,&begin,&end);
 
-	g_sequence_foreach(btv->scancache.foundcaches,foundstack_free_lcb,btv);
+	g_sequence_foreach(btv->scancache.foundcaches,found_free_lcb,btv);
 	sit1 = g_sequence_get_begin_iter(btv->scancache.foundcaches);
 	if (sit1 && !g_sequence_iter_is_end(sit1)) {
 		sit2 = g_sequence_get_end_iter(btv->scancache.foundcaches);
@@ -941,7 +887,7 @@ void cleanup_scanner(BluefishTextView *btv) {
 }
 
 void scancache_destroy(BluefishTextView *btv) {
-	g_sequence_foreach(btv->scancache.foundcaches,foundstack_free_lcb,btv);
+	g_sequence_foreach(btv->scancache.foundcaches,found_free_lcb,btv);
 	g_sequence_free(btv->scancache.foundcaches);
 	btv->scancache.foundcaches = NULL;
 }

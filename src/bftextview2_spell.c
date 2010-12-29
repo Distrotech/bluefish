@@ -217,10 +217,10 @@ gboolean OLD_bftextview2_run_spellcheck(BluefishTextView * btv) {
 		gboolean cont2=TRUE;
 		if (btv->bflang->st) {
 			/**** find the start within this region of a context that needs spellcheck */
-			found = get_stackcache_at_position(btv, &iter, &siter);
+			found = get_foundcache_at_position(btv, &iter, &siter);
 			if (found || !g_array_index(btv->bflang->st->contexts,Tcontext, 1).needspellcheck) {
 				if(!found) {
-					found = get_stackcache_first(btv, &siter);
+					found = get_foundcache_first(btv, &siter);
 					if (found->charoffset > eo_offset) {
 						/* nothing to do ! */
 						DBG_SPELL("bftextview2_run_spellcheck, next starting found beyond eo (1), we're finished\n");
@@ -230,7 +230,7 @@ gboolean OLD_bftextview2_run_spellcheck(BluefishTextView * btv) {
 					}
 				}
 				while (found && found->charoffset < eo_offset && !foundstack_needspellcheck(btv,found)) {
-					found = get_stackcache_next(btv, &siter);
+					found = get_foundcache_next(btv, &siter);
 				}
 				
 				if (found && found->charoffset < eo_offset) {
@@ -247,13 +247,13 @@ gboolean OLD_bftextview2_run_spellcheck(BluefishTextView * btv) {
 				}
 			} else { /* no found and the default context needs spellcheck */
 				DBG_SPELL("bftextview2_run_spellcheck, default context, keep iter at %d\n",gtk_text_iter_get_offset(&iter));
-				found = get_stackcache_first(btv, &siter);
+				found = get_foundcache_first(btv, &siter);
 			}
 	
 			/***** now find the end of this context to spellcheck */
 			if (cont && cont2) {
 				while(found && found->charoffset < eo_offset && foundstack_needspellcheck(btv,found)) {
-					found = get_stackcache_next(btv, &siter);
+					found = get_foundcache_next(btv, &siter);
 				}
 				if (found && found->charoffset < eo_offset) {
 					/* set eo2 to the end of the context(s) that needs spellcheck */

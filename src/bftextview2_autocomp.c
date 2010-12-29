@@ -434,9 +434,9 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 	if (g_array_index(master->bflang->st->contexts, Tcontext, contextnum).has_tagclose_from_blockstack) {
 		Tfound *found;
 		GSequenceIter *siter = NULL;
-		found = get_stackcache_at_offset(master, gtk_text_iter_get_offset(&cursorpos), &siter);
+		found = get_foundcache_at_offset(master, gtk_text_iter_get_offset(&cursorpos), &siter);
 		if (found) {
-			fblock = g_queue_peek_head(found->blockstack);
+			fblock = found->fblock;
 			DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n",
 						 fblock->patternum, g_array_index(btv->bflang->st->matches, Tpattern,
 														  fblock->patternum).tagclose_from_blockstack);
