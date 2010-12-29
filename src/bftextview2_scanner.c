@@ -439,16 +439,8 @@ static void reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position, 
 	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), NULL);
 	DBG_SCANCACHE("reconstruct_stack, got found %p with charoffset_o=%d to reconstruct stack at position %d\n",found,found->charoffset_o,gtk_text_iter_get_offset(position));
 	if (G_LIKELY(found)) {
-		if (IS_FOUNDMODE_BLOCKPOP(found->foundmode)) {
-			scanning->curfblock = (found->fblock ? found->fblock->parentfblock : NULL);
-		} else {
-			scanning->curfblock = found->fblock;
-		}
-		if (IS_FOUNDMODE_CONTEXTPOP(found->foundmode)) {
-			scanning->curfcontext = (found->fcontext ? found->fcontext->parentfcontext : NULL);
-		} else {
-			scanning->curfcontext = found->fcontext;
-		}
+		scanning->curfblock = found->fblock;
+		scanning->curfcontext = found->fcontext;
 		if (scanning->curfcontext) {
 			scanning->context = scanning->curfcontext->context;
 		} else {
