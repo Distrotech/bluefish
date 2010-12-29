@@ -369,15 +369,18 @@ bftextview2_get_block_at_offset(BluefishTextView * btv, guint offset)
 	GSequenceIter *siter;
 	found = get_foundcache_at_offset(btv, offset, &siter);
 	while (found) {
+		g_print("bftextview2_get_block_at_offset, found %p at offset %d with mode %d\n", found, found->charoffset_o, found->foundmode);
 		if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode) 
 				&& (found->fblock->start1_o == offset || found->fblock->end1_o == offset)) {
 			return found->fblock;
 		} else if (IS_FOUNDMODE_BLOCKPOP(found->foundmode)) {
 			GSequenceIter *tmpsiter;
-			/* to get the popped block, go to the previous siter and get the current block there */ 
+			/* to get the popped block, go to the previous siter and get the current block there */
+			g_print("block was popped, get fblock from previous entry in cache\n"); 
 			tmpsiter = g_sequence_iter_prev(siter);
 			found = g_sequence_get(tmpsiter);
-			if (found && (found->fblock->start2_o == offset || found->fblock->end2_o == offset)) {
+			g_print("previous found=%p with fblock %p\n",found,found->fblock);
+			if (found && found->fblock && (found->fblock->start2_o == offset || found->fblock->end2_o == offset)) {
 				return found->fblock;
 			}
 		}
@@ -393,27 +396,28 @@ mark_set_idle_lcb(gpointer widget)
 {
 	BluefishTextView *btv = widget;
 
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	GtkTextIter it1, it2, location;
 	Tfoundblock *fblock;
 
-	gtk_text_buffer_get_iter_at_mark(buffer, &location, gtk_text_buffer_get_insert(buffer));
+	gtk_text_buffer_get_iter_at_mark(btv->buffer, &location, gtk_text_buffer_get_insert(btv->buffer));
 	fblock = bftextview2_get_block_at_offset(btv, gtk_text_iter_get_offset(&location));
+	g_print("mark_set_idle_lcb, got fblock %p\n", fblock);
 	if (btv->showing_blockmatch) {
-		gtk_text_buffer_get_bounds(buffer, &it1, &it2);
-		gtk_text_buffer_remove_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
+		gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
+		gtk_text_buffer_remove_tag(btv->buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
 		btv->showing_blockmatch = FALSE;
 	}
 	DBG_SIGNALS("mark_set_idle_lcb, 'insert' set at %d\n", gtk_text_iter_get_offset(&location));
 	if (fblock) {
 		GtkTextIter it3, it4;
+		g_print("mark_set_idle_lcb, got fblock %p with start2_o=%d\n", fblock, fblock->start2_o);
 		if (fblock->start2_o != BF2_OFFSET_UNDEFINED) {
-			bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
+			bftextview2_get_iters_at_foundblock(btv->buffer, fblock, &it1, &it2, &it3, &it4);
 			DBG_MSG("mark_set_idle_lcb, found a block to highlight the start (%d:%d) and end (%d:%d)\n",
 					gtk_text_iter_get_offset(&it1), gtk_text_iter_get_offset(&it2),
 					gtk_text_iter_get_offset(&it3), gtk_text_iter_get_offset(&it4));
-			gtk_text_buffer_apply_tag(buffer, btv->blockmatch, &it1, &it2);
-			gtk_text_buffer_apply_tag(buffer, btv->blockmatch, &it3, &it4);
+			gtk_text_buffer_apply_tag(btv->buffer, btv->blockmatch, &it1, &it2);
+			gtk_text_buffer_apply_tag(btv->buffer, btv->blockmatch, &it3, &it4);
 			btv->showing_blockmatch = TRUE;
 		} else {
 			DBG_MSG("mark_set_idle_lcb, block has no end - no matching\n");
@@ -797,9 +801,13 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 
 							num_blocks = get_num_foldable_blocks(found);
 							break;
-						} else if (IS_FOUNDMODE_BLOCKPOP(found->foundmode) && found->fblock->foldable) {
-							paint_margin_blockend(master, cr, w, height);
-							num_blocks = get_num_foldable_blocks(found);
+						} else if (IS_FOUNDMODE_BLOCKPOP(found->foundmode)) {
+							guint new_num_blocks = get_num_foldable_blocks(found);
+							if (new_num_blocks < num_blocks)
+								paint_margin_blockend(master, cr, w, height);
+							else
+								paint_margin_line(master, cr, w, height);
+							num_blocks = new_num_blocks;
 							break;
 						}
 					}

@@ -256,7 +256,7 @@ static void print_blockstack(BluefishTextView * btv, Tscanning *scanning) {
 
 static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,const Tmatch match, Tscanning *scanning) {
 	Tfoundblock *fblock;
-	DBG_BLOCKMATCH("put block for pattern %d (%s) on blockstack\n",match.patternum,g_array_index(btv->bflang->st->matches,Tpattern,match.patternum).pattern);
+	DBG_BLOCKMATCH("found_start_of_block, put block for pattern %d (%s) on blockstack\n",match.patternum,g_array_index(btv->bflang->st->matches,Tpattern,match.patternum).pattern);
 #ifdef HL_PROFILING
 	hl_profiling.numblockstart++;
 	hl_profiling.fblock_refcount++;
@@ -269,14 +269,15 @@ static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,const Tma
 	fblock->end2_o = BF2_OFFSET_UNDEFINED;
 	fblock->patternum = match.patternum;
 	fblock->parentfblock = scanning->curfblock;
-	/*print_blockstack(btv,scanning);*/
+	DBG_BLOCKMATCH("found_start_of_block, new block at %p with parent %p\n",fblock, fblock->parentfblock);
+	scanning->curfblock = fblock;
 	return fblock;
 }
 
 static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,const Tmatch match, Tscanning *scanning, Tpattern *pat) {
-	Tfoundblock *fblock=NULL;
+	Tfoundblock *fblock=scanning->curfblock;
 	GtkTextIter iter;
-	DBG_BLOCKMATCH("found end of block with blockstartpattern %d\n",pat->blockstartpattern);
+	DBG_BLOCKMATCH("found end of block with blockstartpattern %d, curfblock=%p\n",pat->blockstartpattern, scanning->curfblock);
 
 	if (G_UNLIKELY(!scanning->curfblock))
 		return NULL;
@@ -284,19 +285,17 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,const Tmatc
 #ifdef HL_PROFILING
 	hl_profiling.numblockend++;
 #endif
-	fblock = (Tfoundblock *)scanning->curfblock->parentfblock;
 	while (fblock && fblock->patternum != pat->blockstartpattern && pat->blockstartpattern != -1) {
+		DBG_BLOCKMATCH("pop fblock %p with patternum %d and parent %p\n", fblock, fblock->patternum, fblock->parentfblock);
 		fblock = (Tfoundblock *)fblock->parentfblock;
 	}
-	scanning->curfblock = fblock;
 
 	if (G_UNLIKELY(!fblock)) {
 		DBG_BLOCKMATCH("no matching start-of-block found\n");
 		return NULL;
 	}
 
-	/*print_blockstack(btv,scanning);*/
-	DBG_BLOCKMATCH("found the matching start of the block fblock %p\n",fblock);
+	DBG_BLOCKMATCH("found the matching start of the block fblock %p with patternum %d and parent %p\n",fblock, fblock->patternum, fblock->parentfblock);
 	fblock->start2_o = gtk_text_iter_get_offset(&match.start);
 	fblock->end2_o = gtk_text_iter_get_offset(&match.end);
 	
@@ -307,7 +306,9 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,const Tmatc
 	if ((gtk_text_iter_get_line(&iter)+1) < gtk_text_iter_get_line(&match.start)) {
 		fblock->foldable = TRUE;
 	}
-	return fblock;
+
+	scanning->curfblock = fblock->parentfblock;
+	return scanning->curfblock;
 }
 
 static inline Tfoundcontext *found_context_change(BluefishTextView * btv,const Tmatch match, Tscanning *scanning, Tpattern *pat) {
@@ -376,8 +377,7 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 		SET_FOUNDMODE_BLOCKPUSH(mode);
 	} else if (pat.ends_block) {
 		fblock = found_end_of_block(btv, match, scanning, &pat);
-		if (fblock)
-			SET_FOUNDMODE_BLOCKPOP(mode);
+		SET_FOUNDMODE_BLOCKPOP(mode);
 	}
 
 	if (pat.nextcontext != 0 && pat.nextcontext != scanning->context) {
@@ -389,7 +389,7 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 		}
 		retcontext = (fcontext ? fcontext->context : 1);
 	}
-	if (fblock || fcontext) {
+	if (mode != 0) {
 		found = g_slice_new0(Tfound);
 #ifdef HL_PROFILING
 		hl_profiling.found_refcount++;
