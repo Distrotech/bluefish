@@ -372,9 +372,14 @@ bftextview2_get_block_at_offset(BluefishTextView * btv, guint offset)
 		if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode) 
 				&& (found->fblock->start1_o == offset || found->fblock->end1_o == offset)) {
 			return found->fblock;
-		} else if (IS_FOUNDMODE_BLOCKPOP(found->foundmode)
-				   && (found->fblock->start2_o == offset || found->fblock->end2_o == offset)) {
-			return found->fblock;
+		} else if (IS_FOUNDMODE_BLOCKPOP(found->foundmode)) {
+			GSequenceIter *tmpsiter;
+			/* to get the popped block, go to the previous siter and get the current block there */ 
+			tmpsiter = g_sequence_iter_prev(siter);
+			found = g_sequence_get(tmpsiter);
+			if (found && (found->fblock->start2_o == offset || found->fblock->end2_o == offset)) {
+				return found->fblock;
+			}
 		}
 		if (found->charoffset_o > offset)
 			break;

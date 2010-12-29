@@ -320,9 +320,9 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,const T
 		hl_profiling.numcontextend++;
 #endif
 		/* pop, but don't pop if there is nothing to pop (because of an error in the language file) */
-		DBG_SCANNING("should pop %d contexts, fcontext=%p\n",num,fcontext);
+		DBG_SCANNING("found_context_change, should pop %d contexts, fcontext=%p\n",num,fcontext);
 		while (num > 0 && fcontext) {
-			DBG_SCANNING("found_context_change, end context %d at pos %d, has tag %p\n",fcontext->context, matchstart, g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag);
+			DBG_SCANNING("found_context_change, end context %d at pos %d, has tag %p and parent %p\n",fcontext->context, matchstart, g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag, fcontext->parentfcontext);
 			fcontext->end_o = matchstart;
 			if (g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag) {
 				GtkTextIter iter;
@@ -332,7 +332,7 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,const T
 			fcontext = (Tfoundcontext *)fcontext->parentfcontext;
 			num--;
 		}
-		DBG_SCANNING("new fcontext=%p\n",fcontext);
+		DBG_SCANNING("found_context_change, return (current) fcontext=%p\n",fcontext);
 		scanning->curfcontext = fcontext;
 		return fcontext;
 	} else {
@@ -345,8 +345,8 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,const T
 		fcontext->end_o = BF2_OFFSET_UNDEFINED;
 		fcontext->context = pat->nextcontext;
 		fcontext->parentfcontext = scanning->curfcontext;
+		DBG_SCANNING("found_context_change, new fcontext %p with context %d onto the stack, parent=%p\n",fcontext, pat->nextcontext, fcontext->parentfcontext);
 		scanning->curfcontext = fcontext;
-		DBG_SCANNING("found_context_change, pushed nextcontext %d onto the stack\n",pat->nextcontext);
 		return fcontext;
 	}
 }
@@ -384,11 +384,10 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 		fcontext = found_context_change(btv, match, scanning, &pat);
 		if (pat.nextcontext < 0) {
 			SET_FOUNDMODE_CONTEXTPOP(mode);
-			retcontext = (fcontext && fcontext->parentfcontext ? ((Tfoundcontext *)fcontext->parentfcontext)->context : 1);
 		} else {
-			SET_FOUNDMODE_CONTEXTPUSH(mode);
-			retcontext = fcontext->context;
+			SET_FOUNDMODE_CONTEXTPUSH(mode);			
 		}
+		retcontext = (fcontext ? fcontext->context : 1);
 	}
 	if (fblock || fcontext) {
 		found = g_slice_new0(Tfound);

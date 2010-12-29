@@ -211,7 +211,7 @@ extern void g_none(char * first, ...);
 #define DBG_PATCOMPILE DBG_NONE
 #define DBG_SIGNALS DBG_NONE
 #define DBG_AUTOCOMP DBG_NONE
-#define DBG_SCANNING DBG_NONE
+#define DBG_SCANNING g_print
 #define DBG_DELAYSCANNING DBG_NONE
 #define DBG_FOLD DBG_NONE
 #define DBG_MARGIN DBG_NONE
@@ -327,38 +327,34 @@ typedef struct {
 	gint16 patternum; /* which pattern (number of the array element in scantable->matches) */
 	guint8 folded;
 	guint8 foldable; /* FALSE on a single line */
-} Tfoundblock; /* once a start-of-block is found start1 and end1 are set
-						and the Tfoundblock is added to the GtkTextMark's as "block"
-						and the Tfoundblock is added to the current blockstack.
-						A copy of the current blockstack is copied into Tscancache
-						so we can later on find what the current blockstack looks like.
-						once the end-of-block is found, start2 and end2 are set
-						and the Tfoundblock is added to these GtkTextMark's as "block"
-						The Tfoundblock is popped from the current stack, and a new copy
-						of the stack is copied into Tscancache */
+} Tfoundblock; /* Once a start-of-block is found start1 and end1 are set
+							and the Tfoundblock is added to the foundcache.
+							The previous foundblock is set as parentfblock
+							so we can later on find what the current blockstack looks like.
+						Once the end-of-block is found, start2 and end2 are set
+							The Tfoundblock is popped as current block, and the parent
+							is active again. This is also put on the foundcache */
 
 typedef struct {
 	gpointer parentfcontext;
 	guint32 start_o;
 	guint32 end_o;
 	gint16 context; /* number of the element in scantable->contexts */
-} Tfoundcontext; /* once a start-of-context is found start is set
-						and the Tfoundcontext is added to the GtkTextMark as "context"
-						and the Tfoundcontext is added to the current contextstack.
-						A copy of the current contextstack is copied into Tscancache
+} Tfoundcontext; /* Once a start-of-context is found start is set
+						and the Tfoundcontext is added to the current foundcache.
+						The previous fcontext is set in parentfcontext
 						so we can later on find what the current contextstack looks like.
 						once the end-of-context is found, end is set
-						and the Tfoundcontext is added to this GtkTextMark as "context"
-						The Tfoundcontext is popped from the current stack, and a new copy
-						of the stack is copied into Tscancache */
+						The Tfoundcontext is popped from the current stack and
+						this entry is also added to the foundcache */
 
 typedef struct {
 	Tfoundcontext *fcontext; /* on mode 4 or 8 this refers to the last pushed context, which is the current context. 
 			if bit 1 is set this points to the the pushed context, which is the new current context
-			if bit 2 is set this points to the popped context, the current context is its parent! */
+			if bit 2 is set this STILL points to the CURRENT context */
 	Tfoundblock *fblock; /* on mode 1 or 2 this refers to the last pushed block, which is the current block.
 			if bit 3 is set this points to the new pushed block which is the current block
-			if bit 4 is set this points to the popped block, the current block is its parent! */ 
+			if bit 4 is set this STILL points to the CURRENT block */ 
 	guint32 charoffset_o;
 	guint8 foundmode; /*
 			bit 1 (=1) = context push
