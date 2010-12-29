@@ -315,13 +315,15 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,const T
 	/* check if we change up or down the stack */
 	if (pat->nextcontext < 0) {
 		gint num = -1 * pat->nextcontext;
+		guint matchstart = gtk_text_iter_get_offset(&match.start);
 #ifdef HL_PROFILING
 		hl_profiling.numcontextend++;
 #endif
 		/* pop, but don't pop if there is nothing to pop (because of an error in the language file) */
+		DBG_SCANNING("should pop %d contexts, fcontext=%p\n",num,fcontext);
 		while (num > 0 && fcontext) {
-			DBG_SCANNING("found_context_change, popped context %d from the stack\n",fcontext->context);
-			fcontext->end_o = gtk_text_iter_get_offset(&match.start);
+			DBG_SCANNING("found_context_change, end context %d at pos %d, has tag %p\n",fcontext->context, matchstart, g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag);
+			fcontext->end_o = matchstart;
 			if (g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag) {
 				GtkTextIter iter;
 				gtk_text_buffer_get_iter_at_offset(btv->buffer,&iter,fcontext->start_o);
@@ -330,6 +332,7 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,const T
 			fcontext = (Tfoundcontext *)fcontext->parentfcontext;
 			num--;
 		}
+		DBG_SCANNING("new fcontext=%p\n",fcontext);
 		scanning->curfcontext = fcontext;
 		return fcontext;
 	} else {
@@ -342,6 +345,7 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,const T
 		fcontext->end_o = BF2_OFFSET_UNDEFINED;
 		fcontext->context = pat->nextcontext;
 		fcontext->parentfcontext = scanning->curfcontext;
+		scanning->curfcontext = fcontext;
 		DBG_SCANNING("found_context_change, pushed nextcontext %d onto the stack\n",pat->nextcontext);
 		return fcontext;
 	}
@@ -363,7 +367,7 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 #endif /* IDENTSTORING */
 
 	if (pat.selftag) {
-		DBG_SCANNING("apply tag %p from %d to %d\n",pat.selftag,gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
+		DBG_SCANNING("found_match, apply tag %p from %d to %d\n",pat.selftag,gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
 		gtk_text_buffer_apply_tag(btv->buffer,pat.selftag, &match.start, &match.end);
 	}
 
@@ -372,7 +376,8 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 		SET_FOUNDMODE_BLOCKPUSH(mode);
 	} else if (pat.ends_block) {
 		fblock = found_end_of_block(btv, match, scanning, &pat);
-		SET_FOUNDMODE_BLOCKPOP(mode);
+		if (fblock)
+			SET_FOUNDMODE_BLOCKPOP(mode);
 	}
 
 	if (pat.nextcontext != 0 && pat.nextcontext != scanning->context) {
