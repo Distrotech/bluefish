@@ -426,14 +426,14 @@ static gboolean bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuff
 		}
 	}
 	/* now move start to the beginning of the line and end to the end of the line */
-	gtk_text_iter_set_line_offset(start,0);
+	/*gtk_text_iter_set_line_offset(start,0);
 	DBG_SCANNING("set startposition to beginning of line, offset is now %d\n",gtk_text_iter_get_offset(start));
 	gtk_text_iter_forward_to_line_end(end);
-	gtk_text_iter_forward_char(end);
+	gtk_text_iter_forward_char(end);*/
 	return TRUE;
 }
 
-static void reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position, Tscanning *scanning) {
+static guint reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position, Tscanning *scanning) {
 	Tfound *found;
 	DBG_SCANNING("reconstruct_scanning at position %d\n",gtk_text_iter_get_offset(position));
 	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), NULL);
@@ -446,12 +446,14 @@ static void reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position, 
 		} else {
 			scanning->context = 1;
 		}
-		DBG_SCANNING("reconstruct_stack, curfblock=%p, curfcontext=%p, context=%d\n", scanning->curfblock, scanning->curfcontext, scanning->context);
+		DBG_SCANNING("reconstruct_stack, found at offset %d, curfblock=%p, curfcontext=%p, context=%d\n", found->charoffset_o, scanning->curfblock, scanning->curfcontext, scanning->context);
+		return found->charoffset_o;
 	} else {
 		DBG_SCANNING("nothing to reconstruct\n");
 		scanning->curfcontext = NULL;
 		scanning->curfblock = NULL;
 		scanning->context = 1;
+		return 0;
 	}
 }
 
@@ -509,7 +511,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	GtkTextIter mstart;
 	/*GArray *matchstack;*/
 	Tscanning scanning;
-	guint pos = 0, newpos;
+	guint pos = 0, newpos, reconstruction_o;
 	gboolean normal_run=TRUE, last_character_run=FALSE;
 	gint loop=0;
 #ifdef IDENTSTORING
@@ -557,7 +559,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 
 	orig_end = end;
 	if (visible_end) {
-		/* check such that we only scan up to vend */
+		/* make sure that we only scan up to visible_end and no further */
 		if (gtk_text_iter_compare(&start,visible_end)>0) {
 			DBG_DELAYSCANNING("start of region that needs scanning is beyond visible_end, return TRUE\n");
 			g_timer_destroy(scanning.timer);
@@ -571,8 +573,6 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 			end = *visible_end;
 		}
 	}
-
-	DBG_SCANNING("scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
 #ifdef HL_PROFILING
 	startpos = gtk_text_iter_get_offset(&start);
 	stage1 = g_timer_elapsed(scanning.timer,NULL);
@@ -581,12 +581,19 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	if (gtk_text_iter_is_start(&start)) {
 		scanning.curfcontext = NULL;
 		scanning.curfblock = NULL;
+		reconstruction_o = 0;
 	} else {
 		/* reconstruct the context stack and the block stack */
-		reconstruct_scanning(btv, &iter, &scanning);
+		reconstruction_o = reconstruct_scanning(btv, &iter, &scanning);
 		pos = g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).startstate;
 		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d\n",scanning.context,pos);
 	}
+	/* now move the start position either to the start of the line, or to the position 
+	where the stack was reconstructed */
+	
+	/*TODO*/ 
+	
+	DBG_SCANNING("scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
 #ifdef HL_PROFILING
 	stage2= g_timer_elapsed(scanning.timer,NULL);
 #endif
