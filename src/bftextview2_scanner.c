@@ -352,7 +352,7 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,const T
 	}
 }
 
-static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscanning *scanning)
+static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscanning *scanning, GSequenceIter **siter)
 {
 	Tfoundblock *fblock=NULL;
 	Tfoundcontext *fcontext=NULL;
@@ -415,7 +415,6 @@ static gboolean bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuff
 			return FALSE;
 		}
 	}
-	DBG_SCANNING("first position that toggles needscanning is at %d\n",gtk_text_iter_get_offset(start));
 	/* find the end of the region */
 	*end = *start;
 	gtk_text_iter_forward_char(end);
@@ -425,6 +424,7 @@ static gboolean bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuff
 			return FALSE;
 		}
 	}
+	DBG_SCANNING("first region that needs scanning runs from %d to %d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
 	/* now move start to the beginning of the line and end to the end of the line */
 	/*gtk_text_iter_set_line_offset(start,0);
 	DBG_SCANNING("set startposition to beginning of line, offset is now %d\n",gtk_text_iter_get_offset(start));
@@ -433,10 +433,10 @@ static gboolean bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuff
 	return TRUE;
 }
 
-static guint reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position, Tscanning *scanning) {
+static guint reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position, Tscanning *scanning, GSequenceIter **siter) {
 	Tfound *found;
 	DBG_SCANNING("reconstruct_scanning at position %d\n",gtk_text_iter_get_offset(position));
-	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), NULL);
+	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), siter);
 	DBG_SCANCACHE("reconstruct_stack, got found %p to reconstruct stack at position %d\n",found,gtk_text_iter_get_offset(position));
 	if (G_LIKELY(found)) {
 		scanning->curfblock = found->fblock;
@@ -511,6 +511,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	GtkTextIter mstart;
 	/*GArray *matchstack;*/
 	Tscanning scanning;
+	GSequenceIter *siter=NULL;
 	guint pos = 0, newpos, reconstruction_o;
 	gboolean normal_run=TRUE, last_character_run=FALSE;
 	gint loop=0;
@@ -579,21 +580,28 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 #endif
 	iter = mstart = start;
 	if (gtk_text_iter_is_start(&start)) {
+		siter = g_sequence_get_begin_iter(btv->scancache.foundcaches);
 		scanning.curfcontext = NULL;
 		scanning.curfblock = NULL;
 		reconstruction_o = 0;
 	} else {
 		/* reconstruct the context stack and the block stack */
-		reconstruction_o = reconstruct_scanning(btv, &iter, &scanning);
+		reconstruction_o = reconstruct_scanning(btv, &iter, &scanning, &siter);
 		pos = g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).startstate;
 		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d\n",scanning.context,pos);
 	}
 	/* now move the start position either to the start of the line, or to the position 
-	where the stack was reconstructed */
-	
-	/*TODO*/ 
-	
+	where the stack was reconstructed, the largest offset */
+	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, reconstruction_o);
+	gtk_text_iter_set_line_offset(&start,0);
+	DBG_SCANNING("compare possible start positions %d and %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&iter));
+	if (gtk_text_iter_compare(&iter,&start)>0)
+		mstart = start = iter;
+	else
+		iter = mstart = start;
 	DBG_SCANNING("scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
+	btv->scancache.valid_cache_offset = gtk_text_iter_get_offset(&start);
+	
 #ifdef HL_PROFILING
 	stage2= g_timer_elapsed(scanning.timer,NULL);
 #endif
@@ -638,7 +646,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				match.start = mstart;
 				match.end = iter;
 				DBG_SCANNING("we have a match from pos %d to %d\n", gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
-				scanning.context = found_match(btv, match,&scanning);
+				scanning.context = found_match(btv, match,&scanning, &siter);
 				DBG_SCANNING("after match context=%d\n",scanning.context);
 			}
 #ifdef IDENTSTORING
