@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-31 07:41+0100\n"
-"PO-Revision-Date: 2010-12-09 15:45+0100 \n"
+"POT-Creation-Date: 2010-12-31 10:14+0100\n"
+"PO-Revision-Date: 2010-12-31 09:15+0100 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -542,13 +542,12 @@ msgstr[0] "%d caractère"
 msgstr[1] "%d caractères"
 
 #: ../src/document.c:3300
-#, fuzzy
 msgid "Selection statistics: "
-msgstr "Statistiques"
+msgstr "Dans la sélection : "
 
 #: ../src/document.c:3300
 msgid "Statistics: "
-msgstr "Statistiques"
+msgstr "Dans le document : "
 
 #: ../src/encodings_dialog.c:292
 msgid "_Available encodings:"
@@ -1444,7 +1443,7 @@ msgstr "/Document/Popup d'autocomplétion"
 
 #: ../src/menu.c:290
 msgid "/Document/_Wrap"
-msgstr "/Document/Césure"
+msgstr "/Document/Justifier"
 
 #: ../src/menu.c:291
 msgid "/Document/_Line Numbers"
@@ -1659,19 +1658,16 @@ msgid "/Tools/Strip T_railing Whitespace"
 msgstr "/Outils/Supprimer les espaces en fin de ligne"
 
 #: ../src/menu.c:375
-#, fuzzy
 msgid "/Tools/_Join lines together"
 msgstr "/Outils/Concaténer les lignes"
 
 #: ../src/menu.c:376
-#, fuzzy
 msgid "/Tools/Sp_lit lines on right margin"
-msgstr "/Outils/Découper les lignes"
+msgstr "/Outils/Scinder les lignes à la marge droite"
 
 #: ../src/menu.c:377
-#, fuzzy
 msgid "/Tools/Rewrap _lines"
-msgstr "/Outils/Découper les lignes"
+msgstr "/Outils/Rassembler les lignes à la marge droite"
 
 #: ../src/menu.c:378
 msgid "/Tools/Indenting To T_abs"
@@ -1776,9 +1772,8 @@ msgid "Show line _numbers"
 msgstr "Afficher les numéros de ligne"
 
 #: ../src/preferences.c:490
-#, fuzzy
 msgid "Show _right margin indicator"
-msgstr "Position de la marge droite :"
+msgstr "Afficher la marge droite"
 
 #: ../src/preferences.c:492 ../src/preferences.c:1841
 msgid "Smart auto indentin_g"
@@ -1818,16 +1813,15 @@ msgid "Path to plugin"
 msgstr "Chemin du plugin"
 
 #: ../src/preferences.c:755
-#, fuzzy
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
 "applied to the same text, the top-most style in this list has the highest "
 "priority. Use drag and drop to re-order the text styles.</small>"
 msgstr ""
-"Les styles de texte sont appliqués les uns après les autres. Quand plusieurs "
-"styles de texte s'appliquent au même texte, le premier est affecté de la "
-"plus haute priorité. Utilisez le copier-déposer pour réordonner les styles "
-"de texte."
+"<small>Les styles de texte sont appliqués les uns après les autres. Quand "
+"plusieurs styles de texte s'appliquent au même texte, le premier est affecté "
+"de la plus haute priorité. Utilisez le copier-déposer pour réordonner les "
+"styles de texte.</small>"
 
 #: ../src/preferences.c:765 ../src/preferences.c:905 ../src/preferences.c:1001
 msgid "Label"
@@ -1850,27 +1844,22 @@ msgid "_Background color:"
 msgstr "Couleur d'arrière-plan"
 
 #: ../src/preferences.c:788
-#, fuzzy
 msgid "_Normal weight"
 msgstr "Non gras"
 
 #: ../src/preferences.c:790
-#, fuzzy
 msgid "Bold _weight"
 msgstr "Gras"
 
 #: ../src/preferences.c:792
-#, fuzzy
 msgid "Normal st_yle"
 msgstr "Non Italique"
 
 #: ../src/preferences.c:795
-#, fuzzy
 msgid "_Italic style"
 msgstr "Italique"
 
 #: ../src/preferences.c:797
-#, fuzzy
 msgid "_Spell check"
 msgstr "Vérifier l'orthographe"
 
@@ -2148,7 +2137,7 @@ msgstr "Combinaison de touches de raccourci :"
 
 #: ../src/preferences.c:1836
 msgid "Right _margin/split line end position:"
-msgstr ""
+msgstr "marge droite/coupure de ligne :"
 
 #: ../src/preferences.c:1844
 msgid "Smart Home/_End cursor positioning"
@@ -2159,9 +2148,8 @@ msgid "_Tab key indents selection"
 msgstr "La touche tabulation indente la sélection"
 
 #: ../src/preferences.c:1854
-#, fuzzy
 msgid "Visible _whitespace mode:"
-msgstr "Couleur des espaces visibles"
+msgstr "Présentation des espaces visibles"
 
 #: ../src/preferences.c:1857
 msgid "<b>Undo</b>"
@@ -2303,7 +2291,6 @@ msgid "Use lo_wercase HTML tags"
 msgstr "Balises HTML en minuscules"
 
 #: ../src/preferences.c:2026
-#, fuzzy
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
 msgstr "Utiliser les balises obsolètes (p. ex. <font> ou <nobr>)"
 
@@ -2338,9 +2325,8 @@ msgid "Templates"
 msgstr "Modèles"
 
 #: ../src/preferences.c:2061
-#, fuzzy
 msgid "<b>Templates</b>"
-msgstr "Modèles"
+msgstr "<b>Modèles</b>"
 
 #: ../src/preferences.c:2074
 msgid "User interface"
@@ -2420,12 +2406,11 @@ msgstr "Largeur initiale de la fenêtre :"
 
 #: ../src/preferences.c:2180
 msgid "_Use system document tab font"
-msgstr ""
+msgstr " Utiliser la fonte système pour les onglets des documents."
 
 #: ../src/preferences.c:2185
-#, fuzzy
 msgid "_Document tab font:"
-msgstr "Documents, onglet chargement en cours :"
+msgstr "Fonte des onglet des documents :"
 
 #: ../src/preferences.c:2199
 msgid "Document error tab color"
@@ -2474,45 +2459,40 @@ msgid "External commands"
 msgstr "Commandes externes"
 
 #: ../src/preferences.c:2253
-#, fuzzy
 msgid "<b>External Commands</b>"
-msgstr "Commandes externes"
+msgstr "<b>Commandes externes</b>"
 
 #: ../src/preferences.c:2266
 msgid "External filters"
 msgstr "Filtres externes"
 
 #: ../src/preferences.c:2268
-#, fuzzy
 msgid "<b>External Filters</b>"
-msgstr "Filtres externes"
+msgstr "<b>Filtres externes</b>"
 
 #: ../src/preferences.c:2281
 msgid "Output parsers"
 msgstr "Analyseurs syntaxiques"
 
 #: ../src/preferences.c:2283
-#, fuzzy
 msgid "<b>Output Parsers</b>"
-msgstr "Analyseurs syntaxiques"
+msgstr "<b>Analyseurs syntaxiques</b>"
 
 #: ../src/preferences.c:2296
 msgid "Plugins"
 msgstr "Plugins"
 
 #: ../src/preferences.c:2298
-#, fuzzy
 msgid "<b>Plugins</b>"
-msgstr "<b>Divers</b>"
+msgstr "<b>Plugins</b>"
 
 #: ../src/preferences.c:2311
 msgid "Text styles"
 msgstr "Styles de texte"
 
 #: ../src/preferences.c:2313
-#, fuzzy
 msgid "<b>Text Styles</b>"
-msgstr "<b>Tabulations</b>"
+msgstr "<b>Styles de texte</b>"
 
 #: ../src/preferences.c:2326
 msgid "Language support"
@@ -2977,11 +2957,11 @@ msgstr "Annuler ce changement dans tous les documents ?"
 msgid "This change concerns multiple documents."
 msgstr "Ce changement affecte de multiple documents."
 
-#~ msgid "Select font"
-#~ msgstr "Sélection de police"
-
 #~ msgid "Show _whitespace:"
 #~ msgstr "Afficher les espaces"
+
+#~ msgid "Select font"
+#~ msgstr "Sélection de police"
 
 #~ msgid ""
 #~ "Document tab font \n"
