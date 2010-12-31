@@ -30,29 +30,47 @@ http://bfwiki.tellefsen.net/index.php/Highlighter_snippets
 
 <header>
 	<mime type="text/highlight"/>
+	<option name="load_completion" default="1" description="load completion data"/>
 	<highlight name="red" style="warning"  />
+	<highlight name="green" style="string"  />
 	<highlight name="blue" style="value"  />
-	<highlight name="yellow" style="special-tag3"  />
+	<highlight name="yellow" style="special-tag3"  />	
 	<highlight name="grey" style="comment"  />
 </header>
 
 <definition>
-  <context symbols="<">
-		<element id="e.title6" pattern="<r>"  starts_block="1" autocomplete="1" autocomplete_append="</r>" autocomplete_backup_cursor="4"  highlight="grey" >
-	   <context symbols="<">
-		   <element pattern="^<"  is_regex="1"  highlight="red" />
-		   <element pattern="</r>" ends_block="1" blockstartelement="e.title6" ends_context="1" highlight="grey" />
-	   </context>
-		</element> 
+
+
+<context symbols="&gt;&lt;">
+
+<element id="e.red" pattern="&lt;r&gt;" highlight="grey" starts_block="1">
+	<context id="c.red" symbols="&gt;&lt;" highlight="red">
+	<element pattern="&lt;/r&gt;" ends_block="1" blockstartelement="e.red" highlight="grey" ends_context="1" />
+	</context>
+</element>
+
+<element id="e.green" pattern="&lt;g&gt;" highlight="grey" starts_block="1">
+	<context id="c.green" symbols="&gt;&lt;" highlight="green">
+	<element pattern="&lt;/g&gt;" ends_block="1" blockstartelement="e.green" highlight="grey" ends_context="1" />
+	</context>
+</element>
+
+
+<element id="e.blue" pattern="&lt;b&gt;" highlight="grey" starts_block="1">
+	<context id="c.blue" symbols="&gt;&lt;" highlight="blue">
+	<element pattern="&lt;/b&gt;" ends_block="1" blockstartelement="e.blue" highlight="grey" ends_context="1" />
+	</context>
+</element>
+
+<element id="e.yellow" pattern="&lt;y&gt;" highlight="grey" starts_block="1">
+	<context id="c.yellow" symbols="&gt;&lt;" highlight="yellow">
+	<element pattern="&lt;/y&gt;" ends_block="1" blockstartelement="e.yellow" highlight="grey" ends_context="1" />
+	</context>
+</element>
+
 	</context>
 
-<!-- 	
-	<context symbols="`^~">
-		<element pattern="````[^^]+^~" is_regex="1"  highlight="yellow"  />
-		<element pattern="```[^^]+^~" is_regex="1"  highlight="blue"  />
-		<element pattern="``[^^]+^~" is_regex="1"  highlight="red" />
-	</context>
- -->
+
 
 </definition>
 
