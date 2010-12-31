@@ -433,7 +433,7 @@ static gboolean bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuff
 	return TRUE;
 }
 
-static guint reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position, Tscanning *scanning, GSequenceIter **siter) {
+static guint reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position, Tscanning *scanning, GSequenceIter **siter, Tfound **retfound) {
 	Tfound *found;
 	DBG_SCANNING("reconstruct_scanning at position %d\n",gtk_text_iter_get_offset(position));
 	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), siter);
@@ -447,12 +447,15 @@ static guint reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position,
 			scanning->context = 1;
 		}
 		DBG_SCANNING("reconstruct_stack, found at offset %d, curfblock=%p, curfcontext=%p, context=%d\n", found->charoffset_o, scanning->curfblock, scanning->curfcontext, scanning->context);
+		*retfound = found;
 		return found->charoffset_o;
 	} else {
 		DBG_SCANNING("nothing to reconstruct\n");
 		scanning->curfcontext = NULL;
 		scanning->curfblock = NULL;
 		scanning->context = 1;
+		*retfound=NULL;
+		*siter=NULL;
 		return 0;
 	}
 }
@@ -512,6 +515,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	/*GArray *matchstack;*/
 	Tscanning scanning;
 	GSequenceIter *siter=NULL;
+	Tfound *curfound, *nextfound;
 	guint pos = 0, newpos, reconstruction_o;
 	gboolean normal_run=TRUE, last_character_run=FALSE;
 	gint loop=0;
@@ -581,12 +585,14 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	iter = mstart = start;
 	if (gtk_text_iter_is_start(&start)) {
 		siter = g_sequence_get_begin_iter(btv->scancache.foundcaches);
+		curfound = NULL;
+		nextfound = NULL;
 		scanning.curfcontext = NULL;
 		scanning.curfblock = NULL;
 		reconstruction_o = 0;
 	} else {
 		/* reconstruct the context stack and the block stack */
-		reconstruction_o = reconstruct_scanning(btv, &iter, &scanning, &siter);
+		reconstruction_o = reconstruct_scanning(btv, &iter, &scanning, &siter, &curfound);
 		pos = g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).startstate;
 		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d\n",scanning.context,pos);
 	}
@@ -602,6 +608,11 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	DBG_SCANNING("scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
 	btv->scancache.valid_cache_offset = gtk_text_iter_get_offset(&start);
 	
+	if (curfound && siter) {
+		nextfound = get_foundcache_next(btv, &siter);
+	} else {
+		nextfound = get_foundcache_first(btv, &siter);
+	}
 #ifdef HL_PROFILING
 	stage2= g_timer_elapsed(scanning.timer,NULL);
 #endif
