@@ -1,0 +1,4700 @@
+#
+# Yngve Spjeld Landro <l10n@landro.net>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bluefish_plugin_htmlbar\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2010-05-08 12:08+0200\n"
+"PO-Revision-Date: 2010-12-30 12:50+0100\n"
+"Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
+"Language-Team: Norwegian Nynorsk <l10n@landro.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8 bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. _DM_ Alert box asking if user would like to change request from add to
+#. * update.
+#.
+#: src/plugin_htmlbar/html2.c:501
+msgid "_Update"
+msgstr "_Oppdater"
+
+#: src/plugin_htmlbar/html2.c:506
+#, c-format
+msgid "The %s %s property already exists.\n"
+msgstr "%s %s-eigenskapen finst allereie.\n"
+
+#: src/plugin_htmlbar/html2.c:508
+#, c-format
+msgid "The %s property already exists.\n"
+msgstr "%s-eigenskapen finst allereie.\n"
+
+#: src/plugin_htmlbar/html2.c:511
+#, c-format
+msgid "Update its value from %s to %s?"
+msgstr "Vil du oppdatera verdien hans frå %s til %s?"
+
+#: src/plugin_htmlbar/html2.c:642
+msgid "Cascading Style Sheet Builder"
+msgstr "Stilsettlagar (CSS)"
+
+#: src/plugin_htmlbar/html2.c:662
+msgid "_Selector:"
+msgstr "_Veljar:"
+
+#: src/plugin_htmlbar/html2.c:681
+msgid "_Property:"
+msgstr "_Eigenskap:"
+
+#: src/plugin_htmlbar/html2.c:683 src/plugin_htmlbar/html_form.c:344
+#: src/plugin_htmlbar/html_form.c:493 src/plugin_htmlbar/html_form.c:588
+msgid "_Value:"
+msgstr "Ve_rdi:"
+
+#: src/plugin_htmlbar/html2.c:701
+msgid "Selector"
+msgstr "Veljar"
+
+#: src/plugin_htmlbar/html2.c:701 src/plugin_htmlbar/html2.c:704
+msgid "Property"
+msgstr "Eigenskap"
+
+#: src/plugin_htmlbar/html2.c:701 src/plugin_htmlbar/html2.c:704
+msgid "Value"
+msgstr "Verdi"
+
+#: src/plugin_htmlbar/html2.c:719
+msgid " _Add "
+msgstr "_Legg til"
+
+#: src/plugin_htmlbar/html2.c:722
+msgid " _Update "
+msgstr "_Oppdater"
+
+#: src/plugin_htmlbar/html2.c:725
+msgid " _Delete "
+msgstr "_Slett "
+
+#: src/plugin_htmlbar/html2.c:978 src/plugin_htmlbar/html2.c:1015
+msgid "_Style..."
+msgstr "Sti_l …"
+
+#: src/plugin_htmlbar/html2.c:1100
+msgid "Bluefish: Select color"
+msgstr "Bluefish: vel farge"
+
+#: src/plugin_htmlbar/htmlbar.c:37
+msgid "Edit color"
+msgstr "Endra farge"
+
+#: src/plugin_htmlbar/htmlbar.c:45
+msgid "Edit tag"
+msgstr "Endra etikett"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:204
+msgid "/T_ags"
+msgstr "/E_tikettar"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:206
+msgid "/Tags/_Headings"
+msgstr "/Etikettar/_Overskrifter"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:208
+msgid "/Tags/Headings/H_1"
+msgstr "/Etikettar/Overskrifter/H_1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:209
+msgid "/Tags/Headings/H_2"
+msgstr "/Etikettar/Overskrifter/H_2"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:210
+msgid "/Tags/Headings/H_3"
+msgstr "/Etikettar/Overskrifter/H_3"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:211
+msgid "/Tags/Headings/H_4"
+msgstr "/Etikettar/Overskrifter/H_4"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:212
+msgid "/Tags/Headings/H_5"
+msgstr "/Etikettar/Overskrifter/H_5"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:213
+msgid "/Tags/Headings/H_6"
+msgstr "/Etikettar/Overskrifter/H_6"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:214
+msgid "/Tags/_Special"
+msgstr "/Etikettar/Sp_esielle"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:216
+msgid "/Tags/Special/_Accent"
+msgstr "/Etikettar/Spesielle/_Aksent"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:218
+msgid "/Tags/Special/Accent/_Uppercase"
+msgstr "/Etikettar/Spesielle/Aksent/_Store bokstavar"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:219
+msgid "/Tags/Special/Accent/Uppercase/_A-I"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/_A-I"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:221
+msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/A gravis À"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:222
+msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/A akutt Á"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:223
+msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/A cirkumfleks Â"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:224
+msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/A tilde Ã"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:225
+msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/AE ligatur Æ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:226
+msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
+msgstr "/Tags/Spesielle/Aksent/Store/A-I/A trema Ä"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:227
+msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/A ring Å "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:228
+msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/C cedille Ç"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:229
+msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/E gravis È"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:230
+msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/E akutt É"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:231
+msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/E cirkumfleks Ê"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:232
+msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/I trema Ë"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:233
+msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/I gravis Ì"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:234
+msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/I akutt Í"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:235
+msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/I cirkumfleks Î"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:236
+msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/I trema Ï"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:237
+msgid "/Tags/Special/Accent/Uppercase/_J-Z"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/_J-Z"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:239
+msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/J-Z/N tilde Ñ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:240
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/J-Z/O gravis Ò"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:241
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/J-Z/O akutt Ó"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:242
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/J-Z/O cirkumfleks Ô"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:243
+msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/A-I/OE ligatur Œ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:244
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/J-Z/O tilde Õ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:245
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/J-Z/O trema Ö"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:246
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/J-Z/O skråstrek Ø "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:247
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/J-Z/U gravis Ù"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:248
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/J-Z/U akutt Ú"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:249
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/J-Z/U cirkumfleks Û"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:250
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/J-Z/U trema Ü"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:251
+msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
+msgstr "/Etikettar/Spesielle/Aksent/Store bokstavar/J-Z/Y akutt Ý"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:252
+msgid "/Tags/Special/Accent/_Lowercase"
+msgstr "/Etikettar/Spesielle/Aksent/Sm_å bokstavar"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:253
+msgid "/Tags/Special/Accent/Lowercase/_A-I"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/_A-I"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:255
+msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/a gravis à"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:256
+msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/a akutt á"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:257
+msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/a cirkumfleks â"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:258
+msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/a tilde ã"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:259
+msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/a ring å"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:260
+msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/ae ligatur æ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:261
+msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/a trema ä"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:262
+msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/c cedille ç"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:263
+msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/e gravis è"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:264
+msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/e akutt é"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:265
+msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/e cirkumfleks ê"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:266
+msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/e trema ë"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:267
+msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/i gravis ì"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:268
+msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/i akutt í"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:269
+msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/i cirkumfleks î"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:270
+msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/A-I/i trema ï"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:271
+msgid "/Tags/Special/Accent/Lowercase/_J-Z"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/_J-Z"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:273
+msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/n tilde ñ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:274
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/o gravis ò"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:275
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/o akutt ó"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:276
+msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/oe ligatur æ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:277
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/o cirkumfleks ô"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:278
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/o tilde õ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:279
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/o trema ö"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:280
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/o skråstrek ø"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:281
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/u gravis ù"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:282
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/u akutt ú"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:283
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/u cirkumfleks û"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:284
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/u trema ü"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:285
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/y akutt ý"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:286
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
+msgstr "/Etikettar/Spesielle/Aksent/Små bokstavar/J-Z/y trema ÿ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:288
+msgid "/Tags/Special/Accent/U_mlaut ¨"
+msgstr "/Etikettar/Spesielle/Aksent/_Trema ¨"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:289
+msgid "/Tags/Special/Accent/_Acute ´"
+msgstr "/Etikettar/Spesielle/Aksent/_Akutt ´"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:290
+msgid "/Tags/Special/Accent/_Cedilla ¸"
+msgstr "/Etikettar/Spesielle/Aksent/_Cedille ¸"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:291
+msgid "/Tags/Special/_Currency"
+msgstr "/Etikettar/Spesielle/_Valuta"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:293
+msgid "/Tags/Special/Currency/_Cent sign ¢"
+msgstr "/Etikettar/Spesielle/Valuta/_Cent ¢"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:294
+msgid "/Tags/Special/Currency/_Pound sterling £"
+msgstr "/Etikettar/Spesielle/Valuta/_Pund sterling £"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:295
+msgid "/Tags/Special/Currency/C_urrency sign ¤"
+msgstr "/Etikettar/Spesielle/Valuta/_Valutateikn ¤"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:296
+msgid "/Tags/Special/Currency/_Yen sign ¥"
+msgstr "/Etikettar/Spesielle/Valuta/_Yen ¥"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:297
+msgid "/Tags/Special/Currency/_Euro €"
+msgstr "/Etikettar/Spesielle/Valuta/_Euro €"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:298
+msgid "/Tags/Special/_Math-Science"
+msgstr "/Etikettar/Spesielle/_Matematikk - vitskap"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:300
+msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/Logisk _ikkje ¬"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:301
+msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/_Kartesisk produkt ×"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:302
+msgid "/Tags/Special/Math-Science/_Division sign ÷"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/_Divisjon ÷"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:303
+msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/_Pluss-minus ±"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:304
+msgid "/Tags/Special/Math-Science/_Less-than sign <"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/_Mindre enn <"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:305
+msgid "/Tags/Special/Math-Science/_Greater-than sign >"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/_Større enn >"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:306
+msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/Heva _1 ¹"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:307
+msgid "/Tags/Special/Math-Science/Superscript _2 ²"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/Heva _2 ²"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:308
+msgid "/Tags/Special/Math-Science/Superscript _3 ³"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/Heva _3 ³"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:309
+msgid "/Tags/Special/Math-Science/One _quarter ¼"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/Ein _fjerdedel ¼"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:310
+msgid "/Tags/Special/Math-Science/One _half ½"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/Ein _halv ½"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:311
+msgid "/Tags/Special/Math-Science/_Three quarters ¾"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/_Tre fjerdedelar ¾"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:312
+msgid "/Tags/Special/Math-Science/Deg_ree sign °"
+msgstr "/Etikettar/Spesielle/Matematikk - vitskap/_Grad °"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:313
+msgid "/Tags/Special/_Non Latin"
+msgstr "/Etikettar/Spesielle/Ikkje-_latinske teikn"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:315
+msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
+msgstr "/Etikettar/Spesielle/Ikkje-latinske teikn/_ETH (islandsk) Ð"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:316
+msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
+msgstr "/Etikettar/Spesielle/Ikkje-latinske teikn/_THORN (islandsk) Þ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:317
+msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
+msgstr "/Etikettar/Spesielle/Ikkje-latinske teikn/et_h (islandsk) ð"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:318
+msgid "/Tags/Special/Non Latin/th_orn ÿ"
+msgstr "/Etikettar/Spesielle/Ikkje-latinske teikn/th_orn (islandsk) þ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:319
+msgid "/Tags/Special/Non Latin/Sharp _s ß"
+msgstr "/Etikettar/Spesielle/Ikkje-latinske teikn/Skarp _s ß"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:320
+msgid "/Tags/Special/Non Latin/_Micro sign µ"
+msgstr "/Etikettar/Spesielle/Ikkje-latinske teikn/_Mikro µ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:321
+msgid "/Tags/Special/_Other"
+msgstr "/Etikettar/Spesielle/A_ndre"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:323
+msgid "/Tags/Special/Other/_Non-breaking space"
+msgstr "/Etikettar/Spesielle/Andre/_Hardt mellomrom"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:324
+msgid "/Tags/Special/Other/_Section sign §"
+msgstr "/Etikettar/Spesielle/Andre/_Bolk §"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:325
+msgid "/Tags/Special/Other/_Copyright sign ©"
+msgstr "/Etikettar/Spesielle/Andre/_Opphavsrett ©"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:326
+msgid "/Tags/Special/Other/_Left angle quotes «"
+msgstr "/Etikettar/Spesielle/Andre/_Venstre hermeteikn «"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:327
+msgid "/Tags/Special/Other/_Right angle quotes »"
+msgstr "/Etikettar/Spesielle/Andre/H_øgre hermeteikn »"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:328
+msgid "/Tags/Special/Other/Registered _trademark ®"
+msgstr "/Etikettar/Spesielle/Andre/Regis_trert varemerke ®"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:329
+msgid "/Tags/Special/Other/Inverted _exclamation ¡"
+msgstr "/Etikettar/Spesielle/Andre/Omvendt _utropsteikn ¡"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:330
+msgid "/Tags/Special/Other/Inverted _question mark ¿"
+msgstr "/Etikettar/Spesielle/Andre/Omv_endt spørsmålsteikn ¿"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:331
+msgid "/Tags/Special/Other/_Feminine ordinal ª"
+msgstr "/Etikettar/Spesielle/Andre/_Feminint rekkjetal ª"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:332
+msgid "/Tags/Special/Other/_Masculine ordinal º"
+msgstr "/Etikettar/Spesielle/Andre/_Maskulint rekkjetal º"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:333
+msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
+msgstr "/Etikettar/Spesielle/Andre/_Avsnitt ¶"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:334
+msgid "/Tags/Special/Other/_Broken bar ¦"
+msgstr "/Etikettar/Spesielle/Andre/Broten _loddrett linje ¦"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:335
+msgid "/Tags/Special/Other/Soft _hyphen -"
+msgstr "/Etikettar/Spesielle/Andre/Mju_k bindestrek -"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:336
+msgid "/Tags/Special/Other/Spa_cing macron ¯"
+msgstr "/Etikettar/Spesielle/Andre/Ov_erstrek ¯"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:337
+msgid "/Tags/Special/Other/Middle _dot ·"
+msgstr "/Etikettar/Spesielle/Andre/Mi_dtjustert punktum ·"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:338
+msgid "/Tags/_Format by layout"
+msgstr "/Etikettar/_Formater etter utforming"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:340
+msgid "/Tags/Format by layout/_Bold"
+msgstr "/Etikettar/Formater etter utforming/_Feit"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:341
+msgid "/Tags/Format by layout/_Italic"
+msgstr "/Etikettar/Formater etter utforming/_Kursiv"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:342
+msgid "/Tags/Format by layout/_Underline"
+msgstr "/Etikettar/Formater etter utforming/_Understreka"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:343
+msgid "/Tags/Format by layout/_Strikeout"
+msgstr "/Etikettar/Formater etter utforming/_Gjennomstreking"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:344
+msgid "/Tags/Format by layout/Sm_all"
+msgstr "/Etikettar/Formater etter utforming/_Liten"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:345
+msgid "/Tags/Format by layout/Bi_g"
+msgstr "/Etikettar/Formater etter utforming/_Stor"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:346
+msgid "/Tags/F_ormat by context"
+msgstr "/Etikettar/Formater etter _samanheng"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:348
+msgid "/Tags/Format by context/_Strong"
+msgstr "/Etikettar/Formater etter samanheng/_Feit (strong)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:349
+msgid "/Tags/Format by context/_Emphasis"
+msgstr "/Etikettar/Formater etter samanheng/Fr_amheva (em)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:350
+msgid "/Tags/Format by context/_Define"
+msgstr "//Etikettar/Formater etter samanheng/_Definisjon (dfn)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:351
+msgid "/Tags/Format by context/_Code"
+msgstr "/Etikettar/Formater etter samanheng/_Kode (code)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:352
+msgid "/Tags/Format by context/Sa_mple"
+msgstr "/Etikettar/Formater etter samanheng/D_ømekode (samp)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:353
+msgid "/Tags/Format by context/_Keyboard"
+msgstr "/Etikettar/Formater etter samanheng/Tastat_urtekst (kbd)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:354
+msgid "/Tags/Format by context/_Variable"
+msgstr "/Etikettar/Formater etter samanheng/_Variabeltekst (var)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:355
+msgid "/Tags/Format by context/Ci_tation"
+msgstr "/Etikettar/Formater etter samanheng/Si_tat (cite)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:356
+msgid "/Tags/Format by context/_Abbreviation"
+msgstr "/Etikettar/Formater etter samanheng/Fo_rkorting (abbr)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:357
+msgid "/Tags/Format by context/Ac_ronym"
+msgstr "/Etikettar/Formater etter samanheng/Ak_ronym (acronym)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:358
+msgid "/Tags/Format by context/_Insert"
+msgstr "/Etikettar/Formater etter samanheng/Set _inn"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:359
+msgid "/Tags/Format by context/De_lete"
+msgstr "/Etikettar/Formater etter samanheng/Sl_ett"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:360
+msgid "/Tags/Format _general"
+msgstr "/Etikettar/_Generell formatering"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:362
+msgid "/Tags/Format general/_Paragraph"
+msgstr "/Etikettar/Generell formatering/_Avsnitt"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:363
+msgid "/Tags/Format general/_Break"
+msgstr "/Etikettar/Generell formatering/_Linjeskift"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:364
+msgid "/Tags/Format general/Break clear _all"
+msgstr "/Etikettar/Generell formatering/Linjeskift - t_øm alt"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:365
+msgid "/Tags/Format general/_Non-Breaking Space"
+msgstr "/Etikettar/Generell formatering/_Mjukt mellomrom"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:367
+msgid "/Tags/Format general/Font Si_ze +1"
+msgstr "/Etikettar/Generell formatering/Skriftstorlei_k +1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:368
+msgid "/Tags/Format general/Font _Size -1"
+msgstr "/Etikettar/Generell formatering/Skriftstorle_ik -1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:370
+msgid "/Tags/Format general/Preformatted _Text"
+msgstr "/Etikettar/Generell formatering/P_reformatert tekst"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:371
+msgid "/Tags/Format general/Su_bscript"
+msgstr "/Etikettar/Generell formatering/Se_nka"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:372
+msgid "/Tags/Format general/Su_perscript"
+msgstr "/Etikettar/Generell formatering/_Heva"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:374
+msgid "/Tags/Format general/_Center"
+msgstr "/Etikettar/Generell formatering/_Sentrert"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:375
+msgid "/Tags/Format general/Align _right"
+msgstr "/Etikettar/Generell formatering/Høgrestil_t"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:376
+msgid "/Tags/_Table"
+msgstr "/Etikettar/Ta_bell"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:378
+msgid "/Tags/Table/_Table"
+msgstr "/Etikettar/Tabell/Ta_bell"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:379
+msgid "/Tags/Table/Table _Row"
+msgstr "/Etikettar/Tabell/Tabell_rad"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:380
+msgid "/Tags/Table/Table _Header"
+msgstr "/Etikettar/Tabell/Tabell_overskrift"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:381
+msgid "/Tags/Table/Table _Data"
+msgstr "/Etikettar/Tabell/Tabell_data"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:382
+msgid "/Tags/Table/Table _Caption"
+msgstr "/Etikettar/Tabell/Tabell_tittel"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:383
+msgid "/Tags/_List"
+msgstr "/Etikettar/_Liste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:385
+msgid "/Tags/List/Unordered _List"
+msgstr "/Etikettar/Liste/_Uordna liste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:386
+msgid "/Tags/List/_Ordered List"
+msgstr "/Etikettar/Liste/_Ordna liste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:387
+msgid "/Tags/List/List Ite_m"
+msgstr "/Etikettar/Liste/Liste_element"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:388
+msgid "/Tags/List/De_finition List"
+msgstr "/Etikettar/Liste/Definisjons_liste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:389
+msgid "/Tags/List/Definition _Term"
+msgstr "/Etikettar/Liste/Definisjons_term"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:390
+msgid "/Tags/List/_Definition"
+msgstr "/Etikettar/Liste/De_finisjon"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:391
+msgid "/Tags/List/Men_u"
+msgstr "/Etikettar/Liste/_Meny"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:392
+msgid "/Tags/Fo_rm"
+msgstr "/Etikettar/Skjem_a"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:394
+msgid "/Tags/Form/_Form"
+msgstr "/Etikettar/Skjema/_Skjema"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:395
+msgid "/Tags/Form/_Button"
+msgstr "/Etikettar/Skjema/_Knapp"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:396
+msgid "/Tags/Form/_Input"
+msgstr "/Etikettar/Skjema/_Inndata"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:397
+msgid "/Tags/Form/_Textarea"
+msgstr "/Etikettar/Skjema/_Tekstområde"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:398
+msgid "/Tags/_Misc"
+msgstr "/Etikettar/_Ymse"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:400
+msgid "/Tags/Misc/Insert Generator _META-Tag"
+msgstr "/Etikettar/Ymse/Set inn _META-etiketten Generator"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:401
+msgid "/Tags/Misc/_Span"
+msgstr "/Etikettar/Ymse/_Span"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:402
+msgid "/Tags/Misc/_Div"
+msgstr "/Etikettar/Ymse/_Div"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:403
+msgid "/Tags/Misc/_Link"
+msgstr "/Etikettar/Ymse/_Link"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:404
+msgid "/Tags/Misc/S_cript"
+msgstr "/Etikettar/Ymse/S_cript"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:405
+msgid "/Tags/Misc/_Anchor"
+msgstr "/Etikettar/Ymse/_Anker (A)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:406
+msgid "/Tags/Misc/_Image"
+msgstr "/Etikettar/Ymse/_Bilete"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:407
+msgid "/Tags/_Comment"
+msgstr "/Etikettar/_Merknader"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:408
+msgid "/D_ialogs"
+msgstr "/_Assistent"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:410
+msgid "/Dialogs/_General"
+msgstr "/Assistent/_Allment"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:412
+msgid "/Dialogs/General/_Quickstart..."
+msgstr "/Assistent/Allment/Sn_øggstart …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:413
+msgid "/Dialogs/General/_Link Header..."
+msgstr "/Assistent/Allment/Lenkje_hovud …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:414
+msgid "/Dialogs/General/_Body..."
+msgstr "/Assistent/Allment/_Innhald …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:415
+msgid "/Dialogs/General/_Anchor..."
+msgstr "/Assistent/Allment/_Anker …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:416
+msgid "/Dialogs/General/_Email..."
+msgstr "/Assistent/Allment/_E-post …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:417
+msgid "/Dialogs/General/_Rule..."
+msgstr "/Assistent/Allment/_Linje …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:418
+msgid "/Dialogs/General/_Font..."
+msgstr "/Assistent/Allment/Skri_fttype …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:419
+msgid "/Dialogs/General/Basef_ont..."
+msgstr "/Assistent/Allment/Gr_unnskrifttype …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:420
+msgid "/Dialogs/General/Quick_list..."
+msgstr "/Assistent/Allment/_Snøggliste …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:421
+msgid "/Dialogs/General/_Meta..."
+msgstr "/Assistent/Allment/_Meta …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:422
+msgid "/Dialogs/General/Embe_d..."
+msgstr "/Assistent/Allment/_Kapsla inn …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:423
+msgid "/Dialogs/General/Select _Color..."
+msgstr "/Assistent/Allment/_Vel farge …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:424
+msgid "/Dialogs/General/Insert _Time..."
+msgstr "/Assistent/Allment/Set inn _tid …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:425
+msgid "/Dialogs/General/Insert _Image..."
+msgstr "/Assistent/Allment/Set inn _bilete…"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:426
+msgid "/Dialogs/General/Insert T_humbnail..."
+msgstr "/Assistent/Allment/Set inn mi_niatyr …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:427
+msgid "/Dialogs/_Table"
+msgstr "/Assistent/_Tabell"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:429
+msgid "/Dialogs/Table/Table _Wizard..."
+msgstr "/Assistent/Tabell/Tabell_rettleiar …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:430
+msgid "/Dialogs/Table/_Table..."
+msgstr "/Assistent/Tabell/_Tabell …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:431
+msgid "/Dialogs/Table/Table _Row..."
+msgstr "/Assistent/Tabell/Tabell_rad …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:432
+msgid "/Dialogs/Table/Table _Head..."
+msgstr "/Assistent/Tabell/Tabell_overskrift …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:433
+msgid "/Dialogs/Table/Table _Data..."
+msgstr "/Assistent/Tabell/Tabell_data …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:434
+msgid "/Dialogs/_CSS"
+msgstr "/Assistent/_CSS"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:436
+msgid "/Dialogs/CSS/_Create Style..."
+msgstr "/Assistent/CSS/L_ag stilsett …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:437
+msgid "/Dialogs/CSS/S_pan..."
+msgstr "/Assistent/CSS/S_pan-element …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:438
+msgid "/Dialogs/CSS/_Div..."
+msgstr "/Assistent/CSS/_Div-element …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:439
+msgid "/Dialogs/CSS/_Style..."
+msgstr "/Assistent/CSS/_Stil …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:440
+msgid "/Dialogs/CSS/_Link to Stylesheet..."
+msgstr "/Assistent/CSS/_Lenkje mot stilsett …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:441
+msgid "/Dialogs/_Frame"
+msgstr "/Assistent/_Ramme"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:443
+msgid "/Dialogs/Frame/Frame _Wizard..."
+msgstr "/Assistent/Ramme/Ram_merettleiar …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:444
+msgid "/Dialogs/Frame/Frame_set..."
+msgstr "/Assistent/Ramme/_Frameset-element …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:445
+msgid "/Dialogs/Frame/_Frame..."
+msgstr "/Assistent/Ramme/_Ramme …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:446
+msgid "/Dialogs/F_orm"
+msgstr "/Assistent/_Skjema"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:448
+msgid "/Dialogs/Form/F_orm..."
+msgstr "/Assistent/Skjema/_Skjema …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:449
+msgid "/Dialogs/Form/_Input..."
+msgstr "/Assistent/Skjema/_Inndata …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:450
+msgid "/Dialogs/Form/Input Buttons..."
+msgstr "/Assistent/Skjema/Inn_dataknappar …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:451
+msgid "/Dialogs/Form/Input Text..."
+msgstr "/Assistent/Skjema/Inndata_tekst …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:452
+msgid "/Dialogs/Form/Text_area..."
+msgstr "/Assistent/Skjema/Tekstomr_åde"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:453
+msgid "/Dialogs/Form/_Select..."
+msgstr "/Assistent/Skjema/_Vel …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:454
+msgid "/Dialogs/Form/O_ption..."
+msgstr "/Assistent/Skjema/Va_l …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:455
+msgid "/Dialogs/Form/Option _Group..."
+msgstr "/Assistent/Skjema/Valgr_uppe …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:456
+msgid "/Dialogs/Form/_Button..."
+msgstr "/Assistent/Skjema/_Knapp …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:458
+msgid "/Dialogs/_Edit tag under cursor..."
+msgstr "/Assistent/Endra _etiketten under markøren …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:461
+msgid "/View/_HTML Toolbar"
+msgstr "/Vis/_HTML-verktøylinja"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:748
+msgid "QuickStart..."
+msgstr "Snøggstart …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:749
+msgid "Body..."
+msgstr "Innhald …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:750
+msgid "Bold"
+msgstr "Feit"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:751
+msgid "Italic"
+msgstr "Kursiv"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:752 src/plugin_htmlbar/html.c:805
+msgid "Paragraph"
+msgstr "Avsnitt"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:753
+msgid "Break"
+msgstr "Linjeskift"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:754
+msgid "Break and clear"
+msgstr "Linjeskift og tøm"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:755
+msgid "Non-breaking space"
+msgstr "Hardt mellomrom"
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:757
+msgid "Anchor / Hyperlink..."
+msgstr "Anker / hyperlenkje …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:758
+msgid "Rule..."
+msgstr "Linje …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:759
+msgid "Center"
+msgstr "Sentrer"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:760
+msgid "Right Justify"
+msgstr "Høgrestilt"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:761
+msgid "Comment"
+msgstr "Merknad"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:762
+msgid "E-mail..."
+msgstr "E-post …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:763
+msgid "Font..."
+msgstr "Skrifttype …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:764
+msgid "Base Font Size..."
+msgstr "Grunnskrifttypestorleik …"
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:766
+msgid "Font Size +1"
+msgstr "Skriftstorleik +1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:767
+msgid "Font Size -1"
+msgstr "Skriftstorleik -1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:768
+msgid "Preformatted Text"
+msgstr "Preformatert tekst"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:769
+msgid "Subscript"
+msgstr "Senka"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:770
+msgid "Superscript"
+msgstr "Heva"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:771
+msgid "Strong"
+msgstr "Feit (strong)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:772
+msgid "Emphasis"
+msgstr "Kursiv"
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:774 src/plugin_htmlbar/html.c:814
+msgid "Heading 1"
+msgstr "Overskrift 1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:775 src/plugin_htmlbar/html.c:817
+msgid "Heading 2"
+msgstr "Overskrift 2"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:776 src/plugin_htmlbar/html.c:820
+msgid "Heading 3"
+msgstr "Overskrift 3"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:777 src/plugin_htmlbar/html.c:823
+msgid "Heading 4"
+msgstr "Overskrift 4"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:778 src/plugin_htmlbar/html.c:826
+msgid "Heading 5"
+msgstr "Overskrift 5"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:779 src/plugin_htmlbar/html.c:829
+msgid "Heading 6"
+msgstr "Overskrift 6"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:780
+msgid "Table Wizard..."
+msgstr "Tabellrettleiar …"
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:782
+msgid "Table..."
+msgstr "Tabell …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:783
+msgid "Table Row..."
+msgstr "Tabellrad …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:784
+msgid "Table Header..."
+msgstr "Tabellhovud …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:785
+msgid "Table Data..."
+msgstr "Tabelldata …"
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:787 src/plugin_htmlbar/html_table.c:77
+msgid "Table"
+msgstr "Tabell"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:788 src/plugin_htmlbar/html_table.c:209
+msgid "Table Row"
+msgstr "Tabellrad"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:789 src/plugin_htmlbar/html_table.c:320
+msgid "Table Header"
+msgstr "Tabellhovud"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:790 src/plugin_htmlbar/html_table.c:318
+msgid "Table Data"
+msgstr "Tabelldata"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:791
+msgid "Table Caption"
+msgstr "Tabelloverskrift"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:792
+msgid "Frame Wizard..."
+msgstr "Rammerettleiar …"
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:794
+msgid "Frameset..."
+msgstr "Frameset-element …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:795
+msgid "Frame..."
+msgstr "Ramme …"
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:797 src/plugin_htmlbar/html.c:1589
+msgid "Frameset"
+msgstr "Frameset-element"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:798 src/plugin_htmlbar/html.c:1675
+msgid "Frame"
+msgstr "Ramme"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:799
+msgid "Noframes"
+msgstr "Ingen rammer"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:800
+msgid "Target"
+msgstr "Mål"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:801
+msgid "Form..."
+msgstr "Skjema …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:802
+msgid "Input Button..."
+msgstr "Inndataknapp …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:803
+msgid "Input Text..."
+msgstr "Inndatatekst …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:804
+msgid "Input Hidden..."
+msgstr "Gøymde inndata …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:805
+msgid "Textarea..."
+msgstr "Tekstområde …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:806
+msgid "Input Radio Button..."
+msgstr "Radioknapp …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:807
+msgid "Input Check Box..."
+msgstr "Avkryssingsboks …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:808
+msgid "Select..."
+msgstr "Vel …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:809
+msgid "Option..."
+msgstr "Val …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:810
+msgid "Option group..."
+msgstr "Valgruppe …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:811
+msgid "Button..."
+msgstr "Knapp …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:812
+msgid "Quick List..."
+msgstr "Snøggliste …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:813
+msgid "Unordered List"
+msgstr "Uordna liste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:814
+msgid "Ordered List"
+msgstr "Ordna liste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:815
+msgid "List Item"
+msgstr "Listeelement"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:816
+msgid "Definition List"
+msgstr "Definisjonsliste"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:817
+msgid "Definition Term"
+msgstr "Definisjonsterm"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:818 src/plugin_htmlbar/htmlbar_gui.c:827
+msgid "Definition"
+msgstr "Definisjon"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:819
+msgid "Create stylesheet..."
+msgstr "Lag stilsett …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:820
+msgid "Span..."
+msgstr "Span …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:821
+msgid "Div..."
+msgstr "Div …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:822 src/plugin_htmlbar/html_form.c:519
+msgid "Style"
+msgstr "Stil"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:823
+msgid "Link to stylesheet..."
+msgstr "Lenkje til stilsett …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:824
+msgid "Insert image..."
+msgstr "Set inn bilete …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:825
+msgid "Insert thumbnail..."
+msgstr "Set inn miniatyr …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:826
+msgid "Multi thumbnail..."
+msgstr "Fleirminiatyr …"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:828
+msgid "Code"
+msgstr "Kode"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:829
+msgid "Sample"
+msgstr "Utval"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:830
+msgid "Keyboard"
+msgstr "Tastatur"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:831
+msgid "Variable"
+msgstr "Variabel"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:832
+msgid "Citation"
+msgstr "Sitat"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:833
+msgid "Abbreviation"
+msgstr "Forkorting"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:834
+msgid "Acronym"
+msgstr "Akronym"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:835
+msgid "Insert"
+msgstr "Set inn"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:836
+msgid "Delete"
+msgstr "Slett"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:957
+msgid "Remove from quickbar"
+msgstr "Fjern frå snøgglinja"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:958
+msgid "Move Left"
+msgstr "Flytt til venstre"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:959
+msgid "Move Right"
+msgstr "Flytt til høgre"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:999
+msgid "Add to quickbar"
+msgstr " Legg til i snøgglinja "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1101
+msgid " Quick bar "
+msgstr " Snøgglinja"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1106
+msgid "Heading"
+msgstr "Overskrift"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1108
+msgid " Standard bar "
+msgstr " Standardlinja "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1113
+msgid "Context formatting"
+msgstr "Kontekstformatering"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1115
+msgid " Fonts "
+msgstr " Skrifter "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1120
+msgid " Tables "
+msgstr " Tabellar "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1125
+msgid " Frames "
+msgstr " Rammer "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1130
+msgid " Forms "
+msgstr " Skjema "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1135
+msgid " List "
+msgstr " Liste "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1140
+msgid " CSS "
+msgstr " CSS "
+
+#: src/plugin_htmlbar/html.c:391
+msgid "Insert Time"
+msgstr "Set inn tid"
+
+#: src/plugin_htmlbar/html.c:399
+#, c-format
+msgid "  _Time (%i:%i:%i)"
+msgstr "  _Tid (%i:%i:%i)"
+
+#: src/plugin_htmlbar/html.c:404
+msgid "  Day of the _week (Sunday)"
+msgstr "  Vekedag (s_øndag)"
+
+#: src/plugin_htmlbar/html.c:407
+msgid "  Day of the _week (Monday)"
+msgstr "  Vekedag (m_åndag)"
+
+#: src/plugin_htmlbar/html.c:410
+msgid "  Day of the _week (Tuesday)"
+msgstr "  Vekedag (ty_sdag)"
+
+#: src/plugin_htmlbar/html.c:413
+msgid "  Day of the _week (Wednesday)"
+msgstr "  Vekedag (_onsdag)"
+
+#: src/plugin_htmlbar/html.c:416
+msgid "  Day of the _week (Thursday)"
+msgstr "  Vekedag (_torsdag)"
+
+#: src/plugin_htmlbar/html.c:419
+msgid "  Day of the _week (Friday)"
+msgstr "  Vekedag (_fredag)"
+
+#: src/plugin_htmlbar/html.c:422
+msgid "  Day of the _week (Saturday)"
+msgstr "  Vekedag (_laurdag)"
+
+#: src/plugin_htmlbar/html.c:425
+msgid "You appear to have a non existant day!\n"
+msgstr "Dagen finst ikkje.\n"
+
+#: src/plugin_htmlbar/html.c:433
+#, c-format
+msgid "  _Date (%i/%i/%i)"
+msgstr "  _Dato (%i/%i/%i)"
+
+#: src/plugin_htmlbar/html.c:436
+#, c-format
+msgid "  _Unix Time (%i)"
+msgstr "  _Unix-tid (%i)"
+
+#: src/plugin_htmlbar/html.c:441
+#, c-format
+msgid "  Unix Date _String (%s)"
+msgstr "  Unix-datostreng (%s)"
+
+#: src/plugin_htmlbar/html.c:449
+msgid "  ISO-8601 Ti_me "
+msgstr "  ISO-8601-ti_d"
+
+#: src/plugin_htmlbar/html.c:609
+msgid "Quick Anchor"
+msgstr "Snøgganker"
+
+#: src/plugin_htmlbar/html.c:615 src/plugin_htmlbar/html_form.c:474
+msgid "Attributes"
+msgstr "Attributt"
+
+#: src/plugin_htmlbar/html.c:629 src/plugin_htmlbar/html.c:1919
+msgid "_HREF:"
+msgstr "_HREF:"
+
+#: src/plugin_htmlbar/html.c:633 src/plugin_htmlbar/html_form.c:183
+msgid "_Target:"
+msgstr "_Mål:"
+
+#: src/plugin_htmlbar/html.c:637 src/plugin_htmlbar/html.c:861
+#: src/plugin_htmlbar/html.c:1226 src/plugin_htmlbar/html.c:1687
+#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:290
+#: src/plugin_htmlbar/html_form.c:489 src/plugin_htmlbar/html_form.c:584
+#: src/plugin_htmlbar/image.c:491
+msgid "_Name:"
+msgstr "_Namn:"
+
+#: src/plugin_htmlbar/html.c:641 src/plugin_htmlbar/quickstart.c:556
+msgid "Titl_e:"
+msgstr "Titt_el:"
+
+#: src/plugin_htmlbar/html.c:647 src/plugin_htmlbar/html.c:1094
+#: src/plugin_htmlbar/html.c:1244 src/plugin_htmlbar/html.c:1834
+msgid "_Language:"
+msgstr "Spr_åk:"
+
+#: src/plugin_htmlbar/html.c:651 src/plugin_htmlbar/html.c:869
+#: src/plugin_htmlbar/html.c:1003 src/plugin_htmlbar/html.c:1098
+#: src/plugin_htmlbar/html.c:1252 src/plugin_htmlbar/html.c:1621
+#: src/plugin_htmlbar/html.c:1724 src/plugin_htmlbar/html.c:1853
+#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:248
+#: src/plugin_htmlbar/html_form.c:303 src/plugin_htmlbar/html_form.c:597
+#: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:500
+#: src/plugin_htmlbar/image_dialog.c:409
+msgid "Custo_m:"
+msgstr "_Tilpassa:"
+
+#: src/plugin_htmlbar/html.c:654 src/plugin_htmlbar/html.c:1102
+#: src/plugin_htmlbar/html_form.c:523
+msgid "Events"
+msgstr "Hendingar"
+
+#: src/plugin_htmlbar/html.c:657
+msgid "OnClic_k:"
+msgstr "OnClic_k:"
+
+#: src/plugin_htmlbar/html.c:661
+msgid "OnD_blClick:"
+msgstr "OnD_blClick:"
+
+#: src/plugin_htmlbar/html.c:665
+msgid "OnMouseO_ver:"
+msgstr "OnMouseO_ver:"
+
+#: src/plugin_htmlbar/html.c:669
+msgid "OnMouse_Down:"
+msgstr "OnMouse_Down:"
+
+#: src/plugin_htmlbar/html.c:673
+msgid "OnMouse_Move:"
+msgstr "OnMouse_Move:"
+
+#: src/plugin_htmlbar/html.c:677
+msgid "OnMouseOu_t:"
+msgstr "OnMouseOu_t:"
+
+#: src/plugin_htmlbar/html.c:681
+msgid "OnMouse_Up:"
+msgstr "OnMouse_Up:"
+
+#: src/plugin_htmlbar/html.c:685
+msgid "OnKeyDo_wn:"
+msgstr "OnKeyDo_wn:"
+
+#: src/plugin_htmlbar/html.c:689
+msgid "OnKey_Press:"
+msgstr "OnKey_Press:"
+
+#: src/plugin_htmlbar/html.c:693
+msgid "OnKe_yUp:"
+msgstr "OnKe_yUp:"
+
+#: src/plugin_htmlbar/html.c:808
+msgid "Div"
+msgstr "Div"
+
+#: src/plugin_htmlbar/html.c:811
+msgid "Span"
+msgstr "Span"
+
+#: src/plugin_htmlbar/html.c:846 src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
+msgid "Ali_gn:"
+msgstr "_Plasser:"
+
+#: src/plugin_htmlbar/html.c:850 src/plugin_htmlbar/html.c:1086
+#: src/plugin_htmlbar/html_diag.c:404 src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
+#: src/plugin_htmlbar/image_dialog.c:397
+msgid "Cl_ass:"
+msgstr "Kl_asse:"
+
+#: src/plugin_htmlbar/html.c:854 src/plugin_htmlbar/html.c:1079
+#: src/plugin_htmlbar/html_diag.c:412 src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
+msgid "St_yle:"
+msgstr "Sti_l:"
+
+#: src/plugin_htmlbar/html.c:865 src/plugin_htmlbar/html.c:1090
+#: src/plugin_htmlbar/html_diag.c:408
+msgid "_ID:"
+msgstr "_ID:"
+
+#: src/plugin_htmlbar/html.c:966
+msgid "Horizontal Rule"
+msgstr "Vassrett linje"
+
+#: src/plugin_htmlbar/html.c:977 src/plugin_htmlbar/html.c:1772
+#: src/plugin_htmlbar/image.c:518 src/plugin_htmlbar/image_dialog.c:430
+msgid "_Align:"
+msgstr "_Plasser:"
+
+#: src/plugin_htmlbar/html.c:984 src/plugin_htmlbar/html.c:1780
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:371
+msgid "_Height:"
+msgstr "_Høgde:"
+
+#. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
+#: src/plugin_htmlbar/html.c:990 src/plugin_htmlbar/html.c:1776
+#: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
+#: src/plugin_htmlbar/image.c:475 src/plugin_htmlbar/image_dialog.c:362
+msgid "_Width:"
+msgstr "_Breidd:"
+
+#: src/plugin_htmlbar/html.c:993
+msgid "Is _percent"
+msgstr "Er _prosent"
+
+#: src/plugin_htmlbar/html.c:998
+msgid "No _shading"
+msgstr "Ingen _skugge"
+
+#: src/plugin_htmlbar/html.c:1063
+msgid "Body"
+msgstr "Innhald"
+
+#: src/plugin_htmlbar/html.c:1071
+msgid "Options"
+msgstr "Val"
+
+#: src/plugin_htmlbar/html.c:1109
+msgid "On_Load:"
+msgstr "On_Load:"
+
+#: src/plugin_htmlbar/html.c:1117
+msgid "On_UnLoad:"
+msgstr "On_UnLoad:"
+
+#: src/plugin_htmlbar/html.c:1126
+msgid "Depreciated options"
+msgstr "Forelda val"
+
+#: src/plugin_htmlbar/html.c:1136
+msgid "Background _Image:"
+msgstr "Bakgrunns_bilete:"
+
+#: src/plugin_htmlbar/html.c:1143
+msgid "Back_ground Color:"
+msgstr "Bakgrunns_farge:"
+
+#: src/plugin_htmlbar/html.c:1149
+msgid "_Text Color:"
+msgstr "_Tekstfarge:"
+
+#: src/plugin_htmlbar/html.c:1155
+msgid "_Link Color:"
+msgstr "_Lenkjefarge:"
+
+#: src/plugin_htmlbar/html.c:1161
+msgid "_Visited Link Color:"
+msgstr "Bes_økt lenkje-farge:"
+
+#: src/plugin_htmlbar/html.c:1167
+msgid "_Active Link Color:"
+msgstr "_Aktiv lenkje-farge:"
+
+#: src/plugin_htmlbar/html.c:1219
+msgid "Meta"
+msgstr "Meta"
+
+#: src/plugin_htmlbar/html.c:1235
+msgid "_HTTP-EQUIV:"
+msgstr "_HTTP-EQUIV:"
+
+#: src/plugin_htmlbar/html.c:1240
+msgid "Con_tent:"
+msgstr "_Innhald:"
+
+#: src/plugin_htmlbar/html.c:1248
+msgid "_Scheme:"
+msgstr "_Skjema:"
+
+#: src/plugin_htmlbar/html.c:1326
+msgid "Font"
+msgstr "Skrifttype"
+
+#: src/plugin_htmlbar/html.c:1329
+msgid "Base Font"
+msgstr "Grunnskrifttype"
+
+#: src/plugin_htmlbar/html.c:1344
+msgid "Size"
+msgstr "Storleik"
+
+#: src/plugin_htmlbar/html.c:1352
+msgid "Color"
+msgstr "Farge"
+
+#: src/plugin_htmlbar/html.c:1357
+msgid "Face"
+msgstr "Skriftfamilie"
+
+#: src/plugin_htmlbar/html.c:1361
+msgid "Custom"
+msgstr "Tilpassa"
+
+#: src/plugin_htmlbar/html.c:1444
+msgid "E-mail"
+msgstr "E-post"
+
+#: src/plugin_htmlbar/html.c:1452
+msgid "_Mail to:"
+msgstr "_E-postmelding til:"
+
+#: src/plugin_htmlbar/html.c:1456
+msgid "_Copy to:"
+msgstr "_Kopi til:"
+
+#: src/plugin_htmlbar/html.c:1460
+msgid "Blin_d copy to:"
+msgstr "Blin_dkopi til:"
+
+#: src/plugin_htmlbar/html.c:1464
+msgid "with _Subject:"
+msgstr "med _emnet:"
+
+#: src/plugin_htmlbar/html.c:1468
+msgid "with _Body:"
+msgstr "med _innhaldet:"
+
+#: src/plugin_htmlbar/html.c:1512
+msgid "Quick List"
+msgstr "Snøggliste"
+
+#: src/plugin_htmlbar/html.c:1517 src/plugin_htmlbar/wizards.c:76
+msgid "Number of _rows:"
+msgstr "Tal _rader:"
+
+#: src/plugin_htmlbar/html.c:1520
+msgid "Or_dered"
+msgstr "Or_dna"
+
+#: src/plugin_htmlbar/html.c:1521
+msgid "_Unordered"
+msgstr "_Uordna"
+
+#: src/plugin_htmlbar/html.c:1523
+msgid "Style:"
+msgstr "Stil:"
+
+#: src/plugin_htmlbar/html.c:1595 src/plugin_htmlbar/html_form.c:240
+msgid "Co_ls:"
+msgstr "Ko_lonnar:"
+
+#: src/plugin_htmlbar/html.c:1599 src/plugin_htmlbar/html_form.c:236
+msgid "_Rows:"
+msgstr "_Rader:"
+
+#: src/plugin_htmlbar/html.c:1604
+msgid "_Add <frame> elements"
+msgstr "Legg til <fr_ame>-element"
+
+#: src/plugin_htmlbar/html.c:1683 src/plugin_htmlbar/html.c:1768
+#: src/plugin_htmlbar/html.c:1827 src/plugin_htmlbar/image_dialog.c:321
+msgid "_Source:"
+msgstr "_Kjelde:"
+
+#: src/plugin_htmlbar/html.c:1691
+msgid "Margin _Width:"
+msgstr "Marg_breidd: "
+
+#: src/plugin_htmlbar/html.c:1695
+msgid "Margin _Height:"
+msgstr "Marg_høgd: "
+
+#: src/plugin_htmlbar/html.c:1703
+msgid "Scrollin_g:"
+msgstr "R_ulling: "
+
+#: src/plugin_htmlbar/html.c:1707
+msgid "_Frameborder:"
+msgstr "_Rammekant:"
+
+#: src/plugin_htmlbar/html.c:1712
+msgid "No _Resize:"
+msgstr "Inga _skalering:"
+
+#: src/plugin_htmlbar/html.c:1762
+msgid "Embed"
+msgstr "Kapsla inn"
+
+#: src/plugin_htmlbar/html.c:1784 src/plugin_htmlbar/html_table.c:140
+msgid "Bo_rder:"
+msgstr "_Kantlinje:"
+
+#: src/plugin_htmlbar/html.c:1820
+msgid "Script"
+msgstr "Skript"
+
+#: src/plugin_htmlbar/html.c:1849 src/plugin_htmlbar/html.c:1950
+#: src/plugin_htmlbar/html_form.c:483 src/plugin_htmlbar/html_form.c:593
+msgid "_Type:"
+msgstr "_Type:"
+
+#: src/plugin_htmlbar/html.c:1908
+msgid "Link"
+msgstr "Lenkje"
+
+#: src/plugin_htmlbar/html.c:1925
+msgid "HREF_LANG:"
+msgstr "HREF _LANG:"
+
+#: src/plugin_htmlbar/html.c:1929
+msgid "T_itle:"
+msgstr "_Tittel:"
+
+#: src/plugin_htmlbar/html.c:1969
+msgid "_Forward Relation:"
+msgstr "_Framoverrelasjon:"
+
+#: src/plugin_htmlbar/html.c:1973
+msgid "_Reverse Relation:"
+msgstr "_Bakoverrelasjon:"
+
+#: src/plugin_htmlbar/html.c:1984
+msgid "Media:"
+msgstr "Media:"
+
+#: src/plugin_htmlbar/html.c:1988
+msgid "L_ang:"
+msgstr "Spr_åk:"
+
+#: src/plugin_htmlbar/html.c:1992
+msgid "_Custom:"
+msgstr "_Tilpassa:"
+
+#: src/plugin_htmlbar/html_form.c:141
+msgid "Form"
+msgstr "Skjema"
+
+#: src/plugin_htmlbar/html_form.c:159
+msgid "_Action:"
+msgstr "_Handling:"
+
+#: src/plugin_htmlbar/html_form.c:167
+msgid "Metho_d:"
+msgstr "Meto_de:"
+
+#: src/plugin_htmlbar/html_form.c:176
+msgid "_Enctype:"
+msgstr "_Koding:"
+
+#: src/plugin_htmlbar/html_form.c:225
+msgid "Text area"
+msgstr "Tekstområde"
+
+#: src/plugin_htmlbar/html_form.c:284
+msgid "Select"
+msgstr "Vel"
+
+#: src/plugin_htmlbar/html_form.c:295 src/plugin_htmlbar/html_form.c:502
+msgid "Si_ze:"
+msgstr "_Storleik:"
+
+#: src/plugin_htmlbar/html_form.c:299
+msgid "Multiple _Selections:"
+msgstr "_Fleirval:"
+
+#: src/plugin_htmlbar/html_form.c:338
+msgid "Option"
+msgstr "Val"
+
+#: src/plugin_htmlbar/html_form.c:348 src/plugin_htmlbar/html_form.c:391
+msgid "_Label:"
+msgstr "_Etikett:"
+
+#: src/plugin_htmlbar/html_form.c:353
+msgid "_Selected:"
+msgstr "_Vald:"
+
+#: src/plugin_htmlbar/html_form.c:386
+msgid "Option group"
+msgstr "Valgruppe"
+
+#: src/plugin_htmlbar/html_form.c:469
+msgid "Input"
+msgstr "Inndata"
+
+#: src/plugin_htmlbar/html_form.c:497
+msgid "_Checked:"
+msgstr "_Avkryssa:"
+
+#: src/plugin_htmlbar/html_form.c:506
+msgid "Max _Length:"
+msgstr "Største _lengd:"
+
+#: src/plugin_htmlbar/html_form.c:510
+msgid "_Accept:"
+msgstr "_Godta:"
+
+#: src/plugin_htmlbar/html_form.c:514
+msgid "C_ustom:"
+msgstr "Tilpassa:"
+
+#: src/plugin_htmlbar/html_form.c:526
+msgid "On_Focus:"
+msgstr "On_Focus:"
+
+#: src/plugin_htmlbar/html_form.c:530
+msgid "On_Blur:"
+msgstr "On_Blur:"
+
+#: src/plugin_htmlbar/html_form.c:534
+msgid "On_Select:"
+msgstr "On_Select:"
+
+#: src/plugin_htmlbar/html_form.c:538
+msgid "On_Change:"
+msgstr "On_Change:"
+
+#: src/plugin_htmlbar/html_form.c:578
+msgid "Button"
+msgstr "Knapp"
+
+#: src/plugin_htmlbar/html_table.c:83
+msgid "Cell _Padding:"
+msgstr "_Celleutfylling:"
+
+#: src/plugin_htmlbar/html_table.c:87
+msgid "C_ell Spacing:"
+msgstr "C_elleavstand:"
+
+#: src/plugin_htmlbar/html_table.c:123 src/plugin_htmlbar/html_table.c:233
+#: src/plugin_htmlbar/html_table.c:347
+msgid "_Valign:"
+msgstr "_Loddrett justering:"
+
+#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:392
+msgid "Backgrou_nd Color:"
+msgstr "Bakgru_nnsfarge:"
+
+#: src/plugin_htmlbar/html_table.c:154
+msgid "_Frame:"
+msgstr "_Ramme:"
+
+#: src/plugin_htmlbar/html_table.c:165
+msgid "R_ules:"
+msgstr "_Linjer:"
+
+#: src/plugin_htmlbar/html_table.c:365
+msgid "Co_l Span:"
+msgstr "_Kolonneoverflyt:"
+
+#: src/plugin_htmlbar/html_table.c:369
+msgid "_Row Span:"
+msgstr "_Radoverflyt:"
+
+#: src/plugin_htmlbar/html_table.c:374
+msgid "No Wra_p:"
+msgstr "Inga _bryting:"
+
+#. TODO: use error info in gerror
+#: src/plugin_htmlbar/image.c:303
+msgid "Loading image failed..."
+msgstr "Klarte ikkje å lasta biletet …"
+
+#: src/plugin_htmlbar/image.c:385
+#, c-format
+msgid "Loading file %s..."
+msgstr "Lastar inn fila %s …"
+
+#: src/plugin_htmlbar/image.c:443
+msgid "Insert thumbnail"
+msgstr "Set inn miniatyr"
+
+#: src/plugin_htmlbar/image.c:447 src/plugin_htmlbar/image_dialog.c:341
+msgid "Preview"
+msgstr "Førehandsvising"
+
+#: src/plugin_htmlbar/image.c:466
+msgid "_Image location:"
+msgstr "_Biletplassering:"
+
+#: src/plugin_htmlbar/image.c:482
+msgid "Hei_ght:"
+msgstr "Høgd:"
+
+#: src/plugin_htmlbar/image.c:487 src/plugin_htmlbar/image_dialog.c:405
+msgid "_Usemap:"
+msgstr "_Usemap-attributt:"
+
+#: src/plugin_htmlbar/image.c:495
+msgid "Alternate _text:"
+msgstr "Alternativ _tekst:"
+
+#: src/plugin_htmlbar/image.c:504 src/plugin_htmlbar/image_dialog.c:439
+msgid "_Hspace:"
+msgstr "_Vassrett avstand:"
+
+#: src/plugin_htmlbar/image.c:508 src/plugin_htmlbar/image_dialog.c:443
+msgid "_Vspace:"
+msgstr "_Loddrett avstand:"
+
+#: src/plugin_htmlbar/image.c:522
+msgid "Borde_r:"
+msgstr "_Kant:"
+
+#: src/plugin_htmlbar/image.c:927
+msgid "Select files for thumbnail creation"
+msgstr "Vel filene det skal lagast miniatyrar av"
+
+#: src/plugin_htmlbar/image.c:967
+msgid "Scaling (%)"
+msgstr "Skalering (%) "
+
+#: src/plugin_htmlbar/image.c:971 src/plugin_htmlbar/image.c:979
+msgid "Width"
+msgstr "Breidd"
+
+#: src/plugin_htmlbar/image.c:975 src/plugin_htmlbar/image.c:1015
+msgid "Height"
+msgstr "Høgd"
+
+#: src/plugin_htmlbar/image.c:998
+msgid "Multi thumbnail"
+msgstr "Fleirminiatyr"
+
+#: src/plugin_htmlbar/image.c:1004
+msgid "By scaling"
+msgstr "Etter skalering"
+
+#: src/plugin_htmlbar/image.c:1007
+msgid "By width, keep aspect ratio"
+msgstr "Etter breidda, hald på breidd/høgd-forholdet"
+
+#: src/plugin_htmlbar/image.c:1010
+msgid "By height, keep aspect ratio"
+msgstr "Etter høgda, hald på breidd/høgd-forholdet"
+
+#: src/plugin_htmlbar/image.c:1013
+msgid "By width and height, ignore aspect ratio"
+msgstr "Etter breidda og høgda, sjå vekk frå breidd/høgd-forholdet"
+
+#: src/plugin_htmlbar/image.c:1039
+msgid ""
+"%r: original filename  %t: thumbnail filename\n"
+"%w: original width  %h: original height\n"
+"%x: thumbnail width  %y: thumbnail height\n"
+"%b: original size (bytes)"
+msgstr ""
+"%r: originalfilnamnet  %t: miniatyrfilnamnet\n"
+"%w: originalbreidda  %h: originalhøgda\n"
+"%x: miniatyrbreidda  %y: miniatyrhøgda\n"
+"%b: originalstorleiken (bytar)"
+
+#: src/plugin_htmlbar/image_dialog.c:378
+msgid "_Reset Dimensions"
+msgstr "_Nullstill dimensjonane"
+
+#: src/plugin_htmlbar/image_dialog.c:389
+msgid "Alternate te_xt:"
+msgstr "Alternativ _tekst:"
+
+#: src/plugin_htmlbar/image_dialog.c:393
+msgid "_Long description:"
+msgstr "_Lang skildring:"
+
+#: src/plugin_htmlbar/image_dialog.c:401
+msgid "I_D:"
+msgstr "_ID:"
+
+#: src/plugin_htmlbar/image_dialog.c:420
+msgid "_Use Transitional options"
+msgstr "Br_uk overgangsval (Transitional)"
+
+#: src/plugin_htmlbar/image_dialog.c:435
+msgid "_Border:"
+msgstr "_Kant:"
+
+#: src/plugin_htmlbar/image_dialog.c:777
+#, c-format
+msgid ""
+"\n"
+"%s"
+msgstr ""
+"\n"
+"%s"
+
+#: src/plugin_htmlbar/image_dialog.c:782
+#, c-format
+msgid ""
+"\n"
+"%d x %d pixels"
+msgstr ""
+"\n"
+"%d x %d pikslar"
+
+#: src/plugin_htmlbar/image_dialog.c:881
+msgid ""
+"\n"
+"\n"
+"\t<b>Loading preview...</b>\t\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"\t<b>Lastar førehandsvisinga …</b>\t\n"
+"\n"
+
+#: src/plugin_htmlbar/image_dialog.c:989
+msgid "Select Image"
+msgstr "Vel bilete"
+
+#: src/plugin_htmlbar/image_dialog.c:997
+msgid "All images"
+msgstr "Alle bileta"
+
+#: src/plugin_htmlbar/image_dialog.c:1229
+#: src/plugin_htmlbar/image_dialog.c:1341
+msgid "Insert Image"
+msgstr "Set inn bilete"
+
+#: src/plugin_htmlbar/quickstart.c:517
+msgid "<b>E_xternal Style Sheet</b>"
+msgstr "<b>Eksternt _stilsett</b>"
+
+#: src/plugin_htmlbar/quickstart.c:528
+msgid "Ty_pe:"
+msgstr "Ty_pe:"
+
+#: src/plugin_htmlbar/quickstart.c:546
+msgid "HRE_F:"
+msgstr "HRE_F:"
+
+#: src/plugin_htmlbar/quickstart.c:551
+msgid "_Media:"
+msgstr "_Medie:"
+
+#. TODO: add an option to place content in the style area
+#. * Possibly from a code snippet library
+#.
+#: src/plugin_htmlbar/quickstart.c:563
+msgid "<b>Style Area</b>"
+msgstr "<b>Stilområde</b>"
+
+#: src/plugin_htmlbar/quickstart.c:567
+msgid "Cre_ate empty style area"
+msgstr "Lag tomt stilomr_åde"
+
+#: src/plugin_htmlbar/quickstart.c:589
+msgid "<b>Attributes</b>"
+msgstr "<b>Attributt</b>"
+
+#: src/plugin_htmlbar/quickstart.c:604
+msgid "_Src:"
+msgstr "_Kjelde:"
+
+#. TODO: add an option to place content in the script area
+#: src/plugin_htmlbar/quickstart.c:611
+msgid "<b>Script Area</b>"
+msgstr "<b>Skriptområde</b>"
+
+#: src/plugin_htmlbar/quickstart.c:615
+msgid "Cre_ate empty script area"
+msgstr "Lag t_omt skriptområde"
+
+#: src/plugin_htmlbar/quickstart.c:642
+msgid "Quick Start"
+msgstr "Snøggstart"
+
+#: src/plugin_htmlbar/quickstart.c:656
+msgid "_DTD:"
+msgstr "_DTD:"
+
+#: src/plugin_htmlbar/quickstart.c:660 src/plugin_htmlbar/wizards.c:186
+msgid "_Title:"
+msgstr "_Tittel:"
+
+#: src/plugin_htmlbar/quickstart.c:683
+msgid "_Head:"
+msgstr "_Hovud:"
+
+#: src/plugin_htmlbar/quickstart.c:700
+msgid "Open in _new document."
+msgstr "Opna i _nytt dokument."
+
+#: src/plugin_htmlbar/wizards.c:68
+msgid "Table Wizard"
+msgstr "Tabellrettleiar"
+
+#: src/plugin_htmlbar/wizards.c:80
+msgid "Number of colu_mns:"
+msgstr "Tal _kolonnar:"
+
+#: src/plugin_htmlbar/wizards.c:84
+msgid "Table rows on one _line:"
+msgstr "Tabellrader på éi _linje:"
+
+#: src/plugin_htmlbar/wizards.c:88
+msgid "_Indent table code:"
+msgstr "Rykk _inn tabellkode:"
+
+#: src/plugin_htmlbar/wizards.c:175
+msgid "Frame Wizard"
+msgstr "Rammerettleiar"
+
+#: src/plugin_htmlbar/wizards.c:190
+msgid "Use _DTD:"
+msgstr "Bruk _DTD:"
+
+#: src/plugin_htmlbar/wizards.c:193
+msgid "Orientation:"
+msgstr "Retning:"
+
+#: src/plugin_htmlbar/wizards.c:196
+msgid "_Horizontal"
+msgstr "_Vassrett"
+
+#: src/plugin_htmlbar/wizards.c:197
+msgid "_Vertical"
+msgstr "_Loddrett"
+
+#: src/plugin_htmlbar/wizards.c:202
+msgid "Number of _Frames:"
+msgstr "Tal _rammer:"
+
+#: src/plugin_htmlbar/wizards.c:205
+msgid "Frame's"
+msgstr "Ramma si"
+
+#: src/plugin_htmlbar/wizards.c:217
+msgid "Name:"
+msgstr "Namn:"
+
+#: src/plugin_htmlbar/wizards.c:219
+msgid "Source:"
+msgstr "Kjelde:"
+
+#: src/plugin_htmlbar/wizards.c:223
+msgid "Size:"
+msgstr "Storleik:"
+
+#~ msgid "Insert image"
+#~ msgstr "Sett inn bilde"
+
+#, fuzzy
+#~ msgid "_Rel:"
+#~ msgstr "E_rstatt"
+
+#, fuzzy
+#~ msgid "T_ype:"
+#~ msgstr "_Type:"
+
+#, fuzzy
+#~ msgid "Clas_s:"
+#~ msgstr "Kl_asse:"
+
+#, fuzzy
+#~ msgid "_Style:"
+#~ msgstr "Stil:"
+
+#, fuzzy
+#~ msgid "C_harset:"
+#~ msgstr "_Target:"
+
+#, fuzzy
+#~ msgid "_Dir:"
+#~ msgstr "_ID:"
+
+#, fuzzy
+#~ msgid "_Hreflang:"
+#~ msgstr "Href_lang:"
+
+#, fuzzy
+#~ msgid "_Lang:"
+#~ msgstr "Språk:"
+
+#, fuzzy
+#~ msgid "_Accesskey:"
+#~ msgstr "_Accept:"
+
+#, fuzzy
+#~ msgid "/Dialogs/_New html dialog..."
+#~ msgstr "/Dialoger/Form/O_ption..."
+
+#, fuzzy
+#~ msgid "Strict"
+#~ msgstr "Skript"
+
+#, fuzzy
+#~ msgid "Transitional"
+#~ msgstr "Oversettere"
+
+#~ msgid "/Tags/Tearoff1"
+#~ msgstr "/Tags/Tearoff1"
+
+#~ msgid "/Tags/Headings/Tearoff1"
+#~ msgstr "/Tags/Overskrifter/Tearoff1"
+
+#~ msgid "/Tags/Special/tearoff1"
+#~ msgstr "/Tags/Spesielle/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/tearoff1"
+#~ msgstr "/Tags/Spesielle/Aksent/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
+#~ msgstr "/Tags/Spesielle/Aksent/Store/A-I/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
+#~ msgstr "/Tags/Spesielle/Aksent/Store/J-Z/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
+#~ msgstr "/Tags/Spesielle/Aksent/Små/A-I/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
+#~ msgstr "/Tags/Spesielle/Aksent/Små/J-Z/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/separator"
+#~ msgstr "/Tags/Spesielle/Aksent/separator"
+
+#~ msgid "/Tags/Special/Currency/tearoff1"
+#~ msgstr "/Tags/Spesielle/Valuta/tearoff1"
+
+#~ msgid "/Tags/Special/Math-Science/tearoff1"
+#~ msgstr "/Tags/Spesielle/Matematikk/tearoff1"
+
+#~ msgid "/Tags/Special/Non Latin/tearoff1"
+#~ msgstr "/Tags/Spesielle/Ikke-Latinske tegn/tearoff1"
+
+#~ msgid "/Tags/Special/Other/tearoff1"
+#~ msgstr "/Tags/Spesielle/Andre/tearoff1"
+
+#~ msgid "/Tags/Format by layout/tearoff1"
+#~ msgstr "/Tags/Formater fra layout/tearoff1"
+
+#~ msgid "/Tags/Format by context/tearoff1"
+#~ msgstr "/Tags/Formater fra kontekst/tearoff1"
+
+#~ msgid "/Tags/Format general/tearoff1"
+#~ msgstr "/Tags/Generell formatering/tearoff1"
+
+#~ msgid "/Tags/Format general/<separator>"
+#~ msgstr "/Tags/Generell formatering/<separator>"
+
+#~ msgid "/Tags/Table/tearoff1"
+#~ msgstr "/Tags/Tabell/tearoff1"
+
+#~ msgid "/Tags/List/tearoff1"
+#~ msgstr "/Tags/Liste/tearoff1"
+
+#~ msgid "/Tags/Form/tearoff1"
+#~ msgstr "/Tags/Form/tearoff1"
+
+#~ msgid "/Tags/Misc/tearoff1"
+#~ msgstr "/Tags/Diverse/tearoff1"
+
+#~ msgid "/Dialogs/tearoff1"
+#~ msgstr "/Dialoger/tearoff1"
+
+#~ msgid "/Dialogs/General/tearoff1"
+#~ msgstr "/Dialoger/Generelle/tearoff1"
+
+#~ msgid "/Dialogs/Table/tearoff1"
+#~ msgstr "/Dialoger/Tabell/tearoff1"
+
+#~ msgid "/Dialogs/CSS/tearoff1"
+#~ msgstr "/Dialoger/CSS/tearoff1"
+
+#~ msgid "/Dialogs/Frame/tearoff1"
+#~ msgstr "/Dialoger/Frame/tearoff1"
+
+#~ msgid "/Dialogs/Form/tearoff1"
+#~ msgstr "/Dialoger/Form/tearoff1"
+
+#~ msgid "/Dialogs/sep1"
+#~ msgstr "/Dialoger/sep1"
+
+#~ msgid "_Email address:"
+#~ msgstr "_E-post adresse:"
+
+#~ msgid "UrlEncoded _subject:"
+#~ msgstr "UrlEncoded emne:"
+
+#~ msgid "UrlEncoded _body:"
+#~ msgstr "UrlEncoded body:"
+
+#~ msgid "_Href:"
+#~ msgstr "_Href:"
+
+#, fuzzy
+#~ msgid "Hre_f:"
+#~ msgstr "_Href:"
+
+#, fuzzy
+#~ msgid "/View/View _HTML Bar"
+#~ msgstr "/Vis/Vis _HTML-verktøylinje"
+
+#~ msgid ""
+#~ "Bluefish is an editor for experienced web designers and programmers. It "
+#~ "supports many programming and markup languages, but focuses on editing "
+#~ "dynamic and interactive websites. Bluefish is an open source development "
+#~ "project, released under the GPL license.\n"
+#~ "\n"
+#~ "For more information, visit the Bluefish Website at http://bluefish."
+#~ "openoffice.nl/\n"
+#~ "\n"
+#~ "This version of bluefish was compiled with the following options:\n"
+#~ msgstr ""
+#~ "Bluefish er en editor for erfarne webdesignere og programmerere. "
+#~ "Programmet støtter mange programmerings- og markupspråk, men fokuserer på "
+#~ "redigering av dynamiske og interaktive websider. Bluefish er utviklet som "
+#~ "et opensource-prosjekt og tilbys under GPL-lisensen.\n"
+#~ "\n"
+#~ "For mer informasjon, besøk Bluefish-websiden på http://bluefish."
+#~ "openoffice.nl/\n"
+#~ "\n"
+#~ "Denne versjonen av Bluefish ble kompilert med følgende innstillinger:\n"
+
+#~ msgid ""
+#~ "Project leader:\n"
+#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Developers for this release:\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Jim Hayward\n"
+#~ "   <jimhayward@linuxexperience.net>\n"
+#~ "  Oskar Świda\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "  Eugene Morenko(More)\n"
+#~ "   <more@irpin.com>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@linuxexperience.com>\n"
+#~ "\n"
+#~ "Developers for previous releases:\n"
+#~ "  Chris Mazuc\n"
+#~ "  Neil Millar\n"
+#~ "  Gero Takke\n"
+#~ "  Bo Forslund\n"
+#~ "  David Arno\n"
+#~ "  Pablo De Napoli\n"
+#~ "  Santiago Capel Torres\n"
+#~ "  Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "  Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "  Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "  Antti-Juhani Kaijanaho\n"
+#~ "\n"
+#~ "Documentation:\n"
+#~ "  Scott White\n"
+#~ "   <wwsw3@earthlink.net>\n"
+#~ "  Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "  Anita Lewis\n"
+#~ "   <ajreiki@highstream.net>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@linuxexperience.com>\n"
+#~ "  Daniel Blair\n"
+#~ "   <joecamel@realcoders.org>\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Denny Reeh\n"
+#~ "\n"
+#~ "Package Maintainers:\n"
+#~ "  Debian:   Davide Puricelli\n"
+#~ "   <evo@debian.org>\n"
+#~ "  Redhat:   Matthias Haase\n"
+#~ "   <matthias_haase@bennewitz.com>\n"
+#~ "  Mandrake: Todd Lyons\n"
+#~ "   <todd@mrball.net>\n"
+#~ "  Fink: Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "If you know of anyone missing from this list, please let us know\n"
+#~ "<bluefish@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Thanks to all who helped making this software available.\n"
+#~ msgstr ""
+#~ "Prosjektleder:\n"
+#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Utviklerne bak denne utgivelsen:\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Jim Hayward\n"
+#~ "   <jimhayward@linuxexperience.net>\n"
+#~ "  Oskar Świda\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "  Eugene Morenko(More)\n"
+#~ "   <more@irpin.com>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@linuxexperience.com>\n"
+#~ "\n"
+#~ "Tidligere utviklere:\n"
+#~ "  Chris Mazuc\n"
+#~ "  Neil Millar\n"
+#~ "  Gero Takke\n"
+#~ "  Bo Forslund\n"
+#~ "  David Arno\n"
+#~ "  Pablo De Napoli\n"
+#~ "  Santiago Capel Torres\n"
+#~ "  Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "  Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "  Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "  Antti-Juhani Kaijanaho\n"
+#~ "\n"
+#~ "Dokumentasjon:\n"
+#~ "  Scott White\n"
+#~ "   <wwsw3@earthlink.net>\n"
+#~ "  Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "  Anita Lewis\n"
+#~ "   <ajreiki@highstream.net>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@linuxexperience.com>\n"
+#~ "  Daniel Blair\n"
+#~ "   <joecamel@realcoders.org>\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Denny Reeh\n"
+#~ "\n"
+#~ "Pakke-ansvarlige:\n"
+#~ "  Debian:   Davide Puricelli\n"
+#~ "   <evo@debian.org>\n"
+#~ "  Redhat:   Matthias Haase\n"
+#~ "   <matthias_haase@bennewitz.com>\n"
+#~ "  Mandrake: Todd Lyons\n"
+#~ "   <todd@mrball.net>\n"
+#~ "  Fink: Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "Hvis du vet om noen som mangler fra listen, vennligst gi oss beskjed.\n"
+#~ "<bluefish@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Takk til alle som hjalp til med å gjøre denne utgivelsen mulig.\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Current translators:\n"
+#~ "\n"
+#~ "  Brazilian Portuguese: Anderson Rocha\n"
+#~ "   <anderson@maxlinux.com.br>\n"
+#~ "\n"
+#~ "  Bulgarian: Peio Popov\n"
+#~ "   <peio@peio.org>\n"
+#~ "\n"
+#~ "  Chinese: Ting Yang (Dormouse)\n"
+#~ "   <mouselinux@163.com>\n"
+#~ "\n"
+#~ "  Chinese, Traditional: OLS3\n"
+#~ "   <ols3@lxer.idv.tw>\n"
+#~ "\n"
+#~ "  Danish: Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "\n"
+#~ "  Finnish: Juho Roukala\n"
+#~ "   <j.mr@luukku.com>\n"
+#~ "\n"
+#~ "  French: Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "  German: Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "\n"
+#~ "  Hungarian: Péter Sáska\n"
+#~ "   <sasek@ccsystem.hu>\n"
+#~ "\n"
+#~ "  Italian: Stefano Canepa\n"
+#~ "   <sc@linux.it>\n"
+#~ "\n"
+#~ "  Japanese: Takeshi Hamasaki\n"
+#~ "   <hma@syd.odn.ne.jp>\n"
+#~ "\n"
+#~ "  Norwegian: Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "\n"
+#~ "  Polish: Oskar Swida\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "\n"
+#~ "  Portuguese: Lopo Pizarro\n"
+#~ "   <lopopizarro@netcabo.pt>\n"
+#~ "\n"
+#~ "  Russian: Eugene Rupakov\n"
+#~ "   <rupakov@jet.msk.su>\n"
+#~ "\n"
+#~ "  Serbian: Marko Milenović\n"
+#~ "   <raven@sbb.co.yu>\n"
+#~ "\n"
+#~ "  Spanish: Walter Oscar Echarri\n"
+#~ "   <wecharri@arnet.com.ar>\n"
+#~ "\n"
+#~ "  Swedish: David Smeringe\n"
+#~ "   <david.smeringe@telia.com>\n"
+#~ "\n"
+#~ "  Tamil: Murugapandian Barathee\n"
+#~ "   <barathee@yahoo.com>\n"
+#~ "\n"
+#~ "  Turkish: Oğuz Eren\n"
+#~ "   <ogzeren@gmail.com>\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Oversettelser:\n"
+#~ "\n"
+#~ "  Brasiliansk Portugisisk - Anderson Rocha\n"
+#~ "   <anderson@maxlinux.com.br>\n"
+#~ "\n"
+#~ "  Bulgarsk- Peio Popov\n"
+#~ "   <peio@peio.org>\n"
+#~ "\n"
+#~ "  Kinesisk - Ting Yang (Dormouse)\n"
+#~ "   <mouselinux@163.com>\n"
+#~ "\n"
+#~ "  Dansk - Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "\n"
+#~ "  Finsk  - Juho Roukala\n"
+#~ "   <j.mr@luukku.com>\n"
+#~ "\n"
+#~ "  Fransk - Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "  Tysk - Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "\n"
+#~ "  Ungarsk - Péter Sáska\n"
+#~ "   <sasek@ccsystem.hu>\n"
+#~ "\n"
+#~ "  Italiensk - Stefano Canepa\n"
+#~ "   <sc@linux.it>\n"
+#~ "\n"
+#~ "  Norsk - Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "\n"
+#~ "  Polsk - Oskar Swida\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "\n"
+#~ "  Portugisisk - Lopo Pizarro\n"
+#~ "   <lopopizarro@netcabo.pt>\n"
+#~ "\n"
+#~ "  Russisk - Eugene Rupakov\n"
+#~ "   <rupakov@jet.msk.su>\n"
+#~ "\n"
+#~ "  Serbisk - Marko Milenović\n"
+#~ "   <raven@sbb.co.yu>\n"
+#~ "\n"
+#~ "  Spansk - Walter Oscar Echarri\n"
+#~ "   <wecharri@arnet.com.ar>\n"
+#~ "\n"
+#~ "  Svensk - David Smeringe\n"
+#~ "   <david.smeringe@telia.com>\n"
+#~ "\n"
+#~ "  Tamilsk - Murugapandian Barathee\n"
+#~ "   <barathee@yahoo.com>\n"
+#~ "\n"
+
+#~ msgid "About Bluefish"
+#~ msgstr "Om Bluefish"
+
+#~ msgid "Info"
+#~ msgstr "Info"
+
+#~ msgid "Authors"
+#~ msgstr "Utviklere"
+
+#~ msgid "Authentication required"
+#~ msgstr "Autentisering nødvendig"
+
+#~ msgid "Authentication is required for %s."
+#~ msgstr "Autentisering kreves for %s."
+
+#~ msgid "Username:"
+#~ msgstr "Brukernavn:"
+
+#~ msgid "Password:"
+#~ msgstr "Passord:"
+
+#~ msgid ""
+#~ "Bluefish has trouble reading the filenames. Try to set the environment "
+#~ "variable G_BROKEN_FILENAMES=1\n"
+#~ msgstr ""
+#~ "Bluefish har problemer med å lese filnavnene. Prøv å sette "
+#~ "systemvariabelen G_BROKEN_FILENAMES=1\n"
+
+#~ msgid "Check Spelling"
+#~ msgstr "Stavekontroll"
+
+#~ msgid "Checking"
+#~ msgstr "Sjekker"
+
+#~ msgid "_Misspelled word:"
+#~ msgstr "_Feilstavet ord:"
+
+#~ msgid "Change _to:"
+#~ msgstr "Endre _til:"
+
+#~ msgid "I_gnore"
+#~ msgstr "I_gnorer"
+
+#~ msgid "_Replace"
+#~ msgstr "E_rstatt"
+
+#~ msgid "I_n selection"
+#~ msgstr "I det markerte området"
+
+#~ msgid "personal dictionary"
+#~ msgstr "personlig ordbok"
+
+#~ msgid "session dictionary"
+#~ msgstr "sesjonsordbok"
+
+#~ msgid "Dictionary:"
+#~ msgstr "Ordbok:"
+
+#~ msgid "_Add"
+#~ msgstr "Tilføy"
+
+#~ msgid "Language:"
+#~ msgstr "Språk:"
+
+#~ msgid "Set defa_ult"
+#~ msgstr "Sett standardinnstillinger"
+
+#~ msgid "Filter:"
+#~ msgstr "Filter:"
+
+#~ msgid "no filter"
+#~ msgstr "ikke filtrert"
+
+#~ msgid "html filter"
+#~ msgstr "html-filter"
+
+#~ msgid ""
+#~ "\n"
+#~ "Usage: %s [options] [filenames ...]\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Bruk: %s [parametre] [filnavn ...]\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Currently accepted options are:\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Tillatte parametre:\n"
+
+#~ msgid "-s           skip root check\n"
+#~ msgstr "-s          ignorer rootsjekk\n"
+
+#~ msgid "-v           current version\n"
+#~ msgstr "-v          versjon\n"
+
+#~ msgid "-n           open new window\n"
+#~ msgstr "-n          åpne nytt vindu\n"
+
+#~ msgid "-p filename  open project\n"
+#~ msgstr "-p filnavn\tåpne prosjekt\n"
+
+#~ msgid "-h           this help screen\n"
+#~ msgstr "-h          denne listen\n"
+
+#~ msgid "parsing highlighting file..."
+#~ msgstr "leser inn syntaksmønstre..."
+
+#~ msgid "compiling highlighting patterns..."
+#~ msgstr "kompilerer syntaksmønsre..."
+
+#~ msgid "parsing custom menu file..."
+#~ msgstr "leser inn brukerdefinerte menyer..."
+
+#~ msgid "creating main gui..."
+#~ msgstr "oppretter gui..."
+
+#~ msgid "showing main gui..."
+#~ msgstr "viser gui..."
+
+#~ msgid "Bluefish tip:"
+#~ msgstr "Bluefish tips:"
+
+#~ msgid ""
+#~ "This message is shown since you do not have any items in the Quickbar.\n"
+#~ "\n"
+#~ "If you right-click a button in the HTML toolbars you can add buttons to "
+#~ "the Quickbar."
+#~ msgstr ""
+#~ "Du får denne beskjeden fordi du ikke har noen snarveier i hurtigmenyen.\n"
+#~ "\n"
+#~ "Hvis du høyreklikker på en knapp i HTML-verktøylinjen, kan du legge til "
+#~ "knapper i hurtigmenyen."
+
+#~ msgid "Temporary"
+#~ msgstr "Midlertidig"
+
+#~ msgid "Do you really want to delete all bookmarks for %s?"
+#~ msgstr "Vil du virkelig slette alle bokmerkende tilhørende %s?"
+
+#~ msgid "Delete bookmarks?"
+#~ msgstr "Slett bokmerker?"
+
+#~ msgid "Do you really want to delete %s?"
+#~ msgstr "Vil du virkelig slette %s?"
+
+#~ msgid "Delete permanent bookmark."
+#~ msgstr "Slett permanent bokmerke"
+
+#~ msgid "Edit bookmark"
+#~ msgstr "Rediger bokmerke"
+
+#~ msgid "Goto bookmark"
+#~ msgstr "Gå til bokmerke"
+
+#~ msgid "Edit"
+#~ msgstr "Rediger"
+
+#~ msgid "Delete all in document"
+#~ msgstr "Slett alle i dokumentet"
+
+#~ msgid "Delete all"
+#~ msgstr "Slett alle"
+
+#, fuzzy
+#~ msgid "Error adding bookmark"
+#~ msgstr "Rediger bokmerke"
+
+#, fuzzy
+#~ msgid "Cannot add bookmarks to unsaved files."
+#~ msgstr "Kan ikke lage bokmerker i navnløse filer."
+
+#, fuzzy
+#~ msgid "Can't add bookmark"
+#~ msgstr "Nytt bokmerke"
+
+#~ msgid "You already have a bookmark here!"
+#~ msgstr "Du har allerede et bokmarke her!"
+
+#~ msgid "Delete all bookmarks."
+#~ msgstr "Slett alle bokmerker"
+
+#~ msgid "File size changed in file\n"
+#~ msgstr "Filen har endret størrelse\n"
+
+#~ msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
+#~ msgstr "Bokmerkenes posisjoner kan være ugyldige. Slett bokmerker?"
+
+#~ msgid "/Document/Highlight Syntax"
+#~ msgstr "/Vis/Marker syntaks"
+
+#~ msgid "Name: "
+#~ msgstr "Navn: "
+
+#~ msgid ""
+#~ "\n"
+#~ "Type: "
+#~ msgstr ""
+#~ "\n"
+#~ "Type: "
+
+#~ msgid ""
+#~ "\n"
+#~ "Encoding: "
+#~ msgstr ""
+#~ "\n"
+#~ "Encoding: "
+
+#~ msgid ""
+#~ "\n"
+#~ "Size (on disk): "
+#~ msgstr ""
+#~ "\n"
+#~ "Størrelse (på disk): "
+
+#~ msgid " bytes"
+#~ msgstr " byte"
+
+#~ msgid ""
+#~ "\n"
+#~ "Permissions: "
+#~ msgstr ""
+#~ "\n"
+#~ "Tillatelser: "
+
+#~ msgid ""
+#~ "\n"
+#~ "Last modified: "
+#~ msgstr ""
+#~ "\n"
+#~ "Sist endret: "
+
+#~ msgid "Untitled %d"
+#~ msgstr "Uten navn %d"
+
+#, fuzzy
+#~ msgid " Ln: %d, Col: %d"
+#~ msgstr " Linje %d, Kol %d "
+
+#~ msgid "  %s, %s"
+#~ msgstr "  %s, %s"
+
+#~ msgid "Cannot display file, unknown characters found."
+#~ msgstr "Filen kan ikke vises, ukjente tegn funnet"
+
+#~ msgid "Replace"
+#~ msgstr "Erstatt"
+
+#~ msgid "Find"
+#~ msgstr "Finn"
+
+#~ msgid "Delete bookmark"
+#~ msgstr "Slett bokmerke"
+
+#~ msgid "Add bookmark"
+#~ msgstr "Nytt bokmerke"
+
+#~ msgid "_Abort save"
+#~ msgstr "_Avbryt lagring"
+
+#~ msgid "_Continue save in UTF-8"
+#~ msgstr "Fortsett lagring som UTF-8"
+
+#~ msgid ""
+#~ "Failed to convert %s to character encoding %s. Encoding failed on "
+#~ "character '%s' at line %d column %d\n"
+#~ "\n"
+#~ "Continue saving in UTF-8 encoding?"
+#~ msgstr ""
+#~ "Kunne ikke konvertere %s til tegnsett %s. Konverteringen feilet på tegnet "
+#~ "'%s' på linje %d, kolonne %d\n"
+#~ "\n"
+#~ "Fortsett lagring med UTF-8 som tegnsett?"
+
+#~ msgid "File encoding conversion failure"
+#~ msgstr "Feil ved konvertering av tegnsett"
+
+#~ msgid "Previously: "
+#~ msgstr "Tidligere: "
+
+#~ msgid "No filename"
+#~ msgstr "Uten filnavn"
+
+#~ msgid "Unable to open file"
+#~ msgstr "Kunne ikke åpne filen"
+
+#~ msgid "_Reload"
+#~ msgstr "Les på nytt"
+
+#~ msgid "_Ignore"
+#~ msgstr "_Ignorer"
+
+#~ msgid ""
+#~ "Filename: %s\n"
+#~ "\n"
+#~ "New modification time is: %s\n"
+#~ "Old modification time is: %s"
+#~ msgstr ""
+#~ "Filnavn: %s\n"
+#~ "\n"
+#~ "Filen ble sist endret: %s\n"
+#~ "Versjonen som er åpen ble sist endret: %s"
+
+#~ msgid "File has been modified by another process\n"
+#~ msgstr "Filen har blitt endret av en annen prosess.\n"
+
+#, fuzzy
+#~ msgid "_Close"
+#~ msgstr "Lukk"
+
+#, fuzzy
+#~ msgid "File "
+#~ msgstr "Fil #"
+
+#~ msgid "Select file to insert"
+#~ msgstr "Velg en fil"
+
+#~ msgid "No file to insert"
+#~ msgstr "Du må velge en fil"
+
+#~ msgid "Statistics: %d lines, %d words, %d characters"
+#~ msgstr "Statistikk: %d linjer, %d ord, %d tegn"
+
+#, fuzzy
+#~ msgid "New directory"
+#~ msgstr "/_Ny _Katalog"
+
+#, fuzzy
+#~ msgid "New file"
+#~ msgstr "/Ny _Fil"
+
+#~ msgid "Could not rename\n"
+#~ msgstr "Kunne ikke gi nytt navn\n"
+
+# , c-format
+#~ msgid "Are you sure you want to delete \"%s\" ?"
+#~ msgstr "Er du sikker på at du vil slette \"%s\" ?"
+
+#~ msgid "If you delete this file, it will be permanently lost."
+#~ msgstr "Hvis du sletter denne filen, kan den ikke gjenopprettes."
+
+#~ msgid "Could not delete \n"
+#~ msgstr "Kunne ikke slette \n"
+
+#~ msgid "/_Open"
+#~ msgstr "_Åpne"
+
+#~ msgid "/Open _Advanced..."
+#~ msgstr "/Fil/Åpn_e Avansert..."
+
+#~ msgid "/Rena_me"
+#~ msgstr "/Gi _nytt navn"
+
+#~ msgid "/_Delete"
+#~ msgstr "_Slett"
+
+#~ msgid "/New _File"
+#~ msgstr "/Ny _Fil"
+
+#~ msgid "/_New Directory"
+#~ msgstr "/_Ny _Katalog"
+
+#~ msgid "/_Refresh"
+#~ msgstr "/_Oppdater"
+
+#, fuzzy
+#~ msgid "/Show Full _Tree"
+#~ msgstr "Vis hele treet"
+
+#~ msgid "/_Set as basedir"
+#~ msgstr "/_Sett som basekatalog"
+
+#, fuzzy
+#~ msgid "/Follow active document"
+#~ msgstr "/Go/_Siste dokument"
+
+#, fuzzy
+#~ msgid "/Show hidden files"
+#~ msgstr "Vis skjulte filer"
+
+#, fuzzy
+#~ msgid "/Show backup files"
+#~ msgstr "Vis backupfiler"
+
+#~ msgid "Filter"
+#~ msgstr "Filter"
+
+#~ msgid "All files"
+#~ msgstr "Alle filer"
+
+#~ msgid "Error creating path"
+#~ msgstr "Feil ved opprettelse av sti"
+
+#~ msgid "File name"
+#~ msgstr "Filnavn"
+
+#~ msgid "Directory name"
+#~ msgstr "Katalognavn"
+
+#~ msgid "Opening directory..."
+#~ msgstr "Åpner katalog..."
+
+#~ msgid "Show hidden files"
+#~ msgstr "Vis skjulte filer"
+
+#~ msgid "Show backup files"
+#~ msgstr "Vis backupfiler"
+
+#~ msgid "Show full tree"
+#~ msgstr "Vis hele treet"
+
+#~ msgid "Follow focus"
+#~ msgstr "Følg fokus"
+
+#~ msgid "_Skip"
+#~ msgstr "_Hopp over"
+
+#~ msgid "_Overwrite"
+#~ msgstr "Over_skriv"
+
+#, fuzzy
+#~ msgid "%s already exists, overwrite?"
+#~ msgstr "Filen %s eksisterer og er åpen, overskriv?"
+
+#, fuzzy
+#~ msgid "Overwrite file?"
+#~ msgstr "Over_skriv"
+
+#~ msgid "Select basedir"
+#~ msgstr "Valg"
+
+#~ msgid "Advanced open file selector"
+#~ msgstr "Åpne (avansert)"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Kilde</b>"
+
+#~ msgid "Base_dir:"
+#~ msgstr "Startkatalog"
+
+#~ msgid "_Browse..."
+#~ msgstr "_Bla gjennom"
+
+#, fuzzy
+#~ msgid "_Pattern:"
+#~ msgstr "Møns_ter"
+
+#~ msgid "_Recursive:"
+#~ msgstr "_Rekursivt:"
+
+#~ msgid "<b>Contains</b>"
+#~ msgstr "<b>Inneholder</b>"
+
+#~ msgid "Pa_ttern:"
+#~ msgstr "Møns_ter"
+
+#~ msgid "Is rege_x:"
+#~ msgstr "Bruker rege_xp:"
+
+#~ msgid "Select files"
+#~ msgstr "Velg filer"
+
+#~ msgid "Open URL"
+#~ msgstr "Åpne URL"
+
+#~ msgid "<b>Open URL</b>"
+#~ msgstr "<b>Åpne URL</b>"
+
+#~ msgid "_Continue save"
+#~ msgstr "Fortsett lagring"
+
+#~ msgid ""
+#~ "A backupfile for %s could not be created. If you continue, this file will "
+#~ "be overwritten."
+#~ msgstr ""
+#~ "En backupfil for %s kunne ikke bli opprettet. Fortsetter du, vil denne "
+#~ "filen bli overskrevet."
+
+#~ msgid "File backup failure"
+#~ msgstr "Backupfeil"
+
+#, fuzzy
+#~ msgid ""
+#~ "Could not save file:\n"
+#~ "\""
+#~ msgstr ""
+#~ "Kunne ikke hente fil:\n"
+#~ "\""
+
+#, fuzzy
+#~ msgid "File save failed!\n"
+#~ msgstr "Lagring avbrutt.\n"
+
+#, fuzzy
+#~ msgid "File %s is modified on disk, overwrite?"
+#~ msgstr "Filen %s eksisterer og er åpen, overskriv?"
+
+#, fuzzy
+#~ msgid "Failed to check if %s is modified on disk"
+#~ msgstr "Fil modifisert på disk kontroll "
+
+#, fuzzy
+#~ msgid "File modified on disk"
+#~ msgstr "Fil modifisert på disk kontroll "
+
+#~ msgid "Move/rename %s to"
+#~ msgstr "Flytt/endre til %s til"
+
+#~ msgid "Save %s as"
+#~ msgstr "Lagre %s som"
+
+#~ msgid "_Cancel"
+#~ msgstr "_Avbryt"
+
+#~ msgid "File %s exists and is opened, overwrite?"
+#~ msgstr "Filen %s eksisterer og er åpen, overskriv?"
+
+#~ msgid "The file you have selected is being edited in Bluefish."
+#~ msgstr "Filen du har valgt er åpnet i Bluefish."
+
+#~ msgid "A file named \"%s\" already exists."
+#~ msgstr "En fil med navnet \"%s\" eksisterer allerede."
+
+#~ msgid "Do you want to replace the existing file?"
+#~ msgstr "Vil du overskrive den eksisterende filen?"
+
+#, fuzzy
+#~ msgid ""
+#~ "File:\n"
+#~ "\""
+#~ msgstr "Filter:"
+
+#~ msgid "Do_n't save"
+#~ msgstr "For_kast endringer"
+
+#~ msgid "Save changes to \"%s\" before closing?."
+#~ msgstr "Lagre endringer i \"%s\" ?"
+
+#~ msgid "If you don't save your changes they will be lost."
+#~ msgstr "Hvis du ikke lagrer, mister du endringene som er gjort i fila."
+
+#~ msgid "Choose per _File"
+#~ msgstr "Velg for hver _fil"
+
+#~ msgid "Close _All"
+#~ msgstr "Lukk _alle"
+
+#~ msgid "_Save All"
+#~ msgstr "_Lagre alle"
+
+#~ msgid "Multiple open files have been changed."
+#~ msgstr "Noen fil(er) har blitt endret"
+
+#, fuzzy
+#~ msgid "Cannot load reference file %s\n"
+#~ msgstr "Les inn funksjonsreferanser på nytt"
+
+#, fuzzy
+#~ msgid "Bad root element in reference file"
+#~ msgstr "Les inn funksjonsreferanser på nytt"
+
+#, fuzzy
+#~ msgid "Bad reference"
+#~ msgstr "Endre innstillinger"
+
+#, fuzzy
+#~ msgid "Loading reference"
+#~ msgstr "Endre innstillinger"
+
+#, fuzzy
+#~ msgid "Unloading reference"
+#~ msgstr "Funksjonsreferanse"
+
+#, fuzzy
+#~ msgid "Identifier"
+#~ msgstr "Sentrer"
+
+#, fuzzy
+#~ msgid "Kind"
+#~ msgstr "Finn"
+
+#~ msgid "Name"
+#~ msgstr "Navn"
+
+#, fuzzy
+#~ msgid "Type"
+#~ msgstr "_Type:"
+
+#, fuzzy
+#~ msgid "Default value"
+#~ msgstr "Standard basekatalog"
+
+#, fuzzy
+#~ msgid "Input type"
+#~ msgstr "Info type"
+
+#~ msgid "Description"
+#~ msgstr "Beskrivelse"
+
+#, fuzzy
+#~ msgid "Values"
+#~ msgstr "Verdi"
+
+#, fuzzy
+#~ msgid "Insert syntax"
+#~ msgstr "Sett inn bilde"
+
+#, fuzzy
+#~ msgid "Insert text"
+#~ msgstr "Sett inn tid"
+
+#, fuzzy
+#~ msgid "Help"
+#~ msgstr "/_Hjelp"
+
+#, fuzzy
+#~ msgid "Properties"
+#~ msgstr "Egenskap"
+
+#, fuzzy
+#~ msgid "Add property"
+#~ msgstr "Egenskap"
+
+#, fuzzy
+#~ msgid "Add definition ref"
+#~ msgstr "Definisjonsterm"
+
+#, fuzzy
+#~ msgid "Select font for reference view"
+#~ msgstr "Les inn funksjonsreferanser på nytt"
+
+#, fuzzy
+#~ msgid "Set reference colors"
+#~ msgstr "Endre innstillinger"
+
+#~ msgid "Attributes/Parameters"
+#~ msgstr "Attributter/Parametre"
+
+#~ msgid "Notes"
+#~ msgstr "Notat"
+
+#, fuzzy
+#~ msgid "Examples"
+#~ msgstr "Eksempel"
+
+#, fuzzy
+#~ msgid "Links"
+#~ msgstr "Lænke"
+
+#~ msgid "Error"
+#~ msgstr "Feil"
+
+#, fuzzy
+#~ msgid ""
+#~ "Perhaps you didn't load a library, or you did not select a library to "
+#~ "search in."
+#~ msgstr ""
+#~ "Kanskje du ikke lastet en referanse, eller ikke valgte referansen det "
+#~ "skulle søkes i."
+
+#, fuzzy
+#~ msgid "Element %s not found"
+#~ msgstr "Referansen ble ikke funnet"
+
+#, fuzzy
+#~ msgid "Element search"
+#~ msgstr "Referansesøk"
+
+#, fuzzy
+#~ msgid "New library"
+#~ msgstr "/_Ny _Katalog"
+
+#, fuzzy
+#~ msgid "Library name"
+#~ msgstr "Katalognavn"
+
+#, fuzzy
+#~ msgid "Delete library?"
+#~ msgstr "Slett bokmerker?"
+
+#, fuzzy
+#~ msgid "Reference not loaded."
+#~ msgstr "Referansen ble ikke funnet"
+
+#, fuzzy
+#~ msgid "New note"
+#~ msgstr "Nytt prosjekt"
+
+#, fuzzy
+#~ msgid "Title"
+#~ msgstr "_Tittel:"
+
+#, fuzzy
+#~ msgid "Text"
+#~ msgstr "Tekstfelt"
+
+#, fuzzy
+#~ msgid "New group"
+#~ msgstr "Nytt prosjekt"
+
+#, fuzzy
+#~ msgid "New description def"
+#~ msgstr "Beskrivelse"
+
+#, fuzzy
+#~ msgid "Description text"
+#~ msgstr "Beskrivelse"
+
+#, fuzzy
+#~ msgid "New values def"
+#~ msgstr "Nytt Bluefish-vindu"
+
+#, fuzzy
+#~ msgid "Definitions"
+#~ msgstr "Definition"
+
+#, fuzzy
+#~ msgid "New property"
+#~ msgstr "Nytt prosjekt"
+
+#, fuzzy
+#~ msgid "No name"
+#~ msgstr "Uten filnavn"
+
+#, fuzzy
+#~ msgid "Delete definition?"
+#~ msgstr "Definition"
+
+#, fuzzy
+#~ msgid "Delete group"
+#~ msgstr " Slett "
+
+#, fuzzy
+#~ msgid "Delete group?"
+#~ msgstr " Slett "
+
+#, fuzzy
+#~ msgid "Do you really want to delete current entity?"
+#~ msgstr "Vil du virkelig slette %s?"
+
+#~ msgid "Show info window"
+#~ msgstr "_Vis infovindu"
+
+#~ msgid "Rescan reference files"
+#~ msgstr "Les inn funksjonsreferanser på nytt"
+
+#, fuzzy
+#~ msgid "Set view font"
+#~ msgstr "Velg skrift"
+
+#, fuzzy
+#~ msgid "Delete library"
+#~ msgstr "Slett bokmerke"
+
+#, fuzzy
+#~ msgid "Note"
+#~ msgstr "Notat"
+
+#, fuzzy
+#~ msgid "Property definition"
+#~ msgstr "Definition"
+
+#, fuzzy
+#~ msgid "Description definition"
+#~ msgstr "Beskrivelse"
+
+#, fuzzy
+#~ msgid "Values definition"
+#~ msgstr "Definition"
+
+#, fuzzy
+#~ msgid "Element"
+#~ msgstr "Hendelser"
+
+#, fuzzy
+#~ msgid "Delete definition"
+#~ msgstr "Definition"
+
+#, fuzzy
+#~ msgid "Delete entity"
+#~ msgstr "Slett menyvalg"
+
+#~ msgid "Close"
+#~ msgstr "Lukk"
+
+#~ msgid "Dialog"
+#~ msgstr "Dialog"
+
+#~ msgid "Left doubleclick action"
+#~ msgstr "Funksjon, venstre dobbeltklikk"
+
+#~ msgid "Info type"
+#~ msgstr "Info type"
+
+#~ msgid "Reference search"
+#~ msgstr "Referansesøk"
+
+#~ msgid "Reference not found"
+#~ msgstr "Referansen ble ikke funnet"
+
+#~ msgid ""
+#~ "Perhaps you didn't load a reference, or you did not select a reference to "
+#~ "search in."
+#~ msgstr ""
+#~ "Kanskje du ikke lastet en referanse, eller ikke valgte referansen det "
+#~ "skulle søkes i."
+
+#~ msgid "Search"
+#~ msgstr "Søk"
+
+#~ msgid "%d of %d"
+#~ msgstr "%d av %d"
+
+#~ msgid "Show hidden"
+#~ msgstr "Vis skjulte"
+
+#~ msgid "Filebrowser"
+#~ msgstr "Filvelger"
+
+#~ msgid "Function reference"
+#~ msgstr "Funksjonsreferanse"
+
+#~ msgid "Bookmarks"
+#~ msgstr "Bokmerker"
+
+#~ msgid "New"
+#~ msgstr "Ny"
+
+#~ msgid "Open..."
+#~ msgstr "Åpne..."
+
+#~ msgid "Save"
+#~ msgstr "Lagre"
+
+#~ msgid "Save As..."
+#~ msgstr "Lagre som..."
+
+#~ msgid "Cut"
+#~ msgstr "Klipp"
+
+#~ msgid "Paste"
+#~ msgstr "Lim inn"
+
+#~ msgid "Find..."
+#~ msgstr "Finn..."
+
+#~ msgid "Replace..."
+#~ msgstr "Erstatt..."
+
+#~ msgid "Undo"
+#~ msgstr "Angre"
+
+#~ msgid "Redo"
+#~ msgstr "Gjenta"
+
+#~ msgid "Shift Left"
+#~ msgstr "Indenter venstre"
+
+#~ msgid "Shift Right"
+#~ msgstr "Indenter høyre"
+
+#~ msgid "Spellcheck..."
+#~ msgstr "Stavekontroll..."
+
+#~ msgid "View in browser"
+#~ msgstr "Vis i nettleser"
+
+#~ msgid "Preferences..."
+#~ msgstr "Innstillinger..."
+
+#~ msgid "New Bluefish Window"
+#~ msgstr "Nytt Bluefish-vindu"
+
+#~ msgid "Stand by..."
+#~ msgstr "Vennligst vent..."
+
+#~ msgid "Goto line"
+#~ msgstr "Gå til linje"
+
+#~ msgid "_Line number:"
+#~ msgstr "_Linjenr:"
+
+#~ msgid "From _selection"
+#~ msgstr "Fra markering"
+
+#~ msgid "Keep _dialog"
+#~ msgstr "Behold _dialog"
+
+#~ msgid "starting bluefish"
+#~ msgstr "starter bluefish"
+
+#~ msgid "Syntax highlighting error for "
+#~ msgstr "Feil i syntaksmarkering for "
+
+#~ msgid "compiling pattern '%s': %s at offset %d"
+#~ msgstr "kompilerer mønster '%s': %s på offset %d"
+
+#~ msgid "studying pattern '%s': %s"
+#~ msgstr "studerer mønster '%s': %s"
+
+#~ msgid "compiling 2nd pattern '%s': %s at offset %d"
+#~ msgstr "kompilerer 2. mønster '%s': %s på offset %d"
+
+#~ msgid "studying 2nd pattern '%s': %s"
+#~ msgstr "studerer 2. mønster '%s': %s"
+
+#~ msgid "/_File"
+#~ msgstr "/_Fil"
+
+#~ msgid "/File/tearoff1"
+#~ msgstr "/Fil/tearoff1"
+
+#~ msgid "/File/_New"
+#~ msgstr "/Fil/_Ny"
+
+#~ msgid "/File/New _Window"
+#~ msgstr "/Fil/Nytt _vindu"
+
+#~ msgid "/File/_Open..."
+#~ msgstr "/Fil/Å_pne..."
+
+#~ msgid "/File/Open _recent"
+#~ msgstr "/Fil/Sist åpnede"
+
+#~ msgid "/File/Open recent/tearoff1"
+#~ msgstr "/Fil/Nylig åpnede/tearoff1"
+
+#~ msgid "/File/Open Ad_vanced..."
+#~ msgstr "/Fil/Åpn_e (avansert)..."
+
+#~ msgid "/File/Open _URL..."
+#~ msgstr "/Fil/Åpne _URL..."
+
+#~ msgid "/File/Open _from selection"
+#~ msgstr "/Fil/Åpne _fra markert tekst"
+
+#~ msgid "/File/sep1"
+#~ msgstr "/Fil/sep1"
+
+#~ msgid "/File/_Save"
+#~ msgstr "/Fil/_Lagre"
+
+#~ msgid "/File/Save _As..."
+#~ msgstr "/Fil/L_agre som..."
+
+#~ msgid "/File/Sav_e All"
+#~ msgstr "/Fil/La_gre alle"
+
+#~ msgid "/File/Rever_t to Saved"
+#~ msgstr "/Fil/Gjenopp_rett fra disk"
+
+#~ msgid "/File/sep2"
+#~ msgstr "/Fil/sep2"
+
+#~ msgid "/File/_Insert..."
+#~ msgstr "/Fil/Sett _inn..."
+
+#~ msgid "/File/Rena_me..."
+#~ msgstr "/Fil/Gi nytt navn..."
+
+#~ msgid "/File/sep3"
+#~ msgstr "/Fil/sep3"
+
+#~ msgid "/File/_Close"
+#~ msgstr "/Fil/L_ukk"
+
+#~ msgid "/File/Close A_ll"
+#~ msgstr "/Fil/Lu_kk alle"
+
+#~ msgid "/File/Close Win_dow"
+#~ msgstr "/Fil/Lukk vin_du"
+
+#~ msgid "/File/sep4"
+#~ msgstr "/Fil/sep4"
+
+#~ msgid "/File/_Quit"
+#~ msgstr "/Fil/Av_slutt"
+
+#, fuzzy
+#~ msgid "/File/sep5"
+#~ msgstr "/Fil/sep1"
+
+#~ msgid "/_Edit"
+#~ msgstr "/_Rediger"
+
+#~ msgid "/Edit/Tearoff1"
+#~ msgstr "/_Rediger/Tearoff1"
+
+#~ msgid "/Edit/_Undo"
+#~ msgstr "/Rediger/Angre"
+
+#~ msgid "/Edit/_Redo"
+#~ msgstr "/Rediger/Gjenta"
+
+#~ msgid "/Edit/Undo All"
+#~ msgstr "/Rediger/Angre alle"
+
+#~ msgid "/Edit/Redo All"
+#~ msgstr "/Rediger/Gjenta alle"
+
+#~ msgid "/Edit/sep1"
+#~ msgstr "/Rediger/sep1"
+
+#~ msgid "/Edit/Cu_t"
+#~ msgstr "/Rediger/Klipp"
+
+#~ msgid "/Edit/_Copy"
+#~ msgstr "/Rediger/Kopier"
+
+#~ msgid "/Edit/_Paste"
+#~ msgstr "/Rediger/Sett inn"
+
+#~ msgid "/Edit/sep2"
+#~ msgstr "/Rediger/sep2"
+
+#~ msgid "/Edit/Select _All"
+#~ msgstr "/Rediger/Velg _alt"
+
+#~ msgid "/Edit/sep3"
+#~ msgstr "/Rediger/sep3"
+
+#~ msgid "/Edit/_Find..."
+#~ msgstr "/Rediger/Søk..."
+
+#~ msgid "/Edit/Find A_gain"
+#~ msgstr "/Rediger/Søk i_gjen"
+
+#~ msgid "/Edit/Find from selection"
+#~ msgstr "/Rediger/Finn fra markert tekst"
+
+#~ msgid "/Edit/R_eplace..."
+#~ msgstr "/Rediger/_Erstatt..."
+
+#~ msgid "/Edit/Replace Agai_n"
+#~ msgstr "/Rediger/Erstatt igje_n"
+
+#~ msgid "/Edit/Replace special"
+#~ msgstr "/_Rediger/Erstatt (_spesial)"
+
+#~ msgid "/Tools/Tearoff1"
+#~ msgstr "/_Rediger/Erstatt (spesial)/Tearoff1"
+
+#~ msgid "/Tools/_ASCII to HTML Entities"
+#~ msgstr "/Rediger/Erstatt (spesial)/Konverter: ascii -> HTML entiteter"
+
+#~ msgid "/Tools/_ISO8859 to HTML Entities"
+#~ msgstr "/Rediger/Erstatt (spesial)/Konverter: iso-8859 -> HTML entiteter"
+
+#~ msgid "/Tools/_Both Types to HTML Entities"
+#~ msgstr "/Rediger/Erstatt (spesial)/Konverter begge til HTML entiteter"
+
+#~ msgid "/Tools/To _Uppercase"
+#~ msgstr "/_Rediger/Erstatt (spesial)/Til _KAPITALISERT"
+
+#~ msgid "/Tools/To _Lowercase"
+#~ msgstr "/_Rediger/Erstatt (spesial)/Til _lowercase"
+
+#~ msgid "/Edit/sep4"
+#~ msgstr "/Rediger/sep4"
+
+#~ msgid "/Edit/S_hift Right"
+#~ msgstr "/Rediger/Indenter _høyre"
+
+#~ msgid "/Edit/Shift _Left"
+#~ msgstr "/Rediger/_Indenter venstre"
+
+#~ msgid "/Edit/sep5"
+#~ msgstr "/Rediger/sep5"
+
+#~ msgid "/Document/Add _Bookmark"
+#~ msgstr "/Rediger/Nytt _Bokmerke"
+
+#~ msgid "/Edit/sep6"
+#~ msgstr "/Rediger/sep6"
+
+#~ msgid "/Edit/Save Sett_ings"
+#~ msgstr "/Rediger/_Lagre innstillinger"
+
+#~ msgid "/Edit/Save Shortcut _Keys"
+#~ msgstr "/Rediger/Lagre _hurtigtaster"
+
+#~ msgid "/Edit/Preference_s"
+#~ msgstr "/Rediger/Endre inn_stillinger"
+
+#~ msgid "/_View"
+#~ msgstr "/_Vis"
+
+#~ msgid "/View/tearoff1"
+#~ msgstr "/Vis/tearoff1"
+
+#~ msgid "/View/View _Custom Menu"
+#~ msgstr "/Vis/Vis _brukerdefinert meny"
+
+#~ msgid "/View/View _Sidebar"
+#~ msgstr "/Vis/Vis Side-_verktøylinje"
+
+#~ msgid "/_Document"
+#~ msgstr "/_Dokument"
+
+#~ msgid "/Document/tearoff1"
+#~ msgstr "/Dokument/tearoff1"
+
+#~ msgid "/Document/_Increase Tabsize"
+#~ msgstr "/Dokument/Tab-lengde/_Øk tab-størrelse"
+
+#~ msgid "/Document/_Decrease Tabsize"
+#~ msgstr "/Dokument/Tab-lengde/_Reduser tab-størrelse"
+
+#~ msgid "/Document/_Auto Indent"
+#~ msgstr "/Dokument/_Automatisk tabulering"
+
+#~ msgid "/Document/sep1"
+#~ msgstr "/Dokument/sep1"
+
+#~ msgid "/Document/Auto Close H_TML tags"
+#~ msgstr "/Dokument/Lukk H_TML tags automatisk"
+
+#~ msgid "/Document/_Wrap"
+#~ msgstr "/Dokument/Linjebrekk"
+
+#~ msgid "/Document/_Line Numbers"
+#~ msgstr "/Dokument/_Linjenummer"
+
+#~ msgid "/Document/sep2"
+#~ msgstr "/Dokument/sep2"
+
+#~ msgid "/Document/_Highlight Syntax"
+#~ msgstr "/Dokument/_Marker syntaks"
+
+#~ msgid "/Document/_Update Highlighting"
+#~ msgstr "/Dokument/Oppdater s_yntaksmarkering"
+
+#~ msgid "/Document/sep3"
+#~ msgstr "/Dokument/sep3"
+
+#~ msgid "/Document/Document Ty_pe"
+#~ msgstr "/Document/Dokumentty_pe"
+
+#~ msgid "/Document/Document Type/tearoff1"
+#~ msgstr "/Dokument/Dokumenttype/tearoff1"
+
+#~ msgid "/Document/Character _Encoding"
+#~ msgstr "/Dokument/T_egnsett"
+
+#~ msgid "/Document/Character Encoding/tearoff1"
+#~ msgstr "/Dokument/Tegnsett/tearoff1"
+
+#~ msgid "/Document/sep4"
+#~ msgstr "/Dokument/sep4"
+
+#~ msgid "/Document/Check _Spelling..."
+#~ msgstr "/Dokument/_Stavekontroll..."
+
+#~ msgid "/Document/_Floating window"
+#~ msgstr "/Dokument/_Flytende vindu"
+
+#~ msgid "/Document/Word _Count"
+#~ msgstr "/Dokument/_Ordtelling"
+
+#, fuzzy
+#~ msgid "/Document/sep5"
+#~ msgstr "/Dokument/sep1"
+
+#, fuzzy
+#~ msgid "/Document/Move left"
+#~ msgstr "/Dokument/_Automatisk tabulering"
+
+#, fuzzy
+#~ msgid "/Document/Move right"
+#~ msgstr "/Dokument/sep1"
+
+#~ msgid "/_Go"
+#~ msgstr "/_Gå"
+
+#~ msgid "/Go/tearoff1"
+#~ msgstr "/Gå/tearoff1"
+
+#~ msgid "/Go/_Previous document"
+#~ msgstr "/Gå/_Forrige dokument"
+
+#~ msgid "/Go/_Next document"
+#~ msgstr "/Gå/_Neste dokument"
+
+#~ msgid "/Go/sep1"
+#~ msgstr "/Gå/sep1"
+
+#~ msgid "/Go/_First document"
+#~ msgstr "/Gå/Fø_rste dokument"
+
+#~ msgid "/Go/L_ast document"
+#~ msgstr "/Go/_Siste dokument"
+
+#~ msgid "/Go/Goto _Line"
+#~ msgstr "/Gå/Gå til _linje..."
+
+#~ msgid "/Go/Goto _Selection"
+#~ msgstr "/Gå/Gå til _markert tekst..."
+
+#~ msgid "/_Project"
+#~ msgstr "/_Prosjekt"
+
+#~ msgid "/Project/tearoff1"
+#~ msgstr "/Prosjekt/tearoff1"
+
+#~ msgid "/Project/_New Project"
+#~ msgstr "/Prosjekt/_Nytt prosjekt"
+
+#~ msgid "/Project/_Open Project..."
+#~ msgstr "/Prosjekt/Åpne _prosjekt"
+
+#~ msgid "/Project/Open _recent"
+#~ msgstr "/Prosjekt/Nylig åpnede"
+
+#~ msgid "/Project/Open recent/tearoff1"
+#~ msgstr "/Prosjekt/Nylig åpnede/tearoff1"
+
+#~ msgid "/Project/sep1"
+#~ msgstr "/Prosjekt/sep1"
+
+#~ msgid "/Project/_Save"
+#~ msgstr "/Prosjekt/_Lagre"
+
+#~ msgid "/Project/Save _as..."
+#~ msgstr "/Prosjekt/L_agre som..."
+
+#~ msgid "/Project/Save & _close"
+#~ msgstr "/Prosjekt/Lagre & l_ukk"
+
+#~ msgid "/Project/sep2"
+#~ msgstr "/Prosjekt/sep2"
+
+#~ msgid "/Project/E_dit Project Options..."
+#~ msgstr "/Prosjekt/R_ediger prosjektalternativer..."
+
+#~ msgid "/E_xternal"
+#~ msgstr "/E_ksterne"
+
+#~ msgid "/External/tearoff1"
+#~ msgstr "/Eksterne/tearoff1"
+
+#~ msgid "/_Help"
+#~ msgstr "/_Hjelp"
+
+#~ msgid "/Help/_About..."
+#~ msgstr "/Hjelp/_Om..."
+
+#~ msgid "/Document/Document Type"
+#~ msgstr "/Document/Dokumenttype"
+
+#~ msgid "/Project/Open recent"
+#~ msgstr "/Prosjekt/Nylig åpnede"
+
+#~ msgid "/File/Open recent"
+#~ msgstr "/Fil/Nylig åpnede"
+
+#~ msgid "/Windows"
+#~ msgstr "/Vinduer"
+
+#, fuzzy
+#~ msgid "Could not view file in browser."
+#~ msgstr "Kunne ikke finne filen \"%s\"."
+
+#~ msgid "/External/Outputbox/"
+#~ msgstr "/Eksterne/Output-boks/"
+
+#~ msgid "/External/Commands/"
+#~ msgstr "/Eksterne/Kommandoer/"
+
+#~ msgid "/External/Browsers/"
+#~ msgstr "/Eksterne/Browsere"
+
+#~ msgid "/External"
+#~ msgstr "/E_ksterne"
+
+#~ msgid "/External/Browsers"
+#~ msgstr "/Eksterne/Browsere"
+
+#~ msgid "/External/Commands"
+#~ msgstr "/Eksterne/Kommandoer"
+
+#~ msgid "/External/Outputbox"
+#~ msgstr "/Eksterne/Output-boks"
+
+#~ msgid "/Document/Character Encoding"
+#~ msgstr "/Dokument/Tegnsett"
+
+#~ msgid "This custom search and replace requires a selection"
+#~ msgstr "Du må velge et tekstområde for å bruke denne funksjonen"
+
+#~ msgid "/_Custom menu"
+#~ msgstr "/_Brukerdefinert"
+
+#~ msgid "/Custom menu/sep"
+#~ msgstr "/Brukerdefinert/sep"
+
+#~ msgid "/Custom menu/Edit custom menu..."
+#~ msgstr "/Brukerdefinert/Rediger meny..."
+
+#~ msgid "/Custom menu/Reset"
+#~ msgstr "/Brukerdefinert/Nullstill"
+
+#~ msgid "/Custom menu/Load new"
+#~ msgstr "/Brukerdefinert/Last ny"
+
+#~ msgid "Search Pattern"
+#~ msgstr "Søkemønster"
+
+#~ msgid "Replace String"
+#~ msgstr "Erstatt streng"
+
+#~ msgid "Formatstring Before"
+#~ msgstr "Formateringsstreng før"
+
+#~ msgid "Formatstring After"
+#~ msgstr "Formateringsstreng etter"
+
+#~ msgid "The menupath you want to update does not exist yet"
+#~ msgstr "Menystien du prøver å oppdatere eksisterer ikke."
+
+#~ msgid "Try 'add' instead."
+#~ msgstr "Prøv 'Legg til' isteden"
+
+#~ msgid "The menupath you want to add already exists."
+#~ msgstr "Menyposten du ønsker å legge til, eksisterer allerede"
+
+#~ msgid "The menupath should start with a / character"
+#~ msgstr "Menystien må starte med tegnet /"
+
+#~ msgid "Custom Menu Editor"
+#~ msgstr "/_Rediger meny"
+
+#~ msgid "Add New Menu Entry"
+#~ msgstr "Nytt menyvalg"
+
+#~ msgid "Apply Changes"
+#~ msgstr "Lagre endringer"
+
+#~ msgid "Delete Menu Entry"
+#~ msgstr "Slett menyvalg"
+
+#~ msgid "Close Discards Changes"
+#~ msgstr "Lukk forkaster endringer"
+
+#~ msgid "Save Changes and Exit"
+#~ msgstr "Lagre endringer og lukk"
+
+#~ msgid "_Menu Path:"
+#~ msgstr "_Menysti"
+
+#~ msgid "Menu path"
+#~ msgstr "_Menysti"
+
+#~ msgid "Number of _Variables:"
+#~ msgstr "Antall _variabler:"
+
+#~ msgid "Variables"
+#~ msgstr "Variabler"
+
+#~ msgid "Custom Dialo_g"
+#~ msgstr "Brukerdefinert dialo_g"
+
+#~ msgid "Custom Replace"
+#~ msgstr "Brukerdefinert _søk/erstatt"
+
+#~ msgid "in current document"
+#~ msgstr "i det aktive dokumentet"
+
+#~ msgid "from cursor"
+#~ msgstr "fra markøren"
+
+#~ msgid "in selection"
+#~ msgstr "I det markertee"
+
+#~ msgid "in all open documents"
+#~ msgstr "i alle åpne dokumenter"
+
+#~ msgid "Matc_hing:"
+#~ msgstr "Type søk:"
+
+#~ msgid "normal"
+#~ msgstr "standard"
+
+#~ msgid "posix regular expressions"
+#~ msgstr "posix-kompatible regulære uttrykk"
+
+#~ msgid "perl regular expressions"
+#~ msgstr "perl-kompatible regulære uttrykk"
+
+#~ msgid "Case Se_nsitive"
+#~ msgstr "Skill store/små bokstaver"
+
+#~ msgid "Untitled"
+#~ msgstr "Uten navn"
+
+#~ msgid "Select font"
+#~ msgstr "Velg skrift"
+
+#~ msgid "Label"
+#~ msgstr "Label"
+
+#~ msgid "Extensions"
+#~ msgstr "Endelser"
+
+#~ msgid "Update chars"
+#~ msgstr "Oppdater tegn"
+
+#~ msgid "Icon"
+#~ msgstr "Ikon"
+
+#~ msgid "Editable"
+#~ msgstr "Kan redigeres"
+
+#~ msgid "Content regex"
+#~ msgstr "Søkemønster"
+
+#~ msgid "Auto close tags mode"
+#~ msgstr "Automatisk lukking av tags"
+
+#~ msgid "Inverse filter"
+#~ msgstr "Invers filtrering"
+
+#~ msgid "Filetypes in filter"
+#~ msgstr "Filtyper i filteret"
+
+#~ msgid "filetype"
+#~ msgstr "filtype"
+
+#~ msgid "Reset"
+#~ msgstr "Nullstill"
+
+#~ msgid "Pattern name"
+#~ msgstr "Mønsternavn"
+
+#~ msgid "Pattern"
+#~ msgstr "Mønster"
+
+#~ msgid "Start pattern and end pattern"
+#~ msgstr "Startmønster og sluttmønster"
+
+#~ msgid "Only start pattern"
+#~ msgstr "Kun startmønster"
+
+#~ msgid "Subpattern from parent"
+#~ msgstr "Undermønster av overordnet"
+
+#~ msgid "Start pattern"
+#~ msgstr "Startmønster"
+
+#~ msgid "End pattern"
+#~ msgstr "Sluttmønster"
+
+#~ msgid "Case sensitive matching"
+#~ msgstr "Case sensitive"
+
+#~ msgid "Parentmatch"
+#~ msgstr "Overordnet gruppe"
+
+#~ msgid "Foreground color"
+#~ msgstr "Forgrunnsfarge"
+
+#~ msgid "Background color"
+#~ msgstr "Bakgrunnsfarge"
+
+#~ msgid "don't change weight"
+#~ msgstr "behold vekt"
+
+#~ msgid "force non-bold weight"
+#~ msgstr "sett ikke-fet vekt"
+
+#~ msgid "force bold weight"
+#~ msgstr "sett fet vekt"
+
+#~ msgid "don't change style"
+#~ msgstr "behold stil"
+
+#~ msgid "force non-italic style"
+#~ msgstr "sett ikke-kursiv stil"
+
+#~ msgid "force italic style"
+#~ msgstr "sett kursiv stil"
+
+#~ msgid "Command"
+#~ msgstr "Kommando"
+
+#~ msgid ""
+#~ "%s for current filename (any command)\n"
+#~ "%i for input and %f for output filename (filters)"
+#~ msgstr ""
+#~ "%s for nåværende filnavn (vilkårlig kommando)\n"
+#~ "%i for input og %f for output filnavn (for filtre)"
+
+#~ msgid "File #"
+#~ msgstr "Fil #"
+
+#~ msgid "Line #"
+#~ msgstr "Linje #"
+
+#~ msgid "Output #"
+#~ msgstr "Output #"
+
+#~ msgid "Show all output"
+#~ msgstr "Vis all output"
+
+#~ msgid "left"
+#~ msgstr "venstre"
+
+#~ msgid "right"
+#~ msgstr "høyre"
+
+#~ msgid "top"
+#~ msgstr "top"
+
+#~ msgid "bottom"
+#~ msgstr "bunn"
+
+#~ msgid "no check"
+#~ msgstr "ingen kontroll"
+
+#~ msgid "check mtime and size"
+#~ msgstr "sjekk mtime og størrelse"
+
+#~ msgid "check mtime"
+#~ msgstr "sjekk mtime"
+
+#~ msgid "check size"
+#~ msgstr "sjekk størrelse"
+
+#~ msgid "Edit preferences"
+#~ msgstr "Endre innstillinger"
+
+#~ msgid "Editor"
+#~ msgstr "Editor"
+
+#~ msgid "Editor options"
+#~ msgstr "Editor Innstillinger"
+
+#~ msgid "Tab width"
+#~ msgstr "Tab-størrelse"
+
+#~ msgid "Use spaces to indent, not tabs"
+#~ msgstr "Bruk mellomrom for å indentere, ikke tabs"
+
+#~ msgid "Word wrap default"
+#~ msgstr "Bryt linjer"
+
+#~ msgid "Line numbers by default"
+#~ msgstr "Vis linjenummer"
+
+#~ msgid "Highlight syntax by default"
+#~ msgstr "Marker syntaks"
+
+#~ msgid "Highlight # lines"
+#~ msgstr "Syntaksmarker # linjer"
+
+#~ msgid "Undo history size"
+#~ msgstr "Antall angremuligheter"
+
+#~ msgid "Clear undo history on save"
+#~ msgstr "Nullstill angremuligheter ved lagring"
+
+#~ msgid "Bookmark options"
+#~ msgstr "Alternativer for bokmerker"
+
+#~ msgid "Make permanent by default"
+#~ msgstr "Gjør permanent som standard"
+
+#~ msgid "full path"
+#~ msgstr "full sti"
+
+#~ msgid "path from basedir"
+#~ msgstr "sti fra basekatalog"
+
+#~ msgid "filename"
+#~ msgstr "filnavn"
+
+#~ msgid "Bookmarks filename display"
+#~ msgstr "Bokmerker, visning av filnavn"
+
+#~ msgid "HTML"
+#~ msgstr "HTML"
+
+#~ msgid "HTML options"
+#~ msgstr "HTML alternativer"
+
+#~ msgid "Lowercase HTML tags"
+#~ msgstr "Bruk små bokstaver for HTML-tags"
+
+#~ msgid "Use deprecated tags (e.g. <font> and <nobr>)"
+#~ msgstr "Bruk utdaterte tags (e.g. <font> og <nobr>)"
+
+#~ msgid "Use XHTML style tags (<br />)"
+#~ msgstr "Bruk XHTML-syntaks (som <br />)"
+
+#~ msgid "Automatic update author meta"
+#~ msgstr "Oppdater author meta automatisk"
+
+#~ msgid "Files"
+#~ msgstr "Filer"
+
+#~ msgid "Encoding"
+#~ msgstr "Inpit kodning"
+
+#~ msgid "Default character set"
+#~ msgstr "Standard tegnsett"
+
+#~ msgid "Auto set <meta> encoding tag on change"
+#~ msgstr "Oppdater <meta> encoding tag automatisk"
+
+#~ msgid "Backup"
+#~ msgstr "Backup"
+
+#~ msgid "Create backup on save"
+#~ msgstr "Opprett backupfil ved lagring"
+
+#~ msgid "Backup file suffix"
+#~ msgstr "Filendelse for backup"
+
+#~ msgid "save"
+#~ msgstr "Lagre"
+
+#~ msgid "abort"
+#~ msgstr "avbryt"
+
+#~ msgid "ask"
+#~ msgstr "spør"
+
+#~ msgid "Action on backup failure"
+#~ msgstr "Tiltak når backup ikke kan utføres"
+
+#~ msgid "Remove backupfile on close"
+#~ msgstr "Fjern backupfil når programmet avsluttes"
+
+#~ msgid "Misc"
+#~ msgstr "Diverse"
+
+#~ msgid "Allow multi instances of a file"
+#~ msgstr "Tillat flere instanser av samme fil"
+
+#~ msgid "Open files in already running bluefish window"
+#~ msgstr "Bruk eksisterende bluefish-vindu til å åpne filer"
+
+#~ msgid "File modified on disk check "
+#~ msgstr "Fil modifisert på disk kontroll "
+
+#~ msgid "Number of files in 'Open recent'"
+#~ msgstr "Antall filer i 'Nylig åpnede'"
+
+#~ msgid "File browser"
+#~ msgstr "Filbrowser"
+
+#~ msgid "Default basedir"
+#~ msgstr "Standard basekatalog"
+
+#~ msgid "Use separate file and directory view"
+#~ msgstr "Bruk separate fil- og katalogvisninger"
+
+#~ msgid "Unknown icon"
+#~ msgstr "Ukjent ikon"
+
+#~ msgid "Directory icon"
+#~ msgstr "Katalognavn"
+
+#~ msgid "User interface"
+#~ msgstr "Brukergrensesnitt"
+
+#~ msgid "Restore last used dimensions"
+#~ msgstr "Gjenopprett sist brukte vindustørrelser"
+
+#~ msgid "Initial sidebar width"
+#~ msgstr "Startbredde"
+
+#~ msgid "Initial window height"
+#~ msgstr "Starthøyde"
+
+#~ msgid "Initial window width"
+#~ msgstr "Startbredde"
+
+#~ msgid "General"
+#~ msgstr "Generelt"
+
+#~ msgid "Make HTML dialogs transient"
+#~ msgstr "Behold HTML dialoger øverst"
+
+#~ msgid "External browsers in submenu"
+#~ msgstr "Eksterne browsere i egen undermeny"
+
+#~ msgid "External commands in submenu"
+#~ msgstr "Eksterne kommandoer i egen undermeny"
+
+#~ msgid "External outputbox in submenu"
+#~ msgstr "Outputboks-programmer i egen undermeny"
+
+#~ msgid "Notebook tab font (leave empty for gtk default)"
+#~ msgstr "Skrifttype for tabs"
+
+#~ msgid "Document notebook tab position"
+#~ msgstr "Tab-plassering (filnavn) i editoren"
+
+#~ msgid "Sidebar notebook tab position"
+#~ msgstr "Tab-plassering for venstre panel"
+
+#~ msgid "Sidebar location"
+#~ msgstr "Plassering for sideverktøylinje"
+
+#~ msgid "Thumbnails"
+#~ msgstr "Thumbnails"
+
+#~ msgid "Thumbnail suffix"
+#~ msgstr "Thumbnail endelse"
+
+#~ msgid "Thumbnail filetype"
+#~ msgstr "Thumbnail format"
+
+#~ msgid "Filetypes"
+#~ msgstr "Filtyper"
+
+#~ msgid "Filefilters"
+#~ msgstr "Filfilter"
+
+#~ msgid "Syntax highlighting"
+#~ msgstr "Syntaksmarkering"
+
+#~ msgid "Patterns"
+#~ msgstr "Mønster"
+
+#~ msgid "External programs"
+#~ msgstr "Eksterne programmer"
+
+#~ msgid "Browsers"
+#~ msgstr "Nettlesere"
+
+#~ msgid "Utilities and filters"
+#~ msgstr "Verktøy og filtre"
+
+#~ msgid "Output parsers"
+#~ msgstr "Skriv html karakterer"
+
+#~ msgid "Outputbox"
+#~ msgstr "Output-boks"
+
+#~ msgid "Servers"
+#~ msgstr "Servere"
+
+#~ msgid "Remote servers"
+#~ msgstr "Eksterne servere"
+
+#~ msgid "Zope compatibility mode"
+#~ msgstr "Zope kompatibilitets-modus"
+
+#~ msgid "New project"
+#~ msgstr "Nytt prosjekt"
+
+#~ msgid "Enter Bluefish project filename"
+#~ msgstr "Oppgi ønsket prosjektnavn"
+
+#~ msgid "Select Bluefish project filename"
+#~ msgstr "Oppgi filnavn for prosjektetfilen"
+
+#, fuzzy
+#~ msgid "Save current project?"
+#~ msgstr "Opprett tomt prosjekt"
+
+#~ msgid "Create New Project"
+#~ msgstr "Opprett nytt prosjekt"
+
+#~ msgid "Edit Project"
+#~ msgstr "Rediger prosjekt"
+
+#~ msgid "This project contains %d files"
+#~ msgstr "Dette prosjektet inneholder %d filer"
+
+#~ msgid "Project _Name:"
+#~ msgstr "Prosjekt_Navn:"
+
+#~ msgid "_Basedir:"
+#~ msgstr "Startkatalog"
+
+#~ msgid "_Preview URL:"
+#~ msgstr "Forhånds URL:"
+
+#~ msgid "_Template:"
+#~ msgstr "Mal:"
+
+#~ msgid "_Word wrap by default"
+#~ msgstr "Brekk linjer som standard"
+
+#~ msgid "Create _Project"
+#~ msgstr "Opprett _prosjekt"
+
+#~ msgid "Create project"
+#~ msgstr "Opprett prosjekt"
+
+#~ msgid "Create project with currently opened documents"
+#~ msgstr "Opprett prosjekt bestående av de åpne dokumentene"
+
+#~ msgid "Create empty project"
+#~ msgstr "Opprett tomt prosjekt"
+
+#~ msgid "Galeon"
+#~ msgstr "Galeon"
+
+#~ msgid "Mozilla"
+#~ msgstr "Mozilla"
+
+#~ msgid "Opera"
+#~ msgstr "Opera"
+
+#~ msgid "Netscape"
+#~ msgstr "Netscape"
+
+#~ msgid "Gnome default"
+#~ msgstr "Gnome standard"
+
+#~ msgid "make"
+#~ msgstr "make"
+
+#~ msgid "weblint HTML checker"
+#~ msgstr "weblint HTML-skanner"
+
+#~ msgid "tidy HTML validator"
+#~ msgstr "tidy HTML validator"
+
+#~ msgid "javac"
+#~ msgstr "javac"
+
+#~ msgid "xmllint XML checker"
+#~ msgstr "xmllint XML-sjekker "
+
+#~ msgid "php"
+#~ msgstr "php"
+
+#~ msgid "Dos2Unix filter"
+#~ msgstr "Dos2Unix filter"
+
+#~ msgid "Tidy cleanup filter"
+#~ msgstr "Tidy opprydningsfilter"
+
+#~ msgid "C programming"
+#~ msgstr "C programmering"
+
+#~ msgid "All web files"
+#~ msgstr "Alle webfiler"
+
+#~ msgid "Java programming"
+#~ msgstr "Java programmering"
+
+#~ msgid "Hide objectfiles"
+#~ msgstr "Skjul objektfiler"
+
+#~ msgid "Untitled Project"
+#~ msgstr "Navnløst prosjekt"
+
+#~ msgid "Regular expression error: "
+#~ msgstr "Feil i regexp: "
+
+#~ msgid "Search failed"
+#~ msgstr "Ingen treff"
+
+#~ msgid "Regular expression error: %s at offset %d"
+#~ msgstr "Feil i regexp: %s ved offset %d"
+
+#~ msgid "Confirm replace"
+#~ msgstr "Bekreft erstatt"
+
+#~ msgid "Replace selected text?"
+#~ msgstr "Erstatt den merkede teksten?"
+
+#~ msgid "Replace _all"
+#~ msgstr "Erstatt _alle"
+
+#~ msgid "Search: no match found"
+#~ msgstr "Søk: Ingen treff"
+
+#~ msgid "_Search for: "
+#~ msgstr "_Søk etter:"
+
+#~ msgid "_Replace with: "
+#~ msgstr "Ers_tatt med: "
+
+#~ msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
+#~ msgstr "\\0 angir det første undermønsteret, \\1 til det andre etc."
+
+#~ msgid "Beginning of document till end"
+#~ msgstr "Hele dokumentet"
+
+#~ msgid "Current position till end"
+#~ msgstr "Fra markørens posisjon og utover"
+
+#~ msgid "Beginning of selection till end of selection"
+#~ msgstr "I det markerte området"
+
+#~ msgid "All opened files begin till end"
+#~ msgstr "Alle åpne filer"
+
+#~ msgid "Disabled"
+#~ msgstr "Deaktivert"
+
+#~ msgid "POSIX type"
+#~ msgstr "POSIX type"
+
+#~ msgid "PERL type"
+#~ msgstr "PERL type"
+
+#~ msgid "Starts at:"
+#~ msgstr "Starter på:"
+
+#~ msgid "Regular expression:"
+#~ msgstr "Regulært uttrykk: "
+
+#~ msgid "Normal"
+#~ msgstr "Standard"
+
+#~ msgid "Uppercase"
+#~ msgstr "Store bokstaver"
+
+#~ msgid "Lowercase"
+#~ msgstr "Små bokstaver"
+
+#~ msgid "Replace type:"
+#~ msgstr "E_rstatt-type:"
+
+#~ msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
+#~ msgstr "Uttrykket inneholder backslash escape sekvenser (\\n, \\t)"
+
+#~ msgid "_Match case"
+#~ msgstr "Treff store/små bokstaver"
+
+#~ msgid "O_verlap searches"
+#~ msgstr "O_verlappende søk"
+
+#~ msgid "Prompt _before replace"
+#~ msgstr "Spør før erstatning"
+
+#~ msgid "Replace o_nce"
+#~ msgstr "Erstatt én gang"
+
+#~ msgid "Bookmark results"
+#~ msgstr "Bokmerker, resultater"
+
+#~ msgid " Add "
+#~ msgstr " Tilføy "
+
+#~ msgid " Update "
+#~ msgstr " Oppdatér "
+
+#~ msgid " Delete "
+#~ msgstr " Slett "
+
+#~ msgid " Up "
+#~ msgstr " Opp "
+
+#~ msgid " Down "
+#~ msgstr " Ned "
+
+#~ msgid " Sort "
+#~ msgstr " Sorter "
+
+#~ msgid "This bookmark is set in a file that no longer exists."
+#~ msgstr "Dette bokmerket er satt i en fil som ikke lenger eksisterer."
+
+#~ msgid "Are you sure?"
+#~ msgstr "Er du sikker?"
+
+#~ msgid "Could not read file:\n"
+#~ msgstr "Kunne ikke hente fil:\n"
+
+#~ msgid "Opening file "
+#~ msgstr "Henter fil "
+
+#~ msgid "Saving file"
+#~ msgstr "Lagrer fil"
+
+#~ msgid "Save as..."
+#~ msgstr "Lagre som..."
+
+#~ msgid ""
+#~ "File: %s\n"
+#~ "\n"
+#~ "New modification time: %s\n"
+#~ "Old modification time: %s"
+#~ msgstr ""
+#~ "Filnavn: %s\n"
+#~ "\n"
+#~ "Filen ble sist endret: %s\n"
+#~ "Versjonen som er åpen ble sist endret: %s"
+
+#~ msgid "File has been modified by another process."
+#~ msgstr "Filen har blitt endret av en annen prosess."
+
+#~ msgid "Saving %s"
+#~ msgstr "Lagrer %s"
+
+#~ msgid ""
+#~ "Could not backup file:\n"
+#~ "\""
+#~ msgstr ""
+#~ "Kunne ikke hente fil:\n"
+#~ "\""
+
+#~ msgid "File save error"
+#~ msgstr "Feil ved lagring av fil"
+
+#~ msgid ""
+#~ "These files could not opened:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Disse filene ble ikke åpnet:\n"
+#~ "\n"
+
+#~ msgid "Unable to open file(s)\n"
+#~ msgstr "Kunne ikke åpne filen(e)\n"
+
+#~ msgid "searching files..."
+#~ msgstr "søker..."
+
+#~ msgid "grep {contains} `find {basedir} -name '{file type}'`"
+#~ msgstr "grep {inneholder} `finn {katalog} -name '{søkeuttrykk}'`"
+
+#~ msgid "_File Type:"
+#~ msgstr "_Filtype:"
+
+#~ msgid "Loading %d file(s)..."
+#~ msgstr "Leser inn %d fil(er)..."
+
+#~ msgid "No matching files found"
+#~ msgstr "Fant ingen dokumenter som passer"
+
+#~ msgid "Select file"
+#~ msgstr "Velg fil"
+
+#~ msgid "_Doctype:"
+#~ msgstr "_Doctype:"
+
+#~ msgid "Header tags:"
+#~ msgstr "Header tags:"
+
+#~ msgid "Loading file(s)..."
+#~ msgstr "Laster inn fil(er)..."
+
+#~ msgid "The filename was:\n"
+#~ msgstr "Filnavnet var:\n"
+
+#~ msgid "Could not open file\n"
+#~ msgstr "Kunne ikke hente fil:\n"
+
+#~ msgid "Could not view file in browser, the file does not yet have a name\n"
+#~ msgstr "Kunne ikke vise filen i en browser - mangler filnavn\n"
+
+#~ msgid "These files were not opened:\n"
+#~ msgstr "Disse filene ble ikke åpnet:\n"
+
+#~ msgid "Show main toolbar by default"
+#~ msgstr "Vis hovedverktøylinje som standard"
+
+#~ msgid "Show sidebar by default"
+#~ msgstr "Vis sideverktøylinje som standard"
+
+#~ msgid "Show custom menu by default"
+#~ msgstr "Vis brukerdefinerbar beny som standard"
+
+#~ msgid "Show HTML toolbar by default"
+#~ msgstr "Vis HTML-verktøylinje som standard"
+
+#~ msgid "Do you want to save the project?"
+#~ msgstr "Vil du lagre prosjektet? "

@@ -1,0 +1,87 @@
+#
+# Yngve Spjeld Landro <l10n@landro.net>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bluefish_plugin_entities\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2010-05-08 12:08+0200\n"
+"PO-Revision-Date: 2010-12-30 12:50+0100\n"
+"Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
+"Language-Team: Norwegian Nynorsk <l10n@landro.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8 bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/plugin_entities/entities.c:452
+msgid "Characters to entities"
+msgstr "Teikn (å) til entitetar (&aring;)"
+
+#: src/plugin_entities/entities.c:452
+msgid "Entities to characters"
+msgstr "Entitetar (&aring;) til teikn (å)"
+
+#: src/plugin_entities/entities.c:465
+msgid "In current document"
+msgstr "I dette dokumentet"
+
+#: src/plugin_entities/entities.c:466
+msgid "In selection"
+msgstr "I den valde teksten"
+
+#: src/plugin_entities/entities.c:467
+msgid "In all documents"
+msgstr "I alle dokumenta"
+
+#: src/plugin_entities/entities.c:468
+msgid "Sco_pe:"
+msgstr "_Omfang:"
+
+#: src/plugin_entities/entities.c:472
+msgid "Convert numerical encoded characters &#99;"
+msgstr "Gjer om numerisk koda teikn &#99;"
+
+#: src/plugin_entities/entities.c:479
+msgid "Convert _iso-8859-1 characters"
+msgstr "Gjer om _iso-8859-1-teikn"
+
+#: src/plugin_entities/entities.c:483
+msgid "Convert _symbol characters"
+msgstr "Gjer om _symbolteikn"
+
+#: src/plugin_entities/entities.c:487
+msgid "Convert spe_cial characters"
+msgstr "Gjer om spesial_teikn"
+
+#: src/plugin_entities/entities.c:491
+msgid "Convert _XML characters < > & \" '"
+msgstr "Gjer om _XML-teikn < > & \" '"
+
+#: src/plugin_entities/entities.c:496
+msgid "Work around missing &apos; entity on IE"
+msgstr "Omgå manglande &apos;-entitet i IE"
+
+#: src/plugin_entities/entities.c:568
+msgid "/Tools/Entities To Characters..."
+msgstr "/Verktøy/Entitetar (&aring;) til teikn (å) …"
+
+#: src/plugin_entities/entities.c:569
+msgid "/Tools/Characters To Entities..."
+msgstr "/Verktøy/Teikn (å) til entitetar (&aring;) …"
+
+#: src/plugin_entities/entities.c:570
+msgid "/Tools/URL Encode"
+msgstr "/Verktøy/Nettadressekoding"
+
+#: src/plugin_entities/entities.c:571
+msgid "/Tools/URL Decode"
+msgstr "/Verktøy/Nettadresseavkoding"
+
+#: src/plugin_entities/entities.c:572
+msgid "/Tools/To Lowercase"
+msgstr "/Verktøy/Små bokstavar"
+
+#: src/plugin_entities/entities.c:573
+msgid "/Tools/To Uppercase"
+msgstr "/Verktøy/Store bokstavar"
