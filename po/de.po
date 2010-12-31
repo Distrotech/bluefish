@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 2.0.1\n"
+"Project-Id-Version: bluefish 2.0.3-rc1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2010-12-31 07:41+0100\n"
-"PO-Revision-Date: 2010-05-07 07:47+0200\n"
+"PO-Revision-Date: 2010-12-31 14:34+01:00\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -540,9 +540,8 @@ msgstr[0] "%d Zeichen"
 msgstr[1] "%d Zeichen"
 
 #: ../src/document.c:3300
-#, fuzzy
 msgid "Selection statistics: "
-msgstr "Statistiken: "
+msgstr "Auswahlstatistiken: "
 
 #: ../src/document.c:3300
 msgid "Statistics: "
@@ -844,9 +843,8 @@ msgid "Could not save file "
 msgstr "Datei konnte nicht gespeichert werden "
 
 #: ../src/file_dialogs.c:504 ../src/file_dialogs.c:1332
-#, fuzzy
 msgid "File changed on disk\n"
-msgstr "Datei von Festplatte verschwunden\n"
+msgstr "Datei wurde auf dem Datenträger verändert\n"
 
 # c-format
 #: ../src/file_dialogs.c:591
@@ -972,7 +970,7 @@ msgstr "Versteckte Dateien erfassen"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1268
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -981,10 +979,12 @@ msgid ""
 "Original size was %lu\n"
 "New size is %lu"
 msgstr ""
-"Datei: %s\n"
+"Dateiname: %s wurde auf dem Datenträger verändert\n"
 "\n"
-"Neue Änderungszeit: %s\n"
-"Alte Änderungszeit:  %s"
+"Ursprüngliche Änderungszeit war %s\n"
+"Neue Änderungszeit ist %s\n"
+"Ursprüngliche Größe war %lu\n"
+"Neue Größe ist %lu"
 
 #: ../src/file_dialogs.c:1289
 msgid "_Unset file name"
@@ -1458,9 +1458,8 @@ msgid "/Document/Highlight block delimiters"
 msgstr "/Dokument/Blockbegrenzer hervorheben"
 
 #: ../src/menu.c:296
-#, fuzzy
 msgid "/Document/Split view"
-msgstr "/Dokument/_Rechtschreibprüfung"
+msgstr "/Dokument/Geteilte Ansicht"
 
 #: ../src/menu.c:298
 msgid "/Document/_Spell Check"
@@ -1651,27 +1650,24 @@ msgid "/Tools/Strip T_railing Whitespace"
 msgstr "/Werkzeuge/Füh_rende Leerzeichen entfernen"
 
 #: ../src/menu.c:375
-#, fuzzy
 msgid "/Tools/_Join lines together"
 msgstr "/Werkzeuge/Zeilen zusa_mmenführen"
 
 #: ../src/menu.c:376
-#, fuzzy
 msgid "/Tools/Sp_lit lines on right margin"
-msgstr "/Werkzeuge/Zeilen tre_nnen"
+msgstr "/Werkzeuge/_Zeilen trennen"
 
 #: ../src/menu.c:377
-#, fuzzy
 msgid "/Tools/Rewrap _lines"
-msgstr "/Werkzeuge/Zeilen tre_nnen"
+msgstr "/Werkzeuge/Zeilenumbruch auf_heben"
 
 #: ../src/menu.c:378
 msgid "/Tools/Indenting To T_abs"
-msgstr "/Werkzeuge/Einrückung mit T_abulatoren ersetzen"
+msgstr "/Werkzeuge/Einrückung mit _Tabulatoren ersetzen"
 
 #: ../src/menu.c:379
 msgid "/Tools/Indenting To S_paces"
-msgstr "/Werkzeuge/Einrückung mit L_eerzeichen ersetzen"
+msgstr "/Werkzeuge/Einrückung mit _Leerzeichen ersetzen"
 
 #: ../src/menu.c:380
 msgid "/Tools/Merge Lines Into Col_umns"
@@ -1732,86 +1728,72 @@ msgid "Untitled"
 msgstr "Ohne Titel"
 
 #: ../src/preferences.c:458
-#, fuzzy
 msgid "_Mime type:"
-msgstr "MIME-Typ"
+msgstr "_MIME-Typ:"
 
 #: ../src/preferences.c:470 ../src/preferences.c:472
 msgid "None"
 msgstr "Keines"
 
 #: ../src/preferences.c:473
-#, fuzzy
 msgid "_Template:"
-msgstr "Templates"
+msgstr "_Template:"
 
 #
 #: ../src/preferences.c:476 ../src/preferences.c:1830
-#, fuzzy
 msgid "<b>Options</b>"
-msgstr "<b>_Optionen</b>"
+msgstr "<b>Optionen</b>"
 
 #: ../src/preferences.c:480
-#, fuzzy
 msgid "Enable a_uto-completion"
-msgstr "Auto-Vervollständigen (Popup)"
+msgstr "A_utomatisches Vervollständigen einschalten"
 
 #: ../src/preferences.c:482
-#, fuzzy
 msgid "Enable _block folding"
-msgstr "Blockanzeige"
+msgstr "Ein-/Ausklappbare _Blöcke einschalten"
 
 #
 #: ../src/preferences.c:484
-#, fuzzy
 msgid "Highlight block _delimiters"
-msgstr "Blockbegrenzer hervorheben"
+msgstr "Blockbe_grenzer hervorheben"
 
 #
 #: ../src/preferences.c:486
-#, fuzzy
 msgid "_Highlight current line"
-msgstr "Aktuelle Zeile hervorheben"
+msgstr "Aktuelle Zeile _hervorheben"
 
 #: ../src/preferences.c:488
-#, fuzzy
 msgid "Show line _numbers"
-msgstr "Zeilennummern anzeigen"
+msgstr "Zeilen_nummern anzeigen"
 
 #: ../src/preferences.c:490
-#, fuzzy
 msgid "Show _right margin indicator"
-msgstr "Position des rechten Begrenzers"
+msgstr "Position des _rechten Begrenzers anzeigen"
 
 #: ../src/preferences.c:492 ../src/preferences.c:1841
-#, fuzzy
 msgid "Smart auto indentin_g"
-msgstr "Cleveres automatisches Einrücken"
+msgstr "_Intelligentes automatisches Einrücken"
 
 #: ../src/preferences.c:494
 msgid "Wra_p lines"
-msgstr ""
+msgstr "_Zeilen umbrechen"
 
 #: ../src/preferences.c:497
-#, fuzzy
 msgid "_Enable spell check"
-msgstr "Rechtschreibprüfung aktivieren"
+msgstr "Rechtschreib_prüfung aktivieren"
 
 #
 #: ../src/preferences.c:501
-#, fuzzy
 msgid "<b>Tab Stops</b>"
-msgstr "<b>_Optionen</b>"
+msgstr "<b>Tabstops</b>"
 
 #: ../src/preferences.c:506
-#, fuzzy
 msgid "Tab _width:"
-msgstr "Tablulatorbreite"
+msgstr "Tabulatorbr_eite"
 
 #: ../src/preferences.c:508
-#, fuzzy
 msgid "Insert _spaces instead of tabs"
-msgstr "Leerzeichen statt Tabulatoren zum Einrücken benutzen"
+msgstr "_Leerzeichen statt Tabulatoren zum Einrücken benutzen"
 
 #: ../src/preferences.c:543 ../src/preferences.c:1129
 #: ../src/preferences.c:1234
@@ -1827,15 +1809,14 @@ msgid "Path to plugin"
 msgstr "Pfad zum Plugin"
 
 #: ../src/preferences.c:755
-#, fuzzy
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
 "applied to the same text, the top-most style in this list has the highest "
 "priority. Use drag and drop to re-order the text styles.</small>"
 msgstr ""
-"Textstile werden aufeinander angewendet. Falls meherere Stile auf den selben "
-"Text angewendet werden, hat der oberste Stil diese Liste Priorität. Benutze "
-"Drag-and-drop um die Stile neu anzuordnen."
+"<small>Textstile werden aufeinander angewendet. Falls meherere Stile auf den "
+"selben Text angewendet werden, hat der oberste Stil Priorität. "
+"Stile können mittels Drag-and-Drop neu angeordnet werden.</small>"
 
 #: ../src/preferences.c:765 ../src/preferences.c:905 ../src/preferences.c:1001
 msgid "Label"
@@ -1846,43 +1827,36 @@ msgid "Foreground color"
 msgstr "Vordergrundfarbe"
 
 #: ../src/preferences.c:782 ../src/preferences.c:1890
-#, fuzzy
 msgid "_Foreground color:"
-msgstr "Vordergrundfarbe"
+msgstr "_Vordergrundfarbe"
 
 #: ../src/preferences.c:783 ../src/preferences.c:1893
 msgid "Background color"
 msgstr "Hintergrundfarbe"
 
 #: ../src/preferences.c:784 ../src/preferences.c:1894
-#, fuzzy
 msgid "_Background color:"
-msgstr "Hintergrundfarbe"
+msgstr "Hi_ntergrundfarbe"
 
 #: ../src/preferences.c:788
-#, fuzzy
 msgid "_Normal weight"
-msgstr "normale Dicke"
+msgstr "Normale Schrift_dicke"
 
 #: ../src/preferences.c:790
-#, fuzzy
 msgid "Bold _weight"
-msgstr "fett"
+msgstr "_Fettdruck"
 
 #: ../src/preferences.c:792
-#, fuzzy
 msgid "Normal st_yle"
-msgstr "normaler Stil"
+msgstr "Normaler Schrift_stil"
 
 #: ../src/preferences.c:795
-#, fuzzy
 msgid "_Italic style"
-msgstr "kursiv"
+msgstr "_Kursivdruck"
 
 #: ../src/preferences.c:797
-#, fuzzy
 msgid "_Spell check"
-msgstr "Rechtschreibprüfung"
+msgstr "_Rechtschreibprüfung"
 
 #: ../src/preferences.c:907 ../src/preferences.c:1003
 #: ../src/preferences.c:1139
