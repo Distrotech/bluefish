@@ -33,14 +33,27 @@ http://bfwiki.tellefsen.net/index.php/Highlighter_snippets
 	<highlight name="red" style="warning"  />
 	<highlight name="blue" style="value"  />
 	<highlight name="yellow" style="special-tag3"  />
+	<highlight name="grey" style="comment"  />
 </header>
 
 <definition>
+  <context symbols="<">
+		<element id="e.title6" pattern="<r>"  starts_block="1" autocomplete="1" autocomplete_append="</r>" autocomplete_backup_cursor="4"  highlight="grey" >
+	   <context symbols="<">
+		   <element pattern="^<"  is_regex="1"  highlight="red" />
+		   <element pattern="</r>" ends_block="1" blockstartelement="e.title6" ends_context="1" highlight="grey" />
+	   </context>
+		</element> 
+	</context>
+
+<!-- 	
 	<context symbols="`^~">
 		<element pattern="````[^^]+^~" is_regex="1"  highlight="yellow"  />
 		<element pattern="```[^^]+^~" is_regex="1"  highlight="blue"  />
 		<element pattern="``[^^]+^~" is_regex="1"  highlight="red" />
 	</context>
+ -->
+
 </definition>
 
 </bflang>
