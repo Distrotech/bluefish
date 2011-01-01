@@ -612,29 +612,31 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		reconstruction_o = reconstruct_scanning(btv, &iter, &scanning);
 		pos = g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).startstate;
 		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d\n",scanning.context,pos);
+		/* now move the start position either to the start of the line, or to the position 
+		where the stack was reconstructed, the largest offset */
+		gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, reconstruction_o);
+		gtk_text_iter_set_line_offset(&start,0);
+		DBG_SCANNING("compare possible start positions %d and %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&iter));
+		if (gtk_text_iter_compare(&iter,&start)>0)
+			mstart = start = iter;
+		else
+			iter = mstart = start;
 	}
-	/* now move the start position either to the start of the line, or to the position 
-	where the stack was reconstructed, the largest offset */
-	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, reconstruction_o);
-	gtk_text_iter_set_line_offset(&start,0);
-	DBG_SCANNING("compare possible start positions %d and %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&iter));
-	if (gtk_text_iter_compare(&iter,&start)>0)
-		mstart = start = iter;
-	else
-		iter = mstart = start;
-	/* the end position should be the margest of the end of the line and the 'end' iter */
-	gtk_text_iter_forward_to_line_end(&iter);
-	gtk_text_iter_forward_char(&iter);
-	if (gtk_text_iter_compare(&iter,&end)<0)
-		end = iter;
-	iter = start;
+	if (!gtk_text_iter_is_end(&end)) {
+		/* the end position should be the largest of the end of the line and the 'end' iter */
+		gtk_text_iter_forward_to_line_end(&iter);
+		gtk_text_iter_forward_char(&iter);
+		if (gtk_text_iter_compare(&iter,&end)>=0)
+			end = iter;
+		iter = start;
+	}
 	DBG_SCANNING("scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
 	btv->scancache.valid_cache_offset = gtk_text_iter_get_offset(&start);
-
 #ifdef HL_PROFILING
 	stage2= g_timer_elapsed(scanning.timer,NULL);
 #endif
 	if (btv->needremovetags) {
+		remove_all_highlighting_in_area(btv, &start, &end);
 /*		remove_old_scan_results(btv, buffer, &start);*/
 		btv->needremovetags = FALSE;
 	}
