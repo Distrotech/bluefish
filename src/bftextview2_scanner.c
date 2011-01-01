@@ -380,6 +380,61 @@ static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *mat
 	return TRUE;
 }
 
+static void remove_invalid_cache(BluefishTextView * btv, Tmatch *match, Tscanning *scanning) {
+	guint blockstackcount=0, contextstackcount=0;
+	
+	Tfound *tmpfound = scanning->nextfound;
+	GSequenceIter *tmpsiter = scanning->siter;
+	/* TODO:
+	if this entry pushes a context or block on the stack, we should remove entries that 
+	refer to this fcontext or fblock from the cache too, else we crash/segfault
+	
+	if the entry has an offset < match->end we also have to remove this and every entry 
+	up to the current offset */
+	DBG_SCANNING("cache item %p is NO LONGER valid\n",scanning->nextfound);
+	scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
+	if (IS_FOUNDMODE_BLOCKPOP(tmpfound->foundmode) ) {
+		/* TODO: the *previous* fblock is popped here, and this one is invalid...
+		now we should set the *previous* fblock end to 'unknown'  */
+	}
+	if (IS_FOUNDMODE_CONTEXTPOP(tmpfound->foundmode) ) {
+		/* TODO: the *previous* fcontext is popped here, and this one is invalid...
+		now we should set the *previous* fcontext end to 'unknown'  */
+	}
+	if (IS_FOUNDMODE_BLOCKPUSH(tmpfound->foundmode) )
+		blockstackcount=1;
+	if (IS_FOUNDMODE_CONTEXTPUSH(tmpfound->foundmode) )
+		contextstackcount=1;
+	
+	DBG_SCANCACHE("remove Tfound %p from the cache and free\n",tmpfound);
+	g_sequence_remove(tmpsiter);
+	found_free_lcb(tmpfound, btv);
+	
+	while (blockstackcount > 0 && contextstackcount > 0) {
+		tmpfound = scanning->nextfound;
+		tmpsiter = scanning->siter;
+		scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
+		if (IS_FOUNDMODE_BLOCKPOP(tmpfound->foundmode) ) {
+			/* TODO: the *previous* fblock is popped here, and this one is invalid...
+			now we should set the *previous* fblock end to 'unknown'  */
+			blockstackcount--;
+		}
+		if (IS_FOUNDMODE_CONTEXTPOP(tmpfound->foundmode) ) {
+			/* TODO: the *previous* fcontext is popped here, and this one is invalid...
+			now we should set the *previous* fcontext end to 'unknown'  */
+			contextstackcount--;
+		}
+		if (blockstackcount > 0 && IS_FOUNDMODE_BLOCKPUSH(tmpfound->foundmode) )
+			blockstackcount++;
+		if (contextstackcount > 0 && IS_FOUNDMODE_CONTEXTPUSH(tmpfound->foundmode) )
+			contextstackcount++;
+		DBG_SCANCACHE("in loop: remove Tfound %p from the cache and free, contextstackcount=%d, blockstackcount=%d\n",tmpfound,contextstackcount,blockstackcount);
+		g_sequence_remove(tmpsiter);
+		found_free_lcb(tmpfound, btv);
+	}
+}
+
+
 static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscanning *scanning)
 {
 	Tfoundblock *fblock=NULL;
@@ -422,17 +477,7 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 			DBG_SCANNING("cache item at offset %d and mode %d is still valid\n",scanning->nextfound->charoffset_o, scanning->nextfound->foundmode);
 			return scanning->nextfound->fcontext->context;
 		} else {
-			Tfound *remfound = scanning->nextfound;
-			GSequenceIter *remsiter = scanning->siter;
-			DBG_SCANNING("cache item %p is NO LONGER valid\n",scanning->nextfound);
-			scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
-			DBG_SCANCACHE("remove Tfound %p from the cache and free\n",remfound);
-			g_sequence_remove(remsiter);
-			found_free_lcb(remfound, btv);
-			/* TODO:
-			if this entry pushes a context or block on the stack, we should remove entries that 
-			refer to this fcontext or fblock from the cache too, else we crash/segfault 
-			 */
+			remove_invalid_cache(btv, &match, scanning);
 		}
 	}
 	
