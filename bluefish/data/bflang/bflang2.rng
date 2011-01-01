@@ -165,6 +165,14 @@
 								</attribute>
 								<empty/>
 							</element><!-- smartindent -->
+							<element name="smartoutdent">
+								<a:documentation>Specify which characters (followed by a return) should decrease the indenting.</a:documentation>
+								<attribute name="characters">
+									<a:documentation>List of characters</a:documentation>
+									<data type="string"/>
+								</attribute>
+								<empty/>
+							</element><!-- smartoutdent -->
 							<element name="default_spellcheck">
 								<a:documentation>Define if regions that are not highlighted will be checked by the spell checker. This is typically enabled for HTML/XML like languages, and disabled (or ignored) for all programming languages.</a:documentation>
 								<attribute name="enabled" a:defaultValue="1">
