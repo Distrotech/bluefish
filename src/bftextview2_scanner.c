@@ -98,6 +98,7 @@ Tfound *get_foundcache_first(BluefishTextView * btv, GSequenceIter ** retsiter) 
 	if (*retsiter && !g_sequence_iter_is_end(*retsiter)) {
 		return g_sequence_get(*retsiter);
 	}
+	g_print("get_foundcache_first, return NULL\n");
 	return NULL;
 }
 
@@ -174,8 +175,10 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 			tmpfcontext = found->fcontext;
 		
 		while(tmpfcontext) {
-			if (tmpfcontext->end_o != BF2_OFFSET_UNDEFINED)
+			if (tmpfcontext->end_o != BF2_OFFSET_UNDEFINED) {
+				DBG_SCANCACHE("foundcache_update_offsets, update fcontext %p end from %d to %d\n",tmpfcontext, tmpfcontext->end_o, tmpfcontext->end_o+offset);
 				tmpfcontext->end_o += offset;
+			}
 			tmpfcontext = (Tfoundcontext *)tmpfcontext->parentfcontext;
 		}
 
@@ -185,8 +188,10 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 			tmpfblock = found->fblock;
 		
 		while(tmpfblock) {
-			if (tmpfblock->start2_o != BF2_OFFSET_UNDEFINED)
+			if (tmpfblock->start2_o != BF2_OFFSET_UNDEFINED) {
+				DBG_SCANCACHE("foundcache_update_offsets, update fblock %p end from %d to %d\n",tmpfblock, tmpfblock->start2_o, tmpfblock->start2_o+offset);
 				tmpfblock->start2_o += offset;
+			}
 			if (tmpfblock->end2_o != BF2_OFFSET_UNDEFINED)
 				tmpfblock->end2_o += offset;
 			
@@ -199,15 +204,17 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	}
 	/* DO WE actually have to update them all??? sometimes they will be deleted anyway.. can we do this smart?? */
 	while (found) {
-		DBG_SCANCACHE("foundcache_update_offsets, about to update found %p with charoffset %d\n",found,found->charoffset_o);
+		DBG_SCANCACHE("foundcache_update_offsets, about to update found %p with charoffset %d, mode %d fcontext %p and fblock %p\n",found,found->foundmode,found->charoffset_o, found->fcontext, found->fblock);
 		/* for all further founds, we only handle the pushedblock and pushedcontext */
 		if (IS_FOUNDMODE_CONTEXTPUSH(found->foundmode)) {
+			DBG_SCANCACHE("mode contextpush %p with start_o=%d and end_o=%d\n",found->fcontext,found->fcontext->start_o,found->fcontext->end_o);
 			if (found->fcontext->start_o != BF2_OFFSET_UNDEFINED)
 				found->fcontext->start_o += offset;
 			if (found->fcontext->end_o != BF2_OFFSET_UNDEFINED)
 				found->fcontext->end_o += offset;
 		}
 		if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode)) {
+			DBG_SCANCACHE("mode blockpush %p with start1_o=%d and end2_o=%d\n",found->fblock,found->fblock->start1_o,found->fblock->end2_o);
 			if (found->fblock->start1_o != BF2_OFFSET_UNDEFINED)
 				found->fblock->start1_o += offset;
 			if (found->fblock->end1_o != BF2_OFFSET_UNDEFINED)
@@ -355,12 +362,13 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,const T
 	}
 }
 
-static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscanning *scanning, GSequenceIter **siter)
+static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscanning *scanning)
 {
 	Tfoundblock *fblock=NULL;
 	Tfoundcontext *fcontext=NULL;
 	guint8 mode=0;
 	gint retcontext=scanning->context;
+	guint match_end_o;
 	Tfound *found;
 	Tpattern pat = g_array_index(btv->bflang->st->matches,Tpattern, match.patternum);
 	DBG_SCANNING("found_match for pattern %d %s at charoffset %d, starts_block=%d,ends_block=%d, nextcontext=%d (current=%d)\n",match.patternum,pat.pattern, gtk_text_iter_get_offset(&match.start),pat.starts_block,pat.ends_block,pat.nextcontext,scanning->context);
@@ -370,11 +378,20 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 	scanning->identmode = pat.identmode;
 #endif /* IDENTSTORING */
 
+	match_end_o = gtk_text_iter_get_offset(&match.end);
+
 	if (pat.selftag) {
 		DBG_SCANNING("found_match, apply tag %p from %d to %d\n",pat.selftag,gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
 		gtk_text_buffer_apply_tag(btv->buffer,pat.selftag, &match.start, &match.end);
 	}
-
+	if (scanning->nextfound) {
+		if (scanning->nextfound->charoffset_o > match_end_o) {
+			DBG_SCANNING("next item in the cache (offset %d) is not relevant yet (offset now %d)\n",scanning->nextfound->charoffset_o, match_end_o);
+		} else {
+			DBG_SCANNING("cache item at offset %d has mode %d\n",scanning->nextfound->charoffset_o, scanning->nextfound->foundmode);
+		}
+	}
+	
 	if (pat.starts_block) {
 		fblock = found_start_of_block(btv, match, scanning);
 		SET_FOUNDMODE_BLOCKPUSH(mode);
@@ -400,7 +417,7 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 		found->foundmode = mode;
 		found->fblock = scanning->curfblock;
 		found->fcontext = scanning->curfcontext;
-		found->charoffset_o = gtk_text_iter_get_offset(&match.end);
+		found->charoffset_o = match_end_o;
 		DBG_SCANCACHE("found_match, put found %p in the cache at charoffset_o %d with mode %d fblock %p fcontext %p\n",found,found->charoffset_o,found->foundmode, found->fblock,found->fcontext);
 		g_sequence_insert_sorted(btv->scancache.foundcaches,found,foundcache_compare_charoffset_o,NULL);
 	}
@@ -460,6 +477,7 @@ static guint reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position,
 		scanning->context = 1;
 		scanning->curfound=NULL;
 		scanning->nextfound=get_foundcache_first(btv,&scanning->siter);
+		DBG_SCANNING("reconstruct_scanning, nextfound=%p\n",scanning->nextfound);
 		return 0;
 	}
 }
@@ -518,8 +536,6 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	GtkTextIter mstart;
 	/*GArray *matchstack;*/
 	Tscanning scanning;
-	GSequenceIter *siter=NULL;
-	Tfound *curfound, *nextfound;
 	guint pos = 0, newpos, reconstruction_o;
 	gboolean normal_run=TRUE, last_character_run=FALSE;
 	gint loop=0;
@@ -588,9 +604,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 #endif
 	iter = mstart = start;
 	if (gtk_text_iter_is_start(&start)) {
-		siter = g_sequence_get_begin_iter(btv->scancache.foundcaches);
-		curfound = NULL;
-		nextfound = NULL;
+		scanning.siter = g_sequence_get_begin_iter(btv->scancache.foundcaches);
+		scanning.curfound = NULL;
+		scanning.nextfound = NULL;
 		scanning.curfcontext = NULL;
 		scanning.curfblock = NULL;
 		reconstruction_o = 0;
@@ -609,6 +625,12 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		mstart = start = iter;
 	else
 		iter = mstart = start;
+	/* the end position should be the margest of the end of the line and the 'end' iter */
+	gtk_text_iter_forward_to_line_end(&iter);
+	gtk_text_iter_forward_char(&iter);
+	if (gtk_text_iter_compare(&iter,&end)<0)
+		end = iter;
+	iter = start;
 	DBG_SCANNING("scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
 	btv->scancache.valid_cache_offset = gtk_text_iter_get_offset(&start);
 
@@ -656,7 +678,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				match.start = mstart;
 				match.end = iter;
 				DBG_SCANNING("we have a match from pos %d to %d\n", gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
-				scanning.context = found_match(btv, match,&scanning, &siter);
+				scanning.context = found_match(btv, match,&scanning);
 				DBG_SCANNING("after match context=%d\n",scanning.context);
 			}
 #ifdef IDENTSTORING
