@@ -359,6 +359,27 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,const T
 	}
 }
 
+static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *match, Tscanning *scanning) {
+	Tpattern pat = g_array_index(btv->bflang->st->matches,Tpattern, match->patternum);
+	if (IS_FOUNDMODE_BLOCKPUSH(scanning->nextfound->foundmode) && (
+				!pat.starts_block
+				|| scanning->nextfound->fblock->patternum != match->patternum
+				))
+		return FALSE;
+	if (IS_FOUNDMODE_BLOCKPOP(scanning->nextfound->foundmode) && !pat.ends_block)
+		return FALSE;
+	if (IS_FOUNDMODE_CONTEXTPUSH(scanning->nextfound->foundmode) && (
+				pat.nextcontext <= 0 
+				|| pat.nextcontext != scanning->context
+				|| scanning->nextfound->fcontext->context != pat.nextcontext
+				))
+		return FALSE;
+	if (IS_FOUNDMODE_CONTEXTPOP(scanning->nextfound->foundmode) 
+				&& (pat.nextcontext >= 0 || pat.nextcontext != scanning->context))
+		return FALSE;
+	return TRUE;
+}
+
 static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscanning *scanning)
 {
 	Tfoundblock *fblock=NULL;
@@ -381,11 +402,37 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 		DBG_SCANNING("found_match, apply tag %p from %d to %d\n",pat.selftag,gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
 		gtk_text_buffer_apply_tag(btv->buffer,pat.selftag, &match.start, &match.end);
 	}
+	if (!pat.starts_block && !pat.ends_block && (pat.nextcontext == 0 || pat.nextcontext == scanning->context))
+		return scanning->context;
+	
+	/* There are three situations comparing the current scan to the cached results:
+	1: the cache entry has an offset lower than the current offset or equal but a different patternum and
+		is thus not valid anymore. That means that the region that needs scanning should be enlarged up 
+		to the fcontext or fblock end from the cache.
+	2: the cache entry has the same offset and the same patternum and is thus valid, we only highlight and 
+		store nothing in the cache
+	3: the cache entry has a higher offset -> do nothing with the cached one 
+	*/
 	if (scanning->nextfound) {
+		/* TODO: this should be a loop, if we remove an entry because our current entry > the removed entry, 
+		perhaps we have to remove the next entry too ??? */
 		if (scanning->nextfound->charoffset_o > match_end_o) {
 			DBG_SCANNING("next item in the cache (offset %d) is not relevant yet (offset now %d)\n",scanning->nextfound->charoffset_o, match_end_o);
+		} else if (scanning->nextfound->charoffset_o == match_end_o && cached_found_is_valid(btv, &match, scanning)){
+			DBG_SCANNING("cache item at offset %d and mode %d is still valid\n",scanning->nextfound->charoffset_o, scanning->nextfound->foundmode);
+			return scanning->nextfound->fcontext->context;
 		} else {
-			DBG_SCANNING("cache item at offset %d has mode %d\n",scanning->nextfound->charoffset_o, scanning->nextfound->foundmode);
+			Tfound *remfound = scanning->nextfound;
+			GSequenceIter *remsiter = scanning->siter;
+			DBG_SCANNING("cache item %p is NO LONGER valid\n",scanning->nextfound);
+			scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
+			DBG_SCANCACHE("remove Tfound %p from the cache and free\n",remfound);
+			g_sequence_remove(remsiter);
+			found_free_lcb(remfound, btv);
+			/* TODO:
+			if this entry pushes a context or block on the stack, we should remove entries that 
+			refer to this fcontext or fblock from the cache too, else we crash/segfault 
+			 */
 		}
 	}
 	
@@ -406,19 +453,16 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 		}
 		retcontext = (fcontext ? fcontext->context : 1);
 	}
-	if (mode != 0) {
-		found = g_slice_new0(Tfound);
+	found = g_slice_new0(Tfound);
 #ifdef HL_PROFILING
-		hl_profiling.found_refcount++;
+	hl_profiling.found_refcount++;
 #endif
-		found->foundmode = mode;
-		found->fblock = scanning->curfblock;
-		found->fcontext = scanning->curfcontext;
-		found->charoffset_o = match_end_o;
-		DBG_SCANCACHE("found_match, put found %p in the cache at charoffset_o %d with mode %d fblock %p fcontext %p\n",found,found->charoffset_o,found->foundmode, found->fblock,found->fcontext);
-		g_sequence_insert_sorted(btv->scancache.foundcaches,found,foundcache_compare_charoffset_o,NULL);
-	}
-
+	found->foundmode = mode;
+	found->fblock = scanning->curfblock;
+	found->fcontext = scanning->curfcontext;
+	found->charoffset_o = match_end_o;
+	DBG_SCANCACHE("found_match, put found %p in the cache at charoffset_o %d with mode %d fblock %p fcontext %p\n",found,found->charoffset_o,found->foundmode, found->fblock,found->fcontext);
+	g_sequence_insert_sorted(btv->scancache.foundcaches,found,foundcache_compare_charoffset_o,NULL);
 	return retcontext;
 }
 

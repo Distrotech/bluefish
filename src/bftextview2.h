@@ -333,7 +333,11 @@ typedef struct {
 							so we can later on find what the current blockstack looks like.
 						Once the end-of-block is found, start2 and end2 are set
 							The Tfoundblock is popped as current block, and the parent
-							is active again. This is also put on the foundcache */
+							is active again. This is also put on the foundcache
+							
+						on 64bit this type has size 8+4+4+4+4+2+1+1 + 4 padding = 32 bytes
+						on 32bit this type has size 4+4+4+4+4+2+1+1 NO padding = 24 bytes
+							*/
 
 typedef struct {
 	gpointer parentfcontext;
@@ -346,7 +350,11 @@ typedef struct {
 						so we can later on find what the current contextstack looks like.
 						once the end-of-context is found, end is set
 						The Tfoundcontext is popped from the current stack and
-						this entry is also added to the foundcache */
+						this entry is also added to the foundcache
+						
+						on 64bit this type has size 8+4+4+2 + 6 padding = 24 bytes
+						on 32bit this type has size 4+4+4+2 + 2 padding = 16 bytes
+						*/
 
 typedef struct {
 	Tfoundcontext *fcontext; /* on mode 4 or 8 this refers to the last pushed context, which is the current context. 
@@ -363,7 +371,10 @@ typedef struct {
 			bit 4 (=8) = block pop
 			so mode 5 = context push & block push
 			so mode 10 = context pop & block pop */
-} Tfound;
+} Tfound; /*
+						on 64bit this type has size 8+8+4+1 + 3 padding = 24 bytes
+						on 32bit this type has size 4+4+4+1 + 3 padding = 16 bytes
+						*/
 
 #define FOUNDMODE_CONTEXTPUSH 0x01
 #define FOUNDMODE_CONTEXTPOP 0x02
