@@ -147,8 +147,12 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	GSequenceIter *siter;
 	if (offset==0)
 		return;
-	DBG_SCANCACHE("foundcache_update_offsets, update offset %d starting at startpos %d\n",offset,startpos);
+	DBG_SCANCACHE("foundcache_update_offsets, update offset %d starting at startpos %d, cache length=%d\n",offset,startpos,g_sequence_get_length(btv->scancache.foundcaches) );
 	found = get_foundcache_at_offset(btv, startpos, &siter);
+	if (found)
+		DBG_SCANCACHE("foundcache_update_offsets, got found %p with offset %d, foundmode %d\n",found, found->charoffset_o, found->foundmode);
+	else
+		DBG_SCANCACHE("foundcache_update_offsets, got found %p\n",found);
 	if (offset < 0) {
 		while (found && found->charoffset_o < startpos-offset) {
 			if (found->charoffset_o > startpos) {
@@ -163,33 +167,27 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 			}
 		}		
 	}
-	if (found) {
+	if (found && found->charoffset_o < startpos) {
 		Tfoundcontext *tmpfcontext;
 		Tfoundblock *tmpfblock;
-		DBG_SCANCACHE("foundcache_update_offsets, handle first found %p on offset %d complete stack\n",found, found->charoffset_o);
+		DBG_SCANCACHE("foundcache_update_offsets, handle first found %p with offset %d, foundmode %d, complete stack\n",found, found->charoffset_o, found->foundmode);
 		/* for the first found, we have to update the end-offsets for all contexts/blocks on the stack */
 
-		if (IS_FOUNDMODE_CONTEXTPOP(found->foundmode))
-			tmpfcontext = (Tfoundcontext *)found->fcontext->parentfcontext;
-		else
-			tmpfcontext = found->fcontext;
-		
+		tmpfcontext = found->fcontext;
 		while(tmpfcontext) {
+			DBG_SCANCACHE("fcontext on stack=%p, start_o=%d end_o=%d\n",tmpfcontext, tmpfcontext->start_o, tmpfcontext->end_o);
 			if (tmpfcontext->end_o != BF2_OFFSET_UNDEFINED) {
-				DBG_SCANCACHE("foundcache_update_offsets, update fcontext %p end from %d to %d\n",tmpfcontext, tmpfcontext->end_o, tmpfcontext->end_o+offset);
+				DBG_SCANCACHE("update fcontext %p end from %d to %d\n",tmpfcontext, tmpfcontext->end_o, tmpfcontext->end_o+offset);
 				tmpfcontext->end_o += offset;
 			}
 			tmpfcontext = (Tfoundcontext *)tmpfcontext->parentfcontext;
 		}
 
-		if (IS_FOUNDMODE_BLOCKPOP(found->foundmode))
-			tmpfblock = (Tfoundblock *)found->fblock->parentfblock;
-		else
-			tmpfblock = found->fblock;
-		
+		tmpfblock = found->fblock;
 		while(tmpfblock) {
+			DBG_SCANCACHE("fblock on stack=%p, start1_o=%d end2_o=%d\n",tmpfblock, tmpfblock->start1_o, tmpfblock->end2_o);
 			if (tmpfblock->start2_o != BF2_OFFSET_UNDEFINED) {
-				DBG_SCANCACHE("foundcache_update_offsets, update fblock %p end from %d to %d\n",tmpfblock, tmpfblock->start2_o, tmpfblock->start2_o+offset);
+				DBG_SCANCACHE("update fblock %p with start1_o=%d and start2_o=%d to start2_o=%d\n",tmpfblock, tmpfblock->start1_o,tmpfblock->start2_o, tmpfblock->start2_o+offset);
 				tmpfblock->start2_o += offset;
 			}
 			if (tmpfblock->end2_o != BF2_OFFSET_UNDEFINED)
@@ -202,9 +200,8 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 		/*this offset is *before* 'position' found->charoffset_o += offset;*/
 		found = get_foundcache_next(btv, &siter);
 	}
-	/* DO WE actually have to update them all??? sometimes they will be deleted anyway.. can we do this smart?? */
 	while (found) {
-		DBG_SCANCACHE("foundcache_update_offsets, about to update found %p with charoffset %d, mode %d fcontext %p and fblock %p\n",found,found->foundmode,found->charoffset_o, found->fcontext, found->fblock);
+		DBG_SCANCACHE("foundcache_update_offsets, about to update found %p with charoffset %d, mode %d fcontext %p and fblock %p\n",found,found->charoffset_o,found->foundmode, found->fcontext, found->fblock);
 		/* for all further founds, we only handle the pushedblock and pushedcontext */
 		if (IS_FOUNDMODE_CONTEXTPUSH(found->foundmode)) {
 			DBG_SCANCACHE("mode contextpush %p with start_o=%d and end_o=%d\n",found->fcontext,found->fcontext->start_o,found->fcontext->end_o);
