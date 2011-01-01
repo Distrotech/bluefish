@@ -47,7 +47,7 @@
 	style	(attribute|brackets|comment|function|keyword|operator|preprocessor|special-attribute|special-function|special-keyword|special-tag|special-tag2|special-tag3|special-type|special-value|string|tag|type|value|variable|warning)	#REQUIRED
 >
 
-<!ELEMENT properties ((comment|smartindent|default_spellcheck)+)>
+<!ELEMENT properties ((comment|smartindent|smartoutdent|default_spellcheck)+)>
 
 <!ELEMENT comment EMPTY>
 
@@ -61,6 +61,12 @@
 <!ELEMENT smartindent EMPTY>
 
 <!ATTLIST smartindent
+	characters	CDATA	#REQUIRED
+>
+
+<!ELEMENT smartoutdent EMPTY>
+
+<!ATTLIST smartoutdent
 	characters	CDATA	#REQUIRED
 >
 
