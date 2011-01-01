@@ -380,9 +380,9 @@ static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *mat
 	return TRUE;
 }
 
-static void remove_invalid_cache(BluefishTextView * btv, Tmatch *match, Tscanning *scanning) {
+static guint remove_invalid_cache(BluefishTextView * btv, Tmatch *match, Tscanning *scanning) {
 	guint blockstackcount=0, contextstackcount=0;
-	
+	guint invalidoffset;
 	Tfound *tmpfound = scanning->nextfound;
 	GSequenceIter *tmpsiter = scanning->siter;
 	/* TODO:
@@ -393,6 +393,8 @@ static void remove_invalid_cache(BluefishTextView * btv, Tmatch *match, Tscannin
 	up to the current offset */
 	DBG_SCANNING("cache item %p is NO LONGER valid\n",scanning->nextfound);
 	scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
+	
+	invalidoffset = tmpfound->charoffset_o;
 	if (IS_FOUNDMODE_BLOCKPOP(tmpfound->foundmode) ) {
 		/* TODO: the *previous* fblock is popped here, and this one is invalid...
 		now we should set the *previous* fblock end to 'unknown'  */
@@ -410,7 +412,7 @@ static void remove_invalid_cache(BluefishTextView * btv, Tmatch *match, Tscannin
 	g_sequence_remove(tmpsiter);
 	found_free_lcb(tmpfound, btv);
 	
-	while (blockstackcount > 0 && contextstackcount > 0) {
+	while (scanning->nextfound && blockstackcount > 0 && contextstackcount > 0) {
 		tmpfound = scanning->nextfound;
 		tmpsiter = scanning->siter;
 		scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
@@ -429,9 +431,11 @@ static void remove_invalid_cache(BluefishTextView * btv, Tmatch *match, Tscannin
 		if (contextstackcount > 0 && IS_FOUNDMODE_CONTEXTPUSH(tmpfound->foundmode) )
 			contextstackcount++;
 		DBG_SCANCACHE("in loop: remove Tfound %p from the cache and free, contextstackcount=%d, blockstackcount=%d\n",tmpfound,contextstackcount,blockstackcount);
+		invalidoffset = tmpfound->charoffset_o;
 		g_sequence_remove(tmpsiter);
 		found_free_lcb(tmpfound, btv);
 	}
+	return invalidoffset;
 }
 
 
@@ -469,15 +473,15 @@ static inline int found_match(BluefishTextView * btv, const Tmatch match, Tscann
 	3: the cache entry has a higher offset -> do nothing with the cached one 
 	*/
 	if (scanning->nextfound) {
-		/* TODO: this should be a loop, if we remove an entry because our current entry > the removed entry, 
-		perhaps we have to remove the next entry too ??? */
 		if (scanning->nextfound->charoffset_o > match_end_o) {
 			DBG_SCANNING("next item in the cache (offset %d) is not relevant yet (offset now %d)\n",scanning->nextfound->charoffset_o, match_end_o);
 		} else if (scanning->nextfound->charoffset_o == match_end_o && cached_found_is_valid(btv, &match, scanning)){
 			DBG_SCANNING("cache item at offset %d and mode %d is still valid\n",scanning->nextfound->charoffset_o, scanning->nextfound->foundmode);
 			return scanning->nextfound->fcontext->context;
 		} else {
-			remove_invalid_cache(btv, &match, scanning);
+			guint invalidoffset = remove_invalid_cache(btv, &match, scanning);
+			/* TODO: if the current scan end is smaller than invalidoffset
+			we have to enlarge the area that needs scanning */
 		}
 	}
 	
