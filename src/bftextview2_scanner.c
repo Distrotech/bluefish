@@ -373,19 +373,38 @@ static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *mat
 	if (IS_FOUNDMODE_BLOCKPUSH(scanning->nextfound->foundmode) && (
 				!pat.starts_block
 				|| scanning->nextfound->fblock->patternum != match->patternum
-				))
+				)) {
+		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not push the same block\n",scanning->nextfound);
 		return FALSE;
-	if (IS_FOUNDMODE_BLOCKPOP(scanning->nextfound->foundmode) && !pat.ends_block)
+	}
+	if (IS_FOUNDMODE_BLOCKPOP(scanning->nextfound->foundmode) && !pat.ends_block) {
+		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not pop a block\n",scanning->nextfound);
 		return FALSE;
+	}
 	if (IS_FOUNDMODE_CONTEXTPUSH(scanning->nextfound->foundmode) && (
 				pat.nextcontext <= 0 
-				|| pat.nextcontext != scanning->context
+				/*|| pat.nextcontext != scanning->context*/
 				|| scanning->nextfound->fcontext->context != pat.nextcontext
-				))
+				)) {
+		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not push the same context\n",scanning->nextfound);
+		DBG_SCANCACHE("cached foundmode=%d, pat.nextcontext=%d, fcontext->context=%d, current context=%d\n"
+					,scanning->nextfound->foundmode
+					,pat.nextcontext
+					,scanning->nextfound->fcontext->context
+					,scanning->context
+					);
 		return FALSE;
-	if (IS_FOUNDMODE_CONTEXTPOP(scanning->nextfound->foundmode) 
-				&& (pat.nextcontext >= 0 || pat.nextcontext != scanning->context))
+	}
+	if (IS_FOUNDMODE_CONTEXTPOP(scanning->nextfound->foundmode) && pat.nextcontext >= 0) {
+		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not pop the same context\n",scanning->nextfound);
+		DBG_SCANCACHE("cached foundmode=%d, pat.nextcontext=%d, fcontext->context=%d, current context=%d\n"
+					,scanning->nextfound->foundmode
+					,pat.nextcontext
+					,scanning->nextfound->fcontext->context
+					,scanning->context
+					);
 		return FALSE;
+	}
 	return TRUE;
 }
 
@@ -400,7 +419,7 @@ static guint remove_invalid_cache(BluefishTextView * btv, Tmatch *match, Tscanni
 	
 	if the entry has an offset < match->end we also have to remove this and every entry 
 	up to the current offset */
-	DBG_SCANNING("cache item %p is NO LONGER valid\n",scanning->nextfound);
+	DBG_SCANNING("remove_invalid_cache, cache item %p is NO LONGER valid\n",scanning->nextfound);
 	scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
 	
 	invalidoffset = tmpfound->charoffset_o;
@@ -485,17 +504,22 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 	*/
 	if (scanning->nextfound) {
 		if (scanning->nextfound->charoffset_o > match_end_o) {
-			DBG_SCANNING("next item in the cache (offset %d) is not relevant yet (offset now %d)\n",scanning->nextfound->charoffset_o, match_end_o);
+			DBG_SCANCACHE("next item in the cache (offset %d) is not relevant yet (offset now %d)\n",scanning->nextfound->charoffset_o, match_end_o);
 			/* TODO: enlarge the area that needs scanning, but to where ???? */
 		} else if (scanning->nextfound->charoffset_o == match_end_o && cached_found_is_valid(btv, match, scanning)){
-			DBG_SCANNING("cache item at offset %d and mode %d is still valid\n",scanning->nextfound->charoffset_o, scanning->nextfound->foundmode);
-			return scanning->nextfound->fcontext->context;
+			gint context = scanning->nextfound->fcontext->context;
+			DBG_SCANCACHE("cache item at offset %d and mode %d is still valid\n",scanning->nextfound->charoffset_o, scanning->nextfound->foundmode);
+			scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
+			/* TODO: if a context has a GtkTextTag it is not applied now in the rescanning... should be fixed */
+			return context;
 		} else {
 			GtkTextIter iiter;
-			guint invalidoffset = remove_invalid_cache(btv, match, scanning);
+			guint invalidoffset;
+			DBG_SCANCACHE("found %p with offset %d will be removed\n",scanning->nextfound, scanning->nextfound->charoffset_o);
+			invalidoffset = remove_invalid_cache(btv, match, scanning);
 			gtk_text_buffer_get_iter_at_offset(btv->buffer, &iiter, invalidoffset);
 			if (gtk_text_iter_compare(&iiter,&scanning->end)>0) {
-				DBG_SCANNING("removed invalid cache entries up to offset %d, enlarge region to scan...\n",invalidoffset);
+				DBG_SCANCACHE("removed invalid cache entries up to offset %d, enlarge region to scan...\n",invalidoffset);
 				remove_all_highlighting_in_area(btv, &scanning->end, &iiter);
 				scanning->end = iiter;
 			}
