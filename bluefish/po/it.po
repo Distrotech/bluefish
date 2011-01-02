@@ -3,14 +3,14 @@
 # Marco Cassisa <marco@linox.tecnoprogress.it>
 # Andrea Scialpi <solopec@tiscalinet.it> 2000
 # Stefano Canepa <sc@linux.it> 2003, 2004
-# Roberto Bellingeri <bellingeri@netguru.it> 2010
+# Roberto Bellingeri <bellingeri@netguru.it> 2010, 2011
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 2.0.\n"
+"Project-Id-Version: bluefish 2.0.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-31 07:41+0100\n"
-"PO-Revision-Date: 2010-09-04 21:38+0100\n"
+"POT-Creation-Date: 2011-01-02 13:36+0100\n"
+"PO-Revision-Date: 2011-01-02 10:14+0100\n"
 "Last-Translator: Roberto Bellingeri <bellingeri@netguru.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr "Ignora l'ortografia"
 
 #: ../src/bftextview2_spell.c:779
 msgid "Insert special characters as entities"
-msgstr ""
+msgstr "Inserisci caratteri speciali come entità"
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -224,11 +224,11 @@ msgstr "/Mostra file/Per nome"
 
 #: ../src/bookmark.c:749
 msgid "/Show file/By full path"
-msgstr "/Mostra file/Per percorso"
+msgstr "/Mostra file/Per percorso completo"
 
 #: ../src/bookmark.c:750
 msgid "/Show file/By full uri"
-msgstr "/Mostra file/Per uri"
+msgstr "/Mostra file/Per uri completo"
 
 #: ../src/bookmark.c:751
 msgid "/Show bookmark"
@@ -539,9 +539,8 @@ msgstr[0] "%d carattere"
 msgstr[1] "%d caratteri"
 
 #: ../src/document.c:3300
-#, fuzzy
 msgid "Selection statistics: "
-msgstr "Statistiche: "
+msgstr "Statistiche della selezione: "
 
 #: ../src/document.c:3300
 msgid "Statistics: "
@@ -1062,7 +1061,7 @@ msgstr "Rilevamento automatico"
 
 #: ../src/gtk_easy.c:1554
 msgid "<b>Keystroke choice </b>"
-msgstr ""
+msgstr "<b>Scelta tasti </b>"
 
 #: ../src/gtk_easy.c:1560
 msgid ""
@@ -1071,10 +1070,14 @@ msgid ""
 "Please use Ctrl, Shift, Alt key with any other key.\n"
 "<i>Esc to cancel, Delete to remove the accelerator.</i>"
 msgstr ""
+"\n"
+"Premere la combinazione di tasti richiesta.\n"
+"Utilizzare Ctrl, Maiuscolo, Alt con qualsiasi altro tasto.\n"
+"<i>Esc per annullare, Canc per rimuovere.</i>"
 
 #: ../src/gtk_easy.c:1582
 msgid "Press shortcut key combination"
-msgstr ""
+msgstr "Premere la combinazione di tasti di scelta rapida"
 
 #: ../src/gtkmountoperation.c:125
 msgid "Parent"
@@ -1455,9 +1458,8 @@ msgid "/Document/Highlight block delimiters"
 msgstr "/Documento/Evidenzia i delimitatori del blocco"
 
 #: ../src/menu.c:296
-#, fuzzy
 msgid "/Document/Split view"
-msgstr "/Documento/Controllo _ortografico"
+msgstr "/Documento/Vista divisa"
 
 #: ../src/menu.c:298
 msgid "/Document/_Spell Check"
@@ -1637,7 +1639,7 @@ msgstr "/Strumenti/_Sincronizza blocco di testo"
 
 #: ../src/menu.c:371
 msgid "/Tools/Toggle _Comment"
-msgstr "/Strumenti/Commenti"
+msgstr "/Strumenti/Co_mmenti"
 
 #: ../src/menu.c:372
 msgid "/Tools/_Word Count"
@@ -1645,22 +1647,19 @@ msgstr "/Strumenti/Conte_ggio parole"
 
 #: ../src/menu.c:374
 msgid "/Tools/Strip T_railing Whitespace"
-msgstr "/Strumenti/Elimina gli spazi finali"
+msgstr "/Strumenti/_Elimina gli spazi finali"
 
 #: ../src/menu.c:375
-#, fuzzy
 msgid "/Tools/_Join lines together"
 msgstr "/Strumenti/_Unisci linee"
 
 #: ../src/menu.c:376
-#, fuzzy
 msgid "/Tools/Sp_lit lines on right margin"
-msgstr "/Strumenti/_Dividi linee"
+msgstr "/Strumenti/_Dividi linee al margine destro"
 
 #: ../src/menu.c:377
-#, fuzzy
 msgid "/Tools/Rewrap _lines"
-msgstr "/Strumenti/_Dividi linee"
+msgstr "/Strumenti/_A capo automatico"
 
 #: ../src/menu.c:378
 msgid "/Tools/Indenting To T_abs"
@@ -1729,82 +1728,68 @@ msgid "Untitled"
 msgstr "Senza nome"
 
 #: ../src/preferences.c:458
-#, fuzzy
 msgid "_Mime type:"
-msgstr "Mime type"
+msgstr "_Mime type:"
 
 #: ../src/preferences.c:470 ../src/preferences.c:472
 msgid "None"
 msgstr "Nulla"
 
 #: ../src/preferences.c:473
-#, fuzzy
 msgid "_Template:"
-msgstr "Modelli"
+msgstr "M_odelli:"
 
 #: ../src/preferences.c:476 ../src/preferences.c:1830
-#, fuzzy
 msgid "<b>Options</b>"
-msgstr "<b>_Opzioni</b>"
+msgstr "<b>Opzioni</b>"
 
 #: ../src/preferences.c:480
-#, fuzzy
 msgid "Enable a_uto-completion"
-msgstr "Abilita il pop-up di completamento automatico"
+msgstr "Abilita il completamento automatico"
 
 #: ../src/preferences.c:482
-#, fuzzy
 msgid "Enable _block folding"
-msgstr "Abilita la chiusura dei blocchi"
+msgstr "Abilita la chiusura dei _blocchi"
 
 #: ../src/preferences.c:484
-#, fuzzy
 msgid "Highlight block _delimiters"
-msgstr "Evidenzia i delimitatori del blocco"
+msgstr "Evidenzia i _delimitatori del blocco"
 
 #: ../src/preferences.c:486
-#, fuzzy
 msgid "_Highlight current line"
-msgstr "Evidenzia la linea corrente"
+msgstr "_Evidenzia la linea corrente"
 
 #: ../src/preferences.c:488
-#, fuzzy
 msgid "Show line _numbers"
-msgstr "Visualizza numeri di riga"
+msgstr "Visualizza _numeri di riga"
 
 #: ../src/preferences.c:490
-#, fuzzy
 msgid "Show _right margin indicator"
-msgstr "Mostra il menù personalizzato in modo predefinito"
+msgstr "Mostra l'indicatore margine destro"
 
 #: ../src/preferences.c:492 ../src/preferences.c:1841
-#, fuzzy
 msgid "Smart auto indentin_g"
-msgstr "Auto indentazione intelligente"
+msgstr "Auto indentazione intelli_gente"
 
 #: ../src/preferences.c:494
 msgid "Wra_p lines"
-msgstr ""
+msgstr "A capo automatico"
 
 #: ../src/preferences.c:497
-#, fuzzy
 msgid "_Enable spell check"
-msgstr "Abilita controllo ortografico"
+msgstr "_Abilita controllo ortografico"
 
 #: ../src/preferences.c:501
-#, fuzzy
 msgid "<b>Tab Stops</b>"
-msgstr "<b>_Opzioni</b>"
+msgstr "<b>Tabulazioni</b>"
 
 #: ../src/preferences.c:506
-#, fuzzy
 msgid "Tab _width:"
-msgstr "Ampiezza tabulatore"
+msgstr "A_mpiezza tabulatore:"
 
 #: ../src/preferences.c:508
-#, fuzzy
 msgid "Insert _spaces instead of tabs"
-msgstr "Usa spazi per indentare, non tabulazioni"
+msgstr "Usa _spazi per indentare, non tabulazioni"
 
 #: ../src/preferences.c:543 ../src/preferences.c:1129
 #: ../src/preferences.c:1234
@@ -1820,15 +1805,15 @@ msgid "Path to plugin"
 msgstr "Percorso del plugin"
 
 #: ../src/preferences.c:755
-#, fuzzy
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
 "applied to the same text, the top-most style in this list has the highest "
 "priority. Use drag and drop to re-order the text styles.</small>"
 msgstr ""
-"Gli stili di testo vengono applicati uno sopra l'altro. Se stili multipli "
-"vengono applicati allo stesso testo, il più in alto in questo elenco ha la "
-"massima priorità. Trascinate per riordinare gli stili di testo."
+"<small>Gli stili di testo vengono applicati uno sopra l'altro. Se stili "
+"multipli vengono applicati allo stesso testo, il più in alto in questo "
+"elenco ha la massima priorità. Trascinate per riordinare gli stili di testo."
+"</small>"
 
 #: ../src/preferences.c:765 ../src/preferences.c:905 ../src/preferences.c:1001
 msgid "Label"
@@ -1839,43 +1824,36 @@ msgid "Foreground color"
 msgstr "Colore primo piano"
 
 #: ../src/preferences.c:782 ../src/preferences.c:1890
-#, fuzzy
 msgid "_Foreground color:"
-msgstr "Colore primo piano"
+msgstr "Colore _primo piano:"
 
 #: ../src/preferences.c:783 ../src/preferences.c:1893
 msgid "Background color"
 msgstr "Colore sfondo"
 
 #: ../src/preferences.c:784 ../src/preferences.c:1894
-#, fuzzy
 msgid "_Background color:"
-msgstr "Colore sfondo"
+msgstr "Colore _sfondo:"
 
 #: ../src/preferences.c:788
-#, fuzzy
 msgid "_Normal weight"
-msgstr "normale"
+msgstr "_Normale"
 
 #: ../src/preferences.c:790
-#, fuzzy
 msgid "Bold _weight"
-msgstr "grassetto"
+msgstr "_Grassetto"
 
 #: ../src/preferences.c:792
-#, fuzzy
 msgid "Normal st_yle"
-msgstr "stile normale"
+msgstr "Stile n_ormale"
 
 #: ../src/preferences.c:795
-#, fuzzy
 msgid "_Italic style"
-msgstr "stile corsivo"
+msgstr "Stile _corsivo"
 
 #: ../src/preferences.c:797
-#, fuzzy
 msgid "_Spell check"
-msgstr "Controllo ortografico"
+msgstr "Controllo _ortografico"
 
 #: ../src/preferences.c:907 ../src/preferences.c:1003
 #: ../src/preferences.c:1139
@@ -2102,11 +2080,11 @@ msgstr "Solo file di progetto"
 
 #: ../src/preferences.c:1768
 msgid "jpeg"
-msgstr ""
+msgstr "jpeg"
 
 #: ../src/preferences.c:1768
 msgid "png"
-msgstr ""
+msgstr "png"
 
 #: ../src/preferences.c:1770
 msgid "All"
@@ -2133,98 +2111,84 @@ msgid "Editor settings"
 msgstr "Opzioni dell'editor"
 
 #: ../src/preferences.c:1815
-#, fuzzy
 msgid "<b>Auto-completion</b>"
-msgstr "<b>_Opzioni</b>"
+msgstr "<b>Auto-completamento</b>"
 
 #: ../src/preferences.c:1821
 msgid "Show _pop-up window:"
-msgstr ""
+msgstr "Mostra finestra di _pop-up:"
 
 #: ../src/preferences.c:1827
 msgid "Shortcut _key combination:"
-msgstr ""
+msgstr "Combinazione di _tasti di scelta rapida:"
 
 #: ../src/preferences.c:1836
-#, fuzzy
 msgid "Right _margin/split line end position:"
-msgstr "Posizione del margine destro"
+msgstr "Posizione del _margine destro/linea di divisione:"
 
 #: ../src/preferences.c:1844
-#, fuzzy
 msgid "Smart Home/_End cursor positioning"
-msgstr "Posizionamento del cursore con Home/End intelligente"
+msgstr "Posizionamento del cursore con Home/_End intelligente"
 
 #: ../src/preferences.c:1848
-#, fuzzy
 msgid "_Tab key indents selection"
-msgstr "Il tasto Tab indenta la selezione"
+msgstr "Il tasto _Tab indenta la selezione"
 
 #: ../src/preferences.c:1854
-#, fuzzy
 msgid "Visible _whitespace mode:"
-msgstr "Colore degli spazi visibili"
+msgstr "Modalità degli spazi visibili:"
 
 #: ../src/preferences.c:1857
-#, fuzzy
 msgid "<b>Undo</b>"
-msgstr "<b>Generale<b>"
+msgstr "<b>Annulla<b>"
 
 #: ../src/preferences.c:1862
-#, fuzzy
 msgid "_Number of actions in history:"
-msgstr "Numero di azioni nella cronologia degli annullamenti"
+msgstr "_Numero di azioni nella cronologia degli annullamenti:"
 
 #: ../src/preferences.c:1865
-#, fuzzy
 msgid "Clear _history on save"
-msgstr "Cancella la cronologia degli annullamenti del salvataggio"
+msgstr "Ca_ncella la cronologia degli annullamenti al salvataggio"
 
 #: ../src/preferences.c:1871 ../src/preferences.c:2170
 msgid "Font & Colors"
-msgstr ""
+msgstr "Caratteri e Colori"
 
 #: ../src/preferences.c:1876 ../src/preferences.c:2175
-#, fuzzy
 msgid "<b>Font</b>"
-msgstr "<b>Contiene</b>"
+msgstr "<b>Carattere</b>"
 
 #: ../src/preferences.c:1880
-#, fuzzy
 msgid "_Editor font:"
-msgstr "Imposta come predef_inito"
+msgstr "Carattere dell'_editor:"
 
 #: ../src/preferences.c:1885 ../src/preferences.c:2195
-#, fuzzy
 msgid "<b>Colors</b>"
-msgstr "<b>File</b>"
+msgstr "<b>Colori</b>"
 
 #: ../src/preferences.c:1897
 msgid "Cursor color"
 msgstr "Colore del cursore"
 
 #: ../src/preferences.c:1898
-#, fuzzy
 msgid "C_ursor color:"
-msgstr "Colore del cursore"
+msgstr "Colore del c_ursore:"
 
 #: ../src/preferences.c:1901
 msgid "Current line color"
 msgstr "Colore della linea attuale"
 
 #: ../src/preferences.c:1902
-#, fuzzy
 msgid "Cu_rrent line color:"
-msgstr "Colore della linea attuale"
+msgstr "Colore della linea a_ttuale:"
 
 #: ../src/preferences.c:1905
 msgid "Visible whitespace color"
 msgstr "Colore degli spazi visibili"
 
 #: ../src/preferences.c:1906
-#, fuzzy
 msgid "_Visible whitespace color:"
-msgstr "Colore degli spazi visibili"
+msgstr "Colore degli spazi _visibili:"
 
 #: ../src/preferences.c:1913
 msgid "Initial document settings"
@@ -2232,86 +2196,72 @@ msgstr "Impostazioni iniziali del documento"
 
 #: ../src/preferences.c:1915
 msgid "<b>Non Project Defaults</b>"
-msgstr ""
+msgstr "<b>Impostazioni Predefinite Non di Progetto</b>"
 
 #: ../src/preferences.c:1928
 msgid "Files"
 msgstr "File"
 
 #: ../src/preferences.c:1930
-#, fuzzy
 msgid "<b>Backup</b>"
-msgstr "Backup"
+msgstr "<b>Backup</b>"
 
 #: ../src/preferences.c:1932
-#, fuzzy
 msgid "Create _backup file during file save"
-msgstr "Creare un file di backup al salvataggio"
+msgstr "Creare un file di _backup al salvataggio"
 
 #: ../src/preferences.c:1937
-#, fuzzy
 msgid "_Remove backup file on close"
-msgstr "Rimuovi il file di backup alla chiusura"
+msgstr "_Rimuovi il file di backup alla chiusura"
 
 #: ../src/preferences.c:1942
-#, fuzzy
 msgid "If back_up fails:"
-msgstr "Se il backup fallisce"
+msgstr "Se il back_up fallisce:"
 
 #: ../src/preferences.c:1949
 msgid "<b>Document Recovery</b>"
-msgstr ""
+msgstr "<b>Ripristino Documento</b>"
 
 #: ../src/preferences.c:1952
-#, fuzzy
 msgid "_Enable recovery of modified documents"
-msgstr "Abilita ripristino dei documenti modificati"
+msgstr "_Abilita ripristino dei documenti modificati"
 
 #: ../src/preferences.c:1956
-#, fuzzy
 msgid "_Frequency to store changes (seconds):"
-msgstr "Frequenza per archiviare le modifiche (secondi)"
+msgstr "_Frequenza per archiviare le modifiche (secondi):"
 
 #: ../src/preferences.c:1964
-#, fuzzy
 msgid "<b>Encoding</b>"
-msgstr "Codifica"
+msgstr "<b>Codifica</b>"
 
 #: ../src/preferences.c:1979
-#, fuzzy
 msgid "_Default character set for new files:"
-msgstr "Set di caratteri predefiniti per i nuovi file"
+msgstr "_Set di caratteri predefiniti per i nuovi file:"
 
 #: ../src/preferences.c:1985
-#, fuzzy
 msgid "Auto set <meta> _HTML tag on encoding change"
 msgstr ""
-"Imposta automaticamente i <meta> tag HTML al cambiamento della codifica"
+"Imposta automaticamente i <meta> tag _HTML al cambiamento della codifica"
 
 #: ../src/preferences.c:1989 ../src/preferences.c:2087
-#, fuzzy
 msgid "<b>Misc</b>"
-msgstr "<b>File</b>"
+msgstr "<b>Altro</b>"
 
 #: ../src/preferences.c:1993
-#, fuzzy
 msgid "Open co_mmandline files in running bluefish process"
-msgstr "Apri i file a riga di comando nella finestra corrente di bluefish"
+msgstr "Apri i file a riga di co_mando nella finestra corrente di bluefish"
 
 #: ../src/preferences.c:1998
-#, fuzzy
 msgid "Open commandline files in new _window"
-msgstr "Apri i file a riga di comando in una nuova finestra"
+msgstr "Apri i file a riga di comando in una nuova _finestra"
 
 #: ../src/preferences.c:2003
-#, fuzzy
 msgid "_Periodically check if file is modified on disk"
-msgstr "Controlla periodicamente se il file viene modificato sul disco."
+msgstr "Controlla _periodicamente se il file viene modificato sul disco"
 
 #: ../src/preferences.c:2006
-#, fuzzy
 msgid "File properties to check on dis_k for modifications"
-msgstr "Proprietà dei file da controllare sul disco per le modifiche"
+msgstr "Proprietà dei file da controllare sul dis_co per le modifiche"
 
 #: ../src/preferences.c:2019
 msgid "HTML"
@@ -2319,188 +2269,157 @@ msgstr "HTML"
 
 #: ../src/preferences.c:2021
 msgid "<b>HTML Toolbar</b>"
-msgstr ""
+msgstr "<b>Barra HTML</b>"
 
 #: ../src/preferences.c:2024
-#, fuzzy
 msgid "Use lo_wercase HTML tags"
-msgstr "Tag HTML minuscoli"
+msgstr "Usa tag HTML _minuscoli"
 
 #: ../src/preferences.c:2026
-#, fuzzy
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
-msgstr "Usa tag disapprovati (ad es.: <font> e <nobr>)"
+msgstr "Usa tag disa_pprovati (ad es.: <font> e <nobr>)"
 
 #: ../src/preferences.c:2030
-#, fuzzy
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
 msgstr ""
-"Formato i accordo alle linee guida sull'accessibilità (es. <strong> per <b>)"
+"_Formato i accordo alle linee guida sull'accessibilità (es. <strong> per <b>)"
 
 #: ../src/preferences.c:2033
-#, fuzzy
 msgid "Use _XHTML style tags (<br />)"
 msgstr "Usa i tag in stile XHTML (<br />)"
 
 #: ../src/preferences.c:2036
-#, fuzzy
 msgid "<b>Auto Update Tag Options</b>"
-msgstr "Opzioni di aggiornamento automatico dei tag"
+msgstr "<b>Opzioni di Aggiornamento Automatico dei Tag</b>"
 
 #: ../src/preferences.c:2040
-#, fuzzy
 msgid "Automatically update a_uthor meta tag"
-msgstr "Aggiorna automaticamente il meta tag autore"
+msgstr "Aggiorna automaticamente il meta tag a_utore"
 
 #: ../src/preferences.c:2043
-#, fuzzy
 msgid "Automatically update _date meta tag"
-msgstr "Aggiorna automaticamente il meta tag data"
+msgstr "Aggiorna automaticamente il meta tag _data"
 
 #: ../src/preferences.c:2046
-#, fuzzy
 msgid "Automatically update _generator meta tag"
-msgstr "Aggiorna automaticamente i meta tag dell'editor utilizzato"
+msgstr "Aggiorna automaticamente i meta tag dell'_editor utilizzato"
 
 #: ../src/preferences.c:2059
 msgid "Templates"
 msgstr "Modelli"
 
 #: ../src/preferences.c:2061
-#, fuzzy
 msgid "<b>Templates</b>"
-msgstr "Modelli"
+msgstr "<b>Modelli</b>"
 
 #: ../src/preferences.c:2074
 msgid "User interface"
 msgstr "Interfaccia utente"
 
 #: ../src/preferences.c:2076
-#, fuzzy
 msgid "<b>Document Tabs</b>"
-msgstr "<b>Contiene</b>"
+msgstr "<b>Tab Documenti</b>"
 
 #: ../src/preferences.c:2080
-#, fuzzy
 msgid "_Tab position:"
-msgstr "Didascalia tabella"
+msgstr "Posizione _Tab:"
 
 #: ../src/preferences.c:2084
-#, fuzzy
 msgid "_Switch between tabs with <Alt>+0..9"
-msgstr "Passa da un tab all'altro con <Alt>+0..9"
+msgstr "_Passa da un tab all'altro con <Alt>+0..9"
 
 #: ../src/preferences.c:2096
-#, fuzzy
 msgid "_Language:"
-msgstr "Linguaggio"
+msgstr "_Lingua:"
 
 #: ../src/preferences.c:2099
-#, fuzzy
 msgid "_Make HTML dialogs transient"
-msgstr "Finestra HTML sempre in primo piano"
+msgstr "Finestre di _dialogo HTML transitorie"
 
 #: ../src/preferences.c:2103
-#, fuzzy
 msgid "<b>Recent Files</b>"
-msgstr "<b>File</b>"
+msgstr "<b>File Recenti</b>"
 
 #: ../src/preferences.c:2108
-#, fuzzy
 msgid "_Number of files in 'Open recent' menu:"
-msgstr "Numero di file in 'Apri recenti'"
+msgstr "_Numero di file nel menu 'Apri recenti':"
 
 # English version should say something like "Register recent files with your desktop's recent files menu".
 #: ../src/preferences.c:2113
-#, fuzzy
 msgid "_Register recent files with your desktop:"
-msgstr "Registra i file recenti nel menu di sistema"
+msgstr "_Registra i file recenti nel menu di sistema:"
 
 #: ../src/preferences.c:2116
-#, fuzzy
 msgid "<b>Sidebar</b>"
-msgstr "<b>File</b>"
+msgstr "<b>Barra Laterale</b>"
 
 #: ../src/preferences.c:2121
-#, fuzzy
 msgid "Locatio_n:"
-msgstr "Pos_izione dell'immagine:"
+msgstr "Posizio_ne:"
 
 #: ../src/preferences.c:2125
-#, fuzzy
 msgid "Tab _position:"
-msgstr "Didascalia tabella"
+msgstr "_Posizione Tab:"
 
 #: ../src/preferences.c:2134
 msgid "Dimensions"
 msgstr "Dimensioni"
 
 #: ../src/preferences.c:2136
-#, fuzzy
 msgid "<b>Dimensions</b>"
-msgstr "Dimensioni"
+msgstr "<b>Dimensioni</b>"
 
 #: ../src/preferences.c:2138
-#, fuzzy
 msgid "_Leave dimensions to window manager"
-msgstr "Lascia l'impostazione delle dimensione al gestore finestre"
+msgstr "_Lascia l'impostazione delle dimensione al gestore finestre"
 
 #: ../src/preferences.c:2145
-#, fuzzy
 msgid "_Restore last used dimensions"
-msgstr "Ripristina le dimensioni usate l'ultima volta"
+msgstr "_Ripristina le dimensioni usate l'ultima volta"
 
 #: ../src/preferences.c:2153
-#, fuzzy
 msgid "Initial _sidebar width:"
-msgstr "Larghezza iniziale della barra laterale"
+msgstr "Larghezza iniziale della _barra laterale:"
 
 #: ../src/preferences.c:2157
-#, fuzzy
 msgid "Initial window _height:"
-msgstr "Altezza iniziale della finestra"
+msgstr "_Altezza iniziale della finestra:"
 
 #: ../src/preferences.c:2160
-#, fuzzy
 msgid "Initial window _width:"
-msgstr "Larghezza iniziale della finestra"
+msgstr "_Larghezza iniziale della finestra:"
 
 #: ../src/preferences.c:2180
 msgid "_Use system document tab font"
-msgstr ""
+msgstr "_Usa carattere del tab di sistema"
 
 #: ../src/preferences.c:2185
-#, fuzzy
 msgid "_Document tab font:"
-msgstr "Colore della linea attuale"
+msgstr "_Carattere del tab:"
 
 #: ../src/preferences.c:2199
-#, fuzzy
 msgid "Document error tab color"
-msgstr "Posizione dei tab dei documenti"
+msgstr "Colore del tab per documento in errore"
 
 #: ../src/preferences.c:2201
 msgid "Document tab _error color:"
-msgstr ""
+msgstr "Colore del tab in _errore:"
 
 #: ../src/preferences.c:2205
-#, fuzzy
 msgid "Document loading tab color"
-msgstr "Colore della linea attuale"
+msgstr "Colore del tab per documento in caricamento"
 
 #: ../src/preferences.c:2207
-#, fuzzy
 msgid "Document tab loadin_g color:"
-msgstr "Colore della linea attuale"
+msgstr "Colore del tab in c_aricamento:"
 
 #: ../src/preferences.c:2211
-#, fuzzy
 msgid "Document modified tab color"
-msgstr "Posizione dei tab dei documenti"
+msgstr "Colore del tab per documento modificato"
 
 #: ../src/preferences.c:2213
 msgid "Document tab _modified color:"
-msgstr ""
+msgstr "Colore del tab _modificato:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
@@ -2509,88 +2428,76 @@ msgid "Images"
 msgstr "Immagini"
 
 #: ../src/preferences.c:2228
-#, fuzzy
 msgid "<b>Thumbnails</b>"
-msgstr "Miniature"
+msgstr "<b>Miniature</b>"
 
 #: ../src/preferences.c:2234
-#, fuzzy
 msgid "Thumbnail _filetype:"
-msgstr "Tipo dei file delle miniature"
+msgstr "Tipo dei _file delle miniature:"
 
 #: ../src/preferences.c:2238
-#, fuzzy
 msgid "Thumbnail _suffix:"
-msgstr "Suffisso miniatura"
+msgstr "_Suffisso miniatura:"
 
 #: ../src/preferences.c:2251
 msgid "External commands"
 msgstr "Comandi esterni"
 
 #: ../src/preferences.c:2253
-#, fuzzy
 msgid "<b>External Commands</b>"
-msgstr "Comandi esterni"
+msgstr "<b>Comandi esterni</b>"
 
 #: ../src/preferences.c:2266
 msgid "External filters"
 msgstr "Filtri esterni"
 
 #: ../src/preferences.c:2268
-#, fuzzy
 msgid "<b>External Filters</b>"
-msgstr "Filtri esterni"
+msgstr "<b>Filtri esterni</b>"
 
 #: ../src/preferences.c:2281
 msgid "Output parsers"
 msgstr "Parser dell'output"
 
 #: ../src/preferences.c:2283
-#, fuzzy
 msgid "<b>Output Parsers</b>"
-msgstr "Parser dell'output"
+msgstr "<b>Parser dell'output</b>"
 
 #: ../src/preferences.c:2296
 msgid "Plugins"
 msgstr "Plugin"
 
 #: ../src/preferences.c:2298
-#, fuzzy
 msgid "<b>Plugins</b>"
-msgstr "<b>File</b>"
+msgstr "<b>Plugin</b>"
 
 #: ../src/preferences.c:2311
 msgid "Text styles"
 msgstr "Stili di testo"
 
 #: ../src/preferences.c:2313
-#, fuzzy
 msgid "<b>Text Styles</b>"
-msgstr "<b>_Opzioni</b>"
+msgstr "<b>Stili di Testo</b>"
 
 #: ../src/preferences.c:2326
 msgid "Language support"
 msgstr "Supporto per il linguaggio"
 
 #: ../src/preferences.c:2328
-#, fuzzy
 msgid "<b>Reference Information</b>"
-msgstr "Nessun riferimento trovato"
+msgstr "<b>Informazioni di Riferimento</b>"
 
 #: ../src/preferences.c:2331
-#, fuzzy
 msgid "_Load from language file"
-msgstr "Lingua:"
+msgstr "_Carica da file di linguaggio"
 
 #: ../src/preferences.c:2334
-#, fuzzy
 msgid "Show in auto-completion _pop-up window"
-msgstr "Mostra la finestra di pop-up per il completamento automatico"
+msgstr "Mostra in una finestra di _pop-up per il completamento automatico"
 
 #: ../src/preferences.c:2337
-#, fuzzy
 msgid "Show in _tooltip window"
-msgstr "Mostra le informazioni di riferimento in una finestra di descrizione"
+msgstr "Mostra in una finestra di _descrizione"
 
 #: ../src/project.c:187
 msgid "New project"
@@ -2630,7 +2537,7 @@ msgstr "_Nome del progetto:"
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
 #: ../src/project.c:571
 msgid "<b>Project Defaults</b>"
-msgstr ""
+msgstr "<b>Impostazioni Predefinite di Progetto</b>"
 
 #: ../src/project.c:581
 msgid "Create _Project"
@@ -2678,34 +2585,31 @@ msgstr "Elimina le righe vuote"
 
 #: ../src/rcfile.c:624
 msgid "Windows XP Firefox"
-msgstr ""
+msgstr "Windows XP Firefox"
 
 #: ../src/rcfile.c:629
-#, fuzzy
 msgid "Windows XP Internet Explorer"
-msgstr "Internet Explorer"
+msgstr "Windows XP Internet Explorer"
 
 #: ../src/rcfile.c:634
 msgid "Windows XP Opera"
-msgstr ""
+msgstr "Windows XP Opera"
 
 #: ../src/rcfile.c:638
 msgid "Windows XP Safari"
-msgstr ""
+msgstr "Windows XP Safari"
 
 #: ../src/rcfile.c:642
 msgid "Windows 7 Firefox 32-bit"
-msgstr ""
+msgstr "Windows 7 Firefox 32-bit"
 
 #: ../src/rcfile.c:647
-#, fuzzy
 msgid "Windows 7 Internet Explorer 32-bit"
-msgstr "Internet Explorer"
+msgstr "Windows 7 Internet Explorer 32-bit"
 
 #: ../src/rcfile.c:652
-#, fuzzy
 msgid "Windows 7 Internet Explorer 64-bit"
-msgstr "Internet Explorer"
+msgstr "Windows 7 Internet Explorer 64-bit"
 
 #: ../src/rcfile.c:660 ../src/rcfile.c:717
 msgid "make"
