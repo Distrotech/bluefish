@@ -1,12 +1,12 @@
 #
-# Yngve Spjeld Landro <l10n@landro.net>, 2010.
+# Yngve Spjeld Landro <l10n@landro.net>, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2010-12-31 08:49+0100\n"
-"PO-Revision-Date: 2010-12-30 12:50+0100\n"
+"PO-Revision-Date: 2011-01-01 23:30+0100\n"
 "Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
 "Language-Team: Norwegian Nynorsk <l10n@landro.net>\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "Ignorer stavefeil"
 
 #: ../src/bftextview2_spell.c:779
 msgid "Insert special characters as entities"
-msgstr ""
+msgstr "Set inn spesielle teikn som entitetar"
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -71,7 +71,7 @@ msgid ""
 "Below is the block, including start and end marker. Please <b>select the "
 "start marker</b> in the text below."
 msgstr ""
-"Blokka er vist nedanfor. Start- og slutt-markørane er tekne med. Vel "
+"Blokka er vist nedanfor. Start- og sluttmarkørane er tekne med. Vel "
 "<b>startmarkøren</b> i teksten."
 
 #: ../src/blocksync.c:156
@@ -534,9 +534,8 @@ msgstr[0] "%d teikn"
 msgstr[1] "%d teikn"
 
 #: ../src/document.c:3300
-#, fuzzy
 msgid "Selection statistics: "
-msgstr "Statistikk: "
+msgstr "Utvalsstatistikk: "
 
 #: ../src/document.c:3300
 msgid "Statistics: "
@@ -770,7 +769,7 @@ msgstr "M_ønster"
 
 #: ../src/file_dialogs.c:199
 msgid "Pattern matches _full path:"
-msgstr ""
+msgstr "Mønsteret samsvarer med _full stig:"
 
 #: ../src/file_dialogs.c:203
 msgid "_Recursive:"
@@ -837,9 +836,8 @@ msgid "Could not save file "
 msgstr "Klarte ikkje å lagra fila "
 
 #: ../src/file_dialogs.c:504 ../src/file_dialogs.c:1332
-#, fuzzy
 msgid "File changed on disk\n"
-msgstr "Denne filen har endret størrelse: \n"
+msgstr "Fila er endra på lagringseininga\n"
 
 #: ../src/file_dialogs.c:591
 #, c-format
@@ -964,7 +962,7 @@ msgstr "Ta med gøymde filer"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1268
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -973,10 +971,12 @@ msgid ""
 "Original size was %lu\n"
 "New size is %lu"
 msgstr ""
-"Filnamn: %s\n"
+"Filenamn:%s endra på lagringseininga.\n"
 "\n"
-"Nytt endringstidspunkt: %s\n"
-"Gammalt endringstidspunkt:: %s"
+"Originalt endringstidspunkt var %s\n"
+"Nytt endringstidspunkt er %s\n"
+"Original storleik var %lu\n"
+"Ny storleik er %lu"
 
 #: ../src/file_dialogs.c:1289
 msgid "_Unset file name"
@@ -1056,7 +1056,7 @@ msgstr "Automatisk oppdaging"
 
 #: ../src/gtk_easy.c:1554
 msgid "<b>Keystroke choice </b>"
-msgstr ""
+msgstr "<b>Tastetrykksval </b>"
 
 #: ../src/gtk_easy.c:1560
 msgid ""
@@ -1065,10 +1065,14 @@ msgid ""
 "Please use Ctrl, Shift, Alt key with any other key.\n"
 "<i>Esc to cancel, Delete to remove the accelerator.</i>"
 msgstr ""
+"\n"
+"Trykk tastebindinga det blir spurd etter.\n"
+"Bruk Ctrl, Shift og Alt saman med kva annan tast som helst.\n"
+"<i>Bruk Esc for å avbryta og Delete for å fjerna snarvegstasten.</i> "
 
 #: ../src/gtk_easy.c:1582
 msgid "Press shortcut key combination"
-msgstr ""
+msgstr "Trykk snarvegstastebindinga"
 
 #: ../src/gtkmountoperation.c:125
 msgid "Parent"
@@ -1449,9 +1453,8 @@ msgid "/Document/Highlight block delimiters"
 msgstr "/Dokument/Fram_hev blokkskiljeteikn"
 
 #: ../src/menu.c:296
-#, fuzzy
 msgid "/Document/Split view"
-msgstr "/Dokument/Stave_kontroll"
+msgstr "/Dokument/_Delt vising"
 
 #: ../src/menu.c:298
 msgid "/Document/_Spell Check"
@@ -1574,9 +1577,8 @@ msgid "/Go/Goto line number in _selection"
 msgstr "/Gå til/Linjenummer i _utvalet"
 
 #: ../src/menu.c:347
-#, fuzzy
 msgid "/Go/Jump to reference"
-msgstr "Funksjonsreferanse"
+msgstr "/Gå til/Far til referanse"
 
 #: ../src/menu.c:348
 msgid "/_Project"
@@ -1604,7 +1606,7 @@ msgstr "/Prosjekt/Lagra _som …"
 
 #: ../src/menu.c:357
 msgid "/Project/Save & _close"
-msgstr "/Prosjekt/Lagra & l_ukk"
+msgstr "/Prosjekt/Lagra og l_ukk"
 
 #: ../src/menu.c:359
 msgid "/Project/E_dit Project Options..."
@@ -1643,19 +1645,16 @@ msgid "/Tools/Strip T_railing Whitespace"
 msgstr "/Verktøy/Ta _vekk avsluttande blankteikn"
 
 #: ../src/menu.c:375
-#, fuzzy
 msgid "/Tools/_Join lines together"
 msgstr "/Verktøy/Sl_å saman linjer"
 
 #: ../src/menu.c:376
-#, fuzzy
 msgid "/Tools/Sp_lit lines on right margin"
-msgstr "/Verktøy/_Del linjer"
+msgstr "/Verktøy/Del linjer ved høgremargen"
 
 #: ../src/menu.c:377
-#, fuzzy
 msgid "/Tools/Rewrap _lines"
-msgstr "/Verktøy/_Del linjer"
+msgstr "/Verktøy/Slå saman linjer _att"
 
 #: ../src/menu.c:378
 msgid "/Tools/Indenting To T_abs"
@@ -1724,82 +1723,68 @@ msgid "Untitled"
 msgstr "Namnlaus"
 
 #: ../src/preferences.c:458
-#, fuzzy
 msgid "_Mime type:"
-msgstr "MIME-type"
+msgstr "MIME-type:"
 
 #: ../src/preferences.c:470 ../src/preferences.c:472
 msgid "None"
 msgstr "Ingen"
 
 #: ../src/preferences.c:473
-#, fuzzy
 msgid "_Template:"
-msgstr "Malar"
+msgstr "_Mal:"
 
 #: ../src/preferences.c:476 ../src/preferences.c:1830
-#, fuzzy
 msgid "<b>Options</b>"
-msgstr "<b>_Val</b>"
+msgstr "<b>Val</b>"
 
 #: ../src/preferences.c:480
-#, fuzzy
 msgid "Enable a_uto-completion"
-msgstr "Bruk automatisk sprettoppfullføring"
+msgstr "Bruk auto-_fullføring"
 
 #: ../src/preferences.c:482
-#, fuzzy
 msgid "Enable _block folding"
-msgstr "Bruk blokkfalding"
+msgstr "Bruk _blokkfalding"
 
 #: ../src/preferences.c:484
-#, fuzzy
 msgid "Highlight block _delimiters"
-msgstr "Framhev blokkskilje"
+msgstr "Framhev blokk_skilje"
 
 #: ../src/preferences.c:486
-#, fuzzy
 msgid "_Highlight current line"
-msgstr "Framhev den gjeldande linja"
+msgstr "Framhev den gjeldande _linja"
 
 #: ../src/preferences.c:488
-#, fuzzy
 msgid "Show line _numbers"
-msgstr "Vis linjenummer"
+msgstr "Vis linje_nummer"
 
 #: ../src/preferences.c:490
-#, fuzzy
 msgid "Show _right margin indicator"
-msgstr "Vis høyremark som standard"
+msgstr "Vis høgremargs_merke"
 
 #: ../src/preferences.c:492 ../src/preferences.c:1841
-#, fuzzy
 msgid "Smart auto indentin_g"
-msgstr "Smarte autoinnrykk"
+msgstr "Smarte _autoinnrykk"
 
 #: ../src/preferences.c:494
 msgid "Wra_p lines"
-msgstr ""
+msgstr "_Bryt linjer"
 
 #: ../src/preferences.c:497
-#, fuzzy
 msgid "_Enable spell check"
-msgstr "Bruk stavekontroll"
+msgstr "Bruk sta_vekontroll"
 
 #: ../src/preferences.c:501
-#, fuzzy
 msgid "<b>Tab Stops</b>"
-msgstr "<b>_Val</b>"
+msgstr "<b>Tabulatorstopp</b>"
 
 #: ../src/preferences.c:506
-#, fuzzy
 msgid "Tab _width:"
-msgstr "Fanebreidd"
+msgstr "Ta_bulatorbreidd:"
 
 #: ../src/preferences.c:508
-#, fuzzy
 msgid "Insert _spaces instead of tabs"
-msgstr "Bruk mellomrom for gjera innrykk, ikkje tabulatorar"
+msgstr "Set inn _mellomrom i staden for tabulatorar"
 
 #: ../src/preferences.c:543 ../src/preferences.c:1129
 #: ../src/preferences.c:1234
@@ -1815,15 +1800,14 @@ msgid "Path to plugin"
 msgstr "Stig til programtillegg"
 
 #: ../src/preferences.c:755
-#, fuzzy
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
 "applied to the same text, the top-most style in this list has the highest "
 "priority. Use drag and drop to re-order the text styles.</small>"
 msgstr ""
-"Tekststilar blir lagt til oppå kvarandre. Om ein tekst inneheld fleire "
-"stilar, vil han som er øvst i lista ha høgste prioritet. Dra-og-slepp "
-"stilane for å endra på rekkjefølgja deira."
+"<small>Tekststilar blir lagt til oppå kvarandre. Om ein tekst inneheld "
+"fleire stilar, vil han som er øvst i lista ha høgste prioritet. Dra-og-slepp "
+"stilane for å endra på rekkjefølgja deira.</small>"
 
 #: ../src/preferences.c:765 ../src/preferences.c:905 ../src/preferences.c:1001
 msgid "Label"
@@ -1834,43 +1818,36 @@ msgid "Foreground color"
 msgstr "Forgrunnsfarge"
 
 #: ../src/preferences.c:782 ../src/preferences.c:1890
-#, fuzzy
 msgid "_Foreground color:"
-msgstr "Forgrunnsfarge"
+msgstr "_Forgrunnsfarge:"
 
 #: ../src/preferences.c:783 ../src/preferences.c:1893
 msgid "Background color"
 msgstr "Bakgrunnsfarge"
 
 #: ../src/preferences.c:784 ../src/preferences.c:1894
-#, fuzzy
 msgid "_Background color:"
-msgstr "Bakgrunnsfarge"
+msgstr "_Bakgrunnsfarge:"
 
 #: ../src/preferences.c:788
-#, fuzzy
 msgid "_Normal weight"
-msgstr "normal"
+msgstr "_Normal"
 
 #: ../src/preferences.c:790
-#, fuzzy
 msgid "Bold _weight"
-msgstr "feit"
+msgstr "_Feit"
 
 #: ../src/preferences.c:792
-#, fuzzy
 msgid "Normal st_yle"
-msgstr "normalstil"
+msgstr "Normal_stil"
 
 #: ../src/preferences.c:795
-#, fuzzy
 msgid "_Italic style"
-msgstr "kursiv stil"
+msgstr "_Kursiv stil"
 
 #: ../src/preferences.c:797
-#, fuzzy
 msgid "_Spell check"
-msgstr "Stavekontroll"
+msgstr "Stave_kontroll"
 
 #: ../src/preferences.c:907 ../src/preferences.c:1003
 #: ../src/preferences.c:1139
@@ -2084,22 +2061,20 @@ msgid "bottom"
 msgstr "botn"
 
 #: ../src/preferences.c:1767
-#, fuzzy
 msgid "Never"
-msgstr "Servere"
+msgstr "Aldri"
 
 #: ../src/preferences.c:1767
-#, fuzzy
 msgid "Only project files"
-msgstr "Bluefish prosjektfil"
+msgstr "Berre prosjektfiler"
 
 #: ../src/preferences.c:1768
 msgid "jpeg"
-msgstr ""
+msgstr "jpeg"
 
 #: ../src/preferences.c:1768
 msgid "png"
-msgstr ""
+msgstr "png"
 
 #: ../src/preferences.c:1770
 msgid "All"
@@ -2126,99 +2101,84 @@ msgid "Editor settings"
 msgstr "Skriveprogramsinnstillingane"
 
 #: ../src/preferences.c:1815
-#, fuzzy
 msgid "<b>Auto-completion</b>"
-msgstr "Tastekombinasjon for autofullfør"
+msgstr "<b>Autofullføring</b>"
 
 #: ../src/preferences.c:1821
 msgid "Show _pop-up window:"
-msgstr ""
+msgstr "Syn sprett_oppvindauge:"
 
 #: ../src/preferences.c:1827
 msgid "Shortcut _key combination:"
-msgstr ""
+msgstr "Snarvegstast_binding:"
 
 #: ../src/preferences.c:1836
-#, fuzzy
 msgid "Right _margin/split line end position:"
-msgstr "Høgremargsplasseringa"
+msgstr "Høgremargs-/linje_brytingsplasseringa:"
 
 #: ../src/preferences.c:1844
-#, fuzzy
 msgid "Smart Home/_End cursor positioning"
-msgstr "Smart Home-/End-peikarplassering"
+msgstr "Smart Home-/_End-peikarplassering"
 
 #: ../src/preferences.c:1848
-#, fuzzy
 msgid "_Tab key indents selection"
-msgstr "I det markertee"
+msgstr "_Tabulatortasten rykkjer inn utvalet"
 
 #: ../src/preferences.c:1854
-#, fuzzy
 msgid "Visible _whitespace mode:"
-msgstr "Synleg blankteiknsfarge"
+msgstr "Synleg blankteikns_modus:"
 
 #: ../src/preferences.c:1857
-#, fuzzy
 msgid "<b>Undo</b>"
-msgstr "<b>Kilde</b>"
+msgstr "<b>Angra</b>"
 
 #: ../src/preferences.c:1862
-#, fuzzy
 msgid "_Number of actions in history:"
-msgstr "Tal handlingar i gjer om att-historikken"
+msgstr "Tal handlingar i _historikklista:"
 
 #: ../src/preferences.c:1865
-#, fuzzy
 msgid "Clear _history on save"
-msgstr "Tøm gjer om att-historikken etter lagring"
+msgstr "T_øm historikken etter lagring"
 
 #: ../src/preferences.c:1871 ../src/preferences.c:2170
 msgid "Font & Colors"
-msgstr ""
+msgstr "Skrifttypar og fargar"
 
 #: ../src/preferences.c:1876 ../src/preferences.c:2175
-#, fuzzy
 msgid "<b>Font</b>"
-msgstr "<b>Inneheld</b>"
+msgstr "<b>Skrifttype</b>"
 
 #: ../src/preferences.c:1880
-#, fuzzy
 msgid "_Editor font:"
-msgstr "Sett standardinnstillinger"
+msgstr "_Programskrifttype:"
 
 #: ../src/preferences.c:1885 ../src/preferences.c:2195
-#, fuzzy
 msgid "<b>Colors</b>"
-msgstr "<b>Filer</b>"
+msgstr "<b>Fargar</b>"
 
 #: ../src/preferences.c:1897
-#, fuzzy
 msgid "Cursor color"
-msgstr "Farge på den gjeldande linja"
+msgstr "Peikarfarge"
 
 #: ../src/preferences.c:1898
-#, fuzzy
 msgid "C_ursor color:"
-msgstr "Farge på den gjeldande linja"
+msgstr "Peikar_farge:"
 
 #: ../src/preferences.c:1901
 msgid "Current line color"
 msgstr "Farge på den gjeldande linja"
 
 #: ../src/preferences.c:1902
-#, fuzzy
 msgid "Cu_rrent line color:"
-msgstr "Farge på den gjeldande linja"
+msgstr "_Farge på den gjeldande linja:"
 
 #: ../src/preferences.c:1905
 msgid "Visible whitespace color"
 msgstr "Synleg blankteiknsfarge"
 
 #: ../src/preferences.c:1906
-#, fuzzy
 msgid "_Visible whitespace color:"
-msgstr "Synleg blankteiknsfarge"
+msgstr "Synleg _blankteiknsfarge:"
 
 #: ../src/preferences.c:1913
 msgid "Initial document settings"
@@ -2226,85 +2186,71 @@ msgstr "Standard dokumentinnstillingar"
 
 #: ../src/preferences.c:1915
 msgid "<b>Non Project Defaults</b>"
-msgstr ""
+msgstr "<b>Standardverdiar ikkje-prosjekt</b>"
 
 #: ../src/preferences.c:1928
 msgid "Files"
 msgstr "Filer"
 
 #: ../src/preferences.c:1930
-#, fuzzy
 msgid "<b>Backup</b>"
-msgstr "Backup"
+msgstr "<b>Tryggleikskopi</b>"
 
 #: ../src/preferences.c:1932
-#, fuzzy
 msgid "Create _backup file during file save"
-msgstr "Lag tryggleikskopiar ved lagring"
+msgstr "Lag _tryggleikskopiar ved lagring"
 
 #: ../src/preferences.c:1937
-#, fuzzy
 msgid "_Remove backup file on close"
-msgstr "Fjern kopifila ved lukking"
+msgstr "_Fjern kopifila ved lukking"
 
 #: ../src/preferences.c:1942
-#, fuzzy
 msgid "If back_up fails:"
-msgstr "Om tryggleikskopieringa feila"
+msgstr "Om tryggleikskopieringa _feilar:"
 
 #: ../src/preferences.c:1949
 msgid "<b>Document Recovery</b>"
-msgstr ""
+msgstr "<b>Dokumenttilbakeføring</b>"
 
 #: ../src/preferences.c:1952
-#, fuzzy
 msgid "_Enable recovery of modified documents"
-msgstr "Gjenopprett modifiserte filer etter kræsj"
+msgstr "Br_uk tilbakeføring av endra filer"
 
 #: ../src/preferences.c:1956
-#, fuzzy
 msgid "_Frequency to store changes (seconds):"
-msgstr "Endringslagringsfrekvens (i sekund)"
+msgstr "Endringslagrings_frekvens (i sekund)"
 
 #: ../src/preferences.c:1964
-#, fuzzy
 msgid "<b>Encoding</b>"
-msgstr "Teiknkoding"
+msgstr "<b>Teiknkoding</b>"
 
 #: ../src/preferences.c:1979
-#, fuzzy
 msgid "_Default character set for new files:"
-msgstr "Standardteiknsett for nye filer"
+msgstr "_Standardteiknsett for nye filer:"
 
 #: ../src/preferences.c:1985
-#, fuzzy
 msgid "Auto set <meta> _HTML tag on encoding change"
-msgstr "Oppdater automatisk HTML-etiketten <meta> ved teiknkodingsendringar"
+msgstr "Oppdater _automatisk HTML-etiketten <meta> ved teiknkodingsendring"
 
 #: ../src/preferences.c:1989 ../src/preferences.c:2087
-#, fuzzy
 msgid "<b>Misc</b>"
-msgstr "<b>Filer</b>"
+msgstr "<b>Ymse</b>"
 
 #: ../src/preferences.c:1993
-#, fuzzy
 msgid "Open co_mmandline files in running bluefish process"
-msgstr "Opna kommandolinjefiler i den kjørande bluefish-prosessen"
+msgstr "Opna _kommandolinjefiler i den kjørande bluefish-prosessen"
 
 #: ../src/preferences.c:1998
-#, fuzzy
 msgid "Open commandline files in new _window"
-msgstr "Opna kommandolinjefiler i nytt vindauge"
+msgstr "Opna kommandolinjefiler i nytt _vindauge"
 
 #: ../src/preferences.c:2003
-#, fuzzy
 msgid "_Periodically check if file is modified on disk"
-msgstr "Sjekk periodisk om fila er endra på lagringseininga"
+msgstr "Sjekk jamleg om fila er _endra på lagringseininga"
 
 #: ../src/preferences.c:2006
-#, fuzzy
 msgid "File properties to check on dis_k for modifications"
-msgstr "Endringskontroll av desse fileigenskapane på lagringseininga"
+msgstr "Endringskontroll av desse fil_eigenskapane på lagringseininga"
 
 #: ../src/preferences.c:2019
 msgid "HTML"
@@ -2312,186 +2258,156 @@ msgstr "HTML"
 
 #: ../src/preferences.c:2021
 msgid "<b>HTML Toolbar</b>"
-msgstr ""
+msgstr "<b>HTML-verktøylinje</b>"
 
 #: ../src/preferences.c:2024
-#, fuzzy
 msgid "Use lo_wercase HTML tags"
-msgstr "HTML-etikettar nyttar små bokstavar"
+msgstr "Bruk HTML-etikettar med sm_å bokstavar"
 
 #: ../src/preferences.c:2026
-#, fuzzy
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
-msgstr "Bruk utdaterte etikettar (t.d. <font> og <nobr>)"
+msgstr "Bruk _utdaterte etikettar (t.d. <font> og <nobr>)"
 
 #: ../src/preferences.c:2030
-#, fuzzy
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
 msgstr ""
-"Formater etter retningslinjer for tilgjenge (t.d. <strong> i staden for <b>)"
+"_Formater etter retningslinjer for tilgjenge (t.d. <strong> i staden for <b>)"
 
 #: ../src/preferences.c:2033
-#, fuzzy
 msgid "Use _XHTML style tags (<br />)"
-msgstr "Bruk etikettar i XHTML-stil (døme: <br />)"
+msgstr "Bruk etikettar i _XHTML-stil (døme: <br />)"
 
 #: ../src/preferences.c:2036
-#, fuzzy
 msgid "<b>Auto Update Tag Options</b>"
-msgstr "Oppdater automatisk etikettvala"
+msgstr "<b>Oppdater automatisk etikettvala</b>"
 
 #: ../src/preferences.c:2040
-#, fuzzy
 msgid "Automatically update a_uthor meta tag"
-msgstr "Oppdater automatisk forfattaren sin metaetikett"
+msgstr "Oppdater automatisk _forfattar-metaetiketten"
 
 #: ../src/preferences.c:2043
-#, fuzzy
 msgid "Automatically update _date meta tag"
-msgstr "Oppdater automatisk datometaetiketten"
+msgstr "Oppdater automatisk _datometaetiketten"
 
 #: ../src/preferences.c:2046
-#, fuzzy
 msgid "Automatically update _generator meta tag"
-msgstr "Oppdater automatisk generatoren sin metaetikett"
+msgstr "Oppdater automatisk g_enerator-metaetiketten"
 
 #: ../src/preferences.c:2059
 msgid "Templates"
 msgstr "Malar"
 
 #: ../src/preferences.c:2061
-#, fuzzy
 msgid "<b>Templates</b>"
-msgstr "Malar"
+msgstr "<b>Malar</b>"
 
 #: ../src/preferences.c:2074
 msgid "User interface"
 msgstr "Brukargrensesnitt"
 
 #: ../src/preferences.c:2076
-#, fuzzy
 msgid "<b>Document Tabs</b>"
-msgstr "<b>Inneheld</b>"
+msgstr "<b>Dokumenttabulatorar</b>"
 
 #: ../src/preferences.c:2080
-#, fuzzy
 msgid "_Tab position:"
-msgstr "Tabell Caption"
+msgstr "_Tabulatorplassering:"
 
 #: ../src/preferences.c:2084
-#, fuzzy
 msgid "_Switch between tabs with <Alt>+0..9"
-msgstr "Bla gjennom fanene med <Alt>+0…9"
+msgstr "_Bla gjennom fanene med <Alt>+0…9"
 
 #: ../src/preferences.c:2096
-#, fuzzy
 msgid "_Language:"
-msgstr "Språk"
+msgstr "Spr_åk:"
 
 #: ../src/preferences.c:2099
-#, fuzzy
 msgid "_Make HTML dialogs transient"
-msgstr "HTML-vindauge er stuttvarige"
+msgstr "Gjer _HTML-vindauga stuttvarige"
 
 #: ../src/preferences.c:2103
-#, fuzzy
 msgid "<b>Recent Files</b>"
-msgstr "<b>Filer</b>"
+msgstr "<b>Nylege filer</b>"
 
 #: ../src/preferences.c:2108
-#, fuzzy
 msgid "_Number of files in 'Open recent' menu:"
-msgstr "Tal filer i 'Nyleg opna'-menyen"
+msgstr "_Tal filer i 'Nyleg opna'-menyen:"
 
 #: ../src/preferences.c:2113
 msgid "_Register recent files with your desktop:"
-msgstr ""
+msgstr "_Registrer nylege filer på skrivebordet:"
 
 #: ../src/preferences.c:2116
-#, fuzzy
 msgid "<b>Sidebar</b>"
-msgstr "<b>Filer</b>"
+msgstr "<b>Sidefelt</b>"
 
 #: ../src/preferences.c:2121
-#, fuzzy
 msgid "Locatio_n:"
-msgstr "\"Action\":"
+msgstr "_Plassering:"
 
 #: ../src/preferences.c:2125
-#, fuzzy
 msgid "Tab _position:"
-msgstr "Tabell Caption"
+msgstr "Tabulatorp_lassering:"
 
 #: ../src/preferences.c:2134
 msgid "Dimensions"
 msgstr "Storleikar"
 
 #: ../src/preferences.c:2136
-#, fuzzy
 msgid "<b>Dimensions</b>"
-msgstr "Storleikar"
+msgstr "<b>Storleikar</b>"
 
 #: ../src/preferences.c:2138
-#, fuzzy
 msgid "_Leave dimensions to window manager"
-msgstr "La vindaugsstyraren handtera storleikane"
+msgstr "_Vindaugsstyraren handterar storleikane"
 
 #: ../src/preferences.c:2145
-#, fuzzy
 msgid "_Restore last used dimensions"
-msgstr "Før attende dei sist nytta storleikane"
+msgstr "F_ør attende dei sist nytta storleikane"
 
 #: ../src/preferences.c:2153
-#, fuzzy
 msgid "Initial _sidebar width:"
-msgstr "Startbreidda til sidefeltet"
+msgstr "Start_breidda til sidefeltet:"
 
 #: ../src/preferences.c:2157
-#, fuzzy
 msgid "Initial window _height:"
-msgstr "Starthøgda til vindauget"
+msgstr "Start_høgda til vindauget:"
 
 #: ../src/preferences.c:2160
-#, fuzzy
 msgid "Initial window _width:"
-msgstr "Startbreidda til vindauget"
+msgstr "Startbreidda til _vindauget:"
 
 #: ../src/preferences.c:2180
 msgid "_Use system document tab font"
-msgstr ""
+msgstr "Bruk s_ystemet sin dokumenttabskrifttype "
 
 #: ../src/preferences.c:2185
-#, fuzzy
 msgid "_Document tab font:"
-msgstr "Dokument-rot"
+msgstr "_Dokumenttabskrifttype:"
 
 #: ../src/preferences.c:2199
-#, fuzzy
 msgid "Document error tab color"
-msgstr "Faneplasseringa til dokumentnotatblokka"
+msgstr "Fanefarge dokumentfeil"
 
 #: ../src/preferences.c:2201
 msgid "Document tab _error color:"
-msgstr ""
+msgstr "Fane_farge dokumentfeil:"
 
 #: ../src/preferences.c:2205
-#, fuzzy
 msgid "Document loading tab color"
-msgstr "Farge på den gjeldande linja"
+msgstr "Fanefarge dokumentlasting"
 
 #: ../src/preferences.c:2207
-#, fuzzy
 msgid "Document tab loadin_g color:"
-msgstr "Farge på den gjeldande linja"
+msgstr "Fanefarge dokument_lasting:"
 
 #: ../src/preferences.c:2211
-#, fuzzy
 msgid "Document modified tab color"
-msgstr "Faneplasseringa til dokumentnotatblokka"
+msgstr "Fanefarge endra dokument"
 
 #: ../src/preferences.c:2213
 msgid "Document tab _modified color:"
-msgstr ""
+msgstr "Fanefarge for _endra dokument:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
@@ -2500,88 +2416,76 @@ msgid "Images"
 msgstr "Bilete"
 
 #: ../src/preferences.c:2228
-#, fuzzy
 msgid "<b>Thumbnails</b>"
-msgstr "Miniatyrar"
+msgstr "<b>Miniatyrar</b>"
 
 #: ../src/preferences.c:2234
-#, fuzzy
 msgid "Thumbnail _filetype:"
-msgstr "Miniatyrfiltype"
+msgstr "_Miniatyrfiltype:"
 
 #: ../src/preferences.c:2238
-#, fuzzy
 msgid "Thumbnail _suffix:"
-msgstr "Miniatyrfilending"
+msgstr "Miniatyrfil_ending:"
 
 #: ../src/preferences.c:2251
 msgid "External commands"
 msgstr "Eksterne kommandoar"
 
 #: ../src/preferences.c:2253
-#, fuzzy
 msgid "<b>External Commands</b>"
-msgstr "Eksterne kommandoar"
+msgstr "<b>Eksterne kommandoar</b>"
 
 #: ../src/preferences.c:2266
 msgid "External filters"
 msgstr "Eksterne filter"
 
 #: ../src/preferences.c:2268
-#, fuzzy
 msgid "<b>External Filters</b>"
-msgstr "Eksterne filter"
+msgstr "<b>Eksterne filter</b>"
 
 #: ../src/preferences.c:2281
 msgid "Output parsers"
 msgstr "Utdatatolkarar"
 
 #: ../src/preferences.c:2283
-#, fuzzy
 msgid "<b>Output Parsers</b>"
-msgstr "Utdatatolkarar"
+msgstr "<b>Utdatatolkarar</b>"
 
 #: ../src/preferences.c:2296
 msgid "Plugins"
 msgstr "Programtillegg"
 
 #: ../src/preferences.c:2298
-#, fuzzy
 msgid "<b>Plugins</b>"
-msgstr "<b>Filer</b>"
+msgstr "<b>Programtillegg</b>"
 
 #: ../src/preferences.c:2311
 msgid "Text styles"
 msgstr "Tekststilar"
 
 #: ../src/preferences.c:2313
-#, fuzzy
 msgid "<b>Text Styles</b>"
-msgstr "Tekststilar"
+msgstr "<b>Tekststilar</b>"
 
 #: ../src/preferences.c:2326
 msgid "Language support"
 msgstr "Språkstøtte"
 
 #: ../src/preferences.c:2328
-#, fuzzy
 msgid "<b>Reference Information</b>"
-msgstr "Referansen ble ikke funnet"
+msgstr "<b>Referanseopplysningar</b>"
 
 #: ../src/preferences.c:2331
-#, fuzzy
 msgid "_Load from language file"
-msgstr "Språk:"
+msgstr "Last frå spr_åkfil"
 
 #: ../src/preferences.c:2334
-#, fuzzy
 msgid "Show in auto-completion _pop-up window"
-msgstr "Vis sprettoppvindauget til auto-fullføringsfunksjonen"
+msgstr "Vis i sprett_oppvindauget til auto-fullføringsfunksjonen"
 
 #: ../src/preferences.c:2337
-#, fuzzy
 msgid "Show in _tooltip window"
-msgstr "Vis referanseinformasjon i verktøytipsvindauget"
+msgstr "Vis i _verktøytipsvindauget"
 
 #: ../src/project.c:187
 msgid "New project"
@@ -2621,7 +2525,7 @@ msgstr "Prosjekt_namn:"
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
 #: ../src/project.c:571
 msgid "<b>Project Defaults</b>"
-msgstr ""
+msgstr "<b>Prosjektstandardverdiar</b>"
 
 #: ../src/project.c:581
 msgid "Create _Project"
@@ -2669,34 +2573,31 @@ msgstr "Fjern tomme linjer"
 
 #: ../src/rcfile.c:624
 msgid "Windows XP Firefox"
-msgstr ""
+msgstr "Windows XP Firefox"
 
 #: ../src/rcfile.c:629
-#, fuzzy
 msgid "Windows XP Internet Explorer"
-msgstr "Internet Explorer"
+msgstr "Windows XP Internet Explorer"
 
 #: ../src/rcfile.c:634
 msgid "Windows XP Opera"
-msgstr ""
+msgstr "Windows XP Opera"
 
 #: ../src/rcfile.c:638
 msgid "Windows XP Safari"
-msgstr ""
+msgstr "Windows XP Safari"
 
 #: ../src/rcfile.c:642
 msgid "Windows 7 Firefox 32-bit"
-msgstr ""
+msgstr "Windows 7 Firefox 32-bitar"
 
 #: ../src/rcfile.c:647
-#, fuzzy
 msgid "Windows 7 Internet Explorer 32-bit"
-msgstr "Internet Explorer"
+msgstr "Windows 7 Internet Explorer 32-bitar"
 
 #: ../src/rcfile.c:652
-#, fuzzy
 msgid "Windows 7 Internet Explorer 64-bit"
-msgstr "Internet Explorer"
+msgstr "Windows 7 Internet Explorer 64-bitar"
 
 #: ../src/rcfile.c:660 ../src/rcfile.c:717
 msgid "make"
