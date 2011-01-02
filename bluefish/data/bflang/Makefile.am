@@ -37,6 +37,7 @@ bflang_bflang2_files = \
 	perl.bflang2 \
 	php.bflang2 \
 	po.bflang2 \
+	processing.bflang2 \
 	python.bflang2 \
 	r.bflang2 \
 	ruby.bflang2 \
