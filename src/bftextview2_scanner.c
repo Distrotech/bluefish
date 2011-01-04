@@ -370,11 +370,17 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,Tmatch 
 
 static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *match, Tscanning *scanning) {
 	Tpattern pat = g_array_index(btv->bflang->st->matches,Tpattern, match->patternum);
+	
 	if (IS_FOUNDMODE_BLOCKPUSH(scanning->nextfound->foundmode) && (
 				!pat.starts_block
 				|| scanning->nextfound->fblock->patternum != match->patternum
+				|| scanning->nextfound->fblock->parentfblock != scanning->curfblock
 				)) {
 		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not push the same block\n",scanning->nextfound);
+		DBG_SCANCACHE("pat.startsblock=%d, nextfound->fblock->patternum=%d,match->patternum=%d,nextfound->fblock->parentfblock=%p,scanning->curfblock=%p\n"
+					,pat.starts_block
+					,scanning->nextfound->fblock->patternum, match->patternum
+					,scanning->nextfound->fblock->parentfblock, scanning->curfblock);
 		return FALSE;
 	}
 	if (IS_FOUNDMODE_BLOCKPOP(scanning->nextfound->foundmode) && !pat.ends_block) {
@@ -385,6 +391,7 @@ static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *mat
 				pat.nextcontext <= 0 
 				/*|| pat.nextcontext != scanning->context*/
 				|| scanning->nextfound->fcontext->context != pat.nextcontext
+				|| scanning->nextfound->fcontext->parentfcontext != scanning->curfcontext
 				)) {
 		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not push the same context\n",scanning->nextfound);
 		DBG_SCANCACHE("cached foundmode=%d, pat.nextcontext=%d, fcontext->context=%d, current context=%d\n"
@@ -504,15 +511,17 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 	*/
 	if (scanning->nextfound) {
 		if (scanning->nextfound->charoffset_o > match_end_o) {
-			DBG_SCANCACHE("next item in the cache (offset %d) is not relevant yet (offset now %d)\n",scanning->nextfound->charoffset_o, match_end_o);
-			/* TODO: enlarge the area that needs scanning, but to where ???? */
+			DBG_SCANCACHE("next item in the cache (offset %d) is not relevant yet (offset now %d), set scanning end to %d\n",scanning->nextfound->charoffset_o, match_end_o,scanning->nextfound->charoffset_o);
+			/* TODO: enlarge the area that needs scanning to at least the nextfound (so it will be invalidated), but to where ???? */
+			gtk_text_buffer_get_iter_at_offset(btv->buffer,&scanning->end,scanning->nextfound->charoffset_o);
+			remove_all_highlighting_in_area(btv, &match->end, &scanning->end);
 		} else if (scanning->nextfound->charoffset_o == match_end_o && cached_found_is_valid(btv, match, scanning)){
 			gint context = scanning->nextfound->fcontext->context;
 			DBG_SCANCACHE("cache item at offset %d and mode %d is still valid\n",scanning->nextfound->charoffset_o, scanning->nextfound->foundmode);
 			scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
 			/* TODO: if a context has a GtkTextTag it is not applied now in the rescanning... should be fixed */
 			return context;
-		} else {
+		} else { /* either a smaller offset, or invalid */
 			GtkTextIter iiter;
 			guint invalidoffset;
 			DBG_SCANCACHE("found %p with offset %d will be removed\n",scanning->nextfound, scanning->nextfound->charoffset_o);
