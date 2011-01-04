@@ -137,6 +137,47 @@ Tfound *get_foundcache_at_offset(BluefishTextView * btv, guint offset, GSequence
 
 void found_free_lcb(gpointer data, gpointer btv);
 
+static guint remove_cache_entry(BluefishTextView * btv, Tfound **found, GSequenceIter **siter) {
+	Tfound *tmpfound1 = *found;
+	GSequenceIter *tmpsiter1 = *siter;
+	guint invalidoffset = tmpfound1->charoffset_o;
+	guint blockstackcount=0, contextstackcount=0;
+	
+	*found = get_foundcache_next(btv,siter);
+	
+	if (IS_FOUNDMODE_BLOCKPUSH(tmpfound1->foundmode) )
+		blockstackcount=1;
+	if (IS_FOUNDMODE_CONTEXTPUSH(tmpfound1->foundmode) )
+		contextstackcount=1;
+	/* first remove the children */
+	DBG_SCANCACHE("remove_cache_entry, remove all children of found %p with offset %d\n",tmpfound1,tmpfound1->charoffset_o);
+	while (*found && blockstackcount > 0 && contextstackcount > 0) {
+		Tfound *tmpfound2 = *found;
+		GSequenceIter *tmpsiter2 = *siter;
+		*found = get_foundcache_next(btv,siter);
+		if (IS_FOUNDMODE_BLOCKPOP(tmpfound2->foundmode) ) {
+			blockstackcount--;
+		}
+		if (IS_FOUNDMODE_CONTEXTPOP(tmpfound2->foundmode) ) {
+			contextstackcount--;
+		}
+		if (blockstackcount > 0 && IS_FOUNDMODE_BLOCKPUSH(tmpfound2->foundmode) )
+			blockstackcount++;
+		if (contextstackcount > 0 && IS_FOUNDMODE_CONTEXTPUSH(tmpfound2->foundmode) )
+			contextstackcount++;
+		DBG_SCANCACHE("in loop: remove Tfound %p with offset %d from the cache and free, contextstackcount=%d, blockstackcount=%d\n",tmpfound2,tmpfound2->charoffset_o,contextstackcount,blockstackcount);
+		invalidoffset = tmpfound2->charoffset_o;
+		g_sequence_remove(tmpsiter2);
+		found_free_lcb(tmpfound2, btv);
+	}
+	
+	DBG_SCANCACHE("remove_cache_entry, finally remove found %p itself with offset %d\n",tmpfound1,tmpfound1->charoffset_o);
+	g_sequence_remove(tmpsiter1);
+	found_free_lcb(tmpfound1, btv);
+	return invalidoffset;
+}
+
+
 /** 
  * foundcache_update_offsets
  * 
@@ -158,12 +199,7 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	if (offset < 0) {
 		while (found && found->charoffset_o < startpos-offset) {
 			if (found->charoffset_o > startpos) {
-				GSequenceIter *tmpsiter = siter;
-				Tfound *tmpfound=found;
-				found = get_foundcache_next(btv, &siter);
-				DBG_SCANCACHE("foundcache_update_offsets, remove found %p with charoffset_o=%d\n",found,found->charoffset_o);
-				g_sequence_remove(tmpsiter);
-				found_free_lcb(tmpfound, btv);
+				remove_cache_entry(btv, &found, &siter);
 			} else {
 				found = get_foundcache_next(btv, &siter);
 			}
@@ -415,64 +451,34 @@ static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *mat
 	return TRUE;
 }
 
-static guint remove_invalid_cache(BluefishTextView * btv, Tmatch *match, Tscanning *scanning) {
-	guint blockstackcount=0, contextstackcount=0;
+/* called from found_match() if an entry is in the cache, but the scanner continued in the text beyond
+this offset (and thus this is outdated), or this entry is invalid for some reason */
+static guint remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tscanning *scanning) {
 	guint invalidoffset;
-	Tfound *tmpfound = scanning->nextfound;
-	GSequenceIter *tmpsiter = scanning->siter;
-	/* TODO:
-	if this entry pushes a context or block on the stack, we should remove entries that 
-	refer to this fcontext or fblock from the cache too, else we crash/segfault
+	Tfound *prevfound;
+	GSequenceIter *tmpsiter;
 	
-	if the entry has an offset < match->end we also have to remove this and every entry 
-	up to the current offset */
 	DBG_SCANNING("remove_invalid_cache, cache item %p is NO LONGER valid\n",scanning->nextfound);
-	scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
+	tmpsiter = g_sequence_iter_prev(scanning->siter);
 	
-	invalidoffset = tmpfound->charoffset_o;
-	if (IS_FOUNDMODE_BLOCKPOP(tmpfound->foundmode) ) {
-		/* TODO: the *previous* fblock is popped here, and this one is invalid...
-		now we should set the *previous* fblock end to 'unknown'  */
-	}
-	if (IS_FOUNDMODE_CONTEXTPOP(tmpfound->foundmode) ) {
-		/* TODO: the *previous* fcontext is popped here, and this one is invalid...
-		now we should set the *previous* fcontext end to 'unknown'  */
-	}
-	if (IS_FOUNDMODE_BLOCKPUSH(tmpfound->foundmode) )
-		blockstackcount=1;
-	if (IS_FOUNDMODE_CONTEXTPUSH(tmpfound->foundmode) )
-		contextstackcount=1;
-	
-	DBG_SCANCACHE("remove Tfound %p from the cache and free\n",tmpfound);
-	g_sequence_remove(tmpsiter);
-	found_free_lcb(tmpfound, btv);
-	
-	while (scanning->nextfound && blockstackcount > 0 && contextstackcount > 0) {
-		tmpfound = scanning->nextfound;
-		tmpsiter = scanning->siter;
-		scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
-		if (IS_FOUNDMODE_BLOCKPOP(tmpfound->foundmode) ) {
-			/* TODO: the *previous* fblock is popped here, and this one is invalid...
-			now we should set the *previous* fblock end to 'unknown'  */
-			blockstackcount--;
+	if (tmpsiter) {
+		prevfound = g_sequence_get(tmpsiter);
+		if (IS_FOUNDMODE_BLOCKPOP(scanning->nextfound->foundmode) ) {
+			/* TODO: there can be multiple pop's here !!!!!!!!!! */
+			prevfound->fblock->start2_o = BF2_OFFSET_UNDEFINED;
+			prevfound->fblock->end2_o = BF2_OFFSET_UNDEFINED;
 		}
-		if (IS_FOUNDMODE_CONTEXTPOP(tmpfound->foundmode) ) {
-			/* TODO: the *previous* fcontext is popped here, and this one is invalid...
-			now we should set the *previous* fcontext end to 'unknown'  */
-			contextstackcount--;
+		if (IS_FOUNDMODE_CONTEXTPOP(scanning->nextfound->foundmode) ) {
+			/* TODO: there can be multiple pop's here !!!!!!!!!! */
+			prevfound->fcontext->end_o = BF2_OFFSET_UNDEFINED;
 		}
-		if (blockstackcount > 0 && IS_FOUNDMODE_BLOCKPUSH(tmpfound->foundmode) )
-			blockstackcount++;
-		if (contextstackcount > 0 && IS_FOUNDMODE_CONTEXTPUSH(tmpfound->foundmode) )
-			contextstackcount++;
-		DBG_SCANCACHE("in loop: remove Tfound %p from the cache and free, contextstackcount=%d, blockstackcount=%d\n",tmpfound,contextstackcount,blockstackcount);
-		invalidoffset = tmpfound->charoffset_o;
-		g_sequence_remove(tmpsiter);
-		found_free_lcb(tmpfound, btv);
 	}
+	do {	
+		invalidoffset = remove_cache_entry(btv,&scanning->nextfound, &scanning->siter);
+	} while(scanning->nextfound && scanning->nextfound->charoffset_o < match_end_o);
+	
 	return invalidoffset;
 }
-
 
 static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *scanning)
 {
@@ -525,7 +531,7 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 			GtkTextIter iiter;
 			guint invalidoffset;
 			DBG_SCANCACHE("found %p with offset %d will be removed\n",scanning->nextfound, scanning->nextfound->charoffset_o);
-			invalidoffset = remove_invalid_cache(btv, match, scanning);
+			invalidoffset = remove_invalid_cache(btv, match_end_o, scanning);
 			gtk_text_buffer_get_iter_at_offset(btv->buffer, &iiter, invalidoffset);
 			if (gtk_text_iter_compare(&iiter,&scanning->end)>0) {
 				DBG_SCANCACHE("removed invalid cache entries up to offset %d, enlarge region to scan...\n",invalidoffset);
