@@ -197,7 +197,7 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	else
 		DBG_SCANCACHE("foundcache_update_offsets, got found %p\n",found);
 	if (offset < 0) {
-		while (found && found->charoffset_o < startpos-offset) {
+		while (found && found->charoffset_o <= startpos-offset) {
 			if (found->charoffset_o > startpos) {
 				remove_cache_entry(btv, &found, &siter);
 			} else {
@@ -516,6 +516,7 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 		previously didn't exist 
 	*/
 	if (scanning->nextfound) {
+		DBG_SCANCACHE("found_match, testing nextfound %p\n",scanning->nextfound);
 		if (scanning->nextfound->charoffset_o > match_end_o) {
 			DBG_SCANCACHE("next item in the cache (offset %d) is not relevant yet (offset now %d), set scanning end to %d\n",scanning->nextfound->charoffset_o, match_end_o,scanning->nextfound->charoffset_o);
 			/* TODO: enlarge the area that needs scanning to at least the nextfound (so it will be invalidated), but to where ???? */
