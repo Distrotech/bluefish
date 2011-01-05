@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		Processing.bflang2 falsetti at clansco.org $Revision: 6276 $
+		Processing.bflang2 falsetti at clansco.org $Revision: 6281 $
  
 		Copyright (C) 2008-2011 Olivier Sessink
 
@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="Processing" version="2.0" table="1897" contexts="6" matches="441">
+<bflang name="Processing" version="2.0" table="1907" contexts="6" matches="443">
 <header>
 	<mime type="application/processing"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -144,7 +144,6 @@
             <element pattern="volatile" />
             <element pattern="while" />
 </group>
-
 <group autocomplete="1" highlight="processing">
             <element pattern="abs" />
             <element pattern="acos" />
@@ -368,6 +367,8 @@
 <group autocomplete="1" highlight="special">
             <element pattern="setup" />
             <element pattern="draw" />
+            <element pattern="popStyle" />
+            <element pattern="pushStyle" />
 </group>
 <group autocomplete="1" highlight="value">
             <element pattern="ADD" />
