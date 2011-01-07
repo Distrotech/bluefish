@@ -144,27 +144,17 @@ static guint remove_cache_entry(BluefishTextView * btv, Tfound **found, GSequenc
 	guint blockstackcount=0, contextstackcount=0;
 	
 	*found = get_foundcache_next(btv,siter);
-	
-	if (IS_FOUNDMODE_BLOCKPUSH(tmpfound1->foundmode) )
-		blockstackcount=1;
-	if (IS_FOUNDMODE_CONTEXTPUSH(tmpfound1->foundmode) )
-		contextstackcount=1;
+	blockstackcount= MAX(0, tmpfound1->numblockchange);
+	contextstackcount= MAX(0, tmpfound1->numcontextchange);
 	/* first remove the children */
 	DBG_SCANCACHE("remove_cache_entry, remove all children of found %p with offset %d\n",tmpfound1,tmpfound1->charoffset_o);
 	while (*found && blockstackcount > 0 && contextstackcount > 0) {
 		Tfound *tmpfound2 = *found;
 		GSequenceIter *tmpsiter2 = *siter;
 		*found = get_foundcache_next(btv,siter);
-		if (IS_FOUNDMODE_BLOCKPOP(tmpfound2->foundmode) ) {
-			blockstackcount--;
-		}
-		if (IS_FOUNDMODE_CONTEXTPOP(tmpfound2->foundmode) ) {
-			contextstackcount--;
-		}
-		if (blockstackcount > 0 && IS_FOUNDMODE_BLOCKPUSH(tmpfound2->foundmode) )
-			blockstackcount++;
-		if (contextstackcount > 0 && IS_FOUNDMODE_CONTEXTPUSH(tmpfound2->foundmode) )
-			contextstackcount++;
+		blockstackcount += tmpfound2->numblockchange;
+		contextstackcount += tmpfound2->numcontextchange;
+
 		DBG_SCANCACHE("in loop: remove Tfound %p with offset %d from the cache and free, contextstackcount=%d, blockstackcount=%d\n",tmpfound2,tmpfound2->charoffset_o,contextstackcount,blockstackcount);
 		invalidoffset = tmpfound2->charoffset_o;
 		g_sequence_remove(tmpsiter2);
@@ -193,7 +183,7 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	DBG_SCANCACHE("foundcache_update_offsets, update offset %d starting at startpos %d, cache length=%d\n",offset,startpos,g_sequence_get_length(btv->scancache.foundcaches) );
 	found = get_foundcache_at_offset(btv, startpos, &siter);
 	if (found)
-		DBG_SCANCACHE("foundcache_update_offsets, got found %p with offset %d, foundmode %d\n",found, found->charoffset_o, found->foundmode);
+		DBG_SCANCACHE("foundcache_update_offsets, got found %p with offset %d\n",found, found->charoffset_o);
 	else
 		DBG_SCANCACHE("foundcache_update_offsets, got found %p\n",found);
 	if (offset < 0) {
@@ -208,7 +198,7 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	if (found && found->charoffset_o < startpos) {
 		Tfoundcontext *tmpfcontext;
 		Tfoundblock *tmpfblock;
-		DBG_SCANCACHE("foundcache_update_offsets, handle first found %p with offset %d, foundmode %d, complete stack\n",found, found->charoffset_o, found->foundmode);
+		DBG_SCANCACHE("foundcache_update_offsets, handle first found %p with offset %d, complete stack\n",found, found->charoffset_o);
 		/* for the first found, we have to update the end-offsets for all contexts/blocks on the stack */
 
 		tmpfcontext = found->fcontext;
@@ -239,16 +229,16 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 		found = get_foundcache_next(btv, &siter);
 	}
 	while (found) {
-		DBG_SCANCACHE("foundcache_update_offsets, about to update found %p with charoffset %d, mode %d fcontext %p and fblock %p\n",found,found->charoffset_o,found->foundmode, found->fcontext, found->fblock);
+		DBG_SCANCACHE("foundcache_update_offsets, about to update found %p with charoffset %d, fcontext %p and fblock %p\n",found,found->charoffset_o, found->fcontext, found->fblock);
 		/* for all further founds, we only handle the pushedblock and pushedcontext */
-		if (IS_FOUNDMODE_CONTEXTPUSH(found->foundmode)) {
+		if (IS_FOUNDMODE_CONTEXTPUSH(found)) {
 			DBG_SCANCACHE("mode contextpush %p with start_o=%d and end_o=%d\n",found->fcontext,found->fcontext->start_o,found->fcontext->end_o);
 			if (found->fcontext->start_o != BF2_OFFSET_UNDEFINED)
 				found->fcontext->start_o += offset;
 			if (found->fcontext->end_o != BF2_OFFSET_UNDEFINED)
 				found->fcontext->end_o += offset;
 		}
-		if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode)) {
+		if (IS_FOUNDMODE_BLOCKPUSH(found)) {
 			DBG_SCANCACHE("mode blockpush %p with start1_o=%d and end2_o=%d\n",found->fblock,found->fblock->start1_o,found->fblock->end2_o);
 			if (found->fblock->start1_o != BF2_OFFSET_UNDEFINED)
 				found->fblock->start1_o += offset;
@@ -268,13 +258,13 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 void found_free_lcb(gpointer data, gpointer btv) {
 	Tfound *found = data;
 
-	if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode)) {
+	if (IS_FOUNDMODE_BLOCKPUSH(found)) {
 #ifdef HL_PROFILING
 		hl_profiling.fblock_refcount--;
 #endif
 		g_slice_free(Tfoundblock, found->fblock);
 	}
-	if (IS_FOUNDMODE_CONTEXTPUSH(found->foundmode)) {
+	if (IS_FOUNDMODE_CONTEXTPUSH(found)) {
 #ifdef HL_PROFILING
 		hl_profiling.fcontext_refcount--;
 #endif
@@ -326,10 +316,10 @@ static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,Tmatch *m
 	return fblock;
 }
 
-static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,Tmatch *match, Tscanning *scanning, Tpattern *pat) {
+static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,Tmatch *match, Tscanning *scanning, Tpattern *pat, gint *numblockchange) {
 	Tfoundblock *fblock=scanning->curfblock;
 	GtkTextIter iter;
-	DBG_BLOCKMATCH("found end of block with blockstartpattern %d, curfblock=%p\n",pat->blockstartpattern, scanning->curfblock);
+	DBG_BLOCKMATCH("found_end_of_block(), blockstartpattern %d, curfblock=%p\n",pat->blockstartpattern, scanning->curfblock);
 
 	if (G_UNLIKELY(!scanning->curfblock))
 		return NULL;
@@ -340,6 +330,7 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,Tmatch *mat
 	while (fblock && fblock->patternum != pat->blockstartpattern && pat->blockstartpattern != -1) {
 		DBG_BLOCKMATCH("pop fblock %p with patternum %d and parent %p\n", fblock, fblock->patternum, fblock->parentfblock);
 		fblock = (Tfoundblock *)fblock->parentfblock;
+		(*numblockchange) --;
 	}
 
 	if (G_UNLIKELY(!fblock)) {
@@ -360,6 +351,7 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,Tmatch *mat
 	}
 
 	scanning->curfblock = fblock->parentfblock;
+	(*numblockchange) --;
 	return scanning->curfblock;
 }
 
@@ -407,7 +399,7 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,Tmatch 
 static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *match, Tscanning *scanning) {
 	Tpattern pat = g_array_index(btv->bflang->st->matches,Tpattern, match->patternum);
 	
-	if (IS_FOUNDMODE_BLOCKPUSH(scanning->nextfound->foundmode) && (
+	if (IS_FOUNDMODE_BLOCKPUSH(scanning->nextfound) && (
 				!pat.starts_block
 				|| scanning->nextfound->fblock->patternum != match->patternum
 				|| scanning->nextfound->fblock->parentfblock != scanning->curfblock
@@ -419,29 +411,30 @@ static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *mat
 					,scanning->nextfound->fblock->parentfblock, scanning->curfblock);
 		return FALSE;
 	}
-	if (IS_FOUNDMODE_BLOCKPOP(scanning->nextfound->foundmode) && !pat.ends_block) {
+	if (IS_FOUNDMODE_BLOCKPOP(scanning->nextfound) && !pat.ends_block) {
 		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not pop a block\n",scanning->nextfound);
 		return FALSE;
 	}
-	if (IS_FOUNDMODE_CONTEXTPUSH(scanning->nextfound->foundmode) && (
+	if (IS_FOUNDMODE_CONTEXTPUSH(scanning->nextfound) && (
 				pat.nextcontext <= 0 
 				/*|| pat.nextcontext != scanning->context*/
 				|| scanning->nextfound->fcontext->context != pat.nextcontext
 				|| scanning->nextfound->fcontext->parentfcontext != scanning->curfcontext
 				)) {
 		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not push the same context\n",scanning->nextfound);
-		DBG_SCANCACHE("cached foundmode=%d, pat.nextcontext=%d, fcontext->context=%d, current context=%d\n"
-					,scanning->nextfound->foundmode
+		DBG_SCANCACHE("cached pat.nextcontext=%d, fcontext->context=%d, current context=%d\n"
 					,pat.nextcontext
 					,scanning->nextfound->fcontext->context
 					,scanning->context
 					);
 		return FALSE;
 	}
-	if (IS_FOUNDMODE_CONTEXTPOP(scanning->nextfound->foundmode) && pat.nextcontext >= 0) {
+	if (IS_FOUNDMODE_CONTEXTPOP(scanning->nextfound) && ( 
+				pat.nextcontext != scanning->nextfound->numcontextchange
+				)) {
 		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not pop the same context\n",scanning->nextfound);
-		DBG_SCANCACHE("cached foundmode=%d, pat.nextcontext=%d, fcontext->context=%d, current context=%d\n"
-					,scanning->nextfound->foundmode
+		DBG_SCANCACHE("cached numcontextchange=%d, pat.nextcontext=%d, fcontext->context=%d, current context=%d\n"
+					,scanning->nextfound->numcontextchange
 					,pat.nextcontext
 					,scanning->nextfound->fcontext->context
 					,scanning->context
@@ -463,14 +456,24 @@ static guint remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tsc
 	
 	if (tmpsiter) {
 		prevfound = g_sequence_get(tmpsiter);
-		if (IS_FOUNDMODE_BLOCKPOP(scanning->nextfound->foundmode) ) {
-			/* TODO: there can be multiple pop's here !!!!!!!!!! */
-			prevfound->fblock->start2_o = BF2_OFFSET_UNDEFINED;
-			prevfound->fblock->end2_o = BF2_OFFSET_UNDEFINED;
+		if (scanning->nextfound->numblockchange < 0) {
+			gint i=scanning->nextfound->numblockchange;
+			Tfoundblock *tmpfblock = prevfound->fblock;
+			while (i<0 && tmpfblock) {
+				tmpfblock->start2_o = BF2_OFFSET_UNDEFINED;
+				tmpfblock->end2_o = BF2_OFFSET_UNDEFINED;
+				tmpfblock = tmpfblock->parentfblock;
+				i++;
+			}
 		}
-		if (IS_FOUNDMODE_CONTEXTPOP(scanning->nextfound->foundmode) ) {
-			/* TODO: there can be multiple pop's here !!!!!!!!!! */
-			prevfound->fcontext->end_o = BF2_OFFSET_UNDEFINED;
+		if (scanning->nextfound->numcontextchange < 0) {
+			gint i=scanning->nextfound->numcontextchange;
+			Tfoundcontext *tmpfcontext = prevfound->fcontext;
+			while (i<0 && tmpfcontext) {
+				tmpfcontext->end_o = BF2_OFFSET_UNDEFINED;
+				tmpfcontext = tmpfcontext->parentfcontext;
+				i++;
+			}
 		}
 	}
 	do {	
@@ -484,7 +487,7 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 {
 	Tfoundblock *fblock=NULL;
 	Tfoundcontext *fcontext=NULL;
-	guint8 mode=0;
+	gint numblockchange=0;
 	gint retcontext=scanning->context;
 	guint match_end_o;
 	Tfound *found;
@@ -524,7 +527,7 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 			remove_all_highlighting_in_area(btv, &match->end, &scanning->end);
 		} else if (scanning->nextfound->charoffset_o == match_end_o && cached_found_is_valid(btv, match, scanning)){
 			gint context = scanning->nextfound->fcontext->context;
-			DBG_SCANCACHE("cache item at offset %d and mode %d is still valid\n",scanning->nextfound->charoffset_o, scanning->nextfound->foundmode);
+			DBG_SCANCACHE("cache item at offset %d is still valid\n",scanning->nextfound->charoffset_o);
 			scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
 			/* TODO: if a context has a GtkTextTag it is not applied now in the rescanning... should be fixed */
 			return context;
@@ -541,33 +544,27 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 			}
 		}
 	}
-	
 	if (pat.starts_block) {
 		fblock = found_start_of_block(btv, match, scanning);
-		SET_FOUNDMODE_BLOCKPUSH(mode);
+		numblockchange=1;
 	} else if (pat.ends_block) {
-		fblock = found_end_of_block(btv, match, scanning, &pat);
-		SET_FOUNDMODE_BLOCKPOP(mode);
+		fblock = found_end_of_block(btv, match, scanning, &pat, &numblockchange);
 	}
 
 	if (pat.nextcontext != 0 && pat.nextcontext != scanning->context) {
 		fcontext = found_context_change(btv, match, scanning, &pat);
-		if (pat.nextcontext < 0) {
-			SET_FOUNDMODE_CONTEXTPOP(mode);
-		} else {
-			SET_FOUNDMODE_CONTEXTPUSH(mode);			
-		}
 		retcontext = (fcontext ? fcontext->context : 1);
 	}
 	found = g_slice_new0(Tfound);
 #ifdef HL_PROFILING
 	hl_profiling.found_refcount++;
 #endif
-	found->foundmode = mode;
+	found->numcontextchange = pat.nextcontext < 0 ?  pat.nextcontext : 1;
+	found->numblockchange = numblockchange;
 	found->fblock = scanning->curfblock;
 	found->fcontext = scanning->curfcontext;
 	found->charoffset_o = match_end_o;
-	DBG_SCANCACHE("found_match, put found %p in the cache at charoffset_o %d with mode %d fblock %p fcontext %p\n",found,found->charoffset_o,found->foundmode, found->fblock,found->fcontext);
+	DBG_SCANCACHE("found_match, put found %p in the cache at charoffset_o %d fblock %p fcontext %p\n",found,found->charoffset_o,found->fblock,found->fcontext);
 	g_sequence_insert_sorted(btv->scancache.foundcaches,found,foundcache_compare_charoffset_o,NULL);
 	return retcontext;
 }

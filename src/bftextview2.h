@@ -364,32 +364,18 @@ typedef struct {
 			if bit 3 is set this points to the new pushed block which is the current block
 			if bit 4 is set this STILL points to the CURRENT block */ 
 	guint32 charoffset_o;
-	guint8 foundmode; /*
-			bit 1 (=1) = context push
-			bit 2 (=2) = context pop
-			bit 3 (=4) = block push
-			bit 4 (=8) = block pop
-			so mode 5 = context push & block push
-			so mode 10 = context pop & block pop */
+	gint8 numcontextchange; /* 0 means no change, 1 means 1 push, -2 means 2 popped etc. */
+	gint8 numblockchange;
 } Tfound; /*
-						on 64bit this type has size 8+8+4+1 + 3 padding = 24 bytes
-						on 32bit this type has size 4+4+4+1 + 3 padding = 16 bytes
+						on 64bit this type has size 8+8+4+1+1 + 2 padding = 24 bytes
+						on 32bit this type has size 4+4+4+1+1 + 2 padding = 16 bytes
 						*/
 
-#define FOUNDMODE_CONTEXTPUSH 0x01
-#define FOUNDMODE_CONTEXTPOP 0x02
-#define FOUNDMODE_BLOCKPUSH 0x04
-#define FOUNDMODE_BLOCKPOP 0x08
 
-#define IS_FOUNDMODE_CONTEXTPUSH(i)   (i & FOUNDMODE_CONTEXTPUSH)
-#define IS_FOUNDMODE_CONTEXTPOP(i)   (i & FOUNDMODE_CONTEXTPOP)
-#define IS_FOUNDMODE_BLOCKPUSH(i)   (i & FOUNDMODE_BLOCKPUSH)
-#define IS_FOUNDMODE_BLOCKPOP(i)   (i & FOUNDMODE_BLOCKPOP)
-
-#define SET_FOUNDMODE_CONTEXTPUSH(i)   (i |= FOUNDMODE_CONTEXTPUSH)
-#define SET_FOUNDMODE_CONTEXTPOP(i)   (i |= FOUNDMODE_CONTEXTPOP)
-#define SET_FOUNDMODE_BLOCKPUSH(i)   (i |= FOUNDMODE_BLOCKPUSH)
-#define SET_FOUNDMODE_BLOCKPOP(i)   (i |= FOUNDMODE_BLOCKPOP)
+#define IS_FOUNDMODE_CONTEXTPUSH(i)   (i->numcontextchange > 0)
+#define IS_FOUNDMODE_CONTEXTPOP(i)   (i->numcontextchange < 0)
+#define IS_FOUNDMODE_BLOCKPUSH(i)   (i->numblockchange >0)
+#define IS_FOUNDMODE_BLOCKPOP(i)   (i->numblockchange < 0)
 
 typedef struct {
 	GSequence* foundcaches; /* a sorted structure of Tfound for

@@ -369,11 +369,11 @@ bftextview2_get_block_at_offset(BluefishTextView * btv, guint offset)
 	GSequenceIter *siter;
 	found = get_foundcache_at_offset(btv, offset, &siter);
 	while (found) {
-		g_print("bftextview2_get_block_at_offset, found %p at offset %d with mode %d\n", found, found->charoffset_o, found->foundmode);
-		if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode) 
+		g_print("bftextview2_get_block_at_offset, found %p at offset %d with blockchange %d contextchange %d\n", found, found->charoffset_o, found->numblockchange, found->numcontextchange);
+		if (IS_FOUNDMODE_BLOCKPUSH(found) 
 				&& (found->fblock->start1_o == offset || found->fblock->end1_o == offset)) {
 			return found->fblock;
-		} else if (IS_FOUNDMODE_BLOCKPOP(found->foundmode)) {
+		} else if (IS_FOUNDMODE_BLOCKPOP(found)) {
 			GSequenceIter *tmpsiter;
 			/* to get the popped block, go to the previous siter and get the current block there */
 			g_print("block was popped, get fblock from previous entry in cache\n"); 
@@ -780,7 +780,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 				nextline_o = gtk_text_iter_get_offset(&nextline);
 				while (found) {
 					guint foundpos = found->charoffset_o;
-					if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode)) {
+					if (IS_FOUNDMODE_BLOCKPUSH(found)) {
 						/* on a pushedblock we should look where the block match start, charoffset_o is the end of the 
 						   match, so multiline patterns are drawn on the wrong line */
 						foundpos = found->fblock->start1_o;
@@ -793,7 +793,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 						break;
 					}
 					if (foundpos <= nextline_o && foundpos >= curline_o) {
-						if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode) && found->fblock->foldable) {
+						if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->foldable) {
 							if (found->fblock->folded)
 								paint_margin_collapse(master, cr, w, height);
 							else
@@ -801,7 +801,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 
 							num_blocks = get_num_foldable_blocks(found);
 							break;
-						} else if (IS_FOUNDMODE_BLOCKPOP(found->foundmode)) {
+						} else if (IS_FOUNDMODE_BLOCKPOP(found)) {
 							guint new_num_blocks = get_num_foldable_blocks(found);
 							if (new_num_blocks < num_blocks)
 								paint_margin_blockend(master, cr, w, height);
@@ -1227,7 +1227,7 @@ bftextview2_toggle_fold(BluefishTextView * btv, GtkTextIter * iter)
 		found = get_foundcache_first(btv, &siter);
 	}
 	while (found && found->charoffset_o < nextline_o) {
-		if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode) && found->fblock->foldable && found->fblock->start1_o >= offset)
+		if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->foldable && found->fblock->start1_o >= offset)
 			break;
 		found = get_foundcache_next(btv, &siter);	/* should be the first found AFTER iter */
 	}
@@ -1236,7 +1236,7 @@ bftextview2_toggle_fold(BluefishTextView * btv, GtkTextIter * iter)
 	   if (found && found->pushedblock && found->pushedblock->foldable)
 	   break;
 	   } */
-	if (found && IS_FOUNDMODE_BLOCKPUSH(found->foundmode) && found->fblock->start1_o >= offset
+	if (found && IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->start1_o >= offset
 		&& found->fblock->start1_o <= nextline_o && found->fblock->foldable) {
 		DBG_FOLD("toggle fold on found=%p\n", found);
 		bftextview2_block_toggle_fold(btv, found->fblock);
@@ -1250,7 +1250,7 @@ bftextview2_collapse_expand_all_toggle(BluefishTextView * btv, gboolean collapse
 	Tfound *found;
 	found = get_foundcache_first(btv, &siter);
 	while (found) {
-		if (IS_FOUNDMODE_BLOCKPUSH(found->foundmode) && found->fblock->foldable && found->fblock->folded != collapse)
+		if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->foldable && found->fblock->folded != collapse)
 			bftextview2_block_toggle_fold(btv, found->fblock);
 		found = get_foundcache_next(btv, &siter);
 	}
