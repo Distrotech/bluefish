@@ -18,7 +18,8 @@
  */
 
 #define HL_PROFILING
-/*#define MINIMAL_REFCOUNTING*/
+#define DUMP_SCANCACHE
+
 /*#define VALGRIND_PROFILING*/
 
 #ifdef VALGRIND_PROFILING
@@ -398,6 +399,9 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,Tmatch 
 
 static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *match, Tscanning *scanning) {
 	Tpattern pat = g_array_index(btv->bflang->st->matches,Tpattern, match->patternum);
+
+	if (!scanning->nextfound)
+		return FALSE;
 	
 	if (IS_FOUNDMODE_BLOCKPUSH(scanning->nextfound) && (
 				!pat.starts_block
@@ -665,6 +669,37 @@ static void remove_old_scan_results(BluefishTextView *btv, GtkTextIter *fromhere
 	}
 }
 
+#ifdef DUMP_SCANCACHE
+void dump_scancache(BluefishTextView *btv) {
+	GSequenceIter *siter = g_sequence_get_begin_iter(btv->scancache.foundcaches);
+	g_print("\nDUMP SCANCACHE\nwith length %d, document length=%d\n\n",g_sequence_get_length(btv->scancache.foundcaches),gtk_text_buffer_get_char_count(btv->buffer));
+	while (siter && !g_sequence_iter_is_end(siter)) {
+		Tfound *found = g_sequence_get(siter);
+		if (!found)
+			break;
+		g_print("%3d: %p, fblock %p, fcontext %p\n",found->charoffset_o,found,found->fblock,found->fcontext);
+		if (found->numcontextchange != 0) {
+			g_print("\tnumcontextchange=%d", found->numcontextchange);
+			if (found->fcontext) {
+				g_print(", parent=%p, start %d, end %d",found->fcontext->parentfcontext,found->fcontext->start_o, found->fcontext->end_o);
+			}
+			g_print("\n");
+		}
+		if (found->numblockchange != 0) {
+			g_print("\tnumblockchange=%d",found->numblockchange);
+			if (found->fblock) {
+				g_print(", parent=%p, start1 %d, end1 %d, start2 %d, end2 %d",found->fblock->parentfblock,found->fblock->start1_o, found->fblock->end1_o,found->fblock->start2_o, found->fblock->end2_o);
+			}
+			g_print("\n");
+		}
+		siter = g_sequence_iter_next(siter);
+	}
+	g_print("END OF DUMP\n\n");
+}
+
+
+#endif /* DUMP_SCANCACHE */
+
 /* if visible_end is set (not NULL) we will scan only the visible area and nothing else.
 this can be used to delay scanning everything until the editor is idle for several milliseconds */
 gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_end)
@@ -898,6 +933,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 #ifdef VALGRIND_PROFILING
 	CALLGRIND_STOP_INSTRUMENTATION;
 #endif /* VALGRIND_PROFILING */
+
+#ifdef DUMP_SCANCACHE
+	dump_scancache(btv);
+#endif
 
 	DBG_MSG("cleaned scanning run, finished this run\n");
 	return !gtk_text_iter_is_end(&iter); 
