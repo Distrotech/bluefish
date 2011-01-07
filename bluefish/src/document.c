@@ -2781,7 +2781,9 @@ doc_new_from_input(Tbfwin * bfwin, gchar * input, gboolean delay_activate, gbool
 	DEBUG_MSG("doc_new_from_input, input=%s, delay_activate=%d\n", input, delay_activate);
 	if (strchr(input, '/') == NULL) {	/* no slashes in the path, relative ? */
 		if (bfwin->current_document && bfwin->current_document->uri) {
-			uri = g_file_resolve_relative_path(bfwin->current_document->uri, input);
+			GFile *parent = g_file_get_parent(bfwin->current_document->uri);
+			uri = g_file_resolve_relative_path(parent, input);
+			g_object_unref(parent);
 		} else {
 			/* relative path to what ?!?!?! */
 			/* home dir? current dir? */
