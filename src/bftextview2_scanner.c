@@ -196,17 +196,19 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 			}
 		}		
 	}
-	if (found && found->charoffset_o < startpos) {
+	if (found && found->charoffset_o <= startpos) {
 		Tfoundcontext *tmpfcontext;
 		Tfoundblock *tmpfblock;
-		DBG_SCANCACHE("foundcache_update_offsets, handle first found %p with offset %d, complete stack\n",found, found->charoffset_o);
+			/* TODO: this code should run always, but why does it only run when 
+			found->charoffset_o <= startpos 
+			*/
+		DBG_SCANCACHE("foundcache_update_offsets, handle first found %p with offset %d, complete stack fcontext %p fblock %p\n",found, found->charoffset_o, found->fcontext, found->fblock);
 		/* for the first found, we have to update the end-offsets for all contexts/blocks on the stack */
-
 		tmpfcontext = found->fcontext;
 		while(tmpfcontext) {
-			DBG_SCANCACHE("fcontext on stack=%p, start_o=%d end_o=%d\n",tmpfcontext, tmpfcontext->start_o, tmpfcontext->end_o);
+			DBG_SCANCACHE("foundcache_update_offsets, fcontext on stack=%p, start_o=%d end_o=%d\n",tmpfcontext, tmpfcontext->start_o, tmpfcontext->end_o);
 			if (tmpfcontext->end_o != BF2_OFFSET_UNDEFINED) {
-				DBG_SCANCACHE("update fcontext %p end from %d to %d\n",tmpfcontext, tmpfcontext->end_o, tmpfcontext->end_o+offset);
+				DBG_SCANCACHE("foundcache_update_offsets, update fcontext %p end from %d to %d\n",tmpfcontext, tmpfcontext->end_o, tmpfcontext->end_o+offset);
 				tmpfcontext->end_o += offset;
 			}
 			tmpfcontext = (Tfoundcontext *)tmpfcontext->parentfcontext;
@@ -214,9 +216,9 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 
 		tmpfblock = found->fblock;
 		while(tmpfblock) {
-			DBG_SCANCACHE("fblock on stack=%p, start1_o=%d end2_o=%d\n",tmpfblock, tmpfblock->start1_o, tmpfblock->end2_o);
+			DBG_SCANCACHE("foundcache_update_offsets, fblock on stack=%p, start1_o=%d end2_o=%d\n",tmpfblock, tmpfblock->start1_o, tmpfblock->end2_o);
 			if (tmpfblock->start2_o != BF2_OFFSET_UNDEFINED) {
-				DBG_SCANCACHE("update fblock %p with start1_o=%d and start2_o=%d to start2_o=%d\n",tmpfblock, tmpfblock->start1_o,tmpfblock->start2_o, tmpfblock->start2_o+offset);
+				DBG_SCANCACHE("foundcache_update_offsets, update fblock %p with start1_o=%d and start2_o=%d to start2_o=%d\n",tmpfblock, tmpfblock->start1_o,tmpfblock->start2_o, tmpfblock->start2_o+offset);
 				tmpfblock->start2_o += offset;
 			}
 			if (tmpfblock->end2_o != BF2_OFFSET_UNDEFINED)
@@ -227,20 +229,21 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 		
 		DBG_SCANCACHE("foundcache_update_offsets, handled first found %p, requesting next\n",found);
 		/*this offset is *before* 'position' found->charoffset_o += offset;*/
-		found = get_foundcache_next(btv, &siter);
+		if (found->charoffset_o != startpos)
+			found = get_foundcache_next(btv, &siter);
 	}
 	while (found) {
 		DBG_SCANCACHE("foundcache_update_offsets, about to update found %p with charoffset %d, fcontext %p and fblock %p\n",found,found->charoffset_o, found->fcontext, found->fblock);
 		/* for all further founds, we only handle the pushedblock and pushedcontext */
 		if (IS_FOUNDMODE_CONTEXTPUSH(found)) {
-			DBG_SCANCACHE("mode contextpush %p with start_o=%d and end_o=%d\n",found->fcontext,found->fcontext->start_o,found->fcontext->end_o);
+			DBG_SCANCACHE("foundcache_update_offsets, mode contextpush %p with start_o=%d and end_o=%d\n",found->fcontext,found->fcontext->start_o,found->fcontext->end_o);
 			if (found->fcontext->start_o != BF2_OFFSET_UNDEFINED)
 				found->fcontext->start_o += offset;
 			if (found->fcontext->end_o != BF2_OFFSET_UNDEFINED)
 				found->fcontext->end_o += offset;
 		}
 		if (IS_FOUNDMODE_BLOCKPUSH(found)) {
-			DBG_SCANCACHE("mode blockpush %p with start1_o=%d and end2_o=%d\n",found->fblock,found->fblock->start1_o,found->fblock->end2_o);
+			DBG_SCANCACHE("foundcache_update_offsets, mode blockpush %p with start1_o=%d and end2_o=%d\n",found->fblock,found->fblock->start1_o,found->fblock->end2_o);
 			if (found->fblock->start1_o != BF2_OFFSET_UNDEFINED)
 				found->fblock->start1_o += offset;
 			if (found->fblock->end1_o != BF2_OFFSET_UNDEFINED)
