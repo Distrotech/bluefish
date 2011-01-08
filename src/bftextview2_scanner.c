@@ -501,6 +501,18 @@ static guint remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tsc
 	return invalidoffset;
 }
 
+static gboolean enlarge_scanning_region(BluefishTextView * btv, Tscanning *scanning, guint offset) {
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, offset);
+	if (gtk_text_iter_compare(&iter,&scanning->end)>0) {
+		DBG_SCANCACHE("enlarge_scanning_region to offset %d\n",offset);
+		remove_all_highlighting_in_area(btv, &scanning->end, &iter);
+		scanning->end = iter;
+		return TRUE;
+	}
+	return FALSE;
+}
+
 static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *scanning)
 {
 	Tfoundblock *fblock=NULL;
@@ -550,16 +562,10 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 			/* TODO: if a context has a GtkTextTag it is not applied now in the rescanning... should be fixed */
 			return context;
 		} else { /* either a smaller offset, or invalid */
-			GtkTextIter iiter;
 			guint invalidoffset;
 			DBG_SCANCACHE("found %p with offset %d will be removed\n",scanning->nextfound, scanning->nextfound->charoffset_o);
 			invalidoffset = remove_invalid_cache(btv, match_end_o, scanning);
-			gtk_text_buffer_get_iter_at_offset(btv->buffer, &iiter, invalidoffset);
-			if (gtk_text_iter_compare(&iiter,&scanning->end)>0) {
-				DBG_SCANCACHE("removed invalid cache entries up to offset %d, enlarge region to scan...\n",invalidoffset);
-				remove_all_highlighting_in_area(btv, &scanning->end, &iiter);
-				scanning->end = iiter;
-			}
+			enlarge_scanning_region(btv, scanning, invalidoffset);
 		}
 	}
 	if (pat.starts_block) {
@@ -877,18 +883,26 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				DBG_SCANNING("we have a match from pos %d to %d\n", gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
 				scanning.context = found_match(btv, &match,&scanning);
 				DBG_SCANNING("after match context=%d\n",scanning.context);
-			}
-#ifdef IDENTSTORING
-			else if (G_UNLIKELY(scanning.identmode != 0 && pos == g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).identstate)) {
-				/* ignore if the cursor is within the range, because it could be that the user is still typing the name */
-				if (G_LIKELY(!gtk_text_iter_in_range(&itcursor, &mstart, &iter) 
-								&& !gtk_text_iter_equal(&itcursor, &mstart) 
-								&& !gtk_text_iter_equal(&itcursor, &iter))) {
-					found_identifier(btv, &mstart, &iter, scanning.context, scanning.identmode);
-					scanning.identmode = 0;
+			} else {
+				if G_UNLIKELY((uc=='\0' && scanning.nextfound && scanning.nextfound->charoffset_o == gtk_text_iter_get_offset(&iter))) {
+					guint invalidoffset;
+					/* scanning->nextfound is invalid! remove from cache */
+					invalidoffset = remove_invalid_cache(btv, gtk_text_iter_get_offset(&iter), &scanning);
+					if (enlarge_scanning_region(btv, &scanning, invalidoffset))
+						last_character_run = FALSE;
 				}
-			}
+#ifdef IDENTSTORING
+				if (G_UNLIKELY(scanning.identmode != 0 && pos == g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).identstate)) {
+					/* ignore if the cursor is within the range, because it could be that the user is still typing the name */
+					if (G_LIKELY(!gtk_text_iter_in_range(&itcursor, &mstart, &iter) 
+									&& !gtk_text_iter_equal(&itcursor, &mstart) 
+									&& !gtk_text_iter_equal(&itcursor, &iter))) {
+						found_identifier(btv, &mstart, &iter, scanning.context, scanning.identmode);
+						scanning.identmode = 0;
+					}
+				}
 #endif /* IDENTSTORING */
+			}
 			if (G_LIKELY(gtk_text_iter_equal(&mstart,&iter) && !last_character_run)) {
 				gtk_text_iter_forward_char(&iter);
 #ifdef HL_PROFILING
