@@ -181,9 +181,9 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	GSequenceIter *siter;
 	if (offset==0)
 		return;
-	DBG_SCANCACHE("foundcache_update_offsets, update offset %d starting at startpos %d, cache length=%d\n",offset,startpos,g_sequence_get_length(btv->scancache.foundcaches) );
+	DBG_SCANCACHE("foundcache_update_offsets, update with offset %d starting at startpos %d, cache length=%d\n",offset,startpos,g_sequence_get_length(btv->scancache.foundcaches) );
 	
-	found = get_foundcache_at_offset(btv, (offset < 0) ? startpos+offset : startpos, &siter);
+	found = get_foundcache_at_offset(btv, startpos, &siter);
 	if (found)
 		DBG_SCANCACHE("foundcache_update_offsets, got found %p with offset %d\n",found, found->charoffset_o);
 	else
@@ -220,29 +220,37 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	}
 
 	if (offset < 0) {
-		while (found && found->charoffset_o <= startpos) {
-			if (found->charoffset_o > startpos+offset) {
+		while (found && found->charoffset_o <= startpos-offset) {
+			if (found->charoffset_o > startpos) {
 				remove_cache_entry(btv, &found, &siter);
 			} else {
 				found = get_foundcache_next(btv, &siter);
 			}
 		}		
-	}
-	while(found && found->charoffset_o < startpos) {
-		found = get_foundcache_next(btv, &siter);
+	} else {
+		while(found && found->charoffset_o < startpos) {
+			DBG_SCANCACHE("foundcache_update_offsets, now search for found >= startpos, try found %p with charoffset %d\n",found,found->charoffset_o);
+			found = get_foundcache_next(btv, &siter);
+		}
 	}
 	while (found) {
-		DBG_SCANCACHE("foundcache_update_offsets, about to update found %p with charoffset %d, fcontext %p and fblock %p\n",found,found->charoffset_o, found->fcontext, found->fblock);
+		DBG_SCANCACHE("foundcache_update_offsets, about to update found %p with charoffset %d to %d, fcontext %p and fblock %p\n",found,found->charoffset_o,found->charoffset_o+offset, found->fcontext, found->fblock);
 		/* for all further founds, we only handle the pushedblock and pushedcontext */
 		if (IS_FOUNDMODE_CONTEXTPUSH(found)) {
-			DBG_SCANCACHE("foundcache_update_offsets, mode contextpush %p with start_o=%d and end_o=%d\n",found->fcontext,found->fcontext->start_o,found->fcontext->end_o);
+			DBG_SCANCACHE("foundcache_update_offsets, contextpush %p update from %d:%d to %d:%d\n"
+						,found->fcontext
+						,found->fcontext->start_o,found->fcontext->end_o
+						,found->fcontext->start_o+offset,found->fcontext->end_o+offset);
 			if (found->fcontext->start_o != BF2_OFFSET_UNDEFINED)
 				found->fcontext->start_o += offset;
 			if (found->fcontext->end_o != BF2_OFFSET_UNDEFINED)
 				found->fcontext->end_o += offset;
 		}
 		if (IS_FOUNDMODE_BLOCKPUSH(found)) {
-			DBG_SCANCACHE("foundcache_update_offsets, mode blockpush %p with start1_o=%d and end2_o=%d\n",found->fblock,found->fblock->start1_o,found->fblock->end2_o);
+			DBG_SCANCACHE("foundcache_update_offsets, blockpush %p update from %d:%d to %d:%d\n"
+						,found->fblock
+						,found->fblock->start1_o,found->fblock->end2_o
+						,found->fblock->start1_o+offset,found->fblock->end2_o+offset);
 			if (found->fblock->start1_o != BF2_OFFSET_UNDEFINED)
 				found->fblock->start1_o += offset;
 			if (found->fblock->end1_o != BF2_OFFSET_UNDEFINED)
@@ -685,14 +693,26 @@ void dump_scancache(BluefishTextView *btv) {
 		if (found->numcontextchange != 0) {
 			g_print("\tnumcontextchange=%d", found->numcontextchange);
 			if (found->fcontext) {
-				g_print(", parent=%p, start %d, end %d",found->fcontext->parentfcontext,found->fcontext->start_o, found->fcontext->end_o);
+				g_print(",context %d, highlight %s, parent=%p, start %d, end %d"
+						,found->fcontext->context
+						,g_array_index(btv->bflang->st->contexts,Tcontext,found->fcontext->context).contexthighlight
+						,found->fcontext->parentfcontext
+						,found->fcontext->start_o
+						,found->fcontext->end_o);
 			}
 			g_print("\n");
 		}
 		if (found->numblockchange != 0) {
 			g_print("\tnumblockchange=%d",found->numblockchange);
 			if (found->fblock) {
-				g_print(", parent=%p, start1 %d, end1 %d, start2 %d, end2 %d",found->fblock->parentfblock,found->fblock->start1_o, found->fblock->end1_o,found->fblock->start2_o, found->fblock->end2_o);
+				g_print(", pattern %d %s, parent=%p, start1 %d, end1 %d, start2 %d, end2 %d"
+						,found->fblock->patternum
+						,g_array_index(btv->bflang->st->matches,Tpattern, found->fblock->patternum).pattern
+						,found->fblock->parentfblock
+						,found->fblock->start1_o
+						,found->fblock->end1_o
+						,found->fblock->start2_o
+						,found->fblock->end2_o);
 			}
 			g_print("\n");
 		}
