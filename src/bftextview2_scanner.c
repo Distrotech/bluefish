@@ -182,26 +182,17 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	if (offset==0)
 		return;
 	DBG_SCANCACHE("foundcache_update_offsets, update offset %d starting at startpos %d, cache length=%d\n",offset,startpos,g_sequence_get_length(btv->scancache.foundcaches) );
-	found = get_foundcache_at_offset(btv, startpos, &siter);
+	
+	found = get_foundcache_at_offset(btv, (offset < 0) ? startpos+offset : startpos, &siter);
 	if (found)
 		DBG_SCANCACHE("foundcache_update_offsets, got found %p with offset %d\n",found, found->charoffset_o);
 	else
 		DBG_SCANCACHE("foundcache_update_offsets, got found %p\n",found);
-	if (offset < 0) {
-		while (found && found->charoffset_o <= startpos-offset) {
-			if (found->charoffset_o > startpos) {
-				remove_cache_entry(btv, &found, &siter);
-			} else {
-				found = get_foundcache_next(btv, &siter);
-			}
-		}		
-	}
-	if (found && found->charoffset_o <= startpos) {
+
+	/* first update all block ends and context ends that are on the stack */
+	if (found) {
 		Tfoundcontext *tmpfcontext;
 		Tfoundblock *tmpfblock;
-			/* TODO: this code should run always, but why does it only run when 
-			found->charoffset_o <= startpos 
-			*/
 		DBG_SCANCACHE("foundcache_update_offsets, handle first found %p with offset %d, complete stack fcontext %p fblock %p\n",found, found->charoffset_o, found->fcontext, found->fblock);
 		/* for the first found, we have to update the end-offsets for all contexts/blocks on the stack */
 		tmpfcontext = found->fcontext;
@@ -226,11 +217,19 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 			
 			tmpfblock = (Tfoundblock *)tmpfblock->parentfblock;
 		}
-		
-		DBG_SCANCACHE("foundcache_update_offsets, handled first found %p, requesting next\n",found);
-		/*this offset is *before* 'position' found->charoffset_o += offset;*/
-		if (found->charoffset_o != startpos)
-			found = get_foundcache_next(btv, &siter);
+	}
+
+	if (offset < 0) {
+		while (found && found->charoffset_o <= startpos) {
+			if (found->charoffset_o > startpos+offset) {
+				remove_cache_entry(btv, &found, &siter);
+			} else {
+				found = get_foundcache_next(btv, &siter);
+			}
+		}		
+	}
+	while(found && found->charoffset_o < startpos) {
+		found = get_foundcache_next(btv, &siter);
 	}
 	while (found) {
 		DBG_SCANCACHE("foundcache_update_offsets, about to update found %p with charoffset %d, fcontext %p and fblock %p\n",found,found->charoffset_o, found->fcontext, found->fblock);
