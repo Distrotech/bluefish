@@ -551,19 +551,17 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 	if (scanning->nextfound) {
 		DBG_SCANCACHE("found_match, testing nextfound %p\n",scanning->nextfound);
 		if (scanning->nextfound->charoffset_o > match_end_o) {
-			DBG_SCANCACHE("next item in the cache (offset %d) is not relevant yet (offset now %d), set scanning end to %d\n",scanning->nextfound->charoffset_o, match_end_o,scanning->nextfound->charoffset_o);
-			/* TODO: enlarge the area that needs scanning to at least the nextfound (so it will be invalidated), but to where ???? */
-			gtk_text_buffer_get_iter_at_offset(btv->buffer,&scanning->end,scanning->nextfound->charoffset_o);
-			remove_all_highlighting_in_area(btv, &match->end, &scanning->end);
+			DBG_SCANCACHE("found_match, next item in the cache (offset %d) is not relevant yet (offset now %d), set scanning end to %d\n",scanning->nextfound->charoffset_o, match_end_o,scanning->nextfound->charoffset_o);
+			enlarge_scanning_region(btv, scanning, scanning->nextfound->charoffset_o);
 		} else if (scanning->nextfound->charoffset_o == match_end_o && cached_found_is_valid(btv, match, scanning)){
 			gint context = scanning->nextfound->fcontext ? scanning->nextfound->fcontext->context : 1;
-			DBG_SCANCACHE("cache item at offset %d is still valid\n",scanning->nextfound->charoffset_o);
+			DBG_SCANCACHE("found_match, cache item at offset %d is still valid\n",scanning->nextfound->charoffset_o);
 			scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
 			/* TODO: if a context has a GtkTextTag it is not applied now in the rescanning... should be fixed */
 			return context;
 		} else { /* either a smaller offset, or invalid */
 			guint invalidoffset;
-			DBG_SCANCACHE("found %p with offset %d will be removed\n",scanning->nextfound, scanning->nextfound->charoffset_o);
+			DBG_SCANCACHE("found_match, found %p with offset %d will be removed\n",scanning->nextfound, scanning->nextfound->charoffset_o);
 			invalidoffset = remove_invalid_cache(btv, match_end_o, scanning);
 			enlarge_scanning_region(btv, scanning, invalidoffset);
 		}
