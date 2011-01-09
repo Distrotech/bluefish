@@ -228,7 +228,7 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 			}
 		}		
 	} else {
-		while(found && found->charoffset_o < startpos) {
+		while(found && found->charoffset_o <= startpos) {
 			DBG_SCANCACHE("foundcache_update_offsets, now search for found >= startpos, try found %p with charoffset %d\n",found,found->charoffset_o);
 			found = get_foundcache_next(btv, &siter);
 		}
@@ -366,32 +366,35 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,Tmatch *mat
 	return scanning->curfblock;
 }
 
+static Tfoundcontext *pop_and_apply_contexts(BluefishTextView * btv, gint numchange, Tfoundcontext *curcontext, GtkTextIter *matchstart) {
+	gint num=numchange;
+	guint offset = gtk_text_iter_get_offset(matchstart);
+	Tfoundcontext *fcontext = curcontext;
+	while (num < 0 && fcontext) { /* pop, but don't pop if there is nothing to pop (because of an error in the language file) */
+		DBG_SCANNING("pop_and_apply_contexts, end context %d at pos %d, has tag %p and parent %p\n",fcontext->context, gtk_text_iter_get_offset(matchstart), g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag, fcontext->parentfcontext);
+		fcontext->end_o = offset;
+		if (g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag) {
+			GtkTextIter iter;
+			gtk_text_buffer_get_iter_at_offset(btv->buffer,&iter,fcontext->start_o);
+			gtk_text_buffer_apply_tag(btv->buffer,g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag, &iter, matchstart);
+		}
+		fcontext = (Tfoundcontext *)fcontext->parentfcontext;
+		num++;
+	}
+	return fcontext;
+}
+
 static inline Tfoundcontext *found_context_change(BluefishTextView * btv,Tmatch *match, Tscanning *scanning, Tpattern *pat) {
-	Tfoundcontext *fcontext=scanning->curfcontext;
 	/* check if we change up or down the stack */
 	if (pat->nextcontext < 0) {
-		gint num = -1 * pat->nextcontext;
-		guint matchstart = gtk_text_iter_get_offset(&match->start);
 #ifdef HL_PROFILING
 		hl_profiling.numcontextend++;
 #endif
-		/* pop, but don't pop if there is nothing to pop (because of an error in the language file) */
-		DBG_SCANNING("found_context_change, should pop %d contexts, fcontext=%p\n",num,fcontext);
-		while (num > 0 && fcontext) {
-			DBG_SCANNING("found_context_change, end context %d at pos %d, has tag %p and parent %p\n",fcontext->context, matchstart, g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag, fcontext->parentfcontext);
-			fcontext->end_o = matchstart;
-			if (g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag) {
-				GtkTextIter iter;
-				gtk_text_buffer_get_iter_at_offset(btv->buffer,&iter,fcontext->start_o);
-				gtk_text_buffer_apply_tag(btv->buffer,g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag, &iter, &match->start);
-			}
-			fcontext = (Tfoundcontext *)fcontext->parentfcontext;
-			num--;
-		}
-		DBG_SCANNING("found_context_change, return (current) fcontext=%p\n",fcontext);
-		scanning->curfcontext = fcontext;
-		return fcontext;
+		DBG_SCANNING("found_context_change, should pop %d contexts, curfcontext=%p\n",(-1*pat->nextcontext),scanning->curfcontext);
+		scanning->curfcontext = pop_and_apply_contexts(btv, pat->nextcontext, scanning->curfcontext, &match->start);
+		return scanning->curfcontext;
 	} else {
+		Tfoundcontext *fcontext;
 #ifdef HL_PROFILING
 		hl_profiling.numcontextstart++;
 		hl_profiling.fcontext_refcount++;
@@ -556,8 +559,16 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 		} else if (scanning->nextfound->charoffset_o == match_end_o && cached_found_is_valid(btv, match, scanning)){
 			gint context = scanning->nextfound->fcontext ? scanning->nextfound->fcontext->context : 1;
 			DBG_SCANCACHE("found_match, cache item at offset %d is still valid\n",scanning->nextfound->charoffset_o);
+			if (pat.nextcontext < 0) {
+				Tfoundcontext *tmpfcontext = pop_and_apply_contexts(btv, pat.nextcontext, scanning->curfcontext, &match->start);
+				if (tmpfcontext != scanning->nextfound->fcontext) {
+					g_warning("found_match, ERROR: popped context from cache does not equal popped context from current scan\n");
+				}
+			}
+			scanning->curfblock = scanning->nextfound->fblock;
+			scanning->curfcontext = scanning->nextfound->fcontext;
 			scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
-			/* TODO: if a context has a GtkTextTag it is not applied now in the rescanning... should be fixed */
+
 			return context;
 		} else { /* either a smaller offset, or invalid */
 			guint invalidoffset;
