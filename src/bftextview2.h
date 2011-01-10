@@ -357,12 +357,14 @@ typedef struct {
 						*/
 
 typedef struct {
-	Tfoundcontext *fcontext; /* on mode 4 or 8 this refers to the last pushed context, which is the current context. 
-			if bit 1 is set this points to the the pushed context, which is the new current context
-			if bit 2 is set this STILL points to the CURRENT context */
-	Tfoundblock *fblock; /* on mode 1 or 2 this refers to the last pushed block, which is the current block.
-			if bit 3 is set this points to the new pushed block which is the current block
-			if bit 4 is set this STILL points to the CURRENT block */ 
+	Tfoundcontext *fcontext; /* if numcontextchange == 0 this points to the current active context
+				if numcontextchange > 0 this points to the pushed context, which also happens to be the current context
+	 			if numcontextchange < 0 this points to the top of the stack at this position, to get the current position 
+	 			you'll have to pop N items (where N is -1 * numcontextchange). */
+	Tfoundblock *fblock; /* if numblockchange == 0 this points to the current active block
+				if numblockchange > 0 this points to the pushed block, which also happens to be the current block
+	 			if numblockchange < 0 this points to the top of the stack at this position, to get the current position 
+	 			you'll have to pop N items (where N is -1 * numblockchange). */ 
 	guint32 charoffset_o;
 	gint8 numcontextchange; /* 0 means no change, 1 means 1 push, -2 means 2 popped etc. */
 	gint8 numblockchange;

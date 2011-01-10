@@ -373,16 +373,9 @@ bftextview2_get_block_at_offset(BluefishTextView * btv, guint offset)
 		if (IS_FOUNDMODE_BLOCKPUSH(found) 
 				&& (found->fblock->start1_o == offset || found->fblock->end1_o == offset)) {
 			return found->fblock;
-		} else if (IS_FOUNDMODE_BLOCKPOP(found)) {
-			GSequenceIter *tmpsiter;
-			/* to get the popped block, go to the previous siter and get the current block there */
-			g_print("block was popped, get fblock from previous entry in cache\n"); 
-			tmpsiter = g_sequence_iter_prev(siter);
-			found = g_sequence_get(tmpsiter);
-			g_print("previous found=%p with fblock %p\n",found,found->fblock);
-			if (found && found->fblock && (found->fblock->start2_o == offset || found->fblock->end2_o == offset)) {
-				return found->fblock;
-			}
+		} else if (IS_FOUNDMODE_BLOCKPOP(found) 
+				&& (found->fblock->start2_o == offset || found->fblock->end2_o == offset)) {
+			return found->fblock;
 		}
 		if (found->charoffset_o > offset)
 			break;
@@ -654,6 +647,7 @@ get_num_foldable_blocks(Tfound * found)
 {
 	guint count = 0;
 	Tfoundblock *tmpfblock = found->fblock;
+	if (found->numblockchange < 0) count = found->numblockchange; /* don't count popped blocks */
 	while (tmpfblock) {
 		tmpfblock = (Tfoundblock *)tmpfblock->parentfblock;
 		count++;
@@ -792,6 +786,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 						}
 						break;
 					}
+					/* TODO: use 'numblockchange' in the cache to calculate this more efficiently */ 
 					if (foundpos <= nextline_o && foundpos >= curline_o) {
 						if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->foldable) {
 							if (found->fblock->folded)
