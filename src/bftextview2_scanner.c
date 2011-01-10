@@ -552,9 +552,13 @@ static guint remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tsc
 		gint i=scanning->nextfound->numblockchange;
 		Tfoundblock *tmpfblock = scanning->nextfound->fblock;
 		while (i<0 && tmpfblock) {
-			DBG_SCANNING("setting end of fblock %p as undefined\n",tmpfblock);
-			tmpfblock->start2_o = BF2_OFFSET_UNDEFINED;
-			tmpfblock->end2_o = BF2_OFFSET_UNDEFINED;
+			if (tmpfblock->end2_o >= match_end_o) {
+				DBG_SCANNING("setting end of fblock %p as undefined\n",tmpfblock);
+				/* only set the end of this fblock to invalid if it originally pointed to my 
+				offset, because it is possibly already valid again and set to a smaller offset by a new scanning run */
+				tmpfblock->start2_o = BF2_OFFSET_UNDEFINED;
+				tmpfblock->end2_o = BF2_OFFSET_UNDEFINED;
+			}
 			tmpfblock = tmpfblock->parentfblock;
 			i++;
 		}
@@ -563,6 +567,8 @@ static guint remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tsc
 		gint i=scanning->nextfound->numcontextchange;
 		Tfoundcontext *tmpfcontext = scanning->nextfound->fcontext;
 		while (i<0 && tmpfcontext) {
+			/* TODO: what if the scanner ended this block already at an earlier offset?? 
+			how to detect that situation? */
 			DBG_SCANNING("setting end of fcontext %p as undefined\n",tmpfcontext);
 			tmpfcontext->end_o = BF2_OFFSET_UNDEFINED;
 			tmpfcontext = tmpfcontext->parentfcontext;
