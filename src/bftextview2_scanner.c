@@ -332,7 +332,7 @@ static void print_blockstack(BluefishTextView * btv, Tscanning *scanning) {
 	g_print("\n");
 }*/
 
-static Tfoundblock *pop_blocks(BluefishTextView * btv, gint numchange, Tfoundblock *curblock) {
+static Tfoundblock *pop_blocks(gint numchange, Tfoundblock *curblock) {
 	gint num=numchange;
 	Tfoundblock *fblock = curblock;
 	while (num < 0 && fblock) {
@@ -403,7 +403,7 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,Tmatch *mat
 	return retfblock;
 }
 
-static Tfoundcontext *pop_contexts(BluefishTextView * btv, gint numchange, Tfoundcontext *curcontext) {
+static Tfoundcontext *pop_contexts(gint numchange, Tfoundcontext *curcontext) {
 	gint num=numchange;
 	Tfoundcontext *fcontext = curcontext;
 	while (num < 0 && fcontext) {
@@ -459,19 +459,49 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,Tmatch 
 	}
 }
 
+static gboolean nextcache_valid(Tscanning *scanning) {
+	if (scanning->nextfound->numblockchange <= 0 && scanning->nextfound->fblock != scanning->curfblock) {
+		DBG_SCANCACHE("nextcache_valid, next found %p pops fblock=%p, current fblock=%p, return FALSE\n",scanning->nextfound,scanning->nextfound->fblock,scanning->curfblock);
+		return FALSE;
+	}
+	if (scanning->nextfound->numcontextchange <= 0 && scanning->nextfound->fcontext != scanning->curfcontext) {
+		DBG_SCANCACHE("nextcache_valid, next found %p pops fcontext=%p, current fcontext=%p, return FALSE\n",scanning->nextfound,scanning->nextfound->fcontext,scanning->curfcontext);
+		return FALSE;
+	}
+	if (scanning->nextfound->numcontextchange > 0 && (
+			!scanning->nextfound->fcontext
+			|| scanning->nextfound->fcontext->parentfcontext != scanning->curfcontext)) {
+		DBG_SCANCACHE("nextcache_valid, next found %p doesn't push context on top of current fcontext %p, return FALSE\n",scanning->nextfound,scanning->curfcontext);
+		return FALSE;
+	}
+	if (scanning->nextfound->numblockchange > 0&& (
+			!scanning->nextfound->fblock
+			|| scanning->nextfound->fblock->parentfblock != scanning->curfblock)) {
+		DBG_SCANCACHE("nextcache_valid, next found %p doesn't push block on top of current fblock %p, return FALSE\n",scanning->nextfound,scanning->curfblock);
+		return FALSE;
+	}
+	
+	return TRUE;
+}
+
+
 static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *match, Tscanning *scanning) {
 	Tpattern pat = g_array_index(btv->bflang->st->matches,Tpattern, match->patternum);
 
 	if (!scanning->nextfound)
 		return FALSE;
-	g_print("cached_found_is_valid, testing %p\n",scanning->nextfound);
+	
+	DBG_SCANCACHE("cached_found_is_valid, testing %p\n",scanning->nextfound);
+	
+	if (!nextcache_valid(scanning))
+		return FALSE;
+	
 	g_print("with numcontextchange=%d, numblockchange=%d\n"
 			,scanning->nextfound->numcontextchange
 			,scanning->nextfound->numblockchange);
 	if (IS_FOUNDMODE_BLOCKPUSH(scanning->nextfound) && (
 				!pat.starts_block
 				|| scanning->nextfound->fblock->patternum != match->patternum
-				|| scanning->nextfound->fblock->parentfblock != scanning->curfblock
 				)) {
 		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not push the same block\n",scanning->nextfound);
 		DBG_SCANCACHE("pat.startsblock=%d, nextfound->fblock->patternum=%d,match->patternum=%d,nextfound->fblock->parentfblock=%p,scanning->curfblock=%p\n"
@@ -489,7 +519,6 @@ static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *mat
 				pat.nextcontext <= 0 
 				/*|| pat.nextcontext != scanning->context*/
 				|| scanning->nextfound->fcontext->context != pat.nextcontext
-				|| scanning->nextfound->fcontext->parentfcontext != scanning->curfcontext
 				)) {
 		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not push the same context\n",scanning->nextfound);
 		DBG_SCANCACHE("cached pat.nextcontext=%d, fcontext->context=%d, current context=%d\n"
@@ -612,7 +641,7 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 				context = tmpfcontext->context;
 			}
 			
-			scanning->curfblock = pop_blocks(btv, scanning->nextfound->numblockchange, fblock);
+			scanning->curfblock = pop_blocks(scanning->nextfound->numblockchange, fblock);
 			scanning->curfcontext = tmpfcontext;
 			scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
 			return context;
@@ -682,12 +711,12 @@ static guint reconstruct_scanning(BluefishTextView * btv, GtkTextIter *position,
 	DBG_SCANCACHE("reconstruct_stack, got found %p to reconstruct stack at position %d\n",found,gtk_text_iter_get_offset(position));
 	if (G_LIKELY(found)) {
 		if (found->numcontextchange < 0) {
-			scanning->curfcontext = pop_contexts(btv, found->numcontextchange, found->fcontext); 
+			scanning->curfcontext = pop_contexts(found->numcontextchange, found->fcontext); 
 		} else {
 			scanning->curfcontext = found->fcontext;
 		}
 		if (found->numblockchange < 0) {
-			scanning->curfblock = pop_blocks(btv, found->numblockchange, found->fblock); 
+			scanning->curfblock = pop_blocks(found->numblockchange, found->fblock); 
 		} else {
 			scanning->curfblock = found->fblock;
 		}
@@ -962,6 +991,16 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				}
 #endif /* IDENTSTORING */
 			}
+			if (G_UNLIKELY(last_character_run && scanning.nextfound && !nextcache_valid(&scanning))) {
+				guint invalidoffset;
+				/* see if nextfound has a valid context and block stack, if not we enlarge the scanning area */
+				DBG_SCANNING("last_character_run, but nextfound %p is INVALID!\n",scanning.nextfound);
+				invalidoffset = remove_invalid_cache(btv, 0, &scanning);
+				if (enlarge_scanning_region(btv, &scanning, invalidoffset))
+					last_character_run = FALSE;
+			}
+			
+			
 			if (G_LIKELY(gtk_text_iter_equal(&mstart,&iter) && !last_character_run)) {
 				gtk_text_iter_forward_char(&iter);
 #ifdef HL_PROFILING
