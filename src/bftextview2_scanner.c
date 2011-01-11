@@ -663,10 +663,11 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 				context = scanning->nextfound->fcontext ? scanning->nextfound->fcontext->context : 1;
 			} else if (pat.nextcontext < 0) {
 				tmpfcontext = pop_and_apply_contexts(btv, pat.nextcontext, scanning->curfcontext, &match->start);
+				/* TODO: is the next comparision correct ? */ 
 				if (tmpfcontext != scanning->nextfound->fcontext) {
 					g_warning("found_match, ERROR: popped context from cache does not equal popped context from current scan\n");
 				}
-				context = tmpfcontext->context;
+				context = tmpfcontext ? tmpfcontext->context : 1;
 			}
 			
 			scanning->curfblock = pop_blocks(scanning->nextfound->numblockchange, fblock);
