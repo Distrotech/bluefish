@@ -293,7 +293,7 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 
 void found_free_lcb(gpointer data, gpointer btv) {
 	Tfound *found = data;
-
+	DBG_SCANCACHE("found_free_lcb, destroy %p\n",found);
 	if (IS_FOUNDMODE_BLOCKPUSH(found)) {
 #ifdef HL_PROFILING
 		hl_profiling.fblock_refcount--;
@@ -362,6 +362,8 @@ static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,Tmatch *m
 	return fblock;
 }
 
+static gboolean enlarge_scanning_region(BluefishTextView * btv, Tscanning *scanning, guint offset);
+
 static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,Tmatch *match, Tscanning *scanning, Tpattern *pat, gint *numblockchange) {
 	Tfoundblock *retfblock, *fblock=scanning->curfblock;
 	GtkTextIter iter;
@@ -387,11 +389,29 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,Tmatch *mat
 	}
 
 	DBG_BLOCKMATCH("found the matching start of the block fblock %p with patternum %d and parent %p\n",fblock, fblock->patternum, fblock->parentfblock);
+	if (G_UNLIKELY(fblock->start2_o != BF2_OFFSET_UNDEFINED && fblock->start2_o)) {
+		Tfound *ifound;
+		GSequenceIter *isiter=NULL, *cursiter;
+		DBG_SCANCACHE("found_end_of_block, block has an end already?!? invalidate and enlarge region to previous end at end2_o %d\n",fblock->end2_o);
+		/* this block was previously larger, so now we have to invalidate the previous
+		end of block in the cache */
+		enlarge_scanning_region(btv, scanning, fblock->end2_o);
+		ifound = get_foundcache_at_offset(btv, fblock->end2_o, &isiter);
+		if (ifound && ifound->charoffset_o == fblock->end2_o && isiter) {
+			DBG_SCANCACHE("found_end_of_block, invalidate ifound=%p at offset %d\n",ifound,ifound->charoffset_o);
+			cursiter = scanning->siter;
+			if (scanning->siter) {
+				scanning->nextfound = get_foundcache_next(btv,&isiter);
+			}
+			g_sequence_foreach_range(cursiter,isiter,found_free_lcb,btv);
+			g_sequence_remove_range(cursiter,isiter);
+		}
+	}
 	fblock->start2_o = gtk_text_iter_get_offset(&match->start);
 	fblock->end2_o = gtk_text_iter_get_offset(&match->end);
 	
 	gtk_text_buffer_get_iter_at_offset(btv->buffer,&iter,fblock->end1_o);
-	if (pat->blocktag) {
+	if (G_UNLIKELY(pat->blocktag)) {
 		gtk_text_buffer_apply_tag(btv->buffer,pat->blocktag, &iter, &match->start);
 	}
 	if ((gtk_text_iter_get_line(&iter)+1) < gtk_text_iter_get_line(&match->start)) {
@@ -460,6 +480,8 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,Tmatch 
 }
 
 static gboolean nextcache_valid(Tscanning *scanning) {
+	if (!scanning->nextfound)
+		return FALSE;
 	if (scanning->nextfound->numblockchange <= 0 && scanning->nextfound->fblock != scanning->curfblock) {
 		DBG_SCANCACHE("nextcache_valid, next found %p pops fblock=%p, current fblock=%p, return FALSE\n",scanning->nextfound,scanning->nextfound->fblock,scanning->curfblock);
 		return FALSE;
@@ -480,7 +502,7 @@ static gboolean nextcache_valid(Tscanning *scanning) {
 		DBG_SCANCACHE("nextcache_valid, next found %p doesn't push block on top of current fblock %p, return FALSE\n",scanning->nextfound,scanning->curfblock);
 		return FALSE;
 	}
-	
+	DBG_SCANCACHE("nextcache_valid, next found %p with offset %d seems valid\n",scanning->nextfound, scanning->nextfound->charoffset_o);
 	return TRUE;
 }
 
