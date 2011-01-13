@@ -1,20 +1,20 @@
 # Galician translations for bluefish-unstable package.
-# Copyright (C) 2009 The Bluefish Development Team.
+# Copyright (C) 2009-2011 The Bluefish Development Team.
 # This file is distributed under the same license as the bluefish-unstable package.
-# Xose M. <pikamoku@gmail.com>, 2009.
+# Xose M. <pikamoku@gmail.com>, 2009-2011
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 2.0.1\n"
+"Project-Id-Version: bluefish 2.0.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-31 07:41+0100\n"
-"PO-Revision-Date: 2010-05-08 16:15+0200 \n"
+"POT-Creation-Date: 2011-01-13 11:58+0100\n"
+"PO-Revision-Date: 2011-01-13 10:15+0200 \n"
 "Last-Translator: Xose M. <pikamoku@gmail.com>\n"
 "Language-Team:  none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
+"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:88
@@ -463,11 +463,11 @@ msgstr ""
 "actualize a 2.18.0 ou máis novo."
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2883
+#: ../src/document.c:2885
 msgid "Unable to open file"
 msgstr "Non se puido abrilo ficheiro"
 
-#: ../src/document.c:2895
+#: ../src/document.c:2897
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -475,73 +475,72 @@ msgid ""
 msgstr ""
 "Se voltas \"%s\" á última copia gardada, perderás os trocos realizados."
 
-#: ../src/document.c:2899
+#: ../src/document.c:2901
 msgid "Revert changes to last saved copy?"
 msgstr "¿Voltar  \"%s\" ó estado da última copia gardada?"
 
-#: ../src/document.c:2966
+#: ../src/document.c:2968
 msgid "_Retry"
 msgstr "_Retentar"
 
-#: ../src/document.c:2966
+#: ../src/document.c:2968
 msgid "Retry _all failed"
 msgstr "Tentar todo fallou"
 
-#: ../src/document.c:2966
+#: ../src/document.c:2968
 msgid "_Close"
 msgstr "Pechar"
 
-#: ../src/document.c:2966
+#: ../src/document.c:2968
 msgid "Close all _failed"
 msgstr "Fallou PecharTodo."
 
-#: ../src/document.c:2971
+#: ../src/document.c:2973
 msgid "File "
 msgstr "Ficheiro"
 
-#: ../src/document.c:2971
+#: ../src/document.c:2973
 msgid " failed to load."
 msgstr " fallou a carga"
 
-#: ../src/document.c:2975
+#: ../src/document.c:2977
 msgid "File failed to load\n"
 msgstr "Fallou  a carga do ficheiro\n"
 
-#: ../src/document.c:3113
+#: ../src/document.c:3115
 msgid "Select file to insert"
 msgstr "Elexir ficheiro a insertar"
 
-#: ../src/document.c:3122
+#: ../src/document.c:3124
 msgid "No file to insert"
 msgstr "Ningún ficheiro para insertar"
 
-#: ../src/document.c:3296
+#: ../src/document.c:3298
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d liña"
 msgstr[1] "%d liñas"
 
-#: ../src/document.c:3297
+#: ../src/document.c:3299
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d palabra"
 msgstr[1] "%d palabras"
 
-#: ../src/document.c:3298
+#: ../src/document.c:3300
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caracter"
 msgstr[1] "%d caracteres"
 
-#: ../src/document.c:3300
-#, fuzzy
+#: ../src/document.c:3302
 msgid "Selection statistics: "
 msgstr "Estatísticas:"
 
-#: ../src/document.c:3300
+#: ../src/document.c:3302
 msgid "Statistics: "
 msgstr "Estatísticas:"
 
@@ -773,7 +772,7 @@ msgstr "Pa_trón:"
 
 #: ../src/file_dialogs.c:199
 msgid "Pattern matches _full path:"
-msgstr ""
+msgstr "O patrón concorda coa ruta _completa:"
 
 #: ../src/file_dialogs.c:203
 msgid "_Recursive:"
@@ -841,9 +840,8 @@ msgid "Could not save file "
 msgstr "Non se puido gardar o ficheiro"
 
 #: ../src/file_dialogs.c:504 ../src/file_dialogs.c:1332
-#, fuzzy
 msgid "File changed on disk\n"
-msgstr "Ficheiro non atopado\n"
+msgstr "Ficheiro cambiou no disco\n"
 
 #: ../src/file_dialogs.c:591
 #, c-format
@@ -968,7 +966,7 @@ msgstr "Amosar ficheiros ocultos"
 
 #. g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);
 #: ../src/file_dialogs.c:1268
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Filename:%s changed on disk.\n"
 "\n"
@@ -977,10 +975,12 @@ msgid ""
 "Original size was %lu\n"
 "New size is %lu"
 msgstr ""
-"Ficheiro: %s\n"
+"Ficheiro: %s trocou no disco.\n"
 "\n"
-"Data modificación recente: %s\n"
-"Data modificación anterior: %s"
+"Data modificación orixinal: %s\n"
+"Data modificación actual: %s\n"
+"Tamaño orixinal %lu\n"
+"Novo tamaño %lu"
 
 #: ../src/file_dialogs.c:1289
 msgid "_Unset file name"
@@ -1060,7 +1060,7 @@ msgstr "Detección automática"
 
 #: ../src/gtk_easy.c:1554
 msgid "<b>Keystroke choice </b>"
-msgstr ""
+msgstr "<b>Pulsación escollida </b>"
 
 #: ../src/gtk_easy.c:1560
 msgid ""
@@ -1069,10 +1069,14 @@ msgid ""
 "Please use Ctrl, Shift, Alt key with any other key.\n"
 "<i>Esc to cancel, Delete to remove the accelerator.</i>"
 msgstr ""
+"\n"
+"Pulse a combinación de teclas requerida.\n"
+"Por favor use Ctrl, Shift, Alt xunto con outras teclas.\n"
+"<i>Esc para cancelar, Del para borrar o atallo.</i>"
 
 #: ../src/gtk_easy.c:1582
 msgid "Press shortcut key combination"
-msgstr ""
+msgstr "Teclee a combinación do atallo de teclado"
 
 #: ../src/gtkmountoperation.c:125
 msgid "Parent"
@@ -1453,9 +1457,8 @@ msgid "/Document/Highlight block delimiters"
 msgstr "/Documento/Remarcar inicio e fin do bloque"
 
 #: ../src/menu.c:296
-#, fuzzy
 msgid "/Document/Split view"
-msgstr "/Documento/_Comprobación Ortográfica"
+msgstr "/Documento/Vista separada"
 
 #: ../src/menu.c:298
 msgid "/Document/_Spell Check"
@@ -1579,7 +1582,7 @@ msgstr "/Ir/Ir ó número de liña na _selección"
 
 #: ../src/menu.c:347
 msgid "/Go/Jump to reference"
-msgstr ""
+msgstr "/Ir/Saltar á referencia"
 
 #: ../src/menu.c:348
 msgid "/_Project"
@@ -1646,14 +1649,12 @@ msgid "/Tools/Strip T_railing Whitespace"
 msgstr "/Ferramentas/Quitar espazos en blanco"
 
 #: ../src/menu.c:375
-#, fuzzy
 msgid "/Tools/_Join lines together"
 msgstr "/Ferramentas/_Xuntar liñas"
 
 #: ../src/menu.c:376
-#, fuzzy
 msgid "/Tools/Sp_lit lines on right margin"
-msgstr "/Ferramentas/Separar liñas"
+msgstr "/Ferramentas/Separar liñas no marxe dereito"
 
 #: ../src/menu.c:377
 #, fuzzy
@@ -1727,7 +1728,6 @@ msgid "Untitled"
 msgstr "Sen Título"
 
 #: ../src/preferences.c:458
-#, fuzzy
 msgid "_Mime type:"
 msgstr "Tipos de ficheiro"
 
@@ -1736,71 +1736,58 @@ msgid "None"
 msgstr "Ningún"
 
 #: ../src/preferences.c:473
-#, fuzzy
 msgid "_Template:"
 msgstr "_Plantilla:"
 
 #: ../src/preferences.c:476 ../src/preferences.c:1830
-#, fuzzy
 msgid "<b>Options</b>"
 msgstr "<b>Opcións</b>"
 
 #: ../src/preferences.c:480
-#, fuzzy
 msgid "Enable a_uto-completion"
-msgstr "Activar pop-up de autocompletar"
+msgstr "Activar autocompletado"
 
 #: ../src/preferences.c:482
-#, fuzzy
 msgid "Enable _block folding"
-msgstr "Enable block folding"
+msgstr "Habilitar agrupamento en bloque"
 
 #: ../src/preferences.c:484
-#, fuzzy
 msgid "Highlight block _delimiters"
-msgstr "Realzar inicio e remate do bloque coincidente"
+msgstr "Realzar inicio e remate do bloque"
 
 #: ../src/preferences.c:486
-#, fuzzy
 msgid "_Highlight current line"
 msgstr "Realzar liña actual"
 
 #: ../src/preferences.c:488
-#, fuzzy
 msgid "Show line _numbers"
 msgstr "Amosar número de liña"
 
 #: ../src/preferences.c:490
-#, fuzzy
 msgid "Show _right margin indicator"
 msgstr "Posición da marxe dereita"
 
 #: ../src/preferences.c:492 ../src/preferences.c:1841
-#, fuzzy
 msgid "Smart auto indentin_g"
 msgstr "Sangrado automático intelixente"
 
 #: ../src/preferences.c:494
 msgid "Wra_p lines"
-msgstr ""
+msgstr "Recor_ta liñas"
 
 #: ../src/preferences.c:497
-#, fuzzy
 msgid "_Enable spell check"
 msgstr "Activar Corrector ortográfico..."
 
 #: ../src/preferences.c:501
-#, fuzzy
 msgid "<b>Tab Stops</b>"
-msgstr "<b>Opcións</b>"
+msgstr "<b>Saltos de tabulador</b>"
 
 #: ../src/preferences.c:506
-#, fuzzy
 msgid "Tab _width:"
 msgstr "Ancho de Tabulación"
 
 #: ../src/preferences.c:508
-#, fuzzy
 msgid "Insert _spaces instead of tabs"
 msgstr "Usar espazos e non tabulacións para sangrar"
 
@@ -1818,14 +1805,14 @@ msgid "Path to plugin"
 msgstr "Ruta ó conector"
 
 #: ../src/preferences.c:755
-#, fuzzy
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
 "applied to the same text, the top-most style in this list has the highest "
 "priority. Use drag and drop to re-order the text styles.</small>"
 msgstr ""
-"Se aplicas varios estilos ó mesmo texto, o estilo de máis arriba na lista "
-"ten a prioridade. Usa arrastrar e soltar para reordenar os estilos do texto"
+"<small>Se aplicas varios estilos ó mesmo texto, o estilo de máis arriba na "
+"lista ten a prioridade. Usa arrastrar e soltar para reordenar os estilos do "
+"texto</small>"
 
 #: ../src/preferences.c:765 ../src/preferences.c:905 ../src/preferences.c:1001
 msgid "Label"
@@ -1836,43 +1823,36 @@ msgid "Foreground color"
 msgstr "Cor en primeiro plano"
 
 #: ../src/preferences.c:782 ../src/preferences.c:1890
-#, fuzzy
 msgid "_Foreground color:"
-msgstr "Cor en primeiro plano"
+msgstr "_Cor en primeiro plano:"
 
 #: ../src/preferences.c:783 ../src/preferences.c:1893
 msgid "Background color"
 msgstr "Cor de fondo"
 
 #: ../src/preferences.c:784 ../src/preferences.c:1894
-#, fuzzy
 msgid "_Background color:"
-msgstr "Cor de fondo"
+msgstr "Cor de _fondo"
 
 #: ../src/preferences.c:788
-#, fuzzy
 msgid "_Normal weight"
 msgstr "Estilo normal"
 
 #: ../src/preferences.c:790
-#, fuzzy
 msgid "Bold _weight"
 msgstr "Realzado"
 
 #: ../src/preferences.c:792
-#, fuzzy
 msgid "Normal st_yle"
 msgstr "estilo normal"
 
 #: ../src/preferences.c:795
-#, fuzzy
 msgid "_Italic style"
 msgstr "Cursiva"
 
 #: ../src/preferences.c:797
-#, fuzzy
 msgid "_Spell check"
-msgstr "Corrector ortográfico..."
+msgstr "Corrector ortográfico"
 
 #: ../src/preferences.c:907 ../src/preferences.c:1003
 #: ../src/preferences.c:1139
@@ -2092,20 +2072,19 @@ msgstr "abaixo"
 
 #: ../src/preferences.c:1767
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: ../src/preferences.c:1767
-#, fuzzy
 msgid "Only project files"
-msgstr "Ficheiro do proxecto Bluefish"
+msgstr "So ficheiros de proxecto"
 
 #: ../src/preferences.c:1768
 msgid "jpeg"
-msgstr ""
+msgstr "jpeg"
 
 #: ../src/preferences.c:1768
 msgid "png"
-msgstr ""
+msgstr "png"
 
 #: ../src/preferences.c:1770
 msgid "All"
@@ -2132,85 +2111,74 @@ msgid "Editor settings"
 msgstr "Opcións do editor"
 
 #: ../src/preferences.c:1815
-#, fuzzy
 msgid "<b>Auto-completion</b>"
-msgstr "<b>Opcións</b>"
+msgstr "<b>Autocompletado</b>"
 
 #: ../src/preferences.c:1821
 msgid "Show _pop-up window:"
-msgstr ""
+msgstr "Amosa _ventá emerxente:"
 
 #: ../src/preferences.c:1827
 msgid "Shortcut _key combination:"
-msgstr ""
+msgstr "Atallo de _teclado:"
 
 #: ../src/preferences.c:1836
 msgid "Right _margin/split line end position:"
 msgstr ""
 
 #: ../src/preferences.c:1844
-#, fuzzy
 msgid "Smart Home/_End cursor positioning"
 msgstr "Posicionador intelixente do cursor ó inicio/remate"
 
 #: ../src/preferences.c:1848
 msgid "_Tab key indents selection"
-msgstr ""
+msgstr "_Tabulador indenta a selección"
 
 #: ../src/preferences.c:1854
-#, fuzzy
 msgid "Visible _whitespace mode:"
 msgstr "Cor dos espazos en blanco visibles"
 
 #: ../src/preferences.c:1857
-#, fuzzy
 msgid "<b>Undo</b>"
-msgstr "<b>Contén</b>"
+msgstr "<b>Desfacer</b>"
 
 #: ../src/preferences.c:1862
-#, fuzzy
 msgid "_Number of actions in history:"
-msgstr "Número de accións no historial Desfacer"
+msgstr "Número de accións no historial:"
 
 #: ../src/preferences.c:1865
-#, fuzzy
 msgid "Clear _history on save"
 msgstr "Borrar o historial Desfacer ó gardar"
 
 #: ../src/preferences.c:1871 ../src/preferences.c:2170
 msgid "Font & Colors"
-msgstr ""
+msgstr "Fonte e Cores"
 
 #: ../src/preferences.c:1876 ../src/preferences.c:2175
-#, fuzzy
 msgid "<b>Font</b>"
-msgstr "<b>Contén</b>"
+msgstr "<b>Fonte</b>"
 
 #: ../src/preferences.c:1880
 msgid "_Editor font:"
-msgstr ""
+msgstr "Fonte do _editor:"
 
 #: ../src/preferences.c:1885 ../src/preferences.c:2195
-#, fuzzy
 msgid "<b>Colors</b>"
-msgstr "<b>Ficheiros</b>"
+msgstr "<b>Cores</b>"
 
 #: ../src/preferences.c:1897
-#, fuzzy
 msgid "Cursor color"
-msgstr "Cor da liña actual"
+msgstr "Cor do cursor"
 
 #: ../src/preferences.c:1898
-#, fuzzy
 msgid "C_ursor color:"
-msgstr "Cor da liña actual"
+msgstr "Co do cursor"
 
 #: ../src/preferences.c:1901
 msgid "Current line color"
 msgstr "Cor da liña actual"
 
 #: ../src/preferences.c:1902
-#, fuzzy
 msgid "Cu_rrent line color:"
 msgstr "Cor da liña actual"
 
@@ -2219,7 +2187,6 @@ msgid "Visible whitespace color"
 msgstr "Cor dos espazos en blanco visibles"
 
 #: ../src/preferences.c:1906
-#, fuzzy
 msgid "_Visible whitespace color:"
 msgstr "Cor dos espazos en blanco visibles"
 
@@ -2229,7 +2196,7 @@ msgstr "Valores iniciais do documento"
 
 #: ../src/preferences.c:1915
 msgid "<b>Non Project Defaults</b>"
-msgstr ""
+msgstr "<b>Se valores por omisión no Proxecto</b>"
 
 #: ../src/preferences.c:1928
 msgid "Files"
@@ -2237,74 +2204,61 @@ msgstr "Ficheiros"
 
 #: ../src/preferences.c:1930
 msgid "<b>Backup</b>"
-msgstr ""
+msgstr "<b>Respaldo</b>"
 
 #: ../src/preferences.c:1932
-#, fuzzy
 msgid "Create _backup file during file save"
 msgstr "Crear copia de respaldo ó gardar"
 
 #: ../src/preferences.c:1937
-#, fuzzy
 msgid "_Remove backup file on close"
 msgstr "Borrar copia de respaldo ó gardar"
 
 #: ../src/preferences.c:1942
-#, fuzzy
 msgid "If back_up fails:"
-msgstr "Se a copia de respaldo falla"
+msgstr "Se a copia de respaldo falla:"
 
 #: ../src/preferences.c:1949
 msgid "<b>Document Recovery</b>"
-msgstr ""
+msgstr "<b>Recuperación do documento</b>"
 
 #: ../src/preferences.c:1952
-#, fuzzy
 msgid "_Enable recovery of modified documents"
 msgstr "Activar recuperación dos documentos modificados"
 
 #: ../src/preferences.c:1956
-#, fuzzy
 msgid "_Frequency to store changes (seconds):"
-msgstr "Frecuencia do gardado de datos (segundos)"
+msgstr "_Frecuencia do gardado de datos (segundos)"
 
 #: ../src/preferences.c:1964
-#, fuzzy
 msgid "<b>Encoding</b>"
-msgstr "Codificación"
+msgstr "<b>Codificación</b>"
 
 #: ../src/preferences.c:1979
-#, fuzzy
 msgid "_Default character set for new files:"
-msgstr "Conxunto de caracteres predeterminado"
+msgstr "Conxunto de caracteres _predeterminado"
 
 #: ../src/preferences.c:1985
-#, fuzzy
 msgid "Auto set <meta> _HTML tag on encoding change"
 msgstr "Establecer etiqueta <meta> HTML cando cambie a codificación"
 
 #: ../src/preferences.c:1989 ../src/preferences.c:2087
-#, fuzzy
 msgid "<b>Misc</b>"
-msgstr "<b>Ficheiros</b>"
+msgstr "<b>Varios</b>"
 
 #: ../src/preferences.c:1993
-#, fuzzy
 msgid "Open co_mmandline files in running bluefish process"
 msgstr "Abrir liña de comandos na ventá actual"
 
 #: ../src/preferences.c:1998
-#, fuzzy
 msgid "Open commandline files in new _window"
 msgstr "Abrir liña de comando nunha nova ventá"
 
 #: ../src/preferences.c:2003
-#, fuzzy
 msgid "_Periodically check if file is modified on disk"
 msgstr "Comprobar periódicamente se o ficheiro foi modificado en disco"
 
 #: ../src/preferences.c:2006
-#, fuzzy
 msgid "File properties to check on dis_k for modifications"
 msgstr "Propiedades do ficheiro a comprobar nas modificacións en disco"
 
@@ -2314,80 +2268,68 @@ msgstr "HTML"
 
 #: ../src/preferences.c:2021
 msgid "<b>HTML Toolbar</b>"
-msgstr ""
+msgstr "<b>Barra Ferramentas HTML</b>"
 
 #: ../src/preferences.c:2024
-#, fuzzy
 msgid "Use lo_wercase HTML tags"
 msgstr "Etiquetas HTML en minúsculas"
 
 #: ../src/preferences.c:2026
-#, fuzzy
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
 msgstr "Usar etiquetas obsoletas (por exemplo <font> e <nobr>)"
 
 #: ../src/preferences.c:2030
-#, fuzzy
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
 msgstr ""
 "Dar formato baseándose en guías de accesibilidade (ex. <strong> por <b>)"
 
 #: ../src/preferences.c:2033
-#, fuzzy
 msgid "Use _XHTML style tags (<br />)"
 msgstr "Usar etiquetas de estilo XHTML (coma <br />)"
 
 #: ../src/preferences.c:2036
-#, fuzzy
 msgid "<b>Auto Update Tag Options</b>"
 msgstr "Actualizar automáticamente as opcións das etiquetas"
 
 #: ../src/preferences.c:2040
-#, fuzzy
 msgid "Automatically update a_uthor meta tag"
-msgstr "Actualización automática etiqueta author"
+msgstr "Actualización automática etiqueta meta author"
 
 #: ../src/preferences.c:2043
-#, fuzzy
 msgid "Automatically update _date meta tag"
 msgstr "Actualización automática etiqueta meta"
 
 #: ../src/preferences.c:2046
-#, fuzzy
 msgid "Automatically update _generator meta tag"
-msgstr "Actualizar automáticamente o xerador da etiqueta meta"
+msgstr "Actualizar automáticamente a etiqueta meta _generator"
 
 #: ../src/preferences.c:2059
 msgid "Templates"
 msgstr "_Plantilla:"
 
 #: ../src/preferences.c:2061
-#, fuzzy
 msgid "<b>Templates</b>"
-msgstr "_Plantilla:"
+msgstr "<b>Plantilla</b>"
 
 #: ../src/preferences.c:2074
 msgid "User interface"
 msgstr "Interface de usuario"
 
 #: ../src/preferences.c:2076
-#, fuzzy
 msgid "<b>Document Tabs</b>"
-msgstr "<b>Contén</b>"
+msgstr "<b>Pestana do documento</b>"
 
 #: ../src/preferences.c:2080
 msgid "_Tab position:"
-msgstr ""
+msgstr "Posición do _Tab:"
 
 #: ../src/preferences.c:2084
-#, fuzzy
 msgid "_Switch between tabs with <Alt>+0..9"
 msgstr "Trocar entre separadores con <Alt>+0..9"
 
 #: ../src/preferences.c:2096
-#, fuzzy
 msgid "_Language:"
-msgstr "Idioma"
+msgstr "Idioma:"
 
 #: ../src/preferences.c:2099
 #, fuzzy
@@ -2395,102 +2337,88 @@ msgid "_Make HTML dialogs transient"
 msgstr "Make HTML dialogs transient"
 
 #: ../src/preferences.c:2103
-#, fuzzy
 msgid "<b>Recent Files</b>"
-msgstr "<b>Ficheiros</b>"
+msgstr "<b>Ficheiros recentes</b>"
 
 #: ../src/preferences.c:2108
-#, fuzzy
 msgid "_Number of files in 'Open recent' menu:"
-msgstr "Número de ficheiros en 'Abrir recente'"
+msgstr "Número de ficheiros en 'Abrir recente':"
 
 #: ../src/preferences.c:2113
 msgid "_Register recent files with your desktop:"
-msgstr ""
+msgstr "_Rexistre ficheiros recentes co seu escritorio:"
 
 #: ../src/preferences.c:2116
-#, fuzzy
 msgid "<b>Sidebar</b>"
-msgstr "<b>Ficheiros</b>"
+msgstr "<b>Barra lateral</b>"
 
 #: ../src/preferences.c:2121
 msgid "Locatio_n:"
-msgstr ""
+msgstr "Localizació_n:"
 
 #: ../src/preferences.c:2125
 msgid "Tab _position:"
-msgstr ""
+msgstr "_Posición da pestana:"
 
 #: ../src/preferences.c:2134
 msgid "Dimensions"
 msgstr "Dimensións"
 
 #: ../src/preferences.c:2136
-#, fuzzy
 msgid "<b>Dimensions</b>"
-msgstr "Dimensións"
+msgstr "<b>Dimensións</b>"
 
 #: ../src/preferences.c:2138
-#, fuzzy
 msgid "_Leave dimensions to window manager"
 msgstr "Deixar as dimensións ó xestor de ventás"
 
 #: ../src/preferences.c:2145
-#, fuzzy
 msgid "_Restore last used dimensions"
 msgstr "Restaurar las últimas dimensións utilizadas"
 
 #: ../src/preferences.c:2153
-#, fuzzy
 msgid "Initial _sidebar width:"
 msgstr "Ancho inicial panel lateral"
 
 #: ../src/preferences.c:2157
-#, fuzzy
 msgid "Initial window _height:"
 msgstr "Alto inicial ventá"
 
 #: ../src/preferences.c:2160
-#, fuzzy
 msgid "Initial window _width:"
 msgstr "Ancho inicial ventá"
 
 #: ../src/preferences.c:2180
 msgid "_Use system document tab font"
-msgstr ""
+msgstr "_Usar a fonte do sistema para a pestana"
 
 #: ../src/preferences.c:2185
-#, fuzzy
 msgid "_Document tab font:"
-msgstr "Cor da liña actual"
+msgstr "Fonte da pestana do documento:"
 
 #: ../src/preferences.c:2199
-#, fuzzy
 msgid "Document error tab color"
-msgstr "Posición no documento do separador do bloc de notas"
+msgstr "Cor da pestana do documento de erro"
 
 #: ../src/preferences.c:2201
 msgid "Document tab _error color:"
-msgstr ""
+msgstr "Cor da pestana do documento de erro:"
 
 #: ../src/preferences.c:2205
-#, fuzzy
 msgid "Document loading tab color"
-msgstr "Cor da liña actual"
+msgstr "Cor da pestaña de documento cargando"
 
 #: ../src/preferences.c:2207
-#, fuzzy
 msgid "Document tab loadin_g color:"
-msgstr "Cor da liña actual"
+msgstr "Cor da pestana de documento cargando:"
 
 #: ../src/preferences.c:2211
-#, fuzzy
 msgid "Document modified tab color"
-msgstr "Posición no documento do separador do bloc de notas"
+msgstr "Cor da pestana de documento modificado"
 
 #: ../src/preferences.c:2213
 msgid "Document tab _modified color:"
-msgstr ""
+msgstr "Cor da pestana de documento modificado:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
@@ -2499,17 +2427,14 @@ msgid "Images"
 msgstr "Imaxes"
 
 #: ../src/preferences.c:2228
-#, fuzzy
 msgid "<b>Thumbnails</b>"
-msgstr "Miniaturas"
+msgstr "<b>Miniaturas</b>"
 
 #: ../src/preferences.c:2234
-#, fuzzy
 msgid "Thumbnail _filetype:"
 msgstr "Tipo de miniaturas"
 
 #: ../src/preferences.c:2238
-#, fuzzy
 msgid "Thumbnail _suffix:"
 msgstr "Sufixo para miniaturas"
 
@@ -2518,45 +2443,40 @@ msgid "External commands"
 msgstr "Comandos externos"
 
 #: ../src/preferences.c:2253
-#, fuzzy
 msgid "<b>External Commands</b>"
-msgstr "Comandos externos"
+msgstr "<b>Comandos externos</b>"
 
 #: ../src/preferences.c:2266
 msgid "External filters"
 msgstr "Filtros externos"
 
 #: ../src/preferences.c:2268
-#, fuzzy
 msgid "<b>External Filters</b>"
-msgstr "Filtros externos"
+msgstr "<b>Filtros externos</b>"
 
 #: ../src/preferences.c:2281
 msgid "Output parsers"
 msgstr "Analizadores da saída"
 
 #: ../src/preferences.c:2283
-#, fuzzy
 msgid "<b>Output Parsers</b>"
-msgstr "Analizadores da saída"
+msgstr "<b>Analizadores da saída</b>"
 
 #: ../src/preferences.c:2296
 msgid "Plugins"
 msgstr "Conectores"
 
 #: ../src/preferences.c:2298
-#, fuzzy
 msgid "<b>Plugins</b>"
-msgstr "<b>Ficheiros</b>"
+msgstr "<b>Conectores</b>"
 
 #: ../src/preferences.c:2311
 msgid "Text styles"
 msgstr "Estilos de Texto"
 
 #: ../src/preferences.c:2313
-#, fuzzy
 msgid "<b>Text Styles</b>"
-msgstr "<b>Opcións</b>"
+msgstr "<b>Estilos de texto</b>"
 
 #: ../src/preferences.c:2326
 msgid "Language support"
@@ -2564,20 +2484,17 @@ msgstr "Soporte e Idioma"
 
 #: ../src/preferences.c:2328
 msgid "<b>Reference Information</b>"
-msgstr ""
+msgstr "<b>Información de Referencia</b>"
 
 #: ../src/preferences.c:2331
-#, fuzzy
 msgid "_Load from language file"
 msgstr "Cargar a información de referencia do ficheiro de lingua"
 
 #: ../src/preferences.c:2334
-#, fuzzy
 msgid "Show in auto-completion _pop-up window"
 msgstr "Amosar a ventana de Completado automático"
 
 #: ../src/preferences.c:2337
-#, fuzzy
 msgid "Show in _tooltip window"
 msgstr "Amosar a información de referencia nunha ventá tooltip"
 
@@ -2619,7 +2536,7 @@ msgstr "_Nome do proxecto:"
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
 #: ../src/project.c:571
 msgid "<b>Project Defaults</b>"
-msgstr ""
+msgstr "<b>Valores por Omsión do Proxecto</b>"
 
 #: ../src/project.c:581
 msgid "Create _Project"
@@ -2667,34 +2584,31 @@ msgstr "Quitar as liñas baldeiras"
 
 #: ../src/rcfile.c:624
 msgid "Windows XP Firefox"
-msgstr ""
+msgstr "Windows XP Firefox"
 
 #: ../src/rcfile.c:629
-#, fuzzy
 msgid "Windows XP Internet Explorer"
-msgstr "Internet Explorer"
+msgstr "WinXP Internet Explorer"
 
 #: ../src/rcfile.c:634
 msgid "Windows XP Opera"
-msgstr ""
+msgstr "WinXP Opera"
 
 #: ../src/rcfile.c:638
 msgid "Windows XP Safari"
-msgstr ""
+msgstr "WinXP Safari"
 
 #: ../src/rcfile.c:642
 msgid "Windows 7 Firefox 32-bit"
-msgstr ""
+msgstr "Win7 Firefox 32-bit"
 
 #: ../src/rcfile.c:647
-#, fuzzy
 msgid "Windows 7 Internet Explorer 32-bit"
-msgstr "Internet Explorer"
+msgstr "Win7 Internet Explorer 32-bit"
 
 #: ../src/rcfile.c:652
-#, fuzzy
 msgid "Windows 7 Internet Explorer 64-bit"
-msgstr "Internet Explorer"
+msgstr "Win7 Internet Explorer 64-bit"
 
 #: ../src/rcfile.c:660 ../src/rcfile.c:717
 msgid "make"
@@ -3021,123 +2935,3 @@ msgstr "Desfacer o troco en todolos documentos?"
 #: ../src/undo_redo.c:462
 msgid "This change concerns multiple documents."
 msgstr "Este troco afectalle a varios documentos."
-
-#~ msgid "Select font"
-#~ msgstr "Seleccionar fonte"
-
-#, fuzzy
-#~ msgid "Show _whitespace:"
-#~ msgstr "Amosar espazos en blanco"
-
-#, fuzzy
-#~ msgid ""
-#~ "Document tab font \n"
-#~ "(leave empty for gtk default)"
-#~ msgstr ""
-#~ "Fonte no separador do caderno\n"
-#~ "(deixar baldeiro en gtk)"
-
-#~ msgid "Commands"
-#~ msgstr "Comandos"
-
-#~ msgid "Filters"
-#~ msgstr "Filtros"
-
-#~ msgid "Lines into columns"
-#~ msgstr "Liñas en columnas"
-
-#~ msgid "Number of columns"
-#~ msgstr "Número de _columnas:"
-
-#~ msgid "Spread lines horizontally"
-#~ msgstr "Desprega as liñas horizontalmente"
-
-#~ msgid "Column separator"
-#~ msgstr "Separador de columnas"
-
-#~ msgid "Fill empty entries"
-#~ msgstr "Completa os campos baldeiros"
-
-#~ msgid "Default mime type for new files"
-#~ msgstr "Valores MIME por defecto para novos documentos"
-
-#~ msgid "Default template"
-#~ msgstr "Plantilla por defecto"
-
-#~ msgid "_Word wrap by default"
-#~ msgstr "_Axuste de liña predeterminado"
-
-#~ msgid "(Smart) Auto indenting"
-#~ msgstr "(Intelixente)Identación automática"
-
-#~ msgid "Generic editor settings"
-#~ msgstr "Opcións Xenéricas do editor"
-
-#~ msgid "Font"
-#~ msgstr "Tipo de letra"
-
-#~ msgid "Non-project initial document settings"
-#~ msgstr "Valores iniciais do documento no relacionados co proxecto"
-
-#~ msgid "HTML toolbar / menu options"
-#~ msgstr "Barra HTML / opcións do menú"
-
-#~ msgid "Backup files and recovery of modified documents"
-#~ msgstr "Copia de respaldo e recuperación"
-
-#~ msgid "Misc"
-#~ msgstr "Outros"
-
-#~ msgid "General"
-#~ msgstr "Xeral"
-
-#~ msgid "Notebook tab color (doc modified)"
-#~ msgstr "Cor da pestana do bloc de notas (doc modificado)"
-
-#~ msgid "Notebook tab color (doc loading)"
-#~ msgstr "Cor da pestana do bloc de notas(doc cargando)"
-
-#~ msgid "Notebook tab color (doc error)"
-#~ msgstr "Cor da pestana do bloc de nota (doc erro)"
-
-#~ msgid "Sidebar notebook tab position"
-#~ msgstr "Posición do separador do bloc de notas do Panel Lateral"
-
-#~ msgid "Sidebar location"
-#~ msgstr "Posición do Panel Lateral"
-
-#~ msgid "Advanced syntax scanning options"
-#~ msgstr "Opcións avanzadas do Corrector ortográfico"
-
-#~ msgid "Show reference information in autocompletion pop-up"
-#~ msgstr "Amosar a información de referencia nunha ventá pop-up"
-
-#~ msgid "File has been modified by another process\n"
-#~ msgstr "O ficheiro foi modificado por outro proceso.\n"
-
-#~ msgid "_Match on file name only:"
-#~ msgstr "Coincidencia só no nome do ficheiro"
-
-#~ msgid "File %s has been modified on disk, overwrite?"
-#~ msgstr "O ficheiro %s existe e está aberto...¿sobreescribilo?"
-
-#~ msgid "Failed to check if %s has been modified on disk"
-#~ msgstr "Fallou a verificación de se %s fora modificado en disco"
-
-#~ msgid "/Goto"
-#~ msgstr "/Ir"
-
-#~ msgid "starting up..."
-#~ msgstr "Iniciando..."
-
-#~ msgid "starting bluefish"
-#~ msgstr "iniciando bluefish"
-
-#~ msgid "Startup options"
-#~ msgstr "Opcións iniciais"
-
-#~ msgid "Show splash-screen"
-#~ msgstr "Amosar pantaia de inicio"
-
-#~ msgid "Bluefish Editor (SVN)"
-#~ msgstr "Editor Bluefish (SVN)"
