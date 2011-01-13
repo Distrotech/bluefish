@@ -604,16 +604,19 @@ static guint remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tsc
 	return invalidoffset;
 }
 
-static gboolean enlarge_scanning_region(BluefishTextView * btv, Tscanning *scanning, guint offset) {
-	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, offset);
-	if (gtk_text_iter_compare(&iter,&scanning->end)>0) {
-		DBG_SCANCACHE("enlarge_scanning_region to offset %d\n",offset);
-		remove_all_highlighting_in_area(btv, &scanning->end, &iter);
-		scanning->end = iter;
+static gboolean enlarge_scanning_region_to_iter(BluefishTextView * btv, Tscanning *scanning, GtkTextIter *iter) {
+	if (gtk_text_iter_compare(iter,&scanning->end)>0) {
+		DBG_SCANCACHE("enlarge_scanning_region to offset %d\n",gtk_text_iter_get_offset(iter));
+		remove_all_highlighting_in_area(btv, &scanning->end, iter);
+		scanning->end = *iter;
 		return TRUE;
 	}
 	return FALSE;
+}
+static gboolean enlarge_scanning_region(BluefishTextView * btv, Tscanning *scanning, guint offset) {
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, offset);
+	return enlarge_scanning_region_to_iter(btv,scanning,&iter);
 }
 
 static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *scanning)
@@ -623,6 +626,7 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 	gint numblockchange=0;
 	guint match_end_o;
 	Tfound *found;
+	GtkTextIter iter;
 	Tpattern pat = g_array_index(btv->bflang->st->matches,Tpattern, match->patternum);
 	DBG_SCANNING("found_match for pattern %d %s at charoffset %d, starts_block=%d,ends_block=%d, nextcontext=%d (current=%d)\n",match->patternum,pat.pattern, gtk_text_iter_get_offset(&match->start),pat.starts_block,pat.ends_block,pat.nextcontext,scanning->context);
 /*	DBG_MSG("pattern no. %d (%s) matches (%d:%d) --> nextcontext=%d\n", match->patternum, scantable.matches[match->patternum].message,
@@ -673,9 +677,6 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 			scanning->curfblock = pop_blocks(scanning->nextfound->numblockchange, fblock);
 			scanning->curfcontext = tmpfcontext;
 			scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
-			/* TODO: if there is no nextfound, but we did change the context or block stack, we 
-			have to scan until the end because a pattern following the current pattern might
-			become important */
 			return context;
 		} else { /* either a smaller offset, or invalid */
 			guint invalidoffset;
@@ -684,6 +685,13 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 			enlarge_scanning_region(btv, scanning, invalidoffset);
 		}
 	}
+	/* TODO: in all cases: if we find a previously unknown match and there is no nextfound we
+	have to scan to the end of the text */
+	if (!scanning->nextfound) {
+		gtk_text_buffer_get_end_iter(btv->buffer, &iter);
+		enlarge_scanning_region_to_iter(btv,scanning,&iter);
+	}
+
 	if (pat.starts_block) {
 		fblock = found_start_of_block(btv, match, scanning);
 		numblockchange=1;
