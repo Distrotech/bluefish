@@ -1063,11 +1063,18 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		}
 	} while ((normal_run || last_character_run) && (loop%loops_per_timer!=0 || g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL));
 	DBG_SCANNING("scanned from %d to position %d, (end=%d, orig_end=%d) which took %f microseconds, loops_per_timer=%d\n",gtk_text_iter_get_offset(&scanning.start),gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&scanning.end),gtk_text_iter_get_offset(&orig_end),g_timer_elapsed(scanning.timer,NULL),loops_per_timer);
+	/* TODO: if we end the scan within a context that has a tag, we have to apply the contexttag */
+	if (!gtk_text_iter_is_end(&scanning.end) && scanning.curfcontext) {
+		if (g_array_index(btv->bflang->st->contexts,Tcontext,scanning.curfcontext->context).contexttag) {
+			GtkTextIter iter2;
+			gtk_text_buffer_get_iter_at_offset(btv->buffer,&iter2,scanning.curfcontext->start_o);
+			gtk_text_buffer_apply_tag(btv->buffer,g_array_index(btv->bflang->st->contexts,Tcontext,scanning.curfcontext->context).contexttag, &iter, &iter2);
+		}
+	} 
+	
 	gtk_text_buffer_remove_tag(btv->buffer, btv->needscanning, &scanning.start , &iter);
-	/* because we do not yet have an algorithm to find out where our previous scanning runs are still valid
-	we have to re-scan all the text up to the end */
 	gtk_text_buffer_apply_tag(btv->buffer,btv->needscanning,&iter,&scanning.end);
-	/*g_array_free(matchstack,TRUE);*/
+	
 #ifdef HL_PROFILING
 	stage4 = g_timer_elapsed(scanning.timer,NULL);
 	hl_profiling.total_runs++;
