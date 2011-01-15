@@ -18,7 +18,7 @@
  */
 
 #define HL_PROFILING
-#define DUMP_SCANCACHE
+/*#define DUMP_SCANCACHE*/
 
 /*#define VALGRIND_PROFILING*/
 
@@ -1031,6 +1031,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				}
 #endif /* IDENTSTORING */
 			}
+			g_print("last_character_run=%d, scanning.nextfound=%p\n",last_character_run, scanning.nextfound);
 			if (G_UNLIKELY(last_character_run && scanning.nextfound && !nextcache_valid(&scanning))) {
 				guint invalidoffset;
 				/* see if nextfound has a valid context and block stack, if not we enlarge the scanning area */
@@ -1057,9 +1058,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		}
 		pos = newpos;
 		normal_run = !gtk_text_iter_equal(&iter, &scanning.end);
-		if (G_UNLIKELY(!normal_run)) {
+		g_print("normal_run=%d, last_character_run=%d\n",normal_run,last_character_run);
+		if (G_UNLIKELY(!normal_run || last_character_run)) {
 			/* only if last_character_run is FALSE and normal_run is FALSE we set last_character run to TRUE */
-			last_character_run = 1 - last_character_run;
+			last_character_run = !last_character_run;
 		}
 	} while ((normal_run || last_character_run) && (loop%loops_per_timer!=0 || g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL));
 	DBG_SCANNING("scanned from %d to position %d, (end=%d, orig_end=%d) which took %f microseconds, loops_per_timer=%d\n",gtk_text_iter_get_offset(&scanning.start),gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&scanning.end),gtk_text_iter_get_offset(&orig_end),g_timer_elapsed(scanning.timer,NULL),loops_per_timer);

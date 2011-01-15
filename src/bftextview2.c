@@ -369,7 +369,7 @@ bftextview2_get_block_at_offset(BluefishTextView * btv, guint offset)
 	GSequenceIter *siter;
 	found = get_foundcache_at_offset(btv, offset, &siter);
 	while (found) {
-		g_print("bftextview2_get_block_at_offset, found %p at offset %d with blockchange %d contextchange %d\n", found, found->charoffset_o, found->numblockchange, found->numcontextchange);
+		DBG_BLOCKMATCH("bftextview2_get_block_at_offset, found %p at offset %d with blockchange %d contextchange %d\n", found, found->charoffset_o, found->numblockchange, found->numcontextchange);
 		if (IS_FOUNDMODE_BLOCKPUSH(found) 
 				&& (found->fblock->start1_o == offset || found->fblock->end1_o == offset)) {
 			return found->fblock;
@@ -394,7 +394,7 @@ mark_set_idle_lcb(gpointer widget)
 
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &location, gtk_text_buffer_get_insert(btv->buffer));
 	fblock = bftextview2_get_block_at_offset(btv, gtk_text_iter_get_offset(&location));
-	g_print("mark_set_idle_lcb, got fblock %p\n", fblock);
+	DBG_SCANCACHE("mark_set_idle_lcb, got fblock %p\n", fblock);
 	if (btv->showing_blockmatch) {
 		gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
 		gtk_text_buffer_remove_tag(btv->buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);

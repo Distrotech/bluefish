@@ -207,7 +207,7 @@ extern void g_none(char * first, ...);
 #define DBG_MSG DBG_NONE
 #define DBG_SCANCACHE g_print
 #define DBG_SCANNING g_print
-#define DBG_BLOCKMATCH g_print
+#define DBG_BLOCKMATCH DBG_NONE
 #define DBG_FCONTEXTREFCOUNT DBG_NONE
 #define DBG_FBLOCKREFCOUNT DBG_NONE
 #define DBG_PATCOMPILE DBG_NONE
