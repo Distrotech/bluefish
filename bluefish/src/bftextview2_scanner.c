@@ -897,11 +897,12 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		,g_sequence_get_length(btv->scancache.stackcaches)
 		,hl_profiling.num_marks
 		);
-	g_print("memory scancache %d(%dKb+%dKb) fstack %d(%dKb) fcontext %d(%dKb) queue %d(%dKb)\n"
+	g_print("memory scancache %d(%dKb+%dKb) fstack %d(%dKb) fcontext %d(%dKb) queue %d(%dKb) = %dKb\n"
 		,hl_profiling.fstack_refcount,(gint)(hl_profiling.fstack_refcount*sizeof(Tfoundstack)/1024.0),(gint)(hl_profiling.fstack_refcount*40/1024.0)
 		,hl_profiling.fblock_refcount,(gint)(hl_profiling.fblock_refcount*sizeof(Tfoundblock)/1024.0)
 		,hl_profiling.fcontext_refcount,(gint)(hl_profiling.fcontext_refcount*sizeof(Tfoundcontext)/1024.0)
 		,hl_profiling.queue_count,(gint)(hl_profiling.queue_count*sizeof(GList)/1024.0)
+		,(gint)((hl_profiling.fstack_refcount*(sizeof(Tfoundstack)+5*sizeof(gpointer))+hl_profiling.fblock_refcount*sizeof(Tfoundblock)+hl_profiling.fcontext_refcount*sizeof(Tfoundcontext))/1024.0)
 		);
 	g_print("average %d chars/s %d chars/run, %d marks/s, %d marks/run\n"
 			,(guint)(1000.0*hl_profiling.total_chars / hl_profiling.total_time_ms )
