@@ -1132,9 +1132,14 @@ GQueue *get_contextstack_at_position(BluefishTextView * btv, GtkTextIter *positi
 	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), NULL);
 	if (found) {
 		Tfoundcontext *tmpfcontext = found->fcontext;
+		gint changecounter=found->numcontextchange;
 		while (tmpfcontext) {
-			gint context = tmpfcontext->context;
-			g_queue_push_tail(retqueue, GINT_TO_POINTER(context));
+			if (changecounter >= 0) {
+				gint context = tmpfcontext->context;
+				g_queue_push_tail(retqueue, GINT_TO_POINTER(context));
+			} else {
+				changecounter++;
+			}
 			tmpfcontext = (Tfoundcontext *)tmpfcontext->parentfcontext;
 		}
 	}
