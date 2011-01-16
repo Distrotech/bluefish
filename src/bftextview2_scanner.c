@@ -867,7 +867,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	/*GArray *matchstack;*/
 	Tscanning scanning;
 	guint pos = 0, newpos, reconstruction_o;
-	gboolean normal_run=TRUE, last_character_run=FALSE;
+	gboolean end_of_region=FALSE, last_character_run=FALSE, continue_loop=TRUE;
 	gint loop=0;
 #ifdef IDENTSTORING
 	GtkTextIter itcursor;
@@ -999,9 +999,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				uc = 1;
 			}
 		}
-		DBG_SCANNING("scanning %d %c in pos %d..",gtk_text_iter_get_offset(&iter),uc,pos);
+		DBG_SCANNING("scanning offset %d pos %d %c ",gtk_text_iter_get_offset(&iter),uc,pos);
 		newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
-		DBG_SCANNING(" got newpos %d\n",newpos);
+		DBG_SCANNING("(context=%d).. got newpos %d\n",scanning.context,newpos);
 		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
 			if (G_UNLIKELY(g_array_index(btv->bflang->st->table,Ttablerow, pos).match)) {
 				Tmatch match;
@@ -1037,10 +1037,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				/* see if nextfound has a valid context and block stack, if not we enlarge the scanning area */
 				DBG_SCANNING("last_character_run, but nextfound %p is INVALID!\n",scanning.nextfound);
 				invalidoffset = remove_invalid_cache(btv, 0, &scanning);
-				if (enlarge_scanning_region(btv, &scanning, invalidoffset))
-					last_character_run = FALSE;
+				enlarge_scanning_region(btv, &scanning, invalidoffset);
+				/* TODO: do we need to rescan this position with the real uc instead of uc='\0' ?? */
 			}
-			
 			
 			if (G_LIKELY(gtk_text_iter_equal(&mstart,&iter) && !last_character_run)) {
 				gtk_text_iter_forward_char(&iter);
@@ -1057,13 +1056,13 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 #endif
 		}
 		pos = newpos;
-		normal_run = !gtk_text_iter_equal(&iter, &scanning.end);
-		g_print("normal_run=%d, last_character_run=%d\n",normal_run,last_character_run);
-		if (G_UNLIKELY(!normal_run || last_character_run)) {
-			/* only if last_character_run is FALSE and normal_run is FALSE we set last_character run to TRUE */
+		end_of_region = gtk_text_iter_equal(&iter, &scanning.end);
+		if (G_UNLIKELY(end_of_region || last_character_run)) {
 			last_character_run = !last_character_run;
 		}
-	} while ((normal_run || last_character_run) && (loop%loops_per_timer!=0 || g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL));
+		continue_loop = (!end_of_region || last_character_run);
+		DBG_SCANNING("continue_loop=%d, end_of_region=%d, last_character_run=%d\n",continue_loop,end_of_region,last_character_run);
+	} while (continue_loop && (loop%loops_per_timer!=0 || g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL));
 	DBG_SCANNING("scanned from %d to position %d, (end=%d, orig_end=%d) which took %f microseconds, loops_per_timer=%d\n",gtk_text_iter_get_offset(&scanning.start),gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&scanning.end),gtk_text_iter_get_offset(&orig_end),g_timer_elapsed(scanning.timer,NULL),loops_per_timer);
 	/* TODO: if we end the scan within a context that has a tag, we have to apply the contexttag */
 	if (!gtk_text_iter_is_end(&scanning.end) && scanning.curfcontext) {
@@ -1107,7 +1106,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 			);
 #endif
 	/* tune the loops_per_timer, try to have 10 timer checks per loop, so we have around 10% deviation from the set interval */
-	if (normal_run)
+	if (!end_of_region)
 		loops_per_timer = MAX(loop/10,200);
 	g_timer_destroy(scanning.timer);
 
