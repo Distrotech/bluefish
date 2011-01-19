@@ -1,24 +1,24 @@
 # French locale definition for Bluefish.
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright (C) 2000-2011 Free Software Foundation, Inc.
 # Marc LeMaire <lemairem@securenet.net>, 13/01/2000.
 # Roméo VIU-BERGES <apostledemencia@free.fr>, 20/12/2002.
 # romeo viuberges <apostledemencia@free.fr>, 2003.
 # Romeo VIU-BERGES <romda@free.fr>, 2003.
 # Michèle Garoche <michele.garoche@easyconnect.fr>, 2004.
-# Frédéric Falsetti <falsetti@clansco.org>,2009,2010.
+# Frédéric Falsetti <falsetti@clansco.org>,2009-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-31 10:14+0100\n"
-"PO-Revision-Date: 2010-12-31 09:15+0100 \n"
+"POT-Creation-Date: 2011-01-19 10:52+0100\n"
+"PO-Revision-Date: 2011-01-19 9:10+0100 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Language: \n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:88
@@ -59,7 +59,7 @@ msgstr "Ignorer"
 
 #: ../src/bftextview2_spell.c:779
 msgid "Insert special characters as entities"
-msgstr "insérer des entités pour les caractères spéciaux"
+msgstr "Insérer des entités pour les caractères spéciaux"
 
 #: ../src/blocksync.c:87
 msgid ""
@@ -467,11 +467,11 @@ msgstr ""
 "distants. Veuillez  mettre à jour, version 2.18.0 ou plus récente."
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2883
+#: ../src/document.c:2885
 msgid "Unable to open file"
 msgstr "Impossible d'ouvrir le fichier"
 
-#: ../src/document.c:2895
+#: ../src/document.c:2897
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -480,72 +480,72 @@ msgstr ""
 "Si vous ramenez \"%s\" à la dernière copie sauvegardée, vous perdrez "
 "définitivement les modifications en cours."
 
-#: ../src/document.c:2899
+#: ../src/document.c:2901
 msgid "Revert changes to last saved copy?"
 msgstr "Supprimer les modifications et revenir à la dernière sauvegarde ?"
 
-#: ../src/document.c:2966
+#: ../src/document.c:2968
 msgid "_Retry"
 msgstr "_Réessayer"
 
-#: ../src/document.c:2966
+#: ../src/document.c:2968
 msgid "Retry _all failed"
 msgstr "Échec de _Tout réessayer"
 
-#: ../src/document.c:2966
+#: ../src/document.c:2968
 msgid "_Close"
 msgstr "_Fermer"
 
-#: ../src/document.c:2966
+#: ../src/document.c:2968
 msgid "Close all _failed"
 msgstr "Échec de Tout _fermer"
 
-#: ../src/document.c:2971
+#: ../src/document.c:2973
 msgid "File "
 msgstr "Le fichier "
 
-#: ../src/document.c:2971
+#: ../src/document.c:2973
 msgid " failed to load."
 msgstr " n'a pas pu être chargé."
 
-#: ../src/document.c:2975
+#: ../src/document.c:2977
 msgid "File failed to load\n"
 msgstr "Le fichier n'a pas pu être chargé\n"
 
-#: ../src/document.c:3113
+#: ../src/document.c:3115
 msgid "Select file to insert"
 msgstr "Sélectionner le fichier à insérer"
 
-#: ../src/document.c:3122
+#: ../src/document.c:3124
 msgid "No file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:3296
+#: ../src/document.c:3298
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d ligne"
 msgstr[1] "%d lignes"
 
-#: ../src/document.c:3297
+#: ../src/document.c:3299
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d mot"
 msgstr[1] "%d mots"
 
-#: ../src/document.c:3298
+#: ../src/document.c:3300
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d caractère"
 msgstr[1] "%d caractères"
 
-#: ../src/document.c:3300
+#: ../src/document.c:3302
 msgid "Selection statistics: "
 msgstr "Dans la sélection : "
 
-#: ../src/document.c:3300
+#: ../src/document.c:3302
 msgid "Statistics: "
 msgstr "Dans le document : "
 
@@ -1901,8 +1901,8 @@ msgstr ""
 "un nom)\n"
 "%u URL (disponible pour tous les fichiers portant un nom)\n"
 "%p URL de prévisualisation si le répertoire de base et le répertoire de "
-"prévisualisation ont été définis dans les préférences du projet, autrement "
-"identique à %u</small>"
+"prévisualisation ont été définis dans les préférences du projet, \n"
+" autrement identique à %u</small>"
 
 #: ../src/preferences.c:1008
 msgid ""
@@ -1941,8 +1941,8 @@ msgstr ""
 "un nom)\n"
 "%u URL (disponible pour tous les fichiers portant un nom)\n"
 "%p URL de prévisualisation si le répertoire de base et le répertoire de "
-"prévisualisation ont été définis dans les préférences du projet, autrement "
-"identique à %u</small>"
+"prévisualisation ont été définis dans les préférences du projet,\n"
+" autrement identique à %u</small>"
 
 #: ../src/preferences.c:1131
 msgid "Pattern"
@@ -2000,9 +2000,8 @@ msgstr ""
 "%n nom du fichier sans son chemin (disponible pour tous les fichiers portant "
 "un nom)\n"
 "%u URL (disponible pour tous les fichiers portant un nom)\n"
-"%p URL de prévisualisation si le répertoire de base et le répertoire de "
-"prévisualisation ont été définis dans les préférences du projet, autrement "
-"identique à %u</small>"
+"%p preview URL if basedir and preview dir are set in project settings, else "
+"identical to %u</small>"
 
 #: ../src/preferences.c:1236
 msgid "File"
