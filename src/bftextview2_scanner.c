@@ -726,11 +726,12 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 			DBG_SCANCACHE("found_match, next item in the cache (offset %d) is not relevant yet (offset now %d), set scanning end to %d\n",scanning->nextfound->charoffset_o, match_end_o,scanning->nextfound->charoffset_o);
 			enlarge_scanning_region(btv, scanning, scanning->nextfound->charoffset_o);
 		} else if (scanning->nextfound->charoffset_o == match_end_o && cached_found_is_valid(btv, match, scanning)){
-			Tfoundcontext *tmpfcontext = scanning->curfcontext;
+			Tfoundcontext *tmpfcontext;
 			gint context;
 			DBG_SCANCACHE("found_match, cache item at offset %d is still valid\n",scanning->nextfound->charoffset_o);
 			if (scanning->nextfound->numcontextchange >= 0) {
 				context = scanning->nextfound->fcontext ? scanning->nextfound->fcontext->context : 1;
+				tmpfcontext = scanning->nextfound->fcontext;
 			} else if (pat.nextcontext < 0) {
 				tmpfcontext = pop_and_apply_contexts(btv, pat.nextcontext, scanning->curfcontext, &match->start);
 				Tfoundcontext *tmpfcontext2 = pop_contexts(pat.nextcontext, scanning->nextfound->fcontext);
@@ -739,8 +740,11 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 					g_warning("found_match, ERROR: popped context from cache does not equal popped context from current scan\n");
 				}
 			}
-			
-			scanning->curfblock = pop_blocks(scanning->nextfound->numblockchange, fblock);
+			if (scanning->nextfound->numblockchange < 0) {
+				scanning->curfblock = pop_blocks(scanning->nextfound->numblockchange, fblock);
+			} else {
+				scanning->curfblock = scanning->nextfound->fblock; 
+			}
 			scanning->curfcontext = tmpfcontext;
 			scanning->nextfound = get_foundcache_next(btv,&scanning->siter);
 			return context;
@@ -783,7 +787,7 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 	found->fblock = fblock;
 	found->fcontext = fcontext;
 	found->charoffset_o = match_end_o;
-	DBG_SCANCACHE("found_match, put found %p in the cache at charoffset_o %d fblock %p fcontext %p\n",found,found->charoffset_o,found->fblock,found->fcontext);
+	g_print("found_match, put found %p in the cache charoffset_o=%d fblock=%p numblockchange=%d fcontext=%p numcontextchange=%d\n",found,found->charoffset_o,found->fblock,found->numblockchange,found->fcontext,found->numcontextchange);
 	g_sequence_insert_sorted(btv->scancache.foundcaches,found,foundcache_compare_charoffset_o,NULL);
 	g_assert(found->numblockchange==0 || found->fblock);
 	g_assert(found->numcontextchange==0 || found->fcontext);
