@@ -373,9 +373,14 @@ bftextview2_get_block_at_offset(BluefishTextView * btv, guint offset)
 		if (IS_FOUNDMODE_BLOCKPUSH(found) 
 				&& (found->fblock->start1_o == offset || found->fblock->end1_o == offset)) {
 			return found->fblock;
-		} else if (IS_FOUNDMODE_BLOCKPOP(found) 
-				&& (found->fblock->start2_o == offset || found->fblock->end2_o == offset)) {
-			return found->fblock;
+		} else if (found->numblockchange < 0) {
+			/* TODO: if multiple blocks are popped, usually the last popped one if the one that matches thje end-of-block-tag
+			so that block should be returned */
+			Tfoundblock *tmpfblock = pop_blocks(found->numblockchange+1, found->fblock);
+			DBG_BLOCKMATCH("bftextview2_get_block_at_offset, found->fblock=%p, tmpfblock=%p\n",found->fblock,tmpfblock);
+			if (tmpfblock && (tmpfblock->start2_o == offset || tmpfblock->end2_o == offset)) {
+				return tmpfblock;
+			}
 		}
 		if (found->charoffset_o > offset)
 			break;
