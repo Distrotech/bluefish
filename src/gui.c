@@ -582,20 +582,18 @@ page_num : 	the new page number for child
 static void notebook_reordered_lcb(GtkNotebook *notebook,GtkWidget *child,guint page_num,gpointer user_data) {
 	Tbfwin *bfwin = BFWIN(user_data);
 	Tdocument *doc = NULL;
-	GtkWidget *view;
 	GList *tmplist = g_list_first(bfwin->documentlist);
 	DEBUG_MSG("notebook_reordered_lcb, started\n");	
-	/* child is a gtkscrolledwindow which is a gtkbin subclass */
-	view = gtk_bin_get_child(GTK_BIN(child)); 
-	/* look where this child is in the documentlist */
+	/* look where this child (the GtkVPaned) is in the documentlist */
 	while (tmplist) {
-		if (DOCUMENT(tmplist->data)->view == view) {
+		if (DOCUMENT(tmplist->data)->vsplit == child) {
 			doc = DOCUMENT(tmplist->data);
 			break;
 		} 
 		tmplist = g_list_next(tmplist);
 	}
-	
+	if (!doc)
+		return;
 	bfwin->documentlist = g_list_remove(bfwin->documentlist,doc);
 	DEBUG_MSG("notebook_reordered_lcb, moving doc %p to position %d in the documentlist\n",doc,page_num);
 	bfwin->documentlist = g_list_insert(bfwin->documentlist, doc, page_num);
