@@ -787,7 +787,7 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 	found->fblock = fblock;
 	found->fcontext = fcontext;
 	found->charoffset_o = match_end_o;
-	g_print("found_match, put found %p in the cache charoffset_o=%d fblock=%p numblockchange=%d fcontext=%p numcontextchange=%d\n",found,found->charoffset_o,found->fblock,found->numblockchange,found->fcontext,found->numcontextchange);
+	DBG_SCANCACHE("found_match, put found %p in the cache charoffset_o=%d fblock=%p numblockchange=%d fcontext=%p numcontextchange=%d\n",found,found->charoffset_o,found->fblock,found->numblockchange,found->fcontext,found->numcontextchange);
 	g_sequence_insert_sorted(btv->scancache.foundcaches,found,foundcache_compare_charoffset_o,NULL);
 	g_assert(found->numblockchange==0 || found->fblock);
 	g_assert(found->numcontextchange==0 || found->fcontext);
