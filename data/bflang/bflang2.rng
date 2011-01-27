@@ -155,6 +155,14 @@
 										<data type="string"/>
 									</attribute>
 								</optional>
+								<optional>
+									<attribute name="id">
+										<a:documentation>used to set a certain comment type for a certain context.</a:documentation>
+										<data type="ID">
+											<param name="pattern">cm\.[a-zA-Z0-9_.]+</param>
+										</data>
+									</attribute>
+								</optional>
 								<empty/>
 							</element><!-- comment -->
 							<element name="smartindent">
@@ -178,6 +186,10 @@
 								<attribute name="enabled" a:defaultValue="1">
 									<a:documentation>Enable (1) or disable (0) the feature</a:documentation>
 									<data type="boolean"/>
+								</attribute>
+								<attribute name="spell_decode_entities">
+									<a:documentation>Enable (1) or disable (0) the feature</a:documentation>
+									<data type="boolean" a:defaultValue="0"/>
 								</attribute>
 								<empty/>
 							</element><!-- default_spellcheck -->
@@ -229,6 +241,22 @@
 					</data>
 				</attribute>
 			</choice>
+			<optional>
+				<attribute name="commentid_block">
+					<a:documentation>ID of comment block to reuse </a:documentation>
+					<data type="IDREF">
+						<param name="pattern">cm\.[a-zA-Z0-9_.]+</param>
+					</data>
+				</attribute>
+			</optional>
+			<optional>
+				<attribute name="commentid_line">
+					<a:documentation>ID of comment line to reuse</a:documentation>
+					<data type="IDREF">
+						<param name="pattern">cm\.[a-zA-Z0-9_.]+</param>
+					</data>
+				</attribute>
+			</optional>
 			<empty/>
 		</element><!-- context -->
 	</define>
@@ -300,6 +328,12 @@
 							<data type="boolean" a:defaultValue="0"/>
 						</attribute>
 					</optional>
+					<optional>
+						<attribute name="identifier_mode">
+							<a:documentation>UNKNOWN / TODO</a:documentation>
+							<data type="boolean" a:defaultValue="0"/>
+						</attribute>
+					</optional>		
 					<zeroOrMore>
 						<choice>
 							<ref name="bf.element.context"/>

@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		html.bflang2 $Revision$
  
-		Copyright (C) 2008-2009 Olivier Sessink
+		Copyright (C) 2008-2011 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -48,6 +48,7 @@
 	<option name="javascript_screen_object" default="1" description="Screen object" />
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
+	<option name="javascript_css_properties" default="1" description="CSS properties" />
 	<highlight name="html-tag" style="tag" />
 	<highlight name="html-reference-external-tag" style="special-tag" />
 	<highlight name="html-table-tag" style="special-tag2" />
@@ -63,6 +64,7 @@
 	<highlight name="js-brackets" style="brackets"  />
 	<highlight name="js-type" style="type"  />
 	<highlight name="js-comment" style="comment"  />
+	<highlight name="js-css-property" style="function"  />
 	<highlight name="js-string" style="string"  />
 	<highlight name="js-value" style="value"  />
 	<highlight name="js-function" style="function"  />
@@ -80,15 +82,15 @@
 	<highlight name="css-pseudo-element" style="keyword" />
 </header>
 <properties>
-	<comment id="htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
-	<comment id="cblockcomment" type="block" start="/*" end="*/" />
-	<comment id="c++linecomment" type="line" start="//" />
-	<comment id="scriptcomment" type="line" start="#" />
+	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />
+	<comment id="cm.cpplinecomment" type="line" start="//" />
+	<comment id="cm.scriptcomment" type="line" start="#" />
 	<default_spellcheck enabled="1" spell_decode_entities="1" />
 </properties>
 
 <definition>
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="htmlcomment" commentid_line="none">
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment">
 &all-html;
 </context>
 </definition>
