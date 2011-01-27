@@ -188,7 +188,7 @@
 									<data type="boolean"/>
 								</attribute>
 								<attribute name="spell_decode_entities">
-									<a:documentation>Enable (1) or disable (0) the feature</a:documentation>
+									<a:documentation>Enable (1) or disable (0) the feature, if the spell checker sees a word like m&eacute;l it will decode the entity and try again if it is spelled correctly.</a:documentation>
 									<data type="boolean" a:defaultValue="0"/>
 								</attribute>
 								<empty/>
@@ -330,7 +330,7 @@
 					</optional>
 					<optional>
 						<attribute name="identifier_mode">
-							<a:documentation>UNKNOWN / TODO</a:documentation>
+							<a:documentation>right now there is only 1 valid mode, used for php and python functions. If you define a function in a file, that function name will autocomplete, and you can use the 'jump' function in bluefish to jump to the declaration of that function.</a:documentation>
 							<data type="boolean" a:defaultValue="0"/>
 						</attribute>
 					</optional>		
