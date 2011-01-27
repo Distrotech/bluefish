@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2.c
  *
- * Copyright (C) 2008-2010 Olivier Sessink
+ * Copyright (C) 2008-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

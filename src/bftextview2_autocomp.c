@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_autocomp.c
  *
- * Copyright (C) 2008,2009,2010 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -343,9 +343,11 @@ static void acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar *
 	if (items2)
 		list = g_list_concat(g_list_copy(items2), list);
 	/*g_print("got %d list\n",g_list_length(list)); */
+	
+	list = g_list_sort(list, (GCompareFunc) g_strcmp0);
 	if (closetag)
 		list = g_list_prepend(list, closetag);
-	list = tmplist = g_list_sort(list, (GCompareFunc) g_strcmp0);
+	tmplist = g_list_first(list);
 	while (tmplist && numitems < 50) {
 		GtkTreeIter it;
 		gchar *tmp;

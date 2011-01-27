@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_scanner.h
  *
- * Copyright (C) 2008-2009 Olivier Sessink
+ * Copyright (C) 2008-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
