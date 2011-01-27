@@ -330,12 +330,52 @@ static gboolean acwin_position_at_cursor(BluefishTextView * btv)
 	}
 }
 
+static void acwin_calculate_window_size(Tacwin *acw, GList * items, GList * items2) {
+	GList *tmplist;
+	gboolean runtwo=FALSE;
+	gchar *longest = NULL, *tmp;
+	guint longestlen = 1, numitems=0;
+	tmplist = g_list_first(items);
+	while (!runtwo && tmplist) {
+		guint len;
+		if (!tmplist) {
+			tmplist = g_list_first(items2);
+			runtwo=TRUE;
+			if (!tmplist)
+				break;
+		}
+		tmp = g_markup_escape_text(tmplist->data, -1);
+		len = strlen(tmp);
+		if (len > longestlen) {
+			longest = tmp;
+			longestlen = len;
+		} else {
+			g_free(tmp);
+		}
+		numitems++;
+		tmplist = g_list_next(tmplist);
+	}
+	if (longest) {
+		gint len, rowh;
+		PangoLayout *panlay = gtk_widget_create_pango_layout(GTK_WIDGET(acw->tree), NULL);
+		g_print("longest=%s\n",longest);
+		pango_layout_set_markup(panlay, longest, -1);
+		pango_layout_get_pixel_size(panlay, &len, &rowh);
+		acw->h = MIN(MAX((numitems + 1) * rowh + 8, 150), 350);
+		acw->w = acw->listwidth = MIN(len + 20, 350);
+		g_print("numitems=%d, rowh=%d, new height=%d, listwidth=%d\n", numitems, rowh, acw->h, acw->listwidth);
+		gtk_widget_set_size_request(GTK_WIDGET(acw->tree), acw->listwidth, acw->h);	/* ac_window */
+		g_free(longest);
+		g_object_unref(G_OBJECT(panlay));
+	}
+}
+
 /* not only fills the tree, but calculates and sets the required width as well */
-static void acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar * closetag)
+static void acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar * closetag, gboolean reverse)
 {
 	GList *tmplist, *list = NULL;
-	gchar *longest = NULL;
-	guint numitems = 0, longestlen = 1;
+	/*gchar *longest = NULL;*/
+	/*guint numitems = 0, longestlen = 1;*/
 	if (items)
 		list = g_list_copy(items);
 	/*g_print("got %d items\n",g_list_length(items));
@@ -347,27 +387,31 @@ static void acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar *
 	list = g_list_sort(list, (GCompareFunc) g_strcmp0);
 	if (closetag)
 		list = g_list_prepend(list, closetag);
+	if (reverse) {
+		list = g_list_reverse(list);
+		g_print("reverse list!\n");
+	}
 	tmplist = g_list_first(list);
-	while (tmplist && numitems < 50) {
+	while (tmplist/* && numitems < 50*/) {
 		GtkTreeIter it;
 		gchar *tmp;
-		guint len;
+		/*guint len;*/
 		gtk_list_store_append(acw->store, &it);
 		tmp = g_markup_escape_text(tmplist->data, -1);
-		len = strlen(tmplist->data);
+/*		len = strlen(tmplist->data);
 		if (len > longestlen) {
 			g_free(longest);
 			longest = tmp;
 			longestlen = len;
-		}
+		}*/
 		gtk_list_store_set(acw->store, &it, 0, tmp, 1, tmplist->data, -1);
-		if (tmp != longest)
+/*		if (tmp != longest)*/
 			g_free(tmp);
-		numitems++;
+		/*numitems++;*/
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(list);
-	if (longest) {
+/*	if (longest) {
 		gint len, rowh;
 		PangoLayout *panlay = gtk_widget_create_pango_layout(GTK_WIDGET(acw->tree), NULL);
 		pango_layout_set_markup(panlay, longest, -1);
@@ -375,10 +419,10 @@ static void acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar *
 		acw->h = MIN(MAX((numitems + 1) * rowh + 8, 150), 350);
 		DBG_AUTOCOMP("numitems=%d, rowh=%d, new height=%d\n", numitems, rowh, acw->h);
 		acw->w = acw->listwidth = MIN(len + 20, 350);
-		gtk_widget_set_size_request(GTK_WIDGET(acw->tree), acw->listwidth, acw->h);	/* ac_window */
+		gtk_widget_set_size_request(GTK_WIDGET(acw->tree), acw->listwidth, acw->h);
 		g_free(longest);
 		g_object_unref(G_OBJECT(panlay));
-	}
+	}*/
 }
 
 /* static void print_ac_items(GCompletion *gc) {
@@ -438,7 +482,7 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 		GSequenceIter *siter = NULL;
 		found = get_foundcache_at_offset(master, gtk_text_iter_get_offset(&cursorpos), &siter);
 		if (found) {
-			fblock = found->fblock;
+			fblock = found->numblockchange < 0 ? pop_blocks(found->numblockchange, found->fblock): found->fblock;
 			DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n",
 						 fblock->patternum, g_array_index(btv->bflang->st->matches, Tpattern,
 														  fblock->patternum).tagclose_from_blockstack);
@@ -493,11 +537,11 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 #ifdef IDENTSTORING
 			{
 				GCompletion *compl = identifier_ac_get_completion(master, contextnum, FALSE);
-				g_print("got completion %p for context %d\n", compl, contextnum);
+				DBG_IDENTIFIER("got completion %p for context %d\n", compl, contextnum);
 				if (compl) {
 					gchar *newprefix2 = NULL;
 					items2 = g_completion_complete(compl, prefix, &newprefix2);
-					g_print("got %d identifier_items\n", g_list_length(items2));
+					DBG_IDENTIFIER("got %d identifier_items\n", g_list_length(items2));
 					if (!newprefix)
 						newprefix = newprefix2;
 					else
@@ -527,8 +571,9 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 			if (newprefix) {
 				ACWIN(btv->autocomp)->newprefix = g_strdup(newprefix);
 			}
-			acwin_fill_tree(ACWIN(btv->autocomp), items, items2, closetag);
+			acwin_calculate_window_size(ACWIN(btv->autocomp), items, items2);
 			below = acwin_position_at_cursor(btv);
+			acwin_fill_tree(ACWIN(btv->autocomp), items, items2, closetag, !below);
 			gtk_widget_show(ACWIN(btv->autocomp)->win);
 			selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 			if (below)
