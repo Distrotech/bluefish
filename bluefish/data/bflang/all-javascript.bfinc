@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 		Bluefish HTML Editor
-		all-javascript.bfinc $Revision: 4947 $
+		all-javascript.bfinc $Revision: 6322 $
  
-		Copyright (C) 2008-2009 Olivier Sessink
+		Copyright (C) 2008-2011 Olivier Sessink
 
-	    This program is free software: you can redistribute it and/or modify
+		This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
 		the Free Software Foundation, either version 3 of the License, or
 		(at your option) any later version.
@@ -80,7 +80,7 @@
 	<element pattern="transient" />
 	<element pattern="volatile" />
 </group>
-<group highlight="js-function" autocomplete="1" autocomplete_append="()">
+<group highlight="js-function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
 	<element pattern="arguments"/>
 	<element pattern="acrity"/>
 	<element pattern="apply"/>
@@ -477,7 +477,139 @@
 		<element pattern="location" class="javascript_location_object"/>
 	</group>
 </group>
-
+<group class="javascript_css_properties" autocomplete="1">
+	<element pattern="style" highlight="js-css-property"/>
+	<element pattern="getComputedStyle()" highlight="js-function" autocomplete_append="()" autocomplete_backup_cursor="1"/>
+	<group highlight="js-css-property">
+		<element pattern="azimuth" />
+		<element pattern="background" />
+		<element pattern="backgroundAttachment" />
+		<element pattern="backgroundColor" />
+		<element pattern="backgroundImage" />
+		<element pattern="backgroundPosition" />
+		<element pattern="backgroundRepeat" />
+		<element pattern="border" />
+		<element pattern="borderBottom" />
+		<element pattern="borderBottomColor" />
+		<element pattern="borderBottomStyle" />
+		<element pattern="borderBottomWidth" />
+		<element pattern="borderCollapse" />
+		<element pattern="borderColor" />
+		<element pattern="borderLeft" />
+		<element pattern="borderLeftColor" />
+		<element pattern="borderLeftStyle" />
+		<element pattern="borderLeftWidth" />
+		<element pattern="borderRight" />
+		<element pattern="borderRightColor" />
+		<element pattern="borderRightStyle" />
+		<element pattern="borderRightWidth" />
+		<element pattern="borderSpacing" />
+		<element pattern="borderStyle" />
+		<element pattern="borderTop" />
+		<element pattern="borderTopColor" />
+		<element pattern="borderTopStyle" />
+		<element pattern="borderTopWidth" />
+		<element pattern="borderWidth" />
+		<element pattern="bottom" />
+		<element pattern="captionSide" />
+		<element pattern="clear" />
+		<element pattern="clip" />
+		<element pattern="color" />
+		<element pattern="content" />
+		<element pattern="counterIncrement" />
+		<element pattern="counterReset" />
+		<element pattern="cssFloat" />
+		<element pattern="cue" />
+		<element pattern="cueAfter" />
+		<element pattern="cueBefore" />
+		<element pattern="cursor" />
+		<element pattern="direction" />
+		<element pattern="display" />
+		<element pattern="elevation" />
+		<element pattern="emptyCells" />
+		<element pattern="font" />
+		<element pattern="fontFamily" />
+		<element pattern="fontSize" />
+		<element pattern="fontSizeAdjust" />
+		<element pattern="fontStretch" />
+		<element pattern="fontStyle" />
+		<element pattern="fontVariant" />
+		<element pattern="fontWeight" />
+		<element pattern="height" />
+		<element pattern="left" />
+		<element pattern="letterSpacing" />
+		<element pattern="lineHeight" />
+		<element pattern="listStyle" />
+		<element pattern="listStyleImage" />
+		<element pattern="listStylePosition" />
+		<element pattern="listStyleType" />
+		<element pattern="margin" />
+		<element pattern="marginBottom" />
+		<element pattern="marginLeft" />
+		<element pattern="marginRight" />
+		<element pattern="marginTop" />
+		<element pattern="markerOffset" />
+		<element pattern="marks" />
+		<element pattern="maxHeight" />
+		<element pattern="maxWidth" />
+		<element pattern="minHeight" />
+		<element pattern="minWidth" />
+		<element pattern="opacity"><reference>CSS3</reference></element>
+		<element pattern="orphans" />
+		<element pattern="outline" />
+		<element pattern="outlineColor" />
+		<element pattern="outlineOffset"><reference>CSS3</reference></element>
+		<element pattern="outlineStyle" />
+		<element pattern="outlineWidth" />
+		<element pattern="overflow" />
+		<element pattern="overflowX"><reference>CSS3</reference></element>
+		<element pattern="overflowY"><reference>CSS3</reference></element>
+		<element pattern="padding" />
+		<element pattern="paddingBottom" />
+		<element pattern="paddingLeft" />
+		<element pattern="paddingRight" />
+		<element pattern="paddingTop" />
+		<element pattern="page" />
+		<element pattern="pageBreakAfter" />
+		<element pattern="pageBreakBefore" />
+		<element pattern="pageBreakInside" />
+		<element pattern="pause" />
+		<element pattern="pauseAfter" />
+		<element pattern="pauseBefore" />
+		<element pattern="pitch" />
+		<element pattern="pitchRange" />
+		<element pattern="playDuring (not implemented)" />
+		<element pattern="position" />
+		<element pattern="quotes" />
+		<element pattern="richness" />
+		<element pattern="right" />
+		<element pattern="size" />
+		<element pattern="speak" />
+		<element pattern="speakHeader" />
+		<element pattern="speakNumeral" />
+		<element pattern="speakPunctuation" />
+		<element pattern="speechRate" />
+		<element pattern="stress" />
+		<element pattern="tableLayout" />
+		<element pattern="textAlign" />
+		<element pattern="textDecoration" />
+		<element pattern="textIndent" />
+		<element pattern="textShadow" />
+		<element pattern="textTransform" />
+		<element pattern="top" />
+		<element pattern="unicodeBidi" />
+		<element pattern="verticalAlign" />
+		<element pattern="visibility" />
+		<element pattern="voiceFamily" />
+		<element pattern="volume" />
+		<element pattern="whiteSpace" />
+		<element pattern="widows" />
+		<element pattern="width" />
+		<element pattern="wordSpacing" />
+		<element pattern="wordWrap"><reference>CSS3</reference></element>
+		<element pattern="zIndex" />
+	</group>
+</group>
 <group highlight="js-value" autocomplete="1">
 	<element pattern="false" />
 	<element pattern="Infinity" />
@@ -491,8 +623,10 @@
 	<!-- having [.-]?[0-9]+ as a value pattern has an unwanted side 
 	effect: the . is matching a patterns and is not seen as a symbol anymore
 	such that substr in w.substr() is not detected anymore	-->
-	<element pattern="-?[0-9]+" is_regex="1" autocomplete="0"/>
-	<element pattern="-?\.[0-9]*" is_regex="1" autocomplete="0"/>
+	<!--	<element pattern="-?[0-9]+" is_regex="1" autocomplete="0"/>
+	<element pattern="-?\.[0-9]*" is_regex="1" autocomplete="0"/> 
+	 having -?\. as a value pattern, dot is not seen as a symbol anymore-->	
+	<element pattern="[0-9]+\.*[0-9]*" is_regex="1" />
 </group>
 <!--this pattern more or less colors everything, so I removed it. -->
 <!--<element pattern="[a-zA-Z_][a-zA-Z_0-9]*" is_regex="1" highlight="js-variable"/>-->

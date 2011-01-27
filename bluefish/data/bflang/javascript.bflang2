@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		javascript.bflang2 $Revision$
  
-		Copyright (C) 2008,2009 Olivier Sessink
+		Copyright (C) 2008,2011 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 ]>
 
-<bflang name="Javascript" version="2.0" matches="210" contexts="6" table="1072">
+<bflang name="Javascript" version="2.0" matches="532" contexts="6" table="2672">
 <header>
 	<mime type="application/javascript"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -40,8 +40,10 @@
 	<option name="javascript_screen_object" default="1" description="Screen object" />
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
+	<option name="javascript_css_properties" default="1" description="CSS properties" />
 	<highlight name="js-brackets" style="brackets"  />
 	<highlight name="js-comment" style="comment"  />
+	<highlight name="js-css-property" style="function"  />
 	<highlight name="js-function" style="function"  />
 	<highlight name="js-keyword" style="keyword"  />
 	<highlight name="js-property" style="special-keyword"  />
@@ -50,7 +52,6 @@
 	<highlight name="js-type" style="type"  />
 	<highlight name="js-value" style="value"  />
 	<highlight name="js-variable" style="variable"  />
-	<highlight name="html-tag" style="tag"  />
 </header>
 <properties>
 	<comment type="block" start="/*" end="*/" />
