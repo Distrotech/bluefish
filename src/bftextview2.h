@@ -27,11 +27,14 @@ requirements: a textwidget with
 - for various languages
 - fast (doesn't lock the GUI when syntaxt-scanning very large files)
 
-DESIGN:
+============= The widget code =============
 - to avoid locking the GUI, it should be able to scan in multiple runs
   - it should be able to mark a region as 'needs scanning'
   - it should be able to resume scanning on any point marked as 'needs scanning'
 
+the widget code, including signal handlers and idle handlers are in bftextview2.c
+
+============== Syntax scanning =============
 - scanning is done with patterns that scan within a context
  - for e.g. php we start with an html context that scans for html tags and it scans
    for the php-open tag <?php
@@ -50,32 +53,39 @@ nextcontext -1), we revert to the previous context
  - if the scanning is finished the idle function stops
 
 - to find where to resume scanning it simply searches for the first position
-  that is marked with this tag and backs-up to the beginning of the line
+  that is marked with the needscanning tag 
  - to know which patterns to use we have to know in which context we are. we therefore keep
-   a cache of the (context)stack. on each position where to contextstack changes, we make a copy
-   of the current stack that we keep in a sorted balanced tree (a GSequence), sorted by the
-   character offset in the text.
+   a cache of the (context)stack. on each position where the contextstack changes, we make a copy
+   of the current state and store it in a sorted balanced tree (a GSequence), sorted by the
+   character offset in the text. We store a Tfound structure. A member of the Tfound structure
+   is a pointer to the Tfoundcontext stucture which describes the current context.
    - the positions change when text is inserted or deleted, but never their order. a GSequence
      allows us to update the offsets for the stacks without re-sorting the entire tree
  - same holds for the blocks. we keep a blockstack, and we keep a cache of the blockstack in the
-   same foundcache as where we keep the contextstack.
+   same foundcache as where we keep the contextstack. The member of the Tfound structure that
+   describes the state for blocks is the Tfoundblock structure.
 
 - to paint the margin and detect if we can expand/collapse blocks, we can use this same
-  scancache. Along with walking the lines we walk the GSequence and see if there are new
-  blocks that can be folded.
+  scancache. Along with walking the lines to draw the line numbers we walk the GSequence 
+  and see in the Tfound structures if there are new blocks that can be folded.
 
 - the current scanning is based on Deterministic Finite Automata (DFA) just like the 1.1.6
 unstable engine (see wikipedia for more info). The 1.1.6 engine alloc's each state in a
 separate memory block. This new engine alloc's a large array for all states at once, so you can
-simply move trough the array instead of following pointers. Following the DFA is then as simple
-as state = table[state][character]; where state is just an integer position in the array, and
-character is the current character you're scanning. I hope the array will help to speed up
-the scanner. I used guint16 because I suspect that we never hit the 65500 states (largest
-patterns set right now is php, 4500 functions use 32000 states)
+simply move trough the array instead of following pointers. 
+The array is the array 'table' in structure Tscantable. This is a GArray of Ttablerow. Following
+the DFA is then as simple as state = table[state][character]; where state is just an integer 
+position in the array, and character is the current character you're scanning. The array will 
+help to speed up the scanner. I used guint16 because I suspect that we never hit the 65500 
+states (largest patterns set right now is php, 4500 functions use 32000 states).
+When a state has a positive result (it matches something) it has an index number to
+an array 'matches' in structure Tscantable which is an array of type Tpattern structure
+that has the information for the matched pattern.
 
 - DFA table's for multiple contexts are all in the same memory block. Each context has an offset
-where it starts. When a match is found, scanning can move to a different context. For example
-when <?php is found, we switch to row 123 of the DFA table from which all php functions are scanned.
+where it starts. This offset is stored in the Tcontext structure. When a match is found, scanning
+can move to a different context. This is meber 'contexts' in Tscantable. For example when <?php 
+is found, we switch to row 123 of the  DFA table from which all php functions are scanned.
 
 - Compared to the engine in the 1.0 series the main advantage is that we do only a single scanning
 run for all patterns in a given context. The 1.0 scanner does multiple scanning runs for <\?php
@@ -101,6 +111,10 @@ added to the DFA when option "foo" is enabled. This way we can have gtk function
 in the C patterns for those of us that do GTK programming in Bluefish. All
 others will have a much smaller DFA table for the C language.
 
+Language file loading is done in bftextview2_langmgr.c, the found patterns are added 
+to the Tscantable structure and it's members (and compiled into a DFA table) 
+in bftextview2_patcompile.c.
+
 ========== Symbols and identifiers in the DFA table ==========
 Each context has symbols. Symbols are characters that may start or end a pattern.
 Try to highlight for example:
@@ -113,7 +127,7 @@ one to highlight? In the above example there are several symbols such as whitesp
 ^    ^^       ^    ^     ^^
 see that the occurences of 'char' that should be highlighted are all in between symbols?!
 
-The DFA table has a startstate for each context and an identifier-state (identstate).
+The Tcontext structure has a startstate for each context and an identifier-state (identstate).
 In the next example state 0 is the startstate and state 1 the identstate:
 
 |state|| space| a | c | h | r | * | ( | ) | _ | have match ?
@@ -156,15 +170,38 @@ as you see, the scanner is stuck in state 1 (the identstate) if
 either on the start or on the end there is no symbol.
 
 ======== Autocompleting patterns =============
-for autocompletion we keep a GCompletion in each context. This is filled with 
-all the patterns during XML load.
+for autocompletion we keep a GCompletion in each context (member 'ac' of structure Tcontext). 
+This is filled with all the patterns during XML load.
 
 we use a similar scanning engine as above that can tell us where the string that 
 the user is typing started, and in which context the curor position is. Once
 we know the context we know which GCompletion structure to use, so we can get 
 a list of possible completion strings.
 
+The scanning for the context is done in bftextview2_scanner.c, the rest of the autocompletion
+code is in bftextview2_autocomp.c
+
+======== Reference information ==========
+reference information can be shown in a tooltip above the text and in a side window 
+during autocompletion. The reference information is stored in a member of the Tpattern
+structure. Each Tcontext structure has a member patternhash that is a hashtable with the 
+match as key and the index to the pattern in array Tscantable->matches as value.
+
+For the tooltip we do a short scanning run to find the context and  which pattern is 
+actually under the cursor and we do a hash table lookup to find the corresponding
+reference information.
+
+========= Spell checker ===========
+the spell checker is in bftextview2_spell.c
+
+after the syntax scanning is finished the spell checker is started. Similar to the syntax
+scanner it runs in short timeslices such that it won't block the GUI. It scans only in 
+certain GtkTextTag's (for example in the GtktextTag for comments and for strings).
+
 ======= Storing found function names and such for jump and autocompletion ======
+
+identifiers, such as function names or variable names can be stored for jump and for
+autocompletion. Code is in bftextview2_identifier.c
 
 for jump: found functions names are stored in a hashtable 
 bfwin->identifier_jump as
