@@ -929,9 +929,6 @@ static void set_commentid(Tbflangparsing *bfparser, gboolean topevel_context, gu
 static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack) {
 	gchar *symbols=NULL, *highlight=NULL, *id=NULL, *idref=NULL, *commentid_block=NULL, *commentid_line=NULL;
 	gboolean autocomplete_case_insens=FALSE,is_empty;
-#ifdef HAVE_LIBENCHANT_OLD
-	gboolean spellcheck=FALSE;
-#endif
 	gint context;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
@@ -942,9 +939,6 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"highlight",&highlight);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"commentid_block",&commentid_block);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"commentid_line",&commentid_line);
-#ifdef HAVE_LIBENCHANT_OLD
-		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"spellcheck",&spellcheck);
-#endif
 		if (bfparser->load_completion)
 			set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_case_insens",&autocomplete_case_insens);
 		xmlFree(aname);

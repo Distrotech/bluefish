@@ -18,7 +18,7 @@
  */
 
 #define HL_PROFILING
-/*#define DUMP_SCANCACHE*/
+#define DUMP_SCANCACHE
 
 /*#define VALGRIND_PROFILING*/
 
@@ -94,7 +94,7 @@ void dump_scancache(BluefishTextView *btv) {
 		Tfound *found = g_sequence_get(siter);
 		if (!found)
 			break;
-		g_print("%3d: %p, fblock %p, fcontext %p\n",found->charoffset_o,found,found->fblock,found->fcontext);
+		g_print("%3d: %p, fblock %p, fcontext %p siter %p\n",found->charoffset_o,found,found->fblock,found->fcontext,siter);
 		if (found->numcontextchange != 0) {
 			g_print("\tnumcontextchange=%d", found->numcontextchange);
 			if (found->fcontext) {
@@ -131,8 +131,10 @@ Tfound *get_foundcache_next(BluefishTextView * btv, GSequenceIter ** siter) {
 	DBG_MSG("get_foundcache_next, *siter=%p\n",*siter);
 	*siter = g_sequence_iter_next(*siter);
 	if (*siter && !g_sequence_iter_is_end(*siter)) {
+		DBG_MSG("get_foundcache_next, next *siter=%p, return found %p\n",*siter, g_sequence_get(*siter));
 		return g_sequence_get(*siter);
 	}
+	DBG_MSG("get_foundcache_next, *siter=%p is end, return NULL\n",*siter);
 	return NULL;
 }
 
@@ -185,7 +187,7 @@ static guint remove_cache_entry(BluefishTextView * btv, Tfound **found, GSequenc
 	gint blockstackcount=0, contextstackcount=0;
 	
 	*found = get_foundcache_next(btv,siter);
-	DBG_SCANCACHE("remove_cache_entry, remove %p and any children\n",tmpfound1);
+	DBG_SCANCACHE("remove_cache_entry, remove %p at offset %d and any children\n",tmpfound1,tmpfound1->charoffset_o);
 	if (mark_ends) {
 		/* if this entry pops blocks or contexts, mark the ends of those as undefined */
 		if (tmpfound1->numblockchange < 0) {
@@ -448,9 +450,14 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,Tmatch *mat
 			cursiter = scanning->siter;
 			if (scanning->siter) {
 				scanning->nextfound = get_foundcache_next(btv,&isiter);
+				scanning->siter = isiter;
 			}
+			DBG_SCANCACHE("found_end_of_block, remove cache in range, nextfound=%p\n", scanning->nextfound);
 			g_sequence_foreach_range(cursiter,isiter,found_free_lcb,btv);
 			g_sequence_remove_range(cursiter,isiter);
+			if (scanning->nextfound) {
+				DBG_SCANCACHE("nextfound %p is now set to charoffset %d\n",scanning->nextfound,scanning->nextfound->charoffset_o);
+			}
 		}
 	}
 	
@@ -614,6 +621,7 @@ static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *mat
 static gboolean is_fblock_on_stack(Tfoundblock *topfblock, Tfoundblock *searchfblock) {
 	Tfoundblock *fblock = topfblock;
 	while (fblock) {
+		DBG_SCANCACHE("is_fblock_on_stack, compare needle %p with haystack item %p\n",searchfblock, fblock);
 		if (fblock == searchfblock)
 			return TRUE;
 		fblock = (Tfoundblock *)fblock->parentfblock;
@@ -637,7 +645,7 @@ this offset (and thus this is outdated), or this entry is invalid for some reaso
 static guint remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tscanning *scanning) {
 	guint invalidoffset;
 	
-	DBG_SCANNING("remove_invalid_cache, cache item %p is NO LONGER valid\n",scanning->nextfound);
+	DBG_SCANNING("remove_invalid_cache, cache item %p at offset %d is NO LONGER valid\n",scanning->nextfound,scanning->nextfound->charoffset_o);
 	if (scanning->nextfound->numblockchange < 0) {
 		gint i=scanning->nextfound->numblockchange;
 		Tfoundblock *tmpfblock = scanning->nextfound->fblock;
@@ -664,6 +672,7 @@ static guint remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tsc
 			i++;
 		}
 	}
+	DBG_SCANNING("remove_invalid_cache, remove everything up to %d from the cache\n",match_end_o);
 	do {
 		invalidoffset = remove_cache_entry(btv,&scanning->nextfound, &scanning->siter, FALSE);
 	} while(scanning->nextfound && scanning->nextfound->charoffset_o < match_end_o);
@@ -1095,7 +1104,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 			last_character_run = !last_character_run;
 		}
 		continue_loop = (!end_of_region || last_character_run);
-		DBG_SCANNING("continue_loop=%d, end_of_region=%d, last_character_run=%d\n",continue_loop,end_of_region,last_character_run);
+		/*DBG_SCANNING("continue_loop=%d, end_of_region=%d, last_character_run=%d\n",continue_loop,end_of_region,last_character_run);*/
 	} while (continue_loop && (loop%loops_per_timer!=0 || g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL));
 	DBG_SCANNING("scanned from %d to position %d, (end=%d, orig_end=%d) which took %f microseconds, loops_per_timer=%d\n",gtk_text_iter_get_offset(&scanning.start),gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&scanning.end),gtk_text_iter_get_offset(&orig_end),g_timer_elapsed(scanning.timer,NULL),loops_per_timer);
 	/* TODO: if we end the scan within a context that has a tag, we have to apply the contexttag */

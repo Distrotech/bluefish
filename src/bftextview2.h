@@ -245,8 +245,6 @@ extern void g_none(char * first, ...);
 #define DBG_SCANCACHE DBG_NONE
 #define DBG_SCANNING DBG_NONE
 #define DBG_BLOCKMATCH DBG_NONE
-#define DBG_FCONTEXTREFCOUNT DBG_NONE
-#define DBG_FBLOCKREFCOUNT DBG_NONE
 #define DBG_PATCOMPILE DBG_NONE
 #define DBG_SIGNALS DBG_NONE
 #define DBG_AUTOCOMP DBG_NONE
@@ -287,9 +285,6 @@ typedef struct {
 				or COMMENT_INDEX_INHERIT (which means inherit) 
 				or COMMENT_INDEX_NONE if there is no block comment  */
 	guint8 comment_line; /* index in array scantable->comments for line comments; see comment_block */
-/*#ifdef HAVE_LIBENCHANT_OLD
-	guint8 needspellcheck;
-#endif / *HAVE_LIBENCHANT*/
 } Tcontext;
 
 typedef struct {
