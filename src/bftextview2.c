@@ -399,7 +399,7 @@ mark_set_idle_lcb(gpointer widget)
 
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &location, gtk_text_buffer_get_insert(btv->buffer));
 	fblock = bftextview2_get_block_at_offset(btv, gtk_text_iter_get_offset(&location));
-	DBG_SCANCACHE("mark_set_idle_lcb, got fblock %p\n", fblock);
+	DBG_BLOCKMATCH("mark_set_idle_lcb, got fblock %p\n", fblock);
 	if (btv->showing_blockmatch) {
 		gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
 		gtk_text_buffer_remove_tag(btv->buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
@@ -408,7 +408,7 @@ mark_set_idle_lcb(gpointer widget)
 	DBG_SIGNALS("mark_set_idle_lcb, 'insert' set at %d\n", gtk_text_iter_get_offset(&location));
 	if (fblock) {
 		GtkTextIter it3, it4;
-		g_print("mark_set_idle_lcb, got fblock %p with start2_o=%d\n", fblock, fblock->start2_o);
+		DBG_BLOCKMATCH("mark_set_idle_lcb, got fblock %p with start2_o=%d\n", fblock, fblock->start2_o);
 		if (fblock->start2_o != BF2_OFFSET_UNDEFINED) {
 			bftextview2_get_iters_at_foundblock(btv->buffer, fblock, &it1, &it2, &it3, &it4);
 			DBG_MSG("mark_set_idle_lcb, found a block to highlight the start (%d:%d) and end (%d:%d)\n",

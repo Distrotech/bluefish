@@ -18,7 +18,7 @@
  */
 
 #define HL_PROFILING
-#define DUMP_SCANCACHE
+/*#define DUMP_SCANCACHE*/
 
 /*#define VALGRIND_PROFILING*/
 
@@ -185,7 +185,6 @@ static guint remove_cache_entry(BluefishTextView * btv, Tfound **found, GSequenc
 	GSequenceIter *tmpsiter1 = *siter;
 	guint invalidoffset = tmpfound1->charoffset_o;
 	gint blockstackcount=0, contextstackcount=0;
-	
 	*found = get_foundcache_next(btv,siter);
 	DBG_SCANCACHE("remove_cache_entry, remove %p at offset %d and any children\n",tmpfound1,tmpfound1->charoffset_o);
 	if (mark_ends) {
@@ -292,7 +291,17 @@ void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offs
 	if (offset < 0) {
 		while (found && found->charoffset_o <= startpos-offset) {
 			if (found->charoffset_o > startpos) {
+				gboolean didpop = (found->numblockchange<0);
 				remove_cache_entry(btv, &found, &siter, TRUE);
+				if (!found && didpop) {
+					GtkTextIter it1,it2;
+						/* there is a special situation: if this is the last found in the cache, and it pops a block, 
+						we have to enlarge the scanning region to the end of the text */
+					gtk_text_buffer_get_iter_at_offset(btv->buffer,&it1,startpos);
+					gtk_text_buffer_get_end_iter(btv->buffer,&it2);
+					DBG_SCANCACHE("foundcache_update_offsets, mark area from %d to end with needscanning\n",startpos);
+					gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &it1, &it2);
+				} 
 			} else {
 				found = get_foundcache_next(btv, &siter);
 			}
@@ -567,7 +576,7 @@ static inline gboolean cached_found_is_valid(BluefishTextView * btv, Tmatch *mat
 	if (!scanning->nextfound)
 		return FALSE;
 	
-	DBG_SCANCACHE("cached_found_is_valid, testing %p\n",scanning->nextfound);
+	DBG_SCANCACHE("cached_found_is_valid, testing %p at offset %d\n",scanning->nextfound, scanning->nextfound->charoffset_o);
 	
 	if (!nextcache_valid(scanning))
 		return FALSE;
@@ -789,7 +798,7 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 	}
 	if (numblockchange==0 && numcontextchange==0) {
 		DBG_SCANCACHE("found_match, no context change, no block change, return\n");
-		return;
+		return scanning->context;
 	}
 
 	found = g_slice_new0(Tfound);
