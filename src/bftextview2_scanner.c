@@ -781,6 +781,8 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 	} else if (pat.ends_block) {
 		gint numblockchange=0;
 		fblock = found_end_of_block(btv, match, scanning, &pat, &numblockchange);
+		/* TODO: if no matching block was found on the stack, numblockchange=0 and fblock=NULL
+		but in that case we don't have to store this fblock in the Tfound structure */
 		found->numblockchange = numblockchange;
 		if (scanning->nextfound) {
 			/* we now pop a block, previously that block was probably popped by nextfound, so nextfound is invalid and should be removed */
