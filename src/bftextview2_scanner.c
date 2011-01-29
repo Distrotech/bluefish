@@ -700,6 +700,7 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 	Tfoundblock *fblock=scanning->curfblock;
 	Tfoundcontext *fcontext=scanning->curfcontext;
 	guint match_end_o;
+	gint numblockchange=0,numcontextchange=0;
 	Tfound *found;
 	GtkTextIter iter;
 	Tpattern pat = g_array_index(btv->bflang->st->matches,Tpattern, match->patternum);
@@ -771,31 +772,33 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 		enlarge_scanning_region_to_iter(btv,scanning,&iter);
 	}
 
+	if (pat.starts_block) {
+		fblock = found_start_of_block(btv, match, scanning);
+		numblockchange = 1;
+	} else if (pat.ends_block) {
+		fblock = found_end_of_block(btv, match, scanning, &pat, &numblockchange);
+		if (!fblock) {
+			fblock = scanning->curfblock;
+		} 
+	}
+	if (pat.nextcontext != 0 && pat.nextcontext != scanning->context) {
+		fcontext = found_context_change(btv, match, scanning, &pat);
+		numcontextchange = pat.nextcontext <= 0 ?  pat.nextcontext : 1;
+	} else {
+		numcontextchange = 0;
+	}
+	if (numblockchange==0 && numcontextchange==0) {
+		DBG_SCANCACHE("found_match, no context change, no block change, return\n");
+		return;
+	}
+
 	found = g_slice_new0(Tfound);
 #ifdef HL_PROFILING
 	hl_profiling.found_refcount++;
 #endif
-	if (pat.starts_block) {
-		fblock = found_start_of_block(btv, match, scanning);
-		found->numblockchange = 1;
-	} else if (pat.ends_block) {
-		gint numblockchange=0;
-		fblock = found_end_of_block(btv, match, scanning, &pat, &numblockchange);
-		/* TODO: if no matching block was found on the stack, numblockchange=0 and fblock=NULL
-		but in that case we don't have to store this fblock in the Tfound structure */
-		found->numblockchange = numblockchange;
-		if (scanning->nextfound) {
-			/* we now pop a block, previously that block was probably popped by nextfound, so nextfound is invalid and should be removed */
-			
-		}
-	}
-	if (pat.nextcontext != 0 && pat.nextcontext != scanning->context) {
-		fcontext = found_context_change(btv, match, scanning, &pat);
-		found->numcontextchange = pat.nextcontext <= 0 ?  pat.nextcontext : 1;
-	} else {
-		found->numcontextchange = 0;
-	}
+	found->numblockchange = numblockchange;
 	found->fblock = fblock;
+	found->numcontextchange = numcontextchange;
 	found->fcontext = fcontext;
 	found->charoffset_o = match_end_o;
 	DBG_SCANCACHE("found_match, put found %p in the cache charoffset_o=%d fblock=%p numblockchange=%d fcontext=%p numcontextchange=%d\n",found,found->charoffset_o,found->fblock,found->numblockchange,found->fcontext,found->numcontextchange);
