@@ -1972,12 +1972,12 @@ preferences_dialog()
 		poplist = g_list_append(poplist, strarr[1]);
 		tmplist = g_list_next(tmplist);
 	}
-	pd->prefs[newfile_default_encoding] = dialog_combo_box_text_labeled_from_list(poplist,
-																				  main_v->
-																				  props.newfile_default_encoding,
-																				  _
-																				  ("_Default character set for new files:"),
-																				  hbox, 0);
+	poplist = g_list_sort(poplist, (GCompareFunc) g_strcmp0);
+	pd->prefs[newfile_default_encoding] = dialog_combo_box_text_labeled_from_list(
+		poplist,
+		main_v->props.newfile_default_encoding,
+		_("_Default character set for new files:"),
+		hbox, 0);
 	g_list_free(poplist);
 	poplist = NULL;
 
