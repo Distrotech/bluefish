@@ -188,7 +188,7 @@
 									<data type="boolean"/>
 								</attribute>
 								<attribute name="spell_decode_entities">
-									<a:documentation>Enable (1) or disable (0) the feature, if the spell checker sees a word like m&eacute;l it will decode the entity and try again if it is spelled correctly.</a:documentation>
+									<a:documentation>Enable (1) or disable (0) the feature, if the spell checker sees a word like m&amp;eacute;l it will decode the entity and try again if it is spelled correctly.</a:documentation>
 									<data type="boolean" a:defaultValue="0"/>
 								</attribute>
 								<empty/>
