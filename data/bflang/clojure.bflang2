@@ -1,0 +1,562 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		clojure.bflang2 $Revision: 6069 $
+ 
+		Copyright (C) 2011 Olivier Sessink
+
+	    This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+-->
+
+<bflang name="Clojure" version="2.0">
+<header>
+<!-- clojure is not yet in http://www.iana.org/assignments/media-types/ -->
+	<mime type="text/x-clojure"/>
+	<mime type="application/x-clojure"/>
+	<highlight name="keyword" style="keyword"  />
+	<highlight name="brackets" style="bracket"  />
+	<highlight name="parens" style="parens"  />
+	<highlight name="comment" style="comment"  />
+	<highlight name="string" style="string"   />
+	<highlight name="value" style="value"  />
+	<highlight name="keyword1" style="special-function"  />
+	<highlight name="keyword2" style="special-tag"  />
+</header>
+<properties>
+	<comment type="line" start=";" />
+	<smartindent characters="([" />
+	<smartoutdent characters=")]" />
+</properties>
+
+<definition>
+	<context symbols=" ;@\.(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=|/?#&#9;&#10;&#13;">
+<group autocomplete="1" highlight="keyword"> 
+<element pattern="accessor" />
+<element pattern="aclone" />
+<element pattern="add-classpath" />
+<element pattern="add-watch" />
+<element pattern="agent" />
+<element pattern="agent-error" />
+<element pattern="agent-errors" />
+<element pattern="aget" />
+<element pattern="alength" />
+<element pattern="alias" />
+<element pattern="all-ns" />
+<element pattern="alter" />
+<element pattern="alter-meta!" />
+<element pattern="alter-var-map" />
+<element pattern="amap" />
+<element pattern="ancestors" />
+<element pattern="and" />
+<element pattern="apply" />
+<element pattern="array-map" />
+<element pattern="aset" />
+<element pattern="aset-boolean" />
+<element pattern="aset-byte" />
+<element pattern="aset-char" />
+<element pattern="aset-double" />
+<element pattern="aset-float" />
+<element pattern="aset-int" />
+<element pattern="aset-long" />
+<element pattern="aset-short" />
+<element pattern="assert" />
+<element pattern="assoc" />
+<element pattern="assoc!" />
+<element pattern="assoc-in" />
+<element pattern="associative?" />
+<element pattern="atom" />
+<element pattern="await" />
+<element pattern="await-for" />
+<element pattern="bases" />
+<element pattern="bean" />
+<element pattern="bigdec" />
+<element pattern="bigint" />
+<element pattern="binding" />
+<element pattern="bit-and" />
+<element pattern="bit-and-not" />
+<element pattern="bit-clear" />
+<element pattern="bit-flip" />
+<element pattern="bit-not" />
+<element pattern="bit-or" />
+<element pattern="bit-set" />
+<element pattern="bit-shift-left" />
+<element pattern="bit-shift-right" />
+<element pattern="bit-test" />
+<element pattern="bit-xor" />
+<element pattern="boolean" />
+<element pattern="boolean-array" />
+<element pattern="booleans" />
+<element pattern="bound-fn" />
+<element pattern="bound-fn*" />
+<element pattern="bound?" />
+<element pattern="butlast" />
+<element pattern="byte" />
+<element pattern="byte-array" />
+<element pattern="bytes" />
+<element pattern="case" />
+<element pattern="cast" />
+<element pattern="char" />
+<element pattern="char-array" />
+<element pattern="char-escape-string" />
+<element pattern="char-name-string" />
+<element pattern="char?" />
+<element pattern="chars" />
+<element pattern="class" />
+<element pattern="class?" />
+<element pattern="clear-agent-errors" />
+<element pattern="clojure-version" />
+<element pattern="coll?" />
+<element pattern="comment" />
+<element pattern="comute" />
+<element pattern="comp" />
+<element pattern="comparator" />
+<element pattern="compare" />
+<element pattern="compare-and-set!" />
+<element pattern="compile" />
+<element pattern="complement" />
+<element pattern="concat" />
+<element pattern="conj" />
+<element pattern="conj!" />
+<element pattern="cons" />
+<element pattern="constantly" />
+<element pattern="construct-proxy" />
+<element pattern="contains?" />
+<element pattern="count" />
+<element pattern="counted?" />
+<element pattern="create-ns" />
+<element pattern="create-struct"/>
+<element pattern="cycle" />
+<element pattern="dec" />
+<element pattern="decimal?" />
+<element pattern="delay" />
+<element pattern="delay?" />
+<element pattern="deliver" />
+<element pattern="denominator" />
+<element pattern="derive" />
+<element pattern="decendants" />
+<element pattern="disj" />
+<element pattern="disj!" />
+<element pattern="dissoc" />
+<element pattern="dissoc!" />
+<element pattern="distinct" />
+<element pattern="distinct?" />
+<element pattern="doall" />
+<element pattern="doc" />
+<element pattern="dorun" />
+<element pattern="doseq" />
+<element pattern="dosync" />
+<element pattern="dotimes" />
+<element pattern="doto" />
+<element pattern="double" />
+<element pattern="double-array" />
+<element pattern="doubles" />
+<element pattern="drop" />
+<element pattern="drop-last" />
+<element pattern="drop-while" />
+<element pattern="empty" />
+<element pattern="empty?" />
+<element pattern="ensure" />
+<element pattern="enumeration-seq" />
+<element pattern="error-handler" />
+<element pattern="error-mode" />
+<element pattern="eval" />
+<element pattern="even?" />
+<element pattern="every?" />
+<element pattern="extend" />
+<element pattern="extend-protocol" />
+<element pattern="extend-type" />
+<element pattern="extenders" />
+<element pattern="extends?" />
+<element pattern="false?" />
+<element pattern="ffirst" />
+<element pattern="file-seq" />
+<element pattern="filter" />
+<element pattern="find" />
+<element pattern="find-doc" />
+<element pattern="find-ns" />
+<element pattern="find-var" />
+<element pattern="first" />
+<element pattern="flatten" />
+<element pattern="float" />
+<element pattern="float-array" />
+<element pattern="float?" />
+<element pattern="floats" />
+<element pattern="flush" />
+<element pattern="fn" />
+<element pattern="fn?" />
+<element pattern="fnext" />
+<element pattern="fnil" />
+<element pattern="for" />
+<element pattern="force" />
+<element pattern="format" />
+<element pattern="frequencies" />
+<element pattern="future" />
+<element pattern="future-call" />
+<element pattern="future-cancel" />
+<element pattern="future-cancelled?" />
+<element pattern="future-done?" />
+<element pattern="future?" />
+<element pattern="gen-class"/>
+<element pattern="gen-interface" />
+<element pattern="gensym" />
+<element pattern="get" />
+<element pattern="get-in" />
+<element pattern="get-method" />
+<element pattern="get-proxy-class" />
+<element pattern="get-thread-bindings" />
+<element pattern="get-validator" />
+<element pattern="group-by" />
+<element pattern="hash" />
+<element pattern="hash-map" />
+<element pattern="hash-set" />
+<element pattern="identical?" />
+<element pattern="identity" />
+<element pattern="if" />
+<element pattern="if-let" />
+<element pattern="if-not" />
+<element pattern="ifn?" />
+<element pattern="in-ns" />
+<element pattern="inc" />
+<element pattern="init-proxy" />
+<element pattern="instance?" />
+<element pattern="int" />
+<element pattern="int-array" />
+<element pattern="integer?" />
+<element pattern="interleave" />
+<element pattern="intern" />
+<element pattern="interpose" />
+<element pattern="into" />
+<element pattern="into-array" />
+<element pattern="ints" />
+<element pattern="io!" />
+<element pattern="isa" />
+<element pattern="iterate" />
+<element pattern="iterator-seq" />
+<element pattern="juxt" />
+<element pattern="keep" />
+<element pattern="keep-indexed" />
+<element pattern="key" />
+<element pattern="keys" />
+<element pattern="keyword" />
+<element pattern="keyword?" />
+<element pattern="last" />
+<element pattern="lazy-cat" />
+<element pattern="lazy-seq" />
+<element pattern="line-seq" />
+<element pattern="list" />
+<element pattern="list*" />
+<element pattern="list?" />
+<element pattern="load" />
+<element pattern="load-file" />
+<element pattern="load-reader" />
+<element pattern="load-string" />
+<element pattern="loaded-libs" />
+<element pattern="locking" />
+<element pattern="long" />
+<element pattern="long-array" />
+<element pattern="longs" />
+<element pattern="loop" />
+<element pattern="macroexpand" />
+<element pattern="macroexpand-1" />
+<element pattern="make-array" />
+<element pattern="make-hierarchy" />
+<element pattern="map" />
+<element pattern="map-indexed" />
+<element pattern="map?" />
+<element pattern="mapcat" />
+<element pattern="max" />
+<element pattern="max-key" />
+<element pattern="memfn" />
+<element pattern="memorize" />
+<element pattern="merge" />
+<element pattern="merge-with" />
+<element pattern="meta" />
+<element pattern="methods" />
+<element pattern="min" />
+<element pattern="min-key" />
+<element pattern="mod" />
+<element pattern="name" />
+<element pattern="namespace" />
+<element pattern="namespace-munge" />
+<element pattern="neg?" />
+<element pattern="new" />
+<element pattern="newline" />
+<element pattern="next" />
+<element pattern="nfirst" />
+<element pattern="nil?" />
+<element pattern="nnext" />
+<element pattern="not" />
+<element pattern="not-any?" />
+<element pattern="not-empty" />
+<element pattern="not-every?" />
+<element pattern="not=" />
+<element pattern="ns" />
+<element pattern="ns-aliases" />
+<element pattern="ns-imports" />
+<element pattern="ns-interns" />
+<element pattern="ns-map" />
+<element pattern="ns-name" />
+<element pattern="ns-publics" />
+<element pattern="ns-refers" />
+<element pattern="ns-resolve" />
+<element pattern="ns-unalias" />
+<element pattern="ns-unmap" />
+<element pattern="nth" />
+<element pattern="nthnext" />
+<element pattern="num" />
+<element pattern="number?" />
+<element pattern="numerator" />
+<element pattern="object-array" />
+<element pattern="odd?" />
+<element pattern="or" />
+<element pattern="parents" />
+<element pattern="partial" />
+<element pattern="partition" />
+<element pattern="partition-all" />
+<element pattern="partition-by" />
+<element pattern="pcalls" />
+<element pattern="peek" />
+<element pattern="persistent!" />
+<element pattern="pmap" />
+<element pattern="pop" />
+<element pattern="pop!" />
+<element pattern="pop-threaded-bindings" />
+<element pattern="pos?" />
+<element pattern="pr" />
+<element pattern="pr-str" />
+<element pattern="prefer-method" />
+<element pattern="prefers" />
+<element pattern="print" />
+<element pattern="print-namespace-doc" />
+<element pattern="print-str" />
+<element pattern="printf" />
+<element pattern="println" />
+<element pattern="println-str" />
+<element pattern="prn" />
+<element pattern="prn-str" />
+<element pattern="promise" />
+<element pattern="proxy" />
+<element pattern="proxy-mappings" />
+<element pattern="proxy-super" />
+<element pattern="push-thread-bindings" />
+<element pattern="pvalues" />
+<element pattern="quot" />
+<element pattern="rand" />
+<element pattern="rand-int" />
+<element pattern="rqand-nth" />
+<element pattern="range" />
+<element pattern="ratio?" />
+<element pattern="rationalize" />
+<element pattern="re-find" />
+<element pattern="re-groups" />
+<element pattern="re-matcher" />
+<element pattern="re-matches" />
+<element pattern="re-pattern" />
+<element pattern="re-seq" />
+<element pattern="read" />
+<element pattern="read-line" />
+<element pattern="read-string" />
+<element pattern="recur" />
+<element pattern="refuctions" />
+<element pattern="ref-history-count" />
+<element pattern="ref-max-history" />
+<element pattern="ref-min-history" />
+<element pattern="ref-set" />
+<element pattern="refer" />
+<element pattern="refer-clojure" />
+<element pattern="reify" />
+<element pattern="release-pending-sends" />
+<element pattern="rem" />
+<element pattern="remove" />
+<element pattern="remove-all-methods" />
+<element pattern="remove-method" />
+<element pattern="remove-ns" />
+<element pattern="remove-watch" />
+<element pattern="repeat" />
+<element pattern="repeatedly" />
+<element pattern="replace" />
+<element pattern="replicate" />
+<element pattern="reset!" />
+<element pattern="reset-meta!" />
+<element pattern="resolve" />
+<element pattern="rest" />
+<element pattern="restart-agent" />
+<element pattern="resultset-seq" />
+<element pattern="reverse" />
+<element pattern="reversable?" />
+<element pattern="rseq" />
+<element pattern="rsubseq" />
+<element pattern="satisfies?" />
+<element pattern="second" />
+<element pattern="select-keys" />
+<element pattern="send" />
+<element pattern="send-off" />
+<element pattern="seq" />
+<element pattern="seq?" />
+<element pattern="seque" />
+<element pattern="sequence" />
+<element pattern="sequential?" />
+<element pattern="set" />
+<element pattern="set-error-handler!" />
+<element pattern="set-error-mode!" />
+<element pattern="set-validator" />
+<element pattern="set?" />
+<element pattern="short" />
+<element pattern="shorts"/>
+<element pattern="short-array" />
+<element pattern="shuffle" />
+<element pattern="shutdown-agents" />
+<element pattern="slurp" />
+<element pattern="some" />
+<element pattern="sort" />
+<element pattern="sort-by" />
+<element pattern="sorted-map" />
+<element pattern="sorted-map-by" />
+<element pattern="sorted-set" />
+<element pattern="sorted-set-by" />
+<element pattern="sorted?" />
+<element pattern="special-form-anchor" />
+<element pattern="special-symbol?" />
+<element pattern="spit" />
+<element pattern="split-at" />
+<element pattern="split-with" />
+<element pattern="str" />
+<element pattern="string?" />
+<element pattern="struct" />
+<element pattern="struct-map" />
+<element pattern="subs" />
+<element pattern="subseq" />
+<element pattern="subvec" />
+<element pattern="supers" />
+<element pattern="swap!" />
+<element pattern="symbol" />
+<element pattern="symbol?" />
+<element pattern="sync" />
+<element pattern="syntax-symbol-anchor" />
+<element pattern="take" />
+<element pattern="take-last" />
+<element pattern="take-nth" />
+<element pattern="take-while" />
+<element pattern="test" />
+<element pattern="the-ns" />
+<element pattern="thread-bound?" />
+<element pattern="time" />
+<element pattern="to-array" />
+<element pattern="to-array-2d" />
+<element pattern="trampoline" />
+<element pattern="transient" />
+<element pattern="tree-seq" />
+<element pattern="true?" />
+<element pattern="type" />
+<element pattern="unchecked-add" />
+<element pattern="unchecked-dec" />
+<element pattern="unchecked-devide" />
+<element pattern="unchecked-inc" />
+<element pattern="unchecked-multiply" />
+<element pattern="unchecked-negate" />
+<element pattern="unchecked-remainder" />
+<element pattern="unchecked-subtract" />
+<element pattern="underive" />
+<element pattern="update-in" />
+<element pattern="update-proxy" />
+<element pattern="val" />
+<element pattern="vals" />
+<element pattern="var-get" />
+<element pattern="var-set" />
+<element pattern="var?" />
+<element pattern="vary-meta" />
+<element pattern="vec" />
+<element pattern="vector" />
+<element pattern="vector-of" />
+<element pattern="vector?" />
+<element pattern="when" />
+<element pattern="when-first" />
+<element pattern="when-let" />
+<element pattern="when-not" />
+<element pattern="while" />
+<element pattern="with-bindings" />
+<element pattern="with-bindings*" />
+<element pattern="with-in-str" />
+<element pattern="with-local-vars" />
+<element pattern="with-meta" />
+<element pattern="with-open" />
+<element pattern="with-out-str" />
+<element pattern="with-precision" />
+<element pattern="xml-seq" />
+<element pattern="zero?" />
+<element pattern="zipmap" />
+</group>
+
+<group autocomplete="1" highlight="keyword1"> 
+<element pattern="catch" />
+<element pattern="cond" />
+<element pattern="condp" />
+<element pattern="declare" />
+<element pattern="def" />
+<element pattern="definline" />
+<element pattern="defmacro" />
+<element pattern="defmulti" />
+<element pattern="defn" />
+<element pattern="defn-" />
+<element pattern="defonce" />
+<element pattern="defprotocol" />
+<element pattern="defrecord" />
+<element pattern="defstruct" />
+<element pattern="deftype" />
+<element pattern="deref" />
+<element pattern="do" />
+<element pattern=":else" />
+<element pattern="let" />
+<element pattern="letfn" />
+<element pattern="ns" />
+<element pattern="ref" />
+<element pattern="try" />
+</group>
+
+<group autocomplete="1" highlight="keyword2"> 
+<element pattern="false" />
+<element pattern="nil" />
+<element pattern="true" />
+<element pattern=":import" />
+<element pattern=":require" />
+<element pattern=":use" />
+</group>
+
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;" highlight="string">
+		<element pattern="\&#34;" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\." is_regex="1" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
+<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="parens" />
+<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="parens" />
+
+<element pattern="@[-a-zA-Z][-a-zA-Z0-9]*" is_regex="1" autocomplete="0" highlight="keyword"/>
+<element pattern="@[-a-zA-Z][-a-zA-Z0-9]*" is_regex="1" autocomplete="0" highlight="keyword1"/>
+<element pattern="@[^@][a-zA-Z][a-zA-Z0-9]*" is_regex="1" autocomplete="0" highlight="keyword2"/>
+<element pattern="[0-9]+\.[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
+<element pattern="[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
+<element pattern=";[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
+		
+</context>
+</definition>
+</bflang>

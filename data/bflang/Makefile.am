@@ -22,6 +22,7 @@ bflang_bflang2_files = \
 	asp-vbscript.bflang2 \
 	bflang2.bflang2 \
 	c.bflang2 \
+	clojure.bflang2 \
 	cpp.bflang2 \
 	css.bflang2 \
 	d.bflang2 \
