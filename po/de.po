@@ -2,14 +2,14 @@
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Knud Franzkowiak <knud.franzkowiak@gmx.net>, 2000.
 # Roland Steinbach <roland@netzblick.de>, 2001-2004.
-# Daniel Leidert <daniel.leidert@wgdd.de>, 2007, 2009, 2010.
+# Daniel Leidert <daniel.leidert@wgdd.de>, 2007, 2009-2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 2.0.3-rc1\n"
+"Project-Id-Version: bluefish 2.0.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2010-12-31 07:41+0100\n"
-"PO-Revision-Date: 2010-12-31 14:34+01:00\n"
+"PO-Revision-Date: 2011-01-30 23:19+0100\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -2117,96 +2117,84 @@ msgstr "Editoreinstellungen"
 
 #
 #: ../src/preferences.c:1815
-#, fuzzy
 msgid "<b>Auto-completion</b>"
-msgstr "<b>_Optionen</b>"
+msgstr "<b>Automatisches Vervollständigen</b>"
 
 #: ../src/preferences.c:1821
 msgid "Show _pop-up window:"
-msgstr ""
+msgstr "Zeige _Pop-Up Fenster:"
 
 #: ../src/preferences.c:1827
 msgid "Shortcut _key combination:"
-msgstr ""
+msgstr "Tasten_kürzel festlegen:"
 
 #: ../src/preferences.c:1836
 msgid "Right _margin/split line end position:"
-msgstr ""
+msgstr "Rechter Randbegrenzer/Endposition für Zeilenu_mbruch:"
 
 #: ../src/preferences.c:1844
-#, fuzzy
 msgid "Smart Home/_End cursor positioning"
-msgstr "Intelligente Cursorpositionierung für [Pos1/Ende]"
+msgstr "Intelligente Home/_End Cursorpositionierung"
 
 #: ../src/preferences.c:1848
 msgid "_Tab key indents selection"
-msgstr ""
+msgstr "Einrücken von Auswahl mit _Tab-Taste"
 
 #: ../src/preferences.c:1854
-#, fuzzy
 msgid "Visible _whitespace mode:"
-msgstr "Farbe zur Darstellung von Leerzeichen"
+msgstr "Darstellung nicht-druckbarer (Steuer-)_Zeichen:"
 
 #: ../src/preferences.c:1857
-#, fuzzy
 msgid "<b>Undo</b>"
-msgstr "<b>Allgemein</b>"
+msgstr "<b>Rückgängig machen</b>"
 
 #: ../src/preferences.c:1862
-#, fuzzy
 msgid "_Number of actions in history:"
-msgstr "Anzahl der Veränderungen im \"Rückgängig\"-Speicher"
+msgstr "A_nzahl der Ereignisse in der Dokumentgeschichte"
 
 #: ../src/preferences.c:1865
-#, fuzzy
 msgid "Clear _history on save"
-msgstr "Undo-Stufen beim Speichern löschen"
+msgstr "Dokumentgeschic_hte beim Speichern löschen"
 
 #: ../src/preferences.c:1871 ../src/preferences.c:2170
 msgid "Font & Colors"
-msgstr ""
+msgstr "Schriftart & Farben"
 
 #: ../src/preferences.c:1876 ../src/preferences.c:2175
-#, fuzzy
 msgid "<b>Font</b>"
-msgstr "<b>enthält</b>"
+msgstr "<b>Schriftart</b>"
 
 #: ../src/preferences.c:1880
 msgid "_Editor font:"
-msgstr ""
+msgstr "_Editor-Schriftart:"
 
 #: ../src/preferences.c:1885 ../src/preferences.c:2195
-#, fuzzy
 msgid "<b>Colors</b>"
-msgstr "<b>Dateien</b>"
+msgstr "<b>Farben</b>"
 
 #: ../src/preferences.c:1897
-#, fuzzy
 msgid "Cursor color"
-msgstr "Farbe für die aktuele Zeile"
+msgstr "Cursorfarbe"
 
 #: ../src/preferences.c:1898
-#, fuzzy
 msgid "C_ursor color:"
-msgstr "Farbe für die aktuele Zeile"
+msgstr "C_ursorfarbe:"
 
 #: ../src/preferences.c:1901
 msgid "Current line color"
-msgstr "Farbe für die aktuele Zeile"
+msgstr "Farbe für die aktuelle Zeile"
 
 #: ../src/preferences.c:1902
-#, fuzzy
 msgid "Cu_rrent line color:"
-msgstr "Farbe für die aktuele Zeile"
+msgstr "Fa_rbe für die aktuelle Zeile"
 
 #: ../src/preferences.c:1905
 msgid "Visible whitespace color"
-msgstr "Farbe zur Darstellung von Leerzeichen"
+msgstr "Farbe für nicht-durckbare (Steuer-)Zeichen"
 
 #: ../src/preferences.c:1906
-#, fuzzy
 msgid "_Visible whitespace color:"
-msgstr "Farbe zur Darstellung von Leerzeichen"
+msgstr "Farbe für nicht-durckbare (Steuer-)_Zeichen"
 
 #: ../src/preferences.c:1913
 msgid "Initial document settings"
@@ -2214,7 +2202,7 @@ msgstr "Initiale Dokumenteinstellungen"
 
 #: ../src/preferences.c:1915
 msgid "<b>Non Project Defaults</b>"
-msgstr ""
+msgstr "<b>Standardeinstellungen (nicht für Projekte)</b>"
 
 #: ../src/preferences.c:1928
 msgid "Files"
@@ -2222,82 +2210,70 @@ msgstr "Dateien"
 
 #: ../src/preferences.c:1930
 msgid "<b>Backup</b>"
-msgstr ""
+msgstr "<b>Sicherung</b>"
 
 #
 #: ../src/preferences.c:1932
-#, fuzzy
 msgid "Create _backup file during file save"
-msgstr "Sicherungskopie beim Speichern erstellen"
+msgstr "_Sicherungskopie beim Speichern erstellen"
 
 #
 #: ../src/preferences.c:1937
-#, fuzzy
 msgid "_Remove backup file on close"
-msgstr "Sicherungskopie beim Schließen löschen"
+msgstr "Siche_rungskopie beim Schließen löschen"
 
 #
 #: ../src/preferences.c:1942
-#, fuzzy
 msgid "If back_up fails:"
-msgstr "Falls das Backup fehlschlägt"
+msgstr "Falls die Dateisicher_ung fehlschlägt:"
 
 #: ../src/preferences.c:1949
 msgid "<b>Document Recovery</b>"
-msgstr ""
+msgstr "<b>Dokumentwiederherstellung</b>"
 
 #: ../src/preferences.c:1952
-#, fuzzy
 msgid "_Enable recovery of modified documents"
-msgstr "Wiederherstellung veränderter Dokumente aktivieren"
+msgstr "Wiederherstellung veränderter Dokumente _einschalten"
 
 #: ../src/preferences.c:1956
-#, fuzzy
 msgid "_Frequency to store changes (seconds):"
-msgstr "Frequenz (Sekunden) des Zwischenspeichers"
+msgstr "_Zeitabstand zwischen 2 Speichervorgängen (in Sekunden):"
 
 #: ../src/preferences.c:1964
-#, fuzzy
 msgid "<b>Encoding</b>"
-msgstr "Enkodierung"
+msgstr "<b>Enkodierung</b>"
 
 #
 #: ../src/preferences.c:1979
-#, fuzzy
 msgid "_Default character set for new files:"
-msgstr "Standardzeichensatz für neue Dateien"
+msgstr "Stan_dardzeichensatz für neue Dateien:"
 
 #
 #: ../src/preferences.c:1985
-#, fuzzy
 msgid "Auto set <meta> _HTML tag on encoding change"
-msgstr "<meta>-tag automatisch bei Encodingänderungen setzen"
+msgstr "<meta> _HTML-Tag bei Änderungen des Zeichensatzes aktualisieren"
 
 #: ../src/preferences.c:1989 ../src/preferences.c:2087
-#, fuzzy
 msgid "<b>Misc</b>"
-msgstr "<b>Dateien</b>"
+msgstr "<b>Sonstiges</b>"
 
 #: ../src/preferences.c:1993
-#, fuzzy
 msgid "Open co_mmandline files in running bluefish process"
-msgstr "Öffne Dateien aus der Kommandozeile in laufendem Bluefish-Prozess"
+msgstr "Dateien aus Ko_mmandozeile in laufendem Bluefish-Prozess öffnen"
 
 #: ../src/preferences.c:1998
-#, fuzzy
 msgid "Open commandline files in new _window"
-msgstr "Öffne Dateien aus der Kommandozeile in einem neuen Fenster"
+msgstr "Dateien aus Kommandozeile in neuem _Fenster öffnen"
 
 #
 #: ../src/preferences.c:2003
-#, fuzzy
 msgid "_Periodically check if file is modified on disk"
-msgstr "Datei auf Platte regelmäßif auf Änderungen prüfen"
+msgstr "Datei regelmäßig auf Veränderungen auf dem Datenträger _prüfen"
 
 #: ../src/preferences.c:2006
 #, fuzzy
 msgid "File properties to check on dis_k for modifications"
-msgstr "Dateieigenschaften überprüfen für Dateiveränderungen"
+msgstr "Veränderungen anhand folgender Eigenschaften er_kennen"
 
 #: ../src/preferences.c:2019
 msgid "HTML"
@@ -2305,52 +2281,42 @@ msgstr "HTML"
 
 #: ../src/preferences.c:2021
 msgid "<b>HTML Toolbar</b>"
-msgstr ""
+msgstr "<b>HTML Werkzeugleiste</b>"
 
 #: ../src/preferences.c:2024
-#, fuzzy
 msgid "Use lo_wercase HTML tags"
-msgstr "HTML Tags in Kleinschrift"
+msgstr "_HTML Tags in Kleinbuchstaben"
 
 #: ../src/preferences.c:2026
-#, fuzzy
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
-msgstr "Alte Tags (z.B. <font> und <nobr>) benutzen"
+msgstr "_Veralte Tags zulassen (z.B. <font> und <nobr>)"
 
 #: ../src/preferences.c:2030
-#, fuzzy
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
-msgstr ""
-"Formatierung/Tags entsprechend den Zugangsrichtlinien für Webinhalte WCAG (z."
-"B. <strong> statt <b>)"
+msgstr "Tags gemäß _Zugangsrichtlinien für Webinhalte (WCAG) konvertieren (z.B. <strong> für <b>)"
 
 #: ../src/preferences.c:2033
-#, fuzzy
 msgid "Use _XHTML style tags (<br />)"
-msgstr "Benutze XHTML syntax (z.B. <br />)"
+msgstr "_XHTML Syntax benutzen (z.B. <br />)"
 
 #: ../src/preferences.c:2036
-#, fuzzy
 msgid "<b>Auto Update Tag Options</b>"
-msgstr "Automatische Tag-Aktualisierung"
+msgstr "<b>Automatische Aktualisierung von &lt;meta&gt;Tags</b>"
 
 #
 #: ../src/preferences.c:2040
-#, fuzzy
 msgid "Automatically update a_uthor meta tag"
-msgstr "Automatisch Autor Meta-Tag updaten"
+msgstr "A_utor automatisch aktualisieren"
 
 #
 #: ../src/preferences.c:2043
-#, fuzzy
 msgid "Automatically update _date meta tag"
-msgstr "Automatisch Datums-Meta-Tag updaten"
+msgstr "_Datum automatisch aktualisieren"
 
 #
 #: ../src/preferences.c:2046
-#, fuzzy
 msgid "Automatically update _generator meta tag"
-msgstr "Automatisch Generator Meta-Tag updaten"
+msgstr "_Generator automatisch aktualisieren"
 
 #: ../src/preferences.c:2059
 msgid "Templates"
