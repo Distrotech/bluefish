@@ -20,9 +20,10 @@
 -->
 <!DOCTYPE bflang [
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
+	<!ENTITY JQuery SYSTEM "JQuery.bfinc">
 ]>
 
-<bflang name="Javascript" version="2.0" matches="532" contexts="6" table="2672">
+<bflang name="Javascript" version="2.0" table="2690" contexts="6" matches="534">
 <header>
 	<mime type="application/javascript"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -41,6 +42,7 @@
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
 	<option name="javascript_css_properties" default="1" description="CSS properties" />
+	<option name="JQuery" default="0" description="JQuery" />
 	<highlight name="js-brackets" style="brackets"  />
 	<highlight name="js-comment" style="comment"  />
 	<highlight name="js-css-property" style="function"  />
@@ -63,6 +65,9 @@
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
 	&all-javascript;
+	<group class="JQuery">
+	&JQuery;
+	</group>
 	<element pattern="//" highlight="js-comment">
 		<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
 			<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="js-comment" ends_context="1" />
