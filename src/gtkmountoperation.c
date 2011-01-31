@@ -119,6 +119,7 @@ gtk_mount_operation_class_init (GtkMountOperationClass *klass)
   mount_op_class->ask_password = gtk_mount_operation_ask_password;
   mount_op_class->ask_question = gtk_mount_operation_ask_question;
 
+  /* These shouldn't be translatable, TODO */
   g_object_class_install_property (object_class,
                                    PROP_PARENT,
                                    g_param_spec_object ("parent",
