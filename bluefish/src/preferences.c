@@ -1765,6 +1765,7 @@ preferences_dialog()
 	const gchar *notebooktabpositions[] = { N_("left"), N_("right"), N_("top"), N_("bottom"), NULL };
 	const gchar *panellocations[] = { N_("right"), N_("left"), NULL };
 	const gchar *registerrecentmodes[] = { N_("Never"), N_("All files"), N_("Only project files"), NULL };
+	/* "jpeg" and "png" shouldn't be translatable, TODO */
 	const gchar *thumbnail_filetype[] = { N_("jpeg"), N_("png"), NULL };
 	const gchar *visible_ws_modes[] =
 		{ N_("All"), N_("All except spaces"), N_("All trailing"), N_("All except non-trailing spaces"),
