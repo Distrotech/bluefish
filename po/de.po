@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: bluefish 2.0.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2010-12-31 07:41+0100\n"
-"PO-Revision-Date: 2011-01-30 23:19+0100\n"
+"PO-Revision-Date: 2011-01-31 22:28+0100\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -772,11 +772,11 @@ msgstr "Basis_verzeichnis:"
 
 #: ../src/file_dialogs.c:191
 msgid "_Pattern:"
-msgstr "Mus_ter:"
+msgstr "_Muster:"
 
 #: ../src/file_dialogs.c:199
 msgid "Pattern matches _full path:"
-msgstr ""
+msgstr "Muster passt auf vollständigen Dateipfa_d"
 
 #: ../src/file_dialogs.c:203
 msgid "_Recursive:"
@@ -784,11 +784,11 @@ msgstr "_Rekursiv:"
 
 #: ../src/file_dialogs.c:207
 msgid "Ma_x recursion:"
-msgstr "M_ax Rekursionstiefe:"
+msgstr "Ma_ximale Rekursionstiefe:"
 
 #: ../src/file_dialogs.c:216
 msgid "<b>Contains</b>"
-msgstr "<b>enthält</b>"
+msgstr "<b>Inhalt</b>"
 
 #: ../src/file_dialogs.c:222
 msgid "Pa_ttern:"
@@ -796,7 +796,7 @@ msgstr "Mus_ter:"
 
 #: ../src/file_dialogs.c:226
 msgid "Is rege_x:"
-msgstr "ist regulärer Ausdruck:"
+msgstr "Ist ein regulärer Ausdru_ck:"
 
 #: ../src/file_dialogs.c:312
 msgid "Select files"
@@ -1064,7 +1064,7 @@ msgstr "Automatisch erkennen"
 
 #: ../src/gtk_easy.c:1554
 msgid "<b>Keystroke choice </b>"
-msgstr ""
+msgstr "<b>Tastenkombination wählen</b>"
 
 #: ../src/gtk_easy.c:1560
 msgid ""
@@ -1073,10 +1073,14 @@ msgid ""
 "Please use Ctrl, Shift, Alt key with any other key.\n"
 "<i>Esc to cancel, Delete to remove the accelerator.</i>"
 msgstr ""
+"\n"
+"Drücke jetzt die gewählte Tastenkombination.\n"
+"Dafür Ctrl/Strg, Shift, Alt zusammen mit einer anderen Taste drücken.\n"
+"<i>Esc für Abbruch, Del um die Kombination zu löschen.</i>"
 
 #: ../src/gtk_easy.c:1582
 msgid "Press shortcut key combination"
-msgstr ""
+msgstr "Tastenkombination wählen"
 
 # these shouldn't be translateable!
 #: ../src/gtkmountoperation.c:125
@@ -1583,7 +1587,7 @@ msgstr "/Gehe zu/Gehe zu Zeile in _Auswahl"
 
 #: ../src/menu.c:347
 msgid "/Go/Jump to reference"
-msgstr ""
+msgstr "/Gehe zu/Zu Bezugspunkt springen (z.B. Datei)"
 
 #: ../src/menu.c:348
 msgid "/_Project"
@@ -2086,6 +2090,7 @@ msgstr "Bluefish Projektdatei"
 #: ../src/preferences.c:1768
 msgid "jpeg"
 msgstr ""
+
 
 #: ../src/preferences.c:1768
 msgid "png"
