@@ -2051,11 +2051,11 @@ msgstr "Nichts"
 
 #: ../src/preferences.c:1764
 msgid "Modified time and file size"
-msgstr "mtime und Größe prüfen"
+msgstr "mtime und Größe"
 
 #: ../src/preferences.c:1764
 msgid "Modified time"
-msgstr "mtime prüfen"
+msgstr "mtime"
 
 #: ../src/preferences.c:1764
 msgid "File size"
@@ -2079,13 +2079,12 @@ msgstr "unten"
 
 #: ../src/preferences.c:1767
 msgid "Never"
-msgstr ""
+msgstr "Niemals"
 
 #
 #: ../src/preferences.c:1767
-#, fuzzy
 msgid "Only project files"
-msgstr "Bluefish Projektdatei"
+msgstr "Nur Bluefish Projektdateien"
 
 #: ../src/preferences.c:1768
 msgid "jpeg"
@@ -2276,7 +2275,6 @@ msgid "_Periodically check if file is modified on disk"
 msgstr "Datei regelmäßig auf Veränderungen auf dem Datenträger _prüfen"
 
 #: ../src/preferences.c:2006
-#, fuzzy
 msgid "File properties to check on dis_k for modifications"
 msgstr "Veränderungen anhand folgender Eigenschaften er_kennen"
 
@@ -2328,136 +2326,117 @@ msgid "Templates"
 msgstr "Templates"
 
 #: ../src/preferences.c:2061
-#, fuzzy
 msgid "<b>Templates</b>"
-msgstr "Templates"
+msgstr "<b>Templates</b>"
 
 #: ../src/preferences.c:2074
 msgid "User interface"
 msgstr "Benutzerinterface"
 
 #: ../src/preferences.c:2076
-#, fuzzy
 msgid "<b>Document Tabs</b>"
-msgstr "<b>enthält</b>"
+msgstr "<b>Dokument-Tabreiter</b>"
 
 #: ../src/preferences.c:2080
 msgid "_Tab position:"
-msgstr ""
+msgstr "Position _Tabreiter"
 
 #: ../src/preferences.c:2084
-#, fuzzy
 msgid "_Switch between tabs with <Alt>+0..9"
-msgstr "Zwischen Tabreitern wechseln mit <Alt>+0..9"
+msgstr "Zwi_schen Tabreitern mit <Alt>+0..9 wechseln"
 
 #: ../src/preferences.c:2096
-#, fuzzy
 msgid "_Language:"
-msgstr "Sprache"
+msgstr "Spra_che"
 
 #: ../src/preferences.c:2099
-#, fuzzy
 msgid "_Make HTML dialogs transient"
-msgstr "HTML-Dialoge durchsichtig"
+msgstr "HTML-Dialoge durchsichtig _machen"
 
 #: ../src/preferences.c:2103
-#, fuzzy
 msgid "<b>Recent Files</b>"
-msgstr "<b>Dateien</b>"
+msgstr "<b>Zuletzt geöffnete Dateien</b>"
 
 #
 #: ../src/preferences.c:2108
-#, fuzzy
 msgid "_Number of files in 'Open recent' menu:"
-msgstr "Anzahl Dateien im 'Vorherige öffnen'-Menü"
+msgstr "A_nzahl der Dateien unter 'Zuletzt geöffnet'"
 
 #: ../src/preferences.c:2113
 msgid "_Register recent files with your desktop:"
-msgstr ""
+msgstr "Zuletzt geöffnete Dateien mit Desktop _registrieren:"
 
 #: ../src/preferences.c:2116
-#, fuzzy
 msgid "<b>Sidebar</b>"
-msgstr "<b>Dateien</b>"
+msgstr "<b>Seitenfenster</b>"
 
 #: ../src/preferences.c:2121
 msgid "Locatio_n:"
-msgstr ""
+msgstr "Position Seiten_fenster:"
 
 #: ../src/preferences.c:2125
 msgid "Tab _position:"
-msgstr ""
+msgstr "_Position Tabreiter:"
 
 #: ../src/preferences.c:2134
 msgid "Dimensions"
-msgstr "Größen"
+msgstr "Fenstergröße"
 
 #: ../src/preferences.c:2136
-#, fuzzy
 msgid "<b>Dimensions</b>"
-msgstr "Größen"
+msgstr "<b>Größen</b>"
 
 #: ../src/preferences.c:2138
-#, fuzzy
 msgid "_Leave dimensions to window manager"
-msgstr "Fenstermanager die Dimensionierung des Arbeitsfensters überlssen"
+msgstr "Fenstermanager die Dimensionierung des Arbeitsfensters über_lassen"
 
 #: ../src/preferences.c:2145
-#, fuzzy
 msgid "_Restore last used dimensions"
-msgstr "Letzte benutzte Größe wiederherstellen"
+msgstr "Letzte benutzte Fenste_rgröße wiederherstellen"
 
 #: ../src/preferences.c:2153
-#, fuzzy
 msgid "Initial _sidebar width:"
-msgstr "Sidebar Anfangsbreite"
+msgstr "Anfangsbreite _Seitenfenster"
 
 #: ../src/preferences.c:2157
-#, fuzzy
 msgid "Initial window _height:"
-msgstr "Anfangsfensterhöhe"
+msgstr "Anfangs_höhe Programmfenster"
 
 #: ../src/preferences.c:2160
-#, fuzzy
 msgid "Initial window _width:"
-msgstr "Anfangsfensterbreite"
+msgstr "Anfangs_breite Programmfenster"
 
 #: ../src/preferences.c:2180
 msgid "_Use system document tab font"
-msgstr ""
+msgstr "Systemschriftart für Dok_ument-Tabreiter benutzen"
 
 #: ../src/preferences.c:2185
-#, fuzzy
 msgid "_Document tab font:"
-msgstr "Farbe für die aktuele Zeile"
+msgstr "Schriftart für _Dokument-Tabreiter"
 
 #: ../src/preferences.c:2199
-#, fuzzy
 msgid "Document error tab color"
-msgstr "Karteikartenposition"
+msgstr "Farbe des Tabreiters bei Fehlermeldung"
 
 #: ../src/preferences.c:2201
 msgid "Document tab _error color:"
-msgstr ""
+msgstr "Tabreiterfarbe bei _Fehlermeldung:"
 
 #: ../src/preferences.c:2205
-#, fuzzy
 msgid "Document loading tab color"
-msgstr "Farbe für die aktuele Zeile"
+msgstr "Farbe des Tabreiters beim Laden des Dokuments"
 
 #: ../src/preferences.c:2207
-#, fuzzy
 msgid "Document tab loadin_g color:"
-msgstr "Farbe für die aktuele Zeile"
+msgstr "Tabreiterfarbe beim _Laden des Dokuments:"
 
 #: ../src/preferences.c:2211
-#, fuzzy
 msgid "Document modified tab color"
-msgstr "Karteikartenposition"
+msgstr "Farbe des Tabreiters bei ungespeicherten Veränderungen"
 
 #: ../src/preferences.c:2213
 msgid "Document tab _modified color:"
-msgstr ""
+msgstr "Tabreiterfarbe bei ungespeicherten _Veränderungen:"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
@@ -2466,55 +2445,48 @@ msgid "Images"
 msgstr "Bilder"
 
 #: ../src/preferences.c:2228
-#, fuzzy
 msgid "<b>Thumbnails</b>"
-msgstr "Thumbnails"
+msgstr "<b>Vorschaubilder</b>"
 
 #: ../src/preferences.c:2234
-#, fuzzy
 msgid "Thumbnail _filetype:"
-msgstr "Thumbnail Dateityp"
+msgstr "Dateityp für Vorschaubilder:"
 
 #: ../src/preferences.c:2238
-#, fuzzy
 msgid "Thumbnail _suffix:"
-msgstr "Thumbnailerweiterung"
+msgstr "Dateisuffix für Vorschaubilder:"
 
 #: ../src/preferences.c:2251
 msgid "External commands"
 msgstr "Externe Befehle"
 
 #: ../src/preferences.c:2253
-#, fuzzy
 msgid "<b>External Commands</b>"
-msgstr "Externe Befehle"
+msgstr "<b>Externe Befehle</b>"
 
 #: ../src/preferences.c:2266
 msgid "External filters"
 msgstr "Externe Filter"
 
 #: ../src/preferences.c:2268
-#, fuzzy
 msgid "<b>External Filters</b>"
-msgstr "Externe Filter"
+msgstr "<b>Externe Filter</b>"
 
 #: ../src/preferences.c:2281
 msgid "Output parsers"
 msgstr "Ausgabe-Parser"
 
 #: ../src/preferences.c:2283
-#, fuzzy
 msgid "<b>Output Parsers</b>"
-msgstr "Ausgabe-Parser"
+msgstr "<b>Ausgabe-Parser</b>"
 
 #: ../src/preferences.c:2296
 msgid "Plugins"
 msgstr "Plugins"
 
 #: ../src/preferences.c:2298
-#, fuzzy
 msgid "<b>Plugins</b>"
-msgstr "<b>Dateien</b>"
+msgstr "<b>Plugins</b>"
 
 #: ../src/preferences.c:2311
 msgid "Text styles"
@@ -2522,9 +2494,8 @@ msgstr "Textstile"
 
 #
 #: ../src/preferences.c:2313
-#, fuzzy
 msgid "<b>Text Styles</b>"
-msgstr "<b>_Optionen</b>"
+msgstr "<b>Textstile</b>"
 
 #: ../src/preferences.c:2326
 msgid "Language support"
@@ -2532,22 +2503,19 @@ msgstr "Sprachunterstützung"
 
 #: ../src/preferences.c:2328
 msgid "<b>Reference Information</b>"
-msgstr ""
+msgstr "<b>Sprachreferenz</b>"
 
 #: ../src/preferences.c:2331
-#, fuzzy
 msgid "_Load from language file"
-msgstr "Referenz aus der Sprachdatei laden"
+msgstr "Referenz aus Sprachdatei _laden"
 
 #: ../src/preferences.c:2334
-#, fuzzy
 msgid "Show in auto-completion _pop-up window"
-msgstr "Auto-Vervollständigen Popup anzeigen"
+msgstr "Auto-Vervollständigen in _Popup-Fenster anzeigen"
 
 #: ../src/preferences.c:2337
-#, fuzzy
 msgid "Show in _tooltip window"
-msgstr "Referenzinformationen als Tooltip anzeigen"
+msgstr "Referenzinformationen als _Tooltip-Fenster anzeigen"
 
 #: ../src/project.c:187
 msgid "New project"
