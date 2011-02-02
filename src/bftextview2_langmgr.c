@@ -1154,10 +1154,12 @@ Tbflang *langmgr_get_bflang(const gchar *mimetype, const gchar *filename) {
 	if (filename && strchr(mimetype,'?')==NULL) {
 		gchar *key, *tmp;
 		tmp = strrchr(filename, '.');
-		key = g_strconcat(mimetype, tmp, NULL);
-		g_print("langmgr_get_bflang, search for key %s\n",key);
-		bflang = g_hash_table_lookup(langmgr.bflang_lookup,key);
-		g_free(key);
+		if (tmp) {
+			key = g_strconcat(mimetype, "?", tmp+1, NULL);
+			g_print("langmgr_get_bflang, search for key %s\n",key);
+			bflang = g_hash_table_lookup(langmgr.bflang_lookup,key);
+			g_free(key);
+		}
 	}
 	if (!bflang) {
 		bflang = g_hash_table_lookup(langmgr.bflang_lookup,mimetype);
