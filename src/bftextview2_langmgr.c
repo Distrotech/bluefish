@@ -1150,6 +1150,16 @@ Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype) {
 	Tbflang *bflang;
 
 	bflang = g_hash_table_lookup(langmgr.bflang_lookup,mimetype);
+	if (!bflang) {
+		gchar *pos = strchr(mimetype,'?');
+		if (pos) {
+			gchar *tmp;
+			tmp = g_strndup(mimetype, pos - mimetype);
+			bflang = g_hash_table_lookup(langmgr.bflang_lookup,tmp);
+			g_free(tmp);
+		}
+	}
+	
 	if (bflang && bflang->filename && !bflang->st && !bflang->no_st && !bflang->parsing) {
 		GError *error=NULL;
 		bflang->parsing=TRUE;
