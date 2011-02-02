@@ -26,7 +26,7 @@ void langmgr_reload_user_styles(void);
 void langmgr_reload_user_highlights(void);
 GtkTextTag *langmrg_lookup_tag_highlight(const gchar *lang, const gchar *highlight);
 GtkTextTagTable *langmgr_get_tagtable(void);
-Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype);
+Tbflang *langmgr_get_bflang(const gchar *mimetype, const gchar *filename);
 GList *langmgr_get_languages_mimetypes(void);
 gboolean langmgr_in_highlight_tags(GtkTextTag *tag);
 #ifdef HAVE_LIBENCHANT

@@ -544,7 +544,7 @@ gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);
 void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable);
 void bftextview2_init_globals(void);
 void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors);
-void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime);
+void bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, const gchar *filename);
 gboolean bluefish_text_view_get_show_blocks(BluefishTextView * btv);
 void bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show);
 gboolean bluefish_text_view_get_show_line_numbers(BluefishTextView * btv);

@@ -1721,11 +1721,11 @@ bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 }
 
 void
-bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar * mime)
+bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, const gchar *filename)
 {
 	GtkTextIter start, end;
 	GtkTextBuffer *buffer;
-	Tbflang *bflang = langmgr_get_bflang_for_mimetype(mime);
+	Tbflang *bflang = langmgr_get_bflang(mime,filename);
 	BluefishTextView *master = btv->master;
 	buffer = master->buffer;
 	/* remove all highlighting */

@@ -1146,18 +1146,21 @@ static gpointer build_lang_thread(gpointer data)
 	return bflang;
 }
 
-Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype) {
-	Tbflang *bflang;
-
-	bflang = g_hash_table_lookup(langmgr.bflang_lookup,mimetype);
+Tbflang *langmgr_get_bflang(const gchar *mimetype, const gchar *filename) {
+	Tbflang *bflang=NULL;
+	if (!mimetype)
+		return NULL;
+	
+	if (filename && strchr(mimetype,'?')==NULL) {
+		gchar *key, *tmp;
+		tmp = strrchr(filename, '.');
+		key = g_strconcat(mimetype, tmp, NULL);
+		g_print("langmgr_get_bflang, search for key %s\n",key);
+		bflang = g_hash_table_lookup(langmgr.bflang_lookup,key);
+		g_free(key);
+	}
 	if (!bflang) {
-		gchar *pos = strchr(mimetype,'?');
-		if (pos) {
-			gchar *tmp;
-			tmp = g_strndup(mimetype, pos - mimetype);
-			bflang = g_hash_table_lookup(langmgr.bflang_lookup,tmp);
-			g_free(tmp);
-		}
+		bflang = g_hash_table_lookup(langmgr.bflang_lookup,mimetype);
 	}
 	
 	if (bflang && bflang->filename && !bflang->st && !bflang->no_st && !bflang->parsing) {
