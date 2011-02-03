@@ -60,6 +60,7 @@
 #include "filefilter.h"
 #include "file.h" /* file_handle() */
 #include "file_autosave.h"
+#include "languages.h"
 
 /*********************************************/
 /* this var is global for all bluefish files */
