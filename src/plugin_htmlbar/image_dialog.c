@@ -834,7 +834,8 @@ image_dialog_check_is_image_file(BluefishImageDialog * dialog)
 	if (error == NULL) {
 		if (g_file_info_has_attribute(fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE)) {
 #ifdef WIN32
-			const gchar *contenttype, *mimetype = NULL;
+			const gchar *contenttype;
+			gchar *mimetype = NULL;
 			contenttype = g_file_info_get_content_type(fileinfo);
 			if (contenttype)
 				mimetype = g_content_type_get_mime_type(contenttype);
