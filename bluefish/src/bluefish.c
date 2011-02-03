@@ -345,7 +345,14 @@ int main(int argc, char *argv[])
 	rcfile_parse_main();
 #ifdef ENABLE_NLS
 	if (main_v->props.language!=NULL && main_v->props.language[0]!='\0') {
+#ifndef WIN32
 		setlocale(LC_ALL, main_v->props.language);
+#else /* WIN32 */
+		if (!lingua_set_thread_locale_on_windows(main_v->props.language)) {
+			g_free(main_v->props.language);
+			main_v->props.language = NULL;
+		}
+#endif /* WIN32 */
 	}
 #endif /* ENABLE_NLS */
 	if (main_v->props.open_in_running_bluefish) {
