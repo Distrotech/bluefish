@@ -343,7 +343,7 @@ static const linguas_t linguas[] = {
 	{
 	  NULL, NULL,
 #ifdef WIN32
-	  NULL, NULL,
+	  LANG_NEUTRAL, SUBLANG_DEFAULT,
 #endif /* WIN32 */
 	  NULL, NULL
 	}
@@ -406,7 +406,7 @@ lingua_locale_to_lang (const gchar *locale) {
 gboolean
 lingua_set_thread_locale_on_windows (const gchar *locale) {
 	gint i;
-	bool retsuccess;
+	gboolean retsuccess;
 
 	if (!lingua_table)
 		lingua_build_hasht();
