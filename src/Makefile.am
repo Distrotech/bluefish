@@ -3,7 +3,11 @@ AUTOMAKE_OPTIONS = std-options
 
 SUBDIRS = pixmaps plugin_about plugin_entities plugin_htmlbar plugin_infbrowser plugin_snippets plugin_charmap
 
-EXTRA_DIST = bluefish_rc.rc.in resource.h
+EXTRA_DIST = bluefish_rc.rc.in.in resource.h
+
+CLEANFILES = bluefish_rc.rc
+
+DISTCLEANFILES = bluefish_rc.rc.in
 
 MAINTAINERCLEANFILES = Makefile.in config.h.in
 
@@ -117,5 +121,8 @@ bluefish_SOURCES = \
 	xml_entity.c \
 	xml_entity.h
 
+bluefish_rc.rc: bluefish_rc.rc.in
+	$(SED) -e "s#SRCDIR#$(top_srcdir)/win32/pixmaps#g" $< > $@
+
 .rc.o:
-	$(CC) -E -xc -DRC_INVOKED -DSRCDIR=\"$(top_srcdir)/win32/pixmaps $< | $(WINDRES) -o $@
+	$(CC) -E -xc -DRC_INVOKED -I$(srcdir) $< | $(WINDRES) -o $@
