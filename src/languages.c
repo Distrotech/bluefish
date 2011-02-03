@@ -389,11 +389,7 @@ lingua_lang_to_locale (const gchar *lang) {
 		lingua_build_hasht();
 
 	i = GPOINTER_TO_INT(g_hash_table_lookup(lingua_table, lang));
-#ifdef todoWIN32
-	return MAKELCID( MAKELANGID(linguas[i].lang, linguas[i].sublang));
-#else
 	return g_strdup(linguas[i].locale);
-#endif
 }
 
 const gchar *
@@ -405,6 +401,27 @@ lingua_locale_to_lang (const gchar *locale) {
 	i = GPOINTER_TO_INT(g_hash_table_lookup(lingua_table, locale));
 	return linguas[i].native;
 }
+
+#ifdef WIN32
+gboolean
+lingua_set_thread_locale_on_windows (const gchar *locale) {
+	gint i;
+	bool retsuccess;
+
+	if (!lingua_table)
+		lingua_build_hasht();
+	
+	i = GPOINTER_TO_INT(g_hash_table_lookup(lingua_table, locale));
+	retsuccess = SUCCEEDED(SetThreadLocale(MAKELCID(MAKELANGID(linguas[i].lang, linguas[i].sublang), SORT_DEFAULT)));
+	if (!retsuccess) {
+		g_warning("setThreadLocaleOnWindows Could not set thread locale for %s.", locale);
+		g_return_val_if_reached(FALSE);
+	} else {
+		/* set LC_ALL too?, run gtk_set_locale()? */
+		return TRUE;
+	}
+}
+#endif
 
 void lingua_cleanup(void) {
 	if (lingua_table) {
