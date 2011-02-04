@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		clojure.bflang2 $Revision: 6336 $
+		clojure.bflang2 $Revision: 6069 $
  
 		Copyright (C) 2011 Olivier Sessink
 
@@ -20,9 +20,7 @@
 -->
 
 <bflang name="Clojure" version="2.0" table="2199" contexts="4" matches="500">
-
 <header>
-<!-- clojure is not yet in http://www.iana.org/assignments/media-types/ -->
 	<mime type="text/x-clojure"/>
 	<mime type="application/x-clojure"/>
 	<highlight name="keyword" style="keyword"  />
@@ -30,9 +28,9 @@
 	<highlight name="parens" style="brackets"  />
 	<highlight name="comment" style="comment"  />
 	<highlight name="string" style="string"   />
+	<highlight name="function" style="function"  />
 	<highlight name="value" style="value"  />
-	<highlight name="keyword1" style="special-function"  />
-	<highlight name="keyword2" style="special-tag"  />
+	<highlight name="special-value" style="special-value"  />
 </header>
 <properties>
 	<comment type="line" start=";" />
@@ -42,7 +40,7 @@
 
 <definition>
 	<context symbols=" ;@\.(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=|/?#&#9;&#10;&#13;">
-<group autocomplete="1" highlight="keyword"> 
+<group autocomplete="1" highlight="function"> 
 <element pattern="accessor" />
 <element pattern="aclone" />
 <element pattern="add-classpath" />
@@ -499,7 +497,7 @@
 <element pattern="zipmap" />
 </group>
 
-<group autocomplete="1" highlight="keyword1"> 
+<group autocomplete="1" highlight="keyword"> 
 <element pattern="catch" />
 <element pattern="cond" />
 <element pattern="condp" />
@@ -525,7 +523,7 @@
 <element pattern="try" />
 </group>
 
-<group autocomplete="1" highlight="keyword2"> 
+<group autocomplete="1" highlight="special-value"> 
 <element pattern="false" />
 <element pattern="nil" />
 <element pattern="true" />
@@ -551,7 +549,7 @@
 <element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="parens" />
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="parens" />
 
-<element pattern="@[-a-zA-Z][-a-zA-Z0-9]*" is_regex="1" autocomplete="0" highlight="keyword"/>
+<element pattern="@[-a-zA-Z=][-a-zA-Z0-9=]*" is_regex="1" autocomplete="0" highlight="keyword"/>
 <element pattern="@[-a-zA-Z][-a-zA-Z0-9]*" is_regex="1" autocomplete="0" highlight="keyword1"/>
 <element pattern="@[^@][a-zA-Z][a-zA-Z0-9]*" is_regex="1" autocomplete="0" highlight="keyword2"/>
 <element pattern="[0-9]+\.[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
