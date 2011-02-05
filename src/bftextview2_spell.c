@@ -403,7 +403,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 		loops_per_timer = MAX(loop/10,100);
 	}
 #ifdef SPELL_PROFILING
-	g_print("timing for this %d ms spell run: %d words\n",(gint)(1000.0*g_timer_elapsed(timer,NULL)), profile_words);
+	g_print("%d ms spell run from %d to %d checked %d words\n",(gint)(1000.0*g_timer_elapsed(timer,NULL)), gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&iter),profile_words);
 #endif
 	DBG_SPELL("bftextview2_run_spellcheck, remove needspellcheck from start %d to iter at %d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&iter));
 	gtk_text_buffer_remove_tag(buffer, btv->needspellcheck, &so , &iter);

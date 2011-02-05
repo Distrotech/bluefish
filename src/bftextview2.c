@@ -315,7 +315,7 @@ bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
 			return FALSE;
 		}
 	}
-	DBG_DELAYSCANNING("end of function, return TRUE\n");
+	DBG_DELAYSCANNING("bftextview2_scanner_scan, end of function, return TRUE\n");
 	return TRUE;				/* call me again */
 }
 
