@@ -389,7 +389,7 @@ static void acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar *
 	while (tmplist && numitems < 50) {
 		GtkTreeIter it;
 		gchar *tmp;
-		guint len;
+
 		gtk_list_store_append(acw->store, &it);
 		tmp = g_markup_escape_text(tmplist->data, -1);
 		gtk_list_store_set(acw->store, &it, 0, tmp, 1, tmplist->data, -1);
