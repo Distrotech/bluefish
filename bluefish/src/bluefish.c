@@ -119,7 +119,6 @@ static void handle_signals(void) {
 	sa.sa_sigaction = sigterm_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_SIGINFO;
-	sa.sa_restorer = NULL;
 	sigaction(SIGTERM, &sa, NULL);
 }
 #endif
