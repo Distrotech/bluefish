@@ -91,7 +91,7 @@ static void add_block_comment(Tdocument *doc, const gchar *so_commentstring, con
 
 static void remove_block_comment(Tdocument *doc, const gchar *buf, const gchar *so_commentstring, const gchar *eo_commentstring, gint start, gint end) {
 	gint i=0,n=0,coffset,eo_commentstring_len;
-	gint so=0,eo;
+	gint so=0;
 	
 	doc_unre_new_group(doc);
 	/* first see if there is an start-of-block */
@@ -105,10 +105,11 @@ static void remove_block_comment(Tdocument *doc, const gchar *buf, const gchar *
 				so=i;
 			n++;
 			if (so_commentstring[n]=='\0') {
-				eo = i;
+				/* we found the end of the start-of-comment string */
 				break;
 			}
 		} else {
+			/* TODO: shouldn't we set n to zero here?? */
 			break;
 		}
 		i++;
@@ -130,7 +131,8 @@ static void remove_block_comment(Tdocument *doc, const gchar *buf, const gchar *
 			/* do nothing */
 		} else if (buf[i]==eo_commentstring[n]) {
 			if (n==eo_commentstring_len) {
-				eo=n+1;
+				/*eo=n+1;*/
+				/* we found the end of the end-of-comment string */
 			}
 			if (n==0) {
 				so = i;
