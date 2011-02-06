@@ -97,7 +97,7 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 
 	/* THE NUBER OF BYTES THAT IS COPIED HERE MUST BE EQUAL TO THE NUMBER OF INTEGERS
 	IN THE STRUCT IN bluefish.h ELSE ALL WILL FAIL */
-	memcpy(session, main_v->session, 29 * sizeof(gint));
+	memcpy(session, main_v->session, 30 * sizeof(gint));
 }
 
 Tbfwin *project_is_open(GFile *uri) {
@@ -568,7 +568,7 @@ void project_edit(Tbfwin *bfwin) {
 	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);*/
 
-	sessionprefs(_("Initial document settings"),&pred->sprefs, pred->project->session);
+	sessionprefs(_("<b>Project Defaults</b>"),&pred->sprefs, pred->project->session);
 	gtk_box_pack_start(GTK_BOX(vbox), pred->sprefs.frame, FALSE, FALSE, 6);
 
 	hbox = gtk_hbutton_box_new();
@@ -695,4 +695,3 @@ void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	break;
 	}
 }
-

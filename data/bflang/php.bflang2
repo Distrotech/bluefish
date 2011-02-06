@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		php.bflang2 $Revision$
  
-		Copyright (C) 2008-2010 Olivier Sessink
+		Copyright (C) 2008-2011 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -49,6 +49,7 @@
 	<option name="javascript_screen_object" default="1" description="Screen object" />
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
+	<option name="javascript_css_properties" default="1" description="CSS properties" />
 	<option name="sql-in-php-string" default="1" description="scan for sql in php strings" />
 	<highlight name="php-block-tag" style="special-value"  />
 	<highlight name="string" style="string"   />
@@ -73,6 +74,7 @@
 	<highlight name="js-brackets" style="brackets"  />
 	<highlight name="js-type" style="type"  />
 	<highlight name="js-comment" style="comment"  />
+	<highlight name="js-css-property" style="function"  />
 	<highlight name="js-string" style="string"  />
 	<highlight name="js-value" style="value"  />
 	<highlight name="js-variable" style="variable"  />
@@ -90,21 +92,21 @@
 	<highlight name="css-pseudo-element" style="keyword" />
 </header>
 <properties>
-	<comment id="cblockcomment" type="block" start="/*" end="*/" />
-	<comment id="htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
-	<comment id="c++linecomment" type="line" start="//" />
-	<comment id="scriptcomment" type="line" start="#" />
+	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />
+	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="cm.cpplinecomment" type="line" start="//" />
+	<comment id="cm.scriptcomment" type="line" start="#" />
 	<smartindent characters="{" />
 	<default_spellcheck enabled="1" spell_decode_entities="1" />
 </properties>
 <definition>
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="htmlcomment" commentid_line="none">
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment">
 
 &all-html;
 
 <group class="php_short_open_tag">
 <element id="e.php.short.open" pattern="&lt;(\?|\?php)" is_regex="1" starts_block="1" highlight="php-block-tag">
-<context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" commentid_block="cblockcomment" commentid_line="c++linecomment" >
+<context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" commentid_block="cm.cblockcomment" commentid_line="cm.cpplinecomment" >
 &all-php;
 <element id="e.php.short.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern="}" ends_block="1" blockstartelement="e.php.short.lbrace" highlight="brackets" />
@@ -175,7 +177,7 @@ for this pattern and both of them are a symbol. That's why we have a separate en
 </group>
 <group notclass="php_short_open_tag">
 <element id="e.php.open" pattern="&lt;?php" starts_block="1" highlight="php-block-tag">
-<context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" commentid_block="cblockcomment" commentid_line="c++linecomment">
+<context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" commentid_block="cm.cblockcomment" commentid_line="cm.cpplinecomment">
 <!-- unfortunately we cannot refer the context as previously used, because if option php_short_open_tag 
 was disabled, this whole section is not parsed by the language manager, so the context does not yet exist..  -->
 &all-php;

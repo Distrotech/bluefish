@@ -428,6 +428,8 @@ void gui_set_title(Tbfwin *bfwin, Tdocument *doc, gint num_modified_change) {
 	} else {
 		title = g_strconcat("* ", prfilepart, " - Bluefish "VERSION,NULL);
 	}
+	if (strlen(title)> 120)
+		title[120]='\0';
 	gtk_window_set_title(GTK_WINDOW(bfwin->main_window),title);
 	/*rename_window_entry_in_all_windows(bfwin, title);*/
 	g_free(title);
@@ -524,31 +526,36 @@ void gui_set_document_widgets(Tdocument *doc) {
 	setup_toggle_item(tmp1,("/Document/Highlight Syntax"), doc->highlightstate);
 	gui_set_undo_redo_widgets(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
-			"/Document/Wrap", doc->wrapstate);
+			"/Document/Auto Completion Popup",
+			bluefish_text_view_get_auto_complete(BLUEFISH_TEXT_VIEW(doc->view)));
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
+			"/Document/Auto Indent",
+			bluefish_text_view_get_auto_indent(BLUEFISH_TEXT_VIEW(doc->view)));
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
+			"/Document/Show Right Margin",
+			bluefish_text_view_get_show_right_margin(BLUEFISH_TEXT_VIEW(doc->view)));
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
+			"/Document/Highlight block delimiters",
+			bluefish_text_view_get_show_mbhl(BLUEFISH_TEXT_VIEW(doc->view)));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
 			"/Document/Line Numbers",
 			bluefish_text_view_get_show_line_numbers(BLUEFISH_TEXT_VIEW(doc->view)));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
 			"/Document/Show Blocks",
 			bluefish_text_view_get_show_blocks(BLUEFISH_TEXT_VIEW(doc->view)));
-	/*setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Show symbols", doc->symstate);*/
-	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
-			"/Document/Auto Indent",
-			bluefish_text_view_get_auto_indent(BLUEFISH_TEXT_VIEW(doc->view)));
-	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
-			"/Document/Auto Completion Popup",
-			bluefish_text_view_get_auto_complete(BLUEFISH_TEXT_VIEW(doc->view)));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
 			"/Document/Visible Spacing",
 			bluefish_text_view_get_show_visible_spacing(BLUEFISH_TEXT_VIEW(doc->view)));
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
+			"/Document/Wrap", doc->wrapstate);
+	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
+			"/Document/Split view", (doc->slave!=NULL));
 #ifdef HAVE_LIBENCHANT
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
 			"/Document/Spell Check",
 			BLUEFISH_TEXT_VIEW(doc->view)->spell_check);
 #endif
-	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
-			"/Document/Highlight block delimiters",
-			bluefish_text_view_get_show_mbhl(BLUEFISH_TEXT_VIEW(doc->view)));
+
 /*#ifndef USE_SCANNER	why did we not set the encoding and filetype with the scanner enabled????*/
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),BLUEFISH_TEXT_VIEW(doc->view)->bflang, doc->encoding);
 
@@ -575,20 +582,18 @@ page_num : 	the new page number for child
 static void notebook_reordered_lcb(GtkNotebook *notebook,GtkWidget *child,guint page_num,gpointer user_data) {
 	Tbfwin *bfwin = BFWIN(user_data);
 	Tdocument *doc = NULL;
-	GtkWidget *view;
 	GList *tmplist = g_list_first(bfwin->documentlist);
 	DEBUG_MSG("notebook_reordered_lcb, started\n");	
-	/* child is a gtkscrolledwindow which is a gtkbin subclass */
-	view = gtk_bin_get_child(GTK_BIN(child)); 
-	/* look where this child is in the documentlist */
+	/* look where this child (the GtkVPaned) is in the documentlist */
 	while (tmplist) {
-		if (DOCUMENT(tmplist->data)->view == view) {
+		if (DOCUMENT(tmplist->data)->vsplit == child) {
 			doc = DOCUMENT(tmplist->data);
 			break;
 		} 
 		tmplist = g_list_next(tmplist);
 	}
-	
+	if (!doc)
+		return;
 	bfwin->documentlist = g_list_remove(bfwin->documentlist,doc);
 	DEBUG_MSG("notebook_reordered_lcb, moving doc %p to position %d in the documentlist\n",doc,page_num);
 	bfwin->documentlist = g_list_insert(bfwin->documentlist, doc, page_num);

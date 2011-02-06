@@ -222,12 +222,17 @@ static void autosave_complete_lcb(gint status,gint error_info,gpointer data) {
 
 static inline void autosave(Tdocument *doc, GHashTable *hasht) {
 	Trefcpointer *buffer;
+	gchar *data;
 	DEBUG_MSG("autosave doc %p\n",doc);
 	if (!doc->autosave_uri) {
 		doc->autosave_uri = create_autosave_path(doc, hasht);
 		g_hash_table_insert(hasht, g_file_get_path(doc->autosave_uri), GINT_TO_POINTER(1));
 	}
-	buffer = refcpointer_new(doc_get_chars(doc, 0, -1));
+	data = doc_get_chars(doc, 0, -1);
+	if (!data || data[0]=='\0')
+		return;
+	
+	buffer = refcpointer_new(data);
 	doc->autosave_action = file_checkNsave_uri_async(doc->autosave_uri, NULL, buffer, strlen(buffer->data), FALSE, FALSE, (CheckNsaveAsyncCallback)autosave_complete_lcb, doc);
 	refcpointer_unref(buffer);
 }

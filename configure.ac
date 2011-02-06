@@ -11,7 +11,7 @@ dnl ************************
 
 AC_PREREQ([2.59])
 
-AC_INIT([bluefish],[2.0.3],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
+AC_INIT([bluefish],[2.0.3-rc2],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 
 dnl Have to save them here!
 if test "${ac_configure_args+set}" != "set" ; then
@@ -34,7 +34,7 @@ dnl ************************
 dnl   I18N options
 dnl ************************
 
-m4_define([_BF_LINGUAS], [bg cs da de el es eu fi fr gl hu it ja ko_KR nb nl pl pt pt_BR ro ru sk sr sv ta tr uk zh_CN zh_TW])
+m4_define([_BF_LINGUAS], [bg cs da de el es eu fi fr gl hu it ja ko_KR nb nl nn pl pt pt_BR ro ru sk sr sv ta tr uk zh_CN zh_TW])
 #ALL_LINGUAS="bg cs da de el es eu fi fr gl hu it ja ko_KR nb nl pl pt pt_BR ro ru sk sr sv ta tr uk zh_CN zh_TW"
 AC_SUBST([ALL_LINGUAS], "_BF_LINGUAS")
 GETTEXT_PACKAGE=AC_PACKAGE_NAME
@@ -173,11 +173,6 @@ AC_ARG_ENABLE(
 	[
 	 if test "x$enableval" != "xno"; then
 		 AC_DEFINE([DEVELOPMENT], [1], [Define to 1 if you want to have development checks.])
-		 CFLAGS="$CFLAGS -DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES"
-		 CFLAGS="$CFLAGS -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED"
-		 CFLAGS="$CFLAGS -DG_DISABLE_DEPRECATED"
-dnl		 CFLAGS="$CFLAGS -DGTK_DISABLE_DEPRECATED"
-		 CFLAGS="$CFLAGS -DGSEAL_ENABLE"
 	 fi
 	]
 )
@@ -556,6 +551,11 @@ dnl ************************
 dnl   Final Cflags/Libs
 dnl ************************
 
+CFLAGS="$CFLAGS -DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES"
+CFLAGS="$CFLAGS -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED"
+CFLAGS="$CFLAGS -DG_DISABLE_DEPRECATED"
+CFLAGS="$CFLAGS -DGSEAL_ENABLE"
+dnl	CFLAGS="$CFLAGS -DGTK_DISABLE_DEPRECATED"
 CFLAGS="$CFLAGS $BLUEFISH_REQUIRED_CFLAGS $BLUEFISH_IGEMAC_CFLAGS"
 LIBS="$LIBS $BLUEFISH_REQUIRED_LIBS $BLUEFISH_IGEMAC_LIBS"
 
@@ -625,7 +625,7 @@ AC_CONFIG_FILES([
 	src/plugin_infbrowser/po/Makefile.in
 	src/plugin_snippets/Makefile
 	src/plugin_snippets/po/Makefile.in
-	src/bluefish_rc.rc
+	src/bluefish_rc.rc.in
 	macosx/Makefile
 	win32/Makefile
 	win32/Makefile.mingw

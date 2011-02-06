@@ -464,6 +464,7 @@ Section "Uninstall"
 	Delete "$INSTDIR\libenchant-1.dll"
 	Delete "$INSTDIR\libgnurx-0.dll"
 	Delete "$INSTDIR\libgucharmap-7.dll"
+	Delete "$INSTDIR\libpcre-0.dll" ; Not longer shipped
 	Delete "$INSTDIR\libxml2-2.dll"
 	RMDir /r "$INSTDIR\docs"
 	RMDir /r "$INSTDIR\lib"

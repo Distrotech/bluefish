@@ -727,7 +727,7 @@ gchar *textbuffer_get_all_chars(GtkTextBuffer *buffer) {
  * Return value: #GtkWidget* to this_widget
  */
 GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring) {
-	if (fontstring) {
+	if (fontstring && fontstring[0] != '\0') {
 		PangoFontDescription *font_desc;
 		font_desc = pango_font_description_from_string(fontstring);
 		gtk_widget_modify_font(this_widget, font_desc);
@@ -1551,13 +1551,13 @@ gchar *ask_accelerator_dialog(const gchar *title) {
 	gtk_window_set_type_hint(GTK_WINDOW(dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_dialog_set_has_separator(GTK_DIALOG(dialog1), FALSE);
 	
-	label1 = gtk_label_new("<b>Keystroke choice </b>");
+	label1 = gtk_label_new(_("<b>Keystroke choice </b>"));
 	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog1))), label1, FALSE, FALSE, 0);
 	gtk_label_set_use_markup(GTK_LABEL(label1), TRUE);
 	gtk_label_set_justify(GTK_LABEL(label1), GTK_JUSTIFY_CENTER);
 	gtk_misc_set_padding(GTK_MISC(label1), 2, 2);
 	
-	label2 = gtk_label_new("\nPress requested key combination.\nPlease use Ctrl, Shift, Alt key with any other key.\n<i>Esc to cancel, Delete to remove the accelerator.</i>");
+	label2 = gtk_label_new(_("\nPress requested key combination.\nPlease use Ctrl, Shift, Alt key with any other key.\n<i>Esc to cancel, Delete to remove the accelerator.</i>"));
 	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog1))), label2, FALSE, FALSE, 0);
 	gtk_label_set_use_markup(GTK_LABEL(label2), TRUE);
 	gtk_label_set_justify(GTK_LABEL(label2), GTK_JUSTIFY_CENTER);

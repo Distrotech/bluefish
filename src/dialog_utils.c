@@ -26,7 +26,7 @@
 #include "pixmap.h"
 
 static void
-button_set_style(GtkWidget *button, GtkStyle *previous_style, gpointer user_data)
+button_set_style(GtkWidget * button, GtkStyle * previous_style, gpointer user_data)
 {
 	gint h, w;
 
@@ -41,14 +41,14 @@ bluefish_small_close_button_new(void)
 	GtkWidget *button, *image;
 
 	button = gtk_button_new();
-	gtk_button_set_relief(GTK_BUTTON (button), GTK_RELIEF_NONE);
-	gtk_button_set_focus_on_click(GTK_BUTTON (button), FALSE);
+	gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
+	gtk_button_set_focus_on_click(GTK_BUTTON(button), FALSE);
 	gtk_widget_set_name(button, "bluefish-small-close-button");
 
 	image = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
-	gtk_button_set_image(GTK_BUTTON (button), image);
+	gtk_button_set_image(GTK_BUTTON(button), image);
 
-	g_signal_connect (button, "style-set", G_CALLBACK (button_set_style), NULL);
+	g_signal_connect(button, "style-set", G_CALLBACK(button_set_style), NULL);
 
 	return button;
 }
@@ -67,14 +67,14 @@ bluefish_small_close_button_new(void)
  * Return value: #GtkWidget * The newly created GTK Stock button
  */
 GtkWidget *
-dialog_stock_button_new_in_table(const gchar *stockID, GtkWidget *table, guint left_attach, guint right_attach,
-	guint top_attach, guint bottom_attach)
+dialog_stock_button_new_in_table(const gchar * stockID, GtkWidget * table, guint left_attach,
+								 guint right_attach, guint top_attach, guint bottom_attach)
 {
 	GtkWidget *button;
 
 	button = gtk_button_new_from_stock(stockID);
-	gtk_table_attach(GTK_TABLE (table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
-		GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
+					 GTK_SHRINK, 0, 0);
 	return button;
 }
 
@@ -92,31 +92,31 @@ dialog_stock_button_new_in_table(const gchar *stockID, GtkWidget *table, guint l
  * Return value: #GtkWidget * The newly created button
  */
 GtkWidget *
-dialog_button_new_in_table(const gchar *labeltext, GtkWidget *table, guint left_attach, guint right_attach,
-	guint top_attach, guint bottom_attach)
+dialog_button_new_in_table(const gchar * labeltext, GtkWidget * table, guint left_attach, guint right_attach,
+						   guint top_attach, guint bottom_attach)
 {
 	GtkWidget *button;
 
 	button = gtk_button_new_with_mnemonic(labeltext);
-	gtk_table_attach(GTK_TABLE (table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
-		GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
+					 GTK_SHRINK, 0, 0);
 	return button;
 }
 
 static GtkWidget *
-dialog_button_widget_new(const gchar *labeltext, gint pixmap, const gchar *stockID, GtkIconSize iconSize)
+dialog_button_widget_new(const gchar * labeltext, gint pixmap, const gchar * stockID, GtkIconSize iconSize)
 {
 	GtkWidget *hbox;
 
 	hbox = gtk_hbox_new(FALSE, 0);
 
 	if (stockID == NULL)
-		gtk_box_pack_start(GTK_BOX (hbox), new_pixmap(pixmap), FALSE, FALSE, 1);
+		gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(pixmap), FALSE, FALSE, 1);
 	else
-		gtk_box_pack_start(GTK_BOX (hbox), gtk_image_new_from_stock(stockID, iconSize), FALSE, FALSE, 1);
+		gtk_box_pack_start(GTK_BOX(hbox), gtk_image_new_from_stock(stockID, iconSize), FALSE, FALSE, 1);
 
 	if (labeltext)
-		gtk_box_pack_start(GTK_BOX (hbox), gtk_label_new_with_mnemonic(labeltext), TRUE, TRUE, 1);
+		gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(labeltext), TRUE, TRUE, 1);
 
 	gtk_widget_show_all(hbox);
 
@@ -136,13 +136,14 @@ dialog_button_widget_new(const gchar *labeltext, gint pixmap, const gchar *stock
  * Return value: #GtkWidget * The newly created button
  */
 GtkWidget *
-dialog_button_new_with_image(const gchar *labeltext, gint pixmap, const gchar *stockID, GtkIconSize iconSize)
+dialog_button_new_with_image(const gchar * labeltext, gint pixmap, const gchar * stockID,
+							 GtkIconSize iconSize)
 {
 	GtkWidget *button, *hbox;
 
 	hbox = dialog_button_widget_new(labeltext, pixmap, stockID, iconSize);
 	button = gtk_button_new();
-	gtk_container_add(GTK_CONTAINER (button), hbox);
+	gtk_container_add(GTK_CONTAINER(button), hbox);
 
 	return button;
 }
@@ -165,70 +166,67 @@ dialog_button_new_with_image(const gchar *labeltext, gint pixmap, const gchar *s
  * Return value: #GtkWidget * The newly created button
  */
 GtkWidget *
-dialog_button_new_with_image_in_table(const gchar *labeltext, gint pixmap, const gchar *stockID, GtkIconSize iconSize,
-	GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach)
+dialog_button_new_with_image_in_table(const gchar * labeltext, gint pixmap, const gchar * stockID,
+									  GtkIconSize iconSize, GtkWidget * table, guint left_attach,
+									  guint right_attach, guint top_attach, guint bottom_attach)
 {
 	GtkWidget *button;
 
 	button = dialog_button_new_with_image(labeltext, pixmap, stockID, iconSize);
-	gtk_table_attach(GTK_TABLE (table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
-		GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
+					 GTK_SHRINK, 0, 0);
 
 	return button;
 }
 
 GtkWidget *
-dialog_check_button_new(const gchar *labeltext, gint active)
+dialog_check_button_new(const gchar * labeltext, gint active)
 {
 	GtkWidget *button;
 
 	button = gtk_check_button_new_with_mnemonic(labeltext);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON (button), active);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), active);
 
 	return button;
 }
 
 GtkWidget *
-dialog_check_button_in_table(const gchar *labeltext, gint active, GtkWidget *table, guint left_attach,
-	guint right_attach, guint top_attach, guint bottom_attach)
+dialog_check_button_in_table(const gchar * labeltext, gint active, GtkWidget * table, guint left_attach,
+							 guint right_attach, guint top_attach, guint bottom_attach)
 {
 	GtkWidget *button;
 
 	button = dialog_check_button_new(labeltext, active);
-	gtk_table_attach(GTK_TABLE (table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
-		GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
+					 GTK_SHRINK, 0, 0);
 
 	return button;
 }
 
 GtkWidget *
-dialog_color_button_in_table(const gchar *color, const gchar *title, GtkWidget *table, guint left_attach,
-	guint right_attach, guint top_attach, guint bottom_attach)
+dialog_color_button_in_table(const gchar * color, const gchar * title, GtkWidget * table, guint left_attach,
+							 guint right_attach, guint top_attach, guint bottom_attach)
 {
 	GdkColor gdkcolor;
 	GtkWidget *button;
 
-	if (gdk_color_parse(color, &gdkcolor))
-	{
+	if (color && gdk_color_parse(color, &gdkcolor)) {
 		button = gtk_color_button_new_with_color(&gdkcolor);
-		gtk_color_button_set_use_alpha(GTK_COLOR_BUTTON (button), FALSE);
-	}
-	else
-	{
+	} else {
 		button = gtk_color_button_new();
-		gtk_color_button_set_alpha(GTK_COLOR_BUTTON (button), 0);
-		gtk_color_button_set_use_alpha(GTK_COLOR_BUTTON (button), TRUE);
+		gtk_color_button_set_alpha(GTK_COLOR_BUTTON(button), 0);
 	}
 
-	gtk_color_button_set_title(GTK_COLOR_BUTTON (button), title);
-	gtk_table_attach(GTK_TABLE (table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
-		GTK_SHRINK, 0, 0);
+	gtk_color_button_set_title(GTK_COLOR_BUTTON(button), title);
+	gtk_color_button_set_use_alpha(GTK_COLOR_BUTTON(button), TRUE);
+	gtk_table_attach(GTK_TABLE(table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
+					 GTK_SHRINK, 0, 0);
 
 	return button;
 }
 
 GtkWidget *
-dialog_combo_box_text_from_list(const GList *options, const gchar *value)
+dialog_combo_box_text_from_list(const GList * options, const gchar * value)
 {
 	gboolean found = FALSE;
 	gint index = 0;
@@ -237,11 +235,9 @@ dialog_combo_box_text_from_list(const GList *options, const gchar *value)
 
 	combobox = gtk_combo_box_new_text();
 
-	for (node = options; node != NULL; node = node->next)
-	{
-		if (node->data)
-		{
-			gtk_combo_box_append_text(GTK_COMBO_BOX (combobox), node->data);
+	for (node = options; node != NULL; node = node->next) {
+		if (node->data) {
+			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), node->data);
 			if (!found && value && g_strcmp0(node->data, value) == 0)
 				found = TRUE;
 			else if (!found)
@@ -249,14 +245,14 @@ dialog_combo_box_text_from_list(const GList *options, const gchar *value)
 		}
 	}
 
-	gtk_combo_box_set_active(GTK_COMBO_BOX (combobox), (found ? index : 0));
+	gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), (found ? index : 0));
 
 	return combobox;
 }
 
 GtkWidget *
-dialog_combo_box_text_labeled_from_list(const GList *options, const gchar *value, const gchar *labeltext,
-	GtkWidget *box, guint padding)
+dialog_combo_box_text_labeled_from_list(const GList * options, const gchar * value, const gchar * labeltext,
+										GtkWidget * box, guint padding)
 {
 	GtkWidget *combobox;
 	GtkWidget *label;
@@ -264,15 +260,29 @@ dialog_combo_box_text_labeled_from_list(const GList *options, const gchar *value
 	combobox = dialog_combo_box_text_from_list(options, value);
 
 	label = dialog_box_label_new(labeltext, 0, 0.5, box, padding);
-	gtk_label_set_mnemonic_widget(GTK_LABEL (label), combobox);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), combobox);
 
-	gtk_box_pack_start(GTK_BOX (box), combobox, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), combobox, FALSE, FALSE, 0);
 
 	return combobox;
 }
 
 GtkWidget *
-dialog_combo_box_text_new(const gchar **options, gint index)
+dialog_combo_box_text_from_list_in_table(const GList * options, const gchar * value, GtkWidget * table,
+										 guint left_attach, guint right_attach, guint top_attach,
+										 guint bottom_attach)
+{
+	GtkWidget *combobox;
+
+	combobox = dialog_combo_box_text_from_list(options, value);
+	gtk_table_attach(GTK_TABLE(table), combobox, left_attach, right_attach, top_attach, bottom_attach,
+					 GTK_FILL, GTK_SHRINK, 0, 0);
+
+	return combobox;
+}
+
+GtkWidget *
+dialog_combo_box_text_new(const gchar ** options, gint index)
 {
 	GtkWidget *combobox;
 	const gchar **tmp;
@@ -281,28 +291,29 @@ dialog_combo_box_text_new(const gchar **options, gint index)
 
 	tmp = options;
 	while (*tmp)
-		gtk_combo_box_append_text(GTK_COMBO_BOX (combobox), *tmp++);
+		gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), gettext(*tmp++));
 
-	gtk_combo_box_set_active(GTK_COMBO_BOX (combobox), index);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), index);
 
 	return combobox;
 }
 
 GtkWidget *
-dialog_combo_box_text_in_table(const gchar **options, gint index, GtkWidget *table, guint left_attach,
-	guint right_attach, guint top_attach, guint bottom_attach)
+dialog_combo_box_text_in_table(const gchar ** options, gint index, GtkWidget * table, guint left_attach,
+							   guint right_attach, guint top_attach, guint bottom_attach)
 {
 	GtkWidget *combobox;
 
 	combobox = dialog_combo_box_text_new(options, index);
-	gtk_table_attach(GTK_TABLE (table), combobox, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
-		GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), combobox, left_attach, right_attach, top_attach, bottom_attach,
+					 GTK_FILL, GTK_SHRINK, 0, 0);
 
 	return combobox;
 }
 
 GtkWidget *
-dialog_combo_box_text_labeled(const gchar *labeltext, const gchar **options, gint index, GtkWidget *box, guint padding)
+dialog_combo_box_text_labeled(const gchar * labeltext, const gchar ** options, gint index, GtkWidget * box,
+							  guint padding)
 {
 	GtkWidget *combobox;
 	GtkWidget *label;
@@ -310,25 +321,25 @@ dialog_combo_box_text_labeled(const gchar *labeltext, const gchar **options, gin
 	combobox = dialog_combo_box_text_new(options, index);
 
 	label = dialog_box_label_new(labeltext, 0, 0.5, box, padding);
-	gtk_label_set_mnemonic_widget(GTK_LABEL (label), combobox);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), combobox);
 
-	gtk_box_pack_start(GTK_BOX (box), combobox, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(box), combobox, FALSE, FALSE, 0);
 
 	return combobox;
 }
 
 GtkWidget *
-dialog_entry_in_table(const gchar *text, GtkWidget *table, guint left_attach, guint right_attach, guint top_attach,
-	guint bottom_attach)
+dialog_entry_in_table(const gchar * text, GtkWidget * table, guint left_attach, guint right_attach,
+					  guint top_attach, guint bottom_attach)
 {
 	GtkWidget *entry;
 
 	entry = gtk_entry_new();
-	gtk_table_attach(GTK_TABLE (table), entry, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
-		GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), entry, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
+					 GTK_SHRINK, 0, 0);
 
 	if (text)
-		gtk_entry_set_text(GTK_ENTRY (entry), text);
+		gtk_entry_set_text(GTK_ENTRY(entry), text);
 
 	return entry;
 }
@@ -348,18 +359,45 @@ dialog_entry_in_table(const gchar *text, GtkWidget *table, guint left_attach, gu
  * Return value: void
  */
 void
-dialog_mnemonic_label_in_table(const gchar *labeltext, GtkWidget *m_widget, GtkWidget *table, guint left_attach,
-	guint right_attach, guint top_attach, guint bottom_attach)
+dialog_mnemonic_label_in_table(const gchar * labeltext, GtkWidget * m_widget, GtkWidget * table,
+							   guint left_attach, guint right_attach, guint top_attach, guint bottom_attach)
 {
 	GtkWidget *label;
 
 	label = gtk_label_new_with_mnemonic(labeltext);
-	gtk_misc_set_alignment(GTK_MISC (label), 0, 0.5);
-	gtk_table_attach(GTK_TABLE (table), label, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
-		GTK_SHRINK, 0, 0);
+	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+	gtk_table_attach(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
+					 GTK_SHRINK, 0, 0);
 
 	if (m_widget)
-		gtk_label_set_mnemonic_widget(GTK_LABEL (label), m_widget);
+		gtk_label_set_mnemonic_widget(GTK_LABEL(label), m_widget);
+}
+
+GtkWidget *
+dialog_radio_button_in_table(GSList * group, const gchar * label, GtkWidget * table, guint left_attach,
+							 guint right_attach, guint top_attach, guint bottom_attach)
+{
+	GtkWidget *button;
+
+	button = gtk_radio_button_new_with_mnemonic(group, label);
+	gtk_table_attach(GTK_TABLE(table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
+					 GTK_SHRINK, 0, 0);
+
+	return button;
+}
+
+GtkWidget *
+dialog_radio_button_from_widget_in_table(GtkRadioButton * radio_group_member, const gchar * label,
+										 GtkWidget * table, guint left_attach, guint right_attach,
+										 guint top_attach, guint bottom_attach)
+{
+	GtkWidget *button;
+
+	button = gtk_radio_button_new_with_mnemonic_from_widget(radio_group_member, label);
+	gtk_table_attach(GTK_TABLE(table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
+					 GTK_SHRINK, 0, 0);
+
+	return button;
 }
 
 GtkWidget *
@@ -378,20 +416,37 @@ dialog_spin_button_new(gfloat lower, gfloat upper, const gint value)
 		page_increment = 10;
 
 	adjustment = gtk_adjustment_new((1.0 * value), lower, upper, step_increment, page_increment, 0);
-	button = gtk_spin_button_new(GTK_ADJUSTMENT (adjustment), 0.1, 0);
+	button = gtk_spin_button_new(GTK_ADJUSTMENT(adjustment), 0.1, 0);
 
 	return button;
 }
 
 GtkWidget *
-dialog_spin_button_in_table(gfloat lower, gfloat upper, const gint value, GtkWidget *table, guint left_attach,
-	guint right_attach, guint top_attach, guint bottom_attach)
+dialog_spin_button_in_table(gfloat lower, gfloat upper, const gint value, GtkWidget * table,
+							guint left_attach, guint right_attach, guint top_attach, guint bottom_attach)
 {
 	GtkWidget *button;
 
 	button = dialog_spin_button_new(lower, upper, value);
-	gtk_table_attach(GTK_TABLE (table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
-		GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
+					 GTK_SHRINK, 0, 0);
+
+	return button;
+}
+
+GtkWidget *
+dialog_spin_button_labeled(gfloat lower, gfloat upper, const gint value, const gchar * labeltext,
+						   GtkWidget * box, guint padding)
+{
+	GtkWidget *button;
+	GtkWidget *label;
+
+	button = dialog_spin_button_new(lower, upper, value);
+
+	label = dialog_box_label_new(labeltext, 0, 0.5, box, padding);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), button);
+
+	gtk_box_pack_start(GTK_BOX(box), button, FALSE, FALSE, 0);
 
 	return button;
 }
@@ -409,14 +464,14 @@ dialog_spin_button_in_table(gfloat lower, gfloat upper, const gint value, GtkWid
  * Return value: #GtkWidget * The new GtkLabel widget.
  */
 GtkWidget *
-dialog_box_label_new(const gchar *labeltext, gfloat xalign, gfloat yalign, GtkWidget *box, guint padding)
+dialog_box_label_new(const gchar * labeltext, gfloat xalign, gfloat yalign, GtkWidget * box, guint padding)
 {
 	GtkWidget *label;
 
 	label = gtk_label_new(NULL);
-	gtk_label_set_markup_with_mnemonic(GTK_LABEL (label), labeltext);
-	gtk_misc_set_alignment(GTK_MISC (label), xalign, yalign);
-	gtk_box_pack_start(GTK_BOX (box), label, FALSE, FALSE, padding);
+	gtk_label_set_markup_with_mnemonic(GTK_LABEL(label), labeltext);
+	gtk_misc_set_alignment(GTK_MISC(label), xalign, yalign);
+	gtk_box_pack_start(GTK_BOX(box), label, FALSE, FALSE, padding);
 
 	return label;
 }
@@ -430,15 +485,15 @@ dialog_box_label_new(const gchar *labeltext, gfloat xalign, gfloat yalign, GtkWi
  * Return value: #GtkWidget * The new GtkVBox widget.
  */
 GtkWidget *
-dialog_vbox_new(GtkWidget *box)
+dialog_vbox_new(GtkWidget * box)
 {
 	GtkWidget *alignment, *vbox;
 
 	alignment = gtk_alignment_new(0, 0, 1, 1);
-	gtk_alignment_set_padding(GTK_ALIGNMENT (alignment), 0, 0, 12, 6);
-	gtk_box_pack_start(GTK_BOX (box), alignment, FALSE, FALSE, 0);
+	gtk_alignment_set_padding(GTK_ALIGNMENT(alignment), 0, 0, 12, 6);
+	gtk_box_pack_start(GTK_BOX(box), alignment, FALSE, FALSE, 0);
 	vbox = gtk_vbox_new(FALSE, 12);
-	gtk_container_add(GTK_CONTAINER (alignment), vbox);
+	gtk_container_add(GTK_CONTAINER(alignment), vbox);
 
 	return vbox;
 }
@@ -453,7 +508,7 @@ dialog_vbox_new(GtkWidget *box)
  * Return value: #GtkWidget * The new GtkVBox widget.
  */
 GtkWidget *
-dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box)
+dialog_vbox_labeled(const gchar * labeltext, GtkWidget * box)
 {
 	GtkWidget *label;
 
@@ -473,16 +528,16 @@ dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box)
  * Return value: #GtkWidget * The new GtkVBox widget.
  */
 GtkWidget *
-dialog_vbox_labeled_checkbutton(const gchar *labeltext, GtkWidget *checkbutton, GtkWidget *box)
+dialog_vbox_labeled_checkbutton(const gchar * labeltext, GtkWidget * checkbutton, GtkWidget * box)
 {
 	GtkWidget *label, *hbox;
 
 	hbox = gtk_hbox_new(FALSE, 2);
-	gtk_box_pack_start(GTK_BOX (hbox), checkbutton, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), checkbutton, FALSE, FALSE, 0);
 
 	label = dialog_box_label_new(labeltext, 0, 0.5, hbox, 0);
-	gtk_label_set_mnemonic_widget(GTK_LABEL (label), checkbutton);
-	gtk_box_pack_start(GTK_BOX (box), hbox, FALSE, FALSE, 0);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), checkbutton);
+	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 0);
 
 	return dialog_vbox_new(box);
 }
@@ -502,12 +557,11 @@ dialog_table_new(gint rows, gint cols, gint borderWidth)
 {
 	GtkWidget *table = gtk_table_new(rows, cols, FALSE);
 
-	gtk_table_set_row_spacings(GTK_TABLE (table), 10);
-	gtk_table_set_col_spacings(GTK_TABLE (table), 12);
+	gtk_table_set_row_spacings(GTK_TABLE(table), 10);
+	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 
-	if (borderWidth > 0)
-	{
-		gtk_container_set_border_width(GTK_CONTAINER (table), borderWidth);
+	if (borderWidth > 0) {
+		gtk_container_set_border_width(GTK_CONTAINER(table), borderWidth);
 	}
 
 	return table;
@@ -528,12 +582,12 @@ dialog_table_new(gint rows, gint cols, gint borderWidth)
  * Return value: #GtkWidget * The new GtkTable widget
  */
 GtkWidget *
-dialog_table_in_vbox(gint rows, gint cols, gint borderWidth, GtkWidget *box, gboolean expand, gboolean fill,
-	guint padding)
+dialog_table_in_vbox(gint rows, gint cols, gint borderWidth, GtkWidget * box, gboolean expand, gboolean fill,
+					 guint padding)
 {
 	GtkWidget *table = dialog_table_new(rows, cols, borderWidth);
 
-	gtk_box_pack_start(GTK_BOX (box), table, expand, fill, padding);
+	gtk_box_pack_start(GTK_BOX(box), table, expand, fill, padding);
 
 	return table;
 }
@@ -550,11 +604,11 @@ dialog_table_in_vbox(gint rows, gint cols, gint borderWidth, GtkWidget *box, gbo
  * Return value: #GtkWidget * The new GtkTable widget
  */
 GtkWidget *
-dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget *box)
+dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget * box)
 {
 	GtkWidget *table = dialog_table_new(rows, cols, borderWidth);
 
-	gtk_box_pack_start(GTK_BOX (box), table, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(box), table, TRUE, TRUE, 0);
 
 	return table;
 }
@@ -574,24 +628,22 @@ dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget 
  * Return value: void
  */
 static void
-message_dialog_set_text(GtkWidget *dialog, const gchar *primaryText, const gchar *secondaryText)
+message_dialog_set_text(GtkWidget * dialog, const gchar * primaryText, const gchar * secondaryText)
 {
 	gchar *text;
 
-	if (!secondaryText)
-	{
+	if (!secondaryText) {
 		text = g_strconcat("<span weight=\"bold\" size=\"larger\">", primaryText, "</span>\n", NULL);
-	}
-	else
-	{
-		text = g_strconcat("<span weight=\"bold\" size=\"larger\">", primaryText, "</span>\n\n", secondaryText, "\n",
-			NULL);
+	} else {
+		text =
+			g_strconcat("<span weight=\"bold\" size=\"larger\">", primaryText, "</span>\n\n", secondaryText,
+						"\n", NULL);
 	}
 
-	gtk_message_dialog_set_markup(GTK_MESSAGE_DIALOG (dialog), text);
+	gtk_message_dialog_set_markup(GTK_MESSAGE_DIALOG(dialog), text);
 	g_free(text);
 
-	gtk_window_set_title(GTK_WINDOW (dialog), "");
+	gtk_window_set_title(GTK_WINDOW(dialog), "");
 }
 
 /**
@@ -607,16 +659,16 @@ message_dialog_set_text(GtkWidget *dialog, const gchar *primaryText, const gchar
  * Return value: void
  */
 void
-message_dialog_new(GtkWidget *parent, GtkMessageType type, GtkButtonsType button, const gchar *primaryText,
-	const gchar *secondaryText)
+message_dialog_new(GtkWidget * parent, GtkMessageType type, GtkButtonsType button, const gchar * primaryText,
+				   const gchar * secondaryText)
 {
 	GtkWidget *dialog;
 
-	dialog = gtk_message_dialog_new(GTK_WINDOW (parent), GTK_DIALOG_DESTROY_WITH_PARENT, type, button, NULL);
+	dialog = gtk_message_dialog_new(GTK_WINDOW(parent), GTK_DIALOG_DESTROY_WITH_PARENT, type, button, NULL);
 
 	message_dialog_set_text(dialog, primaryText, secondaryText);
 
-	gtk_dialog_run(GTK_DIALOG (dialog));
+	gtk_dialog_run(GTK_DIALOG(dialog));
 	gtk_widget_destroy(dialog);
 }
 
@@ -633,25 +685,26 @@ message_dialog_new(GtkWidget *parent, GtkMessageType type, GtkButtonsType button
  * Return value: #gint The response ID
  */
 gint
-message_dialog_new_multi(GtkWidget *parent, GtkMessageType type, const gchar *buttons[], const gchar *primaryText,
-	const gchar *secondaryText)
+message_dialog_new_multi(GtkWidget * parent, GtkMessageType type, const gchar * buttons[],
+						 const gchar * primaryText, const gchar * secondaryText)
 {
 	GtkWidget *dialog;
 	gint response;
 	int i = 0;
 
-	dialog = gtk_message_dialog_new((GtkWindow *) parent, GTK_DIALOG_DESTROY_WITH_PARENT, type, GTK_BUTTONS_NONE, NULL);
+	dialog =
+		gtk_message_dialog_new((GtkWindow *) parent, GTK_DIALOG_DESTROY_WITH_PARENT, type, GTK_BUTTONS_NONE,
+							   NULL);
 
 	message_dialog_set_text(dialog, primaryText, secondaryText);
 
-	for (i = 0; *buttons; i++)
-	{
-		gtk_dialog_add_button(GTK_DIALOG (dialog), *buttons++, i);
+	for (i = 0; *buttons; i++) {
+		gtk_dialog_add_button(GTK_DIALOG(dialog), *buttons++, i);
 	}
 	/* the Gnome HIG specficies that the default response should always be the far right button) */
-	gtk_dialog_set_default_response(GTK_DIALOG (dialog), i - 1);
+	gtk_dialog_set_default_response(GTK_DIALOG(dialog), i - 1);
 
-	response = gtk_dialog_run(GTK_DIALOG (dialog));
+	response = gtk_dialog_run(GTK_DIALOG(dialog));
 	gtk_widget_destroy(dialog);
 
 	return response;

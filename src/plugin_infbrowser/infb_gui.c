@@ -2,7 +2,7 @@
  * infb_gui.c - plugin for information browser
  *
  * Copyright (C) 2007 Oskar Świda
- * Copyright (C) 2010 Olivier Sessink
+ * Copyright (C) 2010-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,7 +44,6 @@
 static gboolean infb_motion_notify_event (GtkWidget  *text_view,  GdkEventMotion *event,gpointer user_data) {
   gint x, y;
   GSList *tags = NULL, *tagp = NULL;
-  GtkTextBuffer *buffer;
   GtkTextIter iter;
   gboolean hovering = FALSE;
   Tbfwin *bfwin = BFWIN(user_data);
@@ -59,7 +58,6 @@ static gboolean infb_motion_notify_event (GtkWidget  *text_view,  GdkEventMotion
 	
  	gtk_text_view_window_to_buffer_coords (GTK_TEXT_VIEW (text_view),GTK_TEXT_WINDOW_WIDGET,
                                          event->x, event->y, &x, &y);
- 	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(text_view));
  	gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW(text_view), &iter, x, y);
  	tags = gtk_text_iter_get_tags (&iter);
    if (gtk_widget_get_visible(win->tip_window))

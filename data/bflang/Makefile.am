@@ -14,6 +14,7 @@ bflang_bfinc_files = \
 	all-vbscript.bfinc \
 	css-rules.bfinc \
 	css-selectors.bfinc \
+	JQuery.bfinc \
 	wordpress.bfinc
 
 bflang_bflang2_files = \
@@ -22,19 +23,23 @@ bflang_bflang2_files = \
 	asp-vbscript.bflang2 \
 	bflang2.bflang2 \
 	c.bflang2 \
+	clojure.bflang2 \
 	cpp.bflang2 \
 	css.bflang2 \
 	d.bflang2 \
 	diff.bflang2 \
+	highlighter.bflang2 \
 	html.bflang2 \
 	java.bflang2 \
 	javascript.bflang2 \
 	jsp.bflang2 \
 	mediawiki.bflang2 \
 	nsis.bflang2 \
+	pascal.bflang2 \
 	perl.bflang2 \
 	php.bflang2 \
 	po.bflang2 \
+	processing.bflang2 \
 	python.bflang2 \
 	r.bflang2 \
 	ruby.bflang2 \

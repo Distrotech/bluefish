@@ -3,68 +3,71 @@
 # <pdenapo@dm.uba.ar> .
 # Copyright (C) 2002 Walter Echarri
 # <wecharri@yahoo.com>
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2009.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2009, 2011.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-02 14:01+0100\n"
-"PO-Revision-Date: 2009-10-19 16:03+0200\n"
+"POT-Creation-Date: 2011-02-06 07:49-0800\n"
+"PO-Revision-Date: 2011-01-24 14:03+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: ES <gnome-es@gnome.org>\n"
+"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/plugin_infbrowser/infb_gui.c:142
+#: src/plugin_infbrowser/infb_gui.c:140
 msgid "Loading..."
 msgstr "Cargando..."
 
-#: src/plugin_infbrowser/infb_gui.c:148 src/plugin_infbrowser/infb_gui.c:208
+#: src/plugin_infbrowser/infb_gui.c:146 src/plugin_infbrowser/infb_gui.c:206
 msgid "Cannot load file from network"
 msgstr "No se puede cargar el fichero de la red"
 
-#: src/plugin_infbrowser/infb_gui.c:162
+#: src/plugin_infbrowser/infb_gui.c:160
 msgid "Cannot find file"
 msgstr "No se puede encontrar el archivo"
 
-#: src/plugin_infbrowser/infb_gui.c:372
+#: src/plugin_infbrowser/infb_gui.c:370
 msgid "Fragment saved"
 msgstr "Fragmento guardado"
 
-#: src/plugin_infbrowser/infb_gui.c:376
+#: src/plugin_infbrowser/infb_gui.c:374
 msgid "Cannot open file"
 msgstr "No se puede abrir el archivo"
 
-#: src/plugin_infbrowser/infb_gui.c:458 src/plugin_infbrowser/infb_gui.c:496
+#: src/plugin_infbrowser/infb_gui.c:456 src/plugin_infbrowser/infb_gui.c:494
 msgid "Nothing found"
 msgstr "Nada encontrado"
 
-#: src/plugin_infbrowser/infb_gui.c:537
+#: src/plugin_infbrowser/infb_gui.c:535
 msgid "Documentation index"
 msgstr "Índice de la documentación"
 
-#: src/plugin_infbrowser/infb_gui.c:542
+#: src/plugin_infbrowser/infb_gui.c:540
 msgid "Document index"
 msgstr "Índice del documento"
 
-#: src/plugin_infbrowser/infb_gui.c:547
+#: src/plugin_infbrowser/infb_gui.c:545
 msgid "Upper level"
 msgstr "Nivel superior"
 
-#: src/plugin_infbrowser/infb_gui.c:553
+#: src/plugin_infbrowser/infb_gui.c:551
 msgid "Save current view"
 msgstr "Guardar vista actual"
 
-#: src/plugin_infbrowser/infb_gui.c:554
+#: src/plugin_infbrowser/infb_gui.c:552
 msgid "Go to selected fragment"
 msgstr "Ir al fragmento seleccionado"
 
-#: src/plugin_infbrowser/infb_gui.c:576
+#: src/plugin_infbrowser/infb_gui.c:574
 msgid "Find"
 msgstr "Buscar"
 
-#: src/plugin_infbrowser/infb_gui.c:582
+#: src/plugin_infbrowser/infb_gui.c:580
 msgid "Info Browser"
 msgstr "Navegador de información"
 
@@ -73,19 +76,19 @@ msgstr "Navegador de información"
 msgid "Cannot load reference file %s\n"
 msgstr "No se puede cargar el archivo de referencia %s\n"
 
-#: src/plugin_infbrowser/infb_load.c:165
+#: src/plugin_infbrowser/infb_load.c:164
 msgid "Documentation entries"
 msgstr "Entradas de documentación"
 
-#: src/plugin_infbrowser/infb_load.c:169
+#: src/plugin_infbrowser/infb_load.c:168
 msgid "References"
 msgstr "Referencias"
 
-#: src/plugin_infbrowser/infb_load.c:171
+#: src/plugin_infbrowser/infb_load.c:170
 msgid "DTD"
 msgstr "DTD"
 
-#: src/plugin_infbrowser/infb_load.c:173
+#: src/plugin_infbrowser/infb_load.c:172
 msgid "Web pages"
 msgstr "Páginas web"
 
@@ -124,4 +127,4 @@ msgstr "Nuevo elemento de información"
 
 #: src/plugin_infbrowser/infb_wizard.c:418
 msgid "Entries you can delete"
-msgstr "Entradas que puede borrar"
+msgstr "Entradas que puede eliminar"

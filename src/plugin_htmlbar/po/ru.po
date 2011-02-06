@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru.po\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-02 14:01+0100\n"
+"POT-Creation-Date: 2011-02-06 07:48-0800\n"
 "PO-Revision-Date: 2004-12-02 10:42+0300\n"
 "Last-Translator: Eugene Rupakov <taurus_1@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,29 +21,27 @@ msgstr ""
 #. * update.
 #.
 #: src/plugin_htmlbar/html2.c:500
-#, fuzzy
 msgid "_Update"
-msgstr " О_бновить  "
+msgstr "О_бновить"
 
 #: src/plugin_htmlbar/html2.c:505
-#, fuzzy, c-format
+#, c-format
 msgid "The %s %s property already exists.\n"
-msgstr "Указанный путь уже существует."
+msgstr "Свойство %s %s уже существует.\n"
 
 #: src/plugin_htmlbar/html2.c:507
-#, fuzzy, c-format
+#, c-format
 msgid "The %s property already exists.\n"
-msgstr "Указанный путь уже существует."
+msgstr "Свойство %s уже существует.\n"
 
 #: src/plugin_htmlbar/html2.c:510
 #, c-format
 msgid "Update its value from %s to %s?"
-msgstr ""
+msgstr "Изменить значение с %s на %s?"
 
 #: src/plugin_htmlbar/html2.c:641
-#, fuzzy
 msgid "Cascading Style Sheet Builder"
-msgstr "диалог Cascading Style Sheet"
+msgstr "Конструктор Cascading Style Sheet"
 
 #: src/plugin_htmlbar/html2.c:661
 msgid "_Selector:"
@@ -98,7 +97,6 @@ msgid "Edit tag"
 msgstr "Редактировать метку"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:203
-#, fuzzy
 msgid "/T_ags"
 msgstr "/_Тэги"
 
@@ -231,7 +229,6 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O с крышкой Ô"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:242
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/Лигатура OE Œ"
 
@@ -356,7 +353,6 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o штрих вправо ó"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:275
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/Лигатура oe œ"
 
@@ -433,9 +429,8 @@ msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Тэги/Особые/Денежные единицы/Иена _Y ¥"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:296
-#, fuzzy
 msgid "/Tags/Special/Currency/_Euro €"
-msgstr "/Тэги/Особые/Денежные единицы/Евро _E"
+msgstr "/Тэги/Особые/Денежные единицы/_Евро € _E"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:297
 msgid "/Tags/Special/_Math-Science"
@@ -574,7 +569,6 @@ msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Тэги/Особые/Прочие/Черта с разрывом ¦"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:334
-#, fuzzy
 msgid "/Tags/Special/Other/Soft _hyphen -"
 msgstr "/Тэги/Особые/Прочие/Мягкий перенос -"
 
@@ -659,14 +653,12 @@ msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/Теги/Контекстное форматирование/Акроним _r"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:357
-#, fuzzy
 msgid "/Tags/Format by context/_Insert"
-msgstr "/Теги/Контекстное форматирование/Определение _D"
+msgstr "/Теги/Контекстное форматирование/_Вставить"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:358
-#, fuzzy
 msgid "/Tags/Format by context/De_lete"
-msgstr "/Теги/Контекстное форматирование/Определение _D"
+msgstr "/Теги/Контекстное форматирование/У_далить"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:359
 msgid "/Tags/Format _general"
@@ -829,7 +821,6 @@ msgid "/Tags/_Comment"
 msgstr "/Теги/Комментарий _C"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:407
-#, fuzzy
 msgid "/D_ialogs"
 msgstr "/Диало_ги"
 
@@ -842,9 +833,8 @@ msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Диалоги/Общие/Заготовка документа... _Q"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:412
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Диалоги/Общие/Мета тэг... _M"
+msgstr "/Диалоги/Общие/Заголовок _H"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:413
 msgid "/Dialogs/General/_Body..."
@@ -1007,9 +997,8 @@ msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/Диалоги/Редактировать тэг под курсором..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:460
-#, fuzzy
 msgid "/View/_HTML Toolbar"
-msgstr "/Вид/Показывать _основную панель инструментов"
+msgstr "/Вид/Панель _HTML"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:747
 msgid "QuickStart..."
@@ -1045,9 +1034,8 @@ msgstr "Неразрывный пробел"
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:756
-#, fuzzy
 msgid "Anchor / Hyperlink..."
-msgstr "Ссылка..."
+msgstr "Связь / Ссылка..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:757
 msgid "Rule..."
@@ -1066,9 +1054,8 @@ msgid "Comment"
 msgstr "Комментарий"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:761
-#, fuzzy
 msgid "E-mail..."
-msgstr "E-Mail..."
+msgstr "Email..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:762
 msgid "Font..."
@@ -1452,13 +1439,13 @@ msgid "  _Unix Time (%i)"
 msgstr "  Время _UNIX (%i)"
 
 #: src/plugin_htmlbar/html.c:440
-#, fuzzy, c-format
+#, c-format
 msgid "  Unix Date _String (%s)"
-msgstr "  Дата в _формате UNIX (%s"
+msgstr "  Дата в _формате UNIX (%s)"
 
 #: src/plugin_htmlbar/html.c:448
 msgid "  ISO-8601 Ti_me "
-msgstr ""
+msgstr "  Время в формате _ISO-8601"
 
 #: src/plugin_htmlbar/html.c:608
 msgid "Quick Anchor"
@@ -1485,9 +1472,8 @@ msgid "_Name:"
 msgstr "_Имя:"
 
 #: src/plugin_htmlbar/html.c:642 src/plugin_htmlbar/quickstart.c:555
-#, fuzzy
 msgid "Titl_e:"
-msgstr "Название _T"
+msgstr "Название _T:"
 
 #: src/plugin_htmlbar/html.c:648 src/plugin_htmlbar/html.c:1095
 #: src/plugin_htmlbar/html.c:1245 src/plugin_htmlbar/html.c:1835
@@ -1696,30 +1682,28 @@ msgid "Custom"
 msgstr "Прочее"
 
 #: src/plugin_htmlbar/html.c:1445
-#, fuzzy
 msgid "E-mail"
 msgstr "Email"
 
 #: src/plugin_htmlbar/html.c:1453
 msgid "_Mail to:"
-msgstr ""
+msgstr "_Переслать:"
 
 #: src/plugin_htmlbar/html.c:1457
-#, fuzzy
 msgid "_Copy to:"
-msgstr "Копировать"
+msgstr "_Копировать в:"
 
 #: src/plugin_htmlbar/html.c:1461
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "_Скрытая копия:"
 
 #: src/plugin_htmlbar/html.c:1465
 msgid "with _Subject:"
-msgstr ""
+msgstr "_Тема:"
 
 #: src/plugin_htmlbar/html.c:1469
 msgid "with _Body:"
-msgstr ""
+msgstr "Те_ло:"
 
 #: src/plugin_htmlbar/html.c:1513
 msgid "Quick List"
@@ -1800,14 +1784,12 @@ msgid "Link"
 msgstr "Ссылка"
 
 #: src/plugin_htmlbar/html.c:1926
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF:"
+msgstr "HREF_LANG:"
 
 #: src/plugin_htmlbar/html.c:1930
-#, fuzzy
 msgid "T_itle:"
-msgstr "Название _T"
+msgstr "Название _T:"
 
 #: src/plugin_htmlbar/html.c:1970
 msgid "_Forward Relation:"
@@ -1957,14 +1939,13 @@ msgstr "Не _переносить слова:"
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:302
-#, fuzzy
 msgid "Loading image failed..."
-msgstr "Загрузка файлов..."
+msgstr "Ошибка при загрузке изображения..."
 
 #: src/plugin_htmlbar/image.c:384
-#, fuzzy, c-format
+#, c-format
 msgid "Loading file %s..."
-msgstr "Загрузка файлов..."
+msgstr "Загрузка файла %s..."
 
 #: src/plugin_htmlbar/image.c:442
 msgid "Insert thumbnail"
@@ -2051,33 +2032,28 @@ msgstr ""
 "%b: размер исходного файла (в байтах)"
 
 #: src/plugin_htmlbar/image_dialog.c:345
-#, fuzzy
 msgid "_Reset Dimensions"
-msgstr "Размеры"
+msgstr "_Сбросить Размеры"
 
 #: src/plugin_htmlbar/image_dialog.c:358
-#, fuzzy
 msgid "Alternate te_xt:"
 msgstr "Альтернативный _текст:"
 
 #: src/plugin_htmlbar/image_dialog.c:363
-#, fuzzy
 msgid "_Long description:"
-msgstr "_Описание"
+msgstr "Полное _Описание"
 
 #: src/plugin_htmlbar/image_dialog.c:372
-#, fuzzy
 msgid "I_D:"
-msgstr "_ID:"
+msgstr "I_D:"
 
 #: src/plugin_htmlbar/image_dialog.c:394
 msgid "_Use Transitional options"
-msgstr ""
+msgstr "Использовать параметры _Tramsitional DTD"
 
 #: src/plugin_htmlbar/image_dialog.c:410
-#, fuzzy
 msgid "_Border:"
-msgstr "_Рамка"
+msgstr "_Рамка:"
 
 #: src/plugin_htmlbar/image_dialog.c:713
 #, c-format
@@ -2085,6 +2061,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"\n"
+"%s"
 
 #: src/plugin_htmlbar/image_dialog.c:718
 #, c-format
@@ -2092,6 +2070,8 @@ msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
+"\n"
+"%d x %d точек растра"
 
 #: src/plugin_htmlbar/image_dialog.c:816
 msgid ""
@@ -2100,40 +2080,37 @@ msgid ""
 "\t<b>Loading preview...</b>\t\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"\t<b>Загрузка предпросмотра...</b>\t\n"
+"\n"
 
-#: src/plugin_htmlbar/image_dialog.c:917
-#, fuzzy
+#: src/plugin_htmlbar/image_dialog.c:918
 msgid "Select Image"
-msgstr "Выберите Файл"
+msgstr "Выберите изображение"
 
-#: src/plugin_htmlbar/image_dialog.c:924
-#, fuzzy
+#: src/plugin_htmlbar/image_dialog.c:925
 msgid "All images"
-msgstr "Изображения"
+msgstr "Все изображения"
 
-#: src/plugin_htmlbar/image_dialog.c:1135
-#: src/plugin_htmlbar/image_dialog.c:1236
-#, fuzzy
+#: src/plugin_htmlbar/image_dialog.c:1136
+#: src/plugin_htmlbar/image_dialog.c:1237
 msgid "Insert Image"
 msgstr "Вставить изображение"
 
 #: src/plugin_htmlbar/quickstart.c:516
-#, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "<b>Общие</b>"
+msgstr "<b>Внешний CSS</b>"
 
 #: src/plugin_htmlbar/quickstart.c:527
-#, fuzzy
 msgid "Ty_pe:"
 msgstr "_Тип:"
 
 #: src/plugin_htmlbar/quickstart.c:545
-#, fuzzy
 msgid "HRE_F:"
-msgstr "_HREF:"
+msgstr "HRE_F:"
 
 #: src/plugin_htmlbar/quickstart.c:550
-#, fuzzy
 msgid "_Media:"
 msgstr "Носитель:"
 
@@ -2141,58 +2118,49 @@ msgstr "Носитель:"
 #. * Possibly from a code snippet library
 #.
 #: src/plugin_htmlbar/quickstart.c:562
-#, fuzzy
 msgid "<b>Style Area</b>"
-msgstr "<b>Общие</b>"
+msgstr "<b>Область стиля</b>"
 
 #: src/plugin_htmlbar/quickstart.c:566
-#, fuzzy
 msgid "Cre_ate empty style area"
-msgstr "Создать пустой проект"
+msgstr "Создать пустую область стиля"
 
 #: src/plugin_htmlbar/quickstart.c:588
-#, fuzzy
 msgid "<b>Attributes</b>"
-msgstr "Атрибуты"
+msgstr "<b>Атрибуты</b>"
 
 #: src/plugin_htmlbar/quickstart.c:603
-#, fuzzy
 msgid "_Src:"
 msgstr "_Источник:"
 
 #. TODO: add an option to place content in the script area
 #: src/plugin_htmlbar/quickstart.c:610
-#, fuzzy
 msgid "<b>Script Area</b>"
-msgstr "<b>Общие</b>"
+msgstr "<b>Область сценария</b>"
 
 #: src/plugin_htmlbar/quickstart.c:614
-#, fuzzy
 msgid "Cre_ate empty script area"
-msgstr "Создать пустой проект"
+msgstr "Создать пустую область сценария"
 
 #: src/plugin_htmlbar/quickstart.c:641
 msgid "Quick Start"
 msgstr "Заготовка страницы"
 
 #: src/plugin_htmlbar/quickstart.c:656
-#, fuzzy
 msgid "_DTD:"
 msgstr "Использовать _DTD:"
 
 #: src/plugin_htmlbar/quickstart.c:660 src/plugin_htmlbar/wizards.c:185
 msgid "_Title:"
-msgstr "Название _T"
+msgstr "Название _T:"
 
 #: src/plugin_htmlbar/quickstart.c:683
-#, fuzzy
 msgid "_Head:"
-msgstr "_Href:"
+msgstr "_Заголовок:"
 
 #: src/plugin_htmlbar/quickstart.c:700
-#, fuzzy
 msgid "Open in _new document."
-msgstr "В _документе"
+msgstr "Открыть в _новом документе."
 
 #: src/plugin_htmlbar/wizards.c:67
 msgid "Table Wizard"

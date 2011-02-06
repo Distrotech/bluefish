@@ -59,8 +59,8 @@ create a new gtktreestore when they convert a window (Tbfwin)
 into a project window.
 */
 
-#define BMARK_SHOW_NUM_TEXT_CHARS 20
-#define BMARK_STORE_TEXT_NUM_CHARS 15
+#define BMARK_SHOW_NUM_TEXT_CHARS 40
+#define BMARK_STORE_TEXT_NUM_CHARS 25
 enum {
 	NAME_COLUMN,				/* bookmark name */
 	PTR_COLUMN,					/* bookmark pointer */
@@ -842,10 +842,23 @@ static void bmark_first_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	
 	if (!CURDOC(bfwin) || !CURDOC(bfwin)->bmark_parent)
 		return;
-	
+	DEBUG_MSG("bmark_first_lcb, started\n");
 	if (gtk_tree_model_iter_children(model,&iter,CURDOC(bfwin)->bmark_parent))
 		bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
 }
+static void bmark_last_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	GtkTreeModel *model = GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore);
+	GtkTreeIter iter;
+	gint num;
+
+	if (!CURDOC(bfwin) || !CURDOC(bfwin)->bmark_parent)
+		return;
+	DEBUG_MSG("bmark_last_lcb, started\n");
+	num = gtk_tree_model_iter_n_children(model,CURDOC(bfwin)->bmark_parent);
+	if (gtk_tree_model_iter_nth_child(model,&iter,CURDOC(bfwin)->bmark_parent,num-1))
+		bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
+}
+
 static void bmark_previous_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	GtkTextMark *insert;
 	GtkTextIter titer;
@@ -854,14 +867,19 @@ static void bmark_previous_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	
 	if (!CURDOC(bfwin) || !CURDOC(bfwin)->bmark_parent)
 		return;
-	
+	DEBUG_MSG("bmark_previous_lcb, started\n");
 	insert = gtk_text_buffer_get_insert(CURDOC(bfwin)->buffer);
 	gtk_text_buffer_get_iter_at_mark(CURDOC(bfwin)->buffer, &titer, insert);
-	gtk_text_iter_set_line_offset(&titer, 0);
+	/*gtk_text_iter_set_line_offset(&titer, 0);*/
+	gtk_text_iter_backward_line(&titer);
 	line = bmark_margin_get_initial_bookmark(CURDOC(bfwin), &titer, (gpointer)&bmark);
-	if (-1 == line || line > gtk_text_iter_get_line(&titer))
+	DEBUG_MSG("bmark_previous_lcb, got initial bookmark at line %d, cursor is at line %d\n",line,gtk_text_iter_get_line(&titer));
+	if (-1 == line)
 		return;
-
+	if (line > gtk_text_iter_get_line(&titer)) {
+		bmark_last_lcb(widget, bfwin);
+		return;
+	}
 	bmark_activate(bfwin, bmark, TRUE);
 }
 
@@ -873,7 +891,7 @@ static void bmark_next_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	
 	if (!CURDOC(bfwin) || !CURDOC(bfwin)->bmark_parent)
 		return;
-	
+	DEBUG_MSG("bmark_next_lcb, started\n");
 	insert = gtk_text_buffer_get_insert(CURDOC(bfwin)->buffer);
 	gtk_text_buffer_get_iter_at_mark(CURDOC(bfwin)->buffer, &titer, insert);
 	gtk_text_iter_forward_to_line_end(&titer);
@@ -882,22 +900,12 @@ static void bmark_next_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 		return;
 	if (line <= gtk_text_iter_get_line(&titer)) {
 		/* get the 'next' bookmark */
-		if (-1 == bmark_margin_get_next_bookmark(CURDOC(bfwin), (gpointer)&bmark))
+		if (-1 == bmark_margin_get_next_bookmark(CURDOC(bfwin), (gpointer)&bmark)) {
+			bmark_first_lcb(widget, bfwin);
 			return;
+		}
 	}
 	bmark_activate(bfwin, bmark, TRUE);
-}
-static void bmark_last_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	GtkTreeModel *model = GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore);
-	GtkTreeIter iter;
-	gint num;
-
-	if (!CURDOC(bfwin) || !CURDOC(bfwin)->bmark_parent)
-		return;
-
-	num = gtk_tree_model_iter_n_children(model,CURDOC(bfwin)->bmark_parent);
-	if (gtk_tree_model_iter_nth_child(model,&iter,CURDOC(bfwin)->bmark_parent,num-1))
-		bmark_activate(bfwin, get_bmark_at_iter(model, &iter), TRUE);
 }
 void bookmark_menu_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	switch (action) {
@@ -1484,6 +1492,8 @@ static Tbmark *bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint off
 		bmark_store(BFWIN(doc->bfwin), m);
 	}
 	gtk_widget_queue_draw(doc->view);
+	if (doc->slave)
+		gtk_widget_queue_draw(doc->slave);
 	return m;
 }
 

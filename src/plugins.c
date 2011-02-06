@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include "config.h"
 
@@ -175,12 +175,28 @@ void bluefish_load_plugins(void) {
 
 #if defined(NSIS) || defined(OSXAPP)
 #ifdef RELPLUGINPATH
-	g_print("using RELPLUGINPATH\n");
-	bluefish_scan_dir_load_plugins(&oldlist,g_build_path(G_DIR_SEPARATOR_S,RELPLUGINPATH,"lib",PACKAGE,NULL));
+	DEBUG_MSG("using RELPLUGINPATH\n");
+	gchar *path = g_build_path(G_DIR_SEPARATOR_S,RELPLUGINPATH,"lib",PACKAGE,NULL);
+	bluefish_scan_dir_load_plugins(&oldlist, path);
+	g_free(path);
 #else /* RELPLUGINPATH */
-	bluefish_scan_dir_load_plugins(&oldlist,g_build_path(G_DIR_SEPARATOR_S,".","lib",PACKAGE,NULL));
+	gchar *path = g_build_path(G_DIR_SEPARATOR_S,".","lib",PACKAGE,NULL);
+	bluefish_scan_dir_load_plugins(&oldlist, path);
+	g_free(path);
 #endif /* RELPLUGINPATH */
-#else /* NSIS || OSXAPP */
+#elif defined WIN32 
+	if (GTK_CHECK_VERSION(2, 16, 0))
+	{
+		gchar *path, *topdir;
+
+		topdir = g_win32_get_package_installation_directory_of_module(NULL);
+		path = g_build_path(G_DIR_SEPARATOR_S, topdir, "lib", PACKAGE, NULL);
+		bluefish_scan_dir_load_plugins(&oldlist, path);
+		
+		g_free(topdir);
+		g_free(path);
+	}
+#else /* WIN32 */
 	bluefish_scan_dir_load_plugins(&oldlist,PKGLIBDIR);
 #endif /* NSIS || OSXAPP */
 /* #ifdef DEVELOPMENT */

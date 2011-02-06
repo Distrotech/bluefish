@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru.po\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-02 14:01+0100\n"
+"POT-Creation-Date: 2011-02-06 07:48-0800\n"
 "PO-Revision-Date: 2004-12-02 10:42+0300\n"
 "Last-Translator: Eugene Rupakov <taurus_1@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,12 +22,16 @@ msgid ""
 "\n"
 "Developers of previous releases:"
 msgstr ""
+"\n"
+"РАзработчики предыдущих выпусков:"
 
 #: src/plugin_about/about.c:125
 msgid ""
 "\n"
 "Package maintainers:"
 msgstr ""
+"\n"
+"Сопровождающие пакетов:"
 
 #: src/plugin_about/about.c:132
 msgid ""
@@ -34,12 +39,17 @@ msgid ""
 "If you know of anyone missing from this list,\n"
 "please let us know via <bluefish@bluefish.openoffice.nl>."
 msgstr ""
+"\n"
+"Если вы знаете, кого ещё следует добавить в этот список,\n"
+"пожалуйста, сообщите нам по адресу <bluefish@bluefish.openoffice.nl>."
 
 #: src/plugin_about/about.c:133
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
 msgstr ""
+"\n"
+"Спасибо всем, кто помог довести эту программу до ума."
 
 #: src/plugin_about/about.c:169
 msgid ""
@@ -47,6 +57,10 @@ msgid ""
 "supporting many programming and markup languages, but focusing on creating "
 "dynamic and interactive websites."
 msgstr ""
+"Свободный редактор для опытных веб-дизайнеров и программистов, "
+"поддерживающий множество языков программирования и разметки, но "
+"предназначенный в первую очередь для разработки динамических и интеракитвных "
+"веб-сайтов."
 
 #. Translators: This is a special message that shouldn't be translated
 #. * literally. It is used in the about box to give credits to
@@ -58,11 +72,13 @@ msgstr ""
 #.
 #: src/plugin_about/about.c:179
 msgid "translator-credits"
-msgstr "Eugene Rupakov <rupakov@jet.msk.su>"
+msgstr ""
+"Eugene Rupakov <rupakov@jet.msk.su>\n"
+"Fr. Br. George <george@altlinux.org>"
 
 #: src/plugin_about/about.c:219
 msgid "This version of Bluefish was built with:\n"
-msgstr ""
+msgstr "Эта версия Bluefish собрана при помощи:\n"
 
 #: src/plugin_about/about.c:242
 msgid "/_Help"
@@ -70,20 +86,19 @@ msgstr "/По_мощь"
 
 #: src/plugin_about/about.c:243
 msgid "/Help/Bluefish _Homepage"
-msgstr ""
+msgstr "/Помощь/Домашняя _страница Bluefish"
 
 #: src/plugin_about/about.c:244
 msgid "/Help/Report a _Bug"
-msgstr ""
+msgstr "/Помощь/Сообщить об _ошибке"
 
 #: src/plugin_about/about.c:246
 msgid "/Help/_About..."
 msgstr "/Помощь/О _программе..."
 
 #: src/plugin_about/about.c:247
-#, fuzzy
 msgid "/Help/_Build Info..."
-msgstr "/Помощь/О _программе..."
+msgstr "/Помощь/Информация о сборке..."
 
 #~ msgid ""
 #~ "Bluefish is an editor for experienced web designers and programmers. It "

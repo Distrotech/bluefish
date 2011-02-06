@@ -55,7 +55,7 @@
 			<element pattern="white"/>
 			<element pattern="yellow"/>
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.rbrace" />
 	</context>
 </element>
@@ -76,7 +76,7 @@
 			<element pattern="bottom center" />
 			<element pattern="bottom right" />
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -89,7 +89,7 @@
 			<element pattern="repeat-y" />
 			<element pattern="no-repeat" />
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -103,7 +103,7 @@
 		<element pattern="[0-9]+em" is_regex="1" highlight="css-value" autocomplete_string=" em;"/>
 		<element pattern="[0-9]+ex" is_regex="1" highlight="css-value" autocomplete_string=" ex;"/>
 		<element pattern="[0-9]+px" is_regex="1" highlight="css-value" autocomplete_string=" px;"/>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -124,7 +124,7 @@
 			<element pattern="inset"/>
 			<element pattern="outset"/>
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>	
 </element>
@@ -186,7 +186,7 @@
 		<element pattern="[0-9]+ex" is_regex="1" highlight="css-value" autocomplete_string=" ex;"/>
 		<element pattern="[0-9]+px" is_regex="1" highlight="css-value" autocomplete_string=" px;"/>
 		<element pattern="[0-9]+%" is_regex="1" highlight="css-value" autocomplete_string=" %;"/>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -199,7 +199,7 @@
 			<element pattern="none"/>
 			<element pattern="inherit"/>
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -222,7 +222,7 @@
 				<element pattern="&quot;" highlight="css-string" ends_context="1" />
 			</context>
 		</element>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -251,7 +251,7 @@
 			<element pattern="none"/>
 			<element pattern="inherit"/>
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -261,7 +261,7 @@
 		<element pattern="show"/>
 		<element pattern="hide"/>
 	</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>					
 </element>
@@ -273,7 +273,7 @@
 			<element pattern="none"/>
 			<element pattern="inherit"/>
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -296,7 +296,7 @@
 			<element pattern="smaller"/>
 		</group>
 		<element pattern="[0-9]+[ &#9;]*(pt|em|px|%)" is_regex="1" highlight="css-value" />
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -319,7 +319,7 @@
 			<element pattern="extra-expanded"/>
 			<element pattern="ultra-expanded"/>
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -330,7 +330,7 @@
 			<element pattern="italic"/>
 			<element pattern="oblique"/>
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -338,7 +338,7 @@
 	<context symbols=" &#9;&#10;&#13;{}.;">
 		<element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="small-caps" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>	
@@ -349,7 +349,7 @@
 		<element pattern="bolder" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="lighter" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="(100|200|300|400|500|600|700|800|900)" highlight="css-value" />
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>	
@@ -365,7 +365,7 @@
 <context symbols=" &#9;&#10;&#13;{}.;">
 		<element pattern="inside" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="outside" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -387,7 +387,7 @@
 		<element pattern="upper-alpha" />
 		<element pattern="none" />
 	</group>
-	<element idref="e.css.end" />
+	<element idref="e.css.end" /><element idref="e.css.lcomment" />
 	<element idref="e.css.lbrace" />
 </context>
 </element>
@@ -400,7 +400,7 @@
 		<element pattern="[0-9]+ex" is_regex="1" highlight="css-value" autocomplete_string=" ex;"/>
 		<element pattern="[0-9]+px" is_regex="1" highlight="css-value" autocomplete_string=" px;"/>
 		<element pattern="[0-9]+%" is_regex="1" highlight="css-value" autocomplete_string=" %;"/>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -437,7 +437,7 @@
 		<element pattern="hidden" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="scroll" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="auto" highlight="css-value" autocomplete_append=";"/>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -473,7 +473,7 @@ relative </reference>
 			<reference><b>fixed</b>: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. In the case of continuous media, the box is fixed with respect to the viewport (and doesn't move when scrolled). In the case of paged media, the box is fixed with respect to the page, even if that page is seen through a viewport (in the case of a print-preview, for example). Authors may wish to specify 'fixed' in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page.</reference>
 		</element>
 		<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -486,7 +486,7 @@ relative </reference>
 		<element pattern="fixed"/>
 		<element pattern="auto"/>
 	</group>
-	<element idref="e.css.end" />
+	<element idref="e.css.end" /><element idref="e.css.lcomment" />
 	<element idref="e.css.lbrace" />
 </context>
 </element>
@@ -499,7 +499,7 @@ relative </reference>
 			<element pattern="center"/>
 			<element pattern="justify"/>
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -515,7 +515,7 @@ relative </reference>
 				<reference>Text blinks (alternates between visible and invisible). Conforming user agents are not required to support this value.</reference>
 			</element>
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -535,7 +535,7 @@ relative </reference>
 			<element pattern="lowercase"/>
 			<element pattern="inherit"/>
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>	
 </element>
@@ -558,7 +558,7 @@ relative </reference>
 			<element pattern="bottom"/>
 		</group>
 		<!-- percentage and length are missing now!!! -->
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -570,7 +570,7 @@ relative </reference>
 			<element pattern="collapse"/>
 			<element pattern="inherit"/>
 		</group>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>
 </element>
@@ -582,7 +582,7 @@ relative </reference>
 		<element pattern="nowrap" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="pre-wrap" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="pre-line" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-		<element idref="e.css.end" />
+		<element idref="e.css.end" /><element idref="e.css.lcomment" />
 		<element idref="e.css.lbrace" />
 	</context>		
 </element>

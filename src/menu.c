@@ -39,6 +39,7 @@
 #include "dialog_utils.h"
 #include "document.h"
 #include "doc_comments.h"
+#include "doc_text_tools.h"
 #include "encodings_dialog.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"            /* window_full, bf_stock_ok_button */
@@ -175,6 +176,9 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 36:
 		convert_to_columns(CURDOC(bfwin));
 	break;
+	case 37:
+		rewrap_lines(CURDOC(bfwin));
+	break;
 #ifdef HAVE_PYTHON
 	case 99:
 		{
@@ -289,6 +293,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/_Visible Spacing"), NULL, doc_menu_lcb, 6, "<ToggleItem>"},
 	{N_("/Document/Show Right Margin"), NULL, doc_menu_lcb, 14, "<ToggleItem>"},
 	{N_("/Document/Highlight block delimiters"), NULL, doc_menu_lcb, 15, "<ToggleItem>"},
+	{N_("/Document/Split view"), NULL, doc_menu_lcb, 17, "<ToggleItem>"},
 #ifdef HAVE_LIBENCHANT
 	{N_("/Document/_Spell Check"), NULL, doc_menu_lcb, 13, "<ToggleItem>"},
 #endif
@@ -333,12 +338,12 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Go/L_ast Document"), NULL, gui_notebook_switch, 4, "<StockItem>", GTK_STOCK_GOTO_LAST},
 	{"/Go/sep2", NULL, NULL, 0, "<Separator>"},
 	{N_("/Go/F_irst Bookmark"), NULL, bookmark_menu_cb, 1, "<StockItem>", GTK_STOCK_GOTO_TOP},
-	{N_("/Go/P_revious Bookmark"), NULL, bookmark_menu_cb, 2, "<StockItem>", GTK_STOCK_GO_UP},
-	{N_("/Go/N_ext Bookmark"), NULL, bookmark_menu_cb, 3, "<StockItem>", GTK_STOCK_GO_DOWN},
+	{N_("/Go/P_revious Bookmark"), "<shift><control>j", bookmark_menu_cb, 2, "<StockItem>", GTK_STOCK_GO_UP},
+	{N_("/Go/N_ext Bookmark"), "<shift><control>k", bookmark_menu_cb, 3, "<StockItem>", GTK_STOCK_GO_DOWN},
 	{N_("/Go/Last _Bookmark"), NULL, bookmark_menu_cb, 4, "<StockItem>", GTK_STOCK_GOTO_BOTTOM},
 	{"/Go/sep3", NULL, NULL, 0, "<Separator>"},
 	{N_("/Go/Goto _Line"), "<control>l", gui_gotoline_frame_show, 1, "<StockItem>", GTK_STOCK_JUMP_TO},
-	{N_("/Go/Goto line number in _selection"), NULL, go_to_line_from_selection_cb, 1, "<Item>"},
+	{N_("/Go/Goto line number in _selection"), "<shift><control>l", go_to_line_from_selection_cb, 1, "<Item>"},
 	{N_("/Go/Jump to reference"), "<control>j", doc_menu_lcb, 16, "<Item>"},
 	{N_("/_Project"), NULL, NULL, 0, "<Branch>"},
 	{"/Project/tearoff1", NULL, NULL, 0, "<Tearoff>"},
@@ -367,8 +372,9 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Tools/_Word Count"), NULL, word_count_cb, 1, "<Item>"},
 	{"/Tools/sep2", NULL, NULL, 0, "<Separator>"},
 	{N_("/Tools/Strip T_railing Whitespace"), NULL, menu_file_operations_cb, 29, "<Item>"},
-	{N_("/Tools/_Join lines"), NULL, menu_file_operations_cb, 33, "<Item>"},
-	{N_("/Tools/Sp_lit lines"), NULL, menu_file_operations_cb, 34, "<Item>"},
+	{N_("/Tools/_Join lines together"), NULL, menu_file_operations_cb, 33, "<Item>"},
+	{N_("/Tools/Sp_lit lines on right margin"), NULL, menu_file_operations_cb, 34, "<Item>"},
+	{N_("/Tools/Rewrap _lines"), NULL, menu_file_operations_cb, 37, "<Item>"},
 	{N_("/Tools/Indenting To T_abs"), NULL, menu_file_operations_cb, 30, "<Item>"},
 	{N_("/Tools/Indenting To S_paces"), NULL, menu_file_operations_cb, 31, "<Item>"},
 	{N_("/Tools/Merge Lines Into Col_umns"), NULL, menu_file_operations_cb, 36, "<Item>"},

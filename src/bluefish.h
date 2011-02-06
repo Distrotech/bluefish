@@ -198,6 +198,8 @@ typedef struct {
 	guint newdoc_autodetect_lang_id;	/* a timer function that runs for new documents to detect their mime type  */
 	unre_t unre;
 	GtkWidget *view;
+	GtkWidget *slave; /* used in split view for the bottom view */
+	GtkWidget *vsplit; /* used for split view */
 	GtkWidget *tab_label;
 	GtkWidget *tab_eventbox;
 	GtkWidget *tab_menu;
@@ -218,8 +220,8 @@ typedef struct {
 	gint do_periodic_check;
 	gchar *editor_font_string;	/* editor font */
 	gint editor_smart_cursor;
-	gint editor_indent_wspaces;	/* indent with spaces, not tabs */
 	gint editor_tab_indent_sel; /* tab key will indent a selected block */
+	gint use_system_tab_font;
 	gchar *tab_font_string;		/* notebook tabs font */
 	/*  gchar *tab_color_normal; *//* notebook tabs text color normal.  This is just NULL! */
 	gchar *tab_color_modified;	/* tab text color when doc is modified and unsaved */
@@ -332,6 +334,7 @@ typedef struct {
 	gint wrap_text_default;		/* by default wrap text */
 	gint autoindent;			/* autoindent code */
 	gint editor_tab_width;		/* editor tabwidth */
+	gint editor_indent_wspaces;	/* indent with spaces, not tabs */
 	gint view_line_numbers;		/* view line numbers on the left side by default */
 	gint view_cline;			/* highlight current line by default */
 	gint view_blocks;			/* show blocks on the left side by default */
@@ -358,7 +361,8 @@ typedef struct {
 	gint outputb_scroll_mode;	/* 0=none, 1=first line, 2= last line */
 	gint outputb_show_all_output;
 	gint convertcolumn_horizontally;
-	/* 29 * sizeof(gint) */
+	gint display_right_margin;
+	/* 30 * sizeof(gint) */
 	/* IF YOU EDIT THIS STRUCTURE PLEASE EDIT THE CODE IN PROJECT.C THAT COPIES
 	   A Tsessionvar INTO A NEW Tsessionvar AND ADJUST THE SIZES!!!!!!!!!!!!!!!!!!!!!! */
 #ifdef HAVE_LIBENCHANT

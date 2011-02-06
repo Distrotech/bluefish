@@ -3,16 +3,17 @@
 # Marco Cassisa <marco@linox.tecnoprogress.it>
 # Andrea Scialpi <solopec@tiscalinet.it> 2000
 # Stefano Canepa <sc@linux.it> 2003, 2004
-# Roberto Bellingeri <bellingeri@netguru.it> 2010
+# Roberto Bellingeri <bellingeri@netguru.it> 2010, 2011
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish\n"
+"Project-Id-Version: Bluefish 2.0.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2010-12-02 14:01+0100\n"
-"PO-Revision-Date: 2010-04-24 10:15+0100\n"
+"POT-Creation-Date: 2011-02-06 07:48-0800\n"
+"PO-Revision-Date: 2010-12-31 08:56+0100\n"
 "Last-Translator: Roberto Bellingeri <bellingeri@netguru.it>\n"
 "Language-Team: \n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -103,7 +104,7 @@ msgstr "/_Tag"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:205
 msgid "/Tags/_Headings"
-msgstr "/Tag/Intit_olazioni"
+msgstr "/Tag/_Intitolazioni"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:207
 msgid "/Tags/Headings/H_1"
@@ -131,294 +132,341 @@ msgstr "/Tag/Intitolazioni/H_6"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:213
 msgid "/Tags/_Special"
-msgstr "/Tag/_Speciale"
+msgstr "/Tag/_Speciali"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:215
 msgid "/Tags/Special/_Accent"
-msgstr "/Tag/Spaciale/_Accentate"
+msgstr "/Tag/Spaciali/_Lettere accentate"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:217
 msgid "/Tags/Special/Accent/_Uppercase"
-msgstr "/Tag/Speciali/Accentate/_Maiuscolo"
+msgstr "/Tag/Speciali/Lettere accentate/_Maiuscolo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:218
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/_A-I"
+msgstr "/Tag/Speciali/Lettere accentate/Maiuscole/_A-I"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:220
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/A maiuscola con accento grave À"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/A maiuscola con accento grave À"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:221
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/A maiuscola con accento acuto Á"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/A maiuscola con accento acuto Á"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:222
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr ""
-"/Tag/Speciali/Accentate/Maiuscole/A-I/A maiuscola con accento circonflesso Â"
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/A maiuscola con accento "
+"circonflesso Â"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:223
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/A maiuscola con tilde Ã"
+msgstr "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/A maiuscola con tilde Ã"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:224
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/AE maiuscola Æ"
+msgstr "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/AE maiuscola Æ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:225
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/A maiuscola con dieresi Ä"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/A maiuscola con dieresi Ä"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:226
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/A maiuscola con anello sopra Å"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/A maiuscola con anello sopra Å"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:227
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/C maiuscola  con cediglia Ç"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/C maiuscola  con cediglia Ç"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:228
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/E maiuscola con accento grave È"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/E maiuscola con accento grave È"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:229
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/E maiuscola con accento acuto É"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/E maiuscola con accento acuto É"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:230
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr ""
-"/Tag/Speciali/Accentate/Maiuscole/A-I/E maiuscola con accento circonflesso Ê"
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/E maiuscola con accento "
+"circonflesso Ê"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:231
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/E maiuscola con dieresi Ë"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/E maiuscola con dieresi Ë"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:232
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/I maiuscola con accento grave Ì"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/I maiuscola con accento grave Ì"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:233
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/I maiuscola con accento acuto Í"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/I maiuscola con accento acuto Í"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:234
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr ""
-"/Tag/Speciali/Accentate/Maiuscole/A-I/I maiuscola con accento circonflesso Î"
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/I maiuscola con accento "
+"circonflesso Î"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:235
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/A-I/I maiuscola con dieresi Ï"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/A-I/I maiuscola con dieresi Ï"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:236
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/_J-Z"
+msgstr "/Tag/Speciali/Lettere accentate/Maiuscole/_J-Z"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:238
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/N maiuscola con tilde Ñ"
+msgstr "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/N maiuscola con tilde Ñ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:239
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/O maiuscola con accento grave Ò"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/O maiuscola con accento grave Ò"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:240
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/O maiuscola con accento acuto Ó"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/O maiuscola con accento acuto Ó"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:241
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr ""
-"/Tag/Speciali/Accentate/Maiuscole/J-Z/O maiuscola con accento circonflesso Ô"
+"/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/O maiuscola con accento "
+"circonflesso Ô"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:242
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/OE maiuscola Œ"
+msgstr "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/OE maiuscola Œ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:243
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/O maiuscola con tilde Õ"
+msgstr "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/O maiuscola con tilde Õ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:244
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/O maiuscola con dieresi Ö"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/O maiuscola con dieresi Ö"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:245
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/O maiuscola sbarrata Ø"
+msgstr "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/O maiuscola sbarrata Ø"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:246
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/U maiuscola con accento grave Ù"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/U maiuscola con accento grave Ù"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:247
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/U maiuscola con accento acuto Ú"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/U maiuscola con accento acuto Ú"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:248
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr ""
-"/Tag/Speciali/Accentate/Maiuscole/J-Z/U maiuscola con accento circonflesso Û"
+"/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/U maiuscola con accento "
+"circonflesso Û"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:249
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/U maiuscola con dieresi Ü"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/U maiuscola con dieresi Ü"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:250
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/Y maiuscola con accento acuto Ý"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/Y maiuscola con accento acuto Ý"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:251
 msgid "/Tags/Special/Accent/_Lowercase"
-msgstr "/Tag/Speciali/Accentate/Minusc_ole"
+msgstr "/Tag/Speciali/Lettere accentate/Minusc_ole"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:252
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
-msgstr "/Tag/Speciali/Accentate/Minusc_ole/_a-i"
+msgstr "/Tag/Speciali/Lettere accentate/Minusc_ole/_a-i"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:254
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
-msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/a minuscola con accento grave à"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/a minuscola con accento grave à"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:255
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
-msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/a minuscola con accento acuto á"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/a minuscola con accento acuto á"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:256
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr ""
-"/Tag/Speciali/Accentate/Minuscole/a-i/a minuscola con accento circonflesso â"
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/a minuscola con accento "
+"circonflesso â"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:257
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
-msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/a minuscola con tilde ã"
+msgstr "/Tag/Speciali/Lettere accentate/Minuscole/a-i/a minuscola con tilde ã"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:258
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
-msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/a minuscola con anello sopra å"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/a minuscola con anello sopra å"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:259
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
-msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/ae minuscola æ"
+msgstr "/Tag/Speciali/Lettere accentate/Minuscole/a-i/ae minuscola æ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:260
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
-msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/a minuscola con dieresi ä"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/a minuscola con dieresi ä"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:261
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
-msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/c minuscola con cediglia ç"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/c minuscola con cediglia ç"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:262
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
-msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/e minuscola con accento grave è"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/e minuscola con accento grave è"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:263
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
-msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/e minuscola con accento acuto é"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/e minuscola con accento acuto é"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:264
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr ""
-"/Tag/Speciali/Accentate/Minuscole/a-i/e minuscola con accento circonflesso ê"
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/e minuscola con accento "
+"circonflesso ê"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:265
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
-msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/e minuscola con dieresi ë"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/e minuscola con dieresi ë"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:266
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
-msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/i minuscola con accento grave ì"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/i minuscola con accento grave ì"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:267
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
-msgstr "/Tag/Speciali/Accentate/Minuscole/a-i/i minuscola con accento acuto í"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/i minuscola con accento acuto í"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:268
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr ""
-"/Tag/Speciali/Accentate/Minuscole/a-i/i minuscola con accento circonflesso î"
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/i minuscola con accento "
+"circonflesso î"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:269
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr ""
-"/Tag/Speciali/Accentate/Minuscole/a-i/i minuscola con accento dieresi ï"
+"/Tag/Speciali/Lettere accentate/Minuscole/a-i/i minuscola con accento "
+"dieresi ï"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:270
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
-msgstr "/Tag/Speciali/Accentate/Minuscole/_j-z"
+msgstr "/Tag/Speciali/Lettere accentate/Minuscole/_j-z"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:272
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/n minuscola con tilde ñ"
+msgstr "/Tag/Speciali/Lettere accentate/Minuscole/j-z/n minuscola con tilde ñ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:273
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/o minuscola con accento grave ò"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/j-z/o minuscola con accento grave ò"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:274
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/o minuscola con accento acuto ó"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/j-z/o minuscola con accento acuto ó"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:275
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/oe minuscola œ"
+msgstr "/Tag/Speciali/Lettere accentate/Minuscole/j-z/oe minuscola œ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:276
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr ""
-"/Tag/Speciali/Accentate/Minuscole/j-z/o minuscola con accento circonflesso ô"
+"/Tag/Speciali/Lettere accentate/Minuscole/j-z/o minuscola con accento "
+"circonflesso ô"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:277
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/o minuscola con tilde õ"
+msgstr "/Tag/Speciali/Lettere accentate/Minuscole/j-z/o minuscola con tilde õ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:278
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/o minuscola con dieresi ö"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/j-z/o minuscola con dieresi ö"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:279
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/o minuscola con barra ø"
+msgstr "/Tag/Speciali/Lettere accentate/Minuscole/j-z/o minuscola con barra ø"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:280
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/u minuscola con accento grave ù"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/j-z/u minuscola con accento grave ù"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:281
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/u minuscola con accento acuto ú"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/j-z/u minuscola con accento acuto ú"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:282
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr ""
-"/Tag/Speciali/Accentate/Minuscole/j-z/u minuscola con accento circonflesso û"
+"/Tag/Speciali/Lettere accentate/Minuscole/j-z/u minuscola con accento "
+"circonflesso û"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:283
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/u minuscola con dieresi ü"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/j-z/u minuscola con dieresi ü"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:284
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/y minuscola con accento acuto ý"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/j-z/y minuscola con accento acuto ý"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:285
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/y minuscola con dieresi ÿ"
+msgstr ""
+"/Tag/Speciali/Lettere accentate/Minuscole/j-z/y minuscola con dieresi ÿ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:287
 msgid "/Tags/Special/Accent/U_mlaut ¨"
-msgstr "/Tag/Speciali/Accentate/u_mlaut = dieresi ¨"
+msgstr "/Tag/Speciali/Lettere accentate/u_mlaut = dieresi ¨"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:288
 msgid "/Tags/Special/Accent/_Acute ´"
-msgstr "/Tag/Speciali/Accentate/_accento acuto ´"
+msgstr "/Tag/Speciali/Lettere accentate/_accento acuto ´"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:289
 msgid "/Tags/Special/Accent/_Cedilla ¸"
-msgstr "/Tag/Speciali/Accentate/cediglia ¸"
+msgstr "/Tag/Speciali/Lettere accentate/cediglia ¸"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:290
 msgid "/Tags/Special/_Currency"
@@ -434,7 +482,7 @@ msgstr "/Tag/Speciali/Valuta/_Sterlina £"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:294
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
-msgstr "/Tag/Speciale/Valuta/Simbolo di valuta ¤"
+msgstr "/Tag/Speciali/Valuta/Simbolo di _valuta ¤"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:295
 msgid "/Tags/Special/Currency/_Yen sign ¥"
@@ -474,7 +522,7 @@ msgstr "/Tag/Speciali/Matematica-Scienze/Simbolo ma_ggiore di"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:305
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
-msgstr " /Tag/Speciali/Matematica-Scienze/Esponente _1 ¹"
+msgstr "/Tag/Speciali/Matematica-Scienze/Esponente _1 ¹"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:306
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
@@ -622,7 +670,7 @@ msgstr "/Tag/Formattazione in base al layout/_Grande"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:345
 msgid "/Tags/F_ormat by context"
-msgstr "/Tag/Formattazione cont_estuale"
+msgstr "/Tag/Formattazione _contestuale"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:347
 msgid "/Tags/Format by context/_Strong"
@@ -694,11 +742,11 @@ msgstr "/Tag/Formattazione generale/_Spazio non interrompibile"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:366
 msgid "/Tags/Format general/Font Si_ze +1"
-msgstr "/Tag/Formattazione generale/_Dimensione carattere +1"
+msgstr "/Tag/Formattazione generale/Di_mensione carattere +1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:367
 msgid "/Tags/Format general/Font _Size -1"
-msgstr "/Tag/Formattazione generale/Dimensione _carattere -1"
+msgstr "/Tag/Formattazione generale/Dime_nsione carattere -1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:369
 msgid "/Tags/Format general/Preformatted _Text"
@@ -802,7 +850,7 @@ msgstr "/Tag/_Altro"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:399
 msgid "/Tags/Misc/Insert Generator _META-Tag"
-msgstr "/Tag/Altro/_Inserisci generatore di META-Tag "
+msgstr "/Tag/Altro/Inserisci generatore di _META-Tag "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:400
 msgid "/Tags/Misc/_Span"
@@ -886,7 +934,7 @@ msgstr "/Dialoghi/Generale/Embe_d..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:422
 msgid "/Dialogs/General/Select _Color..."
-msgstr "/Dialoghi/Generale/Seleziona il _colore..."
+msgstr "/Dialoghi/Generale/_Seleziona il colore..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:423
 msgid "/Dialogs/General/Insert _Time..."
@@ -906,7 +954,7 @@ msgstr "/Dialoghi/_Tabella"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:428
 msgid "/Dialogs/Table/Table _Wizard..."
-msgstr "/Dialoghi/Tabella/Au_tocomposizione tabella..."
+msgstr "/Dialoghi/Tabella/_Autocomposizione tabella..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:429
 msgid "/Dialogs/Table/_Table..."
@@ -994,11 +1042,11 @@ msgstr "/Dialoghi/Form/_Selezione opzioni..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:453
 msgid "/Dialogs/Form/O_ption..."
-msgstr "/Dialoghi/Form/_Opzione..."
+msgstr "/Dialoghi/Form/Op_zione..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:454
 msgid "/Dialogs/Form/Option _Group..."
-msgstr "/Dialoghi/Form/Gruppo di op_zioni..."
+msgstr "/Dialoghi/Form/_Gruppo di opzioni..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:455
 msgid "/Dialogs/Form/_Button..."
@@ -1997,7 +2045,7 @@ msgstr "Bo_rdo:"
 
 #: src/plugin_htmlbar/image.c:926
 msgid "Select files for thumbnail creation"
-msgstr "Selezionare i files per la creazione della miniatura"
+msgstr "Selezionare i file per la creazione della miniatura"
 
 #: src/plugin_htmlbar/image.c:966
 msgid "Scaling (%)"
@@ -2097,16 +2145,16 @@ msgstr ""
 "\t<b>Caricameto anteprima...</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:917
+#: src/plugin_htmlbar/image_dialog.c:918
 msgid "Select Image"
 msgstr "Selezionare l'immagine"
 
-#: src/plugin_htmlbar/image_dialog.c:924
+#: src/plugin_htmlbar/image_dialog.c:925
 msgid "All images"
 msgstr "Tutte le immagini"
 
-#: src/plugin_htmlbar/image_dialog.c:1135
-#: src/plugin_htmlbar/image_dialog.c:1236
+#: src/plugin_htmlbar/image_dialog.c:1136
+#: src/plugin_htmlbar/image_dialog.c:1237
 msgid "Insert Image"
 msgstr "Inserire un'immagine"
 

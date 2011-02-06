@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 		Bluefish HTML Editor
-		all-html.bfinc $Revision: 4947 $
+		all-html.bfinc $Revision: 6322 $
  
-		Copyright (C) 2008-2009 Olivier Sessink
+		Copyright (C) 2008-2011 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@
 </tag>
 
 <tag id="t.html.script" name="script" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,event,language,for,src,type" attribhighlight="html-attribute" autocomplete_append=" type=&quot;text/javascript&quot; &gt;&#10;&#10;&lt;/script&gt;" autocomplete_backup_cursor="10">
-	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="c++linecomment" commentid_block="none">
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="cm.cpplinecomment">
 		<element pattern="(" id="e.html.js.lparen" starts_block="1" highlight="js-brackets" />
 		<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lparen" />
 		<element pattern="{" id="e.html.js.lbrace" starts_block="1" highlight="js-brackets" />
@@ -70,7 +70,7 @@
 </tag>
 
 <tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;,media,title,type" attribhighlight="html-attribute" autocomplete_append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" autocomplete_backup_cursor="9" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
-	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;" commentid_block="cblockcomment" commentid_line="none">
+	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;" commentid_block="cm.cblockcomment">
 		<element idref="e.html.lcomment"/>
 		<element id="e.html.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
@@ -79,13 +79,13 @@
 		</element>
 		&css-selectors;
 		<element id="e.css.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
-			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
-				&css-rules;
+			<context symbols=" &#9;&#10;&#13;{}.:&quot;';/*">
 				<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
 						<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
 					</context>
 				</element>
+				&css-rules;
 				<element pattern="&lt;/style&gt;" highlight="html-tag" ends_context="3" />
 				<element pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="1" />
 			</context>

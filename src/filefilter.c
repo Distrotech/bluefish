@@ -32,6 +32,7 @@
 #include "file.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"        /* destroy_disposable_menu_cb() */
+#include "stringlist.h"      /* free_stringlist() */
 
 typedef struct {
 	gchar *pattern;

@@ -3,11 +3,11 @@
 		Bluefish HTML Editor
 		css.bflang2 $Revision$
  
-		Copyright (C) 2008-2010 Olivier Sessink
+		Copyright (C) 2008,2009 Olivier Sessink
 
-	    This program is free software: you can redistribute it and/or modify
+		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
+		the Free Software Foundation; either version 2 of the License, or
 		(at your option) any later version.
 
 		This program is distributed in the hope that it will be useful,
@@ -16,13 +16,14 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 <!DOCTYPE bflang [
 	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 ]>
-<bflang name="CSS" version="2.0" table="2230" contexts="36" matches="400">
+<bflang name="CSS" version="2.0" table="2095" contexts="36" matches="385">
 <header>
 	<mime type="text/css" />
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -31,6 +32,7 @@
 	<highlight name="css-comment" style="comment" />
 	<highlight name="css-html-tag" style="tag"  />
 	<highlight name="css-html-classid" style="tag" />
+	<highlight name="css-html-media" style="special-tag" />
 	<highlight name="css-keyword" style="keyword"  />
 	<highlight name="css-property" style="special-keyword"  />
 	<highlight name="css-string" style="string" />
@@ -40,9 +42,10 @@
 	<comment type="block" start="/*" end="*/" />
 	<!--<comment type="line" start="//" />-->
 	<smartindent characters="{" />
+	<smartoutdent characters="}" />
 </properties>
 <definition>
-	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}.,:#*/">
+	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}.,:#">
 		<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
 				<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
@@ -50,17 +53,13 @@
 		</element>		
 		&css-selectors;
 		<element id="e.css.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="css-brackets" >
-			<context symbols=" &#9;&#10;&#13;{}.:&quot;';*/">
+			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
 				&css-rules;
-				<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
-					<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
-						<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
-					</context>
-				</element>
+				<element idref="e.css.lcomment" />
 				<element pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="1"/>
 			</context>
 		</element>
-		<element idref="e.css.lcomment" />
+		
 	</context>
 </definition>
 </bflang>

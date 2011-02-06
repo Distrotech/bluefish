@@ -41,6 +41,7 @@
 	<comment type="block" start="/*" end="*/" />
 	<comment type="line" start="//" />
 	<smartindent characters="{" />
+	<smartoutdent characters="}" />
 </properties>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">

@@ -20,11 +20,11 @@
  */
 
 #include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h> /* for the keyboard event codes */
+#include <gdk/gdkkeysyms.h>		/* for the keyboard event codes */
 
-#include <string.h>         /* strchr() */
-#include <regex.h>          /* regcomp() */
-#include <stdlib.h>         /* system() */
+#include <string.h>				/* strchr() */
+#include <regex.h>				/* regcomp() */
+#include <stdlib.h>				/* system() */
 
 /*#define DEBUG*/
 
@@ -52,13 +52,13 @@
 #include "file.h"
 #include "filebrowser2.h"
 #include "file_dialogs.h"
-#include "gtk_easy.h"       /* *_dialog() */
-#include "gui.h"            /* statusbar_message() */
-#include "menu.h"           /* add_to_recent_list */
+#include "gtk_easy.h"			/* *_dialog() */
+#include "gui.h"				/* statusbar_message() */
+#include "menu.h"				/* add_to_recent_list */
 #include "pixmap.h"
-#include "snr2.h"           /* snr2_run_extern_replace */
-#include "stringlist.h"     /* free_stringlist() */
-#include "undo_redo.h"      /* doc_unre_init() */
+#include "snr2.h"				/* snr2_run_extern_replace */
+#include "stringlist.h"			/* free_stringlist() */
+#include "undo_redo.h"			/* doc_unre_init() */
 #include "file_autosave.h"
 #ifdef HAVE_LIBENCHANT
 #include "bftextview2_spell.h"
@@ -70,50 +70,60 @@ typedef struct {
 } Tfloatingview;
 #define FLOATINGVIEW(var) ((Tfloatingview *)(var))
 
-static void doc_set_statusbar_lang_encoding(Tdocument *doc);
+static void doc_set_statusbar_lang_encoding(Tdocument * doc);
 
-Tselectionsave *doc_save_selection(Tdocument *doc) {
+Tselectionsave *
+doc_save_selection(Tdocument * doc)
+{
 	Tselectionsave *selsave;
-	GtkTextIter start,end;
+	GtkTextIter start, end;
 	selsave = g_slice_new(Tselectionsave);
-	gtk_text_buffer_get_selection_bounds(doc->buffer,&start,&end);
-	/*g_print("saving selection %d:%d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));*/
-	selsave->start = gtk_text_buffer_create_mark(doc->buffer,NULL,&start,FALSE);
-	selsave->end = gtk_text_buffer_create_mark(doc->buffer,NULL,&end,TRUE);
+	gtk_text_buffer_get_selection_bounds(doc->buffer, &start, &end);
+	/*g_print("saving selection %d:%d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end)); */
+	selsave->start = gtk_text_buffer_create_mark(doc->buffer, NULL, &start, FALSE);
+	selsave->end = gtk_text_buffer_create_mark(doc->buffer, NULL, &end, TRUE);
 	selsave->doc = doc;
 	return selsave;
 }
 
-void doc_restore_selection(Tselectionsave *selsave, gboolean only_if_no_selection) {
+void
+doc_restore_selection(Tselectionsave * selsave, gboolean only_if_no_selection)
+{
 	if (!only_if_no_selection || !gtk_text_buffer_get_has_selection(selsave->doc->buffer)) {
-		GtkTextIter start,end;
-		gtk_text_buffer_get_iter_at_mark(selsave->doc->buffer,&start,selsave->start);
-		gtk_text_buffer_get_iter_at_mark(selsave->doc->buffer,&end,selsave->end);
-		/*g_print("restoring selection %d:%d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));*/
-		gtk_text_buffer_select_range(selsave->doc->buffer,&start,&end);
+		GtkTextIter start, end;
+		gtk_text_buffer_get_iter_at_mark(selsave->doc->buffer, &start, selsave->start);
+		gtk_text_buffer_get_iter_at_mark(selsave->doc->buffer, &end, selsave->end);
+		/*g_print("restoring selection %d:%d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end)); */
+		gtk_text_buffer_select_range(selsave->doc->buffer, &start, &end);
 	}
-	gtk_text_buffer_delete_mark(selsave->doc->buffer,selsave->start);
-	gtk_text_buffer_delete_mark(selsave->doc->buffer,selsave->end);
-	g_slice_free(Tselectionsave,selsave);
+	gtk_text_buffer_delete_mark(selsave->doc->buffer, selsave->start);
+	gtk_text_buffer_delete_mark(selsave->doc->buffer, selsave->end);
+	g_slice_free(Tselectionsave, selsave);
 }
 
-static void session_set_opendir(Tbfwin *bfwin, gchar *curi) {
+static void
+session_set_opendir(Tbfwin * bfwin, gchar * curi)
+{
 	if (curi) {
 		gchar *pos = strrchr(curi, '/');
-		if (pos!=NULL) {
-			if (bfwin->session->opendir) g_free(bfwin->session->opendir);
-			bfwin->session->opendir = g_strndup(curi, pos-curi);
-			DEBUG_MSG("session_set_opendir, opendir=%s\n",bfwin->session->opendir);
+		if (pos != NULL) {
+			if (bfwin->session->opendir)
+				g_free(bfwin->session->opendir);
+			bfwin->session->opendir = g_strndup(curi, pos - curi);
+			DEBUG_MSG("session_set_opendir, opendir=%s\n", bfwin->session->opendir);
 		}
 	}
 }
 
-void session_set_savedir(Tbfwin *bfwin, gchar *curi) {
+void
+session_set_savedir(Tbfwin * bfwin, gchar * curi)
+{
 	if (curi) {
 		gchar *pos = strrchr(curi, '/');
-		if (pos!=NULL) {
-			if (bfwin->session->savedir) g_free(bfwin->session->savedir);
-			bfwin->session->savedir = g_strndup(curi, pos-curi);
+		if (pos != NULL) {
+			if (bfwin->session->savedir)
+				g_free(bfwin->session->savedir);
+			bfwin->session->savedir = g_strndup(curi, pos - curi);
 		}
 	}
 }
@@ -125,36 +135,43 @@ void session_set_savedir(Tbfwin *bfwin, gchar *curi) {
  *
  * Return value: #GList* with all documents
  */
-GList *return_allwindows_documentlist() {
-	GList *newdoclist=NULL, *bflist, *tmplist=NULL;
+GList *
+return_allwindows_documentlist()
+{
+	GList *newdoclist = NULL, *bflist, *tmplist = NULL;
 	bflist = g_list_first(main_v->bfwinlist);
-	DEBUG_MSG("return_allwindows_documentlist, bfwinlist length=%d\n",g_list_length(main_v->bfwinlist));
+	DEBUG_MSG("return_allwindows_documentlist, bfwinlist length=%d\n", g_list_length(main_v->bfwinlist));
 	while (bflist) {
-		DEBUG_MSG("return_allwindows_documentlist, current bfwin doclist length=%d\n",g_list_length(BFWIN(bflist->data)->documentlist));
+		DEBUG_MSG("return_allwindows_documentlist, current bfwin doclist length=%d\n",
+				  g_list_length(BFWIN(bflist->data)->documentlist));
 		tmplist = g_list_first(BFWIN(bflist->data)->documentlist);
 		while (tmplist) {
-			newdoclist = g_list_prepend(newdoclist,tmplist->data);
+			newdoclist = g_list_prepend(newdoclist, tmplist->data);
 			tmplist = g_list_next(tmplist);
 		}
 		bflist = g_list_next(bflist);
 	}
-	DEBUG_MSG("return_allwindows_documentlist, returning list length %d\n",g_list_length(newdoclist));
+	DEBUG_MSG("return_allwindows_documentlist, returning list length %d\n", g_list_length(newdoclist));
 	return newdoclist;
 }
 
-void alldocs_foreach(foreachdocfunc func, gpointer data) {
+void
+alldocs_foreach(foreachdocfunc func, gpointer data)
+{
 	GList *tmplist, *doclist = return_allwindows_documentlist();
-	tmplist=g_list_first(doclist);
+	tmplist = g_list_first(doclist);
 	while (tmplist) {
-		func(tmplist->data,data);
+		func(tmplist->data, data);
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(doclist);
 }
 
-gint have_modified_documents(GList *doclist) {
+gint
+have_modified_documents(GList * doclist)
+{
 	GList *tmplist = g_list_first(doclist);
-	gint count=0;
+	gint count = 0;
 	while (tmplist) {
 		if (DOCUMENT(tmplist->data)->modified) {
 			count++;
@@ -175,11 +192,14 @@ gint have_modified_documents(GList *doclist) {
  *
  * Return value: #GList* stringlist with filenames
  */
-GList *return_urilist_from_doclist(GList *doclist) {
-	GList *newlist=NULL, *tmplist;
-	DEBUG_MSG("return_filenamestringlist_from_doclist, started for doclist %p, len=%d\n",doclist,g_list_length(doclist));
+GList *
+return_urilist_from_doclist(GList * doclist)
+{
+	GList *newlist = NULL, *tmplist;
+	DEBUG_MSG("return_filenamestringlist_from_doclist, started for doclist %p, len=%d\n", doclist,
+			  g_list_length(doclist));
 	tmplist = g_list_first(doclist);
-	while(tmplist){
+	while (tmplist) {
 		if (DOCUMENT(tmplist->data)->uri) {
 			g_object_ref(DOCUMENT(tmplist->data)->uri);
 			newlist = g_list_prepend(newlist, DOCUMENT(tmplist->data)->uri);
@@ -216,10 +236,12 @@ gint return_num_untitled_documents(GList *doclist) {
  * adds a filename to the recently opened files list
  * will not add it to the menu, only to the list and the file
  **/
-void add_filename_to_history(Tbfwin *bfwin, GFile *file) {
+void
+add_filename_to_history(Tbfwin * bfwin, GFile * file)
+{
 /*	gchar *dirname;*/
 
-	add_to_recent_list(bfwin, file, 0, FALSE); /* the recent menu */
+	add_to_recent_list(bfwin, file, 0, FALSE);	/* the recent menu */
 /*	dirname = g_path_get_dirname(filename);
 	DEBUG_MSG("add_filename_to_history, adding %s\n",dirname);
 	main_v->recent_directories = add_to_history_stringlist(main_v->recent_directories,dirname,FALSE,TRUE);
@@ -237,9 +259,11 @@ void add_filename_to_history(Tbfwin *bfwin, GFile *file) {
  *
  * Return value: the index number on success, -1 if the file is not open
  **/
-gint documentlist_return_index_from_uri(GList *doclist, GFile *uri) {
+gint
+documentlist_return_index_from_uri(GList * doclist, GFile * uri)
+{
 	GList *tmplist;
-	gint count=0;
+	gint count = 0;
 
 	if (!uri) {
 		return -1;
@@ -248,7 +272,7 @@ gint documentlist_return_index_from_uri(GList *doclist, GFile *uri) {
 	tmplist = g_list_first(doclist);
 	while (tmplist) {
 		Tdocument *doc = tmplist->data;
-		if (doc->uri && (doc->uri == uri || g_file_equal(doc->uri,uri) )) {
+		if (doc->uri && (doc->uri == uri || g_file_equal(doc->uri, uri))) {
 			return count;
 		}
 		count++;
@@ -267,7 +291,9 @@ gint documentlist_return_index_from_uri(GList *doclist, GFile *uri) {
  *
  * Return value: #Tdocument* or NULL if not open
  **/
-Tdocument *documentlist_return_document_from_uri(GList *doclist, GFile *uri) {
+Tdocument *
+documentlist_return_document_from_uri(GList * doclist, GFile * uri)
+{
 	GList *tmplist;
 	if (!uri) {
 		DEBUG_MSG("documentlist_return_document_from_filename, no filename! returning\n");
@@ -275,7 +301,8 @@ Tdocument *documentlist_return_document_from_uri(GList *doclist, GFile *uri) {
 	}
 	tmplist = g_list_first(doclist);
 	while (tmplist) {
-		if (DOCUMENT(tmplist->data)->uri && (DOCUMENT(tmplist->data)->uri == uri || g_file_equal(DOCUMENT(tmplist->data)->uri,uri))) {
+		if (DOCUMENT(tmplist->data)->uri
+			&& (DOCUMENT(tmplist->data)->uri == uri || g_file_equal(DOCUMENT(tmplist->data)->uri, uri))) {
 			DEBUG_MSG("documentlist_return_document_from_filename, found, returning %p\n", tmplist->data);
 			return DOCUMENT(tmplist->data);
 		}
@@ -294,7 +321,9 @@ Tdocument *documentlist_return_document_from_uri(GList *doclist, GFile *uri) {
  *
  * Return value: Pointer to Tdocument on success, NULL on invalid index.
  **/
-Tdocument *documentlist_return_document_from_index(GList *doclist, gint index) {
+Tdocument *
+documentlist_return_document_from_index(GList * doclist, gint index)
+{
 	return (Tdocument *) g_list_nth_data(doclist, index);
 }
 
@@ -304,11 +333,14 @@ Tdocument *documentlist_return_document_from_index(GList *doclist, gint index) {
  *
  * Return value: number of documents that are not 'complete'
  */
-gint document_return_num_notcomplete(GList *doclist) {
+gint
+document_return_num_notcomplete(GList * doclist)
+{
 	GList *tmplist;
-	gint count=0;
-	for (tmplist = g_list_first(doclist);tmplist!=NULL;tmplist=tmplist->next) {
-		if (DOCUMENT(tmplist->data)->status != DOC_STATUS_COMPLETE) count++;
+	gint count = 0;
+	for (tmplist = g_list_first(doclist); tmplist != NULL; tmplist = tmplist->next) {
+		if (DOCUMENT(tmplist->data)->status != DOC_STATUS_COMPLETE)
+			count++;
 	}
 	return count;
 }
@@ -325,10 +357,13 @@ gint document_return_num_notcomplete(GList *doclist) {
  *
  * Return value: void
  **/
-void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	if (!bfwin->current_document) return;
+void
+doc_update_highlighting(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
+{
+	if (!bfwin->current_document)
+		return;
 	if (!BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner) {
-		g_print("doc_update_highlighting, set enable_scanner to TRUE\n");
+		DEBUG_MSG("doc_update_highlighting, set enable_scanner to TRUE\n");
 		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = TRUE;
 	}
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
@@ -344,13 +379,15 @@ void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *wid
  *
  * Return value: void
  **/
-void doc_set_wrap(Tdocument * doc) {
-	if (doc->wrapstate) {
-		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_WORD);
-	} else {
-		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_NONE);
-	}
+void
+doc_set_wrap(Tdocument * doc)
+{
+	GtkWrapMode wmode = doc->wrapstate ? GTK_WRAP_WORD : GTK_WRAP_NONE;
+	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view), wmode);
+	if (doc->slave)
+		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->slave), wmode);
 }
+
 /**
  * doc_set_tooltip:
  * @doc: #Tdocument*
@@ -359,11 +396,13 @@ void doc_set_wrap(Tdocument * doc) {
  *
  * Return value: void
  */
-void doc_set_tooltip(Tdocument *doc) {
+void
+doc_set_tooltip(Tdocument * doc)
+{
 	GString *retstr;
 	gchar *tmp;
-	gchar *mtimestr=NULL;
-	gchar *sizestr=NULL;
+	gchar *mtimestr = NULL;
+	gchar *sizestr = NULL;
 
 	retstr = g_string_new(_("Name: "));
 	retstr = g_string_append(retstr, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
@@ -375,43 +414,52 @@ void doc_set_tooltip(Tdocument *doc) {
 		retstr = g_string_append(retstr, _("\nEncoding: "));
 		retstr = g_string_append(retstr, doc->encoding);
 	}
-	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for doc %s\n", doc->fileinfo, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
+	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for doc %s\n", doc->fileinfo,
+			  gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 	if (doc->fileinfo) {
-		const gchar *mime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+		const gchar *mime =
+			g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
 		if (!mime)
-			mime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+			mime =
+				g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 		if (mime) {
 			retstr = g_string_append(retstr, _("\nMime type: "));
 			retstr = g_string_append(retstr, mime);
 		}
 
 		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_UNIX_MODE)) {
-			tmp = filemode_to_string(g_file_info_get_attribute_uint32(doc->fileinfo, G_FILE_ATTRIBUTE_UNIX_MODE));
-			g_string_append_printf(retstr, _("\nPermissions: %s\nUid: %u Gid: %u"),tmp,g_file_info_get_attribute_uint32(doc->fileinfo,G_FILE_ATTRIBUTE_UNIX_UID),g_file_info_get_attribute_uint32(doc->fileinfo,G_FILE_ATTRIBUTE_UNIX_GID));
+			tmp =
+				filemode_to_string(g_file_info_get_attribute_uint32
+								   (doc->fileinfo, G_FILE_ATTRIBUTE_UNIX_MODE));
+			g_string_append_printf(retstr, _("\nPermissions: %s\nUid: %u Gid: %u"), tmp,
+								   g_file_info_get_attribute_uint32(doc->fileinfo, G_FILE_ATTRIBUTE_UNIX_UID),
+								   g_file_info_get_attribute_uint32(doc->fileinfo,
+																	G_FILE_ATTRIBUTE_UNIX_GID));
 			g_free(tmp);
 		}
 		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_SIZE)) {
-			DEBUG_MSG("doc_set_tooltip: size for %s is %"G_GOFFSET_FORMAT"\n", 
-						gtk_label_get_text(GTK_LABEL(doc->tab_menu)),
-						g_file_info_get_size(doc->fileinfo));
+			DEBUG_MSG("doc_set_tooltip: size for %s is %" G_GOFFSET_FORMAT "\n",
+					  gtk_label_get_text(GTK_LABEL(doc->tab_menu)), g_file_info_get_size(doc->fileinfo));
 			sizestr = g_format_size_for_display(g_file_info_get_size(doc->fileinfo));
 			retstr = g_string_append(retstr, _("\nSize (on disk): "));
 			retstr = g_string_append(retstr, sizestr);
 			g_free(sizestr);
 		}
 		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED)) {
-			/* this function always appends a newline to the string*/
-			time_t modtime = (time_t) g_file_info_get_attribute_uint64(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
+			/* this function always appends a newline to the string */
+			time_t modtime =
+				(time_t) g_file_info_get_attribute_uint64(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
 			mtimestr = bf_portable_time(&modtime);
 			retstr = g_string_append(retstr, _("\nLast modified: "));
 			retstr = g_string_append(retstr, mtimestr);
 			g_free(mtimestr);
 		}
 	}
-	tmp = g_string_free(retstr,FALSE);
-	gtk_widget_set_tooltip_text( doc->tab_eventbox, tmp);
+	tmp = g_string_free(retstr, FALSE);
+	gtk_widget_set_tooltip_text(doc->tab_eventbox, tmp);
 	g_free(tmp);
 }
+
 /**
  * doc_set_title:
  * @doc: #Tdocument*
@@ -423,7 +471,9 @@ void doc_set_tooltip(Tdocument *doc) {
  *
  * Return value: void
  */
-void doc_set_title(Tdocument *doc) {
+void
+doc_set_title(Tdocument * doc)
+{
 	gchar *label_string, *tabmenu_string;
 	if (doc->uri) {
 		gchar *parsename, *basename;
@@ -434,13 +484,13 @@ void doc_set_title(Tdocument *doc) {
 		g_free(parsename);
 		g_free(basename);
 	} else {
-		label_string = g_strdup_printf(_("Untitled %d"),main_v->num_untitled_documents);
-		tabmenu_string =  g_strdup(label_string);
+		label_string = g_strdup_printf(_("Untitled %d"), main_v->num_untitled_documents);
+		tabmenu_string = g_strdup(label_string);
 		main_v->num_untitled_documents++;
 	}
-	gtk_label_set(GTK_LABEL(doc->tab_menu),tabmenu_string);
-	gtk_label_set(GTK_LABEL(doc->tab_label),label_string);
-	DEBUG_MSG("doc_set_title, tabmenu_string=%s,label_string=%s\n",tabmenu_string,label_string);
+	gtk_label_set(GTK_LABEL(doc->tab_menu), tabmenu_string);
+	gtk_label_set(GTK_LABEL(doc->tab_label), label_string);
+	DEBUG_MSG("doc_set_title, tabmenu_string=%s,label_string=%s\n", tabmenu_string, label_string);
 	doc_set_tooltip(doc);
 	g_free(label_string);
 	g_free(tabmenu_string);
@@ -449,15 +499,17 @@ void doc_set_title(Tdocument *doc) {
 	}
 }
 
-void doc_set_mimetype(Tdocument *doc, const gchar *mimetype) {
-	DEBUG_MSG("doc_set_mimetype(%p, %s)\n",doc,mimetype);
+void
+doc_set_mimetype(Tdocument * doc, const gchar * mimetype)
+{
+	DEBUG_MSG("doc_set_mimetype(%p, %s)\n", doc, mimetype);
 	if (doc->newdoc_autodetect_lang_id) {
 		g_source_remove(doc->newdoc_autodetect_lang_id);
-		doc->newdoc_autodetect_lang_id=0;
+		doc->newdoc_autodetect_lang_id = 0;
 	}
 	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(doc->view), mimetype);
 	if (doc->fileinfo) {
-		g_file_info_set_content_type(doc->fileinfo,mimetype);
+		g_file_info_set_content_type(doc->fileinfo, mimetype);
 	}
 	doc_set_statusbar_lang_encoding(doc);
 }
@@ -474,32 +526,38 @@ void doc_set_mimetype(Tdocument *doc, const gchar *mimetype) {
  *
  * Return value: void
  **/
-void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen) {
-	gboolean uncertain=FALSE;
-	gchar *filename=NULL, *conttype;
+void
+doc_reset_filetype(Tdocument * doc, GFile * newuri, gconstpointer buf, gssize buflen)
+{
+	gboolean uncertain = FALSE;
+	gchar *filename = NULL, *conttype;
 #ifdef WIN32
-	gchar *mimetype;
+	gchar *tmp;
 #endif
 
 	if (newuri)
 		filename = g_file_get_basename(newuri);
-	conttype = g_content_type_guess(filename,buf,buflen,&uncertain);
-#ifdef WIN32
-	mimetype = g_content_type_get_mime_type(conttype);
-#endif
-	DEBUG_MSG("doc_reset_filetype,conttype=%s\n",conttype);
-	g_free(filename);
-#ifdef WIN32
-	doc_set_mimetype(doc, mimetype);
-	g_free(mimetype);
-#else
-	doc_set_mimetype(doc, conttype);
-#endif
-	g_free(conttype);
+	conttype = g_content_type_guess(filename, buf, buflen, &uncertain);
 
+#ifdef WIN32
+	/* on WIN32 conttype does not contain a MIME type, that has to be converted */
+	tmp = g_content_type_get_mime_type(conttype);
+	g_free(conttype);
+	conttype = tmp;
+#endif
+	if (strcmp(conttype, "text/html") == 0 && buf && strstr(buf, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML")!=NULL) {
+		g_free(conttype);
+		conttype = g_strdup("application/xhtml+xml");
+	}
+
+	doc_set_mimetype(doc, conttype);
+	g_free(filename);
+	g_free(conttype);
 }
 
-void doc_set_filename(Tdocument *doc, GFile *newuri) {
+void
+doc_set_filename(Tdocument * doc, GFile * newuri)
+{
 	DEBUG_MSG("doc_set_filename, started\n");
 	if (newuri) {
 		gchar *buf;
@@ -521,7 +579,9 @@ void doc_set_filename(Tdocument *doc, GFile *newuri) {
  * Mikael Hermansson <tyan@linux.se>
  * Chris Phelps <chicane@reninet.com>
  */
-static gint textview_calculate_real_tab_width(GtkWidget *textview, gint tab_size) {
+static gint
+textview_calculate_real_tab_width(GtkWidget * textview, gint tab_size)
+{
 	gchar *tab_string;
 	gint counter = 0;
 	gint tab_width = 0;
@@ -551,17 +611,23 @@ static gint textview_calculate_real_tab_width(GtkWidget *textview, gint tab_size
  *
  * Return value: void
  **/
-void doc_set_tabsize(Tdocument *doc, gint tabsize) {
+void
+doc_set_tabsize(Tdocument * doc, gint tabsize)
+{
 	PangoTabArray *tab_array;
 	gint pixels = textview_calculate_real_tab_width(GTK_WIDGET(doc->view), tabsize);
 	DEBUG_MSG("doc_set_tabsize, tabsize=%d, pixels=%d\n", tabsize, pixels);
 	tab_array = pango_tab_array_new(1, TRUE);
 	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, pixels);
 	gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->view), tab_array);
+	if (doc->slave)
+		gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->slave), tab_array);
 	pango_tab_array_free(tab_array);
 }
 
-gint doc_get_tabsize(Tdocument *doc) {
+gint
+doc_get_tabsize(Tdocument * doc)
+{
 	PangoTabArray *tab_array;
 	PangoTabAlign align;
 	gint setsize;
@@ -570,8 +636,8 @@ gint doc_get_tabsize(Tdocument *doc) {
 	if (tab_array) {
 		gint singlesize;
 		singlesize = textview_calculate_real_tab_width(doc->view, 1);
-		pango_tab_array_get_tab(tab_array,0,&align,&setsize);
-		return setsize/singlesize;
+		pango_tab_array_get_tab(tab_array, 0, &align, &setsize);
+		return setsize / singlesize;
 	}
 	return 8;
 }
@@ -587,7 +653,9 @@ gint doc_get_tabsize(Tdocument *doc) {
  *
  * Return value: void
  **/
-void doc_change_tabsize(Tdocument *doc,gint direction) {
+void
+doc_change_tabsize(Tdocument * doc, gint direction)
+{
 	PangoTabArray *tab_array;
 	PangoTabAlign align;
 	gint setsize, singlesize;
@@ -595,35 +663,41 @@ void doc_change_tabsize(Tdocument *doc,gint direction) {
 	singlesize = textview_calculate_real_tab_width(doc->view, 1);
 	tab_array = gtk_text_view_get_tabs(GTK_TEXT_VIEW(doc->view));
 	if (tab_array) {
-		pango_tab_array_get_tab(tab_array,0,&align,&setsize);
-		/*g_print("doc_change_tabsize, got setsize=%d\n",setsize);*/
+		pango_tab_array_get_tab(tab_array, 0, &align, &setsize);
+		/*g_print("doc_change_tabsize, got setsize=%d\n",setsize); */
 	} else {
 		tab_array = pango_tab_array_new(1, TRUE);
 		setsize = 8;
 	}
-	if (direction == 0) { /* 0 means reset to default */
-		setsize = BFWIN(doc->bfwin)->session->editor_tab_width*singlesize;
-	} else if (direction < 0){
+	if (direction == 0) {		/* 0 means reset to default */
+		setsize = BFWIN(doc->bfwin)->session->editor_tab_width * singlesize;
+	} else if (direction < 0) {
 		setsize -= singlesize;
 	} else {
 		setsize += singlesize;
 	}
-	message = g_strdup_printf(_("Changed tab width to %d"), setsize/singlesize);
-	statusbar_message(BFWIN(doc->bfwin),message, 2);
+	message = g_strdup_printf(_("Changed tab width to %d"), setsize / singlesize);
+	statusbar_message(BFWIN(doc->bfwin), message, 2);
 	g_free(message);
-	/*g_print("doc_change_tabsize, set setsize=%d\n",setsize);*/
+	/*g_print("doc_change_tabsize, set setsize=%d\n",setsize); */
 	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, setsize);
 	gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->view), tab_array);
+	if (doc->slave)
+		gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->slave), tab_array);
 	pango_tab_array_free(tab_array);
 }
 
-void doc_font_size(Tdocument *doc, gint direction) {
+void
+doc_font_size(Tdocument * doc, gint direction)
+{
 	if (direction == 0) {
 		PangoFontDescription *font_desc;
 		font_desc = pango_font_description_from_string(main_v->props.editor_font_string);
 		gtk_widget_modify_font(doc->view, font_desc);
+		if (doc->slave)
+			gtk_widget_modify_font(doc->slave, font_desc);
 		pango_font_description_free(font_desc);
-		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char=0;
+		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char = 0;
 	} else {
 		PangoFontDescription *font_desc;
 		PangoContext *pc;
@@ -632,14 +706,16 @@ void doc_font_size(Tdocument *doc, gint direction) {
 		pc = gtk_widget_get_pango_context(doc->view);
 		font_desc = pango_context_get_font_description(pc);
 		size = pango_font_description_get_size(font_desc);
-		size = (direction > 0) ? size*1.2 : size/1.2;
+		size = (direction > 0) ? size * 1.2 : size / 1.2;
 		if (pango_font_description_get_size_is_absolute(font_desc)) {
 			pango_font_description_set_absolute_size(font_desc, size);
 		} else {
 			pango_font_description_set_size(font_desc, size);
 		}
 		gtk_widget_modify_font(doc->view, font_desc);
-		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char=0;
+		if (doc->slave)
+			gtk_widget_modify_font(doc->slave, font_desc);
+		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char = 0;
 	}
 
 }
@@ -653,7 +729,9 @@ void doc_font_size(Tdocument *doc, gint direction) {
  *
  * Return value: gboolean, TRUE if doc is empty, non-modified and nameless
  **/
-gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
+gboolean
+doc_is_empty_non_modified_and_nameless(Tdocument * doc)
+{
 	if (!doc) {
 		return FALSE;
 	}
@@ -678,7 +756,9 @@ gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
  *
  * Return value: void
  **/
-gboolean test_only_empty_doc_left(GList *doclist) {
+gboolean
+test_only_empty_doc_left(GList * doclist)
+{
 	if (g_list_length(doclist) > 1) {
 		return FALSE;
 	} else {
@@ -696,6 +776,7 @@ gboolean test_only_empty_doc_left(GList *doclist) {
 	}
 	return TRUE;
 }
+
 /**
  * doc_move_to_window:
  * @doc: #Tdocument*
@@ -706,35 +787,35 @@ gboolean test_only_empty_doc_left(GList *doclist) {
  *
  * Return value: void, ignored
  */
-void doc_move_to_window(Tdocument *doc, Tbfwin *oldwin, Tbfwin *newwin)
+void
+doc_move_to_window(Tdocument * doc, Tbfwin * oldwin, Tbfwin * newwin)
 {
-	GtkWidget *tab_widget, *scroll;
-	DEBUG_MSG("doc_move_to_window, oldwin=%p, newwin=%p, doc=%p\n",oldwin,newwin,doc);
+	GtkWidget *tab_widget;
+	DEBUG_MSG("doc_move_to_window, oldwin=%p, newwin=%p, doc=%p\n", oldwin, newwin, doc);
 	/* first test if the document still exists in the old window */
-	if (g_list_index(oldwin->documentlist, doc)==-1 || !bfwin_exists(oldwin) || !bfwin_exists(newwin)) {
-		DEBUG_MSG("doc_move_to_window, the document no longer exists in oldwin %p\n",oldwin);
+	if (g_list_index(oldwin->documentlist, doc) == -1 || !bfwin_exists(oldwin) || !bfwin_exists(newwin)) {
+		DEBUG_MSG("doc_move_to_window, the document no longer exists in oldwin %p\n", oldwin);
 		return;
 	}
 	tab_widget = gtk_widget_get_parent(doc->tab_eventbox);
-	scroll = gtk_widget_get_parent(doc->view);
-	gtk_widget_ref(scroll);
+	gtk_widget_ref(doc->vsplit);
 	gtk_widget_ref(tab_widget);
 	gtk_widget_ref(doc->tab_menu);
-	DEBUG_MSG("doc_move_to_window, tab_label=%p, tab_widget=%p\n",doc->tab_label, tab_widget);
+	DEBUG_MSG("doc_move_to_window, tab_label=%p, tab_widget=%p\n", doc->tab_label, tab_widget);
 /*	gtk_container_remove(GTK_CONTAINER(oldwin->notebook), doc->view);*/
 	gtk_notebook_remove_page(GTK_NOTEBOOK(oldwin->notebook), g_list_index(oldwin->documentlist, doc));
 	oldwin->documentlist = g_list_remove(oldwin->documentlist, doc);
-	DEBUG_MSG("doc_move_to_window, removed doc=%p from oldwin %p\n",doc,oldwin);
+	DEBUG_MSG("doc_move_to_window, removed doc=%p from oldwin %p\n", doc, oldwin);
 	doc->bfwin = newwin;
 	newwin->documentlist = g_list_append(newwin->documentlist, doc);
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(newwin->notebook), scroll, tab_widget, doc->tab_menu);
-	DEBUG_MSG("doc_move_to_window, appended doc=%p to newwin %p\n",doc,newwin);
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(newwin->notebook), doc->vsplit, tab_widget, doc->tab_menu);
+	DEBUG_MSG("doc_move_to_window, appended doc=%p to newwin %p\n", doc, newwin);
 
-	gtk_widget_unref(scroll);
+	gtk_widget_unref(doc->vsplit);
 	gtk_widget_unref(tab_widget);
 	gtk_widget_unref(doc->tab_menu);
 
-	gtk_widget_show_all(scroll);
+	gtk_widget_show_all(doc->vsplit);
 	gtk_widget_show_all(tab_widget);
 	gtk_widget_show(doc->tab_menu);
 
@@ -749,8 +830,10 @@ typedef struct {
 	Tbfwin *oldwin;
 } Tdmwd;
 
-static void doc_move_to_window_dialog_response_lcb(GtkDialog *dialog,gint response,gpointer user_data) {
-	Tdmwd *dmwd = (Tdmwd *)user_data;
+static void
+doc_move_to_window_dialog_response_lcb(GtkDialog * dialog, gint response, gpointer user_data)
+{
+	Tdmwd *dmwd = (Tdmwd *) user_data;
 	if (response == 1) {
 		doc_move_to_window(dmwd->doc, dmwd->oldwin, dmwd->newwin);
 	} else if (response == 2) {
@@ -762,18 +845,23 @@ static void doc_move_to_window_dialog_response_lcb(GtkDialog *dialog,gint respon
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 	g_free(dmwd);
 }
-void doc_move_to_window_dialog(Tdocument *doc, Tbfwin *newwin) {
+
+void
+doc_move_to_window_dialog(Tdocument * doc, Tbfwin * newwin)
+{
 	GtkWidget *dialog;
 	Tdmwd *dmwd;
-	dmwd = g_new(Tdmwd,1);
+	dmwd = g_new(Tdmwd, 1);
 	dmwd->doc = doc;
 	dmwd->newwin = newwin;
 	dmwd->oldwin = doc->bfwin;
-	dialog = gtk_message_dialog_new(GTK_WINDOW(newwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT
-			,GTK_MESSAGE_QUESTION,GTK_BUTTONS_NONE
-			,_("Document %s is already open in another Bluefish window.")
-			,gtk_label_get_text(GTK_LABEL(doc->tab_label)) );
-	gtk_dialog_add_buttons(GTK_DIALOG(dialog),_("Move to this window"),1,_("Open readonly"),2,_("Do not open"),3,NULL);
+	dialog =
+		gtk_message_dialog_new(GTK_WINDOW(newwin->main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
+							   GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE,
+							   _("Document %s is already open in another Bluefish window.")
+							   , gtk_label_get_text(GTK_LABEL(doc->tab_label)));
+	gtk_dialog_add_buttons(GTK_DIALOG(dialog), _("Move to this window"), 1, _("Open readonly"), 2,
+						   _("Do not open"), 3, NULL);
 	g_signal_connect(dialog, "response", G_CALLBACK(doc_move_to_window_dialog_response_lcb), dmwd);
 	gtk_widget_show_all(dialog);
 }
@@ -789,8 +877,10 @@ void doc_move_to_window_dialog(Tdocument *doc, Tbfwin *newwin) {
  *
  * Return value: void
  **/
-static void doc_set_label_color(Tdocument *doc, const gchar *color) {
-	GdkColor  labelcolor;
+static void
+doc_set_label_color(Tdocument * doc, const gchar * color)
+{
+	GdkColor labelcolor;
 	GdkColor *color_p = NULL;
 	if (color != NULL) {
 		gdk_color_parse(color, &labelcolor);
@@ -803,18 +893,20 @@ static void doc_set_label_color(Tdocument *doc, const gchar *color) {
 	gtk_widget_modify_fg(doc->tab_label, GTK_STATE_ACTIVE, color_p);
 }
 
-void doc_set_status(Tdocument *doc, gint status) {
+void
+doc_set_status(Tdocument * doc, gint status)
+{
 	gchar *color = NULL;
 	doc->status = status;
-	switch(status) {
-		case DOC_STATUS_COMPLETE:
-			doc->modified=FALSE;
+	switch (status) {
+	case DOC_STATUS_COMPLETE:
+		doc->modified = FALSE;
 		break;
-		case DOC_STATUS_ERROR:
-			color = main_v->props.tab_color_error;
+	case DOC_STATUS_ERROR:
+		color = main_v->props.tab_color_error;
 		break;
-		case DOC_STATUS_LOADING:
-			color = main_v->props.tab_color_loading;
+	case DOC_STATUS_LOADING:
+		color = main_v->props.tab_color_loading;
 		break;
 	}
 	doc_set_label_color(doc, color);
@@ -837,7 +929,9 @@ void doc_set_status(Tdocument *doc, gint status) {
  *
  * Return value: void
  **/
-void doc_set_modified(Tdocument *doc, gboolean value) {
+void
+doc_set_modified(Tdocument * doc, gboolean value)
+{
 	DEBUG_MSG("doc_set_modified, started, doc=%p, value=%d\n", doc, value);
 	if (value) {
 		need_autosave(doc);
@@ -845,8 +939,8 @@ void doc_set_modified(Tdocument *doc, gboolean value) {
 		remove_autosave(doc);
 	}
 	if (doc->modified != value) {
-		gchar *color= NULL;
-		gint change = (value-doc->modified);		
+		gchar *color = NULL;
+		gint change = (value - doc->modified);
 		doc->modified = value;
 		if (doc->modified)
 			color = main_v->props.tab_color_modified;
@@ -859,9 +953,9 @@ void doc_set_modified(Tdocument *doc, gboolean value) {
 	}
 #endif
 	/* only when this is the current document we have to change these */
-	DEBUG_MSG("doc=%p, doc->bfwin=%p\n",doc,doc->bfwin);
+	DEBUG_MSG("doc=%p, doc->bfwin=%p\n", doc, doc->bfwin);
 	if (doc == BFWIN(doc->bfwin)->current_document) {
-		gui_set_undo_redo_widgets(BFWIN(doc->bfwin),doc_has_undo_list(doc), doc_has_redo_list(doc));
+		gui_set_undo_redo_widgets(BFWIN(doc->bfwin), doc_has_undo_list(doc), doc_has_redo_list(doc));
 	}
 #ifdef DEBUG
 	else {
@@ -879,9 +973,11 @@ void doc_set_modified(Tdocument *doc, gboolean value) {
  *
  * Return value: void
  **/
-void doc_scroll_to_cursor(Tdocument *doc) {
+void
+doc_scroll_to_cursor(Tdocument * doc)
+{
 	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
-	gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(doc->view),mark,0.25,FALSE,0.5,0.5);
+	gtk_text_view_scroll_to_mark(GTK_TEXT_VIEW(doc->view), mark, 0.25, FALSE, 0.5, 0.5);
 }
 
 /**
@@ -895,40 +991,43 @@ void doc_scroll_to_cursor(Tdocument *doc) {
  *
  * Return value: gchar * with the requested characters
  **/
-gchar *doc_get_chars(Tdocument *doc, gint start, gint end) {
+gchar *
+doc_get_chars(Tdocument * doc, gint start, gint end)
+{
 	GtkTextIter itstart, itend;
 	gchar *string;
 
-	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, start);
 	if (end >= 0) {
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend, end);
 	} else if (end == -1) {
 		gtk_text_buffer_get_end_iter(doc->buffer, &itend);
 	} else {
-		DEBUG_MSG("doc_get_chars, end < -1, returning NULL\n");
+		g_warning("invalid call to doc_get_chars, end < -1, returning NULL\n");
 		return NULL;
 	}
 	DEBUG_MSG("doc_get_chars, retrieving string, start=%d, end=%d\n", start, end);
-	string = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,TRUE);
+	string = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend, TRUE);
 	DEBUG_MSG("doc_get_chars, retrieved string (%p)\n", string);
 	return string;
 }
 
-void doc_select_and_scroll(Tdocument *doc, GtkTextIter *it1,
-                                  GtkTextIter *it2, gboolean select_it1_line,
-                                  gboolean do_scroll) {
-	GtkTextIter sit1=*it1, sit2=*it2;
+void
+doc_select_and_scroll(Tdocument * doc, GtkTextIter * it1,
+					  GtkTextIter * it2, gboolean select_it1_line, gboolean do_scroll)
+{
+	GtkTextIter sit1 = *it1, sit2 = *it2;
 
 	if (select_it1_line) {
 		sit2 = sit1;
-		gtk_text_iter_set_line_offset(&sit1,0);
+		gtk_text_iter_set_line_offset(&sit1, 0);
 		gtk_text_iter_forward_to_line_end(&sit2);
 	}
-	gtk_text_buffer_select_range(doc->buffer,&sit1,&sit2);
+	gtk_text_buffer_select_range(doc->buffer, &sit1, &sit2);
 	if (do_scroll) {
-	/* in doc reload this works strange, there is no scrolling to the correct position...
-		perhaps this should be done in an idle callback so that the iter positions can be calculated?? */
-		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&sit1,0.25,FALSE,0.5,0.95);
+		/* in doc reload this works strange, there is no scrolling to the correct position...
+		   perhaps this should be done in an idle callback so that the iter positions can be calculated?? */
+		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view), &sit1, 0.25, FALSE, 0.5, 0.95);
 		gtk_widget_grab_focus(doc->view);
 	}
 }
@@ -964,10 +1063,12 @@ void doc_select_and_scroll(Tdocument *doc, GtkTextIter *it1,
  *
  * Return value: void
  **/
-void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll) {
+void
+doc_select_line(Tdocument * doc, gint line, gboolean do_scroll)
+{
 	GtkTextIter itstart;
-	gtk_text_buffer_get_iter_at_line(doc->buffer,&itstart,line-1);
-	doc_select_and_scroll(doc, &itstart, &itstart,TRUE, do_scroll);
+	gtk_text_buffer_get_iter_at_line(doc->buffer, &itstart, line - 1);
+	doc_select_and_scroll(doc, &itstart, &itstart, TRUE, do_scroll);
 }
 
 /**
@@ -981,10 +1082,12 @@ void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll) {
  *
  * Return value: void
  **/
-void doc_select_line_by_offset(Tdocument *doc, gint offset, gboolean do_scroll) {
+void
+doc_select_line_by_offset(Tdocument * doc, gint offset, gboolean do_scroll)
+{
 	GtkTextIter itstart;
-	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,offset);
-	doc_select_and_scroll(doc, &itstart, &itstart,TRUE, do_scroll);
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, offset);
+	doc_select_and_scroll(doc, &itstart, &itstart, TRUE, do_scroll);
 }
 
 /**
@@ -999,18 +1102,20 @@ void doc_select_line_by_offset(Tdocument *doc, gint offset, gboolean do_scroll) 
  *
  * Return value: gboolean if there is a selection
  **/
-gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end) {
+gboolean
+doc_get_selection(Tdocument * doc, gint * start, gint * end)
+{
 	GtkTextIter itstart, itend;
 	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
-	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,mark);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &itstart, mark);
 	mark = gtk_text_buffer_get_selection_bound(doc->buffer);
-	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itend,mark);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &itend, mark);
+	if (gtk_text_iter_equal(&itstart, &itend))
+		return FALSE;
+
 	*start = gtk_text_iter_get_offset(&itstart);
 	*end = gtk_text_iter_get_offset(&itend);
 	DEBUG_MSG("doc_get_selection, start=%d, end=%d\n", *start, *end);
-	if (*start == *end) {
-		return FALSE;
-	}
 	if (*start > *end) {
 		gint tmp = *start;
 		*start = *end;
@@ -1018,6 +1123,7 @@ gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end) {
 	}
 	return TRUE;
 }
+
 /**
  * doc_get_cursor_position:
  * @doc: a #Tdocument
@@ -1026,7 +1132,9 @@ gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end) {
  *
  * Return value: gint with the character offset of the cursor
  **/
-gint doc_get_cursor_position(Tdocument *doc) {
+gint
+doc_get_cursor_position(Tdocument * doc)
+{
 	GtkTextIter iter;
 	GtkTextMark *mark = gtk_text_buffer_get_insert(doc->buffer);
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, mark);
@@ -1039,7 +1147,9 @@ gint doc_get_cursor_position(Tdocument *doc) {
  *
  * Return value: void
  **/
-static void doc_set_statusbar_lncol(Tdocument *doc) {
+static void
+doc_set_statusbar_lncol(Tdocument * doc)
+{
 	gchar *msg;
 	gint line;
 	gint col = 0;
@@ -1054,12 +1164,17 @@ static void doc_set_statusbar_lncol(Tdocument *doc) {
 
 	while (!gtk_text_iter_equal(&start, &iter)) {
 		if (gtk_text_iter_get_char(&start) == '\t') {
-			col += (BFWIN(doc->bfwin)->session->editor_tab_width - (col  % BFWIN(doc->bfwin)->session->editor_tab_width));
-		} else ++col;
+			col +=
+				(BFWIN(doc->bfwin)->session->editor_tab_width -
+				 (col % BFWIN(doc->bfwin)->session->editor_tab_width));
+		} else
+			++col;
 		gtk_text_iter_forward_char(&start);
 	}
 	if (1) {
-		msg = g_strdup_printf(_(" Ln: %d, Col: %d, Char: %d"), line + 1, col + 1,gtk_text_iter_get_offset(&iter));
+		msg =
+			g_strdup_printf(_(" Ln: %d, Col: %d, Char: %d"), line + 1, col + 1,
+							gtk_text_iter_get_offset(&iter));
 	} else {
 		msg = g_strdup_printf(_(" Ln: %d, Col: %d"), line + 1, col + 1);
 	}
@@ -1078,14 +1193,17 @@ static void doc_set_statusbar_lncol(Tdocument *doc) {
  *
  * Return value: void
  **/
-void doc_set_statusbar_insovr(Tdocument *doc)
+void
+doc_set_statusbar_insovr(Tdocument * doc)
 {
 	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0);
 	if (!doc->readonly)
-		gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0, (doc->overwrite_mode ? _(" OVR") : _(" INS")));
+		gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0,
+						   (doc->overwrite_mode ? _(" OVR") : _(" INS")));
 	else
 		gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0, _(" RO"));
 }
+
 /**
  * doc_set_statusbar_mimetype_encoding:
  * @doc: a #Tdocument
@@ -1094,7 +1212,8 @@ void doc_set_statusbar_insovr(Tdocument *doc)
  *
  * Return value: void
  **/
-static void doc_set_statusbar_lang_encoding(Tdocument *doc)
+static void
+doc_set_statusbar_lang_encoding(Tdocument * doc)
 {
 	gchar *msg = NULL;
 
@@ -1109,15 +1228,17 @@ static void doc_set_statusbar_lang_encoding(Tdocument *doc)
 }
 
 
-void doc_insert_text_backend(Tdocument *doc, const gchar * newstring, gint position) {
+void
+doc_insert_text_backend(Tdocument * doc, const gchar * newstring, gint position)
+{
 	GtkTextIter iter;
 	doc_unbind_signals(doc);
-	gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter,position);
-	gtk_text_buffer_insert(doc->buffer,&iter,newstring,-1);
-	doc_unre_add(doc, newstring, position, position + g_utf8_strlen(newstring,-1), UndoInsert);
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, position);
+	gtk_text_buffer_insert(doc->buffer, &iter, newstring, -1);
+	doc_unre_add(doc, newstring, position, position + g_utf8_strlen(newstring, -1), UndoInsert);
 	doc_bind_signals(doc);
 	doc_set_modified(doc, 1);
-	doc->need_highlighting=TRUE;
+	doc->need_highlighting = TRUE;
 }
 
 /**
@@ -1140,39 +1261,43 @@ void doc_insert_text_backend(Tdocument *doc, const gchar * newstring, gint posit
  *
  * Return value: void
  **/
-void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end) {
+void
+doc_replace_text_backend(Tdocument * doc, const gchar * newstring, gint start, gint end)
+{
 	doc_unbind_signals(doc);
 	/* delete region, and add that to undo/redo list */
-	if (end==-1 || end>start){
+	if (end == -1 || end > start) {
 		gchar *buf;
 		GtkTextIter itstart, itend;
 		DEBUG_MSG("doc_replace_text_backend, get iters at start %d and end %d\n", start, end);
-		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, start);
 		if (end == -1) {
-			gtk_text_buffer_get_end_iter(doc->buffer,&itend);
+			gtk_text_buffer_get_end_iter(doc->buffer, &itend);
 		} else {
-			gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
+			gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend, end);
 		}
-		buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,TRUE);
-		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
-		DEBUG_MSG("doc_replace_text_backend, calling doc_unre_add for buf=%s, start=%d and end=%d\n", buf, start, end);
+		buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend, TRUE);
+		gtk_text_buffer_delete(doc->buffer, &itstart, &itend);
+		DEBUG_MSG("doc_replace_text_backend, calling doc_unre_add for buf=%s, start=%d and end=%d\n", buf,
+				  start, end);
 		doc_unre_add(doc, buf, start, end, UndoDelete);
 		g_free(buf);
 		DEBUG_MSG("doc_replace_text_backend, text deleted from %d to %d\n", start, end);
 	}
 
 	/* add new text to this region, the buffer is changed so re-calculate itstart */
-	if (newstring && newstring[0] != '\0'){
+	if (newstring && newstring[0] != '\0') {
 		GtkTextIter itstart;
 		gint insert = (end > start) ? start : end;
 		DEBUG_MSG("doc_replace_text_backend, set insert pos to %d\n", insert);
-		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,insert);
-		gtk_text_buffer_insert(doc->buffer,&itstart,newstring,-1);
-		doc_unre_add(doc, newstring, insert, insert + g_utf8_strlen(newstring,-1), UndoInsert);
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, insert);
+		gtk_text_buffer_insert(doc->buffer, &itstart, newstring, -1);
+		doc_unre_add(doc, newstring, insert, insert + g_utf8_strlen(newstring, -1), UndoInsert);
 	}
 	doc_bind_signals(doc);
 	doc_set_modified(doc, 1);
 }
+
 /**
  * doc_replace_text:
  * @doc: a #Tdocument
@@ -1185,11 +1310,14 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
  *
  * Return value: void
  **/
-void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint end) {
+void
+doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint end)
+{
 	doc_unre_new_group(doc);
 	doc_replace_text_backend(doc, newstring, start, end);
 	doc_unre_new_group(doc);
 }
+
 /*
 static void doc_convert_case_in_selection(Tdocument *doc, gboolean toUpper) {
 	gint start, end;
@@ -1226,26 +1354,29 @@ static void doc_convert_case_in_selection(Tdocument *doc, gboolean toUpper) {
  *
  * Return value: void
  **/
-void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar *after_str) {
+void
+doc_insert_two_strings(Tdocument * doc, const gchar * before_str, const gchar * after_str)
+{
 	GtkTextIter itinsert, itselect;
 	GtkTextMark *insert, *select;
 	gboolean have_diag_marks = FALSE;
-	
+
 	doc_unre_new_group(doc);
 	doc_unbind_signals(doc);
-	insert = gtk_text_buffer_get_mark(doc->buffer,"diag_ins");
-	select = gtk_text_buffer_get_mark(doc->buffer,"diag_sel");
+	insert = gtk_text_buffer_get_mark(doc->buffer, "diag_ins");
+	select = gtk_text_buffer_get_mark(doc->buffer, "diag_sel");
 	if (insert && select) {
 		have_diag_marks = TRUE;
-		DEBUG_MSG("doc_insert_two_strings have_diag_marks, diag_ins=%p, diag_sel=%p\n",insert,select);
+		DEBUG_MSG("doc_insert_two_strings have_diag_marks, diag_ins=%p, diag_sel=%p\n", insert, select);
 	} else {
 		insert = gtk_text_buffer_get_insert(doc->buffer);
 		select = gtk_text_buffer_get_selection_bound(doc->buffer);
-		DEBUG_MSG("doc_insert_two_strings no diag_marks, insert=%p, select=%p\n",insert,select);
+		DEBUG_MSG("doc_insert_two_strings no diag_marks, insert=%p, select=%p\n", insert, select);
 	}
-	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itinsert,insert);
-	gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,select);
-	DEBUG_MSG("doc_insert_two_strings, current marks: itinsert=%d, itselect=%d\n",gtk_text_iter_get_offset(&itinsert),gtk_text_iter_get_offset(&itselect));
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &itinsert, insert);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &itselect, select);
+	DEBUG_MSG("doc_insert_two_strings, current marks: itinsert=%d, itselect=%d\n",
+			  gtk_text_iter_get_offset(&itinsert), gtk_text_iter_get_offset(&itselect));
 	if (gtk_text_iter_equal(&itinsert, &itselect)) {
 		/* no selection */
 		gint pos;
@@ -1253,7 +1384,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 		pos = gtk_text_iter_get_offset(&itinsert);
 		DEBUG_MSG("doc_insert_two_strings, no selection, insert strings together as one string\n");
 		doc_unre_add(doc, double_str, pos, pos + g_utf8_strlen(double_str, -1), UndoInsert);
-		gtk_text_buffer_insert(doc->buffer,&itinsert,double_str,-1);
+		gtk_text_buffer_insert(doc->buffer, &itinsert, double_str, -1);
 		g_free(double_str);
 		if (after_str && strlen(after_str)) {
 			/* the buffer has changed, but gtk_text_buffer_insert makes sure */
@@ -1263,50 +1394,52 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 			gtk_text_buffer_place_cursor(doc->buffer, &itinsert);
 			gtk_widget_grab_focus(doc->view);
 		}
-	} else { /* there is a selection */
+	} else {					/* there is a selection */
 		GtkTextMark *secondat;
 		GtkTextIter *firstiter, seconditer;
 		gint pos;
-		if (gtk_text_iter_compare(&itinsert,&itselect) < 0) {
-			DEBUG_MSG("doc_insert_two_strings, selection, with diag_marks=%d, first iter is itinsert at %d\n",have_diag_marks,gtk_text_iter_get_offset(&itinsert));
+		if (gtk_text_iter_compare(&itinsert, &itselect) < 0) {
+			DEBUG_MSG("doc_insert_two_strings, selection, with diag_marks=%d, first iter is itinsert at %d\n",
+					  have_diag_marks, gtk_text_iter_get_offset(&itinsert));
 			firstiter = &itinsert;
 			secondat = select;
 		} else {
-			DEBUG_MSG("doc_insert_two_strings, selection with diag_marks=%d, first iter is itselect at %d\n",have_diag_marks,gtk_text_iter_get_offset(&itselect));
+			DEBUG_MSG("doc_insert_two_strings, selection with diag_marks=%d, first iter is itselect at %d\n",
+					  have_diag_marks, gtk_text_iter_get_offset(&itselect));
 			firstiter = &itselect;
 			secondat = insert;
 		}
 		/* there is a selection */
 		pos = gtk_text_iter_get_offset(firstiter);
-		DEBUG_MSG("doc_insert_two_strings, insert first string at %d\n",pos);
-		doc_unre_add(doc, before_str, pos, pos + g_utf8_strlen(before_str,-1), UndoInsert);
-		gtk_text_buffer_insert(doc->buffer,firstiter,before_str,-1);
+		DEBUG_MSG("doc_insert_two_strings, insert first string at %d\n", pos);
+		doc_unre_add(doc, before_str, pos, pos + g_utf8_strlen(before_str, -1), UndoInsert);
+		gtk_text_buffer_insert(doc->buffer, firstiter, before_str, -1);
 		if (after_str && strlen(after_str)) {
 			/* the buffer is changed, reset the select iterator */
-			gtk_text_buffer_get_iter_at_mark(doc->buffer,&seconditer,secondat);
+			gtk_text_buffer_get_iter_at_mark(doc->buffer, &seconditer, secondat);
 			pos = gtk_text_iter_get_offset(&seconditer);
-			DEBUG_MSG("doc_insert_two_strings, insert second string at mark %p at %d\n",secondat,pos);
+			DEBUG_MSG("doc_insert_two_strings, insert second string at mark %p at %d\n", secondat, pos);
 			doc_unre_add(doc, after_str, pos, pos + g_utf8_strlen(after_str, -1), UndoInsert);
-			gtk_text_buffer_insert(doc->buffer,&seconditer,after_str,-1);
+			gtk_text_buffer_insert(doc->buffer, &seconditer, after_str, -1);
 			/* now the only thing left is to move the selection and insert mark back to their correct places
-			to preserve the users selection */
+			   to preserve the users selection */
 			if (have_diag_marks) {
 				DEBUG_MSG("doc_insert_two_strings, reset selection with diag_marks\n");
-				gtk_text_buffer_get_iter_at_mark(doc->buffer,&itinsert,insert);
-				gtk_text_buffer_get_iter_at_mark(doc->buffer,&itselect,select);
+				gtk_text_buffer_get_iter_at_mark(doc->buffer, &itinsert, insert);
+				gtk_text_buffer_get_iter_at_mark(doc->buffer, &itselect, select);
 				gtk_text_iter_forward_chars(firstiter, g_utf8_strlen(before_str, -1));
-				gtk_text_buffer_select_range(doc->buffer,&itinsert,&itselect);
+				gtk_text_buffer_select_range(doc->buffer, &itinsert, &itselect);
 			} else {
-				gtk_text_buffer_get_iter_at_mark(doc->buffer,&seconditer,secondat);
+				gtk_text_buffer_get_iter_at_mark(doc->buffer, &seconditer, secondat);
 				gtk_text_iter_backward_chars(&seconditer, g_utf8_strlen(after_str, -1));
-				gtk_text_buffer_move_mark(doc->buffer,secondat,&seconditer);
+				gtk_text_buffer_move_mark(doc->buffer, secondat, &seconditer);
 			}
 		}
 
 	}
 	if (have_diag_marks) {
-		gtk_text_buffer_delete_mark(doc->buffer,insert);
-		gtk_text_buffer_delete_mark(doc->buffer,select);
+		gtk_text_buffer_delete_mark(doc->buffer, insert);
+		gtk_text_buffer_delete_mark(doc->buffer, select);
 	}
 	doc_unre_new_group(doc);
 	doc_bind_signals(doc);
@@ -1314,26 +1447,29 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 	DEBUG_MSG("doc_insert_two_strings, finished\n");
 }
 
-static void add_encoding_to_list(gchar *encoding) {
-	gboolean found=FALSE,changed=FALSE;
+static void
+add_encoding_to_list(gchar * encoding)
+{
+	gboolean found = FALSE, changed = FALSE;
 	GList *tmplist = g_list_first(main_v->globses.encodings);
 
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
-		if (g_strv_length(tmparr)==3 && g_ascii_strcasecmp(tmparr[1], encoding) == 0) {
-			if (tmparr[2][0]!='1') { /* enable this encoding */
-				g_print("enable encoding %s\n",tmparr[0]);
+		if (g_strv_length(tmparr) == 3 && g_ascii_strcasecmp(tmparr[1], encoding) == 0) {
+			if (tmparr[2][0] != '1') {	/* enable this encoding */
+				DEBUG_MSG("enable encoding %s\n", tmparr[0]);
 				g_free(tmparr[2]);
-				tmparr[2]=g_strdup("1");
-				changed=TRUE;
+				tmparr[2] = g_strdup("1");
+				changed = TRUE;
 			}
-			found=TRUE;
+			found = TRUE;
 		}
 		tmplist = g_list_next(tmplist);
 	}
 	if (!found) {
-		main_v->globses.encodings = g_list_insert(main_v->globses.encodings, array_from_arglist(encoding,encoding,"1",NULL), 1);
-		changed=TRUE;
+		main_v->globses.encodings =
+			g_list_insert(main_v->globses.encodings, array_from_arglist(encoding, encoding, "1", NULL), 1);
+		changed = TRUE;
 	}
 	if (changed) {
 		tmplist = g_list_first(main_v->bfwinlist);
@@ -1344,28 +1480,31 @@ static void add_encoding_to_list(gchar *encoding) {
 	}
 }
 
-gchar *encoding_by_regex(const gchar *buffer, const gchar *pattern, guint subpat) {
+gchar *
+encoding_by_regex(const gchar * buffer, const gchar * pattern, guint subpat)
+{
 	GRegex *reg1;
-	GError *gerror=NULL;
-	GMatchInfo *matchinfo=NULL;
-	gchar *retstring=NULL;
-	gboolean retval;	
-	reg1 = g_regex_new(pattern,G_REGEX_CASELESS|G_REGEX_EXTENDED,0,&gerror);
+	GError *gerror = NULL;
+	GMatchInfo *matchinfo = NULL;
+	gchar *retstring = NULL;
+	gboolean retval;
+	reg1 = g_regex_new(pattern, G_REGEX_CASELESS | G_REGEX_EXTENDED, 0, &gerror);
 	if (gerror) {
-		g_warning("error while compiling regex pattern to search for encoding %d: %s\n",gerror->code,gerror->message);
+		g_warning("error while compiling regex pattern to search for encoding %d: %s\n", gerror->code,
+				  gerror->message);
 		g_error_free(gerror);
 		return NULL;
 	} else {
-		retval = g_regex_match(reg1,buffer,0,&matchinfo);
-		if (retval && g_match_info_get_match_count(matchinfo)>=subpat) {
-			retstring = g_match_info_fetch(matchinfo,subpat);
+		retval = g_regex_match(reg1, buffer, 0, &matchinfo);
+		if (retval && g_match_info_get_match_count(matchinfo) >= subpat) {
+			retstring = g_match_info_fetch(matchinfo, subpat);
 			DEBUG_MSG("encoding_by_regex, detected encoding %s\n", retstring);
 		}
 		g_match_info_free(matchinfo);
 	}
 	g_regex_unref(reg1);
 	return retstring;
-} 
+}
 
 
 /**
@@ -1375,26 +1514,31 @@ gchar *encoding_by_regex(const gchar *buffer, const gchar *pattern, guint subpat
  *
  * Return value: newly allocated buffer in UTF-8
  */
-gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const gchar *sessionencoding) {
-	gchar *newbuf=NULL;
+gchar *
+buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gchar * sessionencoding)
+{
+	gchar *newbuf = NULL;
 	gsize wsize;
-	GError *error=NULL;
+	GError *error = NULL;
 	gchar *tmpencoding = NULL;
 	GList *tmplist;
-	gchar endingbyte='\0';
+	gchar endingbyte = '\0';
 	/* the first try is if the encoding is set in the file
-	TODO right now only HTML is supported, but xml files should
-	use a different regex pattern to find the encoding */
+	   TODO right now only HTML is supported, but xml files should
+	   use a different regex pattern to find the encoding */
 	if (buflen > main_v->props.encoding_search_Nbytes) {
 		/* we do a nasty trick to make regexec search only in the first N bytes */
 		endingbyte = buffer[main_v->props.encoding_search_Nbytes];
 		buffer[main_v->props.encoding_search_Nbytes] = '\0';
 	}
-	
+
 	/* <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	OR  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=iso-8859-1" />
+	   OR  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=iso-8859-1" />
 	 */
-	tmpencoding = encoding_by_regex(buffer, "<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"[^;\"]+;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>", 1);
+	tmpencoding =
+		encoding_by_regex(buffer,
+						  "<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"[^;\"]+;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>",
+						  1);
 	if (!tmpencoding) {
 		tmpencoding = encoding_by_regex(buffer, "encoding=\"([a-z0-9_-]+)\"", 1);
 	}
@@ -1404,37 +1548,42 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 
 	if (tmpencoding) {
 		DEBUG_MSG("doc_buffer_to_textbox, try encoding %s from <meta>\n", tmpencoding);
-		newbuf = g_convert(buffer,-1,"UTF-8",tmpencoding,NULL, &wsize, &error);
+		newbuf = g_convert(buffer, -1, "UTF-8", tmpencoding, NULL, &wsize, &error);
 		if (!newbuf || error) {
 			DEBUG_MSG("doc_buffer_to_textbox, cound not convert %s to UTF-8: \n", tmpencoding);
 			g_free(tmpencoding);
-			tmpencoding=NULL;
+			tmpencoding = NULL;
 		} else {
 			*encoding = tmpencoding;
 			return newbuf;
 		}
 	}
 	if (sessionencoding) {
-		DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying session default encoding %s\n", sessionencoding);
-		newbuf = g_convert(buffer,-1,"UTF-8",sessionencoding,NULL, &wsize, NULL);
+		DEBUG_MSG
+			("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying session default encoding %s\n",
+			 sessionencoding);
+		newbuf = g_convert(buffer, -1, "UTF-8", sessionencoding, NULL, &wsize, NULL);
 		if (newbuf) {
 			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", sessionencoding);
 			*encoding = g_strdup(sessionencoding);
 			return newbuf;
 		}
 	}
-	DEBUG_MSG("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying newfile default encoding %s\n", main_v->props.newfile_default_encoding);
-	newbuf = g_convert(buffer,-1,"UTF-8",main_v->props.newfile_default_encoding,NULL, &wsize, NULL);
+	DEBUG_MSG
+		("doc_buffer_to_textbox, file does not have <meta> encoding, or could not convert, trying newfile default encoding %s\n",
+		 main_v->props.newfile_default_encoding);
+	newbuf = g_convert(buffer, -1, "UTF-8", main_v->props.newfile_default_encoding, NULL, &wsize, NULL);
 	if (newbuf) {
-		DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n", main_v->props.newfile_default_encoding);
+		DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s\n",
+				  main_v->props.newfile_default_encoding);
 		*encoding = g_strdup(main_v->props.newfile_default_encoding);
 		return newbuf;
 	}
 
 	DEBUG_MSG("doc_buffer_to_textbox, file is not in UTF-8, trying encoding from locale\n");
-	newbuf = g_locale_to_utf8(buffer,-1,NULL,&wsize,NULL);
+	newbuf = g_locale_to_utf8(buffer, -1, NULL, &wsize, NULL);
 	if (newbuf) {
-		const gchar *tmpencoding=NULL;
+		const gchar *tmpencoding = NULL;
 		g_get_charset(&tmpencoding);
 		DEBUG_MSG("doc_buffer_to_textbox, file is in locale encoding: %s\n", tmpencoding);
 		*encoding = g_strdup(tmpencoding);
@@ -1442,7 +1591,7 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 	}
 
 	DEBUG_MSG("doc_buffer_to_textbox, file NOT is converted yet, trying UTF-8 encoding\n");
-	if(g_utf8_validate(buffer, -1, NULL)) {
+	if (g_utf8_validate(buffer, -1, NULL)) {
 		*encoding = g_strdup("UTF-8");
 		return g_strdup(buffer);
 	}
@@ -1451,9 +1600,9 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 	tmplist = g_list_first(main_v->globses.encodings);
 	while (tmplist) {
 		gchar **enc = tmplist->data;
-		if (enc[2] && enc[2][0]=='1') {
+		if (enc[2] && enc[2][0] == '1') {
 			DEBUG_MSG("doc_buffer_to_textbox, trying user set encoding %s\n", enc[1]);
-			newbuf = g_convert(buffer,-1,"UTF-8",enc[1],NULL, &wsize, NULL);
+			newbuf = g_convert(buffer, -1, "UTF-8", enc[1], NULL, &wsize, NULL);
 			if (newbuf) {
 				*encoding = g_strdup(enc[1]);
 				return newbuf;
@@ -1463,9 +1612,9 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 	}
 	while (tmplist) {
 		gchar **enc = tmplist->data;
-		if (enc[2] || enc[2][0]!='1') {
+		if (enc[2] || enc[2][0] != '1') {
 			DEBUG_MSG("doc_buffer_to_textbox, trying other encoding %s\n", enc[1]);
-			newbuf = g_convert(buffer,-1,"UTF-8",enc[1],NULL, &wsize, NULL);
+			newbuf = g_convert(buffer, -1, "UTF-8", enc[1], NULL, &wsize, NULL);
 			if (newbuf) {
 				*encoding = g_strdup(enc[1]);
 				return newbuf;
@@ -1490,10 +1639,12 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
  * and places the cursor back at this position
  *
  */
-gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo, gboolean delay) {
+gboolean
+doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo, gboolean delay)
+{
 	gint cursor_offset;
-	gchar *encoding=NULL, *newbuf;
-	GtkTextMark* insert;
+	gchar *encoding = NULL, *newbuf;
+	GtkTextMark *insert;
 	GtkTextIter iter;
 
 	if (!buffer) {
@@ -1511,21 +1662,20 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 
 	/* This opens the contents of a file to a textbox */
 
-	newbuf = buffer_find_encoding(buffer, buflen, &encoding,BFWIN(doc->bfwin)->session->encoding);
+	newbuf = buffer_find_encoding(buffer, buflen, &encoding, BFWIN(doc->bfwin)->session->encoding);
 
 	if (!newbuf) {
 		message_dialog_new(BFWIN(doc->bfwin)->main_window,
-								 GTK_MESSAGE_ERROR,
-								 GTK_BUTTONS_CLOSE,
-								 _("Cannot display file, unknown characters found."),
-								 NULL);
+						   GTK_MESSAGE_ERROR,
+						   GTK_BUTTONS_CLOSE, _("Cannot display file, unknown characters found."), NULL);
 		return FALSE;
 	}
-	DEBUG_MSG("doc_buffer_to_textbox, will set encoding to %s\n",encoding);
-	if (doc->encoding) g_free(doc->encoding);
+	DEBUG_MSG("doc_buffer_to_textbox, will set encoding to %s\n", encoding);
+	if (doc->encoding)
+		g_free(doc->encoding);
 	doc->encoding = encoding;
 	add_encoding_to_list(encoding);
-	gtk_text_buffer_insert_at_cursor(doc->buffer,newbuf,-1);
+	gtk_text_buffer_insert_at_cursor(doc->buffer, newbuf, -1);
 	g_free(newbuf);
 	if (!enable_undo) {
 		doc_bind_signals(doc);
@@ -1534,14 +1684,15 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 	{
 		/* set the cursor position back */
 		GtkTextIter iter;
-		gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,cursor_offset);
-		gtk_text_buffer_place_cursor(doc->buffer,&iter);
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, cursor_offset);
+		gtk_text_buffer_place_cursor(doc->buffer, &iter);
 		if (!delay) {
 			gtk_text_view_place_cursor_onscreen(GTK_TEXT_VIEW(doc->view));
 		}
 	}
 	return TRUE;
 }
+
 /**
  * doc_file_to_textbox:
  * @doc: The #Tdocument target.
@@ -1585,24 +1736,26 @@ void doc_set_fileinfo(Tdocument *doc, GFileInfo *finfo) {
 	doc_set_tooltip(doc);
 }*/
 
-static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
+static void
+doc_buffer_insert_text_lcb(GtkTextBuffer * textbuffer, GtkTextIter * iter, gchar * string, gint len,
+						   Tdocument * doc)
+{
 	gint pos = gtk_text_iter_get_offset(iter);
 	gint clen = g_utf8_strlen(string, len);
 	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s', len=%d, clen=%d\n", string, len, clen);
 	/* 'len' is the number of bytes and not the number of characters.. */
 
 	if (!doc->in_paste_operation && (!doc_unre_test_last_entry(doc, UndoInsert, -1, pos)
-			|| string[0] == ' '
-			|| string[0] == '\n'
-			|| string[0] == '\t'
-			|| string[0] == '\r')) {
+									 || string[0] == ' '
+									 || string[0] == '\n' || string[0] == '\t' || string[0] == '\r')) {
 		DEBUG_MSG("doc_buffer_insert_text_lcb, create a new undogroup\n");
 		doc_unre_new_group(doc);
 	}
-	doc_unre_add(doc, string, pos, pos+clen, UndoInsert);
+	doc_unre_add(doc, string, pos, pos + clen, UndoInsert);
 	doc_set_modified(doc, 1);
 	DEBUG_MSG("doc_buffer_insert_text_lcb, done\n");
 }
+
 /*
 static gboolean find_char(gunichar ch,gchar *data) {
 #ifdef DEBUG
@@ -1631,25 +1784,26 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 #endif
 }*/
 
-static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * itstart,GtkTextIter * itend, Tdocument * doc) {
+static void
+doc_buffer_delete_range_lcb(GtkTextBuffer * textbuffer, GtkTextIter * itstart, GtkTextIter * itend,
+							Tdocument * doc)
+{
 	gchar *string;
 	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, TRUE);
-	DEBUG_MSG("doc_buffer_delete_range_lcb, string='%s'\n",string);
+	DEBUG_MSG("doc_buffer_delete_range_lcb, string='%s'\n", string);
 	if (string) {
 		/* undo_redo stuff */
 		gint start, end, len;
 		start = gtk_text_iter_get_offset(itstart);
 		end = gtk_text_iter_get_offset(itend);
 		len = end - start;
-		DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len, string);
+		DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len,
+				  string);
 		if (!doc->in_paste_operation) {
 			if (len == 1) {
-				if ((!doc_unre_test_last_entry(doc, UndoDelete, start, -1) /* delete */
-							&& !doc_unre_test_last_entry(doc, UndoDelete, end, -1)) /* backspace */
-						|| string[0] == ' '
-						|| string[0] == '\n'
-						|| string[0] == '\t'
-						|| string[0] == '\r') {
+				if ((!doc_unre_test_last_entry(doc, UndoDelete, start, -1)	/* delete */
+					 &&!doc_unre_test_last_entry(doc, UndoDelete, end, -1))	/* backspace */
+					||string[0] == ' ' || string[0] == '\n' || string[0] == '\t' || string[0] == '\r') {
 					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
 					doc_unre_new_group(doc);
 				}
@@ -1663,27 +1817,33 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 	doc_set_modified(doc, 1);
 }
 
-void doc_get_iter_location(Tdocument *doc, GtkTextIter *iter, GdkRectangle *rectangle) {
+void
+doc_get_iter_location(Tdocument * doc, GtkTextIter * iter, GdkRectangle * rectangle)
+{
 	GdkRectangle rect;
-	gint itx,ity,px,py;
+	gint itx, ity, px, py;
 
-	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(doc->view),iter,&rect);
+	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(doc->view), iter, &rect);
 
 	/* the following function will return the position relative to the text area of the widget
-	but we also have margins!! */
+	   but we also have margins!! */
 	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(doc->view)
-					, GTK_TEXT_WINDOW_TEXT
-					, rect.x,rect.y,&itx,&ity);
+										  , GTK_TEXT_WINDOW_TEXT, rect.x, rect.y, &itx, &ity);
 	/* the following function will return the position of the total text widget */
 	gdk_window_get_origin(gtk_widget_get_window(doc->view), &px, &py);
 
-	DEBUG_MSG("doc_get_iter_location, px=%d, itx=%d,border=%d\n",px,itx,gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT));
-	DEBUG_MSG("doc_get_iter_location, py=%d, ity=%d,border=%d\n",py,ity,gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_TOP));
-	rectangle->x = px+itx+gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
-	rectangle->y = py+ity+gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_TOP);
+	DEBUG_MSG("doc_get_iter_location, px=%d, itx=%d,border=%d\n", px, itx,
+			  gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_LEFT));
+	DEBUG_MSG("doc_get_iter_location, py=%d, ity=%d,border=%d\n", py, ity,
+			  gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_TOP));
+	rectangle->x =
+		px + itx + gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_LEFT);
+	rectangle->y =
+		py + ity + gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view), GTK_TEXT_WINDOW_TOP);
 	rectangle->width = rect.width;
 	rectangle->height = rect.height;
 }
+
 /*
 void doc_get_cursor_location(Tdocument *doc, gint *x, gint *y) {
 	GtkTextIter iter;
@@ -1691,27 +1851,23 @@ void doc_get_cursor_location(Tdocument *doc, gint *x, gint *y) {
 	doc_get_iter_location(doc, &iter, x, y);
 }
 */
-void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter *iter) {
-	gint xpos, ypos;
-	GtkTextWindowType wintype;
 
-	wintype = gtk_text_view_get_window_type(GTK_TEXT_VIEW(doc->view),
-			gtk_widget_get_window(doc->view));
-	gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(doc->view), wintype,bevent->x, bevent->y,
-					  &xpos, &ypos);
-	xpos += gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
-	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), iter, xpos, ypos);
-}
-
-static void rpopup_add_bookmark_lcb(GtkWidget *widget, Tdocument *doc) {
+static void
+rpopup_add_bookmark_lcb(GtkWidget * widget, Tdocument * doc)
+{
 	bmark_add_at_bevent(doc);
 }
-static void rpopup_del_bookmark_lcb(GtkWidget *widget, Tdocument *doc) {
+
+static void
+rpopup_del_bookmark_lcb(GtkWidget * widget, Tdocument * doc)
+{
 	bmark_del_at_bevent(doc);
 }
 
 
-static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdocument *doc) {
+static void
+doc_view_populate_popup_lcb(GtkTextView * textview, GtkMenu * menu, Tdocument * doc)
+{
 	GtkWidget *menuitem;
 	/* I found no way to connect an item-factory to this menu widget, so we have to do it in the manual way... */
 
@@ -1722,12 +1878,14 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
 	menuitem = gtk_image_menu_item_new_with_label(_("Replace"));
 	g_signal_connect(menuitem, "activate", G_CALLBACK(replace_cb), doc->bfwin);
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),gtk_image_new_from_stock(GTK_STOCK_FIND_AND_REPLACE, GTK_ICON_SIZE_MENU));
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),
+								  gtk_image_new_from_stock(GTK_STOCK_FIND_AND_REPLACE, GTK_ICON_SIZE_MENU));
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 
 	menuitem = gtk_image_menu_item_new_with_label(_("Find"));
 	g_signal_connect(menuitem, "activate", G_CALLBACK(search_cb), doc->bfwin);
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),gtk_image_new_from_stock(GTK_STOCK_FIND, GTK_ICON_SIZE_MENU));
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),
+								  gtk_image_new_from_stock(GTK_STOCK_FIND, GTK_ICON_SIZE_MENU));
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
@@ -1757,31 +1915,36 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 	if (main_v->doc_view_populate_popup_cbs) {
 		GSList *tmplist = main_v->doc_view_populate_popup_cbs;
 		while (tmplist) {
-			void *(* func)() = tmplist->data;
-			func(textview,menu,doc);
+			void *(*func) () = tmplist->data;
+			func(textview, menu, doc);
 			tmplist = g_slist_next(tmplist);
 		}
 	}
-
 #ifdef HAVE_LIBENCHANT
 	bftextview2_populate_suggestions_popup(menu, doc);
-#endif /*HAVE_LIBENCHANT*/
+#endif							/*HAVE_LIBENCHANT */
 
 	gtk_widget_show_all(GTK_WIDGET(menu));
 }
 
-static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,GtkTextIter *iter,GtkTextMark *set_mark,Tdocument *doc) {
-	/*DEBUG_MSG("doc_buffer_mark_set_lcb, set_mark=%p, insert_mark=%p\n",set_mark,gtk_text_buffer_get_insert(buffer));*/
+static void
+doc_buffer_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, GtkTextMark * set_mark, Tdocument * doc)
+{
+	/*DEBUG_MSG("doc_buffer_mark_set_lcb, set_mark=%p, insert_mark=%p\n",set_mark,gtk_text_buffer_get_insert(buffer)); */
 	if (set_mark == gtk_text_buffer_get_insert(buffer)) {
 		doc_set_statusbar_lncol(doc);
 	}
 }
-static void doc_buffer_changed_lcb(GtkTextBuffer *textbuffer,Tdocument*doc) {
+
+static void
+doc_buffer_changed_lcb(GtkTextBuffer * textbuffer, Tdocument * doc)
+{
 	DEBUG_MSG("doc_buffer_changed_lcb()\n");
 	doc_set_statusbar_lncol(doc);
 }
 
-static void doc_view_toggle_overwrite_lcb(GtkTextView *view, Tdocument *doc)
+static void
+doc_view_toggle_overwrite_lcb(GtkTextView * view, Tdocument * doc)
 {
 	doc->overwrite_mode = (doc->overwrite_mode ? FALSE : TRUE);
 	doc_set_statusbar_insovr(doc);
@@ -1796,13 +1959,13 @@ static void doc_view_toggle_overwrite_lcb(GtkTextView *view, Tdocument *doc)
  *
  * Return value: void
  **/
-void doc_bind_signals(Tdocument *doc) {
+void
+doc_bind_signals(Tdocument * doc)
+{
 	doc->ins_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
-					 "insert-text",
-					 G_CALLBACK(doc_buffer_insert_text_lcb), doc);
+									   "insert-text", G_CALLBACK(doc_buffer_insert_text_lcb), doc);
 	doc->del_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
-					 "delete-range",
-					 G_CALLBACK(doc_buffer_delete_range_lcb), doc);
+									   "delete-range", G_CALLBACK(doc_buffer_delete_range_lcb), doc);
 /*	doc->ins_aft_txt_id = g_signal_connect_after(G_OBJECT(doc->buffer),
 					 "insert-text",
 					 G_CALLBACK(doc_buffer_insert_text_after_lcb), doc);*/
@@ -1818,14 +1981,16 @@ void doc_bind_signals(Tdocument *doc) {
  *
  * Return value: void
  **/
-void doc_unbind_signals(Tdocument *doc) {
+void
+doc_unbind_signals(Tdocument * doc)
+{
 /*	g_print("doc_unbind_signals, before unbind ins=%lu, del=%lu\n", doc->ins_txt_id, doc->del_txt_id);*/
 	if (doc->ins_txt_id != 0) {
-		g_signal_handler_disconnect(G_OBJECT(doc->buffer),doc->ins_txt_id);
+		g_signal_handler_disconnect(G_OBJECT(doc->buffer), doc->ins_txt_id);
 		doc->ins_txt_id = 0;
 	}
 	if (doc->del_txt_id != 0) {
-		g_signal_handler_disconnect(G_OBJECT(doc->buffer),doc->del_txt_id);
+		g_signal_handler_disconnect(G_OBJECT(doc->buffer), doc->del_txt_id);
 		doc->del_txt_id = 0;
 	}
 /*	if (doc->ins_aft_txt_id != 0) {
@@ -1838,39 +2003,43 @@ void doc_unbind_signals(Tdocument *doc) {
 returns a buffer in the encoding stored in doc->encoding, or NULL if that fails
 and the user aborted conversion to UTF-8
 */
-gchar *doc_get_buffer_in_encoding(Tdocument *doc) {
+gchar *
+doc_get_buffer_in_encoding(Tdocument * doc)
+{
 	GtkTextIter itstart, itend;
 	gchar *buffer;
 
-	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-	buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
+	gtk_text_buffer_get_bounds(doc->buffer, &itstart, &itend);
+	buffer = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend, TRUE);
 
 	if (doc->encoding) {
 		gchar *newbuf;
-		gsize bytes_written=0, bytes_read=0;
+		gsize bytes_written = 0, bytes_read = 0;
 		DEBUG_MSG("doc_get_buffer_in_encoding, converting from UTF-8 to %s\n", doc->encoding);
-		newbuf = g_convert(buffer,-1,doc->encoding,"UTF-8",&bytes_read,&bytes_written,NULL);
+		newbuf = g_convert(buffer, -1, doc->encoding, "UTF-8", &bytes_read, &bytes_written, NULL);
 		if (newbuf) {
 			g_free(buffer);
 			buffer = newbuf;
 		} else {
-			const gchar *buttons[] = {_("_Abort save"), _("_Continue save in UTF-8"), NULL};
+			const gchar *buttons[] = { _("_Abort save"), _("_Continue save in UTF-8"), NULL };
 			gint retval, line, column;
 			glong position;
 			gchar *tmpstr, failed[6];
 			GtkTextIter iter;
-			position = g_utf8_pointer_to_offset(buffer,buffer+bytes_read);
-			gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,position);
+			position = g_utf8_pointer_to_offset(buffer, buffer + bytes_read);
+			gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, position);
 			line = gtk_text_iter_get_line(&iter);
 			column = gtk_text_iter_get_line_offset(&iter);
-			failed[0]='\0';
-			g_utf8_strncpy(failed,buffer+bytes_read,1);
-			tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n\nContinue saving in UTF-8 encoding?"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), doc->encoding, failed, line+1, column+1);
-			retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
-														 GTK_MESSAGE_WARNING,
-														 buttons,
-														 _("File encoding conversion failure"),
-														 tmpstr);
+			failed[0] = '\0';
+			g_utf8_strncpy(failed, buffer + bytes_read, 1);
+			tmpstr =
+				g_strdup_printf(_
+								("Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n\nContinue saving in UTF-8 encoding?"),
+								gtk_label_get_text(GTK_LABEL(doc->tab_menu)), doc->encoding, failed, line + 1,
+								column + 1);
+			retval =
+				message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_WARNING, buttons,
+										 _("File encoding conversion failure"), tmpstr);
 			g_free(tmpstr);
 			if (retval == 0) {
 				DEBUG_MSG("doc_get_buffer_in_encoding, character set conversion failed, user aborted!\n");
@@ -1879,12 +2048,12 @@ gchar *doc_get_buffer_in_encoding(Tdocument *doc) {
 				/* continue in UTF-8 */
 				update_encoding_meta_in_file(doc, "UTF-8");
 				g_free(buffer);
-				gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-				buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
+				gtk_text_buffer_get_bounds(doc->buffer, &itstart, &itend);
+				buffer = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend, TRUE);
 			}
 		}
 	}
-	return  buffer;
+	return buffer;
 }
 
 /**
@@ -2005,8 +2174,10 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 }
 */
 
-static void delete_backupfile_lcb(gpointer data) {
-	GFile *uri = (GFile *)data;
+static void
+delete_backupfile_lcb(gpointer data)
+{
+	GFile *uri = (GFile *) data;
 	g_object_unref(uri);
 }
 
@@ -2025,40 +2196,45 @@ static void delete_backupfile_lcb(gpointer data) {
  * Return value: void
  **/
 
-void doc_destroy(Tdocument * doc, gboolean delay_activation) {
+void
+doc_destroy(Tdocument * doc, gboolean delay_activation)
+{
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
-	DEBUG_MSG("doc_destroy(%p,%d);\n",doc,delay_activation);
+	DEBUG_MSG("doc_destroy(%p,%d);\n", doc, delay_activation);
 	if (doc->status == DOC_STATUS_ERROR) {
 		bfwin_docs_not_complete(doc->bfwin, FALSE);
 	}
 
-	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n",doc);
+	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n", doc);
 	bmark_clean_for_doc(doc);
-
-	if (doc->uri && bfwin->session) { /* in a special situation the bfwin does not have a session: if a project window is closing */
-		add_to_recent_list(doc->bfwin,doc->uri, 1, FALSE);
+	if (doc->uri && bfwin->session) {	/* in a special situation the bfwin does not have a session: if a project window is closing */
+		add_to_recent_list(doc->bfwin, doc->uri, 1, FALSE);
 	}
 	gui_notebook_block_signals(BFWIN(doc->bfwin));
 	if (doc->newdoc_autodetect_lang_id) {
 		g_source_remove(doc->newdoc_autodetect_lang_id);
-		doc->newdoc_autodetect_lang_id=0;
+		doc->newdoc_autodetect_lang_id = 0;
 	}
 
-	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(),
-	(in notebook_changed())
-	after the document is gone from the GUI we complete the destroy, to destroy only the notebook
-	page we ref+ the scrolthingie, remove the page, and unref it again */
-	g_object_ref_sink(gtk_widget_get_parent(doc->view));
+	/* NOT USED ANYMORE: to make this go really quick, we first only destroy the notebook page and run flush_queue(),
+	   (in notebook_changed())
+	   after the document is gone from the GUI we complete the destroy, to destroy only the notebook
+	   page we ref+ the scrolthingie, remove the page, and unref it again */
+	/*g_object_ref_sink(gtk_widget_get_parent(doc->view)); */
 
 	if (doc->floatingview) {
 		gtk_widget_destroy(FLOATINGVIEW(doc->floatingview)->window);
 		doc->floatingview = NULL;
 	}
+	if (doc->slave) {
+		gtk_widget_destroy(doc->slave);
+		doc->slave = NULL;
+	}
+
 	/* now we remove the document from the document list */
 	bfwin->documentlist = g_list_remove(bfwin->documentlist, doc);
-	DEBUG_MSG("removed %p from documentlist, list %p length=%d\n",doc
-			, bfwin->documentlist
-			, g_list_length(bfwin->documentlist));
+	DEBUG_MSG("removed %p from documentlist, list %p length=%d\n", doc, bfwin->documentlist,
+			  g_list_length(bfwin->documentlist));
 	if (bfwin->current_document == doc) {
 		bfwin->current_document = NULL;
 	}
@@ -2066,33 +2242,35 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		bfwin->prev_document = NULL;
 	}
 	/* then we remove the page from the notebook */
-	DEBUG_MSG("about to remove widget from notebook (doc=%p, current_document=%p)\n",doc,bfwin->current_document);
+	DEBUG_MSG("about to remove widget from notebook (doc=%p, current_document=%p)\n", doc,
+			  bfwin->current_document);
 	gtk_notebook_remove_page(GTK_NOTEBOOK(bfwin->notebook),
-			gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook), gtk_widget_get_parent(doc->view)));
-	DEBUG_MSG("doc_destroy, removed widget from notebook (doc=%p), delay_activation=%d\n",doc,delay_activation);
-	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n",doc);
+							 gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook), doc->vsplit));
+	DEBUG_MSG("doc_destroy, removed widget from notebook (doc=%p), delay_activation=%d\n", doc,
+			  delay_activation);
+	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n", doc);
 	gui_notebook_unblock_signals(BFWIN(doc->bfwin));
 #ifdef IDENTSTORING
 	bftextview2_identifier_hash_remove_doc(doc->bfwin, doc);
 #endif
 	if (!delay_activation) {
-		gint newpage=-1;
+		gint newpage = -1;
 		if (bfwin->prev_document) {
-			newpage = gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),
-					gtk_widget_get_parent(bfwin->prev_document->view));
-			gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook),newpage);
+			newpage = gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook), doc->vsplit);
+			gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), newpage);
 		}
-		notebook_changed(BFWIN(doc->bfwin),newpage);
+		notebook_changed(BFWIN(doc->bfwin), newpage);
 	}
-	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed()\n",doc);
-	/* now we really start to destroy the document */
-	g_object_unref(GTK_OBJECT(gtk_widget_get_parent(doc->view)));
+	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed(), vsplit=%p\n", doc, doc->vsplit);
+	/* NOT USED ANYMORE: now we really start to destroy the document */
+	/*g_object_unref(G_OBJECT(doc->view)); */
+	remove_autosave(doc);
 	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {
 			gchar *tmp, *tmp2;
 			GFile *backupuri;
 			tmp = g_file_get_uri(doc->uri);
-			tmp2 = g_strconcat(tmp,"~",NULL);
+			tmp2 = g_strconcat(tmp, "~", NULL);
 			backupuri = g_file_new_for_uri(tmp2);
 			g_free(tmp);
 			g_free(tmp2);
@@ -2106,7 +2284,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		g_free(doc->encoding);
 
 	if (doc->fileinfo) {
-		g_object_unref (doc->fileinfo);
+		g_object_unref(doc->fileinfo);
 	}
 
 	g_object_unref(doc->buffer);
@@ -2124,7 +2302,9 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
  *
  * return value: void, ignored
  */
-void document_unset_filename(Tdocument *doc) {
+void
+document_unset_filename(Tdocument * doc)
+{
 	if (doc->uri) {
 		gchar *tmpstr;
 		tmpstr = g_strconcat(_("Previously: "), gtk_label_get_text(GTK_LABEL(doc->tab_label)), NULL);
@@ -2138,7 +2318,7 @@ void document_unset_filename(Tdocument *doc) {
 		doc_set_title(doc);
 		doc_set_modified(doc, TRUE);
 
-		gtk_label_set(GTK_LABEL(doc->tab_label),tmpstr);
+		gtk_label_set(GTK_LABEL(doc->tab_label), tmpstr);
 
 		g_free(tmpstr);
 	}
@@ -2221,12 +2401,16 @@ gint doc_close(Tdocument * doc, gint warn_only)
 	return 1;
 }*/
 
-static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
-	/*doc_close(data, 0);*/
+static void
+doc_close_but_clicked_lcb(GtkWidget * wid, gpointer data)
+{
+	/*doc_close(data, 0); */
 	doc_close_single_backend(data, FALSE, FALSE);
 }
 
-static gboolean doc_scroll_event_lcb(GtkWidget *widget,GdkEventScroll *event,gpointer user_data) {
+static gboolean
+doc_scroll_event_lcb(GtkWidget * widget, GdkEventScroll * event, gpointer user_data)
+{
 	if (event->state & GDK_CONTROL_MASK) {
 		Tdocument *doc = user_data;
 		doc_font_size(doc, (event->direction == GDK_SCROLL_UP) ? 1 : -1);
@@ -2235,16 +2419,20 @@ static gboolean doc_scroll_event_lcb(GtkWidget *widget,GdkEventScroll *event,gpo
 	return FALSE;
 }
 
-static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
-	if (bevent->button==2) {
+static gboolean
+doc_view_button_press_lcb(GtkWidget * widget, GdkEventButton * bevent, Tdocument * doc)
+{
+	if (bevent->button == 2) {
 		doc->in_paste_operation = TRUE;
 		doc_unre_new_group(doc);
- 	}
- 	return FALSE;
+	}
+	return FALSE;
 }
 
-static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
-	if (bevent->button==2) {
+static gboolean
+doc_view_button_release_lcb(GtkWidget * widget, GdkEventButton * bevent, Tdocument * doc)
+{
+	if (bevent->button == 2) {
 		doc->in_paste_operation = FALSE;
 		doc_unre_new_group(doc);
 	}
@@ -2252,30 +2440,34 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 }
 
 
-Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly) {
+Tdocument *
+doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
+{
 	GtkWidget *scroll;
 	Tdocument *newdoc;
+	GtkWidget *hbox, *button;
 
 	/* test if the current document is empty and nameless, if so we return that */
-	if (!force_new && bfwin->current_document && g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
+	if (!force_new && bfwin->current_document && g_list_length(bfwin->documentlist) == 1
+		&& doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
 		newdoc = bfwin->current_document;
-		DEBUG_MSG("doc_new_backend, returning existing doc %p\n",newdoc);
+		DEBUG_MSG("doc_new_backend, returning existing doc %p\n", newdoc);
 		return newdoc;
 	}
 
 	newdoc = g_new0(Tdocument, 1);
 	DEBUG_MSG("doc_new_backend, main_v is at %p, bfwin at %p, newdoc at %p\n", main_v, bfwin, newdoc);
 	newdoc->readonly = readonly;
-	newdoc->bfwin = (gpointer)bfwin;
-	newdoc->status = DOC_STATUS_COMPLETE; /* if we don't set this default we will get problems for new empty files */
+	newdoc->bfwin = (gpointer) bfwin;
+	newdoc->status = DOC_STATUS_COMPLETE;	/* if we don't set this default we will get problems for new empty files */
 	newdoc->buffer = gtk_text_buffer_new(langmgr_get_tagtable());
 	newdoc->view = bftextview2_new_with_buffer(newdoc->buffer);
-	bluefish_text_view_multiset(BLUEFISH_TEXT_VIEW(newdoc->view), newdoc
-			, BFWIN(bfwin)->session->view_line_numbers
-			, BFWIN(bfwin)->session->view_blocks
-			, BFWIN(bfwin)->session->autoindent
-			, BFWIN(bfwin)->session->autocomplete
-			, BFWIN(bfwin)->session->show_mbhl);
+	bluefish_text_view_multiset(BLUEFISH_TEXT_VIEW(newdoc->view), newdoc,
+								BFWIN(bfwin)->session->view_line_numbers, BFWIN(bfwin)->session->view_blocks,
+								BFWIN(bfwin)->session->autoindent, BFWIN(bfwin)->session->autocomplete,
+								BFWIN(bfwin)->session->show_mbhl);
+	bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(newdoc->view),
+											 bfwin->session->display_right_margin);
 #ifdef HAVE_LIBENCHANT
 	BLUEFISH_TEXT_VIEW(newdoc->view)->spell_check = BFWIN(bfwin)->session->spell_check_default;
 #endif
@@ -2285,24 +2477,18 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 	g_file_info_set_content_type(newdoc->fileinfo, bfwin->session->default_mime_type);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	g_signal_connect(scroll, "scroll-event", G_CALLBACK(doc_scroll_event_lcb), newdoc);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
-									   GTK_POLICY_AUTOMATIC,
-									   GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW
-											(scroll), GTK_SHADOW_IN);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scroll), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
-	newdoc->highlightstate=1;
-/*	document_set_line_numbers(newdoc, newdoc->linenumberstate); set in the widget by default*/
-/*	document_set_show_blocks(newdoc, newdoc->blocksstate); set in the widget by default */
+	newdoc->highlightstate = 1;
 	newdoc->tab_label = gtk_label_new(NULL);
 	gtk_widget_set_can_focus(newdoc->tab_label, FALSE);
-	if (strlen(main_v->props.tab_font_string)) {
+	if (!main_v->props.use_system_tab_font)
 		apply_font_style(newdoc->tab_label, main_v->props.tab_font_string);
-	}
 	newdoc->tab_menu = gtk_label_new(NULL);
 	newdoc->tab_eventbox = gtk_event_box_new();
 	gtk_event_box_set_visible_window(GTK_EVENT_BOX(newdoc->tab_eventbox), FALSE);
-	gtk_misc_set_alignment(GTK_MISC(newdoc->tab_menu), 0,0);
+	gtk_misc_set_alignment(GTK_MISC(newdoc->tab_menu), 0, 0);
 
 	doc_unre_init(newdoc);
 	apply_font_style(newdoc->view, main_v->props.editor_font_string);
@@ -2310,30 +2496,30 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 	doc_set_wrap(newdoc);
 
 	/* we initialize already with 0 , so we don't need these:
-	newdoc->need_highlighting = 0;
-	newdoc->uri = NULL;
-	newdoc->modified = 0;
-	newdoc->fileinfo = NULL;*/
+	   newdoc->need_highlighting = 0;
+	   newdoc->uri = NULL;
+	   newdoc->modified = 0;
+	   newdoc->fileinfo = NULL; */
 	newdoc->is_symlink = 0;
-	newdoc->encoding = g_strdup( (bfwin->session->encoding) ? bfwin->session->encoding : main_v->props.newfile_default_encoding);
-	DEBUG_MSG("doc_new_backend, encoding is %s\n",newdoc->encoding);
+	newdoc->encoding =
+		g_strdup((bfwin->session->encoding) ? bfwin->session->encoding : main_v->props.
+				 newfile_default_encoding);
+	DEBUG_MSG("doc_new_backend, encoding is %s\n", newdoc->encoding);
 	newdoc->overwrite_mode = FALSE;
 
 	doc_set_title(newdoc);
 	doc_bind_signals(newdoc);
 
-	g_signal_connect(G_OBJECT(newdoc->buffer), "changed",
-		G_CALLBACK(doc_buffer_changed_lcb), newdoc);
-	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set",
-		G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->buffer), "changed", G_CALLBACK(doc_buffer_changed_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set", G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "toggle-overwrite",
-		G_CALLBACK(doc_view_toggle_overwrite_lcb), newdoc);
+					 G_CALLBACK(doc_view_toggle_overwrite_lcb), newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view), "populate-popup",
-		G_CALLBACK(doc_view_populate_popup_lcb), newdoc);
+						   G_CALLBACK(doc_view_populate_popup_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event",
-		G_CALLBACK(doc_view_button_release_lcb), newdoc);
+					 G_CALLBACK(doc_view_button_release_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event",
-		G_CALLBACK(doc_view_button_press_lcb), newdoc);
+					 G_CALLBACK(doc_view_button_press_lcb), newdoc);
 
 	bfwin->documentlist = g_list_append(bfwin->documentlist, newdoc);
 
@@ -2341,25 +2527,26 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
 	gtk_widget_show(scroll);
 
 	DEBUG_MSG("doc_new_backend, appending doc to notebook\n");
-	{
-		GtkWidget *hbox, *button;
 
-		hbox = gtk_hbox_new(FALSE, 6);
+	hbox = gtk_hbox_new(FALSE, 6);
+	button = bluefish_small_close_button_new();
+	g_signal_connect(button, "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
+	gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
+	gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_eventbox, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+	gtk_widget_show_all(hbox);
 
-		button = bluefish_small_close_button_new();
-		g_signal_connect(button, "clicked", G_CALLBACK (doc_close_but_clicked_lcb), newdoc);
+	newdoc->vsplit = gtk_vpaned_new();
+	gtk_paned_add1(GTK_PANED(newdoc->vsplit), scroll);
+	gtk_widget_show(newdoc->vsplit);
+	DEBUG_MSG("doc_new_backend, vsplit at %p\n", newdoc->vsplit);
 
-		gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
-		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_eventbox, TRUE, TRUE, 0);
-		gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
-		gtk_widget_show_all(hbox);
-		gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->notebook), scroll ,hbox, newdoc->tab_menu);
-		gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(bfwin->notebook), scroll, TRUE);
-	}
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->notebook), newdoc->vsplit, hbox, newdoc->tab_menu);
+	gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(bfwin->notebook), newdoc->vsplit, TRUE);
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize(newdoc, BFWIN(bfwin)->session->editor_tab_width);
 
-	DEBUG_MSG("doc_new_backend, need_highlighting=%d\n", newdoc->need_highlighting);
+	DEBUG_MSG("doc_new_backend, doc %p need_highlighting=%d\n", newdoc, newdoc->need_highlighting);
 	return newdoc;
 }
 
@@ -2369,40 +2556,44 @@ Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly)
  *
  * creates a new document, which will be loaded in the background
  */
-Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GFile *uri, GFileInfo *finfo, gboolean readonly) {
+Tdocument *
+doc_new_loading_in_background(Tbfwin * bfwin, GFile * uri, GFileInfo * finfo, gboolean readonly)
+{
 	Tdocument *doc = doc_new_backend(bfwin, FALSE, readonly);
-	DEBUG_MSG("doc_new_loading_in_background, bfwin=%p, doc=%p, for uri %p\n",bfwin,doc,uri);
+	DEBUG_MSG("doc_new_loading_in_background, bfwin=%p, doc=%p, for uri %p\n", bfwin, doc, uri);
 	if (finfo) {
 		doc->fileinfo = finfo;
 		g_object_ref(finfo);
 	} else {
 		doc->fileinfo = NULL;
 	}
-	doc_set_filename(doc,uri);
+	doc_set_filename(doc, uri);
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	bfwin_docs_not_complete(bfwin, TRUE);
 	return doc;
 }
 
-static gboolean doc_auto_detect_lang_lcb(gpointer data) {
-	Tdocument *doc=data;
+static gboolean
+doc_auto_detect_lang_lcb(gpointer data)
+{
+	Tdocument *doc = data;
 	gchar *conttype, *buf;
 #ifdef WIN32
 	gchar *mimetype;
 #endif
 	gint buflen;
-	gboolean uncertain=FALSE;
+	gboolean uncertain = FALSE;
 
 	buf = doc_get_chars(doc, 0, -1);
 	buflen = strlen(buf);
-	conttype = g_content_type_guess(NULL,(guchar *)buf,buflen,&uncertain);
+	conttype = g_content_type_guess(NULL, (guchar *) buf, buflen, &uncertain);
 #ifdef WIN32
 	mimetype = g_content_type_get_mime_type(conttype);
 #endif
-	/*g_print("doc_auto_detect_lang_lcb, buflen=%d\n",buflen);*/
+	/*g_print("doc_auto_detect_lang_lcb, buflen=%d\n",buflen); */
 	g_free(buf);
-	if (!uncertain && conttype && (strcmp(conttype, "text/plain")!=0|| buflen>50) )  {
-		DEBUG_MSG("doc_auto_detect_lang_lcb, found %s for certain\n",conttype);
+	if (!uncertain && conttype && (strcmp(conttype, "text/plain") != 0 || buflen > 50)) {
+		DEBUG_MSG("doc_auto_detect_lang_lcb, found %s for certain\n", conttype);
 #ifdef WIN32
 		doc_set_mimetype(doc, mimetype);
 		g_free(mimetype);
@@ -2414,7 +2605,7 @@ static gboolean doc_auto_detect_lang_lcb(gpointer data) {
 	}
 	g_free(conttype);
 	if (buflen > 50) {
-		doc->newdoc_autodetect_lang_id=0;
+		doc->newdoc_autodetect_lang_id = 0;
 		DEBUG_MSG("doc_auto_detect_lang_lcb, filesize>50, stop detection\n");
 		return FALSE;
 	}
@@ -2432,18 +2623,24 @@ static gboolean doc_auto_detect_lang_lcb(gpointer data) {
  *
  * Return value: a #Tdocument* pointer to the just created document.
  **/
-Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
+Tdocument *
+doc_new(Tbfwin * bfwin, gboolean delay_activate)
+{
 	Tdocument *doc = doc_new_backend(bfwin, TRUE, FALSE);
 	doc_set_status(doc, DOC_STATUS_COMPLETE);
-	DEBUG_MSG("doc_new, status=%d\n",doc->status);
+	DEBUG_MSG("doc_new, status=%d\n", doc->status);
 
-	doc->newdoc_autodetect_lang_id=g_timeout_add_seconds_full(G_PRIORITY_DEFAULT_IDLE, 10, doc_auto_detect_lang_lcb, doc, NULL);
+	doc->newdoc_autodetect_lang_id =
+		g_timeout_add_seconds_full(G_PRIORITY_DEFAULT_IDLE, 10, doc_auto_detect_lang_lcb, doc, NULL);
 
-	if(!delay_activate) gtk_widget_show(doc->view); /* Delay _show() if neccessary */
+	if (!delay_activate)
+		gtk_widget_show(doc->view);	/* Delay _show() if neccessary */
 	return doc;
 }
 
-Tdocument *doc_new_with_template(Tbfwin* bfwin, GFile *uri, gboolean force_new) {
+Tdocument *
+doc_new_with_template(Tbfwin * bfwin, GFile * uri, gboolean force_new)
+{
 	Tdocument *doc;
 	if (!uri)
 		return doc_new(bfwin, FALSE);
@@ -2508,47 +2705,61 @@ Tdocument *doc_new_with_template(Tbfwin* bfwin, GFile *uri, gboolean force_new) 
  *
  * and goto_line and goto_offset should not BOTH be >= 0 (if so, offset is ignored)
  */
-void doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset) {
+void
+doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolean delay_activate,
+				 gboolean move_to_this_win, gint goto_line, gint goto_offset)
+{
 	GList *alldocs;
 	Tdocument *tmpdoc;
 	gchar *tmpcuri;
 	GFile *uri;
-	gboolean open_readonly=FALSE;
+	gboolean open_readonly = FALSE;
 	if (!bfwin || !opturi) {
 		return;
 	}
 	uri = opturi;
 	g_object_ref(opturi);
 	tmpcuri = g_file_get_uri(opturi);
-	DEBUG_MSG("doc_new_from_uri, started for uri(%p)=%s\n",uri,tmpcuri);
+	DEBUG_MSG("doc_new_from_uri, started for uri(%p)=%s\n", uri, tmpcuri);
 
 	/* check if the document already is opened */
 	alldocs = return_allwindows_documentlist();
 	tmpdoc = documentlist_return_document_from_uri(alldocs, uri);
 	g_list_free(alldocs);
-	if (tmpdoc) { /* document is already open */
-		DEBUG_MSG("doc_new_from_uri, doc %s is already open, delay_activate=%d, move_to_window=%d, goto_line=%d, goto_offset=%d\n",tmpcuri, delay_activate, move_to_this_win, goto_line, goto_offset);
+	if (tmpdoc) {				/* document is already open */
+		DEBUG_MSG
+			("doc_new_from_uri, doc %s is already open, delay_activate=%d, move_to_window=%d, goto_line=%d, goto_offset=%d\n",
+			 tmpcuri, delay_activate, move_to_this_win, goto_line, goto_offset);
 		if (tmpdoc->bfwin != bfwin && move_to_this_win) {
 			/* we should aks the user if it is OK to move the document */
-			if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;
+			if (!delay_activate)
+				bfwin->focus_next_new_doc = TRUE;
 			doc_move_to_window_dialog(tmpdoc, bfwin);
 			/* TODO: or open the document readonly */
-		} else if (!delay_activate) { /* switch to window, only if we should */
-			switch_to_document_by_pointer(BFWIN(tmpdoc->bfwin),tmpdoc);
-			if (bfwin != tmpdoc->bfwin) gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));
+		} else if (!delay_activate) {	/* switch to window, only if we should */
+			switch_to_document_by_pointer(BFWIN(tmpdoc->bfwin), tmpdoc);
+			if (bfwin != tmpdoc->bfwin)
+				gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));
 		}
 		if (tmpdoc != NULL) {
-			if (goto_line >= 0) doc_select_line(tmpdoc, goto_line, TRUE);
-			else if (goto_offset >= 0) doc_select_line_by_offset(tmpdoc, goto_offset, TRUE);
+			if (goto_line >= 0)
+				doc_select_line(tmpdoc, goto_line, TRUE);
+			else if (goto_offset >= 0)
+				doc_select_line_by_offset(tmpdoc, goto_offset, TRUE);
 		}
-	} else { /* document is not yet opened */
-		if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;
-		DEBUG_MSG("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d\n",uri,delay_activate, bfwin->focus_next_new_doc);
+	} else {					/* document is not yet opened */
+		if (!delay_activate)
+			bfwin->focus_next_new_doc = TRUE;
+		DEBUG_MSG("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d\n", uri, delay_activate,
+				  bfwin->focus_next_new_doc);
 #if !GLIB_CHECK_VERSION(2, 18, 0)
-	   /* check runtime glib version, check if remote file, and give warning if remote file on glib < 2.18 */
-		if (glib_major_version==2 && glib_minor_version<18 && !g_file_is_native(uri)) {
-			gchar *message = g_strdup_printf(_("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."),glib_major_version,glib_minor_version,glib_micro_version);
-			statusbar_message(bfwin,message,20);
+		/* check runtime glib version, check if remote file, and give warning if remote file on glib < 2.18 */
+		if (glib_major_version == 2 && glib_minor_version < 18 && !g_file_is_native(uri)) {
+			gchar *message =
+				g_strdup_printf(_
+								("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."),
+								glib_major_version, glib_minor_version, glib_micro_version);
+			statusbar_message(bfwin, message, 20);
 			g_free(message);
 		}
 #endif
@@ -2559,15 +2770,20 @@ void doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean d
 	g_free(tmpcuri);
 }
 
-void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gboolean move_to_this_win, gint goto_line) {
-	GFile *uri=NULL;
+void
+doc_new_from_input(Tbfwin * bfwin, gchar * input, gboolean delay_activate, gboolean move_to_this_win,
+				   gint goto_line)
+{
+	GFile *uri = NULL;
 	if (!input) {
 		return;
 	}
-	DEBUG_MSG("doc_new_from_input, input=%s, delay_activate=%d\n",input,delay_activate);
-	if (strchr(input, '/')==NULL) { /* no slashes in the path, relative ?*/
+	DEBUG_MSG("doc_new_from_input, input=%s, delay_activate=%d\n", input, delay_activate);
+	if (strchr(input, '/') == NULL) {	/* no slashes in the path, relative ? */
 		if (bfwin->current_document && bfwin->current_document->uri) {
-			uri = g_file_resolve_relative_path(bfwin->current_document->uri, input);
+			GFile *parent = g_file_get_parent(bfwin->current_document->uri);
+			uri = g_file_resolve_relative_path(parent, input);
+			g_object_unref(parent);
 		} else {
 			/* relative path to what ?!?!?! */
 			/* home dir? current dir? */
@@ -2580,91 +2796,74 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 		g_object_unref(uri);
 	}
 }
-/*
-void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win) {
-	GSList *tmpslist;
-	gboolean one_doc=(g_slist_length(urislist)==1);
-	bfwin->focus_next_new_doc = !one_doc;
-	tmpslist = urislist;
-	while (tmpslist) {
-		GFile *uri;
-		if (strstr ((gchar *) tmpslist->data, "://") == NULL)
-			uri = g_file_new_for_path((gchar *) tmpslist->data);
-		else
-			uri = g_file_new_for_uri((gchar *) tmpslist->data);
-		doc_new_from_uri(bfwin, uri, NULL, !one_doc, move_to_this_win, -1, -1);
-		g_object_unref(uri);
-		tmpslist = g_slist_next(tmpslist);
+
+static GtkWidget *
+doc_create_slave_view(Tdocument * doc)
+{
+	GtkWidget *scroll;
+	DEBUG_MSG("doc_create_slave_view, create slave view for %p\n", doc->view);
+	doc->slave = bftextview2_new_slave(BLUEFISH_TEXT_VIEW(doc->view));
+	g_signal_connect(G_OBJECT(doc->slave), "toggle-overwrite",
+					 G_CALLBACK(doc_view_toggle_overwrite_lcb), doc);
+	g_signal_connect_after(G_OBJECT(doc->slave), "populate-popup",
+						   G_CALLBACK(doc_view_populate_popup_lcb), doc);
+	g_signal_connect(G_OBJECT(doc->slave), "button-release-event",
+					 G_CALLBACK(doc_view_button_release_lcb), doc);
+	g_signal_connect(G_OBJECT(doc->slave), "button-press-event", G_CALLBACK(doc_view_button_press_lcb), doc);
+
+	apply_font_style(doc->slave, main_v->props.editor_font_string);
+	scroll = gtk_scrolled_window_new(NULL, NULL);
+	g_signal_connect(scroll, "scroll-event", G_CALLBACK(doc_scroll_event_lcb), doc);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scroll), GTK_SHADOW_IN);
+	gtk_container_add(GTK_CONTAINER(scroll), doc->slave);
+	doc_set_tabsize(doc, BFWIN(doc->bfwin)->session->editor_tab_width);
+	return scroll;
+}
+
+static gboolean
+doc_split_scroll(gpointer data)
+{
+	Tdocument *doc = data;
+	GtkAdjustment *adjust =
+		gtk_scrolled_window_get_vadjustment(GTK_SCROLLED_WINDOW(gtk_widget_get_parent(doc->slave)));
+	gtk_adjustment_set_value(adjust, gtk_adjustment_get_lower(adjust) + gtk_adjustment_get_page_size(adjust));
+	return FALSE;
+}
+
+static void floatingview_destroy_lcb(GtkWidget * widget, Tdocument * doc);
+
+void
+doc_split_view(Tdocument * doc, gboolean enable)
+{
+	GtkWidget *botscrol;
+
+	if (enable == (doc->slave != NULL))
+		return;
+
+	if (enable) {
+		GdkRectangle rect;
+
+		if (doc->floatingview)
+			floatingview_destroy_lcb(NULL, doc);
+
+		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(doc->view), &rect);
+		botscrol = doc_create_slave_view(doc);
+		DEBUG_MSG("doc_split_view, add %p to pane2\n", botscrol);
+		gtk_paned_pack2(GTK_PANED(doc->vsplit), botscrol, TRUE, FALSE);
+		gtk_widget_show(doc->slave);
+		gtk_widget_show(botscrol);
+		gtk_paned_set_position(GTK_PANED(doc->vsplit), rect.height / 2);
+		DEBUG_MSG("doc_split_view, rect.height=%d, set split at %d\n", rect.height, rect.height / 2);
+		g_idle_add_full(G_PRIORITY_DEFAULT_IDLE, doc_split_scroll, doc, NULL);
+	} else {
+		botscrol = gtk_widget_get_parent(doc->slave);
+		DEBUG_MSG("doc_split_view, destroy %p\n", botscrol);
+		gtk_widget_destroy(botscrol);
+		doc->slave = NULL;
 	}
-	DEBUG_MSG("docs_new_from_uris, done, all documents loading in background\n");
-}*/
-
-/**
- * docs_new_from_files:
- * @bfwin: #Tbfwin* with the window to open the document in
- * @file_list: #GList with filenames to open.
- * @move_to_this_win: #gboolean if the file needs to be moved to this window if it is open already
- *
- * Open a number of new documents from files in stringlist file_list.
- * If a file is open already in another window, it might be moved to this window, else
- * nothing is done for this file
- * Report files with problems to user.
- * If more than 8 files are opened at once, a modal progressbar is shown while loading.
- *
- * Return value: void
- **/
-/* void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this_win) {
-	GList *tmplist, *errorlist=NULL;
-	gboolean delay = (g_list_length(file_list) > 1);
-	gpointer pbar = NULL;
-	gint i = 0;
-	DEBUG_MSG("docs_new_from_files, lenght=%d\n", g_list_length(file_list));
-
-	/ * Hide the notebook and show a progressbar while
-	 * adding several files. * /
-	if(g_list_length(file_list) > 8) {
-		notebook_hide(bfwin);
-		pbar = progress_popup(bfwin->main_window,_("Loading files..."), g_list_length(file_list));
-	}
-
-	tmplist = g_list_first(file_list);
-	while (tmplist) {
-		DEBUG_MSG("docs_new_from_files, about to open %s, delay=%d\n", (gchar *) tmplist->data, delay);
-		if (!doc_new_with_file(bfwin,(gchar *) tmplist->data, delay, move_to_this_win)) {
-			errorlist = g_list_append(errorlist, g_strdup((gchar *) tmplist->data));
-		}
-		if(pbar) {
-			progress_set(pbar, ++i);
-			flush_queue();
-		}
-		tmplist = g_list_next(tmplist);
-	}
-	if (errorlist){
-		gchar *message, *tmp;
-		tmp = stringlist_to_string(errorlist, "\n");
-		message = g_strconcat(_("These files could not opened:\n\n"), tmp, NULL);
-		g_free(tmp);
-		warning_dialog(bfwin->main_window,_("Unable to open file(s)\n"), message);
-		g_free(message);
-	}
-	free_stringlist(errorlist);
-
-	if (delay) {
-		DEBUG_MSG("since we delayed the highlighting, we set the notebook and filebrowser page now\n");
-
-		/ * Destroy the progressbar and show the notebook when finished. * /
-		progress_destroy(pbar);
-		notebook_show(bfwin);
-
-		gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook),g_list_length(bfwin->documentlist) - 1);
-		notebook_changed(bfwin,-1);
-		if (bfwin->current_document && bfwin->current_document->filename) {
-			/ *filebrowser_open_dir(bfwin,bfwin->current_document->filename); is called by doc_activate() * /
-			doc_activate(bfwin->current_document);
-		}
-	}
-	gui_set_title(bfwin, bfwin->current_document);
-}*/
+	DEBUG_MSG("doc_split_view, done\n");
+}
 
 /**
  * doc_reload:
@@ -2675,13 +2874,15 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
  *
  * Return value: void
  **/
-void doc_reload(Tdocument *doc, GFileInfo *newfinfo, gboolean warn_user) {
+void
+doc_reload(Tdocument * doc, GFileInfo * newfinfo, gboolean warn_user)
+{
 	GtkTextIter itstart, itend, cursor;
-	gint cursorpos=-1;
+	gint cursorpos = -1;
 
-	DEBUG_MSG("starting reload for %p\n",doc);
-	if ((doc->uri == NULL)/* || (!file_exists_and_readable(doc->uri))*/) {
-		statusbar_message(BFWIN(doc->bfwin),_("Unable to open file"), 2);
+	DEBUG_MSG("starting reload for %p\n", doc);
+	if ((doc->uri == NULL) /* || (!file_exists_and_readable(doc->uri)) */ ) {
+		statusbar_message(BFWIN(doc->bfwin), _("Unable to open file"), 2);
 		return;
 	}
 
@@ -2691,12 +2892,13 @@ void doc_reload(Tdocument *doc, GFileInfo *newfinfo, gboolean warn_user) {
 		gchar *msgstr, *basename;
 
 		basename = g_file_get_basename(doc->uri);
-		msgstr = g_strdup_printf(_("If you revert \"%s\" to your last saved copy, your current changes will be permanently lost."), basename);
-		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
-																			GTK_MESSAGE_WARNING,
-																			buttons,
-																			_("Revert changes to last saved copy?"),
-																			msgstr);
+		msgstr =
+			g_strdup_printf(_
+							("If you revert \"%s\" to your last saved copy, your current changes will be permanently lost."),
+							basename);
+		retval =
+			message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_WARNING, buttons,
+									 _("Revert changes to last saved copy?"), msgstr);
 
 		g_free(basename);
 		g_free(msgstr);
@@ -2705,16 +2907,16 @@ void doc_reload(Tdocument *doc, GFileInfo *newfinfo, gboolean warn_user) {
 			return;
 	}
 
- 	/* store all bookmark positions, reload them later */
+	/* store all bookmark positions, reload them later */
 	bmark_clean_for_doc(doc);
 	bluefish_text_view_scan_cleanup(BLUEFISH_TEXT_VIEW(doc->view));
-	gtk_text_buffer_get_iter_at_mark(doc->buffer,&cursor,gtk_text_buffer_get_insert(doc->buffer));
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &cursor, gtk_text_buffer_get_insert(doc->buffer));
 	cursorpos = gtk_text_iter_get_line(&cursor);
-	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-	gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
+	gtk_text_buffer_get_bounds(doc->buffer, &itstart, &itend);
+	gtk_text_buffer_delete(doc->buffer, &itstart, &itend);
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	bfwin_docs_not_complete(doc->bfwin, TRUE);
-	doc_set_modified(doc,FALSE);
+	doc_set_modified(doc, FALSE);
 	if (doc->fileinfo)
 		g_object_unref(doc->fileinfo);
 	doc->fileinfo = newfinfo;
@@ -2723,7 +2925,9 @@ void doc_reload(Tdocument *doc, GFileInfo *newfinfo, gboolean warn_user) {
 	file_doc_fill_from_uri(doc, doc->uri, doc->fileinfo, cursorpos);
 }
 
-static gboolean doc_close_from_activate(gpointer data) {
+static gboolean
+doc_close_from_activate(gpointer data)
+{
 	doc_close_single_backend(DOCUMENT(data), FALSE, FALSE);
 	return FALSE;
 }
@@ -2739,7 +2943,9 @@ static gboolean doc_close_from_activate(gpointer data) {
  *
  * Return value: void
  **/
-void doc_activate(Tdocument *doc) {
+void
+doc_activate(Tdocument * doc)
+{
 #ifdef DEBUG
 	if (!doc) {
 		DEBUG_MSG("doc_activate, doc=NULL!!! ABORTING!!\n");
@@ -2748,51 +2954,59 @@ void doc_activate(Tdocument *doc) {
 #endif
 	if (doc == NULL)
 		return;
-	
+
 	if (doc == BFWIN(doc->bfwin)->last_activated_doc || doc->action.close_doc) {
 		/* DO enable the scanner, because it is disabled in notebook_changed(), but if the last document is also the new document it needs to be re-enabled again */
 		BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
-		DEBUG_MSG("doc_activate, not doing anything, doc=%p, last_avtivated_doc=%p, close_doc=%d\n",doc, BFWIN(doc->bfwin)->last_activated_doc, doc->action.close_doc);
+		DEBUG_MSG("doc_activate, not doing anything, doc=%p, last_avtivated_doc=%p, close_doc=%d\n", doc,
+				  BFWIN(doc->bfwin)->last_activated_doc, doc->action.close_doc);
 		return;
 	}
-	DEBUG_MSG("doc_activate for doc with view %p..\n",doc->view);
+	DEBUG_MSG("doc_activate for doc with view %p..\n", doc->view);
 	if (doc->status == DOC_STATUS_ERROR) {
-		const gchar *buttons[] = {_("_Retry"), _("Retry _all failed"),_("_Close"), _("Close all _failed"), NULL};
+		const gchar *buttons[] =
+			{ _("_Retry"), _("Retry _all failed"), _("_Close"), _("Close all _failed"), NULL };
 		gchar *tmpstr;
 		gint retval;
 		DEBUG_MSG("doc_activate, DOC_STATUS_ERROR, retry???\n");
-		tmpstr = g_strconcat(_("File "), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), _(" failed to load."), NULL);
-		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
-													 GTK_MESSAGE_WARNING,
-													 buttons,
-													 _("File failed to load\n"),
-													 tmpstr);
+		tmpstr =
+			g_strconcat(_("File "), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), _(" failed to load."),
+						NULL);
+		retval =
+			message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_WARNING, buttons,
+									 _("File failed to load\n"), tmpstr);
 		g_free(tmpstr);
 		switch (retval) {
-			case 0:
-				file_doc_retry_uri(doc);
+		case 0:
+			file_doc_retry_uri(doc);
 			break;
-			case 1: {
+		case 1:{
 				GList *tmplist;
 				/* retry all failed documents */
-				for (tmplist=g_list_first(BFWIN(doc->bfwin)->documentlist);tmplist!=NULL;tmplist=tmplist->next) {
-					if (DOCUMENT(tmplist->data)->status == DOC_STATUS_ERROR) file_doc_retry_uri(DOCUMENT(tmplist->data));
+				for (tmplist = g_list_first(BFWIN(doc->bfwin)->documentlist); tmplist != NULL;
+					 tmplist = tmplist->next) {
+					if (DOCUMENT(tmplist->data)->status == DOC_STATUS_ERROR)
+						file_doc_retry_uri(DOCUMENT(tmplist->data));
 				}
-			} break;
-			case 2:
-				g_idle_add(doc_close_from_activate, doc);
+			}
 			break;
-			case 3: {
+		case 2:
+			g_idle_add(doc_close_from_activate, doc);
+			break;
+		case 3:{
 				GList *tmplist;
 				/* retry all failed documents */
-				for (tmplist=g_list_first(BFWIN(doc->bfwin)->documentlist);tmplist!=NULL;tmplist=tmplist->next) {
-					if (DOCUMENT(tmplist->data)->status == DOC_STATUS_ERROR) g_idle_add(doc_close_from_activate,DOCUMENT(tmplist->data));
+				for (tmplist = g_list_first(BFWIN(doc->bfwin)->documentlist); tmplist != NULL;
+					 tmplist = tmplist->next) {
+					if (DOCUMENT(tmplist->data)->status == DOC_STATUS_ERROR)
+						g_idle_add(doc_close_from_activate, DOCUMENT(tmplist->data));
 				}
-			} break;
+			}
+			break;
 #ifdef DEVELOPMENT
-			default:
-				g_print("doc_activate, retval=%d does not exist\n",retval);
-				exit(123);
+		default:
+			g_print("doc_activate, retval=%d does not exist\n", retval);
+			exit(123);
 			break;
 #endif
 		}
@@ -2803,11 +3017,11 @@ void doc_activate(Tdocument *doc) {
 		return;
 	} else {
 		if (doc->highlightstate && !BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner) {
-			/*g_print("doc_activate, enable scanner for %p\n",doc);*/
+			/*g_print("doc_activate, enable scanner for %p\n",doc); */
 			BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
 			bftextview2_schedule_scanning(BLUEFISH_TEXT_VIEW(doc->view));
 		}
-		gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
+		gtk_widget_show(doc->view);	/* This might be the first time this document is activated. */
 	}
 	BFWIN(doc->bfwin)->last_activated_doc = doc;
 	doc_start_modified_check(doc);
@@ -2837,26 +3051,30 @@ void doc_activate(Tdocument *doc) {
 /*		g_free(dir1);
 		g_free(dir2);*/
 	}
-	DEBUG_MSG("doc_activate, doc=%p, about to grab focus\n",doc);
+	DEBUG_MSG("doc_activate, doc=%p, about to grab focus\n", doc);
 	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
 
-	DEBUG_MSG("doc_activate, doc=%p, finished\n",doc);
+	DEBUG_MSG("doc_activate, doc=%p, finished\n", doc);
 
 }
 
-void doc_force_activate(Tdocument *doc) {
+void
+doc_force_activate(Tdocument * doc)
+{
 	BFWIN(doc->bfwin)->last_activated_doc = NULL;
 	doc_activate(doc);
 }
 
-void file_open_from_selection(Tbfwin *bfwin) {
+void
+file_open_from_selection(Tbfwin * bfwin)
+{
 	gchar *string;
-	GtkClipboard* cb;
+	GtkClipboard *cb;
 
 	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
 	string = gtk_clipboard_wait_for_text(cb);
 	if (string) {
-		DEBUG_MSG("file_open_from_selection, opening %s\n",string);
+		DEBUG_MSG("file_open_from_selection, opening %s\n", string);
 		doc_new_from_input(bfwin, string, FALSE, FALSE, -1);
 /*		if (NULL == strchr(string,'/') && bfwin->current_document->uri) {
 			/ * now we should look in the directory of the current file * /
@@ -2884,14 +3102,18 @@ void file_open_from_selection(Tbfwin *bfwin) {
  *
  * Return value: void
  **/
-void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	gchar *tmpfilename=NULL;
+void
+file_insert_menucb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
+{
+	gchar *tmpfilename = NULL;
 	if (!bfwin->current_document)
 		return;
-	
+
 	{
 		GtkWidget *dialog;
-		dialog = file_chooser_dialog(bfwin, _("Select file to insert"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, FALSE, NULL, TRUE);
+		dialog =
+			file_chooser_dialog(bfwin, _("Select file to insert"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE,
+								FALSE, NULL, TRUE);
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			tmpfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 		}
@@ -2899,7 +3121,7 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 		gtk_widget_destroy(dialog);
 	}
 	if (tmpfilename == NULL) {
-		statusbar_message(bfwin,_("No file to insert"), 2);
+		statusbar_message(bfwin, _("No file to insert"), 2);
 		return;
 	} else {
 		GFile *uri;
@@ -2910,7 +3132,7 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 		g_object_unref(uri);
 		g_free(tmpfilename);
 		/* doc_file_to_textbox(bfwin->current_document, tmpfilename, TRUE, FALSE);
-		doc_set_modified(bfwin->current_document, 1);*/
+		   doc_set_modified(bfwin->current_document, 1); */
 	}
 }
 
@@ -2923,12 +3145,15 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
  *
  * Return value: void
  **/
-void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin) {
+void
+edit_cut_cb(GtkWidget * widget, Tbfwin * bfwin)
+{
 	if (!bfwin->current_document)
 		return;
-	
+
 	doc_unre_new_group(bfwin->current_document);
-	gtk_text_buffer_cut_clipboard(bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),TRUE);
+	gtk_text_buffer_cut_clipboard(bfwin->current_document->buffer, gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),
+								  TRUE);
 	doc_unre_new_group(bfwin->current_document);
 }
 
@@ -2941,10 +3166,13 @@ void edit_cut_cb(GtkWidget * widget, Tbfwin *bfwin) {
  *
  * Return value: void
  **/
-void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin) {
+void
+edit_copy_cb(GtkWidget * widget, Tbfwin * bfwin)
+{
 	if (!bfwin->current_document)
 		return;
-	gtk_text_buffer_copy_clipboard(bfwin->current_document->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD));
+	gtk_text_buffer_copy_clipboard(bfwin->current_document->buffer,
+								   gtk_clipboard_get(GDK_SELECTION_CLIPBOARD));
 }
 
 /**
@@ -2956,17 +3184,19 @@ void edit_copy_cb(GtkWidget * widget, Tbfwin *bfwin) {
  *
  * Return value: void
  **/
-void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
+void
+edit_paste_cb(GtkWidget * widget, Tbfwin * bfwin)
+{
 	GtkTextMark *mark;
 	Tdocument *doc = bfwin->current_document;
 	if (!bfwin->current_document)
 		return;
 	DEBUG_MSG("edit_paste_cb, create new undo group\n");
 	doc_unre_new_group(doc);
-	doc->in_paste_operation=TRUE;
+	doc->in_paste_operation = TRUE;
 	DEBUG_MSG("edit_paste_cb, pasting clipboard\n");
-	gtk_text_buffer_paste_clipboard (doc->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
-	doc->in_paste_operation=FALSE;
+	gtk_text_buffer_paste_clipboard(doc->buffer, gtk_clipboard_get(GDK_SELECTION_CLIPBOARD), NULL, TRUE);
+	doc->in_paste_operation = FALSE;
 	DEBUG_MSG("edit_paste_cb, finished, create new undo group\n");
 	doc_unre_new_group(doc);
 	mark = gtk_text_buffer_get_insert(bfwin->current_document->buffer);
@@ -2983,14 +3213,16 @@ void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
  *
  * Return value: void
  **/
-void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
+void
+edit_select_all_cb(GtkWidget * widget, Tbfwin * bfwin)
+{
 	GtkTextIter itstart, itend;
 	if (!bfwin->current_document)
 		return;
-	
-	gtk_text_buffer_get_bounds(bfwin->current_document->buffer,&itstart,&itend);
-	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer,"insert",&itstart);
-	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer,"selection_bound",&itend);
+
+	gtk_text_buffer_get_bounds(bfwin->current_document->buffer, &itstart, &itend);
+	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer, "insert", &itstart);
+	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer, "selection_bound", &itend);
 }
 
 /**
@@ -3003,12 +3235,15 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  *
  * Return value: void
  **/
-void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
+void
+doc_toggle_highlighting_cb(Tbfwin * bfwin, guint action, GtkWidget * widget)
+{
 	if (!bfwin->current_document)
 		return;
-	bfwin->current_document->highlightstate = bfwin->current_document->highlightstate-1;
-	DEBUG_MSG("doc_toggle_highlighting_cb, set enable_scanner=%d\n",bfwin->current_document->highlightstate);
-	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = bfwin->current_document->highlightstate;
+	bfwin->current_document->highlightstate = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+	DEBUG_MSG("doc_toggle_highlighting_cb, set enable_scanner=%d\n", bfwin->current_document->highlightstate);
+	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner =
+		bfwin->current_document->highlightstate;
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 }
 
@@ -3019,14 +3254,15 @@ void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
  *
  * Return value: void
  */
-void all_documents_apply_settings() {
+void
+all_documents_apply_settings()
+{
 	GList *tmplist = g_list_first(return_allwindows_documentlist());
-	while (tmplist){
+	while (tmplist) {
 		Tdocument *doc = tmplist->data;
-		/*doc_set_tabsize(doc, main_v->props.editor_tab_width);*/
+		/*doc_set_tabsize(doc, main_v->props.editor_tab_width); */
 		apply_font_style(doc->view, main_v->props.editor_font_string);
-		bluefish_text_view_set_colors(BLUEFISH_TEXT_VIEW(doc->view),
-				main_v->props.btv_color_str);
+		bluefish_text_view_set_colors(BLUEFISH_TEXT_VIEW(doc->view), main_v->props.btv_color_str);
 		tmplist = g_list_next(tmplist);
 	}
 
@@ -3043,26 +3279,35 @@ void all_documents_apply_settings() {
  *
  * Return value: void
  **/
-void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
+void
+word_count_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
+{
+	gint start = 0, end = -1;
+	gboolean has_selection;
 	guint chars = 0, lines = 0, words = 0;
-	gchar *allchars, *wc_message;
+	gchar *allchars, *wc_message, *tmp1, *tmp2, *tmp3;
 
 	if (!bfwin->current_document)
 		return;
 
-	allchars = doc_get_chars(bfwin->current_document, 0, -1);
+	has_selection = doc_get_selection(CURDOC(bfwin), &start, &end);
+	allchars = doc_get_chars(bfwin->current_document, start, end);
+
 	wordcount(allchars, &chars, &lines, &words);
 	g_free(allchars);
-
-	wc_message = g_strconcat(
-			g_strdup_printf(_("Statistics: ")),
-			g_strdup_printf(ngettext("%d line", "%d lines", lines), lines), ", ",
-			g_strdup_printf(ngettext("%d word", "%d words", words), words), ", ",
-			g_strdup_printf(ngettext("%d character", "%d characters", chars), chars),
-			NULL);
-	statusbar_message (bfwin,wc_message, 5);
-	g_free (wc_message);
+	tmp1 = g_strdup_printf(ngettext("%d line", "%d lines", lines), lines);
+	tmp2 = g_strdup_printf(ngettext("%d word", "%d words", words), words);
+	tmp3 = g_strdup_printf(ngettext("%d character", "%d characters", chars), chars);
+	wc_message =
+		g_strconcat(has_selection ? _("Selection statistics: ") : _("Statistics: "), tmp1, ", ", tmp2, ", ",
+					tmp3, NULL);
+	statusbar_message(bfwin, wc_message, 7);
+	g_free(wc_message);
+	g_free(tmp1);
+	g_free(tmp2);
+	g_free(tmp3);
 }
+
 /**
  * doc_indent_selection:
  * @doc: a #Tdocument*
@@ -3073,50 +3318,53 @@ void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
  *
  * Return value: void
  **/
-void doc_indent_selection(Tdocument *doc, gboolean unindent) {
-	GtkTextIter itstart,itend;
-	if (gtk_text_buffer_get_selection_bounds(doc->buffer,&itstart,&itend)) {
+void
+doc_indent_selection(Tdocument * doc, gboolean unindent)
+{
+	GtkTextIter itstart, itend;
+	if (gtk_text_buffer_get_selection_bounds(doc->buffer, &itstart, &itend)) {
 		GtkTextMark *end;
 /*		gboolean firstrun=TRUE;*/
 
 		doc_unbind_signals(doc);
 		doc_unre_new_group(doc);
 		/* we have a selection, now we loop trough the characters, and for every newline
-		we add or remove a tab, we set the end with a mark */
-		end = gtk_text_buffer_create_mark(doc->buffer,NULL,&itend,TRUE);
-		if (gtk_text_iter_get_line_offset(&itstart)>0) {
-			gtk_text_iter_set_line_index(&itstart,0);
+		   we add or remove a tab, we set the end with a mark */
+		end = gtk_text_buffer_create_mark(doc->buffer, NULL, &itend, TRUE);
+		if (gtk_text_iter_get_line_offset(&itstart) > 0) {
+			gtk_text_iter_set_line_index(&itstart, 0);
 		}
-		while(gtk_text_iter_compare(&itstart,&itend) < 0) {
+		while (gtk_text_iter_compare(&itstart, &itend) < 0) {
 			GtkTextMark *cur;
 /*			if (firstrun && !gtk_text_iter_starts_line(&itstart)) {
 				gtk_text_iter_forward_line(&itstart);
 			}
 			firstrun = FALSE;*/
-			cur = gtk_text_buffer_create_mark(doc->buffer,NULL,&itstart,TRUE);
+			cur = gtk_text_buffer_create_mark(doc->buffer, NULL, &itstart, TRUE);
 			if (unindent) {
 				/* when unindenting we try to set itend to the end of the indenting step
-				which might be a tab or 'tabsize' spaces, then we delete that part */
-				gboolean cont=TRUE;
+				   which might be a tab or 'tabsize' spaces, then we delete that part */
+				gboolean cont = TRUE;
 				gchar *buf = NULL;
 				gunichar cchar = gtk_text_iter_get_char(&itstart);
-				if (cchar == 9) { /* 9 is ascii for tab */
+				if (cchar == 9) {	/* 9 is ascii for tab */
 					itend = itstart;
 					cont = gtk_text_iter_forward_char(&itend);
 					buf = g_strdup("\t");
-				} else if (cchar == 32) { /* 32 is ascii for space */
-					gint i=0;
+				} else if (cchar == 32) {	/* 32 is ascii for space */
+					gint i = 0;
 					itend = itstart;
-					gtk_text_iter_forward_chars(&itend,BFWIN(doc->bfwin)->session->editor_tab_width);
-					buf = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
-					DEBUG_MSG("tab_width=%d, strlen(buf)=%zd, buf='%s'\n",BFWIN(doc->bfwin)->session->editor_tab_width,strlen(buf),buf);
+					gtk_text_iter_forward_chars(&itend, BFWIN(doc->bfwin)->session->editor_tab_width);
+					buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend, TRUE);
+					DEBUG_MSG("tab_width=%d, strlen(buf)=%zd, buf='%s'\n",
+							  BFWIN(doc->bfwin)->session->editor_tab_width, strlen(buf), buf);
 					while (cont && buf[i] != '\0') {
 						cont = (buf[i] == ' ');
-						DEBUG_MSG("doc_indent_selection, buf[%d]='%c'\n",i,buf[i]);
+						DEBUG_MSG("doc_indent_selection, buf[%d]='%c'\n", i, buf[i]);
 						i++;
 					}
 					if (!cont) {
-						g_free (buf);
+						g_free(buf);
 					}
 				} else {
 					cont = FALSE;
@@ -3125,80 +3373,83 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 					gint offsetstart, offsetend;
 					offsetstart = gtk_text_iter_get_offset(&itstart);
 					offsetend = gtk_text_iter_get_offset(&itend);
-					gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
+					gtk_text_buffer_delete(doc->buffer, &itstart, &itend);
 					doc_unre_add(doc, buf, offsetstart, offsetend, UndoDelete);
-					g_free (buf);
+					g_free(buf);
 				}
 #ifdef DEBUG
 				else {
 					DEBUG_MSG("doc_indent_selection, NOT continue!!\n");
 				}
 #endif
-			} else { /* indent */
+			} else {			/* indent */
 				gint offsetstart = gtk_text_iter_get_offset(&itstart);
 				gchar *indentstring;
 				gint indentlen;
-				if (main_v->props.editor_indent_wspaces) {
+				if (BFWIN(doc->bfwin)->session->editor_indent_wspaces) {
 					indentstring = bf_str_repeat(" ", BFWIN(doc->bfwin)->session->editor_tab_width);
 					indentlen = BFWIN(doc->bfwin)->session->editor_tab_width;
 				} else {
 					indentstring = g_strdup("\t");
-					indentlen=1;
+					indentlen = 1;
 				}
-				gtk_text_buffer_insert(doc->buffer,&itstart,indentstring,indentlen);
-				doc_unre_add(doc, indentstring, offsetstart, offsetstart+indentlen, UndoInsert);
+				gtk_text_buffer_insert(doc->buffer, &itstart, indentstring, indentlen);
+				doc_unre_add(doc, indentstring, offsetstart, offsetstart + indentlen, UndoInsert);
 				g_free(indentstring);
 			}
-			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itstart,cur);
-			gtk_text_buffer_get_iter_at_mark(doc->buffer,&itend,end);
-			gtk_text_buffer_delete_mark(doc->buffer,cur);
+			gtk_text_buffer_get_iter_at_mark(doc->buffer, &itstart, cur);
+			gtk_text_buffer_get_iter_at_mark(doc->buffer, &itend, end);
+			gtk_text_buffer_delete_mark(doc->buffer, cur);
 			gtk_text_iter_forward_line(&itstart);
-			DEBUG_MSG("doc_indent_selection, itstart at %d, itend at %d\n",gtk_text_iter_get_offset(&itstart),gtk_text_iter_get_offset(&itend));
+			DEBUG_MSG("doc_indent_selection, itstart at %d, itend at %d\n",
+					  gtk_text_iter_get_offset(&itstart), gtk_text_iter_get_offset(&itend));
 		}
-		gtk_text_buffer_delete_mark(doc->buffer,end);
+		gtk_text_buffer_delete_mark(doc->buffer, end);
 		doc_bind_signals(doc);
 		doc_set_modified(doc, 1);
 	} else {
 		/* there is no selection, work on the current line */
 		GtkTextIter iter;
-		gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,gtk_text_buffer_get_insert(doc->buffer));
-		gtk_text_iter_set_line_offset(&iter,0);
+		gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, gtk_text_buffer_get_insert(doc->buffer));
+		gtk_text_iter_set_line_offset(&iter, 0);
 		if (unindent) {
 			gint deletelen = 0;
 			gchar *tmpstr, *tmp2str;
 			GtkTextIter itend = iter;
-			gtk_text_iter_forward_chars(&itend,BFWIN(doc->bfwin)->session->editor_tab_width);
-			tmpstr = gtk_text_buffer_get_text(doc->buffer,&iter,&itend,TRUE);
+			gtk_text_iter_forward_chars(&itend, BFWIN(doc->bfwin)->session->editor_tab_width);
+			tmpstr = gtk_text_buffer_get_text(doc->buffer, &iter, &itend, TRUE);
 			tmp2str = bf_str_repeat(" ", BFWIN(doc->bfwin)->session->editor_tab_width);
 			if (tmpstr[0] == '\t') {
 				deletelen = 1;
-			} else if (tmpstr && strncmp(tmpstr,tmp2str,BFWIN(doc->bfwin)->session->editor_tab_width)==0) {
+			} else if (tmpstr && strncmp(tmpstr, tmp2str, BFWIN(doc->bfwin)->session->editor_tab_width) == 0) {
 				deletelen = BFWIN(doc->bfwin)->session->editor_tab_width;
 			}
 			g_free(tmpstr);
 			g_free(tmp2str);
 			if (deletelen) {
 				itend = iter;
-				gtk_text_iter_forward_chars(&itend,deletelen);
-				gtk_text_buffer_delete(doc->buffer,&iter,&itend);
+				gtk_text_iter_forward_chars(&itend, deletelen);
+				gtk_text_buffer_delete(doc->buffer, &iter, &itend);
 			}
-		} else { /* indent */
+		} else {				/* indent */
 			gchar *indentstring;
 			gint indentlen;
-			if (main_v->props.editor_indent_wspaces) {
+			if (BFWIN(doc->bfwin)->session->editor_indent_wspaces) {
 				indentstring = bf_str_repeat(" ", BFWIN(doc->bfwin)->session->editor_tab_width);
 				indentlen = BFWIN(doc->bfwin)->session->editor_tab_width;
 			} else {
 				indentstring = g_strdup("\t");
-				indentlen=1;
+				indentlen = 1;
 			}
-			gtk_text_buffer_insert(doc->buffer,&iter,indentstring,indentlen);
+			gtk_text_buffer_insert(doc->buffer, &iter, indentstring, indentlen);
 			g_free(indentstring);
 		}
 	}
 }
 
-void menu_indent_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+void
+menu_indent_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
+{
 	if (bfwin->current_document) {
 		doc_indent_selection(bfwin->current_document, (callback_action == 1));
 	}
@@ -3213,8 +3464,10 @@ void menu_indent_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
  *
  * Return value: #GList with strings
  */
-GList *list_relative_document_filenames(Tdocument *curdoc) {
-	GList *tmplist, *retlist=NULL;
+GList *
+list_relative_document_filenames(Tdocument * curdoc)
+{
+	GList *tmplist, *retlist = NULL;
 	gchar *curi;
 	if (curdoc->uri == NULL) {
 		return NULL;
@@ -3226,7 +3479,7 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 		Tdocument *tmpdoc = tmplist->data;
 		if (tmpdoc != curdoc && tmpdoc->uri != NULL) {
 			gchar *tmp = g_file_get_uri(tmpdoc->uri);
-			retlist = g_list_prepend(retlist,create_relative_link_to(curi, tmp));
+			retlist = g_list_prepend(retlist, create_relative_link_to(curi, tmp));
 			g_free(tmp);
 		}
 		tmplist = g_list_next(tmplist);
@@ -3235,10 +3488,12 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 	return retlist;
 }
 
-static gchar *doc_text_under_cursor(Tdocument *doc, gint *context) {
+static gchar *
+doc_text_under_cursor(Tdocument * doc, gint * context)
+{
 	GtkTextIter iter;
 /*	GSList *taglist, *tmplist; */
-	gchar *retval=NULL;
+	gchar *retval = NULL;
 	gint len;
 /*	GtkTextIter so,eo; */
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &iter, gtk_text_buffer_get_insert(doc->buffer));
@@ -3265,18 +3520,18 @@ static gchar *doc_text_under_cursor(Tdocument *doc, gint *context) {
 
 	if (!retval)
 		retval = bf_get_identifier_at_iter(BLUEFISH_TEXT_VIEW(doc->view), &iter, context);
-	
+
 	if (!retval)
 		return NULL;
 
 	/* remove any surrounding quotes */
 	len = strlen(retval);
-	if (retval[0] == '"' && retval[len-1] == '"') {
-		memmove(retval, retval+1, len-2);
-		retval[len-2]='\0';
-	} else if (retval[0] == '\'' && retval[len-1] == '\'') {
-		memmove(retval, retval+1, len-2);
-		retval[len-2]='\0';
+	if (retval[0] == '"' && retval[len - 1] == '"') {
+		memmove(retval, retval + 1, len - 2);
+		retval[len - 2] = '\0';
+	} else if (retval[0] == '\'' && retval[len - 1] == '\'') {
+		memmove(retval, retval + 1, len - 2);
+		retval[len - 2] = '\0';
 	}
 	return retval;
 }
@@ -3286,14 +3541,16 @@ typedef struct {
 	Tdocument *doc;
 } Tjumpcheckfile;
 
-static void doc_jump_query_exists_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+static void
+doc_jump_query_exists_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
+{
 	GFileInfo *finfo;
 	Tjumpcheckfile *jcf = user_data;
-	GError *gerror=NULL;
-	
-	finfo = g_file_query_info_finish(jcf->uri,res,&gerror);
+	GError *gerror = NULL;
+
+	finfo = g_file_query_info_finish(jcf->uri, res, &gerror);
 	if (gerror) {
-		g_print("%s\n",gerror->message);
+		DEBUG_MSG("%s\n", gerror->message);
 		g_error_free(gerror);
 	}
 	if (finfo) {
@@ -3304,44 +3561,50 @@ static void doc_jump_query_exists_lcb(GObject *source_object,GAsyncResult *res,g
 	g_slice_free(Tjumpcheckfile, jcf);
 }
 
-static void doc_jump_check_file(Tdocument *doc, const gchar *filename) {
+static void
+doc_jump_check_file(Tdocument * doc, const gchar * filename)
+{
 	Tjumpcheckfile *jcf;
 	jcf = g_slice_new(Tjumpcheckfile);
 	jcf->doc = doc;
-	if (!doc->uri || (filename[0]=='/' || strncmp(filename, "file://",7)==0)) {
+	if (!doc->uri || (filename[0] == '/' || strncmp(filename, "file://", 7) == 0)) {
 		jcf->uri = g_file_new_for_commandline_arg(filename);
 	} else {
 		gchar *tmp;
 		GFile *parent = g_file_get_parent(doc->uri);
 		tmp = g_uri_unescape_string(filename, NULL);
-		jcf->uri = g_file_resolve_relative_path(parent,tmp);
+		jcf->uri = g_file_resolve_relative_path(parent, tmp);
 		g_free(tmp);
 		g_object_unref(parent);
 	}
 	/* as for BF_FILEINFO, if the file is not yet open, we can re-use the finfo for the to open document */
-	g_file_query_info_async(jcf->uri,BF_FILEINFO,0,G_PRIORITY_HIGH,NULL,doc_jump_query_exists_lcb,jcf);
+	g_file_query_info_async(jcf->uri, BF_FILEINFO, 0, G_PRIORITY_HIGH, NULL, doc_jump_query_exists_lcb, jcf);
 }
 
-static void doc_jump(Tdocument *doc) {
+static void
+doc_jump(Tdocument * doc)
+{
 	gchar *string;
-	gint context=-1;
+	gint context = -1;
 	/* see what's under the cursor */
 	string = doc_text_under_cursor(doc, &context);
 	if (!string)
 		return;
-	DEBUG_MSG("doc_jump, got string %s\n",string);
+	DEBUG_MSG("doc_jump, got string %s\n", string);
 	/* check if this is an existing file */
 	doc_jump_check_file(doc, string);
 
 #ifdef IDENTSTORING
-	g_print("context=%d\n",context);
+	DEBUG_MSG("context=%d\n", context);
 	if (context != -1) {
-		Tjumpdata *ijd = bftextview2_lookup_identifier(doc->bfwin, BLUEFISH_TEXT_VIEW(doc->view), context, string);
+		Tjumpdata *ijd =
+			bftextview2_lookup_identifier(doc->bfwin, BLUEFISH_TEXT_VIEW(doc->view), context, string);
 		if (ijd) {
-			g_print("got doc=%p (index=%d), line=%d\n",ijd->doc, g_list_index(BFWIN(doc->bfwin)->documentlist, ijd->doc), ijd->line);
-			if (ijd->doc && g_list_index(BFWIN(doc->bfwin)->documentlist, ijd->doc)!=-1) {
-				g_print("jump! doc=%p, line=%d\n",ijd->doc, ijd->line);
-				switch_to_document_by_pointer(doc->bfwin,ijd->doc);
+			DEBUG_MSG("got doc=%p (index=%d), line=%d\n", ijd->doc,
+					  g_list_index(BFWIN(doc->bfwin)->documentlist, ijd->doc), ijd->line);
+			if (ijd->doc && g_list_index(BFWIN(doc->bfwin)->documentlist, ijd->doc) != -1) {
+				DEBUG_MSG("jump! doc=%p, line=%d\n", ijd->doc, ijd->line);
+				switch_to_document_by_pointer(doc->bfwin, ijd->doc);
 				doc_select_line(ijd->doc, ijd->line, TRUE);
 			}
 		}
@@ -3350,8 +3613,10 @@ static void doc_jump(Tdocument *doc) {
 	g_free(string);
 }
 
-static void floatingview_destroy_lcb(GtkWidget *widget, Tdocument *doc) {
-	DEBUG_MSG("floatingview_destroy_lcb, called for doc=%p, doc->floatingview=%p\n",doc,doc->floatingview);
+static void
+floatingview_destroy_lcb(GtkWidget * widget, Tdocument * doc)
+{
+	DEBUG_MSG("floatingview_destroy_lcb, called for doc=%p, doc->floatingview=%p\n", doc, doc->floatingview);
 	if (doc->floatingview) {
 		gtk_widget_destroy(FLOATINGVIEW(doc->floatingview)->window);
 		g_free(doc->floatingview);
@@ -3359,46 +3624,53 @@ static void floatingview_destroy_lcb(GtkWidget *widget, Tdocument *doc) {
 	}
 }
 
-static void new_floatingview(Tdocument *doc) {
+static void
+new_floatingview(Tdocument * doc)
+{
 	Tfloatingview *fv;
 	gchar *title;
 	GtkWidget *scrolwin;
+	if (doc->slave)
+		doc_split_view(doc, FALSE);
+
 	if (doc->floatingview) {
 		fv = FLOATINGVIEW(doc->floatingview);
 		gtk_window_present(GTK_WINDOW(fv->window));
 		return;
 	}
-	fv = g_new(Tfloatingview,1);
+	fv = g_new(Tfloatingview, 1);
 	doc->floatingview = fv;
-	DEBUG_MSG("new_floatingview for doc=%p is at %p\n",doc,doc->floatingview);
+	DEBUG_MSG("new_floatingview for doc=%p is at %p\n", doc, doc->floatingview);
 	title = (doc->uri) ? g_file_get_uri(doc->uri) : g_strdup("Untitled");
-	fv->window = window_full2(title, GTK_WIN_POS_NONE, 5, G_CALLBACK(floatingview_destroy_lcb), doc, TRUE, NULL);
+	fv->window =
+		window_full2(title, GTK_WIN_POS_NONE, 5, G_CALLBACK(floatingview_destroy_lcb), doc, TRUE, NULL);
 	g_free(title);
 	gtk_window_set_role(GTK_WINDOW(fv->window), "floatingview");
-	fv->textview = gtk_text_view_new_with_buffer(doc->buffer);
-	gtk_text_view_set_editable(GTK_TEXT_VIEW(fv->textview),FALSE);
-	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(fv->textview),FALSE);
+	fv->textview = bftextview2_new_slave(BLUEFISH_TEXT_VIEW(doc->view));
 	apply_font_style(fv->textview, main_v->props.editor_font_string);
-	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(fv->textview), GTK_WRAP_WORD);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), fv->textview);
-	gtk_container_add(GTK_CONTAINER(fv->window),scrolwin);
-	gtk_window_set_default_size(GTK_WINDOW(fv->window),600,600);
+	gtk_container_add(GTK_CONTAINER(scrolwin), fv->textview);
+	gtk_container_add(GTK_CONTAINER(fv->window), scrolwin);
+	gtk_window_set_default_size(GTK_WINDOW(fv->window), 600, 600);
 	gtk_widget_show_all(fv->window);
 }
 
-void file_floatingview_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+void
+file_floatingview_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
+{
 	new_floatingview(bfwin->current_document);
 }
 
-void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+void
+doc_menu_lcb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
+{
 	gboolean active;
 	if (!bfwin->current_document)
 		return;
 
-	active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)); 
-	switch(callback_action) {
+	active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
+	switch (callback_action) {
 	case 1:
 		bfwin->current_document->wrapstate = active;
 		doc_set_wrap(bfwin->current_document);
@@ -3416,7 +3688,8 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		bluefish_text_view_set_show_blocks(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
 		break;
 	case 6:
-		bluefish_text_view_set_show_visible_spacing(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
+		bluefish_text_view_set_show_visible_spacing(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+													active);
 		break;
 	case 7:
 		doc_font_size(CURDOC(bfwin), 1);
@@ -3428,13 +3701,13 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		doc_font_size(CURDOC(bfwin), 0);
 		break;
 	case 10:
-		doc_change_tabsize(CURDOC(bfwin),1);
+		doc_change_tabsize(CURDOC(bfwin), 1);
 		break;
 	case 11:
-		doc_change_tabsize(CURDOC(bfwin),-1);
+		doc_change_tabsize(CURDOC(bfwin), -1);
 		break;
 	case 12:
-		doc_change_tabsize(CURDOC(bfwin),0);
+		doc_change_tabsize(CURDOC(bfwin), 0);
 		break;
 	case 13:
 #ifdef HAVE_LIBENCHANT
@@ -3449,6 +3722,9 @@ void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		break;
 	case 16:
 		doc_jump(CURDOC(bfwin));
+		break;
+	case 17:
+		doc_split_view(CURDOC(bfwin), gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)));
 		break;
 	}
 }

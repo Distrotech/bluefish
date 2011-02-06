@@ -396,8 +396,8 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "monospace 10");
 	init_prop_integer(&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.editor_tab_indent_sel, "editor_tab_indent_sel:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.use_system_tab_font, "use_system_tab_font:", 1, TRUE);
 	init_prop_string(&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
 	init_prop_string(&config_rc, &main_v->props.tab_color_modified, "tab_color_modified:", "#0000FF");
 	init_prop_string(&config_rc, &main_v->props.tab_color_loading, "tab_color_loading:", "#C7C7C7");
@@ -482,7 +482,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.block_folding_mode, "block_folding_mode:", 1, TRUE);
 	init_prop_arraylist(&config_rc, &main_v->props.highlight_styles, "highlight_styles:", 3, TRUE);
 	init_prop_arraylist(&config_rc, &main_v->props.bflang_options, "bflang_options:", 3, TRUE);
-	init_prop_string(&config_rc, &main_v->props.autocomp_accel_string, "autocomp_accel_string:", "");
+	init_prop_string(&config_rc, &main_v->props.autocomp_accel_string, "autocomp_accel_string:", "<Control>space");
 	init_prop_integer(&config_rc, &main_v->props.load_reference, "load_reference:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.show_autocomp_reference, "show_autocomp_reference:", 1,
 					  TRUE);
@@ -900,11 +900,13 @@ static GHashTable *return_session_configlist(GHashTable * configlist, Tsessionva
 	init_prop_integer(&configlist, &session->wrap_text_default, "wrap_text_default:", 1, FALSE);
 	init_prop_integer(&configlist, &session->autoindent, "autoindent:", 1, FALSE);
 	init_prop_integer(&configlist, &session->editor_tab_width, "editor_tab_width:", 3, FALSE);
+	init_prop_integer(&configlist, &session->editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
 	init_prop_integer(&configlist, &session->view_line_numbers, "view_line_numbers:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_cline, "view_cline:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_blocks, "view_blocks:", 1, FALSE);
 	init_prop_integer(&configlist, &session->autocomplete, "autocomplete:", 1, FALSE);
 	init_prop_integer(&configlist, &session->show_mbhl, "show_mbhl:", 1, FALSE);
+	init_prop_integer(&configlist, &session->display_right_margin, "display_right_margin:", 0, TRUE);
 #ifdef HAVE_LIBENCHANT
 	init_prop_integer(&configlist, &session->spell_check_default, "spell_check_default:", 1, FALSE);
 	init_prop_integer(&configlist, &session->spell_insert_entities, "spell_insert_entities:", 0, FALSE);

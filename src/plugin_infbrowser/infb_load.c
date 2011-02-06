@@ -33,7 +33,7 @@
 gchar **infb_load_refname(gchar *filename) {
 	xmlDocPtr doc;
 	xmlNodePtr cur;
-	gchar **ret = g_new0(gchar*,4) ;
+	gchar **ret = g_new0(gchar*,4);
 	
 	if (filename == NULL)	return NULL;
 	doc = xmlReadFile(filename,NULL,XML_PARSE_RECOVER | XML_PARSE_NOENT | XML_PARSE_NOBLANKS | XML_PARSE_XINCLUDE);
@@ -152,7 +152,6 @@ void infb_rescan_dir(const gchar * dir)
 
 void infb_load(void) {
 	xmlNodePtr node,node2,n_fref,n_dtd,n_html;
-	xmlDtdPtr dtd;
 	GList *reflist;
 	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 
@@ -172,7 +171,6 @@ void infb_load(void) {
 	n_html = xmlNewChild(node,NULL,BAD_CAST "group",BAD_CAST "");
 	xmlNewProp(n_html,BAD_CAST "name",BAD_CAST _("Web pages"));
 		
-	dtd = xmlCreateIntSubset(infb_v.homeDoc, BAD_CAST "index", BAD_CAST INFB_INDEX_PUBLIC_ID, NULL);
 	reflist = g_list_first(main_v->globses.reference_files);
 	while (reflist) {
 		gchar **tmparray = reflist->data;

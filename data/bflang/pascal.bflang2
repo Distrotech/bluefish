@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		pascal.bflang2 $Revision: $
+ 
+		Copyright (C) 2010 Olivier Sessink
+
+	    This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+-->
+
+<bflang name="Pascal" version="2.0" matches="151" contexts="5" table="566">
+<header>
+	<mime type="text/x-pascal"/>
+
+	<highlight name="keyword" style="keyword" />
+	<highlight name="OO-keyword" style="operator" />
+	<highlight name="type" style="special-type" />
+	<highlight name="comment" style="comment" />
+	<highlight name="string" style="string" />
+	<highlight name="value" style="value" />
+	<highlight name="preprocessor" style="preprocessor" />
+	<highlight name="function" style="special-function" />
+</header>
+<properties>
+	<comment type="block" start="(*" end="*)" />
+</properties>
+<definition>
+	<context symbols=". ;(){}[]:\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;"> 
+
+<group highlight="function" autocomplete="1" case_insens="1">
+	<element pattern="abs" />
+	<element pattern="arctan" />	
+	<element pattern="chr" />
+	<element pattern="cos" />
+	<element pattern="eof" />
+	<element pattern="eoln" />
+	<element pattern="exp" />
+	<element pattern="ln" />
+	<element pattern="odd" />
+	<element pattern="ord" />
+	<element pattern="pow" />
+	<element pattern="pred" />
+	<element pattern="round" />
+	<element pattern="sin" />
+	<element pattern="sqr" />
+	<element pattern="sqrt" />
+	<element pattern="succ" />
+	<element pattern="trunc" />
+</group>	
+	
+<group highlight="keyword" autocomplete="1" case_insens="1">
+	<element pattern="and" />
+	<element pattern="and_then" />
+	<element pattern="Begin" />
+	<element pattern="break" />
+	<element pattern="case" />
+	<element pattern="cdecl" />
+	<element pattern="Const" />
+	<element pattern="continue" />
+	<element pattern="div" />
+	<element pattern="do" />
+	<element pattern="downto" />
+	<element pattern="else" />
+	<element pattern="End" />
+	<element pattern="except" />
+	<element pattern="Finalization" />
+	<element pattern="finally" />
+	<element pattern="for" />
+	<element pattern="Function" />
+	<element pattern="if" />
+	<element pattern="Implementation" />
+	<element pattern="in" />
+	<element pattern="Initialization" />
+	<element pattern="Interface" />
+	<element pattern="is" />
+	<element pattern="Library" />
+	<element pattern="mod" />
+	<element pattern="not" />
+	<element pattern="of" />
+	<element pattern="or" />
+	<element pattern="or_else" />
+	<element pattern="otherwise" />
+	<element pattern="Overload" />
+	<element pattern="Procedure" />
+	<element pattern="Program" />
+	<element pattern="raise" />
+	<element pattern="repeat" />
+	<element pattern="shl" />
+	<element pattern="shr" />
+	<element pattern="then" />
+	<element pattern="to" />
+	<element pattern="try" />
+	<element pattern="Unit" />
+	<element pattern="until" />
+	<element pattern="Uses" />
+	<element pattern="Var" />
+	<element pattern="while" />
+	<element pattern="xor" />	
+</group>
+
+<group highlight="OO-keyword" autocomplete="1" case_insens="1">
+	<element pattern="absolute" />
+	<element pattern="Abstract" />
+	<element pattern="all" />
+	<element pattern="Array" />
+	<element pattern="As" />
+	<element pattern="asm" />
+	<element pattern="attribute" />
+	<element pattern="bindable" />
+	<element pattern="Class" />
+	<element pattern="Constructor" />
+	<element pattern="default" />
+	<element pattern="Destructor" />
+	<element pattern="export" />
+	<element pattern="exports" />
+	<element pattern="external" />
+	<element pattern="far" />
+	<element pattern="file" />
+	<element pattern="Forward" />
+	<element pattern="goto" />
+	<element pattern="Implements" />
+	<element pattern="import" />
+	<element pattern="Inherited" />
+	<element pattern="Interface" />
+	<element pattern="interrupt" />
+	<element pattern="near" />
+	<element pattern="Object" />
+	<element pattern="Override" />
+	<element pattern="Packed" />
+	<element pattern="Private" />
+	<element pattern="Property" />
+	<element pattern="Protected" />
+	<element pattern="Public" />
+	<element pattern="published" />
+	<element pattern="qualified" />
+	<element pattern="Read" />
+	<element pattern="ReadLn" />
+	<element pattern="Record" />
+	<element pattern="resident" />
+	<element pattern="restricted" />
+	<element pattern="segment" />
+	<element pattern="self" />
+	<element pattern="set" />
+	<element pattern="Type" />
+	<element pattern="value" />
+	<element pattern="varargs" />
+	<element pattern="Virtual" />
+	<element pattern="With" />
+	<element pattern="Write" />
+	<element pattern="WriteLn" />
+</group>
+
+<group highlight="type" autocomplete="1" case_insens="1"> 
+	<element pattern="Boolean" />
+	<element pattern="Byte" />
+	<element pattern="ByteBool" />
+	<element pattern="Cardinal" />
+	<element pattern="Char" />
+	<element pattern="Comp" />
+	<element pattern="Currency" />
+	<element pattern="Double" />
+	<element pattern="Extended" />
+	<element pattern="Int64" />
+	<element pattern="Integer" />
+	<element pattern="LongBool" />
+	<element pattern="Longint" />
+	<element pattern="Longword" />
+	<element pattern="Pointer" />
+	<element pattern="QWord" />
+	<element pattern="Real" />
+	<element pattern="Single" />
+	<element pattern="Shortint" />
+	<element pattern="Smallint" />
+	<element pattern="String" />
+	<element pattern="text" />
+	<element pattern="Word" />
+	<element pattern="WordBool" />
+</group>
+
+<element pattern="False" autocomplete="1" highlight="value" />
+<element pattern="True" autocomplete="1" highlight="value" />
+<element pattern="nil" autocomplete="1" highlight="value" />
+
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string" >
+		<element pattern="\\." is_regex="1" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<element id="e.lcomment.1" pattern="(*" starts_block="1" highlight="comment">
+	<context symbols="*)&#9;&#10;&#13;" highlight="comment" >
+		<element pattern="*)" ends_block="1" blockstartelement="e.lcomment.1" highlight="comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+
+<element id="e.lcomment.2" pattern="{" starts_block="1" highlight="comment">
+	<context symbols="}&#9;&#10;&#13;" highlight="comment" >
+		<element pattern="}" ends_block="1" blockstartelement="e.lcomment.2" highlight="comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+
+<element pattern="//[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
+
+<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+
+</context>
+</definition>
+</bflang>

@@ -60,6 +60,7 @@
 #include "filefilter.h"
 #include "file.h" /* file_handle() */
 #include "file_autosave.h"
+#include "languages.h"
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -118,7 +119,6 @@ static void handle_signals(void) {
 	sa.sa_sigaction = sigterm_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_SIGINFO;
-	sa.sa_restorer = NULL;
 	sigaction(SIGTERM, &sa, NULL);
 }
 #endif
@@ -191,7 +191,8 @@ static gboolean startup_in_idle(gpointer data) {
 					tmplist = g_list_next(tmplist);
 				}
 			}
-			bmark_reload(startup->firstbfwin);
+			if (startup->firstbfwin->session == main_v->session)
+				bmark_reload(startup->firstbfwin); /* do not reload bookmarks for a project */
 			/* set GTK settings, must be AFTER the menu is created */
 			{
 				gchar *shortcutfilename;
@@ -344,7 +345,14 @@ int main(int argc, char *argv[])
 	rcfile_parse_main();
 #ifdef ENABLE_NLS
 	if (main_v->props.language!=NULL && main_v->props.language[0]!='\0') {
+#ifndef WIN32
 		setlocale(LC_ALL, main_v->props.language);
+#else /* WIN32 */
+		if (!lingua_set_thread_locale_on_windows(main_v->props.language)) {
+			g_free(main_v->props.language);
+			main_v->props.language = NULL;
+		}
+#endif /* WIN32 */
 	}
 #endif /* ENABLE_NLS */
 	if (main_v->props.open_in_running_bluefish) {
@@ -397,11 +405,9 @@ void bluefish_exit_request()
 	g_list_free(tmplist);
 	tmplist = g_list_first(main_v->bfwinlist);
 	while (tmplist) {
-		main_window_delete_event_lcb(NULL,NULL,BFWIN(tmplist->data));
-/*		if (tmpb) {
-			file_close_all_cb(NULL, BFWIN(tmplist->data));
-		}*/
+		Tbfwin *bfwin = BFWIN(tmplist->data);
 		tmplist = g_list_next(tmplist);
+		main_window_delete_event_lcb(NULL,NULL,bfwin);
 	}
 	/* if we still have modified documents we don't do a thing,
 	   if we don't have them we can quit */

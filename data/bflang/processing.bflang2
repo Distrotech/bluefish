@@ -1,0 +1,887 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		Processing.bflang2 falsetti at clansco.org $Revision: 6337 $
+ 
+		Copyright (C 2008-2011 Olivier Sessink
+
+	    This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+-->
+
+<bflang name="Processing" version="2.0" table="3685" contexts="6" matches="762">
+<header>
+ <mime type="application/processing"/>
+ <option name="load_reference" default="1" description="load reference data"/>
+ <option name="load_completion" default="1" description="load completion data"/>
+ <option name="undescribed_methods" default="1" description="Methods in javadoc but not in references" />
+ <highlight name="keyword1" style="special-keyword" />
+ <highlight name="brackets" style="brackets" />
+ <highlight name="method" style="special-tag3" />
+ <highlight name="special" style="special-tag" />
+ <highlight name="comment" style="comment" />
+ <highlight name="string" style="string" />
+ <highlight name="constant" style="value"  />
+ <highlight name="value" style="value"  />
+ <highlight name="variable" style="value"  />
+ <highlight name="imports" style="preprocessor" />
+</header>
+<properties>
+ <comment type="block" start="/*" end="*/" />
+ <comment type="block" start="/**" end="*/" />
+ <comment type="line" start="//" />
+ <smartindent characters="{" />
+ <smartoutdent characters="}" />
+</properties>
+
+<definition>
+<context symbols=" .;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+
+<element pattern="&#34;" highlight="string">
+ <context symbols="\&#34;" highlight="string">
+  <element pattern="\&#34;" highlight="string" />
+  <element pattern="&#34;" highlight="string" ends_context="1" />
+ </context>
+</element>
+<element pattern="'" highlight="string">
+ <context symbols="\'" highlight="string">
+  <element pattern="\\." is_regex="1" highlight="string" />
+  <element pattern="'" highlight="string" ends_context="1" />
+ </context>
+</element>
+
+<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
+<element id="e.lbracket" pattern="[" starts_block="1"  highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
+<!-- <element id="e.lparen" pattern="(" starts_block="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" /> -->
+<!-- conflict with group pattern="boolean(" -->
+
+<element id="e.linecomment" pattern="//" highlight="comment">
+<!-- dos has \r\n -> we should never end a pattern between these two chars  -->
+ <context symbols="&#10;&#13;" highlight="comment">
+  <element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="comment" ends_context="1" />
+ </context>
+</element>
+
+
+<element id="e.lcomment" pattern="/*" starts_block="1" highlight="comment">
+ <context symbols="*/&#9;&#10;&#13;" highlight="comment">
+  <element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
+ </context>
+</element>
+
+<element pattern="[0-9]+\.*[0-9]*" is_regex="1" highlight="value"/> 
+
+<group autocomplete="1" highlight="keyword1">
+ <element pattern="Boolean"><reference>Datatype true or false
+ if (!a){ }
+ if (a){ } </reference></element>
+ <element pattern="BufferedReader"><reference>Object. Method: 	
+readLine()</reference></element>
+ <element pattern="Byte"><reference>Datatype -128 to 127</reference></element>
+ <element pattern="Character"><reference></reference></element>
+ <element pattern="Class"><reference></reference></element>
+ <element pattern="Double"><reference></reference></element>
+ <element pattern="Float"><reference></reference></element>
+ <element pattern="Integer"><reference></reference></element>
+ <element pattern="PFont"><reference></reference></element>
+ <element pattern="PGraphics"><reference></reference></element>
+ <element pattern="PImage"><reference></reference></element>
+ <element pattern="PShape"><reference></reference></element>
+ <element pattern="PVector"><reference></reference></element>
+ <element pattern="PrintWriter"><reference></reference></element>
+ <element pattern="String"><reference></reference></element>
+ <element pattern="StringBuffer"><reference></reference></element>
+ <element pattern="Thread"><reference></reference></element>
+ <element pattern="abstract"><reference></reference></element>
+ <element pattern="boolean"><reference>Datatype true or false
+ if (!a){ }
+ if (a){ }</reference></element>
+ <element pattern="break"><reference>ends	switch() for() while()</reference></element>
+ <element pattern="byte"><reference>Datatype -128 to 127</reference></element>
+ <element pattern="case"><reference></reference></element>
+ <element pattern="catch"><reference></reference></element>
+ <element pattern="char"><reference></reference></element>
+ <element pattern="class"><reference></reference></element>
+ <element pattern="color"><reference></reference></element>
+ <element pattern="continue"><reference></reference></element>
+ <element pattern="default"><reference></reference></element>
+ <element pattern="do"><reference></reference></element>
+ <element pattern="double"><reference></reference></element>
+ <element pattern="else"><reference></reference></element>
+ <element pattern="extends"><reference></reference></element>
+ <element pattern="false"><reference></reference></element>
+ <element pattern="final"><reference></reference></element>
+ <element pattern="finally"><reference></reference></element>
+ <element pattern="float"><reference></reference></element>
+ <element pattern="for"><reference></reference></element>
+ <element pattern="if"><reference></reference></element>
+ <element pattern="implements"><reference></reference></element>
+ <element pattern="import"><reference></reference></element>
+ <element pattern="instanceof"><reference></reference></element>
+ <element pattern="int"><reference></reference></element>
+ <element pattern="interface"><reference></reference></element>
+ <element pattern="long"><reference></reference></element>
+ <element pattern="native"><reference></reference></element>
+ <element pattern="new"><reference></reference></element>
+ <element pattern="null"><reference></reference></element>
+ <element pattern="package"><reference></reference></element>
+ <element pattern="private"><reference></reference></element>
+ <element pattern="protected"><reference></reference></element>
+ <element pattern="public"><reference></reference></element>
+ <element pattern="return"><reference></reference></element>
+ <element pattern="short"><reference></reference></element>
+ <element pattern="static"><reference></reference></element>
+ <element pattern="super"><reference></reference></element>
+ <element pattern="switch"><reference></reference></element>
+ <element pattern="synchronized"><reference></reference></element>
+ <element pattern="this"><reference></reference></element>
+ <element pattern="throw"><reference></reference></element>
+ <element pattern="throws"><reference></reference></element>
+ <element pattern="transient"><reference></reference></element>
+ <element pattern="true"><reference></reference></element>
+ <element pattern="try"><reference></reference></element>
+ <element pattern="void"><reference></reference></element>
+ <element pattern="volatile"><reference></reference></element>
+ <element pattern="while"><reference></reference></element>
+
+</group>
+<group highlight="method" autocomplete="1" autocomplete_append="();" autocomplete_backup_cursor="2" >
+ <element pattern="ArrayList" />
+ <element pattern="HashMap" />
+ <element pattern="XML" />
+ <element pattern="XMLElement" />
+ <element pattern="abs" />
+ <element pattern="acos" />
+ <element pattern="add" />
+ <element pattern="alpha" />
+ <element pattern="ambient" />
+ <element pattern="ambientLight" />
+ <element pattern="angleBetween" />
+ <element pattern="append" />
+ <element pattern="applyMatrix" />
+ <element pattern="arc" />
+ <element pattern="arrayCopy" />
+ <element pattern="asin" />
+ <element pattern="atan" />
+ <element pattern="atan2" />
+ <element pattern="background" />
+ <element pattern="beginDraw" />
+ <element pattern="beginRaw" />
+ <element pattern="beginRecord" />
+ <element pattern="beginShape" />
+ <element pattern="bezier" />
+ <element pattern="bezierDetail" />
+ <element pattern="bezierPoint" />
+ <element pattern="bezierTangent" />
+ <element pattern="bezierVertex" />
+ <element pattern="binary" />
+ <element pattern="blend" />
+ <element pattern="blendColor" />
+ <element pattern="blue" />
+ <element pattern="box" />
+ <element pattern="brightness" />
+ <element pattern="cache" />
+ <element pattern="camera" />
+ <element pattern="ceil" />
+ <element pattern="charAt" />
+ <element pattern="colorMode" />
+ <element pattern="concat" />
+ <element pattern="constrain" />
+ <element pattern="copy" />
+ <element pattern="cos" />
+ <element pattern="createFont" />
+ <element pattern="createGraphics" />
+ <element pattern="createImage" />
+ <element pattern="createInput" />
+ <element pattern="createOutput" />
+ <element pattern="createReader" />
+ <element pattern="createWriter" />
+ <element pattern="cross" />
+ <element pattern="cursor" />
+ <element pattern="curve" />
+ <element pattern="curveDetail" />
+ <element pattern="curvePoint" />
+ <element pattern="curveTangent" />
+ <element pattern="curveTightness" />
+ <element pattern="curveVertex" />
+ <element pattern="degrees" />
+ <element pattern="delay" />
+ <element pattern="directionalLight" />
+ <element pattern="disableStyle" />
+ <element pattern="dist" />
+ <element pattern="div" />
+ <element pattern="ellipse" />
+ <element pattern="ellipseMode" />
+ <element pattern="emissive" />
+ <element pattern="enableStyle" />
+ <element pattern="endDraw" />
+ <element pattern="endShape" />
+ <element pattern="equals" />
+ <element pattern="exp" />
+ <element pattern="expand" />
+ <element pattern="fill" />
+ <element pattern="filter" />
+ <element pattern="floor" />
+ <element pattern="flush" />
+ <element pattern="frameRate" />
+ <element pattern="frustum" />
+ <element pattern="get" />
+ <element pattern="getChild" />
+ <element pattern="getChildCount" />
+ <element pattern="getChildren" />
+ <element pattern="getContent" />
+ <element pattern="getFloat()" />
+ <element pattern="getFloatAttribute" />
+ <element pattern="getHeight" />
+ <element pattern="getInt()" />
+ <element pattern="getIntAttribute" />
+ <element pattern="getName" />
+ <element pattern="getString()" />
+ <element pattern="getStringAttribute" />
+ <element pattern="getWidth" />	
+ <element pattern="green" />
+ <element pattern="hex" />
+ <element pattern="hint" />
+ <element pattern="hue" />
+ <element pattern="image" />
+ <element pattern="imageMode" />
+ <element pattern="indexOf" />
+ <element pattern="isVisible" />
+ <element pattern="join" />
+ <element pattern="keyTyped" />
+ <element pattern="lerp" />
+ <element pattern="lerpColor" />
+ <element pattern="lightFalloff" />
+ <element pattern="lightSpecular" />
+ <element pattern="line" />
+ <element pattern="link" />
+ <element pattern="list" />
+ <element pattern="loadBytes" />
+ <element pattern="loadFont" />
+ <element pattern="loadImage" />
+ <element pattern="loadShape" />
+ <element pattern="loadStrings" />
+ <element pattern="log" />
+ <element pattern="mag" />
+ <element pattern="map" />
+ <element pattern="mask" />
+ <element pattern="match" />
+ <element pattern="matchAll" />
+ <element pattern="max" />
+ <element pattern="min" />
+ <element pattern="modelX" />
+ <element pattern="modelY" />
+ <element pattern="modelZ" />
+ <element pattern="mult" />
+ <element pattern="nf" />
+ <element pattern="nfc" />
+ <element pattern="nfp" />
+ <element pattern="nfs" />
+ <element pattern="noise" />
+ <element pattern="noiseDetail" />
+ <element pattern="noiseSeed" />
+ <element pattern="norm" />
+ <element pattern="normal" />
+ <element pattern="open" />
+ <element pattern="openStream" />
+ <element pattern="ortho" />
+ <element pattern="param" />
+ <element pattern="perspective" />
+ <element pattern="point" />
+ <element pattern="pointLight" />
+ <element pattern="pow" />
+ <element pattern="print" />
+ <element pattern="println" />
+ <element pattern="quad" />
+ <element pattern="radians" />
+ <element pattern="random" />
+ <element pattern="randomSeed" />
+ <element pattern="rect" />
+ <element pattern="rectMode" />
+ <element pattern="red" />
+ <element pattern="requestImage" />
+ <element pattern="resize" />
+ <element pattern="reverse" />
+ <element pattern="rotate" />
+ <element pattern="rotateX" />
+ <element pattern="rotateY" />
+ <element pattern="rotateZ" />
+ <element pattern="round" />
+ <element pattern="saturation" />
+ <element pattern="save" />
+ <element pattern="saveBytes" />
+ <element pattern="saveFrame" />
+ <element pattern="saveStream" />
+ <element pattern="saveStrings" />
+ <element pattern="scale" />
+ <element pattern="screenX" />
+ <element pattern="screenY" />
+ <element pattern="screenZ" />
+ <element pattern="selectFolder" />
+ <element pattern="selectInput" />
+ <element pattern="selectOutput" />
+ <element pattern="set" />
+ <element pattern="shape" />
+ <element pattern="shapeMode" />
+ <element pattern="shearX" />
+ <element pattern="shearY" />
+ <element pattern="shininess" />
+ <element pattern="shorten" />
+ <element pattern="sin" />
+ <element pattern="size" />
+ <element pattern="sort" />
+ <element pattern="specular" />
+ <element pattern="sphere" />
+ <element pattern="sphereDetail" />
+ <element pattern="splice" />
+ <element pattern="split" />
+ <element pattern="splitTokens" />
+ <element pattern="spotLight" />
+ <element pattern="sq" />
+ <element pattern="sqrt" />
+ <element pattern="status" />
+ <element pattern="str" />
+ <element pattern="stroke" />
+ <element pattern="strokeCap" />
+ <element pattern="strokeJoin" />
+ <element pattern="strokeWeight" />
+ <element pattern="sub" />
+ <element pattern="subset" />
+ <element pattern="substring" />
+ <element pattern="switch" />
+ <element pattern="tan" />
+ <element pattern="text" />
+ <element pattern="textAlign" />
+ <element pattern="textFont" />
+ <element pattern="textLeading" />
+ <element pattern="textMode" />
+ <element pattern="textSize" />
+ <element pattern="textWidth" />
+ <element pattern="texture" />
+ <element pattern="textureMode" />
+ <element pattern="tint" />
+ <element pattern="toLowerCase" />
+ <element pattern="toUpperCase" />
+ <element pattern="translate" />
+ <element pattern="triangle" />
+ <element pattern="trim" />
+ <element pattern="unbinary" />
+ <element pattern="unhex" />
+ <element pattern="updatePixels" />
+ <element pattern="valueOf" />
+ <element pattern="vertex" />
+</group>
+
+<group highlight="method" autocomplete="1" autocomplete_append=");" autocomplete_backup_cursor="2" >
+ <element pattern="boolean(" />
+ <element pattern="byte(" />
+ <element pattern="char(" />
+ <element pattern="color(" />
+ <element pattern="float(" />
+ <element pattern="frameRate(" />
+ <element pattern="int(" />
+ <element pattern="switch(" />
+ <element pattern="width(" />
+</group>
+
+<group highlight="method" autocomplete="1" autocomplete_append=";">
+ <element pattern="beginCamera()" />
+ <element pattern="day()" />	
+ <element pattern="endCamera()" />
+ <element pattern="endRaw()" />
+ <element pattern="endRecord()" />
+ <element pattern="exit()" />
+ <element pattern="hour()" />
+ <element pattern="length()" />
+ <element pattern="lights()" />
+ <element pattern="loadPixels()" />
+ <element pattern="loop()" />
+ <element pattern="millis()" />
+ <element pattern="minute()" />	
+ <element pattern="month()" />
+ <element pattern="noCursor()" />
+ <element pattern="noFill()" />
+ <element pattern="noLights()" />
+ <element pattern="noLoop()" />
+ <element pattern="noSmooth()" />
+ <element pattern="noStroke()" />
+ <element pattern="noTint()" />
+ <element pattern="popMatrix()" />
+ <element pattern="printCamera()" />
+ <element pattern="printMatrix()" />
+ <element pattern="printProjection()" />
+ <element pattern="pushMatrix()" />
+ <element pattern="redraw()" />
+ <element pattern="resetMatrix()" />
+ <element pattern="second()" />	
+ <element pattern="smooth()" />
+ <element pattern="textAscent()" />
+ <element pattern="textDescent()" />
+ <element pattern="year()" />
+ <element pattern="readLine()" />
+</group>
+
+<group highlight="method" autocomplete="1" autocomplete_append=" {}" autocomplete_backup_cursor="1">
+ <element pattern="keyPressed()" />
+ <element pattern="keyReleased()" />
+ <element pattern="mousePressed()" />
+ <element pattern="mouseClicked()" />
+ <element pattern="mouseDragged()" />
+ <element pattern="mouseMoved()" />
+ <element pattern="mouseReleased()" />
+</group>
+<group highlight="special" autocomplete="1" autocomplete_append="() {}" autocomplete_backup_cursor="1">
+ <element pattern="setup" />
+ <element pattern="draw" />
+ <element pattern="popStyle" />
+ <element pattern="pushStyle" />
+</group>
+<group class="undescribed_methods" highlight="method" autocomplete="1" autocomplete_append="();" autocomplete_backup_cursor="2" >
+ <element pattern="PCDataAdded" />
+ <element pattern="addChild" />
+ <element pattern="addListeners" />
+ <element pattern="addPCData" />
+ <element pattern="apply" />
+ <element pattern="arraycopy" />
+ <element pattern="ascent" />
+ <element pattern="atEOF" />
+ <element pattern="atEOFOfCurrentStream" />
+ <element pattern="attributeAdded" />
+ <element pattern="backgroundImpl" />
+ <element pattern="breakShape" />
+ <element pattern="canDraw" />
+ <element pattern="clone" />
+ <element pattern="contains" />
+ <element pattern="createInputRaw" />
+ <element pattern="createPath" />
+ <element pattern="dataFile" />
+ <element pattern="dataPath" />
+ <element pattern="destroy" />
+ <element pattern="determinant" />
+ <element pattern="die" />
+ <element pattern="displayable" />
+ <element pattern="dispose" />
+ <element pattern="dot" />
+ <element pattern="drawImpl" />
+ <element pattern="edge" />
+ <element pattern="elementAttributesProcessed" />
+ <element pattern="elementEnded" />
+ <element pattern="elementStarted" />
+ <element pattern="endElement" />
+ <element pattern="exec" />
+ <element pattern="fileReader" />
+ <element pattern="findChild" />
+ <element pattern="findFont" />
+ <element pattern="focusGained" />
+ <element pattern="focusLost" />
+ <element pattern="getAttributeCount" />
+ <element pattern="getAttributeName" />
+ <element pattern="getAttributeValue" />
+ <element pattern="getBoolean" />
+ <element pattern="getBuilder" />
+ <element pattern="getCache" />
+ <element pattern="getDouble" />
+ <element pattern="getElementName" />
+ <element pattern="getEntity" />
+ <element pattern="getException" />
+ <element pattern="getFamily" />
+ <element pattern="getFont" />
+ <element pattern="getGlyph" />
+ <element pattern="getImage" />
+ <element pattern="getImpl" />
+ <element pattern="getLine" />
+ <element pattern="getLineNr" />
+ <element pattern="getLocalName" />
+ <element pattern="getMatrix" />
+ <element pattern="getNamespace" />
+ <element pattern="getParam" />
+ <element pattern="getParameterEntityResolver" />
+ <element pattern="getParams" />
+ <element pattern="getParent" />
+ <element pattern="getPostScriptName" />
+ <element pattern="getPrimitive" />
+ <element pattern="getPublicID" />
+ <element pattern="getReader" />
+ <element pattern="getResolver" />
+ <element pattern="getResult" />
+ <element pattern="getStreamLevel" />
+ <element pattern="getStyle" />
+ <element pattern="getSystemID" />
+ <element pattern="getValidator" />
+ <element pattern="getVertex" />
+ <element pattern="getVertexCode" />
+ <element pattern="getVertexCodeCount" />
+ <element pattern="getVertexCodes" />
+ <element pattern="getVertexCount" />
+ <element pattern="getVertexX" />
+ <element pattern="getVertexY" />
+ <element pattern="getVertexZ" />
+ <element pattern="handleDraw" />
+ <element pattern="hasAttribute" />
+ <element pattern="hasChildren" />
+ <element pattern="hashCode" />
+ <element pattern="heading2D" />
+ <element pattern="init" />
+ <element pattern="invert" />
+ <element pattern="is2D" />
+ <element pattern="is3D" />
+ <element pattern="isExternalEntity" />
+ <element pattern="isLeaf" />
+ <element pattern="isModified" />
+ <element pattern="isStream" />
+ <element pattern="kern" />
+ <element pattern="limit" />
+ <element pattern="lineClipping" />
+ <element pattern="listAttributes" />
+ <element pattern="listChildren" />
+ <element pattern="loadFonts" />
+ <element pattern="main" />
+ <element pattern="method" />
+ <element pattern="mouseEntered" />
+ <element pattern="mouseExited" />
+ <element pattern="multW" />
+ <element pattern="multX" />
+ <element pattern="multY" />
+ <element pattern="multZ" />
+ <element pattern="newProcessingInstruction" />
+ <element pattern="nextVertex" />
+ <element pattern="normalize" />
+ <element pattern="paint" />
+ <element pattern="parse" />
+ <element pattern="parseBoolean" />
+ <element pattern="parseByte" />
+ <element pattern="parseChar" />
+ <element pattern="parseDTD" />
+ <element pattern="parseFloat" />
+ <element pattern="parseInt" />
+ <element pattern="post" />
+ <element pattern="preApply" />
+ <element pattern="printStackTrace" />
+ <element pattern="read" />
+ <element pattern="registerDispose" />
+ <element pattern="registerDraw" />
+ <element pattern="registerKeyEvent" />
+ <element pattern="registerMouseEvent" />
+ <element pattern="registerPost" />
+ <element pattern="registerPre" />
+ <element pattern="registerSize" />
+ <element pattern="remove" />
+ <element pattern="removeCache" />
+ <element pattern="removeChild" />
+ <element pattern="render" />
+ <element pattern="reset" />
+ <element pattern="run" />
+ <element pattern="runSketch" />
+ <element pattern="saveFile" />
+ <element pattern="savePath" />
+ <element pattern="setBoolean" />
+ <element pattern="setBuilder" />
+ <element pattern="setCache" />
+ <element pattern="setCamVertices" />
+ <element pattern="setContent" />
+ <element pattern="setCulling" />
+ <element pattern="setDouble" />
+ <element pattern="setFloat" />
+ <element pattern="setFont" />
+ <element pattern="setIndex" />
+ <element pattern="setInt" />
+ <element pattern="setIntensities" />
+ <element pattern="setInterpPower" />
+ <element pattern="setMatrix" />
+ <element pattern="setModified" />
+ <element pattern="setName" />
+ <element pattern="setParameterEntityResolver" />
+ <element pattern="setParent" />
+ <element pattern="setPath" />
+ <element pattern="setPrimary" />
+ <element pattern="setPublicID" />
+ <element pattern="setReader" />
+ <element pattern="setResolver" />
+ <element pattern="setSize" />
+ <element pattern="setString" />
+ <element pattern="setSystemID" />
+ <element pattern="setTexture" />
+ <element pattern="setUV" />
+ <element pattern="setValidator" />
+ <element pattern="setVertices" />
+ <element pattern="setVisible" />
+ <element pattern="setupExternalMessages" />
+ <element pattern="setupFrameResizeListener" />
+ <element pattern="showException" />
+ <element pattern="showWarning" />
+ <element pattern="sketchFile" />
+ <element pattern="sketchHeight" />
+ <element pattern="sketchPath" />
+ <element pattern="sketchRenderer" />
+ <element pattern="sketchWidth" />
+ <element pattern="start" />
+ <element pattern="startBuilding" />
+ <element pattern="startElement" />
+ <element pattern="startNewStream" />
+ <element pattern="stop" />
+ <element pattern="stringReader" />
+ <element pattern="style" />
+ <element pattern="thread" />
+ <element pattern="toString" />
+ <element pattern="transpose" />
+ <element pattern="unexpand" />
+ <element pattern="unread" />
+ <element pattern="unregisterDispose" />
+ <element pattern="unregisterDraw" />
+ <element pattern="unregisterKeyEvent" />
+ <element pattern="unregisterMouseEvent" />
+ <element pattern="unregisterPost" />
+ <element pattern="unregisterPre" />
+ <element pattern="unregisterSize" />
+ <element pattern="update" />
+</group>
+<group autocomplete="1" highlight="constant">
+ <element pattern="A"><reference>static int</reference></element>
+ <element pattern="AB"><reference>static int</reference></element>
+ <element pattern="ADD"><reference>static int</reference></element>
+ <element pattern="AG"><reference>static int</reference></element>
+ <element pattern="ALPHA"><reference>static int</reference></element>
+ <element pattern="ALPHA_MASK"><reference>static int</reference></element>
+ <element pattern="ALT"><reference>static int</reference></element>
+ <element pattern="AMBIENT"><reference>static int</reference></element>
+ <element pattern="AR"><reference>static int</reference></element>
+ <element pattern="ARC"><reference>static int</reference></element>
+ <element pattern="ARGB"><reference>static int</reference></element>
+ <element pattern="ARROW"><reference>static int</reference></element>
+ <element pattern="B"><reference>static int</reference></element>
+ <element pattern="BACKSPACE"><reference>static char</reference></element>
+ <element pattern="BASELINE"><reference>static int
+          Default vertical alignment for text placement</reference></element>
+ <element pattern="BEEN_LIT"><reference>static int</reference></element>
+ <element pattern="BEVEL"><reference>static int</reference></element>
+ <element pattern="BLEND"><reference>static int</reference></element>
+ <element pattern="BLUE_MASK"><reference>static int</reference></element>
+ <element pattern="BLUR"><reference>static int</reference></element>
+ <element pattern="BOTTOM"><reference>static int
+          Align text from the bottom, using the baseline.</reference></element>
+ <element pattern="BOX"><reference>static int</reference></element>
+ <element pattern="BURN"><reference>static int</reference></element>
+ <element pattern="CENTER"><reference>static int
+          Draw from the center, using second pair of values as the diameter.</reference></element>
+ <element pattern="CHARSET"><reference>static char[] CHARSET
+    The default Processing character set.</reference></element>
+ <element pattern="CHATTER"><reference>static int</reference></element>
+ <element pattern="CLOSE"><reference>static int</reference></element>
+ <element pattern="CMYK"><reference>static int</reference></element>
+ <element pattern="CODED"><reference>static int</reference></element>
+ <element pattern="COMPLAINT"><reference>static int</reference></element>
+ <element pattern="CONTROL"><reference>static int</reference></element>
+ <element pattern="CORNER"><reference>static int
+          Draw mode convention to use (x, y) to (width, height)</reference></element>
+ <element pattern="CORNERS"><reference>static int
+          Draw mode convention to use (x1, y1) to (x2, y2) coordinates</reference></element>
+ <element pattern="CROSS"><reference>static int</reference></element>
+ <element pattern="CUSTOM"><reference>static int</reference></element>
+ <element pattern="DA"><reference>static int</reference></element>
+ <element pattern="DARKEST"><reference>static int</reference></element>
+ <element pattern="DB"><reference>static int</reference></element>
+ <element pattern="DEG_TO_RAD"><reference>static float</reference></element>
+ <element pattern="DELETE"><reference>static char</reference></element>
+ <element pattern="DG"><reference>static int</reference></element>
+ <element pattern="DIAMETER"><reference>static int
+          Synonym for the CENTER constant.</reference></element>
+ <element pattern="DIFFERENCE"><reference>static int</reference></element>
+ <element pattern="DILATE"><reference>static int</reference></element>
+ <element pattern="DIRECTIONAL"><reference>static int</reference></element>
+ <element pattern="DISABLE_ACCURATE_TEXTURES"><reference>static int</reference></element>
+ <element pattern="DISABLE_DEPTH_SORT"><reference>static int</reference></element>
+ <element pattern="DISABLE_DEPTH_TEST"><reference>static int</reference></element>
+ <element pattern="DISABLE_NATIVE_FONTS"><reference>static int</reference></element>
+ <element pattern="DISABLE_OPENGL_"><reference>static int2X_SMOOTH</reference></element>
+ <element pattern="DISABLE_OPENGL_ERROR_REPORT"><reference>static int</reference></element>
+ <element pattern="DODGE"><reference>static int</reference></element>
+ <element pattern="DOWN"><reference>static int</reference></element>
+ <element pattern="DR"><reference>static int</reference></element>
+ <element pattern="DXF"><reference>static java.lang.String</reference></element>
+ <element pattern="EB"><reference>static int</reference></element>
+ <element pattern="EDGE"><reference>static int</reference></element>
+ <element pattern="EG"><reference>static int</reference></element>
+ <element pattern="ELLIPSE"><reference>static int</reference></element>
+ <element pattern="ENABLE_ACCURATE_TEXTURES"><reference>static int</reference></element>
+ <element pattern="ENABLE_DEPTH_SORT"><reference>static int</reference></element>
+ <element pattern="ENABLE_DEPTH_TEST"><reference>static int</reference></element>
+ <element pattern="ENABLE_NATIVE_FONTS"><reference>static int</reference></element>
+ <element pattern="ENABLE_OPENGL_"><reference>static int2X_SMOOTH</reference></element>
+ <element pattern="ENABLE_OPENGL_"><reference>static int4X_SMOOTH</reference></element>
+ <element pattern="ENABLE_OPENGL_ERROR_REPORT"><reference>static int</reference></element>
+ <element pattern="ENTER"><reference>static char</reference></element>
+ <element pattern="EPSILON"><reference>static float</reference></element>
+ <element pattern="ER"><reference>static int</reference></element>
+ <element pattern="ERODE"><reference>static int</reference></element>
+ <element pattern="ERROR_BACKGROUND_IMAGE_FORMAT"><reference>static java.lang.String</reference></element>
+ <element pattern="ERROR_BACKGROUND_IMAGE_SIZE"><reference>static java.lang.String</reference></element>
+ <element pattern="ERROR_PUSHMATRIX_OVERFLOW"><reference>static java.lang.String</reference></element>
+ <element pattern="ERROR_PUSHMATRIX_UNDERFLOW"><reference>static java.lang.String</reference></element>
+ <element pattern="ERROR_TEXTFONT_NULL_PFONT"><reference>static java.lang.String</reference></element>
+ <element pattern="ESC"><reference>static char</reference></element>
+ <element pattern="EXCLUSION"><reference>static int</reference></element>
+ <element pattern="G"><reference>static int</reference></element>
+ <element pattern="GIF"><reference>static int</reference></element>
+ <element pattern="GRAY"><reference>static int</reference></element>
+ <element pattern="GREEN_MASK"><reference>static int</reference></element>
+ <element pattern="HALF_PI"><reference>static float
+          HALF_PI is a mathematical constant with the value 1.57079632679489661923.</reference></element>
+ <element pattern="HAND"><reference>static int</reference></element>
+ <element pattern="HARD_LIGHT"><reference>static int</reference></element>
+ <element pattern="HINT_COUNT"><reference>static int</reference></element>
+ <element pattern="HSB"><reference>static int</reference></element>
+ <element pattern="IMAGE"><reference>static int
+          texture coordinates based on image width/height</reference></element>
+ <element pattern="INVERT"><reference>static int</reference></element>
+ <element pattern="JAVA"><reference>static java.lang.String2D</reference></element>
+ <element pattern="JPEG"><reference>static int</reference></element>
+ <element pattern="LEFT"><reference>static int</reference></element>
+ <element pattern="LIGHTEST"><reference>static int</reference></element>
+ <element pattern="LINE"><reference>static int</reference></element>
+ <element pattern="LINES"><reference>static int</reference></element>
+ <element pattern="LINUX"><reference>static int</reference></element>
+ <element pattern="MACOSX"><reference>static int</reference></element>
+ <element pattern="MAX_FLOAT"><reference>static float
+          Same as Float.MAX_VALUE, but included for parity with MIN_VALUE, and to avoid teaching static methods on the first day.</reference></element>
+ <element pattern="MAX_INT"><reference>static int
+          Largest possible (positive) integer value</reference></element>
+ <element pattern="MIN_FLOAT"><reference>static float
+          Note that Float.MIN_VALUE is the smallest positive value for a floating point number, not actually the minimum (negative) value for a float.</reference></element>
+ <element pattern="MIN_INT"><reference>static int
+          Smallest possible (negative) integer value</reference></element>
+ <element pattern="MITER"><reference>static int</reference></element>
+ <element pattern="MODEL"><reference>static int
+          textMode(MODEL) is the default, meaning that characters will be affected by transformations like any other shapes.</reference></element>
+ <element pattern="MOVE"><reference>static int</reference></element>
+ <element pattern="MULTIPLY"><reference>static int</reference></element>
+ <element pattern="NORMAL"><reference>static int
+          texture coordinates in 0..1 range</reference></element>
+ <element pattern="NX"><reference>static int</reference></element>
+ <element pattern="NY"><reference>static int</reference></element>
+ <element pattern="NZ"><reference>static int</reference></element>
+ <element pattern="OPAQUE"><reference>static int</reference></element>
+ <element pattern="OPEN"><reference>static int</reference></element>
+ <element pattern="OPENGL"><reference>static java.lang.String</reference></element>
+ <element pattern="ORTHOGRAPHIC"><reference>static int</reference></element>
+ <element pattern="OTHER"><reference>static int</reference></element>
+ <element pattern="OVERLAY"><reference>static int</reference></element>
+ <element pattern="P"><reference>static java.lang.String2D</reference></element>
+ <element pattern="P"><reference>static java.lang.String3D</reference></element>
+ <element pattern="PATH"><reference>static int</reference></element>
+ <element pattern="PDF"><reference>static java.lang.String</reference></element>
+ <element pattern="PERSPECTIVE"><reference>static int</reference></element>
+ <element pattern="PI"><reference>static float
+          PI is a mathematical constant with the value 3.14159265358979323846.</reference></element>
+ <element pattern="platformNames"><reference>static java.lang.String[]</reference></element>
+ <element pattern="POINT"><reference>static int</reference></element>
+ <element pattern="POINTS"><reference>static int</reference></element>
+ <element pattern="POLYGON"><reference>static int</reference></element>
+ <element pattern="POSTERIZE"><reference>static int</reference></element>
+ <element pattern="PROBLEM"><reference>static int</reference></element>
+ <element pattern="PROJECT"><reference>static int</reference></element>
+ <element pattern="QUAD"><reference>static int</reference></element>
+ <element pattern="QUAD_STRIP"><reference>static int</reference></element>
+ <element pattern="QUADS"><reference>static int</reference></element>
+ <element pattern="QUARTER_PI"><reference>static float
+          QUARTER_PI is a mathematical constant with the value 0.7853982.</reference></element>
+ <element pattern="R"><reference>static int</reference></element>
+ <element pattern="RAD_TO_DEG"><reference>static float</reference></element>
+ <element pattern="RADIUS"><reference>static int
+          Draw mode from the center, and using the radius</reference></element>
+ <element pattern="RECT"><reference>static int</reference></element>
+ <element pattern="RED_MASK"><reference>static int</reference></element>
+ <element pattern="REPLACE"><reference>static int</reference></element>
+ <element pattern="RETURN"><reference>static char</reference></element>
+ <element pattern="RGB"><reference>static int</reference></element>
+ <element pattern="RIGHT"><reference>static int</reference></element>
+ <element pattern="ROUND"><reference>static int</reference></element>
+ <element pattern="SA"><reference>static int</reference></element>
+ <element pattern="SB"><reference>static int</reference></element>
+ <element pattern="SCREEN"><reference>static int</reference></element>
+ <element pattern="SG"><reference>static int</reference></element>
+ <element pattern="SHAPE"><reference>static int
+          textMode(SHAPE) draws text using the the glyph outlines of individual characters rather than as textures.</reference></element>
+ <element pattern="SHIFT"><reference>static int</reference></element>
+ <element pattern="SHINE"><reference>static int</reference></element>
+ <element pattern="SOFT_LIGHT"><reference>static int</reference></element>
+ <element pattern="SPB"><reference>static int</reference></element>
+ <element pattern="SPG"><reference>static int</reference></element>
+ <element pattern="SPHERE"><reference>static int</reference></element>
+ <element pattern="SPOT"><reference>static int</reference></element>
+ <element pattern="SPR"><reference>static int</reference></element>
+ <element pattern="SQUARE"><reference>static int</reference></element>
+ <element pattern="SR"><reference>static int
+          stroke argb values</reference></element>
+ <element pattern="SUBTRACT"><reference>static int</reference></element>
+ <element pattern="SW"><reference>static int
+          stroke weight</reference></element>
+ <element pattern="TAB"><reference>static char</reference></element>
+ <element pattern="TARGA"><reference>static int</reference></element>
+ <element pattern="TEXT"><reference>static int</reference></element>
+ <element pattern="THIRD_PI"><reference>static float</reference></element>
+ <element pattern="THRESHOLD"><reference>static int</reference></element>
+ <element pattern="TIFF"><reference>static int</reference></element>
+ <element pattern="TOP"><reference>static int
+          Align text to the top</reference></element>
+ <element pattern="TRIANGLE"><reference>static int</reference></element>
+ <element pattern="TRIANGLE_FAN"><reference>static int</reference></element>
+ <element pattern="TRIANGLE_STRIP"><reference>static int</reference></element>
+ <element pattern="TRIANGLES"><reference>static int</reference></element>
+ <element pattern="TWO_PI"><reference>static float
+          TWO_PI is a mathematical constant with the value 6.28318530717958647693.</reference></element>
+ <element pattern="TX"><reference>static int</reference></element>
+ <element pattern="TY"><reference>static int</reference></element>
+ <element pattern="TZ"><reference>static int</reference></element>
+ <element pattern="U"><reference>static int</reference></element>
+ <element pattern="UP"><reference>static int</reference></element>
+ <element pattern="V"><reference>static int</reference></element>
+ <element pattern="VERTEX_FIELD_COUNT"><reference>static int</reference></element>
+ <element pattern="VW"><reference>static int</reference></element>
+ <element pattern="VX"><reference>static int</reference></element>
+ <element pattern="VY"><reference>static int</reference></element>
+ <element pattern="VZ"><reference>static int</reference></element>
+ <element pattern="WAIT"><reference>static int</reference></element>
+ <element pattern="WHITESPACE"><reference>static java.lang.String</reference></element>
+ <element pattern="WINDOWS"><reference>static int</reference></element>
+ <element pattern="X"><reference>static int</reference></element>
+ <element pattern="Y"><reference>static int</reference></element>
+ <element pattern="Z"><reference>static int</reference></element> 
+ 
+</group>	            
+<group autocomplete="1" highlight="variable">
+ <element pattern="focused" />
+ <element pattern="frameCount" />
+ <element pattern="frameRate" />
+ <element pattern="height" />
+ <element pattern="key" />
+ <element pattern="keyCode" />
+ <element pattern="keyPressed" />
+ <element pattern="length" />
+ <element pattern="mouseButton" />
+ <element pattern="mousePressed" />
+ <element pattern="mouseX" />
+ <element pattern="mouseY" />
+ <element pattern="online" />
+ <element pattern="pixels" />
+ <element pattern="pmouseX" />
+ <element pattern="pmouseY" />
+ <element pattern="screen" />
+ <element pattern="width" />
+</group>	
+
+</context>
+</definition>
+</bflang>

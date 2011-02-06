@@ -20,31 +20,41 @@
 #ifndef __PREFERENCES_H_
 #define __PREFERENCES_H_
 
-enum {
+enum
+{
 	session_wrap_text,
 	view_line_numbers,
-	editor_tab_width,             /* editor tabwidth */
-	autoindent,                   /* autoindent code */
+	editor_tab_width,	/* editor tabwidth */
+	editor_indent_wspaces,
+	autoindent,			/* autoindent code */
 	autocomplete,
 	view_blocks,
 	show_mbhl,
-	view_cline,	
+	view_cline,
 	default_mime_type,
 	template,
+	display_right_margin,
 #ifdef HAVE_LIBENCHANT
 	session_spell_check,
 #endif
 	session_num_max
 };
 
-typedef struct {
+typedef struct
+{
 	GtkWidget *vbox;
 	GtkWidget *frame;
 	GtkWidget *prefs[session_num_max];
 } Tsessionprefs;
-void sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars);
-Tsessionprefs *sessionprefs(const gchar *frame_title, Tsessionprefs *sprefs, Tsessionvars *sessionvars);
-void open_preferences_cb(GtkWidget *wid, gpointer data);
-void open_preferences_menu_cb(gpointer callback_data,guint action,GtkWidget *widget);
+
+void
+sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars);
+Tsessionprefs *
+sessionprefs(const gchar *label, Tsessionprefs *sprefs, Tsessionvars *sessionvars);
+
+void
+open_preferences_cb(GtkWidget *wid, gpointer data);
+void
+open_preferences_menu_cb(gpointer callback_data, guint action, GtkWidget *widget);
 
 #endif /* __PREFERENCES_H_ */

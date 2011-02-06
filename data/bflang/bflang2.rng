@@ -155,6 +155,14 @@
 										<data type="string"/>
 									</attribute>
 								</optional>
+								<optional>
+									<attribute name="id">
+										<a:documentation>used to set a certain comment type for a certain context.</a:documentation>
+										<data type="ID">
+											<param name="pattern">cm\.[a-zA-Z0-9_.]+</param>
+										</data>
+									</attribute>
+								</optional>
 								<empty/>
 							</element><!-- comment -->
 							<element name="smartindent">
@@ -165,11 +173,23 @@
 								</attribute>
 								<empty/>
 							</element><!-- smartindent -->
+							<element name="smartoutdent">
+								<a:documentation>Specify which characters (followed by a return) should decrease the indenting.</a:documentation>
+								<attribute name="characters">
+									<a:documentation>List of characters</a:documentation>
+									<data type="string"/>
+								</attribute>
+								<empty/>
+							</element><!-- smartoutdent -->
 							<element name="default_spellcheck">
 								<a:documentation>Define if regions that are not highlighted will be checked by the spell checker. This is typically enabled for HTML/XML like languages, and disabled (or ignored) for all programming languages.</a:documentation>
 								<attribute name="enabled" a:defaultValue="1">
 									<a:documentation>Enable (1) or disable (0) the feature</a:documentation>
 									<data type="boolean"/>
+								</attribute>
+								<attribute name="spell_decode_entities">
+									<a:documentation>Enable (1) or disable (0) the feature, if the spell checker sees a word like m&amp;eacute;l it will decode the entity and try again if it is spelled correctly.</a:documentation>
+									<data type="boolean" a:defaultValue="0"/>
 								</attribute>
 								<empty/>
 							</element><!-- default_spellcheck -->
@@ -221,6 +241,22 @@
 					</data>
 				</attribute>
 			</choice>
+			<optional>
+				<attribute name="commentid_block">
+					<a:documentation>ID of comment block to reuse </a:documentation>
+					<data type="IDREF">
+						<param name="pattern">cm\.[a-zA-Z0-9_.]+</param>
+					</data>
+				</attribute>
+			</optional>
+			<optional>
+				<attribute name="commentid_line">
+					<a:documentation>ID of comment line to reuse</a:documentation>
+					<data type="IDREF">
+						<param name="pattern">cm\.[a-zA-Z0-9_.]+</param>
+					</data>
+				</attribute>
+			</optional>
 			<empty/>
 		</element><!-- context -->
 	</define>
@@ -292,6 +328,12 @@
 							<data type="boolean" a:defaultValue="0"/>
 						</attribute>
 					</optional>
+					<optional>
+						<attribute name="identifier_mode">
+							<a:documentation>right now there is only 1 valid mode, used for php and python functions. If you define a function in a file, that function name will autocomplete, and you can use the 'jump' function in bluefish to jump to the declaration of that function.</a:documentation>
+							<data type="boolean" a:defaultValue="0"/>
+						</attribute>
+					</optional>		
 					<zeroOrMore>
 						<choice>
 							<ref name="bf.element.context"/>

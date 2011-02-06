@@ -24,4 +24,7 @@ GList * lingua_list_sorted (void);
 gchar * lingua_lang_to_locale (const gchar *lang);
 const gchar * lingua_locale_to_lang (const gchar *locale);
 void lingua_cleanup(void);
+#ifdef WIN32
+gboolean lingua_set_thread_locale_on_windows (const gchar *locale);
+#endif /* WIN32 */
 #endif /* __LANGUAGES_H_ */

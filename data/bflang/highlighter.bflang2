@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+		Bluefish HTML Editor
+		Highlighter.bflang2 $Revision: 6206 $
+ 
+		Copyright (C) 2008-2010 Olivier Sessink
+
+		This program is free software; you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation; either version 2 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+-->
+
+<!-- 
+Snippets for the Highlighter are avaible at:
+http://bfwiki.tellefsen.net/index.php/Highlighter_snippets
+ -->
+ 
+<bflang name="Highlighter" version="2.0" table ="15" contexts="2" matches ="4"   
+>
+
+<header>
+	<mime type="text/highlight"/>
+	<option name="load_completion" default="1" description="load completion data"/>
+	<highlight name="red" style="warning"  />
+	<highlight name="green" style="string"  />
+	<highlight name="blue" style="value"  />
+	<highlight name="yellow" style="special-tag3"  />	
+	<highlight name="grey" style="comment"  />
+</header>
+
+<definition>
+
+
+<context symbols="&gt;&lt;">
+
+<element id="e.red" pattern="&lt;r&gt;" highlight="grey" starts_block="1">
+	<context id="c.red" symbols="&gt;&lt;" highlight="red">
+	<element pattern="&lt;/r&gt;" ends_block="1" blockstartelement="e.red" highlight="grey" ends_context="1" />
+	</context>
+</element>
+
+<element id="e.green" pattern="&lt;g&gt;" highlight="grey" starts_block="1">
+	<context id="c.green" symbols="&gt;&lt;" highlight="green">
+	<element pattern="&lt;/g&gt;" ends_block="1" blockstartelement="e.green" highlight="grey" ends_context="1" />
+	</context>
+</element>
+
+
+<element id="e.blue" pattern="&lt;b&gt;" highlight="grey" starts_block="1">
+	<context id="c.blue" symbols="&gt;&lt;" highlight="blue">
+	<element pattern="&lt;/b&gt;" ends_block="1" blockstartelement="e.blue" highlight="grey" ends_context="1" />
+	</context>
+</element>
+
+<element id="e.yellow" pattern="&lt;y&gt;" highlight="grey" starts_block="1">
+	<context id="c.yellow" symbols="&gt;&lt;" highlight="yellow">
+	<element pattern="&lt;/y&gt;" ends_block="1" blockstartelement="e.yellow" highlight="grey" ends_context="1" />
+	</context>
+</element>
+
+	</context>
+
+
+
+</definition>
+
+</bflang>
