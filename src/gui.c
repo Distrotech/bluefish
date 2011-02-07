@@ -1033,6 +1033,10 @@ void gui_create_main(Tbfwin *bfwin) {
 	DEBUG_MSG("gui_create_main, starting external-encoding_menu\n");
 	external_menu_rebuild(bfwin);
 	encoding_menu_rebuild(bfwin);
+
+	bfwin->uimanager = gtk_ui_manager_new();
+	main_menu_create(bfwin, bfwin->toolbarbox);
+
 	snr2_init(bfwin);
 /*	add_window_entry_to_all_windows(bfwin);
 	add_allwindows_entries_to_window(bfwin);*/

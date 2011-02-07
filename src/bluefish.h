@@ -419,6 +419,16 @@ typedef struct {
 	Tproject *project;			/* might be NULL for a default project */
 	GtkWidget *main_window;
 	GtkWidget *toolbarbox;		/* vbox on top, with main and html toolbar */
+
+	/* Main Menus & toolbar */
+	GtkUIManager *uimanager;
+	GtkActionGroup *globalGroup;
+	GtkActionGroup *documentGroup;
+	GtkActionGroup *editGroup;
+	GtkActionGroup *findReplaceGroup;
+	GtkActionGroup *projectGroup;
+	GtkActionGroup *undoGroup;
+
 	GtkWidget *menubar;
 	gint last_notebook_page;	/* a check to see if the notebook changed to a new page */
 	guint notebook_changed_doc_activate_id;

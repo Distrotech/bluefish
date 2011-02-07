@@ -11,7 +11,7 @@ dnl ************************
 
 AC_PREREQ([2.59])
 
-AC_INIT([bluefish],[2.0.3-rc2],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
+AC_INIT([bluefish],[2.9.0],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 
 dnl Have to save them here!
 if test "${ac_configure_args+set}" != "set" ; then
@@ -626,6 +626,7 @@ AC_CONFIG_FILES([
 	src/plugin_snippets/Makefile
 	src/plugin_snippets/po/Makefile.in
 	src/bluefish_rc.rc.in
+	ui/Makefile
 	macosx/Makefile
 	win32/Makefile
 	win32/Makefile.mingw
