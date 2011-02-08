@@ -524,6 +524,8 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 					, starts_block, ends_block, blockstartelementum
 					, tagclose_from_blockstack /* the very special case for the generix xml tag close pattern */
 					, identifier_mode);
+			/* BUG: if ih_autocomplete is enabled, but this element explicitly disables autocomplete 
+			the next code will still enable autocompletion */
 			if (autocomplete?autocomplete:ih_autocomplete) {
 				match_add_autocomp_item(bfparser->st, matchnum, autocomplete_string
 										, autocomplete_append?autocomplete_append:ih_autocomplete_append
