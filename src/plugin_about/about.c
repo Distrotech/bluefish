@@ -2,7 +2,7 @@
  * about.c - the About dialog
  *
  * Copyright (C) 2004 Eugene Morenko(More) more@irpin.com
- * Copyright (C) 2008-2010 Olivier Sessink
+ * Copyright (C) 2008-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -235,6 +235,19 @@ static gchar *about_menu_translate(const gchar * path, gpointer data)
 }
 #endif	/* ENABLE_NLS */
 
+static const gchar *about_plugin_ui =
+"<ui>"
+"  <menubar name='MainMenu'>"
+"    <menu action='HelpMenu'>"
+"      <menuitem action='HelpHomepage'/>"
+"      <menuitem action='HelpReportBug'/>"
+"      <separator/>"
+"      <menuitem action='HelpAbout'/>"
+"      <menuitem action='HelpBuildInfo'/>"
+"    </menu>"
+"  </menubar>"
+"</ui>";
+
 static void about_initgui(Tbfwin * bfwin)
 {
 	GtkItemFactory *ifactory;
@@ -252,6 +265,30 @@ static void about_initgui(Tbfwin * bfwin)
 #endif
 	gtk_item_factory_create_items(ifactory, sizeof(menu_items) / sizeof(menu_items[0]), menu_items, bfwin);
 	gtk_widget_show_all(bfwin->menubar);
+
+	GtkActionGroup *action_group;
+	GError *error = NULL;
+
+	static const GtkActionEntry about_actions[] = {
+		{ "HelpMenu", NULL, N_("_Help") },
+		{ "HelpHomepage", GTK_STOCK_HOME, N_("Bluefish _Homepage"), NULL, N_("Bluefish homepage"), NULL },
+		{ "HelpReportBug", NULL, N_("Report a _Bug"), NULL, N_("Report a bug"), NULL },
+		{ "HelpAbout", GTK_STOCK_ABOUT, N_("_About"), NULL, N_("About Bluefish"), NULL },
+		{ "HelpBuildInfo", GTK_STOCK_INFO, N_("_Build Info"), NULL, N_("Build info"), NULL }
+	};
+
+	action_group = gtk_action_group_new("AboutActions");
+	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(action_group, about_actions, G_N_ELEMENTS(about_actions),
+								 bfwin->main_window);
+	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 0);
+	g_object_unref(action_group);
+
+	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, about_plugin_ui, -1, &error);
+	if (error != NULL) {
+		g_warning("building about plugin menu failed: %s", error->message);
+		g_error_free(error);
+	}
 }
 
 static void about_enforce_session(Tbfwin * bfwin)
