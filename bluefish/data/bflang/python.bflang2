@@ -2075,10 +2075,11 @@
 <element pattern="True" />
 <element pattern="False" />
 <element pattern="None" />
-<element pattern="0x[0-9]+" is_regex="1" autocomplete="0" />
-<element pattern="[0-9]+\.[0-9]+" is_regex="1" autocomplete="0" />
-<element pattern="[0-9]+" is_regex="1" autocomplete="0" />
 </group>
+<element pattern="0x[0-9]+" is_regex="1" highlight="value" />
+<element pattern="[0-9]+\.[0-9]+" is_regex="1" highlight="value" />
+<element pattern="[0-9]+" is_regex="1" highlight="value" />
+
 <element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
 <element id="e.lbracket" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
