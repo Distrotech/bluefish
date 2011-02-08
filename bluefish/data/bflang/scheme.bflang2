@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		scheme.bflang2 $Revision: 6069 $
+		scheme.bflang2 $Revision: 6374 $
  
 		Copyright (C) 2011 Olivier Sessink
 
@@ -19,7 +19,8 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="Scheme" version="2.0" table="1315" contexts="4" matches="258">
+<bflang name="Scheme" version="2.0" table="1319" contexts="3" matches="259">
+
 <header>
 	<mime type="text/x-scheme"/>
 	<mime type="application/x-scheme"/>
@@ -32,12 +33,14 @@
 </header>
 <properties>
 	<comment type="line" start=";" />
-	<smartindent characters="(" />
+ 	<smartindent characters="(" />
 	<smartoutdent characters=")" />
+	 
 </properties>
 
 <definition>
 	<context symbols=" ;@\.(){}[]:\&#34;\\',;*&amp;^%!+=|/?#&#9;&#10;&#13;">
+
 <group autocomplete="1" highlight="function"> 
 <element pattern="abs" />
 <element pattern="acos" />
@@ -49,6 +52,7 @@
 <element pattern="apply" />
 <element pattern="asin" />
 <element pattern="assoc" />
+<element pattern="assq" />
 <element pattern="assv" />
 <element pattern="atan" />
 <element pattern="begin" />
@@ -69,7 +73,7 @@
 <element pattern="caddr" />
 <element pattern="cadr" />
 <element pattern="call-with-current-continuation" />
-<element pattern="call-with-imput-file" />
+<element pattern="call-with-input-file" />
 <element pattern="call-with-output-file" />
 <element pattern="call-with-values" />
 <element pattern="call/cc" />
@@ -91,7 +95,7 @@
 <element pattern="cdr" />
 <element pattern="ceiling" />
 <element pattern="char->integer" />
-<element pattern="char->alphabetic?" />
+<element pattern="char-alphabetic?" />
 <element pattern="char-ci&lt;=?" />
 <element pattern="char-ci&lt;?" />
 <element pattern="char-ci=?" />
@@ -127,6 +131,7 @@
 <element pattern="directory" />
 <element pattern="do" />
 <element pattern="dynamic-wind" />
+<element pattern="else" />
 <element pattern="eof-object?" />
 <element pattern="eq?" />
 <element pattern="equal?" />
@@ -144,6 +149,7 @@
 <element pattern="force" />
 <element pattern="free-identifier=?" />
 <element pattern="foreign-code" />
+<element pattern="gcd" />
 <element pattern="generate-temporaries" />
 <element pattern="include" />
 <element pattern="identifier?" />
@@ -196,6 +202,7 @@
 <element pattern="pair?" />
 <element pattern="peek-char" />
 <element pattern="pointer=?" />
+<element pattern="port?" />
 <element pattern="positive?" />
 <element pattern="printf" />
 <element pattern="procedure" />
@@ -288,8 +295,8 @@
 </group>
 
 <group autocomplete="1" highlight="value"> 
-<element pattern="#f" />
-<element pattern="#t" />
+<element pattern="#f"><reference>false</reference></element>
+<element pattern="#t"><reference>true</reference></element>
 <element pattern="null" />
 </group>
 
@@ -299,12 +306,12 @@
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element pattern="'" highlight="string">
+<!-- <element pattern="'" highlight="string">
 	<context symbols="\'" highlight="string">
 		<element pattern="\." is_regex="1" highlight="string" />
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
-</element>
+</element> -->
 <element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
 
