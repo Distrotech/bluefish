@@ -36,6 +36,7 @@
 
 #include "bluefish.h"
 #include "bf_lib.h"         /* get_int_from_string() */
+#include "bfwin_uimanager.h"
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"       /* file_new_cb() */

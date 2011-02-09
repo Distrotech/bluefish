@@ -46,6 +46,8 @@ bluefish_SOURCES = \
 	blocksync.h \
 	bluefish.c \
 	bluefish.h \
+	bfwin_uimanager.h \
+	bfwin_uimanager.c \
 	bftextview2.c \
 	bftextview2.h \
 	bftextview2_langmgr.c \

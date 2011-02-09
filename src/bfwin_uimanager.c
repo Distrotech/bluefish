@@ -1,6 +1,6 @@
 /*
  * Bluefish HTML Editor
- * bluefish_ui.h
+ * bfwin_uimanager.c
  *
  * Copyright (C) 2011 James Hayward and Olivier Sessink
  *
@@ -18,10 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BLUEFISH_UI_H_
-#define BLUEFISH_UI_H_
 
-#include "bluefish.h"
+#include "bfwin_uimanager.h"
+
+
+/* For testing purposes */
+#define MAIN_MENU_UI "ui/bluefish_menu_ui.xml"
 
 
 static const GtkActionEntry top_level_menus[] = {
@@ -161,5 +163,87 @@ static const GtkActionEntry undo_redo_actions[] = {
 	{ "RedoAll", NULL, N_("Redo All"), NULL, N_("Redo All"), NULL }
 };
 
+void
+main_menu_create(Tbfwin * bfwin, GtkWidget * vbox)
+{
+	GtkActionGroup *action_group;
+	GtkUIManager *manager;
+	GtkWidget *menubar;
 
-#endif /* BLUEFISH_UI_H_ */
+	GError *error = NULL;
+
+	manager = bfwin->uimanager;
+
+	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), gtk_ui_manager_get_accel_group(manager));
+
+	action_group = gtk_action_group_new("topLevelMenus");
+	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(action_group, top_level_menus, G_N_ELEMENTS(top_level_menus),
+								 bfwin->main_window);
+	gtk_ui_manager_insert_action_group(manager, action_group, 0);
+	g_object_unref(action_group);
+
+	action_group = gtk_action_group_new("GlobalActions");
+	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(action_group, global_actions, G_N_ELEMENTS(global_actions),
+								 bfwin->main_window);
+	gtk_action_group_add_toggle_actions(action_group, global_toggle_actions,
+										G_N_ELEMENTS(global_toggle_actions), bfwin->main_window);
+	gtk_ui_manager_insert_action_group(manager, action_group, 0);
+	g_object_unref(action_group);
+	bfwin->globalGroup = action_group;
+
+	action_group = gtk_action_group_new("DocumentActions");
+	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(action_group, document_actions, G_N_ELEMENTS(document_actions),
+								 bfwin->main_window);
+	gtk_ui_manager_insert_action_group(manager, action_group, 0);
+	gtk_action_group_set_sensitive(action_group, FALSE);
+	g_object_unref(action_group);
+	bfwin->documentGroup = action_group;
+
+	action_group = gtk_action_group_new("EditActions");
+	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(action_group, edit_actions, G_N_ELEMENTS(edit_actions), bfwin->main_window);
+	gtk_ui_manager_insert_action_group(manager, action_group, 0);
+	gtk_action_group_set_sensitive(action_group, FALSE);
+	g_object_unref(action_group);
+	bfwin->editGroup = action_group;
+
+	action_group = gtk_action_group_new("FindReplaceActions");
+	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(action_group, find_replace_actions, G_N_ELEMENTS(find_replace_actions),
+								 bfwin->main_window);
+	gtk_ui_manager_insert_action_group(manager, action_group, 0);
+	gtk_action_group_set_sensitive(action_group, FALSE);
+	g_object_unref(action_group);
+	bfwin->findReplaceGroup = action_group;
+
+	action_group = gtk_action_group_new("UndoRedoActions");
+	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(action_group, undo_redo_actions, G_N_ELEMENTS(undo_redo_actions),
+								 bfwin->main_window);
+	gtk_ui_manager_insert_action_group(manager, action_group, 0);
+	gtk_action_group_set_sensitive(action_group, FALSE);
+	g_object_unref(action_group);
+	bfwin->undoGroup = action_group;
+
+	action_group = gtk_action_group_new("ProjectActions");
+	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(action_group, project_actions, G_N_ELEMENTS(project_actions),
+								 bfwin->main_window);
+	gtk_ui_manager_insert_action_group(manager, action_group, 0);
+	gtk_action_group_set_sensitive(action_group, FALSE);
+	g_object_unref(action_group);
+	bfwin->projectGroup = action_group;
+
+	gtk_ui_manager_add_ui_from_file(manager, MAIN_MENU_UI, &error);
+	if (error != NULL) {
+		g_warning("building main menu failed: %s", error->message);
+		g_error_free(error);
+	}
+
+	menubar = gtk_ui_manager_get_widget(manager, "/MainMenu");
+	gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
+	gtk_widget_show(menubar);
+}

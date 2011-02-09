@@ -23,7 +23,6 @@
 
 void free_bfw_dynmenu_list(GList *list);
 void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filetype, gchar *encoding);
-void main_menu_create(Tbfwin *bfwin, GtkWidget *vbox);
 void menu_create_main(Tbfwin *bfwin,GtkWidget *vbox);
 void add_to_recent_list(Tbfwin *bfwin,GFile *file, gint closed_file, gboolean is_project);
 GList *recent_menu_from_list(Tbfwin *bfwin, GList *startat, gboolean is_project);
