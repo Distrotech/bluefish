@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * entities.c -
  *
- * Copyright (C) 2006-2010 Olivier Sessink
+ * Copyright (C) 2006-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -340,6 +340,22 @@ static gchar *entity_menu_translate(const gchar * path, gpointer data) {
 	return _(path);
 }
 #endif /* ENABLE_NLS */
+
+static const gchar *entities_plugin_ui =
+"<ui>"
+"  <menubar name='MainMenu'>"
+"    <menu action='ToolsMenu'>"
+"      <separator/>"
+"      <menuitem action='CharactersToEntities'/>"
+"      <menuitem action='EntitiesToCharacters'/>"
+"      <menuitem action='URLDecode'/>"
+"      <menuitem action='URLEncode'/>"
+"      <menuitem action='ToLowercase'/>"
+"      <menuitem action='ToUppercase'/>"
+"    </menu>"
+"  </menubar>"
+"</ui>";
+
 static void entity_initgui(Tbfwin* bfwin) {
 	GtkItemFactory *ifactory;
 	static GtkItemFactoryEntry menu_items[] = {
@@ -357,6 +373,31 @@ static void entity_initgui(Tbfwin* bfwin) {
 #endif
 	gtk_item_factory_create_items(ifactory, sizeof(menu_items) / sizeof(menu_items[0]), menu_items, bfwin);
 	gtk_widget_show_all(bfwin->menubar);
+
+	GtkActionGroup *action_group;
+	GError *error = NULL;
+
+	static const GtkActionEntry entities_actions[] = {
+		{ "CharactersToEntities", NULL, N_("Characters to Entities"), NULL, N_("Change characters to entities"), NULL },
+		{ "EntitiesToCharacters", NULL, N_("Entities to Characters"), NULL, N_("Change entities to characters"), NULL },
+		{ "URLDecode", NULL, N_("URL Decode"), NULL, N_("URL decode"), NULL },
+		{ "URLEncode", NULL, N_("URL Encode"), NULL, N_("URL encode"), NULL },
+		{ "ToLowercase", NULL, N_("To Lowercase"), NULL, N_("To lowercase"), NULL },
+		{ "ToUppercase", NULL, N_("To Uppercase"), NULL, N_("To uppercase"), NULL }
+	};
+
+	action_group = gtk_action_group_new("EntitiesActions");
+	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(action_group, entities_actions, G_N_ELEMENTS(entities_actions),
+								 bfwin->main_window);
+	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 0);
+	g_object_unref(action_group);
+
+	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, entities_plugin_ui, -1, &error);
+	if (error != NULL) {
+		g_warning("building about plugin menu failed: %s", error->message);
+		g_error_free(error);
+	}
 }
 static void entity_enforce_session(Tbfwin* bfwin) {}
 static void entity_cleanup(void) {
