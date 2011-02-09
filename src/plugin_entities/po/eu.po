@@ -1,105 +1,93 @@
-# translation of bluefish.po to Basque
+# translation of eu.po to Basque
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
-# 
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish\n"
+"Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-02-06 07:48-0800\n"
-"PO-Revision-Date: 2004-05-25 12:59+0200\n"
-"Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>\n"
+"POT-Creation-Date: 2010-12-31 07:42+0100\n"
+"PO-Revision-Date: 2011-02-01 16:33+0100\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
-"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"Language: eu\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/plugin_entities/entities.c:229
 msgid "Characters to entities"
-msgstr ""
+msgstr "Karaktereak entitateetara"
 
 #: src/plugin_entities/entities.c:229
-#, fuzzy
 msgid "Entities to characters"
-msgstr "Karaktere-joko lehenetsia"
+msgstr "Entitateak karaktereetara"
 
 #: src/plugin_entities/entities.c:251
-#, fuzzy
 msgid "In current document"
-msgstr "uneko dokumentuan"
+msgstr "Uneko dokumentuan"
 
 #: src/plugin_entities/entities.c:252
-#, fuzzy
 msgid "In selection"
-msgstr "_Hautapenean"
+msgstr "Hautapenean"
 
 #: src/plugin_entities/entities.c:253
-#, fuzzy
 msgid "In all documents"
-msgstr "irekitako dokumentu guztietan"
+msgstr "Dokumentu guztietan"
 
 #: src/plugin_entities/entities.c:254
-#, fuzzy
 msgid "Sco_pe:"
-msgstr "_Mota:"
+msgstr "_Esparrua:"
 
 #: src/plugin_entities/entities.c:257
 msgid "Convert numerical encoded characters &#99;"
-msgstr ""
+msgstr "Bihurtu zenbakiz kodetutako karaktereak &#99;"
 
 #: src/plugin_entities/entities.c:261
 msgid "Convert _iso-8859-1 characters"
-msgstr ""
+msgstr "Bihurtu _iso-8859-1 karaktereak"
 
 #: src/plugin_entities/entities.c:265
 msgid "Convert spe_cial characters"
-msgstr ""
+msgstr "Bihurtu karaktere _bereziak"
 
 #: src/plugin_entities/entities.c:269
 msgid "Convert _symbol characters"
-msgstr ""
+msgstr "Bihurtu _ikur karaktereak"
 
 #: src/plugin_entities/entities.c:273
 msgid "Convert _XML characters < > & \" '"
-msgstr ""
+msgstr "Bihurtu _XML karaktereak < > & \" '"
 
 #: src/plugin_entities/entities.c:278
 msgid "Work around missing &apos; entity on IE"
-msgstr ""
+msgstr "Eman irtenbidea falta den &apos; entitatearen inguruan IEn"
 
 #: src/plugin_entities/entities.c:347
-#, fuzzy
 msgid "/Tools/Entities To Characters..."
-msgstr "/Editatu/Ordeztu berezia/_Maiuskulak"
+msgstr "/Tresnak/Entitateak karaktereetara..."
 
 #: src/plugin_entities/entities.c:348
-#, fuzzy
 msgid "/Tools/Characters To Entities..."
-msgstr "/Editatu/Ordeztu berezia/_Bi motak -> HTML entitateak"
+msgstr "/Tresnak/Karaktereak entitateetara..."
 
 #: src/plugin_entities/entities.c:349
-#, fuzzy
 msgid "/Tools/URL Encode"
-msgstr "/Editatu/Ordeztu berezia/_Maiuskulak"
+msgstr "/Tresnak/URLaren kodeketa"
 
 #: src/plugin_entities/entities.c:350
-#, fuzzy
 msgid "/Tools/URL Decode"
-msgstr "/Editatu/Ordeztu berezia/_Maiuskulak"
+msgstr "/Tresnak/URLaren deskodeketa"
 
 #: src/plugin_entities/entities.c:351
-#, fuzzy
 msgid "/Tools/To Lowercase"
-msgstr "/Editatu/Ordeztu berezia/_Maiuskulak"
+msgstr "/Tresnak/Minuskuletara"
 
 #: src/plugin_entities/entities.c:352
-#, fuzzy
 msgid "/Tools/To Uppercase"
-msgstr "/Editatu/Ordeztu berezia/_Maiuskulak"
+msgstr "/Tresnak/Maiuskuletara"
 
-#, fuzzy
-#~ msgid "/Tools/URL decode selection"
-#~ msgstr "/Editatu/Ordeztu berezia/_Maiuskulak"

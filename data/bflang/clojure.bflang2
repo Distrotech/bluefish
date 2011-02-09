@@ -19,18 +19,17 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="Clojure" version="2.0" table="2199" contexts="4" matches="500">
+<bflang name="Clojure" version="2.0" table="2201" contexts="4" matches="499">
 <header>
 	<mime type="text/x-clojure"/>
 	<mime type="application/x-clojure"/>
 	<highlight name="keyword" style="keyword"  />
 	<highlight name="brackets" style="brackets"  />
-	<highlight name="parens" style="brackets"  />
+	<highlight name="parens" style="special-value"  />
 	<highlight name="comment" style="comment"  />
 	<highlight name="string" style="string"   />
-	<highlight name="function" style="function"  />
 	<highlight name="value" style="value"  />
-	<highlight name="special-value" style="special-value"  />
+	<highlight name="keyword1" style="function"  />
 </header>
 <properties>
 	<comment type="line" start=";" />
@@ -39,8 +38,8 @@
 </properties>
 
 <definition>
-	<context symbols=" ;@\.(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=|/?#&#9;&#10;&#13;">
-<group autocomplete="1" highlight="function"> 
+	<context symbols=" ;@\.()[]:\&#34;\\',&gt;&lt;*&amp;^%!+=|/?#&#9;&#10;&#13;">
+<group autocomplete="1" highlight="keyword"> 
 <element pattern="accessor" />
 <element pattern="aclone" />
 <element pattern="add-classpath" />
@@ -105,6 +104,7 @@
 <element pattern="bytes" />
 <element pattern="case" />
 <element pattern="cast" />
+<element pattern="catch" />
 <element pattern="char" />
 <element pattern="char-array" />
 <element pattern="char-escape-string" />
@@ -125,6 +125,8 @@
 <element pattern="compile" />
 <element pattern="complement" />
 <element pattern="concat" />
+<element pattern="cond" />
+<element pattern="condp" />
 <element pattern="conj" />
 <element pattern="conj!" />
 <element pattern="cons" />
@@ -150,6 +152,7 @@
 <element pattern="dissoc!" />
 <element pattern="distinct" />
 <element pattern="distinct?" />
+<element pattern="do" />
 <element pattern="doall" />
 <element pattern="doc" />
 <element pattern="dorun" />
@@ -163,6 +166,7 @@
 <element pattern="drop" />
 <element pattern="drop-last" />
 <element pattern="drop-while" />
+<element pattern=":else" />
 <element pattern="empty" />
 <element pattern="empty?" />
 <element pattern="ensure" />
@@ -181,6 +185,7 @@
 <element pattern="ffirst" />
 <element pattern="file-seq" />
 <element pattern="filter" />
+<element pattern="finally" />
 <element pattern="find" />
 <element pattern="find-doc" />
 <element pattern="find-ns" />
@@ -457,6 +462,7 @@
 <element pattern="transient" />
 <element pattern="tree-seq" />
 <element pattern="true?" />
+<element pattern="try" />
 <element pattern="type" />
 <element pattern="unchecked-add" />
 <element pattern="unchecked-dec" />
@@ -497,10 +503,7 @@
 <element pattern="zipmap" />
 </group>
 
-<group autocomplete="1" highlight="keyword"> 
-<element pattern="catch" />
-<element pattern="cond" />
-<element pattern="condp" />
+<group autocomplete="1" highlight="keyword1"> 
 <element pattern="declare" />
 <element pattern="def" />
 <element pattern="definline" />
@@ -514,22 +517,10 @@
 <element pattern="defstruct" />
 <element pattern="deftype" />
 <element pattern="deref" />
-<element pattern="do" />
-<element pattern=":else" />
 <element pattern="let" />
 <element pattern="letfn" />
 <element pattern="ns" />
 <element pattern="ref" />
-<element pattern="try" />
-</group>
-
-<group autocomplete="1" highlight="special-value"> 
-<element pattern="false" />
-<element pattern="nil" />
-<element pattern="true" />
-<element pattern=":import" />
-<element pattern=":require" />
-<element pattern=":use" />
 </group>
 
 <element pattern="&#34;" highlight="string">
@@ -549,9 +540,15 @@
 <element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="parens" />
 <element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="parens" />
 
-<element pattern="@[-a-zA-Z=][-a-zA-Z0-9=]*" is_regex="1" autocomplete="0" highlight="keyword"/>
-<element pattern="@[-a-zA-Z][-a-zA-Z0-9]*" is_regex="1" autocomplete="0" highlight="keyword1"/>
-<element pattern="@[^@][a-zA-Z][a-zA-Z0-9]*" is_regex="1" autocomplete="0" highlight="keyword2"/>
+<element pattern="true" autocomplete="1" highlight="value"/>
+<element pattern="false" autocomplete="1" highlight="value"/>
+<element pattern="nil" autocomplete="1" highlight="value"/>
+
+<element pattern=":import" autocomplete="1" highlight="special-tag"/>
+<element pattern=":require" autocomplete="1" highlight="special-tag"/>
+<element pattern=":use" autocomplete="1" highlight="special-tag"/>
+
+<element pattern="@[^@][-a-zA-Z][-a-zA-Z0-9]*" is_regex="1" autocomplete="0" highlight="value"/>
 <element pattern="[0-9]+\.[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
 <element pattern="[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>
 <element pattern=";[^&#10;&#13;]*" is_regex="1" highlight="comment"/>

@@ -43,6 +43,7 @@ bflang_bflang2_files = \
 	python.bflang2 \
 	r.bflang2 \
 	ruby.bflang2 \
+	scheme.bflang2 \
 	shell.bflang2 \
 	smarty.bflang2 \
 	sql.bflang2 \

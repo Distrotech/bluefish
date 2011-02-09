@@ -3,19 +3,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
-# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2009.
+# Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2009, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-02-06 07:48-0800\n"
-"PO-Revision-Date: 2009-09-21 12:57+0200\n"
+"POT-Creation-Date: 2010-12-31 07:42+0100\n"
+"PO-Revision-Date: 2011-02-01 16:35+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
-"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: eu\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -431,9 +431,8 @@ msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Etiketak/Berezia/Dibisa/_Yen ikurra ¥"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:296
-#, fuzzy
 msgid "/Tags/Special/Currency/_Euro €"
-msgstr "/Etiketak/Berezia/Dibisa/_Euroa "
+msgstr "/Etiketak/Berezia/Dibisa/_Euroa €"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:297
 msgid "/Tags/Special/_Math-Science"
@@ -656,14 +655,12 @@ msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/Etiketak/Testuinguruaren formatua/Ak_ronimoa"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:357
-#, fuzzy
 msgid "/Tags/Format by context/_Insert"
-msgstr "/Etiketak/Testuinguruaren formatua/_Definitu"
+msgstr "/Etiketak/Testuinguruaren formatua/_Txertatu"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:358
-#, fuzzy
 msgid "/Tags/Format by context/De_lete"
-msgstr "/Etiketak/Testuinguruaren formatua/_Definitu"
+msgstr "/Etiketak/Testuinguruaren formatua/_Ezabatu"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:359
 msgid "/Tags/Format _general"
@@ -1039,9 +1036,8 @@ msgstr "Zuriune zatiezina"
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:756
-#, fuzzy
 msgid "Anchor / Hyperlink..."
-msgstr "Ainguratu..."
+msgstr "Aingura / Hiperesteka..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:757
 msgid "Rule..."
@@ -1330,14 +1326,12 @@ msgid "Acronym"
 msgstr "Akronimoa"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:834
-#, fuzzy
 msgid "Insert"
-msgstr "Txertatu ordua"
+msgstr "Txertatu"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:835
-#, fuzzy
 msgid "Delete"
-msgstr " Ez_abatu "
+msgstr "Ezabatu"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:956
 msgid "Remove from quickbar"
@@ -1452,9 +1446,8 @@ msgid "  Unix Date _String (%s)"
 msgstr "  Unix dataren _katea (%s)"
 
 #: src/plugin_htmlbar/html.c:448
-#, fuzzy
 msgid "  ISO-8601 Ti_me "
-msgstr "  ISO-8601 _ordua (%s)"
+msgstr "  ISO-8601 ordua "
 
 #: src/plugin_htmlbar/html.c:608
 msgid "Quick Anchor"
@@ -2094,16 +2087,16 @@ msgstr ""
 "\t<b>Aurrebista kargatzen...</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:918
+#: src/plugin_htmlbar/image_dialog.c:917
 msgid "Select Image"
 msgstr "Hautatu irudia"
 
-#: src/plugin_htmlbar/image_dialog.c:925
+#: src/plugin_htmlbar/image_dialog.c:924
 msgid "All images"
 msgstr "Irudi guztiak"
 
-#: src/plugin_htmlbar/image_dialog.c:1136
-#: src/plugin_htmlbar/image_dialog.c:1237
+#: src/plugin_htmlbar/image_dialog.c:1135
+#: src/plugin_htmlbar/image_dialog.c:1236
 msgid "Insert Image"
 msgstr "Txertatu irudia"
 
@@ -2227,5 +2220,3 @@ msgstr "Iturburua:"
 msgid "Size:"
 msgstr "Tamaina:"
 
-#~ msgid "Insert image"
-#~ msgstr "Txertatu irudia"
