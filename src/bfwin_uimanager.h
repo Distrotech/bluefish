@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef BLUEFISH_UI_H_
-#define BLUEFISH_UI_H_
+#ifndef BFWIN_UIMANAGER_H_
+#define BFWIN_UIMANAGER_H_
 
 #include "bluefish.h"
 
@@ -27,4 +27,4 @@
 void main_menu_create(Tbfwin *bfwin, GtkWidget *vbox);
 
 
-#endif /* BLUEFISH_UI_H_ */
+#endif /* BFWIN_UIMANAGER_H_ */
