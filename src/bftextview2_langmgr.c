@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_langmgr.c
  *
- * Copyright (C) 2008,2009,2010 Olivier Sessink
+ * Copyright (C) 2008,2009,2010,2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -460,12 +460,12 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 
 static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint16 context, GQueue *contextstack
 		,gchar *ih_autocomplete_append ,const gchar *ih_highlight
-		,gboolean ih_case_insens ,gboolean ih_is_regex ,gint ih_autocomplete, gint ih_autocomplete_backup_cursor) {
+		,gint ih_case_insens ,gint ih_is_regex ,gint ih_autocomplete, gint ih_autocomplete_backup_cursor) {
 	guint16 matchnum=0;
 	const gchar *tmp, *tmp2;
 	gchar *pattern=NULL, *idref=NULL, *highlight=NULL, *blockstartelement=NULL, *blockhighlight=NULL, *class=NULL, *notclass=NULL, *autocomplete_append=NULL, *autocomplete_string=NULL, *id=NULL;
-	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE, is_empty, tagclose_from_blockstack=FALSE;
-	gint autocomplete=UNDEFINED;
+	gboolean starts_block=FALSE, ends_block=FALSE, is_empty, tagclose_from_blockstack=FALSE;
+	gint case_insens=UNDEFINED, is_regex=UNDEFINED, autocomplete=UNDEFINED;
 	gint ends_context=0,autocomplete_backup_cursor=0;
 	gint identifier_mode;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
@@ -514,7 +514,6 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 			if (ends_context) {
 				/* the nth number in the stack */
 				nextcontext=-1*ends_context;/*GPOINTER_TO_INT(g_queue_peek_nth(contextstack,ends_context));*/
-
 			}
 			if (blockstartelement) {
 				blockstartelementum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, blockstartelement));
@@ -523,10 +522,15 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 				}
 				DBG_PARSING("got blockstartelementum %d for blockstartelement %s, ends_block=%d\n",blockstartelementum,blockstartelement,ends_block);
 			}
-			matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, bfparser->bflang->name, highlight?highlight:ih_highlight, blockhighlight,is_regex?is_regex:ih_is_regex,case_insens?case_insens:ih_case_insens, context, nextcontext
-					, starts_block, ends_block, blockstartelementum
-					, tagclose_from_blockstack /* the very special case for the generix xml tag close pattern */
-					, identifier_mode);
+			matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, bfparser->bflang->name
+						, highlight?highlight:ih_highlight
+						, blockhighlight
+						, is_regex!=UNDEFINED?is_regex:(ih_is_regex!=UNDEFINED?ih_is_regex:FALSE)
+						, case_insens!=UNDEFINED?case_insens:(ih_case_insens!=UNDEFINED?ih_case_insens:FALSE)
+						, context, nextcontext
+						, starts_block, ends_block, blockstartelementum
+						, tagclose_from_blockstack /* the very special case for the generix xml tag close pattern */
+						, identifier_mode);
 			if (autocomplete==TRUE || (autocomplete==UNDEFINED && ih_autocomplete==TRUE)) {
 				match_add_autocomp_item(bfparser->st, matchnum, autocomplete_string
 										, autocomplete_append?autocomplete_append:ih_autocomplete_append
@@ -815,9 +819,9 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 /* ih stands for InHerit */
 static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint context, GQueue *contextstack
 		,gchar *ih_autocomplete_append ,gchar *ih_highlight ,gchar *ih_class ,gchar *ih_attrib_autocomplete_append ,gchar *ih_attribhighlight
-		,gboolean ih_case_insens ,gboolean ih_is_regex ,gint ih_autocomplete, gint ih_autocomplete_backup_cursor, gint ih_attrib_autocomplete_backup_cursor) {
+		,gint ih_case_insens ,gint ih_is_regex ,gint ih_autocomplete, gint ih_autocomplete_backup_cursor, gint ih_attrib_autocomplete_backup_cursor) {
 	gchar *autocomplete_append=NULL, *highlight=NULL, *class=NULL, *notclass=NULL, *attrib_autocomplete_append=NULL, *attribhighlight=NULL;
-	gboolean case_insens=FALSE, is_regex=FALSE;
+	gint case_insens=UNDEFINED, is_regex=UNDEFINED;
 	gint autocomplete=UNDEFINED;
 	gint autocomplete_backup_cursor=0,attrib_autocomplete_backup_cursor=0;
 	gint depth;
@@ -855,8 +859,8 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 				process_scanning_element(reader,bfparser,context,contextstack
 						,autocomplete_append?autocomplete_append:ih_autocomplete_append
 						,highlight?highlight:ih_highlight
-						,case_insens?case_insens:ih_case_insens
-						,is_regex?is_regex:ih_is_regex
+						,case_insens!=UNDEFINED?case_insens:ih_case_insens
+						,is_regex!=UNDEFINED?is_regex:ih_is_regex
 						,autocomplete!=UNDEFINED?autocomplete:ih_autocomplete
 						,autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor
 						);
@@ -881,8 +885,8 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 							,class?class:ih_class
 							,attrib_autocomplete_append?attrib_autocomplete_append:ih_attrib_autocomplete_append
 							,attribhighlight?attribhighlight:ih_attribhighlight
-							,case_insens?case_insens:ih_case_insens
-							,is_regex?is_regex:ih_is_regex
+							,case_insens!=UNDEFINED?case_insens:ih_case_insens
+							,is_regex!=UNDEFINED?is_regex:ih_is_regex
 							,autocomplete!=UNDEFINED?autocomplete:ih_autocomplete
 							,autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor
 							,attrib_autocomplete_backup_cursor?attrib_autocomplete_backup_cursor:ih_attrib_autocomplete_backup_cursor
@@ -984,11 +988,11 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		xmlChar *name = xmlTextReaderName(reader);
 		DBG_PARSING("parsing context, found node id %s\n",name);
 		if (xmlStrEqual(name,(xmlChar *)"element")) {
-			process_scanning_element(reader,bfparser,context,contextstack,NULL,NULL,FALSE,FALSE,FALSE,0);
+			process_scanning_element(reader,bfparser,context,contextstack,NULL,NULL,UNDEFINED,UNDEFINED,UNDEFINED,0);
 		} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
 			process_scanning_tag(reader,bfparser,context,contextstack,NULL,NULL,NULL,NULL,0,0);
 		} else if (xmlStrEqual(name,(xmlChar *)"group")) {
-			process_scanning_group(reader,bfparser,context,contextstack,NULL,NULL,NULL,NULL,NULL,FALSE,FALSE,FALSE,0,0);
+			process_scanning_group(reader,bfparser,context,contextstack,NULL,NULL,NULL,NULL,NULL,UNDEFINED,UNDEFINED,UNDEFINED,0,0);
 		} else if (xmlStrEqual(name,(xmlChar *)"context")) {
 			xmlFree(name);
 			DBG_PARSING("parsing context, end-of-context, return context %d\n",context);
