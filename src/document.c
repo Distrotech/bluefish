@@ -39,7 +39,8 @@
 #endif
 
 #ifdef MAC_INTEGRATION
-#include <ige-mac-integration.h>
+/*#include <ige-mac-integration.h>*/
+#include <gtkosxapplication.h>
 #endif
 
 #include "bf_lib.h"
@@ -3033,7 +3034,8 @@ doc_activate(Tdocument * doc)
 	doc_set_statusbar_insovr(doc);
 	doc_set_statusbar_lang_encoding(doc);
 #ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(doc->bfwin)->menubar));
+/*	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(doc->bfwin)->menubar));*/
+	gtk_osxapplication_sync_menubar(g_object_new(GTK_TYPE_OSX_APPLICATION, NULL));
 #endif
 
 /*	doc_scroll_to_cursor(doc);*/

@@ -25,7 +25,8 @@
 #include "bluefish.h"
 
 #ifdef MAC_INTEGRATION
-#include <ige-mac-integration.h>
+/*#include <ige-mac-integration.h>*/
+#include <gtkosxapplication.h>
 #endif
 
 #include "preferences.h"
@@ -1616,7 +1617,8 @@ preferences_apply(Tprefdialog * pd)
 			if (bfwin->current_document)
 				doc_force_activate(bfwin->current_document);
 #ifdef MAC_INTEGRATION
-			ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
+/*			ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));*/
+			gtk_osxapplication_sync_menubar(g_object_new(GTK_TYPE_OSX_APPLICATION, NULL));
 #endif
 			tmplist = g_list_next(tmplist);
 		}
