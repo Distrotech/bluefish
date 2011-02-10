@@ -26,7 +26,8 @@
 #include "bluefish.h"
 
 #ifdef MAC_INTEGRATION
-#include <ige-mac-integration.h>
+/*#include <ige-mac-integration.h>*/
+#include <gtkosxapplication.h>
 #endif
 
 #include "project.h"
@@ -144,7 +145,8 @@ static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	gui_apply_session(bfwin);
 	set_project_menu_widgets(bfwin, TRUE);
 #ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
+/*	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(doc->bfwin)->menubar));*/
+	gtk_osxapplication_sync_menubar(g_object_new(GTK_TYPE_OSX_APPLICATION, NULL));
 #endif
 
 }
@@ -162,7 +164,8 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 	gui_apply_session(bfwin);
 	set_project_menu_widgets(bfwin, FALSE);
 #ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
+/*	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));*/
+	gtk_osxapplication_sync_menubar(g_object_new(GTK_TYPE_OSX_APPLICATION, NULL));
 #endif
 }
 

@@ -28,6 +28,11 @@
 #include <signal.h>             /* sigaction */
 #endif
 
+#ifdef MAC_INTEGRATION
+#include <gtkosxapplication.h>
+#endif
+
+
 #include "bluefish.h"
 #include <libxml/parser.h>
 
@@ -123,6 +128,13 @@ static void handle_signals(void) {
 }
 #endif
 
+static void osx_open_file_cb(GtkOSXApplication *app, gchar *path, gpointer user_data) {
+	GFile *file;
+	Tbfwin *bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
+	g_print("osx_open_file_cb, open %s\n",path);
+	doc_new_from_input(bfwin,path,FALSE,FALSE,-1);
+}
+
 /*********************/
 /* the main function */
 /*********************/
@@ -211,6 +223,13 @@ static gboolean startup_in_idle(gpointer data) {
 		break;
 		case 3:
 			gui_show_main(startup->firstbfwin);
+#ifdef MAC_INTEGRATION
+			{
+				GtkOSXApplication *TheApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
+				gtk_osxapplication_ready(theApp);
+				g_signal_connect(theApp, "NSApplicationOpenFile", osx_open_file_cb, NULL);
+			}
+#endif
 		break;
 		case 4:
 			main_v->recentm = gtk_recent_manager_get_default();
@@ -367,7 +386,12 @@ int main(int argc, char *argv[])
 		}
 #endif /* WITH_MSG_QUEUE */
 	}
-
+#ifdef MAC_INTEGRATION
+	{
+	GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
+	g_print("theApp is at %p\n",theApp);
+	}
+#endif
 	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, NULL);
 	DEBUG_MSG("main, before gtk_main()\n");
 	gtk_main();

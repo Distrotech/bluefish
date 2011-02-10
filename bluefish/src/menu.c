@@ -31,7 +31,8 @@
 #include "bluefish.h"
 
 #ifdef MAC_INTEGRATION
-#include <ige-mac-integration.h>
+/*#include <ige-mac-integration.h>*/
+#include <gtkosxapplication.h>
 #endif
 
 #include "bf_lib.h"			/* append_string_to_file() */
