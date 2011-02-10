@@ -1168,7 +1168,6 @@ void gui_show_main(Tbfwin *bfwin) {
 	group = ige_mac_menu_add_app_menu_group ();
 	ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(menuitem),NULL);
 	
-	/*ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(about_item),NULL);*/
 	menuitem = gtk_item_factory_get_widget(ifactory, _("/Edit/Preferences"));
 	group = ige_mac_menu_add_app_menu_group();
 	ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(menuitem),NULL);
@@ -1244,9 +1243,6 @@ void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync
 		make_main_toolbar(bfwin);
 	}
 	widget_set_visible(bfwin->main_toolbar_hb,visible);
-/*#ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(bfwin->menubar));
-#endif*/
 }
 
 void tb_fullscreen_cb(GtkWidget *widget, Tbfwin *bfwin) {
@@ -1279,10 +1275,6 @@ void gui_statusbar_show_hide_toggle(Tbfwin *bfwin, gboolean visible, gboolean sy
 	widget_set_visible(bfwin->statusbar_lncol,visible);
 	widget_set_visible(bfwin->statusbar_insovr,visible);
 	widget_set_visible(bfwin->statusbar_editmode,visible);
-/*#ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif*/
-
 }
 
 void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
