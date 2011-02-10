@@ -1142,6 +1142,7 @@ void gui_show_main(Tbfwin *bfwin) {
 	GtkWidget *menuitem;
 	GtkItemFactory *ifactory;
 #ifdef MAC_INTEGRATION
+	GtkOSXApplicationMenuGroup *group;
 	GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
 	g_print("for theApp at %p\n",theApp);
 	gtk_widget_hide(bfwin->menubar);

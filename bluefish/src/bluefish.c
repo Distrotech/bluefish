@@ -128,12 +128,15 @@ static void handle_signals(void) {
 }
 #endif
 
-static void osx_open_file_cb(GtkOSXApplication *app, gchar *path, gpointer user_data) {
+#ifdef MAC_INTEGRATION
+static gboolean osx_open_file_cb(GtkOSXApplication *app, gchar *path, gpointer user_data) {
 	GFile *file;
 	Tbfwin *bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
 	g_print("osx_open_file_cb, open %s\n",path);
 	doc_new_from_input(bfwin,path,FALSE,FALSE,-1);
+	return TRUE;
 }
+#endif
 
 /*********************/
 /* the main function */
@@ -225,7 +228,7 @@ static gboolean startup_in_idle(gpointer data) {
 			gui_show_main(startup->firstbfwin);
 #ifdef MAC_INTEGRATION
 			{
-				GtkOSXApplication *TheApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
+				GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
 				gtk_osxapplication_ready(theApp);
 				g_signal_connect(theApp, "NSApplicationOpenFile", osx_open_file_cb, NULL);
 			}
