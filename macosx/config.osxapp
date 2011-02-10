@@ -19,5 +19,5 @@ enable_update_databases=no
 enable_maintainer_mode=yes
 enable_nls=no
 LDFLAGS=""
-CFLAGS="-g -Wall -arch i386 -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -O2 -DOSXAPP -DRELPLUGINPATH=\\\"../Resources\\\""
+CFLAGS="-g -Wall -arch i386 -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -O2 -DOSXAPP -DRELPLUGINPATH=\\\"../Resources\\\""
 CPPFLAGS="-g -Wall -O2"
