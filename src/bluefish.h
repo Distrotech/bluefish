@@ -531,7 +531,12 @@ void bluefish_exit_request(void);
 #define gtk_selection_data_get_target(arg) (arg->target)
 #define gtk_widget_get_state(arg) GTK_WIDGET_STATE(arg)
 #define gtk_widget_is_sensitive(arg) GTK_WIDGET_IS_SENSITIVE(arg)
+#endif /* GTK_CHECK_VERSION(2,18,0) */
+
+#if !GTK_CHECK_VERSION(2,14,0)
 #define gtk_adjustment_get_upper(arg) (GTK_ADJUSTMENT(arg)->upper)
+#define gtk_adjustment_get_lower(arg) (GTK_ADJUSTMENT(arg)->lower)
+#define gtk_adjustment_get_page_size(arg) (GTK_ADJUSTMENT(arg)->page_size)
 #endif /* GTK_CHECK_VERSION(2,18,0) */
 
 #endif							/* __BLUEFISH_H_ */
