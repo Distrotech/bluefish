@@ -1138,10 +1138,23 @@ void gui_create_main(Tbfwin *bfwin) {
 	}
 }
 
+#ifdef MAC_INTEGRATION
+static void osx_accel_map_foreach_lcb(gpointer data,const gchar *accel_path,guint accel_key, GdkModifierType accel_mods, gboolean changed) {
+	if (accel_mods & GDK_CONTROL_MASK) {
+		accel_mods &= ~ GDK_CONTROL_MASK;
+		accel_mods |= GDK_META_MASK;
+		if (!gtk_accel_map_change_entry(accel_path,accel_key,accel_mods,FALSE)) {
+			g_print("could not change accelerator %s\n",accel_path);
+		}
+	}
+}
+#endif
+
 void gui_show_main(Tbfwin *bfwin) {
+#ifdef MAC_INTEGRATION
 	GtkWidget *menuitem;
 	GtkItemFactory *ifactory;
-#ifdef MAC_INTEGRATION
+
 	GtkOSXApplicationMenuGroup *group;
 	GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
 	g_print("for theApp at %p\n",theApp);
@@ -1153,7 +1166,9 @@ void gui_show_main(Tbfwin *bfwin) {
 	menuitem = gtk_item_factory_get_widget(ifactory, _("/Edit/Preferences"));
 	group = gtk_osxapplication_add_app_menu_group(theApp);
 	gtk_osxapplication_add_app_menu_item (theApp, group, GTK_MENU_ITEM(menuitem));
-
+	
+	
+	gtk_accel_map_foreach_unfiltered(theApp,osx_accel_map_foreach_lcb);
 /*	IgeMacMenuGroup *group;
 	gtk_widget_hide(bfwin->menubar);
 	
