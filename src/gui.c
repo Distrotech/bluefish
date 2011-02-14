@@ -1140,7 +1140,13 @@ void gui_create_main(Tbfwin *bfwin) {
 
 #ifdef MAC_INTEGRATION
 static void osx_accel_map_foreach_lcb(gpointer data,const gchar *accel_path,guint accel_key, GdkModifierType accel_mods, gboolean changed) {
-	if (accel_mods & GDK_CONTROL_MASK) {
+	if (accel_mods & GDK_MOD1_MASK && accel_mods & GDK_CONTROL_MASK) {
+		accel_mods &= ~ GDK_MOD1_MASK;
+		accel_mods |= GDK_META_MASK;
+		if (!gtk_accel_map_change_entry(accel_path,accel_key,accel_mods,FALSE)) {
+			g_print("could not change accelerator %s\n",accel_path);
+		}
+	} else if (accel_mods & GDK_CONTROL_MASK) {
 		accel_mods &= ~ GDK_CONTROL_MASK;
 		accel_mods |= GDK_META_MASK;
 		if (!gtk_accel_map_change_entry(accel_path,accel_key,accel_mods,FALSE)) {
