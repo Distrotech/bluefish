@@ -642,6 +642,12 @@ static void fileintodoc_lcb(Topenfile_status status,GError *gerror,gchar *buffer
 				fid->doc->action.load = NULL;
 				if (fid->untiledRecovery) {
 					doc_set_modified(fid->doc, TRUE);
+				} else if (fid->isTemplate) {
+					if (fid->bfwin->current_document == fid->doc) {
+						doc_force_activate(fid->doc);
+					} else {
+						switch_to_document_by_pointer(fid->bfwin,fid->doc);
+					}
 				}
 			} else { /* file_insert, convert to UTF-8 and insert it! */
 				gchar *encoding, *newbuf;
