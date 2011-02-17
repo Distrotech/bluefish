@@ -1,10 +1,8 @@
 # Hungarian language file for Bluefish.
-# Copyright (C) 2000 Free Software Foundation, Inc.
-# Péter Sáska <sasek@acolyte.hu>, 2000-2003.
-#
-# Ha bármi észrevételed van, kérlek, fordulj
-# közvetlenül a fordítóhoz:
-# Sáska Péter <sasek@webmail.acolyte.hu>
+# Copyright (C) 2000-2003 Péter Sáska
+# <sasek@acolyte.hu>.
+# Copyright (C) 2011 Balázs Úr
+# <urbalazs@gmail.com>.
 #
 msgid ""
 msgstr ""
@@ -12,8 +10,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-02-05 08:48+0100\n"
 "PO-Revision-Date: 2000-12-01 21:48+0100\n"
-"Last-Translator: Sáska, Péter <sasek@webmail.acolyte.hu>\n"
-"Language-Team: madgyar <hu@li.org>\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: magyar <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
@@ -23,42 +21,40 @@ msgstr ""
 #. * update.
 #.
 #: src/plugin_htmlbar/html2.c:500
-#, fuzzy
 msgid "_Update"
-msgstr " _Frissít "
+msgstr " _Frissít"
 
 #: src/plugin_htmlbar/html2.c:505
-#, fuzzy, c-format
+#, c-format
 msgid "The %s %s property already exists.\n"
-msgstr "A megadott útvonal már létezik."
+msgstr "A %s %s tulajdonság már létezik.\n"
 
 #: src/plugin_htmlbar/html2.c:507
-#, fuzzy, c-format
+#, c-format
 msgid "The %s property already exists.\n"
-msgstr "A megadott útvonal már létezik."
+msgstr "A %s tulajdonság már létezik.\n"
 
 #: src/plugin_htmlbar/html2.c:510
 #, c-format
 msgid "Update its value from %s to %s?"
-msgstr ""
+msgstr "Frissíti %s értékről %s értékre?"
 
 #: src/plugin_htmlbar/html2.c:641
-#, fuzzy
 msgid "Cascading Style Sheet Builder"
-msgstr "Stíluslap párbeszédablak"
+msgstr "Kaszkád stíluslap készítő"
 
 #: src/plugin_htmlbar/html2.c:661
 msgid "_Selector:"
-msgstr "_Szelektor"
+msgstr "_Szelektor:"
 
 #: src/plugin_htmlbar/html2.c:680
 msgid "_Property:"
-msgstr "_Tulajdonság"
+msgstr "_Tulajdonság:"
 
 #: src/plugin_htmlbar/html2.c:682 src/plugin_htmlbar/html_form.c:343
 #: src/plugin_htmlbar/html_form.c:492 src/plugin_htmlbar/html_form.c:587
 msgid "_Value:"
-msgstr "É_rték"
+msgstr "É_rték:"
 
 #: src/plugin_htmlbar/html2.c:700
 msgid "Selector"
@@ -101,7 +97,6 @@ msgid "Edit tag"
 msgstr "Címke szerkesztése"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:203
-#, fuzzy
 msgid "/T_ags"
 msgstr "/_Címkék"
 
@@ -265,7 +260,6 @@ msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/O kalappal (Ô)"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:242
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
 msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/OE "
@@ -427,10 +421,9 @@ msgstr ""
 "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/Hosszú o (ó)"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:275
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
 msgstr ""
-"/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/oe "
+"/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/oe "
 "kettőshangzó (œ)"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:276
@@ -517,9 +510,8 @@ msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Címkék/Speciális karakterek/Pénznemek/_Jen jel ¥"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:296
-#, fuzzy
 msgid "/Tags/Special/Currency/_Euro €"
-msgstr "/Címkék/Speciális karakterek/Pénznemek/_Euro"
+msgstr "/Címkék/Speciális karakterek/Pénznemek/_Euro €"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:297
 msgid "/Tags/Special/_Math-Science"
@@ -583,19 +575,19 @@ msgstr "/Címkék/Speciális karakterek/_Nem latin"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:314
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
-msgstr "/Címkék/Speciális karakterek/Nem latin/Et_h (izlandi) Ð"
+msgstr "/Címkék/Speciális karakterek/Nem latin/_ETH (izlandi) Ð"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:315
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
-msgstr "/Címkék/Speciális karakterek/Nem latin/Tho_rn (izlandi) Þ"
+msgstr "/Címkék/Speciális karakterek/Nem latin/_THORN (izlandi) Þ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:316
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
-msgstr "/Címkék/Speciális karakterek/Nem latin/_eth (izlandi) ð"
+msgstr "/Címkék/Speciális karakterek/Nem latin/et_h (izlandi) ð"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:317
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
-msgstr "/Címkék/Speciális karakterek/Nem latin/_thorn ÿ"
+msgstr "/Címkék/Speciális karakterek/Nem latin/th_orn ÿ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:318
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
@@ -615,11 +607,11 @@ msgstr "/Címkék/Speciális karakterek/Egyéb/N_em törhető szóköz"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:323
 msgid "/Tags/Special/Other/_Section sign §"
-msgstr "/Címkék/Speciális karakterek/Egyéb/_Paragrafusjel §"
+msgstr "/Címkék/Speciális karakterek/Egyéb/_Paragrafus jel §"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:324
 msgid "/Tags/Special/Other/_Copyright sign ©"
-msgstr "/Címkék/Speciális karakterek/Egyéb/_Copyright-jel ©"
+msgstr "/Címkék/Speciális karakterek/Egyéb/_Copyright jel ©"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:325
 msgid "/Tags/Special/Other/_Left angle quotes «"
@@ -655,16 +647,15 @@ msgstr "/Címkék/Speciális karakterek/Egyéb/_Bekezdésjel ¶"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:333
 msgid "/Tags/Special/Other/_Broken bar ¦"
-msgstr "/Címkék/Speciális karakterek/Egyéb/_Tört vonal ¦"
+msgstr "/Címkék/Speciális karakterek/Egyéb/_Törött vonal ¦"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:334
-#, fuzzy
 msgid "/Tags/Special/Other/Soft _hyphen -"
 msgstr "/Címkék/Speciális karakterek/Egyéb/Feltételes e_lválasztójel -"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:335
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
-msgstr "/Címkék/Speciális karakterek/Egyéb/Hosszúsági ékezet ¯"
+msgstr "/Címkék/Speciális karakterek/Egyéb/Hosszúsá_gi ékezet ¯"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:336
 msgid "/Tags/Special/Other/Middle _dot ·"
@@ -691,14 +682,12 @@ msgid "/Tags/Format by layout/_Strikeout"
 msgstr "/Címkék/Megjelenés szerinti formázás/Át_húzott"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:343
-#, fuzzy
 msgid "/Tags/Format by layout/Sm_all"
-msgstr "/Címkék/Megjelenés szerinti formázás/_Dőlt"
+msgstr "/Címkék/Megjelenés szerinti formázás/_Kicsi"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:344
-#, fuzzy
 msgid "/Tags/Format by layout/Bi_g"
-msgstr "/Címkék/_Megjelenés szerinti formázás"
+msgstr "/Címkék/_Megjelenés szerinti formázás/_Nagy"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:345
 msgid "/Tags/F_ormat by context"
@@ -742,65 +731,63 @@ msgstr "/Címkék/Kontextusformázás/_Rövidítés"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:356
 msgid "/Tags/Format by context/Ac_ronym"
-msgstr "/Címkék/Kontextusformázás/_Betűszó"
+msgstr "/Címkék/Kontextusformázás/Betű_szó"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:357
-#, fuzzy
 msgid "/Tags/Format by context/_Insert"
-msgstr "/Címkék/Kontextusformázás/_Definíció"
+msgstr "/Címkék/Kontextusformázás/_Beszúrás"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:358
-#, fuzzy
 msgid "/Tags/Format by context/De_lete"
-msgstr "/Címkék/Kontextusformázás/_Definíció"
+msgstr "/Címkék/Kontextusformázás/_Törlés"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:359
 msgid "/Tags/Format _general"
-msgstr "/Címkék/További _formázások"
+msgstr "/Címkék/Általános _formázások"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:361
 msgid "/Tags/Format general/_Paragraph"
-msgstr "/Címkék/További formázások/_Bekezdés"
+msgstr "/Címkék/Általános formázások/_Bekezdés"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:362
 msgid "/Tags/Format general/_Break"
-msgstr "/Címkék/További formázások/_Sortörés"
+msgstr "/Címkék/Általános formázások/_Sortörés"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:363
 msgid "/Tags/Format general/Break clear _all"
-msgstr "/Címkék/További formázások/Sortörés törléssel"
+msgstr "/Címkék/Általános formázások/Sortörés _törléssel"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:364
 msgid "/Tags/Format general/_Non-Breaking Space"
-msgstr "/Címkék/További formázások/N_em törhető szóköz"
+msgstr "/Címkék/Általános formázások/_Nem törhető szóköz"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:366
 msgid "/Tags/Format general/Font Si_ze +1"
-msgstr "/Címkék/További formázások/Betűméret +1"
+msgstr "/Címkék/Általános formázások/Betű_méret +1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:367
 msgid "/Tags/Format general/Font _Size -1"
-msgstr "/Címkék/További formázások/Betűméret -1"
+msgstr "/Címkék/Általános formázások/Betűmé_ret -1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:369
 msgid "/Tags/Format general/Preformatted _Text"
-msgstr "/Címkék/További formázások/E_lőformázott szöveg"
+msgstr "/Címkék/Általános formázások/E_lőformázott szöveg"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:370
 msgid "/Tags/Format general/Su_bscript"
-msgstr "/Címkék/További formázások/_Alsó index"
+msgstr "/Címkék/Általános formázások/_Alsó index"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:371
 msgid "/Tags/Format general/Su_perscript"
-msgstr "/Címkék/További formázások/_Felső index"
+msgstr "/Címkék/Általános formázások/_Felső index"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:373
 msgid "/Tags/Format general/_Center"
-msgstr "/Címkék/További formázások/_Középre igazítás"
+msgstr "/Címkék/Általános formázások/_Középre igazítás"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:374
 msgid "/Tags/Format general/Align _right"
-msgstr "/Címkék/További formázások/_Jobbra igazítás"
+msgstr "/Címkék/Általános formázások/_Jobbra igazítás"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:375
 msgid "/Tags/_Table"
@@ -859,256 +846,240 @@ msgid "/Tags/List/Men_u"
 msgstr "/Címkék/Lista/M_enü"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:391
-#, fuzzy
 msgid "/Tags/Fo_rm"
-msgstr "/Párbeszéd/Ű_rlapok"
+msgstr "/Címkék/Ű_rlap"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:393
-#, fuzzy
 msgid "/Tags/Form/_Form"
-msgstr "/Párbeszéd/Űrlapok/Ű_rlap..."
+msgstr "/Címkék/Űrlap/Ű_rlap"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:394
-#, fuzzy
 msgid "/Tags/Form/_Button"
-msgstr "/Párbeszéd/Űrlapok/_Beviteli gombok..."
+msgstr "/Címkék/Űrlap/_Gomb"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:395
-#, fuzzy
 msgid "/Tags/Form/_Input"
-msgstr "/Párbeszéd/Űrlapok/_Bevitel..."
+msgstr "/Címkék/Űrlap/_Beviteli mező"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:396
-#, fuzzy
 msgid "/Tags/Form/_Textarea"
-msgstr "/Párbeszéd/Űrlapok/Szövegmező (text_area)..."
+msgstr "/Címkék/Űrlap/_Szövegmező"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:397
-#, fuzzy
 msgid "/Tags/_Misc"
-msgstr "/Címkék/_Lista"
+msgstr "/Címkék/_Egyebek"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:399
-#, fuzzy
 msgid "/Tags/Misc/Insert Generator _META-Tag"
-msgstr "/Címkék/_Generator META-címke beszúrása"
+msgstr "/Címkék/Egyebek/_Generator META-címke beszúrása"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:400
-#, fuzzy
 msgid "/Tags/Misc/_Span"
-msgstr "/Címkék/_Speciális karakterek"
+msgstr "/Címkék/Egyebek/_Span"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:401
-#, fuzzy
 msgid "/Tags/Misc/_Div"
-msgstr "/Címkék/Lista/_Meghatározás"
+msgstr "/Címkék/Egyebek/_Div"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:402
-#, fuzzy
 msgid "/Tags/Misc/_Link"
-msgstr "/Címkék/_Lista"
+msgstr "/Címkék/Egyebek/_Link"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:403
-#, fuzzy
 msgid "/Tags/Misc/S_cript"
-msgstr "/Címkék/_Lista"
+msgstr "/Címkék/Egyebek/Szk_ript"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:404
-#, fuzzy
 msgid "/Tags/Misc/_Anchor"
-msgstr "/Címkék/Lista/_Meghatározás"
+msgstr "/Címkék/Egyebek/_Horgony"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:405
-#, fuzzy
 msgid "/Tags/Misc/_Image"
-msgstr "/Címkék/_Táblázat"
+msgstr "/Címkék/Egyebek/_Kép"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:406
 msgid "/Tags/_Comment"
-msgstr "/Címkék/M_egjegyzés"
+msgstr "/Címkék/Meg_jegyzés"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:407
-#, fuzzy
 msgid "/D_ialogs"
-msgstr "/_Párbeszéd"
+msgstr "/Pá_rbeszédablak"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:409
 msgid "/Dialogs/_General"
-msgstr "/Párbeszéd/Á_ltalános"
+msgstr "/Párbeszédablak/Á_ltalános"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:411
 msgid "/Dialogs/General/_Quickstart..."
-msgstr "/Párbeszéd/Általános/Gyors _kezdés..."
+msgstr "/Párbeszédablak/Általános/Gyors _kezdés..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:412
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Párbeszéd/Általános/_Meta..."
+msgstr "/Párbeszédablak/Általános/_Link fejléc..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:413
 msgid "/Dialogs/General/_Body..."
-msgstr "/Párbeszéd/Általános/_Törzs..."
+msgstr "/Párbeszédablak/Általános/_Törzs..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:414
 msgid "/Dialogs/General/_Anchor..."
-msgstr "/Párbeszéd/Általános/_Horgony..."
+msgstr "/Párbeszédablak/Általános/_Horgony..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:415
 msgid "/Dialogs/General/_Email..."
-msgstr "/Párbeszéd/Általános/_Email..."
+msgstr "/Párbeszédablak/Általános/_Email..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:416
 msgid "/Dialogs/General/_Rule..."
-msgstr "/Párbeszéd/Általános/_Vonal..."
+msgstr "/Párbeszédablak/Általános/_Vonal..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:417
 msgid "/Dialogs/General/_Font..."
-msgstr "/Párbeszéd/Általános/_Font..."
+msgstr "/Párbeszédablak/Általános/_Betű..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:418
 msgid "/Dialogs/General/Basef_ont..."
-msgstr "/Párbeszéd/Általános/_Basefont..."
+msgstr "/Párbeszédablak/Általános/Betű _alapérték..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:419
 msgid "/Dialogs/General/Quick_list..."
-msgstr "/Párbeszéd/Általános/_Lista..."
+msgstr "/Párbeszédablak/Általános/Gyors_lista..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:420
 msgid "/Dialogs/General/_Meta..."
-msgstr "/Párbeszéd/Általános/_Meta..."
+msgstr "/Párbeszédablak/Általános/_Meta..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:421
 msgid "/Dialogs/General/Embe_d..."
-msgstr "/Párbeszéd/Általános/Beá_gyazás..."
+msgstr "/Párbeszédablak/Általános/Beá_gyazás..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:422
 msgid "/Dialogs/General/Select _Color..."
-msgstr "/Párbeszéd/Általános/_Színválasztás..."
+msgstr "/Párbeszédablak/Általános/_Színválasztás..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:423
 msgid "/Dialogs/General/Insert _Time..."
-msgstr "/Párbeszéd/Általános/_Idő beszúrása..."
+msgstr "/Párbeszédablak/Általános/_Idő beszúrása..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:424
 msgid "/Dialogs/General/Insert _Image..."
-msgstr "/Párbeszéd/Általános/Ké_p beszúrása..."
+msgstr "/Párbeszédablak/Általános/Ké_p beszúrása..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:425
 msgid "/Dialogs/General/Insert T_humbnail..."
-msgstr "/Párbeszéd/Általános/Thumbn_ail beszúrása..."
+msgstr "/Párbeszédablak/Általános/Bél_yegkép beszúrása..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:426
 msgid "/Dialogs/_Table"
-msgstr "/Párbeszéd/_Táblázat"
+msgstr "/Párbeszédablak/_Táblázat"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:428
 msgid "/Dialogs/Table/Table _Wizard..."
-msgstr "/Párbeszéd/Táblázat/Táblázat _varázsló..."
+msgstr "/Párbeszédablak/Táblázat/Táblázat _varázsló..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:429
 msgid "/Dialogs/Table/_Table..."
-msgstr "/Párbeszéd/Táblázat/_Táblázat..."
+msgstr "/Párbeszédablak/Táblázat/_Táblázat..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:430
 msgid "/Dialogs/Table/Table _Row..."
-msgstr "/Párbeszéd/Táblázat/_Sor..."
+msgstr "/Párbeszédablak/Táblázat/_Sor..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:431
 msgid "/Dialogs/Table/Table _Head..."
-msgstr "/Párbeszéd/Táblázat/Fej_léc..."
+msgstr "/Párbeszédablak/Táblázat/_Fejléc-cella..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:432
 msgid "/Dialogs/Table/Table _Data..."
-msgstr "/Párbeszéd/Táblázat/_Cella..."
+msgstr "/Párbeszédablak/Táblázat/_Cella..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:433
 msgid "/Dialogs/_CSS"
-msgstr "/Párbeszéd/_Stíluslap"
+msgstr "/Párbeszédablak/_Stíluslap"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:435
 msgid "/Dialogs/CSS/_Create Style..."
-msgstr "/Párbeszéd/Stíluslap/Ú_j stílus..."
+msgstr "/Párbeszédablak/Stíluslap/Ú_j stílus..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:436
 msgid "/Dialogs/CSS/S_pan..."
-msgstr "/Párbeszéd/Stíluslap/_Arasz (SPAN)..."
+msgstr "/Párbeszédablak/Stíluslap/S_pan..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:437
 msgid "/Dialogs/CSS/_Div..."
-msgstr "/Párbeszéd/Stíluslap/S_zakasz (DIV)..."
+msgstr "/Párbeszédablak/Stíluslap/_Div..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:438
 msgid "/Dialogs/CSS/_Style..."
-msgstr "/Párbeszéd/Stíluslap/_Stílus..."
+msgstr "/Párbeszédablak/Stíluslap/_Stílus..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:439
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
-msgstr "/Párbeszéd/Stíluslap/_Link stíluslapra..."
+msgstr "/Párbeszédablak/Stíluslap/_Hivatkozás stíluslapra..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:440
 msgid "/Dialogs/_Frame"
-msgstr "/Párbeszéd/_Keretek"
+msgstr "/Párbeszédablak/_Keret"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:442
 msgid "/Dialogs/Frame/Frame _Wizard..."
-msgstr "/Párbeszéd/Keretek/Keret _varázsló..."
+msgstr "/Párbeszédablak/Keret/Keret _varázsló..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:443
 msgid "/Dialogs/Frame/Frame_set..."
-msgstr "/Párbeszéd/Keretek/Keret_csoport..."
+msgstr "/Párbeszédablak/Keret/Keret_csoport..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:444
 msgid "/Dialogs/Frame/_Frame..."
-msgstr "/Párbeszéd/Keretek/_Keret..."
+msgstr "/Párbeszédablak/Keret/_Keret..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:445
 msgid "/Dialogs/F_orm"
-msgstr "/Párbeszéd/Ű_rlapok"
+msgstr "/Párbeszédablak/Ű_rlap"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:447
 msgid "/Dialogs/Form/F_orm..."
-msgstr "/Párbeszéd/Űrlapok/Ű_rlap..."
+msgstr "/Párbeszédablak/Űrlap/Ű_rlap..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:448
 msgid "/Dialogs/Form/_Input..."
-msgstr "/Párbeszéd/Űrlapok/_Bevitel..."
+msgstr "/Párbeszédablak/Űrlap/_Bevitel (input)..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:449
 msgid "/Dialogs/Form/Input Buttons..."
-msgstr "/Párbeszéd/Űrlapok/_Beviteli gombok..."
+msgstr "/Párbeszédablak/Űrlap/_Beviteli gombok (input)..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:450
 msgid "/Dialogs/Form/Input Text..."
-msgstr "/Párbeszéd/Űrlapok/Beviteli mező (_text)..."
+msgstr "/Párbeszédablak/Űrlapok/Beviteli mező (input)..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:451
 msgid "/Dialogs/Form/Text_area..."
-msgstr "/Párbeszéd/Űrlapok/Szövegmező (text_area)..."
+msgstr "/Párbeszédablak/Űrlapok/_Szövegmező (textarea)..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:452
 msgid "/Dialogs/Form/_Select..."
-msgstr "/Párbeszéd/Űrlapok/_Választómező..."
+msgstr "/Párbeszédablak/Űrlapok/_Választómező (select)..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:453
 msgid "/Dialogs/Form/O_ption..."
-msgstr "/Párbeszéd/Űrlapok/Választás (_option)..."
+msgstr "/Párbeszédablak/Űrlapok/Vá_lasztás (option)..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:454
 msgid "/Dialogs/Form/Option _Group..."
-msgstr "/Párbeszéd/Űrlapok/_Legördülő..."
+msgstr "/Párbeszédablak/Űrlapok/Választás _csoport (optgroup)..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:455
 msgid "/Dialogs/Form/_Button..."
-msgstr "/Párbeszéd/Űrlapok/_Beviteli gombok..."
+msgstr "/Párbeszédablak/Űrlapok/_Gomb (button)..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:457
 msgid "/Dialogs/_Edit tag under cursor..."
-msgstr "/Párbeszéd/Kurzor alatti _címke szerkesztése"
+msgstr "/Párbeszédablak/Kurzor alatti _címke szerkesztése"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:460
-#, fuzzy
 msgid "/View/_HTML Toolbar"
-msgstr "/Megjelenítés/HTML eszköztár"
+msgstr "/Nézet/_HTML eszköztár"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:747
 msgid "QuickStart..."
@@ -1144,9 +1115,8 @@ msgstr "Nem törhető szóköz"
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:756
-#, fuzzy
 msgid "Anchor / Hyperlink..."
-msgstr "Horgony..."
+msgstr "Horgony / Hiperhivatkozás..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:757
 msgid "Rule..."
@@ -1154,18 +1124,17 @@ msgstr "Vonal..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:758
 msgid "Center"
-msgstr "Középre"
+msgstr "Középre igazítás"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:759
 msgid "Right Justify"
-msgstr "Jobbra igazít"
+msgstr "Jobbra igazítás"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:760
 msgid "Comment"
 msgstr "Megjegyzés"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:761
-#, fuzzy
 msgid "E-mail..."
 msgstr "E-mail..."
 
@@ -1175,16 +1144,16 @@ msgstr "Betű..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:763
 msgid "Base Font Size..."
-msgstr "Alap fontméret"
+msgstr "Alap betűméret..."
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:765
 msgid "Font Size +1"
-msgstr "Fontméret +1"
+msgstr "Betűméret +1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:766
 msgid "Font Size -1"
-msgstr "Fontméret -1"
+msgstr "Betűméret -1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:767
 msgid "Preformatted Text"
@@ -1289,7 +1258,7 @@ msgstr "Keret..."
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:796 src/plugin_htmlbar/html.c:1590
 msgid "Frameset"
-msgstr "Frameset"
+msgstr "Keretcsoport"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:797 src/plugin_htmlbar/html.c:1676
 msgid "Frame"
@@ -1337,11 +1306,11 @@ msgstr "Választómező..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:808
 msgid "Option..."
-msgstr "Opció a választómezőben..."
+msgstr "Választás..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:809
 msgid "Option group..."
-msgstr "Opciócsoport..."
+msgstr "Választás csoport..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:810
 msgid "Button..."
@@ -1353,11 +1322,11 @@ msgstr "Gyors lista..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:812
 msgid "Unordered List"
-msgstr "Nem sorszámozott"
+msgstr "Nem sorszámozott lista"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:813
 msgid "Ordered List"
-msgstr "Sorszámozott"
+msgstr "Sorszámozott lista"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:814
 msgid "List Item"
@@ -1365,7 +1334,7 @@ msgstr "Listaelem"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:815
 msgid "Definition List"
-msgstr "Meghatározáslista"
+msgstr "Meghatározás lista"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:816
 msgid "Definition Term"
@@ -1381,11 +1350,11 @@ msgstr "Stíluslap készítése..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:819
 msgid "Span..."
-msgstr "SPAN..."
+msgstr "Span..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:820
 msgid "Div..."
-msgstr "DIV..."
+msgstr "Div..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:821 src/plugin_htmlbar/html_form.c:518
 msgid "Style"
@@ -1393,7 +1362,7 @@ msgstr "Stílus"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:822
 msgid "Link to stylesheet..."
-msgstr "Link stíluslapra..."
+msgstr "Hivatkozás stíluslapra..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:823
 msgid "Insert image..."
@@ -1401,11 +1370,11 @@ msgstr "Kép beszúrása..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:824
 msgid "Insert thumbnail..."
-msgstr "Thumbnail beszúrása..."
+msgstr "Bélyegkép beszúrása..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:825
 msgid "Multi thumbnail..."
-msgstr "Multi thumbnail..."
+msgstr "Több bélyegkép..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:827
 msgid "Code"
@@ -1441,7 +1410,7 @@ msgstr "Beszúrás"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:835
 msgid "Delete"
-msgstr "Töröl"
+msgstr "Törlés"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:956
 msgid "Remove from quickbar"
@@ -1449,12 +1418,11 @@ msgstr "Eltávolítás az eszköztárról"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:957
 msgid "Move Left"
-msgstr ""
+msgstr "Mozgatás balra"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:958
-#, fuzzy
 msgid "Move Right"
-msgstr "Magasság"
+msgstr "Mozgatás jobbra"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:998
 msgid "Add to quickbar"
@@ -1470,7 +1438,7 @@ msgstr "Címsorok"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1107
 msgid " Standard bar "
-msgstr " Standard "
+msgstr " Alap eszköztár "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1112
 msgid "Context formatting"
@@ -1507,35 +1475,35 @@ msgstr "Idő beszúrása"
 #: src/plugin_htmlbar/html.c:398
 #, c-format
 msgid "  _Time (%i:%i:%i)"
-msgstr "  _Idő (%i:%i:%i)"
+msgstr "  _Idő (%i.%i.%i)"
 
 #: src/plugin_htmlbar/html.c:403
 msgid "  Day of the _week (Sunday)"
-msgstr "  A hét napja (vasárnap)"
+msgstr "  A _hét napja (vasárnap)"
 
 #: src/plugin_htmlbar/html.c:406
 msgid "  Day of the _week (Monday)"
-msgstr "  A hét napja (hétfő)"
+msgstr "  A _hét napja (hétfő)"
 
 #: src/plugin_htmlbar/html.c:409
 msgid "  Day of the _week (Tuesday)"
-msgstr "  A hét napja (kedd)"
+msgstr "  A _hét napja (kedd)"
 
 #: src/plugin_htmlbar/html.c:412
 msgid "  Day of the _week (Wednesday)"
-msgstr "  A hét napja (szerda)"
+msgstr "  A _hét napja (szerda)"
 
 #: src/plugin_htmlbar/html.c:415
 msgid "  Day of the _week (Thursday)"
-msgstr "  A hét napja (csütörtök)"
+msgstr "  A _hét napja (csütörtök)"
 
 #: src/plugin_htmlbar/html.c:418
 msgid "  Day of the _week (Friday)"
-msgstr "  A hét napja (péntek)"
+msgstr "  A _hét napja (péntek)"
 
 #: src/plugin_htmlbar/html.c:421
 msgid "  Day of the _week (Saturday)"
-msgstr "  A hét napja (szombat)"
+msgstr "  A _hét napja (szombat)"
 
 #: src/plugin_htmlbar/html.c:424
 msgid "You appear to have a non existant day!\n"
@@ -1552,17 +1520,17 @@ msgid "  _Unix Time (%i)"
 msgstr "  _Unix-idő (%i)"
 
 #: src/plugin_htmlbar/html.c:440
-#, fuzzy, c-format
+#, c-format
 msgid "  Unix Date _String (%s)"
-msgstr " Unix-idő_string (%s"
+msgstr "  Unix dátum _szöveg (%s"
 
 #: src/plugin_htmlbar/html.c:448
 msgid "  ISO-8601 Ti_me "
-msgstr ""
+msgstr "  ISO-8601 i_dő "
 
 #: src/plugin_htmlbar/html.c:608
 msgid "Quick Anchor"
-msgstr "Horgony"
+msgstr "Gyors horgony"
 
 #: src/plugin_htmlbar/html.c:614 src/plugin_htmlbar/html_form.c:473
 msgid "Attributes"
@@ -1570,11 +1538,11 @@ msgstr "Attribútumok"
 
 #: src/plugin_htmlbar/html.c:628 src/plugin_htmlbar/html.c:1920
 msgid "_HREF:"
-msgstr "_HREF"
+msgstr "_HREF:"
 
 #: src/plugin_htmlbar/html.c:634 src/plugin_htmlbar/html_form.c:182
 msgid "_Target:"
-msgstr "_Cél"
+msgstr "_Cél:"
 
 #: src/plugin_htmlbar/html.c:638 src/plugin_htmlbar/html.c:862
 #: src/plugin_htmlbar/html.c:1227 src/plugin_htmlbar/html.c:1688
@@ -1582,17 +1550,16 @@ msgstr "_Cél"
 #: src/plugin_htmlbar/html_form.c:488 src/plugin_htmlbar/html_form.c:583
 #: src/plugin_htmlbar/image.c:490
 msgid "_Name:"
-msgstr "_Név"
+msgstr "_Név:"
 
 #: src/plugin_htmlbar/html.c:642 src/plugin_htmlbar/quickstart.c:555
-#, fuzzy
 msgid "Titl_e:"
-msgstr "_Cím"
+msgstr "Cí_m:"
 
 #: src/plugin_htmlbar/html.c:648 src/plugin_htmlbar/html.c:1095
 #: src/plugin_htmlbar/html.c:1245 src/plugin_htmlbar/html.c:1835
 msgid "_Language:"
-msgstr "Nye_lv"
+msgstr "Nye_lv:"
 
 #: src/plugin_htmlbar/html.c:652 src/plugin_htmlbar/html.c:870
 #: src/plugin_htmlbar/html.c:1004 src/plugin_htmlbar/html.c:1099
@@ -1604,7 +1571,7 @@ msgstr "Nye_lv"
 #: src/plugin_htmlbar/html_table.c:360 src/plugin_htmlbar/image.c:499
 #: src/plugin_htmlbar/image_dialog.c:382
 msgid "Custo_m:"
-msgstr "_Egyéb"
+msgstr "_Egyéb:"
 
 #: src/plugin_htmlbar/html.c:655 src/plugin_htmlbar/html.c:1103
 #: src/plugin_htmlbar/html_form.c:522
@@ -1613,95 +1580,95 @@ msgstr "Események"
 
 #: src/plugin_htmlbar/html.c:658
 msgid "OnClic_k:"
-msgstr "OnClic_k"
+msgstr "OnClic_k:"
 
 #: src/plugin_htmlbar/html.c:662
 msgid "OnD_blClick:"
-msgstr "OnD_blClick"
+msgstr "OnD_blClick:"
 
 #: src/plugin_htmlbar/html.c:666
 msgid "OnMouseO_ver:"
-msgstr "OnMouseO_ver"
+msgstr "OnMouseO_ver:"
 
 #: src/plugin_htmlbar/html.c:670
 msgid "OnMouse_Down:"
-msgstr "OnMouse_Down"
+msgstr "OnMouse_Down:"
 
 #: src/plugin_htmlbar/html.c:674
 msgid "OnMouse_Move:"
-msgstr "OnMouse_Move"
+msgstr "OnMouse_Move:"
 
 #: src/plugin_htmlbar/html.c:678
 msgid "OnMouseOu_t:"
-msgstr "OnMouseOu_t"
+msgstr "OnMouseOu_t:"
 
 #: src/plugin_htmlbar/html.c:682
 msgid "OnMouse_Up:"
-msgstr "OnMouse_Up"
+msgstr "OnMouse_Up:"
 
 #: src/plugin_htmlbar/html.c:686
 msgid "OnKeyDo_wn:"
-msgstr "OnKeyDo_wn"
+msgstr "OnKeyDo_wn:"
 
 #: src/plugin_htmlbar/html.c:690
 msgid "OnKey_Press:"
-msgstr "OnKey_Press"
+msgstr "OnKey_Press:"
 
 #: src/plugin_htmlbar/html.c:694
 msgid "OnKe_yUp:"
-msgstr "OnKe_yUp"
+msgstr "OnKe_yUp:"
 
 #: src/plugin_htmlbar/html.c:809
 msgid "Div"
-msgstr "DIV"
+msgstr "Div"
 
 #: src/plugin_htmlbar/html.c:812
 msgid "Span"
-msgstr "SPAN"
+msgstr "Span"
 
 #: src/plugin_htmlbar/html.c:847 src/plugin_htmlbar/html_table.c:108
 #: src/plugin_htmlbar/html_table.c:218 src/plugin_htmlbar/html_table.c:332
 msgid "Ali_gn:"
-msgstr "I_gazítás"
+msgstr "I_gazítás:"
 
 #: src/plugin_htmlbar/html.c:851 src/plugin_htmlbar/html.c:1087
 #: src/plugin_htmlbar/html_diag.c:403 src/plugin_htmlbar/html_table.c:90
 #: src/plugin_htmlbar/html_table.c:236 src/plugin_htmlbar/html_table.c:350
 #: src/plugin_htmlbar/image_dialog.c:368
 msgid "Cl_ass:"
-msgstr "_Osztály"
+msgstr "_Osztály:"
 
 #: src/plugin_htmlbar/html.c:855 src/plugin_htmlbar/html.c:1080
 #: src/plugin_htmlbar/html_diag.c:411 src/plugin_htmlbar/html_table.c:95
 #: src/plugin_htmlbar/html_table.c:247 src/plugin_htmlbar/html_table.c:355
 msgid "St_yle:"
-msgstr "Stíl_us"
+msgstr "Stíl_us:"
 
 #: src/plugin_htmlbar/html.c:866 src/plugin_htmlbar/html.c:1091
 #: src/plugin_htmlbar/html_diag.c:407
 msgid "_ID:"
-msgstr "_Azonosító"
+msgstr "_Azonosító:"
 
 #: src/plugin_htmlbar/html.c:967
 msgid "Horizontal Rule"
-msgstr "Vízszintes vonal (HR)"
+msgstr "Vízszintes vonal"
 
 #: src/plugin_htmlbar/html.c:978 src/plugin_htmlbar/html.c:1773
 #: src/plugin_htmlbar/image.c:517 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Align:"
-msgstr "Ig_azítás"
+msgstr "Ig_azítás:"
 
 #: src/plugin_htmlbar/html.c:985 src/plugin_htmlbar/html.c:1781
 #: src/plugin_htmlbar/html_table.c:386 src/plugin_htmlbar/image_dialog.c:338
 msgid "_Height:"
-msgstr "_Magasság"
+msgstr "_Magasság:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:991 src/plugin_htmlbar/html.c:1777
 #: src/plugin_htmlbar/html_table.c:133 src/plugin_htmlbar/html_table.c:379
 #: src/plugin_htmlbar/image.c:474 src/plugin_htmlbar/image_dialog.c:329
 msgid "_Width:"
-msgstr "_Szélesség"
+msgstr "_Szélesség:"
 
 #: src/plugin_htmlbar/html.c:994
 msgid "Is _percent"
@@ -1717,43 +1684,43 @@ msgstr "Törzs"
 
 #: src/plugin_htmlbar/html.c:1072
 msgid "Options"
-msgstr "Lehetőségek"
+msgstr "Opciók"
 
 #: src/plugin_htmlbar/html.c:1110
 msgid "On_Load:"
-msgstr "On_Load"
+msgstr "On_Load:"
 
 #: src/plugin_htmlbar/html.c:1118
 msgid "On_UnLoad:"
-msgstr "On_UnLoad"
+msgstr "On_UnLoad:"
 
 #: src/plugin_htmlbar/html.c:1127
 msgid "Depreciated options"
-msgstr "Tiltott (régi) opciók"
+msgstr "Elavult opciók"
 
 #: src/plugin_htmlbar/html.c:1137
 msgid "Background _Image:"
-msgstr "Hát_térkép"
+msgstr "Hát_térkép:"
 
 #: src/plugin_htmlbar/html.c:1144
 msgid "Back_ground Color:"
-msgstr "Hátté_rszín"
+msgstr "Hátté_rszín:"
 
 #: src/plugin_htmlbar/html.c:1150
 msgid "_Text Color:"
-msgstr "Szöve_gszín"
+msgstr "Szöve_gszín:"
 
 #: src/plugin_htmlbar/html.c:1156
 msgid "_Link Color:"
-msgstr "_Link színe"
+msgstr "_Link színe:"
 
 #: src/plugin_htmlbar/html.c:1162
 msgid "_Visited Link Color:"
-msgstr "Lát_ogatott link színe"
+msgstr "Lát_ogatott link színe:"
 
 #: src/plugin_htmlbar/html.c:1168
 msgid "_Active Link Color:"
-msgstr "_Aktív link színe"
+msgstr "_Aktív link színe:"
 
 #: src/plugin_htmlbar/html.c:1220
 msgid "Meta"
@@ -1761,15 +1728,15 @@ msgstr "Meta"
 
 #: src/plugin_htmlbar/html.c:1236
 msgid "_HTTP-EQUIV:"
-msgstr "_HTTP-EQUIV"
+msgstr "_HTTP-EQUIV:"
 
 #: src/plugin_htmlbar/html.c:1241
 msgid "Con_tent:"
-msgstr "Tar_talom"
+msgstr "Tar_talom:"
 
 #: src/plugin_htmlbar/html.c:1249
 msgid "_Scheme:"
-msgstr "_Séma"
+msgstr "_Séma:"
 
 #: src/plugin_htmlbar/html.c:1327
 msgid "Font"
@@ -1777,7 +1744,7 @@ msgstr "Betű"
 
 #: src/plugin_htmlbar/html.c:1330
 msgid "Base Font"
-msgstr "Font alapérték"
+msgstr "Betű alapérték"
 
 #: src/plugin_htmlbar/html.c:1345
 msgid "Size"
@@ -1796,30 +1763,28 @@ msgid "Custom"
 msgstr "Egyéb"
 
 #: src/plugin_htmlbar/html.c:1445
-#, fuzzy
 msgid "E-mail"
-msgstr "Email"
+msgstr "E-mail"
 
 #: src/plugin_htmlbar/html.c:1453
 msgid "_Mail to:"
-msgstr ""
+msgstr "_Címzett:"
 
 #: src/plugin_htmlbar/html.c:1457
-#, fuzzy
 msgid "_Copy to:"
-msgstr "Másolás"
+msgstr "_Másolat:"
 
 #: src/plugin_htmlbar/html.c:1461
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "_Rejtett másolat:"
 
 #: src/plugin_htmlbar/html.c:1465
 msgid "with _Subject:"
-msgstr ""
+msgstr "_Tárgy:"
 
 #: src/plugin_htmlbar/html.c:1469
 msgid "with _Body:"
-msgstr ""
+msgstr "_Levéltörzs:"
 
 #: src/plugin_htmlbar/html.c:1513
 msgid "Quick List"
@@ -1839,15 +1804,15 @@ msgstr "_Nem sorszámozott"
 
 #: src/plugin_htmlbar/html.c:1524
 msgid "Style:"
-msgstr "Stílus"
+msgstr "Stílus:"
 
 #: src/plugin_htmlbar/html.c:1596 src/plugin_htmlbar/html_form.c:239
 msgid "Co_ls:"
-msgstr "Osz_lopok"
+msgstr "Osz_lopok:"
 
 #: src/plugin_htmlbar/html.c:1600 src/plugin_htmlbar/html_form.c:235
 msgid "_Rows:"
-msgstr "So_rok"
+msgstr "So_rok:"
 
 #: src/plugin_htmlbar/html.c:1605
 msgid "_Add <frame> elements"
@@ -1856,27 +1821,27 @@ msgstr "<frame> elemek hozzá_adása"
 #: src/plugin_htmlbar/html.c:1684 src/plugin_htmlbar/html.c:1769
 #: src/plugin_htmlbar/html.c:1828 src/plugin_htmlbar/image_dialog.c:290
 msgid "_Source:"
-msgstr "Forrá_s"
+msgstr "Forrá_s:"
 
 #: src/plugin_htmlbar/html.c:1692
 msgid "Margin _Width:"
-msgstr "Margó s_zélessége"
+msgstr "Margó s_zélessége:"
 
 #: src/plugin_htmlbar/html.c:1696
 msgid "Margin _Height:"
-msgstr "Margó _magassága"
+msgstr "Margó _magassága:"
 
 #: src/plugin_htmlbar/html.c:1704
 msgid "Scrollin_g:"
-msgstr "_Gördítősáv"
+msgstr "_Gördítősáv:"
 
 #: src/plugin_htmlbar/html.c:1708
 msgid "_Frameborder:"
-msgstr "_Keretszegély"
+msgstr "_Keretszegély:"
 
 #: src/plugin_htmlbar/html.c:1713
 msgid "No _Resize:"
-msgstr "Nem átmé_retezhető"
+msgstr "Nem átmé_retezhető:"
 
 #: src/plugin_htmlbar/html.c:1763
 msgid "Embed"
@@ -1884,11 +1849,11 @@ msgstr "Beágyazott"
 
 #: src/plugin_htmlbar/html.c:1785 src/plugin_htmlbar/html_table.c:139
 msgid "Bo_rder:"
-msgstr "Sze_gély"
+msgstr "Sze_gély:"
 
 #: src/plugin_htmlbar/html.c:1821
 msgid "Script"
-msgstr "Script"
+msgstr "Szkript"
 
 #: src/plugin_htmlbar/html.c:1850 src/plugin_htmlbar/html.c:1951
 #: src/plugin_htmlbar/html_form.c:482 src/plugin_htmlbar/html_form.c:592
@@ -1900,14 +1865,12 @@ msgid "Link"
 msgstr "Link"
 
 #: src/plugin_htmlbar/html.c:1926
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF"
+msgstr "_HREFLANG:"
 
 #: src/plugin_htmlbar/html.c:1930
-#, fuzzy
 msgid "T_itle:"
-msgstr "_Cím"
+msgstr "_Cím:"
 
 #: src/plugin_htmlbar/html.c:1970
 msgid "_Forward Relation:"
@@ -1955,7 +1918,7 @@ msgstr "Választómező"
 
 #: src/plugin_htmlbar/html_form.c:294 src/plugin_htmlbar/html_form.c:501
 msgid "Si_ze:"
-msgstr "_Méret"
+msgstr "_Méret:"
 
 #: src/plugin_htmlbar/html_form.c:298
 msgid "Multiple _Selections:"
@@ -1975,7 +1938,7 @@ msgstr "_Kiválasztott:"
 
 #: src/plugin_htmlbar/html_form.c:385
 msgid "Option group"
-msgstr "Opciócsoport"
+msgstr "Választás csoport"
 
 #: src/plugin_htmlbar/html_form.c:468
 msgid "Input"
@@ -1983,15 +1946,15 @@ msgstr "Input"
 
 #: src/plugin_htmlbar/html_form.c:496
 msgid "_Checked:"
-msgstr "_Megjelölt"
+msgstr "_Megjelölt:"
 
 #: src/plugin_htmlbar/html_form.c:505
 msgid "Max _Length:"
-msgstr "Max. _hosszúság"
+msgstr "Max. _hosszúság:"
 
 #: src/plugin_htmlbar/html_form.c:509
 msgid "_Accept:"
-msgstr "_Akció:"
+msgstr "El_fogad:"
 
 #: src/plugin_htmlbar/html_form.c:513
 msgid "C_ustom:"
@@ -2049,26 +2012,25 @@ msgstr "Hány osz_lopnyi:"
 
 #: src/plugin_htmlbar/html_table.c:368
 msgid "_Row Span:"
-msgstr "Hány so_rnyi_"
+msgstr "Hány so_rnyi:"
 
 #: src/plugin_htmlbar/html_table.c:373
 msgid "No Wra_p:"
-msgstr "Nincs _sortörés_"
+msgstr "_Nincs sortörés:"
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:302
-#, fuzzy
 msgid "Loading image failed..."
-msgstr "Fájlok betöltése..."
+msgstr "Kép betöltése sikertelen..."
 
 #: src/plugin_htmlbar/image.c:384
-#, fuzzy, c-format
+#, c-format
 msgid "Loading file %s..."
-msgstr "Fájlok betöltése..."
+msgstr "%s betöltése..."
 
 #: src/plugin_htmlbar/image.c:442
 msgid "Insert thumbnail"
-msgstr "Thumbnail beszúrása"
+msgstr "Bélyegkép beszúrása"
 
 #: src/plugin_htmlbar/image.c:446 src/plugin_htmlbar/image_dialog.c:308
 msgid "Preview"
@@ -2104,7 +2066,7 @@ msgstr "S_zegély:"
 
 #: src/plugin_htmlbar/image.c:926
 msgid "Select files for thumbnail creation"
-msgstr "Fájlok kiválasztása thumbnail készítéséhez"
+msgstr "Fájlok kiválasztása bélyegkép készítéséhez"
 
 #: src/plugin_htmlbar/image.c:966
 msgid "Scaling (%)"
@@ -2120,7 +2082,7 @@ msgstr "Magasság"
 
 #: src/plugin_htmlbar/image.c:997
 msgid "Multi thumbnail"
-msgstr "Multi thumbnail"
+msgstr "Több bélyegkép"
 
 #: src/plugin_htmlbar/image.c:1003
 msgid "By scaling"
@@ -2145,39 +2107,34 @@ msgid ""
 "%x: thumbnail width  %y: thumbnail height\n"
 "%b: original size (bytes)"
 msgstr ""
-"%r: eredeti fájlnév  %t: thumbnail fájlnév\n"
+"%r: eredeti fájlnév  %t: bélyegkép fájlnév\n"
 "%w: eredeti szélessség  %h: eredeti magasság\n"
-"%x: thumbnail szélessség  %y: thumbnail magasság\n"
-"%b: eredeti méret (byte)"
+"%x: bélyegkép szélessség  %y: bélyegkép magasság\n"
+"%b: eredeti méret (bájt)"
 
 #: src/plugin_htmlbar/image_dialog.c:345
-#, fuzzy
 msgid "_Reset Dimensions"
-msgstr "Méretek"
+msgstr "Méretek _visszaállítása"
 
 #: src/plugin_htmlbar/image_dialog.c:358
-#, fuzzy
 msgid "Alternate te_xt:"
-msgstr "Helye_ttesítő szöveg:"
+msgstr "_Helyettesítő szöveg:"
 
 #: src/plugin_htmlbar/image_dialog.c:363
-#, fuzzy
 msgid "_Long description:"
-msgstr "_Leírás"
+msgstr "Hosszú _leírás:"
 
 #: src/plugin_htmlbar/image_dialog.c:372
-#, fuzzy
 msgid "I_D:"
-msgstr "_Azonosító"
+msgstr "_Azonosító:"
 
 #: src/plugin_htmlbar/image_dialog.c:394
 msgid "_Use Transitional options"
-msgstr ""
+msgstr "_Transitional opciók használata"
 
 #: src/plugin_htmlbar/image_dialog.c:410
-#, fuzzy
 msgid "_Border:"
-msgstr "Sze_gély"
+msgstr "_Szegély:"
 
 #: src/plugin_htmlbar/image_dialog.c:713
 #, c-format
@@ -2185,6 +2142,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"\n"
+"%s"
 
 #: src/plugin_htmlbar/image_dialog.c:718
 #, c-format
@@ -2192,6 +2151,8 @@ msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
+"\n"
+"%d x %d pixel"
 
 #: src/plugin_htmlbar/image_dialog.c:816
 msgid ""
@@ -2200,99 +2161,87 @@ msgid ""
 "\t<b>Loading preview...</b>\t\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"\t<b>Előnézet betöltése...</b>\t\n"
+"\n"
 
 #: src/plugin_htmlbar/image_dialog.c:918
-#, fuzzy
 msgid "Select Image"
-msgstr "Válassz fájlt"
+msgstr "Válasszon képet"
 
 #: src/plugin_htmlbar/image_dialog.c:925
-#, fuzzy
 msgid "All images"
-msgstr "Minden fájl"
+msgstr "Minden kép"
 
 #: src/plugin_htmlbar/image_dialog.c:1136
 #: src/plugin_htmlbar/image_dialog.c:1237
-#, fuzzy
 msgid "Insert Image"
 msgstr "Kép beszúrása"
 
 #: src/plugin_htmlbar/quickstart.c:516
-#, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "<b>Általános</b>"
+msgstr "<b>_Külső stíluslap</b>"
 
 #: src/plugin_htmlbar/quickstart.c:527
-#, fuzzy
 msgid "Ty_pe:"
 msgstr "_Típus:"
 
 #: src/plugin_htmlbar/quickstart.c:545
-#, fuzzy
 msgid "HRE_F:"
-msgstr "_HREF"
+msgstr "_HREF:"
 
 #: src/plugin_htmlbar/quickstart.c:550
-#, fuzzy
 msgid "_Media:"
-msgstr "Media:"
+msgstr "_Media:"
 
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
 #.
 #: src/plugin_htmlbar/quickstart.c:562
-#, fuzzy
 msgid "<b>Style Area</b>"
-msgstr "<b>Általános</b>"
+msgstr "<b>Stílus terület</b>"
 
 #: src/plugin_htmlbar/quickstart.c:566
-#, fuzzy
 msgid "Cre_ate empty style area"
-msgstr "Üres projekt létrehozása"
+msgstr "Üres stílus terület létrehozása"
 
 #: src/plugin_htmlbar/quickstart.c:588
-#, fuzzy
 msgid "<b>Attributes</b>"
-msgstr "Attribútumok"
+msgstr "<b>Attribútumok</b>"
 
 #: src/plugin_htmlbar/quickstart.c:603
-#, fuzzy
 msgid "_Src:"
-msgstr "Forrá_s"
+msgstr "Forrá_s:"
 
 #. TODO: add an option to place content in the script area
 #: src/plugin_htmlbar/quickstart.c:610
-#, fuzzy
 msgid "<b>Script Area</b>"
-msgstr "<b>Általános</b>"
+msgstr "<b>Szkript terület</b>"
 
 #: src/plugin_htmlbar/quickstart.c:614
-#, fuzzy
 msgid "Cre_ate empty script area"
-msgstr "Üres projekt létrehozása"
+msgstr "Üres szkript terület létrehozása"
 
 #: src/plugin_htmlbar/quickstart.c:641
 msgid "Quick Start"
 msgstr "Gyors kezdés"
 
 #: src/plugin_htmlbar/quickstart.c:656
-#, fuzzy
 msgid "_DTD:"
-msgstr "_DTD használata"
+msgstr "_DTD:"
 
 #: src/plugin_htmlbar/quickstart.c:660 src/plugin_htmlbar/wizards.c:185
 msgid "_Title:"
-msgstr "_Cím"
+msgstr "_Cím:"
 
 #: src/plugin_htmlbar/quickstart.c:683
-#, fuzzy
 msgid "_Head:"
-msgstr "_Href:"
+msgstr "_Fejrész:"
 
 #: src/plugin_htmlbar/quickstart.c:700
-#, fuzzy
 msgid "Open in _new document."
-msgstr "A _dokumentumban"
+msgstr "Megnyitás új _dokumentumban."
 
 #: src/plugin_htmlbar/wizards.c:67
 msgid "Table Wizard"
@@ -2316,7 +2265,7 @@ msgstr "Keret varázsló"
 
 #: src/plugin_htmlbar/wizards.c:189
 msgid "Use _DTD:"
-msgstr "_DTD használata"
+msgstr "_DTD használata:"
 
 #: src/plugin_htmlbar/wizards.c:192
 msgid "Orientation:"
@@ -2349,2565 +2298,3 @@ msgstr "Forrás:"
 #: src/plugin_htmlbar/wizards.c:222
 msgid "Size:"
 msgstr "Méret:"
-
-#~ msgid "Insert image"
-#~ msgstr "Kép beszúrása"
-
-#~ msgid "/Tags/Tearoff1"
-#~ msgstr "/Címkék/tearoff1"
-
-#~ msgid "/Tags/Headings/Tearoff1"
-#~ msgstr "/Címkék/Címsorok/Tearoff1"
-
-#~ msgid "/Tags/Special/tearoff1"
-#~ msgstr "/Címkék/Speciális karakterek/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/tearoff1"
-#~ msgstr "/Címkék/Speciális karakterek/Ékezetes karakterek/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-#~ msgstr ""
-#~ "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/A-I/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-#~ msgstr ""
-#~ "/Címkék/Speciális karakterek/Ékezetes karakterek/Nagybetűk/J-Z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-#~ msgstr ""
-#~ "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/A-I/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-#~ msgstr ""
-#~ "/Címkék/Speciális karakterek/Ékezetes karakterek/Kisbetűk/J-Z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/separator"
-#~ msgstr "/Címkék/Speciális karakterek/Accent/Separator"
-
-#~ msgid "/Tags/Special/Currency/tearoff1"
-#~ msgstr "/Címkék/Speciális karakterek/Pénznemek/tearoff1"
-
-#~ msgid "/Tags/Special/Math-Science/tearoff1"
-#~ msgstr "/Címkék/Speciális karakterek/Matematikai jelek/tearoff1"
-
-#~ msgid "/Tags/Special/Non Latin/tearoff1"
-#~ msgstr "/Címkék/Speciális karakterek/Nem latin/tearoff1"
-
-#~ msgid "/Tags/Special/Other/tearoff1"
-#~ msgstr "/Címkék/Speciális karakterek/Egyéb/tearoff1"
-
-#~ msgid "/Tags/Format by layout/tearoff1"
-#~ msgstr "/Címkék/Megjelenés szerinti formázás/tearoff1"
-
-#~ msgid "/Tags/Format by context/tearoff1"
-#~ msgstr "/Címkék/Kontextusformázás/tearoff1"
-
-#~ msgid "/Tags/Format general/tearoff1"
-#~ msgstr "/Címkék/További formázások/tearoff1"
-
-#~ msgid "/Tags/Format general/<separator>"
-#~ msgstr "/Címkék/További formázások/<separator>"
-
-#~ msgid "/Tags/Table/tearoff1"
-#~ msgstr "/Címkék/Táblázat/tearoff1"
-
-#~ msgid "/Tags/List/tearoff1"
-#~ msgstr "/Címkék/Lista/tearoff1"
-
-#, fuzzy
-#~ msgid "/Tags/Form/tearoff1"
-#~ msgstr "/Párbeszéd/Űrlapok/tearoff1"
-
-#, fuzzy
-#~ msgid "/Tags/Misc/tearoff1"
-#~ msgstr "/Címkék/Lista/tearoff1"
-
-#~ msgid "/Dialogs/tearoff1"
-#~ msgstr "/Párbeszéd/tearoff1"
-
-#~ msgid "/Dialogs/General/tearoff1"
-#~ msgstr "/Párbeszéd/Általános/tearoff1"
-
-#~ msgid "/Dialogs/Table/tearoff1"
-#~ msgstr "/Párbeszéd/Táblázat/tearoff1"
-
-#~ msgid "/Dialogs/CSS/tearoff1"
-#~ msgstr "/Párbeszéd/Stíluslap/tearoff1"
-
-#~ msgid "/Dialogs/Frame/tearoff1"
-#~ msgstr "/Párbeszéd/Keretek/tearoff1"
-
-#~ msgid "/Dialogs/Form/tearoff1"
-#~ msgstr "/Párbeszéd/Űrlapok/tearoff1"
-
-#~ msgid "/Dialogs/sep1"
-#~ msgstr "/Párbeszéd/sep1"
-
-#~ msgid "_Email address:"
-#~ msgstr "_Email-cím:"
-
-#~ msgid "UrlEncoded _subject:"
-#~ msgstr "Url-kódolt _tárgy:"
-
-#~ msgid "UrlEncoded _body:"
-#~ msgstr "Url-kódolt tö_rzs:"
-
-#~ msgid "_Href:"
-#~ msgstr "_Href:"
-
-#~ msgid "Href_lang:"
-#~ msgstr "Href_lang:"
-
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "_Href:"
-
-#, fuzzy
-#~ msgid "/View/View _HTML Bar"
-#~ msgstr "/Megjelenítés/_HTML eszköztár"
-
-#~ msgid ""
-#~ "Bluefish is an editor for experienced web designers and programmers. It "
-#~ "supports many programming and markup languages, but focuses on editing "
-#~ "dynamic and interactive websites. Bluefish is an open source development "
-#~ "project, released under the GPL license.\n"
-#~ "\n"
-#~ "For more information, visit the Bluefish Website at http://bluefish."
-#~ "openoffice.nl/\n"
-#~ "\n"
-#~ "This version of bluefish was compiled with the following options:\n"
-#~ msgstr ""
-#~ "A Bluefish a haladó webfejlesztők és programozók editorprogramja. Sokféle "
-#~ "programozási- és leíró nyelvet támogat, de a dinamikus és interaktív "
-#~ "website-ok fejlesztésére fókuszál. A Bluefish nyílt forráskódú "
-#~ "fejlesztés, GPL licence-szel.\n"
-#~ "\n"
-#~ "További információkért látogasd meg a Bluefish weboldalait a http://"
-#~ "bluefish.openoffice.nl/ címen.\n"
-#~ "\n"
-#~ "A Bluefish ezen verziójának fordítási opciói az alábbiak voltak:\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Project leader:\n"
-#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "Developers for this release:\n"
-#~ "  Olivier Sessink\n"
-#~ "   <olivier@bluefish.openoffice.nl>\n"
-#~ "  Jim Hayward\n"
-#~ "   <jimhayward@linuxexperience.net>\n"
-#~ "  Oskar Świda\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "  Eugene Morenko(More)\n"
-#~ "   <more@irpin.com>\n"
-#~ "  Alastair Porter\n"
-#~ "   <alastair@linuxexperience.com>\n"
-#~ "\n"
-#~ "Developers for previous releases:\n"
-#~ "  Chris Mazuc\n"
-#~ "  Neil Millar\n"
-#~ "  Gero Takke\n"
-#~ "  Bo Forslund\n"
-#~ "  David Arno\n"
-#~ "  Pablo De Napoli\n"
-#~ "  Santiago Capel Torres\n"
-#~ "  Rasmus Toftdahl Olesen\n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "  Roland Steinbach\n"
-#~ "   <roland@netzblick.de>\n"
-#~ "  Christian Tellefsen\n"
-#~ "   <chris@tellefsen.net>\n"
-#~ "  Antti-Juhani Kaijanaho\n"
-#~ "\n"
-#~ "Documentation:\n"
-#~ "  Scott White\n"
-#~ "   <wwsw3@earthlink.net>\n"
-#~ "  Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "  Anita Lewis\n"
-#~ "   <ajreiki@highstream.net>\n"
-#~ "  Alastair Porter\n"
-#~ "   <alastair@linuxexperience.com>\n"
-#~ "  Daniel Blair\n"
-#~ "   <joecamel@realcoders.org>\n"
-#~ "  Olivier Sessink\n"
-#~ "   <olivier@bluefish.openoffice.nl>\n"
-#~ "  Denny Reeh\n"
-#~ "\n"
-#~ "Package Maintainers:\n"
-#~ "  Debian:   Davide Puricelli\n"
-#~ "   <evo@debian.org>\n"
-#~ "  Redhat:   Matthias Haase\n"
-#~ "   <matthias_haase@bennewitz.com>\n"
-#~ "  Mandrake: Todd Lyons\n"
-#~ "   <todd@mrball.net>\n"
-#~ "  Fink: Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "\n"
-#~ "If you know of anyone missing from this list, please let us know\n"
-#~ "<bluefish@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "Thanks to all who helped making this software available.\n"
-#~ msgstr ""
-#~ "A project vezetője:\n"
-#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "Ezen kiadás fejlesztői:\n"
-#~ "  Jim Hayward <jimhayward@linuxexperience.com>\n"
-#~ "  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
-#~ "  Christian Tellefsen <christian@tellefsen.net>\n"
-#~ "  Eugene Morenko(More) <more@irpin.com>\n"
-#~ "\n"
-#~ "Az előző kiadások fejlesztői:\n"
-#~ "  Chris Mazuc\n"
-#~ "  Neil Millar\n"
-#~ "  Gero Takke\n"
-#~ "  Bo Forslund\n"
-#~ "  David Arno\n"
-#~ "  Pablo De Napoli\n"
-#~ "  Santiago Capel Torres\n"
-#~ "  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
-#~ "  Roland Steinbach <roland@netzblick.de>\n"
-#~ "  Christian Tellefsen <chris@tellefsen.net>\n"
-#~ "  Antti-Juhani Kaijanaho\n"
-#~ "\n"
-#~ "Dokumentáció:\n"
-#~ "  Alastair Porter <alastair@linuxexperience.com>\n"
-#~ "  Daniel Blair <joecamel@realcoders.org>\n"
-#~ "  Denny Reeh\n"
-#~ "\n"
-#~ "Csomagkészítők:\n"
-#~ "  Debian:   Davide Puricelli <evo@debian.org>\n"
-#~ "  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
-#~ "  Mandrake: Todd Lyons <todd@mrball.net>\n"
-#~ "\n"
-#~ "Ha bárki hiányzik a fenti listáról, tudasd velünk:\n"
-#~ "<bluefish@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "Köszönet mindenkinek, aki segített a program létrehozásában.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Current translators:\n"
-#~ "\n"
-#~ "  Brazilian Portuguese: Anderson Rocha\n"
-#~ "   <anderson@maxlinux.com.br>\n"
-#~ "\n"
-#~ "  Bulgarian: Peio Popov\n"
-#~ "   <peio@peio.org>\n"
-#~ "\n"
-#~ "  Chinese: Ting Yang (Dormouse)\n"
-#~ "   <mouselinux@163.com>\n"
-#~ "\n"
-#~ "  Chinese, Traditional: OLS3\n"
-#~ "   <ols3@lxer.idv.tw>\n"
-#~ "\n"
-#~ "  Danish: Rasmus Toftdahl Olesen\n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "\n"
-#~ "  Finnish: Juho Roukala\n"
-#~ "   <j.mr@luukku.com>\n"
-#~ "\n"
-#~ "  French: Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "\n"
-#~ "  German: Roland Steinbach\n"
-#~ "   <roland@netzblick.de>\n"
-#~ "\n"
-#~ "  Hungarian: Péter Sáska\n"
-#~ "   <sasek@ccsystem.hu>\n"
-#~ "\n"
-#~ "  Italian: Stefano Canepa\n"
-#~ "   <sc@linux.it>\n"
-#~ "\n"
-#~ "  Japanese: Takeshi Hamasaki\n"
-#~ "   <hma@syd.odn.ne.jp>\n"
-#~ "\n"
-#~ "  Norwegian: Christian Tellefsen\n"
-#~ "   <chris@tellefsen.net>\n"
-#~ "\n"
-#~ "  Polish: Oskar Swida\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "\n"
-#~ "  Portuguese: Lopo Pizarro\n"
-#~ "   <lopopizarro@netcabo.pt>\n"
-#~ "\n"
-#~ "  Russian: Eugene Rupakov\n"
-#~ "   <rupakov@jet.msk.su>\n"
-#~ "\n"
-#~ "  Serbian: Marko Milenović\n"
-#~ "   <raven@sbb.co.yu>\n"
-#~ "\n"
-#~ "  Spanish: Walter Oscar Echarri\n"
-#~ "   <wecharri@arnet.com.ar>\n"
-#~ "\n"
-#~ "  Swedish: David Smeringe\n"
-#~ "   <david.smeringe@telia.com>\n"
-#~ "\n"
-#~ "  Tamil: Murugapandian Barathee\n"
-#~ "   <barathee@yahoo.com>\n"
-#~ "\n"
-#~ "  Turkish: Oğuz Eren\n"
-#~ "   <ogzeren@gmail.com>\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Fordítók jelenleg:\n"
-#~ "\n"
-#~ "  Brazíliai portugál - Anderson Rocha\n"
-#~ "   <anderson@maxlinux.com.br>\n"
-#~ "\n"
-#~ "  Dán - Rasmus Toftdahl Olesen\n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "\n"
-#~ "  Finn - Juho Roukala\n"
-#~ "   <j.mr@luukku.com>\n"
-#~ "\n"
-#~ "  Francia - Roméo Viu-Berges\n"
-#~ "   <apostledemencia@free.fr>\n"
-#~ "\n"
-#~ "  Kínai - Ting Yang (Dormouse)\n"
-#~ "   <mouselinux@163.com>\n"
-#~ "\n"
-#~ "  Lengyel - Oskar Swida\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "\n"
-#~ "  Magyar - Sáska Péter\n"
-#~ "   <sasek@ccsystem.hu>\n"
-#~ "\n"
-#~ "  Német - Roland Steinbach\n"
-#~ "   <roland@netzblick.de>\n"
-#~ "\n"
-#~ "  Olasz - Stefano Canepa\n"
-#~ "   <sc@linux.it>\n"
-#~ "\n"
-#~ "  Orosz - Eugene Rupakov\n"
-#~ "   <rupakov@jet.msk.su>\n"
-#~ "\n"
-#~ "  Portugál - Lopo Pizarro\n"
-#~ "   <lopopizarro@netcabo.pt>\n"
-#~ "\n"
-#~ "  Spanyol - Walter Oscar Echarri\n"
-#~ "   <wecharri@infovia.com.ar>\n"
-#~ "\n"
-#~ "  Svéd - David Smeringe\n"
-#~ "   <david.smeringe@telia.com>\n"
-#~ "\n"
-#~ "  Szerb - Marko Milenović\n"
-#~ "   <raven@sbb.co.yu>\n"
-#~ "\n"
-#~ "  Tamil - Murugapandian Barathee\n"
-#~ "   <barathee@yahoo.com>\n"
-#~ "\n"
-
-#~ msgid "About Bluefish"
-#~ msgstr "Infók a Bluefish-ről"
-
-#~ msgid "Info"
-#~ msgstr "Info"
-
-#~ msgid "Authors"
-#~ msgstr "Szerzők"
-
-#~ msgid "Translators"
-#~ msgstr "Fordítók"
-
-#~ msgid "Authentication required"
-#~ msgstr "Azonosítás szükséges"
-
-#, fuzzy
-#~ msgid "Authentication is required for %s."
-#~ msgstr ""
-#~ "Azonosítás szükséges (%s)\n"
-#~ "\n"
-#~ "Realm: %s"
-
-#~ msgid "Username:"
-#~ msgstr "Felhasználónév:"
-
-#~ msgid "Password:"
-#~ msgstr "Jelszó:"
-
-#~ msgid ""
-#~ "Bluefish has trouble reading the filenames. Try to set the environment "
-#~ "variable G_BROKEN_FILENAMES=1\n"
-#~ msgstr ""
-#~ "A Bluefish-nek problémái vannak a fájlnevek olvasásával. Próbáld "
-#~ "aG_BROKEN_FILENAMES=1 környezetiváltozó-beállítást\n"
-
-#~ msgid "Check Spelling"
-#~ msgstr "Helyesírás ellenőrzése"
-
-#~ msgid "Checking"
-#~ msgstr "Ellenőrzés"
-
-#~ msgid "_Misspelled word:"
-#~ msgstr "_Helytelenül írt szó:"
-
-#~ msgid "Change _to:"
-#~ msgstr "_Cserélje erre:"
-
-#~ msgid "I_gnore"
-#~ msgstr "F_igyelmen kívül hagy"
-
-#~ msgid "_Replace"
-#~ msgstr "Cse_réli"
-
-#~ msgid "I_n selection"
-#~ msgstr "K_ijelölésben"
-
-#~ msgid "personal dictionary"
-#~ msgstr "személyes szótár"
-
-#~ msgid "session dictionary"
-#~ msgstr "session szótár"
-
-#~ msgid "Dictionary:"
-#~ msgstr "Szótár:"
-
-#~ msgid "_Add"
-#~ msgstr "Hozzá_ad"
-
-#~ msgid "Language:"
-#~ msgstr "Nyelv:"
-
-#~ msgid "Set defa_ult"
-#~ msgstr "Alapértelme_zettként beállít"
-
-#~ msgid "Filter:"
-#~ msgstr "Szűrő:"
-
-#~ msgid "no filter"
-#~ msgstr "nincs szűrés"
-
-#~ msgid "html filter"
-#~ msgstr "html szűrő"
-
-#~ msgid ""
-#~ "\n"
-#~ "Usage: %s [options] [filenames ...]\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Használat: %s [opciók] [fájlnevek]\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Currently accepted options are:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Jelenleg felismert kapcsolók:\n"
-
-#~ msgid "-s           skip root check\n"
-#~ msgstr "-s           root ellenőrzés elhagyása\n"
-
-#~ msgid "-v           current version\n"
-#~ msgstr "-v           verziószám kiírása\n"
-
-#~ msgid "-n           open new window\n"
-#~ msgstr "-v           új ablak megnyitása\n"
-
-#~ msgid "-p filename  open project\n"
-#~ msgstr "-p fájlnév   projekt megnyitása\n"
-
-#~ msgid "-h           this help screen\n"
-#~ msgstr "-h           ennek a súgónak a megjelenítése\n"
-
-#~ msgid "parsing highlighting file..."
-#~ msgstr "szintaxiskiemelés-fájl értelmezése..."
-
-#~ msgid "compiling highlighting patterns..."
-#~ msgstr "kiemelési minták értelmezése..."
-
-#~ msgid "parsing custom menu file..."
-#~ msgstr "sajátmenü-fájl értelmezése..."
-
-#~ msgid "creating main gui..."
-#~ msgstr "grafikus felhasználói felület létrehozása..."
-
-#~ msgid "showing main gui..."
-#~ msgstr "grafikus felhasználói felület megjelenítése..."
-
-#~ msgid "Bluefish tip:"
-#~ msgstr "Bluefish tipp:"
-
-#~ msgid ""
-#~ "This message is shown since you do not have any items in the Quickbar.\n"
-#~ "\n"
-#~ "If you right-click a button in the HTML toolbars you can add buttons to "
-#~ "the Quickbar."
-#~ msgstr ""
-#~ "Ez az üzenet akkor látható, ha az Eszköztár üres.\n"
-#~ "\n"
-#~ "Az Eszköztárra úgy tehetsz gombogat, hogy a HTML eszköztáron lévő "
-#~ "bármelyikgombra kattintasz a jobb egérgombbal."
-
-#~ msgid "Temporary"
-#~ msgstr "Átmeneti"
-
-#, fuzzy
-#~ msgid "Do you really want to delete all bookmarks for %s?"
-#~ msgstr "Valóban eltávolítod %s-t?"
-
-#, fuzzy
-#~ msgid "Delete bookmarks?"
-#~ msgstr "Állandó könyvjelző törlése."
-
-#~ msgid "Do you really want to delete %s?"
-#~ msgstr "Valóban eltávolítod %s-t?"
-
-#~ msgid "Delete permanent bookmark."
-#~ msgstr "Állandó könyvjelző törlése."
-
-#~ msgid "Edit bookmark"
-#~ msgstr "Könyvjelző szerkesztése"
-
-#~ msgid "Goto bookmark"
-#~ msgstr "Ugrás könyvjelzőre"
-
-#~ msgid "Edit"
-#~ msgstr "Szerkesztés"
-
-#, fuzzy
-#~ msgid "Delete all in document"
-#~ msgstr "minden megnyitott dokumentumban"
-
-#, fuzzy
-#~ msgid "Delete all"
-#~ msgstr " Töröl "
-
-#, fuzzy
-#~ msgid "Error adding bookmark"
-#~ msgstr "Könyvjelző szerkesztése"
-
-#, fuzzy
-#~ msgid "Cannot add bookmarks to unsaved files."
-#~ msgstr "Névtelen fájlba nem tudok könyvjelzőt tenni."
-
-#, fuzzy
-#~ msgid "Can't add bookmark"
-#~ msgstr "Könyvjelző hozzáadása"
-
-#~ msgid "You already have a bookmark here!"
-#~ msgstr "Már van itt egy könyvjelző!"
-
-#, fuzzy
-#~ msgid "Delete all bookmarks."
-#~ msgstr "Állandó könyvjelző törlése."
-
-#, fuzzy
-#~ msgid "File size changed in file\n"
-#~ msgstr ""
-#~ "A karakterszám megváltozott a fájlban:\n"
-#~ " %s."
-
-#, fuzzy
-#~ msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
-#~ msgstr "A könyvjelző-pozíciók helytelenek lehetnek."
-
-#~ msgid "/Document/Highlight Syntax"
-#~ msgstr "/Dokumentum/Szintaxiskiemelés"
-
-#~ msgid "Name: "
-#~ msgstr "Név: "
-
-#~ msgid ""
-#~ "\n"
-#~ "Type: "
-#~ msgstr ""
-#~ "\n"
-#~ "Típus: "
-
-#~ msgid ""
-#~ "\n"
-#~ "Encoding: "
-#~ msgstr ""
-#~ "\n"
-#~ "Kódolás: "
-
-#~ msgid ""
-#~ "\n"
-#~ "Size (on disk): "
-#~ msgstr ""
-#~ "\n"
-#~ "Méret (a lemezen): "
-
-#~ msgid " bytes"
-#~ msgstr " bájt"
-
-#~ msgid ""
-#~ "\n"
-#~ "Permissions: "
-#~ msgstr ""
-#~ "\n"
-#~ "Jogosultságok: "
-
-#~ msgid ""
-#~ "\n"
-#~ "Last modified: "
-#~ msgstr ""
-#~ "\n"
-#~ "Utolsó módosítás: "
-
-#~ msgid "Untitled %d"
-#~ msgstr "Névtelen %d"
-
-#, fuzzy
-#~ msgid " Ln: %d, Col: %d"
-#~ msgstr " %d. sor, %d. oszlop"
-
-#~ msgid "  %s, %s"
-#~ msgstr "  %s, %s"
-
-#~ msgid "Cannot display file, unknown characters found."
-#~ msgstr ""
-#~ "A fájlt nem lehet megjeleníteni, ismeretlen karakter(eke)t tartalmaz."
-
-#~ msgid "Replace"
-#~ msgstr "Cserél"
-
-#~ msgid "Find"
-#~ msgstr "Keres"
-
-#, fuzzy
-#~ msgid "Delete bookmark"
-#~ msgstr "Állandó könyvjelző törlése."
-
-#~ msgid "Add bookmark"
-#~ msgstr "Könyvjelző hozzáadása"
-
-#~ msgid "_Abort save"
-#~ msgstr "Mentés _megszakítása"
-
-#~ msgid "_Continue save in UTF-8"
-#~ msgstr "Mentés _folytatása UTF-8 kódolással"
-
-#~ msgid ""
-#~ "Failed to convert %s to character encoding %s. Encoding failed on "
-#~ "character '%s' at line %d column %d\n"
-#~ "\n"
-#~ "Continue saving in UTF-8 encoding?"
-#~ msgstr ""
-#~ "Nem sikerült %s átkódolása %s karakterkészletre. A kódolás megszakadt a '%"
-#~ "s' karakternél a %d. sor %d. oszlopában\n"
-#~ "\n"
-#~ "Folytassam a mentést UTF-8 kódolással?"
-
-#~ msgid "File encoding conversion failure"
-#~ msgstr "Hiba a fájl átkódolása közben"
-
-#~ msgid "Previously: "
-#~ msgstr "Előzőleg: "
-
-#~ msgid "No filename"
-#~ msgstr "Nem adtál meg fájlnevet"
-
-#~ msgid "Unable to open file"
-#~ msgstr "Nem lehet megnyitni a fájlt"
-
-#~ msgid "_Reload"
-#~ msgstr "Új_ratölt"
-
-#~ msgid "_Ignore"
-#~ msgstr "F_igyelmen kívül hagy"
-
-#~ msgid ""
-#~ "Filename: %s\n"
-#~ "\n"
-#~ "New modification time is: %s\n"
-#~ "Old modification time is: %s"
-#~ msgstr ""
-#~ "Fájlnév: %s\n"
-#~ "\n"
-#~ "Új módosítás időpontja: %s\n"
-#~ "Előző módosítás időpontja: %s"
-
-#~ msgid "File has been modified by another process\n"
-#~ msgstr "A fájlt egy másik folyamat módosította\n"
-
-#, fuzzy
-#~ msgid "_Close"
-#~ msgstr "Bezárás"
-
-#, fuzzy
-#~ msgid "File "
-#~ msgstr "Fájl #"
-
-#~ msgid "Select file to insert"
-#~ msgstr "Válaszd ki a beillesztendő fájlt"
-
-#~ msgid "No file to insert"
-#~ msgstr "Nincs beilleszthető fájl"
-
-#~ msgid "Statistics: %d lines, %d words, %d characters"
-#~ msgstr "Statisztika: %d sor, %d szó, %d karakter"
-
-#, fuzzy
-#~ msgid "New directory"
-#~ msgstr "/Új _könyvtár"
-
-#, fuzzy
-#~ msgid "New file"
-#~ msgstr "/Ú_j fájl"
-
-#~ msgid "Could not rename\n"
-#~ msgstr "Nem sikerült a fájl átnevezése\n"
-
-#, fuzzy
-#~ msgid "Are you sure you want to delete \"%s\" ?"
-#~ msgstr ""
-#~ "Biztosan törlöd a\n"
-#~ "%s fájlt?"
-
-#, fuzzy
-#~ msgid "If you delete this file, it will be permanently lost."
-#~ msgstr "A fájl végérvényesen törlődik."
-
-#~ msgid "Could not delete \n"
-#~ msgstr "Nem sikerült a törlés\n"
-
-#~ msgid "/_Open"
-#~ msgstr "/_Megnyit"
-
-#, fuzzy
-#~ msgid "/Open _Advanced..."
-#~ msgstr "/Megnyitás _opciókkal..."
-
-#~ msgid "/Rena_me"
-#~ msgstr "/Át_nevez"
-
-#~ msgid "/_Delete"
-#~ msgstr "/_Töröl "
-
-#~ msgid "/New _File"
-#~ msgstr "/Ú_j fájl"
-
-#~ msgid "/_New Directory"
-#~ msgstr "/Új _könyvtár"
-
-#~ msgid "/_Refresh"
-#~ msgstr "/_Frissít"
-
-#, fuzzy
-#~ msgid "/Show Full _Tree"
-#~ msgstr "Teljes könyvtárfát mutat"
-
-#~ msgid "/_Set as basedir"
-#~ msgstr "/_Alapkönyvtárként kijelöl"
-
-#, fuzzy
-#~ msgid "/Follow active document"
-#~ msgstr "/Ugrás/U_tolsó dokumentum"
-
-#, fuzzy
-#~ msgid "/Show hidden files"
-#~ msgstr "Rejtett fájlok mutatása"
-
-#, fuzzy
-#~ msgid "/Show backup files"
-#~ msgstr "Backup fájlok mutatása"
-
-#~ msgid "Filter"
-#~ msgstr "Szűrő"
-
-#~ msgid "Error creating path"
-#~ msgstr "Nem sikerült az útvonal létrehozása."
-
-#~ msgid "File name"
-#~ msgstr "Fájlnév"
-
-#~ msgid "Directory name"
-#~ msgstr "Könyvtárnév"
-
-#~ msgid "Opening directory..."
-#~ msgstr "Könyvtár megnyitása..."
-
-#~ msgid "Show hidden files"
-#~ msgstr "Rejtett fájlok mutatása"
-
-#~ msgid "Show backup files"
-#~ msgstr "Backup fájlok mutatása"
-
-#~ msgid "Show full tree"
-#~ msgstr "Teljes könyvtárfát mutat"
-
-#~ msgid "_Skip"
-#~ msgstr "_Kihagyja"
-
-#~ msgid "_Overwrite"
-#~ msgstr "_Felülír"
-
-#, fuzzy
-#~ msgid "%s already exists, overwrite?"
-#~ msgstr "%s létezik és nyitva van, felülírjuk?"
-
-#, fuzzy
-#~ msgid "Overwrite file?"
-#~ msgstr "_Felülír"
-
-#~ msgid "Select basedir"
-#~ msgstr "Alapkönyvtár választása"
-
-#~ msgid "Advanced open file selector"
-#~ msgstr "Megnyitás opciókkal"
-
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>Általános</b>"
-
-#~ msgid "Base_dir:"
-#~ msgstr "Alapkönyvtár"
-
-#~ msgid "_Browse..."
-#~ msgstr "_Tallóz..."
-
-#, fuzzy
-#~ msgid "_Pattern:"
-#~ msgstr "_Minta:"
-
-#~ msgid "_Recursive:"
-#~ msgstr "_Rekurzív:"
-
-#~ msgid "<b>Contains</b>"
-#~ msgstr "<b>Tartalmaz</b>"
-
-#~ msgid "Pa_ttern:"
-#~ msgstr "_Minta:"
-
-#~ msgid "Is rege_x:"
-#~ msgstr "Rege_x-e:"
-
-#~ msgid "Select files"
-#~ msgstr "Válaszd ki a fájlokat"
-
-#~ msgid "Open URL"
-#~ msgstr "URL megnyitása"
-
-#, fuzzy
-#~ msgid "<b>Open URL</b>"
-#~ msgstr "URL megnyitása"
-
-#~ msgid "_Continue save"
-#~ msgstr "Mentés _folytatása"
-
-#~ msgid ""
-#~ "A backupfile for %s could not be created. If you continue, this file will "
-#~ "be overwritten."
-#~ msgstr ""
-#~ "Nem sikerült a %s fájl backupjának elkészítése. Ha folytatod, a "
-#~ "fájlfelülíródik."
-
-#~ msgid "File backup failure"
-#~ msgstr "Sikertelen backup"
-
-#, fuzzy
-#~ msgid ""
-#~ "Could not save file:\n"
-#~ "\""
-#~ msgstr ""
-#~ "A fájl nem írható:\n"
-#~ "\""
-
-#, fuzzy
-#~ msgid "File save failed!\n"
-#~ msgstr "Mentés megszakítva.\n"
-
-#, fuzzy
-#~ msgid "File %s is modified on disk, overwrite?"
-#~ msgstr "%s létezik és nyitva van, felülírjuk?"
-
-#, fuzzy
-#~ msgid "Failed to check if %s is modified on disk"
-#~ msgstr "Fájl módosulásának figyelése "
-
-#, fuzzy
-#~ msgid "File modified on disk"
-#~ msgstr "Fájl módosulásának figyelése "
-
-#, fuzzy
-#~ msgid "Move/rename %s to"
-#~ msgstr "Dokumentum áthelyezése/átnevezése"
-
-#, fuzzy
-#~ msgid "Save %s as"
-#~ msgstr "Mentés másként..."
-
-#~ msgid "_Cancel"
-#~ msgstr "_Mégsem"
-
-#~ msgid "File %s exists and is opened, overwrite?"
-#~ msgstr "%s létezik és nyitva van, felülírjuk?"
-
-#~ msgid "The file you have selected is being edited in Bluefish."
-#~ msgstr "A kiválasztott fájlt a Bluefish szerkesztésre megnyitotta."
-
-#~ msgid "A file named \"%s\" already exists."
-#~ msgstr "A \"%s\" nevű fájl már létezik."
-
-#~ msgid "Do you want to replace the existing file?"
-#~ msgstr "Biztosan cseréled a létező fájlt?"
-
-#, fuzzy
-#~ msgid ""
-#~ "File:\n"
-#~ "\""
-#~ msgstr "Szűrő:"
-
-#~ msgid "Do_n't save"
-#~ msgstr "Mentés megszakítása"
-
-#~ msgid "Choose per _File"
-#~ msgstr "Választás _fájlonként"
-
-#~ msgid "Close _All"
-#~ msgstr "Mindet _bezárja"
-
-#~ msgid "_Save All"
-#~ msgstr "Mindet m_enti"
-
-#~ msgid "Multiple open files have been changed."
-#~ msgstr "A megnyitott fájl(ok) módosult(ak)"
-
-#, fuzzy
-#~ msgid "Cannot load reference file %s\n"
-#~ msgstr "Referencia-fájlok újraolvasása"
-
-#, fuzzy
-#~ msgid "Bad root element in reference file"
-#~ msgstr "Referencia-fájlok újraolvasása"
-
-#, fuzzy
-#~ msgid "Bad reference"
-#~ msgstr "Tulajdonságok szerkesztése"
-
-#, fuzzy
-#~ msgid "Loading reference"
-#~ msgstr "Tulajdonságok szerkesztése"
-
-#, fuzzy
-#~ msgid "Unloading reference"
-#~ msgstr "Függvényreferencia"
-
-#, fuzzy
-#~ msgid "Identifier"
-#~ msgstr "Középre"
-
-#, fuzzy
-#~ msgid "Kind"
-#~ msgstr "Keres"
-
-#~ msgid "Name"
-#~ msgstr "Név"
-
-#, fuzzy
-#~ msgid "Type"
-#~ msgstr "_Típus:"
-
-#, fuzzy
-#~ msgid "Default value"
-#~ msgstr "Alapértelmezett alapkönyvtár"
-
-#, fuzzy
-#~ msgid "Input type"
-#~ msgstr "Info típus"
-
-#~ msgid "Description"
-#~ msgstr "Leírás"
-
-#, fuzzy
-#~ msgid "Values"
-#~ msgstr "Érték"
-
-#, fuzzy
-#~ msgid "Insert syntax"
-#~ msgstr "Kép beszúrása"
-
-#, fuzzy
-#~ msgid "Insert text"
-#~ msgstr "Idő beszúrása"
-
-#, fuzzy
-#~ msgid "Help"
-#~ msgstr "/_Segítség"
-
-#, fuzzy
-#~ msgid "Properties"
-#~ msgstr "Tulajdonság"
-
-#, fuzzy
-#~ msgid "Add property"
-#~ msgstr "Tulajdonság"
-
-#, fuzzy
-#~ msgid "Add definition ref"
-#~ msgstr "Fogalom"
-
-#, fuzzy
-#~ msgid "Select font for reference view"
-#~ msgstr "Referencia-fájlok újraolvasása"
-
-#, fuzzy
-#~ msgid "Set reference colors"
-#~ msgstr "Tulajdonságok szerkesztése"
-
-#~ msgid "Attributes/Parameters"
-#~ msgstr "Attribútumok/Paraméterek"
-
-#~ msgid "Notes"
-#~ msgstr "Megjegyzés"
-
-#, fuzzy
-#~ msgid "Examples"
-#~ msgstr "Minta"
-
-#, fuzzy
-#~ msgid "Links"
-#~ msgstr "Link"
-
-#~ msgid "Error"
-#~ msgstr "Hiba"
-
-#, fuzzy
-#~ msgid ""
-#~ "Perhaps you didn't load a library, or you did not select a library to "
-#~ "search in."
-#~ msgstr ""
-#~ "Lehet, hogy nem töltöttél be referenciát, vagy nem adtad meg, melyikben "
-#~ "kell keresni."
-
-#, fuzzy
-#~ msgid "Element %s not found"
-#~ msgstr "A referencia nem található"
-
-#, fuzzy
-#~ msgid "Element search"
-#~ msgstr "Referencia keresése"
-
-#, fuzzy
-#~ msgid "New library"
-#~ msgstr "/Új _könyvtár"
-
-#, fuzzy
-#~ msgid "Library name"
-#~ msgstr "Könyvtárnév"
-
-#, fuzzy
-#~ msgid "Delete library?"
-#~ msgstr "Állandó könyvjelző törlése."
-
-#, fuzzy
-#~ msgid "Reference not loaded."
-#~ msgstr "A referencia nem található"
-
-#, fuzzy
-#~ msgid "New note"
-#~ msgstr "Új projekt"
-
-#, fuzzy
-#~ msgid "Title"
-#~ msgstr "_Cím"
-
-#, fuzzy
-#~ msgid "Text"
-#~ msgstr "Szövegmező"
-
-#, fuzzy
-#~ msgid "New group"
-#~ msgstr "Új projekt"
-
-#, fuzzy
-#~ msgid "New description def"
-#~ msgstr "Leírás"
-
-#, fuzzy
-#~ msgid "Description text"
-#~ msgstr "Leírás"
-
-#, fuzzy
-#~ msgid "New values def"
-#~ msgstr "Új Bluefish ablak"
-
-#, fuzzy
-#~ msgid "Definitions"
-#~ msgstr "Meghatározás"
-
-#, fuzzy
-#~ msgid "New property"
-#~ msgstr "Új projekt"
-
-#, fuzzy
-#~ msgid "No name"
-#~ msgstr "Nem adtál meg fájlnevet"
-
-#, fuzzy
-#~ msgid "Delete definition?"
-#~ msgstr "Meghatározás"
-
-#, fuzzy
-#~ msgid "Delete group"
-#~ msgstr " Töröl "
-
-#, fuzzy
-#~ msgid "Delete group?"
-#~ msgstr " Töröl "
-
-#, fuzzy
-#~ msgid "Do you really want to delete current entity?"
-#~ msgstr "Valóban eltávolítod %s-t?"
-
-#~ msgid "Show info window"
-#~ msgstr "Info ablak mutatása"
-
-#~ msgid "Rescan reference files"
-#~ msgstr "Referencia-fájlok újraolvasása"
-
-#, fuzzy
-#~ msgid "Set view font"
-#~ msgstr "Betűtípus kiválasztása"
-
-#, fuzzy
-#~ msgid "Delete library"
-#~ msgstr "Állandó könyvjelző törlése."
-
-#, fuzzy
-#~ msgid "Note"
-#~ msgstr "Megjegyzés"
-
-#, fuzzy
-#~ msgid "Property definition"
-#~ msgstr "Meghatározás"
-
-#, fuzzy
-#~ msgid "Description definition"
-#~ msgstr "Leírás"
-
-#, fuzzy
-#~ msgid "Values definition"
-#~ msgstr "Meghatározás"
-
-#, fuzzy
-#~ msgid "Element"
-#~ msgstr "Események"
-
-#, fuzzy
-#~ msgid "Delete definition"
-#~ msgstr "Meghatározás"
-
-#, fuzzy
-#~ msgid "Delete entity"
-#~ msgstr "Menüpont törlése"
-
-#~ msgid "Close"
-#~ msgstr "Bezárás"
-
-#~ msgid "Dialog"
-#~ msgstr "Párbeszéd"
-
-#~ msgid "Left doubleclick action"
-#~ msgstr "Dupla kattintásra"
-
-#~ msgid "Info type"
-#~ msgstr "Info típus"
-
-#~ msgid "Reference search"
-#~ msgstr "Referencia keresése"
-
-#~ msgid "Reference not found"
-#~ msgstr "A referencia nem található"
-
-#~ msgid ""
-#~ "Perhaps you didn't load a reference, or you did not select a reference to "
-#~ "search in."
-#~ msgstr ""
-#~ "Lehet, hogy nem töltöttél be referenciát, vagy nem adtad meg, melyikben "
-#~ "kell keresni."
-
-#~ msgid "Search"
-#~ msgstr "Keres"
-
-#~ msgid "%d of %d"
-#~ msgstr "%d of %d"
-
-#, fuzzy
-#~ msgid "Show hidden"
-#~ msgstr "Rejtett fájlok mutatása"
-
-#~ msgid "Filebrowser"
-#~ msgstr "Fájlböngésző"
-
-#~ msgid "Function reference"
-#~ msgstr "Függvényreferencia"
-
-#~ msgid "Bookmarks"
-#~ msgstr "Könyvjelzők"
-
-#~ msgid "New"
-#~ msgstr "Új"
-
-#, fuzzy
-#~ msgid "Open..."
-#~ msgstr "Megnyitás..."
-
-#~ msgid "Save"
-#~ msgstr "Mentés"
-
-#~ msgid "Save As..."
-#~ msgstr "Mentés másként..."
-
-#~ msgid "Cut"
-#~ msgstr "Kivágás"
-
-#~ msgid "Paste"
-#~ msgstr "Beillesztés"
-
-#, fuzzy
-#~ msgid "Find..."
-#~ msgstr "Keres"
-
-#, fuzzy
-#~ msgid "Replace..."
-#~ msgstr "Cserél"
-
-#~ msgid "Undo"
-#~ msgstr "Visszavon"
-
-#~ msgid "Redo"
-#~ msgstr "Ismétel"
-
-#~ msgid "Shift Left"
-#~ msgstr "Balra tol"
-
-#~ msgid "Shift Right"
-#~ msgstr "Jobbra tol"
-
-#~ msgid "Spellcheck..."
-#~ msgstr "Helyesírás-ellenőrzés..."
-
-#~ msgid "View in browser"
-#~ msgstr "Megtekintés böngészőben"
-
-#~ msgid "Preferences..."
-#~ msgstr "Tulajdonságok..."
-
-#~ msgid "New Bluefish Window"
-#~ msgstr "Új Bluefish ablak"
-
-#~ msgid "Stand by..."
-#~ msgstr "Stand by..."
-
-#~ msgid "Goto line"
-#~ msgstr "Ugrás sorra"
-
-#~ msgid "_Line number:"
-#~ msgstr "_Sor száma: "
-
-#~ msgid "From _selection"
-#~ msgstr "_Kijelölésből"
-
-#~ msgid "Keep _dialog"
-#~ msgstr "_Párbeszédablak maradjon nyitva"
-
-#~ msgid "starting bluefish"
-#~ msgstr "bluefish indítása"
-
-#, fuzzy
-#~ msgid "Syntax highlighting error for "
-#~ msgstr "Szintaxiskiemelés"
-
-#~ msgid "/_File"
-#~ msgstr "/_Fájl"
-
-#~ msgid "/File/tearoff1"
-#~ msgstr "/Fájl/tearoff1"
-
-#~ msgid "/File/_New"
-#~ msgstr "/Fájl/Ú_j"
-
-#~ msgid "/File/New _Window"
-#~ msgstr "/Fájl/Új ablak"
-
-#~ msgid "/File/_Open..."
-#~ msgstr "/Fájl/_Megnyitás"
-
-#, fuzzy
-#~ msgid "/File/Open _recent"
-#~ msgstr "/Fájl/Utóbbi megnyitása"
-
-#~ msgid "/File/Open recent/tearoff1"
-#~ msgstr "/Fájl/Utóbbi megnyitása/tearoff1"
-
-#~ msgid "/File/Open Ad_vanced..."
-#~ msgstr "/Fájl/Megnyitás _opciókkal..."
-
-#~ msgid "/File/Open _URL..."
-#~ msgstr "/Fájl/U_RL megnyitása..."
-
-#~ msgid "/File/Open _from selection"
-#~ msgstr "/Fájl/Kijelölés megnyitása"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/Fájl/sep1"
-
-#~ msgid "/File/_Save"
-#~ msgstr "/Fájl/M_entés"
-
-#~ msgid "/File/Save _As..."
-#~ msgstr "/Fájl/Mentés má_sként..."
-
-#~ msgid "/File/Sav_e All"
-#~ msgstr "/Fájl/Ment mi_ndent"
-
-#, fuzzy
-#~ msgid "/File/Rever_t to Saved"
-#~ msgstr "/Fájl/Visszatérés a mentett verzióhoz"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/Fájl/sep2"
-
-#~ msgid "/File/_Insert..."
-#~ msgstr "/Fájl/Fájl beszúrása..."
-
-#~ msgid "/File/Rena_me..."
-#~ msgstr "/Fájl/Átnevezés"
-
-#~ msgid "/File/sep3"
-#~ msgstr "/Fájl/sep3"
-
-#~ msgid "/File/_Close"
-#~ msgstr "/Fájl/Be_zár"
-
-#~ msgid "/File/Close A_ll"
-#~ msgstr "/Fájl/M_indent bezár"
-
-#~ msgid "/File/Close Win_dow"
-#~ msgstr "/Fájl/Ablak bezárása"
-
-#~ msgid "/File/sep4"
-#~ msgstr "/Fájl/sep4"
-
-#~ msgid "/File/_Quit"
-#~ msgstr "/Fájl/_Kilépés"
-
-#, fuzzy
-#~ msgid "/File/sep5"
-#~ msgstr "/Fájl/sep1"
-
-#~ msgid "/_Edit"
-#~ msgstr "/S_zerkesztés"
-
-#~ msgid "/Edit/Tearoff1"
-#~ msgstr "/Szerkesztés/Tearoff1"
-
-#~ msgid "/Edit/_Undo"
-#~ msgstr "/Szerkesztés/_Visszavon"
-
-#~ msgid "/Edit/_Redo"
-#~ msgstr "/Szerkesztés/Ú_jból"
-
-#~ msgid "/Edit/Undo All"
-#~ msgstr "/Szerkesztés/Mindent visszavon"
-
-#~ msgid "/Edit/Redo All"
-#~ msgstr "/Szerkesztés/Mindent újból"
-
-#~ msgid "/Edit/sep1"
-#~ msgstr "/Szerkesztés/sep1"
-
-#~ msgid "/Edit/Cu_t"
-#~ msgstr "/Szerkesztés/_Kivág"
-
-#~ msgid "/Edit/_Copy"
-#~ msgstr "/Szerkesztés/_Másol"
-
-#~ msgid "/Edit/_Paste"
-#~ msgstr "/Szerkesztés/_Beilleszt"
-
-#~ msgid "/Edit/sep2"
-#~ msgstr "/Szerkesztés/sep2"
-
-#~ msgid "/Edit/Select _All"
-#~ msgstr "/Szerkesztés/Min_dent kijelöl"
-
-#~ msgid "/Edit/sep3"
-#~ msgstr "/Szerkesztés/sep3"
-
-#~ msgid "/Edit/_Find..."
-#~ msgstr "/Szerkesztés/Ke_resés..."
-
-#~ msgid "/Edit/Find A_gain"
-#~ msgstr "/Szerkesztés/Tovább keres"
-
-#~ msgid "/Edit/Find from selection"
-#~ msgstr "/Fájl/Kijelölés keresése"
-
-#~ msgid "/Edit/R_eplace..."
-#~ msgstr "/Szerkesztés/C_sere..."
-
-#~ msgid "/Edit/Replace Agai_n"
-#~ msgstr "/Szerkesztés/Tovább cserél"
-
-#~ msgid "/Edit/Replace special"
-#~ msgstr "/Szerkesztés/Irányított csere"
-
-#~ msgid "/Tools/Tearoff1"
-#~ msgstr "/Szerkesztés/Irányított csere/Tearoff1"
-
-#~ msgid "/Tools/_ASCII to HTML Entities"
-#~ msgstr "/Szerkesztés/Irányított csere/_ascii-t HTML-re"
-
-#~ msgid "/Tools/_ISO8859 to HTML Entities"
-#~ msgstr "/Szerkesztés/Irányított csere/_ISO-8859-1-et HTML-re"
-
-#~ msgid "/Tools/_Both Types to HTML Entities"
-#~ msgstr "/Szerkesztés/Irányított csere/_mindkét típust HTML-re"
-
-#~ msgid "/Tools/To _Uppercase"
-#~ msgstr "/Szerkesztés/Irányított csere/Nagybetűsre"
-
-#~ msgid "/Tools/To _Lowercase"
-#~ msgstr "/Szerkesztés/Irányított csere/Kisbetűsre"
-
-#~ msgid "/Edit/sep4"
-#~ msgstr "/Szerkesztés/sep4"
-
-#, fuzzy
-#~ msgid "/Edit/S_hift Right"
-#~ msgstr "/Szerkesztés/J_obbra tol"
-
-#, fuzzy
-#~ msgid "/Edit/Shift _Left"
-#~ msgstr "/Szerkesztés/B_alra tol"
-
-#~ msgid "/Edit/sep5"
-#~ msgstr "/Szerkesztés/sep5"
-
-#~ msgid "/Document/Add _Bookmark"
-#~ msgstr "/Kö_nyvjelző hozzáadása"
-
-#~ msgid "/Edit/sep6"
-#~ msgstr "/Szerkesztés/sep1"
-
-#, fuzzy
-#~ msgid "/Edit/Save Sett_ings"
-#~ msgstr "/Szerkesztés/Beállítások m_entése"
-
-#~ msgid "/Edit/Save Shortcut _Keys"
-#~ msgstr "/Szerkesztés/_Gyorsbillentyű-beállítások mentése"
-
-#, fuzzy
-#~ msgid "/Edit/Preference_s"
-#~ msgstr "/Szerkesztés/Beá_llítások"
-
-#~ msgid "/_View"
-#~ msgstr "/_Megjelenítés"
-
-#~ msgid "/View/tearoff1"
-#~ msgstr "/Fájl/tearoff1"
-
-#~ msgid "/View/View _Main Toolbar"
-#~ msgstr "/Megjelenítés/_Fő eszköztár"
-
-#~ msgid "/View/View _Custom Menu"
-#~ msgstr "/Megjelenítés/_Saját menü"
-
-#, fuzzy
-#~ msgid "/View/View _Sidebar"
-#~ msgstr "/Megjelenítés/_Fő eszköztár"
-
-#~ msgid "/_Document"
-#~ msgstr "_Dokumentum"
-
-#~ msgid "/Document/tearoff1"
-#~ msgstr "/Dokumentum/tearoff1"
-
-#~ msgid "/Document/_Increase Tabsize"
-#~ msgstr "/Dokumentum/Tabulátorméretet _növel"
-
-#~ msgid "/Document/_Decrease Tabsize"
-#~ msgstr "/Dokumentum/Tabulátorméretet _csökkent"
-
-#~ msgid "/Document/_Auto Indent"
-#~ msgstr "/Dokumentum/_Automatikus behúzás"
-
-#~ msgid "/Document/sep1"
-#~ msgstr "/Dokumentum/sep1"
-
-#~ msgid "/Document/Auto Close H_TML tags"
-#~ msgstr "/Dokumentum/HTML címkék automatikus bezárása"
-
-#~ msgid "/Document/_Wrap"
-#~ msgstr "/Dokumentum/Tö_rdelés"
-
-#~ msgid "/Document/_Line Numbers"
-#~ msgstr "/Dokumentum/_Sorok számozása"
-
-#~ msgid "/Document/sep2"
-#~ msgstr "/Dokumentum/sep2"
-
-#~ msgid "/Document/_Highlight Syntax"
-#~ msgstr "/Dokumentum/S_zintaxiskiemelés"
-
-#~ msgid "/Document/_Update Highlighting"
-#~ msgstr "/Dokumentum/Szintaxiskiemelés _frissítése"
-
-#~ msgid "/Document/sep3"
-#~ msgstr "/Dokumentum/sep3"
-
-#~ msgid "/Document/Document Ty_pe"
-#~ msgstr "/Dokumentum/Dokumentumtípus"
-
-#~ msgid "/Document/Document Type/tearoff1"
-#~ msgstr "/Dokumentum/Dokumentumtípus/tearoff1"
-
-#~ msgid "/Document/Character _Encoding"
-#~ msgstr "/Dokumentum/_Karakterkészlet"
-
-#~ msgid "/Document/Character Encoding/tearoff1"
-#~ msgstr "/Dokumentum/Karakterkészlet/tearoff1"
-
-#~ msgid "/Document/sep4"
-#~ msgstr "/Dokumentum/sep4"
-
-#~ msgid "/Document/Check _Spelling..."
-#~ msgstr "/Dokumentum/_Helyesírás ellenőrzése"
-
-#~ msgid "/Document/_Floating window"
-#~ msgstr "/Dokumentum/_Lebegő ablak"
-
-#~ msgid "/Document/Word _Count"
-#~ msgstr "/Dokumentum/Sz_avak száma"
-
-#, fuzzy
-#~ msgid "/Document/sep5"
-#~ msgstr "/Dokumentum/sep1"
-
-#, fuzzy
-#~ msgid "/Document/Move left"
-#~ msgstr "/Dokumentum/Automatikus behúzás"
-
-#, fuzzy
-#~ msgid "/Document/Move right"
-#~ msgstr "/Dokumentum/sep1"
-
-#~ msgid "/_Go"
-#~ msgstr "/_Ugrás"
-
-#~ msgid "/Go/tearoff1"
-#~ msgstr "/Ugrás/tearoff1"
-
-#~ msgid "/Go/_Previous document"
-#~ msgstr "/Ugrás/_Előző dokumentum"
-
-#~ msgid "/Go/_Next document"
-#~ msgstr "/Ugrás/_Következő dokumentum"
-
-#~ msgid "/Go/sep1"
-#~ msgstr "/Ugrás/sep1"
-
-#~ msgid "/Go/_First document"
-#~ msgstr "/Ugrás/E_lső dokumentum"
-
-#~ msgid "/Go/L_ast document"
-#~ msgstr "/Ugrás/U_tolsó dokumentum"
-
-#~ msgid "/Go/Goto _Line"
-#~ msgstr "/Ugrás/_Ugrás sorra"
-
-#~ msgid "/Go/Goto _Selection"
-#~ msgstr "/Ugrás/Ugrás kijelölésre"
-
-#~ msgid "/_Project"
-#~ msgstr "/P_rojekt"
-
-#~ msgid "/Project/tearoff1"
-#~ msgstr "/Projekt/tearoff1"
-
-#~ msgid "/Project/_New Project"
-#~ msgstr "/Projekt/Ú_j projekt"
-
-#~ msgid "/Project/_Open Project..."
-#~ msgstr "/Projekt/Projekt _megnyitása"
-
-#, fuzzy
-#~ msgid "/Project/Open _recent"
-#~ msgstr "/Projekt/Utóbbi megnyitása"
-
-#~ msgid "/Project/Open recent/tearoff1"
-#~ msgstr "/Projekt/Utóbbi megnyitása/tearoff1"
-
-#~ msgid "/Project/sep1"
-#~ msgstr "/Projekt/sep1"
-
-#~ msgid "/Project/_Save"
-#~ msgstr "/Projekt/M_entés"
-
-#~ msgid "/Project/Save _as..."
-#~ msgstr "/Projekt/Mentés má_sként"
-
-#~ msgid "/Project/Save & _close"
-#~ msgstr "/Projekt/Mentés és bezárás"
-
-#~ msgid "/Project/sep2"
-#~ msgstr "/Projekt/sep2"
-
-#~ msgid "/Project/E_dit Project Options..."
-#~ msgstr "/Projekt/Projekt _tulajdonságainak szerkesztése"
-
-#~ msgid "/E_xternal"
-#~ msgstr "/_Külső"
-
-#~ msgid "/External/tearoff1"
-#~ msgstr "/Külső/tearoff1"
-
-#~ msgid "/_Help"
-#~ msgstr "/_Segítség"
-
-#~ msgid "/Help/_About..."
-#~ msgstr "/Segítség/A _Bluefish-ről"
-
-#~ msgid "/Document/Document Type"
-#~ msgstr "/Dokumentum/Dokumentumtípus"
-
-#~ msgid "/Project/Open recent"
-#~ msgstr "/Projekt/Utóbbi megnyitása"
-
-#~ msgid "/File/Open recent"
-#~ msgstr "/Fájl/Utóbbi megnyitása"
-
-#~ msgid "/Windows"
-#~ msgstr "/Ablakok"
-
-#, fuzzy
-#~ msgid "Could not view file in browser."
-#~ msgstr "A(z) \"%s\" fájl nem található."
-
-#, fuzzy
-#~ msgid "File has not been saved\n"
-#~ msgstr "A fájl mentése nem sikerült."
-
-#~ msgid "/External/Outputbox/"
-#~ msgstr "/Külső/Kimenetablak/"
-
-#~ msgid "/External/Commands/"
-#~ msgstr "/Külső/Szűrők/"
-
-#~ msgid "/External/Browsers/"
-#~ msgstr "/Külső/Böngészők/"
-
-#~ msgid "/External"
-#~ msgstr "/_Külső"
-
-#~ msgid "/External/Browsers"
-#~ msgstr "/Külső/Böngészők"
-
-#~ msgid "/External/Commands"
-#~ msgstr "/Külső/Szűrők"
-
-#~ msgid "/External/Outputbox"
-#~ msgstr "/Külső/Kimenetablak"
-
-#~ msgid "/Document/Character Encoding"
-#~ msgstr "/Dokumentum/Karakterkészlet"
-
-#~ msgid "This custom search and replace requires a selection"
-#~ msgstr "A keresés/csere végrehajtásához kijelölés szükséges"
-
-#~ msgid "/_Custom menu"
-#~ msgstr "/_Saját menü"
-
-#~ msgid "/Custom menu/sep"
-#~ msgstr "/Saját menü/sep"
-
-#~ msgid "/Custom menu/Edit custom menu..."
-#~ msgstr "/Saját menü/Saját menü szerkesztése..."
-
-#, fuzzy
-#~ msgid "/Custom menu/Reset"
-#~ msgstr "/Saját menü/sep"
-
-#, fuzzy
-#~ msgid "/Custom menu/Load new"
-#~ msgstr "/Saját menü/sep"
-
-#~ msgid "Search Pattern"
-#~ msgstr "Keresési minta"
-
-#~ msgid "Replace String"
-#~ msgstr "Mire cserélje"
-
-#~ msgid "Formatstring Before"
-#~ msgstr "Formázószöveg előtte"
-
-#~ msgid "Formatstring After"
-#~ msgstr "Formázószöveg utána"
-
-#~ msgid "The menupath you want to update does not exist yet"
-#~ msgstr "A frissítendő menüpont nem létezik"
-
-#~ msgid "Try 'add' instead."
-#~ msgstr "Használd a 'hozzáadás'-t helyette."
-
-#~ msgid "The menupath you want to add already exists."
-#~ msgstr "A hozzáadandó menüpont már létezik"
-
-#~ msgid "The menupath should start with a / character"
-#~ msgstr "A menü útvonalának / karakterrel kell kezdődni"
-
-#~ msgid "Custom Menu Editor"
-#~ msgstr "Sajátmenü-szerkesztő"
-
-#~ msgid "Add New Menu Entry"
-#~ msgstr "Új menüpont hozzáadása"
-
-#~ msgid "Apply Changes"
-#~ msgstr "Alkalmaz"
-
-#~ msgid "Delete Menu Entry"
-#~ msgstr "Menüpont törlése"
-
-#~ msgid "Close Discards Changes"
-#~ msgstr "Elvet, bezár"
-
-#~ msgid "Save Changes and Exit"
-#~ msgstr "Ment, kilép"
-
-#~ msgid "_Menu Path:"
-#~ msgstr "Menüpont elérési útvonala:"
-
-#~ msgid "Menu path"
-#~ msgstr "Menüpont elérési útvonala"
-
-#~ msgid "Number of _Variables:"
-#~ msgstr "Változók száma:"
-
-#~ msgid "Variables"
-#~ msgstr "Változók"
-
-#~ msgid "Custom Dialo_g"
-#~ msgstr "Saját párbeszédablak"
-
-#, fuzzy
-#~ msgid "Custom Replace"
-#~ msgstr "Keresés és csere testreszabása"
-
-#~ msgid "_Replace:"
-#~ msgstr "Cserél:"
-
-#~ msgid "in current document"
-#~ msgstr "aktuális dokumentumban"
-
-#~ msgid "from cursor"
-#~ msgstr "kurzortól"
-
-#~ msgid "in selection"
-#~ msgstr "kijelölésben"
-
-#~ msgid "in all open documents"
-#~ msgstr "minden megnyitott dokumentumban"
-
-#~ msgid "Matc_hing:"
-#~ msgstr "Megfelelés:"
-
-#~ msgid "normal"
-#~ msgstr "normál"
-
-#, fuzzy
-#~ msgid "posix regular expressions"
-#~ msgstr "posix reguláris kifejezések"
-
-#, fuzzy
-#~ msgid "perl regular expressions"
-#~ msgstr "perl reguláris kifejezések"
-
-#~ msgid "Case Se_nsitive"
-#~ msgstr "Kis/nagybetű megkülönbözteté_se"
-
-#, fuzzy
-#~ msgid "Untitled"
-#~ msgstr "Névtelen %d"
-
-#~ msgid "Select font"
-#~ msgstr "Betűtípus kiválasztása"
-
-#~ msgid "Label"
-#~ msgstr "Címke"
-
-#~ msgid "Extensions"
-#~ msgstr "Kiterjesztések"
-
-#~ msgid "Update chars"
-#~ msgstr "Frissítést kiváltó karakterek"
-
-#~ msgid "Icon"
-#~ msgstr "Ikon"
-
-#~ msgid "Editable"
-#~ msgstr "Szerkeszthető"
-
-#~ msgid "Content regex"
-#~ msgstr "Tartalom (regex)"
-
-#~ msgid "Auto close tags mode"
-#~ msgstr "Címkék automatikus bezárása"
-
-#, fuzzy
-#~ msgid "Inverse filter"
-#~ msgstr "Inverz szűrés"
-
-#~ msgid "Filetypes in filter"
-#~ msgstr "Fájltípusok a szűrőben"
-
-#~ msgid "filetype"
-#~ msgstr "fájltípus"
-
-#, fuzzy
-#~ msgid "Reset"
-#~ msgstr "Frameset"
-
-#~ msgid "Pattern name"
-#~ msgstr "Minta neve"
-
-#~ msgid "Pattern"
-#~ msgstr "Minta"
-
-#~ msgid "Start pattern and end pattern"
-#~ msgstr "Kezdő és befejező minta"
-
-#~ msgid "Only start pattern"
-#~ msgstr "Csak kezdő minta"
-
-#~ msgid "Subpattern from parent"
-#~ msgstr "Alminta a szülő alapján"
-
-#~ msgid "Start pattern"
-#~ msgstr "Kezdő minta"
-
-#~ msgid "End pattern"
-#~ msgstr "Befejező minta"
-
-#~ msgid "Case sensitive matching"
-#~ msgstr "Kis/nagybetű megkülönböztetése"
-
-#~ msgid "Parentmatch"
-#~ msgstr "Parentmatch"
-
-#~ msgid "Foreground color"
-#~ msgstr "Előtérszín"
-
-#~ msgid "Background color"
-#~ msgstr "Háttérszín"
-
-#~ msgid "don't change weight"
-#~ msgstr "vastagság nem változik"
-
-#~ msgid "force non-bold weight"
-#~ msgstr "kötelezően nem-vastag"
-
-#~ msgid "force bold weight"
-#~ msgstr "kötelezően vastag"
-
-#~ msgid "don't change style"
-#~ msgstr "ne váltson stílust"
-
-#~ msgid "force non-italic style"
-#~ msgstr "kötelezően nem dőlt"
-
-#~ msgid "force italic style"
-#~ msgstr "kötelezően dőlt"
-
-#~ msgid "Command"
-#~ msgstr "parancs"
-
-#, fuzzy
-#~ msgid ""
-#~ "%s for current filename (any command)\n"
-#~ "%i for input and %f for output filename (filters)"
-#~ msgstr ""
-#~ "%s = aktuális fájl neve\n"
-#~ "%f = kimeneti fájl neve (filtereknél)"
-
-#~ msgid "File #"
-#~ msgstr "Fájl #"
-
-#~ msgid "Line #"
-#~ msgstr "Sor #"
-
-#~ msgid "Output #"
-#~ msgstr "Kimenet #"
-
-#~ msgid "Show all output"
-#~ msgstr "Minden kimenet mutatása"
-
-#~ msgid "left"
-#~ msgstr "balra"
-
-#~ msgid "right"
-#~ msgstr "jobbra"
-
-#~ msgid "top"
-#~ msgstr "felül"
-
-#~ msgid "bottom"
-#~ msgstr "alul"
-
-#~ msgid "no check"
-#~ msgstr "nincs ellenőrzés"
-
-#~ msgid "check mtime and size"
-#~ msgstr "mtime és méret ellenőrzése"
-
-#~ msgid "check mtime"
-#~ msgstr "mtime ellenőrzése"
-
-#~ msgid "check size"
-#~ msgstr "méret ellenőrzése"
-
-#~ msgid "Edit preferences"
-#~ msgstr "Tulajdonságok szerkesztése"
-
-#~ msgid "Editor"
-#~ msgstr "Editor"
-
-#~ msgid "Editor options"
-#~ msgstr "Editor beállításai"
-
-#~ msgid "Tab width"
-#~ msgstr "Tabulátor szélessége"
-
-#~ msgid "Use spaces to indent, not tabs"
-#~ msgstr "Behúzás szóközökkel tabulátor helyett"
-
-#~ msgid "Word wrap default"
-#~ msgstr "Sortörés csak szóvégen"
-
-#~ msgid "Line numbers by default"
-#~ msgstr "Sorszámozás alapértelmezett"
-
-#~ msgid "Highlight syntax by default"
-#~ msgstr "Szintaxiskiemelés alapértelmezett"
-
-#~ msgid "Highlight # lines"
-#~ msgstr "Ennyi sor kiemelésének frissítése"
-
-#~ msgid "Undo history size"
-#~ msgstr "Visszavonások száma"
-
-#~ msgid "Clear undo history on save"
-#~ msgstr "Mentéskor a visszavonható műveletek törlése"
-
-#~ msgid "Bookmark options"
-#~ msgstr "Könyvjelzők beállításai"
-
-#~ msgid "Make permanent by default"
-#~ msgstr "Alapértelmezésben állandó könyvjelzőt hoz létre"
-
-#~ msgid "full path"
-#~ msgstr "teljes elérési útvonal"
-
-#~ msgid "path from basedir"
-#~ msgstr "elérési útvonal az alapkönyvtárhoz képest"
-
-#~ msgid "filename"
-#~ msgstr "fájlnév"
-
-#~ msgid "Bookmarks filename display"
-#~ msgstr "Könyvjelzőkhöz tartozó fájlnevek megjelenítése"
-
-#~ msgid "HTML"
-#~ msgstr "HTML"
-
-#~ msgid "HTML options"
-#~ msgstr "HTML beállítások"
-
-#~ msgid "Lowercase HTML tags"
-#~ msgstr "Kisbetűs HTML címkék"
-
-#~ msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-#~ msgstr "Elavult címkék használatának engedélyezése (pl. <font> és <nobr>)"
-
-#~ msgid "Use XHTML style tags (<br />)"
-#~ msgstr "XHTML szintaxis használata (mint <br />)"
-
-#~ msgid "Automatic update author meta"
-#~ msgstr "Author meta automatikus frissítése"
-
-#~ msgid "Files"
-#~ msgstr "Fájlok"
-
-#~ msgid "Encoding"
-#~ msgstr "Kódolás"
-
-#~ msgid "Default character set"
-#~ msgstr "Alapértelmezett karakterkészlet"
-
-#~ msgid "Auto set <meta> encoding tag on change"
-#~ msgstr "<meta> kódolás címke automatikus beállítása változáskor"
-
-#~ msgid "Backup"
-#~ msgstr "Backup"
-
-#~ msgid "Create backup on save"
-#~ msgstr "Backup készítése mentéskor"
-
-#~ msgid "Backup file suffix"
-#~ msgstr "Backup fájl nevének utótagja"
-
-#~ msgid "save"
-#~ msgstr "menti"
-
-#~ msgid "abort"
-#~ msgstr "megszakítja"
-
-#~ msgid "ask"
-#~ msgstr "kérdez"
-
-#~ msgid "Action on backup failure"
-#~ msgstr "Teendő sikertelen backup esetén"
-
-#~ msgid "Remove backupfile on close"
-#~ msgstr "Backup fájl törlése kilépéskor"
-
-#~ msgid "Misc"
-#~ msgstr "Egyéb"
-
-#~ msgid "Allow multi instances of a file"
-#~ msgstr "Ugyanaz a fájl több példányban is megnyitható"
-
-#~ msgid "Open files in already running bluefish window"
-#~ msgstr "Fájlok megnyitása a már futó bluefish ablakában"
-
-#~ msgid "File modified on disk check "
-#~ msgstr "Fájl módosulásának figyelése "
-
-#~ msgid "Number of files in 'Open recent'"
-#~ msgstr "Fájlok száma az 'Utóbbi megnyitása' menüben"
-
-#~ msgid "File browser"
-#~ msgstr "Fájlböngésző"
-
-#~ msgid "Default basedir"
-#~ msgstr "Alapértelmezett alapkönyvtár"
-
-#~ msgid "Use separate file and directory view"
-#~ msgstr "A fájlböngésző elválasztva mutassa a fájlokat és könyvtárakat"
-
-#~ msgid "Unknown icon"
-#~ msgstr "Ismeretlen típusú fájl ikonja"
-
-#~ msgid "Directory icon"
-#~ msgstr "Könyvtár ikonja"
-
-#~ msgid "User interface"
-#~ msgstr "Felület"
-
-#~ msgid "Restore last used dimensions"
-#~ msgstr "Utolsó méret visszaállítása"
-
-#, fuzzy
-#~ msgid "Initial sidebar width"
-#~ msgstr "Kezdő ablakszélesség"
-
-#~ msgid "Initial window height"
-#~ msgstr "Kezdő ablakmagasság"
-
-#~ msgid "Initial window width"
-#~ msgstr "Kezdő ablakszélesség"
-
-#~ msgid "General"
-#~ msgstr "Általános"
-
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "Átmeneti HTML-párbeszédablakok"
-
-#~ msgid "External browsers in submenu"
-#~ msgstr "A böngészőket almenüben mutassa"
-
-#~ msgid "External commands in submenu"
-#~ msgstr "A külső parancsokat almenüben mutassa"
-
-#~ msgid "External outputbox in submenu"
-#~ msgstr "A külső kimenetablakokat almenüben mutassa"
-
-#~ msgid "Notebook tab font (leave empty for gtk default)"
-#~ msgstr "Fájlablak-fül betűtípusa (üres: gtk alapértelmezett)"
-
-#~ msgid "Document notebook tab position"
-#~ msgstr "Dokumentumablak-fül elhelyezkedése"
-
-#, fuzzy
-#~ msgid "Sidebar notebook tab position"
-#~ msgstr "Baloldali panel füleinek elhelyezkedése"
-
-#, fuzzy
-#~ msgid "Sidebar location"
-#~ msgstr "_Kép helye:"
-
-#~ msgid "Images"
-#~ msgstr "Képek"
-
-#~ msgid "Thumbnails"
-#~ msgstr "Thumbnail képek"
-
-#~ msgid "Thumbnail suffix"
-#~ msgstr "Thumbnail kép nevének utótagja"
-
-#~ msgid "Thumbnail filetype"
-#~ msgstr "Thumbnail kép típusa"
-
-#~ msgid "Filetypes"
-#~ msgstr "Fájltípusok"
-
-#~ msgid "Filefilters"
-#~ msgstr "Fájlszűrők"
-
-#~ msgid "Syntax highlighting"
-#~ msgstr "Szintaxiskiemelés"
-
-#~ msgid "Patterns"
-#~ msgstr "Minták"
-
-#~ msgid "External programs"
-#~ msgstr "Külső programok"
-
-#~ msgid "Browsers"
-#~ msgstr "Böngészők"
-
-#~ msgid "Utilities and filters"
-#~ msgstr "Segédprogramok és szűrők"
-
-#~ msgid "Output parsers"
-#~ msgstr "Értelmezők"
-
-#~ msgid "Outputbox"
-#~ msgstr "Kimenetablak"
-
-#~ msgid "Servers"
-#~ msgstr "Szerverek"
-
-#~ msgid "Remote servers"
-#~ msgstr "Távoli szerverek"
-
-#~ msgid "Zope compatibility mode"
-#~ msgstr "Zope kompatibilitás mód"
-
-#~ msgid "New project"
-#~ msgstr "Új projekt"
-
-#~ msgid "Enter Bluefish project filename"
-#~ msgstr "Írd be a Bluefish projekt fájlnevét"
-
-#~ msgid "Select Bluefish project filename"
-#~ msgstr "Válassz Bluefish projekt fájlnevet"
-
-#, fuzzy
-#~ msgid "Save current project?"
-#~ msgstr "Nem sikerült a projekt mentése"
-
-#~ msgid "Create New Project"
-#~ msgstr "Új projekt létrehozása"
-
-#~ msgid "Edit Project"
-#~ msgstr "Projekt szerkesztése"
-
-#~ msgid "This project contains %d files"
-#~ msgstr "A projekt %d fájlt tartalmaz"
-
-#~ msgid "Project _Name:"
-#~ msgstr "Projekt _neve:"
-
-#~ msgid "_Basedir:"
-#~ msgstr "_Alapkönyvtár:"
-
-#~ msgid "_Preview URL:"
-#~ msgstr "URL az _előnézethez:"
-
-#~ msgid "_Template:"
-#~ msgstr "_Sablon:"
-
-#~ msgid "_Word wrap by default"
-#~ msgstr "Sorok _törése alapértelmezésben"
-
-#~ msgid "Create _Project"
-#~ msgstr "_Projekt létrehozása"
-
-#~ msgid "Create project"
-#~ msgstr "Projekt létrehozása"
-
-#~ msgid "Create project with currently opened documents"
-#~ msgstr "Projekt létrehozása a megnyitott dokumentumokból"
-
-#~ msgid "Create empty project"
-#~ msgstr "Üres projekt létrehozása"
-
-#~ msgid "Galeon"
-#~ msgstr "Galeon"
-
-#~ msgid "Mozilla"
-#~ msgstr "Mozilla"
-
-#~ msgid "Opera"
-#~ msgstr "Opera"
-
-#~ msgid "Netscape"
-#~ msgstr "Netscape"
-
-#~ msgid "Gnome default"
-#~ msgstr "Gnome alapértelmezés"
-
-#~ msgid "make"
-#~ msgstr "make"
-
-#~ msgid "weblint HTML checker"
-#~ msgstr "weblint HTML ellenőrző"
-
-#~ msgid "tidy HTML validator"
-#~ msgstr "tidy HTML ellenőrző"
-
-#~ msgid "javac"
-#~ msgstr "javac"
-
-#, fuzzy
-#~ msgid "xmllint XML checker"
-#~ msgstr "weblint HTML ellenőrző"
-
-#~ msgid "Dos2Unix filter"
-#~ msgstr "Dos2Unix szűrő"
-
-#~ msgid "Tidy cleanup filter"
-#~ msgstr "Tidy szűrő"
-
-#~ msgid "C programming"
-#~ msgstr "C programozás"
-
-#~ msgid "All web files"
-#~ msgstr "Minden webfájl"
-
-#~ msgid "Java programming"
-#~ msgstr "Java programozás"
-
-#~ msgid "Hide objectfiles"
-#~ msgstr "Objektumfájlok elrejtése"
-
-#~ msgid "Untitled Project"
-#~ msgstr "Névtelen projekt"
-
-#~ msgid "Regular expression error: "
-#~ msgstr "Regex hiba: "
-
-#~ msgid "Search failed"
-#~ msgstr "Sikertelen keresés"
-
-#~ msgid "Regular expression error: %s at offset %d"
-#~ msgstr "Regex hiba: %s (offset %d)"
-
-#~ msgid "Confirm replace"
-#~ msgstr "Csere jóváhagyása"
-
-#~ msgid "Replace selected text?"
-#~ msgstr "Cserélje a kijelölt szöveget?"
-
-#~ msgid "Replace _all"
-#~ msgstr "_Mindet cseréli"
-
-#~ msgid "Search: no match found"
-#~ msgstr "Keresés: nincs találat"
-
-#, fuzzy
-#~ msgid "_Search for: "
-#~ msgstr "Kere_sse: "
-
-#, fuzzy
-#~ msgid "_Replace with: "
-#~ msgstr "M_ire cserélje: "
-
-#~ msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
-#~ msgstr "\\0 jelenti az első almintát, \\1 a másodikat stb."
-
-#~ msgid "Beginning of document till end"
-#~ msgstr "A _dokumentum elejétől a végéig"
-
-#~ msgid "Current position till end"
-#~ msgstr "_Kurzortól a dokumentum végéig"
-
-#~ msgid "Beginning of selection till end of selection"
-#~ msgstr "Kijelölés elejétől a kijelölés végéig"
-
-#~ msgid "All opened files begin till end"
-#~ msgstr "Minden megnyitott fájl elejétől a végéig"
-
-#~ msgid "Disabled"
-#~ msgstr "Nem engedélyezett"
-
-#~ msgid "POSIX type"
-#~ msgstr "POSIX típusú"
-
-#~ msgid "PERL type"
-#~ msgstr "PERL típusú"
-
-#~ msgid "Starts at:"
-#~ msgstr "Kezdje:"
-
-#~ msgid "Regular expression:"
-#~ msgstr "Reguláris kifejezés:"
-
-#~ msgid "Normal"
-#~ msgstr "Normál"
-
-#~ msgid "Uppercase"
-#~ msgstr "Cserélje nagybetűsre"
-
-#~ msgid "Lowercase"
-#~ msgstr "Cserélje kisbetűsre"
-
-#~ msgid "Replace type:"
-#~ msgstr "Csere típusa:"
-
-#, fuzzy
-#~ msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
-#~ msgstr "A minták escape szekvenciákat (\\n, \\t) tartalmaznak"
-
-#, fuzzy
-#~ msgid "_Match case"
-#~ msgstr "Ki_sbetű/nagybetű egyezés"
-
-#~ msgid "O_verlap searches"
-#~ msgstr "Át_fedő keresés"
-
-#~ msgid "Prompt _before replace"
-#~ msgstr "Csere _előtt megerősítés"
-
-#, fuzzy
-#~ msgid "Replace o_nce"
-#~ msgstr "Egyszer cseré_lje"
-
-#, fuzzy
-#~ msgid "Bookmark results"
-#~ msgstr "Könyvjelzők"
-
-#~ msgid " Add "
-#~ msgstr " Hozzáad "
-
-#~ msgid " Update "
-#~ msgstr " Frissít "
-
-#~ msgid " Delete "
-#~ msgstr " Töröl "
-
-#~ msgid " Up "
-#~ msgstr " Fel "
-
-#~ msgid " Down "
-#~ msgstr " Le "
-
-#~ msgid " Sort "
-#~ msgstr " Rendez "
-
-#~ msgid "This bookmark is set in a file that no longer exists."
-#~ msgstr "Ezt a könyvjelzőt egy már nem létező fájlban hoztad létre."
-
-#~ msgid "Could not read file:\n"
-#~ msgstr "A fájl nem olvasható:\n"
-
-#~ msgid "Opening file "
-#~ msgstr "Fájl megnyitása"
-
-#~ msgid "Saving file"
-#~ msgstr "Fájl mentése"
-
-#~ msgid "Save as..."
-#~ msgstr "Mentés másként..."
-
-#~ msgid ""
-#~ "File: %s\n"
-#~ "\n"
-#~ "New modification time: %s\n"
-#~ "Old modification time: %s"
-#~ msgstr ""
-#~ "Fájl: %s\n"
-#~ "\n"
-#~ "Új módosítás időpontja: %s\n"
-#~ "Előző módosítás időpontja: %s"
-
-#~ msgid "File has been modified by another process."
-#~ msgstr "A fájlt egy másik folyamat módosította."
-
-#~ msgid "Saving %s"
-#~ msgstr "%s mentése"
-
-#~ msgid ""
-#~ "Could not backup file:\n"
-#~ "\""
-#~ msgstr ""
-#~ "A fájl biztonsági mentése nem sikerült:\n"
-#~ "\""
-
-#~ msgid "File save error"
-#~ msgstr "Mentési hiba"
-
-#~ msgid ""
-#~ "These files could not opened:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Az alábbi fájlokat nem sikerült megnyitni:\n"
-#~ "\n"
-
-#~ msgid "Unable to open file(s)\n"
-#~ msgstr "Nem lehet megnyitni a fájl(oka)t\n"
-
-#~ msgid "searching files..."
-#~ msgstr "fájlok keresése..."
-
-#~ msgid "grep {contains} `find {basedir} -name '{file type}'`"
-#~ msgstr "grep {tartalmaz} `find {alapkönyvtár} -name '{fájltípus}'`"
-
-#~ msgid "_File Type:"
-#~ msgstr "_Fájltípus:"
-
-#~ msgid "Loading %d file(s)..."
-#~ msgstr "%d fájl betöltése..."
-
-#~ msgid "Select file"
-#~ msgstr "Válassz fájlt"
-
-#~ msgid "_Doctype:"
-#~ msgstr "_Dokumentumtípus"
-
-#~ msgid "Header tags:"
-#~ msgstr "Fejléc címkék"
-
-#~ msgid "Loading file(s)..."
-#~ msgstr "fájlok betöltése..."
-
-#~ msgid "The filename was:\n"
-#~ msgstr "A fájlnév:\n"
-
-#~ msgid "Could not open file\n"
-#~ msgstr "Nem sikerült a fájl megnyitása:\n"
-
-#~ msgid "Could not view file in browser, the file does not yet have a name\n"
-#~ msgstr "A fájlnak még nincs neve, nem lehet böngészőben megnézni\n"
-
-#~ msgid "These files were not opened:\n"
-#~ msgstr "Az alábbi fájlokat nem sikerült megnyitni:\n"
-
-#~ msgid "Show main toolbar by default"
-#~ msgstr "A fő eszköztár mutatása alapértelmezésben"
-
-#, fuzzy
-#~ msgid "Show sidebar by default"
-#~ msgstr "A fő eszköztár mutatása alapértelmezésben"
-
-#~ msgid "Show custom menu by default"
-#~ msgstr "A felhasználói menü mutatása alapértelmezésben"
-
-#~ msgid "Show HTML toolbar by default"
-#~ msgstr "A HTML eszköztár mutatása alapértelmezésben"
-
-#, fuzzy
-#~ msgid "Do you want to save the project?"
-#~ msgstr "Elmented a \"%s\" fájl változásait?"
-
-#~ msgid "Save document as"
-#~ msgstr "Dokumentum mentése másként"
-
-#, fuzzy
-#~ msgid "Save changes to this untitled file before closing?"
-#~ msgstr "Mented a névtelen fájl változásait?"
-
-#~ msgid "Search..."
-#~ msgstr "Keres..."
-
-#~ msgid "Search and Replace..."
-#~ msgstr "Keresés és csere..."
-
-#~ msgid "Do_n't Save"
-#~ msgstr "Me_ntés megszakítása"
-
-#~ msgid "default"
-#~ msgstr "alapértelmezett"
-
-#~ msgid "temp"
-#~ msgstr "ideiglenes"
-
-#, fuzzy
-#~ msgid "/View/View Sidebar"
-#~ msgstr "/Megjelenítés/Fő eszköztár"
-
-#~ msgid "/Edit/Undo"
-#~ msgstr "/Szerkesztés/Visszavon"
-
-#~ msgid "/Edit/Redo"
-#~ msgstr "/Szerkesztés/Újból"
-
-#~ msgid "/Document/Wrap"
-#~ msgstr "/Dokumentum/Tördelés"
-
-#~ msgid "/Document/Line Numbers"
-#~ msgstr "/Dokumentum/Sorok számozása"
-
-#~ msgid "/Document/Auto Close HTML tags"
-#~ msgstr "/Dokumentum/HTML címkék automatikus bezárása"
-
-#~ msgid "/View/View Main Toolbar"
-#~ msgstr "/Megjelenítés/Fő eszköztár"
-
-#~ msgid "/View/View Custom Menu"
-#~ msgstr "/Megjelenítés/Saját menü"
-
-#~ msgid "Sort by line number"
-#~ msgstr "Rendezés a sor száma szerint"
-
-#~ msgid "/Project/Save"
-#~ msgstr "/Projekt/Mentés"
-
-#~ msgid "/Project/Save as..."
-#~ msgstr "/Projekt/Mentés másként..."
-
-#~ msgid "/Project/Save & close"
-#~ msgstr "/Projekt/Mentés és bezárás"
-
-#~ msgid "/Project/Edit Project Options..."
-#~ msgstr "/Projekt/Projekt tulajdonságainak szerkesztése"
-
-#~ msgid "/View/View Left Panel"
-#~ msgstr "/Megjelenítés/Bal oldali panel"
-
-#~ msgid "/View/View _Left Panel"
-#~ msgstr "/Megjelenítés/_Bal oldali panel"
-
-#~ msgid "Initial left panel width"
-#~ msgstr "Bal panel kezdő szélessége"
-
-#~ msgid "Show left panel by default"
-#~ msgstr "A baloldali panel mutatása alapértelmezésben"
-
-#~ msgid "/File/Open recen_t"
-#~ msgstr "/Fájl/Utóbbi megnyitása"
-
-#~ msgid "/Project/Open r_ecent"
-#~ msgstr "/Projekt/_Utóbbi megnyitása"
-
-#~ msgid "Your changes will be lost if you don't save them."
-#~ msgstr "A változások elvesznek, ha nem mented őket."
-
-#~ msgid "Filetype"
-#~ msgstr "Fájltípus"
-
-#~ msgid "Filefilter"
-#~ msgstr "Fájlszűrő"
-
-#~ msgid "Filetypes (colon separated)"
-#~ msgstr "Fájltípusok (kettősponttal elválasztva)"
-
-#~ msgid "Browser"
-#~ msgstr "Böngésző"
-
-#~ msgid "%s = current filename"
-#~ msgstr "%s = aktuális fájl neve"
-
-#~ msgid "File subpattern #"
-#~ msgstr "Fájl alminta #"
-
-#~ msgid "Line subpattern #"
-#~ msgstr "Sor alminta #"
-
-#~ msgid "Output subpattern #"
-#~ msgstr "Kimenet alminta #"
