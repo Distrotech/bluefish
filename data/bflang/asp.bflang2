@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		asp.bflang2 $Revision$
+		asp.bflang2 $$Revision$
  
-		Copyright (C) 2008 Olivier Sessink
+		Copyright (C) 2008-2011 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -24,30 +24,30 @@
 	<mime type="application/x-asp0"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
-	<highlight name="attribute" style="attribute"  />
-	<highlight name="brackets" style="brackets"  />
-	<highlight name="comment" style="comment"  />
-	<highlight name="entity" style="value"  />
-	<highlight name="function" style="function"  />
-	<highlight name="html-comment" style="comment"  />
+	<highlight name="attribute" style="attribute" />
+	<highlight name="brackets" style="brackets" />
+	<highlight name="comment" style="comment" />
+	<highlight name="entity" style="value" />
+	<highlight name="function" style="function" />
+	<highlight name="html-comment" style="comment" />
 	<highlight name="keyword" style="keyword" />
-	<highlight name="region" style="function"  />
-	<highlight name="storage" style="special-keyword"  />
-	<highlight name="string" style="string"  />
-	<highlight name="tag" style="tag"  />
-	<highlight name="value" style="value"  />
-	<highlight name="variable" style="variable"  />
-	<highlight name="vbscript-comment" style="comment"  />
+	<highlight name="region" style="function" />
+	<highlight name="storage" style="special-keyword" />
+	<highlight name="string" style="string" />
+	<highlight name="tag" style="tag" />
+	<highlight name="value" style="value" />
+	<highlight name="variable" style="variable" />
+	<highlight name="vbscript-comment" style="comment" />
 </header>
 <properties>
-	<comment id="htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
-	<comment id="cblockcomment" type="block" start="/*" end="*/" />
-	<comment id="c++linecomment" type="line" start="//" />
-	<comment id="scriptcomment" type="line" start="#" />
+	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />
+	<comment id="cm.cpplinecomment" type="line" start="//" />
+	<comment id="cm.scriptcomment" type="line" start="#" />
 	<default_spellcheck enabled="1" spell_decode_entities="1" />
 </properties>
 <definition>
-<context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;-%" commentid_block="htmlcomment" commentid_line="none">
+<context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;-%" commentid_block="cm.htmlcomment">
 <group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" >
 <tag name="html" />
 <tag name="head" />
