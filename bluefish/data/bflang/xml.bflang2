@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		xml.bflang2 $Revision$
+		xml.bflang2 $$Revision$
  
-		Copyright (C) 2008-2010 Olivier Sessink
+		Copyright (C) 2008-2011 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -23,20 +23,20 @@
 <header>
 	<mime type="text/xml"/>
 	<mime type="application/xml"/>
-	<highlight name="assignment" style="brackets"  />
-	<highlight name="attribute" style="attribute"  />
-	<highlight name="comment" style="comment"  />
-	<highlight name="entity" style="value"  />
-	<highlight name="string" style="string"  />
-	<highlight name="tag" style="tag"  />
-	<highlight name="xml-declaration" style="preprocessor"  />
+	<highlight name="assignment" style="brackets" />
+	<highlight name="attribute" style="attribute" />
+	<highlight name="comment" style="comment" />
+	<highlight name="entity" style="value" />
+	<highlight name="string" style="string" />
+	<highlight name="tag" style="tag" />
+	<highlight name="xml-declaration" style="preprocessor" />
 </header>
 <properties>
-	<comment id="htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
 	<default_spellcheck enabled="1" spell_decode_entities="1" />
 </properties>
 <definition>
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="htmlcomment" commentid_line="none">
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment" >
 	<element id="e.xml.open" pattern="&lt;?xml" highlight="xml-declaration" starts_block="1">
 		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
 			<element pattern="[a-zA-Z0-9:-]+" is_regex="1" highlight="xml-declaration" />
@@ -49,7 +49,7 @@
 			</element>
 			<element id="e.xml.singlequote" pattern="'" highlight="string">
 				<context symbols="&amp;;\'" highlight="string" >
-					<element id="e.xml.entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+					<element idref="e.xml.entity"/>
 					<element pattern="'" highlight="string" ends_context="1"/>
 				</context>
 			</element>
