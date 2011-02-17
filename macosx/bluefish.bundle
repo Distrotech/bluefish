@@ -13,12 +13,12 @@
          either define your own or just hardcode the path here.
     -->
     <prefix name="default">${env:JHBUILD_PREFIX}</prefix>
-
+	<prefix name="project">${env:HOME}/svnbluefish/macosx/</prefix>
     <!-- The project directory is the default location of the created
          app. If you leave out the path, the current directory is
          used. Note the usage of an environment variable here again.
     -->
-    <destination overwrite="yes">${project}/../</destination>
+    <destination overwrite="yes">${env:HOME}/svnbluefish/</destination>
 
     <!-- Comment this out to keep the install names in binaries -->
     <run-install-name-tool/>
@@ -29,7 +29,7 @@
          not needed. If the source path is left out, the default
          script will be used.
     -->
-    <launcher-script>${project}/launcher.sh</launcher-script >
+    <launcher-script>${project}/launcher.sh</launcher-script>
   </meta>
 
   <!-- The special macro "${project}" refers to the directory where
@@ -41,7 +41,7 @@
   <main-binary>${prefix}/bin/bluefish</main-binary>
 
  <!-- Copy in GTK+ modules -->
-  <binary>${prefix}/lib/gtk-2.0/${pkg:gtk+-2.0:gtk_binary_version}/loaders/*.so</binary>
+  <!--<binary>${prefix}/lib/gtk-2.0/${pkg:gtk+-2.0:gtk_binary_version}/loaders/*.so</binary>-->
 
   <!-- Copy in GTK+ theme engines -->
   <binary>${prefix}/lib/gtk-2.0/${pkg:gtk+-2.0:gtk_binary_version}/engines/*.so</binary>
@@ -53,7 +53,7 @@
   <binary>${prefix}/lib/gtk-2.0/${pkg:gtk+-2.0:gtk_binary_version}/immodules/*.so</binary>
  <!-- mime stuff -->
   <data>${prefix}/share/mime</data>
-<data>${prefix}/share/applications</data>
+<!--<data>${prefix}/share/applications</data>-->
 
  <!-- bluefish -->
   <data>${prefix}/share/bluefish</data>
