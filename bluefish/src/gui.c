@@ -1139,18 +1139,23 @@ void gui_create_main(Tbfwin *bfwin) {
 }
 
 #ifdef MAC_INTEGRATION
-static void osx_accel_map_foreach_lcb(gpointer data,const gchar *accel_path,guint accel_key, GdkModifierType accel_mods, gboolean changed) {
-	if (accel_mods & GDK_MOD1_MASK && accel_mods & GDK_CONTROL_MASK) {
-		accel_mods &= ~ GDK_MOD1_MASK;
+/* first move all accelerators away from <control> to <command>, and then in a second run
+move the <alt> accelerators to <control> (alt doesn't work on osx) */
+static void osx_accel_map_foreach_controltometa_lcb(gpointer data,const gchar *accel_path,guint accel_key, GdkModifierType accel_mods, gboolean changed) {
+	if (accel_mods & GDK_CONTROL_MASK) {
+		accel_mods &= (accel_mods & GDK_MOD1_MASK) ? ~GDK_MOD1_MASK : ~GDK_CONTROL_MASK;
 		accel_mods |= GDK_META_MASK;
 		if (!gtk_accel_map_change_entry(accel_path,accel_key,accel_mods,FALSE)) {
-			g_print("could not change accelerator %s\n",accel_path);
+			g_print("controltometa, could not change accelerator %s\n",accel_path);
 		}
-	} else if (accel_mods & GDK_CONTROL_MASK) {
-		accel_mods &= ~ GDK_CONTROL_MASK;
-		accel_mods |= GDK_META_MASK;
+	}
+}
+static void osx_accel_map_foreach_mod1tocontrol_lcb(gpointer data,const gchar *accel_path,guint accel_key, GdkModifierType accel_mods, gboolean changed) {
+	if (accel_mods & GDK_MOD1_MASK) {
+		accel_mods &= ~GDK_MOD1_MASK;
+		accel_mods |= GDK_CONTROL_MASK;
 		if (!gtk_accel_map_change_entry(accel_path,accel_key,accel_mods,FALSE)) {
-			g_print("could not change accelerator %s\n",accel_path);
+			g_print("mod1tocontrol, could not change accelerator %s\n",accel_path);
 		}
 	}
 }
@@ -1163,7 +1168,6 @@ void gui_show_main(Tbfwin *bfwin) {
 
 	GtkOSXApplicationMenuGroup *group;
 	GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
-	g_print("for theApp at %p\n",theApp);
 	gtk_widget_hide(bfwin->menubar);
 	gtk_osxapplication_set_menu_bar(theApp, GTK_MENU_SHELL(bfwin->menubar));
 
@@ -1174,7 +1178,8 @@ void gui_show_main(Tbfwin *bfwin) {
 	gtk_osxapplication_add_app_menu_item (theApp, group, GTK_MENU_ITEM(menuitem));
 	
 	
-	gtk_accel_map_foreach_unfiltered(theApp,osx_accel_map_foreach_lcb);
+	gtk_accel_map_foreach_unfiltered(NULL,osx_accel_map_foreach_controltometa_lcb);
+	gtk_accel_map_foreach_unfiltered(NULL,osx_accel_map_foreach_mod1tocontrol_lcb);
 /*	IgeMacMenuGroup *group;
 	gtk_widget_hide(bfwin->menubar);
 	
