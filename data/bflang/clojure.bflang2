@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		clojure.bflang2 $Revision: 6069 $
+		clojure.bflang2 $Revision: 6404 $
  
 		Copyright (C) 2011 Olivier Sessink
 
@@ -23,13 +23,14 @@
 <header>
 	<mime type="text/x-clojure"/>
 	<mime type="application/x-clojure"/>
-	<highlight name="keyword" style="keyword"  />
-	<highlight name="brackets" style="brackets"  />
-	<highlight name="parens" style="special-value"  />
-	<highlight name="comment" style="comment"  />
-	<highlight name="string" style="string"   />
-	<highlight name="value" style="value"  />
-	<highlight name="keyword1" style="function"  />
+	<highlight name="keyword" style="keyword" />
+	<highlight name="brackets" style="brackets" />
+	<highlight name="parens" style="special-value" />
+	<highlight name="comment" style="comment" />
+	<highlight name="string" style="string" />
+	<highlight name="value" style="value" />
+	<highlight name="keyword1" style="function" />
+	<highlight name="import" style="special-tag" />
 </header>
 <properties>
 	<comment type="line" start=";" />
@@ -544,9 +545,9 @@
 <element pattern="false" autocomplete="1" highlight="value"/>
 <element pattern="nil" autocomplete="1" highlight="value"/>
 
-<element pattern=":import" autocomplete="1" highlight="special-tag"/>
-<element pattern=":require" autocomplete="1" highlight="special-tag"/>
-<element pattern=":use" autocomplete="1" highlight="special-tag"/>
+<element pattern=":import" autocomplete="1" highlight="import"/>
+<element pattern=":require" autocomplete="1" highlight="import"/>
+<element pattern=":use" autocomplete="1" highlight="import"/>
 
 <element pattern="@[^@][-a-zA-Z][-a-zA-Z0-9]*" is_regex="1" autocomplete="0" highlight="value"/>
 <element pattern="[0-9]+\.[0-9]+" is_regex="1" autocomplete="0" highlight="value"/>

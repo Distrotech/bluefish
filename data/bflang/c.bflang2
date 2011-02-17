@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		c.bflang2 $Revision$
  
-		Copyright (C) 2008-2010 Olivier Sessink
+		Copyright (C) 2008-2011 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 	<mime type="application/x-csrc"/>
 	<mime type="application/x-chdr"/>
 	<option name="load_glib_functions" default="1" description="glib types and functions"/>
-	<option name="load_gobject_functions" description="GObject functions"/>
+	<option name="load_gobject_functions" default="1" description="GObject functions"/>
 	<option name="load_libc_functions" default="1"/>
 	<option name="load_reference" default="1" description="load reference data"/>
 	<option name="load_completion" default="1" description="load completion data"/>
