@@ -392,7 +392,6 @@ int main(int argc, char *argv[])
 #ifdef MAC_INTEGRATION
 	{
 	GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
-	g_print("theApp is at %p\n",theApp);
 	}
 #endif
 	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, NULL);
