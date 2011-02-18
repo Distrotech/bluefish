@@ -395,7 +395,7 @@ static void entity_initgui(Tbfwin* bfwin) {
 
 	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, entities_plugin_ui, -1, &error);
 	if (error != NULL) {
-		g_warning("building about plugin menu failed: %s", error->message);
+		g_warning("building entities plugin menu failed: %s", error->message);
 		g_error_free(error);
 	}
 }
