@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * htmlbar_gui.c
  *
- * Copyright (C) 2005-2009 Olivier Sessink
+ * Copyright (C) 2005-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -194,6 +194,218 @@ gchar *htmlbar_menu_translate(const gchar * path, gpointer data) {
 	return _(path);
 }
 #endif       
+
+static const gchar *htmlbar_plugin_ui =
+"<ui>"
+"  <menubar name='MainMenu'>"
+"    <menu action='TagsMenu'>"
+"      <menu action='HeadingsMenu'>"
+"        <menuitem action='HeadingsH1'/>"
+"        <menuitem action='HeadingsH2'/>"
+"        <menuitem action='HeadingsH3'/>"
+"        <menuitem action='HeadingsH4'/>"
+"        <menuitem action='HeadingsH5'/>"
+"        <menuitem action='HeadingsH6'/>"
+"      </menu>"
+"      <menu action='SpecialMenu'>"
+"        <menu action='AccentMenu'>"
+"          <menu action='UppercaseMenu'>"
+"            <menu action='UppercaseAIMenu'>"
+"              <menuitem action='UppercaseAgrave'/>"
+"              <menuitem action='UppercaseAacute'/>"
+"              <menuitem action='UppercaseAcircumflex'/>"
+"              <menuitem action='UppercaseAtilde'/>"
+"              <menuitem action='UppercaseAEligature'/>"
+"              <menuitem action='UppercaseAdiaeresis'/>"
+"              <menuitem action='UppercaseAring'/>"
+"              <menuitem action='UppercaseCcedilla'/>"
+"              <menuitem action='UppercaseEgrave'/>"
+"              <menuitem action='UppercaseEacute'/>"
+"              <menuitem action='UppercaseEcircumflex'/>"
+"              <menuitem action='UppercaseEdiaeresis'/>"
+"              <menuitem action='UppercaseIgrave'/>"
+"              <menuitem action='UppercaseIacute'/>"
+"              <menuitem action='UppercaseIcircumflex'/>"
+"              <menuitem action='UppercaseIdiaeresis'/>"
+"            </menu>"
+"            <menu action='UppercaseJZMenu'>"
+"              <menuitem action='UppercaseNtilde'/>"
+"              <menuitem action='UppercaseOgrave'/>"
+"              <menuitem action='UppercaseOacute'/>"
+"              <menuitem action='UppercaseOcircumflex'/>"
+"              <menuitem action='UppercaseOEligature'/>"
+"              <menuitem action='UppercaseOtilde'/>"
+"              <menuitem action='UppercaseOdiaeresis'/>"
+"              <menuitem action='UppercaseOslash'/>"
+"              <menuitem action='UppercaseUgrave'/>"
+"              <menuitem action='UppercaseUacute'/>"
+"              <menuitem action='UppercaseUcircumflex'/>"
+"              <menuitem action='UppercaseUdiaeresis'/>"
+"              <menuitem action='UppercaseYacute'/>"
+"            </menu>"
+"          </menu>"
+"          <menu action='LowercaseMenu'>"
+"            <menu action='LowercaseAIMenu'>"
+"              <menuitem action='LowercaseAgrave'/>"
+"              <menuitem action='LowercaseAacute'/>"
+"              <menuitem action='LowercaseAcircumflex'/>"
+"              <menuitem action='LowercaseAtilde'/>"
+"              <menuitem action='LowercaseAEligature'/>"
+"              <menuitem action='LowercaseAdiaeresis'/>"
+"              <menuitem action='LowercaseAring'/>"
+"              <menuitem action='LowercaseCcedilla'/>"
+"              <menuitem action='LowercaseEgrave'/>"
+"              <menuitem action='LowercaseEacute'/>"
+"              <menuitem action='LowercaseEcircumflex'/>"
+"              <menuitem action='LowercaseEdiaeresis'/>"
+"              <menuitem action='LowercaseIgrave'/>"
+"              <menuitem action='LowercaseIacute'/>"
+"              <menuitem action='LowercaseIcircumflex'/>"
+"              <menuitem action='LowercaseIdiaeresis'/>"
+"            </menu>"
+"            <menu action='LowercaseJZMenu'>"
+"              <menuitem action='LowercaseNtilde'/>"
+"              <menuitem action='LowercaseOgrave'/>"
+"              <menuitem action='LowercaseOacute'/>"
+"              <menuitem action='LowercaseOcircumflex'/>"
+"              <menuitem action='LowercaseOEligature'/>"
+"              <menuitem action='LowercaseOtilde'/>"
+"              <menuitem action='LowercaseOdiaeresis'/>"
+"              <menuitem action='LowercaseOslash'/>"
+"              <menuitem action='LowercaseUgrave'/>"
+"              <menuitem action='LowercaseUacute'/>"
+"              <menuitem action='LowercaseUcircumflex'/>"
+"              <menuitem action='LowercaseUdiaeresis'/>"
+"              <menuitem action='LowercaseYacute'/>"
+"              <menuitem action='LowercaseYdiaeresis'/>"
+"            </menu>"
+"          </menu>"
+"          <separator/>"
+"          <menuitem action='Umlaut'/>"
+"          <menuitem action='Acute'/>"
+"          <menuitem action='Cedilla'/>"
+"        </menu>"
+"        <menu action='CurrencyMenu'>"
+"          <menuitem action='CentSign'/>"
+"          <menuitem action='PoundSterling'/>"
+"          <menuitem action='CurrencySign'/>"
+"          <menuitem action='YenSign'/>"
+"          <menuitem action='Euro'/>"
+"        </menu>"
+"        <menu action='MathScienceMenu'>"
+"          <menuitem action='LogicalNot'/>"
+"          <menuitem action='Multiplication'/>"
+"          <menuitem action='Division'/>"
+"          <menuitem action='PlusMinus'/>"
+"          <menuitem action='LessThan'/>"
+"          <menuitem action='GreaterThan'/>"
+"          <menuitem action='Superscript1'/>"
+"          <menuitem action='Superscript2'/>"
+"          <menuitem action='Superscript3'/>"
+"          <menuitem action='OneQuarter'/>"
+"          <menuitem action='OneHalf'/>"
+"          <menuitem action='ThreeQuarters'/>"
+"          <menuitem action='DegreeSign'/>"
+"        </menu>"
+"        <menu action='NonLatinMenu'>"
+"          <menuitem action='NonLatinETH'/>"
+"          <menuitem action='NonLatinTHORN'/>"
+"          <menuitem action='NonLatineth'/>"
+"          <menuitem action='NonLatinthorn'/>"
+"          <menuitem action='NonLatinSharp'/>"
+"          <menuitem action='NonLatinMicroSign'/>"
+"        </menu>"
+"        <menu action='SpecialOtherMenu'>"
+"          <menuitem action='NBSP'/>"
+"          <menuitem action='SectionSign'/>"
+"          <menuitem action='Copyright'/>"
+"          <menuitem action='LeftAngleQuote'/>"
+"          <menuitem action='RightAngleQuote'/>"
+"          <menuitem action='Trademark'/>"
+"          <menuitem action='InvertedExclamation'/>"
+"          <menuitem action='InvertedQuestionMark'/>"
+"          <menuitem action='FeminineOrdinal'/>"
+"          <menuitem action='MasculineOrdinal'/>"
+"          <menuitem action='Pilcrow'/>"
+"          <menuitem action='BrokenBar'/>"
+"          <menuitem action='SoftHyphen'/>"
+"          <menuitem action='SpacingMacron'/>"
+"          <menuitem action='MidDot'/>"
+"        </menu>"
+"      </menu>"
+"      <menu action='FormatContextMenu'>"
+"        <menuitem action='FormatStrong'/>"
+"        <menuitem action='FormatEmphasis'/>"
+"        <menuitem action='FormatDefine'/>"
+"        <menuitem action='FormatCode'/>"
+"        <menuitem action='FormatSample'/>"
+"        <menuitem action='FormatKeyboard'/>"
+"        <menuitem action='FormatVariable'/>"
+"        <menuitem action='FormatCitation'/>"
+"        <menuitem action='FormatAbbr'/>"
+"        <menuitem action='FormatAcronym'/>"
+"        <menuitem action='FormatInsert'/>"
+"        <menuitem action='FormatDelete'/>"
+"      </menu>"
+"      <menu action='FormatLayoutMenu'>"
+"        <menuitem action='FormatBold'/>"
+"        <menuitem action='FormatItalic'/>"
+"        <menuitem action='FormatUnderline'/>"
+"        <menuitem action='FormatStrikeout'/>"
+"        <menuitem action='FormatSmall'/>"
+"        <menuitem action='FormatBig'/>"
+"      </menu>"
+"      <menu action='FormatGeneralMenu'>"
+"        <menuitem action='FormatParagraph'/>"
+"        <menuitem action='FormatBreak'/>"
+"        <menuitem action='FormatClearAll'/>"
+"        <menuitem action='FormatNBSP'/>"
+"        <separator/>"
+"        <menuitem action='FormatFontSizePlus'/>"
+"        <menuitem action='FormatFontSizeMinus'/>"
+"        <separator/>"
+"        <menuitem action='FormatPre'/>"
+"        <menuitem action='FormatSubscript'/>"
+"        <menuitem action='FormatSuperscript'/>"
+"        <separator/>"
+"        <menuitem action='FormatCenter'/>"
+"        <menuitem action='FormatAlignRight'/>"
+"      </menu>"
+"      <menu action='TableMenu'>"
+"        <menuitem action='TableTable'/>"
+"        <menuitem action='TableRow'/>"
+"        <menuitem action='TableHeader'/>"
+"        <menuitem action='TableData'/>"
+"        <menuitem action='TableCaption'/>"
+"      </menu>"
+"      <menu action='ListMenu'>"
+"        <menuitem action='ListUnordered'/>"
+"        <menuitem action='ListOrdered'/>"
+"        <menuitem action='ListItem'/>"
+"        <menuitem action='ListDefList'/>"
+"        <menuitem action='ListDefTerm'/>"
+"        <menuitem action='ListDefinition'/>"
+"        <menuitem action='ListListMenu'/>"
+"      </menu>"
+"      <menu action='FormMenu'>"
+"        <menuitem action='FormForm'/>"
+"        <menuitem action='FormButton'/>"
+"        <menuitem action='FormInput'/>"
+"        <menuitem action='FormTextArea'/>"
+"      </menu>"
+"      <menu action='MiscMenu'>"
+"        <menuitem action='MiscGenMETATag'/>"
+"        <menuitem action='MiscSpan'/>"
+"        <menuitem action='MiscDiv'/>"
+"        <menuitem action='MiscLink'/>"
+"        <menuitem action='MiscScript'/>"
+"        <menuitem action='MiscAnchor'/>"
+"        <menuitem action='MiscImage'/>"
+"      </menu>"
+"      <menuitem action='TagsComment'/>"
+"    </menu>"
+"  </menubar>"
+"</ui>";
 
 void htmlbar_build_menu(Thtmlbarwin *hbw) {
 	GtkItemFactory *ifactory;
@@ -474,6 +686,206 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 	}
 	DEBUG_MSG("htmlbar_build_menu, finished\n");
 	gtk_widget_show_all(bfwin->menubar);
+
+	GtkActionGroup *action_group;
+	GError *error = NULL;
+
+	static const GtkActionEntry htmlbar_actions[] = {
+		{ "TagsMenu", NULL, N_("T_ags") },
+		{ "HeadingsMenu", NULL, N_("_Headings") },
+		{ "HeadingsH1", NULL, N_("H_1"), "<control><alt>1", N_("Insert H1 tag"), NULL },
+		{ "HeadingsH2", NULL, N_("H_2"), "<control><alt>2", N_("Insert H2 tag"), NULL },
+		{ "HeadingsH3", NULL, N_("H_3"), "<control><alt>3", N_("Insert H3 tag"), NULL },
+		{ "HeadingsH4", NULL, N_("H_4"), "<control><alt>4", N_("Insert H4 tag"), NULL },
+		{ "HeadingsH5", NULL, N_("H_5"), "<control><alt>5", N_("Insert H5 tag"), NULL },
+		{ "HeadingsH6", NULL, N_("H_6"), "<control><alt>6", N_("Insert H6 tag"), NULL },
+		{ "SpecialMenu", NULL, N_("_Special") },
+		{ "AccentMenu", NULL, N_("_Accent") },
+		{ "UppercaseMenu", NULL, N_("_Uppercase") },
+		{ "UppercaseAIMenu", NULL, N_("_A-I") },
+		{ "UppercaseAgrave", NULL, N_("A grave À"), NULL, NULL, NULL },
+		{ "UppercaseAacute", NULL, N_("A acute Á"), NULL, NULL, NULL },
+		{ "UppercaseAcircumflex", NULL, N_("A circumflex Â"), NULL, NULL, NULL },
+		{ "UppercaseAtilde", NULL, N_("A tilde Ã"), NULL, NULL, NULL },
+		{ "UppercaseAEligature", NULL, N_("AE ligature Æ"), NULL, NULL, NULL },
+		{ "UppercaseAdiaeresis", NULL, N_("A diaeresis Ä"), NULL, NULL, NULL },
+		{ "UppercaseAring", NULL, N_("A ring Å"), NULL, NULL, NULL },
+		{ "UppercaseCcedilla", NULL, N_("C cedilla Ç"), NULL, NULL, NULL },
+		{ "UppercaseEgrave", NULL, N_("E grave È"), NULL, NULL, NULL },
+		{ "UppercaseEacute", NULL, N_("E acute É"), NULL, NULL, NULL },
+		{ "UppercaseEcircumflex", NULL, N_("E circumflex Ê"), NULL, NULL, NULL },
+		{ "UppercaseEdiaeresis", NULL, N_("E diaeresis Ë"), NULL, NULL, NULL },
+		{ "UppercaseIgrave", NULL, N_("I grave Ì"), NULL, NULL, NULL },
+		{ "UppercaseIacute", NULL, N_("I acute Í"), NULL, NULL, NULL },
+		{ "UppercaseIcircumflex", NULL, N_("I circumflex Î"), NULL, NULL, NULL },
+		{ "UppercaseIdiaeresis", NULL, N_("I diaeresis Ï"), NULL, NULL, NULL },
+		{ "UppercaseJZMenu", NULL, N_("_J-Z") },
+		{ "UppercaseNtilde", NULL, N_("N tilde Ñ"), NULL, NULL, NULL },
+		{ "UppercaseOgrave", NULL, N_("O grave Ò"), NULL, NULL, NULL },
+		{ "UppercaseOacute", NULL, N_("O acute Ó"), NULL, NULL, NULL },
+		{ "UppercaseOcircumflex", NULL, N_("O circumflex Ô"), NULL, NULL, NULL },
+		{ "UppercaseOEligature", NULL, N_("OE ligature Œ"), NULL, NULL, NULL },
+		{ "UppercaseOtilde", NULL, N_("O tilde Õ"), NULL, NULL, NULL },
+		{ "UppercaseOdiaeresis", NULL, N_("O diaeresis Ö"), NULL, NULL, NULL },
+		{ "UppercaseOslash", NULL, N_("O slash Ø"), NULL, NULL, NULL },
+		{ "UppercaseUgrave", NULL, N_("U grave Ù"), NULL, NULL, NULL },
+		{ "UppercaseUacute", NULL, N_("U acute Ú"), NULL, NULL, NULL },
+		{ "UppercaseUcircumflex", NULL, N_("U circumflex Û"), NULL, NULL, NULL },
+		{ "UppercaseUdiaeresis", NULL, N_("U diaeresis Ü"), NULL, NULL, NULL },
+		{ "UppercaseYacute", NULL, N_("Y acute Ý"), NULL, NULL, NULL },
+		{ "LowercaseMenu", NULL, N_("_Lowercase") },
+		{ "LowercaseAIMenu", NULL, N_("_A-I") },
+		{ "LowercaseAgrave", NULL, N_("a grave à"), NULL, NULL, NULL },
+		{ "LowercaseAacute", NULL, N_("a acute á"), NULL, NULL, NULL },
+		{ "LowercaseAcircumflex", NULL, N_("a circumflex â"), NULL, NULL, NULL },
+		{ "LowercaseAtilde", NULL, N_("a tilde ã"), NULL, NULL, NULL },
+		{ "LowercaseAring", NULL, N_("a ring å"), NULL, NULL, NULL },
+		{ "LowercaseAEligature", NULL, N_("ae ligature æ"), NULL, NULL, NULL },
+		{ "LowercaseAdiaeresis", NULL, N_("a diaeresis ä"), NULL, NULL, NULL },
+		{ "LowercaseCcedilla", NULL, N_("c cedilla ç"), NULL, NULL, NULL },
+		{ "LowercaseEgrave", NULL, N_("e grave è"), NULL, NULL, NULL },
+		{ "LowercaseEacute", NULL, N_("e acute é"), NULL, NULL, NULL },
+		{ "LowercaseEcircumflex", NULL, N_("e circumflex ê"), NULL, NULL, NULL },
+		{ "LowercaseEdiaeresis", NULL, N_("e diaeresis ë"), NULL, NULL, NULL },
+		{ "LowercaseIgrave", NULL, N_("i grave ì"), NULL, NULL, NULL },
+		{ "LowercaseIacute", NULL, N_("i acute í"), NULL, NULL, NULL },
+		{ "LowercaseIcircumflex", NULL, N_("i circumflex î"), NULL, NULL, NULL },
+		{ "LowercaseIdiaeresis", NULL, N_("i diaeresis ï"), NULL, NULL, NULL },
+		{ "LowercaseJZMenu", NULL, N_("_J-Z") },
+		{ "LowercaseNtilde", NULL, N_("n tilde ñ"), NULL, NULL, NULL },
+		{ "LowercaseOgrave", NULL, N_("o grave ò"), NULL, NULL, NULL },
+		{ "LowercaseOacute", NULL, N_("o acute ó"), NULL, NULL, NULL },
+		{ "LowercaseOEligature", NULL, N_("oe ligature œ"), NULL, NULL, NULL },
+		{ "LowercaseOcircumflex", NULL, N_("o circumflex ô"), NULL, NULL, NULL },
+		{ "LowercaseOtilde", NULL, N_("o tilde õ"), NULL, NULL, NULL },
+		{ "LowercaseOdiaeresis", NULL, N_("o diaeresis ö"), NULL, NULL, NULL },
+		{ "LowercaseOslash", NULL, N_("o slash ø"), NULL, NULL, NULL },
+		{ "LowercaseUgrave", NULL, N_("u grave ù"), NULL, NULL, NULL },
+		{ "LowercaseUacute", NULL, N_("u acute ú"), NULL, NULL, NULL },
+		{ "LowercaseUcircumflex", NULL, N_("u circumflex û"), NULL, NULL, NULL },
+		{ "LowercaseUdiaeresis", NULL, N_("u diaeresis ü"), NULL, NULL, NULL },
+		{ "LowercaseYacute", NULL, N_("y acute ý"), NULL, NULL, NULL },
+		{ "LowercaseYdiaeresis", NULL, N_("y diaeresis ÿ"), NULL, NULL, NULL },
+		{ "Umlaut", NULL, N_("U_mlaut ¨"), NULL, NULL, NULL },
+		{ "Acute", NULL, N_("_Acute ´"), NULL, NULL, NULL },
+		{ "Cedilla", NULL, N_("_Cedilla ¸"), NULL, NULL, NULL },
+		{ "CurrencyMenu", NULL, N_("_Currency") },
+		{ "CentSign", NULL, N_("_Cent sign ¢"), NULL, NULL, NULL },
+		{ "PoundSterling", NULL, N_("_Pound sterling £"), NULL, NULL, NULL },
+		{ "CurrencySign", NULL, N_("C_urrency sign ¤"), NULL, NULL, NULL },
+		{ "YenSign", NULL, N_("_Yen sign ¥"), NULL, NULL, NULL },
+		{ "Euro", NULL, N_("_Euro €"), NULL, NULL, NULL },
+		{ "MathScienceMenu", NULL, N_("_Math-Science") },
+		{ "LogicalNot", NULL, N_("Logical _not sign ¬"), NULL, NULL, NULL },
+		{ "Multiplication", NULL, N_("_Multiplication sign ×"), NULL, NULL, NULL },
+		{ "Division", NULL, N_("_Division sign ÷"), "<control><alt>slash", NULL, NULL },
+		{ "PlusMinus", NULL, N_("_Plus-minus sign ±"), NULL, NULL, NULL },
+		{ "LessThan", NULL, N_("_Less-than sign <"), "<control><alt>comma", NULL, NULL },
+		{ "GreaterThan", NULL, N_("_Greater-than sign >"), "<control><alt>period", NULL, NULL },
+		{ "Superscript1", NULL, N_("Superscript _1 ¹"), NULL, NULL, NULL },
+		{ "Superscript2", NULL, N_("Superscript _2 ²"), NULL, NULL, NULL },
+		{ "Superscript3", NULL, N_("Superscript _3 ³"), NULL, NULL, NULL },
+		{ "OneQuarter", NULL, N_("One _quarter ¼"), NULL, NULL, NULL },
+		{ "OneHalf", NULL, N_("One _half ½"), NULL, NULL, NULL },
+		{ "ThreeQuarters", NULL, N_("_Three quarters ¾"), NULL, NULL, NULL },
+		{ "DegreeSign", NULL, N_("Deg_ree sign °"), NULL, NULL, NULL },
+		{ "NonLatinMenu", NULL, N_("_Non Latin") },
+		{ "NonLatinETH", NULL, N_("_ETH (Icelandic) Ð"), NULL, NULL, NULL },
+		{ "NonLatinTHORN", NULL, N_("_THORN (Icelandic) Þ"), NULL, NULL, NULL },
+		{ "NonLatineth", NULL, N_("et_h (Icelandic) ð"), NULL, NULL, NULL },
+		{ "NonLatinthorn", NULL, N_("th_orn ÿ"), NULL, NULL, NULL },
+		{ "NonLatinSharp", NULL, N_("Sharp _s ß"), NULL, NULL, NULL },
+		{ "NonLatinMicroSign", NULL, N_("_Micro sign µ"), NULL, NULL, NULL },
+		{ "SpecialOtherMenu", NULL, N_("_Other") },
+		{ "NBSP", NULL, N_("_Non-breaking space"), NULL, NULL, NULL },
+		{ "SectionSign", NULL, N_("_Section sign §"), NULL, NULL, NULL },
+		{ "Copyright", NULL, N_("_Copyright sign ©"), NULL, NULL, NULL },
+		{ "LeftAngleQuote", NULL, N_("_Left angle quotes «"), NULL, NULL, NULL },
+		{ "RightAngleQuote", NULL, N_("_Right angle quotes »"), NULL, NULL, NULL },
+		{ "Trademark", NULL, N_("Registered _trademark ®"), NULL, NULL, NULL },
+		{ "InvertedExclamation", NULL, N_("Inverted _exclamation ¡"), NULL, NULL, NULL },
+		{ "InvertedQuestionMark", NULL, N_("Inverted _question mark ¿"), NULL, NULL, NULL },
+		{ "FeminineOrdinal", NULL, N_("_Feminine ordinal ª"), NULL, NULL, NULL },
+		{ "MasculineOrdinal", NULL, N_("_Masculine ordinal º"), NULL, NULL, NULL },
+		{ "Pilcrow", NULL, N_("_Pilcrow (paragraph sign) ¶"), NULL, NULL, NULL },
+		{ "BrokenBar", NULL, N_("_Broken bar ¦"), NULL, NULL, NULL },
+		{ "SoftHyphen", NULL, N_("Soft _hyphen -"), NULL, NULL, NULL },
+		{ "SpacingMacron", NULL, N_("Spa_cing macron ¯"), NULL, NULL, NULL },
+		{ "MidDot", NULL, N_("Middle _dot ·"), NULL, NULL, NULL },
+		{ "FormatContextMenu", NULL, N_("F_ormat by context") },
+		{ "FormatStrong", NULL, N_("_Strong"), "<control><alt>g", NULL, NULL },
+		{ "FormatEmphasis", NULL, N_("_Emphasis"), "<control><alt>e", NULL, NULL },
+		{ "FormatDefine", NULL, N_("_Define"), NULL, NULL, NULL },
+		{ "FormatCode", NULL, N_("_Code"), NULL, NULL, NULL },
+		{ "FormatSample", NULL, N_("Sa_mple"), NULL, NULL, NULL },
+		{ "FormatKeyboard", NULL, N_("_Keyboard"), NULL, NULL, NULL },
+		{ "FormatVariable", NULL, N_("_Variable"), NULL, NULL, NULL },
+		{ "FormatCitation", NULL, N_("Ci_tation"), NULL, NULL, NULL },
+		{ "FormatAbbr", NULL, N_("_Abbreviation"), NULL, NULL, NULL },
+		{ "FormatAcronym", NULL, N_("Ac_ronym"), NULL, NULL, NULL },
+		{ "FormatInsert", NULL, N_("_Insert"), NULL, NULL, NULL },
+		{ "FormatDelete", NULL, N_("De_lete"), NULL, NULL, NULL },
+		{ "FormatLayoutMenu", NULL, N_("_Format by layout") },
+		{ "FormatBold", NULL, N_("_Bold"), "<control><alt>b", NULL, NULL },
+		{ "FormatItalic", NULL, N_("_Italic"), "<control><alt>i", NULL, NULL },
+		{ "FormatUnderline", NULL, N_("_Underline"), "<control><alt>u", NULL, NULL },
+		{ "FormatStrikeout", NULL, N_("_Strikeout"), "<control><alt>s", NULL, NULL },
+		{ "FormatSmall", NULL, N_("Sm_all"), NULL, NULL, NULL },
+		{ "FormatBig", NULL, N_("Bi_g"), NULL, NULL, NULL },
+		{ "FormatGeneralMenu", NULL, N_("Format _general") },
+		{ "FormatParagraph", NULL, N_("_Paragraph"), "<control><alt>p", NULL, NULL },
+		{ "FormatBreak", NULL, N_("_Break"),  "<control><alt>k", NULL, NULL },
+		{ "FormatClearAll", NULL, N_("Break clear _all"), NULL, NULL, NULL },
+		{ "FormatNBSP", NULL, N_("_Non-Breaking Space"), "<control><alt>n", NULL, NULL },
+		{ "FormatFontSizePlus", NULL, N_("Font Si_ze +1"), "<control><alt>equal", NULL, NULL },
+		{ "FormatFontSizeMinus", NULL, N_("Font _Size -1"), "<control><alt>minus", NULL, NULL },
+		{ "FormatPre", NULL, N_("Preformatted _Text"), "<Control><Alt>f", NULL, NULL },
+		{ "FormatSubscript", NULL, N_("Su_bscript"), NULL, NULL, NULL },
+		{ "FormatSuperscript", NULL, N_("Su_perscript"), NULL, NULL, NULL },
+		{ "FormatCenter", NULL, N_("_Center"), NULL, NULL, NULL },
+		{ "FormatAlignRight", NULL, N_("Align _right"), "<control><Alt>r", NULL, NULL },
+		{ "TableMenu", NULL, N_("_Table") },
+		{ "TableTable", NULL, N_("_Table"), "<control><alt>t", NULL, NULL },
+		{ "TableRow", NULL, N_("Table _Row"), NULL, NULL, NULL },
+		{ "TableHeader", NULL, N_("Table _Header"), NULL, NULL, NULL },
+		{ "TableData", NULL, N_("Table _Data"), NULL, NULL, NULL },
+		{ "TableCaption", NULL, N_("Table _Caption"), NULL, NULL, NULL },
+		{ "ListMenu", NULL, N_("_List") },
+		{ "ListUnordered", NULL, N_("Unordered _List"), "<control><alt>L", NULL, NULL },
+		{ "ListOrdered", NULL, N_("_Ordered List"), "<control><alt>O", NULL, NULL },
+		{ "ListItem", NULL, N_("List Ite_m"), "<control><alt>M", NULL, NULL },
+		{ "ListDefList", NULL, N_("De_finition List"), NULL, NULL, NULL },
+		{ "ListDefTerm", NULL, N_("Definition _Term"), NULL, NULL, NULL },
+		{ "ListDefinition", NULL, N_("_Definition"), NULL, NULL, NULL },
+		{ "ListListMenu", NULL, N_("Men_u"), NULL, NULL, NULL },
+		{ "FormMenu", NULL, N_("Fo_rm") },
+		{ "FormForm", NULL, N_("_Form"), NULL, NULL, NULL },
+		{ "FormButton", NULL, N_("_Button"), NULL, NULL, NULL },
+		{ "FormInput", NULL, N_("_Input"), NULL, NULL, NULL },
+		{ "FormTextArea", NULL, N_("_Textarea"), NULL, NULL, NULL },
+		{ "MiscMenu", NULL, N_("_Misc") },
+		{ "MiscGenMETATag", NULL, N_("Insert Generator _META-Tag"), NULL, NULL, NULL },
+		{ "MiscSpan", NULL, N_("_Span"), NULL, NULL, NULL },
+		{ "MiscDiv", NULL, N_("_Div"), NULL, NULL, NULL },
+		{ "MiscLink", NULL, N_("_Link"), NULL, NULL, NULL },
+		{ "MiscScript", NULL, N_("S_cript"), NULL, NULL, NULL },
+		{ "MiscAnchor", NULL, N_("_Anchor"), NULL, NULL, NULL },
+		{ "MiscImage", NULL, N_("_Image"), NULL, NULL, NULL },
+		{ "TagsComment", NULL, N_("_Comment"), "<control><alt>C", NULL, NULL },
+	};
+
+	action_group = gtk_action_group_new("htmlbarActions");
+	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(action_group, htmlbar_actions, G_N_ELEMENTS(htmlbar_actions),
+								 bfwin->main_window);
+	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 0);
+	g_object_unref(action_group);
+
+	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, htmlbar_plugin_ui, -1, &error);
+	if (error != NULL) {
+		g_warning("building htmlbar plugin menu failed: %s", error->message);
+		g_error_free(error);
+	}
 }
 
 typedef struct {
