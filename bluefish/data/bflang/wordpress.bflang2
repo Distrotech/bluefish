@@ -53,6 +53,7 @@
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
 	<option name="sql-in-php-string" default="1" description="scan for sql in php strings" />
+	<option name="javascript_css_properties" default="1" description="CSS properties" />
 	<highlight name="php-block-tag" style="special-value"  />
 	<highlight name="string" style="string"   />
 	<highlight name="brackets" style="brackets"  />
@@ -81,6 +82,8 @@
 	<highlight name="js-variable" style="variable"  />
 	<highlight name="js-function" style="function"  />
 	<highlight name="js-property" style="special-function"  />
+	<highlight name="js-css-property" style="function" />
+	<highlight name="css-html-media" style="special-tag" />
 	<highlight name="css-brackets" style="brackets"  />
 	<highlight name="css-comment" style="comment" />
 	<highlight name="css-html-tag" style="tag"  />
@@ -92,10 +95,10 @@
 	<highlight name="css-pseudo-element" style="keyword" />
 </header>
 <properties>
-	<comment type="block" start="/*" end="*/" />
-	<comment type="block" start="&lt;!--" end="--&gt;" />
-	<comment type="line" start="//" />
-	<comment type="line" start="#" />
+	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />	
+	<comment id="cm.cpplinecomment" type="line" start="//" />
+	<comment id="cm.scriptcomment" type="line" start="#" />
 	<smartindent characters="{" />
 	<default_spellcheck enabled="1" />
 </properties>
