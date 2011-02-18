@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		xhtml.bflang2 $Revision$
+		xhtml.bflang2 $$Revision$
  
-		Copyright (C) 2008-2010 Olivier Sessink
+		Copyright (C) 2008-2011 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -47,6 +47,7 @@
 	<option name="javascript_screen_object" default="1" description="Screen object" />
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
+	<option name="javascript_css_properties" default="1" description="CSS properties" />
 	<highlight name="tag" style="tag" />
 	<highlight name="reference-external-tag" style="special-tag" />
 	<highlight name="table-tag" style="special-tag2" />
@@ -55,37 +56,39 @@
 	<highlight name="string" style="string" />
 	<highlight name="entity" style="value" />
 	<highlight name="brackets" style="brackets" />
-	<highlight name="js-keyword" style="keyword"  />
-	<highlight name="js-brackets" style="brackets"  />
-	<highlight name="js-type" style="type"  />
-	<highlight name="js-comment" style="comment"  />
-	<highlight name="js-string" style="string"  />
-	<highlight name="js-value" style="value"  />
-	<highlight name="js-variable" style="variable"  />
-	<highlight name="js-function" style="function"  />
-	<highlight name="js-property" style="special-function"  />
-	<highlight name="css-brackets" style="brackets"  />
+	<highlight name="js-keyword" style="keyword" />
+	<highlight name="js-brackets" style="brackets" />
+	<highlight name="js-type" style="type" />
+	<highlight name="js-comment" style="comment" />
+	<highlight name="js-css-property" style="function" />
+	<highlight name="js-string" style="string" />
+	<highlight name="js-value" style="value" />
+	<highlight name="js-variable" style="variable" />
+	<highlight name="js-function" style="function" />
+	<highlight name="js-property" style="special-function" />
+	<highlight name="css-brackets" style="brackets" />
 	<highlight name="css-comment" style="comment" />
-	<highlight name="css-html-tag" style="tag"  />
+	<highlight name="css-html-tag" style="tag" />
 	<highlight name="css-html-classid" style="tag" />
 	<highlight name="css-html-media" style="special-tag" />
-	<highlight name="css-keyword" style="keyword"  />
-	<highlight name="css-property" style="special-keyword"  />
+	<highlight name="css-keyword" style="keyword" />
+	<highlight name="css-property" style="special-keyword" />
 	<highlight name="css-string" style="string" />
-	<highlight name="css-value" style="value"   />
+	<highlight name="css-value" style="value" />
 	<highlight name="css-pseudo-element" style="keyword" />
 	<highlight name="html-comment" style="comment" />
 </header>
 <properties>
-	<comment id="htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
-	<comment id="cblockcomment" type="block" start="/*" end="*/" />
-	<comment id="c++linecomment" type="line" start="//" />
-	<comment id="scriptcomment" type="line" start="#" />
+	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />
+	<comment id="cm.cpplinecomment" type="line" start="//" />
+	<comment id="cm.scriptcomment" type="line" start="#" />
+	
 	<default_spellcheck enabled="1" spell_decode_entities="1" />
 </properties>
 
 <definition>
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="htmlcomment" commentid_line="none">
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment">
 <tag name="html" attributes="xmlns,version,&i18n;,&xml;" attribhighlight="attribute" highlight="tag" autocomplete_append=" xmlns=&quot;http://www.w3.org/1999/xhtml&quot; &gt;&#10;&#10;&lt;/html&gt;" autocomplete_backup_cursor="8" />
 
 <tag name="head" attributes="profile,&i18n;" highlight="tag" >

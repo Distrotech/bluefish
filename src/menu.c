@@ -31,7 +31,8 @@
 #include "bluefish.h"
 
 #ifdef MAC_INTEGRATION
-#include <ige-mac-integration.h>
+/*#include <ige-mac-integration.h>*/
+#include <gtkosxapplication.h>
 #endif
 
 #include "bf_lib.h"				/* append_string_to_file() */
@@ -591,9 +592,6 @@ template_menu_rebuild(Tbfwin * bfwin, GtkItemFactory * item_factory)
 		}
 		tmplist = g_list_previous(tmplist);
 	}
-/*#ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif*/
 }
 
 void
@@ -625,10 +623,6 @@ filetype_menu_rebuild(Tbfwin * bfwin, GtkItemFactory * item_factory)
 		tmplist = g_list_previous(tmplist);
 	}
 	g_list_free(list);
-/*#ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif*/
-
 }
 
 /*
@@ -658,7 +652,6 @@ menu_create_main(Tbfwin * bfwin, GtkWidget * vbox)
 							GDK_SHIFT_MASK | GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Go/Last Document", GDK_Page_Down,
 							GDK_SHIFT_MASK | GDK_CONTROL_MASK);
-	gtk_widget_show(bfwin->menubar);
 	setup_toggle_item(item_factory, "/View/Main Toolbar", bfwin->session->view_main_toolbar);
 	setup_toggle_item(item_factory, "/View/Side Pane", bfwin->session->view_left_panel);
 	setup_toggle_item(item_factory, "/View/Statusbar", bfwin->session->view_statusbar);
@@ -786,9 +779,6 @@ recent_menu_from_list(Tbfwin * bfwin, GList * startat, gboolean is_project)
 		retlist = g_list_append(retlist, create_recent_entry(bfwin, tmplist->data, is_project, FALSE));
 		tmplist = g_list_next(tmplist);
 	}
-/*#ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif*/
 	return retlist;
 }
 
@@ -881,9 +871,6 @@ add_to_recent_list(Tbfwin * bfwin, GFile * file, gint closed_file, gboolean is_p
 		}
 		g_free(filename);
 	}
-/*#ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif*/
 }
 
 /*****************/
@@ -1080,9 +1067,6 @@ external_menu_rebuild(Tbfwin * bfwin)
 		}
 		tmplist = g_list_next(tmplist);
 	}
-/*#ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif*/
 }
 
 static void
@@ -1146,9 +1130,6 @@ encoding_menu_rebuild(Tbfwin * bfwin)
 		}
 		tmplist = g_list_previous(tmplist);
 	}
-/*#ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif*/
 }
 
 void

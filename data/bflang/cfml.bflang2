@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		cfml.bflang2 $Revision: 5801 $
+		cfml.bflang2 $$Revision: 6402 $
  
-		Copyright (C) 2008-2010 Olivier Sessink
+		Copyright (C) 2008-2011 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -46,63 +46,68 @@
 	<option name="javascript_screen_object" default="1" description="Screen object" />
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
+	<option name="javascript_css_properties" default="1" description="CSS properties" />
 
-	<highlight name="keyword" style="keyword" />
-	<highlight name="cfml-attribute" style="special-keyword" />
 	<highlight name="brackets" style="brackets" />
+	<highlight name="cfml-attribute" style="special-keyword" />
 	<highlight name="comment" style="comment" />
+	<highlight name="keyword" style="keyword" />
 	<highlight name="string" style="string" />
 	<highlight name="value" style="value" />
 
-	<highlight name="html-tag" style="tag"  />
-	<highlight name="html-comment" style="comment"  />
-	<highlight name="html-entity" style="value"  />
 	<highlight name="html-attribute" style="attribute" />
+	<highlight name="html-comment" style="comment" />
+	<highlight name="html-deprecated-tag" style="warning" />
+	<highlight name="html-entity" style="value" />
+	<highlight name="html-form-tag" style="special-tag3" />
 	<highlight name="html-reference-external-tag" style="special-tag" />
 	<highlight name="html-table-tag" style="special-tag2" />
-	<highlight name="html-form-tag" style="special-tag3" />
-	<highlight name="html-deprecated-tag" style="warning" />
+	<highlight name="html-tag" style="tag" />
 	
-	<highlight name="js-keyword" style="keyword"  />
-	<highlight name="js-brackets" style="brackets"  />
-	<highlight name="js-type" style="type"  />
-	<highlight name="js-comment" style="comment"  />
-	<highlight name="js-string" style="string"  />
-	<highlight name="js-value" style="value"  />
-	<highlight name="js-variable" style="variable"  />
-	<highlight name="js-function" style="function"  />
-	<highlight name="js-property" style="special-function"  />
-	<highlight name="css-brackets" style="brackets"  />
+	<highlight name="js-brackets" style="brackets" />
+	<highlight name="js-comment" style="comment" />
+	<highlight name="js-css-property" style="special-function" />
+	<highlight name="js-function" style="function" />
+	<highlight name="js-keyword" style="keyword" />
+	<highlight name="js-property" style="special-function" />
+	<highlight name="js-string" style="string" />
+	<highlight name="js-type" style="type" />
+	<highlight name="js-value" style="value" />
+	<highlight name="js-variable" style="variable" />
+	
+	<highlight name="css-brackets" style="brackets" />
 	<highlight name="css-comment" style="comment" />
-	<highlight name="css-html-tag" style="tag"  />
 	<highlight name="css-html-classid" style="tag" />
-	<highlight name="css-keyword" style="keyword"  />
-	<highlight name="css-property" style="special-keyword"  />
-	<highlight name="css-string" style="string" />
-	<highlight name="css-value" style="value"   />
+	<highlight name="css-html-media" style="special-tag" />
+	<highlight name="css-html-tag" style="tag" />
+	<highlight name="css-keyword" style="keyword" />
+	<highlight name="css-property" style="special-keyword" />
 	<highlight name="css-pseudo-element" style="keyword" />
+	<highlight name="css-string" style="string" />
+	<highlight name="css-value" style="value" />
+
 </header>
 <properties>
-	<comment id="htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
-	<comment id="cblockcomment" type="block" start="/*" end="*/" />
-	<comment id="c++linecomment" type="line" start="//" />
-	<comment id="scriptcomment" type="line" start="#" />
+	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />
+	<comment id="cm.cpplinecomment" type="line" start="//" />
+	<comment id="cm.scriptcomment" type="line" start="#" />
 	<default_spellcheck enabled="1" spell_decode_entities="1" />
 </properties>
 <definition>
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="htmlcomment" commentid_line="none">
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment">
 	<element pattern="&lt;/?cfset" is_regex="1" highlight="keyword">
-		<context id="cftag" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;&quot;()" >
+		<context id="c.cftag" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;&quot;()" >
 			<element pattern="[a-z0-9]+" is_regex="1" highlight="cfml-attribute"/>
 			<element pattern="&quot;[^&quot;]+&quot;" is_regex="1" highlight="string"/>
 			<element pattern="&gt;" ends_context="1"/>
 		</context>
 	</element>
-	<element pattern="&lt;/?cfif" is_regex="1" highlight="keyword"><context idref="cftag" /></element>
-	<element pattern="&lt;/?cfelse" is_regex="1" highlight="keyword"><context idref="cftag" /></element>
-	<element pattern="&lt;/?cfloop" is_regex="1" highlight="keyword"><context idref="cftag" /></element>
-	<element pattern="&lt;/?cfoutput" is_regex="1" highlight="keyword"><context idref="cftag" /></element>
-	<element pattern="&lt;/?cfquery" is_regex="1" highlight="keyword"><context idref="cftag" /></element>
+	<element pattern="&lt;/?cfif" is_regex="1" highlight="keyword"><context idref="c.cftag" /></element>
+	<element pattern="&lt;/?cfelse" is_regex="1" highlight="keyword"><context idref="c.cftag" /></element>
+	<element pattern="&lt;/?cfloop" is_regex="1" highlight="keyword"><context idref="c.cftag" /></element>
+	<element pattern="&lt;/?cfoutput" is_regex="1" highlight="keyword"><context idref="c.cftag" /></element>
+	<element pattern="&lt;/?cfquery" is_regex="1" highlight="keyword"><context idref="c.cftag" /></element>
 	
 	&all-html;
 	

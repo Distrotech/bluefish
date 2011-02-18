@@ -183,14 +183,18 @@
 							</element><!-- smartoutdent -->
 							<element name="default_spellcheck">
 								<a:documentation>Define if regions that are not highlighted will be checked by the spell checker. This is typically enabled for HTML/XML like languages, and disabled (or ignored) for all programming languages.</a:documentation>
-								<attribute name="enabled" a:defaultValue="1">
-									<a:documentation>Enable (1) or disable (0) the feature</a:documentation>
-									<data type="boolean"/>
-								</attribute>
-								<attribute name="spell_decode_entities">
-									<a:documentation>Enable (1) or disable (0) the feature, if the spell checker sees a word like m&amp;eacute;l it will decode the entity and try again if it is spelled correctly.</a:documentation>
-									<data type="boolean" a:defaultValue="0"/>
-								</attribute>
+								<oneOrMore>
+									<choice>
+										<attribute name="enabled" a:defaultValue="1">
+											<a:documentation>Enable (1) or disable (0) the feature</a:documentation>
+											<data type="boolean"/>
+										</attribute>
+										<attribute name="spell_decode_entities">
+											<a:documentation>Enable (1) or disable (0) the feature, if the spell checker sees a word like m&amp;eacute;l it will decode the entity and try again if it is spelled correctly.</a:documentation>
+											<data type="boolean" a:defaultValue="0"/>
+										</attribute>
+									</choice>
+								</oneOrMore>
 								<empty/>
 							</element><!-- default_spellcheck -->
 						</choice>

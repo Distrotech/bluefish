@@ -30,7 +30,8 @@
 #include "config.h"
 
 #ifdef MAC_INTEGRATION
-#include <ige-mac-integration.h>
+/*#include <ige-mac-integration.h>*/
+#include <gtkosxapplication.h>
 #endif
 
 
@@ -386,9 +387,6 @@ gboolean left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean
 	}
 	if (!first_time) {
 		gtk_widget_unref(bfwin->notebook_box);
-/*#ifdef MAC_INTEGRATION
-		ige_mac_menu_sync(GTK_MENU_SHELL(bfwin->menubar));
-#endif*/
 	}
 	return TRUE;
 }
@@ -517,9 +515,6 @@ void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
 	menuitem_set_sensitive(bfwin->menubar, "/Edit/Undo All", undo);
 	menuitem_set_sensitive(bfwin->menubar, "/Edit/Redo", redo);
 	menuitem_set_sensitive(bfwin->menubar, "/Edit/Redo All", redo);
-/*#ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(bfwin->menubar));
-#endif*/
 }
 
 void gui_set_document_widgets(Tdocument *doc) {
@@ -571,10 +566,6 @@ void gui_set_document_widgets(Tdocument *doc) {
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Replace Again", !doc->readonly);
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Indent", !doc->readonly);
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Unindent", !doc->readonly);
-/*#ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(doc->bfwin)->menubar));
-#endif*/
-
 }
 /*
 child : 	the child GtkWidget affected
@@ -1128,11 +1119,7 @@ void gui_create_main(Tbfwin *bfwin) {
 		gui_notebook_set_tab_accels(bfwin);
 		gui_notebook_bind_tab_signals(bfwin);
 	}
-/*#ifdef MAC_INTEGRATION
-	g_print("sync after bfplugins_gui\n");
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif	
-*/	/* everything is ready - we can start loading documents */
+	/* everything is ready - we can start loading documents */
 	/* start to open an empty doc */
 	file_new_cb(NULL, bfwin);
 
@@ -1156,12 +1143,49 @@ void gui_create_main(Tbfwin *bfwin) {
 	}
 }
 
+#ifdef MAC_INTEGRATION
+/* first move all accelerators away from <control> to <command>, and then in a second run
+move the <alt> accelerators to <control> (alt doesn't work on osx) */
+static void osx_accel_map_foreach_controltometa_lcb(gpointer data,const gchar *accel_path,guint accel_key, GdkModifierType accel_mods, gboolean changed) {
+	if (accel_mods & GDK_CONTROL_MASK) {
+		accel_mods &= (accel_mods & GDK_MOD1_MASK) ? ~GDK_MOD1_MASK : ~GDK_CONTROL_MASK;
+		accel_mods |= GDK_META_MASK;
+		if (!gtk_accel_map_change_entry(accel_path,accel_key,accel_mods,FALSE)) {
+			g_print("controltometa, could not change accelerator %s\n",accel_path);
+		}
+	}
+}
+static void osx_accel_map_foreach_mod1tocontrol_lcb(gpointer data,const gchar *accel_path,guint accel_key, GdkModifierType accel_mods, gboolean changed) {
+	if (accel_mods & GDK_MOD1_MASK) {
+		accel_mods &= ~GDK_MOD1_MASK;
+		accel_mods |= GDK_CONTROL_MASK;
+		if (!gtk_accel_map_change_entry(accel_path,accel_key,accel_mods,FALSE)) {
+			g_print("mod1tocontrol, could not change accelerator %s\n",accel_path);
+		}
+	}
+}
+#endif
+
 void gui_show_main(Tbfwin *bfwin) {
-	/* don't use show_all since some widgets are and should be hidden */
 #ifdef MAC_INTEGRATION
 	GtkWidget *menuitem;
 	GtkItemFactory *ifactory;
-	IgeMacMenuGroup *group;
+
+	GtkOSXApplicationMenuGroup *group;
+	GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
+	gtk_widget_hide(bfwin->menubar);
+	gtk_osxapplication_set_menu_bar(theApp, GTK_MENU_SHELL(bfwin->menubar));
+
+	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
+	
+	menuitem = gtk_item_factory_get_widget(ifactory, _("/Edit/Preferences"));
+	group = gtk_osxapplication_add_app_menu_group(theApp);
+	gtk_osxapplication_add_app_menu_item (theApp, group, GTK_MENU_ITEM(menuitem));
+	
+	
+	gtk_accel_map_foreach_unfiltered(NULL,osx_accel_map_foreach_controltometa_lcb);
+	gtk_accel_map_foreach_unfiltered(NULL,osx_accel_map_foreach_mod1tocontrol_lcb);
+/*	IgeMacMenuGroup *group;
 	gtk_widget_hide(bfwin->menubar);
 	
 	ige_mac_menu_set_menu_bar(GTK_MENU_SHELL(bfwin->menubar));
@@ -1173,18 +1197,17 @@ void gui_show_main(Tbfwin *bfwin) {
 	group = ige_mac_menu_add_app_menu_group ();
 	ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(menuitem),NULL);
 	
-	/*ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(about_item),NULL);*/
 	menuitem = gtk_item_factory_get_widget(ifactory, _("/Edit/Preferences"));
 	group = ige_mac_menu_add_app_menu_group();
 	ige_mac_menu_add_app_menu_item(group,GTK_MENU_ITEM(menuitem),NULL);
-	ige_mac_menu_set_global_key_handler_enabled(TRUE);
+	ige_mac_menu_set_global_key_handler_enabled(TRUE);*/
 
 	/* MACTODO: add focus in and focus out event so we can sync the menu
 	when we switch to a different bluefish window */
 #endif
 	DEBUG_MSG("gui_show_main, before show\n");
 	gtk_widget_show(bfwin->main_window);
-
+	/* don't use show_all since some widgets are and should be hidden */
 }
 /***********************/
 /* statusbar functions */
@@ -1249,9 +1272,6 @@ void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync
 		make_main_toolbar(bfwin);
 	}
 	widget_set_visible(bfwin->main_toolbar_hb,visible);
-/*#ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(bfwin->menubar));
-#endif*/
 }
 
 void tb_fullscreen_cb(GtkWidget *widget, Tbfwin *bfwin) {
@@ -1284,10 +1304,6 @@ void gui_statusbar_show_hide_toggle(Tbfwin *bfwin, gboolean visible, gboolean sy
 	widget_set_visible(bfwin->statusbar_lncol,visible);
 	widget_set_visible(bfwin->statusbar_insovr,visible);
 	widget_set_visible(bfwin->statusbar_editmode,visible);
-/*#ifdef MAC_INTEGRATION
-	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));
-#endif*/
-
 }
 
 void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
