@@ -198,6 +198,9 @@ gchar *htmlbar_menu_translate(const gchar * path, gpointer data) {
 static const gchar *htmlbar_plugin_ui =
 "<ui>"
 "  <menubar name='MainMenu'>"
+"    <menu action='ViewMenu'>"
+"      <menuitem action='ViewHTMLToolbar'/>"
+"    </menu>"
 "    <menu action='TagsMenu'>"
 "      <menu action='HeadingsMenu'>"
 "        <menuitem action='HeadingsH1'/>"
@@ -403,6 +406,57 @@ static const gchar *htmlbar_plugin_ui =
 "        <menuitem action='MiscImage'/>"
 "      </menu>"
 "      <menuitem action='TagsComment'/>"
+"    </menu>"
+"    <menu action='DialogsMenu'>"
+"      <menu action='DialogsGeneral'>"
+"        <menuitem action='DialogQuickstart'/>"
+"        <menuitem action='DialogLinkHeader'/>"
+"        <menuitem action='DialogBody'/>"
+"        <menuitem action='DialogAnchor'/>"
+"        <menuitem action='DialogEmail'/>"
+"        <menuitem action='DialogRule'/>"
+"        <menuitem action='DialogFont'/>"
+"        <menuitem action='DialogBasefont'/>"
+"        <menuitem action='DialogQuicklist'/>"
+"        <menuitem action='DialogMeta'/>"
+"        <menuitem action='DialogEmbed'/>"
+"        <menuitem action='DialogColor'/>"
+"        <menuitem action='DialogTime'/>"
+"        <menuitem action='DialogImage'/>"
+"        <menuitem action='DialogThumbnail'/>"
+"      </menu>"
+"      <menu action='DialogsTableMenu'>"
+"        <menuitem action='DialogsTableWizard'/>"
+"        <menuitem action='DialogsTable'/>"
+"        <menuitem action='DialogsTableRow'/>"
+"        <menuitem action='DialogsTableHead'/>"
+"        <menuitem action='DialogsTableData'/>"
+"      </menu>"
+"      <menu action='DialogsCSSMenu'>"
+"        <menuitem action='DialogsCreateStyle'/>"
+"        <menuitem action='DialogsSpan'/>"
+"        <menuitem action='DialogsDiv'/>"
+"        <menuitem action='DialogsStyle'/>"
+"        <menuitem action='DialogsLinkStylesheet'/>"
+"      </menu>"
+"      <menu action='DialogsFrameMenu'>"
+"        <menuitem action='DialogsFrameWizard'/>"
+"        <menuitem action='DialogsFrameset'/>"
+"        <menuitem action='DialogsFrame'/>"
+"      </menu>"
+"      <menu action='DialogsFormMenu'>"
+"        <menuitem action='DialogsForm'/>"
+"        <menuitem action='DialogsFormInput'/>"
+"        <menuitem action='DialogsFormButtons'/>"
+"        <menuitem action='DialogsFormText'/>"
+"        <menuitem action='DialogsFormTextarea'/>"
+"        <menuitem action='DialogsFormSelect'/>"
+"        <menuitem action='DialogsFormOption'/>"
+"        <menuitem action='DialogsFormOptionGroup'/>"
+"        <menuitem action='DialogsFormButton'/>"
+"      </menu>"
+"      <separator/>"
+"      <menuitem action='DialogsEditTag'/>"
 "    </menu>"
 "  </menubar>"
 "</ui>";
@@ -690,6 +744,10 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 	GtkActionGroup *action_group;
 	GError *error = NULL;
 
+	static const GtkToggleActionEntry htmlbar_toggle_actions[] = {
+		{ "ViewHTMLToolbar", NULL, N_("_HTML Toolbar"), NULL, NULL, NULL, TRUE },
+	};
+
 	static const GtkActionEntry htmlbar_actions[] = {
 		{ "TagsMenu", NULL, N_("T_ags") },
 		{ "HeadingsMenu", NULL, N_("_Headings") },
@@ -872,12 +930,58 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{ "MiscAnchor", NULL, N_("_Anchor"), NULL, NULL, NULL },
 		{ "MiscImage", NULL, N_("_Image"), NULL, NULL, NULL },
 		{ "TagsComment", NULL, N_("_Comment"), "<control><alt>C", NULL, NULL },
+		{ "DialogsMenu", NULL, N_("Dial_ogs") },
+		{ "DialogsGeneral", NULL, N_("_General") },
+		{ "DialogQuickstart", NULL, N_("_Quickstart..."), "<shift><alt>q", NULL, NULL },
+		{ "DialogLinkHeader", NULL, N_("_Link Header..."), NULL, NULL, NULL },
+		{ "DialogBody", NULL, N_("_Body..."), "<shift><alt>B", NULL, NULL },
+		{ "DialogAnchor", NULL, N_("_Anchor..."), "<shift><alt>a", NULL, NULL },
+		{ "DialogEmail", NULL, N_("_Email..."), "<shift><alt>e", NULL, NULL },
+		{ "DialogRule", NULL, N_("_Rule..."), "<shift><alt>r", NULL, NULL },
+		{ "DialogFont", NULL, N_("_Font..."), "<shift><alt>f", NULL, NULL },
+		{ "DialogBasefont", NULL, N_("Basef_ont..."), NULL, NULL, NULL },
+		{ "DialogQuicklist", NULL, N_("Quick_list..."), "<shift><alt>L", NULL, NULL },
+		{ "DialogMeta", NULL, N_("_Meta..."), "<shift><alt>m", NULL, NULL },
+		{ "DialogEmbed", NULL, N_("Embe_d..."), NULL, NULL, NULL },
+		{ "DialogColor", NULL, N_("Select _Color..."), NULL, NULL, NULL },
+		{ "DialogTime", NULL, N_("Insert _Time..."), NULL, NULL, NULL },
+		{ "DialogImage", NULL, N_("Insert _Image..."), "<shift><alt>I", NULL, NULL },
+		{ "DialogThumbnail", NULL, N_("Insert T_humbnail..."), "<shift><alt>N", NULL, NULL },
+		{ "DialogsTableMenu", NULL, N_("_Table") },
+		{ "DialogsTableWizard", NULL, N_("Table _Wizard..."), NULL, NULL, NULL },
+		{ "DialogsTable", NULL, N_("_Table..."), "<shift><alt>T", NULL, NULL },
+		{ "DialogsTableRow", NULL, N_("Table _Row..."), NULL, NULL, NULL },
+		{ "DialogsTableHead", NULL, N_("Table _Head..."), NULL, NULL, NULL },
+		{ "DialogsTableData", NULL, N_("Table _Data..."), NULL, NULL, NULL },
+		{ "DialogsCSSMenu", NULL, N_("_CSS") },
+		{ "DialogsCreateStyle", NULL, N_("_Create Style..."), "<shift><alt>S", NULL, NULL },
+		{ "DialogsSpan", NULL, N_("S_pan..."), NULL, NULL, NULL },
+		{ "DialogsDiv", NULL, N_("_Div..."), "<shift><alt>D", NULL, NULL },
+		{ "DialogsStyle", NULL, N_("_Style..."), NULL, NULL, NULL },
+		{ "DialogsLinkStylesheet", NULL, N_("_Link to Stylesheet..."), NULL, NULL, NULL },
+		{ "DialogsFrameMenu", NULL, N_("_Frame") },
+		{ "DialogsFrameWizard", NULL, N_("Frame _Wizard..."), NULL, NULL, NULL },
+		{ "DialogsFrameset", NULL, N_("Frame_set..."), NULL, NULL, NULL },
+		{ "DialogsFrame", NULL, N_("_Frame..."), NULL, NULL, NULL },
+		{ "DialogsFormMenu", NULL, N_("F_orm") },
+		{ "DialogsForm", NULL, N_("F_orm..."), NULL, NULL, NULL },
+		{ "DialogsFormInput", NULL, N_("_Input..."), NULL, NULL, NULL },
+		{ "DialogsFormButtons", NULL, N_("Input Buttons..."), NULL, NULL, NULL },
+		{ "DialogsFormText", NULL, N_("Input Text..."), NULL, NULL, NULL },
+		{ "DialogsFormTextarea", NULL, N_("Text_area..."), NULL, NULL, NULL },
+		{ "DialogsFormSelect", NULL, N_("_Select..."), NULL, NULL, NULL },
+		{ "DialogsFormOption", NULL, N_("O_ption..."), NULL, NULL, NULL },
+		{ "DialogsFormOptionGroup", NULL, N_("Option _Group..."), NULL, NULL, NULL },
+		{ "DialogsFormButton", NULL, N_("_Button..."), NULL, NULL, NULL },
+		{ "DialogsEditTag", NULL, N_("_Edit tag under cursor..."), "F3", NULL, NULL }
 	};
 
 	action_group = gtk_action_group_new("htmlbarActions");
 	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
 	gtk_action_group_add_actions(action_group, htmlbar_actions, G_N_ELEMENTS(htmlbar_actions),
 								 bfwin->main_window);
+	gtk_action_group_add_toggle_actions(action_group, htmlbar_toggle_actions,
+			G_N_ELEMENTS(htmlbar_toggle_actions), bfwin->main_window);
 	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 0);
 	g_object_unref(action_group);
 
