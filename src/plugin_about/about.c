@@ -3,6 +3,7 @@
  *
  * Copyright (C) 2004 Eugene Morenko(More) more@irpin.com
  * Copyright (C) 2008-2011 Olivier Sessink
+ * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,20 +26,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>				/* getopt() */
+
 #ifdef WIN32
 #include <windows.h>
 #include <shellapi.h>			/* ShellExecute */
 #endif							/* WIN32 */
+
 #include "about.h"
 #include "about_rev.h"
 
 #include "../config.h"
 #include "../plugins.h"
-#include "../dialog_utils.h"	/* message_dialog_new */
 #include "../bluefish.h"		/* BLUEFISH_SPLASH_FILENAME */
 
 
-static void bluefish_url_show(const gchar * url)
+static void
+bluefish_url_show(const gchar * url)
 {
 #ifdef WIN32
 	if ((int) ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL) <= 32) {
@@ -48,53 +51,83 @@ static void bluefish_url_show(const gchar * url)
 	GError *error = NULL;
 
 	g_app_info_launch_default_for_uri(url, NULL, &error);
-	if (error)
-	{
+	if (error) {
 		g_warning("bluefish_url_show, %s", error->message);
 		g_error_free(error);
 	}
 #endif
 }
 
-static void bluefish_url_show_lcb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
+static void
+about_options_dialog_create(GtkAction * action, gpointer user_data)
 {
-	switch (callback_action) {
-	case 1:
-		bluefish_url_show("http://bluefish.openoffice.nl");
-		break;
-	case 2:
-		bluefish_url_show(g_strconcat("http://bugzilla.gnome.org/enter_bug.cgi?product=bluefish",
-#ifdef WIN32
-		";op_sys=Windows",
-#endif /* WIN32 */
-		";version="
+	GtkWidget *dialog;
+	gchar *sec_text;
+
+	dialog =
+		gtk_message_dialog_new(GTK_WINDOW(BFWIN(user_data)->main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
+							   GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE,
 #ifdef SVN_REVISION
-		"development (SVN TRUNK)",
-#else /* SVN_REVISION */
-		PACKAGE_VERSION,
-#endif /* SVN_REVISION */
-		";comment=", g_uri_escape_string(g_strconcat(
-#ifdef SVN_REVISION
-		"SVN revision ",
-		SVN_REVISION, "\n\n"
-#endif /* SVN_REVISION */
-		"Bluefish was configured with: ",
-		CONFIGURE_OPTIONS, "\n",
-		NULL), NULL, FALSE), NULL));
-		break;
-	default:
-		DEBUG_MSG_C("uh-oh: bluefish_url_show_cb, unknown action %d\n", callback_action);
-		g_return_if_reached();
-	}
+							   PACKAGE_STRING " rev" SVN_REVISION);
+#else	/* SVN_REVISION */
+							   PACKAGE_STRING);
+#endif	/* SVN_REVISION */
+
+	sec_text = g_strconcat(_("This version of Bluefish was built with:\n"), CONFIGURE_OPTIONS, NULL);
+	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), sec_text);
+	g_free(sec_text);
+
+	gtk_dialog_run(GTK_DIALOG(dialog));
+	gtk_widget_destroy(dialog);
 }
 
-static void about_activate_url(GtkAboutDialog * about, const gchar * url, gpointer data)
+static void
+about_report_bug(GtkAction * action, gpointer user_data)
+{
+	GString *string;
+	gchar *options;
+
+	string = g_string_new("http://bugzilla.gnome.org/enter_bug.cgi?product=bluefish");
+#ifdef WIN32
+	string = g_string_append(string, ";op_sys=Windows");
+#endif	/* WIN32 */
+	string = g_string_append(string, ";version=");
+#ifdef SVN_REVISION
+	string = g_string_append(string, "development (SVN TRUNK)");
+#else	/* SVN_REVISION */
+	string = g_string_apend(string, PACKAGE_VERSION);
+#endif	/* SVN_REVISION */
+	string = g_string_append(string, ";comment=");
+
+	options = g_strconcat(
+#ifdef SVN_REVISION
+						  "SVN revision ", SVN_REVISION, "\n\n"
+#endif	/* SVN_REVISION */
+						  "Bluefish was configured with: ", CONFIGURE_OPTIONS, "\n", NULL);
+
+	string = g_string_append_uri_escaped(string, options, NULL, FALSE);
+	g_free(options);
+
+	bluefish_url_show(string->str);
+	g_string_free(string, TRUE);
+}
+
+static void
+about_show_homepage(GtkAction * action, gpointer user_data)
+{
+	bluefish_url_show("http://bluefish.openoffice.nl");
+}
+
+static void
+about_activate_url(GtkAboutDialog * about, const gchar * url, gpointer data)
 {
 	bluefish_url_show(url);
 }
 
-static void about_dialog_create(Tbfwin * bfwin, guint * callback_action, GtkWidget * widget)
+static void
+about_dialog_create(GtkAction * action, gpointer user_data)
 {
+	Tbfwin *bfwin = BFWIN(user_data);
 	GdkPixbuf *logo;
 
 	const gchar *artists[] = {
@@ -151,17 +184,17 @@ static void about_dialog_create(Tbfwin * bfwin, guint * callback_action, GtkWidg
 	 * the "wrap-license" property is only available with GTK >= 2.8
 	 */
 	const gchar *license =
-		"This program is free software; you can redistribute it and/or modify it\n"
-		"under the terms of the GNU General Public License as published by\n"
-		"the Free Software Foundation; either version 3 of the License, or\n"
+		"This program is free software; you can redistribute it and/or modify it "
+		"under the terms of the GNU General Public License as published by "
+		"the Free Software Foundation; either version 3 of the License, or "
 		"(at your option) any later version.\n"
 		"\n"
-		"This program is distributed in the hope that it will be useful,\n"
-		"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-		"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\n"
+		"This program is distributed in the hope that it will be useful, "
+		"but WITHOUT ANY WARRANTY; without even the implied warranty of "
+		"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the "
 		"GNU General Public License for more details.\n"
 		"\n"
-		"You should have received a copy of the GNU General Public License\n"
+		"You should have received a copy of the GNU General Public License "
 		"along with this program.  If not, see <http://www.gnu.org/licenses/>.";
 
 	const gchar *comments =
@@ -191,96 +224,68 @@ static void about_dialog_create(Tbfwin * bfwin, guint * callback_action, GtkWidg
 
 	gtk_show_about_dialog(GTK_WINDOW(bfwin->main_window), "logo", logo, "name", PACKAGE,
 #ifdef SVN_REVISION
-		"version", VERSION " rev" SVN_REVISION,
+						  "version", VERSION " rev" SVN_REVISION,
 #else	/* SVN_REVISION */
-		"version", VERSION,
+						  "version", VERSION,
 #endif	/* SVN_REVISION */
-		"comments", comments,
-		"copyright", copyright,
-		"license", license,
-		"website", "http://bluefish.openoffice.nl",
-		"authors", authors,
-		"artists", artists,
-		"documenters", documenters, "translator_credits", translator_credits, NULL);
+						  "comments", comments,
+						  "copyright", copyright,
+						  "license", license,
+						  "website", "http://bluefish.openoffice.nl",
+						  "authors", authors,
+						  "artists", artists,
+						  "documenters", documenters,
+						  "translator_credits", translator_credits,
+						  "wrap-license", TRUE,
+						  NULL);
 
 	if (logo)
 		g_object_unref(logo);
-	/* g_free (comments); */
 }
 
-static void configure_options_dialog_create(Tbfwin * bfwin, guint * callback_action, GtkWidget * widget)
-{
-	message_dialog_new(bfwin->main_window, GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
-#ifdef SVN_REVISION
-		PACKAGE_STRING " rev" SVN_REVISION,
-#else	/* SVN_REVISION */
-		PACKAGE_STRING,
-#endif	/* SVN_REVISION */
-		g_strconcat(_("This version of Bluefish was built with:\n"), CONFIGURE_OPTIONS, NULL));
-}
-
-static void about_init(void)
+static void
+about_init(void)
 {
 #ifdef ENABLE_NLS
 	DEBUG_MSG("about_init, gettext domain-name=%s\n", PACKAGE "_plugin_about");
 	bindtextdomain(PACKAGE "_plugin_about", LOCALEDIR);
 	bind_textdomain_codeset(PACKAGE "_plugin_about", "UTF-8");
-#endif	/* ENABLE_NLS */
+#endif							/* ENABLE_NLS */
 }
-
-#ifdef ENABLE_NLS
-static gchar *about_menu_translate(const gchar * path, gpointer data)
-{
-	return _(path);
-}
-#endif	/* ENABLE_NLS */
 
 static const gchar *about_plugin_ui =
-"<ui>"
-"  <menubar name='MainMenu'>"
-"    <menu action='HelpMenu'>"
-"      <menuitem action='HelpHomepage'/>"
-"      <menuitem action='HelpReportBug'/>"
-"      <separator/>"
-"      <menuitem action='HelpAbout'/>"
-"      <menuitem action='HelpBuildInfo'/>"
-"    </menu>"
-"  </menubar>"
-"</ui>";
+	"<ui>"
+	"  <menubar name='MainMenu'>"
+	"    <menu action='HelpMenu'>"
+	"      <menuitem action='HelpHomepage'/>"
+	"      <menuitem action='HelpReportBug'/>"
+	"      <separator/>"
+	"      <menuitem action='HelpAbout'/>"
+	"      <menuitem action='HelpBuildInfo'/>"
+	"    </menu>"
+	"  </menubar>"
+	"</ui>";
 
-static void about_initgui(Tbfwin * bfwin)
+static void
+about_initgui(Tbfwin * bfwin)
 {
-	GtkItemFactory *ifactory;
-	static GtkItemFactoryEntry menu_items[] = {
-		{N_("/_Help"), NULL, NULL, 0, "<Branch>"},
-		{N_("/Help/Bluefish _Homepage"), NULL, bluefish_url_show_lcb, 1, "<StockItem>", GTK_STOCK_HOME},
-		{N_("/Help/Report a _Bug"), NULL, bluefish_url_show_lcb, 2, "<Item>"},
-		{"/Help/sep1", NULL, NULL, 0, "<Separator>"},
-		{N_("/Help/_About..."), NULL, about_dialog_create, 0, "<StockItem>", GTK_STOCK_ABOUT},
-		{N_("/Help/_Build Info..."), NULL, configure_options_dialog_create, 0, "<StockItem>", GTK_STOCK_INFO}
-	};
-	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
-#ifdef ENABLE_NLS
-	gtk_item_factory_set_translate_func(ifactory, about_menu_translate, "<bluefishmain>", NULL);
-#endif
-	gtk_item_factory_create_items(ifactory, sizeof(menu_items) / sizeof(menu_items[0]), menu_items, bfwin);
-	gtk_widget_show_all(bfwin->menubar);
-
 	GtkActionGroup *action_group;
 	GError *error = NULL;
 
 	static const GtkActionEntry about_actions[] = {
-		{ "HelpMenu", NULL, N_("_Help") },
-		{ "HelpHomepage", GTK_STOCK_HOME, N_("Bluefish _Homepage"), NULL, N_("Bluefish homepage"), NULL },
-		{ "HelpReportBug", NULL, N_("Report a _Bug"), NULL, N_("Report a bug"), NULL },
-		{ "HelpAbout", GTK_STOCK_ABOUT, N_("_About"), NULL, N_("About Bluefish"), NULL },
-		{ "HelpBuildInfo", GTK_STOCK_INFO, N_("_Build Info"), NULL, N_("Build info"), NULL }
+		{"HelpMenu", NULL, N_("_Help")},
+		{"HelpHomepage", GTK_STOCK_HOME, N_("Bluefish _Homepage"), NULL, N_("Bluefish homepage"),
+		 G_CALLBACK(about_show_homepage)},
+		{"HelpReportBug", NULL, N_("Report a _Bug"), NULL, N_("Report a bug"), G_CALLBACK(about_report_bug)},
+		{"HelpAbout", GTK_STOCK_ABOUT, N_("_About"), NULL, N_("About Bluefish"),
+		 G_CALLBACK(about_dialog_create)},
+		{"HelpBuildInfo", GTK_STOCK_INFO, N_("_Build Info"), NULL, N_("Build info"),
+		 G_CALLBACK(about_options_dialog_create)}
 	};
 
 	action_group = gtk_action_group_new("AboutActions");
-	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
-	gtk_action_group_add_actions(action_group, about_actions, G_N_ELEMENTS(about_actions),
-								 bfwin->main_window);
+	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE "_plugin_about");
+	gtk_action_group_add_actions(action_group, about_actions, G_N_ELEMENTS(about_actions), bfwin);
 	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 0);
 	g_object_unref(action_group);
 
@@ -291,24 +296,29 @@ static void about_initgui(Tbfwin * bfwin)
 	}
 }
 
-static void about_enforce_session(Tbfwin * bfwin)
+static void
+about_enforce_session(Tbfwin * bfwin)
 {
 }
 
-static void about_cleanup(void)
+static void
+about_cleanup(void)
 {
 }
 
-static void about_cleanup_gui(Tbfwin * bfwin)
+static void
+about_cleanup_gui(Tbfwin * bfwin)
 {
 }
 
-static GHashTable *about_register_globses_config(GHashTable * configlist)
+static GHashTable *
+about_register_globses_config(GHashTable * configlist)
 {
 	return configlist;
 }
 
-static GHashTable *about_register_session_config(GHashTable * configlist, Tsessionvars * session)
+static GHashTable *
+about_register_session_config(GHashTable * configlist, Tsessionvars * session)
 {
 	return configlist;
 }
@@ -339,7 +349,8 @@ static TBluefishPlugin bfplugin = {
 	NULL
 };
 
-G_MODULE_EXPORT TBluefishPlugin *getplugin(void)
+G_MODULE_EXPORT TBluefishPlugin *
+getplugin(void)
 {
 	return &bfplugin;
 }
