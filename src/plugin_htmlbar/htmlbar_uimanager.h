@@ -1,7 +1,9 @@
-/* Bluefish HTML Editor
- * htmlbar.h - plugin for html toolbar
+/*
+ * Bluefish HTML Editor
+ * htmlbar_uimanager.h
  *
- * Copyright (C) 2002-2005 Olivier Sessink
+ * Copyright (C) 2005-2011 Olivier Sessink
+ * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,35 +19,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __HTMLBAR_H_
-#define __HTMLBAR_H_
+#ifndef HTMLBAR_UIMANAGER_H_
+#define HTMLBAR_UIMANAGER_H_
 
-#define ENABLEPLUGINS
-/* #define DEBUG */
+#include "htmlbar.h"
 
-#include <gtk/gtk.h>
-#include "../config.h"
-#include "../bluefish.h"
 
-#ifdef ENABLE_NLS
-#undef _
-#define _(String) dgettext(PACKAGE"_plugin_htmlbar", String)
-#endif
+void htmlbar_menu_create(Thtmlbarwin *hbw);
+void htmlbar_toolbar_show(Thtmlbarwin *hbw, gboolean show);
 
-typedef struct {
-	GHashTable *lookup;
-	GList *quickbar_items;
-} Thtmlbar;
 
-typedef struct {
-	Tbfwin *bfwin;
-	GtkWidget *handlebox;
-} Thtmlbarwin;
-
-typedef struct {
-	gint view_htmlbar;
-} Thtmlbarsession;
-
-extern Thtmlbar htmlbar_v;
-
-#endif							/* __HTMLBAR_H_ */
+#endif /* HTMLBAR_UIMANAGER_H_ */

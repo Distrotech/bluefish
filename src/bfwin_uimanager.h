@@ -25,6 +25,7 @@
 
 
 void main_menu_create(Tbfwin *bfwin, GtkWidget *vbox);
+void setup_menu_toggle_item(GtkActionGroup *action_group, const gchar *action_name, gboolean is_active);
 
 
 #endif /* BFWIN_UIMANAGER_H_ */

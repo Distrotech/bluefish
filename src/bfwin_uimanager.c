@@ -247,3 +247,16 @@ main_menu_create(Tbfwin * bfwin, GtkWidget * vbox)
 	gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
 	gtk_widget_show(menubar);
 }
+
+void
+setup_menu_toggle_item(GtkActionGroup *action_group, const gchar *action_name, gboolean is_active)
+{
+	GtkAction *action = gtk_action_group_get_action(action_group, action_name);
+	if (!action) {
+		g_print("Cannot set-up menu widget %s\n", action_name);
+		return;
+	}
+
+	if ((gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) != is_active)
+		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), is_active);
+}

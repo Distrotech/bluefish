@@ -1,5 +1,5 @@
 
-SUBDIRS = pixmaps po
+SUBDIRS = pixmaps po ui
 
 EXTRA_DIST = htmlbar.def
 
@@ -18,6 +18,8 @@ htmlbar_la_SOURCES = \
 	htmlbar.c \
 	htmlbar_gui.c \
 	htmlbar_gui.h \
+	htmlbar_uimanager.c \
+	htmlbar_uimanager.h \
 	htmlbar.h \
 	html.c \
 	html_diag.c \
