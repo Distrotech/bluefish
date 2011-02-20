@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define HL_PROFILING
+/*#define HL_PROFILING*/
 /*#define MINIMAL_REFCOUNTING*/
 /*#define VALGRIND_PROFILING*/
 
