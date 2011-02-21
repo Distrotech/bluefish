@@ -247,17 +247,17 @@
 			</choice>
 			<optional>
 				<attribute name="commentid_block">
-					<a:documentation>ID of comment block to reuse </a:documentation>
-					<data type="IDREF">
-						<param name="pattern">cm\.[a-zA-Z0-9_.]+</param>
+					<a:documentation>ID of comment block to reuse, or `none`, default: inherited.</a:documentation>
+					<data type="string">
+						<param name="pattern">(cm\.[a-zA-Z0-9_.]+)|none</param>
 					</data>
 				</attribute>
 			</optional>
 			<optional>
 				<attribute name="commentid_line">
-					<a:documentation>ID of comment line to reuse</a:documentation>
-					<data type="IDREF">
-						<param name="pattern">cm\.[a-zA-Z0-9_.]+</param>
+					<a:documentation>ID of comment line to reuse, or `none`, default: inherited.</a:documentation>
+					<data type="string">
+						<param name="pattern">(cm\.[a-zA-Z0-9_.]+)|none</param>
 					</data>
 				</attribute>
 			</optional>

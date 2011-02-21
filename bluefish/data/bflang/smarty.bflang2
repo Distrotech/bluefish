@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		smarty.bflang2 $Revision: 4518 $
+		smarty.bflang2 $Revision: 6414 $
  
-		Copyright (C) 2008-2009 Olivier Sessink
+		Copyright (C) 2008-20011 Olivier Sessink
 
 	    This program is free software: you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@
 		'>
 ]>
 
-<bflang name="Smarty template" version="2.0" table="7823" contexts="99" matches="1733">
+<bflang name="Smarty template" version="2.0" table="61634" contexts="358" matches="10868">
 <header>
 	<mime type="application/x-smarty" />
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -67,6 +67,7 @@
 	<option name="javascript_string_object" default="1" description="String object" />
 	<option name="javascript_window_object" default="1" description="Window object" />
 	<option name="sql-in-php-string" default="1" description="scan for sql in php strings" />
+	<option name="javascript_css_properties" default="1" description="CSS properties" />
 	<highlight name="html-tag" style="tag" />
 	<highlight name="html-reference-external-tag" style="special-tag" />
 	<highlight name="html-table-tag" style="special-tag2" />
@@ -78,24 +79,27 @@
 	<highlight name="html-brackets" style="brackets" />
 	<highlight name="html-comment" style="comment" />
 	
-	<highlight name="js-keyword" style="keyword"  />
-	<highlight name="js-brackets" style="brackets"  />
-	<highlight name="js-type" style="type"  />
-	<highlight name="js-comment" style="comment"  />
-	<highlight name="js-string" style="string"  />
-	<highlight name="js-value" style="value"  />
-	<highlight name="js-function" style="function"  />
-	<highlight name="js-variable" style="variable"  />
-       	<highlight name="js-property" style="special-function"  />
+	<highlight name="js-keyword" style="keyword" />
+	<highlight name="js-brackets" style="brackets" />
+	<highlight name="js-type" style="type" />
+	<highlight name="js-comment" style="comment" />
+	<highlight name="js-string" style="string" />
+	<highlight name="js-value" style="value" />
+	<highlight name="js-function" style="function" />
+	<highlight name="js-variable" style="variable" />
+   <highlight name="js-property" style="special-function" />
+	<highlight name="js-css-property" style="function" />
 
-	<highlight name="css-brackets" style="brackets"  />
+
+	<highlight name="css-brackets" style="brackets" />
 	<highlight name="css-comment" style="comment" />
-	<highlight name="css-html-tag" style="tag"  />
+	<highlight name="css-html-tag" style="tag" />
 	<highlight name="css-html-classid" style="tag" />
-	<highlight name="css-keyword" style="keyword"  />
-	<highlight name="css-property" style="special-keyword"  />
+	<highlight name="css-html-media" style="special-tag" />
+	<highlight name="css-keyword" style="keyword" />
+	<highlight name="css-property" style="special-keyword" />
 	<highlight name="css-string" style="string" />
-	<highlight name="css-value" style="value"   />
+	<highlight name="css-value" style="value" />
 	<highlight name="css-pseudo-element" style="keyword" />
 	
 	<highlight name="smarty-comment" style="comment" />
@@ -104,18 +108,21 @@
 	<highlight name="smarty-variable" style="variable" />
 	<highlight name="smarty-attribute" style="attribute" />
 	
-	<highlight name="php-block-tag" style="special-value"  />
-	<highlight name="string" style="string"   />
-	<highlight name="brackets" style="brackets"  />
-	<highlight name="php-keyword" style="keyword"  />
+	<highlight name="php-block-tag" style="special-value" />
+	<highlight name="string" style="string" />
+	<highlight name="brackets" style="brackets" />
+	<highlight name="php-keyword" style="keyword" />
 	<highlight name="php-value" style="value" />
-	<highlight name="php-function" style="function"  />
-	<highlight name="php-comment" style="comment"  />
-	<highlight name="php-variable" style="variable"  />
-	<highlight name="php-string-sql-keyword" style="special-keyword"  />
+	<highlight name="php-function" style="function" />
+	<highlight name="php-comment" style="comment" />
+	<highlight name="php-variable" style="variable" />
+	<highlight name="php-string-sql-keyword" style="special-keyword" />
 </header>
 <properties>
-<default_spellcheck enabled="1" spell_decode_entities="1" />
+	<default_spellcheck enabled="1" spell_decode_entities="1" />
+	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />
+	<comment id="cm.cpplinecomment" type="line" start="//" />
+
 </properties>
 <definition>
 <context symbols="{}&gt;&lt;&amp;; &#9;&#10;&#13;">
@@ -126,6 +133,7 @@
 		<element pattern="{/literal}" ends_context="1" highlight="smarty-tag" />
 	</context>
 </element>
+
 
 <!-- comments -->
 <element pattern="{*" highlight="smarty-tag">
