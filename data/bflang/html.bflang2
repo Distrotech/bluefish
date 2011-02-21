@@ -29,7 +29,7 @@
 	<!ENTITY all-html SYSTEM "all-html.bfinc">
 ]>
 
-<bflang name="Generic HTML" version="2.0" table="12611" contexts="134" matches="2574">
+<bflang name="Generic HTML" version="2.0" table="13448" contexts="135" matches="2717">
 <header>
 	<mime type="text/html"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -90,7 +90,7 @@
 </properties>
 
 <definition>
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment">
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment" commentid_line="none">
 &all-html;
 </context>
 </definition>

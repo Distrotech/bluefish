@@ -29,7 +29,7 @@
 	<!ENTITY all-php SYSTEM "all-php.bfinc">
 ]>
 
-<bflang name="PHP" version="2.0" table="45925" contexts="141" matches="7618">
+<bflang name="PHP" version="2.0" table="45912" contexts="141" matches="7616">
 <header>
 	<mime type="application/x-php"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -101,7 +101,7 @@
 	<default_spellcheck enabled="1" spell_decode_entities="1" />
 </properties>
 <definition>
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment">
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment" commentid_line="none">
 
 &all-html;
 

@@ -19,9 +19,9 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="Processing" version="2.0" table="3685" contexts="6" matches="762">
+<bflang name="Processing" version="2.0" table="3690" contexts="7" matches="764">
 <header>
- <mime type="application/processing"/>
+ <mime type="application/x-processing"/>
  <option name="load_reference" default="1" description="load reference data"/>
  <option name="load_completion" default="1" description="load completion data"/>
  <option name="undescribed_methods" default="1" description="Methods in javadoc but not in references" />
@@ -76,9 +76,15 @@
 </element>
 
 
-<element id="e.lcomment" pattern="/*" starts_block="1" highlight="comment">
- <context symbols="*/&#9;&#10;&#13;" highlight="comment">
-  <element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="comment" mayfold="1" ends_context="1" />
+<element id="e.blcomment" pattern="/*" starts_block="1" highlight="comment">
+ <context symbols="*/" highlight="comment">
+  <element pattern="*/" ends_block="1" blockstartelement="e.blcomment" highlight="comment" mayfold="1" ends_context="1" />
+ </context>
+</element>
+
+<element id="e.doccomment" pattern="/**" starts_block="1" highlight="comment">
+ <context symbols="*/" highlight="value">
+  <element pattern="*/" ends_block="1" blockstartelement="e.doccomment" highlight="comment" mayfold="1" ends_context="1" />
  </context>
 </element>
 
