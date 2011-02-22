@@ -21,8 +21,7 @@
 <!DOCTYPE bflang [
 	<!ENTITY all-vbscript SYSTEM "all-vbscript.bfinc">
 ]>
-
-<bflang name="VBScript" version="2.0">
+<bflang name="VBScript" version="2.0" table="304" contexts="5" matches="101">
 <header>
 	<mime type="application/x-vbscript"/>
 	<option name="load_reference" default="1" description="load reference data"/>
