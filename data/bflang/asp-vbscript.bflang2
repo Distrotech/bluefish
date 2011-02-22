@@ -102,8 +102,8 @@
 	<comment type="block" start="&lt;!--" end="--&gt;" />
 	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />
 	<comment id="cm.cpplinecomment" type="line" start="//" />
-	<comment type="line" start="'" />
-	<comment type="line" start="rem " />
+	<comment id="cm.vbcomment" type="line" start="'" />
+	<comment id="cm.vbremcomment" type="line" start="rem " />
 	<default_spellcheck spell_decode_entities="1" />
 </properties>
 <definition>
@@ -118,7 +118,7 @@
 </element>
 
 <element id="e.asp.block.start" pattern="(&lt;%|&lt;%@|&lt;%=)" is_regex="1" starts_block="1" highlight="asp-block-tag" mayfold="1">
-	<context symbols=" ():\&#34;\',&gt;&lt;*+=-/_&#9;&#10;&#13;.%">
+	<context symbols=" ():\&#34;\',&gt;&lt;*+=-/_&#9;&#10;&#13;.%" commentid_block="none" commentid_line="cm.vbcomment">
 &all-vbscript;
 <element pattern="&#34;" highlight="vbs-string">
 	<context symbols="%&#34;" highlight="vbs-string">
