@@ -7,6 +7,8 @@ ui_DATA = \
 EXTRA_DIST = \
     $(ui_DATA)
 
+MAINTAINERCLEANFILES = Makefile.in
+
 # Remove ui directory on uninstall
 uninstall-local:
 	-rm -r $(uidir)

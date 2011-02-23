@@ -26,6 +26,10 @@
 
 
 void htmlbar_menu_create(Thtmlbarwin *hbw);
+void htmlbar_toolbar_create(Thtmlbarwin *hbw);
+
+void htmlbar_register_stock_icons(void);
+
 void htmlbar_toolbar_show(Thtmlbarwin *hbw, gboolean show);
 
 

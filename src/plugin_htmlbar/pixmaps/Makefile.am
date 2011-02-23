@@ -1,5 +1,7 @@
 
-EXTRA_DIST = \
+pixmapsdir = $(datadir)/bluefish/plugins/htmlbar/pixmaps
+
+pixmaps_DATA = \
 	abbr.png \
 	acronym.png \
 	anchor.png \
@@ -87,103 +89,13 @@ EXTRA_DIST = \
 	underline.png \
 	var.png
 
-CLEANFILES = htmlbar_icons.c
+EXTRA_DIST = \
+    $(pixmaps_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 
+# Remove pixmaps directory on uninstall
+uninstall-local:
+	-rm -r $(pixmapsdir)
 
-HTMLBAR = \
-	pixmap_abbr $(srcdir)/abbr.png \
-	pixmap_acronym $(srcdir)/acronym.png \
-	pixmap_anchor $(srcdir)/anchor.png \
-	pixmap_body $(srcdir)/body.png \
-	pixmap_bold $(srcdir)/bold.png \
-	pixmap_brbreak $(srcdir)/brbreak.png \
-	pixmap_breakall $(srcdir)/breakall.png \
-	pixmap_center $(srcdir)/center.png \
-	pixmap_cite $(srcdir)/cite.png \
-	pixmap_code $(srcdir)/code.png \
-	pixmap_comment $(srcdir)/comment.png \
-	pixmap_context $(srcdir)/context.png \
-	pixmap_css_small $(srcdir)/css_small.png \
-	pixmap_cssdiv $(srcdir)/cssdiv.png \
-	pixmap_cssnewstyle $(srcdir)/cssnewstyle.png \
-	pixmap_cssspan $(srcdir)/cssspan.png \
-	pixmap_cssstyle $(srcdir)/cssstyle.png \
-	pixmap_del $(srcdir)/del.png \
-	pixmap_dfn $(srcdir)/dfn.png \
-	pixmap_edit_tag $(srcdir)/edit_tag.png \
-	pixmap_email $(srcdir)/email.png \
-	pixmap_font $(srcdir)/font.png \
-	pixmap_font_base $(srcdir)/font_base.png \
-	pixmap_fonth1 $(srcdir)/fonth1.png \
-	pixmap_fonth2 $(srcdir)/fonth2.png \
-	pixmap_fonth3 $(srcdir)/fonth3.png \
-	pixmap_fonth4 $(srcdir)/fonth4.png \
-	pixmap_fonth5 $(srcdir)/fonth5.png \
-	pixmap_fonth6 $(srcdir)/fonth6.png \
-	pixmap_fontm1 $(srcdir)/fontm1.png \
-	pixmap_fontp1 $(srcdir)/fontp1.png \
-	pixmap_fontpre $(srcdir)/fontpre.png \
-	pixmap_fontsub $(srcdir)/fontsub.png \
-	pixmap_fontsuper $(srcdir)/fontsuper.png \
-	pixmap_form $(srcdir)/form.png \
-	pixmap_form_check $(srcdir)/form_check.png \
-	pixmap_form_hidden $(srcdir)/form_hidden.png \
-	pixmap_form_option $(srcdir)/form_option.png \
-	pixmap_form_radio $(srcdir)/form_radio.png \
-	pixmap_form_select $(srcdir)/form_select.png \
-	pixmap_form_submit $(srcdir)/form_submit.png \
-	pixmap_form_text $(srcdir)/form_text.png \
-	pixmap_form_textarea $(srcdir)/form_textarea.png \
-	pixmap_form_optiongroup $(srcdir)/form_optiongroup.png \
-	pixmap_frame $(srcdir)/frame.png \
-	pixmap_frame2 $(srcdir)/frame2.png \
-	pixmap_frame_base $(srcdir)/frame_base.png \
-	pixmap_frame_no $(srcdir)/frame_no.png \
-	pixmap_frameset $(srcdir)/frameset.png \
-	pixmap_frameset2 $(srcdir)/frameset2.png \
-	pixmap_framewhiz $(srcdir)/framewhiz.png \
-	pixmap_headings $(srcdir)/headings.png \
-	pixmap_hrule $(srcdir)/hrule.png \
-	pixmap_ins $(srcdir)/ins.png \
-	pixmap_image $(srcdir)/image.png \
-	pixmap_italic $(srcdir)/italic.png \
-	pixmap_kbd $(srcdir)/kbd.png \
-	pixmap_linkstylesheet $(srcdir)/linkstylesheet.png \
-	pixmap_list $(srcdir)/list.png \
-	pixmap_list_dd $(srcdir)/list_dd.png \
-	pixmap_list_dl $(srcdir)/list_dl.png \
-	pixmap_list_dt $(srcdir)/list_dt.png \
-	pixmap_list_li $(srcdir)/list_li.png \
-	pixmap_list_ol $(srcdir)/list_ol.png \
-	pixmap_list_ul $(srcdir)/list_ul.png \
-	pixmap_multithumbs $(srcdir)/multithumbs.png \
-	pixmap_nbsp $(srcdir)/nbsp.png \
-	pixmap_paragraph $(srcdir)/paragraph.png \
-	pixmap_php3 $(srcdir)/php3.png \
-	pixmap_quick_start $(srcdir)/quick_start.png \
-	pixmap_right $(srcdir)/right.png \
-	pixmap_samp $(srcdir)/samp.png \
-	pixmap_strikeout $(srcdir)/strikeout.png \
-	pixmap_table $(srcdir)/table.png \
-	pixmap_table2 $(srcdir)/table2.png \
-	pixmap_table_capt $(srcdir)/table_capt.png \
-	pixmap_table_td $(srcdir)/table_td.png \
-	pixmap_table_td2 $(srcdir)/table_td2.png \
-	pixmap_table_th $(srcdir)/table_th.png \
-	pixmap_table_th2 $(srcdir)/table_th2.png \
-	pixmap_table_tr $(srcdir)/table_tr.png \
-	pixmap_table_tr2 $(srcdir)/table_tr2.png \
-	pixmap_tablewhiz $(srcdir)/tablewhiz.png \
-	pixmap_thumbnail $(srcdir)/thumbnail.png \
-	pixmap_underline $(srcdir)/underline.png \
-	pixmap_var $(srcdir)/var.png
-
-
-htmlbar_icons.c: $(EXTRA_DIST)
-	$(GDK_PIXBUF_CSOURCE) --raw --extern --build-list $(HTMLBAR) > $@
-
-
-BUILT_SOURCES = htmlbar_icons.c
 

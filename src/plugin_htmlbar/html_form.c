@@ -2,7 +2,7 @@
  * html_form.c - html form dialogs
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2010 Olivier Sessink
+ * Copyright (C) 1999-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@
 #include "html2.h" /* style_but_new() */
 #include "html_diag.h" /* html_diag functions */
 #include "html_form.h" /* myself */
+#include "htmlbar_stock_icons.h"
 #include "../stringlist.h" /* add to stringlist */
 #include "../gtk_easy.h"  /* entry_with_text and stuff */
 #include "../document.h" /* insert_dbl_text */
@@ -84,7 +85,7 @@ GtkWidget *php_var_but(Thtml_diag *dg, GtkWidget *name, GtkWidget *val) {
 	dg->php_var_ins.name = name;
 	dg->php_var_ins.val = val;
 	returnwid = gtk_button_new();
-	pixmap = htmlbar_pixmap(pixmap_php3);
+	pixmap = gtk_image_new_from_stock(BF_STOCK_PHP3, GTK_ICON_SIZE_BUTTON);
 	gtk_widget_show(pixmap);
 	gtk_container_add(GTK_CONTAINER(returnwid), pixmap);
 	gtk_signal_connect(GTK_OBJECT(returnwid), "clicked", G_CALLBACK(php_var_insert_cb), dg);

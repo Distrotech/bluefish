@@ -28,6 +28,7 @@
 #include "../stringlist.h"
 #include "htmlbar_gui.h"
 #include "htmlbar_uimanager.h"
+#include "htmlbar_stock_icons.h"
 #include "rpopup.h"
 
 Thtmlbar htmlbar_v;
@@ -47,7 +48,8 @@ htmlbar_doc_view_populate_popup(GtkTextView * textview, GtkMenu * menu, Tdocumen
 	}
 
 	menuitem = gtk_image_menu_item_new_with_label(_("Edit tag"));
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem), htmlbar_pixmap(pixmap_edit_tag));
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),
+								  gtk_image_new_from_stock(BF_STOCK_EDIT_TAG, GTK_ICON_SIZE_MENU));
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 	if (rpopup_doc_located_tag(doc)) {
 		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rpopup_edit_tag_cb), doc);
@@ -100,6 +102,7 @@ htmlbar_initgui(Tbfwin * bfwin)
 
 	hbw = g_new0(Thtmlbarwin, 1);
 	hbw->bfwin = bfwin;
+
 	g_hash_table_insert(htmlbar_v.lookup, bfwin, hbw);
 	DEBUG_MSG("htmlbar_initgui, adding hbw %p to hashtable %p with key %p\n", hbw, htmlbar_v.lookup, bfwin);
 	hbs = g_hash_table_lookup(htmlbar_v.lookup, bfwin->session);
@@ -110,6 +113,8 @@ htmlbar_initgui(Tbfwin * bfwin)
 				  bfwin->session);
 		g_hash_table_insert(htmlbar_v.lookup, bfwin->session, hbs);
 	}
+
+	htmlbar_register_stock_icons();
 	DEBUG_MSG("htmlbar_initgui, started, will call htmlbar_build_menu\n");
 	htmlbar_menu_create(hbw);
 	htmlbar_toolbar_show(hbw, hbs->view_htmlbar);

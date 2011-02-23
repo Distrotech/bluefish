@@ -5,7 +5,7 @@ EXTRA_DIST = htmlbar.def
 
 MAINTAINERCLEANFILES = Makefile.in
 
-DEFS += -DLOCALEDIR=\"$(localedir)\"
+DEFS += -DLOCALEDIR=\"$(localedir)\" -DPKGDATADIR=\"$(pkgdatadir)\"
 
 htmlbardir = $(pkglibdir)
 htmlbar_LTLIBRARIES = htmlbar.la
@@ -16,8 +16,7 @@ htmlbar_la_SOURCES = \
 	html2.c \
 	html2.h \
 	htmlbar.c \
-	htmlbar_gui.c \
-	htmlbar_gui.h \
+	htmlbar_stock_icons.h \
 	htmlbar_uimanager.c \
 	htmlbar_uimanager.h \
 	htmlbar.h \
