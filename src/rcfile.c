@@ -771,6 +771,9 @@ void rcfile_parse_main(void)
 											 NULL));
 		main_v->props.external_command =
 			g_list_append(main_v->props.external_command,
+						  array_from_arglist(_("Chrome"), "chromium-browser '%p'&", "0", NULL));
+		main_v->props.external_command =
+			g_list_append(main_v->props.external_command,
 						  array_from_arglist(_("Mozilla"), "mozilla -remote 'openURL(%p)' || mozilla '%p'&",
 											 "0", NULL));
 		main_v->props.external_command =

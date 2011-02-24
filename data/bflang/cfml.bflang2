@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		cfml.bflang2 $$Revision: 6402 $
+		cfml.bflang2 $$Revision: 6419 $
  
 		Copyright (C) 2008-2011 Olivier Sessink
 
@@ -27,7 +27,7 @@
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 	<!ENTITY all-html SYSTEM "all-html.bfinc">
 ]>
-<bflang name="CFML" version="2.0" table="90" contexts="5" matches="50">
+<bflang name="CFML" version="2.0" table="13765" contexts="136" matches="2797">
 <header>
 	<mime type="application/x-cfml"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -66,7 +66,7 @@
 	
 	<highlight name="js-brackets" style="brackets" />
 	<highlight name="js-comment" style="comment" />
-	<highlight name="js-css-property" style="special-function" />
+	<highlight name="js-css-property" style="function" />
 	<highlight name="js-function" style="function" />
 	<highlight name="js-keyword" style="keyword" />
 	<highlight name="js-property" style="special-function" />
@@ -95,7 +95,7 @@
 	<default_spellcheck enabled="1" spell_decode_entities="1" />
 </properties>
 <definition>
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment">
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment" commentid_line="none">
 	<element pattern="&lt;/?cfset" is_regex="1" highlight="keyword">
 		<context id="c.cftag" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;&quot;()" >
 			<element pattern="[a-z0-9]+" is_regex="1" highlight="cfml-attribute"/>

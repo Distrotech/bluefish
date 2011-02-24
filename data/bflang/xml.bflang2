@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="XML" version="2.0" table="60" contexts="8" matches="18">
+<bflang name="XML" version="2.0" table="60" contexts="8" matches="17">
 <header>
 	<mime type="text/xml"/>
 	<mime type="application/xml"/>
@@ -36,7 +36,7 @@
 	<default_spellcheck enabled="1" spell_decode_entities="1" />
 </properties>
 <definition>
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment" >
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment" commentid_line="none">
 	<element id="e.xml.open" pattern="&lt;?xml" highlight="xml-declaration" starts_block="1">
 		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
 			<element pattern="[a-zA-Z0-9:-]+" is_regex="1" highlight="xml-declaration" />
