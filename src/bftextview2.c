@@ -1350,10 +1350,11 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 		}
 	}
 	if (event->button == 1) {
-		btv->needs_blockmatch = TRUE;
-		if (!btv->mark_set_idle)
-			btv->mark_set_idle = g_idle_add_full(G_PRIORITY_HIGH_IDLE, mark_set_idle_lcb, btv->master, NULL);
-
+		if (btv->show_mbhl) {
+			btv->needs_blockmatch = TRUE;
+			if (!btv->mark_set_idle)
+				btv->mark_set_idle = g_idle_add_full(G_PRIORITY_HIGH_IDLE, mark_set_idle_lcb, btv->master, NULL);
+		}
 	} else if (event->button == 3) {
 		GtkTextIter iter;
 		/* store the location of the right mouse button click for menu items like 'edit tag'
@@ -1416,7 +1417,7 @@ bluefish_text_view_key_release_event(GtkWidget * widget, GdkEventKey * kevent)
 
 	DBG_SIGNALS("bluefish_text_view_key_release_event for %p, keyval=%d\n", widget, kevent->keyval);
 
-	if (!btv->mark_set_idle && btv->needs_blockmatch)
+	if (btv->show_mbhl && !btv->mark_set_idle && btv->needs_blockmatch)
 		btv->mark_set_idle = g_idle_add_full(G_PRIORITY_HIGH_IDLE, mark_set_idle_lcb, btv->master, NULL);
 
 	/* sometimes we receive a release event for a key that was not pressed in the textview widget!
@@ -1848,8 +1849,13 @@ bluefish_text_view_set_show_mbhl(BluefishTextView * btv, gboolean show)
 	if (show == btv->show_mbhl) {
 		return;
 	}
-
 	btv->show_mbhl = show;
+	if (!show && btv->showing_blockmatch) {
+		GtkTextIter it1,it2;
+		gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
+		gtk_text_buffer_remove_tag(btv->buffer, BLUEFISH_TEXT_VIEW(btv)->blockmatch, &it1, &it2);
+		btv->showing_blockmatch = FALSE;
+	}
 	gtk_widget_queue_draw(GTK_WIDGET(btv));
 	if (btv->slave)
 		gtk_widget_queue_draw(GTK_WIDGET(btv->slave));
