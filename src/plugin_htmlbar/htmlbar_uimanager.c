@@ -40,10 +40,12 @@
 /*#define DEBUG*/
 
 #define HTMLBAR_PIXMAP_DIR PKGDATADIR"/plugins/htmlbar/pixmaps/"
+#define HTMLBAR_MENU_UI	   PKGDATADIR"/plugins/htmlbar/ui/htmlbar_menu_ui.xml"
+#define HTMLBAR_TOOLBAR_UI PKGDATADIR"/plugins/htmlbar/ui/htmlbar_toolbar_ui.xml"
 
 /* For testing purposes */
-#define HTMLBAR_MENU_UI		"src/plugin_htmlbar/ui/htmlbar_menu_ui.xml"
-#define HTMLBAR_TOOLBAR_UI	"src/plugin_htmlbar/ui/htmlbar_toolbar_ui.xml"
+/*#define HTMLBAR_MENU_UI	"src/plugin_htmlbar/ui/htmlbar_menu_ui.xml"
+#define HTMLBAR_TOOLBAR_UI	"src/plugin_htmlbar/ui/htmlbar_toolbar_ui.xml"*/
 
 
 static void

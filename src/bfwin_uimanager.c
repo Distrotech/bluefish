@@ -22,8 +22,9 @@
 #include "bfwin_uimanager.h"
 
 
+#define MAIN_MENU_UI PKGDATADIR"/ui/bluefish_menu_ui.xml"
 /* For testing purposes */
-#define MAIN_MENU_UI "ui/bluefish_menu_ui.xml"
+/*#define MAIN_MENU_UI "ui/bluefish_menu_ui.xml"*/
 
 
 static const GtkActionEntry top_level_menus[] = {
