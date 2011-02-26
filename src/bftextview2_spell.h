@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_spell.h
  *
- * Copyright (C) 2009 Olivier Sessink
+ * Copyright (C) 2009-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,12 +22,12 @@
 #define _BFTEXTVIEW2_SPELL_H_
 
 #include "bftextview2.h"
-void unload_spell_dictionary(Tbfwin *bfwin);
+void unload_spell_dictionary(Tbfwin * bfwin);
 gboolean bftextview2_run_spellcheck(BluefishTextView * btv);
 void bftextview2_spell_init(void);
 void bftextview2_spell_cleanup(void);
-void bftextview2_populate_suggestions_popup(GtkMenu *menu, Tdocument *doc);
-void bftextview2_populate_preferences_popup(GtkMenu *menu, Tdocument *doc);
-void bftextview2_gui_toggle_spell_check(GtkWidget *widget, gpointer data);
-void reload_spell_dictionary(Tbfwin *bfwin);
+void bftextview2_populate_suggestions_popup(GtkMenu * menu, Tdocument * doc);
+void bftextview2_populate_preferences_popup(GtkMenu * menu, Tdocument * doc);
+void bftextview2_gui_toggle_spell_check(GtkWidget * widget, gpointer data);
+void reload_spell_dictionary(Tbfwin * bfwin);
 #endif

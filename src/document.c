@@ -501,14 +501,14 @@ doc_set_title(Tdocument * doc)
 }
 
 void
-doc_set_mimetype(Tdocument * doc, const gchar * mimetype)
+doc_set_mimetype(Tdocument * doc, const gchar * mimetype, const gchar * filename)
 {
 	DEBUG_MSG("doc_set_mimetype(%p, %s)\n", doc, mimetype);
 	if (doc->newdoc_autodetect_lang_id) {
 		g_source_remove(doc->newdoc_autodetect_lang_id);
 		doc->newdoc_autodetect_lang_id = 0;
 	}
-	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(doc->view), mimetype);
+	bluefish_text_view_select_language(BLUEFISH_TEXT_VIEW(doc->view), mimetype, filename);
 	if (doc->fileinfo) {
 		g_file_info_set_content_type(doc->fileinfo, mimetype);
 	}
@@ -546,12 +546,13 @@ doc_reset_filetype(Tdocument * doc, GFile * newuri, gconstpointer buf, gssize bu
 	g_free(conttype);
 	conttype = tmp;
 #endif
-	if (strcmp(conttype, "text/html") == 0 && buf && strstr(buf, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML")!=NULL) {
+	if (strcmp(conttype, "text/html") == 0 && buf
+		&& strstr(buf, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML") != NULL) {
 		g_free(conttype);
 		conttype = g_strdup("application/xhtml+xml");
 	}
 
-	doc_set_mimetype(doc, conttype);
+	doc_set_mimetype(doc, conttype, filename);
 	g_free(filename);
 	g_free(conttype);
 }
@@ -2473,7 +2474,8 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	BLUEFISH_TEXT_VIEW(newdoc->view)->spell_check = BFWIN(bfwin)->session->spell_check_default;
 #endif
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
-	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(newdoc->view), bfwin->session->default_mime_type);
+	bluefish_text_view_select_language(BLUEFISH_TEXT_VIEW(newdoc->view), bfwin->session->default_mime_type,
+									   NULL);
 	newdoc->fileinfo = g_file_info_new();
 	g_file_info_set_content_type(newdoc->fileinfo, bfwin->session->default_mime_type);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
@@ -2503,8 +2505,8 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	   newdoc->fileinfo = NULL; */
 	newdoc->is_symlink = 0;
 	newdoc->encoding =
-		g_strdup((bfwin->session->encoding) ? bfwin->session->encoding : main_v->props.
-				 newfile_default_encoding);
+		g_strdup((bfwin->session->encoding) ? bfwin->session->encoding : main_v->
+				 props.newfile_default_encoding);
 	DEBUG_MSG("doc_new_backend, encoding is %s\n", newdoc->encoding);
 	newdoc->overwrite_mode = FALSE;
 
@@ -2596,10 +2598,10 @@ doc_auto_detect_lang_lcb(gpointer data)
 	if (!uncertain && conttype && (strcmp(conttype, "text/plain") != 0 || buflen > 50)) {
 		DEBUG_MSG("doc_auto_detect_lang_lcb, found %s for certain\n", conttype);
 #ifdef WIN32
-		doc_set_mimetype(doc, mimetype);
+		doc_set_mimetype(doc, mimetype, NULL);
 		g_free(mimetype);
 #else
-		doc_set_mimetype(doc, conttype);
+		doc_set_mimetype(doc, conttype, NULL);
 #endif
 		g_free(conttype);
 		return FALSE;
@@ -2759,7 +2761,7 @@ doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolean del
 			gchar *message =
 				g_strdup_printf(_
 								("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."),
-								glib_major_version, glib_minor_version, glib_micro_version);
+glib_major_version, glib_minor_version, glib_micro_version);
 			statusbar_message(bfwin, message, 20);
 			g_free(message);
 		}

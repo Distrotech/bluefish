@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_scanner.h
  *
- * Copyright (C) 2008-2009 Olivier Sessink
+ * Copyright (C) 2008-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,17 +23,21 @@
 
 #include "bftextview2.h"
 
-GQueue *get_contextstack_at_position(BluefishTextView * btv, GtkTextIter *position);
-Tfoundstack *get_stackcache_next(BluefishTextView * bt2, GSequenceIter ** siter);
-Tfoundstack *get_stackcache_first(BluefishTextView * bt2, GSequenceIter ** retsiter);
-Tfoundstack *get_stackcache_at_offset(BluefishTextView * btv, guint offset, GSequenceIter ** retsiter);
-void stackcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset);
-guint16 get_context_and_startposition(BluefishTextView * bt2, GtkTextIter *position);
-gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_end);
-void scan_for_prefix_start(BluefishTextView *btv, guint16 contextnum, GtkTextIter *start, GtkTextIter *cursor);
-void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter *cursorpos,gint *contextnum);
-gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter *position,gint *contextnum);
-void cleanup_scanner(BluefishTextView *btv);
-void scancache_destroy(BluefishTextView *btv);
+GQueue *get_contextstack_at_position(BluefishTextView * btv, GtkTextIter * position);
+Tfound *get_foundcache_next(BluefishTextView * bt2, GSequenceIter ** siter);
+Tfound *get_foundcache_first(BluefishTextView * bt2, GSequenceIter ** retsiter);
+Tfound *get_foundcache_at_offset(BluefishTextView * btv, guint offset, GSequenceIter ** retsiter);
+void foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset);
+Tfoundblock *pop_blocks(gint numchange, Tfoundblock * curblock);
+guint16 get_context_and_startposition(BluefishTextView * bt2, GtkTextIter * position);
+gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end);
+void scan_for_prefix_start(BluefishTextView * btv, guint16 contextnum, GtkTextIter * start,
+						   GtkTextIter * cursor);
+void scan_for_autocomp_prefix(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * cursorpos,
+							  gint * contextnum);
+gboolean scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * position,
+						  gint * contextnum);
+void cleanup_scanner(BluefishTextView * btv);
+void scancache_destroy(BluefishTextView * btv);
 
 #endif

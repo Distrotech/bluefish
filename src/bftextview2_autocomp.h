@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_autocomp.h
  *
- * Copyright (C) 2008 Olivier Sessink
+ * Copyright (C) 2008-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,8 +21,8 @@
 #define _BFTEXTVIEW2_AUTOCOMP_H_
 
 #include "bftextview2.h"
-gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event);
-void autocomp_stop(BluefishTextView *btv);
-void autocomp_run(BluefishTextView *btv, gboolean user_requested);
+gboolean acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event);
+void autocomp_stop(BluefishTextView * btv);
+void autocomp_run(BluefishTextView * btv, gboolean user_requested);
 
-#endif /* _BFTEXTVIEW2_AUTOCOMP_H_ */
+#endif							/* _BFTEXTVIEW2_AUTOCOMP_H_ */

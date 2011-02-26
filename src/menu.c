@@ -534,7 +534,7 @@ menu_current_document_type_change(GtkMenuItem * menuitem, Tbfw_dynmenu * bdm)
 {
 	DEBUG_MSG("menu_current_document_type_change, started for bflang %p\n", bdm->data);
 	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) && bdm->bfwin->current_document) {
-		doc_set_mimetype(bdm->bfwin->current_document, ((Tbflang *) bdm->data)->mimetypes->data);
+		doc_set_mimetype(bdm->bfwin->current_document, ((Tbflang *) bdm->data)->mimetypes->data, NULL);
 	}
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
 }

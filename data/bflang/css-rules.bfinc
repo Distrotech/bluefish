@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 		Bluefish HTML Editor
-		css-rules.bfinc $Revision: 6418 $
+		css-rules.bfinc $Revision: 6435 $
  
 		Copyright (C) 2008-20011 Olivier Sessink
 
@@ -208,24 +208,8 @@
 	<reference><b>color</b> describes the foreground color of an element's text content.</reference>
 	<context idref="c.css.color" />
 </element>
-<element pattern="content" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element pattern="'" highlight="css-string">
-			<context symbols="\'" highlight="css-string">
-				<element pattern="\\." is_regex="1" highlight="css-string" />
-				<element pattern="'" highlight="css-string" ends_context="1" />
-			</context>
-		</element>
-		<element pattern="&quot;" highlight="css-string">
-			<context symbols="\&quot;" highlight="css-string">
-				<element pattern="\\." is_regex="1" highlight="css-string" />
-				<element pattern="&quot;" highlight="css-string" ends_context="1" />
-			</context>
-		</element>
-		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
-	</context>
-</element>
+<element pattern="content" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
+
 <element pattern="counter-increment" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="counter-reset" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="cursor" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
