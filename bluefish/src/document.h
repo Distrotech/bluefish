@@ -50,7 +50,7 @@ void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *wid
 void doc_set_wrap(Tdocument *doc);
 void doc_set_tooltip(Tdocument *doc);
 void doc_set_title(Tdocument *doc);
-void doc_set_mimetype(Tdocument *doc, const gchar *mimetype);
+void doc_set_mimetype(Tdocument *doc, const gchar *mimetype, const gchar *filename);
 void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen);
 void doc_set_font(Tdocument *doc, gchar *fontstring);
 void doc_set_tabsize(Tdocument *doc, gint tabsize);
