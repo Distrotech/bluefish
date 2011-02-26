@@ -3,7 +3,7 @@ dnl configure.ac
 dnl $Id$
 dnl
 dnl Copyright (C) 2002-2011 Olivier Sessink
-dnl Copyright (C) 2006-2009 Daniel Leidert
+dnl Copyright (C) 2006-2011 Daniel Leidert
 dnl
 dnl This file is free software. The copyright owner gives unlimited
 dnl permission to copy, distribute and modify it.
@@ -200,6 +200,23 @@ AC_ARG_ENABLE(
 	[
 	 if test "x$enableval" != "xno"; then
 		 CFLAGS="$CFLAGS -fprofile-arcs -ftest-coverage"
+	 fi
+	]
+)
+
+AC_ARG_ENABLE(
+	[deprecated],
+	AC_HELP_STRING(
+		[--disable-deprecated],
+		[enable/disable deprecated functions (e.g. Glib/Gtk) @<:@default=yes@:>@]
+	),
+	[
+	 if test "x$enableval" = "xno"; then
+		 CFLAGS="$CFLAGS -DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES"
+		 CFLAGS="$CFLAGS -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED"
+		 CFLAGS="$CFLAGS -DG_DISABLE_DEPRECATED"
+		 CFLAGS="$CFLAGS -DGTK_DISABLE_DEPRECATED"
+		 CFLAGS="$CFLAGS -DGSEAL_ENABLE"
 	 fi
 	]
 )
@@ -550,11 +567,6 @@ fi
 dnl ************************
 dnl   Final Cflags/Libs
 dnl ************************
-dnl CFLAGS="$CFLAGS -DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES"
-dnl CFLAGS="$CFLAGS -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED"
-dnl CFLAGS="$CFLAGS -DG_DISABLE_DEPRECATED"
-dnl CFLAGS="$CFLAGS -DGTK_DISABLE_DEPRECATED"
-dnl CFLAGS="$CFLAGS -DGSEAL_ENABLE"
 CFLAGS="$CFLAGS $BLUEFISH_REQUIRED_CFLAGS $BLUEFISH_IGEMAC_CFLAGS"
 LIBS="$LIBS $BLUEFISH_REQUIRED_LIBS $BLUEFISH_IGEMAC_LIBS"
 
