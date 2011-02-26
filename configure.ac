@@ -2,7 +2,7 @@ dnl ************************
 dnl configure.ac
 dnl $Id$
 dnl
-dnl Copyright (C) 2002-2010 Olivier Sessink
+dnl Copyright (C) 2002-2011 Olivier Sessink
 dnl Copyright (C) 2006-2009 Daniel Leidert
 dnl
 dnl This file is free software. The copyright owner gives unlimited
@@ -173,7 +173,6 @@ AC_ARG_ENABLE(
 	[
 	 if test "x$enableval" != "xno"; then
 		 AC_DEFINE([DEVELOPMENT], [1], [Define to 1 if you want to have development checks.])
-		 CFLAGS="$CFLAGS -DGTK_DISABLE_DEPRECATED"
 	 fi
 	]
 )
@@ -554,6 +553,7 @@ dnl ************************
 dnl CFLAGS="$CFLAGS -DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES"
 dnl CFLAGS="$CFLAGS -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED"
 dnl CFLAGS="$CFLAGS -DG_DISABLE_DEPRECATED"
+dnl CFLAGS="$CFLAGS -DGTK_DISABLE_DEPRECATED"
 dnl CFLAGS="$CFLAGS -DGSEAL_ENABLE"
 CFLAGS="$CFLAGS $BLUEFISH_REQUIRED_CFLAGS $BLUEFISH_IGEMAC_CFLAGS"
 LIBS="$LIBS $BLUEFISH_REQUIRED_LIBS $BLUEFISH_IGEMAC_LIBS"
