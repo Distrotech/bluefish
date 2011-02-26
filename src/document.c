@@ -501,14 +501,14 @@ doc_set_title(Tdocument * doc)
 }
 
 void
-doc_set_mimetype(Tdocument * doc, const gchar * mimetype)
+doc_set_mimetype(Tdocument * doc, const gchar * mimetype, const gchar *filename)
 {
 	DEBUG_MSG("doc_set_mimetype(%p, %s)\n", doc, mimetype);
 	if (doc->newdoc_autodetect_lang_id) {
 		g_source_remove(doc->newdoc_autodetect_lang_id);
 		doc->newdoc_autodetect_lang_id = 0;
 	}
-	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(doc->view), mimetype);
+	bluefish_text_view_select_language(BLUEFISH_TEXT_VIEW(doc->view), mimetype, filename);
 	if (doc->fileinfo) {
 		g_file_info_set_content_type(doc->fileinfo, mimetype);
 	}
@@ -551,7 +551,7 @@ doc_reset_filetype(Tdocument * doc, GFile * newuri, gconstpointer buf, gssize bu
 		conttype = g_strdup("application/xhtml+xml");
 	}
 
-	doc_set_mimetype(doc, conttype);
+	doc_set_mimetype(doc, conttype, filename);
 	g_free(filename);
 	g_free(conttype);
 }
@@ -2473,7 +2473,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	BLUEFISH_TEXT_VIEW(newdoc->view)->spell_check = BFWIN(bfwin)->session->spell_check_default;
 #endif
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
-	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(newdoc->view), bfwin->session->default_mime_type);
+	bluefish_text_view_select_language(BLUEFISH_TEXT_VIEW(newdoc->view), bfwin->session->default_mime_type, NULL);
 	newdoc->fileinfo = g_file_info_new();
 	g_file_info_set_content_type(newdoc->fileinfo, bfwin->session->default_mime_type);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
@@ -2596,10 +2596,10 @@ doc_auto_detect_lang_lcb(gpointer data)
 	if (!uncertain && conttype && (strcmp(conttype, "text/plain") != 0 || buflen > 50)) {
 		DEBUG_MSG("doc_auto_detect_lang_lcb, found %s for certain\n", conttype);
 #ifdef WIN32
-		doc_set_mimetype(doc, mimetype);
+		doc_set_mimetype(doc, mimetype, NULL);
 		g_free(mimetype);
 #else
-		doc_set_mimetype(doc, conttype);
+		doc_set_mimetype(doc, conttype, NULL);
 #endif
 		g_free(conttype);
 		return FALSE;

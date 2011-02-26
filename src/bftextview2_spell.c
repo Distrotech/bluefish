@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_spell.c
  *
- * Copyright (C) 2009-2010 Olivier Sessink
+ * Copyright (C) 2009-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -162,147 +162,6 @@ static void spellcheck_word(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTe
 	g_free(tocheck);
 }
 
-#ifdef HAVE_LIBENCHANT_OLD
-static gint OLD_foundstack_needspellcheck(BluefishTextView * btv, Tfoundstack *fstack) {
-	guint16 contextnum;
-	if (g_queue_get_length(fstack->contextstack))
-		contextnum = ((Tfoundcontext *)g_queue_peek_head(fstack->contextstack))->context;
-	else
-		contextnum = 1;
-	DBG_SPELL("context %d has spellcheck=%d\n",contextnum, g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).needspellcheck);
-	return g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).needspellcheck;
-}
-
-/*static inline gboolean OLD_text_iter_backward_real_word_start(GtkTextIter *i) {
-	GtkTextIter iter;
-	if (!gtk_text_iter_backward_word_start(i))
-		return FALSE;
-	iter = *i;
-	if (gtk_text_iter_backward_char(&iter) && gtk_text_iter_get_char(&iter) == '\'' 
-					&& gtk_text_iter_backward_char(&iter) && g_unichar_isalpha(gtk_text_iter_get_char(&iter)))
-		return gtk_text_iter_backward_word_start(i);
-	return TRUE;
-}
-*/
-
-gboolean OLD_bftextview2_run_spellcheck(BluefishTextView * btv) {
-	GtkTextIter so,eo,iter;
-	GtkTextBuffer *buffer;
-	Tfoundstack *fstack;
-	GSequenceIter *siter=NULL;
-	GTimer *timer;
-	gint loop=0, loops_per_timer=100;
-	guint eo_offset;
-	gboolean cont=TRUE;
-	if (!BFWIN(DOCUMENT(btv->doc)->bfwin)->session->spell_enable)
-		return FALSE;
-	
-	if (!BFWIN(DOCUMENT(btv->doc)->bfwin)->ed && !load_dictionary(BFWIN(DOCUMENT(btv->doc)->bfwin))) {
-		DBG_SPELL("bftextview2_run_spellcheck, no dictionary.. return..\n");
-		return FALSE;
-	}
-
-	
-	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-	if (!bftextview2_find_region2spellcheck(btv, buffer, &so, &eo)) {
-		DBG_SPELL("bftextview2_run_spellcheck, no region to spellcheck found... return FALSE\n");
-		return FALSE;
-	}
-	DBG_SPELL("bftextview2_run_spellcheck, loop1 from %d to %d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&eo));
-	timer = g_timer_new();
-	iter=so;
-	eo_offset = gtk_text_iter_get_offset(&eo);
-	do {
-		GtkTextIter eo2=eo;
-		gboolean cont2=TRUE;
-		if (btv->bflang->st) {
-			/**** find the start within this region of a context that needs spellcheck */
-			fstack = get_stackcache_at_position(btv, &iter, &siter);
-			if (fstack || !g_array_index(btv->bflang->st->contexts,Tcontext, 1).needspellcheck) {
-				if(!fstack) {
-					fstack = get_stackcache_first(btv, &siter);
-					if (fstack->charoffset > eo_offset) {
-						/* nothing to do ! */
-						DBG_SPELL("bftextview2_run_spellcheck, next starting fstack beyond eo (1), we're finished\n");
-						cont=FALSE;
-						cont2=FALSE;
-						iter=eo;
-					}
-				}
-				while (fstack && fstack->charoffset < eo_offset && !foundstack_needspellcheck(btv,fstack)) {
-					fstack = get_stackcache_next(btv, &siter);
-				}
-				
-				if (fstack && fstack->charoffset < eo_offset) {
-					/* advance the iter to the charoffset of fstack, but keep at the same place if the iter is already further */
-					if (fstack->charoffset > gtk_text_iter_get_offset(&iter)) {
-						gtk_text_iter_set_offset(&iter, fstack->charoffset);
-						DBG_SPELL("bftextview2_run_spellcheck, advance iter to %d\n",gtk_text_iter_get_offset(&iter));
-					}
-				} else {
-					DBG_SPELL("bftextview2_run_spellcheck, next starting fstack beyond eo (2), we're finished\n");
-					cont=FALSE;
-					cont2=FALSE;
-					iter=eo;
-				}
-			} else { /* no fstack and the default context needs spellcheck */
-				DBG_SPELL("bftextview2_run_spellcheck, default context, keep iter at %d\n",gtk_text_iter_get_offset(&iter));
-				fstack = get_stackcache_first(btv, &siter);
-			}
-	
-			/***** now find the end of this context to spellcheck */
-			if (cont && cont2) {
-				while(fstack && fstack->charoffset < eo_offset && foundstack_needspellcheck(btv,fstack)) {
-					fstack = get_stackcache_next(btv, &siter);
-				}
-				if (fstack && fstack->charoffset < eo_offset) {
-					/* set eo2 to the end of the context(s) that needs spellcheck */
-					gtk_text_iter_set_offset(&eo2, fstack->charoffset);
-					DBG_SPELL("bftextview2_run_spellcheck, set eo2 to %d\n",gtk_text_iter_get_offset(&eo2));
-				} else {
-					/* no next, set end iter to eo */
-					eo2=eo;
-					DBG_SPELL("bftextview2_run_spellcheck, set eo2 to eo at %d\n",gtk_text_iter_get_offset(&eo2));
-				}
-			}
-		} else { /* no scantable */
-			eo2=eo;
-		}
-		DBG_SPELL("bftextview2_run_spellcheck, loop2 from %d to %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&eo2));
-		while (cont2 && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL)) { /* loop from iter to eo2 */
-			loop++;
-			if (gtk_text_iter_forward_word_end(&iter) && gtk_text_iter_compare(&iter, &eo2) <= 0) {
-				GtkTextIter wordstart;
-				gtk_text_iter_backward_word_start(&iter);
-
-				wordstart=iter;
-				/* move to the next word as long as the we don't hit eo2 */
-				if (text_iter_forward_real_word_end(&iter)) {
-					/* check word */
-					spellcheck_word(btv, buffer, &wordstart, &iter);
-				}
-			} else {
-				DBG_SPELL("bftextview2_run_spellcheck, no word start within region\n");
-				iter=eo2;
-				cont2=FALSE;
-			}
-			if (cont2 && gtk_text_iter_compare(&iter, &eo2) >= 0)
-				cont2 = FALSE;
-		}
-
-		if (gtk_text_iter_compare(&iter, &eo) >= 0) /* TODO: check the order of the compare items */
-			cont = FALSE;
-			
-	} while (cont && (loop%loops_per_timer!=0 || g_timer_elapsed(timer,NULL)<MAX_CONTINUOUS_SPELLCHECK_INTERVAL));
-	DBG_SPELL("bftextview2_run_spellcheck, remove needspellcheck from start %d to iter at %d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&iter));
-	gtk_text_buffer_remove_tag(buffer, btv->needspellcheck, &so , &iter);
-
-	g_timer_destroy(timer);
-	
-	return TRUE;
-}
-
-#else
 
 static gboolean has_tags(GSList *tags, GtkTextTag **tagarr) {
 	GSList *tmpslist = tags;
@@ -544,7 +403,7 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 		loops_per_timer = MAX(loop/10,100);
 	}
 #ifdef SPELL_PROFILING
-	g_print("timing for this %d ms spell run: %d words\n",(gint)(1000.0*g_timer_elapsed(timer,NULL)), profile_words);
+	g_print("%d ms spell run from %d to %d checked %d words\n",(gint)(1000.0*g_timer_elapsed(timer,NULL)), gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&iter),profile_words);
 #endif
 	DBG_SPELL("bftextview2_run_spellcheck, remove needspellcheck from start %d to iter at %d\n",gtk_text_iter_get_offset(&so),gtk_text_iter_get_offset(&iter));
 	gtk_text_buffer_remove_tag(buffer, btv->needspellcheck, &so , &iter);
@@ -553,10 +412,6 @@ gboolean bftextview2_run_spellcheck(BluefishTextView * btv) {
 	
 	return (!gtk_text_iter_is_end(&iter));
 }
-
-
-
-#endif
 
 void bftextview2_spell_init(void) {
 	eb = enchant_broker_init();
