@@ -92,22 +92,26 @@ guint loops_per_timer=1000; /* a tunable to avoid asking time too often. this is
 GList *alloclist=NULL;
 GList *freelist=NULL;
 
-#define alloclist_push(var) alloclist_push_real(__LINE__, var) 
-#define freelist_push(var) freelist_push_real(__LINE__, var)
+#define alloclist_push(var) alloclist_push_real(__LINE__,"found", var) 
+#define freelist_push(var) freelist_push_real(__LINE__,"found", var)
 
-void alloclist_push_real(gint line, gpointer data) {
+#define allocblock_push(var) alloclist_push_real(__LINE__,"block", var) 
+#define freeblock_push(var) freelist_push_real(__LINE__,"block", var)
+
+
+void alloclist_push_real(gint line,const gchar *text, gpointer data) {
 	if (g_list_find(alloclist, data)) {
-		g_print("%d: element %p was already on alloclist???\n", line, data);
+		g_print("%d: %s element %p was already on alloclist???\n", line, text, data);
 	}
 	alloclist = g_list_append(alloclist, data);
 	freelist = g_list_remove(freelist,data);
 }
-void freelist_push_real(gint line, gpointer data) {
+void freelist_push_real(gint line, const gchar *text, gpointer data) {
 	if (g_list_find(freelist, data)) {
-		g_print("%d: element %p was free'd already\n", line, data);
+		g_print("%d: %s element %p was free'd already\n", line, text, data);
 	}
 	if (!g_list_find(alloclist, data)) {
-		g_print("%d: element %p was not on alloclist\n", line, data);
+		g_print("%d: %s element %p was not on alloclist\n", line, text, data);
 	}
 	freelist = g_list_append(freelist, data);
 	alloclist = g_list_remove(alloclist,data);
@@ -390,6 +394,9 @@ void found_free_lcb(gpointer data, gpointer btv) {
 #ifdef HL_PROFILING
 		hl_profiling.fblock_refcount--;
 #endif
+#ifdef DEBUG_ALLOCS
+		freeblock_push(found->fblock);
+#endif
 		g_slice_free(Tfoundblock, found->fblock);
 	}
 	if (IS_FOUNDMODE_CONTEXTPUSH(found)) {
@@ -442,6 +449,9 @@ static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,Tmatch *m
 	hl_profiling.fblock_refcount++;
 #endif
 	fblock = g_slice_new0(Tfoundblock);
+#ifdef DEBUG_ALLOCS
+	allocblock_push(found->fblock);
+#endif
 	fblock->start1_o = gtk_text_iter_get_offset(&match->start);
 	fblock->end1_o = gtk_text_iter_get_offset(&match->end);
 	/*g_print("found blockstart with start_1 %d end1 %d\n",fblock->start1_o,fblock->end1_o);*/
