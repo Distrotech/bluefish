@@ -22,10 +22,19 @@
 #define BFWIN_UIMANAGER_H_
 
 #include "bluefish.h"
+#include "bfwin.h"
 
 
-void main_menu_create(Tbfwin *bfwin, GtkWidget *vbox);
-void setup_menu_toggle_item(GtkActionGroup *action_group, const gchar *action_name, gboolean is_active);
+void bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox);
+void bfwin_main_toolbar_init(Tbfwin * bfwin);
+
+void bfwin_set_undo_redo_actions(Tbfwin * bfwin, gboolean undo, gboolean redo);
+void bfwin_set_document_menu_items(Tdocument * doc);
+
+void bfwin_action_set_sensitive(GtkUIManager * manager, const gchar * path, gboolean sensitive);
+
+void setup_menu_toggle_item(GtkActionGroup * action_group, const gchar * action_name, gboolean is_active);
+void setup_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path, gboolean is_active);
 
 
-#endif /* BFWIN_UIMANAGER_H_ */
+#endif							/* BFWIN_UIMANAGER_H_ */

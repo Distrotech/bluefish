@@ -159,10 +159,10 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 		bfwin->notebook_changed_doc_activate_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+1, notebook_changed_activate_current_document_lcb, bfwin, NULL);
 	}
 }
-
+/*
 gboolean bfwin_has_doc(Tbfwin *bfwin, Tdocument *doc) {
 	return (g_list_index(bfwin->documentlist, doc) >= 0);
-}
+}*/
 
 /* use -1 to switch to the last page */
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {
@@ -184,12 +184,12 @@ gboolean switch_to_document_by_uri(Tbfwin *bfwin,GFile *uri) {
 	index = documentlist_return_index_from_uri(bfwin->documentlist,uri);
 	return switch_to_document_by_index(bfwin,index);
 }
-
+/*
 void bfwin_docs_not_complete(Tbfwin *bfwin, gboolean increase) {
 	if (increase) bfwin->num_docs_not_completed++;
 	else bfwin->num_docs_not_completed--;
 	DEBUG_MSG("bfwin_docs_not_complete, increase=%d, num=%d\n",increase,bfwin->num_docs_not_completed);
-}
+}*/
 
 static void notebook_switch_page_lcb(GtkWidget *notebook,GtkNotebookPage *page,gint page_num,Tbfwin *bfwin) {
 	DEBUG_MSG("notebook_switch_page_lcb, page=%d\n", page_num);
@@ -1027,7 +1027,7 @@ void gui_create_main(Tbfwin *bfwin) {
 	encoding_menu_rebuild(bfwin);
 
 	bfwin->uimanager = gtk_ui_manager_new();
-	main_menu_create(bfwin, bfwin->toolbarbox);
+	bfwin_main_menu_init(bfwin, bfwin->toolbarbox);
 
 	snr2_init(bfwin);
 /*	add_window_entry_to_all_windows(bfwin);
@@ -1041,7 +1041,8 @@ void gui_create_main(Tbfwin *bfwin) {
 		gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->html_toolbar_hb, FALSE, FALSE, 0);
 
 		if (bfwin->session->view_main_toolbar) {
-			make_main_toolbar(bfwin);
+			/*make_main_toolbar(bfwin);*/
+			bfwin_main_toolbar_init(bfwin);
 			gtk_widget_show(bfwin->main_toolbar_hb);
 		}
 	}

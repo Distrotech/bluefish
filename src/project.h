@@ -1,7 +1,8 @@
 /* Bluefish HTML Editor
  * project.h - project prototypes
  *
- * Copyright (C) 2003 Olivier Sessink
+ * Copyright (C) 2003-2011 Olivier Sessink
+ * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,14 +19,20 @@
  */
 
 #ifndef __PROJECT_H_
-#define __PROJECT_H_ 
+#define __PROJECT_H_
 
-/* #define DEBUG */
-gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win);
-void project_open_from_file(Tbfwin *bfwin, GFile *fromuri);
-void set_project_menu_widgets(Tbfwin *bfwin, gboolean win_has_project);
-void project_save_and_mark_closed(Tbfwin *bfwin);
-gboolean project_final_close(Tbfwin *bfwin, gboolean close_win);
-void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
+void project_edit(Tbfwin * bfwin);
+void project_new(Tbfwin * bfwin);
+void project_open(Tbfwin * bfwin);
+void project_open_from_file(Tbfwin * bfwin, GFile * fromuri);
+gboolean project_save(Tbfwin * bfwin, gboolean save_as);
+void project_save_and_close(Tbfwin * bfwin);
+void project_save_and_mark_closed(Tbfwin * bfwin);
+gboolean project_final_close(Tbfwin * bfwin, gboolean close_win);
 
-#endif /* __PROJECT_H_  */
+void set_project_menu_actions(Tbfwin * bfwin, gboolean win_has_project);
+void set_project_menu_widgets(Tbfwin * bfwin, gboolean win_has_project);
+
+void project_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
+
+#endif							/* __PROJECT_H_  */

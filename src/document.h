@@ -2,7 +2,8 @@
  * document.h - global function for document handling
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2009 Olivier Sessink
+ * Copyright (C) 1999-2011 Olivier Sessink
+ * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,7 +56,8 @@ void doc_reset_filetype(Tdocument * doc, GFile * newuri, gconstpointer buf, gssi
 void doc_set_font(Tdocument * doc, gchar * fontstring);
 void doc_set_tabsize(Tdocument * doc, gint tabsize);
 gint doc_get_tabsize(Tdocument * doc);
-void gui_change_tabsize(Tbfwin * bfwin, guint action, GtkWidget * widget);
+void doc_change_tabsize(Tdocument * doc, gint direction);
+void doc_font_size(Tdocument * doc, gint direction);
 void session_set_savedir(Tbfwin * bfwin, gchar * curi);
 
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument * doc);
@@ -110,25 +112,36 @@ void doc_reload(Tdocument * doc, GFileInfo * newfinfo, gboolean warn_user);
 void doc_start_modified_check(Tdocument * doc);
 void doc_activate(Tdocument * doc);
 void doc_force_activate(Tdocument * doc);
+
 /* callbacks for the menu and toolbars */
 void file_open_from_selection(Tbfwin * bfwin);
 
+void file_insert_doc(Tbfwin * bfwin);
 void file_insert_menucb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
 
+void doc_copy(Tbfwin * bfwin);
+void doc_cut(Tbfwin * bfwin);
+void doc_paste(Tbfwin * bfwin);
 void edit_cut_cb(GtkWidget * widget, Tbfwin * bfwin);
 void edit_copy_cb(GtkWidget * widget, Tbfwin * bfwin);
 void edit_paste_cb(GtkWidget * widget, Tbfwin * bfwin);
+void doc_select_all(Tbfwin * bfwin);
 void edit_select_all_cb(GtkWidget * widget, Tbfwin * bfwin);
 
+void doc_toggle_highlighting(Tbfwin * bfwin, gboolean active);
 void doc_toggle_highlighting_cb(Tbfwin * bfwin, guint action, GtkWidget * widget);
 void doc_toggle_wrap_cb(Tbfwin * bfwin, guint action, GtkWidget * widget);
 void doc_toggle_linenumbers_cb(Tbfwin * bfwin, guint action, GtkWidget * widget);
 void all_documents_apply_settings(void);
 
+void doc_word_count(Tbfwin * bfwin);
 void word_count_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
 void doc_indent_selection(Tdocument * doc, gboolean unindent);
 void menu_indent_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
 GList *list_relative_document_filenames(Tdocument * curdoc);
+void doc_jump(Tdocument * doc);
+void doc_floating_view_new(Tbfwin * bfwin);
 void file_floatingview_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
+void doc_split_view(Tdocument * doc, gboolean enable);
 void doc_menu_lcb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
 #endif							/* __DOCUMENT_H_ */

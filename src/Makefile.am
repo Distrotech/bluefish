@@ -24,20 +24,6 @@ endif
 
 bin_PROGRAMS = bluefish
 
-#
-#
-#	bftextview2.c \
-#	bftextview2.h \
-#	bftextview2_langmgr.c \
-#	bftextview2_langmgr.h \
-#	bftextview2_autocomp.c \
-#	bftextview2_autocomp.h \
-#	bftextview2_patcompile.c \
-#	bftextview2_patcompile.h \
-#	bftextview2_scanner.c \
-#	bftextview2_scanner.h \
-#
-#
 
 bluefish_SOURCES = \
 	bf_lib.c \
@@ -46,8 +32,6 @@ bluefish_SOURCES = \
 	blocksync.h \
 	bluefish.c \
 	bluefish.h \
-	bfwin_uimanager.h \
-	bfwin_uimanager.c \
 	bftextview2.c \
 	bftextview2.h \
 	bftextview2_langmgr.c \
@@ -62,6 +46,10 @@ bluefish_SOURCES = \
 	bftextview2_scanner.h \
 	bftextview2_spell.c \
 	bftextview2_spell.h \
+	bfwin.h \
+	bfwin.c \
+	bfwin_uimanager.h \
+	bfwin_uimanager.c \
 	bookmark.c \
 	bookmark.h \
 	dialog_utils.c \

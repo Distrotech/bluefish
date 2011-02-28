@@ -27,9 +27,9 @@
 #include "bluefish.h"
 #include "gtk_easy.h"
 #include "bf_lib.h"
+#include "bfwin.h"
 #include "pixmap.h"
-#include "gui.h" /* statusbar_message() */
-/* #include "stringlist.h"  count_array() */
+
 
 #ifdef WIN32
 #define DIRSTR "\\"
