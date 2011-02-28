@@ -19,7 +19,7 @@
 
 #define HL_PROFILING
 /*#define DUMP_SCANCACHE*/
-/*#define DEBUG_ALLOCS*/
+#define DEBUG_ALLOCS
 
 /*#define VALGRIND_PROFILING*/
 
@@ -450,7 +450,7 @@ static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,Tmatch *m
 #endif
 	fblock = g_slice_new0(Tfoundblock);
 #ifdef DEBUG_ALLOCS
-	allocblock_push(found->fblock);
+	allocblock_push(fblock);
 #endif
 	fblock->start1_o = gtk_text_iter_get_offset(&match->start);
 	fblock->end1_o = gtk_text_iter_get_offset(&match->end);
