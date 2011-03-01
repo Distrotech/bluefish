@@ -398,17 +398,18 @@ typedef struct {
 	 			if numblockchange < 0 this points to the top of the stack at this position, to get the current position 
 	 			you'll have to pop N items (where N is -1 * numblockchange). */ 
 	guint32 charoffset_o;
+	gint16 numblockchange; /* there are files that have > 127 pops in a single position
+									for example html files that don't close paragrahs or tablerows */
 	gint8 numcontextchange; /* 0 means no change, 1 means 1 push, -2 means 2 popped etc. */
-	gint8 numblockchange;
 } Tfound; /*
-						on 64bit this type has size 8+8+4+1+1 + 2 padding = 24 bytes
-						on 32bit this type has size 4+4+4+1+1 + 2 padding = 16 bytes
+						on 64bit this type has size 8+8+4+2+1 + 1 padding = 24 bytes
+						on 32bit this type has size 4+4+4+2+1 + 1 padding = 16 bytes
 						*/
 
 
 #define IS_FOUNDMODE_CONTEXTPUSH(i)   (i->numcontextchange > 0)
 #define IS_FOUNDMODE_CONTEXTPOP(i)   (i->numcontextchange < 0)
-#define IS_FOUNDMODE_BLOCKPUSH(i)   (i->numblockchange >0)
+#define IS_FOUNDMODE_BLOCKPUSH(i)   (i->numblockchange ==1)
 #define IS_FOUNDMODE_BLOCKPOP(i)   (i->numblockchange < 0)
 
 typedef struct {
