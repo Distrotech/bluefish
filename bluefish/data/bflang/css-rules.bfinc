@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 		Bluefish HTML Editor
-		css-rules.bfinc $Revision: 6435 $
+		css-rules.bfinc $Revision: 6452 $
  
 		Copyright (C) 2008-20011 Olivier Sessink
 
@@ -77,7 +77,7 @@
 			<element pattern="bottom right" />
 		</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="background-repeat" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -90,7 +90,7 @@
 			<element pattern="no-repeat" />
 		</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="border-bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -104,7 +104,7 @@
 		<element pattern="[0-9]+ex" is_regex="1" highlight="css-value" autocomplete_string=" ex;"/>
 		<element pattern="[0-9]+px" is_regex="1" highlight="css-value" autocomplete_string=" px;"/>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="border-bottom-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -125,7 +125,7 @@
 			<element pattern="outset"/>
 		</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>	
 </element>
 <element pattern="border-bottom-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -187,7 +187,7 @@
 		<element pattern="[0-9]+px" is_regex="1" highlight="css-value" autocomplete_string=" px;"/>
 		<element pattern="[0-9]+%" is_regex="1" highlight="css-value" autocomplete_string=" %;"/>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="clear" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -200,7 +200,7 @@
 			<element pattern="inherit"/>
 		</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="clip" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
@@ -245,7 +245,7 @@ autocomplete_append=": ">
   </element>
  </group>
  <element idref="e.css.end" /><element idref="e.css.lcomment" />
- <element idref="e.css.lbrace" />
+ <element idref="e.css.rbrace" />
 </context>
 </element>
 
@@ -276,7 +276,7 @@ autocomplete_append=": ">
 			<element pattern="inherit"/>
 		</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="empty-cells" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -286,7 +286,7 @@ autocomplete_append=": ">
 		<element pattern="hide"/>
 	</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>					
 </element>
 <element pattern="float" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -298,7 +298,7 @@ autocomplete_append=": ">
 			<element pattern="inherit"/>
 		</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="font" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -321,7 +321,7 @@ autocomplete_append=": ">
 		</group>
 		<element pattern="[0-9]+[ &#9;]*(pt|em|px|%)" is_regex="1" highlight="css-value" />
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="font-size-adjust" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -344,7 +344,7 @@ autocomplete_append=": ">
 			<element pattern="ultra-expanded"/>
 		</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="font-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -355,7 +355,7 @@ autocomplete_append=": ">
 			<element pattern="oblique"/>
 		</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="font-variant" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -363,7 +363,7 @@ autocomplete_append=": ">
 		<element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="small-caps" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>	
 <element pattern="font-weight" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -374,7 +374,7 @@ autocomplete_append=": ">
 		<element pattern="lighter" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="(100|200|300|400|500|600|700|800|900)" highlight="css-value" />
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>	
 <element pattern="height" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
@@ -390,7 +390,7 @@ autocomplete_append=": ">
 		<element pattern="inside" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="outside" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="list-style-type" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -412,7 +412,7 @@ autocomplete_append=": ">
 		<element pattern="none" />
 	</group>
 	<element idref="e.css.end" /><element idref="e.css.lcomment" />
-	<element idref="e.css.lbrace" />
+	<element idref="e.css.rbrace" />
 </context>
 </element>
 <element pattern="margin" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -425,7 +425,7 @@ autocomplete_append=": ">
 		<element pattern="[0-9]+px" is_regex="1" highlight="css-value" autocomplete_string=" px;"/>
 		<element pattern="[0-9]+%" is_regex="1" highlight="css-value" autocomplete_string=" %;"/>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="margin-left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -462,7 +462,7 @@ autocomplete_append=": ">
 		<element pattern="scroll" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="auto" highlight="css-value" autocomplete_append=";"/>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="padding" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -498,7 +498,7 @@ relative </reference>
 		</element>
 		<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="quotes" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
@@ -511,7 +511,7 @@ relative </reference>
 		<element pattern="auto"/>
 	</group>
 	<element idref="e.css.end" /><element idref="e.css.lcomment" />
-	<element idref="e.css.lbrace" />
+	<element idref="e.css.rbrace" />
 </context>
 </element>
 <element pattern="text-align" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -524,7 +524,7 @@ relative </reference>
 			<element pattern="justify"/>
 		</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="text-decoration" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -540,7 +540,7 @@ relative </reference>
 			</element>
 		</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="text-indent" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -560,7 +560,7 @@ relative </reference>
 			<element pattern="inherit"/>
 		</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>	
 </element>
 <element pattern="top" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -583,7 +583,7 @@ relative </reference>
 		</group>
 		<!-- percentage and length are missing now!!! -->
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="visibility" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -595,7 +595,7 @@ relative </reference>
 			<element pattern="inherit"/>
 		</group>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>
 </element>
 <element pattern="white-space" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -607,7 +607,7 @@ relative </reference>
 		<element pattern="pre-wrap" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element pattern="pre-line" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 		<element idref="e.css.end" /><element idref="e.css.lcomment" />
-		<element idref="e.css.lbrace" />
+		<element idref="e.css.rbrace" />
 	</context>		
 </element>
 <element pattern="width" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
