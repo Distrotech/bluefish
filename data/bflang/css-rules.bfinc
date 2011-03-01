@@ -208,7 +208,47 @@
 	<reference><b>color</b> describes the foreground color of an element's text content.</reference>
 	<context idref="c.css.color" />
 </element>
-<element pattern="content" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
+<element pattern="content" autocomplete="1" highlight="css-property"
+autocomplete_append=": ">
+<context symbols=" &#9;&#10;&#13;{}.;()'&#34;">
+ <element pattern="'" highlight="css-string">
+  <context symbols="\'" highlight="css-string">
+   <element pattern="\\." is_regex="1" highlight="css-string" />
+   <element pattern="'" highlight="css-string" ends_context="1" />
+  </context>
+ </element>
+ <element pattern="&quot;" highlight="css-string">
+  <context symbols="\&quot;" highlight="css-string">
+   <element pattern="\\." is_regex="1" highlight="css-string" />
+    <element pattern="&quot;" highlight="css-string" ends_context="1" />
+  </context>
+ </element>
+ <group highlight="css-value" autocomplete="1" autocomplete_append=";">
+  <element pattern="inherit"/>
+  <element pattern="none"/>
+  <element pattern="normal"/>
+  <element pattern="open-quote"/>
+  <element pattern="close-quote"/>
+  <element pattern="no-open-quote"/>
+  <element pattern="no-close-quote"/>
+  <element pattern="attr" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
+   <context id="c.css.content" symbol="()" highlight="css-value">
+   <element pattern="(" />
+    <element pattern=")" ends_context="1" />
+   </context>
+  </element>
+  <element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
+   <context idref="c.css.content" />
+  </element>
+  <element pattern="counter" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
+   <context idref="c.css.content" />
+  </element>
+ </group>
+ <element idref="e.css.end" /><element idref="e.css.lcomment" />
+ <element idref="e.css.lbrace" />
+</context>
+</element>
+
 
 <element pattern="counter-increment" autocomplete="1" highlight="css-property" autocomplete_append=": "/>
 <element pattern="counter-reset" autocomplete="1" highlight="css-property" autocomplete_append=": "/>

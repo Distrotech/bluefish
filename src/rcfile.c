@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rcfile.c - loading and parsing of the configfiles
  *
- * Copyright (C) 2000-2010 Olivier Sessink
+ * Copyright (C) 2000-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -95,19 +95,22 @@ typedef struct {
 
 static GHashTable *main_configlist = NULL;
 
-static void free_configlist(GHashTable * configlist)
+static void
+free_configlist(GHashTable * configlist)
 {
 	g_hash_table_destroy(configlist);
 }
 
-static void free_config_list_item(gpointer data)
+static void
+free_config_list_item(gpointer data)
 {
 	g_slice_free(Tconfig_list_item, data);
 }
 
 /*this should add 1 empty entry to the configuration list */
-GHashTable *make_config_list_item(GHashTable * config_list, void *pointer_to_var, unsigned char type_of_var,
-								  gchar * name_of_var, gint len)
+GHashTable *
+make_config_list_item(GHashTable * config_list, void *pointer_to_var, unsigned char type_of_var,
+					  gchar * name_of_var, gint len)
 {
 	Tconfig_list_item *config_list_item;
 	if (!pointer_to_var) {
@@ -123,16 +126,18 @@ GHashTable *make_config_list_item(GHashTable * config_list, void *pointer_to_var
 	return config_list;
 }
 
-static void init_prop_integer(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var,
-							  gint default_value, gboolean set_default)
+static void
+init_prop_integer(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var,
+				  gint default_value, gboolean set_default)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'i', name_of_var, 0);
 	if (set_default)
 		*(gint *) pointer_to_var = default_value;
 }
 
-static void init_prop_string(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var,
-							 const gchar * default_value)
+static void
+init_prop_string(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var,
+				 const gchar * default_value)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 's', name_of_var, 0);
 	if (*(gchar **) pointer_to_var == NULL) {
@@ -142,8 +147,9 @@ static void init_prop_string(GHashTable ** config_list, void *pointer_to_var, gc
 			  default_value, *(gchar **) pointer_to_var);
 }
 
-static void init_prop_string_with_escape(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var,
-										 gchar * default_value)
+static void
+init_prop_string_with_escape(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var,
+							 gchar * default_value)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'e', name_of_var, 0);
 	if (*(gchar **) pointer_to_var == NULL && default_value) {
@@ -152,8 +158,8 @@ static void init_prop_string_with_escape(GHashTable ** config_list, void *pointe
 	DEBUG_MSG("init_prop_string, name_of_var=%s, default_value=%s\n", name_of_var, default_value);
 }
 
-static void init_prop_stringlist(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var,
-								 gboolean setNULL)
+static void
+init_prop_stringlist(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var, gboolean setNULL)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'l', name_of_var, 0);
 	if (setNULL) {
@@ -161,8 +167,9 @@ static void init_prop_stringlist(GHashTable ** config_list, void *pointer_to_var
 	}
 }
 
-static void init_prop_arraylist(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var,
-								gint len, gboolean setNULL)
+static void
+init_prop_arraylist(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var,
+					gint len, gboolean setNULL)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'a', name_of_var, len);
 	if (setNULL) {
@@ -171,8 +178,9 @@ static void init_prop_arraylist(GHashTable ** config_list, void *pointer_to_var,
 }
 
 /* limited lists should have the most recent on top, the last entries will be cut if there are too many entries */
-static void init_prop_limitedstringlist(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var,
-										gint len, gboolean setNULL)
+static void
+init_prop_limitedstringlist(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var,
+							gint len, gboolean setNULL)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'm', name_of_var, len);
 	if (setNULL) {
@@ -180,7 +188,8 @@ static void init_prop_limitedstringlist(GHashTable ** config_list, void *pointer
 	}
 }
 
-static gint save_config_file(GHashTable * config_list, GFile * file)
+static gint
+save_config_file(GHashTable * config_list, GFile * file)
 {
 	gchar *tmpstring = NULL, *tmpstring2;
 	GList *rclist, *tmplist2;
@@ -287,7 +296,8 @@ static gint save_config_file(GHashTable * config_list, GFile * file)
 	return retval;
 }
 
-static gboolean parse_config_file(GHashTable * config_list, GFile * file)
+static gboolean
+parse_config_file(GHashTable * config_list, GFile * file)
 {
 	gboolean retval = FALSE;
 	gchar *tmpstring = NULL, *tmpstring2;
@@ -391,7 +401,8 @@ static gboolean parse_config_file(GHashTable * config_list, GFile * file)
 	return retval;
 }
 
-static GHashTable *props_init_main(GHashTable * config_rc)
+static GHashTable *
+props_init_main(GHashTable * config_rc)
 {
 	init_prop_integer(&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
 	init_prop_string(&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "monospace 10");
@@ -482,7 +493,8 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.block_folding_mode, "block_folding_mode:", 1, TRUE);
 	init_prop_arraylist(&config_rc, &main_v->props.highlight_styles, "highlight_styles:", 3, TRUE);
 	init_prop_arraylist(&config_rc, &main_v->props.bflang_options, "bflang_options:", 3, TRUE);
-	init_prop_string(&config_rc, &main_v->props.autocomp_accel_string, "autocomp_accel_string:", "<Control>space");
+	init_prop_string(&config_rc, &main_v->props.autocomp_accel_string, "autocomp_accel_string:",
+					 "<Control>space");
 	init_prop_integer(&config_rc, &main_v->props.load_reference, "load_reference:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.show_autocomp_reference, "show_autocomp_reference:", 1,
 					  TRUE);
@@ -501,7 +513,8 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	return config_rc;
 }
 
-static gboolean merge_config_files(GFile * oldrc, GFile * oldsession, GFile * newrc, GFile * newsession)
+static gboolean
+merge_config_files(GFile * oldrc, GFile * oldsession, GFile * newrc, GFile * newsession)
 {
 	GError *gerror = NULL;
 	GInputStream *istream;
@@ -552,7 +565,8 @@ static gboolean merge_config_files(GFile * oldrc, GFile * oldsession, GFile * ne
 	return TRUE;
 }
 
-static void migrate_config_files(GHashTable * main_configlist, GFile * newrc)
+static void
+migrate_config_files(GHashTable * main_configlist, GFile * newrc)
 {
 	GFile *oldrc, *oldsession, *newsession;
 	oldrc = user_bfdir(OLDCONFIG);
@@ -567,7 +581,8 @@ static void migrate_config_files(GHashTable * main_configlist, GFile * newrc)
 	}
 }
 
-void rcfile_parse_main(void)
+void
+rcfile_parse_main(void)
 {
 	GFile *file;
 
@@ -582,7 +597,7 @@ void rcfile_parse_main(void)
 
 	file = user_bfdir(CURCONFIG);
 	if (!parse_config_file(main_configlist, file)) {
-		g_warning("no configfile %s, try to convert config files from older versions\n",CURCONFIG);
+		g_warning("no configfile %s, try to convert config files from older versions\n", CURCONFIG);
 		/* probably there is no configfile. try to migrate the configfile from a previous 
 		   version */
 		migrate_config_files(main_configlist, file);
@@ -622,8 +637,8 @@ void rcfile_parse_main(void)
 		main_v->props.external_command =
 			g_list_append(main_v->props.external_command,
 						  array_from_arglist(_("Windows XP Firefox"),
-							  	  	  	     "\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" '%p'",
-							  	  	  	     "1", NULL));
+											 "\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\" '%p'",
+											 "1", NULL));
 		main_v->props.external_command =
 			g_list_append(main_v->props.external_command,
 						  array_from_arglist(_("Windows XP Internet Explorer"),
@@ -815,7 +830,8 @@ void rcfile_parse_main(void)
 	}
 }
 
-gint rcfile_save_main(void)
+gint
+rcfile_save_main(void)
 {
 	gint ret;
 	GFile *filename = user_bfdir(CURCONFIG);
@@ -827,7 +843,8 @@ gint rcfile_save_main(void)
 #ifndef WIN32
 #define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
 #endif
-void rcfile_check_directory(void)
+void
+rcfile_check_directory(void)
 {
 	gchar *rcdir = g_strconcat(g_get_home_dir(), "/." PACKAGE, NULL);
 	DEBUG_PATH("test if rcfile directory %s exists\n", rcdir);
@@ -841,7 +858,8 @@ void rcfile_check_directory(void)
 	g_free(rcdir);
 }
 
-void rcfile_save_configfile_menu_cb(gpointer callback_data, guint action, GtkWidget * widget)
+void
+rcfile_save_configfile_menu_cb(gpointer callback_data, guint action, GtkWidget * widget)
 {
 	switch (action) {
 	case 0:
@@ -858,7 +876,8 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data, guint action, GtkWid
 	}
 }
 
-static GHashTable *return_globalsession_configlist(gboolean init_values)
+static GHashTable *
+return_globalsession_configlist(gboolean init_values)
 {
 	GHashTable *config_rc = g_hash_table_new_full(g_str_hash, g_str_equal, NULL, free_config_list_item);
 	init_prop_integer(&config_rc, &main_v->globses.main_window_h, "main_window_height:", 400, init_values);
@@ -895,7 +914,8 @@ static GHashTable *return_globalsession_configlist(gboolean init_values)
 	return config_rc;
 }
 
-static GHashTable *return_session_configlist(GHashTable * configlist, Tsessionvars * session)
+static GHashTable *
+return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 {
 	/* this function should *NOT* initialize any values to default values
 	   because it is also used on existing sessions that already have a value, and
@@ -903,13 +923,13 @@ static GHashTable *return_session_configlist(GHashTable * configlist, Tsessionva
 	init_prop_integer(&configlist, &session->wrap_text_default, "wrap_text_default:", 1, FALSE);
 	init_prop_integer(&configlist, &session->autoindent, "autoindent:", 1, FALSE);
 	init_prop_integer(&configlist, &session->editor_tab_width, "editor_tab_width:", 3, FALSE);
-	init_prop_integer(&configlist, &session->editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
+	init_prop_integer(&configlist, &session->editor_indent_wspaces, "editor_indent_wspaces:", 0, FALSE);
 	init_prop_integer(&configlist, &session->view_line_numbers, "view_line_numbers:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_cline, "view_cline:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_blocks, "view_blocks:", 1, FALSE);
 	init_prop_integer(&configlist, &session->autocomplete, "autocomplete:", 1, FALSE);
 	init_prop_integer(&configlist, &session->show_mbhl, "show_mbhl:", 1, FALSE);
-	init_prop_integer(&configlist, &session->display_right_margin, "display_right_margin:", 0, TRUE);
+	init_prop_integer(&configlist, &session->display_right_margin, "display_right_margin:", 0, FALSE);
 #ifdef HAVE_LIBENCHANT
 	init_prop_integer(&configlist, &session->spell_check_default, "spell_check_default:", 1, FALSE);
 	init_prop_integer(&configlist, &session->spell_insert_entities, "spell_insert_entities:", 0, FALSE);
@@ -964,7 +984,8 @@ static GHashTable *return_session_configlist(GHashTable * configlist, Tsessionva
 	return configlist;
 }
 
-static void setup_session_after_parse(Tsessionvars * session)
+static void
+setup_session_after_parse(Tsessionvars * session)
 {
 	if (session->editor_tab_width < 2)
 		session->editor_tab_width = 3;
@@ -980,7 +1001,8 @@ static void setup_session_after_parse(Tsessionvars * session)
 */
 }
 
-static GHashTable *return_project_configlist(Tproject * project)
+static GHashTable *
+return_project_configlist(Tproject * project)
 {
 	GHashTable *configlist = g_hash_table_new_full(g_str_hash, g_str_equal, NULL, free_config_list_item);
 	init_prop_string(&configlist, &project->name, "name:", _("Untitled Project"));
@@ -990,7 +1012,8 @@ static GHashTable *return_project_configlist(Tproject * project)
 	return configlist;
 }
 
-gboolean rcfile_parse_project(Tproject * project, GFile * file)
+gboolean
+rcfile_parse_project(Tproject * project, GFile * file)
 {
 	gboolean retval;
 	GHashTable *configlist = return_project_configlist(project);
@@ -1000,7 +1023,8 @@ gboolean rcfile_parse_project(Tproject * project, GFile * file)
 	return retval;
 }
 
-gboolean rcfile_save_project(Tproject * project, GFile * file)
+gboolean
+rcfile_save_project(Tproject * project, GFile * file)
 {
 	gboolean retval;
 	GHashTable *configlist = return_project_configlist(project);
@@ -1014,7 +1038,8 @@ gboolean rcfile_save_project(Tproject * project, GFile * file)
 	return retval;
 }
 
-gboolean rcfile_save_global_session(void)
+gboolean
+rcfile_save_global_session(void)
 {
 	gboolean retval;
 	GFile *filename;
@@ -1035,7 +1060,8 @@ gboolean rcfile_save_global_session(void)
 
 /* should be called AFTER the normal properties are loaded, becauses return_session_configlist() uses
  settings from main_v->props */
-gboolean rcfile_parse_global_session(void)
+gboolean
+rcfile_parse_global_session(void)
 {
 	gboolean retval;
 	GFile *file;

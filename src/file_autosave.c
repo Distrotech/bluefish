@@ -194,7 +194,8 @@ remove_autosave(Tdocument * doc)
 
 	/* cancel running autosave */
 	if (doc->autosave_progress) {
-		file_checkNsave_cancel(doc->autosave_action);
+		if (doc->autosave_action)
+			file_checkNsave_cancel(doc->autosave_action);
 		main_v->autosave_progress = g_list_delete_link(main_v->autosave_progress, doc->autosave_progress);
 		doc->autosave_progress = NULL;
 	}
@@ -216,8 +217,8 @@ autosave_complete_lcb(gint status, gint error_info, gpointer data)
 			doc->autosaved =
 				register_autosave_journal(doc->autosave_uri, doc->uri,
 										  (doc->bfwin
-										   && BFWIN(doc->bfwin)->project) ? BFWIN(doc->bfwin)->project->
-										  uri : NULL);
+										   && BFWIN(doc->bfwin)->project) ? BFWIN(doc->bfwin)->
+										  project->uri : NULL);
 		}
 		main_v->autosave_progress = g_list_delete_link(main_v->autosave_progress, doc->autosave_progress);
 		doc->autosave_progress = NULL;
