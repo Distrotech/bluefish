@@ -55,7 +55,7 @@
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';*/">
 				&css-rules;
 				<element idref="e.css.lcomment" />
-				<element pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="1"/>
+				<element id="e.css.rbrace1" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="1"/>
 			</context>
 		</element>
 		
