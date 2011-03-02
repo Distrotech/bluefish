@@ -652,6 +652,7 @@ menu_create_main(Tbfwin * bfwin, GtkWidget * vbox)
 							GDK_SHIFT_MASK | GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Go/Last Document", GDK_Page_Down,
 							GDK_SHIFT_MASK | GDK_CONTROL_MASK);
+	gtk_widget_show(bfwin->menubar);
 	setup_toggle_item(item_factory, "/View/Main Toolbar", bfwin->session->view_main_toolbar);
 	setup_toggle_item(item_factory, "/View/Side Pane", bfwin->session->view_left_panel);
 	setup_toggle_item(item_factory, "/View/Statusbar", bfwin->session->view_statusbar);

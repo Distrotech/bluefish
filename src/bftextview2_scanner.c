@@ -19,7 +19,6 @@
 
 #define HL_PROFILING
 /*#define DUMP_SCANCACHE*/
-#define DEBUG_ALLOCS
 
 /*#define VALGRIND_PROFILING*/
 
@@ -85,44 +84,6 @@ Thl_profiling hl_profiling = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 #endif
 
 guint loops_per_timer = 1000;	/* a tunable to avoid asking time too often. this is auto-tuned. */
-
-
-#ifdef DEBUG_ALLOCS
-
-GList *alloclist = NULL;
-GList *freelist = NULL;
-
-#define alloclist_push(var) alloclist_push_real(__LINE__,"found", var)
-#define freelist_push(var) freelist_push_real(__LINE__,"found", var)
-
-#define allocblock_push(var) alloclist_push_real(__LINE__,"block", var)
-#define freeblock_push(var) freelist_push_real(__LINE__,"block", var)
-
-
-void
-alloclist_push_real(gint line, const gchar * text, gpointer data)
-{
-	if (g_list_find(alloclist, data)) {
-		g_print("%d: %s element %p was already on alloclist???\n", line, text, data);
-	}
-	alloclist = g_list_append(alloclist, data);
-	freelist = g_list_remove(freelist, data);
-}
-
-void
-freelist_push_real(gint line, const gchar * text, gpointer data)
-{
-	if (g_list_find(freelist, data)) {
-		g_print("%d: %s element %p was free'd already\n", line, text, data);
-	}
-	if (!g_list_find(alloclist, data)) {
-		g_print("%d: %s element %p was not on alloclist\n", line, text, data);
-	}
-	freelist = g_list_append(freelist, data);
-	alloclist = g_list_remove(alloclist, data);
-}
-
-#endif
 
 #ifdef DUMP_SCANCACHE
 void
@@ -282,9 +243,6 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 			 tmpfound2, tmpfound2->charoffset_o, contextstackcount, blockstackcount);
 		invalidoffset = tmpfound2->charoffset_o;
 		g_sequence_remove(tmpsiter2);
-#ifdef DEBUG_ALLOCS
-		freelist_push(tmpfound2);
-#endif
 		found_free_lcb(tmpfound2, btv);
 	}
 
@@ -292,9 +250,6 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 				  tmpfound1->charoffset_o);
 
 	g_sequence_remove(tmpsiter1);
-#ifdef DEBUG_ALLOCS
-	freelist_push(tmpfound1);
-#endif
 	found_free_lcb(tmpfound1, btv);
 	return invalidoffset;
 }
@@ -433,9 +388,6 @@ found_free_lcb(gpointer data, gpointer btv)
 #ifdef HL_PROFILING
 		hl_profiling.fblock_refcount--;
 #endif
-#ifdef DEBUG_ALLOCS
-		freeblock_push(found->fblock);
-#endif
 		g_slice_free(Tfoundblock, found->fblock);
 	}
 	if (IS_FOUNDMODE_CONTEXTPUSH(found)) {
@@ -495,9 +447,6 @@ found_start_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scannin
 	hl_profiling.fblock_refcount++;
 #endif
 	fblock = g_slice_new0(Tfoundblock);
-#ifdef DEBUG_ALLOCS
-	allocblock_push(fblock);
-#endif
 	fblock->start1_o = gtk_text_iter_get_offset(&match->start);
 	fblock->end1_o = gtk_text_iter_get_offset(&match->end);
 	/*g_print("found blockstart with start_1 %d end1 %d\n",fblock->start1_o,fblock->end1_o); */
@@ -511,16 +460,6 @@ found_start_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scannin
 }
 
 static gboolean enlarge_scanning_region(BluefishTextView * btv, Tscanning * scanning, guint offset);
-
-static void
-found_free_eob(gpointer data1, gpointer data2)
-{
-#ifdef DEBUG_ALLOCS
-	freelist_push(data1);
-#endif
-	found_free_lcb(data1, data2);
-}
-
 
 static inline Tfoundblock *
 found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning, Tpattern * pat,
@@ -572,7 +511,7 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 				scanning->siter = isiter;
 			}
 			DBG_SCANCACHE("found_end_of_block, remove cache in range, nextfound=%p\n", scanning->nextfound);
-			g_sequence_foreach_range(cursiter, isiter, found_free_eob, btv);
+			g_sequence_foreach_range(cursiter, isiter, found_free_lcb, btv);
 			g_sequence_remove_range(cursiter, isiter);
 			if (scanning->nextfound) {
 				DBG_SCANCACHE("nextfound %p is now set to charoffset %d\n", scanning->nextfound,
@@ -719,8 +658,8 @@ cached_found_is_valid(BluefishTextView * btv, Tmatch * match, Tscanning * scanni
 	if (!nextcache_valid(scanning))
 		return FALSE;
 
-	g_print("with numcontextchange=%d, numblockchange=%d\n", scanning->nextfound->numcontextchange,
-			scanning->nextfound->numblockchange);
+	DBG_SCANCACHE("with numcontextchange=%d, numblockchange=%d\n", scanning->nextfound->numcontextchange,
+				  scanning->nextfound->numblockchange);
 	if (IS_FOUNDMODE_BLOCKPUSH(scanning->nextfound)
 		&& (!pat.starts_block || scanning->nextfound->fblock->patternum != match->patternum)) {
 		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not push the same block\n",
@@ -946,6 +885,18 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 			fblock = scanning->curfblock;
 		}
 	}
+#ifdef CHECK_CONSISTENCY
+	if (numblockchange == 0) {
+		g_assert(fblock == scanning->curfblock);
+	} else if (numblockchange == 1) {
+		g_assert(fblock == scanning->curfblock);
+	} else if (numblockchange > 1) {
+		g_assert(FALSE);
+	} else if (numblockchange < 0) {
+		Tfoundblock *tmpfblock = pop_blocks(numblockchange, fblock);
+		g_assert(tmpfblock == scanning->curfblock);
+	}
+#endif
 	if (pat.nextcontext != 0 && pat.nextcontext != scanning->context) {
 		fcontext = found_context_change(btv, match, scanning, &pat);
 		numcontextchange = pat.nextcontext <= 0 ? pat.nextcontext : 1;
@@ -960,9 +911,6 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	found = g_slice_new0(Tfound);
 #ifdef HL_PROFILING
 	hl_profiling.found_refcount++;
-#endif
-#ifdef DEBUG_ALLOCS
-	alloclist_push(found);
 #endif
 	found->numblockchange = numblockchange;
 	found->fblock = fblock;
@@ -1066,15 +1014,6 @@ static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buf
 }*/
 
 static void
-found_free_ror(gpointer data1, gpointer data2)
-{
-#ifdef DEBUG_ALLOCS
-	freelist_push(data1);
-#endif
-	found_free_lcb(data1, data2);
-}
-
-static void
 remove_old_scan_results(BluefishTextView * btv, GtkTextIter * fromhere)
 {
 	GtkTextIter end;
@@ -1092,7 +1031,7 @@ remove_old_scan_results(BluefishTextView * btv, GtkTextIter * fromhere)
 		DBG_SCANCACHE("sit1=%p, sit2=%p\n", sit1, sit2);
 		DBG_SCANCACHE("remove_old_scan_results: remove foundcache entries %d to %d\n",
 					  g_sequence_iter_get_position(sit1), g_sequence_iter_get_position(sit2));
-		g_sequence_foreach_range(sit1, sit2, found_free_ror, btv);
+		g_sequence_foreach_range(sit1, sit2, found_free_lcb, btv);
 		g_sequence_remove_range(sit1, sit2);
 	} else {
 		DBG_SCANCACHE("no sit1, no cleanup ??\n");
@@ -1441,9 +1380,10 @@ scan_for_autocomp_prefix(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIt
 				if (g_array_index
 					(btv->bflang->st->matches, Tpattern,
 					 g_array_index(btv->bflang->st->table, Ttablerow, pos).match).nextcontext < 0) {
-					gint num = g_array_index(btv->bflang->st->matches, Tpattern,
-											 g_array_index(btv->bflang->st->table, Ttablerow,
-														   pos).match).nextcontext;
+					gint num =
+						g_array_index(btv->bflang->st->matches, Tpattern,
+									  g_array_index(btv->bflang->st->table, Ttablerow,
+													pos).match).nextcontext;
 					while (num != 0) {
 						g_queue_pop_head(contextstack);
 						num++;
@@ -1521,9 +1461,10 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 				if (g_array_index
 					(btv->bflang->st->matches, Tpattern,
 					 g_array_index(btv->bflang->st->table, Ttablerow, pos).match).nextcontext < 0) {
-					gint num = g_array_index(btv->bflang->st->matches, Tpattern,
-											 g_array_index(btv->bflang->st->table, Ttablerow,
-														   pos).match).nextcontext;
+					gint num =
+						g_array_index(btv->bflang->st->matches, Tpattern,
+									  g_array_index(btv->bflang->st->table, Ttablerow,
+													pos).match).nextcontext;
 					while (num != 0) {
 						g_queue_pop_head(contextstack);
 						num++;
@@ -1574,15 +1515,6 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 	return FALSE;
 }
 
-static void
-found_free_cs(gpointer data1, gpointer data2)
-{
-#ifdef DEBUG_ALLOCS
-	freelist_push(data1);
-#endif
-	found_free_lcb(data1, data2);
-}
-
 void
 cleanup_scanner(BluefishTextView * btv)
 {
@@ -1592,7 +1524,7 @@ cleanup_scanner(BluefishTextView * btv)
 	gtk_text_buffer_get_bounds(btv->buffer, &begin, &end);
 	gtk_text_buffer_remove_all_tags(btv->buffer, &begin, &end);
 
-	g_sequence_foreach(btv->scancache.foundcaches, found_free_cs, btv);
+	g_sequence_foreach(btv->scancache.foundcaches, found_free_lcb, btv);
 	sit1 = g_sequence_get_begin_iter(btv->scancache.foundcaches);
 	if (sit1 && !g_sequence_iter_is_end(sit1)) {
 		sit2 = g_sequence_get_end_iter(btv->scancache.foundcaches);
@@ -1623,19 +1555,10 @@ cleanup_scanner(BluefishTextView * btv)
 
 }
 
-static void
-found_free_sd(gpointer data1, gpointer data2)
-{
-#ifdef DEBUG_ALLOCS
-	freelist_push(data1);
-#endif
-	found_free_lcb(data1, data2);
-}
-
 void
 scancache_destroy(BluefishTextView * btv)
 {
-	g_sequence_foreach(btv->scancache.foundcaches, found_free_sd, btv);
+	g_sequence_foreach(btv->scancache.foundcaches, found_free_lcb, btv);
 	g_sequence_free(btv->scancache.foundcaches);
 	btv->scancache.foundcaches = NULL;
 }
