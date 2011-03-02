@@ -495,7 +495,7 @@ static Tfoundcontext *pop_contexts(gint numchange, Tfoundcontext *curcontext) {
 	return fcontext;
 }
 
-static Tfoundcontext *pop_and_apply_contexts(BluefishTextView * btv, gint numchange, Tfoundcontext *curcontext, GtkTextIter *matchstart) {
+static Tfoundcontext *pop_and_apply_contexts(BluefishTextView * btv, gint numchange, Tfoundcontext *curcontext, GtkTextIter *matchstart, gint *numchanged) {
 	gint num=numchange;
 	guint offset = gtk_text_iter_get_offset(matchstart);
 	Tfoundcontext *fcontext = curcontext;
@@ -508,12 +508,13 @@ static Tfoundcontext *pop_and_apply_contexts(BluefishTextView * btv, gint numcha
 			gtk_text_buffer_apply_tag(btv->buffer,g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag, &iter, matchstart);
 		}
 		fcontext = (Tfoundcontext *)fcontext->parentfcontext;
+		(*numchanged)--;
 		num++;
 	}
 	return fcontext;
 }
 
-static inline Tfoundcontext *found_context_change(BluefishTextView * btv,Tmatch *match, Tscanning *scanning, Tpattern *pat) {
+static inline Tfoundcontext *found_context_change(BluefishTextView * btv,Tmatch *match, Tscanning *scanning, Tpattern *pat, gint *numcontextchange) {
 	/* check if we change up or down the stack */
 	if (pat->nextcontext < 0) {
 		Tfoundcontext *retcontext = scanning->curfcontext;
@@ -521,7 +522,8 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,Tmatch 
 		hl_profiling.numcontextend++;
 #endif
 		DBG_SCANNING("found_context_change, should pop %d contexts, curfcontext=%p\n",(-1*pat->nextcontext),scanning->curfcontext);
-		scanning->curfcontext = pop_and_apply_contexts(btv, pat->nextcontext, scanning->curfcontext, &match->start);
+		*numcontextchange=0;
+		scanning->curfcontext = pop_and_apply_contexts(btv, pat->nextcontext, scanning->curfcontext, &match->start, numcontextchange);
 		scanning->context = scanning->curfcontext ? scanning->curfcontext->context : 1;
 		return retcontext;
 	} else {
@@ -537,6 +539,7 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,Tmatch 
 		DBG_SCANNING("found_context_change, new fcontext %p with context %d onto the stack, parent=%p\n",fcontext, pat->nextcontext, fcontext->parentfcontext);
 		scanning->curfcontext = fcontext;
 		scanning->context = fcontext->context = pat->nextcontext;
+		*numcontextchange=1;
 		return fcontext;
 	}
 }
@@ -751,7 +754,8 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 				context = scanning->nextfound->fcontext ? scanning->nextfound->fcontext->context : 1;
 				tmpfcontext = scanning->nextfound->fcontext;
 			} else if (pat.nextcontext < 0) {
-				tmpfcontext = pop_and_apply_contexts(btv, pat.nextcontext, scanning->curfcontext, &match->start);
+				gint tmp=0;
+				tmpfcontext = pop_and_apply_contexts(btv, pat.nextcontext, scanning->curfcontext, &match->start, &tmp);
 				Tfoundcontext *tmpfcontext2 = pop_contexts(pat.nextcontext, scanning->nextfound->fcontext);
 				context = tmpfcontext ? tmpfcontext->context : 1;
 				if (tmpfcontext != tmpfcontext2) {
@@ -802,8 +806,7 @@ static inline int found_match(BluefishTextView * btv, Tmatch *match, Tscanning *
 	}
 #endif
 	if (pat.nextcontext != 0 && pat.nextcontext != scanning->context) {
-		fcontext = found_context_change(btv, match, scanning, &pat);
-		numcontextchange = pat.nextcontext <= 0 ?  pat.nextcontext : 1;
+		fcontext = found_context_change(btv, match, scanning, &pat, &numcontextchange);
 	} else {
 		numcontextchange = 0;
 	}
