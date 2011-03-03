@@ -466,6 +466,9 @@ typedef struct {
 	GList *menu_cmenu_entries;
 	GList *menu_filetypes;
 	GList *menu_templates;
+	/* action based dynamic menus */
+	GtkActionGroup *templates;
+	guint templates_merge_id;
 #ifdef HAVE_LIBENCHANT
 	gpointer *ed;				/* EnchantDict */
 #endif

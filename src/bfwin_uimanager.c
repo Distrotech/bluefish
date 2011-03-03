@@ -946,6 +946,8 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
 	gtk_widget_show(menubar);
 
+	bfwin_templates_menu_create(bfwin);
+
 	set_project_menu_actions(bfwin, FALSE);
 }
 
@@ -1069,4 +1071,59 @@ setup_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path, gbo
 
 	if ((gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) != is_active)
 		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), is_active);
+}
+
+static void
+templates_menu_activate(GtkAction * action, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+	gchar *path = g_object_get_data(G_OBJECT(action), "path");
+	GFile *uri = g_file_new_for_commandline_arg(path);
+	g_free(path);
+
+	doc_new_with_template(bfwin, uri, FALSE);
+	g_object_unref(uri);
+}
+
+void
+bfwin_templates_menu_create(Tbfwin * bfwin)
+{
+	GList *list;
+
+	if (!bfwin->templates) {
+		bfwin->templates = gtk_action_group_new("TemplateActions");
+		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->templates, 1);
+	} else {
+		GList *actions, *list;
+
+		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->templates_merge_id);
+
+		actions = gtk_action_group_list_actions(bfwin->templates);
+		for (list = actions; list; list = list->next) {
+			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
+												 G_CALLBACK(templates_menu_activate), bfwin);
+			gtk_action_group_remove_action(bfwin->templates, GTK_ACTION(list->data));
+		}
+		g_list_free(actions);
+	}
+
+	bfwin->templates_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
+
+	for (list = g_list_last(main_v->props.templates); list; list = list->prev) {
+		gchar **arr = (gchar **) list->data;
+
+		if (arr && arr[0] && arr[1]) {
+			GtkAction *action;
+
+			action = gtk_action_new(arr[0], arr[0], NULL, NULL);
+			gtk_action_group_add_action(bfwin->templates, action);
+			g_object_set_data(G_OBJECT(action), "path", (gpointer) arr[1]);
+
+			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(templates_menu_activate), bfwin);
+
+			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->templates_merge_id,
+								  "/MainMenu/FileMenu/NewFromTemplate/TemplatePlaceholder", arr[0], arr[0],
+								  GTK_UI_MANAGER_MENUITEM, TRUE);
+		}
+	}
 }

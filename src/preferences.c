@@ -34,6 +34,7 @@
 #include "bf_lib.h"				/* list_switch_order() */
 #include "bftextview2_langmgr.h"
 #include "bfwin.h"
+#include "bfwin_uimanager.h"
 #include "dialog_utils.h"
 #include "document.h"
 #include "filebrowser2.h"
@@ -1611,6 +1612,7 @@ preferences_apply(Tprefdialog * pd)
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling encoding_menu_rebuild\n");
 			external_menu_rebuild(bfwin);	/* browsers is also rebuild here! */
 			template_menu_rebuild(bfwin, NULL);
+			bfwin_templates_menu_create(bfwin);
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling gui_apply_settings\n");
 			bfwin_apply_settings(bfwin);
 			bfwin_side_panel_rebuild(bfwin);
