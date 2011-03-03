@@ -565,6 +565,10 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 				g_warning("element with id %s does not exist\n", idref);
 			} else {
 				compile_existing_match(bfparser->st, matchnum, context);
+				if (g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext < 0 && (-1*g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext) >= g_queue_get_length(contextstack)) {
+					g_warning("BUG IN LANGUAGE FILE, idref %s ends_context=%d, but has only %d parent contexts\n", idref, ends_context, g_queue_get_length(contextstack));
+				}
+				
 			}
 		} else if (pattern && pattern[0]) {
 			gchar *reference = NULL;
@@ -573,6 +577,9 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 			if (ends_context) {
 				/* the nth number in the stack */
 				nextcontext = -1 * ends_context;	/*GPOINTER_TO_INT(g_queue_peek_nth(contextstack,ends_context)); */
+				if (ends_context >= g_queue_get_length(contextstack)) {
+					g_warning("BUG IN LANGUAGE FILE, id %s / pattern %s ends_context=%d, but has only %d parent contexts\n", id, pattern, ends_context, g_queue_get_length(contextstack));
+				}
 			}
 			if (blockstartelement) {
 				blockstartelementum =

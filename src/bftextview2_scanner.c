@@ -550,7 +550,7 @@ pop_contexts(gint numchange, Tfoundcontext * curcontext)
 
 static Tfoundcontext *
 pop_and_apply_contexts(BluefishTextView * btv, gint numchange, Tfoundcontext * curcontext,
-					   GtkTextIter * matchstart)
+					   GtkTextIter * matchstart, gint * numchanged)
 {
 	gint num = numchange;
 	guint offset = gtk_text_iter_get_offset(matchstart);
@@ -569,13 +569,15 @@ pop_and_apply_contexts(BluefishTextView * btv, gint numchange, Tfoundcontext * c
 													fcontext->context).contexttag, &iter, matchstart);
 		}
 		fcontext = (Tfoundcontext *) fcontext->parentfcontext;
+		(*numchanged)--;
 		num++;
 	}
 	return fcontext;
 }
 
 static inline Tfoundcontext *
-found_context_change(BluefishTextView * btv, Tmatch * match, Tscanning * scanning, Tpattern * pat)
+found_context_change(BluefishTextView * btv, Tmatch * match, Tscanning * scanning, Tpattern * pat,
+					 gint * numcontextchange)
 {
 	/* check if we change up or down the stack */
 	if (pat->nextcontext < 0) {
@@ -585,8 +587,10 @@ found_context_change(BluefishTextView * btv, Tmatch * match, Tscanning * scannin
 #endif
 		DBG_SCANNING("found_context_change, should pop %d contexts, curfcontext=%p\n",
 					 (-1 * pat->nextcontext), scanning->curfcontext);
+		*numcontextchange = 0;
 		scanning->curfcontext =
-			pop_and_apply_contexts(btv, pat->nextcontext, scanning->curfcontext, &match->start);
+			pop_and_apply_contexts(btv, pat->nextcontext, scanning->curfcontext, &match->start,
+								   numcontextchange);
 		scanning->context = scanning->curfcontext ? scanning->curfcontext->context : 1;
 		return retcontext;
 	} else {
@@ -603,6 +607,7 @@ found_context_change(BluefishTextView * btv, Tmatch * match, Tscanning * scannin
 					 fcontext, pat->nextcontext, fcontext->parentfcontext);
 		scanning->curfcontext = fcontext;
 		scanning->context = fcontext->context = pat->nextcontext;
+		*numcontextchange = 1;
 		return fcontext;
 	}
 }
@@ -844,8 +849,9 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 				context = scanning->nextfound->fcontext ? scanning->nextfound->fcontext->context : 1;
 				tmpfcontext = scanning->nextfound->fcontext;
 			} else if (pat.nextcontext < 0) {
+				gint tmp = 0;
 				tmpfcontext =
-					pop_and_apply_contexts(btv, pat.nextcontext, scanning->curfcontext, &match->start);
+					pop_and_apply_contexts(btv, pat.nextcontext, scanning->curfcontext, &match->start, &tmp);
 				Tfoundcontext *tmpfcontext2 = pop_contexts(pat.nextcontext, scanning->nextfound->fcontext);
 				context = tmpfcontext ? tmpfcontext->context : 1;
 				if (tmpfcontext != tmpfcontext2) {
@@ -898,8 +904,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	}
 #endif
 	if (pat.nextcontext != 0 && pat.nextcontext != scanning->context) {
-		fcontext = found_context_change(btv, match, scanning, &pat);
-		numcontextchange = pat.nextcontext <= 0 ? pat.nextcontext : 1;
+		fcontext = found_context_change(btv, match, scanning, &pat, &numcontextchange);
 	} else {
 		numcontextchange = 0;
 	}
@@ -1380,10 +1385,9 @@ scan_for_autocomp_prefix(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIt
 				if (g_array_index
 					(btv->bflang->st->matches, Tpattern,
 					 g_array_index(btv->bflang->st->table, Ttablerow, pos).match).nextcontext < 0) {
-					gint num =
-						g_array_index(btv->bflang->st->matches, Tpattern,
-									  g_array_index(btv->bflang->st->table, Ttablerow,
-													pos).match).nextcontext;
+					gint num = g_array_index(btv->bflang->st->matches, Tpattern,
+											 g_array_index(btv->bflang->st->table, Ttablerow,
+														   pos).match).nextcontext;
 					while (num != 0) {
 						g_queue_pop_head(contextstack);
 						num++;
@@ -1461,10 +1465,9 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 				if (g_array_index
 					(btv->bflang->st->matches, Tpattern,
 					 g_array_index(btv->bflang->st->table, Ttablerow, pos).match).nextcontext < 0) {
-					gint num =
-						g_array_index(btv->bflang->st->matches, Tpattern,
-									  g_array_index(btv->bflang->st->table, Ttablerow,
-													pos).match).nextcontext;
+					gint num = g_array_index(btv->bflang->st->matches, Tpattern,
+											 g_array_index(btv->bflang->st->table, Ttablerow,
+														   pos).match).nextcontext;
 					while (num != 0) {
 						g_queue_pop_head(contextstack);
 						num++;
