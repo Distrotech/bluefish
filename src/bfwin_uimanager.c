@@ -19,6 +19,10 @@
  */
 
 
+/*#define DEBUG*/
+
+#include <stdlib.h>				/* atoi */
+
 #include "bfwin_uimanager.h"
 #include "bfwin.h"
 #include "bftextview2.h"
@@ -31,6 +35,7 @@
 #include "encodings_dialog.h"
 #include "external_commands.h"
 #include "file_dialogs.h"
+#include "outputbox.h"
 #include "preferences.h"
 #include "project.h"
 #include "snr2.h"
@@ -992,6 +997,8 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	gtk_widget_show(menubar);
 
 	bfwin_commands_menu_create(bfwin);
+	bfwin_filters_menu_create(bfwin);
+	bfwin_outputbox_menu_create(bfwin);
 	bfwin_templates_menu_create(bfwin);
 	lang_mode_menu_create(bfwin);
 
@@ -1190,7 +1197,186 @@ bfwin_commands_menu_create(Tbfwin * bfwin)
 									  GTK_UI_MANAGER_MENUITEM, FALSE);
 
 		} else {
-			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_command; array count =%d\n",
+			DEBUG_MSG("bfwin_commands_menu_create, CORRUPT ENTRY IN command action; array count =%d\n",
+					  g_strv_length(arr));
+		}
+	}
+}
+
+typedef struct {
+	Tbfwin *bfwin;
+	Tselectionsave *selsave;
+	gchar *command;
+} Tfilterdialog;
+
+static void
+filter_dialog_response(GtkWidget * widget, gint response_id, gpointer user_data)
+{
+	Tfilterdialog *fd = user_data;
+	gint begin = 0, end = -1;
+
+	gtk_widget_destroy(widget);
+	doc_restore_selection(fd->selsave, TRUE);	/* the restore will also free the Tselectionsave */
+	if (response_id == 1 && fd->bfwin->current_document)
+		doc_get_selection(fd->bfwin->current_document, &begin, &end);
+
+	filter_command(fd->bfwin, fd->command, begin, end);
+	g_slice_free(Tfilterdialog, fd);
+}
+
+static void
+filters_menu_activate(GtkAction * action, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+	gchar *command = g_object_get_data(G_OBJECT(action), "command");
+	gint begin = 0, end = -1;
+	/* if we have a selection, and the filter can be used on a selection,
+	   we should ask if it should be the complete file or the selection */
+
+	if (operatable_on_selection(command)
+		&& (bfwin->current_document && doc_has_selection(bfwin->current_document))) {
+		GtkWidget *dialog, *button;
+		Tfilterdialog *fd;
+
+		fd = g_slice_new(Tfilterdialog);
+		fd->bfwin = bfwin;
+		fd->command = command;
+
+		fd->selsave = doc_save_selection(bfwin->current_document);
+		/* TODO: this dialog is not very convenient, hitting enter should choose 'selection' */
+		dialog =
+			gtk_message_dialog_new(GTK_WINDOW(bfwin->main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
+								   GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, _("Text area to filter"));
+		gtk_dialog_add_button(GTK_DIALOG(dialog), _("All text"), 0);
+		button = gtk_dialog_add_button(GTK_DIALOG(dialog), _("Selected text only"), 1);
+		gtk_widget_grab_default(button);
+		g_signal_connect(dialog, "response", G_CALLBACK(filter_dialog_response), fd);
+		gtk_widget_show_all(dialog);
+	} else {
+		DEBUG_MSG("filters_menu_activate, calling filter_command for %s\n", arr[1]);
+		filter_command(bfwin, command, begin, end);
+	}
+}
+
+void
+bfwin_filters_menu_create(Tbfwin * bfwin)
+{
+	GList *list;
+
+	if (!bfwin->filters) {
+		bfwin->filters = gtk_action_group_new("FiltersActions");
+		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->filters, 1);
+	} else {
+		GList *actions, *list;
+
+		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->filters_merge_id);
+
+		actions = gtk_action_group_list_actions(bfwin->filters);
+		for (list = actions; list; list = list->next) {
+			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
+												 G_CALLBACK(filters_menu_activate), bfwin);
+			gtk_action_group_remove_action(bfwin->filters, GTK_ACTION(list->data));
+		}
+		g_list_free(actions);
+	}
+
+	bfwin->filters_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
+
+	for (list = g_list_first(main_v->props.external_filter); list; list = list->next) {
+		gchar **arr = list->data;
+		/*  arr[0] = name
+		 *  arr[1] = command
+		 */
+		if (g_strv_length(arr) == 2) {
+			GtkAction *action;
+
+			action = gtk_action_new(arr[0], arr[0], NULL, NULL);
+			gtk_action_group_add_action(bfwin->filters, action);
+			g_object_set_data(G_OBJECT(action), "command", (gpointer) arr[1]);
+
+			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(filters_menu_activate), bfwin);
+
+			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->filters_merge_id,
+								  "/MainMenu/ToolsMenu/ToolsFilters/FiltersPlaceholder", arr[0],
+								  arr[0], GTK_UI_MANAGER_MENUITEM, FALSE);
+		} else {
+			DEBUG_MSG("bfwin_filters_menu_create, CORRUPT ENTRY IN filter actions; array count =%d\n",
+					  g_strv_length(arr));
+		}
+	}
+}
+
+static void
+outputbox_menu_activate(GtkAction * action, gpointer user_data)
+{
+	gchar *pattern = g_object_get_data(G_OBJECT(action), "pattern");
+	gchar *file_subpat = g_object_get_data(G_OBJECT(action), "file subpattern");
+	gchar *line_subpat = g_object_get_data(G_OBJECT(action), "line subpattern");
+	gchar *output_subpat = g_object_get_data(G_OBJECT(action), "output subpattern");
+	gchar *command = g_object_get_data(G_OBJECT(action), "command");
+
+	outputbox(BFWIN(user_data), pattern, atoi(file_subpat), atoi(line_subpat), atoi(output_subpat), command);
+
+	g_free(pattern);
+	g_free(file_subpat);
+	g_free(line_subpat);
+	g_free(output_subpat);
+	g_free(command);
+}
+
+void
+bfwin_outputbox_menu_create(Tbfwin * bfwin)
+{
+	GList *list;
+
+	if (!bfwin->outputbox_group) {
+		bfwin->outputbox_group = gtk_action_group_new("OutputboxActions");
+		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->outputbox_group, 1);
+	} else {
+		GList *actions, *list;
+
+		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->outputbox_merge_id);
+
+		actions = gtk_action_group_list_actions(bfwin->outputbox_group);
+		for (list = actions; list; list = list->next) {
+			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
+												 G_CALLBACK(outputbox_menu_activate), bfwin);
+			gtk_action_group_remove_action(bfwin->outputbox_group, GTK_ACTION(list->data));
+		}
+		g_list_free(actions);
+	}
+
+	bfwin->outputbox_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
+
+	for (list = g_list_first(main_v->props.external_outputbox); list; list = list->next) {
+		gchar **arr = list->data;
+		/* arr[0] = name
+		 * arr[1] = pattern
+		 * arr[2] = file subpattern     gint
+		 * arr[3] = line subpattern     gint
+		 * arr[4] = output subpattern   gint
+		 * arr[5] = command
+		 * arr[6] = show_all_output     gboolean not used
+		 */
+		if (g_strv_length(arr) == 6) {
+			GtkAction *action;
+
+			/* TODO: set the integers as pointers not strings */
+			action = gtk_action_new(arr[0], arr[0], NULL, NULL);
+			gtk_action_group_add_action(bfwin->outputbox_group, action);
+			g_object_set_data(G_OBJECT(action), "pattern", (gpointer) arr[1]);
+			g_object_set_data(G_OBJECT(action), "file subpattern", (gpointer) arr[2]);
+			g_object_set_data(G_OBJECT(action), "line subpattern", (gpointer) arr[3]);
+			g_object_set_data(G_OBJECT(action), "output subpattern", (gpointer) arr[4]);
+			g_object_set_data(G_OBJECT(action), "command", (gpointer) arr[5]);
+
+			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(outputbox_menu_activate), bfwin);
+
+			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->outputbox_merge_id,
+								  "/MainMenu/ToolsMenu/ToolsOutputBox/OutputBoxPlaceholder", arr[0],
+								  arr[0], GTK_UI_MANAGER_MENUITEM, FALSE);
+		} else {
+			DEBUG_MSG("bfwin_outputbox_menu_create, CORRUPT ENTRY IN outputbox action; array count =%d\n",
 					  g_strv_length(arr));
 		}
 	}

@@ -39,6 +39,8 @@ void setup_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path
 void bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang);
 
 void bfwin_commands_menu_create(Tbfwin * bfwin);
+void bfwin_filters_menu_create(Tbfwin * bfwin);
+void bfwin_outputbox_menu_create(Tbfwin * bfwin);
 void bfwin_templates_menu_create(Tbfwin * bfwin);
 
 

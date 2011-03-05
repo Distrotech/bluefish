@@ -473,6 +473,10 @@ typedef struct {
 	guint lang_mode_merge_id;
 	GtkActionGroup *commands;
 	guint commands_merge_id;
+	GtkActionGroup *filters;
+	guint filters_merge_id;
+	GtkActionGroup *outputbox_group;
+	guint outputbox_merge_id;
 #ifdef HAVE_LIBENCHANT
 	gpointer *ed;				/* EnchantDict */
 #endif
