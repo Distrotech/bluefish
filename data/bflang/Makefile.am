@@ -47,7 +47,7 @@ bflang_bflang2_files = \
 	shell.bflang2 \
 	smarty.bflang2 \
 	sql.bflang2 \
-	svg.bflang \
+	svg.bflang2 \
 	text.bflang2 \
 	vbscript.bflang2 \
 	wordpress.bflang2 \
