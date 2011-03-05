@@ -82,7 +82,7 @@ handle_message(const gchar * message, gsize len)
 		GFile *file;
 		DEBUG_MSG("open URI %s\n", &message[8]);
 		file = g_file_new_for_uri(&message[8]);
-		file_handle(file, bfwin, NULL);
+		file_handle(file, bfwin, NULL, TRUE);
 		g_object_unref(file);
 	} else {
 		g_print("unknown message with len %" G_GSIZE_FORMAT " on socket...\n", len);

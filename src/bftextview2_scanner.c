@@ -280,7 +280,7 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 		DBG_SCANCACHE("foundcache_update_offsets, got found %p\n", found);
 
 	/* first update all block ends and context ends that are on the stack */
-	if (found) {
+	if (found && found->charoffset_o <= startpos) {
 		Tfoundcontext *tmpfcontext;
 		Tfoundblock *tmpfblock;
 		DBG_SCANCACHE

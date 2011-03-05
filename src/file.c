@@ -971,9 +971,8 @@ fill_fileinfo_lcb(GObject * source_object, GAsyncResult * res, gpointer user_dat
 			if (gmo == NULL) {
 				DEBUG_MSG("fill_fileinfo_lcb, not mounted, try to mount!!\n");
 				gmo =
-					gtk_mount_operation_new(DOCUMENT(fi->doc)->
-											bfwin ? (GtkWindow *) BFWIN(DOCUMENT(fi->doc)->bfwin)->
-											main_window : NULL);
+					gtk_mount_operation_new(DOCUMENT(fi->doc)->bfwin ? (GtkWindow *)
+											BFWIN(DOCUMENT(fi->doc)->bfwin)->main_window : NULL);
 				g_file_mount_enclosing_volume(fi->uri, G_MOUNT_MOUNT_NONE, gmo, fi->cancel,
 											  fill_fileinfo_async_mount_lcb, fi);
 			} else {
@@ -1988,7 +1987,7 @@ sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, g
 /* code to handle a file from the commandline, the filebrowser or from the message queue */
 
 void
-file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype)
+file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean external_input)
 {
 	GFileInfo *finfo;
 	GError *error = NULL;
@@ -2018,7 +2017,7 @@ file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype)
 	DEBUG_MSG("file_handle, got mime type %s\n", mime);
 	if (mime && strcmp(mime, "application/x-bluefish-project") == 0) {
 		project_open_from_file(bfwin, uri);
-	} else if (mime && strncmp(mime, "image", 5) == 0) {
+	} else if (mime && strncmp(mime, "image", 5) == 0 && !external_input) {
 		/* TODO: do something with the image, fire the image dialog? insert a tag? */
 		if (bfwin && bfwin->current_document) {
 			gchar *curi = NULL, *tmp;

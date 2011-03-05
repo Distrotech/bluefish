@@ -1734,7 +1734,7 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 * fb2, guint callback_acti
 			GFile *uri = fb2_uri_from_file_selection(fb2,&mime);
 			if (uri) {
 				/*handle_activate_on_file(fb2, uri, mime);*/
-				file_handle(uri, fb2->bfwin,mime);
+				file_handle(uri, fb2->bfwin,mime, FALSE);
 			}
 		}
 		break;
@@ -2043,7 +2043,7 @@ static gboolean dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * even
 				DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", basename);
 				g_free(basename);
 #endif
-				file_handle(uri, fb2->bfwin,mime);
+				file_handle(uri, fb2->bfwin,mime, FALSE);
 				/*handle_activate_on_file(fb2, uri,mime);*/
 			}
 			/* BUG??: do we need to free mime here ?? */
@@ -2083,7 +2083,7 @@ static gboolean file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * eve
 				DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", basename);
 				g_free(basename);
 #endif
-				file_handle(uri, fb2->bfwin,mime);
+				file_handle(uri, fb2->bfwin,mime, FALSE);
 				/*handle_activate_on_file(fb2, uri,mime);*/
 			}
 #ifdef DEBUG
