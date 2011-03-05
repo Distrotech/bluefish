@@ -1814,7 +1814,7 @@ void sync_directory(GFile *basedir, GFile *targetdir, gboolean delete_deprecated
 
 /* code to handle a file from the commandline, the filebrowser or from the message queue */
 
-void file_handle(GFile *uri, Tbfwin *bfwin, gchar *mimetype) {
+void file_handle(GFile *uri, Tbfwin *bfwin, gchar *mimetype, gboolean external_input) {
 	GFileInfo *finfo;
 	GError *error=NULL;
 #ifdef WIN32
@@ -1843,7 +1843,7 @@ void file_handle(GFile *uri, Tbfwin *bfwin, gchar *mimetype) {
 	DEBUG_MSG("file_handle, got mime type %s\n",mime);
 	if (mime && strcmp(mime, "application/x-bluefish-project")==0) {
 		project_open_from_file(bfwin, uri);
-	} else if (mime && strncmp(mime, "image",5)==0) {
+	} else if (mime && strncmp(mime, "image",5)==0 && !external_input) {
 		/* TODO: do something with the image, fire the image dialog? insert a tag? */
 		if (bfwin && bfwin->current_document) {
 			gchar *curi=NULL, *tmp;
