@@ -127,5 +127,5 @@ void file_docs_from_uris(Tbfwin *bfwin, GSList *urislist);
 typedef void (* SyncProgressCallback)(gint total, gint done, gint failed, gpointer user_data);
 void sync_directory(GFile *basedir, GFile *targetdir, gboolean delete_deprecated, gboolean include_hidden, SyncProgressCallback progress_callback, gpointer callback_data);
 
-void file_handle(GFile *uri, Tbfwin *bfwin, gchar *mimetype);
+void file_handle(GFile *uri, Tbfwin *bfwin, gchar *mimetype, gboolean external_input);
 #endif /* __FILE_H_ */
