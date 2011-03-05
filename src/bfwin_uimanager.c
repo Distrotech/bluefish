@@ -996,11 +996,12 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
 	gtk_widget_show(menubar);
 
+	bfwin_templates_menu_create(bfwin);
+	bfwin_encodings_menu_create(bfwin);
+	lang_mode_menu_create(bfwin);
 	bfwin_commands_menu_create(bfwin);
 	bfwin_filters_menu_create(bfwin);
 	bfwin_outputbox_menu_create(bfwin);
-	bfwin_templates_menu_create(bfwin);
-	lang_mode_menu_create(bfwin);
 
 	set_project_menu_actions(bfwin, FALSE);
 }
@@ -1070,6 +1071,7 @@ bfwin_set_document_menu_items(Tdocument * doc)
 #endif
 
 	bfwin_lang_mode_set_wo_activate(BFWIN(doc->bfwin), BLUEFISH_TEXT_VIEW(doc->view)->bflang);
+	bfwin_encoding_set_wo_activate(BFWIN(doc->bfwin), doc->encoding);
 /*	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin), BLUEFISH_TEXT_VIEW(doc->view)->bflang,
 												 doc->encoding); */
 
@@ -1125,11 +1127,38 @@ setup_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path, gbo
 }
 
 void
+bfwin_encoding_set_wo_activate(Tbfwin * bfwin, const gchar * encoding)
+{
+	GList *list;
+
+	for (list = g_list_first(main_v->globses.encodings); list; list = list->next) {
+		gchar **strarr = (gchar **) list->data;
+
+		if (g_ascii_strcasecmp(strarr[1], encoding) == 0) {
+			gchar *label = g_strdup_printf("%s (%s)", strarr[0], strarr[1]);
+			GtkAction *action = gtk_action_group_get_action(bfwin->encodings, label);
+			g_free(label);
+
+			if (!action) {
+				g_warning("Cannot set menu action encoding %s\n", encoding);
+				return;
+			}
+
+			if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
+				gtk_action_block_activate(action);
+				gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
+				gtk_action_unblock_activate(action);
+			}
+		}
+	}
+}
+
+void
 bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
 {
 	GtkAction *action = gtk_action_group_get_action(bfwin->lang_mode, bflang->name);
 	if (!action) {
-		g_warning("Cannot set-up menu action LangMode %s\n", bflang->name);
+		g_warning("Cannot set menu action LangMode %s\n", bflang->name);
 		return;
 	}
 
@@ -1199,6 +1228,83 @@ bfwin_commands_menu_create(Tbfwin * bfwin)
 		} else {
 			DEBUG_MSG("bfwin_commands_menu_create, CORRUPT ENTRY IN command action; array count =%d\n",
 					  g_strv_length(arr));
+		}
+	}
+}
+
+static void
+encodings_menu_activate(GtkAction * action, gpointer user_data)
+{
+	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
+		Tbfwin *bfwin = BFWIN(user_data);
+		gchar *encoding = g_object_get_data(G_OBJECT(action), "encoding");
+
+		DEBUG_MSG("encodings_menu_activate, encoding=%s\n", encoding);
+		if (encoding && bfwin->current_document) {
+			if ((!bfwin->current_document->encoding
+				 || strcmp(encoding, bfwin->current_document->encoding) != 0)) {
+				if (bfwin->current_document->encoding)
+					g_free(bfwin->current_document->encoding);
+				bfwin->current_document->encoding = g_strdup(encoding);
+				if (main_v->props.auto_set_encoding_meta) {
+					update_encoding_meta_in_file(bfwin->current_document, bfwin->current_document->encoding);
+				}
+				DEBUG_MSG("encodings_menu_activate, set to %s\n", encoding);
+			}
+			if (bfwin->session->encoding)
+				g_free(bfwin->session->encoding);
+			bfwin->session->encoding = g_strdup(encoding);
+			DEBUG_MSG("encodings menu activate, session encoding now is %s\n", bfwin->session->encoding);
+		}
+	}
+}
+
+void
+bfwin_encodings_menu_create(Tbfwin * bfwin)
+{
+	GSList *group = NULL;
+	GList *list;
+	gint value = 0;
+
+	if (!bfwin->encodings) {
+		bfwin->encodings = gtk_action_group_new("EncodingsActions");
+		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->encodings, 1);
+	} else {
+		GList *actions, *list;
+
+		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->encodings_merge_id);
+
+		actions = gtk_action_group_list_actions(bfwin->encodings);
+		for (list = actions; list; list = list->next) {
+			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
+												 G_CALLBACK(encodings_menu_activate), bfwin);
+			gtk_action_group_remove_action(bfwin->encodings, GTK_ACTION(list->data));
+		}
+		g_list_free(actions);
+	}
+
+	bfwin->encodings_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
+
+	for (list = g_list_last(main_v->globses.encodings); list; list = list->prev) {
+		gchar **strarr = (gchar **) list->data;
+		GtkRadioAction *action;
+		gchar *label;
+
+		if (g_strv_length(strarr) == 3 && strarr[2][0] == '1') {
+			label = g_strdup_printf("%s (%s)", strarr[0], strarr[1]);
+			action = gtk_radio_action_new(label, label, NULL, NULL, value);
+			gtk_action_group_add_action(bfwin->encodings, GTK_ACTION(action));
+			gtk_radio_action_set_group(action, group);
+			group = gtk_radio_action_get_group(action);
+			g_object_set_data(G_OBJECT(action), "encoding", (gpointer) strarr[1]);
+
+			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(encodings_menu_activate), bfwin);
+
+			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->encodings_merge_id,
+								  "/MainMenu/DocumentMenu/DocumentEncoding/EncodingPlaceholder", label,
+								  label, GTK_UI_MANAGER_MENUITEM, TRUE);
+			g_free(label);
+			value++;
 		}
 	}
 }

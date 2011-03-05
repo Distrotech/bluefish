@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * document.c - the document
  *
- * Copyright (C) 1998-2010 Olivier Sessink
+ * Copyright (C) 1998-2011 Olivier Sessink
  * Copyright (C) 1998 Chris Mazuc
  * some additions Copyright (C) 2004 Eugene Morenko(More)
  *
@@ -1478,6 +1478,7 @@ add_encoding_to_list(gchar * encoding)
 		tmplist = g_list_first(main_v->bfwinlist);
 		while (tmplist) {
 			encoding_menu_rebuild(BFWIN(tmplist->data));
+			bfwin_encodings_menu_create(BFWIN(tmplist->data));
 			tmplist = g_list_next(tmplist);
 		}
 	}
