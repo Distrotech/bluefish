@@ -968,11 +968,11 @@ static guint
 reconstruct_scanning(BluefishTextView * btv, GtkTextIter * position, Tscanning * scanning)
 {
 	Tfound *found;
-	DBG_SCANNING("reconstruct_scanning at position %d\n", gtk_text_iter_get_offset(position));
-	found = get_foundcache_at_offset(btv, gtk_text_iter_get_offset(position), &scanning->siter);
-	DBG_SCANCACHE("reconstruct_stack, got found %p to reconstruct stack at position %d\n", found,
-				  gtk_text_iter_get_offset(position));
-	if (G_LIKELY(found)) {
+	guint offset = gtk_text_iter_get_offset(position);
+	DBG_SCANNING("reconstruct_scanning at position %d\n", offset);
+	found = get_foundcache_at_offset(btv, offset, &scanning->siter);
+	DBG_SCANCACHE("reconstruct_stack, got found %p to reconstruct stack at position %d\n", found, offset);
+	if (G_LIKELY(found && found->charoffset_o <= offset)) {
 		if (found->numcontextchange < 0) {
 			scanning->curfcontext = pop_contexts(found->numcontextchange, found->fcontext);
 		} else {
@@ -1275,10 +1275,10 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 													scanning.curfcontext->context).contexttag, &iter, &iter2);
 		}
 	}
-
 	gtk_text_buffer_remove_tag(btv->buffer, btv->needscanning, &scanning.start, &iter);
-	gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &iter, &scanning.end);
-
+	if (gtk_text_iter_compare(&iter, &scanning.end) < 0) {
+		gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &iter, &scanning.end);
+	}
 #ifdef HL_PROFILING
 	stage4 = g_timer_elapsed(scanning.timer, NULL);
 	hl_profiling.total_runs++;
