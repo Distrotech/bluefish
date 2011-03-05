@@ -1612,6 +1612,7 @@ preferences_apply(Tprefdialog * pd)
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling encoding_menu_rebuild\n");
 			external_menu_rebuild(bfwin);	/* browsers is also rebuild here! */
 			template_menu_rebuild(bfwin, NULL);
+			bfwin_commands_menu_create(bfwin);
 			bfwin_templates_menu_create(bfwin);
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling gui_apply_settings\n");
 			bfwin_apply_settings(bfwin);

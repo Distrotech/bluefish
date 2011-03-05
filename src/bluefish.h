@@ -471,6 +471,8 @@ typedef struct {
 	guint templates_merge_id;
 	GtkActionGroup *lang_mode;
 	guint lang_mode_merge_id;
+	GtkActionGroup *commands;
+	guint commands_merge_id;
 #ifdef HAVE_LIBENCHANT
 	gpointer *ed;				/* EnchantDict */
 #endif

@@ -29,6 +29,7 @@
 #include "doc_comments.h"
 #include "doc_text_tools.h"
 #include "encodings_dialog.h"
+#include "external_commands.h"
 #include "file_dialogs.h"
 #include "preferences.h"
 #include "project.h"
@@ -990,6 +991,7 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
 	gtk_widget_show(menubar);
 
+	bfwin_commands_menu_create(bfwin);
 	bfwin_templates_menu_create(bfwin);
 	lang_mode_menu_create(bfwin);
 
@@ -1060,7 +1062,6 @@ bfwin_set_document_menu_items(Tdocument * doc)
 					  "/Document/Spell Check", BLUEFISH_TEXT_VIEW(doc->view)->spell_check);*/
 #endif
 
-/*#ifndef USE_SCANNER	why did we not set the encoding and filetype with the scanner enabled????*/
 	bfwin_lang_mode_set_wo_activate(BFWIN(doc->bfwin), BLUEFISH_TEXT_VIEW(doc->view)->bflang);
 /*	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin), BLUEFISH_TEXT_VIEW(doc->view)->bflang,
 												 doc->encoding); */
@@ -1133,6 +1134,69 @@ bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
 }
 
 static void
+commands_menu_activate(GtkAction * action, gpointer user_data)
+{
+	gchar *command = g_object_get_data(G_OBJECT(action), "command");
+	external_command(BFWIN(user_data), command);
+	g_free(command);
+}
+
+void
+bfwin_commands_menu_create(Tbfwin * bfwin)
+{
+	GList *list;
+
+	if (!bfwin->commands) {
+		bfwin->commands = gtk_action_group_new("CommandsActions");
+		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->commands, 1);
+	} else {
+		GList *actions, *list;
+
+		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->commands_merge_id);
+
+		actions = gtk_action_group_list_actions(bfwin->commands);
+		for (list = actions; list; list = list->next) {
+			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
+												 G_CALLBACK(commands_menu_activate), bfwin);
+			gtk_action_group_remove_action(bfwin->commands, GTK_ACTION(list->data));
+		}
+		g_list_free(actions);
+	}
+
+	bfwin->commands_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
+
+	for (list = g_list_first(main_v->props.external_command); list; list = list->next) {
+		gchar **arr = list->data;
+		/*  arr[0] = name
+		 *  arr[1] = command
+		 *  arr[2] = is_default_browser
+		 */
+		if (g_strv_length(arr) == 3) {
+			GtkAction *action;
+
+			action = gtk_action_new(arr[0], arr[0], NULL, NULL);
+			gtk_action_group_add_action(bfwin->commands, action);
+			g_object_set_data(G_OBJECT(action), "command", (gpointer) arr[1]);
+
+			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(commands_menu_activate), bfwin);
+
+			if (arr[2][0] == '1')
+				gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->commands_merge_id,
+									  "/MainMenu/ToolsMenu/DefaultBrowserPlaceholder", arr[0], arr[0],
+									  GTK_UI_MANAGER_MENUITEM, FALSE);
+			else
+				gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->commands_merge_id,
+									  "/MainMenu/ToolsMenu/ToolsCommands/CommandsPlaceholder", arr[0], arr[0],
+									  GTK_UI_MANAGER_MENUITEM, FALSE);
+
+		} else {
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_command; array count =%d\n",
+					  g_strv_length(arr));
+		}
+	}
+}
+
+static void
 templates_menu_activate(GtkAction * action, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
@@ -1181,8 +1245,8 @@ bfwin_templates_menu_create(Tbfwin * bfwin)
 			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(templates_menu_activate), bfwin);
 
 			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->templates_merge_id,
-								  "/MainMenu/FileMenu/NewFromTemplate/TemplatePlaceholder", arr[0], arr[0],
-								  GTK_UI_MANAGER_MENUITEM, TRUE);
+								  "/MainMenu/FileMenu/NewFromTemplate/TemplatePlaceholder", arr[0],
+								  arr[0], GTK_UI_MANAGER_MENUITEM, TRUE);
 		}
 	}
 }
