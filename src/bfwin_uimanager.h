@@ -36,6 +36,8 @@ void bfwin_action_set_sensitive(GtkUIManager * manager, const gchar * path, gboo
 void setup_menu_toggle_item(GtkActionGroup * action_group, const gchar * action_name, gboolean is_active);
 void setup_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path, gboolean is_active);
 
+void bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang);
+
 void bfwin_templates_menu_create(Tbfwin * bfwin);
 
 

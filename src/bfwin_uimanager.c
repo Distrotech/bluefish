@@ -22,6 +22,7 @@
 #include "bfwin_uimanager.h"
 #include "bfwin.h"
 #include "bftextview2.h"
+#include "bftextview2_langmgr.h"
 #include "blocksync.h"
 #include "bookmark.h"
 #include "document.h"
@@ -872,6 +873,49 @@ static const GtkActionEntry undo_redo_actions[] = {
 	{"RedoAll", NULL, N_("Redo All"), NULL, N_("Redo All"), G_CALLBACK(ui_redo_all)}
 };
 
+static void
+lang_mode_menu_activate(GtkAction * action, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+	Tbflang *bflang = g_object_get_data(G_OBJECT(action), "bflang");
+
+	if (gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)) && bfwin->current_document)
+		doc_set_mimetype(bfwin->current_document, bflang->mimetypes->data, NULL);
+}
+
+static void
+lang_mode_menu_create(Tbfwin * bfwin)
+{
+	GSList *group = NULL;
+	GList *list;
+	gint value = 0;
+
+	if (!bfwin->lang_mode) {
+		bfwin->lang_mode = gtk_action_group_new("LangModeActions");
+		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->lang_mode, 1);
+	}
+
+	bfwin->lang_mode_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
+
+	for (list = g_list_first(langmgr_get_languages()); list; list = list->next) {
+		Tbflang *bflang = (Tbflang *) list->data;
+		GtkRadioAction *action;
+
+		action = gtk_radio_action_new(bflang->name, bflang->name, NULL, NULL, value);
+		gtk_action_group_add_action(bfwin->lang_mode, GTK_ACTION(action));
+		gtk_radio_action_set_group(action, group);
+		group = gtk_radio_action_get_group(action);
+		g_object_set_data(G_OBJECT(action), "bflang", (gpointer) bflang);
+
+		g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(lang_mode_menu_activate), bfwin);
+
+		gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->lang_mode_merge_id,
+							  "/MainMenu/DocumentMenu/DocumentLangMode/LangModePlaceholder", bflang->name,
+							  bflang->name, GTK_UI_MANAGER_MENUITEM, FALSE);
+		value++;
+	}
+}
+
 void
 bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 {
@@ -947,6 +991,7 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	gtk_widget_show(menubar);
 
 	bfwin_templates_menu_create(bfwin);
+	lang_mode_menu_create(bfwin);
 
 	set_project_menu_actions(bfwin, FALSE);
 }
@@ -1016,6 +1061,7 @@ bfwin_set_document_menu_items(Tdocument * doc)
 #endif
 
 /*#ifndef USE_SCANNER	why did we not set the encoding and filetype with the scanner enabled????*/
+	bfwin_lang_mode_set_wo_activate(BFWIN(doc->bfwin), BLUEFISH_TEXT_VIEW(doc->view)->bflang);
 /*	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin), BLUEFISH_TEXT_VIEW(doc->view)->bflang,
 												 doc->encoding); */
 
@@ -1036,7 +1082,6 @@ void
 bfwin_action_set_sensitive(GtkUIManager * manager, const gchar * path, gboolean sensitive)
 {
 	GtkAction *action = gtk_ui_manager_get_action(manager, path);
-
 	if (!action) {
 		g_warning("Cannot set action sensitivity %s\n", path);
 		return;
@@ -1049,9 +1094,8 @@ void
 setup_menu_toggle_item(GtkActionGroup * action_group, const gchar * action_name, gboolean is_active)
 {
 	GtkAction *action = gtk_action_group_get_action(action_group, action_name);
-
 	if (!action) {
-		g_warning("Cannot set-up menu widget %s\n", action_name);
+		g_warning("Cannot set-up menu action %s\n", action_name);
 		return;
 	}
 
@@ -1063,14 +1107,29 @@ void
 setup_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path, gboolean is_active)
 {
 	GtkAction *action = gtk_ui_manager_get_action(manager, path);
-
 	if (!action) {
-		g_warning("Cannot set-up menu widget %s\n", path);
+		g_warning("Cannot set-up menu action %s\n", path);
 		return;
 	}
 
 	if ((gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) != is_active)
 		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), is_active);
+}
+
+void
+bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
+{
+	GtkAction *action = gtk_action_group_get_action(bfwin->lang_mode, bflang->name);
+	if (!action) {
+		g_warning("Cannot set-up menu action LangMode %s\n", bflang->name);
+		return;
+	}
+
+	if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
+		gtk_action_block_activate(action);
+		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
+		gtk_action_unblock_activate(action);
+	}
 }
 
 static void

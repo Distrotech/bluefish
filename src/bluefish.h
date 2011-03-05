@@ -469,6 +469,8 @@ typedef struct {
 	/* action based dynamic menus */
 	GtkActionGroup *templates;
 	guint templates_merge_id;
+	GtkActionGroup *lang_mode;
+	guint lang_mode_merge_id;
 #ifdef HAVE_LIBENCHANT
 	gpointer *ed;				/* EnchantDict */
 #endif
