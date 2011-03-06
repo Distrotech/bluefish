@@ -26,7 +26,6 @@
 #include "../document.h"
 #include "../gtk_easy.h"
 #include "../stringlist.h"
-#include "htmlbar_gui.h"
 #include "htmlbar_uimanager.h"
 #include "htmlbar_stock_icons.h"
 #include "rpopup.h"

@@ -30,7 +30,6 @@
 #include "../dialog_utils.h"
 #include "../document.h"
 #include "../gtk_easy.h"
-#include "../gui.h"
 #include "../stringlist.h"
 #include "quickstart.h"
 

@@ -30,10 +30,10 @@
 #include "bluefish.h"
 #include "bookmark.h"
 #include "bf_lib.h"
+#include "bfwin_uimanager.h"	/* menu_translate() */
 #include "dialog_utils.h"
 #include "document.h"
 #include "gtk_easy.h"
-#include "menu.h"				/* menu_translate() */
 #include "stringlist.h"
 
 

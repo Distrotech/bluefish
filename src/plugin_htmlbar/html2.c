@@ -25,7 +25,6 @@
 #include <stdlib.h>            /* strtol() */
 
 #include "htmlbar.h"
-#include "htmlbar_gui.h"
 #include "htmlbar_stock_icons.h"
 #include "html2.h"
 #include "cap.h"

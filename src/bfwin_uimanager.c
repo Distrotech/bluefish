@@ -1385,7 +1385,7 @@ filters_menu_activate(GtkAction * action, gpointer user_data)
 		g_signal_connect(dialog, "response", G_CALLBACK(filter_dialog_response), fd);
 		gtk_widget_show_all(dialog);
 	} else {
-		DEBUG_MSG("filters_menu_activate, calling filter_command for %s\n", arr[1]);
+		DEBUG_MSG("filters_menu_activate, calling filter_command for %s\n", command);
 		filter_command(bfwin, command, begin, end);
 	}
 }

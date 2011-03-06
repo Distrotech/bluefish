@@ -24,7 +24,6 @@
 #include <string.h>
 
 #include "htmlbar.h"
-#include "htmlbar_gui.h"
 #include "cap.h"
 #include "html2.h" /* style_but_new() */
 #include "html_diag.h" /* html_diag functions */
