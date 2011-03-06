@@ -1610,8 +1610,6 @@ preferences_apply(Tprefdialog * pd)
 		while (tmplist) {
 			Tbfwin *bfwin = BFWIN(tmplist->data);
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling encoding_menu_rebuild\n");
-			external_menu_rebuild(bfwin);	/* browsers is also rebuild here! */
-			template_menu_rebuild(bfwin, NULL);
 			bfwin_commands_menu_create(bfwin);
 			bfwin_filters_menu_create(bfwin);
 			bfwin_outputbox_menu_create(bfwin);

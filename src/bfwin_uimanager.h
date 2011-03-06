@@ -51,5 +51,6 @@ void bfwin_recent_menu_add(Tbfwin * bfwin, GFile * file, GFileInfo * finfo, gboo
 void bfwin_recent_menu_create(Tbfwin * bfwin);
 void bfwin_templates_menu_create(Tbfwin * bfwin);
 
+gchar * menu_translate(const gchar * path, gpointer data);
 
 #endif							/* BFWIN_UIMANAGER_H_ */

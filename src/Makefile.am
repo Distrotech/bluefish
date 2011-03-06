@@ -80,14 +80,10 @@ bluefish_SOURCES = \
 	gtk_easy.h \
 	gtkmountoperation.c \
 	gtkmountoperation.h \
-	gui.c \
-	gui.h \
 	ipc_bf2bf.c \
 	ipc_bf2bf.h \
 	languages.c \
 	languages.h \
-	menu.c \
-	menu.h \
 	msg_queue.c \
 	msg_queue.h \
 	outputbox.c \

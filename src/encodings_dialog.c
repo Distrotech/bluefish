@@ -230,17 +230,13 @@ encodings_dialog_response_lcb(GtkDialog * dialog, gint response, BluefishEncodin
 
 	bfwinlist = g_list_first(main_v->bfwinlist);
 	while (bfwinlist) {
-		encoding_menu_rebuild(BFWIN(bfwinlist->data));
 		bfwin_encodings_menu_create(BFWIN(bfwinlist->data));
 		bfwinlist = g_list_next(bfwinlist);
 	}
 
-	if (encDialog->priv->bfwin->current_document) {
-		menu_current_document_set_toggle_wo_activate(encDialog->priv->bfwin, NULL,
-													 encDialog->priv->bfwin->current_document->encoding);
+	if (encDialog->priv->bfwin->current_document)
 		bfwin_encoding_set_wo_activate(encDialog->priv->bfwin,
 									   encDialog->priv->bfwin->current_document->encoding);
-	}
 
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 }

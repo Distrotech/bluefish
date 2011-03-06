@@ -23,6 +23,8 @@
 
 #include <stdlib.h>				/* atoi */
 
+#include "config.h"
+
 #include "bfwin_uimanager.h"
 #include "bfwin.h"
 #include "bftextview2.h"
@@ -713,14 +715,10 @@ static const GtkActionEntry global_actions[] = {
 	{"FileOpen", GTK_STOCK_OPEN, N_("_Open..."), "<control>O", N_("Open file"), G_CALLBACK(ui_open_doc)},
 	{"FileOpenAdvanced", NULL, N_("Open Ad_vanced..."), "<shift><control>O", N_("Open advanced"),
 	 G_CALLBACK(ui_open_advanced)},
-#ifndef WIN32
-#ifndef MAC_INTEGRATION
-	{"FileOpenUrl", NULL, N_("Open _URL..."), NULL, N_("Open URL"), NULL},
-#endif							/* MAC_INTEGRATION */
-#endif							/* WIN32 */
 	{"FileOpenSelection", NULL, N_("Open _From Selection"), NULL, N_("Open From Selection"),
 	 G_CALLBACK(ui_open_from_selection)},
 	{"FileInsert", NULL, N_("_Insert..."), NULL, N_("Insert file"), G_CALLBACK(ui_insert_doc)},
+	{"FileUploadDownload", NULL, N_("Upload / Download..."), NULL, NULL, NULL},
 	{"FileQuit", GTK_STOCK_QUIT, N_("_Quit"), "<control>Q", N_("Quit Bluefish"), G_CALLBACK(ui_quit)},
 	{"EditPreferences", GTK_STOCK_PREFERENCES, N_("Preference_s..."), NULL, N_("Edit Preferences"),
 	 G_CALLBACK(ui_preferences)},
@@ -798,9 +796,6 @@ static const GtkToggleActionEntry global_toggle_actions[] = {
 	 G_CALLBACK(ui_show_split_view), FALSE},
 	{"ShowVisibleSpacing", NULL, N_("Show _Visible Spacing"), NULL, N_("Show visible spacing"),
 	 G_CALLBACK(ui_show_visible_spacing), FALSE},
-#ifdef HAVE_LIBENCHANT
-	{"SpellCheck", NULL, N_("_Spell Check"), NULL, N_("Spell check"), G_CALLBACK(ui_set_spell_check), TRUE},
-#endif
 	{"WrapText", NULL, N_("_Wrap Text"), NULL, N_("Wrap text"), G_CALLBACK(ui_set_wrap_text), FALSE}
 };
 
@@ -928,6 +923,7 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	GtkActionGroup *action_group;
 	GtkUIManager *manager;
 	GtkWidget *menubar;
+	guint merge_id = 0;
 
 	GError *error = NULL;
 
@@ -991,6 +987,31 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 		g_warning("building main menu failed: %s", error->message);
 		g_error_free(error);
 	}
+
+#ifndef WIN32
+#ifndef MAC_INTEGRATION
+	GtkAction *action = gtk_action_new("FileOpenURL", N_("Open _URL..."), NULL, NULL);
+	gtk_action_group_add_action(bfwin->globalGroup, action);
+/*	g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(ui_set_spell_check), bfwin); */
+
+	merge_id = gtk_ui_manager_new_merge_id(manager);
+	gtk_ui_manager_add_ui(manager, merge_id,
+						  "/MainMenu/FileMenu/OpenURLPlaceholder", "FileOpenURL",
+						  "FileOpenURL", GTK_UI_MANAGER_MENUITEM, TRUE);
+
+#endif							/* MAC_INTEGRATION */
+#endif							/* WIN32 */
+
+#ifdef HAVE_LIBENCHANT
+	GtkToggleAction *toggleaction = gtk_toggle_action_new("SpellCheck", N_("_Spell Check"), NULL, NULL);
+	gtk_action_group_add_action(bfwin->documentGroup, GTK_ACTION(toggleaction));
+	g_signal_connect(G_OBJECT(toggleaction), "activate", G_CALLBACK(ui_set_spell_check), bfwin);
+
+	merge_id = gtk_ui_manager_new_merge_id(manager);
+	gtk_ui_manager_add_ui(manager, merge_id,
+						  "/MainMenu/DocumentMenu/SpellCheckPlaceholder", "SpellCheck",
+						  "SpellCheck", GTK_UI_MANAGER_MENUITEM, TRUE);
+#endif
 
 	menubar = gtk_ui_manager_get_widget(manager, "/MainMenu");
 	gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
@@ -1067,8 +1088,8 @@ bfwin_set_document_menu_items(Tdocument * doc)
 	setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/WrapText", doc->wrapstate);
 	setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightSyntax", doc->highlightstate);
 #ifdef HAVE_LIBENCHANT
-/*	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),
-					  "/Document/Spell Check", BLUEFISH_TEXT_VIEW(doc->view)->spell_check);*/
+	setup_menu_toggle_item(BFWIN(doc->bfwin)->documentGroup, "SpellCheck",
+						   BLUEFISH_TEXT_VIEW(doc->view)->spell_check);
 #endif
 
 	bfwin_lang_mode_set_wo_activate(BFWIN(doc->bfwin), BLUEFISH_TEXT_VIEW(doc->view)->bflang);
@@ -1643,3 +1664,11 @@ bfwin_templates_menu_create(Tbfwin * bfwin)
 		}
 	}
 }
+
+#ifdef ENABLE_NLS
+gchar *
+menu_translate(const gchar * path, gpointer data)
+{
+	return gettext(path);
+}
+#endif

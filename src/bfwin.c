@@ -382,8 +382,6 @@ bfwin_apply_session(Tbfwin * bfwin)
 
 	fb2_update_settings_from_session(bfwin);
 
-	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
-
 	/* force this session in the plugins */
 	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
 }
@@ -508,7 +506,7 @@ static void
 bfwin_cleanup(Tbfwin * bfwin)
 {
 	GList *tmplist;
-	GtkItemFactory *ifactory;
+
 	/* call all cleanup functions here */
 
 	bfwin->statusbar = NULL;	/* make sure no new statusbar messages have to be popped */
@@ -533,13 +531,6 @@ bfwin_cleanup(Tbfwin * bfwin)
 
 	g_signal_handler_disconnect(bfwin->notebook, bfwin->notebook_switch_signal);
 
-	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
-	g_list_free(bfwin->menu_recent_files);
-	g_list_free(bfwin->menu_recent_projects);
-	free_bfw_dynmenu_list(bfwin->menu_filetypes);
-	free_bfw_dynmenu_list(bfwin->menu_external);
-	free_bfw_dynmenu_list(bfwin->menu_outputbox);
-	free_bfw_dynmenu_list(bfwin->menu_encodings);
 #ifdef HAVE_LIBENCHANT
 	unload_spell_dictionary(bfwin);
 #endif
@@ -547,7 +538,6 @@ bfwin_cleanup(Tbfwin * bfwin)
 	bmark_cleanup(bfwin);
 	outputbox_cleanup(bfwin);
 	snr2_cleanup(bfwin);
-	g_object_unref(ifactory);
 
 	if (bfwin->notebook_changed_doc_activate_id != 0) {
 		g_source_remove(bfwin->notebook_changed_doc_activate_id);
@@ -958,14 +948,6 @@ bfwin_create_main(Tbfwin * bfwin)
 	gtk_widget_show(bfwin->toolbarbox);
 
 	/* first a menubar */
-	DEBUG_MSG("bfwin_create_main, starting menu_create_main\n");
-	menu_create_main(bfwin, bfwin->toolbarbox);
-	DEBUG_MSG("bfwin_create_main, starting recent_menu\n");
-	recent_menu_init(bfwin);
-	DEBUG_MSG("bfwin_create_main, starting external-encoding_menu\n");
-	external_menu_rebuild(bfwin);
-	encoding_menu_rebuild(bfwin);
-
 	bfwin->uimanager = gtk_ui_manager_new();
 	bfwin_main_menu_init(bfwin, bfwin->toolbarbox);
 

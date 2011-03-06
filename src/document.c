@@ -243,8 +243,8 @@ add_filename_to_history(Tbfwin * bfwin, GFile * file)
 {
 /*	gchar *dirname;*/
 
-	add_to_recent_list(bfwin, file, 0, FALSE);	/* the recent menu */
-/*	dirname = g_path_get_dirname(filename);
+/*	add_to_recent_list(bfwin, file, 0, FALSE); the recent menu
+	dirname = g_path_get_dirname(filename);
 	DEBUG_MSG("add_filename_to_history, adding %s\n",dirname);
 	main_v->recent_directories = add_to_history_stringlist(main_v->recent_directories,dirname,FALSE,TRUE);
 	g_free(dirname);*/
@@ -1477,7 +1477,6 @@ add_encoding_to_list(gchar * encoding)
 	if (changed) {
 		tmplist = g_list_first(main_v->bfwinlist);
 		while (tmplist) {
-			encoding_menu_rebuild(BFWIN(tmplist->data));
 			bfwin_encodings_menu_create(BFWIN(tmplist->data));
 			tmplist = g_list_next(tmplist);
 		}
@@ -2212,7 +2211,7 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n", doc);
 	bmark_clean_for_doc(doc);
 	if (doc->uri && bfwin->session) {	/* in a special situation the bfwin does not have a session: if a project window is closing */
-		add_to_recent_list(doc->bfwin, doc->uri, 1, FALSE);
+		bfwin_recent_menu_add(doc->bfwin, doc->uri, doc->fileinfo, FALSE);
 	}
 	bfwin_notebook_block_signals(BFWIN(doc->bfwin));
 	if (doc->newdoc_autodetect_lang_id) {
