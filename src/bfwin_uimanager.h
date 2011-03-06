@@ -25,6 +25,10 @@
 #include "bfwin.h"
 
 
+#define BF_RECENT_FILE_GROUP		"bluefish-recent-file"
+#define BF_RECENT_PROJECT_GROUP		"bluefish-recent-project"
+
+
 void bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox);
 void bfwin_main_toolbar_init(Tbfwin * bfwin);
 
@@ -43,6 +47,8 @@ void bfwin_commands_menu_create(Tbfwin * bfwin);
 void bfwin_encodings_menu_create(Tbfwin * bfwin);
 void bfwin_filters_menu_create(Tbfwin * bfwin);
 void bfwin_outputbox_menu_create(Tbfwin * bfwin);
+void bfwin_recent_menu_add(Tbfwin * bfwin, GFile * file, GFileInfo * finfo, gboolean is_project);
+void bfwin_recent_menu_create(Tbfwin * bfwin);
 void bfwin_templates_menu_create(Tbfwin * bfwin);
 
 

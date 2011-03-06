@@ -1002,6 +1002,7 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	bfwin_commands_menu_create(bfwin);
 	bfwin_filters_menu_create(bfwin);
 	bfwin_outputbox_menu_create(bfwin);
+	bfwin_recent_menu_create(bfwin);
 
 	set_project_menu_actions(bfwin, FALSE);
 }
@@ -1072,8 +1073,6 @@ bfwin_set_document_menu_items(Tdocument * doc)
 
 	bfwin_lang_mode_set_wo_activate(BFWIN(doc->bfwin), BLUEFISH_TEXT_VIEW(doc->view)->bflang);
 	bfwin_encoding_set_wo_activate(BFWIN(doc->bfwin), doc->encoding);
-/*	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin), BLUEFISH_TEXT_VIEW(doc->view)->bflang,
-												 doc->encoding); */
 
 	/* we should also disable certain menu's if the document is readonly */
 	bfwin_action_set_sensitive(manager, "/MainMenu/FileMenu/FileSave", !doc->readonly);
@@ -1486,6 +1485,108 @@ bfwin_outputbox_menu_create(Tbfwin * bfwin)
 					  g_strv_length(arr));
 		}
 	}
+}
+
+void
+bfwin_recent_menu_add(Tbfwin * bfwin, GFile * file, GFileInfo * finfo, gboolean is_project)
+{
+	GtkRecentData *recent_data;
+	GtkRecentManager *recent_manager;
+	const gchar *mime_type = NULL;
+	gchar *uri;
+
+	static gchar *file_groups[2] = { BF_RECENT_FILE_GROUP, NULL };
+	static gchar *project_groups[2] = { BF_RECENT_PROJECT_GROUP, NULL };
+
+	recent_manager = gtk_recent_manager_get_default();
+
+	recent_data = g_slice_new(GtkRecentData);
+	recent_data->display_name = NULL;
+	recent_data->description = NULL;
+	recent_data->app_name = (gchar *) g_get_application_name();
+	recent_data->app_exec = g_strjoin(" ", g_get_prgname(), "%f", NULL);
+	recent_data->is_private = TRUE;
+	if (is_project) {
+		recent_data->mime_type = "application/x-bluefish-project";
+		recent_data->groups = project_groups;
+	} else {
+		if (finfo)
+			mime_type = g_file_info_get_content_type(finfo);
+
+		recent_data->mime_type = (gchar *) mime_type;
+		recent_data->groups = file_groups;
+	}
+
+	uri = g_file_get_uri(file);
+	gtk_recent_manager_add_full(recent_manager, uri, recent_data);
+	g_free(uri);
+
+	g_free(recent_data->app_exec);
+	g_slice_free(GtkRecentData, recent_data);
+}
+
+static void
+recent_menu_file_item_activated(GtkRecentChooser * chooser, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+	gchar *uri = gtk_recent_chooser_get_current_uri(chooser);
+	GFile *file = g_file_new_for_uri(uri);
+
+	if (file) {
+		doc_new_from_uri(bfwin, file, NULL, FALSE, FALSE, -1, -1);
+		g_object_unref(file);
+	}
+	g_free(uri);
+}
+
+static void
+recent_menu_project_item_activated(GtkRecentChooser * chooser, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+	gchar *uri = gtk_recent_chooser_get_current_uri(chooser);
+	GFile *file = g_file_new_for_uri(uri);
+
+	if (file) {
+		project_open_from_file(bfwin, file);
+		g_object_unref(file);
+	}
+	g_free(uri);
+}
+
+static void
+recent_menu_create_real(Tbfwin * bfwin, const gchar * recent_group, const gchar * path)
+{
+	GtkRecentManager *recent_manager;
+	GtkRecentFilter *recent_filter;
+	GtkWidget *menuitem, *recent_menu;
+
+	recent_manager = gtk_recent_manager_get_default();
+	recent_menu = gtk_recent_chooser_menu_new_for_manager(recent_manager);
+	recent_filter = gtk_recent_filter_new();
+	gtk_recent_filter_add_group(recent_filter, recent_group);
+	gtk_recent_chooser_set_show_icons(GTK_RECENT_CHOOSER(recent_menu), FALSE);
+	gtk_recent_chooser_set_show_private(GTK_RECENT_CHOOSER(recent_menu), TRUE);
+	gtk_recent_chooser_set_show_tips(GTK_RECENT_CHOOSER(recent_menu), TRUE);
+	gtk_recent_chooser_set_limit(GTK_RECENT_CHOOSER(recent_menu), main_v->props.max_recent_files);
+	gtk_recent_chooser_set_sort_type(GTK_RECENT_CHOOSER(recent_menu), GTK_RECENT_SORT_MRU);
+	gtk_recent_chooser_set_filter(GTK_RECENT_CHOOSER(recent_menu), recent_filter);
+
+	if (g_strcmp0(recent_group, BF_RECENT_FILE_GROUP) == 0)
+		g_signal_connect(G_OBJECT(recent_menu), "item-activated",
+						 G_CALLBACK(recent_menu_file_item_activated), bfwin);
+	else
+		g_signal_connect(G_OBJECT(recent_menu), "item-activated",
+						 G_CALLBACK(recent_menu_project_item_activated), bfwin);
+
+	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, path);
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem), recent_menu);
+}
+
+void
+bfwin_recent_menu_create(Tbfwin * bfwin)
+{
+	recent_menu_create_real(bfwin, BF_RECENT_FILE_GROUP, "/MainMenu/FileMenu/FileOpenRecent");
+	recent_menu_create_real(bfwin, BF_RECENT_PROJECT_GROUP, "/MainMenu/ProjectMenu/ProjectOpenRecent");
 }
 
 static void

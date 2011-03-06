@@ -339,6 +339,8 @@ project_save(Tbfwin * bfwin, gboolean save_as)
 	retval = rcfile_save_project(bfwin->project, bfwin->project->uri);
 	DEBUG_MSG("project_save, retval=%d\n", retval);
 	add_to_recent_list(bfwin, bfwin->project->uri, FALSE, TRUE);
+	bfwin_recent_menu_add(bfwin, bfwin->project->uri, NULL, TRUE);
+
 	return retval;
 }
 
@@ -374,6 +376,7 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 		return;
 	}
 	add_to_recent_list(bfwin, fromuri, FALSE, TRUE);
+	bfwin_recent_menu_add(bfwin, fromuri, NULL, TRUE);
 	prj->uri = fromuri;
 	g_object_ref(fromuri);
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
@@ -440,8 +443,10 @@ project_save_and_mark_closed(Tbfwin * bfwin)
 	if (bfwin->project) {
 		project_save(bfwin, FALSE);
 
-		if (bfwin->project->uri)
+		if (bfwin->project->uri) {
 			add_to_recent_list(bfwin, bfwin->project->uri, TRUE, TRUE);
+			bfwin_recent_menu_add(bfwin, bfwin->project->uri, NULL, TRUE);
+		}
 
 		bfwin->project->close = TRUE;
 	}
@@ -454,6 +459,7 @@ project_final_close(Tbfwin * bfwin, gboolean close_win)
 		return TRUE;
 	if (!close_win) {
 		add_to_recent_list(bfwin, bfwin->project->uri, TRUE, TRUE);
+		bfwin_recent_menu_add(bfwin, bfwin->project->uri, NULL, TRUE);
 	}
 	project_destroy(bfwin->project);
 	/* we should only set the window for nonproject if the window will keep alive */
