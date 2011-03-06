@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		html5.bflang2 $$Revision: 6477 $
+ 
+		Copyright (C) 2008-2011 Olivier Sessink
+
+	    This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+-->
+
+<!DOCTYPE bflang [
+	<!ENTITY globals "accesskey,class,contenteditable,contextmenu,dir,draggable,dropzone,hidden,id,itemid,itemprop,itemref,itemscope,itemtype,lang,spellcheck,style,tabindex,title,onabort,onblur,oncanplay,oncanplaythrough,onchange,onclick,oncontextmenu,oncuechange,ondblclick,ondrag,ondragend,ondragenter,ondragleave,ondragover,ondragstart,ondrop,ondurationchange,onemptied,onended,onerror,onfocus,onformchange,onforminput,oninput,oninvalid,onkeydown,onkeypress,onkeyup,onload,onloadeddata,onloadedmetadata,onloadstart,onmousedown,onmousemove,onmouseout,onmouseover,onmouseup,onmousewheel,onpause,onplay,onplaying,onprogress,onratechange,onreadystatechange,onreset,onscroll,onseeked,onseeking,onselect,onshow,onstalled,onsubmit,onsuspend,ontimeupdate,onvolumechange,onwaiting">
+	<!ENTITY univ "id,xml:base,xml:lang,xml:space">
+	<!ENTITY event  "onactivate,onclick,onfocusin,onfocusout,onload,onmousedown,onmousemove,onmouseout,onmouseover,onmouseup">
+	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
+	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
+	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
+	<!ENTITY all-html5 SYSTEM "all-html5.bfinc">
+	<!ENTITY svg SYSTEM "svg.bfinc">
+]>
+
+<bflang name="html" version="2.0" table="71905" contexts="270" matches="12264">
+<header>
+	<mime type="text/x-html5"/>
+	<option name="load_reference" default="1" description="load reference data"/>
+	<option name="load_completion" default="1" description="load completion data"/>
+	<option name="autocomplete_tags" default="1" />
+	<option name="javascript_anchors_object" default="1" description="Anchors object" />
+	<option name="javascript_applets_object" default="1" description="Applet object" />
+	<option name="javascript_date_object" default="1" description="Date object" />
+	<option name="javascript_document_object" default="1" description="Document object" />
+	<option name="javascript_event_object" default="1" description="Event object" />
+	<option name="javascript_history_object" default="1" description="History object" />
+	<option name="javascript_location_object" default="1" description="Location object" />
+	<option name="javascript_math_object" default="1" description="Math object" />
+	<option name="javascript_navigator_object" default="1" description="Navigator object" />
+	<option name="javascript_node_object" default="1" description="Node object" />
+	<option name="javascript_screen_object" default="1" description="Screen object" />
+	<option name="javascript_string_object" default="1" description="String object" />
+	<option name="javascript_window_object" default="1" description="Window object" />
+	<option name="javascript_css_properties" default="1" description="CSS properties" />
+	<highlight name="html-tag" style="tag" />
+	<highlight name="html-reference-external-tag" style="special-tag" />
+	<highlight name="html-table-tag" style="special-tag2" />
+	<highlight name="html-form-tag" style="special-tag3" />
+	<highlight name="html-not-supported-tag" style="warning" />
+	<highlight name="html-attribute" style="attribute" />
+	<highlight name="html-string" style="string" />
+	<highlight name="html-entity" style="value" />
+	<highlight name="html-brackets" style="brackets" />
+	<highlight name="html-comment" style="comment" />
+	<highlight name="js-keyword" style="keyword" />
+	<highlight name="js-special-keyword" style="special-keyword" />
+	<highlight name="js-brackets" style="brackets" />
+	<highlight name="js-type" style="type" />
+	<highlight name="js-comment" style="comment" />
+	<highlight name="js-css-property" style="function" />
+	<highlight name="js-string" style="string" />
+	<highlight name="js-value" style="value" />
+	<highlight name="js-function" style="function" />
+	<highlight name="js-variable" style="variable" />
+	<highlight name="js-property" style="special-function" />
+	<highlight name="css-brackets" style="brackets" />
+	<highlight name="css-comment" style="comment" />
+	<highlight name="css-html-tag" style="tag" />
+	<highlight name="css-html-classid" style="tag" />
+	<highlight name="css-html-media" style="special-tag" />
+	<highlight name="css-keyword" style="keyword" />
+	<highlight name="css-property" style="special-keyword" />
+	<highlight name="css-string" style="string" />
+	<highlight name="css-value" style="value" />
+	<highlight name="css-pseudo-element" style="keyword" />
+</header>
+<properties>
+	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
+	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />
+	<comment id="cm.cpplinecomment" type="line" start="//" />
+	<comment id="cm.scriptcomment" type="line" start="#" />
+	<default_spellcheck enabled="1" spell_decode_entities="1" />
+</properties>
+
+<definition>
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment" commentid_line="none">
+&all-html5;
+</context>
+</definition>
+</bflang>

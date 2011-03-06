@@ -9,12 +9,14 @@ MAINTAINERCLEANFILES = Makefile.in
 
 bflang_bfinc_files = \
 	all-html.bfinc \
+	all-html5.bfinc \
 	all-javascript.bfinc \
 	all-php.bfinc \
 	all-vbscript.bfinc \
 	css-rules.bfinc \
 	css-selectors.bfinc \
 	JQuery.bfinc \
+	svg.bfinc \
 	wordpress.bfinc
 
 bflang_bflang2_files = \
@@ -30,6 +32,7 @@ bflang_bflang2_files = \
 	diff.bflang2 \
 	highlighter.bflang2 \
 	html.bflang2 \
+	html5.bflang2 \
 	java.bflang2 \
 	javascript.bflang2 \
 	jsp.bflang2 \
