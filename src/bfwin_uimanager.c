@@ -478,6 +478,12 @@ ui_open_from_selection(GtkAction * action, gpointer user_data)
 }
 
 static void
+ui_upload_download_dialog(GtkAction * action, gpointer user_data)
+{
+	sync_dialog(BFWIN(user_data));
+}
+
+static void
 ui_quit(GtkAction * action, gpointer user_data)
 {
 	bluefish_exit_request();
@@ -718,7 +724,8 @@ static const GtkActionEntry global_actions[] = {
 	{"FileOpenSelection", NULL, N_("Open _From Selection"), NULL, N_("Open From Selection"),
 	 G_CALLBACK(ui_open_from_selection)},
 	{"FileInsert", NULL, N_("_Insert..."), NULL, N_("Insert file"), G_CALLBACK(ui_insert_doc)},
-	{"FileUploadDownload", NULL, N_("Upload / Download..."), NULL, NULL, NULL},
+	{"FileUploadDownload", NULL, N_("Upload / Download..."), NULL, NULL,
+	 G_CALLBACK(ui_upload_download_dialog)},
 	{"FileQuit", GTK_STOCK_QUIT, N_("_Quit"), "<control>Q", N_("Quit Bluefish"), G_CALLBACK(ui_quit)},
 	{"EditPreferences", GTK_STOCK_PREFERENCES, N_("Preference_s..."), NULL, N_("Edit Preferences"),
 	 G_CALLBACK(ui_preferences)},
@@ -987,7 +994,6 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 		g_warning("building main menu failed: %s", error->message);
 		g_error_free(error);
 	}
-
 #ifndef WIN32
 #ifndef MAC_INTEGRATION
 	GtkAction *action = gtk_action_new("FileOpenURL", N_("Open _URL..."), NULL, NULL);
@@ -1069,26 +1075,26 @@ bfwin_set_document_menu_items(Tdocument * doc)
 
 	bfwin_set_undo_redo_actions(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
 
-	setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/AutoCompletion",
+	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/AutoCompletion",
 									 bluefish_text_view_get_auto_complete(BLUEFISH_TEXT_VIEW(doc->view)));
-	setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/AutoIndent",
+	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/AutoIndent",
 									 bluefish_text_view_get_auto_indent(BLUEFISH_TEXT_VIEW(doc->view)));
-	setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightBlockDelimiters",
+	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightBlockDelimiters",
 									 bluefish_text_view_get_show_mbhl(BLUEFISH_TEXT_VIEW(doc->view)));
-	setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowBlocks",
+	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowBlocks",
 									 bluefish_text_view_get_show_blocks(BLUEFISH_TEXT_VIEW(doc->view)));
-	setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowLineNumbers",
+	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowLineNumbers",
 									 bluefish_text_view_get_show_line_numbers(BLUEFISH_TEXT_VIEW(doc->view)));
-	setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowRightMargin",
+	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowRightMargin",
 									 bluefish_text_view_get_show_right_margin(BLUEFISH_TEXT_VIEW(doc->view)));
-	setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowVisibleSpacing",
+	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowVisibleSpacing",
 									 bluefish_text_view_get_show_visible_spacing(BLUEFISH_TEXT_VIEW
 																				 (doc->view)));
-	setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowSplitView", (doc->slave != NULL));
-	setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/WrapText", doc->wrapstate);
-	setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightSyntax", doc->highlightstate);
+	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowSplitView", (doc->slave != NULL));
+	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/WrapText", doc->wrapstate);
+	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightSyntax", doc->highlightstate);
 #ifdef HAVE_LIBENCHANT
-	setup_menu_toggle_item(BFWIN(doc->bfwin)->documentGroup, "SpellCheck",
+	bfwin_setup_menu_toggle_item(BFWIN(doc->bfwin)->documentGroup, "SpellCheck",
 						   BLUEFISH_TEXT_VIEW(doc->view)->spell_check);
 #endif
 
@@ -1121,7 +1127,7 @@ bfwin_action_set_sensitive(GtkUIManager * manager, const gchar * path, gboolean 
 }
 
 void
-setup_menu_toggle_item(GtkActionGroup * action_group, const gchar * action_name, gboolean is_active)
+bfwin_setup_menu_toggle_item(GtkActionGroup * action_group, const gchar * action_name, gboolean is_active)
 {
 	GtkAction *action = gtk_action_group_get_action(action_group, action_name);
 	if (!action) {
@@ -1134,7 +1140,7 @@ setup_menu_toggle_item(GtkActionGroup * action_group, const gchar * action_name,
 }
 
 void
-setup_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path, gboolean is_active)
+bfwin_setup_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path, gboolean is_active)
 {
 	GtkAction *action = gtk_ui_manager_get_action(manager, path);
 	if (!action) {

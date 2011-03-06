@@ -37,8 +37,8 @@ void bfwin_set_document_menu_items(Tdocument * doc);
 
 void bfwin_action_set_sensitive(GtkUIManager * manager, const gchar * path, gboolean sensitive);
 
-void setup_menu_toggle_item(GtkActionGroup * action_group, const gchar * action_name, gboolean is_active);
-void setup_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path, gboolean is_active);
+void bfwin_setup_menu_toggle_item(GtkActionGroup * action_group, const gchar * action_name, gboolean is_active);
+void bfwin_setup_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path, gboolean is_active);
 
 void bfwin_encoding_set_wo_activate(Tbfwin * bfwin, const gchar * encoding);
 void bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang);
@@ -51,6 +51,6 @@ void bfwin_recent_menu_add(Tbfwin * bfwin, GFile * file, GFileInfo * finfo, gboo
 void bfwin_recent_menu_create(Tbfwin * bfwin);
 void bfwin_templates_menu_create(Tbfwin * bfwin);
 
-gchar * menu_translate(const gchar * path, gpointer data);
+gchar *menu_translate(const gchar * path, gpointer data);
 
 #endif							/* BFWIN_UIMANAGER_H_ */

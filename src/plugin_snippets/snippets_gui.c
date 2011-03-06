@@ -378,7 +378,7 @@ snippets_show_as_menu(Tsnippetswin * snw, gboolean enable)
 	} else if (snw->snippetsmenu) {
 		gtk_widget_hide(snw->snippetsmenu);
 	}
-	setup_menu_toggle_item_from_path(snw->bfwin->uimanager, "/MainMenu/ViewMenu/ViewSnippetsMenu", enable);
+	bfwin_setup_menu_toggle_item_from_path(snw->bfwin->uimanager, "/MainMenu/ViewMenu/ViewSnippetsMenu", enable);
 }
 
 void
