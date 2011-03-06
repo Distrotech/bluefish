@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
 		Bluefish HTML Editor
-		xhtml.bflang2 $$Revision: 6476 $
+		svg.bfinc $Revision: 6377 $
  
 		Copyright (C) 2008-2011 Olivier Sessink
 
@@ -18,37 +18,8 @@
 		You should have received a copy of the GNU General Public License
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
-<!DOCTYPE bflang [
-	<!ENTITY univ "id,xml:base,xml:lang,xml:space">
-	<!ENTITY event  "onactivate,onclick,onfocusin,onfocusout,onload,onmousedown,onmousemove,onmouseout,onmouseover,onmouseup">
 
-]>
-<bflang name="SVG" version="2.0" table="14955" contexts="83" matches="2241">
-<header>
-	<mime type="image/svg+xml"/>
-	<option name="load_reference" default="1" description="load reference data"/>
-	<option name="load_completion" default="1" description="load completion data"/>
-	<option name="autocomplete_tags" default="1" />
-	<highlight name="tag" style="tag" />
-	<highlight name="attribute" style="attribute" />
-	<highlight name="html-comment" style="comment" />
-</header>
-<properties>
-	<comment id="cm.htmlcomment" type="block" start="&lt;!--" end="--&gt;" />
-	<default_spellcheck enabled="1" spell_decode_entities="1" />
-</properties>
-
-<definition>
-<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment" commentid_line="none">
-<element id="e.html.lcomment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
-	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
-		<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.lcomment" highlight="html-comment" mayfold="1" ends_context="1" />
-	</context>
-</element>
-
-
-<group highlight="tag"  attribhighlight="attribute" autocomplete_append=" &gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
-
+<group highlight="html-tag"  attribhighlight="html-attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
  
 <tag name="a" attributes="class,externalResourcesRequired,&univ;,&event;,requiredExtensions,requiredFeatures,style,systemLanguage,target,transform,xlink:actuate,xlink:arcrole,xlink:href,xlink:role,xlink:show,xlink:title,xlink:type,clip-path,color-interpolation,color-rendering,cursor,display,enable-background,filter,mask,opacity,stop-color"></tag>
 <tag name="altGlyph" attributes="class,dx,dy,externalResourcesRequired,format,glyphRef,&univ;,&event;,requiredExtensions,requiredFeatures,rotate,style,systemLanguage,x,xlink:actuate,xlink:arcrole,xlink:href,xlink:role,xlink:show,xlink:title,xlink:type,y,alignment-baseline,baseline-shift,color,direction,dominant-baseline,fill,fill-opacity,fill-rule,font,font-family,font-size,font-size-adjust,font-stretch,font-style,font-variant,font-weight,glyph-orientation-horizontal,glyph-orientation-vertical,kerning,letter-spacing,shape-rendering,stroke,stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,stroke-opacity,stroke-width,text-anchor,text-decoration,unicode-bidi,word-spacing"></tag>
@@ -131,9 +102,4 @@
 <tag name="view" attributes="externalResourcesRequired,&univ;,preserveAspectRatio,viewBox,viewTarget,zoomAndPan"></tag>
 <tag name="vkern" attributes="g1,g2,&univ;,k,u1,u2"></tag>
 
- 
-
 </group>
-</context>
-</definition>
-</bflang>
