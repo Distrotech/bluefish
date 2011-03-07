@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 		Bluefish HTML Editor
-		all-html5.bfinc $Revision: 6377 $
+		all-html5.bfinc $Revision: 6483 $
  
 		Copyright (C) 2008-2011 Olivier Sessink
 
@@ -626,7 +626,7 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag name="svg" highlight="html-tag" attribhighlight="html-attribute"  attributes="baseProfile,class,contentScriptType,contentStyleType,externalResourcesRequired,height,id,xml:base,xml:lang,xml:space,onactivate,onclick,onfocusin,onfocusout,onload,onmousedown,onmousemove,onmouseout,onmouseover,onmouseup,onabort,onerror,onresize,onscroll,onunload,onzoom,preserveAspectRatio,requiredExtensions,requiredFeatures,style,systemLanguage,version,viewBox,width,x,y,zoomAndPan,baseline-shift,clip,color-interpolation,color-profile,cursor,display,enable-background,filter,font-family,opacity,overflow">
+<tag name="svg" highlight="html-tag" attribhighlight="html-attribute"  attributes="baseProfile,class,contentScriptType,contentStyleType,externalResourcesRequired,height,&svguniv;,&svgevent;,onabort,onerror,onresize,onscroll,onunload,onzoom,preserveAspectRatio,requiredExtensions,requiredFeatures,style,systemLanguage,version,viewBox,width,x,y,zoomAndPan,baseline-shift,clip,color-interpolation,color-profile,cursor,display,enable-background,filter,font-family,opacity,overflow,xmlns">
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment" commentid_line="none">
 &svg;
 </context>
