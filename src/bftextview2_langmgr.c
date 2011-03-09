@@ -984,7 +984,11 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 	g_queue_push_head(contextstack,GINT_TO_POINTER(context));
 	if (id) {
 		DBG_PARSING("insert context %s into hash table as %d\n",id,context);
-		g_hash_table_insert(bfparser->contexts, g_strdup(id), GINT_TO_POINTER(context));
+		if (g_hash_table_lookup(bfparser->contexts, id)!=NULL) {
+			g_print("Error in language file, context id %s already exists\n",id);
+		} else {
+			g_hash_table_insert(bfparser->contexts, g_strdup(id), GINT_TO_POINTER(context));
+		}
 	}
 	set_commentid(bfparser
 					, (g_queue_get_length(contextstack)==1)
