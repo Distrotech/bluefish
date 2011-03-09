@@ -687,6 +687,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 							,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, context
 							, contexttag, TRUE, FALSE, 0, TRUE, 0);
 				match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag)+3);
+				/*g_print("context %d: id %s gets matchnum %d\n",context,id,matchnum);*/
 				g_free(tmp2);
 			} else {
 				matchnum = add_keyword_to_scanning_table(bfparser->st, tmp,bfparser->bflang->name
@@ -695,7 +696,11 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 				match_add_autocomp_item(bfparser->st, matchnum, NULL, autocomplete_append?autocomplete_append:ih_autocomplete_append, autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor);
 			}
 			DBG_PARSING("insert tag %s into hash table with matchnum %d\n",id?id:tmp,matchnum);
-			g_hash_table_insert(bfparser->patterns, g_strdup(id?id:tmp), GINT_TO_POINTER((gint)matchnum));
+			if (g_hash_table_lookup(bfparser->patterns, id?id:tmp)!=NULL) {
+				g_warning("Possible bug in language file, id %s already exists\n",id?id:tmp);
+			} else {
+				g_hash_table_insert(bfparser->patterns, g_strdup(id?id:tmp), GINT_TO_POINTER((gint)matchnum));
+			}
 			g_free(tmp);
 
 			if (!contexttag) {
@@ -802,9 +807,14 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			if (!no_close) {
 				tmp = g_strconcat("</",tag,">",NULL);
 				endtagmatch = add_keyword_to_scanning_table(bfparser->st, tmp, bfparser->bflang->name,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, innercontext, (innercontext==context)?0:-2, FALSE, TRUE, matchnum, 0, 0);
+/*				g_print("context %d: matchnum %d is ended by endtagmatch %d while working on id %s\n",innercontext,matchnum, endtagmatch, id);*/
 				match_add_autocomp_item(bfparser->st, endtagmatch, NULL, NULL, 0);
 				match_autocomplete_reference(bfparser->st,endtagmatch,innercontext);
-				g_hash_table_insert(bfparser->patterns, g_strdup(tmp), GINT_TO_POINTER((gint)endtagmatch));
+				if (g_hash_table_lookup(bfparser->patterns, tmp)) {
+					g_warning("Possible bug in language file: id %s already exists\n",tmp);
+				} else {
+					g_hash_table_insert(bfparser->patterns, g_strdup(tmp), GINT_TO_POINTER((gint)endtagmatch));
+				}
 				g_free(tmp);
 			}
 		}

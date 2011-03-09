@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<group highlight="html-tag"  attribhighlight="html-attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+<group highlight="svg-tag"  attribhighlight="html-attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
  
 <tag name="a" attributes="class,externalResourcesRequired,&svguniv;,&svgevent;,requiredExtensions,requiredFeatures,style,systemLanguage,target,transform,xlink:actuate,xlink:arcrole,xlink:href,xlink:role,xlink:show,xlink:title,xlink:type,clip-path,color-interpolation,color-rendering,cursor,display,enable-background,filter,mask,opacity,stop-color"></tag>
 <tag name="altGlyph" attributes="class,dx,dy,externalResourcesRequired,format,glyphRef,&svguniv;,&svgevent;,&svgshapetext;,&svgtext;,requiredExtensions,requiredFeatures,rotate,style,systemLanguage,x,xlink:actuate,xlink:arcrole,xlink:href,xlink:role,xlink:show,xlink:title,xlink:type,y,alignment-baseline,baseline-shift,color,shape-rendering"></tag>
@@ -90,7 +90,9 @@
 <tag name="set" attributes="attributeName,attributeType,begin,dur,end,externalResourcesRequired,fill,&svguniv;,max,min,onbegin,onend,onload,onrepeat,repeatCount,repeatDur,requiredExtensions,requiredFeatures,restart,systemLanguage,to,xlink:actuate,xlink:arcrole,xlink:href,xlink:role,xlink:show,xlink:title,xlink:type"></tag>
 <tag name="stop" attributes="class,&svguniv;,offset,style,color,stop-color,stop-opacity"></tag>
 <tag name="style" attributes="&svguniv;,media,title,type"></tag>
-<tag name="svg" attributes="baseProfile,class,contentScriptType,contentStyleType,externalResourcesRequired,height,&svguniv;,&svgevent;,onabort,onerror,onresize,onscroll,onunload,onzoom,preserveAspectRatio,requiredExtensions,requiredFeatures,style,systemLanguage,version,viewBox,width,x,y,zoomAndPan,baseline-shift,clip,color-interpolation,color-profile,cursor,display,enable-background,filter,font-family,opacity,overflow,xmlns"></tag> 
+<tag id="svg.svg" name="svg" attributes="baseProfile,class,contentScriptType,contentStyleType,externalResourcesRequired,height,&svguniv;,&svgevent;,onabort,onerror,onresize,onscroll,onunload,onzoom,preserveAspectRatio,requiredExtensions,requiredFeatures,style,systemLanguage,version,viewBox,width,x,y,zoomAndPan,baseline-shift,clip,color-interpolation,color-profile,cursor,display,enable-background,filter,font-family,opacity,overflow,xmlns">
+<context idref="c.svg"/>
+</tag> 
 <tag name="switch" attributes="class,externalResourcesRequired,&svguniv;,&svgevent;,requiredExtensions,requiredFeatures,style,systemLanguage,transform,clip-path,color-interpolation,color-rendering,cursor,display,dominant-baseline,filter,font-size,opacity"></tag>
 <tag name="symbol" attributes="class,externalResourcesRequired,&svguniv;,&svgevent;,preserveAspectRatio,style,viewBox,clip,color-interpolation,color-interpolation-filters,cursor,enable-background,filter,font-size-adjust,opacity,overflow"></tag>
 <tag name="text" attributes="class,dx,dy,externalResourcesRequired,&svguniv;,lengthAdjust,&svgevent;,&svgshapetext;,&svgtext;,requiredExtensions,requiredFeatures,rotate,style,systemLanguage,textLength,transform,x,y,alignment-baseline,clip-rule,color,color-interpolation-filters,cursor,flood-opacity,opacity,overflow,stop-opacity,text-rendering,writing-mode"></tag>
