@@ -474,13 +474,14 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 					if (!gtk_text_tag_table_lookup(langmgr.tagtable, use_textstyle)) {
 						/* the user-set style does not exist, create an empty user-set style */
 						gchar *arr[] = { use_textstyle, "", "", "", "", NULL };
-						g_warning("textstyle %s is set by the user but does not exist\n", use_textstyle);
+						g_print("Warning, textstyle %s is set by the user but does not exist\n",
+								use_textstyle);
 						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv(arr));
 					}
 				} else if (style) {	/* no textstyle was configured, set the provided style */
 					if (!gtk_text_tag_table_lookup(langmgr.tagtable, style)) {
 						gchar *arr[] = { style, "", "", "", "", NULL };
-						g_warning("textstyle %s is set in the language file but does not exist\n", style);
+						g_print("Possible error in language file, textstyle %s does not exist\n", style);
 						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv(arr));
 					}
 					g_hash_table_insert(langmgr.configured_styles,
@@ -562,13 +563,17 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 			guint16 matchnum;
 			matchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, idref));
 			if (!matchnum) {
-				g_warning("element with id %s does not exist\n", idref);
+				g_print("Error in language file, element with id %s does not exist\n", idref);
 			} else {
 				compile_existing_match(bfparser->st, matchnum, context);
-				if (g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext < 0 && (-1*g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext) >= g_queue_get_length(contextstack)) {
-					g_warning("BUG IN LANGUAGE FILE, idref %s ends_context=%d, but has only %d parent contexts\n", idref, ends_context, g_queue_get_length(contextstack));
+				if (g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext < 0
+					&& (-1 * g_array_index(bfparser->st->matches, Tpattern, matchnum).nextcontext) >=
+					g_queue_get_length(contextstack)) {
+					g_print
+						("Possible error in language file, idref %s ends_context=%d, but has only %d parent contexts\n",
+						 idref, ends_context, g_queue_get_length(contextstack));
 				}
-				
+
 			}
 		} else if (pattern && pattern[0]) {
 			gchar *reference = NULL;
@@ -578,16 +583,17 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 				/* the nth number in the stack */
 				nextcontext = -1 * ends_context;	/*GPOINTER_TO_INT(g_queue_peek_nth(contextstack,ends_context)); */
 				if (ends_context >= g_queue_get_length(contextstack)) {
-					g_warning("BUG IN LANGUAGE FILE, id %s / pattern %s ends_context=%d, but has only %d parent contexts\n", id, pattern, ends_context, g_queue_get_length(contextstack));
+					g_print
+						("Possible error in language file, id %s / pattern %s ends_context=%d, but has only %d parent contexts\n",
+						 id, pattern, ends_context, g_queue_get_length(contextstack));
 				}
 			}
 			if (blockstartelement) {
 				blockstartelementum =
 					GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, blockstartelement));
 				if (!blockstartelementum) {
-					g_warning
-						("blockstartelement %s is referred to in the language file but it does not exist\n",
-						 blockstartelement);
+					g_print("Error in language file, blockstartelement %s does not exist\n",
+							blockstartelement);
 				}
 				DBG_PARSING("got blockstartelementum %d for blockstartelement %s, ends_block=%d\n",
 							blockstartelementum, blockstartelement, ends_block);
@@ -726,7 +732,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 		if (idref && idref[0] && !tag) {
 			guint16 matchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, idref));
 			if (!matchnum) {
-				g_warning("tag with id %s does not exist\n", idref);
+				g_print("Error in language file, tag with id %s does not exist\n", idref);
 			}
 			DBG_PARSING("lookup tag with id %s returned matchnum %d\n", id, matchnum);
 			if (matchnum)
@@ -774,6 +780,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 												  highlight ? highlight : ih_highlight, NULL, FALSE,
 												  case_insens, context, contexttag, TRUE, FALSE, 0, TRUE, 0);
 				match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag) + 3);
+				/*g_print("context %d: id %s gets matchnum %d\n",context,id,matchnum); */
 				g_free(tmp2);
 			} else {
 				matchnum =
@@ -786,8 +793,12 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 										ih_autocomplete_backup_cursor);
 			}
 			DBG_PARSING("insert tag %s into hash table with matchnum %d\n", id ? id : tmp, matchnum);
-			g_hash_table_insert(bfparser->patterns, g_strdup(id ? id : tmp),
-								GINT_TO_POINTER((gint) matchnum));
+			if (g_hash_table_lookup(bfparser->patterns, id ? id : tmp) != NULL) {
+				g_print("Possible error in language file, id %s already exists\n", id ? id : tmp);
+			} else {
+				g_hash_table_insert(bfparser->patterns, g_strdup(id ? id : tmp),
+									GINT_TO_POINTER((gint) matchnum));
+			}
 			g_free(tmp);
 
 			if (!contexttag) {
@@ -896,8 +907,9 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 						}
 					} else if (xmlStrEqual(name, (xmlChar *) "context")) {
 						if (no_close) {
-							g_warning("tag %s has no_close=%d but specifies an inner context\n", tag,
-									  no_close);
+							g_print
+								("Error in language file, tag %s has no_close=%d but specifies an inner context\n",
+								 tag, no_close);
 							no_close = FALSE;
 						}
 						innercontext = process_scanning_context(reader, bfparser, contextstack);
@@ -923,9 +935,15 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 												  case_insens, innercontext,
 												  (innercontext == context) ? 0 : -2, FALSE, TRUE, matchnum,
 												  0, 0);
+/*				g_print("context %d: matchnum %d is ended by endtagmatch %d while working on id %s\n",innercontext,matchnum, endtagmatch, id);*/
 				match_add_autocomp_item(bfparser->st, endtagmatch, NULL, NULL, 0);
 				match_autocomplete_reference(bfparser->st, endtagmatch, innercontext);
-				g_hash_table_insert(bfparser->patterns, g_strdup(tmp), GINT_TO_POINTER((gint) endtagmatch));
+				if (g_hash_table_lookup(bfparser->patterns, tmp)) {
+					g_print("Possible error in language file: id %s already exists\n", tmp);
+				} else {
+					g_hash_table_insert(bfparser->patterns, g_strdup(tmp),
+										GINT_TO_POINTER((gint) endtagmatch));
+				}
 				g_free(tmp);
 			}
 		}
@@ -1118,7 +1136,11 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	g_queue_push_head(contextstack, GINT_TO_POINTER(context));
 	if (id) {
 		DBG_PARSING("insert context %s into hash table as %d\n", id, context);
-		g_hash_table_insert(bfparser->contexts, g_strdup(id), GINT_TO_POINTER(context));
+		if (g_hash_table_lookup(bfparser->contexts, id) != NULL) {
+			g_print("Error in language file, context id %s already exists\n", id);
+		} else {
+			g_hash_table_insert(bfparser->contexts, g_strdup(id), GINT_TO_POINTER(context));
+		}
 	}
 	set_commentid(bfparser, (g_queue_get_length(contextstack) == 1)
 				  , &g_array_index(bfparser->st->contexts, Tcontext, context).comment_block, commentid_block,
@@ -1325,7 +1347,7 @@ langmgr_get_bflang(const gchar * mimetype, const gchar * filename)
 		tmp = strrchr(filename, '.');
 		if (tmp) {
 			key = g_strconcat(mimetype, "?", tmp + 1, NULL);
-			g_print("langmgr_get_bflang, search for key %s\n", key);
+/*			g_print("langmgr_get_bflang, search for key %s\n",key);*/
 			bflang = g_hash_table_lookup(langmgr.bflang_lookup, key);
 			g_free(key);
 		}

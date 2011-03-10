@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		octave language file $Revision: 6337 $
+ 
+		Copyright (C 2008-2011 Olivier Sessink
+
+	    This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+-->
+
+<bflang name="Octave" version="2.0" >
+<header>
+ <mime type="application/x-octave"/>
+ <mime type="text/plain?m"/>
+ <option name="load_reference" default="1" description="load reference data"/>
+ <option name="load_completion" default="1" description="load completion data"/>
+ <highlight name="keyword" style="keyword" />
+ <highlight name="type" style="special-keyword" />
+ <highlight name="brackets" style="brackets" />
+ <highlight name="comment" style="comment" />
+ <highlight name="string" style="string" />
+ <highlight name="value" style="value"  />
+</header>
+<properties>
+ <comment id="cm.hashcomment" type="line" start="#" />
+ <comment id="cm.percentcomment" type="line" start="%" />
+ <smartindent characters="{" />
+ <smartoutdent characters="}" />
+</properties>
+
+<definition>
+<context symbols=" .;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;" commentid_line="hashcomment" commentid_block="none">
+
+<element pattern="&#34;" highlight="string">
+ <context symbols="\&#34;" highlight="string">
+  <element pattern="\&#34;" highlight="string" />
+  <element pattern="&#34;" highlight="string" ends_context="1" />
+ </context>
+</element>
+<element pattern="'" highlight="string">
+ <context symbols="\'" highlight="string">
+  <element pattern="\\." is_regex="1" highlight="string" />
+  <element pattern="'" highlight="string" ends_context="1" />
+ </context>
+</element>
+
+<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
+<element id="e.lbracket" pattern="[" starts_block="1"  highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="e.lbracket" highlight="brackets" />
+<element id="e.lparen" pattern="(" starts_block="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+
+<element id="e.linecomment" pattern="(#|%)" is_regex="1" highlight="comment">
+<!-- dos has \r\n -> we should never end a pattern between these two chars  -->
+ <context symbols="&#10;&#13;" highlight="comment">
+  <element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="comment" ends_context="1" />
+ </context>
+</element>
+
+<element pattern="[0-9]+\.*[0-9]*" is_regex="1" highlight="value"/> 
+
+<group autocomplete="1" highlight="keyword">
+<element pattern="if"/>
+<element pattern="else"/>
+<element pattern="for"/>
+<element pattern="endfor"/>
+<element pattern="endif"/>
+<element pattern="global"/>
+<element pattern="switch"/>
+<element pattern="while"/>
+<element pattern="do-until"/>
+<element pattern="break"/>
+<element pattern="continue"/>
+<element pattern="unwind_protect"/>
+<element pattern="try"/>
+<element id="function" pattern="function" starts_block="1"/>
+<element pattern="endfunction" ends_block="1" blockstartelement="function"/>
+</group>
+
+<group autocomplete="1" highlight="type">
+<element pattern="text"/>
+<element pattern="string"/>
+<element pattern="longint"/>
+<element pattern="boolean"/>
+<element pattern="byte"/>
+<element pattern="char"/>
+<element pattern="word"/>
+<element pattern="integer"/>
+<element pattern="real"/>
+</group>
+</context>
+</definition>
+</bflang>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		html5.bflang2 $$Revision: 6477 $
+		html5.bflang2 $$Revision: 6483 $
  
 		Copyright (C) 2008-2011 Olivier Sessink
 
@@ -21,8 +21,10 @@
 
 <!DOCTYPE bflang [
 	<!ENTITY globals "accesskey,class,contenteditable,contextmenu,dir,draggable,dropzone,hidden,id,itemid,itemprop,itemref,itemscope,itemtype,lang,spellcheck,style,tabindex,title,onabort,onblur,oncanplay,oncanplaythrough,onchange,onclick,oncontextmenu,oncuechange,ondblclick,ondrag,ondragend,ondragenter,ondragleave,ondragover,ondragstart,ondrop,ondurationchange,onemptied,onended,onerror,onfocus,onformchange,onforminput,oninput,oninvalid,onkeydown,onkeypress,onkeyup,onload,onloadeddata,onloadedmetadata,onloadstart,onmousedown,onmousemove,onmouseout,onmouseover,onmouseup,onmousewheel,onpause,onplay,onplaying,onprogress,onratechange,onreadystatechange,onreset,onscroll,onseeked,onseeking,onselect,onshow,onstalled,onsubmit,onsuspend,ontimeupdate,onvolumechange,onwaiting">
-	<!ENTITY univ "id,xml:base,xml:lang,xml:space">
-	<!ENTITY event  "onactivate,onclick,onfocusin,onfocusout,onload,onmousedown,onmousemove,onmouseout,onmouseover,onmouseup">
+	<!ENTITY svguniv "id,xml:base,xml:lang,xml:space">
+	<!ENTITY svgevent "onactivate,onclick,onfocusin,onfocusout,onload,onmousedown,onmousemove,onmouseout,onmouseover,onmouseup">
+	<!ENTITY svgshapetext "fill,fill-opacity,fill-rule,stroke,stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,stroke-opacity,stroke-width">
+	<!ENTITY svgtext "direction,dominant-baseline,font,font-family,font-size,font-size-adjust,font-stretch,font-style,font-variant,font-weight,glyph-orientation-horizontal,glyph-orientation-vertical,kerning,letter-spacing,text-anchor,text-decoration,unicode-bidi,word-spacing">
 	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
@@ -30,7 +32,7 @@
 	<!ENTITY svg SYSTEM "svg.bfinc">
 ]>
 
-<bflang name="html" version="2.0" table="71905" contexts="270" matches="12264">
+<bflang name="HTML5" version="2.0" table="71965" contexts="270" matches="12277">
 <header>
 	<mime type="text/x-html5"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -51,6 +53,7 @@
 	<option name="javascript_window_object" default="1" description="Window object" />
 	<option name="javascript_css_properties" default="1" description="CSS properties" />
 	<highlight name="html-tag" style="tag" />
+	<highlight name="svg-tag" style="tag" />
 	<highlight name="html-reference-external-tag" style="special-tag" />
 	<highlight name="html-table-tag" style="special-tag2" />
 	<highlight name="html-form-tag" style="special-tag3" />

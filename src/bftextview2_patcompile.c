@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_patcompile.c
  *
- * Copyright (C) 2008,2009,2010 Olivier Sessink
+ * Copyright (C) 2008,2009,2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -84,8 +84,8 @@ bftextview2_scantable_rematch_highlights(Tscantable * st, const gchar * lang)
 			if (g_array_index(st->matches, Tpattern, i).selftag)
 				retlist = g_list_prepend(retlist, g_array_index(st->matches, Tpattern, i).selftag);
 			else
-				g_warning("no textstyle found for highlight %s\n",
-						  g_array_index(st->matches, Tpattern, i).selfhighlight);
+				g_print("Possible error in language file, no textstyle found for highlight %s\n",
+						g_array_index(st->matches, Tpattern, i).selfhighlight);
 		}
 		if (g_array_index(st->matches, Tpattern, i).blockhighlight) {
 			g_array_index(st->matches, Tpattern, i).blocktag =
@@ -569,9 +569,9 @@ compile_limitedregex_to_DFA(Tscantable * st, gchar * input, gboolean caseinsensi
 		DBG_PATCOMPILE("mark state %d as possible end-state\n", p);
 		if (g_array_index(st->table, Ttablerow, p).match != 0
 			&& g_array_index(st->table, Ttablerow, p).match != matchnum) {
-			g_warning("overlapping patterns %s and %s in context %d\n", input,
-					  g_array_index(st->matches, Tpattern,
-									g_array_index(st->table, Ttablerow, p).match).pattern, context);
+			g_print("Error in language file, patterns %s and %s in context %d overlap each other\n", input,
+					g_array_index(st->matches, Tpattern,
+								  g_array_index(st->table, Ttablerow, p).match).pattern, context);
 		} else {
 			g_array_index(st->table, Ttablerow, p).match = matchnum;
 		}
@@ -622,6 +622,13 @@ compile_keyword_to_DFA(Tscantable * st, gchar * keyword, guint16 matchnum, gint1
 				gint p;
 				p = GPOINTER_TO_INT(g_queue_pop_head(positions));
 				DBG_PATCOMPILE("mark state %d as possible end-state\n", p);
+				if (g_array_index(st->table, Ttablerow, p).match != 0
+					&& g_array_index(st->table, Ttablerow, p).match != matchnum) {
+					g_print("Error in language file: patterns %s and %s in context %d overlap each other\n",
+							keyword, g_array_index(st->matches, Tpattern,
+												   g_array_index(st->table, Ttablerow, p).match).pattern,
+							context);
+				}
 				g_array_index(st->table, Ttablerow, p).match = matchnum;
 			}
 		} else {
@@ -670,8 +677,8 @@ new_context(Tscantable * st, const gchar * lang, gchar * symbols, const gchar * 
 	DBG_PATCOMPILE("new context %d has startstate %d, identstate %d and symbols %s\n", context,
 				   g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts,
 																							Tcontext,
-																							context).
-				   identstate, symbols);
+																							context).identstate,
+				   symbols);
 	/* identstate refers to itself for all characters except the symbols. we cannot use memset
 	   because an guint16 occupies 2 bytes */
 	for (i = 0; i < NUMSCANCHARS; i++)
@@ -899,8 +906,8 @@ print_DFA_subset(Tscantable * st, char *chars)
 			g_print(" %s",
 					g_array_index(st->matches, Tpattern,
 								  g_array_index(st->table, Ttablerow, i).match).pattern);
-			if (g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).
-				nextcontext > 0) {
+			if (g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).nextcontext
+				> 0) {
 				g_print(" 	--> goto context %d at %d",
 						g_array_index(st->matches, Tpattern,
 									  g_array_index(st->table, Ttablerow, i).match).nextcontext,
@@ -908,8 +915,9 @@ print_DFA_subset(Tscantable * st, char *chars)
 									  g_array_index(st->matches, Tpattern,
 													g_array_index(st->table, Ttablerow,
 																  i).match).nextcontext).startstate);
-			} else if (g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).
-					   nextcontext < 0) {
+			} else
+				if (g_array_index
+					(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).nextcontext < 0) {
 				g_print(" 	--> pop context: %d",
 						g_array_index(st->matches, Tpattern,
 									  g_array_index(st->table, Ttablerow, i).match).nextcontext);
