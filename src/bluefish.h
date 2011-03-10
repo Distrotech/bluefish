@@ -479,6 +479,7 @@ typedef struct {
 	guint outputbox_merge_id;
 	GtkActionGroup *encodings;
 	guint encodings_merge_id;
+	GtkActionGroup *bookmarks;
 #ifdef HAVE_LIBENCHANT
 	gpointer *ed;				/* EnchantDict */
 #endif

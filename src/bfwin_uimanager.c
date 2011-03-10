@@ -1075,26 +1075,26 @@ bfwin_set_document_menu_items(Tdocument * doc)
 
 	bfwin_set_undo_redo_actions(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
 
-	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/AutoCompletion",
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/AutoCompletion",
 									 bluefish_text_view_get_auto_complete(BLUEFISH_TEXT_VIEW(doc->view)));
-	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/AutoIndent",
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/AutoIndent",
 									 bluefish_text_view_get_auto_indent(BLUEFISH_TEXT_VIEW(doc->view)));
-	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightBlockDelimiters",
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightBlockDelimiters",
 									 bluefish_text_view_get_show_mbhl(BLUEFISH_TEXT_VIEW(doc->view)));
-	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowBlocks",
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowBlocks",
 									 bluefish_text_view_get_show_blocks(BLUEFISH_TEXT_VIEW(doc->view)));
-	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowLineNumbers",
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowLineNumbers",
 									 bluefish_text_view_get_show_line_numbers(BLUEFISH_TEXT_VIEW(doc->view)));
-	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowRightMargin",
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowRightMargin",
 									 bluefish_text_view_get_show_right_margin(BLUEFISH_TEXT_VIEW(doc->view)));
-	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowVisibleSpacing",
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowVisibleSpacing",
 									 bluefish_text_view_get_show_visible_spacing(BLUEFISH_TEXT_VIEW
 																				 (doc->view)));
-	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowSplitView", (doc->slave != NULL));
-	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/WrapText", doc->wrapstate);
-	bfwin_setup_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightSyntax", doc->highlightstate);
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowSplitView", (doc->slave != NULL));
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/WrapText", doc->wrapstate);
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightSyntax", doc->highlightstate);
 #ifdef HAVE_LIBENCHANT
-	bfwin_setup_menu_toggle_item(BFWIN(doc->bfwin)->documentGroup, "SpellCheck",
+	bfwin_set_menu_toggle_item(BFWIN(doc->bfwin)->documentGroup, "SpellCheck",
 						   BLUEFISH_TEXT_VIEW(doc->view)->spell_check);
 #endif
 
@@ -1127,7 +1127,7 @@ bfwin_action_set_sensitive(GtkUIManager * manager, const gchar * path, gboolean 
 }
 
 void
-bfwin_setup_menu_toggle_item(GtkActionGroup * action_group, const gchar * action_name, gboolean is_active)
+bfwin_set_menu_toggle_item(GtkActionGroup * action_group, const gchar * action_name, gboolean is_active)
 {
 	GtkAction *action = gtk_action_group_get_action(action_group, action_name);
 	if (!action) {
@@ -1140,7 +1140,7 @@ bfwin_setup_menu_toggle_item(GtkActionGroup * action_group, const gchar * action
 }
 
 void
-bfwin_setup_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path, gboolean is_active)
+bfwin_set_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path, gboolean is_active)
 {
 	GtkAction *action = gtk_ui_manager_get_action(manager, path);
 	if (!action) {

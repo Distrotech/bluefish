@@ -142,7 +142,7 @@ bfwin_set_main_toolbar_visible(Tbfwin * bfwin, gboolean visible, gboolean sync_m
 		return;
 	if (sync_menu) {
 		DEBUG_MSG("bfwin_set_main_toolbar_visible, trying to sync menu\n");
-		bfwin_setup_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewMainToolbar", visible);
+		bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewMainToolbar", visible);
 	}
 	if (gtk_container_children(GTK_CONTAINER(bfwin->main_toolbar_hb)) == NULL)
 		bfwin_main_toolbar_init(bfwin);
@@ -283,7 +283,7 @@ bfwin_side_panel_show_hide_toggle(Tbfwin * bfwin, gboolean first_time, gboolean 
 			  first_time, show, sync_menu);
 	if (sync_menu) {
 		DEBUG_MSG("bfwin_side_panel_show_hide_toggle, trying to sync menu\n");
-		bfwin_setup_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewSidePane", show);
+		bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewSidePane", show);
 	}
 	if (!first_time && ((show && bfwin->hpane) || (!show && bfwin->hpane == NULL))) {
 		DEBUG_MSG
@@ -351,7 +351,7 @@ bfwin_statusbar_show_hide_toggle(Tbfwin * bfwin, gboolean visible, gboolean sync
 	if (!bfwin->statusbar)
 		return;
 	if (sync_menu)
-		bfwin_setup_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewStatusbar", visible);
+		bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewStatusbar", visible);
 
 	widget_set_visible(bfwin->statusbar, visible);
 	widget_set_visible(bfwin->statusbar_lncol, visible);

@@ -3,6 +3,7 @@
  *
  * Copyright (C) 2003 Oskar Swida
  * modifications (C) 2004-2011 Olivier Sessink
+ * modifications (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +31,7 @@
 #include "bluefish.h"
 #include "bookmark.h"
 #include "bf_lib.h"
-#include "bfwin_uimanager.h"	/* menu_translate() */
+#include "bfwin_uimanager.h"
 #include "dialog_utils.h"
 #include "document.h"
 #include "gtk_easy.h"
@@ -60,6 +61,7 @@ into a project window.
 
 #define BMARK_SHOW_NUM_TEXT_CHARS 40
 #define BMARK_STORE_TEXT_NUM_CHARS 25
+
 enum {
 	NAME_COLUMN,				/* bookmark name */
 	PTR_COLUMN,					/* bookmark pointer */
@@ -95,22 +97,22 @@ typedef struct {
 #define BMARKDATA(var) ((Tbmarkdata *)(var))
 
 enum {
-	BM_FMODE_FULL,
-	BM_FMODE_HOME,				/* not implemented, defaults to full */
 	BM_FMODE_FILE,
-	BM_FMODE_PATH
+	BM_FMODE_PATH,
+	BM_FMODE_URI,
+	BM_FMODE_HOME				/* not implemented, defaults to full */
 };
 
 enum {
-	BM_SMODE_BOTH,
+	BM_SMODE_CONTENT,
 	BM_SMODE_NAME,
-	BM_SMODE_CONTENT
+	BM_SMODE_BOTH
 };
 
 enum {
-	BM_SEARCH_BOTH,
+	BM_SEARCH_CONTENT,
 	BM_SEARCH_NAME,
-	BM_SEARCH_CONTENT
+	BM_SEARCH_BOTH
 };
 
 /* Free bookmark structure */
@@ -162,7 +164,7 @@ bmark_filename(Tbfwin * bfwin, GFile * filepath)
 	case BM_FMODE_FILE:
 		title = g_file_get_basename(filepath);
 		break;
-	case BM_FMODE_FULL:
+	case BM_FMODE_URI:
 	default:
 		title = g_file_get_uri(filepath);
 		break;
@@ -670,8 +672,74 @@ bmark_del_children_backend(Tbfwin * bfwin, GtkTreeIter * parent)
 }
 
 static void
-bmark_popup_menu_deldoc(Tbfwin * bfwin)
+popup_menu_default_permanent(GtkAction * action, gpointer user_data)
 {
+	main_v->globses.bookmarks_default_store = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
+}
+
+static void
+popup_menu_delete(GtkAction * action, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+	Tbmark *bmark;
+	gint retval;
+	gchar *pstr;
+	const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
+
+	bmark = get_current_bmark(bfwin);
+	if (!bmark)
+		return;
+	/* check if it is temp mark */
+	if (bmark->is_temp) {
+		bmark_check_remove(bfwin, bmark);	/* check  if we should remove a filename too */
+		bmark_free(bmark);
+	} else {
+		pstr = g_strdup_printf(_("Do you really want to delete %s?"), bmark->name);
+		retval = message_dialog_new_multi(bfwin->main_window,
+										  GTK_MESSAGE_QUESTION,
+										  buttons, _("Delete permanent bookmark."), pstr);
+		g_free(pstr);
+		if (retval == 0)
+			return;
+		bmark_check_remove(bfwin, bmark);	/* check  if we should remove a filename too */
+		bmark_unstore(bfwin, bmark);
+		bmark_free(bmark);
+	}
+	if (bfwin->current_document)
+		gtk_widget_grab_focus(bfwin->current_document->view);
+}
+
+static void
+popup_menu_delete_all(GtkAction * action, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+	GtkTreeIter tmpiter;
+	gint retval;
+
+	const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
+
+
+	if (bfwin == NULL || !bfwin->current_document)
+		return;
+
+	retval = message_dialog_new_multi(bfwin->main_window,
+									  GTK_MESSAGE_QUESTION, buttons, _("Delete all bookmarks."), NULL);
+	if (retval == 0)
+		return;
+
+	DEBUG_MSG("bmark_del_all, deleting all bookmarks!\n");
+	while (gtk_tree_model_iter_children
+		   (GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter, NULL))
+		bmark_del_children_backend(bfwin, &tmpiter);
+
+	gtk_widget_grab_focus(bfwin->current_document->view);
+}
+
+static void
+popup_menu_delete_all_doc(GtkAction * action, gpointer user_data)
+{
+	Tbfwin *bfwin = BFWIN(user_data);
+
 	if (bfwin->bmark) {
 		GtkTreePath *path;
 		GtkTreeViewColumn *col;
@@ -708,165 +776,212 @@ bmark_popup_menu_deldoc(Tbfwin * bfwin)
 }
 
 static void
-bmark_popup_menu_del(Tbfwin * bfwin)
+popup_menu_edit(GtkAction * action, gpointer user_data)
 {
-	Tbmark *b;
-	gint retval;
-	gchar *pstr;
-	const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
+	Tbfwin *bfwin = BFWIN(user_data);
+	Tbmark *bmark = get_current_bmark(bfwin);
 
-	b = get_current_bmark(bfwin);
-	if (!b)
+	if (!bmark)
 		return;
-	/* check if it is temp mark */
-	if (b->is_temp) {
-		bmark_check_remove(bfwin, b);	/* check  if we should remove a filename too */
-		bmark_free(b);
-	} else {
-		pstr = g_strdup_printf(_("Do you really want to delete %s?"), b->name);
-		retval = message_dialog_new_multi(bfwin->main_window,
-										  GTK_MESSAGE_QUESTION,
-										  buttons, _("Delete permanent bookmark."), pstr);
-		g_free(pstr);
-		if (retval == 0)
-			return;
-		bmark_check_remove(bfwin, b);	/* check  if we should remove a filename too */
-		bmark_unstore(bfwin, b);
-		bmark_free(b);
-	}
-	if (bfwin->current_document)
-		gtk_widget_grab_focus(bfwin->current_document->view);
+
+	bmark_add_rename_dialog(bfwin, _("Edit bookmark"));
 }
 
 static void
-bmark_rpopup_action_lcb(gpointer data, guint action, GtkWidget * widget)
+popup_menu_show_bookmark(GtkRadioAction * action, GtkRadioAction * current, gpointer user_data)
 {
-	Tbfwin *bfwin = BFWIN(data);
-	switch (action) {
-		/*case 1:
-		   bmark_goto_selected(bfwin);
-		   break; */
-	case 2:{
-			Tbmark *m = get_current_bmark(bfwin);
-			if (!m)
-				return;
-			bmark_add_rename_dialog(bfwin, _("Edit bookmark"));
-		}
-		break;
-	case 3:
-		bmark_popup_menu_del(bfwin);
-		break;
-	case 10:
-		bmark_popup_menu_deldoc(bfwin);
-		break;
-	case 11:
-		bmark_del_all(bfwin, TRUE);
-		break;
-	case 20:
-		main_v->globses.bookmarks_default_store = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
-		break;
-	case 30:
-		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-			bfwin->session->bookmarks_filename_mode = BM_FMODE_FILE;
-			bmark_update_treestore_name(bfwin);
-		}
-		break;
-	case 31:
-		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-			bfwin->session->bookmarks_filename_mode = BM_FMODE_PATH;
-			bmark_update_treestore_name(bfwin);
-		}
-		break;
-	case 32:
-		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-			bfwin->session->bookmarks_filename_mode = BM_FMODE_FULL;
-			bmark_update_treestore_name(bfwin);
-		}
-		break;
-	case 40:
-		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-			bfwin->session->bookmarks_show_mode = BM_SMODE_BOTH;
-			bmark_update_treestore_name(bfwin);
-		}
-		break;
-	case 41:
-		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-			bfwin->session->bookmarks_show_mode = BM_SMODE_CONTENT;
-			bmark_update_treestore_name(bfwin);
-		}
-		break;
-	case 42:
-		if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
-			bfwin->session->bookmarks_show_mode = BM_SMODE_NAME;
-			bmark_update_treestore_name(bfwin);
-		}
-		break;
-	default:
-		g_print("bmark_rpopup_action_lcb: action %d not implemented yet\n", action);
-		break;
-	}
+	BFWIN(user_data)->session->bookmarks_show_mode = gtk_radio_action_get_current_value(action);
+	bmark_update_treestore_name(BFWIN(user_data));
 }
 
-static GtkItemFactoryEntry bmark_rpopup_menu_entries[] = {
-	/*{ N_("/Goto"),        NULL,   bmark_rpopup_action_lcb,        1,  "<Item>" }, */
-	{N_("/Edit"), NULL, bmark_rpopup_action_lcb, 2, "<Item>"},
-	{N_("/Delete"), NULL, bmark_rpopup_action_lcb, 3, "<Item>"},
-	{"/sep1", NULL, NULL, 0, "<Separator>"},
-	{N_("/Delete All in document"), NULL, bmark_rpopup_action_lcb, 10, "<Item>"},
-	{N_("/Delete All"), NULL, bmark_rpopup_action_lcb, 11, "<Item>"},
-	{"/sep2", NULL, NULL, 0, "<Separator>"},
-	{N_("/Permanent by default"), NULL, bmark_rpopup_action_lcb, 20, "<ToggleItem>"},
-	{"/sep3", NULL, NULL, 0, "<Separator>"},
-	{N_("/Show file"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Show file/By name"), NULL, bmark_rpopup_action_lcb, 30, "<RadioItem>"},
-	{N_("/Show file/By full path"), NULL, bmark_rpopup_action_lcb, 31, "/Show file/By name"},
-	{N_("/Show file/By full uri"), NULL, bmark_rpopup_action_lcb, 32, "/Show file/By name"},
-	{N_("/Show bookmark"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Show bookmark/Name & Content"), NULL, bmark_rpopup_action_lcb, 40, "<RadioItem>"},
-	{N_("/Show bookmark/Content"), NULL, bmark_rpopup_action_lcb, 41, "/Show bookmark/Name & Content"},
-	{N_("/Show bookmark/Name"), NULL, bmark_rpopup_action_lcb, 42, "/Show bookmark/Name & Content"}
+static void
+popup_menu_show_file(GtkRadioAction * action, GtkRadioAction * current, gpointer user_data)
+{
+	BFWIN(user_data)->session->bookmarks_filename_mode = gtk_radio_action_get_current_value(action);
+	bmark_update_treestore_name(BFWIN(user_data));
+}
+
+static void
+popup_search_mode_changed(GtkRadioAction * action, GtkRadioAction * current, gpointer user_data)
+{
+	BFWIN(user_data)->session->bmarksearchmode = gtk_radio_action_get_current_value(action);
+}
+
+static const gchar *bookmark_menu_ui =
+	"<ui>"
+	"  <popup action='BookmarkMenu'>"
+	"    <menuitem action='Edit'/>"
+	"    <menuitem action='Delete'/>"
+	"    <separator/>"
+	"    <menuitem action='DeleteAllInDoc'/>"
+	"    <menuitem action='DeleteAll'/>"
+	"    <separator/>"
+	"    <menuitem action='DefaultPermanent'/>"
+	"    <separator/>"
+	"    <menu action='ShowFileMenu'>"
+	"    <menuitem action='FileByName'/>"
+	"    <menuitem action='FileByPath'/>"
+	"    <menuitem action='FileByURI'/>"
+	"    </menu>"
+	"    <menu action='ShowBookmarkMenu'>"
+	"    <menuitem action='BookmarkContent'/>"
+	"    <menuitem action='BookmarkName'/>"
+	"    <menuitem action='BookmarkNameContent'/>"
+	"    </menu>"
+	"  </popup>"
+	"</ui>";
+
+static const gchar *bookmark_search_menu_ui =
+	"<ui>"
+	"  <popup action='BookmarkSearchMenu'>"
+	"    <menuitem action='BookmarkSearchContent'/>"
+	"    <menuitem action='BookmarkSearchName'/>"
+	"    <menuitem action='BookmarkSearchNameContent'/>"
+	"  </popup>"
+	"</ui>";
+
+static const GtkActionEntry bookmark_actions[] = {
+	{"BookmarkMenu", NULL, N_("Bookmark menu")},
+	{"ShowBookmarkMenu", NULL, N_("Show Bookmark")},
+	{"ShowFileMenu", NULL, N_("Show File")},
+	{"BookmarkSearchMenu", NULL, N_("Bookmark search menu")},
+	{"Edit", NULL, N_("_Edit..."), NULL, N_("Edit bookmark"),
+	 G_CALLBACK(popup_menu_edit)},
+	{"Delete", NULL, N_("_Delete"), NULL, N_("Delete bookmark"), G_CALLBACK(popup_menu_delete)},
+	{"DeleteAll", NULL, N_("Delete All"), NULL, N_("Delete all bookmarks"),
+	 G_CALLBACK(popup_menu_delete_all)},
+	{"DeleteAllInDoc", NULL, N_("Delete All in Document"), NULL, N_("Delete all bookmarks in document"),
+	 G_CALLBACK(popup_menu_delete_all_doc)}
 };
 
-static GtkWidget *
-bmark_popup_menu(Tbfwin * bfwin, gboolean show_bmark_specific, gboolean show_file_specific)
+static const GtkToggleActionEntry bookmark_toggle_actions[] = {
+	{"DefaultPermanent", NULL, N_("Permanent by default"), NULL, N_("Permanent by default"),
+	 G_CALLBACK(popup_menu_default_permanent)}
+};
+
+static const GtkRadioActionEntry bookmark_file_radio_actions[] = {
+	{"FileByName", NULL, N_("By Name"), NULL, NULL, 0},
+	{"FileByPath", NULL, N_("By Full Path"), NULL, NULL, 1},
+	{"FileByURI", NULL, N_("By Full URI"), NULL, NULL, 2},
+};
+
+static const GtkRadioActionEntry bookmark_radio_actions[] = {
+	{"BookmarkContent", NULL, N_("Content"), NULL, NULL, 0},
+	{"BookmarkName", NULL, N_("Name"), NULL, NULL, 1},
+	{"BookmarkNameContent", NULL, N_("Name & Content"), NULL, NULL, 2}
+};
+
+static const GtkRadioActionEntry bookmark_search_radio_actions[] = {
+	{"BookmarkSearchContent", NULL, N_("Content"), NULL, NULL, 0},
+	{"BookmarkSearchName", NULL, N_("Name"), NULL, NULL, 1},
+	{"BookmarkSearchNameContent", NULL, N_("Name & Content"), NULL, NULL, 2}
+};
+
+static gboolean
+popup_menu_action_group_init(Tbfwin * bfwin)
 {
-	GtkWidget *menu;
-	GtkItemFactory *menumaker;
+	GError *error = NULL;
+	gboolean is_error = FALSE;
 
-	menumaker = gtk_item_factory_new(GTK_TYPE_MENU, "<Bookmarks>", NULL);
-#ifdef ENABLE_NLS
-	gtk_item_factory_set_translate_func(menumaker, menu_translate, "<Bookmarks>", NULL);
-#endif
-	gtk_item_factory_create_items(menumaker, sizeof(bmark_rpopup_menu_entries) / sizeof(GtkItemFactoryEntry),
-								  bmark_rpopup_menu_entries, bfwin);
-	menu = gtk_item_factory_get_widget(menumaker, "<Bookmarks>");
+	bfwin->bookmarks = gtk_action_group_new("BookmarkActions");
+	gtk_action_group_set_translation_domain(bfwin->bookmarks, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(bfwin->bookmarks, bookmark_actions, G_N_ELEMENTS(bookmark_actions),
+								 bfwin);
+	gtk_action_group_add_toggle_actions(bfwin->bookmarks, bookmark_toggle_actions,
+										G_N_ELEMENTS(bookmark_toggle_actions), bfwin);
+	gtk_action_group_add_radio_actions(bfwin->bookmarks, bookmark_file_radio_actions,
+									   G_N_ELEMENTS(bookmark_file_radio_actions),
+									   bfwin->session->bookmarks_filename_mode,
+									   G_CALLBACK(popup_menu_show_file), bfwin);
+	gtk_action_group_add_radio_actions(bfwin->bookmarks, bookmark_radio_actions,
+									   G_N_ELEMENTS(bookmark_radio_actions),
+									   bfwin->session->bookmarks_show_mode,
+									   G_CALLBACK(popup_menu_show_bookmark), bfwin);
+	gtk_action_group_add_radio_actions(bfwin->bookmarks, bookmark_search_radio_actions,
+									   G_N_ELEMENTS(bookmark_search_radio_actions),
+									   bfwin->session->bmarksearchmode,
+									   G_CALLBACK(popup_search_mode_changed), bfwin);
+	gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->bookmarks, 1);
+	g_object_unref(bfwin->bookmarks);
 
-	if (!show_bmark_specific) {
-		/*gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Goto"), FALSE); */
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit"), FALSE);
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete"), FALSE);
+	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, bookmark_menu_ui, -1, &error);
+	if (error != NULL) {
+		g_warning("building bookmark menu failed: %s", error->message);
+		is_error = TRUE;
+		g_error_free(error);
 	}
-	if (!show_file_specific) {
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete All in document"), FALSE);
+
+	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, bookmark_search_menu_ui, -1, &error);
+	if (error != NULL) {
+		g_warning("building bookmark search menu failed: %s", error->message);
+		is_error = TRUE;
+		g_error_free(error);
 	}
-	setup_toggle_item(menumaker, "/Permanent by default", main_v->globses.bookmarks_default_store);
-	setup_toggle_item(menumaker, "/Show file/By name",
-					  bfwin->session->bookmarks_filename_mode == BM_FMODE_FILE);
-	setup_toggle_item(menumaker, "/Show file/By full path",
-					  bfwin->session->bookmarks_filename_mode == BM_FMODE_PATH);
-	setup_toggle_item(menumaker, "/Show file/By full uri",
-					  bfwin->session->bookmarks_filename_mode != BM_FMODE_FILE
-					  && bfwin->session->bookmarks_filename_mode != BM_FMODE_PATH);
-	setup_toggle_item(menumaker, "/Show bookmark/Name & Content",
-					  bfwin->session->bookmarks_show_mode == BM_SMODE_BOTH);
-	setup_toggle_item(menumaker, "/Show bookmark/Content",
-					  bfwin->session->bookmarks_show_mode == BM_SMODE_CONTENT);
-	setup_toggle_item(menumaker, "/Show bookmark/Name", bfwin->session->bookmarks_show_mode != BM_SMODE_BOTH
-					  && bfwin->session->bookmarks_show_mode != BM_SMODE_CONTENT);
-	gtk_widget_show_all(menu);
-	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
-	return menu;
+
+	return is_error;
 }
+
+static void
+popup_menu(Tbfwin * bfwin, GdkEventButton * event, gboolean show_bmark_specific, gboolean show_file_specific)
+{
+	gboolean is_error = FALSE;
+
+	if (!bfwin->bookmarks)
+		is_error = popup_menu_action_group_init(bfwin);
+
+	if (!is_error) {
+		GtkWidget *menu = gtk_ui_manager_get_widget(bfwin->uimanager, "/BookmarkMenu");
+
+		if (!show_bmark_specific) {
+			bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/Edit", FALSE);
+			bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/Delete", FALSE);
+		}
+		if (!show_file_specific) {
+			bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/DeleteAllInDoc", FALSE);
+		}
+
+		bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/BookmarkMenu/DefaultPermanent",
+											 main_v->globses.bookmarks_default_store);
+
+		gtk_widget_show_all(menu);
+		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+	}
+}
+
+static void
+popup_search_menu(Tbfwin * bfwin, GdkEventButton * bevent)
+{
+	gboolean is_error = FALSE;
+
+	if (!bfwin->bookmarks)
+		is_error = popup_menu_action_group_init(bfwin);
+
+	if (!is_error) {
+		GtkWidget *menu = gtk_ui_manager_get_widget(bfwin->uimanager, "/BookmarkSearchMenu");
+
+		gtk_widget_show_all(menu);
+		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, bevent->button, bevent->time);
+	}
+
+}
+
+#if GTK_CHECK_VERSION(2,16,0)
+static void
+bmark_search_icon_press(GtkEntry * entry, GtkEntryIconPosition icon_pos, GdkEvent * event, gpointer user_data)
+{
+	popup_search_menu(user_data, (GdkEventButton *) event);
+}
+#else
+static gboolean
+bmark_search_button_press(GtkWidget * widget, GdkEventButton * event, gpointer user_data)
+{
+	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
+		popup_search_menu(user_data, event);
+		return TRUE;
+	}
+	return FALSE;
+}
+#endif
 
 static void
 bmark_row_activated(GtkTreeView * tree, GtkTreePath * path, GtkTreeViewColumn * column, Tbfwin * bfwin)
@@ -905,9 +1020,9 @@ bmark_event_mouseclick(GtkWidget * widget, GdkEventButton * event, Tbfwin * bfwi
 		}
 	}
 	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {	/* right mouse click */
-		gtk_menu_popup(GTK_MENU(bmark_popup_menu(bfwin, show_bmark_specific, show_file_specific)), NULL, NULL,
-					   NULL, NULL, event->button, event->time);
+		popup_menu(bfwin, event, show_bmark_specific, show_file_specific);
 	}
+
 	return FALSE;
 }
 
@@ -1028,29 +1143,6 @@ bookmark_navigate(Tbfwin * bfwin, guint action)
 	}
 }
 
-void
-bookmark_menu_cb(Tbfwin * bfwin, guint action, GtkWidget * widget)
-{
-	switch (action) {
-	case 1:
-		bmark_first_lcb(widget, bfwin);
-		break;
-	case 2:
-		bmark_previous_lcb(widget, bfwin);
-		break;
-	case 3:
-		bmark_next_lcb(widget, bfwin);
-		break;
-	case 4:
-		bmark_last_lcb(widget, bfwin);
-		break;
-	default:
-		g_warning("invalid menu action for bookmark menu, please report as bluefish bug\n ");
-		break;
-	}
-}
-
-
 static gboolean
 bmark_search_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 {
@@ -1091,60 +1183,6 @@ bmark_search_changed(GtkEditable * editable, gpointer user_data)
 	bfwin->bmark_search_prefix = gtk_editable_get_chars(editable, 0, -1);
 	gtk_tree_model_filter_refilter(bfwin->bmarkfilter);
 }
-
-static void
-bmark_search_mode_changed(gpointer data, guint action, GtkWidget * widget)
-{
-	Tbfwin *bfwin = BFWIN(data);
-	bfwin->session->bmarksearchmode = action;
-}
-
-static void
-bmark_search_rpopup_menu(Tbfwin * bfwin, GdkEventButton * bevent)
-{
-	GtkItemFactory *menumaker;
-	GtkMenu *menu;
-
-	static GtkItemFactoryEntry bmarksearch_rpopup_menu_entries[] = {
-		{N_("/Both Name & Content"), NULL, bmark_search_mode_changed, BM_SEARCH_BOTH, "<RadioItem>"},
-		{N_("/Content"), NULL, bmark_search_mode_changed, BM_SEARCH_CONTENT, "/Both Name & Content"},
-		{N_("/Name"), NULL, bmark_search_mode_changed, BM_SEARCH_NAME, "/Both Name & Content"}
-	};
-
-	menumaker = gtk_item_factory_new(GTK_TYPE_MENU, "<Bookmarksearch>", NULL);
-#ifdef ENABLE_NLS
-	gtk_item_factory_set_translate_func(menumaker, menu_translate, "<Bookmarksearch>", NULL);
-#endif
-	gtk_item_factory_create_items(menumaker,
-								  sizeof(bmarksearch_rpopup_menu_entries) / sizeof(GtkItemFactoryEntry),
-								  bmarksearch_rpopup_menu_entries, bfwin);
-	menu = (GtkMenu *) gtk_item_factory_get_widget(menumaker, "<Bookmarksearch>");
-	setup_toggle_item(menumaker, "/Both Name & Content", bfwin->session->bmarksearchmode != BM_SEARCH_CONTENT
-					  && bfwin->session->bmarksearchmode != BM_SEARCH_NAME);
-	setup_toggle_item(menumaker, "/Content", bfwin->session->bmarksearchmode == BM_SEARCH_CONTENT);
-	setup_toggle_item(menumaker, "/Name", bfwin->session->bmarksearchmode == BM_SEARCH_NAME);
-	gtk_widget_show_all(GTK_WIDGET(menu));
-	gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, bevent->button, bevent->time);
-	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
-}
-
-#if GTK_CHECK_VERSION(2,16,0)
-static void
-bmark_search_icon_press(GtkEntry * entry, GtkEntryIconPosition icon_pos, GdkEvent * event, gpointer user_data)
-{
-	bmark_search_rpopup_menu(user_data, (GdkEventButton *) event);
-}
-#else
-static gboolean
-bmark_search_button_press(GtkWidget * widget, GdkEventButton * event, gpointer user_data)
-{
-	if (event->button == 3 && event->type == GDK_BUTTON_PRESS) {
-		bmark_search_rpopup_menu(user_data, event);
-		return TRUE;
-	}
-	return FALSE;
-}
-#endif
 
 /* Initialize bookmarks gui for window */
 GtkWidget *
@@ -1968,38 +2006,6 @@ void bmark_del_for_filename(Tbfwin *bfwin, gchar *filename) {
 	}
 }
 */
-
-void
-bmark_del_for_document(Tbfwin * bfwin, Tdocument * doc)
-{
-	if (doc->bmark_parent) {
-		bmark_del_children_backend(bfwin, doc->bmark_parent);
-	}
-}
-
-void
-bmark_del_all(Tbfwin * bfwin, gboolean ask)
-{
-	gint retval;
-	const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
-	GtkTreeIter tmpiter;
-
-	if (bfwin == NULL || !bfwin->current_document)
-		return;
-
-	if (ask) {
-		retval = message_dialog_new_multi(bfwin->main_window,
-										  GTK_MESSAGE_QUESTION, buttons, _("Delete all bookmarks."), NULL);
-		if (retval == 0)
-			return;
-	}
-	DEBUG_MSG("bmark_del_all, deleting all bookmarks!\n");
-	while (gtk_tree_model_iter_children
-		   (GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter, NULL)) {
-		bmark_del_children_backend(bfwin, &tmpiter);
-	}
-	gtk_widget_grab_focus(bfwin->current_document->view);
-}
 
 void
 bmark_cleanup(Tbfwin * bfwin)

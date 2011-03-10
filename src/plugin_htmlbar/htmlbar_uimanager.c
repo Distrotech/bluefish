@@ -1582,7 +1582,7 @@ htmlbar_menu_create(Thtmlbarwin * hbw)
 		Thtmlbarsession *hbs = g_hash_table_lookup(htmlbar_v.lookup, bfwin->session);
 
 		if (hbs)
-			bfwin_setup_menu_toggle_item(action_group, "ViewHTMLToolbar", hbs->view_htmlbar);
+			bfwin_set_menu_toggle_item(action_group, "ViewHTMLToolbar", hbs->view_htmlbar);
 		else
 			DEBUG_MSG("htmlbar_build_menu, ERROR, no htmlbarsession in hasht %p for session %p!!?!?!?!?\n",
 					  htmlbar_v.lookup, bfwin->session);
