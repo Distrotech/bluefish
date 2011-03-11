@@ -1182,16 +1182,18 @@ bfwin_encoding_set_wo_activate(Tbfwin * bfwin, const gchar * encoding)
 void
 bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
 {
-	GtkAction *action = gtk_action_group_get_action(bfwin->lang_mode, bflang->name);
-	if (!action) {
-		g_warning("Cannot set menu action LangMode %s\n", bflang->name);
-		return;
-	}
+	if (bflang) {
+		GtkAction *action = gtk_action_group_get_action(bfwin->lang_mode, bflang->name);
+		if (!action) {
+			g_warning("Cannot set menu action LangMode %s\n", bflang->name);
+			return;
+		}
 
-	if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
-		gtk_action_block_activate(action);
-		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
-		gtk_action_unblock_activate(action);
+		if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
+			gtk_action_block_activate(action);
+			gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
+			gtk_action_unblock_activate(action);
+		}
 	}
 }
 
