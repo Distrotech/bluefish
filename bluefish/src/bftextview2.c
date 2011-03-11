@@ -1137,7 +1137,6 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 	if ((kevent->keyval == GDK_Tab && !(kevent->state & GDK_SHIFT_MASK)
 		 && !(kevent->state & GDK_CONTROL_MASK))
 		&& BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_indent_wspaces) {
-		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 		GtkTextMark *imark;
 		GtkTextIter iter;
 		gchar *string;
@@ -1145,14 +1144,14 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		/* replace the tab with spaces if the user wants that. 
 		   However, some users want the tab key to arrive at the next tab stop. so if the tab width is 
 		   4 and there are two characters already, bluefish should insert only 2 characters */
-		string = bf_str_repeat(" ", BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
-		imark = gtk_text_buffer_get_insert(buffer);
-		gtk_text_buffer_get_iter_at_mark(buffer, &iter, imark);
+		string = bf_str_repeat(" ", BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_tab_width);
+		imark = gtk_text_buffer_get_insert(btv->buffer);
+		gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, imark);
 		numchars =
-			BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width -
+			BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_tab_width -
 			(gtk_text_iter_get_line_offset(&iter) %
-			 BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width);
-		gtk_text_buffer_insert(buffer, &iter, string, numchars);
+			 BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_tab_width);
+		gtk_text_buffer_insert(btv->buffer, &iter, string, numchars);
 		g_free(string);
 		return TRUE;
 	}
