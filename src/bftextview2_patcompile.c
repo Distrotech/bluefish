@@ -213,6 +213,9 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 								DBG_PATCOMPILE("create_state_tables, create newstate %d from morestate %d\n",
 											   newstate, pos);
 								g_array_set_size(st->table, st->table->len + 1);
+								if (st->table->len+1 >= G_MAXUINT16) {
+									g_print("Critical error in language file: state table overflow!!!!!!!!\n");
+								}
 								/* pass-on the morestate */
 								memcpy(g_array_index(st->table, Ttablerow, newstate).row,
 									   g_array_index(st->table, Ttablerow, pos).row,
@@ -238,6 +241,9 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 										("create_state_tables, create newstate %d from morestate %d\n",
 										 newstate, pos);
 									g_array_set_size(st->table, st->table->len + 1);
+									if (st->table->len+1 >= G_MAXUINT16) {
+										g_print("Critical error in language file: state table overflow!!!!!!!!\n");
+									}
 									/* pass-on the morestate */
 									memcpy(g_array_index(st->table, Ttablerow, newstate).row,
 										   g_array_index(st->table, Ttablerow, pos).row,
@@ -257,6 +263,9 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 						DBG_PATCOMPILE("create_state_tables, create newstate %d, pointtoself=%d\n", newstate,
 									   pointtoself);
 						g_array_set_size(st->table, st->table->len + 1);
+						if (st->table->len+1 >= G_MAXUINT16) {
+							g_print("Critical error in language file: state table overflow!!!!!!!!\n");
+						}
 						if (!end_is_symbol) {
 							/* normally this memcpy copies the identstate to the current state such that all symbols still point to the
 							   startstate but all non-symbols point to the identstate. Only if the last character ITSELF is a symbol, ALL next
