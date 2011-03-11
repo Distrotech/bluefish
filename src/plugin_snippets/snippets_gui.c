@@ -2,6 +2,7 @@
  * snippets_gui.c - plugin for snippets sidebar
  *
  * Copyright (C) 2006-2011 Olivier Sessink
+ * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -240,119 +241,6 @@ snippets_delete(xmlNodePtr node, GtkTreePath * path)
 }
 
 static void
-snippets_export_response_lcb(GtkDialog * dialog, gint response, Tsnippetswin * snw)
-{
-	if (response == GTK_RESPONSE_ACCEPT) {
-		gchar *filename;
-		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-		if (snw->lastclickednode) {
-			snippets_export_node(snw->lastclickednode, filename);
-		}
-		g_free(filename);
-	}
-	gtk_widget_destroy(GTK_WIDGET(dialog));
-}
-
-static void
-snippets_import_response_lcb(GtkDialog * dialog, gint response, Tsnippetswin * snw)
-{
-	if (response == GTK_RESPONSE_ACCEPT) {
-		gchar *filename;
-		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-		if (snw->lastclickednode) {
-			/* get the branch, not the node */
-			if (xmlStrEqual(snw->lastclickednode->name, (const xmlChar *) "leaf")) {
-				snippets_import_node(snw->lastclickednode->parent, filename);
-			} else {
-				snippets_import_node(snw->lastclickednode, filename);
-			}
-		} else {
-			/* give the root-node */
-			xmlNodePtr root;
-			root = xmlDocGetRootElement(snippets_v.doc);
-			snippets_import_node(root, filename);
-		}
-		g_free(filename);
-	}
-	gtk_widget_destroy(GTK_WIDGET(dialog));
-}
-
-static void
-snip_rpopup_rpopup_action_lcb(Tsnippetswin * snw, guint callback_action, GtkWidget * widget)
-{
-	DEBUG_MSG("snip_rpopup_rpopup_action_lcb, called with action %d and widget %p\n", callback_action,
-			  widget);
-	switch (callback_action) {
-	case 1:					/* edit */
-		if (snw->lastclickednode) {
-			snippets_new_item_dialog(snw, snw->lastclickednode);
-		}
-		break;
-	case 3:					/* new */
-		{
-			snippets_new_item_dialog(snw, NULL);
-		}
-		break;
-	case 2:					/* set accelerator */
-		if (snw->lastclickednode && xmlStrEqual(snw->lastclickednode->name, (const xmlChar *) "leaf")) {
-			gchar *accel = ask_accelerator_dialog(_("Set accelerator key"));
-			if (accel) {
-				if (accel[0] == '\0') {
-					xmlAttrPtr prop = xmlHasProp(snw->lastclickednode, (const xmlChar *) "accelerator");
-					if (prop)
-						xmlRemoveProp(prop);
-				} else {
-					xmlSetProp(snw->lastclickednode, (const xmlChar *) "accelerator",
-							   (const xmlChar *) accel);
-				}
-				snippets_rebuild_accelerators();
-				g_idle_add(snippets_store_lcb, NULL);
-				g_free(accel);
-			}
-		}
-		break;
-	case 4:
-		if (snippets_delete(snw->lastclickednode, snw->lastclickedpath)) {
-			snw->lastclickednode = NULL;
-			gtk_tree_path_free(snw->lastclickedpath);
-			snw->lastclickedpath = NULL;
-			g_idle_add(snippets_store_lcb, NULL);
-		}
-		break;
-	case 5:
-		gtk_tree_view_expand_all(GTK_TREE_VIEW(snw->view));
-		break;
-	case 6:
-		gtk_tree_view_collapse_all(GTK_TREE_VIEW(snw->view));
-		break;
-	case 7:
-		/* export */
-		{
-			GtkWidget *dialog;
-			dialog =
-				file_chooser_dialog(snw->bfwin, _("Snippet export filename"), GTK_FILE_CHOOSER_ACTION_SAVE,
-									NULL, TRUE, FALSE, "snippets", FALSE);
-			gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(dialog), TRUE);
-			g_signal_connect(dialog, "response", G_CALLBACK(snippets_export_response_lcb), snw);
-			gtk_widget_show_all(dialog);
-		}
-		break;
-	case 8:
-		/* import */
-		{
-			GtkWidget *dialog;
-			dialog =
-				file_chooser_dialog(snw->bfwin, _("Snippet import filename"), GTK_FILE_CHOOSER_ACTION_OPEN,
-									NULL, TRUE, FALSE, "snippets", FALSE);
-			g_signal_connect(dialog, "response", G_CALLBACK(snippets_import_response_lcb), snw);
-			gtk_widget_show_all(dialog);
-		}
-
-		break;
-	}
-}
-
-static void
 snippetsmenu_cb(gpointer user_data, gpointer data)
 {
 	xmlNodePtr cur = data;
@@ -378,56 +266,20 @@ snippets_show_as_menu(Tsnippetswin * snw, gboolean enable)
 	} else if (snw->snippetsmenu) {
 		gtk_widget_hide(snw->snippetsmenu);
 	}
-	bfwin_set_menu_toggle_item_from_path(snw->bfwin->uimanager, "/MainMenu/ViewMenu/ViewSnippetsMenu", enable);
+
+	bfwin_set_menu_toggle_item_from_path(snw->bfwin->uimanager, "/MainMenu/ViewMenu/ViewSnippetsMenu",
+										 enable);
 }
 
-void
-snip_rpopup_toggle_cb(Tsnippetswin * snw, guint action, GtkWidget * widget)
+static void
+popup_menu_create(Tsnippetswin * snw, xmlNodePtr cur, GdkEventButton * event)
 {
-	Tsnippetssession *sns = snippets_get_session(snw->bfwin->session);
-	sns->show_as_menu = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
-	snippets_show_as_menu(snw, sns->show_as_menu);
-}
-
-static GtkItemFactoryEntry snip_rpopup_menu_entries[] = {
-	{N_("/_New snippet"), NULL, snip_rpopup_rpopup_action_lcb, 3, "<Item>"},
-	{N_("/_Edit snippet"), NULL, snip_rpopup_rpopup_action_lcb, 1, "<Item>"},
-	{N_("/_Delete snippet"), NULL, snip_rpopup_rpopup_action_lcb, 4, "<Item>"},
-	{N_("/Delete branch"), NULL, snip_rpopup_rpopup_action_lcb, 4, "<Item>"},
-	{"/sep1", NULL, NULL, 0, "<Separator>"},
-	{N_("/Set snippet _accelerator"), NULL, snip_rpopup_rpopup_action_lcb, 2, "<Item>"},
-	{"/sep2", NULL, NULL, 0, "<Separator>"},
-	{N_("/Expand all"), NULL, snip_rpopup_rpopup_action_lcb, 5, "<Item>"},
-	{N_("/Collapse all"), NULL, snip_rpopup_rpopup_action_lcb, 6, "<Item>"},
-	{"/sep3", NULL, NULL, 0, "<Separator>"},
-	{N_("/Show as menu"), NULL, snip_rpopup_toggle_cb, 6, "<ToggleItem>"},
-	{"/sep4", NULL, NULL, 0, "<Separator>"},
-	{N_("/Export"), NULL, snip_rpopup_rpopup_action_lcb, 7, "<Item>"},
-	{N_("/Import"), NULL, snip_rpopup_rpopup_action_lcb, 8, "<Item>"}
-};
-
-#ifdef ENABLE_NLS
-static gchar *
-snippets_menu_translate(const gchar * path, gpointer data)
-{
-	return _(path);
-}
-#endif
-
-static GtkWidget *
-snip_rpopup_create_menu(Tsnippetswin * snw, xmlNodePtr cur)
-{
+	Tbfwin *bfwin = snw->bfwin;
+	Tsnippetssession *sns = snippets_get_session(bfwin->session);
 	GtkWidget *menu;
-	GtkItemFactory *menumaker;
 	gint state = 0;				/* 0= nothing clicked, 1=branch, 2\=leaf */
-	Tsnippetssession *sns = snippets_get_session(snw->bfwin->session);
-	menumaker = gtk_item_factory_new(GTK_TYPE_MENU, "<snippets_rpopup>", NULL);
-#ifdef ENABLE_NLS
-	gtk_item_factory_set_translate_func(menumaker, snippets_menu_translate, "<snippets_rpopup>", NULL);
-#endif
-	gtk_item_factory_create_items(menumaker, sizeof(snip_rpopup_menu_entries) / sizeof(GtkItemFactoryEntry),
-								  snip_rpopup_menu_entries, snw);
-	menu = gtk_item_factory_get_widget(menumaker, "<snippets_rpopup>");
+
+	menu = gtk_ui_manager_get_widget(bfwin->uimanager, "/SnippetsMenu");
 
 	if (snw->lastclickednode) {
 		if (xmlStrEqual(snw->lastclickednode->name, (const xmlChar *) "leaf")) {
@@ -436,19 +288,18 @@ snip_rpopup_create_menu(Tsnippetswin * snw, xmlNodePtr cur)
 			state = 1;
 		}
 	}
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM
-								   (gtk_item_factory_get_widget(menumaker, "/Show as menu")),
-								   sns->show_as_menu);
 
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit snippet"), (state != 0));
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete snippet"), (state == 2));
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Set snippet accelerator"),
-							 (state == 2));
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/New snippet"), (state != 2));
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete branch"), (state == 1));
-	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Export"), (state != 0));
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/SnippetsMenu/ShowAsMenu", sns->show_as_menu);
 
-	return menu;
+	bfwin_action_set_sensitive(bfwin->uimanager, "/SnippetsMenu/NewSnippet", (state != 2));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/SnippetsMenu/EditSnippet", (state != 0));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/SnippetsMenu/DeleteSnippet", (state == 2));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/SnippetsMenu/SetAccelerator", (state == 2));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/SnippetsMenu/DeleteBranch", (state == 1));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/SnippetsMenu/Export", (state != 0));
+
+	gtk_widget_show_all(menu);
+	gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 }
 
 static gboolean
@@ -471,9 +322,7 @@ snippetview_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tsnippe
 						snippet_activate_leaf(snw, cur);
 					}
 				} else if (event->button == 3) {	/* right mouse button clicked */
-					GtkWidget *menu;
-					menu = snip_rpopup_create_menu(snw, cur);
-					gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+					popup_menu_create(snw, cur, event);
 				}
 			} else {
 				snw->lastclickednode = NULL;
@@ -482,9 +331,7 @@ snippetview_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tsnippe
 				snw->lastclickedpath = NULL;
 				gtk_tree_path_free(path);
 				if (event->button == 3) {	/* right mouse button clicked */
-					GtkWidget *menu;
-					menu = snip_rpopup_create_menu(snw, NULL);
-					gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+					popup_menu_create(snw, NULL, event);
 				}
 			}
 		}
@@ -779,6 +626,144 @@ snippets_sidepanel_destroygui(Tbfwin * bfwin)
 	}
 }
 
+static void
+popup_menu_collapse_all(GtkAction * action, gpointer user_data)
+{
+	gtk_tree_view_collapse_all(GTK_TREE_VIEW(((Tsnippetswin *) user_data)->view));
+}
+
+static void
+popup_menu_delete(GtkAction * action, gpointer user_data)
+{
+	Tsnippetswin *snw = (Tsnippetswin *) user_data;
+
+	if (snippets_delete(snw->lastclickednode, snw->lastclickedpath)) {
+		snw->lastclickednode = NULL;
+		gtk_tree_path_free(snw->lastclickedpath);
+		snw->lastclickedpath = NULL;
+		g_idle_add(snippets_store_lcb, NULL);
+	}
+}
+
+static void
+popup_menu_edit_snippet(GtkAction * action, gpointer user_data)
+{
+	Tsnippetswin *snw = (Tsnippetswin *) user_data;
+
+	if (snw->lastclickednode) {
+		snippets_new_item_dialog(snw, snw->lastclickednode);
+	}
+}
+
+static void
+popup_menu_expand_all(GtkAction * action, gpointer user_data)
+{
+	gtk_tree_view_expand_all(GTK_TREE_VIEW(((Tsnippetswin *) user_data)->view));
+}
+
+static void
+snippets_export_dialog_response(GtkDialog * dialog, gint response, Tsnippetswin * snw)
+{
+	if (response == GTK_RESPONSE_ACCEPT) {
+		gchar *filename;
+		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		if (snw->lastclickednode) {
+			snippets_export_node(snw->lastclickednode, filename);
+		}
+		g_free(filename);
+	}
+	gtk_widget_destroy(GTK_WIDGET(dialog));
+}
+
+static void
+popup_menu_export_snippet(GtkAction * action, gpointer user_data)
+{
+	Tsnippetswin *snw = (Tsnippetswin *) user_data;
+	GtkWidget *dialog;
+
+	dialog =
+		file_chooser_dialog(snw->bfwin, _("Snippet export filename"), GTK_FILE_CHOOSER_ACTION_SAVE,
+							NULL, TRUE, FALSE, "snippets", FALSE);
+	gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(dialog), TRUE);
+	g_signal_connect(dialog, "response", G_CALLBACK(snippets_export_dialog_response), snw);
+	gtk_widget_show_all(dialog);
+}
+
+static void
+snippets_import_dialog_response(GtkDialog * dialog, gint response, Tsnippetswin * snw)
+{
+	if (response == GTK_RESPONSE_ACCEPT) {
+		gchar *filename;
+		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		if (snw->lastclickednode) {
+			/* get the branch, not the node */
+			if (xmlStrEqual(snw->lastclickednode->name, (const xmlChar *) "leaf")) {
+				snippets_import_node(snw->lastclickednode->parent, filename);
+			} else {
+				snippets_import_node(snw->lastclickednode, filename);
+			}
+		} else {
+			/* give the root-node */
+			xmlNodePtr root;
+			root = xmlDocGetRootElement(snippets_v.doc);
+			snippets_import_node(root, filename);
+		}
+		g_free(filename);
+	}
+	gtk_widget_destroy(GTK_WIDGET(dialog));
+}
+
+static void
+popup_menu_import_snippet(GtkAction * action, gpointer user_data)
+{
+	Tsnippetswin *snw = (Tsnippetswin *) user_data;
+	GtkWidget *dialog;
+
+	dialog =
+		file_chooser_dialog(snw->bfwin, _("Snippet import filename"), GTK_FILE_CHOOSER_ACTION_OPEN,
+							NULL, TRUE, FALSE, "snippets", FALSE);
+	g_signal_connect(dialog, "response", G_CALLBACK(snippets_import_dialog_response), snw);
+	gtk_widget_show_all(dialog);
+}
+
+static void
+popup_menu_new_snippet(GtkAction * action, gpointer user_data)
+{
+	snippets_new_item_dialog((Tsnippetswin *) user_data, NULL);
+}
+
+static void
+popup_menu_set_accelerator(GtkAction * action, gpointer user_data)
+{
+	Tsnippetswin *snw = (Tsnippetswin *) user_data;
+
+	if (snw->lastclickednode && xmlStrEqual(snw->lastclickednode->name, (const xmlChar *) "leaf")) {
+		gchar *accel = ask_accelerator_dialog(_("Set accelerator key"));
+		if (accel) {
+			if (accel[0] == '\0') {
+				xmlAttrPtr prop = xmlHasProp(snw->lastclickednode, (const xmlChar *) "accelerator");
+				if (prop)
+					xmlRemoveProp(prop);
+			} else {
+				xmlSetProp(snw->lastclickednode, (const xmlChar *) "accelerator", (const xmlChar *) accel);
+			}
+			snippets_rebuild_accelerators();
+			g_idle_add(snippets_store_lcb, NULL);
+			g_free(accel);
+		}
+	}
+}
+
+static void
+popup_menu_show_as_menu(GtkAction * action, gpointer user_data)
+{
+	Tsnippetswin *snw = (Tsnippetswin *) user_data;
+	Tsnippetssession *sns = snippets_get_session(snw->bfwin->session);
+
+	sns->show_as_menu = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
+	snippets_show_as_menu(snw, sns->show_as_menu);
+}
+
 static const gchar *snippets_plugin_ui =
 	"<ui>"
 	"  <menubar name='MainMenu'>"
@@ -788,15 +773,45 @@ static const gchar *snippets_plugin_ui =
 	"  </menubar>"
 	"</ui>";
 
-static void
-view_snippets_menu_activate(GtkAction * action, gpointer user_data)
-{
-	Tsnippetswin *snw = snippets_get_win(BFWIN(user_data));
-	Tsnippetssession *sns = snippets_get_session(snw->bfwin->session);
+static const gchar *snippets_popup_menu_ui =
+	"<ui>"
+	"  <popup action='SnippetsMenu'>"
+	"    <menuitem action='NewSnippet'/>"
+	"    <menuitem action='EditSnippet'/>"
+	"    <menuitem action='DeleteSnippet'/>"
+	"    <menuitem action='DeleteBranch'/>"
+	"    <separator/>"
+	"    <menuitem action='SetAccelerator'/>"
+	"    <separator/>"
+	"    <menuitem action='ExpandAll'/>"
+	"    <menuitem action='CollapseAll'/>"
+	"    <separator/>"
+	"    <menuitem action='ShowAsMenu'/>"
+	"    <separator/>"
+	"    <menuitem action='Export'/>"
+	"    <menuitem action='Import'/>"
+	"  </popup>"
+	"</ui>";
 
-	sns->show_as_menu = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
-	snippets_show_as_menu(snw, sns->show_as_menu);
-}
+static const GtkActionEntry snippets_actions[] = {
+	{"SnippetsMenu", NULL, N_("Snippets menu")},
+	{"NewSnippet", NULL, N_("_New Snippet"), NULL, N_("New snippet"), G_CALLBACK(popup_menu_new_snippet)},
+	{"EditSnippet", NULL, N_("_Edit Snippet"), NULL, N_("Edit snippet"), G_CALLBACK(popup_menu_edit_snippet)},
+	{"DeleteSnippet", NULL, N_("_Delete Snippet"), NULL, N_("Delete snippet"), G_CALLBACK(popup_menu_delete)},
+	{"DeleteBranch", NULL, N_("Delete _Branch"), NULL, N_("Delete branch"), G_CALLBACK(popup_menu_delete)},
+	{"SetAccelerator", NULL, N_("Set Snippet _Accelerator"), NULL, N_("Set snippet accelerator"),
+	 G_CALLBACK(popup_menu_set_accelerator)},
+	{"ExpandAll", NULL, N_("Ex_pand All"), NULL, N_("Expand all"), G_CALLBACK(popup_menu_expand_all)},
+	{"CollapseAll", NULL, N_("_Collapse All"), NULL, N_("Collapse all"), G_CALLBACK(popup_menu_collapse_all)},
+	{"Export", NULL, N_("E_xport"), NULL, N_("Export snippets"), G_CALLBACK(popup_menu_export_snippet)},
+	{"Import", NULL, N_("I_mport"), NULL, N_("Import snippets"), G_CALLBACK(popup_menu_import_snippet)}
+};
+
+static const GtkToggleActionEntry snippets_toggle_actions[] = {
+	{"ShowAsMenu", NULL, N_("_Show as menu"), NULL, N_("Show snippets menu"),
+	 G_CALLBACK(popup_menu_show_as_menu)},
+	{"ViewSnippetsMenu", NULL, N_("Snippets Menu"), NULL, NULL, G_CALLBACK(popup_menu_show_as_menu), TRUE},
+};
 
 void
 snippets_create_gui(Tbfwin * bfwin)
@@ -807,21 +822,23 @@ snippets_create_gui(Tbfwin * bfwin)
 	GtkActionGroup *action_group;
 	GError *error = NULL;
 
-	static const GtkToggleActionEntry snippets_toggle_actions[] = {
-		{"ViewSnippetsMenu", NULL, N_("Snippets Menu"), NULL, NULL, G_CALLBACK(view_snippets_menu_activate),
-		 TRUE},
-	};
-
 	action_group = gtk_action_group_new("SnippetsActions");
 	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE "_plugin_snippets");
+	gtk_action_group_add_actions(action_group, snippets_actions, G_N_ELEMENTS(snippets_actions), snw);
 	gtk_action_group_add_toggle_actions(action_group, snippets_toggle_actions,
-										G_N_ELEMENTS(snippets_toggle_actions), bfwin);
+										G_N_ELEMENTS(snippets_toggle_actions), snw);
 	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 0);
 	g_object_unref(action_group);
 
 	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, snippets_plugin_ui, -1, &error);
 	if (error != NULL) {
-		g_warning("building snippets plugin menu failed: %s", error->message);
+		g_warning("building snippets plugin ui failed: %s", error->message);
+		g_error_free(error);
+	}
+
+	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, snippets_popup_menu_ui, -1, &error);
+	if (error != NULL) {
+		g_warning("building snippets plugin popup menu failed: %s", error->message);
 		g_error_free(error);
 	}
 
