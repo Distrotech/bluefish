@@ -880,29 +880,28 @@ static const GtkRadioActionEntry bookmark_search_radio_actions[] = {
 static void
 popup_menu_action_group_init(Tbfwin * bfwin)
 {
-	GtkActionGroup *action_group;
 	GError *error = NULL;
 
-	action_group = gtk_action_group_new("BookmarkActions");
-	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
-	gtk_action_group_add_actions(action_group, bookmark_actions, G_N_ELEMENTS(bookmark_actions),
+	bfwin->bookmarkGroup = gtk_action_group_new("BookmarkActions");
+	gtk_action_group_set_translation_domain(bfwin->bookmarkGroup, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(bfwin->bookmarkGroup, bookmark_actions, G_N_ELEMENTS(bookmark_actions),
 								 bfwin);
-	gtk_action_group_add_toggle_actions(action_group, bookmark_toggle_actions,
+	gtk_action_group_add_toggle_actions(bfwin->bookmarkGroup, bookmark_toggle_actions,
 										G_N_ELEMENTS(bookmark_toggle_actions), bfwin);
-	gtk_action_group_add_radio_actions(action_group, bookmark_file_radio_actions,
+	gtk_action_group_add_radio_actions(bfwin->bookmarkGroup, bookmark_file_radio_actions,
 									   G_N_ELEMENTS(bookmark_file_radio_actions),
 									   bfwin->session->bookmarks_filename_mode,
 									   G_CALLBACK(popup_menu_show_file), bfwin);
-	gtk_action_group_add_radio_actions(action_group, bookmark_radio_actions,
+	gtk_action_group_add_radio_actions(bfwin->bookmarkGroup, bookmark_radio_actions,
 									   G_N_ELEMENTS(bookmark_radio_actions),
 									   bfwin->session->bookmarks_show_mode,
 									   G_CALLBACK(popup_menu_show_bookmark), bfwin);
-	gtk_action_group_add_radio_actions(action_group, bookmark_search_radio_actions,
+	gtk_action_group_add_radio_actions(bfwin->bookmarkGroup, bookmark_search_radio_actions,
 									   G_N_ELEMENTS(bookmark_search_radio_actions),
 									   bfwin->session->bmarksearchmode,
 									   G_CALLBACK(popup_search_mode_changed), bfwin);
-	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 1);
-	g_object_unref(action_group);
+	gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->bookmarkGroup, 1);
+	g_object_unref(bfwin->bookmarkGroup);
 
 	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, bookmark_menu_ui, -1, &error);
 	if (error != NULL) {
@@ -1243,7 +1242,8 @@ bmark_gui(Tbfwin * bfwin)
 	   g_signal_connect(G_OBJECT(selection), "changed",G_CALLBACK(bmark_selection_changed_lcb), bfwin);
 	   } */
 
-	popup_menu_action_group_init(bfwin);
+	if (!bfwin->bookmarkGroup)
+		popup_menu_action_group_init(bfwin);
 
 	return vbox;
 }
