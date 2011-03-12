@@ -446,10 +446,6 @@ typedef struct {
 	GtkWidget *statusbar_insovr;	/* insert/overwrite indicator */
 	GtkWidget *statusbar_editmode;	/* editor mode and doc encoding */
 	/* the following list contains toolbar widgets we like to reference later on */
-	GtkWidget *toolbar_undo;
-	GtkWidget *toolbar_redo;
-	GtkWidget *toolbar_fullscreen;
-	GtkWidget *toolbar_normalscreen;
 	GtkWidget *toolbar_quickbar;	/* the quickbar widget */
 	GList *toolbar_quickbar_children;	/* this list is needed to remove widgets from the quickbar */
 	/* following widgets are used to show/hide stuff */
@@ -457,15 +453,6 @@ typedef struct {
 	GtkWidget *html_toolbar_hb;
 	GtkWidget *leftpanel_notebook;
 	GtkWidget *gotoline_frame;
-	/* following are lists with dynamic menu entries */
-	GList *menu_recent_files;
-	GList *menu_recent_projects;
-	GList *menu_external;
-	GList *menu_encodings;
-	GList *menu_outputbox;
-	GList *menu_cmenu_entries;
-	GList *menu_filetypes;
-	GList *menu_templates;
 	/* action based dynamic menus */
 	GtkActionGroup *templates_group;
 	guint templates_merge_id;
