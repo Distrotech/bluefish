@@ -2017,20 +2017,19 @@ static void
 popup_menu_action_group_init(Tbfwin * bfwin)
 {
 	Tfilebrowser2 *fb2 = FILEBROWSER2(bfwin->fb2);
-	GtkActionGroup *action_group;
 	GError *error = NULL;
 
-	action_group = gtk_action_group_new("FileBrowserActions");
-	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
-	gtk_action_group_add_actions(action_group, filebrowser_actions, G_N_ELEMENTS(filebrowser_actions), fb2);
-	gtk_action_group_add_toggle_actions(action_group, filebrowser_toggle_actions,
+	bfwin->filebrowserGroup = gtk_action_group_new("FileBrowserActions");
+	gtk_action_group_set_translation_domain(bfwin->filebrowserGroup, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(bfwin->filebrowserGroup, filebrowser_actions, G_N_ELEMENTS(filebrowser_actions), fb2);
+	gtk_action_group_add_toggle_actions(bfwin->filebrowserGroup, filebrowser_toggle_actions,
 										G_N_ELEMENTS(filebrowser_toggle_actions), fb2);
-	gtk_action_group_add_radio_actions(action_group, filebrowser_radio_actions,
+	gtk_action_group_add_radio_actions(bfwin->filebrowserGroup, filebrowser_radio_actions,
 									   G_N_ELEMENTS(filebrowser_radio_actions),
 									   fb2->filebrowser_viewmode, G_CALLBACK(popup_menu_view_mode_changed),
 									   fb2);
-	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 1);
-	g_object_unref(action_group);
+	gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->filebrowserGroup, 1);
+	g_object_unref(bfwin->filebrowserGroup);
 
 	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, filebrowser_menu_ui, -1, &error);
 	if (error != NULL) {
@@ -2896,7 +2895,9 @@ fb2_init(Tbfwin * bfwin)
 		g_signal_connect(fb2->dirmenu_v, "changed", G_CALLBACK(dirmenu_changed_lcb), fb2);
 
 	fb2_update_settings_from_session(bfwin);
-	popup_menu_action_group_init(bfwin);
+
+	if (!bfwin->filebrowserGroup)
+		popup_menu_action_group_init(bfwin);
 
 	gtk_widget_show_all(fb2->vbox);
 /*  {
