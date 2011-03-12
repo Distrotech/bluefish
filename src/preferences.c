@@ -1493,13 +1493,11 @@ preferences_apply(Tprefdialog * pd)
 	if (main_v->props.xhtml) {
 		main_v->props.lowercase_tags = 1;
 		main_v->props.allow_dep = 0;
-	} else {
-		integer_apply(&main_v->props.lowercase_tags, pd->prefs[lowercase_tags], TRUE);
-		integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
-		integer_apply(&main_v->props.format_by_context, pd->prefs[format_by_context], TRUE);
 	}
-	/*integer_apply(&main_v->props.insert_close_tag, pd->prefs[insert_close_tag], TRUE);
-	   integer_apply(&main_v->props.close_tag_newline, pd->prefs[close_tag_newline], TRUE); */
+	integer_apply(&main_v->props.lowercase_tags, pd->prefs[lowercase_tags], TRUE);
+	integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
+	integer_apply(&main_v->props.format_by_context, pd->prefs[format_by_context], TRUE);
+
 	integer_apply(&main_v->props.auto_update_meta_author, pd->prefs[auto_update_meta_author], TRUE);
 	integer_apply(&main_v->props.auto_update_meta_date, pd->prefs[auto_update_meta_date], TRUE);
 	integer_apply(&main_v->props.auto_update_meta_generator, pd->prefs[auto_update_meta_generator], TRUE);
@@ -1732,6 +1730,13 @@ open_in_running_bluefish_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
 							 gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)));
 }
 #endif							/* ifndef WIN32 */
+
+static void xhtml_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
+{
+	gboolean active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+	gtk_widget_set_sensitive(pd->prefs[lowercase_tags],!active);
+	gtk_widget_set_sensitive(pd->prefs[allow_dep],!active);
+}
 
 static gint
 prefs_combo_box_get_index_from_text(const gchar ** options, const gchar * string)
@@ -2673,6 +2678,8 @@ preferences_dialog()
 	pd->prefs[xhtml] =
 		dialog_check_button_in_table(_("Use _XHTML style tags (<br />)"), main_v->props.xhtml, table, 0, 1, 3,
 									 4);
+	g_signal_connect(G_OBJECT(pd->prefs[xhtml]), "toggled", G_CALLBACK(xhtml_toggled_lcb), pd);
+	xhtml_toggled_lcb(pd->prefs[xhtml], pd);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Auto Update Tag Options</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(3, 1, 0, vbox2);
