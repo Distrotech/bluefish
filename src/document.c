@@ -3116,50 +3116,6 @@ file_insert_doc(Tbfwin * bfwin)
 	}
 }
 
-/**
- * file_insert_menucb:
- * @bfwin: Tbfwin* which window
- * @callback_action: unused #guint
- * @widget: #GtkWidget* unused
- *
- * Prompt user for a file, and insert the contents into the current document.
- *
- * Return value: void
- **/
-void
-file_insert_menucb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
-{
-	gchar *tmpfilename = NULL;
-	if (!bfwin->current_document)
-		return;
-
-	{
-		GtkWidget *dialog;
-		dialog =
-			file_chooser_dialog(bfwin, _("Select file to insert"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE,
-								FALSE, NULL, TRUE);
-		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
-			tmpfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
-		}
-		/* BUG: get the encoding from the dialog !!! */
-		gtk_widget_destroy(dialog);
-	}
-	if (tmpfilename == NULL) {
-		bfwin_statusbar_message(bfwin, _("No file to insert"), 2);
-		return;
-	} else {
-		GFile *uri;
-
-		doc_unre_new_group(bfwin->current_document);
-		uri = g_file_new_for_uri(tmpfilename);
-		file_into_doc(bfwin->current_document, uri, FALSE, FALSE);
-		g_object_unref(uri);
-		g_free(tmpfilename);
-		/* doc_file_to_textbox(bfwin->current_document, tmpfilename, TRUE, FALSE);
-		   doc_set_modified(bfwin->current_document, 1); */
-	}
-}
-
 void
 doc_copy(Tbfwin * bfwin)
 {
@@ -3195,99 +3151,10 @@ doc_paste(Tbfwin * bfwin)
 	DEBUG_MSG("edit_paste_cb, finished\n");
 }
 
-/**
- * edit_cut_cb:
- * @widget: unused #GtkWidget
- * @data: unused #gpointer
- *
- * 	Cut selection from current buffer, to clipboard.
- *
- * Return value: void
- **/
-void
-edit_cut_cb(GtkWidget * widget, Tbfwin * bfwin)
-{
-	if (!bfwin->current_document)
-		return;
-
-	doc_unre_new_group(bfwin->current_document);
-	gtk_text_buffer_cut_clipboard(bfwin->current_document->buffer, gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),
-								  TRUE);
-	doc_unre_new_group(bfwin->current_document);
-}
-
-/**
- * edit_copy_cb:
- * @widget: unused #GtkWidget
- * @data: unused #gpointer
- *
- * 	Copy selection from current buffer, to clipboard.
- *
- * Return value: void
- **/
-void
-edit_copy_cb(GtkWidget * widget, Tbfwin * bfwin)
-{
-	if (!bfwin->current_document)
-		return;
-	gtk_text_buffer_copy_clipboard(bfwin->current_document->buffer,
-								   gtk_clipboard_get(GDK_SELECTION_CLIPBOARD));
-}
-
-/**
- * edit_paste_cb:
- * @widget: unused #GtkWidget
- * @data: unused #gpointer
- *
- * 	Paste contents of clipboard. Disable highlighting while pasting, for speed.
- *
- * Return value: void
- **/
-void
-edit_paste_cb(GtkWidget * widget, Tbfwin * bfwin)
-{
-	GtkTextMark *mark;
-	Tdocument *doc = bfwin->current_document;
-	if (!bfwin->current_document)
-		return;
-	DEBUG_MSG("edit_paste_cb, create new undo group\n");
-	doc_unre_new_group(doc);
-	doc->in_paste_operation = TRUE;
-	DEBUG_MSG("edit_paste_cb, pasting clipboard\n");
-	gtk_text_buffer_paste_clipboard(doc->buffer, gtk_clipboard_get(GDK_SELECTION_CLIPBOARD), NULL, TRUE);
-	doc->in_paste_operation = FALSE;
-	DEBUG_MSG("edit_paste_cb, finished, create new undo group\n");
-	doc_unre_new_group(doc);
-	mark = gtk_text_buffer_get_insert(bfwin->current_document->buffer);
-	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(bfwin->current_document->view), mark);
-	DEBUG_MSG("edit_paste_cb, finished\n");
-}
-
 void
 doc_select_all(Tbfwin * bfwin)
 {
 	GtkTextIter itstart, itend;
-
-	gtk_text_buffer_get_bounds(bfwin->current_document->buffer, &itstart, &itend);
-	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer, "insert", &itstart);
-	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer, "selection_bound", &itend);
-}
-
-/**
- * edit_select_all_cb:
- * @widget: unused #GtkWidget
- * @data: unused #gpointer
- *
- * Mark entire current document as selected.
- *
- * Return value: void
- **/
-void
-edit_select_all_cb(GtkWidget * widget, Tbfwin * bfwin)
-{
-	GtkTextIter itstart, itend;
-	if (!bfwin->current_document)
-		return;
 
 	gtk_text_buffer_get_bounds(bfwin->current_document->buffer, &itstart, &itend);
 	gtk_text_buffer_move_mark_by_name(bfwin->current_document->buffer, "insert", &itstart);
@@ -3300,28 +3167,6 @@ doc_toggle_highlighting(Tbfwin * bfwin, gboolean active)
 	bfwin->current_document->highlightstate = active;
 	DEBUG_MSG("doc_toggle_highlighting_cb, set enable_scanner=%d\n", bfwin->current_document->highlightstate);
 
-	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner =
-		bfwin->current_document->highlightstate;
-	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
-}
-
-/**
- * doc_toggle_highlighting_cb:
- * @bfwin: pointer to the documents window. #Tbfwin
- * @action: unused #guint
- * @widget: unused #GtkWidget*
- *
- * Toggle highlighting on/off for current document.
- *
- * Return value: void
- **/
-void
-doc_toggle_highlighting_cb(Tbfwin * bfwin, guint action, GtkWidget * widget)
-{
-	if (!bfwin->current_document)
-		return;
-	bfwin->current_document->highlightstate = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
-	DEBUG_MSG("doc_toggle_highlighting_cb, set enable_scanner=%d\n", bfwin->current_document->highlightstate);
 	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner =
 		bfwin->current_document->highlightstate;
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
@@ -3355,46 +3200,6 @@ doc_word_count(Tbfwin * bfwin)
 	gboolean has_selection;
 	guint chars = 0, lines = 0, words = 0;
 	gchar *allchars, *wc_message, *tmp1, *tmp2, *tmp3;
-
-	has_selection = doc_get_selection(CURDOC(bfwin), &start, &end);
-	allchars = doc_get_chars(bfwin->current_document, start, end);
-
-	wordcount(allchars, &chars, &lines, &words);
-	g_free(allchars);
-	tmp1 = g_strdup_printf(ngettext("%d line", "%d lines", lines), lines);
-	tmp2 = g_strdup_printf(ngettext("%d word", "%d words", words), words);
-	tmp3 = g_strdup_printf(ngettext("%d character", "%d characters", chars), chars);
-	wc_message =
-		g_strconcat(has_selection ? _("Selection statistics: ") : _("Statistics: "), tmp1, ", ", tmp2, ", ",
-					tmp3, NULL);
-	bfwin_statusbar_message(bfwin, wc_message, 7);
-	g_free(wc_message);
-	g_free(tmp1);
-	g_free(tmp2);
-	g_free(tmp3);
-}
-
-/**
- * word_count_cb:
- * @bfwin: pointer to the current documents window. #Tbfwin
- * @action: unused #guint
- * @widget: unused #GtkWidget*
- *
- * Show word-, line- and charcount for current document in the statusbar.
- * Note: The wordcount() call returns number of actual utf8-chars, not bytes.
- *
- * Return value: void
- **/
-void
-word_count_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
-{
-	gint start = 0, end = -1;
-	gboolean has_selection;
-	guint chars = 0, lines = 0, words = 0;
-	gchar *allchars, *wc_message, *tmp1, *tmp2, *tmp3;
-
-	if (!bfwin->current_document)
-		return;
 
 	has_selection = doc_get_selection(CURDOC(bfwin), &start, &end);
 	allchars = doc_get_chars(bfwin->current_document, start, end);
@@ -3550,14 +3355,6 @@ doc_indent_selection(Tdocument * doc, gboolean unindent)
 			gtk_text_buffer_insert(doc->buffer, &iter, indentstring, indentlen);
 			g_free(indentstring);
 		}
-	}
-}
-
-void
-menu_indent_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
-{
-	if (bfwin->current_document) {
-		doc_indent_selection(bfwin->current_document, (callback_action == 1));
 	}
 }
 
@@ -3762,109 +3559,4 @@ doc_floating_view_new(Tbfwin * bfwin)
 	gtk_container_add(GTK_CONTAINER(fv->window), scrolwin);
 	gtk_window_set_default_size(GTK_WINDOW(fv->window), 600, 600);
 	gtk_widget_show_all(fv->window);
-}
-
-static void
-new_floatingview(Tdocument * doc)
-{
-	Tfloatingview *fv;
-	gchar *title;
-	GtkWidget *scrolwin;
-	if (doc->slave)
-		doc_split_view(doc, FALSE);
-
-	if (doc->floatingview) {
-		fv = FLOATINGVIEW(doc->floatingview);
-		gtk_window_present(GTK_WINDOW(fv->window));
-		return;
-	}
-	fv = g_new(Tfloatingview, 1);
-	doc->floatingview = fv;
-	DEBUG_MSG("new_floatingview for doc=%p is at %p\n", doc, doc->floatingview);
-	title = (doc->uri) ? g_file_get_uri(doc->uri) : g_strdup("Untitled");
-	fv->window =
-		window_full2(title, GTK_WIN_POS_NONE, 5, G_CALLBACK(floatingview_destroy_lcb), doc, TRUE, NULL);
-	g_free(title);
-	gtk_window_set_role(GTK_WINDOW(fv->window), "floatingview");
-	fv->textview = bftextview2_new_slave(BLUEFISH_TEXT_VIEW(doc->view));
-	apply_font_style(fv->textview, main_v->props.editor_font_string);
-	scrolwin = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_container_add(GTK_CONTAINER(scrolwin), fv->textview);
-	gtk_container_add(GTK_CONTAINER(fv->window), scrolwin);
-	gtk_window_set_default_size(GTK_WINDOW(fv->window), 600, 600);
-	gtk_widget_show_all(fv->window);
-}
-
-void
-file_floatingview_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
-{
-	new_floatingview(bfwin->current_document);
-}
-
-void
-doc_menu_lcb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
-{
-	gboolean active;
-	if (!bfwin->current_document)
-		return;
-
-	active = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
-	switch (callback_action) {
-	case 1:
-		bfwin->current_document->wrapstate = active;
-		doc_set_wrap(bfwin->current_document);
-		break;
-	case 2:
-		bluefish_text_view_set_show_line_numbers(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
-		break;
-	case 3:
-		bluefish_text_view_set_auto_complete(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
-		break;
-	case 4:
-		bluefish_text_view_set_auto_indent(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
-		break;
-	case 5:
-		bluefish_text_view_set_show_blocks(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
-		break;
-	case 6:
-		bluefish_text_view_set_show_visible_spacing(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
-													active);
-		break;
-	case 7:
-		doc_font_size(CURDOC(bfwin), 1);
-		break;
-	case 8:
-		doc_font_size(CURDOC(bfwin), -1);
-		break;
-	case 9:
-		doc_font_size(CURDOC(bfwin), 0);
-		break;
-	case 10:
-		doc_change_tabsize(CURDOC(bfwin), 1);
-		break;
-	case 11:
-		doc_change_tabsize(CURDOC(bfwin), -1);
-		break;
-	case 12:
-		doc_change_tabsize(CURDOC(bfwin), 0);
-		break;
-	case 13:
-#ifdef HAVE_LIBENCHANT
-		bluefish_text_view_set_spell_check(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
-#endif
-		break;
-	case 14:
-		bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
-		break;
-	case 15:
-		bluefish_text_view_set_show_mbhl(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), active);
-		break;
-	case 16:
-		doc_jump(CURDOC(bfwin));
-		break;
-	case 17:
-		doc_split_view(CURDOC(bfwin), gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget)));
-		break;
-	}
 }

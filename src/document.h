@@ -117,31 +117,23 @@ void doc_force_activate(Tdocument * doc);
 void file_open_from_selection(Tbfwin * bfwin);
 
 void file_insert_doc(Tbfwin * bfwin);
-void file_insert_menucb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
 
 void doc_copy(Tbfwin * bfwin);
 void doc_cut(Tbfwin * bfwin);
 void doc_paste(Tbfwin * bfwin);
-void edit_cut_cb(GtkWidget * widget, Tbfwin * bfwin);
-void edit_copy_cb(GtkWidget * widget, Tbfwin * bfwin);
-void edit_paste_cb(GtkWidget * widget, Tbfwin * bfwin);
 void doc_select_all(Tbfwin * bfwin);
-void edit_select_all_cb(GtkWidget * widget, Tbfwin * bfwin);
 
 void doc_toggle_highlighting(Tbfwin * bfwin, gboolean active);
-void doc_toggle_highlighting_cb(Tbfwin * bfwin, guint action, GtkWidget * widget);
-void doc_toggle_wrap_cb(Tbfwin * bfwin, guint action, GtkWidget * widget);
-void doc_toggle_linenumbers_cb(Tbfwin * bfwin, guint action, GtkWidget * widget);
+
 void all_documents_apply_settings(void);
 
 void doc_word_count(Tbfwin * bfwin);
-void word_count_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
 void doc_indent_selection(Tdocument * doc, gboolean unindent);
-void menu_indent_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
+
 GList *list_relative_document_filenames(Tdocument * curdoc);
 void doc_jump(Tdocument * doc);
+
 void doc_floating_view_new(Tbfwin * bfwin);
-void file_floatingview_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
 void doc_split_view(Tdocument * doc, gboolean enable);
-void doc_menu_lcb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
+
 #endif							/* __DOCUMENT_H_ */
