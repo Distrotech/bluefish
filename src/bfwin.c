@@ -39,7 +39,6 @@
 #include "filebrowser2.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"			/* widget_set_visible() */
-#include "menu.h"
 #include "outputbox.h"
 #include "pixmap.h"
 #include "plugins.h"
@@ -949,6 +948,7 @@ bfwin_create_main(Tbfwin * bfwin)
 
 	/* first a menubar */
 	bfwin->uimanager = gtk_ui_manager_new();
+	gtk_ui_manager_set_add_tearoffs(bfwin->uimanager, TRUE);
 	bfwin_main_menu_init(bfwin, bfwin->toolbarbox);
 
 	snr2_init(bfwin);
