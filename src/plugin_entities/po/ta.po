@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-02-06 07:48-0800\n"
+"POT-Creation-Date: 2011-03-12 12:24-0800\n"
 "PO-Revision-Date: 2006-02-10 23:32+0530\n"
 "Last-Translator: Murugapandian barathee <barathee@gmail.com>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -19,88 +19,122 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Bookmarks: -1,-1,-1,94,-1,-1,-1,-1,-1,-1\n"
 
-#: src/plugin_entities/entities.c:229
+#: src/plugin_entities/entities.c:263
 msgid "Characters to entities"
 msgstr ""
 
-#: src/plugin_entities/entities.c:229
+#: src/plugin_entities/entities.c:263
 #, fuzzy
 msgid "Entities to characters"
 msgstr "கொடாநிலை குறியீட்டு கணம்"
 
-#: src/plugin_entities/entities.c:251
+#: src/plugin_entities/entities.c:284
 #, fuzzy
 msgid "In current document"
 msgstr "நடப்பு ஆவணத்தில் உள்ளது"
 
-#: src/plugin_entities/entities.c:252
+#: src/plugin_entities/entities.c:285
 #, fuzzy
 msgid "In selection"
 msgstr "தேர்ந்தெடுத்ததில் _n"
 
-#: src/plugin_entities/entities.c:253
+#: src/plugin_entities/entities.c:286
 #, fuzzy
 msgid "In all documents"
 msgstr "திறந்திருக்கும் அனைத்து ஆவணங்களிலும்"
 
-#: src/plugin_entities/entities.c:254
+#: src/plugin_entities/entities.c:287
 #, fuzzy
 msgid "Sco_pe:"
 msgstr "_Type:"
 
-#: src/plugin_entities/entities.c:257
+#: src/plugin_entities/entities.c:290
 msgid "Convert numerical encoded characters &#99;"
 msgstr ""
 
-#: src/plugin_entities/entities.c:261
+#: src/plugin_entities/entities.c:294
 msgid "Convert _iso-8859-1 characters"
 msgstr ""
 
-#: src/plugin_entities/entities.c:265
+#: src/plugin_entities/entities.c:298
 msgid "Convert spe_cial characters"
 msgstr ""
 
-#: src/plugin_entities/entities.c:269
+#: src/plugin_entities/entities.c:302
 msgid "Convert _symbol characters"
 msgstr ""
 
-#: src/plugin_entities/entities.c:273
+#: src/plugin_entities/entities.c:306
 msgid "Convert _XML characters < > & \" '"
 msgstr ""
 
-#: src/plugin_entities/entities.c:278
+#: src/plugin_entities/entities.c:312
 msgid "Work around missing &apos; entity on IE"
 msgstr ""
 
-#: src/plugin_entities/entities.c:347
+#: src/plugin_entities/entities.c:416
 #, fuzzy
-msgid "/Tools/Entities To Characters..."
-msgstr "/தொகு/சிறப்பு மாற்றம்/To _Uppercase"
-
-#: src/plugin_entities/entities.c:348
-#, fuzzy
-msgid "/Tools/Characters To Entities..."
+msgid "Characters to Entities"
 msgstr "/தொகு/சிறப்பு மாற்றம்/இரண்டு வகைகளிலிருந்து HTML தொகுப்புகள் _B"
 
-#: src/plugin_entities/entities.c:349
+#: src/plugin_entities/entities.c:417
 #, fuzzy
-msgid "/Tools/URL Encode"
+msgid "Change characters to entities"
+msgstr "/தொகு/சிறப்பு மாற்றம்/இரண்டு வகைகளிலிருந்து HTML தொகுப்புகள் _B"
+
+#: src/plugin_entities/entities.c:418
+#, fuzzy
+msgid "Entities to Characters"
+msgstr "கொடாநிலை குறியீட்டு கணம்"
+
+#: src/plugin_entities/entities.c:419
+#, fuzzy
+msgid "Change entities to characters"
+msgstr "கொடாநிலை குறியீட்டு கணம்"
+
+#: src/plugin_entities/entities.c:420
+#, fuzzy
+msgid "URL Decode"
 msgstr "/தொகு/சிறப்பு மாற்றம்/To _Uppercase"
 
-#: src/plugin_entities/entities.c:350
+#: src/plugin_entities/entities.c:420
 #, fuzzy
-msgid "/Tools/URL Decode"
+msgid "URL decode"
 msgstr "/தொகு/சிறப்பு மாற்றம்/To _Uppercase"
 
-#: src/plugin_entities/entities.c:351
+#: src/plugin_entities/entities.c:421
 #, fuzzy
-msgid "/Tools/To Lowercase"
+msgid "URL Encode"
 msgstr "/தொகு/சிறப்பு மாற்றம்/To _Uppercase"
 
-#: src/plugin_entities/entities.c:352
+#: src/plugin_entities/entities.c:421
 #, fuzzy
-msgid "/Tools/To Uppercase"
+msgid "URL encode"
 msgstr "/தொகு/சிறப்பு மாற்றம்/To _Uppercase"
+
+#: src/plugin_entities/entities.c:422
+#, fuzzy
+msgid "To Lowercase"
+msgstr "/தொகு/சிறப்பு மாற்றம்/To _Uppercase"
+
+#: src/plugin_entities/entities.c:422
+#, fuzzy
+msgid "To lowercase"
+msgstr "/தொகு/சிறப்பு மாற்றம்/To _Uppercase"
+
+#: src/plugin_entities/entities.c:423
+#, fuzzy
+msgid "To Uppercase"
+msgstr "/தொகு/சிறப்பு மாற்றம்/To _Uppercase"
+
+#: src/plugin_entities/entities.c:423
+#, fuzzy
+msgid "To uppercase"
+msgstr "/தொகு/சிறப்பு மாற்றம்/To _Uppercase"
+
+#, fuzzy
+#~ msgid "/Tools/Entities To Characters..."
+#~ msgstr "/தொகு/சிறப்பு மாற்றம்/To _Uppercase"
 
 #, fuzzy
 #~ msgid "/Tools/URL decode selection"

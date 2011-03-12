@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: last_pt\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-02-06 07:48-0800\n"
+"POT-Creation-Date: 2011-03-12 12:24-0800\n"
 "PO-Revision-Date: 2004-12-04 21:45+0000\n"
 "Last-Translator: Lopo Pizarro <lopo-pizarro@netcabo.pt>\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
@@ -18,32 +18,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
 
-#: src/plugin_about/about.c:110
+#: src/plugin_about/about.c:76
+msgid "This version of Bluefish was built with:\n"
+msgstr ""
+
+#: src/plugin_about/about.c:143
 msgid ""
 "\n"
 "Developers of previous releases:"
 msgstr ""
 
-#: src/plugin_about/about.c:125
+#: src/plugin_about/about.c:158
 msgid ""
 "\n"
 "Package maintainers:"
 msgstr ""
 
-#: src/plugin_about/about.c:132
+#: src/plugin_about/about.c:165
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
 "please let us know via <bluefish@bluefish.openoffice.nl>."
 msgstr ""
 
-#: src/plugin_about/about.c:133
+#: src/plugin_about/about.c:166
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
 msgstr ""
 
-#: src/plugin_about/about.c:169
+#: src/plugin_about/about.c:202
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
@@ -58,35 +62,52 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:179
+#: src/plugin_about/about.c:212
 #, fuzzy
 msgid "translator-credits"
 msgstr "Tradutores"
 
-#: src/plugin_about/about.c:219
-msgid "This version of Bluefish was built with:\n"
-msgstr ""
-
-#: src/plugin_about/about.c:242
-msgid "/_Help"
+#: src/plugin_about/about.c:276
+#, fuzzy
+msgid "_Help"
 msgstr "/_Ajuda"
 
-#: src/plugin_about/about.c:243
-msgid "/Help/Bluefish _Homepage"
+#: src/plugin_about/about.c:277
+msgid "Bluefish _Homepage"
 msgstr ""
 
-#: src/plugin_about/about.c:244
-msgid "/Help/Report a _Bug"
+#: src/plugin_about/about.c:277
+msgid "Bluefish homepage"
 msgstr ""
 
-#: src/plugin_about/about.c:246
-msgid "/Help/_About..."
-msgstr "/Ajuda/_Sobre..."
+#: src/plugin_about/about.c:279
+msgid "Report a _Bug"
+msgstr ""
 
-#: src/plugin_about/about.c:247
+#: src/plugin_about/about.c:279
+msgid "Report a bug"
+msgstr ""
+
+#: src/plugin_about/about.c:280
+msgid "_About"
+msgstr ""
+
+#: src/plugin_about/about.c:280
+msgid "About Bluefish"
+msgstr "Sobre o Bluefish"
+
+#: src/plugin_about/about.c:282
 #, fuzzy
-msgid "/Help/_Build Info..."
+msgid "_Build Info"
 msgstr "/Ajuda/_Sobre..."
+
+#: src/plugin_about/about.c:282
+#, fuzzy
+msgid "Build info"
+msgstr "/Ajuda/_Sobre..."
+
+#~ msgid "/Help/_About..."
+#~ msgstr "/Ajuda/_Sobre..."
 
 #~ msgid ""
 #~ "Bluefish is an editor for experienced web designers and programmers. It "
@@ -328,9 +349,6 @@ msgstr "/Ajuda/_Sobre..."
 #~ "  Tamil - Murugapandian Barathee\n"
 #~ "   <barathee@yahoo.com>\n"
 #~ "\n"
-
-#~ msgid "About Bluefish"
-#~ msgstr "Sobre o Bluefish"
 
 # src/html.c:1315
 #~ msgid "Info"

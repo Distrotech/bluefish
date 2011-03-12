@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 2.0.0-rc2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-02-06 07:49-0800\n"
+"POT-Creation-Date: 2011-03-12 12:24-0800\n"
 "PO-Revision-Date: 2010-01-19 20:53+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
@@ -18,79 +18,145 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/plugin_snippets/snippets_gui.c:271
-msgid "Set accelerator key"
-msgstr "Встановити клавішу-акселератор"
-
-#: src/plugin_snippets/snippets_gui.c:303
-msgid "Snippet export filename"
-msgstr "Назва файла експорту фрагмента"
-
-#: src/plugin_snippets/snippets_gui.c:313
-msgid "Snippet import filename"
-msgstr "Назва файла імпорту фрагмента"
-
-#: src/plugin_snippets/snippets_gui.c:352
-msgid "/_New snippet"
-msgstr "/С_творити фрагмент"
-
-#: src/plugin_snippets/snippets_gui.c:353
-msgid "/_Edit snippet"
-msgstr "/_Змінити фрагмент"
-
-#: src/plugin_snippets/snippets_gui.c:354
-msgid "/_Delete snippet"
-msgstr "/_Вилучити фрагмент"
-
-#: src/plugin_snippets/snippets_gui.c:355
-msgid "/Delete branch"
-msgstr "/Вилучити гілку"
-
-#: src/plugin_snippets/snippets_gui.c:357
-msgid "/Set snippet _accelerator"
-msgstr "/Встановити _акселератор фрагмента"
-
-#: src/plugin_snippets/snippets_gui.c:359
-msgid "/Expand all"
-msgstr "/Розгорнути всі"
-
-#: src/plugin_snippets/snippets_gui.c:360
-msgid "/Collapse all"
-msgstr "/Згорнути всі"
-
-#: src/plugin_snippets/snippets_gui.c:362
-msgid "/Show as menu"
-msgstr "/Показати як меню"
-
-#: src/plugin_snippets/snippets_gui.c:364
-msgid "/Export"
-msgstr "/Експортувати"
-
-#: src/plugin_snippets/snippets_gui.c:365
-msgid "/Import"
-msgstr "/Імпортувати"
-
-#: src/plugin_snippets/snippets_gui.c:501
+#: src/plugin_snippets/snippets_gui.c:407
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr ""
 "Клацніть правою кнопкою миші, щоб додати, змінити або вилучити фрагменти."
 
-#: src/plugin_snippets/snippets_gui.c:502
+#: src/plugin_snippets/snippets_gui.c:408
 msgid "Use drag and drop to re-order snippets"
 msgstr "Для впорядкування фрагментів скористайтеся перетягуванням зі скиданням"
 
-#: src/plugin_snippets/snippets_gui.c:503
+#: src/plugin_snippets/snippets_gui.c:409
 msgid "To exchange snippets with others use import or export"
 msgstr ""
 "Щоб здійснити обмін фрагментами з іншими користувачами, скористайтеся "
 "імпортуванням та експортуванням"
 
-#: src/plugin_snippets/snippets_gui.c:674
+#: src/plugin_snippets/snippets_gui.c:598
 msgid "snippets"
 msgstr "фрагменти"
 
-#: src/plugin_snippets/snippets_gui.c:705
-msgid "/View/Snippets Menu"
+#: src/plugin_snippets/snippets_gui.c:685
+msgid "Snippet export filename"
+msgstr "Назва файла експорту фрагмента"
+
+#: src/plugin_snippets/snippets_gui.c:723
+msgid "Snippet import filename"
+msgstr "Назва файла імпорту фрагмента"
+
+#: src/plugin_snippets/snippets_gui.c:741
+msgid "Set accelerator key"
+msgstr "Встановити клавішу-акселератор"
+
+#: src/plugin_snippets/snippets_gui.c:797
+#, fuzzy
+msgid "Snippets menu"
+msgstr "/Перегляд/Меню фрагментів"
+
+#: src/plugin_snippets/snippets_gui.c:798
+#, fuzzy
+msgid "_New Snippet"
+msgstr "/С_творити фрагмент"
+
+#: src/plugin_snippets/snippets_gui.c:798
+#: src/plugin_snippets/snippets_wizard.c:756
+msgid "New snippet"
+msgstr "Новий фрагмент"
+
+#: src/plugin_snippets/snippets_gui.c:799
+#, fuzzy
+msgid "_Edit Snippet"
+msgstr "/_Змінити фрагмент"
+
+#: src/plugin_snippets/snippets_gui.c:799
+#, fuzzy
+msgid "Edit snippet"
+msgstr "/_Змінити фрагмент"
+
+#: src/plugin_snippets/snippets_gui.c:800
+#, fuzzy
+msgid "_Delete Snippet"
+msgstr "/_Вилучити фрагмент"
+
+#: src/plugin_snippets/snippets_gui.c:800
+#, fuzzy
+msgid "Delete snippet"
+msgstr "/_Вилучити фрагмент"
+
+#: src/plugin_snippets/snippets_gui.c:801
+#, fuzzy
+msgid "Delete _Branch"
+msgstr "/Вилучити гілку"
+
+#: src/plugin_snippets/snippets_gui.c:801
+#, fuzzy
+msgid "Delete branch"
+msgstr "/Вилучити гілку"
+
+#: src/plugin_snippets/snippets_gui.c:802
+#, fuzzy
+msgid "Set Snippet _Accelerator"
+msgstr "/Встановити _акселератор фрагмента"
+
+#: src/plugin_snippets/snippets_gui.c:802
+#, fuzzy
+msgid "Set snippet accelerator"
+msgstr "/Встановити _акселератор фрагмента"
+
+#: src/plugin_snippets/snippets_gui.c:804
+#, fuzzy
+msgid "Ex_pand All"
+msgstr "/Розгорнути всі"
+
+#: src/plugin_snippets/snippets_gui.c:804
+#, fuzzy
+msgid "Expand all"
+msgstr "/Розгорнути всі"
+
+#: src/plugin_snippets/snippets_gui.c:805
+#, fuzzy
+msgid "_Collapse All"
+msgstr "/Згорнути всі"
+
+#: src/plugin_snippets/snippets_gui.c:805
+#, fuzzy
+msgid "Collapse all"
+msgstr "/Згорнути всі"
+
+#: src/plugin_snippets/snippets_gui.c:806
+#, fuzzy
+msgid "E_xport"
+msgstr "/Експортувати"
+
+#: src/plugin_snippets/snippets_gui.c:806
+#, fuzzy
+msgid "Export snippets"
+msgstr "фрагменти"
+
+#: src/plugin_snippets/snippets_gui.c:807
+#, fuzzy
+msgid "I_mport"
+msgstr "/Імпортувати"
+
+#: src/plugin_snippets/snippets_gui.c:807
+#, fuzzy
+msgid "Import snippets"
+msgstr "фрагменти"
+
+#: src/plugin_snippets/snippets_gui.c:811
+#, fuzzy
+msgid "_Show as menu"
+msgstr "/Показати як меню"
+
+#: src/plugin_snippets/snippets_gui.c:811
+#, fuzzy
+msgid "Show snippets menu"
+msgstr "/Показати як меню"
+
+#: src/plugin_snippets/snippets_gui.c:813
+#, fuzzy
+msgid "Snippets Menu"
 msgstr "/Перегляд/Меню фрагментів"
 
 #: src/plugin_snippets/snippets_leaf_insert.c:63
@@ -242,7 +308,3 @@ msgstr "Вставити рядок"
 #: src/plugin_snippets/snippets_wizard.c:647
 msgid "Search and replace pattern"
 msgstr "Шаблон пошуку з заміною"
-
-#: src/plugin_snippets/snippets_wizard.c:756
-msgid "New snippet"
-msgstr "Новий фрагмент"
