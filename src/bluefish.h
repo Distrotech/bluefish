@@ -428,6 +428,8 @@ typedef struct {
 	GtkActionGroup *findReplaceGroup;
 	GtkActionGroup *projectGroup;
 	GtkActionGroup *undoGroup;
+	GtkActionGroup *bookmarkGroup;
+	GtkActionGroup *filebrowserGroup;
 
 	GtkWidget *menubar;
 	gint last_notebook_page;	/* a check to see if the notebook changed to a new page */
