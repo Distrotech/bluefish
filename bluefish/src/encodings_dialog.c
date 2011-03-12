@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * encodings_dialog.c
  *
- * Copyright (C) 2008-2009 James Hayward and Olivier Sessink
+ * Copyright (C) 2008-2011 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 
 
 #include "encodings_dialog.h"
+#include "bfwin_uimanager.h"
 #include "dialog_utils.h"
 #include "document.h"
 #include "menu.h"
@@ -229,13 +230,13 @@ encodings_dialog_response_lcb(GtkDialog * dialog, gint response, BluefishEncodin
 
 	bfwinlist = g_list_first(main_v->bfwinlist);
 	while (bfwinlist) {
-		encoding_menu_rebuild(BFWIN(bfwinlist->data));
+		bfwin_encodings_menu_create(BFWIN(bfwinlist->data));
 		bfwinlist = g_list_next(bfwinlist);
 	}
 
 	if (encDialog->priv->bfwin->current_document)
-		menu_current_document_set_toggle_wo_activate(encDialog->priv->bfwin, NULL,
-													 encDialog->priv->bfwin->current_document->encoding);
+		bfwin_encoding_set_wo_activate(encDialog->priv->bfwin,
+									   encDialog->priv->bfwin->current_document->encoding);
 
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 }
@@ -257,8 +258,7 @@ visible_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 
 static GObject *
 bluefish_encodings_dialog_create(GType type,
-												 guint n_construct_properties,
-												 GObjectConstructParam * construct_properties)
+								 guint n_construct_properties, GObjectConstructParam * construct_properties)
 {
 	BluefishEncodingsDialogClass *klass =
 		BLUEFISH_ENCODINGS_DIALOG_CLASS(g_type_class_peek(BLUEFISH_TYPE_ENCODINGS_DIALOG));

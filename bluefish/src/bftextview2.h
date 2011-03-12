@@ -231,16 +231,13 @@ The slave widget should always be destroyed before the master.
 #if defined(__GNUC__) || (defined(__SUNPRO_C) && __SUNPRO_C > 0x580)
 #define DBG_NONE(args...)
  /**/
-#else                                                   /* notdef __GNUC__ || __SUNPRO_C */
-extern void g_none(char * first, ...);
+#else							/* notdef __GNUC__ || __SUNPRO_C */
+extern void g_none(char *first, ...);
 #define DBG_NONE g_none
-#endif  
+#endif
  /**/
-
 #define IDENTSTORING
-
 #define BF2_OFFSET_UNDEFINED G_MAXUINT32
-
 #define DBG_MSG DBG_NONE
 #define DBG_SCANCACHE DBG_NONE
 #define DBG_SCANNING DBG_NONE
@@ -255,78 +252,74 @@ extern void g_none(char * first, ...);
 #define DBG_TOOLTIP DBG_NONE
 #define DBG_SPELL DBG_NONE
 #define DBG_IDENTIFIER DBG_NONE
-
-#define NUMSCANCHARS 127 /* 128 is ascii, but the last character is never scanned (DEL)
-		and the Ttablerow has one more 16bit value. By setting this to 127 instead of 128
-		we dont need padding to align the Ttablerow in memory
-		(Ttablerow = (127+1)*16=2048 bits or 256 bytes) */
-
+#define NUMSCANCHARS 127		/* 128 is ascii, but the last character is never scanned (DEL)
+								   and the Ttablerow has one more 16bit value. By setting this to 127 instead of 128
+								   we dont need padding to align the Ttablerow in memory
+								   (Ttablerow = (127+1)*16=2048 bits or 256 bytes) */
 /*****************************************************************/
 /* building the automata and autocompletion cache */
 /*****************************************************************/
-
 #define COMMENT_INDEX_INHERIT 255
 #define COMMENT_INDEX_NONE 254
-
-typedef struct {
+	typedef struct {
 	gboolean autocomplete_case_insens;
-	GCompletion* ac; /* autocompletion items in this context */
-	/*GHashTable *reference;*/ /* reference help for each autocompletion item */
-	GHashTable *patternhash; /* a hash table where the pattern and its autocompletion string are the keys, and an integer to the ID of the pattern is the value */
-	GtkTextTag *contexttag; /* if the context area itself needs some kind of style (to implement a string context for example) */
-	gchar *contexthighlight; /* the string that has the id for the highlight */
-	guint16 startstate; /* refers to the row number in scantable->table that is the start state for this context */
-	guint16 identstate; /* refers to the row number in scantable->table that is the identifier-state
-					for this context. The identifier state is a state that refers to itself for all characters
-					except the characters (symbols) thay may be the begin or end of an identifier such
-					as whitespace, ();[]{}*+-/ etc. */
-	guint8 has_tagclose_from_blockstack; /* this context has xml end patterns that need autoclosing for generix xml tags, based on the tag that is on top of the blockstack */
-	guint8 comment_block; /* block comment index in array scantable->comments 
-				or COMMENT_INDEX_INHERIT (which means inherit) 
-				or COMMENT_INDEX_NONE if there is no block comment  */
-	guint8 comment_line; /* index in array scantable->comments for line comments; see comment_block */
+	GCompletion *ac;			/* autocompletion items in this context */
+	/*GHashTable *reference; *//* reference help for each autocompletion item */
+	GHashTable *patternhash;	/* a hash table where the pattern and its autocompletion string are the keys, and an integer to the ID of the pattern is the value */
+	GtkTextTag *contexttag;		/* if the context area itself needs some kind of style (to implement a string context for example) */
+	gchar *contexthighlight;	/* the string that has the id for the highlight */
+	guint16 startstate;			/* refers to the row number in scantable->table that is the start state for this context */
+	guint16 identstate;			/* refers to the row number in scantable->table that is the identifier-state
+								   for this context. The identifier state is a state that refers to itself for all characters
+								   except the characters (symbols) thay may be the begin or end of an identifier such
+								   as whitespace, ();[]{}*+-/ etc. */
+	guint8 has_tagclose_from_blockstack;	/* this context has xml end patterns that need autoclosing for generix xml tags, based on the tag that is on top of the blockstack */
+	guint8 comment_block;		/* block comment index in array scantable->comments 
+								   or COMMENT_INDEX_INHERIT (which means inherit) 
+								   or COMMENT_INDEX_NONE if there is no block comment  */
+	guint8 comment_line;		/* index in array scantable->comments for line comments; see comment_block */
 } Tcontext;
 
 typedef struct {
 	gchar *autocomplete_string;
-	guint8 autocomplete_backup_cursor; /* number of characters to backup the cursor after autocompletion (max 256) */
-	 /* guint8 autocomplete;whether or not this pattern should be added to the autocompletion; stored in the Tpattern so we can re-use it in another context */
+	guint8 autocomplete_backup_cursor;	/* number of characters to backup the cursor after autocompletion (max 256) */
+	/* guint8 autocomplete;whether or not this pattern should be added to the autocompletion; stored in the Tpattern so we can re-use it in another context */
 } Tpattern_autocomplete;
 
 typedef struct {
-	GtkTextTag *selftag; /* the tag used to highlight this pattern */
-	GtkTextTag *blocktag; /* if this pattern ends a context or a block, we can highlight
-	the region within the start and end pattern with this tag */
-	gchar *reference; /* the reference data, or NULL. may be inserted in hash tables for multiple keys in multiple contexts */
-	gchar *pattern; /* the pattern itself. stored in the Tpattern so we can re-use it in another context */
+	GtkTextTag *selftag;		/* the tag used to highlight this pattern */
+	GtkTextTag *blocktag;		/* if this pattern ends a context or a block, we can highlight
+								   the region within the start and end pattern with this tag */
+	gchar *reference;			/* the reference data, or NULL. may be inserted in hash tables for multiple keys in multiple contexts */
+	gchar *pattern;				/* the pattern itself. stored in the Tpattern so we can re-use it in another context */
 	GSList *autocomp_items;
-	gchar *selfhighlight; /* a string with the highlight for this pattern. used when re-linking highlights and textstyles 
-							if the user changed any of these in the preferences */
-	gchar *blockhighlight; /* a string for the highlight corresponding to the  blocktag */
+	gchar *selfhighlight;		/* a string with the highlight for this pattern. used when re-linking highlights and textstyles 
+								   if the user changed any of these in the preferences */
+	gchar *blockhighlight;		/* a string for the highlight corresponding to the  blocktag */
 
-	gint16 blockstartpattern; /* the number of the pattern that may start this block, or -1 to end the last started block */
-	gint16 nextcontext; /* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
-			to pop a context of the stack */
-	/* TODO:  all following guint8 entries are booleans that can be combined into a single 8 bits integer with a bitmask */ 
-	guint8 starts_block; /* wether or not this pattern may start a block */
-	guint8 ends_block; /* wether or not this pattern may end a block */
+	gint16 blockstartpattern;	/* the number of the pattern that may start this block, or -1 to end the last started block */
+	gint16 nextcontext;			/* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
+								   to pop a context of the stack */
+	/* TODO:  all following guint8 entries are booleans that can be combined into a single 8 bits integer with a bitmask */
+	guint8 starts_block;		/* wether or not this pattern may start a block */
+	guint8 ends_block;			/* wether or not this pattern may end a block */
 	guint8 case_insens;
 	guint8 is_regex;
-	guint8 tagclose_from_blockstack; /* this is a generix xml close tag that needs the blockstack to autoclose */
+	guint8 tagclose_from_blockstack;	/* this is a generix xml close tag that needs the blockstack to autoclose */
 #ifdef IDENTSTORING
 	guint8 identmode;
-#endif /* IDENTSTORING */
+#endif							/* IDENTSTORING */
 	/*gboolean may_fold;  not yet used */
 	/*gboolean highlight_other_end; not yet used */
 } Tpattern;
 
 typedef struct {
 	guint16 row[NUMSCANCHARS];	/* contains for each character the number of the next state
-						because we use a 16bit unsigned number we can support only 65535 states
-						at maximum!!!!!!! but we use half the size of the scanning table, which
-						hopefully helps to keep the scanning table in the L2 cache of the CPU */
-	guint16 match;			/* 0 == no match, refers to the index number in array 'matches' */
-} Ttablerow; /* a row in the DFA, right now exactly 256 bytes */
+								   because we use a 16bit unsigned number we can support only 65535 states
+								   at maximum!!!!!!! but we use half the size of the scanning table, which
+								   hopefully helps to keep the scanning table in the L2 cache of the CPU */
+	guint16 match;				/* 0 == no match, refers to the index number in array 'matches' */
+} Ttablerow;					/* a row in the DFA, right now exactly 256 bytes */
 
 typedef enum {
 	comment_type_block,
@@ -340,11 +333,11 @@ typedef struct {
 } Tcomment;
 
 typedef struct {
-	guint8 allsymbols[128]; /* this lookup table holds all symbols for all contexts, and is used to trigger scanning if reduced_scan_triggers is enabled */
-	GArray *table; /* dynamic sized array of Ttablerow: the DFA table, max 65.... entries, we use a guint16 as index */
-	GArray *contexts; /* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
-	GArray *matches; /* dynamic sized array of Tpattern */
-	GArray *comments; /* Tcomment, has max. 256 entries, we use a guint8 as index */
+	guint8 allsymbols[128];		/* this lookup table holds all symbols for all contexts, and is used to trigger scanning if reduced_scan_triggers is enabled */
+	GArray *table;				/* dynamic sized array of Ttablerow: the DFA table, max 65.... entries, we use a guint16 as index */
+	GArray *contexts;			/* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
+	GArray *matches;			/* dynamic sized array of Tpattern */
+	GArray *comments;			/* Tcomment, has max. 256 entries, we use a guint8 as index */
 } Tscantable;
 
 /*****************************************************************/
@@ -356,55 +349,55 @@ typedef struct {
 	guint32 end1_o;
 	guint32 start2_o;
 	guint32 end2_o;
-	gint16 patternum; /* which pattern (number of the array element in scantable->matches) */
+	gint16 patternum;			/* which pattern (number of the array element in scantable->matches) */
 	guint8 folded;
-	guint8 foldable; /* FALSE on a single line */
-} Tfoundblock; /* Once a start-of-block is found start1 and end1 are set
-							and the Tfoundblock is added to the foundcache.
-							The previous foundblock is set as parentfblock
-							so we can later on find what the current blockstack looks like.
-						Once the end-of-block is found, start2 and end2 are set
-							The Tfoundblock is popped as current block, and the parent
-							is active again. This is also put on the foundcache
-							
-						on 64bit this type has size 8+4+4+4+4+2+1+1 + 4 padding = 32 bytes
-						on 32bit this type has size 4+4+4+4+4+2+1+1 NO padding = 24 bytes
-							*/
+	guint8 foldable;			/* FALSE on a single line */
+} Tfoundblock;					/* Once a start-of-block is found start1 and end1 are set
+								   and the Tfoundblock is added to the foundcache.
+								   The previous foundblock is set as parentfblock
+								   so we can later on find what the current blockstack looks like.
+								   Once the end-of-block is found, start2 and end2 are set
+								   The Tfoundblock is popped as current block, and the parent
+								   is active again. This is also put on the foundcache
+
+								   on 64bit this type has size 8+4+4+4+4+2+1+1 + 4 padding = 32 bytes
+								   on 32bit this type has size 4+4+4+4+4+2+1+1 NO padding = 24 bytes
+								 */
 
 typedef struct {
 	gpointer parentfcontext;
 	guint32 start_o;
 	guint32 end_o;
-	gint16 context; /* number of the element in scantable->contexts */
-} Tfoundcontext; /* Once a start-of-context is found start is set
-						and the Tfoundcontext is added to the current foundcache.
-						The previous fcontext is set in parentfcontext
-						so we can later on find what the current contextstack looks like.
-						once the end-of-context is found, end is set
-						The Tfoundcontext is popped from the current stack and
-						this entry is also added to the foundcache
-						
-						on 64bit this type has size 8+4+4+2 + 6 padding = 24 bytes
-						on 32bit this type has size 4+4+4+2 + 2 padding = 16 bytes
-						*/
+	gint16 context;				/* number of the element in scantable->contexts */
+} Tfoundcontext;				/* Once a start-of-context is found start is set
+								   and the Tfoundcontext is added to the current foundcache.
+								   The previous fcontext is set in parentfcontext
+								   so we can later on find what the current contextstack looks like.
+								   once the end-of-context is found, end is set
+								   The Tfoundcontext is popped from the current stack and
+								   this entry is also added to the foundcache
+
+								   on 64bit this type has size 8+4+4+2 + 6 padding = 24 bytes
+								   on 32bit this type has size 4+4+4+2 + 2 padding = 16 bytes
+								 */
 
 typedef struct {
-	Tfoundcontext *fcontext; /* if numcontextchange == 0 this points to the current active context
-				if numcontextchange > 0 this points to the pushed context, which also happens to be the current context
-	 			if numcontextchange < 0 this points to the top of the stack at this position, to get the current position 
-	 			you'll have to pop N items (where N is -1 * numcontextchange). */
-	Tfoundblock *fblock; /* if numblockchange == 0 this points to the current active block
-				if numblockchange > 0 this points to the pushed block, which also happens to be the current block
-	 			if numblockchange < 0 this points to the top of the stack at this position, to get the current position 
-	 			you'll have to pop N items (where N is -1 * numblockchange). */ 
+	Tfoundcontext *fcontext;	/* if numcontextchange == 0 this points to the current active context
+								   if numcontextchange > 0 this points to the pushed context, which also happens to be the current context
+								   if numcontextchange < 0 this points to the top of the stack at this position, to get the current position 
+								   you'll have to pop N items (where N is -1 * numcontextchange). */
+	Tfoundblock *fblock;		/* if numblockchange == 0 this points to the current active block
+								   if numblockchange > 0 this points to the pushed block, which also happens to be the current block
+								   if numblockchange < 0 this points to the top of the stack at this position, to get the current position 
+								   you'll have to pop N items (where N is -1 * numblockchange). */
 	guint32 charoffset_o;
-	gint16 numblockchange; /* there are files that have > 127 pops in a single position
-									for example html files that don't close paragrahs or tablerows */
-	gint8 numcontextchange; /* 0 means no change, 1 means 1 push, -2 means 2 popped etc. */
-} Tfound; /*
-						on 64bit this type has size 8+8+4+2+1 + 1 padding = 24 bytes
-						on 32bit this type has size 4+4+4+2+1 + 1 padding = 16 bytes
-						*/
+	gint16 numblockchange;		/* there are files that have > 127 pops in a single position
+								   for example html files that don't close paragrahs or tablerows */
+	gint8 numcontextchange;		/* 0 means no change, 1 means 1 push, -2 means 2 popped etc. */
+} Tfound;						/*
+								   on 64bit this type has size 8+8+4+2+1 + 1 padding = 24 bytes
+								   on 32bit this type has size 4+4+4+2+1 + 1 padding = 16 bytes
+								 */
 
 
 #define IS_FOUNDMODE_CONTEXTPUSH(i)   (i->numcontextchange > 0)
@@ -413,11 +406,11 @@ typedef struct {
 #define IS_FOUNDMODE_BLOCKPOP(i)   (i->numblockchange < 0)
 
 typedef struct {
-	GSequence* foundcaches; /* a sorted structure of Tfound for
-				each position where the stack changes so we can restart scanning
-				on any location */
-	guint32 valid_cache_offset; /* from 0 to this offset the cache is considered valid. after this 
-						position the cache could be outdated */ 
+	GSequence *foundcaches;		/* a sorted structure of Tfound for
+								   each position where the stack changes so we can restart scanning
+								   on any location */
+	guint32 valid_cache_offset;	/* from 0 to this offset the cache is considered valid. after this 
+								   position the cache could be outdated */
 } Tscancache;
 /********************************/
 /* language manager */
@@ -425,20 +418,20 @@ typedef struct {
 typedef struct {
 	gchar *name;
 	GList *mimetypes;
-	/*GList *langoptions;*/ /* all options that can be enabled/disabled for this language and their default value (0 or 1) */
-	/*GList *setoptions;*/ /* all options that are enabled have value '1' in this hashtable */
-	GList *tags; /* all tags used for highlighting in this language. we use this list when 
-						we want to remove all tags and want to re-highlight */
-	gchar *filename; /* the .bflang2 file */
-	Tscantable *st; /* NULL or complete */
+	/*GList *langoptions; *//* all options that can be enabled/disabled for this language and their default value (0 or 1) */
+	/*GList *setoptions; *//* all options that are enabled have value '1' in this hashtable */
+	GList *tags;				/* all tags used for highlighting in this language. we use this list when 
+								   we want to remove all tags and want to re-highlight */
+	gchar *filename;			/* the .bflang2 file */
+	Tscantable *st;				/* NULL or complete */
 	gchar *smartindentchars;
 	gchar *smartoutdentchars;
 #ifdef HAVE_LIBENCHANT
 	gboolean default_spellcheck;
 	gboolean spell_decode_entities;
 #endif
-	gboolean no_st; /* no scantable, for Text, don't try to load the scantable if st=NULL */
-	gboolean parsing; /* set to TRUE when a thread is parsing the scantable already */
+	gboolean no_st;				/* no scantable, for Text, don't try to load the scantable if st=NULL */
+	gboolean parsing;			/* set to TRUE when a thread is parsing the scantable already */
 	gint size_table;
 	gint size_contexts;
 	gint size_matches;
@@ -475,50 +468,50 @@ typedef struct _BluefishTextViewClass BluefishTextViewClass;
 
 struct _BluefishTextView {
 	GtkTextView parent;
-	gpointer master; /* points usually to self, but in the case of a slave widget 
-					(two widgets showing the same buffer it will point to the master widget) */
-	gpointer slave; /* usually NULL, but might point to a slave widget */
-	Tbflang *bflang; /* Tbflang */
-	gpointer doc; /* Tdocument */
+	gpointer master;			/* points usually to self, but in the case of a slave widget 
+								   (two widgets showing the same buffer it will point to the master widget) */
+	gpointer slave;				/* usually NULL, but might point to a slave widget */
+	Tbflang *bflang;			/* Tbflang */
+	gpointer doc;				/* Tdocument */
 	GtkTextBuffer *buffer;
 	GtkTextTag *needscanning;
 #ifdef HAVE_LIBENCHANT
 	GtkTextTag *needspellcheck;
-#endif /*HAVE_LIBENCHANT*/
+#endif							/*HAVE_LIBENCHANT */
 	GtkTextTag *blockmatch;
 	Tscancache scancache;
-	
-	guint scanner_idle; /* event ID for the idle function that handles the scanning. 0 if no idle function is running */
-	guint scanner_delayed; /* event ID for the timeout function that handles the delayed scanning. 0 if no timeout function is running */
+
+	guint scanner_idle;			/* event ID for the idle function that handles the scanning. 0 if no idle function is running */
+	guint scanner_delayed;		/* event ID for the timeout function that handles the delayed scanning. 0 if no timeout function is running */
 	GTimer *user_idle_timer;
-	guint user_idle; /* event ID for the timed function that handles user idle events such as autocompletion popups */
-	guint mark_set_idle; /* event ID for the mark_set idle function that avoids showing matching block bounds while 
-								you hold the arrow key to scroll quickly */
+	guint user_idle;			/* event ID for the timed function that handles user idle events such as autocompletion popups */
+	guint mark_set_idle;		/* event ID for the mark_set idle function that avoids showing matching block bounds while 
+								   you hold the arrow key to scroll quickly */
 	gulong insert_text_id;
 	gulong insert_text_after_id;
 	gulong mark_set_id;
 	gulong delete_range_id;
 	gulong delete_range_after_id;
-	
-	gpointer autocomp; /* a Tacwin* with the current autocompletion window */
-	gboolean needs_autocomp; /* a state of the widget, autocomplete is needed on user keyboard actions */
-	gboolean needs_blockmatch; /* a state of the widget, if the cursor position was changed */
-	gboolean key_press_inserted_char; /* FALSE if the key press was used by autocomplete popup, or simply not in our widget */
+
+	gpointer autocomp;			/* a Tacwin* with the current autocompletion window */
+	gboolean needs_autocomp;	/* a state of the widget, autocomplete is needed on user keyboard actions */
+	gboolean needs_blockmatch;	/* a state of the widget, if the cursor position was changed */
+	gboolean key_press_inserted_char;	/* FALSE if the key press was used by autocomplete popup, or simply not in our widget */
 	/*gboolean key_press_was_autocomplete;  a state of the widget, if the last keypress was handled by the autocomplete popup window */
-	gboolean showing_blockmatch; /* a state of the widget if we are currently showing a blockmatch */
-	gboolean insert_was_auto_indent; /* a state of the widget if the last keypress (enter) caused 
-													autoindent (so we should unindent on a closing bracket */
-	gboolean needremovetags; /* after we have removed all old highlighting, we set this to FALSE
-										but after a change that needs highlighting we set this to TRUE again */
+	gboolean showing_blockmatch;	/* a state of the widget if we are currently showing a blockmatch */
+	gboolean insert_was_auto_indent;	/* a state of the widget if the last keypress (enter) caused 
+										   autoindent (so we should unindent on a closing bracket */
+	gboolean needremovetags;	/* after we have removed all old highlighting, we set this to FALSE
+								   but after a change that needs highlighting we set this to TRUE again */
 
 	/* next three are used for margin painting */
 	gint margin_pixels_per_char;
 	gint margin_pixels_chars;
 	gint margin_pixels_block;
 	gint margin_pixels_symbol;
-	
+
 	/* following options are simple true/false settings */
-	gboolean enable_scanner; /* only run scanner when TRUE, this is FALSE if the document is in the background for example */
+	gboolean enable_scanner;	/* only run scanner when TRUE, this is FALSE if the document is in the background for example */
 	gboolean auto_indent;
 	gboolean auto_complete;
 	gboolean show_line_numbers;
@@ -526,7 +519,7 @@ struct _BluefishTextView {
 	gboolean showsymbols;
 	gboolean visible_spacing;
 	gboolean show_right_margin;
-	gboolean show_mbhl; /* show matching block highlighting */
+	gboolean show_mbhl;			/* show matching block highlighting */
 #ifdef HAVE_LIBENCHANT
 	gboolean spell_check;
 #endif
@@ -536,7 +529,8 @@ struct _BluefishTextViewClass {
 	GtkTextViewClass parent_class;
 };
 
-GType bluefish_text_view_get_type (void);
+GType bluefish_text_view_get_type(void);
+
 
 
 gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
@@ -545,7 +539,7 @@ gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);
 void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable);
 void bftextview2_init_globals(void);
 void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors);
-void bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, const gchar *filename);
+void bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, const gchar * filename);
 gboolean bluefish_text_view_get_show_blocks(BluefishTextView * btv);
 void bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show);
 gboolean bluefish_text_view_get_show_line_numbers(BluefishTextView * btv);
@@ -562,18 +556,14 @@ void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_c
 void bluefish_text_view_scan_cleanup(BluefishTextView * btv);
 void bluefish_text_view_rescan(BluefishTextView * btv);
 void bftextview2_schedule_scanning(BluefishTextView * btv);
-gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter *its, GtkTextIter *ite);
-Tcomment *bluefish_text_view_get_comment(BluefishTextView *btv, GtkTextIter *it, Tcomment_type preferred_type);
-void bluefish_text_view_multiset(BluefishTextView *btv
-			, gpointer doc
-			, gint view_line_numbers
-			, gint view_blocks
-			, gint autoindent
-			, gint autocomplete
-			, gint show_mbhl);
+gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its, GtkTextIter * ite);
+Tcomment *bluefish_text_view_get_comment(BluefishTextView * btv, GtkTextIter * it,
+										 Tcomment_type preferred_type);
+void bluefish_text_view_multiset(BluefishTextView * btv, gpointer doc, gint view_line_numbers,
+								 gint view_blocks, gint autoindent, gint autocomplete, gint show_mbhl);
 
-GtkWidget * bftextview2_new(void);
-GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer);
-GtkWidget *bftextview2_new_slave(BluefishTextView *master);
+GtkWidget *bftextview2_new(void);
+GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer);
+GtkWidget *bftextview2_new_slave(BluefishTextView * master);
 
 #endif

@@ -2,7 +2,7 @@
  * bluefish.h - global prototypes
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2010 Olivier Sessink
+ * Copyright (C) 1999-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -419,6 +419,16 @@ typedef struct {
 	Tproject *project;			/* might be NULL for a default project */
 	GtkWidget *main_window;
 	GtkWidget *toolbarbox;		/* vbox on top, with main and html toolbar */
+
+	/* Main Menus & toolbar */
+	GtkUIManager *uimanager;
+	GtkActionGroup *globalGroup;
+	GtkActionGroup *documentGroup;
+	GtkActionGroup *editGroup;
+	GtkActionGroup *findReplaceGroup;
+	GtkActionGroup *projectGroup;
+	GtkActionGroup *undoGroup;
+
 	GtkWidget *menubar;
 	gint last_notebook_page;	/* a check to see if the notebook changed to a new page */
 	guint notebook_changed_doc_activate_id;
@@ -436,10 +446,6 @@ typedef struct {
 	GtkWidget *statusbar_insovr;	/* insert/overwrite indicator */
 	GtkWidget *statusbar_editmode;	/* editor mode and doc encoding */
 	/* the following list contains toolbar widgets we like to reference later on */
-	GtkWidget *toolbar_undo;
-	GtkWidget *toolbar_redo;
-	GtkWidget *toolbar_fullscreen;
-	GtkWidget *toolbar_normalscreen;
 	GtkWidget *toolbar_quickbar;	/* the quickbar widget */
 	GList *toolbar_quickbar_children;	/* this list is needed to remove widgets from the quickbar */
 	/* following widgets are used to show/hide stuff */
@@ -447,15 +453,21 @@ typedef struct {
 	GtkWidget *html_toolbar_hb;
 	GtkWidget *leftpanel_notebook;
 	GtkWidget *gotoline_frame;
-	/* following are lists with dynamic menu entries */
-	GList *menu_recent_files;
-	GList *menu_recent_projects;
-	GList *menu_external;
-	GList *menu_encodings;
-	GList *menu_outputbox;
-	GList *menu_cmenu_entries;
-	GList *menu_filetypes;
-	GList *menu_templates;
+	/* action based dynamic menus */
+	GtkActionGroup *templates_group;
+	guint templates_merge_id;
+	GtkActionGroup *lang_mode_group;
+	guint lang_mode_merge_id;
+	GtkActionGroup *commands_group;
+	guint commands_merge_id;
+	GtkActionGroup *filters_group;
+	guint filters_merge_id;
+	GtkActionGroup *outputbox_group;
+	guint outputbox_merge_id;
+	GtkActionGroup *encodings_group;
+	guint encodings_merge_id;
+	GtkActionGroup *fb2_filters_group;
+	guint fb2_filters_merge_id;
 #ifdef HAVE_LIBENCHANT
 	gpointer *ed;				/* EnchantDict */
 #endif

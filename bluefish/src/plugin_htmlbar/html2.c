@@ -2,7 +2,7 @@
  * html2.c - menu/toolbar callbacks, inserting functions, and other cool stuff 
  * otherwise html.c is getting so long ;-)
  *
- * Copyright (C) 1999-2009 Olivier Sessink
+ * Copyright (C) 1999-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 #include <stdlib.h>            /* strtol() */
 
 #include "htmlbar.h"
-#include "htmlbar_gui.h"
+#include "htmlbar_stock_icons.h"
 #include "html2.h"
 #include "cap.h"
 #include "../bf_lib.h"         /* string_is_color(), strip_any_whitespace()*/
@@ -973,7 +973,7 @@ GtkWidget *style_but_new(GtkWidget * which_entry, GtkWidget * win)
 
 	style_but = gtk_button_new();
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), htmlbar_pixmap(pixmap_css_small),FALSE, FALSE, 3);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_image_new_from_stock(BF_STOCK_CSS_SMALL, GTK_ICON_SIZE_BUTTON),FALSE, FALSE, 3);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(_("_Style...")), TRUE, TRUE, 3);
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
 	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_clicked_lcb), which_entry);
@@ -1010,7 +1010,7 @@ GtkWidget *style_but_new_for_wizard(GtkWidget * textview) {
 
 	style_but = gtk_button_new();
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), htmlbar_pixmap(pixmap_css_small),FALSE, FALSE, 6);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_image_new_from_stock(BF_STOCK_CSS_SMALL, GTK_ICON_SIZE_BUTTON),FALSE, FALSE, 6);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(_("_Style...")), TRUE, TRUE, 6);
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
 	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_for_wizard_clicked_lcb), textview);

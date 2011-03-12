@@ -6,85 +6,151 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-02-05 08:48+0100\n"
+"POT-Creation-Date: 2011-03-12 12:24-0800\n"
 "PO-Revision-Date: 2010-04-21 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Language: nb\n"
 
-#: src/plugin_snippets/snippets_gui.c:271
-msgid "Set accelerator key"
-msgstr "Velg snarveitast"
-
-#: src/plugin_snippets/snippets_gui.c:303
-msgid "Snippet export filename"
-msgstr "Eksportfil for utklipp"
-
-#: src/plugin_snippets/snippets_gui.c:313
-msgid "Snippet import filename"
-msgstr "Importfil for utklipp"
-
-#: src/plugin_snippets/snippets_gui.c:352
-msgid "/_New snippet"
-msgstr "/_Nytt utklipp"
-
-#: src/plugin_snippets/snippets_gui.c:353
-msgid "/_Edit snippet"
-msgstr "/_Rediger utklipp"
-
-#: src/plugin_snippets/snippets_gui.c:354
-msgid "/_Delete snippet"
-msgstr "/_Slett utklipp"
-
-#: src/plugin_snippets/snippets_gui.c:355
-msgid "/Delete branch"
-msgstr "/Slett gren"
-
-#: src/plugin_snippets/snippets_gui.c:357
-msgid "/Set snippet _accelerator"
-msgstr "/Sett snarveitast for utklipp"
-
-#: src/plugin_snippets/snippets_gui.c:359
-msgid "/Expand all"
-msgstr "/Ekspander alle"
-
-#: src/plugin_snippets/snippets_gui.c:360
-msgid "/Collapse all"
-msgstr "/Skjul alle"
-
-#: src/plugin_snippets/snippets_gui.c:362
-msgid "/Show as menu"
-msgstr "/Vis som meny"
-
-#: src/plugin_snippets/snippets_gui.c:364
-msgid "/Export"
-msgstr "/Eksporter"
-
-#: src/plugin_snippets/snippets_gui.c:365
-msgid "/Import"
-msgstr "/Importer"
-
-#: src/plugin_snippets/snippets_gui.c:501
+#: src/plugin_snippets/snippets_gui.c:407
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr "Klikk høyre museknapp for å legge til, redigere eller slette utklipp"
 
-#: src/plugin_snippets/snippets_gui.c:502
+#: src/plugin_snippets/snippets_gui.c:408
 msgid "Use drag and drop to re-order snippets"
 msgstr "Bruk dra-og-slipp for å omorganisere utklipp"
 
-#: src/plugin_snippets/snippets_gui.c:503
+#: src/plugin_snippets/snippets_gui.c:409
 msgid "To exchange snippets with others use import or export"
 msgstr "For å bytte utklipp med andre, bruk import- eller eksportfunksjonen"
 
-#: src/plugin_snippets/snippets_gui.c:674
+#: src/plugin_snippets/snippets_gui.c:598
 msgid "snippets"
 msgstr "utklipp"
 
-#: src/plugin_snippets/snippets_gui.c:705
-msgid "/View/Snippets Menu"
+#: src/plugin_snippets/snippets_gui.c:685
+msgid "Snippet export filename"
+msgstr "Eksportfil for utklipp"
+
+#: src/plugin_snippets/snippets_gui.c:723
+msgid "Snippet import filename"
+msgstr "Importfil for utklipp"
+
+#: src/plugin_snippets/snippets_gui.c:741
+msgid "Set accelerator key"
+msgstr "Velg snarveitast"
+
+#: src/plugin_snippets/snippets_gui.c:797
+#, fuzzy
+msgid "Snippets menu"
+msgstr "/Vis/Utklippsmeny"
+
+#: src/plugin_snippets/snippets_gui.c:798
+#, fuzzy
+msgid "_New Snippet"
+msgstr "/_Nytt utklipp"
+
+#: src/plugin_snippets/snippets_gui.c:798
+#: src/plugin_snippets/snippets_wizard.c:756
+msgid "New snippet"
+msgstr "Nytt utklipp"
+
+#: src/plugin_snippets/snippets_gui.c:799
+#, fuzzy
+msgid "_Edit Snippet"
+msgstr "/_Rediger utklipp"
+
+#: src/plugin_snippets/snippets_gui.c:799
+#, fuzzy
+msgid "Edit snippet"
+msgstr "/_Rediger utklipp"
+
+#: src/plugin_snippets/snippets_gui.c:800
+#, fuzzy
+msgid "_Delete Snippet"
+msgstr "/_Slett utklipp"
+
+#: src/plugin_snippets/snippets_gui.c:800
+#, fuzzy
+msgid "Delete snippet"
+msgstr "/_Slett utklipp"
+
+#: src/plugin_snippets/snippets_gui.c:801
+#, fuzzy
+msgid "Delete _Branch"
+msgstr "/Slett gren"
+
+#: src/plugin_snippets/snippets_gui.c:801
+#, fuzzy
+msgid "Delete branch"
+msgstr "/Slett gren"
+
+#: src/plugin_snippets/snippets_gui.c:802
+#, fuzzy
+msgid "Set Snippet _Accelerator"
+msgstr "/Sett snarveitast for utklipp"
+
+#: src/plugin_snippets/snippets_gui.c:802
+#, fuzzy
+msgid "Set snippet accelerator"
+msgstr "/Sett snarveitast for utklipp"
+
+#: src/plugin_snippets/snippets_gui.c:804
+#, fuzzy
+msgid "Ex_pand All"
+msgstr "/Ekspander alle"
+
+#: src/plugin_snippets/snippets_gui.c:804
+#, fuzzy
+msgid "Expand all"
+msgstr "/Ekspander alle"
+
+#: src/plugin_snippets/snippets_gui.c:805
+#, fuzzy
+msgid "_Collapse All"
+msgstr "/Skjul alle"
+
+#: src/plugin_snippets/snippets_gui.c:805
+#, fuzzy
+msgid "Collapse all"
+msgstr "/Skjul alle"
+
+#: src/plugin_snippets/snippets_gui.c:806
+#, fuzzy
+msgid "E_xport"
+msgstr "/Eksporter"
+
+#: src/plugin_snippets/snippets_gui.c:806
+#, fuzzy
+msgid "Export snippets"
+msgstr "utklipp"
+
+#: src/plugin_snippets/snippets_gui.c:807
+#, fuzzy
+msgid "I_mport"
+msgstr "/Importer"
+
+#: src/plugin_snippets/snippets_gui.c:807
+#, fuzzy
+msgid "Import snippets"
+msgstr "utklipp"
+
+#: src/plugin_snippets/snippets_gui.c:811
+#, fuzzy
+msgid "_Show as menu"
+msgstr "/Vis som meny"
+
+#: src/plugin_snippets/snippets_gui.c:811
+#, fuzzy
+msgid "Show snippets menu"
+msgstr "/Vis som meny"
+
+#: src/plugin_snippets/snippets_gui.c:813
+#, fuzzy
+msgid "Snippets Menu"
 msgstr "/Vis/Utklippsmeny"
 
 #: src/plugin_snippets/snippets_leaf_insert.c:63
@@ -233,7 +299,3 @@ msgstr "Sett inn tekst"
 #: src/plugin_snippets/snippets_wizard.c:647
 msgid "Search and replace pattern"
 msgstr "Søkemønster"
-
-#: src/plugin_snippets/snippets_wizard.c:756
-msgid "New snippet"
-msgstr "Nytt utklipp"

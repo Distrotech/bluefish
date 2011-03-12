@@ -28,13 +28,13 @@ typedef struct {
 	/* span of byte-data in buffer */
 	gint bstart;
 	gint bend;
-	
+
 	/* these data are only used (and alloc'ed) if want_submatches is set in the search backend,
-	they should be freed by the calling function! */
+	   they should be freed by the calling function! */
 	regmatch_t *pmatch;
 	gint nmatch;
-	Tdocument *doc; /* used when searching all documents */
-	gint errorcode; /* 0 means no error */
+	Tdocument *doc;				/* used when searching all documents */
+	gint errorcode;				/* 0 means no error */
 } Tsearch_result;
 
 /*typedef struct {
@@ -45,21 +45,25 @@ typedef struct {
 
 typedef enum { match_normal, match_word, match_posix, match_perl } Tmatch_types;
 
-void snr2_init(Tbfwin *bfwin);
-void snr2_cleanup(Tbfwin *bfwin);
+void snr2_init(Tbfwin * bfwin);
+void snr2_cleanup(Tbfwin * bfwin);
 
-gint snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
-							Tmatch_types matchtype, gint is_case_sens, const gchar *replace_pattern,
-							gboolean unescape);
-Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens, gint offset);
-void doc_show_result(Tdocument *document, GtkWindow *window, gint start, gint end, gboolean select_match);
-void search_from_selection(Tbfwin *bfwin);
-void search_cb(GtkWidget *widget, Tbfwin *bfwin);
-void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin);
-void search_again_cb(GtkWidget *widget, Tbfwin *bfwin);
-void replace_cb(GtkWidget *widget, Tbfwin *bfwin);
-void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfilename, gint doc_has_newfilename);
-void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding);
+gint snr2_run_extern_replace(Tdocument * doc, const gchar * search_pattern, gint region,
+							 Tmatch_types matchtype, gint is_case_sens, const gchar * replace_pattern,
+							 gboolean unescape);
+Tsearch_result doc_search_run_extern(Tdocument * doc, gchar * search_pattern, gint matchtype,
+									 gint is_case_sens, gint offset);
+void doc_show_result(Tdocument * document, GtkWindow * window, gint start, gint end, gboolean select_match);
+void search_from_selection(Tbfwin * bfwin);
+void search_cb(GtkWidget * widget, Tbfwin * bfwin);
+void replace_again(Tbfwin * bfwin);
+void replace_again_cb(GtkWidget * widget, Tbfwin * bfwin);
+void search_again(Tbfwin * bfwin);
+void search_again_cb(GtkWidget * widget, Tbfwin * bfwin);
+void replace_cb(GtkWidget * widget, Tbfwin * bfwin);
+void update_filenames_in_file(Tdocument * doc, gchar * oldfilename, gchar * newfilename,
+							  gint doc_has_newfilename);
+void update_encoding_meta_in_file(Tdocument * doc, gchar * encoding);
 
 enum {
 	BF_FIND_DIALOG = 0,
@@ -67,11 +71,11 @@ enum {
 };
 void snr_dialog_new(Tbfwin * bfwin, gint dialogType);
 
-void strip_trailing_spaces(Tdocument *doc);
-void join_lines(Tdocument *doc);
-void split_lines(Tdocument *doc);
-void rewrap_lines(Tdocument *doc);
-void convert_identing(Tdocument *doc, gboolean to_tabs);
-void toggle_comment(Tdocument *doc);
-void convert_to_columns(Tdocument *doc);
+void strip_trailing_spaces(Tdocument * doc);
+void join_lines(Tdocument * doc);
+void split_lines(Tdocument * doc);
+void rewrap_lines(Tdocument * doc);
+void convert_identing(Tdocument * doc, gboolean to_tabs);
+void toggle_comment(Tdocument * doc);
+void convert_to_columns(Tdocument * doc);
 #endif							/* __SNR_H_ */

@@ -6,7 +6,7 @@
  *
  * Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach
- * Copyright (C) 2002-2010 Olivier Sessink
+ * Copyright (C) 2002-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,8 +22,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <gtk/gtk.h>
-#include <stdlib.h>			/* atoi */
-#include <string.h>			/* strchr() */
+#include <stdlib.h>				/* atoi */
+#include <string.h>				/* strchr() */
 #include <gdk/gdkkeysyms.h>
 
 /* #define DEBUG */
@@ -35,7 +35,7 @@
 #include <gtkosxapplication.h>
 #endif
 
-#include "bf_lib.h"			/* append_string_to_file() */
+#include "bf_lib.h"				/* append_string_to_file() */
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
@@ -43,18 +43,18 @@
 #include "doc_text_tools.h"
 #include "encodings_dialog.h"
 #include "file_dialogs.h"
-#include "gtk_easy.h"            /* window_full, bf_stock_ok_button */
-#include "gui.h"                 /* go_to_line_win_cb */
-#include "menu.h"                /* my own .h file */
+#include "gtk_easy.h"			/* window_full, bf_stock_ok_button */
+#include "gui.h"				/* go_to_line_win_cb */
+#include "menu.h"				/* my own .h file */
 #include "pixmap.h"
-#include "preferences.h"         /* open_preferences_menu_cb */
+#include "preferences.h"		/* open_preferences_menu_cb */
 #include "project.h"
-#include "rcfile.h"              /* rcfile_save_configfile_menu_cb */
-#include "snr2.h"                /* search_cb, replace_cb */
-#include "stringlist.h"          /* free_stringlist() */
-#include "undo_redo.h"           /* undo_cb() redo_cb() etc. */
+#include "rcfile.h"				/* rcfile_save_configfile_menu_cb */
+#include "snr2.h"				/* search_cb, replace_cb */
+#include "stringlist.h"			/* free_stringlist() */
+#include "undo_redo.h"			/* undo_cb() redo_cb() etc. */
 #include "external_commands.h"
-#include "outputbox.h"           /* temporary */
+#include "outputbox.h"			/* temporary */
 #include "blocksync.h"
 #include "bftextview2.h"
 #include "bftextview2_langmgr.h"
@@ -62,6 +62,7 @@
 #ifdef HAVE_PYTHON
 #include "embed_python.h"
 #endif
+
 
 /*
 The callback for an ItemFactory entry can take two forms. If callback_action is zero, it is of the following form:
@@ -72,148 +73,157 @@ callback_data is a pointer to an arbitrary piece of data and is set during the c
 
 we want to pass the Tbfwin* so we should never use a callback_action of zero
 */
-static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	switch(callback_action) {
+static void
+menu_file_operations_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
+{
+	switch (callback_action) {
 	case 1:
-		file_new_cb(NULL,bfwin);
-	break;
+		file_new_cb(NULL, bfwin);
+		break;
 	case 2:
-		file_open_cb(NULL,bfwin);
-	break;
+		file_open_cb(NULL, bfwin);
+		break;
 	case 3:
-		file_open_advanced_cb(NULL,bfwin);
-	break;
+		file_open_advanced_cb(NULL, bfwin);
+		break;
 	case 4:
 		if (bfwin->current_document)
 			doc_reload(bfwin->current_document, NULL, TRUE);
-	break;
+		break;
 	case 5:
 		file_save_cb(NULL, bfwin);
-	break;
+		break;
 	case 6:
 		file_save_as_cb(NULL, bfwin);
-	break;
+		break;
 	case 7:
 		file_move_to_cb(NULL, bfwin);
-	break;
+		break;
 	case 8:
 		file_save_all_cb(NULL, bfwin);
-	break;
+		break;
 	case 9:
 		file_close_cb(NULL, bfwin);
-	break;
+		break;
 	case 10:
 		edit_cut_cb(NULL, bfwin);
-	break;
+		break;
 	case 11:
 		edit_copy_cb(NULL, bfwin);
-	break;
+		break;
 	case 12:
 		edit_paste_cb(NULL, bfwin);
-	break;
+		break;
 	case 13:
 		edit_select_all_cb(NULL, bfwin);
-	break;
+		break;
 	case 14:
 		search_cb(NULL, bfwin);
-	break;
+		break;
 	case 16:
 		search_again_cb(NULL, bfwin);
-	break;
+		break;
 	case 17:
 		snr_dialog_new(bfwin, 1);
-	break;
+		break;
 	case 19:
 		replace_again_cb(NULL, bfwin);
-	break;
+		break;
 	case 20:
 		undo_cb(NULL, bfwin);
-	break;
+		break;
 	case 21:
 		redo_cb(NULL, bfwin);
-	break;
+		break;
 	case 22:
 		undo_all_cb(NULL, bfwin);
-	break;
+		break;
 	case 23:
 		redo_all_cb(NULL, bfwin);
-	break;
+		break;
 	case 24:
-		file_close_all_cb(NULL,bfwin);
-	break;
+		file_close_all_cb(NULL, bfwin);
+		break;
 	case 25:
 		file_open_url_cb(NULL, bfwin);
-	break;
+		break;
 	case 26:
 		file_open_from_selection(bfwin);
-	break;
+		break;
 	case 27:
 		search_from_selection(bfwin);
-	break;
+		break;
 	case 28:
 		blocksync_dialog(bfwin);
-	break;
+		break;
 	case 29:
 		strip_trailing_spaces(CURDOC(bfwin));
-	break;
+		break;
 	case 30:
 		convert_identing(CURDOC(bfwin), TRUE);
-	break;
+		break;
 	case 31:
 		convert_identing(CURDOC(bfwin), FALSE);
-	break;
+		break;
 	case 32:
 		sync_dialog(bfwin);
-	break;
+		break;
 	case 33:
 		join_lines(CURDOC(bfwin));
-	break;
+		break;
 	case 34:
 		split_lines(CURDOC(bfwin));
-	break;
+		break;
 	case 35:
 		toggle_comment(CURDOC(bfwin));
-	break;
+		break;
 	case 36:
 		convert_to_columns(CURDOC(bfwin));
-	break;
+		break;
 	case 37:
 		rewrap_lines(CURDOC(bfwin));
-	break;
+		break;
 #ifdef HAVE_PYTHON
 	case 99:
 		{
-			GtkWidget *dialog = file_chooser_dialog(bfwin, "for testing: choose python file", GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE, NULL, FALSE);
-			if (gtk_dialog_run(GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+			GtkWidget *dialog =
+				file_chooser_dialog(bfwin, "for testing: choose python file", GTK_FILE_CHOOSER_ACTION_OPEN,
+									NULL, TRUE, FALSE, NULL, FALSE);
+			if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 				gchar *file;
 				file = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
-				if (file) pythonRun(bfwin, file);
+				if (file)
+					pythonRun(bfwin, file);
 			}
-			gtk_widget_destroy (dialog);
+			gtk_widget_destroy(dialog);
 		}
-	break;
+		break;
 #endif
 	default:
-		DEBUG_MSG_C("uh-oh: menu_file_operations_cb, unknown action %d\n",callback_action);
+		DEBUG_MSG_C("uh-oh: menu_file_operations_cb, unknown action %d\n", callback_action);
 		g_return_if_reached();
 	}
 }
 
-static void menu_bmark_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	switch(callback_action) {
+static void
+menu_bmark_operations_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
+{
+	switch (callback_action) {
 	case 1:
-	   bmark_add(bfwin);
-	break;
+		bmark_add(bfwin);
+		break;
 /*	case 2:
 	   bmark_add_perm(bfwin);
 	break;*/
 	default:
-			g_print("Bmark action no. %d\n",callback_action);
+		g_print("Bmark action no. %d\n", callback_action);
 	}
 }
 
-static void encodings_dialog_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	bluefish_encodings_dialog_new (bfwin);
+static void
+encodings_dialog_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
+{
+	bluefish_encodings_dialog_new(bfwin);
 }
 
 static GtkItemFactoryEntry menu_items[] = {
@@ -230,16 +240,18 @@ static GtkItemFactoryEntry menu_items[] = {
 #ifndef WIN32
 #ifndef MAC_INTEGRATION
 	{N_("/File/Open _URL..."), NULL, menu_file_operations_cb, 25, "<Item>"},
-#endif /*ifndef MAC_INTEGRATION*/
-#endif /*ifndef WIN32*/
+#endif							/*ifndef MAC_INTEGRATION */
+#endif							/*ifndef WIN32 */
 	{N_("/File/Open _From Selection"), NULL, menu_file_operations_cb, 26, "<Item>"},
 	{N_("/File/_Insert..."), NULL, file_insert_menucb, 1, "<Item>"},
 	{"/File/sep1", NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Save"), "<control>S", menu_file_operations_cb, 5, "<StockItem>", GTK_STOCK_SAVE},
-	{N_("/File/Save _As..."), "<shift><control>S", menu_file_operations_cb, 6, "<StockItem>", GTK_STOCK_SAVE_AS},
+	{N_("/File/Save _As..."), "<shift><control>S", menu_file_operations_cb, 6, "<StockItem>",
+	 GTK_STOCK_SAVE_AS},
 	{N_("/File/Rena_me..."), "F2", menu_file_operations_cb, 7, "<Item>"},
 	{N_("/File/Sav_e All"), NULL, menu_file_operations_cb, 8, "<Item>"},
-	{N_("/File/Rever_t to Saved"), NULL, menu_file_operations_cb, 4, "<StockItem>", GTK_STOCK_REVERT_TO_SAVED},
+	{N_("/File/Rever_t to Saved"), NULL, menu_file_operations_cb, 4, "<StockItem>",
+	 GTK_STOCK_REVERT_TO_SAVED},
 	{"/File/sep3", NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Close"), "<control>w", menu_file_operations_cb, 9, "<StockItem>", GTK_STOCK_CLOSE},
 	{N_("/File/Close A_ll"), "<shift><control>w", menu_file_operations_cb, 24, "<Item>"},
@@ -268,7 +280,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/_Find..."), "<control>f", menu_file_operations_cb, 14, "<StockItem>", GTK_STOCK_FIND},
 	{N_("/Edit/Find A_gain"), "<control>g", menu_file_operations_cb, 16, "<Item>"},
 	{N_("/Edit/Find From Selection"), "<shift><control>f", menu_file_operations_cb, 27, "<Item>"},
-	{N_("/Edit/R_eplace..."), "<control>h", menu_file_operations_cb, 17, "<StockItem>", GTK_STOCK_FIND_AND_REPLACE},
+	{N_("/Edit/R_eplace..."), "<control>h", menu_file_operations_cb, 17, "<StockItem>",
+	 GTK_STOCK_FIND_AND_REPLACE},
 	{N_("/Edit/Replace Agai_n"), "<shift><control>h", menu_file_operations_cb, 19, "<Item>"},
 	{"/Edit/sep4", NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/_Indent"), NULL, menu_indent_cb, 2, "<StockItem>", GTK_STOCK_INDENT},
@@ -344,7 +357,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Go/Last _Bookmark"), NULL, bookmark_menu_cb, 4, "<StockItem>", GTK_STOCK_GOTO_BOTTOM},
 	{"/Go/sep3", NULL, NULL, 0, "<Separator>"},
 	{N_("/Go/Goto _Line"), "<control>l", gui_gotoline_frame_show, 1, "<StockItem>", GTK_STOCK_JUMP_TO},
-	{N_("/Go/Goto line number in _selection"), "<shift><control>l", go_to_line_from_selection_cb, 1, "<Item>"},
+	{N_("/Go/Goto line number in _selection"), "<shift><control>l", go_to_line_from_selection_cb, 1,
+	 "<Item>"},
 	{N_("/Go/Jump to reference"), "<control>j", doc_menu_lcb, 16, "<Item>"},
 	{N_("/_Project"), NULL, NULL, 0, "<Branch>"},
 	{"/Project/tearoff1", NULL, NULL, 0, "<Tearoff>"},
@@ -382,7 +396,9 @@ static GtkItemFactoryEntry menu_items[] = {
 };
 
 #ifdef ENABLE_NLS
-gchar *menu_translate(const gchar * path, gpointer data) {
+gchar *
+menu_translate(const gchar * path, gpointer data)
+{
 	gchar *retval;
 /*	static gchar *menupath = NULL;
 	if (menupath) g_free(menupath);
@@ -410,10 +426,13 @@ typedef struct {
 } Tbfw_dynmenu;
 #define BFW_DYNMENU(var) ((Tbfw_dynmenu *)(var))
 
-static Tbfw_dynmenu *find_bfw_dynmenu_by_data_in_list(GList *thelist, gpointer data) {
+static Tbfw_dynmenu *
+find_bfw_dynmenu_by_data_in_list(GList * thelist, gpointer data)
+{
 	GList *tmplist = g_list_first(thelist);
 	while (tmplist) {
-		if (BFW_DYNMENU(tmplist->data)->data == data) return BFW_DYNMENU(tmplist->data);
+		if (BFW_DYNMENU(tmplist->data)->data == data)
+			return BFW_DYNMENU(tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
 	return NULL;
@@ -435,15 +454,18 @@ static Tbfw_dynmenu *find_bfw_dynmenu_by_label_in_list(GList *itemlist, gchar *l
 }
 */
 
-static GtkWidget *remove_menuitem_in_list_by_label(const gchar *labelstring, GList **menuitemlist) {
+static GtkWidget *
+remove_menuitem_in_list_by_label(const gchar * labelstring, GList ** menuitemlist)
+{
 	GList *tmplist;
 	gpointer tmp;
 
 	tmplist = g_list_first(*menuitemlist);
 	while (tmplist) {
 		DEBUG_MSG("remove_recent_entry, tmplist=%p, data=%p\n", tmplist, tmplist->data);
-		DEBUG_MSG("remove_recent_entry, tmplist->data=%s\n",GTK_LABEL(gtk_bin_get_child(GTK_BIN(tmplist->data)))->label);
-		if(!strcmp(gtk_label_get_label(GTK_LABEL(gtk_bin_get_child(GTK_BIN(tmplist->data)))), labelstring)) {
+		DEBUG_MSG("remove_recent_entry, tmplist->data=%s\n",
+				  GTK_LABEL(gtk_bin_get_child(GTK_BIN(tmplist->data)))->label);
+		if (!strcmp(gtk_label_get_label(GTK_LABEL(gtk_bin_get_child(GTK_BIN(tmplist->data)))), labelstring)) {
 			tmp = tmplist->data;
 			*menuitemlist = g_list_remove(*menuitemlist, tmplist->data);
 			DEBUG_MSG("remove_recent_entry, returning %p\n", tmp);
@@ -455,30 +477,35 @@ static GtkWidget *remove_menuitem_in_list_by_label(const gchar *labelstring, GLi
 }
 
 /* the result of this function can be added to the menuitem-list */
-static GtkWidget *create_dynamic_menuitem(Tbfwin *bfwin, const gchar *menubasepath, const gchar *label, GCallback callback, gpointer data, gint menu_insert_offset) {
+static GtkWidget *
+create_dynamic_menuitem(Tbfwin * bfwin, const gchar * menubasepath, const gchar * label, GCallback callback,
+						gpointer data, gint menu_insert_offset)
+{
 	GtkWidget *tmp, *menu;
 	GtkItemFactory *factory;
 
 	/* add it to bfwin->menubar */
 	factory = gtk_item_factory_from_widget(bfwin->menubar);
 	menu = gtk_item_factory_get_widget(factory, menubasepath);
-	DEBUG_MSG("create_dynamic_menuitem, menubar=%p, menu=%p, basepath=%s, label=%s\n", bfwin->menubar, menu, menubasepath, label);
+	DEBUG_MSG("create_dynamic_menuitem, menubar=%p, menu=%p, basepath=%s, label=%s\n", bfwin->menubar, menu,
+			  menubasepath, label);
 	if (!menu)
 		return NULL;
 	if (label) {
 		tmp = gtk_menu_item_new_with_label(label);
-		g_signal_connect(G_OBJECT(tmp), "activate",callback, data);
-	} else { /* separator */
+		g_signal_connect(G_OBJECT(tmp), "activate", callback, data);
+	} else {					/* separator */
 		tmp = gtk_menu_item_new();
 	}
 	gtk_widget_show(tmp);
 	if (menu_insert_offset == -1) {
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu),tmp);
+		gtk_menu_shell_append(GTK_MENU_SHELL(menu), tmp);
 	} else {
-		gtk_menu_shell_insert(GTK_MENU_SHELL(menu),tmp,menu_insert_offset);
+		gtk_menu_shell_insert(GTK_MENU_SHELL(menu), tmp, menu_insert_offset);
 	}
 	return tmp;
 }
+
 /*
 static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory) {
 	char *basepath;
@@ -502,35 +529,43 @@ static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory)
 	g_free(basepath);
 }	*/
 
-static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
+static void
+menu_current_document_type_change(GtkMenuItem * menuitem, Tbfw_dynmenu * bdm)
+{
 	DEBUG_MSG("menu_current_document_type_change, started for bflang %p\n", bdm->data);
 	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem)) && bdm->bfwin->current_document) {
-		doc_set_mimetype(bdm->bfwin->current_document, ((Tbflang *)bdm->data)->mimetypes->data, NULL);
+		doc_set_mimetype(bdm->bfwin->current_document, ((Tbflang *) bdm->data)->mimetypes->data, NULL);
 	}
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
 }
 
-void free_bfw_dynmenu_list(GList *list) {
+void
+free_bfw_dynmenu_list(GList * list)
+{
 	GList *tmplist = g_list_first(list);
 	while (tmplist) {
 		Tbfw_dynmenu *bdm = BFW_DYNMENU(tmplist->data);
-		if (bdm->signal_id!=0)
-			g_signal_handler_disconnect(bdm->menuitem,bdm->signal_id);
+		if (bdm->signal_id != 0)
+			g_signal_handler_disconnect(bdm->menuitem, bdm->signal_id);
 		gtk_widget_destroy(bdm->menuitem);
-		g_slice_free(Tbfw_dynmenu,bdm);
+		g_slice_free(Tbfw_dynmenu, bdm);
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(list);
 }
 
-static void menu_template_lcb(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
+static void
+menu_template_lcb(GtkMenuItem * menuitem, Tbfw_dynmenu * bdm)
+{
 	gchar **arr = bdm->data;
 	GFile *uri = g_file_new_for_commandline_arg(arr[1]);
 	doc_new_with_template(bdm->bfwin, uri, FALSE);
 	g_object_unref(uri);
 }
 
-void template_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
+void
+template_menu_rebuild(Tbfwin * bfwin, GtkItemFactory * item_factory)
+{
 	GtkWidget *parent_menu;
 	GList *tmplist;
 	if (!item_factory) {
@@ -542,13 +577,15 @@ void template_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/File/New From Template"));
 	tmplist = g_list_last(main_v->props.templates);
 	while (tmplist) {
-		gchar **arr = (gchar **)tmplist->data;
+		gchar **arr = (gchar **) tmplist->data;
 		if (arr && arr[0] && arr[1]) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->data = arr;
 			bdm->bfwin = bfwin;
 			bdm->menuitem = gtk_menu_item_new_with_label(arr[0]);
-			bdm->signal_id = g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(menu_template_lcb), (gpointer) bdm);
+			bdm->signal_id =
+				g_signal_connect(G_OBJECT(bdm->menuitem), "activate", G_CALLBACK(menu_template_lcb),
+								 (gpointer) bdm);
 			gtk_widget_show(bdm->menuitem);
 			gtk_menu_insert(GTK_MENU(parent_menu), bdm->menuitem, 1);
 			bfwin->menu_templates = g_list_prepend(bfwin->menu_templates, bdm);
@@ -557,8 +594,10 @@ void template_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	}
 }
 
-void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
-	GSList *group=NULL;
+void
+filetype_menu_rebuild(Tbfwin * bfwin, GtkItemFactory * item_factory)
+{
+	GSList *group = NULL;
 	GtkWidget *parent_menu;
 	GList *tmplist, *list;
 	if (!item_factory) {
@@ -569,12 +608,14 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Language Mode"));
 	list = tmplist = g_list_last(langmgr_get_languages());
 	while (tmplist) {
-		Tbflang *bflang = (Tbflang *)tmplist->data;
+		Tbflang *bflang = (Tbflang *) tmplist->data;
 		Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 		bdm->data = bflang;
 		bdm->bfwin = bfwin;
 		bdm->menuitem = gtk_radio_menu_item_new_with_label(group, bflang->name);
-		bdm->signal_id = g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) bdm);
+		bdm->signal_id =
+			g_signal_connect(G_OBJECT(bdm->menuitem), "activate",
+							 G_CALLBACK(menu_current_document_type_change), (gpointer) bdm);
 		gtk_widget_show(bdm->menuitem);
 		gtk_menu_insert(GTK_MENU(parent_menu), bdm->menuitem, 1);
 		group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(bdm->menuitem));
@@ -588,7 +629,9 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
  * menu factory crap, thanks to the gtk tutorial for this
  * both the 1.0 and the 1.2 code is directly from the tutorial
  */
-void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
+void
+menu_create_main(Tbfwin * bfwin, GtkWidget * vbox)
+{
 	GtkItemFactory *item_factory;
 	GtkAccelGroup *accel_group;
 	gint nmenu_items = sizeof(menu_items) / sizeof(menu_items[0]);
@@ -605,8 +648,10 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_accel_map_add_entry("<bluefishmain>/Edit/Unindent", GDK_comma, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Go/Previous Document", GDK_Page_Up, GDK_CONTROL_MASK);
 	gtk_accel_map_add_entry("<bluefishmain>/Go/Next Document", GDK_Page_Down, GDK_CONTROL_MASK);
-	gtk_accel_map_add_entry("<bluefishmain>/Go/First Document", GDK_Page_Up, GDK_SHIFT_MASK | GDK_CONTROL_MASK);
-	gtk_accel_map_add_entry("<bluefishmain>/Go/Last Document", GDK_Page_Down, GDK_SHIFT_MASK | GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Go/First Document", GDK_Page_Up,
+							GDK_SHIFT_MASK | GDK_CONTROL_MASK);
+	gtk_accel_map_add_entry("<bluefishmain>/Go/Last Document", GDK_Page_Down,
+							GDK_SHIFT_MASK | GDK_CONTROL_MASK);
 	gtk_widget_show(bfwin->menubar);
 	setup_toggle_item(item_factory, "/View/Main Toolbar", bfwin->session->view_main_toolbar);
 	setup_toggle_item(item_factory, "/View/Side Pane", bfwin->session->view_left_panel);
@@ -632,28 +677,32 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	return menuitem;
 }*/
 
-static void menu_outputbox_lcb(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
-	gchar **arr = (gchar **)bdm->data;
-	outputbox(bdm->bfwin,arr[1], atoi(arr[2]), atoi(arr[3]), atoi(arr[4]), arr[5]);
+static void
+menu_outputbox_lcb(GtkMenuItem * menuitem, Tbfw_dynmenu * bdm)
+{
+	gchar **arr = (gchar **) bdm->data;
+	outputbox(bdm->bfwin, arr[1], atoi(arr[2]), atoi(arr[3]), atoi(arr[4]), arr[5]);
 }
 
 /*******************************************************************/
 /*               Open Recent menu handling                         */
 /*******************************************************************/
 /* the only required header */
-static GtkWidget *create_recent_entry(Tbfwin *bfwin, const gchar *filename, gboolean is_project, gboolean check_for_duplicates);
+static GtkWidget *create_recent_entry(Tbfwin * bfwin, const gchar * filename, gboolean is_project,
+									  gboolean check_for_duplicates);
 /*******************************************************************/
 
-static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboolean is_project) {
-	if (filename)
-	{
+static GtkWidget *
+remove_recent_entry(Tbfwin * bfwin, const gchar * filename, gboolean is_project)
+{
+	if (filename) {
 		GList *tmplist;
 		GList **worklist;
 		gpointer tmp;
 
 		worklist = (is_project) ? &bfwin->menu_recent_projects : &bfwin->menu_recent_files;
 
-		if(strcmp(filename, "last") ==0) {
+		if (strcmp(filename, "last") == 0) {
 			tmplist = g_list_first(*worklist);
 			if (tmplist) {
 				tmp = tmplist->data;
@@ -671,11 +720,13 @@ static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 		return NULL;
 }
 
-static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
+static void
+open_recent_project_cb(GtkWidget * widget, Tbfwin * bfwin)
+{
 	GFile *uri = g_file_new_for_uri(gtk_label_get_label(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
 	if (uri) {
 		project_open_from_file(bfwin, uri);
-		add_to_recent_list(bfwin,uri, 0, TRUE);
+		add_to_recent_list(bfwin, uri, 0, TRUE);
 		g_object_unref(uri);
 	}
 }
@@ -683,11 +734,13 @@ static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
 /* open_recent_file
  * This function should be called when a menu from the Open Recent list
  * has been selected. */
-static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
+static void
+open_recent_file_cb(GtkWidget * widget, Tbfwin * bfwin)
+{
 	GFile *uri = g_file_new_for_uri(gtk_label_get_label(GTK_LABEL(gtk_bin_get_child(GTK_BIN(widget)))));
 	if (uri) {
 		doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1);
-		add_to_recent_list(bfwin,uri, 0, FALSE);
+		add_to_recent_list(bfwin, uri, 0, FALSE);
 		g_object_unref(uri);
 	}
 }
@@ -696,32 +749,35 @@ static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
  * This function builds the gtkitemfactoryentry and inserts it at the
  * bfwin->menubar. Furthermore, it returns a pointer to it, so that
  * this pointer can be added in the main_v->recent_files list */
-static GtkWidget *create_recent_entry(Tbfwin *bfwin, const gchar *filename, gboolean is_project, gboolean check_for_duplicates) {
+static GtkWidget *
+create_recent_entry(Tbfwin * bfwin, const gchar * filename, gboolean is_project,
+					gboolean check_for_duplicates)
+{
 	GtkWidget *tmp;
 
 	if (check_for_duplicates) {
-		tmp = remove_recent_entry(bfwin,filename,is_project);
+		tmp = remove_recent_entry(bfwin, filename, is_project);
 		if (tmp) {
 			gtk_widget_hide(tmp);
 			gtk_widget_destroy(tmp);
 		}
 	}
 	if (is_project) {
-		return  create_dynamic_menuitem(bfwin,"/Project/Open Recent"
-			, filename, G_CALLBACK(open_recent_project_cb), bfwin
-			, 1);
+		return create_dynamic_menuitem(bfwin, "/Project/Open Recent", filename,
+									   G_CALLBACK(open_recent_project_cb), bfwin, 1);
 	} else {
-		return  create_dynamic_menuitem(bfwin,"/File/Open Recent"
-			, filename, G_CALLBACK(open_recent_file_cb), bfwin
-			, 1);
+		return create_dynamic_menuitem(bfwin, "/File/Open Recent", filename, G_CALLBACK(open_recent_file_cb),
+									   bfwin, 1);
 	}
 }
 
-GList *recent_menu_from_list(Tbfwin *bfwin, GList *startat, gboolean is_project) {
-	GList *retlist=NULL, *tmplist=startat;
+GList *
+recent_menu_from_list(Tbfwin * bfwin, GList * startat, gboolean is_project)
+{
+	GList *retlist = NULL, *tmplist = startat;
 	while (tmplist) {
-		DEBUG_MSG("recent_menu_init, adding recent project %s\n",(gchar *)tmplist->data);
-		retlist = g_list_append(retlist, create_recent_entry(bfwin,tmplist->data,is_project,FALSE));
+		DEBUG_MSG("recent_menu_init, adding recent project %s\n", (gchar *) tmplist->data);
+		retlist = g_list_append(retlist, create_recent_entry(bfwin, tmplist->data, is_project, FALSE));
 		tmplist = g_list_next(tmplist);
 	}
 	return retlist;
@@ -732,7 +788,9 @@ GList *recent_menu_from_list(Tbfwin *bfwin, GList *startat, gboolean is_project)
  * it at the File-->Open Recent menu. If the file doesn't exist (probably
  * because this is the first time Bluefish is running) then a menu
  * item telling that no recent files exist will appear */
-void recent_menu_init(Tbfwin *bfwin) {
+void
+recent_menu_init(Tbfwin * bfwin)
+{
 /*	recent_menu_from_file(bfwin, "/."PACKAGE"/recentlist", FALSE);
 	recent_menu_from_file(bfwin, "/."PACKAGE"/recentprojects", TRUE);*/
 	bfwin->menu_recent_files = recent_menu_from_list(bfwin, bfwin->session->recent_files, FALSE);
@@ -741,8 +799,10 @@ void recent_menu_init(Tbfwin *bfwin) {
 
 /* when a project is opened, the recent menu should show the recent files
 from that project */
-void recent_menu_init_project(Tbfwin *bfwin) {
-	/*gint num;*/
+void
+recent_menu_init_project(Tbfwin * bfwin)
+{
+	/*gint num; */
 	GList *tmplist = g_list_first(bfwin->menu_recent_files);
 	while (tmplist) {
 		gtk_widget_destroy(tmplist->data);
@@ -752,26 +812,30 @@ void recent_menu_init_project(Tbfwin *bfwin) {
 	bfwin->menu_recent_files = recent_menu_from_list(bfwin, bfwin->session->recent_files, FALSE);
 }
 
-static void register_recent(gchar *curi, gboolean is_project) {
-	if (main_v->props.register_recent_mode==0)
+static void
+register_recent(gchar * curi, gboolean is_project)
+{
+	if (main_v->props.register_recent_mode == 0)
 		return;
-	if(is_project) {
+	if (is_project) {
 		gtk_recent_manager_add_item(main_v->recentm, curi);
 		return;
 	}
-	if (main_v->props.register_recent_mode==1) {
+	if (main_v->props.register_recent_mode == 1) {
 		gtk_recent_manager_add_item(main_v->recentm, curi);
 	}
 }
+
 /* Add_to_recent_list
  * This should be called when a new file is opened, i.e. from
  * file_open_cb, it adds a new entry which also appears in the
  * menu bar, and (if nessecary) deletes the last entry */
-void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean is_project) {
+void
+add_to_recent_list(Tbfwin * bfwin, GFile * file, gint closed_file, gboolean is_project)
+{
 	gchar *filename = g_file_get_uri(file);
-	if (filename)
-	{
-		register_recent(filename,is_project);
+	if (filename) {
+		register_recent(filename, is_project);
 		if (closed_file) {
 			GList *tmplist = g_list_first(main_v->bfwinlist);
 			while (tmplist) {
@@ -781,14 +845,16 @@ void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean i
 					GList **worklist;
 					worklist = (is_project) ? &curbfwin->menu_recent_projects : &curbfwin->menu_recent_files;
 
-					/* First of all, create the entry and insert it at the list*/
-					*worklist = g_list_append(*worklist,create_recent_entry(curbfwin,filename,is_project,TRUE));
+					/* First of all, create the entry and insert it at the list */
+					*worklist =
+						g_list_append(*worklist, create_recent_entry(curbfwin, filename, is_project, TRUE));
 
 					DEBUG_MSG("add_to_recent_list, inserted item in menu\n");
-					if(g_list_length(*worklist) > main_v->props.max_recent_files) {
-						tmp = remove_recent_entry(bfwin,"last",is_project);
+					if (g_list_length(*worklist) > main_v->props.max_recent_files) {
+						tmp = remove_recent_entry(bfwin, "last", is_project);
 						if (tmp) {
-							DEBUG_MSG("add_to_recent_list, list too long, entry %s to be deleted\n", GTK_LABEL(GTK_BIN(tmp)->child)->label);
+							DEBUG_MSG("add_to_recent_list, list too long, entry %s to be deleted\n",
+									  GTK_LABEL(GTK_BIN(tmp)->child)->label);
 							gtk_widget_hide(tmp);
 							gtk_widget_destroy(tmp);
 						}
@@ -798,9 +864,11 @@ void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean i
 			}
 		}
 		if (is_project) {
-			main_v->globses.recent_projects = add_to_history_stringlist(main_v->globses.recent_projects, filename, FALSE,TRUE);
+			main_v->globses.recent_projects =
+				add_to_history_stringlist(main_v->globses.recent_projects, filename, FALSE, TRUE);
 		} else {
-			bfwin->session->recent_files = add_to_history_stringlist(bfwin->session->recent_files, filename, FALSE,TRUE);
+			bfwin->session->recent_files =
+				add_to_history_stringlist(bfwin->session->recent_files, filename, FALSE, TRUE);
 		}
 		g_free(filename);
 	}
@@ -810,25 +878,27 @@ void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean i
 /* Browsers!!    */
 /*****************/
 
-void browser_toolbar_cb(GtkWidget *widget, Tbfwin *bfwin) {
-    GList *tmplist = g_list_first(main_v->props.external_command);
-    if (tmplist && tmplist->data) {
-        while (tmplist) {
-            gchar **arr = tmplist->data;
-            if (arr[2][0] == '1') { /* This is the default browser */
-                external_command(bfwin, arr[1]);
-                return;
-            }
-            tmplist = g_list_next(tmplist);
-        }
-    }
+void
+browser_toolbar_cb(GtkWidget * widget, Tbfwin * bfwin)
+{
+	GList *tmplist = g_list_first(main_v->props.external_command);
+	if (tmplist && tmplist->data) {
+		while (tmplist) {
+			gchar **arr = tmplist->data;
+			if (arr[2][0] == '1') {	/* This is the default browser */
+				external_command(bfwin, arr[1]);
+				return;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
 
-    message_dialog_new(bfwin->main_window,
-                       GTK_MESSAGE_INFO,
-                       GTK_BUTTONS_CLOSE,
-                       _("No default browser found"),
-                       _("You can set a default browser by going to:\n"
-                         "Edit->Preferences->External Commands"));
+	message_dialog_new(bfwin->main_window,
+					   GTK_MESSAGE_INFO,
+					   GTK_BUTTONS_CLOSE,
+					   _("No default browser found"),
+					   _("You can set a default browser by going to:\n"
+						 "Edit->Preferences->External Commands"));
 }
 
 typedef struct {
@@ -836,26 +906,31 @@ typedef struct {
 	Tbfw_dynmenu *bdm;
 } Tfilterdialog;
 
-static void external_filter_dialog_response_lcb(GtkWidget *widget,gint response_id, gpointer data) {
-	Tfilterdialog *fd= data;
-	gchar **arr = (gchar **)fd->bdm->data;
-	gint begin=0,end=-1;
+static void
+external_filter_dialog_response_lcb(GtkWidget * widget, gint response_id, gpointer data)
+{
+	Tfilterdialog *fd = data;
+	gchar **arr = (gchar **) fd->bdm->data;
+	gint begin = 0, end = -1;
 	gtk_widget_destroy(widget);
-	doc_restore_selection(fd->selsave, TRUE); /* the restore will also free the Tselectionsave */
+	doc_restore_selection(fd->selsave, TRUE);	/* the restore will also free the Tselectionsave */
 	if (response_id == 1 && fd->bdm->bfwin->current_document) {
-		doc_get_selection(fd->bdm->bfwin->current_document,&begin,&end);
+		doc_get_selection(fd->bdm->bfwin->current_document, &begin, &end);
 	}
-	filter_command(fd->bdm->bfwin, arr[1],begin,end);
-	g_slice_free(Tfilterdialog,fd);
+	filter_command(fd->bdm->bfwin, arr[1], begin, end);
+	g_slice_free(Tfilterdialog, fd);
 }
 
-static void external_filter_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
-	gchar **arr = (gchar **)bdm->data;
-	gint begin=0,end=-1;
+static void
+external_filter_lcb(GtkWidget * widget, Tbfw_dynmenu * bdm)
+{
+	gchar **arr = (gchar **) bdm->data;
+	gint begin = 0, end = -1;
 	/* if we have a selection, and the filter can be used on a selection,
-	 we should ask if it should be the complete file or the selection */
+	   we should ask if it should be the complete file or the selection */
 
-	if (operatable_on_selection(arr[1]) && (bdm->bfwin->current_document && doc_has_selection(bdm->bfwin->current_document))) {
+	if (operatable_on_selection(arr[1])
+		&& (bdm->bfwin->current_document && doc_has_selection(bdm->bfwin->current_document))) {
 		GtkWidget *dialog, *but;
 		Tfilterdialog *fd;
 		fd = g_slice_new(Tfilterdialog);
@@ -863,22 +938,27 @@ static void external_filter_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 
 		fd->selsave = doc_save_selection(bdm->bfwin->current_document);
 		/* TODO: this dialog is not very convenient, hitting enter should choose 'selection' */
-		dialog = gtk_message_dialog_new(GTK_WINDOW(bdm->bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_NONE,_("Text area to filter"));
+		dialog =
+			gtk_message_dialog_new(GTK_WINDOW(bdm->bfwin->main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
+								   GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, _("Text area to filter"));
 		gtk_dialog_add_button(GTK_DIALOG(dialog), _("All text"), 0);
 		but = gtk_dialog_add_button(GTK_DIALOG(dialog), _("Selected text only"), 1);
 		gtk_widget_grab_default(but);
-		g_signal_connect(dialog,"response",G_CALLBACK(external_filter_dialog_response_lcb),fd);
+		g_signal_connect(dialog, "response", G_CALLBACK(external_filter_dialog_response_lcb), fd);
 		gtk_widget_show_all(dialog);
 	} else {
-		DEBUG_MSG("external_filter_lcb, calling external_command for %s\n",arr[1]);
-		filter_command(bdm->bfwin, arr[1],begin,end);
+		DEBUG_MSG("external_filter_lcb, calling external_command for %s\n", arr[1]);
+		filter_command(bdm->bfwin, arr[1], begin, end);
 	}
 }
 
-static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
-	gchar **arr = (gchar **)bdm->data;
+static void
+external_command_lcb(GtkWidget * widget, Tbfw_dynmenu * bdm)
+{
+	gchar **arr = (gchar **) bdm->data;
 	external_command(bdm->bfwin, arr[1]);
 }
+
 /**
  * external_menu_rebuild:
  * @bfwin: #Tbfwin*
@@ -887,7 +967,9 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
  *
  * Return value: void
  */
-void external_menu_rebuild(Tbfwin *bfwin) {
+void
+external_menu_rebuild(Tbfwin * bfwin)
+{
 	GList *tmplist;
 
 	/* first cleanup all menu's */
@@ -898,8 +980,8 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 	bfwin->menu_outputbox = NULL;
 
 	/*create_parent_and_tearoff(N_("/Tools/Outputbox/"), gtk_item_factory_from_widget(bfwin->menubar));
-	create_parent_and_tearoff(N_("/Tools/Commands/"), gtk_item_factory_from_widget(bfwin->menubar));
-	create_parent_and_tearoff(N_("/Tools/Filters/"), gtk_item_factory_from_widget(bfwin->menubar));*/
+	   create_parent_and_tearoff(N_("/Tools/Commands/"), gtk_item_factory_from_widget(bfwin->menubar));
+	   create_parent_and_tearoff(N_("/Tools/Filters/"), gtk_item_factory_from_widget(bfwin->menubar)); */
 
 	tmplist = g_list_first(main_v->props.external_filter);
 	while (tmplist) {
@@ -907,17 +989,21 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		/*  arr[0] = name
 		 *  arr[1] = command
 		 */
-		if (g_strv_length(arr)==2) {
+		if (g_strv_length(arr) == 2) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
-			bdm->signal_id=0;
+			bdm->signal_id = 0;
 			DEBUG_MSG("external_menu_rebuild,Adding filter %s with command %s to the menu\n", arr[0], arr[1]);
-			bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools/Filters",arr[0],G_CALLBACK(external_filter_lcb),bdm,-1);
-			DEBUG_MSG("external_menu_rebuild,creating,bfwin=%p,bdm=%p,menuitem=%p\n",bfwin,bdm,bdm->menuitem);
+			bdm->menuitem =
+				create_dynamic_menuitem(bfwin, "/Tools/Filters", arr[0], G_CALLBACK(external_filter_lcb), bdm,
+										-1);
+			DEBUG_MSG("external_menu_rebuild,creating,bfwin=%p,bdm=%p,menuitem=%p\n", bfwin, bdm,
+					  bdm->menuitem);
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
 		} else {
-			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_filter; array count =%d\n",g_strv_length(arr));
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_filter; array count =%d\n",
+					  g_strv_length(arr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -929,19 +1015,24 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		 *  arr[1] = command
 		 *  arr[2] = is_default_browser
 		 */
-		if (g_strv_length(arr)==3) {
+		if (g_strv_length(arr) == 3) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
-			bdm->signal_id=0;
+			bdm->signal_id = 0;
 			if (arr[2][0] == '1') {
-				bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools",arr[0],G_CALLBACK(external_command_lcb),bdm,1);
+				bdm->menuitem =
+					create_dynamic_menuitem(bfwin, "/Tools", arr[0], G_CALLBACK(external_command_lcb), bdm,
+											1);
 			} else {
-				bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools/Commands",arr[0],G_CALLBACK(external_command_lcb),bdm,-1);
+				bdm->menuitem =
+					create_dynamic_menuitem(bfwin, "/Tools/Commands", arr[0],
+											G_CALLBACK(external_command_lcb), bdm, -1);
 			}
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
 		} else {
-			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_command; array count =%d\n",g_strv_length(arr));
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_command; array count =%d\n",
+					  g_strv_length(arr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -960,64 +1051,79 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 		 * arr[5] = command
 		 * arr[6] = show_all_output
 		 */
-		if (g_strv_length(arr)==6) {
+		if (g_strv_length(arr) == 6) {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
 			bdm->data = arr;
 			bdm->bfwin = bfwin;
-			bdm->signal_id=0;
-			DEBUG_MSG("external_menu_rebuild,Adding outputbox %s with command %s to the menu\n", arr[0], arr[5]);
-			bdm->menuitem = create_dynamic_menuitem(bfwin,"/Tools/Outputbox",arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)bdm,-1);
-			bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox,bdm);
+			bdm->signal_id = 0;
+			DEBUG_MSG("external_menu_rebuild,Adding outputbox %s with command %s to the menu\n", arr[0],
+					  arr[5]);
+			bdm->menuitem =
+				create_dynamic_menuitem(bfwin, "/Tools/Outputbox", arr[0], G_CALLBACK(menu_outputbox_lcb),
+										(gpointer) bdm, -1);
+			bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox, bdm);
 		} else {
-			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_outputbox; array count =%d\n",g_strv_length(arr));
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_outputbox; array count =%d\n",
+					  g_strv_length(arr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
 }
 
-static void menu_current_document_encoding_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
+static void
+menu_current_document_encoding_change(GtkMenuItem * menuitem, Tbfw_dynmenu * bdm)
+{
 	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menuitem))) {
-		gchar *encoding = (gchar *)bdm->data;
+		gchar *encoding = (gchar *) bdm->data;
 		Tbfwin *bfwin = bdm->bfwin;
-		DEBUG_MSG("menu_current_document_encoding_change, encoding=%s\n",encoding);
+		DEBUG_MSG("menu_current_document_encoding_change, encoding=%s\n", encoding);
 		if (encoding && bfwin->current_document) {
-			if ((!bfwin->current_document->encoding || strcmp(encoding,bfwin->current_document->encoding)!=0)) {
-				if (bfwin->current_document->encoding) g_free(bfwin->current_document->encoding);
+			if ((!bfwin->current_document->encoding
+				 || strcmp(encoding, bfwin->current_document->encoding) != 0)) {
+				if (bfwin->current_document->encoding)
+					g_free(bfwin->current_document->encoding);
 				bfwin->current_document->encoding = g_strdup(encoding);
 				if (main_v->props.auto_set_encoding_meta) {
 					update_encoding_meta_in_file(bfwin->current_document, bfwin->current_document->encoding);
 				}
 				DEBUG_MSG("menu_current_document_encoding_change, set to %s\n", encoding);
 			}
-			if (bfwin->session->encoding) g_free(bfwin->session->encoding);
+			if (bfwin->session->encoding)
+				g_free(bfwin->session->encoding);
 			bfwin->session->encoding = g_strdup(encoding);
-			DEBUG_MSG("menu_current_document_encoding_change, session encoding now is %s\n",bfwin->session->encoding);
+			DEBUG_MSG("menu_current_document_encoding_change, session encoding now is %s\n",
+					  bfwin->session->encoding);
 		}
 	}
 }
 
-void encoding_menu_rebuild(Tbfwin *bfwin) {
-	GSList *group=NULL;
+void
+encoding_menu_rebuild(Tbfwin * bfwin)
+{
+	GSList *group = NULL;
 	GtkWidget *parent_menu;
 	GList *tmplist;
-	
+
 	free_bfw_dynmenu_list(bfwin->menu_encodings);
 	bfwin->menu_encodings = NULL;
 
 	tmplist = g_list_last(main_v->globses.encodings);
-	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Document/Character Encoding"));
+	parent_menu =
+		gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar),
+									N_("/Document/Character Encoding"));
 	while (tmplist) {
-		gchar **strarr = (gchar **)tmplist->data;
-		if (g_strv_length(strarr)==3 && strarr[2][0]=='1') {
+		gchar **strarr = (gchar **) tmplist->data;
+		if (g_strv_length(strarr) == 3 && strarr[2][0] == '1') {
 			Tbfw_dynmenu *bdm = g_slice_new(Tbfw_dynmenu);
-			gchar *label = g_strdup_printf ("%s (%s)", strarr[0], strarr[1]);
-			/*g_print("add encoding %s:%s:%s to the menu\n",strarr[0],strarr[1],strarr[2]);*/
+			gchar *label = g_strdup_printf("%s (%s)", strarr[0], strarr[1]);
+			/*g_print("add encoding %s:%s:%s to the menu\n",strarr[0],strarr[1],strarr[2]); */
 			bdm->menuitem = gtk_radio_menu_item_new_with_label(group, label);
-			g_free (label);
+			g_free(label);
 			bdm->data = strarr[1];
 			bdm->bfwin = bfwin;
-			bdm->signal_id=0;
-			g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(menu_current_document_encoding_change), (gpointer) bdm);
+			bdm->signal_id = 0;
+			g_signal_connect(G_OBJECT(bdm->menuitem), "activate",
+							 G_CALLBACK(menu_current_document_encoding_change), (gpointer) bdm);
 			gtk_widget_show(bdm->menuitem);
 			gtk_menu_insert(GTK_MENU(parent_menu), bdm->menuitem, 1);
 			group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(bdm->menuitem));
@@ -1027,27 +1133,33 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 	}
 }
 
-void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filetype, gchar *encoding) {
+void
+menu_current_document_set_toggle_wo_activate(Tbfwin * bfwin, gpointer filetype, gchar * encoding)
+{
 	Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(bfwin->menu_filetypes, filetype);
-	if (bdm && filetype && bdm->menuitem && !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bdm->menuitem))) {
-		g_signal_handler_disconnect(G_OBJECT(bdm->menuitem),bdm->signal_id);
-		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(bdm->menuitem), TRUE);
-		bdm->signal_id = g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) bdm);
+	if (bdm && filetype && bdm->menuitem
+		&& !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(bdm->menuitem))) {
+		g_signal_handler_disconnect(G_OBJECT(bdm->menuitem), bdm->signal_id);
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(bdm->menuitem), TRUE);
+		bdm->signal_id =
+			g_signal_connect(G_OBJECT(bdm->menuitem), "activate",
+							 G_CALLBACK(menu_current_document_type_change), (gpointer) bdm);
 	}
 
 	if (encoding) {
 		GList *tmplist;
 		tmplist = g_list_first(main_v->globses.encodings);
 		while (tmplist) {
-			gchar **tmparr = (gchar **)tmplist->data;
-			if (g_ascii_strcasecmp(tmparr[1], encoding)==0) {
+			gchar **tmparr = (gchar **) tmplist->data;
+			if (g_ascii_strcasecmp(tmparr[1], encoding) == 0) {
 				Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(bfwin->menu_encodings, tmparr[1]);
 				if (bdm) {
 					g_signal_handlers_block_matched(G_OBJECT(bdm->menuitem), G_SIGNAL_MATCH_FUNC,
-							0, 0, NULL, menu_current_document_encoding_change, NULL);
-					gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(bdm->menuitem),TRUE);
+													0, 0, NULL, menu_current_document_encoding_change, NULL);
+					gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(bdm->menuitem), TRUE);
 					g_signal_handlers_unblock_matched(G_OBJECT(bdm->menuitem), G_SIGNAL_MATCH_FUNC,
-							0, 0, NULL, menu_current_document_encoding_change, NULL);
+													  0, 0, NULL, menu_current_document_encoding_change,
+													  NULL);
 				}
 				break;
 			}

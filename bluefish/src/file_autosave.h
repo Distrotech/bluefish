@@ -19,9 +19,9 @@
 
 #ifndef __FILE_AUTOSAVE_H_
 #define __FILE_AUTOSAVE_H_
-GList *register_autosave_journal(GFile *autosave_file, GFile *document_uri, GFile *project_uri);
-void remove_autosave(Tdocument *doc);
-void need_autosave(Tdocument *doc);
-void autosave_init(gboolean recover, Tbfwin *bfwin);
+GList *register_autosave_journal(GFile * autosave_file, GFile * document_uri, GFile * project_uri);
+void remove_autosave(Tdocument * doc);
+void need_autosave(Tdocument * doc);
+void autosave_init(gboolean recover, Tbfwin * bfwin);
 void autosave_cleanup(void);
-#endif 
+#endif

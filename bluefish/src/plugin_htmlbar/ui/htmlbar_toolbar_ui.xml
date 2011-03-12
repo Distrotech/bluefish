@@ -1,0 +1,138 @@
+<!--
+ ***************************************************************************
+ *  Bluefish HTML Editor
+ *  htmlbar_toolbar_ui.xml
+ *  This file is part of Bluefish
+ * 
+ *  Copyright (C) 2011 - James Hayward and Olivier Sessink
+ *
+ *  bluefish is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  bluefish is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with bluefish.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ***************************************************************************
+-->
+
+<ui>
+  <toolbar name='HTMLStandardToolbar'>
+     <toolitem action='DialogsQuickstart'/>
+     <toolitem action='DialogsBody'/>
+     <toolitem action='FormatBold'/>
+     <toolitem action='FormatItalic'/>
+     <toolitem action='FormatParagraph'/>
+     <toolitem action='FormatBreak'/>
+     <toolitem action='FormatClearAll'/>
+     <toolitem action='FormatNBSP'/>
+     <separator/>
+     <toolitem action='DialogsAnchor'/>
+     <toolitem action='DialogsRule'/>
+     <toolitem action='FormatCenter'/>
+     <toolitem action='FormatAlignRight'/>
+     <toolitem action='TagsComment'/>
+     <toolitem action='DialogsEmail'/>
+     <separator/>
+     <toolitem action='DialogsImage'/>
+     <toolitem action='DialogsThumbnail'/>
+     <toolitem action='DialogsMultiThumbnail'/>
+  </toolbar>
+
+  <toolbar name='HTMLFontsToolbar'>
+	<toolitem action='DialogsFont'/>
+	<toolitem action='DialogsFontBase'/>
+	<separator/>
+	<toolitem action='FormatFontSizePlus'/>
+	<toolitem action='FormatFontSizeMinus'/>
+	<toolitem action='FormatSubscript'/>
+	<toolitem action='FormatSuperscript'/>
+	<toolitem action='FormatStrong'/>
+	<toolitem action='FormatEmphasis'/>
+	<toolitem action='FormatPre'/>
+	<separator/>
+	<toolitem action='HeadingsH1'/>
+	<toolitem action='HeadingsH2'/>
+	<toolitem action='HeadingsH3'/>
+	<toolitem action='HeadingsH4'/>
+	<toolitem action='HeadingsH5'/>
+	<toolitem action='HeadingsH6'/>
+  </toolbar>
+  
+  <toolbar name='HTMLFormattingToolbar'>
+  	<toolitem action='FormatAbbr'/>
+  	<toolitem action='FormatAcronym'/>
+  	<toolitem action='FormatCitation'/>
+  	<toolitem action='FormatCode'/>
+  	<toolitem action='FormatDefine'/>
+  	<toolitem action='FormatDelete'/>
+  	<toolitem action='FormatInsert'/>
+  	<toolitem action='FormatKeyboard'/>
+  	<toolitem action='FormatSample'/>
+  	<toolitem action='FormatVariable'/>
+  </toolbar>
+  
+  <toolbar name='HTMLTablesToolbar'>
+	<toolitem action='DialogsTableWizard'/>
+	<separator/>
+	<toolitem action='DialogsTable'/>
+	<toolitem action='DialogsTableRow'/>
+	<toolitem action='DialogsTableHead'/>
+	<toolitem action='DialogsTableData'/>
+	<separator/>
+	<toolitem action='TableTable'/>
+	<toolitem action='TableRow'/>
+	<toolitem action='TableHeader'/>
+	<toolitem action='TableData'/>
+	<toolitem action='TableCaption'/>
+  </toolbar>
+  
+  <toolbar name='HTMLFramesToolbar'>
+	<toolitem action='DialogsFrameWizard'/>
+	<separator/>
+	<toolitem action='DialogsFrameset'/>
+	<toolitem action='DialogsFrame'/>
+	<separator/>
+	<toolitem action='Frame'/>
+	<toolitem action='Frameset'/>
+	<toolitem action='NoFrames'/>
+	<toolitem action='FrameTarget'/>
+  </toolbar>
+  
+  <toolbar name='HTMLFormsToolbar'>
+	<toolitem action='DialogsForm'/>
+	<toolitem action='DialogsFormButtons'/>
+	<toolitem action='DialogsFormText'/>
+	<toolitem action='DialogsFormHidden'/>
+	<toolitem action='DialogsFormTextarea'/>
+	<toolitem action='DialogsFormRadioButton'/>
+	<toolitem action='DialogsFormCheckButton'/>
+	<toolitem action='DialogsFormSelect'/>
+	<toolitem action='DialogsFormOption'/>
+	<toolitem action='DialogsFormOptionGroup'/>
+	<toolitem action='DialogsFormButton'/>
+  </toolbar>  
+  
+  <toolbar name='HTMLListToolbar'>
+	<toolitem action='DialogsQuicklist'/>
+	<separator/>
+	<toolitem action='ListUnordered'/>
+	<toolitem action='ListOrdered'/>
+	<toolitem action='ListItem'/>
+	<toolitem action='ListDefList'/>
+	<toolitem action='ListDefTerm'/>
+	<toolitem action='ListDefinition'/>
+  </toolbar>
+  
+  <toolbar name='HTMLCSSToolbar'>
+	<toolitem action='DialogsCreateStyle'/>
+	<toolitem action='DialogsSpan'/>
+	<toolitem action='DialogsDiv'/>
+  </toolbar>
+</ui>

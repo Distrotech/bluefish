@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gui.h - global function for the GUI
  *
- * Copyright (C) 2002-2010 Olivier Sessink
+ * Copyright (C) 2002-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #ifndef __GUI_H_
 #define __GUI_H_
 
-#define bfwin_exists(bfwin) (g_list_index(main_v->bfwinlist, bfwin)!=-1)
+/*#define bfwin_exists(bfwin) (g_list_index(main_v->bfwinlist, bfwin)!=-1)*/
 
 void gui_set_html_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu);
 void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu);
@@ -33,6 +33,7 @@ void notebook_hide(Tbfwin *bfwin);
 void notebook_show(Tbfwin *bfwin);
 void notebook_changed(Tbfwin *bfwin,gint newpage);
 
+void gui_notebook_move(Tbfwin *bfwin, gboolean move_left);
 void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget);
 void left_panel_rebuild(Tbfwin *bfwin);
 gboolean left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show, gboolean sync_menu);
@@ -49,11 +50,11 @@ void gui_create_main(Tbfwin *bfwin);
 void gui_show_main(Tbfwin *bfwin);
 void statusbar_message(Tbfwin *bfwin,const gchar *message, gint seconds);
 void all_bfwin_statusbar_message(const gchar *message, gint seconds);
-gboolean bfwin_has_doc(Tbfwin *bfwin, Tdocument *doc);
+/*gboolean bfwin_has_doc(Tbfwin *bfwin, Tdocument *doc);*/
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index);
 gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document);
 gboolean switch_to_document_by_uri(Tbfwin *bfwin,GFile *uri);
-void bfwin_docs_not_complete(Tbfwin *bfwin, gboolean increase);
+/*void bfwin_docs_not_complete(Tbfwin *bfwin, gboolean increase);*/
 gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *bfwin);
 void gui_gotoline_frame_show(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);

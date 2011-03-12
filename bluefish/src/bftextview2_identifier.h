@@ -45,13 +45,15 @@ typedef struct {
 void bftextview2_identifier_hash_remove_doc(gpointer bfwin, gpointer doc);
 void bftextview2_identifier_hash_destroy(gpointer bfwin);
 void bftextview2_identifier_hash_init(gpointer bfwin);
-gchar *bf_get_identifier_at_iter(BluefishTextView *btv, GtkTextIter *iter, gint *context);
-Tjumpdata *bftextview2_lookup_identifier(gpointer bfwin, BluefishTextView *btv, gint context, const gchar *text);
+gchar *bf_get_identifier_at_iter(BluefishTextView * btv, GtkTextIter * iter, gint * context);
+Tjumpdata *bftextview2_lookup_identifier(gpointer bfwin, BluefishTextView * btv, gint context,
+										 const gchar * text);
 
 
 
 /* only called internally within bftextview2 */
 GCompletion *identifier_ac_get_completion(BluefishTextView * btv, gint16 context, gboolean create);
-void found_identifier(BluefishTextView * btv, GtkTextIter *start, GtkTextIter *end, gint16 context, guint8 identmode);
+void found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end, gint16 context,
+					  guint8 identmode);
 
-#endif /* _BFTEXTVIEW2_IDENTIFIER_H_ */
+#endif							/* _BFTEXTVIEW2_IDENTIFIER_H_ */

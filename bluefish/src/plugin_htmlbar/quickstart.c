@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * quickstart.c - quickstart dialog
  *
- * Copyright (C) 2005-2010 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2011 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,10 +26,10 @@
 #include "htmlbar.h"
 #include "cap.h"
 #include "../config.h"
+#include "../bfwin.h"
 #include "../dialog_utils.h"
 #include "../document.h"
 #include "../gtk_easy.h"
-#include "../gui.h"
 #include "../stringlist.h"
 #include "quickstart.h"
 
@@ -427,7 +427,7 @@ quickstart_response_lcb(GtkDialog * dialog, gint response, TQuickStart * qstart)
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(qstart->openNewDoc))) {
 			Tdocument *doc;
 			doc = doc_new(qstart->bfwin, FALSE);
-			switch_to_document_by_pointer(qstart->bfwin, doc);
+			bfwin_switch_to_document_by_pointer(qstart->bfwin, doc);
 		}
 
 		doc_insert_two_strings(qstart->bfwin->current_document,

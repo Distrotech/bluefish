@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * undo_redo.c - imrpoved undo/redo functionality
  *
- * Copyright (C) 2001-2010 Olivier Sessink
+ * Copyright (C) 2001-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,71 +22,85 @@
 #include <gtk/gtk.h>
 #include <string.h>
 
-#include "bluefish.h" 
+#include "bluefish.h"
 #include "dialog_utils.h"
-#include "document.h"    /* doc_bind_signals() */
+#include "document.h"			/* doc_bind_signals() */
 #include "undo_redo.h"
 
 typedef struct {
-	char *text;    /* text to be inserted or deleted */
-	int start;     /* starts at this position */
-	int end;       /* ends at this position */
-	undo_op_t op;  /* action to execute */	
+	char *text;					/* text to be inserted or deleted */
+	int start;					/* starts at this position */
+	int end;					/* ends at this position */
+	undo_op_t op;				/* action to execute */
 } unreentry_t;
 
-static guint action_id_count = 1; /* 0 means it should be auto-generated */
+static guint action_id_count = 1;	/* 0 means it should be auto-generated */
 
-guint new_unre_action_id(void) {
+guint
+new_unre_action_id(void)
+{
 	return ++action_id_count;
 }
 
-static gboolean have_current_action_id(unre_t unre) {
+static gboolean
+have_current_action_id(unre_t unre)
+{
 	if (unre.current->entries) {
-		DEBUG_MSG("have_current_action_id, count=%d, doc has %d\n",action_id_count,unre.current->action_id);
+		DEBUG_MSG("have_current_action_id, count=%d, doc has %d\n", action_id_count, unre.current->action_id);
 		return (unre.current->action_id == action_id_count);
 	} else if (unre.first) {
-		DEBUG_MSG("have_current_action_id, count=%d, doc has %d\n",action_id_count,((unregroup_t *)unre.first->data)->action_id);
-		return (((unregroup_t *)unre.first->data)->action_id == action_id_count);
+		DEBUG_MSG("have_current_action_id, count=%d, doc has %d\n", action_id_count,
+				  ((unregroup_t *) unre.first->data)->action_id);
+		return (((unregroup_t *) unre.first->data)->action_id == action_id_count);
 	}
 	return FALSE;
 }
 
-static unregroup_t *unregroup_new(Tdocument *doc, guint action_id) {
+static unregroup_t *
+unregroup_new(Tdocument * doc, guint action_id)
+{
 	unregroup_t *newgroup;
-	
+
 	newgroup = g_slice_new(unregroup_t);
 	newgroup->changed = doc->modified;
 	newgroup->entries = NULL;
 	newgroup->action_id = action_id;
-	DEBUG_MSG("unregroup_new, at %p with modified=%d and action_id=%u\n", newgroup, newgroup->changed,newgroup->action_id);
+	DEBUG_MSG("unregroup_new, at %p with modified=%d and action_id=%u\n", newgroup, newgroup->changed,
+			  newgroup->action_id);
 	return newgroup;
 }
 
-static void unreentry_destroy(unreentry_t *remove_entry) {
+static void
+unreentry_destroy(unreentry_t * remove_entry)
+{
 	if (remove_entry->text) {
 		g_free(remove_entry->text);
 	}
-	g_slice_free(unreentry_t,remove_entry);
+	g_slice_free(unreentry_t, remove_entry);
 }
 
-static void unregroup_destroy(unregroup_t *to_remove) {
+static void
+unregroup_destroy(unregroup_t * to_remove)
+{
 	GList *tmplist;
-	
+
 	tmplist = g_list_first(to_remove->entries);
 	while (tmplist) {
-		unreentry_destroy((unreentry_t *)tmplist->data);
+		unreentry_destroy((unreentry_t *) tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(tmplist);
-	g_slice_free(unregroup_t,to_remove);
+	g_slice_free(unregroup_t, to_remove);
 }
 
-static void doc_unre_destroy_last_group(Tdocument *doc) {
+static void
+doc_unre_destroy_last_group(Tdocument * doc)
+{
 	DEBUG_MSG("doc_unre_destroy_last_group, called, last=%p\n", doc->unre.last);
 	if (doc->unre.last) {
 		GList *dummy;
 		/* a variable to get rid of the compiler warning, can we do this in a more nice way? 
-		I tried a typecast but that didn't work */
+		   I tried a typecast but that didn't work */
 		unregroup_t *to_remove = doc->unre.last->data;
 		doc->unre.last = g_list_previous(doc->unre.last);
 		dummy = g_list_remove(doc->unre.last, to_remove);
@@ -95,9 +109,11 @@ static void doc_unre_destroy_last_group(Tdocument *doc) {
 	}
 }
 
-static gint unregroup_activate(unregroup_t *curgroup, Tdocument *doc, gint is_redo) {
+static gint
+unregroup_activate(unregroup_t * curgroup, Tdocument * doc, gint is_redo)
+{
 	GList *tmplist;
-	gint lastpos=-1;
+	gint lastpos = -1;
 
 	if (is_redo) {
 		tmplist = g_list_last(curgroup->entries);
@@ -107,18 +123,19 @@ static gint unregroup_activate(unregroup_t *curgroup, Tdocument *doc, gint is_re
 	while (tmplist) {
 		GtkTextIter itstart;
 		unreentry_t *entry = tmplist->data;
-		gtk_text_buffer_get_iter_at_offset(doc->buffer,&itstart,entry->start);
-		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.05,FALSE,0.0,0.0);
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart, entry->start);
+		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view), &itstart, 0.05, FALSE, 0.0, 0.0);
 		if ((entry->op == UndoInsert && !is_redo) || (entry->op == UndoDelete && is_redo)) {
 			GtkTextIter itend;
 			DEBUG_MSG("unregroup_activate set start to %d, end to %d and delete\n", entry->start, entry->end);
-			gtk_text_buffer_get_iter_at_offset(doc->buffer,&itend,entry->end);
-			gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
+			gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend, entry->end);
+			gtk_text_buffer_delete(doc->buffer, &itstart, &itend);
 		} else {
-			DEBUG_MSG("unregroup_activate set start to %d and insert %zd chars: %s\n", entry->start, strlen(entry->text), entry->text);
-			gtk_text_buffer_insert(doc->buffer,&itstart,entry->text,-1);
+			DEBUG_MSG("unregroup_activate set start to %d and insert %zd chars: %s\n", entry->start,
+					  strlen(entry->text), entry->text);
+			gtk_text_buffer_insert(doc->buffer, &itstart, entry->text, -1);
 		}
-		lastpos = entry->start;		
+		lastpos = entry->start;
 		if (is_redo) {
 			tmplist = g_list_previous(tmplist);
 		} else {
@@ -134,7 +151,9 @@ static gint unregroup_activate(unregroup_t *curgroup, Tdocument *doc, gint is_re
 	return lastpos;
 }
 
-static unreentry_t *unreentry_new(const char *text, int start, int end, undo_op_t op) {
+static unreentry_t *
+unreentry_new(const char *text, int start, int end, undo_op_t op)
+{
 	unreentry_t *new_entry;
 	new_entry = g_slice_new(unreentry_t);
 	DEBUG_MSG("unreentry_new, for text='%s'\n", text);
@@ -145,7 +164,9 @@ static unreentry_t *unreentry_new(const char *text, int start, int end, undo_op_
 	return new_entry;
 }
 
-static void unre_list_cleanup(GList **list) {
+static void
+unre_list_cleanup(GList ** list)
+{
 	if (list && *list) {
 		GList *tmplist;
 		tmplist = g_list_first(*list);
@@ -158,26 +179,29 @@ static void unre_list_cleanup(GList **list) {
 	}
 }
 
-static gint doc_undo(Tdocument *doc) {
+static gint
+doc_undo(Tdocument * doc)
+{
 	unregroup_t *curgroup = NULL;
-	if (doc->unre.current->entries!=NULL) {
+	if (doc->unre.current->entries != NULL) {
 		/* if the current group has entries we have to undo that one */
 		DEBUG_MSG("doc_undo, undo the entries of the current group, and create a new group\n");
 		curgroup = doc->unre.current;
 		/* hmm, when this group is created, the doc->modified is not yet in the 'undo' state
-		because activate is not yet called, so this group will have the wrong 'changed' value*/
-		doc->unre.current = unregroup_new(doc,0);
-		DEBUG_MSG("doc_undo, set 'changed' in newly created group %p to %d\n",doc->unre.current, curgroup->changed);
+		   because activate is not yet called, so this group will have the wrong 'changed' value */
+		doc->unre.current = unregroup_new(doc, 0);
+		DEBUG_MSG("doc_undo, set 'changed' in newly created group %p to %d\n", doc->unre.current,
+				  curgroup->changed);
 		doc->unre.current->changed = curgroup->changed;
 	} else if (doc->unre.first) {
 		/* we have to undo the first one in the list */
 		DEBUG_MSG("doc_undo, current group is empty--> undo the entries of the previous group\n");
 		curgroup = doc->unre.first->data;
-		DEBUG_MSG("doc_undo, set 'changed' in empty group %p to %d\n",doc->unre.current, curgroup->changed);
+		DEBUG_MSG("doc_undo, set 'changed' in empty group %p to %d\n", doc->unre.current, curgroup->changed);
 		doc->unre.current->changed = curgroup->changed;
 		doc->unre.first = g_list_remove(doc->unre.first, curgroup);
 		doc->unre.num_groups--;
-		/* what happens when this was the last entry in the list?*/
+		/* what happens when this was the last entry in the list? */
 		DEBUG_MSG("doc_undo, removed a group, num_groups =%d\n", doc->unre.num_groups);
 		if (doc->unre.num_groups == 0) {
 			doc->unre.first = NULL;
@@ -187,20 +211,22 @@ static gint doc_undo(Tdocument *doc) {
 		}
 	}
 	if (curgroup) {
-		doc->unre.redofirst = g_list_prepend(doc->unre.redofirst,curgroup);
+		doc->unre.redofirst = g_list_prepend(doc->unre.redofirst, curgroup);
 		/* since activate calls doc_set_modified, and doc_set_modified sets 
-		the undo/redo widgets, the lenght of the redolist should be > 0 _before_
-		activate is called */
+		   the undo/redo widgets, the lenght of the redolist should be > 0 _before_
+		   activate is called */
 		DEBUG_MSG("doc_undo, calling unregroup_activate\n");
 		return unregroup_activate(curgroup, doc, 0);
 	}
 	return -1;
 }
 
-static gint doc_redo(Tdocument *doc) {
+static gint
+doc_redo(Tdocument * doc)
+{
 	if (doc->unre.redofirst) {
 		unregroup_t *curgroup = NULL;
-	
+
 		curgroup = doc->unre.redofirst->data;
 		doc->unre.redofirst = g_list_remove(doc->unre.redofirst, curgroup);
 		/* what happens when this was the last one of the list? does it return NULL ? */
@@ -231,10 +257,12 @@ static gint doc_redo(Tdocument *doc) {
  * 
  * Return value: void
  **/
-void doc_unre_add(Tdocument *doc, const char *text, gint start, gint end, undo_op_t op) {
-	unreentry_t *entry=NULL;
+void
+doc_unre_add(Tdocument * doc, const char *text, gint start, gint end, undo_op_t op)
+{
+	unreentry_t *entry = NULL;
 	gboolean handled = FALSE;
-	
+
 	if (end < start) {
 		gint tmp = start;
 		start = end;
@@ -242,13 +270,14 @@ void doc_unre_add(Tdocument *doc, const char *text, gint start, gint end, undo_o
 	}
 	DEBUG_MSG("doc_unre_add, start=%d, end=%d\n", start, end);
 	if (doc->unre.current->entries) {
-		entry = (unreentry_t *)(doc->unre.current->entries->data);
-		DEBUG_MSG("doc_unre_add, currentgroup=%p, entry=%p\n", doc->unre.current,entry );
+		entry = (unreentry_t *) (doc->unre.current->entries->data);
+		DEBUG_MSG("doc_unre_add, currentgroup=%p, entry=%p\n", doc->unre.current, entry);
 		DEBUG_MSG("doc_unre_add, entry=%p entry->end=%d, entry->start=%d\n", entry, entry->end, entry->start);
 		DEBUG_MSG("doc_unre_add, entry->op=%d, op=%d, UndoInsert=%d\n", entry->op, op, UndoInsert);
 		/* do efficient, add the current one to the previous one */
-		if ((entry->end == start && entry->op == UndoInsert && op == UndoInsert) 
-			|| ((entry->start == end || start == entry->start)&& entry->op == UndoDelete && op == UndoDelete)) {
+		if ((entry->end == start && entry->op == UndoInsert && op == UndoInsert)
+			|| ((entry->start == end || start == entry->start) && entry->op == UndoDelete
+				&& op == UndoDelete)) {
 			gchar *newstr;
 			if (op == UndoInsert) {
 				/* multiple inserts can be grouped together, just add them together, and set the end
@@ -266,7 +295,7 @@ void doc_unre_add(Tdocument *doc, const char *text, gint start, gint end, undo_o
 				/* multiple delete's at the same position have the same start, but the second delete
 				 * can be added to the right side of the previous delete, so only the end should 
 				 * be increased */
-				newstr = g_strconcat(entry->text,text,NULL);
+				newstr = g_strconcat(entry->text, text, NULL);
 				entry->end += (end - start);
 				DEBUG_MSG("doc_unre_add, DELETE, text=%s\n", newstr);
 			}
@@ -290,18 +319,22 @@ void doc_unre_add(Tdocument *doc, const char *text, gint start, gint end, undo_o
 	}
 }
 
-static void doc_unre_start(Tdocument *doc) {
+static void
+doc_unre_start(Tdocument * doc)
+{
 	DEBUG_MSG("doc_unre_start, started\n");
 	doc_unbind_signals(doc);
 }
 
-static void doc_unre_finish(Tdocument *doc, gint cursorpos) {
+static void
+doc_unre_finish(Tdocument * doc, gint cursorpos)
+{
 	GtkTextIter iter;
 	DEBUG_MSG("doc_unre_finish, started\n");
 	/* now re-establish the signals */
 	doc_bind_signals(doc);
-	gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,cursorpos);
-	gtk_text_buffer_place_cursor(doc->buffer,&iter);
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, cursorpos);
+	gtk_text_buffer_place_cursor(doc->buffer, &iter);
 }
 
 /**
@@ -313,16 +346,19 @@ static void doc_unre_finish(Tdocument *doc, gint cursorpos) {
  * 
  * Return value: void
  **/
-void doc_unre_new_group_action_id(Tdocument *doc, guint action_id) {
-	DEBUG_MSG("doc_unre_new_group_w_id, started, num entries=%d, action_id=%u\n", g_list_length(doc->unre.current->entries),action_id);
-	if (doc->unre.current->entries!=NULL) {
+void
+doc_unre_new_group_action_id(Tdocument * doc, guint action_id)
+{
+	DEBUG_MSG("doc_unre_new_group_w_id, started, num entries=%d, action_id=%u\n",
+			  g_list_length(doc->unre.current->entries), action_id);
+	if (doc->unre.current->entries != NULL) {
 		doc->unre.first = g_list_prepend(doc->unre.first, doc->unre.current);
 		if (!doc->unre.last) {
 			doc->unre.last = doc->unre.first;
 		}
 		doc->unre.num_groups++;
 		DEBUG_MSG("doc_unre_new_group, added a group, num_groups =%d\n", doc->unre.num_groups);
-		doc->unre.current = unregroup_new(doc,action_id);
+		doc->unre.current = unregroup_new(doc, action_id);
 		if (doc->unre.num_groups > main_v->props.num_undo_levels) {
 			doc_unre_destroy_last_group(doc);
 		}
@@ -330,6 +366,7 @@ void doc_unre_new_group_action_id(Tdocument *doc, guint action_id) {
 		doc->unre.current->action_id = action_id;
 	}
 }
+
 /**
  * doc_unre_new_group:
  * @doc: a #Tdocument
@@ -339,7 +376,9 @@ void doc_unre_new_group_action_id(Tdocument *doc, guint action_id) {
  * 
  * Return value: the action_id of this group
  **/
-void doc_unre_new_group(Tdocument *doc) {
+void
+doc_unre_new_group(Tdocument * doc)
+{
 	doc_unre_new_group_action_id(doc, 0);
 }
 
@@ -351,14 +390,17 @@ void doc_unre_new_group(Tdocument *doc) {
  * 
  * Return value: void
  **/
-void doc_unre_init(Tdocument *doc) {
+void
+doc_unre_init(Tdocument * doc)
+{
 	DEBUG_MSG("doc_unre_init, started\n");
 	doc->unre.first = NULL;
 	doc->unre.last = NULL;
-	doc->unre.current = unregroup_new(doc,0);
+	doc->unre.current = unregroup_new(doc, 0);
 	doc->unre.num_groups = 0;
 	doc->unre.redofirst = NULL;
 }
+
 /**
  * doc_unre_destroy:
  * @doc: a #Tdocument
@@ -367,14 +409,17 @@ void doc_unre_init(Tdocument *doc) {
  * 
  * Return value: void
  **/
-void doc_unre_destroy(Tdocument *doc) {
-	DEBUG_MSG("doc_unre_destroy, about to destroy undolist %p\n",doc->unre.first );
+void
+doc_unre_destroy(Tdocument * doc)
+{
+	DEBUG_MSG("doc_unre_destroy, about to destroy undolist %p\n", doc->unre.first);
 	unre_list_cleanup(&doc->unre.first);
 	DEBUG_MSG("doc_unre_destroy, about to destroy redofirst %p\n", doc->unre.redofirst);
 	unre_list_cleanup(&doc->unre.redofirst);
 	DEBUG_MSG("doc_unre_destroy, about to destroy current %p\n", doc->unre.current);
 	unregroup_destroy(doc->unre.current);
 }
+
 /**
  * doc_unre_clear_all:
  * @doc: a #Tdocument
@@ -384,10 +429,13 @@ void doc_unre_destroy(Tdocument *doc) {
  * Return value: void
  **/
 
-void doc_unre_clear_all(Tdocument *doc) {
+void
+doc_unre_clear_all(Tdocument * doc)
+{
 	doc_unre_destroy(doc);
 	doc_unre_init(doc);
 }
+
 /**
  * doc_undo_op_compare:
  * @doc: a #Tdocument
@@ -427,15 +475,18 @@ void doc_unre_clear_all(Tdocument *doc) {
  * 
  * Return value: gboolean, TRUE if everything matches or if there was no previous operation, FALSE if not
  **/
-gboolean doc_unre_test_last_entry(Tdocument *doc, undo_op_t testfor, gint start, gint end) {
+gboolean
+doc_unre_test_last_entry(Tdocument * doc, undo_op_t testfor, gint start, gint end)
+{
 	if (doc->unre.current->entries && doc->unre.current->entries->data) {
 		gboolean retval;
 		unreentry_t *entry = doc->unre.current->entries->data;
-		DEBUG_MSG("doc_unre_test_last_entry, start=%d, entry->start=%d, end=%d, entry->end=%d\n",start, entry->start, end, entry->end);
-		retval = ((entry->op == testfor) 
-				&& (start == -1 || start == entry->start) 
-				&& (end == -1 || end == entry->end));
-		DEBUG_MSG("doc_unre_test_last_entry, return %d\n",retval);
+		DEBUG_MSG("doc_unre_test_last_entry, start=%d, entry->start=%d, end=%d, entry->end=%d\n", start,
+				  entry->start, end, entry->end);
+		retval = ((entry->op == testfor)
+				  && (start == -1 || start == entry->start)
+				  && (end == -1 || end == entry->end));
+		DEBUG_MSG("doc_unre_test_last_entry, return %d\n", retval);
 		return retval;
 	}
 	return TRUE;
@@ -450,16 +501,19 @@ gboolean doc_unre_test_last_entry(Tdocument *doc, undo_op_t testfor, gint start,
  * 
  * Return value: void
  **/
-void undo_cb(GtkWidget * widget, Tbfwin *bfwin) {
+void
+undo_cb(GtkWidget * widget, Tbfwin * bfwin)
+{
 	DEBUG_MSG("undo_cb, started\n");
 	if (bfwin->current_document) {
 		gint lastpos;
 		if (have_current_action_id(bfwin->current_document->unre)) {
 			gint ret;
-			const gchar *buttons[] = {_("Undo in _all documents"), _("Undo only _this document"), NULL};
+			const gchar *buttons[] = { _("Undo in _all documents"), _("Undo only _this document"), NULL };
 			/* there might be more douments that can be undone in the current unre group */
 			ret = message_dialog_new_multi(bfwin->main_window, GTK_MESSAGE_QUESTION, buttons,
-				_("Undo this change in all documents?"), _("This change concerns multiple documents."));
+										   _("Undo this change in all documents?"),
+										   _("This change concerns multiple documents."));
 			if (ret == 0) {
 				GList *tmplist = g_list_first(bfwin->documentlist);
 				while (tmplist) {
@@ -479,6 +533,7 @@ void undo_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		doc_unre_finish(bfwin->current_document, lastpos);
 	}
 }
+
 /**
  * redo_cb:
  * @widget: a #GtkWidget *, ignored
@@ -488,14 +543,17 @@ void undo_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * 
  * Return value: void
  **/
-void redo_cb(GtkWidget * widget, Tbfwin *bfwin) {
+void
+redo_cb(GtkWidget * widget, Tbfwin * bfwin)
+{
 	if (bfwin->current_document) {
 		gint lastpos;
 		doc_unre_start(bfwin->current_document);
 		lastpos = doc_redo(bfwin->current_document);
-		doc_unre_finish(bfwin->current_document,lastpos);
+		doc_unre_finish(bfwin->current_document, lastpos);
 	}
 }
+
 /**
  * undo_all_cb:
  * @widget: a #GtkWidget *, ignored
@@ -505,7 +563,9 @@ void redo_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * 
  * Return value: void
  **/
-void undo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
+void
+undo_all_cb(GtkWidget * widget, Tbfwin * bfwin)
+{
 	if (bfwin->current_document) {
 		gint lastpos = -1;
 		doc_unre_start(bfwin->current_document);
@@ -515,6 +575,7 @@ void undo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		doc_unre_finish(bfwin->current_document, lastpos);
 	}
 }
+
 /**
  * redo_all_cb:
  * @widget: a #GtkWidget *, ignored
@@ -524,7 +585,9 @@ void undo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * 
  * Return value: void
  **/
-void redo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
+void
+redo_all_cb(GtkWidget * widget, Tbfwin * bfwin)
+{
 	if (bfwin->current_document) {
 		gint lastpos = -1;
 		doc_unre_start(bfwin->current_document);
@@ -534,6 +597,7 @@ void redo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		doc_unre_finish(bfwin->current_document, lastpos);
 	}
 }
+
 /**
  * doc_has_undo_list:
  * @doc: a #Tdocument
@@ -544,11 +608,13 @@ void redo_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: gboolean, TRUE if the doc has a undo list, else FALSE
  **/
 #ifdef __GNUC__
-__inline__ 
+__inline__
 #endif
-gboolean doc_has_undo_list(Tdocument *doc) {
+	gboolean doc_has_undo_list(Tdocument * doc)
+{
 	return (doc->unre.first || doc->unre.current->entries) ? TRUE : FALSE;
 }
+
 /**
  * doc_has_redo_list:
  * @doc: a #Tdocument
@@ -561,6 +627,77 @@ gboolean doc_has_undo_list(Tdocument *doc) {
 #ifdef __GNUC__
 __inline__
 #endif
-gboolean doc_has_redo_list(Tdocument *doc) {
+	gboolean doc_has_redo_list(Tdocument * doc)
+{
 	return (doc->unre.redofirst) ? TRUE : FALSE;
+}
+
+void
+redo(Tbfwin * bfwin)
+{
+	if (bfwin->current_document) {
+		gint lastpos;
+		doc_unre_start(bfwin->current_document);
+		lastpos = doc_redo(bfwin->current_document);
+		doc_unre_finish(bfwin->current_document, lastpos);
+	}
+}
+
+void
+undo(Tbfwin * bfwin)
+{
+	DEBUG_MSG("undo_cb, started\n");
+	if (bfwin->current_document) {
+		gint lastpos;
+		if (have_current_action_id(bfwin->current_document->unre)) {
+			gint ret;
+			const gchar *buttons[] = { _("Undo in _all documents"), _("Undo only _this document"), NULL };
+			/* there might be more douments that can be undone in the current unre group */
+			ret = message_dialog_new_multi(bfwin->main_window, GTK_MESSAGE_QUESTION, buttons,
+										   _("Undo this change in all documents?"),
+										   _("This change concerns multiple documents."));
+			if (ret == 0) {
+				GList *tmplist = g_list_first(bfwin->documentlist);
+				while (tmplist) {
+					if (have_current_action_id(DOCUMENT(tmplist->data)->unre)) {
+						doc_unre_start(DOCUMENT(tmplist->data));
+						lastpos = doc_undo(DOCUMENT(tmplist->data));
+						doc_unre_finish(DOCUMENT(tmplist->data), lastpos);
+					}
+					tmplist = g_list_next(tmplist);
+				}
+				DEBUG_MSG("undo in all finished!\n");
+				return;
+			}
+		}
+		doc_unre_start(bfwin->current_document);
+		lastpos = doc_undo(bfwin->current_document);
+		doc_unre_finish(bfwin->current_document, lastpos);
+	}
+}
+
+void
+redo_all(Tbfwin * bfwin)
+{
+	if (bfwin->current_document) {
+		gint lastpos = -1;
+		doc_unre_start(bfwin->current_document);
+		while (bfwin->current_document->unre.redofirst) {
+			lastpos = doc_redo(bfwin->current_document);
+		}
+		doc_unre_finish(bfwin->current_document, lastpos);
+	}
+}
+
+void
+undo_all(Tbfwin * bfwin)
+{
+	if (bfwin->current_document) {
+		gint lastpos = -1;
+		doc_unre_start(bfwin->current_document);
+		while (bfwin->current_document->unre.first) {
+			lastpos = doc_undo(bfwin->current_document);
+		}
+		doc_unre_finish(bfwin->current_document, lastpos);
+	}
 }

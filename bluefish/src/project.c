@@ -1,7 +1,8 @@
 /* Bluefish HTML Editor
  * project.c - project functionality
  *
- * Copyright (C) 2003-2010 Olivier Sessink
+ * Copyright (C) 2003-2011 Olivier Sessink
+ * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,23 +31,27 @@
 #include <gtkosxapplication.h>
 #endif
 
-#include "project.h"
-#include "stringlist.h"
-#include "gui.h"
+#include "bf_lib.h"
+#include "bftextview2_spell.h"
+#include "bfwin.h"
+#include "bfwin_uimanager.h"
+#include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
-#include "gtk_easy.h"
-#include "rcfile.h"
-#include "bf_lib.h"
 #include "filebrowser2.h"
 #include "file_dialogs.h"
+#include "gtk_easy.h"
 #include "menu.h"
-#include "bookmark.h"
 #include "plugins.h"
 #include "preferences.h"
-#include "bftextview2_spell.h"
+#include "project.h"
+#include "rcfile.h"
+#include "stringlist.h"
 
-static void free_session(Tsessionvars *session) {
+
+static void
+free_session(Tsessionvars * session)
+{
 	/* call free_session for any of the plugins that have free_session defined */
 	bfplugins_session_cleanup(session);
 	free_stringlist(session->classlist);
@@ -78,7 +83,9 @@ static void free_session(Tsessionvars *session) {
 	g_free(session);
 }
 
-static void project_setup_initial_session(Tsessionvars *session, gboolean before_parse) {
+static void
+project_setup_initial_session(Tsessionvars * session, gboolean before_parse)
+{
 	if (!before_parse) {
 		/* session parts that will be filled by rcfile_parse() will not be included
 		   if before parse is TRUE (this is thus only used for new projects) */
@@ -97,17 +104,18 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 	}
 
 	/* THE NUBER OF BYTES THAT IS COPIED HERE MUST BE EQUAL TO THE NUMBER OF INTEGERS
-	IN THE STRUCT IN bluefish.h ELSE ALL WILL FAIL */
+	   IN THE STRUCT IN bluefish.h ELSE ALL WILL FAIL */
 	memcpy(session, main_v->session, 30 * sizeof(gint));
 }
 
-Tbfwin *project_is_open(GFile *uri) {
+Tbfwin *
+project_is_open(GFile * uri)
+{
 	GList *tmplist;
 	tmplist = g_list_first(main_v->bfwinlist);
-	while(tmplist){
+	while (tmplist) {
 		if (BFWIN(tmplist->data)->project
-				&& BFWIN(tmplist->data)->project->uri
-				&& g_file_equal( BFWIN(tmplist->data)->project->uri, uri )) {
+			&& BFWIN(tmplist->data)->project->uri && g_file_equal(BFWIN(tmplist->data)->project->uri, uri)) {
 			return BFWIN(tmplist->data);
 		}
 		tmplist = g_list_next(tmplist);
@@ -115,35 +123,39 @@ Tbfwin *project_is_open(GFile *uri) {
 	return NULL;
 }
 
-static void update_project_filelist(Tbfwin *bfwin, Tproject *prj) {
+static void
+update_project_filelist(Tbfwin * bfwin, Tproject * prj)
+{
 	GList *tmplist;
-	DEBUG_MSG("update_project_filelist, started, bfwin=%p, prj=%p\n",bfwin,prj);
+	DEBUG_MSG("update_project_filelist, started, bfwin=%p, prj=%p\n", bfwin, prj);
 	free_stringlist(prj->files);
-	DEBUG_MSG("update_project_filelist, old list free'd, creating new list from documentlist %p (len=%d)\n",bfwin->documentlist,g_list_length(bfwin->documentlist));
+	DEBUG_MSG("update_project_filelist, old list free'd, creating new list from documentlist %p (len=%d)\n",
+			  bfwin->documentlist, g_list_length(bfwin->documentlist));
 	tmplist = return_urilist_from_doclist(bfwin->documentlist);
 	prj->files = urilist_to_stringlist(tmplist);
 	free_urilist(tmplist);
 }
 
-
-void set_project_menu_widgets(Tbfwin *bfwin, gboolean win_has_project) {
-	menuitem_set_sensitive(bfwin->menubar, "/Project/Save", win_has_project);
-	menuitem_set_sensitive(bfwin->menubar, "/Project/Save as...", win_has_project);
-	menuitem_set_sensitive(bfwin->menubar, "/Project/Save & close", win_has_project);
-	menuitem_set_sensitive(bfwin->menubar, "/Project/Edit Project Options...", win_has_project);
+void
+set_project_menu_actions(Tbfwin * bfwin, gboolean win_has_project)
+{
+	gtk_action_group_set_sensitive(bfwin->projectGroup, win_has_project);
 }
 
-static void setup_bfwin_for_project(Tbfwin *bfwin) {
-	DEBUG_MSG("setup_bfwin_for_project, bfwin=%p, bfwin->project=%p, bfwin->session=%p\n",bfwin,bfwin->project,bfwin->session);
-	DEBUG_MSG("setup_bfwin_for_project, bfwin->project->session=%p\n",bfwin->project->session);
+static void
+setup_bfwin_for_project(Tbfwin * bfwin)
+{
+	DEBUG_MSG("setup_bfwin_for_project, bfwin=%p, bfwin->project=%p, bfwin->session=%p\n", bfwin,
+			  bfwin->project, bfwin->session);
+	DEBUG_MSG("setup_bfwin_for_project, bfwin->project->session=%p\n", bfwin->project->session);
 	bfwin->bmarkdata = bfwin->project->bmarkdata;
 	bmark_set_store(bfwin);
 	bmark_reload(bfwin);
 #ifdef HAVE_LIBENCHANT
 	reload_spell_dictionary(bfwin);
 #endif
-	gui_apply_session(bfwin);
-	set_project_menu_widgets(bfwin, TRUE);
+	bfwin_apply_session(bfwin);
+	set_project_menu_actions(bfwin, TRUE);
 #ifdef MAC_INTEGRATION
 /*	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(doc->bfwin)->menubar));*/
 	gtk_osxapplication_sync_menubar(g_object_new(GTK_TYPE_OSX_APPLICATION, NULL));
@@ -151,28 +163,33 @@ static void setup_bfwin_for_project(Tbfwin *bfwin) {
 
 }
 
-static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
-	DEBUG_MSG("setup_bfwin_for_nonproject, bfwin=%p\n",bfwin);
+static void
+setup_bfwin_for_nonproject(Tbfwin * bfwin)
+{
+	DEBUG_MSG("setup_bfwin_for_nonproject, bfwin=%p\n", bfwin);
 	bfwin->session = main_v->session;
 	bfwin->bmarkdata = main_v->bmarkdata;
 	bfwin->project = NULL;
 	bmark_set_store(bfwin);
 	/* normally there is always a current_document, but this function might be called in the transition
-	after all documents are just closed */
-	if (bfwin->current_document) gui_set_title(bfwin, bfwin->current_document, 0);
+	   after all documents are just closed */
+	if (bfwin->current_document)
+		bfwin_set_title(bfwin, bfwin->current_document, 0);
 
-	gui_apply_session(bfwin);
-	set_project_menu_widgets(bfwin, FALSE);
+	bfwin_apply_session(bfwin);
+	set_project_menu_actions(bfwin, FALSE);
 #ifdef MAC_INTEGRATION
 /*	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));*/
 	gtk_osxapplication_sync_menubar(g_object_new(GTK_TYPE_OSX_APPLICATION, NULL));
 #endif
 }
 
-static void project_destroy(Tproject *project) {
-	DEBUG_MSG("project_destroy, project=%p, project->session=%p\n",project,project->session);
+static void
+project_destroy(Tproject * project)
+{
+	DEBUG_MSG("project_destroy, project=%p, project->session=%p\n", project, project->session);
 	bookmark_data_cleanup(project->bmarkdata);
-	if (project->files) 
+	if (project->files)
 		free_stringlist(project->files);
 	if (project->session)
 		free_session(project->session);
@@ -184,20 +201,22 @@ static void project_destroy(Tproject *project) {
 }
 
 /* bfwin is allowed to be NULL for an empty project */
-static Tproject *create_new_project(Tbfwin *bfwin) {
+static Tproject *
+create_new_project(Tbfwin * bfwin)
+{
 	Tproject *prj;
-	prj = g_new0(Tproject,1);
+	prj = g_new0(Tproject, 1);
 	prj->name = g_strdup(_("New project"));
 	prj->bmarkdata = bookmark_data_new();
-	DEBUG_MSG("create_new_project, project=%p, bfwin=%p\n",prj,bfwin);
+	DEBUG_MSG("create_new_project, project=%p, bfwin=%p\n", prj, bfwin);
 	if (bfwin) {
-		DEBUG_MSG("create_new_project, new project for bfwin %p\n",bfwin);
-		update_project_filelist(bfwin,prj);
+		DEBUG_MSG("create_new_project, new project for bfwin %p\n", bfwin);
+		update_project_filelist(bfwin, prj);
 		bfwin->project = prj;
 	} else {
 		DEBUG_MSG("create_new_project, new project, no bfwin\n");
 	}
-	prj->session = g_new0(Tsessionvars,1);
+	prj->session = g_new0(Tsessionvars, 1);
 	project_setup_initial_session(prj->session, FALSE);
 
 	if (bfwin && prj->files) {
@@ -210,13 +229,13 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 
 		tmplist = g_list_first(bfwin->session->bmarks);
 		while (tmplist) {
-			gchar **entry = (gchar**)tmplist->data;
+			gchar **entry = (gchar **) tmplist->data;
 			if (g_strv_length(entry) > 2) {
 				GList *tmplist2 = g_list_first(prj->files);
 				while (tmplist2) {
-					if (strcmp(tmplist2->data, entry[2])==0) {
+					if (strcmp(tmplist2->data, entry[2]) == 0) {
 						/* move it out of the default session into this session */
-						bfwin->session->bmarks = g_list_remove_link(bfwin->session->bmarks,tmplist);
+						bfwin->session->bmarks = g_list_remove_link(bfwin->session->bmarks, tmplist);
 						prj->session->bmarks = g_list_concat(prj->session->bmarks, tmplist);
 						/* no further filenames to check */
 						tmplist2 = g_list_last(tmplist2);
@@ -234,16 +253,19 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	return prj;
 }
 
-gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
+gboolean
+project_save(Tbfwin * bfwin, gboolean save_as)
+{
 	gboolean retval;
-	DEBUG_MSG("project_save, bfwin=%p, save_as=%d\n",bfwin,save_as);
+	DEBUG_MSG("project_save, bfwin=%p, save_as=%d\n", bfwin, save_as);
 	if (!bfwin->project) {
 		/* there is no project yet, we have to create one */
-		DEBUG_MSG("project_save, bfwin=%p does not have a project yet, create one\n",bfwin);
-		bfwin->project= create_new_project(bfwin);
-  	   bmark_reload(bfwin);
+		DEBUG_MSG("project_save, bfwin=%p does not have a project yet, create one\n", bfwin);
+		bfwin->project = create_new_project(bfwin);
+		bmark_reload(bfwin);
 	}
-	DEBUG_MSG("project_save, project=%p, num files was %d\n", bfwin->project, g_list_length(bfwin->project->files));
+	DEBUG_MSG("project_save, project=%p, num files was %d\n", bfwin->project,
+			  g_list_length(bfwin->project->files));
 	update_project_filelist(bfwin, bfwin->project);
 /*	bfwin->project->recentfiles = limit_stringlist(bfwin->project->recentfiles, main_v->props.max_recent_files, TRUE);*/
 
@@ -253,19 +275,21 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	bmark_store_all(bfwin);
 
 	if (save_as || bfwin->project->uri == NULL) {
-		gint suflen,filen;
+		gint suflen, filen;
 		GtkWidget *dialog;
-		GFile *newuri=NULL;
-		dialog = file_chooser_dialog(bfwin,_("Enter Bluefish project filename"),GTK_FILE_CHOOSER_ACTION_SAVE, NULL, TRUE, FALSE, "bfproject", FALSE);
-		if (gtk_dialog_run(GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
+		GFile *newuri = NULL;
+		dialog =
+			file_chooser_dialog(bfwin, _("Enter Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_SAVE,
+								NULL, TRUE, FALSE, "bfproject", FALSE);
+		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			gchar *filename;
 			newuri = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(dialog));
 			filename = g_file_get_parse_name(newuri);
 			suflen = strlen(main_v->props.project_suffix);
 			filen = strlen(filename);
-			if (filen < suflen || strcmp(&filename[filen - suflen], main_v->props.project_suffix)!=0) {
+			if (filen < suflen || strcmp(&filename[filen - suflen], main_v->props.project_suffix) != 0) {
 				GFile *tmp2;
-				gchar *tmp = g_strconcat(filename, main_v->props.project_suffix,NULL);
+				gchar *tmp = g_strconcat(filename, main_v->props.project_suffix, NULL);
 				tmp2 = g_file_parse_name(tmp);
 				g_free(tmp);
 				g_object_unref(newuri);
@@ -279,18 +303,17 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 		}
 		if (save_as || bfwin->project->uri == NULL) {
 			gboolean exists;
-			exists = g_file_query_exists(newuri,NULL);
+			exists = g_file_query_exists(newuri, NULL);
 			if (exists) {
-				gchar *tmpstr,*filename;
+				gchar *tmpstr, *filename;
 				gint retval;
-				const gchar *buttons[] = {_("_Cancel"), _("_Overwrite"), NULL};
+				const gchar *buttons[] = { _("_Cancel"), _("_Overwrite"), NULL };
 				filename = g_file_get_parse_name(newuri);
 				tmpstr = g_strdup_printf(_("A file named \"%s\" already exists."), filename);
 				retval = message_dialog_new_multi(bfwin->main_window,
-															 GTK_MESSAGE_WARNING,
-															 buttons,
-															 tmpstr,
-															 _("Do you want to replace the existing file?"));
+												  GTK_MESSAGE_WARNING,
+												  buttons,
+												  tmpstr, _("Do you want to replace the existing file?"));
 				g_free(tmpstr);
 				g_free(filename);
 				if (retval == 0) {
@@ -303,12 +326,15 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	}
 
 	retval = rcfile_save_project(bfwin->project, bfwin->project->uri);
-	DEBUG_MSG("project_save, retval=%d\n",retval);
-	add_to_recent_list(bfwin,bfwin->project->uri, FALSE, TRUE);
+	DEBUG_MSG("project_save, retval=%d\n", retval);
+	bfwin_recent_menu_add(bfwin, bfwin->project->uri, NULL, TRUE);
+
 	return retval;
 }
 
-void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
+void
+project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
+{
 	Tbfwin *prwin;
 	Tproject *prj;
 	gboolean retval;
@@ -317,14 +343,14 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 	/* first we test if the project is already open */
 	prwin = project_is_open(fromuri);
 	if (prwin != NULL) {
-		DEBUG_MSG("project_open_from_file, project is open in bfwin=%p\n",prwin);
+		DEBUG_MSG("project_open_from_file, project is open in bfwin=%p\n", prwin);
 		gtk_window_present(GTK_WINDOW(prwin->main_window));
 		return;
 	}
 
-	prj = g_new0(Tproject,1);
-	prj->session = g_new0(Tsessionvars,1);
-	DEBUG_MSG("project_open_from_file, project=%p, session=%p\n",prj,prj->session);
+	prj = g_new0(Tproject, 1);
+	prj->session = g_new0(Tsessionvars, 1);
+	DEBUG_MSG("project_open_from_file, project=%p, session=%p\n", prj, prj->session);
 	project_setup_initial_session(prj->session, TRUE);
 	prj->bmarkdata = bookmark_data_new();
 	retval = rcfile_parse_project(prj, fromuri);
@@ -332,12 +358,13 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 		DEBUG_MSG("project_open_from_file, failed parsing the project\n");
 		project_destroy(prj);
 		/* TODO: use project_destroy() 
-		bookmark_data_cleanup(prj->bmarkdata);
-		g_free(prj->session);
-		g_free(prj);*/
+		   bookmark_data_cleanup(prj->bmarkdata);
+		   g_free(prj->session);
+		   g_free(prj); */
 		return;
 	}
-	add_to_recent_list(bfwin,fromuri, FALSE, TRUE);
+
+	bfwin_recent_menu_add(bfwin, fromuri, NULL, TRUE);
 	prj->uri = fromuri;
 	g_object_ref(fromuri);
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
@@ -345,104 +372,117 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 		prwin = bfwin;
 		prwin->project = prj;
 		prwin->session = prj->session;
-		DEBUG_MSG("project_open_from_file, project %p will be in existing prwin=%p\n",prj,bfwin);
+		DEBUG_MSG("project_open_from_file, project %p will be in existing prwin=%p\n", prj, bfwin);
 		/* destroy the current empty document, it should use settings from the new session */
 		if (bfwin->current_document)
 			doc_destroy(bfwin->current_document, TRUE);
 	} else {
 		/* we will open a new Bluefish window for this project */
 		DEBUG_MSG("project_open_from_file, we need a new window\n");
-		prwin = gui_new_window(prj);
+		prwin = bfwin_window_new_with_project(prj);
 	}
 	tmplist = g_list_last(prj->files);
 	if (tmplist) {
 		while (tmplist) {
 			GFile *uri;
-			if (strstr ((gchar *) tmplist->data, "://") == NULL)
+			if (strstr((gchar *) tmplist->data, "://") == NULL)
 				uri = g_file_new_for_path((gchar *) tmplist->data);
 			else
 				uri = g_file_new_for_uri((gchar *) tmplist->data);
-			doc_new_from_uri(prwin, uri, NULL, !(prj->files->prev==NULL), TRUE, -1, -1);
+			doc_new_from_uri(prwin, uri, NULL, !(prj->files->prev == NULL), TRUE, -1, -1);
 			g_object_unref(uri);
 			tmplist = g_list_previous(tmplist);
 		}
 	} else {
 		doc_new(bfwin, FALSE);
 	}
-	DEBUG_MSG("project_open_from_file, new window with files ready at prwin=%p\n",prwin);
+	DEBUG_MSG("project_open_from_file, new window with files ready at prwin=%p\n", prwin);
 	setup_bfwin_for_project(prwin);
-	recent_menu_init_project(prwin);
 	DEBUG_MSG("project_open_from_file, done\n");
 }
 
-static void project_open_response_lcb(GtkDialog *dialog,gint response,Tbfwin *bfwin) {
+static void
+project_open_response_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
+{
 	if (response == GTK_RESPONSE_ACCEPT) {
 		GFile *file;
 		file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(dialog));
-		project_open_from_file(bfwin,file);
+		project_open_from_file(bfwin, file);
 		g_object_unref(file);
 	}
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 }
-static void project_open(Tbfwin *bfwin) {
+
+void
+project_open(Tbfwin * bfwin)
+{
 	GtkWidget *dialog;
-	dialog = file_chooser_dialog(bfwin, _("Select Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE, "bfproject", FALSE);
+	dialog =
+		file_chooser_dialog(bfwin, _("Select Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL,
+							TRUE, FALSE, "bfproject", FALSE);
 	g_signal_connect(dialog, "response", G_CALLBACK(project_open_response_lcb), bfwin);
 	gtk_widget_show_all(dialog);
 }
 
-void project_save_and_mark_closed(Tbfwin *bfwin) {
+void
+project_save_and_mark_closed(Tbfwin * bfwin)
+{
 	if (bfwin->project) {
 		project_save(bfwin, FALSE);
 
 		if (bfwin->project->uri)
-			add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
+			bfwin_recent_menu_add(bfwin, bfwin->project->uri, NULL, TRUE);
 
-		bfwin->project->close=TRUE;
+		bfwin->project->close = TRUE;
 	}
 }
 
-gboolean project_final_close(Tbfwin *bfwin, gboolean close_win) {
+gboolean
+project_final_close(Tbfwin * bfwin, gboolean close_win)
+{
 	if (!bfwin->project)
 		return TRUE;
-	if (!close_win) {
-		add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
-	}
+	if (!close_win)
+		bfwin_recent_menu_add(bfwin, bfwin->project->uri, NULL, TRUE);
+
 	project_destroy(bfwin->project);
-	/* we should only set the window for nonproject if the window will keep alive*/
+	/* we should only set the window for nonproject if the window will keep alive */
 	if (!close_win) {
 		setup_bfwin_for_nonproject(bfwin);
 	}
 	return TRUE;
 }
 
-/*
- * returns TRUE if the project is closed,
- * returns FALSE if something went wrong or was cancelled
- */
-/*gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
-	if (!bfwin->project)
-		return TRUE;
-	DEBUG_MSG("project_save_and_close, bfwin=%p, project=%p, close_win=%d, project->close=%d\n",bfwin,bfwin->project,close_win,bfwin->project->close);
-
-	project_save(bfwin, FALSE);
-
-	if (test_only_empty_doc_left(bfwin->documentlist)) {
-		project_destroy(bfwin->project);
-		setup_bfwin_for_nonproject(bfwin);
+void
+project_save_and_close(Tbfwin * bfwin)
+{
+	/* if there are multiple windows we can simply close the window, else we have to convert it to a non-project window */
+	if (main_v->bfwinlist && main_v->bfwinlist->next) {
+		bfwin_delete_event(NULL, NULL, bfwin);
 	} else {
-		gboolean retval;
-		/ * the last document that closes should close the window, and in the window-delete-event handler (in gui.c)
-		project_save_and_close() is called again, which will clean-up the memory * /
-		DEBUG_MSG("project_save_and_close, documents are closing!, setting project->close to TRUE for project %p in bfwin %p\n", bfwin->project, bfwin);
-		retval = doc_close_multiple_backend(bfwin, close_win);
-		if (retval) {
-			bfwin->project->close = TRUE;
+		project_save_and_mark_closed(bfwin);
+		if (!bfwin->documentlist) {
+			project_final_close(bfwin, FALSE);
+		} else if (have_modified_documents(bfwin->documentlist)) {
+			Tclose_mode retval = multiple_files_modified_dialog(bfwin);
+			switch (retval) {
+			case close_mode_cancel:
+				return;
+				break;
+			case close_mode_per_file:
+				if (choose_per_file(bfwin, FALSE))
+					bfwin->project->close = TRUE;
+				break;
+			case close_mode_save_all:
+			case close_mode_close_all:
+				doc_close_multiple_backend(bfwin, FALSE, retval);
+				break;
+			}
+		} else {
+			doc_close_multiple_backend(bfwin, FALSE, close_mode_close_all);
 		}
-		return retval;
 	}
-	return TRUE;
-}*/
+}
 
 typedef enum {
 	name,
@@ -458,15 +498,17 @@ typedef struct {
 	gboolean destroy_project_on_close;
 } Tprojecteditor;
 
-static void project_edit_destroy_lcb(GtkWidget *widget, Tprojecteditor *pred) {
-	DEBUG_MSG("project_edit_destroy_lcb, called for pred=%p\n",pred);
+static void
+project_edit_destroy_lcb(GtkWidget * widget, Tprojecteditor * pred)
+{
+	DEBUG_MSG("project_edit_destroy_lcb, called for pred=%p\n", pred);
 /*	gtk_widget_destroy(pred->win);*/
 	if (pred->destroy_project_on_close) {
 		if (pred->bfwin) {
 			setup_bfwin_for_nonproject(pred->bfwin);
 		}
 		project_destroy(pred->project);
-		pred->project=NULL;
+		pred->project = NULL;
 	}
 	if (pred->project) {
 		pred->project->editor = NULL;
@@ -474,49 +516,55 @@ static void project_edit_destroy_lcb(GtkWidget *widget, Tprojecteditor *pred) {
 	g_free(pred);
 }
 
-static void project_edit_cancel_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
+static void
+project_edit_cancel_clicked_lcb(GtkWidget * widget, Tprojecteditor * pred)
+{
 
 	gtk_widget_destroy(pred->win);
 }
 
-static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred) {
+static void
+project_edit_ok_clicked_lcb(GtkWidget * widget, Tprojecteditor * pred)
+{
 	Tproject *prj = pred->project;
 
 	pred->destroy_project_on_close = FALSE;
 
 	gtk_widget_hide(pred->win);
-	DEBUG_MSG("project_edit_ok_clicked_lcb, Tproject at %p, bfwin at %p\n",prj,pred->bfwin);
+	DEBUG_MSG("project_edit_ok_clicked_lcb, Tproject at %p, bfwin at %p\n", prj, pred->bfwin);
 	string_apply(&prj->name, pred->entries[name]);
 	sessionprefs_apply(&pred->sprefs, pred->project->session);
 	if (pred->bfwin == NULL) {
-		pred->bfwin = gui_new_window(pred->project);
+		pred->bfwin = bfwin_window_new_with_project(pred->project);
 		pred->bfwin->session = pred->project->session;
 		setup_bfwin_for_project(pred->bfwin);
 	} else {
-		gui_set_title(pred->bfwin, pred->bfwin->current_document, 0);
+		bfwin_set_title(pred->bfwin, pred->bfwin->current_document, 0);
 	}
 /* set_project_menu_widgets(pred->bfwin, TRUE);*/
-	project_save(pred->bfwin,FALSE);
+	project_save(pred->bfwin, FALSE);
 	gtk_widget_destroy(pred->win);
 }
 
 /*
 if NULL is passed as bfwin, a new window will be created for this project once OK is clicked
 */
-void project_edit(Tbfwin *bfwin) {
+void
+project_edit(Tbfwin * bfwin)
+{
 	GtkWidget *vbox, *but, *hbox, *label, *table;
 	gchar *wintitle = NULL;
 	Tprojecteditor *pred;
 
 	if (bfwin && bfwin->project && bfwin->project->editor) {
-		gtk_window_present(GTK_WINDOW(((Tprojecteditor *)bfwin->project->editor)->win));
+		gtk_window_present(GTK_WINDOW(((Tprojecteditor *) bfwin->project->editor)->win));
 		return;
 	}
-	pred = g_new(Tprojecteditor,1);
+	pred = g_new(Tprojecteditor, 1);
 	if (!bfwin || !bfwin->project) {
 		/* there is no project yet, we have to create one */
 		DEBUG_MSG("project_edit, no project yet, create one\n");
-		pred->project= create_new_project(bfwin);
+		pred->project = create_new_project(bfwin);
 		if (bfwin) {
 			bfwin->project = pred->project;
 		}
@@ -530,14 +578,15 @@ void project_edit(Tbfwin *bfwin) {
 			pred->project = bfwin->project;
 		}
 	}
-	DEBUG_MSG("project_edit, Tproject at %p\n",pred->project);
+	DEBUG_MSG("project_edit, Tproject at %p\n", pred->project);
 	pred->bfwin = bfwin;
 	pred->project->editor = pred;
 
-	pred->win = window_full2(wintitle, GTK_WIN_POS_CENTER_ALWAYS, 5
-			, G_CALLBACK(project_edit_destroy_lcb), pred, TRUE, NULL);
-	vbox = gtk_vbox_new(FALSE,0);
-	gtk_container_add(GTK_CONTAINER(pred->win),vbox);
+	pred->win =
+		window_full2(wintitle, GTK_WIN_POS_CENTER_ALWAYS, 5, G_CALLBACK(project_edit_destroy_lcb), pred, TRUE,
+					 NULL);
+	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(pred->win), vbox);
 
 	if (wintitle) {
 		g_free(wintitle);
@@ -545,20 +594,21 @@ void project_edit(Tbfwin *bfwin) {
 
 	label = gtk_label_new(NULL);
 	gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, TRUE, 0);
-	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
+	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 	{
 		gchar *message;
-		message = g_strdup_printf(
-			ngettext("This project contains %d file", "This project contains %d files", g_list_length(pred->project->files)),
-			g_list_length(pred->project->files));
+		message =
+			g_strdup_printf(ngettext
+							("This project contains %d file", "This project contains %d files",
+							 g_list_length(pred->project->files)), g_list_length(pred->project->files));
 		gtk_label_set_markup(GTK_LABEL(label), message);
 		g_free(message);
 	}
 
-	table = gtk_table_new (5, 4, FALSE);
-	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
-	gtk_table_set_row_spacings (GTK_TABLE (table), 6);
-	gtk_box_pack_start (GTK_BOX (vbox), table, FALSE, FALSE, 12);
+	table = gtk_table_new(5, 4, FALSE);
+	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
+	gtk_table_set_row_spacings(GTK_TABLE(table), 6);
+	gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 12);
 
 	pred->entries[name] = entry_with_text(pred->project->name, 255);
 	gtk_widget_set_size_request(GTK_WIDGET(pred->entries[name]), 250, -1);
@@ -571,7 +621,7 @@ void project_edit(Tbfwin *bfwin) {
 	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[template], 2, 3, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);*/
 
-	sessionprefs(_("<b>Project Defaults</b>"),&pred->sprefs, pred->project->session);
+	sessionprefs(_("<b>Project Defaults</b>"), &pred->sprefs, pred->project->session);
 	gtk_box_pack_start(GTK_BOX(vbox), pred->sprefs.frame, FALSE, FALSE, 6);
 
 	hbox = gtk_hbutton_box_new();
@@ -581,7 +631,8 @@ void project_edit(Tbfwin *bfwin) {
 	but = bf_stock_cancel_button(G_CALLBACK(project_edit_cancel_clicked_lcb), pred);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
 	if (pred->destroy_project_on_close == TRUE) {
-		but = bf_allbuttons_backend(_("Create _Project"), 1, 0, G_CALLBACK(project_edit_ok_clicked_lcb), pred);
+		but =
+			bf_allbuttons_backend(_("Create _Project"), 1, 0, G_CALLBACK(project_edit_ok_clicked_lcb), pred);
 	} else {
 		but = bf_stock_ok_button(G_CALLBACK(project_edit_ok_clicked_lcb), pred);
 	}
@@ -596,15 +647,21 @@ typedef struct {
 	Tbfwin *bfwin;
 } Tpc;
 
-static void project_create_destroy_lcb(GtkWidget *widget, Tpc *pc) {
+static void
+project_create_destroy_lcb(GtkWidget * widget, Tpc * pc)
+{
 	g_free(pc);
 }
 
-static void project_create_cancel_clicked_lcb(GtkWidget *widget, Tpc *pc) {
+static void
+project_create_cancel_clicked_lcb(GtkWidget * widget, Tpc * pc)
+{
 	gtk_widget_destroy(pc->win);
 }
 
-static void project_create_ok_clicked_lcb(GtkWidget *widget, Tpc *pc) {
+static void
+project_create_ok_clicked_lcb(GtkWidget * widget, Tpc * pc)
+{
 	gtk_widget_hide(pc->win);
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pc->rad[0]))) {
 		project_edit(pc->bfwin);
@@ -615,18 +672,23 @@ static void project_create_ok_clicked_lcb(GtkWidget *widget, Tpc *pc) {
 }
 
 
-void project_create_gui(Tbfwin *bfwin) {
+void
+project_create_gui(Tbfwin * bfwin)
+{
 	GtkWidget *vbox, *hbox, *but;
 	Tpc *pc;
 
-	pc = g_new(Tpc,1);
+	pc = g_new(Tpc, 1);
 	pc->bfwin = bfwin;
-	pc->win = window_full2(_("Create project"), GTK_WIN_POS_NONE, 5
-			, G_CALLBACK(project_create_destroy_lcb), pc, TRUE, NULL);
-	vbox = gtk_vbox_new(FALSE,0);
-	gtk_container_add(GTK_CONTAINER(pc->win),vbox);
-	pc->rad[0] = boxed_radiobut_with_value(_("Create project with currently opened documents"), TRUE, NULL, vbox);
-	pc->rad[1] = boxed_radiobut_with_value(_("Create empty project"), FALSE, GTK_RADIO_BUTTON(pc->rad[0]), vbox);
+	pc->win =
+		window_full2(_("Create project"), GTK_WIN_POS_NONE, 5, G_CALLBACK(project_create_destroy_lcb), pc,
+					 TRUE, NULL);
+	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(pc->win), vbox);
+	pc->rad[0] =
+		boxed_radiobut_with_value(_("Create project with currently opened documents"), TRUE, NULL, vbox);
+	pc->rad[1] =
+		boxed_radiobut_with_value(_("Create empty project"), FALSE, GTK_RADIO_BUTTON(pc->rad[0]), vbox);
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
@@ -638,63 +700,15 @@ void project_create_gui(Tbfwin *bfwin) {
 	gtk_widget_show_all(pc->win);
 }
 
-void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	DEBUG_MSG("project_menu_cb, bfwin=%p, project=%p,callback_action=%d\n",bfwin,bfwin->project,callback_action);
-	switch (callback_action) {
-	case 1:
-		project_open(bfwin);
-	break;
-	case 2:
-		project_save(bfwin, FALSE);
-	break;
-	case 3:
-		project_save(bfwin, TRUE);
-	break;
-	case 4:
-		/* if there are multiple windows we can simply close the window, else we have to convert it to a non-project window */
-		if (main_v->bfwinlist && main_v->bfwinlist->next) {
-			main_window_delete_event_lcb(NULL,NULL,bfwin);
-		} else {
-			project_save_and_mark_closed(bfwin);
-			if (!bfwin->documentlist) {
-				project_final_close(bfwin,FALSE);				
-			} else if (have_modified_documents(bfwin->documentlist)) {
-					Tclose_mode retval = multiple_files_modified_dialog(bfwin);
-				switch (retval) {
-				case close_mode_cancel:
-					return;
-				break;
-				case close_mode_per_file:
-					if (choose_per_file(bfwin, FALSE))
-						bfwin->project->close = TRUE;
-				break;
-				case close_mode_save_all:
-				case close_mode_close_all:
-					doc_close_multiple_backend(bfwin, FALSE, retval);
-				break;
-				}
-			} else {
-				doc_close_multiple_backend(bfwin, FALSE, close_mode_close_all);
-			}
-		}
-	break;
-	case 5:
-		project_edit(bfwin);
-	break;
-	case 6:
-		if (bfwin->project) {
-			project_edit(NULL);
-		} else {
-			if (test_only_empty_doc_left(bfwin->documentlist)) {
-				project_edit(bfwin);
-			} else {
-				project_create_gui(bfwin);
-			}
-		}
-	break;
-	default:
-		DEBUG_MSG_C("uh-oh: project_menu_cb, no such callback_action %d\n",callback_action);
-		g_return_if_reached();
-	break;
+void
+project_new(Tbfwin * bfwin)
+{
+	if (bfwin->project)
+		project_edit(NULL);
+	else {
+		if (test_only_empty_doc_left(bfwin->documentlist))
+			project_edit(bfwin);
+		else
+			project_create_gui(bfwin);
 	}
 }

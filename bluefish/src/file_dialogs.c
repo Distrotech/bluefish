@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file_dialogs.c - file dialogs
  *
- * Copyright (C) 2005-2010 Olivier Sessink
+ * Copyright (C) 2005-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,21 +23,23 @@
 #include <gtk/gtk.h>
 #include <string.h>				/* memcpy */
 #include <time.h>				/* strftime() */
+
 #include "bluefish.h"
-#include "file_autosave.h"
 #include "file_dialogs.h"
+#include "bfwin.h"
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
+#include "file_autosave.h"
 #include "file.h"
 #include "filebrowser2.h"
 #include "gtk_easy.h"
-#include "gui.h"
 #include "snr2.h"				/* snr2_run_extern_replace() */
 #include "stringlist.h"
 #include "undo_redo.h"
 
-static gchar *modified_on_disk_warning_string(const gchar *filename, GFileInfo *oldfinfo, GFileInfo *newfinfo);
+static gchar *modified_on_disk_warning_string(const gchar * filename, GFileInfo * oldfinfo,
+											  GFileInfo * newfinfo);
 
 /**************************************************************************/
 /* the start of the callback functions for the menu, acting on a document */
@@ -55,7 +57,8 @@ typedef struct {
 	Tbfwin *bfwin;
 } Tfiles_advanced;
 
-static void files_advanced_win_findpattern_changed(GtkComboBox * combobox, Tfiles_advanced * tfs)
+static void
+files_advanced_win_findpattern_changed(GtkComboBox * combobox, Tfiles_advanced * tfs)
 {
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(tfs->find_pattern))))) > 0) {
 		gtk_dialog_set_response_sensitive(GTK_DIALOG(tfs->dialog), GTK_RESPONSE_ACCEPT, TRUE);
@@ -64,29 +67,30 @@ static void files_advanced_win_findpattern_changed(GtkComboBox * combobox, Tfile
 	}
 }
 
-static gboolean files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
+static gboolean
+files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 {
 	GFile *baseuri;
 	gchar *basedir, *content_filter, *extension_filter;
 	gboolean retval;
-	GError *gerror=NULL;
-	extension_filter = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(tfs->find_pattern))), 0, -1);
+	GError *gerror = NULL;
+	extension_filter =
+		gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(tfs->find_pattern))), 0, -1);
 	basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
 	baseuri = g_file_new_for_uri(basedir);
 	content_filter = gtk_combo_box_get_active_text(GTK_COMBO_BOX(tfs->grep_pattern));
 	tfs->bfwin->session->searchlist =
 		add_to_history_stringlist(tfs->bfwin->session->searchlist, content_filter, FALSE, TRUE);
 
-	retval = open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
-				  , 500
-				  , !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname))
-				  ,
-				  strlen(extension_filter) == 0 ? NULL : extension_filter,
-				  strlen(content_filter) == 0 ? NULL : content_filter,
-				  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->is_regex)),
-				  &gerror);
+	retval =
+		open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
+					  , 500, !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname))
+					  ,
+					  strlen(extension_filter) == 0 ? NULL : extension_filter,
+					  strlen(content_filter) == 0 ? NULL : content_filter,
+					  gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->is_regex)), &gerror);
 	if (!retval && gerror) {
-		gtk_label_set_line_wrap(GTK_LABEL(tfs->regexwarn),TRUE);
+		gtk_label_set_line_wrap(GTK_LABEL(tfs->regexwarn), TRUE);
 		gtk_label_set_text(GTK_LABEL(tfs->regexwarn), gerror->message);
 		g_error_free(gerror);
 	}
@@ -96,11 +100,13 @@ static gboolean files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 	g_object_unref(baseuri);
 
 	tfs->bfwin->session->adv_open_recursive = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive));
-	tfs->bfwin->session->adv_open_matchname = !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname));
+	tfs->bfwin->session->adv_open_matchname =
+		!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname));
 	return retval;
 }
 
-static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_advanced * tfs)
+static void
+files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_advanced * tfs)
 {
 	gchar *newdir = NULL;
 	GtkWidget *dialog;
@@ -119,7 +125,8 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 	}
 }
 
-void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
+void
+files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 {
 	GtkWidget *alignment, *button, *carea, *table, *vbox, *vbox2;
 	GtkListStore *lstore;
@@ -150,10 +157,10 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	tfs->bfwin = bfwin;
 
 	tfs->dialog = gtk_dialog_new_with_buttons(_("Advanced open file selector"),
-			GTK_WINDOW(tfs->bfwin->main_window),
-			GTK_DIALOG_DESTROY_WITH_PARENT,
-			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-			GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+											  GTK_WINDOW(tfs->bfwin->main_window),
+											  GTK_DIALOG_DESTROY_WITH_PARENT,
+											  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+											  GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
 
 	gtk_dialog_set_has_separator(GTK_DIALOG(tfs->dialog), FALSE);
 	carea = gtk_dialog_get_content_area(GTK_DIALOG(tfs->dialog));
@@ -225,7 +232,7 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	tfs->is_regex = checkbut_with_value(NULL, 0);
 	dialog_mnemonic_label_in_table(_("Is rege_x:"), tfs->is_regex, table, 0, 1, 1, 2);
 	gtk_table_attach(GTK_TABLE(table), tfs->is_regex, 1, 2, 1, 2, GTK_FILL, GTK_SHRINK, 0, 0);
-	
+
 	tfs->regexwarn = gtk_label_new(NULL);
 	gtk_table_attach(GTK_TABLE(table), tfs->regexwarn, 1, 2, 2, 3, GTK_FILL, GTK_FILL, 0, 0);
 
@@ -241,14 +248,16 @@ void files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	g_free(tfs);
 }
 
-void file_open_advanced_cb(GtkWidget * widget, Tbfwin * bfwin)
+void
+file_open_advanced_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	files_advanced_win(bfwin, NULL);
 }
 
 /*************** end of advanced open code *************/
 
-static void file_open_ok_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
+static void
+file_open_ok_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
 {
 	if (response == GTK_RESPONSE_ACCEPT) {
 		GSList *slist, *tmpslist;
@@ -275,8 +284,8 @@ static void file_open_ok_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
 #if GTK_CHECK_VERSION(2,14,0)
 		tmpslist = slist = gtk_file_chooser_get_files(GTK_FILE_CHOOSER(dialog));
 		while (tmpslist) {
-			doc_new_from_uri(bfwin, (GFile *)tmpslist->data, NULL, (slist->next!=NULL), FALSE, -1, -1);
-			g_object_unref((GFile *)tmpslist->data);
+			doc_new_from_uri(bfwin, (GFile *) tmpslist->data, NULL, (slist->next != NULL), FALSE, -1, -1);
+			g_object_unref((GFile *) tmpslist->data);
 			tmpslist = tmpslist->next;
 		}
 		g_slist_free(slist);
@@ -285,7 +294,7 @@ static void file_open_ok_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
 		while (tmpslist) {
 			GFile *file;
 			file = g_file_new_for_uri((gchar *) tmpslist->data);
-			doc_new_from_uri(bfwin, file, NULL, (slist->next!=NULL), FALSE, -1, -1);
+			doc_new_from_uri(bfwin, file, NULL, (slist->next != NULL), FALSE, -1, -1);
 			g_object_unref(file);
 			g_free((gchar *) tmpslist->data);
 			tmpslist = tmpslist->next;
@@ -294,6 +303,18 @@ static void file_open_ok_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
 #endif
 	}
 	gtk_widget_destroy(GTK_WIDGET(dialog));
+}
+
+void
+file_open_doc(Tbfwin * bfwin)
+{
+	GtkWidget *dialog;
+
+	dialog =
+		file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE, NULL,
+							TRUE);
+	g_signal_connect(dialog, "response", G_CALLBACK(file_open_ok_lcb), bfwin);
+	gtk_widget_show_all(dialog);
 }
 
 /**
@@ -305,7 +326,8 @@ static void file_open_ok_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
  *
  * Return value: void
  **/
-void file_open_cb(GtkWidget * widget, Tbfwin * bfwin)
+void
+file_open_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	GtkWidget *dialog;
 	dialog =
@@ -328,15 +350,20 @@ typedef struct {
 	GtkWidget *win;
 	GtkWidget *entry;
 } Tou;
-static void open_url_destroy_lcb(GtkWidget * widget, Tou * ou)
+static void
+open_url_destroy_lcb(GtkWidget * widget, Tou * ou)
 {
 	g_free(ou);
 }
-static void open_url_cancel_lcb(GtkWidget * widget, Tou * ou)
+
+static void
+open_url_cancel_lcb(GtkWidget * widget, Tou * ou)
 {
 	gtk_widget_destroy(ou->win);
 }
-static void open_url_ok_lcb(GtkWidget * widget, Tou * ou)
+
+static void
+open_url_ok_lcb(GtkWidget * widget, Tou * ou)
 {
 	gchar *url = gtk_combo_box_get_active_text(GTK_COMBO_BOX(ou->entry));
 	DEBUG_MSG("open_url_ok_lcb, url=%s\n", url);
@@ -355,7 +382,8 @@ static void open_url_ok_lcb(GtkWidget * widget, Tou * ou)
  *
  * Return value: void
  **/
-void file_open_url_cb(GtkWidget * widget, Tbfwin * bfwin)
+void
+file_open_url_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	GtkWidget *vbox, *hbox, *but;
 	Tou *ou;
@@ -370,12 +398,15 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin * bfwin)
 #if !GLIB_CHECK_VERSION(2, 18, 0)
 	if (glib_major_version == 2 && glib_minor_version < 18) {
 		gchar *message;
-		GtkWidget *label=gtk_label_new(NULL);
-		message = g_strdup_printf(_("<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 if you rely on remote file support.</b>"),glib_major_version,glib_minor_version,glib_micro_version);
+		GtkWidget *label = gtk_label_new(NULL);
+		message =
+			g_strdup_printf(_
+							("<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 if you rely on remote file support.</b>"),
+							glib_major_version, glib_minor_version, glib_micro_version);
 		gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 		gtk_label_set_markup(GTK_LABEL(label), message);
 		g_free(message);
-		gtk_box_pack_start(GTK_BOX(vbox), label, FALSE,FALSE,4);
+		gtk_box_pack_start(GTK_BOX(vbox), label, FALSE, FALSE, 4);
 	}
 #endif
 	gtk_box_pack_start(GTK_BOX(vbox), bf_label_with_markup(_("<b>Open URL</b>")), FALSE, FALSE, 5);
@@ -392,7 +423,7 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin * bfwin)
 /*  ou->entry = boxed_entry_with_text("", 255, vbox); */
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 5);
 
-	hbox = gtk_hbutton_box_new(); 
+	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
@@ -413,7 +444,8 @@ typedef struct {
 	GFile *fbrefresh_uri;
 } Tdocsavebackend;
 
-static void docsavebackend_cleanup(Tdocsavebackend * dsb)
+static void
+docsavebackend_cleanup(Tdocsavebackend * dsb)
 {
 	if (dsb->unlink_uri)
 		g_object_unref(dsb->unlink_uri);
@@ -422,14 +454,16 @@ static void docsavebackend_cleanup(Tdocsavebackend * dsb)
 	g_free(dsb);
 }
 
-static void docsavebackend_async_unlink_lcb(gpointer data)
+static void
+docsavebackend_async_unlink_lcb(gpointer data)
 {
 	Tdocsavebackend *dsb = data;
 	fb2_refresh_parent_of_uri(dsb->unlink_uri);
 	docsavebackend_cleanup(dsb);
 }
 
-static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status, GError *gerror, gpointer data)
+static TcheckNsave_return
+doc_checkNsave_lcb(TcheckNsave_status status, GError * gerror, gpointer data)
 {
 	Tdocsavebackend *dsb = data;
 	Tdocument *doc = dsb->doc;
@@ -451,7 +485,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status, GError *
 			gchar *tmpstr =
 				g_strdup_printf(_
 								("A backupfile for %s could not be created. If you continue, this file will be overwritten."),
-			gtk_label_get_text(GTK_LABEL(doc->tab_label)));
+gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 			retval =
 				message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_WARNING, buttons,
 										 _("File backup failure"), tmpstr);
@@ -469,12 +503,13 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status, GError *
 	case CHECKANDSAVE_ERROR:
 	case CHECKANDSAVE_ERROR_NOWRITE:
 		{
-			errmessage = g_strconcat(_("Could not save file "), gtk_label_get_text(GTK_LABEL(doc->tab_label)), NULL);
+			errmessage =
+				g_strconcat(_("Could not save file "), gtk_label_get_text(GTK_LABEL(doc->tab_label)), NULL);
 			message_dialog_new(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
-					errmessage, gerror->message);
+							   errmessage, gerror->message);
 			g_free(errmessage);
 		}
-	/* no break - fall through */
+		/* no break - fall through */
 	case CHECKANDSAVE_ERROR_CANCELLED:
 		doc->action.save = NULL;
 		gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
@@ -485,11 +520,13 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status, GError *
 			/* we have to ask the user what to do */
 			const gchar *buttons[] = { _("_Abort save"), _("_Continue save"), NULL };
 			GFileInfo *newfinfo;
-			GError *gerror=NULL;
+			GError *gerror = NULL;
 			gint retval;
 			gchar *tmpstr, *utf8uri;
-			
-			newfinfo = g_file_query_info(doc->uri,G_FILE_ATTRIBUTE_STANDARD_SIZE","G_FILE_ATTRIBUTE_TIME_MODIFIED,0,NULL,&gerror);
+
+			newfinfo =
+				g_file_query_info(doc->uri, G_FILE_ATTRIBUTE_STANDARD_SIZE "," G_FILE_ATTRIBUTE_TIME_MODIFIED,
+								  0, NULL, &gerror);
 			if (gerror) {
 				g_warning("file was modified on disk, but now an error??");
 				g_error_free(gerror);
@@ -497,12 +534,12 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status, GError *
 			}
 			utf8uri = g_file_get_uri(doc->uri);
 			tmpstr = modified_on_disk_warning_string(utf8uri, doc->fileinfo, newfinfo);
-			/*g_strdup_printf(_("File %s has been modified on disk, overwrite?"), utf8uri);*/
+			/*g_strdup_printf(_("File %s has been modified on disk, overwrite?"), utf8uri); */
 			g_free(utf8uri);
 			g_object_unref(newfinfo);
 			retval =
-				message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_WARNING, buttons, _("File changed on disk\n"),
-										 tmpstr);
+				message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_WARNING, buttons,
+										 _("File changed on disk\n"), tmpstr);
 			g_free(tmpstr);
 			if (retval == 0) {
 				doc->action.save = NULL;
@@ -579,7 +616,8 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status, GError *
  *
  * Return value: gchar* with newly allocated string, or NULL on failure or abort
  **/
-gchar *ask_new_filename(Tbfwin * bfwin, const gchar * old_curi, const gchar * gui_name, gboolean is_move)
+gchar *
+ask_new_filename(Tbfwin * bfwin, const gchar * old_curi, const gchar * gui_name, gboolean is_move)
 {
 	Tdocument *exdoc;
 	GList *alldocs;
@@ -651,8 +689,9 @@ gchar *ask_new_filename(Tbfwin * bfwin, const gchar * old_curi, const gchar * gu
 	return new_curi;
 }
 
-void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean close_doc,
-					  gboolean close_window)
+void
+doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean close_doc,
+				 gboolean close_window)
 {
 	gchar *tmp;
 	Trefcpointer *buffer;
@@ -698,16 +737,16 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
 			glong hours, mins;
 			gchar gmtsign;
 			gchar tmptime[50];
-			
+
 			strftime(tmptime, 30, "%Y-%m-%dT%H:%M:%S", time_struct);
 			gmtsign = _timezone > 0 ? '-' : '+';
 			hours = abs(_timezone) / 3600;
 			mins = (abs(_timezone) % 3600) / 60;
 			sprintf(isotime, "%s%c%02ld%02ld", tmptime, gmtsign, hours, mins);
 		}
-#else /* WIN32 */
+#else							/* WIN32 */
 		strftime(isotime, 30, "%Y-%m-%dT%H:%M:%S%z", time_struct);
-#endif /* WIN32 */
+#endif							/* WIN32 */
 		DEBUG_MSG("doc_save_backend, ISO-8601 time %s\n", isotime);
 
 		date_tmp = g_strconcat("<meta name=\"date\" content=\"", isotime, "\" ", NULL);
@@ -721,7 +760,8 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
 	if (main_v->props.auto_update_meta_generator) {
 		snr2_run_extern_replace(doc,
 								"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
-								0, match_perl, 0, "<meta name=\"generator\" content=\"Bluefish " VERSION "\" ", FALSE);
+								0, match_perl, 0,
+								"<meta name=\"generator\" content=\"Bluefish " VERSION "\" ", FALSE);
 	}
 
 	if (doc->uri)
@@ -781,10 +821,13 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
 		return;
 	}
 #if !GLIB_CHECK_VERSION(2, 18, 0)
-   /* check runtime glib version, check if remote file, and give warning if remote file on glib < 2.18 */
-	if (glib_major_version==2 && glib_minor_version<18 && !g_file_is_native(doc->uri)) {
-		gchar *message = g_strdup_printf(_("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."),glib_major_version,glib_minor_version,glib_micro_version);
-		statusbar_message(BFWIN(doc->bfwin),message,20);
+	/* check runtime glib version, check if remote file, and give warning if remote file on glib < 2.18 */
+	if (glib_major_version == 2 && glib_minor_version < 18 && !g_file_is_native(doc->uri)) {
+		gchar *message =
+			g_strdup_printf(_
+							("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."),
+glib_major_version, glib_minor_version, glib_micro_version);
+		statusbar_message(BFWIN(doc->bfwin), message, 20);
 		g_free(message);
 	}
 #endif
@@ -794,8 +837,8 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), FALSE);
 	DEBUG_MSG("doc_save_backend, calling file_checkNsave_uri_async for %zd bytes\n", strlen(buffer->data));
 	doc->action.save =
-		file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as
-				,main_v->props.backup_file,doc_checkNsave_lcb, dsb);
+		file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as,
+								  main_v->props.backup_file, doc_checkNsave_lcb, dsb);
 
 	if (do_save_as) {
 		doc->readonly = FALSE;
@@ -817,7 +860,8 @@ void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gb
  *
  * Return value: void
  **/
-void file_save_cb(GtkWidget * widget, Tbfwin * bfwin)
+void
+file_save_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	if (bfwin->current_document)
 		doc_save_backend(bfwin->current_document, FALSE, FALSE, FALSE, FALSE);
@@ -832,7 +876,8 @@ void file_save_cb(GtkWidget * widget, Tbfwin * bfwin)
  *
  * Return value: void
  **/
-void file_save_as_cb(GtkWidget * widget, Tbfwin * bfwin)
+void
+file_save_as_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	if (bfwin->current_document)
 		doc_save_backend(bfwin->current_document, TRUE, FALSE, FALSE, FALSE);
@@ -847,22 +892,15 @@ void file_save_as_cb(GtkWidget * widget, Tbfwin * bfwin)
  *
  * Return value: void
  **/
-void file_move_to_cb(GtkWidget * widget, Tbfwin * bfwin)
+void
+file_move_to_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	if (bfwin->current_document)
 		doc_save_backend(bfwin->current_document, TRUE, TRUE, FALSE, FALSE);
 }
 
-/**
- * file_save_all_cb:
- * @widget: unused #GtkWidget
- * @bfwin: the #Tbfwin* window pointer
- *
- *  Save all editor notebooks
- *
- * Return value: void
- **/
-void file_save_all_cb(GtkWidget * widget, Tbfwin * bfwin)
+void
+file_save_all(Tbfwin * bfwin)
 {
 	GList *tmplist;
 	Tdocument *tmpdoc;
@@ -877,7 +915,34 @@ void file_save_all_cb(GtkWidget * widget, Tbfwin * bfwin)
 	}
 }
 
-void doc_save_all_close(Tbfwin *bfwin) {
+/**
+ * file_save_all_cb:
+ * @widget: unused #GtkWidget
+ * @bfwin: the #Tbfwin* window pointer
+ *
+ *  Save all editor notebooks
+ *
+ * Return value: void
+ **/
+void
+file_save_all_cb(GtkWidget * widget, Tbfwin * bfwin)
+{
+	GList *tmplist;
+	Tdocument *tmpdoc;
+
+	tmplist = g_list_first(bfwin->documentlist);
+	while (tmplist) {
+		tmpdoc = (Tdocument *) tmplist->data;
+		if (tmpdoc->modified) {
+			doc_save_backend(tmpdoc, FALSE, FALSE, FALSE, FALSE);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
+
+void
+doc_save_all_close(Tbfwin * bfwin)
+{
 	GList *tmplist = g_list_first(bfwin->documentlist);
 	while (tmplist) {
 		Tdocument *tmpdoc = (Tdocument *) tmplist->data;
@@ -887,52 +952,58 @@ void doc_save_all_close(Tbfwin *bfwin) {
 }
 
 
-gint doc_modified_dialog(Tdocument * doc) {
-	const gchar *buttons[] = { _("Close _Without Saving"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE,NULL};
+gint
+doc_modified_dialog(Tdocument * doc)
+{
+	const gchar *buttons[] = { _("Close _Without Saving"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL };
 	gchar *text;
 	gint retval;
 	text = g_strdup_printf(_("Save changes to \"%s\" before closing?"),
-							gtk_label_get_text(GTK_LABEL(doc->tab_label)));
+						   gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 	retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_QUESTION, buttons, text,
-									 _("If you don't save your changes they will be lost."));
+									  _("If you don't save your changes they will be lost."));
 	g_free(text);
 	return retval;
-} 
+}
 
-Tclose_mode multiple_files_modified_dialog(Tbfwin *bfwin) {
-	const gchar *buttons[] = { _("Choose per _File"), _("Close _All"), _("_Cancel"),_("_Save All"), NULL};
+Tclose_mode
+multiple_files_modified_dialog(Tbfwin * bfwin)
+{
+	const gchar *buttons[] = { _("Choose per _File"), _("Close _All"), _("_Cancel"), _("_Save All"), NULL };
 	int retval = message_dialog_new_multi(bfwin->main_window,
-								 GTK_MESSAGE_QUESTION, buttons,
-								 _("One or more open files have been changed."),
-								 _("If you don't save your changes they will be lost."));
-	return (Tclose_mode)retval;
+										  GTK_MESSAGE_QUESTION, buttons,
+										  _("One or more open files have been changed."),
+										  _("If you don't save your changes they will be lost."));
+	return (Tclose_mode) retval;
 }
 
 /* return TRUE if all are either closed or saved 
 return FALSE on cancel*/
-gboolean choose_per_file(Tbfwin *bfwin, gboolean close_window) {
+gboolean
+choose_per_file(Tbfwin * bfwin, gboolean close_window)
+{
 	GList *duplist, *tmplist;
 	duplist = g_list_copy(bfwin->documentlist);
 	tmplist = g_list_first(duplist);
 	while (tmplist) {
 		gint retval;
 		Tdocument *tmpdoc = (Tdocument *) tmplist->data;
-		DEBUG_MSG("choose_per_file, tmpdoc=%p\n",tmpdoc);
+		DEBUG_MSG("choose_per_file, tmpdoc=%p\n", tmpdoc);
 		if (tmpdoc->modified) {
 			retval = doc_modified_dialog(tmpdoc);
 			switch (retval) {
-			case 0: /* close */
+			case 0:			/* close */
 				DEBUG_MSG("choose_per_file, call doc_close\n");
 				tmpdoc->modified = FALSE;
 				doc_close_single_backend(tmpdoc, TRUE, close_window);
-			break;
-			case 1: /* cancel */
+				break;
+			case 1:			/* cancel */
 				return FALSE;
-			break;
-			case 2: /* save */
+				break;
+			case 2:			/* save */
 				DEBUG_MSG("choose_per_file, call doc_save\n");
 				doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
-			break;
+				break;
 			}
 		} else {
 			doc_close_single_backend(tmpdoc, TRUE, close_window);
@@ -943,7 +1014,8 @@ gboolean choose_per_file(Tbfwin *bfwin, gboolean close_window) {
 	return TRUE;
 }
 
-gboolean doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean close_window)
+gboolean
+doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean close_window)
 {
 	Tbfwin *bfwin = doc->bfwin;
 	if (doc->action.checkmodified)
@@ -967,7 +1039,7 @@ gboolean doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboo
 	}
 	if (doc->autosaved || doc->need_autosave) {
 		remove_autosave(doc);
-	} 
+	}
 	if (doc_is_empty_non_modified_and_nameless(doc)
 		&& g_list_length(BFWIN(doc->bfwin)->documentlist) <= 1) {
 		if (close_window) {
@@ -1007,13 +1079,15 @@ gboolean doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboo
  *
  * Return value: void
  **/
-void file_close_cb(GtkWidget * widget, Tbfwin * bfwin)
+void
+file_close_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	if (bfwin->current_document)
 		doc_close_single_backend(bfwin->current_document, FALSE, FALSE);
 }
 
-void doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window, Tclose_mode close_mode)
+void
+doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window, Tclose_mode close_mode)
 {
 	GList *tmplist, *duplist;
 	Tdocument *tmpdoc;
@@ -1047,7 +1121,29 @@ void doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window, Tclose_mo
 	g_list_free(duplist);
 	DEBUG_MSG("doc_close_multiple_backend, finished\n");
 	if (!close_window)
-		notebook_changed(bfwin, -1);
+		bfwin_notebook_changed(bfwin, -1);
+}
+
+void
+file_close_all(Tbfwin * bfwin)
+{
+	if (have_modified_documents(bfwin->documentlist)) {
+		Tclose_mode retval = multiple_files_modified_dialog(bfwin);
+		switch (retval) {
+		case close_mode_cancel:
+			return;
+			break;
+		case close_mode_per_file:
+			choose_per_file(bfwin, FALSE);
+			break;
+		case close_mode_save_all:
+		case close_mode_close_all:
+			doc_close_multiple_backend(bfwin, FALSE, retval);
+			break;
+		}
+	} else {
+		doc_close_multiple_backend(bfwin, FALSE, close_mode_close_all);
+	}
 }
 
 /**
@@ -1059,25 +1155,39 @@ void doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window, Tclose_mo
  *
  * Return value: void
  **/
-void file_close_all_cb(GtkWidget * widget, Tbfwin * bfwin)
+void
+file_close_all_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	if (have_modified_documents(bfwin->documentlist)) {
-			Tclose_mode retval = multiple_files_modified_dialog(bfwin);
+		Tclose_mode retval = multiple_files_modified_dialog(bfwin);
 		switch (retval) {
 		case close_mode_cancel:
 			return;
-		break;
+			break;
 		case close_mode_per_file:
 			choose_per_file(bfwin, FALSE);
-		break;
+			break;
 		case close_mode_save_all:
 		case close_mode_close_all:
 			doc_close_multiple_backend(bfwin, FALSE, retval);
-		break;
+			break;
 		}
 	} else {
 		doc_close_multiple_backend(bfwin, FALSE, close_mode_close_all);
 	}
+}
+
+void
+file_new_doc(Tbfwin * bfwin)
+{
+	Tdocument *doc;
+	GFile *template = NULL;
+
+	if (bfwin->session->template && bfwin->session->template[0]) {
+		template = g_file_new_for_commandline_arg(bfwin->session->template);
+	}
+	doc = doc_new_with_template(bfwin, template, TRUE);
+	bfwin_switch_to_document_by_pointer(bfwin, doc);
 }
 
 /**
@@ -1089,19 +1199,21 @@ void file_close_all_cb(GtkWidget * widget, Tbfwin * bfwin)
  *
  * Return value: void
  **/
-void file_new_cb(GtkWidget * widget, Tbfwin * bfwin)
+void
+file_new_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
 	Tdocument *doc;
-	GFile *template=NULL;
+	GFile *template = NULL;
 	if (bfwin->session->template && bfwin->session->template[0]) {
 		template = g_file_new_for_commandline_arg(bfwin->session->template);
 	}
 	doc = doc_new_with_template(bfwin, template, TRUE);
-	switch_to_document_by_pointer(bfwin, doc);
+	bfwin_switch_to_document_by_pointer(bfwin, doc);
 }
 
-static void file_reload_all_modified_check_lcb(Tcheckmodified_status status, GError *gerror,
-											   GFileInfo * orig, GFileInfo * new, gpointer user_data)
+static void
+file_reload_all_modified_check_lcb(Tcheckmodified_status status, GError * gerror,
+								   GFileInfo * orig, GFileInfo * new, gpointer user_data)
 {
 	if (status == CHECKMODIFIED_MODIFIED) {
 		DEBUG_MSG("file_reload_all_modified_check_lcb, reload %p\n", user_data);
@@ -1109,7 +1221,8 @@ static void file_reload_all_modified_check_lcb(Tcheckmodified_status status, GEr
 	}
 }
 
-void file_reload_all_modified(Tbfwin * bfwin)
+void
+file_reload_all_modified(Tbfwin * bfwin)
 {
 	GList *tmplist = g_list_first(bfwin->documentlist);
 	while (tmplist) {
@@ -1134,55 +1247,68 @@ typedef struct {
 	gulong signal_id;
 } Tsyncdialog;
 
-static void sync_progress(gint total, gint done, gint failed, gpointer user_data) {
+static void
+sync_progress(gint total, gint done, gint failed, gpointer user_data)
+{
 	Tsyncdialog *sd = user_data;
 	if (total > 0) {
 		gchar *text;
-		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(sd->progress),1.0*done/total);
-		text = g_strdup_printf("%d / %d",done,total);
-		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress),text);
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(sd->progress), 1.0 * done / total);
+		text = g_strdup_printf("%d / %d", done, total);
+		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress), text);
 /*		g_print("%s\n",text);*/
 		g_free(text);
 		if (failed > 0) {
-			text = g_strdup_printf(
-				ngettext("<span color=\"red\">%d failure</span>", "<span color=\"red\">%d failures</span>", failed),
-				failed);
+			text =
+				g_strdup_printf(ngettext
+								("<span color=\"red\">%d failure</span>",
+								 "<span color=\"red\">%d failures</span>", failed), failed);
 			gtk_label_set_markup(GTK_LABEL(sd->messagelabel), text);
 			g_free(text);
 		}
 	} else if (total == -1) {
-		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(sd->progress),1);
-		if (failed>0) {
-			gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress),_("incomplete finished"));
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(sd->progress), 1);
+		if (failed > 0) {
+			gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress), _("incomplete finished"));
 		} else {
-			gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress),_("completed"));
+			gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress), _("completed"));
 		}
-		g_signal_handler_unblock(sd->dialog,sd->signal_id);
+		g_signal_handler_unblock(sd->dialog, sd->signal_id);
 	}
 }
 
-static void sync_dialog_response_lcb(GtkDialog *dialog,gint response_id,gpointer user_data) {
+static void
+sync_dialog_response_lcb(GtkDialog * dialog, gint response_id, gpointer user_data)
+{
 	Tsyncdialog *sd = user_data;
-	DEBUG_MSG("sync_dialog_response_lcb, response=%d\n",response_id);
-	if (response_id > 0) { 
+	DEBUG_MSG("sync_dialog_response_lcb, response=%d\n", response_id);
+	if (response_id > 0) {
 		GFile *local, *remote;
 		gtk_label_set_text(GTK_LABEL(sd->messagelabel), "");
 		local = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_local)));
 		remote = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_remote)));
-		if (response_id==1) {
-			sync_directory(local, remote, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->delete_deprecated)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden)), sync_progress, sd);
+		if (response_id == 1) {
+			sync_directory(local, remote,
+						   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->delete_deprecated)),
+						   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden)), sync_progress,
+						   sd);
 		} else if (response_id == 2) {
-			sync_directory(remote, local, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->delete_deprecated)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden)), sync_progress, sd);
+			sync_directory(remote, local,
+						   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->delete_deprecated)),
+						   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden)), sync_progress,
+						   sd);
 		}
-		sd->bfwin->session->sync_delete_deprecated = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->delete_deprecated));
-		sd->bfwin->session->sync_include_hidden = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden));
-		
-		g_signal_handler_block(sd->dialog,sd->signal_id);
+		sd->bfwin->session->sync_delete_deprecated =
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->delete_deprecated));
+		sd->bfwin->session->sync_include_hidden =
+			gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden));
+
+		g_signal_handler_block(sd->dialog, sd->signal_id);
 		g_free(sd->bfwin->session->sync_local_uri);
 		sd->bfwin->session->sync_local_uri = g_file_get_uri(local);
 		g_free(sd->bfwin->session->sync_remote_uri);
 		sd->bfwin->session->sync_remote_uri = g_file_get_uri(remote);
-		
+
 		g_object_unref(local);
 		g_object_unref(remote);
 	} else {
@@ -1191,94 +1317,110 @@ static void sync_dialog_response_lcb(GtkDialog *dialog,gint response_id,gpointer
 	}
 }
 
-void sync_dialog(Tbfwin *bfwin) {
+void
+sync_dialog(Tbfwin * bfwin)
+{
 	Tsyncdialog *sd;
 	GtkWidget *carea, *hbox;
 
-	sd = g_new0(Tsyncdialog,1);
+	sd = g_new0(Tsyncdialog, 1);
 	sd->bfwin = bfwin;
 	sd->dialog = gtk_dialog_new_with_buttons(_("Upload / Download"),
-			GTK_WINDOW(bfwin->main_window),
-			GTK_DIALOG_DESTROY_WITH_PARENT,
-			_("Upload"),1,_("Download"), 2,
-			GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE,NULL);
+											 GTK_WINDOW(bfwin->main_window),
+											 GTK_DIALOG_DESTROY_WITH_PARENT,
+											 _("Upload"), 1, _("Download"), 2,
+											 GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
 
 	carea = gtk_dialog_get_content_area(GTK_DIALOG(sd->dialog));
 
 #if !GLIB_CHECK_VERSION(2, 18, 0)
 	if (glib_major_version == 2 && glib_minor_version < 18) {
 		gchar *message;
-		GtkWidget *label=gtk_label_new(NULL);
-		message = g_strdup_printf(_("<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 if you rely on remote file support.</b>"),glib_major_version,glib_minor_version,glib_micro_version);
+		GtkWidget *label = gtk_label_new(NULL);
+		message =
+			g_strdup_printf(_
+							("<b>Your glib version (%d.%d.%d) works unreliable with remote files (smb, ftp, sftp, webdav etc.). Please upgrade to a glib version newer than 2.18.0 if you rely on remote file support.</b>"),
+							glib_major_version, glib_minor_version, glib_micro_version);
 		gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 		gtk_label_set_markup(GTK_LABEL(label), message);
 		g_free(message);
-		gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(sd->dialog))), label, FALSE,FALSE,4);
+		gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(sd->dialog))), label, FALSE, FALSE,
+						   4);
 	}
 #endif
-	hbox = gtk_hbox_new(FALSE,4);
+	hbox = gtk_hbox_new(FALSE, 4);
 	sd->entry_local = gtk_entry_new();
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Local directory")), FALSE,FALSE,4);
-	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_local, TRUE,TRUE,4);
-	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_local, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), FALSE,FALSE,4);
-	gtk_box_pack_start(GTK_BOX(carea), hbox, FALSE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Local directory")), FALSE, FALSE, 4);
+	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_local, TRUE, TRUE, 4);
+	gtk_box_pack_start(GTK_BOX(hbox),
+					   file_but_new2(sd->entry_local, 1, bfwin, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), FALSE,
+					   FALSE, 4);
+	gtk_box_pack_start(GTK_BOX(carea), hbox, FALSE, FALSE, 4);
 
-	hbox = gtk_hbox_new(FALSE,4);
+	hbox = gtk_hbox_new(FALSE, 4);
 	sd->entry_remote = gtk_entry_new();
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Remote directory")), FALSE,FALSE,4);
-	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_remote, TRUE,TRUE,4);
-	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_remote, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), FALSE,FALSE,4);
-	gtk_box_pack_start(GTK_BOX(carea), hbox, FALSE,FALSE,4);
-	
-	sd->delete_deprecated = boxed_checkbut_with_value(_("Delete deprecated files"), bfwin->session->sync_delete_deprecated, carea);
-	sd->include_hidden = boxed_checkbut_with_value(_("Include hidden files"), bfwin->session->sync_include_hidden, carea);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Remote directory")), FALSE, FALSE, 4);
+	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_remote, TRUE, TRUE, 4);
+	gtk_box_pack_start(GTK_BOX(hbox),
+					   file_but_new2(sd->entry_remote, 1, bfwin, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER),
+					   FALSE, FALSE, 4);
+	gtk_box_pack_start(GTK_BOX(carea), hbox, FALSE, FALSE, 4);
+
+	sd->delete_deprecated =
+		boxed_checkbut_with_value(_("Delete deprecated files"), bfwin->session->sync_delete_deprecated,
+								  carea);
+	sd->include_hidden =
+		boxed_checkbut_with_value(_("Include hidden files"), bfwin->session->sync_include_hidden, carea);
 
 	sd->messagelabel = gtk_label_new(NULL);
 	gtk_box_pack_start(GTK_BOX(carea), sd->messagelabel, FALSE, FALSE, 4);
 
 	sd->progress = gtk_progress_bar_new();
 	gtk_box_pack_start(GTK_BOX(carea), sd->progress, FALSE, FALSE, 4);
-	
-	if (bfwin->session->sync_local_uri && bfwin->session->sync_local_uri[0]!='\0') {
+
+	if (bfwin->session->sync_local_uri && bfwin->session->sync_local_uri[0] != '\0') {
 		gtk_entry_set_text(GTK_ENTRY(sd->entry_local), bfwin->session->sync_local_uri);
-	} else if (bfwin->session->recent_dirs && bfwin->session->recent_dirs->data && *(gchar *)bfwin->session->recent_dirs->data != '\0') {
+	} else if (bfwin->session->recent_dirs && bfwin->session->recent_dirs->data
+			   && *(gchar *) bfwin->session->recent_dirs->data != '\0') {
 		gtk_entry_set_text(GTK_ENTRY(sd->entry_local), bfwin->session->recent_dirs->data);
 	}
 
-	if (bfwin->session->sync_remote_uri && bfwin->session->sync_remote_uri[0]!='\0') {
+	if (bfwin->session->sync_remote_uri && bfwin->session->sync_remote_uri[0] != '\0') {
 		gtk_entry_set_text(GTK_ENTRY(sd->entry_remote), bfwin->session->sync_remote_uri);
 	}
-	
+
 	sd->signal_id = g_signal_connect(sd->dialog, "response", G_CALLBACK(sync_dialog_response_lcb), sd);
 	gtk_widget_show_all(sd->dialog);
 }
 
-static gchar *modified_on_disk_warning_string(const gchar *filename, GFileInfo *oldfinfo, GFileInfo *newfinfo) {
+static gchar *
+modified_on_disk_warning_string(const gchar * filename, GFileInfo * oldfinfo, GFileInfo * newfinfo)
+{
 	gchar *tmpstr, *oldtimestr, *newtimestr;
-	time_t newtime,oldtime;
-	gsize oldsize,newsize;
+	time_t newtime, oldtime;
+	gsize oldsize, newsize;
 
-	newtime = (time_t)g_file_info_get_attribute_uint64(newfinfo,G_FILE_ATTRIBUTE_TIME_MODIFIED);
-	oldtime = (time_t)g_file_info_get_attribute_uint64(oldfinfo,G_FILE_ATTRIBUTE_TIME_MODIFIED);
+	newtime = (time_t) g_file_info_get_attribute_uint64(newfinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
+	oldtime = (time_t) g_file_info_get_attribute_uint64(oldfinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
 	newtimestr = bf_portable_time(&newtime);
 	oldtimestr = bf_portable_time(&oldtime);
 	newsize = g_file_info_get_size(newfinfo);
 	oldsize = g_file_info_get_size(oldfinfo);
-	/*g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr);*/
+	/*g_print("oldtimestr=%s, newtimestr=%s\n",oldtimestr,newtimestr); */
 	tmpstr = g_strdup_printf(_("Filename:%s changed on disk.\n\n"
-										"Original modification time was %s\n"
-										"New modification time is %s\n"
-										"Original size was %lu\n"
-										"New size is %lu"), 
-						filename, 
-						oldtimestr, newtimestr,
-						oldsize, newsize);
+							   "Original modification time was %s\n"
+							   "New modification time is %s\n"
+							   "Original size was %lu\n"
+							   "New size is %lu"), filename, oldtimestr, newtimestr, oldsize, newsize);
 	g_free(newtimestr);
 	g_free(oldtimestr);
 	return tmpstr;
 }
 
-static void doc_activate_modified_lcb(Tcheckmodified_status status,GError *gerror,GFileInfo *orig, GFileInfo *new, gpointer callback_data) {
+static void
+doc_activate_modified_lcb(Tcheckmodified_status status, GError * gerror, GFileInfo * orig, GFileInfo * new,
+						  gpointer callback_data)
+{
 	Tdocument *doc = callback_data;
 	switch (status) {
 	case CHECKMODIFIED_ERROR:
@@ -1286,104 +1428,109 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,GError *gerro
 		if (gerror->code == G_IO_ERROR_NOT_FOUND) {
 			gchar *tmpstr;
 			gint retval;
-			const gchar *buttons[] = {_("_Unset file name"),_("_Save"), NULL};
+			const gchar *buttons[] = { _("_Unset file name"), _("_Save"), NULL };
 			/* file is deleted on disk, what do we do now ? */
 			tmpstr = g_strdup_printf(_("File name: %s"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 			retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
-													 GTK_MESSAGE_WARNING,
-													 buttons,
-													 _("File disappeared from disk\n"),
-													 tmpstr);
+											  GTK_MESSAGE_WARNING,
+											  buttons, _("File disappeared from disk\n"), tmpstr);
 			g_free(tmpstr);
-			if (retval == 1) { /* save */
+			if (retval == 1) {	/* save */
 				doc_save_backend(doc, FALSE, FALSE, FALSE, FALSE);
-			} else { /* unset */
+			} else {			/* unset */
 				document_unset_filename(doc);
 			}
 		} else {
-			/* TODO: warn the user */	
+			/* TODO: warn the user */
 		}
-	break;
+		break;
 	case CHECKMODIFIED_CANCELLED:
 		DEBUG_MSG("doc_activate_modified_lcb, CHECKMODIFIED_CANCELLED\n");
-	break;
+		break;
 	case CHECKMODIFIED_MODIFIED:
 		{
-		gchar *tmpstr/*, *oldtimestr, *newtimestr*/;
-		gint retval;
-		const gchar *buttons[] = {_("_Ignore"),_("_Reload"),_("Check and reload all documents"), NULL};
-		/*time_t newtime,origtime;
-		
-		newtime = (time_t)g_file_info_get_attribute_uint64(new,G_FILE_ATTRIBUTE_TIME_MODIFIED);
-		origtime = (time_t)g_file_info_get_attribute_uint64(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED);
-		g_print("doc_activate_modified_lcb, newtime=%ld,%d origtime=%ld,%d newsize=%"G_GOFFSET_FORMAT" origsize=%"G_GOFFSET_FORMAT"\n",
-							newtime,g_file_info_get_attribute_uint32(new,G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC),
-							origtime,g_file_info_get_attribute_uint32(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC),
-							g_file_info_get_size(new),g_file_info_get_size(orig));
-		newtimestr = bf_portable_time(&newtime);
-		oldtimestr = bf_portable_time(&origtime);
+			gchar *tmpstr /*, *oldtimestr, *newtimestr */ ;
+			gint retval;
+			const gchar *buttons[] =
+				{ _("_Ignore"), _("_Reload"), _("Check and reload all documents"), NULL };
+			/*time_t newtime,origtime;
 
-		tmpstr = g_strdup_printf(_("Filename: %s\n\nNew modification time is: %s\nOld modification time is: %s"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), newtimestr, oldtimestr);
-		*/
-		tmpstr = modified_on_disk_warning_string(gtk_label_get_text(GTK_LABEL(doc->tab_menu)), orig, new);
-		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
-													 GTK_MESSAGE_WARNING,
-													 buttons,
-													 _("File changed on disk\n"),
-													 tmpstr);
-		g_free(tmpstr);
-		/*g_free(newtimestr);
-		g_free(oldtimestr);*/
-		if (retval == 0) { /* ignore */ 
-			/*if (doc->fileinfo) {
-				g_object_unref(doc->fileinfo);
+			   newtime = (time_t)g_file_info_get_attribute_uint64(new,G_FILE_ATTRIBUTE_TIME_MODIFIED);
+			   origtime = (time_t)g_file_info_get_attribute_uint64(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED);
+			   g_print("doc_activate_modified_lcb, newtime=%ld,%d origtime=%ld,%d newsize=%"G_GOFFSET_FORMAT" origsize=%"G_GOFFSET_FORMAT"\n",
+			   newtime,g_file_info_get_attribute_uint32(new,G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC),
+			   origtime,g_file_info_get_attribute_uint32(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC),
+			   g_file_info_get_size(new),g_file_info_get_size(orig));
+			   newtimestr = bf_portable_time(&newtime);
+			   oldtimestr = bf_portable_time(&origtime);
+
+			   tmpstr = g_strdup_printf(_("Filename: %s\n\nNew modification time is: %s\nOld modification time is: %s"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), newtimestr, oldtimestr);
+			 */
+			tmpstr = modified_on_disk_warning_string(gtk_label_get_text(GTK_LABEL(doc->tab_menu)), orig, new);
+			retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+											  GTK_MESSAGE_WARNING,
+											  buttons, _("File changed on disk\n"), tmpstr);
+			g_free(tmpstr);
+			/*g_free(newtimestr);
+			   g_free(oldtimestr); */
+			if (retval == 0) {	/* ignore */
+				/*if (doc->fileinfo) {
+				   g_object_unref(doc->fileinfo);
+				   }
+				   doc->fileinfo = new;
+				   g_object_ref(doc->fileinfo); */
+				GTimeVal mtime;
+				g_file_info_set_size(doc->fileinfo, g_file_info_get_size(new));
+				g_file_info_get_modification_time(new, &mtime);
+				g_file_info_set_modification_time(doc->fileinfo, &mtime);
+				g_file_info_set_attribute_string(doc->fileinfo, "etag::value",
+												 g_file_info_get_attribute_string(new, "etag::value"));
+				doc_set_tooltip(doc);
+			} else if (retval == 1) {	/* reload */
+				doc_reload(doc, new, FALSE);
+			} else {			/* reload all modified documents */
+				file_reload_all_modified(doc->bfwin);
 			}
-			doc->fileinfo = new;
-			g_object_ref(doc->fileinfo);*/
-			GTimeVal mtime;
-			g_file_info_set_size(doc->fileinfo, g_file_info_get_size(new));
-			g_file_info_get_modification_time(new, &mtime);
-			g_file_info_set_modification_time(doc->fileinfo, &mtime);
-			g_file_info_set_attribute_string(doc->fileinfo, "etag::value",g_file_info_get_attribute_string(new, "etag::value"));
-			doc_set_tooltip(doc);
-		} else if (retval == 1) { /* reload */
-			doc_reload(doc, new, FALSE);
-		} else { /* reload all modified documents */
-			file_reload_all_modified(doc->bfwin);
 		}
-		}
-	break;
+		break;
 	case CHECKMODIFIED_OK:
 		/* do nothing */
-	break;
+		break;
 	}
 	doc->action.checkmodified = NULL;
 }
 
-void doc_start_modified_check(Tdocument *doc) {
-	if (doc->uri && doc->fileinfo && !doc->action.checkmodified && !doc->action.save) { /* don't check during another check, or during save */
-		doc->action.checkmodified = file_checkmodified_uri_async(doc->uri, doc->fileinfo, doc_activate_modified_lcb, doc);
+void
+doc_start_modified_check(Tdocument * doc)
+{
+	if (doc->uri && doc->fileinfo && !doc->action.checkmodified && !doc->action.save) {	/* don't check during another check, or during save */
+		doc->action.checkmodified =
+			file_checkmodified_uri_async(doc->uri, doc->fileinfo, doc_activate_modified_lcb, doc);
 	}
 }
 
-static gboolean modified_on_disk_check_lcb(gpointer data) {
+static gboolean
+modified_on_disk_check_lcb(gpointer data)
+{
 	GList *tmplist = g_list_first(main_v->bfwinlist);
 	while (tmplist) {
 		Tbfwin *bfwin = tmplist->data;
 		if (bfwin->current_document) {
 			doc_start_modified_check(bfwin->current_document);
 		}
-		tmplist=g_list_next(tmplist);
+		tmplist = g_list_next(tmplist);
 	}
 	return TRUE;
 }
 
-void modified_on_disk_check_init(void) {
-	if (main_v->props.do_periodic_check && !main_v->periodic_check_id) 
-		main_v->periodic_check_id = g_timeout_add_seconds_full(G_PRIORITY_LOW,15,modified_on_disk_check_lcb,NULL,NULL);
+void
+modified_on_disk_check_init(void)
+{
+	if (main_v->props.do_periodic_check && !main_v->periodic_check_id)
+		main_v->periodic_check_id =
+			g_timeout_add_seconds_full(G_PRIORITY_LOW, 15, modified_on_disk_check_lcb, NULL, NULL);
 	else if (!main_v->props.do_periodic_check && main_v->periodic_check_id) {
 		g_source_remove(main_v->periodic_check_id);
 		main_v->periodic_check_id = 0;
 	}
 }
-
