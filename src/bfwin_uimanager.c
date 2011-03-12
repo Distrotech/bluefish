@@ -22,6 +22,7 @@
 /*#define DEBUG*/
 
 #include <stdlib.h>				/* atoi */
+#include <gdk/gdkkeysyms.h>
 
 #include "config.h"
 
@@ -819,8 +820,9 @@ static const GtkActionEntry document_actions[] = {
 	{"FileRevert", GTK_STOCK_REVERT_TO_SAVED, N_("Rever_t to Saved"), NULL, N_("Reload current file"),
 	 G_CALLBACK(ui_file_reload)},
 	{"FileRename", NULL, N_("Rena_me..."), "F2", N_("Rename file"), G_CALLBACK(ui_file_rename)},
-	{"EditIndent", GTK_STOCK_INDENT, N_("_Indent"), NULL, N_("Indent"), G_CALLBACK(ui_indent)},
-	{"EditUnindent", GTK_STOCK_UNINDENT, N_("_Unindent"), NULL, N_("Unindent"), G_CALLBACK(ui_unindent)},
+	{"EditIndent", GTK_STOCK_INDENT, N_("_Indent"), "<control>period", N_("Indent"), G_CALLBACK(ui_indent)},
+	{"EditUnindent", GTK_STOCK_UNINDENT, N_("_Unindent"), "<control>comma", N_("Unindent"),
+	 G_CALLBACK(ui_unindent)},
 	{"BookmarkFirst", GTK_STOCK_GOTO_TOP, N_("F_irst Bookmark"), NULL, N_("Goto first bookmark"),
 	 G_CALLBACK(ui_bookmark_first)},
 	{"BookmarkLast", GTK_STOCK_GOTO_BOTTOM, N_("_Last Bookmark"), NULL, N_("Goto last bookmark"),
@@ -833,13 +835,13 @@ static const GtkActionEntry document_actions[] = {
 	 G_CALLBACK(ui_move_tab_left)},
 	{"DocMoveRight", NULL, N_("Move Tab Right"), NULL, N_("Move current tab right"),
 	 G_CALLBACK(ui_move_tab_right)},
-	{"DocFirst", GTK_STOCK_GOTO_FIRST, N_("_First Document"), NULL, N_("Goto first document"),
+	{"DocFirst", GTK_STOCK_GOTO_FIRST, N_("_First Document"), "<control>Page_Up", N_("Goto first document"),
 	 G_CALLBACK(ui_doc_first)},
-	{"DocLast", GTK_STOCK_GOTO_LAST, N_("L_ast Document"), NULL, N_("Goto last document"),
+	{"DocLast", GTK_STOCK_GOTO_LAST, N_("L_ast Document"), "<control>Page_Down", N_("Goto last document"),
 	 G_CALLBACK(ui_doc_last)},
-	{"DocNext", GTK_STOCK_GO_FORWARD, N_("_Next Document"), NULL, N_("Goto next document"),
+	{"DocNext", GTK_STOCK_GO_FORWARD, N_("_Next Document"), "Page_Down", N_("Goto next document"),
 	 G_CALLBACK(ui_doc_next)},
-	{"DocPrevious", GTK_STOCK_GO_BACK, N_("_Previous Document"), NULL, N_("Goto previous document"),
+	{"DocPrevious", GTK_STOCK_GO_BACK, N_("_Previous Document"), "Page_Up", N_("Goto previous document"),
 	 G_CALLBACK(ui_doc_previous)},
 	{"GotoLine", NULL, N_("Goto _Line"), "<control>L", N_("Goto line"), G_CALLBACK(ui_goto_line)},
 	{"GotoLineSelection", NULL, N_("Goto Line Number in _Selection"), "<shift><control>L",
@@ -1076,26 +1078,30 @@ bfwin_set_document_menu_items(Tdocument * doc)
 	bfwin_set_undo_redo_actions(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
 
 	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/AutoCompletion",
-									 bluefish_text_view_get_auto_complete(BLUEFISH_TEXT_VIEW(doc->view)));
+										 bluefish_text_view_get_auto_complete(BLUEFISH_TEXT_VIEW(doc->view)));
 	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/AutoIndent",
-									 bluefish_text_view_get_auto_indent(BLUEFISH_TEXT_VIEW(doc->view)));
+										 bluefish_text_view_get_auto_indent(BLUEFISH_TEXT_VIEW(doc->view)));
 	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightBlockDelimiters",
-									 bluefish_text_view_get_show_mbhl(BLUEFISH_TEXT_VIEW(doc->view)));
+										 bluefish_text_view_get_show_mbhl(BLUEFISH_TEXT_VIEW(doc->view)));
 	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowBlocks",
-									 bluefish_text_view_get_show_blocks(BLUEFISH_TEXT_VIEW(doc->view)));
+										 bluefish_text_view_get_show_blocks(BLUEFISH_TEXT_VIEW(doc->view)));
 	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowLineNumbers",
-									 bluefish_text_view_get_show_line_numbers(BLUEFISH_TEXT_VIEW(doc->view)));
+										 bluefish_text_view_get_show_line_numbers(BLUEFISH_TEXT_VIEW
+																				  (doc->view)));
 	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowRightMargin",
-									 bluefish_text_view_get_show_right_margin(BLUEFISH_TEXT_VIEW(doc->view)));
+										 bluefish_text_view_get_show_right_margin(BLUEFISH_TEXT_VIEW
+																				  (doc->view)));
 	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowVisibleSpacing",
-									 bluefish_text_view_get_show_visible_spacing(BLUEFISH_TEXT_VIEW
-																				 (doc->view)));
-	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowSplitView", (doc->slave != NULL));
+										 bluefish_text_view_get_show_visible_spacing(BLUEFISH_TEXT_VIEW
+																					 (doc->view)));
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowSplitView",
+										 (doc->slave != NULL));
 	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/WrapText", doc->wrapstate);
-	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightSyntax", doc->highlightstate);
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightSyntax",
+										 doc->highlightstate);
 #ifdef HAVE_LIBENCHANT
 	bfwin_set_menu_toggle_item(BFWIN(doc->bfwin)->documentGroup, "SpellCheck",
-						   BLUEFISH_TEXT_VIEW(doc->view)->spell_check);
+							   BLUEFISH_TEXT_VIEW(doc->view)->spell_check);
 #endif
 
 	bfwin_lang_mode_set_wo_activate(BFWIN(doc->bfwin), BLUEFISH_TEXT_VIEW(doc->view)->bflang);
