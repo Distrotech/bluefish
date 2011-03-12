@@ -467,19 +467,18 @@ typedef struct {
 	GList *menu_filetypes;
 	GList *menu_templates;
 	/* action based dynamic menus */
-	GtkActionGroup *templates;
+	GtkActionGroup *templates_group;
 	guint templates_merge_id;
-	GtkActionGroup *lang_mode;
+	GtkActionGroup *lang_mode_group;
 	guint lang_mode_merge_id;
-	GtkActionGroup *commands;
+	GtkActionGroup *commands_group;
 	guint commands_merge_id;
-	GtkActionGroup *filters;
+	GtkActionGroup *filters_group;
 	guint filters_merge_id;
 	GtkActionGroup *outputbox_group;
 	guint outputbox_merge_id;
-	GtkActionGroup *encodings;
+	GtkActionGroup *encodings_group;
 	guint encodings_merge_id;
-	GtkActionGroup *bookmarks;
 	GtkActionGroup *fb2_filters_group;
 	guint fb2_filters_merge_id;
 #ifdef HAVE_LIBENCHANT

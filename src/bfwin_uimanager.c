@@ -898,9 +898,9 @@ lang_mode_menu_create(Tbfwin * bfwin)
 	GList *list;
 	gint value = 0;
 
-	if (!bfwin->lang_mode) {
-		bfwin->lang_mode = gtk_action_group_new("LangModeActions");
-		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->lang_mode, 1);
+	if (!bfwin->lang_mode_group) {
+		bfwin->lang_mode_group = gtk_action_group_new("LangModeActions");
+		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->lang_mode_group, 1);
 	}
 
 	bfwin->lang_mode_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
@@ -910,7 +910,7 @@ lang_mode_menu_create(Tbfwin * bfwin)
 		GtkRadioAction *action;
 
 		action = gtk_radio_action_new(bflang->name, bflang->name, NULL, NULL, value);
-		gtk_action_group_add_action(bfwin->lang_mode, GTK_ACTION(action));
+		gtk_action_group_add_action(bfwin->lang_mode_group, GTK_ACTION(action));
 		gtk_radio_action_set_group(action, group);
 		group = gtk_radio_action_get_group(action);
 		g_object_set_data(G_OBJECT(action), "bflang", (gpointer) bflang);
@@ -1162,7 +1162,7 @@ bfwin_encoding_set_wo_activate(Tbfwin * bfwin, const gchar * encoding)
 
 		if (g_ascii_strcasecmp(strarr[1], encoding) == 0) {
 			gchar *label = g_strdup_printf("%s (%s)", strarr[0], strarr[1]);
-			GtkAction *action = gtk_action_group_get_action(bfwin->encodings, label);
+			GtkAction *action = gtk_action_group_get_action(bfwin->encodings_group, label);
 			g_free(label);
 
 			if (!action) {
@@ -1183,7 +1183,7 @@ void
 bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
 {
 	if (bflang) {
-		GtkAction *action = gtk_action_group_get_action(bfwin->lang_mode, bflang->name);
+		GtkAction *action = gtk_action_group_get_action(bfwin->lang_mode_group, bflang->name);
 		if (!action) {
 			g_warning("Cannot set menu action LangMode %s\n", bflang->name);
 			return;
@@ -1210,19 +1210,19 @@ bfwin_commands_menu_create(Tbfwin * bfwin)
 {
 	GList *list;
 
-	if (!bfwin->commands) {
-		bfwin->commands = gtk_action_group_new("CommandsActions");
-		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->commands, 1);
+	if (!bfwin->commands_group) {
+		bfwin->commands_group = gtk_action_group_new("CommandsActions");
+		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->commands_group, 1);
 	} else {
 		GList *actions, *list;
 
 		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->commands_merge_id);
 
-		actions = gtk_action_group_list_actions(bfwin->commands);
+		actions = gtk_action_group_list_actions(bfwin->commands_group);
 		for (list = actions; list; list = list->next) {
 			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
 												 G_CALLBACK(commands_menu_activate), bfwin);
-			gtk_action_group_remove_action(bfwin->commands, GTK_ACTION(list->data));
+			gtk_action_group_remove_action(bfwin->commands_group, GTK_ACTION(list->data));
 		}
 		g_list_free(actions);
 	}
@@ -1239,7 +1239,7 @@ bfwin_commands_menu_create(Tbfwin * bfwin)
 			GtkAction *action;
 
 			action = gtk_action_new(arr[0], arr[0], NULL, NULL);
-			gtk_action_group_add_action(bfwin->commands, action);
+			gtk_action_group_add_action(bfwin->commands_group, action);
 			g_object_set_data(G_OBJECT(action), "command", (gpointer) arr[1]);
 
 			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(commands_menu_activate), bfwin);
@@ -1294,19 +1294,19 @@ bfwin_encodings_menu_create(Tbfwin * bfwin)
 	GList *list;
 	gint value = 0;
 
-	if (!bfwin->encodings) {
-		bfwin->encodings = gtk_action_group_new("EncodingsActions");
-		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->encodings, 1);
+	if (!bfwin->encodings_group) {
+		bfwin->encodings_group = gtk_action_group_new("EncodingsActions");
+		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->encodings_group, 1);
 	} else {
 		GList *actions, *list;
 
 		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->encodings_merge_id);
 
-		actions = gtk_action_group_list_actions(bfwin->encodings);
+		actions = gtk_action_group_list_actions(bfwin->encodings_group);
 		for (list = actions; list; list = list->next) {
 			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
 												 G_CALLBACK(encodings_menu_activate), bfwin);
-			gtk_action_group_remove_action(bfwin->encodings, GTK_ACTION(list->data));
+			gtk_action_group_remove_action(bfwin->encodings_group, GTK_ACTION(list->data));
 		}
 		g_list_free(actions);
 	}
@@ -1321,7 +1321,7 @@ bfwin_encodings_menu_create(Tbfwin * bfwin)
 		if (g_strv_length(strarr) == 3 && strarr[2][0] == '1') {
 			label = g_strdup_printf("%s (%s)", strarr[0], strarr[1]);
 			action = gtk_radio_action_new(label, label, NULL, NULL, value);
-			gtk_action_group_add_action(bfwin->encodings, GTK_ACTION(action));
+			gtk_action_group_add_action(bfwin->encodings_group, GTK_ACTION(action));
 			gtk_radio_action_set_group(action, group);
 			group = gtk_radio_action_get_group(action);
 			g_object_set_data(G_OBJECT(action), "encoding", (gpointer) strarr[1]);
@@ -1397,19 +1397,19 @@ bfwin_filters_menu_create(Tbfwin * bfwin)
 {
 	GList *list;
 
-	if (!bfwin->filters) {
-		bfwin->filters = gtk_action_group_new("FiltersActions");
-		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->filters, 1);
+	if (!bfwin->filters_group) {
+		bfwin->filters_group = gtk_action_group_new("FiltersActions");
+		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->filters_group, 1);
 	} else {
 		GList *actions, *list;
 
 		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->filters_merge_id);
 
-		actions = gtk_action_group_list_actions(bfwin->filters);
+		actions = gtk_action_group_list_actions(bfwin->filters_group);
 		for (list = actions; list; list = list->next) {
 			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
 												 G_CALLBACK(filters_menu_activate), bfwin);
-			gtk_action_group_remove_action(bfwin->filters, GTK_ACTION(list->data));
+			gtk_action_group_remove_action(bfwin->filters_group, GTK_ACTION(list->data));
 		}
 		g_list_free(actions);
 	}
@@ -1425,7 +1425,7 @@ bfwin_filters_menu_create(Tbfwin * bfwin)
 			GtkAction *action;
 
 			action = gtk_action_new(arr[0], arr[0], NULL, NULL);
-			gtk_action_group_add_action(bfwin->filters, action);
+			gtk_action_group_add_action(bfwin->filters_group, action);
 			g_object_set_data(G_OBJECT(action), "command", (gpointer) arr[1]);
 
 			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(filters_menu_activate), bfwin);
@@ -1635,19 +1635,19 @@ bfwin_templates_menu_create(Tbfwin * bfwin)
 {
 	GList *list;
 
-	if (!bfwin->templates) {
-		bfwin->templates = gtk_action_group_new("TemplateActions");
-		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->templates, 1);
+	if (!bfwin->templates_group) {
+		bfwin->templates_group = gtk_action_group_new("TemplateActions");
+		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->templates_group, 1);
 	} else {
 		GList *actions, *list;
 
 		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->templates_merge_id);
 
-		actions = gtk_action_group_list_actions(bfwin->templates);
+		actions = gtk_action_group_list_actions(bfwin->templates_group);
 		for (list = actions; list; list = list->next) {
 			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
 												 G_CALLBACK(templates_menu_activate), bfwin);
-			gtk_action_group_remove_action(bfwin->templates, GTK_ACTION(list->data));
+			gtk_action_group_remove_action(bfwin->templates_group, GTK_ACTION(list->data));
 		}
 		g_list_free(actions);
 	}
@@ -1661,7 +1661,7 @@ bfwin_templates_menu_create(Tbfwin * bfwin)
 			GtkAction *action;
 
 			action = gtk_action_new(arr[0], arr[0], NULL, NULL);
-			gtk_action_group_add_action(bfwin->templates, action);
+			gtk_action_group_add_action(bfwin->templates_group, action);
 			g_object_set_data(G_OBJECT(action), "path", (gpointer) arr[1]);
 
 			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(templates_menu_activate), bfwin);

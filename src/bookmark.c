@@ -877,92 +877,80 @@ static const GtkRadioActionEntry bookmark_search_radio_actions[] = {
 	{"BookmarkSearchNameContent", NULL, N_("Name & Content"), NULL, NULL, 2}
 };
 
-static gboolean
+static void
 popup_menu_action_group_init(Tbfwin * bfwin)
 {
+	GtkActionGroup *action_group;
 	GError *error = NULL;
-	gboolean is_error = FALSE;
 
-	bfwin->bookmarks = gtk_action_group_new("BookmarkActions");
-	gtk_action_group_set_translation_domain(bfwin->bookmarks, GETTEXT_PACKAGE);
-	gtk_action_group_add_actions(bfwin->bookmarks, bookmark_actions, G_N_ELEMENTS(bookmark_actions),
+	action_group = gtk_action_group_new("BookmarkActions");
+	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE);
+	gtk_action_group_add_actions(action_group, bookmark_actions, G_N_ELEMENTS(bookmark_actions),
 								 bfwin);
-	gtk_action_group_add_toggle_actions(bfwin->bookmarks, bookmark_toggle_actions,
+	gtk_action_group_add_toggle_actions(action_group, bookmark_toggle_actions,
 										G_N_ELEMENTS(bookmark_toggle_actions), bfwin);
-	gtk_action_group_add_radio_actions(bfwin->bookmarks, bookmark_file_radio_actions,
+	gtk_action_group_add_radio_actions(action_group, bookmark_file_radio_actions,
 									   G_N_ELEMENTS(bookmark_file_radio_actions),
 									   bfwin->session->bookmarks_filename_mode,
 									   G_CALLBACK(popup_menu_show_file), bfwin);
-	gtk_action_group_add_radio_actions(bfwin->bookmarks, bookmark_radio_actions,
+	gtk_action_group_add_radio_actions(action_group, bookmark_radio_actions,
 									   G_N_ELEMENTS(bookmark_radio_actions),
 									   bfwin->session->bookmarks_show_mode,
 									   G_CALLBACK(popup_menu_show_bookmark), bfwin);
-	gtk_action_group_add_radio_actions(bfwin->bookmarks, bookmark_search_radio_actions,
+	gtk_action_group_add_radio_actions(action_group, bookmark_search_radio_actions,
 									   G_N_ELEMENTS(bookmark_search_radio_actions),
 									   bfwin->session->bmarksearchmode,
 									   G_CALLBACK(popup_search_mode_changed), bfwin);
-	gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->bookmarks, 1);
-	g_object_unref(bfwin->bookmarks);
+	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 1);
+	g_object_unref(action_group);
 
 	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, bookmark_menu_ui, -1, &error);
 	if (error != NULL) {
 		g_warning("building bookmark menu failed: %s", error->message);
-		is_error = TRUE;
 		g_error_free(error);
 	}
 
 	gtk_ui_manager_add_ui_from_string(bfwin->uimanager, bookmark_search_menu_ui, -1, &error);
 	if (error != NULL) {
 		g_warning("building bookmark search menu failed: %s", error->message);
-		is_error = TRUE;
 		g_error_free(error);
 	}
-
-	return is_error;
 }
 
 static void
 popup_menu(Tbfwin * bfwin, GdkEventButton * event, gboolean show_bmark_specific, gboolean show_file_specific)
 {
-	gboolean is_error = FALSE;
+	GtkWidget *menu = gtk_ui_manager_get_widget(bfwin->uimanager, "/BookmarkMenu");
 
-	if (!bfwin->bookmarks)
-		is_error = popup_menu_action_group_init(bfwin);
-
-	if (!is_error) {
-		GtkWidget *menu = gtk_ui_manager_get_widget(bfwin->uimanager, "/BookmarkMenu");
-
+	if (menu) {
 		if (!show_bmark_specific) {
 			bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/Edit", FALSE);
 			bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/Delete", FALSE);
 		}
-		if (!show_file_specific) {
+
+		if (!show_file_specific)
 			bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/DeleteAllInDoc", FALSE);
-		}
 
 		bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/BookmarkMenu/DefaultPermanent",
 											 main_v->globses.bookmarks_default_store);
 
-		gtk_widget_show_all(menu);
+		gtk_widget_show(menu);
 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
-	}
+	} else
+		g_warning("showing bookmark popup menu failed");
+
 }
 
 static void
 popup_search_menu(Tbfwin * bfwin, GdkEventButton * bevent)
 {
-	gboolean is_error = FALSE;
+	GtkWidget *menu = gtk_ui_manager_get_widget(bfwin->uimanager, "/BookmarkSearchMenu");
 
-	if (!bfwin->bookmarks)
-		is_error = popup_menu_action_group_init(bfwin);
-
-	if (!is_error) {
-		GtkWidget *menu = gtk_ui_manager_get_widget(bfwin->uimanager, "/BookmarkSearchMenu");
-
-		gtk_widget_show_all(menu);
+	if (menu) {
+		gtk_widget_show(menu);
 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, bevent->button, bevent->time);
-	}
-
+	} else
+		g_warning("showing bookmark search popup menu failed");
 }
 
 #if GTK_CHECK_VERSION(2,16,0)
@@ -1254,6 +1242,8 @@ bmark_gui(Tbfwin * bfwin)
 	   gtk_tree_selection_set_mode(selection,GTK_SELECTION_BROWSE);
 	   g_signal_connect(G_OBJECT(selection), "changed",G_CALLBACK(bmark_selection_changed_lcb), bfwin);
 	   } */
+
+	popup_menu_action_group_init(bfwin);
 
 	return vbox;
 }
