@@ -22,7 +22,6 @@
 /*#define DEBUG*/
 
 #include <stdlib.h>				/* atoi */
-#include <gdk/gdkkeysyms.h>
 
 #include "config.h"
 
@@ -1678,11 +1677,3 @@ bfwin_templates_menu_create(Tbfwin * bfwin)
 		}
 	}
 }
-
-#ifdef ENABLE_NLS
-gchar *
-menu_translate(const gchar * path, gpointer data)
-{
-	return gettext(path);
-}
-#endif
