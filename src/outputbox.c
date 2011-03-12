@@ -271,7 +271,7 @@ init_output_box(Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
 	gtk_widget_show_all(ob->hbox);
-	setup_toggle_item_from_widget(bfwin->menubar, "/View/Output Pane", 1);
+
 	return ob;
 }
 
@@ -398,7 +398,6 @@ outputbox_cleanup(Tbfwin * bfwin)
 		gtk_widget_destroy(OUTPUTBOX(bfwin->outputbox)->hbox);
 		g_free(bfwin->outputbox);
 		bfwin->outputbox = NULL;
-		setup_toggle_item_from_widget(bfwin->menubar, "/View/Output Pane", 0);
 	}
 }
 

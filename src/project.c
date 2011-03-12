@@ -142,15 +142,6 @@ set_project_menu_actions(Tbfwin * bfwin, gboolean win_has_project)
 	gtk_action_group_set_sensitive(bfwin->projectGroup, win_has_project);
 }
 
-void
-set_project_menu_widgets(Tbfwin * bfwin, gboolean win_has_project)
-{
-	menuitem_set_sensitive(bfwin->menubar, "/Project/Save", win_has_project);
-	menuitem_set_sensitive(bfwin->menubar, "/Project/Save as...", win_has_project);
-	menuitem_set_sensitive(bfwin->menubar, "/Project/Save & close", win_has_project);
-	menuitem_set_sensitive(bfwin->menubar, "/Project/Edit Project Options...", win_has_project);
-}
-
 static void
 setup_bfwin_for_project(Tbfwin * bfwin)
 {
@@ -164,7 +155,6 @@ setup_bfwin_for_project(Tbfwin * bfwin)
 	reload_spell_dictionary(bfwin);
 #endif
 	bfwin_apply_session(bfwin);
-	set_project_menu_widgets(bfwin, TRUE);
 	set_project_menu_actions(bfwin, TRUE);
 #ifdef MAC_INTEGRATION
 /*	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(doc->bfwin)->menubar));*/
@@ -187,7 +177,6 @@ setup_bfwin_for_nonproject(Tbfwin * bfwin)
 		bfwin_set_title(bfwin, bfwin->current_document, 0);
 
 	bfwin_apply_session(bfwin);
-	set_project_menu_widgets(bfwin, FALSE);
 	set_project_menu_actions(bfwin, FALSE);
 #ifdef MAC_INTEGRATION
 /*	ige_mac_menu_sync(GTK_MENU_SHELL(BFWIN(bfwin)->menubar));*/
@@ -721,69 +710,5 @@ project_new(Tbfwin * bfwin)
 			project_edit(bfwin);
 		else
 			project_create_gui(bfwin);
-	}
-}
-
-void
-project_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
-{
-	DEBUG_MSG("project_menu_cb, bfwin=%p, project=%p,callback_action=%d\n", bfwin, bfwin->project,
-			  callback_action);
-	switch (callback_action) {
-	case 1:
-		project_open(bfwin);
-		break;
-	case 2:
-		project_save(bfwin, FALSE);
-		break;
-	case 3:
-		project_save(bfwin, TRUE);
-		break;
-	case 4:
-		/* if there are multiple windows we can simply close the window, else we have to convert it to a non-project window */
-		if (main_v->bfwinlist && main_v->bfwinlist->next) {
-			bfwin_delete_event(NULL, NULL, bfwin);
-		} else {
-			project_save_and_mark_closed(bfwin);
-			if (!bfwin->documentlist) {
-				project_final_close(bfwin, FALSE);
-			} else if (have_modified_documents(bfwin->documentlist)) {
-				Tclose_mode retval = multiple_files_modified_dialog(bfwin);
-				switch (retval) {
-				case close_mode_cancel:
-					return;
-					break;
-				case close_mode_per_file:
-					if (choose_per_file(bfwin, FALSE))
-						bfwin->project->close = TRUE;
-					break;
-				case close_mode_save_all:
-				case close_mode_close_all:
-					doc_close_multiple_backend(bfwin, FALSE, retval);
-					break;
-				}
-			} else {
-				doc_close_multiple_backend(bfwin, FALSE, close_mode_close_all);
-			}
-		}
-		break;
-	case 5:
-		project_edit(bfwin);
-		break;
-	case 6:
-		if (bfwin->project) {
-			project_edit(NULL);
-		} else {
-			if (test_only_empty_doc_left(bfwin->documentlist)) {
-				project_edit(bfwin);
-			} else {
-				project_create_gui(bfwin);
-			}
-		}
-		break;
-	default:
-		DEBUG_MSG_C("uh-oh: project_menu_cb, no such callback_action %d\n", callback_action);
-		g_return_if_reached();
-		break;
 	}
 }
