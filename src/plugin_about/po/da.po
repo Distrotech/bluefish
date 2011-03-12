@@ -7,17 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 2.0.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-02-05 08:48+0100\n"
+"POT-Creation-Date: 2011-03-12 12:24-0800\n"
 "PO-Revision-Date: 2010-08-29 22:30+0100\n"
 "Last-Translator: Finn Gruwier Larsen <finngruwierlarsen@gmail.com>\n"
 "Language-Team: None\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/plugin_about/about.c:110
+#: src/plugin_about/about.c:76
+msgid "This version of Bluefish was built with:\n"
+msgstr "Denne version af Bluefish blev lavet med:\n"
+
+#: src/plugin_about/about.c:143
 msgid ""
 "\n"
 "Developers of previous releases:"
@@ -25,7 +29,7 @@ msgstr ""
 "\n"
 "Udviklere af tidligere versioner:"
 
-#: src/plugin_about/about.c:125
+#: src/plugin_about/about.c:158
 msgid ""
 "\n"
 "Package maintainers:"
@@ -33,7 +37,7 @@ msgstr ""
 "\n"
 "Pakkevedligeholdere:"
 
-#: src/plugin_about/about.c:132
+#: src/plugin_about/about.c:165
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
@@ -43,7 +47,7 @@ msgstr ""
 "Hvis du har kendskab til nogen der mangler på listen,\n"
 "så send venligst en mail til <bluefish@bluefish.openoffice.nl>."
 
-#: src/plugin_about/about.c:133
+#: src/plugin_about/about.c:166
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
@@ -51,7 +55,7 @@ msgstr ""
 "\n"
 "Tak til alle, der bidrog til at gøre denne software tilgængelig."
 
-#: src/plugin_about/about.c:169
+#: src/plugin_about/about.c:202
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
@@ -69,32 +73,54 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:179
+#: src/plugin_about/about.c:212
 msgid "translator-credits"
 msgstr ""
 "Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
 "Finn Gruwier Larsen <finngruwierlarsen@gmail.com>"
 
-#: src/plugin_about/about.c:219
-msgid "This version of Bluefish was built with:\n"
-msgstr "Denne version af Bluefish blev lavet med:\n"
-
-#: src/plugin_about/about.c:242
-msgid "/_Help"
+#: src/plugin_about/about.c:276
+#, fuzzy
+msgid "_Help"
 msgstr "/_Hjælp"
 
-#: src/plugin_about/about.c:243
-msgid "/Help/Bluefish _Homepage"
+#: src/plugin_about/about.c:277
+#, fuzzy
+msgid "Bluefish _Homepage"
 msgstr "/Hjælp/Bluefish _Homepage"
 
-#: src/plugin_about/about.c:244
-msgid "/Help/Report a _Bug"
+#: src/plugin_about/about.c:277
+#, fuzzy
+msgid "Bluefish homepage"
+msgstr "/Hjælp/Bluefish _Homepage"
+
+#: src/plugin_about/about.c:279
+#, fuzzy
+msgid "Report a _Bug"
 msgstr "Hjælp/Rapportér en _fejl"
 
-#: src/plugin_about/about.c:246
-msgid "/Help/_About..."
-msgstr "/Hjælp/_Om..."
+#: src/plugin_about/about.c:279
+#, fuzzy
+msgid "Report a bug"
+msgstr "Hjælp/Rapportér en _fejl"
 
-#: src/plugin_about/about.c:247
-msgid "/Help/_Build Info..."
+#: src/plugin_about/about.c:280
+msgid "_About"
+msgstr ""
+
+#: src/plugin_about/about.c:280
+msgid "About Bluefish"
+msgstr ""
+
+#: src/plugin_about/about.c:282
+#, fuzzy
+msgid "_Build Info"
 msgstr "/Hjælp/_Build-info..."
+
+#: src/plugin_about/about.c:282
+#, fuzzy
+msgid "Build info"
+msgstr "/Hjælp/_Build-info..."
+
+#~ msgid "/Help/_About..."
+#~ msgstr "/Hjælp/_Om..."

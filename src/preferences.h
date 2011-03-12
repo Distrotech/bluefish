@@ -52,6 +52,8 @@ sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars);
 Tsessionprefs *
 sessionprefs(const gchar *label, Tsessionprefs *sprefs, Tsessionvars *sessionvars);
 
+void preferences_dialog_new(void);
+
 void
 open_preferences_cb(GtkWidget *wid, gpointer data);
 void

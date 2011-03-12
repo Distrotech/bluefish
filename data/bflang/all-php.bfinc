@@ -3,11 +3,11 @@
 		Bluefish HTML Editor
 		all-php.bfinc $Revision: 4947 $
  
-		Copyright (C) 2008-2010 Olivier Sessink
+		Copyright (C) 2008-2009 Olivier Sessink
 
-	    This program is free software: you can redistribute it and/or modify
+		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
+		the Free Software Foundation; either version 2 of the License, or
 		(at your option) any later version.
 
 		This program is distributed in the hope that it will be useful,
@@ -16,7 +16,8 @@
 		GNU General Public License for more details.
 
 		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+		along with this program; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
 <group class="load_php_functions" autocomplete="1" highlight="php-function"  autocomplete_append="();" autocomplete_backup_cursor="2" >
@@ -25009,36 +25010,35 @@ or false.
 </group>
 
 <group highlight="php-keyword" autocomplete="1">
-<element pattern="break" autocomplete_append=";" />
-<element pattern="case" autocomplete_append=" :"  autocomplete_backup_cursor="1" />
-<element pattern="class" />
-<element pattern="continue" autocomplete_append=";" />
-<element pattern="declare" />
-<element pattern="default" autocomplete_append=":" />
-<element pattern="do" autocomplete_append=" {" />
-<element pattern="echo" />
+<element pattern="if" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
 <element pattern="else" autocomplete_append=" {" />
 <element pattern="elseif" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
-<element pattern="endif" autocomplete_append=";" />
-<element pattern="extends" />
-<element pattern="final" />
+<element pattern="do" autocomplete_append=" {" />
+<element pattern="while" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
 <element pattern="for" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
 <element pattern="foreach" />
-<element pattern="function" autocomplete_append=" () {"  autocomplete_backup_cursor="4" identifier_mode="1" />
-<element pattern="global" />
-<element pattern="if" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
-<element pattern="include" />
-<element pattern="include_once" />
-<element pattern="private" />
-<element pattern="protected" />
-<element pattern="public" />
+<element pattern="break" autocomplete_append=";" />
+<element pattern="continue" autocomplete_append=";" />
+<element pattern="switch" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
+<element pattern="declare" />
 <element pattern="return" autocomplete_append=";" />
 <element pattern="require" />
+<element pattern="include" />
 <element pattern="require_once" />
-<element pattern="static" />
-<element pattern="switch" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
+<element pattern="include_once" />
+<element pattern="function" autocomplete_append=" () {"  autocomplete_backup_cursor="4" identifier_mode="1" />
+<element pattern="case" autocomplete_append=" :"  autocomplete_backup_cursor="1" />
+<element pattern="default" autocomplete_append=":" />
+<element pattern="echo" />
+<element pattern="class" />
 <element pattern="var" />
-<element pattern="while" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
+<element pattern="public" />
+<element pattern="private" />
+<element pattern="protected" />
+<element pattern="static" />
+<element pattern="final" />
+<element pattern="extends" />
+<element pattern="global" />
 </group>
 <element pattern="[0-9.]+" is_regex="1" highlight="php-value"/>
 <!-- autocompletion does not recognize both TRUE and true unless they are in separate elements.
@@ -25053,35 +25053,18 @@ or false.
 	<context symbols="\'" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
 		<group class="sql-in-php-string" highlight="php-string-sql-keyword" case_insens="1">
-			<element pattern="AND" />
-			<element pattern="AS" />
-			<element pattern="ASC" />
-			<element pattern="BY" />
-			<element pattern="COUNT" />
-			<element pattern="DATE" />
-			<element pattern="DATE_FORMAT" />
-			<element pattern="DELETE" />
-			<element pattern="DESC" />
-			<element pattern="DISTINCT" />
-			<element pattern="FROM" />
-			<element pattern="GROUP" />
-			<element pattern="IN" />
-			<element pattern="INNER" />
-			<element pattern="INSERT" />
-			<element pattern="INTO" />
-			<element pattern="JOIN" />
-			<element pattern="LEFT" />
-			<element pattern="LIMIT" />
-			<element pattern="NOT" />
-			<element pattern="ON" />
-			<element pattern="OR" />
-			<element pattern="ORDER" />
-			<element pattern="REGEXP" />
 			<element pattern="SELECT" />
-			<element pattern="SET" />
-			<element pattern="UPDATE" />
-			<element pattern="VALUES" />
+			<element pattern="FROM" />
 			<element pattern="WHERE" />
+			<element pattern="ON" />
+			<element pattern="AS" />
+			<element pattern="ORDER" />
+			<element pattern="LEFT" />
+			<element pattern="INNER" />
+			<element pattern="JOIN" />
+			<element pattern="UPDATE" />
+			<element pattern="INSERT" />
+			<element pattern="DELETE" />
 		</group>
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>

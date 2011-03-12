@@ -30,10 +30,10 @@
 #ifdef ENABLE_NLS
 #undef _
 #define _(String) dgettext(PACKAGE"_plugin_htmlbar", String)
-#endif    
+#endif
 
 typedef struct {
-	GHashTable* lookup;
+	GHashTable *lookup;
 	GList *quickbar_items;
 } Thtmlbar;
 
@@ -48,4 +48,4 @@ typedef struct {
 
 extern Thtmlbar htmlbar_v;
 
-#endif /* __HTMLBAR_H_ */
+#endif							/* __HTMLBAR_H_ */

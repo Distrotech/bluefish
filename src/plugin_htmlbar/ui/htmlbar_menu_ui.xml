@@ -1,0 +1,288 @@
+<!--
+ ***************************************************************************
+ *  Bluefish HTML Editor
+ *  htmlbar_menu_ui.xml
+ *  This file is part of Bluefish
+ * 
+ *  Copyright (C) 2011 - James Hayward and Olivier Sessink
+ *
+ *  bluefish is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  bluefish is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with bluefish.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ***************************************************************************
+-->
+
+<ui>
+  <menubar name='MainMenu'>
+    <menu action='ViewMenu'>
+      <menuitem action='ViewHTMLToolbar'/>
+    </menu>
+    <menu action='TagsMenu'>
+      <menu action='HeadingsMenu'>
+        <menuitem action='HeadingsH1'/>
+        <menuitem action='HeadingsH2'/>
+        <menuitem action='HeadingsH3'/>
+        <menuitem action='HeadingsH4'/>
+        <menuitem action='HeadingsH5'/>
+        <menuitem action='HeadingsH6'/>
+      </menu>
+      <menu action='SpecialMenu'>
+        <menu action='AccentMenu'>
+          <menu action='UppercaseMenu'>
+            <menu action='UppercaseAIMenu'>
+              <menuitem action='UppercaseAgrave'/>
+              <menuitem action='UppercaseAacute'/>
+              <menuitem action='UppercaseAcircumflex'/>
+              <menuitem action='UppercaseAtilde'/>
+              <menuitem action='UppercaseAEligature'/>
+              <menuitem action='UppercaseAdiaeresis'/>
+              <menuitem action='UppercaseAring'/>
+              <menuitem action='UppercaseCcedilla'/>
+              <menuitem action='UppercaseEgrave'/>
+              <menuitem action='UppercaseEacute'/>
+              <menuitem action='UppercaseEcircumflex'/>
+              <menuitem action='UppercaseEdiaeresis'/>
+              <menuitem action='UppercaseIgrave'/>
+              <menuitem action='UppercaseIacute'/>
+              <menuitem action='UppercaseIcircumflex'/>
+              <menuitem action='UppercaseIdiaeresis'/>
+            </menu>
+            <menu action='UppercaseJZMenu'>
+              <menuitem action='UppercaseNtilde'/>
+              <menuitem action='UppercaseOgrave'/>
+              <menuitem action='UppercaseOacute'/>
+              <menuitem action='UppercaseOcircumflex'/>
+              <menuitem action='UppercaseOEligature'/>
+              <menuitem action='UppercaseOtilde'/>
+              <menuitem action='UppercaseOdiaeresis'/>
+              <menuitem action='UppercaseOslash'/>
+              <menuitem action='UppercaseUgrave'/>
+              <menuitem action='UppercaseUacute'/>
+              <menuitem action='UppercaseUcircumflex'/>
+              <menuitem action='UppercaseUdiaeresis'/>
+              <menuitem action='UppercaseYacute'/>
+            </menu>
+          </menu>
+          <menu action='LowercaseMenu'>
+            <menu action='LowercaseAIMenu'>
+              <menuitem action='LowercaseAgrave'/>
+              <menuitem action='LowercaseAacute'/>
+              <menuitem action='LowercaseAcircumflex'/>
+              <menuitem action='LowercaseAtilde'/>
+              <menuitem action='LowercaseAEligature'/>
+              <menuitem action='LowercaseAdiaeresis'/>
+              <menuitem action='LowercaseAring'/>
+              <menuitem action='LowercaseCcedilla'/>
+              <menuitem action='LowercaseEgrave'/>
+              <menuitem action='LowercaseEacute'/>
+              <menuitem action='LowercaseEcircumflex'/>
+              <menuitem action='LowercaseEdiaeresis'/>
+              <menuitem action='LowercaseIgrave'/>
+              <menuitem action='LowercaseIacute'/>
+              <menuitem action='LowercaseIcircumflex'/>
+              <menuitem action='LowercaseIdiaeresis'/>
+            </menu>
+            <menu action='LowercaseJZMenu'>
+              <menuitem action='LowercaseNtilde'/>
+              <menuitem action='LowercaseOgrave'/>
+              <menuitem action='LowercaseOacute'/>
+              <menuitem action='LowercaseOcircumflex'/>
+              <menuitem action='LowercaseOEligature'/>
+              <menuitem action='LowercaseOtilde'/>
+              <menuitem action='LowercaseOdiaeresis'/>
+              <menuitem action='LowercaseOslash'/>
+              <menuitem action='LowercaseUgrave'/>
+              <menuitem action='LowercaseUacute'/>
+              <menuitem action='LowercaseUcircumflex'/>
+              <menuitem action='LowercaseUdiaeresis'/>
+              <menuitem action='LowercaseYacute'/>
+              <menuitem action='LowercaseYdiaeresis'/>
+            </menu>
+          </menu>
+          <separator/>
+          <menuitem action='Umlaut'/>
+          <menuitem action='Acute'/>
+          <menuitem action='Cedilla'/>
+        </menu>
+        <menu action='CurrencyMenu'>
+          <menuitem action='CentSign'/>
+          <menuitem action='PoundSterling'/>
+          <menuitem action='CurrencySign'/>
+          <menuitem action='YenSign'/>
+          <menuitem action='Euro'/>
+        </menu>
+        <menu action='MathScienceMenu'>
+          <menuitem action='LogicalNot'/>
+          <menuitem action='Multiplication'/>
+          <menuitem action='Division'/>
+          <menuitem action='PlusMinus'/>
+          <menuitem action='LessThan'/>
+          <menuitem action='GreaterThan'/>
+          <menuitem action='Superscript1'/>
+          <menuitem action='Superscript2'/>
+          <menuitem action='Superscript3'/>
+          <menuitem action='OneQuarter'/>
+          <menuitem action='OneHalf'/>
+          <menuitem action='ThreeQuarters'/>
+          <menuitem action='DegreeSign'/>
+        </menu>
+        <menu action='NonLatinMenu'>
+          <menuitem action='UppercaseETH'/>
+          <menuitem action='UppercaseTHORN'/>
+          <menuitem action='LowercaseETH'/>
+          <menuitem action='LowercaseTHORN'/>
+          <menuitem action='NonLatinSharp'/>
+          <menuitem action='NonLatinMicroSign'/>
+        </menu>
+        <menu action='SpecialOtherMenu'>
+          <menuitem action='NBSP'/>
+          <menuitem action='SectionSign'/>
+          <menuitem action='Copyright'/>
+          <menuitem action='LeftAngleQuote'/>
+          <menuitem action='RightAngleQuote'/>
+          <menuitem action='Trademark'/>
+          <menuitem action='InvertedExclamation'/>
+          <menuitem action='InvertedQuestionMark'/>
+          <menuitem action='FeminineOrdinal'/>
+          <menuitem action='MasculineOrdinal'/>
+          <menuitem action='Pilcrow'/>
+          <menuitem action='BrokenBar'/>
+          <menuitem action='SoftHyphen'/>
+          <menuitem action='SpacingMacron'/>
+          <menuitem action='MidDot'/>
+        </menu>
+      </menu>
+      <menu action='FormatContextMenu'>
+        <menuitem action='FormatAbbr'/>
+        <menuitem action='FormatAcronym'/>
+        <menuitem action='FormatCitation'/>
+        <menuitem action='FormatCode'/>
+		<menuitem action='FormatDefine'/>
+		<menuitem action='FormatDelete'/>
+        <menuitem action='FormatEmphasis'/>
+        <menuitem action='FormatInsert'/>
+        <menuitem action='FormatKeyboard'/>
+        <menuitem action='FormatSample'/>
+		<menuitem action='FormatStrong'/>        
+        <menuitem action='FormatVariable'/>
+      </menu>
+      <menu action='FormatLayoutMenu'>
+        <menuitem action='FormatBold'/>
+        <menuitem action='FormatItalic'/>
+        <menuitem action='FormatUnderline'/>
+        <menuitem action='FormatStrikeout'/>
+        <menuitem action='FormatBig'/>
+        <menuitem action='FormatSmall'/>
+      </menu>
+      <menu action='FormatGeneralMenu'>
+        <menuitem action='FormatParagraph'/>
+        <menuitem action='FormatBreak'/>
+        <menuitem action='FormatClearAll'/>
+        <menuitem action='FormatNBSP'/>
+        <separator/>
+        <menuitem action='FormatFontSizePlus'/>
+        <menuitem action='FormatFontSizeMinus'/>
+        <separator/>
+        <menuitem action='FormatPre'/>
+        <menuitem action='FormatSubscript'/>
+        <menuitem action='FormatSuperscript'/>
+        <separator/>
+        <menuitem action='FormatCenter'/>
+        <menuitem action='FormatAlignRight'/>
+      </menu>
+      <menu action='TableMenu'>
+        <menuitem action='TableTable'/>
+        <menuitem action='TableRow'/>
+        <menuitem action='TableHeader'/>
+        <menuitem action='TableData'/>
+        <menuitem action='TableCaption'/>
+      </menu>
+      <menu action='ListMenu'>
+        <menuitem action='ListUnordered'/>
+        <menuitem action='ListOrdered'/>
+        <menuitem action='ListItem'/>
+        <menuitem action='ListDefList'/>
+        <menuitem action='ListDefTerm'/>
+        <menuitem action='ListDefinition'/>
+        <menuitem action='ListListMenu'/>
+      </menu>
+      <menu action='FormMenu'>
+        <menuitem action='FormForm'/>
+        <menuitem action='FormButton'/>
+        <menuitem action='FormInput'/>
+        <menuitem action='FormTextArea'/>
+      </menu>
+      <menu action='MiscMenu'>
+        <menuitem action='MiscGenMETATag'/>
+        <menuitem action='MiscSpan'/>
+        <menuitem action='MiscDiv'/>
+        <menuitem action='MiscLink'/>
+        <menuitem action='MiscScript'/>
+        <menuitem action='MiscAnchor'/>
+        <menuitem action='MiscImage'/>
+      </menu>
+      <menuitem action='TagsComment'/>
+    </menu>
+    <menu action='DialogsMenu'>
+      <menu action='DialogsGeneral'>
+        <menuitem action='DialogsQuickstart'/>
+        <menuitem action='DialogsLinkHeader'/>
+        <menuitem action='DialogsBody'/>
+        <menuitem action='DialogsAnchor'/>
+        <menuitem action='DialogsEmail'/>
+        <menuitem action='DialogsRule'/>
+        <menuitem action='DialogsFont'/>
+        <menuitem action='DialogsFontBase'/>
+        <menuitem action='DialogsQuicklist'/>
+        <menuitem action='DialogsMeta'/>
+        <menuitem action='DialogsEmbed'/>
+        <menuitem action='DialogsColor'/>
+        <menuitem action='DialogsTime'/>
+        <menuitem action='DialogsImage'/>
+        <menuitem action='DialogsThumbnail'/>
+      </menu>
+      <menu action='DialogsTableMenu'>
+        <menuitem action='DialogsTableWizard'/>
+        <menuitem action='DialogsTable'/>
+        <menuitem action='DialogsTableRow'/>
+        <menuitem action='DialogsTableHead'/>
+        <menuitem action='DialogsTableData'/>
+      </menu>
+      <menu action='DialogsCSSMenu'>
+        <menuitem action='DialogsCreateStyle'/>
+        <menuitem action='DialogsSpan'/>
+        <menuitem action='DialogsDiv'/>
+        <menuitem action='DialogsStyle'/>
+        <menuitem action='DialogsLinkStylesheet'/>
+      </menu>
+      <menu action='DialogsFrameMenu'>
+        <menuitem action='DialogsFrameWizard'/>
+        <menuitem action='DialogsFrameset'/>
+        <menuitem action='DialogsFrame'/>
+      </menu>
+      <menu action='DialogsFormMenu'>
+        <menuitem action='DialogsForm'/>
+        <menuitem action='DialogsFormInput'/>
+        <menuitem action='DialogsFormButtons'/>
+        <menuitem action='DialogsFormText'/>
+        <menuitem action='DialogsFormTextarea'/>
+        <menuitem action='DialogsFormSelect'/>
+        <menuitem action='DialogsFormOption'/>
+        <menuitem action='DialogsFormOptionGroup'/>
+        <menuitem action='DialogsFormButton'/>
+      </menu>
+      <separator/>
+      <menuitem action='DialogsEditTag'/>
+    </menu>
+  </menubar>
+</ui>

@@ -8,43 +8,47 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 17-01-06_sk-2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-02-05 08:48+0100\n"
+"POT-Creation-Date: 2011-03-12 12:24-0800\n"
 "PO-Revision-Date: 2006-01-18 14:51+0100\n"
 "Last-Translator: Vladimir VASIL <vvasil@post.sk>\n"
 "Language-Team:  <sk@li.org>\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk\n"
 "First-Translator: Vladimir VASIL <vvasil@post.sk>\n"
 "X-Generator: KBabel 1.10\n"
 
-#: src/plugin_about/about.c:110
+#: src/plugin_about/about.c:76
+msgid "This version of Bluefish was built with:\n"
+msgstr ""
+
+#: src/plugin_about/about.c:143
 msgid ""
 "\n"
 "Developers of previous releases:"
 msgstr ""
 
-#: src/plugin_about/about.c:125
+#: src/plugin_about/about.c:158
 msgid ""
 "\n"
 "Package maintainers:"
 msgstr ""
 
-#: src/plugin_about/about.c:132
+#: src/plugin_about/about.c:165
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
 "please let us know via <bluefish@bluefish.openoffice.nl>."
 msgstr ""
 
-#: src/plugin_about/about.c:133
+#: src/plugin_about/about.c:166
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
 msgstr ""
 
-#: src/plugin_about/about.c:169
+#: src/plugin_about/about.c:202
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
@@ -59,32 +63,49 @@ msgstr ""
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: src/plugin_about/about.c:179
+#: src/plugin_about/about.c:212
 #, fuzzy
 msgid "translator-credits"
 msgstr "Prekladatelia"
 
-#: src/plugin_about/about.c:219
-msgid "This version of Bluefish was built with:\n"
-msgstr ""
-
-#: src/plugin_about/about.c:242
-msgid "/_Help"
+#: src/plugin_about/about.c:276
+#, fuzzy
+msgid "_Help"
 msgstr "/_Nápoveda"
 
-#: src/plugin_about/about.c:243
-msgid "/Help/Bluefish _Homepage"
+#: src/plugin_about/about.c:277
+msgid "Bluefish _Homepage"
 msgstr ""
 
-#: src/plugin_about/about.c:244
-msgid "/Help/Report a _Bug"
+#: src/plugin_about/about.c:277
+msgid "Bluefish homepage"
 msgstr ""
 
-#: src/plugin_about/about.c:246
-msgid "/Help/_About..."
-msgstr "/Nápoveda/_O Bluefish..."
+#: src/plugin_about/about.c:279
+msgid "Report a _Bug"
+msgstr ""
 
-#: src/plugin_about/about.c:247
+#: src/plugin_about/about.c:279
+msgid "Report a bug"
+msgstr ""
+
+#: src/plugin_about/about.c:280
+msgid "_About"
+msgstr ""
+
+#: src/plugin_about/about.c:280
+msgid "About Bluefish"
+msgstr ""
+
+#: src/plugin_about/about.c:282
 #, fuzzy
-msgid "/Help/_Build Info..."
+msgid "_Build Info"
 msgstr "/Nápoveda/_O Bluefish..."
+
+#: src/plugin_about/about.c:282
+#, fuzzy
+msgid "Build info"
+msgstr "/Nápoveda/_O Bluefish..."
+
+#~ msgid "/Help/_About..."
+#~ msgstr "/Nápoveda/_O Bluefish..."

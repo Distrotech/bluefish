@@ -3,6 +3,8 @@ desktop-data/bluefish.xml.in
 src/bf_lib.c
 src/bftextview2.c
 src/bftextview2_spell.c
+src/bfwin.c
+src/bfwin_uimanager.c
 src/blocksync.c
 src/bluefish.c
 src/bookmark.c
@@ -19,8 +21,6 @@ src/file_dialogs.c
 src/filefilter.c
 src/gtk_easy.c
 src/gtkmountoperation.c
-src/gui.c
-src/menu.c
 src/msg_queue.c
 src/outputbox.c
 src/pixmap.c

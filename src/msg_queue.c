@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * msg_queue.c - message queue handling
  *
- * Copyright (C) 2003-2009 Olivier Sessink
+ * Copyright (C) 2003-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,12 +34,11 @@
 #include <string.h> /* strncpy */
 #include <stdlib.h> /* exit() */
 
-#include "stringlist.h"
 #include "gtk_easy.h" /* *_dialog */
-#include "gui.h" /* notebook_changed() */
 #include "document.h"
-#include "project.h"
 #include "file.h"
+#include "project.h"
+#include "stringlist.h"
 
 #define BLUEFISH_MSG_QUEUE 9723476 /* randomly chosen number, I hope it is not used by other apps */
 #define MSQ_QUEUE_SIZE 1024

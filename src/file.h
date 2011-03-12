@@ -26,8 +26,8 @@ void DEBUG_URI(GFile * uri, gboolean newline);
 
 void file_static_queues_init(void);
 
-typedef void (* DeleteAsyncCallback) (gpointer callback_data);
-void file_delete_async(GFile *uri, gboolean recursive, DeleteAsyncCallback callback, gpointer callback_data);
+typedef void (*DeleteAsyncCallback) (gpointer callback_data);
+void file_delete_async(GFile * uri, gboolean recursive, DeleteAsyncCallback callback, gpointer callback_data);
 typedef enum {
 	CHECKMODIFIED_ERROR,
 	CHECKMODIFIED_CANCELLED,
@@ -35,7 +35,8 @@ typedef enum {
 	CHECKMODIFIED_OK
 } Tcheckmodified_status;
 
-typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status status,GError *gerror,GFileInfo *orig, GFileInfo *new, gpointer callback_data);
+typedef void (*CheckmodifiedAsyncCallback) (Tcheckmodified_status status, GError * gerror, GFileInfo * orig,
+											GFileInfo * new, gpointer callback_data);
 
 typedef struct {
 	GCancellable *cancel;
@@ -47,7 +48,9 @@ typedef struct {
 
 void checkmodified_cancel(Tcheckmodified * cm);
 
-Tcheckmodified *file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data);
+Tcheckmodified *file_checkmodified_uri_async(GFile * uri, GFileInfo * curinfo,
+											 CheckmodifiedAsyncCallback callback_func,
+											 gpointer callback_data);
 /*
 typedef enum {
 	SAVEFILE_ERROR,
@@ -86,11 +89,14 @@ typedef enum {
 	CHECKNSAVE_CONT
 } TcheckNsave_return;
 
-typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status status,GError *gerror,gpointer callback_data);
+typedef TcheckNsave_return(*CheckNsaveAsyncCallback) (TcheckNsave_status status, GError * gerror,
+													  gpointer callback_data);
 
 GFile *backup_uri_from_orig_uri(GFile * origuri);
 void file_checkNsave_cancel(gpointer cns);
-gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, gboolean backup, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
+gpointer file_checkNsave_uri_async(GFile * uri, GFileInfo * info, Trefcpointer * buffer, gsize buffer_size,
+								   gboolean check_modified, gboolean backup,
+								   CheckNsaveAsyncCallback callback_func, gpointer callback_data);
 
 typedef enum {
 	OPENFILE_ERROR,
@@ -101,31 +107,37 @@ typedef enum {
 	OPENFILE_FINISHED
 } Topenfile_status;
 
-typedef void (* OpenfileAsyncCallback) (Topenfile_status status,GError *gerror, gchar *buffer,goffset buflen,gpointer callback_data);
+typedef void (*OpenfileAsyncCallback) (Topenfile_status status, GError * gerror, gchar * buffer,
+									   goffset buflen, gpointer callback_data);
 typedef struct {
 	GFile *uri;
-	Tbfwin *bfwin; /* MAY BE NULL !!!!!!!!!!!!!!!!!!!!!!!!!!! */
+	Tbfwin *bfwin;				/* MAY BE NULL !!!!!!!!!!!!!!!!!!!!!!!!!!! */
 	GCancellable *cancel;
 	OpenfileAsyncCallback callback_func;
 	gpointer callback_data;
 } Topenfile;
-void openfile_cancel(Topenfile *of);
-Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallback callback_func, gpointer callback_data);
+void openfile_cancel(Topenfile * of);
+Topenfile *file_openfile_uri_async(GFile * uri, Tbfwin * bfwin, OpenfileAsyncCallback callback_func,
+								   gpointer callback_data);
 
 void file2doc_cancel(gpointer f2d);
 void file_asyncfileinfo_cancel(gpointer fi);
-void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri);
-void file_doc_fill_from_uri(Tdocument *doc, GFile *uri, GFileInfo *finfo, gint goto_line);
-void file_doc_from_uri(Tbfwin *bfwin, GFile *uri, GFile *recover_uri, GFileInfo *finfo, gint goto_line, gint goto_offset, gboolean readonly);
-void file_into_doc(Tdocument *doc, GFile *uri, gboolean isTemplate, gboolean untiledRecovery);
-gboolean open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex, GError **reterror);
-void copy_uris_async(Tbfwin *bfwin, GFile *destdir, GSList *sources);
-void copy_files_async(Tbfwin *bfwin, GFile *destdir, gchar *sources);
-void file_doc_retry_uri(Tdocument *doc);
-void file_docs_from_uris(Tbfwin *bfwin, GSList *urislist);
+void file_doc_fill_fileinfo(Tdocument * doc, GFile * uri);
+void file_doc_fill_from_uri(Tdocument * doc, GFile * uri, GFileInfo * finfo, gint goto_line);
+void file_doc_from_uri(Tbfwin * bfwin, GFile * uri, GFile * recover_uri, GFileInfo * finfo, gint goto_line,
+					   gint goto_offset, gboolean readonly);
+void file_into_doc(Tdocument * doc, GFile * uri, gboolean isTemplate, gboolean untiledRecovery);
+gboolean open_advanced(Tbfwin * bfwin, GFile * basedir, gboolean recursive, guint max_recursion,
+					   gboolean matchname, gchar * name_filter, gchar * content_filter, gboolean use_regex,
+					   GError ** reterror);
+void copy_uris_async(Tbfwin * bfwin, GFile * destdir, GSList * sources);
+void copy_files_async(Tbfwin * bfwin, GFile * destdir, gchar * sources);
+void file_doc_retry_uri(Tdocument * doc);
+void file_docs_from_uris(Tbfwin * bfwin, GSList * urislist);
 
-typedef void (* SyncProgressCallback)(gint total, gint done, gint failed, gpointer user_data);
-void sync_directory(GFile *basedir, GFile *targetdir, gboolean delete_deprecated, gboolean include_hidden, SyncProgressCallback progress_callback, gpointer callback_data);
-
-void file_handle(GFile *uri, Tbfwin *bfwin, gchar *mimetype, gboolean external_input);
-#endif /* __FILE_H_ */
+typedef void (*SyncProgressCallback) (gint total, gint done, gint failed, gpointer user_data);
+void sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, gboolean include_hidden,
+					SyncProgressCallback progress_callback, gpointer callback_data);
+							/* __FILE_H_ */
+void file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean external_input);
+#endif							/* __FILE_H_ */

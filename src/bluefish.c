@@ -2,7 +2,7 @@
  * bluefish.c - the main function
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2010 Olivier Sessink
+ * Copyright (C) 1999-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,13 +46,13 @@
 #endif
 #include "pixmap.h"				/* set_default_icon() */
 #include "bf_lib.h"				/* create_full_path() */
+#include "bfwin.h"
 #include "bookmark.h"			/* bmark_init() */
 #include "dialog_utils.h"		/* message_dialog_new() */
 #include "document.h"
 #include "filebrowser2.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"			/* flush_queue() */
-#include "gui.h"				/* gui_create_main() */
 #ifdef HAVE_MESSAGE_QUEUE
 #include "msg_queue.h"			/* msg_queue_start() */
 #else
@@ -188,7 +188,7 @@ static gboolean startup_in_idle(gpointer data) {
 #endif							/* WITH_MSG_QUEUE */
 		break;
 		case 1:
-			gui_create_main(startup->firstbfwin);
+			bfwin_create_main(startup->firstbfwin);
 #ifdef WITH_MSG_QUEUE
 			if (main_v->props.open_in_running_bluefish) {
 				msg_queue_check_server(FALSE);
@@ -225,7 +225,7 @@ static gboolean startup_in_idle(gpointer data) {
 		#endif
 		break;
 		case 3:
-			gui_show_main(startup->firstbfwin);
+			bfwin_show_main(startup->firstbfwin);
 #ifdef MAC_INTEGRATION
 			{
 				GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
@@ -433,7 +433,7 @@ void bluefish_exit_request()
 	while (tmplist) {
 		Tbfwin *bfwin = BFWIN(tmplist->data);
 		tmplist = g_list_next(tmplist);
-		main_window_delete_event_lcb(NULL,NULL,bfwin);
+		bfwin_delete_event(NULL,NULL,bfwin);
 	}
 	/* if we still have modified documents we don't do a thing,
 	   if we don't have them we can quit */

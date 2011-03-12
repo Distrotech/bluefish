@@ -40,7 +40,8 @@ typedef struct {
 
 #define ACWIN(p) ((Tacwin *)(p))
 
-static void acwin_cleanup(BluefishTextView * btv)
+static void
+acwin_cleanup(BluefishTextView * btv)
 {
 	if (btv->autocomp) {
 		g_free(ACWIN(btv->autocomp)->prefix);
@@ -50,7 +51,8 @@ static void acwin_cleanup(BluefishTextView * btv)
 	}
 }
 
-static gboolean acwin_move_selection(BluefishTextView * btv, gint keyval)
+static gboolean
+acwin_move_selection(BluefishTextView * btv, gint keyval)
 {
 	GtkTreeSelection *selection;
 	GtkTreeIter it;
@@ -107,7 +109,8 @@ static gboolean acwin_move_selection(BluefishTextView * btv, gint keyval)
 	return FALSE;
 }
 
-gboolean acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
+gboolean
+acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 {
 	DBG_AUTOCOMP("got keyval %c\n", event->keyval);
 	if ((event->state & GDK_CONTROL_MASK) || (event->state & GDK_MOD1_MASK)) {
@@ -128,8 +131,8 @@ gboolean acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 				gint backup_chars = 0;
 				gtk_tree_model_get(model, &it, 1, &string, -1);
 				/*g_print("context %d has patternhash %p, string=%s\n",ACWIN(btv->autocomp)->contextnum, g_array_index(btv->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).patternhash, string); */
-				if (g_array_index(master->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).
-					patternhash) {
+				if (g_array_index
+					(master->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).patternhash) {
 					/*g_print("looking in context %d patternhash for '%s'\n",ACWIN(btv->autocomp)->contextnum, string); */
 					pattern_id =
 						GPOINTER_TO_INT(g_hash_table_lookup
@@ -205,7 +208,8 @@ gboolean acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 	return FALSE;
 }
 
-static void acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw)
+static void
+acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
@@ -220,8 +224,8 @@ static void acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw
 		if (key) {
 			gint pattern_id =
 				GPOINTER_TO_INT(g_hash_table_lookup
-								(g_array_index(master->bflang->st->contexts, Tcontext, acw->contextnum).
-								 patternhash, key));
+								(g_array_index
+								 (master->bflang->st->contexts, Tcontext, acw->contextnum).patternhash, key));
 			if (pattern_id && g_array_index(master->bflang->st->matches, Tpattern, pattern_id).reference) {
 				GtkRequisition requisition;
 				DBG_AUTOCOMP("show %s\n",
@@ -243,7 +247,8 @@ static void acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw
 	gtk_widget_set_size_request(acw->win, acw->listwidth, -1);
 }
 
-static Tacwin *acwin_create(BluefishTextView * btv)
+static Tacwin *
+acwin_create(BluefishTextView * btv)
 {
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
@@ -303,7 +308,8 @@ static Tacwin *acwin_create(BluefishTextView * btv)
 
 /* returns TRUE if window is popped-up lower than the cursor, 
 returns FALSE if window is popped-up higher than the cursor (because cursor is low in the screen) */
-static gboolean acwin_position_at_cursor(BluefishTextView * btv)
+static gboolean
+acwin_position_at_cursor(BluefishTextView * btv)
 {
 	GtkTextIter it;
 	GdkRectangle rect;
@@ -330,17 +336,19 @@ static gboolean acwin_position_at_cursor(BluefishTextView * btv)
 	}
 }
 
-static void acwin_calculate_window_size(Tacwin *acw, GList * items, GList * items2) {
+static void
+acwin_calculate_window_size(Tacwin * acw, GList * items, GList * items2)
+{
 	GList *tmplist;
-	gboolean runtwo=FALSE;
+	gboolean runtwo = FALSE;
 	gchar *longest = NULL, *tmp;
-	guint longestlen = 1, numitems=0;
+	guint longestlen = 1, numitems = 0;
 	tmplist = g_list_first(items);
 	while (!runtwo && tmplist) {
 		guint len;
 		if (!tmplist) {
 			tmplist = g_list_first(items2);
-			runtwo=TRUE;
+			runtwo = TRUE;
 			if (!tmplist)
 				break;
 		}
@@ -358,12 +366,13 @@ static void acwin_calculate_window_size(Tacwin *acw, GList * items, GList * item
 	if (longest) {
 		gint len, rowh;
 		PangoLayout *panlay = gtk_widget_create_pango_layout(GTK_WIDGET(acw->tree), NULL);
-		g_print("longest=%s\n",longest);
+		g_print("longest=%s\n", longest);
 		pango_layout_set_markup(panlay, longest, -1);
 		pango_layout_get_pixel_size(panlay, &len, &rowh);
 		acw->h = MIN(MAX((numitems + 1) * rowh + 8, 150), 350);
 		acw->w = acw->listwidth = MIN(len + 20, 350);
-		g_print("numitems=%d, rowh=%d, new height=%d, listwidth=%d\n", numitems, rowh, acw->h, acw->listwidth);
+		g_print("numitems=%d, rowh=%d, new height=%d, listwidth=%d\n", numitems, rowh, acw->h,
+				acw->listwidth);
 		gtk_widget_set_size_request(GTK_WIDGET(acw->tree), acw->listwidth, acw->h);	/* ac_window */
 		g_free(longest);
 		g_object_unref(G_OBJECT(panlay));
@@ -371,11 +380,12 @@ static void acwin_calculate_window_size(Tacwin *acw, GList * items, GList * item
 }
 
 /* not only fills the tree, but calculates and sets the required width as well */
-static void acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar * closetag, gboolean reverse)
+static void
+acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar * closetag, gboolean reverse)
 {
 	GList *tmplist, *list = NULL;
-	/*gchar *longest = NULL;*/
-	/*guint numitems = 0, longestlen = 1;*/
+	/*gchar *longest = NULL; */
+	/*guint numitems = 0, longestlen = 1; */
 	if (items)
 		list = g_list_copy(items);
 	/*g_print("got %d items\n",g_list_length(items));
@@ -383,7 +393,7 @@ static void acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar *
 	if (items2)
 		list = g_list_concat(g_list_copy(items2), list);
 	/*g_print("got %d list\n",g_list_length(list)); */
-	
+
 	list = g_list_sort(list, (GCompareFunc) g_strcmp0);
 	if (closetag)
 		list = g_list_prepend(list, closetag);
@@ -392,10 +402,10 @@ static void acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar *
 		g_print("reverse list!\n");
 	}
 	tmplist = g_list_first(list);
-	while (tmplist/* && numitems < 50*/) {
+	while (tmplist /* && numitems < 50 */ ) {
 		GtkTreeIter it;
 		gchar *tmp;
-		/*guint len;*/
+		/*guint len; */
 		gtk_list_store_append(acw->store, &it);
 		tmp = g_markup_escape_text(tmplist->data, -1);
 /*		len = strlen(tmplist->data);
@@ -406,8 +416,8 @@ static void acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar *
 		}*/
 		gtk_list_store_set(acw->store, &it, 0, tmp, 1, tmplist->data, -1);
 /*		if (tmp != longest)*/
-			g_free(tmp);
-		/*numitems++;*/
+		g_free(tmp);
+		/*numitems++; */
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(list);
@@ -435,16 +445,18 @@ static void acwin_fill_tree(Tacwin * acw, GList * items, GList * items2, gchar *
 	DBG_AUTOCOMP("\n");
 } */
 
-void autocomp_stop(BluefishTextView * btv)
+void
+autocomp_stop(BluefishTextView * btv)
 {
 	acwin_cleanup(btv);
 }
 
-void autocomp_run(BluefishTextView * btv, gboolean user_requested)
+void
+autocomp_run(BluefishTextView * btv, gboolean user_requested)
 {
 	GtkTextIter cursorpos, iter;
 	GtkTextBuffer *buffer;
-	BluefishTextView *master=BLUEFISH_TEXT_VIEW(btv->master);
+	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
 	gint contextnum;
 	gunichar uc;
 	guint16 identstate;
@@ -467,12 +479,11 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 	uc = gtk_text_iter_get_char(&cursorpos);
 	if (G_UNLIKELY(uc > NUMSCANCHARS))
 		return;
-	
+
 	identstate = g_array_index(master->bflang->st->contexts, Tcontext, contextnum).identstate;
 	if (g_array_index(master->bflang->st->table, Ttablerow, identstate).row[uc] == identstate) {
 		/* current character is not a symbol! */
-		DBG_AUTOCOMP("autocomp_run, character at cursor %d '%c' is not a symbol, return\n", uc,
-					 (char) uc);
+		DBG_AUTOCOMP("autocomp_run, character at cursor %d '%c' is not a symbol, return\n", uc, (char) uc);
 		acwin_cleanup(btv);
 		return;
 	}
@@ -482,7 +493,8 @@ void autocomp_run(BluefishTextView * btv, gboolean user_requested)
 		GSequenceIter *siter = NULL;
 		found = get_foundcache_at_offset(master, gtk_text_iter_get_offset(&cursorpos), &siter);
 		if (found) {
-			fblock = found->numblockchange < 0 ? pop_blocks(found->numblockchange, found->fblock): found->fblock;
+			fblock =
+				found->numblockchange < 0 ? pop_blocks(found->numblockchange, found->fblock) : found->fblock;
 			DBG_AUTOCOMP("blockstack has pattern %d on top, with tagclose_from_blockstack=%d\n",
 						 fblock->patternum, g_array_index(btv->bflang->st->matches, Tpattern,
 														  fblock->patternum).tagclose_from_blockstack);

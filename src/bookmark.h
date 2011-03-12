@@ -2,7 +2,7 @@
  * bookmark.h - bookmarks
  *
  * Copyright (C) 2003 Oskar Swida
- * modifications (C) 2004-2008 Olivier Sessink
+ * modifications (C) 2004-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,28 +20,35 @@
 
 #ifndef __BOOKMARK_H__
 #define __BOOKMARK_H__
-void bmark_doc_renamed(Tbfwin * bfwin, Tdocument *doc);
-void bmark_store_all(Tbfwin *bfwin);
-GtkWidget *bmark_gui(Tbfwin *bfwin); /* used in gui.c to build the bookmark panel */
-gpointer bookmark_data_new(void); /* only used once from bluefish.c */
-void bookmark_data_cleanup();
-void bmark_reload(Tbfwin *bfwin);
-void bmark_set_store(Tbfwin *bfwin);
-void bmark_clean_for_doc(Tdocument *doc); /* set bookmark's doc to NULL when closing file */ 
-void bmark_set_for_doc(Tdocument * doc, gboolean check_positions); /* set bookmark's doc to proper doc when opening file */ 
-GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, GtkTextIter *toit);
-gint bmark_margin_get_next_bookmark(Tdocument * doc, gpointer *bmark);
-gint bmark_margin_get_initial_bookmark(Tdocument * doc, GtkTextIter *fromit, gpointer *bmark);
-void bmark_add_extern(Tdocument *doc, gint offset, const gchar *name, const gchar *text, gboolean is_temp);
-void bmark_toggle(Tdocument *doc, gint offset, const gchar *name, const gchar *text);
-void bmark_add(Tbfwin *bfwin);
+
+void bmark_doc_renamed(Tbfwin * bfwin, Tdocument * doc);
+
+GtkWidget *bmark_gui(Tbfwin * bfwin);	/* used in gui.c to build the bookmark panel */
+void bookmark_navigate(Tbfwin * bfwin, guint action);
+
+gpointer bookmark_data_new(void);	/* only used once from bluefish.c */
+
+void bmark_reload(Tbfwin * bfwin);
+void bmark_set_store(Tbfwin * bfwin);
+void bmark_store_all(Tbfwin * bfwin);
+
+void bmark_clean_for_doc(Tdocument * doc);	/* set bookmark's doc to NULL when closing file */
+void bmark_set_for_doc(Tdocument * doc, gboolean check_positions);	/* set bookmark's doc to proper doc when opening file */
+
+GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter * fromit, GtkTextIter * toit);
+gint bmark_margin_get_initial_bookmark(Tdocument * doc, GtkTextIter * fromit, gpointer * bmark);
+gint bmark_margin_get_next_bookmark(Tdocument * doc, gpointer * bmark);
+
+void bmark_add(Tbfwin * bfwin);
+void bmark_add_extern(Tdocument * doc, gint offset, const gchar * name, const gchar * text, gboolean is_temp);
+void bmark_toggle(Tdocument * doc, gint offset, const gchar * name, const gchar * text);
+
 gboolean bmark_have_bookmark_at_stored_bevent(Tdocument * doc);
+void bmark_add_at_bevent(Tdocument * doc);
+void bmark_del_at_bevent(Tdocument * doc);
 void bmark_store_bevent_location(Tdocument * doc, gint charoffset);
-void bmark_del_at_bevent(Tdocument *doc);
-void bmark_add_at_bevent(Tdocument *doc);
-void bmark_del_all(Tbfwin *bfwin,gboolean ask);
-void bmark_cleanup(Tbfwin *bfwin);
 
-void bookmark_menu_cb(Tbfwin *bfwin,guint action,GtkWidget *widget);
+void bmark_cleanup(Tbfwin * bfwin);
+void bookmark_data_cleanup();
 
-#endif /* __BOOKMARK_H__ */
+#endif							/* __BOOKMARK_H__ */

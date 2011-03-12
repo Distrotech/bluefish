@@ -632,11 +632,13 @@ AC_CONFIG_FILES([
 	src/plugin_htmlbar/Makefile
 	src/plugin_htmlbar/pixmaps/Makefile
 	src/plugin_htmlbar/po/Makefile.in
+	src/plugin_htmlbar/ui/Makefile
 	src/plugin_infbrowser/Makefile
 	src/plugin_infbrowser/po/Makefile.in
 	src/plugin_snippets/Makefile
 	src/plugin_snippets/po/Makefile.in
 	src/bluefish_rc.rc.in
+	ui/Makefile
 	macosx/Makefile
 	win32/Makefile
 	win32/Makefile.mingw

@@ -7,84 +7,126 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru.po\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-02-05 08:48+0100\n"
+"POT-Creation-Date: 2011-03-12 12:24-0800\n"
 "PO-Revision-Date: 2004-12-02 10:42+0300\n"
 "Last-Translator: Eugene Rupakov <taurus_1@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: src/plugin_entities/entities.c:229
+#: src/plugin_entities/entities.c:263
 msgid "Characters to entities"
 msgstr "Символы в элементы"
 
-#: src/plugin_entities/entities.c:229
+#: src/plugin_entities/entities.c:263
 msgid "Entities to characters"
 msgstr "Элементы в символы"
 
-#: src/plugin_entities/entities.c:251
+#: src/plugin_entities/entities.c:284
 msgid "In current document"
 msgstr "В текущем документе"
 
-#: src/plugin_entities/entities.c:252
+#: src/plugin_entities/entities.c:285
 msgid "In selection"
 msgstr "В выделенном"
 
-#: src/plugin_entities/entities.c:253
+#: src/plugin_entities/entities.c:286
 msgid "In all documents"
 msgstr "Во всех документах"
 
-#: src/plugin_entities/entities.c:254
+#: src/plugin_entities/entities.c:287
 msgid "Sco_pe:"
 msgstr "Область _видимости:"
 
-#: src/plugin_entities/entities.c:257
+#: src/plugin_entities/entities.c:290
 msgid "Convert numerical encoded characters &#99;"
 msgstr "Преобразовать символы в числовом представлении &#99;"
 
-#: src/plugin_entities/entities.c:261
+#: src/plugin_entities/entities.c:294
 msgid "Convert _iso-8859-1 characters"
 msgstr "Преобразовать символы _iso-8859-1"
 
-#: src/plugin_entities/entities.c:265
+#: src/plugin_entities/entities.c:298
 msgid "Convert spe_cial characters"
 msgstr "Преобразовать _специальные символы"
 
-#: src/plugin_entities/entities.c:269
+#: src/plugin_entities/entities.c:302
 msgid "Convert _symbol characters"
 msgstr "Преобразовать символы-_значки"
 
-#: src/plugin_entities/entities.c:273
+#: src/plugin_entities/entities.c:306
 msgid "Convert _XML characters < > & \" '"
 msgstr "Преобразовать _XML-символы < > & \" '"
 
-#: src/plugin_entities/entities.c:278
+#: src/plugin_entities/entities.c:312
 msgid "Work around missing &apos; entity on IE"
 msgstr "Заменить неподдерживаемый в IE элемент &apos;"
 
-#: src/plugin_entities/entities.c:347
-msgid "/Tools/Entities To Characters..."
-msgstr "/Инструменты/Элементы в символы"
+#: src/plugin_entities/entities.c:416
+#, fuzzy
+msgid "Characters to Entities"
+msgstr "Символы в элементы"
 
-#: src/plugin_entities/entities.c:348
-msgid "/Tools/Characters To Entities..."
-msgstr "/Инструменты/Символы в элементы"
+#: src/plugin_entities/entities.c:417
+#, fuzzy
+msgid "Change characters to entities"
+msgstr "Символы в элементы"
 
-#: src/plugin_entities/entities.c:349
-msgid "/Tools/URL Encode"
-msgstr "/Инструменты/URL Encode"
+#: src/plugin_entities/entities.c:418
+#, fuzzy
+msgid "Entities to Characters"
+msgstr "Элементы в символы"
 
-#: src/plugin_entities/entities.c:350
-msgid "/Tools/URL Decode"
+#: src/plugin_entities/entities.c:419
+#, fuzzy
+msgid "Change entities to characters"
+msgstr "Элементы в символы"
+
+#: src/plugin_entities/entities.c:420
+#, fuzzy
+msgid "URL Decode"
 msgstr "/Инструменты/URL Decode"
 
-#: src/plugin_entities/entities.c:351
-msgid "/Tools/To Lowercase"
+#: src/plugin_entities/entities.c:420
+#, fuzzy
+msgid "URL decode"
+msgstr "/Инструменты/URL Decode"
+
+#: src/plugin_entities/entities.c:421
+#, fuzzy
+msgid "URL Encode"
+msgstr "/Инструменты/URL Encode"
+
+#: src/plugin_entities/entities.c:421
+#, fuzzy
+msgid "URL encode"
+msgstr "/Инструменты/URL Encode"
+
+#: src/plugin_entities/entities.c:422
+#, fuzzy
+msgid "To Lowercase"
 msgstr "/Инструменты/В нижний регистр"
 
-#: src/plugin_entities/entities.c:352
-msgid "/Tools/To Uppercase"
+#: src/plugin_entities/entities.c:422
+#, fuzzy
+msgid "To lowercase"
+msgstr "/Инструменты/В нижний регистр"
+
+#: src/plugin_entities/entities.c:423
+#, fuzzy
+msgid "To Uppercase"
 msgstr "/Инструменты/В верхний регистр"
+
+#: src/plugin_entities/entities.c:423
+#, fuzzy
+msgid "To uppercase"
+msgstr "/Инструменты/В верхний регистр"
+
+#~ msgid "/Tools/Entities To Characters..."
+#~ msgstr "/Инструменты/Элементы в символы"
+
+#~ msgid "/Tools/Characters To Entities..."
+#~ msgstr "/Инструменты/Символы в элементы"

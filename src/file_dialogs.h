@@ -27,32 +27,39 @@ typedef enum {
 	close_mode_save_all
 } Tclose_mode;
 
-void files_advanced_win(Tbfwin *bfwin, gchar *basedir);
-void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin);
-void file_open_cb(GtkWidget * widget, Tbfwin *bfwin);
-void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin);
-gchar *ask_new_filename(Tbfwin *bfwin,const gchar *old_curi, const gchar *gui_name, gboolean is_move);
-void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gboolean close_doc, gboolean close_window);
-void file_save_cb(GtkWidget * widget, Tbfwin *bfwin);
-void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin);
-void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin);
-void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin);
+void file_close_all(Tbfwin * bfwin);
+void file_new_doc(Tbfwin * bfwin);
+void file_open_doc(Tbfwin * bfwin);
+void file_save_all(Tbfwin * bfwin);
 
-void doc_save_all_close(Tbfwin *bfwin);
+
+void files_advanced_win(Tbfwin * bfwin, gchar * basedir);
+void file_open_advanced_cb(GtkWidget * widget, Tbfwin * bfwin);
+void file_open_cb(GtkWidget * widget, Tbfwin * bfwin);
+void file_open_url_cb(GtkWidget * widget, Tbfwin * bfwin);
+gchar *ask_new_filename(Tbfwin * bfwin, const gchar * old_curi, const gchar * gui_name, gboolean is_move);
+void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean close_doc,
+					  gboolean close_window);
+void file_save_cb(GtkWidget * widget, Tbfwin * bfwin);
+void file_save_as_cb(GtkWidget * widget, Tbfwin * bfwin);
+void file_move_to_cb(GtkWidget * widget, Tbfwin * bfwin);
+void file_save_all_cb(GtkWidget * widget, Tbfwin * bfwin);
+
+void doc_save_all_close(Tbfwin * bfwin);
 gint doc_modified_dialog(Tdocument * doc);
-Tclose_mode multiple_files_modified_dialog(Tbfwin *bfwin);
-gboolean choose_per_file(Tbfwin *bfwin, gboolean close_window);
+Tclose_mode multiple_files_modified_dialog(Tbfwin * bfwin);
+gboolean choose_per_file(Tbfwin * bfwin, gboolean close_window);
 
-gboolean doc_close_single_backend(Tdocument *doc, gboolean delay, gboolean close_window);
-void file_close_cb(GtkWidget * widget, Tbfwin *bfwin);
+gboolean doc_close_single_backend(Tdocument * doc, gboolean delay, gboolean close_window);
+void file_close_cb(GtkWidget * widget, Tbfwin * bfwin);
 void doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window, Tclose_mode close_mode);
-void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin);
+void file_close_all_cb(GtkWidget * widget, Tbfwin * bfwin);
 
-void file_new_cb(GtkWidget * widget, Tbfwin *bfwin);
-void file_reload_all_modified(Tbfwin *bfwin);
+void file_new_cb(GtkWidget * widget, Tbfwin * bfwin);
+void file_reload_all_modified(Tbfwin * bfwin);
 
-void sync_dialog(Tbfwin *bfwin);
+void sync_dialog(Tbfwin * bfwin);
 
 void modified_on_disk_check_init(void);
 
-#endif /* __FILEDIALOGS_H_ */
+#endif							/* __FILEDIALOGS_H_ */

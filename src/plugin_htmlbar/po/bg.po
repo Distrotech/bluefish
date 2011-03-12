@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-02-05 08:48+0100\n"
+"POT-Creation-Date: 2011-03-12 12:24-0800\n"
 "PO-Revision-Date: 2003-12-09 11:07+0200\n"
 "Last-Translator: Peio Popov <peio@peio.org>\n"
 "Language-Team: Not a member <bg@li.org>\n"
+"Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: bg\n"
 
 #. _DM_ Alert box asking if user would like to change request from add to
 #. * update.
@@ -82,6 +82,7 @@ msgid " _Delete "
 msgstr "_Изтриване"
 
 #: src/plugin_htmlbar/html2.c:977 src/plugin_htmlbar/html2.c:1014
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1510
 msgid "_Style..."
 msgstr "_Стил"
 
@@ -89,1431 +90,1527 @@ msgstr "_Стил"
 msgid "Bluefish: Select color"
 msgstr "Bluefish: избери цвят"
 
-#: src/plugin_htmlbar/htmlbar.c:36
+#: src/plugin_htmlbar/htmlbar.c:41
 msgid "Edit color"
 msgstr "Промени цвета"
 
-#: src/plugin_htmlbar/htmlbar.c:44
+#: src/plugin_htmlbar/htmlbar.c:49
 msgid "Edit tag"
 msgstr "Редактиране на тага"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:203
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1229
 #, fuzzy
-msgid "/T_ags"
+msgid "T_ags"
 msgstr "/_Тагове"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:205
-msgid "/Tags/_Headings"
-msgstr "/Тагове/_Заглавия"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1230
+#, fuzzy
+msgid "_Headings"
+msgstr "Заглавие"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:207
-msgid "/Tags/Headings/H_1"
-msgstr "/Тагове/Заглавия/H_1"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1231
+msgid "H_1"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:208
-msgid "/Tags/Headings/H_2"
-msgstr "/Тагове/Заглавия/H_2"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1231
+#, fuzzy
+msgid "Insert H1 tag"
+msgstr "Вмъкване на изображение"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:209
-msgid "/Tags/Headings/H_3"
-msgstr "/Тагове/Заглавия/H_3"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1233
+msgid "H_2"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:210
-msgid "/Tags/Headings/H_4"
-msgstr "/Тагове/Заглавия/H_4"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1233
+#, fuzzy
+msgid "Insert H2 tag"
+msgstr "Вмъкване на изображение"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:211
-msgid "/Tags/Headings/H_5"
-msgstr "/Тагове/Заглавия/H_5"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1235
+msgid "H_3"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:212
-msgid "/Tags/Headings/H_6"
-msgstr "/Тагове/Заглавия/H_6"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1235
+#, fuzzy
+msgid "Insert H3 tag"
+msgstr "Вмъкване на изображение"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:213
-msgid "/Tags/_Special"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1237
+msgid "H_4"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1237
+#, fuzzy
+msgid "Insert H4 tag"
+msgstr "Вмъкване на изображение"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1239
+msgid "H_5"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1239
+#, fuzzy
+msgid "Insert H5 tag"
+msgstr "Вмъкване на изображение"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1241
+msgid "H_6"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1241
+#, fuzzy
+msgid "Insert H6 tag"
+msgstr "Вмъкване на изображение"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1243
+#, fuzzy
+msgid "_Special"
 msgstr "/Тагове/_Специални"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:215
-msgid "/Tags/Special/_Accent"
-msgstr "/Тагове/Специални/Специфични букви"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:217
-msgid "/Tags/Special/Accent/_Uppercase"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:218
-msgid "/Tags/Special/Accent/Uppercase/_A-I"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:220
-msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/A grave ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:221
-msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/A acute ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:222
-msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/A circumflex ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:223
-msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/A tilde ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:224
-msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/AE ligature ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:225
-msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/A diaeresis ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:226
-msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/A ring ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:227
-msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/C cedilla ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:228
-msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/E grave ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:229
-msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/E acute ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:230
-msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/E circumflex ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:231
-msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/E diaeresis ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:232
-msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/I grave ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:233
-msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/I acute ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:234
-msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/I circumflex ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:235
-msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/I diaeresis ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:236
-msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:238
-msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/N tilde ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:239
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/O grave ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:240
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/O acute ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:241
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/O circumflex ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:242
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1244
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/OE ligature"
+msgid "_Accent"
+msgstr "_Accept:"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:243
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/O tilde ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:244
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/O diaeresis ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:245
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/O slash ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:246
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/U grave ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:247
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/U acute ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:248
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/U circumflex ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:249
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/U diaeresis ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:250
-msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
-msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/Y acute ÃÂ"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:251
-msgid "/Tags/Special/Accent/_Lowercase"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:252
-msgid "/Tags/Special/Accent/Lowercase/_A-I"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:254
-msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/a grave ÃÂ "
-
-#: src/plugin_htmlbar/htmlbar_gui.c:255
-msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/a acute ÃÂ¡"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:256
-msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/a circumflex ÃÂ¢"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:257
-msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/a tilde ÃÂ£"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:258
-msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/a ring ÃÂ¥"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:259
-msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/ae ligature ÃÂ¦"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:260
-msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/a diaeresis ÃÂ¤"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:261
-msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/c cedilla ÃÂ§"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:262
-msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/e grave ÃÂ¨"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:263
-msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/e acute ÃÂ©"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:264
-msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/e circumflex ÃÂª"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:265
-msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/e diaeresis ÃÂ«"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:266
-msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/i grave ÃÂ¬"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:267
-msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/i acute ÃÂ­"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:268
-msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/i circumflex ÃÂ®"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:269
-msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/i diaeresis ÃÂ¯"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:270
-msgid "/Tags/Special/Accent/Lowercase/_J-Z"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:272
-msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/n tilde ÃÂ±"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:273
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/o grave ÃÂ²"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:274
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/o acute ÃÂ³"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:275
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1245
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/oe ligature ÃÂ¦"
+msgid "_Uppercase"
+msgstr "Горен регистър"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:276
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/o circumflex ÃÂ´"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1246
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1278
+msgid "_A-I"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:277
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/o tilde ÃÂµ"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1247
+msgid "A grave À"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:278
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/o diaeresis ÃÂ¶"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1248
+msgid "A acute Á"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:279
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/o slash ÃÂ¸"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1249
+msgid "A circumflex Â"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:280
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/u grave ÃÂ¹"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1250
+msgid "A tilde Ã"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:281
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/u acute ÃÂº"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1251
+msgid "AE ligature Æ"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:282
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/u circumflex ÃÂ»"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1252
+msgid "A diaeresis Ä"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:283
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/u diaeresis ÃÂ¼"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1253
+msgid "A ring Å"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:284
-msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/y acute ÃÂ½"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1254
+msgid "C cedilla Ç"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:285
-msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
-msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/y diaeresis ÃÂ¿"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1255
+msgid "E grave È"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:287
-msgid "/Tags/Special/Accent/U_mlaut ¨"
-msgstr "/Тагове/Специални/Специфични букви/U_mlaut ÃÂ¨"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1256
+msgid "E acute É"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:288
-msgid "/Tags/Special/Accent/_Acute ´"
-msgstr "/Тагове/Специални/Специфични букви/_Acute ÃÂ´"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1257
+msgid "E circumflex Ê"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:289
-msgid "/Tags/Special/Accent/_Cedilla ¸"
-msgstr "/Тагове/Специални/Специфични букви/Cedilla ÃÂ¸"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1258
+msgid "E diaeresis Ë"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:290
-msgid "/Tags/Special/_Currency"
-msgstr "/Тагове/Специални/Валути"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1259
+msgid "I grave Ì"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:292
-msgid "/Tags/Special/Currency/_Cent sign ¢"
-msgstr "/Тагове/Специални/Валути/Цент ¢"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1260
+msgid "I acute Í"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:293
-msgid "/Tags/Special/Currency/_Pound sterling £"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1261
+msgid "I circumflex Î"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1262
+msgid "I diaeresis Ï"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1263
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1295
+msgid "_J-Z"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1264
+msgid "N tilde Ñ"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1265
+msgid "O grave Ò"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1266
+msgid "O acute Ó"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1267
+msgid "O circumflex Ô"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1268
+msgid "OE ligature Œ"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1269
+msgid "O tilde Õ"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1270
+msgid "O diaeresis Ö"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1271
+msgid "O slash Ø"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1272
+msgid "U grave Ù"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1273
+msgid "U acute Ú"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1274
+msgid "U circumflex Û"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1275
+msgid "U diaeresis Ü"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1276
+msgid "Y acute Ý"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1277
+#, fuzzy
+msgid "_Lowercase"
+msgstr "Долен регистър"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1279
+msgid "a grave à"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1280
+msgid "a acute á"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1281
+msgid "a circumflex â"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1282
+msgid "a tilde ã"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1283
+msgid "a ring å"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1284
+msgid "ae ligature æ"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1285
+msgid "a diaeresis ä"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1286
+msgid "c cedilla ç"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1287
+msgid "e grave è"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1288
+msgid "e acute é"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1289
+msgid "e circumflex ê"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1290
+msgid "e diaeresis ë"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1291
+msgid "i grave ì"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1292
+msgid "i acute í"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1293
+msgid "i circumflex î"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1294
+msgid "i diaeresis ï"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1296
+msgid "n tilde ñ"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1297
+msgid "o grave ò"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1298
+msgid "o acute ó"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1299
+msgid "oe ligature œ"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1300
+msgid "o circumflex ô"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1301
+msgid "o tilde õ"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1302
+msgid "o diaeresis ö"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1303
+msgid "o slash ø"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1304
+msgid "u grave ù"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1305
+msgid "u acute ú"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1306
+msgid "u circumflex û"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1307
+msgid "u diaeresis ü"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1308
+msgid "y acute ý"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1309
+msgid "y diaeresis ÿ"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1310
+msgid "_Acute ´"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1311
+msgid "_Cedilla ¸"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1312
+msgid "U_mlaut ¨"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1313
+msgid "_Currency"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1314
+msgid "_Cent sign ¢"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1315
+#, fuzzy
+msgid "_Pound sterling £"
 msgstr "/Тагове/Специални/Валути/Лира стрерлинг £"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:294
-msgid "/Tags/Special/Currency/C_urrency sign ¤"
-msgstr "/Тагове/Специални/Валути/Знак за валута ¤"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1316
+msgid "C_urrency sign ¤"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:295
-msgid "/Tags/Special/Currency/_Yen sign ¥"
-msgstr "/Тагове/Специални/Валути/Йена ¥"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1317
+msgid "_Yen sign ¥"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:296
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1318
+msgid "_Euro €"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1319
 #, fuzzy
-msgid "/Tags/Special/Currency/_Euro €"
-msgstr "/Тагове/Специални/Валути/Евро"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:297
-msgid "/Tags/Special/_Math-Science"
+msgid "_Math-Science"
 msgstr "/Тагове/Специални/Математически"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:299
-msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
-msgstr "/Тагове/Специални/Математически/Логическо не ÃÂ¬"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1320
+msgid "Logical _not sign ¬"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:300
-msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1321
+#, fuzzy
+msgid "_Multiplication sign ×"
 msgstr "/Тагове/Специални/Математически/Умножение × "
 
-#: src/plugin_htmlbar/htmlbar_gui.c:301
-msgid "/Tags/Special/Math-Science/_Division sign ÷"
-msgstr "/Тагове/Специални/Математически/Делене ÷"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1322
+msgid "_Division sign ÷"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:302
-msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
-msgstr "/Тагове/Специални/Математически/Плюс-минус ÃÂ±"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1324
+msgid "_Plus-minus sign ±"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:303
-msgid "/Tags/Special/Math-Science/_Less-than sign <"
-msgstr "/Тагове/Специални/Математически/По-малко <"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1325
+msgid "_Less-than sign <"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:304
-msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-msgstr "/Тагове/Специални/Математически/По-голямо >"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1327
+msgid "_Greater-than sign >"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:305
-msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
-msgstr "/Тагове/Специални/Математически/Superscript _1 ÃÂ¹"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1329
+#, fuzzy
+msgid "Superscript _1 ¹"
+msgstr "Суперскрипт"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:306
-msgid "/Tags/Special/Math-Science/Superscript _2 ²"
-msgstr "/Тагове/Специални/Математически/Superscript _2 ÃÂ²"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1330
+#, fuzzy
+msgid "Superscript _2 ²"
+msgstr "Суперскрипт"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:307
-msgid "/Tags/Special/Math-Science/Superscript _3 ³"
-msgstr "/Тагове/Специални/Математически/Superscript _3 ÃÂ³"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1331
+#, fuzzy
+msgid "Superscript _3 ³"
+msgstr "Суперскрипт"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:308
-msgid "/Tags/Special/Math-Science/One _quarter ¼"
-msgstr "/Тагове/Специални/Математически/Една четвърт ÃÂ¼"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1332
+msgid "One _quarter ¼"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:309
-msgid "/Tags/Special/Math-Science/One _half ½"
-msgstr "/Тагове/Специални/Математически/Една втора ÃÂ½"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1333
+msgid "One _half ½"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:310
-msgid "/Tags/Special/Math-Science/_Three quarters ¾"
-msgstr "/Тагове/Специални/Математически/Три четвърти ÃÂ¾"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1334
+msgid "_Three quarters ¾"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:311
-msgid "/Tags/Special/Math-Science/Deg_ree sign °"
-msgstr "/Тагове/Специални/Математически/Градус ÃÂ°"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1336
+msgid "Deg_ree sign °"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:312
-msgid "/Tags/Special/_Non Latin"
-msgstr "/Тагове/Специални/Не латински символи"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1337
+msgid "_Non Latin"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:314
-msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1338
+#, fuzzy
+msgid "_ETH (Icelandic) Ð"
 msgstr "/Тагове/Специални/Не латински символи/_ETH (Исландски) ÃÂ"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:315
-msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1339
+#, fuzzy
+msgid "_THORN (Icelandic) Þ"
 msgstr "/Тагове/Специални/Не латински символи/_THORN (Исландски) ÃÂ"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:316
-msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1340
+#, fuzzy
+msgid "et_h (Icelandic) ð"
 msgstr "/Тагове/Специални/Не латински символи/et_h (Исландски) ÃÂ°"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:317
-msgid "/Tags/Special/Non Latin/th_orn ÿ"
-msgstr "/Тагове/Специални/Не латински символи/th_orn ÿ"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1341
+msgid "th_orn ÿ"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:318
-msgid "/Tags/Special/Non Latin/Sharp _s ß"
-msgstr "/Тагове/Специални/Не латински символи/Sharp _s ß"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1342
+msgid "Sharp _s ß"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:319
-msgid "/Tags/Special/Non Latin/_Micro sign µ"
-msgstr "/Тагове/Специални/Не латински символи/Микро µ"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1343
+msgid "_Micro sign µ"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:320
-msgid "/Tags/Special/_Other"
-msgstr "/Тагове/Специални/Други"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1344
+msgid "_Other"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:322
-msgid "/Tags/Special/Other/_Non-breaking space"
-msgstr "/Тагове/Специални/Други/"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1345
+#, fuzzy
+msgid "_Non-breaking space"
+msgstr "Текст без прекъсване"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:323
-msgid "/Tags/Special/Other/_Section sign §"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1346
+#, fuzzy
+msgid "_Section sign §"
 msgstr "/Тагове/Специални/Други/Параграф  ÃÂ§"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:324
-msgid "/Tags/Special/Other/_Copyright sign ©"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1347
+#, fuzzy
+msgid "_Copyright sign ©"
 msgstr "/Тагове/Специални/Други/Авторско право ÃÂ©"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:325
-msgid "/Tags/Special/Other/_Left angle quotes «"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1348
+#, fuzzy
+msgid "_Left angle quotes «"
 msgstr "/Тагове/Специални/Други/Left angle quotes ÃÂ«"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:326
-msgid "/Tags/Special/Other/_Right angle quotes »"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1350
+#, fuzzy
+msgid "_Right angle quotes »"
 msgstr "/Тагове/Специални/Други/_Right angle quotes ÃÂ»"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:327
-msgid "/Tags/Special/Other/Registered _trademark ®"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1352
+#, fuzzy
+msgid "Registered _trademark ®"
 msgstr "/Тагове/Специални/Други/Търговска марка ÃÂ®"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:328
-msgid "/Tags/Special/Other/Inverted _exclamation ¡"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1353
+#, fuzzy
+msgid "Inverted _exclamation ¡"
 msgstr "/Тагове/Специални/Други/Обърната удивителна ÃÂ¡"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:329
-msgid "/Tags/Special/Other/Inverted _question mark ¿"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1355
+#, fuzzy
+msgid "Inverted _question mark ¿"
 msgstr "/Тагове/Специални/Други/Обърната въпросителна ÃÂ¿"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:330
-msgid "/Tags/Special/Other/_Feminine ordinal ª"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1357
+#, fuzzy
+msgid "_Feminine ordinal ª"
 msgstr "/Тагове/Специални/Други/_Feminine ordinal ÃÂª"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:331
-msgid "/Tags/Special/Other/_Masculine ordinal º"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1358
+#, fuzzy
+msgid "_Masculine ordinal º"
 msgstr "/Тагове/Специални/Други/_Masculine ordinal ÃÂº"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:332
-msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1360
+#, fuzzy
+msgid "_Pilcrow (paragraph sign) ¶"
 msgstr "/Тагове/Специални/Други/Нов ред ÃÂ¶"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:333
-msgid "/Tags/Special/Other/_Broken bar ¦"
-msgstr "/Тагове/Специални/Други/_Broken bar ÃÂ¦"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1362
+msgid "_Broken bar ¦"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:334
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1363
+msgid "Soft _hyphen -"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1364
 #, fuzzy
-msgid "/Tags/Special/Other/Soft _hyphen -"
-msgstr "/Тагове/Специални/Други/Soft _hypen -"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:335
-msgid "/Tags/Special/Other/Spa_cing macron ¯"
+msgid "Spa_cing macron ¯"
 msgstr "/Тагове/Специални/Други/Spa_cing macron ÃÂ¯"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:336
-msgid "/Tags/Special/Other/Middle _dot ·"
-msgstr "/Тагове/Специални/Други/Middle _dot ÃÂ·"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1366
+msgid "Middle _dot ·"
+msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_gui.c:337
-msgid "/Tags/_Format by layout"
-msgstr "/Тагове/Форматиране"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:339
-msgid "/Tags/Format by layout/_Bold"
-msgstr "/Тагове/Форматиране/Удебелен"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:340
-msgid "/Tags/Format by layout/_Italic"
-msgstr "/Тагове/Форматиране/Наклонен"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:341
-msgid "/Tags/Format by layout/_Underline"
-msgstr "/Тагове/Форматиране/Подчертан"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:342
-msgid "/Tags/Format by layout/_Strikeout"
-msgstr "/Тагове/Форматиране/Зачертан"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:343
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1367
 #, fuzzy
-msgid "/Tags/Format by layout/Sm_all"
-msgstr "/Тагове/Форматиране/Наклонен"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:344
-#, fuzzy
-msgid "/Tags/Format by layout/Bi_g"
-msgstr "/Тагове/Форматиране"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:345
-msgid "/Tags/F_ormat by context"
+msgid "F_ormat by context"
 msgstr "/Тагове/Контекст"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:347
-msgid "/Tags/Format by context/_Strong"
-msgstr "/Тагове/Контекст/Strong"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:348
-msgid "/Tags/Format by context/_Emphasis"
-msgstr "/Тагове/Контекст/Emphasis"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:349
-msgid "/Tags/Format by context/_Define"
-msgstr "/Тагове/Контекст/Define"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:350
-msgid "/Tags/Format by context/_Code"
-msgstr "/Тагове/Контекст/Код"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:351
-msgid "/Tags/Format by context/Sa_mple"
-msgstr "/Тагове/Контекст/Пример"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:352
-msgid "/Tags/Format by context/_Keyboard"
-msgstr "/Тагове/Контекст/Клавиатура"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:353
-msgid "/Tags/Format by context/_Variable"
-msgstr "/Тагове/Контекст/Променлива"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:354
-msgid "/Tags/Format by context/Ci_tation"
-msgstr "/Тагове/Контекст/Цитат"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:355
-msgid "/Tags/Format by context/_Abbreviation"
-msgstr "/Тагове/Контекст/Абревиатура"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:356
-msgid "/Tags/Format by context/Ac_ronym"
-msgstr "/Тагове/Контекст/Акроним"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:357
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1368
 #, fuzzy
-msgid "/Tags/Format by context/_Insert"
-msgstr "/Тагове/Контекст/Define"
+msgid "_Strong"
+msgstr "Удебелен"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:358
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1368
+msgid "Strong"
+msgstr "Удебелен"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1370
 #, fuzzy
-msgid "/Tags/Format by context/De_lete"
-msgstr "/Тагове/Контекст/Define"
+msgid "_Emphasis"
+msgstr "Наклонен"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:359
-msgid "/Tags/Format _general"
-msgstr "/Тагове/Общо форматиране"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1370
+msgid "Emphasis"
+msgstr "Наклонен"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:361
-msgid "/Tags/Format general/_Paragraph"
-msgstr "/Тагове/Общо форматиране/Параграф (<p>)"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:362
-msgid "/Tags/Format general/_Break"
-msgstr "/Тагове/Общо форматиране/Прекъсване (<br>)"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:363
-msgid "/Tags/Format general/Break clear _all"
-msgstr "/Тагове/Общо форматиране/Прекъсване и изчистване <br clear=\"all\" >"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:364
-msgid "/Tags/Format general/_Non-Breaking Space"
-msgstr "/Тагове/Общо форматиране/Без прекъсване (&nbsp;)"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:366
-msgid "/Tags/Format general/Font Si_ze +1"
-msgstr "/Тагове/Общо форматиране/Шрифт +1"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:367
-msgid "/Tags/Format general/Font _Size -1"
-msgstr "/Тагове/Общо форматиране/Шрифт -1"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:369
-msgid "/Tags/Format general/Preformatted _Text"
-msgstr "/Тагове/Общо форматиране/Преформатиран текст"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:370
-msgid "/Tags/Format general/Su_bscript"
-msgstr "/Тагове/Общо форматиране/Субскрипт"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:371
-msgid "/Tags/Format general/Su_perscript"
-msgstr "/Тагове/Общо форматиране/Суперскрипт"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:373
-msgid "/Tags/Format general/_Center"
-msgstr "/Тагове/Общо форматиране/Центриране"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:374
-msgid "/Tags/Format general/Align _right"
-msgstr "/Тагове/Общо форматиране/Дясно подравняване"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:375
-msgid "/Tags/_Table"
-msgstr "/Тагове/Таблица"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:377
-msgid "/Tags/Table/_Table"
-msgstr "/Тагове/Таблица/Таблица"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:378
-msgid "/Tags/Table/Table _Row"
-msgstr "/Тагове/Таблица/Ред от таблица"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:379
-msgid "/Tags/Table/Table _Header"
-msgstr "/Тагове/Таблица/Заглавие на таблицата"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:380
-msgid "/Tags/Table/Table _Data"
-msgstr "/Тагове/Таблица/Данни в таблицата"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:381
-msgid "/Tags/Table/Table _Caption"
-msgstr "/Тагове/Таблица/Table Caption"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:382
-msgid "/Tags/_List"
-msgstr "/Тагове/Списък"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:384
-msgid "/Tags/List/Unordered _List"
-msgstr "/Тагове/Списък/Неподреден списък (<ul>)"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:385
-msgid "/Tags/List/_Ordered List"
-msgstr "/Тагове/Списък/Подреден списък (<ol>)"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:386
-msgid "/Tags/List/List Ite_m"
-msgstr "/Тагове/Списък/Елемент от списък (<li>)"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:387
-msgid "/Tags/List/De_finition List"
-msgstr "/Тагове/Списък/Списък с дефиниции"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:388
-msgid "/Tags/List/Definition _Term"
-msgstr "/Тагове/Списък/Определение на дефинция"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:389
-msgid "/Tags/List/_Definition"
-msgstr "/Тагове/Списък/Дефиниция"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:390
-msgid "/Tags/List/Men_u"
-msgstr "/Тагове/Списък/Меню"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:391
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1372
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1444
 #, fuzzy
-msgid "/Tags/Fo_rm"
-msgstr "/Помощни диалози/Форми"
+msgid "_Definition"
+msgstr "Дефиниция"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:393
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1372
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1444
+msgid "Definition"
+msgstr "Дефиниция"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1374
 #, fuzzy
-msgid "/Tags/Form/_Form"
-msgstr "/Помощни диалози/Форми/Форма"
+msgid "_Code"
+msgstr "Код"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:394
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1374
+msgid "Code"
+msgstr "Код"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1375
 #, fuzzy
-msgid "/Tags/Form/_Button"
-msgstr "/Помощни диалози/Форми/Бутон..."
+msgid "Sa_mple"
+msgstr "Пример"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:395
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1375
+msgid "Sample"
+msgstr "Пример"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1376
 #, fuzzy
-msgid "/Tags/Form/_Input"
-msgstr "/Помощни диалози/Форми/Input..."
+msgid "_Keyboard"
+msgstr "Клавиатура"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:396
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1376
+msgid "Keyboard"
+msgstr "Клавиатура"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1378
 #, fuzzy
-msgid "/Tags/Form/_Textarea"
-msgstr "/Помощни диалози/Форми/Текстова площ..."
+msgid "_Variable"
+msgstr "Променлива"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:397
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1378
+msgid "Variable"
+msgstr "Променлива"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1380
 #, fuzzy
-msgid "/Tags/_Misc"
-msgstr "/Тагове/Списък"
+msgid "Ci_tation"
+msgstr "Цитат"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:399
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1380
+msgid "Citation"
+msgstr "Цитат"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1382
 #, fuzzy
-msgid "/Tags/Misc/Insert Generator _META-Tag"
-msgstr "/Тагове/Добави Мета-Tаг за Bluefish"
+msgid "_Abbreviation"
+msgstr "Абревиатура"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:400
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1382
+msgid "Abbreviation"
+msgstr "Абревиатура"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1384
 #, fuzzy
-msgid "/Tags/Misc/_Span"
-msgstr "/Тагове/_Специални"
+msgid "Ac_ronym"
+msgstr "Акроним"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:401
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1384
+msgid "Acronym"
+msgstr "Акроним"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1386
 #, fuzzy
-msgid "/Tags/Misc/_Div"
-msgstr "/Тагове/Списък/Дефиниция"
+msgid "_Insert"
+msgstr "Вкарване"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:402
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1386
+msgid "Insert"
+msgstr "Вкарване"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1387
 #, fuzzy
-msgid "/Tags/Misc/_Link"
-msgstr "/Тагове/Списък"
+msgid "De_lete"
+msgstr "Изтриване"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:403
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1387
+msgid "Delete"
+msgstr "Изтриване"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1388
 #, fuzzy
-msgid "/Tags/Misc/S_cript"
-msgstr "/Тагове/Списък"
+msgid "_Format by layout"
+msgstr "/Тагове/Форматиране"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:404
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1389
 #, fuzzy
-msgid "/Tags/Misc/_Anchor"
-msgstr "/Тагове/Списък/Дефиниция"
+msgid "_Bold"
+msgstr "Удебелен"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:405
-#, fuzzy
-msgid "/Tags/Misc/_Image"
-msgstr "/Тагове/Таблица"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:406
-msgid "/Tags/_Comment"
-msgstr "/Тагове/Коментар"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:407
-#, fuzzy
-msgid "/D_ialogs"
-msgstr "/По_мощни диалози"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:409
-msgid "/Dialogs/_General"
-msgstr "/Помощни диалози/Общи"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:411
-msgid "/Dialogs/General/_Quickstart..."
-msgstr "/Помощни диалози/Общи/Бърз старт"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:412
-#, fuzzy
-msgid "/Dialogs/General/_Link Header..."
-msgstr "/Помощни диалози/Общи/Мета..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:413
-msgid "/Dialogs/General/_Body..."
-msgstr "/Помощни диалози/Общи/Body"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:414
-msgid "/Dialogs/General/_Anchor..."
-msgstr "/Помощни диалози/Общи/Връзка (<а >)"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:415
-msgid "/Dialogs/General/_Email..."
-msgstr "/Помощни диалози/Общи/Е-мейл"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:416
-msgid "/Dialogs/General/_Rule..."
-msgstr "/Помощни диалози/Общи/Черта (<hr>)"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:417
-msgid "/Dialogs/General/_Font..."
-msgstr "/Помощни диалози/Общи/Шрифт"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:418
-msgid "/Dialogs/General/Basef_ont..."
-msgstr "/Помощни диалози/Общи/Основен шрифт"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:419
-msgid "/Dialogs/General/Quick_list..."
-msgstr "/Помощни диалози/Общи/Бърз списък"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:420
-msgid "/Dialogs/General/_Meta..."
-msgstr "/Помощни диалози/Общи/Мета..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:421
-msgid "/Dialogs/General/Embe_d..."
-msgstr "/Помощни диалози/Общи/Embed..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:422
-msgid "/Dialogs/General/Select _Color..."
-msgstr "/Помощни диалози/Общи/Избери цвят..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:423
-msgid "/Dialogs/General/Insert _Time..."
-msgstr "/Помощни диалози/Общи/Вмъкни час..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:424
-msgid "/Dialogs/General/Insert _Image..."
-msgstr "/Помощни диалози/Общи/Вмъкни изображение..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:425
-msgid "/Dialogs/General/Insert T_humbnail..."
-msgstr "/Помощни диалози/Общи/"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:426
-msgid "/Dialogs/_Table"
-msgstr "/Помощни диалози/Таблица"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:428
-msgid "/Dialogs/Table/Table _Wizard..."
-msgstr "/Помощни диалози/Таблица/Помощник за таблици..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:429
-msgid "/Dialogs/Table/_Table..."
-msgstr "/Помощни диалози/Таблица/Таблица..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:430
-msgid "/Dialogs/Table/Table _Row..."
-msgstr "/Помощни диалози/Таблица/Ред от таблица..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:431
-msgid "/Dialogs/Table/Table _Head..."
-msgstr "/Помощни диалози/Таблица/Заглавна част..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:432
-msgid "/Dialogs/Table/Table _Data..."
-msgstr "/Помощни диалози/Таблица/Данни..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:433
-msgid "/Dialogs/_CSS"
-msgstr "/Помощни диалози/CSS"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:435
-msgid "/Dialogs/CSS/_Create Style..."
-msgstr "/Помощни диалози/CSS/Създай стил..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:436
-msgid "/Dialogs/CSS/S_pan..."
-msgstr "/Помощни диалози/CSS/Span..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:437
-msgid "/Dialogs/CSS/_Div..."
-msgstr "/Помощни диалози/CSS/Div..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:438
-msgid "/Dialogs/CSS/_Style..."
-msgstr "/Помощни диалози/CSS/Стил"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:439
-msgid "/Dialogs/CSS/_Link to Stylesheet..."
-msgstr "/Помощни диалози/CSS/Връзка към стил..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:440
-msgid "/Dialogs/_Frame"
-msgstr "/Помощни диалози/Рамки"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:442
-msgid "/Dialogs/Frame/Frame _Wizard..."
-msgstr "/Помощни диалози/Рамки/Помощник за рамки..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:443
-msgid "/Dialogs/Frame/Frame_set..."
-msgstr "/Помощни диалози/Рамки/Набор от рамки..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:444
-msgid "/Dialogs/Frame/_Frame..."
-msgstr "/Помощни диалози/Рамки/Рамка..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:445
-msgid "/Dialogs/F_orm"
-msgstr "/Помощни диалози/Форми"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:447
-msgid "/Dialogs/Form/F_orm..."
-msgstr "/Помощни диалози/Форми/Форма"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:448
-msgid "/Dialogs/Form/_Input..."
-msgstr "/Помощни диалози/Форми/Input..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:449
-msgid "/Dialogs/Form/Input Buttons..."
-msgstr "/Помощни диалози/Форми/Input бутон..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:450
-msgid "/Dialogs/Form/Input Text..."
-msgstr "/Помощни диалози/Форми/Input текст..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:451
-msgid "/Dialogs/Form/Text_area..."
-msgstr "/Помощни диалози/Форми/Текстова площ..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:452
-msgid "/Dialogs/Form/_Select..."
-msgstr "/Помощни диалози/Форми/Меню за избор (Select)..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:453
-msgid "/Dialogs/Form/O_ption..."
-msgstr "/Помощни диалози/Форми/Option..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:454
-msgid "/Dialogs/Form/Option _Group..."
-msgstr "/Помощни диалози/Форми/Option Group..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:455
-msgid "/Dialogs/Form/_Button..."
-msgstr "/Помощни диалози/Форми/Бутон..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:457
-msgid "/Dialogs/_Edit tag under cursor..."
-msgstr "/Помощни диалози/Редактирай тага под курсора"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:460
-#, fuzzy
-msgid "/View/_HTML Toolbar"
-msgstr "/Изглед/Виж HTML инструментите"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:747
-msgid "QuickStart..."
-msgstr "Бърз старт..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:748
-msgid "Body..."
-msgstr "Основна част..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:749
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1389
 msgid "Bold"
 msgstr "Удебелен"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:750
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1391
+#, fuzzy
+msgid "_Italic"
+msgstr "Наклонен"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1391
 msgid "Italic"
 msgstr "Наклонен"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:751 src/plugin_htmlbar/html.c:806
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1393
+msgid "_Underline"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1393
+msgid "Underline"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1395
+msgid "_Strikeout"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1395
+msgid "Strikeout"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1397
+msgid "Sm_all"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1397
+msgid "Small"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1398
+msgid "Bi_g"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1398
+msgid "Big"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1399
+#, fuzzy
+msgid "Format _general"
+msgstr "/Тагове/Общо форматиране"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1400
+#, fuzzy
+msgid "_Paragraph"
+msgstr "Параграф"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1400 src/plugin_htmlbar/html.c:889
 msgid "Paragraph"
 msgstr "Параграф"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:752
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1402
+#, fuzzy
+msgid "_Break"
+msgstr "Прекъсване"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1402
 msgid "Break"
 msgstr "Прекъсване"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:753
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1404
+#, fuzzy
+msgid "Break clear _all"
+msgstr "Прекъсване и изчистване"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1404
 msgid "Break and clear"
 msgstr "Прекъсване и изчистване"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:754
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1406
+#, fuzzy
+msgid "_Non-Breaking Space"
+msgstr "Текст без прекъсване"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1406
 msgid "Non-breaking space"
 msgstr "Текст без прекъсване"
 
-#. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:756
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1408
+#, fuzzy
+msgid "Font Si_ze +1"
+msgstr "Шрифт размер +1"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1408
+msgid "Font Size +1"
+msgstr "Шрифт размер +1"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1410
+#, fuzzy
+msgid "Font _Size -1"
+msgstr "Шрифт размер -1"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1410
+msgid "Font Size -1"
+msgstr "Шрифт размер -1"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1412
+#, fuzzy
+msgid "Preformatted _Text"
+msgstr "Преформатиран текст"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1412
+msgid "Preformatted Text"
+msgstr "Преформатиран текст"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1414
+#, fuzzy
+msgid "Su_bscript"
+msgstr "Субскрипт"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1414
+msgid "Subscript"
+msgstr "Субскрипт"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1416
+#, fuzzy
+msgid "Su_perscript"
+msgstr "Суперскрипт"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1416
+msgid "Superscript"
+msgstr "Суперскрипт"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1418
+#, fuzzy
+msgid "_Center"
+msgstr "Центриране"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1418
+msgid "Center"
+msgstr "Центриране"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1420
+msgid "Align _right"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1420
+msgid "Right Justify"
+msgstr "Дясно центриране"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1422
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1423
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1492
+#, fuzzy
+msgid "_Table"
+msgstr "Таблица"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1423
+#: src/plugin_htmlbar/html_table.c:76
+msgid "Table"
+msgstr "Таблица"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1425
+#, fuzzy
+msgid "Table _Row"
+msgstr "Ред на таблица"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1425
+#: src/plugin_htmlbar/html_table.c:208
+msgid "Table Row"
+msgstr "Ред на таблица"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1427
+#, fuzzy
+msgid "Table _Header"
+msgstr "Заглавие на таблица"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1427
+#: src/plugin_htmlbar/html_table.c:319
+msgid "Table Header"
+msgstr "Заглавие на таблица"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1429
+#, fuzzy
+msgid "Table _Data"
+msgstr "Данни в таблица"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1429
+#: src/plugin_htmlbar/html_table.c:317
+msgid "Table Data"
+msgstr "Данни в таблица"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1431
+#, fuzzy
+msgid "Table _Caption"
+msgstr "Заглавие на таблицата"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1431
+msgid "Table Caption"
+msgstr "Заглавие на таблицата"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1433
+#, fuzzy
+msgid "_List"
+msgstr " Лист "
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1434
+#, fuzzy
+msgid "Unordered _List"
+msgstr "Неподреден списък"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1434
+msgid "Unordered List"
+msgstr "Неподреден списък"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1436
+#, fuzzy
+msgid "_Ordered List"
+msgstr "Подреден списък"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1436
+msgid "Ordered List"
+msgstr "Подреден списък"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1438
+#, fuzzy
+msgid "List Ite_m"
+msgstr "Елемент от списък"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1438
+msgid "List Item"
+msgstr "Елемент от списък"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1440
+#, fuzzy
+msgid "De_finition List"
+msgstr "Лист с дефиниции"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1440
+msgid "Definition List"
+msgstr "Лист с дефиниции"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1442
+#, fuzzy
+msgid "Definition _Term"
+msgstr "Дефиниция на термин"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1442
+msgid "Definition Term"
+msgstr "Дефиниция на термин"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1446
+msgid "Men_u"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1446
+#, fuzzy
+msgid "Menu"
+msgstr "Път на менюто"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1447
+#, fuzzy
+msgid "Fo_rm"
+msgstr "/Помощни диалози/Форми"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1448
+#, fuzzy
+msgid "_Form"
+msgstr "Form"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1448
+#: src/plugin_htmlbar/html_form.c:140
+msgid "Form"
+msgstr "Form"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1449
+#, fuzzy
+msgid "_Button"
+msgstr "Button"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1450
+#, fuzzy
+msgid "_Input"
+msgstr "Input"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1451
+#, fuzzy
+msgid "_Textarea"
+msgstr "Text area"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1452
+#, fuzzy
+msgid "_Misc"
+msgstr "Разни"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1453
+#, fuzzy
+msgid "Insert Generator _META-Tag"
+msgstr "/Тагове/Добави Мета-Tаг за Bluefish"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1455
+#, fuzzy
+msgid "_Span"
+msgstr "Span"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1456
+msgid "_Div"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1457
+#, fuzzy
+msgid "_Link"
+msgstr "Link"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1458
+#, fuzzy
+msgid "S_cript"
+msgstr "Script"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1459
+#, fuzzy
+msgid "_Anchor"
+msgstr "Бърза връзка"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1460
+#, fuzzy
+msgid "_Image"
+msgstr "Изображения"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1461
+#, fuzzy
+msgid "_Comment"
+msgstr "Коментар"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1461
+#, fuzzy
+msgid "HTML Comment"
+msgstr "Коментар"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1463
+#, fuzzy
+msgid "Dial_ogs"
+msgstr "Диалог"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1464
+#, fuzzy
+msgid "_General"
+msgstr "Общи"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1465
+#, fuzzy
+msgid "_Quickstart..."
+msgstr "Бърз старт..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1465
+#, fuzzy
+msgid "Quickstart..."
+msgstr "Бърз старт..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1467
+#, fuzzy
+msgid "_Link Header..."
+msgstr "Заглавие на таблица..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1467
+#, fuzzy
+msgid "Link Header..."
+msgstr "Заглавие на таблица..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1469
+#, fuzzy
+msgid "_Body..."
+msgstr "Основна част..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1469
+msgid "Body..."
+msgstr "Основна част..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1471
+msgid "_Anchor..."
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1471
 #, fuzzy
 msgid "Anchor / Hyperlink..."
 msgstr "Връзка..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:757
-msgid "Rule..."
-msgstr "Линия..."
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1473
+#, fuzzy
+msgid "_E-mail..."
+msgstr "Е-мейл..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:758
-msgid "Center"
-msgstr "Центриране"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:759
-msgid "Right Justify"
-msgstr "Дясно центриране"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:760
-msgid "Comment"
-msgstr "Коментар"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:761
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1473
 #, fuzzy
 msgid "E-mail..."
 msgstr "Е-мейл..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:762
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1475
+#, fuzzy
+msgid "_Rule..."
+msgstr "Линия..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1475
+#, fuzzy
+msgid "Horizontal Rule..."
+msgstr "Хоризонтална линия"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1477
+#, fuzzy
+msgid "_Font..."
+msgstr "Шрифт..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1477
 msgid "Font..."
 msgstr "Шрифт..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:763
-msgid "Base Font Size..."
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1479
+#, fuzzy
+msgid "Basef_ont..."
 msgstr "Основен размер на шрифта..."
 
-#. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:765
-msgid "Font Size +1"
-msgstr "Шрифт размер +1"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1479
+#, fuzzy
+msgid "Base font..."
+msgstr "Базов шрифт"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:766
-msgid "Font Size -1"
-msgstr "Шрифт размер -1"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1481
+#, fuzzy
+msgid "Quick_list..."
+msgstr "Бърз списък..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:767
-msgid "Preformatted Text"
-msgstr "Преформатиран текст"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:768
-msgid "Subscript"
-msgstr "Субскрипт"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:769
-msgid "Superscript"
-msgstr "Суперскрипт"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:770
-msgid "Strong"
-msgstr "Удебелен"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:771
-msgid "Emphasis"
-msgstr "Наклонен"
-
-#. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:773 src/plugin_htmlbar/html.c:815
-msgid "Heading 1"
-msgstr "Заглавие 1"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:774 src/plugin_htmlbar/html.c:818
-msgid "Heading 2"
-msgstr "Заглавие 2"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:775 src/plugin_htmlbar/html.c:821
-msgid "Heading 3"
-msgstr "Заглавие 3"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:776 src/plugin_htmlbar/html.c:824
-msgid "Heading 4"
-msgstr "Заглавие 4"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:777 src/plugin_htmlbar/html.c:827
-msgid "Heading 5"
-msgstr "Заглавие 5"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:778 src/plugin_htmlbar/html.c:830
-msgid "Heading 6"
-msgstr "Заглавие 6"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:779
-msgid "Table Wizard..."
-msgstr "Помощник за създаване на таблици..."
-
-#. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:781
-msgid "Table..."
-msgstr "Таблица..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:782
-msgid "Table Row..."
-msgstr "Табличен ред"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:783
-msgid "Table Header..."
-msgstr "Заглавие на таблица..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:784
-msgid "Table Data..."
-msgstr "Съдържание на таблица..."
-
-#. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:786 src/plugin_htmlbar/html_table.c:76
-msgid "Table"
-msgstr "Таблица"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:787 src/plugin_htmlbar/html_table.c:208
-msgid "Table Row"
-msgstr "Ред на таблица"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:788 src/plugin_htmlbar/html_table.c:319
-msgid "Table Header"
-msgstr "Заглавие на таблица"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:789 src/plugin_htmlbar/html_table.c:317
-msgid "Table Data"
-msgstr "Данни в таблица"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:790
-msgid "Table Caption"
-msgstr "Заглавие на таблицата"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:791
-msgid "Frame Wizard..."
-msgstr "Помощник за рамки..."
-
-#. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:793
-msgid "Frameset..."
-msgstr "Набор от рамки..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:794
-msgid "Frame..."
-msgstr "Рамка..."
-
-#. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:796 src/plugin_htmlbar/html.c:1590
-msgid "Frameset"
-msgstr "Набор от рамки"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:797 src/plugin_htmlbar/html.c:1676
-msgid "Frame"
-msgstr "Рамка"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:798
-msgid "Noframes"
-msgstr "Без рамки"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:799
-msgid "Target"
-msgstr "Цел"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:800
-msgid "Form..."
-msgstr "Форма..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:801
-msgid "Input Button..."
-msgstr "Input Button..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:802
-msgid "Input Text..."
-msgstr "Input Text..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:803
-msgid "Input Hidden..."
-msgstr "Input Hidden..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:804
-msgid "Textarea..."
-msgstr "Текстова площ..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:805
-msgid "Input Radio Button..."
-msgstr "Input Radio Button..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:806
-msgid "Input Check Box..."
-msgstr "Input Check Box..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:807
-msgid "Select..."
-msgstr "Select..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:808
-msgid "Option..."
-msgstr "Option..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:809
-msgid "Option group..."
-msgstr "Option group..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:810
-msgid "Button..."
-msgstr "Button..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:811
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1481
 msgid "Quick List..."
 msgstr "Бърз списък..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:812
-msgid "Unordered List"
-msgstr "Неподреден списък"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1483
+#, fuzzy
+msgid "_Meta..."
+msgstr "Meta"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:813
-msgid "Ordered List"
-msgstr "Подреден списък"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1484
+#, fuzzy
+msgid "Embe_d..."
+msgstr "Embed"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:814
-msgid "List Item"
-msgstr "Елемент от списък"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1485
+#, fuzzy
+msgid "Select _Color..."
+msgstr "Select..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:815
-msgid "Definition List"
-msgstr "Лист с дефиниции"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1486
+#, fuzzy
+msgid "Insert _Time..."
+msgstr "Добави изображение..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:816
-msgid "Definition Term"
-msgstr "Дефиниция на термин"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1487
+#, fuzzy
+msgid "Insert _Image..."
+msgstr "Добави изображение..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:817 src/plugin_htmlbar/htmlbar_gui.c:826
-msgid "Definition"
-msgstr "Дефиниция"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:818
-msgid "Create stylesheet..."
-msgstr "Създай стил..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:819
-msgid "Span..."
-msgstr "Span..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:820
-msgid "Div..."
-msgstr "Div..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:821 src/plugin_htmlbar/html_form.c:518
-msgid "Style"
-msgstr "Стил"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:822
-msgid "Link to stylesheet..."
-msgstr "Връзка към стил..."
-
-#: src/plugin_htmlbar/htmlbar_gui.c:823
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1487
 msgid "Insert image..."
 msgstr "Добави изображение..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:824
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1489
+#, fuzzy
+msgid "Insert T_humbnail..."
+msgstr "Добави умален образ..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1490
 msgid "Insert thumbnail..."
 msgstr "Добави умален образ..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:825
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
+#, fuzzy
+msgid "Table _Wizard..."
+msgstr "Помощник за създаване на таблици..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
+msgid "Table Wizard..."
+msgstr "Помощник за създаване на таблици..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
+#, fuzzy
+msgid "_Table..."
+msgstr "Таблица..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
+msgid "Table..."
+msgstr "Таблица..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
+#, fuzzy
+msgid "Table _Row..."
+msgstr "Табличен ред"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
+msgid "Table Row..."
+msgstr "Табличен ред"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
+#, fuzzy
+msgid "Table _Head..."
+msgstr "Заглавие на таблица..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
+#, fuzzy
+msgid "Table Head..."
+msgstr "Заглавие на таблица..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
+#, fuzzy
+msgid "Table _Data..."
+msgstr "Съдържание на таблица..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
+msgid "Table Data..."
+msgstr "Съдържание на таблица..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
+msgid "_CSS"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1504
+#, fuzzy
+msgid "_Create Style..."
+msgstr "Създай стил..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
+msgid "Create stylesheet..."
+msgstr "Създай стил..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
+#, fuzzy
+msgid "S_pan..."
+msgstr "Span..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
+msgid "Span..."
+msgstr "Span..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1508
+#, fuzzy
+msgid "_Div..."
+msgstr "Div..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1508
+msgid "Div..."
+msgstr "Div..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1510
+#, fuzzy
+msgid "Style..."
+msgstr "_Стил"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1512
+#, fuzzy
+msgid "_Link to Stylesheet..."
+msgstr "Връзка към стил..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1513
+#, fuzzy
+msgid "Link to Stylesheet..."
+msgstr "Връзка към стил..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1515
+#, fuzzy
+msgid "_Frame"
+msgstr "_Frame:"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
+#, fuzzy
+msgid "Frame _Wizard..."
+msgstr "Помощник за рамки..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
+msgid "Frame Wizard..."
+msgstr "Помощник за рамки..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
+#, fuzzy
+msgid "Frame_set..."
+msgstr "Набор от рамки..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
+msgid "Frameset..."
+msgstr "Набор от рамки..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
+#, fuzzy
+msgid "_Frame..."
+msgstr "Рамка..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
+msgid "Frame..."
+msgstr "Рамка..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1521
+msgid "F_orm"
+msgstr ""
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1522
+#, fuzzy
+msgid "F_orm..."
+msgstr "Форма..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1522
+msgid "Form..."
+msgstr "Форма..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1523
+#, fuzzy
+msgid "_Input..."
+msgstr "Input Text..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1524
+#, fuzzy
+msgid "Input Buttons..."
+msgstr "Input Button..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1524
+msgid "Input Button..."
+msgstr "Input Button..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1526
+msgid "Input Text..."
+msgstr "Input Text..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1528
+#, fuzzy
+msgid "Text_area..."
+msgstr "Текстова площ..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1528
+msgid "Textarea..."
+msgstr "Текстова площ..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1530
+#, fuzzy
+msgid "_Select..."
+msgstr "Select..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1530
+msgid "Select..."
+msgstr "Select..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1532
+#, fuzzy
+msgid "O_ption..."
+msgstr "Option..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1532
+msgid "Option..."
+msgstr "Option..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1534
+#, fuzzy
+msgid "Option _Group..."
+msgstr "Option group..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1534
+msgid "Option group..."
+msgstr "Option group..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1536
+#, fuzzy
+msgid "_Button..."
+msgstr "Button..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1536
+msgid "Button..."
+msgstr "Button..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1538
+#, fuzzy
+msgid "_Edit tag under cursor..."
+msgstr "/Помощни диалози/Редактирай тага под курсора"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1540
+#, fuzzy
+msgid "_Multi Thumbnail..."
+msgstr "Много умалени образи..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1540
 msgid "Multi thumbnail..."
 msgstr "Много умалени образи..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:827
-msgid "Code"
-msgstr "Код"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1542 src/plugin_htmlbar/html.c:1865
+msgid "Frame"
+msgstr "Рамка"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:828
-msgid "Sample"
-msgstr "Пример"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1543 src/plugin_htmlbar/html.c:1766
+msgid "Frameset"
+msgstr "Набор от рамки"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:829
-msgid "Keyboard"
-msgstr "Клавиатура"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1545
+msgid "Noframes"
+msgstr "Без рамки"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:830
-msgid "Variable"
-msgstr "Променлива"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1547
+msgid "Target"
+msgstr "Цел"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:831
-msgid "Citation"
-msgstr "Цитат"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1549
+msgid "Input Hidden..."
+msgstr "Input Hidden..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:832
-msgid "Abbreviation"
-msgstr "Абревиатура"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1550
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1551
+msgid "Input Radio Button..."
+msgstr "Input Radio Button..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:833
-msgid "Acronym"
-msgstr "Акроним"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:834
-msgid "Insert"
-msgstr "Вкарване"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:835
-msgid "Delete"
-msgstr "Изтриване"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:956
-msgid "Remove from quickbar"
-msgstr "Премахване от менюто за бърз достъп"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:957
-msgid "Move Left"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_gui.c:958
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1553
 #, fuzzy
-msgid "Move Right"
-msgstr "Височина"
+msgid "Input Check Button..."
+msgstr "Input Check Box..."
 
-#: src/plugin_htmlbar/htmlbar_gui.c:998
-msgid "Add to quickbar"
-msgstr "Добави към менюто за бърз достъп"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1565
+#, fuzzy
+msgid "_HTML Toolbar"
+msgstr "/Изглед/Виж HTML инструментите"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:1100
-msgid " Quick bar "
-msgstr " Меню за бърз достъп "
-
-#: src/plugin_htmlbar/htmlbar_gui.c:1105
-msgid "Heading"
-msgstr "Заглавие"
-
-#: src/plugin_htmlbar/htmlbar_gui.c:1107
-msgid " Standard bar "
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1617
+#, fuzzy
+msgid " Standard "
 msgstr " Стандартно меню "
 
-#: src/plugin_htmlbar/htmlbar_gui.c:1112
-msgid "Context formatting"
-msgstr " Форматиране според контекста "
-
-#: src/plugin_htmlbar/htmlbar_gui.c:1114
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1621
 msgid " Fonts "
 msgstr " Шрифтове "
 
-#: src/plugin_htmlbar/htmlbar_gui.c:1119
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1625
+#, fuzzy
+msgid " Formatting "
+msgstr "Форматиращ низ след"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1629
 msgid " Tables "
 msgstr " Таблици "
 
-#: src/plugin_htmlbar/htmlbar_gui.c:1124
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1633
 msgid " Frames "
 msgstr " Рамки "
 
-#: src/plugin_htmlbar/htmlbar_gui.c:1129
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1637
 msgid " Forms "
 msgstr " Форми "
 
-#: src/plugin_htmlbar/htmlbar_gui.c:1134
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1641
 msgid " List "
 msgstr " Лист "
 
-#: src/plugin_htmlbar/htmlbar_gui.c:1139
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
 msgid " CSS "
 msgstr " CSS "
 
-#: src/plugin_htmlbar/html.c:390
+#: src/plugin_htmlbar/html.c:425
 msgid "Insert Time"
 msgstr "Добави време"
 
-#: src/plugin_htmlbar/html.c:398
+#: src/plugin_htmlbar/html.c:434
 #, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr "  _Време (%i:%i:%i)"
 
-#: src/plugin_htmlbar/html.c:403
+#: src/plugin_htmlbar/html.c:440
 msgid "  Day of the _week (Sunday)"
 msgstr "  Ден от _седмицата (Неделя)"
 
-#: src/plugin_htmlbar/html.c:406
+#: src/plugin_htmlbar/html.c:443
 msgid "  Day of the _week (Monday)"
 msgstr "  Ден от _седмицата (Понеделник)"
 
-#: src/plugin_htmlbar/html.c:409
+#: src/plugin_htmlbar/html.c:446
 msgid "  Day of the _week (Tuesday)"
 msgstr "  Ден от _седмицата (Вторник)"
 
-#: src/plugin_htmlbar/html.c:412
+#: src/plugin_htmlbar/html.c:449
 msgid "  Day of the _week (Wednesday)"
 msgstr "  Ден от _седмицата (Сряда)"
 
-#: src/plugin_htmlbar/html.c:415
+#: src/plugin_htmlbar/html.c:452
 msgid "  Day of the _week (Thursday)"
 msgstr "  Ден от _седмицата (Четвъртък)"
 
-#: src/plugin_htmlbar/html.c:418
+#: src/plugin_htmlbar/html.c:455
 msgid "  Day of the _week (Friday)"
 msgstr "  Ден от _седмицата (Петък)"
 
-#: src/plugin_htmlbar/html.c:421
+#: src/plugin_htmlbar/html.c:458
 msgid "  Day of the _week (Saturday)"
 msgstr "  Ден от _седмицата (Събота)"
 
-#: src/plugin_htmlbar/html.c:424
+#: src/plugin_htmlbar/html.c:461
 msgid "You appear to have a non existant day!\n"
 msgstr "Изглежда имате ден от седмицата, който не съществува!\n"
 
-#: src/plugin_htmlbar/html.c:432
+#: src/plugin_htmlbar/html.c:469
 #, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr "  _Дата (%i/%i/%i)"
 
-#: src/plugin_htmlbar/html.c:435
+#: src/plugin_htmlbar/html.c:472
 #, c-format
 msgid "  _Unix Time (%i)"
 msgstr "  _Unix Време (%i)"
 
-#: src/plugin_htmlbar/html.c:440
+#: src/plugin_htmlbar/html.c:477
 #, fuzzy, c-format
 msgid "  Unix Date _String (%s)"
 msgstr "  Unix Дата _Низ (%s"
 
-#: src/plugin_htmlbar/html.c:448
+#: src/plugin_htmlbar/html.c:485
 msgid "  ISO-8601 Ti_me "
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:608
+#: src/plugin_htmlbar/html.c:659
 msgid "Quick Anchor"
 msgstr "Бърза връзка"
 
-#: src/plugin_htmlbar/html.c:614 src/plugin_htmlbar/html_form.c:473
+#: src/plugin_htmlbar/html.c:665 src/plugin_htmlbar/html_form.c:473
 msgid "Attributes"
 msgstr "Атрибути"
 
-#: src/plugin_htmlbar/html.c:628 src/plugin_htmlbar/html.c:1920
+#: src/plugin_htmlbar/html.c:679 src/plugin_htmlbar/html.c:2123
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:634 src/plugin_htmlbar/html_form.c:182
+#: src/plugin_htmlbar/html.c:685 src/plugin_htmlbar/html_form.c:182
 msgid "_Target:"
 msgstr "_Target:"
 
-#: src/plugin_htmlbar/html.c:638 src/plugin_htmlbar/html.c:862
-#: src/plugin_htmlbar/html.c:1227 src/plugin_htmlbar/html.c:1688
+#: src/plugin_htmlbar/html.c:689 src/plugin_htmlbar/html.c:945
+#: src/plugin_htmlbar/html.c:1376 src/plugin_htmlbar/html.c:1877
 #: src/plugin_htmlbar/html_form.c:230 src/plugin_htmlbar/html_form.c:289
 #: src/plugin_htmlbar/html_form.c:488 src/plugin_htmlbar/html_form.c:583
 #: src/plugin_htmlbar/image.c:490
 msgid "_Name:"
 msgstr "_Име:"
 
-#: src/plugin_htmlbar/html.c:642 src/plugin_htmlbar/quickstart.c:555
+#: src/plugin_htmlbar/html.c:693 src/plugin_htmlbar/quickstart.c:555
 #, fuzzy
 msgid "Titl_e:"
 msgstr "Title:"
 
-#: src/plugin_htmlbar/html.c:648 src/plugin_htmlbar/html.c:1095
-#: src/plugin_htmlbar/html.c:1245 src/plugin_htmlbar/html.c:1835
+#: src/plugin_htmlbar/html.c:699 src/plugin_htmlbar/html.c:1234
+#: src/plugin_htmlbar/html.c:1395 src/plugin_htmlbar/html.c:2034
 msgid "_Language:"
 msgstr "_Език"
 
-#: src/plugin_htmlbar/html.c:652 src/plugin_htmlbar/html.c:870
-#: src/plugin_htmlbar/html.c:1004 src/plugin_htmlbar/html.c:1099
-#: src/plugin_htmlbar/html.c:1253 src/plugin_htmlbar/html.c:1622
-#: src/plugin_htmlbar/html.c:1725 src/plugin_htmlbar/html.c:1854
+#: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:953
+#: src/plugin_htmlbar/html.c:1124 src/plugin_htmlbar/html.c:1238
+#: src/plugin_htmlbar/html.c:1403 src/plugin_htmlbar/html.c:1799
+#: src/plugin_htmlbar/html.c:1914 src/plugin_htmlbar/html.c:2053
 #: src/plugin_htmlbar/html_form.c:186 src/plugin_htmlbar/html_form.c:247
 #: src/plugin_htmlbar/html_form.c:302 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_table.c:100 src/plugin_htmlbar/html_table.c:252
@@ -1522,332 +1619,352 @@ msgstr "_Език"
 msgid "Custo_m:"
 msgstr "Собствен"
 
-#: src/plugin_htmlbar/html.c:655 src/plugin_htmlbar/html.c:1103
+#: src/plugin_htmlbar/html.c:706 src/plugin_htmlbar/html.c:1242
 #: src/plugin_htmlbar/html_form.c:522
 msgid "Events"
 msgstr "JavaScript Събития"
 
-#: src/plugin_htmlbar/html.c:658
+#: src/plugin_htmlbar/html.c:709
 msgid "OnClic_k:"
 msgstr "OnClic_k:"
 
-#: src/plugin_htmlbar/html.c:662
+#: src/plugin_htmlbar/html.c:713
 msgid "OnD_blClick:"
 msgstr "OnD_blClick:"
 
-#: src/plugin_htmlbar/html.c:666
+#: src/plugin_htmlbar/html.c:717
 msgid "OnMouseO_ver:"
 msgstr "OnMouseO_ver:"
 
-#: src/plugin_htmlbar/html.c:670
+#: src/plugin_htmlbar/html.c:721
 msgid "OnMouse_Down:"
 msgstr "OnMouse_Down:"
 
-#: src/plugin_htmlbar/html.c:674
+#: src/plugin_htmlbar/html.c:725
 msgid "OnMouse_Move:"
 msgstr "OnMouse_Move:"
 
-#: src/plugin_htmlbar/html.c:678
+#: src/plugin_htmlbar/html.c:729
 msgid "OnMouseOu_t:"
 msgstr "OnMouseOu_t:"
 
-#: src/plugin_htmlbar/html.c:682
+#: src/plugin_htmlbar/html.c:733
 msgid "OnMouse_Up:"
 msgstr "OnMouse_Up:"
 
-#: src/plugin_htmlbar/html.c:686
+#: src/plugin_htmlbar/html.c:737
 msgid "OnKeyDo_wn:"
 msgstr "OnKeyDo_wn:"
 
-#: src/plugin_htmlbar/html.c:690
+#: src/plugin_htmlbar/html.c:741
 msgid "OnKey_Press:"
 msgstr "OnKey_Press:"
 
-#: src/plugin_htmlbar/html.c:694
+#: src/plugin_htmlbar/html.c:745
 msgid "OnKe_yUp:"
 msgstr "OnKe_yUp:"
 
-#: src/plugin_htmlbar/html.c:809
+#: src/plugin_htmlbar/html.c:892
 msgid "Div"
 msgstr "Div"
 
-#: src/plugin_htmlbar/html.c:812
+#: src/plugin_htmlbar/html.c:895
 msgid "Span"
 msgstr "Span"
 
-#: src/plugin_htmlbar/html.c:847 src/plugin_htmlbar/html_table.c:108
+#: src/plugin_htmlbar/html.c:898
+msgid "Heading 1"
+msgstr "Заглавие 1"
+
+#: src/plugin_htmlbar/html.c:901
+msgid "Heading 2"
+msgstr "Заглавие 2"
+
+#: src/plugin_htmlbar/html.c:904
+msgid "Heading 3"
+msgstr "Заглавие 3"
+
+#: src/plugin_htmlbar/html.c:907
+msgid "Heading 4"
+msgstr "Заглавие 4"
+
+#: src/plugin_htmlbar/html.c:910
+msgid "Heading 5"
+msgstr "Заглавие 5"
+
+#: src/plugin_htmlbar/html.c:913
+msgid "Heading 6"
+msgstr "Заглавие 6"
+
+#: src/plugin_htmlbar/html.c:930 src/plugin_htmlbar/html_table.c:108
 #: src/plugin_htmlbar/html_table.c:218 src/plugin_htmlbar/html_table.c:332
 msgid "Ali_gn:"
 msgstr "Подравняване"
 
-#: src/plugin_htmlbar/html.c:851 src/plugin_htmlbar/html.c:1087
+#: src/plugin_htmlbar/html.c:934 src/plugin_htmlbar/html.c:1226
 #: src/plugin_htmlbar/html_diag.c:403 src/plugin_htmlbar/html_table.c:90
 #: src/plugin_htmlbar/html_table.c:236 src/plugin_htmlbar/html_table.c:350
 #: src/plugin_htmlbar/image_dialog.c:368
 msgid "Cl_ass:"
 msgstr "Клас"
 
-#: src/plugin_htmlbar/html.c:855 src/plugin_htmlbar/html.c:1080
+#: src/plugin_htmlbar/html.c:938 src/plugin_htmlbar/html.c:1219
 #: src/plugin_htmlbar/html_diag.c:411 src/plugin_htmlbar/html_table.c:95
 #: src/plugin_htmlbar/html_table.c:247 src/plugin_htmlbar/html_table.c:355
 msgid "St_yle:"
 msgstr "Ст_ил"
 
-#: src/plugin_htmlbar/html.c:866 src/plugin_htmlbar/html.c:1091
+#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1230
 #: src/plugin_htmlbar/html_diag.c:407
 msgid "_ID:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/html.c:967
+#: src/plugin_htmlbar/html.c:1087
 msgid "Horizontal Rule"
 msgstr "Хоризонтална линия"
 
-#: src/plugin_htmlbar/html.c:978 src/plugin_htmlbar/html.c:1773
+#: src/plugin_htmlbar/html.c:1098 src/plugin_htmlbar/html.c:1968
 #: src/plugin_htmlbar/image.c:517 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Align:"
 msgstr "_Подравняване"
 
-#: src/plugin_htmlbar/html.c:985 src/plugin_htmlbar/html.c:1781
+#: src/plugin_htmlbar/html.c:1105 src/plugin_htmlbar/html.c:1976
 #: src/plugin_htmlbar/html_table.c:386 src/plugin_htmlbar/image_dialog.c:338
 msgid "_Height:"
 msgstr "_Височина"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:991 src/plugin_htmlbar/html.c:1777
+#: src/plugin_htmlbar/html.c:1111 src/plugin_htmlbar/html.c:1972
 #: src/plugin_htmlbar/html_table.c:133 src/plugin_htmlbar/html_table.c:379
 #: src/plugin_htmlbar/image.c:474 src/plugin_htmlbar/image_dialog.c:329
 msgid "_Width:"
 msgstr "_Ширина"
 
-#: src/plugin_htmlbar/html.c:994
+#: src/plugin_htmlbar/html.c:1114
 msgid "Is _percent"
 msgstr "Is _percent"
 
-#: src/plugin_htmlbar/html.c:999
+#: src/plugin_htmlbar/html.c:1119
 msgid "No _shading"
 msgstr "Без сянка"
 
-#: src/plugin_htmlbar/html.c:1064
+#: src/plugin_htmlbar/html.c:1203
 msgid "Body"
 msgstr "Body"
 
-#: src/plugin_htmlbar/html.c:1072
+#: src/plugin_htmlbar/html.c:1211
 msgid "Options"
 msgstr "Възможности"
 
-#: src/plugin_htmlbar/html.c:1110
+#: src/plugin_htmlbar/html.c:1249
 msgid "On_Load:"
 msgstr "On_Load:"
 
-#: src/plugin_htmlbar/html.c:1118
+#: src/plugin_htmlbar/html.c:1257
 msgid "On_UnLoad:"
 msgstr "On_UnLoad:"
 
-#: src/plugin_htmlbar/html.c:1127
+#: src/plugin_htmlbar/html.c:1266
 msgid "Depreciated options"
 msgstr "Непрепоръчителни опции"
 
-#: src/plugin_htmlbar/html.c:1137
+#: src/plugin_htmlbar/html.c:1276
 msgid "Background _Image:"
 msgstr "Изображение за фон"
 
-#: src/plugin_htmlbar/html.c:1144
+#: src/plugin_htmlbar/html.c:1284
 msgid "Back_ground Color:"
 msgstr "Цвят за фон"
 
-#: src/plugin_htmlbar/html.c:1150
+#: src/plugin_htmlbar/html.c:1291
 msgid "_Text Color:"
 msgstr "Цвят на текста"
 
-#: src/plugin_htmlbar/html.c:1156
+#: src/plugin_htmlbar/html.c:1297
 msgid "_Link Color:"
 msgstr "Цвят на връзките"
 
-#: src/plugin_htmlbar/html.c:1162
+#: src/plugin_htmlbar/html.c:1303
 msgid "_Visited Link Color:"
 msgstr "Цвят на посетените връзки"
 
-#: src/plugin_htmlbar/html.c:1168
+#: src/plugin_htmlbar/html.c:1310
 msgid "_Active Link Color:"
 msgstr "Цвят на активните връзки"
 
-#: src/plugin_htmlbar/html.c:1220
+#: src/plugin_htmlbar/html.c:1367
 msgid "Meta"
 msgstr "Meta"
 
-#: src/plugin_htmlbar/html.c:1236
+#: src/plugin_htmlbar/html.c:1386
 msgid "_HTTP-EQUIV:"
 msgstr "HTTP-EQUIV:"
 
-#: src/plugin_htmlbar/html.c:1241
+#: src/plugin_htmlbar/html.c:1391
 msgid "Con_tent:"
 msgstr "Con_tent:"
 
-#: src/plugin_htmlbar/html.c:1249
+#: src/plugin_htmlbar/html.c:1399
 msgid "_Scheme:"
 msgstr "Scheme:"
 
-#: src/plugin_htmlbar/html.c:1327
+#: src/plugin_htmlbar/html.c:1485
 msgid "Font"
 msgstr "Шрифт"
 
-#: src/plugin_htmlbar/html.c:1330
+#: src/plugin_htmlbar/html.c:1488
 msgid "Base Font"
 msgstr "Базов шрифт"
 
-#: src/plugin_htmlbar/html.c:1345
+#: src/plugin_htmlbar/html.c:1503
 msgid "Size"
 msgstr "Размер"
 
-#: src/plugin_htmlbar/html.c:1353
+#: src/plugin_htmlbar/html.c:1512
 msgid "Color"
 msgstr "Цвят"
 
-#: src/plugin_htmlbar/html.c:1358
+#: src/plugin_htmlbar/html.c:1517
 msgid "Face"
 msgstr "Face"
 
-#: src/plugin_htmlbar/html.c:1362
+#: src/plugin_htmlbar/html.c:1521
 msgid "Custom"
 msgstr "Собствен"
 
-#: src/plugin_htmlbar/html.c:1445
+#: src/plugin_htmlbar/html.c:1612
 #, fuzzy
 msgid "E-mail"
 msgstr "Емайл"
 
-#: src/plugin_htmlbar/html.c:1453
+#: src/plugin_htmlbar/html.c:1620
 msgid "_Mail to:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1457
+#: src/plugin_htmlbar/html.c:1624
 #, fuzzy
 msgid "_Copy to:"
 msgstr "Копиране"
 
-#: src/plugin_htmlbar/html.c:1461
+#: src/plugin_htmlbar/html.c:1628
 msgid "Blin_d copy to:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1465
+#: src/plugin_htmlbar/html.c:1632
 msgid "with _Subject:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1469
+#: src/plugin_htmlbar/html.c:1636
 msgid "with _Body:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1513
+#: src/plugin_htmlbar/html.c:1683
 msgid "Quick List"
 msgstr "Бързо меню"
 
-#: src/plugin_htmlbar/html.c:1518 src/plugin_htmlbar/wizards.c:75
+#: src/plugin_htmlbar/html.c:1688 src/plugin_htmlbar/wizards.c:75
 msgid "Number of _rows:"
 msgstr "Брой редове:"
 
-#: src/plugin_htmlbar/html.c:1521
+#: src/plugin_htmlbar/html.c:1691
 msgid "Or_dered"
 msgstr "Подредени"
 
-#: src/plugin_htmlbar/html.c:1522
+#: src/plugin_htmlbar/html.c:1694
 msgid "_Unordered"
 msgstr "Неподредени"
 
-#: src/plugin_htmlbar/html.c:1524
+#: src/plugin_htmlbar/html.c:1696
 msgid "Style:"
 msgstr "Стил"
 
-#: src/plugin_htmlbar/html.c:1596 src/plugin_htmlbar/html_form.c:239
+#: src/plugin_htmlbar/html.c:1772 src/plugin_htmlbar/html_form.c:239
 msgid "Co_ls:"
 msgstr "Колони"
 
-#: src/plugin_htmlbar/html.c:1600 src/plugin_htmlbar/html_form.c:235
+#: src/plugin_htmlbar/html.c:1776 src/plugin_htmlbar/html_form.c:235
 msgid "_Rows:"
 msgstr "Редове"
 
-#: src/plugin_htmlbar/html.c:1605
+#: src/plugin_htmlbar/html.c:1781
 msgid "_Add <frame> elements"
 msgstr "Добавяне на <frame> елементи"
 
-#: src/plugin_htmlbar/html.c:1684 src/plugin_htmlbar/html.c:1769
-#: src/plugin_htmlbar/html.c:1828 src/plugin_htmlbar/image_dialog.c:290
+#: src/plugin_htmlbar/html.c:1873 src/plugin_htmlbar/html.c:1964
+#: src/plugin_htmlbar/html.c:2027 src/plugin_htmlbar/image_dialog.c:290
 msgid "_Source:"
 msgstr "_Source:"
 
-#: src/plugin_htmlbar/html.c:1692
+#: src/plugin_htmlbar/html.c:1881
 msgid "Margin _Width:"
 msgstr "Ширина на границата:"
 
-#: src/plugin_htmlbar/html.c:1696
+#: src/plugin_htmlbar/html.c:1885
 msgid "Margin _Height:"
 msgstr "Височина на границата:"
 
-#: src/plugin_htmlbar/html.c:1704
+#: src/plugin_htmlbar/html.c:1893
 msgid "Scrollin_g:"
 msgstr "Скролиране:"
 
-#: src/plugin_htmlbar/html.c:1708
+#: src/plugin_htmlbar/html.c:1897
 msgid "_Frameborder:"
 msgstr "Frameborder:"
 
-#: src/plugin_htmlbar/html.c:1713
+#: src/plugin_htmlbar/html.c:1902
 msgid "No _Resize:"
 msgstr "No _Resize:"
 
-#: src/plugin_htmlbar/html.c:1763
+#: src/plugin_htmlbar/html.c:1958
 msgid "Embed"
 msgstr "Embed"
 
-#: src/plugin_htmlbar/html.c:1785 src/plugin_htmlbar/html_table.c:139
+#: src/plugin_htmlbar/html.c:1980 src/plugin_htmlbar/html_table.c:139
 msgid "Bo_rder:"
 msgstr "Bo_rder:"
 
-#: src/plugin_htmlbar/html.c:1821
+#: src/plugin_htmlbar/html.c:2020
 msgid "Script"
 msgstr "Script"
 
-#: src/plugin_htmlbar/html.c:1850 src/plugin_htmlbar/html.c:1951
+#: src/plugin_htmlbar/html.c:2049 src/plugin_htmlbar/html.c:2156
 #: src/plugin_htmlbar/html_form.c:482 src/plugin_htmlbar/html_form.c:592
 msgid "_Type:"
 msgstr "Type:"
 
-#: src/plugin_htmlbar/html.c:1909
+#: src/plugin_htmlbar/html.c:2112
 msgid "Link"
 msgstr "Link"
 
-#: src/plugin_htmlbar/html.c:1926
+#: src/plugin_htmlbar/html.c:2129
 #, fuzzy
 msgid "HREF_LANG:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:1930
+#: src/plugin_htmlbar/html.c:2133
 #, fuzzy
 msgid "T_itle:"
 msgstr "Title:"
 
-#: src/plugin_htmlbar/html.c:1970
+#: src/plugin_htmlbar/html.c:2179
 msgid "_Forward Relation:"
 msgstr "_Forward Relation:"
 
-#: src/plugin_htmlbar/html.c:1974
+#: src/plugin_htmlbar/html.c:2184
 msgid "_Reverse Relation:"
 msgstr "_Reverse Relation:"
 
-#: src/plugin_htmlbar/html.c:1985
+#: src/plugin_htmlbar/html.c:2198
 msgid "Media:"
 msgstr "Media:"
 
-#: src/plugin_htmlbar/html.c:1989
+#: src/plugin_htmlbar/html.c:2202
 msgid "L_ang:"
 msgstr "Език:"
 
-#: src/plugin_htmlbar/html.c:1993
+#: src/plugin_htmlbar/html.c:2206
 msgid "_Custom:"
 msgstr "_Custo_m:"
-
-#: src/plugin_htmlbar/html_form.c:140
-msgid "Form"
-msgstr "Form"
 
 #: src/plugin_htmlbar/html_form.c:158
 msgid "_Action:"
@@ -1912,6 +2029,10 @@ msgstr "_Accept:"
 #: src/plugin_htmlbar/html_form.c:513
 msgid "C_ustom:"
 msgstr "Собствен"
+
+#: src/plugin_htmlbar/html_form.c:518
+msgid "Style"
+msgstr "Стил"
 
 #: src/plugin_htmlbar/html_form.c:525
 msgid "On_Focus:"
@@ -2265,6 +2386,668 @@ msgstr "Източник:"
 #: src/plugin_htmlbar/wizards.c:222
 msgid "Size:"
 msgstr "Размер:"
+
+#~ msgid "/Tags/_Headings"
+#~ msgstr "/Тагове/_Заглавия"
+
+#~ msgid "/Tags/Headings/H_1"
+#~ msgstr "/Тагове/Заглавия/H_1"
+
+#~ msgid "/Tags/Headings/H_2"
+#~ msgstr "/Тагове/Заглавия/H_2"
+
+#~ msgid "/Tags/Headings/H_3"
+#~ msgstr "/Тагове/Заглавия/H_3"
+
+#~ msgid "/Tags/Headings/H_4"
+#~ msgstr "/Тагове/Заглавия/H_4"
+
+#~ msgid "/Tags/Headings/H_5"
+#~ msgstr "/Тагове/Заглавия/H_5"
+
+#~ msgid "/Tags/Headings/H_6"
+#~ msgstr "/Тагове/Заглавия/H_6"
+
+#~ msgid "/Tags/Special/_Accent"
+#~ msgstr "/Тагове/Специални/Специфични букви"
+
+#~ msgid "/Tags/Special/Accent/_Uppercase"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/_A-I"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/A grave ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/A acute ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Горен регистър/A-I/A circumflex ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/A tilde ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Горен регистър/A-I/AE ligature ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Горен регистър/A-I/A diaeresis ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/A ring ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/C cedilla ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/E grave ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/E acute ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Горен регистър/A-I/E circumflex ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Горен регистър/A-I/E diaeresis ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/I grave ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/A-I/I acute ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Горен регистър/A-I/I circumflex ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Горен регистър/A-I/I diaeresis ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/_J-Z"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/N tilde ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/O grave ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/O acute ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/O circumflex ÃÂ"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/OE ligature"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/O tilde ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/O diaeresis ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/O slash ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/U grave ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/U acute ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/U circumflex ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/U diaeresis ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
+#~ msgstr "/Тагове/Специални/Специфични букви/Горен регистър/J-Z/Y acute ÃÂ"
+
+#~ msgid "/Tags/Special/Accent/_Lowercase"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/_A-I"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/a grave ÃÂ "
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/a acute ÃÂ¡"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/A-I/a circumflex ÃÂ¢"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/a tilde ÃÂ£"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/a ring ÃÂ¥"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/A-I/ae ligature ÃÂ¦"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/A-I/a diaeresis ÃÂ¤"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/c cedilla ÃÂ§"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/e grave ÃÂ¨"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/e acute ÃÂ©"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/A-I/e circumflex ÃÂª"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/A-I/e diaeresis ÃÂ«"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/i grave ÃÂ¬"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/A-I/i acute ÃÂ­"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/A-I/i circumflex ÃÂ®"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/A-I/i diaeresis ÃÂ¯"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/_J-Z"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/n tilde ÃÂ±"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/o grave ÃÂ²"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/o acute ÃÂ³"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/oe ligature ÃÂ¦"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/o circumflex ÃÂ´"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/o tilde ÃÂµ"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/o diaeresis ÃÂ¶"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/o slash ÃÂ¸"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/u grave ÃÂ¹"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/u acute ÃÂº"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/u circumflex ÃÂ»"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/u diaeresis ÃÂ¼"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
+#~ msgstr "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/y acute ÃÂ½"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
+#~ msgstr ""
+#~ "/Тагове/Специални/Специфични букви/Долен регистър/J-Z/y diaeresis ÃÂ¿"
+
+#~ msgid "/Tags/Special/Accent/U_mlaut ¨"
+#~ msgstr "/Тагове/Специални/Специфични букви/U_mlaut ÃÂ¨"
+
+#~ msgid "/Tags/Special/Accent/_Acute ´"
+#~ msgstr "/Тагове/Специални/Специфични букви/_Acute ÃÂ´"
+
+#~ msgid "/Tags/Special/Accent/_Cedilla ¸"
+#~ msgstr "/Тагове/Специални/Специфични букви/Cedilla ÃÂ¸"
+
+#~ msgid "/Tags/Special/_Currency"
+#~ msgstr "/Тагове/Специални/Валути"
+
+#~ msgid "/Tags/Special/Currency/_Cent sign ¢"
+#~ msgstr "/Тагове/Специални/Валути/Цент ¢"
+
+#~ msgid "/Tags/Special/Currency/C_urrency sign ¤"
+#~ msgstr "/Тагове/Специални/Валути/Знак за валута ¤"
+
+#~ msgid "/Tags/Special/Currency/_Yen sign ¥"
+#~ msgstr "/Тагове/Специални/Валути/Йена ¥"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Currency/_Euro €"
+#~ msgstr "/Тагове/Специални/Валути/Евро"
+
+#~ msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
+#~ msgstr "/Тагове/Специални/Математически/Логическо не ÃÂ¬"
+
+#~ msgid "/Tags/Special/Math-Science/_Division sign ÷"
+#~ msgstr "/Тагове/Специални/Математически/Делене ÷"
+
+#~ msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
+#~ msgstr "/Тагове/Специални/Математически/Плюс-минус ÃÂ±"
+
+#~ msgid "/Tags/Special/Math-Science/_Less-than sign <"
+#~ msgstr "/Тагове/Специални/Математически/По-малко <"
+
+#~ msgid "/Tags/Special/Math-Science/_Greater-than sign >"
+#~ msgstr "/Тагове/Специални/Математически/По-голямо >"
+
+#~ msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
+#~ msgstr "/Тагове/Специални/Математически/Superscript _1 ÃÂ¹"
+
+#~ msgid "/Tags/Special/Math-Science/Superscript _2 ²"
+#~ msgstr "/Тагове/Специални/Математически/Superscript _2 ÃÂ²"
+
+#~ msgid "/Tags/Special/Math-Science/Superscript _3 ³"
+#~ msgstr "/Тагове/Специални/Математически/Superscript _3 ÃÂ³"
+
+#~ msgid "/Tags/Special/Math-Science/One _quarter ¼"
+#~ msgstr "/Тагове/Специални/Математически/Една четвърт ÃÂ¼"
+
+#~ msgid "/Tags/Special/Math-Science/One _half ½"
+#~ msgstr "/Тагове/Специални/Математически/Една втора ÃÂ½"
+
+#~ msgid "/Tags/Special/Math-Science/_Three quarters ¾"
+#~ msgstr "/Тагове/Специални/Математически/Три четвърти ÃÂ¾"
+
+#~ msgid "/Tags/Special/Math-Science/Deg_ree sign °"
+#~ msgstr "/Тагове/Специални/Математически/Градус ÃÂ°"
+
+#~ msgid "/Tags/Special/_Non Latin"
+#~ msgstr "/Тагове/Специални/Не латински символи"
+
+#~ msgid "/Tags/Special/Non Latin/th_orn ÿ"
+#~ msgstr "/Тагове/Специални/Не латински символи/th_orn ÿ"
+
+#~ msgid "/Tags/Special/Non Latin/Sharp _s ß"
+#~ msgstr "/Тагове/Специални/Не латински символи/Sharp _s ß"
+
+#~ msgid "/Tags/Special/Non Latin/_Micro sign µ"
+#~ msgstr "/Тагове/Специални/Не латински символи/Микро µ"
+
+#~ msgid "/Tags/Special/_Other"
+#~ msgstr "/Тагове/Специални/Други"
+
+#~ msgid "/Tags/Special/Other/_Non-breaking space"
+#~ msgstr "/Тагове/Специални/Други/"
+
+#~ msgid "/Tags/Special/Other/_Broken bar ¦"
+#~ msgstr "/Тагове/Специални/Други/_Broken bar ÃÂ¦"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/Soft _hyphen -"
+#~ msgstr "/Тагове/Специални/Други/Soft _hypen -"
+
+#~ msgid "/Tags/Special/Other/Middle _dot ·"
+#~ msgstr "/Тагове/Специални/Други/Middle _dot ÃÂ·"
+
+#~ msgid "/Tags/Format by layout/_Bold"
+#~ msgstr "/Тагове/Форматиране/Удебелен"
+
+#~ msgid "/Tags/Format by layout/_Italic"
+#~ msgstr "/Тагове/Форматиране/Наклонен"
+
+#~ msgid "/Tags/Format by layout/_Underline"
+#~ msgstr "/Тагове/Форматиране/Подчертан"
+
+#~ msgid "/Tags/Format by layout/_Strikeout"
+#~ msgstr "/Тагове/Форматиране/Зачертан"
+
+#, fuzzy
+#~ msgid "/Tags/Format by layout/Sm_all"
+#~ msgstr "/Тагове/Форматиране/Наклонен"
+
+#, fuzzy
+#~ msgid "/Tags/Format by layout/Bi_g"
+#~ msgstr "/Тагове/Форматиране"
+
+#~ msgid "/Tags/Format by context/_Strong"
+#~ msgstr "/Тагове/Контекст/Strong"
+
+#~ msgid "/Tags/Format by context/_Emphasis"
+#~ msgstr "/Тагове/Контекст/Emphasis"
+
+#~ msgid "/Tags/Format by context/_Define"
+#~ msgstr "/Тагове/Контекст/Define"
+
+#~ msgid "/Tags/Format by context/_Code"
+#~ msgstr "/Тагове/Контекст/Код"
+
+#~ msgid "/Tags/Format by context/Sa_mple"
+#~ msgstr "/Тагове/Контекст/Пример"
+
+#~ msgid "/Tags/Format by context/_Keyboard"
+#~ msgstr "/Тагове/Контекст/Клавиатура"
+
+#~ msgid "/Tags/Format by context/_Variable"
+#~ msgstr "/Тагове/Контекст/Променлива"
+
+#~ msgid "/Tags/Format by context/Ci_tation"
+#~ msgstr "/Тагове/Контекст/Цитат"
+
+#~ msgid "/Tags/Format by context/_Abbreviation"
+#~ msgstr "/Тагове/Контекст/Абревиатура"
+
+#~ msgid "/Tags/Format by context/Ac_ronym"
+#~ msgstr "/Тагове/Контекст/Акроним"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/_Insert"
+#~ msgstr "/Тагове/Контекст/Define"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/De_lete"
+#~ msgstr "/Тагове/Контекст/Define"
+
+#~ msgid "/Tags/Format general/_Paragraph"
+#~ msgstr "/Тагове/Общо форматиране/Параграф (<p>)"
+
+#~ msgid "/Tags/Format general/_Break"
+#~ msgstr "/Тагове/Общо форматиране/Прекъсване (<br>)"
+
+#~ msgid "/Tags/Format general/Break clear _all"
+#~ msgstr ""
+#~ "/Тагове/Общо форматиране/Прекъсване и изчистване <br clear=\"all\" >"
+
+#~ msgid "/Tags/Format general/_Non-Breaking Space"
+#~ msgstr "/Тагове/Общо форматиране/Без прекъсване (&nbsp;)"
+
+#~ msgid "/Tags/Format general/Font Si_ze +1"
+#~ msgstr "/Тагове/Общо форматиране/Шрифт +1"
+
+#~ msgid "/Tags/Format general/Font _Size -1"
+#~ msgstr "/Тагове/Общо форматиране/Шрифт -1"
+
+#~ msgid "/Tags/Format general/Preformatted _Text"
+#~ msgstr "/Тагове/Общо форматиране/Преформатиран текст"
+
+#~ msgid "/Tags/Format general/Su_bscript"
+#~ msgstr "/Тагове/Общо форматиране/Субскрипт"
+
+#~ msgid "/Tags/Format general/Su_perscript"
+#~ msgstr "/Тагове/Общо форматиране/Суперскрипт"
+
+#~ msgid "/Tags/Format general/_Center"
+#~ msgstr "/Тагове/Общо форматиране/Центриране"
+
+#~ msgid "/Tags/Format general/Align _right"
+#~ msgstr "/Тагове/Общо форматиране/Дясно подравняване"
+
+#~ msgid "/Tags/_Table"
+#~ msgstr "/Тагове/Таблица"
+
+#~ msgid "/Tags/Table/_Table"
+#~ msgstr "/Тагове/Таблица/Таблица"
+
+#~ msgid "/Tags/Table/Table _Row"
+#~ msgstr "/Тагове/Таблица/Ред от таблица"
+
+#~ msgid "/Tags/Table/Table _Header"
+#~ msgstr "/Тагове/Таблица/Заглавие на таблицата"
+
+#~ msgid "/Tags/Table/Table _Data"
+#~ msgstr "/Тагове/Таблица/Данни в таблицата"
+
+#~ msgid "/Tags/Table/Table _Caption"
+#~ msgstr "/Тагове/Таблица/Table Caption"
+
+#~ msgid "/Tags/_List"
+#~ msgstr "/Тагове/Списък"
+
+#~ msgid "/Tags/List/Unordered _List"
+#~ msgstr "/Тагове/Списък/Неподреден списък (<ul>)"
+
+#~ msgid "/Tags/List/_Ordered List"
+#~ msgstr "/Тагове/Списък/Подреден списък (<ol>)"
+
+#~ msgid "/Tags/List/List Ite_m"
+#~ msgstr "/Тагове/Списък/Елемент от списък (<li>)"
+
+#~ msgid "/Tags/List/De_finition List"
+#~ msgstr "/Тагове/Списък/Списък с дефиниции"
+
+#~ msgid "/Tags/List/Definition _Term"
+#~ msgstr "/Тагове/Списък/Определение на дефинция"
+
+#~ msgid "/Tags/List/_Definition"
+#~ msgstr "/Тагове/Списък/Дефиниция"
+
+#~ msgid "/Tags/List/Men_u"
+#~ msgstr "/Тагове/Списък/Меню"
+
+#, fuzzy
+#~ msgid "/Tags/Form/_Form"
+#~ msgstr "/Помощни диалози/Форми/Форма"
+
+#, fuzzy
+#~ msgid "/Tags/Form/_Button"
+#~ msgstr "/Помощни диалози/Форми/Бутон..."
+
+#, fuzzy
+#~ msgid "/Tags/Form/_Input"
+#~ msgstr "/Помощни диалози/Форми/Input..."
+
+#, fuzzy
+#~ msgid "/Tags/Form/_Textarea"
+#~ msgstr "/Помощни диалози/Форми/Текстова площ..."
+
+#, fuzzy
+#~ msgid "/Tags/_Misc"
+#~ msgstr "/Тагове/Списък"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/_Span"
+#~ msgstr "/Тагове/_Специални"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/_Div"
+#~ msgstr "/Тагове/Списък/Дефиниция"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/_Link"
+#~ msgstr "/Тагове/Списък"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/S_cript"
+#~ msgstr "/Тагове/Списък"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/_Anchor"
+#~ msgstr "/Тагове/Списък/Дефиниция"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/_Image"
+#~ msgstr "/Тагове/Таблица"
+
+#~ msgid "/Tags/_Comment"
+#~ msgstr "/Тагове/Коментар"
+
+#, fuzzy
+#~ msgid "/D_ialogs"
+#~ msgstr "/По_мощни диалози"
+
+#~ msgid "/Dialogs/_General"
+#~ msgstr "/Помощни диалози/Общи"
+
+#~ msgid "/Dialogs/General/_Quickstart..."
+#~ msgstr "/Помощни диалози/Общи/Бърз старт"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/_Link Header..."
+#~ msgstr "/Помощни диалози/Общи/Мета..."
+
+#~ msgid "/Dialogs/General/_Body..."
+#~ msgstr "/Помощни диалози/Общи/Body"
+
+#~ msgid "/Dialogs/General/_Anchor..."
+#~ msgstr "/Помощни диалози/Общи/Връзка (<а >)"
+
+#~ msgid "/Dialogs/General/_Email..."
+#~ msgstr "/Помощни диалози/Общи/Е-мейл"
+
+#~ msgid "/Dialogs/General/_Rule..."
+#~ msgstr "/Помощни диалози/Общи/Черта (<hr>)"
+
+#~ msgid "/Dialogs/General/_Font..."
+#~ msgstr "/Помощни диалози/Общи/Шрифт"
+
+#~ msgid "/Dialogs/General/Basef_ont..."
+#~ msgstr "/Помощни диалози/Общи/Основен шрифт"
+
+#~ msgid "/Dialogs/General/Quick_list..."
+#~ msgstr "/Помощни диалози/Общи/Бърз списък"
+
+#~ msgid "/Dialogs/General/_Meta..."
+#~ msgstr "/Помощни диалози/Общи/Мета..."
+
+#~ msgid "/Dialogs/General/Embe_d..."
+#~ msgstr "/Помощни диалози/Общи/Embed..."
+
+#~ msgid "/Dialogs/General/Select _Color..."
+#~ msgstr "/Помощни диалози/Общи/Избери цвят..."
+
+#~ msgid "/Dialogs/General/Insert _Time..."
+#~ msgstr "/Помощни диалози/Общи/Вмъкни час..."
+
+#~ msgid "/Dialogs/General/Insert _Image..."
+#~ msgstr "/Помощни диалози/Общи/Вмъкни изображение..."
+
+#~ msgid "/Dialogs/General/Insert T_humbnail..."
+#~ msgstr "/Помощни диалози/Общи/"
+
+#~ msgid "/Dialogs/_Table"
+#~ msgstr "/Помощни диалози/Таблица"
+
+#~ msgid "/Dialogs/Table/Table _Wizard..."
+#~ msgstr "/Помощни диалози/Таблица/Помощник за таблици..."
+
+#~ msgid "/Dialogs/Table/_Table..."
+#~ msgstr "/Помощни диалози/Таблица/Таблица..."
+
+#~ msgid "/Dialogs/Table/Table _Row..."
+#~ msgstr "/Помощни диалози/Таблица/Ред от таблица..."
+
+#~ msgid "/Dialogs/Table/Table _Head..."
+#~ msgstr "/Помощни диалози/Таблица/Заглавна част..."
+
+#~ msgid "/Dialogs/Table/Table _Data..."
+#~ msgstr "/Помощни диалози/Таблица/Данни..."
+
+#~ msgid "/Dialogs/_CSS"
+#~ msgstr "/Помощни диалози/CSS"
+
+#~ msgid "/Dialogs/CSS/_Create Style..."
+#~ msgstr "/Помощни диалози/CSS/Създай стил..."
+
+#~ msgid "/Dialogs/CSS/S_pan..."
+#~ msgstr "/Помощни диалози/CSS/Span..."
+
+#~ msgid "/Dialogs/CSS/_Div..."
+#~ msgstr "/Помощни диалози/CSS/Div..."
+
+#~ msgid "/Dialogs/CSS/_Style..."
+#~ msgstr "/Помощни диалози/CSS/Стил"
+
+#~ msgid "/Dialogs/CSS/_Link to Stylesheet..."
+#~ msgstr "/Помощни диалози/CSS/Връзка към стил..."
+
+#~ msgid "/Dialogs/_Frame"
+#~ msgstr "/Помощни диалози/Рамки"
+
+#~ msgid "/Dialogs/Frame/Frame _Wizard..."
+#~ msgstr "/Помощни диалози/Рамки/Помощник за рамки..."
+
+#~ msgid "/Dialogs/Frame/Frame_set..."
+#~ msgstr "/Помощни диалози/Рамки/Набор от рамки..."
+
+#~ msgid "/Dialogs/Frame/_Frame..."
+#~ msgstr "/Помощни диалози/Рамки/Рамка..."
+
+#~ msgid "/Dialogs/F_orm"
+#~ msgstr "/Помощни диалози/Форми"
+
+#~ msgid "/Dialogs/Form/F_orm..."
+#~ msgstr "/Помощни диалози/Форми/Форма"
+
+#~ msgid "/Dialogs/Form/_Input..."
+#~ msgstr "/Помощни диалози/Форми/Input..."
+
+#~ msgid "/Dialogs/Form/Input Buttons..."
+#~ msgstr "/Помощни диалози/Форми/Input бутон..."
+
+#~ msgid "/Dialogs/Form/Input Text..."
+#~ msgstr "/Помощни диалози/Форми/Input текст..."
+
+#~ msgid "/Dialogs/Form/Text_area..."
+#~ msgstr "/Помощни диалози/Форми/Текстова площ..."
+
+#~ msgid "/Dialogs/Form/_Select..."
+#~ msgstr "/Помощни диалози/Форми/Меню за избор (Select)..."
+
+#~ msgid "/Dialogs/Form/O_ption..."
+#~ msgstr "/Помощни диалози/Форми/Option..."
+
+#~ msgid "/Dialogs/Form/Option _Group..."
+#~ msgstr "/Помощни диалози/Форми/Option Group..."
+
+#~ msgid "/Dialogs/Form/_Button..."
+#~ msgstr "/Помощни диалози/Форми/Бутон..."
+
+#~ msgid "Remove from quickbar"
+#~ msgstr "Премахване от менюто за бърз достъп"
+
+#, fuzzy
+#~ msgid "Move Right"
+#~ msgstr "Височина"
+
+#~ msgid "Add to quickbar"
+#~ msgstr "Добави към менюто за бърз достъп"
+
+#~ msgid " Quick bar "
+#~ msgstr " Меню за бърз достъп "
+
+#~ msgid "Context formatting"
+#~ msgstr " Форматиране според контекста "
 
 #~ msgid "Insert image"
 #~ msgstr "Вмъкване на изображение"
@@ -3418,9 +4201,6 @@ msgstr "Размер:"
 #~ msgid "Close"
 #~ msgstr "Затваряне"
 
-#~ msgid "Dialog"
-#~ msgstr "Диалог"
-
 #~ msgid "Left doubleclick action"
 #~ msgstr "Left doubleclick action"
 
@@ -3956,9 +4736,6 @@ msgstr "Размер:"
 #~ msgid "Formatstring Before"
 #~ msgstr "Форматиращ низ преди"
 
-#~ msgid "Formatstring After"
-#~ msgstr "Форматиращ низ след"
-
 #~ msgid "The menupath you want to update does not exist yet"
 #~ msgstr "Менюто, което искате да редактиране още не съществува"
 
@@ -3991,9 +4768,6 @@ msgstr "Размер:"
 
 #~ msgid "_Menu Path:"
 #~ msgstr "_Път на менюто"
-
-#~ msgid "Menu path"
-#~ msgstr "Път на менюто"
 
 #~ msgid "Number of _Variables:"
 #~ msgstr "Брой променливи"
@@ -4285,9 +5059,6 @@ msgstr "Размер:"
 #~ msgid "Remove backupfile on close"
 #~ msgstr "Премахване на резервното копие при излизане"
 
-#~ msgid "Misc"
-#~ msgstr "Разни"
-
 #~ msgid "Allow multi instances of a file"
 #~ msgstr "Допускане на повече от едно копие на файл"
 
@@ -4331,9 +5102,6 @@ msgstr "Размер:"
 #~ msgid "Initial window width"
 #~ msgstr "Начална ширина на прозореца"
 
-#~ msgid "General"
-#~ msgstr "Общи"
-
 #~ msgid "Make HTML dialogs transient"
 #~ msgstr "Make HTML dialogs transient"
 
@@ -4359,9 +5127,6 @@ msgstr "Размер:"
 #, fuzzy
 #~ msgid "Sidebar location"
 #~ msgstr "Местонахохождение на изображението:"
-
-#~ msgid "Images"
-#~ msgstr "Изображения"
 
 #~ msgid "Thumbnails"
 #~ msgstr "Thumbnails"
@@ -4570,12 +5335,6 @@ msgstr "Размер:"
 
 #~ msgid "Normal"
 #~ msgstr "Нормален"
-
-#~ msgid "Uppercase"
-#~ msgstr "Горен регистър"
-
-#~ msgid "Lowercase"
-#~ msgstr "Долен регистър"
 
 #~ msgid "Replace type:"
 #~ msgstr "Тип замяна:"
