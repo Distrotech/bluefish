@@ -451,6 +451,7 @@ void bluefish_exit_request()
 		gtk_widget_hide(GTK_WIDGET(tmplist->data));
 		tmplist = g_list_next(tmplist);
 	}
+	g_list_free(tmplist);
 	flush_queue();
 
 	rcfile_save_global_session();
