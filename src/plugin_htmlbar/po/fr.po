@@ -5,20 +5,20 @@
 # romeo viuberges <apostledemencia@free.fr>, 2003.
 # Romeo VIU-BERGES <romda@free.fr>, 2003.
 # Michèle Garoche <michele.garoche@easyconnect.fr>, 2004.
-# Frédéric Falsetti <falsetti@clansco.org>,2009.
+# Frédéric Falsetti <falsetti@clansco.org>,2009-2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.0\n"
+"Project-Id-Version: Bluefish 2.0.3\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-12 12:24-0800\n"
+"POT-Creation-Date: 2011-03-13 09:44+0100\n"
 "PO-Revision-Date: 2009-02-21 14:25+0100 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: français <fr@li.org>\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=n >1;\n"
 
 #. _DM_ Alert box asking if user would like to change request from add to
@@ -102,78 +102,69 @@ msgid "Edit tag"
 msgstr "Éditer la balise"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1229
-#, fuzzy
 msgid "T_ags"
-msgstr "/_Balises"
+msgstr "_Balises"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1230
-#, fuzzy
 msgid "_Headings"
 msgstr "En-tête"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1231
 msgid "H_1"
-msgstr ""
+msgstr "H_1"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1231
-#, fuzzy
 msgid "Insert H1 tag"
-msgstr "Insérer une image"
+msgstr "Insérer  une balise H1"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1233
 msgid "H_2"
-msgstr ""
+msgstr "H_2"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1233
-#, fuzzy
 msgid "Insert H2 tag"
-msgstr "Insérer une image"
+msgstr "Insérer  une balise H2"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1235
 msgid "H_3"
-msgstr ""
+msgstr "H_3"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1235
 #, fuzzy
 msgid "Insert H3 tag"
-msgstr "Insérer une image"
+msgstr "Insérer  une balise H3"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1237
 msgid "H_4"
-msgstr ""
+msgstr "H_4"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1237
-#, fuzzy
 msgid "Insert H4 tag"
-msgstr "Insérer une image"
+msgstr "Insérer  une balise H4"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1239
 msgid "H_5"
-msgstr ""
+msgstr "H_5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1239
-#, fuzzy
 msgid "Insert H5 tag"
-msgstr "Insérer une image"
+msgstr "Insérer une balise H5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1241
 msgid "H_6"
-msgstr ""
+msgstr "H_6"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1241
-#, fuzzy
 msgid "Insert H6 tag"
-msgstr "Insérer une image"
+msgstr "Insérer une balise H6 "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1243
-#, fuzzy
 msgid "_Special"
-msgstr "/Balises/_Spéciales"
+msgstr "_Spéciales"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1244
-#, fuzzy
 msgid "_Accent"
-msgstr "_Accepter :"
+msgstr "_Accent"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1245
 msgid "_Uppercase"
@@ -1590,7 +1581,7 @@ msgstr "Cible :"
 #: src/plugin_htmlbar/html.c:1376 src/plugin_htmlbar/html.c:1877
 #: src/plugin_htmlbar/html_form.c:230 src/plugin_htmlbar/html_form.c:289
 #: src/plugin_htmlbar/html_form.c:488 src/plugin_htmlbar/html_form.c:583
-#: src/plugin_htmlbar/image.c:490
+#: src/plugin_htmlbar/image.c:505
 msgid "_Name:"
 msgstr "_Nom :"
 
@@ -1610,7 +1601,7 @@ msgstr "_Langue :"
 #: src/plugin_htmlbar/html_form.c:186 src/plugin_htmlbar/html_form.c:247
 #: src/plugin_htmlbar/html_form.c:302 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_table.c:100 src/plugin_htmlbar/html_table.c:252
-#: src/plugin_htmlbar/html_table.c:360 src/plugin_htmlbar/image.c:499
+#: src/plugin_htmlbar/html_table.c:360 src/plugin_htmlbar/image.c:514
 #: src/plugin_htmlbar/image_dialog.c:382
 msgid "Custo_m:"
 msgstr "Pers_onnaliser :"
@@ -1698,20 +1689,20 @@ msgid "Ali_gn:"
 msgstr "Ali_gnement horizontal :"
 
 #: src/plugin_htmlbar/html.c:934 src/plugin_htmlbar/html.c:1226
-#: src/plugin_htmlbar/html_diag.c:403 src/plugin_htmlbar/html_table.c:90
+#: src/plugin_htmlbar/html_diag.c:444 src/plugin_htmlbar/html_table.c:90
 #: src/plugin_htmlbar/html_table.c:236 src/plugin_htmlbar/html_table.c:350
 #: src/plugin_htmlbar/image_dialog.c:368
 msgid "Cl_ass:"
 msgstr "Cl_asse :"
 
 #: src/plugin_htmlbar/html.c:938 src/plugin_htmlbar/html.c:1219
-#: src/plugin_htmlbar/html_diag.c:411 src/plugin_htmlbar/html_table.c:95
+#: src/plugin_htmlbar/html_diag.c:456 src/plugin_htmlbar/html_table.c:95
 #: src/plugin_htmlbar/html_table.c:247 src/plugin_htmlbar/html_table.c:355
 msgid "St_yle:"
 msgstr "St_yle :"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1230
-#: src/plugin_htmlbar/html_diag.c:407
+#: src/plugin_htmlbar/html_diag.c:450
 msgid "_ID:"
 msgstr "_ID :"
 
@@ -1720,7 +1711,7 @@ msgid "Horizontal Rule"
 msgstr "Règle horizontale"
 
 #: src/plugin_htmlbar/html.c:1098 src/plugin_htmlbar/html.c:1968
-#: src/plugin_htmlbar/image.c:517 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/image.c:532 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Align:"
 msgstr "_Alignement horizontal :"
 
@@ -1732,7 +1723,7 @@ msgstr "_Hauteur :"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:1111 src/plugin_htmlbar/html.c:1972
 #: src/plugin_htmlbar/html_table.c:133 src/plugin_htmlbar/html_table.c:379
-#: src/plugin_htmlbar/image.c:474 src/plugin_htmlbar/image_dialog.c:329
+#: src/plugin_htmlbar/image.c:489 src/plugin_htmlbar/image_dialog.c:329
 msgid "_Width:"
 msgstr "Lar_geur :"
 
@@ -2085,88 +2076,88 @@ msgid "No Wra_p:"
 msgstr "Sans _césure :"
 
 #. TODO: use error info in gerror
-#: src/plugin_htmlbar/image.c:302
+#: src/plugin_htmlbar/image.c:313
 msgid "Loading image failed..."
 msgstr "Échec du chargement d'image"
 
-#: src/plugin_htmlbar/image.c:384
+#: src/plugin_htmlbar/image.c:396
 #, c-format
 msgid "Loading file %s..."
 msgstr "Chargement de fichier %s… "
 
-#: src/plugin_htmlbar/image.c:442
+#: src/plugin_htmlbar/image.c:457
 msgid "Insert thumbnail"
 msgstr "Insérer une vignette"
 
-#: src/plugin_htmlbar/image.c:446 src/plugin_htmlbar/image_dialog.c:308
+#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:308
 msgid "Preview"
 msgstr "Prévisualiser"
 
-#: src/plugin_htmlbar/image.c:465
+#: src/plugin_htmlbar/image.c:480
 msgid "_Image location:"
 msgstr "Emplacement de l'_image :"
 
-#: src/plugin_htmlbar/image.c:481
+#: src/plugin_htmlbar/image.c:496
 msgid "Hei_ght:"
 msgstr "Ha_uteur :"
 
-#: src/plugin_htmlbar/image.c:486 src/plugin_htmlbar/image_dialog.c:377
+#: src/plugin_htmlbar/image.c:501 src/plugin_htmlbar/image_dialog.c:377
 msgid "_Usemap:"
 msgstr "_Usemap :"
 
-#: src/plugin_htmlbar/image.c:494
+#: src/plugin_htmlbar/image.c:509
 msgid "Alternate _text:"
 msgstr "_Texte de remplacement :"
 
-#: src/plugin_htmlbar/image.c:503 src/plugin_htmlbar/image_dialog.c:414
+#: src/plugin_htmlbar/image.c:518 src/plugin_htmlbar/image_dialog.c:414
 msgid "_Hspace:"
 msgstr "Espacement _horizontal"
 
-#: src/plugin_htmlbar/image.c:507 src/plugin_htmlbar/image_dialog.c:418
+#: src/plugin_htmlbar/image.c:522 src/plugin_htmlbar/image_dialog.c:418
 msgid "_Vspace:"
 msgstr "Espacement _vertical :"
 
-#: src/plugin_htmlbar/image.c:521
+#: src/plugin_htmlbar/image.c:536
 msgid "Borde_r:"
 msgstr "Bo_rdure :"
 
-#: src/plugin_htmlbar/image.c:926
+#: src/plugin_htmlbar/image.c:952
 msgid "Select files for thumbnail creation"
 msgstr "Sélectionner les fichiers pour la création des vignettes"
 
-#: src/plugin_htmlbar/image.c:966
+#: src/plugin_htmlbar/image.c:994
 msgid "Scaling (%)"
 msgstr "Échelle (%)"
 
-#: src/plugin_htmlbar/image.c:970 src/plugin_htmlbar/image.c:978
+#: src/plugin_htmlbar/image.c:998 src/plugin_htmlbar/image.c:1006
 msgid "Width"
 msgstr "Largeur "
 
-#: src/plugin_htmlbar/image.c:974 src/plugin_htmlbar/image.c:1014
+#: src/plugin_htmlbar/image.c:1002 src/plugin_htmlbar/image.c:1043
 msgid "Height"
 msgstr "Hauteur "
 
-#: src/plugin_htmlbar/image.c:997
+#: src/plugin_htmlbar/image.c:1026
 msgid "Multi thumbnail"
 msgstr "Multi-vignettes"
 
-#: src/plugin_htmlbar/image.c:1003
+#: src/plugin_htmlbar/image.c:1032
 msgid "By scaling"
 msgstr "Suivant l'échelle"
 
-#: src/plugin_htmlbar/image.c:1006
+#: src/plugin_htmlbar/image.c:1035
 msgid "By width, keep aspect ratio"
 msgstr "Suivant la largeur, respecter les proportions"
 
-#: src/plugin_htmlbar/image.c:1009
+#: src/plugin_htmlbar/image.c:1038
 msgid "By height, keep aspect ratio"
 msgstr "Suivant la hauteur, respecter les proportions"
 
-#: src/plugin_htmlbar/image.c:1012
+#: src/plugin_htmlbar/image.c:1041
 msgid "By width and height, ignore aspect ratio"
 msgstr "Suivant la largeur et la hauteur, ignorer les proportions"
 
-#: src/plugin_htmlbar/image.c:1038
+#: src/plugin_htmlbar/image.c:1067
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
