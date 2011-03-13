@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * html_diag.h - general functions to create HTML dialogs
  *
- * Copyright (C) 2000-2003 Olivier Sessink
+ * Copyright (C) 2000-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ typedef struct {
         GList *targetlist;
         GList *urllist;
         GList *fontlist;*/
-        GList *positionlist;
+	GList *positionlist;
 } Trecent_attribs;
 extern Trecent_attribs recent_attribs;
 
@@ -36,7 +36,7 @@ typedef struct {
 	GtkWidget *val;
 	GtkWidget *dest;
 	gint type;
-} Tphpvarins; /* this struct contains a src and dest widget for PHP variable generation*/
+} Tphpvarins;					/* this struct contains a src and dest widget for PHP variable generation */
 
 typedef struct {
 	gchar *item;
@@ -71,40 +71,45 @@ typedef struct {
 	GtkWidget *check[8];
 	GtkWidget *clist[4];
 	GtkWidget *text[1];
-	GtkWidget *attrwidget[20]; /* all attribute widgets should go in here */
+	GtkWidget *attrwidget[20];	/* all attribute widgets should go in here */
 	Treplacerange range;
 	GtkTextMark *mark_ins;
 	GtkTextMark *mark_sel;
 	Tphpvarins php_var_ins;
 	GtkWidget *phpbutton;
-	gboolean tobedestroyed; /* this will be set to TRUE on destroy */
+	gboolean tobedestroyed;		/* this will be set to TRUE on destroy */
 	Tdocument *doc;
 	Tbfwin *bfwin;
 } Thtml_diag;
 
-void html_diag_destroy_cb(GtkWidget * widget, Thtml_diag *dg);
+void html_diag_destroy_cb(GtkWidget * widget, Thtml_diag * dg);
 
-void html_diag_cancel_clicked_cb(GtkWidget *widget, gpointer data);
+void html_diag_cancel_clicked_cb(GtkWidget * widget, gpointer data);
 
-Thtml_diag *html_diag_new(Tbfwin *bfwin,gchar *title);
-GtkWidget *html_diag_table_in_vbox(Thtml_diag *dg, gint rows, gint cols);
-void html_diag_finish(Thtml_diag *dg, GtkSignalFunc ok_func);
-void parse_html_for_dialogvalues(gchar *dialogitems[], gchar *dialogvalues[]
-		, gchar **custom, Ttagpopup *data);
-void fill_dialogvalues(gchar *dialogitems[], gchar *dialogvalues[]
-	, gchar **custom, Ttagpopup *data, Thtml_diag *diag);
+Thtml_diag *html_diag_new(Tbfwin * bfwin, gchar * title);
+GtkWidget *html_diag_table_in_vbox(Thtml_diag * dg, gint rows, gint cols);
+void html_diag_finish(Thtml_diag * dg, GCallback ok_func);
+void parse_html_for_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[]
+								 , gchar ** custom, Ttagpopup * data);
+void fill_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[]
+					   , gchar ** custom, Ttagpopup * data, Thtml_diag * diag);
 
 void parse_existence_for_dialog(gchar * valuestring, GtkWidget * checkbox);
 void parse_integer_for_dialog(gchar * valuestring, GtkWidget * spin, GtkWidget * entry, GtkWidget * checkbox);
-gchar *insert_string_if_string(const gchar *inputstring, gchar * itemname, gchar * string2add2, const gchar *defaultvalue);
-gchar *insert_string_if_entry(GtkEntry * entry, gchar * itemname, gchar * string2add2, gchar *defaultvalue);
-gchar *insert_string_if_combobox(GtkComboBox *combobox, gchar * itemname, gchar * string2add2, gchar *defaultvalue);
-gchar *insert_integer_if_spin(GtkWidget * spin, gchar * itemname, gchar * string2add2, gboolean ispercentage, gint dontinsertonvalue);
-gchar *insert_attr_if_checkbox(GtkWidget * checkbox, gchar * itemname, gchar *string2add2);
+gchar *insert_string_if_string(const gchar * inputstring, gchar * itemname, gchar * string2add2,
+							   const gchar * defaultvalue);
+gchar *insert_string_if_entry(GtkEntry * entry, gchar * itemname, gchar * string2add2, gchar * defaultvalue);
+gchar *insert_string_if_combobox(GtkComboBox * combobox, gchar * itemname, gchar * string2add2,
+								 gchar * defaultvalue);
+gchar *insert_integer_if_spin(GtkWidget * spin, gchar * itemname, gchar * string2add2, gboolean ispercentage,
+							  gint dontinsertonvalue);
+gchar *insert_attr_if_checkbox(GtkWidget * checkbox, gchar * itemname, gchar * string2add2);
 gchar *format_entry_into_string(GtkEntry * entry, gchar * formatstring);
-GList *add_entry_to_stringlist(GList *which_list, GtkWidget *entry);
+GList *add_entry_to_stringlist(GList * which_list, GtkWidget * entry);
 
-GtkWidget *generic_table_inside_notebookframe(GtkWidget *notebook, const gchar *title, gint rows, gint cols);
-void generic_class_id_style_section(Thtml_diag *dg, gint firstattrwidget, GtkWidget *table, gint firstrowintable, gchar **tagvalues, gint firsttagvalue);
+GtkWidget *generic_table_inside_notebookframe(GtkWidget * notebook, const gchar * title, gint rows,
+											  gint cols);
+void generic_class_id_style_section(Thtml_diag * dg, gint firstattrwidget, GtkWidget * table,
+									gint firstrowintable, gchar ** tagvalues, gint firsttagvalue);
 
-#endif /* __HTML_DIAG_H_ */
+#endif							/* __HTML_DIAG_H_ */
