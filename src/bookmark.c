@@ -525,15 +525,14 @@ bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 	gtk_table_set_row_spacings(GTK_TABLE(table), 6);
 	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dlg))), table, FALSE, FALSE, 12);
 
-	name = entry_with_text(m->name, 200);
+	name = dialog_entry_in_table(m->name, table, 1, 2, 0, 1);
 	gtk_entry_set_activates_default(GTK_ENTRY(name), TRUE);
-	bf_mnemonic_label_tad_with_alignment(_("_Name:"), name, 0, 0.5, table, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(table), name, 1, 2, 0, 1);
+	dialog_mnemonic_label_in_table(_("_Name:"), name, table, 0, 1, 0, 1);
 
-	desc = entry_with_text(m->description, 200);
+	desc = dialog_entry_in_table(m->description, table, 1, 2, 1, 2);
 	gtk_entry_set_activates_default(GTK_ENTRY(desc), TRUE);
-	bf_mnemonic_label_tad_with_alignment(_("_Description:"), desc, 0, 0.5, table, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(table), desc, 1, 2, 1, 2);
+	dialog_mnemonic_label_in_table(_("_Description:"), desc, table, 0, 1, 1, 2);
+
 	istemp = checkbut_with_value(_("Temporary"), m->is_temp);
 	gtk_table_attach_defaults(GTK_TABLE(table), istemp, 0, 2, 2, 3);
 

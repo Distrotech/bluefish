@@ -1888,7 +1888,7 @@ preferences_dialog_new(void)
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	label = dialog_box_label_new(_("_Editor font:"), 0, 0.5, hbox, 0);
+	label = dialog_label_new(_("_Editor font:"), 0, 0.5, hbox, 0);
 	pd->prefs[editor_font_string] = gtk_font_button_new_with_font(main_v->props.editor_font_string);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[editor_font_string]);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[editor_font_string], FALSE, FALSE, 0);
@@ -1964,7 +1964,7 @@ preferences_dialog_new(void)
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[autosave], FALSE, FALSE, 0);
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	label = dialog_box_label_new(_("_Frequency to store changes (seconds):"), 0, 0.5, hbox, 0);
+	label = dialog_label_new(_("_Frequency to store changes (seconds):"), 0, 0.5, hbox, 0);
 	pd->prefs[autosave_time] = dialog_spin_button_new(10, 600, main_v->props.autosave_time);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[autosave_time]);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[autosave_time], FALSE, FALSE, 0);
@@ -2193,7 +2193,7 @@ preferences_dialog_new(void)
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	label = dialog_box_label_new(_("_Document tab font:"), 0, 0.5, hbox, 0);
+	label = dialog_label_new(_("_Document tab font:"), 0, 0.5, hbox, 0);
 	pd->prefs[tab_font_string] = gtk_font_button_new_with_font(main_v->props.tab_font_string);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[tab_font_string]);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[tab_font_string], FALSE, FALSE, 0);
@@ -2522,7 +2522,7 @@ preferences_dialog()
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	label = dialog_box_label_new(_("_Editor font:"), 0, 0.5, hbox, 0);
+	label = dialog_label_new(_("_Editor font:"), 0, 0.5, hbox, 0);
 	pd->prefs[editor_font_string] = gtk_font_button_new_with_font(main_v->props.editor_font_string);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[editor_font_string]);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[editor_font_string], FALSE, FALSE, 0);
@@ -2598,7 +2598,7 @@ preferences_dialog()
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[autosave], FALSE, FALSE, 0);
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	label = dialog_box_label_new(_("_Frequency to store changes (seconds):"), 0, 0.5, hbox, 0);
+	label = dialog_label_new(_("_Frequency to store changes (seconds):"), 0, 0.5, hbox, 0);
 	pd->prefs[autosave_time] = dialog_spin_button_new(10, 600, main_v->props.autosave_time);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[autosave_time]);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[autosave_time], FALSE, FALSE, 0);
@@ -2829,7 +2829,7 @@ preferences_dialog()
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	label = dialog_box_label_new(_("_Document tab font:"), 0, 0.5, hbox, 0);
+	label = dialog_label_new(_("_Document tab font:"), 0, 0.5, hbox, 0);
 	pd->prefs[tab_font_string] = gtk_font_button_new_with_font(main_v->props.tab_font_string);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[tab_font_string]);
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[tab_font_string], FALSE, FALSE, 0);

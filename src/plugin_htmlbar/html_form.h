@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * html_form.h - menu/toolbar callback prototypes
  *
- * Copyright (C) 2000-2007 Olivier Sessink
+ * Copyright (C) 2000-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,12 +20,16 @@
 #ifndef __HTML_FORM_H_
 #define __HTML_FORM_H_
 
-void formdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void textareadialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void selectdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void optiondialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void optgroupdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, const gchar *type);
-void inputdialog_rpopup(Tbfwin *bfwin, Ttagpopup *data);
-void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-#endif /* __HTML_FORM_H_ */
+#include "../bluefish.h"
+#include "html_diag.h"
+
+void formdialog_dialog(Tbfwin * bfwin, Ttagpopup * data);
+void textareadialog_dialog(Tbfwin * bfwin, Ttagpopup * data);
+void selectdialog_dialog(Tbfwin * bfwin, Ttagpopup * data);
+void optiondialog_dialog(Tbfwin * bfwin, Ttagpopup * data);
+void optgroupdialog_dialog(Tbfwin * bfwin, Ttagpopup * data);
+void inputdialog_dialog(Tbfwin * bfwin, Ttagpopup * data, const gchar * type);
+void inputdialog_rpopup(Tbfwin * bfwin, Ttagpopup * data);
+void buttondialog_dialog(Tbfwin * bfwin, Ttagpopup * data);
+
+#endif							/* __HTML_FORM_H_ */

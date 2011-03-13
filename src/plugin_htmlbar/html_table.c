@@ -3,6 +3,7 @@
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
  * Copyright (C) 1999-2010 Olivier Sessink
+ * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,18 +21,18 @@
 
 #include <string.h>
 
-#include "htmlbar.h"
-#include "cap.h"  /* cap() */
-/*#include "coloursel.h"*/ /* colorbut_new() */
-#include "html_diag.h"
 #include "html_table.h"
-#include "html2.h" /* style_but_new */
-/*#include "init.h"*/ 	/* positionlist */
-#include "../gtk_easy.h"
+#include "htmlbar.h"
+#include "cap.h"
+#include "html2.h"				/* style_but_new */
+#include "html_diag.h"
+#include "../dialog_utils.h"
 #include "../document.h"
+#include "../gtk_easy.h"
 #include "../stringlist.h"
 
-static void tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
+static void
+tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
 	gchar *thestring, *finalstring;
 
@@ -42,8 +43,12 @@ static void tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("VALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("BGCOLOR"), thestring, NULL);
-	thestring = insert_integer_if_spin(dg->spin[2], cap("WIDTH"), thestring, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[1])), 0);
-	thestring = insert_string_if_entry(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(dg->combo[4]))), cap("CLASS"), thestring, NULL);
+	thestring =
+		insert_integer_if_spin(dg->spin[2], cap("WIDTH"), thestring,
+							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[1])), 0);
+	thestring =
+		insert_string_if_entry(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(dg->combo[4]))), cap("CLASS"), thestring,
+							   NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("STYLE"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[5]), cap("FRAME"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[6]), cap("RULES"), thestring, NULL);
@@ -62,18 +67,21 @@ static void tabledialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 }
 
 
-void tabledialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+void
+tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
+{
 	GList *alignlist = NULL, *popuplist;
 	GtkWidget *var_but, *dgtable;
 
-	static gchar *tagitems[] = { "cellpadding", "cellspacing", "border"
-			, "align", "valign", "bgcolor", "width"
-			, "class", "style", "rules", "frame", NULL };
+	static gchar *tagitems[] =
+		{ "cellpadding", "cellspacing", "border", "align", "valign", "bgcolor", "width", "class", "style",
+"rules", "frame", NULL
+	};
 	gchar *tagvalues[12];
 	gchar *custom = NULL;
 	Thtml_diag *dg;
 
-	dg = html_diag_new(bfwin,_("Table"));
+	dg = html_diag_new(bfwin, _("Table"));
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 8);
@@ -90,15 +98,13 @@ void tabledialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->combo[4], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 1, 2, 2, 3);
 
-	dg->entry[2] = entry_with_text(tagvalues[8], 1024);
+	dg->entry[2] = dialog_entry_in_table(tagvalues[8], dgtable, 1, 4, 3, 4);
+	dialog_mnemonic_label_in_table(_("St_yle:"), dg->entry[2], dgtable, 0, 1, 3, 4);
 	var_but = style_but_new(dg->entry[2], dg->dialog);
-	bf_mnemonic_label_tad_with_alignment(_("St_yle:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 4, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), var_but, 4, 5, 3, 4);
 
-	dg->entry[1] = entry_with_text(custom, 1024);
-	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 4, 5);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 5, 4, 5);
+	dg->entry[1] = dialog_entry_in_table(custom, dgtable, 1, 5, 4, 5);
+	dialog_mnemonic_label_in_table(_("Custo_m:"), dg->entry[1], dgtable, 0, 1, 4, 5);
 
 	alignlist = g_list_append(alignlist, "left");
 	alignlist = g_list_append(alignlist, "right");
@@ -166,11 +172,13 @@ void tabledialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	g_list_free(popuplist);
 
 	html_diag_finish(dg, G_CALLBACK(tabledialogok_lcb));
-	
-	if (custom)	g_free(custom);
+
+	if (custom)
+		g_free(custom);
 }
 
-static void tablerowdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
+static void
+tablerowdialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
 	gchar *thestring, *finalstring;
 
@@ -181,7 +189,7 @@ static void tablerowdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[4]), cap("CLASS"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("STYLE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
-	
+
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
@@ -195,7 +203,9 @@ static void tablerowdialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 }
 
 
-void tablerowdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+void
+tablerowdialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
+{
 	GList *alignlist = NULL;
 	GtkWidget *color_but, *var_but;
 
@@ -205,7 +215,7 @@ void tablerowdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	Thtml_diag *dg;
 	GtkWidget *dgtable;
 
-	dg = html_diag_new(bfwin,_("Table Row"));
+	dg = html_diag_new(bfwin, _("Table Row"));
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 4, 5);
@@ -242,39 +252,47 @@ void tablerowdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but), 4, 5, 1, 2);
 
-	dg->entry[2] = entry_with_text(tagvalues[4], 1024);
+	dg->entry[2] = dialog_entry_in_table(tagvalues[4], dgtable, 1, 4, 2, 3);
+	dialog_mnemonic_label_in_table(_("St_yle:"), dg->entry[2], dgtable, 0, 1, 2, 3);
 	var_but = style_but_new(dg->entry[2], dg->dialog);
-	bf_mnemonic_label_tad_with_alignment(_("St_yle:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 4, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), var_but, 4, 5, 2, 3);
 
-	dg->entry[1] = entry_with_text(custom, 1024);
-	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 5, 3, 4);
+	dg->entry[1] = dialog_entry_in_table(custom, dgtable, 1, 5, 3, 4);
+	dialog_mnemonic_label_in_table(_("Custo_m:"), dg->entry[1], dgtable, 0, 1, 3, 4);
 
 	html_diag_finish(dg, G_CALLBACK(tablerowdialogok_lcb));
 
-	if (custom)	g_free(custom);
+	if (custom)
+		g_free(custom);
 }
 
-static void table_head_and_data_dialogok_lcb(gint type, GtkWidget * widget, Thtml_diag *dg) {
+static void
+table_head_and_data_dialogok_lcb(gint type, GtkWidget * widget, Thtml_diag * dg)
+{
 
 	gchar *thestring, *finalstring;
-	
+
 	if (type == 1) {
 		thestring = g_strdup(cap("<TD"));
 	} else {
 		thestring = g_strdup(cap("<TH"));
 	}
-	thestring = insert_integer_if_spin(dg->spin[1], cap("WIDTH"), thestring, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2])),0);
-	thestring = insert_integer_if_spin(dg->spin[3], cap("HEIGHT"), thestring, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3])),0);
+	thestring =
+		insert_integer_if_spin(dg->spin[1], cap("WIDTH"), thestring,
+							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[2])), 0);
+	thestring =
+		insert_integer_if_spin(dg->spin[3], cap("HEIGHT"), thestring,
+							   gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[3])), 0);
 	thestring = insert_integer_if_spin(dg->spin[5], cap("COLSPAN"), thestring, FALSE, 0);
 	thestring = insert_integer_if_spin(dg->spin[4], cap("ROWSPAN"), thestring, FALSE, 0);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("ALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("VALIGN"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("BGCOLOR"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[4]), cap("CLASS"), thestring, NULL);
-	thestring = insert_attr_if_checkbox(dg->check[1], main_v->props.xhtml == 1 ? cap("NOWRAP=\"nowrap\"") : cap("NOWRAP"), thestring);
+	thestring =
+		insert_attr_if_checkbox(dg->check[1],
+								main_v->props.xhtml == 1 ? cap("NOWRAP=\"nowrap\"") : cap("NOWRAP"),
+								thestring);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[2]), cap("STYLE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[1]), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">", NULL);
@@ -293,21 +311,27 @@ static void table_head_and_data_dialogok_lcb(gint type, GtkWidget * widget, Thtm
 	html_diag_destroy_cb(NULL, dg);
 }
 
-static void tabledatadialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
+static void
+tabledatadialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
 	table_head_and_data_dialogok_lcb(1, widget, dg);
 }
 
-static void tableheaddialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
+static void
+tableheaddialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
 	table_head_and_data_dialogok_lcb(0, widget, dg);
 }
 
-static void table_head_and_data_dialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *data) {
+static void
+table_head_and_data_dialog_cb(gint type, Tbfwin * bfwin, Ttagpopup * data)
+{
 	GList *alignlist = NULL;
 
-	static gchar *tagitems[] = { "width", "align", "colspan"
-				, "height", "valign", "rowspan"
-				, "bgcolor", "nowrap", "class"
-				, "style", NULL };
+	static gchar *tagitems[] =
+		{ "width", "align", "colspan", "height", "valign", "rowspan", "bgcolor", "nowrap", "class", "style",
+NULL
+	};
 	gchar *tagvalues[11];
 	gchar *custom = NULL;
 	Thtml_diag *dg;
@@ -316,9 +340,9 @@ static void table_head_and_data_dialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *d
 	if (type == 1) {
 		dg = html_diag_new(bfwin, _("Table Data"));
 	} else {
-		dg = html_diag_new(bfwin,_("Table Header"));
+		dg = html_diag_new(bfwin, _("Table Header"));
 	}
-	
+
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 7);
@@ -350,15 +374,13 @@ static void table_head_and_data_dialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *d
 	bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->combo[4], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[4])), 1, 2, 2, 3);
 
-	dg->entry[2] = entry_with_text(tagvalues[9], 512);
+	dg->entry[2] = dialog_entry_in_table(tagvalues[9], dgtable, 1, 6, 3, 4);
+	dialog_mnemonic_label_in_table(_("St_yle:"), dg->entry[2], dgtable, 0, 1, 3, 4);
 	var_but = style_but_new(dg->entry[2], dg->dialog);
-	bf_mnemonic_label_tad_with_alignment(_("St_yle:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 6, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), var_but, 6, 7, 3, 4);
 
-	dg->entry[1] = entry_with_text(custom, 1024);
-	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 4, 5);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 7, 4, 5);
+	dg->entry[1] = dialog_entry_in_table(custom, dgtable, 1, 7, 4, 5);
+	dialog_mnemonic_label_in_table(_("Custo_m:"), dg->entry[1], dgtable, 0, 1, 4, 5);
 
 	dg->spin[5] = spinbut_with_value(tagvalues[2], 0, 100, 1.0, 2.0);
 	bf_mnemonic_label_tad_with_alignment(_("Co_l Span:"), dg->spin[5], 1, 0.5, dgtable, 2, 3, 0, 1);
@@ -372,7 +394,7 @@ static void table_head_and_data_dialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *d
 	parse_existence_for_dialog(tagvalues[7], dg->check[1]);
 	bf_mnemonic_label_tad_with_alignment(_("No Wra_p:"), dg->check[1], 1, 0.5, dgtable, 2, 3, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 3, 4, 2, 3);
-	
+
 	dg->spin[1] = spinbut_with_value(NULL, 0, 10000, 1.0, 5.0);
 	dg->check[2] = gtk_check_button_new_with_label("%");
 	parse_integer_for_dialog(tagvalues[0], dg->spin[1], NULL, dg->check[2]);
@@ -390,7 +412,9 @@ static void table_head_and_data_dialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *d
 	dg->combo[3] = combobox_with_popdown_sized(tagvalues[6], bfwin->session->colorlist, 1, 80);
 	bf_mnemonic_label_tad_with_alignment(_("Backgrou_nd Color:"), dg->combo[3], 1, 0.5, dgtable, 4, 5, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 5, 6, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[3])), dg->dialog)), 6, 7, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable),
+							  GTK_WIDGET(color_but_new(gtk_bin_get_child(GTK_BIN(dg->combo[3])), dg->dialog)),
+							  6, 7, 2, 3);
 
 	if (type == 1) {
 		html_diag_finish(dg, G_CALLBACK(tabledatadialogok_lcb));
@@ -398,13 +422,18 @@ static void table_head_and_data_dialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *d
 		html_diag_finish(dg, G_CALLBACK(tableheaddialogok_lcb));
 	}
 
-	if (custom)	g_free(custom);
+	if (custom)
+		g_free(custom);
 }
 
-void tabledatadialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+void
+tabledatadialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
+{
 	table_head_and_data_dialog_cb(1, bfwin, data);
 }
 
-void tableheaddialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
+void
+tableheaddialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
+{
 	table_head_and_data_dialog_cb(0, bfwin, data);
 }

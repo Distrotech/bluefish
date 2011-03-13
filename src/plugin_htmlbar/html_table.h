@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * html_table.h - menu/toolbar callback prototypes
  *
- * Copyright (C) 2000 Olivier Sessink
+ * Copyright (C) 2000-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,11 +20,12 @@
 #ifndef __HTML_TABLE_H_
 #define __HTML_TABLE_H_
 
+#include "../bluefish.h"
 #include "html_diag.h"
 
-void tabledialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void tablerowdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void tableheaddialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void tabledatadialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void tabledialog_dialog(Tbfwin * bfwin, Ttagpopup * data);
+void tablerowdialog_dialog(Tbfwin * bfwin, Ttagpopup * data);
+void tableheaddialog_dialog(Tbfwin * bfwin, Ttagpopup * data);
+void tabledatadialog_dialog(Tbfwin * bfwin, Ttagpopup * data);
 
-#endif /* __HTML_TABLE_H_ */
+#endif							/* __HTML_TABLE_H_ */

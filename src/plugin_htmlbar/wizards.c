@@ -2,7 +2,8 @@
  * wizards.c - much magic is contained within
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2005 Olivier Sessink
+ * Copyright (C) 1999-2011 Olivier Sessink
+ * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,15 +19,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "htmlbar.h"
+#include "wizards.h"			/* myself */
 #include "cap.h"
-#include "wizards.h" 	/* myself */
-#include "../gtk_easy.h" /* spinbutwithvalue and stuff*/
-#include "../bf_lib.h"  /* bf_str_repeat() */
+#include "htmlbar.h"
 #include "html_diag.h"
-#include "../document.h"			/* doc_insert_two_strings() */
+#include "../bf_lib.h"			/* bf_str_repeat() */
+#include "../dialog_utils.h"
+#include "../document.h"		/* doc_insert_two_strings() */
+#include "../gtk_easy.h"		/* spinbutwithvalue and stuff */
 
-static void table_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
+static void
+table_wizard_ok_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
 
 	gint rows, cols;
 	gchar *tablerowstart, *rowdata, *tablerow, *tablecontent, *finalstring;
@@ -61,10 +65,12 @@ static void table_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void tablewizard_dialog(Tbfwin *bfwin) {
+void
+tablewizard_dialog(Tbfwin * bfwin)
+{
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
-	dg = html_diag_new(bfwin,_("Table Wizard"));
+	dg = html_diag_new(bfwin, _("Table Wizard"));
 
 	dgtable = gtk_table_new(4, 5, 0);
 	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
@@ -80,7 +86,8 @@ void tablewizard_dialog(Tbfwin *bfwin) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 5, 1, 2);
 
 	dg->check[1] = gtk_check_button_new();
-	bf_mnemonic_label_tad_with_alignment(_("Table rows on one _line:"), dg->check[1], 0, 0.5, dgtable, 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(_("Table rows on one _line:"), dg->check[1], 0, 0.5, dgtable, 0, 1,
+										 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 2, 3);
 
 	dg->check[2] = gtk_check_button_new();
@@ -90,35 +97,38 @@ void tablewizard_dialog(Tbfwin *bfwin) {
 	html_diag_finish(dg, G_CALLBACK(table_wizard_ok_lcb));
 }
 
-static void frame_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
+static void
+frame_wizard_ok_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
 	gchar *title, *thestring, *frameset, *frames, *sizes, *dtd, *finalstring;
 	gint i, count;
-	gboolean need_comma=FALSE;
+	gboolean need_comma = FALSE;
 
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->check[0]))) {
-		dtd = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\"\n\t\"http://www.w3.org/TR/html4/frameset.dtd\">";
+		dtd =
+			"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\"\n\t\"http://www.w3.org/TR/html4/frameset.dtd\">";
 	} else {
 		dtd = "";
 	}
 	title = gtk_editable_get_chars(GTK_EDITABLE(dg->entry[12]), 0, -1);
-	thestring = g_strconcat(dtd
-			, cap("<HTML>\n<HEAD>\n<TITLE>")
-			, title
-			, cap("</TITLE>\n</HEAD>\n"), NULL);
+	thestring = g_strconcat(dtd, cap("<HTML>\n<HEAD>\n<TITLE>")
+							, title, cap("</TITLE>\n</HEAD>\n"), NULL);
 	g_free(title);
-	
+
 	count = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(dg->spin[1]));
 	frames = g_strdup("");
 	sizes = g_strdup("");
-	for (i = 0; i < count ; i++) {
+	for (i = 0; i < count; i++) {
 		gchar *tmpstr, *size, *name, *source;
 		size = gtk_editable_get_chars(GTK_EDITABLE(dg->entry[i]), 0, -1);
 		name = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(dg->combo[i]))), 0, -1);
-		source = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(dg->combo[i+5]))), 0, -1);
+		source = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(dg->combo[i + 5]))), 0, -1);
 		if (main_v->props.xhtml == 1) {
-			tmpstr = g_strconcat(frames, cap("<FRAME NAME=\""), name, cap("\" SRC=\""), source, "\" />\n", NULL);
+			tmpstr =
+				g_strconcat(frames, cap("<FRAME NAME=\""), name, cap("\" SRC=\""), source, "\" />\n", NULL);
 		} else {
-			tmpstr = g_strconcat(frames, cap("<FRAME NAME=\""), name, cap("\" SRC=\""), source, "\">\n", NULL);
+			tmpstr =
+				g_strconcat(frames, cap("<FRAME NAME=\""), name, cap("\" SRC=\""), source, "\">\n", NULL);
 		}
 		g_free(frames);
 		frames = tmpstr;
@@ -137,14 +147,16 @@ static void frame_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 		g_free(name);
 		g_free(source);
 	}
-	
+
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dg->radio[1]))) {
 		frameset = g_strconcat(cap("<FRAMESET COLS=\""), sizes, "\">\n", NULL);
 	} else {
 		frameset = g_strconcat(cap("<FRAMESET ROWS=\""), sizes, "\">\n", NULL);
 	}
 
-	finalstring = g_strconcat(thestring, frameset, frames, cap("<NOFRAMES>\n\n</NOFRAMES>\n</FRAMESET>\n</HTML>"), NULL);
+	finalstring =
+		g_strconcat(thestring, frameset, frames, cap("<NOFRAMES>\n\n</NOFRAMES>\n</FRAMESET>\n</HTML>"),
+					NULL);
 	g_free(sizes);
 	g_free(frameset);
 	g_free(frames);
@@ -154,24 +166,28 @@ static void frame_wizard_ok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	html_diag_destroy_cb(NULL, dg);
 }
 
-static void frame_wizard_num_changed(GtkWidget *widget, Thtml_diag *dg) {
-	gint num,i;
+static void
+frame_wizard_num_changed(GtkWidget * widget, Thtml_diag * dg)
+{
+	gint num, i;
 	num = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(dg->spin[1]));
-	for (i = 0; i < MAX_FRAMES_IN_FRAMEWIZARD ; i++) {
+	for (i = 0; i < MAX_FRAMES_IN_FRAMEWIZARD; i++) {
 		if (i < num) {
 			gtk_widget_set_sensitive(dg->clist[i], TRUE);
 		} else {
-			gtk_widget_set_sensitive(dg->clist[i], FALSE); 
+			gtk_widget_set_sensitive(dg->clist[i], FALSE);
 		}
 	}
 }
 
-void framewizard_dialog(Tbfwin *bfwin) {
+void
+framewizard_dialog(Tbfwin * bfwin)
+{
 	GtkWidget *dgtable, *frame, *vbox, *label;
 	Thtml_diag *dg;
 	gint i;
 
-	dg = html_diag_new(bfwin,_("Frame Wizard"));
+	dg = html_diag_new(bfwin, _("Frame Wizard"));
 
 	dgtable = gtk_table_new(4, 12, FALSE);
 	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
@@ -180,10 +196,9 @@ void framewizard_dialog(Tbfwin *bfwin) {
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_NONE);
 	gtk_box_pack_start(GTK_BOX(dg->vbox), frame, FALSE, FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), dgtable);
-	
-	dg->entry[12] = entry_with_text(NULL, 256);
-	bf_mnemonic_label_tad_with_alignment(_("_Title:"), dg->entry[12], 0, 0.5, dgtable, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[12], 1, 12, 0, 1);
+
+	dg->entry[12] = dialog_entry_in_table(NULL, dgtable, 1, 12, 0, 1);
+	dialog_mnemonic_label_in_table(_("_Title:"), dg->entry[12], dgtable, 0, 1, 0, 1);
 
 	dg->check[0] = gtk_check_button_new();
 	bf_mnemonic_label_tad_with_alignment(_("Use _DTD:"), dg->check[0], 0, 0.5, dgtable, 0, 1, 1, 2);
@@ -208,23 +223,20 @@ void framewizard_dialog(Tbfwin *bfwin) {
 	gtk_container_set_border_width(GTK_CONTAINER(vbox), 6);
 	gtk_container_add(GTK_CONTAINER(frame), vbox);
 
-	for (i = 0; i < MAX_FRAMES_IN_FRAMEWIZARD ; i++) {
+	for (i = 0; i < MAX_FRAMES_IN_FRAMEWIZARD; i++) {
 		GtkWidget *file_but;
-	/* since there are no clists in this dialog we can use it freely :) */
+		/* since there are no clists in this dialog we can use it freely :) */
 		dg->clist[i] = gtk_hbox_new(FALSE, 6);
 		gtk_box_pack_start(GTK_BOX(vbox), dg->clist[i], FALSE, FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Name:")), TRUE, TRUE, 0);
 		dg->combo[i] = boxed_combobox_with_popdown(NULL, bfwin->session->targetlist, 1, dg->clist[i]);
 		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Source:")), TRUE, TRUE, 0);
-		dg->combo[i+5] = boxed_combobox_with_popdown(NULL, bfwin->session->urllist, 1, dg->clist[i]);
-		file_but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[i+5]))), 0, bfwin);
-		gtk_box_pack_start(GTK_BOX(dg->clist[i]), file_but, FALSE, FALSE, 0);		
-		gtk_box_pack_start(GTK_BOX(dg->clist[i]), gtk_label_new(_("Size:")), TRUE, TRUE, 0);
-		dg->entry[i] = boxed_entry_with_text(NULL, 100, dg->clist[i]);
+		dg->combo[i + 5] = boxed_combobox_with_popdown(NULL, bfwin->session->urllist, 1, dg->clist[i]);
+		file_but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[i + 5]))), 0, bfwin);
+		gtk_box_pack_start(GTK_BOX(dg->clist[i]), file_but, FALSE, FALSE, 0);
+		dg->entry[i] = dialog_entry_labeled(NULL, _("Size:"), dg->clist[i], 0);
 
 	}
 	html_diag_finish(dg, G_CALLBACK(frame_wizard_ok_lcb));
 	frame_wizard_num_changed(NULL, dg);
 }
-
-

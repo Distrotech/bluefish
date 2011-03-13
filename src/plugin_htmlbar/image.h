@@ -20,7 +20,7 @@
 #ifndef __IMAGE_H_
 #define __IMAGE_H_
 
-#include "bluefish.h"
+#include "../bluefish.h"
 
 void thumbnail_insert_dialog(Tbfwin * bfwin);
 void multi_thumbnail_dialog(Tbfwin * bfwin);

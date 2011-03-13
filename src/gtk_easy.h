@@ -42,11 +42,10 @@ GtkWidget *combobox_with_popdown_sized(const gchar * setstring, GList * which_li
 GtkWidget *boxed_combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable,
 									   GtkWidget * box);
 GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable);
-GtkWidget *entry_with_text(const gchar * setstring, gint max_lenght);
-GtkWidget *boxed_entry_with_text(const gchar * setstring, gint max_lenght, GtkWidget * box);
-GtkWidget *boxed_full_entry(const gchar * labeltext, gchar * setstring, gint max_lenght, GtkWidget * box);
+
 GtkWidget *checkbut_with_value(gchar * labeltext, gint which_config_int);
 GtkWidget *boxed_checkbut_with_value(gchar * labeltext, gint which_config_int, GtkWidget * box);
+
 GtkWidget *radiobut_with_value(gchar * labeltext, gint enabled, GtkRadioButton * prevbut);
 GtkWidget *boxed_radiobut_with_value(gchar * labeltext, gint enabled, GtkRadioButton * prevbut,
 									 GtkWidget * box);
@@ -97,7 +96,6 @@ GtkWidget *file_but_new2(GtkWidget * which_entry, gint full_pathname, Tbfwin * b
 GtkWidget *file_chooser_dialog(Tbfwin * bfwin, const gchar * title, GtkFileChooserAction action,
 							   const gchar * set, gboolean localonly, gboolean multiple, const gchar * filter,
 							   gboolean show_encoding);
-void destroy_disposable_menu_cb(GtkWidget * widget, GtkWidget * menu);
 
 gchar *ask_accelerator_dialog(const gchar * title);
 GtkWidget *accelerator_button(const gchar * accel);
