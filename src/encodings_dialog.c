@@ -22,7 +22,6 @@
 #include "bfwin_uimanager.h"
 #include "dialog_utils.h"
 #include "document.h"
-#include "menu.h"
 #include "stringlist.h"
 
 

@@ -201,7 +201,7 @@ side_panel_notify_position(GObject * object, GParamSpec * pspec, gpointer data)
 }
 
 static void
-side_panel_notebook_switch(GtkNotebook * notebook, GtkNotebookPage * page, guint page_num, gpointer user_data)
+side_panel_notebook_switch(GtkNotebook * notebook, gpointer * page, guint page_num, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
 	bfwin->session->leftpanel_active_tab = page_num;
@@ -898,7 +898,7 @@ notebook_reordered(GtkNotebook * notebook, GtkWidget * child, guint page_num, gp
 }
 
 static void
-notebook_switch_page(GtkWidget * notebook, GtkNotebookPage * page, gint page_num, Tbfwin * bfwin)
+notebook_switch_page(GtkWidget * notebook, gpointer * page, gint page_num, Tbfwin * bfwin)
 {
 	DEBUG_MSG("notebook_switch_page_lcb, page=%d\n", page_num);
 	bfwin_notebook_changed(bfwin, page_num);

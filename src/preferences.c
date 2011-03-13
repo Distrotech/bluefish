@@ -40,7 +40,6 @@
 #include "filebrowser2.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"
-#include "menu.h"
 #include "pixmap.h"
 #include "rcfile.h"
 #include "file_autosave.h"
