@@ -176,16 +176,15 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	table = dialog_table_in_vbox(2, 6, 0, vbox2, FALSE, FALSE, 6);
 
 	if (!basedir) {
-		tfs->basedir = entry_with_text(bfwin->session->opendir, 255);
+		tfs->basedir = dialog_entry_in_table(bfwin->session->opendir, table, 1, 5, 0, 1);
 	} else {
-		tfs->basedir = entry_with_text(basedir, 255);
+		tfs->basedir = dialog_entry_in_table(basedir, table, 1, 5, 0, 1);
 	}
 	dialog_mnemonic_label_in_table(_("Base _Dir:"), tfs->basedir, table, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->basedir, 1, 5, 0, 1);
+
 	button =
 		dialog_button_new_with_image_in_table(NULL, -1, GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU, table, 5, 6, 0,
 											  1);
-
 	g_signal_connect(button, "clicked", G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
 
 	lstore = gtk_list_store_new(1, G_TYPE_STRING);

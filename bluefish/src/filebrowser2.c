@@ -263,10 +263,9 @@ set_documentroot_dialog(Tbfwin * bfwin, GFile * uri)
 	gtk_table_attach_defaults(GTK_TABLE(table), label, 0, 2, 0, 1);
 
 	tmp = g_file_get_uri(uri);
-	drd->doc_entry = entry_with_text(tmp, 512);
+	drd->doc_entry = dialog_entry_in_table(tmp, table, 1, 2, 1, 2);
 	gtk_entry_set_editable(GTK_ENTRY(drd->doc_entry), FALSE);
 	g_free(tmp);
-	gtk_table_attach_defaults(GTK_TABLE(table), drd->doc_entry, 1, 2, 1, 2);
 	dialog_mnemonic_label_in_table(_("Documentroot"), drd->doc_entry, table, 0, 1, 1, 2);
 
 	if (bfwin->session->webroot) {
@@ -276,11 +275,9 @@ set_documentroot_dialog(Tbfwin * bfwin, GFile * uri)
 	} else {
 		tmp = g_strdup("http://");
 	}
-	drd->web_entry = entry_with_text(tmp, 512);
+	drd->web_entry = dialog_entry_in_table(tmp, table, 1, 2, 2, 3);
 	g_free(tmp);
-	gtk_table_attach_defaults(GTK_TABLE(table), drd->web_entry, 1, 2, 2, 3);
 	dialog_mnemonic_label_in_table(_("Webroot"), drd->web_entry, table, 0, 1, 2, 3);
-
 
 	gtk_widget_show_all(drd->win);
 }

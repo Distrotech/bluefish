@@ -2,6 +2,7 @@
  * html_diag.c - general functions to create HTML dialogs
  *
  * Copyright (C) 2000-2011 Olivier Sessink
+ * Copyright (C) 2011 James Hayward
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +28,7 @@
 #include "html2.h"				/* style_but_new() */
 #include "htmlbar.h"
 #include "../bf_lib.h"
+#include "../dialog_utils.h"
 #include "../document.h"		/* doc_save_selection */
 #include "../gtk_easy.h"		/* window_full() */
 #include "../stringlist.h"		/* add_to_stringlist */
@@ -441,22 +443,23 @@ generic_class_id_style_section(Thtml_diag * dg, gint firstattrwidget, GtkWidget 
 
 	dg->attrwidget[firstattrwidget] =
 		combobox_with_popdown(tagvalues[firsttagvalue], dg->bfwin->session->classlist, 1);
-	bf_mnemonic_label_tad_with_alignment(_("Cl_ass:"), dg->attrwidget[firstattrwidget], 0, 0.5, dgtable, 0, 1,
-										 firstrowintable + 0, firstrowintable + 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[firstattrwidget], 1, 3, firstrowintable + 0,
-							  firstrowintable + 1);
+	dialog_mnemonic_label_in_table(_("Cl_ass:"), dg->attrwidget[firstattrwidget], dgtable, 0, 1,
+								   firstrowintable + 0, firstrowintable + 1);
+	gtk_table_attach(GTK_TABLE(dgtable), dg->attrwidget[firstattrwidget], 1, 3, firstrowintable + 0,
+					 firstrowintable + 1, GTK_FILL, GTK_SHRINK, 0, 0);
 
-	dg->attrwidget[firstattrwidget + 1] = entry_with_text(tagvalues[firsttagvalue + 1], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_ID:"), dg->attrwidget[firstattrwidget + 1], 0, 0.5, dgtable, 0,
-										 1, firstrowintable + 1, firstrowintable + 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[firstattrwidget + 1], 1, 3,
-							  firstrowintable + 1, firstrowintable + 2);
+	dg->attrwidget[firstattrwidget + 1] =
+		dialog_entry_in_table(tagvalues[firsttagvalue + 1], dgtable, 1, 3, firstrowintable + 1,
+							  firstrowintable + 2);
+	dialog_mnemonic_label_in_table(_("_ID:"), dg->attrwidget[firstattrwidget + 1], dgtable, 0, 1,
+								   firstrowintable + 1, firstrowintable + 2);
 
-	dg->attrwidget[firstattrwidget + 2] = entry_with_text(tagvalues[firsttagvalue + 2], 256);
-	bf_mnemonic_label_tad_with_alignment(_("St_yle:"), dg->attrwidget[firstattrwidget + 2], 0, 0.5, dgtable,
-										 0, 1, firstrowintable + 2, firstrowintable + 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[firstattrwidget + 2], 1, 2,
-							  firstrowintable + 2, firstrowintable + 3);
+	dg->attrwidget[firstattrwidget + 2] =
+		dialog_entry_in_table(tagvalues[firsttagvalue + 2], dgtable, 1, 2, firstrowintable + 2,
+							  firstrowintable + 3);
+	dialog_mnemonic_label_in_table(_("St_yle:"), dg->attrwidget[firstattrwidget + 2], dgtable, 0, 1,
+								   firstrowintable + 2, firstrowintable + 3);
+
 	but = style_but_new(dg->attrwidget[firstattrwidget + 2], dg->dialog);
 	gtk_table_attach(GTK_TABLE(dgtable), but, 2, 3, firstrowintable + 2, firstrowintable + 3, GTK_SHRINK,
 					 GTK_SHRINK, 0, 0);
