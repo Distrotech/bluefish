@@ -82,16 +82,13 @@ bfwin_gotoline_frame_show(Tbfwin * bfwin)
 static void
 notebook_move(Tbfwin * bfwin, gboolean move_left)
 {
-	GtkWidget *tmp;
+	gint curpos, newpos;
 
 	if (!bfwin->current_document)
 		return;
 
-	tmp = gtk_widget_get_parent(bfwin->current_document->view);
-	DEBUG_MSG("notebook_move, found scrolwin %p\n", tmp);
-	if (tmp) {
-		gint curpos, newpos;
-		curpos = gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook), tmp);
+	curpos = gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook), bfwin->current_document->vsplit);
+	if (curpos != -1) {
 #ifdef DEVELOPMENT
 		{
 			GList *cur;
@@ -102,9 +99,9 @@ notebook_move(Tbfwin * bfwin, gboolean move_left)
 		newpos = curpos + ((move_left) ? -1 : 1);
 		DEBUG_MSG("notebook_move, cur=%d, new=%d (num_pages=%d)\n", curpos, newpos,
 				  gtk_notebook_get_n_pages(GTK_NOTEBOOK(bfwin->notebook)));
-		if (newpos >= 0 && newpos < gtk_notebook_get_n_pages(GTK_NOTEBOOK(bfwin->notebook))) {
-			gtk_notebook_reorder_child(GTK_NOTEBOOK(bfwin->notebook), tmp, newpos);
-		}
+		if (newpos >= 0 && newpos < gtk_notebook_get_n_pages(GTK_NOTEBOOK(bfwin->notebook)))
+			gtk_notebook_reorder_child(GTK_NOTEBOOK(bfwin->notebook), bfwin->current_document->vsplit,
+									   newpos);
 	}
 }
 
