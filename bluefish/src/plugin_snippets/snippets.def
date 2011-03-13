@@ -1,6 +1,8 @@
 IMPORTS
 	bluefish.exe.ask_accelerator_dialog
 	bluefish.exe.bf_mnemonic_label_tad_with_alignment
+	bluefish.exe.bfwin_action_set_sensitive
+	bluefish.exe.bfwin_set_menu_toggle_item_from_path
 	bluefish.exe.dialog_mnemonic_label_in_table
 	bluefish.exe.doc_insert_two_strings
 	bluefish.exe.doc_scroll_to_cursor
@@ -11,7 +13,6 @@ IMPORTS
 	bluefish.exe.make_config_list_item
 	bluefish.exe.replace_string_printflike
 	bluefish.exe.return_first_existing_filename
-	bluefish.exe.setup_toggle_item
 	bluefish.exe.snr2_run_extern_replace
 	bluefish.exe.textbuffer_get_all_chars
 	bluefish.exe.textview_buffer_in_scrolwin
