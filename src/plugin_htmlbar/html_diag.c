@@ -22,15 +22,14 @@
 #include <stdlib.h>				/* strtod */
 /*#define DEBUG */
 
-#include "htmlbar.h"
-#include "../gtk_easy.h"		/* window_full() */
-#include "../bf_lib.h"
-#include "../stringlist.h"		/* add_to_stringlist */
-#include "../document.h"		/* doc_save_selection */
+#include "html_diag.h"			/* myself */
 #include "cap.h"
 #include "html2.h"				/* style_but_new() */
-#include "html_diag.h"			/* myself */
-
+#include "htmlbar.h"
+#include "../bf_lib.h"
+#include "../document.h"		/* doc_save_selection */
+#include "../gtk_easy.h"		/* window_full() */
+#include "../stringlist.h"		/* add_to_stringlist */
 
 Trecent_attribs recent_attribs;
 /*****************************************/
