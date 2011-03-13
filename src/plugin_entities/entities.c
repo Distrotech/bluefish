@@ -264,7 +264,6 @@ entity_dialog(Tbfwin * bfwin, Tentmode mode, Tentitysetting * eset)
 									GTK_WINDOW(bfwin->main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT, GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
 									NULL);
-	gtk_dialog_set_has_separator(GTK_DIALOG(ew->dialog), FALSE);
 	g_signal_connect(G_OBJECT(ew->dialog), "response", G_CALLBACK(ew_response_lcb), ew);
 	window_delete_on_escape(GTK_WINDOW(ew->dialog));
 

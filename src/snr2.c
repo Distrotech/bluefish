@@ -1957,7 +1957,6 @@ snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 		gtk_dialog_new_with_buttons(title, GTK_WINDOW(bfwin->main_window),
 									GTK_DIALOG_DESTROY_WITH_PARENT, NULL);
 	gtk_window_set_resizable(GTK_WINDOW(snrwin->dialog), FALSE);
-	gtk_dialog_set_has_separator(GTK_DIALOG(snrwin->dialog), FALSE);
 	window_delete_on_escape(GTK_WINDOW(snrwin->dialog));
 	g_signal_connect(G_OBJECT(snrwin->dialog), "response", G_CALLBACK(snr_response_lcb), snrwin);
 	g_signal_connect_after(G_OBJECT(snrwin->dialog), "focus-in-event", G_CALLBACK(snr_focus_in_lcb), snrwin);

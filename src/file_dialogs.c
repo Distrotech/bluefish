@@ -162,7 +162,6 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 											  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 											  GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
 
-	gtk_dialog_set_has_separator(GTK_DIALOG(tfs->dialog), FALSE);
 	carea = gtk_dialog_get_content_area(GTK_DIALOG(tfs->dialog));
 
 	alignment = gtk_alignment_new(0, 0, 1, 1);

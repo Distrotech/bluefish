@@ -642,7 +642,6 @@ quickstart_dialog_new(Tbfwin * bfwin)
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 										 GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, NULL);
-	gtk_dialog_set_has_separator(GTK_DIALOG(dialog), FALSE);
 	vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 	g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(quickstart_response_lcb), qstart);
 
