@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="C" version="2.0" matches="2503" contexts="5" table="13953">
+<bflang name="C" version="2.0" matches="2851" contexts="5" table="17039">
 <header>
 	<mime type="text/x-csrc"/>
 	<mime type="text/x-chdr"/>
@@ -644,7 +644,6 @@
 <element pattern="initstate"><reference>BSD Random</reference></element>
 <element pattern="initstate_r"><reference>BSD Random</reference></element>
 <element pattern="innetgr"><reference>Netgroup Membership</reference></element>
-<element pattern="int"><reference>Random Access Directory</reference></element>
 <element pattern="ioctl"><reference>IOCTLs</reference></element>
 <element pattern="isalnum"><reference>Classification of Characters</reference></element>
 <element pattern="isalpha"><reference>Classification of Characters</reference></element>
@@ -853,7 +852,6 @@
 <element pattern="obstack_int_grow_fast"><reference>Extra Fast Growing</reference></element>
 <element pattern="obstack_next_free"><reference>Status of an Obstack</reference></element>
 <element pattern="obstack_object_size"><reference>Status of an Obstack</reference></element>
-<element pattern="obstack_object_size"><reference>Growing Objects</reference></element>
 <element pattern="obstack_printf"><reference>Dynamic Output</reference></element>
 <element pattern="obstack_ptr_grow"><reference>Growing Objects</reference></element>
 <element pattern="obstack_ptr_grow_fast"><reference>Extra Fast Growing</reference></element>
@@ -1162,6 +1160,7 @@
 <element pattern="tcsetpgrp"><reference>Terminal Access Functions</reference></element>
 <element pattern="tdelete"><reference>Tree Search Function</reference></element>
 <element pattern="tdestroy"><reference>Tree Search Function</reference></element>
+<element pattern="telldir"><reference>Random Access Directory</reference></element>
 <element pattern="tempnam"><reference>Temporary Files</reference></element>
 <element pattern="textdomain"><reference>Locating gettext catalog</reference></element>
 <element pattern="tfind"><reference>Tree Search Function</reference></element>
@@ -1209,11 +1208,8 @@
 <element pattern="utimes"><reference>File Times</reference></element>
 <element pattern="utmpname"><reference>Manipulating the Database</reference></element>
 <element pattern="utmpxname"><reference>XPG Functions</reference></element>
-<element pattern="va_alist"><reference>Old Varargs</reference></element>
 <element pattern="va_arg"><reference>Argument Macros</reference></element>
-<element pattern="va_dcl"><reference>Old Varargs</reference></element>
 <element pattern="va_end"><reference>Argument Macros</reference></element>
-<element pattern="va_start"><reference>Old Varargs</reference></element>
 <element pattern="va_start"><reference>Argument Macros</reference></element>
 <element pattern="valloc"><reference>Aligned Memory Blocks</reference></element>
 <element pattern="vasprintf"><reference>Variable Arguments Output</reference></element>
