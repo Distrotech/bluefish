@@ -688,511 +688,511 @@ htmlbar_insert_variable_tag(GtkAction * action, gpointer user_data)
 static void
 htmlbar_insert_acute(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), ACUTE);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_ACUTE);
 }
 
 static void
 htmlbar_insert_cedilla(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), CEDILLA);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_CEDILLA);
 }
 
 static void
 htmlbar_insert_umlaut(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), UMLAUT);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_UMLAUT);
 }
 
 static void
 htmlbar_insert_aacute(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), A_ACUTE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_ACUTE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), A_ACUTE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_ACUTE_LOWER);
 }
 
 static void
 htmlbar_insert_acirc(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), A_CIRC_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_CIRC_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), A_CIRC_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_CIRC_LOWER);
 }
 
 static void
 htmlbar_insert_aelig(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), A_ELIG_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_ELIG_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), A_ELIG_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_ELIG_LOWER);
 }
 
 static void
 htmlbar_insert_agrave(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), A_GRAVE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_GRAVE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), A_GRAVE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_GRAVE_LOWER);
 }
 
 static void
 htmlbar_insert_aring(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), A_RING_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_RING_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), A_RING_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_RING_LOWER);
 }
 
 static void
 htmlbar_insert_atilde(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), A_TILDE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_TILDE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), A_TILDE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_TILDE_LOWER);
 }
 
 static void
 htmlbar_insert_auml(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), A_UML_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_UML_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), A_UML_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_A_UML_LOWER);
 }
 
 static void
 htmlbar_insert_ccedil(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), C_CEDIL_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_C_CEDIL_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), C_CEDIL_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_C_CEDIL_LOWER);
 }
 
 static void
 htmlbar_insert_eacute(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), E_ACUTE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_E_ACUTE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), E_ACUTE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_E_ACUTE_LOWER);
 }
 
 static void
 htmlbar_insert_ecirc(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), E_CIRC_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_E_CIRC_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), E_CIRC_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_E_CIRC_LOWER);
 }
 
 static void
 htmlbar_insert_egrave(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), E_GRAVE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_E_GRAVE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), E_GRAVE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_E_GRAVE_LOWER);
 }
 
 static void
 htmlbar_insert_euml(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), E_UML_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_E_UML_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), E_UML_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_E_UML_LOWER);
 }
 
 static void
 htmlbar_insert_iacute(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), I_ACUTE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_I_ACUTE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), I_ACUTE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_I_ACUTE_LOWER);
 }
 
 static void
 htmlbar_insert_icirc(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), I_CIRC_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_I_CIRC_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), I_CIRC_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_I_CIRC_LOWER);
 }
 
 static void
 htmlbar_insert_igrave(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), I_GRAVE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_I_GRAVE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), I_GRAVE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_I_GRAVE_LOWER);
 }
 
 static void
 htmlbar_insert_iuml(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), I_UML_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_I_UML_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), I_UML_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_I_UML_LOWER);
 }
 
 static void
 htmlbar_insert_ntilde(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), N_TILDE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_N_TILDE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), N_TILDE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_N_TILDE_LOWER);
 }
 
 static void
 htmlbar_insert_oacute(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), O_ACUTE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_ACUTE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), O_ACUTE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_ACUTE_LOWER);
 }
 
 static void
 htmlbar_insert_ocirc(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), O_CIRC_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_CIRC_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), O_CIRC_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_CIRC_LOWER);
 }
 
 static void
 htmlbar_insert_oelig(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), O_ELIG_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_ELIG_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), O_ELIG_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_ELIG_LOWER);
 }
 
 static void
 htmlbar_insert_ograve(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), O_GRAVE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_GRAVE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), O_GRAVE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_GRAVE_LOWER);
 }
 
 static void
 htmlbar_insert_oslash(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), O_SLASH_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_SLASH_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), O_SLASH_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_SLASH_LOWER);
 }
 
 static void
 htmlbar_insert_otilde(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), O_TILDE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_TILDE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), O_TILDE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_TILDE_LOWER);
 }
 
 static void
 htmlbar_insert_ouml(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), O_UML_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_UML_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), O_UML_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_O_UML_LOWER);
 }
 
 static void
 htmlbar_insert_uacute(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), U_ACUTE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_U_ACUTE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), U_ACUTE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_U_ACUTE_LOWER);
 }
 
 static void
 htmlbar_insert_ucirc(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), U_CIRC_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_U_CIRC_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), U_CIRC_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_U_CIRC_LOWER);
 }
 
 static void
 htmlbar_insert_ugrave(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), U_GRAVE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_U_GRAVE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), U_GRAVE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_U_GRAVE_LOWER);
 }
 
 static void
 htmlbar_insert_uuml(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), U_UML_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_U_UML_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), U_UML_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_U_UML_LOWER);
 }
 
 static void
 htmlbar_insert_yacute(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), Y_ACUTE_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_Y_ACUTE_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), Y_ACUTE_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_Y_ACUTE_LOWER);
 }
 
 static void
 htmlbar_insert_yuml(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), Y_UML_LOWER);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_Y_UML_LOWER);
 }
 
 static void
 htmlbar_insert_cent_sign(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), CENT);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_CENT);
 }
 
 static void
 htmlbar_insert_currency(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), CURRENCY);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_CURRENCY);
 }
 
 static void
 htmlbar_insert_euro(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), EURO);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_EURO);
 }
 
 static void
 htmlbar_insert_pound(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), POUND);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_POUND);
 }
 
 static void
 htmlbar_insert_yen(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), YEN);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_YEN);
 }
 
 static void
 htmlbar_insert_division(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), DIVISION);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_DIVISION);
 }
 
 static void
 htmlbar_insert_logical_not(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), LOGICAL_NOT);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_LOGICAL_NOT);
 }
 
 static void
 htmlbar_insert_times(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), TIMES);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_TIMES);
 }
 
 static void
 htmlbar_insert_plus_minus(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), PLUS_MINUS);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_PLUS_MINUS);
 }
 
 static void
 htmlbar_insert_less_than(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), LESS_THAN);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_LESS_THAN);
 }
 
 static void
 htmlbar_insert_greater_than(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), GREATER_THAN);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_GREATER_THAN);
 }
 
 static void
 htmlbar_insert_superscript1(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), SUPERSCRIPT_1);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_SUPERSCRIPT_1);
 }
 
 static void
 htmlbar_insert_superscript2(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), SUPERSCRIPT_2);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_SUPERSCRIPT_2);
 }
 
 static void
 htmlbar_insert_superscript3(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), SUPERSCRIPT_3);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_SUPERSCRIPT_3);
 }
 
 static void
 htmlbar_insert_one_quarter(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), FRAC_QUARTER);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_FRAC_QUARTER);
 }
 
 static void
 htmlbar_insert_one_half(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), FRAC_HALF);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_FRAC_HALF);
 }
 
 static void
 htmlbar_insert_three_quarter(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), FRAC_THREE_QUARTER);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_FRAC_THREE_QUARTER);
 }
 
 static void
 htmlbar_insert_degree(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), DEGREE);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_DEGREE);
 }
 
 static void
 htmlbar_insert_eth(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), ETH_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_ETH_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), ETH_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_ETH_LOWER);
 }
 
 static void
 htmlbar_insert_thorn(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_prefix(gtk_action_get_name(action), "Upper"))
-		htmlbar_insert_special_char(BFWIN(user_data), THORN_UPPER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_THORN_UPPER);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), THORN_LOWER);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_THORN_LOWER);
 }
 
 static void
 htmlbar_insert_sharp(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), SZLIG);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_SZLIG);
 }
 
 static void
 htmlbar_insert_micro_sign(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), MIRCO);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_MIRCO);
 }
 
 static void
 htmlbar_insert_nbsp(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), NBSP);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_NBSP);
 }
 
 static void
 htmlbar_insert_section_sign(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), SECTION);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_SECTION);
 }
 
 static void
 htmlbar_insert_copyright(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), COPYRIGHT);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_COPYRIGHT);
 }
 
 static void
 htmlbar_insert_left_angle(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), LEFT_ANGLE);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_LEFT_ANGLE);
 }
 
 static void
 htmlbar_insert_right_angle(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), RIGHT_ANGLE);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_RIGHT_ANGLE);
 }
 
 static void
 htmlbar_insert_trademark(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), TRADEMARK);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_TRADEMARK);
 }
 
 static void
 htmlbar_insert_inverted_exclamation(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), INVERTED_EXCLAMATION);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_INVERTED_EXCLAMATION);
 }
 
 static void
 htmlbar_insert_inverted_question_mark(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), INVERTED_QUESTION_MARK);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_INVERTED_QUESTION_MARK);
 }
 
 static void
 htmlbar_insert_ordinal(GtkAction * action, gpointer user_data)
 {
 	if (g_str_has_suffix(gtk_action_get_name(action), "F"))
-		htmlbar_insert_special_char(BFWIN(user_data), ORDINAL_F);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_ORDINAL_F);
 	else
-		htmlbar_insert_special_char(BFWIN(user_data), ORDINAL_M);
+		htmlbar_insert_special_char(BFWIN(user_data), BF_ORDINAL_M);
 }
 
 static void
 htmlbar_insert_paragraph(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), PARAGRAPH);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_PARAGRAPH);
 }
 
 static void
 htmlbar_insert_broken_bar(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), BROKEN_BAR);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_BROKEN_BAR);
 }
 
 static void
 htmlbar_insert_soft_hyphen(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), SOFT_HYPHEN);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_SOFT_HYPHEN);
 }
 
 static void
 htmlbar_insert_spacing_macron(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), SPACING_MACRON);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_SPACING_MACRON);
 }
 
 static void
 htmlbar_insert_middot(GtkAction * action, gpointer user_data)
 {
-	htmlbar_insert_special_char(BFWIN(user_data), MIDDOT);
+	htmlbar_insert_special_char(BFWIN(user_data), BF_MIDDOT);
 }
 
 void
