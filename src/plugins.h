@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * plugins.h - plugin structure
  *
- * Copyright (C) 2005-2010 Olivier Sessink
+ * Copyright (C) 2005-2011 Olivier Sessink
  * heavily inspired by code from Eugene Morenko(More)
  *
  * This program is free software; you can redistribute it and/or modify
@@ -29,7 +29,7 @@
 #define BFPLUGIN_PRIORITY_LATE 191
 #define BFPLUGIN_PRIORITY_LAST 255
 
-#define BFPLUGIN_VERSION 7
+#define BFPLUGIN_VERSION 8
 
 typedef struct {
 	const gchar *name; /* plugin name */
