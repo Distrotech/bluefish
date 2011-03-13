@@ -631,7 +631,7 @@ list_dicts_lcb(const char *const lang_tag, const char *const provider_name, cons
 	/*DBG_SPELL("lang_tag=%s, provider_name=%s, provider_desc=%s, provider_file=%s\n",lang_tag,provider_name,provider_desc,provider_file); */
 	menuitem = gtk_radio_menu_item_new_with_label(dl->group, lang_tag);
 	if (!dl->group)
-		dl->group = gtk_radio_menu_item_group(GTK_RADIO_MENU_ITEM(menuitem));
+		dl->group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(menuitem));
 	if (g_strcmp0(dl->bfwin->session->spell_lang, lang_tag) == 0) {
 		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 	}
