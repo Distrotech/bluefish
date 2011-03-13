@@ -14,6 +14,7 @@ AC_PREREQ([2.59])
 AC_INIT([bluefish],[2.90.0],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 
 dnl Have to save them here!
+
 if test "${ac_configure_args+set}" != "set" ; then
 	AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $@"], [The configure options used to compile bluefish.])
 else
@@ -214,7 +215,7 @@ AC_ARG_ENABLE(
 	 if test "x$enableval" = "xno"; then
 		 CFLAGS="$CFLAGS -DG_DISABLE_SINGLE_INCLUDES -DGTK_DISABLE_SINGLE_INCLUDES"
 		 CFLAGS="$CFLAGS -DGDK_DISABLE_DEPRECATED -DGDK_PIXBUF_DISABLE_DEPRECATED"
-		 CFLAGS="$CFLAGS -DG_DISABLE_DEPRECATED"
+dnl		 CFLAGS="$CFLAGS -DG_DISABLE_DEPRECATED"
 		 CFLAGS="$CFLAGS -DGTK_DISABLE_DEPRECATED"
 		 CFLAGS="$CFLAGS -DGSEAL_ENABLE"
 	 fi
