@@ -29,7 +29,7 @@
 #define BFPLUGIN_PRIORITY_LATE 191
 #define BFPLUGIN_PRIORITY_LAST 255
 
-#define BFPLUGIN_VERSION 7
+#define BFPLUGIN_VERSION 8
 
 typedef struct {
 	const gchar *name; /* plugin name */
