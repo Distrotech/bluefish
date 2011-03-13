@@ -259,7 +259,7 @@ dialog_combo_box_text_labeled_from_list(const GList * options, const gchar * val
 
 	combobox = dialog_combo_box_text_from_list(options, value);
 
-	label = dialog_box_label_new(labeltext, 0, 0.5, box, padding);
+	label = dialog_label_new(labeltext, 0, 0.5, box, padding);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), combobox);
 
 	gtk_box_pack_start(GTK_BOX(box), combobox, FALSE, FALSE, 0);
@@ -320,12 +320,31 @@ dialog_combo_box_text_labeled(const gchar * labeltext, const gchar ** options, g
 
 	combobox = dialog_combo_box_text_new(options, index);
 
-	label = dialog_box_label_new(labeltext, 0, 0.5, box, padding);
+	label = dialog_label_new(labeltext, 0, 0.5, box, padding);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), combobox);
 
 	gtk_box_pack_start(GTK_BOX(box), combobox, FALSE, FALSE, 0);
 
 	return combobox;
+}
+
+GtkWidget *
+dialog_entry_labeled(const gchar * text, const gchar * labeltext, GtkWidget * box, guint padding)
+{
+	GtkWidget *entry;
+	GtkWidget *label;
+
+	entry = gtk_entry_new();
+
+	if (text)
+		gtk_entry_set_text(GTK_ENTRY(entry), text);
+
+	label = dialog_label_new(labeltext, 0, 0.5, box, padding);
+	gtk_label_set_mnemonic_widget(GTK_LABEL(label), entry);
+
+	gtk_box_pack_start(GTK_BOX(box), entry, FALSE, FALSE, 0);
+
+	return entry;
 }
 
 GtkWidget *
@@ -443,7 +462,7 @@ dialog_spin_button_labeled(gfloat lower, gfloat upper, const gint value, const g
 
 	button = dialog_spin_button_new(lower, upper, value);
 
-	label = dialog_box_label_new(labeltext, 0, 0.5, box, padding);
+	label = dialog_label_new(labeltext, 0, 0.5, box, padding);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), button);
 
 	gtk_box_pack_start(GTK_BOX(box), button, FALSE, FALSE, 0);
@@ -464,7 +483,7 @@ dialog_spin_button_labeled(gfloat lower, gfloat upper, const gint value, const g
  * Return value: #GtkWidget * The new GtkLabel widget.
  */
 GtkWidget *
-dialog_box_label_new(const gchar * labeltext, gfloat xalign, gfloat yalign, GtkWidget * box, guint padding)
+dialog_label_new(const gchar * labeltext, gfloat xalign, gfloat yalign, GtkWidget * box, guint padding)
 {
 	GtkWidget *label;
 
@@ -512,7 +531,7 @@ dialog_vbox_labeled(const gchar * labeltext, GtkWidget * box)
 {
 	GtkWidget *label;
 
-	label = dialog_box_label_new(labeltext, 0, 0, box, 0);
+	label = dialog_label_new(labeltext, 0, 0, box, 0);
 
 	return dialog_vbox_new(box);
 }
@@ -535,7 +554,7 @@ dialog_vbox_labeled_checkbutton(const gchar * labeltext, GtkWidget * checkbutton
 	hbox = gtk_hbox_new(FALSE, 2);
 	gtk_box_pack_start(GTK_BOX(hbox), checkbutton, FALSE, FALSE, 0);
 
-	label = dialog_box_label_new(labeltext, 0, 0.5, hbox, 0);
+	label = dialog_label_new(labeltext, 0, 0.5, hbox, 0);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), checkbutton);
 	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 0);
 

@@ -27,6 +27,7 @@
 #include "htmlbar.h"
 #include "html_diag.h"
 #include "../bf_lib.h"
+#include "../dialog_utils.h"
 #include "../document.h"
 #include "../file.h"
 #include "../gtk_easy.h"
@@ -276,8 +277,7 @@ image_dialog_set_pixbuf(Timage_diag * imdg)
 
 	tmp_pb =
 		gdk_pixbuf_scale_simple(imdg->pb, (pb_width / toobig), (pd_height / toobig),
-								main_v->
-								globses.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR :
+								main_v->globses.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR :
 								GDK_INTERP_NEAREST);
 
 	if (GTK_IS_WIDGET(imdg->im)) {
@@ -424,8 +424,7 @@ image_adjust_changed(GtkAdjustment * adj, Timage_diag * imdg)
 
 	tmp_pb =
 		gdk_pixbuf_scale_simple(imdg->pb, tn_width, tn_height,
-								main_v->
-								globses.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR :
+								main_v->globses.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR :
 								GDK_INTERP_NEAREST);
 
 	if (GTK_IS_WIDGET(imdg->im)) {
@@ -472,14 +471,14 @@ image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 	gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), scale, FALSE, FALSE, 0);
 
 	dgtable = html_diag_table_in_vbox(imdg->dg, 5, 9);
+
 	if (filename) {
-		imdg->dg->entry[0] = entry_with_text(filename, 1024);
+		imdg->dg->entry[0] = dialog_entry_in_table(filename, dgtable, 1, 7, 0, 1);
 	} else {
-		imdg->dg->entry[0] = entry_with_text(tagvalues[4], 1024);
+		imdg->dg->entry[0] = dialog_entry_in_table(tagvalues[4], dgtable, 1, 7, 0, 1);
 	}
-	bf_mnemonic_label_tad_with_alignment(_("_Image location:"), imdg->dg->entry[0], 0, 0.5, dgtable, 0, 1, 0,
-										 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->entry[0], 1, 7, 0, 1);
+	dialog_mnemonic_label_in_table(_("_Image location:"), imdg->dg->entry[0], dgtable, 0, 1, 0, 1);
+
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), file_but_new(imdg->dg->entry[0], 0, bfwin), 7, 9, 0, 1);
 	g_signal_connect(G_OBJECT(imdg->dg->entry[0]), "changed", G_CALLBACK(image_filename_changed), imdg);
 
@@ -497,22 +496,17 @@ image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[1], 7, 8, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->check[1], 8, 9, 2, 3);
 
-	imdg->dg->entry[3] = entry_with_text(tagvalues[9], 1024);
-	bf_mnemonic_label_tad_with_alignment(_("_Usemap:"), imdg->dg->entry[3], 0, 0.5, dgtable, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->entry[3], 1, 3, 1, 2);
+	imdg->dg->entry[3] = dialog_entry_in_table(tagvalues[9], dgtable, 1, 3, 1, 2);
+	dialog_mnemonic_label_in_table(_("_Usemap:"), imdg->dg->entry[3], dgtable, 0, 1, 1, 2);
 
-	imdg->dg->entry[1] = entry_with_text(tagvalues[8], 1024);
-	bf_mnemonic_label_tad_with_alignment(_("_Name:"), imdg->dg->entry[1], 0, 0.5, dgtable, 0, 1, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->entry[1], 1, 3, 2, 3);
+	imdg->dg->entry[1] = dialog_entry_in_table(tagvalues[8], dgtable, 1, 3, 2, 3);
+	dialog_mnemonic_label_in_table(_("_Name:"), imdg->dg->entry[1], dgtable, 0, 1, 2, 3);
 
-	imdg->dg->entry[2] = entry_with_text(tagvalues[2], 1024);
-	bf_mnemonic_label_tad_with_alignment(_("Alternate _text:"), imdg->dg->entry[2], 0, 0.5, dgtable, 0, 1, 3,
-										 4);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->entry[2], 1, 6, 3, 4);
+	imdg->dg->entry[2] = dialog_entry_in_table(tagvalues[2], dgtable, 1, 6, 3, 4);
+	dialog_mnemonic_label_in_table(_("Alternate _text:"), imdg->dg->entry[2], dgtable, 0, 1, 3, 4);
 
-	imdg->dg->entry[4] = entry_with_text(custom, 1024);
-	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), imdg->dg->entry[4], 0, 0.5, dgtable, 0, 1, 4, 5);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->entry[4], 1, 6, 4, 5);
+	imdg->dg->entry[4] = dialog_entry_in_table(custom, dgtable, 1, 6, 4, 5);
+	dialog_mnemonic_label_in_table(_("Custo_m:"), imdg->dg->entry[4], dgtable, 0, 1, 4, 5);
 
 	imdg->dg->spin[3] = spinbut_with_value(tagvalues[5], 0, 500, 1.0, 5.0);
 	bf_mnemonic_label_tad_with_alignment(_("_Hspace:"), imdg->dg->spin[3], 0, 0.5, dgtable, 6, 7, 3, 4);

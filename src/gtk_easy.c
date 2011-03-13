@@ -345,75 +345,6 @@ combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean edit
 }
 
 /**
- * entry_with_text:
- * 	@setstring: #const gchar* if not NULL set this text
- * 	@max_lenght: #gint max. characters in the entry
- *
- * 	Create new entry with some preset values
- *
- * Return value: #GtkWidget* pointer to the new entry widget
- */
-GtkWidget *
-entry_with_text(const gchar * setstring, gint max_lenght)
-{
-	GtkWidget *returnwidget;
-
-	if (max_lenght) {
-		returnwidget = gtk_entry_new_with_max_length(max_lenght);
-	} else {
-		returnwidget = gtk_entry_new();
-	}
-	if (setstring) {
-		gtk_entry_set_text(GTK_ENTRY(returnwidget), setstring);
-	}
-	gtk_entry_set_activates_default(GTK_ENTRY(returnwidget), TRUE);
-	return returnwidget;
-}
-
-/**
- * boxed_entry_with_text:
- * 	@setstring: #const gchar* if not NULL set this text
- * 	@max_lenght: #gint max. characters in the entry
- * @box: the #GtkWidget* box widget to add the entry to
- *
- * 	Create new entry with some preset values, and add it to a box
- *
- * Return value: #GtkWidget* pointer to the new entry widget
- */
-GtkWidget *
-boxed_entry_with_text(const gchar * setstring, gint max_lenght, GtkWidget * box)
-{
-	GtkWidget *returnwidget;
-
-	returnwidget = entry_with_text(setstring, max_lenght);
-	gtk_box_pack_start(GTK_BOX(box), returnwidget, TRUE, TRUE, 0);
-	return returnwidget;
-
-}
-
-/**
- * boxed_full_entry:
- * @labeltest: #const gchar * with the text for the label
- * 	@setstring: #const gchar* if not NULL set this text
- * 	@max_lenght: #gint max. characters in the entry
- * @box: the #GtkWidget* box widget to add the entry to
- *
- * 	Create new entry with some preset values, and add together 
- * with a label to a hbox, and add that hbox to
- * the box pointer
- *
- * Return value: #GtkWidget* pointer to the new entry widget
- */
-GtkWidget *
-boxed_full_entry(const gchar * labeltext, gchar * setstring, gint max_lenght, GtkWidget * box)
-{
-	GtkWidget *return_widget;
-	return_widget = entry_with_text(setstring, max_lenght);
-	boxed_widget(labeltext, return_widget, box);
-	return return_widget;
-}
-
-/**
  * checkbut_with_value:
  * @labeltest: #const gchar * with the text for the label
  * 	@which_config_int: #gint whether or not to set the checkbutton active
@@ -1592,31 +1523,6 @@ file_chooser_dialog(Tbfwin * bfwin, const gchar * title, GtkFileChooserAction ac
 }
 
 /************************************************************************/
-
-static void
-ungroupradoiitems(GtkWidget * menu)
-{
-	GList *tmplist = g_list_first(gtk_container_get_children(GTK_CONTAINER(menu)));
-	while (tmplist) {
-		GtkWidget *sub;
-		DEBUG_MSG("ungroupradiomenuitems, another item\n");
-		if (GTK_IS_RADIO_MENU_ITEM(tmplist->data)) {
-			DEBUG_MSG("%p is a radiomenu item, ungrouped!\n", tmplist->data);
-			gtk_radio_menu_item_set_group(tmplist->data, NULL);
-		}
-		sub = gtk_menu_item_get_submenu(tmplist->data);
-		if (sub)
-			ungroupradoiitems(sub);
-		tmplist = g_list_next(tmplist);
-	}
-}
-
-void
-destroy_disposable_menu_cb(GtkWidget * widget, GtkWidget * menu)
-{
-	ungroupradoiitems(menu);
-	gtk_widget_destroy(GTK_WIDGET(menu));
-}
 
 static gboolean
 accelerator_key_press_lcb(GtkWidget * widget, GdkEventKey * event, gpointer user_data)

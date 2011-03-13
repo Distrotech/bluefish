@@ -604,15 +604,14 @@ project_edit(Tbfwin * bfwin)
 		g_free(message);
 	}
 
-	table = gtk_table_new(5, 4, FALSE);
+	table = gtk_table_new(1, 2, FALSE);
 	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 6);
 	gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 12);
 
-	pred->entries[name] = entry_with_text(pred->project->name, 255);
+	pred->entries[name] = dialog_entry_in_table(pred->project->name, table, 1, 2, 0, 1);
 	gtk_widget_set_size_request(GTK_WIDGET(pred->entries[name]), 250, -1);
-	bf_mnemonic_label_tad_with_alignment(_("Project _Name:"), pred->entries[name], 1, 0.5, table, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[name], 2, 3, 0, 1);
+	dialog_mnemonic_label_in_table(_("Project _Name:"), pred->entries[name], table, 0, 1, 0, 1);
 
 /*	pred->entries[template] = entry_with_text(pred->project->template, 255);
 	bf_mnemonic_label_tad_with_alignment(_("_Template:"), pred->entries[template], 1, 0.5, table, 0, 1, 3, 4);
