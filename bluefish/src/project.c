@@ -41,7 +41,6 @@
 #include "filebrowser2.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"
-#include "menu.h"
 #include "plugins.h"
 #include "preferences.h"
 #include "project.h"

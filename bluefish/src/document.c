@@ -56,7 +56,6 @@
 #include "filebrowser2.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"			/* *_dialog() */
-#include "menu.h"				/* add_to_recent_list */
 #include "pixmap.h"
 #include "snr2.h"				/* snr2_run_extern_replace */
 #include "stringlist.h"			/* free_stringlist() */
