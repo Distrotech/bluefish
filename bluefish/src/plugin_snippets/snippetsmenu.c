@@ -161,6 +161,7 @@ static void snippets_menu_row_changed(GtkTreeModel * tree_model,
 		if (gtk_bin_get_child(GTK_BIN(mitem))) {
 			g_signal_handlers_disconnect_matched(mitem, G_SIGNAL_MATCH_FUNC, 0, 0, NULL, menuitem_activate, NULL);
 			gtk_label_set_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(mitem))),name);
+			g_free(name);
 		}
 		smdata = g_object_get_data(G_OBJECT(mitem),"smdata");
 		if (!smdata) {
