@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * image.c - the thumbnail/multi-thumbnail dialogs
  *
- * Copyright (C) 2003-2010 Olivier Sessink
+ * Copyright (C) 2003-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,22 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* indented with indent -ts4 -kr -l110   */
+/* indented with indent -psl -ts4 -kr -l110   */
 
 /*#define DEBUG */
 
 #include <string.h>
 
+#include "image.h"
+#include "cap.h"
 #include "htmlbar.h"
 #include "html_diag.h"
-#include "cap.h"
+#include "../bf_lib.h"
 #include "../document.h"
 #include "../file.h"
 #include "../gtk_easy.h"
-#include "../bf_lib.h"
 #include "../stringlist.h"
 
-static GdkPixbufLoader *pbloader_from_filename(const gchar * filename)
+static GdkPixbufLoader *
+pbloader_from_filename(const gchar * filename)
 {
 	GdkPixbufLoader *pbloader;
 	GError *error = NULL;
@@ -54,7 +56,8 @@ static GdkPixbufLoader *pbloader_from_filename(const gchar * filename)
 	return pbloader;
 }
 
-static gchar *create_thumbnail_filename(gchar * filename)
+static gchar *
+create_thumbnail_filename(gchar * filename)
 {
 	gchar *retval, *tmp;
 	gint len = 0, size;
@@ -91,7 +94,8 @@ typedef struct {
 	guint adj_changed_id;
 } Timage_diag;
 
-void image_diag_destroy_cb(GtkWidget * widget, Timage_diag * imdg)
+void
+image_diag_destroy_cb(GtkWidget * widget, Timage_diag * imdg)
 {
 	html_diag_destroy_cb(widget, imdg->dg);
 	if (imdg->pb) {
@@ -103,15 +107,16 @@ void image_diag_destroy_cb(GtkWidget * widget, Timage_diag * imdg)
 	g_free(imdg);
 }
 
-static TcheckNsave_return async_thumbsave_lcb(TcheckNsave_status status, GError * gerror,
-											  gpointer callback_data)
+static TcheckNsave_return
+async_thumbsave_lcb(TcheckNsave_status status, GError * gerror, gpointer callback_data)
 {
 	DEBUG_MSG("async_thumbsave_lcb, status=%d\n", status);
 	/* TODO: handle error */
 	return CHECKNSAVE_CONT;
 }
 
-static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag * imdg)
+static void
+image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag * imdg)
 {
 	gchar *thestring, *finalstring;
 	gchar *thumbnailfilename, *filename;
@@ -198,7 +203,8 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag * imdg)
 		thestring = insert_string_if_entry(GTK_ENTRY(imdg->dg->entry[1]), cap("NAME"), thestring, NULL);
 		thestring = insert_string_if_entry(GTK_ENTRY(imdg->dg->entry[2]), cap("ALT"), thestring, "");
 		thestring = insert_string_if_entry(GTK_ENTRY(imdg->dg->entry[3]), cap("USEMAP"), thestring, NULL);
-		thestring = insert_string_if_combobox(GTK_COMBO_BOX(imdg->dg->combo[0]), cap("ALIGN"), thestring,NULL);
+		thestring =
+			insert_string_if_combobox(GTK_COMBO_BOX(imdg->dg->combo[0]), cap("ALIGN"), thestring, NULL);
 		thestring = insert_string_if_entry(GTK_ENTRY(imdg->dg->entry[4]), NULL, thestring, NULL);
 
 		finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
@@ -215,12 +221,14 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag * imdg)
 	image_diag_destroy_cb(NULL, imdg);
 }
 
-void image_diag_cancel_clicked_cb(GtkWidget * widget, gpointer data)
+void
+image_diag_cancel_clicked_cb(GtkWidget * widget, gpointer data)
 {
 	image_diag_destroy_cb(NULL, data);
 }
 
-static void image_diag_finish(Timage_diag * imdg, GtkSignalFunc ok_func)
+static void
+image_diag_finish(Timage_diag * imdg, GCallback ok_func)
 {
 	GtkWidget *align, *hbox;
 
@@ -242,7 +250,8 @@ static void image_diag_finish(Timage_diag * imdg, GtkSignalFunc ok_func)
 	gtk_widget_show_all(GTK_WIDGET(imdg->dg->dialog));
 }
 
-static void image_dialog_set_pixbuf(Timage_diag * imdg)
+static void
+image_dialog_set_pixbuf(Timage_diag * imdg)
 {
 	gint pb_width, pd_height, toobig;
 	GdkPixbuf *tmp_pb;
@@ -267,8 +276,9 @@ static void image_dialog_set_pixbuf(Timage_diag * imdg)
 
 	tmp_pb =
 		gdk_pixbuf_scale_simple(imdg->pb, (pb_width / toobig), (pd_height / toobig),
-								main_v->globses.
-								image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST);
+								main_v->
+								globses.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR :
+								GDK_INTERP_NEAREST);
 
 	if (GTK_IS_WIDGET(imdg->im)) {
 		DEBUG_MSG("imdg->im == %p\n", imdg->im);
@@ -289,8 +299,9 @@ static void image_dialog_set_pixbuf(Timage_diag * imdg)
 	DEBUG_MSG("image_filename_changed() finished. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 }
 
-static void image_loaded_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen,
-							 gpointer callback_data)
+static void
+image_loaded_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen,
+				 gpointer callback_data)
 {
 	Timage_diag *imdg = callback_data;
 	gboolean cleanup = TRUE;
@@ -329,7 +340,8 @@ static void image_loaded_lcb(Topenfile_status status, GError * gerror, gchar * b
 	}
 }
 
-static void image_filename_changed(GtkWidget * widget, Timage_diag * imdg)
+static void
+image_filename_changed(GtkWidget * widget, Timage_diag * imdg)
 {
 	const gchar *filename;
 	gchar *tmp;
@@ -352,11 +364,11 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag * imdg)
 	if ((tmp == NULL && filename[0] != '/') && imdg->dg->doc->uri) {
 		/* a relative path. create the absolute path. */
 		GFile *parent = g_file_get_parent(imdg->dg->doc->uri);
-		gchar *tmp; 
+		gchar *tmp;
 		/* filename is an URI, not a file path. the function g_file_resolve_relative_path
-		does not handle URI parts like %20 (a space) */
+		   does not handle URI parts like %20 (a space) */
 		tmp = g_uri_unescape_string(filename, NULL);
-		DEBUG_MSG("unescaped filename=%s\n",tmp);
+		DEBUG_MSG("unescaped filename=%s\n", tmp);
 		fullfilename = g_file_resolve_relative_path(parent, tmp);
 		g_free(tmp);
 		g_object_unref(parent);
@@ -369,7 +381,7 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag * imdg)
 	if (fullfilename && g_file_query_exists(fullfilename, NULL)) {
 		gchar *name, *msg;
 		gchar *path = g_file_get_path(fullfilename);
-		DEBUG_MSG("path for fullfilename=%s\n",path);
+		DEBUG_MSG("path for fullfilename=%s\n", path);
 		imdg->pbloader = pbloader_from_filename(path);
 		g_free(path);
 
@@ -393,7 +405,8 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag * imdg)
 	}
 }
 
-static void image_adjust_changed(GtkAdjustment * adj, Timage_diag * imdg)
+static void
+image_adjust_changed(GtkAdjustment * adj, Timage_diag * imdg)
 {
 	GdkPixbuf *tmp_pb;
 	gint tn_width, tn_height;
@@ -411,8 +424,9 @@ static void image_adjust_changed(GtkAdjustment * adj, Timage_diag * imdg)
 
 	tmp_pb =
 		gdk_pixbuf_scale_simple(imdg->pb, tn_width, tn_height,
-								main_v->globses.
-								image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST);
+								main_v->
+								globses.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR :
+								GDK_INTERP_NEAREST);
 
 	if (GTK_IS_WIDGET(imdg->im)) {
 		DEBUG_MSG("imdg->im == %p\n", imdg->im);
@@ -427,7 +441,8 @@ static void image_adjust_changed(GtkAdjustment * adj, Timage_diag * imdg)
 	DEBUG_MSG("image_adjust_changed finished. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 }
 
-void image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
+void
+image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 {
 	static gchar *tagitems[] =
 		{ "width", "height", "alt", "border", "src", "hspace", "vspace", "align", "name", "usemap", NULL };
@@ -531,7 +546,8 @@ void image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * d
 		g_free(custom);
 }
 
-void thumbnail_insert_dialog(Tbfwin * bfwin)
+void
+thumbnail_insert_dialog(Tbfwin * bfwin)
 {
 	image_insert_dialog_backend(NULL, bfwin, NULL);
 }
@@ -572,7 +588,8 @@ typedef struct {
 	Tmuthudia *mtd;
 } Timage2thumb;
 
-static void mt_dialog_destroy(GtkWidget * wid, Tmuthudia * mtd)
+static void
+mt_dialog_destroy(GtkWidget * wid, Tmuthudia * mtd)
 {
 	/* check if we have some images still loading, all images that have 'created == TRUE'
 	   are ready */
@@ -595,7 +612,8 @@ static void mt_dialog_destroy(GtkWidget * wid, Tmuthudia * mtd)
 }
 
 /* needs both pixbufs to get the width !! */
-static void mt_fill_string(Timage2thumb * i2t, GdkPixbuf * image, GdkPixbuf * thumb)
+static void
+mt_fill_string(Timage2thumb * i2t, GdkPixbuf * image, GdkPixbuf * thumb)
 {
 	gint tw, th, ow, oh;
 	gchar *relthumb, *tmp, *relimage;
@@ -664,7 +682,8 @@ static void mt_fill_string(Timage2thumb * i2t, GdkPixbuf * image, GdkPixbuf * th
 	g_free(relthumb);
 }
 
-static Timage2thumb *mt_next(Timage2thumb * i2t)
+static Timage2thumb *
+mt_next(Timage2thumb * i2t)
 {
 	GList *tmplist;
 	tmplist = g_list_find(i2t->mtd->images, i2t);
@@ -672,7 +691,8 @@ static Timage2thumb *mt_next(Timage2thumb * i2t)
 	return (tmplist) ? tmplist->data : NULL;
 }
 
-static Timage2thumb *mt_prev(Timage2thumb * i2t)
+static Timage2thumb *
+mt_prev(Timage2thumb * i2t)
 {
 	GList *tmplist;
 	tmplist = g_list_find(i2t->mtd->images, i2t);
@@ -681,7 +701,8 @@ static Timage2thumb *mt_prev(Timage2thumb * i2t)
 }
 
 /* TRUE if already inserted or successfully inserted, FALSE if not yet ready */
-static gboolean mt_print_string(Timage2thumb * i2t)
+static gboolean
+mt_print_string(Timage2thumb * i2t)
 {
 	if (i2t->string == NULL && i2t->created == TRUE) {
 		/* already added the HTML string */
@@ -710,7 +731,8 @@ static gboolean mt_print_string(Timage2thumb * i2t)
 
 static void mt_start_load(Timage2thumb * i2t);
 
-static gboolean mt_start_next_load(Timage2thumb * i2t)
+static gboolean
+mt_start_next_load(Timage2thumb * i2t)
 {
 	GList *tmplist;
 	for (tmplist = g_list_first(i2t->mtd->images); tmplist; tmplist = g_list_next(tmplist)) {
@@ -723,8 +745,9 @@ static gboolean mt_start_next_load(Timage2thumb * i2t)
 	return FALSE;
 }
 
-static void mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen,
-							gpointer callback_data)
+static void
+mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen,
+				gpointer callback_data)
 {
 	Timage2thumb *i2t = callback_data;
 	switch (status) {
@@ -735,9 +758,9 @@ static void mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * bu
 			/* TODO: should we warn the user ?? */
 #ifdef DEBUG
 			{
-			gchar *path = g_file_get_path(i2t->imagename);
-			DEBUG_MSG("mt_openfile_lcb, some error! status=%d for image %s\n", status, path);
-			g_free(path);
+				gchar *path = g_file_get_path(i2t->imagename);
+				DEBUG_MSG("mt_openfile_lcb, some error! status=%d for image %s\n", status, path);
+				g_free(path);
 			}
 #endif
 		}
@@ -861,7 +884,8 @@ static void mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * bu
 	/* BUG: the last image that reaches this function should free 'mtd' after it is finished */
 }
 
-static void mt_start_load(Timage2thumb * i2t)
+static void
+mt_start_load(Timage2thumb * i2t)
 {
 #ifdef DEBUG
 	gchar *path = g_file_get_path(i2t->imagename);
@@ -871,7 +895,8 @@ static void mt_start_load(Timage2thumb * i2t)
 	i2t->of = file_openfile_uri_async(i2t->imagename, NULL, mt_openfile_lcb, i2t);
 }
 
-static Timage2thumb *mt_image2thumbnail(Tmuthudia * mtd, gchar * curi)
+static Timage2thumb *
+mt_image2thumbnail(Tmuthudia * mtd, gchar * curi)
 {
 	Timage2thumb *i2t;
 	gchar *tmp;
@@ -893,7 +918,8 @@ static Timage2thumb *mt_image2thumbnail(Tmuthudia * mtd, gchar * curi)
 	return i2t;
 }
 
-static void multi_thumbnail_ok_clicked(GtkWidget * widget, Tmuthudia * mtd)
+static void
+multi_thumbnail_ok_clicked(GtkWidget * widget, Tmuthudia * mtd)
 {
 	GSList *files = NULL, *tmplist;
 	GtkWidget *dialog;
@@ -951,12 +977,14 @@ static void multi_thumbnail_ok_clicked(GtkWidget * widget, Tmuthudia * mtd)
 	/* BUG: should we free the list of files now ?? */
 }
 
-static void multi_thumbnail_cancel_clicked(GtkWidget * widget, Tmuthudia * mtd)
+static void
+multi_thumbnail_cancel_clicked(GtkWidget * widget, Tmuthudia * mtd)
 {
 	mt_dialog_destroy(NULL, mtd);
 }
 
-static void multi_thumbnail_radio_toggled_lcb(GtkToggleButton * togglebutton, Tmuthudia * mtd)
+static void
+multi_thumbnail_radio_toggled_lcb(GtkToggleButton * togglebutton, Tmuthudia * mtd)
 {
 	/* only call this for activate, not for de-activate */
 	if (gtk_toggle_button_get_active(togglebutton)) {
@@ -980,7 +1008,8 @@ static void multi_thumbnail_radio_toggled_lcb(GtkToggleButton * togglebutton, Tm
 	}
 }
 
-void multi_thumbnail_dialog(Tbfwin * bfwin)
+void
+multi_thumbnail_dialog(Tbfwin * bfwin)
 {
 	Tmuthudia *mtd;
 	GtkWidget *vbox, *hbox, *but, *table, *label, *scrolwin, *textview;
