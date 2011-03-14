@@ -423,8 +423,8 @@ file_open_url_cb(GtkWidget * widget, Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 5);
 
 	hbox = gtk_hbutton_box_new();
-	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
+	gtk_box_set_spacing(GTK_BOX(hbox), 6);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
 	but = bf_stock_cancel_button(G_CALLBACK(open_url_cancel_lcb), ou);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 0);

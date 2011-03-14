@@ -663,8 +663,8 @@ filefilter_gui(Tfilter * filter)
 	gtk_table_attach(GTK_TABLE(table), vbox, 1, 2, 2, 3, GTK_EXPAND | GTK_FILL, GTK_EXPAND, 5, 5);
 
 	hbox = gtk_hbutton_box_new();
-	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
+	gtk_box_set_spacing(GTK_BOX(hbox), 12);
 	but = bf_stock_cancel_button(G_CALLBACK(filefiltergui_cancel_clicked), ffg);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
 	but = bf_stock_ok_button(G_CALLBACK(filefiltergui_ok_clicked), ffg);

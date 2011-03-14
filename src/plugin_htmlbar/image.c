@@ -234,8 +234,8 @@ image_diag_finish(Timage_diag * imdg, GCallback ok_func)
 	GtkWidget *align, *hbox;
 
 	hbox = gtk_hbutton_box_new();
-	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
+	gtk_box_set_spacing(GTK_BOX(hbox), 6);
 
 	imdg->dg->obut = bf_stock_ok_button(ok_func, imdg);
 	imdg->dg->cbut = bf_stock_cancel_button(G_CALLBACK(image_diag_cancel_clicked_cb), imdg);
@@ -1068,8 +1068,8 @@ multi_thumbnail_dialog(Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 0);
 
 	hbox = gtk_hbutton_box_new();
-	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 1);
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
+	gtk_box_set_spacing(GTK_BOX(hbox), 1);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 5);
 	but = bf_stock_cancel_button(G_CALLBACK(multi_thumbnail_cancel_clicked), mtd);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 5);

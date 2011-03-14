@@ -331,7 +331,7 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 /************************************************************************/
 
 static gchar *
-extract_time_string(char *original_string)
+extract_time_string(const gchar *original_string)
 {
 	static gchar *return_string;
 	gchar *start_ptr;
@@ -369,7 +369,7 @@ insert_time_destroy_lcb(GtkWidget * widget, TimeInsert * data)
 static void
 insert_time_callback(GtkWidget * widget, TimeInsert * timeinsert)
 {
-	gchar *temp_string;
+	const gchar *temp_string;
 	gchar *insert_string;
 	gchar *final_string;
 	gint count;
@@ -378,7 +378,7 @@ insert_time_callback(GtkWidget * widget, TimeInsert * timeinsert)
 	final_string = g_malloc0(255);
 	for (count = 1; count < 7; count++) {
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(timeinsert->check[count]))) {
-			gtk_label_get(GTK_LABEL(timeinsert->label[count]), &temp_string);
+			temp_string = gtk_label_get_text(GTK_LABEL(timeinsert->label[count]));
 			insert_string = extract_time_string(temp_string);
 			strncat(final_string, insert_string, 31);
 			strncat(final_string, " ", 31);
@@ -516,13 +516,13 @@ insert_time_dialog(Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 10);
 	hbox = gtk_hbutton_box_new();
-	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
+	gtk_box_set_spacing(GTK_BOX(hbox), 12);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
-	ok_b = bf_stock_ok_button(GTK_SIGNAL_FUNC(insert_time_callback), (gpointer) timeinsert);
+	ok_b = bf_stock_ok_button(G_CALLBACK(insert_time_callback), (gpointer) timeinsert);
 	gtk_window_set_default(GTK_WINDOW(timeinsert->dialog), ok_b);
-	cancel_b = bf_stock_cancel_button(GTK_SIGNAL_FUNC(insert_time_cancel), (gpointer) timeinsert);
+	cancel_b = bf_stock_cancel_button(G_CALLBACK(insert_time_cancel), (gpointer) timeinsert);
 	gtk_box_pack_start(GTK_BOX(hbox), cancel_b, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), ok_b, TRUE, TRUE, 0);
 

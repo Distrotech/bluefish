@@ -264,7 +264,7 @@ set_documentroot_dialog(Tbfwin * bfwin, GFile * uri)
 
 	tmp = g_file_get_uri(uri);
 	drd->doc_entry = dialog_entry_in_table(tmp, table, 1, 2, 1, 2);
-	gtk_entry_set_editable(GTK_ENTRY(drd->doc_entry), FALSE);
+	gtk_editable_set_editable(GTK_EDITABLE(drd->doc_entry), FALSE);
 	g_free(tmp);
 	dialog_mnemonic_label_in_table(_("Documentroot"), drd->doc_entry, table, 0, 1, 1, 2);
 
