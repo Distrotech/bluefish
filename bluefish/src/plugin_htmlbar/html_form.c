@@ -97,7 +97,7 @@ php_var_but(Thtml_diag * dg, GtkWidget * name, GtkWidget * val)
 	pixmap = gtk_image_new_from_stock(BF_STOCK_PHP3, GTK_ICON_SIZE_BUTTON);
 	gtk_widget_show(pixmap);
 	gtk_container_add(GTK_CONTAINER(returnwid), pixmap);
-	gtk_signal_connect(GTK_OBJECT(returnwid), "clicked", G_CALLBACK(php_var_insert_cb), dg);
+	g_signal_connect(GTK_OBJECT(returnwid), "clicked", G_CALLBACK(php_var_insert_cb), dg);
 	gtk_widget_show(returnwid);
 	return returnwid;
 }

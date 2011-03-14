@@ -489,8 +489,8 @@ doc_set_title(Tdocument * doc)
 		tabmenu_string = g_strdup(label_string);
 		main_v->num_untitled_documents++;
 	}
-	gtk_label_set(GTK_LABEL(doc->tab_menu), tabmenu_string);
-	gtk_label_set(GTK_LABEL(doc->tab_label), label_string);
+	gtk_label_set_text(GTK_LABEL(doc->tab_menu), tabmenu_string);
+	gtk_label_set_text(GTK_LABEL(doc->tab_label), label_string);
 	DEBUG_MSG("doc_set_title, tabmenu_string=%s,label_string=%s\n", tabmenu_string, label_string);
 	doc_set_tooltip(doc);
 	g_free(label_string);
@@ -800,9 +800,9 @@ doc_move_to_window(Tdocument * doc, Tbfwin * oldwin, Tbfwin * newwin)
 		return;
 	}
 	tab_widget = gtk_widget_get_parent(doc->tab_eventbox);
-	gtk_widget_ref(doc->vsplit);
-	gtk_widget_ref(tab_widget);
-	gtk_widget_ref(doc->tab_menu);
+	g_object_ref(G_OBJECT(doc->vsplit));
+	g_object_ref(G_OBJECT(tab_widget));
+	g_object_ref(G_OBJECT(doc->tab_menu));
 	DEBUG_MSG("doc_move_to_window, tab_label=%p, tab_widget=%p\n", doc->tab_label, tab_widget);
 /*	gtk_container_remove(GTK_CONTAINER(oldwin->notebook), doc->view);*/
 	gtk_notebook_remove_page(GTK_NOTEBOOK(oldwin->notebook), g_list_index(oldwin->documentlist, doc));
@@ -813,9 +813,9 @@ doc_move_to_window(Tdocument * doc, Tbfwin * oldwin, Tbfwin * newwin)
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(newwin->notebook), doc->vsplit, tab_widget, doc->tab_menu);
 	DEBUG_MSG("doc_move_to_window, appended doc=%p to newwin %p\n", doc, newwin);
 
-	gtk_widget_unref(doc->vsplit);
-	gtk_widget_unref(tab_widget);
-	gtk_widget_unref(doc->tab_menu);
+	g_object_unref(G_OBJECT(doc->vsplit));
+	g_object_unref(G_OBJECT(tab_widget));
+	g_object_unref(G_OBJECT(doc->tab_menu));
 
 	gtk_widget_show_all(doc->vsplit);
 	gtk_widget_show_all(tab_widget);
@@ -2320,7 +2320,7 @@ document_unset_filename(Tdocument * doc)
 		doc_set_title(doc);
 		doc_set_modified(doc, TRUE);
 
-		gtk_label_set(GTK_LABEL(doc->tab_label), tmpstr);
+		gtk_label_set_text(GTK_LABEL(doc->tab_label), tmpstr);
 
 		g_free(tmpstr);
 	}
