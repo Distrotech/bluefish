@@ -215,10 +215,6 @@ side_panel_build(Tbfwin * bfwin)
 
 	bfwin->leftpanel_notebook = gtk_notebook_new();
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook), main_v->props.leftpanel_tabposition);
-	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(bfwin->leftpanel_notebook), TRUE);
-	gtk_notebook_set_show_border(GTK_NOTEBOOK(bfwin->leftpanel_notebook), FALSE);
-	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(bfwin->leftpanel_notebook), 0);
-	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(bfwin->leftpanel_notebook), 0);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->leftpanel_notebook));
 	DEBUG_MSG("side_panel_build, building side panel for bfwin %p\n", bfwin);
 	bmarks = bmark_gui(bfwin);
@@ -980,10 +976,6 @@ bfwin_create_main(Tbfwin * bfwin)
 	/* notebook with the text widget in there */
 	bfwin->notebook = gtk_notebook_new();
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook), main_v->props.document_tabposition);
-	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(bfwin->notebook), TRUE);
-	gtk_notebook_set_show_border(GTK_NOTEBOOK(bfwin->notebook), FALSE);
-	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(bfwin->notebook), 0);
-	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(bfwin->notebook), 0);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->notebook));
 
 	/* Add notebook and its fake friend to their common hbox. */
