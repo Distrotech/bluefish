@@ -140,7 +140,7 @@ bfwin_set_main_toolbar_visible(Tbfwin * bfwin, gboolean visible, gboolean sync_m
 		DEBUG_MSG("bfwin_set_main_toolbar_visible, trying to sync menu\n");
 		bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewMainToolbar", visible);
 	}
-	if (gtk_container_children(GTK_CONTAINER(bfwin->main_toolbar_hb)) == NULL)
+	if (gtk_bin_get_child(GTK_BIN(bfwin->main_toolbar_hb)) == NULL)
 		bfwin_main_toolbar_init(bfwin);
 
 	widget_set_visible(bfwin->main_toolbar_hb, visible);
@@ -285,7 +285,7 @@ bfwin_side_panel_show_hide_toggle(Tbfwin * bfwin, gboolean first_time, gboolean 
 	}
 
 	if (!first_time) {
-		gtk_widget_ref(bfwin->notebook_box);
+		g_object_ref(G_OBJECT(bfwin->notebook_box));
 		if (show) {
 			gtk_container_remove(GTK_CONTAINER(bfwin->middlebox), bfwin->notebook_box);
 		} else {
@@ -324,7 +324,7 @@ bfwin_side_panel_show_hide_toggle(Tbfwin * bfwin, gboolean first_time, gboolean 
 		gtk_box_pack_start(GTK_BOX(bfwin->middlebox), bfwin->notebook_box, TRUE, TRUE, 0);
 	}
 	if (!first_time) {
-		gtk_widget_unref(bfwin->notebook_box);
+		g_object_unref(G_OBJECT(bfwin->notebook_box));
 	}
 
 	return TRUE;

@@ -673,8 +673,8 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	diag->property = combobox_with_popdown(NULL, tmplist,1);
 	g_list_free(tmplist);
 	tmplist = NULL;
-	gtk_signal_connect(GTK_OBJECT(gtk_bin_get_child(GTK_BIN(diag->property))), "activate", G_CALLBACK(cs3d_prop_activate_lcb), diag);
-	gtk_signal_connect(GTK_OBJECT(gtk_bin_get_child(GTK_BIN(diag->property))), "changed", G_CALLBACK(cs3d_prop_activate_lcb), diag);
+	g_signal_connect(GTK_OBJECT(gtk_bin_get_child(GTK_BIN(diag->property))), "activate", G_CALLBACK(cs3d_prop_activate_lcb), diag);
+	g_signal_connect(GTK_OBJECT(gtk_bin_get_child(GTK_BIN(diag->property))), "changed", G_CALLBACK(cs3d_prop_activate_lcb), diag);
 
 	diag->value = combobox_with_popdown(NULL, tmplist,1);
 	bf_mnemonic_label_tad_with_alignment(_("_Property:"), diag->property, 0, 0.5, table, 0, 1, 1, 2);
@@ -707,8 +707,8 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	gtk_clist_set_auto_sort(GTK_CLIST(diag->clist), TRUE);
 
 /*	gtk_clist_columns_autosize(GTK_CLIST(diag->clist));*/
-	gtk_signal_connect(GTK_OBJECT(diag->clist), "select_row", GTK_SIGNAL_FUNC(cs3d_select_row_lcb), diag);
-	gtk_signal_connect(GTK_OBJECT(diag->clist), "unselect_row", GTK_SIGNAL_FUNC(cs3d_unselect_row_lcb), diag);
+	g_signal_connect(GTK_OBJECT(diag->clist), "select_row", G_CALLBACK(cs3d_select_row_lcb), diag);
+	g_signal_connect(GTK_OBJECT(diag->clist), "unselect_row", G_CALLBACK(cs3d_unselect_row_lcb), diag);
 
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), diag->clist);
 
@@ -730,8 +730,8 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);	
 
 	hbox = gtk_hbutton_box_new();
-	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
+	gtk_box_set_spacing(GTK_BOX(hbox), 12);
 	
 	but = bf_stock_cancel_button(G_CALLBACK(cs3d_cancel_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
@@ -976,7 +976,7 @@ GtkWidget *style_but_new(GtkWidget * which_entry, GtkWidget * win)
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_image_new_from_stock(BF_STOCK_CSS_SMALL, GTK_ICON_SIZE_BUTTON),FALSE, FALSE, 3);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(_("_Style...")), TRUE, TRUE, 3);
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
-	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_clicked_lcb), which_entry);
+	g_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_clicked_lcb), which_entry);
 	gtk_widget_show_all(style_but);
 	return style_but;
 }
@@ -1013,7 +1013,7 @@ GtkWidget *style_but_new_for_wizard(GtkWidget * textview) {
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_image_new_from_stock(BF_STOCK_CSS_SMALL, GTK_ICON_SIZE_BUTTON),FALSE, FALSE, 6);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(_("_Style...")), TRUE, TRUE, 6);
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
-	gtk_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_for_wizard_clicked_lcb), textview);
+	g_signal_connect(GTK_OBJECT(style_but), "clicked", G_CALLBACK(style_but_for_wizard_clicked_lcb), textview);
 	gtk_widget_show_all(style_but);
 	return style_but;
 }
@@ -1131,8 +1131,8 @@ static Tcolsel *colsel_dialog(Tbfwin *bfwin,const gchar *setcolor, gint modal, g
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
 
 	hbox = gtk_hbutton_box_new();
-	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
+	gtk_box_set_spacing(GTK_BOX(hbox), 12);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
 
 	but = bf_stock_cancel_button(G_CALLBACK(colsel_cancel_clicked_lcb), csd);
@@ -1216,7 +1216,7 @@ GtkWidget *color_but_new(GtkWidget * which_entry, GtkWidget * win)
 	GtkWidget *color_but;
 
 	color_but = gtk_button_new_from_stock(GTK_STOCK_SELECT_COLOR);
-	gtk_signal_connect(GTK_OBJECT(color_but), "clicked", G_CALLBACK(color_but_clicked), which_entry);
+	g_signal_connect(GTK_OBJECT(color_but), "clicked", G_CALLBACK(color_but_clicked), which_entry);
 	gtk_widget_show(color_but);
 	return color_but;
 }

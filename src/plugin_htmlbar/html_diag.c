@@ -141,8 +141,8 @@ html_diag_finish(Thtml_diag * dg, GCallback ok_func)
 
 	gtk_box_pack_start(GTK_BOX(dg->vbox), gtk_hseparator_new(), FALSE, FALSE, 12);
 	hbox = gtk_hbutton_box_new();
-	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
+	gtk_box_set_spacing(GTK_BOX(hbox), 12);
 
 	dg->obut = bf_stock_ok_button(ok_func, dg);
 	dg->cbut = bf_stock_cancel_button(G_CALLBACK(html_diag_cancel_clicked_cb), dg);
@@ -229,9 +229,8 @@ fill_dialogvalues(gchar * dialogitems[], gchar * dialogvalues[],
 void
 parse_existence_for_dialog(gchar * valuestring, GtkWidget * checkbox)
 {
-
 	if (valuestring) {
-		gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(checkbox), TRUE);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbox), TRUE);
 		DEBUG_MSG("parse_existence_for_dialog, checkbox set YES, valuestring=%p\n", valuestring);
 	} else {
 		DEBUG_MSG("parse_existence_for_dialog, NO checkbox set, valuestring=%p\n", valuestring);
