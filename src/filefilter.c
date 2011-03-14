@@ -31,7 +31,7 @@
 #include "document.h"
 #include "file.h"
 #include "file_dialogs.h"
-#include "gtk_easy.h"			/* destroy_disposable_menu_cb() */
+#include "gtk_easy.h"
 #include "stringlist.h"			/* free_stringlist() */
 
 typedef struct {
@@ -589,13 +589,15 @@ filefilter_gui(Tfilter * filter)
 	tmplist = g_list_first(g_list_sort(reglist, (GCompareFunc) g_strcmp0));
 	while (tmplist) {
 		GtkTreeIter it;
-		if (MIME_ISDIR(tmplist->data)) {
+		if (!MIME_ISDIR(tmplist->data)) {
 			gtk_list_store_prepend(ffg->lstore, &it);
 			gtk_list_store_set(ffg->lstore, &it, 0, tmplist->data, 2, 0, -1);
 		}
 		tmplist = g_list_next(tmplist);
 	}
 #endif
+
+	g_list_foreach(reglist, (GFunc) g_free, NULL);
 	g_list_free(reglist);
 	/* make sure that all filetypes that exist in the current filter are shown */
 	/*g_hash_table_foreach(ffg->curfilter->filetypes,filefiltergui_add_filetypes,ffg); */
@@ -621,8 +623,9 @@ filefilter_gui(Tfilter * filter)
 
 	ffg->nameentry = dialog_entry_in_table(ffg->curfilter->name, table, 0, 1, 0, 1);
 
-	ffg->inversecheck = checkbut_with_value(_("Hide files that match the filter"), !ffg->curfilter->mode);
-	gtk_table_attach(GTK_TABLE(table), ffg->inversecheck, 0, 1, 1, 2, GTK_FILL, GTK_FILL, 0, 0);
+	ffg->inversecheck =
+		dialog_check_button_in_table(_("Hide files that match the filter"), !ffg->curfilter->mode, table, 0,
+									 1, 1, 2);
 
 	ffg->patentry = dialog_entry_in_table("*.*", table, 2, 3, 1, 2);
 	but = gtk_button_new_with_label(_("Add pattern"));
@@ -670,7 +673,7 @@ filefilter_gui(Tfilter * filter)
 	but = bf_stock_ok_button(G_CALLBACK(filefiltergui_ok_clicked), ffg);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
 
-	gtk_table_attach(GTK_TABLE(table), hbox, 0, 3, 4, 5, GTK_FILL, GTK_FILL, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), hbox, 2, 4, 4, 5, GTK_SHRINK, GTK_SHRINK, 0, 0);
 
 	gtk_container_add(GTK_CONTAINER(ffg->win), table);
 	gtk_widget_show_all(ffg->win);
