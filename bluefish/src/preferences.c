@@ -221,7 +221,7 @@ void
 pref_click_column(GtkTreeViewColumn * treeviewcolumn, gpointer user_data)
 {
 	GtkToggleButton *but = GTK_TOGGLE_BUTTON(user_data);
-	GList *lst = gtk_tree_view_column_get_cell_renderers(treeviewcolumn);
+	GList *lst = gtk_cell_layout_get_cells(GTK_CELL_LAYOUT(treeviewcolumn));
 	if (gtk_toggle_button_get_active(but)) {
 		gtk_toggle_button_set_active(but, FALSE);
 		gtk_button_set_label(GTK_BUTTON(but), "");
@@ -471,7 +471,8 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 	poplist = g_list_sort(poplist, (GCompareFunc) g_strcmp0);
 	poplist = g_list_prepend(poplist, _("None"));
 	sprefs->prefs[template] =
-		dialog_combo_box_text_from_list_in_table(poplist, curtemplate ? curtemplate : _("None"), table, 1, 2, 1, 2);
+		dialog_combo_box_text_from_list_in_table(poplist, curtemplate ? curtemplate : _("None"), table, 1, 2,
+												 1, 2);
 	dialog_mnemonic_label_in_table(_("_Template:"), sprefs->prefs[template], table, 0, 1, 1, 2);
 	g_list_free(poplist);
 
@@ -479,17 +480,22 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 	table = dialog_table_in_vbox_defaults(9, 2, 0, vbox2);
 
 	sprefs->prefs[autocomplete] =
-		dialog_check_button_in_table(_("Enable a_uto-completion"), sessionvars->autocomplete, table, 0, 1, 0, 1);
+		dialog_check_button_in_table(_("Enable a_uto-completion"), sessionvars->autocomplete, table, 0, 1, 0,
+									 1);
 	sprefs->prefs[view_blocks] =
 		dialog_check_button_in_table(_("Enable _block folding"), sessionvars->view_blocks, table, 0, 1, 1, 2);
 	sprefs->prefs[show_mbhl] =
-		dialog_check_button_in_table(_("Highlight block _delimiters"), sessionvars->show_mbhl, table, 0, 1, 2, 3);
+		dialog_check_button_in_table(_("Highlight block _delimiters"), sessionvars->show_mbhl, table, 0, 1, 2,
+									 3);
 	sprefs->prefs[view_cline] =
-		dialog_check_button_in_table(_("_Highlight current line"), sessionvars->view_cline, table, 0, 1, 3, 4);
+		dialog_check_button_in_table(_("_Highlight current line"), sessionvars->view_cline, table, 0, 1, 3,
+									 4);
 	sprefs->prefs[view_line_numbers] =
-		dialog_check_button_in_table(_("Show line _numbers"), sessionvars->view_line_numbers, table, 0, 1, 4, 5);
+		dialog_check_button_in_table(_("Show line _numbers"), sessionvars->view_line_numbers, table, 0, 1, 4,
+									 5);
 	sprefs->prefs[display_right_margin] =
-		dialog_check_button_in_table(_("Show _right margin indicator"), sessionvars->display_right_margin, table, 0, 1, 5, 6);
+		dialog_check_button_in_table(_("Show _right margin indicator"), sessionvars->display_right_margin,
+									 table, 0, 1, 5, 6);
 	sprefs->prefs[autoindent] =
 		dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table, 0, 1, 6, 7);
 	sprefs->prefs[session_wrap_text] =
@@ -497,7 +503,8 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 
 #ifdef HAVE_LIBENCHANT
 	sprefs->prefs[session_spell_check] = dialog_check_button_in_table(_("_Enable spell check"),
-																 sessionvars->spell_check_default, table, 0, 1, 8, 9);
+																	  sessionvars->spell_check_default, table,
+																	  0, 1, 8, 9);
 #endif
 
 	vbox2 = dialog_vbox_labeled(_("<b>Tab Stops</b>"), sprefs->vbox);
@@ -507,7 +514,8 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 	sprefs->prefs[editor_tab_width] =
 		dialog_spin_button_labeled(1, 50, sessionvars->editor_tab_width, _("Tab _width:"), hbox, 0);
 
-	sprefs->prefs[editor_indent_wspaces] = dialog_check_button_new(_("Insert _spaces instead of tabs"), sessionvars->editor_indent_wspaces);
+	sprefs->prefs[editor_indent_wspaces] =
+		dialog_check_button_new(_("Insert _spaces instead of tabs"), sessionvars->editor_indent_wspaces);
 	gtk_box_pack_start(GTK_BOX(vbox2), sprefs->prefs[editor_indent_wspaces], FALSE, FALSE, 0);
 
 	gtk_widget_show_all(sprefs->frame);
@@ -1524,7 +1532,7 @@ preferences_apply(Tprefdialog * pd)
 	main_v->props.register_recent_mode =
 		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[register_recent_mode]));
 	main_v->props.modified_check_type =
-		gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[modified_check_type]));
+		gtk_combo_box_get_active(GTK_COMBO_BOX(pd->prefs[modified_check_type]));
 	integer_apply(&main_v->props.do_periodic_check, pd->prefs[do_periodic_check], TRUE);
 	integer_apply(&main_v->props.max_recent_files, pd->prefs[max_recent_files], FALSE);
 	integer_apply(&main_v->props.leave_to_window_manager, pd->prefs[leave_to_window_manager], TRUE);
@@ -1730,11 +1738,12 @@ open_in_running_bluefish_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
 }
 #endif							/* ifndef WIN32 */
 
-static void xhtml_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
+static void
+xhtml_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
 {
 	gboolean active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-	gtk_widget_set_sensitive(pd->prefs[lowercase_tags],!active);
-	gtk_widget_set_sensitive(pd->prefs[allow_dep],!active);
+	gtk_widget_set_sensitive(pd->prefs[lowercase_tags], !active);
+	gtk_widget_set_sensitive(pd->prefs[allow_dep], !active);
 }
 
 static gint
@@ -1770,7 +1779,7 @@ preferences_dialog_new(void)
 
 	const gchar *autocompmodes[] = { N_("Delayed"), N_("Immediately"), NULL };
 	const gchar *failureactions[] = { N_("Continue save"), N_("Abort save"), N_("Ask what to do"), NULL };
-	gchar *modified_check_types[] =
+	const gchar *modified_check_types[] =
 		{ N_("Nothing"), N_("Modified time and file size"), N_("Modified time"), N_("File size"), NULL };
 	const gchar *notebooktabpositions[] = { N_("left"), N_("right"), N_("top"), N_("bottom"), NULL };
 	const gchar *panellocations[] = { N_("right"), N_("left"), NULL };
@@ -1984,11 +1993,12 @@ preferences_dialog_new(void)
 		tmplist = g_list_next(tmplist);
 	}
 	poplist = g_list_sort(poplist, (GCompareFunc) g_strcmp0);
-	pd->prefs[newfile_default_encoding] = dialog_combo_box_text_labeled_from_list(
-		poplist,
-		main_v->props.newfile_default_encoding,
-		_("_Default character set for new files:"),
-		hbox, 0);
+	pd->prefs[newfile_default_encoding] = dialog_combo_box_text_labeled_from_list(poplist,
+																				  main_v->
+																				  props.newfile_default_encoding,
+																				  _
+																				  ("_Default character set for new files:"),
+																				  hbox, 0);
 	g_list_free(poplist);
 	poplist = NULL;
 
@@ -2013,643 +2023,12 @@ preferences_dialog_new(void)
 	pd->prefs[do_periodic_check] =
 		boxed_checkbut_with_value(_("_Periodically check if file is modified on disk"),
 								  main_v->props.do_periodic_check, vbox2);
+
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
 	pd->prefs[modified_check_type] =
-		boxed_optionmenu_with_value(_("File properties to check on dis_k for modifications"),
-									main_v->props.modified_check_type, vbox2, modified_check_types);
-
-	/*
-	 *  HTML
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("HTML"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>HTML Toolbar</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(4, 1, 0, vbox2);
-
-	pd->prefs[lowercase_tags] = dialog_check_button_in_table(_("Use lo_wercase HTML tags"),
-															 main_v->props.lowercase_tags, table, 0, 1, 0, 1);
-	pd->prefs[allow_dep] = dialog_check_button_in_table(_("Use de_precated tags (e.g. <font> and <nobr>)"),
-														main_v->props.allow_dep, table, 0, 1, 1, 2);
-	pd->prefs[format_by_context] =
-		dialog_check_button_in_table(_
-									 ("_Format according to accessibility guidelines (e.g. <strong> for <b>)"),
-									 main_v->props.format_by_context, table, 0, 1, 2, 3);
-	pd->prefs[xhtml] =
-		dialog_check_button_in_table(_("Use _XHTML style tags (<br />)"), main_v->props.xhtml, table, 0, 1, 3,
-									 4);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Auto Update Tag Options</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(3, 1, 0, vbox2);
-
-	pd->prefs[auto_update_meta_author] =
-		dialog_check_button_in_table(_("Automatically update a_uthor meta tag"),
-									 main_v->props.auto_update_meta_author, table, 0, 1, 0, 1);
-	pd->prefs[auto_update_meta_date] =
-		dialog_check_button_in_table(_("Automatically update _date meta tag"),
-									 main_v->props.auto_update_meta_date, table, 0, 1, 1, 2);
-	pd->prefs[auto_update_meta_generator] =
-		dialog_check_button_in_table(_("Automatically update _generator meta tag"),
-									 main_v->props.auto_update_meta_generator, table, 0, 1, 2, 3);
-
-	/*
-	 *  Templates
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &auxit, &iter);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Templates"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Templates</b>"), vbox1);
-	create_template_gui(pd, vbox2);
-
-	/*
-	 *  User Interface
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &iter, NULL);
-	gtk_tree_store_set(pd->nstore, &iter, NAMECOL, _("User interface"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Document Tabs</b>"), vbox1);
-
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	pd->prefs[document_tabposition] = dialog_combo_box_text_labeled(_("_Tab position:"), notebooktabpositions,
-																	main_v->props.document_tabposition, hbox,
-																	0);
-	pd->prefs[switch_tabs_by_altx] =
-		dialog_check_button_new(_("_Switch between tabs with <Alt>+0..9"), main_v->props.switch_tabs_by_altx);
-	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[switch_tabs_by_altx], FALSE, FALSE, 0);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Misc</b>"), vbox1);
-
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	poplist = lingua_list_sorted();
-	pd->prefs[language] = dialog_combo_box_text_labeled_from_list(poplist, (main_v->props.language
-																			&& main_v->props.language[0]) ?
-																  lingua_locale_to_lang(main_v->
-																						props.language) :
-																  _("Auto"), _("_Language:"), hbox, 0);
-	g_list_free(poplist);
-
-	pd->prefs[transient_htdialogs] = dialog_check_button_new(_("_Make HTML dialogs transient"),
-															 main_v->props.transient_htdialogs);
-	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[transient_htdialogs], FALSE, FALSE, 0);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Recent Files</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(2, 4, 0, vbox2);
-
-	pd->prefs[max_recent_files] =
-		dialog_spin_button_in_table(3, 25, main_v->props.max_recent_files, table, 1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("_Number of files in 'Open recent' menu:"), pd->prefs[max_recent_files],
-								   table, 0, 1, 0, 1);
-	pd->prefs[register_recent_mode] =
-		dialog_combo_box_text_in_table(registerrecentmodes, main_v->props.register_recent_mode, table, 1, 4,
-									   1, 2);
-	dialog_mnemonic_label_in_table(_("_Register recent files with your desktop:"),
-								   pd->prefs[register_recent_mode], table, 0, 1, 1, 2);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Sidebar</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(2, 2, 0, vbox2);
-
-	pd->prefs[left_panel_left] =
-		dialog_combo_box_text_in_table(panellocations, main_v->props.left_panel_left, table, 1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("Locatio_n:"), pd->prefs[left_panel_left], table, 0, 1, 0, 1);
-	pd->prefs[leftpanel_tabposition] = dialog_combo_box_text_in_table(notebooktabpositions,
-																	  main_v->props.leftpanel_tabposition,
-																	  table, 1, 2, 1, 2);
-	dialog_mnemonic_label_in_table(_("Tab _position:"), pd->prefs[leftpanel_tabposition], table, 0, 1, 1, 2);
-
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &auxit, &iter);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Dimensions"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Dimensions</b>"), vbox1);
-
-	pd->prefs[leave_to_window_manager] = dialog_check_button_new(_("_Leave dimensions to window manager"),
-																 main_v->props.leave_to_window_manager);
-	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[leave_to_window_manager], FALSE, FALSE, 0);
-
-	vbox3 = gtk_vbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), vbox3, FALSE, FALSE, 0);
-
-	pd->prefs[restore_dimensions] = dialog_check_button_new(_("_Restore last used dimensions"),
-															main_v->props.restore_dimensions);
-	gtk_box_pack_start(GTK_BOX(vbox3), pd->prefs[restore_dimensions], FALSE, FALSE, 0);
-
-	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox3);
-
-	pd->prefs[left_panel_width] =
-		dialog_spin_button_in_table(1, 4000, main_v->globses.left_panel_width, table, 1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("Initial _sidebar width:"), pd->prefs[left_panel_width], table, 0, 1, 0,
-								   1);
-	pd->prefs[main_window_h] =
-		dialog_spin_button_in_table(1, 4000, main_v->globses.main_window_h, table, 1, 2, 1, 2);
-	dialog_mnemonic_label_in_table(_("Initial window _height:"), pd->prefs[main_window_h], table, 0, 1, 1, 2);
-	pd->prefs[main_window_w] =
-		dialog_spin_button_in_table(1, 4000, main_v->globses.main_window_w, table, 1, 2, 2, 3);
-	dialog_mnemonic_label_in_table(_("Initial window _width:"), pd->prefs[main_window_w], table, 0, 1, 2, 3);
-	restore_dimensions_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]), pd);
-	g_signal_connect(G_OBJECT(pd->prefs[restore_dimensions]), "toggled",
-					 G_CALLBACK(restore_dimensions_toggled_lcb), pd);
-	g_signal_connect(G_OBJECT(pd->prefs[leave_to_window_manager]), "toggled",
-					 G_CALLBACK(leave_to_window_manager_toggled_lcb), vbox3);
-
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	gtk_tree_store_append(pd->nstore, &auxit, &iter);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Font & Colors"), WIDGETCOL, frame, -1);
-
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-	vbox2 = dialog_vbox_labeled(_("<b>Font</b>"), vbox1);
-
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	pd->prefs[use_system_tab_font] =
-		dialog_check_button_new(_("_Use system document tab font"), main_v->props.use_system_tab_font);
-	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[use_system_tab_font], FALSE, FALSE, 0);
-
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	label = dialog_label_new(_("_Document tab font:"), 0, 0.5, hbox, 0);
-	pd->prefs[tab_font_string] = gtk_font_button_new_with_font(main_v->props.tab_font_string);
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[tab_font_string]);
-	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[tab_font_string], FALSE, FALSE, 0);
-	gtk_widget_set_sensitive(hbox,
-							 !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON
-														   (pd->prefs[use_system_tab_font])));
-	g_signal_connect(G_OBJECT(pd->prefs[use_system_tab_font]), "toggled",
-					 G_CALLBACK(prefs_togglebutton_toggled_not_lcb), hbox);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Colors</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
-
-	pd->prefs[tab_color_error] = dialog_color_button_in_table(main_v->props.tab_color_error,
-															  _("Document error tab color"), table, 1, 2, 0,
-															  1);
-	dialog_mnemonic_label_in_table(_("Document tab _error color:"), pd->prefs[tab_color_error], table, 0, 1,
-								   0, 1);
-
-	pd->prefs[tab_color_loading] = dialog_color_button_in_table(main_v->props.tab_color_loading,
-																_("Document loading tab color"), table, 1, 2,
-																1, 2);
-	dialog_mnemonic_label_in_table(_("Document tab loadin_g color:"), pd->prefs[tab_color_loading], table, 0,
-								   1, 1, 2);
-
-	pd->prefs[tab_color_modified] = dialog_color_button_in_table(main_v->props.tab_color_modified,
-																 _("Document modified tab color"), table, 1,
-																 2, 2, 3);
-	dialog_mnemonic_label_in_table(_("Document tab _modified color:"), pd->prefs[tab_color_modified], table,
-								   0, 1, 2, 3);
-
-	/*
-	 *  Images
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Images"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Thumbnails</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(2, 2, 0, vbox2);
-
-	index = prefs_combo_box_get_index_from_text(thumbnail_filetype, main_v->props.image_thumbnailtype);
-	pd->prefs[image_thumbnailtype] =
-		dialog_combo_box_text_in_table(thumbnail_filetype, index, table, 1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("Thumbnail _filetype:"), pd->prefs[image_thumbnailtype], table, 0, 1, 0,
-								   1);
-	pd->prefs[image_thumbnailstring] =
-		dialog_entry_in_table(main_v->props.image_thumbnailstring, table, 1, 2, 1, 2);
-	dialog_mnemonic_label_in_table(_("Thumbnail _suffix:"), pd->prefs[image_thumbnailstring], table, 0, 1, 1,
-								   2);
-
-	/*
-	 *  External Commands
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("External commands"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>External Commands</b>"), vbox1);
-	create_extcommands_gui(pd, vbox2);
-
-	/*
-	 * External Filters
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("External filters"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>External Filters</b>"), vbox1);
-	create_filters_gui(pd, vbox2);
-
-	/*
-	 *  Output Parsers
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Output parsers"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Output Parsers</b>"), vbox1);
-	create_outputbox_gui(pd, vbox2);
-
-	/*
-	 *  Plugins
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Plugins"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Plugins</b>"), vbox1);
-	create_plugin_gui(pd, vbox2);
-
-	/*
-	 *  Text Styles
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Text styles"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Text Styles</b>"), vbox1);
-	create_textstyle_gui(pd, vbox2);
-
-	/*
-	 * Language Support
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &iter, NULL);
-	gtk_tree_store_set(pd->nstore, &iter, NAMECOL, _("Language support"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Reference Information</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(3, 1, 0, vbox2);
-
-	pd->prefs[load_reference] = dialog_check_button_in_table(_("_Load from language file"),
-															 main_v->props.load_reference, table, 0, 1, 0, 1);
-	pd->prefs[show_autocomp_reference] =
-		dialog_check_button_in_table(_("Show in auto-completion _pop-up window"),
-									 main_v->props.show_autocomp_reference, table, 0, 1, 1, 2);
-	pd->prefs[show_tooltip_reference] =
-		dialog_check_button_in_table(_("Show in _tooltip window"), main_v->props.show_tooltip_reference,
-									 table, 0, 1, 2, 3);
-	load_reference_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[load_reference]), pd);
-	g_signal_connect(G_OBJECT(pd->prefs[load_reference]), "toggled", G_CALLBACK(load_reference_toggled_lcb),
-					 pd);
-
-	vbox1 = gtk_vbox_new(FALSE, 5);
-	create_bflang_gui(pd, vbox1);
-
-	tmplist = g_list_first(langmgr_get_languages());
-	while (tmplist) {
-		Tbflang *bflang = tmplist->data;
-		gtk_tree_store_append(pd->nstore, &auxit, &iter);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, bflang->name, WIDGETCOL, vbox1, FUNCCOL,
-						   bflanggui_set_bflang, DATACOL, bflang, -1);
-		tmplist = g_list_next(tmplist);
-	}
-
-	{
-		GtkWidget *ahbox, *but;
-		ahbox = gtk_hbutton_box_new();
-		gtk_button_box_set_layout(GTK_BUTTON_BOX(ahbox), GTK_BUTTONBOX_END);
-		gtk_box_set_spacing(GTK_BOX(ahbox), 6);
-
-		gtk_box_pack_start(GTK_BOX(dvbox), ahbox, FALSE, FALSE, 0);
-		but = bf_gtkstock_button(GTK_STOCK_APPLY, G_CALLBACK(preferences_apply_clicked_lcb), pd);
-		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 0);
-
-		but = bf_stock_cancel_button(G_CALLBACK(preferences_cancel_clicked_lcb), pd);
-		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 0);
-
-		but = bf_stock_ok_button(G_CALLBACK(preferences_ok_clicked_lcb), pd);
-		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 6);
-		gtk_window_set_default(GTK_WINDOW(pd->win), but);
-	}
-
-	gtk_widget_show_all(pd->win);
-
-	g_signal_connect(G_OBJECT(pd->noteb), "cursor-changed", G_CALLBACK(preftree_cursor_changed_cb), pd);
-	path = gtk_tree_path_new_first();
-	gtk_tree_view_set_cursor(GTK_TREE_VIEW(pd->noteb), path, NULL, FALSE);
-	gtk_tree_path_free(path);
-}
-
-static void
-preferences_dialog()
-{
-	Tprefdialog *pd;
-	gint index;
-	GList *tmplist, *poplist;
-	GtkWidget *dvbox, *frame, *hbox, *label, *table, *vbox1, *vbox2, *vbox3;
-	GtkWidget *dhbox, *scrolwin;
-	GtkCellRenderer *cell;
-	GtkTreeIter auxit, iter;
-	GtkTreePath *path;
-	GtkTreeViewColumn *column;
-
-	const gchar *autocompmodes[] = { N_("Delayed"), N_("Immediately"), NULL };
-	const gchar *failureactions[] = { N_("Continue save"), N_("Abort save"), N_("Ask what to do"), NULL };
-	gchar *modified_check_types[] =
-		{ N_("Nothing"), N_("Modified time and file size"), N_("Modified time"), N_("File size"), NULL };
-	const gchar *notebooktabpositions[] = { N_("left"), N_("right"), N_("top"), N_("bottom"), NULL };
-	const gchar *panellocations[] = { N_("right"), N_("left"), NULL };
-	const gchar *registerrecentmodes[] = { N_("Never"), N_("All files"), N_("Only project files"), NULL };
-	/* "jpeg" and "png" shouldn't be translatable, TODO */
-	const gchar *thumbnail_filetype[] = { N_("jpeg"), N_("png"), NULL };
-	const gchar *visible_ws_modes[] =
-		{ N_("All"), N_("All except spaces"), N_("All trailing"), N_("All except non-trailing spaces"),
-		NULL
-	};
-
-	if (main_v->prefdialog) {
-		pd = (Tprefdialog *) main_v->prefdialog;
-		/* bring window to focus ?? */
-		gtk_window_present(GTK_WINDOW(pd->win));
-		return;
-	}
-
-	main_v->prefdialog = pd = g_new0(Tprefdialog, 1);
-	pd->win =
-		window_full(_("Edit preferences"), GTK_WIN_POS_CENTER, 6, G_CALLBACK(preferences_destroy_lcb), pd,
-					TRUE);
-
-	dvbox = gtk_vbox_new(FALSE, 5);
-	dhbox = gtk_hbox_new(FALSE, 5);
-	pd->fixed = gtk_hbox_new(FALSE, 5);
-	pd->nstore = gtk_tree_store_new(4, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_POINTER, G_TYPE_POINTER);
-	pd->noteb = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->nstore));
-	scrolwin = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-	gtk_container_add(GTK_CONTAINER(scrolwin), pd->noteb);
-	gtk_box_pack_start(GTK_BOX(dhbox), scrolwin, FALSE, FALSE, 5);
-	gtk_box_pack_start(GTK_BOX(dhbox), pd->fixed, TRUE, TRUE, 5);
-	cell = gtk_cell_renderer_text_new();
-	column = gtk_tree_view_column_new_with_attributes("", cell, "text", NAMECOL, NULL);
-	gtk_tree_view_append_column(GTK_TREE_VIEW(pd->noteb), column);
-	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(pd->noteb), FALSE);
-	gtk_box_pack_start(GTK_BOX(dvbox), dhbox, TRUE, TRUE, 5);
-	gtk_container_add(GTK_CONTAINER(pd->win), dvbox);
-
-	/*
-	 *  Editor settings
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &iter, NULL);
-	gtk_tree_store_set(pd->nstore, &iter, NAMECOL, _("Editor settings"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Auto-completion</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(2, 2, 0, vbox2);
-
-	pd->prefs[autocomp_popup_mode] = dialog_combo_box_text_in_table(autocompmodes,
-																	main_v->props.autocomp_popup_mode, table,
-																	1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("Show _pop-up window:"), pd->prefs[autocomp_popup_mode], table, 0, 1, 0,
-								   1);
-
-	pd->prefs[autocomp_accel_string] = accelerator_button(main_v->props.autocomp_accel_string);
-	gtk_table_attach(GTK_TABLE(table), pd->prefs[autocomp_accel_string], 1, 2, 1, 2, GTK_FILL, GTK_SHRINK, 0,
-					 0);
-	dialog_mnemonic_label_in_table(_("Shortcut _key combination:"), pd->prefs[autocomp_accel_string], table,
-								   0, 1, 1, 2);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Options</b>"), vbox1);
-
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	pd->prefs[right_margin_pos] =
-		dialog_spin_button_labeled(1, 500, main_v->props.right_margin_pos,
-								   _("Right _margin/split line end position:"), hbox, 0);
-
-	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
-
-	pd->prefs[smartindent] =
-		dialog_check_button_in_table(_("Smart auto indentin_g"), main_v->props.smartindent, table, 0, 1, 0,
-									 1);
-	pd->prefs[editor_smart_cursor] =
-		dialog_check_button_in_table(_("Smart Home/_End cursor positioning"),
-									 main_v->props.editor_smart_cursor, table, 0, 1, 1, 2);
-
-	pd->prefs[editor_tab_indent_sel] =
-		dialog_check_button_in_table(_("_Tab key indents selection"), main_v->props.editor_tab_indent_sel,
-									 table, 0, 1, 2, 3);
-
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	pd->prefs[visible_ws_mode] =
-		dialog_combo_box_text_labeled(_("Visible _whitespace mode:"), visible_ws_modes,
-									  main_v->props.visible_ws_mode, hbox, 0);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Undo</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(2, 2, 0, vbox2);
-
-	pd->prefs[num_undo_levels]
-		= dialog_spin_button_in_table(50, 1000, main_v->props.num_undo_levels, table, 1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("_Number of actions in history:"), pd->prefs[num_undo_levels], table, 0,
-								   1, 0, 1);
-	pd->prefs[clear_undo_on_save] =
-		dialog_check_button_in_table(_("Clear _history on save"), main_v->props.clear_undo_on_save, table, 0,
-									 1, 1, 2);
-
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	gtk_tree_store_append(pd->nstore, &auxit, &iter);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Font & Colors"), WIDGETCOL, frame, -1);
-
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-	vbox2 = dialog_vbox_labeled(_("<b>Font</b>"), vbox1);
-
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	label = dialog_label_new(_("_Editor font:"), 0, 0.5, hbox, 0);
-	pd->prefs[editor_font_string] = gtk_font_button_new_with_font(main_v->props.editor_font_string);
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[editor_font_string]);
-	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[editor_font_string], FALSE, FALSE, 0);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Colors</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(5, 2, 0, vbox2);
-
-	pd->prefs[editor_fg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_ED_FG],
-														_("Foreground color"), table, 1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("_Foreground color:"), pd->prefs[editor_fg], table, 0, 1, 0, 1);
-
-	pd->prefs[editor_bg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_ED_BG],
-														_("Background color"), table, 1, 2, 1, 2);
-	dialog_mnemonic_label_in_table(_("_Background color:"), pd->prefs[editor_bg], table, 0, 1, 1, 2);
-
-	pd->prefs[cursor_color] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_CURSOR],
-														   _("Cursor color"), table, 1, 2, 2, 3);
-	dialog_mnemonic_label_in_table(_("C_ursor color:"), pd->prefs[cursor_color], table, 0, 1, 2, 3);
-
-	pd->prefs[cline_bg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE],
-													   _("Current line color"), table, 1, 2, 3, 4);
-	dialog_mnemonic_label_in_table(_("Cu_rrent line color:"), pd->prefs[cline_bg], table, 0, 1, 3, 4);
-
-	pd->prefs[visible_ws] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE],
-														 _("Visible whitespace color"), table, 1, 2, 4, 5);
-	dialog_mnemonic_label_in_table(_("_Visible whitespace color:"), pd->prefs[visible_ws], table, 0, 1, 4, 5);
-
-	/*
-	 *  Initial document settings
-	 */
-	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL, _("Initial document settings"), WIDGETCOL, vbox1, -1);
-
-	sessionprefs(_("<b>Non Project Defaults</b>"), &pd->sprefs, main_v->session);
-	gtk_box_pack_start(GTK_BOX(vbox1), pd->sprefs.frame, FALSE, FALSE, 5);
-
-	/*
-	 *  Files
-	 */
-	frame = gtk_frame_new(NULL);
-	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
-	vbox1 = gtk_vbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(vbox1), 6);
-	gtk_container_add(GTK_CONTAINER(frame), vbox1);
-
-	gtk_tree_store_append(pd->nstore, &iter, NULL);
-	gtk_tree_store_set(pd->nstore, &iter, NAMECOL, _("Files"), WIDGETCOL, frame, -1);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Backup</b>"), vbox1);
-
-	pd->prefs[backup_file] = dialog_check_button_new(_("Create _backup file during file save"),
-													 main_v->props.backup_file);
-	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[backup_file], FALSE, FALSE, 0);
-	vbox3 = gtk_vbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), vbox3, FALSE, FALSE, 0);
-	pd->prefs[backup_cleanuponclose] = dialog_check_button_new(_("_Remove backup file on close"),
-															   main_v->props.backup_cleanuponclose);
-	gtk_box_pack_start(GTK_BOX(vbox3), pd->prefs[backup_cleanuponclose], FALSE, FALSE, 0);
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox3), hbox, FALSE, FALSE, 0);
-	pd->prefs[backup_abort_action] = dialog_combo_box_text_labeled(_("If back_up fails:"), failureactions,
-																   main_v->props.backup_abort_action, hbox,
-																   0);
-	prefs_togglebutton_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[backup_file]), vbox3);
-	g_signal_connect(G_OBJECT(pd->prefs[backup_file]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_lcb),
-					 vbox3);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Document Recovery</b>"), vbox1);
-
-	pd->prefs[autosave] =
-		dialog_check_button_new(_("_Enable recovery of modified documents"), main_v->props.autosave);
-	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[autosave], FALSE, FALSE, 0);
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	label = dialog_label_new(_("_Frequency to store changes (seconds):"), 0, 0.5, hbox, 0);
-	pd->prefs[autosave_time] = dialog_spin_button_new(10, 600, main_v->props.autosave_time);
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), pd->prefs[autosave_time]);
-	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[autosave_time], FALSE, FALSE, 0);
-	prefs_togglebutton_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[autosave]), hbox);
-	g_signal_connect(G_OBJECT(pd->prefs[autosave]), "toggled", G_CALLBACK(prefs_togglebutton_toggled_lcb),
-					 hbox);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Encoding</b>"), vbox1);
-
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
-	poplist = NULL;
-	tmplist = g_list_first(main_v->globses.encodings);
-	while (tmplist) {
-		gchar **strarr = (gchar **) tmplist->data;
-		poplist = g_list_append(poplist, strarr[1]);
-		tmplist = g_list_next(tmplist);
-	}
-	poplist = g_list_sort(poplist, (GCompareFunc) g_strcmp0);
-	pd->prefs[newfile_default_encoding] = dialog_combo_box_text_labeled_from_list(
-		poplist,
-		main_v->props.newfile_default_encoding,
-		_("_Default character set for new files:"),
-		hbox, 0);
-	g_list_free(poplist);
-	poplist = NULL;
-
-	pd->prefs[auto_set_encoding_meta] =
-		dialog_check_button_new(_("Auto set <meta> _HTML tag on encoding change"),
-								main_v->props.auto_set_encoding_meta);
-	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[auto_set_encoding_meta], FALSE, FALSE, 0);
-
-	vbox2 = dialog_vbox_labeled(_("<b>Misc</b>"), vbox1);
-
-#ifndef WIN32
-	pd->prefs[open_in_running_bluefish] =
-		boxed_checkbut_with_value(_("Open co_mmandline files in running bluefish process"),
-								  main_v->props.open_in_running_bluefish, vbox2);
-	g_signal_connect(pd->prefs[open_in_running_bluefish], "toggled",
-					 G_CALLBACK(open_in_running_bluefish_toggled_lcb), pd);
-	pd->prefs[open_in_new_window] =
-		boxed_checkbut_with_value(_("Open commandline files in new _window"),
-								  main_v->props.open_in_new_window, vbox2);
-	gtk_widget_set_sensitive(pd->prefs[open_in_new_window], main_v->props.open_in_running_bluefish);
-#endif							/* ifndef WIN32 */
-	pd->prefs[do_periodic_check] =
-		boxed_checkbut_with_value(_("_Periodically check if file is modified on disk"),
-								  main_v->props.do_periodic_check, vbox2);
-	pd->prefs[modified_check_type] =
-		boxed_optionmenu_with_value(_("File properties to check on dis_k for modifications"),
-									main_v->props.modified_check_type, vbox2, modified_check_types);
+		dialog_combo_box_text_labeled(_("File properties to check on dis_k for modifications:"),
+									  modified_check_types, main_v->props.modified_check_type, hbox, 0);
 
 	/*
 	 *  HTML
@@ -2680,6 +2059,7 @@ preferences_dialog()
 	g_signal_connect(G_OBJECT(pd->prefs[xhtml]), "toggled", G_CALLBACK(xhtml_toggled_lcb), pd);
 	xhtml_toggled_lcb(pd->prefs[xhtml], pd);
 
+
 	vbox2 = dialog_vbox_labeled(_("<b>Auto Update Tag Options</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(3, 1, 0, vbox2);
 
@@ -3023,17 +2403,4 @@ preferences_dialog()
 	path = gtk_tree_path_new_first();
 	gtk_tree_view_set_cursor(GTK_TREE_VIEW(pd->noteb), path, NULL, FALSE);
 	gtk_tree_path_free(path);
-
-}
-
-void
-open_preferences_cb(GtkWidget * wid, gpointer data)
-{
-	preferences_dialog();
-}
-
-void
-open_preferences_menu_cb(gpointer callback_data, guint action, GtkWidget * widget)
-{
-	preferences_dialog();
 }

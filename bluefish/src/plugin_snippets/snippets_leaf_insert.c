@@ -22,6 +22,7 @@
 
 #include "snippets.h"
 #include "snippets_gui.h"
+#include "../dialog_utils.h"
 #include "../document.h"
 #include "../gtk_easy.h"
 #include "../bf_lib.h"
@@ -127,7 +128,7 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 			final_name = g_markup_escape_text((gchar *)name,-1);
 			sid->textentry[i] = gtk_entry_new();
 			gtk_entry_set_activates_default(GTK_ENTRY(sid->textentry[i]),TRUE);
-			bf_mnemonic_label_tad_with_alignment(final_name, sid->textentry[i], 0, 0.5, table, 0, 1, i+1, i+2);
+			dialog_mnemonic_label_in_table(final_name, sid->textentry[i], table, 0, 1, i+1, i+2);
 			if (is_file && is_file[0]=='1') {
 				GtkWidget *but;
 				gtk_table_attach(GTK_TABLE (table), sid->textentry[i], 1, 2, i+1, i+2, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);

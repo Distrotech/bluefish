@@ -51,9 +51,7 @@ GtkWidget *boxed_radiobut_with_value(gchar * labeltext, gint enabled, GtkRadioBu
 									 GtkWidget * box);
 GtkWidget *spinbut_with_value(gchar * value, gfloat lower, gfloat upper, gfloat step_increment,
 							  gfloat page_increment);
-GtkWidget *optionmenu_with_value(gchar ** options, gint curval);
-GtkWidget *boxed_optionmenu_with_value(const gchar * labeltext, gint curval, GtkWidget * box,
-									   gchar ** options);
+
 GtkWidget *window_with_title(const gchar * title, GtkWindowPosition position, gint borderwidth);
 
 void window_delete_on_escape(GtkWindow * window);
@@ -83,9 +81,7 @@ GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer f
 #define bf_stock_cancel_button(func, data) bf_gtkstock_button(GTK_STOCK_CANCEL, func, data)
 
 GtkWidget *bf_generic_frame_new(const gchar * label, GtkShadowType shadowtype, gint borderwidth);
-void bf_mnemonic_label_tad_with_alignment(const gchar * labeltext, GtkWidget * m_widget, gfloat xalign,
-										  gfloat yalign, GtkWidget * table, guint left_attach,
-										  guint right_attach, guint top_attach, guint bottom_attach);
+
 GtkWidget *bf_label_with_markup(const gchar * labeltext);
 void bf_label_tad_with_markup(const gchar * labeltext, gfloat xalign, gfloat yalign,
 							  GtkWidget * table, guint left_attach, guint right_attach, guint top_attach,

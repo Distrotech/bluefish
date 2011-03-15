@@ -658,7 +658,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	if (diag->styletype == multistyle) {
 		tmplist = glist_with_html_tags(1);
 		diag->selector = combobox_with_popdown(NULL, tmplist,1);
-		bf_mnemonic_label_tad_with_alignment(_("_Selector:"), diag->selector, 0, 0.5, table, 0, 1, 0, 1);
+		dialog_mnemonic_label_in_table(_("_Selector:"), diag->selector, table, 0, 1, 0, 1);
 		gtk_table_attach_defaults(GTK_TABLE(table), diag->selector, 1 ,5 , 0, 1);
 		g_list_free(tmplist);
 		tmplist = NULL;
@@ -677,9 +677,9 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	g_signal_connect(GTK_OBJECT(gtk_bin_get_child(GTK_BIN(diag->property))), "changed", G_CALLBACK(cs3d_prop_activate_lcb), diag);
 
 	diag->value = combobox_with_popdown(NULL, tmplist,1);
-	bf_mnemonic_label_tad_with_alignment(_("_Property:"), diag->property, 0, 0.5, table, 0, 1, 1, 2);
+	dialog_mnemonic_label_in_table(_("_Property:"), diag->property, table, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), diag->property, 1, 5, 1, 2);
-	bf_mnemonic_label_tad_with_alignment(_("_Value:"), diag->value, 0, 0.5, table, 0, 1, 2, 3);
+	dialog_mnemonic_label_in_table(_("_Value:"), diag->value, table, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(table), diag->value, 1, 5, 2, 3);
 	
 	gtk_widget_realize(diag->win);
