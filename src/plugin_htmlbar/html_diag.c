@@ -295,7 +295,7 @@ parse_integer_for_dialog(gchar * valuestring, GtkWidget * spin, GtkWidget * entr
 
 	if (checkbox) {
 		DEBUG_MSG("parse_integer_for_dialog, checkbox set\n");
-		gtk_toggle_button_set_state(GTK_TOGGLE_BUTTON(checkbox), percentage);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(checkbox), percentage);
 	} else {
 		DEBUG_MSG("parse_integer_for_dialog, NO checkbox set\n");
 	}

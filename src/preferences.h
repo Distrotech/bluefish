@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * preferences.h - the preferences code
  *
- * Copyright (C) 2002-2010 Olivier Sessink
+ * Copyright (C) 2002-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,13 +20,12 @@
 #ifndef __PREFERENCES_H_
 #define __PREFERENCES_H_
 
-enum
-{
+enum {
 	session_wrap_text,
 	view_line_numbers,
-	editor_tab_width,	/* editor tabwidth */
+	editor_tab_width,			/* editor tabwidth */
 	editor_indent_wspaces,
-	autoindent,			/* autoindent code */
+	autoindent,					/* autoindent code */
 	autocomplete,
 	view_blocks,
 	show_mbhl,
@@ -40,23 +39,15 @@ enum
 	session_num_max
 };
 
-typedef struct
-{
+typedef struct {
 	GtkWidget *vbox;
 	GtkWidget *frame;
 	GtkWidget *prefs[session_num_max];
 } Tsessionprefs;
 
-void
-sessionprefs_apply(Tsessionprefs *sprefs, Tsessionvars *sessionvars);
-Tsessionprefs *
-sessionprefs(const gchar *label, Tsessionprefs *sprefs, Tsessionvars *sessionvars);
+void sessionprefs_apply(Tsessionprefs * sprefs, Tsessionvars * sessionvars);
+Tsessionprefs *sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * sessionvars);
 
 void preferences_dialog_new(void);
 
-void
-open_preferences_cb(GtkWidget *wid, gpointer data);
-void
-open_preferences_menu_cb(gpointer callback_data, guint action, GtkWidget *widget);
-
-#endif /* __PREFERENCES_H_ */
+#endif							/* __PREFERENCES_H_ */
