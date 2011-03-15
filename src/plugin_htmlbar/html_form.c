@@ -171,7 +171,7 @@ formdialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 		free_stringlist(rel_link_list);
 	}
 
-	bf_mnemonic_label_tad_with_alignment(_("_Action:"), dg->combo[4], 0, 0.5, dgtable, 0, 1, 0, 1);
+	dialog_mnemonic_label_in_table(_("_Action:"), dg->combo[4], dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[4], 1, 8, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable),
 							  file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[4]))), 0, bfwin), 8,
@@ -181,7 +181,7 @@ formdialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	methodlist = g_list_append(methodlist, cap("POST"));
 	dg->combo[1] = combobox_with_popdown(tagvalues[1], methodlist, 1);
 	g_list_free(methodlist);
-	bf_mnemonic_label_tad_with_alignment(_("Metho_d:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
+	dialog_mnemonic_label_in_table(_("Metho_d:"), dg->combo[1], dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 2, 1, 2);
 
 	/* I need to add more types */
@@ -190,14 +190,14 @@ formdialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	enctypelist = g_list_append(enctypelist, "text/plain");
 	dg->combo[2] = combobox_with_popdown(tagvalues[2], enctypelist, 1);
 	g_list_free(enctypelist);
-	bf_mnemonic_label_tad_with_alignment(_("_Enctype:"), dg->combo[2], 0, 0.5, dgtable, 3, 4, 1, 2);
+	dialog_mnemonic_label_in_table(_("_Enctype:"), dg->combo[2], dgtable, 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[2]), 4, 10, 1, 2);
 
 	bfwin->session->targetlist = add_to_stringlist(bfwin->session->targetlist, "_top");
 	bfwin->session->targetlist = add_to_stringlist(bfwin->session->targetlist, "_blank");
 	bfwin->session->targetlist = add_to_stringlist(bfwin->session->targetlist, "_parent");
 	dg->combo[3] = combobox_with_popdown(tagvalues[3], bfwin->session->targetlist, 1);
-	bf_mnemonic_label_tad_with_alignment(_("_Target:"), dg->combo[3], 0, 0.5, dgtable, 0, 1, 2, 3);
+	dialog_mnemonic_label_in_table(_("_Target:"), dg->combo[3], dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[3])), 1, 10, 2, 3);
 
 	dg->entry[2] = dialog_entry_in_table(custom, dgtable, 1, 10, 3, 4);
@@ -252,11 +252,11 @@ textareadialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	dg->spin[1] = spinbut_with_value(tagvalues[2], 0, 500, 1.0, 5.0);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 1, 2);
-	bf_mnemonic_label_tad_with_alignment(_("_Rows:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 1, 2);
+	dialog_mnemonic_label_in_table(_("_Rows:"), dg->spin[1], dgtable, 0, 1, 1, 2);
 
 	dg->spin[2] = spinbut_with_value(tagvalues[3], 0, 500, 1.0, 5.0);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 2, 2, 3);
-	bf_mnemonic_label_tad_with_alignment(_("Co_ls:"), dg->spin[2], 0, 0.5, dgtable, 0, 1, 2, 3);
+	dialog_mnemonic_label_in_table(_("Co_ls:"), dg->spin[2], dgtable, 0, 1, 2, 3);
 
 	/* dg->check[1] = gtk_check_button_new();
 	   gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 3, 4);
@@ -316,11 +316,11 @@ selectdialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	dg->spin[1] = spinbut_with_value(tagvalues[1], 0, 1000, 1.0, 5.0);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 1, 2);
-	bf_mnemonic_label_tad_with_alignment(_("Si_ze:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 1, 2);
+	dialog_mnemonic_label_in_table(_("Si_ze:"), dg->spin[1], dgtable, 0, 1, 1, 2);
 
 	dg->check[1] = gtk_check_button_new();
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 2, 3);
-	bf_mnemonic_label_tad_with_alignment(_("Multiple _Selections:"), dg->check[1], 0, 0.5, dgtable, 0, 1, 2,
+	dialog_mnemonic_label_in_table(_("Multiple _Selections:"), dg->check[1], dgtable, 0, 1, 2,
 										 3);
 	parse_existence_for_dialog(tagvalues[2], dg->check[1]);
 
@@ -379,7 +379,7 @@ optiondialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	dg->check[1] = gtk_check_button_new();
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 2, 3);
-	bf_mnemonic_label_tad_with_alignment(_("_Selected:"), dg->check[1], 0, 0.5, dgtable, 0, 1, 2, 3);
+	dialog_mnemonic_label_in_table(_("_Selected:"), dg->check[1], dgtable, 0, 1, 2, 3);
 	parse_existence_for_dialog(tagvalues[2], dg->check[1]);
 
 	html_diag_finish(dg, G_CALLBACK(optiondialogok_lcb));
@@ -528,7 +528,7 @@ inputdialog_dialog(Tbfwin * bfwin, Ttagpopup * data, const gchar * type)
 		dg->combo[0] = combobox_with_popdown(tagvalues[0] ? tagvalues[0] : type2, poplist, 0);
 		g_list_free(poplist);
 	}
-	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[0], 0, 0.5, dgtable, 0, 1, 0, 1);
+	dialog_mnemonic_label_in_table(_("_Type:"), dg->combo[0], dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[0])), 1, 3, 0, 1);
 
 	g_signal_connect(G_OBJECT(dg->combo[0]), "changed", G_CALLBACK(inputdialog_typecombo_activate_lcb), dg);
@@ -540,16 +540,16 @@ inputdialog_dialog(Tbfwin * bfwin, Ttagpopup * data, const gchar * type)
 	dialog_mnemonic_label_in_table(_("_Value:"), dg->entry[1], dgtable, 0, 1, 2, 3);
 
 	dg->check[0] = gtk_check_button_new();
-	bf_mnemonic_label_tad_with_alignment(_("_Checked:"), dg->check[0], 0, 0.5, dgtable, 0, 1, 3, 4);
+	dialog_mnemonic_label_in_table(_("_Checked:"), dg->check[0], dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[0], 1, 3, 3, 4);
 	parse_existence_for_dialog(tagvalues[3], dg->check[0]);
 
 	dg->spin[0] = spinbut_with_value(tagvalues[4], 0, 1000, 1.0, 5.0);
-	bf_mnemonic_label_tad_with_alignment(_("Si_ze:"), dg->spin[0], 0, 0.5, dgtable, 0, 1, 4, 5);
+	dialog_mnemonic_label_in_table(_("Si_ze:"), dg->spin[0], dgtable, 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[0], 1, 2, 4, 5);
 
 	dg->spin[1] = spinbut_with_value(tagvalues[5], 0, 10000, 1.0, 5.0);
-	bf_mnemonic_label_tad_with_alignment(_("Max _Length:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 5, 6);
+	dialog_mnemonic_label_in_table(_("Max _Length:"), dg->spin[1], dgtable, 0, 1, 5, 6);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 5, 6);
 
 	dg->entry[2] = dialog_entry_in_table(tagvalues[6], dgtable, 1, 3, 6, 7);
@@ -637,7 +637,7 @@ buttondialog_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	tmplist = list_from_arglist(FALSE, "", "submit", "reset", "button", NULL);
 	dg->combo[1] = combobox_with_popdown(tagvalues[2], tmplist, 0);
 	g_list_free(tmplist);
-	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 2, 3);
+	dialog_mnemonic_label_in_table(_("_Type:"), dg->combo[1], dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 9, 2, 3);
 
 	dg->entry[3] = dialog_entry_in_table(custom, dgtable, 1, 9, 3, 4);

@@ -485,14 +485,14 @@ image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 	imdg->dg->spin[0] = spinbut_with_value(NULL, 0, 5000, 1.0, 10.0);
 	imdg->dg->check[0] = gtk_check_button_new_with_label("%");
 	parse_integer_for_dialog(tagvalues[0], imdg->dg->spin[0], NULL, imdg->dg->check[0]);
-	bf_mnemonic_label_tad_with_alignment(_("_Width:"), imdg->dg->spin[0], 0, 0.5, dgtable, 6, 7, 1, 2);
+	dialog_mnemonic_label_in_table(_("_Width:"), imdg->dg->spin[0], dgtable, 6, 7, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[0], 7, 8, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->check[0], 8, 9, 1, 2);
 
 	imdg->dg->spin[1] = spinbut_with_value(NULL, 0, 5000, 1.0, 10.0);
 	imdg->dg->check[1] = gtk_check_button_new_with_label("%");
 	parse_integer_for_dialog(tagvalues[1], imdg->dg->spin[1], NULL, imdg->dg->check[1]);
-	bf_mnemonic_label_tad_with_alignment(_("Hei_ght:"), imdg->dg->spin[1], 0, 0.5, dgtable, 6, 7, 2, 3);
+	dialog_mnemonic_label_in_table(_("Hei_ght:"), imdg->dg->spin[1], dgtable, 6, 7, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[1], 7, 8, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->check[1], 8, 9, 2, 3);
 
@@ -509,11 +509,11 @@ image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 	dialog_mnemonic_label_in_table(_("Custo_m:"), imdg->dg->entry[4], dgtable, 0, 1, 4, 5);
 
 	imdg->dg->spin[3] = spinbut_with_value(tagvalues[5], 0, 500, 1.0, 5.0);
-	bf_mnemonic_label_tad_with_alignment(_("_Hspace:"), imdg->dg->spin[3], 0, 0.5, dgtable, 6, 7, 3, 4);
+	dialog_mnemonic_label_in_table(_("_Hspace:"), imdg->dg->spin[3], dgtable, 6, 7, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[3], 7, 9, 3, 4);
 
 	imdg->dg->spin[4] = spinbut_with_value(tagvalues[6], 0, 500, 1.0, 5.0);
-	bf_mnemonic_label_tad_with_alignment(_("_Vspace:"), imdg->dg->spin[4], 0, 0.5, dgtable, 6, 7, 4, 5);
+	dialog_mnemonic_label_in_table(_("_Vspace:"), imdg->dg->spin[4], dgtable, 6, 7, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[4], 7, 9, 4, 5);
 
 	popuplist = g_list_append(NULL, "bottom");
@@ -523,11 +523,11 @@ image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 	popuplist = g_list_append(popuplist, "right");
 	imdg->dg->combo[0] = combobox_with_popdown_sized(tagvalues[7], popuplist, 1, 90);
 	g_list_free(popuplist);
-	bf_mnemonic_label_tad_with_alignment(_("_Align:"), imdg->dg->combo[0], 0, 0.5, dgtable, 3, 4, 1, 2);
+	dialog_mnemonic_label_in_table(_("_Align:"), imdg->dg->combo[0], dgtable, 3, 4, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->combo[0], 4, 6, 1, 2);
 	if (!main_v->props.xhtml) {
 		imdg->dg->spin[2] = spinbut_with_value(tagvalues[3], 0, 500, 1.0, 5.0);
-		bf_mnemonic_label_tad_with_alignment(_("Borde_r:"), imdg->dg->spin[2], 0, 0.5, dgtable, 3, 4, 2, 3);
+		dialog_mnemonic_label_in_table(_("Borde_r:"), imdg->dg->spin[2], dgtable, 3, 4, 2, 3);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), imdg->dg->spin[2], 4, 6, 2, 3);
 	}
 	if (filename || tagvalues[4]) {

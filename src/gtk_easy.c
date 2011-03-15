@@ -401,7 +401,7 @@ radiobut_with_value(gchar * labeltext, gint enabled, GtkRadioButton * prevbut)
 	GSList *group = NULL;
 
 	if (prevbut) {
-		group = gtk_radio_button_group(prevbut);
+		group = gtk_radio_button_get_group(prevbut);
 	}
 	returnwidget = gtk_radio_button_new_with_mnemonic(group, labeltext);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(returnwidget), enabled);
@@ -478,73 +478,6 @@ spinbut_with_value(gchar * value, gfloat lower, gfloat upper, gfloat step_increm
 	if (!value) {
 		gtk_entry_set_text(GTK_ENTRY(GTK_SPIN_BUTTON(returnwidget)), "");
 	}
-
-	return returnwidget;
-}
-
-/* THIS ONE IS NEVERUSED
-GtkWidget *boxed_spinbut_with_value(gchar *value, gfloat lower, gfloat upper, gfloat step_increment, gfloat page_increment, GtkWidget *box) {
-	GtkWidget *returnwidget;
-	returnwidget = spinbut_with_value(value, lower, upper, step_increment, page_increment);
-	gtk_box_pack_start(GTK_BOX(box), returnwidget, FALSE, FALSE, 0);
-	return returnwidget;
-}
-*/
-/**
- * optionmenu_with_value:
- * @options: a #gchar** NULL terminated array with option strings
- * @curval: a #gint with the current selected item
- *
- * Create new popupmenu from options, and set the selected index from curval
- *
- * Return value: #GtkWidget* pointer to the new menu widget
- * Created by: Rubén Dorta
- */
-
-GtkWidget *
-optionmenu_with_value(gchar ** options, gint curval)
-{
-	GtkWidget *returnwidget;
-	GtkWidget *menu, *menuitem;
-	gchar **str;
-
-	returnwidget = gtk_option_menu_new();
-	menu = gtk_menu_new();
-	str = options;
-
-	while (*str) {
-		DEBUG_MSG("prefs_optionmenu, adding %s to optionmenu\n", *str);
-		menuitem = gtk_menu_item_new_with_label(_(*str));
-		gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-		str++;
-	}
-
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(returnwidget), menu);
-	gtk_option_menu_set_history(GTK_OPTION_MENU(returnwidget), curval);
-	return returnwidget;
-}
-
-/**
- * boxed_optionmenu_with_value:
- * @labeltext: a #const gchar* with the text for the label
- * @curval: a #gint with the current selected item
- * @box: a #GtkWidget* with the box to add this to
- * @options: a #gchar** NULL terminated array with option strings
- *
- * Create a new horizontal box with a labeltext and a new popupmenu using the options array
- * setting the selected index from curval
- *
- * Return value: #GtkWidget* pointer to the new menu widget
- * Modified by: Rubén Dorta
- */
-
-GtkWidget *
-boxed_optionmenu_with_value(const gchar * labeltext, gint curval, GtkWidget * box, gchar ** options)
-{
-	GtkWidget *returnwidget;
-
-	returnwidget = optionmenu_with_value(options, curval);
-	boxed_widget(labeltext, returnwidget, box);
 
 	return returnwidget;
 }
@@ -775,54 +708,6 @@ bf_allbuttons_backend(const gchar * label, gboolean w_mnemonic, gint bf_pixmapty
 }
 
 /**
- * bf_generic_button_with_image:
- * @label: #const gchar* button string with '_' for the mnemonic, or NULL
- * @pixmap_type: #gint image to display on button know to new_pixmap() from pixmap.c
- * @func: #GCallback pointer to signal handler
- * @func_data: #gpointer data for signal handler
- *
- * Create new button with an image and connect the "clicked" signal to func
- * if the label is NULL there will be only an image in the button
- *
- * Return value: #GtkWidget* pointer to created button
- */
-/* GtkWidget *bf_generic_button_with_image(const gchar *label, gint pixmap_type, GCallback func, gpointer func_data) {
-        GtkWidget *button;
-
-	button = gtk_button_new();
-	gtk_container_set_border_width(GTK_CONTAINER(button), 0);
-	if (label) {
-		gtk_container_add(GTK_CONTAINER(button), hbox_with_pix_and_text(label, pixmap_type));
-	} else {
-		gtk_container_add(GTK_CONTAINER(button), new_pixmap(pixmap_type));
-	}
-	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-	g_return_val_if_fail(button, NULL);
-	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
-	return button;
-} */
-
-/**
- * bf_generic_mnemonic_button:
- * @Text: #const gchar* button string, using '_' for the mnemonic
- * @func: #GCallback pointer to signal handler
- * @func_data: #gpointer data for signal handler
- *
- * 	Create new button with mnemonic and connect the "clicked" signal to func
- *
- * Return value: pointer to created button
- */
-/* GtkWidget *bf_generic_mnemonic_button(const gchar * Text, GCallback func, gpointer func_data) {
-	GtkWidget *button;
-
-	button = gtk_button_new_with_mnemonic(Text);
-	g_return_val_if_fail(button, NULL);
-	GTK_WIDGET_SET_FLAGS(button, GTK_CAN_DEFAULT);
-	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
-	DEBUG_MSG("bf_generic_mnemonic_button, func_data=%p\n", func_data);
-	return button;
-} */
-/**
  * bf_gtkstock_button:
  * @stock_id: #const gchar* wioth the GTK stock icon ID
  * @func: #GCallback pointer to signal handler
@@ -861,43 +746,6 @@ bf_generic_frame_new(const gchar * label, GtkShadowType shadowtype, gint borderw
 	gtk_container_set_border_width(GTK_CONTAINER(frame), borderwidth);
 
 	return frame;
-}
-
-/**
- * bf_mnemonic_label_tad_with_alignment:
- * @labeltext: #const gchar* label string
- * @m_widget: #GtkWidget* widget accessed by the label mnemonic
- * @xalign: #gfloat label horizontal alignment
- * @yalign: #gfloat label vertical alignment
- * @table: #GtkWidget table label is packed into
- * @left_attach: #gint column number to attach the left side of the label to
- * @right_atach: #gint: column number to attach the right side of a label to
- * @top_attach: #gint: row number to attach the top of a label to
- * @bottom_attach: #gint: row number to attach the bottom of a label to 	
- *
- * 	create a label with a mnemonic, align it, and attach it to a table
- *
- * Return value: void
- */
-void
-bf_mnemonic_label_tad_with_alignment(const gchar * labeltext, GtkWidget * m_widget,
-									 float xalign, gfloat yalign, GtkWidget * table, guint left_attach,
-									 guint right_attach, guint top_attach, guint bottom_attach)
-{
-	GtkWidget *label;
-
-	label = gtk_label_new_with_mnemonic(labeltext);
-	gtk_misc_set_alignment(GTK_MISC(label), xalign, yalign);
-	gtk_table_attach(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
-					 GTK_FILL, 0, 0);
-
-	if (m_widget != NULL) {
-		if (GTK_IS_COMBO(m_widget)) {
-			gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(m_widget)->entry));
-			gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(m_widget)->entry), TRUE);
-		} else
-			gtk_label_set_mnemonic_widget(GTK_LABEL(label), m_widget);
-	}
 }
 
 /**

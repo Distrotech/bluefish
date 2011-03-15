@@ -78,20 +78,20 @@ tablewizard_dialog(Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(dg->vbox), dgtable, FALSE, FALSE, 0);
 
 	dg->spin[1] = spinbut_with_value("1", 1, 100, 1.0, 5.0);
-	bf_mnemonic_label_tad_with_alignment(_("Number of _rows:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 0, 1);
+	dialog_mnemonic_label_in_table(_("Number of _rows:"), dg->spin[1], dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 5, 0, 1);
 
 	dg->spin[2] = spinbut_with_value("1", 1, 100, 1.0, 5.0);
-	bf_mnemonic_label_tad_with_alignment(_("Number of colu_mns:"), dg->spin[2], 0, 0.5, dgtable, 0, 1, 1, 2);
+	dialog_mnemonic_label_in_table(_("Number of colu_mns:"), dg->spin[2], dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 5, 1, 2);
 
 	dg->check[1] = gtk_check_button_new();
-	bf_mnemonic_label_tad_with_alignment(_("Table rows on one _line:"), dg->check[1], 0, 0.5, dgtable, 0, 1,
+	dialog_mnemonic_label_in_table(_("Table rows on one _line:"), dg->check[1], dgtable, 0, 1,
 										 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 1, 2, 2, 3);
 
 	dg->check[2] = gtk_check_button_new();
-	bf_mnemonic_label_tad_with_alignment(_("_Indent table code:"), dg->check[2], 0, 0.5, dgtable, 0, 1, 3, 4);
+	dialog_mnemonic_label_in_table(_("_Indent table code:"), dg->check[2], dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 1, 5, 3, 4);
 
 	html_diag_finish(dg, G_CALLBACK(table_wizard_ok_lcb));
@@ -201,7 +201,7 @@ framewizard_dialog(Tbfwin * bfwin)
 	dialog_mnemonic_label_in_table(_("_Title:"), dg->entry[12], dgtable, 0, 1, 0, 1);
 
 	dg->check[0] = gtk_check_button_new();
-	bf_mnemonic_label_tad_with_alignment(_("Use _DTD:"), dg->check[0], 0, 0.5, dgtable, 0, 1, 1, 2);
+	dialog_mnemonic_label_in_table(_("Use _DTD:"), dg->check[0], dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[0], 1, 2, 1, 2);
 
 	label = gtk_label_new(_("Orientation:"));
@@ -213,7 +213,7 @@ framewizard_dialog(Tbfwin * bfwin)
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->radio[2], 2, 3, 2, 3);
 
 	dg->spin[1] = spinbut_with_value("2", 1, MAX_FRAMES_IN_FRAMEWIZARD, 1.0, 2.0);
-	bf_mnemonic_label_tad_with_alignment(_("Number of _Frames:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 3, 4);
+	dialog_mnemonic_label_in_table(_("Number of _Frames:"), dg->spin[1], dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 3, 4);
 	g_signal_connect(G_OBJECT(dg->spin[1]), "changed", G_CALLBACK(frame_wizard_num_changed), dg);
 	frame = gtk_frame_new(_("Frame's"));
