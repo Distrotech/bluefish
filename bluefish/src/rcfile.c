@@ -1080,7 +1080,7 @@ rcfile_parse_global_session(void)
 							   "image/jpeg:text/x-install:text/x-readme:text/x-chdr:text/x-csrc:image/png:text/x-authors:text/x-copying:text/x-makefile",
 							   "", NULL);
 		main_v->globses.filefilters = g_list_prepend(main_v->globses.filefilters, arr);
-		arr = array_from_arglist(_("Web files"), "1", "text/html:image/png:image/jpeg", "", NULL);
+		arr = array_from_arglist(_("Web files"), "1", "text/html:text/css:image/png:image/jpeg", "", NULL);
 		main_v->globses.filefilters = g_list_prepend(main_v->globses.filefilters, arr);
 		/*arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 		   main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr); */
