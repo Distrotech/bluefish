@@ -115,6 +115,18 @@ htmlbar_dialog_form_button(GtkAction * action, gpointer user_data)
 }
 
 static void
+htmlbar_dialog_form_check_box(GtkAction * action, gpointer user_data)
+{
+	inputdialog_dialog(BFWIN(user_data), NULL, "checkbox");
+}
+
+static void
+htmlbar_dialog_form_hidden(GtkAction * action, gpointer user_data)
+{
+	inputdialog_dialog(BFWIN(user_data), NULL, "hidden");
+}
+
+static void
 htmlbar_dialog_form_input(GtkAction * action, gpointer user_data)
 {
 	inputdialog_dialog(BFWIN(user_data), NULL, NULL);
@@ -142,6 +154,12 @@ static void
 htmlbar_dialog_form_option_group(GtkAction * action, gpointer user_data)
 {
 	optgroupdialog_dialog(BFWIN(user_data), NULL);
+}
+
+static void
+htmlbar_dialog_form_radio_button(GtkAction * action, gpointer user_data)
+{
+	inputdialog_dialog(BFWIN(user_data), NULL, "radio");
 }
 
 static void
@@ -190,6 +208,12 @@ static void
 htmlbar_dialog_meta(GtkAction * action, gpointer user_data)
 {
 	meta_dialog(BFWIN(user_data), NULL);
+}
+
+static void
+htmlbar_dialog_multi_thumbnail(GtkAction * action, gpointer user_data)
+{
+	multi_thumbnail_dialog(BFWIN(user_data));
 }
 
 static void
@@ -1538,7 +1562,7 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"DialogsEditTag", BF_STOCK_EDIT_TAG, N_("_Edit tag under cursor..."), "F3", NULL,
 	 G_CALLBACK(htmlbar_edit_tag_under_cursor)},
 	{"DialogsMultiThumbnail", BF_STOCK_MULTITHUMBS, N_("_Multi Thumbnail..."), NULL, N_("Multi thumbnail..."),
-	 NULL},
+	 G_CALLBACK(htmlbar_dialog_multi_thumbnail)},
 	{"Frame", BF_STOCK_FRAME2, N_("Frame"), NULL, N_("Frame"), G_CALLBACK(htmlbar_insert_frame_tag)},
 	{"Frameset", BF_STOCK_FRAMESET2, N_("Frameset"), NULL, N_("Frameset"),
 	 G_CALLBACK(htmlbar_insert_frameset_tag)},
@@ -1546,11 +1570,11 @@ static const GtkActionEntry htmlbar_actions[] = {
 	 G_CALLBACK(htmlbar_insert_noframes_tag)},
 	{"FrameTarget", BF_STOCK_FRAME_BASE, N_("Target"), NULL, N_("Target"),
 	 G_CALLBACK(htmlbar_insert_target_tag)},
-	{"DialogsFormHidden", BF_STOCK_FORM_HIDDEN, N_("Input Hidden..."), NULL, N_("Input Hidden..."), NULL},
-	{"DialogsFormRadioButton", BF_STOCK_FORM_RADIO, N_("Input Radio Button..."), NULL,
-	 N_("Input Radio Button..."), NULL},
-	{"DialogsFormCheckButton", BF_STOCK_FORM_CHECK, N_("Input Check Button..."), NULL,
-	 N_("Input Check Button..."), NULL},
+	{"DialogsFormHidden", BF_STOCK_FORM_HIDDEN, N_("Input Hidden..."), NULL, N_("Input Hidden..."), G_CALLBACK(htmlbar_dialog_form_hidden)},
+	{"DialogsFormRadioButton", BF_STOCK_FORM_RADIO, N_("Input Radio button..."), NULL,
+	 N_("Input Radio Button..."), G_CALLBACK(htmlbar_dialog_form_radio_button)},
+	{"DialogsFormCheckBox", BF_STOCK_FORM_CHECK, N_("Input Check box..."), NULL,
+	 N_("Input Check Box..."), G_CALLBACK(htmlbar_dialog_form_check_box)}
 };
 
 void
