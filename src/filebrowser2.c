@@ -2057,11 +2057,10 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 			bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Rename", FALSE);
 			bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Delete", FALSE);
 		}
-		if (!is_directory) {
-			bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/OpenAdvanced", FALSE);
-			bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetDocumentRoot", FALSE);
-			bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetBaseDir", FALSE);
-		}
+		bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/OpenAdvanced", is_directory);
+		bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetDocumentRoot", is_directory);
+		bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetBaseDir", is_directory);
+
 		if (!is_file) {
 			bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Open", FALSE);
 		}
@@ -2138,11 +2137,12 @@ dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser2
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->dir_v), event->x, event->y, &path, NULL, NULL, NULL);
 		if (path) {
 			gboolean is_dir = fb2_isdir_from_dir_sort_path(fb2, path);
-
+			g_print("context menu: %s selected\n",is_dir?"dir":"file");
 			popup_menu_create(fb2, is_dir, !is_dir, event);
 			gtk_tree_path_free(path);
 		} else {
 			DEBUG_MSG("dir_v_button_press_lcb, no path for position\n");
+			g_print("context menu: nothing selected\n");
 			popup_menu_create(fb2, FALSE, FALSE, event);
 		}
 	} else if (!(fb2->filebrowser_viewmode == viewmode_dual) && event->button == 1
@@ -2177,9 +2177,11 @@ file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &path, NULL,
 									  NULL, NULL);
 		if (path) {
+			g_print("context menu: file selected\n");
 			popup_menu_create(fb2, FALSE, TRUE, event);
 			gtk_tree_path_free(path);
 		} else {
+			g_print("context menu: nothing selected\n");
 			DEBUG_MSG("no path for position\n");
 			popup_menu_create(fb2, FALSE, FALSE, event);
 		}
