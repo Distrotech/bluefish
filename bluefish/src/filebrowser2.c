@@ -2045,73 +2045,68 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 	gint value = 0;
 
 	menu = gtk_ui_manager_get_widget(bfwin->uimanager, "/FileBrowserMenu");
-	if (menu) {
-		bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FollowActiveDoc",
-											 fb2->bfwin->session->filebrowser_focus_follow);
-		bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/ShowBackupFiles",
-											 fb2->filebrowser_show_backup_files);
-		bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/ShowHiddenFiles",
-											 fb2->filebrowser_show_hidden_files);
-
-		if (!is_directory && !is_file) {
-			bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Rename", FALSE);
-			bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Delete", FALSE);
-		}
-		bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/OpenAdvanced", is_directory);
-		bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetDocumentRoot", is_directory);
-		bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetBaseDir", is_directory);
-
-		if (!is_file) {
-			bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Open", FALSE);
-		}
-		if (fb2->basedir == NULL || fb2->filebrowser_viewmode == viewmode_flat) {
-			bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/ShowFullTree", FALSE);
-		}
-
-		if (!bfwin->fb2_filters_group) {
-			bfwin->fb2_filters_group = gtk_action_group_new("FileBrowserFilterActions");
-			gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->fb2_filters_group, 1);
-		} else {
-			GList *actions, *list;
-
-			gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->fb2_filters_merge_id);
-
-			actions = gtk_action_group_list_actions(bfwin->fb2_filters_group);
-			for (list = actions; list; list = list->next) {
-				g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
-													 G_CALLBACK(popup_menu_filter_activate), fb2);
-				gtk_action_group_remove_action(bfwin->fb2_filters_group, GTK_ACTION(list->data));
-			}
-			g_list_free(actions);
-		}
-
-		bfwin->fb2_filters_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
-
-		for (list = g_list_last(main_v->filefilters); list; list = list->prev) {
-			Tfilter *filter = (Tfilter *) list->data;
-			GtkRadioAction *action;
-
-			action = gtk_radio_action_new(filter->name, filter->name, NULL, NULL, value);
-			gtk_action_group_add_action(bfwin->fb2_filters_group, GTK_ACTION(action));
-			gtk_radio_action_set_group(action, group);
-			group = gtk_radio_action_get_group(action);
-
-			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(popup_menu_filter_activate), fb2);
-
-			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->fb2_filters_merge_id,
-								  "/FileBrowserMenu/FilterMenu/FilterPlaceholder", filter->name,
-								  filter->name, GTK_UI_MANAGER_MENUITEM, FALSE);
-
-			if (fb2->curfilter == filter)
-				gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
-
-			value++;
-		}
-
-		gtk_widget_show(menu);
-		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
-	} else
+	if (!menu) {
 		g_warning("showing file browser popup menu failed");
+		return;
+	}	
+
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FollowActiveDoc",
+										 fb2->bfwin->session->filebrowser_focus_follow);
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/ShowBackupFiles",
+										 fb2->filebrowser_show_backup_files);
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/ShowHiddenFiles",
+										 fb2->filebrowser_show_hidden_files);
+
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Rename", (is_directory || is_file));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Delete", (is_directory || is_file));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/OpenAdvanced", is_directory);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetDocumentRoot", is_directory);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetBaseDir", is_directory);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Open", is_file);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/ShowFullTree", (fb2->basedir != NULL && fb2->filebrowser_viewmode != viewmode_flat));
+
+	if (!bfwin->fb2_filters_group) {
+		bfwin->fb2_filters_group = gtk_action_group_new("FileBrowserFilterActions");
+		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->fb2_filters_group, 1);
+	} else {
+		GList *actions, *list;
+
+		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->fb2_filters_merge_id);
+
+		actions = gtk_action_group_list_actions(bfwin->fb2_filters_group);
+		for (list = actions; list; list = list->next) {
+			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
+												 G_CALLBACK(popup_menu_filter_activate), fb2);
+			gtk_action_group_remove_action(bfwin->fb2_filters_group, GTK_ACTION(list->data));
+		}
+		g_list_free(actions);
+	}
+
+	bfwin->fb2_filters_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
+
+	for (list = g_list_last(main_v->filefilters); list; list = list->prev) {
+		Tfilter *filter = (Tfilter *) list->data;
+		GtkRadioAction *action;
+
+		action = gtk_radio_action_new(filter->name, filter->name, NULL, NULL, value);
+		gtk_action_group_add_action(bfwin->fb2_filters_group, GTK_ACTION(action));
+		gtk_radio_action_set_group(action, group);
+		group = gtk_radio_action_get_group(action);
+
+		g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(popup_menu_filter_activate), fb2);
+
+		gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->fb2_filters_merge_id,
+							  "/FileBrowserMenu/FilterMenu/FilterPlaceholder", filter->name,
+							  filter->name, GTK_UI_MANAGER_MENUITEM, FALSE);
+
+		if (fb2->curfilter == filter)
+			gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
+
+		value++;
+	}
+
+	gtk_widget_show(menu);
+	gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 }
 
 static void
