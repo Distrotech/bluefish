@@ -278,6 +278,27 @@ AC_ARG_ENABLE(
 	)
 )
 
+AC_ARG_ENABLE(
+	[build-with-gtk3],
+	AC_HELP_STRING(
+		[--enable-build-with-gtk3],
+		[enable (or disable) building against GTK 3.x @<:@default=no@:>@]
+	)
+)
+
+AC_ARG_ENABLE(
+	[xml-catalog-update],
+	AC_HELP_STRING(
+		[--enable-xml-catalog-update],
+		[
+		 enable (or disable) the running of xmlcatalog after installation -
+		 some distributions like Debian use their own system for registering
+		 catalogs, so be careful here and also check the `--with-xml-catalog'
+		 option @<:@default=yes@:>@
+		]
+	),
+)
+
 dnl ************************
 dnl   Configure options w/wo
 dnl ************************
@@ -379,17 +400,30 @@ else
 	GIO_PC="gio-unix-2.0"
 fi
 
-BF_dependencies="\
-gtk+-2.0 >= 2.12 \
-gmodule-2.0 >= 2.16 \
-gobject-2.0 \
-glib-2.0 >= 2.16 \
-pango \
-gdk-pixbuf-2.0 \
-gdk-2.0 \
-$GIO_PC >= 2.16 \
-gthread-2.0 \
-libxml-2.0"
+if test "x$enable_build_with_gtk3" = "xyes"; then
+	BF_dependencies="\
+		gtk+-3.0 >= 3.0 \
+		gmodule-2.0 >= 2.28 \
+		gobject-2.0 \
+		glib-2.0 >= 2.28 \
+		pango \
+		gdk-3.0 \
+		$GIO_PC >= 2.28 \
+		gthread-2.0 \
+		libxml-2.0"
+else
+	BF_dependencies="\
+		gtk+-2.0 >= 2.24 \
+		gmodule-2.0 >= 2.28 \
+		gobject-2.0 \
+		glib-2.0 >= 2.28 \
+		pango \
+		gdk-pixbuf-2.0 \
+		gdk-2.0 \
+		$GIO_PC >= 2.28 \
+		gthread-2.0 \
+		libxml-2.0"
+fi
 
 if test "x$enable_spell_check" != "xno"; then
 	PKG_CHECK_EXISTS(
