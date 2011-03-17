@@ -286,19 +286,6 @@ AC_ARG_ENABLE(
 	)
 )
 
-AC_ARG_ENABLE(
-	[xml-catalog-update],
-	AC_HELP_STRING(
-		[--enable-xml-catalog-update],
-		[
-		 enable (or disable) the running of xmlcatalog after installation -
-		 some distributions like Debian use their own system for registering
-		 catalogs, so be careful here and also check the `--with-xml-catalog'
-		 option @<:@default=yes@:>@
-		]
-	),
-)
-
 dnl ************************
 dnl   Configure options w/wo
 dnl ************************
