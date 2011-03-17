@@ -1664,16 +1664,20 @@ bfwin_templates_menu_create(Tbfwin * bfwin)
 
 		if (arr && arr[0] && arr[1]) {
 			GtkAction *action;
+			gchar *action_name;
 
-			action = gtk_action_new(arr[0], arr[0], NULL, NULL);
+			action_name = g_strconcat("template ", arr[0], NULL);
+			action = gtk_action_new(action_name, arr[0], NULL, NULL);
 			gtk_action_group_add_action(bfwin->templates_group, action);
 			g_object_set_data(G_OBJECT(action), "path", (gpointer) arr[1]);
 
 			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(templates_menu_activate), bfwin);
 
 			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->templates_merge_id,
-								  "/MainMenu/FileMenu/NewFromTemplate/TemplatePlaceholder", arr[0],
-								  arr[0], GTK_UI_MANAGER_MENUITEM, TRUE);
+								  "/MainMenu/FileMenu/NewFromTemplate/TemplatePlaceholder", action_name,
+								  action_name, GTK_UI_MANAGER_MENUITEM, TRUE);
+
+			g_free(action_name);
 		}
 	}
 }
