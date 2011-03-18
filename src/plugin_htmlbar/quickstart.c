@@ -518,9 +518,9 @@ quickstart_style_page_create(TQuickStart * qstart)
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
 
-	qstart->stylelinktype = gtk_combo_box_new_text();
+	qstart->stylelinktype = gtk_combo_box_text_new();
 	for (i = 0; i < G_N_ELEMENTS(type); i++) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(qstart->stylelinktype), type[i]);
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(qstart->stylelinktype), type[i]);
 	}
 	g_signal_connect(G_OBJECT(qstart->stylelinktype), "changed", G_CALLBACK(quickstart_stylelinktype_changed),
 					 qstart);
@@ -540,7 +540,8 @@ quickstart_style_page_create(TQuickStart * qstart)
 		urllist = g_list_next(urllist);
 	}
 
-	qstart->stylehref = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
+	qstart->stylehref = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(history));
+	gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(qstart->stylehref), 0);
 	g_object_unref(history);
 	dialog_mnemonic_label_in_table(_("HRE_F:"), qstart->stylehref, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), qstart->stylehref, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0,
@@ -598,7 +599,8 @@ quickstart_script_page_create(TQuickStart * qstart)
 		urllist = g_list_next(urllist);
 	}
 
-	qstart->scriptsrc = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
+	qstart->scriptsrc = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(history));
+	gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(qstart->scriptsrc), 0);
 	g_object_unref(history);
 	label = gtk_label_new_with_mnemonic(_("_Src:"));
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
@@ -647,9 +649,9 @@ quickstart_dialog_new(Tbfwin * bfwin)
 
 	table = dialog_table_in_vbox_defaults(4, 3, 6, vbox);
 
-	qstart->dtd = gtk_combo_box_new_text();
+	qstart->dtd = gtk_combo_box_text_new();
 	for (i = 0; i < G_N_ELEMENTS(dtds); i++) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(qstart->dtd), dtds[i].name);
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(qstart->dtd), dtds[i].name);
 	}
 	gtk_combo_box_set_active(GTK_COMBO_BOX(qstart->dtd), 0);
 	dialog_mnemonic_label_in_table(_("_DTD:"), qstart->dtd, table, 0, 1, 0, 1);

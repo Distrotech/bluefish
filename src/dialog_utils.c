@@ -233,11 +233,11 @@ dialog_combo_box_text_from_list(const GList * options, const gchar * value)
 	const GList *node;
 	GtkWidget *combobox;
 
-	combobox = gtk_combo_box_new_text();
+	combobox = gtk_combo_box_text_new();
 
 	for (node = options; node != NULL; node = node->next) {
 		if (node->data) {
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), node->data);
+			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combobox), node->data);
 			if (!found && value && g_strcmp0(node->data, value) == 0)
 				found = TRUE;
 			else if (!found)
@@ -287,11 +287,11 @@ dialog_combo_box_text_new(const gchar ** options, gint index)
 	GtkWidget *combobox;
 	const gchar **tmp;
 
-	combobox = gtk_combo_box_new_text();
+	combobox = gtk_combo_box_text_new();
 
 	tmp = options;
 	while (*tmp)
-		gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), gettext(*tmp++));
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combobox), gettext(*tmp++));
 
 	gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), index);
 

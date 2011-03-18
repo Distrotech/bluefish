@@ -117,7 +117,7 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
    
    if (event->button == 1) {
    	if (win && gtk_widget_get_visible(win->tip_window))
-   		gtk_widget_hide_all(win->tip_window);
+   		gtk_widget_hide(win->tip_window);
    	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (widget));
    	gtk_text_buffer_get_selection_bounds (buffer, &start, &end);
   		if (gtk_text_iter_get_offset (&start) != gtk_text_iter_get_offset (&end))  return FALSE;
@@ -588,7 +588,7 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
    gtk_label_set_markup(GTK_LABEL(win->tip_label),"xx");
    gtk_misc_set_alignment (GTK_MISC (win->tip_label), 0.5, 0.5);
    gtk_container_add (GTK_CONTAINER (win->tip_window), GTK_WIDGET (win->tip_label));  
-   gtk_widget_hide_all(win->tip_window);   
+   gtk_widget_hide(win->tip_window);
    g_object_set_data(G_OBJECT(win->view),"tip",win->tip_window);
        
 

@@ -1391,7 +1391,7 @@ generalfontdialog_lcb(gint type, GtkWidget * widget, Thtml_diag * dg)
 	}
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->spin[1])))) {
 		gchar *sizecombo, *tmpstr;
-		sizecombo = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[1]));
+		sizecombo = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[1]));
 		if (strlen(sizecombo)) {
 			tmpstr = g_strconcat(thestring, cap(" size=\"")
 								 , sizecombo, gtk_entry_get_text(GTK_ENTRY(GTK_SPIN_BUTTON(dg->spin[1])))
@@ -1771,7 +1771,7 @@ framedialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("SRC"), thestring, NULL);
 	thestring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("NAME"), thestring, NULL);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[0])), cap("FRAMEBORDER"), thestring, NULL);
-	tmp = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[3]));
+	tmp = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[3]));
 	thestring = insert_string_if_string(tmp, cap("SCROLLING"), thestring, NULL);
 	g_free(tmp);
 	thestring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("MARGINWIDTH"), thestring, NULL);

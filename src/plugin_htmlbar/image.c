@@ -467,7 +467,10 @@ image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 	imdg->adj_changed_id =
 		g_signal_connect(G_OBJECT(imdg->adjustment), "value_changed", G_CALLBACK(image_adjust_changed), imdg);
 	gtk_scale_set_digits(GTK_SCALE(scale), 3);
-	gtk_range_set_update_policy(GTK_RANGE(scale), GTK_UPDATE_DISCONTINUOUS);
+	/* FIXME: gtk_range_get_update_policy has been deprecated since version 2.24
+	 *  and should not be used in newly-written code.
+	 *   There is no replacement. If you require delayed updates, you need to code it yourself. */
+/*	gtk_range_set_update_policy(GTK_RANGE(scale), GTK_UPDATE_DISCONTINUOUS);*/
 	gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), scale, FALSE, FALSE, 0);
 
 	dgtable = html_diag_table_in_vbox(imdg->dg, 5, 9);

@@ -433,7 +433,7 @@ static void
 inputdialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
 	gchar *thestring, *finalstring, *text;
-	text = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[0]));
+	text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[0]));
 	thestring = g_strdup(cap("<INPUT"));
 	thestring = insert_string_if_string(text, cap("TYPE"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_ENTRY(dg->entry[0]), cap("NAME"), thestring, NULL);
@@ -479,7 +479,7 @@ inputdialog_typecombo_activate_lcb(GtkWidget * widget, Thtml_diag * dg)
 	/* hmm this function should check if the window is being destroyed... */
 	if (!dg->tobedestroyed) {
 		const gchar *text;
-		text = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dg->combo[0]));
+		text = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dg->combo[0]));
 		DEBUG_MSG("inputdialog_typecombo_activate_lcb, text=%s\n", text);
 		gtk_widget_set_sensitive(dg->check[0], (strcmp(text, "radio") == 0 || strcmp(text, "checkbox") == 0));
 		gtk_widget_set_sensitive(dg->spin[0], (strcmp(text, "hidden") != 0));

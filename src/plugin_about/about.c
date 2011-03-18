@@ -119,12 +119,6 @@ about_show_homepage(GtkAction * action, gpointer user_data)
 }
 
 static void
-about_activate_url(GtkAboutDialog * about, const gchar * url, gpointer data)
-{
-	bluefish_url_show(url);
-}
-
-static void
 about_dialog_create(GtkAction * action, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
@@ -219,8 +213,6 @@ about_dialog_create(GtkAction * action, gpointer user_data)
 			g_error_free(error);
 		}
 	}
-
-	gtk_about_dialog_set_url_hook(about_activate_url, NULL, NULL);
 
 	gtk_show_about_dialog(GTK_WINDOW(bfwin->main_window), "logo", logo, "name", PACKAGE,
 #ifdef SVN_REVISION

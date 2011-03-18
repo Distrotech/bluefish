@@ -1992,7 +1992,8 @@ static const GtkActionEntry filebrowser_actions[] = {
 	{"FilterMenu", NULL, N_("Filter")},
 	{"NewFilter", NULL, N_("New Filter"), NULL, N_("New filter"), G_CALLBACK(popup_menu_new_filter)},
 	{"EditFilter", NULL, N_("Edit Filter"), NULL, N_("Edit filter"), G_CALLBACK(popup_menu_edit_filter)},
-	{"DeleteFilter", NULL, N_("Delete Filter"), NULL, N_("Delete filter"), G_CALLBACK(popup_menu_delete_filter)}
+	{"DeleteFilter", NULL, N_("Delete Filter"), NULL, N_("Delete filter"),
+	 G_CALLBACK(popup_menu_delete_filter)}
 };
 
 static const GtkToggleActionEntry filebrowser_toggle_actions[] = {
@@ -2018,13 +2019,13 @@ popup_menu_action_group_init(Tbfwin * bfwin)
 
 	bfwin->filebrowserGroup = gtk_action_group_new("FileBrowserActions");
 	gtk_action_group_set_translation_domain(bfwin->filebrowserGroup, GETTEXT_PACKAGE);
-	gtk_action_group_add_actions(bfwin->filebrowserGroup, filebrowser_actions, G_N_ELEMENTS(filebrowser_actions), fb2);
+	gtk_action_group_add_actions(bfwin->filebrowserGroup, filebrowser_actions,
+								 G_N_ELEMENTS(filebrowser_actions), fb2);
 	gtk_action_group_add_toggle_actions(bfwin->filebrowserGroup, filebrowser_toggle_actions,
 										G_N_ELEMENTS(filebrowser_toggle_actions), fb2);
 	gtk_action_group_add_radio_actions(bfwin->filebrowserGroup, filebrowser_radio_actions,
-									   G_N_ELEMENTS(filebrowser_radio_actions),
-									   fb2->filebrowser_viewmode, G_CALLBACK(popup_menu_view_mode_changed),
-									   fb2);
+									   G_N_ELEMENTS(filebrowser_radio_actions), fb2->filebrowser_viewmode,
+									   G_CALLBACK(popup_menu_view_mode_changed), fb2);
 	gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->filebrowserGroup, 1);
 	g_object_unref(bfwin->filebrowserGroup);
 
@@ -2048,7 +2049,7 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 	if (!menu) {
 		g_warning("showing file browser popup menu failed");
 		return;
-	}	
+	}
 
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FollowActiveDoc",
 										 fb2->bfwin->session->filebrowser_focus_follow);
@@ -2063,7 +2064,8 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetDocumentRoot", is_directory);
 	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetBaseDir", is_directory);
 	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Open", is_file);
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/ShowFullTree", (fb2->basedir != NULL && fb2->filebrowser_viewmode != viewmode_flat));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/ShowFullTree",
+							   (fb2->basedir != NULL && fb2->filebrowser_viewmode != viewmode_flat));
 
 	if (!bfwin->fb2_filters_group) {
 		bfwin->fb2_filters_group = gtk_action_group_new("FileBrowserFilterActions");
@@ -2132,7 +2134,7 @@ dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser2
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->dir_v), event->x, event->y, &path, NULL, NULL, NULL);
 		if (path) {
 			gboolean is_dir = fb2_isdir_from_dir_sort_path(fb2, path);
-			g_print("context menu: %s selected\n",is_dir?"dir":"file");
+			g_print("context menu: %s selected\n", is_dir ? "dir" : "file");
 			popup_menu_create(fb2, is_dir, !is_dir, event);
 			gtk_tree_path_free(path);
 		} else {

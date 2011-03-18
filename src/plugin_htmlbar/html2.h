@@ -26,9 +26,9 @@ void insert_class(GtkWidget * widget, gpointer data);
 
 GtkWidget *style_but_new(GtkWidget * which_entry, GtkWidget * win);
 GtkWidget *style_but_new_for_wizard(GtkWidget * textview);
-void new_css_dialog(GtkWidget *wid,Tbfwin *bfwin);
-void edit_color_dialog(Tdocument *doc, gchar *color, gint startpos, gint endpos);
-void sel_colour_cb(GtkWidget *widget, Tbfwin *bfwin);
+void new_css_dialog(GtkWidget * wid, Tbfwin * bfwin);
+void edit_color_dialog(Tdocument * doc, gchar * color, gint startpos, gint endpos);
+void sel_colour_cb(GtkWidget * widget, Tbfwin * bfwin);
 GtkWidget *color_but_new(GtkWidget * which_entry, GtkWidget * win);
 
-#endif /* __HTML2_H_ */
+#endif							/* __HTML2_H_ */

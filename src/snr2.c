@@ -2,7 +2,7 @@
  * snr2.c - rewrite of search 'n replace functions
  *
  * Copyright (C) 2000,2001,2002,2003,2004 Olivier Sessink
- * Copyright (C) 2005,2006,2007 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2007, 2011 James Hayward and Olivier Sessink
  * Copyright (C) 2009,2010 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
@@ -1664,9 +1664,9 @@ snr_combobox_changed(GtkComboBox * combobox, TSNRWin * snrwin)
 }
 
 static void
-snr_comboboxentry_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin)
+snr_comboboxentry_changed(GtkComboBox * combobox, TSNRWin * snrwin)
 {
-	if (comboboxentry == GTK_COMBO_BOX_ENTRY(snrwin->search)) {
+	if (gtk_combo_box_get_has_entry(GTK_COMBO_BOX(snrwin->search))) {
 		if (strlen(gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))))) > 0) {
 			gtk_widget_set_sensitive(snrwin->findButton, TRUE);
 			if (snrwin->dialogType == BF_REPLACE_DIALOG) {
@@ -1975,7 +1975,8 @@ snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 		list = g_list_previous(list);
 	}
 
-	snrwin->search = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
+	snrwin->search = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(history));
+	gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(snrwin->search), 0);
 	/* this kills the primary selection, which is annoying if you want to 
 	   search/replace within the selection  */
 	/*if (bfwin->session->searchlist)
@@ -1999,7 +2000,8 @@ snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 			list = g_list_previous(list);
 		}
 
-		snrwin->replace = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
+		snrwin->replace = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(history));
+		gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(snrwin->replace), 0);
 		g_object_unref(history);
 		dialog_mnemonic_label_in_table(_("Replace _with: "), snrwin->replace, table, 0, 1, 1, 2);
 		gtk_table_attach(GTK_TABLE(table), snrwin->replace, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL,
@@ -2011,9 +2013,9 @@ snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 						 G_CALLBACK(snr_combo_activate_lcb), snrwin);
 	}
 
-	snrwin->scope = gtk_combo_box_new_text();
+	snrwin->scope = gtk_combo_box_text_new();
 	for (i = 0; i < G_N_ELEMENTS(scope); i++) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->scope), _(scope[i]));
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(snrwin->scope), _(scope[i]));
 	}
 	dialog_mnemonic_label_in_table(_("Sco_pe: "), snrwin->scope, table, 0, 1, numrows - 2, numrows - 1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->scope, 1, 2, numrows - 2, numrows - 1,
@@ -2049,9 +2051,9 @@ snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	vbox2 = dialog_vbox_new(vbox);
 	table = dialog_table_in_vbox_defaults(numrows - 1, 2, 0, vbox2);
 
-	snrwin->matchPattern = gtk_combo_box_new_text();
+	snrwin->matchPattern = gtk_combo_box_text_new();
 	for (i = 0; i < G_N_ELEMENTS(matchPattern); i++) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->matchPattern), _(matchPattern[i]));
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(snrwin->matchPattern), _(matchPattern[i]));
 	}
 	dialog_mnemonic_label_in_table(_("Match Patter_n: "), snrwin->matchPattern, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->matchPattern, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL,
@@ -2061,9 +2063,9 @@ snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 					 _("How to interpret the pattern."));
 
 	if (dialogType == BF_REPLACE_DIALOG) {
-		snrwin->replaceType = gtk_combo_box_new_text();
+		snrwin->replaceType = gtk_combo_box_text_new();
 		for (i = 0; i < G_N_ELEMENTS(replaceType); i++) {
-			gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->replaceType), _(replaceType[i]));
+			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(snrwin->replaceType), _(replaceType[i]));
 		}
 		dialog_mnemonic_label_in_table(_("Replace T_ype: "), snrwin->replaceType, table, 0, 1, 1, 2);
 		gtk_table_attach(GTK_TABLE(table), snrwin->replaceType, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL,
@@ -2115,7 +2117,7 @@ snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	}
 	snrwin->findButton = gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_FIND, SNR_RESPONSE_FIND);
 	/*gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND, FALSE); */
-	snr_comboboxentry_changed(GTK_COMBO_BOX_ENTRY(snrwin->search), snrwin);
+	snr_comboboxentry_changed(GTK_COMBO_BOX(snrwin->search), snrwin);
 	gtk_widget_show_all(GTK_WIDGET(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(snrwin->dialog)))));
 	gtk_widget_hide(snrwin->warninglabel);
 	/* this kills the primary selection, which is annoying if you want to 
