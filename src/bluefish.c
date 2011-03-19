@@ -25,7 +25,7 @@
 #include <time.h>				/* nanosleep */
 
 #ifndef WIN32
-#include <signal.h>             /* sigaction */
+#include <signal.h>				/* sigaction */
 #endif
 
 #ifdef MAC_INTEGRATION
@@ -63,7 +63,7 @@
 #include "rcfile.h"				/* rcfile_parse_main() */
 #include "stringlist.h"			/* put_stringlist(), get_stringlist() */
 #include "filefilter.h"
-#include "file.h" /* file_handle() */
+#include "file.h"				/* file_handle() */
 #include "file_autosave.h"
 #include "languages.h"
 
@@ -82,30 +82,29 @@ static GTimer *startuptimer;
 #endif
 
 #ifndef __GNUC__
-void g_none(char * first, ...)
+void
+g_none(char *first, ...)
 {
 	return;
 }
 #endif							/* __GNUC__ */
 
-void cb_print_version(const gchar * option_name, const gchar * value, gpointer data,
-					  GError ** error)
+void
+cb_print_version(const gchar * option_name, const gchar * value, gpointer data, GError ** error)
 {
-	g_print("%s %s\n%s\n",_("Bluefish Editor"),VERSION,_("Visit us at http://bluefish.openoffice.nl"));
+	g_print("%s %s\n%s\n", _("Bluefish Editor"), VERSION, _("Visit us at http://bluefish.openoffice.nl"));
 	exit(0);
 }
 
-static void init_default_session(Tsessionvars *session) {
+static void
+init_default_session(Tsessionvars * session)
+{
 	session->view_main_toolbar = session->view_left_panel
-			= session->filebrowser_focus_follow
-			= session->view_statusbar
-			= session->autoindent
-			= session->view_line_numbers
-			= session->view_cline
-			= session->view_blocks
-			= session->autocomplete
-			= session->show_mbhl
-			= 1;
+		= session->filebrowser_focus_follow
+		= session->view_statusbar
+		= session->autoindent
+		= session->view_line_numbers
+		= session->view_cline = session->view_blocks = session->autocomplete = session->show_mbhl = 1;
 #ifdef HAVE_LIBENCHANT
 	session->spell_check_default = 1;
 #endif
@@ -114,12 +113,16 @@ static void init_default_session(Tsessionvars *session) {
 }
 
 #ifndef WIN32
-static void sigterm_handler(int signalnum, siginfo_t *si, void *data) {
+static void
+sigterm_handler(int signalnum, siginfo_t * si, void *data)
+{
 	g_print("caught SIGTERM, exiting...\n");
 	bluefish_exit_request();
 }
 
-static void handle_signals(void) {
+static void
+handle_signals(void)
+{
 	struct sigaction sa;
 	sa.sa_sigaction = sigterm_handler;
 	sigemptyset(&sa.sa_mask);
@@ -129,11 +132,13 @@ static void handle_signals(void) {
 #endif
 
 #ifdef MAC_INTEGRATION
-static gboolean osx_open_file_cb(GtkOSXApplication *app, gchar *path, gpointer user_data) {
+static gboolean
+osx_open_file_cb(GtkOSXApplication * app, gchar * path, gpointer user_data)
+{
 	GFile *file;
 	Tbfwin *bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
-	g_print("osx_open_file_cb, open %s\n",path);
-	doc_new_from_input(bfwin,path,FALSE,FALSE,-1);
+	g_print("osx_open_file_cb, open %s\n", path);
+	doc_new_from_input(bfwin, path, FALSE, FALSE, -1);
 	return TRUE;
 }
 #endif
@@ -148,128 +153,131 @@ typedef struct {
 	guint state;
 } Tstartup;
 
-static gboolean startup_in_idle(gpointer data) {
-	Tstartup *startup=data;
-	DEBUG_MSG("startup_in_idle, started state=%d, elapsed=\n",startup->state);
+static gboolean
+startup_in_idle(gpointer data)
+{
+	Tstartup *startup = data;
+	DEBUG_MSG("startup_in_idle, started state=%d, elapsed=\n", startup->state);
 #ifdef STARTUP_PROFILING
-	g_print("startup_in_idle, state=%d, elapsed=%d\n",startup->state,(gint)(g_timer_elapsed(startuptimer,NULL)*1000.0));
+	g_print("startup_in_idle, state=%d, elapsed=%d\n", startup->state,
+			(gint) (g_timer_elapsed(startuptimer, NULL) * 1000.0));
 #endif
 	switch (startup->state) {
-		case 0:
-			bluefish_load_plugins();
-			main_v->session = g_new0(Tsessionvars, 1);
-			init_default_session(main_v->session);
-			rcfile_parse_global_session();
-			if (main_v->session->recent_dirs == NULL) {
-				GFile *uri = g_file_new_for_path(g_get_home_dir());
-				main_v->session->recent_dirs =
-					g_list_append(main_v->session->recent_dirs,
-								  g_file_get_uri(uri));
-				g_object_unref(uri);
-			}
-			bftextview2_init_globals();
-			langmgr_init();
+	case 0:
+		bluefish_load_plugins();
+		main_v->session = g_new0(Tsessionvars, 1);
+		init_default_session(main_v->session);
+		rcfile_parse_global_session();
+		if (main_v->session->recent_dirs == NULL) {
+			GFile *uri = g_file_new_for_path(g_get_home_dir());
+			main_v->session->recent_dirs = g_list_append(main_v->session->recent_dirs, g_file_get_uri(uri));
+			g_object_unref(uri);
+		}
+		bftextview2_init_globals();
+		langmgr_init();
 #ifdef HAVE_LIBENCHANT
-			bftextview2_spell_init();
-#endif /*HAVE_LIBENCHANT*/
-			set_default_icon();
-			fb2config_init();			/* filebrowser2config */
-			filters_rebuild();
-			main_v->bmarkdata = bookmark_data_new();
-			/* create the first window */
-			startup->firstbfwin = g_new0(Tbfwin, 1);
-			startup->firstbfwin->session = main_v->session;
-			startup->firstbfwin->bmarkdata = main_v->bmarkdata;
-			main_v->bfwinlist = g_list_append(NULL, startup->firstbfwin);
+		bftextview2_spell_init();
+#endif							/*HAVE_LIBENCHANT */
+		set_default_icon();
+		fb2config_init();		/* filebrowser2config */
+		filters_rebuild();
+		main_v->bmarkdata = bookmark_data_new();
+		/* create the first window */
+		startup->firstbfwin = g_new0(Tbfwin, 1);
+		startup->firstbfwin->session = main_v->session;
+		startup->firstbfwin->bmarkdata = main_v->bmarkdata;
+		main_v->bfwinlist = g_list_append(NULL, startup->firstbfwin);
 #ifdef WITH_MSG_QUEUE
-			if (main_v->props.open_in_running_bluefish) {
-				msg_queue_check_server(FALSE);
-			}
+		if (main_v->props.open_in_running_bluefish) {
+			msg_queue_check_server(FALSE);
+		}
 #endif							/* WITH_MSG_QUEUE */
 		break;
-		case 1:
-			bfwin_create_main(startup->firstbfwin);
+	case 1:
+		bfwin_create_main(startup->firstbfwin);
 #ifdef WITH_MSG_QUEUE
-			if (main_v->props.open_in_running_bluefish) {
-				msg_queue_check_server(FALSE);
-			}
+		if (main_v->props.open_in_running_bluefish) {
+			msg_queue_check_server(FALSE);
+		}
 #endif
 		break;
-		case 2:
-			file_static_queues_init();
-			if (startup->filenames) {
-				GList *tmplist = g_list_first(startup->filenames);
-				DEBUG_MSG("startup_in_idle, we have filenames, load them\n");
-				startup->firstbfwin->focus_next_new_doc = TRUE;
-				while (tmplist) {
-					file_handle((GFile *)tmplist->data, startup->firstbfwin, NULL, TRUE);
-					tmplist = g_list_next(tmplist);
-				}
+	case 2:
+		file_static_queues_init();
+		if (startup->filenames) {
+			GList *tmplist = g_list_first(startup->filenames);
+			DEBUG_MSG("startup_in_idle, we have filenames, load them\n");
+			startup->firstbfwin->focus_next_new_doc = TRUE;
+			while (tmplist) {
+				file_handle((GFile *) tmplist->data, startup->firstbfwin, NULL, TRUE);
+				tmplist = g_list_next(tmplist);
 			}
-			if (startup->firstbfwin->session == main_v->session)
-				bmark_reload(startup->firstbfwin); /* do not reload bookmarks for a project */
-			/* set GTK settings, must be AFTER the menu is created */
-			{
-				gchar *shortcutfilename;
-				GtkSettings *gtksettings = gtk_settings_get_default();
-				g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL);
-				shortcutfilename = g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
-				gtk_accel_map_load(shortcutfilename);
-				g_free(shortcutfilename);
-			}
-			autosave_init(TRUE, startup->firstbfwin);
-		#ifdef WITH_MSG_QUEUE
-			if (main_v->props.open_in_running_bluefish) {
-				msg_queue_check_server(TRUE);
-			}
-		#endif
+		}
+		if (startup->firstbfwin->session == main_v->session)
+			bmark_reload(startup->firstbfwin);	/* do not reload bookmarks for a project */
+		/* set GTK settings, must be AFTER the menu is created */
+		{
+			gchar *shortcutfilename;
+			GtkSettings *gtksettings = gtk_settings_get_default();
+			g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL);
+			shortcutfilename = g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
+			gtk_accel_map_load(shortcutfilename);
+			g_free(shortcutfilename);
+		}
+		autosave_init(TRUE, startup->firstbfwin);
+#ifdef WITH_MSG_QUEUE
+		if (main_v->props.open_in_running_bluefish) {
+			msg_queue_check_server(TRUE);
+		}
+#endif
 		break;
-		case 3:
-			bfwin_show_main(startup->firstbfwin);
+	case 3:
+		bfwin_show_main(startup->firstbfwin);
 #ifdef MAC_INTEGRATION
-			{
-				GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
-				gtk_osxapplication_ready(theApp);
-				g_signal_connect(theApp, "NSApplicationOpenFile", osx_open_file_cb, NULL);
-			}
+		{
+			GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
+			gtk_osxapplication_ready(theApp);
+			g_signal_connect(theApp, "NSApplicationOpenFile", osx_open_file_cb, NULL);
+		}
 #endif
 		break;
-		case 4:
-			main_v->recentm = gtk_recent_manager_get_default();
-			doc_scroll_to_cursor(BFWIN(startup->firstbfwin)->current_document);
-			modified_on_disk_check_init();
-#ifndef WIN32            
-			handle_signals();
-#endif            
-			g_free(startup);
-			return FALSE;
+	case 4:
+		main_v->recentm = gtk_recent_manager_get_default();
+		doc_scroll_to_cursor(BFWIN(startup->firstbfwin)->current_document);
+		modified_on_disk_check_init();
+#ifndef WIN32
+		handle_signals();
+#endif
+		g_free(startup);
+		return FALSE;
 		break;
 	}
 #ifdef STARTUP_PROFILING
-	g_print("startup_in_idle, end of state=%d, elapsed=%d\n",startup->state,(gint)(g_timer_elapsed(startuptimer,NULL)*1000.0));
+	g_print("startup_in_idle, end of state=%d, elapsed=%d\n", startup->state,
+			(gint) (g_timer_elapsed(startuptimer, NULL) * 1000.0));
 #endif
 	startup->state++;
-	return TRUE;	
+	return TRUE;
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
-	static gboolean arg_curwindow = FALSE, arg_newwindow=FALSE;
+	static gboolean arg_curwindow = FALSE, arg_newwindow = FALSE;
 	static gchar **files = NULL;
 	Tstartup *startup;
 #ifdef WIN32
- 	gchar *path;
- #endif
+	gchar *path;
+#endif
 	GError *error = NULL;
 	GOptionContext *context;
 	const GOptionEntry options[] = {
-		{"curwindow", 'c', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &arg_curwindow,
+		{"curwindow", 'c', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &arg_curwindow,
 		 N_("Open in existing window."), NULL},
-		{"newwindow", 'n', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &arg_newwindow,
+		{"newwindow", 'n', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_NONE, &arg_newwindow,
 		 N_("Open in new window."), NULL},
 		{"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void *) cb_print_version,
 		 N_("Print version information."), NULL},
-		{G_OPTION_REMAINING, 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_FILENAME_ARRAY, &files,
+		{G_OPTION_REMAINING, 0, G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_FILENAME_ARRAY, &files,
 		 "Special option that collects any remaining arguments for us", NULL},
 		{NULL}
 	};
@@ -280,7 +288,7 @@ int main(int argc, char *argv[])
 
 #ifdef STARTUP_PROFILING
 	startuptimer = g_timer_new();
-#endif /* STARTUP_PROFILING */
+#endif							/* STARTUP_PROFILING */
 
 #ifdef ENABLE_NLS
 	setlocale(LC_ALL, "");
@@ -290,15 +298,14 @@ int main(int argc, char *argv[])
 	textdomain(PACKAGE);
 #endif							/* ENABLE_NLS */
 
-	gtk_rc_parse_string ("style \"bluefish-small-close-button-style\"\n"
-                       "{\n"
-                          "GtkWidget::focus-padding = 0\n"
-                          "GtkWidget::focus-line-width = 0\n"
-                          "xthickness = 0\n"
-                          "ythickness = 0\n"
-                       "}\n"
-                       "widget \"*.bluefish-small-close-button\" style \"bluefish-small-close-button-style\""
-                       );
+	gtk_rc_parse_string("style \"bluefish-small-close-button-style\"\n"
+						"{\n"
+						"GtkWidget::focus-padding = 0\n"
+						"GtkWidget::focus-line-width = 0\n"
+						"xthickness = 0\n"
+						"ythickness = 0\n"
+						"}\n"
+						"widget \"*.bluefish-small-close-button\" style \"bluefish-small-close-button-style\"");
 	context = g_option_context_new(_(" [FILE(S)]"));
 #ifdef ENABLE_NLS
 	g_option_context_add_main_entries(context, options, PACKAGE);
@@ -310,8 +317,7 @@ int main(int argc, char *argv[])
 	g_option_context_set_ignore_unknown_options(context, TRUE);
 	g_option_context_add_group(context, gtk_get_option_group(TRUE));
 	if (!g_option_context_parse(context, &argc, &argv, &error)) {
-		g_error(N_("Error parsing command line options. %s\nPlease run: %s -?\n"), error->message,
-				argv[0]);
+		g_error(N_("Error parsing command line options. %s\nPlease run: %s -?\n"), error->message, argv[0]);
 	}
 
 	g_option_context_free(context);
@@ -319,7 +325,7 @@ int main(int argc, char *argv[])
 		g_error_free(error);
 
 	xmlInitParser();
-	startup = g_new0(Tstartup,1);
+	startup = g_new0(Tstartup, 1);
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
 
@@ -335,66 +341,69 @@ int main(int argc, char *argv[])
 	}
 
 	/* Dynamically create paths for Win32 *after* we have converted the relative
-	filenames from the commandline to GFile objects */	
+	   filenames from the commandline to GFile objects */
+	
 #ifdef WIN32
- 	path = g_malloc0(MAX_PATH+1);
-	if (GetModuleFileName(NULL, path, MAX_PATH)) {
-		/* set current working directory */
-		gchar *cwd = g_malloc0(strlen(path+1));
-		strncpy(cwd, path, (strrchr(path,'\\')-path));
-		if (cwd) {
-			SetCurrentDirectory(cwd);
-			DEBUG_MSG("Current directory set to: %s\n", cwd);
-		}
+		path = g_malloc0(MAX_PATH + 1);
+	if (GetModuleFileName(NULL, path, MAX_PATH)) {
+		
+			/* set current working directory */ 
+			gchar * cwd = g_malloc0(strlen(path + 1));
+		strncpy(cwd, path, (strrchr(path, '\\') - path));
+		if (cwd) {
+			SetCurrentDirectory(cwd);
+			DEBUG_MSG("Current directory set to: %s\n", cwd);
+		}
 		g_free(cwd);
-	}
-	else {
-		g_print("Configuration file(s) could not be found.\nExiting now.\n");
-		g_free(path);
-		bluefish_exit_request();	
-	}
-	g_free(path);
+	} else {
+		g_print("Configuration file(s) could not be found.\nExiting now.\n");
+		g_free(path);
+		bluefish_exit_request();
+	}
+	g_free(path);
+	
 #endif
-
 #ifdef DEBUG_PATHS
 	{
 		gchar *cwd = g_get_current_dir();
-		g_print("current directory=%s\n",cwd);
+		g_print("current directory=%s\n", cwd);
 		g_free(cwd);
 	}
 #endif
 	rcfile_check_directory();
 	rcfile_parse_main();
 #ifdef ENABLE_NLS
-	if (main_v->props.language!=NULL && main_v->props.language[0]!='\0') {
+	if (main_v->props.language != NULL && main_v->props.language[0] != '\0') {
 #ifndef WIN32
 		setlocale(LC_ALL, main_v->props.language);
-#else /* WIN32 */
+#else							/* WIN32 */
 		if (!lingua_set_thread_locale_on_windows(main_v->props.language)) {
 			g_free(main_v->props.language);
 			main_v->props.language = NULL;
 		}
-#endif /* WIN32 */
+#endif							/* WIN32 */
 	}
-#endif /* ENABLE_NLS */
+#endif							/* ENABLE_NLS */
 	if (main_v->props.open_in_running_bluefish) {
 #ifdef WITH_MSG_QUEUE
 		/* start message queue as early as possible so a running bluefish process has a lot of 
-		time to respond to our request-alive request */
-		msg_queue_start(startup->filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) );
+		   time to respond to our request-alive request */
+		msg_queue_start(startup->filenames,
+						(arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow)));
 #else
-		if (!ipc_bf2bf_start(startup->filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow) ) )) {
+		if (!ipc_bf2bf_start
+			(startup->filenames, (arg_newwindow || (main_v->props.open_in_new_window && !arg_curwindow)))) {
 			gdk_notify_startup_complete();
 			exit(0);
 		}
-#endif /* WITH_MSG_QUEUE */
+#endif							/* WITH_MSG_QUEUE */
 	}
 #ifdef MAC_INTEGRATION
 	{
-	GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
+		GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
 	}
 #endif
-	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE-50, startup_in_idle, startup, NULL);
+	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE - 50, startup_in_idle, startup, NULL);
 	DEBUG_MSG("main, before gtk_main()\n");
 	gtk_main();
 	DEBUG_MSG("main, after gtk_main()\n");
@@ -405,7 +414,7 @@ int main(int argc, char *argv[])
 	msg_queue_cleanup();
 #else
 	ipc_bf2bf_cleanup();
-#endif /* WITH_MSG_QUEUE */
+#endif							/* WITH_MSG_QUEUE */
 
 #ifdef MEMORY_LEAK_DEBUG
 	DEBUG_MSG("calling fb2config_cleanup()\n");
@@ -419,7 +428,8 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void bluefish_exit_request()
+void
+bluefish_exit_request()
 {
 	GList *tmplist;
 	gboolean tmpb;
@@ -433,7 +443,7 @@ void bluefish_exit_request()
 	while (tmplist) {
 		Tbfwin *bfwin = BFWIN(tmplist->data);
 		tmplist = g_list_next(tmplist);
-		bfwin_delete_event(NULL,NULL,bfwin);
+		bfwin_delete_event(NULL, NULL, bfwin);
 	}
 	/* if we still have modified documents we don't do a thing,
 	   if we don't have them we can quit */
