@@ -523,6 +523,8 @@ struct _BluefishTextView {
 #ifdef HAVE_LIBENCHANT
 	gboolean spell_check;
 #endif
+
+	guint dispose_has_run:1;
 };
 
 struct _BluefishTextViewClass {
