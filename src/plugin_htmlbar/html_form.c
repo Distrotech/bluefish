@@ -97,7 +97,7 @@ php_var_but(Thtml_diag * dg, GtkWidget * name, GtkWidget * val)
 	pixmap = gtk_image_new_from_stock(BF_STOCK_PHP3, GTK_ICON_SIZE_BUTTON);
 	gtk_widget_show(pixmap);
 	gtk_container_add(GTK_CONTAINER(returnwid), pixmap);
-	g_signal_connect(GTK_OBJECT(returnwid), "clicked", G_CALLBACK(php_var_insert_cb), dg);
+	g_signal_connect(returnwid, "clicked", G_CALLBACK(php_var_insert_cb), dg);
 	gtk_widget_show(returnwid);
 	return returnwid;
 }
@@ -531,7 +531,7 @@ inputdialog_dialog(Tbfwin * bfwin, Ttagpopup * data, const gchar * type)
 	dialog_mnemonic_label_in_table(_("_Type:"), dg->combo[0], dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[0])), 1, 3, 0, 1);
 
-	g_signal_connect(G_OBJECT(dg->combo[0]), "changed", G_CALLBACK(inputdialog_typecombo_activate_lcb), dg);
+	g_signal_connect(dg->combo[0], "changed", G_CALLBACK(inputdialog_typecombo_activate_lcb), dg);
 
 	dg->entry[0] = dialog_entry_in_table(tagvalues[1], dgtable, 1, 3, 1, 2);
 	dialog_mnemonic_label_in_table(_("_Name:"), dg->entry[0], dgtable, 0, 1, 1, 2);
