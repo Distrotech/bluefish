@@ -19,11 +19,16 @@
 
 /* for the design docs see bftextview2.h */
 
-#include <gdk/gdkkeysyms.h>
 #include <math.h>				/* log10() */
 #include <string.h>				/* strlen() */
 
 #include "bftextview2.h"
+
+#if GTK_CHECK_VERSION(3,0,0)
+#include <gdk/gdkkeysyms-compat.h>
+#else
+#include <gdk/gdkkeysyms.h>
+#endif
 
 #include "bluefish.h"
 #include "bf_lib.h"

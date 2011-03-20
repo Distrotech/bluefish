@@ -19,12 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>		/* for the keyboard event codes */
-
 #include <string.h>				/* strchr() */
 #include <regex.h>				/* regcomp() */
 #include <stdlib.h>				/* system() */
+
+#include <gtk/gtk.h>
+
+#if GTK_CHECK_VERSION(3,0,0)
+#include <gdk/gdkkeysyms-compat.h>
+#else
+#include <gdk/gdkkeysyms.h>
+#endif
 
 /*#define DEBUG*/
 

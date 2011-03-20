@@ -39,9 +39,6 @@
 
 /*#define DEBUG*/
 
-#include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>		/* GDK_Return */
-
 #include "config.h"
 
 								  /*#include <pcre.h>*//* pcre_compile */
@@ -53,6 +50,14 @@
 #ifdef HAVE_STRINGS_H
 #include <strings.h>
 #endif							/* HAVE_STRINGS_H */
+
+#include <gtk/gtk.h>
+
+#if GTK_CHECK_VERSION(3,0,0)
+#include <gdk/gdkkeysyms-compat.h>
+#else
+#include <gdk/gdkkeysyms.h>
+#endif
 
 #ifndef PCRE_UTF8				/* for compatibility with older libpcre's */
 #define PCRE_UTF8 0

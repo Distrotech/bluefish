@@ -19,10 +19,16 @@
 
 /* #define DEBUG */
 
-#include <gtk/gtk.h>
 #include <stdlib.h>				/* strtod() */
 #include <string.h>				/* strlen() */
-#include <gdk/gdkkeysyms.h>		/* GDK_Return */
+
+#include <gtk/gtk.h>
+
+#if GTK_CHECK_VERSION(3,0,0)
+#include <gdk/gdkkeysyms-compat.h>
+#else
+#include <gdk/gdkkeysyms.h>
+#endif
 
 #include "bluefish.h"
 #include "gtk_easy.h"
