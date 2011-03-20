@@ -239,7 +239,7 @@ htmlbar_dialog_style(GtkAction * action, gpointer user_data)
 static void
 htmlbar_dialog_style_create(GtkAction * action, gpointer user_data)
 {
-	new_css_dialog(NULL, BFWIN(user_data));
+/*	new_css_dialog(NULL, BFWIN(user_data));*/
 }
 
 static void

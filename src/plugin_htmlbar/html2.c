@@ -33,7 +33,7 @@
 #include "../document.h"
 #include "../gtk_easy.h"
 #include "../stringlist.h"
-
+/*
 static GList *
 glist_with_html_tags(gint with_pseudo_classes)
 {
@@ -124,7 +124,7 @@ glist_with_html_tags(gint with_pseudo_classes)
 
 	return tmplist;
 }
-
+*/
 typedef enum { entry, textbox, wizard } Tdest_type;
 typedef enum { onestyle, multistyle } Tcs3_style;
 typedef enum { but_none, but_file, but_style, but_color } Textra_button;
@@ -167,7 +167,7 @@ typedef struct {
 	gint force_pos;				/* force the possibility to be one of the options in possibilities */
 	Textra_button buttype;
 } Tcs3_arr;
-
+/*
 static gchar *cs3_colors[] =
 	{ "aqua", "black", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange",
 "purple", "red", "silver", "teal", "white", "yellow", NULL };
@@ -185,8 +185,8 @@ static gchar *cs3_font_weights[] =
 	{ "normal", "bold", "bolder", "lighter", "100", "200", "300", "400", "500", "600", "700", "800", "900",
 NULL };
 static gchar *cs3_background_attachments[] = { "scroll", "fixed", NULL };
-static gchar *cs3_background_positions[] = { "top", "center", "bottom", "left", "center", "right", "10% 10%", NULL };	/* more 2 add */
-static gchar *cs3_text_decorations[] = { "none", "underline", "overline", "line-through", "blink", NULL };
+static gchar *cs3_background_positions[] = { "top", "center", "bottom", "left", "center", "right", "10% 10%", NULL };*/	/* more 2 add */
+/*static gchar *cs3_text_decorations[] = { "none", "underline", "overline", "line-through", "blink", NULL };
 static gchar *cs3_text_transforms[] = { "none", "capitalize", "uppercase", "lowercase", NULL };
 static gchar *cs3_text_aligns[] = { "left", "right", "center", "justify", NULL };
 static gchar *cs3_border_styles[] =
@@ -324,9 +324,10 @@ cs3_arr_from_property(gchar * prop)
 		tmp = cs3_arr[count];
 	}
 	return NULL;
-}
+}*/
 
 /* the list should be freed, the contents of the list should NOT */
+/*
 static GList *
 pointer_arr2glist(gchar ** arr)
 {
@@ -380,8 +381,8 @@ cs3d_ok_clicked_lcb(GtkWidget * widget, Tcs3_diag * diag)
 			row++;
 		}
 		stylebuf = tmpbuf2;
-	} else {					/* multistyle */
-		gchar *tmpbuf1 = NULL;
+	} else {		*/			/* multistyle */
+/*		gchar *tmpbuf1 = NULL;
 		gchar *tmpbuf2 = g_strdup("");
 		gchar *prev_selector = NULL;
 		gint retval = 1, row = 0;
@@ -410,9 +411,9 @@ cs3d_ok_clicked_lcb(GtkWidget * widget, Tcs3_diag * diag)
 				row++;
 			}
 		}
-		g_free(prev_selector);
+		g_free(prev_selector); */
 		/* only append '}\n' in case there is content */
-		if (strlen(tmpbuf2) != 0)
+/*		if (strlen(tmpbuf2) != 0)
 			stylebuf = g_strconcat(tmpbuf2, "}\n", NULL);
 		g_free(tmpbuf2);
 	}
@@ -457,8 +458,8 @@ cs3d_select_row_lcb(GtkWidget * clist, gint row, gint column, GdkEventButton * e
 			text[0] = NULL;
 			gtk_clist_get_text(GTK_CLIST(diag->clist), diag->selected_row, 0, &text[1]);
 			gtk_clist_get_text(GTK_CLIST(diag->clist), diag->selected_row, 1, &text[2]);
-		} else {				/* multistyle */
-			gtk_clist_get_text(GTK_CLIST(diag->clist), diag->selected_row, 0, &text[0]);
+		} else {	*/			/* multistyle */
+/*			gtk_clist_get_text(GTK_CLIST(diag->clist), diag->selected_row, 0, &text[0]);
 			gtk_clist_get_text(GTK_CLIST(diag->clist), diag->selected_row, 1, &text[1]);
 			gtk_clist_get_text(GTK_CLIST(diag->clist), diag->selected_row, 2, &text[2]);
 		}
@@ -529,11 +530,11 @@ static void
 cs3d_add_to_update(Tcs3_diag * diag,
 				   const gchar * selector, const gchar * property,
 				   const gchar * curValue, const gchar * newValue)
-{
+{*/
 	/* _DM_ Alert box asking if user would like to change request from add to
 	 * update.
 	 */
-	const gchar *buttons[] = { GTK_STOCK_CANCEL, _("_Update"), NULL };
+/*	const gchar *buttons[] = { GTK_STOCK_CANCEL, _("_Update"), NULL };
 	gchar *primaryText = NULL, *secondaryText = NULL;
 	gint result;
 
@@ -669,8 +670,8 @@ cs3d_prop_activate_lcb(GtkWidget * widget, Tcs3_diag * diag)
 	} else {
 		gtk_widget_set_sensitive(diag->extra_but, FALSE);
 	}
-}
-
+}*/
+/*
 static Tcs3_diag *
 css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget * transient_win, gboolean grab)
 {
@@ -732,9 +733,9 @@ css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget * transient_win, gbo
 
 	diag->extra_but = color_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(diag->value))), diag->win);
 	gtk_table_attach(GTK_TABLE(table), diag->extra_but, 5, 6, 2, 3, GTK_EXPAND, GTK_EXPAND, 0, 0);
-
+*/
 	/* the list widget and the buttons are in a horizontal box */
-	hbox = gtk_hbox_new(FALSE, 12);
+/*	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 18);
 
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
@@ -751,9 +752,9 @@ css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget * transient_win, gbo
 	}
 	gtk_clist_set_sort_column(GTK_CLIST(diag->clist), 0);
 	gtk_clist_set_auto_sort(GTK_CLIST(diag->clist), TRUE);
-
+*/
 /*	gtk_clist_columns_autosize(GTK_CLIST(diag->clist));*/
-	g_signal_connect(diag->clist, "select_row", G_CALLBACK(cs3d_select_row_lcb), diag);
+/*	g_signal_connect(diag->clist, "select_row", G_CALLBACK(cs3d_select_row_lcb), diag);
 	g_signal_connect(diag->clist, "unselect_row", G_CALLBACK(cs3d_unselect_row_lcb), diag);
 
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), diag->clist);
@@ -769,9 +770,9 @@ css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget * transient_win, gbo
 
 	but = bf_generic_mnemonic_button(_(" _Delete "), G_CALLBACK(cs3d_del_clicked_lcb), diag);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
-
+*/
 	/* the ok and cancel button are in a horizontal box below */
-	hbox = gtk_hbox_new(FALSE, 0);
+/*	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 12);
 
@@ -793,7 +794,7 @@ css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget * transient_win, gbo
 		gtk_grab_add(diag->win);
 	}
 	return diag;
-}
+}*/
 
 typedef enum { property, value, end } Tcs3_prevtype_onestyle;
 typedef enum { mselector, mproperty, mvalue, mend, mselectorend } Tcs3_prevtype_multistyle;
@@ -804,7 +805,7 @@ typedef enum { mselector, mproperty, mvalue, mend, mselectorend } Tcs3_prevtype_
  * so if you don't want this, make a copy of the stylesheet
  * before you pass it on to this function
  */
-static void
+/*static void
 css_parse(Tcs3_diag * diag, gchar * data)
 {
 	gchar *tmp = data;
@@ -862,9 +863,9 @@ css_parse(Tcs3_diag * diag, gchar * data)
 				DEBUG_MSG("css_parse, this is not a valid stylesheet\n");
 				break;
 
-			default:
+			default: */
 				/* do nothing */
-				break;
+/*				break;
 			}
 			if (prevtype == value) {
 				gtk_clist_append(GTK_CLIST(diag->clist), text);
@@ -876,8 +877,8 @@ css_parse(Tcs3_diag * diag, gchar * data)
 		}
 
 
-	} else {					/* multistyle */
-		gint prev_end = 0, i;
+	} else {		*/			/* multistyle */
+/*		gint prev_end = 0, i;
 		Tcs3_prevtype_multistyle prevtype = mselectorend;
 		gchar *text[4] = { NULL, NULL, NULL, NULL };
 
@@ -885,16 +886,16 @@ css_parse(Tcs3_diag * diag, gchar * data)
 
 		while (tmp[count] && parsable_css) {
 			switch (tmp[count]) {
-			case '}':			/* found end of block */
-				if (prevtype != mselectorend) {
+			case '}':		*/	/* found end of block */
+/*				if (prevtype != mselectorend) {
 					prevtype = mselectorend;
 					prev_end = count + 1;
 					g_free(text[0]);
 					text[0] = NULL;
 				}
 				break;
-			case '{':			/* found selector */
-				if (prevtype == mselectorend) {
+			case '{':	*/		/* found selector */
+/*				if (prevtype == mselectorend) {
 					text[0] = g_strndup(&tmp[prev_end], count - prev_end);
 					strip_any_whitespace(text[0]);
 					prev_end = count + 1;
@@ -938,9 +939,9 @@ css_parse(Tcs3_diag * diag, gchar * data)
 				parsable_css = 0;
 				DEBUG_MSG("css_parse, this is not a valid stylesheet\n");
 				break;
-			default:
+			default:*/
 				/* do nothing */
-				break;
+/*				break;
 			}
 			if (prevtype == mvalue) {
 				gtk_clist_append(GTK_CLIST(diag->clist), text);
@@ -1016,7 +1017,7 @@ style_but_clicked_lcb(GtkWidget * widget, GtkWidget * which_entry)
 	data = gtk_editable_get_chars(GTK_EDITABLE(which_entry), 0, -1);
 	css_parse(diag, data);
 	g_free(data);
-}
+}*/
 
 GtkWidget *
 style_but_new(GtkWidget * which_entry, GtkWidget * win)
@@ -1029,11 +1030,11 @@ style_but_new(GtkWidget * which_entry, GtkWidget * win)
 					   FALSE, FALSE, 3);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(_("_Style...")), TRUE, TRUE, 3);
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
-	g_signal_connect(style_but, "clicked", G_CALLBACK(style_but_clicked_lcb), which_entry);
+/*	g_signal_connect(style_but, "clicked", G_CALLBACK(style_but_clicked_lcb), which_entry);*/
 	gtk_widget_show_all(style_but);
 	return style_but;
 }
-
+/*
 static void
 style_but_for_wizard_clicked_lcb(GtkWidget * widget, GtkWidget * textview)
 {
@@ -1058,7 +1059,7 @@ style_but_for_wizard_clicked_lcb(GtkWidget * widget, GtkWidget * textview)
 		g_free(data);
 	}
 }
-
+*/
 GtkWidget *
 style_but_new_for_wizard(GtkWidget * textview)
 {
@@ -1070,8 +1071,8 @@ style_but_new_for_wizard(GtkWidget * textview)
 					   FALSE, FALSE, 6);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(_("_Style...")), TRUE, TRUE, 6);
 	gtk_container_add(GTK_CONTAINER(style_but), hbox);
-	g_signal_connect(style_but, "clicked", G_CALLBACK(style_but_for_wizard_clicked_lcb),
-					 textview);
+/*	g_signal_connect(style_but, "clicked", G_CALLBACK(style_but_for_wizard_clicked_lcb),
+					 textview);*/
 	gtk_widget_show_all(style_but);
 	return style_but;
 }
