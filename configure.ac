@@ -455,8 +455,17 @@ else
 	AC_MSG_RESULT([no])
 fi
 
-
 # optionally build the charmap plugin if gucharmap is available
+if test "x$enable_build_with_gtk3" = "xyes"; then
+PKG_CHECK_MODULES(
+	[CHARMAP_PLUGIN],
+	[gucharmap-2.90],
+	[
+	 build_charmap_plugin=yes
+	 AC_DEFINE([HAVE_LIBGUCHARMAP_2], [1], [Define to 1 if you have the `gucharmap-2' library (-lgucharmap).])
+	]
+)
+else
 PKG_CHECK_MODULES(
 	[CHARMAP_PLUGIN],
 	[gucharmap-2],
@@ -478,6 +487,7 @@ PKG_CHECK_MODULES(
 		]
 	)]
 )
+fi
 AM_CONDITIONAL([ENABLE_CHARMAP_PLUGIN], [test "x$build_charmap_plugin" = "xyes"])
 
 AC_SEARCH_LIBS([log10], [m])

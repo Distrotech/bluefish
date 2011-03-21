@@ -1000,24 +1000,36 @@ bfwin_create_main(Tbfwin * bfwin)
 	{
 		GtkWidget *hbox;
 		gint onecharwidth;
+
 		hbox = gtk_hbox_new(FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+
 		bfwin->statusbar = gtk_statusbar_new();
+#if !GTK_CHECK_VERSION(3,0,0)
 		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar), FALSE);
+#endif
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar, TRUE, TRUE, 0);
+
 		bfwin->statusbar_lncol = gtk_statusbar_new();
+#if !GTK_CHECK_VERSION(3,0,0)
 		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_lncol), FALSE);
+#endif
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_lncol, FALSE, FALSE, 0);
 		/* I hope the 'w' is an average width character, the characters are usually not monospaced so these values are just averages that look good on most translations too */
 		onecharwidth = widget_get_string_size(bfwin->statusbar_lncol, "x");
 		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_lncol), onecharwidth * 30, -1);
+
 		bfwin->statusbar_insovr = gtk_statusbar_new();
+#if !GTK_CHECK_VERSION(3,0,0)
 		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_insovr), FALSE);
+#endif
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_insovr, FALSE, FALSE, 0);
 		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_insovr), onecharwidth * 6, -1);
+
 		bfwin->statusbar_editmode = gtk_statusbar_new();
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_editmode, FALSE, FALSE, 0);
 		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_editmode), onecharwidth * 35, -1);
+
 		if (bfwin->session->view_statusbar)
 			gtk_widget_show_all(hbox);
 		else

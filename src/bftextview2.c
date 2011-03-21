@@ -539,9 +539,8 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 
 	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
 		&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && stringlen == 1 && (btv->autocomp
-																				|| main_v->
-																				props.autocomp_popup_mode !=
-																				0)) {
+																				|| main_v->props.
+																				autocomp_popup_mode != 0)) {
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb: call autocomp_run\n");
 		autocomp_run(btv, FALSE);
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, set needs_autocomp to FALSE\n");
@@ -670,6 +669,165 @@ get_num_foldable_blocks(Tfound * found)
 	return count;
 }
 
+#if GTK_CHECK_VERSION(3,0,0)
+static inline void
+paint_margin(BluefishTextView * btv, cairo_t * cr, GtkTextIter * startvisible, GtkTextIter * endvisible)
+{
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+	BluefishTextView *master = btv->master;
+	Tfound *found = NULL;
+	GSequenceIter *siter = NULL;
+	guint num_blocks;
+	gint cursor_line = -1;
+	GtkTextIter it;
+	GtkTextTag *folded;
+	gint i;
+	PangoLayout *panlay;
+	gpointer bmark;
+	gint bmarkline = -1;
+
+	DBG_MSG("paint_margin called for %p\n", btv);
+
+	cairo_set_line_width(cr, 1);
+	gdk_cairo_set_source_color(cr,
+							   &gtk_widget_get_style(GTK_WIDGET(btv))->fg[gtk_widget_get_state
+																		  (GTK_WIDGET(btv))]);
+
+	if (master->show_line_numbers) {
+		GtkTextIter cursorit;
+		gtk_text_buffer_get_iter_at_mark(buffer, &cursorit, gtk_text_buffer_get_insert(buffer));
+		cursor_line = gtk_text_iter_get_line(&cursorit);
+	}
+
+	/* to see how many blocks are active here */
+	if (G_UNLIKELY(gtk_text_iter_is_start(startvisible)
+				   && (g_sequence_get_length(master->scancache.foundcaches) != 0))) {
+		siter = g_sequence_get_begin_iter(master->scancache.foundcaches);
+		if (!g_sequence_iter_is_end(siter)) {
+			found = g_sequence_get(siter);
+		}
+		num_blocks = 0;
+		DBG_MARGIN("EXPOSE: start at begin, set num_blocks %d, found=%p\n", num_blocks, found);
+	} else {
+		found = get_foundcache_at_offset(master, gtk_text_iter_get_offset(startvisible), &siter);
+		if (found) {
+			num_blocks = get_num_foldable_blocks(found);
+		} else {
+			DBG_MARGIN("EXPOSE: no found for position %d, siter=%p\n",
+					   gtk_text_iter_get_offset(startvisible), siter);
+			num_blocks = 0;
+		}
+	}
+	/* in the case that the *first* found is relevant, we don't need
+	   the 'next' found */
+	if (!found || found->charoffset_o < gtk_text_iter_get_offset(startvisible)) {
+		DBG_MARGIN("get next found..\n");
+		if (siter)
+			found = get_foundcache_next(master, &siter);
+	}
+	/*DBG_MARGIN("first found ");
+	   print_found(found); */
+
+	it = *startvisible;
+	panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "x");
+
+	folded = gtk_text_tag_table_lookup(langmgr_get_tagtable(), "_folded_");
+	if (master->showsymbols) {
+		bmarkline = bmark_margin_get_initial_bookmark((Tdocument *) master->doc, startvisible, &bmark);
+	}
+
+	for (i = gtk_text_iter_get_line(startvisible); i <= gtk_text_iter_get_line(endvisible); i++) {
+		gint w, height;
+		gchar *string;
+
+
+		gtk_text_iter_set_line(&it, i);
+
+		if (G_UNLIKELY(gtk_text_iter_has_tag(&it, folded))) {
+			DBG_FOLD("line %d is hidden\n", i);
+		} else {
+			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(btv), &it, &w, &height);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, 0, w, NULL, &w);
+
+			/* line numbers */
+			if (master->show_line_numbers) {
+				if (i == cursor_line)
+					string = g_strdup_printf("<b>%d</b>", 1 + i);
+				else
+					string = g_strdup_printf("%d", 1 + i);
+				pango_layout_set_markup(panlay, string, -1);
+				cairo_move_to(cr, 2, w);
+				pango_cairo_show_layout(cr, panlay);
+				g_free(string);
+			}
+			/* symbols */
+			if (master->showsymbols && bmarkline != -1) {
+				while (bmarkline != -1 && bmarkline < i) {
+					bmarkline = bmark_margin_get_next_bookmark((Tdocument *) master->doc, &bmark);
+				}
+				if (G_UNLIKELY(bmarkline == i)) {
+					paint_margin_symbol(master, cr, w, height);
+				}
+			}
+			/* block folding.
+			   - to find out if we need an expander/collapse, we need to see if there is a pushedblock on the
+			   blockstack which has 'foldable' for any foundcache that is on this line.
+			   - to find if we need an end-of-block we need to see if there is a poppedblock on this line
+			   which has 'foldable'
+			   - to find out if we need a line or nothing we need to know the number of expanded blocks on the stack
+			 */
+			if (master->show_blocks) {
+				GtkTextIter nextline;
+				guint nextline_o, curline_o;
+				curline_o = gtk_text_iter_get_offset(&it);
+				nextline = it;
+				if (!gtk_text_iter_ends_line(&nextline)) {
+					gtk_text_iter_forward_to_line_end(&nextline);
+				}
+				nextline_o = gtk_text_iter_get_offset(&nextline);
+				while (found) {
+					guint foundpos = found->charoffset_o;
+					if (IS_FOUNDMODE_BLOCKPUSH(found)) {
+						/* on a pushedblock we should look where the block match start, charoffset_o is the end of the
+						   match, so multiline patterns are drawn on the wrong line */
+						foundpos = found->fblock->start1_o;
+					}
+					/*DBG_FOLD("search block at line %d, curline_o=%d, nextline_o=%d\n",i,curline_o,nextline_o); */
+					if (foundpos > nextline_o) {
+						if (num_blocks > 0) {
+							paint_margin_line(master, cr, w, height);
+						}
+						break;
+					}
+					/* TODO: use 'numblockchange' in the cache to calculate this more efficiently */
+					if (foundpos <= nextline_o && foundpos >= curline_o) {
+						if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->foldable) {
+							if (found->fblock->folded)
+								paint_margin_collapse(master, cr, w, height);
+							else
+								paint_margin_expand(master, cr, w, height);
+
+							num_blocks = get_num_foldable_blocks(found);
+							break;
+						} else if (IS_FOUNDMODE_BLOCKPOP(found)) {
+							guint new_num_blocks = get_num_foldable_blocks(found);
+							if (new_num_blocks < num_blocks)
+								paint_margin_blockend(master, cr, w, height);
+							else
+								paint_margin_line(master, cr, w, height);
+							num_blocks = new_num_blocks;
+							break;
+						}
+					}
+					found = get_foundcache_next(master, &siter);
+				}
+			}
+		}
+	}
+
+	g_object_unref(G_OBJECT(panlay));
+}
+#else
 static inline void
 paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * startvisible,
 			 GtkTextIter * endvisible)
@@ -828,6 +986,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 	cairo_destroy(cr);
 	g_object_unref(G_OBJECT(panlay));
 }
+#endif
 
 /* whitespace macro. Possibly include: '/n', 8206-8207, maybe others */
 #define BTV_ISWS(c) ( \
@@ -845,6 +1004,59 @@ main_v->props.visible_ws_mode:
 2 = All trailing
 3 = All except non-trailing spaces 
 */
+
+#if GTK_CHECK_VERSION(3,0,0)
+static inline void
+paint_spaces(BluefishTextView * btv, cairo_t * cr, GtkTextIter * startvisible, GtkTextIter * endvisible)
+{
+	GtkTextIter iter;
+	gunichar uc;
+	gboolean trailing = FALSE;
+
+	cairo_set_line_width(cr, 1.0);
+	gdk_cairo_set_source_color(cr, &st_whitespace_color);
+
+	iter = *endvisible;
+	if (!gtk_text_iter_ends_line(&iter))
+		gtk_text_iter_forward_to_line_end(&iter);
+
+	while (!gtk_text_iter_equal(&iter, startvisible)) {	/* equal is faster than compare */
+		GdkRectangle rect;
+		gint x, y;
+		uc = gtk_text_iter_get_char(&iter);
+		if (G_UNLIKELY(BTV_ISWS(uc))) {
+			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv), &iter, &rect);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, rect.x,
+												  rect.y + rect.height / 1.5, &x, &y);
+			if (uc == '\t' && (trailing || main_v->props.visible_ws_mode != 2)) {
+				/* draw tab */
+				cairo_move_to(cr, x + 3.5, y - 2.5);
+				cairo_rel_line_to(cr, 0, 3);
+				cairo_rel_line_to(cr, rect.width - 6, 0);
+				cairo_rel_line_to(cr, 0, -3);
+			} else if ((uc == 160 || uc == 8239) && (trailing || main_v->props.visible_ws_mode != 2)) {
+				/* draw nbsp (8239= narrow-nbsp) */
+				cairo_move_to(cr, x + 1, y - 0.5);
+				cairo_rel_line_to(cr, rect.width - 2, 0);
+			} else if (main_v->props.visible_ws_mode == 0 || (main_v->props.visible_ws_mode != 1 && trailing)) {
+				/* draw space */
+				x += rect.width / 2;
+				cairo_move_to(cr, x, y);
+				cairo_arc(cr, x, y, 0.75, 0, 2 * M_PI);
+			}
+		} else if (G_UNLIKELY(uc != '\n' && uc != '\r')) {
+			trailing = FALSE;
+		}
+
+		if (G_UNLIKELY(gtk_text_iter_starts_line(&iter))) {
+			trailing = TRUE;
+		}
+		gtk_text_iter_backward_char(&iter);
+	}
+
+	cairo_stroke(cr);
+}
+#else
 static inline void
 paint_spaces(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * startvisible,
 			 GtkTextIter * endvisible)
@@ -898,7 +1110,107 @@ paint_spaces(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 	cairo_stroke(cr);
 	cairo_destroy(cr);
 }
+#endif
 
+#if GTK_CHECK_VERSION(3,0,0)
+static gboolean
+bluefish_text_view_draw(GtkWidget * widget, cairo_t * cr)
+{
+	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
+	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
+	GdkWindow *window;
+	gboolean event_handled = FALSE;
+
+	cairo_save(cr);
+
+	window = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT);
+	if (window && gtk_cairo_should_draw_window(cr, window)) {
+		GtkTextIter startvisible, endvisible;
+		GdkRectangle rect;
+
+		gtk_cairo_transform_to_window(cr, widget, window);
+
+		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
+		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
+
+		paint_margin(btv, cr, &startvisible, &endvisible);
+		event_handled = TRUE;
+	}
+
+	if (!event_handled) {
+		window = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT);
+		gtk_cairo_transform_to_window(cr, widget, window);
+
+		if (gtk_widget_is_sensitive(widget)
+			&& gtk_cairo_should_draw_window(cr, window)
+			&& (BFWIN(DOCUMENT(master->doc)->bfwin)->session->view_cline)) {
+			GdkRectangle rect;
+			gint w, w2;
+			GtkTextIter it;
+			GtkTextBuffer *buffer;
+
+			DBG_SIGNALS("bluefish_text_view_draw, current line highlighting\n");
+			buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
+			gtk_text_buffer_get_iter_at_mark(buffer, &it, gtk_text_buffer_get_insert(buffer));
+			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &w2);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
+												  rect.x, rect.y, &rect.x, &rect.y);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, 0, w, NULL, &w);
+
+			gdk_cairo_set_source_color(cr, &st_cline_color);
+			cairo_set_line_width(cr, 1);
+			cairo_rectangle(cr, rect.x + .5, w + .5, rect.width - 1, w2 - 1);
+			cairo_stroke_preserve(cr);
+			cairo_fill(cr);
+		}
+
+		if (GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->draw) {
+			cairo_restore(cr);
+			cairo_save(cr);
+
+			event_handled = GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->draw(widget, cr);
+
+			cairo_restore(cr);
+			cairo_save(cr);
+			gtk_cairo_transform_to_window(cr, widget, window);
+		}
+
+		if (gtk_cairo_should_draw_window(cr, window) && master->visible_spacing) {
+			GtkTextIter startvisible, endvisible;
+			GdkRectangle rect;
+			DBG_SIGNALS("bluefish_text_view_draw, paint visible spacing\n");
+
+			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
+			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
+			paint_spaces(btv, cr, &startvisible, &endvisible);
+		}
+		/* FIXME:  this doesn't work yet */
+		if (gtk_cairo_should_draw_window(cr, window) && master->show_right_margin) {
+			GdkRectangle rect, rect2;
+			guint pix = master->margin_pixels_per_char * main_v->props.right_margin_pos;
+
+			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+			rect2 = rect;
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, rect.x,
+												  rect.y, &rect2.x, &rect2.y);
+
+			cairo_set_line_width(cr, 1.0);	/* 1.0 looks the best, smaller gives a half-transparent color */
+
+			cairo_rectangle(cr, pix, rect2.y, rect2.width - .5, rect2.y + rect2.height);
+			cairo_clip(cr);
+			cairo_move_to(cr, pix, rect2.y);
+			cairo_line_to(cr, pix, rect2.y + rect2.height);
+			cairo_stroke(cr);
+		}
+	}
+	cairo_restore(cr);
+
+	return event_handled;
+}
+#else
 static gboolean
 bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 {
@@ -980,6 +1292,7 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 	}
 	return event_handled;
 }
+#endif
 
 static void
 bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
@@ -1155,8 +1468,8 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		   4 and there are two characters already, bluefish should insert only 2 characters */
 		string =
 			bf_str_repeat(" ",
-						  BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->
-						  editor_tab_width);
+						  BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->
+						  session->editor_tab_width);
 		imark = gtk_text_buffer_get_insert(btv->buffer);
 		gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, imark);
 		numchars =
@@ -1325,13 +1638,21 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 
 			if (event->type == GDK_2BUTTON_PRESS && (event->x > (master->margin_pixels_chars))
 				&& (event->x < (master->margin_pixels_chars + master->margin_pixels_symbol))) {
-				GdkRegion *region;
 				bmark_toggle(btv->doc, gtk_text_iter_get_offset(&it), NULL, NULL);
 				/* redraw margin */
+#if GTK_CHECK_VERSION(3,0,0)
+				cairo_region_t *region;
+
+				region = gdk_window_get_clip_region(event->window);
+				gdk_window_invalidate_region(event->window, region, FALSE);
+				cairo_region_destroy(region);
+#else
+				GdkRegion *region;
+
 				region = gdk_drawable_get_clip_region(event->window);
 				gdk_window_invalidate_region(event->window, region, FALSE);
 				gdk_region_destroy(region);
-
+#endif
 				return TRUE;
 			}
 			if (btv->show_blocks && (event->x > (master->margin_pixels_chars + master->margin_pixels_symbol))) {	/* get the offset that equals the folding area */
@@ -2096,7 +2417,11 @@ bluefish_text_view_class_init(BluefishTextViewClass * klass)
 	object_class->finalize = bluefish_text_view_finalize;
 
 	widget_class->button_press_event = bluefish_text_view_button_press_event;
+#if GTK_CHECK_VERSION(3,0,0)
+	widget_class->draw = bluefish_text_view_draw;
+#else
 	widget_class->expose_event = bluefish_text_view_expose_event;
+#endif
 	widget_class->key_press_event = bluefish_text_view_key_press_event;
 	widget_class->key_release_event = bluefish_text_view_key_release_event;
 	widget_class->query_tooltip = bluefish_text_view_query_tooltip;

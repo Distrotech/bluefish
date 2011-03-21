@@ -1113,11 +1113,19 @@ file_but_clicked_lcb(GtkWidget * widget, Tfilebut * fb)
 	}
 }
 
+#if GTK_CHECK_VERSION(3,0,0)
+static void
+file_but_destroy(GtkWidget * object, Tfilebut * fb)
+{
+	g_free(fb);
+}
+#else
 static void
 file_but_destroy(GtkObject * object, Tfilebut * fb)
 {
 	g_free(fb);
 }
+#endif
 
 /**
  * file_but_new:

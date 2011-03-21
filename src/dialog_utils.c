@@ -422,7 +422,11 @@ dialog_radio_button_from_widget_in_table(GtkRadioButton * radio_group_member, co
 GtkWidget *
 dialog_spin_button_new(gfloat lower, gfloat upper, const gint value)
 {
+#if GTK_CHECK_VERSION(3,0,0)
+	GtkAdjustment *adjustment;
+#else
 	GtkObject *adjustment;
+#endif
 	GtkWidget *button;
 	gfloat step_increment, page_increment;
 
