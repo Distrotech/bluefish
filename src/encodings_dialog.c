@@ -438,7 +438,6 @@ bluefish_encodings_dialog_new(Tbfwin * bfwin)
 	dialog = g_object_new(BLUEFISH_TYPE_ENCODINGS_DIALOG,
 						  "bfwin", bfwin,
 						  "destroy-with-parent", TRUE,
-						  "has-separator", FALSE,
 						  "title", _("Add or remove document encodings"),
 						  "transient-for", bfwin->main_window, NULL);
 
