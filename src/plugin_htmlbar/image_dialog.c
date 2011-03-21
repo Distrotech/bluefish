@@ -1132,7 +1132,6 @@ bluefish_image_dialog_new(Tbfwin * bfwin)
 	dialog = g_object_new(BLUEFISH_TYPE_IMAGE_DIALOG,
 						  "bfwin", bfwin,
 						  "destroy-with-parent", TRUE,
-						  "has-separator", FALSE,
 						  "title", _("Insert Image"),
 						  "transient-for", bfwin->main_window, "tag-start", -1, "tag-end", -1, NULL);
 
@@ -1233,7 +1232,6 @@ bluefish_image_dialog_new_with_data(Tbfwin * bfwin, Ttagpopup * data)
 	dialog = g_object_new(BLUEFISH_TYPE_IMAGE_DIALOG,
 						  "bfwin", bfwin,
 						  "destroy-with-parent", TRUE,
-						  "has-separator", FALSE,
 						  "title", _("Insert Image"),
 						  "transient-for", bfwin->main_window,
 						  "src", tagvalues[0],
