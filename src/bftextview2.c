@@ -539,8 +539,9 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 
 	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
 		&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && stringlen == 1 && (btv->autocomp
-																				|| main_v->props.
-																				autocomp_popup_mode != 0)) {
+																				|| main_v->
+																				props.autocomp_popup_mode !=
+																				0)) {
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb: call autocomp_run\n");
 		autocomp_run(btv, FALSE);
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, set needs_autocomp to FALSE\n");
@@ -1157,7 +1158,8 @@ bluefish_text_view_draw(GtkWidget * widget, cairo_t * cr)
 			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &w2);
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
 												  rect.x, rect.y, &rect.x, &rect.y);
-			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, 0, w, NULL, &w);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, 0, w, NULL,
+												  &w);
 
 			gdk_cairo_set_source_color(cr, &st_cline_color);
 			cairo_set_line_width(cr, 1);
@@ -1468,8 +1470,8 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		   4 and there are two characters already, bluefish should insert only 2 characters */
 		string =
 			bf_str_repeat(" ",
-						  BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->
-						  session->editor_tab_width);
+						  BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->
+						  editor_tab_width);
 		imark = gtk_text_buffer_get_insert(btv->buffer);
 		gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, imark);
 		numchars =
@@ -2022,8 +2024,9 @@ bftextview2_parse_static_colors(void)
 void
 bftextview2_init_globals(void)
 {
-	g_print("sizeof(Tfound)=%d, sizeof(Tfoundcontext)=%d,sizeof(Tfoundblock)=%d\n", sizeof(Tfound),
-			sizeof(Tfoundcontext), sizeof(Tfoundblock));
+	g_print("sizeof(Tfound)=%#" G_GSIZE_MODIFIER "x,sizeof(Tfoundcontext)=%#" G_GSIZE_MODIFIER
+			"x,sizeof(Tfoundblock)=%#" G_GSIZE_MODIFIER "x\n", sizeof(Tfound), sizeof(Tfoundcontext),
+			sizeof(Tfoundblock));
 	bftextview2_parse_static_colors();
 	if (main_v->props.autocomp_accel_string && main_v->props.autocomp_accel_string[0] != '\0') {
 		gtk_accelerator_parse(main_v->props.autocomp_accel_string, &main_v->autocomp_accel_key,
