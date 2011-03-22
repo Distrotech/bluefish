@@ -335,7 +335,6 @@ typedef struct {
 
 typedef struct {
 	guint8 allsymbols[128];		/* this lookup table holds all symbols for all contexts, and is used to trigger scanning if reduced_scan_triggers is enabled */
-	/*GArray *table;*/				/* dynamic sized array of Ttablerow: the DFA table, max 65.... entries, we use a guint16 as index */
 	GArray *contexts;			/* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
 	GArray *matches;			/* dynamic sized array of Tpattern */
 	GArray *comments;			/* Tcomment, has max. 256 entries, we use a guint8 as index */

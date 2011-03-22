@@ -655,35 +655,21 @@ compile_keyword_to_DFA(Tscantable * st, gchar * keyword, guint16 matchnum, gint1
 }
 
 gint16
-new_context(Tscantable * st, GArray *tmptable, const gchar * lang, gchar * symbols, const gchar * contexthighlight,
+new_context(Tscantable * st, guint expected_size, const gchar * lang, gchar * symbols, const gchar * contexthighlight,
 			gboolean autocomplete_case_insens)
 {
 	gint16 context;
 	gint i;
 	gchar *tmp;
+	GArray *tmptable;
 
 	context = st->contexts->len;
 	g_array_set_size(st->contexts, st->contexts->len + 1);
 
-/*	startstate = st->table->len;
-	identstate = st->table->len + 1;
-
-	g_array_index(st->contexts, Tcontext, context).startstate = startstate;
-	g_array_index(st->contexts, Tcontext, context).identstate = identstate;
-	*/
 	g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens = autocomplete_case_insens;
 	g_array_index(st->contexts, Tcontext, context).contexthighlight = (gchar *) contexthighlight;
-	g_array_index(st->contexts, Tcontext, context).table = tmptable;
-	g_array_set_size(tmptable, 2); /* first two states are the startstate (0) and the identstate (1) */ 
-
-	/*if (contexthighlight) 
-	   g_array_index(st->contexts, Tcontext, context).contexttag = langmrg_lookup_tag_highlight(lang, contexthighlight); */
-	
-/*	DBG_PATCOMPILE("new context %d has startstate %d, identstate %d and symbols %s\n", context,
-				   g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts,
-																							Tcontext,
-																							context).identstate,
-				   symbols);*/
+	tmptable = g_array_index(st->contexts, Tcontext, context).table = g_array_sized_new(TRUE, TRUE, sizeof(Ttablerow), expected_size);
+	g_array_set_size(g_array_index(st->contexts, Tcontext, context).table, 2); /* first two states are the startstate (0) and the identstate (1) */ 
 	/* identstate refers to itself for all characters except the symbols. we cannot use memset
 	   because an guint16 occupies 2 bytes */
 	for (i = 0; i < NUMSCANCHARS; i++)
@@ -967,19 +953,6 @@ scantable_new(guint size_table, guint size_matches, guint size_contexts)
 	st->matches->len = 1;		/* match 0 means no match */
 	st->contexts->len = 1;		/* a match with nextcontext 0 means no context change, so we cannot use context 0 */
 	return st;
-}
-
-void
-print_scantable_stats(const gchar * lang, const gchar * file, Tscantable * st)
-{
-	g_print("Language statistics for %s from %s\n", lang, file);
-	/*g_print("table    %5d (%.2f Kbytes)\n", st->table->len,
-			1.0 * st->table->len * sizeof(Ttablerow) / 1024.0);*/
-	g_print("contexts %5d (%.2f Kbytes)\n", st->contexts->len,
-			1.0 * st->contexts->len * sizeof(Tcontext) / 1024.0);
-	g_print("matches  %5d (%.2f Kbytes)\n", st->matches->len,
-			1.0 * st->matches->len * sizeof(Tpattern) / 1024.0);
-
 }
 
 #ifdef HARDCODED_PATTERNS

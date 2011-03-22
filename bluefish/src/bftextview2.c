@@ -1684,7 +1684,7 @@ bftextview2_parse_static_colors(void)
 void
 bftextview2_init_globals(void)
 {
-	g_print("sizeof(Tfound)=%"G_GSIZE_MODIFIER", sizeof(Tfoundcontext)=%"G_GSIZE_MODIFIER",sizeof(Tfoundblock)=%"G_GSIZE_MODIFIER"\n",sizeof(Tfound),sizeof(Tfoundcontext),sizeof(Tfoundblock));
+	g_print("sizeof(Tfound)=%ld, sizeof(Tfoundcontext)=%ld,sizeof(Tfoundblock)=%ld\n",(glong)sizeof(Tfound),(glong)sizeof(Tfoundcontext),(glong)sizeof(Tfoundblock));
 	bftextview2_parse_static_colors();
 	if (main_v->props.autocomp_accel_string && main_v->props.autocomp_accel_string[0] != '\0') {
 		gtk_accelerator_parse(main_v->props.autocomp_accel_string, &main_v->autocomp_accel_key,

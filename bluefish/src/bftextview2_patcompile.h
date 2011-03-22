@@ -23,7 +23,7 @@
 
 #include "bftextview2.h"
 GList *bftextview2_scantable_rematch_highlights(Tscantable * st, const gchar * lang);
-gint16 new_context(Tscantable * st, GArray *tmptable, const gchar * lang, gchar * symbols, const gchar * contexthighlight,
+gint16 new_context(Tscantable * st, guint expected_size, const gchar * lang, gchar * symbols, const gchar * contexthighlight,
 				   gboolean autocomplete_case_insens);
 void match_set_nextcontext(Tscantable * st, guint16 matchnum, guint16 nextcontext);
 void match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context);
@@ -38,7 +38,6 @@ guint16 add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gc
 									  guint blockstartpattern, gboolean tagclose_from_blockstack,
 									  guint8 identmode);
 void print_DFA(Tscantable * st, char start, char end);
-void print_scantable_stats(const gchar * lang, const gchar * file, Tscantable * st);
 Tscantable *scantable_new(guint size_table, guint size_matches, guint size_contexts);
 Tscantable *bftextview2_scantable_new(GtkTextBuffer * buffer);
 
