@@ -3351,8 +3351,6 @@ E_WARNING is generated.
 <element pattern="insertData"/>
 <element pattern="replaceData"/>
 <element pattern="substringData"/>
-<element pattern="__construct"/>
-<element pattern="__construct"/>
 <element pattern="createAttribute"/>
 <element pattern="createAttributeNS"/>
 <element pattern="createCDATASection"/>
@@ -3384,7 +3382,6 @@ E_WARNING is generated.
 <element pattern="validate"/>
 <element pattern="xinclude"/>
 <element pattern="appendXML"/>
-<element pattern="__construct"/>
 <element pattern="getAttribute"/>
 <element pattern="getAttributeNode"/>
 <element pattern="getAttributeNodeNS"/>
@@ -3403,8 +3400,6 @@ E_WARNING is generated.
 <element pattern="setIdAttribute"/>
 <element pattern="setIdAttributeNode"/>
 <element pattern="setIdAttributeNS"/>
-<element pattern="__construct"/>
-<element pattern="__construct"/>
 <element pattern="createDocument"/>
 <element pattern="createDocumentType"/>
 <element pattern="hasFeature"/>
@@ -3425,11 +3420,8 @@ E_WARNING is generated.
 <element pattern="removeChild"/>
 <element pattern="replaceChild"/>
 <element pattern="item"/>
-<element pattern="__construct"/>
-<element pattern="__construct"/>
 <element pattern="isWhitespaceInElementContent"/>
 <element pattern="splitText"/>
-<element pattern="__construct"/>
 <element pattern="evaluate"/>
 <element pattern="query"/>
 <element pattern="registerNamespace"/>
@@ -3824,7 +3816,6 @@ Create a new fileinfo resource
 constants.
 <b> arg string[optional] </b><b>returns</b>  resource a magic database resource on success or false on failure.
 </reference></element>
-<element pattern="__construct"/>
 <element pattern="finfo_set_flags" autocomplete_append="($options);">
 <reference>finfo_set_flags($options);
 Set libmagic configuration options
@@ -10086,7 +10077,6 @@ Hyperbolic tangent
 <element pattern="maxdb_connect_errno"/>
 <element pattern="maxdb_connect_error"/>
 <element pattern="maxdb_connect"/>
-<element pattern="__construct"/>
 <element pattern="maxdb_data_seek"/>
 <element pattern="data_seek"/>
 <element pattern="maxdb_debug"/>
@@ -10146,7 +10136,6 @@ Hyperbolic tangent
 <element pattern="maxdb_prepare"/>
 <element pattern="prepare"/>
 <element pattern="maxdb_query"/>
-<element pattern="query"/>
 <element pattern="maxdb_real_connect"/>
 <element pattern="real_connect"/>
 <element pattern="maxdb_real_escape_string"/>
@@ -10210,7 +10199,6 @@ empty.
 <element pattern="maxdb_stmt_store_result"/>
 <element pattern="store_result"/>
 <element pattern="maxdb_store_result"/>
-<element pattern="store_result"/>
 <element pattern="maxdb_thread_id"/>
 <element pattern="maxdb_thread_safe"/>
 <element pattern="maxdb_use_result"/>
@@ -10616,11 +10604,8 @@ Detect MIME Content-type for a file (deprecated)
 <b>returns</b>  string the content type in MIME format, like 
 text/plain or application/octet-stream.
 </reference></element>
-<element pattern="__construct"/>
-<element pattern="__construct"/>
 <element pattern="getHeight"/>
 <element pattern="getWidth"/>
-<element pattern="__construct"/>
 <element pattern="addAction"/>
 <element pattern="addASound"/>
 <element pattern="addShape"/>
@@ -10662,7 +10647,6 @@ text/plain or application/octet-stream.
 <element pattern="scaleTo"/>
 <element pattern="skewXTo"/>
 <element pattern="skewYTo"/>
-<element pattern="__construct"/>
 <element pattern="getAscent"/>
 <element pattern="getDescent"/>
 <element pattern="getLeading"/>
@@ -10671,12 +10655,9 @@ text/plain or application/octet-stream.
 <element pattern="getWidth"/>
 <element pattern="addChars"/>
 <element pattern="addUTF8Chars"/>
-<element pattern="__construct"/>
 <element pattern="addEntry"/>
-<element pattern="__construct"/>
 <element pattern="getShape1"/>
 <element pattern="getShape2"/>
-<element pattern="__construct"/>
 <element pattern="add"/>
 <element pattern="addExport"/>
 <element pattern="addFont"/>
@@ -10696,8 +10677,6 @@ text/plain or application/octet-stream.
 <element pattern="stopSound"/>
 <element pattern="streamMP3"/>
 <element pattern="writeExports"/>
-<element pattern="__construct"/>
-<element pattern="__construct"/>
 <element pattern="addFill"/>
 <element pattern="addFill"/>
 <element pattern="addFill"/>
@@ -10718,12 +10697,10 @@ text/plain or application/octet-stream.
 <element pattern="setLine"/>
 <element pattern="setRightFill"/>
 <element pattern="setRightFill"/>
-<element pattern="__construct"/>
 <element pattern="loopCount"/>
 <element pattern="loopInPoint"/>
 <element pattern="loopOutPoint"/>
 <element pattern="noMultiple"/>
-<element pattern="__construct"/>
 <element pattern="add"/>
 <element pattern="labelFrame"/>
 <element pattern="nextFrame"/>
@@ -10731,7 +10708,6 @@ text/plain or application/octet-stream.
 <element pattern="setFrames"/>
 <element pattern="startSound"/>
 <element pattern="stopSound"/>
-<element pattern="__construct"/>
 <element pattern="addString"/>
 <element pattern="addUTF8String"/>
 <element pattern="getAscent"/>
@@ -10744,7 +10720,6 @@ text/plain or application/octet-stream.
 <element pattern="setFont"/>
 <element pattern="setHeight"/>
 <element pattern="setSpacing"/>
-<element pattern="__construct"/>
 <element pattern="addChars"/>
 <element pattern="addString"/>
 <element pattern="align"/>
@@ -10759,7 +10734,6 @@ text/plain or application/octet-stream.
 <element pattern="setName"/>
 <element pattern="setPadding"/>
 <element pattern="setRightMargin"/>
-<element pattern="__construct"/>
 <element pattern="getNumFrames"/>
 <element pattern="setDimension"/>
 <element pattern="ming_keypress" autocomplete_append="($char);">
@@ -12401,1286 +12375,49 @@ or false on error.
 </reference></element>
 <element pattern="mysqli_affected_rows" autocomplete_append="();">
 <reference>mysqli_affected_rows();
-hp
-Start of mysqli v.0.1
-ss mysqli_sql_exception extends RuntimeException  {
-otected $message;
-otected $code;
-otected $file;
-otected $line;
-otected $sqlstate;
-nal private function __clone () {}
-*
- @param message[optional]
- @param code[optional]
-/
-blic function __construct ($message, $code) {}
-nal public function getMessage () {}
-nal public function getCode () {}
-nal public function getFile () {}
-nal public function getLine () {}
-nal public function getTrace () {}
-nal public function getTraceAsString () {}
-blic function __toString () {}
-al class mysqli_driver  {
-blic function embedded_server_start () {}
-blic function embedded_server_end () {}
-ss mysqli  {
-blic function autocommit () {}
-blic function change_user () {}
-blic function character_set_name () {}
-blic function client_encoding () {}
-blic function close () {}
-blic function commit () {}
-blic function connect () {}
-blic function debug () {}
-blic function disable_reads_from_master () {}
-blic function disable_rpl_parse () {}
-blic function dump_debug_info () {}
-blic function enable_reads_from_master () {}
-blic function enable_rpl_parse () {}
-blic function get_charset () {}
-blic function get_client_info () {}
-blic function get_server_info () {}
-blic function get_warnings () {}
-blic function init () {}
-blic function kill () {}
-blic function set_local_infile_default () {}
-blic function set_local_infile_handler () {}
-blic function master_query () {}
-blic function multi_query () {}
-blic function mysqli () {}
-blic function more_results () {}
-blic function next_result () {}
-blic function options () {}
-blic function ping () {}
-blic function prepare () {}
-blic function query () {}
-blic function real_connect () {}
-blic function real_escape_string () {}
-blic function escape_string () {}
-blic function real_query () {}
-blic function rollback () {}
-blic function rpl_parse_enabled () {}
-blic function rpl_probe () {}
-blic function rpl_query_type () {}
-blic function select_db () {}
-blic function set_charset () {}
-blic function set_opt () {}
-blic function slave_query () {}
-blic function ssl_set () {}
-blic function stat () {}
-blic function stmt_init () {}
-blic function store_result () {}
-blic function thread_safe () {}
-blic function use_result () {}
-al class mysqli_warning  {
-otected function __construct () {}
-blic function next () {}
-ss mysqli_result  {
-blic function mysqli_result () {}
-blic function close () {}
-blic function free () {}
-blic function data_seek () {}
-blic function fetch_field () {}
-blic function fetch_fields () {}
-blic function fetch_field_direct () {}
-blic function fetch_array () {}
-blic function fetch_assoc () {}
-blic function fetch_object () {}
-blic function fetch_row () {}
-blic function field_count () {}
-blic function field_seek () {}
-blic function free_result () {}
-ss mysqli_stmt  {
-blic function mysqli_stmt () {}
-blic function attr_get () {}
-blic function attr_set () {}
-*
- @param var1
-/
-blic function bind_param ($var1) {}
-blic function bind_result () {}
-blic function close () {}
-blic function data_seek () {}
-blic function execute () {}
-blic function fetch () {}
-blic function get_warnings () {}
-blic function result_metadata () {}
-blic function num_rows () {}
-blic function send_long_data () {}
-blic function stmt () {}
-blic function free_result () {}
-blic function reset () {}
-blic function prepare () {}
-blic function store_result () {}
 </reference></element>
 <element pattern="mysqli_autocommit" autocomplete_append="();">
 <reference>mysqli_autocommit();
-hp
-Start of mysqli v.0.1
-ss mysqli_sql_exception extends RuntimeException  {
-otected $message;
-otected $code;
-otected $file;
-otected $line;
-otected $sqlstate;
-nal private function __clone () {}
-*
- @param message[optional]
- @param code[optional]
-/
-blic function __construct ($message, $code) {}
-nal public function getMessage () {}
-nal public function getCode () {}
-nal public function getFile () {}
-nal public function getLine () {}
-nal public function getTrace () {}
-nal public function getTraceAsString () {}
-blic function __toString () {}
-al class mysqli_driver  {
-blic function embedded_server_start () {}
-blic function embedded_server_end () {}
-ss mysqli  {
-blic function autocommit () {}
-blic function change_user () {}
-blic function character_set_name () {}
-blic function client_encoding () {}
-blic function close () {}
-blic function commit () {}
-blic function connect () {}
-blic function debug () {}
-blic function disable_reads_from_master () {}
-blic function disable_rpl_parse () {}
-blic function dump_debug_info () {}
-blic function enable_reads_from_master () {}
-blic function enable_rpl_parse () {}
-blic function get_charset () {}
-blic function get_client_info () {}
-blic function get_server_info () {}
-blic function get_warnings () {}
-blic function init () {}
-blic function kill () {}
-blic function set_local_infile_default () {}
-blic function set_local_infile_handler () {}
-blic function master_query () {}
-blic function multi_query () {}
-blic function mysqli () {}
-blic function more_results () {}
-blic function next_result () {}
-blic function options () {}
-blic function ping () {}
-blic function prepare () {}
-blic function query () {}
-blic function real_connect () {}
-blic function real_escape_string () {}
-blic function escape_string () {}
-blic function real_query () {}
-blic function rollback () {}
-blic function rpl_parse_enabled () {}
-blic function rpl_probe () {}
-blic function rpl_query_type () {}
-blic function select_db () {}
-blic function set_charset () {}
-blic function set_opt () {}
-blic function slave_query () {}
-blic function ssl_set () {}
-blic function stat () {}
-blic function stmt_init () {}
-blic function store_result () {}
-blic function thread_safe () {}
-blic function use_result () {}
-al class mysqli_warning  {
-otected function __construct () {}
-blic function next () {}
-ss mysqli_result  {
-blic function mysqli_result () {}
-blic function close () {}
-blic function free () {}
-blic function data_seek () {}
-blic function fetch_field () {}
-blic function fetch_fields () {}
-blic function fetch_field_direct () {}
-blic function fetch_array () {}
-blic function fetch_assoc () {}
-blic function fetch_object () {}
-blic function fetch_row () {}
-blic function field_count () {}
-blic function field_seek () {}
-blic function free_result () {}
-ss mysqli_stmt  {
-blic function mysqli_stmt () {}
-blic function attr_get () {}
-blic function attr_set () {}
-*
- @param var1
-/
-blic function bind_param ($var1) {}
-blic function bind_result () {}
-blic function close () {}
-blic function data_seek () {}
-blic function execute () {}
-blic function fetch () {}
-blic function get_warnings () {}
-blic function result_metadata () {}
-blic function num_rows () {}
-blic function send_long_data () {}
-blic function stmt () {}
-blic function free_result () {}
-blic function reset () {}
-blic function prepare () {}
-blic function store_result () {}
 </reference></element>
 <element pattern="autocommit"/>
 <element pattern="mysqli_change_user" autocomplete_append="();">
 <reference>mysqli_change_user();
-hp
-Start of mysqli v.0.1
-ss mysqli_sql_exception extends RuntimeException  {
-otected $message;
-otected $code;
-otected $file;
-otected $line;
-otected $sqlstate;
-nal private function __clone () {}
-*
- @param message[optional]
- @param code[optional]
-/
-blic function __construct ($message, $code) {}
-nal public function getMessage () {}
-nal public function getCode () {}
-nal public function getFile () {}
-nal public function getLine () {}
-nal public function getTrace () {}
-nal public function getTraceAsString () {}
-blic function __toString () {}
-al class mysqli_driver  {
-blic function embedded_server_start () {}
-blic function embedded_server_end () {}
-ss mysqli  {
-blic function autocommit () {}
-blic function change_user () {}
-blic function character_set_name () {}
-blic function client_encoding () {}
-blic function close () {}
-blic function commit () {}
-blic function connect () {}
-blic function debug () {}
-blic function disable_reads_from_master () {}
-blic function disable_rpl_parse () {}
-blic function dump_debug_info () {}
-blic function enable_reads_from_master () {}
-blic function enable_rpl_parse () {}
-blic function get_charset () {}
-blic function get_client_info () {}
-blic function get_server_info () {}
-blic function get_warnings () {}
-blic function init () {}
-blic function kill () {}
-blic function set_local_infile_default () {}
-blic function set_local_infile_handler () {}
-blic function master_query () {}
-blic function multi_query () {}
-blic function mysqli () {}
-blic function more_results () {}
-blic function next_result () {}
-blic function options () {}
-blic function ping () {}
-blic function prepare () {}
-blic function query () {}
-blic function real_connect () {}
-blic function real_escape_string () {}
-blic function escape_string () {}
-blic function real_query () {}
-blic function rollback () {}
-blic function rpl_parse_enabled () {}
-blic function rpl_probe () {}
-blic function rpl_query_type () {}
-blic function select_db () {}
-blic function set_charset () {}
-blic function set_opt () {}
-blic function slave_query () {}
-blic function ssl_set () {}
-blic function stat () {}
-blic function stmt_init () {}
-blic function store_result () {}
-blic function thread_safe () {}
-blic function use_result () {}
-al class mysqli_warning  {
-otected function __construct () {}
-blic function next () {}
-ss mysqli_result  {
-blic function mysqli_result () {}
-blic function close () {}
-blic function free () {}
-blic function data_seek () {}
-blic function fetch_field () {}
-blic function fetch_fields () {}
-blic function fetch_field_direct () {}
-blic function fetch_array () {}
-blic function fetch_assoc () {}
-blic function fetch_object () {}
-blic function fetch_row () {}
-blic function field_count () {}
-blic function field_seek () {}
-blic function free_result () {}
-ss mysqli_stmt  {
-blic function mysqli_stmt () {}
-blic function attr_get () {}
-blic function attr_set () {}
-*
- @param var1
-/
-blic function bind_param ($var1) {}
-blic function bind_result () {}
-blic function close () {}
-blic function data_seek () {}
-blic function execute () {}
-blic function fetch () {}
-blic function get_warnings () {}
-blic function result_metadata () {}
-blic function num_rows () {}
-blic function send_long_data () {}
-blic function stmt () {}
-blic function free_result () {}
-blic function reset () {}
-blic function prepare () {}
-blic function store_result () {}
 </reference></element>
 <element pattern="change_user"/>
 <element pattern="mysqli_character_set_name" autocomplete_append="();">
 <reference>mysqli_character_set_name();
-hp
-Start of mysqli v.0.1
-ss mysqli_sql_exception extends RuntimeException  {
-otected $message;
-otected $code;
-otected $file;
-otected $line;
-otected $sqlstate;
-nal private function __clone () {}
-*
- @param message[optional]
- @param code[optional]
-/
-blic function __construct ($message, $code) {}
-nal public function getMessage () {}
-nal public function getCode () {}
-nal public function getFile () {}
-nal public function getLine () {}
-nal public function getTrace () {}
-nal public function getTraceAsString () {}
-blic function __toString () {}
-al class mysqli_driver  {
-blic function embedded_server_start () {}
-blic function embedded_server_end () {}
-ss mysqli  {
-blic function autocommit () {}
-blic function change_user () {}
-blic function character_set_name () {}
-blic function client_encoding () {}
-blic function close () {}
-blic function commit () {}
-blic function connect () {}
-blic function debug () {}
-blic function disable_reads_from_master () {}
-blic function disable_rpl_parse () {}
-blic function dump_debug_info () {}
-blic function enable_reads_from_master () {}
-blic function enable_rpl_parse () {}
-blic function get_charset () {}
-blic function get_client_info () {}
-blic function get_server_info () {}
-blic function get_warnings () {}
-blic function init () {}
-blic function kill () {}
-blic function set_local_infile_default () {}
-blic function set_local_infile_handler () {}
-blic function master_query () {}
-blic function multi_query () {}
-blic function mysqli () {}
-blic function more_results () {}
-blic function next_result () {}
-blic function options () {}
-blic function ping () {}
-blic function prepare () {}
-blic function query () {}
-blic function real_connect () {}
-blic function real_escape_string () {}
-blic function escape_string () {}
-blic function real_query () {}
-blic function rollback () {}
-blic function rpl_parse_enabled () {}
-blic function rpl_probe () {}
-blic function rpl_query_type () {}
-blic function select_db () {}
-blic function set_charset () {}
-blic function set_opt () {}
-blic function slave_query () {}
-blic function ssl_set () {}
-blic function stat () {}
-blic function stmt_init () {}
-blic function store_result () {}
-blic function thread_safe () {}
-blic function use_result () {}
-al class mysqli_warning  {
-otected function __construct () {}
-blic function next () {}
-ss mysqli_result  {
-blic function mysqli_result () {}
-blic function close () {}
-blic function free () {}
-blic function data_seek () {}
-blic function fetch_field () {}
-blic function fetch_fields () {}
-blic function fetch_field_direct () {}
-blic function fetch_array () {}
-blic function fetch_assoc () {}
-blic function fetch_object () {}
-blic function fetch_row () {}
-blic function field_count () {}
-blic function field_seek () {}
-blic function free_result () {}
-ss mysqli_stmt  {
-blic function mysqli_stmt () {}
-blic function attr_get () {}
-blic function attr_set () {}
-*
- @param var1
-/
-blic function bind_param ($var1) {}
-blic function bind_result () {}
-blic function close () {}
-blic function data_seek () {}
-blic function execute () {}
-blic function fetch () {}
-blic function get_warnings () {}
-blic function result_metadata () {}
-blic function num_rows () {}
-blic function send_long_data () {}
-blic function stmt () {}
-blic function free_result () {}
-blic function reset () {}
-blic function prepare () {}
-blic function store_result () {}
+
 </reference></element>
 <element pattern="character_set_name"/>
 <element pattern="mysqli_close" autocomplete_append="();">
 <reference>mysqli_close();
-hp
-Start of mysqli v.0.1
-ss mysqli_sql_exception extends RuntimeException  {
-otected $message;
-otected $code;
-otected $file;
-otected $line;
-otected $sqlstate;
-nal private function __clone () {}
-*
- @param message[optional]
- @param code[optional]
-/
-blic function __construct ($message, $code) {}
-nal public function getMessage () {}
-nal public function getCode () {}
-nal public function getFile () {}
-nal public function getLine () {}
-nal public function getTrace () {}
-nal public function getTraceAsString () {}
-blic function __toString () {}
-al class mysqli_driver  {
-blic function embedded_server_start () {}
-blic function embedded_server_end () {}
-ss mysqli  {
-blic function autocommit () {}
-blic function change_user () {}
-blic function character_set_name () {}
-blic function client_encoding () {}
-blic function close () {}
-blic function commit () {}
-blic function connect () {}
-blic function debug () {}
-blic function disable_reads_from_master () {}
-blic function disable_rpl_parse () {}
-blic function dump_debug_info () {}
-blic function enable_reads_from_master () {}
-blic function enable_rpl_parse () {}
-blic function get_charset () {}
-blic function get_client_info () {}
-blic function get_server_info () {}
-blic function get_warnings () {}
-blic function init () {}
-blic function kill () {}
-blic function set_local_infile_default () {}
-blic function set_local_infile_handler () {}
-blic function master_query () {}
-blic function multi_query () {}
-blic function mysqli () {}
-blic function more_results () {}
-blic function next_result () {}
-blic function options () {}
-blic function ping () {}
-blic function prepare () {}
-blic function query () {}
-blic function real_connect () {}
-blic function real_escape_string () {}
-blic function escape_string () {}
-blic function real_query () {}
-blic function rollback () {}
-blic function rpl_parse_enabled () {}
-blic function rpl_probe () {}
-blic function rpl_query_type () {}
-blic function select_db () {}
-blic function set_charset () {}
-blic function set_opt () {}
-blic function slave_query () {}
-blic function ssl_set () {}
-blic function stat () {}
-blic function stmt_init () {}
-blic function store_result () {}
-blic function thread_safe () {}
-blic function use_result () {}
-al class mysqli_warning  {
-otected function __construct () {}
-blic function next () {}
-ss mysqli_result  {
-blic function mysqli_result () {}
-blic function close () {}
-blic function free () {}
-blic function data_seek () {}
-blic function fetch_field () {}
-blic function fetch_fields () {}
-blic function fetch_field_direct () {}
-blic function fetch_array () {}
-blic function fetch_assoc () {}
-blic function fetch_object () {}
-blic function fetch_row () {}
-blic function field_count () {}
-blic function field_seek () {}
-blic function free_result () {}
-ss mysqli_stmt  {
-blic function mysqli_stmt () {}
-blic function attr_get () {}
-blic function attr_set () {}
-*
- @param var1
-/
-blic function bind_param ($var1) {}
-blic function bind_result () {}
-blic function close () {}
-blic function data_seek () {}
-blic function execute () {}
-blic function fetch () {}
-blic function get_warnings () {}
-blic function result_metadata () {}
-blic function num_rows () {}
-blic function send_long_data () {}
-blic function stmt () {}
-blic function free_result () {}
-blic function reset () {}
-blic function prepare () {}
-blic function store_result () {}
+
 </reference></element>
 <element pattern="close"/>
 <element pattern="mysqli_commit" autocomplete_append="();">
 <reference>mysqli_commit();
-hp
-Start of mysqli v.0.1
-ss mysqli_sql_exception extends RuntimeException  {
-otected $message;
-otected $code;
-otected $file;
-otected $line;
-otected $sqlstate;
-nal private function __clone () {}
-*
- @param message[optional]
- @param code[optional]
-/
-blic function __construct ($message, $code) {}
-nal public function getMessage () {}
-nal public function getCode () {}
-nal public function getFile () {}
-nal public function getLine () {}
-nal public function getTrace () {}
-nal public function getTraceAsString () {}
-blic function __toString () {}
-al class mysqli_driver  {
-blic function embedded_server_start () {}
-blic function embedded_server_end () {}
-ss mysqli  {
-blic function autocommit () {}
-blic function change_user () {}
-blic function character_set_name () {}
-blic function client_encoding () {}
-blic function close () {}
-blic function commit () {}
-blic function connect () {}
-blic function debug () {}
-blic function disable_reads_from_master () {}
-blic function disable_rpl_parse () {}
-blic function dump_debug_info () {}
-blic function enable_reads_from_master () {}
-blic function enable_rpl_parse () {}
-blic function get_charset () {}
-blic function get_client_info () {}
-blic function get_server_info () {}
-blic function get_warnings () {}
-blic function init () {}
-blic function kill () {}
-blic function set_local_infile_default () {}
-blic function set_local_infile_handler () {}
-blic function master_query () {}
-blic function multi_query () {}
-blic function mysqli () {}
-blic function more_results () {}
-blic function next_result () {}
-blic function options () {}
-blic function ping () {}
-blic function prepare () {}
-blic function query () {}
-blic function real_connect () {}
-blic function real_escape_string () {}
-blic function escape_string () {}
-blic function real_query () {}
-blic function rollback () {}
-blic function rpl_parse_enabled () {}
-blic function rpl_probe () {}
-blic function rpl_query_type () {}
-blic function select_db () {}
-blic function set_charset () {}
-blic function set_opt () {}
-blic function slave_query () {}
-blic function ssl_set () {}
-blic function stat () {}
-blic function stmt_init () {}
-blic function store_result () {}
-blic function thread_safe () {}
-blic function use_result () {}
-al class mysqli_warning  {
-otected function __construct () {}
-blic function next () {}
-ss mysqli_result  {
-blic function mysqli_result () {}
-blic function close () {}
-blic function free () {}
-blic function data_seek () {}
-blic function fetch_field () {}
-blic function fetch_fields () {}
-blic function fetch_field_direct () {}
-blic function fetch_array () {}
-blic function fetch_assoc () {}
-blic function fetch_object () {}
-blic function fetch_row () {}
-blic function field_count () {}
-blic function field_seek () {}
-blic function free_result () {}
-ss mysqli_stmt  {
-blic function mysqli_stmt () {}
-blic function attr_get () {}
-blic function attr_set () {}
-*
- @param var1
-/
-blic function bind_param ($var1) {}
-blic function bind_result () {}
-blic function close () {}
-blic function data_seek () {}
-blic function execute () {}
-blic function fetch () {}
-blic function get_warnings () {}
-blic function result_metadata () {}
-blic function num_rows () {}
-blic function send_long_data () {}
-blic function stmt () {}
-blic function free_result () {}
-blic function reset () {}
-blic function prepare () {}
-blic function store_result () {}
+
 </reference></element>
-<element pattern="commit"/>
 <element pattern="mysqli_connect_errno" autocomplete_append="();">
 <reference>mysqli_connect_errno();
-hp
-Start of mysqli v.0.1
-ss mysqli_sql_exception extends RuntimeException  {
-otected $message;
-otected $code;
-otected $file;
-otected $line;
-otected $sqlstate;
-nal private function __clone () {}
-*
- @param message[optional]
- @param code[optional]
-/
-blic function __construct ($message, $code) {}
-nal public function getMessage () {}
-nal public function getCode () {}
-nal public function getFile () {}
-nal public function getLine () {}
-nal public function getTrace () {}
-nal public function getTraceAsString () {}
-blic function __toString () {}
-al class mysqli_driver  {
-blic function embedded_server_start () {}
-blic function embedded_server_end () {}
-ss mysqli  {
-blic function autocommit () {}
-blic function change_user () {}
-blic function character_set_name () {}
-blic function client_encoding () {}
-blic function close () {}
-blic function commit () {}
-blic function connect () {}
-blic function debug () {}
-blic function disable_reads_from_master () {}
-blic function disable_rpl_parse () {}
-blic function dump_debug_info () {}
-blic function enable_reads_from_master () {}
-blic function enable_rpl_parse () {}
-blic function get_charset () {}
-blic function get_client_info () {}
-blic function get_server_info () {}
-blic function get_warnings () {}
-blic function init () {}
-blic function kill () {}
-blic function set_local_infile_default () {}
-blic function set_local_infile_handler () {}
-blic function master_query () {}
-blic function multi_query () {}
-blic function mysqli () {}
-blic function more_results () {}
-blic function next_result () {}
-blic function options () {}
-blic function ping () {}
-blic function prepare () {}
-blic function query () {}
-blic function real_connect () {}
-blic function real_escape_string () {}
-blic function escape_string () {}
-blic function real_query () {}
-blic function rollback () {}
-blic function rpl_parse_enabled () {}
-blic function rpl_probe () {}
-blic function rpl_query_type () {}
-blic function select_db () {}
-blic function set_charset () {}
-blic function set_opt () {}
-blic function slave_query () {}
-blic function ssl_set () {}
-blic function stat () {}
-blic function stmt_init () {}
-blic function store_result () {}
-blic function thread_safe () {}
-blic function use_result () {}
-al class mysqli_warning  {
-otected function __construct () {}
-blic function next () {}
-ss mysqli_result  {
-blic function mysqli_result () {}
-blic function close () {}
-blic function free () {}
-blic function data_seek () {}
-blic function fetch_field () {}
-blic function fetch_fields () {}
-blic function fetch_field_direct () {}
-blic function fetch_array () {}
-blic function fetch_assoc () {}
-blic function fetch_object () {}
-blic function fetch_row () {}
-blic function field_count () {}
-blic function field_seek () {}
-blic function free_result () {}
-ss mysqli_stmt  {
-blic function mysqli_stmt () {}
-blic function attr_get () {}
-blic function attr_set () {}
-*
- @param var1
-/
-blic function bind_param ($var1) {}
-blic function bind_result () {}
-blic function close () {}
-blic function data_seek () {}
-blic function execute () {}
-blic function fetch () {}
-blic function get_warnings () {}
-blic function result_metadata () {}
-blic function num_rows () {}
-blic function send_long_data () {}
-blic function stmt () {}
-blic function free_result () {}
-blic function reset () {}
-blic function prepare () {}
-blic function store_result () {}
+
 </reference></element>
 <element pattern="mysqli_connect_error" autocomplete_append="();">
 <reference>mysqli_connect_error();
-hp
-Start of mysqli v.0.1
-ss mysqli_sql_exception extends RuntimeException  {
-otected $message;
-otected $code;
-otected $file;
-otected $line;
-otected $sqlstate;
-nal private function __clone () {}
-*
- @param message[optional]
- @param code[optional]
-/
-blic function __construct ($message, $code) {}
-nal public function getMessage () {}
-nal public function getCode () {}
-nal public function getFile () {}
-nal public function getLine () {}
-nal public function getTrace () {}
-nal public function getTraceAsString () {}
-blic function __toString () {}
-al class mysqli_driver  {
-blic function embedded_server_start () {}
-blic function embedded_server_end () {}
-ss mysqli  {
-blic function autocommit () {}
-blic function change_user () {}
-blic function character_set_name () {}
-blic function client_encoding () {}
-blic function close () {}
-blic function commit () {}
-blic function connect () {}
-blic function debug () {}
-blic function disable_reads_from_master () {}
-blic function disable_rpl_parse () {}
-blic function dump_debug_info () {}
-blic function enable_reads_from_master () {}
-blic function enable_rpl_parse () {}
-blic function get_charset () {}
-blic function get_client_info () {}
-blic function get_server_info () {}
-blic function get_warnings () {}
-blic function init () {}
-blic function kill () {}
-blic function set_local_infile_default () {}
-blic function set_local_infile_handler () {}
-blic function master_query () {}
-blic function multi_query () {}
-blic function mysqli () {}
-blic function more_results () {}
-blic function next_result () {}
-blic function options () {}
-blic function ping () {}
-blic function prepare () {}
-blic function query () {}
-blic function real_connect () {}
-blic function real_escape_string () {}
-blic function escape_string () {}
-blic function real_query () {}
-blic function rollback () {}
-blic function rpl_parse_enabled () {}
-blic function rpl_probe () {}
-blic function rpl_query_type () {}
-blic function select_db () {}
-blic function set_charset () {}
-blic function set_opt () {}
-blic function slave_query () {}
-blic function ssl_set () {}
-blic function stat () {}
-blic function stmt_init () {}
-blic function store_result () {}
-blic function thread_safe () {}
-blic function use_result () {}
-al class mysqli_warning  {
-otected function __construct () {}
-blic function next () {}
-ss mysqli_result  {
-blic function mysqli_result () {}
-blic function close () {}
-blic function free () {}
-blic function data_seek () {}
-blic function fetch_field () {}
-blic function fetch_fields () {}
-blic function fetch_field_direct () {}
-blic function fetch_array () {}
-blic function fetch_assoc () {}
-blic function fetch_object () {}
-blic function fetch_row () {}
-blic function field_count () {}
-blic function field_seek () {}
-blic function free_result () {}
-ss mysqli_stmt  {
-blic function mysqli_stmt () {}
-blic function attr_get () {}
-blic function attr_set () {}
-*
- @param var1
-/
-blic function bind_param ($var1) {}
-blic function bind_result () {}
-blic function close () {}
-blic function data_seek () {}
-blic function execute () {}
-blic function fetch () {}
-blic function get_warnings () {}
-blic function result_metadata () {}
-blic function num_rows () {}
-blic function send_long_data () {}
-blic function stmt () {}
-blic function free_result () {}
-blic function reset () {}
-blic function prepare () {}
-blic function store_result () {}
+
 </reference></element>
 <element pattern="mysqli_connect" autocomplete_append="();">
 <reference>mysqli_connect();
-hp
-Start of mysqli v.0.1
-ss mysqli_sql_exception extends RuntimeException  {
-otected $message;
-otected $code;
-otected $file;
-otected $line;
-otected $sqlstate;
-nal private function __clone () {}
-*
- @param message[optional]
- @param code[optional]
-/
-blic function __construct ($message, $code) {}
-nal public function getMessage () {}
-nal public function getCode () {}
-nal public function getFile () {}
-nal public function getLine () {}
-nal public function getTrace () {}
-nal public function getTraceAsString () {}
-blic function __toString () {}
-al class mysqli_driver  {
-blic function embedded_server_start () {}
-blic function embedded_server_end () {}
-ss mysqli  {
-blic function autocommit () {}
-blic function change_user () {}
-blic function character_set_name () {}
-blic function client_encoding () {}
-blic function close () {}
-blic function commit () {}
-blic function connect () {}
-blic function debug () {}
-blic function disable_reads_from_master () {}
-blic function disable_rpl_parse () {}
-blic function dump_debug_info () {}
-blic function enable_reads_from_master () {}
-blic function enable_rpl_parse () {}
-blic function get_charset () {}
-blic function get_client_info () {}
-blic function get_server_info () {}
-blic function get_warnings () {}
-blic function init () {}
-blic function kill () {}
-blic function set_local_infile_default () {}
-blic function set_local_infile_handler () {}
-blic function master_query () {}
-blic function multi_query () {}
-blic function mysqli () {}
-blic function more_results () {}
-blic function next_result () {}
-blic function options () {}
-blic function ping () {}
-blic function prepare () {}
-blic function query () {}
-blic function real_connect () {}
-blic function real_escape_string () {}
-blic function escape_string () {}
-blic function real_query () {}
-blic function rollback () {}
-blic function rpl_parse_enabled () {}
-blic function rpl_probe () {}
-blic function rpl_query_type () {}
-blic function select_db () {}
-blic function set_charset () {}
-blic function set_opt () {}
-blic function slave_query () {}
-blic function ssl_set () {}
-blic function stat () {}
-blic function stmt_init () {}
-blic function store_result () {}
-blic function thread_safe () {}
-blic function use_result () {}
-al class mysqli_warning  {
-otected function __construct () {}
-blic function next () {}
-ss mysqli_result  {
-blic function mysqli_result () {}
-blic function close () {}
-blic function free () {}
-blic function data_seek () {}
-blic function fetch_field () {}
-blic function fetch_fields () {}
-blic function fetch_field_direct () {}
-blic function fetch_array () {}
-blic function fetch_assoc () {}
-blic function fetch_object () {}
-blic function fetch_row () {}
-blic function field_count () {}
-blic function field_seek () {}
-blic function free_result () {}
-ss mysqli_stmt  {
-blic function mysqli_stmt () {}
-blic function attr_get () {}
-blic function attr_set () {}
-*
- @param var1
-/
-blic function bind_param ($var1) {}
-blic function bind_result () {}
-blic function close () {}
-blic function data_seek () {}
-blic function execute () {}
-blic function fetch () {}
-blic function get_warnings () {}
-blic function result_metadata () {}
-blic function num_rows () {}
-blic function send_long_data () {}
-blic function stmt () {}
-blic function free_result () {}
-blic function reset () {}
-blic function prepare () {}
-blic function store_result () {}
+
 </reference></element>
-<element pattern="__construct"/>
 <element pattern="mysqli_data_seek" autocomplete_append="();">
 <reference>mysqli_data_seek();
-hp
-Start of mysqli v.0.1
-ss mysqli_sql_exception extends RuntimeException  {
-otected $message;
-otected $code;
-otected $file;
-otected $line;
-otected $sqlstate;
-nal private function __clone () {}
-*
- @param message[optional]
- @param code[optional]
-/
-blic function __construct ($message, $code) {}
-nal public function getMessage () {}
-nal public function getCode () {}
-nal public function getFile () {}
-nal public function getLine () {}
-nal public function getTrace () {}
-nal public function getTraceAsString () {}
-blic function __toString () {}
-al class mysqli_driver  {
-blic function embedded_server_start () {}
-blic function embedded_server_end () {}
-ss mysqli  {
-blic function autocommit () {}
-blic function change_user () {}
-blic function character_set_name () {}
-blic function client_encoding () {}
-blic function close () {}
-blic function commit () {}
-blic function connect () {}
-blic function debug () {}
-blic function disable_reads_from_master () {}
-blic function disable_rpl_parse () {}
-blic function dump_debug_info () {}
-blic function enable_reads_from_master () {}
-blic function enable_rpl_parse () {}
-blic function get_charset () {}
-blic function get_client_info () {}
-blic function get_server_info () {}
-blic function get_warnings () {}
-blic function init () {}
-blic function kill () {}
-blic function set_local_infile_default () {}
-blic function set_local_infile_handler () {}
-blic function master_query () {}
-blic function multi_query () {}
-blic function mysqli () {}
-blic function more_results () {}
-blic function next_result () {}
-blic function options () {}
-blic function ping () {}
-blic function prepare () {}
-blic function query () {}
-blic function real_connect () {}
-blic function real_escape_string () {}
-blic function escape_string () {}
-blic function real_query () {}
-blic function rollback () {}
-blic function rpl_parse_enabled () {}
-blic function rpl_probe () {}
-blic function rpl_query_type () {}
-blic function select_db () {}
-blic function set_charset () {}
-blic function set_opt () {}
-blic function slave_query () {}
-blic function ssl_set () {}
-blic function stat () {}
-blic function stmt_init () {}
-blic function store_result () {}
-blic function thread_safe () {}
-blic function use_result () {}
-al class mysqli_warning  {
-otected function __construct () {}
-blic function next () {}
-ss mysqli_result  {
-blic function mysqli_result () {}
-blic function close () {}
-blic function free () {}
-blic function data_seek () {}
-blic function fetch_field () {}
-blic function fetch_fields () {}
-blic function fetch_field_direct () {}
-blic function fetch_array () {}
-blic function fetch_assoc () {}
-blic function fetch_object () {}
-blic function fetch_row () {}
-blic function field_count () {}
-blic function field_seek () {}
-blic function free_result () {}
-ss mysqli_stmt  {
-blic function mysqli_stmt () {}
-blic function attr_get () {}
-blic function attr_set () {}
-*
- @param var1
-/
-blic function bind_param ($var1) {}
-blic function bind_result () {}
-blic function close () {}
-blic function data_seek () {}
-blic function execute () {}
-blic function fetch () {}
-blic function get_warnings () {}
-blic function result_metadata () {}
-blic function num_rows () {}
-blic function send_long_data () {}
-blic function stmt () {}
-blic function free_result () {}
-blic function reset () {}
-blic function prepare () {}
-blic function store_result () {}
+
 </reference></element>
 <element pattern="data_seek"/>
 <element pattern="mysqli_debug" autocomplete_append="();">
 <reference>mysqli_debug();
-hp
-Start of mysqli v.0.1
-ss mysqli_sql_exception extends RuntimeException  {
-otected $message;
-otected $code;
-otected $file;
-otected $line;
-otected $sqlstate;
-nal private function __clone () {}
-*
- @param message[optional]
- @param code[optional]
-/
-blic function __construct ($message, $code) {}
-nal public function getMessage () {}
-nal public function getCode () {}
-nal public function getFile () {}
-nal public function getLine () {}
-nal public function getTrace () {}
-nal public function getTraceAsString () {}
-blic function __toString () {}
-al class mysqli_driver  {
-blic function embedded_server_start () {}
-blic function embedded_server_end () {}
-ss mysqli  {
-blic function autocommit () {}
-blic function change_user () {}
-blic function character_set_name () {}
-blic function client_encoding () {}
-blic function close () {}
-blic function commit () {}
-blic function connect () {}
-blic function debug () {}
-blic function disable_reads_from_master () {}
-blic function disable_rpl_parse () {}
-blic function dump_debug_info () {}
-blic function enable_reads_from_master () {}
-blic function enable_rpl_parse () {}
-blic function get_charset () {}
-blic function get_client_info () {}
-blic function get_server_info () {}
-blic function get_warnings () {}
-blic function init () {}
-blic function kill () {}
-blic function set_local_infile_default () {}
-blic function set_local_infile_handler () {}
-blic function master_query () {}
-blic function multi_query () {}
-blic function mysqli () {}
-blic function more_results () {}
-blic function next_result () {}
-blic function options () {}
-blic function ping () {}
-blic function prepare () {}
-blic function query () {}
-blic function real_connect () {}
-blic function real_escape_string () {}
-blic function escape_string () {}
-blic function real_query () {}
-blic function rollback () {}
-blic function rpl_parse_enabled () {}
-blic function rpl_probe () {}
-blic function rpl_query_type () {}
-blic function select_db () {}
-blic function set_charset () {}
-blic function set_opt () {}
-blic function slave_query () {}
-blic function ssl_set () {}
-blic function stat () {}
-blic function stmt_init () {}
-blic function store_result () {}
-blic function thread_safe () {}
-blic function use_result () {}
-al class mysqli_warning  {
-otected function __construct () {}
-blic function next () {}
-ss mysqli_result  {
-blic function mysqli_result () {}
-blic function close () {}
-blic function free () {}
-blic function data_seek () {}
-blic function fetch_field () {}
-blic function fetch_fields () {}
-blic function fetch_field_direct () {}
-blic function fetch_array () {}
-blic function fetch_assoc () {}
-blic function fetch_object () {}
-blic function fetch_row () {}
-blic function field_count () {}
-blic function field_seek () {}
-blic function free_result () {}
-ss mysqli_stmt  {
-blic function mysqli_stmt () {}
-blic function attr_get () {}
-blic function attr_set () {}
-*
- @param var1
-/
-blic function bind_param ($var1) {}
-blic function bind_result () {}
-blic function close () {}
-blic function data_seek () {}
-blic function execute () {}
-blic function fetch () {}
-blic function get_warnings () {}
-blic function result_metadata () {}
-blic function num_rows () {}
-blic function send_long_data () {}
-blic function stmt () {}
-blic function free_result () {}
-blic function reset () {}
-blic function prepare () {}
-blic function store_result () {}
+
 </reference></element>
 <element pattern="debug"/>
 <element pattern="mysqli_disable_reads_from_master" autocomplete_append="();">
@@ -13901,7 +12638,6 @@ MYSQLI_REPORT_INDEX Report if no index or bad index was used in a query
 MYSQLI_REPORT_ALL Set all options (report all)
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
-<element pattern="query"/>
 <element pattern="mysqli_real_connect" autocomplete_append="();">
 <reference>mysqli_real_connect();
 Enables or disables internal report functions
@@ -15348,16 +14084,6 @@ oci_connect or oci_pconnect.
 <b> new_password string </b>The new password to be set.
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
-<element pattern="oci_password_change" autocomplete_append="($connection, $username, $old_password, $new_password);">
-<reference>oci_password_change($connection, $username, $old_password, $new_password);
-Changes password of Oracle's user
-<b> connection resource </b>An Oracle connection identifier, returned by 
-oci_connect or oci_pconnect.
-<b> username string </b>The Oracle user name.
-<b> old_password string </b>The old password.
-<b> new_password string </b>The new password to be set.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
 <element pattern="oci_pconnect" autocomplete_append="($username, $password, $db = null, $charset = null, $session_mode = null);">
 <reference>oci_pconnect($username, $password, $db = null, $charset = null, $session_mode = null);
 Connect to an Oracle database using a persistent connection
@@ -15604,18 +14330,6 @@ Fetch a result row as an associative array
 <b> rownumber int[optional] </b>Optionally choose which row number to retrieve.
 <b>returns</b>  array an array that corresponds to the fetched row, or false if there 
 are no more rows.
-</reference></element>
-<element pattern="odbc_fetch_into" autocomplete_append="($result_id, array $result_array, $rownumber = null);">
-<reference>odbc_fetch_into($result_id, array $result_array, $rownumber = null);
-Fetch one result row into array
-<b> result_id resource </b>The result resource.
-<b> result_array array </b>The result array
-that can be of any type since it will be converted to type
-array. The array will contain the column values starting at array
-index 0.
-<b> rownumber int[optional] </b>The row number.
-<b>returns</b>  int the number of columns in the result;
-false on error.
 </reference></element>
 <element pattern="odbc_fetch_into" autocomplete_append="($result_id, array $result_array, $rownumber = null);">
 <reference>odbc_fetch_into($result_id, array $result_array, $rownumber = null);
@@ -16403,11 +15117,6 @@ t
 <element pattern="ora_parse"/>
 <element pattern="ora_plogon"/>
 <element pattern="ora_rollback"/>
-<element pattern="flush" autocomplete_append="();">
-<reference>flush();
-Flush the output buffer
-<b>returns</b>  void 
-</reference></element>
 <element pattern="ob_clean" autocomplete_append="();">
 <reference>ob_clean();
 Clean (erase) the output buffer
@@ -17203,8 +15912,6 @@ split along boundaries matched by pattern.
 <element pattern="PDF_utf32_to_utf16"/>
 <element pattern="PDF_utf8_to_utf16"/>
 <element pattern="beginTransaction"/>
-<element pattern="commit"/>
-<element pattern="__construct"/>
 <element pattern="errorCode"/>
 <element pattern="errorInfo"/>
 <element pattern="exec" autocomplete_append="($command, array &amp;$output = null, &amp;$return_var = null);">
@@ -17229,37 +15936,24 @@ any interference, use the passthru function.
 To get the output of the executed command, be sure to set and use the
 output parameter.
 </reference></element>
-<element pattern="getAttribute"/>
 <element pattern="getAvailableDrivers"/>
 <element pattern="lastInsertId"/>
 <element pattern="prepare"/>
-<element pattern="query"/>
-<element pattern="query"/>
-<element pattern="query"/>
-<element pattern="query"/>
 <element pattern="quote"/>
 <element pattern="rollBack"/>
-<element pattern="setAttribute"/>
 <element pattern="bindColumn"/>
 <element pattern="bindParam"/>
 <element pattern="bindValue"/>
 <element pattern="closeCursor"/>
 <element pattern="columnCount"/>
-<element pattern="errorCode"/>
-<element pattern="errorInfo"/>
 <element pattern="execute"/>
 <element pattern="fetch"/>
 <element pattern="fetchAll"/>
 <element pattern="fetchColumn"/>
 <element pattern="fetchObject"/>
-<element pattern="getAttribute"/>
 <element pattern="getColumnMeta"/>
 <element pattern="nextRowset"/>
 <element pattern="rowCount"/>
-<element pattern="setAttribute"/>
-<element pattern="setFetchMode"/>
-<element pattern="setFetchMode"/>
-<element pattern="setFetchMode"/>
 <element pattern="setFetchMode"/>
 <element pattern="assert_options" autocomplete_append="($what, $value = null);">
 <reference>assert_options($what, $value = null);
@@ -18552,40 +17246,6 @@ values are returned as &amp;null;.
 false is returned if row exceeds the number
 of rows in the set, there are no more rows, or on any other error.
 </reference></element>
-<element pattern="pg_fetch_object" autocomplete_append="($result, $row = null, $result_type = null);">
-<reference>pg_fetch_object($result, $row = null, $result_type = null);
-Fetch a row as an object
-<b> result resource </b>PostgreSQL query result resource, returned by pg_query,
-pg_query_params or pg_execute
-(among others).
-<b> row int[optional] </b>Row number in result to fetch. Rows are numbered from 0 upwards. If omitted,
-next row is fetched.
-<b> result_type int[optional] </b>Ignored and deprecated. Defaults to PGSQL_ASSOC.
-<b>returns</b>  object An object with one attribute for each field
-name in the result. Database NULL
-values are returned as &amp;null;.
-false is returned if row exceeds the number
-of rows in the set, there are no more rows, or on any other error.
-</reference></element>
-<element pattern="pg_fetch_result" autocomplete_append="($result, $row, $field);">
-<reference>pg_fetch_result($result, $row, $field);
-Returns values from a result resource
-<b> result resource </b>PostgreSQL query result resource, returned by pg_query,
-pg_query_params or pg_execute
-(among others).
-<b> row int </b>Row number in result to fetch. Rows are numbered from 0 upwards. If omitted,
-next row is fetched.
-<b> field mixed  </b>A string representing the name of the field (column) to fetch, otherwise
-an int representing the field number to fetch. Fields are
-numbered from 0 upwards.
-<b>returns</b>  string Boolean is returned as &amp;quot;t&amp;quot; or &amp;quot;f&amp;quot;. All
-other types, including arrays are returned as strings formatted
-in the same default PostgreSQL manner that you would see in the
-psql program. Database NULL
-values are returned as &amp;null;.
-false is returned if row exceeds the number
-of rows in the set, or on any other error.
-</reference></element>
 <element pattern="pg_fetch_result" autocomplete_append="($result, $row, $field);">
 <reference>pg_fetch_result($result, $row, $field);
 Returns values from a result resource
@@ -18632,19 +17292,6 @@ the field name as a string.
 <b>returns</b>  int 1 if the field in the given row is SQL NULL, 0
 if not. false is returned if the row is out of range, or upon any other error.
 </reference></element>
-<element pattern="pg_field_is_null" autocomplete_append="($result, $row, $field);">
-<reference>pg_field_is_null($result, $row, $field);
-Test if a field is SQL &lt;literal&gt;NULL&lt;/literal&gt;
-<b> result resource </b>PostgreSQL query result resource, returned by pg_query,
-pg_query_params or pg_execute
-(among others).
-<b> row int </b>Row number in result to fetch. Rows are numbered from 0 upwards. If omitted,
-current row is fetched.
-<b> field mixed </b>Field number (starting from 0) as an integer or 
-the field name as a string.
-<b>returns</b>  int 1 if the field in the given row is SQL NULL, 0
-if not. false is returned if the row is out of range, or upon any other error.
-</reference></element>
 <element pattern="pg_field_name" autocomplete_append="($result, $field_number);">
 <reference>pg_field_name($result, $field_number);
 Returns the name of a field
@@ -18662,14 +17309,6 @@ pg_query_params or pg_execute
 (among others).
 <b> field_name string </b>The name of the field.
 <b>returns</b>  int The field number (numbered from 0), or -1 on error.
-</reference></element>
-<element pattern="pg_field_prtlen" autocomplete_append="($result, $row_number, $field_name_or_number);">
-<reference>pg_field_prtlen($result, $row_number, $field_name_or_number);
-Returns the printed length
-<b> result resource </b>PostgreSQL query result resource, returned by pg_query,
-pg_query_params or pg_execute
-(among others).
-<b> row_number int </b><b> field_name_or_number mixed </b><b>returns</b>  int The field printed length, or false on error.
 </reference></element>
 <element pattern="pg_field_prtlen" autocomplete_append="($result, $row_number, $field_name_or_number);">
 <reference>pg_field_prtlen($result, $row_number, $field_name_or_number);
@@ -19846,9 +18485,7 @@ table.
 <element pattern="runkit_return_value_used"/>
 <element pattern="runkit_sandbox_output_handler"/>
 <element pattern="runkit_superglobals"/>
-<element pattern="commit"/>
 <element pattern="connect"/>
-<element pattern="__construct"/>
 <element pattern="disconnect"/>
 <element pattern="isConnected"/>
 <element pattern="peek"/>
@@ -19860,7 +18497,6 @@ table.
 <element pattern="send"/>
 <element pattern="subscribe"/>
 <element pattern="unsubscribe"/>
-<element pattern="__construct"/>
 <element pattern="OrbitEnum"/>
 <element pattern="OrbitObject"/>
 <element pattern="OrbitStruct"/>
@@ -20362,7 +18998,6 @@ failure.
 <element pattern="asXML"/>
 <element pattern="attributes"/>
 <element pattern="children"/>
-<element pattern="__construct"/>
 <element pattern="getDocNamespaces"/>
 <element pattern="getName"/>
 <element pattern="getNamespaces"/>
@@ -20433,7 +19068,6 @@ Checks if SOAP call was failed
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
 <element pattern="__call"/>
-<element pattern="__construct"/>
 <element pattern="__doRequest"/>
 <element pattern="__getFunctions"/>
 <element pattern="__getLastRequest"/>
@@ -20444,16 +19078,12 @@ Checks if SOAP call was failed
 <element pattern="__setCookie"/>
 <element pattern="__soapCall"/>
 <element pattern="__construct"/>
-<element pattern="__construct"/>
-<element pattern="__construct"/>
 <element pattern="addFunction"/>
-<element pattern="__construct"/>
 <element pattern="fault"/>
 <element pattern="getFunctions"/>
 <element pattern="handle"/>
 <element pattern="setClass"/>
 <element pattern="setPersistence"/>
-<element pattern="__construct"/>
 <element pattern="use_soap_error_handler" autocomplete_append="($handler = null);">
 <reference>use_soap_error_handler($handler = null);
 Set whether to use the SOAP error handler and return the former value
@@ -21415,7 +20045,6 @@ library. The default value for mode is the octal value
 explaining why the database could not be opened if there was an error.
 <b>returns</b>  resource a resource (database handle) on success, false on error.
 </reference></element>
-<element pattern="__construct"/>
 <element pattern="sqlite_popen" autocomplete_append="($filename, $mode = null, &amp;$error_message = null);">
 <reference>sqlite_popen($filename, $mode = null, &amp;$error_message = null);
 Opens a persistent handle to an SQLite database and create the database if it does not exist
@@ -21486,7 +20115,6 @@ has been fetched. If you only need sequential access to the data, it is
 recommended that you use the much higher performance
 sqlite_unbuffered_query instead.
 </reference></element>
-<element pattern="query"/>
 <element pattern="sqlite_rewind" autocomplete_append="();">
 <reference>sqlite_rewind();
 Seek to the first row number
@@ -21856,42 +20484,6 @@ Register a URL wrapper implemented as a PHP class
 <element pattern="stream_seek"/>
 <element pattern="stream_flush"/>
 <element pattern="stream_stat"/>
-<element pattern="unlink" autocomplete_append="($filename, $context = null);">
-<reference>unlink($filename, $context = null);
-Deletes a file
-<b> filename string </b>Path to the file.
-<b> context resource[optional] &amp;note.context-support;</b><b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
-<element pattern="rename" autocomplete_append="($oldname, $newname, $context = null);">
-<reference>rename($oldname, $newname, $context = null);
-Renames a file or directory
-<b> oldname string </b>The old name. The wrapper used in oldname
-must match the wrapper used in
-newname.
-<b> newname string </b>The new name.
-<b> context resource[optional] &amp;note.context-support;</b><b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
-<element pattern="mkdir" autocomplete_append="($pathname, $mode = null, $recursive = null, $context = null);">
-<reference>mkdir($pathname, $mode = null, $recursive = null, $context = null);
-Makes directory
-<b> pathname string </b>The directory path.
-<b> mode int[optional] </b>The mode is 0777 by default, which means the widest possible
-access. For more information on modes, read the details
-on the chmod page.
-mode is ignored on Windows.
-Note that you probably want to specify the mode as an octal number,
-which means it should have a leading zero. The mode is also modified
-by the current umask, which you can change using
-umask.
-<b> recursive bool[optional] </b>Default to false.
-<b> context resource[optional] &amp;note.context-support;</b><b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
-<element pattern="rmdir" autocomplete_append="($dirname, $context = null);">
-<reference>rmdir($dirname, $context = null);
-Removes directory
-<b> dirname string </b>Path to the directory.
-<b> context resource[optional] &amp;note.context-support;</b><b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
 <element pattern="dir_opendir"/>
 <element pattern="url_stat"/>
 <element pattern="dir_readdir"/>
@@ -24328,7 +22920,6 @@ If successful, value is converted to an object.
 </reference></element>
 <element pattern="close"/>
 <element pattern="expand"/>
-<element pattern="getAttribute"/>
 <element pattern="getAttributeNo"/>
 <element pattern="getAttributeNs"/>
 <element pattern="getParserProperty"/>
@@ -24669,7 +23260,6 @@ Write a raw XML text
 <b> content string </b>The text string to write.
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
-<element pattern="__construct"/>
 <element pattern="getParameter"/>
 <element pattern="hasExsltSupport"/>
 <element pattern="importStylesheet"/>
