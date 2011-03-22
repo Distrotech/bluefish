@@ -4641,13 +4641,6 @@ newname.
 <b> newname string </b>The new name.
 <b> context resource[optional] &amp;note.context-support;</b><b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
-<element pattern="rewind" autocomplete_append="($handle);">
-<reference>rewind($handle);
-Rewind the position of a file pointer
-<b> handle resource </b>The file pointer must be valid, and must point to a file
-successfully opened by fopen.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
 <element pattern="rmdir" autocomplete_append="($dirname, $context = null);">
 <reference>rmdir($dirname, $context = null);
 Removes directory
@@ -5940,12 +5933,6 @@ binary representation of the message digest is returned.
 <element pattern="hw_stat"/>
 <element pattern="hw_unlock"/>
 <element pattern="hw_who"/>
-<element pattern="key" autocomplete_append="(array &amp;$array);">
-<reference>key(array &amp;$array);
-Fetch a key from an array
-<b> array array </b>The array.
-<b>returns</b>  mixed the index.
-</reference></element>
 <element pattern="langdepvalue"/>
 <element pattern="value"/>
 <element pattern="values"/>
@@ -12848,7 +12835,6 @@ Enable RPL parse
 <element pattern="mysqli_stmt_fetch" autocomplete_append="();">
 <reference>mysqli_stmt_fetch();
 <b> var1</b></reference></element>
-<element pattern="fetch"/>
 <element pattern="mysqli_stmt_field_count" autocomplete_append="();">
 <reference>mysqli_stmt_field_count();
 Returns RPL query type
@@ -13988,13 +13974,6 @@ Compares two LOB/FILE locators for equality
 </reference></element>
 <element pattern="load"/>
 <element pattern="read"/>
-<element pattern="rewind" autocomplete_append="($handle);">
-<reference>rewind($handle);
-Rewind the position of a file pointer
-<b> handle resource </b>The file pointer must be valid, and must point to a file
-successfully opened by fopen.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
 <element pattern="save"/>
 <element pattern="seek"/>
 <element pattern="setBuffering"/>
@@ -15947,7 +15926,6 @@ output parameter.
 <element pattern="closeCursor"/>
 <element pattern="columnCount"/>
 <element pattern="execute"/>
-<element pattern="fetch"/>
 <element pattern="fetchAll"/>
 <element pattern="fetchColumn"/>
 <element pattern="fetchObject"/>
@@ -19798,7 +19776,6 @@ Fetches a column from the current row of a result set
 <b> decode_binary bool[optional] &amp;sqlite.decode-bin;</b><b>returns</b>  mixed 
 </reference></element>
 <element pattern="column"/>
-<element pattern="column"/>
 <element pattern="sqlite_create_aggregate" autocomplete_append="($function_name, $step_func, $finalize_func, $num_args = null);">
 <reference>sqlite_create_aggregate($function_name, $step_func, $finalize_func, $num_args = null);
 Register an aggregating UDF for use in SQL statements
@@ -19828,26 +19805,6 @@ Fetches the current row from a result set as an array
 <b> result_type int[optional] &amp;sqlite.result-type;</b><b> decode_binary bool[optional] &amp;sqlite.decode-bin;</b><b>returns</b>  array an array of the current row from a result set; false if the
 current position is beyond the final row.
 </reference></element>
-<element pattern="current" autocomplete_append="(array &amp;$array);">
-<reference>current(array &amp;$array);
-Return the current element in an array
-<b> array array </b>The array.
-<b>returns</b>  mixed The current function simply returns the
-value of the array element that's currently being pointed to by the
-internal pointer. It does not move the pointer in any way. If the
-internal pointer points beyond the end of the elements list or the array is 
-empty, current returns false.
-</reference></element>
-<element pattern="current" autocomplete_append="(array &amp;$array);">
-<reference>current(array &amp;$array);
-Return the current element in an array
-<b> array array </b>The array.
-<b>returns</b>  mixed The current function simply returns the
-value of the array element that's currently being pointed to by the
-internal pointer. It does not move the pointer in any way. If the
-internal pointer points beyond the end of the elements list or the array is 
-empty, current returns false.
-</reference></element>
 <element pattern="sqlite_error_string" autocomplete_append="($error_code);">
 <reference>sqlite_error_string($error_code);
 Returns the textual description of an error code
@@ -19865,16 +19822,6 @@ character, or if it begins with a character whose ordinal value is
 0x01, PHP will apply a binary encoding scheme so that
 you can safely store and retrieve binary data.
 <b>returns</b>  string an escaped string for use in an SQLite SQL statement.
-</reference></element>
-<element pattern="sqlite_exec" autocomplete_append="($query, &amp;$error_msg = null);">
-<reference>sqlite_exec($query, &amp;$error_msg = null);
-Executes a result-less query against a given database
-<b> query string </b>The query to be executed.
-<b> error_msg string[optional] </b>The specified variable will be filled if an error occurs. This is
-specially important because SQL syntax errors can't be fetched using
-the sqlite_last_error function.
-<b>returns</b>  bool This function will return a boolean result; true for success or false for failure.
-If you need to run a query that returns rows, see sqlite_query.
 </reference></element>
 <element pattern="sqlite_exec" autocomplete_append="($query, &amp;$error_msg = null);">
 <reference>sqlite_exec($query, &amp;$error_msg = null);
@@ -19907,16 +19854,12 @@ after sqlite_query, it returns all rows. If called
 after sqlite_fetch_array, it returns the rest. If
 there are no rows in a result set, it returns an empty array.
 </reference></element>
-<element pattern="fetchAll"/>
-<element pattern="fetchAll"/>
 <element pattern="sqlite_fetch_array" autocomplete_append="($result_type = null, $decode_binary = null);">
 <reference>sqlite_fetch_array($result_type = null, $decode_binary = null);
 Fetches the next row from a result set as an array
 <b> result_type int[optional] &amp;sqlite.result-type;</b><b> decode_binary bool[optional] &amp;sqlite.decode-bin;</b><b>returns</b>  array an array of the next row from a result set; false if the
 next position is beyond the final row.
 </reference></element>
-<element pattern="fetch"/>
-<element pattern="fetch"/>
 <element pattern="sqlite_fetch_column_types" autocomplete_append="($table_name, $result_type = null);">
 <reference>sqlite_fetch_column_types($table_name, $result_type = null);
 Return an array of column types from a particular table
@@ -19937,14 +19880,11 @@ this function.
 Fetches the next row from a result set as an object
 <b> class_name string[optional] </b><b> ctor_params array[optional] </b><b> decode_binary bool[optional] </b><b>returns</b>  object 
 </reference></element>
-<element pattern="fetchObject"/>
-<element pattern="fetchObject"/>
 <element pattern="sqlite_fetch_single" autocomplete_append="($decode_binary = null);">
 <reference>sqlite_fetch_single($decode_binary = null);
 Fetches the first column of a result set as a string
 <b> decode_binary bool[optional] &amp;sqlite.decode-bin;</b><b>returns</b>  string 
 </reference></element>
-<element pattern="fetchSingle"/>
 <element pattern="fetchSingle"/>
 <element pattern="sqlite_field_name" autocomplete_append="($field_index);">
 <reference>sqlite_field_name($field_index);
@@ -19953,7 +19893,6 @@ Returns the name of a particular field
 <b>returns</b>  string the name of a field in an SQLite result set, given the ordinal
 column number; false on error.
 </reference></element>
-<element pattern="fieldName"/>
 <element pattern="fieldName"/>
 <element pattern="sqlite_has_more" autocomplete_append="($result);">
 <reference>sqlite_has_more($result);
@@ -19970,12 +19909,6 @@ result handle, or false otherwise.
 </reference></element>
 <element pattern="hasPrev"/>
 <element pattern="sqlite_key"/>
-<element pattern="key" autocomplete_append="(array &amp;$array);">
-<reference>key(array &amp;$array);
-Fetch a key from an array
-<b> array array </b>The array.
-<b>returns</b>  mixed the index.
-</reference></element>
 <element pattern="sqlite_last_error" autocomplete_append="();">
 <reference>sqlite_last_error();
 Returns the error code of the last error for a database
@@ -20002,20 +19935,6 @@ Returns the version of the linked SQLite library
 <reference>sqlite_next();
 Seek to the next row number
 <b>returns</b>  bool true on success, or false if there are no more rows.
-</reference></element>
-<element pattern="next" autocomplete_append="(array &amp;$array);">
-<reference>next(array &amp;$array);
-Advance the internal array pointer of an array
-<b> array array </b>The array being affected.
-<b>returns</b>  mixed the array value in the next place that's pointed to by the
-internal array pointer, or false if there are no more elements.
-</reference></element>
-<element pattern="next" autocomplete_append="(array &amp;$array);">
-<reference>next(array &amp;$array);
-Advance the internal array pointer of an array
-<b> array array </b>The array being affected.
-<b>returns</b>  mixed the array value in the next place that's pointed to by the
-internal array pointer, or false if there are no more elements.
 </reference></element>
 <element pattern="sqlite_num_fields" autocomplete_append="();">
 <reference>sqlite_num_fields();
@@ -20065,35 +19984,6 @@ explaining why the database could not be opened if there was an error.
 Seek to the previous row number of a result set
 <b>returns</b>  bool true on success, or false if there are no more previous rows.
 </reference></element>
-<element pattern="prev" autocomplete_append="(array &amp;$array);">
-<reference>prev(array &amp;$array);
-Rewind the internal array pointer
-<b> array array </b>The input array.
-<b>returns</b>  mixed the array value in the previous place that's pointed to by
-the internal array pointer, or false if there are no more
-elements.
-</reference></element>
-<element pattern="sqlite_query" autocomplete_append="($query, $result_type = null, &amp;$error_msg = null);">
-<reference>sqlite_query($query, $result_type = null, &amp;$error_msg = null);
-Executes a query against a given database and returns a result handle
-<b> query string </b>The query to be executed.
-<b> result_type int[optional] &amp;sqlite.result-type;</b><b> error_msg string[optional] </b>The specified variable will be filled if an error occurs. This is
-specially important because SQL syntax errors can't be fetched using
-the sqlite_last_error function.
-<b>returns</b>  SQLiteResult This function will return a result handle or false on failure.
-For queries that return rows, the result handle can then be used with
-functions such as sqlite_fetch_array and
-sqlite_seek.
-Regardless of the query type, this function will return false if the
-query failed.
-sqlite_query returns a buffered, seekable result
-handle. This is useful for reasonably small queries where you need to
-be able to randomly access the rows. Buffered result handles will
-allocate memory to hold the entire result and will not return until it
-has been fetched. If you only need sequential access to the data, it is
-recommended that you use the much higher performance
-sqlite_unbuffered_query instead.
-</reference></element>
 <element pattern="sqlite_query" autocomplete_append="($query, $result_type = null, &amp;$error_msg = null);">
 <reference>sqlite_query($query, $result_type = null, &amp;$error_msg = null);
 Executes a query against a given database and returns a result handle
@@ -20120,13 +20010,6 @@ sqlite_unbuffered_query instead.
 Seek to the first row number
 <b>returns</b>  bool false if there are no rows in the result set, true otherwise.
 </reference></element>
-<element pattern="rewind" autocomplete_append="($handle);">
-<reference>rewind($handle);
-Rewind the position of a file pointer
-<b> handle resource </b>The file pointer must be valid, and must point to a file
-successfully opened by fopen.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
 <element pattern="sqlite_seek" autocomplete_append="($rownum);">
 <reference>sqlite_seek($rownum);
 Seek to a particular row number of a buffered result set
@@ -20135,7 +20018,6 @@ the first row).
 &amp;sqlite.no-unbuffered;
 <b>returns</b>  bool false if the row does not exist, true otherwise.
 </reference></element>
-<element pattern="seek"/>
 <element pattern="sqlite_single_query" autocomplete_append="($query, $first_row_only = null, $decode_binary = null);">
 <reference>sqlite_single_query($query, $first_row_only = null, $decode_binary = null);
 Executes a query and returns either an array for one single column or the value of the first row
@@ -20187,7 +20069,6 @@ Returns whether more rows are available
 <b>returns</b>  bool true if there are more rows available from the
 result handle, or false otherwise.
 </reference></element>
-<element pattern="valid"/>
 <element pattern="valid"/>
 <element pattern="sqliteCreateAggregate"/>
 <element pattern="sqliteCreateFunction"/>
@@ -20327,10 +20208,6 @@ Retreive the default streams context
 <reference>stream_context_get_options($stream_or_context);
 Retrieve options for a stream/wrapper/context
 <b> stream_or_context</b></reference></element>
-<element pattern="stream_context_set_option" autocomplete_append="($stream_or_context, $wrappername, $optionname, $value);">
-<reference>stream_context_set_option($stream_or_context, $wrappername, $optionname, $value);
-Sets an option for a stream/wrapper/context
-<b> stream_or_context</b><b> wrappername</b><b> optionname</b><b> value</b></reference></element>
 <element pattern="stream_context_set_option" autocomplete_append="($stream_or_context, $wrappername, $optionname, $value);">
 <reference>stream_context_set_option($stream_or_context, $wrappername, $optionname, $value);
 Sets an option for a stream/wrapper/context
@@ -21534,17 +21411,6 @@ translating all occurrences of each character in
 from to the corresponding character in
 to.
 </reference></element>
-<element pattern="strtr" autocomplete_append="($str, $from, $to);">
-<reference>strtr($str, $from, $to);
-Translate certain characters
-<b> str string </b>The string being translated.
-<b> from string </b>The string being translated to to.
-<b> to string </b>The string replacing from.
-<b>returns</b>  string This function returns a copy of str,
-translating all occurrences of each character in
-from to the corresponding character in
-to.
-</reference></element>
 <element pattern="substr_compare" autocomplete_append="($main_str, $str, $offset, $length = null, $case_insensitivity = null);">
 <reference>substr_compare($main_str, $str, $offset, $length = null, $case_insensitivity = null);
 Binary safe comparison of 2 strings from an offset, up to length characters
@@ -21627,16 +21493,6 @@ an empty string will be returned.
 Using a negative length
 ]]&gt;
 <b>returns</b>  string the extracted part of string.
-</reference></element>
-<element pattern="trim" autocomplete_append="($str, $charlist = null);">
-<reference>trim($str, $charlist = null);
-Strip whitespace (or other characters) from the beginning and end of a string
-<b> str string </b>The string that will be trimmed.
-<b> charlist string[optional] </b>Optionally, the stripped characters can also be specified using
-the charlist parameter.
-Simply list all characters that you want to be stripped. With
-.. you can specify a range of characters.
-<b>returns</b>  string The trimmed string.
 </reference></element>
 <element pattern="ucfirst" autocomplete_append="($str);">
 <reference>ucfirst($str);
@@ -22931,13 +22787,6 @@ If successful, value is converted to an object.
 <element pattern="moveToElement"/>
 <element pattern="moveToFirstAttribute"/>
 <element pattern="moveToNextAttribute"/>
-<element pattern="next" autocomplete_append="(array &amp;$array);">
-<reference>next(array &amp;$array);
-Advance the internal array pointer of an array
-<b> array array </b>The array being affected.
-<b>returns</b>  mixed the array value in the next place that's pointed to by the
-internal array pointer, or false if there are no more elements.
-</reference></element>
 <element pattern="open"/>
 <element pattern="read"/>
 <element pattern="setParserProperty"/>
