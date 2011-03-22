@@ -804,7 +804,8 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			if (!contexttag) {
 				static const gchar *internal_tag_string_d = "__internal_tag_string_d__";
 				static const gchar *internal_tag_string_s = "__internal_tag_string_s__";
-				contexttag = new_context(bfparser->st, bfparser->bflang->name, "/>\"=' \t\n\r<", NULL, FALSE);
+				GArray *tmparray = g_array_sized_new(TRUE, TRUE, sizeof(Ttablerow), 8);
+				contexttag = new_context(bfparser->st, tmparray, bfparser->bflang->name, "/>\"=' \t\n\r<", NULL, FALSE);
 				match_set_nextcontext(bfparser->st, matchnum, contexttag);
 				if (attrib_arr) {
 					gchar **tmp2;
@@ -1106,6 +1107,8 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 		NULL, *commentid_line = NULL;
 	gboolean autocomplete_case_insens = FALSE, is_empty;
 	gint context;
+	GArray* tmptable = g_array_sized_new(TRUE, TRUE, sizeof(Ttablerow), 256);/* the 256 is just a guess */
+	
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
@@ -1132,7 +1135,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	}
 	/* create context */
 	DBG_PARSING("create context symbols %s and highlight %s\n", symbols, highlight);
-	context = new_context(bfparser->st, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens);
+	context = new_context(bfparser->st, tmptable, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens);
 	g_queue_push_head(contextstack, GINT_TO_POINTER(context));
 	if (id) {
 		DBG_PARSING("insert context %s into hash table as %d\n", id, context);
@@ -1227,7 +1230,8 @@ build_lang_thread(gpointer data)
 			if (xmlTextReaderIsEmptyElement(reader)) {
 				DBG_PARSING("empty <definition />\n");
 				/* empty <definition />, probably text/plain */
-				g_array_free(bfparser->st->table, TRUE);
+				
+				/* TODO: MEMLEAK: BUG: cleanup the DFA table for each context !!!!!!!!!!!!! */
 				g_array_free(bfparser->st->matches, TRUE);
 				g_array_free(bfparser->st->contexts, TRUE);
 				g_slice_free(Tscantable, bfparser->st);
@@ -1314,10 +1318,8 @@ build_lang_thread(gpointer data)
 	xmlFreeTextReader(reader);
 	/* do some final memory management */
 	if (bfparser->st) {
-		DBG_MSG("scantable final memory, realloc table %d, contexts %d, matches %d\n",
-				bfparser->st->table->len, bfparser->st->contexts->len, bfparser->st->matches->len);
-		bfparser->st->table->data =
-			g_realloc(bfparser->st->table->data, (bfparser->st->table->len + 1) * sizeof(Ttablerow));
+		DBG_MSG("scantable final memory, contexts %d, matches %d\n",
+				bfparser->st->contexts->len, bfparser->st->matches->len);
 		bfparser->st->contexts->data =
 			g_realloc(bfparser->st->contexts->data, (bfparser->st->contexts->len + 1) * sizeof(Tcontext));
 		bfparser->st->matches->data =
@@ -1499,8 +1501,8 @@ bflang_cleanup_scantable(Tbflang * bflang)
 		if (g_array_index(bflang->st->contexts, Tcontext, i).patternhash)
 			g_hash_table_destroy(g_array_index(bflang->st->contexts, Tcontext, i).patternhash);
 		g_free(g_array_index(bflang->st->contexts, Tcontext, i).contexthighlight);
+		g_array_free(g_array_index(bflang->st->contexts, Tcontext, i).table, TRUE);
 	}
-	g_array_free(bflang->st->table, TRUE);
 	g_array_free(bflang->st->matches, TRUE);
 	g_array_free(bflang->st->contexts, TRUE);
 	g_slice_free(Tscantable, bflang->st);

@@ -71,11 +71,7 @@ is_symbol(BluefishTextView * btv, gint contextnum, gunichar uc)
 {
 	if (G_UNLIKELY(uc > 127))
 		return FALSE;
-	return (g_array_index
-			(btv->bflang->st->table, Ttablerow,
-			 g_array_index(btv->bflang->st->contexts, Tcontext,
-						   contextnum).identstate).row[uc] != g_array_index(btv->bflang->st->contexts,
-																			Tcontext, contextnum).identstate);
+	return character_is_symbol(((Tscantable *)btv->bflang->st),contextnum,uc);
 }
 
 gchar *
@@ -1688,7 +1684,7 @@ bftextview2_parse_static_colors(void)
 void
 bftextview2_init_globals(void)
 {
-	g_print("sizeof(Tfound)=%d, sizeof(Tfoundcontext)=%d,sizeof(Tfoundblock)=%d\n",sizeof(Tfound),sizeof(Tfoundcontext),sizeof(Tfoundblock));
+	g_print("sizeof(Tfound)=%"G_GSIZE_MODIFIER", sizeof(Tfoundcontext)=%"G_GSIZE_MODIFIER",sizeof(Tfoundblock)=%"G_GSIZE_MODIFIER"\n",sizeof(Tfound),sizeof(Tfoundcontext),sizeof(Tfoundblock));
 	bftextview2_parse_static_colors();
 	if (main_v->props.autocomp_accel_string && main_v->props.autocomp_accel_string[0] != '\0') {
 		gtk_accelerator_parse(main_v->props.autocomp_accel_string, &main_v->autocomp_accel_key,

@@ -23,7 +23,7 @@
 
 #include "bftextview2.h"
 GList *bftextview2_scantable_rematch_highlights(Tscantable * st, const gchar * lang);
-gint16 new_context(Tscantable * st, const gchar * lang, gchar * symbols, const gchar * contexthighlight,
+gint16 new_context(Tscantable * st, GArray *tmptable, const gchar * lang, gchar * symbols, const gchar * contexthighlight,
 				   gboolean autocomplete_case_insens);
 void match_set_nextcontext(Tscantable * st, guint16 matchnum, guint16 nextcontext);
 void match_autocomplete_reference(Tscantable * st, guint16 matchnum, guint16 context);
