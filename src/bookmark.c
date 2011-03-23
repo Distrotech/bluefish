@@ -920,23 +920,16 @@ popup_menu(Tbfwin * bfwin, GdkEventButton * event, gboolean show_bmark_specific,
 {
 	GtkWidget *menu = gtk_ui_manager_get_widget(bfwin->uimanager, "/BookmarkMenu");
 
-	if (menu) {
-		if (!show_bmark_specific) {
-			bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/Edit", FALSE);
-			bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/Delete", FALSE);
-		}
+	g_return_if_fail(menu != NULL);
 
-		if (!show_file_specific)
-			bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/DeleteAllInDoc", FALSE);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/Edit", show_bmark_specific);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/Delete", show_bmark_specific);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/DeleteAllInDoc", show_file_specific);
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/BookmarkMenu/DefaultPermanent",
+										 main_v->globses.bookmarks_default_store);
 
-		bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/BookmarkMenu/DefaultPermanent",
-											 main_v->globses.bookmarks_default_store);
-
-		gtk_widget_show(menu);
-		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
-	} else
-		g_warning("showing bookmark popup menu failed");
-
+	gtk_widget_show(menu);
+	gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 }
 
 static void
