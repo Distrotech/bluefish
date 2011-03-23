@@ -344,7 +344,7 @@ typedef struct {
 
 #define get_table(scantable, context) ((GArray *)g_array_index(scantable->contexts, Tcontext, context).table)
 
-#define get_tablerow(scantable, context, curstate) ((Ttablerow)g_array_index(g_array_index(scantable->contexts, Tcontext, context).table, Ttablerow, curstate))
+#define get_tablerow(scantable, context, curstate) (g_array_index(g_array_index(scantable->contexts, Tcontext, context).table, Ttablerow, curstate))
 
 /*****************************************************************/
 /* scanning the text and caching the results */
