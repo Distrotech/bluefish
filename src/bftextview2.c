@@ -76,11 +76,8 @@ is_symbol(BluefishTextView * btv, gint contextnum, gunichar uc)
 {
 	if (G_UNLIKELY(uc > 127))
 		return FALSE;
-	return (g_array_index
-			(btv->bflang->st->table, Ttablerow,
-			 g_array_index(btv->bflang->st->contexts, Tcontext,
-						   contextnum).identstate).row[uc] != g_array_index(btv->bflang->st->contexts,
-																			Tcontext, contextnum).identstate);
+
+	return character_is_symbol(((Tscantable *) btv->bflang->st), contextnum, uc);
 }
 
 gchar *
@@ -539,9 +536,8 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 
 	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
 		&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && stringlen == 1 && (btv->autocomp
-																				|| main_v->
-																				props.autocomp_popup_mode !=
-																				0)) {
+																				|| main_v->props.
+																				autocomp_popup_mode != 0)) {
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb: call autocomp_run\n");
 		autocomp_run(btv, FALSE);
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, set needs_autocomp to FALSE\n");
@@ -1470,8 +1466,8 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		   4 and there are two characters already, bluefish should insert only 2 characters */
 		string =
 			bf_str_repeat(" ",
-						  BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->
-						  editor_tab_width);
+						  BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->
+						  session->editor_tab_width);
 		imark = gtk_text_buffer_get_insert(btv->buffer);
 		gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, imark);
 		numchars =

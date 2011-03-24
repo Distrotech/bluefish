@@ -228,8 +228,10 @@ texttag_array_from_list(GList * thelist)
 void
 langmgr_reload_user_styles(void)
 {
-	GList *tmplist, *needlist = NULL, *noscanlist = NULL, *highlightlist = NULL;
-
+	GList *tmplist, *highlightlist = NULL;
+#ifdef HAVE_LIBENCHANT
+	GList *needlist = NULL, *noscanlist = NULL;
+#endif
 	if (main_v->props.textstyles == NULL) {
 		langmgr_load_default_styles();
 	}
@@ -352,6 +354,7 @@ static gboolean
 build_lang_finished_lcb(gpointer data)
 {
 	Tbflangparsing *bfparser = data;
+
 	if (bfparser->st) {
 		bfparser->bflang->st = bfparser->st;
 		/*bfparser->bflang->line = bfparser->line;
@@ -804,7 +807,8 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			if (!contexttag) {
 				static const gchar *internal_tag_string_d = "__internal_tag_string_d__";
 				static const gchar *internal_tag_string_s = "__internal_tag_string_s__";
-				contexttag = new_context(bfparser->st, bfparser->bflang->name, "/>\"=' \t\n\r<", NULL, FALSE);
+				contexttag =
+					new_context(bfparser->st, 8, bfparser->bflang->name, "/>\"=' \t\n\r<", NULL, FALSE);
 				match_set_nextcontext(bfparser->st, matchnum, contexttag);
 				if (attrib_arr) {
 					gchar **tmp2;
@@ -1106,6 +1110,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 		NULL, *commentid_line = NULL;
 	gboolean autocomplete_case_insens = FALSE, is_empty;
 	gint context;
+
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
@@ -1132,7 +1137,8 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 	}
 	/* create context */
 	DBG_PARSING("create context symbols %s and highlight %s\n", symbols, highlight);
-	context = new_context(bfparser->st, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens);
+	context =
+		new_context(bfparser->st, 32, bfparser->bflang->name, symbols, highlight, autocomplete_case_insens);
 	g_queue_push_head(contextstack, GINT_TO_POINTER(context));
 	if (id) {
 		DBG_PARSING("insert context %s into hash table as %d\n", id, context);
@@ -1227,7 +1233,8 @@ build_lang_thread(gpointer data)
 			if (xmlTextReaderIsEmptyElement(reader)) {
 				DBG_PARSING("empty <definition />\n");
 				/* empty <definition />, probably text/plain */
-				g_array_free(bfparser->st->table, TRUE);
+
+				/* TODO: MEMLEAK: BUG: cleanup the DFA table for each context !!!!!!!!!!!!! */
 				g_array_free(bfparser->st->matches, TRUE);
 				g_array_free(bfparser->st->contexts, TRUE);
 				g_slice_free(Tscantable, bfparser->st);
@@ -1314,16 +1321,26 @@ build_lang_thread(gpointer data)
 	xmlFreeTextReader(reader);
 	/* do some final memory management */
 	if (bfparser->st) {
-		DBG_MSG("scantable final memory, realloc table %d, contexts %d, matches %d\n",
-				bfparser->st->table->len, bfparser->st->contexts->len, bfparser->st->matches->len);
-		bfparser->st->table->data =
-			g_realloc(bfparser->st->table->data, (bfparser->st->table->len + 1) * sizeof(Ttablerow));
+		gint i, tablenum = 0;
 		bfparser->st->contexts->data =
 			g_realloc(bfparser->st->contexts->data, (bfparser->st->contexts->len + 1) * sizeof(Tcontext));
 		bfparser->st->matches->data =
 			g_realloc(bfparser->st->matches->data, (bfparser->st->matches->len + 1) * sizeof(Tpattern));
 
-		print_scantable_stats(bflang->name, bflang->filename, bfparser->st);
+		/* now optimise the DFA tables for each context */
+		for (i = 1; i < bfparser->st->contexts->len; i++) {
+			g_array_index(bfparser->st->contexts, Tcontext, i).table->data =
+				g_realloc(g_array_index(bfparser->st->contexts, Tcontext, i).table->data,
+						  (g_array_index(bfparser->st->contexts, Tcontext, i).table->len +
+						   1) * sizeof(Ttablerow));
+			tablenum += get_table(bfparser->st, i)->len + 1;
+		}
+		g_print("Language statistics for %s from %s\n", bfparser->bflang->name, bfparser->bflang->filename);
+		g_print("table    %5d (%.2f Kbytes)\n", tablenum, 1.0 * tablenum * sizeof(Ttablerow) / 1024.0);
+		g_print("contexts %5d (%.2f Kbytes)\n", bfparser->st->contexts->len,
+				1.0 * bfparser->st->contexts->len * sizeof(Tcontext) / 1024.0);
+		g_print("matches  %5d (%.2f Kbytes)\n", bfparser->st->matches->len,
+				1.0 * bfparser->st->matches->len * sizeof(Tpattern) / 1024.0);
 		/*print_DFA(bfparser->st, '&','Z'); */
 		/*print_DFA_subset(bfparser->st, "<PpIi>"); */
 
@@ -1499,8 +1516,8 @@ bflang_cleanup_scantable(Tbflang * bflang)
 		if (g_array_index(bflang->st->contexts, Tcontext, i).patternhash)
 			g_hash_table_destroy(g_array_index(bflang->st->contexts, Tcontext, i).patternhash);
 		g_free(g_array_index(bflang->st->contexts, Tcontext, i).contexthighlight);
+		g_array_free(g_array_index(bflang->st->contexts, Tcontext, i).table, TRUE);
 	}
-	g_array_free(bflang->st->table, TRUE);
 	g_array_free(bflang->st->matches, TRUE);
 	g_array_free(bflang->st->contexts, TRUE);
 	g_slice_free(Tscantable, bflang->st);

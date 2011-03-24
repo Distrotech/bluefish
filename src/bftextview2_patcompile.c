@@ -126,8 +126,6 @@ bftextview2_scantable_rematch_highlights(Tscantable * st, const gchar * lang)
 	DBG_PATCOMPILE("\n");
 }*/
 
-#define character_is_symbol(st,context,c) (g_array_index(st->table, Ttablerow, context.identstate).row[c] != context.identstate)
-
 static gint
 fill_characters_from_range(gchar * input, gchar * characters)
 {
@@ -187,11 +185,10 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 					GQueue * positions, GQueue * newpositions, gboolean end_is_symbol)
 {
 	guint c, pos;
-	guint identstate;
+	const guint identstate = 1;
 	gint newstate = -1;			/* if all characters can follow existing states we don't need any newstate
 								   and thus newstate==-1 but if one or more characters in one or more states need a new state
 								   it will be >0 */
-	identstate = g_array_index(st->contexts, Tcontext, context).identstate;
 	DBG_PATCOMPILE("create_state_tables started for %d states, pointtoself=%d\n",
 				   g_queue_get_length(positions), pointtoself);
 	while (g_queue_get_length(positions)) {
@@ -200,58 +197,56 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 		for (c = 0; c < NUMSCANCHARS; c++) {
 			if (characters[c] == 1) {
 				/*DBG_PATCOMPILE("running for position %d char %c\n",pos,c); */
-				if (g_array_index(st->table, Ttablerow, pos).row[c] != 0
-					&& g_array_index(st->table, Ttablerow, pos).row[c] != identstate) {
-					if (g_array_index(st->table, Ttablerow, pos).row[c] == pos) {
+				if (get_tablerow(st, context, pos).row[c] != 0
+					&& get_tablerow(st, context, pos).row[c] != identstate) {
+					if (get_tablerow(st, context, pos).row[c] == pos) {
 						/* this state is a 'morestate', a state that points to itself, for a (regex) pattern such as a+ or a* */
 						if (pointtoself) {
-							push_on_stack(newpositions,
-										  (gint) g_array_index(st->table, Ttablerow, pos).row[c]);
+							push_on_stack(newpositions, (gint) get_tablerow(st, context, pos).row[c]);
 						} else {
 							if (newstate == -1) {
-								newstate = st->table->len;
+								newstate = get_table(st, context)->len;
 								DBG_PATCOMPILE("create_state_tables, create newstate %d from morestate %d\n",
 											   newstate, pos);
-								g_array_set_size(st->table, st->table->len + 1);
-								if (st->table->len+1 >= G_MAXUINT16) {
-									g_print("Critical error in language file: state table overflow!!!!!!!!\n");
+								g_array_set_size(get_table(st, context), get_table(st, context)->len + 1);
+								if (get_table(st, context)->len + 1 >= G_MAXUINT16) {
+									g_print
+										("Critical error in language file: state table overflow!!!!!!!!\n");
 								}
 								/* pass-on the morestate */
-								memcpy(g_array_index(st->table, Ttablerow, newstate).row,
-									   g_array_index(st->table, Ttablerow, pos).row,
-									   sizeof(guint16[NUMSCANCHARS]));
-								g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
+								memcpy(get_tablerow(st, context, newstate).row,
+									   get_tablerow(st, context, pos).row, sizeof(guint16[NUMSCANCHARS]));
+								get_tablerow(st, context, pos).row[c] = newstate;
 								g_queue_push_head(newpositions, GINT_TO_POINTER(newstate));
 							} else {
-								g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
+								get_tablerow(st, context, pos).row[c] = newstate;
 							}
 							/*g_print("*****************************\nBUG: we cannot parse this pattern after a regex pattern yet !!!!!!!!!!!!!\nstate tables will be incorrect!!!\n*****************************\n"); */
 						}
 					} else {
 						if (pointtoself) {	/* perhaps check if we have this state on the stack already */
-							push_on_stack(positions, (gint) g_array_index(st->table, Ttablerow, pos).row[c]);
+							push_on_stack(positions, (gint) get_tablerow(st, context, pos).row[c]);
 						} else {
-							if (g_array_index(st->table, Ttablerow, pos).row[c] > pos) {
-								push_on_stack(newpositions,
-											  (gint) g_array_index(st->table, Ttablerow, pos).row[c]);
+							if (get_tablerow(st, context, pos).row[c] > pos) {
+								push_on_stack(newpositions, (gint) get_tablerow(st, context, pos).row[c]);
 							} else {	/* this is probably a morestate that has been passed-on several states */
 								if (newstate == -1) {
-									newstate = st->table->len;
+									newstate = get_table(st, context)->len;
 									DBG_PATCOMPILE
 										("create_state_tables, create newstate %d from morestate %d\n",
 										 newstate, pos);
-									g_array_set_size(st->table, st->table->len + 1);
-									if (st->table->len+1 >= G_MAXUINT16) {
-										g_print("Critical error in language file: state table overflow!!!!!!!!\n");
+									g_array_set_size(get_table(st, context), get_table(st, context)->len + 1);
+									if (get_table(st, context)->len + 1 >= G_MAXUINT16) {
+										g_print
+											("Critical error in language file: state table overflow!!!!!!!!\n");
 									}
 									/* pass-on the morestate */
-									memcpy(g_array_index(st->table, Ttablerow, newstate).row,
-										   g_array_index(st->table, Ttablerow, pos).row,
-										   sizeof(guint16[NUMSCANCHARS]));
-									g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
+									memcpy(get_tablerow(st, context, newstate).row,
+										   get_tablerow(st, context, pos).row, sizeof(guint16[NUMSCANCHARS]));
+									get_tablerow(st, context, pos).row[c] = newstate;
 									g_queue_push_head(newpositions, GINT_TO_POINTER(newstate));
 								} else {
-									g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
+									get_tablerow(st, context, pos).row[c] = newstate;
 								}
 							}
 
@@ -259,11 +254,11 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 					}
 				} else {
 					if (newstate == -1) {
-						g_array_index(st->table, Ttablerow, pos).row[c] = newstate = st->table->len;
+						get_tablerow(st, context, pos).row[c] = newstate = get_table(st, context)->len;
 						DBG_PATCOMPILE("create_state_tables, create newstate %d, pointtoself=%d\n", newstate,
 									   pointtoself);
-						g_array_set_size(st->table, st->table->len + 1);
-						if (st->table->len+1 >= G_MAXUINT16) {
+						g_array_set_size(get_table(st, context), get_table(st, context)->len + 1);
+						if (get_table(st, context)->len + 1 >= G_MAXUINT16) {
 							g_print("Critical error in language file: state table overflow!!!!!!!!\n");
 						}
 						if (!end_is_symbol) {
@@ -272,12 +267,9 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 							   characters may point to state 0 and make this a valid match and we don't have to copy the identstate  */
 							DBG_PATCOMPILE
 								("create_state_tables, newstate %d does not end on a symbol, init all values equal to the identstate %d\n",
-								 newstate, g_array_index(st->contexts, Tcontext, context).identstate);
-							memcpy(g_array_index(st->table, Ttablerow, newstate).row,
-								   g_array_index(st->table, Ttablerow,
-												 g_array_index(st->contexts, Tcontext,
-															   context).identstate).row,
-								   sizeof(guint16[NUMSCANCHARS]));
+								 newstate, 1);
+							memcpy(get_tablerow(st, context, newstate).row,
+								   get_tablerow(st, context, identstate).row, sizeof(guint16[NUMSCANCHARS]));
 						} else {
 							DBG_PATCOMPILE
 								("create_state_tables, newstate %d ends on a symbol, so init all values with 0\n",
@@ -289,12 +281,12 @@ create_state_tables(Tscantable * st, gint16 context, gchar * characters, gboolea
 							for (d = 0; d < NUMSCANCHARS; d++) {
 								if (characters[d] == 1) {
 									/*DBG_PATCOMPILE("in newstate %d, character %c points to %d\n",newstate,d,newstate); */
-									g_array_index(st->table, Ttablerow, newstate).row[d] = newstate;
+									get_tablerow(st, context, newstate).row[d] = newstate;
 								}
 							}
 						}
 					} else {
-						g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
+						get_tablerow(st, context, pos).row[c] = newstate;
 						/* nothing to put on the stack, newstate should be on newpositions already if it is not -1 */
 					}
 				}
@@ -498,8 +490,7 @@ process_regex_part(Tscantable * st, gchar * regexpart, gint16 context, gboolean 
 					   refer to the identstate for all non-symbols */
 					gint j;
 					for (j = 0; j <= NUMSCANCHARS; j++) {
-						if (characters[j] == 1
-							&& !character_is_symbol(st, g_array_index(st->contexts, Tcontext, context), j)) {
+						if (characters[j] == 1 && !character_is_symbol(st, context, j)) {
 							only_symbols = FALSE;
 							break;
 						}
@@ -567,8 +558,7 @@ compile_limitedregex_to_DFA(Tscantable * st, gchar * input, gboolean caseinsensi
 		lregex = g_strdup(input);
 	}
 
-	g_queue_push_head(positions,
-					  GINT_TO_POINTER((gint) g_array_index(st->contexts, Tcontext, context).startstate));
+	g_queue_push_head(positions, GINT_TO_POINTER((gint) 0));
 	DBG_PATCOMPILE("lregex=%s, positionstack has length %d\n", lregex, g_queue_get_length(positions));
 	newpositions = process_regex_part(st, lregex, context, caseinsensitive, positions, TRUE);
 	/*compile_limitedregex_to_DFA_backend(st,lregex,context,caseinsensitive,&positions); */
@@ -576,13 +566,12 @@ compile_limitedregex_to_DFA(Tscantable * st, gchar * input, gboolean caseinsensi
 	while ((g_queue_get_length(newpositions))) {
 		p = GPOINTER_TO_INT(g_queue_pop_head(newpositions));
 		DBG_PATCOMPILE("mark state %d as possible end-state\n", p);
-		if (g_array_index(st->table, Ttablerow, p).match != 0
-			&& g_array_index(st->table, Ttablerow, p).match != matchnum) {
+		if (get_tablerow(st, context, p).match != 0 && get_tablerow(st, context, p).match != matchnum) {
 			g_print("Error in language file, patterns %s and %s in context %d overlap each other\n", input,
 					g_array_index(st->matches, Tpattern,
-								  g_array_index(st->table, Ttablerow, p).match).pattern, context);
+								  get_tablerow(st, context, p).match).pattern, context);
 		} else {
-			g_array_index(st->table, Ttablerow, p).match = matchnum;
+			get_tablerow(st, context, p).match = matchnum;
 		}
 	}
 	g_queue_free(positions);
@@ -606,8 +595,7 @@ compile_keyword_to_DFA(Tscantable * st, gchar * keyword, guint16 matchnum, gint1
 	newpositions = g_queue_new();
 
 	/* compile the keyword into the DFA */
-	g_queue_push_head(positions,
-					  GINT_TO_POINTER((gint) g_array_index(st->contexts, Tcontext, context).startstate));
+	g_queue_push_head(positions, GINT_TO_POINTER((gint) 0));
 
 	if (case_insens) {
 		/* make complete string lowercase */
@@ -619,8 +607,7 @@ compile_keyword_to_DFA(Tscantable * st, gchar * keyword, guint16 matchnum, gint1
 	DBG_PATCOMPILE("in context %d we start with position %d\n", context, (gint) g_queue_peek_head(positions));
 	len = strlen(pattern);
 
-	end_is_symbol =
-		character_is_symbol(st, g_array_index(st->contexts, Tcontext, context), (gint) pattern[len - 1]);
+	end_is_symbol = character_is_symbol(st, context, (gint) pattern[len - 1]);
 
 	for (i = 0; i <= len; i++) {
 		/*GQueue *tmp; */
@@ -631,14 +618,12 @@ compile_keyword_to_DFA(Tscantable * st, gchar * keyword, guint16 matchnum, gint1
 				gint p;
 				p = GPOINTER_TO_INT(g_queue_pop_head(positions));
 				DBG_PATCOMPILE("mark state %d as possible end-state\n", p);
-				if (g_array_index(st->table, Ttablerow, p).match != 0
-					&& g_array_index(st->table, Ttablerow, p).match != matchnum) {
+				if (get_tablerow(st, context, p).match != 0 && get_tablerow(st, context, p).match != matchnum) {
 					g_print("Error in language file: patterns %s and %s in context %d overlap each other\n",
 							keyword, g_array_index(st->matches, Tpattern,
-												   g_array_index(st->table, Ttablerow, p).match).pattern,
-							context);
+												   get_tablerow(st, context, p).match).pattern, context);
 				}
-				g_array_index(st->table, Ttablerow, p).match = matchnum;
+				get_tablerow(st, context, p).match = matchnum;
 			}
 		} else {
 			characters[c] = 1;
@@ -660,53 +645,42 @@ compile_keyword_to_DFA(Tscantable * st, gchar * keyword, guint16 matchnum, gint1
 }
 
 gint16
-new_context(Tscantable * st, const gchar * lang, gchar * symbols, const gchar * contexthighlight,
-			gboolean autocomplete_case_insens)
+new_context(Tscantable * st, guint expected_size, const gchar * lang, gchar * symbols,
+			const gchar * contexthighlight, gboolean autocomplete_case_insens)
 {
 	gint16 context;
-	guint16 startstate, identstate;
 	gint i;
 	gchar *tmp;
+	GArray *tmptable;
 
 	context = st->contexts->len;
 	g_array_set_size(st->contexts, st->contexts->len + 1);
 
-	startstate = st->table->len;
-	identstate = st->table->len + 1;
-
-	g_array_index(st->contexts, Tcontext, context).startstate = startstate;
-	g_array_index(st->contexts, Tcontext, context).identstate = identstate;
 	g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens = autocomplete_case_insens;
 	g_array_index(st->contexts, Tcontext, context).contexthighlight = (gchar *) contexthighlight;
-
-	/*if (contexthighlight) 
-	   g_array_index(st->contexts, Tcontext, context).contexttag = langmrg_lookup_tag_highlight(lang, contexthighlight); */
-	g_array_set_size(st->table, st->table->len + 2);
-
-	DBG_PATCOMPILE("new context %d has startstate %d, identstate %d and symbols %s\n", context,
-				   g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts,
-																							Tcontext,
-																							context).identstate,
-				   symbols);
+	tmptable = g_array_index(st->contexts, Tcontext, context).table =
+		g_array_sized_new(TRUE, TRUE, sizeof(Ttablerow), expected_size);
+	g_array_set_size(g_array_index(st->contexts, Tcontext, context).table, 2);	/* first two states are the startstate (0) and the identstate (1) */
 	/* identstate refers to itself for all characters except the symbols. we cannot use memset
 	   because an guint16 occupies 2 bytes */
 	for (i = 0; i < NUMSCANCHARS; i++)
-		g_array_index(st->table, Ttablerow, identstate).row[i] = identstate;
+		g_array_index(tmptable, Ttablerow, 1).row[i] = 1;
 
 	/* 0, \0 or NULL is always a symbol */
-	g_array_index(st->table, Ttablerow, identstate).row[0] = 0;
+	g_array_index(tmptable, Ttablerow, 1).row[0] = 0;
 	tmp = symbols;
 	while (*tmp) {
 		/*g_print("mark %c as symbol\n",*tmp); */
-		g_array_index(st->table, Ttablerow, identstate).row[(int) *tmp] = 0;
+		g_array_index(tmptable, Ttablerow, 1).row[(int) *tmp] = 0;
 
 		if (st->allsymbols[(int) *tmp] == 0)
 			st->allsymbols[(int) *tmp] = 1;
 
 		tmp++;
 	}
-	memcpy(g_array_index(st->table, Ttablerow, startstate).row,
-		   g_array_index(st->table, Ttablerow, identstate).row, sizeof(guint16[NUMSCANCHARS]));
+	/* now copy the identstate to the startstate, so every symbol in the startstate will point to the identstate */
+	memcpy(g_array_index(tmptable, Ttablerow, 0).row,
+		   g_array_index(tmptable, Ttablerow, 1).row, sizeof(guint16[NUMSCANCHARS]));
 
 	return context;
 }
@@ -895,6 +869,7 @@ add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * la
 	return matchnum;
 }
 
+#if 0
 void
 print_DFA_subset(Tscantable * st, char *chars)
 {
@@ -955,6 +930,7 @@ print_DFA(Tscantable * st, char start, char end)
 	}
 
 }
+#endif							/* 0 */
 
 Tscantable *
 scantable_new(guint size_table, guint size_matches, guint size_contexts)
@@ -963,26 +939,12 @@ scantable_new(guint size_table, guint size_matches, guint size_contexts)
 	st = g_slice_new0(Tscantable);
 	DBG_PARSING("scantable_new, initial size table %d, contexts %d, matches %d\n", size_table, size_matches,
 				size_contexts);
-	st->table = g_array_sized_new(TRUE, TRUE, sizeof(Ttablerow), size_table);
 	st->contexts = g_array_sized_new(TRUE, TRUE, sizeof(Tcontext), size_contexts);
 	st->matches = g_array_sized_new(TRUE, TRUE, sizeof(Tpattern), size_matches);
 	st->comments = g_array_sized_new(TRUE, FALSE, sizeof(Tcomment), 8);
 	st->matches->len = 1;		/* match 0 means no match */
 	st->contexts->len = 1;		/* a match with nextcontext 0 means no context change, so we cannot use context 0 */
 	return st;
-}
-
-void
-print_scantable_stats(const gchar * lang, const gchar * file, Tscantable * st)
-{
-	g_print("Language statistics for %s from %s\n", lang, file);
-	g_print("table    %5d (%.2f Kbytes)\n", st->table->len,
-			1.0 * st->table->len * sizeof(Ttablerow) / 1024.0);
-	g_print("contexts %5d (%.2f Kbytes)\n", st->contexts->len,
-			1.0 * st->contexts->len * sizeof(Tcontext) / 1024.0);
-	g_print("matches  %5d (%.2f Kbytes)\n", st->matches->len,
-			1.0 * st->matches->len * sizeof(Tpattern) / 1024.0);
-
 }
 
 #ifdef HARDCODED_PATTERNS

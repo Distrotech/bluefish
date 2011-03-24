@@ -1130,7 +1130,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	} else {
 		/* reconstruct the context stack and the block stack */
 		reconstruction_o = reconstruct_scanning(btv, &iter, &scanning);
-		pos = g_array_index(btv->bflang->st->contexts, Tcontext, scanning.context).startstate;
+		pos = 1;
 		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d\n", scanning.context, pos);
 		/* now move the start position either to the start of the line, or to the position 
 		   where the stack was reconstructed, the largest offset */
@@ -1190,12 +1190,12 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 			}
 		}
 		DBG_SCANNING("scanning offset %d pos %d %c ", gtk_text_iter_get_offset(&iter), pos, uc);
-		newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
+		newpos = get_tablerow(btv->bflang->st, scanning.context, pos).row[uc];
 		DBG_SCANNING("(context=%d).. got newpos %d\n", scanning.context, newpos);
 		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
-			if (G_UNLIKELY(g_array_index(btv->bflang->st->table, Ttablerow, pos).match)) {
+			if (G_UNLIKELY(get_tablerow(btv->bflang->st, scanning.context, pos).match)) {
 				Tmatch match;
-				match.patternum = g_array_index(btv->bflang->st->table, Ttablerow, pos).match;
+				match.patternum = get_tablerow(btv->bflang->st, scanning.context, pos).match;
 				match.start = mstart;
 				match.end = iter;
 				DBG_SCANNING("we have a match from pos %d to %d\n", gtk_text_iter_get_offset(&match.start),
@@ -1213,10 +1213,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 						last_character_run = FALSE;
 					}
 #ifdef IDENTSTORING
-				if (G_UNLIKELY
-					(scanning.identmode != 0
-					 && pos == g_array_index(btv->bflang->st->contexts, Tcontext,
-											 scanning.context).identstate)) {
+				if (G_UNLIKELY(scanning.identmode != 0 && pos == 1)) {
 					/* ignore if the cursor is within the range, because it could be that the user is still typing the name */
 					if (G_LIKELY(!gtk_text_iter_in_range(&itcursor, &mstart, &iter)
 								 && !gtk_text_iter_equal(&itcursor, &mstart)
@@ -1243,7 +1240,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 #endif
 			}
 			mstart = iter;
-			newpos = g_array_index(btv->bflang->st->contexts, Tcontext, scanning.context).startstate;
+			newpos = 0;
 		} else if (G_LIKELY(!last_character_run)) {
 			gtk_text_iter_forward_char(&iter);
 #ifdef HL_PROFILING
@@ -1365,7 +1362,7 @@ scan_for_autocomp_prefix(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIt
 
 	contextstack = get_contextstack_at_position(btv, &iter);
 	*contextnum = g_queue_get_length(contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(contextstack)) : 1;
-	pos = g_array_index(btv->bflang->st->contexts, Tcontext, *contextnum).startstate;
+	pos = 0;
 	DBG_AUTOCOMP("start scanning at offset %d with context %d and position %d\n",
 				 gtk_text_iter_get_offset(&iter), *contextnum, pos);
 	while (!gtk_text_iter_equal(&iter, cursorpos)) {
@@ -1378,16 +1375,16 @@ scan_for_autocomp_prefix(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIt
 			uc = 1;
 		}
 		DBG_AUTOCOMP("scanning %c\n", uc);
-		newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
+		newpos = get_tablerow(btv->bflang->st, *contextnum, pos).row[uc];
 		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
 			DBG_AUTOCOMP("newpos=%d...\n", newpos);
-			if (G_UNLIKELY(g_array_index(btv->bflang->st->table, Ttablerow, pos).match)) {
+			if (G_UNLIKELY(get_tablerow(btv->bflang->st, *contextnum, pos).match)) {
 				if (g_array_index
 					(btv->bflang->st->matches, Tpattern,
-					 g_array_index(btv->bflang->st->table, Ttablerow, pos).match).nextcontext < 0) {
+					 get_tablerow(btv->bflang->st, *contextnum, pos).match).nextcontext < 0) {
 					gint num = g_array_index(btv->bflang->st->matches, Tpattern,
-											 g_array_index(btv->bflang->st->table, Ttablerow,
-														   pos).match).nextcontext;
+											 get_tablerow(btv->bflang->st, *contextnum,
+														  pos).match).nextcontext;
 					while (num != 0) {
 						g_queue_pop_head(contextstack);
 						num++;
@@ -1398,22 +1395,19 @@ scan_for_autocomp_prefix(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIt
 				} else
 					if (g_array_index
 						(btv->bflang->st->matches, Tpattern,
-						 g_array_index(btv->bflang->st->table, Ttablerow, pos).match).nextcontext > 0) {
+						 get_tablerow(btv->bflang->st, *contextnum, pos).match).nextcontext > 0) {
 					DBG_AUTOCOMP("previous pos=%d had a match with a context change!\n", pos);
 					*contextnum =
 						g_array_index(btv->bflang->st->matches, Tpattern,
-									  g_array_index(btv->bflang->st->table, Ttablerow,
-													pos).match).nextcontext;
+									  get_tablerow(btv->bflang->st, *contextnum, pos).match).nextcontext;
 					g_queue_push_head(contextstack, GINT_TO_POINTER(*contextnum));
 				}
-				DBG_AUTOCOMP("found match %d, new context is %d\n",
-							 g_array_index(btv->bflang->st->table, Ttablerow, pos).match, *contextnum);
 			}
 			if (G_LIKELY(gtk_text_iter_equal(mstart, &iter))) {
 				gtk_text_iter_forward_char(&iter);
 			}
 			*mstart = iter;
-			newpos = g_array_index(btv->bflang->st->contexts, Tcontext, *contextnum).startstate;
+			newpos = 0;
 		} else {
 			gtk_text_iter_forward_char(&iter);
 		}
@@ -1436,7 +1430,7 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 
 	contextstack = get_contextstack_at_position(btv, &iter);
 	*contextnum = g_queue_get_length(contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(contextstack)) : 1;
-	pos = g_array_index(btv->bflang->st->contexts, Tcontext, *contextnum).startstate;
+	pos = 0;
 
 	gtk_text_buffer_get_end_iter(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), &end);
 	DBG_TOOLTIP("start scanning at offset %d with context %d and position %d\n",
@@ -1448,13 +1442,13 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 			newpos = 0;
 		} else {
 			DBG_TOOLTIP("scanning %c\n", uc);
-			newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
+			newpos = get_tablerow(btv->bflang->st, *contextnum, pos).row[uc];
 		}
 		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
 			DBG_TOOLTIP("newpos=%d...\n", newpos);
-			if (G_UNLIKELY(g_array_index(btv->bflang->st->table, Ttablerow, pos).match)) {
+			if (G_UNLIKELY(get_tablerow(btv->bflang->st, *contextnum, pos).match)) {
 				DBG_MSG("found match %d, retthismatch=%d\n",
-						g_array_index(btv->bflang->st->table, Ttablerow, pos).match, retthismatch);
+						get_tablerow(btv->bflang->st, *contextnum, pos).match, retthismatch);
 				if (retthismatch) {
 					*position = iter;
 					g_queue_free(contextstack);
@@ -1464,10 +1458,10 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 				}
 				if (g_array_index
 					(btv->bflang->st->matches, Tpattern,
-					 g_array_index(btv->bflang->st->table, Ttablerow, pos).match).nextcontext < 0) {
+					 get_tablerow(btv->bflang->st, *contextnum, pos).match).nextcontext < 0) {
 					gint num = g_array_index(btv->bflang->st->matches, Tpattern,
-											 g_array_index(btv->bflang->st->table, Ttablerow,
-														   pos).match).nextcontext;
+											 get_tablerow(btv->bflang->st, *contextnum,
+														  pos).match).nextcontext;
 					while (num != 0) {
 						g_queue_pop_head(contextstack);
 						num++;
@@ -1480,11 +1474,10 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 				} else
 					if (g_array_index
 						(btv->bflang->st->matches, Tpattern,
-						 g_array_index(btv->bflang->st->table, Ttablerow, pos).match).nextcontext > 0) {
+						 get_tablerow(btv->bflang->st, *contextnum, pos).match).nextcontext > 0) {
 					*contextnum =
 						g_array_index(btv->bflang->st->matches, Tpattern,
-									  g_array_index(btv->bflang->st->table, Ttablerow,
-													pos).match).nextcontext;
+									  get_tablerow(btv->bflang->st, *contextnum, pos).match).nextcontext;
 					DBG_TOOLTIP("previous pos=%d had a match that pushed the context to %d!\n", pos,
 								*contextnum);
 					g_queue_push_head(contextstack, GINT_TO_POINTER(*contextnum));
@@ -1497,7 +1490,7 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 				gtk_text_iter_forward_char(&iter);
 			}
 			*mstart = iter;
-			newpos = g_array_index(btv->bflang->st->contexts, Tcontext, *contextnum).startstate;
+			newpos = 0;
 		} else {
 			gtk_text_iter_forward_char(&iter);
 		}
@@ -1507,7 +1500,7 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 						*contextnum, pos, g_array_index(btv->bflang->st->contexts, Tcontext,
 														*contextnum).identstate);
 			if (gtk_text_iter_equal(&iter, mstart)
-				|| (pos == g_array_index(btv->bflang->st->contexts, Tcontext, *contextnum).identstate)) {
+				|| (pos == 1)) {
 				g_queue_free(contextstack);
 				return FALSE;
 			}

@@ -467,7 +467,6 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
 	gint contextnum;
 	gunichar uc;
-	guint16 identstate;
 	Tfoundblock *fblock = NULL;	/* needed for the special case to close generix xml tags based on the top of the blockstack */
 
 	if (G_UNLIKELY(!master->bflang || !master->bflang->st))
@@ -488,8 +487,8 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 	if (G_UNLIKELY(uc > NUMSCANCHARS))
 		return;
 
-	identstate = g_array_index(master->bflang->st->contexts, Tcontext, contextnum).identstate;
-	if (g_array_index(master->bflang->st->table, Ttablerow, identstate).row[uc] == identstate) {
+	/*identstate = g_array_index(master->bflang->st->contexts, Tcontext, contextnum).identstate; */
+	if (!character_is_symbol(master->bflang->st, contextnum, uc)) {
 		/* current character is not a symbol! */
 		DBG_AUTOCOMP("autocomp_run, character at cursor %d '%c' is not a symbol, return\n", uc, (char) uc);
 		acwin_cleanup(btv);

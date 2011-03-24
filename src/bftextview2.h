@@ -262,22 +262,23 @@ extern void g_none(char *first, ...);
 #define COMMENT_INDEX_INHERIT 255
 #define COMMENT_INDEX_NONE 254
 	typedef struct {
-	gboolean autocomplete_case_insens;
+	GArray *table;				/* a pointer to the DFA table for this context */
 	GCompletion *ac;			/* autocompletion items in this context */
 	/*GHashTable *reference; *//* reference help for each autocompletion item */
 	GHashTable *patternhash;	/* a hash table where the pattern and its autocompletion string are the keys, and an integer to the ID of the pattern is the value */
 	GtkTextTag *contexttag;		/* if the context area itself needs some kind of style (to implement a string context for example) */
 	gchar *contexthighlight;	/* the string that has the id for the highlight */
-	guint16 startstate;			/* refers to the row number in scantable->table that is the start state for this context */
-	guint16 identstate;			/* refers to the row number in scantable->table that is the identifier-state
-								   for this context. The identifier state is a state that refers to itself for all characters
-								   except the characters (symbols) thay may be the begin or end of an identifier such
-								   as whitespace, ();[]{}*+-/ etc. */
+	/*guint16 startstate; *//* refers to the row number in scantable->table that is the start state for this context */
+	/*guint16 identstate; *//* refers to the row number in scantable->table that is the identifier-state
+	   for this context. The identifier state is a state that refers to itself for all characters
+	   except the characters (symbols) thay may be the begin or end of an identifier such
+	   as whitespace, ();[]{}*+-/ etc. */
 	guint8 has_tagclose_from_blockstack;	/* this context has xml end patterns that need autoclosing for generix xml tags, based on the tag that is on top of the blockstack */
 	guint8 comment_block;		/* block comment index in array scantable->comments 
 								   or COMMENT_INDEX_INHERIT (which means inherit) 
 								   or COMMENT_INDEX_NONE if there is no block comment  */
 	guint8 comment_line;		/* index in array scantable->comments for line comments; see comment_block */
+	guint8 autocomplete_case_insens;
 } Tcontext;
 
 typedef struct {
@@ -334,11 +335,16 @@ typedef struct {
 
 typedef struct {
 	guint8 allsymbols[128];		/* this lookup table holds all symbols for all contexts, and is used to trigger scanning if reduced_scan_triggers is enabled */
-	GArray *table;				/* dynamic sized array of Ttablerow: the DFA table, max 65.... entries, we use a guint16 as index */
 	GArray *contexts;			/* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
 	GArray *matches;			/* dynamic sized array of Tpattern */
 	GArray *comments;			/* Tcomment, has max. 256 entries, we use a guint8 as index */
 } Tscantable;
+
+#define character_is_symbol(st,context,c) (g_array_index((GArray *)g_array_index(st->contexts, Tcontext, context).table, Ttablerow, 1).row[c] != 1)
+
+#define get_table(scantable, context) ((GArray *)g_array_index(scantable->contexts, Tcontext, context).table)
+
+#define get_tablerow(scantable, context, curstate) (g_array_index(g_array_index(scantable->contexts, Tcontext, context).table, Ttablerow, curstate))
 
 /*****************************************************************/
 /* scanning the text and caching the results */
