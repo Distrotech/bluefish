@@ -32,9 +32,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include <netinet/in.h>
-
-
 #include "bluefish.h"
 #include "ipc_bf2bf.h"
 #include "bfwin.h"
