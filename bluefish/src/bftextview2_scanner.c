@@ -1130,7 +1130,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	} else {
 		/* reconstruct the context stack and the block stack */
 		reconstruction_o = reconstruct_scanning(btv, &iter, &scanning);
-		pos = 1;
+		pos = 0;
 		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d\n", scanning.context, pos);
 		/* now move the start position either to the start of the line, or to the position 
 		   where the stack was reconstructed, the largest offset */
