@@ -1319,7 +1319,7 @@ build_lang_thread(gpointer data)
 	xmlFreeTextReader(reader);
 	/* do some final memory management */
 	if (bfparser->st) {
-		gint i, tablenum=0;
+		gint i, tablenum=0, largest_table=0;
 		bfparser->st->contexts->data =
 			g_realloc(bfparser->st->contexts->data, (bfparser->st->contexts->len + 1) * sizeof(Tcontext));
 		bfparser->st->matches->data =
@@ -1329,13 +1329,17 @@ build_lang_thread(gpointer data)
 		for (i = 1; i < bfparser->st->contexts->len; i++) {
 			g_array_index(bfparser->st->contexts, Tcontext, i).table->data = g_realloc(g_array_index(bfparser->st->contexts, Tcontext, i).table->data, (g_array_index(bfparser->st->contexts, Tcontext, i).table->len + 1) * sizeof(Ttablerow));
 			tablenum += get_table(bfparser->st, i)->len + 1;
+			if (get_table(bfparser->st, i)->len > largest_table)
+				largest_table = get_table(bfparser->st, i)->len;
 		}
 		g_print("Language statistics for %s from %s\n", bfparser->bflang->name, bfparser->bflang->filename);
-		g_print("table    %5d (%.2f Kbytes)\n", tablenum,
+		g_print("largest table %5d (%9.2f Kbytes)\n", largest_table,
+				1.0 * largest_table * sizeof(Ttablerow) / 1024.0);
+		g_print("total tables  %5d (%9.2f Kbytes)\n", tablenum,
 				1.0 * tablenum * sizeof(Ttablerow) / 1024.0);
-		g_print("contexts %5d (%.2f Kbytes)\n", bfparser->st->contexts->len,
+		g_print("contexts      %5d (%9.2f Kbytes)\n", bfparser->st->contexts->len,
 				1.0 * bfparser->st->contexts->len * sizeof(Tcontext) / 1024.0);
-		g_print("matches  %5d (%.2f Kbytes)\n", bfparser->st->matches->len,
+		g_print("matches       %5d (%9.2f Kbytes)\n", bfparser->st->matches->len,
 				1.0 * bfparser->st->matches->len * sizeof(Tpattern) / 1024.0);
 		/*print_DFA(bfparser->st, '&','Z'); */
 		/*print_DFA_subset(bfparser->st, "<PpIi>"); */
