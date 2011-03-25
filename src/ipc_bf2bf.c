@@ -27,7 +27,7 @@
 #else							/* WIN32 */
 #include <sys/socket.h>
 #include <sys/un.h>
-#endif
+#endif		/* WIN32 */
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -51,7 +51,7 @@ struct sockaddr_un {
 #endif							/* WIN32 */
 
 #ifndef UNIX_PATH_MAX
-#define UNIX_PATH_MAX 108
+#define UNIX_PATH_MAX 104 /* 108 on Linux, 104 on BSD */
 #endif
 
 typedef struct {
