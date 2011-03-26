@@ -1499,7 +1499,7 @@ auto_indent_blockstackbased(BluefishTextView *btv) {
 		tmp2 = bf_str_repeat(" ", BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_tab_width*num);
 	else
 		tmp2 = bf_str_repeat("\t", num);
-
+	in_paste = DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->in_paste_operation;
 	if (!in_paste)
 		DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->in_paste_operation = TRUE;
 	gtk_text_buffer_insert(btv->buffer, &iter, tmp2, -1);
