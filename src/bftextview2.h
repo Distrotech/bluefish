@@ -472,19 +472,27 @@ typedef enum {
 typedef struct _BluefishTextView BluefishTextView;
 typedef struct _BluefishTextViewClass BluefishTextViewClass;
 
+#if GTK_CHECK_VERSION(3,0,0)
+typedef struct _BluefishTextViewClassPrivate BluefishTextViewClassPrivate;
+#endif
+
 struct _BluefishTextView {
 	GtkTextView parent;
+
 	gpointer master;			/* points usually to self, but in the case of a slave widget 
 								   (two widgets showing the same buffer it will point to the master widget) */
 	gpointer slave;				/* usually NULL, but might point to a slave widget */
+
 	Tbflang *bflang;			/* Tbflang */
 	gpointer doc;				/* Tdocument */
+
 	GtkTextBuffer *buffer;
+	GtkTextTag *blockmatch;
 	GtkTextTag *needscanning;
 #ifdef HAVE_LIBENCHANT
 	GtkTextTag *needspellcheck;
 #endif							/*HAVE_LIBENCHANT */
-	GtkTextTag *blockmatch;
+
 	Tscancache scancache;
 
 	guint scanner_idle;			/* event ID for the idle function that handles the scanning. 0 if no idle function is running */
@@ -535,38 +543,54 @@ struct _BluefishTextView {
 
 struct _BluefishTextViewClass {
 	GtkTextViewClass parent_class;
+
+#if GTK_CHECK_VERSION(3,0,0)
+	BluefishTextViewClassPrivate *priv;
+#endif
 };
 
 GType bluefish_text_view_get_type(void);
 
-
-
 gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
 void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);
+
 gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);
 void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable);
+
 void bftextview2_init_globals(void);
 void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors);
+
 void bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, const gchar * filename);
 gboolean bluefish_text_view_get_show_blocks(BluefishTextView * btv);
+
 void bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show);
+
 gboolean bluefish_text_view_get_show_line_numbers(BluefishTextView * btv);
 void bluefish_text_view_set_show_line_numbers(BluefishTextView * btv, gboolean show);
+
 gboolean bluefish_text_view_get_show_visible_spacing(BluefishTextView * btv);
 void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolean show);
+
 gboolean bluefish_text_view_get_show_right_margin(BluefishTextView * btv);
 void bluefish_text_view_set_show_right_margin(BluefishTextView * btv, gboolean show);
+
 gboolean bluefish_text_view_get_show_mbhl(BluefishTextView * btv);
 void bluefish_text_view_set_show_mbhl(BluefishTextView * btv, gboolean show);
+
 #ifdef HAVE_LIBENCHANT
 void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check);
 #endif
+
+void bluefish_text_view_class_update_style(void);
+
 void bluefish_text_view_scan_cleanup(BluefishTextView * btv);
 void bluefish_text_view_rescan(BluefishTextView * btv);
 void bftextview2_schedule_scanning(BluefishTextView * btv);
+
 gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its, GtkTextIter * ite);
 Tcomment *bluefish_text_view_get_comment(BluefishTextView * btv, GtkTextIter * it,
 										 Tcomment_type preferred_type);
+
 void bluefish_text_view_multiset(BluefishTextView * btv, gpointer doc, gint view_line_numbers,
 								 gint view_blocks, gint autoindent, gint autocomplete, gint show_mbhl);
 

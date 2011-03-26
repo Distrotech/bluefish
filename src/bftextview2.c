@@ -64,7 +64,18 @@ scanning in a lower priority timeout  */
 													   and a much lower priority (tried 250) will first draw all textstyles on screen before the
 													   next burst of scanning is done */
 
+#if GTK_CHECK_VERSION(3,0,0)
+struct _BluefishTextViewClassPrivate {
+	GtkCssProvider *provider;
+};
+#endif
+
+#if GTK_CHECK_VERSION(3,0,0)
+G_DEFINE_TYPE_WITH_CODE(BluefishTextView, bluefish_text_view, GTK_TYPE_TEXT_VIEW,
+						g_type_add_class_private(g_define_type_id, sizeof(BluefishTextViewClassPrivate)))
+#else
 G_DEFINE_TYPE(BluefishTextView, bluefish_text_view, GTK_TYPE_TEXT_VIEW)
+#endif
 
 static GdkColor st_whitespace_color;
 static GdkColor st_cline_color;
@@ -2071,6 +2082,8 @@ bftextview2_parse_static_colors(void)
 		  && gdk_color_parse(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], &st_whitespace_color))) {
 		gdk_color_parse("#ff0000", &st_whitespace_color);
 	}
+
+#if !GTK_CHECK_VERSION(3,0,0)
 	if (main_v->props.btv_color_str[BTV_COLOR_CURSOR] != NULL
 		&& main_v->props.btv_color_str[BTV_COLOR_CURSOR][0] != '\0') {
 		gchar *tmp;
@@ -2081,7 +2094,9 @@ bftextview2_parse_static_colors(void)
 		gtk_rc_parse_string(tmp);
 		g_free(tmp);
 	}
+#endif
 }
+
 
 void
 bftextview2_init_globals(void)
@@ -2089,7 +2104,9 @@ bftextview2_init_globals(void)
 	g_print("sizeof(Tfound)=%#" G_GSIZE_MODIFIER "x,sizeof(Tfoundcontext)=%#" G_GSIZE_MODIFIER
 			"x,sizeof(Tfoundblock)=%#" G_GSIZE_MODIFIER "x\n", sizeof(Tfound), sizeof(Tfoundcontext),
 			sizeof(Tfoundblock));
+
 	bftextview2_parse_static_colors();
+
 	if (main_v->props.autocomp_accel_string && main_v->props.autocomp_accel_string[0] != '\0') {
 		gtk_accelerator_parse(main_v->props.autocomp_accel_string, &main_v->autocomp_accel_key,
 							  &main_v->autocomp_accel_mods);
@@ -2107,6 +2124,7 @@ bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 {
 	GdkColor color;
 	DEBUG_MSG("bluefish_text_view_set_colors, started for %p\n", btv);
+
 	if (colors[BTV_COLOR_ED_BG] && gdk_color_parse(colors[BTV_COLOR_ED_BG], &color)) {
 		gtk_widget_modify_base(GTK_WIDGET(btv), GTK_STATE_NORMAL, &color);
 		if (btv->slave)
@@ -2118,6 +2136,9 @@ bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 			gtk_widget_modify_text(GTK_WIDGET(btv->slave), GTK_STATE_NORMAL, &color);
 	}
 
+#if GTK_CHECK_VERSION(3,0,0)
+	gtk_widget_reset_style(GTK_WIDGET(btv));
+#endif
 }
 
 void
@@ -2286,6 +2307,25 @@ bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check)
 	}
 }
 #endif
+
+void
+bluefish_text_view_class_update_style(void)
+{
+	BluefishTextViewClass *klass;
+	BluefishTextViewClassPrivate *priv;
+	gchar *cursor_color;
+
+	cursor_color = g_strconcat("* {\n",
+							   "-GtkWidget-cursor-color: ", main_v->props.btv_color_str[BTV_COLOR_CURSOR],
+							   ";\n",
+							   "}", NULL);
+
+	klass = g_type_class_peek(BLUEFISH_TYPE_TEXT_VIEW);
+	priv = G_TYPE_CLASS_GET_PRIVATE(klass, BLUEFISH_TYPE_TEXT_VIEW, BluefishTextViewClassPrivate);
+
+	gtk_css_provider_load_from_data(GTK_CSS_PROVIDER(priv->provider), cursor_color, -1, NULL);
+	g_free(cursor_color);
+}
 
 static gboolean
 bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean keyboard_tip,
@@ -2477,6 +2517,22 @@ bluefish_text_view_class_init(BluefishTextViewClass * klass)
 	GObjectClass *object_class = G_OBJECT_CLASS(klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
+#if GTK_CHECK_VERSION(3,0,0)
+	gchar *cursor_color;
+
+	cursor_color = g_strconcat("* {\n",
+							   "-GtkWidget-cursor-color: ", main_v->props.btv_color_str[BTV_COLOR_CURSOR],
+							   ";\n",
+							   "}", NULL);
+
+	klass->priv = G_TYPE_CLASS_GET_PRIVATE(klass, BLUEFISH_TYPE_TEXT_VIEW, BluefishTextViewClassPrivate);
+
+	klass->priv->provider = gtk_css_provider_new();
+	gtk_css_provider_load_from_data(klass->priv->provider, cursor_color, -1, NULL);
+
+	g_free(cursor_color);
+#endif
+
 /*	object_class->constructor = bluefish_text_view_create;*/
 	object_class->dispose = bluefish_text_view_dispose;
 	object_class->finalize = bluefish_text_view_finalize;
@@ -2509,21 +2565,31 @@ static void
 bluefish_text_view_init(BluefishTextView * textview)
 {
 	GtkTextTagTable *ttt;
-/*	PangoFontDescription *font_desc;*/
+
+#if GTK_CHECK_VERSION(3,0,0)
+	GtkStyleContext *context;
+
+	context = gtk_widget_get_style_context(GTK_WIDGET(textview));
+	gtk_style_context_add_provider(context,
+								   GTK_STYLE_PROVIDER(BLUEFISH_TEXT_VIEW_GET_CLASS(textview)->priv->provider),
+								   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+#endif
+
 	textview->user_idle_timer = g_timer_new();
 	textview->scancache.foundcaches = g_sequence_new(NULL);
+
 	bluefish_text_view_set_colors(textview, main_v->props.btv_color_str);
+
 	textview->showsymbols = TRUE;
+
 	ttt = langmgr_get_tagtable();
 	textview->needscanning = gtk_text_tag_table_lookup(ttt, "_needscanning_");
 #ifdef HAVE_LIBENCHANT
 	textview->needspellcheck = gtk_text_tag_table_lookup(ttt, "_needspellcheck_");
 #endif							/*HAVE_LIBENCHANT */
 	textview->blockmatch = gtk_text_tag_table_lookup(ttt, "blockmatch");
+
 	textview->enable_scanner = FALSE;
-	/*font_desc = pango_font_description_from_string("Monospace 10");
-	   gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
-	   pango_font_description_free(font_desc); */
 }
 
 GtkWidget *

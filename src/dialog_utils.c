@@ -25,6 +25,8 @@
 #include "dialog_utils.h"
 #include "pixmap.h"
 
+
+#if !GTK_CHECK_VERSION(3,0,0)
 static void
 button_set_style(GtkWidget * button, GtkStyle * previous_style, gpointer user_data)
 {
@@ -34,6 +36,7 @@ button_set_style(GtkWidget * button, GtkStyle * previous_style, gpointer user_da
 
 	gtk_widget_set_size_request(button, w + 2, h + 2);
 }
+#endif
 
 GtkWidget *
 bluefish_small_close_button_new(void)
@@ -43,12 +46,32 @@ bluefish_small_close_button_new(void)
 	button = gtk_button_new();
 	gtk_button_set_relief(GTK_BUTTON(button), GTK_RELIEF_NONE);
 	gtk_button_set_focus_on_click(GTK_BUTTON(button), FALSE);
-	gtk_widget_set_name(button, "bluefish-small-close-button");
 
 	image = gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
 	gtk_button_set_image(GTK_BUTTON(button), image);
 
+#if GTK_CHECK_VERSION(3,0,0)
+	GtkStyleContext *context;
+	GtkCssProvider *provider;
+
+	context = gtk_widget_get_style_context(button);
+	provider = gtk_css_provider_new();
+	gtk_css_provider_load_from_data(provider,
+									"* {\n"
+									"-GtkWidget-focus-line-width : 0;\n"
+									"-GtkWidget-focus-padding : 0;\n"
+									"-GtkButton-default-border : 0;\n"
+									"-GtkButton-default-outside-border : 0;\n"
+									"-GtkButton-inner-border: 0;\n"
+									"padding: 0;\n" "}",
+									-1, NULL);
+	gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider),
+								   GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+	g_object_unref(provider);
+#else
+	gtk_widget_set_name(button, "bluefish-small-close-button");
 	g_signal_connect(button, "style-set", G_CALLBACK(button_set_style), NULL);
+#endif
 
 	return button;
 }

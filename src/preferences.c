@@ -1604,6 +1604,7 @@ preferences_apply(Tprefdialog * pd)
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
 	bftextview2_init_globals();
+	bluefish_text_view_class_update_style();
 	langmgr_reload_user_options();
 	langmgr_reload_user_styles();
 	langmgr_reload_user_highlights();
