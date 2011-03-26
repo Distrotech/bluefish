@@ -2311,20 +2311,23 @@ bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check)
 void
 bluefish_text_view_class_update_style(void)
 {
-	BluefishTextViewClass *klass;
-	BluefishTextViewClassPrivate *priv;
-	gchar *cursor_color;
+	if (main_v->props.btv_color_str[BTV_COLOR_CURSOR] != NULL
+		&& main_v->props.btv_color_str[BTV_COLOR_CURSOR][0] != '\0') {
+		BluefishTextViewClass *klass;
+		BluefishTextViewClassPrivate *priv;
+		gchar *cursor_color;
 
-	cursor_color = g_strconcat("* {\n",
-							   "-GtkWidget-cursor-color: ", main_v->props.btv_color_str[BTV_COLOR_CURSOR],
-							   ";\n",
-							   "}", NULL);
+		cursor_color = g_strconcat("* {\n",
+								   "-GtkWidget-cursor-color: ", main_v->props.btv_color_str[BTV_COLOR_CURSOR],
+								   ";\n",
+								   "}", NULL);
 
-	klass = g_type_class_peek(BLUEFISH_TYPE_TEXT_VIEW);
-	priv = G_TYPE_CLASS_GET_PRIVATE(klass, BLUEFISH_TYPE_TEXT_VIEW, BluefishTextViewClassPrivate);
+		klass = g_type_class_peek(BLUEFISH_TYPE_TEXT_VIEW);
+		priv = G_TYPE_CLASS_GET_PRIVATE(klass, BLUEFISH_TYPE_TEXT_VIEW, BluefishTextViewClassPrivate);
 
-	gtk_css_provider_load_from_data(GTK_CSS_PROVIDER(priv->provider), cursor_color, -1, NULL);
-	g_free(cursor_color);
+		gtk_css_provider_load_from_data(GTK_CSS_PROVIDER(priv->provider), cursor_color, -1, NULL);
+		g_free(cursor_color);
+	}
 }
 
 static gboolean
@@ -2518,19 +2521,23 @@ bluefish_text_view_class_init(BluefishTextViewClass * klass)
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
 #if GTK_CHECK_VERSION(3,0,0)
-	gchar *cursor_color;
-
-	cursor_color = g_strconcat("* {\n",
-							   "-GtkWidget-cursor-color: ", main_v->props.btv_color_str[BTV_COLOR_CURSOR],
-							   ";\n",
-							   "}", NULL);
-
 	klass->priv = G_TYPE_CLASS_GET_PRIVATE(klass, BLUEFISH_TYPE_TEXT_VIEW, BluefishTextViewClassPrivate);
 
 	klass->priv->provider = gtk_css_provider_new();
-	gtk_css_provider_load_from_data(klass->priv->provider, cursor_color, -1, NULL);
 
-	g_free(cursor_color);
+	if (main_v->props.btv_color_str[BTV_COLOR_CURSOR] != NULL
+		&& main_v->props.btv_color_str[BTV_COLOR_CURSOR][0] != '\0') {
+		gchar *cursor_color;
+
+		cursor_color = g_strconcat("* {\n",
+								   "-GtkWidget-cursor-color: ", main_v->props.btv_color_str[BTV_COLOR_CURSOR],
+								   ";\n",
+								   "}", NULL);
+
+		gtk_css_provider_load_from_data(klass->priv->provider, cursor_color, -1, NULL);
+
+		g_free(cursor_color);
+	}
 #endif
 
 /*	object_class->constructor = bluefish_text_view_create;*/
