@@ -2308,6 +2308,7 @@ bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check)
 }
 #endif
 
+#if GTK_CHECK_VERSION(3,0,0)
 void
 bluefish_text_view_class_update_style(void)
 {
@@ -2329,6 +2330,7 @@ bluefish_text_view_class_update_style(void)
 		g_free(cursor_color);
 	}
 }
+#endif
 
 static gboolean
 bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean keyboard_tip,
