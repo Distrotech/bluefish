@@ -891,7 +891,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 			 GtkTextIter * endvisible)
 {
 	Tfound *found = NULL;
-	BluefishTextView *master = btv->master;
+	BluefishTextView *master = btv->priv->master;
 	GSequenceIter *siter = NULL;
 	guint num_blocks;
 	gint cursor_line = -1;
@@ -910,7 +910,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 							   &gtk_widget_get_style(GTK_WIDGET(btv))->fg[gtk_widget_get_state
 																		  (GTK_WIDGET(btv))]);
 
-	if (master->show_line_numbers) {
+	if (master->priv->show_line_numbers) {
 		GtkTextIter cursorit;
 		gtk_text_buffer_get_iter_at_mark(buffer, &cursorit, gtk_text_buffer_get_insert(buffer));
 		cursor_line = gtk_text_iter_get_line(&cursorit);
@@ -949,7 +949,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 	panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "x");
 
 	folded = gtk_text_tag_table_lookup(langmgr_get_tagtable(), "_folded_");
-	if (master->show_symbols) {
+	if (master->priv->show_symbols) {
 		bmarkline = bmark_margin_get_initial_bookmark((Tdocument *) master->doc, startvisible, &bmark);
 	}
 
@@ -967,7 +967,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, 0, w, NULL, &w);
 
 			/* line numbers */
-			if (master->show_line_numbers) {
+			if (master->priv->show_line_numbers) {
 				if (i == cursor_line)
 					string = g_strdup_printf("<b>%d</b>", 1 + i);
 				else
@@ -978,7 +978,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 				g_free(string);
 			}
 			/* symbols */
-			if (master->show_symbols && bmarkline != -1) {
+			if (master->priv->show_symbols && bmarkline != -1) {
 				while (bmarkline != -1 && bmarkline < i) {
 					bmarkline = bmark_margin_get_next_bookmark((Tdocument *) master->doc, &bmark);
 				}
@@ -993,7 +993,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 			   which has 'foldable'
 			   - to find out if we need a line or nothing we need to know the number of expanded blocks on the stack
 			 */
-			if (master->show_blocks) {
+			if (master->priv->show_blocks) {
 				GtkTextIter nextline;
 				guint nextline_o, curline_o;
 				curline_o = gtk_text_iter_get_offset(&it);
@@ -1274,7 +1274,7 @@ static gboolean
 bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
-	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
+	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->priv->master);
 	gboolean event_handled = FALSE;
 
 	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT)) {
@@ -1319,7 +1319,7 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 			event_handled = GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->expose_event(widget, event);
 
 		if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT)) {
-			if (master->visible_spacing) {
+			if (master->priv->visible_spacing) {
 				GtkTextIter startvisible, endvisible;
 				GdkRectangle rect;
 				DBG_SIGNALS("bluefish_text_view_expose_event, paint visible spacing\n");
@@ -1330,10 +1330,10 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 				paint_spaces(btv, event, &startvisible, &endvisible);
 			}
 
-			if (master->show_right_margin) {
+			if (master->priv->show_right_margin) {
 				GdkRectangle rect, rect2;
 				cairo_t *cr;
-				guint pix = master->margin_pixels_per_char * main_v->props.right_margin_pos;
+				guint pix = master->priv->margin_pixels_per_char * main_v->props.right_margin_pos;
 				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
 				rect2 = rect;
 				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, rect.x,
