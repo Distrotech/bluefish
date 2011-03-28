@@ -706,7 +706,7 @@ doc_font_size(Tdocument * doc, gint direction)
 		gint size;
 
 		pc = gtk_widget_get_pango_context(doc->view);
-		font_desc = pango_context_get_font_description(pc);
+		font_desc = pango_font_description_copy(pango_context_get_font_description(pc));
 		size = pango_font_description_get_size(font_desc);
 		size = (direction > 0) ? size * 1.2 : size / 1.2;
 		if (pango_font_description_get_size_is_absolute(font_desc)) {
@@ -717,6 +717,7 @@ doc_font_size(Tdocument * doc, gint direction)
 		gtk_widget_modify_font(doc->view, font_desc);
 		if (doc->slave)
 			gtk_widget_modify_font(doc->slave, font_desc);
+		pango_font_description_free(font_desc);
 		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char = 0;
 	}
 
