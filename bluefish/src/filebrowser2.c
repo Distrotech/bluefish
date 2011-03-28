@@ -2049,7 +2049,8 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 		g_warning("showing file browser popup menu failed");
 		return;
 	}	
-
+	fb2->last_popup_on_dir = is_directory;
+	 
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FollowActiveDoc",
 										 fb2->bfwin->session->filebrowser_focus_follow);
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/ShowBackupFiles",
