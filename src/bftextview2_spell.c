@@ -361,7 +361,7 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 	guint profile_words = 0;
 #endif
 
-	if (!btv->spell_check)
+	if (!bluefish_text_view_get_spell_check(btv));
 		return FALSE;
 
 	if (!BFWIN(DOCUMENT(btv->doc)->bfwin)->ed && !load_dictionary(BFWIN(DOCUMENT(btv->doc)->bfwin))) {
@@ -663,7 +663,7 @@ bftextview2_populate_suggestions_popup(GtkMenu * menu, Tdocument * doc)
 	if (main_v->bevent_doc != doc)
 		return;
 
-	if (!BLUEFISH_TEXT_VIEW(doc->view)->spell_check)
+	if (!bluefish_text_view_get_spell_check(BLUEFISH_TEXT_VIEW(doc->view)))
 		return;
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));

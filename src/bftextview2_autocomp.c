@@ -28,9 +28,9 @@
 #endif
 
 #include "bluefish.h"
+#include "bftextview2_autocomp.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_identifier.h"
-#include "bftextview2_autocomp.h"
 
 typedef struct {
 	BluefishTextView *btv;
@@ -130,7 +130,7 @@ acwin_check_keypress(BluefishTextView * btv, GdkEventKey * event)
 			GtkTreeSelection *selection;
 			GtkTreeIter it;
 			GtkTreeModel *model;
-			BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
+			BluefishTextView *master = BLUEFISH_TEXT_VIEW(bluefish_text_view_get_master(btv));
 			selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 			if (selection && gtk_tree_selection_get_selected(selection, &model, &it)) {
 				gchar *string;
@@ -221,7 +221,7 @@ acw_selection_changed_lcb(GtkTreeSelection * selection, Tacwin * acw)
 {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	BluefishTextView *master = BLUEFISH_TEXT_VIEW(acw->btv->master);
+	BluefishTextView *master = BLUEFISH_TEXT_VIEW(bluefish_text_view_get_master(acw->btv));
 	if (!g_array_index(master->bflang->st->contexts, Tcontext, acw->contextnum).patternhash
 		|| !main_v->props.show_autocomp_reference)
 		return;
@@ -464,7 +464,7 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 {
 	GtkTextIter cursorpos, iter;
 	GtkTextBuffer *buffer;
-	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
+	BluefishTextView *master = BLUEFISH_TEXT_VIEW(bluefish_text_view_get_master(btv));
 	gint contextnum;
 	gunichar uc;
 	Tfoundblock *fblock = NULL;	/* needed for the special case to close generix xml tags based on the top of the blockstack */

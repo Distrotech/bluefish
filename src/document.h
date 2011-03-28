@@ -57,7 +57,6 @@ void doc_set_font(Tdocument * doc, gchar * fontstring);
 void doc_set_tabsize(Tdocument * doc, gint tabsize);
 gint doc_get_tabsize(Tdocument * doc);
 void doc_change_tabsize(Tdocument * doc, gint direction);
-void doc_font_size(Tdocument * doc, gint direction);
 void session_set_savedir(Tbfwin * bfwin, gchar * curi);
 
 gboolean doc_is_empty_non_modified_and_nameless(Tdocument * doc);

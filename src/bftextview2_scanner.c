@@ -265,8 +265,10 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 void
 foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 {
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	Tfound *found;
 	GSequenceIter *siter;
+
 	if (offset == 0)
 		return;
 	DBG_SCANCACHE
@@ -325,11 +327,11 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 					GtkTextIter it1, it2;
 					/* there is a special situation: if this is the last found in the cache, and it pops a block, 
 					   we have to enlarge the scanning region to the end of the text */
-					gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, startpos);
-					gtk_text_buffer_get_end_iter(btv->buffer, &it2);
+					gtk_text_buffer_get_iter_at_offset(buffer, &it1, startpos);
+					gtk_text_buffer_get_end_iter(buffer, &it2);
 					DBG_SCANCACHE("foundcache_update_offsets, mark area from %d to end with needscanning\n",
 								  startpos);
-					gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &it1, &it2);
+					gtk_text_buffer_apply_tag(buffer, btv->needscanning, &it1, &it2);
 				}
 			} else {
 				found = get_foundcache_next(btv, &siter);
@@ -405,9 +407,10 @@ found_free_lcb(gpointer data, gpointer btv)
 static void
 remove_all_highlighting_in_area(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end)
 {
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	GList *tmplist = g_list_first(btv->bflang->tags);
 	while (tmplist) {
-		gtk_text_buffer_remove_tag(btv->buffer, (GtkTextTag *) tmplist->data, start, end);
+		gtk_text_buffer_remove_tag(buffer, (GtkTextTag *) tmplist->data, start, end);
 		tmplist = g_list_next(tmplist);
 	}
 }
@@ -465,6 +468,7 @@ static inline Tfoundblock *
 found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning, Tpattern * pat,
 				   gint * numblockchange)
 {
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	Tfoundblock *retfblock, *fblock = scanning->curfblock;
 	GtkTextIter iter;
 	DBG_BLOCKMATCH("found_end_of_block(), blockstartpattern %d, curfblock=%p\n", pat->blockstartpattern,
@@ -523,9 +527,9 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 	fblock->start2_o = gtk_text_iter_get_offset(&match->start);
 	fblock->end2_o = gtk_text_iter_get_offset(&match->end);
 	DBG_BLOCKMATCH("set end for block %p to %d:%d\n", fblock, fblock->start2_o, fblock->end2_o);
-	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, fblock->end1_o);
+	gtk_text_buffer_get_iter_at_offset(buffer, &iter, fblock->end1_o);
 	if (G_UNLIKELY(pat->blocktag)) {
-		gtk_text_buffer_apply_tag(btv->buffer, pat->blocktag, &iter, &match->start);
+		gtk_text_buffer_apply_tag(buffer, pat->blocktag, &iter, &match->start);
 	}
 	if ((gtk_text_iter_get_line(&iter) + 1) < gtk_text_iter_get_line(&match->start)) {
 		fblock->foldable = TRUE;
@@ -552,6 +556,7 @@ static Tfoundcontext *
 pop_and_apply_contexts(BluefishTextView * btv, gint numchange, Tfoundcontext * curcontext,
 					   GtkTextIter * matchstart, gint * numchanged)
 {
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	gint num = numchange;
 	guint offset = gtk_text_iter_get_offset(matchstart);
 	Tfoundcontext *fcontext = curcontext;
@@ -563,8 +568,8 @@ pop_and_apply_contexts(BluefishTextView * btv, gint numchange, Tfoundcontext * c
 		fcontext->end_o = offset;
 		if (g_array_index(btv->bflang->st->contexts, Tcontext, fcontext->context).contexttag) {
 			GtkTextIter iter;
-			gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, fcontext->start_o);
-			gtk_text_buffer_apply_tag(btv->buffer,
+			gtk_text_buffer_get_iter_at_offset(buffer, &iter, fcontext->start_o);
+			gtk_text_buffer_apply_tag(buffer,
 									  g_array_index(btv->bflang->st->contexts, Tcontext,
 													fcontext->context).contexttag, &iter, matchstart);
 		}
@@ -786,14 +791,18 @@ enlarge_scanning_region_to_iter(BluefishTextView * btv, Tscanning * scanning, Gt
 static gboolean
 enlarge_scanning_region(BluefishTextView * btv, Tscanning * scanning, guint offset)
 {
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	GtkTextIter iter;
-	gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, offset);
+
+	gtk_text_buffer_get_iter_at_offset(buffer, &iter, offset);
+
 	return enlarge_scanning_region_to_iter(btv, scanning, &iter);
 }
 
 static inline int
 found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 {
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	Tfoundblock *fblock = scanning->curfblock;
 	Tfoundcontext *fcontext = scanning->curfcontext;
 	guint match_end_o;
@@ -816,7 +825,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	if (pat.selftag) {
 		DBG_SCANNING("found_match, apply tag %p from %d to %d\n", pat.selftag,
 					 gtk_text_iter_get_offset(&match->start), gtk_text_iter_get_offset(&match->end));
-		gtk_text_buffer_apply_tag(btv->buffer, pat.selftag, &match->start, &match->end);
+		gtk_text_buffer_apply_tag(buffer, pat.selftag, &match->start, &match->end);
 	}
 	if (!pat.starts_block && !pat.ends_block
 		&& (pat.nextcontext == 0 || pat.nextcontext == scanning->context))
@@ -878,7 +887,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	/* TODO: in all cases: if we find a previously unknown match and there is no nextfound we
 	   have to scan to the end of the text */
 	if (!scanning->nextfound) {
-		gtk_text_buffer_get_end_iter(btv->buffer, &iter);
+		gtk_text_buffer_get_end_iter(buffer, &iter);
 		enlarge_scanning_region_to_iter(btv, scanning, &iter);
 	}
 
@@ -1021,11 +1030,12 @@ static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buf
 static void
 remove_old_scan_results(BluefishTextView * btv, GtkTextIter * fromhere)
 {
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	GtkTextIter end;
 	GSequenceIter *sit1, *sit2;
 	Tfound fakefound;
 
-	gtk_text_buffer_get_end_iter(btv->buffer, &end);
+	gtk_text_buffer_get_end_iter(buffer, &end);
 	DBG_SCANCACHE("remove_old_scan_results: remove tags from charoffset %d to %d\n",
 				  gtk_text_iter_get_offset(fromhere), gtk_text_iter_get_offset(&end));
 	remove_all_highlighting_in_area(btv, fromhere, &end);
@@ -1048,6 +1058,7 @@ this can be used to delay scanning everything until the editor is idle for sever
 gboolean
 bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 {
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	GtkTextIter iter, orig_end;
 	GtkTextIter mstart;
 	/*GArray *matchstack; */
@@ -1088,7 +1099,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	CALLGRIND_START_INSTRUMENTATION;
 #endif							/* VALGRIND_PROFILING */
 
-	if (!bftextview2_find_region2scan(btv, btv->buffer, &scanning.start, &scanning.end)) {
+	if (!bftextview2_find_region2scan(btv, buffer, &scanning.start, &scanning.end)) {
 		DBG_MSG("nothing to scan here.. return FALSE\n");
 #ifdef VALGRIND_PROFILING
 		CALLGRIND_STOP_INSTRUMENTATION;
@@ -1134,7 +1145,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d\n", scanning.context, pos);
 		/* now move the start position either to the start of the line, or to the position 
 		   where the stack was reconstructed, the largest offset */
-		gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, reconstruction_o);
+		gtk_text_buffer_get_iter_at_offset(buffer, &iter, reconstruction_o);
 		gtk_text_iter_set_line_offset(&scanning.start, 0);
 		DBG_SCANNING("compare possible start positions %d and %d\n",
 					 gtk_text_iter_get_offset(&scanning.start), gtk_text_iter_get_offset(&iter));
@@ -1170,7 +1181,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	else
 		end = *visible_end;*/
 #ifdef IDENTSTORING
-	gtk_text_buffer_get_iter_at_mark(btv->buffer, &itcursor, gtk_text_buffer_get_insert(btv->buffer));
+	gtk_text_buffer_get_iter_at_mark(buffer, &itcursor, gtk_text_buffer_get_insert(buffer));
 #endif
 	do {
 		gunichar uc;
@@ -1266,15 +1277,15 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	if (!gtk_text_iter_is_end(&scanning.end) && scanning.curfcontext) {
 		if (g_array_index(btv->bflang->st->contexts, Tcontext, scanning.curfcontext->context).contexttag) {
 			GtkTextIter iter2;
-			gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter2, scanning.curfcontext->start_o);
-			gtk_text_buffer_apply_tag(btv->buffer,
+			gtk_text_buffer_get_iter_at_offset(buffer, &iter2, scanning.curfcontext->start_o);
+			gtk_text_buffer_apply_tag(buffer,
 									  g_array_index(btv->bflang->st->contexts, Tcontext,
 													scanning.curfcontext->context).contexttag, &iter, &iter2);
 		}
 	}
-	gtk_text_buffer_remove_tag(btv->buffer, btv->needscanning, &scanning.start, &iter);
+	gtk_text_buffer_remove_tag(buffer, btv->needscanning, &scanning.start, &iter);
 	if (gtk_text_iter_compare(&iter, &scanning.end) < 0) {
-		gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &iter, &scanning.end);
+		gtk_text_buffer_apply_tag(buffer, btv->needscanning, &iter, &scanning.end);
 	}
 #ifdef HL_PROFILING
 	stage4 = g_timer_elapsed(scanning.timer, NULL);
@@ -1514,11 +1525,12 @@ scan_for_tooltip(BluefishTextView * btv, GtkTextIter * mstart, GtkTextIter * pos
 void
 cleanup_scanner(BluefishTextView * btv)
 {
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	GtkTextIter begin, end;
 	GSequenceIter *sit1, *sit2;
 
-	gtk_text_buffer_get_bounds(btv->buffer, &begin, &end);
-	gtk_text_buffer_remove_all_tags(btv->buffer, &begin, &end);
+	gtk_text_buffer_get_bounds(buffer, &begin, &end);
+	gtk_text_buffer_remove_all_tags(buffer, &begin, &end);
 
 	g_sequence_foreach(btv->scancache.foundcaches, found_free_lcb, btv);
 	sit1 = g_sequence_get_begin_iter(btv->scancache.foundcaches);

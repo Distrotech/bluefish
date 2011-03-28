@@ -87,7 +87,7 @@ ui_font_size_decrease(GtkAction * action, gpointer user_data)
 	Tbfwin *bfwin = BFWIN(user_data);
 
 	if (bfwin->current_document)
-		doc_font_size(bfwin->current_document, -1);
+		bluefish_text_view_set_font_size(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), -1);
 }
 
 static void
@@ -96,7 +96,7 @@ ui_font_size_increase(GtkAction * action, gpointer user_data)
 	Tbfwin *bfwin = BFWIN(user_data);
 
 	if (bfwin->current_document)
-		doc_font_size(bfwin->current_document, 1);
+		bluefish_text_view_set_font_size(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), 1);
 }
 
 static void
@@ -105,7 +105,7 @@ ui_font_size_reset(GtkAction * action, gpointer user_data)
 	Tbfwin *bfwin = BFWIN(user_data);
 
 	if (bfwin->current_document)
-		doc_font_size(bfwin->current_document, 0);
+		bluefish_text_view_set_font_size(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), 0);
 }
 
 static void
@@ -1100,7 +1100,7 @@ bfwin_set_document_menu_items(Tdocument * doc)
 										 doc->highlightstate);
 #ifdef HAVE_LIBENCHANT
 	bfwin_set_menu_toggle_item(BFWIN(doc->bfwin)->documentGroup, "SpellCheck",
-							   BLUEFISH_TEXT_VIEW(doc->view)->spell_check);
+							   bluefish_text_view_get_spell_check(BLUEFISH_TEXT_VIEW(doc->view)));
 #endif
 
 	bfwin_lang_mode_set_wo_activate(BFWIN(doc->bfwin), BLUEFISH_TEXT_VIEW(doc->view)->bflang);

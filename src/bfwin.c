@@ -851,7 +851,7 @@ bfwin_notebook_changed(Tbfwin * bfwin, gint newpage)
 	}
 	if (bfwin->current_document) {
 		/*g_print("notebook_changed, set enable_scanner to FALSE for doc %p\n",bfwin->current_document); */
-		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = FALSE;
+		bluefish_text_view_set_enable_scanner(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), FALSE);
 	}
 	bfwin->prev_document = bfwin->current_document;
 	bfwin->current_document = g_list_nth_data(bfwin->documentlist, cur);

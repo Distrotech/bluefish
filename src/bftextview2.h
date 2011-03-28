@@ -471,6 +471,7 @@ typedef enum {
 
 typedef struct _BluefishTextView BluefishTextView;
 typedef struct _BluefishTextViewClass BluefishTextViewClass;
+typedef struct _BluefishTextViewPrivate BluefishTextViewPrivate;
 
 #if GTK_CHECK_VERSION(3,0,0)
 typedef struct _BluefishTextViewClassPrivate BluefishTextViewClassPrivate;
@@ -479,14 +480,11 @@ typedef struct _BluefishTextViewClassPrivate BluefishTextViewClassPrivate;
 struct _BluefishTextView {
 	GtkTextView parent;
 
-	gpointer master;			/* points usually to self, but in the case of a slave widget 
-								   (two widgets showing the same buffer it will point to the master widget) */
-	gpointer slave;				/* usually NULL, but might point to a slave widget */
+	BluefishTextViewPrivate *priv;
 
 	Tbflang *bflang;			/* Tbflang */
 	gpointer doc;				/* Tdocument */
 
-	GtkTextBuffer *buffer;
 	GtkTextTag *blockmatch;
 	GtkTextTag *needscanning;
 #ifdef HAVE_LIBENCHANT
@@ -501,11 +499,6 @@ struct _BluefishTextView {
 	guint user_idle;			/* event ID for the timed function that handles user idle events such as autocompletion popups */
 	guint mark_set_idle;		/* event ID for the mark_set idle function that avoids showing matching block bounds while 
 								   you hold the arrow key to scroll quickly */
-	gulong insert_text_id;
-	gulong insert_text_after_id;
-	gulong mark_set_id;
-	gulong delete_range_id;
-	gulong delete_range_after_id;
 
 	gpointer autocomp;			/* a Tacwin* with the current autocompletion window */
 	gboolean needs_autocomp;	/* a state of the widget, autocomplete is needed on user keyboard actions */
@@ -517,28 +510,6 @@ struct _BluefishTextView {
 										   autoindent (so we should unindent on a closing bracket */
 	gboolean needremovetags;	/* after we have removed all old highlighting, we set this to FALSE
 								   but after a change that needs highlighting we set this to TRUE again */
-
-	/* next three are used for margin painting */
-	gint margin_pixels_per_char;
-	gint margin_pixels_chars;
-	gint margin_pixels_block;
-	gint margin_pixels_symbol;
-
-	/* following options are simple true/false settings */
-	gboolean enable_scanner;	/* only run scanner when TRUE, this is FALSE if the document is in the background for example */
-	gboolean auto_indent;
-	gboolean auto_complete;
-	gboolean show_line_numbers;
-	gboolean show_blocks;
-	gboolean showsymbols;
-	gboolean visible_spacing;
-	gboolean show_right_margin;
-	gboolean show_mbhl;			/* show matching block highlighting */
-#ifdef HAVE_LIBENCHANT
-	gboolean spell_check;
-#endif
-
-	guint dispose_has_run:1;
 };
 
 struct _BluefishTextViewClass {
@@ -557,12 +528,19 @@ void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enabl
 gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);
 void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable);
 
+gboolean bluefish_text_view_get_enable_scanner(BluefishTextView * btv);
+void bluefish_text_view_set_enable_scanner(BluefishTextView * btv, gboolean enable);
+
+void bluefish_text_view_set_font_size(BluefishTextView * btv, gint direction);
+
 void bftextview2_init_globals(void);
 void bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors);
 
 void bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, const gchar * filename);
-gboolean bluefish_text_view_get_show_blocks(BluefishTextView * btv);
 
+BluefishTextView *bluefish_text_view_get_master(BluefishTextView *btv);
+
+gboolean bluefish_text_view_get_show_blocks(BluefishTextView * btv);
 void bluefish_text_view_set_show_blocks(BluefishTextView * btv, gboolean show);
 
 gboolean bluefish_text_view_get_show_line_numbers(BluefishTextView * btv);
@@ -578,6 +556,7 @@ gboolean bluefish_text_view_get_show_mbhl(BluefishTextView * btv);
 void bluefish_text_view_set_show_mbhl(BluefishTextView * btv, gboolean show);
 
 #ifdef HAVE_LIBENCHANT
+gboolean bluefish_text_view_get_spell_check(BluefishTextView * btv);
 void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check);
 #endif
 
@@ -591,11 +570,7 @@ gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its
 Tcomment *bluefish_text_view_get_comment(BluefishTextView * btv, GtkTextIter * it,
 										 Tcomment_type preferred_type);
 
-void bluefish_text_view_multiset(BluefishTextView * btv, gpointer doc, gint view_line_numbers,
-								 gint view_blocks, gint autoindent, gint autocomplete, gint show_mbhl);
-
-GtkWidget *bftextview2_new(void);
-GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer);
+GtkWidget *bftextview2_new_with_document(gpointer * doc, gpointer * session);
 GtkWidget *bftextview2_new_slave(BluefishTextView * master);
 
 #endif

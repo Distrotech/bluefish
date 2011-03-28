@@ -2,6 +2,7 @@
  * document.c - the document
  *
  * Copyright (C) 1998-2011 Olivier Sessink
+ * Copyright (C) 2011 James Hayward
  * Copyright (C) 1998 Chris Mazuc
  * some additions Copyright (C) 2004 Eugene Morenko(More)
  *
@@ -368,9 +369,9 @@ doc_update_highlighting(Tbfwin * bfwin, guint callback_action, GtkWidget * widge
 {
 	if (!bfwin->current_document)
 		return;
-	if (!BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner) {
+	if (!bluefish_text_view_get_enable_scanner(BLUEFISH_TEXT_VIEW(bfwin->current_document->view))) {
 		DEBUG_MSG("doc_update_highlighting, set enable_scanner to TRUE\n");
-		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = TRUE;
+		bluefish_text_view_set_enable_scanner(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), TRUE);
 	}
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 }
@@ -692,39 +693,6 @@ doc_change_tabsize(Tdocument * doc, gint direction)
 	if (doc->slave)
 		gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->slave), tab_array);
 	pango_tab_array_free(tab_array);
-}
-
-void
-doc_font_size(Tdocument * doc, gint direction)
-{
-	if (direction == 0) {
-		PangoFontDescription *font_desc;
-		font_desc = pango_font_description_from_string(main_v->props.editor_font_string);
-		gtk_widget_modify_font(doc->view, font_desc);
-		if (doc->slave)
-			gtk_widget_modify_font(doc->slave, font_desc);
-		pango_font_description_free(font_desc);
-		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char = 0;
-	} else {
-		PangoFontDescription *font_desc;
-		PangoContext *pc;
-		gint size;
-
-		pc = gtk_widget_get_pango_context(doc->view);
-		font_desc = pango_context_get_font_description(pc);
-		size = pango_font_description_get_size(font_desc);
-		size = (direction > 0) ? size * 1.2 : size / 1.2;
-		if (pango_font_description_get_size_is_absolute(font_desc)) {
-			pango_font_description_set_absolute_size(font_desc, size);
-		} else {
-			pango_font_description_set_size(font_desc, size);
-		}
-		gtk_widget_modify_font(doc->view, font_desc);
-		if (doc->slave)
-			gtk_widget_modify_font(doc->slave, font_desc);
-		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char = 0;
-	}
-
 }
 
 /**
@@ -2420,7 +2388,8 @@ doc_scroll_event_lcb(GtkWidget * widget, GdkEventScroll * event, gpointer user_d
 {
 	if (event->state & GDK_CONTROL_MASK) {
 		Tdocument *doc = user_data;
-		doc_font_size(doc, (event->direction == GDK_SCROLL_UP) ? 1 : -1);
+		bluefish_text_view_set_font_size(BLUEFISH_TEXT_VIEW(doc->view),
+										 (event->direction == GDK_SCROLL_UP) ? 1 : -1);
 		return TRUE;
 	}
 	return FALSE;
@@ -2468,19 +2437,9 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	newdoc->bfwin = (gpointer) bfwin;
 	newdoc->status = DOC_STATUS_COMPLETE;	/* if we don't set this default we will get problems for new empty files */
 	newdoc->buffer = gtk_text_buffer_new(langmgr_get_tagtable());
-	newdoc->view = bftextview2_new_with_buffer(newdoc->buffer);
-	bluefish_text_view_multiset(BLUEFISH_TEXT_VIEW(newdoc->view), newdoc,
-								BFWIN(bfwin)->session->view_line_numbers, BFWIN(bfwin)->session->view_blocks,
-								BFWIN(bfwin)->session->autoindent, BFWIN(bfwin)->session->autocomplete,
-								BFWIN(bfwin)->session->show_mbhl);
-	bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(newdoc->view),
-											 bfwin->session->display_right_margin);
-#ifdef HAVE_LIBENCHANT
-	BLUEFISH_TEXT_VIEW(newdoc->view)->spell_check = BFWIN(bfwin)->session->spell_check_default;
-#endif
+	newdoc->view = bftextview2_new_with_document((gpointer) newdoc, (gpointer) BFWIN(bfwin)->session);
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
-	bluefish_text_view_select_language(BLUEFISH_TEXT_VIEW(newdoc->view), bfwin->session->default_mime_type,
-									   NULL);
+
 	newdoc->fileinfo = g_file_info_new();
 	g_file_info_set_content_type(newdoc->fileinfo, bfwin->session->default_mime_type);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
@@ -2531,17 +2490,16 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 
 	bfwin->documentlist = g_list_append(bfwin->documentlist, newdoc);
 
-	gtk_widget_show(newdoc->tab_label);
 	gtk_widget_show(scroll);
 
 	DEBUG_MSG("doc_new_backend, appending doc to notebook\n");
 
-	hbox = gtk_hbox_new(FALSE, 6);
+	hbox = gtk_hbox_new(FALSE, 12);
 	button = bluefish_small_close_button_new();
 	g_signal_connect(button, "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
 	gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
 	gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_eventbox, TRUE, TRUE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 	gtk_widget_show_all(hbox);
 
 	newdoc->vsplit = gtk_vpaned_new();
@@ -2965,7 +2923,7 @@ doc_activate(Tdocument * doc)
 
 	if (doc == BFWIN(doc->bfwin)->last_activated_doc || doc->action.close_doc) {
 		/* DO enable the scanner, because it is disabled in notebook_changed(), but if the last document is also the new document it needs to be re-enabled again */
-		BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
+		bluefish_text_view_set_enable_scanner(BLUEFISH_TEXT_VIEW(doc->view), TRUE);
 		DEBUG_MSG("doc_activate, not doing anything, doc=%p, last_avtivated_doc=%p, close_doc=%d\n", doc,
 				  BFWIN(doc->bfwin)->last_activated_doc, doc->action.close_doc);
 		return;
@@ -3024,9 +2982,9 @@ doc_activate(Tdocument * doc)
 		DEBUG_MSG("doc_activate, STILL LOADING! returning\n");
 		return;
 	} else {
-		if (doc->highlightstate && !BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner) {
-			/*g_print("doc_activate, enable scanner for %p\n",doc); */
-			BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
+		if (doc->highlightstate && BLUEFISH_TEXT_VIEW(doc->view)) {
+			DBG_MSG("doc_activate, enable scanner for %p\n", doc);
+			bluefish_text_view_set_enable_scanner(BLUEFISH_TEXT_VIEW(doc->view), TRUE);
 			bftextview2_schedule_scanning(BLUEFISH_TEXT_VIEW(doc->view));
 		}
 		gtk_widget_show(doc->view);	/* This might be the first time this document is activated. */
@@ -3171,8 +3129,8 @@ doc_toggle_highlighting(Tbfwin * bfwin, gboolean active)
 	bfwin->current_document->highlightstate = active;
 	DEBUG_MSG("doc_toggle_highlighting_cb, set enable_scanner=%d\n", bfwin->current_document->highlightstate);
 
-	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner =
-		bfwin->current_document->highlightstate;
+	bluefish_text_view_set_enable_scanner(BLUEFISH_TEXT_VIEW(bfwin->current_document->view),
+										  bfwin->current_document->highlightstate);
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
 }
 
