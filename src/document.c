@@ -582,120 +582,6 @@ doc_set_filename(Tdocument * doc, GFile * newuri)
 }
 
 /**
- * This function is taken from gtksourceview
- * Copyright (C) 2001
- * Mikael Hermansson <tyan@linux.se>
- * Chris Phelps <chicane@reninet.com>
- */
-static gint
-textview_calculate_real_tab_width(GtkWidget * textview, gint tab_size)
-{
-	gchar *tab_string;
-	gint counter = 0;
-	gint tab_width = 0;
-
-	if (tab_size <= 0)
-		return 0;
-
-	tab_string = g_malloc(tab_size + 1);
-	while (counter < tab_size) {
-		tab_string[counter] = ' ';
-		counter++;
-	}
-	tab_string[tab_size] = '\0';
-	tab_width = widget_get_string_size(textview, tab_string);
-	g_free(tab_string);
-/*	if (tab_width < 0) tab_width = 0;*/
-	return tab_width;
-}
-
-/**
- * doc_set_tabsize:
- * @doc: a #Tdocument
- * @tabsize: a #gint with the tab size
- *
- * this function will set the textview from doc to use the tabsize
- * described by tabsize
- *
- * Return value: void
- **/
-void
-doc_set_tabsize(Tdocument * doc, gint tabsize)
-{
-	PangoTabArray *tab_array;
-	gint pixels = textview_calculate_real_tab_width(GTK_WIDGET(doc->view), tabsize);
-	DEBUG_MSG("doc_set_tabsize, tabsize=%d, pixels=%d\n", tabsize, pixels);
-	tab_array = pango_tab_array_new(1, TRUE);
-	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, pixels);
-	gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->view), tab_array);
-	if (doc->slave)
-		gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->slave), tab_array);
-	pango_tab_array_free(tab_array);
-}
-
-gint
-doc_get_tabsize(Tdocument * doc)
-{
-	PangoTabArray *tab_array;
-	PangoTabAlign align;
-	gint setsize;
-
-	tab_array = gtk_text_view_get_tabs(GTK_TEXT_VIEW(doc->view));
-	if (tab_array) {
-		gint singlesize;
-		singlesize = textview_calculate_real_tab_width(doc->view, 1);
-		pango_tab_array_get_tab(tab_array, 0, &align, &setsize);
-		return setsize / singlesize;
-	}
-	return 8;
-}
-
-/**
- * gui_change_tabsize:
- * @bfwin: #Tbfwin* with the window
- * @action: a #guint, if 1 increase the tabsize, if 0 decrease
- * @widget: a #GtkWidget, ignored
- *
- * this function is the callback for the menu, based on action
- * it will increase or decrease the tabsize by one
- *
- * Return value: void
- **/
-void
-doc_change_tabsize(Tdocument * doc, gint direction)
-{
-	PangoTabArray *tab_array;
-	PangoTabAlign align;
-	gint setsize, singlesize;
-	gchar *message;
-	singlesize = textview_calculate_real_tab_width(doc->view, 1);
-	tab_array = gtk_text_view_get_tabs(GTK_TEXT_VIEW(doc->view));
-	if (tab_array) {
-		pango_tab_array_get_tab(tab_array, 0, &align, &setsize);
-		/*g_print("doc_change_tabsize, got setsize=%d\n",setsize); */
-	} else {
-		tab_array = pango_tab_array_new(1, TRUE);
-		setsize = 8;
-	}
-	if (direction == 0) {		/* 0 means reset to default */
-		setsize = BFWIN(doc->bfwin)->session->editor_tab_width * singlesize;
-	} else if (direction < 0) {
-		setsize -= singlesize;
-	} else {
-		setsize += singlesize;
-	}
-	message = g_strdup_printf(_("Changed tab width to %d"), setsize / singlesize);
-	bfwin_statusbar_message(BFWIN(doc->bfwin), message, 2);
-	g_free(message);
-	/*g_print("doc_change_tabsize, set setsize=%d\n",setsize); */
-	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, setsize);
-	gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->view), tab_array);
-	if (doc->slave)
-		gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->slave), tab_array);
-	pango_tab_array_free(tab_array);
-}
-
-/**
  * doc_is_empty_non_modified_and_nameless:
  * @doc: a #Tdocument
  *
@@ -2510,7 +2396,8 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->notebook), newdoc->vsplit, hbox, newdoc->tab_menu);
 	gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(bfwin->notebook), newdoc->vsplit, TRUE);
 	/* for some reason it only works after the document is appended to the notebook */
-	doc_set_tabsize(newdoc, BFWIN(bfwin)->session->editor_tab_width);
+	/* FIXME: This should be set when the text view is created */
+	bluefish_text_view_set_tabsize(BLUEFISH_TEXT_VIEW(newdoc->view), BFWIN(bfwin)->session->editor_tab_width);
 
 	DEBUG_MSG("doc_new_backend, doc %p need_highlighting=%d\n", newdoc, newdoc->need_highlighting);
 	return newdoc;
@@ -2783,7 +2670,10 @@ doc_create_slave_view(Tdocument * doc)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scroll), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scroll), doc->slave);
-	doc_set_tabsize(doc, BFWIN(doc->bfwin)->session->editor_tab_width);
+
+	/* FIXME: This should be set when the text view is created */
+	bluefish_text_view_set_tabsize(BLUEFISH_TEXT_VIEW(doc->view), BFWIN(doc->bfwin)->session->editor_tab_width);
+
 	return scroll;
 }
 

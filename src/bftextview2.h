@@ -560,6 +560,10 @@ gboolean bluefish_text_view_get_spell_check(BluefishTextView * btv);
 void bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check);
 #endif
 
+gint bluefish_text_view_get_tabsize(BluefishTextView * btv);
+void bluefish_text_view_set_tabsize(BluefishTextView * btv, gint tabsize);
+void bluefish_text_view_change_tabsize(BluefishTextView * btv, gint direction, gint tabsize);
+
 void bluefish_text_view_class_update_style(void);
 
 void bluefish_text_view_scan_cleanup(BluefishTextView * btv);

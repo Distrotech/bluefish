@@ -20,6 +20,7 @@
 
 #include "bluefish.h"
 #include "bf_lib.h"
+#include "bftextview2.h"
 #include "gtk_easy.h"
 #include "dialog_utils.h"
 #include "document.h"
@@ -134,7 +135,7 @@ split_lines_backend(Tdocument * doc, gint start, gint end)
 	gchar *buf, *p;
 	gunichar c;
 
-	tabsize = doc_get_tabsize(doc);
+	tabsize = bluefish_text_view_get_tabsize(BLUEFISH_TEXT_VIEW(doc->view));
 	p = buf = doc_get_chars(doc, start, end);
 	utf8_offset_cache_reset();
 	requested_size = main_v->props.right_margin_pos;
@@ -238,7 +239,7 @@ convert_identing(Tdocument * doc, gboolean to_tabs)
 	gchar *buf = doc_get_chars(doc, 0, -1);
 
 	utf8_offset_cache_reset();
-	tabsize = doc_get_tabsize(doc);
+	tabsize = bluefish_text_view_get_tabsize(BLUEFISH_TEXT_VIEW(doc->view));
 	/*g_print("got tabsize %d\n",tabsize); */
 	doc_unre_new_group(doc);
 	while (buf[i] != '\0') {

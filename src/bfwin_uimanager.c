@@ -236,7 +236,8 @@ ui_tab_size_decrease(GtkAction * action, gpointer user_data)
 	Tbfwin *bfwin = BFWIN(user_data);
 
 	if (bfwin->current_document)
-		doc_change_tabsize(bfwin->current_document, -1);
+		bluefish_text_view_change_tabsize(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), -1,
+										  bfwin->session->editor_tab_width);
 }
 
 static void
@@ -245,7 +246,8 @@ ui_tab_size_increase(GtkAction * action, gpointer user_data)
 	Tbfwin *bfwin = BFWIN(user_data);
 
 	if (bfwin->current_document)
-		doc_change_tabsize(bfwin->current_document, 1);
+		bluefish_text_view_change_tabsize(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), 1,
+										  bfwin->session->editor_tab_width);
 }
 
 static void
@@ -254,7 +256,8 @@ ui_tab_size_reset(GtkAction * action, gpointer user_data)
 	Tbfwin *bfwin = BFWIN(user_data);
 
 	if (bfwin->current_document)
-		doc_change_tabsize(bfwin->current_document, 0);
+		bluefish_text_view_change_tabsize(BLUEFISH_TEXT_VIEW(bfwin->current_document->view), 0,
+										  bfwin->session->editor_tab_width);
 }
 
 /* edit action callbacks */
@@ -834,13 +837,16 @@ static const GtkActionEntry document_actions[] = {
 	 G_CALLBACK(ui_move_tab_left)},
 	{"DocMoveRight", NULL, N_("Move Tab Right"), NULL, N_("Move current tab right"),
 	 G_CALLBACK(ui_move_tab_right)},
-	{"DocFirst", GTK_STOCK_GOTO_FIRST, N_("_First Document"), "<shift><control>Page_Up", N_("Goto first document"),
+	{"DocFirst", GTK_STOCK_GOTO_FIRST, N_("_First Document"), "<shift><control>Page_Up",
+	 N_("Goto first document"),
 	 G_CALLBACK(ui_doc_first)},
-	{"DocLast", GTK_STOCK_GOTO_LAST, N_("L_ast Document"), "<shift><control>Page_Down", N_("Goto last document"),
+	{"DocLast", GTK_STOCK_GOTO_LAST, N_("L_ast Document"), "<shift><control>Page_Down",
+	 N_("Goto last document"),
 	 G_CALLBACK(ui_doc_last)},
 	{"DocNext", GTK_STOCK_GO_FORWARD, N_("_Next Document"), "<control>Page_Down", N_("Goto next document"),
 	 G_CALLBACK(ui_doc_next)},
-	{"DocPrevious", GTK_STOCK_GO_BACK, N_("_Previous Document"), "<control>Page_Up", N_("Goto previous document"),
+	{"DocPrevious", GTK_STOCK_GO_BACK, N_("_Previous Document"), "<control>Page_Up",
+	 N_("Goto previous document"),
 	 G_CALLBACK(ui_doc_previous)},
 	{"GotoLine", NULL, N_("Goto _Line"), "<control>L", N_("Goto line"), G_CALLBACK(ui_goto_line)},
 	{"GotoLineSelection", NULL, N_("Goto Line Number in _Selection"), "<shift><control>L",

@@ -35,7 +35,7 @@
 #include "bf_lib.h"
 #include "bookmark.h"
 #include "document.h"
-
+#include "gtk_easy.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_patcompile.h"
 #include "bftextview2_autocomp.h"
@@ -1170,6 +1170,36 @@ paint_spaces(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 }
 #endif
 
+/*
+ * calculate_real_tab_width() is taken from GtkSourceView
+ * Copyright (C) 2001 - Mikael Hermansson <tyan@linux.se> and
+ *                      Chris Phelps <chicane@reninet.com>
+ * Copyright (C) 2002 - Jeroen Zwartepoorte
+ * Copyright (C) 2003 - Gustavo Giráldez and Paolo Maggi
+*/
+static gint
+calculate_real_tab_width(GtkTextView * view, guint tab_size, gchar c)
+{
+	PangoLayout *layout;
+	gchar *tab_string;
+	gint tab_width = 0;
+
+	if (tab_size == 0)
+		return -1;
+
+	tab_string = g_strnfill(tab_size, c);
+	layout = gtk_widget_create_pango_layout(GTK_WIDGET(view), tab_string);
+	g_free (tab_string);
+
+	if (layout != NULL) {
+		pango_layout_get_pixel_size(layout, &tab_width, NULL);
+		g_object_unref(G_OBJECT(layout));
+	} else
+		tab_width = -1;
+
+	return tab_width;
+}
+
 #if GTK_CHECK_VERSION(3,0,0)
 static gboolean
 bluefish_text_view_draw(GtkWidget * widget, cairo_t * cr)
@@ -1246,22 +1276,27 @@ bluefish_text_view_draw(GtkWidget * widget, cairo_t * cr)
 			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
 			paint_spaces(btv, cr, &startvisible, &endvisible);
 		}
-		/* FIXME:  this doesn't work yet */
+
 		if (gtk_cairo_should_draw_window(cr, window) && master->priv->show_right_margin) {
 			GdkRectangle rect, rect2;
-			guint pix = master->priv->margin_pixels_per_char * main_v->props.right_margin_pos;
+			gint pix;
 
 			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
 			rect2 = rect;
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, rect.x,
 												  rect.y, &rect2.x, &rect2.y);
 
-			cairo_set_line_width(cr, 1.0);	/* 1.0 looks the best, smaller gives a half-transparent color */
+			pix = calculate_real_tab_width(GTK_TEXT_VIEW(master), main_v->props.right_margin_pos, '_');
+			/* 1.0 looks the best, smaller gives a half-transparent color */
+			cairo_set_line_width(cr, 1.0);
 
-			cairo_rectangle(cr, pix, rect2.y, rect2.width - .5, rect2.y + rect2.height);
-			cairo_clip(cr);
 			cairo_move_to(cr, pix, rect2.y);
 			cairo_line_to(cr, pix, rect2.y + rect2.height);
+
+			/* FIXME: Use current line color.
+			 *  This should be separate user configurable color */
+/*			gdk_cairo_set_source_color(cr, &st_cline_color);*/
+
 			cairo_stroke(cr);
 		}
 	}
@@ -2418,6 +2453,76 @@ bluefish_text_view_set_spell_check(BluefishTextView * btv, gboolean spell_check)
 	}
 }
 #endif
+
+gint
+bluefish_text_view_get_tabsize(BluefishTextView * btv)
+{
+	PangoTabArray *tab_array;
+
+	tab_array = gtk_text_view_get_tabs(GTK_TEXT_VIEW(btv));
+	if (tab_array) {
+		PangoTabAlign align;
+		gint setsize;
+		gint singlesize;
+
+		singlesize = calculate_real_tab_width(GTK_TEXT_VIEW(btv), 1, '_');
+		pango_tab_array_get_tab(tab_array, 0, &align, &setsize);
+		pango_tab_array_free(tab_array);
+
+		return setsize / singlesize;
+	}
+
+	return 8;
+}
+
+void
+bluefish_text_view_set_tabsize(BluefishTextView * btv, gint tabsize)
+{
+	PangoTabArray *tab_array;
+	gint pixels = calculate_real_tab_width(GTK_TEXT_VIEW(btv), tabsize, '_');
+
+	DEBUG_MSG("doc_set_tabsize, tabsize=%d, pixels=%d\n", tabsize, pixels);
+	tab_array = pango_tab_array_new(1, TRUE);
+	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, pixels);
+	gtk_text_view_set_tabs(GTK_TEXT_VIEW(btv), tab_array);
+	if (btv->priv->slave)
+		gtk_text_view_set_tabs(GTK_TEXT_VIEW(btv->priv->slave), tab_array);
+
+	pango_tab_array_free(tab_array);
+}
+
+void
+bluefish_text_view_change_tabsize(BluefishTextView * btv, gint direction, gint tabsize)
+{
+	PangoTabArray *tab_array;
+	PangoTabAlign align;
+	gint setsize, singlesize;
+
+	singlesize = calculate_real_tab_width(GTK_TEXT_VIEW(btv), 1, '_');
+	tab_array = gtk_text_view_get_tabs(GTK_TEXT_VIEW(btv));
+	if (tab_array) {
+		pango_tab_array_get_tab(tab_array, 0, &align, &setsize);
+		/*g_print("doc_change_tabsize, got setsize=%d\n",setsize); */
+	} else {
+		tab_array = pango_tab_array_new(1, TRUE);
+		setsize = 8;
+	}
+	if (direction == 0) {		/* 0 means reset to default */
+		setsize = tabsize * singlesize;
+	} else if (direction < 0) {
+		setsize -= singlesize;
+	} else {
+		setsize += singlesize;
+	}
+
+	/*g_print("doc_change_tabsize, set setsize=%d\n",setsize); */
+	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, setsize);
+	gtk_text_view_set_tabs(GTK_TEXT_VIEW(btv), tab_array);
+	if (btv->priv->slave)
+		gtk_text_view_set_tabs(GTK_TEXT_VIEW(btv->priv->slave), tab_array);
+
+	pango_tab_array_free(tab_array);
+}
 
 #if GTK_CHECK_VERSION(3,0,0)
 void
