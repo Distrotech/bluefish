@@ -73,19 +73,18 @@ nextcontext -1), we revert to the previous context
 unstable engine (see wikipedia for more info). The 1.1.6 engine alloc's each state in a
 separate memory block. This new engine alloc's a large array for all states at once, so you can
 simply move trough the array instead of following pointers. 
-The array is the array 'table' in structure Tscantable. This is a GArray of Ttablerow. Following
-the DFA is then as simple as state = table[state][character]; where state is just an integer 
-position in the array, and character is the current character you're scanning. The array will 
-help to speed up the scanner. I used guint16 because I suspect that we never hit the 65500 
-states (largest patterns set right now is php, 4500 functions use 32000 states).
+The array is the array 'table' in structure Tcontext. So each context has it's own 
+DFA table. Following the DFA is then as simple as state = table[state][character]; 
+where state is just an integer position in the array, and character is the current character 
+you're scanning. The array will help to speed up the scanner. I used guint16 because I 
+suspect that we never hit the 65500 states for a single context (largest patterns set right 
+now is php, 4500 functions use 32000 states). 
 When a state has a positive result (it matches something) it has an index number to
 an array 'matches' in structure Tscantable which is an array of type Tpattern structure
 that has the information for the matched pattern.
 
-- DFA table's for multiple contexts are all in the same memory block. Each context has an offset
-where it starts. This offset is stored in the Tcontext structure. When a match is found, scanning
-can move to a different context. This is meber 'contexts' in Tscantable. For example when <?php 
-is found, we switch to row 123 of the  DFA table from which all php functions are scanned.
+- each context has it's own DFA table. The startcontext for each context is always 
+position 0 and the identstate is always position 1 in that array
 
 - Compared to the engine in the 1.0 series the main advantage is that we do only a single scanning
 run for all patterns in a given context. The 1.0 scanner does multiple scanning runs for <\?php

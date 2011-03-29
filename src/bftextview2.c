@@ -35,7 +35,6 @@
 #include "bf_lib.h"
 #include "bookmark.h"
 #include "document.h"
-#include "gtk_easy.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_patcompile.h"
 #include "bftextview2_autocomp.h"
