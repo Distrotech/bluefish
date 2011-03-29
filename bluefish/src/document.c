@@ -637,8 +637,11 @@ doc_get_tabsize(Tdocument * doc)
 	tab_array = gtk_text_view_get_tabs(GTK_TEXT_VIEW(doc->view));
 	if (tab_array) {
 		gint singlesize;
+
 		singlesize = textview_calculate_real_tab_width(doc->view, 1);
 		pango_tab_array_get_tab(tab_array, 0, &align, &setsize);
+		pango_tab_array_free(tab_array);
+
 		return setsize / singlesize;
 	}
 	return 8;
