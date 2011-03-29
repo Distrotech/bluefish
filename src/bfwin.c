@@ -614,6 +614,26 @@ gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
 }
 
 static void
+simplesearch_forward_clicked(GtkButton * button, Tbfwin * bfwin)
+{
+	g_print("TODO: implement simplesearch_forward_clicked\n");
+}
+
+static void
+simplesearch_back_clicked(GtkButton * button, Tbfwin * bfwin)
+{
+	g_print("TODO: implement simplesearch_back_clicked\n");
+}
+static gboolean
+gotoline_entries_key_press_event(GtkWidget * widget, GdkEventKey * event, Tbfwin * bfwin)
+{
+	if (event->keyval == GDK_Escape) {
+		gotoline_close_button_clicked(NULL, bfwin);
+		return TRUE;
+	}
+	return FALSE;
+}
+static void
 gotoline_frame_create(Tbfwin * bfwin)
 {
 	GtkWidget *button, *hbox;
@@ -628,13 +648,22 @@ gotoline_frame_create(Tbfwin * bfwin)
 	g_signal_connect(button, "clicked", G_CALLBACK(gotoline_close_button_clicked), bfwin);
 
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Goto Line:")), FALSE, FALSE, 0);
-
 	bfwin->gotoline_entry = gtk_entry_new();
 	gtk_box_pack_start(GTK_BOX(hbox), bfwin->gotoline_entry, FALSE, FALSE, 0);
 	g_signal_connect(bfwin->gotoline_entry, "changed", G_CALLBACK(gotoline_entry_changed), bfwin);
 	g_signal_connect(bfwin->gotoline_entry, "insert-text", G_CALLBACK(gotoline_entry_insert_text), NULL);
+	g_signal_connect(G_OBJECT(bfwin->gotoline_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_vseparator_new(), FALSE, FALSE, 0);
 
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Find:")), FALSE, FALSE, 0);
+	bfwin->simplesearch_entry = gtk_entry_new();
+	gtk_box_pack_start(GTK_BOX(hbox), bfwin->simplesearch_entry, FALSE, FALSE, 0);
+	button = bf_gtkstock_button(GTK_STOCK_GO_BACK, G_CALLBACK(simplesearch_back_clicked), bfwin);
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
+	button = bf_gtkstock_button(GTK_STOCK_GO_FORWARD, G_CALLBACK(simplesearch_forward_clicked), bfwin);
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->gotoline_frame, FALSE, FALSE, 2);
+	g_signal_connect(G_OBJECT(bfwin->simplesearch_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
 
 	gtk_widget_show_all(hbox);
 }

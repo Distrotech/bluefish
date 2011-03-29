@@ -437,6 +437,7 @@ typedef struct {
 	guint statusbar_pop_id;
 	guint notebook_switch_signal;
 	GtkWidget *gotoline_entry;
+	GtkWidget *simplesearch_entry;
 	GtkWidget *notebook;
 	GtkWidget *notebook_fake;
 	GtkWidget *notebook_box;	/* Container for notebook and notebook_fake */
