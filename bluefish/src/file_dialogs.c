@@ -553,7 +553,6 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 		}
 		/* if the user wanted to close the doc we should do very diffferent things here !! */
 		doc->action.save = NULL;
-		gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
 		if (doc->action.close_doc) {
 			Tbfwin *bfwin = doc->bfwin;
 			gboolean close_window = doc->action.close_window;
@@ -564,6 +563,7 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 			return CHECKNSAVE_STOP;	/* it actually doesn't matter what we return, this was the last callback anyway */
 		} else {
 			/* YES! we're done! update the fileinfo ! */
+			gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
 			DEBUG_MSG("doc_checkNsave_lcb, re-set async doc->fileinfo (current=%p)\n", doc->fileinfo);
 			if (doc->fileinfo)
 				g_object_unref(doc->fileinfo);
