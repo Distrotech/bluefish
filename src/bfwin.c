@@ -639,6 +639,7 @@ gotoline_frame_create(Tbfwin * bfwin)
 	GtkWidget *button, *hbox;
 
 	bfwin->gotoline_frame = gtk_frame_new(NULL);
+	gtk_frame_set_shadow_type(GTK_FRAME(bfwin->gotoline_frame), GTK_SHADOW_NONE);
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
 	gtk_container_add(GTK_CONTAINER(bfwin->gotoline_frame), hbox);
