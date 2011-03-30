@@ -7,7 +7,8 @@ typedef enum {
 	snr3scope_doc,
 	snr3scope_cursor,
 	snr3scope_selection,
-	snr3scope_alldocs
+	snr3scope_alldocs,
+	snr3scope_files
 } Tsnr3scope;
 
 typedef enum {
