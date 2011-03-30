@@ -37,7 +37,7 @@ static void scroll_to_result(Tsnr3result *s3result, GtkWindow *dialog) {
 }
 
 static void
-remove__all_highlights_in_doc(Tdocument * doc)
+remove_all_highlights_in_doc(Tdocument * doc)
 {
 	GtkTextTagTable *tagtable;
 	GtkTextTag *tag;
@@ -161,12 +161,41 @@ static void snr3_run_string(Tsnr3run *s3run) {
 		break;
 		case snr3scope_alldocs:
 			for (tmplist=g_list_first(bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
+				/* TODO: run in idle loop to avoid blocking the GUI */
 				snr3_run_string_in_doc(s3run, DOCUMENT(tmplist->data), 0, -1);
 			}
+		break;
+		case snr3scope_files:
+			/* TODO: implement background file loading and saving for search and replace */
+		
 		break;
 	}	
 }
 
+static void snr3result_free(Tsnr3result *s3result, Tsnr3run *s3run) {
+	/* BUG TODO: for pcre patterns we should free the 'extra' data */
+	g_slice_free(Tsnr3result, s3result);
+}
 
+static void snr3run_free(Tsnr3run *s3run) {
+	g_free(s3run->query);
+	g_free(s3run->replace);
+	g_queue_foreach(s3run->results, snr3result_free,s3run);
+	g_queue_free(s3run->results);
+	g_slice_free(Tsnr3run, s3run);
+}
+
+static void simple_search_run(Tbfwin *bfwin, const gchar *string) {
+	Tsnr3run *s3run;
+	
+	s3run = g_slice_new0(Tsnr3run);
+	s3run->bfwin = bfwin;
+	s3run->query = g_strdup(string);
+	s3run->type = snr3type_string;
+	s3run->scope = snr3scope_doc;
+	s3run->results - g_queue_new();
+	snr3_run_string(s3run);
+	snr_run_go(s3run, TRUE);
+}
 
 
