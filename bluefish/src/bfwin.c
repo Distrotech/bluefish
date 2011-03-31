@@ -659,9 +659,9 @@ gotoline_frame_create(Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Find:")), FALSE, FALSE, 0);
 	bfwin->simplesearch_entry = gtk_entry_new();
 	gtk_box_pack_start(GTK_BOX(hbox), bfwin->simplesearch_entry, FALSE, FALSE, 0);
-	button = bf_gtkstock_button(GTK_STOCK_GO_BACK, G_CALLBACK(simplesearch_back_clicked), bfwin);
+	button = bf_gtkstock_button(GTK_STOCK_GO_BACK, G_CALLBACK(simplesearch_back_clicked), bfwin, TRUE);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
-	button = bf_gtkstock_button(GTK_STOCK_GO_FORWARD, G_CALLBACK(simplesearch_forward_clicked), bfwin);
+	button = bf_gtkstock_button(GTK_STOCK_GO_FORWARD, G_CALLBACK(simplesearch_forward_clicked), bfwin, TRUE);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->gotoline_frame, FALSE, FALSE, 2);
 	g_signal_connect(G_OBJECT(bfwin->simplesearch_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);

@@ -718,9 +718,15 @@ bf_allbuttons_backend(const gchar * label, gboolean w_mnemonic, gint bf_pixmapty
  * Return value: pointer to created button
  */
 GtkWidget *
-bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data)
+bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data, gboolean force_image)
 {
-	GtkWidget *button = gtk_button_new_from_stock(stock_id);
+	GtkWidget *button;
+	if (force_image) {
+		button = gtk_button_new();
+		gtk_container_add(GTK_CONTAINER(button), gtk_image_new_from_stock(stock_id, GTK_ICON_SIZE_MENU));
+	} else {
+		button = gtk_button_new_from_stock(stock_id);
+	}
 	gtk_widget_set_can_default(button, TRUE);
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
 	return button;
