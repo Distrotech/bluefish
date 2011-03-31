@@ -76,9 +76,9 @@ GtkWidget *bf_allbuttons_backend(const gchar * label, gboolean w_mnemonic, gint 
 #define bf_generic_button_with_image(label,pixmap_type,func,func_data) bf_allbuttons_backend(label,FALSE,pixmap_type,func,func_data)
 #define bf_generic_mnemonic_button(label,func,func_data) bf_allbuttons_backend(label,TRUE,-1,func,func_data)
 
-GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data);
-#define bf_stock_ok_button(func, data) bf_gtkstock_button(GTK_STOCK_OK, func, data)
-#define bf_stock_cancel_button(func, data) bf_gtkstock_button(GTK_STOCK_CANCEL, func, data)
+GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data, gboolean force_image);
+#define bf_stock_ok_button(func, data) bf_gtkstock_button(GTK_STOCK_OK, func, data, FALSE)
+#define bf_stock_cancel_button(func, data) bf_gtkstock_button(GTK_STOCK_CANCEL, func, data, FALSE)
 
 GtkWidget *bf_generic_frame_new(const gchar * label, GtkShadowType shadowtype, gint borderwidth);
 
