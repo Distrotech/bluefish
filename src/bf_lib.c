@@ -610,7 +610,7 @@ large php files, a cache of
 so we keep it at 12 for the moment
 */
 #define UTF8_OFFSET_CACHE_SIZE 12
-/* #define UTF8_BYTECHARDEBUG */
+#define UTF8_BYTECHARDEBUG 
 
 typedef struct {
 	/* the two arrays must be grouped and in this order, because they are moved back 
@@ -622,6 +622,7 @@ typedef struct {
 	unsigned long long int numbytes_parsed;
 	guint numcalls_cached_since_reset;
 	unsigned long long int numbytes_cached_parsed;
+	guint num_memmoves;
 #endif
 #ifdef DEVELOPMENT
 	gchar *last_buf;
@@ -643,8 +644,16 @@ __inline__
 #endif
 void utf8_offset_cache_reset() {
 #ifdef UTF8_BYTECHARDEBUG
-	g_print("UTF8_BYTECHARDEBUG: called %d times for total %llu bytes\n",utf8_offset_cache.numcalls_since_reset,utf8_offset_cache.numbytes_parsed);
-	g_print("UTF8_BYTECHARDEBUG: cache HIT %d times, reduced to %llu bytes, cache size %d\n",utf8_offset_cache.numcalls_cached_since_reset,utf8_offset_cache.numbytes_cached_parsed,UTF8_OFFSET_CACHE_SIZE);
+	g_print("UTF8_BYTECHARDEBUG: called %d times for total %llu bytes\n"
+				,utf8_offset_cache.numcalls_since_reset
+				,utf8_offset_cache.numbytes_parsed);
+	g_print("UTF8_BYTECHARDEBUG: cache HIT %d times, reduced from %llu to %llu bytes (%4.2f%%), cache size %d, num memmoves=%d\n"
+				,utf8_offset_cache.numcalls_cached_since_reset
+				,utf8_offset_cache.numbytes_parsed
+				,utf8_offset_cache.numbytes_cached_parsed
+				,((gfloat)utf8_offset_cache.numbytes_cached_parsed/(gfloat)utf8_offset_cache.numbytes_parsed*100.0)
+				,UTF8_OFFSET_CACHE_SIZE
+				,utf8_offset_cache.num_memmoves);
 #endif
 	memset(&utf8_offset_cache, 0, sizeof(Tutf8_offset_cache));
 }
@@ -724,7 +733,7 @@ guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffse
 		we are not supposed to get called in the middle of a character)*/
 		retval = g_utf8_pointer_to_offset(string+utf8_offset_cache.last_byteoffset[i], string+byteoffset)+utf8_offset_cache.last_charoffset[i];
 #ifdef UTF8_BYTECHARDEBUG
-		utf8_offset_cache.numbytes_parsed += (byteoffset - utf8_offset_cache.last_byteoffset[i]);
+		utf8_offset_cache.numbytes_parsed += byteoffset;
 		utf8_offset_cache.numbytes_cached_parsed += (byteoffset - utf8_offset_cache.last_byteoffset[i]);
 		utf8_offset_cache.numcalls_cached_since_reset++;
 #endif
@@ -737,6 +746,9 @@ guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffse
 	DEBUG_MSG(" and byteoffset %ld has charoffset %d\n",byteoffset,retval);
 	if (i == (UTF8_OFFSET_CACHE_SIZE-1)) {
 		/* add this new calculation to the cache */
+#ifdef UTF8_BYTECHARDEBUG
+		utf8_offset_cache.num_memmoves++;
+#endif
 		/* this is a nasty trick to move all guint entries one back in the array, so we can add the new one */
 		memmove(&utf8_offset_cache.last_byteoffset[0], &utf8_offset_cache.last_byteoffset[1], (UTF8_OFFSET_CACHE_SIZE+UTF8_OFFSET_CACHE_SIZE-1)*sizeof(guint));
 

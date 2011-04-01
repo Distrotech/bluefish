@@ -45,6 +45,7 @@
 #include "project.h"
 #include "rcfile.h"
 #include "snr2.h"
+#include "snr3.h"
 
 #ifdef IDENTSTORING
 #include "bftextview2_identifier.h"
@@ -602,6 +603,12 @@ gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
 {
 	gtk_widget_hide(bfwin->gotoline_frame);
 
+	if (bfwin->simplesearch_snr3run) {
+		g_print("free simple search run %p\n", bfwin->simplesearch_snr3run);
+		snr3run_free(bfwin->simplesearch_snr3run);
+		bfwin->simplesearch_snr3run = NULL;
+	}
+
 	g_signal_handlers_block_matched(bfwin->gotoline_entry,
 									G_SIGNAL_MATCH_FUNC, 0, 0, NULL, gotoline_entry_changed, NULL);
 
@@ -611,18 +618,44 @@ gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
 									  G_SIGNAL_MATCH_FUNC, 0, 0, NULL, gotoline_entry_changed, NULL);
 	if (bfwin->current_document)
 		gtk_widget_grab_focus(bfwin->current_document->view);
+	
+}
+
+static void
+simplesearch_entry_changed(GtkEditable * editable, Tbfwin * bfwin)
+{
+	gchar *tmpstr;
+
+	if (!bfwin->current_document)
+		return;
+
+	tmpstr = gtk_editable_get_chars(editable, 0, -1);
+	if (bfwin->simplesearch_snr3run) {
+		g_print("free simple search run %p\n", bfwin->simplesearch_snr3run);
+		snr3run_free(bfwin->simplesearch_snr3run);
+		bfwin->simplesearch_snr3run=NULL;
+	}
+	if (strlen(tmpstr)>1) {
+		g_print("start simple search run\n");
+		bfwin->simplesearch_snr3run = simple_search_run(bfwin, tmpstr);
+	}
+	g_free(tmpstr);
 }
 
 static void
 simplesearch_forward_clicked(GtkButton * button, Tbfwin * bfwin)
 {
-	g_print("TODO: implement simplesearch_forward_clicked\n");
+	if (!bfwin->simplesearch_snr3run)
+		return;
+	snr3_run_go(bfwin->simplesearch_snr3run, TRUE);
 }
 
 static void
 simplesearch_back_clicked(GtkButton * button, Tbfwin * bfwin)
 {
-	g_print("TODO: implement simplesearch_back_clicked\n");
+	if (!bfwin->simplesearch_snr3run)
+		return;
+	snr3_run_go(bfwin->simplesearch_snr3run, FALSE);
 }
 static gboolean
 gotoline_entries_key_press_event(GtkWidget * widget, GdkEventKey * event, Tbfwin * bfwin)
@@ -665,6 +698,7 @@ gotoline_frame_create(Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->gotoline_frame, FALSE, FALSE, 2);
 	g_signal_connect(G_OBJECT(bfwin->simplesearch_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
+	g_signal_connect(bfwin->simplesearch_entry, "changed", G_CALLBACK(simplesearch_entry_changed), bfwin);
 
 	gtk_widget_show_all(hbox);
 }

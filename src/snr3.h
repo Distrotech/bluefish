@@ -18,8 +18,13 @@ typedef enum {
 } Tsnr3replace;
 
 typedef struct {
-	gulong so;
-	gulong eo;
+	gint so;
+	gint eo;
+} Tsnr3submatches;
+
+typedef struct {
+	gint so;
+	gint eo;
 	gpointer doc;
 	gpointer extra; /* for submatches and such */
 } Tsnr3result;
@@ -38,6 +43,7 @@ typedef struct {
 	
 	GQueue results;
 	GList *current;
+	gboolean want_submatches;
 } Tsnr3run;
 
 typedef struct {
