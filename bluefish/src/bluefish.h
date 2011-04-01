@@ -438,6 +438,7 @@ typedef struct {
 	guint notebook_switch_signal;
 	GtkWidget *gotoline_entry;
 	GtkWidget *simplesearch_entry;
+	gpointer simplesearch_snr3run;
 	GtkWidget *notebook;
 	GtkWidget *notebook_fake;
 	GtkWidget *notebook_box;	/* Container for notebook and notebook_fake */

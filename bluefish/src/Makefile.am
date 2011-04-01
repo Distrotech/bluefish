@@ -100,6 +100,8 @@ bluefish_SOURCES = \
 	rcfile.h \
 	snr2.c \
 	snr2.h \
+	snr3.c \
+	snr3.h \
 	stringlist.c \
 	stringlist.h \
 	undo_redo.c \
