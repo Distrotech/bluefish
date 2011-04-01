@@ -93,7 +93,7 @@ static void sn3run_add_result(Tsnr3run *s3run, gulong so, gulong eo, gpointer do
 	s3result->eo = eo;
 	s3result->doc = doc;
 	s3result->extra = extra;
-	g_queue_push_tail(s3run->results, s3result);
+	g_queue_push_tail(&s3run->results, s3result);
 } 
 
 
@@ -124,7 +124,7 @@ static void snr3_run_string_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gin
 	g_free(buf);
 }
 
-static void snr_run_go(Tsnr3run *s3run, gboolean forward) {
+void snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 	GList *next=NULL;
 	if (s3run->current) {
 		if (forward) {
@@ -177,15 +177,14 @@ static void snr3result_free(Tsnr3result *s3result, Tsnr3run *s3run) {
 	g_slice_free(Tsnr3result, s3result);
 }
 
-static void snr3run_free(Tsnr3run *s3run) {
+void snr3run_free(Tsnr3run *s3run) {
 	g_free(s3run->query);
 	g_free(s3run->replace);
-	g_queue_foreach(s3run->results, snr3result_free,s3run);
-	g_queue_free(s3run->results);
+	g_queue_foreach(&s3run->results, snr3result_free,s3run);
 	g_slice_free(Tsnr3run, s3run);
 }
 
-static void simple_search_run(Tbfwin *bfwin, const gchar *string) {
+gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	Tsnr3run *s3run;
 	
 	s3run = g_slice_new0(Tsnr3run);
@@ -193,9 +192,10 @@ static void simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	s3run->query = g_strdup(string);
 	s3run->type = snr3type_string;
 	s3run->scope = snr3scope_doc;
-	s3run->results - g_queue_new();
+	g_queue_init(&s3run->results);
 	snr3_run_string(s3run);
 	snr_run_go(s3run, TRUE);
+	return s3run;
 }
 
 

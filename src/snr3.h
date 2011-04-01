@@ -36,7 +36,7 @@ typedef struct {
 	gboolean select_matches;
 	gboolean bookmark_matches;
 	
-	GQueue *results;
+	GQueue results;
 	GList *current;
 } Tsnr3run;
 
@@ -44,3 +44,7 @@ typedef struct {
 	
 	
 } Tsnr3config;
+
+void snr3_run_go(Tsnr3run *s3run, gboolean forward);
+void snr3run_free(Tsnr3run *s3run);
+gpointer simple_search_run(Tbfwin *bfwin, const gchar *string);
