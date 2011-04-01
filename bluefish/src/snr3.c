@@ -23,6 +23,7 @@ Tsnr3profiling s3profiling= {NULL};
 
 #endif
 
+
 static void
 move_window_away_from_cursor(Tdocument * doc, GtkWindow * win, GtkTextIter * iter)
 {
@@ -111,6 +112,60 @@ static void highlight_run_in_doc(Tsnr3run *s3run, Tdocument *doc) {
 		}
 	}
 	g_print("highlight_run_in_doc, finished\n");
+}
+
+typedef struct {
+	guint startingpoint;
+	gint offset;
+} Toffsetupdate;
+
+static void snr3run_update_offsets(gpointer s3result, gpointer offsetupdate) {
+	if (((Tsnr3result *)s3result)->so > ((Toffsetupdate *)offsetupdate)->startingpoint) {
+		((Tsnr3result *)s3result)->so += ((Toffsetupdate *)offsetupdate)->offset;
+		((Tsnr3result *)s3result)->eo += ((Toffsetupdate *)offsetupdate)->offset;
+	}
+}
+
+static Toffsetupdate s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, gint offset) {
+	Toffsetupdate offsetupdate;
+	if (s3run->type == snr3type_string) {
+		doc_replace_text_backend(s3result->doc, s3run->replace, s3result->so+offset, s3result->eo+offset);
+		offsetupdate.offset = g_utf8_strlen(s3run->replace, -1)-(s3result->eo - s3result->so);
+	} else {
+		/* TODO: IMPLEMENT PCRE */
+	}
+	offsetupdate.startingpoint = s3result->eo;
+	return offsetupdate;
+}
+
+
+static void snr3result_free(gpointer s3result, gpointer s3run) {
+	/* BUG TODO: for pcre patterns we should free the 'extra' data */
+	g_print("free result %p\n",s3result);
+	g_slice_free(Tsnr3result, (Tsnr3result *)s3result);
+}
+
+
+static void s3run_replace_current(Tsnr3run *s3run) {
+	Toffsetupdate offsetupdate;
+	Tsnr3result *s3result=NULL;
+	GList *next, *current;
+	
+	if (s3run->current) {
+		current = s3run->current;
+		next = s3run->current->next;
+	}
+	if (!current)
+		return;
+	s3result = current->data;
+	offsetupdate = s3result_replace(s3run, s3result, 0);
+
+	snr3result_free(s3result, s3run);
+	g_queue_delete_link(&s3run->results, current);
+	s3run->current = next;
+	
+	/* now re-calculate all the offsets in the results lists!!!!!!!!!!! */
+	g_queue_foreach(&s3run->results, snr3run_update_offsets,&offsetupdate);
 }
 
 static void sn3run_add_result(Tsnr3run *s3run, gulong so, gulong eo, gpointer doc, gpointer extra) {
@@ -288,13 +343,6 @@ static void snr3_run(Tsnr3run *s3run) {
 			g_print("TODO: implement background file loading for replace\n");
 		break;
 	}
-}
-
-
-static void snr3result_free(gpointer s3result, gpointer s3run) {
-	/* BUG TODO: for pcre patterns we should free the 'extra' data */
-	g_print("free result %p\n",s3result);
-	g_slice_free(Tsnr3result, (Tsnr3result *)s3result);
 }
 
 void snr3run_free(Tsnr3run *s3run) {
