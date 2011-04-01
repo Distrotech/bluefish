@@ -1456,11 +1456,11 @@ outputbox_menu_activate(GtkAction * action, gpointer user_data)
 
 	outputbox(BFWIN(user_data), pattern, atoi(file_subpat), atoi(line_subpat), atoi(output_subpat), command);
 
-	g_free(pattern);
+	/*g_free(pattern);
 	g_free(file_subpat);
 	g_free(line_subpat);
 	g_free(output_subpat);
-	g_free(command);
+	g_free(command);*/
 }
 
 void
