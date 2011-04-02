@@ -972,19 +972,18 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 
 	folded = gtk_text_tag_table_lookup(langmgr_get_tagtable(), "_folded_");
 	if (master->priv->show_symbols) {
-		bmarkline = bmark_margin_get_initial_bookmark((Tdocument *) master->doc, startvisible, &bmark);
+		bmarkline = bmark_margin_get_initial_bookmark(master->priv->doc, startvisible, &bmark);
 	}
 
 	for (i = gtk_text_iter_get_line(startvisible); i <= gtk_text_iter_get_line(endvisible); i++) {
-		gint w, height;
-		gchar *string;
-
-
 		gtk_text_iter_set_line(&it, i);
 
 		if (G_UNLIKELY(gtk_text_iter_has_tag(&it, folded))) {
 			DBG_FOLD("line %d is hidden\n", i);
 		} else {
+			gint w, height;
+			gchar *string = NULL;
+
 			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(btv), &it, &w, &height);
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, 0, w, NULL, &w);
 
@@ -1002,7 +1001,7 @@ paint_margin(BluefishTextView * btv, GdkEventExpose * event, GtkTextIter * start
 			/* symbols */
 			if (master->priv->show_symbols && bmarkline != -1) {
 				while (bmarkline != -1 && bmarkline < i) {
-					bmarkline = bmark_margin_get_next_bookmark((Tdocument *) master->doc, &bmark);
+					bmarkline = bmark_margin_get_next_bookmark(master->priv->doc, &bmark);
 				}
 				if (G_UNLIKELY(bmarkline == i)) {
 					paint_margin_symbol(master, cr, w, height);
@@ -1347,7 +1346,7 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 	} else {
 		if (gtk_widget_is_sensitive(GTK_WIDGET(btv))
 			&& (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
-			&& (BFWIN(DOCUMENT(master->doc)->bfwin)->session->view_cline)) {
+			&& (BFWIN(master->priv->doc->bfwin)->session->view_cline)) {
 			GdkRectangle rect;
 			gint w, w2;
 			cairo_t *context;
@@ -1579,7 +1578,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		&& BFWIN(master->priv->doc->bfwin)->session->editor_indent_wspaces) {
 		GtkTextMark *imark;
 		GtkTextIter iter;
-		gchar *string;
+		gchar *string = NULL;
 		gint numchars;
 		/* replace the tab with spaces if the user wants that. 
 		   However, some users want the tab key to arrive at the next tab stop. so if the tab width is 
@@ -1830,7 +1829,7 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 static gchar *
 get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * lastchar)
 {
-	gchar *string;
+	gchar *string = NULL;
 	gchar *indenting;
 	gint stringlen;
 
@@ -1855,6 +1854,7 @@ get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * last
 	}
 	/* ending search, non-whitespace found, so terminate at this position */
 	*indenting = '\0';
+
 	return string;
 }
 
@@ -1862,9 +1862,10 @@ static inline void
 auto_increase_indenting(BluefishTextView * btv)
 {
 	BluefishTextView *master = btv->priv->master;
-	gchar *string;
+	gchar *string = NULL;
 	gchar lastchar = '\0';
 	GtkTextIter itend;
+
 	gtk_text_buffer_get_iter_at_mark(btv->priv->buffer, &itend,
 									 gtk_text_buffer_get_insert(btv->priv->buffer));
 	string = get_prevline_indenting(btv->priv->buffer, &itend, &lastchar);
