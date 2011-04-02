@@ -71,15 +71,6 @@ bfwin_fullscreen_toggle(Tbfwin * bfwin, gboolean active)
 		gtk_window_unfullscreen(GTK_WINDOW(bfwin->main_window));
 }
 
-void
-bfwin_gotoline_frame_show(Tbfwin * bfwin)
-{
-	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
-		gtk_widget_show(bfwin->gotoline_frame);
-
-	gtk_widget_grab_focus(bfwin->gotoline_entry);
-}
-
 static void
 notebook_move(Tbfwin * bfwin, gboolean move_left)
 {
@@ -541,6 +532,34 @@ bfwin_cleanup(Tbfwin * bfwin)
 	}
 }
 
+void
+bfwin_gotoline_frame_show(Tbfwin * bfwin)
+{
+	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
+		gtk_widget_show(bfwin->gotoline_frame);
+
+	gtk_widget_grab_focus(bfwin->gotoline_entry);
+}
+
+void simplesearch_show(Tbfwin *bfwin)
+{
+	GtkTextIter itstart,itend;
+	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
+		gtk_widget_show(bfwin->gotoline_frame);
+
+	/* see if there is a selection within a single line */
+	if (gtk_text_buffer_get_selection_bounds(bfwin->current_document->buffer, &itstart, &itend)) {
+		if (gtk_text_iter_get_line(&itstart)==gtk_text_iter_get_line(&itend)) {
+			gchar *tmpstr = gtk_text_buffer_get_text(bfwin->current_document->buffer,&itstart,&itend,TRUE);
+			gtk_entry_set_text(GTK_ENTRY(bfwin->simplesearch_entry),tmpstr);
+			g_free(tmpstr);
+			gtk_editable_select_region(GTK_EDITABLE(bfwin->simplesearch_entry),0,-1);
+			/* TODO: mark the current selection as the 'current' search result */
+		}
+	}
+	gtk_widget_grab_focus(bfwin->simplesearch_entry);
+}
+
 static void
 gotoline_entry_changed(GtkEditable * editable, Tbfwin * bfwin)
 {
@@ -657,6 +676,13 @@ simplesearch_back_clicked(GtkButton * button, Tbfwin * bfwin)
 		return;
 	snr3_run_go(bfwin->simplesearch_snr3run, FALSE);
 }
+static void
+simplesearch_advanced_clicked(GtkButton * button, Tbfwin * bfwin)
+{
+	g_print("TODO: implement advanced in snr3\n");
+	search_cb(GTK_WIDGET(button), bfwin);
+}
+
 static gboolean
 gotoline_entries_key_press_event(GtkWidget * widget, GdkEventKey * event, Tbfwin * bfwin)
 {
@@ -696,10 +722,12 @@ gotoline_frame_create(Tbfwin * bfwin)
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 	button = bf_gtkstock_button(GTK_STOCK_GO_FORWARD, G_CALLBACK(simplesearch_forward_clicked), bfwin, TRUE);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->gotoline_frame, FALSE, FALSE, 2);
 	g_signal_connect(G_OBJECT(bfwin->simplesearch_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
 	g_signal_connect(bfwin->simplesearch_entry, "changed", G_CALLBACK(simplesearch_entry_changed), bfwin);
-
+	button = bf_generic_button_with_image(_("Advanced"),-1,G_CALLBACK(simplesearch_advanced_clicked),bfwin);
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
+	
+	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->gotoline_frame, FALSE, FALSE, 2);
 	gtk_widget_show_all(hbox);
 }
 
