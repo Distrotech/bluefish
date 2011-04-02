@@ -79,6 +79,8 @@ struct _BluefishTextViewPrivate {
 
 	GtkTextBuffer *buffer;
 
+	Tdocument *doc;
+
 	gboolean auto_indent;
 	gboolean auto_complete;
 	gboolean enable_scanner;	/* only run scanner when TRUE, this is FALSE if the document is in the background for example */
@@ -99,12 +101,15 @@ struct _BluefishTextViewPrivate {
 	gint margin_pixels_block;
 	gint margin_pixels_symbol;
 
+	gint tab_width_pixels;
+
 	guint dispose_has_run:1;
 };
 
 enum {
 	PROP_0,
 	PROP_BUFFER,
+	PROP_DOCUMENT,
 	PROP_MASTER_VIEW,
 	PROP_SLAVE_VIEW,
 	PROP_AUTO_INDENT,
@@ -117,7 +122,8 @@ enum {
 	PROP_SHOW_RIGHT_MARGIN,
 	PROP_SHOW_SYMBOLS,
 	PROP_SHOW_VISIBLE_SPACING,
-	PROP_SPELL_CHECK
+	PROP_SPELL_CHECK,
+	PROP_TAB_WIDTH_PIXELS
 };
 
 #if GTK_CHECK_VERSION(3,0,0)
@@ -554,7 +560,9 @@ bftextview2_set_margin_size(BluefishTextView * btv)
 		master->priv->margin_pixels_symbol = 0;
 	}
 	/*g_print("lines=%d,count=%d,pixels_per_char=%d\n",lines,count,btv->margin_pixels_per_char); */
-	newsize = master->priv->margin_pixels_chars + master->priv->margin_pixels_block + master->priv->margin_pixels_symbol;
+	newsize =
+		master->priv->margin_pixels_chars + master->priv->margin_pixels_block +
+		master->priv->margin_pixels_symbol;
 	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, newsize);
 	if (btv->priv->slave)
 		gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv->priv->slave), GTK_TEXT_WINDOW_LEFT, newsize);
@@ -648,17 +656,22 @@ paint_margin_expand(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
 	gdk_cairo_set_source_color(cr,
 							   &gtk_widget_get_style(GTK_WIDGET(btv))->base[gtk_widget_get_state
 																			(GTK_WIDGET(btv))]);
-	cairo_rectangle(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 2, w + (height / 2) - 3, 7, 7);
+	cairo_rectangle(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 2,
+					w + (height / 2) - 3, 7, 7);
 	cairo_fill(cr);
 	gdk_cairo_set_source_color(cr,
 							   &gtk_widget_get_style(GTK_WIDGET(btv))->fg[gtk_widget_get_state
 																		  (GTK_WIDGET(btv))]);
-	cairo_rectangle(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 1.5, w + (height / 2) - 3.5, 8,
-					8);
-	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5, w + (height / 2) + 5);
-	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5, w + height + 0.5);
-	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 3, w + (height / 2) + 0.5);
-	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 8, w + (height / 2) + 0.5);
+	cairo_rectangle(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 1.5,
+					w + (height / 2) - 3.5, 8, 8);
+	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5,
+				  w + (height / 2) + 5);
+	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5,
+				  w + height + 0.5);
+	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 3,
+				  w + (height / 2) + 0.5);
+	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 8,
+				  w + (height / 2) + 0.5);
 	cairo_stroke(cr);
 }
 
@@ -668,19 +681,26 @@ paint_margin_collapse(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
 	gdk_cairo_set_source_color(cr,
 							   &gtk_widget_get_style(GTK_WIDGET(btv))->base[gtk_widget_get_state
 																			(GTK_WIDGET(btv))]);
-	cairo_rectangle(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 2, w + (height / 2) - 3, 7, 7);
+	cairo_rectangle(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 2,
+					w + (height / 2) - 3, 7, 7);
 	cairo_fill(cr);
 	gdk_cairo_set_source_color(cr,
 							   &gtk_widget_get_style(GTK_WIDGET(btv))->fg[gtk_widget_get_state
 																		  (GTK_WIDGET(btv))]);
-	cairo_rectangle(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 1.5, w + (height / 2) - 3.5, 8,
-					8);
-	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5, w + (height / 2) - 2);
-	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5, w + (height / 2) + 3);
-	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5, w + (height / 2) + 5);
-	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5, w + height + 0.5);
-	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 3, w + (height / 2) + 0.5);
-	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 8, w + (height / 2) + 0.5);
+	cairo_rectangle(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 1.5,
+					w + (height / 2) - 3.5, 8, 8);
+	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5,
+				  w + (height / 2) - 2);
+	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5,
+				  w + (height / 2) + 3);
+	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5,
+				  w + (height / 2) + 5);
+	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5,
+				  w + height + 0.5);
+	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 3,
+				  w + (height / 2) + 0.5);
+	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 8,
+				  w + (height / 2) + 0.5);
 	cairo_stroke(cr);
 }
 
@@ -690,9 +710,12 @@ paint_margin_blockend(BluefishTextView * btv, cairo_t * cr, gint w, gint height)
 	/*gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[gtk_widget_get_state(GTK_WIDGET(btv))],btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w, btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + (height/2));
 	   gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[gtk_widget_get_state(GTK_WIDGET(btv))],btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w+(height/2), btv->margin_pixels_chars+btv->margin_pixels_symbol+8, w + (height/2)); */
 	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5, w);
-	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5, w + (height / 2) + 0.5);
-	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5, w + (height / 2) + 0.5);
-	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 8.5, w + (height / 2) + 0.5);
+	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5,
+				  w + (height / 2) + 0.5);
+	cairo_move_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 5.5,
+				  w + (height / 2) + 0.5);
+	cairo_line_to(cr, btv->priv->margin_pixels_chars + btv->priv->margin_pixels_symbol + 8.5,
+				  w + (height / 2) + 0.5);
 	cairo_stroke(cr);
 }
 
@@ -790,7 +813,7 @@ paint_margin(BluefishTextView * btv, cairo_t * cr, GtkTextIter * startvisible, G
 
 	folded = gtk_text_tag_table_lookup(langmgr_get_tagtable(), "_folded_");
 	if (master->priv->show_symbols) {
-		bmarkline = bmark_margin_get_initial_bookmark((Tdocument *) master->doc, startvisible, &bmark);
+		bmarkline = bmark_margin_get_initial_bookmark(master->priv->doc, startvisible, &bmark);
 	}
 
 	for (i = gtk_text_iter_get_line(startvisible); i <= gtk_text_iter_get_line(endvisible); i++) {
@@ -820,7 +843,7 @@ paint_margin(BluefishTextView * btv, cairo_t * cr, GtkTextIter * startvisible, G
 			/* symbols */
 			if (master->priv->show_symbols && bmarkline != -1) {
 				while (bmarkline != -1 && bmarkline < i) {
-					bmarkline = bmark_margin_get_next_bookmark((Tdocument *) master->doc, &bmark);
+					bmarkline = bmark_margin_get_next_bookmark(master->priv->doc, &bmark);
 				}
 				if (G_UNLIKELY(bmarkline == i)) {
 					paint_margin_symbol(master, cr, w, height);
@@ -1188,7 +1211,7 @@ calculate_real_tab_width(GtkTextView * view, guint tab_size, gchar c)
 
 	tab_string = g_strnfill(tab_size, c);
 	layout = gtk_widget_create_pango_layout(GTK_WIDGET(view), tab_string);
-	g_free (tab_string);
+	g_free(tab_string);
 
 	if (layout != NULL) {
 		pango_layout_get_pixel_size(layout, &tab_width, NULL);
@@ -1231,7 +1254,7 @@ bluefish_text_view_draw(GtkWidget * widget, cairo_t * cr)
 
 		if (gtk_widget_is_sensitive(widget)
 			&& gtk_cairo_should_draw_window(cr, window)
-			&& (BFWIN(DOCUMENT(master->doc)->bfwin)->session->view_cline)) {
+			&& (BFWIN(master->priv->doc->bfwin)->session->view_cline)) {
 			GdkRectangle rect;
 			gint w, w2;
 			GtkTextIter it;
@@ -1277,15 +1300,14 @@ bluefish_text_view_draw(GtkWidget * widget, cairo_t * cr)
 		}
 
 		if (gtk_cairo_should_draw_window(cr, window) && master->priv->show_right_margin) {
+			gint pix = master->priv->tab_width_pixels;
 			GdkRectangle rect, rect2;
-			gint pix;
 
 			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
 			rect2 = rect;
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, rect.x,
 												  rect.y, &rect2.x, &rect2.y);
 
-			pix = calculate_real_tab_width(GTK_TEXT_VIEW(master), main_v->props.right_margin_pos, '_');
 			/* 1.0 looks the best, smaller gives a half-transparent color */
 			cairo_set_line_width(cr, 1.0);
 
@@ -1458,6 +1480,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 {
 	gboolean retval;
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
+	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->priv->master);
 	DBG_SIGNALS("bluefish_text_view_key_press_event, keyval=%d\n", kevent->keyval);
 	if (btv->autocomp) {
 		if (acwin_check_keypress(btv, kevent)) {
@@ -1465,7 +1488,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 			return TRUE;
 		}
 	}
-	if (bluefish_text_view_get_enable_scanner(btv->priv->master)
+	if (bluefish_text_view_get_enable_scanner(master)
 		&& (kevent->state & main_v->autocomp_accel_mods)
 		&& kevent->keyval == main_v->autocomp_accel_key) {
 		/* <ctrl><space> manually opens the auto completion */
@@ -1529,11 +1552,11 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 			GtkTextIter eol1, eol2, sol1, sol2;
 			if (kevent->state & GDK_SHIFT_MASK) {
 				/* unindent block */
-				doc_indent_selection(btv->doc, TRUE);
+				doc_indent_selection(master->priv->doc, TRUE);
 				return TRUE;
 			}
 			if (gtk_text_iter_get_line(&so) != gtk_text_iter_get_line(&eo)) {
-				doc_indent_selection(btv->doc, FALSE);
+				doc_indent_selection(master->priv->doc, FALSE);
 				return TRUE;
 			}
 			/* if the start and end are *around* the text (so either at the start or end or
@@ -1545,7 +1568,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 					 || gtk_text_iter_in_range(&so, &sol1, &sol2))
 					&& (gtk_text_iter_equal(&eo, &eol1) || gtk_text_iter_equal(&eo, &eol2)
 						|| gtk_text_iter_in_range(&eo, &eol1, &eol2))) {
-					doc_indent_selection(btv->doc, FALSE);
+					doc_indent_selection(master->priv->doc, FALSE);
 					return TRUE;
 				}
 			}
@@ -1553,7 +1576,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 	}
 	if ((kevent->keyval == GDK_Tab && !(kevent->state & GDK_SHIFT_MASK)
 		 && !(kevent->state & GDK_CONTROL_MASK))
-		&& BFWIN(DOCUMENT(btv->priv->master->doc)->bfwin)->session->editor_indent_wspaces) {
+		&& BFWIN(master->priv->doc->bfwin)->session->editor_indent_wspaces) {
 		GtkTextMark *imark;
 		GtkTextIter iter;
 		gchar *string;
@@ -1562,13 +1585,13 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		   However, some users want the tab key to arrive at the next tab stop. so if the tab width is 
 		   4 and there are two characters already, bluefish should insert only 2 characters */
 		string =
-			bf_str_repeat(" ", BFWIN(DOCUMENT(btv->priv->master->doc)->bfwin)->session->editor_tab_width);
+			bf_str_repeat(" ", BFWIN(master->priv->doc->bfwin)->session->editor_tab_width);
 		imark = gtk_text_buffer_get_insert(btv->priv->buffer);
 		gtk_text_buffer_get_iter_at_mark(btv->priv->buffer, &iter, imark);
 		numchars =
-			BFWIN(DOCUMENT(btv->priv->master->doc)->bfwin)->session->editor_tab_width -
+			BFWIN(master->priv->doc->bfwin)->session->editor_tab_width -
 			(gtk_text_iter_get_line_offset(&iter) %
-			 BFWIN(DOCUMENT(btv->priv->master->doc)->bfwin)->session->editor_tab_width);
+			 BFWIN(master->priv->doc->bfwin)->session->editor_tab_width);
 		gtk_text_buffer_insert(btv->priv->buffer, &iter, string, numchars);
 		g_free(string);
 		return TRUE;
@@ -1731,7 +1754,7 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 
 			if (event->type == GDK_2BUTTON_PRESS && (event->x > (master->priv->margin_pixels_chars))
 				&& (event->x < (master->priv->margin_pixels_chars + master->priv->margin_pixels_symbol))) {
-				bmark_toggle(btv->doc, gtk_text_iter_get_offset(&it), NULL, NULL);
+				bmark_toggle(master->priv->doc, gtk_text_iter_get_offset(&it), NULL, NULL);
 				/* redraw margin */
 #if GTK_CHECK_VERSION(3,0,0)
 				cairo_region_t *region;
@@ -1768,7 +1791,8 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 				}
 				return TRUE;
 			}
-		} else if (event->button == 3 && btv->priv->show_blocks && (event->x > master->priv->margin_pixels_chars)) {
+		} else if (event->button == 3 && btv->priv->show_blocks
+				   && (event->x > master->priv->margin_pixels_chars)) {
 			gtk_menu_popup(GTK_MENU(bftextview2_fold_menu(btv)), NULL, NULL, NULL, NULL, event->button,
 						   event->time);
 			return TRUE;
@@ -1786,7 +1810,7 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 		/* store the location of the right mouse button click for menu items like 'edit tag'
 		   or 'edit color' */
 		bftextview2_get_iter_at_bevent(btv, event, &iter);
-		main_v->bevent_doc = master->doc;
+		main_v->bevent_doc = master->priv->doc;
 		main_v->bevent_charoffset = gtk_text_iter_get_offset(&iter);
 	}
 	/* here we ask any plugins to do any processing */
@@ -1795,7 +1819,7 @@ bluefish_text_view_button_press_event(GtkWidget * widget, GdkEventButton * event
 		while (tmplist) {
 			void *(*func) () = tmplist->data;
 			DEBUG_MSG("doc_view_button_press_lcb, calling plugin func %p\n", tmplist->data);
-			func(widget, event, (Tdocument *) master->doc);
+			func(widget, event, master->priv->doc);
 			tmplist = g_slist_next(tmplist);
 		}
 	}
@@ -1837,6 +1861,7 @@ get_prevline_indenting(GtkTextBuffer * buffer, GtkTextIter * itend, gchar * last
 static inline void
 auto_increase_indenting(BluefishTextView * btv)
 {
+	BluefishTextView *master = btv->priv->master;
 	gchar *string;
 	gchar lastchar = '\0';
 	GtkTextIter itend;
@@ -1847,13 +1872,13 @@ auto_increase_indenting(BluefishTextView * btv)
 	if (string) {
 		/*g_print("bluefish_text_view_key_release_event, lastchar=%c, smartindentchars=%s\n",lastchar, btv->bflang->smartindentchars); */
 		if (lastchar != '\0' && main_v->props.smartindent
-			&& btv->priv->master->bflang && btv->bflang->smartindentchars
-			&& strchr(btv->priv->master->bflang->smartindentchars, lastchar) != NULL) {
+			&& master->bflang && master->bflang->smartindentchars
+			&& strchr(master->bflang->smartindentchars, lastchar) != NULL) {
 			gchar *tmp, *tmp2;
-			if (BFWIN(DOCUMENT(btv->priv->master->doc)->bfwin)->session->editor_indent_wspaces)
+			if (BFWIN(master->priv->doc->bfwin)->session->editor_indent_wspaces)
 				tmp2 =
 					bf_str_repeat(" ",
-								  BFWIN(DOCUMENT(btv->priv->master->doc)->bfwin)->session->editor_tab_width);
+								  BFWIN(master->priv->doc->bfwin)->session->editor_tab_width);
 			else
 				tmp2 = g_strdup("	");
 			tmp = g_strconcat(string, tmp2, NULL);
@@ -1862,15 +1887,15 @@ auto_increase_indenting(BluefishTextView * btv)
 			string = tmp;
 		}
 		if (string && string[0] != '\0') {
-			gboolean in_paste = DOCUMENT(btv->priv->master->doc)->in_paste_operation;
+			gboolean in_paste = master->priv->doc->in_paste_operation;
 			/*g_print("bluefish_text_view_key_release_event, autoindent, insert indenting\n"); */
 			/* a dirty trick: if in_paste_operation is set, there will be no call 
 			   for doc_unre_new_group when indenting is inserted */
 			if (!in_paste)
-				DOCUMENT(btv->priv->master->doc)->in_paste_operation = TRUE;
+				master->priv->doc->in_paste_operation = TRUE;
 			gtk_text_buffer_insert(btv->priv->buffer, &itend, string, -1);
 			if (!in_paste)
-				DOCUMENT(btv->priv->master->doc)->in_paste_operation = FALSE;
+				master->priv->doc->in_paste_operation = FALSE;
 			btv->insert_was_auto_indent = TRUE;
 		}
 		g_free(string);
@@ -1880,6 +1905,7 @@ auto_increase_indenting(BluefishTextView * btv)
 static inline void
 auto_decrease_indenting(BluefishTextView * btv)
 {
+	BluefishTextView *master = btv->priv->master;
 	GtkTextIter itend, itstart;
 	gunichar uc;
 
@@ -1896,7 +1922,7 @@ auto_decrease_indenting(BluefishTextView * btv)
 	} else if (uc == ' ') {
 		int i = 1;
 		/* if a space was the previous char, we need N spaces to unindent */
-		while (uc == ' ' && i < BFWIN(DOCUMENT(btv->doc)->bfwin)->session->editor_tab_width) {
+		while (uc == ' ' && i < BFWIN(master->priv->doc->bfwin)->session->editor_tab_width) {
 			gtk_text_iter_backward_char(&itstart);
 			uc = gtk_text_iter_get_char(&itstart);
 			i++;
@@ -1909,6 +1935,7 @@ auto_decrease_indenting(BluefishTextView * btv)
 static inline void
 auto_indent_blockstackbased(BluefishTextView * btv)
 {
+	BluefishTextView *master = btv->priv->master;
 	gchar *tmp2;
 	GtkTextIter iter;
 	guint offset, num = 0;
@@ -1916,10 +1943,11 @@ auto_indent_blockstackbased(BluefishTextView * btv)
 	GSequenceIter *siter;
 	Tfoundblock *fblock;
 	gboolean in_paste;
+
 	g_print("auto_indent_blockstackbased, started\n");
 	gtk_text_buffer_get_iter_at_mark(btv->priv->buffer, &iter, gtk_text_buffer_get_insert(btv->priv->buffer));
 	offset = gtk_text_iter_get_offset(&iter);
-	found = get_foundcache_at_offset(btv->priv->master, offset, &siter);
+	found = get_foundcache_at_offset(master, offset, &siter);
 	g_print("auto_indent_blockstackbased, found=%p\n", found);
 	if (!found || found->charoffset_o > offset)
 		return;
@@ -1933,18 +1961,18 @@ auto_indent_blockstackbased(BluefishTextView * btv)
 	g_print("auto_indent_blockstackbased, num blocks=%d\n", num);
 	if (num <= 0)
 		return;
-	if (BFWIN(DOCUMENT(btv->priv->master->doc)->bfwin)->session->editor_indent_wspaces)
+	if (BFWIN(master->priv->doc->bfwin)->session->editor_indent_wspaces)
 		tmp2 =
 			bf_str_repeat(" ",
-						  BFWIN(DOCUMENT(btv->priv->master->doc)->bfwin)->session->editor_tab_width * num);
+						  BFWIN(master->priv->doc->bfwin)->session->editor_tab_width * num);
 	else
 		tmp2 = bf_str_repeat("\t", num);
-	in_paste = DOCUMENT(btv->priv->master->doc)->in_paste_operation;
+	in_paste = master->priv->doc->in_paste_operation;
 	if (!in_paste)
-		DOCUMENT(btv->priv->master->doc)->in_paste_operation = TRUE;
+		master->priv->doc->in_paste_operation = TRUE;
 	gtk_text_buffer_insert(btv->priv->buffer, &iter, tmp2, -1);
 	if (!in_paste)
-		DOCUMENT(btv->priv->master->doc)->in_paste_operation = FALSE;
+		master->priv->doc->in_paste_operation = FALSE;
 	btv->insert_was_auto_indent = TRUE;
 }
 
@@ -2154,6 +2182,12 @@ bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable)
 	btv->priv->auto_indent = enable;
 }
 
+gpointer
+bluefish_text_view_get_doc(BluefishTextView * btv)
+{
+	return (gpointer) btv->priv->doc;
+}
+
 gboolean
 bluefish_text_view_get_enable_scanner(BluefishTextView * btv)
 {
@@ -2174,19 +2208,11 @@ bluefish_text_view_set_enable_scanner(BluefishTextView * btv, gboolean enable)
 void
 bluefish_text_view_set_font_size(BluefishTextView * btv, gint direction)
 {
+	PangoFontDescription *font_desc;
+
 	if (direction == 0) {
-		PangoFontDescription *font_desc;
-
 		font_desc = pango_font_description_from_string(main_v->props.editor_font_string);
-
-		gtk_widget_modify_font(GTK_WIDGET(btv), font_desc);
-		if (btv->priv->slave)
-			gtk_widget_modify_font(GTK_WIDGET(btv->priv->slave), font_desc);
-
-		pango_font_description_free(font_desc);
-		btv->priv->margin_pixels_per_char = 0;
 	} else {
-		PangoFontDescription *font_desc;
 		PangoContext *pc;
 		gint size;
 
@@ -2200,14 +2226,17 @@ bluefish_text_view_set_font_size(BluefishTextView * btv, gint direction)
 		} else {
 			pango_font_description_set_size(font_desc, size);
 		}
-
-		gtk_widget_modify_font(GTK_WIDGET(btv), font_desc);
-		if (btv->priv->slave)
-			gtk_widget_modify_font(GTK_WIDGET(btv->priv->slave), font_desc);
-
-		pango_font_description_free(font_desc);
-		btv->priv->margin_pixels_per_char = 0;
 	}
+
+	gtk_widget_modify_font(GTK_WIDGET(btv), font_desc);
+	if (btv->priv->slave)
+		gtk_widget_modify_font(GTK_WIDGET(btv->priv->slave), font_desc);
+
+	pango_font_description_free(font_desc);
+
+	btv->priv->margin_pixels_per_char = 0;
+	btv->priv->tab_width_pixels =
+		calculate_real_tab_width(GTK_TEXT_VIEW(btv), main_v->props.right_margin_pos, '_');
 }
 
 static void
@@ -2566,7 +2595,8 @@ bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean ke
 			gint bx, by, trailing;
 			/*g_print("get iter at mouse position %d %d\n",x,y); */
 			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT,
-												  x - (btv->priv->margin_pixels_chars + btv->priv->margin_pixels_block +
+												  x - (btv->priv->margin_pixels_chars +
+													   btv->priv->margin_pixels_block +
 													   btv->priv->margin_pixels_symbol), y, &bx, &by);
 			if (bx < 0)
 				return FALSE;
@@ -2695,6 +2725,7 @@ bluefish_text_view_dispose(GObject * object)
 			g_signal_handlers_disconnect_by_func(btv->priv->buffer, bftextview2_insert_text_after_lcb, btv);
 			g_signal_handlers_disconnect_by_func(btv->priv->buffer, bftextview2_mark_set_lcb, btv);
 		}
+
 		btv->bflang = NULL;
 		btv->priv->enable_scanner = FALSE;
 	}
@@ -2720,6 +2751,9 @@ bluefish_text_view_get_property(GObject * object, guint prop_id, GValue * value,
 	switch (prop_id) {
 	case PROP_BUFFER:
 		g_value_take_object(value, priv->buffer);
+		break;
+	case PROP_DOCUMENT:
+		g_value_set_pointer(value, priv->doc);
 		break;
 	case PROP_MASTER_VIEW:
 		g_value_take_object(value, priv->master);
@@ -2762,6 +2796,9 @@ bluefish_text_view_get_property(GObject * object, guint prop_id, GValue * value,
 		g_value_set_boolean(value, priv->spell_check);
 		break;
 #endif
+	case PROP_TAB_WIDTH_PIXELS:
+		g_value_set_int(value, priv->tab_width_pixels);
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
 		break;
@@ -2778,6 +2815,9 @@ bluefish_text_view_set_property(GObject * object, guint prop_id, const GValue * 
 	case PROP_BUFFER:
 		gtk_text_view_set_buffer(GTK_TEXT_VIEW(btv), g_value_get_object(value));
 		priv->buffer = g_value_get_object(value);
+		break;
+	case PROP_DOCUMENT:
+		priv->doc = g_value_get_pointer(value);
 		break;
 	case PROP_MASTER_VIEW:
 		priv->master = g_value_get_object(value);
@@ -2820,6 +2860,9 @@ bluefish_text_view_set_property(GObject * object, guint prop_id, const GValue * 
 		bluefish_text_view_set_spell_check(btv, g_value_get_boolean(value));
 		break;
 #endif
+	case PROP_TAB_WIDTH_PIXELS:
+		priv->tab_width_pixels = g_value_get_int(value);
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
 		break;
@@ -2837,13 +2880,28 @@ bluefish_text_view_constructor(GType type, guint n_construct_properties,
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(obj);
 	GtkTextBuffer *buffer = btv->priv->buffer;
 
-	if (!btv->priv->master)
+	if (btv->priv->is_slave) {
+		BluefishTextView *master = btv->priv->master;
+
+		master->priv->slave = btv;
+
+		gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT,
+											 master->priv->margin_pixels_chars
+											 + master->priv->margin_pixels_block
+											 + master->priv->margin_pixels_symbol);
+	} else {
 		btv->priv->master = btv;
+
+		btv->priv->tab_width_pixels =
+			calculate_real_tab_width(GTK_TEXT_VIEW(btv), main_v->props.right_margin_pos, '_');
+	}
 
 	g_signal_connect(buffer, "delete-range", G_CALLBACK(bftextview2_delete_range_lcb), btv);
 	g_signal_connect_after(buffer, "delete-range", G_CALLBACK(bftextview2_delete_range_after_lcb), btv);
+
 	g_signal_connect(buffer, "insert-text", G_CALLBACK(bftextview2_insert_text_lcb), btv);
 	g_signal_connect_after(buffer, "insert-text", G_CALLBACK(bftextview2_insert_text_after_lcb), btv);
+
 	g_signal_connect_after(buffer, "mark-set", G_CALLBACK(bftextview2_mark_set_lcb), btv);
 
 	bluefish_text_view_set_colors(btv, main_v->props.btv_color_str);
@@ -2902,6 +2960,13 @@ bluefish_text_view_class_init(BluefishTextViewClass * klass)
 														"Pointer to the textview's buffer",
 														GTK_TYPE_TEXT_BUFFER,
 														G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+
+	g_object_class_install_property(object_class,
+									PROP_DOCUMENT,
+									g_param_spec_pointer("doc",
+														 "The textview's document",
+														 "The textview's document",
+														 G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
 	g_object_class_install_property(object_class,
 									PROP_MASTER_VIEW,
@@ -2997,6 +3062,14 @@ bluefish_text_view_class_init(BluefishTextViewClass * klass)
 														 "Enable spell checking",
 														 TRUE, G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 #endif
+
+	g_object_class_install_property(object_class,
+									PROP_TAB_WIDTH_PIXELS,
+									g_param_spec_int("tab-width-pixels",
+													 "Tab width in pixels",
+													 "Tab width in pixels",
+													 G_MININT,
+													 G_MAXINT, 0, G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
 }
 
 static void
@@ -3038,6 +3111,7 @@ bftextview2_new_with_document(gpointer * doc, gpointer * sessionvars)
 					   "master-view", NULL,
 					   "slave-view", NULL,
 					   "buffer", DOCUMENT(doc)->buffer,
+					   "doc", DOCUMENT(doc),
 					   "auto-indent", session->autoindent,
 					   "auto-complete", session->autocomplete,
 					   "show-blocks", session->view_blocks,
@@ -3050,8 +3124,6 @@ bftextview2_new_with_document(gpointer * doc, gpointer * sessionvars)
 					   NULL);
 
 	g_return_val_if_fail(btv != NULL, NULL);
-
-	btv->doc = doc;
 
 	bluefish_text_view_select_language(btv, session->default_mime_type, NULL);
 
@@ -3072,19 +3144,14 @@ bftextview2_new_slave(BluefishTextView * master)
 	slave = g_object_new(BLUEFISH_TYPE_TEXT_VIEW,
 						 "has-tooltip", TRUE,
 						 "buffer", buffer,
+						 "doc", master->priv->doc,
 						 "master-view", master,
 						 "slave-view", NULL,
 						 "is_slave", TRUE,
 						 NULL);
 	g_return_val_if_fail(slave != NULL, NULL);
 
-	master->priv->slave = slave;
 	DBG_MSG("bftextview2_new_slave, created slave %p for master %p\n", slave, master);
-
-	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(slave), GTK_TEXT_WINDOW_LEFT,
-										 master->priv->margin_pixels_chars
-										 + master->priv->margin_pixels_block
-										 + master->priv->margin_pixels_symbol);
 
 	return GTK_WIDGET(slave);
 }

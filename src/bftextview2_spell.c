@@ -150,6 +150,7 @@ load_dictionary(Tbfwin * bfwin)
 static void
 spellcheck_word(BluefishTextView * btv, GtkTextBuffer * buffer, GtkTextIter * start, GtkTextIter * end)
 {
+	Tdocument *doc = bluefish_text_view_get_doc(btv);
 	gchar *tocheck;
 
 	tocheck = gtk_text_buffer_get_text(buffer, start, end, FALSE);
@@ -158,14 +159,14 @@ spellcheck_word(BluefishTextView * btv, GtkTextBuffer * buffer, GtkTextIter * st
 
 	DBG_SPELL("spellcheck_word, check word %s in dictionary %p\n", tocheck,
 			  BFWIN(DOCUMENT(btv->doc)->bfwin)->ed);
-	if (enchant_dict_check((EnchantDict *) BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck, strlen(tocheck)) !=
+	if (enchant_dict_check((EnchantDict *) BFWIN(doc->bfwin)->ed, tocheck, strlen(tocheck)) !=
 		0) {
 		DBG_SPELL("'%s' *not* spelled correctly!\n", tocheck);
 		if (g_utf8_strchr(tocheck, -1, '&')) {
 			gchar *tocheck_conv = xmlentities2utf8(tocheck);
 			/* check for entities */
 			if (tocheck_conv
-				&& enchant_dict_check((EnchantDict *) BFWIN(DOCUMENT(btv->doc)->bfwin)->ed, tocheck_conv,
+				&& enchant_dict_check((EnchantDict *) BFWIN(doc->bfwin)->ed, tocheck_conv,
 									  strlen(tocheck_conv)) != 0) {
 				DBG_SPELL("'%s' after entity conversion (%s) *not* spelled correctly!\n", tocheck,
 						  tocheck_conv);
@@ -352,6 +353,7 @@ text_iter_next_word_bounds(GtkTextIter * soword, GtkTextIter * eoword, gboolean 
 gboolean
 bftextview2_run_spellcheck(BluefishTextView * btv)
 {
+	Tdocument *doc = bluefish_text_view_get_doc(btv);
 	GtkTextIter so, eo, iter;
 	GtkTextBuffer *buffer;
 	GTimer *timer;
@@ -364,7 +366,7 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 	if (!bluefish_text_view_get_spell_check(btv));
 		return FALSE;
 
-	if (!BFWIN(DOCUMENT(btv->doc)->bfwin)->ed && !load_dictionary(BFWIN(DOCUMENT(btv->doc)->bfwin))) {
+	if (!BFWIN(doc->bfwin)->ed && !load_dictionary(BFWIN(doc->bfwin))) {
 		DBG_SPELL("bftextview2_run_spellcheck, no dictionary.. return..\n");
 		return FALSE;
 	}

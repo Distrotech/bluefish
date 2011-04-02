@@ -180,16 +180,17 @@ identifier_jumpdata_new(Tdocument * doc, guint line)
 GCompletion *
 identifier_ac_get_completion(BluefishTextView * btv, gint16 context, gboolean create)
 {
+	Tdocument * doc = bluefish_text_view_get_doc(btv);
 	Tackey iak;
 	GCompletion *compl;
 	iak.bflang = btv->bflang;
 	iak.context = context;
-	compl = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_ac, &iak);
+	compl = g_hash_table_lookup(BFWIN(doc->bfwin)->identifier_ac, &iak);
 	if (!compl && create) {
 		Tackey *iakp = g_slice_new0(Tackey);
 		*iakp = iak;
 		compl = g_completion_new(NULL);
-		g_hash_table_insert(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_ac, iakp, compl);
+		g_hash_table_insert(BFWIN(doc->bfwin)->identifier_ac, iakp, compl);
 	}
 	return compl;
 }
@@ -199,6 +200,7 @@ found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end,
 				 guint8 identmode)
 {
 	if (identmode == 1) {
+		Tdocument * doc = bluefish_text_view_get_doc(btv);
 		Tjumpkey *ijk;
 		Tjumpdata *ijd, *oldijd;
 		GCompletion *compl;
@@ -208,15 +210,15 @@ found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end,
 		tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
 		DBG_IDENTIFIER("found identifier %s at %p\n", tmp, tmp);
 		ijk = identifier_jumpkey_new(btv->bflang, context, tmp);
-		oldijd = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk);
+		oldijd = g_hash_table_lookup(BFWIN(doc->bfwin)->identifier_jump, ijk);
 		if (oldijd) {
 			/* it exists, now only update the line number, don't add to the completion */
-			if (oldijd->doc == btv->doc)
+			if (oldijd->doc == doc)
 				oldijd->line = gtk_text_iter_get_line(end) + 1;
 			identifier_jump_key_free(ijk);	/* that will free tmp as well */
 		} else {
-			ijd = identifier_jumpdata_new(DOCUMENT(btv->doc), gtk_text_iter_get_line(end) + 1);
-			g_hash_table_insert(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk, ijd);
+			ijd = identifier_jumpdata_new(doc, gtk_text_iter_get_line(end) + 1);
+			g_hash_table_insert(BFWIN(doc->bfwin)->identifier_jump, ijk, ijd);
 			compl = identifier_ac_get_completion(btv, context, TRUE);
 			items = g_list_prepend(NULL, tmp);
 			g_completion_add_items(compl, items);

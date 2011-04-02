@@ -1558,7 +1558,8 @@ cleanup_scanner(BluefishTextView * btv)
 
 #endif
 #ifdef IDENTSTORING
-	bftextview2_identifier_hash_remove_doc(DOCUMENT(btv->doc)->bfwin, btv->doc);
+	Tdocument *doc = bluefish_text_view_get_doc(btv);
+	bftextview2_identifier_hash_remove_doc(doc->bfwin, doc);
 #endif							/* IDENTSTORING */
 
 }

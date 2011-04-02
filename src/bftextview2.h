@@ -482,7 +482,6 @@ struct _BluefishTextView {
 	BluefishTextViewPrivate *priv;
 
 	Tbflang *bflang;			/* Tbflang */
-	gpointer doc;				/* Tdocument */
 
 	GtkTextTag *blockmatch;
 	GtkTextTag *needscanning;
@@ -526,6 +525,8 @@ void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enabl
 
 gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);
 void bluefish_text_view_set_auto_indent(BluefishTextView * btv, gboolean enable);
+
+gpointer bluefish_text_view_get_doc(BluefishTextView * btv);
 
 gboolean bluefish_text_view_get_enable_scanner(BluefishTextView * btv);
 void bluefish_text_view_set_enable_scanner(BluefishTextView * btv, gboolean enable);
