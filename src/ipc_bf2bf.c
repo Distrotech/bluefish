@@ -162,12 +162,20 @@ socket_is_valid(const char *path)
 static char *
 socket_filename(void)
 {
-	gchar *path, *newfile, *display;
+	gchar *path, *newfile;
+#ifdef MAC_INTEGRATION
+	newfile = g_strdup_printf(PACKAGE_NAME "-%s", g_get_user_name());
+	path = g_build_filename(g_get_tmp_dir(), newfile, NULL);
+#else
+	gchar *display;
+	/* the documentation is unclear if we can free the returned string from gdk_get_display()
+		it seems we can, but OSX users report crashes in ipc_bf2bf_start() */
 	display = gdk_get_display();
 	newfile = g_strdup_printf(PACKAGE_NAME "-%s-%s", g_get_user_name(), display);
 	path = g_build_filename(g_get_tmp_dir(), newfile, NULL);
-	g_free(newfile);
 	g_free(display);
+#endif
+	g_free(newfile);
 	return path;
 }
 
