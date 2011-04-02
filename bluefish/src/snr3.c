@@ -164,6 +164,10 @@ static void s3run_replace_current(Tsnr3run *s3run) {
 	g_queue_delete_link(&s3run->results, current);
 	s3run->current = next;
 	
+	if (s3run->current) {
+		scroll_to_result(s3run->current->data, NULL);
+	}
+	
 	/* now re-calculate all the offsets in the results lists!!!!!!!!!!! */
 	g_queue_foreach(&s3run->results, snr3run_update_offsets,&offsetupdate);
 }
