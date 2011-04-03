@@ -124,7 +124,7 @@ dialog_button_widget_new(const gchar * labeltext, gint pixmap, const gchar * sto
 }
 
 /**
- * dialog_button_new_with_image_in_table:
+ * dialog_button_new_with_image:
  * 	@labeltext:		 #const gchar * The label text.
  * 	@pixmap:		 #gint pixmap ID.
  *  @stockID:        #const gchar * GTK stock ID or NULL.

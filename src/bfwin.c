@@ -641,7 +641,7 @@ gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
 }
 
 static void
-simplesearch_entry_changed(GtkEditable * editable, Tbfwin * bfwin)
+simplesearch_entry_changed_or_activate(GtkEditable * editable, Tbfwin * bfwin)
 {
 	gchar *tmpstr;
 
@@ -699,12 +699,12 @@ gotoline_frame_create(Tbfwin * bfwin)
 
 	bfwin->gotoline_frame = gtk_frame_new(NULL);
 	gtk_frame_set_shadow_type(GTK_FRAME(bfwin->gotoline_frame), GTK_SHADOW_NONE);
-	hbox = gtk_hbox_new(FALSE, 12);
+	hbox = gtk_hbox_new(FALSE, 6);
 	gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
 	gtk_container_add(GTK_CONTAINER(bfwin->gotoline_frame), hbox);
 
 	button = bluefish_small_close_button_new();
-	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 6);
 	g_signal_connect(button, "clicked", G_CALLBACK(gotoline_close_button_clicked), bfwin);
 
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Goto Line:")), FALSE, FALSE, 0);
@@ -713,7 +713,8 @@ gotoline_frame_create(Tbfwin * bfwin)
 	g_signal_connect(bfwin->gotoline_entry, "changed", G_CALLBACK(gotoline_entry_changed), bfwin);
 	g_signal_connect(bfwin->gotoline_entry, "insert-text", G_CALLBACK(gotoline_entry_insert_text), NULL);
 	g_signal_connect(G_OBJECT(bfwin->gotoline_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_vseparator_new(), FALSE, FALSE, 0);
+	
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_vseparator_new(), FALSE, FALSE, 6);
 
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Find:")), FALSE, FALSE, 0);
 	bfwin->simplesearch_entry = gtk_entry_new();
@@ -723,7 +724,8 @@ gotoline_frame_create(Tbfwin * bfwin)
 	button = bf_gtkstock_button(GTK_STOCK_GO_FORWARD, G_CALLBACK(simplesearch_forward_clicked), bfwin, TRUE);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 	g_signal_connect(G_OBJECT(bfwin->simplesearch_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
-	g_signal_connect(bfwin->simplesearch_entry, "changed", G_CALLBACK(simplesearch_entry_changed), bfwin);
+	g_signal_connect(bfwin->simplesearch_entry, "changed", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
+	g_signal_connect(bfwin->simplesearch_entry, "activate", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
 	button = bf_generic_button_with_image(_("Advanced"),-1,G_CALLBACK(simplesearch_advanced_clicked),bfwin);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 	
