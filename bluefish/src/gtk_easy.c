@@ -1437,7 +1437,7 @@ ask_accelerator_dialog(const gchar * title)
 	gtk_window_set_type_hint(GTK_WINDOW(dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
 	gtk_dialog_set_has_separator(GTK_DIALOG(dialog1), FALSE);
 
-	label1 = gtk_label_new(_("<b>Keystroke choice </b>"));
+	label1 = gtk_label_new(_("<b>Keystroke choice</b>"));
 	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog1))), label1, FALSE, FALSE, 0);
 	gtk_label_set_use_markup(GTK_LABEL(label1), TRUE);
 	gtk_label_set_justify(GTK_LABEL(label1), GTK_JUSTIFY_CENTER);
