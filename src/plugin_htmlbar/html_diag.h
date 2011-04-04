@@ -20,7 +20,7 @@
 #ifndef __HTML_DIAG_H_
 #define __HTML_DIAG_H_
 
-#include "bluefish.h"
+#include "../bluefish.h"
 
 /* these will slowly be replaced by vars in bfwin->session */
 typedef struct {
