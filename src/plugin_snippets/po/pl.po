@@ -4,16 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish gtk2-port\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-12 12:24-0800\n"
+"POT-Creation-Date: 2011-03-20 18:13+0100\n"
 "PO-Revision-Date: 2011-01-30 23:28+0100\n"
 "Last-Translator: Quick-Master SI <dawajpoczte@gmail.com>\n"
 "Language-Team: None\n"
-"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
+"Language: pl\n"
 
 #: src/plugin_snippets/snippets_gui.c:407
 msgid "Click the right mouse button to add, edit or delete snippets."
@@ -47,12 +47,12 @@ msgstr "Ustaw skrót klawiszowy"
 #: src/plugin_snippets/snippets_gui.c:797
 #, fuzzy
 msgid "Snippets menu"
-msgstr "/Widok/Meny skrawków"
+msgstr "Meny skrawków"
 
 #: src/plugin_snippets/snippets_gui.c:798
 #, fuzzy
 msgid "_New Snippet"
-msgstr "/Nowy skrawek"
+msgstr "Nowy skrawek"
 
 #: src/plugin_snippets/snippets_gui.c:798
 #: src/plugin_snippets/snippets_wizard.c:756
@@ -62,67 +62,64 @@ msgstr "Nowy skrawek"
 #: src/plugin_snippets/snippets_gui.c:799
 #, fuzzy
 msgid "_Edit Snippet"
-msgstr "/Edytuj skrawek"
+msgstr "Edytuj skrawek"
 
 #: src/plugin_snippets/snippets_gui.c:799
 #, fuzzy
 msgid "Edit snippet"
-msgstr "/Edytuj skrawek"
+msgstr "Edytuj skrawek"
 
 #: src/plugin_snippets/snippets_gui.c:800
 #, fuzzy
 msgid "_Delete Snippet"
-msgstr "/Usuń skrawek"
+msgstr "Usuń skrawek"
 
 #: src/plugin_snippets/snippets_gui.c:800
 #, fuzzy
 msgid "Delete snippet"
-msgstr "/Usuń skrawek"
+msgstr "Usuń skrawek"
 
 #: src/plugin_snippets/snippets_gui.c:801
 #, fuzzy
 msgid "Delete _Branch"
-msgstr "/Usuń gałąź"
+msgstr "Usuń gałąź"
 
 #: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
 msgid "Delete branch"
-msgstr "/Usuń gałąź"
+msgstr "Usuń gałąź"
 
 #: src/plugin_snippets/snippets_gui.c:802
 #, fuzzy
 msgid "Set Snippet _Accelerator"
-msgstr "/Ustaw skrót do skrawka"
+msgstr "Ustaw skrót do skrawka"
 
 #: src/plugin_snippets/snippets_gui.c:802
 #, fuzzy
 msgid "Set snippet accelerator"
-msgstr "/Ustaw skrót do skrawka"
+msgstr "Ustaw skrót do skrawka"
 
 #: src/plugin_snippets/snippets_gui.c:804
 #, fuzzy
 msgid "Ex_pand All"
-msgstr "/Rozwiń wszystkie"
+msgstr "Rozwiń wszystkie"
 
 #: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
 msgid "Expand all"
-msgstr "/Rozwiń wszystkie"
+msgstr "Rozwiń wszystkie"
 
 #: src/plugin_snippets/snippets_gui.c:805
 #, fuzzy
 msgid "_Collapse All"
-msgstr "/Zwiń wszystkie"
+msgstr "Zwiń wszystkie"
 
 #: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
 msgid "Collapse all"
-msgstr "/Zwiń wszystkie"
+msgstr "Zwiń wszystkie"
 
 #: src/plugin_snippets/snippets_gui.c:806
 #, fuzzy
 msgid "E_xport"
-msgstr "/Eksportuj"
+msgstr "Eksportuj"
 
 #: src/plugin_snippets/snippets_gui.c:806
 #, fuzzy
@@ -132,7 +129,7 @@ msgstr "skrawki"
 #: src/plugin_snippets/snippets_gui.c:807
 #, fuzzy
 msgid "I_mport"
-msgstr "/Importuj"
+msgstr "Importuj"
 
 #: src/plugin_snippets/snippets_gui.c:807
 #, fuzzy
@@ -142,27 +139,26 @@ msgstr "skrawki"
 #: src/plugin_snippets/snippets_gui.c:811
 #, fuzzy
 msgid "_Show as menu"
-msgstr "/Pokaż jako menu"
+msgstr "Pokaż jako menu"
 
 #: src/plugin_snippets/snippets_gui.c:811
 #, fuzzy
 msgid "Show snippets menu"
-msgstr "/Pokaż jako menu"
+msgstr "Pokaż jako menu"
 
 #: src/plugin_snippets/snippets_gui.c:813
-#, fuzzy
 msgid "Snippets Menu"
-msgstr "/Widok/Meny skrawków"
+msgstr "Meny skrawków"
 
-#: src/plugin_snippets/snippets_leaf_insert.c:63
+#: src/plugin_snippets/snippets_leaf_insert.c:64
 msgid "[cursor position or selection]"
 msgstr "[pozycja kursora lub zaznaczenie]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:156
+#: src/plugin_snippets/snippets_leaf_snr.c:157
 msgid "Search for: '"
 msgstr "Szukaj: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:156
+#: src/plugin_snippets/snippets_leaf_snr.c:157
 msgid "', replace with: '"
 msgstr "', zastąp: '"
 
@@ -257,11 +253,11 @@ msgstr ""
 
 #: src/plugin_snippets/snippets_wizard.c:346
 msgid "<i>Before</i> text"
-msgstr "<i>Przed</i> tekstem"
+msgstr "i> tekstem"
 
 #: src/plugin_snippets/snippets_wizard.c:356
 msgid "<i>After</i> text"
-msgstr "<i>Za</i> tekście"
+msgstr "i> tekście"
 
 #: src/plugin_snippets/snippets_wizard.c:364
 msgid "Number"

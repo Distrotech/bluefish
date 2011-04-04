@@ -5,16 +5,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish-unstable 1.3.8\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-12 12:24-0800\n"
+"POT-Creation-Date: 2011-03-20 18:13+0100\n"
 "PO-Revision-Date: 2009-10-11 19:12+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech translators <diskuze@lists.l10n.cz>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Poedit-Language: Czech\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -50,12 +50,12 @@ msgstr "Nastavení klávesové zkratky"
 #: src/plugin_snippets/snippets_gui.c:797
 #, fuzzy
 msgid "Snippets menu"
-msgstr "/Zobrazit/Nabídka úryvků"
+msgstr "Nabídka úryvků"
 
 #: src/plugin_snippets/snippets_gui.c:798
 #, fuzzy
 msgid "_New Snippet"
-msgstr "/_Nový úryvek"
+msgstr "_Nový úryvek"
 
 #: src/plugin_snippets/snippets_gui.c:798
 #: src/plugin_snippets/snippets_wizard.c:756
@@ -65,67 +65,64 @@ msgstr "Nový úryvek"
 #: src/plugin_snippets/snippets_gui.c:799
 #, fuzzy
 msgid "_Edit Snippet"
-msgstr "/_Upravit úryvek"
+msgstr "_Upravit úryvek"
 
 #: src/plugin_snippets/snippets_gui.c:799
 #, fuzzy
 msgid "Edit snippet"
-msgstr "/_Upravit úryvek"
+msgstr "_Upravit úryvek"
 
 #: src/plugin_snippets/snippets_gui.c:800
 #, fuzzy
 msgid "_Delete Snippet"
-msgstr "/_Smazat úryvek"
+msgstr "_Smazat úryvek"
 
 #: src/plugin_snippets/snippets_gui.c:800
 #, fuzzy
 msgid "Delete snippet"
-msgstr "/_Smazat úryvek"
+msgstr "_Smazat úryvek"
 
 #: src/plugin_snippets/snippets_gui.c:801
 #, fuzzy
 msgid "Delete _Branch"
-msgstr "/Smazat větev"
+msgstr "Smazat větev"
 
 #: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
 msgid "Delete branch"
-msgstr "/Smazat větev"
+msgstr "Smazat větev"
 
 #: src/plugin_snippets/snippets_gui.c:802
 #, fuzzy
 msgid "Set Snippet _Accelerator"
-msgstr "/Nastavit klávesovou zkratku"
+msgstr "Nastavit klávesovou zkratku"
 
 #: src/plugin_snippets/snippets_gui.c:802
 #, fuzzy
 msgid "Set snippet accelerator"
-msgstr "/Nastavit klávesovou zkratku"
+msgstr "Nastavit klávesovou zkratku"
 
 #: src/plugin_snippets/snippets_gui.c:804
 #, fuzzy
 msgid "Ex_pand All"
-msgstr "/Rozbalit vše"
+msgstr "Rozbalit vše"
 
 #: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
 msgid "Expand all"
-msgstr "/Rozbalit vše"
+msgstr "Rozbalit vše"
 
 #: src/plugin_snippets/snippets_gui.c:805
 #, fuzzy
 msgid "_Collapse All"
-msgstr "/Sbalit vše"
+msgstr "Sbalit vše"
 
 #: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
 msgid "Collapse all"
-msgstr "/Sbalit vše"
+msgstr "Sbalit vše"
 
 #: src/plugin_snippets/snippets_gui.c:806
 #, fuzzy
 msgid "E_xport"
-msgstr "/Exportovat"
+msgstr "Exportovat"
 
 #: src/plugin_snippets/snippets_gui.c:806
 #, fuzzy
@@ -135,7 +132,7 @@ msgstr "úryvek"
 #: src/plugin_snippets/snippets_gui.c:807
 #, fuzzy
 msgid "I_mport"
-msgstr "/Importovat"
+msgstr "Importovat"
 
 #: src/plugin_snippets/snippets_gui.c:807
 #, fuzzy
@@ -145,27 +142,26 @@ msgstr "úryvek"
 #: src/plugin_snippets/snippets_gui.c:811
 #, fuzzy
 msgid "_Show as menu"
-msgstr "/Zobrazit jako nabídku"
+msgstr "Zobrazit jako nabídku"
 
 #: src/plugin_snippets/snippets_gui.c:811
 #, fuzzy
 msgid "Show snippets menu"
-msgstr "/Zobrazit jako nabídku"
+msgstr "Zobrazit jako nabídku"
 
 #: src/plugin_snippets/snippets_gui.c:813
-#, fuzzy
 msgid "Snippets Menu"
-msgstr "/Zobrazit/Nabídka úryvků"
+msgstr "Nabídka úryvků"
 
-#: src/plugin_snippets/snippets_leaf_insert.c:63
+#: src/plugin_snippets/snippets_leaf_insert.c:64
 msgid "[cursor position or selection]"
 msgstr "[umístění kurzoru nebo výběr]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:156
+#: src/plugin_snippets/snippets_leaf_snr.c:157
 msgid "Search for: '"
 msgstr "Hledat: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:156
+#: src/plugin_snippets/snippets_leaf_snr.c:157
 msgid "', replace with: '"
 msgstr "', nahradit: '"
 
