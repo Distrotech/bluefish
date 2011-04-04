@@ -119,28 +119,27 @@ gtk_mount_operation_class_init (GtkMountOperationClass *klass)
   mount_op_class->ask_password = gtk_mount_operation_ask_password;
   mount_op_class->ask_question = gtk_mount_operation_ask_question;
 
-  /* These shouldn't be translatable, TODO */
   g_object_class_install_property (object_class,
                                    PROP_PARENT,
                                    g_param_spec_object ("parent",
-                                                        _("Parent"),
-                                                        _("The parent window"),
+                                                        "Parent",
+                                                        "The parent window",
                                                         GTK_TYPE_WINDOW,
                                                         GTK_PARAM_READWRITE));
 
   g_object_class_install_property (object_class,
                                    PROP_IS_SHOWING,
                                    g_param_spec_boolean ("is-showing",
-                                                         _("Is Showing"),
-                                                         _("Are we showing a dialog"),
+                                                         "Is Showing",
+                                                         "Are we showing a dialog",
                                                          FALSE,
                                                          GTK_PARAM_READABLE));
 
   g_object_class_install_property (object_class,
                                    PROP_SCREEN,
                                    g_param_spec_object ("screen",
-                                                        _("Screen"),
-                                                        _("The screen where this window will be displayed."),
+                                                        "Screen",
+                                                        "The screen where this window will be displayed.",
                                                         GDK_TYPE_SCREEN,
                                                         GTK_PARAM_READWRITE));
 }
