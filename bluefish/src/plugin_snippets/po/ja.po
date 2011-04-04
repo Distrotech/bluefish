@@ -7,16 +7,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.3\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-12 12:24-0800\n"
+"POT-Creation-Date: 2011-03-20 18:13+0100\n"
 "PO-Revision-Date: 2010-01-22 23:30+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "X-Poedit-Basepath: /factory/ja-po/bluefish/bluefish\n"
 
 #: src/plugin_snippets/snippets_gui.c:407
@@ -53,12 +53,12 @@ msgstr "ショートカットキーを設定"
 #: src/plugin_snippets/snippets_gui.c:797
 #, fuzzy
 msgid "Snippets menu"
-msgstr "/表示/スニペットメニュー"
+msgstr "スニペットメニュー"
 
 #: src/plugin_snippets/snippets_gui.c:798
 #, fuzzy
 msgid "_New Snippet"
-msgstr "/新規スニペット(_N)"
+msgstr "新規スニペット(_N)"
 
 #: src/plugin_snippets/snippets_gui.c:798
 #: src/plugin_snippets/snippets_wizard.c:756
@@ -68,67 +68,64 @@ msgstr "新規スニペット"
 #: src/plugin_snippets/snippets_gui.c:799
 #, fuzzy
 msgid "_Edit Snippet"
-msgstr "/スニペットを編集(_E)"
+msgstr "スニペットを編集(_E)"
 
 #: src/plugin_snippets/snippets_gui.c:799
 #, fuzzy
 msgid "Edit snippet"
-msgstr "/スニペットを編集(_E)"
+msgstr "スニペットを編集(_E)"
 
 #: src/plugin_snippets/snippets_gui.c:800
 #, fuzzy
 msgid "_Delete Snippet"
-msgstr "/スニペットを削除(_D)"
+msgstr "スニペットを削除(_D)"
 
 #: src/plugin_snippets/snippets_gui.c:800
 #, fuzzy
 msgid "Delete snippet"
-msgstr "/スニペットを削除(_D)"
+msgstr "スニペットを削除(_D)"
 
 #: src/plugin_snippets/snippets_gui.c:801
 #, fuzzy
 msgid "Delete _Branch"
-msgstr "/ブランチを削除"
+msgstr "ブランチを削除"
 
 #: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
 msgid "Delete branch"
-msgstr "/ブランチを削除"
+msgstr "ブランチを削除"
 
 #: src/plugin_snippets/snippets_gui.c:802
 #, fuzzy
 msgid "Set Snippet _Accelerator"
-msgstr "/スニペットのショートカットキーを設定(_A)"
+msgstr "スニペットのショートカットキーを設定(_A)"
 
 #: src/plugin_snippets/snippets_gui.c:802
 #, fuzzy
 msgid "Set snippet accelerator"
-msgstr "/スニペットのショートカットキーを設定(_A)"
+msgstr "スニペットのショートカットキーを設定(_A)"
 
 #: src/plugin_snippets/snippets_gui.c:804
 #, fuzzy
 msgid "Ex_pand All"
-msgstr "/すべて展開"
+msgstr "すべて展開"
 
 #: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
 msgid "Expand all"
-msgstr "/すべて展開"
+msgstr "すべて展開"
 
 #: src/plugin_snippets/snippets_gui.c:805
 #, fuzzy
 msgid "_Collapse All"
-msgstr "/全て畳む"
+msgstr "全て畳む"
 
 #: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
 msgid "Collapse all"
-msgstr "/全て畳む"
+msgstr "全て畳む"
 
 #: src/plugin_snippets/snippets_gui.c:806
 #, fuzzy
 msgid "E_xport"
-msgstr "/エクスポート"
+msgstr "エクスポート"
 
 #: src/plugin_snippets/snippets_gui.c:806
 #, fuzzy
@@ -138,7 +135,7 @@ msgstr "スニペット"
 #: src/plugin_snippets/snippets_gui.c:807
 #, fuzzy
 msgid "I_mport"
-msgstr "/インポート"
+msgstr "インポート"
 
 #: src/plugin_snippets/snippets_gui.c:807
 #, fuzzy
@@ -148,27 +145,26 @@ msgstr "スニペット"
 #: src/plugin_snippets/snippets_gui.c:811
 #, fuzzy
 msgid "_Show as menu"
-msgstr "/メニューに表示"
+msgstr "メニューに表示"
 
 #: src/plugin_snippets/snippets_gui.c:811
 #, fuzzy
 msgid "Show snippets menu"
-msgstr "/メニューに表示"
+msgstr "メニューに表示"
 
 #: src/plugin_snippets/snippets_gui.c:813
-#, fuzzy
 msgid "Snippets Menu"
-msgstr "/表示/スニペットメニュー"
+msgstr "スニペットメニュー"
 
-#: src/plugin_snippets/snippets_leaf_insert.c:63
+#: src/plugin_snippets/snippets_leaf_insert.c:64
 msgid "[cursor position or selection]"
 msgstr "[カーソル位置 または 選択範囲]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:156
+#: src/plugin_snippets/snippets_leaf_snr.c:157
 msgid "Search for: '"
 msgstr "検索する文字列: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:156
+#: src/plugin_snippets/snippets_leaf_snr.c:157
 msgid "', replace with: '"
 msgstr "', 置換文字列: '"
 
@@ -236,7 +232,7 @@ msgstr "大文字小文字を区別する(_M)"
 
 #: src/plugin_snippets/snippets_wizard.c:161
 msgid "Only match if case (upper/lower) is identical."
-msgstr "大文字/小文字が一致した場合のみ"
+msgstr "小文字が一致した場合のみ"
 
 #: src/plugin_snippets/snippets_wizard.c:164
 msgid "_Use escape chars"
@@ -263,11 +259,11 @@ msgstr ""
 
 #: src/plugin_snippets/snippets_wizard.c:346
 msgid "<i>Before</i> text"
-msgstr "テキストの<i>前</i>"
+msgstr "i>"
 
 #: src/plugin_snippets/snippets_wizard.c:356
 msgid "<i>After</i> text"
-msgstr "文字列<i>の後</i>"
+msgstr "i>"
 
 #: src/plugin_snippets/snippets_wizard.c:364
 msgid "Number"

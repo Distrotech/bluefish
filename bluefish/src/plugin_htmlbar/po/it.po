@@ -7,16 +7,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.3\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-12 12:24-0800\n"
+"POT-Creation-Date: 2011-03-20 18:13+0100\n"
 "PO-Revision-Date: 2010-12-31 08:56+0100\n"
 "Last-Translator: Roberto Bellingeri <bellingeri@netguru.it>\n"
 "Language-Team: \n"
-"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
 
 #. _DM_ Alert box asking if user would like to change request from add to
@@ -53,8 +53,8 @@ msgstr "_Selettore:"
 msgid "_Property:"
 msgstr "_Proprietà:"
 
-#: src/plugin_htmlbar/html2.c:682 src/plugin_htmlbar/html_form.c:343
-#: src/plugin_htmlbar/html_form.c:492 src/plugin_htmlbar/html_form.c:587
+#: src/plugin_htmlbar/html2.c:682 src/plugin_htmlbar/html_form.c:375
+#: src/plugin_htmlbar/html_form.c:540 src/plugin_htmlbar/html_form.c:635
 msgid "_Value:"
 msgstr "_Valore:"
 
@@ -83,7 +83,7 @@ msgid " _Delete "
 msgstr " _Cancella "
 
 #: src/plugin_htmlbar/html2.c:977 src/plugin_htmlbar/html2.c:1014
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1510
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1534
 msgid "_Style..."
 msgstr "_Stile..."
 
@@ -99,1501 +99,1393 @@ msgstr "Modifica i colori"
 msgid "Edit tag"
 msgstr "Modifica il tag"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1229
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1253
 msgid "T_ags"
-msgstr "/_Tag"
+msgstr "_Tag"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1230
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1254
 msgid "_Headings"
-msgstr "Titolo"
+msgstr "_Intitolazioni"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1231
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1255
 msgid "H_1"
-msgstr ""
+msgstr "H_1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1231
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1255
 #, fuzzy
 msgid "Insert H1 tag"
 msgstr "Inserire un'immagine"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1233
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1257
 msgid "H_2"
-msgstr ""
+msgstr "H_2"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1233
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1257
 #, fuzzy
 msgid "Insert H2 tag"
 msgstr "Inserire un'immagine"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1235
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1259
 msgid "H_3"
-msgstr ""
+msgstr "H_3"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1235
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1259
 #, fuzzy
 msgid "Insert H3 tag"
 msgstr "Inserire un'immagine"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1237
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1261
 msgid "H_4"
-msgstr ""
+msgstr "H_4"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1237
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1261
 #, fuzzy
 msgid "Insert H4 tag"
 msgstr "Inserire un'immagine"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1239
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1263
 msgid "H_5"
-msgstr ""
+msgstr "H_5"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1239
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1263
 #, fuzzy
 msgid "Insert H5 tag"
 msgstr "Inserire un'immagine"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1241
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1265
 msgid "H_6"
-msgstr ""
+msgstr "H_6"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1241
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1265
 #, fuzzy
 msgid "Insert H6 tag"
 msgstr "Inserire un'immagine"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1243
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1267
 msgid "_Special"
-msgstr "/Tag/_Speciali"
+msgstr "_Speciali"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1244
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1268
 msgid "_Accent"
-msgstr "_Accettare:"
+msgstr "_Lettere accentate"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1245
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1269
 msgid "_Uppercase"
-msgstr "Maiuscole"
+msgstr "_Maiuscolo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1246
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1278
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1270
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1302
 msgid "_A-I"
-msgstr ""
+msgstr "_a-i"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1247
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1271
 msgid "A grave À"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1248
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1272
 msgid "A acute Á"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1249
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1273
 msgid "A circumflex Â"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1250
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1274
 msgid "A tilde Ã"
-msgstr ""
+msgstr "A maiuscola con tilde Ã"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1251
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1275
 msgid "AE ligature Æ"
-msgstr ""
+msgstr "AE maiuscola Æ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1252
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1276
 msgid "A diaeresis Ä"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1253
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1277
 msgid "A ring Å"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1254
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1278
 msgid "C cedilla Ç"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1255
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1279
 msgid "E grave È"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1256
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1280
 msgid "E acute É"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1257
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1281
 msgid "E circumflex Ê"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1258
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1282
 msgid "E diaeresis Ë"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1259
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1283
 msgid "I grave Ì"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1260
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1284
 msgid "I acute Í"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1261
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1285
 msgid "I circumflex Î"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1262
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1286
 msgid "I diaeresis Ï"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1263
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1295
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1287
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1319
 msgid "_J-Z"
-msgstr ""
+msgstr "_j-z"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1264
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1288
 msgid "N tilde Ñ"
-msgstr ""
+msgstr "N maiuscola con tilde Ñ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1265
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1289
 msgid "O grave Ò"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1266
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1290
 msgid "O acute Ó"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1267
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1291
 msgid "O circumflex Ô"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1268
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1292
 msgid "OE ligature Œ"
-msgstr ""
+msgstr "OE maiuscola Œ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1269
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1293
 msgid "O tilde Õ"
-msgstr ""
+msgstr "O maiuscola con tilde Õ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1270
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1294
 msgid "O diaeresis Ö"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1271
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1295
 msgid "O slash Ø"
-msgstr ""
+msgstr "O maiuscola sbarrata Ø"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1272
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1296
 msgid "U grave Ù"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1273
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1297
 msgid "U acute Ú"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1274
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1298
 msgid "U circumflex Û"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1275
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1299
 msgid "U diaeresis Ü"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1276
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1300
 msgid "Y acute Ý"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1277
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1301
 msgid "_Lowercase"
-msgstr "Minuscole"
+msgstr "Minusc_ole"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1279
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1303
 msgid "a grave à"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1280
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1304
 msgid "a acute á"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1281
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1305
 msgid "a circumflex â"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1282
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1306
 msgid "a tilde ã"
-msgstr ""
+msgstr "a minuscola con tilde ã"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1283
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1307
 msgid "a ring å"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1284
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1308
 msgid "ae ligature æ"
-msgstr ""
+msgstr "ae minuscola æ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1285
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1309
 msgid "a diaeresis ä"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1286
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1310
 msgid "c cedilla ç"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1287
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1311
 msgid "e grave è"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1288
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1312
 msgid "e acute é"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1289
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1313
 msgid "e circumflex ê"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1290
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1314
 msgid "e diaeresis ë"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1291
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1315
 msgid "i grave ì"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1292
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1316
 msgid "i acute í"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1293
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1317
 msgid "i circumflex î"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1294
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1318
 msgid "i diaeresis ï"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1296
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1320
 msgid "n tilde ñ"
-msgstr ""
+msgstr "n minuscola con tilde ñ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1297
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1321
 msgid "o grave ò"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1298
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1322
 msgid "o acute ó"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1299
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1323
 msgid "oe ligature œ"
-msgstr ""
+msgstr "oe minuscola œ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1300
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1324
 msgid "o circumflex ô"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1301
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1325
 msgid "o tilde õ"
-msgstr ""
+msgstr "o minuscola con tilde õ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1302
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1326
 msgid "o diaeresis ö"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1303
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1327
 msgid "o slash ø"
-msgstr ""
+msgstr "o minuscola con barra ø"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1304
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1328
 msgid "u grave ù"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1305
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1329
 msgid "u acute ú"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1306
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1330
 msgid "u circumflex û"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1307
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1331
 msgid "u diaeresis ü"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1308
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1332
 msgid "y acute ý"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1309
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1333
 msgid "y diaeresis ÿ"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1310
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1334
 msgid "_Acute ´"
-msgstr ""
+msgstr "_accento acuto ´"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1311
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1335
 msgid "_Cedilla ¸"
-msgstr ""
+msgstr "cediglia ¸"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1312
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1336
 msgid "U_mlaut ¨"
-msgstr ""
+msgstr "u_mlaut = dieresi ¨"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1313
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1337
 msgid "_Currency"
-msgstr ""
+msgstr "_Valuta"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1314
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1338
 msgid "_Cent sign ¢"
-msgstr ""
+msgstr "_Centesimo ¢"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1315
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1339
 msgid "_Pound sterling £"
-msgstr "/Tag/Speciali/Valuta/_Sterlina £"
+msgstr "_Sterlina £"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1316
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1340
 msgid "C_urrency sign ¤"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1317
-msgid "_Yen sign ¥"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1318
-msgid "_Euro €"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1319
-#, fuzzy
-msgid "_Math-Science"
-msgstr "/Tag/Speciali/Ma_tematica-Scienze"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1320
-msgid "Logical _not sign ¬"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1321
-#, fuzzy
-msgid "_Multiplication sign ×"
-msgstr "/Tag/Speciali/Matematica-Scienze/Segno di _moltiplicazione ×"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1322
-msgid "_Division sign ÷"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1324
-msgid "_Plus-minus sign ±"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1325
-msgid "_Less-than sign <"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1327
-msgid "_Greater-than sign >"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1329
-#, fuzzy
-msgid "Superscript _1 ¹"
-msgstr "Apice"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1330
-#, fuzzy
-msgid "Superscript _2 ²"
-msgstr "Apice"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1331
-#, fuzzy
-msgid "Superscript _3 ³"
-msgstr "Apice"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1332
-msgid "One _quarter ¼"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1333
-msgid "One _half ½"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1334
-msgid "_Three quarters ¾"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1336
-msgid "Deg_ree sign °"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1337
-msgid "_Non Latin"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1338
-#, fuzzy
-msgid "_ETH (Icelandic) Ð"
-msgstr "/Tag/Speciali/Non latini/_ETH (Islandese) Ð"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1339
-#, fuzzy
-msgid "_THORN (Icelandic) Þ"
-msgstr "/Tag/Speciali/Non latini/_THORN (Islandese) Þ"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1340
-#, fuzzy
-msgid "et_h (Icelandic) ð"
-msgstr "/Tag/Speciali/Non latini/et_h (Islandese) ð"
-
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1341
-msgid "th_orn ÿ"
-msgstr ""
+msgid "_Yen sign ¥"
+msgstr "_Yen ¥"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1342
-msgid "Sharp _s ß"
-msgstr ""
+msgid "_Euro €"
+msgstr "_Euro €"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1343
-msgid "_Micro sign µ"
-msgstr ""
+msgid "_Math-Science"
+msgstr "Ma_tematica-Scienze"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1344
-msgid "_Other"
-msgstr ""
+msgid "Logical _not sign ¬"
+msgstr "Operatore _not ¬"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1345
-#, fuzzy
-msgid "_Non-breaking space"
-msgstr "Spazio non interrompibile"
+msgid "_Multiplication sign ×"
+msgstr "Segno di _moltiplicazione ×"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1346
-#, fuzzy
-msgid "_Section sign §"
-msgstr "/Tag/Speciali/Altri/_Simbolo di sezione §"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1347
-#, fuzzy
-msgid "_Copyright sign ©"
-msgstr "/Tag/Speciali/Altri/_Copyright ©"
+msgid "_Division sign ÷"
+msgstr "Segno di _divisione ÷"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1348
-#, fuzzy
-msgid "_Left angle quotes «"
-msgstr "/Tag/Speciali/Altri/Simbolo virgolette _sinistro «"
+msgid "_Plus-minus sign ±"
+msgstr "Simbolo _più-o-meno ±"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1350
-#, fuzzy
-msgid "_Right angle quotes »"
-msgstr "/Tag/Speciali/Altri/Simbolo virgolette _destro »"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1349
+msgid "_Less-than sign <"
+msgstr "Simbolo mi_nore di"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1352
-#, fuzzy
-msgid "Registered _trademark ®"
-msgstr "/Tag/Speciali/Altri/Simbolo di marchio regis_trato ®"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1351
+msgid "_Greater-than sign >"
+msgstr "Simbolo ma_ggiore di"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1353
-#, fuzzy
-msgid "Inverted _exclamation ¡"
-msgstr "/Tag/Speciali/Altri/Punto _esclamativo capovolto ¡"
+msgid "Superscript _1 ¹"
+msgstr "Esponente _1 ¹"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1354
+msgid "Superscript _2 ²"
+msgstr "Esponente _2 ²"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1355
-#, fuzzy
-msgid "Inverted _question mark ¿"
-msgstr "/Tag/Speciali/Altri/Punto _interrogativo capovolto ¿"
+msgid "Superscript _3 ³"
+msgstr "Esponente _3 ³"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1356
+msgid "One _quarter ¼"
+msgstr "Frazione un _quarto ¼"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1357
-#, fuzzy
-msgid "_Feminine ordinal ª"
-msgstr "/Tag/Speciali/Altri/Indicatore ordinale _femminile ª"
+msgid "One _half ½"
+msgstr "Frazione un me_zzo ½"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1358
-#, fuzzy
-msgid "_Masculine ordinal º"
-msgstr "/Tag/Speciali/Altri/Indicatore ordinale _maschile º"
+msgid "_Three quarters ¾"
+msgstr "Frazione _tre quarti ¾"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1360
-#, fuzzy
-msgid "_Pilcrow (paragraph sign) ¶"
-msgstr "/Tag/Speciali/Altri/Simbolo di _paragrafo ¶"
+msgid "Deg_ree sign °"
+msgstr "Simbolo di g_rado °"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1361
+msgid "_Non Latin"
+msgstr "_Non latini"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1362
-msgid "_Broken bar ¦"
-msgstr ""
+msgid "_ETH (Icelandic) Ð"
+msgstr "_ETH (Islandese) Ð"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1363
-msgid "Soft _hyphen -"
-msgstr ""
+msgid "_THORN (Icelandic) Þ"
+msgstr "_THORN (Islandese) Þ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1364
-#, fuzzy
-msgid "Spa_cing macron ¯"
-msgstr "/Tag/Speciali/Altri/Ma_cron = simbolo di vocale lunga ¯"
+msgid "et_h (Icelandic) ð"
+msgstr "et_h (Islandese) ð"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1365
+msgid "th_orn ÿ"
+msgstr "th_orn ÿ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1366
-msgid "Middle _dot ·"
-msgstr ""
+msgid "Sharp _s ß"
+msgstr "Sharp _s ß"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1367
-#, fuzzy
+msgid "_Micro sign µ"
+msgstr "Simbolo _micro µ"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1368
+msgid "_Other"
+msgstr "_Altri"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1369
+msgid "_Non-breaking space"
+msgstr "Spazio _non separabile"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1370
+msgid "_Section sign §"
+msgstr "_Simbolo di sezione §"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1371
+msgid "_Copyright sign ©"
+msgstr "_Copyright ©"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1372
+msgid "_Left angle quotes «"
+msgstr "Simbolo virgolette _sinistro «"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1374
+msgid "_Right angle quotes »"
+msgstr "Simbolo virgolette _destro »"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1376
+msgid "Registered _trademark ®"
+msgstr "Simbolo di marchio regis_trato ®"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1377
+msgid "Inverted _exclamation ¡"
+msgstr "Punto _esclamativo capovolto ¡"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1379
+msgid "Inverted _question mark ¿"
+msgstr "Punto _interrogativo capovolto ¿"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1381
+msgid "_Feminine ordinal ª"
+msgstr "Indicatore ordinale _femminile ª"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1382
+msgid "_Masculine ordinal º"
+msgstr "Indicatore ordinale _maschile º"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1384
+msgid "_Pilcrow (paragraph sign) ¶"
+msgstr "Simbolo di _paragrafo ¶"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1386
+msgid "_Broken bar ¦"
+msgstr "_Barra verticale spezzata ¦"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1387
+msgid "Soft _hyphen -"
+msgstr "_Trattino -"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1388
+msgid "Spa_cing macron ¯"
+msgstr "Ma_cron = simbolo di vocale lunga ¯"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1390
+msgid "Middle _dot ·"
+msgstr "Punto centra_le ·"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1391
 msgid "F_ormat by context"
-msgstr "/Tag/Formattazione _contestuale"
+msgstr "Formattazione _contestuale"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1368
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1392
 msgid "_Strong"
-msgstr "Forte enfasi"
+msgstr "En_fasi rafforzata"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1368
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1392
 msgid "Strong"
 msgstr "Forte enfasi"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1370
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1394
 msgid "_Emphasis"
-msgstr "Enfasi"
+msgstr "_Enfasi"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1370
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1394
 msgid "Emphasis"
 msgstr "Enfasi"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1372
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1444
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1396
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1468
 msgid "_Definition"
-msgstr "Definizione"
+msgstr "_Definizione"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1372
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1444
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1396
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1468
 msgid "Definition"
 msgstr "Definizione"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1374
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1398
 msgid "_Code"
-msgstr "Codice"
+msgstr "C_odice"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1374
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1398
 msgid "Code"
 msgstr "Codice"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1375
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1399
 msgid "Sa_mple"
-msgstr "Esempio"
+msgstr "Ese_mpio"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1375
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1399
 msgid "Sample"
 msgstr "Esempio"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1376
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1400
 msgid "_Keyboard"
-msgstr "Tastiera"
+msgstr "_Tastiera"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1376
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1400
 msgid "Keyboard"
 msgstr "Tastiera"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1378
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1402
 msgid "_Variable"
-msgstr "Variabile"
+msgstr "_Variabile"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1378
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1402
 msgid "Variable"
 msgstr "Variabile"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1380
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1404
 msgid "Ci_tation"
-msgstr "Citazione"
+msgstr "Cita_zione"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1380
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1404
 msgid "Citation"
 msgstr "Citazione"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1382
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1406
 msgid "_Abbreviation"
-msgstr "Abbreviazione"
+msgstr "_Abbreviazione"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1382
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1406
 msgid "Abbreviation"
 msgstr "Abbreviazione"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1384
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1408
 msgid "Ac_ronym"
-msgstr "Acronimo"
+msgstr "Ac_ronimo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1384
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1408
 msgid "Acronym"
 msgstr "Acronimo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1386
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1410
 msgid "_Insert"
-msgstr "Inserimento"
+msgstr "_Inserisci"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1386
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1410
 msgid "Insert"
 msgstr "Inserimento"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1387
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1411
 msgid "De_lete"
-msgstr "Cancella"
+msgstr "_Cancella"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1387
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1411
 msgid "Delete"
 msgstr "Cancella"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1388
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1412
 msgid "_Format by layout"
-msgstr "/Tag/_Formattazione in base al layout"
+msgstr "_Formattazione in base al layout"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1389
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1413
 msgid "_Bold"
-msgstr "Grassetto"
+msgstr "_Grassetto"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1389
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1413
 msgid "Bold"
 msgstr "Grassetto"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1391
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1415
 msgid "_Italic"
-msgstr "Corsivo"
+msgstr "_Corsivo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1391
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1415
 msgid "Italic"
 msgstr "Corsivo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1393
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1417
 msgid "_Underline"
-msgstr ""
+msgstr "_Sottolineato"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1393
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1417
 msgid "Underline"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1395
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1419
 msgid "_Strikeout"
-msgstr "Script"
+msgstr "_Barrato"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1395
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1419
 #, fuzzy
 msgid "Strikeout"
 msgstr "Script"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1397
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1421
 msgid "Sm_all"
-msgstr ""
+msgstr "_Piccolo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1397
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1421
 msgid "Small"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1398
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1422
 msgid "Bi_g"
-msgstr ""
+msgstr "_Grande"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1398
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1422
 msgid "Big"
 msgstr ""
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1399
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1423
 msgid "Format _general"
-msgstr "/Tag/Formattazione _generale"
+msgstr "Formattazione _generale"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1400
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1424
 msgid "_Paragraph"
-msgstr "Paragrafo"
+msgstr "_Paragrafo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1400 src/plugin_htmlbar/html.c:889
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1424 src/plugin_htmlbar/html.c:876
 msgid "Paragraph"
 msgstr "Paragrafo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1402
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1426
 msgid "_Break"
-msgstr "A capo"
+msgstr "_Interruzione di riga"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1402
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1426
 msgid "Break"
 msgstr "A capo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1404
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1428
 msgid "Break clear _all"
-msgstr "A capo e pulisci"
+msgstr "I_nterruzione di riga sotto immagine"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1404
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1428
 msgid "Break and clear"
 msgstr "A capo e pulisci"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1406
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1430
 msgid "_Non-Breaking Space"
-msgstr "Spazio non interrompibile"
+msgstr "_Spazio non interrompibile"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1406
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1430
 msgid "Non-breaking space"
 msgstr "Spazio non interrompibile"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1408
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1432
 msgid "Font Si_ze +1"
-msgstr "Dimensione carattere +1"
+msgstr "Di_mensione carattere +1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1408
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1432
 msgid "Font Size +1"
 msgstr "Dimensione carattere +1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1410
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1434
 msgid "Font _Size -1"
-msgstr "Dimensione carattere -1"
+msgstr "Dime_nsione carattere -1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1410
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1434
 msgid "Font Size -1"
 msgstr "Dimensione carattere -1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1412
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1436
 msgid "Preformatted _Text"
-msgstr "Testo preformattato"
+msgstr "_Testo preformattato"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1412
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1436
 msgid "Preformatted Text"
 msgstr "Testo preformattato"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1414
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1438
 msgid "Su_bscript"
-msgstr "Pedice"
+msgstr "P_edice"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1414
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1438
 msgid "Subscript"
 msgstr "Pedice"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1416
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1440
 msgid "Su_perscript"
-msgstr "Apice"
+msgstr "_Apice"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1416
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1440
 msgid "Superscript"
 msgstr "Apice"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1418
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1442
 msgid "_Center"
-msgstr "Centrato"
+msgstr "_Centrato"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1418
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1442
 msgid "Center"
 msgstr "Centrato"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1420
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1444
 msgid "Align _right"
-msgstr ""
+msgstr "Allineato a _destra"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1420
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1444
 msgid "Right Justify"
 msgstr "Giustifica a destra"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1422
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1423
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1492
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1446
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1447
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
 msgid "_Table"
-msgstr "Tabella"
+msgstr "_Tabella"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1423
-#: src/plugin_htmlbar/html_table.c:76
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1447
+#: src/plugin_htmlbar/html_table.c:84
 msgid "Table"
 msgstr "Tabella"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1425
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1449
 msgid "Table _Row"
-msgstr "Riga tabella"
+msgstr "_Riga Tabella"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1425
-#: src/plugin_htmlbar/html_table.c:208
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1449
+#: src/plugin_htmlbar/html_table.c:218
 msgid "Table Row"
 msgstr "Riga tabella"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1427
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1451
 msgid "Table _Header"
-msgstr "Intestazione tabella"
+msgstr "Int_estazione Tabella"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1427
-#: src/plugin_htmlbar/html_table.c:319
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1451
+#: src/plugin_htmlbar/html_table.c:343
 msgid "Table Header"
 msgstr "Intestazione tabella"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1429
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1453
 msgid "Table _Data"
-msgstr "Dati tabella"
+msgstr "_Dati tabella"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1429
-#: src/plugin_htmlbar/html_table.c:317
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1453
+#: src/plugin_htmlbar/html_table.c:341
 msgid "Table Data"
 msgstr "Dati tabella"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1431
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1455
 msgid "Table _Caption"
-msgstr "Didascalia tabella"
+msgstr "Didas_calia Tabella"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1431
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1455
 msgid "Table Caption"
 msgstr "Didascalia tabella"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1433
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1457
 msgid "_List"
-msgstr " Liste "
+msgstr "E_lenco"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1434
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1458
 msgid "Unordered _List"
-msgstr "Lista non ordinata"
+msgstr "Elenco _non ordinato"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1434
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1458
 msgid "Unordered List"
 msgstr "Lista non ordinata"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1436
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1460
 msgid "_Ordered List"
-msgstr "Lista ordinata"
+msgstr "Elenco _ordinato"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1436
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1460
 msgid "Ordered List"
 msgstr "Lista ordinata"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1438
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1462
 msgid "List Ite_m"
-msgstr "Elemento della lista"
+msgstr "_Voce elenco"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1438
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1462
 msgid "List Item"
 msgstr "Elemento della lista"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1440
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1464
 msgid "De_finition List"
-msgstr "Elenco di definizioni"
+msgstr "E_lenco di definizioni"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1440
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1464
 msgid "Definition List"
 msgstr "Elenco di definizioni"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1442
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1466
 msgid "Definition _Term"
-msgstr "Termine di definizione"
+msgstr "_Termine della definizione"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1442
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1466
 msgid "Definition Term"
 msgstr "Termine di definizione"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1446
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1470
 msgid "Men_u"
-msgstr ""
+msgstr "_Menù"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1446
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1470
 #, fuzzy
 msgid "Menu"
 msgstr "Percorso del menù"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1447
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1471
 msgid "Fo_rm"
-msgstr "/Tag/F_orm"
+msgstr "F_orm"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1448
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1472
 msgid "_Form"
-msgstr "Form"
+msgstr "F_orm"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1448
-#: src/plugin_htmlbar/html_form.c:140
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1472
+#: src/plugin_htmlbar/html_form.c:156
 msgid "Form"
 msgstr "Form"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1449
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1473
 msgid "_Button"
-msgstr "Pulsante"
+msgstr "_Pulsante"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1450
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1474
 msgid "_Input"
-msgstr "Input"
+msgstr "_Input"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1451
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1475
 msgid "_Textarea"
-msgstr "Area di testo"
+msgstr "_Area di testo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1452
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1476
 msgid "_Misc"
-msgstr "Misc"
+msgstr "_Altro"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1453
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1477
 msgid "Insert Generator _META-Tag"
-msgstr "/Tag/Altro/Inserisci generatore di _META-Tag "
+msgstr "Inserisci generatore di _META-Tag "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1455
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1479
 msgid "_Span"
-msgstr "Span"
+msgstr "_Span"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1456
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1480
 msgid "_Div"
-msgstr ""
+msgstr "_Div"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1457
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1481
 msgid "_Link"
-msgstr "Collegamento"
+msgstr "_Link"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1458
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1482
 msgid "S_cript"
-msgstr "Script"
+msgstr "S_cript"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1459
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1483
 msgid "_Anchor"
-msgstr "Ancora Rapida"
+msgstr "_Ancora"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1460
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1484
 msgid "_Image"
-msgstr ""
+msgstr "_Immagine"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1461
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1485
 msgid "_Comment"
-msgstr "Commento"
+msgstr "_Comment"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1461
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1485
 #, fuzzy
 msgid "HTML Comment"
 msgstr "Commento"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1463
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1487
 #, fuzzy
 msgid "Dial_ogs"
 msgstr "Dialogo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1464
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1488
 msgid "_General"
-msgstr "Generale"
+msgstr "_Generale"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1465
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1489
 msgid "_Quickstart..."
-msgstr "Avvio rapido..."
+msgstr "_Quickstart..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1465
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1489
 #, fuzzy
 msgid "Quickstart..."
 msgstr "Avvio rapido..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1467
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1491
 msgid "_Link Header..."
-msgstr "Intestazione tabella..."
+msgstr "L_ink Header..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1467
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1491
 #, fuzzy
 msgid "Link Header..."
 msgstr "Intestazione tabella..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1469
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
 msgid "_Body..."
-msgstr "Corpo..."
+msgstr "_Corpo..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1469
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
 msgid "Body..."
 msgstr "Corpo..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1471
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
 msgid "_Anchor..."
-msgstr ""
+msgstr "_Ancora..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1471
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
 msgid "Anchor / Hyperlink..."
 msgstr "Ancora / Collegamento..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1473
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
 #, fuzzy
 msgid "_E-mail..."
 msgstr "Email..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1473
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
 msgid "E-mail..."
 msgstr "Email..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1475
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
 msgid "_Rule..."
-msgstr "Riga..."
+msgstr "_Riga..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1475
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
 #, fuzzy
 msgid "Horizontal Rule..."
 msgstr "Linea orizzontale"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1477
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
 msgid "_Font..."
-msgstr "Carattere..."
+msgstr "_Carattere..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1477
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
 msgid "Font..."
 msgstr "Carattere..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1479
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
 msgid "Basef_ont..."
-msgstr "Grandezza carattere di base..."
+msgstr "Carattere di ba_se..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1479
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
 #, fuzzy
 msgid "Base font..."
 msgstr "Carattere di base"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1481
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
 msgid "Quick_list..."
-msgstr "Lista veloce..."
+msgstr "_Lista veloce..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1481
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
 msgid "Quick List..."
 msgstr "Lista veloce..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1483
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
 msgid "_Meta..."
-msgstr "Meta"
+msgstr "_Meta..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1484
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1508
 msgid "Embe_d..."
-msgstr "Includi"
+msgstr "Embe_d..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1485
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1509
 msgid "Select _Color..."
-msgstr "Selezione..."
+msgstr "_Seleziona il colore..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1486
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1510
 msgid "Insert _Time..."
-msgstr "Inserisci immagine..."
+msgstr "Inserisci _ora..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1487
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1511
 msgid "Insert _Image..."
-msgstr "Inserisci immagine..."
+msgstr "Inserisci _immagine..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1487
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1511
 msgid "Insert image..."
 msgstr "Inserisci immagine..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1489
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1513
 msgid "Insert T_humbnail..."
-msgstr "Inserisci miniatura..."
+msgstr "Inserisci T_humbnail..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1490
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1514
 msgid "Insert thumbnail..."
 msgstr "Inserisci miniatura..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1517
 msgid "Table _Wizard..."
-msgstr "Autocomposizione tabella..."
+msgstr "_Autocomposizione tabella..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1517
 msgid "Table Wizard..."
 msgstr "Autocomposizione tabella..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1519
 msgid "_Table..."
-msgstr "Tabella..."
+msgstr "_Tabella..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1519
 msgid "Table..."
 msgstr "Tabella..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1521
 msgid "Table _Row..."
-msgstr "Riga tabella..."
+msgstr "_Riga tabella..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1521
 msgid "Table Row..."
 msgstr "Riga tabella..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1523
 msgid "Table _Head..."
-msgstr "Intestazione tabella..."
+msgstr "I_ntestazione tabella..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1523
 #, fuzzy
 msgid "Table Head..."
 msgstr "Intestazione tabella..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1525
 msgid "Table _Data..."
-msgstr "Dati tabella..."
+msgstr "_Dati Tabella..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1525
 msgid "Table Data..."
 msgstr "Dati tabella..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1527
 msgid "_CSS"
-msgstr ""
+msgstr "_CSS"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1504
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1528
 msgid "_Create Style..."
-msgstr "Crea foglio di stile..."
+msgstr "_Crea stile..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1529
 msgid "Create stylesheet..."
 msgstr "Crea foglio di stile..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1531
 msgid "S_pan..."
-msgstr "Span..."
+msgstr "S_pan..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1531
 msgid "Span..."
 msgstr "Span..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1508
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1532
 msgid "_Div..."
-msgstr "Div..."
+msgstr "_Div..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1508
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1532
 msgid "Div..."
 msgstr "Div..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1510
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1534
 #, fuzzy
 msgid "Style..."
 msgstr "_Stile..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1512
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1536
 msgid "_Link to Stylesheet..."
-msgstr "Link al foglio di stile..."
+msgstr "Co_llegamento al foglio di stile..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1513
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1537
 #, fuzzy
 msgid "Link to Stylesheet..."
 msgstr "Link al foglio di stile..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1515
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1539
 msgid "_Frame"
-msgstr "_Frame:"
+msgstr "_Frame"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1540
 msgid "Frame _Wizard..."
-msgstr "Autocomposizione frame..."
+msgstr "_Autocomposizione frame..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1540
 msgid "Frame Wizard..."
 msgstr "Autocomposizione frame..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1542
 msgid "Frame_set..."
-msgstr "Frameset..."
+msgstr "Frame_set..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1542
 msgid "Frameset..."
 msgstr "Frameset..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1544
 msgid "_Frame..."
-msgstr "Frame..."
+msgstr "_Frame..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1544
 msgid "Frame..."
 msgstr "Frame..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1521
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1545
 msgid "F_orm"
-msgstr ""
+msgstr "F_orm"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1522
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1546
 msgid "F_orm..."
-msgstr "Form..."
+msgstr "F_orm..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1522
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1546
 msgid "Form..."
 msgstr "Form..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1523
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1547
 msgid "_Input..."
-msgstr "Testo di input..."
+msgstr "_Input..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1524
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1548
 msgid "Input Buttons..."
-msgstr "Pulsante di input..."
+msgstr "P_ulsante di input..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1524
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1548
 msgid "Input Button..."
 msgstr "Pulsante di input..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1526
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1550
 msgid "Input Text..."
 msgstr "Testo di input..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1528
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
 msgid "Text_area..."
-msgstr "Area di testo..."
+msgstr "_Area di testo..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1528
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
 msgid "Textarea..."
 msgstr "Area di testo..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1530
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1554
 msgid "_Select..."
-msgstr "Selezione..."
+msgstr "_Selezione opzioni..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1530
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1554
 msgid "Select..."
 msgstr "Selezione..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1532
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1556
 msgid "O_ption..."
-msgstr "Opzione..."
+msgstr "Op_zione..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1532
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1556
 msgid "Option..."
 msgstr "Opzione..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1534
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1558
 msgid "Option _Group..."
-msgstr "Gruppo di opzioni..."
+msgstr "_Gruppo di opzioni..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1534
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1558
 msgid "Option group..."
 msgstr "Gruppo di opzioni..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1536
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1560
 msgid "_Button..."
-msgstr "Pulsante..."
+msgstr "_Pulsante..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1536
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1560
 msgid "Button..."
 msgstr "Pulsante..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1538
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1562
 msgid "_Edit tag under cursor..."
-msgstr "/Dialoghi/Modifica tag sotto il cursor_e..."
+msgstr "Modifica tag sotto il cursor_e..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1540
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1564
 #, fuzzy
 msgid "_Multi Thumbnail..."
 msgstr "Miniature multiple..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1540
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1564
 msgid "Multi thumbnail..."
 msgstr "Miniature multiple..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1542 src/plugin_htmlbar/html.c:1865
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1566 src/plugin_htmlbar/html.c:1821
 msgid "Frame"
 msgstr "Frame"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1543 src/plugin_htmlbar/html.c:1766
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1567 src/plugin_htmlbar/html.c:1724
 msgid "Frameset"
 msgstr "Frameset"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1545
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1569
 msgid "Noframes"
 msgstr "Noframes"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1547
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1571
 msgid "Target"
 msgstr "Obiettivo"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1549
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1573
 msgid "Input Hidden..."
 msgstr "Input nascosto..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1550
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1551
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1574
+#, fuzzy
+msgid "Input Radio button..."
+msgstr "Pulsante radio..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1575
 msgid "Input Radio Button..."
 msgstr "Pulsante radio..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1553
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1576
 #, fuzzy
-msgid "Input Check Button..."
+msgid "Input Check box..."
 msgstr "Casella di spunta..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1565
-#, fuzzy
-msgid "_HTML Toolbar"
-msgstr "/Visualizza/Barra _HTML"
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1577
+msgid "Input Check Box..."
+msgstr "Casella di spunta..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1617
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1589
+msgid "_HTML Toolbar"
+msgstr "Barra _HTML"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1641
 #, fuzzy
 msgid " Standard "
 msgstr " Barra standard "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1621
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
 msgid " Fonts "
 msgstr " Caratteri "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1625
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1649
 #, fuzzy
 msgid " Formatting "
 msgstr "Stringa finale"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1629
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1653
 msgid " Tables "
 msgstr " Tabelle "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1633
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1657
 msgid " Frames "
 msgstr " Frame "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1637
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1661
 msgid " Forms "
 msgstr " Form "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1641
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1665
 msgid " List "
 msgstr " Liste "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1669
 msgid " CSS "
 msgstr " CSS "
 
-#: src/plugin_htmlbar/html.c:425
+#: src/plugin_htmlbar/html.c:426
 msgid "Insert Time"
 msgstr "Inserire l'ora"
 
-#: src/plugin_htmlbar/html.c:434
+#: src/plugin_htmlbar/html.c:435
 #, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr "  _Ora (%i:%i:%i)"
 
-#: src/plugin_htmlbar/html.c:440
+#: src/plugin_htmlbar/html.c:441
 msgid "  Day of the _week (Sunday)"
 msgstr "  Giorno della _settimana (Domenica)"
 
-#: src/plugin_htmlbar/html.c:443
+#: src/plugin_htmlbar/html.c:444
 msgid "  Day of the _week (Monday)"
 msgstr "  Giorno della _settimana (Lunedì)"
 
-#: src/plugin_htmlbar/html.c:446
+#: src/plugin_htmlbar/html.c:447
 msgid "  Day of the _week (Tuesday)"
 msgstr "  Giorno della _settimana (Martedì)"
 
-#: src/plugin_htmlbar/html.c:449
+#: src/plugin_htmlbar/html.c:450
 msgid "  Day of the _week (Wednesday)"
 msgstr "  Giorno della _settimana (Mercoledì)"
 
-#: src/plugin_htmlbar/html.c:452
+#: src/plugin_htmlbar/html.c:453
 msgid "  Day of the _week (Thursday)"
 msgstr "  Giorno della _settimana (Giovedì)"
 
-#: src/plugin_htmlbar/html.c:455
+#: src/plugin_htmlbar/html.c:456
 msgid "  Day of the _week (Friday)"
 msgstr "  Giorno della _settimana (Venerdì)"
 
-#: src/plugin_htmlbar/html.c:458
+#: src/plugin_htmlbar/html.c:459
 msgid "  Day of the _week (Saturday)"
 msgstr "  Giorno della _settimana (Sabato)"
 
-#: src/plugin_htmlbar/html.c:461
+#: src/plugin_htmlbar/html.c:462
 msgid "You appear to have a non existant day!\n"
 msgstr "Sembra che abbiate un giorno che non esiste!\n"
 
-#: src/plugin_htmlbar/html.c:469
+#: src/plugin_htmlbar/html.c:470
 #, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr "  _Data (%i:%i:%i)"
 
-#: src/plugin_htmlbar/html.c:472
+#: src/plugin_htmlbar/html.c:473
 #, c-format
 msgid "  _Unix Time (%i)"
 msgstr "  Ora _Unix (%i)"
 
-#: src/plugin_htmlbar/html.c:477
+#: src/plugin_htmlbar/html.c:478
 #, c-format
 msgid "  Unix Date _String (%s)"
 msgstr "  Stringa Unix della data (%s)"
 
-#: src/plugin_htmlbar/html.c:485
+#: src/plugin_htmlbar/html.c:486
 msgid "  ISO-8601 Ti_me "
 msgstr "  _Ora ISO-8601 "
 
-#: src/plugin_htmlbar/html.c:659
+#: src/plugin_htmlbar/html.c:660
 msgid "Quick Anchor"
 msgstr "Ancora Rapida"
 
-#: src/plugin_htmlbar/html.c:665 src/plugin_htmlbar/html_form.c:473
+#: src/plugin_htmlbar/html.c:666 src/plugin_htmlbar/html_form.c:520
 msgid "Attributes"
 msgstr "Attributi"
 
-#: src/plugin_htmlbar/html.c:679 src/plugin_htmlbar/html.c:2123
+#: src/plugin_htmlbar/html.c:680 src/plugin_htmlbar/html.c:2076
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:685 src/plugin_htmlbar/html_form.c:182
+#: src/plugin_htmlbar/html.c:686 src/plugin_htmlbar/html_form.c:200
 msgid "_Target:"
 msgstr "_Obiettivo:"
 
-#: src/plugin_htmlbar/html.c:689 src/plugin_htmlbar/html.c:945
-#: src/plugin_htmlbar/html.c:1376 src/plugin_htmlbar/html.c:1877
-#: src/plugin_htmlbar/html_form.c:230 src/plugin_htmlbar/html_form.c:289
-#: src/plugin_htmlbar/html_form.c:488 src/plugin_htmlbar/html_form.c:583
-#: src/plugin_htmlbar/image.c:490
+#: src/plugin_htmlbar/html.c:690 src/plugin_htmlbar/html.c:931
+#: src/plugin_htmlbar/html.c:1344 src/plugin_htmlbar/html.c:1833
+#: src/plugin_htmlbar/html_form.c:251 src/plugin_htmlbar/html_form.c:315
+#: src/plugin_htmlbar/html_form.c:537 src/plugin_htmlbar/html_form.c:632
+#: src/plugin_htmlbar/image.c:503
 msgid "_Name:"
 msgstr "_Nome:"
 
@@ -1601,575 +1493,577 @@ msgstr "_Nome:"
 msgid "Titl_e:"
 msgstr "Tit_olo:"
 
-#: src/plugin_htmlbar/html.c:699 src/plugin_htmlbar/html.c:1234
-#: src/plugin_htmlbar/html.c:1395 src/plugin_htmlbar/html.c:2034
+#: src/plugin_htmlbar/html.c:698 src/plugin_htmlbar/html.c:1213
+#: src/plugin_htmlbar/html.c:1362 src/plugin_htmlbar/html.c:1988
 msgid "_Language:"
 msgstr "_Lingua:"
 
-#: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:953
-#: src/plugin_htmlbar/html.c:1124 src/plugin_htmlbar/html.c:1238
-#: src/plugin_htmlbar/html.c:1403 src/plugin_htmlbar/html.c:1799
-#: src/plugin_htmlbar/html.c:1914 src/plugin_htmlbar/html.c:2053
-#: src/plugin_htmlbar/html_form.c:186 src/plugin_htmlbar/html_form.c:247
-#: src/plugin_htmlbar/html_form.c:302 src/plugin_htmlbar/html_form.c:596
-#: src/plugin_htmlbar/html_table.c:100 src/plugin_htmlbar/html_table.c:252
-#: src/plugin_htmlbar/html_table.c:360 src/plugin_htmlbar/image.c:499
+#: src/plugin_htmlbar/html.c:701 src/plugin_htmlbar/html.c:937
+#: src/plugin_htmlbar/html.c:1107 src/plugin_htmlbar/html.c:1216
+#: src/plugin_htmlbar/html.c:1368 src/plugin_htmlbar/html.c:1755
+#: src/plugin_htmlbar/html.c:1870 src/plugin_htmlbar/html.c:2007
+#: src/plugin_htmlbar/html_form.c:204 src/plugin_htmlbar/html_form.c:267
+#: src/plugin_htmlbar/html_form.c:328 src/plugin_htmlbar/html_form.c:644
+#: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
+#: src/plugin_htmlbar/html_table.c:383 src/plugin_htmlbar/image.c:509
 #: src/plugin_htmlbar/image_dialog.c:382
 msgid "Custo_m:"
 msgstr "Perso_nalizzato:"
 
-#: src/plugin_htmlbar/html.c:706 src/plugin_htmlbar/html.c:1242
-#: src/plugin_htmlbar/html_form.c:522
+#: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:1220
+#: src/plugin_htmlbar/html_form.c:568
 msgid "Events"
 msgstr "Eventi"
 
-#: src/plugin_htmlbar/html.c:709
+#: src/plugin_htmlbar/html.c:706
 msgid "OnClic_k:"
 msgstr "OnClic_k:"
 
-#: src/plugin_htmlbar/html.c:713
+#: src/plugin_htmlbar/html.c:709
 msgid "OnD_blClick:"
 msgstr "OnD_blClick:"
 
-#: src/plugin_htmlbar/html.c:717
+#: src/plugin_htmlbar/html.c:712
 msgid "OnMouseO_ver:"
 msgstr "OnMouseO_ver:"
 
-#: src/plugin_htmlbar/html.c:721
+#: src/plugin_htmlbar/html.c:715
 msgid "OnMouse_Down:"
 msgstr "OnMouse_Down:"
 
-#: src/plugin_htmlbar/html.c:725
+#: src/plugin_htmlbar/html.c:718
 msgid "OnMouse_Move:"
 msgstr "OnMouse_Move:"
 
-#: src/plugin_htmlbar/html.c:729
+#: src/plugin_htmlbar/html.c:721
 msgid "OnMouseOu_t:"
 msgstr "OnMouseOu_t:"
 
-#: src/plugin_htmlbar/html.c:733
+#: src/plugin_htmlbar/html.c:724
 msgid "OnMouse_Up:"
 msgstr "OnMouse_Up:"
 
-#: src/plugin_htmlbar/html.c:737
+#: src/plugin_htmlbar/html.c:727
 msgid "OnKeyDo_wn:"
 msgstr "OnKeyDo_wn:"
 
-#: src/plugin_htmlbar/html.c:741
+#: src/plugin_htmlbar/html.c:730
 msgid "OnKey_Press:"
 msgstr "OnKey_Press:"
 
-#: src/plugin_htmlbar/html.c:745
+#: src/plugin_htmlbar/html.c:733
 msgid "OnKe_yUp:"
 msgstr "OnKe_yUp:"
 
-#: src/plugin_htmlbar/html.c:892
+#: src/plugin_htmlbar/html.c:879
 msgid "Div"
 msgstr "Div"
 
-#: src/plugin_htmlbar/html.c:895
+#: src/plugin_htmlbar/html.c:882
 msgid "Span"
 msgstr "Span"
 
-#: src/plugin_htmlbar/html.c:898
+#: src/plugin_htmlbar/html.c:885
 msgid "Heading 1"
 msgstr "Titolo 1"
 
-#: src/plugin_htmlbar/html.c:901
+#: src/plugin_htmlbar/html.c:888
 msgid "Heading 2"
 msgstr "Titolo 2"
 
-#: src/plugin_htmlbar/html.c:904
+#: src/plugin_htmlbar/html.c:891
 msgid "Heading 3"
 msgstr "Titolo 3"
 
-#: src/plugin_htmlbar/html.c:907
+#: src/plugin_htmlbar/html.c:894
 msgid "Heading 4"
 msgstr "Titolo 4"
 
-#: src/plugin_htmlbar/html.c:910
+#: src/plugin_htmlbar/html.c:897
 msgid "Heading 5"
 msgstr "Titolo 5"
 
-#: src/plugin_htmlbar/html.c:913
+#: src/plugin_htmlbar/html.c:900
 msgid "Heading 6"
 msgstr "Titolo 6"
 
-#: src/plugin_htmlbar/html.c:930 src/plugin_htmlbar/html_table.c:108
-#: src/plugin_htmlbar/html_table.c:218 src/plugin_htmlbar/html_table.c:332
+#: src/plugin_htmlbar/html.c:917 src/plugin_htmlbar/html_table.c:114
+#: src/plugin_htmlbar/html_table.c:228 src/plugin_htmlbar/html_table.c:356
 msgid "Ali_gn:"
 msgstr "_Allinea:"
 
-#: src/plugin_htmlbar/html.c:934 src/plugin_htmlbar/html.c:1226
-#: src/plugin_htmlbar/html_diag.c:403 src/plugin_htmlbar/html_table.c:90
-#: src/plugin_htmlbar/html_table.c:236 src/plugin_htmlbar/html_table.c:350
+#: src/plugin_htmlbar/html.c:921 src/plugin_htmlbar/html.c:1207
+#: src/plugin_htmlbar/html_diag.c:445 src/plugin_htmlbar/html_table.c:98
+#: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
 #: src/plugin_htmlbar/image_dialog.c:368
 msgid "Cl_ass:"
 msgstr "Cl_asse:"
 
-#: src/plugin_htmlbar/html.c:938 src/plugin_htmlbar/html.c:1219
-#: src/plugin_htmlbar/html_diag.c:411 src/plugin_htmlbar/html_table.c:95
-#: src/plugin_htmlbar/html_table.c:247 src/plugin_htmlbar/html_table.c:355
+#: src/plugin_htmlbar/html.c:925 src/plugin_htmlbar/html.c:1200
+#: src/plugin_htmlbar/html_diag.c:459 src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:378
 msgid "St_yle:"
 msgstr "Sti_le:"
 
-#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1230
-#: src/plugin_htmlbar/html_diag.c:407
+#: src/plugin_htmlbar/html.c:934 src/plugin_htmlbar/html.c:1210
+#: src/plugin_htmlbar/html_diag.c:453
 msgid "_ID:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/html.c:1087
+#: src/plugin_htmlbar/html.c:1070
 msgid "Horizontal Rule"
 msgstr "Linea orizzontale"
 
-#: src/plugin_htmlbar/html.c:1098 src/plugin_htmlbar/html.c:1968
-#: src/plugin_htmlbar/image.c:517 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/html.c:1081 src/plugin_htmlbar/html.c:1922
+#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Align:"
 msgstr "_Allineamento:"
 
-#: src/plugin_htmlbar/html.c:1105 src/plugin_htmlbar/html.c:1976
-#: src/plugin_htmlbar/html_table.c:386 src/plugin_htmlbar/image_dialog.c:338
+#: src/plugin_htmlbar/html.c:1088 src/plugin_htmlbar/html.c:1930
+#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:338
 msgid "_Height:"
 msgstr "Altez_za:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1111 src/plugin_htmlbar/html.c:1972
-#: src/plugin_htmlbar/html_table.c:133 src/plugin_htmlbar/html_table.c:379
-#: src/plugin_htmlbar/image.c:474 src/plugin_htmlbar/image_dialog.c:329
+#: src/plugin_htmlbar/html.c:1094 src/plugin_htmlbar/html.c:1926
+#: src/plugin_htmlbar/html_table.c:139 src/plugin_htmlbar/html_table.c:401
+#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:329
 msgid "_Width:"
 msgstr "La_rghezza:"
 
-#: src/plugin_htmlbar/html.c:1114
+#: src/plugin_htmlbar/html.c:1097
 msgid "Is _percent"
 msgstr "È _percentuale"
 
-#: src/plugin_htmlbar/html.c:1119
+#: src/plugin_htmlbar/html.c:1102
 msgid "No _shading"
 msgstr "Nessuna ombreg_giatura"
 
-#: src/plugin_htmlbar/html.c:1203
+#: src/plugin_htmlbar/html.c:1185
 msgid "Body"
 msgstr "Corpo"
 
-#: src/plugin_htmlbar/html.c:1211
+#: src/plugin_htmlbar/html.c:1193
 msgid "Options"
 msgstr "Opzioni"
 
-#: src/plugin_htmlbar/html.c:1249
-msgid "On_Load:"
+#: src/plugin_htmlbar/html.c:1226
+#, fuzzy
+msgid "On _Load:"
 msgstr "On_Load:"
 
-#: src/plugin_htmlbar/html.c:1257
-msgid "On_UnLoad:"
+#: src/plugin_htmlbar/html.c:1230
+#, fuzzy
+msgid "On _Unload:"
 msgstr "On_UnLoad:"
 
-#: src/plugin_htmlbar/html.c:1266
+#: src/plugin_htmlbar/html.c:1236
 msgid "Depreciated options"
 msgstr "Opzioni disapprovate"
 
-#: src/plugin_htmlbar/html.c:1276
+#: src/plugin_htmlbar/html.c:1245
 msgid "Background _Image:"
 msgstr "_Immagine di sfondo:"
 
-#: src/plugin_htmlbar/html.c:1284
+#: src/plugin_htmlbar/html.c:1252
 msgid "Back_ground Color:"
 msgstr "Colore di _sfondo:"
 
-#: src/plugin_htmlbar/html.c:1291
+#: src/plugin_htmlbar/html.c:1259
 msgid "_Text Color:"
 msgstr "Colore del _testo:"
 
-#: src/plugin_htmlbar/html.c:1297
+#: src/plugin_htmlbar/html.c:1265
 msgid "_Link Color:"
 msgstr "Colore dei _link:"
 
-#: src/plugin_htmlbar/html.c:1303
+#: src/plugin_htmlbar/html.c:1271
 msgid "_Visited Link Color:"
 msgstr "Colore del collegamento _visitato:"
 
-#: src/plugin_htmlbar/html.c:1310
+#: src/plugin_htmlbar/html.c:1278
 msgid "_Active Link Color:"
 msgstr "Colore del collegamento _attivo:"
 
-#: src/plugin_htmlbar/html.c:1367
+#: src/plugin_htmlbar/html.c:1335
 msgid "Meta"
 msgstr "Meta"
 
-#: src/plugin_htmlbar/html.c:1386
+#: src/plugin_htmlbar/html.c:1354
 msgid "_HTTP-EQUIV:"
 msgstr "HTTP-EQUIV:"
 
-#: src/plugin_htmlbar/html.c:1391
+#: src/plugin_htmlbar/html.c:1359
 msgid "Con_tent:"
 msgstr "Con_tenuto:"
 
-#: src/plugin_htmlbar/html.c:1399
+#: src/plugin_htmlbar/html.c:1365
 msgid "_Scheme:"
 msgstr "_Schema:"
 
-#: src/plugin_htmlbar/html.c:1485
+#: src/plugin_htmlbar/html.c:1449
 msgid "Font"
 msgstr "Carattere"
 
-#: src/plugin_htmlbar/html.c:1488
+#: src/plugin_htmlbar/html.c:1452
 msgid "Base Font"
 msgstr "Carattere di base"
 
-#: src/plugin_htmlbar/html.c:1503
+#: src/plugin_htmlbar/html.c:1467
 msgid "Size"
 msgstr "Dimensione"
 
-#: src/plugin_htmlbar/html.c:1512
+#: src/plugin_htmlbar/html.c:1476
 msgid "Color"
 msgstr "Colore"
 
-#: src/plugin_htmlbar/html.c:1517
+#: src/plugin_htmlbar/html.c:1481
 msgid "Face"
 msgstr "Aspetto"
 
-#: src/plugin_htmlbar/html.c:1521
+#: src/plugin_htmlbar/html.c:1485
 msgid "Custom"
 msgstr "Personalizzato"
 
-#: src/plugin_htmlbar/html.c:1612
+#: src/plugin_htmlbar/html.c:1575
 msgid "E-mail"
 msgstr "Email"
 
-#: src/plugin_htmlbar/html.c:1620
+#: src/plugin_htmlbar/html.c:1583
 msgid "_Mail to:"
 msgstr "_Mail a:"
 
-#: src/plugin_htmlbar/html.c:1624
+#: src/plugin_htmlbar/html.c:1586
 msgid "_Copy to:"
 msgstr "_Copia a:"
 
-#: src/plugin_htmlbar/html.c:1628
+#: src/plugin_htmlbar/html.c:1589
 msgid "Blin_d copy to:"
 msgstr "Copia _nascosta a:"
 
-#: src/plugin_htmlbar/html.c:1632
+#: src/plugin_htmlbar/html.c:1592
 msgid "with _Subject:"
 msgstr "con _Oggetto:"
 
-#: src/plugin_htmlbar/html.c:1636
+#: src/plugin_htmlbar/html.c:1595
 msgid "with _Body:"
 msgstr "con _Testo:"
 
-#: src/plugin_htmlbar/html.c:1683
+#: src/plugin_htmlbar/html.c:1641
 msgid "Quick List"
 msgstr "Lista rapida"
 
-#: src/plugin_htmlbar/html.c:1688 src/plugin_htmlbar/wizards.c:75
+#: src/plugin_htmlbar/html.c:1646 src/plugin_htmlbar/wizards.c:81
 msgid "Number of _rows:"
 msgstr "Numero di _linee:"
 
-#: src/plugin_htmlbar/html.c:1691
+#: src/plugin_htmlbar/html.c:1649
 msgid "Or_dered"
 msgstr "Or_dinata"
 
-#: src/plugin_htmlbar/html.c:1694
+#: src/plugin_htmlbar/html.c:1652
 msgid "_Unordered"
 msgstr "_Non ordinata"
 
-#: src/plugin_htmlbar/html.c:1696
+#: src/plugin_htmlbar/html.c:1654
 msgid "Style:"
 msgstr "Stile:"
 
-#: src/plugin_htmlbar/html.c:1772 src/plugin_htmlbar/html_form.c:239
+#: src/plugin_htmlbar/html.c:1730 src/plugin_htmlbar/html_form.c:259
 msgid "Co_ls:"
 msgstr "Co_lonne:"
 
-#: src/plugin_htmlbar/html.c:1776 src/plugin_htmlbar/html_form.c:235
+#: src/plugin_htmlbar/html.c:1733 src/plugin_htmlbar/html_form.c:255
 msgid "_Rows:"
 msgstr "_Righe:"
 
-#: src/plugin_htmlbar/html.c:1781
+#: src/plugin_htmlbar/html.c:1737
 msgid "_Add <frame> elements"
 msgstr "_Aggiungi elementi <frame>"
 
-#: src/plugin_htmlbar/html.c:1873 src/plugin_htmlbar/html.c:1964
-#: src/plugin_htmlbar/html.c:2027 src/plugin_htmlbar/image_dialog.c:290
+#: src/plugin_htmlbar/html.c:1829 src/plugin_htmlbar/html.c:1917
+#: src/plugin_htmlbar/html.c:1980 src/plugin_htmlbar/image_dialog.c:290
 msgid "_Source:"
 msgstr "_Sorgente:"
 
-#: src/plugin_htmlbar/html.c:1881
+#: src/plugin_htmlbar/html.c:1837
 msgid "Margin _Width:"
 msgstr "_Larghezza del margine:"
 
-#: src/plugin_htmlbar/html.c:1885
+#: src/plugin_htmlbar/html.c:1841
 msgid "Margin _Height:"
 msgstr "_Altezza del margine:"
 
-#: src/plugin_htmlbar/html.c:1893
+#: src/plugin_htmlbar/html.c:1849
 msgid "Scrollin_g:"
 msgstr "Scorrim_ento :"
 
-#: src/plugin_htmlbar/html.c:1897
+#: src/plugin_htmlbar/html.c:1853
 msgid "_Frameborder:"
 msgstr "Bordo del _frame:"
 
-#: src/plugin_htmlbar/html.c:1902
+#: src/plugin_htmlbar/html.c:1858
 msgid "No _Resize:"
 msgstr "Non _ridimensionare:"
 
-#: src/plugin_htmlbar/html.c:1958
+#: src/plugin_htmlbar/html.c:1913
 msgid "Embed"
 msgstr "Includi"
 
-#: src/plugin_htmlbar/html.c:1980 src/plugin_htmlbar/html_table.c:139
+#: src/plugin_htmlbar/html.c:1934 src/plugin_htmlbar/html_table.c:145
 msgid "Bo_rder:"
 msgstr "Bo_rdo:"
 
-#: src/plugin_htmlbar/html.c:2020
+#: src/plugin_htmlbar/html.c:1974
 msgid "Script"
 msgstr "Script"
 
-#: src/plugin_htmlbar/html.c:2049 src/plugin_htmlbar/html.c:2156
-#: src/plugin_htmlbar/html_form.c:482 src/plugin_htmlbar/html_form.c:592
+#: src/plugin_htmlbar/html.c:2003 src/plugin_htmlbar/html.c:2107
+#: src/plugin_htmlbar/html_form.c:531 src/plugin_htmlbar/html_form.c:640
 msgid "_Type:"
 msgstr "_Tipo:"
 
-#: src/plugin_htmlbar/html.c:2112
+#: src/plugin_htmlbar/html.c:2065
 msgid "Link"
 msgstr "Collegamento"
 
-#: src/plugin_htmlbar/html.c:2129
+#: src/plugin_htmlbar/html.c:2082
 msgid "HREF_LANG:"
 msgstr "HREF_LANG:"
 
-#: src/plugin_htmlbar/html.c:2133
+#: src/plugin_htmlbar/html.c:2085
 msgid "T_itle:"
 msgstr "T_itolo:"
 
-#: src/plugin_htmlbar/html.c:2179
+#: src/plugin_htmlbar/html.c:2130
 msgid "_Forward Relation:"
 msgstr "Relazione in _avanti:"
 
-#: src/plugin_htmlbar/html.c:2184
+#: src/plugin_htmlbar/html.c:2135
 msgid "_Reverse Relation:"
 msgstr "Relazione all'_indietro:"
 
-#: src/plugin_htmlbar/html.c:2198
+#: src/plugin_htmlbar/html.c:2149
 msgid "Media:"
 msgstr "Media:"
 
-#: src/plugin_htmlbar/html.c:2202
+#: src/plugin_htmlbar/html.c:2153
 msgid "L_ang:"
 msgstr "Lingu_a:"
 
-#: src/plugin_htmlbar/html.c:2206
+#: src/plugin_htmlbar/html.c:2156
 msgid "_Custom:"
 msgstr "Perso_nalizzato:"
 
-#: src/plugin_htmlbar/html_form.c:158
+#: src/plugin_htmlbar/html_form.c:174
 msgid "_Action:"
 msgstr "_Azione:"
 
-#: src/plugin_htmlbar/html_form.c:166
+#: src/plugin_htmlbar/html_form.c:184
 msgid "Metho_d:"
 msgstr "Meto_do:"
 
-#: src/plugin_htmlbar/html_form.c:175
+#: src/plugin_htmlbar/html_form.c:193
 msgid "_Enctype:"
 msgstr "Tipo di _codifica:"
 
-#: src/plugin_htmlbar/html_form.c:224
+#: src/plugin_htmlbar/html_form.c:245
 msgid "Text area"
 msgstr "Area di testo"
 
-#: src/plugin_htmlbar/html_form.c:283
+#: src/plugin_htmlbar/html_form.c:309
 msgid "Select"
 msgstr "Selezionare"
 
-#: src/plugin_htmlbar/html_form.c:294 src/plugin_htmlbar/html_form.c:501
+#: src/plugin_htmlbar/html_form.c:319 src/plugin_htmlbar/html_form.c:548
 msgid "Si_ze:"
 msgstr "Dimen_sione:"
 
-#: src/plugin_htmlbar/html_form.c:298
+#: src/plugin_htmlbar/html_form.c:323
 msgid "Multiple _Selections:"
 msgstr "_Selezioni multiple:"
 
-#: src/plugin_htmlbar/html_form.c:337
+#: src/plugin_htmlbar/html_form.c:369
 msgid "Option"
 msgstr "Opzione"
 
-#: src/plugin_htmlbar/html_form.c:347 src/plugin_htmlbar/html_form.c:390
+#: src/plugin_htmlbar/html_form.c:378 src/plugin_htmlbar/html_form.c:424
 msgid "_Label:"
 msgstr "Etichet_ta:"
 
-#: src/plugin_htmlbar/html_form.c:352
+#: src/plugin_htmlbar/html_form.c:382
 msgid "_Selected:"
 msgstr "_Selezionato:"
 
-#: src/plugin_htmlbar/html_form.c:385
+#: src/plugin_htmlbar/html_form.c:419
 msgid "Option group"
 msgstr "Gruppo di opzioni"
 
-#: src/plugin_htmlbar/html_form.c:468
+#: src/plugin_htmlbar/html_form.c:515
 msgid "Input"
 msgstr "Input"
 
-#: src/plugin_htmlbar/html_form.c:496
+#: src/plugin_htmlbar/html_form.c:543
 msgid "_Checked:"
 msgstr "Sele_zionato:"
 
-#: src/plugin_htmlbar/html_form.c:505
+#: src/plugin_htmlbar/html_form.c:552
 msgid "Max _Length:"
 msgstr "_Lunghezza massima:"
 
-#: src/plugin_htmlbar/html_form.c:509
+#: src/plugin_htmlbar/html_form.c:556
 msgid "_Accept:"
 msgstr "_Accettare:"
 
-#: src/plugin_htmlbar/html_form.c:513
+#: src/plugin_htmlbar/html_form.c:559
 msgid "C_ustom:"
 msgstr "Perso_nalizzato:"
 
-#: src/plugin_htmlbar/html_form.c:518
+#: src/plugin_htmlbar/html_form.c:564
 msgid "Style"
 msgstr "Stile"
 
-#: src/plugin_htmlbar/html_form.c:525
+#: src/plugin_htmlbar/html_form.c:571
 msgid "On_Focus:"
 msgstr "On_Focus:"
 
-#: src/plugin_htmlbar/html_form.c:529
+#: src/plugin_htmlbar/html_form.c:574
 msgid "On_Blur:"
 msgstr "On_Blur:"
 
-#: src/plugin_htmlbar/html_form.c:533
+#: src/plugin_htmlbar/html_form.c:577
 msgid "On_Select:"
 msgstr "On_Select:"
 
-#: src/plugin_htmlbar/html_form.c:537
+#: src/plugin_htmlbar/html_form.c:580
 msgid "On_Change:"
 msgstr "On_Change:"
 
-#: src/plugin_htmlbar/html_form.c:577
+#: src/plugin_htmlbar/html_form.c:626
 msgid "Button"
 msgstr "Pulsante"
 
-#: src/plugin_htmlbar/html_table.c:82
+#: src/plugin_htmlbar/html_table.c:90
 msgid "Cell _Padding:"
 msgstr "Spaziatura _dentro le celle:"
 
-#: src/plugin_htmlbar/html_table.c:86
+#: src/plugin_htmlbar/html_table.c:94
 msgid "C_ell Spacing:"
 msgstr "Spaziatura tra una c_ella e l'altra:"
 
-#: src/plugin_htmlbar/html_table.c:122 src/plugin_htmlbar/html_table.c:232
-#: src/plugin_htmlbar/html_table.c:346
+#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:370
 msgid "_Valign:"
 msgstr "_Alineamento verticale:"
 
-#: src/plugin_htmlbar/html_table.c:127 src/plugin_htmlbar/html_table.c:241
-#: src/plugin_htmlbar/html_table.c:391
+#: src/plugin_htmlbar/html_table.c:133 src/plugin_htmlbar/html_table.c:251
+#: src/plugin_htmlbar/html_table.c:413
 msgid "Backgrou_nd Color:"
 msgstr "Colore di _sfondo:"
 
-#: src/plugin_htmlbar/html_table.c:153
+#: src/plugin_htmlbar/html_table.c:159
 msgid "_Frame:"
 msgstr "_Frame:"
 
-#: src/plugin_htmlbar/html_table.c:164
+#: src/plugin_htmlbar/html_table.c:170
 msgid "R_ules:"
 msgstr "R_egole:"
 
-#: src/plugin_htmlbar/html_table.c:364
+#: src/plugin_htmlbar/html_table.c:386
 msgid "Co_l Span:"
 msgstr "Numero di colonne occupate da una cella:"
 
-#: src/plugin_htmlbar/html_table.c:368
+#: src/plugin_htmlbar/html_table.c:390
 msgid "_Row Span:"
 msgstr "Numero di righe occupate da una cella:"
 
-#: src/plugin_htmlbar/html_table.c:373
+#: src/plugin_htmlbar/html_table.c:395
 msgid "No Wra_p:"
 msgstr "No a capo automatico:"
 
 #. TODO: use error info in gerror
-#: src/plugin_htmlbar/image.c:302
+#: src/plugin_htmlbar/image.c:313
 msgid "Loading image failed..."
 msgstr "Caricamento immagine fallito..."
 
-#: src/plugin_htmlbar/image.c:384
+#: src/plugin_htmlbar/image.c:396
 #, c-format
 msgid "Loading file %s..."
 msgstr "Caricamento file %s..."
 
-#: src/plugin_htmlbar/image.c:442
+#: src/plugin_htmlbar/image.c:456
 msgid "Insert thumbnail"
 msgstr "Inserire una miniatura"
 
-#: src/plugin_htmlbar/image.c:446 src/plugin_htmlbar/image_dialog.c:308
+#: src/plugin_htmlbar/image.c:460 src/plugin_htmlbar/image_dialog.c:308
 msgid "Preview"
 msgstr "Anteprima"
 
-#: src/plugin_htmlbar/image.c:465
+#: src/plugin_htmlbar/image.c:480
 msgid "_Image location:"
 msgstr "Pos_izione dell'immagine:"
 
-#: src/plugin_htmlbar/image.c:481
+#: src/plugin_htmlbar/image.c:495
 msgid "Hei_ght:"
 msgstr "Altez_za:"
 
-#: src/plugin_htmlbar/image.c:486 src/plugin_htmlbar/image_dialog.c:377
+#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:377
 msgid "_Usemap:"
 msgstr "Utilizza mappa sensibile client-side:"
 
-#: src/plugin_htmlbar/image.c:494
+#: src/plugin_htmlbar/image.c:506
 msgid "Alternate _text:"
 msgstr "_Testo alternativo:"
 
-#: src/plugin_htmlbar/image.c:503 src/plugin_htmlbar/image_dialog.c:414
+#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:414
 msgid "_Hspace:"
 msgstr "_Spazio orizzontale:"
 
-#: src/plugin_htmlbar/image.c:507 src/plugin_htmlbar/image_dialog.c:418
+#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:418
 msgid "_Vspace:"
 msgstr "Spazio _verticale:"
 
-#: src/plugin_htmlbar/image.c:521
+#: src/plugin_htmlbar/image.c:530
 msgid "Borde_r:"
 msgstr "Bo_rdo:"
 
-#: src/plugin_htmlbar/image.c:926
+#: src/plugin_htmlbar/image.c:946
 msgid "Select files for thumbnail creation"
 msgstr "Selezionare i file per la creazione della miniatura"
 
-#: src/plugin_htmlbar/image.c:966
+#: src/plugin_htmlbar/image.c:988
 msgid "Scaling (%)"
 msgstr "Ingrandimento (%)"
 
-#: src/plugin_htmlbar/image.c:970 src/plugin_htmlbar/image.c:978
+#: src/plugin_htmlbar/image.c:992 src/plugin_htmlbar/image.c:1000
 msgid "Width"
 msgstr "Larghezza"
 
-#: src/plugin_htmlbar/image.c:974 src/plugin_htmlbar/image.c:1014
+#: src/plugin_htmlbar/image.c:996 src/plugin_htmlbar/image.c:1037
 msgid "Height"
 msgstr "Altezza"
 
-#: src/plugin_htmlbar/image.c:997
+#: src/plugin_htmlbar/image.c:1020
 msgid "Multi thumbnail"
 msgstr "Miniature multiple"
 
-#: src/plugin_htmlbar/image.c:1003
+#: src/plugin_htmlbar/image.c:1026
 msgid "By scaling"
 msgstr "Fattore di scala"
 
-#: src/plugin_htmlbar/image.c:1006
+#: src/plugin_htmlbar/image.c:1029
 msgid "By width, keep aspect ratio"
 msgstr "Fattore di scala per la larghezza, mantiene le proporzioni"
 
-#: src/plugin_htmlbar/image.c:1009
+#: src/plugin_htmlbar/image.c:1032
 msgid "By height, keep aspect ratio"
 msgstr "Fattore di scala per l'altezza, mantiene le proporzioni"
 
-#: src/plugin_htmlbar/image.c:1012
+#: src/plugin_htmlbar/image.c:1035
 msgid "By width and height, ignore aspect ratio"
 msgstr "Fattore di scala per la larghezza ed altezza, ignora le proporzioni"
 
-#: src/plugin_htmlbar/image.c:1038
+#: src/plugin_htmlbar/image.c:1061
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2277,7 +2171,7 @@ msgstr "Cre_a un'area stile vuota"
 
 #: src/plugin_htmlbar/quickstart.c:588
 msgid "<b>Attributes</b>"
-msgstr "<b>Attributi</b>"
+msgstr "b>"
 
 #: src/plugin_htmlbar/quickstart.c:603
 msgid "_Src:"
@@ -2300,7 +2194,7 @@ msgstr "Avvio rapido"
 msgid "_DTD:"
 msgstr "_DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:660 src/plugin_htmlbar/wizards.c:185
+#: src/plugin_htmlbar/quickstart.c:660 src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "_Titolo:"
 
@@ -2312,3238 +2206,59 @@ msgstr "_Head:"
 msgid "Open in _new document."
 msgstr "Apri in un _nuovo documnto."
 
-#: src/plugin_htmlbar/wizards.c:67
+#: src/plugin_htmlbar/wizards.c:73
 msgid "Table Wizard"
 msgstr "Autocomposizione tabella"
 
-#: src/plugin_htmlbar/wizards.c:79
+#: src/plugin_htmlbar/wizards.c:85
 msgid "Number of colu_mns:"
 msgstr "Numero di colon_ne:"
 
-#: src/plugin_htmlbar/wizards.c:83
+#: src/plugin_htmlbar/wizards.c:89
 msgid "Table rows on one _line:"
 msgstr "Righe della tabella su una _sola riga:"
 
-#: src/plugin_htmlbar/wizards.c:87
+#: src/plugin_htmlbar/wizards.c:94
 msgid "_Indent table code:"
 msgstr "_Indentare il codice della tabella:"
 
-#: src/plugin_htmlbar/wizards.c:174
+#: src/plugin_htmlbar/wizards.c:190
 msgid "Frame Wizard"
 msgstr "Autocomposizione frame"
 
-#: src/plugin_htmlbar/wizards.c:189
+#: src/plugin_htmlbar/wizards.c:204
 msgid "Use _DTD:"
 msgstr "Usa _DTD:"
 
-#: src/plugin_htmlbar/wizards.c:192
+#: src/plugin_htmlbar/wizards.c:207
 msgid "Orientation:"
 msgstr "Orientamento:"
 
-#: src/plugin_htmlbar/wizards.c:195
+#: src/plugin_htmlbar/wizards.c:210
 msgid "_Horizontal"
 msgstr "_Orizontale"
 
-#: src/plugin_htmlbar/wizards.c:196
+#: src/plugin_htmlbar/wizards.c:211
 msgid "_Vertical"
 msgstr "_Verticale"
 
-#: src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/wizards.c:216
 msgid "Number of _Frames:"
 msgstr "Numero di _frame:"
 
-#: src/plugin_htmlbar/wizards.c:204
+#: src/plugin_htmlbar/wizards.c:219
 msgid "Frame's"
 msgstr "Del frame"
 
-#: src/plugin_htmlbar/wizards.c:216
+#: src/plugin_htmlbar/wizards.c:231
 msgid "Name:"
 msgstr "Nome:"
 
-#: src/plugin_htmlbar/wizards.c:218
+#: src/plugin_htmlbar/wizards.c:233
 msgid "Source:"
 msgstr "Sorgente:"
 
-#: src/plugin_htmlbar/wizards.c:222
+#: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Dimensione:"
 
-#~ msgid "/Tags/_Headings"
-#~ msgstr "/Tag/_Intitolazioni"
-
-#~ msgid "/Tags/Headings/H_1"
-#~ msgstr "/Tag/Intitolazioni/H_1"
-
-#~ msgid "/Tags/Headings/H_2"
-#~ msgstr "/Tag/Intitolazioni/H_2"
-
-#~ msgid "/Tags/Headings/H_3"
-#~ msgstr "/Tag/Intitolazioni/H_3"
-
-#~ msgid "/Tags/Headings/H_4"
-#~ msgstr "/Tag/Intitolazioni/H_4"
-
-#~ msgid "/Tags/Headings/H_5"
-#~ msgstr "/Tag/Intitolazioni/H_5"
-
-#~ msgid "/Tags/Headings/H_6"
-#~ msgstr "/Tag/Intitolazioni/H_6"
-
-#~ msgid "/Tags/Special/_Accent"
-#~ msgstr "/Tag/Spaciali/_Lettere accentate"
-
-#~ msgid "/Tags/Special/Accent/_Uppercase"
-#~ msgstr "/Tag/Speciali/Lettere accentate/_Maiuscolo"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/_A-I"
-#~ msgstr "/Tag/Speciali/Lettere accentate/Maiuscole/_A-I"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/A maiuscola con accento "
-#~ "grave À"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/A maiuscola con accento "
-#~ "acuto Á"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/A maiuscola con accento "
-#~ "circonflesso Â"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/A maiuscola con tilde Ã"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
-#~ msgstr "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/AE maiuscola Æ"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/A maiuscola con dieresi Ä"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/A maiuscola con anello "
-#~ "sopra Å"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/C maiuscola  con cediglia Ç"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/E maiuscola con accento "
-#~ "grave È"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/E maiuscola con accento "
-#~ "acuto É"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/E maiuscola con accento "
-#~ "circonflesso Ê"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/E maiuscola con dieresi Ë"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/I maiuscola con accento "
-#~ "grave Ì"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/I maiuscola con accento "
-#~ "acuto Í"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/I maiuscola con accento "
-#~ "circonflesso Î"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/A-I/I maiuscola con dieresi Ï"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-#~ msgstr "/Tag/Speciali/Lettere accentate/Maiuscole/_J-Z"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/N maiuscola con tilde Ñ"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/O maiuscola con accento "
-#~ "grave Ò"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/O maiuscola con accento "
-#~ "acuto Ó"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/O maiuscola con accento "
-#~ "circonflesso Ô"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-#~ msgstr "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/OE maiuscola Œ"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/O maiuscola con tilde Õ"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/O maiuscola con dieresi Ö"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/O maiuscola sbarrata Ø"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/U maiuscola con accento "
-#~ "grave Ù"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/U maiuscola con accento "
-#~ "acuto Ú"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/U maiuscola con accento "
-#~ "circonflesso Û"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/U maiuscola con dieresi Ü"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Maiuscole/J-Z/Y maiuscola con accento "
-#~ "acuto Ý"
-
-#~ msgid "/Tags/Special/Accent/_Lowercase"
-#~ msgstr "/Tag/Speciali/Lettere accentate/Minusc_ole"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/_A-I"
-#~ msgstr "/Tag/Speciali/Lettere accentate/Minusc_ole/_a-i"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/a minuscola con accento "
-#~ "grave à"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/a minuscola con accento "
-#~ "acuto á"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/a minuscola con accento "
-#~ "circonflesso â"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/a minuscola con tilde ã"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/a minuscola con anello "
-#~ "sopra å"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
-#~ msgstr "/Tag/Speciali/Lettere accentate/Minuscole/a-i/ae minuscola æ"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/a minuscola con dieresi ä"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/c minuscola con cediglia ç"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/e minuscola con accento "
-#~ "grave è"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/e minuscola con accento "
-#~ "acuto é"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/e minuscola con accento "
-#~ "circonflesso ê"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/e minuscola con dieresi ë"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/i minuscola con accento "
-#~ "grave ì"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/i minuscola con accento "
-#~ "acuto í"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/i minuscola con accento "
-#~ "circonflesso î"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/a-i/i minuscola con accento "
-#~ "dieresi ï"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/_J-Z"
-#~ msgstr "/Tag/Speciali/Lettere accentate/Minuscole/_j-z"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/n minuscola con tilde ñ"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/o minuscola con accento "
-#~ "grave ò"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/o minuscola con accento "
-#~ "acuto ó"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-#~ msgstr "/Tag/Speciali/Lettere accentate/Minuscole/j-z/oe minuscola œ"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/o minuscola con accento "
-#~ "circonflesso ô"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/o minuscola con tilde õ"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/o minuscola con dieresi ö"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/o minuscola con barra ø"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/u minuscola con accento "
-#~ "grave ù"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/u minuscola con accento "
-#~ "acuto ú"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/u minuscola con accento "
-#~ "circonflesso û"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/u minuscola con dieresi ü"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/y minuscola con accento "
-#~ "acuto ý"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
-#~ msgstr ""
-#~ "/Tag/Speciali/Lettere accentate/Minuscole/j-z/y minuscola con dieresi ÿ"
-
-#~ msgid "/Tags/Special/Accent/U_mlaut ¨"
-#~ msgstr "/Tag/Speciali/Lettere accentate/u_mlaut = dieresi ¨"
-
-#~ msgid "/Tags/Special/Accent/_Acute ´"
-#~ msgstr "/Tag/Speciali/Lettere accentate/_accento acuto ´"
-
-#~ msgid "/Tags/Special/Accent/_Cedilla ¸"
-#~ msgstr "/Tag/Speciali/Lettere accentate/cediglia ¸"
-
-#~ msgid "/Tags/Special/_Currency"
-#~ msgstr "/Tag/Speciali/_Valuta"
-
-#~ msgid "/Tags/Special/Currency/_Cent sign ¢"
-#~ msgstr "/Tag/Speciali/Valuta/_Centesimo ¢"
-
-#~ msgid "/Tags/Special/Currency/C_urrency sign ¤"
-#~ msgstr "/Tag/Speciali/Valuta/Simbolo di _valuta ¤"
-
-#~ msgid "/Tags/Special/Currency/_Yen sign ¥"
-#~ msgstr "/Tag/Speciali/Valuta/_Yen ¥"
-
-#~ msgid "/Tags/Special/Currency/_Euro €"
-#~ msgstr "/Tag/Speciali/Valuta/_Euro €"
-
-#~ msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
-#~ msgstr "/Tag/Speciali/Matematica-Scienze/Operatore _not ¬"
-
-#~ msgid "/Tags/Special/Math-Science/_Division sign ÷"
-#~ msgstr "/Tag/Speciali/Matematica-Scienze/Segno di _divisione ÷"
-
-#~ msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
-#~ msgstr "/Tag/Speciali/Matematica-Scienze/Simbolo _più-o-meno ±"
-
-#~ msgid "/Tags/Special/Math-Science/_Less-than sign <"
-#~ msgstr "/Tag/Speciali/Matematica-Scienze/Simbolo mi_nore di"
-
-#~ msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-#~ msgstr "/Tag/Speciali/Matematica-Scienze/Simbolo ma_ggiore di"
-
-#~ msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
-#~ msgstr "/Tag/Speciali/Matematica-Scienze/Esponente _1 ¹"
-
-#~ msgid "/Tags/Special/Math-Science/Superscript _2 ²"
-#~ msgstr "/Tag/Speciali/Matematica-Scienze/Esponente _2 ²"
-
-#~ msgid "/Tags/Special/Math-Science/Superscript _3 ³"
-#~ msgstr "/Tag/Speciali/Matematica-Scienze/Esponente _3 ³"
-
-#~ msgid "/Tags/Special/Math-Science/One _quarter ¼"
-#~ msgstr "/Tag/Speciali/Matematica-Scienze/Frazione un _quarto ¼"
-
-#~ msgid "/Tags/Special/Math-Science/One _half ½"
-#~ msgstr "/Tag/Speciali/Matematica-Scienze/Frazione un me_zzo ½"
-
-#~ msgid "/Tags/Special/Math-Science/_Three quarters ¾"
-#~ msgstr "/Tag/Speciali/Matematica-Scienza/Frazione _tre quarti ¾"
-
-#~ msgid "/Tags/Special/Math-Science/Deg_ree sign °"
-#~ msgstr "/Tag/Speciali/Matematica-Scienze/Simbolo di g_rado °"
-
-#~ msgid "/Tags/Special/_Non Latin"
-#~ msgstr "/Tag/Speciali/_Non latini"
-
-#~ msgid "/Tags/Special/Non Latin/th_orn ÿ"
-#~ msgstr "/Tag/Speciali/Non latini/th_orn ÿ"
-
-#~ msgid "/Tags/Special/Non Latin/Sharp _s ß"
-#~ msgstr "/Tag/Speciali/Non latini/Sharp _s ß"
-
-#~ msgid "/Tags/Special/Non Latin/_Micro sign µ"
-#~ msgstr "/Tag/Speciali/Non latini/Simbolo _micro µ"
-
-#~ msgid "/Tags/Special/_Other"
-#~ msgstr "/Tag/Speciali/_Altri"
-
-#~ msgid "/Tags/Special/Other/_Non-breaking space"
-#~ msgstr "/Tag/Speciali/Altri/Spazio _non separabile"
-
-#~ msgid "/Tags/Special/Other/_Broken bar ¦"
-#~ msgstr "/Tag/Speciali/Altri/_Barra verticale spezzata ¦"
-
-#~ msgid "/Tags/Special/Other/Soft _hyphen -"
-#~ msgstr "/Tag/Speciali/Altri/_Trattino -"
-
-#~ msgid "/Tags/Special/Other/Middle _dot ·"
-#~ msgstr "/Tag/Speciali/Altri/Punto centra_le ·"
-
-#~ msgid "/Tags/Format by layout/_Bold"
-#~ msgstr "/Tag/Formattazione in base al layout/_Grassetto"
-
-#~ msgid "/Tags/Format by layout/_Italic"
-#~ msgstr "/Tag/Formattazione in base al layout/_Corsivo"
-
-#~ msgid "/Tags/Format by layout/_Underline"
-#~ msgstr "/Tag/Formattazione in base al layout/_Sottolineato"
-
-#~ msgid "/Tags/Format by layout/_Strikeout"
-#~ msgstr "/Tag/Formattazione in base al layout/_Barrato"
-
-#~ msgid "/Tags/Format by layout/Sm_all"
-#~ msgstr "/Tag/Formattazione in base al layout/_Piccolo"
-
-#~ msgid "/Tags/Format by layout/Bi_g"
-#~ msgstr "/Tag/Formattazione in base al layout/_Grande"
-
-#~ msgid "/Tags/Format by context/_Strong"
-#~ msgstr "/Tag/Formattazione contestuale/En_fasi rafforzata"
-
-#~ msgid "/Tags/Format by context/_Emphasis"
-#~ msgstr "/Tag/Formattazione contestuale/_Enfasi"
-
-#~ msgid "/Tags/Format by context/_Define"
-#~ msgstr "/Tag/Formattazione contestuale/_Definizione"
-
-#~ msgid "/Tags/Format by context/_Code"
-#~ msgstr "/Tag/Formattazione contestuale/C_odice"
-
-#~ msgid "/Tags/Format by context/Sa_mple"
-#~ msgstr "/Tag/Formattazione contestuale/Ese_mpio"
-
-#~ msgid "/Tags/Format by context/_Keyboard"
-#~ msgstr "/Tag/Formattazione contestuale/_Tastiera"
-
-#~ msgid "/Tags/Format by context/_Variable"
-#~ msgstr "/Tag/Formattazione contestuale/_Variabile"
-
-#~ msgid "/Tags/Format by context/Ci_tation"
-#~ msgstr "/Tag/Formattazione contestuale/Cita_zione"
-
-#~ msgid "/Tags/Format by context/_Abbreviation"
-#~ msgstr "/Tag/Formattazione contestuale/_Abbreviazione"
-
-#~ msgid "/Tags/Format by context/Ac_ronym"
-#~ msgstr "/Tag/Formattazione contestuale/Ac_ronimo"
-
-#~ msgid "/Tags/Format by context/_Insert"
-#~ msgstr "/Tag/Formattazione contestuale/_Inserisci"
-
-#~ msgid "/Tags/Format by context/De_lete"
-#~ msgstr "/Tag/Formattazione contestuale/_Cancella"
-
-#~ msgid "/Tags/Format general/_Paragraph"
-#~ msgstr "/Tag/Formattazione generale/_Paragrafo"
-
-#~ msgid "/Tags/Format general/_Break"
-#~ msgstr "/Tag/Formattazione generale/_Interruzione di riga"
-
-#~ msgid "/Tags/Format general/Break clear _all"
-#~ msgstr "/Tag/Formattazione generale/I_nterruzione di riga sotto immagine"
-
-#~ msgid "/Tags/Format general/_Non-Breaking Space"
-#~ msgstr "/Tag/Formattazione generale/_Spazio non interrompibile"
-
-#~ msgid "/Tags/Format general/Font Si_ze +1"
-#~ msgstr "/Tag/Formattazione generale/Di_mensione carattere +1"
-
-#~ msgid "/Tags/Format general/Font _Size -1"
-#~ msgstr "/Tag/Formattazione generale/Dime_nsione carattere -1"
-
-#~ msgid "/Tags/Format general/Preformatted _Text"
-#~ msgstr "/Tag/Formattazione generale/_Testo preformattato"
-
-#~ msgid "/Tags/Format general/Su_bscript"
-#~ msgstr "/Tag/Formattazione generale/P_edice"
-
-#~ msgid "/Tags/Format general/Su_perscript"
-#~ msgstr "/Tag/Formattazione generale/_Apice"
-
-#~ msgid "/Tags/Format general/_Center"
-#~ msgstr "/Tag/Formattazione generale/_Centrato"
-
-#~ msgid "/Tags/Format general/Align _right"
-#~ msgstr "/Tag/Formattazione generale/Allineato a _destra"
-
-#~ msgid "/Tags/_Table"
-#~ msgstr "/Tag/_Tabella"
-
-#~ msgid "/Tags/Table/_Table"
-#~ msgstr "/Tag/Tabella/_Tabella"
-
-#~ msgid "/Tags/Table/Table _Row"
-#~ msgstr "/Tag/Tabella/_Riga Tabella"
-
-#~ msgid "/Tags/Table/Table _Header"
-#~ msgstr "/Tag/Tabella/Int_estazione Tabella"
-
-#~ msgid "/Tags/Table/Table _Data"
-#~ msgstr "/Tag/Tabella/_Dati tabella"
-
-#~ msgid "/Tags/Table/Table _Caption"
-#~ msgstr "/Tag/Tabella/Didas_calia Tabella"
-
-#~ msgid "/Tags/_List"
-#~ msgstr "/Tag/E_lenco"
-
-#~ msgid "/Tags/List/Unordered _List"
-#~ msgstr "/Tag/Elenco/Elenco _non ordinato"
-
-#~ msgid "/Tags/List/_Ordered List"
-#~ msgstr "/Tag/Elenco/Elenco _ordinato"
-
-#~ msgid "/Tags/List/List Ite_m"
-#~ msgstr "/Tag/Elenco/_Voce elenco"
-
-#~ msgid "/Tags/List/De_finition List"
-#~ msgstr "/Tag/Elenco/E_lenco di definizioni"
-
-#~ msgid "/Tags/List/Definition _Term"
-#~ msgstr "/Tag/Elenco/_Termine della definizione"
-
-#~ msgid "/Tags/List/_Definition"
-#~ msgstr "/Tag/Elenco/_Definizione"
-
-#~ msgid "/Tags/List/Men_u"
-#~ msgstr "/Tag/Elenco/_Menù"
-
-#~ msgid "/Tags/Form/_Form"
-#~ msgstr "/Tag/Form/F_orm"
-
-#~ msgid "/Tags/Form/_Button"
-#~ msgstr "/Tag/Form/_Pulsante"
-
-#~ msgid "/Tags/Form/_Input"
-#~ msgstr "/Tag/Form/_Input"
-
-#~ msgid "/Tags/Form/_Textarea"
-#~ msgstr "/Tag/Form/_Area di testo"
-
-#~ msgid "/Tags/_Misc"
-#~ msgstr "/Tag/_Altro"
-
-#~ msgid "/Tags/Misc/_Span"
-#~ msgstr "/Tag/Altro/_Span"
-
-#~ msgid "/Tags/Misc/_Div"
-#~ msgstr "/Tag/Altro/_Div"
-
-#~ msgid "/Tags/Misc/_Link"
-#~ msgstr "/Tag/Altro/_Link"
-
-#~ msgid "/Tags/Misc/S_cript"
-#~ msgstr "/Tag/Altro/S_cript"
-
-#~ msgid "/Tags/Misc/_Anchor"
-#~ msgstr "/Tag/Altro/_Ancora"
-
-#~ msgid "/Tags/Misc/_Image"
-#~ msgstr "/Tag/Altro/_Immagine"
-
-#~ msgid "/Tags/_Comment"
-#~ msgstr "/Tag/_Comment"
-
-#~ msgid "/D_ialogs"
-#~ msgstr "/Dialo_ghi"
-
-#~ msgid "/Dialogs/_General"
-#~ msgstr "/Dialoghi/_Generale"
-
-#~ msgid "/Dialogs/General/_Quickstart..."
-#~ msgstr "/Dialoghi/Generale/_Quickstart..."
-
-#~ msgid "/Dialogs/General/_Link Header..."
-#~ msgstr "/Dialoghi/Generale/L_ink Header..."
-
-#~ msgid "/Dialogs/General/_Body..."
-#~ msgstr "/Dialoghi/Generale/_Corpo..."
-
-#~ msgid "/Dialogs/General/_Anchor..."
-#~ msgstr "/Dialoghi/Generale/_Ancora..."
-
-#~ msgid "/Dialogs/General/_Email..."
-#~ msgstr "/Dialoghi/Generale/_E-mail..."
-
-#~ msgid "/Dialogs/General/_Rule..."
-#~ msgstr "/Dialoghi/Generale/_Riga..."
-
-#~ msgid "/Dialogs/General/_Font..."
-#~ msgstr "/Dialoghi/Generale/_Carattere..."
-
-#~ msgid "/Dialogs/General/Basef_ont..."
-#~ msgstr "/Dialoghi/Generale/Carattere di ba_se..."
-
-#~ msgid "/Dialogs/General/Quick_list..."
-#~ msgstr "/Dialoghi/Generale/_Lista veloce..."
-
-#~ msgid "/Dialogs/General/_Meta..."
-#~ msgstr "/Dialoghi/Generale/_Meta..."
-
-#~ msgid "/Dialogs/General/Embe_d..."
-#~ msgstr "/Dialoghi/Generale/Embe_d..."
-
-#~ msgid "/Dialogs/General/Select _Color..."
-#~ msgstr "/Dialoghi/Generale/_Seleziona il colore..."
-
-#~ msgid "/Dialogs/General/Insert _Time..."
-#~ msgstr "/Dialoghi/Generale/Inserisci _ora..."
-
-#~ msgid "/Dialogs/General/Insert _Image..."
-#~ msgstr "/Dialoghi/Generale/Inserisci _immagine..."
-
-#~ msgid "/Dialogs/General/Insert T_humbnail..."
-#~ msgstr "/Dialoghi/Generale/Inserisci T_humbnail..."
-
-#~ msgid "/Dialogs/_Table"
-#~ msgstr "/Dialoghi/_Tabella"
-
-#~ msgid "/Dialogs/Table/Table _Wizard..."
-#~ msgstr "/Dialoghi/Tabella/_Autocomposizione tabella..."
-
-#~ msgid "/Dialogs/Table/_Table..."
-#~ msgstr "/Dialoghi/Tabella/_Tabella..."
-
-#~ msgid "/Dialogs/Table/Table _Row..."
-#~ msgstr "/Dialoghi/Tabella/_Riga tabella..."
-
-#~ msgid "/Dialogs/Table/Table _Head..."
-#~ msgstr "/Dialoghi/Tabella/I_ntestazione tabella..."
-
-#~ msgid "/Dialogs/Table/Table _Data..."
-#~ msgstr "/Dialoghi/Tabella/_Dati Tabella..."
-
-#~ msgid "/Dialogs/_CSS"
-#~ msgstr "/Dialoghi/_CSS"
-
-#~ msgid "/Dialogs/CSS/_Create Style..."
-#~ msgstr "/Dialoghi/CSS/_Crea stile..."
-
-#~ msgid "/Dialogs/CSS/S_pan..."
-#~ msgstr "/Dialoghi/CSS/S_pan..."
-
-#~ msgid "/Dialogs/CSS/_Div..."
-#~ msgstr "/Dialoghi/CSS/_Div..."
-
-#~ msgid "/Dialogs/CSS/_Style..."
-#~ msgstr "/Dialoghi/CSS/_Stile..."
-
-#~ msgid "/Dialogs/CSS/_Link to Stylesheet..."
-#~ msgstr "/Dialoghi/CSS/Co_llegamento al foglio di stile..."
-
-#~ msgid "/Dialogs/_Frame"
-#~ msgstr "/Dialoghi/_Frame"
-
-#~ msgid "/Dialogs/Frame/Frame _Wizard..."
-#~ msgstr "/Dialoghi/Frame/_Autocomposizione frame..."
-
-#~ msgid "/Dialogs/Frame/Frame_set..."
-#~ msgstr "/Dialoghi/Frame/Frame_set..."
-
-#~ msgid "/Dialogs/Frame/_Frame..."
-#~ msgstr "/Dialoghi/Frame/_Frame..."
-
-#~ msgid "/Dialogs/F_orm"
-#~ msgstr "/Dialoghi/F_orm"
-
-#~ msgid "/Dialogs/Form/F_orm..."
-#~ msgstr "/Dialoghi/Form/F_orm..."
-
-#~ msgid "/Dialogs/Form/_Input..."
-#~ msgstr "/Dialoghi/Form/_Input..."
-
-#~ msgid "/Dialogs/Form/Input Buttons..."
-#~ msgstr "/Dialoghi/Form/P_ulsante di input..."
-
-#~ msgid "/Dialogs/Form/Input Text..."
-#~ msgstr "/Dialoghi/Form/_Testo di input..."
-
-#~ msgid "/Dialogs/Form/Text_area..."
-#~ msgstr "/Dialoghi/Form/_Area di testo..."
-
-#~ msgid "/Dialogs/Form/_Select..."
-#~ msgstr "/Dialoghi/Form/_Selezione opzioni..."
-
-#~ msgid "/Dialogs/Form/O_ption..."
-#~ msgstr "/Dialoghi/Form/Op_zione..."
-
-#~ msgid "/Dialogs/Form/Option _Group..."
-#~ msgstr "/Dialoghi/Form/_Gruppo di opzioni..."
-
-#~ msgid "/Dialogs/Form/_Button..."
-#~ msgstr "/Dialoghi/Form/_Pulsante..."
-
-#~ msgid "Remove from quickbar"
-#~ msgstr "Rimuovi dalla «QuickBar»"
-
-#~ msgid "Move Left"
-#~ msgstr "Spostare a sinistra"
-
-#~ msgid "Move Right"
-#~ msgstr "Spostare a destra"
-
-#~ msgid "Add to quickbar"
-#~ msgstr "Aggiungi alla «QuickBar»"
-
-#~ msgid " Quick bar "
-#~ msgstr " Quickbar "
-
-#~ msgid "Context formatting"
-#~ msgstr "Formattazione contestuale"
-
-#~ msgid "Insert image"
-#~ msgstr "Inserire un'immagine"
-
-#, fuzzy
-#~ msgid "_Rel:"
-#~ msgstr "_Sostituisci:"
-
-#, fuzzy
-#~ msgid "T_ype:"
-#~ msgstr "_Tipo:"
-
-#, fuzzy
-#~ msgid "Clas_s:"
-#~ msgstr "Cl_asse:"
-
-#, fuzzy
-#~ msgid "_Style:"
-#~ msgstr "Stile:"
-
-#, fuzzy
-#~ msgid "C_harset:"
-#~ msgstr "_Obiettivo:"
-
-#, fuzzy
-#~ msgid "_Dir:"
-#~ msgstr "_ID:"
-
-#, fuzzy
-#~ msgid "_Hreflang:"
-#~ msgstr "Href_lang:"
-
-#, fuzzy
-#~ msgid "_Lang:"
-#~ msgstr "Lingu_a:"
-
-#, fuzzy
-#~ msgid "_Accesskey:"
-#~ msgstr "_Accettare:"
-
-#, fuzzy
-#~ msgid "/Dialogs/_New html dialog..."
-#~ msgstr "/Dialoghi/Form/_Scelta selezionabile..."
-
-#, fuzzy
-#~ msgid "Transitional"
-#~ msgstr "Traduttori"
-
-#~ msgid "/Tags/Tearoff1"
-#~ msgstr "/Tag/Tearoff1"
-
-#~ msgid "/Tags/Headings/Tearoff1"
-#~ msgstr "/Tag/Intitolazioni/Tearoff1"
-
-#~ msgid "/Tags/Special/tearoff1"
-#~ msgstr "/Tags/Speciale/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/tearoff1"
-#~ msgstr "/Tags/Speciale/Accentate/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-#~ msgstr "/Tags/Speciali/Accentate/Maiuscole/A-I/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-#~ msgstr "/Tags/Speciali/Accentate/Maiuscole/J-Z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-#~ msgstr "/Tags/Speciali/Accentate/Minuscole/a-i/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-#~ msgstr "/Tags/Speciali/Accentate/Minuscole/j-z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/separator"
-#~ msgstr "/Tags/Speciali/Accentate/separator"
-
-#~ msgid "/Tags/Special/Currency/tearoff1"
-#~ msgstr "/Tags/Speciali/Valuta/tearoff1"
-
-#~ msgid "/Tags/Special/Math-Science/tearoff1"
-#~ msgstr "/Tags/Special/Matematica-Scienze/tearoff1"
-
-#~ msgid "/Tags/Special/Non Latin/tearoff1"
-#~ msgstr "/Tags/Special/Non latini/tearoff1"
-
-#~ msgid "/Tags/Special/Other/tearoff1"
-#~ msgstr "/Tags/Special/Altri/tearoff1"
-
-#~ msgid "/Tags/Format by layout/tearoff1"
-#~ msgstr "/Tags/Formattazione in base al layout/tearoff1"
-
-#~ msgid "/Tags/Format by context/tearoff1"
-#~ msgstr "/Tags/Formattazione contestuale/tearoff1"
-
-#~ msgid "/Tags/Format general/tearoff1"
-#~ msgstr "/Tags/Formattazione generale/tearoff1"
-
-#~ msgid "/Tags/Format general/<separator>"
-#~ msgstr "/Tags/Formattazione generale/<separator>"
-
-#~ msgid "/Tags/Table/tearoff1"
-#~ msgstr "/Tags/Tabella/tearoff1"
-
-#~ msgid "/Tags/List/tearoff1"
-#~ msgstr "/Tags/Elenco/tearoff1"
-
-#~ msgid "/Tags/Form/tearoff1"
-#~ msgstr "/Tag/Form/tearoff1"
-
-#~ msgid "/Tags/Misc/tearoff1"
-#~ msgstr "/Tags/Altro/tearoff1"
-
-#~ msgid "/Dialogs/tearoff1"
-#~ msgstr "/Dialoghi/tearoff1"
-
-#~ msgid "/Dialogs/General/tearoff1"
-#~ msgstr "/Dialogs/Generale/tearoff1"
-
-#~ msgid "/Dialogs/Table/tearoff1"
-#~ msgstr "/Dialogs/Tabella/tearoff1"
-
-#~ msgid "/Dialogs/CSS/tearoff1"
-#~ msgstr "/Dialogs/CSS/tearoff1"
-
-#~ msgid "/Dialogs/Frame/tearoff1"
-#~ msgstr "/Dialogs/Frame/tearoff1"
-
-#~ msgid "/Dialogs/Form/tearoff1"
-#~ msgstr "/Dialogs/Form/tearoff1"
-
-#~ msgid "/Dialogs/sep1"
-#~ msgstr "/Dialoghi/sept1"
-
-#~ msgid "_Email address:"
-#~ msgstr "Indirizzo _email:"
-
-#~ msgid "UrlEncoded _subject:"
-#~ msgstr "_Oggetto email nell'URL"
-
-#~ msgid "UrlEncoded _body:"
-#~ msgstr "_Testo email nell'URL:"
-
-#~ msgid "_Href:"
-#~ msgstr "_Href:"
-
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "_Href:"
-
-#, fuzzy
-#~ msgid "/View/View _HTML Bar"
-#~ msgstr "/Visualizza/Barra _HTML"
-
-#~ msgid ""
-#~ "Bluefish is an editor for experienced web designers and programmers. It "
-#~ "supports many programming and markup languages, but focuses on editing "
-#~ "dynamic and interactive websites. Bluefish is an open source development "
-#~ "project, released under the GPL license.\n"
-#~ "\n"
-#~ "For more information, visit the Bluefish Website at http://bluefish."
-#~ "openoffice.nl/\n"
-#~ "\n"
-#~ "This version of bluefish was compiled with the following options:\n"
-#~ msgstr ""
-#~ "Bluefish è un editor per disegnatori di sitii web esperti e "
-#~ "programmatori. Supporta molti linguaggi di programmazione e linguaggi con "
-#~ "markup ma è orientato alla scrittura dinamica e interattiva di siti web. "
-#~ "Bluefish è un progetto di sviluppo open source rilasciato sotto la "
-#~ "licenza GPL.\\n\"\n"
-#~ "\n"
-#~ "Per maggiori informazioni, visitate il sito web di Bluefish: http://"
-#~ "bluefish.openoffice.nl/\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Project leader:\n"
-#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "Developers for this release:\n"
-#~ "  Olivier Sessink\n"
-#~ "   <olivier@bluefish.openoffice.nl>\n"
-#~ "  Jim Hayward\n"
-#~ "   <jimhayward@linuxexperience.net>\n"
-#~ "  Oskar Świda\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "  Eugene Morenko(More)\n"
-#~ "   <more@irpin.com>\n"
-#~ "  Alastair Porter\n"
-#~ "   <alastair@linuxexperience.com>\n"
-#~ "\n"
-#~ "Developers for previous releases:\n"
-#~ "  Chris Mazuc\n"
-#~ "  Neil Millar\n"
-#~ "  Gero Takke\n"
-#~ "  Bo Forslund\n"
-#~ "  David Arno\n"
-#~ "  Pablo De Napoli\n"
-#~ "  Santiago Capel Torres\n"
-#~ "  Rasmus Toftdahl Olesen\n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "  Roland Steinbach\n"
-#~ "   <roland@netzblick.de>\n"
-#~ "  Christian Tellefsen\n"
-#~ "   <chris@tellefsen.net>\n"
-#~ "  Antti-Juhani Kaijanaho\n"
-#~ "\n"
-#~ "Documentation:\n"
-#~ "  Scott White\n"
-#~ "   <wwsw3@earthlink.net>\n"
-#~ "  Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "  Anita Lewis\n"
-#~ "   <ajreiki@highstream.net>\n"
-#~ "  Alastair Porter\n"
-#~ "   <alastair@linuxexperience.com>\n"
-#~ "  Daniel Blair\n"
-#~ "   <joecamel@realcoders.org>\n"
-#~ "  Olivier Sessink\n"
-#~ "   <olivier@bluefish.openoffice.nl>\n"
-#~ "  Denny Reeh\n"
-#~ "\n"
-#~ "Package Maintainers:\n"
-#~ "  Debian:   Davide Puricelli\n"
-#~ "   <evo@debian.org>\n"
-#~ "  Redhat:   Matthias Haase\n"
-#~ "   <matthias_haase@bennewitz.com>\n"
-#~ "  Mandrake: Todd Lyons\n"
-#~ "   <todd@mrball.net>\n"
-#~ "  Fink: Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "\n"
-#~ "If you know of anyone missing from this list, please let us know\n"
-#~ "<bluefish@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "Thanks to all who helped making this software available.\n"
-#~ msgstr ""
-#~ "Project leader:\n"
-#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "Sviluppatori di questa versione:\n"
-#~ "  Oliver Sessink\n"
-#~ "   <olivier@bluefish.openoffice.nl>\n"
-#~ "  Jim Hayward \n"
-#~ "   <jimhayward@linuxexperience.net>\n"
-#~ "  Oskar Świda\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "  Eugene Morenko(More) \n"
-#~ "   <more@irpin.com>\n"
-#~ "  Alastair Porter\n"
-#~ "\"  <alastair@linuxexperience.com>\n"
-#~ "\n"
-#~ "Sviluppatori delle precedenti versioni:\n"
-#~ "  Chris Mazuc\n"
-#~ "  Neil Millar\n"
-#~ "  Gero Takke\n"
-#~ "  Bo Forslund\n"
-#~ "  David Arno\n"
-#~ "  Pablo De Napoli\n"
-#~ "  Santiago Capel Torres\n"
-#~ "  Rasmus Toftdahl Olesen \n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "  Roland Steinbach \n"
-#~ "   <roland@netzblick.de>\n"
-#~ "  Christian Tellefsen \n"
-#~ "   <chris@tellefsen.net>\n"
-#~ "  Antti-Juhani Kaijanaho\n"
-#~ "\n"
-#~ "Documentazione:\n"
-#~ "  Scott White\n"
-#~ "   <wwsw3@earthlink.net>\n"
-#~ "  Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "  Anita Lewis\n"
-#~ "   <ajreiki@highstream.net>\n"
-#~ "  Alastair Porter\n"
-#~ "   <alastair@linuxexperience.com>\n"
-#~ "  Daniel Blair\n"
-#~ "   <joecamel@realcoders.org>\n"
-#~ "  Olivier Sessink\n"
-#~ "   <olivier@bluefish.openoffice.nl>\n"
-#~ "  Denny Reeh\n"
-#~ "\n"
-#~ "Manutentori dei pacchetti:\n"
-#~ "  Debian:   Davide Puricelli\n"
-#~ "   <evo@debian.org>\n"
-#~ "  Redhat:   Matthias Haase\n"
-#~ "   <matthias_haase@bennewitz.com>\n"
-#~ "  Mandrake: Todd Lyons\n"
-#~ "   <todd@mrball.net>\n"
-#~ "  Fink: Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "\n"
-#~ "Se conoscete qualcuno che manca in questa lista scrivete a\n"
-#~ "<bluefish@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "Grazie a tutti quelli che hanno aiutato per rendere questo software "
-#~ "disponibile.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Current translators:\n"
-#~ "\n"
-#~ "  Brazilian Portuguese: Anderson Rocha\n"
-#~ "   <anderson@maxlinux.com.br>\n"
-#~ "\n"
-#~ "  Bulgarian: Peio Popov\n"
-#~ "   <peio@peio.org>\n"
-#~ "\n"
-#~ "  Chinese: Ting Yang (Dormouse)\n"
-#~ "   <mouselinux@163.com>\n"
-#~ "\n"
-#~ "  Chinese, Traditional: OLS3\n"
-#~ "   <ols3@lxer.idv.tw>\n"
-#~ "\n"
-#~ "  Danish: Rasmus Toftdahl Olesen\n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "\n"
-#~ "  Finnish: Juho Roukala\n"
-#~ "   <j.mr@luukku.com>\n"
-#~ "\n"
-#~ "  French: Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "\n"
-#~ "  German: Roland Steinbach\n"
-#~ "   <roland@netzblick.de>\n"
-#~ "\n"
-#~ "  Hungarian: Péter Sáska\n"
-#~ "   <sasek@ccsystem.hu>\n"
-#~ "\n"
-#~ "  Italian: Stefano Canepa\n"
-#~ "   <sc@linux.it>\n"
-#~ "\n"
-#~ "  Japanese: Takeshi Hamasaki\n"
-#~ "   <hma@syd.odn.ne.jp>\n"
-#~ "\n"
-#~ "  Norwegian: Christian Tellefsen\n"
-#~ "   <chris@tellefsen.net>\n"
-#~ "\n"
-#~ "  Polish: Oskar Swida\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "\n"
-#~ "  Portuguese: Lopo Pizarro\n"
-#~ "   <lopopizarro@netcabo.pt>\n"
-#~ "\n"
-#~ "  Russian: Eugene Rupakov\n"
-#~ "   <rupakov@jet.msk.su>\n"
-#~ "\n"
-#~ "  Serbian: Marko Milenović\n"
-#~ "   <raven@sbb.co.yu>\n"
-#~ "\n"
-#~ "  Spanish: Walter Oscar Echarri\n"
-#~ "   <wecharri@arnet.com.ar>\n"
-#~ "\n"
-#~ "  Swedish: David Smeringe\n"
-#~ "   <david.smeringe@telia.com>\n"
-#~ "\n"
-#~ "  Tamil: Murugapandian Barathee\n"
-#~ "   <barathee@yahoo.com>\n"
-#~ "\n"
-#~ "  Turkish: Oğuz Eren\n"
-#~ "   <ogzeren@gmail.com>\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Attuali traduttori:\n"
-#~ "\n"
-#~ "  Bulgaro - Peio Popov\n"
-#~ "   <peio@peio.org>\n"
-#~ "\n"
-#~ "  Cinese - Ting Yang (Dormouse)\n"
-#~ "   <mouselinux@163.com>\n"
-#~ "\n"
-#~ "  Danese - Rasmus Toftdahl Olesen\n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "\n"
-#~ "  Finlandese - Juho Roukala\n"
-#~ "   <j.mr@luukku.com>\n"
-#~ "\n"
-#~ "  Francese - Roméo Viu-Berges\n"
-#~ "   <apostledemencia@free.fr>\n"
-#~ "\n"
-#~ "  Italiano - Stefano Canepa\n"
-#~ "   <sc@linux.it>\n"
-#~ "\n"
-#~ "  Novergese  - Christian Tellefsen\n"
-#~ "   <chris@tellefsen.net>\n"
-#~ "\n"
-#~ "  Polacco - Oskar Swida\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "\n"
-#~ "  Portoghese - Lopo Pizarro\n"
-#~ "   <lopopizarro@netcabo.pt>\n"
-#~ "\n"
-#~ "  Portoghese Brasiliano - Anderson Rocha\n"
-#~ "   <anderson@maxlinux.com.br>\n"
-#~ "\n"
-#~ "  Russo - Eugene Rupakov\n"
-#~ "   <rupakov@jet.msk.su>\n"
-#~ "\n"
-#~ "  Serbo - Marko Milenović\n"
-#~ "   <raven@sbb.co.yu>\n"
-#~ "\n"
-#~ "  Spagnolo - Walter Oscar Echarri\n"
-#~ "   <wecharri@infovia.com.ar>\n"
-#~ "\n"
-#~ "  Svedese - David Smeringe\n"
-#~ "   <david.smeringe@telia.com>\n"
-#~ "\n"
-#~ "  Tamil - Murugapandian Barathee\n"
-#~ "   <barathee@yahoo.com>\n"
-#~ "\n"
-#~ "  Tedesco - Roland Steinbach\n"
-#~ "   <roland@netzblick.de>\n"
-#~ "\n"
-#~ "  Ungherese - Péter Sáska\n"
-#~ "   <sasek@ccsystem.hu>\n"
-#~ "\n"
-
-#~ msgid "About Bluefish"
-#~ msgstr "Bluefish"
-
-#~ msgid "Info"
-#~ msgstr "Informazioni"
-
-#~ msgid "Authors"
-#~ msgstr "Autori"
-
-#~ msgid "Authentication required"
-#~ msgstr "Richiesta autotenticazione"
-
-#~ msgid "Authentication is required for %s."
-#~ msgstr "L'autenticazione è richiesta per %s."
-
-#~ msgid "Username:"
-#~ msgstr "Nome utente:"
-
-#~ msgid "Password:"
-#~ msgstr "Password:"
-
-#~ msgid ""
-#~ "Bluefish has trouble reading the filenames. Try to set the environment "
-#~ "variable G_BROKEN_FILENAMES=1\n"
-#~ msgstr ""
-#~ "Sono occorsi errori nel leggere i nomi dei file. Provare a impostare la "
-#~ "variabile di ambiente G_BROKEN_FILENAMES=1\n"
-
-#~ msgid "Check Spelling"
-#~ msgstr "Controllo ortografico"
-
-#~ msgid "Checking"
-#~ msgstr "Verifica in corso"
-
-#~ msgid "_Misspelled word:"
-#~ msgstr "Parola _malscritta:"
-
-#~ msgid "Change _to:"
-#~ msgstr "Cambia i_n:"
-
-#~ msgid "I_gnore"
-#~ msgstr "I_gnora"
-
-#~ msgid "_Replace"
-#~ msgstr "_Sostituisci"
-
-#~ msgid "I_n selection"
-#~ msgstr "_Nella selezione"
-
-#~ msgid "personal dictionary"
-#~ msgstr "dizionario personale"
-
-#~ msgid "session dictionary"
-#~ msgstr "dizionario di sessione"
-
-#~ msgid "Dictionary:"
-#~ msgstr "Dizionario:"
-
-#~ msgid "_Add"
-#~ msgstr "_Aggiungi"
-
-#~ msgid "Language:"
-#~ msgstr "Lingua:"
-
-#~ msgid "Set defa_ult"
-#~ msgstr "Imposta come predef_inito"
-
-#~ msgid "Filter:"
-#~ msgstr "Filtro:"
-
-#~ msgid "no filter"
-#~ msgstr "nessun filtro"
-
-#~ msgid "html filter"
-#~ msgstr "Filtro html"
-
-#~ msgid ""
-#~ "\n"
-#~ "Usage: %s [options] [filenames ...]\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Uso: %s [opzioni] [file ...]\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Currently accepted options are:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Le opzioni valide sono:\n"
-
-#~ msgid "-s           skip root check\n"
-#~ msgstr "-s           salta il controllo di root\n"
-
-#~ msgid "-v           current version\n"
-#~ msgstr "-v           versione corrente\n"
-
-#~ msgid "-n           open new window\n"
-#~ msgstr "-n           apri una nuova finestra\n"
-
-#~ msgid "-p filename  open project\n"
-#~ msgstr "-p nome file  apri progetto\n"
-
-#~ msgid "-h           this help screen\n"
-#~ msgstr "-h           questo messaggio di aiuto\n"
-
-#~ msgid "parsing highlighting file..."
-#~ msgstr "analisi del file di evidenziazione in corso"
-
-#~ msgid "compiling highlighting patterns..."
-#~ msgstr "compilazione degli schemi di evidenziazione in corso"
-
-#~ msgid "parsing custom menu file..."
-#~ msgstr "analisi del file del menu personalizzato in corso"
-
-#~ msgid "creating main gui..."
-#~ msgstr "creazione della GUI principale in corso"
-
-#~ msgid "showing main gui..."
-#~ msgstr "costruzione della GUI in corso"
-
-#~ msgid "Bluefish tip:"
-#~ msgstr "Suggerimento di Bluefish:"
-
-#~ msgid ""
-#~ "This message is shown since you do not have any items in the Quickbar.\n"
-#~ "\n"
-#~ "If you right-click a button in the HTML toolbars you can add buttons to "
-#~ "the Quickbar."
-#~ msgstr ""
-#~ "Non ci sono elementi nella Quickbar.\n"
-#~ "\n"
-#~ "Fare click con il tasto destro sulle barre dell'HTML per aggiungere "
-#~ "pulsanti alla Quickbar"
-
-#~ msgid "Temporary"
-#~ msgstr "Temporaneo"
-
-#~ msgid "Do you really want to delete all bookmarks for %s?"
-#~ msgstr "Rimuovere tutti i segnalibri per %s?"
-
-#~ msgid "Delete bookmarks?"
-#~ msgstr "Eliminare i segnalibri?"
-
-#~ msgid "Do you really want to delete %s?"
-#~ msgstr "Rimuovere %s?"
-
-#~ msgid "Delete permanent bookmark."
-#~ msgstr "Cancella segnalibro permanente"
-
-#~ msgid "Edit bookmark"
-#~ msgstr "Modifica il segnalibro"
-
-#~ msgid "Goto bookmark"
-#~ msgstr "Vai al segnalibro"
-
-#~ msgid "Edit"
-#~ msgstr "Modifica"
-
-#~ msgid "Delete all in document"
-#~ msgstr "Elimina tutti i documenti"
-
-#~ msgid "Delete all"
-#~ msgstr "Elimina tutti"
-
-#, fuzzy
-#~ msgid "Error adding bookmark"
-#~ msgstr "Modifica il segnalibro"
-
-#, fuzzy
-#~ msgid "Cannot add bookmarks to unsaved files."
-#~ msgstr "Impossibile aggiungere segnalibri a un file senza nome."
-
-#, fuzzy
-#~ msgid "Can't add bookmark"
-#~ msgstr "Aggiungi il segnalibro"
-
-#~ msgid "You already have a bookmark here!"
-#~ msgstr "Segnalibro già presente"
-
-#~ msgid "Delete all bookmarks."
-#~ msgstr "Elimina tutti i segnalibri."
-
-#~ msgid "File size changed in file\n"
-#~ msgstr "La dimensione del file è cambiata\n"
-
-#~ msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
-#~ msgstr ""
-#~ "La posizione dei segnalibri potrebbe essere scorretta. Eliminare i "
-#~ "segnalibri?"
-
-#~ msgid "/Document/Highlight Syntax"
-#~ msgstr "/Documento/Evidenzia sintassi"
-
-#~ msgid "Name: "
-#~ msgstr "Nome:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Type: "
-#~ msgstr ""
-#~ "\n"
-#~ "Tipo: "
-
-#~ msgid ""
-#~ "\n"
-#~ "Encoding: "
-#~ msgstr ""
-#~ "\n"
-#~ "Codifica: "
-
-#~ msgid ""
-#~ "\n"
-#~ "Size (on disk): "
-#~ msgstr ""
-#~ "\n"
-#~ "Dimensione (sul disco): "
-
-#~ msgid " bytes"
-#~ msgstr " byte"
-
-#~ msgid ""
-#~ "\n"
-#~ "Permissions: "
-#~ msgstr ""
-#~ "\n"
-#~ "Permessi: "
-
-#~ msgid ""
-#~ "\n"
-#~ "Last modified: "
-#~ msgstr ""
-#~ "\n"
-#~ "Modificato l'ultima volta: "
-
-#~ msgid "Untitled %d"
-#~ msgstr "Senza nome %d"
-
-#, fuzzy
-#~ msgid " Ln: %d, Col: %d"
-#~ msgstr "Lin %d, col %d"
-
-#~ msgid "  %s, %s"
-#~ msgstr "  %s, %s"
-
-#~ msgid "Cannot display file, unknown characters found."
-#~ msgstr "Impossibile mostrare il file, trovati caratteri sconosciuti."
-
-#~ msgid "Replace"
-#~ msgstr "Sostituisci"
-
-#~ msgid "Find"
-#~ msgstr "Cerca"
-
-#~ msgid "Delete bookmark"
-#~ msgstr "Elimina i segnalibri"
-
-#~ msgid "Add bookmark"
-#~ msgstr "Aggiungi il segnalibro"
-
-#~ msgid "_Abort save"
-#~ msgstr "Interrompi s_alvataggio"
-
-#~ msgid "_Continue save in UTF-8"
-#~ msgstr "_Continua il salvataggio in UTF-8"
-
-#~ msgid ""
-#~ "Failed to convert %s to character encoding %s. Encoding failed on "
-#~ "character '%s' at line %d column %d\n"
-#~ "\n"
-#~ "Continue saving in UTF-8 encoding?"
-#~ msgstr ""
-#~ "Fallimento nel convertire %s nella codifica dei caratter %s. Codifica "
-#~ "fallita al carattere \"%s\" alla riga %d colonna %d\n"
-#~ "\n"
-#~ "Continuare a salvare codificato UTF-8?"
-
-#~ msgid "File encoding conversion failure"
-#~ msgstr "Conversione della codifica del file fallita"
-
-#~ msgid "Previously: "
-#~ msgstr "Precedentemente: "
-
-#~ msgid "No filename"
-#~ msgstr "Nessun nome del file"
-
-#~ msgid "Unable to open file"
-#~ msgstr "Impossibile aprire il file"
-
-#~ msgid "_Reload"
-#~ msgstr "_Ricarica"
-
-#~ msgid "_Ignore"
-#~ msgstr "_Ignora"
-
-#~ msgid ""
-#~ "Filename: %s\n"
-#~ "\n"
-#~ "New modification time is: %s\n"
-#~ "Old modification time is: %s"
-#~ msgstr ""
-#~ "Nome file: %s\n"
-#~ "\n"
-#~ "Ora della nuova modifica: %s\n"
-#~ "Ora della vecchia modifica: %s"
-
-#~ msgid "File has been modified by another process\n"
-#~ msgstr "Il file è stato modificato da un'altro processo.\n"
-
-#, fuzzy
-#~ msgid "_Close"
-#~ msgstr "Chiudi"
-
-#, fuzzy
-#~ msgid "File "
-#~ msgstr "File n°"
-
-#~ msgid "Select file to insert"
-#~ msgstr "Selezionare il file da inserire"
-
-#~ msgid "No file to insert"
-#~ msgstr "Nessun file da inserire"
-
-#~ msgid "Statistics: %d lines, %d words, %d characters"
-#~ msgstr "Statistiche: %d righe, %d parole, %d caratteri"
-
-#, fuzzy
-#~ msgid "New directory"
-#~ msgstr "/_Nuova directory"
-
-#, fuzzy
-#~ msgid "New file"
-#~ msgstr "/_Nuovo file"
-
-#~ msgid "Could not rename\n"
-#~ msgstr "Impossibile rinominare\n"
-
-#~ msgid "Are you sure you want to delete \"%s\" ?"
-#~ msgstr "Sicuri di voler cancellare «%s» ?"
-
-#~ msgid "If you delete this file, it will be permanently lost."
-#~ msgstr "Se si elimina il file, sarà perso per sempre."
-
-#~ msgid "Could not delete \n"
-#~ msgstr "Impossibile cancellare \n"
-
-#~ msgid "/_Open"
-#~ msgstr "/_Apri file "
-
-#~ msgid "/Open _Advanced..."
-#~ msgstr "/Apri avan_zato..."
-
-#~ msgid "/Rena_me"
-#~ msgstr "/Rino_mina file"
-
-#~ msgid "/_Delete"
-#~ msgstr "/_Cancella "
-
-#~ msgid "/New _File"
-#~ msgstr "/_Nuovo file"
-
-#~ msgid "/_New Directory"
-#~ msgstr "/_Nuova directory"
-
-#~ msgid "/_Refresh"
-#~ msgstr "/A_ggiorna"
-
-#, fuzzy
-#~ msgid "/Show Full _Tree"
-#~ msgstr "Mostra tutto l'albero"
-
-#~ msgid "/_Set as basedir"
-#~ msgstr "/Seleziona come directory di base"
-
-#, fuzzy
-#~ msgid "/Follow active document"
-#~ msgstr "/Vai/_Ultimo documento"
-
-#, fuzzy
-#~ msgid "/Show hidden files"
-#~ msgstr "Mostra file nascosti"
-
-#, fuzzy
-#~ msgid "/Show backup files"
-#~ msgstr "Mostra file di backup"
-
-#~ msgid "Filter"
-#~ msgstr "Filtro"
-
-#~ msgid "All files"
-#~ msgstr "Tutti i file"
-
-#~ msgid "Error creating path"
-#~ msgstr "Errore in creazione percorso"
-
-#~ msgid "File name"
-#~ msgstr "Nome file"
-
-#~ msgid "Directory name"
-#~ msgstr "Nome directory"
-
-#~ msgid "Opening directory..."
-#~ msgstr "Apertura file in corso "
-
-#~ msgid "Show hidden files"
-#~ msgstr "Mostra file nascosti"
-
-#~ msgid "Show backup files"
-#~ msgstr "Mostra file di backup"
-
-#~ msgid "Show full tree"
-#~ msgstr "Mostra tutto l'albero"
-
-#~ msgid "Follow focus"
-#~ msgstr "Segui il focus"
-
-#~ msgid "_Skip"
-#~ msgstr "_Salta"
-
-#~ msgid "_Overwrite"
-#~ msgstr "S_ovrascrivi"
-
-#, fuzzy
-#~ msgid "%s already exists, overwrite?"
-#~ msgstr "Il file %s esite ed è aperto, sovrascrivere?"
-
-#, fuzzy
-#~ msgid "Overwrite file?"
-#~ msgstr "S_ovrascrivi"
-
-#~ msgid "Select basedir"
-#~ msgstr "Seleziona la directory di base"
-
-#~ msgid "Advanced open file selector"
-#~ msgstr "Selettore file avanzato"
-
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>Generale<b>"
-
-#~ msgid "Base_dir:"
-#~ msgstr "_Directory di base"
-
-#~ msgid "_Browse..."
-#~ msgstr "_Sfoglia:"
-
-#, fuzzy
-#~ msgid "_Pattern:"
-#~ msgstr "Mode_llo:"
-
-#~ msgid "_Recursive:"
-#~ msgstr "_Ricorsivo:"
-
-#~ msgid "<b>Contains</b>"
-#~ msgstr "<b>Contiene<b>"
-
-#~ msgid "Pa_ttern:"
-#~ msgstr "Mode_llo:"
-
-#~ msgid "Is rege_x:"
-#~ msgstr "è un'e_spressione regolare"
-
-#~ msgid "Select files"
-#~ msgstr "Selezionare i file"
-
-#~ msgid "Open URL"
-#~ msgstr "Apri URL"
-
-#~ msgid "<b>Open URL</b>"
-#~ msgstr "<b>Apri URL<b>"
-
-#~ msgid "_Continue save"
-#~ msgstr "_Continua il salvataggio"
-
-#~ msgid ""
-#~ "A backupfile for %s could not be created. If you continue, this file will "
-#~ "be overwritten."
-#~ msgstr ""
-#~ "Impossibile creare un file di backup per il file %s. Continuando il file "
-#~ "sarà sovrascritto."
-
-#~ msgid "File backup failure"
-#~ msgstr "Backup del file fallito"
-
-#, fuzzy
-#~ msgid ""
-#~ "Could not save file:\n"
-#~ "\""
-#~ msgstr ""
-#~ "Impossibile scrivere il file:\n"
-#~ "\""
-
-#, fuzzy
-#~ msgid "File save failed!\n"
-#~ msgstr "Salvataggio file interrotto.\n"
-
-#, fuzzy
-#~ msgid "File %s is modified on disk, overwrite?"
-#~ msgstr "Il file %s esite ed è aperto, sovrascrivere?"
-
-#, fuzzy
-#~ msgid "Failed to check if %s is modified on disk"
-#~ msgstr "File modificato dal controllo su disco"
-
-#, fuzzy
-#~ msgid "File modified on disk"
-#~ msgstr "File modificato dal controllo su disco"
-
-#~ msgid "Move/rename %s to"
-#~ msgstr "Sposta/rinomina %s in"
-
-#~ msgid "Save %s as"
-#~ msgstr "Salva %s con"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Annulla"
-
-#~ msgid "File %s exists and is opened, overwrite?"
-#~ msgstr "Il file %s esite ed è aperto, sovrascrivere?"
-
-#~ msgid "The file you have selected is being edited in Bluefish."
-#~ msgstr "Il file selezionato è usato da Bluefish."
-
-#~ msgid "A file named \"%s\" already exists."
-#~ msgstr "Un file di nome \"%s\" esiste già."
-
-#~ msgid "Do you want to replace the existing file?"
-#~ msgstr "Sovrascrivere il file esistente?"
-
-#, fuzzy
-#~ msgid ""
-#~ "File:\n"
-#~ "\""
-#~ msgstr "Filtro:"
-
-#~ msgid "Do_n't save"
-#~ msgstr "_Non salvare"
-
-#~ msgid "Save changes to \"%s\" before closing?."
-#~ msgstr "Salvare i cambiamenti a \"%s\" prima di chiudere?"
-
-#~ msgid "If you don't save your changes they will be lost."
-#~ msgstr "Se non si salva i cambiamenti saranno persi."
-
-#~ msgid "Choose per _File"
-#~ msgstr "Scegli per ogni _file"
-
-#~ msgid "Close _All"
-#~ msgstr "Ch_iudi tutto"
-
-#~ msgid "_Save All"
-#~ msgstr "_Salva tutto"
-
-#~ msgid "Multiple open files have been changed."
-#~ msgstr "File aperti in più finestre sono stati modificati."
-
-#, fuzzy
-#~ msgid "Cannot load reference file %s\n"
-#~ msgstr "Ricarica il file di riferimento"
-
-#, fuzzy
-#~ msgid "Bad root element in reference file"
-#~ msgstr "Ricarica il file di riferimento"
-
-#, fuzzy
-#~ msgid "Bad reference"
-#~ msgstr "Preferenze di modifica"
-
-#, fuzzy
-#~ msgid "Loading reference"
-#~ msgstr "Preferenze di modifica"
-
-#, fuzzy
-#~ msgid "Unloading reference"
-#~ msgstr "Guida delle funzioni"
-
-#, fuzzy
-#~ msgid "Identifier"
-#~ msgstr "Centrato"
-
-#, fuzzy
-#~ msgid "Kind"
-#~ msgstr "Cerca"
-
-#~ msgid "Name"
-#~ msgstr "Nome"
-
-#, fuzzy
-#~ msgid "Type"
-#~ msgstr "_Tipo:"
-
-#, fuzzy
-#~ msgid "Default value"
-#~ msgstr "Directory di base predefinita"
-
-#, fuzzy
-#~ msgid "Input type"
-#~ msgstr "Informazioni sui tipi"
-
-#~ msgid "Description"
-#~ msgstr "Descrizione"
-
-#, fuzzy
-#~ msgid "Values"
-#~ msgstr "Valore"
-
-#, fuzzy
-#~ msgid "Insert syntax"
-#~ msgstr "Inserire un'immagine"
-
-#, fuzzy
-#~ msgid "Insert text"
-#~ msgstr "Inserire l'ora"
-
-#, fuzzy
-#~ msgid "Help"
-#~ msgstr "/A_iuto"
-
-#, fuzzy
-#~ msgid "Properties"
-#~ msgstr "Proprietà"
-
-#, fuzzy
-#~ msgid "Add property"
-#~ msgstr "Proprietà"
-
-#, fuzzy
-#~ msgid "Add definition ref"
-#~ msgstr "Termine di definizione"
-
-#, fuzzy
-#~ msgid "Select font for reference view"
-#~ msgstr "Ricarica il file di riferimento"
-
-#, fuzzy
-#~ msgid "Set reference colors"
-#~ msgstr "Preferenze di modifica"
-
-#~ msgid "Attributes/Parameters"
-#~ msgstr "Attributi/Parametri"
-
-#~ msgid "Notes"
-#~ msgstr "Note"
-
-#, fuzzy
-#~ msgid "Examples"
-#~ msgstr "Esempio"
-
-#, fuzzy
-#~ msgid "Links"
-#~ msgstr "Collegamento"
-
-#~ msgid "Error"
-#~ msgstr "Errore"
-
-#, fuzzy
-#~ msgid ""
-#~ "Perhaps you didn't load a library, or you did not select a library to "
-#~ "search in."
-#~ msgstr ""
-#~ "Probabilmente non sono stati caricati le guide di riferimento o non sono "
-#~ "state selezionate le guide in cui cercare."
-
-#, fuzzy
-#~ msgid "Element %s not found"
-#~ msgstr "Nessun riferimento trovato"
-
-#, fuzzy
-#~ msgid "Element search"
-#~ msgstr "Ricerca riferimento"
-
-#, fuzzy
-#~ msgid "New library"
-#~ msgstr "/_Nuova directory"
-
-#, fuzzy
-#~ msgid "Library name"
-#~ msgstr "Nome directory"
-
-#, fuzzy
-#~ msgid "Delete library?"
-#~ msgstr "Eliminare i segnalibri?"
-
-#, fuzzy
-#~ msgid "Reference not loaded."
-#~ msgstr "Nessun riferimento trovato"
-
-#, fuzzy
-#~ msgid "New note"
-#~ msgstr "Nuovo progetto"
-
-#, fuzzy
-#~ msgid "Title"
-#~ msgstr "_Titolo:"
-
-#, fuzzy
-#~ msgid "Text"
-#~ msgstr "Area di testo"
-
-#, fuzzy
-#~ msgid "New group"
-#~ msgstr "Nuovo progetto"
-
-#, fuzzy
-#~ msgid "New description def"
-#~ msgstr "Descrizione"
-
-#, fuzzy
-#~ msgid "Description text"
-#~ msgstr "Descrizione"
-
-#, fuzzy
-#~ msgid "New values def"
-#~ msgstr "Nuova finestra di Bluefish"
-
-#, fuzzy
-#~ msgid "Definitions"
-#~ msgstr "Definizione"
-
-#, fuzzy
-#~ msgid "New property"
-#~ msgstr "Nuovo progetto"
-
-#, fuzzy
-#~ msgid "No name"
-#~ msgstr "Nessun nome del file"
-
-#, fuzzy
-#~ msgid "Delete definition?"
-#~ msgstr "Definizione"
-
-#, fuzzy
-#~ msgid "Delete group"
-#~ msgstr " Cancella "
-
-#, fuzzy
-#~ msgid "Delete group?"
-#~ msgstr " Cancella "
-
-#, fuzzy
-#~ msgid "Do you really want to delete current entity?"
-#~ msgstr "Rimuovere %s?"
-
-#~ msgid "Show info window"
-#~ msgstr "Mostra la finestra di informazioni"
-
-#~ msgid "Rescan reference files"
-#~ msgstr "Ricarica il file di riferimento"
-
-#, fuzzy
-#~ msgid "Set view font"
-#~ msgstr "Seleziona carattere"
-
-#, fuzzy
-#~ msgid "Delete library"
-#~ msgstr "Elimina i segnalibri"
-
-#, fuzzy
-#~ msgid "Note"
-#~ msgstr "Note"
-
-#, fuzzy
-#~ msgid "Property definition"
-#~ msgstr "Definizione"
-
-#, fuzzy
-#~ msgid "Description definition"
-#~ msgstr "Descrizione"
-
-#, fuzzy
-#~ msgid "Values definition"
-#~ msgstr "Definizione"
-
-#, fuzzy
-#~ msgid "Element"
-#~ msgstr "Eventi"
-
-#, fuzzy
-#~ msgid "Delete definition"
-#~ msgstr "Definizione"
-
-#, fuzzy
-#~ msgid "Delete entity"
-#~ msgstr "Cancella voce di menù"
-
-#~ msgid "Close"
-#~ msgstr "Chiudi"
-
-#~ msgid "Left doubleclick action"
-#~ msgstr "Azione doppio click tasto sinistro"
-
-#~ msgid "Info type"
-#~ msgstr "Informazioni sui tipi"
-
-#~ msgid "Reference search"
-#~ msgstr "Ricerca riferimento"
-
-#~ msgid "Reference not found"
-#~ msgstr "Nessun riferimento trovato"
-
-#~ msgid ""
-#~ "Perhaps you didn't load a reference, or you did not select a reference to "
-#~ "search in."
-#~ msgstr ""
-#~ "Probabilmente non sono stati caricati le guide di riferimento o non sono "
-#~ "state selezionate le guide in cui cercare."
-
-#~ msgid "Search"
-#~ msgstr "Ricerca"
-
-#~ msgid "%d of %d"
-#~ msgstr "%d di %d"
-
-#~ msgid "Show hidden"
-#~ msgstr "Mostra file nascosti"
-
-#~ msgid "Filebrowser"
-#~ msgstr "Browser dei file"
-
-#~ msgid "Function reference"
-#~ msgstr "Guida delle funzioni"
-
-#~ msgid "Bookmarks"
-#~ msgstr "Segnalibri"
-
-#~ msgid "New"
-#~ msgstr "Nuovo"
-
-#~ msgid "Open..."
-#~ msgstr "Apri"
-
-#~ msgid "Save"
-#~ msgstr "Salva"
-
-#~ msgid "Save As..."
-#~ msgstr "Salva come..."
-
-#~ msgid "Cut"
-#~ msgstr "Taglia"
-
-#~ msgid "Paste"
-#~ msgstr "Incolla"
-
-#~ msgid "Find..."
-#~ msgstr "Cerca..."
-
-#~ msgid "Replace..."
-#~ msgstr "Sostituisci..."
-
-#~ msgid "Undo"
-#~ msgstr "Annulla"
-
-#~ msgid "Redo"
-#~ msgstr "Ripeti"
-
-#~ msgid "Shift Left"
-#~ msgstr "Spostamento a sinistra"
-
-#~ msgid "Shift Right"
-#~ msgstr "Spostamento a destra"
-
-#~ msgid "Spellcheck..."
-#~ msgstr "Controllo ortografico..."
-
-#~ msgid "View in browser"
-#~ msgstr "Mostra nel browser"
-
-#~ msgid "Preferences..."
-#~ msgstr "Preferenze..."
-
-#~ msgid "New Bluefish Window"
-#~ msgstr "Nuova finestra di Bluefish"
-
-#~ msgid "Stand by..."
-#~ msgstr "Attendere..."
-
-#~ msgid "Goto line"
-#~ msgstr "Vai alla riga"
-
-#~ msgid "_Line number:"
-#~ msgstr "_Numero di riga: "
-
-#~ msgid "From _selection"
-#~ msgstr "Dalla _selezione"
-
-#~ msgid "Keep _dialog"
-#~ msgstr "Mantieni la _finestra aperta"
-
-#~ msgid "starting bluefish"
-#~ msgstr "avvio di bluefish in corso"
-
-#~ msgid "Syntax highlighting error for "
-#~ msgstr "Errore nell'evidenziare la sintassi per "
-
-#~ msgid "compiling pattern '%s': %s at offset %d"
-#~ msgstr "compilazione dell'espressione '%s': %s alla posizione %d"
-
-#~ msgid "studying pattern '%s': %s"
-#~ msgstr "%2$s studiando l'espressione '%1$s'"
-
-#~ msgid "compiling 2nd pattern '%s': %s at offset %d"
-#~ msgstr "compilazione della seconda espressione '%s': %s alla posizione %d"
-
-#~ msgid "studying 2nd pattern '%s': %s"
-#~ msgstr "%2$s studiando la seconda espressione '%1$s'"
-
-#~ msgid "/_File"
-#~ msgstr "/_File"
-
-#~ msgid "/File/tearoff1"
-#~ msgstr "/File/tearoff1"
-
-#~ msgid "/File/_New"
-#~ msgstr "/File/_Nuovo"
-
-#~ msgid "/File/New _Window"
-#~ msgstr "/File/Nuova _finestra"
-
-#~ msgid "/File/_Open..."
-#~ msgstr "/File/_Apri"
-
-#~ msgid "/File/Open _recent"
-#~ msgstr "/File/Apri _recenti"
-
-#~ msgid "/File/Open recent/tearoff1"
-#~ msgstr "/File/Apri recenti/tearoff1"
-
-#~ msgid "/File/Open Ad_vanced..."
-#~ msgstr "/File/Apri avan_zato..."
-
-#~ msgid "/File/Open _URL..."
-#~ msgstr "/File/_Apri URL"
-
-#~ msgid "/File/Open _from selection"
-#~ msgstr "/File/Apri dai recen_ti"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/File/sep1"
-
-#~ msgid "/File/_Save"
-#~ msgstr "/File/_Salva"
-
-#~ msgid "/File/Save _As..."
-#~ msgstr "/File/Sa_lva come..."
-
-#~ msgid "/File/Sav_e All"
-#~ msgstr "/File/Sal_va tutti"
-
-#~ msgid "/File/Rever_t to Saved"
-#~ msgstr "/File/_Ripristina"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/File/sep2"
-
-#~ msgid "/File/_Insert..."
-#~ msgstr "/File/_Inserisci..."
-
-#~ msgid "/File/Rena_me..."
-#~ msgstr "/File/_Rinomina..."
-
-#~ msgid "/File/sep3"
-#~ msgstr "/File/sep3"
-
-#~ msgid "/File/_Close"
-#~ msgstr "/File/_Chiudi"
-
-#~ msgid "/File/Close A_ll"
-#~ msgstr "/File/Chiud_i tutti"
-
-#~ msgid "/File/Close Win_dow"
-#~ msgstr "/File/C_hiudi finestra"
-
-#~ msgid "/File/sep4"
-#~ msgstr "/File/sep4"
-
-#~ msgid "/File/_Quit"
-#~ msgstr "/File/_Esci"
-
-#, fuzzy
-#~ msgid "/File/sep5"
-#~ msgstr "/File/sep1"
-
-#~ msgid "/_Edit"
-#~ msgstr "/_Modifica"
-
-#~ msgid "/Edit/Tearoff1"
-#~ msgstr "/_ModificaTearoff1"
-
-#~ msgid "/Edit/_Undo"
-#~ msgstr "/Modifica/_Annulla"
-
-#~ msgid "/Edit/_Redo"
-#~ msgstr "/Modifica/_Ripeti"
-
-#~ msgid "/Edit/Undo All"
-#~ msgstr "/Modifica/Annulla tutto"
-
-#~ msgid "/Edit/Redo All"
-#~ msgstr "/Modifica/Ripeti tutto"
-
-#~ msgid "/Edit/sep1"
-#~ msgstr "/Modifica/sep1"
-
-#~ msgid "/Edit/Cu_t"
-#~ msgstr "/Modifica/_Taglia"
-
-#~ msgid "/Edit/_Copy"
-#~ msgstr "/Modifica/_Copia"
-
-#~ msgid "/Edit/_Paste"
-#~ msgstr "/Modifica/_Incolla"
-
-#~ msgid "/Edit/sep2"
-#~ msgstr "/Modifica/sep2"
-
-#~ msgid "/Edit/Select _All"
-#~ msgstr "/Modifica/_Seleziona tutto"
-
-#~ msgid "/Edit/sep3"
-#~ msgstr "/Modifica/sep3"
-
-#~ msgid "/Edit/_Find..."
-#~ msgstr "/Modifica/Tr_ova"
-
-#~ msgid "/Edit/Find A_gain"
-#~ msgstr "/Modifica/Trova successi_vo"
-
-#~ msgid "/Edit/Find from selection"
-#~ msgstr "/File/Cerca dalla selezione"
-
-#~ msgid "/Edit/R_eplace..."
-#~ msgstr "/Modifica/Sostit_uisci..."
-
-#~ msgid "/Edit/Replace Agai_n"
-#~ msgstr "/Modifica/Sos_tituisci successivo"
-
-#~ msgid "/Edit/Replace special"
-#~ msgstr "/Modifica/Sostituisci speciale"
-
-#~ msgid "/Tools/Tearoff1"
-#~ msgstr "/Edit/Sostituisci speciale/Tearoff1"
-
-#~ msgid "/Tools/_ASCII to HTML Entities"
-#~ msgstr "/Modifica/Sostituisci speciale/da _ASCII ad HTML"
-
-#~ msgid "/Tools/_ISO8859 to HTML Entities"
-#~ msgstr "/Modifica/Sostituisci speciale/da _ISO8859 a HTML"
-
-#~ msgid "/Tools/_Both Types to HTML Entities"
-#~ msgstr "/Modifica/Sostituisci speciale/_Entrambi i tipi in entità HTML"
-
-#~ msgid "/Tools/To _Uppercase"
-#~ msgstr "/Edit/Sostituisci speciale/In _maiuscolo"
-
-#~ msgid "/Tools/To _Lowercase"
-#~ msgstr "/Edit/Sostituisci speciale/In min_uscolo"
-
-#~ msgid "/Edit/sep4"
-#~ msgstr "/Modifica/sep4"
-
-#~ msgid "/Edit/S_hift Right"
-#~ msgstr "/Modifica/Sposta a dest_ra"
-
-#~ msgid "/Edit/Shift _Left"
-#~ msgstr "/Modifica/Sposta a sinis_tra"
-
-#~ msgid "/Edit/sep5"
-#~ msgstr "/Modifica/sep5"
-
-#~ msgid "/Document/Add _Bookmark"
-#~ msgstr "/Modifica/Aggiungi_segnalibro"
-
-#~ msgid "/Edit/sep6"
-#~ msgstr "/Modifica/sep6"
-
-#~ msgid "/Edit/Save Sett_ings"
-#~ msgstr "/Modifica/Salva _impostazioni"
-
-#~ msgid "/Edit/Save Shortcut _Keys"
-#~ msgstr "/Opzioni/Salva _tasti acceleratori"
-
-#~ msgid "/Edit/Preference_s"
-#~ msgstr "/Modifica/_Preferenze"
-
-#~ msgid "/_View"
-#~ msgstr "/_Visualizza"
-
-#~ msgid "/View/tearoff1"
-#~ msgstr "/Visualizza/tearoff1"
-
-#~ msgid "/View/View _Custom Menu"
-#~ msgstr "/Visualizza/Barra p_ersonalizzata"
-
-#~ msgid "/View/View _Sidebar"
-#~ msgstr "/Visualizza/Barra _laterale"
-
-#~ msgid "/_Document"
-#~ msgstr "/_Documento"
-
-#~ msgid "/Document/tearoff1"
-#~ msgstr "/Documento/tearoff1"
-
-#~ msgid "/Document/_Increase Tabsize"
-#~ msgstr "/Documento/_Aumenta dimensione tabulatore"
-
-#~ msgid "/Document/_Decrease Tabsize"
-#~ msgstr "/Documento/_Diminusci dimensione tabulatore"
-
-#~ msgid "/Document/_Auto Indent"
-#~ msgstr "/Documento/Indentazione automatica"
-
-#~ msgid "/Document/sep1"
-#~ msgstr "/Documento/sep1"
-
-#~ msgid "/Document/Auto Close H_TML tags"
-#~ msgstr "/Documento/Chiusura automatica tag H_TML"
-
-#~ msgid "/Document/_Wrap"
-#~ msgstr "/Documento/A _capo automatico"
-
-#~ msgid "/Document/_Line Numbers"
-#~ msgstr "/Documento/Numeri di _riga"
-
-#~ msgid "/Document/sep2"
-#~ msgstr "/Documento/sep2"
-
-#~ msgid "/Document/_Highlight Syntax"
-#~ msgstr "/Documento/Evidenzia _sintassi"
-
-#~ msgid "/Document/_Update Highlighting"
-#~ msgstr "/Documento/_Aggiorna l'evidenziazione"
-
-#~ msgid "/Document/sep3"
-#~ msgstr "/Documento/sep3"
-
-#~ msgid "/Document/Document Ty_pe"
-#~ msgstr "/Documento/Tipo"
-
-#~ msgid "/Document/Document Type/tearoff1"
-#~ msgstr "/Documento/Tipo/tearoff1"
-
-#~ msgid "/Document/Character _Encoding"
-#~ msgstr "/Documento/Codi_fica caratteri"
-
-#~ msgid "/Document/Character Encoding/tearoff1"
-#~ msgstr "/Documento/Codifica/tearoff1"
-
-#~ msgid "/Document/sep4"
-#~ msgstr "/Documento/sep4"
-
-#~ msgid "/Document/Check _Spelling..."
-#~ msgstr "/Documento/Controllo _ortografico"
-
-#~ msgid "/Document/_Floating window"
-#~ msgstr "/Documento/Finestra flottante"
-
-#~ msgid "/Document/Word _Count"
-#~ msgstr "/Documento/Conteggio pa_role"
-
-#, fuzzy
-#~ msgid "/Document/sep5"
-#~ msgstr "/Documento/sep1"
-
-#, fuzzy
-#~ msgid "/Document/Move left"
-#~ msgstr "/Documento/Indentazione automatica"
-
-#, fuzzy
-#~ msgid "/Document/Move right"
-#~ msgstr "/Documento/sep1"
-
-#~ msgid "/_Go"
-#~ msgstr "Va_i"
-
-#~ msgid "/Go/tearoff1"
-#~ msgstr "/Vai/tearoff1"
-
-#~ msgid "/Go/_Previous document"
-#~ msgstr "/Vai/Documento _precedente"
-
-#~ msgid "/Go/_Next document"
-#~ msgstr "/Vai/_Nuovo documento"
-
-#~ msgid "/Go/sep1"
-#~ msgstr "/Vai/sep1"
-
-#~ msgid "/Go/_First document"
-#~ msgstr "/Vai/_Primo documento"
-
-#~ msgid "/Go/L_ast document"
-#~ msgstr "/Vai/_Ultimo documento"
-
-#~ msgid "/Go/Goto _Line"
-#~ msgstr "/Vai/_Vai alla riga"
-
-#~ msgid "/Go/Goto _Selection"
-#~ msgstr "/Vai/Vai alla selezio_ne"
-
-#~ msgid "/_Project"
-#~ msgstr "/_Progetto"
-
-#~ msgid "/Project/tearoff1"
-#~ msgstr "/Progetto/tearoff1"
-
-#~ msgid "/Project/_New Project"
-#~ msgstr "/Progetto/_Nuovo progetto"
-
-#~ msgid "/Project/_Open Project..."
-#~ msgstr "/Progetto/Apri progetto..."
-
-#~ msgid "/Project/Open _recent"
-#~ msgstr "/Progetto/Apri recente"
-
-#~ msgid "/Project/Open recent/tearoff1"
-#~ msgstr "/Progetto/Apri recenti/tearoff1"
-
-#~ msgid "/Project/sep1"
-#~ msgstr "/Progetto/sep1"
-
-#~ msgid "/Project/_Save"
-#~ msgstr "/Progetto/_Salva"
-
-#~ msgid "/Project/Save _as..."
-#~ msgstr "/Progetto/Salv_a con nome..."
-
-#~ msgid "/Project/Save & _close"
-#~ msgstr "/Progetto/Salv_a e chiudi"
-
-#~ msgid "/Project/sep2"
-#~ msgstr "/Progetto/sep2"
-
-#~ msgid "/Project/E_dit Project Options..."
-#~ msgstr "/Progetto/Mo_difica le opzioni del progetto..."
-
-#~ msgid "/E_xternal"
-#~ msgstr "/Comandi e_sterni"
-
-#~ msgid "/External/tearoff1"
-#~ msgstr "/Comandi esterni/tearoff1"
-
-#~ msgid "/_Help"
-#~ msgstr "/A_iuto"
-
-#~ msgid "/Help/_About..."
-#~ msgstr "/A_iuto/Infomazioni"
-
-#~ msgid "/Document/Document Type"
-#~ msgstr "/Documento/Tipo"
-
-#~ msgid "/Project/Open recent"
-#~ msgstr "/Progetto/Apri progetto"
-
-#~ msgid "/File/Open recent"
-#~ msgstr "/File/Apri recenti"
-
-#~ msgid "/Windows"
-#~ msgstr "/Finestra"
-
-#, fuzzy
-#~ msgid "Could not view file in browser."
-#~ msgstr "Impossibile scrivere il file \"%s\"."
-
-#~ msgid "/External/Outputbox/"
-#~ msgstr "/Comandi esterni/Riquadro output/"
-
-#~ msgid "/External/Commands/"
-#~ msgstr "/Comandi esterni/Comandi/"
-
-#~ msgid "/External/Browsers/"
-#~ msgstr "/Comandi esterni/Browser/"
-
-#~ msgid "/External"
-#~ msgstr "/Comandi esterni"
-
-#~ msgid "/External/Browsers"
-#~ msgstr "/Comandi esterni/Browser"
-
-#~ msgid "/External/Commands"
-#~ msgstr "/Comandi esterni/Comandi"
-
-#~ msgid "/External/Outputbox"
-#~ msgstr "/Comandi esterni/Riquadro output"
-
-#~ msgid "/Document/Character Encoding"
-#~ msgstr "/Documento/Codifica caratteri"
-
-#~ msgid "This custom search and replace requires a selection"
-#~ msgstr ""
-#~ "Questo comando personalizzato di sostituzione richiede una selezione"
-
-#~ msgid "/_Custom menu"
-#~ msgstr "/Menù _personalizzato"
-
-#~ msgid "/Custom menu/sep"
-#~ msgstr "/Menù personalizzato/sep"
-
-#~ msgid "/Custom menu/Edit custom menu..."
-#~ msgstr "/Menù personalizzato/Modifica il menù..."
-
-#~ msgid "/Custom menu/Reset"
-#~ msgstr "/Menù personalizzato/Reset"
-
-#~ msgid "/Custom menu/Load new"
-#~ msgstr "/Menù personalizzato/Carica nuovo"
-
-#~ msgid "Search Pattern"
-#~ msgstr "Modello da cercare"
-
-#~ msgid "Replace String"
-#~ msgstr "Sostituisci"
-
-#~ msgid "Formatstring Before"
-#~ msgstr "Stringa iniziale"
-
-#~ msgid "The menupath you want to update does not exist yet"
-#~ msgstr "il percorso del menù che si vuole aggiornare non esiste ancora"
-
-#~ msgid "Try 'add' instead."
-#~ msgstr "Provare 'add'."
-
-#~ msgid "The menupath you want to add already exists."
-#~ msgstr "Il percorso del menù che si vuole aggiungere esiste già."
-
-#~ msgid "The menupath should start with a / character"
-#~ msgstr "Il percorso del menù deve iniziare con /"
-
-#~ msgid "Custom Menu Editor"
-#~ msgstr "Menù _personalizzato"
-
-#~ msgid "Add New Menu Entry"
-#~ msgstr "Aggiungi una voce al menù"
-
-#~ msgid "Apply Changes"
-#~ msgstr "Applica Modifiche"
-
-#~ msgid "Delete Menu Entry"
-#~ msgstr "Cancella voce di menù"
-
-#~ msgid "Close Discards Changes"
-#~ msgstr "Chiudi Senza Salvare"
-
-#~ msgid "Save Changes and Exit"
-#~ msgstr "Salva Modifiche ed Esci"
-
-#~ msgid "_Menu Path:"
-#~ msgstr "Percorso del _menù"
-
-#~ msgid "Number of _Variables:"
-#~ msgstr "Numero di _variabili:"
-
-#~ msgid "Variables"
-#~ msgstr "Variabili"
-
-#~ msgid "Custom Dialo_g"
-#~ msgstr "Finestra _personalizzato"
-
-#~ msgid "Custom Replace"
-#~ msgstr "Comando Sostituisci Personalizzato"
-
-#~ msgid "in current document"
-#~ msgstr "nel documento corrente"
-
-#~ msgid "from cursor"
-#~ msgstr "dal cursore"
-
-#~ msgid "in selection"
-#~ msgstr "nella selezione"
-
-#~ msgid "in all open documents"
-#~ msgstr "in tutti i documenti aperti"
-
-#~ msgid "Matc_hing:"
-#~ msgstr "Come:"
-
-#~ msgid "normal"
-#~ msgstr "normale"
-
-#~ msgid "posix regular expressions"
-#~ msgstr "espressione regolare posix"
-
-#~ msgid "perl regular expressions"
-#~ msgstr "espressione regolare perl"
-
-#~ msgid "Case Se_nsitive"
-#~ msgstr "M_aiuscole/minuscole"
-
-#~ msgid "Untitled"
-#~ msgstr "Senza nome"
-
-#~ msgid "Select font"
-#~ msgstr "Seleziona carattere"
-
-#~ msgid "Label"
-#~ msgstr "Etichetta"
-
-#~ msgid "Extensions"
-#~ msgstr "Dimensioni"
-
-#~ msgid "Update chars"
-#~ msgstr " Aggiorna "
-
-#~ msgid "Icon"
-#~ msgstr "Icona"
-
-#~ msgid "Editable"
-#~ msgstr "Modificabile"
-
-#~ msgid "Content regex"
-#~ msgstr "Contenuto"
-
-#~ msgid "Auto close tags mode"
-#~ msgstr "Modalità di chiusura automatica delle schede"
-
-#~ msgid "Inverse filter"
-#~ msgstr "Filtro inverso"
-
-#~ msgid "Filetypes in filter"
-#~ msgstr "Utilità e filtri"
-
-#~ msgid "filetype"
-#~ msgstr "tipo del file"
-
-#~ msgid "Reset"
-#~ msgstr "Reset"
-
-#~ msgid "Pattern name"
-#~ msgstr "Nome modello"
-
-#~ msgid "Pattern"
-#~ msgstr "Modello"
-
-#~ msgid "Start pattern and end pattern"
-#~ msgstr "Modello iniziale e finale"
-
-#~ msgid "Only start pattern"
-#~ msgstr "Solo modello iniziale"
-
-#~ msgid "Subpattern from parent"
-#~ msgstr "Sottomodello dal padre"
-
-#~ msgid "Start pattern"
-#~ msgstr "Modello iniziale"
-
-#~ msgid "End pattern"
-#~ msgstr "Modello finale"
-
-#~ msgid "Case sensitive matching"
-#~ msgstr "Maiuscole/minuscole"
-
-#~ msgid "Parentmatch"
-#~ msgstr "Discende da"
-
-#~ msgid "Foreground color"
-#~ msgstr "Colore primo piano"
-
-#~ msgid "Background color"
-#~ msgstr "Colore sfondo"
-
-#~ msgid "don't change weight"
-#~ msgstr "non cambiare il peso"
-
-#~ msgid "force non-bold weight"
-#~ msgstr "obbliga peso non grassetto"
-
-#~ msgid "force bold weight"
-#~ msgstr "obbliga peso grassetto"
-
-#~ msgid "don't change style"
-#~ msgstr "non cambiare lo stile"
-
-#~ msgid "force non-italic style"
-#~ msgstr ""
-#~ "(from the <url id=\"http://www.gabuzomeu.net/alex/doc/apache/index-en.html"
-#~ "\"\n"
-#~ "name=\"original document\">)"
-
-#~ msgid "force italic style"
-#~ msgstr "obbliga stile corsivo"
-
-#~ msgid "Command"
-#~ msgstr "Comando"
-
-#~ msgid ""
-#~ "%s for current filename (any command)\n"
-#~ "%i for input and %f for output filename (filters)"
-#~ msgstr ""
-#~ "%s per il nome del file corrente (qualunque comando)\n"
-#~ "%i per il nome dle file input e %f per quello di output (per i filtri)"
-
-#~ msgid "File #"
-#~ msgstr "File n°"
-
-#~ msgid "Line #"
-#~ msgstr "Riga n°"
-
-#~ msgid "Output #"
-#~ msgstr "Output n°"
-
-#~ msgid "Show all output"
-#~ msgstr "Mostra tutto l'output"
-
-#~ msgid "left"
-#~ msgstr "sinistra"
-
-#~ msgid "right"
-#~ msgstr "destra"
-
-#~ msgid "top"
-#~ msgstr "cima"
-
-#~ msgid "bottom"
-#~ msgstr "fondo"
-
-#~ msgid "no check"
-#~ msgstr "nessun controllo"
-
-#~ msgid "check mtime and size"
-#~ msgstr "controlla mtime e dimensione"
-
-#~ msgid "check mtime"
-#~ msgstr "controlla mtime"
-
-#~ msgid "check size"
-#~ msgstr "controlla dimensione"
-
-#~ msgid "Edit preferences"
-#~ msgstr "Preferenze di modifica"
-
-#~ msgid "Editor"
-#~ msgstr "Editor"
-
-#~ msgid "Editor options"
-#~ msgstr "Opzioni dell'editor"
-
-#~ msgid "Tab width"
-#~ msgstr "Ampiezza tabulatore"
-
-#~ msgid "Use spaces to indent, not tabs"
-#~ msgstr "Usa spazi per indentare, non tabulazioni"
-
-#~ msgid "Word wrap default"
-#~ msgstr "A capo automatico"
-
-#~ msgid "Line numbers by default"
-#~ msgstr "Numeri di riga"
-
-#~ msgid "Highlight syntax by default"
-#~ msgstr "Evidenzia sintassi"
-
-#~ msgid "Highlight # lines"
-#~ msgstr "Evidenzia n righe"
-
-#~ msgid "Undo history size"
-#~ msgstr "Dimensione della cronologia di annulla"
-
-#~ msgid "Clear undo history on save"
-#~ msgstr "Cancella la storia di annulla al salvataggio"
-
-#~ msgid "Bookmark options"
-#~ msgstr "Opzioni segnalibri"
-
-#~ msgid "Make permanent by default"
-#~ msgstr "Rendi permanente modo predefinito"
-
-#~ msgid "full path"
-#~ msgstr "percorso completo"
-
-#~ msgid "path from basedir"
-#~ msgstr "percorso dalla directory di base"
-
-#~ msgid "filename"
-#~ msgstr "nome del file"
-
-#~ msgid "Bookmarks filename display"
-#~ msgstr "Mostra i nomi dei file dei segnalibri"
-
-#~ msgid "HTML"
-#~ msgstr "HTML"
-
-#~ msgid "HTML options"
-#~ msgstr "Opzioni HTML"
-
-#~ msgid "Lowercase HTML tags"
-#~ msgstr "Tag HTML minuscoli"
-
-#~ msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-#~ msgstr "Usa tag disapprovati (ad es.: <font> e <nobr>)"
-
-#~ msgid "Use XHTML style tags (<br />)"
-#~ msgstr "Usa i tag in stile XHTML (<br />)"
-
-#~ msgid "Automatic update author meta"
-#~ msgstr "Aggiorna automaticamente il meta tag autore"
-
-#~ msgid "Files"
-#~ msgstr "File"
-
-#~ msgid "Encoding"
-#~ msgstr "Codifica"
-
-#~ msgid "Default character set"
-#~ msgstr "Set di caratteri predefiniti"
-
-#~ msgid "Auto set <meta> encoding tag on change"
-#~ msgstr ""
-#~ "Imposta automaticamente i <meta> tag dell'encoding ad ogni cambiamento"
-
-#~ msgid "Backup"
-#~ msgstr "Backup"
-
-#~ msgid "Create backup on save"
-#~ msgstr "Creare il backup al salvataggio"
-
-#~ msgid "Backup file suffix"
-#~ msgstr "Suffisso del file di backup"
-
-#~ msgid "save"
-#~ msgstr "salva"
-
-#~ msgid "abort"
-#~ msgstr "interrompi"
-
-#~ msgid "ask"
-#~ msgstr "richiedi"
-
-#~ msgid "Action on backup failure"
-#~ msgstr "Azione in caso di fallimento del backup"
-
-#~ msgid "Remove backupfile on close"
-#~ msgstr "Rimuovi il file di backup alla chiusura"
-
-#~ msgid "Allow multi instances of a file"
-#~ msgstr "Consenti istanze multiple di un file"
-
-#~ msgid "Open files in already running bluefish window"
-#~ msgstr "Apri i file nella finestra corrente di bluefish"
-
-#~ msgid "File modified on disk check "
-#~ msgstr "File modificato dal controllo su disco"
-
-#~ msgid "Number of files in 'Open recent'"
-#~ msgstr "Numero di file in 'Apri recenti'"
-
-#~ msgid "File browser"
-#~ msgstr "Browser dei file"
-
-#~ msgid "Default basedir"
-#~ msgstr "Directory di base predefinita"
-
-#~ msgid "Use separate file and directory view"
-#~ msgstr "Usa viste separate per file e directory"
-
-#~ msgid "Unknown icon"
-#~ msgstr "Icona sconosciuta"
-
-#~ msgid "Directory icon"
-#~ msgstr "Icona della directory"
-
-#~ msgid "User interface"
-#~ msgstr "Interfaccia utente"
-
-#~ msgid "Restore last used dimensions"
-#~ msgstr "Ripristina le dimensioni usate l'ultima volta"
-
-#~ msgid "Initial sidebar width"
-#~ msgstr "Larghezza iniziale della barra laterale"
-
-#~ msgid "Initial window height"
-#~ msgstr "Altezza iniziale della finestra"
-
-#~ msgid "Initial window width"
-#~ msgstr "Larghezza iniziale della finestra"
-
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "Finestra HTML sempre in primo piano"
-
-#~ msgid "External browsers in submenu"
-#~ msgstr "Browser esterni raccolti in un sottomenù"
-
-#~ msgid "External commands in submenu"
-#~ msgstr "Comandi esterni raccolti in un sottomenù"
-
-#~ msgid "External outputbox in submenu"
-#~ msgstr "Comandi esterni con output raccolti in un sottomenù"
-
-#~ msgid "Notebook tab font (leave empty for gtk default)"
-#~ msgstr ""
-#~ "Carattere della linguetta (lasciare vuoto per predefinito delle GTK)"
-
-#~ msgid "Document notebook tab position"
-#~ msgstr "Posizione dei tab del documento"
-
-#~ msgid "Sidebar notebook tab position"
-#~ msgstr "Posizione delle schede del pannello laterale"
-
-#~ msgid "Sidebar location"
-#~ msgstr "Posizione del pannello laterale"
-
-#~ msgid "Thumbnails"
-#~ msgstr "Miniature"
-
-#~ msgid "Thumbnail suffix"
-#~ msgstr "Suffisso miniatura"
-
-#~ msgid "Thumbnail filetype"
-#~ msgstr "Tipo dei file delle miniature"
-
-#~ msgid "Filetypes"
-#~ msgstr "Tipi dei file"
-
-#~ msgid "Filefilters"
-#~ msgstr "Filtri dei file"
-
-#~ msgid "Syntax highlighting"
-#~ msgstr "Evidenzia sintassi"
-
-#~ msgid "Patterns"
-#~ msgstr "Modelli"
-
-#~ msgid "External programs"
-#~ msgstr "Programmi esterni"
-
-#~ msgid "Browsers"
-#~ msgstr "Browser"
-
-#~ msgid "Utilities and filters"
-#~ msgstr "Utilità e filtri"
-
-#~ msgid "Output parsers"
-#~ msgstr "Parser dell'output"
-
-#~ msgid "Outputbox"
-#~ msgstr "Finestra di output"
-
-#~ msgid "Servers"
-#~ msgstr "Server"
-
-#~ msgid "Remote servers"
-#~ msgstr "Directory remota:"
-
-#~ msgid "Zope compatibility mode"
-#~ msgstr "Modo compatibile Zope"
-
-#~ msgid "New project"
-#~ msgstr "Nuovo progetto"
-
-#~ msgid "Enter Bluefish project filename"
-#~ msgstr "Inserire il nome del file del progetto di Bluefish"
-
-#~ msgid "Select Bluefish project filename"
-#~ msgstr "Selezionare il nome del file del progetto di Bluefish"
-
-#, fuzzy
-#~ msgid "Save current project?"
-#~ msgstr "Crea un progetto vuoto"
-
-#~ msgid "Create New Project"
-#~ msgstr "Crea nuovo progetto"
-
-#~ msgid "Edit Project"
-#~ msgstr "Modifica progetto"
-
-#~ msgid "This project contains %d files"
-#~ msgstr "Questo progetto contiene %d file"
-
-#~ msgid "Project _Name:"
-#~ msgstr "_Nome del progetto:"
-
-#~ msgid "_Basedir:"
-#~ msgstr "_Directory di base"
-
-#~ msgid "_Preview URL:"
-#~ msgstr "Anteprima"
-
-#~ msgid "_Template:"
-#~ msgstr "_Template:"
-
-#~ msgid "_Word wrap by default"
-#~ msgstr "_A capo automatico predefinito"
-
-#~ msgid "Create _Project"
-#~ msgstr "Crea _progetto"
-
-#~ msgid "Create project"
-#~ msgstr "Crea progetto"
-
-#~ msgid "Create project with currently opened documents"
-#~ msgstr "Crea un progetto con i file attualmente aperti"
-
-#~ msgid "Create empty project"
-#~ msgstr "Crea un progetto vuoto"
-
-#~ msgid "Galeon"
-#~ msgstr "Galeon"
-
-#~ msgid "Mozilla"
-#~ msgstr "Mozilla"
-
-#~ msgid "Opera"
-#~ msgstr "Opera"
-
-#~ msgid "Netscape"
-#~ msgstr "Netscape"
-
-#~ msgid "Gnome default"
-#~ msgstr "Predefinito di GNOME"
-
-#~ msgid "make"
-#~ msgstr "make"
-
-#~ msgid "weblint HTML checker"
-#~ msgstr "weblint verificatore HTML"
-
-#~ msgid "tidy HTML validator"
-#~ msgstr "tidy validatore HTML"
-
-#~ msgid "javac"
-#~ msgstr "javac"
-
-#~ msgid "xmllint XML checker"
-#~ msgstr "xmllint verificatore XML"
-
-#~ msgid "php"
-#~ msgstr "php"
-
-#~ msgid "Dos2Unix filter"
-#~ msgstr "Filtro Dos2Unix"
-
-#~ msgid "Tidy cleanup filter"
-#~ msgstr "Filtro di pulizia tidy"
-
-#~ msgid "C programming"
-#~ msgstr "Programmazione C"
-
-#~ msgid "All web files"
-#~ msgstr "Tutti i file web"
-
-#~ msgid "Java programming"
-#~ msgstr "Programmazione Java"
-
-#~ msgid "Hide objectfiles"
-#~ msgstr "Nascondi i file oggetto"
-
-#~ msgid "Untitled Project"
-#~ msgstr "Progetto senza nome"
-
-#~ msgid "Regular expression error: "
-#~ msgstr "Errore nell'espressione regolare"
-
-#~ msgid "Search failed"
-#~ msgstr "Ricerca fallita"
-
-#~ msgid "Regular expression error: %s at offset %d"
-#~ msgstr "Errore nell'espressione regolare: %s all'offset %d"
-
-#~ msgid "Confirm replace"
-#~ msgstr "Confermare la sostituzione"
-
-#~ msgid "Replace selected text?"
-#~ msgstr "Sostituire il testo selezionato?"
-
-#~ msgid "Replace _all"
-#~ msgstr "Sostituisci _tutto"
-
-#~ msgid "Search: no match found"
-#~ msgstr "Ricerca: nessuna occorrenza trovata"
-
-#~ msgid "_Search for: "
-#~ msgstr "Rice_rca:"
-
-#~ msgid "_Replace with: "
-#~ msgstr "Sostituisci _con: "
-
-#~ msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
-#~ msgstr ""
-#~ "\\0 si riferisce alla prima parte del modello, \\1 alla seconda, ecc."
-
-#~ msgid "Beginning of document till end"
-#~ msgstr "Dall'inizio fino alla fine documento"
-
-#~ msgid "Current position till end"
-#~ msgstr "Dalla posizione corrente fino alla fine"
-
-#~ msgid "Beginning of selection till end of selection"
-#~ msgstr "Dall'inizio alla fine della s_elezione"
-
-#~ msgid "All opened files begin till end"
-#~ msgstr "Tutti i file aperti dall'inizio alla fine"
-
-#~ msgid "Disabled"
-#~ msgstr "Disabilitato"
-
-#~ msgid "POSIX type"
-#~ msgstr "Tipo POSIX"
-
-#~ msgid "PERL type"
-#~ msgstr "Tipo PERL"
-
-#~ msgid "Starts at:"
-#~ msgstr "Inizia da:"
-
-#~ msgid "Regular expression:"
-#~ msgstr "Espressione regolare:"
-
-#~ msgid "Normal"
-#~ msgstr "Normale"
-
-#~ msgid "Replace type:"
-#~ msgstr "Tipo di sostituzione:"
-
-#~ msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
-#~ msgstr ""
-#~ "Il pattern contiene un barra rovesciate nelle sequenze di escape (\\n, "
-#~ "\\t)"
-
-#~ msgid "_Match case"
-#~ msgstr "Maiu_scolo/minuscolo"
-
-#~ msgid "O_verlap searches"
-#~ msgstr "Risultati di ricerca so_vrapposti"
-
-#~ msgid "Prompt _before replace"
-#~ msgstr "Chiedi conferma _prima di sostituire"
-
-#~ msgid "Replace o_nce"
-#~ msgstr "Sostituisci solo _una volta"
-
-#~ msgid "Bookmark results"
-#~ msgstr "Segnalibri"
-
-#~ msgid " Add "
-#~ msgstr " Aggiungi "
-
-#~ msgid " Update "
-#~ msgstr " Aggiorna "
-
-#~ msgid " Delete "
-#~ msgstr " Cancella "
-
-#~ msgid " Up "
-#~ msgstr " Su "
-
-#~ msgid " Down "
-#~ msgstr " Giù "
-
-#~ msgid " Sort "
-#~ msgstr " Ordina "
-
-#~ msgid "This bookmark is set in a file that no longer exists."
-#~ msgstr "Questo segnalibro è impostato in un file che non esiste più."
-
-#~ msgid "Are you sure?"
-#~ msgstr "Sicuri?"
-
-#~ msgid "Could not read file:\n"
-#~ msgstr "Impossibile leggere il file:\n"
-
-#~ msgid "Opening file "
-#~ msgstr "Apertura file in corso "
-
-#~ msgid "Saving file"
-#~ msgstr "Salvataggio file in corso"
-
-#~ msgid "Save as..."
-#~ msgstr "Salva con nome..."
-
-#~ msgid ""
-#~ "File: %s\n"
-#~ "\n"
-#~ "New modification time: %s\n"
-#~ "Old modification time: %s"
-#~ msgstr ""
-#~ "File: %s\n"
-#~ "\n"
-#~ "ora della nuova modifica: %s\n"
-#~ "ora della vecchia modifica: %s"
-
-#~ msgid "File has been modified by another process."
-#~ msgstr "Il file è stato modificato da un'altro processo."
-
-#~ msgid "Saving %s"
-#~ msgstr "Salvataggio di %s in corso"
-
-#~ msgid ""
-#~ "Could not backup file:\n"
-#~ "\""
-#~ msgstr ""
-#~ "Impossibile eseguire la copia di sicurezza del file:\n"
-#~ "\""
-
-#~ msgid "File save error"
-#~ msgstr "Errore salvando il file"
-
-#~ msgid ""
-#~ "These files could not opened:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Questi file non sono aperti:\n"
-#~ "\n"
-
-#~ msgid "Unable to open file(s)\n"
-#~ msgstr "Impossibile aprire il/i file\n"
-
-#~ msgid "searching files..."
-#~ msgstr "Ricerca file in corso"
-
-#~ msgid "grep {contains} `find {basedir} -name '{file type}'`"
-#~ msgstr "grep {contenuto} `find {dir_base} -name '{modello}'`"
-
-#~ msgid "_File Type:"
-#~ msgstr "Tipo di file:"
-
-#~ msgid "Loading %d file(s)..."
-#~ msgstr "Caricamento di %d file in corso"
-
-#~ msgid "No matching files found"
-#~ msgstr "Nessun file soddisfa il confronto"
-
-#~ msgid "Select file"
-#~ msgstr "Selezionare il file"
-
-#~ msgid "_Doctype:"
-#~ msgstr "Tipo del _documento:"
-
-#~ msgid "Header tags:"
-#~ msgstr "Tag delle intitolazioni:"
-
-#~ msgid "Loading file(s)..."
-#~ msgstr "Caricamento file(s)..."
-
-#~ msgid "The filename was:\n"
-#~ msgstr "Il nome del file era:\n"
-
-#~ msgid "Could not open file\n"
-#~ msgstr "Impossibile aprire il file\n"
-
-#~ msgid "Could not view file in browser, the file does not yet have a name\n"
-#~ msgstr ""
-#~ "Impossibile visualizzare il file nel browser, il file non ha un ancora un "
-#~ "nome\n"
-
-#~ msgid "These files were not opened:\n"
-#~ msgstr "Questi file non sono aperti:\n"
-
-#~ msgid "Show main toolbar by default"
-#~ msgstr "Mostra la barra principale in modo predefinito"
-
-#~ msgid "Show sidebar by default"
-#~ msgstr "Mostra la barra principale in modo predefinito"
-
-#~ msgid "Show custom menu by default"
-#~ msgstr "Mostra il menù personalizzato in modo predefinito"
-
-#~ msgid "Show HTML toolbar by default"
-#~ msgstr "Mostra i dialoghi HTML in modo predefinito"
-
-#~ msgid "Do you want to save the project?"
-#~ msgstr "Salvare il progetto?"
