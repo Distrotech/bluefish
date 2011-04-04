@@ -541,7 +541,8 @@ bfwin_gotoline_frame_show(Tbfwin * bfwin)
 	gtk_widget_grab_focus(bfwin->gotoline_entry);
 }
 
-void simplesearch_show(Tbfwin *bfwin)
+void
+bfwin_simplesearch_show(Tbfwin *bfwin)
 {
 	GtkTextIter itstart,itend;
 	if (!gtk_widget_get_visible(bfwin->gotoline_frame))

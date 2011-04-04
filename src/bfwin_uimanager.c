@@ -313,7 +313,7 @@ ui_paste(GtkAction * action, gpointer user_data)
 static void
 ui_find(GtkAction * action, gpointer user_data)
 {
-	simplesearch_show(BFWIN(user_data));
+	bfwin_simplesearch_show(BFWIN(user_data));
 	/*snr_dialog_new(BFWIN(user_data), BF_FIND_DIALOG);*/
 }
 
