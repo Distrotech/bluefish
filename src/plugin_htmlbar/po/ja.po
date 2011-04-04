@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-20 18:13+0100\n"
+"POT-Creation-Date: 2011-04-04 12:34+0200\n"
 "PO-Revision-Date: 2010-04-18 22:27+0700\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
@@ -449,7 +449,7 @@ msgstr "ポンド(_P) £"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1340
 msgid "C_urrency sign ¤"
-msgstr ""
+msgstr "通貨の記号(_U) ¤"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1341
 msgid "_Yen sign ¥"
@@ -2143,7 +2143,7 @@ msgstr "Insert Image"
 
 #: src/plugin_htmlbar/quickstart.c:516
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "b>"
+msgstr "<b>外部スタイルシート(_X)</b>"
 
 #: src/plugin_htmlbar/quickstart.c:527
 msgid "Ty_pe:"
@@ -2162,7 +2162,7 @@ msgstr "メディア(_M):"
 #.
 #: src/plugin_htmlbar/quickstart.c:562
 msgid "<b>Style Area</b>"
-msgstr "b>"
+msgstr "<b>スタイルエリア</b>"
 
 #: src/plugin_htmlbar/quickstart.c:566
 msgid "Cre_ate empty style area"
@@ -2170,7 +2170,7 @@ msgstr "空のスタイルエリアを作成する(_A)"
 
 #: src/plugin_htmlbar/quickstart.c:588
 msgid "<b>Attributes</b>"
-msgstr "b>"
+msgstr "<b>属性</b>"
 
 #: src/plugin_htmlbar/quickstart.c:603
 msgid "_Src:"
@@ -2179,7 +2179,7 @@ msgstr "_Src:(ソースの場所)"
 #. TODO: add an option to place content in the script area
 #: src/plugin_htmlbar/quickstart.c:610
 msgid "<b>Script Area</b>"
-msgstr "b>"
+msgstr "<b>スクリプトエリア</b>"
 
 #: src/plugin_htmlbar/quickstart.c:614
 msgid "Cre_ate empty script area"
@@ -2260,4 +2260,3 @@ msgstr "ソース:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "サイズ:"
-
