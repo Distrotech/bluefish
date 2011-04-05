@@ -753,6 +753,14 @@ rcfile_parse_main(void)
 			g_list_append(main_v->props.external_outputbox,
 						  array_from_arglist(_("php"), "(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)", "2",
 											 "3", "1", "php '%f'|", NULL));
+		main_v->props.external_outputbox =
+			g_list_append(main_v->props.external_outputbox,
+						  array_from_arglist(_("php syntax check"), "(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)", "2",
+											 "3", "1", "php -l -q -f '%f'|", NULL));
+		main_v->props.external_outputbox =
+			g_list_append(main_v->props.external_outputbox,
+							array_from_arglist(_("perl syntax check"), "(.*) at (/[a-zA-Z0-9/_.-]+) line ([0-9]+)", "2",
+											 "3", "1", "perl -c '%f'|", NULL));
 	}
 	if (main_v->props.external_filter == NULL) {
 		main_v->props.external_filter =
