@@ -28,9 +28,6 @@
 
 set -e
 
-echo "Non-functional at the moment! Exiting."
-exit -1
-
 cat << EOF
 
 ******************************************************************************
@@ -44,12 +41,12 @@ packages installed.
 
 EOF
 
-DEB_NAME=bluefish-unstable
+DEB_NAME=bluefish
 
 SVN_DIR=${SVN_DIR:-.}
 SVN_URL=https://bluefish.svn.sourceforge.net/svnroot/bluefish/
 
-make -C ${SVN_DIR} maintainer-clean || true
+make ${MAKEFLAGS} -C ${SVN_DIR} maintainer-clean || true
 
 UPSTREAM_RELEASE=`grep AC_INIT ${SVN_DIR}/configure.ac | grep ${DEB_NAME} | cut -d, -f2 | sed -e 's/[][]//g'`
 SVN_REV=`svn info ${SVN_DIR} | grep ^Revision: | cut -d' ' -f2`
@@ -63,15 +60,17 @@ DEB_TAR_ORIG=${DEB_NAME}_${SVN_UPSTREAM_VERSION}.orig.tar.gz
 cd ${SVN_DIR}
  
 ./autogen.sh
-./configure
 
+TARDIR=`mktemp -d -p . ${DEB_SRC_DIR}.deb.XXXXXX`
+cd ${TARDIR}
+../configure
 make dist-gzip VERSION=${SVN_UPSTREAM_VERSION}
+cd ..
 
 TEMPDIR=`mktemp -d -p . ${DEB_SRC_DIR}.deb.XXXXXX`
-
 cd ${TEMPDIR}
 
-mv ../${DEB_TAR} .
+mv ../${TARDIR}/${DEB_TAR} .
 ln -sf ${DEB_TAR} ${DEB_TAR_ORIG}
 
 tar xzf ${DEB_TAR_ORIG}
@@ -85,7 +84,7 @@ debuild -us -uc -b $@
 
 cd ..
 
-rm -rf ${DEB_SRC_DIR}
+rm -rf ${DEB_SRC_DIR} ../${TARDIR}
 
 
 cat << EOF
