@@ -46,6 +46,7 @@ typedef struct {
 	Tbflang *bflang;
 	gboolean load_completion;
 	gboolean load_reference;
+	guint reference_size;
 	gboolean autoclose_tags;
 #ifdef HAVE_LIBENCHANT
 	gboolean default_spellcheck;
@@ -658,6 +659,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 			}
 
 			if (reference != NULL) {
+				bfparser->reference_size += strlen(reference);
 				match_set_reference(bfparser->st, matchnum, reference);
 				xmlFree(reference);
 			}
@@ -927,6 +929,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			}
 
 			if (reference != NULL) {
+				bfparser->reference_size += strlen(reference);
 				match_set_reference(bfparser->st, matchnum, reference);
 				xmlFree(reference);
 			}
@@ -1338,6 +1341,7 @@ build_lang_thread(gpointer data)
 				largest_table = get_table(bfparser->st, i)->len;
 		}
 		g_print("Language statistics for %s from %s\n", bfparser->bflang->name, bfparser->bflang->filename);
+		g_print("reference size       %9.2f Kbyte\n", bfparser->reference_size/1024.0);
 		g_print("largest table %5d (%9.2f Kbytes)\n", largest_table,
 				1.0 * largest_table * sizeof(Ttablerow) / 1024.0);
 		g_print("total tables  %5d (%9.2f Kbytes)\n", tablenum, 1.0 * tablenum * sizeof(Ttablerow) / 1024.0);

@@ -4,14 +4,14 @@
 # boobaloo <koptev.oleg@gmail,com>, 2009, 2010.
 # Alexander <ser.melipharo@gmail.com>, 2010
 # Александр Прокудин <alexandre.prokoudine@gmail.com>, 2010.
-# Fr. Br. George <george@altlinux.org>, 2010
+# Fr. Br. George <george@altlinux.org>, 2010, 2001
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-03-12 13:30-0800\n"
-"PO-Revision-Date: 2010-06-26 20:52+0400\n"
+"PO-Revision-Date: 2011-03-30 21:43+0400\n"
 "Last-Translator: Fr. Br. George <george@altlinux.org>\n"
 "Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
 "Language: ru\n"
@@ -61,7 +61,7 @@ msgstr "Не проверять правописание"
 
 #: ../src/bftextview2_spell.c:722
 msgid "Insert special characters as entities"
-msgstr ""
+msgstr "Вставлять спецсимволы в форме entity"
 
 #: ../src/bfwin.c:230
 msgid "Filebrowser"
@@ -89,100 +89,80 @@ msgid "/Edit/Preferences"
 msgstr "/Правка/_Параметры"
 
 #: ../src/bfwin_uimanager.c:668
-#, fuzzy
 msgid "Leave Fullscreen"
-msgstr "На весь экран"
+msgstr "Завершить полноэкранный режим"
 
 #: ../src/bfwin_uimanager.c:668
-#, fuzzy
 msgid "Fullscreen"
-msgstr "На весь экран"
+msgstr "Войти в полноэкранный режим"
 
 #: ../src/bfwin_uimanager.c:697
-#, fuzzy
 msgid "_File"
-msgstr "/_Файл"
+msgstr "_Файл"
 
 #: ../src/bfwin_uimanager.c:698
-#, fuzzy
 msgid "New From Template"
-msgstr "/Файл/Создать из шаблона"
+msgstr "Создать из шаблона"
 
 #: ../src/bfwin_uimanager.c:699 ../src/bfwin_uimanager.c:709
-#, fuzzy
 msgid "Open _Recent"
-msgstr "/Файл/Открыть _недавние"
+msgstr "Открыть _недавние"
 
 #: ../src/bfwin_uimanager.c:700
-#, fuzzy
 msgid "_Edit"
-msgstr "/_Правка"
+msgstr "_Правка"
 
 #: ../src/bfwin_uimanager.c:701
-#, fuzzy
 msgid "_View"
-msgstr "/_Вид"
+msgstr "_Вид"
 
 #: ../src/bfwin_uimanager.c:702
-#, fuzzy
 msgid "_Document"
-msgstr "/_Документ"
+msgstr "_Документ"
 
 #: ../src/bfwin_uimanager.c:703
-#, fuzzy
 msgid "_Tab Size"
-msgstr "/Документ/Размер _табуляции"
+msgstr "Размер _табуляции"
 
 #: ../src/bfwin_uimanager.c:704
-#, fuzzy
 msgid "_Font Size"
-msgstr "/Документ/Размер _шрифта"
+msgstr "Размер _шрифта"
 
 #: ../src/bfwin_uimanager.c:705
-#, fuzzy
 msgid "Language _Mode"
-msgstr ""
-"\n"
-"Режим языка:"
+msgstr "Режим языка"
 
 #: ../src/bfwin_uimanager.c:706
-#, fuzzy
 msgid "Character _Encoding"
 msgstr "Кодировка _символов:"
 
 #: ../src/bfwin_uimanager.c:707
-#, fuzzy
 msgid "_Go"
-msgstr "/Пере_ход"
+msgstr "Пере_ход"
 
 #: ../src/bfwin_uimanager.c:708
-#, fuzzy
 msgid "_Project"
-msgstr "/Прое_кт"
+msgstr "Прое_кт"
 
 #: ../src/bfwin_uimanager.c:710
-#, fuzzy
 msgid "_Tools"
-msgstr "/С_ервис"
+msgstr "С_ервис"
 
 #: ../src/bfwin_uimanager.c:711
-#, fuzzy
 msgid "_Commands"
-msgstr "Команды"
+msgstr "_Команды"
 
 #: ../src/bfwin_uimanager.c:712
-#, fuzzy
 msgid "_Filters"
-msgstr "Фильтры"
+msgstr "_Фильтры"
 
 #: ../src/bfwin_uimanager.c:713
-#, fuzzy
 msgid "_Outputbox"
-msgstr "Вывод"
+msgstr "Окно _вывода"
 
 #: ../src/bfwin_uimanager.c:717
 msgid "_New"
-msgstr ""
+msgstr "_Новый"
 
 #: ../src/bfwin_uimanager.c:717 ../src/filebrowser2.c:1597
 #: ../src/filebrowser2.c:1599 ../src/filebrowser2.c:1984
@@ -190,104 +170,84 @@ msgid "New file"
 msgstr "Новый файл"
 
 #: ../src/bfwin_uimanager.c:718
-#, fuzzy
 msgid "New _Window"
-msgstr "/Файл/Новое о_кно"
+msgstr "Новое о_кно"
 
 #: ../src/bfwin_uimanager.c:718
-#, fuzzy
 msgid "New window"
-msgstr "/Файл/Новое о_кно"
+msgstr "Новое окно"
 
 #: ../src/bfwin_uimanager.c:720
-#, fuzzy
 msgid "Close Win_dow"
-msgstr "/Файл/Закры_ть окно"
+msgstr "Закры_ть окно"
 
 #: ../src/bfwin_uimanager.c:720
-#, fuzzy
 msgid "Close window"
-msgstr "/Файл/Закры_ть окно"
+msgstr "Закрыть окно"
 
 #: ../src/bfwin_uimanager.c:721
-#, fuzzy
 msgid "_Open..."
-msgstr "Открыть..."
+msgstr "_Открыть..."
 
 #: ../src/bfwin_uimanager.c:721
-#, fuzzy
 msgid "Open file"
-msgstr "Новый файл"
+msgstr "Открыть файл"
 
 #: ../src/bfwin_uimanager.c:722
-#, fuzzy
 msgid "Open Ad_vanced..."
-msgstr "/Открыть рас_ширенный диалог..."
+msgstr "Открыть рас_ширенный диалог..."
 
 #: ../src/bfwin_uimanager.c:722 ../src/filebrowser2.c:1980
-#, fuzzy
 msgid "Open advanced"
-msgstr "/Открыть рас_ширенный диалог..."
+msgstr "Открыть расширенный диалог..."
 
 #: ../src/bfwin_uimanager.c:724
-#, fuzzy
 msgid "Open _From Selection"
-msgstr "/Файл/Открыть из в_ыделения"
+msgstr "Открыть из в_ыделения"
 
 #: ../src/bfwin_uimanager.c:724
-#, fuzzy
 msgid "Open From Selection"
-msgstr "/Файл/Открыть из в_ыделения"
+msgstr "Открыть из в_ыделения"
 
 #: ../src/bfwin_uimanager.c:726
-#, fuzzy
 msgid "_Insert..."
-msgstr "/Файл/_Вставить..."
+msgstr "_Вставить..."
 
 #: ../src/bfwin_uimanager.c:726
-#, fuzzy
 msgid "Insert file"
-msgstr "Снять имя фа_йла"
+msgstr "Вставить файл"
 
 #: ../src/bfwin_uimanager.c:727
-#, fuzzy
 msgid "Upload / Download..."
-msgstr "Выгрузка / Загрузка"
+msgstr "Выгрузка / Загрузка..."
 
 #: ../src/bfwin_uimanager.c:729
-#, fuzzy
 msgid "_Quit"
-msgstr "/Файл/Вы_ход"
+msgstr "Вы_ход"
 
 #: ../src/bfwin_uimanager.c:729
-#, fuzzy
 msgid "Quit Bluefish"
-msgstr "запуск Bluefish"
+msgstr "Выйти из Bluefish"
 
 #: ../src/bfwin_uimanager.c:730
-#, fuzzy
 msgid "Preference_s..."
-msgstr "Настройки..."
+msgstr "_Настройки..."
 
 #: ../src/bfwin_uimanager.c:730
-#, fuzzy
 msgid "Edit Preferences"
 msgstr "Редактирование настроек"
 
 #: ../src/bfwin_uimanager.c:732
-#, fuzzy
 msgid "Select _All"
-msgstr "/Правка/В_ыбрать все"
+msgstr "В_ыбрать все"
 
 #: ../src/bfwin_uimanager.c:732
-#, fuzzy
 msgid "Select all"
-msgstr "Выберите Файл"
+msgstr "Выбрать все"
 
 #: ../src/bfwin_uimanager.c:733
-#, fuzzy
 msgid "Add Boo_kmark"
-msgstr "Добавить закладку"
+msgstr "Добавить _закладку"
 
 #: ../src/bfwin_uimanager.c:733 ../src/document.c:1901
 msgid "Add bookmark"
@@ -295,359 +255,299 @@ msgstr "Добавить закладку"
 
 #: ../src/bfwin_uimanager.c:735
 msgid "_Add or Remove..."
-msgstr ""
+msgstr "_Добавить или удалить"
 
 #: ../src/bfwin_uimanager.c:735
-#, fuzzy
 msgid "Add or remove character encoding"
-msgstr "Добавить или удалить кодировки документа"
+msgstr "Добавить или удалить кодировки"
 
 #: ../src/bfwin_uimanager.c:737
-#, fuzzy
 msgid "Floati_ng Window"
-msgstr "/Документ/П_лавающее окно"
+msgstr "П_лавающее окно"
 
 #: ../src/bfwin_uimanager.c:737
-#, fuzzy
 msgid "Open current document in floating window"
-msgstr "Открыть в текущем окне."
+msgstr "Открыть текущий документ в плавающем окне"
 
 #: ../src/bfwin_uimanager.c:739 ../src/bfwin_uimanager.c:745
 msgid "_Increase"
-msgstr ""
+msgstr "_Увеличить"
 
 #: ../src/bfwin_uimanager.c:739
 msgid "Increase document font size"
-msgstr ""
+msgstr "Увеличить размер шрифта в документе"
 
 #: ../src/bfwin_uimanager.c:741 ../src/bfwin_uimanager.c:747
 msgid "_Decrease"
-msgstr ""
+msgstr "У_меньшить"
 
 #: ../src/bfwin_uimanager.c:741
-#, fuzzy
 msgid "Decrease document font size"
-msgstr "/Документ/Размер _шрифта"
+msgstr "Уменьшить размер шрифта в документе"
 
 #: ../src/bfwin_uimanager.c:743 ../src/bfwin_uimanager.c:749
 msgid "_Reset"
-msgstr ""
+msgstr "_Восстановить"
 
 #: ../src/bfwin_uimanager.c:743
-#, fuzzy
 msgid "Reset document font size"
-msgstr "/Документ/Размер _шрифта"
+msgstr "Восстановить размер шрифта в документе"
 
 #: ../src/bfwin_uimanager.c:745
 msgid "Increase document tab size"
-msgstr ""
+msgstr "Увеличить отступ в документе"
 
 #: ../src/bfwin_uimanager.c:747
-#, fuzzy
 msgid "Decrease document tab size"
-msgstr "/Документ/Размер _табуляции"
+msgstr "Уменьшить отступ в документе"
 
 #: ../src/bfwin_uimanager.c:749
-#, fuzzy
 msgid "Reset document tab size"
-msgstr "/Документ/Размер _табуляции"
+msgstr "Восстановить отступ в документе"
 
 #: ../src/bfwin_uimanager.c:752
-#, fuzzy
 msgid "_Rescan Syntax & Spelling"
-msgstr "/Документ/_Перепроверить синтаксис и орфографию"
+msgstr "_Перепроверить синтаксис и орфографию"
 
 #: ../src/bfwin_uimanager.c:752 ../src/bfwin_uimanager.c:755
 msgid "Rescan document highlighting"
-msgstr ""
+msgstr "Обновить подсветку документа"
 
 #: ../src/bfwin_uimanager.c:755
-#, fuzzy
 msgid "_Rescan Syntax"
-msgstr "/Документ/_Перепроверить синтаксис"
+msgstr "_Перепроверить синтаксис"
 
 #: ../src/bfwin_uimanager.c:758
-#, fuzzy
 msgid "_New Project..."
-msgstr "Новый проект"
+msgstr "_Новый проект..."
 
 #: ../src/bfwin_uimanager.c:758 ../src/project.c:209
 msgid "New project"
 msgstr "Новый проект"
 
 #: ../src/bfwin_uimanager.c:759
-#, fuzzy
 msgid "_Open Project..."
-msgstr "/Проект/_Открыть проект"
+msgstr "_Открыть проект..."
 
 #: ../src/bfwin_uimanager.c:759
-#, fuzzy
 msgid "Open project"
 msgstr "Новый проект"
 
 #: ../src/bfwin_uimanager.c:760
-#, fuzzy
 msgid "_Synchronize Text Block"
-msgstr "Синхронизация текстового блока"
+msgstr "_Синхронизация текстового блока"
 
 #: ../src/bfwin_uimanager.c:760 ../src/blocksync.c:296
 msgid "Synchronize text block"
 msgstr "Синхронизация текстового блока"
 
 #: ../src/bfwin_uimanager.c:762
-#, fuzzy
 msgid "Toggle _Comment"
-msgstr "/Сервис/Режим комментария"
+msgstr "Режим _комментария"
 
 #: ../src/bfwin_uimanager.c:762
-#, fuzzy
 msgid "Toggle comment"
-msgstr "/Сервис/Режим комментария"
+msgstr "Режим комментария"
 
 #: ../src/bfwin_uimanager.c:764
-#, fuzzy
 msgid "_Word Count"
-msgstr "/Сервис/_Число слов"
+msgstr "_Количество слов"
 
 #: ../src/bfwin_uimanager.c:764
-#, fuzzy
 msgid "Word count"
-msgstr "/Сервис/_Число слов"
+msgstr "Количество слов"
 
 #: ../src/bfwin_uimanager.c:765
-#, fuzzy
 msgid "Indenting To S_paces"
-msgstr "/Сервис/Отступы по _пробелам"
+msgstr "Отступы по _пробелам"
 
 #: ../src/bfwin_uimanager.c:765
-#, fuzzy
 msgid "Indenting to spaces"
-msgstr "/Сервис/Отступы по _пробелам"
+msgstr "Отступы по пробелам"
 
 #: ../src/bfwin_uimanager.c:767
-#, fuzzy
 msgid "Indenting To T_abs"
-msgstr "/Сервис/Отступы по _табуляции"
+msgstr "Отступы по _табуляции"
 
 #: ../src/bfwin_uimanager.c:767
-#, fuzzy
 msgid "Indenting to tabs"
-msgstr "/Сервис/Отступы по _табуляции"
+msgstr "Отступы по табуляции"
 
 #: ../src/bfwin_uimanager.c:769
-#, fuzzy
 msgid "_Join Lines Together"
-msgstr "/Сервис/Объединить строки"
+msgstr "_Объединить строки"
 
 #: ../src/bfwin_uimanager.c:769
-#, fuzzy
 msgid "Join lines together"
-msgstr "/Сервис/Объединить строки"
+msgstr "Объединить строки"
 
 #: ../src/bfwin_uimanager.c:771
-#, fuzzy
 msgid "Sp_lit Lines on Right Margin"
-msgstr "/Сервис/Разбить строки"
+msgstr "_Разбить строки по правому полю"
 
 #: ../src/bfwin_uimanager.c:771
-#, fuzzy
 msgid "Split lines on right margin"
-msgstr "/Сервис/Разбить строки"
+msgstr "Разбить строки по правому полю"
 
 #: ../src/bfwin_uimanager.c:773
-#, fuzzy
 msgid "Merge Lines Into Col_umns"
-msgstr "/Сервис/Объединить строки в несколько колонок"
+msgstr "Объединить строки в несколько _колонок"
 
 #: ../src/bfwin_uimanager.c:773
-#, fuzzy
 msgid "Merge lines into columns"
-msgstr "Строки в столбцы"
+msgstr "Объединить строки в несколько колонок"
 
 #: ../src/bfwin_uimanager.c:775
-#, fuzzy
 msgid "Rewrap _Lines"
-msgstr "/Сервис/Разбить строки"
+msgstr "Повторно _разбить строки"
 
 #: ../src/bfwin_uimanager.c:775
-#, fuzzy
 msgid "Rewrap lines"
-msgstr "/Сервис/Разбить строки"
+msgstr "Повторно разбить строки"
 
 #: ../src/bfwin_uimanager.c:776
-#, fuzzy
 msgid "Strip T_railing Whitespace"
-msgstr "/Сервис/Разделить плавающий _пробел"
+msgstr "Убрать _пробелы в конце строк"
 
 #: ../src/bfwin_uimanager.c:776
-#, fuzzy
 msgid "Strip trailing whitespace"
-msgstr "/Сервис/Разделить плавающий _пробел"
+msgstr "Убрать пробелы в конце строк"
 
 #: ../src/bfwin_uimanager.c:781
-#, fuzzy
 msgid "_Full Screen"
-msgstr "/Вид/На весь _экран"
+msgstr "На весь _экран"
 
 #: ../src/bfwin_uimanager.c:781
-#, fuzzy
 msgid "Full screen"
 msgstr "На весь экран"
 
 #: ../src/bfwin_uimanager.c:783
-#, fuzzy
 msgid "_Main Toolbar"
-msgstr "/Вид/Основная _панель инструментов"
+msgstr "Основная _панель инструментов"
 
 #: ../src/bfwin_uimanager.c:783
-#, fuzzy
 msgid "Show main toolbar"
-msgstr "/Вид/Основная _панель инструментов"
+msgstr "Показать основную панель инструментов"
 
 #: ../src/bfwin_uimanager.c:785
-#, fuzzy
 msgid "_Side Pane"
-msgstr "/Вид/_Боковая панель"
+msgstr "_Боковая панель"
 
 #: ../src/bfwin_uimanager.c:785
-#, fuzzy
 msgid "Show side pane"
-msgstr "Показывать пробелы"
+msgstr "Показывать боковую панель"
 
 #: ../src/bfwin_uimanager.c:786
-#, fuzzy
 msgid "_Output Pane"
-msgstr "/Вид/Панель в_ывода"
+msgstr "Панель в_ывода"
 
 #: ../src/bfwin_uimanager.c:786
-#, fuzzy
 msgid "Show output pane"
-msgstr "Обработчики вывода"
+msgstr "Показать панель вывода"
 
 #: ../src/bfwin_uimanager.c:788
-#, fuzzy
 msgid "Status_bar"
-msgstr "/Вид/_Строка состояния"
+msgstr "_Строка состояния"
 
 #: ../src/bfwin_uimanager.c:788
-#, fuzzy
 msgid "Show statusbar"
-msgstr "/Вид/_Строка состояния"
+msgstr "Показать строку состояния"
 
 #: ../src/bfwin_uimanager.c:790
-#, fuzzy
 msgid "Auto _Completion Popup"
-msgstr "/Документ/Подска_зки автодополнения"
+msgstr "Подска_зки автодополнения"
 
 #: ../src/bfwin_uimanager.c:790
-#, fuzzy
 msgid "Show auto completion popup"
 msgstr "Показывать всплывающие подсказки автодополнения"
 
 #: ../src/bfwin_uimanager.c:792
-#, fuzzy
 msgid "_Auto Indent"
-msgstr "/Документ/Ставить отступы _автоматически"
+msgstr "_Автоотступ"
 
 #: ../src/bfwin_uimanager.c:792
-#, fuzzy
 msgid "Auto indent"
-msgstr "(Smart) Автоматический отступ"
+msgstr "Ставить отступы автоматически"
 
 #: ../src/bfwin_uimanager.c:793
-#, fuzzy
 msgid "Highlight Block Delimiters"
 msgstr "Подсвечивать границы соответствующего блока"
 
 #: ../src/bfwin_uimanager.c:794
-#, fuzzy
 msgid "Highlight block delimiters"
 msgstr "Подсвечивать границы соответствующего блока"
 
 #: ../src/bfwin_uimanager.c:795
-#, fuzzy
 msgid "_Highlight Syntax"
-msgstr "Подсвечивать имя"
+msgstr "_Подсветка синтаксиса"
 
 #: ../src/bfwin_uimanager.c:795
-#, fuzzy
 msgid "Highlight syntax"
-msgstr "Подсвечивать имя"
+msgstr "Подсвечивать синтаксис"
 
 #: ../src/bfwin_uimanager.c:797
-#, fuzzy
 msgid "Show _Blocks"
-msgstr "/Документ/Показывать _блоки"
+msgstr "Показывать _блоки"
 
 #: ../src/bfwin_uimanager.c:797
-#, fuzzy
 msgid "Show blocks"
-msgstr "Показывать файлы резервного копирования"
+msgstr "Показывать блоки"
 
 #: ../src/bfwin_uimanager.c:798
-#, fuzzy
 msgid "Show _Line Numbers"
-msgstr "Показывать номера строк"
+msgstr "Показывать _номера строк"
 
 #: ../src/bfwin_uimanager.c:798
-#, fuzzy
 msgid "Show line numbers"
 msgstr "Показывать номера строк"
 
 #: ../src/bfwin_uimanager.c:800
-#, fuzzy
 msgid "Show Right Margin"
-msgstr "/Документ/показать правое поле"
+msgstr "Показать правое поле"
 
 #: ../src/bfwin_uimanager.c:800
-#, fuzzy
 msgid "Show right margin"
-msgstr "Положение правого поля"
+msgstr "Показать правое поле"
 
 #: ../src/bfwin_uimanager.c:802
 msgid "Show Split View"
-msgstr ""
+msgstr "Разделить окна"
 
 #: ../src/bfwin_uimanager.c:802
 msgid "Show split view"
-msgstr ""
+msgstr "Показывать окна раздельно"
 
 #: ../src/bfwin_uimanager.c:804
-#, fuzzy
 msgid "Show _Visible Spacing"
-msgstr "/Документ/Видимые _отступы"
+msgstr "Показать видимые _отступы"
 
 #: ../src/bfwin_uimanager.c:804
-#, fuzzy
 msgid "Show visible spacing"
-msgstr "/Документ/Видимые _отступы"
+msgstr "Показать видимые отступы"
 
 #: ../src/bfwin_uimanager.c:806
 msgid "_Wrap Text"
-msgstr ""
+msgstr "_Перенести текст"
 
 #: ../src/bfwin_uimanager.c:806
 msgid "Wrap text"
-msgstr ""
+msgstr "Перенести текст"
 
 #: ../src/bfwin_uimanager.c:810 ../src/document.c:2972
 msgid "_Close"
 msgstr "_Закрыть"
 
 #: ../src/bfwin_uimanager.c:810
-#, fuzzy
 msgid "Close current file"
-msgstr "Закрыть все с о_шибками"
+msgstr "Закрыть текущий файл"
 
 #: ../src/bfwin_uimanager.c:812
-#, fuzzy
 msgid "Close A_ll"
 msgstr "Закрыть _все"
 
 #: ../src/bfwin_uimanager.c:812
-#, fuzzy
 msgid "Close all files"
-msgstr "Закрыть все с о_шибками"
+msgstr "Закрыть все файлы"
 
 #: ../src/bfwin_uimanager.c:814 ../src/bfwin_uimanager.c:872
 #: ../src/file_dialogs.c:1431
@@ -655,335 +555,280 @@ msgid "_Save"
 msgstr "_Сохранить"
 
 #: ../src/bfwin_uimanager.c:814
-#, fuzzy
 msgid "Save current file"
-msgstr "Заменить файл?"
+msgstr "Сохранить текущий файл"
 
 #: ../src/bfwin_uimanager.c:816
-#, fuzzy
 msgid "Save _As..."
-msgstr "Сохранить как..."
+msgstr "Сохранить _как..."
 
 #: ../src/bfwin_uimanager.c:816
-#, fuzzy
 msgid "Save file as"
-msgstr "Сохранить %s как"
+msgstr "Сохранить файл как"
 
 #: ../src/bfwin_uimanager.c:818
-#, fuzzy
 msgid "Sav_e All"
 msgstr "_Сохранить все"
 
 #: ../src/bfwin_uimanager.c:818
-#, fuzzy
 msgid "Save all files"
-msgstr "Все файлы"
+msgstr "Сохранить все файлы"
 
 #: ../src/bfwin_uimanager.c:819
-#, fuzzy
 msgid "Rever_t to Saved"
-msgstr "/Файл/Вернуть к сохраненному вариан_ту"
+msgstr "Вернуть к сохраненному вариан_ту"
 
 #: ../src/bfwin_uimanager.c:819
 msgid "Reload current file"
-msgstr ""
+msgstr "Загрузить текущий файл по новой"
 
 #: ../src/bfwin_uimanager.c:821
-#, fuzzy
 msgid "Rena_me..."
-msgstr "/Переи_меновать"
+msgstr "Переи_меновать..."
 
 #: ../src/bfwin_uimanager.c:821
-#, fuzzy
 msgid "Rename file"
-msgstr "Новый файл"
+msgstr "Переименовать файл"
 
 #: ../src/bfwin_uimanager.c:822
-#, fuzzy
 msgid "_Indent"
-msgstr "Сдвинуть вправо"
+msgstr "Сдвинуть в_право"
 
 #: ../src/bfwin_uimanager.c:822
 msgid "Indent"
 msgstr "Сдвинуть вправо"
 
 #: ../src/bfwin_uimanager.c:823
-#, fuzzy
 msgid "_Unindent"
-msgstr "Сдвинуть влево"
+msgstr "Сдвинуть в_лево"
 
 #: ../src/bfwin_uimanager.c:823
 msgid "Unindent"
 msgstr "Сдвинуть влево"
 
 #: ../src/bfwin_uimanager.c:825
-#, fuzzy
 msgid "F_irst Bookmark"
-msgstr "Первая закладка"
+msgstr "_Первая закладка"
 
 #: ../src/bfwin_uimanager.c:825
-#, fuzzy
 msgid "Goto first bookmark"
-msgstr "Первая закладка"
+msgstr "Перейти на первую закладку"
 
 #: ../src/bfwin_uimanager.c:827
-#, fuzzy
 msgid "_Last Bookmark"
-msgstr "Последняя закладка"
+msgstr "Последняя _закладка"
 
 #: ../src/bfwin_uimanager.c:827
-#, fuzzy
 msgid "Goto last bookmark"
-msgstr "Последняя закладка"
+msgstr "Перейти на последнюю закладку"
 
 #: ../src/bfwin_uimanager.c:829
-#, fuzzy
 msgid "N_ext Bookmark"
-msgstr "Следующая закладка"
+msgstr "С_ледующая закладка"
 
 #: ../src/bfwin_uimanager.c:829
-#, fuzzy
 msgid "Goto next bookmark"
-msgstr "Следующая закладка"
+msgstr "Перейти на следующую закладку"
 
 #: ../src/bfwin_uimanager.c:831
-#, fuzzy
 msgid "P_revious Bookmark"
-msgstr "Предыдущая закладка"
+msgstr "П_редыдущая закладка"
 
 #: ../src/bfwin_uimanager.c:832 ../src/bfwin_uimanager.c:843
-#, fuzzy
 msgid "Goto previous document"
-msgstr "/Переход/_Предыдущий документ"
+msgstr "Перейти к предыдущему документу"
 
 #: ../src/bfwin_uimanager.c:833
 msgid "Move Tab Left"
-msgstr ""
+msgstr "Вкладку влево"
 
 #: ../src/bfwin_uimanager.c:833
-#, fuzzy
 msgid "Move current tab left"
-msgstr "Текущий цвет строк"
+msgstr "Переместить текущую вкладку влево"
 
 #: ../src/bfwin_uimanager.c:835
 msgid "Move Tab Right"
-msgstr ""
+msgstr "Вкладку вправо"
 
 #: ../src/bfwin_uimanager.c:835
 msgid "Move current tab right"
-msgstr ""
+msgstr "Переместить текущую вкладку вправо"
 
 #: ../src/bfwin_uimanager.c:837
-#, fuzzy
 msgid "_First Document"
-msgstr "/Переход/Пе_рвый документ"
+msgstr "Пе_рвый документ"
 
 #: ../src/bfwin_uimanager.c:837
-#, fuzzy
 msgid "Goto first document"
-msgstr "/Переход/Пе_рвый документ"
+msgstr "перейти к первому документу"
 
 #: ../src/bfwin_uimanager.c:839
-#, fuzzy
 msgid "L_ast Document"
-msgstr "/Переход/Пос_ледний документ"
+msgstr "Пос_ледний документ"
 
 #: ../src/bfwin_uimanager.c:839
-#, fuzzy
 msgid "Goto last document"
-msgstr "/Переход/Пос_ледний документ"
+msgstr "Перейти к последнему документу"
 
 #: ../src/bfwin_uimanager.c:841
-#, fuzzy
 msgid "_Next Document"
-msgstr "/Переход/_Следующий документ"
+msgstr "_Следующий документ"
 
 #: ../src/bfwin_uimanager.c:841
-#, fuzzy
 msgid "Goto next document"
-msgstr "/Переход/_Следующий документ"
+msgstr "Перейти к следующему документу"
 
 #: ../src/bfwin_uimanager.c:843
-#, fuzzy
 msgid "_Previous Document"
-msgstr "/Переход/_Предыдущий документ"
+msgstr "_Предыдущий документ"
 
 #: ../src/bfwin_uimanager.c:845
-#, fuzzy
 msgid "Goto _Line"
-msgstr "Перейти к строке:"
+msgstr "Перейти к _строке:"
 
 #: ../src/bfwin_uimanager.c:845
-#, fuzzy
 msgid "Goto line"
 msgstr "Перейти к строке:"
 
 #: ../src/bfwin_uimanager.c:846
-#, fuzzy
 msgid "Goto Line Number in _Selection"
-msgstr "/Переход/Перейти к номеру строки в в_ыбранном"
+msgstr "Перейти к номеру строки в в_ыбранном"
 
 #: ../src/bfwin_uimanager.c:847
-#, fuzzy
 msgid "Goto line number in selection"
-msgstr "/Переход/Перейти к номеру строки в в_ыбранном"
+msgstr "Перейти к номеру строки в выбранном"
 
 #: ../src/bfwin_uimanager.c:848
-#, fuzzy
 msgid "Jump to Reference"
-msgstr "/Переход/Перейти по ссылке"
+msgstr "Перейти по ссылке"
 
 #: ../src/bfwin_uimanager.c:848
-#, fuzzy
 msgid "Jump to reference"
-msgstr "/Переход/Перейти по ссылке"
+msgstr "Перейти по ссылке"
 
 #: ../src/bfwin_uimanager.c:853
 msgid "Cu_t"
-msgstr ""
+msgstr "_Вырезать"
 
 #: ../src/bfwin_uimanager.c:853
 msgid "Cut"
 msgstr "Вырезать"
 
 #: ../src/bfwin_uimanager.c:854
-#, fuzzy
 msgid "_Copy"
-msgstr "Копировать"
+msgstr "_Копировать"
 
 #: ../src/bfwin_uimanager.c:854
 msgid "Copy"
 msgstr "Копировать"
 
 #: ../src/bfwin_uimanager.c:855
-#, fuzzy
 msgid "_Paste"
-msgstr "Вставить"
+msgstr "_Вставить"
 
 #: ../src/bfwin_uimanager.c:855
 msgid "Paste"
 msgstr "Вставить"
 
 #: ../src/bfwin_uimanager.c:859
-#, fuzzy
 msgid "_Find..."
-msgstr "Найти..."
+msgstr "_Найти..."
 
 #: ../src/bfwin_uimanager.c:859 ../src/document.c:1888 ../src/snr2.c:1949
 msgid "Find"
 msgstr "Найти"
 
 #: ../src/bfwin_uimanager.c:860
-#, fuzzy
 msgid "Find A_gain"
-msgstr "/Правка/Найти _следующее"
+msgstr "Найти _следующее"
 
 #: ../src/bfwin_uimanager.c:860
-#, fuzzy
 msgid "Find again"
-msgstr "/Правка/Найти _следующее"
+msgstr "Найти _следующее"
 
 #: ../src/bfwin_uimanager.c:861
-#, fuzzy
 msgid "Find From Selection"
-msgstr "/Правка/Найти в _выделенном"
+msgstr "Найти в _выделенном"
 
 #: ../src/bfwin_uimanager.c:861
-#, fuzzy
 msgid "Find from selection"
-msgstr "/Правка/Найти в _выделенном"
+msgstr "Найти в выделенном"
 
 #: ../src/bfwin_uimanager.c:863
-#, fuzzy
 msgid "R_eplace..."
-msgstr "Заменить..."
+msgstr "_Заменить..."
 
 #: ../src/bfwin_uimanager.c:863 ../src/document.c:1882 ../src/snr2.c:1952
 msgid "Replace"
 msgstr "Заменить"
 
 #: ../src/bfwin_uimanager.c:865
-#, fuzzy
 msgid "Replace Agai_n"
-msgstr "/Правка/Заменить с_ледующее"
+msgstr "Заменить с_ледующее"
 
 #: ../src/bfwin_uimanager.c:865
-#, fuzzy
 msgid "Replace again"
-msgstr "/Правка/Заменить с_ледующее"
+msgstr "Заменить следующее"
 
 #: ../src/bfwin_uimanager.c:870
-#, fuzzy
 msgid "Save & _close"
-msgstr "/Проект/Сохранить и _закрыть"
+msgstr "Сохранить и _закрыть"
 
 #: ../src/bfwin_uimanager.c:870
-#, fuzzy
 msgid "Save & close project"
-msgstr "Создать пустой проект"
+msgstr "Сохранить и закрыть"
 
 #: ../src/bfwin_uimanager.c:872
-#, fuzzy
 msgid "Save project"
-msgstr "Новый проект"
+msgstr "Сохранить проект"
 
 #: ../src/bfwin_uimanager.c:873
-#, fuzzy
 msgid "Save _as..."
-msgstr "Сохранить как..."
+msgstr "Сохранить _как..."
 
 #: ../src/bfwin_uimanager.c:873
-#, fuzzy
 msgid "Save project as"
-msgstr "Новый проект"
+msgstr "Сохранить проект как"
 
 #: ../src/bfwin_uimanager.c:874
-#, fuzzy
 msgid "E_dit Project Options..."
-msgstr "/Проект/Ре_дактировать параметры проекта..."
+msgstr "Ре_дактировать параметры проекта..."
 
 #: ../src/bfwin_uimanager.c:874
-#, fuzzy
 msgid "Edit project options"
-msgstr "Редактировать проект"
+msgstr "Редактировать параметры проекта"
 
 #: ../src/bfwin_uimanager.c:879
-#, fuzzy
 msgid "_Undo"
-msgstr "Отменить действие"
+msgstr "_Отменить"
 
 #: ../src/bfwin_uimanager.c:879
 msgid "Undo"
 msgstr "Отменить действие"
 
 #: ../src/bfwin_uimanager.c:880
-#, fuzzy
 msgid "Undo All"
-msgstr "/Правка/Отменить все"
+msgstr "Отменить все"
 
 #: ../src/bfwin_uimanager.c:881
-#, fuzzy
 msgid "_Redo"
-msgstr "Повторить действие"
+msgstr "_Повторить действие"
 
 #: ../src/bfwin_uimanager.c:881
 msgid "Redo"
 msgstr "Повторить действие"
 
 #: ../src/bfwin_uimanager.c:882
-#, fuzzy
 msgid "Redo All"
-msgstr "/Правка/Вернуть все"
+msgstr "Вернуть все"
 
 #: ../src/bfwin_uimanager.c:1000
-#, fuzzy
 msgid "Open _URL..."
-msgstr "/Файл/Открыть _URL..."
+msgstr "Открыть _URL..."
 
 #: ../src/bfwin_uimanager.c:1013
-#, fuzzy
 msgid "_Spell Check"
-msgstr "Проверка орфографии"
+msgstr "Проверка _орфографии"
 
 #: ../src/bfwin_uimanager.c:1388
 msgid "Text area to filter"
@@ -1132,81 +977,68 @@ msgid "Edit bookmark"
 msgstr "Редактировать закладку"
 
 #: ../src/bookmark.c:844
-#, fuzzy
 msgid "Bookmark menu"
-msgstr "_Закладки совпадений"
+msgstr "Меню закладок"
 
 #: ../src/bookmark.c:845
-#, fuzzy
 msgid "Show Bookmark"
-msgstr "/Показать закладку"
+msgstr "Показать закладку"
 
 #: ../src/bookmark.c:846
-#, fuzzy
 msgid "Show File"
-msgstr "/Показать файл"
+msgstr "Показать файл"
 
 #: ../src/bookmark.c:847
-#, fuzzy
 msgid "Bookmark search menu"
-msgstr "_Закладки совпадений"
+msgstr "Меню поиска в закладках"
 
 #: ../src/bookmark.c:848
-#, fuzzy
 msgid "_Edit..."
-msgstr "/_Правка"
+msgstr "_Правка"
 
 #: ../src/bookmark.c:850 ../src/filebrowser2.c:1983
-#, fuzzy
 msgid "_Delete"
-msgstr "/_Удалить"
+msgstr "_Удалить"
 
 #: ../src/bookmark.c:850 ../src/document.c:1897
 msgid "Delete bookmark"
 msgstr "Удалить закладку"
 
 #: ../src/bookmark.c:851
-#, fuzzy
 msgid "Delete All"
-msgstr "/Удалить всё"
+msgstr "Удалить всё"
 
 #: ../src/bookmark.c:851
-#, fuzzy
 msgid "Delete all bookmarks"
-msgstr "Удалить все закладки."
+msgstr "Удалить все закладки"
 
 #: ../src/bookmark.c:853
-#, fuzzy
 msgid "Delete All in Document"
-msgstr "/Удалить всё в документе"
+msgstr "Удалить всё в документе"
 
 #: ../src/bookmark.c:853
-#, fuzzy
 msgid "Delete all bookmarks in document"
-msgstr "/Удалить всё в документе"
+msgstr "Удалить все закладки в документе"
 
 #: ../src/bookmark.c:858
-#, fuzzy
 msgid "Permanent by default"
-msgstr "/Постоянные по умолчанию"
+msgstr "Постоянные по умолчанию"
 
 #: ../src/bookmark.c:863
-#, fuzzy
 msgid "By Name"
-msgstr "Имя"
+msgstr "По имени"
 
 #: ../src/bookmark.c:864
 msgid "By Full Path"
-msgstr ""
+msgstr "По полному пути"
 
 #: ../src/bookmark.c:865
 msgid "By Full URI"
-msgstr ""
+msgstr "По полному URI"
 
 #: ../src/bookmark.c:869 ../src/bookmark.c:875
-#, fuzzy
 msgid "Content"
-msgstr "/Содержимое"
+msgstr "Содержимое"
 
 #: ../src/bookmark.c:870 ../src/bookmark.c:876 ../src/preferences.c:546
 #: ../src/preferences.c:1132 ../src/preferences.c:1237
@@ -1214,9 +1046,8 @@ msgid "Name"
 msgstr "Имя"
 
 #: ../src/bookmark.c:871 ../src/bookmark.c:877
-#, fuzzy
 msgid "Name & Content"
-msgstr "/Имя и содержимое"
+msgstr "Имя и содержимое"
 
 #: ../src/bookmark.c:1204
 msgid "First bookmark"
@@ -1478,9 +1309,8 @@ msgstr[1] "%d символа"
 msgstr[2] "%d символов"
 
 #: ../src/document.c:3213
-#, fuzzy
 msgid "Selection statistics: "
-msgstr "Статистика: "
+msgstr "Статистика выделенного: "
 
 #: ../src/document.c:3213
 msgid "Statistics: "
@@ -1576,96 +1406,78 @@ msgid "If you delete %s, it will be permanently lost."
 msgstr "Если вы удалите %s, файл исчезнет насовсем."
 
 #: ../src/filebrowser2.c:1978
-#, fuzzy
 msgid "File Browser menu"
-msgstr "Просмотр файлов"
+msgstr "Меню просмотра файлов"
 
 #: ../src/filebrowser2.c:1979
-#, fuzzy
 msgid "_Open"
-msgstr "/_Открыть"
+msgstr "_Открыть"
 
 #: ../src/filebrowser2.c:1979
-#, fuzzy
 msgid "Open"
-msgstr "/_Открыть"
+msgstr "Открыть"
 
 #: ../src/filebrowser2.c:1980
-#, fuzzy
 msgid "Open _Advanced..."
-msgstr "/Открыть рас_ширенный диалог..."
+msgstr "Открыть рас_ширенный диалог..."
 
 #: ../src/filebrowser2.c:1982
-#, fuzzy
 msgid "Rena_me"
-msgstr "/Переи_меновать"
+msgstr "Переи_меновать"
 
 #: ../src/filebrowser2.c:1982
-#, fuzzy
 msgid "Rename"
-msgstr "/Переи_меновать"
+msgstr "Переименовать"
 
 #: ../src/filebrowser2.c:1983
-#, fuzzy
 msgid "Delete"
-msgstr "/Удалить"
+msgstr "Удалить"
 
 #: ../src/filebrowser2.c:1984
-#, fuzzy
 msgid "New _File"
-msgstr "/_Создать файл"
+msgstr "_Создать файл"
 
 #: ../src/filebrowser2.c:1985
-#, fuzzy
 msgid "_New Directory"
-msgstr "/Создать _каталог"
+msgstr "Создать _каталог"
 
 #: ../src/filebrowser2.c:1987
-#, fuzzy
 msgid "_Refresh"
-msgstr "/О_бновить"
+msgstr "О_бновить"
 
 #: ../src/filebrowser2.c:1987
-#, fuzzy
 msgid "Refresh"
-msgstr "/О_бновить"
+msgstr "Обновить"
 
 #: ../src/filebrowser2.c:1988
-#, fuzzy
 msgid "_Set as base dir"
-msgstr "/Установить как _базовый каталог"
+msgstr "Установить как _базовый каталог"
 
 #: ../src/filebrowser2.c:1988
-#, fuzzy
 msgid "Set as base directory"
-msgstr "/Установить как _базовый каталог"
+msgstr "Установить как базовый каталог"
 
 #: ../src/filebrowser2.c:1990
-#, fuzzy
 msgid "Set as document root"
-msgstr "/Установить в качестве documentroot"
+msgstr "Установить в качестве documentroot"
 
 #: ../src/filebrowser2.c:1992
-#, fuzzy
 msgid "Show Full _Tree"
-msgstr "/Показывать всё _дерево"
+msgstr "Показывать всё _дерево"
 
 #: ../src/filebrowser2.c:1992
-#, fuzzy
 msgid "Show full tree"
-msgstr "/Показывать всё _дерево"
+msgstr "Показывать всё дерево"
 
 #: ../src/filebrowser2.c:1994
-#, fuzzy
 msgid "View Mode"
-msgstr "/Режим просмотра"
+msgstr "Режим просмотра"
 
 #: ../src/filebrowser2.c:1995
 msgid "Filter"
 msgstr "Фильтр"
 
 #: ../src/filebrowser2.c:1996
-#, fuzzy
 msgid "New Filter"
 msgstr "Новый фильтр"
 
@@ -1674,7 +1486,6 @@ msgid "New filter"
 msgstr "Новый фильтр"
 
 #: ../src/filebrowser2.c:1997
-#, fuzzy
 msgid "Edit Filter"
 msgstr "Редактировать фильтр"
 
@@ -1683,7 +1494,6 @@ msgid "Edit filter"
 msgstr "Редактировать фильтр"
 
 #: ../src/filebrowser2.c:1998
-#, fuzzy
 msgid "Delete Filter"
 msgstr "Удалить фильтр"
 
@@ -1692,17 +1502,14 @@ msgid "Delete filter"
 msgstr "Удалить фильтр"
 
 #: ../src/filebrowser2.c:2002
-#, fuzzy
 msgid "Follow Active Document"
-msgstr "/Следовать за текущим документом"
+msgstr "Следовать за текущим документом"
 
 #: ../src/filebrowser2.c:2002
-#, fuzzy
 msgid "Follow active document"
-msgstr "/Следовать за текущим документом"
+msgstr "Следовать за текущим документом"
 
 #: ../src/filebrowser2.c:2004
-#, fuzzy
 msgid "Show Backup Files"
 msgstr "Показывать файлы резервного копирования"
 
@@ -1711,26 +1518,24 @@ msgid "Show backup files"
 msgstr "Показывать файлы резервного копирования"
 
 #: ../src/filebrowser2.c:2006
-#, fuzzy
 msgid "Show Hidden Files"
-msgstr "/Показывать скрытые файлы"
+msgstr "Показывать скрытые файлы"
 
 #: ../src/filebrowser2.c:2006
-#, fuzzy
 msgid "Show hidden files"
-msgstr "/Показывать скрытые файлы"
+msgstr "Показывать скрытые файлы"
 
 #: ../src/filebrowser2.c:2011
 msgid "Dual"
-msgstr ""
+msgstr "Двойной"
 
 #: ../src/filebrowser2.c:2012
 msgid "Flat"
-msgstr ""
+msgstr "Простой"
 
 #: ../src/filebrowser2.c:2013
 msgid "Tree"
-msgstr ""
+msgstr "Дерево"
 
 #: ../src/file.c:865
 #, c-format
@@ -2082,7 +1887,7 @@ msgstr "Автоматическое распознавание"
 
 #: ../src/gtk_easy.c:1680
 msgid "<b>Keystroke choice </b>"
-msgstr ""
+msgstr "<b>Выбор горячих клавиш</b>"
 
 #: ../src/gtk_easy.c:1688
 msgid ""
@@ -2091,10 +1896,14 @@ msgid ""
 "Please use Ctrl, Shift, Alt key with any other key.\n"
 "<i>Esc to cancel, Delete to remove the accelerator.</i>"
 msgstr ""
+"\n"
+"Нажмите соответствующую комбинацию клавиш.\n"
+"Пожалуйста, используйте Ctrl, Shift или Alt с какой-нибудь другой клавишей.\n"
+"<i>Esc для выхода, Delete для удаления горячей клавиши.</i>"
 
 #: ../src/gtk_easy.c:1713
 msgid "Press shortcut key combination"
-msgstr ""
+msgstr "Нажмите комбинацию клавиш"
 
 #: ../src/gtkmountoperation.c:126
 msgid "Parent"
@@ -2178,84 +1987,70 @@ msgid "Untitled"
 msgstr "Безымянный"
 
 #: ../src/preferences.c:461
-#, fuzzy
 msgid "_Mime type:"
-msgstr "Тип MIME"
+msgstr "_Тип MIME"
 
 #: ../src/preferences.c:473 ../src/preferences.c:475
 msgid "None"
 msgstr "Пусто"
 
 #: ../src/preferences.c:476
-#, fuzzy
 msgid "_Template:"
-msgstr "Шаблоны"
+msgstr "_Шаблон:"
 
 #: ../src/preferences.c:479 ../src/preferences.c:1842
 #: ../src/preferences.c:2476
-#, fuzzy
 msgid "<b>Options</b>"
-msgstr "<b>_Параметры</b>"
+msgstr "<b>Параметры</b>"
 
 #: ../src/preferences.c:483
-#, fuzzy
 msgid "Enable a_uto-completion"
-msgstr "Включить подсказки автодополнения"
+msgstr "Включить подсказки _автодополнения"
 
 #: ../src/preferences.c:485
-#, fuzzy
 msgid "Enable _block folding"
-msgstr "Включить сворачивающиеся блоки"
+msgstr "Включить сворачивающиеся _блоки"
 
 #: ../src/preferences.c:487
-#, fuzzy
 msgid "Highlight block _delimiters"
-msgstr "Подсвечивать границы соответствующего блока"
+msgstr "Подсвечивать _границы соответствующего блока"
 
 #: ../src/preferences.c:489
-#, fuzzy
 msgid "_Highlight current line"
-msgstr "Выделять текущую строку"
+msgstr "_Подсвечивать текущую строку"
 
 #: ../src/preferences.c:491
-#, fuzzy
 msgid "Show line _numbers"
-msgstr "Показывать номера строк"
+msgstr "Показывать _номера строк"
 
 #: ../src/preferences.c:493
-#, fuzzy
 msgid "Show _right margin indicator"
-msgstr "Положение правого поля"
+msgstr "Показывать индикатор _правого поля"
 
 #: ../src/preferences.c:495 ../src/preferences.c:1853
 #: ../src/preferences.c:2487
-#, fuzzy
 msgid "Smart auto indentin_g"
 msgstr "«Умные» отступы"
 
 #: ../src/preferences.c:497
 msgid "Wra_p lines"
-msgstr ""
+msgstr "_Переносить строки"
 
 #: ../src/preferences.c:500
-#, fuzzy
 msgid "_Enable spell check"
-msgstr "Включить проверку правописания"
+msgstr "Включить проверку _правописания"
 
 #: ../src/preferences.c:504
-#, fuzzy
 msgid "<b>Tab Stops</b>"
-msgstr "<b>_Параметры</b>"
+msgstr "<b>Табулостопы</b>"
 
 #: ../src/preferences.c:509
-#, fuzzy
 msgid "Tab _width:"
-msgstr "Ширина табуляции"
+msgstr "Ширина _табуляции"
 
 #: ../src/preferences.c:511
-#, fuzzy
 msgid "Insert _spaces instead of tabs"
-msgstr "Использовать пробелы для отступов"
+msgstr "Использовать _пробелы для отступов"
 
 #: ../src/preferences.c:547
 msgid "Enabled"
@@ -2266,15 +2061,14 @@ msgid "Path to plugin"
 msgstr "Путь к модулю"
 
 #: ../src/preferences.c:758
-#, fuzzy
 msgid ""
 "<small>Text styles are applied on top of each other. If multiple styles are "
 "applied to the same text, the top-most style in this list has the highest "
 "priority. Use drag and drop to re-order the text styles.</small>"
 msgstr ""
-"Стили текста накладываются поверх друг друга. Если к тексту применяется "
-"несколько стилей, самое верхний стиль в этом списке имеет наивысший "
-"приоритет. Используйте перетаскивание, чтобы реорганизовать стили текста."
+"<small>Стили текста накладываются поверх друг друга. Если к тексту применяется "
+"несколько стилей, самый верхний стиль в этом списке имеет наивысший "
+"приоритет. Используйте перетаскивание, чтобы реорганизовать стили текста.</small>"
 
 #: ../src/preferences.c:768 ../src/preferences.c:908 ../src/preferences.c:1004
 msgid "Label"
@@ -2287,9 +2081,8 @@ msgstr "Цвет символов"
 
 #: ../src/preferences.c:785 ../src/preferences.c:1902
 #: ../src/preferences.c:2536
-#, fuzzy
 msgid "_Foreground color:"
-msgstr "Цвет символов"
+msgstr "_Цвет символов"
 
 #: ../src/preferences.c:786 ../src/preferences.c:1905
 #: ../src/preferences.c:2539
@@ -2298,34 +2091,28 @@ msgstr "Цвет фона"
 
 #: ../src/preferences.c:787 ../src/preferences.c:1906
 #: ../src/preferences.c:2540
-#, fuzzy
 msgid "_Background color:"
-msgstr "Цвет фона"
+msgstr "Цвет _фона"
 
 #: ../src/preferences.c:791
-#, fuzzy
 msgid "_Normal weight"
-msgstr "нормальный"
+msgstr "_Нормальный"
 
 #: ../src/preferences.c:793
-#, fuzzy
 msgid "Bold _weight"
-msgstr "жирный"
+msgstr "_Жирный"
 
 #: ../src/preferences.c:795
-#, fuzzy
 msgid "Normal st_yle"
-msgstr "нормальный"
+msgstr "_Прямой"
 
 #: ../src/preferences.c:798
-#, fuzzy
 msgid "_Italic style"
-msgstr "курсив"
+msgstr "_Курсив"
 
 #: ../src/preferences.c:800
-#, fuzzy
 msgid "_Spell check"
-msgstr "Проверка орфографии"
+msgstr "_Проверка орфографии"
 
 #: ../src/preferences.c:910 ../src/preferences.c:1006
 #: ../src/preferences.c:1142
@@ -2557,11 +2344,11 @@ msgstr "Только файлы проектов"
 #. "jpeg" and "png" shouldn't be translatable, TODO
 #: ../src/preferences.c:1780 ../src/preferences.c:2414
 msgid "jpeg"
-msgstr ""
+msgstr "jpeg"
 
 #: ../src/preferences.c:1780 ../src/preferences.c:2414
 msgid "png"
-msgstr ""
+msgstr "png"
 
 #: ../src/preferences.c:1782 ../src/preferences.c:2416
 msgid "All"
@@ -2588,99 +2375,87 @@ msgid "Editor settings"
 msgstr "Параметры редактора"
 
 #: ../src/preferences.c:1827 ../src/preferences.c:2461
-#, fuzzy
 msgid "<b>Auto-completion</b>"
-msgstr "<b>_Параметры</b>"
+msgstr "<b>Автодополнение</b>"
 
 #: ../src/preferences.c:1833 ../src/preferences.c:2467
 msgid "Show _pop-up window:"
-msgstr ""
+msgstr "Показывать _всплывающее окно:"
 
 #: ../src/preferences.c:1839 ../src/preferences.c:2473
 msgid "Shortcut _key combination:"
-msgstr ""
+msgstr "Горячие _клавиши:"
 
 #: ../src/preferences.c:1848 ../src/preferences.c:2482
 msgid "Right _margin/split line end position:"
-msgstr ""
+msgstr "Правая _колонка/перенос строки"
 
 #: ../src/preferences.c:1856 ../src/preferences.c:2490
-#, fuzzy
 msgid "Smart Home/_End cursor positioning"
-msgstr "Умное позиционирование курсора по Home/End"
+msgstr "Умное позиционирование _курсора по Home/End"
 
 #: ../src/preferences.c:1860 ../src/preferences.c:2494
-#, fuzzy
 msgid "_Tab key indents selection"
-msgstr "Клавиша «Tab» сдвигает выделенное"
+msgstr "Клавиша «Tab» _сдвигает выделенное"
 
 #: ../src/preferences.c:1866 ../src/preferences.c:2500
-#, fuzzy
 msgid "Visible _whitespace mode:"
-msgstr "Цвет пробелов"
+msgstr "РЕжим видимых _пробелов:"
 
 #: ../src/preferences.c:1869 ../src/preferences.c:2503
-#, fuzzy
 msgid "<b>Undo</b>"
-msgstr "<b>Содержит</b>"
+msgstr "<b>Отмены</b>"
 
 #: ../src/preferences.c:1874 ../src/preferences.c:2508
-#, fuzzy
 msgid "_Number of actions in history:"
-msgstr "Число действий в истории откатов"
+msgstr "_Число действий в истории отмен"
 
 #: ../src/preferences.c:1877 ../src/preferences.c:2511
-#, fuzzy
 msgid "Clear _history on save"
-msgstr "Очищать историю отмены действий при сохранении файла"
+msgstr "_Очищать историю отмены действий при сохранении файла"
 
 #: ../src/preferences.c:1883 ../src/preferences.c:2182
 #: ../src/preferences.c:2517 ../src/preferences.c:2818
 msgid "Font & Colors"
-msgstr ""
+msgstr "Шрифт и цвета"
 
 #: ../src/preferences.c:1888 ../src/preferences.c:2187
 #: ../src/preferences.c:2522 ../src/preferences.c:2823
-#, fuzzy
 msgid "<b>Font</b>"
-msgstr "<b>Содержит</b>"
+msgstr "<b>Шрифт</b>"
 
 #: ../src/preferences.c:1892 ../src/preferences.c:2526
 msgid "_Editor font:"
-msgstr ""
+msgstr "Шрифт _редактора"
 
 #: ../src/preferences.c:1897 ../src/preferences.c:2207
 #: ../src/preferences.c:2531 ../src/preferences.c:2843
-#, fuzzy
 msgid "<b>Colors</b>"
-msgstr "<b>Файлы</b>"
+msgstr "<b>Цвета</b>"
 
 #: ../src/preferences.c:1909 ../src/preferences.c:2543
 msgid "Cursor color"
 msgstr "Цвет курсора"
 
 #: ../src/preferences.c:1910 ../src/preferences.c:2544
-#, fuzzy
 msgid "C_ursor color:"
-msgstr "Цвет курсора"
+msgstr "Цвет к_урсора"
 
 #: ../src/preferences.c:1913 ../src/preferences.c:2547
 msgid "Current line color"
 msgstr "Текущий цвет строк"
 
 #: ../src/preferences.c:1914 ../src/preferences.c:2548
-#, fuzzy
 msgid "Cu_rrent line color:"
-msgstr "Текущий цвет строк"
+msgstr "Цвет текущей _строки"
 
 #: ../src/preferences.c:1917 ../src/preferences.c:2551
 msgid "Visible whitespace color"
 msgstr "Цвет пробелов"
 
 #: ../src/preferences.c:1918 ../src/preferences.c:2552
-#, fuzzy
 msgid "_Visible whitespace color:"
-msgstr "Цвет пробелов"
+msgstr "Цвет _пробелов:"
 
 #: ../src/preferences.c:1925 ../src/preferences.c:2559
 msgid "Initial document settings"
@@ -2688,7 +2463,7 @@ msgstr "Настройки для новых документов"
 
 #: ../src/preferences.c:1927 ../src/preferences.c:2561
 msgid "<b>Non Project Defaults</b>"
-msgstr ""
+msgstr "<b>Настройки по умолчанию, не влияющие на проект</b>"
 
 #: ../src/preferences.c:1940 ../src/preferences.c:2574
 msgid "Files"
@@ -2696,77 +2471,64 @@ msgstr "Файлы"
 
 #: ../src/preferences.c:1942 ../src/preferences.c:2576
 msgid "<b>Backup</b>"
-msgstr ""
+msgstr "<b>Резервные копии</b>"
 
 #: ../src/preferences.c:1944 ../src/preferences.c:2578
-#, fuzzy
 msgid "Create _backup file during file save"
-msgstr "Создавать резервную копию при сохранении"
+msgstr "Создавать _резервную копию при сохранении"
 
 #: ../src/preferences.c:1949 ../src/preferences.c:2583
-#, fuzzy
 msgid "_Remove backup file on close"
-msgstr "Удалять резервную копию при выходе"
+msgstr "_Удалять резервную копию при выходе"
 
 #: ../src/preferences.c:1954 ../src/preferences.c:2588
-#, fuzzy
 msgid "If back_up fails:"
-msgstr "Если резервное копирование не удается"
+msgstr "Если резервное копирование _не удается:"
 
 #: ../src/preferences.c:1961 ../src/preferences.c:2595
 msgid "<b>Document Recovery</b>"
-msgstr ""
+msgstr "<b>Восстановление документа</b>"
 
 #: ../src/preferences.c:1964 ../src/preferences.c:2598
-#, fuzzy
 msgid "_Enable recovery of modified documents"
-msgstr "Включить восстановление модифицированных документов"
+msgstr "_Включить восстановление модифицированных документов"
 
 #: ../src/preferences.c:1968 ../src/preferences.c:2602
-#, fuzzy
 msgid "_Frequency to store changes (seconds):"
-msgstr "Частота сохранения изменений (в секундах)"
+msgstr "_Частота сохранения изменений (в секундах):"
 
 #: ../src/preferences.c:1976 ../src/preferences.c:2610
-#, fuzzy
 msgid "<b>Encoding</b>"
-msgstr "Кодировка"
+msgstr "<b>Кодировка</b>"
 
 #: ../src/preferences.c:1991 ../src/preferences.c:2625
-#, fuzzy
 msgid "_Default character set for new files:"
-msgstr "Набор символов по умолчанию для новых файлов"
+msgstr "_Кодировка по умолчанию для новых файлов"
 
 #: ../src/preferences.c:1997 ../src/preferences.c:2631
-#, fuzzy
 msgid "Auto set <meta> _HTML tag on encoding change"
-msgstr "Автоматически ставить тэг <meta> при изменении кодировки"
+msgstr "Автоматически ставить _тэг <meta> при изменении кодировки"
 
 #: ../src/preferences.c:2001 ../src/preferences.c:2099
 #: ../src/preferences.c:2635 ../src/preferences.c:2735
-#, fuzzy
 msgid "<b>Misc</b>"
-msgstr "<b>Файлы</b>"
+msgstr "<b>Разное</b>"
 
 #: ../src/preferences.c:2005 ../src/preferences.c:2639
-#, fuzzy
 msgid "Open co_mmandline files in running bluefish process"
-msgstr "Открывать файлы команд в текущем процессе bluefish"
+msgstr "Открывать заданные в комендной строке файлы в текущем процессе bluefish"
 
 #: ../src/preferences.c:2010 ../src/preferences.c:2644
-#, fuzzy
 msgid "Open commandline files in new _window"
-msgstr "Открывать файлы команд в в новом окне Bluefish"
+msgstr "Открывать заданные в комендной строке файлы в новом окне Bluefish"
 
 #: ../src/preferences.c:2015 ../src/preferences.c:2649
-#, fuzzy
 msgid "_Periodically check if file is modified on disk"
-msgstr "Периодически проверять изменение файла на диске"
+msgstr "_Периодически проверять изменение файла на диске"
 
 #: ../src/preferences.c:2018 ../src/preferences.c:2652
-#, fuzzy
 msgid "File properties to check on dis_k for modifications"
-msgstr "Свойства файла для проверки изменений на диске"
+msgstr "Свойства файла для проверки _изменений на диске"
 
 #: ../src/preferences.c:2031 ../src/preferences.c:2665
 msgid "HTML"
@@ -2774,183 +2536,155 @@ msgstr "HTML"
 
 #: ../src/preferences.c:2033 ../src/preferences.c:2667
 msgid "<b>HTML Toolbar</b>"
-msgstr ""
+msgstr "<b>Панель HTML</b>"
 
 #: ../src/preferences.c:2036 ../src/preferences.c:2670
-#, fuzzy
 msgid "Use lo_wercase HTML tags"
-msgstr "Тэги HTML строчными буквами"
+msgstr "Тэги HTML _строчными буквами"
 
 #: ../src/preferences.c:2038 ../src/preferences.c:2672
-#, fuzzy
 msgid "Use de_precated tags (e.g. <font> and <nobr>)"
-msgstr "Использовать устаревшии тэги (например, <font> и <nobr>)"
+msgstr "Использовать _устаревшии тэги (например, <font> и <nobr>)"
 
 #: ../src/preferences.c:2042 ../src/preferences.c:2676
-#, fuzzy
 msgid "_Format according to accessibility guidelines (e.g. <strong> for <b>)"
-msgstr "Форматировать согласно новым рекомендациям (напр. <strong> вместо <b>)"
+msgstr "_Форматировать согласно новым рекомендациям (напр. <strong> вместо <b>)"
 
 #: ../src/preferences.c:2045 ../src/preferences.c:2679
-#, fuzzy
 msgid "Use _XHTML style tags (<br />)"
-msgstr "Использовать тэги как в XHTML (<br />)"
+msgstr "Использовать _тэги как в XHTML (<br />)"
 
 #: ../src/preferences.c:2048 ../src/preferences.c:2684
-#, fuzzy
 msgid "<b>Auto Update Tag Options</b>"
-msgstr "Автоматическое обновление метатегов"
+msgstr "<b>Автоматическое обновление метатегов</b>"
 
 #: ../src/preferences.c:2052 ../src/preferences.c:2688
-#, fuzzy
 msgid "Automatically update a_uthor meta tag"
-msgstr "Автоматически обновлять метатэг автора"
+msgstr "Автоматически обновлять метатэг _автора"
 
 #: ../src/preferences.c:2055 ../src/preferences.c:2691
-#, fuzzy
 msgid "Automatically update _date meta tag"
-msgstr "Автоматически обновлять метатэг даты"
+msgstr "Автоматически обновлять метатэг _даты"
 
 #: ../src/preferences.c:2058 ../src/preferences.c:2694
-#, fuzzy
 msgid "Automatically update _generator meta tag"
-msgstr "Автоматически обновлять метатэг программы создания"
+msgstr "Автоматически обновлять метатэг программы-генератора"
 
 #: ../src/preferences.c:2071 ../src/preferences.c:2707
 msgid "Templates"
 msgstr "Шаблоны"
 
 #: ../src/preferences.c:2073 ../src/preferences.c:2709
-#, fuzzy
 msgid "<b>Templates</b>"
-msgstr "Шаблоны"
+msgstr "<b>Шаблоны</b>"
 
 #: ../src/preferences.c:2086 ../src/preferences.c:2722
 msgid "User interface"
 msgstr "Интерфейс пользователя"
 
 #: ../src/preferences.c:2088 ../src/preferences.c:2724
-#, fuzzy
 msgid "<b>Document Tabs</b>"
-msgstr "<b>Содержит</b>"
+msgstr "<b>Вкладки документов</b>"
 
 #: ../src/preferences.c:2092 ../src/preferences.c:2728
 msgid "_Tab position:"
-msgstr ""
+msgstr "_Положение вкладки"
 
 #: ../src/preferences.c:2096 ../src/preferences.c:2732
-#, fuzzy
 msgid "_Switch between tabs with <Alt>+0..9"
-msgstr "Переключение между вкладками с <Alt>+0 .. 9"
+msgstr "_Переключение между вкладками по <Alt>+0 .. 9"
 
 #: ../src/preferences.c:2108 ../src/preferences.c:2744
-#, fuzzy
 msgid "_Language:"
-msgstr "Язык"
+msgstr "_Язык"
 
 #: ../src/preferences.c:2111 ../src/preferences.c:2747
-#, fuzzy
 msgid "_Make HTML dialogs transient"
-msgstr "Сделать диалоги HTML постоянными"
+msgstr "_Сделать диалоги HTML постоянными"
 
 #: ../src/preferences.c:2115 ../src/preferences.c:2751
-#, fuzzy
 msgid "<b>Recent Files</b>"
-msgstr "<b>Файлы</b>"
+msgstr "<b>Недавние файлы</b>"
 
 #: ../src/preferences.c:2120 ../src/preferences.c:2756
-#, fuzzy
 msgid "_Number of files in 'Open recent' menu:"
-msgstr "Количество файлов в 'Открыть недавние'"
+msgstr "_Количество файлов в меню 'Открыть недавние'"
 
 #: ../src/preferences.c:2125 ../src/preferences.c:2761
-#, fuzzy
 msgid "_Register recent files with your desktop:"
-msgstr "Размещать недавние файлы в системном меню"
+msgstr "_Размещать недавние файлы в системном меню:"
 
 #: ../src/preferences.c:2128 ../src/preferences.c:2764
-#, fuzzy
 msgid "<b>Sidebar</b>"
-msgstr "<b>Файлы</b>"
+msgstr "<b>Боковая панель</b>"
 
 #: ../src/preferences.c:2133 ../src/preferences.c:2769
 msgid "Locatio_n:"
-msgstr ""
+msgstr "_Размещение"
 
 #: ../src/preferences.c:2137 ../src/preferences.c:2773
 msgid "Tab _position:"
-msgstr ""
+msgstr "Положение _вкладки"
 
 #: ../src/preferences.c:2146 ../src/preferences.c:2782
 msgid "Dimensions"
 msgstr "Размеры"
 
 #: ../src/preferences.c:2148 ../src/preferences.c:2784
-#, fuzzy
 msgid "<b>Dimensions</b>"
-msgstr "Размеры"
+msgstr "<b>Размеры</b>"
 
 #: ../src/preferences.c:2150 ../src/preferences.c:2786
-#, fuzzy
 msgid "_Leave dimensions to window manager"
-msgstr "Использовать размеры оконного менеджера"
+msgstr "_Использовать размеры оконного менеджера"
 
 #: ../src/preferences.c:2157 ../src/preferences.c:2793
-#, fuzzy
 msgid "_Restore last used dimensions"
-msgstr "Восстановить размеры, использовавшиеся в прошлый раз"
+msgstr "_Восстановить размеры, использовавшиеся в прошлый раз"
 
 #: ../src/preferences.c:2165 ../src/preferences.c:2801
-#, fuzzy
 msgid "Initial _sidebar width:"
-msgstr "Начальная ширина боковой панели"
+msgstr "_Начальная ширина боковой панели"
 
 #: ../src/preferences.c:2169 ../src/preferences.c:2805
-#, fuzzy
 msgid "Initial window _height:"
-msgstr "Начальная высота окна"
+msgstr "Начальная _высота окна"
 
 #: ../src/preferences.c:2172 ../src/preferences.c:2808
-#, fuzzy
 msgid "Initial window _width:"
-msgstr "Начальная ширина окна"
+msgstr "Начальная _ширина окна"
 
 #: ../src/preferences.c:2192 ../src/preferences.c:2828
 msgid "_Use system document tab font"
-msgstr ""
+msgstr "Использовать _системный шрифт для вклдадки документа"
 
 #: ../src/preferences.c:2197 ../src/preferences.c:2833
-#, fuzzy
 msgid "_Document tab font:"
-msgstr "Текущий цвет строк"
+msgstr "_Шрифт вкладки документа:"
 
 #: ../src/preferences.c:2211 ../src/preferences.c:2847
-#, fuzzy
 msgid "Document error tab color"
-msgstr "Позиция табуляции в блокноте докумета"
+msgstr "Цвет вкладки при ошибке в документе"
 
 #: ../src/preferences.c:2213 ../src/preferences.c:2849
 msgid "Document tab _error color:"
-msgstr ""
+msgstr "Цвет вкладки при _ошибке в документе"
 
 #: ../src/preferences.c:2217 ../src/preferences.c:2853
-#, fuzzy
 msgid "Document loading tab color"
-msgstr "Текущий цвет строк"
+msgstr "Цвет вкладки при загрузке документа"
 
 #: ../src/preferences.c:2219 ../src/preferences.c:2855
-#, fuzzy
 msgid "Document tab loadin_g color:"
-msgstr "Текущий цвет строк"
+msgstr "Цвет вкладки при _загрузке документа"
 
 #: ../src/preferences.c:2223 ../src/preferences.c:2859
-#, fuzzy
 msgid "Document modified tab color"
-msgstr "Позиция табуляции в блокноте докумета"
+msgstr "Цвет вкладки модифицированного документа"
 
 #: ../src/preferences.c:2225 ../src/preferences.c:2861
 msgid "Document tab _modified color:"
-msgstr ""
+msgstr "Цвет вкладки _модифицированного документа"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
@@ -2959,64 +2693,56 @@ msgid "Images"
 msgstr "Изображения"
 
 #: ../src/preferences.c:2240 ../src/preferences.c:2876
-#, fuzzy
 msgid "<b>Thumbnails</b>"
-msgstr "Эскизы"
+msgstr "<b>Эскизы</b>"
 
 #: ../src/preferences.c:2246 ../src/preferences.c:2882
-#, fuzzy
 msgid "Thumbnail _filetype:"
-msgstr "Типы файлов эскизов"
+msgstr "Типы файлов _эскизов:"
 
 #: ../src/preferences.c:2250 ../src/preferences.c:2886
-#, fuzzy
 msgid "Thumbnail _suffix:"
-msgstr "Суффикс эскизов"
+msgstr "Суффикс эскизов:"
 
 #: ../src/preferences.c:2263 ../src/preferences.c:2899
 msgid "External commands"
 msgstr "Внешние команды"
 
 #: ../src/preferences.c:2265 ../src/preferences.c:2901
-#, fuzzy
 msgid "<b>External Commands</b>"
-msgstr "Внешние команды"
+msgstr "<b>Внешние команды</b>"
 
 #: ../src/preferences.c:2278 ../src/preferences.c:2914
 msgid "External filters"
 msgstr "Внешние фильтры"
 
 #: ../src/preferences.c:2280 ../src/preferences.c:2916
-#, fuzzy
 msgid "<b>External Filters</b>"
-msgstr "Внешние фильтры"
+msgstr "<b>Внешние фильтры</b>"
 
 #: ../src/preferences.c:2293 ../src/preferences.c:2929
 msgid "Output parsers"
 msgstr "Обработчики вывода"
 
 #: ../src/preferences.c:2295 ../src/preferences.c:2931
-#, fuzzy
 msgid "<b>Output Parsers</b>"
-msgstr "Обработчики вывода"
+msgstr "<b>Обработчики вывода</b>"
 
 #: ../src/preferences.c:2308 ../src/preferences.c:2944
 msgid "Plugins"
 msgstr "Модули"
 
 #: ../src/preferences.c:2310 ../src/preferences.c:2946
-#, fuzzy
 msgid "<b>Plugins</b>"
-msgstr "<b>Файлы</b>"
+msgstr "<b>Модули</b>"
 
 #: ../src/preferences.c:2323 ../src/preferences.c:2959
 msgid "Text styles"
 msgstr "Стили текста"
 
 #: ../src/preferences.c:2325 ../src/preferences.c:2961
-#, fuzzy
 msgid "<b>Text Styles</b>"
-msgstr "<b>_Параметры</b>"
+msgstr "<b>Стили текста</b>"
 
 #: ../src/preferences.c:2338 ../src/preferences.c:2974
 msgid "Language support"
@@ -3024,22 +2750,19 @@ msgstr "Языковая поддержка"
 
 #: ../src/preferences.c:2340 ../src/preferences.c:2976
 msgid "<b>Reference Information</b>"
-msgstr ""
+msgstr "<b>Дополнительная информация</b>"
 
 #: ../src/preferences.c:2343 ../src/preferences.c:2979
-#, fuzzy
 msgid "_Load from language file"
-msgstr "Загрузить справочную информацию из файла языка"
+msgstr "_Загрузить справочную информацию из файла языка"
 
 #: ../src/preferences.c:2346 ../src/preferences.c:2982
-#, fuzzy
 msgid "Show in auto-completion _pop-up window"
-msgstr "Показывать всплывающие подсказки автодополнения"
+msgstr "Показывать в окне всплывающих подсказок автодополнения"
 
 #: ../src/preferences.c:2349 ../src/preferences.c:2985
-#, fuzzy
 msgid "Show in _tooltip window"
-msgstr "Показывать справочную информацию в окне подсказок"
+msgstr "Показывать в окне подсказок"
 
 #: ../src/project.c:282
 msgid "Enter Bluefish project filename"
@@ -3076,7 +2799,7 @@ msgstr "_Имя проекта:"
 #. gtk_table_attach_defaults(GTK_TABLE(table), but, 3, 4, 3, 4);
 #: ../src/project.c:624
 msgid "<b>Project Defaults</b>"
-msgstr ""
+msgstr "<b>Параметры проекта по умолчанию</b>"
 
 #: ../src/project.c:635
 msgid "Create _Project"
@@ -3124,34 +2847,31 @@ msgstr "Убрать пустые строки"
 
 #: ../src/rcfile.c:639
 msgid "Windows XP Firefox"
-msgstr ""
+msgstr "Windows XP Firefox"
 
 #: ../src/rcfile.c:644
-#, fuzzy
 msgid "Windows XP Internet Explorer"
-msgstr "Internet Explorer"
+msgstr "Windows XP Internet Explorer"
 
 #: ../src/rcfile.c:649
 msgid "Windows XP Opera"
-msgstr ""
+msgstr "Windows XP Opera"
 
 #: ../src/rcfile.c:653
 msgid "Windows XP Safari"
-msgstr ""
+msgstr "Windows XP Safari"
 
 #: ../src/rcfile.c:657
 msgid "Windows 7 Firefox 32-bit"
-msgstr ""
+msgstr "Windows 7 Firefox 32-bit"
 
 #: ../src/rcfile.c:662
-#, fuzzy
 msgid "Windows 7 Internet Explorer 32-bit"
-msgstr "Internet Explorer"
+msgstr "Windows 7 Internet Explorer 32-bit"
 
 #: ../src/rcfile.c:667
-#, fuzzy
 msgid "Windows 7 Internet Explorer 64-bit"
-msgstr "Internet Explorer"
+msgstr "Windows 7 Internet Explorer 64-bit"
 
 #: ../src/rcfile.c:675 ../src/rcfile.c:732
 msgid "make"
@@ -3195,7 +2915,7 @@ msgstr "Трансформировать HTML в текст"
 
 #: ../src/rcfile.c:789
 msgid "Chrome"
-msgstr ""
+msgstr "Chrome"
 
 #: ../src/rcfile.c:792
 msgid "Mozilla"

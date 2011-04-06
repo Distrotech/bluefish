@@ -74,7 +74,7 @@ about_options_dialog_create(GtkAction * action, gpointer user_data)
 #endif	/* SVN_REVISION */
 
 	sec_text = g_strconcat(_("This version of Bluefish was built with:\n"), CONFIGURE_OPTIONS, NULL);
-	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), sec_text);
+	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), "%s", sec_text);
 	g_free(sec_text);
 
 	gtk_dialog_run(GTK_DIALOG(dialog));

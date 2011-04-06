@@ -1788,7 +1788,7 @@ preferences_dialog_new(void)
 	const gchar *panellocations[] = { N_("right"), N_("left"), NULL };
 	const gchar *registerrecentmodes[] = { N_("Never"), N_("All files"), N_("Only project files"), NULL };
 	/* "jpeg" and "png" shouldn't be translatable, TODO */
-	const gchar *thumbnail_filetype[] = { N_("jpeg"), N_("png"), NULL };
+	const gchar *thumbnail_filetype[] = { "jpeg", "png", NULL };
 	const gchar *visible_ws_modes[] =
 		{ N_("All"), N_("All except spaces"), N_("All trailing"), N_("All except non-trailing spaces"),
 		NULL
@@ -2148,7 +2148,7 @@ preferences_dialog_new(void)
 
 	pd->prefs[left_panel_left] =
 		dialog_combo_box_text_in_table(panellocations, main_v->props.left_panel_left, table, 1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("Locatio_n:"), pd->prefs[left_panel_left], table, 0, 1, 0, 1);
+	dialog_mnemonic_label_in_table(_("L_ocation:"), pd->prefs[left_panel_left], table, 0, 1, 0, 1);
 	pd->prefs[leftpanel_tabposition] = dialog_combo_box_text_in_table(notebooktabpositions,
 																	  main_v->props.leftpanel_tabposition,
 																	  table, 1, 2, 1, 2);
