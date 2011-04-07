@@ -681,7 +681,7 @@ static void
 simplesearch_advanced_clicked(GtkButton * button, Tbfwin * bfwin)
 {
 	g_print("TODO: implement advanced in snr3\n");
-	search_cb(GTK_WIDGET(button), bfwin);
+	snr3_advanced_dialog(bfwin);
 }
 
 static gboolean

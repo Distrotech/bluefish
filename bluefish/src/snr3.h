@@ -54,3 +54,4 @@ typedef struct {
 void snr3_run_go(Tsnr3run *s3run, gboolean forward);
 void snr3run_free(Tsnr3run *s3run);
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string);
+void snr3_advanced_dialog(Tbfwin *bfwin);

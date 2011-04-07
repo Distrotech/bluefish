@@ -383,7 +383,8 @@ dialog_mnemonic_label_in_table(const gchar * labeltext, GtkWidget * m_widget, Gt
 {
 	GtkWidget *label;
 
-	label = gtk_label_new_with_mnemonic(labeltext);
+	label = gtk_label_new(NULL);
+	gtk_label_set_markup_with_mnemonic(GTK_LABEL(label), labeltext);
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 	gtk_table_attach(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
 					 GTK_SHRINK, 0, 0);
