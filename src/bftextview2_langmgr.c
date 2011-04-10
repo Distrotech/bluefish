@@ -1554,6 +1554,9 @@ langmgr_cleanup(void)
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(langmgr.bflang_list);
+	
+	g_object_unref(G_OBJECT(langmgr.tagtable));
+	
 }
 #endif
 
