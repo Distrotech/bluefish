@@ -530,6 +530,16 @@ bfwin_cleanup(Tbfwin * bfwin)
 	if (bfwin->notebook_changed_doc_activate_id != 0) {
 		g_source_remove(bfwin->notebook_changed_doc_activate_id);
 	}
+	
+	g_object_unref(G_OBJECT(bfwin->uimanager));
+	g_object_unref(G_OBJECT(bfwin->globalGroup));
+	g_object_unref(G_OBJECT(bfwin->documentGroup));
+	g_object_unref(G_OBJECT(bfwin->editGroup));
+	g_object_unref(G_OBJECT(bfwin->findReplaceGroup));
+	g_object_unref(G_OBJECT(bfwin->projectGroup));
+	g_object_unref(G_OBJECT(bfwin->undoGroup));
+	g_object_unref(G_OBJECT(bfwin->bookmarkGroup));
+	g_object_unref(G_OBJECT(bfwin->filebrowserGroup));	
 }
 
 void
