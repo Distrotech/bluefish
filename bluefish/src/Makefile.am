@@ -1,7 +1,7 @@
 
 AUTOMAKE_OPTIONS = std-options
 
-SUBDIRS = pixmaps plugin_about plugin_entities plugin_htmlbar plugin_infbrowser plugin_snippets plugin_charmap
+SUBDIRS = pixmaps plugin_about plugin_entities plugin_htmlbar plugin_infbrowser plugin_snippets plugin_charmap plugin_xmltools
 
 EXTRA_DIST = bluefish_rc.rc.in.in resource.h
 
