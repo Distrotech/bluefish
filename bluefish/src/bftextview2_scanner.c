@@ -246,8 +246,8 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 		found_free_lcb(tmpfound2, btv);
 	}
 
-	DBG_SCANCACHE("remove_cache_entry, finally remove found %p itself with offset %d\n", tmpfound1,
-				  tmpfound1->charoffset_o);
+	DBG_SCANCACHE("remove_cache_entry, finally remove found %p itself with offset %d and return invalidoffset %d\n", tmpfound1,
+				  tmpfound1->charoffset_o, invalidoffset);
 
 	g_sequence_remove(tmpsiter1);
 	found_free_lcb(tmpfound1, btv);
@@ -766,8 +766,8 @@ remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tscanning * scan
 	DBG_SCANNING("remove_invalid_cache, remove everything up to %d from the cache\n", match_end_o);
 	do {
 		invalidoffset = remove_cache_entry(btv, &scanning->nextfound, &scanning->siter, FALSE);
-	} while (scanning->nextfound && scanning->nextfound->charoffset_o < match_end_o);
-
+	} while (scanning->nextfound && (scanning->nextfound->charoffset_o < match_end_o || !nextcache_valid(scanning)));
+	DBG_SCANNING("remove_invalid_cache, return invalidoffset %d\n", invalidoffset);
 	return invalidoffset;
 }
 
@@ -780,6 +780,7 @@ enlarge_scanning_region_to_iter(BluefishTextView * btv, Tscanning * scanning, Gt
 		scanning->end = *iter;
 		return TRUE;
 	}
+	DBG_SCANCACHE("no need to increase scanning region to %d, is at %d already\n",gtk_text_iter_get_offset(iter), gtk_text_iter_get_offset(&scanning->end));
 	return FALSE;
 }
 
@@ -1225,6 +1226,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 				}
 #endif							/* IDENTSTORING */
 			}
+			g_print("last_character_run=%d, scanning.nextfound=%p\n",last_character_run, scanning.nextfound);
 			if (G_UNLIKELY(last_character_run && scanning.nextfound && !nextcache_valid(&scanning))) {
 				guint invalidoffset;
 				/* see if nextfound has a valid context and block stack, if not we enlarge the scanning area */
