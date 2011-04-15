@@ -1,3 +1,21 @@
+/*
+
+functional design:
+- we should have both previous and next
+- search should immediately fire, while still entering the text
+- search should highlight all results, not only the first
+- only on 'activate' (enter) or 'previous' or 'next' we should scroll
+
+technical design:
+- search is implemented in an idle loop, such that it will not the block the GUI too much
+- the result is a GQueue with items that just have a start and end offset   
+
+- that means that we have to adjust offsets if the buffer changes
+- so we need to keep track of any documents that have search results 
+
+*/
+
+
 /*#define DEBUG*/
 /*#define SNR3_PROFILING*/
 
@@ -184,30 +202,30 @@ static void sn3run_add_result(Tsnr3run *s3run, gulong so, gulong eo, gpointer do
 	g_queue_push_tail(&s3run->results, s3result);
 } 
 
-static void snr3_run_pcre_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo) {
-	gchar *buf;
-	GError *gerror = NULL;
-	GRegex *gregex;
+
+static gboolean snr3_run_pcre_loop(Tsnr3run *s3run) {
+	gint loop=0;
+	GTimer *timer;
+	gboolean cont=TRUE;
+	static guint loops_per_timer = 10;
 	GMatchInfo *match_info = NULL;
 	gpointer extra=NULL;
-		
-	DEBUG_MSG("snr3_run_pcre_in_doc, started for query %s\n",s3run->query);
-	if (s3run->results.head) {
-		g_warning("s3run has results already\n");
-	}
-	buf = doc_get_chars(doc, so, eo);
-	utf8_offset_cache_reset();
-	gregex = g_regex_new(s3run->query,
-							 (s3run->is_case_sens ? G_REGEX_MULTILINE | G_REGEX_DOTALL : G_REGEX_CASELESS |
-							  G_REGEX_MULTILINE | G_REGEX_DOTALL), G_REGEX_MATCH_NEWLINE_ANY, &gerror);
-
-	g_regex_match_full(gregex, buf, -1, 0, G_REGEX_MATCH_NEWLINE_ANY, &match_info, NULL);
-	DEBUG_MSG("snr3_run_pcre_in_doc, start loop\n");
-	while (g_match_info_matches(match_info)) {
+	GError *gerror = NULL;
+	void *(*callback) (void *);
+	if (!s3run->working)
+		return FALSE;
+	
+	g_print("continue the search another time\n");
+	/* reconstruct where we are searching */
+	g_regex_match_full((GRegex *)s3run->working->querydata, s3run->working->curbuf, -1, s3run->working->curoffset, G_REGEX_MATCH_NEWLINE_ANY, &match_info, NULL);
+	
+	timer = g_timer_new();
+	while (cont && (loop % loops_per_timer != 0
+				 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SEARCH_INTERVAL)) {
 		gint so, eo;
 		g_match_info_fetch_pos(match_info, 0, &so, &eo);
-		so = utf8_byteoffset_to_charsoffset_cached(buf, so);
-		eo = utf8_byteoffset_to_charsoffset_cached(buf, eo);
+		so = utf8_byteoffset_to_charsoffset_cached(s3run->working->curbuf, so);
+		eo = utf8_byteoffset_to_charsoffset_cached(s3run->working->curbuf, eo);
 		if (s3run->want_submatches) {
 			guint num = g_match_info_get_match_count(match_info);
 			DEBUG_MSG("got %d submatches\n",num);
@@ -219,19 +237,57 @@ static void snr3_run_pcre_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint 
 				num--;
 				while (num!=0) {
 					g_match_info_fetch_pos(match_info, num, &tmp[num].so, &tmp[num].eo);
-					tmp[num].so = utf8_byteoffset_to_charsoffset_cached(buf, tmp[num].so);
-					tmp[num].eo = utf8_byteoffset_to_charsoffset_cached(buf, tmp[num].eo);
+					tmp[num].so = utf8_byteoffset_to_charsoffset_cached(s3run->working->curbuf, tmp[num].so);
+					tmp[num].eo = utf8_byteoffset_to_charsoffset_cached(s3run->working->curbuf, tmp[num].eo);
 					DEBUG_MSG("submatch %d so=%d, eo=%d\n",num, tmp[num].so, tmp[num].eo);
 					num--;
 				}
 				extra = tmp;
 			}
 		}
-		sn3run_add_result(s3run, so, eo, doc, extra);
+		sn3run_add_result(s3run, so, eo, s3run->working->curdoc, extra);
+		
+		s3run->working->curoffset = eo;
+		
 		g_match_info_next (match_info, &gerror);
+		if (gerror) {
+			g_print("match error %s\n",gerror->message);
+		}
+		loop++;
+		cont = g_match_info_matches(match_info);
 	}
+	g_print("did %d loops in %f seconds\n",loop, g_timer_elapsed(timer, NULL));
+	g_timer_destroy(timer);
 	g_match_info_free(match_info);
-	g_regex_unref(gregex);
+	
+	if (cont) {
+		loops_per_timer = MAX(loop / 10, 10);
+		g_print("continue the search another time\n");
+		return TRUE; /* call me again */
+	}
+	g_print("cleanup the working structure\n");
+	/* cleanup the working structure */
+	callback = s3run->working->callback;;
+	g_free(s3run->working->curbuf);
+	g_regex_unref((GRegex *)s3run->working->querydata);
+	g_slice_free(Tsnr3working, s3run->working);
+	s3run->working = NULL;
+	callback(s3run);
+	return FALSE;
+}
+
+static void snr3_run_pcre_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, GCallback callback) {
+	GError *gerror = NULL;
+	GRegex *gregex;
+	
+	s3run->working = g_slice_new0(Tsnr3working);
+	s3run->working->callback = callback;
+	s3run->working->curdoc = doc;
+	s3run->working->curbuf = doc_get_chars(doc, so, eo);
+	utf8_offset_cache_reset();
+	gregex = g_regex_new(s3run->query,
+							 (s3run->is_case_sens ? G_REGEX_MULTILINE | G_REGEX_DOTALL : G_REGEX_CASELESS |
+							  G_REGEX_MULTILINE | G_REGEX_DOTALL), G_REGEX_MATCH_NEWLINE_ANY, &gerror);
 	if (gerror) {
 		g_print("regex error %s\n",gerror->message);
 		/*gchar *errstring;
@@ -242,13 +298,78 @@ static void snr3_run_pcre_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint 
 		g_error_free(gerror);
 		return;
 	}
-	DEBUG_MSG("snr3_run_pcre_in_doc, finished with %d results\n",s3run->results.length);
+	s3run->working->querydata = gregex;
+	
+	s3run->idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,(GSourceFunc)snr3_run_pcre_loop,s3run,NULL);
 }
 
-static void snr3_run_string_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo) {
-	gchar *buf, *result;
+static gboolean snr3_run_string_loop(Tsnr3run *s3run) {
 	gint querylen;
 	char *(*f) ();
+	gint loop=0;
+	static guint loops_per_timer=10;
+	gchar *result;
+	GTimer *timer;
+	void *(*callback) (void *);
+
+	if (!s3run->working)
+		return FALSE;
+
+	timer = g_timer_new();
+
+	if (s3run->is_case_sens) {
+		f = strstr;
+	} else {
+		f = strcasestr;
+	}
+	querylen = g_utf8_strlen(s3run->query, -1);
+	
+	/* now reconstruct the last scan offset */
+	result = s3run->working->curbuf + utf8_charoffset_to_byteoffset_cached(s3run->working->curbuf, s3run->working->curoffset);
+
+	do {
+		result = f(result, s3run->query);
+		if (result) {
+			glong char_o = utf8_byteoffset_to_charsoffset_cached(s3run->working->curbuf, (result-s3run->working->curbuf));
+			sn3run_add_result(s3run, char_o+s3run->working->so, char_o+querylen+s3run->working->so, s3run->working->curdoc, NULL);
+			s3run->working->curoffset = char_o+querylen+s3run->working->so;
+			
+#ifdef SNR3_PROFILING
+			s3profiling.numresults++;
+#endif
+			result++;
+			loop++;
+		}		
+	} while (result && (loop % loops_per_timer != 0
+				 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SEARCH_INTERVAL));
+	g_print("did %d loops in %f seconds\n",loop, g_timer_elapsed(timer, NULL));
+	g_timer_destroy(timer);
+
+	if (result) {
+		return TRUE;
+	}
+	
+	g_print("cleanup the working structure\n");
+	/* cleanup the working structure */
+	callback = s3run->working->callback;;
+	g_free(s3run->working->curbuf);
+	g_slice_free(Tsnr3working, s3run->working);
+	s3run->working = NULL;
+	callback(s3run);
+
+#ifdef SNR3_PROFILING
+	g_print("search %ld bytes with %d results run took %f s, %f bytes/s\n",(glong)strlen(buf),s3profiling.numresults,g_timer_elapsed(s3profiling.timer, NULL),strlen(buf)/g_timer_elapsed(s3profiling.timer, NULL));
+	g_timer_destroy(s3profiling.timer);
+#endif
+
+	DEBUG_MSG("snr3_run_string_in_doc, finished with %d results\n",s3run->results.length);
+	
+	return FALSE;
+	
+}
+
+
+static void snr3_run_string_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, GCallback callback) {
 	DEBUG_MSG("snr3_run_string_in_doc, s3run=%p, started for query %s\n",s3run, s3run->query);
 #ifdef SNR3_PROFILING
 	s3profiling.timer = g_timer_new();
@@ -257,33 +378,17 @@ static void snr3_run_string_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gin
 	if (s3run->results.head) {
 		g_warning("s3run has results already\n");
 	}
-	result = buf = doc_get_chars(doc, so, eo);
-	utf8_offset_cache_reset();
-	if (s3run->is_case_sens) {
-		f = strstr;
-	} else {
-		f = strcasestr;
-	}
-	querylen = g_utf8_strlen(s3run->query, -1);
-	do {
-		result = f(result, s3run->query);
-		if (result) {
-			glong char_o = utf8_byteoffset_to_charsoffset_cached(buf, (result-buf));
-			sn3run_add_result(s3run, char_o+so, char_o+querylen+so, doc, NULL);
-#ifdef SNR3_PROFILING
-			s3profiling.numresults++;
-#endif
-			result++;
-		}		
-	} while (result);
 	
-
-#ifdef SNR3_PROFILING
-	g_print("search %ld bytes with %d results run took %f s, %f bytes/s\n",(glong)strlen(buf),s3profiling.numresults,g_timer_elapsed(s3profiling.timer, NULL),strlen(buf)/g_timer_elapsed(s3profiling.timer, NULL));
-	g_timer_destroy(s3profiling.timer);
-#endif
-	g_free(buf);
-	DEBUG_MSG("snr3_run_string_in_doc, finished with %d results\n",s3run->results.length);
+	s3run->working = g_slice_new0(Tsnr3working);
+	s3run->working->callback = callback;
+	s3run->working->curdoc = doc;
+	s3run->working->curbuf = doc_get_chars(doc, so, eo);
+	s3run->working->so = so;
+	s3run->working->eo = eo;
+	utf8_offset_cache_reset();
+	
+	s3run->idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,(GSourceFunc)snr3_run_string_loop,s3run,NULL);
+	
 }
 
 void snr3_run_go(Tsnr3run *s3run, gboolean forward) {
@@ -307,41 +412,40 @@ void snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 }
 
 
-static void snr3_run(Tsnr3run *s3run) {
+static void snr3_run(Tsnr3run *s3run, GCallback callback) {
 	gint so,eo;
 	GList *tmplist;
 	DEBUG_MSG("snr3_run, s3run=%p\n",s3run);
 	switch(s3run->scope) {
 		case snr3scope_doc:
 			if (s3run->type == snr3type_string) 
-				snr3_run_string_in_doc(s3run, s3run->bfwin->current_document, 0, -1);
+				snr3_run_string_in_doc(s3run, s3run->bfwin->current_document, 0, -1, callback);
 			else if (s3run->type == snr3type_pcre)
-				snr3_run_pcre_in_doc(s3run, s3run->bfwin->current_document, 0, -1);
+				snr3_run_pcre_in_doc(s3run, s3run->bfwin->current_document, 0, -1, callback);
 		break;
 		case snr3scope_cursor:
 			so = doc_get_cursor_position(s3run->bfwin->current_document);
 			if (s3run->type == snr3type_string) 
-				snr3_run_string_in_doc(s3run, s3run->bfwin->current_document, so, -1);
+				snr3_run_string_in_doc(s3run, s3run->bfwin->current_document, so, -1, callback);
 			else if (s3run->type == snr3type_pcre)
-				snr3_run_pcre_in_doc(s3run, s3run->bfwin->current_document, so, -1);
+				snr3_run_pcre_in_doc(s3run, s3run->bfwin->current_document, so, -1, callback);
 		break;
 		case snr3scope_selection:
 			if (doc_get_selection(s3run->bfwin->current_document, &so, &eo)) {
 				if (s3run->type == snr3type_string) 
-					snr3_run_string_in_doc(s3run, s3run->bfwin->current_document, so, eo);
+					snr3_run_string_in_doc(s3run, s3run->bfwin->current_document, so, eo, callback);
 				else if (s3run->type == snr3type_pcre)
-					snr3_run_pcre_in_doc(s3run, s3run->bfwin->current_document, so, eo);
+					snr3_run_pcre_in_doc(s3run, s3run->bfwin->current_document, so, eo, callback);
 			} else {
 				g_print("Find in selection, but there is no selection\n");
 			}
 		break;
 		case snr3scope_alldocs:
 			for (tmplist=g_list_first(s3run->bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
-				/* TODO: run in idle loop to avoid blocking the GUI */
 				if (s3run->type == snr3type_string) 
-					snr3_run_string_in_doc(s3run, s3run->bfwin->current_document, 0, -1);
+					snr3_run_string_in_doc(s3run, s3run->bfwin->current_document, 0, -1, callback);
 				else if (s3run->type == snr3type_pcre)
-					snr3_run_pcre_in_doc(s3run, s3run->bfwin->current_document, 0, -1);
+					snr3_run_pcre_in_doc(s3run, s3run->bfwin->current_document, 0, -1, callback);
 			}
 		break;
 		case snr3scope_files:
@@ -362,6 +466,11 @@ void snr3run_free(Tsnr3run *s3run) {
 	g_slice_free(Tsnr3run, s3run);
 }
 
+static void activate_simple_search(Tsnr3run *s3run) {
+	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
+	snr3_run_go(s3run, TRUE);
+}
+
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	Tsnr3run *s3run;
 	
@@ -374,9 +483,8 @@ gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	s3run->type = snr3type_string;
 	s3run->scope = snr3scope_doc;
 	g_queue_init(&s3run->results);
-	snr3_run(s3run);
-	highlight_run_in_doc(s3run, bfwin->current_document);
-	snr3_run_go(s3run, TRUE);
+	snr3_run(s3run, G_CALLBACK(activate_simple_search));
+
 	return s3run;
 }
 

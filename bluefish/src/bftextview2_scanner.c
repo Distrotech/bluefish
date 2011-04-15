@@ -1226,7 +1226,6 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 				}
 #endif							/* IDENTSTORING */
 			}
-			g_print("last_character_run=%d, scanning.nextfound=%p\n",last_character_run, scanning.nextfound);
 			if (G_UNLIKELY(last_character_run && scanning.nextfound && !nextcache_valid(&scanning))) {
 				guint invalidoffset;
 				/* see if nextfound has a valid context and block stack, if not we enlarge the scanning area */
