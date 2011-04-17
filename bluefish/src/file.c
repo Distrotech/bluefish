@@ -76,7 +76,7 @@ typedef struct {
 static Tqueue ofqueue;
 static Tqueue sfqueue;
 static Tqueue fiqueue;
-static Tqueue oadqueue;
+static Tqueue ffdqueue;
 
 static void
 queue_init(Tqueue * queue, guint max_worknum)
@@ -91,7 +91,7 @@ void
 file_static_queues_init(void)
 {
 	queue_init(&ofqueue, 16);
-	queue_init(&oadqueue, 16);
+	queue_init(&ffdqueue, 16);
 	queue_init(&fiqueue, 16);
 	queue_init(&sfqueue, 16);
 }
@@ -1087,88 +1087,261 @@ file_doc_from_uri(Tbfwin * bfwin, GFile * uri, GFile * recover_uri, GFileInfo * 
 	f2d->of = file_openfile_uri_async(f2d->uri, bfwin, file2doc_lcb, f2d);
 }
 
-/*************************** OPEN ADVANCED ******************************/
+/*************************** FIND FILES ******************************/
 
-#define OAD_NUM_FILES_PER_CB 64
+#define FFD_NUM_FILES_PER_CB 64
 #undef LOAD_TIMER
 typedef struct {
 	guint refcount;
-	Tbfwin *bfwin;
 	gboolean recursive;
 	guint max_recursion;
 	gboolean matchname;
 	gchar *extension_filter;
 	GPatternSpec *patspec;
-	gchar *content_filter;
-	gboolean use_regex;
-	GRegex *content_reg;
 	GFile *topbasedir;			/* the top directory where advanced open started */
+	
+	void (*finished_cb) (gpointer data);
+	void (*filematch_cb) (const gchar *name, GFile *uri, gpointer data);
+	gpointer data;
 #ifdef LOAD_TIMER
 	GTimer *timer;
 #endif
-} Topenadv;
+} Tfindfiles;
 
 typedef struct {
-	Topenadv *oa;
+	Tfindfiles *ff;
 	GFile *basedir;
 	GFileEnumerator *gfe;
 	guint recursion;
-} Topenadv_dir;
+} Tfindfiles_dir;
 
-typedef struct {
-	Topenadv *oa;
-	GFile *uri;
-	GFileInfo *finfo;
-} Topenadv_uri;
 
 static void
-openadv_unref(Topenadv * oa)
+findfiles_unref(Tfindfiles * ff)
 {
-	oa->refcount--;
-	DEBUG_MSG("openadv_unref, count=%d\n", oa->refcount);
-	if (oa->refcount <= 0) {
-		gchar *tmp, *tmp2;
-		tmp =
-			g_strdup_printf(ngettext
-							("%d document open.", "%d documents open.",
-							 g_list_length(oa->bfwin->documentlist)), g_list_length(oa->bfwin->documentlist));
-		tmp2 = g_strconcat(_("Advanced open: Finished searching files. "), tmp, NULL);
-		bfwin_statusbar_message(oa->bfwin, tmp2, 4);
+	ff->refcount--;
+	DEBUG_MSG("openadv_unref, count=%d\n", ff->refcount);
+	if (ff->refcount <= 0) {
+		ff->finished_cb(ff->data);
+		ff->data=NULL;
+		ff->filematch_cb=NULL;
+		ff->finished_cb=NULL;
 #ifdef LOAD_TIMER
-		g_print("%f ms, %s\n", g_timer_elapsed(oa->timer, NULL), tmp2);
-		g_timer_destroy(oa->timer);
+		g_print("loading took %f ms\n", g_timer_elapsed(ff->timer, NULL));
+		g_timer_destroy(ff->timer);
 #endif
-		g_free(tmp);
-		g_free(tmp2);
-		if (oa->extension_filter)
-			g_free(oa->extension_filter);
-		if (oa->patspec)
-			g_pattern_spec_free(oa->patspec);
-		if (oa->content_filter)
-			g_free(oa->content_filter);
-		if (oa->content_reg)
-			g_regex_unref(oa->content_reg);
-		if (oa->topbasedir)
-			g_object_unref(oa->topbasedir);
-		g_free(oa);
+		if (ff->extension_filter)
+			g_free(ff->extension_filter);
+		if (ff->patspec)
+			g_pattern_spec_free(ff->patspec);
+		if (ff->topbasedir)
+			g_object_unref(ff->topbasedir);
+		g_slice_free(Tfindfiles, ff);
+	}
+}
+
+static void findfiles_backend(Tfindfiles * om, GFile * basedir, guint recursion);
+static void findfiles_rundir(gpointer data);
+
+static void
+findfiles_load_directory_cleanup(Tfindfiles_dir * ffd)
+{
+	DEBUG_MSG("open_adv_load_directory_cleanup %p\n", oad);
+	g_object_unref(ffd->basedir);
+	if (ffd->gfe)
+		g_object_unref(ffd->gfe);
+	findfiles_unref(ffd->ff);
+	g_slice_free(Tfindfiles_dir, ffd);
+#ifdef OAD_MEMCOUNT
+	omemcount.allocdir--;
+	g_print("allocdir=%d, oadqueue.queuelen=%d\n", omemcount.allocdir, oadqueue.queuelen);
+#endif							/* OAD_MEMCOUNT */
+	queue_worker_ready(&ffdqueue, findfiles_rundir);
+}
+
+static void
+enumerator_next_files_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
+{
+	GList *list, *tmplist;
+	GError *error = NULL;
+	Tfindfiles_dir *ffd = user_data;
+	GList *alldoclist;
+
+	list = tmplist = g_file_enumerator_next_files_finish(ffd->gfe, res, &error);
+	DEBUG_MSG("enumerator_next_files_lcb for oad=%p has %d results\n", omd, g_list_length(list));
+	if (!list) {
+		/* cleanup */
+		findfiles_load_directory_cleanup(ffd);
+		return;
+	}
+	alldoclist = return_allwindows_documentlist();
+	while (tmplist) {
+		GFileInfo *finfo = tmplist->data;
+		if (g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY) {
+			if (ffd->ff->recursive && ffd->recursion < ffd->ff->max_recursion) {
+				GFile *dir;
+				const gchar *name = g_file_info_get_name(finfo);
+				DEBUG_MSG("enumerator_next_files_lcb, %s is a dir\n", name);
+				dir = g_file_get_child(ffd->basedir, name);
+				findfiles_backend(ffd->ff, dir, ffd->recursion + 1);
+				g_object_unref(dir);
+			}
+		} else if (g_file_info_get_file_type(finfo) == G_FILE_TYPE_REGULAR) {
+			GFile *child_uri;
+			const gchar *name = g_file_info_get_name(finfo);
+			DEBUG_MSG("enumerator_next_files_lcb, %s is a regular file\n", name);
+			child_uri = g_file_get_child(ffd->basedir, name);
+
+			if (ffd->ff->patspec) {
+				gchar *nametomatch;
+				/* check if we have to match the name only or path+name */
+				if (ffd->ff->matchname) {
+					nametomatch = g_strdup(name);
+				} else {
+					nametomatch = g_file_get_uri(child_uri);
+				}
+				DEBUG_MSG("open_adv_load_directory_lcb, matching on %s\n", nametomatch);
+				if (g_pattern_match_string(ffd->ff->patspec, nametomatch)) {	/* test extension */
+					ffd->ff->filematch_cb(ffd->ff->data, child_uri, finfo);
+				}
+				g_free(nametomatch);
+			} else {
+				ffd->ff->filematch_cb(ffd->ff->data, child_uri, finfo);
+			}
+		} else {
+			/* TODO: symlink support ?? */
+			/*g_print("%s is not a file and not a dir\n",g_file_info_get_name(finfo)); */
+		}
+		g_object_unref(finfo);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(list);
+	g_list_free(alldoclist);
+	g_file_enumerator_next_files_async(ffd->gfe, FFD_NUM_FILES_PER_CB, G_PRIORITY_DEFAULT + 2, NULL,
+									   enumerator_next_files_lcb, ffd);
+}
+
+static void
+enumerate_children_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
+{
+	Tfindfiles_dir *ffd = user_data;
+	GError *error = NULL;
+	DEBUG_MSG("enumerate_children_lcb, started for ffd %p\n", ffd);
+	ffd->gfe = g_file_enumerate_children_finish(ffd->basedir, res, &error);
+	if (error) {
+		/*if (error->code == G_IO_ERROR_) {
+
+		   } */
+		g_print("BUG: enumerate_children_lcb, unhandled error: %d %s\n", error->code, error->message);
+		g_error_free(error);
+		findfiles_load_directory_cleanup(ffd);
+	} else {
+		g_file_enumerator_next_files_async(ffd->gfe, FFD_NUM_FILES_PER_CB, G_PRIORITY_DEFAULT + 2, NULL,
+										   enumerator_next_files_lcb, ffd);
 	}
 }
 
 static void
-open_adv_open_uri_cleanup(Topenadv_uri * oau)
+findfiles_rundir(gpointer data)
+{
+	Tfindfiles_dir *ffd = data;
+	g_file_enumerate_children_async(ffd->basedir, BF_FILEINFO, 0, G_PRIORITY_DEFAULT + 3, NULL,
+									enumerate_children_lcb, ffd);
+}
+
+static void
+findfiles_backend(Tfindfiles * ff, GFile * basedir, guint recursion)
+{
+	Tfindfiles_dir *ffd;
+	DEBUG_MSG("open_advanced_backend on basedir %p ", basedir);
+	DEBUG_URI(basedir, TRUE);
+	ffd = g_slice_new0(Tfindfiles_dir);
+#ifdef OAD_MEMCOUNT
+	omemcount.allocdir++;
+	g_print("allocdir=%d, oadqueue.queuelen=%d\n", omemcount.allocdir, oadqueue.queuelen);
+#endif							/* OAD_MEMCOUNT */
+	ffd->ff = ff;
+	ff->refcount++;
+	ffd->recursion = recursion;
+	ffd->basedir = basedir;
+	g_object_ref(ffd->basedir);
+
+	/* tune the queue, if there are VERY MANY files on the ofqueue, we limit the oadqueue */
+	if (ffdqueue.max_worknum >= 8 && ofqueue.queuelen > 1024)
+		ffdqueue.max_worknum = 2;
+	else if (ffdqueue.max_worknum >= 2 && ofqueue.queuelen > 10240)
+		ffdqueue.max_worknum = 1;
+	else if (ffdqueue.max_worknum < 16 && ofqueue.queuelen < 1024)
+		ffdqueue.max_worknum = 16;
+	queue_push(&ffdqueue, ffd, findfiles_rundir);
+}
+
+gboolean
+findfiles(GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname,
+			  gchar * name_filter, GCallback filematch_cb, GCallback finished_cb, gpointer data)
+{
+	Tfindfiles *ff;
+
+	if (!basedir || !name_filter)
+		return FALSE;
+
+	ff = g_slice_new0(Tfindfiles);
+	ff->topbasedir = basedir;
+	g_object_ref(ff->topbasedir);
+	ff->recursive = recursive;
+	ff->max_recursion = max_recursion;
+	ff->matchname = matchname;
+	ff->filematch_cb = filematch_cb;
+	ff->finished_cb = finished_cb;
+	ff->data = data;
+	if (name_filter) {
+		ff->extension_filter = g_strdup(name_filter);
+		ff->patspec = g_pattern_spec_new(name_filter);
+	}
+	findfiles_backend(ff, basedir, 0);
+	return TRUE;
+}
+/****************** open advanced (uses open multi) **********************************/
+
+typedef struct {
+	Tbfwin *bfwin;
+	gchar *content_filter;
+	gboolean use_regex;
+	GRegex *content_reg;	
+} Topenadvanced;
+
+typedef struct {
+	Topenadvanced *oa;
+	GFile *uri;
+	GFileInfo *finfo;
+} Topenadvanced_uri;
+
+
+static void
+open_adv_open_uri_cleanup(Topenadvanced_uri * oau)
 {
 	g_object_unref(oau->uri);
 	g_object_unref(oau->finfo);
-	openadv_unref(oau->oa);
 #ifdef OAD_MEMCOUNT
 	omemcount.allocuri--;
 	g_print("allocuri=%d\n", omemcount.allocuri);
 #endif							/* OAD_MEMCOUNT */
-	g_slice_free(Topenadv_uri, oau);
+	g_slice_free(Topenadvanced_uri, oau);
+}
+
+
+static void open_advanced_cleanup(Topenadvanced *oa) {
+	
+	if (oa->content_filter)
+		g_free(oa->content_filter);
+	if (oa->content_reg)
+		g_regex_unref(oa->content_reg);
+	g_slice_free(Topenadvanced, oa);
+	
 }
 
 static gboolean
-open_adv_content_matches_filter(gchar * buffer, goffset buflen, Topenadv_uri * oau)
+open_adv_content_matches_filter(gchar * buffer, goffset buflen, Topenadvanced_uri * oau)
 {
 	if (oau->oa->use_regex) {
 		return g_regex_match(oau->oa->content_reg, buffer, 0, NULL);
@@ -1182,7 +1355,7 @@ static void
 open_adv_content_filter_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen,
 							gpointer data)
 {
-	Topenadv_uri *oau = data;
+	Topenadvanced_uri *oau = data;
 	switch (status) {
 	case OPENFILE_FINISHED:
 		DEBUG_MSG("open_adv_content_filter_lcb, status=%d, now we should do the content filtering\n", status);
@@ -1212,9 +1385,9 @@ open_adv_content_filter_lcb(Topenfile_status status, GError * gerror, gchar * bu
 }
 
 static void
-openadv_content_filter_file(Topenadv * oa, GFile * uri, GFileInfo * finfo)
+openadv_content_filter_file(Topenadvanced * oa, GFile * uri, GFileInfo * finfo)
 {
-	Topenadv_uri *oau;
+	Topenadvanced_uri *oau;
 	Tdocument *tmpdoc;
 	GList *alldocs;
 
@@ -1225,14 +1398,13 @@ openadv_content_filter_file(Topenadv * oa, GFile * uri, GFileInfo * finfo)
 	if (tmpdoc)
 		return;
 
-	oau = g_slice_new0(Topenadv_uri);
+	oau = g_slice_new0(Topenadvanced_uri);
 #ifdef OAD_MEMCOUNT
 	omemcount.allocuri++;
 	g_print("allocuri=%d, oadqueue=%d (%d), ofqueue=%d (%d)\n", omemcount.allocuri, oadqueue.queuelen,
 			oadqueue.max_worknum, ofqueue.queuelen, ofqueue.max_worknum);
 #endif							/* OAD_MEMCOUNT */
 	oau->oa = oa;
-	oa->refcount++;
 	oau->uri = uri;
 	g_object_ref(uri);
 
@@ -1241,174 +1413,42 @@ openadv_content_filter_file(Topenadv * oa, GFile * uri, GFileInfo * finfo)
 	file_openfile_uri_async(uri, oa->bfwin, open_adv_content_filter_lcb, oau);
 }
 
-static void open_advanced_backend(Topenadv * oa, GFile * basedir, guint recursion);
-static void openadv_run(gpointer data);
-
-static void
-open_adv_load_directory_cleanup(Topenadv_dir * oad)
-{
-	DEBUG_MSG("open_adv_load_directory_cleanup %p\n", oad);
-	g_object_unref(oad->basedir);
-	if (oad->gfe)
-		g_object_unref(oad->gfe);
-	openadv_unref(oad->oa);
-	g_slice_free(Topenadv_dir, oad);
-#ifdef OAD_MEMCOUNT
-	omemcount.allocdir--;
-	g_print("allocdir=%d, oadqueue.queuelen=%d\n", omemcount.allocdir, oadqueue.queuelen);
-#endif							/* OAD_MEMCOUNT */
-	queue_worker_ready(&oadqueue, openadv_run);
-}
-
-static void
-enumerator_next_files_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
-{
-	GList *list, *tmplist;
-	GError *error = NULL;
-	Topenadv_dir *oad = user_data;
-	GList *alldoclist;
-
-	list = tmplist = g_file_enumerator_next_files_finish(oad->gfe, res, &error);
-	DEBUG_MSG("enumerator_next_files_lcb for oad=%p has %d results\n", oad, g_list_length(list));
-	if (!list) {
-		/* cleanup */
-		open_adv_load_directory_cleanup(oad);
-		return;
-	}
-	alldoclist = return_allwindows_documentlist();
-	while (tmplist) {
-		GFileInfo *finfo = tmplist->data;
-		if (g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY) {
-			if (oad->oa->recursive && oad->recursion < oad->oa->max_recursion) {
-				GFile *dir;
-				const gchar *name = g_file_info_get_name(finfo);
-				DEBUG_MSG("enumerator_next_files_lcb, %s is a dir\n", name);
-				dir = g_file_get_child(oad->basedir, name);
-				open_advanced_backend(oad->oa, dir, oad->recursion + 1);
-				g_object_unref(dir);
-			}
-		} else if (g_file_info_get_file_type(finfo) == G_FILE_TYPE_REGULAR) {
-			GFile *child_uri;
-			const gchar *name = g_file_info_get_name(finfo);
-			DEBUG_MSG("enumerator_next_files_lcb, %s is a regular file\n", name);
-			child_uri = g_file_get_child(oad->basedir, name);
-
-			if (oad->oa->patspec) {
-				gchar *nametomatch;
-				/* check if we have to match the name only or path+name */
-				if (oad->oa->matchname) {
-					nametomatch = g_strdup(name);
-				} else {
-					nametomatch = g_file_get_uri(child_uri);
-				}
-				DEBUG_MSG("open_adv_load_directory_lcb, matching on %s\n", nametomatch);
-				if (g_pattern_match_string(oad->oa->patspec, nametomatch)) {	/* test extension */
-					if (oad->oa->content_filter) {	/* do we need content filtering */
-						openadv_content_filter_file(oad->oa, child_uri, finfo);
-					} else {	/* open this file as document */
-						doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
-					}
-				}
-				g_free(nametomatch);
-			} else if (oad->oa->content_filter) {
-				/* content filters are expensive, first see if this file is already open */
-				if (documentlist_return_document_from_uri(alldoclist, child_uri) == NULL) {	/* if this file is already open, there is no need to do any of these checks */
-					openadv_content_filter_file(oad->oa, child_uri, finfo);
-				}
-			} else {
-				doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
-			}
-		} else {
-			/* TODO: symlink support ?? */
-			/*g_print("%s is not a file and not a dir\n",g_file_info_get_name(finfo)); */
-		}
-		g_object_unref(finfo);
-		tmplist = g_list_next(tmplist);
-	}
-	g_list_free(list);
-	g_list_free(alldoclist);
-	g_file_enumerator_next_files_async(oad->gfe, OAD_NUM_FILES_PER_CB, G_PRIORITY_DEFAULT + 2, NULL,
-									   enumerator_next_files_lcb, oad);
-}
-
-static void
-enumerate_children_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
-{
-	Topenadv_dir *oad = user_data;
-	GError *error = NULL;
-	DEBUG_MSG("enumerate_children_lcb, started for oad %p\n", oad);
-	oad->gfe = g_file_enumerate_children_finish(oad->basedir, res, &error);
-	if (error) {
-		/*if (error->code == G_IO_ERROR_) {
-
-		   } */
-		g_print("BUG: enumerate_children_lcb, unhandled error: %d %s\n", error->code, error->message);
-		g_error_free(error);
-		open_adv_load_directory_cleanup(oad);
-	} else {
-		g_file_enumerator_next_files_async(oad->gfe, OAD_NUM_FILES_PER_CB, G_PRIORITY_DEFAULT + 2, NULL,
-										   enumerator_next_files_lcb, oad);
+static void open_advanced_filematch_cb(Topenadvanced *oa, GFile *uri, GFileInfo *finfo) {
+	if (oa->content_filter) {	/* do we need content filtering */
+		openadv_content_filter_file(oa, uri, finfo);
+	} else {	/* open this file as document */
+		doc_new_from_uri(oa->bfwin, uri, finfo, TRUE, FALSE, -1, -1);
 	}
 }
 
-static void
-openadv_run(gpointer data)
-{
-	Topenadv_dir *oad = data;
-	g_file_enumerate_children_async(oad->basedir, BF_FILEINFO, 0, G_PRIORITY_DEFAULT + 3, NULL,
-									enumerate_children_lcb, oad);
-}
+void open_advanced_finished_cb(Topenadvanced *oa) {
+	gchar *tmp, *tmp2;
+	tmp =
+		g_strdup_printf(ngettext
+						("%d document open.", "%d documents open.",
+						 g_list_length(oa->bfwin->documentlist)), g_list_length(oa->bfwin->documentlist));
+	tmp2 = g_strconcat(_("Advanced open: Finished searching files. "), tmp, NULL);
+	bfwin_statusbar_message(oa->bfwin, tmp2, 4);
+	g_free(tmp);
+	g_free(tmp2);
 
-static void
-open_advanced_backend(Topenadv * oa, GFile * basedir, guint recursion)
-{
-	Topenadv_dir *oad;
-	DEBUG_MSG("open_advanced_backend on basedir %p ", basedir);
-	DEBUG_URI(basedir, TRUE);
-	oad = g_slice_new0(Topenadv_dir);
-#ifdef OAD_MEMCOUNT
-	omemcount.allocdir++;
-	g_print("allocdir=%d, oadqueue.queuelen=%d\n", omemcount.allocdir, oadqueue.queuelen);
-#endif							/* OAD_MEMCOUNT */
-	oad->oa = oa;
-	oa->refcount++;
-	oad->recursion = recursion;
-	oad->basedir = basedir;
-	g_object_ref(oad->basedir);
-
-	/* tune the queue, if there are VERY MANY files on the ofqueue, we limit the oadqueue */
-	if (oadqueue.max_worknum >= 8 && ofqueue.queuelen > 1024)
-		oadqueue.max_worknum = 2;
-	else if (oadqueue.max_worknum >= 2 && ofqueue.queuelen > 10240)
-		oadqueue.max_worknum = 1;
-	else if (oadqueue.max_worknum < 16 && ofqueue.queuelen < 1024)
-		oadqueue.max_worknum = 16;
-	queue_push(&oadqueue, oad, openadv_run);
+	open_advanced_cleanup(oa);
 }
 
 gboolean
 open_advanced(Tbfwin * bfwin, GFile * basedir, gboolean recursive, guint max_recursion, gboolean matchname,
 			  gchar * name_filter, gchar * content_filter, gboolean use_regex, GError ** reterror)
 {
-	Topenadv *oa;
+	Topenadvanced *oa;
 
 	if (!basedir || !name_filter)
 		return FALSE;
 
-	oa = g_new0(Topenadv, 1);
+	oa = g_slice_new0(Topenadvanced);
 #ifdef LOAD_TIMER
 	oa->timer = g_timer_new();
 #endif
 	oa->bfwin = bfwin;
-	oa->recursive = recursive;
-	oa->max_recursion = max_recursion;
-	oa->matchname = matchname;
-	oa->topbasedir = basedir;
-	g_object_ref(oa->topbasedir);
-	if (name_filter) {
-		oa->extension_filter = g_strdup(name_filter);
-		oa->patspec = g_pattern_spec_new(name_filter);
-	}
 	if (content_filter)
 		oa->content_filter = g_strdup(content_filter);
 	oa->use_regex = use_regex;
@@ -1420,16 +1460,16 @@ open_advanced(Tbfwin * bfwin, GFile * basedir, gboolean recursive, guint max_rec
 			g_propagate_error(reterror, gerror);
 			/*do we need to free or not ????? g_error_free(gerror); */
 			/* BUG: need more error handling here, and inform the user */
-			openadv_unref(oa);
+			open_advanced_cleanup(oa);
 			return FALSE;
 		}
 	}
 
-	open_advanced_backend(oa, basedir, 0);
+	findfiles(basedir, recursive, max_recursion, matchname, name_filter, open_advanced_filematch_cb, open_advanced_finished_cb, oa);
 	return TRUE;
 }
 
-/************************/
+/***************************** copy files async ****************************/
 typedef struct {
 	Tbfwin *bfwin;
 	GSList *sourcelist;
