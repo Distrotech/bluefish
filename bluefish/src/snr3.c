@@ -29,6 +29,7 @@ technical design:
 #include "bf_lib.h"
 #include "dialog_utils.h"
 #include "gtk_easy.h"
+#include "file.h"
 
 #include "snr3.h"
 
@@ -409,6 +410,37 @@ void snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 		s3run->current = next;
 		scroll_to_result(next->data, NULL);
 	}
+}
+
+static void pcre_filematch_openfile_cb(Topenfile_status status, GError * gerror, gchar * buffer,
+									   goffset buflen, gpointer callback_data) {
+	switch (status) {
+		case OPENFILE_FINISHED:
+			/* now we have a buffer with the data, convert to UTF8, run the replace, 
+			and then save the data back to the file (with a backup file!) */
+			
+		break;
+	}
+
+}
+
+static void pcre_finished_cb(Tsnr3run *s3run) {
+	g_print("pcre_finished_cb\n");
+}
+
+static void pcre_filematch_cb(Tsnr3run *s3run, GFile *uri, GFileInfo *finfo) {
+	/* first check if we have this file open, in that case we have to run the 
+	function that replaces in the document */
+	file_openfile_uri_async(uri, s3run->bfwin, pcre_filematch_openfile_cb, s3run);
+}
+
+static void snr3_run_pcre_in_files(Tsnr3run *s3run) {
+	GFile *basedir;
+	
+	basedir = g_file_new_for_path("/tmp/");
+	
+	findfiles(basedir, FALSE, 1, TRUE,"*.txt", pcre_filematch_cb, pcre_finished_cb, s3run);
+	
 }
 
 
