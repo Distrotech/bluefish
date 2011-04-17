@@ -1316,10 +1316,10 @@ typedef struct {
 	GFileInfo *finfo;
 } Topenadvanced_uri;
 
-
 static void
 open_adv_open_uri_cleanup(Topenadvanced_uri * oau)
 {
+	DEBUG_MSG("open_adv_open_uri_cleanup, oau=%p\n",oau);
 	g_object_unref(oau->uri);
 	g_object_unref(oau->finfo);
 #ifdef OAD_MEMCOUNT
@@ -1329,9 +1329,8 @@ open_adv_open_uri_cleanup(Topenadvanced_uri * oau)
 	g_slice_free(Topenadvanced_uri, oau);
 }
 
-
 static void open_advanced_cleanup(Topenadvanced *oa) {
-	
+	DEBUG_MSG("open_advanced_cleanup, oa=%p\n",oa);
 	if (oa->content_filter)
 		g_free(oa->content_filter);
 	if (oa->content_reg)
@@ -1413,7 +1412,8 @@ openadv_content_filter_file(Topenadvanced * oa, GFile * uri, GFileInfo * finfo)
 	file_openfile_uri_async(uri, oa->bfwin, open_adv_content_filter_lcb, oau);
 }
 
-static void open_advanced_filematch_cb(Topenadvanced *oa, GFile *uri, GFileInfo *finfo) {
+static void
+open_advanced_filematch_cb(Topenadvanced *oa, GFile *uri, GFileInfo *finfo) {
 	if (oa->content_filter) {	/* do we need content filtering */
 		openadv_content_filter_file(oa, uri, finfo);
 	} else {	/* open this file as document */
@@ -1421,7 +1421,8 @@ static void open_advanced_filematch_cb(Topenadvanced *oa, GFile *uri, GFileInfo 
 	}
 }
 
-void open_advanced_finished_cb(Topenadvanced *oa) {
+static void
+open_advanced_finished_cb(Topenadvanced *oa) {
 	gchar *tmp, *tmp2;
 	tmp =
 		g_strdup_printf(ngettext
