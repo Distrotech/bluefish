@@ -36,6 +36,7 @@
 #include "file_dialogs.h"
 #include "gtk_easy.h"
 #include "stringlist.h"
+#include "async_queue.h"
 
 #if !GTK_CHECK_VERSION(2,14,0)
 #include "gtkmountoperation.h"
@@ -62,104 +63,25 @@ DEBUG_URI(GFile * uri, gboolean newline)
 	g_free(name);
 }
 
-
-/******************************** queue functions ********************************/
-typedef struct {
-	GList *head;				/* data structures that are *not* being worked on */
-	GList *tail;
-	GStaticMutex mutex;
-	guint queuelen;
-	guint worknum;				/* number of elements that are being worked on */
-	guint max_worknum;
-} Tqueue;
-
+static void openfile_run(gpointer data);
 static Tqueue ofqueue;
-static Tqueue sfqueue;
-static Tqueue fiqueue;
-static Tqueue ffdqueue;
 
-static void
-queue_init(Tqueue * queue, guint max_worknum)
-{
-	queue->worknum = 0;
-	queue->tail = queue->head = NULL;
-	queue->max_worknum = max_worknum;
-	g_static_mutex_init(&queue->mutex);
-}
+static void file_checkNsave_run(gpointer data);
+static Tqueue sfqueue;
+
+static void fill_fileinfo_run(gpointer data);
+static Tqueue fiqueue;
+
+static void findfiles_rundir(gpointer data);
+static Tqueue ffdqueue;
 
 void
 file_static_queues_init(void)
 {
-	queue_init(&ofqueue, 16);
-	queue_init(&ffdqueue, 16);
-	queue_init(&fiqueue, 16);
-	queue_init(&sfqueue, 16);
-}
-
-static void
-queue_cleanup(Tqueue * queue)
-{
-	g_static_mutex_free(&queue->mutex);
-}
-
-static void
-queue_run(Tqueue * queue, void (*activate_func) ())
-{
-	/* THE QUEUE MUTEX SHOULD BE LOCKED WHEN CALLING THIS FUNCTION !!!!!!!!!!!!!!!!!!!!! */
-	if (queue->worknum < queue->max_worknum) {
-		while (queue->tail != NULL && queue->worknum < queue->max_worknum) {
-			GList *curlst = queue->tail;
-			queue->tail = curlst->prev;
-			if (queue->tail == NULL)
-				queue->head = NULL;
-			else
-				queue->tail->next = NULL;
-			queue->queuelen--;
-			activate_func(curlst->data);
-			queue->worknum++;
-			g_list_free_1(curlst);
-			/*g_print("queue_run, %d working, %d queued\n",queue->worknum,g_list_length(queue->head)); */
-		}
-	}
-}
-
-static void
-queue_worker_ready(Tqueue * queue, void (*activate_func) ())
-{
-	g_static_mutex_lock(&queue->mutex);
-	queue->worknum--;
-	queue_run(queue, activate_func);
-	g_static_mutex_unlock(&queue->mutex);
-}
-
-static void
-queue_push(Tqueue * queue, gpointer item, void (*activate_func) ())
-{
-	g_static_mutex_lock(&queue->mutex);
-	queue->head = g_list_prepend(queue->head, item);
-	queue->queuelen++;
-	if (queue->tail == NULL)
-		queue->tail = queue->head;
-	queue_run(queue, activate_func);
-	g_static_mutex_unlock(&queue->mutex);
-}
-
-/* return TRUE if we found the item on the queue, FALSE if we did not find the item */
-static gboolean
-queue_remove(Tqueue * queue, gpointer item)
-{
-	GList *curlst = g_list_find(queue->head, item);
-	if (curlst) {
-		g_static_mutex_lock(&queue->mutex);
-		if (curlst == queue->tail)
-			queue->tail = curlst->prev;
-		queue->head = g_list_remove_link(queue->head, curlst);
-		queue->queuelen--;
-		g_list_free_1(curlst);
-		g_static_mutex_unlock(&queue->mutex);
-		return TRUE;
-	}
-	return FALSE;
+	queue_init(&ofqueue, 16, FALSE, openfile_run);
+	queue_init(&ffdqueue, 16, FALSE, findfiles_rundir);
+	queue_init(&fiqueue, 16, FALSE, fill_fileinfo_run);
+	queue_init(&sfqueue, 16, FALSE, file_checkNsave_run);
 }
 
 /********************************** wait for mount functions **********************************/
@@ -178,9 +100,7 @@ typedef struct {
 } Tfileinfo;
 
 static void openfile_cleanup(Topenfile * of);
-static void openfile_run(gpointer data);
 static void fill_fileinfo_cleanup(Tfileinfo * fi);
-static void fill_fileinfo_run(gpointer data);
 
 static void
 resume_after_wait_for_mount(void)
@@ -190,7 +110,7 @@ resume_after_wait_for_mount(void)
 	while (tmplist) {
 		Topenfile *of2 = tmplist->data;
 		if (!g_cancellable_is_cancelled(of2->cancel)) {
-			queue_push(&ofqueue, of2, openfile_run);
+			queue_push(&ofqueue, of2);
 		} else {
 			of2->callback_func(OPENFILE_ERROR_CANCELLED, NULL, NULL, 0, of2->callback_data);
 			openfile_cleanup(of2);
@@ -204,7 +124,7 @@ resume_after_wait_for_mount(void)
 	while (tmplist) {
 		Tfileinfo *fi2 = tmplist->data;
 		if (!g_cancellable_is_cancelled(fi2->cancel)) {
-			queue_push(&fiqueue, fi2, fill_fileinfo_run);
+			queue_push(&fiqueue, fi2);
 		} else {
 			fill_fileinfo_cleanup(fi2);
 		}
@@ -423,13 +343,11 @@ typedef struct {
 	gboolean abort;				/* the backup callback may set this to true, it means that the user choosed to abort save because the backup failed */
 } TcheckNsave;
 
-static void file_checkNsave_run(gpointer data);
-
 static void
 checkNsave_cleanup(TcheckNsave * cns)
 {
 	DEBUG_MSG("checkNsave_cleanup, called for %p\n", cns);
-	queue_worker_ready(&sfqueue, file_checkNsave_run);
+	queue_worker_ready(&sfqueue);
 	refcpointer_unref(cns->buffer);
 	g_object_unref(cns->uri);
 	g_object_unref(cns->cancelab);
@@ -551,7 +469,7 @@ file_checkNsave_uri_async(GFile * uri, GFileInfo * info, Trefcpointer * buffer, 
 	}
 	DEBUG_MSG("file_checkNsave_uri_async, saving %ld bytes to ", (long int) cns->buffer_size);
 	DEBUG_URI(cns->uri, TRUE);
-	queue_push(&sfqueue, cns, file_checkNsave_run);
+	queue_push(&sfqueue, cns);
 	return cns;
 }
 
@@ -579,7 +497,7 @@ openfile_cleanup(Topenfile * of)
 	g_slice_free(Topenfile, of);
 	/*ofqueue.worknum--;
 	   process_ofqueue(NULL); */
-	queue_worker_ready(&ofqueue, openfile_run);
+	queue_worker_ready(&ofqueue);
 }
 
 void
@@ -634,7 +552,7 @@ openfile_async_lcb(GObject * source_object, GAsyncResult * res, gpointer user_da
 			} else {
 				DEBUG_MSG("push %p on 'openfile_wait_for_mount' list and remove from queue\n", of);
 				openfile_wait_for_mount = g_list_prepend(openfile_wait_for_mount, of);
-				queue_worker_ready(&ofqueue, openfile_run);
+				queue_worker_ready(&ofqueue);
 			}
 		} else {
 			g_warning("while opening file, received error %d: %s\n", error->code, error->message);
@@ -669,7 +587,7 @@ file_openfile_uri_async(GFile * uri, Tbfwin * bfwin, OpenfileAsyncCallback callb
 	of->bfwin = bfwin;
 	of->cancel = g_cancellable_new();
 	g_object_ref(of->uri);
-	queue_push(&ofqueue, of, openfile_run);
+	queue_push(&ofqueue, of);
 	return of;
 }
 
@@ -931,7 +849,7 @@ fill_fileinfo_async_mount_lcb(GObject * source_object, GAsyncResult * res, gpoin
 		fill_fileinfo_run(fi);
 	} else {
 		g_warning("failed to mount with error %d %s!!\n", error->code, error->message);
-		queue_worker_ready(&fiqueue, fill_fileinfo_run);
+		queue_worker_ready(&fiqueue);
 		fill_fileinfo_cleanup(fi);
 	}
 	gmo = NULL;
@@ -980,7 +898,7 @@ fill_fileinfo_lcb(GObject * source_object, GAsyncResult * res, gpointer user_dat
 			} else {
 				DEBUG_MSG("push %p on 'fileinfo_wait_for_mount' list and remove from queue\n", fi);
 				fileinfo_wait_for_mount = g_list_prepend(fileinfo_wait_for_mount, fi);
-				queue_worker_ready(&fiqueue, fill_fileinfo_run);
+				queue_worker_ready(&fiqueue);
 			}
 			return;				/* do not cleanup! */
 		} else {
@@ -994,7 +912,7 @@ fill_fileinfo_lcb(GObject * source_object, GAsyncResult * res, gpointer user_dat
 	if (fi->doc->action.close_doc) {
 		doc_close_single_backend(fi->doc, FALSE, fi->doc->action.close_window);
 	}
-	queue_worker_ready(&fiqueue, fill_fileinfo_run);
+	queue_worker_ready(&fiqueue);
 	fill_fileinfo_cleanup(fi);
 }
 
@@ -1017,7 +935,7 @@ file_doc_fill_fileinfo(Tdocument * doc, GFile * uri)
 	g_object_ref(uri);
 	fi->uri = uri;
 	fi->cancel = g_cancellable_new();
-	queue_push(&fiqueue, fi, fill_fileinfo_run);
+	queue_push(&fiqueue, fi);
 }
 
 void
@@ -1156,7 +1074,7 @@ findfiles_load_directory_cleanup(Tfindfiles_dir * ffd)
 	omemcount.allocdir--;
 	g_print("allocdir=%d, oadqueue.queuelen=%d\n", omemcount.allocdir, oadqueue.queuelen);
 #endif							/* OAD_MEMCOUNT */
-	queue_worker_ready(&ffdqueue, findfiles_rundir);
+	queue_worker_ready(&ffdqueue);
 }
 
 static void
@@ -1273,7 +1191,7 @@ findfiles_backend(Tfindfiles * ff, GFile * basedir, guint recursion)
 		ffdqueue.max_worknum = 1;
 	else if (ffdqueue.max_worknum < 16 && ofqueue.queuelen < 1024)
 		ffdqueue.max_worknum = 16;
-	queue_push(&ffdqueue, ffd, findfiles_rundir);
+	queue_push(&ffdqueue, ffd);
 }
 
 gboolean
@@ -1728,7 +1646,7 @@ do_update_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
 	su->sync->num_finished++;
 	progress_update(su->sync);
 	/*g_print("%d%%: %d found, %d finished\n",(gint)(100.0*su->sync->num_finished/su->sync->num_found), su->sync->num_found,su->sync->num_finished); */
-	queue_worker_ready(&su->sync->queue_update, do_update_run);
+	queue_worker_ready(&su->sync->queue_update);
 	update_cleanup(su);
 }
 
@@ -1744,7 +1662,7 @@ static gboolean
 do_update_push(gpointer data)
 {
 	Tsync_update *su = data;
-	queue_push(&su->sync->queue_update, su, do_update_run);
+	queue_push(&su->sync->queue_update, su);
 	return FALSE;
 }
 
@@ -1765,7 +1683,7 @@ static gboolean
 walk_directory_remote_job_finished(gpointer user_data)
 {
 	Tsync_walkdir *swd = user_data;
-	queue_worker_ready(&swd->sync->queue_walkdir_remote, walk_directory_remote_run);
+	queue_worker_ready(&swd->sync->queue_walkdir_remote);
 	walk_directory_cleanup(swd);
 	return FALSE;
 }
@@ -1833,10 +1751,10 @@ static gboolean
 walk_local_directory_job_finished(gpointer user_data)
 {
 	Tsync_walkdir *swd = user_data;
-	queue_worker_ready(&swd->sync->queue_walkdir_local, walk_local_directory_run);
+	queue_worker_ready(&swd->sync->queue_walkdir_local);
 
 	if (swd->sync->delete_deprecated) {
-		queue_push(&swd->sync->queue_walkdir_remote, swd, walk_directory_remote_run);
+		queue_push(&swd->sync->queue_walkdir_remote, swd);
 	}
 	progress_update(swd->sync);
 	if (!swd->sync->delete_deprecated) {
@@ -1965,7 +1883,7 @@ static gboolean
 walk_local_directory_push(gpointer data)
 {
 	Tsync_walkdir *swd = data;
-	queue_push(&swd->sync->queue_walkdir_local, swd, walk_local_directory_run);
+	queue_push(&swd->sync->queue_walkdir_local, swd);
 	return FALSE;
 }
 
@@ -2013,9 +1931,9 @@ sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, g
 	sync->include_hidden = include_hidden;
 	sync->progress_callback = progress_callback;
 	sync->callback_data = callback_data;
-	queue_init(&sync->queue_walkdir_local, 3);
-	queue_init(&sync->queue_walkdir_remote, 2);
-	queue_init(&sync->queue_update, 4);
+	queue_init(&sync->queue_walkdir_local, 3, FALSE, walk_local_directory_run);
+	queue_init(&sync->queue_walkdir_remote, 2, FALSE, walk_directory_remote_run);
+	queue_init(&sync->queue_update, 4, FALSE, do_update_run);
 	/*sync->timer = g_timer_new(); */
 	sync->basedir = basedir;
 	g_object_ref(sync->basedir);
