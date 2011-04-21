@@ -30,6 +30,8 @@ technical design:
 #include "dialog_utils.h"
 #include "gtk_easy.h"
 #include "file.h"
+#include "bf_lib.h"
+#include "async_queue.h"
 
 #include "snr3.h"
 
@@ -412,35 +414,138 @@ void snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 	}
 }
 
+/*static TcheckNsave_return filematch_savefile_cb(TcheckNsave_status status, GError * gerror, gpointer callback_data) {
+	Tsnr3run *s3run = callback_data;
+	switch (status) {
+		case CHECKANDSAVE_FINISHED:
+			g_print("finished\n");
+		
+		break;
+		
+	}
+	
+}
+
 static void pcre_filematch_openfile_cb(Topenfile_status status, GError * gerror, gchar * buffer,
 									   goffset buflen, gpointer callback_data) {
+	Tsnr3run *s3run = callback_data;
 	switch (status) {
 		case OPENFILE_FINISHED:
-			/* now we have a buffer with the data, convert to UTF8, run the replace, 
-			and then save the data back to the file (with a backup file!) */
+			gpointer retdata;
+			Trefcpointer *rcp;
+			gchar *encoding=NULL;
+			gsize finalbuflen=0;
+			gchar *finalbuf, *utf8buf;
 			
+			utf8buf = buffer_find_encoding(buffer, buflen, &encoding, s3run->bfwin->session->encoding);
+			
+			
+			/ * TODO: do the replace * /
+			
+			finalbuf = g_convert(utf8buf, -1, encoding, "UTF-8", NULL, &finalbuflen, NULL);
+			g_free(utf8buf);
+			rcp = refcpointer_new(finalbuf);
+			retdata = file_checkNsave_uri_async(GFile * uri, NULL, rcp, finalbuflen,FALSE, TRUE,
+								   filematch_savefile_cb, s3run);
+			refcpointer_unref(rcp);
 		break;
 	}
 
 }
+*/
 
-static void pcre_finished_cb(Tsnr3run *s3run) {
-	g_print("pcre_finished_cb\n");
+typedef struct {
+	Tasyncqueue queue;
+	guint refcount;
+	Tsnr3run *s3run;
+} Tfilesworker;
+
+typedef struct {
+	GFile *uri;
+	GList *results;
+	Tfilesworker *fw;
+} Treplaceinthread;
+
+static void filesworker_unref(Tfilesworker *fw) {
+	fw->refcount--;
+	if (fw->refcount == 0) {
+		Tsnr3run *s3run = fw->s3run;
+		
+		queue_cleanup(&fw->queue);
+		g_slice_free(Tfilesworker, fw);
+	}
+	
 }
 
-static void pcre_filematch_cb(Tsnr3run *s3run, GFile *uri, GFileInfo *finfo) {
+static void replace_files_in_thread_finished(gpointer data) {
+	Treplaceinthread *rit = data;
+	/* TODO: add the results to the outputbox */
+	
+	filesworker_unref(rit->fw);
+	/* cleanup */
+	g_object_unref(rit->uri);
+	g_list_free(rit->results);
+	g_slice_free(Treplaceinthread, rit);
+}
+
+static gpointer files_replace_run(gpointer data) {
+	Treplaceinthread *rit = data;
+	GError *gerror=NULL;
+	gchar *inbuf=NULL, *encoding=NULL, *outbuf, *utf8buf;
+	gsize inbuflen=0, outbuflen=0;
+	gboolean ret;
+	Tasyncqueue *tmpqueue;
+	ret = g_file_load_contents(rit->uri,NULL,&inbuf,&inbuflen,NULL,&gerror);
+	
+	/* is the following function thread safe ?? */
+	utf8buf = buffer_find_encoding(inbuf, inbuflen, &encoding, rit->fw->s3run->bfwin->session->encoding);
+	
+	/* TODO: do the replace */
+	
+	outbuf = g_convert(utf8buf, -1, encoding, "UTF-8", NULL, &outbuflen, NULL);
+	
+	ret = g_file_replace_contents(rit->uri,outbuf,outbuflen,NULL,TRUE,G_FILE_CREATE_NONE,NULL,NULL,&gerror);
+	
+	tmpqueue = &rit->fw->queue;
+	g_idle_add(replace_files_in_thread_finished, rit);
+	
+	queue_worker_ready_inthread(tmpqueue);
+	/* we don't need to start a new thread by calling _inthread() inside the thread */
+}
+
+static void pcre_finished_cb(Tfilesworker *fw) {
+	g_print("pcre_finished_cb\n");
+	
+	filesworker_unref(fw);
+}
+
+static void pcre_filematch_cb(Tfilesworker *fw, GFile *uri, GFileInfo *finfo) {
+	Treplaceinthread *rit;
+	GError *gerror=NULL;
+	
+	rit = g_slice_new0(Treplaceinthread);
+	rit->uri = uri;
+	g_object_ref(rit->uri);
+	rit->fw = fw;
+	rit->fw->refcount++;
 	/* first check if we have this file open, in that case we have to run the 
 	function that replaces in the document */
-	file_openfile_uri_async(uri, s3run->bfwin, pcre_filematch_openfile_cb, s3run);
+	/*file_openfile_uri_async(uri, s3run->bfwin, pcre_filematch_openfile_cb, s3run);*/
+	queue_push(&fw->queue, rit);
 }
 
 static void snr3_run_pcre_in_files(Tsnr3run *s3run) {
 	GFile *basedir;
+	Tfilesworker *fw;
+	
+	fw = g_slice_new0(Tfilesworker);
+	queue_init_full(&fw->queue, 4, TRUE, TRUE, files_replace_run);
+	fw->s3run=s3run;
+	fw->refcount=1;
 	
 	basedir = g_file_new_for_path("/tmp/");
-	
-	findfiles(basedir, FALSE, 1, TRUE,"*.txt", pcre_filematch_cb, pcre_finished_cb, s3run);
-	
+	findfiles(basedir, FALSE, 1, TRUE,"*.txt", pcre_filematch_cb, pcre_finished_cb, fw);
+	g_object_unref(basedir);
 }
 
 

@@ -64,24 +64,24 @@ DEBUG_URI(GFile * uri, gboolean newline)
 }
 
 static void openfile_run(gpointer data);
-static Tqueue ofqueue;
+static Tasyncqueue ofqueue;
 
 static void file_checkNsave_run(gpointer data);
-static Tqueue sfqueue;
+static Tasyncqueue sfqueue;
 
 static void fill_fileinfo_run(gpointer data);
-static Tqueue fiqueue;
+static Tasyncqueue fiqueue;
 
 static void findfiles_rundir(gpointer data);
-static Tqueue ffdqueue;
+static Tasyncqueue ffdqueue;
 
 void
 file_static_queues_init(void)
 {
-	queue_init(&ofqueue, 16, FALSE, openfile_run);
-	queue_init(&ffdqueue, 16, FALSE, findfiles_rundir);
-	queue_init(&fiqueue, 16, FALSE, fill_fileinfo_run);
-	queue_init(&sfqueue, 16, FALSE, file_checkNsave_run);
+	queue_init(&ofqueue, 16, openfile_run);
+	queue_init(&ffdqueue, 16, findfiles_rundir);
+	queue_init(&fiqueue, 16, fill_fileinfo_run);
+	queue_init(&sfqueue, 16, file_checkNsave_run);
 }
 
 /********************************** wait for mount functions **********************************/
@@ -1072,7 +1072,7 @@ findfiles_load_directory_cleanup(Tfindfiles_dir * ffd)
 	g_slice_free(Tfindfiles_dir, ffd);
 #ifdef OAD_MEMCOUNT
 	omemcount.allocdir--;
-	g_print("allocdir=%d, oadqueue.queuelen=%d\n", omemcount.allocdir, oadqueue.queuelen);
+	g_print("allocdir=%d, oadqueue.q.length=%d\n", omemcount.allocdir, oadqueue.q.length);
 #endif							/* OAD_MEMCOUNT */
 	queue_worker_ready(&ffdqueue);
 }
@@ -1176,7 +1176,7 @@ findfiles_backend(Tfindfiles * ff, GFile * basedir, guint recursion)
 	ffd = g_slice_new0(Tfindfiles_dir);
 #ifdef OAD_MEMCOUNT
 	omemcount.allocdir++;
-	g_print("allocdir=%d, oadqueue.queuelen=%d\n", omemcount.allocdir, oadqueue.queuelen);
+	g_print("allocdir=%d, oadqueue.q.length=%d\n", omemcount.allocdir, oadqueue.q.length);
 #endif							/* OAD_MEMCOUNT */
 	ffd->ff = ff;
 	ff->refcount++;
@@ -1185,11 +1185,11 @@ findfiles_backend(Tfindfiles * ff, GFile * basedir, guint recursion)
 	g_object_ref(ffd->basedir);
 
 	/* tune the queue, if there are VERY MANY files on the ofqueue, we limit the oadqueue */
-	if (ffdqueue.max_worknum >= 8 && ofqueue.queuelen > 1024)
+	if (ffdqueue.max_worknum >= 8 && ofqueue.q.length > 1024)
 		ffdqueue.max_worknum = 2;
-	else if (ffdqueue.max_worknum >= 2 && ofqueue.queuelen > 10240)
+	else if (ffdqueue.max_worknum >= 2 && ofqueue.q.length > 10240)
 		ffdqueue.max_worknum = 1;
-	else if (ffdqueue.max_worknum < 16 && ofqueue.queuelen < 1024)
+	else if (ffdqueue.max_worknum < 16 && ofqueue.q.length < 1024)
 		ffdqueue.max_worknum = 16;
 	queue_push(&ffdqueue, ffd);
 }
@@ -1318,8 +1318,8 @@ openadv_content_filter_file(Topenadvanced * oa, GFile * uri, GFileInfo * finfo)
 	oau = g_slice_new0(Topenadvanced_uri);
 #ifdef OAD_MEMCOUNT
 	omemcount.allocuri++;
-	g_print("allocuri=%d, oadqueue=%d (%d), ofqueue=%d (%d)\n", omemcount.allocuri, oadqueue.queuelen,
-			oadqueue.max_worknum, ofqueue.queuelen, ofqueue.max_worknum);
+	g_print("allocuri=%d, oadqueue=%d (%d), ofqueue=%d (%d)\n", omemcount.allocuri, oadqueue.q.length,
+			oadqueue.max_worknum, ofqueue.q.length, ofqueue.max_worknum);
 #endif							/* OAD_MEMCOUNT */
 	oau->oa = oa;
 	oau->uri = uri;
@@ -1509,11 +1509,11 @@ typedef struct {
 	gboolean delete_deprecated;
 	gboolean include_hidden;
 	gint numworking;
-	Tqueue queue_walkdir_local;
-	Tqueue queue_walkdir_remote;
-/*	Tqueue queue_delete;
-	Tqueue queue_need_update;*/
-	Tqueue queue_update;
+	Tasyncqueue queue_walkdir_local;
+	Tasyncqueue queue_walkdir_remote;
+/*	Tasyncqueue queue_delete;
+	Tasyncqueue queue_need_update;*/
+	Tasyncqueue queue_update;
 	guint num_found;
 	guint num_finished;
 	guint num_failed;
@@ -1931,9 +1931,9 @@ sync_directory(GFile * basedir, GFile * targetdir, gboolean delete_deprecated, g
 	sync->include_hidden = include_hidden;
 	sync->progress_callback = progress_callback;
 	sync->callback_data = callback_data;
-	queue_init(&sync->queue_walkdir_local, 3, FALSE, walk_local_directory_run);
-	queue_init(&sync->queue_walkdir_remote, 2, FALSE, walk_directory_remote_run);
-	queue_init(&sync->queue_update, 4, FALSE, do_update_run);
+	queue_init(&sync->queue_walkdir_local, 3, walk_local_directory_run);
+	queue_init(&sync->queue_walkdir_remote, 2, walk_directory_remote_run);
+	queue_init(&sync->queue_update, 4, do_update_run);
 	/*sync->timer = g_timer_new(); */
 	sync->basedir = basedir;
 	g_object_ref(sync->basedir);
