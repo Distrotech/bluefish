@@ -25,20 +25,23 @@
 typedef void (*QueueFunc) (gpointer data); 
 
 typedef struct {
-	QueueFunc queuefunc;
-	GList *head;				/* data structures that are *not* being worked on */
-	GList *tail;
+	GQueue q;				/* data structures that are *not* being worked on */
 	GStaticMutex mutex;
+	QueueFunc queuefunc;
 	gboolean lockmutex; /* whether or not to lock the mutex (if used from threads) */
-	guint queuelen;
+	gboolean startinthread;
 	guint worknum;				/* number of elements that are being worked on */
 	guint max_worknum;
-} Tqueue;
+} Tasyncqueue;
 
-void queue_init(Tqueue * queue, guint max_worknum, gboolean lockmutex, QueueFunc queuefunc);
-void queue_cleanup(Tqueue * queue);
-void queue_worker_ready(Tqueue * queue);
-void queue_push(Tqueue * queue, gpointer item);
-gboolean queue_remove(Tqueue * queue, gpointer item);
+void queue_init_full(Tasyncqueue *queue, guint max_worknum, gboolean lockmutex, gboolean startinthread, QueueFunc queuefunc);
+
+#define queue_init(queue, max_worknum, queuefunc) queue_init_full(queue, max_worknum, FALSE, FALSE, queuefunc)
+
+void queue_cleanup(Tasyncqueue * queue);
+void queue_worker_ready(Tasyncqueue * queue);
+void queue_worker_ready_inthread(Tasyncqueue *queue);
+void queue_push(Tasyncqueue * queue, gpointer item);
+gboolean queue_remove(Tasyncqueue * queue, gpointer item);
 
 #endif /* ASYNC_QUEUE */

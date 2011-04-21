@@ -24,44 +24,49 @@
 
 
 void
-queue_init(Tqueue * queue, guint max_worknum, gboolean lockmutex, QueueFunc queuefunc)
+queue_init_full(Tasyncqueue * queue, guint max_worknum, gboolean lockmutex, gboolean startinthread, QueueFunc queuefunc)
 {
+	queue->q.head=queue->q.head=NULL;
+	queue->q.length=0;
 	queue->worknum = 0;
-	queue->tail = queue->head = NULL;
 	queue->max_worknum = max_worknum;
 	queue->queuefunc = queuefunc;
+	queue->startinthread=startinthread;
 	if (lockmutex)
 		g_static_mutex_init(&queue->mutex);
 }
 
 void
-queue_cleanup(Tqueue * queue)
+queue_cleanup(Tasyncqueue * queue)
 {
 	if (queue->lockmutex)
 		g_static_mutex_free(&queue->mutex);
 }
 
 static void
-queue_run(Tqueue * queue)
+queue_run(Tasyncqueue * queue)
 {
 	/* THE QUEUE MUTEX SHOULD BE LOCKED IF NEEDED WHEN CALLING THIS FUNCTION !!!!!!!!!!!!!!!!!!!!! */
-	while (queue->tail != NULL && queue->worknum < queue->max_worknum) {
-		GList *curlst = queue->tail;
-		queue->tail = curlst->prev;
-		if (queue->tail == NULL)
-			queue->head = NULL;
-		else
-			queue->tail->next = NULL;
-		queue->queuelen--;
+	while (queue->q.length > 0 && queue->worknum < queue->max_worknum) {
+		gpointer item;
+		
+		item = g_queue_pop_tail(&queue->q);
 		queue->worknum++;
-		queue->queuefunc(curlst->data);
-		g_list_free_1(curlst);
-		/*g_print("queue_run, %d working, %d queued\n",queue->worknum,g_list_length(queue->head)); */
+		if (queue->startinthread) {
+			GError *gerror=NULL;
+			g_thread_create((GThreadFunc)queue->queuefunc, item, FALSE, &gerror);
+		} else {
+			if (queue->lockmutex)
+				g_static_mutex_unlock(&queue->mutex);
+			queue->queuefunc(item);
+			if (queue->lockmutex)
+				g_static_mutex_lock(&queue->mutex);
+		}
 	}
 }
 
 void
-queue_worker_ready(Tqueue * queue)
+queue_worker_ready(Tasyncqueue * queue)
 {
 	if (queue->lockmutex)
 		g_static_mutex_lock(&queue->mutex);
@@ -72,14 +77,26 @@ queue_worker_ready(Tqueue * queue)
 }
 
 void
-queue_push(Tqueue * queue, gpointer item)
+queue_worker_ready_inthread(Tasyncqueue *queue)
+{
+	gpointer item;
+	g_static_mutex_lock(&queue->mutex);
+	
+	if (!queue->q.tail) {
+		g_static_mutex_unlock(&queue->mutex);
+		return;
+	}
+	item = g_queue_pop_tail(&queue->q);
+	g_static_mutex_unlock(&queue->mutex);
+	queue->queuefunc(item);
+}
+
+void
+queue_push(Tasyncqueue * queue, gpointer item)
 {
 	if (queue->lockmutex)
 		g_static_mutex_lock(&queue->mutex);
-	queue->head = g_list_prepend(queue->head, item);
-	queue->queuelen++;
-	if (queue->tail == NULL)
-		queue->tail = queue->head;
+	g_queue_push_head(&queue->q, item);
 	queue_run(queue);
 	if (queue->lockmutex)
 		g_static_mutex_unlock(&queue->mutex);
@@ -87,20 +104,16 @@ queue_push(Tqueue * queue, gpointer item)
 
 /* return TRUE if we found the item on the queue, FALSE if we did not find the item */
 gboolean
-queue_remove(Tqueue * queue, gpointer item)
+queue_remove(Tasyncqueue * queue, gpointer item)
 {
-	GList *curlst = g_list_find(queue->head, item);
-	if (curlst) {
-		if (queue->lockmutex)
-			g_static_mutex_lock(&queue->mutex);
-		if (curlst == queue->tail)
-			queue->tail = curlst->prev;
-		queue->head = g_list_remove_link(queue->head, curlst);
-		queue->queuelen--;
-		g_list_free_1(curlst);
-		if (queue->lockmutex)
-			g_static_mutex_unlock(&queue->mutex);
-		return TRUE;
-	}
-	return FALSE;
+	gboolean retval;
+	gint len;
+	if (queue->lockmutex)
+		g_static_mutex_lock(&queue->mutex);
+	len = queue->q.length;
+	g_queue_remove(&queue->q, item);
+	retval = (len<queue->q.length);
+	if (queue->lockmutex)
+		g_static_mutex_unlock(&queue->mutex);
+	return retval;
 }
