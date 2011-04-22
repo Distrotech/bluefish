@@ -1570,7 +1570,7 @@ buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gcha
 			 sessionencoding);
 		newbuf = g_convert(buffer, -1, "UTF-8", sessionencoding, NULL, &wsize, NULL);
 		if (newbuf) {
-			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s, newbuf=%p, wsize=%d, strlen(newbuf)=%d\n", sessionencoding, newbuf, wsize, strlen(newbuf));
+			DEBUG_MSG("doc_buffer_to_textbox, file is in default encoding: %s, newbuf=%p, wsize=%"G_GSIZE_FORMAT", strlen(newbuf)=%zd\n", sessionencoding, newbuf, wsize, strlen(newbuf));
 			*encoding = g_strdup(sessionencoding);
 			return newbuf;
 		}
