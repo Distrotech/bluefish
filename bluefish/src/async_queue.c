@@ -87,10 +87,13 @@ queue_worker_ready_inthread(Tasyncqueue *queue)
 	g_static_mutex_lock(&queue->mutex);
 	
 	if (!queue->q.tail) {
+		queue->worknum--;
+		DEBUG_MSG("queue_worker_ready_inthread, queue length %d, just return (end thread, worknum=%d)\n",g_queue_get_length(&queue->q),queue->worknum);
 		g_static_mutex_unlock(&queue->mutex);
 		return;
 	}
 	item = g_queue_pop_tail(&queue->q);
+	DEBUG_MSG("queue_worker_ready_inthread, queue length=%d, worknum=%d\n",g_queue_get_length(&queue->q), queue->worknum);
 	g_static_mutex_unlock(&queue->mutex);
 	queue->queuefunc(item);
 }

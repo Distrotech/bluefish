@@ -20,13 +20,119 @@
 
 /*#define DEBUG*/
 
+#define _GNU_SOURCE
+#include <string.h>
 #include "config.h"
 #include "bluefish.h"
 #include "document.h"
-
+#include "file.h"
+#include "outputbox.h"
 #include "snr3.h"
 #include "snr3_files.h"
 #include "async_queue.h"
+
+/*#ifndef HAVE_STRCASESTR
+char *strcasestr(char *a, char *b)
+{
+	size_t l;
+	char f[3];
+
+	snprintf(f, sizeof(f), "%c%c", tolower(*b), toupper(*b));
+	for (l = strcspn(a, f); l != strlen(a); l += strcspn(a + l + 1, f) + 1)
+		if (strncasecmp(a + l, b, strlen(b)) == 0)
+			return(a + l);
+	return(NULL);
+}
+#endif*/
+
+typedef struct {
+	gsize pos;
+	guint line;
+} Tlineinbuffer;
+
+static guint calculate_line_in_buffer(Tlineinbuffer *lib, gchar *buffer, gsize pos) {
+	char *tmp = buffer + lib->pos;
+	char *newpos = buffer + pos;
+	guint line = lib->line;
+	gboolean prev_was_cr=FALSE;
+	
+	while (*tmp != '\0' && tmp != newpos) {
+		if (*tmp == '\n') {
+			if (!prev_was_cr)
+				line++;
+		} else if (*tmp == '\r') {
+			line++;
+			prev_was_cr=TRUE;
+		} else {
+			prev_was_cr=FALSE;
+		}
+		tmp++;
+	}
+	lib->pos = pos;
+	lib->line = line;
+	return line;
+}
+
+static GList *snr3_replace_string(Tsnr3run *s3run, gchar *buffer, gchar **replacedbuffer) {
+	gchar *result, *newbuf;
+	gchar *bufferpos, *newbufpos;
+	gsize querylen, replacelen, buflen;
+	gsize alloced;
+	Tlineinbuffer lib = {0,1};
+	GList *results=NULL;
+	char *(*f) ();
+	
+	DEBUG_MSG("snr3_replace_string, search for %s in %s, replace with %s\n",s3run->query, buffer, s3run->replace);
+	querylen = strlen(s3run->query);
+	replacelen = strlen(s3run->replace);
+	buflen = strlen(buffer);
+	
+	
+	alloced = (replacelen > querylen)? MAX(1+replacelen+buflen*2,4096):MAX(buflen+querylen+1, 4096);
+	newbuf = g_malloc0(alloced);
+
+	bufferpos = buffer;
+	newbufpos = newbuf;
+	
+	if (s3run->is_case_sens) {
+		f = strstr;
+	} else {
+		f = strcasestr;
+	}
+	
+	result = buffer;
+	
+	do {
+		result = f(result, s3run->query);
+		if (result) {
+			guint line;
+			
+			memcpy(newbufpos, bufferpos, result-bufferpos);
+			newbufpos += (result-bufferpos);
+			
+			line = calculate_line_in_buffer(&lib, newbuf, (newbufpos-newbuf));
+
+			memcpy(newbufpos, s3run->replace, replacelen);
+			newbufpos += replacelen;
+			result += querylen;
+			bufferpos = result;
+			
+			results = g_list_prepend(results, GINT_TO_POINTER(line));
+			
+			if (alloced <= (1+replacelen+(newbufpos-newbuf)+replacelen+(buflen-(bufferpos-buffer)))) {
+				gchar *tmp;
+				alloced += MAX(buflen, 4096);
+				tmp = g_realloc(newbuf, alloced);
+				newbufpos = tmp + (newbufpos-newbuf);
+				newbuf=tmp;
+			}
+		}		
+	} while (result);
+	
+	memcpy(newbufpos, bufferpos, strlen(bufferpos)+1);
+	*replacedbuffer = newbuf;
+	return results; 
+}
 
 
 typedef struct {
@@ -45,7 +151,7 @@ static void filesworker_unref(Tfilesworker *fw) {
 	fw->refcount--;
 	g_print("filesworker_unref, fw=%p, refcount=%d\n",fw,fw->refcount);
 	if (fw->refcount == 0) {
-		Tsnr3run *s3run = fw->s3run;
+		/*Tsnr3run *s3run = fw->s3run;*/
 		
 		queue_cleanup(&fw->queue);
 		
@@ -53,15 +159,21 @@ static void filesworker_unref(Tfilesworker *fw) {
 		g_slice_free(Tfilesworker, fw);
 		
 	}
-	
 }
 
 static gboolean replace_files_in_thread_finished(gpointer data) {
 	Treplaceinthread *rit = data;
+	gchar *curi;
+	GList *tmplist;
 	/* TODO: add the results to the outputbox */
 	
 	g_print("add %d results to outputbox\n",g_list_length(rit->results));
 	
+	curi = g_file_get_uri(rit->uri);
+	for (tmplist=g_list_first(rit->results);tmplist;tmplist=g_list_next(tmplist)) {
+		outputbox_add_line(rit->fw->s3run->bfwin, curi, GPOINTER_TO_INT(tmplist->data), rit->fw->s3run->query);
+	}
+	g_free(curi);
 	g_print("replace_files_in_thread_finished, finished rit %p\n", rit);
 	filesworker_unref(rit->fw);
 	/* cleanup */
@@ -89,33 +201,34 @@ static gpointer files_replace_run(gpointer data) {
 		g_idle_add(replace_files_in_thread_finished, rit);
 		queue_worker_ready_inthread(tmpqueue);
 		return NULL;
+	} else {
+		g_print("thread %p: calling buffer_find_encoding for %ld bytes\n", g_thread_self(),(glong)strlen(inbuf));
+		/* is the following function thread safe ?? */
+		utf8buf = buffer_find_encoding(inbuf, inbuflen, &encoding, rit->fw->s3run->bfwin->session->encoding);
+		g_free(inbuf);
+		
+		if (utf8buf) {
+			gchar *replacedbuf=NULL;
+			/* TODO: do the replace */
+			rit->results = snr3_replace_string(rit->fw->s3run, utf8buf, &replacedbuf);
+			g_free(utf8buf);
+			if (rit->results && replacedbuf) {
+				g_print("replaced %d entries\n",g_list_length(rit->results));
+				outbuf = g_convert(replacedbuf, -1, encoding, "UTF-8", NULL, &outbuflen, NULL);
+				
+			
+				ret = g_file_replace_contents(rit->uri,outbuf,outbuflen,NULL,TRUE,G_FILE_CREATE_NONE,NULL,NULL,&gerror);
+				if (gerror) {
+					g_print("failed to save file: %s\n",gerror->message);
+					g_error_free(gerror);
+				}
+				g_free(outbuf);
+			}
+			g_free(replacedbuf);
+			
+		}
 	}
-	
-	g_print("thread %p: calling buffer_find_encoding for %ld bytes\n", g_thread_self(),(glong)strlen(inbuf));
-	/* is the following function thread safe ?? */
-	utf8buf = buffer_find_encoding(inbuf, inbuflen, &encoding, rit->fw->s3run->bfwin->session->encoding);
-	
-	g_free(inbuf);
-	
-	
-	/* TODO: do the replace */
-	g_print("thread %p: TODO: do the actual replace on buf %p on file %s\n", g_thread_self(),utf8buf, g_file_get_uri(rit->uri)); /* memleak in this debug statement */
-
-	outbuf = g_convert(utf8buf, -1, encoding, "UTF-8", NULL, &outbuflen, NULL);
-	g_free(utf8buf);
-	
-	ret = g_file_replace_contents(rit->uri,outbuf,outbuflen,NULL,TRUE,G_FILE_CREATE_NONE,NULL,NULL,&gerror);
-	if (gerror) {
-		g_print("failed to save file: %s\n",gerror->message);
-		g_error_free(gerror);
-		tmpqueue = &rit->fw->queue;
-		g_idle_add(replace_files_in_thread_finished, rit);
-		queue_worker_ready_inthread(tmpqueue);
-		return NULL;
-	}
-	
-	g_free(outbuf);
-	
+	rit->results = g_list_reverse(rit->results);
 	tmpqueue = &rit->fw->queue;
 	g_idle_add(replace_files_in_thread_finished, rit);
 	
@@ -125,7 +238,7 @@ static gpointer files_replace_run(gpointer data) {
 	return NULL;
 }
 
-static void finished_cb(Tfilesworker *fw) {
+static void finished_finding_files_cb(Tfilesworker *fw) {
 	g_print("finished_cb, fw refcount (before unref) = %d\n",fw->refcount);
 	
 	filesworker_unref(fw);
@@ -151,11 +264,12 @@ void snr3_run_in_files(Tsnr3run *s3run, GCallback callback) {
 	Tfilesworker *fw;
 	
 	fw = g_slice_new0(Tfilesworker);
-	queue_init_full(&fw->queue, 4, TRUE, TRUE, files_replace_run);
+	queue_init_full(&fw->queue, 4, TRUE, TRUE, (QueueFunc)files_replace_run);
 	fw->s3run=s3run;
 	fw->refcount=1;
 	
 	basedir = g_file_new_for_path("/tmp/");
-	findfiles(basedir, TRUE, 1, TRUE,"*.txt", filematch_cb, finished_cb, fw);
+	findfiles(basedir, TRUE, 1, TRUE,"*.txt", G_CALLBACK(filematch_cb), G_CALLBACK(finished_finding_files_cb), fw);
 	g_object_unref(basedir);
+	outputbox(s3run->bfwin,NULL, 0, 0, 0, NULL);
 }
