@@ -16,7 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
+#define DEBUG
+
+#include "bluefish.h"
 #include "async_queue.h"
 
 
@@ -54,6 +57,7 @@ queue_run(Tasyncqueue * queue)
 		queue->worknum++;
 		if (queue->startinthread) {
 			GError *gerror=NULL;
+			DEBUG_MSG("create new thread, worknum now is %d\n",queue->worknum);
 			g_thread_create((GThreadFunc)queue->queuefunc, item, FALSE, &gerror);
 		} else {
 			if (queue->lockmutex)
