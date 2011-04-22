@@ -296,6 +296,29 @@ scroll_to_lstore_path_idle_lcb(gpointer data)
 	return FALSE;
 }
 
+void
+outputbox_add_line(Tbfwin *bfwin, const gchar *uri, gint line, const gchar *message)
+{
+	GtkTreeIter iter;
+	Toutputbox *ob;
+	gchar *tmp;
+	if (bfwin->outputbox) {
+		ob = OUTPUTBOX(bfwin->outputbox);
+	} else {
+		ob = init_output_box(bfwin);
+	}
+	gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
+	g_print("outputbox append %s : %d : %s\n",uri,line,message);
+	if (uri)
+		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 0, uri, -1);
+	
+	tmp = g_strdup_printf("%d",line);
+	gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 1, tmp, -1);
+	g_free(tmp);
+	
+	if (message)
+		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 2, message, -1);
+}
 
 void
 fill_output_box(gpointer data, gchar * string)

@@ -45,7 +45,6 @@ technical design:
 #include "bf_lib.h"
 #include "dialog_utils.h"
 #include "gtk_easy.h"
-#include "file.h"
 #include "bf_lib.h"
 #include "snr3.h"
 #include "snr3_files.h"
@@ -597,7 +596,8 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			s3run->bfwin = snrwin->bfwin;
 			/*s3run->query = g_regex_escape_string(string,-1);
 			s3run->type = snr3type_pcre;*/
-			s3run->query = g_strdup("test");
+			s3run->query = g_strdup("jaja");
+			s3run->replace = g_strdup("toen was er jaja");
 			s3run->type = snr3type_string;
 			s3run->scope = snr3scope_files;
 			g_queue_init(&s3run->results);
