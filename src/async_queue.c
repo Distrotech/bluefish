@@ -29,7 +29,7 @@
 void
 queue_init_full(Tasyncqueue * queue, guint max_worknum, gboolean lockmutex, gboolean startinthread, QueueFunc queuefunc)
 {
-	queue->q.head=queue->q.head=NULL;
+	queue->q.head=queue->q.tail=NULL;
 	queue->q.length=0;
 	queue->worknum = 0;
 	queue->max_worknum = max_worknum;
