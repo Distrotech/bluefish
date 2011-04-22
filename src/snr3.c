@@ -1,4 +1,21 @@
-/*
+/* Bluefish HTML Editor
+ * snr3.c - search and replace
+ *
+ * Copyright (C) 2011 Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
 
 functional design:
 - we should have both previous and next
@@ -15,7 +32,6 @@ technical design:
 
 */
 
-
 /*#define DEBUG*/
 /*#define SNR3_PROFILING*/
 
@@ -31,9 +47,8 @@ technical design:
 #include "gtk_easy.h"
 #include "file.h"
 #include "bf_lib.h"
-#include "async_queue.h"
-
 #include "snr3.h"
+#include "snr3_files.h"
 
 #ifdef SNR3_PROFILING
 
@@ -454,100 +469,6 @@ static void pcre_filematch_openfile_cb(Topenfile_status status, GError * gerror,
 }
 */
 
-typedef struct {
-	Tasyncqueue queue;
-	guint refcount;
-	Tsnr3run *s3run;
-} Tfilesworker;
-
-typedef struct {
-	GFile *uri;
-	GList *results;
-	Tfilesworker *fw;
-} Treplaceinthread;
-
-static void filesworker_unref(Tfilesworker *fw) {
-	fw->refcount--;
-	if (fw->refcount == 0) {
-		Tsnr3run *s3run = fw->s3run;
-		
-		queue_cleanup(&fw->queue);
-		g_slice_free(Tfilesworker, fw);
-	}
-	
-}
-
-static void replace_files_in_thread_finished(gpointer data) {
-	Treplaceinthread *rit = data;
-	/* TODO: add the results to the outputbox */
-	
-	filesworker_unref(rit->fw);
-	/* cleanup */
-	g_object_unref(rit->uri);
-	g_list_free(rit->results);
-	g_slice_free(Treplaceinthread, rit);
-}
-
-static gpointer files_replace_run(gpointer data) {
-	Treplaceinthread *rit = data;
-	GError *gerror=NULL;
-	gchar *inbuf=NULL, *encoding=NULL, *outbuf, *utf8buf;
-	gsize inbuflen=0, outbuflen=0;
-	gboolean ret;
-	Tasyncqueue *tmpqueue;
-	ret = g_file_load_contents(rit->uri,NULL,&inbuf,&inbuflen,NULL,&gerror);
-	
-	/* is the following function thread safe ?? */
-	utf8buf = buffer_find_encoding(inbuf, inbuflen, &encoding, rit->fw->s3run->bfwin->session->encoding);
-	
-	/* TODO: do the replace */
-	
-	outbuf = g_convert(utf8buf, -1, encoding, "UTF-8", NULL, &outbuflen, NULL);
-	
-	ret = g_file_replace_contents(rit->uri,outbuf,outbuflen,NULL,TRUE,G_FILE_CREATE_NONE,NULL,NULL,&gerror);
-	
-	tmpqueue = &rit->fw->queue;
-	g_idle_add(replace_files_in_thread_finished, rit);
-	
-	queue_worker_ready_inthread(tmpqueue);
-	/* we don't need to start a new thread by calling _inthread() inside the thread */
-}
-
-static void pcre_finished_cb(Tfilesworker *fw) {
-	g_print("pcre_finished_cb\n");
-	
-	filesworker_unref(fw);
-}
-
-static void pcre_filematch_cb(Tfilesworker *fw, GFile *uri, GFileInfo *finfo) {
-	Treplaceinthread *rit;
-	GError *gerror=NULL;
-	
-	rit = g_slice_new0(Treplaceinthread);
-	rit->uri = uri;
-	g_object_ref(rit->uri);
-	rit->fw = fw;
-	rit->fw->refcount++;
-	/* first check if we have this file open, in that case we have to run the 
-	function that replaces in the document */
-	/*file_openfile_uri_async(uri, s3run->bfwin, pcre_filematch_openfile_cb, s3run);*/
-	queue_push(&fw->queue, rit);
-}
-
-static void snr3_run_pcre_in_files(Tsnr3run *s3run) {
-	GFile *basedir;
-	Tfilesworker *fw;
-	
-	fw = g_slice_new0(Tfilesworker);
-	queue_init_full(&fw->queue, 4, TRUE, TRUE, files_replace_run);
-	fw->s3run=s3run;
-	fw->refcount=1;
-	
-	basedir = g_file_new_for_path("/tmp/");
-	findfiles(basedir, FALSE, 1, TRUE,"*.txt", pcre_filematch_cb, pcre_finished_cb, fw);
-	g_object_unref(basedir);
-}
-
 
 static void snr3_run(Tsnr3run *s3run, GCallback callback) {
 	gint so,eo;
@@ -586,8 +507,7 @@ static void snr3_run(Tsnr3run *s3run, GCallback callback) {
 			}
 		break;
 		case snr3scope_files:
-			/* TODO: implement background file loading and saving for search and replace */
-			g_print("TODO: implement background file loading for replace\n");
+			snr3_run_in_files(s3run, callback);
 		break;
 	}
 }
@@ -660,6 +580,37 @@ enum {
 	SNR_RESPONSE_FIND_ALL
 };
 
+static void
+snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
+{
+	Tsnr3run *s3run;
+	
+	switch(response) {
+		case SNR_RESPONSE_FIND:
+		
+		break;
+		case SNR_RESPONSE_REPLACE:
+		
+		break;
+		case SNR_RESPONSE_REPLACE_ALL:
+			s3run = g_slice_new0(Tsnr3run);
+			s3run->bfwin = snrwin->bfwin;
+			/*s3run->query = g_regex_escape_string(string,-1);
+			s3run->type = snr3type_pcre;*/
+			s3run->query = g_strdup("test");
+			s3run->type = snr3type_string;
+			s3run->scope = snr3scope_files;
+			g_queue_init(&s3run->results);
+			snr3_run(s3run, NULL);
+		break;
+		case SNR_RESPONSE_FIND_ALL:
+		
+		break;
+	}
+	
+
+}
+
 void 
 snr3_advanced_dialog(Tbfwin * bfwin)
 {
@@ -700,8 +651,8 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 /*	gtk_window_set_resizable(GTK_WINDOW(snrwin->dialog), FALSE);
 	gtk_dialog_set_has_separator(GTK_DIALOG(snrwin->dialog), FALSE);*/
 	window_delete_on_escape(GTK_WINDOW(snrwin->dialog));
-	/*g_signal_connect(G_OBJECT(snrwin->dialog), "response", G_CALLBACK(snr_response_lcb), snrwin);
-	g_signal_connect_after(G_OBJECT(snrwin->dialog), "focus-in-event", G_CALLBACK(snr_focus_in_lcb), snrwin);*/
+	g_signal_connect(G_OBJECT(snrwin->dialog), "response", G_CALLBACK(snr3_advanced_response), snrwin);
+	/*g_signal_connect_after(G_OBJECT(snrwin->dialog), "focus-in-event", G_CALLBACK(snr_focus_in_lcb), snrwin);*/
 	table =
 		dialog_table_in_vbox(10, 3, 6, gtk_dialog_get_content_area(GTK_DIALOG(snrwin->dialog)), FALSE,
 							 FALSE, 0);
@@ -875,5 +826,6 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 						bfwin->session->snr_position_y);
 	}
 */
+
 }
 
