@@ -45,6 +45,14 @@ char *strcasestr(char *a, char *b)
 }
 #endif*/
 
+
+typedef struct {
+	Tasyncqueue queue;
+	guint refcount;
+	Tsnr3run *s3run;
+	gpointer querydata;
+} Tfilesworker;
+
 typedef struct {
 	gsize pos;
 	guint line;
@@ -73,7 +81,70 @@ static guint calculate_line_in_buffer(Tlineinbuffer *lib, gchar *buffer, gsize p
 	return line;
 }
 
-static GList *snr3_replace_string(Tsnr3run *s3run, gchar *buffer, gchar **replacedbuffer) {
+static GList *snr3_replace_pcre(Tfilesworker *fw, gchar *buffer, gchar **replacedbuffer) {
+	gchar *newbuf;
+	gchar *bufferpos, *newbufpos;
+	gsize buflen;
+	gsize alloced;
+	Tlineinbuffer lib = {0,1};
+	GList *results=NULL;
+	GMatchInfo *match_info;
+	gsize prevpos=0;
+	
+	DEBUG_MSG("snr3_replace_pcre, search for %s in %s, replace with %s\n",s3run->query, buffer, s3run->replace);
+	buflen = strlen(buffer);
+	
+	alloced = MAX(buflen*2,4096);
+	newbuf = g_malloc0(alloced);
+
+	bufferpos = buffer;
+	newbufpos = newbuf;
+	g_regex_match(fw->querydata, buffer, 0, &match_info);
+	while(g_match_info_matches(match_info)) {
+		gint so, eo;
+		guint line, replacelen;
+		gchar *replacestring;
+		GError *gerror=NULL;
+		g_match_info_fetch_pos(match_info,0,&so,&eo);
+
+		memcpy(newbufpos, bufferpos, so-prevpos);
+		newbufpos += (so-prevpos);
+		bufferpos = buffer+eo;
+		prevpos = eo;
+		
+		line = calculate_line_in_buffer(&lib, newbuf, (newbufpos-newbuf));
+		results = g_list_prepend(results, GINT_TO_POINTER(line));
+		
+		replacestring = g_match_info_expand_references(match_info, fw->s3run->replace, &gerror);
+		if (gerror) {
+			g_print("replace error %s\n",gerror->message);
+			g_error_free(gerror);
+		}
+		replacelen = strlen(replacestring);	
+		
+		/* now check if we have enough memory */
+		if (alloced < (1+ newbufpos-newbuf + replacelen + buflen-prevpos)) {
+			gchar *tmp;
+			alloced += MAX(buflen, 4096);
+			tmp = g_realloc(newbuf, alloced);
+			newbufpos = tmp + (newbufpos-newbuf);
+			newbuf=tmp;
+		}
+			
+		memcpy(newbufpos, replacestring, replacelen);
+		newbufpos += replacelen;
+		g_free(replacestring);
+		
+		g_match_info_next(match_info, NULL);
+	}
+	g_match_info_free(match_info);
+	
+	memcpy(newbufpos, buffer+prevpos, buflen-prevpos+1);
+	*replacedbuffer = newbuf;
+	return results; 
+}
+
+static GList *snr3_replace_string(Tfilesworker *fw, gchar *buffer, gchar **replacedbuffer) {
 	gchar *result, *newbuf;
 	gchar *bufferpos, *newbufpos;
 	gsize querylen, replacelen, buflen;
@@ -82,9 +153,9 @@ static GList *snr3_replace_string(Tsnr3run *s3run, gchar *buffer, gchar **replac
 	GList *results=NULL;
 	char *(*f) ();
 	
-	DEBUG_MSG("snr3_replace_string, search for %s in %s, replace with %s\n",s3run->query, buffer, s3run->replace);
-	querylen = strlen(s3run->query);
-	replacelen = strlen(s3run->replace);
+	DEBUG_MSG("snr3_replace_string, search for %s in %s, replace with %s\n",fw->s3run->query, buffer, fw->s3run->replace);
+	querylen = strlen(fw->s3run->query);
+	replacelen = strlen(fw->s3run->replace);
 	buflen = strlen(buffer);
 	
 	
@@ -94,7 +165,7 @@ static GList *snr3_replace_string(Tsnr3run *s3run, gchar *buffer, gchar **replac
 	bufferpos = buffer;
 	newbufpos = newbuf;
 	
-	if (s3run->is_case_sens) {
+	if (fw->s3run->is_case_sens) {
 		f = strstr;
 	} else {
 		f = strcasestr;
@@ -103,7 +174,7 @@ static GList *snr3_replace_string(Tsnr3run *s3run, gchar *buffer, gchar **replac
 	result = buffer;
 	
 	do {
-		result = f(result, s3run->query);
+		result = f(result, fw->s3run->query);
 		if (result) {
 			guint line;
 			
@@ -112,7 +183,7 @@ static GList *snr3_replace_string(Tsnr3run *s3run, gchar *buffer, gchar **replac
 			
 			line = calculate_line_in_buffer(&lib, newbuf, (newbufpos-newbuf));
 
-			memcpy(newbufpos, s3run->replace, replacelen);
+			memcpy(newbufpos, fw->s3run->replace, replacelen);
 			newbufpos += replacelen;
 			result += querylen;
 			bufferpos = result;
@@ -133,13 +204,6 @@ static GList *snr3_replace_string(Tsnr3run *s3run, gchar *buffer, gchar **replac
 	*replacedbuffer = newbuf;
 	return results; 
 }
-
-
-typedef struct {
-	Tasyncqueue queue;
-	guint refcount;
-	Tsnr3run *s3run;
-} Tfilesworker;
 
 typedef struct {
 	GFile *uri;
@@ -165,7 +229,6 @@ static gboolean replace_files_in_thread_finished(gpointer data) {
 	Treplaceinthread *rit = data;
 	gchar *curi;
 	GList *tmplist;
-	/* TODO: add the results to the outputbox */
 	
 	g_print("add %d results to outputbox\n",g_list_length(rit->results));
 	
@@ -209,8 +272,15 @@ static gpointer files_replace_run(gpointer data) {
 		
 		if (utf8buf) {
 			gchar *replacedbuf=NULL;
-			/* TODO: do the replace */
-			rit->results = snr3_replace_string(rit->fw->s3run, utf8buf, &replacedbuf);
+			
+			switch (rit->fw->s3run->type) {
+				case snr3type_string:
+					rit->results = snr3_replace_string(rit->fw, utf8buf, &replacedbuf);
+				break;
+				case snr3type_pcre:
+					rit->results = snr3_replace_pcre(rit->fw, utf8buf, &replacedbuf);
+				break;
+			}
 			g_free(utf8buf);
 			if (rit->results && replacedbuf) {
 				g_print("replaced %d entries\n",g_list_length(rit->results));
