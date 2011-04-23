@@ -20,6 +20,6 @@
 #ifndef __SNR3_FILES_H_
 #define __SNR3_FILES_H_
 
-void snr3_run_in_files(Tsnr3run *s3run, GCallback callback);
+void snr3_run_in_files(Tsnr3run *s3run, void (*callback)(void *));
 
 #endif /* __SNR3_FILES_H_ */
