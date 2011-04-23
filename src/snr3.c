@@ -232,7 +232,7 @@ static gboolean snr3_run_pcre_loop(Tsnr3run *s3run) {
 	if (!s3run->working)
 		return FALSE;
 	
-	g_print("continue the search another time\n");
+	DEBUG_MSG("continue the search another time\n");
 	/* reconstruct where we are searching */
 	g_regex_match_full((GRegex *)s3run->working->querydata, s3run->working->curbuf, -1, s3run->working->curoffset, G_REGEX_MATCH_NEWLINE_ANY, &match_info, NULL);
 	
@@ -269,20 +269,21 @@ static gboolean snr3_run_pcre_loop(Tsnr3run *s3run) {
 		g_match_info_next (match_info, &gerror);
 		if (gerror) {
 			g_print("match error %s\n",gerror->message);
+			g_error_free(gerror);
 		}
 		loop++;
 		cont = g_match_info_matches(match_info);
 	}
-	g_print("did %d loops in %f seconds\n",loop, g_timer_elapsed(timer, NULL));
+	DEBUG_MSG("did %d loops in %f seconds\n",loop, g_timer_elapsed(timer, NULL));
 	g_timer_destroy(timer);
 	g_match_info_free(match_info);
 	
 	if (cont) {
 		loops_per_timer = MAX(loop / 10, 10);
-		g_print("continue the search another time\n");
+		DEBUG_MSG("continue the search another time\n");
 		return TRUE; /* call me again */
 	}
-	g_print("cleanup the working structure\n");
+	DEBUG_MSG("cleanup the working structure\n");
 	/* cleanup the working structure */
 	callback = s3run->working->callback;;
 	g_free(s3run->working->curbuf);
@@ -359,14 +360,14 @@ static gboolean snr3_run_string_loop(Tsnr3run *s3run) {
 		}		
 	} while (result && (loop % loops_per_timer != 0
 				 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SEARCH_INTERVAL));
-	g_print("did %d loops in %f seconds\n",loop, g_timer_elapsed(timer, NULL));
+	DEBUG_MSG("did %d loops in %f seconds\n",loop, g_timer_elapsed(timer, NULL));
 	g_timer_destroy(timer);
 
 	if (result) {
 		return TRUE;
 	}
 	
-	g_print("cleanup the working structure\n");
+	DEBUG_MSG("cleanup the working structure\n");
 	/* cleanup the working structure */
 	callback = s3run->working->callback;;
 	g_free(s3run->working->curbuf);
@@ -611,7 +612,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			s3run->bfwin = snrwin->bfwin;
 			s3run->query = g_strdup("jaja");
 			s3run->replace = g_strdup("toen was er jaja");
-			s3run->type = snr3type_string;
+			s3run->type = snr3type_pcre;
 			s3run->scope = snr3scope_files;
 			s3run->basedir = g_file_new_for_path("/tmp/");
 			s3run->recursive = TRUE;
