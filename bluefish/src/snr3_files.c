@@ -92,7 +92,7 @@ static GList *snr3_replace_pcre(Tfilesworker *fw, gchar *buffer, gchar **replace
 	GMatchInfo *match_info;
 	gsize prevpos=0;
 	
-	DEBUG_MSG("snr3_replace_pcre, search for %s in %s, replace with %s\n",s3run->query, buffer, s3run->replace);
+	DEBUG_MSG("snr3_replace_pcre, search for %s in %s, replace with %s\n",fw->s3run->query, buffer, fw->s3run->replace);
 	buflen = strlen(buffer);
 	
 	alloced = MAX(buflen*2,4096);
@@ -214,7 +214,7 @@ typedef struct {
 
 static void filesworker_unref(Tfilesworker *fw) {
 	fw->refcount--;
-	g_print("filesworker_unref, fw=%p, refcount=%d\n",fw,fw->refcount);
+	DEBUG_MSG("filesworker_unref, fw=%p, refcount=%d\n",fw,fw->refcount);
 	if (fw->refcount == 0) {
 		Tsnr3run *s3run = fw->s3run;
 		
@@ -224,7 +224,7 @@ static void filesworker_unref(Tfilesworker *fw) {
 		if (s3run->type == snr3type_pcre) {
 			g_regex_unref((GRegex *)fw->querydata);
 		}
-		g_print("filesworker_unref, free %p\n",fw);
+		DEBUG_MSG("filesworker_unref, free %p\n",fw);
 		g_slice_free(Tfilesworker, fw);
 	}
 }
@@ -234,14 +234,14 @@ static gboolean replace_files_in_thread_finished(gpointer data) {
 	gchar *curi;
 	GList *tmplist;
 	
-	g_print("add %d results to outputbox\n",g_list_length(rit->results));
+	DEBUG_MSG("add %d results to outputbox\n",g_list_length(rit->results));
 	
 	curi = g_file_get_uri(rit->uri);
 	for (tmplist=g_list_first(rit->results);tmplist;tmplist=g_list_next(tmplist)) {
 		outputbox_add_line(rit->fw->s3run->bfwin, curi, GPOINTER_TO_INT(tmplist->data), rit->fw->s3run->query);
 	}
 	g_free(curi);
-	g_print("replace_files_in_thread_finished, finished rit %p\n", rit);
+	DEBUG_MSG("replace_files_in_thread_finished, finished rit %p\n", rit);
 	filesworker_unref(rit->fw);
 	/* cleanup */
 	g_object_unref(rit->uri);
@@ -258,7 +258,7 @@ static gpointer files_replace_run(gpointer data) {
 	gboolean ret;
 	Tasyncqueue *tmpqueue;
 	
-	g_print("thread %p: files_replace_run, started rit %p\n", g_thread_self(), rit);
+	DEBUG_MSG("thread %p: files_replace_run, started rit %p\n", g_thread_self(), rit);
 	
 	ret = g_file_load_contents(rit->uri,NULL,&inbuf,&inbuflen,NULL,&gerror);
 	if (gerror) {
@@ -269,7 +269,7 @@ static gpointer files_replace_run(gpointer data) {
 		queue_worker_ready_inthread(tmpqueue);
 		return NULL;
 	} else {
-		g_print("thread %p: calling buffer_find_encoding for %ld bytes\n", g_thread_self(),(glong)strlen(inbuf));
+		DEBUG_MSG("thread %p: calling buffer_find_encoding for %ld bytes\n", g_thread_self(),(glong)strlen(inbuf));
 		/* is the following function thread safe ?? */
 		utf8buf = buffer_find_encoding(inbuf, inbuflen, &encoding, rit->fw->s3run->bfwin->session->encoding);
 		g_free(inbuf);
@@ -287,7 +287,7 @@ static gpointer files_replace_run(gpointer data) {
 			}
 			g_free(utf8buf);
 			if (rit->results && replacedbuf) {
-				g_print("replaced %d entries\n",g_list_length(rit->results));
+				DEBUG_MSG("replaced %d entries\n",g_list_length(rit->results));
 				outbuf = g_convert(replacedbuf, -1, encoding, "UTF-8", NULL, &outbuflen, NULL);
 				
 			
@@ -306,14 +306,14 @@ static gpointer files_replace_run(gpointer data) {
 	tmpqueue = &rit->fw->queue;
 	g_idle_add(replace_files_in_thread_finished, rit);
 	
-	g_print("thread %p: calling queue_worker_ready_inthread\n",g_thread_self());
+	DEBUG_MSG("thread %p: calling queue_worker_ready_inthread\n",g_thread_self());
 	queue_worker_ready_inthread(tmpqueue);
 	/* we don't need to start a new thread by calling _inthread() inside the thread */
 	return NULL;
 }
 
 static void finished_finding_files_cb(Tfilesworker *fw) {
-	g_print("finished_cb, fw refcount (before unref) = %d\n",fw->refcount);
+	DEBUG_MSG("finished_cb, fw refcount (before unref) = %d\n",fw->refcount);
 	
 	filesworker_unref(fw);
 }
@@ -326,7 +326,7 @@ static void filematch_cb(Tfilesworker *fw, GFile *uri, GFileInfo *finfo) {
 	g_object_ref(rit->uri);
 	rit->fw = fw;
 	rit->fw->refcount++;
-	g_print("filematch_cb, push rit %p to queue, fw refcount is %d\n", rit, rit->fw->refcount);
+	DEBUG_MSG("filematch_cb, push rit %p to queue, fw refcount is %d\n", rit, rit->fw->refcount);
 	/* first check if we have this file open, in that case we have to run the 
 	function that replaces in the document */
 	/*file_openfile_uri_async(uri, s3run->bfwin, pcre_filematch_openfile_cb, s3run);*/
@@ -334,7 +334,6 @@ static void filematch_cb(Tfilesworker *fw, GFile *uri, GFileInfo *finfo) {
 }
 
 void snr3_run_in_files(Tsnr3run *s3run, void (*callback)(void *)) {
-	GFile *basedir;
 	Tfilesworker *fw;
 	
 	fw = g_slice_new0(Tfilesworker);
