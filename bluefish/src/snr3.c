@@ -228,7 +228,7 @@ static gboolean snr3_run_pcre_loop(Tsnr3run *s3run) {
 	GMatchInfo *match_info = NULL;
 	gpointer extra=NULL;
 	GError *gerror = NULL;
-	void *(*callback) (void *);
+	void (*callback) (void *);
 	if (!s3run->working)
 		return FALSE;
 	
@@ -293,7 +293,7 @@ static gboolean snr3_run_pcre_loop(Tsnr3run *s3run) {
 	return FALSE;
 }
 
-static void snr3_run_pcre_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, GCallback callback) {
+static void snr3_run_pcre_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, void (*callback)(void *)) {
 	GError *gerror = NULL;
 	GRegex *gregex;
 	
@@ -327,7 +327,7 @@ static gboolean snr3_run_string_loop(Tsnr3run *s3run) {
 	static guint loops_per_timer=10;
 	gchar *result;
 	GTimer *timer;
-	void *(*callback) (void *);
+	void (*callback) (void *);
 
 	if (!s3run->working)
 		return FALSE;
@@ -386,7 +386,7 @@ static gboolean snr3_run_string_loop(Tsnr3run *s3run) {
 }
 
 
-static void snr3_run_string_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, GCallback callback) {
+static void snr3_run_string_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, void (*callback)(void *)) {
 	DEBUG_MSG("snr3_run_string_in_doc, s3run=%p, started for query %s\n",s3run, s3run->query);
 #ifdef SNR3_PROFILING
 	s3profiling.timer = g_timer_new();
@@ -469,7 +469,7 @@ static void pcre_filematch_openfile_cb(Topenfile_status status, GError * gerror,
 */
 
 
-static void snr3_run(Tsnr3run *s3run, GCallback callback) {
+static void snr3_run(Tsnr3run *s3run, void (*callback)(void *)) {
 	gint so,eo;
 	GList *tmplist;
 	DEBUG_MSG("snr3_run, s3run=%p\n",s3run);
@@ -522,7 +522,8 @@ void snr3run_free(Tsnr3run *s3run) {
 	g_slice_free(Tsnr3run, s3run);
 }
 
-static void activate_simple_search(Tsnr3run *s3run) {
+static void activate_simple_search(void *data) {
+	Tsnr3run *s3run=data;
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
 	snr3_run_go(s3run, TRUE);
 }
@@ -539,7 +540,7 @@ gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	s3run->type = snr3type_string;
 	s3run->scope = snr3scope_doc;
 	g_queue_init(&s3run->results);
-	snr3_run(s3run, G_CALLBACK(activate_simple_search));
+	snr3_run(s3run, activate_simple_search);
 
 	return s3run;
 }
@@ -580,6 +581,20 @@ enum {
 };
 
 static void
+snr3_cleanup(void *data)
+{
+	Tsnr3run *s3run=data;
+	DEBUG_MSG("snr3_cleanup %p\n",s3run);
+	g_free(s3run->query);
+	g_free(s3run->replace);
+	if (s3run->basedir)
+		g_object_unref(s3run->basedir);
+	g_free(s3run->filepattern);
+	
+	g_slice_free(Tsnr3run, s3run);
+}
+
+static void
 snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
 	Tsnr3run *s3run;
@@ -594,14 +609,15 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 		case SNR_RESPONSE_REPLACE_ALL:
 			s3run = g_slice_new0(Tsnr3run);
 			s3run->bfwin = snrwin->bfwin;
-			/*s3run->query = g_regex_escape_string(string,-1);
-			s3run->type = snr3type_pcre;*/
 			s3run->query = g_strdup("jaja");
 			s3run->replace = g_strdup("toen was er jaja");
 			s3run->type = snr3type_string;
 			s3run->scope = snr3scope_files;
+			s3run->basedir = g_file_new_for_path("/tmp/");
+			s3run->recursive = TRUE;
+			s3run->filepattern = g_strdup("*.txt");
 			g_queue_init(&s3run->results);
-			snr3_run(s3run, NULL);
+			snr3_run(s3run, snr3_cleanup);
 		break;
 		case SNR_RESPONSE_FIND_ALL:
 		

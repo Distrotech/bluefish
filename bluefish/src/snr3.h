@@ -1,3 +1,24 @@
+/* Bluefish HTML Editor
+ * snr3.h - search and replace
+ *
+ * Copyright (C) 2011 Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#ifndef __SNR3_H_
+#define __SNR3_H_
+
 typedef enum {
 	snr3type_string,
 	snr3type_pcre
@@ -42,8 +63,7 @@ typedef struct {
 	guint eo;
 	guint curoffset;	
 	Tsnr3workmode workmode;
-	/*void *(*callback) ();*/
-	GCallback callback;
+	void (*callback) (void *);
 } Tsnr3working;
 
 typedef struct {
@@ -52,6 +72,9 @@ typedef struct {
 	gchar *replace; /* enabled if not NULL */
 	Tsnr3type type;
 	Tsnr3scope scope;
+	GFile *basedir; /* when replace in files */
+	gchar *filepattern;
+	gboolean recursive;
 	gboolean is_case_sens;
 	gboolean overlapping;
 	gboolean escape_chars;
@@ -75,3 +98,5 @@ void snr3_run_go(Tsnr3run *s3run, gboolean forward);
 void snr3run_free(Tsnr3run *s3run);
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string);
 void snr3_advanced_dialog(Tbfwin *bfwin);
+
+#endif /* #define __SNR3_H_ */
