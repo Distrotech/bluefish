@@ -215,9 +215,12 @@ static void filesworker_unref(Tfilesworker *fw) {
 	fw->refcount--;
 	g_print("filesworker_unref, fw=%p, refcount=%d\n",fw,fw->refcount);
 	if (fw->refcount == 0) {
-		/*Tsnr3run *s3run = fw->s3run;*/
+		Tsnr3run *s3run = fw->s3run;
 		
 		queue_cleanup(&fw->queue);
+		if (s3run->type == snr3type_pcre) {
+			g_regex_unref((GRegex *)fw->querydata);
+		}
 		
 		g_print("filesworker_unref, free %p\n",fw);
 		g_slice_free(Tfilesworker, fw);
@@ -337,6 +340,16 @@ void snr3_run_in_files(Tsnr3run *s3run, GCallback callback) {
 	queue_init_full(&fw->queue, 4, TRUE, TRUE, (QueueFunc)files_replace_run);
 	fw->s3run=s3run;
 	fw->refcount=1;
+	if (s3run->type == snr3type_pcre) {
+		GError *gerror=NULL;
+		fw->querydata = g_regex_new(s3run->query,G_REGEX_MULTILINE, 0, &gerror);
+		if (gerror) {
+			g_print("regex compile error %s\n",gerror->message);
+			g_error_free(gerror);
+			/* TODO: bail out? */
+		}
+		
+	}
 	
 	basedir = g_file_new_for_path("/tmp/");
 	findfiles(basedir, TRUE, 1, TRUE,"*.txt", G_CALLBACK(filematch_cb), G_CALLBACK(finished_finding_files_cb), fw);
