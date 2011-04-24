@@ -606,11 +606,12 @@ snr3_cleanup(void *data)
 static void
 snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
-	Tsnr3run *s3run;
+	Tsnr3run *s3run = snrwin->s3run;
+	gboolean newsnr=FALSE;
 	if (!snrwin->s3run) {
 		s3run = snrwin->s3run = g_slice_new0(Tsnr3run);
-	}
-	snr3run_init(snrwin->s3run, 
+		newsnr=TRUE;
+		snr3run_init(snrwin->s3run, 
 						snrwin->bfwin, 
 						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))),
 						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace)))),
@@ -618,13 +619,18 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType)),
 						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope))
 						);
+	}
 	
 	switch(response) {
 		case SNR_RESPONSE_FIND:
 			snr3_run(snrwin->s3run, activate_simple_search);
+			if (!newsnr && s3run->current) {
+				scroll_to_result(s3run->current->data, NULL);
+			}
 		break;
 		case SNR_RESPONSE_REPLACE:
 			s3run_replace_current(snrwin->s3run);
+			snr3_run_go(s3run, TRUE);
 		break;
 		case SNR_RESPONSE_REPLACE_ALL:
 			s3run = g_slice_new0(Tsnr3run);
