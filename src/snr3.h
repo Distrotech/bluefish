@@ -71,6 +71,7 @@ typedef struct {
 	gchar *query;
 	gchar *replace; /* enabled if not NULL */
 	Tsnr3type type;
+	Tsnr3replace replacetype;
 	Tsnr3scope scope;
 	GFile *basedir; /* when replace in files */
 	gchar *filepattern;
