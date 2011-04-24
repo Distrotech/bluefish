@@ -32,7 +32,7 @@ technical design:
 
 */
 
-/*#define DEBUG*/
+#define DEBUG
 /*#define SNR3_PROFILING*/
 
 #define _GNU_SOURCE
@@ -507,6 +507,9 @@ static void snr3_run(Tsnr3run *s3run, void (*callback)(void *)) {
 			}
 		break;
 		case snr3scope_files:
+			s3run->basedir = g_file_new_for_path("/tmp/");
+			s3run->recursive = TRUE;
+			s3run->filepattern = g_strdup("*.txt");
 			snr3_run_in_files(s3run, callback);
 		break;
 	}
@@ -585,8 +588,7 @@ typedef struct {
 enum {
 	SNR_RESPONSE_FIND = 0,
 	SNR_RESPONSE_REPLACE,
-	SNR_RESPONSE_REPLACE_ALL,
-	SNR_RESPONSE_FIND_ALL
+	SNR_RESPONSE_REPLACE_ALL
 };
 
 static void
@@ -603,6 +605,33 @@ snr3_cleanup(void *data)
 	g_slice_free(Tsnr3run, s3run);
 }
 
+static gboolean
+search_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
+{
+	TSNRWin *snrwin=data;
+	gboolean run=FALSE;
+	g_print("search_focus_out_event_cb\n");
+	if (!snrwin->s3run) {
+		snrwin->s3run = g_slice_new0(Tsnr3run);
+		snr3run_init(snrwin->s3run, 
+						snrwin->bfwin, 
+						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))),
+						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace)))),
+						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->searchType)),
+						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType)),
+						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope))
+						);
+		run=TRUE;
+	} else {
+		if (g_strcmp0(snrwin->s3run->query, 
+				gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))))!=0) {
+			run=TRUE;
+		}
+	}
+	if (run)
+		snr3_run(snrwin->s3run, activate_simple_search);
+	return FALSE;
+}
 static void
 snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
@@ -625,23 +654,19 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 		case SNR_RESPONSE_FIND:
 			snr3_run(snrwin->s3run, activate_simple_search);
 			if (!newsnr && s3run->current) {
-				scroll_to_result(s3run->current->data, NULL);
+				snr3_run_go(s3run, TRUE);
 			}
 		break;
 		case SNR_RESPONSE_REPLACE:
-			s3run_replace_current(snrwin->s3run);
-			snr3_run_go(s3run, TRUE);
+			s3run_replace_current(snrwin->s3run->bfwin);
+			doc_unre_new_group(snrwin->bfwin->current_document);
+			if (!newsnr && s3run->current) {
+				scroll_to_result(s3run->current->data, NULL);
+			}
 		break;
 		case SNR_RESPONSE_REPLACE_ALL:
-			s3run = g_slice_new0(Tsnr3run);
-			snr3run_init(s3run, snrwin->bfwin, "jaja", "toen was er jaja", snr3type_string,snr3replace_string,snr3scope_files);
-			s3run->basedir = g_file_new_for_path("/tmp/");
-			s3run->recursive = TRUE;
-			s3run->filepattern = g_strdup("*.txt");
-			snr3_run(s3run, snr3_cleanup);
-		break;
-		case SNR_RESPONSE_FIND_ALL:
-		
+			g_print("TODO: implement replace all\n");
+			/*snr3_run(s3run, snr3_cleanup);*/
 		break;
 		case GTK_RESPONSE_CLOSE:
 			gtk_widget_destroy(dialog);
@@ -714,6 +739,7 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 	g_object_unref(history);
 	dialog_mnemonic_label_in_table(_("<b>_Search for</b>"), snrwin->search, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->search, 0, 3, currentrow+1, currentrow+2, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	g_signal_connect(gtk_bin_get_child(GTK_BIN(snrwin->search)), "focus-out-event", G_CALLBACK(search_focus_out_event_cb), snrwin);
 /*	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
 	g_signal_connect(snrwin->search, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("The pattern to look for"));
