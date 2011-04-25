@@ -95,7 +95,7 @@ about_report_bug(GtkAction * action, gpointer user_data)
 #ifdef SVN_REVISION
 	string = g_string_append(string, "development (SVN TRUNK)");
 #else	/* SVN_REVISION */
-	string = g_string_apend(string, PACKAGE_VERSION);
+	string = g_string_append(string, PACKAGE_VERSION);
 #endif	/* SVN_REVISION */
 	string = g_string_append(string, ";comment=");
 
