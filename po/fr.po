@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-04-04 16:26+0200\n"
+"POT-Creation-Date: 2011-04-26 10:04+0200\n"
 "PO-Revision-Date: 2011-01-19 9:10+0100 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
@@ -69,29 +69,28 @@ msgstr "Explorateur de fichiers"
 msgid "Bookmarks"
 msgstr "Signets"
 
-#: ../src/bfwin.c:711
+#: ../src/bfwin.c:721
 msgid "Goto Line:"
 msgstr "Aller à la ligne :"
 
-#: ../src/bfwin.c:720
+#: ../src/bfwin.c:730
 msgid "Find:"
 msgstr "Rechercher :"
 
-#: ../src/bfwin.c:730
-#, fuzzy
+#: ../src/bfwin.c:740
 msgid "Advanced"
-msgstr "Paramétrer l'ouverture"
+msgstr "Options"
 
-#: ../src/bfwin.c:1013
+#: ../src/bfwin.c:1023
 msgid "New Bluefish Window"
 msgstr "Nouvelle fenêtre Bluefish"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1073
+#: ../src/bfwin.c:1083
 msgid "Stand by..."
 msgstr "Veuillez patienter..."
 
-#: ../src/bfwin.c:1204
+#: ../src/bfwin.c:1214
 msgid "/Edit/Preferences"
 msgstr "Pré_férences"
 
@@ -1545,45 +1544,45 @@ msgstr "À plat"
 msgid "Tree"
 msgstr "Arborescent"
 
-#: ../src/file.c:865
+#: ../src/file.c:783
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "Ouverture de %d fichier, %s ouvert"
 msgstr[1] "Ouverture de %d fichiers, %s ouverts"
 
-#: ../src/file.c:870
+#: ../src/file.c:788
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "Tous les fichiers sont ouverts, %s ouverts"
 
-#: ../src/file.c:1133
+#: ../src/file.c:1347
 #, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
 msgstr[0] "%d document ouvert"
 msgstr[1] "%d documents ouverts"
 
-#: ../src/file.c:1135
+#: ../src/file.c:1349
 msgid "Advanced open: Finished searching files. "
 msgstr "Ouverture avancée : fin de la recherche des fichiers"
 
-#: ../src/file.c:1452
+#: ../src/file.c:1411
 msgid "_Skip"
 msgstr "_Ignorer"
 
-#: ../src/file.c:1452 ../src/file_dialogs.c:655 ../src/file_dialogs.c:676
+#: ../src/file.c:1411 ../src/file_dialogs.c:655 ../src/file_dialogs.c:676
 #: ../src/project.c:309
 msgid "_Overwrite"
 msgstr "_Écraser"
 
-#: ../src/file.c:1456
+#: ../src/file.c:1415
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr ""
 "%s ne peut être copié, il existe déjà, voulez-vous vraiment l'écraser ?"
 
-#: ../src/file.c:1458
+#: ../src/file.c:1417
 msgid "Overwrite file?"
 msgstr "Voulez-vous écraser le fichier ?"
 
@@ -1962,7 +1961,7 @@ msgstr "Ligne"
 msgid "Output"
 msgstr "Résultat"
 
-#: ../src/outputbox.c:443
+#: ../src/outputbox.c:466
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "Échec de la compilation du modèle de boîte de sortie %s: %s"
@@ -2591,7 +2590,6 @@ msgid "<b>Sidebar</b>"
 msgstr "<b>Panneau latéral</b>"
 
 #: ../src/preferences.c:2147
-#, fuzzy
 msgid "L_ocation:"
 msgstr "Position :"
 
@@ -2661,7 +2659,7 @@ msgstr "Documents, onglet modifié :"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2252 ../src/rcfile.c:1087
+#: ../src/preferences.c:2252 ../src/rcfile.c:1095
 msgid "Images"
 msgstr "Images"
 
@@ -2793,27 +2791,27 @@ msgstr "Créer un projet vide"
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:620 ../src/rcfile.c:702 ../src/rcfile.c:759
+#: ../src/rcfile.c:620 ../src/rcfile.c:702 ../src/rcfile.c:767
 msgid "Sort"
 msgstr "Trier"
 
-#: ../src/rcfile.c:623 ../src/rcfile.c:705 ../src/rcfile.c:762
+#: ../src/rcfile.c:623 ../src/rcfile.c:705 ../src/rcfile.c:770
 msgid "Sort / Uniq"
 msgstr "Trier / Uniq"
 
-#: ../src/rcfile.c:626 ../src/rcfile.c:765
+#: ../src/rcfile.c:626 ../src/rcfile.c:773
 msgid "Reverse lines"
 msgstr "Inverser les lignes"
 
-#: ../src/rcfile.c:629 ../src/rcfile.c:768
+#: ../src/rcfile.c:629 ../src/rcfile.c:776
 msgid "Dos2unix"
 msgstr "Dos2unix"
 
-#: ../src/rcfile.c:631 ../src/rcfile.c:708 ../src/rcfile.c:770
+#: ../src/rcfile.c:631 ../src/rcfile.c:708 ../src/rcfile.c:778
 msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
-#: ../src/rcfile.c:634 ../src/rcfile.c:711 ../src/rcfile.c:773
+#: ../src/rcfile.c:634 ../src/rcfile.c:711 ../src/rcfile.c:781
 msgid "Strip empty lines"
 msgstr "Ôter les lignes vides"
 
@@ -2869,83 +2867,91 @@ msgstr "vérificateur XML xmllint"
 msgid "Safari"
 msgstr "Safari"
 
-#: ../src/rcfile.c:719 ../src/rcfile.c:781
+#: ../src/rcfile.c:719 ../src/rcfile.c:789
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:722 ../src/rcfile.c:785
+#: ../src/rcfile.c:722 ../src/rcfile.c:793
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:725 ../src/rcfile.c:811
+#: ../src/rcfile.c:725 ../src/rcfile.c:819
 msgid "chmod a+x"
 msgstr "chmod a+x"
 
-#: ../src/rcfile.c:776
+#: ../src/rcfile.c:758
+msgid "php syntax check"
+msgstr "Vérifier la syntaxe PHP"
+
+#: ../src/rcfile.c:762
+msgid "perl syntax check"
+msgstr "Vérifier la syntaxe Perl"
+
+#: ../src/rcfile.c:784
 msgid "Render HTML to text"
 msgstr "Rendu HTML en texte"
 
-#: ../src/rcfile.c:789
+#: ../src/rcfile.c:797
 msgid "Chrome"
 msgstr "Chrome"
 
-#: ../src/rcfile.c:792
+#: ../src/rcfile.c:800
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:796
+#: ../src/rcfile.c:804
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: ../src/rcfile.c:799
+#: ../src/rcfile.c:807
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:802
+#: ../src/rcfile.c:810
 msgid "Epiphany"
 msgstr "Epiphany"
 
-#: ../src/rcfile.c:805
+#: ../src/rcfile.c:813
 msgid "Kazehakase"
 msgstr "Kazehakase"
 
-#: ../src/rcfile.c:808
+#: ../src/rcfile.c:816
 msgid "Links2 (graphics)"
 msgstr "Links2 (graphics)"
 
-#: ../src/rcfile.c:817
+#: ../src/rcfile.c:825
 msgid "C Header"
 msgstr "En-tête C"
 
-#: ../src/rcfile.c:820
+#: ../src/rcfile.c:828
 msgid "C Header GPL"
 msgstr "En-tête C GPL"
 
-#: ../src/rcfile.c:823
+#: ../src/rcfile.c:831
 msgid "XHTML 1.0"
 msgstr "XHTML 1.0"
 
-#: ../src/rcfile.c:826
+#: ../src/rcfile.c:834
 msgid "HTML 5"
 msgstr "HTML 5"
 
-#: ../src/rcfile.c:829
+#: ../src/rcfile.c:837
 msgid "PHP"
 msgstr "PHP"
 
-#: ../src/rcfile.c:1008
+#: ../src/rcfile.c:1016
 msgid "Untitled Project"
 msgstr "Projet sans titre"
 
-#: ../src/rcfile.c:1079
+#: ../src/rcfile.c:1087
 msgid "C programming"
 msgstr "Programmation C"
 
-#: ../src/rcfile.c:1083
+#: ../src/rcfile.c:1091
 msgid "Web files"
 msgstr "fichiers de type web"
 
-#: ../src/rcfile.c:1090
+#: ../src/rcfile.c:1098
 msgid "Hide objectfiles"
 msgstr "Cacher les fichiers objets"
 
