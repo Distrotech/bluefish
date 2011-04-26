@@ -474,6 +474,10 @@ static void snr3_run(Tsnr3run *s3run, void (*callback)(void *)) {
 	gint so,eo;
 	GList *tmplist;
 	DEBUG_MSG("snr3_run, s3run=%p\n",s3run);
+
+	if (s3run->query == NULL || s3run->query[0]=='\0')
+		return;
+	
 	switch(s3run->scope) {
 		case snr3scope_doc:
 			if (s3run->type == snr3type_string) 
@@ -537,11 +541,15 @@ static void snr3run_init(Tsnr3run *s3run, Tbfwin *bfwin,
 				Tsnr3type type, Tsnr3replace replacetype,
 				Tsnr3scope scope) {
 	s3run->bfwin = bfwin;
+	g_free(s3run->query);
 	s3run->query = g_strdup(query);
+	g_free(s3run->replace);
 	s3run->replace = g_strdup(replace);
+	g_print("snr3run_init, query=%s, replace=%s, type=%d, replacetype=%d, scope=%d\n",query, replace, type,replacetype, scope);
 	s3run->type = type;
 	s3run->replacetype = replacetype;
 	s3run->scope = scope;
+	/* TODO: potential memory leak below, what is there are resulkts on the queue ? */
 	g_queue_init(&s3run->results);
 	
 } 
@@ -564,9 +572,11 @@ typedef struct {
 	GtkWidget *dialog;
 	GtkWidget *expander;
 	GtkWidget *search;
+	GtkWidget *searchfeedback;
 	GtkWidget *replace;
 	GtkWidget *scope;
 	GtkWidget *basedir;
+	GtkWidget *fileshbox;
 	GtkWidget *filepattern;
 	GtkWidget *countlabel;
 	GtkWidget *warninglabel;
@@ -614,6 +624,19 @@ search_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
 	if (!snrwin->s3run) {
 		snrwin->s3run = g_slice_new0(Tsnr3run);
 		snr3run_init(snrwin->s3run, 
+					snrwin->bfwin, 
+					gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))),
+					gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace)))),
+					gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->searchType)),
+					gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType)),
+					gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope))
+					);
+
+		run=TRUE;
+	} else {
+		if (g_strcmp0(snrwin->s3run->query, 
+				gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))))!=0) {
+				snr3run_init(snrwin->s3run, 
 						snrwin->bfwin, 
 						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))),
 						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace)))),
@@ -621,15 +644,27 @@ search_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
 						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType)),
 						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope))
 						);
-		run=TRUE;
-	} else {
-		if (g_strcmp0(snrwin->s3run->query, 
-				gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))))!=0) {
 			run=TRUE;
 		}
 	}
-	if (run)
+	if (run) {
+		g_print("search_focus_out_event_cb, type=%d, pcre=%d\n", snrwin->s3run->type,snr3type_pcre);
+		if (snrwin->s3run->type == snr3type_pcre) {
+			GError *gerror=NULL;
+			GRegex *regex = g_regex_new(snrwin->s3run->query,G_REGEX_MULTILINE,0,&gerror);
+			if (gerror) {
+				gchar *markup;
+				g_print("set error %s\n",gerror->message);
+				markup = g_markup_printf_escaped("<span foreground=\"red\">%s</span>", gerror->message);
+				gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),markup);
+				g_free(markup);
+				g_error_free(gerror);
+			}
+			g_regex_unref(regex);
+		}
+		
 		snr3_run(snrwin->s3run, activate_simple_search);
+	}
 	return FALSE;
 }
 static void
@@ -672,15 +707,32 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			gtk_widget_destroy(dialog);
 		break;
 	}
-	
 
 }
+
+static void
+snr_combobox_changed(GtkComboBox * combobox, TSNRWin * snrwin)
+{
+	gint value;
+	if (combobox == snrwin->replaceType) {
+		value = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
+		gtk_widget_set_sensitive(snrwin->replace, (value == snr3type_string));
+	} else if (combobox == snrwin->scope) {
+		value = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
+		if (value == snr3scope_files) {
+			gtk_widget_show_all(snrwin->fileshbox);
+		} else {
+			gtk_widget_hide(snrwin->fileshbox);
+		}
+	}
+}
+
 
 void 
 snr3_advanced_dialog(Tbfwin * bfwin)
 {
 	TSNRWin *snrwin;
-	GtkWidget *table, *vbox, *vbox2, *button;
+	GtkWidget *table, *vbox, *vbox2, *button, *widget, *hbox;
 	gint currentrow=0;
 	GtkListStore *history, *lstore;
 	GList *list;
@@ -718,10 +770,8 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 	window_delete_on_escape(GTK_WINDOW(snrwin->dialog));
 	g_signal_connect(G_OBJECT(snrwin->dialog), "response", G_CALLBACK(snr3_advanced_response), snrwin);
 	/*g_signal_connect_after(G_OBJECT(snrwin->dialog), "focus-in-event", G_CALLBACK(snr_focus_in_lcb), snrwin);*/
-	table =
-		dialog_table_in_vbox(10, 3, 6, gtk_dialog_get_content_area(GTK_DIALOG(snrwin->dialog)), FALSE,
-							 FALSE, 0);
 	
+	vbox = gtk_dialog_get_content_area(GTK_DIALOG(snrwin->dialog));
 	
 	history = gtk_list_store_new(1, G_TYPE_STRING);
 	list = g_list_last(bfwin->session->searchlist);
@@ -737,16 +787,19 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 	/*if (bfwin->session->searchlist)
 	   gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->search), 0); */
 	g_object_unref(history);
-	dialog_mnemonic_label_in_table(_("<b>_Search for</b>"), snrwin->search, table, 0, 1, currentrow, currentrow+1);
-	gtk_table_attach(GTK_TABLE(table), snrwin->search, 0, 3, currentrow+1, currentrow+2, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	widget = dialog_mnemonic_label_new(_("<b>_Search for</b>"), snrwin->search);
+	gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox), snrwin->search, TRUE, TRUE, 2);
 	g_signal_connect(gtk_bin_get_child(GTK_BIN(snrwin->search)), "focus-out-event", G_CALLBACK(search_focus_out_event_cb), snrwin);
 /*	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
 	g_signal_connect(snrwin->search, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("The pattern to look for"));
 	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))), "activate",
 					 G_CALLBACK(snr_combo_activate_lcb), snrwin);*/
-
-	currentrow+=2;
+	snrwin->searchfeedback = gtk_label_new(NULL);
+	gtk_label_set_line_wrap(GTK_LABEL(snrwin->searchfeedback), TRUE);
+	gtk_misc_set_alignment(GTK_MISC(snrwin->searchfeedback),0,0);
+	gtk_box_pack_start(GTK_BOX(vbox), snrwin->searchfeedback, TRUE, TRUE, 2);
 
 	history = gtk_list_store_new(1, G_TYPE_STRING);
 	list = g_list_last(bfwin->session->replacelist);
@@ -758,16 +811,21 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 	}
 	snrwin->replace = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
 	g_object_unref(history);
-	dialog_mnemonic_label_in_table(_("<b>Replace _with</b>"), snrwin->replace, table, 0, 1, currentrow, currentrow+1);
-	gtk_table_attach(GTK_TABLE(table), snrwin->replace, 0, 3, currentrow+1, currentrow+2, GTK_EXPAND | GTK_FILL,
-					 GTK_SHRINK, 0, 0);
+	widget = dialog_mnemonic_label_new(_("<b>Replace _with</b>"), snrwin->replace);
+	gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox), snrwin->replace, TRUE, TRUE, 2);
 /*	g_signal_connect(snrwin->replace, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
 	g_signal_connect(snrwin->replace, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("Replace matching text with"));
 	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 					 G_CALLBACK(snr_combo_activate_lcb), snrwin);
 */
-	currentrow+=2;
+
+	table =
+		dialog_table_in_vbox(3, 3, 6, vbox, TRUE,
+							 TRUE, 0);
+	gtk_table_set_row_spacings(GTK_TABLE(table), 4);
+	currentrow=0;
 
 	dialog_mnemonic_label_in_table(_("<b>Options</b>"), NULL, table, 0, 1, currentrow, currentrow+1);
 	
@@ -785,31 +843,6 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 					 _("How to interpret the pattern."));
 */
 	currentrow++;
-	
-	snrwin->scope = gtk_combo_box_new_text();
-	for (i = 0; i < G_N_ELEMENTS(scope); i++) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->scope), _(scope[i]));
-	}
-	dialog_mnemonic_label_in_table(_("Sco_pe: "), snrwin->scope, table, 0, 1, currentrow, currentrow+1);
-	gtk_table_attach(GTK_TABLE(table), snrwin->scope, 1, 3, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
-	/*g_signal_connect(snrwin->scope, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
-	g_signal_connect(snrwin->scope, "realize", G_CALLBACK(realize_combo_set_tooltip),
-					 _("Where to look for the pattern."));*/
-	
-	currentrow++;
-	lstore = gtk_list_store_new(1, G_TYPE_STRING);
-	/*for (i = 0; i < G_N_ELEMENTS(fileExts); i++) {
-		gtk_list_store_append(GTK_LIST_STORE(lstore), &iter);
-		gtk_list_store_set(GTK_LIST_STORE(lstore), &iter, 0, fileExts[i], -1);
-	};*/
-	snrwin->filepattern = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(lstore), 0);
-	g_object_unref(lstore);
-	gtk_table_attach_defaults(GTK_TABLE(table), snrwin->filepattern, 0, 1, currentrow, currentrow+1);
-	button = dialog_button_new_with_image_in_table(NULL, -1, GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU, table, 2, 3, currentrow, currentrow+1);
-	snrwin->basedir = dialog_entry_in_table("", table, 1, 2, currentrow, currentrow+1);
-	/* add a basedir and file pattern widget here */
-	
-	currentrow++;
 
 	snrwin->replaceType = gtk_combo_box_new_text();
 	for (i = 0; i < G_N_ELEMENTS(replaceType); i++) {
@@ -824,15 +857,48 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 	
 	currentrow++;
 	
+	snrwin->scope = gtk_combo_box_new_text();
+	for (i = 0; i < G_N_ELEMENTS(scope); i++) {
+		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->scope), _(scope[i]));
+	}
+	dialog_mnemonic_label_in_table(_("Sco_pe: "), snrwin->scope, table, 0, 1, currentrow, currentrow+1);
+	gtk_table_attach(GTK_TABLE(table), snrwin->scope, 1, 3, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	g_signal_connect(snrwin->scope, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
+	/*g_signal_connect(snrwin->scope, "realize", G_CALLBACK(realize_combo_set_tooltip),
+					 _("Where to look for the pattern."));*/
+	
+	currentrow++;
+	
+/*	gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new("File selection options:"), TRUE, TRUE, 2);*/
+	snrwin->fileshbox = gtk_hbox_new(FALSE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox), snrwin->fileshbox, TRUE, TRUE, 2);
+	/* add a basedir and file pattern widget here */
+	lstore = gtk_list_store_new(1, G_TYPE_STRING);
+	/*for (i = 0; i < G_N_ELEMENTS(fileExts); i++) {
+		gtk_list_store_append(GTK_LIST_STORE(lstore), &iter);
+		gtk_list_store_set(GTK_LIST_STORE(lstore), &iter, 0, fileExts[i], -1);
+	};*/
+	snrwin->filepattern = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(lstore), 0);
+	g_object_unref(lstore);
+	gtk_box_pack_start(GTK_BOX(snrwin->fileshbox), snrwin->filepattern, TRUE, TRUE, 2);
+	snrwin->basedir = gtk_entry_new();
+	gtk_box_pack_start(GTK_BOX(snrwin->fileshbox), snrwin->basedir, TRUE, TRUE, 2);
+	button = dialog_button_new_with_image(NULL, -1, GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU);
+	gtk_box_pack_start(GTK_BOX(snrwin->fileshbox), button, TRUE, TRUE, 2);
+
+	table =
+		dialog_table_in_vbox(2, 4, 6, vbox, TRUE,
+							 TRUE, 0);
+	gtk_table_set_row_spacings(GTK_TABLE(table), 4);
+	currentrow=0;
+	
 	snrwin->matchCase = dialog_check_button_in_table(_("Case sensitive _matching"), FALSE, table,
-										0, 3, currentrow, currentrow+1);
+										0, 2, currentrow, currentrow+1);
 	/*g_signal_connect(snrwin->matchCase, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
 	gtk_widget_set_tooltip_text(snrwin->matchCase, _("Only match if case (upper/lower) is identical."));
 
-	currentrow++;
-
 	snrwin->escapeChars = dialog_check_button_in_table(_("Pattern contains escape-se_quences"), FALSE, table,
-										0, 3, currentrow, currentrow+1);
+										2, 4, currentrow, currentrow+1);
 	/*g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
 	gtk_widget_set_tooltip_text(snrwin->escapeChars,
 								_("Pattern contains backslash escaped characters such as \\n \\t etc."));
