@@ -386,7 +386,7 @@ static gboolean snr3_run_string_loop(Tsnr3run *s3run) {
 
 
 static void snr3_run_string_in_doc(Tsnr3run *s3run, gchar **message, Tdocument *doc, gint so, gint eo, void (*callback)(void *)) {
-	DEBUG_MSG("snr3_run_string_in_doc, s3run=%p, started for query %s\n",s3run, s3run->query);
+	DEBUG_MSG("snr3_run_string_in_doc, doc=%p, s3run=%p, started for query %s\n",doc, s3run, s3run->query);
 #ifdef SNR3_PROFILING
 	s3profiling.timer = g_timer_new();
 	s3profiling.numresults=0;
@@ -430,7 +430,7 @@ void snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 static void snr3_run(Tsnr3run *s3run, gchar **message, void (*callback)(void *)) {
 	gint so,eo;
 	GList *tmplist;
-	DEBUG_MSG("snr3_run, s3run=%p\n",s3run);
+	DEBUG_MSG("snr3_run, s3run=%p, scope=%d\n",s3run, s3run->scope);
 
 	if (s3run->query == NULL || s3run->query[0]=='\0')
 		return;
@@ -461,10 +461,11 @@ static void snr3_run(Tsnr3run *s3run, gchar **message, void (*callback)(void *))
 		break;
 		case snr3scope_alldocs:
 			for (tmplist=g_list_first(s3run->bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
+				g_print("snr3_run, search in doc %p\n",tmplist->data);
 				if (s3run->type == snr3type_string) 
-					snr3_run_string_in_doc(s3run, message, s3run->bfwin->current_document, 0, -1, callback);
+					snr3_run_string_in_doc(s3run, message, tmplist->data, 0, -1, callback);
 				else if (s3run->type == snr3type_pcre)
-					snr3_run_pcre_in_doc(s3run, message, s3run->bfwin->current_document, 0, -1, callback);
+					snr3_run_pcre_in_doc(s3run, message, tmplist->data, 0, -1, callback);
 			}
 		break;
 		case snr3scope_files:
@@ -521,36 +522,22 @@ gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	return s3run;
 }
 
+gpointer dialog_changed_run_ready_cb(gpointer data) {
+	Tsnr3run *s3run=data;
+	g_print("dialog_changed_run_ready_cb, finished with %d results\n",g_queue_get_length(&s3run->results));
+	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
+	if (s3run->dialog) {
+		TSNRWin *snrwin = s3run->dialog;
+		gchar *tmp = g_strdup_printf("<i>found %d results</i>\n",g_queue_get_length(&s3run->results));
+		gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),tmp);
+		gtk_widget_show(snrwin->searchfeedback);
+		g_free(tmp);
+	}
+}
+
 /***************************************************************************/
 /***************************** GUI *****************************************/
 /***************************************************************************/
-
-typedef struct {
-	GtkWidget *dialog;
-	GtkWidget *expander;
-	GtkWidget *search;
-	GtkWidget *searchfeedback;
-	GtkWidget *replace;
-	GtkWidget *scope;
-	GtkWidget *basedir;
-	GtkWidget *fileshbox;
-	GtkWidget *filepattern;
-	GtkWidget *countlabel;
-	GtkWidget *warninglabel;
-	GtkWidget *searchType;
-	GtkWidget *replaceType;
-	GtkWidget *overlappingMatches;
-	GtkWidget *matchCase;
-	GtkWidget *escapeChars;
-	GtkWidget *select_match;
-	GtkWidget *bookmarks;
-	GtkWidget *findButton;
-	GtkWidget *findAllButton;
-	GtkWidget *replaceButton;
-	GtkWidget *replaceAllButton;
-	Tbfwin *bfwin;
-	Tsnr3run *s3run;
-} TSNRWin;
 
 enum {
 	SNR_RESPONSE_FIND = 0,
@@ -581,6 +568,7 @@ search_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
 	g_print("search_focus_out_event_cb\n");
 	if (!snrwin->s3run) {
 		snrwin->s3run = g_slice_new0(Tsnr3run);
+		snrwin->s3run->dialog = snrwin;
 		snr3run_init(snrwin->s3run, 
 					snrwin->bfwin, 
 					gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))),
@@ -607,7 +595,7 @@ search_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
 	}
 	if (run) {
 		g_print("search_focus_out_event_cb, run  snr3_run\n");
-		snr3_run(snrwin->s3run, &message, activate_simple_search);
+		snr3_run(snrwin->s3run, &message, dialog_changed_run_ready_cb);
 		g_print("message=%s\n",message);
 		if (message) {
 			gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),message);
