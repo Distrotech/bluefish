@@ -68,6 +68,7 @@ typedef struct {
 
 typedef struct {
 	Tbfwin *bfwin;
+	gpointer dialog;
 	gchar *query;
 	gchar *replace; /* enabled if not NULL */
 	Tsnr3type type;
@@ -87,6 +88,33 @@ typedef struct {
 	GList *current;
 	gboolean want_submatches;
 } Tsnr3run;
+
+typedef struct {
+	GtkWidget *dialog;
+	GtkWidget *expander;
+	GtkWidget *search;
+	GtkWidget *searchfeedback;
+	GtkWidget *replace;
+	GtkWidget *scope;
+	GtkWidget *basedir;
+	GtkWidget *fileshbox;
+	GtkWidget *filepattern;
+	GtkWidget *countlabel;
+	GtkWidget *warninglabel;
+	GtkWidget *searchType;
+	GtkWidget *replaceType;
+	GtkWidget *overlappingMatches;
+	GtkWidget *matchCase;
+	GtkWidget *escapeChars;
+	GtkWidget *select_match;
+	GtkWidget *bookmarks;
+	GtkWidget *findButton;
+	GtkWidget *findAllButton;
+	GtkWidget *replaceButton;
+	GtkWidget *replaceAllButton;
+	Tbfwin *bfwin;
+	Tsnr3run *s3run;
+} TSNRWin;
 
 
 typedef struct {
