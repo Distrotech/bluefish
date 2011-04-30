@@ -42,6 +42,7 @@ technical design:
 #include "config.h"
 #include "bluefish.h"
 #include "document.h"
+#include "undo_redo.h"
 #include "bf_lib.h"
 #include "dialog_utils.h"
 #include "gtk_easy.h"
@@ -294,28 +295,12 @@ static gboolean snr3_run_pcre_loop(Tsnr3run *s3run) {
 	return FALSE;
 }
 
-static void snr3_run_pcre_in_doc(Tsnr3run *s3run, gchar **message, Tdocument *doc, gint so, gint eo, void (*callback)(void *)) {
-	GError *gerror = NULL;
-	GRegex *gregex;
-	
-	s3run->working = g_slice_new0(Tsnr3working);
-	s3run->working->callback = callback;
+static void snr3_run_pcre_in_doc(Tsnr3run *s3run, gchar **message, Tdocument *doc, gint so, gint eo) {
 	s3run->working->curdoc = doc;
 	s3run->working->curbuf = doc_get_chars(doc, so, eo);
+	s3run->working->so = so;
+	s3run->working->eo = eo;
 	utf8_offset_cache_reset();
-	gregex = g_regex_new(s3run->query,
-							 (s3run->is_case_sens ? G_REGEX_MULTILINE | G_REGEX_DOTALL : G_REGEX_CASELESS |
-							  G_REGEX_MULTILINE | G_REGEX_DOTALL), G_REGEX_MATCH_NEWLINE_ANY, &gerror);
-	if (gerror) {
-		g_print("regex error %s\n",gerror->message);
-		if (message) {
-			*message = g_markup_printf_escaped("<span foreground=\"red\">%s</span>", gerror->message);
-		}
-		g_error_free(gerror);
-		return;
-	}
-	s3run->working->querydata = gregex;
-	
 	s3run->idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,(GSourceFunc)snr3_run_pcre_loop,s3run,NULL);
 }
 
@@ -385,26 +370,19 @@ static gboolean snr3_run_string_loop(Tsnr3run *s3run) {
 }
 
 
-static void snr3_run_string_in_doc(Tsnr3run *s3run, gchar **message, Tdocument *doc, gint so, gint eo, void (*callback)(void *)) {
+static void snr3_run_string_in_doc(Tsnr3run *s3run, gchar **message, Tdocument *doc, gint so, gint eo) {
 	DEBUG_MSG("snr3_run_string_in_doc, doc=%p, s3run=%p, started for query %s\n",doc, s3run, s3run->query);
 #ifdef SNR3_PROFILING
 	s3profiling.timer = g_timer_new();
 	s3profiling.numresults=0;
 #endif
-	if (s3run->results.head) {
-		g_warning("s3run has results already\n");
-	}
-	
-	s3run->working = g_slice_new0(Tsnr3working);
-	s3run->working->callback = callback;
+
 	s3run->working->curdoc = doc;
 	s3run->working->curbuf = doc_get_chars(doc, so, eo);
 	s3run->working->so = so;
 	s3run->working->eo = eo;
 	utf8_offset_cache_reset();
-	
-	s3run->idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,(GSourceFunc)snr3_run_string_loop,s3run,NULL);
-	
+	s3run->idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,(GSourceFunc)snr3_run_string_loop,s3run,NULL);	
 }
 
 void snr3_run_go(Tsnr3run *s3run, gboolean forward) {
@@ -427,7 +405,32 @@ void snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 	}
 }
 
-static void snr3_run(Tsnr3run *s3run, gchar **message, void (*callback)(void *)) {
+static gboolean
+snr3_run_init(Tsnr3run *s3run, gchar **message, void (*callback)(void *))
+{
+	s3run->working = g_slice_new0(Tsnr3working);
+	s3run->working->callback = callback;
+	if (s3run->type == snr3type_pcre) {
+		GError *gerror = NULL;
+		s3run->working->querydata = g_regex_new(s3run->query,
+							 (s3run->is_case_sens ? G_REGEX_MULTILINE | G_REGEX_DOTALL : G_REGEX_CASELESS |
+							  G_REGEX_MULTILINE | G_REGEX_DOTALL), G_REGEX_MATCH_NEWLINE_ANY, &gerror);
+		
+		if (gerror) {
+			g_print("regex error %s\n",gerror->message);
+			if (message) {
+				*message = g_markup_printf_escaped("<span foreground=\"red\">%s</span>", gerror->message);
+			}
+			g_error_free(gerror);
+			return FALSE;
+		}
+	}
+	return TRUE;
+}
+
+static void
+snr3_run(Tsnr3run *s3run, gchar **message, void (*callback)(void *))
+{
 	gint so,eo;
 	GList *tmplist;
 	DEBUG_MSG("snr3_run, s3run=%p, scope=%d\n",s3run, s3run->scope);
@@ -435,26 +438,32 @@ static void snr3_run(Tsnr3run *s3run, gchar **message, void (*callback)(void *))
 	if (s3run->query == NULL || s3run->query[0]=='\0')
 		return;
 	
+	if (snr3_run_init(s3run, message, callback) == FALSE) {
+		/* TODO, memleak */
+		return;
+	}
+	
+	
 	switch(s3run->scope) {
 		case snr3scope_doc:
 			if (s3run->type == snr3type_string) 
-				snr3_run_string_in_doc(s3run, message, s3run->bfwin->current_document, 0, -1, callback);
+				snr3_run_string_in_doc(s3run, message, s3run->bfwin->current_document, 0, -1);
 			else if (s3run->type == snr3type_pcre)
-				snr3_run_pcre_in_doc(s3run, message, s3run->bfwin->current_document, 0, -1, callback);
+				snr3_run_pcre_in_doc(s3run, message, s3run->bfwin->current_document, 0, -1);
 		break;
 		case snr3scope_cursor:
 			so = doc_get_cursor_position(s3run->bfwin->current_document);
 			if (s3run->type == snr3type_string) 
-				snr3_run_string_in_doc(s3run, message, s3run->bfwin->current_document, so, -1, callback);
+				snr3_run_string_in_doc(s3run, message, s3run->bfwin->current_document, so, -1);
 			else if (s3run->type == snr3type_pcre)
-				snr3_run_pcre_in_doc(s3run, message, s3run->bfwin->current_document, so, -1, callback);
+				snr3_run_pcre_in_doc(s3run, message, s3run->bfwin->current_document, so, -1);
 		break;
 		case snr3scope_selection:
 			if (doc_get_selection(s3run->bfwin->current_document, &so, &eo)) {
 				if (s3run->type == snr3type_string) 
-					snr3_run_string_in_doc(s3run, message, s3run->bfwin->current_document, so, eo, callback);
+					snr3_run_string_in_doc(s3run, message, s3run->bfwin->current_document, so, eo);
 				else if (s3run->type == snr3type_pcre)
-					snr3_run_pcre_in_doc(s3run, message, s3run->bfwin->current_document, so, eo, callback);
+					snr3_run_pcre_in_doc(s3run, message, s3run->bfwin->current_document, so, eo);
 			} else {
 				g_print("Find in selection, but there is no selection\n");
 			}
@@ -463,9 +472,9 @@ static void snr3_run(Tsnr3run *s3run, gchar **message, void (*callback)(void *))
 			for (tmplist=g_list_first(s3run->bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
 				g_print("snr3_run, search in doc %p\n",tmplist->data);
 				if (s3run->type == snr3type_string) 
-					snr3_run_string_in_doc(s3run, message, tmplist->data, 0, -1, callback);
+					snr3_run_string_in_doc(s3run, message, tmplist->data, 0, -1);
 				else if (s3run->type == snr3type_pcre)
-					snr3_run_pcre_in_doc(s3run, message, tmplist->data, 0, -1, callback);
+					snr3_run_pcre_in_doc(s3run, message, tmplist->data, 0, -1);
 			}
 		break;
 		case snr3scope_files:
@@ -494,7 +503,7 @@ static void activate_simple_search(void *data) {
 	snr3_run_go(s3run, TRUE);
 }
 
-static void snr3run_init(Tsnr3run *s3run, Tbfwin *bfwin, 
+static void snr3run_multiset(Tsnr3run *s3run, Tbfwin *bfwin, 
 				const gchar *query, const gchar *replace, 
 				Tsnr3type type, Tsnr3replace replacetype,
 				Tsnr3scope scope) {
@@ -516,7 +525,7 @@ gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	Tsnr3run *s3run;
 	
 	s3run = g_slice_new0(Tsnr3run);
-	snr3run_init(s3run, bfwin, string, NULL, snr3type_string,snr3replace_string,snr3scope_doc);
+	snr3run_multiset(s3run, bfwin, string, NULL, snr3type_string,snr3replace_string,snr3scope_doc);
 	DEBUG_MSG("snr3run at %p, query at %p\n",s3run, s3run->query);
 	snr3_run(s3run, NULL, activate_simple_search);
 	return s3run;
@@ -533,6 +542,7 @@ gpointer dialog_changed_run_ready_cb(gpointer data) {
 		gtk_widget_show(snrwin->searchfeedback);
 		g_free(tmp);
 	}
+	return s3run;
 }
 
 /***************************************************************************/
@@ -569,7 +579,7 @@ search_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
 	if (!snrwin->s3run) {
 		snrwin->s3run = g_slice_new0(Tsnr3run);
 		snrwin->s3run->dialog = snrwin;
-		snr3run_init(snrwin->s3run, 
+		snr3run_multiset(snrwin->s3run, 
 					snrwin->bfwin, 
 					gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))),
 					gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace)))),
@@ -582,7 +592,7 @@ search_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
 	} else {
 		if (g_strcmp0(snrwin->s3run->query, 
 				gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))))!=0) {
-				snr3run_init(snrwin->s3run, 
+				snr3run_multiset(snrwin->s3run, 
 						snrwin->bfwin, 
 						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))),
 						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace)))),
@@ -615,7 +625,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 	if (!snrwin->s3run) {
 		s3run = snrwin->s3run = g_slice_new0(Tsnr3run);
 		newsnr=TRUE;
-		snr3run_init(snrwin->s3run, 
+		snr3run_multiset(snrwin->s3run, 
 						snrwin->bfwin, 
 						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))),
 						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace)))),
@@ -633,7 +643,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			}
 		break;
 		case SNR_RESPONSE_REPLACE:
-			s3run_replace_current(snrwin->s3run->bfwin);
+			s3run_replace_current(snrwin->s3run);
 			doc_unre_new_group(snrwin->bfwin->current_document);
 			if (!newsnr && s3run->current) {
 				scroll_to_result(s3run->current->data, NULL);
@@ -654,10 +664,10 @@ static void
 snr_combobox_changed(GtkComboBox * combobox, TSNRWin * snrwin)
 {
 	gint value;
-	if (combobox == snrwin->replaceType) {
+	if (combobox == GTK_COMBO_BOX(snrwin->replaceType)) {
 		value = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
 		gtk_widget_set_sensitive(snrwin->replace, (value == snr3type_string));
-	} else if (combobox == snrwin->scope) {
+	} else if (combobox == GTK_COMBO_BOX(snrwin->scope)) {
 		value = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 		if (value == snr3scope_files) {
 			gtk_widget_show_all(snrwin->fileshbox);
