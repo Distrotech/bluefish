@@ -284,10 +284,25 @@ static gboolean snr3_run_pcre_loop(Tsnr3run *s3run) {
 		DEBUG_MSG("continue the search another time\n");
 		return TRUE; /* call me again */
 	}
-	DEBUG_MSG("cleanup the working structure\n");
-	/* cleanup the working structure */
-	callback = s3run->working->callback;;
+	
 	g_free(s3run->working->curbuf);
+	
+	if (s3run->scope == snr3scope_alldocs) {
+		/* look if there is a next doc */
+		GList *tmplist;
+		tmplist = g_list_find(s3run->bfwin->documentlist, s3run->working->curdoc);
+		tmplist = g_list_next(tmplist);
+		if (tmplist) {
+			s3run->working->curdoc = DOCUMENT(tmplist->data);
+			s3run->working->curbuf = doc_get_chars(s3run->working->curdoc, 0, -1);
+			s3run->working->curoffset = 0;
+			return TRUE;
+		}
+	}
+	
+	DEBUG_MSG("no more work, cleanup the working structure\n");
+	/* cleanup the working structure */
+	callback = s3run->working->callback;
 	g_regex_unref((GRegex *)s3run->working->querydata);
 	g_slice_free(Tsnr3working, s3run->working);
 	s3run->working = NULL;
@@ -350,14 +365,30 @@ static gboolean snr3_run_string_loop(Tsnr3run *s3run) {
 		return TRUE;
 	}
 	
-	DEBUG_MSG("cleanup the working structure\n");
+	g_free(s3run->working->curbuf);
+	
+	if (s3run->scope == snr3scope_alldocs) {
+		/* look if there is a next doc */
+		GList *tmplist;
+		tmplist = g_list_find(s3run->bfwin->documentlist, s3run->working->curdoc);
+		tmplist = g_list_next(tmplist);
+		if (tmplist) {
+			g_print("continue with document %p\n",tmplist->data);
+			s3run->working->curdoc = DOCUMENT(tmplist->data);
+			utf8_offset_cache_reset();
+			s3run->working->curbuf = doc_get_chars(s3run->working->curdoc, 0, -1);
+			s3run->working->curoffset = 0;
+			return TRUE;
+		}
+	}
+	
+	DEBUG_MSG("no more work, cleanup the working structure\n");
 	/* cleanup the working structure */
 	callback = s3run->working->callback;;
-	g_free(s3run->working->curbuf);
+	
 	g_slice_free(Tsnr3working, s3run->working);
 	s3run->working = NULL;
 	callback(s3run);
-
 #ifdef SNR3_PROFILING
 	g_print("search %ld bytes with %d results run took %f s, %f bytes/s\n",(glong)strlen(buf),s3profiling.numresults,g_timer_elapsed(s3profiling.timer, NULL),strlen(buf)/g_timer_elapsed(s3profiling.timer, NULL));
 	g_timer_destroy(s3profiling.timer);
@@ -469,13 +500,11 @@ snr3_run(Tsnr3run *s3run, gchar **message, void (*callback)(void *))
 			}
 		break;
 		case snr3scope_alldocs:
-			for (tmplist=g_list_first(s3run->bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
-				g_print("snr3_run, search in doc %p\n",tmplist->data);
-				if (s3run->type == snr3type_string) 
-					snr3_run_string_in_doc(s3run, message, tmplist->data, 0, -1);
-				else if (s3run->type == snr3type_pcre)
-					snr3_run_pcre_in_doc(s3run, message, tmplist->data, 0, -1);
-			}
+			tmplist=g_list_first(s3run->bfwin->documentlist);
+			if (s3run->type == snr3type_string) 
+				snr3_run_string_in_doc(s3run, message, tmplist->data, 0, -1);
+			else if (s3run->type == snr3type_pcre)
+				snr3_run_pcre_in_doc(s3run, message, tmplist->data, 0, -1);
 		break;
 		case snr3scope_files:
 			s3run->basedir = g_file_new_for_path("/tmp/");
