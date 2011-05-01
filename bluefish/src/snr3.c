@@ -92,6 +92,10 @@ move_window_away_from_cursor(Tdocument * doc, GtkWindow * win, GtkTextIter * ite
 static void scroll_to_result(Tsnr3result *s3result, GtkWindow *dialog) {
 	GtkTextIter itstart, itend;
 	DEBUG_MSG("scroll_to_result, started for s3result %p\n",s3result);
+	if (BFWIN(DOCUMENT(s3result->doc)->bfwin)->current_document != s3result->doc) {
+		bfwin_switch_to_document_by_pointer(DOCUMENT(s3result->doc)->bfwin,s3result->doc);
+	}
+	
 	gtk_text_buffer_get_iter_at_offset(DOCUMENT(s3result->doc)->buffer, &itstart, s3result->so);
 	gtk_text_buffer_get_iter_at_offset(DOCUMENT(s3result->doc)->buffer, &itend, s3result->eo);
 	gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(DOCUMENT(s3result->doc)->view), &itstart, 0.25, FALSE, 0.5, 0.10);
@@ -166,11 +170,14 @@ static void snr3run_update_offsets(gpointer s3result, gpointer offsetupdate) {
 
 static Toffsetupdate s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, gint offset) {
 	Toffsetupdate offsetupdate;
+	
 	if (s3run->type == snr3type_string) {
+		g_print("s3result_replace, replace %d:%d with %s\n", s3result->so+offset, s3result->eo+offset, s3run->replace);
 		doc_replace_text_backend(s3result->doc, s3run->replace, s3result->so+offset, s3result->eo+offset);
 		offsetupdate.offset = g_utf8_strlen(s3run->replace, -1)-(s3result->eo - s3result->so);
 	} else {
 		/* TODO: IMPLEMENT PCRE */
+		g_print("TODO: implement replace in PCRE mode\n");
 	}
 	offsetupdate.startingpoint = s3result->eo;
 	return offsetupdate;
@@ -598,42 +605,68 @@ snr3_cleanup(void *data)
 	g_slice_free(Tsnr3run, s3run);
 }
 
+static gint
+snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
+{
+	const gchar *query, *replace;
+	gint type, replacetype, scope;
+	gboolean is_case_sens;
+	gint retval=0;
+	
+	query = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))));
+	if (g_strcmp0(s3run->query, query)!=0) {
+		g_free(s3run->query);
+		s3run->query = g_strdup(query);
+		retval = retval ^ 1;
+	}
+	replace = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))));
+	g_print("replace: %s, old replace=%s\n", replace, s3run->replace);
+	if (g_strcmp0(s3run->replace, replace)!=0) {
+		g_free(s3run->replace);
+		s3run->replace = g_strdup(replace);
+		g_print("set replace %s as new replace\n",replace);
+		retval = retval ^ 2;
+	}
+	type = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->searchType));
+	if (type != s3run->type) {
+		s3run->type = type;
+		retval = retval ^ 1;
+	}
+	replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
+	if (replacetype != s3run->replacetype) {
+		s3run->replacetype = replacetype;
+		retval = retval ^ 2;
+	}
+	scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
+	if (scope != s3run->scope) {
+		s3run->scope = scope;
+		retval = retval ^ 1;
+	}
+	is_case_sens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->matchCase));
+	if (is_case_sens != s3run->is_case_sens) {
+		s3run->is_case_sens = is_case_sens;
+		retval = retval ^ 1;
+	}
+	
+	
+	return retval;
+}
+
 static gboolean
-search_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
+snrwin_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
 {
 	TSNRWin *snrwin=data;
-	gboolean run=FALSE;
 	gchar *message=NULL;
+	gint guichange;
 	g_print("search_focus_out_event_cb\n");
 	if (!snrwin->s3run) {
 		snrwin->s3run = g_slice_new0(Tsnr3run);
 		snrwin->s3run->dialog = snrwin;
-		snr3run_multiset(snrwin->s3run, 
-					snrwin->bfwin, 
-					gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))),
-					gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace)))),
-					gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->searchType)),
-					gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType)),
-					gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope))
-					);
-
-		run=TRUE;
-	} else {
-		if (g_strcmp0(snrwin->s3run->query, 
-				gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))))!=0) {
-				snr3run_multiset(snrwin->s3run, 
-						snrwin->bfwin, 
-						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))),
-						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace)))),
-						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->searchType)),
-						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType)),
-						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope))
-						);
-			run=TRUE;
-		}
-	}
-	if (run) {
-		g_print("search_focus_out_event_cb, run  snr3_run\n");
+		snrwin->s3run->bfwin = snrwin->bfwin;
+	} 
+	guichange = snr3run_init_from_gui(snrwin, snrwin->s3run);
+	if ((guichange & 1) != 0) {
+		g_print("search_focus_out_event_cb, run snr3_run\n");
 		snr3_run(snrwin->s3run, &message, dialog_changed_run_ready_cb);
 		g_print("message=%s\n",message);
 		if (message) {
@@ -769,7 +802,7 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 	widget = dialog_mnemonic_label_new(_("<b>_Search for</b>"), snrwin->search);
 	gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 2);
 	gtk_box_pack_start(GTK_BOX(vbox), snrwin->search, TRUE, TRUE, 2);
-	g_signal_connect(gtk_bin_get_child(GTK_BIN(snrwin->search)), "focus-out-event", G_CALLBACK(search_focus_out_event_cb), snrwin);
+	g_signal_connect(gtk_bin_get_child(GTK_BIN(snrwin->search)), "focus-out-event", G_CALLBACK(snrwin_focus_out_event_cb), snrwin);
 /*	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
 	g_signal_connect(snrwin->search, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("The pattern to look for"));
@@ -789,6 +822,7 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 		list = g_list_previous(list);
 	}
 	snrwin->replace = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
+	g_signal_connect(gtk_bin_get_child(GTK_BIN(snrwin->replace)), "focus-out-event", G_CALLBACK(snrwin_focus_out_event_cb), snrwin);
 	g_object_unref(history);
 	widget = dialog_mnemonic_label_new(_("<b>Replace _with</b>"), snrwin->replace);
 	gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 2);
