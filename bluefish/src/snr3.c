@@ -44,6 +44,7 @@ technical design:
 #include "document.h"
 #include "undo_redo.h"
 #include "bf_lib.h"
+#include "bfwin.h"
 #include "dialog_utils.h"
 #include "gtk_easy.h"
 #include "bf_lib.h"
@@ -93,6 +94,7 @@ static void scroll_to_result(Tsnr3result *s3result, GtkWindow *dialog) {
 	GtkTextIter itstart, itend;
 	DEBUG_MSG("scroll_to_result, started for s3result %p\n",s3result);
 	if (BFWIN(DOCUMENT(s3result->doc)->bfwin)->current_document != s3result->doc) {
+		DEBUG_MSG("scroll_to_result, switch to document %p\n",s3result->doc);
 		bfwin_switch_to_document_by_pointer(DOCUMENT(s3result->doc)->bfwin,s3result->doc);
 	}
 	
@@ -435,6 +437,7 @@ void snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 	}
 	if (!next) {
 		next = forward ? s3run->results.head : s3run->results.tail;
+		DEBUG_MSG("snr3_run_go, no next (current=%p), new next=%p\n",s3run->current,next);
 	}
 	DEBUG_MSG("scroll to result %p\n",next);
 	if (next) {
@@ -535,15 +538,27 @@ void snr3run_free(Tsnr3run *s3run) {
 
 static void activate_simple_search(void *data) {
 	Tsnr3run *s3run=data;
+	g_print("activate_simple_search\n");
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
 	snr3_run_go(s3run, TRUE);
 }
 
-static void snr3run_multiset(Tsnr3run *s3run, Tbfwin *bfwin, 
+static Tsnr3run *
+snr3run_new(Tbfwin *bfwin, gpointer dialog) 
+{
+	Tsnr3run *s3run;
+	s3run = g_slice_new0(Tsnr3run);
+	s3run->bfwin = bfwin;
+	s3run->dialog = dialog;
+	g_queue_init(&s3run->results);
+	return s3run;	
+} 
+
+
+static void snr3run_multiset(Tsnr3run *s3run, 
 				const gchar *query, const gchar *replace, 
 				Tsnr3type type, Tsnr3replace replacetype,
 				Tsnr3scope scope) {
-	s3run->bfwin = bfwin;
 	g_free(s3run->query);
 	s3run->query = g_strdup(query);
 	g_free(s3run->replace);
@@ -557,17 +572,19 @@ static void snr3run_multiset(Tsnr3run *s3run, Tbfwin *bfwin,
 	
 } 
 
+
+
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	Tsnr3run *s3run;
 	
-	s3run = g_slice_new0(Tsnr3run);
-	snr3run_multiset(s3run, bfwin, string, NULL, snr3type_string,snr3replace_string,snr3scope_doc);
+	s3run = snr3run_new(bfwin, NULL);
+	snr3run_multiset(s3run, string, NULL, snr3type_string,snr3replace_string,snr3scope_doc);
 	DEBUG_MSG("snr3run at %p, query at %p\n",s3run, s3run->query);
 	snr3_run(s3run, NULL, activate_simple_search);
 	return s3run;
 }
 
-gpointer dialog_changed_run_ready_cb(gpointer data) {
+static void dialog_changed_run_ready_cb(gpointer data) {
 	Tsnr3run *s3run=data;
 	g_print("dialog_changed_run_ready_cb, finished with %d results\n",g_queue_get_length(&s3run->results));
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
@@ -578,7 +595,6 @@ gpointer dialog_changed_run_ready_cb(gpointer data) {
 		gtk_widget_show(snrwin->searchfeedback);
 		g_free(tmp);
 	}
-	return s3run;
 }
 
 /***************************************************************************/
@@ -605,6 +621,16 @@ snr3_cleanup(void *data)
 	g_slice_free(Tsnr3run, s3run);
 }
 
+static void
+snr3run_resultcleanup(Tsnr3run *s3run) 
+{
+	GList *tmplist;
+	for (tmplist=g_list_first(s3run->results.head);tmplist;tmplist=g_list_next(tmplist)) {
+		g_slice_free(Tsnr3result, tmplist->data);
+	}
+	g_queue_clear(&s3run->results);
+}
+
 static gint
 snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 {
@@ -620,11 +646,9 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 		retval = retval ^ 1;
 	}
 	replace = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))));
-	g_print("replace: %s, old replace=%s\n", replace, s3run->replace);
 	if (g_strcmp0(s3run->replace, replace)!=0) {
 		g_free(s3run->replace);
 		s3run->replace = g_strdup(replace);
-		g_print("set replace %s as new replace\n",replace);
 		retval = retval ^ 2;
 	}
 	type = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->searchType));
@@ -648,7 +672,11 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 		retval = retval ^ 1;
 	}
 	
+	if ((retval & 1 ) != 0) {
+		snr3run_resultcleanup(s3run);
+	}
 	
+	g_print("snr3run_init_from_gui, return %d\n", retval);
 	return retval;
 }
 
@@ -660,10 +688,8 @@ snrwin_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
 	gint guichange;
 	g_print("search_focus_out_event_cb\n");
 	if (!snrwin->s3run) {
-		snrwin->s3run = g_slice_new0(Tsnr3run);
-		snrwin->s3run->dialog = snrwin;
-		snrwin->s3run->bfwin = snrwin->bfwin;
-	} 
+		snrwin->s3run = snr3run_new(snrwin->bfwin, snrwin);
+	}
 	guichange = snr3run_init_from_gui(snrwin, snrwin->s3run);
 	if ((guichange & 1) != 0) {
 		g_print("search_focus_out_event_cb, run snr3_run\n");
@@ -683,31 +709,27 @@ static void
 snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
 	Tsnr3run *s3run = snrwin->s3run;
-	gboolean newsnr=FALSE;
+	gint guichange;
 	if (!snrwin->s3run) {
-		s3run = snrwin->s3run = g_slice_new0(Tsnr3run);
-		newsnr=TRUE;
-		snr3run_multiset(snrwin->s3run, 
-						snrwin->bfwin, 
-						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search)))),
-						gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace)))),
-						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->searchType)),
-						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType)),
-						gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope))
-						);
+		snrwin->s3run = snr3run_new(snrwin->bfwin, snrwin);
 	}
-	
+	guichange = snr3run_init_from_gui(snrwin, snrwin->s3run);
+	g_print("snr3_advanced_response, response=%d, guichange=%d\n",response,guichange);
 	switch(response) {
 		case SNR_RESPONSE_FIND:
-			snr3_run(snrwin->s3run, NULL, activate_simple_search);
-			if (!newsnr && s3run->current) {
+			g_print("current=%p\n",snrwin->s3run->current);
+			if ((guichange & 1) != 0) {
+				g_print("guichange=%d, call snr3_run\n",guichange);
+				snr3_run(snrwin->s3run, NULL, activate_simple_search);
+			} else if (snrwin->s3run->results.length) {
+				g_print("guichange=%d, call snr3_run_go\n",guichange);
 				snr3_run_go(s3run, TRUE);
 			}
 		break;
 		case SNR_RESPONSE_REPLACE:
 			s3run_replace_current(snrwin->s3run);
 			doc_unre_new_group(snrwin->bfwin->current_document);
-			if (!newsnr && s3run->current) {
+			if ((guichange == 0) && s3run->current) {
 				scroll_to_result(s3run->current->data, NULL);
 			}
 		break;
