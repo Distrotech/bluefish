@@ -26,7 +26,7 @@
 #include <regex.h>				/* regcomp() */
 #include <stdlib.h>				/* system() */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include "bluefish.h"
 
