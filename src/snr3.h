@@ -47,7 +47,6 @@ typedef struct {
 	gint so;
 	gint eo;
 	gpointer doc;
-	gpointer extra; /* for submatches and such */
 } Tsnr3result;
 
 typedef enum {
@@ -70,6 +69,7 @@ typedef struct {
 	Tbfwin *bfwin;
 	gpointer dialog;
 	gchar *query;
+	GRegex *regex;
 	gchar *replace; /* enabled if not NULL */
 	Tsnr3type type;
 	Tsnr3replace replacetype;
@@ -82,11 +82,17 @@ typedef struct {
 	gboolean escape_chars;
 	gboolean select_matches;
 	gboolean bookmark_matches;
-	Tsnr3working *working;
 	guint idle_id;
+	/* following entries are used during the search run */
+	Tdocument *curdoc;
+	gchar *curbuf;
+	guint curoffset; /* the position in curbuf to continue the next search run */
+	guint so;
+	guint eo;
+	Tsnr3workmode workmode; /* not yet used */
+	void (*callback) (void *);	/* to be called when the search has finished */
 	GQueue results;
 	GList *current;
-	gboolean want_submatches;
 } Tsnr3run;
 
 typedef struct {
