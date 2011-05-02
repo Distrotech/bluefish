@@ -43,6 +43,8 @@
 #define HTMLBAR_MENU_UI	   PKGDATADIR"/plugins/htmlbar/ui/htmlbar_menu_ui.xml"
 #define HTMLBAR_TOOLBAR_UI PKGDATADIR"/plugins/htmlbar/ui/htmlbar_toolbar_ui.xml"
 
+#include "pixmaps/htmlbar_icons.c"
+
 /* For testing purposes */
 /*#define HTMLBAR_MENU_UI	"src/plugin_htmlbar/ui/htmlbar_menu_ui.xml"
 #define HTMLBAR_TOOLBAR_UI	"src/plugin_htmlbar/ui/htmlbar_toolbar_ui.xml"*/
@@ -1675,112 +1677,116 @@ void
 htmlbar_register_stock_icons(void)
 {
 	static struct {
-		gchar *filename;
+		const guint8 *data;
 		gchar *stock_id;
 	} htmlbar_stock_icons[] = {
-			{"abbr.png", BF_STOCK_ADDR},
-			{"acronym.png", BF_STOCK_ACRONYM},
-			{"anchor.png", BF_STOCK_ANCHOR},
-			{"body.png", BF_STOCK_BODY},
-			{"bold.png", BF_STOCK_BOLD},
-			{"brbreak.png", BF_STOCK_BRBREAK},
-			{"breakall.png", BF_STOCK_BREAKALL},
-			{"center.png", BF_STOCK_CENTER},
-			{"cite.png", BF_STOCK_CITE},
-			{"code.png", BF_STOCK_CODE},
-			{"comment.png", BF_STOCK_COMMENT},
-			{"context.png", BF_STOCK_CONTEXT},
-			{"css_small.png", BF_STOCK_CSS_SMALL},
-			{"cssdiv.png", BF_STOCK_CSSDIV},
-			{"cssnewstyle.png", BF_STOCK_CSSNEWSTYLE},
-			{"cssspan.png", BF_STOCK_CSSSPAN},
-			{"cssstyle.png", BF_STOCK_CSSSTYLE},
-			{"del.png", BF_STOCK_DEL},
-			{"dfn.png", BF_STOCK_DFN},
-			{"edit_tag.png", BF_STOCK_EDIT_TAG},
-			{"email.png", BF_STOCK_EMAIL},
-			{"font_base.png", BF_STOCK_FONT_BASE},
-			{"font.png", BF_STOCK_FONT},
-			{"fonth1.png", BF_STOCK_FONTH1},
-			{"fonth2.png", BF_STOCK_FONTH2},
-			{"fonth3.png", BF_STOCK_FONTH3},
-			{"fonth4.png", BF_STOCK_FONTH4},
-			{"fonth5.png", BF_STOCK_FONTH5},
-			{"fonth6.png", BF_STOCK_FONTH6},
-			{"fontm1.png", BF_STOCK_FONTM1},
-			{"fontp1.png", BF_STOCK_FONTP1},
-			{"fontpre.png", BF_STOCK_FONTPRE},
-			{"fontsub.png", BF_STOCK_FONTSUB},
-			{"fontsuper.png", BF_STOCK_FONTSUPER},
-			{"form_check.png", BF_STOCK_FORM_CHECK},
-			{"form_hidden.png", BF_STOCK_FORM_HIDDEN},
-			{"form_option.png", BF_STOCK_FORM_OPTION},
-			{"form_optiongroup.png", BF_STOCK_FORM_OPTIONGROUP},
-			{"form_radio.png", BF_STOCK_FORM_RADIO},
-			{"form_select.png", BF_STOCK_FORM_SELECT},
-			{"form_submit.png", BF_STOCK_FORM_SUBMIT},
-			{"form_text.png", BF_STOCK_FORM_TEXT},
-			{"form_textarea.png", BF_STOCK_FORM_TEXTAREA},
-			{"form.png", BF_STOCK_FORM},
-			{"frame_base.png", BF_STOCK_FRAME_BASE},
-			{"frame_no.png", BF_STOCK_FRAME_NO},
-			{"frame.png", BF_STOCK_FRAME},
-			{"frame2.png", BF_STOCK_FRAME2},
-			{"frameset.png", BF_STOCK_FRAMESET},
-			{"frameset2.png", BF_STOCK_FRAMESET2},
-			{"framewhiz.png", BF_STOCK_FRAME_WIZARD},
-			{"headings.png", BF_STOCK_HEADINGS},
-			{"hrule.png", BF_STOCK_HRULE},
-			{"image.png", BF_STOCK_IMAGE},
-			{"ins.png", BF_STOCK_INS},
-			{"italic.png", BF_STOCK_ITALIC},
-			{"kbd.png", BF_STOCK_KBD},
-			{"linkstylesheet.png", BF_STOCK_LINK_STYLESHEET},
-			{"list_dd.png", BF_STOCK_LIST_DD},
-			{"list_dl.png", BF_STOCK_LIST_DL},
-			{"list_dt.png", BF_STOCK_LIST_DT},
-			{"list_li.png", BF_STOCK_LIST_LI},
-			{"list_ol.png", BF_STOCK_LIST_OL},
-			{"list_ul.png", BF_STOCK_LIST_UL},
-			{"list.png", BF_STOCK_LIST},
-			{"multithumbs.png", BF_STOCK_MULTITHUMBS},
-			{"nbsp.png", BF_STOCK_NBSP},
-			{"paragraph.png", BF_STOCK_PARAGRAPH},
-			{"php3.png", BF_STOCK_PHP3},
-			{"quick_start.png", BF_STOCK_QUICKSTART},
-			{"right.png", BF_STOCK_RIGHT},
-			{"samp.png", BF_STOCK_SAMP},
-			{"strikeout.png", BF_STOCK_STRIKEOUT},
-			{"table_capt.png", BF_STOCK_TABLE_CAPTION},
-			{"table_td.png", BF_STOCK_TABLE_TD},
-			{"table_td2.png", BF_STOCK_TABLE_TD2},
-			{"table_th.png", BF_STOCK_TABLE_TH},
-			{"table_th2.png", BF_STOCK_TABLE_TH2},
-			{"table_tr.png", BF_STOCK_TABLE_TR},
-			{"table_tr2.png", BF_STOCK_TABLE_TR2},
-			{"table.png", BF_STOCK_TABLE},
-			{"table2.png", BF_STOCK_TABLE2},
-			{"tablewhiz.png", BF_STOCK_TABLE_WIZARD},
-			{"thumbnail.png", BF_STOCK_THUMBNAIL},
-			{"underline.png", BF_STOCK_UNDERLINE},
-			{"var.png", BF_STOCK_VAR},
+			{pixmap_abbr, BF_STOCK_ADDR},
+			{pixmap_acronym, BF_STOCK_ACRONYM},
+			{pixmap_anchor, BF_STOCK_ANCHOR},
+			{pixmap_body, BF_STOCK_BODY},
+			{pixmap_bold, BF_STOCK_BOLD},
+			{pixmap_brbreak, BF_STOCK_BRBREAK},
+			{pixmap_breakall, BF_STOCK_BREAKALL},
+			{pixmap_center, BF_STOCK_CENTER},
+			{pixmap_cite, BF_STOCK_CITE},
+			{pixmap_code, BF_STOCK_CODE},
+			{pixmap_comment, BF_STOCK_COMMENT},
+			{pixmap_context, BF_STOCK_CONTEXT},
+			{pixmap_css_small, BF_STOCK_CSS_SMALL},
+			{pixmap_cssdiv, BF_STOCK_CSSDIV},
+			{pixmap_cssnewstyle, BF_STOCK_CSSNEWSTYLE},
+			{pixmap_cssspan, BF_STOCK_CSSSPAN},
+			{pixmap_cssstyle, BF_STOCK_CSSSTYLE},
+			{pixmap_del, BF_STOCK_DEL},
+			{pixmap_dfn, BF_STOCK_DFN},
+			{pixmap_edit_tag, BF_STOCK_EDIT_TAG},
+			{pixmap_email, BF_STOCK_EMAIL},
+			{pixmap_font_base, BF_STOCK_FONT_BASE},
+			{pixmap_font, BF_STOCK_FONT},
+			{pixmap_fonth1, BF_STOCK_FONTH1},
+			{pixmap_fonth2, BF_STOCK_FONTH2},
+			{pixmap_fonth3, BF_STOCK_FONTH3},
+			{pixmap_fonth4, BF_STOCK_FONTH4},
+			{pixmap_fonth5, BF_STOCK_FONTH5},
+			{pixmap_fonth6, BF_STOCK_FONTH6},
+			{pixmap_fontm1, BF_STOCK_FONTM1},
+			{pixmap_fontp1, BF_STOCK_FONTP1},
+			{pixmap_fontpre, BF_STOCK_FONTPRE},
+			{pixmap_fontsub, BF_STOCK_FONTSUB},
+			{pixmap_fontsuper, BF_STOCK_FONTSUPER},
+			{pixmap_form_check, BF_STOCK_FORM_CHECK},
+			{pixmap_form_hidden, BF_STOCK_FORM_HIDDEN},
+			{pixmap_form_option, BF_STOCK_FORM_OPTION},
+			{pixmap_form_optiongroup, BF_STOCK_FORM_OPTIONGROUP},
+			{pixmap_form_radio, BF_STOCK_FORM_RADIO},
+			{pixmap_form_select, BF_STOCK_FORM_SELECT},
+			{pixmap_form_submit, BF_STOCK_FORM_SUBMIT},
+			{pixmap_form_text, BF_STOCK_FORM_TEXT},
+			{pixmap_form_textarea, BF_STOCK_FORM_TEXTAREA},
+			{pixmap_form, BF_STOCK_FORM},
+			{pixmap_frame_base, BF_STOCK_FRAME_BASE},
+			{pixmap_frame_no, BF_STOCK_FRAME_NO},
+			{pixmap_frame, BF_STOCK_FRAME},
+			{pixmap_frame2, BF_STOCK_FRAME2},
+			{pixmap_frameset, BF_STOCK_FRAMESET},
+			{pixmap_frameset, BF_STOCK_FRAMESET2},
+			{pixmap_framewhiz, BF_STOCK_FRAME_WIZARD},
+			{pixmap_headings, BF_STOCK_HEADINGS},
+			{pixmap_hrule, BF_STOCK_HRULE},
+			{pixmap_image, BF_STOCK_IMAGE},
+			{pixmap_ins, BF_STOCK_INS},
+			{pixmap_italic, BF_STOCK_ITALIC},
+			{pixmap_kbd, BF_STOCK_KBD},
+			{pixmap_linkstylesheet, BF_STOCK_LINK_STYLESHEET},
+			{pixmap_list_dd, BF_STOCK_LIST_DD},
+			{pixmap_list_dl, BF_STOCK_LIST_DL},
+			{pixmap_list_dt, BF_STOCK_LIST_DT},
+			{pixmap_list_li, BF_STOCK_LIST_LI},
+			{pixmap_list_ol, BF_STOCK_LIST_OL},
+			{pixmap_list_ul, BF_STOCK_LIST_UL},
+			{pixmap_list, BF_STOCK_LIST},
+			{pixmap_multithumbs, BF_STOCK_MULTITHUMBS},
+			{pixmap_nbsp, BF_STOCK_NBSP},
+			{pixmap_paragraph, BF_STOCK_PARAGRAPH},
+			{pixmap_php3, BF_STOCK_PHP3},
+			{pixmap_quick_start, BF_STOCK_QUICKSTART},
+			{pixmap_right, BF_STOCK_RIGHT},
+			{pixmap_samp, BF_STOCK_SAMP},
+			{pixmap_strikeout, BF_STOCK_STRIKEOUT},
+			{pixmap_table_capt, BF_STOCK_TABLE_CAPTION},
+			{pixmap_table_td, BF_STOCK_TABLE_TD},
+			{pixmap_table_td2, BF_STOCK_TABLE_TD2},
+			{pixmap_table_th, BF_STOCK_TABLE_TH},
+			{pixmap_table_th2, BF_STOCK_TABLE_TH2},
+			{pixmap_table_tr, BF_STOCK_TABLE_TR},
+			{pixmap_table_tr2, BF_STOCK_TABLE_TR2},
+			{pixmap_table, BF_STOCK_TABLE},
+			{pixmap_table2, BF_STOCK_TABLE2},
+			{pixmap_tablewhiz, BF_STOCK_TABLE_WIZARD},
+			{pixmap_thumbnail, BF_STOCK_THUMBNAIL},
+			{pixmap_underline, BF_STOCK_UNDERLINE},
+			{pixmap_var, BF_STOCK_VAR},
 	};
 
 	GtkIconFactory *icon_factory;
 	GtkIconSet *icon_set;
 	GtkIconSource *icon_source;
-	gchar *filename;
+	/*gchar *filename;*/
 	gint i;
 
 	icon_factory = gtk_icon_factory_new();
 
 	for (i = 0; i < G_N_ELEMENTS(htmlbar_stock_icons); i++) {
+		GdkPixbuf *pixbuf;
 		icon_set = gtk_icon_set_new();
 		icon_source = gtk_icon_source_new();
 
-		filename = g_strconcat(HTMLBAR_PIXMAP_DIR, htmlbar_stock_icons[i].filename, NULL);
+		/*filename = g_strconcat(HTMLBAR_PIXMAP_DIR, htmlbar_stock_icons[i].filename, NULL);
 		gtk_icon_source_set_filename(icon_source, filename);
-		g_free(filename);
+		g_free(filename);*/
+		pixbuf = gdk_pixbuf_new_from_inline(-1,htmlbar_stock_icons[i].data,FALSE,NULL);
+		gtk_icon_source_set_pixbuf(icon_source, pixbuf);
+		g_object_unref(pixbuf);
 
 		gtk_icon_set_add_source(icon_set, icon_source);
 		gtk_icon_source_free(icon_source);
