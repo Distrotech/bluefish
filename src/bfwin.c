@@ -26,6 +26,7 @@
 #include <gtkosxapplication.h>
 #endif
 
+#include <string.h>
 #include <gdk/gdkkeysyms.h>
 
 #include "config.h"
@@ -665,7 +666,7 @@ simplesearch_entry_changed_or_activate(GtkEditable * editable, Tbfwin * bfwin)
 		snr3run_free(bfwin->simplesearch_snr3run);
 		bfwin->simplesearch_snr3run=NULL;
 	}
-	if (strlen(tmpstr)>1) {
+	if (tmpstr && tmpstr[0]!='\0' && tmpstr[1] != '\0') {
 		g_print("start simple search run\n");
 		bfwin->simplesearch_snr3run = simple_search_run(bfwin, tmpstr);
 	}
@@ -1208,12 +1209,12 @@ bfwin_show_main(Tbfwin * bfwin)
 	GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
 	gtk_widget_hide(bfwin->menubar);
 	gtk_osxapplication_set_menu_bar(theApp, GTK_MENU_SHELL(bfwin->menubar));
-
-	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
+	g_print("hide gtk menubar, set gtkosxapplication menubar\n");
+	/*ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 
 	menuitem = gtk_item_factory_get_widget(ifactory, _("/Edit/Preferences"));
 	group = gtk_osxapplication_add_app_menu_group(theApp);
-	gtk_osxapplication_add_app_menu_item(theApp, group, GTK_MENU_ITEM(menuitem));
+	gtk_osxapplication_add_app_menu_item(theApp, group, GTK_MENU_ITEM(menuitem));*/
 
 
 	gtk_accel_map_foreach_unfiltered(NULL, osx_accel_map_foreach_controltometa_lcb);

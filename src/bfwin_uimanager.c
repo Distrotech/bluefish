@@ -931,7 +931,6 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 {
 	GtkActionGroup *action_group;
 	GtkUIManager *manager;
-	GtkWidget *menubar;
 	guint merge_id = 0;
 
 	GError *error = NULL;
@@ -990,7 +989,7 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	gtk_ui_manager_insert_action_group(manager, action_group, 0);
 	g_object_unref(action_group);
 	bfwin->projectGroup = action_group;
-
+	g_print("loading UI from %s\n",MAIN_MENU_UI);
 	gtk_ui_manager_add_ui_from_file(manager, MAIN_MENU_UI, &error);
 	if (error != NULL) {
 		g_warning("building main menu failed: %s", error->message);
@@ -1021,9 +1020,9 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 						  "SpellCheck", GTK_UI_MANAGER_MENUITEM, TRUE);
 #endif
 
-	menubar = gtk_ui_manager_get_widget(manager, "/MainMenu");
-	gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, FALSE, 0);
-	gtk_widget_show(menubar);
+	bfwin->menubar = gtk_ui_manager_get_widget(manager, "/MainMenu");
+	gtk_box_pack_start(GTK_BOX(vbox), bfwin->menubar, FALSE, FALSE, 0);
+	gtk_widget_show(bfwin->menubar);
 
 	bfwin_templates_menu_create(bfwin);
 	bfwin_encodings_menu_create(bfwin);
