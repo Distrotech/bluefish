@@ -922,6 +922,7 @@ lang_mode_menu_create(Tbfwin * bfwin)
 		gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->lang_mode_merge_id,
 							  "/MainMenu/DocumentMenu/DocumentLangMode/LangModePlaceholder", bflang->name,
 							  bflang->name, GTK_UI_MANAGER_MENUITEM, FALSE);
+		g_object_unref(action);
 		value++;
 	}
 }
@@ -1005,7 +1006,7 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	gtk_ui_manager_add_ui(manager, merge_id,
 						  "/MainMenu/FileMenu/OpenURLPlaceholder", "FileOpenURL",
 						  "FileOpenURL", GTK_UI_MANAGER_MENUITEM, TRUE);
-
+	g_object_unref(action);
 #endif							/* MAC_INTEGRATION */
 #endif							/* WIN32 */
 
@@ -1018,6 +1019,7 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	gtk_ui_manager_add_ui(manager, merge_id,
 						  "/MainMenu/DocumentMenu/SpellCheckPlaceholder", "SpellCheck",
 						  "SpellCheck", GTK_UI_MANAGER_MENUITEM, TRUE);
+	g_object_unref(toggleaction);
 #endif
 
 	bfwin->menubar = gtk_ui_manager_get_widget(manager, "/MainMenu");
@@ -1257,7 +1259,7 @@ bfwin_commands_menu_create(Tbfwin * bfwin)
 				gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->commands_merge_id,
 									  "/MainMenu/ToolsMenu/ToolsCommands/CommandsPlaceholder", arr[0], arr[0],
 									  GTK_UI_MANAGER_MENUITEM, FALSE);
-
+			g_object_unref(action);
 		} else {
 			DEBUG_MSG("bfwin_commands_menu_create, CORRUPT ENTRY IN command action; array count =%d\n",
 					  g_strv_length(arr));
@@ -1337,6 +1339,7 @@ bfwin_encodings_menu_create(Tbfwin * bfwin)
 								  "/MainMenu/DocumentMenu/DocumentEncoding/EncodingPlaceholder", label,
 								  label, GTK_UI_MANAGER_MENUITEM, TRUE);
 			g_free(label);
+			g_object_unref(action);
 			value++;
 		}
 	}
@@ -1438,6 +1441,7 @@ bfwin_filters_menu_create(Tbfwin * bfwin)
 			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->filters_merge_id,
 								  "/MainMenu/ToolsMenu/ToolsFilters/FiltersPlaceholder", arr[0],
 								  arr[0], GTK_UI_MANAGER_MENUITEM, FALSE);
+			g_object_unref(action);
 		} else {
 			DEBUG_MSG("bfwin_filters_menu_create, CORRUPT ENTRY IN filter actions; array count =%d\n",
 					  g_strv_length(arr));
@@ -1514,6 +1518,7 @@ bfwin_outputbox_menu_create(Tbfwin * bfwin)
 			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->outputbox_merge_id,
 								  "/MainMenu/ToolsMenu/ToolsOutputBox/OutputBoxPlaceholder", arr[0],
 								  arr[0], GTK_UI_MANAGER_MENUITEM, FALSE);
+			g_object_unref(action);
 		} else {
 			DEBUG_MSG("bfwin_outputbox_menu_create, CORRUPT ENTRY IN outputbox action; array count =%d\n",
 					  g_strv_length(arr));
@@ -1676,7 +1681,7 @@ bfwin_templates_menu_create(Tbfwin * bfwin)
 			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->templates_merge_id,
 								  "/MainMenu/FileMenu/NewFromTemplate/TemplatePlaceholder", action_name,
 								  action_name, GTK_UI_MANAGER_MENUITEM, TRUE);
-
+			g_object_unref(action);
 			g_free(action_name);
 		}
 	}

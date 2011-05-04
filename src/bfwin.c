@@ -532,15 +532,35 @@ bfwin_cleanup(Tbfwin * bfwin)
 		g_source_remove(bfwin->notebook_changed_doc_activate_id);
 	}
 	
+	g_print("unref static actiongroups\n");
 	g_object_unref(G_OBJECT(bfwin->uimanager));
-	g_object_unref(G_OBJECT(bfwin->globalGroup));
+	/*g_object_unref(G_OBJECT(bfwin->globalGroup));
 	g_object_unref(G_OBJECT(bfwin->documentGroup));
 	g_object_unref(G_OBJECT(bfwin->editGroup));
 	g_object_unref(G_OBJECT(bfwin->findReplaceGroup));
 	g_object_unref(G_OBJECT(bfwin->projectGroup));
 	g_object_unref(G_OBJECT(bfwin->undoGroup));
 	g_object_unref(G_OBJECT(bfwin->bookmarkGroup));
-	g_object_unref(G_OBJECT(bfwin->filebrowserGroup));	
+	g_object_unref(G_OBJECT(bfwin->filebrowserGroup)); invalid unref according to valgrind */
+	
+	g_print("unref dynamic templates actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->templates_group));
+	g_print("unref dynamic lang_mode actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->lang_mode_group));
+	g_print("unref dynamic commands actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->commands_group));
+	g_print("unref dynamicfilters  actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->filters_group));
+	g_print("unref dynamic outputbox actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->outputbox_group));
+	g_print("unref dynamicencodings  actiongroups\n");
+	g_object_unref(G_OBJECT(bfwin->encodings_group));
+	if (bfwin->fb2_filters_group) {
+		g_print("unref dynamic fb2_filters actiongroups\n");
+		g_object_unref(G_OBJECT(bfwin->fb2_filters_group));
+	}
+	g_print("finished unref actiongroups\n");
+
 }
 
 void
