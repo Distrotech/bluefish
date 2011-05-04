@@ -427,6 +427,7 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 		   ICON_NAME_COLUMN, icon_name, FILENAME_COLUMN, display_name, URI_COLUMN,
 		   child_uri, REFRESH_COLUMN, 0, TYPE_COLUMN, mime_type, FILEINFO_COLUMN,
 		   finfo, -1); */
+		g_print("fb2_add_filesystem_entry, store child_uri %p, finfo %p\n",child_uri, finfo);
 		gtk_tree_store_insert_with_values(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
 										  newiter, parent, 0,
 										  ICON_NAME_COLUMN, icon_name, FILENAME_COLUMN, display_name,
@@ -752,10 +753,12 @@ get_toplevel_name(GFile * uri)
 	GMount *mount;
 	gchar *name;
 	mount = g_file_find_enclosing_mount(uri, NULL, &error);
+	g_print("retrieved mount %p\n",mount);
 	if (!error && mount) {
 		name = g_mount_get_name(mount);
 		g_object_unref(mount);
 	} else {
+		g_print("error, no unref mount %p\n",mount);
 		name = g_file_get_basename(uri);
 		if (error)
 			g_error_free(error);
