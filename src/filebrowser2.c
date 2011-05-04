@@ -2224,7 +2224,7 @@ dirmenu_idle_cleanup_lcb(gpointer callback_data)
 		gtk_tree_model_get(GTK_TREE_MODEL(oldmodel), &iter, DIR_URI_COLUMN, &uri, -1);
 		if (uri)
 			g_object_unref(uri);
-		/* hmm if this last remove results in an empty listtore there is a crash?? */
+		/* hmm if this last remove results in an empty liststore there is a crash?? */
 		cont = gtk_list_store_remove(GTK_LIST_STORE(oldmodel), &iter);
 	}
 	DEBUG_MSG("dirmenu_idle_cleanup_lcb, unref the old model\n");
@@ -2873,7 +2873,7 @@ fb2_init(Tbfwin * bfwin)
 
 	fb2->vbox = gtk_vbox_new(FALSE, 0);
 
-	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_STRING));
+	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING));
 	fb2->dirmenu_v = gtk_combo_box_new_with_model(fb2->dirmenu_m);
 	/*gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(fb2->dirmenu_v),3); */
 	renderer = gtk_cell_renderer_pixbuf_new();
@@ -2927,6 +2927,9 @@ fb2_cleanup(Tbfwin * bfwin)
 {
 	if (bfwin->fb2) {
 		Tfilebrowser2 *fb2 = FILEBROWSER2(bfwin->fb2);
+		
+		dirmenu_idle_cleanup_lcb(fb2->dirmenu_m);
+		
 		if (fb2->basedir)
 			g_object_unref(fb2->basedir);
 		g_free(fb2);

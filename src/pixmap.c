@@ -124,7 +124,9 @@ GtkWidget *new_pixmap(gint type) {
 }
 
 void set_default_icon(void) {
-	GList *tmplist = g_list_append(NULL, gdk_pixbuf_new_from_inline(-1,pixmap_bluefish_icon1,FALSE,NULL));
+	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_inline(-1,pixmap_bluefish_icon1,FALSE,NULL);
+	GList *tmplist = g_list_append(NULL, pixbuf);
 	gtk_window_set_default_icon_list(tmplist);
 	g_list_free(tmplist);
+	g_object_unref(pixbuf);
 }
