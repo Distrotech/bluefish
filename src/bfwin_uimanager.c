@@ -897,7 +897,7 @@ static void
 lang_mode_menu_create(Tbfwin * bfwin)
 {
 	GSList *group = NULL;
-	GList *list;
+	GList *list, *freelist;
 	gint value = 0;
 
 	if (!bfwin->lang_mode_group) {
@@ -906,8 +906,8 @@ lang_mode_menu_create(Tbfwin * bfwin)
 	}
 
 	bfwin->lang_mode_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
-
-	for (list = g_list_first(langmgr_get_languages()); list; list = list->next) {
+	freelist = langmgr_get_languages();
+	for (list = g_list_first(freelist); list; list = list->next) {
 		Tbflang *bflang = (Tbflang *) list->data;
 		GtkRadioAction *action;
 
@@ -925,6 +925,7 @@ lang_mode_menu_create(Tbfwin * bfwin)
 		g_object_unref(action);
 		value++;
 	}
+	g_list_free(freelist);
 }
 
 void
