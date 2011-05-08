@@ -1,15 +1,14 @@
 # Hungarian language file for Bluefish.
-# Copyright (C) 2000-2003 Péter Sáska
-# <sasek@acolyte.hu>.
-# Copyright (C) 2011 Balázs Úr
-# <urbalazs@gmail.com>.
+# Copyright (C) 2000-2011 Free Software Foundation, Inc.
+# Péter Sáska <sasek@acolyte.hu>, 2000-2003.
+# Balázs Úr <urbalazs@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-20 18:13+0100\n"
-"PO-Revision-Date: 2000-12-01 21:48+0100\n"
+"POT-Creation-Date: 2011-04-04 16:53+0200\n"
+"PO-Revision-Date: 2011-05-08 14:19+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: magyar <hu@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -66,31 +65,26 @@ msgid "Work around missing &apos; entity on IE"
 msgstr "Megoldás a hiányzó &apos; entitásra IE alatt"
 
 #: src/plugin_entities/entities.c:416
-#, fuzzy
 msgid "Characters to Entities"
 msgstr "Karakterből entitást"
 
 #: src/plugin_entities/entities.c:417
-#, fuzzy
 msgid "Change characters to entities"
-msgstr "Karakterből entitást"
+msgstr "Karakterek cseréje entitásra"
 
 #: src/plugin_entities/entities.c:418
-#, fuzzy
 msgid "Entities to Characters"
 msgstr "Entitásból karaktert"
 
 #: src/plugin_entities/entities.c:419
-#, fuzzy
 msgid "Change entities to characters"
-msgstr "Entitásból karaktert"
+msgstr "Entitások cseréje karakterre"
 
 #: src/plugin_entities/entities.c:420
 msgid "URL Decode"
 msgstr "URL dekódolása"
 
 #: src/plugin_entities/entities.c:420
-#, fuzzy
 msgid "URL decode"
 msgstr "URL dekódolása"
 
@@ -99,7 +93,6 @@ msgid "URL Encode"
 msgstr "URL kódolása"
 
 #: src/plugin_entities/entities.c:421
-#, fuzzy
 msgid "URL encode"
 msgstr "URL kódolása"
 
@@ -108,7 +101,6 @@ msgid "To Lowercase"
 msgstr "Átalakítás kisbetűsre"
 
 #: src/plugin_entities/entities.c:422
-#, fuzzy
 msgid "To lowercase"
 msgstr "Átalakítás kisbetűsre"
 
@@ -117,7 +109,5 @@ msgid "To Uppercase"
 msgstr "Átalakítás nagybetűsre"
 
 #: src/plugin_entities/entities.c:423
-#, fuzzy
 msgid "To uppercase"
 msgstr "Átalakítás nagybetűsre"
-
