@@ -1,59 +1,53 @@
 # Korean language file for Bluefish.
-# Copyright (C) 2000 Free Software Foundation, Inc.
+# Copyright (C) 2000-2011 Free Software Foundation, Inc.
 # Jin-Hwan Jeong <yongdoria@gmail.com>, 2009.
+# Taehun Kang 강태헌 <u4800330@anu.edu.au>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.4"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-04-04 16:53+0200\n"
-"PO-Revision-Date: 2009-05-26 08:48+0900\n"
-"Last-Translator: Jin-Hwan Jeong 정진환 <yongdoria@gmail.com>\n"
+"PO-Revision-Date: 2011-05-07 18:35 +1000\n"
+"Last-Translator: Taehun Kang 강태헌 <u4800330@anu.edu.au>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ko_KR"
-"Plural-Forms: nplurals=2; plural=0;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: ko_KR\n"
 
 #: src/plugin_infbrowser/infb_gui.c:140
-#, fuzzy
 msgid "Loading..."
-msgstr "Henter %d fil(er)..."
+msgstr "로딩..."
 
 #: src/plugin_infbrowser/infb_gui.c:146 src/plugin_infbrowser/infb_gui.c:206
 msgid "Cannot load file from network"
-msgstr ""
+msgstr "네트워크에서 파일을 읽어오지 못함"
 
 #: src/plugin_infbrowser/infb_gui.c:160
-#, fuzzy
 msgid "Cannot find file"
-msgstr "Opdatér reference filer"
+msgstr "파일을 찾을 수 없음"
 
 #: src/plugin_infbrowser/infb_gui.c:370
-#, fuzzy
 msgid "Fragment saved"
-msgstr "Frameset"
+msgstr "Fragment 저장됨"
 
 #: src/plugin_infbrowser/infb_gui.c:374
-#, fuzzy
 msgid "Cannot open file"
 msgstr "파일을 열 수 없음"
 
 #: src/plugin_infbrowser/infb_gui.c:456 src/plugin_infbrowser/infb_gui.c:494
-#, fuzzy
 msgid "Nothing found"
-msgstr "Ingen filer der opfylder kriterierne fundet"
+msgstr "발견된 것 없음"
 
 #: src/plugin_infbrowser/infb_gui.c:535
-#, fuzzy
 msgid "Documentation index"
-msgstr "/문서/유동 창(_F)"
+msgstr "Documentation 인덱스"
 
 #: src/plugin_infbrowser/infb_gui.c:540
-#, fuzzy
 msgid "Document index"
-msgstr "문서(_D)"
+msgstr "문서 인덱스"
 
 #: src/plugin_infbrowser/infb_gui.c:545
 #, fuzzy
@@ -61,85 +55,76 @@ msgid "Upper level"
 msgstr "대문자"
 
 #: src/plugin_infbrowser/infb_gui.c:551
-#, fuzzy
 msgid "Save current view"
-msgstr "현재 프로젝트 저장하겠습니까?"
+msgstr "현재 보기를 저장"
 
 #: src/plugin_infbrowser/infb_gui.c:552
 msgid "Go to selected fragment"
-msgstr ""
+msgstr "지정한 Fragment로 이동"
 
 #: src/plugin_infbrowser/infb_gui.c:574
 msgid "Find"
 msgstr "찾기"
 
 #: src/plugin_infbrowser/infb_gui.c:580
-#, fuzzy
 msgid "Info Browser"
-msgstr "탐색기"
+msgstr "Info 탐색기"
 
 #: src/plugin_infbrowser/infb_load.c:41
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot load reference file %s\n"
-msgstr "Opdatér reference filer"
+msgstr "레퍼런스 파일을 읽어오지 못했습니다 %s \n"
 
 #: src/plugin_infbrowser/infb_load.c:164
 #, fuzzy
 msgid "Documentation entries"
-msgstr "/문서/자동 들여쓰기(_A)"
+msgstr "Documentation entries"
 
 #: src/plugin_infbrowser/infb_load.c:168
-#, fuzzy
 msgid "References"
-msgstr "기본설정..."
+msgstr "참조"
 
 #: src/plugin_infbrowser/infb_load.c:170
-#, fuzzy
 msgid "DTD"
-msgstr "Brug _DTD:"
+msgstr "DTD"
 
 #: src/plugin_infbrowser/infb_load.c:172
-#, fuzzy
 msgid "Web pages"
-msgstr "Web파일"
+msgstr "웹페이지"
 
 #: src/plugin_infbrowser/infb_text.c:808
-#, fuzzy
 msgid "Unknown document type"
-msgstr "%d 문서 열기"
+msgstr "알려 지지 않은 문서 종류"
 
 #: src/plugin_infbrowser/infb_wizard.c:116
 #: src/plugin_infbrowser/infb_wizard.c:164
 msgid "Local DTD file"
-msgstr ""
+msgstr "로컬 DTD 파일"
 
 #: src/plugin_infbrowser/infb_wizard.c:124
 msgid "Remote DTD file"
-msgstr ""
+msgstr "원격 DTD 파일"
 
 #: src/plugin_infbrowser/infb_wizard.c:161
-#, fuzzy
 msgid "Choose file"
-msgstr "파일당 선택(_F)"
+msgstr "파일 선택"
 
 #: src/plugin_infbrowser/infb_wizard.c:213
-#, fuzzy
 msgid "Entry name"
-msgstr "Bibliotek navn"
+msgstr "엔트리 이름"
 
 #: src/plugin_infbrowser/infb_wizard.c:222
 msgid "Description"
-msgstr "요약"
+msgstr "설명"
 
 #: src/plugin_infbrowser/infb_wizard.c:258
 msgid "DTD file URI"
-msgstr ""
+msgstr "DTD 파일 URI"
 
 #: src/plugin_infbrowser/infb_wizard.c:348
-#, fuzzy
 msgid "New info item"
-msgstr "Nyt projekt"
+msgstr "새 Info 아이템"
 
 #: src/plugin_infbrowser/infb_wizard.c:418
 msgid "Entries you can delete"
-msgstr ""
+msgstr "지울 수 있는 엔트리"
