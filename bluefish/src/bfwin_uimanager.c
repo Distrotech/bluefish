@@ -40,7 +40,7 @@
 #include "outputbox.h"
 #include "preferences.h"
 #include "project.h"
-#include "snr2.h"
+#include "snr3.h"
 #include "undo_redo.h"
 
 
@@ -332,7 +332,8 @@ ui_find_from_selection(GtkAction * action, gpointer user_data)
 static void
 ui_replace(GtkAction * action, gpointer user_data)
 {
-	snr_dialog_new(BFWIN(user_data), BF_REPLACE_DIALOG);
+	snr3_advanced_dialog(BFWIN(user_data));
+/*	snr_dialog_new(BFWIN(user_data), BF_REPLACE_DIALOG);*/
 }
 
 static void

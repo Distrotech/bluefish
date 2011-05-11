@@ -298,7 +298,7 @@ static gboolean snr3_run_pcre_loop(Tsnr3run *s3run) {
 	
 	DEBUG_MSG("snr3_run_pcre_loop, started, regex=%p\n",s3run->regex);
 	/* reconstruct where we are searching */
-	g_regex_match_full(s3run->regex, s3run->curbuf, -1, s3run->curoffset, G_REGEX_MATCH_NEWLINE_ANY, &match_info, NULL);
+	g_regex_match_full(s3run->regex, s3run->curbuf, -1, s3run->curposition, G_REGEX_MATCH_NEWLINE_ANY, &match_info, NULL);
 	
 	timer = g_timer_new();
 	while (cont && (loop % loops_per_timer != 0
@@ -308,13 +308,14 @@ static gboolean snr3_run_pcre_loop(Tsnr3run *s3run) {
 		g_match_info_fetch_pos(match_info, 0, &so, &eo);
 		so = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, so);
 		eo = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, eo);
-		s3result = sn3run_add_result(s3run, so, eo, s3run->curdoc);
+		s3result = sn3run_add_result(s3run, so+s3run->curoffset, eo+s3run->curoffset, s3run->curdoc);
 		if (s3run->replaceall) {
 			g_print("snr3_run_pcre_loop, replace %d:%d\n", so, eo);
 			Toffsetupdate offsetupdate = s3result_replace(s3run, s3result, 0, match_info);
+			s3run->curoffset += offsetupdate.offset;
 		}
 		
-		s3run->curoffset = eo;
+		s3run->curposition = eo;
 		
 		g_match_info_next (match_info, &gerror);
 		if (gerror) {
@@ -344,7 +345,7 @@ static gboolean snr3_run_pcre_loop(Tsnr3run *s3run) {
 		if (tmplist) {
 			s3run->curdoc = DOCUMENT(tmplist->data);
 			s3run->curbuf = doc_get_chars(s3run->curdoc, 0, -1);
-			s3run->curoffset = 0;
+			s3run->curposition = 0;
 			return TRUE;
 		}
 	}
@@ -381,7 +382,7 @@ static gboolean snr3_run_string_loop(Tsnr3run *s3run) {
 	querylen = g_utf8_strlen(s3run->query, -1);
 	
 	/* now reconstruct the last scan offset */
-	result = s3run->curbuf + utf8_charoffset_to_byteoffset_cached(s3run->curbuf, s3run->curoffset);
+	result = s3run->curbuf + utf8_charoffset_to_byteoffset_cached(s3run->curbuf, s3run->curposition);
 
 	do {
 		result = f(result, s3run->query);
@@ -389,12 +390,13 @@ static gboolean snr3_run_string_loop(Tsnr3run *s3run) {
 			Tsnr3result *s3result;
 			glong char_o = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, (result-s3run->curbuf));
 			g_print("add result %d:%d, replaceall=%d\n", (gint)char_o+s3run->so, (gint)char_o+querylen+s3run->so, s3run->replaceall);
-			s3result = sn3run_add_result(s3run, char_o+s3run->so, char_o+querylen+s3run->so, s3run->curdoc);
+			s3result = sn3run_add_result(s3run, char_o+s3run->so+s3run->curoffset, char_o+querylen+s3run->so+s3run->curoffset, s3run->curdoc);
 			if (s3run->replaceall) {
 				g_print("snr3_run_string_loop, replace %d:%d\n", (gint)char_o+s3run->so, (gint)char_o+querylen+s3run->so);
 				Toffsetupdate offsetupdate = s3result_replace(s3run, s3result, 0, NULL);
+				s3run->curoffset += offsetupdate.offset;
 			}
-			s3run->curoffset = char_o+querylen+s3run->so;
+			s3run->curposition = char_o+querylen+s3run->so;
 			
 #ifdef SNR3_PROFILING
 			s3profiling.numresults++;
@@ -423,7 +425,7 @@ static gboolean snr3_run_string_loop(Tsnr3run *s3run) {
 			s3run->curdoc = DOCUMENT(tmplist->data);
 			utf8_offset_cache_reset();
 			s3run->curbuf = doc_get_chars(s3run->curdoc, 0, -1);
-			s3run->curoffset = 0;
+			s3run->curposition = 0;
 			return TRUE;
 		}
 	}
@@ -552,6 +554,11 @@ void snr3run_bookmark_all(Tsnr3run *s3run) {
 	}
 }
 
+static void replace_all_ready(void *data) {
+	Tsnr3run *s3run=data;
+	s3run->replaceall=FALSE;
+}
+
 static void activate_simple_search(void *data) {
 	Tsnr3run *s3run=data;
 	g_print("activate_simple_search\n");
@@ -639,6 +646,7 @@ snr3run_resultcleanup(Tsnr3run *s3run)
 		g_slice_free(Tsnr3result, tmplist->data);
 	}
 	g_queue_clear(&s3run->results);
+	s3run->curposition=0;
 	s3run->curoffset=0;
 }
 
@@ -796,9 +804,11 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 		case SNR_RESPONSE_REPLACE_ALL:
 			s3run->replaceall=TRUE;
 			snr3run_resultcleanup(s3run);
-			snr3_run(s3run, NULL);
+			snr3_run(s3run, replace_all_ready);
 		break;
 		case GTK_RESPONSE_CLOSE:
+			snr3_cleanup(snrwin->s3run);
+			snrwin->s3run = NULL;
 			gtk_widget_destroy(GTK_WIDGET(dialog));
 		break;
 		

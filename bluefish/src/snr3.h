@@ -87,7 +87,8 @@ typedef struct {
 	/* following entries are used during the search run */
 	Tdocument *curdoc;
 	gchar *curbuf;
-	guint curoffset; /* the position in curbuf to continue the next search run */
+	gint curoffset; /* when running replace all, the difference between the offset in curbuf and the offset in the text widget */
+	guint curposition; /* the position in curbuf to continue the next search run */
 	guint so;
 	guint eo;
 	Tsnr3workmode workmode; /* not yet used */
