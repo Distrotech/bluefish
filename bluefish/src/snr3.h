@@ -71,6 +71,7 @@ typedef struct {
 	gchar *query;
 	GRegex *regex;
 	gchar *replace; /* enabled if not NULL */
+	gboolean replaceall; /* set to TRUE bluefish will immediately (while searching) do the replace */
 	Tsnr3type type;
 	Tsnr3replace replacetype;
 	Tsnr3scope scope;
@@ -95,6 +96,13 @@ typedef struct {
 	GList *current;
 } Tsnr3run;
 
+enum {
+	SNR_RESPONSE_FIND = 0,
+	SNR_RESPONSE_REPLACE,
+	SNR_RESPONSE_REPLACE_ALL,
+	SNR_RESPONSE_BOOKMARK_ALL
+};
+
 typedef struct {
 	GtkWidget *dialog;
 	GtkWidget *expander;
@@ -118,6 +126,7 @@ typedef struct {
 	GtkWidget *findAllButton;
 	GtkWidget *replaceButton;
 	GtkWidget *replaceAllButton;
+	GtkWidget *bookmarkButton;
 	Tbfwin *bfwin;
 	Tsnr3run *s3run;
 } TSNRWin;
