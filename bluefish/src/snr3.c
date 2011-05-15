@@ -30,6 +30,20 @@ technical design:
 - that means that we have to adjust offsets if the buffer changes
 - so we need to keep track of any documents that have search results 
 
+- TODO: if the text changes after a search, but before a replace, we have to update the offsets
+- TODO: if a document is closed that has search results, those results have to be removed from the set
+
+- TODO: store the information for 'find again' somewhere
+
+- TODO: store the complete set of options in the search history, not only the text strings
+
+- TODO: clear the highlights when the user switches documents
+
+- TODO: use a separate highlighting color for different dialogs ???? and then clean the corresponding 
+texttag from the tag table??
+
+- TODO: make buttons and widgets invisible or insensitive if they cannot be used anyway
+
 */
 
 #define DEBUG
@@ -743,7 +757,7 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 			}
 		}
 		
-		
+		remove_all_highlights_in_doc(snrwin->bfwin->current_document);
 		snr3run_resultcleanup(s3run);
 	}
 	gtk_widget_hide(snrwin->searchfeedback);
@@ -782,7 +796,6 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 
 	switch(response) {
 		case SNR_RESPONSE_FIND:
-			g_print("current=%p\n",snrwin->s3run->current);
 			if ((guichange & 1) != 0) {
 				g_print("guichange=%d, call snr3_run\n",guichange);
 				snr3_run(snrwin->s3run, activate_simple_search);
@@ -790,6 +803,15 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 				g_print("guichange=%d, call snr3_run_go\n",guichange);
 				snr3_run_go(s3run, TRUE);
 			}
+		break;
+		case SNR_RESPONSE_BACK:
+			if ((guichange & 1) != 0) {
+				g_print("guichange=%d, call snr3_run\n",guichange);
+				snr3_run(snrwin->s3run, activate_simple_search);
+			} else if (snrwin->s3run->results.length) {
+				g_print("guichange=%d, call snr3_run_go\n",guichange);
+				snr3_run_go(s3run, FALSE);
+			}		
 		break;
 		case SNR_RESPONSE_REPLACE:
 			s3run_replace_current(snrwin->s3run);
@@ -833,11 +855,11 @@ snr_combobox_changed(GtkComboBox * combobox, TSNRWin * snrwin)
 	}
 }
 
-void 
-snr3_advanced_dialog(Tbfwin * bfwin)
+static void 
+snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s3scope)
 {
 	TSNRWin *snrwin;
-	GtkWidget *table, *vbox, *button, *widget;
+	GtkWidget *table, *vbox, *button, *widget, *entry;
 	gint currentrow=0;
 	GtkListStore *history, *lstore;
 	GList *list;
@@ -887,6 +909,10 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 		list = g_list_previous(list);
 	}
 	snrwin->search = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
+	if (findtext) {
+		entry = gtk_bin_get_child(GTK_BIN(snrwin->search));
+		gtk_entry_set_text(GTK_ENTRY(entry), findtext);
+	}
 	/* this kills the primary selection, which is annoying if you want to 
 	   search/replace within the selection  */
 	/*if (bfwin->session->searchlist)
@@ -972,6 +998,8 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 	g_signal_connect(snrwin->scope, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	/*g_signal_connect(snrwin->scope, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("Where to look for the pattern."));*/
+	g_print("this should set set scope %d but that doesn't seem to work???\n",s3scope);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->scope), s3scope);
 	
 	currentrow++;
 	
@@ -1034,7 +1062,8 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 			gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), _("Replace _All"), SNR_RESPONSE_REPLACE_ALL);
 	snrwin->replaceButton =
 			gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), _("_Replace"), SNR_RESPONSE_REPLACE);
-	snrwin->findButton = gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_FIND, SNR_RESPONSE_FIND);
+	snrwin->backButton = gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_GO_BACK, SNR_RESPONSE_BACK);
+	snrwin->findButton = gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_GO_FORWARD, SNR_RESPONSE_FIND);
 	
 	snrwin->bookmarkButton = gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), _("_Bookmark all"), SNR_RESPONSE_BOOKMARK_ALL);
 	/*gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND, FALSE); */
@@ -1052,7 +1081,7 @@ snr3_advanced_dialog(Tbfwin * bfwin)
         if (buffer)    g_free(buffer);
     }*/
 
-	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->scope), 0);
+	/*gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->scope), 0);*/
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->searchType), 0);
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->replaceType), 0);
 	gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND);
@@ -1069,3 +1098,23 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 
 }
 
+void
+snr3_advanced_dialog(Tbfwin * bfwin)
+{
+	GtkTextIter so, eo;
+	Tdocument *doc = bfwin->current_document;
+	if (!doc)
+		return;
+	if (gtk_text_buffer_get_selection_bounds(GTK_TEXT_BUFFER(doc->buffer),&so,&eo) ) {
+		/* check if it is a multiline selection */
+		if (gtk_text_iter_get_line(&so)==gtk_text_iter_get_line(&eo)) {
+			gchar *tmp = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(doc->buffer), &so, &eo, TRUE);
+			snr3_advanced_dialog_backend(bfwin, tmp, snr3scope_doc);
+			g_free(tmp);
+		} else {
+			snr3_advanced_dialog_backend(bfwin, NULL, snr3scope_selection);
+		}
+	} else {
+		snr3_advanced_dialog_backend(bfwin, NULL, snr3scope_doc);
+	}
+}
