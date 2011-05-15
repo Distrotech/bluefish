@@ -99,6 +99,7 @@ typedef struct {
 
 enum {
 	SNR_RESPONSE_FIND = 0,
+	SNR_RESPONSE_BACK,
 	SNR_RESPONSE_REPLACE,
 	SNR_RESPONSE_REPLACE_ALL,
 	SNR_RESPONSE_BOOKMARK_ALL
@@ -124,6 +125,7 @@ typedef struct {
 	GtkWidget *select_match;
 	GtkWidget *bookmarks;
 	GtkWidget *findButton;
+	GtkWidget *backButton;	
 	GtkWidget *findAllButton;
 	GtkWidget *replaceButton;
 	GtkWidget *replaceAllButton;
@@ -142,6 +144,5 @@ typedef struct {
 void snr3_run_go(Tsnr3run *s3run, gboolean forward);
 void snr3run_free(Tsnr3run *s3run);
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string);
-void snr3_advanced_dialog(Tbfwin *bfwin);
-
+void snr3_advanced_dialog(Tbfwin * bfwin);
 #endif /* #define __SNR3_H_ */

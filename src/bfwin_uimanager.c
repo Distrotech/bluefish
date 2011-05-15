@@ -332,8 +332,9 @@ ui_find_from_selection(GtkAction * action, gpointer user_data)
 static void
 ui_replace(GtkAction * action, gpointer user_data)
 {
+	
 	snr3_advanced_dialog(BFWIN(user_data));
-/*	snr_dialog_new(BFWIN(user_data), BF_REPLACE_DIALOG);*/
+	/*snr_dialog_new(BFWIN(user_data), BF_REPLACE_DIALOG);*/
 }
 
 static void
