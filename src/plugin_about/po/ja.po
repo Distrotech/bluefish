@@ -9,19 +9,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-20 18:13+0100\n"
-"PO-Revision-Date: 2009-11-07 07:03+0700\n"
+"POT-Creation-Date: 2011-05-13 15:37+0900\n"
+"PO-Revision-Date: 2011-05-14 00:46+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
+"X-Poedit-Basepath: /factory/ja-po/bluefish/bluefish\n"
 
 #: src/plugin_about/about.c:76
 msgid "This version of Bluefish was built with:\n"
-msgstr ""
-"このバージョンの Bluefish は次のオプションを使用してコンパイルされています:\n"
+msgstr "このバージョンの Bluefish は次のオプションを使用してコンパイルされています:\n"
 
 #: src/plugin_about/about.c:143
 msgid ""
@@ -58,14 +58,8 @@ msgstr ""
 "このソフトウェアのリリースを手助けしてくれたすべての人に感謝します."
 
 #: src/plugin_about/about.c:202
-msgid ""
-"An open-source editor for experienced web designers and programmers, "
-"supporting many programming and markup languages, but focusing on creating "
-"dynamic and interactive websites."
-msgstr ""
-"経験を積んだウェブデザイナーやプログラマーのためのオープンソースなエディタで"
-"す。多くのプログラミング言語やマークアップ言語をサポートしており、ダイナミッ"
-"ク、インタラクティブなウェブサイトを作成する際に、大きな助けとなるでしょう。"
+msgid "An open-source editor for experienced web designers and programmers, supporting many programming and markup languages, but focusing on creating dynamic and interactive websites."
+msgstr "経験を積んだウェブデザイナーやプログラマーのためのオープンソースなエディタです。多くのプログラミング言語やマークアップ言語をサポートしており、ダイナミック、インタラクティブなウェブサイトを作成する際に、大きな助けとなるでしょう。"
 
 #. Translators: This is a special message that shouldn't be translated
 #. * literally. It is used in the about box to give credits to
@@ -92,34 +86,30 @@ msgid "Bluefish _Homepage"
 msgstr "Bluefish ホームページ(_H)"
 
 #: src/plugin_about/about.c:277
-#, fuzzy
 msgid "Bluefish homepage"
-msgstr "Bluefish ホームページ(_H)"
+msgstr "Bluefish のホームページをブラウザで開く"
 
 #: src/plugin_about/about.c:279
 msgid "Report a _Bug"
 msgstr "バグを報告(_B)"
 
 #: src/plugin_about/about.c:279
-#, fuzzy
 msgid "Report a bug"
-msgstr "バグを報告(_B)"
+msgstr "バグを報告する"
 
 #: src/plugin_about/about.c:280
 msgid "_About"
-msgstr ""
+msgstr "バージョン情報(_A)"
 
 #: src/plugin_about/about.c:280
 msgid "About Bluefish"
-msgstr ""
+msgstr "Bluefish について"
 
 #: src/plugin_about/about.c:282
-#, fuzzy
 msgid "_Build Info"
 msgstr "ビルド情報(_B)..."
 
 #: src/plugin_about/about.c:282
-#, fuzzy
 msgid "Build info"
-msgstr "ビルド情報(_B)..."
+msgstr "ビルド情報を表示する"
 
