@@ -360,6 +360,8 @@ static gboolean snr3_run_pcre_loop(Tsnr3run *s3run) {
 			s3run->curdoc = DOCUMENT(tmplist->data);
 			s3run->curbuf = doc_get_chars(s3run->curdoc, 0, -1);
 			s3run->curposition = 0;
+			s3run->curoffset = 0;
+			utf8_offset_cache_reset();
 			return TRUE;
 		}
 	}
@@ -437,9 +439,10 @@ static gboolean snr3_run_string_loop(Tsnr3run *s3run) {
 		if (tmplist) {
 			g_print("continue with document %p\n",tmplist->data);
 			s3run->curdoc = DOCUMENT(tmplist->data);
-			utf8_offset_cache_reset();
 			s3run->curbuf = doc_get_chars(s3run->curdoc, 0, -1);
 			s3run->curposition = 0;
+			s3run->curoffset = 0;
+			utf8_offset_cache_reset();
 			return TRUE;
 		}
 	}
