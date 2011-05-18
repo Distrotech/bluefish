@@ -1,21 +1,20 @@
 # Korean language file for Bluefish.
-# Copyright (C) 2000-2011 Free Software Foundation, Inc.
+# Copyright (C) 2000 Free Software Foundation, Inc.
 # Jin-Hwan Jeong <yongdoria@gmail.com>, 2009.
-# Taehun Kang 강태헌 <u4800330@anu.edu.au>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.4\n"
+"Project-Id-Version: Bluefish 2.0.4Report-Msgid-Bugs-To: bluefish-dev@lists."
+"ems.ru\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-05-08 11:43+0200\n"
-"PO-Revision-Date: 2011-05-07 18:35 +1000\n"
+"POT-Creation-Date: 2011-05-14 02:27+1000\n"
+"PO-Revision-Date: 2009-05-26 08:48+0900\n"
 "Last-Translator: Taehun Kang 강태헌 <u4800330@anu.edu.au>\n"
 "Language-Team: \n"
+"Language: ko_KRPlural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"Language: ko_KR\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
 msgid "Bluefish Editor"
@@ -57,34 +56,38 @@ msgstr "철자 검사 무시하기"
 msgid "Insert special characters as entities"
 msgstr "특수 문자 추가하기"
 
-#: ../src/bfwin.c:220
+#: ../src/bfwin.c:219
 msgid "Filebrowser"
 msgstr "파일 탐색기"
 
-#: ../src/bfwin.c:222
+#: ../src/bfwin.c:221
 msgid "Bookmarks"
 msgstr "북마크"
 
-#: ../src/bfwin.c:742
+#: ../src/bfwin.c:721
 msgid "Goto Line:"
 msgstr "라인 이동:"
 
-#: ../src/bfwin.c:751
+#: ../src/bfwin.c:730
 msgid "Find:"
 msgstr "찾기 :"
 
-#: ../src/bfwin.c:761
+#: ../src/bfwin.c:740
 msgid "Advanced"
 msgstr "고급"
 
-#: ../src/bfwin.c:1044
+#: ../src/bfwin.c:1023
 msgid "New Bluefish Window"
 msgstr "새 Bluefish 창"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1104
+#: ../src/bfwin.c:1083
 msgid "Stand by..."
 msgstr "대기..."
+
+#: ../src/bfwin.c:1214
+msgid "/Edit/Preferences"
+msgstr "/편집/기본설정"
 
 #: ../src/bfwin_uimanager.c:669
 msgid "Leave Fullscreen"
@@ -162,8 +165,8 @@ msgstr "출력창(_O)"
 msgid "_New"
 msgstr "새로 만들기(_F)"
 
-#: ../src/bfwin_uimanager.c:718 ../src/filebrowser2.c:1597
-#: ../src/filebrowser2.c:1599 ../src/filebrowser2.c:1984
+#: ../src/bfwin_uimanager.c:718 ../src/filebrowser2.c:1594
+#: ../src/filebrowser2.c:1596 ../src/filebrowser2.c:1981
 msgid "New file"
 msgstr "새 파일"
 
@@ -195,7 +198,7 @@ msgstr "파일 열기"
 msgid "Open Ad_vanced..."
 msgstr "고급 열기(_V)..."
 
-#: ../src/bfwin_uimanager.c:723 ../src/filebrowser2.c:1980
+#: ../src/bfwin_uimanager.c:723 ../src/filebrowser2.c:1977
 msgid "Open advanced"
 msgstr "고급 열기"
 
@@ -824,24 +827,24 @@ msgstr "실행 취소 되돌리기"
 msgid "Redo All"
 msgstr "전체 실행 취소 되돌리기"
 
-#: ../src/bfwin_uimanager.c:1002
+#: ../src/bfwin_uimanager.c:1001
 msgid "Open _URL..."
 msgstr "URL 열기(_U)..."
 
-#: ../src/bfwin_uimanager.c:1015
+#: ../src/bfwin_uimanager.c:1014
 msgid "_Spell Check"
 msgstr "철자 검사(_S)"
 
-#: ../src/bfwin_uimanager.c:1392
+#: ../src/bfwin_uimanager.c:1389
 msgid "Text area to filter"
 msgstr "외부 필터"
 
-#: ../src/bfwin_uimanager.c:1393
+#: ../src/bfwin_uimanager.c:1390
 #, fuzzy
 msgid "All text"
 msgstr "모든 텍스트"
 
-#: ../src/bfwin_uimanager.c:1394
+#: ../src/bfwin_uimanager.c:1391
 #, fuzzy
 msgid "Selected text only"
 msgstr "선택된 텍스트만"
@@ -997,7 +1000,7 @@ msgstr "북마크 검색 메뉴"
 msgid "_Edit..."
 msgstr "편집(_E)"
 
-#: ../src/bookmark.c:849 ../src/filebrowser2.c:1983
+#: ../src/bookmark.c:849 ../src/filebrowser2.c:1980
 msgid "_Delete"
 msgstr "삭제(_D)"
 
@@ -1380,11 +1383,11 @@ msgstr "문서 루트"
 msgid "Webroot"
 msgstr "웹 루트"
 
-#: ../src/filebrowser2.c:1501
+#: ../src/filebrowser2.c:1498
 msgid "Could not rename\n"
 msgstr "다른 이름으로 저장할 수 없음\n"
 
-#: ../src/filebrowser2.c:1574 ../src/filebrowser2.c:1985
+#: ../src/filebrowser2.c:1571 ../src/filebrowser2.c:1982
 msgid "New directory"
 msgstr "새 폴더"
 
@@ -1396,7 +1399,7 @@ msgstr "새 폴더"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1691
+#: ../src/filebrowser2.c:1688
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -1405,144 +1408,144 @@ msgstr ""
 "\"%s\" \n"
 "을(를) 정말 삭제하겠습니까?"
 
-#: ../src/filebrowser2.c:1692
+#: ../src/filebrowser2.c:1689
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "%s을(를) 삭제하면, 영구적으로 복구가 불가능합니다."
 
-#: ../src/filebrowser2.c:1978
+#: ../src/filebrowser2.c:1975
 msgid "File Browser menu"
 msgstr "파일 탐색기 메뉴"
 
-#: ../src/filebrowser2.c:1979
+#: ../src/filebrowser2.c:1976
 msgid "_Open"
 msgstr "열기(_O)"
 
-#: ../src/filebrowser2.c:1979
+#: ../src/filebrowser2.c:1976
 msgid "Open"
 msgstr "열기"
 
-#: ../src/filebrowser2.c:1980
+#: ../src/filebrowser2.c:1977
 msgid "Open _Advanced..."
 msgstr "고급 열기(_A)..."
 
-#: ../src/filebrowser2.c:1982
+#: ../src/filebrowser2.c:1979
 msgid "Rena_me"
 msgstr "파일 이름 바꾸기(_M)"
 
-#: ../src/filebrowser2.c:1982
+#: ../src/filebrowser2.c:1979
 msgid "Rename"
 msgstr "파일 이름 바꾸기"
 
-#: ../src/filebrowser2.c:1983
+#: ../src/filebrowser2.c:1980
 msgid "Delete"
 msgstr "삭제"
 
-#: ../src/filebrowser2.c:1984
+#: ../src/filebrowser2.c:1981
 msgid "New _File"
 msgstr "새 파일(_F)"
 
-#: ../src/filebrowser2.c:1985
+#: ../src/filebrowser2.c:1982
 msgid "_New Directory"
 msgstr "새 폴더(_N)"
 
-#: ../src/filebrowser2.c:1987
+#: ../src/filebrowser2.c:1984
 msgid "_Refresh"
 msgstr "새로 고침(_R)"
 
-#: ../src/filebrowser2.c:1987
+#: ../src/filebrowser2.c:1984
 msgid "Refresh"
 msgstr "새로 고침"
 
-#: ../src/filebrowser2.c:1988
+#: ../src/filebrowser2.c:1985
 msgid "_Set as base dir"
 msgstr "기본 경로로 설정(_S)"
 
-#: ../src/filebrowser2.c:1988
+#: ../src/filebrowser2.c:1985
 msgid "Set as base directory"
 msgstr "기본 경로로 설정"
 
-#: ../src/filebrowser2.c:1990
+#: ../src/filebrowser2.c:1987
 msgid "Set as document root"
 msgstr "문서 루트로 설정"
 
-#: ../src/filebrowser2.c:1992
+#: ../src/filebrowser2.c:1989
 msgid "Show Full _Tree"
 msgstr "전체 구조 보이기(_T)"
 
-#: ../src/filebrowser2.c:1992
+#: ../src/filebrowser2.c:1989
 msgid "Show full tree"
 msgstr "전체 구조 보이기"
 
-#: ../src/filebrowser2.c:1994
+#: ../src/filebrowser2.c:1991
 msgid "View Mode"
 msgstr "보기 모드"
 
-#: ../src/filebrowser2.c:1995
+#: ../src/filebrowser2.c:1992
 msgid "Filter"
 msgstr "필터"
 
-#: ../src/filebrowser2.c:1996
+#: ../src/filebrowser2.c:1993
 msgid "New Filter"
 msgstr "새 필터"
 
-#: ../src/filebrowser2.c:1996 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:1993 ../src/filefilter.c:534
 msgid "New filter"
 msgstr "새 필터"
 
-#: ../src/filebrowser2.c:1997
+#: ../src/filebrowser2.c:1994
 msgid "Edit Filter"
 msgstr "필터 편집"
 
-#: ../src/filebrowser2.c:1997 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:1994 ../src/filefilter.c:540
 msgid "Edit filter"
 msgstr "필터 편집"
 
-#: ../src/filebrowser2.c:1998
+#: ../src/filebrowser2.c:1995
 msgid "Delete Filter"
 msgstr "필터 삭제"
 
-#: ../src/filebrowser2.c:1998
+#: ../src/filebrowser2.c:1995
 msgid "Delete filter"
 msgstr "필터 삭제"
 
-#: ../src/filebrowser2.c:2002
+#: ../src/filebrowser2.c:1999
 #, fuzzy
 msgid "Follow Active Document"
 msgstr "활성 문서에 따름"
 
-#: ../src/filebrowser2.c:2002
+#: ../src/filebrowser2.c:1999
 #, fuzzy
 msgid "Follow active document"
 msgstr "활성 문서에 따름"
 
-#: ../src/filebrowser2.c:2004
+#: ../src/filebrowser2.c:2001
 msgid "Show Backup Files"
 msgstr "백업 파일 보이기"
 
-#: ../src/filebrowser2.c:2004 ../src/gtk_easy.c:1277
+#: ../src/filebrowser2.c:2001 ../src/gtk_easy.c:1277
 msgid "Show backup files"
 msgstr "백업 파일 보이기"
 
-#: ../src/filebrowser2.c:2006
+#: ../src/filebrowser2.c:2003
 msgid "Show Hidden Files"
 msgstr "숨김 파일 보이기"
 
-#: ../src/filebrowser2.c:2006
+#: ../src/filebrowser2.c:2003
 msgid "Show hidden files"
 msgstr "숨김 파일 보이기"
 
-#: ../src/filebrowser2.c:2011
+#: ../src/filebrowser2.c:2008
 #, fuzzy
 msgid "Dual"
 msgstr "듀얼"
 
-#: ../src/filebrowser2.c:2012
+#: ../src/filebrowser2.c:2009
 #, fuzzy
 msgid "Flat"
 msgstr "플랫"
 
-#: ../src/filebrowser2.c:2013
+#: ../src/filebrowser2.c:2010
 msgid "Tree"
 msgstr "트리"
 
@@ -3171,9 +3174,6 @@ msgstr "이 변경을 전체 문서에서 실행 취소하겠습니까?"
 #: ../src/undo_redo.c:516 ../src/undo_redo.c:658
 msgid "This change concerns multiple documents."
 msgstr "이 변경은 복수 문서와 관계있습니다."
-
-#~ msgid "/Edit/Preferences"
-#~ msgstr "/편집/기본설정"
 
 #, fuzzy
 #~ msgid "Parent"

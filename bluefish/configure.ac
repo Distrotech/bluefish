@@ -34,8 +34,8 @@ dnl ************************
 dnl   I18N options
 dnl ************************
 
-m4_define([_BF_LINGUAS], [bg cs da de el es eu fi fr gl hu it ja ko_KR nb nl nn pl pt pt_BR ro ru sk sr sv ta tr uk zh_CN zh_TW])
-#ALL_LINGUAS="bg cs da de el es eu fi fr gl hu it ja ko_KR nb nl pl pt pt_BR ro ru sk sr sv ta tr uk zh_CN zh_TW"
+m4_define([_BF_LINGUAS], [bg cs da de el es eu fi fr gl hu it ja ko nb nl nn pl pt pt_BR ro ru sk sr sv ta tr uk zh_CN zh_TW])
+#ALL_LINGUAS="bg cs da de el es eu fi fr gl hu it ja ko nb nl pl pt pt_BR ro ru sk sr sv ta tr uk zh_CN zh_TW"
 AC_SUBST([ALL_LINGUAS], "_BF_LINGUAS")
 GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
