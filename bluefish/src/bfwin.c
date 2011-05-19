@@ -925,13 +925,49 @@ bfwin_notebook_unblock_signals(Tbfwin * bfwin)
 }
 
 static void
-current_document_changed_notify(Tdocument *olddoc, Tdocument *newdoc) {
+bfwin_current_document_changed_notify(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc) {
 	GSList *tmpslist;
-	
-	for (tmpslist=main_v->curdoc_changed;tmpslist;tmpslist=g_slist_next(tmpslist)) {
-		void *(*func) () = tmpslist->data;
-		func(olddoc, newdoc);
+	for (tmpslist=bfwin->curdoc_changed;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+		Tcallback *cb=tmpslist->data;
+		cb->func(bfwin, olddoc, newdoc, cb->data);
 	}
+}
+
+void
+bfwin_current_document_change_register(Tbfwin *bfwin, CurdocChangedCallback func, gpointer data) {
+	Tcallback *cb;
+	cb = g_slice_new0(Tcallback);
+	cb->func = func;
+	cb->data = data;
+	bfwin->curdoc_changed = g_slist_append(bfwin->curdoc_changed, cb);
+}
+
+void
+bfwin_current_document_change_remove_by_data(Tbfwin *bfwin, gpointer data) {
+	Tcallback *cb=NULL;
+	GSList *tmpslist=bfwin->curdoc_changed;
+	while(tmpslist) {
+		cb=tmpslist->data;
+		if (cb->data == data) {
+			bfwin->curdoc_changed = g_slist_delete_link(bfwin->curdoc_changed, tmpslist);
+			break;
+		}
+		tmpslist = g_slist_next(tmpslist);
+	}
+	if (cb) {
+		g_slice_free(Tcallback, cb);
+	}
+}
+
+void
+bfwin_current_document_change_remove_all(Tbfwin *bfwin) {
+	GSList *tmpslist=bfwin->curdoc_changed;
+	while(tmpslist) {
+		g_slice_free(Tcallback, tmpslist->data);
+		tmpslist = g_slist_next(tmpslist);
+	}
+	g_slist_free(bfwin->curdoc_changed);
+	bfwin->curdoc_changed=NULL;
 }
 
 void
@@ -972,6 +1008,7 @@ bfwin_notebook_changed(Tbfwin * bfwin, gint newpage)
 		if (bfwin->project && bfwin->project->close)
 			project_final_close(bfwin, FALSE);
 		bfwin->current_document = doc_new(bfwin, TRUE);
+		bfwin_current_document_changed_notify(bfwin, NULL, bfwin->current_document);
 		bfwin->last_notebook_page = 1;
 		DEBUG_MSG("bfwin_notebook_changed, after doc_new(), returning\n");
 		return;
@@ -989,6 +1026,7 @@ bfwin_notebook_changed(Tbfwin * bfwin, gint newpage)
 	}
 	bfwin->prev_document = bfwin->current_document;
 	bfwin->current_document = g_list_nth_data(bfwin->documentlist, cur);
+	bfwin_current_document_changed_notify(bfwin, bfwin->prev_document, bfwin->current_document);
 	if (bfwin->current_document == NULL) {
 		DEBUG_MSG("bfwin_notebook_changed, WEIRD 2, doclist[%d] == NULL, RETURNING\n", cur);
 		return;
