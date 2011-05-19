@@ -267,7 +267,7 @@ s3run_replace_current(Tsnr3run *s3run)
 {
 	Toffsetupdate offsetupdate;
 	Tsnr3result *s3result=NULL;
-	GList *next, *current;
+	GList *next=NULL, *current=NULL;
 	
 	if (s3run->current) {
 		current = s3run->current;
@@ -478,6 +478,7 @@ void snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 	GList *next=NULL;
 	DEBUG_MSG("snr3_run_go, s3run=%p\n",s3run);
 	if (s3run->current) {
+		DEBUG_MSG("snr3_run_go, s3run->current=%p\n",s3run->current);
 		if (forward) {
 			next = g_list_next(s3run->current);
 		} else {
@@ -555,10 +556,38 @@ void snr3run_free(Tsnr3run *s3run) {
 	g_free(s3run->query);
 	g_free(s3run->replace);
 	remove_all_highlights_in_doc(s3run->bfwin->current_document);
-	
+	bfwin_current_document_change_remove_by_data(s3run->bfwin, s3run);
 	g_queue_foreach(&s3run->results, snr3result_free,s3run);
 	g_slice_free(Tsnr3run, s3run);
 }
+
+static void
+snr3_cleanup(void *data)
+{
+	Tsnr3run *s3run=data;
+	DEBUG_MSG("snr3_cleanup %p\n",s3run);
+	g_free(s3run->query);
+	g_free(s3run->replace);
+	if (s3run->basedir)
+		g_object_unref(s3run->basedir);
+	g_free(s3run->filepattern);
+	
+	g_slice_free(Tsnr3run, s3run);
+}
+
+static void
+snr3run_resultcleanup(Tsnr3run *s3run) 
+{
+	GList *tmplist;
+	for (tmplist=g_list_first(s3run->results.head);tmplist;tmplist=g_list_next(tmplist)) {
+		g_slice_free(Tsnr3result, tmplist->data);
+	}
+	g_queue_clear(&s3run->results);
+	s3run->current=NULL;
+	s3run->curposition=0;
+	s3run->curoffset=0;
+}
+
 
 void snr3run_bookmark_all(Tsnr3run *s3run) {
 	GList *tmpl;
@@ -578,7 +607,7 @@ static void replace_all_ready(void *data) {
 
 static void activate_simple_search(void *data) {
 	Tsnr3run *s3run=data;
-	g_print("activate_simple_search\n");
+	g_print("activate_simple_search, s3run=%p\n", s3run);
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
 	snr3_run_go(s3run, TRUE);
 }
@@ -607,12 +636,20 @@ static void snr3run_multiset(Tsnr3run *s3run,
 	s3run->type = type;
 	s3run->replacetype = replacetype;
 	s3run->scope = scope;
-	/* TODO: potential memory leak below, what is there are resulkts on the queue ? */
+	/* TODO: potential memory leak below, what if there are results on the queue ? */
 	g_queue_init(&s3run->results);
 	
 } 
 
-
+static void simple_search_doc_changed_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data) {
+	Tsnr3run *s3run=data;
+	if (olddoc)
+		remove_all_highlights_in_doc(olddoc);
+	if (newdoc) {
+		snr3run_resultcleanup(s3run);
+		snr3_run(s3run, activate_simple_search);
+	}
+}
 
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	Tsnr3run *s3run;
@@ -621,6 +658,9 @@ gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	snr3run_multiset(s3run, string, NULL, snr3type_string,snr3replace_string,snr3scope_doc);
 	DEBUG_MSG("snr3run at %p, query at %p\n",s3run, s3run->query);
 	snr3_run(s3run, activate_simple_search);
+	
+	bfwin_current_document_change_register(bfwin, simple_search_doc_changed_cb, s3run);
+	
 	return s3run;
 }
 
@@ -641,31 +681,6 @@ static void dialog_changed_run_ready_cb(gpointer data) {
 /***************************** GUI *****************************************/
 /***************************************************************************/
 
-static void
-snr3_cleanup(void *data)
-{
-	Tsnr3run *s3run=data;
-	DEBUG_MSG("snr3_cleanup %p\n",s3run);
-	g_free(s3run->query);
-	g_free(s3run->replace);
-	if (s3run->basedir)
-		g_object_unref(s3run->basedir);
-	g_free(s3run->filepattern);
-	
-	g_slice_free(Tsnr3run, s3run);
-}
-
-static void
-snr3run_resultcleanup(Tsnr3run *s3run) 
-{
-	GList *tmplist;
-	for (tmplist=g_list_first(s3run->results.head);tmplist;tmplist=g_list_next(tmplist)) {
-		g_slice_free(Tsnr3result, tmplist->data);
-	}
-	g_queue_clear(&s3run->results);
-	s3run->curposition=0;
-	s3run->curoffset=0;
-}
 
 static gboolean compile_regex(TSNRWin *snrwin, Tsnr3run *s3run, const gchar *query) {
 	GError *gerror = NULL;

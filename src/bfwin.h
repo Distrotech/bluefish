@@ -24,6 +24,12 @@
 
 #include "bluefish.h"
 
+typedef void (*CurdocChangedCallback) (Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data);
+
+typedef struct {
+	CurdocChangedCallback func;
+	gpointer data;
+} Tcallback;
 
 #define bfwin_exists(bfwin) (g_list_index(main_v->bfwinlist, bfwin)!=-1)
 
@@ -33,6 +39,11 @@ void bfwin_simplesearch_show(Tbfwin *bfwin);
 
 void bfwin_notebook_block_signals(Tbfwin * bfwin);
 void bfwin_notebook_unblock_signals(Tbfwin * bfwin);
+
+void bfwin_current_document_change_register(Tbfwin *bfwin, CurdocChangedCallback func, gpointer data);
+void bfwin_current_document_change_remove_by_data(Tbfwin *bfwin, gpointer data);
+void bfwin_current_document_change_remove_all(Tbfwin *bfwin);
+
 void bfwin_notebook_changed(Tbfwin * bfwin, gint newpage);
 void bfwin_notebook_switch(Tbfwin * bfwin, guint action);
 
