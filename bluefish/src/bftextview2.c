@@ -97,9 +97,11 @@ bf_get_identifier_at_iter(BluefishTextView * btv, GtkTextIter * iter, gint * con
 		*contextnum = 1;
 
 	while (gtk_text_iter_backward_char(&so) && !is_symbol(btv, *contextnum, gtk_text_iter_get_char(&so))) {
+		/*g_print("evaluating char %c\n",gtk_text_iter_get_char(&so));*/
 	};
 	gtk_text_iter_forward_char(&so);
 	while (gtk_text_iter_forward_char(&eo) && !is_symbol(btv, *contextnum, gtk_text_iter_get_char(&eo))) {
+		/*g_print("evaluating char %c\n",gtk_text_iter_get_char(&so));*/
 	};
 	return gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), &so, &eo, TRUE);
 }
