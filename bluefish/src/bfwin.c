@@ -924,6 +924,16 @@ bfwin_notebook_unblock_signals(Tbfwin * bfwin)
 	g_signal_handler_unblock(G_OBJECT(bfwin->notebook), bfwin->notebook_switch_signal);
 }
 
+static void
+current_document_changed_notify(Tdocument *olddoc, Tdocument *newdoc) {
+	GSList *tmpslist;
+	
+	for (tmpslist=main_v->curdoc_changed;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+		void *(*func) () = tmpslist->data;
+		func(olddoc, newdoc);
+	}
+}
+
 void
 bfwin_notebook_changed(Tbfwin * bfwin, gint newpage)
 {
