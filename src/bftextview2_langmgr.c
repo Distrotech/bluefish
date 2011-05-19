@@ -809,7 +809,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 			if (!contexttag) {
 				static const gchar *internal_tag_string_d = "__internal_tag_string_d__";
 				static const gchar *internal_tag_string_s = "__internal_tag_string_s__";
-				contexttag = new_context(bfparser->st, 8, bfparser->bflang->name, "/>\"=' \t\n\r<", NULL, FALSE);
+				contexttag = new_context(bfparser->st, 8, bfparser->bflang->name, ">\"=' \t\n\r<", NULL, FALSE);
 				match_set_nextcontext(bfparser->st, matchnum, contexttag);
 				if (attrib_arr) {
 					gchar **tmp2;
