@@ -525,6 +525,7 @@ typedef struct {
 								   is initialized */
 	GSList *sidepanel_destroygui;	/* plugins can register a function here that is called when the side pane
 									   is destroyed */
+	GSList *curdoc_changed; /* register a function here that is called when the current document changes*/
 } Tmain;
 
 extern EXPORT Tmain *main_v;
