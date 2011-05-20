@@ -505,7 +505,7 @@ snr3_run(Tsnr3run *s3run, void (*callback)(void *))
 	DEBUG_MSG("snr3_run, s3run=%p, scope=%d, query=%s\n",s3run, s3run->scope, s3run->query);
 
 	if (s3run->query == NULL || s3run->query[0]=='\0') {
-		g_print("no, query, no s3run\n");
+		g_print("no query (%p), no s3run\n",s3run->query);
 		return;
 	}
 	s3run->callback = callback;
@@ -550,31 +550,6 @@ snr3_run(Tsnr3run *s3run, void (*callback)(void *))
 	}
 }
 
-void snr3run_free(Tsnr3run *s3run) {
-	DEBUG_MSG("snr3run_free, started for %p\n",s3run);
-	DEBUG_MSG("snr3run_free, query at %p\n",s3run->query);
-	g_free(s3run->query);
-	g_free(s3run->replace);
-	remove_all_highlights_in_doc(s3run->bfwin->current_document);
-	bfwin_current_document_change_remove_by_data(s3run->bfwin, s3run);
-	g_queue_foreach(&s3run->results, snr3result_free,s3run);
-	g_slice_free(Tsnr3run, s3run);
-}
-
-static void
-snr3_cleanup(void *data)
-{
-	Tsnr3run *s3run=data;
-	DEBUG_MSG("snr3_cleanup %p\n",s3run);
-	g_free(s3run->query);
-	g_free(s3run->replace);
-	if (s3run->basedir)
-		g_object_unref(s3run->basedir);
-	g_free(s3run->filepattern);
-	
-	g_slice_free(Tsnr3run, s3run);
-}
-
 static void
 snr3run_resultcleanup(Tsnr3run *s3run) 
 {
@@ -588,6 +563,23 @@ snr3run_resultcleanup(Tsnr3run *s3run)
 	s3run->curoffset=0;
 }
 
+/* called from bfwin.c for simplesearch */
+void snr3run_free(Tsnr3run *s3run) {
+	DEBUG_MSG("snr3run_free, started for %p\n",s3run);
+	DEBUG_MSG("snr3run_free, query at %p\n",s3run->query);
+	g_free(s3run->query);
+	g_print("snr3run_free, replace\n");
+	g_free(s3run->replace);
+	g_print("snr3run_free, basedir\n");
+	if (s3run->basedir)
+		g_object_unref(s3run->basedir);
+	g_print("snr3run_free, remove all highlights\n");
+	remove_all_highlights_in_doc(s3run->bfwin->current_document);
+	bfwin_current_document_change_remove_by_data(s3run->bfwin, s3run);
+	g_print("snr3run_free, resultcleanup\n");
+	snr3run_resultcleanup(s3run);
+	g_slice_free(Tsnr3run, s3run);
+}
 
 void snr3run_bookmark_all(Tsnr3run *s3run) {
 	GList *tmpl;
@@ -610,6 +602,11 @@ static void activate_simple_search(void *data) {
 	g_print("activate_simple_search, s3run=%p\n", s3run);
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
 	snr3_run_go(s3run, TRUE);
+}
+
+static void highlight_simple_search(void *data) {
+	Tsnr3run *s3run=data;
+	highlight_run_in_doc(s3run, s3run->bfwin->current_document);	
 }
 
 static Tsnr3run *
@@ -647,7 +644,7 @@ static void simple_search_doc_changed_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocu
 		remove_all_highlights_in_doc(olddoc);
 	if (newdoc) {
 		snr3run_resultcleanup(s3run);
-		snr3_run(s3run, activate_simple_search);
+		snr3_run(s3run, highlight_simple_search);
 	}
 }
 
@@ -847,7 +844,8 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			snr3_run(s3run, replace_all_ready);
 		break;
 		case GTK_RESPONSE_CLOSE:
-			snr3_cleanup(snrwin->s3run);
+			g_print("reponse close\n");
+			snr3run_free(snrwin->s3run);
 			snrwin->s3run = NULL;
 			gtk_widget_destroy(GTK_WIDGET(dialog));
 		break;
@@ -871,6 +869,15 @@ snr_combobox_changed(GtkComboBox * combobox, TSNRWin * snrwin)
 			gtk_widget_hide(snrwin->fileshbox);
 		}
 	}
+}
+
+static void
+snr3win_destroy_cb(GtkObject *object, gpointer user_data) 
+{
+	TSNRWin *snrwin=user_data;
+	g_print("snr3win_destroy_cb, user_data=%p\n",user_data);
+	snr3run_free(snrwin->s3run);
+	g_slice_free(TSNRWin, snrwin);
 }
 
 static void 
@@ -914,6 +921,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	gtk_dialog_set_has_separator(GTK_DIALOG(snrwin->dialog), FALSE);*/
 	window_delete_on_escape(GTK_WINDOW(snrwin->dialog));
 	g_signal_connect(G_OBJECT(snrwin->dialog), "response", G_CALLBACK(snr3_advanced_response), snrwin);
+	g_signal_connect(G_OBJECT(snrwin->dialog), "destroy", G_CALLBACK(snr3win_destroy_cb), snrwin);
 	/*g_signal_connect_after(G_OBJECT(snrwin->dialog), "focus-in-event", G_CALLBACK(snr_focus_in_lcb), snrwin);*/
 	
 	vbox = gtk_dialog_get_content_area(GTK_DIALOG(snrwin->dialog));
