@@ -677,7 +677,15 @@ static void dialog_changed_run_ready_cb(gpointer data) {
 /***************************************************************************/
 /***************************** GUI *****************************************/
 /***************************************************************************/
-
+static void
+snrwin_doc_changed_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data) {
+	Tsnr3run *s3run=data;
+	if (olddoc)
+		remove_all_highlights_in_doc(olddoc);
+	if (newdoc) {
+		highlight_run_in_doc(s3run, newdoc);
+	}
+}
 
 static gboolean compile_regex(TSNRWin *snrwin, Tsnr3run *s3run, const gchar *query) {
 	GError *gerror = NULL;
@@ -803,6 +811,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 	gint guichange;
 	if (!snrwin->s3run) {
 		snrwin->s3run = snr3run_new(snrwin->bfwin, snrwin);
+		bfwin_current_document_change_register(snrwin->bfwin, snrwin_doc_changed_cb, snrwin->s3run);
 	}
 	guichange = snr3run_init_from_gui(snrwin, snrwin->s3run);
 	g_print("snr3_advanced_response, response=%d, guichange=%d\n",response,guichange);
