@@ -1889,6 +1889,16 @@ bluefish_text_view_set_show_right_margin(BluefishTextView * btv, gboolean show)
 		gtk_widget_queue_draw(GTK_WIDGET(btv->slave));
 }
 
+void
+bluefish_text_view_set_font(BluefishTextView *btv, PangoFontDescription *font_desc)
+{
+	gtk_widget_modify_font(btv, font_desc);
+	if (btv->slave)
+		gtk_widget_modify_font(btv->slave, font_desc);
+	btv->margin_pixels_per_char = 0;
+	bftextview2_set_margin_size(btv);
+}
+
 gboolean
 bluefish_text_view_get_show_mbhl(BluefishTextView * btv)
 {

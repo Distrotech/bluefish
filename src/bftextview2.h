@@ -553,6 +553,7 @@ gboolean bluefish_text_view_get_show_visible_spacing(BluefishTextView * btv);
 void bluefish_text_view_set_show_visible_spacing(BluefishTextView * btv, gboolean show);
 gboolean bluefish_text_view_get_show_right_margin(BluefishTextView * btv);
 void bluefish_text_view_set_show_right_margin(BluefishTextView * btv, gboolean show);
+void bluefish_text_view_set_font(BluefishTextView *btv, PangoFontDescription *font_desc);
 gboolean bluefish_text_view_get_show_mbhl(BluefishTextView * btv);
 void bluefish_text_view_set_show_mbhl(BluefishTextView * btv, gboolean show);
 #ifdef HAVE_LIBENCHANT
