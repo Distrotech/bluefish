@@ -695,16 +695,10 @@ doc_change_tabsize(Tdocument * doc, gint direction)
 void
 doc_font_size(Tdocument * doc, gint direction)
 {
+	PangoFontDescription *font_desc;
 	if (direction == 0) {
-		PangoFontDescription *font_desc;
 		font_desc = pango_font_description_from_string(main_v->props.editor_font_string);
-		gtk_widget_modify_font(doc->view, font_desc);
-		if (doc->slave)
-			gtk_widget_modify_font(doc->slave, font_desc);
-		pango_font_description_free(font_desc);
-		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char = 0;
 	} else {
-		PangoFontDescription *font_desc;
 		PangoContext *pc;
 		gint size;
 
@@ -717,13 +711,10 @@ doc_font_size(Tdocument * doc, gint direction)
 		} else {
 			pango_font_description_set_size(font_desc, size);
 		}
-		gtk_widget_modify_font(doc->view, font_desc);
-		if (doc->slave)
-			gtk_widget_modify_font(doc->slave, font_desc);
-		pango_font_description_free(font_desc);
-		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char = 0;
+		/* TODO: do we have to unref the pangocontext ? */
 	}
-
+	bluefish_text_view_set_font(BLUEFISH_TEXT_VIEW(doc->view), font_desc);
+	pango_font_description_free(font_desc);
 }
 
 /**
@@ -3186,14 +3177,15 @@ void
 all_documents_apply_settings()
 {
 	GList *tmplist = g_list_first(return_allwindows_documentlist());
+	PangoFontDescription *font_desc;
+	font_desc = pango_font_description_from_string(main_v->props.editor_font_string);
 	while (tmplist) {
 		Tdocument *doc = tmplist->data;
-		/*doc_set_tabsize(doc, main_v->props.editor_tab_width); */
-		apply_font_style(doc->view, main_v->props.editor_font_string);
+		bluefish_text_view_set_font(BLUEFISH_TEXT_VIEW(doc->view), font_desc);
 		bluefish_text_view_set_colors(BLUEFISH_TEXT_VIEW(doc->view), main_v->props.btv_color_str);
 		tmplist = g_list_next(tmplist);
 	}
-
+	pango_font_description_free(font_desc);
 }
 
 void
