@@ -711,7 +711,7 @@ doc_font_size(Tdocument * doc, gint direction)
 		} else {
 			pango_font_description_set_size(font_desc, size);
 		}
-		/* TODO: do we have to unref the pangocontext ? */
+		/* do we have to unref the pangocontext, bluefish crashes if we do so, so I guess not ? */
 	}
 	bluefish_text_view_set_font(BLUEFISH_TEXT_VIEW(doc->view), font_desc);
 	pango_font_description_free(font_desc);
