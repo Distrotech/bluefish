@@ -75,6 +75,7 @@ typedef struct {
 	Tsnr3type type;
 	Tsnr3replace replacetype;
 	Tsnr3scope scope;
+	GList *doclist;
 	GFile *basedir; /* when replace in files */
 	gchar *filepattern;
 	gboolean recursive;
@@ -140,6 +141,9 @@ typedef struct {
 } Tsnr3config;
 
 #define MAX_CONTINUOUS_SEARCH_INTERVAL 0.1
+
+void
+snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *)); /* called from snr3_files.c */
 
 void snr3_run_go(Tsnr3run *s3run, gboolean forward);
 void snr3run_free(Tsnr3run *s3run);

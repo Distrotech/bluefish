@@ -50,7 +50,6 @@ typedef struct {
 	Tasyncqueue queue;
 	guint refcount;
 	Tsnr3run *s3run;
-	gpointer querydata;
 	void (*callback) (void *);
 } Tfilesworker;
 
@@ -100,7 +99,7 @@ static GList *snr3_replace_pcre(Tfilesworker *fw, gchar *buffer, gchar **replace
 
 	bufferpos = buffer;
 	newbufpos = newbuf;
-	g_regex_match(fw->querydata, buffer, 0, &match_info);
+	g_regex_match(fw->s3run->regex, buffer, 0, &match_info);
 	while(g_match_info_matches(match_info)) {
 		gint so, eo;
 		guint line, replacelen;
@@ -221,9 +220,6 @@ static void filesworker_unref(Tfilesworker *fw) {
 		fw->callback(s3run);
 		
 		queue_cleanup(&fw->queue);
-		if (s3run->type == snr3type_pcre) {
-			g_regex_unref((GRegex *)fw->querydata);
-		}
 		DEBUG_MSG("filesworker_unref, free %p\n",fw);
 		g_slice_free(Tfilesworker, fw);
 	}
@@ -318,18 +314,31 @@ static void finished_finding_files_cb(Tfilesworker *fw) {
 	filesworker_unref(fw);
 }
 
+static void doc_s3run_finished(gpointer data) {
+	g_print("doc_s3run_finished, nothing implemented here\n");
+}
+
 static void filematch_cb(Tfilesworker *fw, GFile *uri, GFileInfo *finfo) {
 	Treplaceinthread *rit;
-	
+	Tdocument *doc;
+
+	/* TODO: first check if we have this file open, in that case we have to run the 
+	function that replaces in the document */
+	doc = documentlist_return_document_from_uri(fw->s3run->bfwin->documentlist, uri);
+	if (doc) {
+		/* TODO: BUG: the scope in s3run is snr3scope_files, so this call will not work on 'doc' */
+		if (fw->s3run->type == snr3type_string) 
+			snr3_run_string_in_doc(fw->s3run, doc, 0, -1);
+		else if (fw->s3run->type == snr3type_pcre)
+			snr3_run_pcre_in_doc(fw->s3run, doc, 0, -1);
+		return;
+	}
 	rit = g_slice_new0(Treplaceinthread);
 	rit->uri = uri;
 	g_object_ref(rit->uri);
 	rit->fw = fw;
 	rit->fw->refcount++;
 	DEBUG_MSG("filematch_cb, push rit %p to queue, fw refcount is %d\n", rit, rit->fw->refcount);
-	/* first check if we have this file open, in that case we have to run the 
-	function that replaces in the document */
-	/*file_openfile_uri_async(uri, s3run->bfwin, pcre_filematch_openfile_cb, s3run);*/
 	queue_push(&fw->queue, rit);
 }
 
@@ -341,16 +350,6 @@ void snr3_run_in_files(Tsnr3run *s3run, void (*callback)(void *)) {
 	fw->s3run=s3run;
 	fw->refcount=1;
 	fw->callback = callback;
-	if (s3run->type == snr3type_pcre) {
-		GError *gerror=NULL;
-		fw->querydata = g_regex_new(s3run->query,G_REGEX_MULTILINE, 0, &gerror);
-		if (gerror) {
-			g_print("regex compile error %s\n",gerror->message);
-			g_error_free(gerror);
-			/* TODO: bail out? */
-		}
-		
-	}
 	
 	findfiles(s3run->basedir, s3run->recursive, 1, TRUE,s3run->filepattern, G_CALLBACK(filematch_cb), G_CALLBACK(finished_finding_files_cb), fw);
 	/*outputbox(s3run->bfwin,NULL, 0, 0, 0, NULL);*/
