@@ -14,4 +14,10 @@
 		<match value="&lt;bflang" type="string" offset="0:256" />
 		<root-XML namespaceURI="http://bluefish.openoffice.nl/bflang2" localName="bflang" />
 	</mime-type>
+	<mime-type type="application/x-bluefish-language2-include">
+		<sub-class-of type="application/xml" />
+		<_comment>Bluefish language definition include file</_comment>
+		<glob pattern="*.bfinc" />
+		<root-XML namespaceURI="http://bluefish.openoffice.nl/bflang2" localName="bfinc" />
+	</mime-type>
 </mime-info>
