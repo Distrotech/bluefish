@@ -324,9 +324,10 @@ ui_find_again(GtkAction * action, gpointer user_data)
 }
 
 static void
-ui_find_from_selection(GtkAction * action, gpointer user_data)
+ui_find_from_clipboard(GtkAction * action, gpointer user_data)
 {
-	search_from_selection(BFWIN(user_data));
+	bfwin_simplesearch_from_clipboard(BFWIN(user_data));
+	/*search_from_selection(BFWIN(user_data));*/
 }
 
 static void
@@ -861,8 +862,8 @@ static const GtkActionEntry edit_actions[] = {
 static const GtkActionEntry find_replace_actions[] = {
 	{"Find", GTK_STOCK_FIND, N_("_Find..."), "<control>F", N_("Find"), G_CALLBACK(ui_find)},
 	{"FindAgain", NULL, N_("Find A_gain"), "<control>G", N_("Find again"), G_CALLBACK(ui_find_again)},
-	{"FindSelection", NULL, N_("Find From Selection"), "<shift><control>F", N_("Find from selection"),
-	 G_CALLBACK(ui_find_from_selection)},
+	{"FindSelection", NULL, N_("Find from Clipboard"), "<shift><control>F", N_("Find from clipboard"),
+	 G_CALLBACK(ui_find_from_clipboard)},
 	{"Replace", GTK_STOCK_FIND_AND_REPLACE, N_("R_eplace..."), "<control>H", N_("Replace"),
 	 G_CALLBACK(ui_replace)},
 	{"ReplaceAgain", NULL, N_("Replace Agai_n"), "<shift><control>H", N_("Replace again"),

@@ -36,6 +36,7 @@ typedef struct {
 void bfwin_fullscreen_toggle(Tbfwin * bfwin, gboolean active);
 void bfwin_gotoline_frame_show(Tbfwin * bfwin);
 void bfwin_simplesearch_show(Tbfwin *bfwin);
+void bfwin_simplesearch_from_clipboard(Tbfwin *bfwin);
 
 void bfwin_notebook_block_signals(Tbfwin * bfwin);
 void bfwin_notebook_unblock_signals(Tbfwin * bfwin);
