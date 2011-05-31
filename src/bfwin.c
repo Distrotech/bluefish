@@ -730,7 +730,12 @@ simplesearch_back_clicked(GtkButton * button, Tbfwin * bfwin)
 static void
 simplesearch_advanced_clicked(GtkButton * button, Tbfwin * bfwin)
 {
-	snr3_advanced_dialog(bfwin);
+	gchar *tmpstr = gtk_editable_get_chars(GTK_EDITABLE(bfwin->simplesearch_entry) , 0, -1);
+	if (!tmpstr)
+		return; 
+	
+	snr3_advanced_dialog(bfwin, tmpstr);
+	g_free(tmpstr);
 }
 
 static gboolean

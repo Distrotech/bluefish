@@ -368,6 +368,7 @@ static gboolean snr3_run_pcre_loop(Tsnr3run *s3run) {
 	
 	DEBUG_MSG("no more work, run the callback\n");
 	s3run->callback(s3run);
+	s3run->idle_id = 0;
 	return FALSE;
 }
 
@@ -454,7 +455,7 @@ static gboolean snr3_run_string_loop(Tsnr3run *s3run) {
 	g_print("search %ld bytes with %d results run took %f s, %f bytes/s\n",(glong)strlen(buf),s3profiling.numresults,g_timer_elapsed(s3profiling.timer, NULL),strlen(buf)/g_timer_elapsed(s3profiling.timer, NULL));
 	g_timer_destroy(s3profiling.timer);
 #endif
-
+	s3run->idle_id=0;
 	return FALSE;
 	
 }
@@ -552,6 +553,16 @@ snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *))
 }
 
 static void
+snr3_cancel_run(Tsnr3run *s3run) {
+	g_print("snr3_cancel_run, started for %p\n",s3run);
+	if (s3run->idle_id) {
+		g_print("remove idle_id %d\n", s3run->idle_id);
+		g_source_remove(s3run->idle_id);
+		s3run->idle_id=0;
+	}
+}
+
+static void
 snr3run_resultcleanup(Tsnr3run *s3run) 
 {
 	GList *tmplist;
@@ -567,6 +578,7 @@ snr3run_resultcleanup(Tsnr3run *s3run)
 /* called from bfwin.c for simplesearch */
 void snr3run_free(Tsnr3run *s3run) {
 	DEBUG_MSG("snr3run_free, started for %p\n",s3run);
+	snr3_cancel_run(s3run);
 	DEBUG_MSG("snr3run_free, query at %p\n",s3run->query);
 	g_free(s3run->query);
 	g_print("snr3run_free, replace\n");
@@ -1134,7 +1146,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 }
 
 void
-snr3_advanced_dialog(Tbfwin * bfwin)
+snr3_advanced_dialog(Tbfwin * bfwin, const gchar *findtext)
 {
 	GtkTextIter so, eo;
 	Tdocument *doc = bfwin->current_document;
@@ -1144,13 +1156,13 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 		/* check if it is a multiline selection */
 		if (gtk_text_iter_get_line(&so)==gtk_text_iter_get_line(&eo)) {
 			gchar *tmp = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(doc->buffer), &so, &eo, TRUE);
-			snr3_advanced_dialog_backend(bfwin, tmp, snr3scope_doc);
+			snr3_advanced_dialog_backend(bfwin, findtext?findtext:tmp, snr3scope_doc);
 			g_free(tmp);
 		} else {
-			snr3_advanced_dialog_backend(bfwin, NULL, snr3scope_selection);
+			snr3_advanced_dialog_backend(bfwin, findtext, snr3scope_selection);
 		}
 	} else {
-		snr3_advanced_dialog_backend(bfwin, NULL, snr3scope_doc);
+		snr3_advanced_dialog_backend(bfwin, findtext, snr3scope_doc);
 	}
 }
 
