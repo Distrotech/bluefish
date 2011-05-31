@@ -855,8 +855,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 		break;
 		case GTK_RESPONSE_CLOSE:
 			g_print("reponse close\n");
-			snr3run_free(snrwin->s3run);
-			snrwin->s3run = NULL;
+			/* freeing is done in the destroy callback */
 			gtk_widget_destroy(GTK_WIDGET(dialog));
 		break;
 		
@@ -1154,3 +1153,4 @@ snr3_advanced_dialog(Tbfwin * bfwin)
 		snr3_advanced_dialog_backend(bfwin, NULL, snr3scope_doc);
 	}
 }
+

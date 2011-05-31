@@ -592,6 +592,25 @@ bfwin_simplesearch_show(Tbfwin *bfwin)
 	gtk_widget_grab_focus(bfwin->simplesearch_entry);
 }
 
+void
+bfwin_simplesearch_from_clipboard(Tbfwin *bfwin)
+{
+	gchar *string;
+	GtkClipboard *cb;
+	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
+		gtk_widget_show(bfwin->gotoline_frame);
+
+	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+	string = gtk_clipboard_wait_for_text(cb);
+	if (string) {
+		gtk_entry_set_text(GTK_ENTRY(bfwin->simplesearch_entry),string);
+		gtk_editable_select_region(GTK_EDITABLE(bfwin->simplesearch_entry),0,-1);
+		/* TODO: mark the current selection as the 'current' search result */
+		g_free(string);
+	}
+	gtk_widget_grab_focus(bfwin->simplesearch_entry);
+}
+
 static void
 gotoline_entry_changed(GtkEditable * editable, Tbfwin * bfwin)
 {
@@ -711,7 +730,6 @@ simplesearch_back_clicked(GtkButton * button, Tbfwin * bfwin)
 static void
 simplesearch_advanced_clicked(GtkButton * button, Tbfwin * bfwin)
 {
-	g_print("TODO: implement advanced in snr3\n");
 	snr3_advanced_dialog(bfwin);
 }
 
