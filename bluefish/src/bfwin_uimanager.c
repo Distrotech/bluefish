@@ -334,7 +334,7 @@ static void
 ui_replace(GtkAction * action, gpointer user_data)
 {
 	
-	snr3_advanced_dialog(BFWIN(user_data));
+	snr3_advanced_dialog(BFWIN(user_data), NULL);
 	/*snr_dialog_new(BFWIN(user_data), BF_REPLACE_DIALOG);*/
 }
 
