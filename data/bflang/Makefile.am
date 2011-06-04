@@ -16,7 +16,6 @@ bflang_bfinc_files = \
 	css-rules.bfinc \
 	css-selectors.bfinc \
 	JQuery.bfinc \
-	svg.bfinc \
 	wordpress.bfinc
 
 bflang_bflang2_files = \
