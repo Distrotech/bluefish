@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 		Bluefish HTML Editor
-		all-html5.bfinc $Revision: 6483 $
+		all-html5.bfinc $Revision$
  
 		Copyright (C) 2008-2011 Olivier Sessink
 
@@ -19,6 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
+<bfinc>
 <element id="e.html.lcomment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
 	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
 		<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.lcomment" highlight="html-comment" mayfold="1" ends_context="1" />
@@ -580,7 +581,7 @@
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
 
-<tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="&globals;,media,type,scoped" attribhighlight="html-attribute" autocomplete_append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" autocomplete_backup_cursor="9" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
+<tag name="style" highlight="html-tag" case_insens="1" sgml_shorttag="1" attributes="media,type,scoped,&globals;" attribhighlight="html-attribute" autocomplete_append=" type=&quot;text/css&quot;&gt;&#10;&#10;&lt;/style&gt;" autocomplete_backup_cursor="9" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1">
 	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:" commentid_block="cm.cblockcomment" commentid_line="none">
 		<element idref="e.html.lcomment"/>
 		<element id="e.html.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
@@ -589,6 +590,28 @@
 			</context>
 		</element>
 		&css-selectors;
+			<group highlight="css-html-media">
+				<element pattern="@media">
+				<context symbols=" &#9;&#10;&#13;{}.;,">
+					<group highlight="css-html-media" autocomplete="1">
+						<element pattern="all" />
+						<element pattern="aural" />
+						<element pattern="braille" />
+						<element pattern="embossed" />
+						<element pattern="handheld" />
+						<element pattern="print" />
+						<element pattern="projection" />
+						<element pattern="screen" />
+						<element pattern="tty" />
+						<element pattern="tv" />
+						<element id="e.css.media.group.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
+							<context idref="c.html.css.main" />
+						</element>
+					</group>
+				</context>
+				</element>
+				<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.group.lbrace" ends_context="2" />
+			</group>
 		<element id="e.css.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';/*">
 				<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
@@ -626,11 +649,11 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing
 <b>Interface:</b> HTMLElement</reference></tag>
-<tag id="t.svg" name="svg" highlight="html-tag" attribhighlight="html-attribute"  attributes="baseProfile,class,contentScriptType,contentStyleType,externalResourcesRequired,height,&svguniv;,&svgevent;,onabort,onerror,onresize,onscroll,onunload,onzoom,preserveAspectRatio,requiredExtensions,requiredFeatures,style,systemLanguage,version,viewBox,width,x,y,zoomAndPan,baseline-shift,clip,color-interpolation,color-profile,cursor,display,enable-background,filter,font-family,opacity,overflow,xmlns">
+<!-- <tag id="t.svg" name="svg" highlight="html-tag" attribhighlight="html-attribute"  attributes="baseProfile,class,contentScriptType,contentStyleType,externalResourcesRequired,height,&svguniv;,&svgevent;,onabort,onerror,onresize,onscroll,onunload,onzoom,preserveAspectRatio,requiredExtensions,requiredFeatures,style,systemLanguage,version,viewBox,width,x,y,zoomAndPan,baseline-shift,clip,color-interpolation,color-profile,cursor,display,enable-background,filter,font-family,opacity,overflow,xmlns">
 <context id="c.svg" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;-" commentid_block="cm.htmlcomment" commentid_line="none">
 &svg;
 </context>
-</tag>
+</tag> -->
 <tag name="table" highlight="html-tag" attribhighlight="html-attribute" attributes="summary,&globals;">
 <reference>Table
 <b>Categories:</b> flow
@@ -722,5 +745,5 @@
 <b>Children:</b> empty
 <b>Interface:</b>HTMLElement</reference></tag>
 
-
 <element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="html-entity" />
+</bfinc>

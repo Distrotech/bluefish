@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		xhtml.bflang2 $$Revision$
+		xhtml.bflang2 $Revision$
  
 		Copyright (C) 2008-2011 Olivier Sessink
 
@@ -129,7 +129,7 @@
 </context>
 </tag>
 <tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="1" >
-	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[]">
+	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[],">
 		<element idref="e.html.comment"/>
 		<element id="e.xhtml.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
@@ -137,6 +137,28 @@
 			</context>
 		</element>
 		&css-selectors;
+		<group highlight="css-html-media">
+			<element pattern="@media">
+			<context symbols=" &#9;&#10;&#13;{}.;,">
+				<group highlight="css-html-media" autocomplete="1">
+					<element pattern="all" />
+					<element pattern="aural" />
+					<element pattern="braille" />
+					<element pattern="embossed" />
+					<element pattern="handheld" />
+					<element pattern="print" />
+					<element pattern="projection" />
+					<element pattern="screen" />
+					<element pattern="tty" />
+					<element pattern="tv" />
+					<element id="e.css.media.group.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
+						<context idref="c.html.css.main" />
+					</element>
+				</group>
+			</context>
+			</element>
+			<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.group.lbrace" ends_context="2" />
+		</group>
 		<element id="e.css.lbrace" pattern="{" starts_block="1" highlight="brackets">
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
 				<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
