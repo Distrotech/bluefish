@@ -560,6 +560,10 @@ snr3_cancel_run(Tsnr3run *s3run) {
 		g_source_remove(s3run->idle_id);
 		s3run->idle_id=0;
 	}
+	if (s3run->filesworker_id) {
+		snr3_run_in_files_cancel(s3run);
+		s3run->filesworker_id = NULL;
+	}
 }
 
 static void

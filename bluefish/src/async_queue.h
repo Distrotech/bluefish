@@ -25,9 +25,10 @@
 typedef void (*QueueFunc) (gpointer data); 
 
 typedef struct {
+	GSList *threads;	/* currently active threads */
+	QueueFunc queuefunc;	
 	GQueue q;				/* data structures that are *not* being worked on */
 	GStaticMutex mutex;
-	QueueFunc queuefunc;
 	gboolean lockmutex; /* whether or not to lock the mutex (if used from threads) */
 	gboolean startinthread;
 	guint worknum;				/* number of elements that are being worked on */

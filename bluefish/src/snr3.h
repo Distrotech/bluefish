@@ -55,17 +55,6 @@ typedef enum {
 } Tsnr3workmode;
 
 typedef struct {
-	gpointer querydata; /* for example the compiled pcre pattern */
-	Tdocument *curdoc;
-	gchar *curbuf;
-	guint so;
-	guint eo;
-	guint curoffset;	
-	Tsnr3workmode workmode;
-	void (*callback) (void *);
-} Tsnr3working;
-
-typedef struct {
 	Tbfwin *bfwin;
 	gpointer dialog;
 	gchar *query;
@@ -85,6 +74,7 @@ typedef struct {
 	gboolean select_matches;
 	gboolean bookmark_matches;
 	guint idle_id;
+	gpointer filesworker_id; /* a pointer to the Tfilesworker structure used in find_files */
 	/* following entries are used during the search run */
 	Tdocument *curdoc;
 	gchar *curbuf;
