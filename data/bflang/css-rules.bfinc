@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  Bluefish HTML Editor
-  css-rules.bfinc $Revision: 6461 $
- 
-  Copyright (C) 2008-20011 Olivier Sessink
+	Bluefish HTML Editor
+	css-rules.bfinc $Revision$
 
-     This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+	Copyright (C) 2008-20011 Olivier Sessink
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+		This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
-
+<bfinc>
 <element pattern="background-attachment" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>Sets whether a background image is fixed or scrolls with the rest of the page
 <b>Values:</b> scroll | fixed | inherit
 <b>Initial value:</b> scroll
 <b>Media group:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="scroll" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="fixed" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element id="e.css.end" pattern=";" ends_context="1"/>
-  <element id="e.css.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="scroll" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="fixed" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element id="e.css.end" pattern=";" ends_context="1"/>
+<element id="e.css.rbrace" pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="2"/>
+</context>
 </element>
 <element pattern="background-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>Sets the background color of an element
 <b>Values:</b> &lt;color&gt; | transparent | inherit
 <b>Initial value:</b> transparent
 <b>Media group:</b> visual</reference>
- <context id="c.css.color" symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-  <element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
-  <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-   <element pattern="aqua"/>
-   <element pattern="black"/>
-   <element pattern="blue"/>
-   <element pattern="fuchsia"/>
-   <element pattern="gray"/>
-   <element pattern="green"/>
-   <element pattern="lime"/>
-   <element pattern="maroon"/>
-   <element pattern="navy"/>
-   <element pattern="olive"/>
-   <element pattern="orange"/>
-   <element pattern="purple"/>
-   <element pattern="red"/>
-   <element pattern="silver"/>
-   <element pattern="teal"/>
-   <element pattern="white"/>
-   <element pattern="yellow"/>
-   <element pattern="transparent"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context id="c.css.color" symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+	<element pattern="aqua"/>
+	<element pattern="black"/>
+	<element pattern="blue"/>
+	<element pattern="fuchsia"/>
+	<element pattern="gray"/>
+	<element pattern="green"/>
+	<element pattern="lime"/>
+	<element pattern="maroon"/>
+	<element pattern="navy"/>
+	<element pattern="olive"/>
+	<element pattern="orange"/>
+	<element pattern="purple"/>
+	<element pattern="red"/>
+	<element pattern="silver"/>
+	<element pattern="teal"/>
+	<element pattern="white"/>
+	<element pattern="yellow"/>
+	<element pattern="transparent"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="background-image" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>Sets an image as the background
 <b>Values:</b> &lt;uri&gt; | none | inherit
 <b>Initial value:</b> none
 <b>Media groups:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:()">
- <element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
-    <context id="c.css.uri" symbols="()" highlight="css-value">
-     <element pattern="("/>
-     <element pattern=")" ends_context="1" highlight="css-value"/>
-    </context>
- </element>
- <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-  <element pattern="none"/>
-  <element pattern="inherit"/>
- </group>
- <element idref="e.css.end"/><element idref="e.css.lcomment"/>
- <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:()">
+<element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
+	<context id="c.css.uri" symbols="()" highlight="css-value">
+	<element pattern="("/>
+	<element pattern=")" ends_context="1" highlight="css-value"/>
+	</context>
+</element>
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+<element pattern="none"/>
+<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="background-position" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>Sets the starting position of a background image
@@ -91,33 +91,33 @@
 <b>Initial value:</b> 0% 0%
 <b>Percentages:</b> refer to the size of the box itself
 <b>Media groups:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="top left"/>
-   <element pattern="top center"/>
-   <element pattern="top right"/>
-   <element pattern="center left"/>
-   <element pattern="center center"/>
-   <element pattern="center right"/>
-   <element pattern="bottom left"/>
-   <element pattern="bottom center"/>
-   <element pattern="bottom right"/>
-   <element pattern="left top"/>
-   <element pattern="left center"/>
-   <element pattern="left bottom"/>
-   <element pattern="center top"/>
-   <element pattern="center bottom"/>
-   <element pattern="right top"/>
-   <element pattern="right center"/>
-   <element pattern="right bottom"/>
-   <element pattern="inherit"/>
-   <element pattern="0"/>	
-  </group>
-   <element id="e.css.percent" pattern="[0-9]+\.?[0-9]*%" is_regex="1" highlight="css-value"/>
-  <element id="e.css.length" pattern="[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px)" is_regex="1" highlight="css-value"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="top left"/>
+	<element pattern="top center"/>
+	<element pattern="top right"/>
+	<element pattern="center left"/>
+	<element pattern="center center"/>
+	<element pattern="center right"/>
+	<element pattern="bottom left"/>
+	<element pattern="bottom center"/>
+	<element pattern="bottom right"/>
+	<element pattern="left top"/>
+	<element pattern="left center"/>
+	<element pattern="left bottom"/>
+	<element pattern="center top"/>
+	<element pattern="center bottom"/>
+	<element pattern="right top"/>
+	<element pattern="right center"/>
+	<element pattern="right bottom"/>
+	<element pattern="inherit"/>
+	<element pattern="0"/>	
+</group>
+	<element id="e.css.percent" pattern="[0-9]+\.?[0-9]*%" is_regex="1" highlight="css-value"/>
+<element id="e.css.length" pattern="[0-9]+\.?[0-9]*(em|ex|in|cm|mm|pt|pc|px)" is_regex="1" highlight="css-value"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="background-repeat" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>If a background image is specified, this property specifies whether the image is repeated (tiled), and how.
@@ -125,17 +125,17 @@
 <b>Values:</b> repeat | repeat-x | repeat-y | no-repeat | inherit
 <b>Initial value:</b> repeat
 <b>Media groups:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="repeat"/>
-   <element pattern="repeat-x"/>
-   <element pattern="repeat-y"/>
-   <element pattern="no-repeat"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="repeat"/>
+	<element pattern="repeat-x"/>
+	<element pattern="repeat-y"/>
+	<element pattern="no-repeat"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="background" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>A shorthand property for setting all background properties in one declaration.
@@ -143,81 +143,81 @@
 <b>Initial value:</b> see individual properties
 <b>Percentages:</b> allowed on 'background-position'
 <b>Media group:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:()">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="aqua"/>
-   <element pattern="black"/>
-   <element pattern="blue"/>
-   <element pattern="fuchsia"/>
-   <element pattern="gray"/>
-   <element pattern="green"/>
-   <element pattern="lime"/>
-   <element pattern="maroon"/>
-   <element pattern="navy"/>
-   <element pattern="olive"/>
-   <element pattern="orange"/>
-   <element pattern="purple"/>
-   <element pattern="red"/>
-   <element pattern="silver"/>
-   <element pattern="teal"/>
-   <element pattern="white"/>
-   <element pattern="yellow"/>
-   <element pattern="transparent"/>
-   <element pattern="repeat"/>
-   <element pattern="repeat-x"/>
-   <element pattern="repeat-y"/>
-   <element pattern="no-repeat"/>
-   <element pattern="scroll"/>
-   <element pattern="fixed"/>
-   <element pattern="top left"/>
-   <element pattern="top center"/>
-   <element pattern="top right"/>
-   <element pattern="center left"/>
-   <element pattern="center center"/>
-   <element pattern="center right"/>
-   <element pattern="bottom left"/>
-   <element pattern="bottom center"/>
-   <element pattern="bottom right"/>
-   <element pattern="left top"/>
-   <element pattern="left center"/>
-   <element pattern="left bottom"/>
-   <element pattern="center top"/>
-   <element pattern="center bottom"/>
-   <element pattern="right top"/>
-   <element pattern="right center"/>
-   <element pattern="right bottom"/>
-   <element pattern="none"/>
-   <element pattern="0"/>	
-   <element pattern="inherit"/>
-  </group>
-  <element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
-    <context idref="c.css.uri"/>
- </element>
-  <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-  <element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
-  <element idref="e.css.percent"/>
-  <element idref="e.css.length"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/> 
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:()">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="aqua"/>
+	<element pattern="black"/>
+	<element pattern="blue"/>
+	<element pattern="fuchsia"/>
+	<element pattern="gray"/>
+	<element pattern="green"/>
+	<element pattern="lime"/>
+	<element pattern="maroon"/>
+	<element pattern="navy"/>
+	<element pattern="olive"/>
+	<element pattern="orange"/>
+	<element pattern="purple"/>
+	<element pattern="red"/>
+	<element pattern="silver"/>
+	<element pattern="teal"/>
+	<element pattern="white"/>
+	<element pattern="yellow"/>
+	<element pattern="transparent"/>
+	<element pattern="repeat"/>
+	<element pattern="repeat-x"/>
+	<element pattern="repeat-y"/>
+	<element pattern="no-repeat"/>
+	<element pattern="scroll"/>
+	<element pattern="fixed"/>
+	<element pattern="top left"/>
+	<element pattern="top center"/>
+	<element pattern="top right"/>
+	<element pattern="center left"/>
+	<element pattern="center center"/>
+	<element pattern="center right"/>
+	<element pattern="bottom left"/>
+	<element pattern="bottom center"/>
+	<element pattern="bottom right"/>
+	<element pattern="left top"/>
+	<element pattern="left center"/>
+	<element pattern="left bottom"/>
+	<element pattern="center top"/>
+	<element pattern="center bottom"/>
+	<element pattern="right top"/>
+	<element pattern="right center"/>
+	<element pattern="right bottom"/>
+	<element pattern="none"/>
+	<element pattern="0"/>	
+	<element pattern="inherit"/>
+</group>
+<element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
+	<context idref="c.css.uri"/>
+</element>
+<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/> 
+</context>
 </element>
 <element pattern="border-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>Sets the width of the top, right, bottom, and left border of a box. 
 <b>Values:</b> [ thin | medium | thick | &lt;length&gt; ]{1,4} | inherit
 <b>Initial value:</b> see individual properties
 <b>Media groups:</b> visual</reference>
- <context id="c.css.border_width" symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="thin"/>
-   <element pattern="medium"/>
-   <element pattern="thick"/>
-   <element pattern="inherit"/>
-   <element pattern="0"/>
-  </group>
-  <element idref="e.css.length"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context id="c.css.border_width" symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="thin"/>
+	<element pattern="medium"/>
+	<element pattern="thick"/>
+	<element pattern="inherit"/>
+	<element pattern="0"/>
+</group>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="border-bottom-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>The border color properties specify the color of a box's border.
@@ -225,7 +225,7 @@
 <b>Initial value:</b> the value of the 'color' property
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.color"/>
+<context idref="c.css.color"/>
 </element>
 <element pattern="border-bottom-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -233,23 +233,23 @@
 <b>Initial value:</b> none
 <b>Media groups:</b> visual
 </reference>
- <context id="c.css.border_style" symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="inherit"/>
-   <element pattern="none"/>	
-   <element pattern="hidden"/>
-   <element pattern="dotted"/>
-   <element pattern="dashed"/>
-   <element pattern="solid"/>
-   <element pattern="double"/>
-   <element pattern="groove"/>
-   <element pattern="ridge"/>
-   <element pattern="inset"/>
-   <element pattern="outset"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>	
+<context id="c.css.border_style" symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="inherit"/>
+	<element pattern="none"/>	
+	<element pattern="hidden"/>
+	<element pattern="dotted"/>
+	<element pattern="dashed"/>
+	<element pattern="solid"/>
+	<element pattern="double"/>
+	<element pattern="groove"/>
+	<element pattern="ridge"/>
+	<element pattern="inset"/>
+	<element pattern="outset"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>	
 </element>
 <element pattern="border-bottom-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>set the width of the bottom border of a box. 
@@ -257,20 +257,20 @@
 <b>Initial value:</b> medium
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.border_width"/>
+<context idref="c.css.border_width"/>
 </element>
 <element pattern="border-collapse" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference><b>Initial value:</b> separate
 <b>Applies to:</b> 'table' and 'inline-table' elements </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="collapse"/>
-   <element pattern="separate"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>	
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="collapse"/>
+	<element pattern="separate"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>	
 </element>
 <element pattern="border-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>The border color properties specify the color of a box's border.
@@ -278,7 +278,7 @@
 <b>Initial value:</b> see individual properties
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.color"/>
+<context idref="c.css.color"/>
 </element>
 <element pattern="border-left-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>The border color properties specify the color of a box's border.
@@ -286,7 +286,7 @@
 <b>Initial value:</b> the value of the 'color' property
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.color"/>
+<context idref="c.css.color"/>
 </element>
 <element pattern="border-left-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -294,7 +294,7 @@
 <b>Initial value:</b> none
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.border_style"/>
+<context idref="c.css.border_style"/>
 </element>
 <element pattern="border-left-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>Sets the width of the left border of a box. 
@@ -302,7 +302,7 @@
 <b>Initial value:</b> medium
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.border_width"/>
+<context idref="c.css.border_width"/>
 </element>
 <element pattern="border-right-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -310,7 +310,7 @@
 <b>Initial value:</b> the value of the 'color' property
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.color"/>
+<context idref="c.css.color"/>
 </element>
 <element pattern="border-right-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -318,7 +318,7 @@
 <b>Initial value:</b> none
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.border_style"/>
+<context idref="c.css.border_style"/>
 </element>
 <element pattern="border-right-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>Sets the width of the right border of a box. 
@@ -326,7 +326,7 @@
 <b>Initial value:</b> medium
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.border_width"/>
+<context idref="c.css.border_width"/>
 </element>
 <element pattern="border-spacing" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>The lengths specify the distance that separates adjoining cell borders. If one length is specified, it gives both the horizontal and vertical spacing.
@@ -334,13 +334,13 @@
 <b>Initial value:</b> 0
 <b>Applies to:</b> 'table' and 'inline-table' elements
 <b>Media groups:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="0" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element idref="e.css.length"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>	
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="0" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>	
 </element>
 <element pattern="border-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -348,7 +348,7 @@
 <b>Initial value:</b> see individual properties
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.border_style"/>
+<context idref="c.css.border_style"/>
 </element>
 <element pattern="border-top-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>The border color properties specify the color of a box's border.
@@ -356,7 +356,7 @@
 <b>Initial value:</b> the value of the 'color' property
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.color"/>
+<context idref="c.css.color"/>
 </element>
 <element pattern="border-top-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -364,7 +364,7 @@
 <b>Initial value:</b> none
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.border_style"/>
+<context idref="c.css.border_style"/>
 </element>
 <element pattern="border-top-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>Sets the width of the top border of a box. 
@@ -372,54 +372,54 @@
 <b>Initial value:</b> medium
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.border_width"/>
+<context idref="c.css.border_width"/>
 </element>
 <element pattern="border" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>A shorthand property for setting the properties border-width, border-style, and border-color for the four borders in one declaration<b>Values:</b> [ [ thin | medium | thick | &lt;length&gt; ] || &lt;border-style&gt; || 'border-top-color' ] | inherit
 <b>Initial value:</b> see individual properties
 <b>Media groups:</b> visual</reference>
- <context id="c.css.border" symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-  <element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="thin"/>
-   <element pattern="medium"/>
-   <element pattern="thick"/>
-   <element pattern="0"/>  
-   <element pattern="none"/>	
-   <element pattern="hidden"/>
-   <element pattern="dotted"/>
-   <element pattern="dashed"/>
-   <element pattern="solid"/>
-   <element pattern="double"/>
-   <element pattern="groove"/>
-   <element pattern="ridge"/>
-   <element pattern="inset"/>
-   <element pattern="outset"/>   
-   <element pattern="aqua"/>
-   <element pattern="black"/>
-   <element pattern="blue"/>
-   <element pattern="fuchsia"/>
-   <element pattern="gray"/>
-   <element pattern="green"/>
-   <element pattern="lime"/>
-   <element pattern="maroon"/>
-   <element pattern="navy"/>
-   <element pattern="olive"/>
-   <element pattern="orange"/>
-   <element pattern="purple"/>
-   <element pattern="red"/>
-   <element pattern="silver"/>
-   <element pattern="teal"/>
-   <element pattern="white"/>
-   <element pattern="yellow"/>
-   <element pattern="transparent"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.length"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context id="c.css.border" symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="thin"/>
+	<element pattern="medium"/>
+	<element pattern="thick"/>
+	<element pattern="0"/>  
+	<element pattern="none"/>	
+	<element pattern="hidden"/>
+	<element pattern="dotted"/>
+	<element pattern="dashed"/>
+	<element pattern="solid"/>
+	<element pattern="double"/>
+	<element pattern="groove"/>
+	<element pattern="ridge"/>
+	<element pattern="inset"/>
+	<element pattern="outset"/>   
+	<element pattern="aqua"/>
+	<element pattern="black"/>
+	<element pattern="blue"/>
+	<element pattern="fuchsia"/>
+	<element pattern="gray"/>
+	<element pattern="green"/>
+	<element pattern="lime"/>
+	<element pattern="maroon"/>
+	<element pattern="navy"/>
+	<element pattern="olive"/>
+	<element pattern="orange"/>
+	<element pattern="purple"/>
+	<element pattern="red"/>
+	<element pattern="silver"/>
+	<element pattern="teal"/>
+	<element pattern="white"/>
+	<element pattern="yellow"/>
+	<element pattern="transparent"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="border-bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -427,7 +427,7 @@
 <b>Initial value:</b> see individual properties
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.border"/>
+<context idref="c.css.border"/>
 </element>
 <element pattern="border-top" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -435,7 +435,7 @@
 <b>Initial value:</b> see individual properties
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.border"/>
+<context idref="c.css.border"/>
 </element>
 <element pattern="border-right" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -443,7 +443,7 @@
 <b>Initial value:</b> see individual properties
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.border"/>
+<context idref="c.css.border"/>
 </element>
 <element pattern="border-left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -451,7 +451,7 @@
 <b>Initial value:</b> see individual properties
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.border"/>
+<context idref="c.css.border"/>
 </element>
 <element pattern="bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -461,15 +461,15 @@
 <b>Percentages:</b> refer to height of containing block
 <b>Media groups:</b> visual
 </reference>
- <context id="c.css.box_offsets" symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="auto" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="0" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element idref="e.css.length"/>
-  <element idref="e.css.percent"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context id="c.css.box_offsets" symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="auto" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="0" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="caption-side" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -478,15 +478,15 @@
 <b>Applies to:</b> 'table-caption' elements
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-   <element pattern="top"/>
-   <element pattern="bottom"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+	<element pattern="top"/>
+	<element pattern="bottom"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="clear" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -495,73 +495,73 @@
 <b>Applies to:</b> block-level elements
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-   <element pattern="left"/>
-   <element pattern="right"/>
-   <element pattern="both"/>
-   <element pattern="none"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+	<element pattern="left"/>
+	<element pattern="right"/>
+	<element pattern="both"/>
+	<element pattern="none"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="clip" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference><b>Initial value:</b> auto 
 <b>Applies to:</b> absolutely positioned elements</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:,()">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="inherit"/>
-   <element pattern="auto"/>
-  </group>
-  <element pattern="rect" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
-    <context symbols="()" highlight="css-value">
-     <element pattern="(">
-      <context symbols=", )" highlight="css-value">
-       <element pattern="0" highlight="css-value"/>
-       <element pattern=","/>
-       <element idref="e.css.length"/>
-       <element pattern=")" ends_context="2" highlight="css-value"/>
-      </context>
-     </element>
-    </context>
-  </element>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>	
+<context symbols=" &#9;&#10;&#13;{}.;:,()">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="inherit"/>
+	<element pattern="auto"/>
+</group>
+<element pattern="rect" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
+	<context symbols="()" highlight="css-value">
+	<element pattern="(">
+		<context symbols=", )" highlight="css-value">
+		<element pattern="0" highlight="css-value"/>
+		<element pattern=","/>
+		<element idref="e.css.length"/>
+		<element pattern=")" ends_context="2" highlight="css-value"/>
+		</context>
+	</element>
+	</context>
+</element>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>	
 </element>
 <element pattern="color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference><b>color</b> describes the foreground color of an element's text content.
 <b>Values:</b> &lt;color&gt; | inherit
 <b>Initial value:</b> depends on user agent
 <b>Media groups:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-  <element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
-  <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-   <element pattern="aqua"/>
-   <element pattern="black"/>
-   <element pattern="blue"/>
-   <element pattern="fuchsia"/>
-   <element pattern="gray"/>
-   <element pattern="green"/>
-   <element pattern="lime"/>
-   <element pattern="maroon"/>
-   <element pattern="navy"/>
-   <element pattern="olive"/>
-   <element pattern="orange"/>
-   <element pattern="purple"/>
-   <element pattern="red"/>
-   <element pattern="silver"/>
-   <element pattern="teal"/>
-   <element pattern="white"/>
-   <element pattern="yellow"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+	<element pattern="aqua"/>
+	<element pattern="black"/>
+	<element pattern="blue"/>
+	<element pattern="fuchsia"/>
+	<element pattern="gray"/>
+	<element pattern="green"/>
+	<element pattern="lime"/>
+	<element pattern="maroon"/>
+	<element pattern="navy"/>
+	<element pattern="olive"/>
+	<element pattern="orange"/>
+	<element pattern="purple"/>
+	<element pattern="red"/>
+	<element pattern="silver"/>
+	<element pattern="teal"/>
+	<element pattern="white"/>
+	<element pattern="yellow"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="content" autocomplete="1" highlight="css-property"
 autocomplete_append=": ">
@@ -572,38 +572,38 @@ autocomplete_append=": ">
 <b>Media groups:</b> all
 </reference>
 <context symbols=" &#9;&#10;&#13;{}.;()'&#34;">
- <element pattern="'" highlight="css-string">
-  <context symbols="\'" highlight="css-string">
-   <element pattern="\\." is_regex="1" highlight="css-string"/>
-   <element pattern="'" highlight="css-string" ends_context="1"/>
-  </context>
- </element>
- <element pattern="&quot;" highlight="css-string">
-  <context symbols="\&quot;" highlight="css-string">
-   <element pattern="\\." is_regex="1" highlight="css-string"/>
-    <element pattern="&quot;" highlight="css-string" ends_context="1"/>
-  </context>
- </element>
- <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-  <element pattern="inherit"/>
-  <element pattern="none"/>
-  <element pattern="normal"/>
-  <element pattern="open-quote"/>
-  <element pattern="close-quote"/>
-  <element pattern="no-open-quote"/>
-  <element pattern="no-close-quote"/>
-  <element pattern="attr" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
-   <context idref="c.css.uri"/>
-  </element>
-  <element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
-   <context idref="c.css.uri"/>
-  </element>
-  <element pattern="counter" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
-   <context idref="c.css.uri"/>
-  </element>
- </group>
- <element idref="e.css.end"/><element idref="e.css.lcomment"/>
- <element idref="e.css.rbrace"/>
+<element pattern="'" highlight="css-string">
+<context symbols="\'" highlight="css-string">
+	<element pattern="\\." is_regex="1" highlight="css-string"/>
+	<element pattern="'" highlight="css-string" ends_context="1"/>
+</context>
+</element>
+<element pattern="&quot;" highlight="css-string">
+<context symbols="\&quot;" highlight="css-string">
+	<element pattern="\\." is_regex="1" highlight="css-string"/>
+	<element pattern="&quot;" highlight="css-string" ends_context="1"/>
+</context>
+</element>
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+<element pattern="inherit"/>
+<element pattern="none"/>
+<element pattern="normal"/>
+<element pattern="open-quote"/>
+<element pattern="close-quote"/>
+<element pattern="no-open-quote"/>
+<element pattern="no-close-quote"/>
+<element pattern="attr" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
+	<context idref="c.css.uri"/>
+</element>
+<element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
+	<context idref="c.css.uri"/>
+</element>
+<element pattern="counter" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
+	<context idref="c.css.uri"/>
+</element>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
 </context>
 </element>
 <element pattern="counter-increment" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -612,17 +612,17 @@ autocomplete_append=": ">
 <b>Initial value:</b> none
 <b>Media groups:</b> all
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="none"/>
-   <element pattern="inherit"/>
-  </group>
-  <element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
-  <element pattern="[a-z_][a-z0-9._-]+" is_regex="1" case_insens="1" highlight="css-value"/>
-  <element pattern="[-][^0-9][a-z0-9._-]+" is_regex="1" case_insens="1" highlight="css-value"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="none"/>
+	<element pattern="inherit"/>
+</group>
+<element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
+<element pattern="[a-z_][a-z0-9._-]+" is_regex="1" case_insens="1" highlight="css-value"/>
+<element pattern="[-][^0-9][a-z0-9._-]+" is_regex="1" case_insens="1" highlight="css-value"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="counter-reset" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -630,17 +630,17 @@ autocomplete_append=": ">
 <b>Initial value:</b> none
 <b>Media groups:</b> all
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="none"/>
-   <element pattern="inherit"/>
-  </group>
-  <element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
-  <element pattern="[a-z_][a-z0-9._-]+" is_regex="1" case_insens="1" highlight="css-value"/>
-  <element pattern="[-][^0-9][a-z0-9._-]+" is_regex="1" case_insens="1" highlight="css-value"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="none"/>
+	<element pattern="inherit"/>
+</group>
+<element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
+<element pattern="[a-z_][a-z0-9._-]+" is_regex="1" case_insens="1" highlight="css-value"/>
+<element pattern="[-][^0-9][a-z0-9._-]+" is_regex="1" case_insens="1" highlight="css-value"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="cursor" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -648,33 +648,33 @@ autocomplete_append=": ">
 <b>Initial value:</b> auto
 <b>Media groups:</b> visual, interactive
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:()">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="auto"/>
-   <element pattern="crosshair"/>
-   <element pattern="default"/>
-   <element pattern="pointer"/>
-   <element pattern="move"/>
-   <element pattern="e-resize"/>
-   <element pattern="ne-resize"/>
-   <element pattern="nw-resize"/>
-   <element pattern="n-resize"/>
-   <element pattern="se-resize"/>
-   <element pattern="sw-resize"/>
-   <element pattern="s-resize"/>
-   <element pattern="w-resize"/>
-   <element pattern="text"/>
-   <element pattern="wait"/>
-   <element pattern="help"/>
-   <element pattern="progress"/>
-   <element pattern="inherit"/>	
-  </group>
-  <element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
-   <context idref="c.css.uri"/>
-  </element>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>		
+<context symbols=" &#9;&#10;&#13;{}.;:()">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="auto"/>
+	<element pattern="crosshair"/>
+	<element pattern="default"/>
+	<element pattern="pointer"/>
+	<element pattern="move"/>
+	<element pattern="e-resize"/>
+	<element pattern="ne-resize"/>
+	<element pattern="nw-resize"/>
+	<element pattern="n-resize"/>
+	<element pattern="se-resize"/>
+	<element pattern="sw-resize"/>
+	<element pattern="s-resize"/>
+	<element pattern="w-resize"/>
+	<element pattern="text"/>
+	<element pattern="wait"/>
+	<element pattern="help"/>
+	<element pattern="progress"/>
+	<element pattern="inherit"/>	
+</group>
+<element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
+	<context idref="c.css.uri"/>
+</element>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
 </element>
 <element pattern="direction" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -683,44 +683,44 @@ autocomplete_append=": ">
 <b>Applies to:</b> all elements, but see prose
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="ltr"/>
-   <element pattern="rtl"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>  
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="ltr"/>
+	<element pattern="rtl"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>  
+</context>
 </element>
 <element pattern="display" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>Conforming HTML user agents may ignore the 'display' property. 
 <b>Values:</b> inline | block | list-item | run-in | inline-block | table | inline-table | table-row-group | table-header-group | table-footer-group | table-row | table-column-group | table-column | table-cell | table-caption | none | inherit
 <b>Initial value:</b> inline
 <b>Media groups:</b> all</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-   <element pattern="inline"/>
-   <element pattern="block"/>
-   <element pattern="list-item"/>
-   <element pattern="run-in"/>
-   <element pattern="inline-block"/>
-   <element pattern="table"/>
-   <element pattern="inline-table"/>
-   <element pattern="table-row-group"/>
-   <element pattern="table-header-group"/>
-   <element pattern="table-footer-group"/>
-   <element pattern="table-row"/>
-   <element pattern="table-column-group"/>
-   <element pattern="table-column"/>
-   <element pattern="table-cell"/>
-   <element pattern="table-caption"/>
-   <element pattern="none"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+	<element pattern="inline"/>
+	<element pattern="block"/>
+	<element pattern="list-item"/>
+	<element pattern="run-in"/>
+	<element pattern="inline-block"/>
+	<element pattern="table"/>
+	<element pattern="inline-table"/>
+	<element pattern="table-row-group"/>
+	<element pattern="table-header-group"/>
+	<element pattern="table-footer-group"/>
+	<element pattern="table-row"/>
+	<element pattern="table-column-group"/>
+	<element pattern="table-column"/>
+	<element pattern="table-cell"/>
+	<element pattern="table-caption"/>
+	<element pattern="none"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="empty-cells" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -729,15 +729,15 @@ autocomplete_append=": ">
 <b>Applies to:</b> 'table-cell' elements
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
- <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-  <element pattern="show"/>
-  <element pattern="hide"/>
-   <element pattern="inherit"/>
- </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>					
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+<element pattern="show"/>
+<element pattern="hide"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>					
 </element>
 <element pattern="float" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -746,70 +746,70 @@ autocomplete_append=": ">
 <b>Applies to:</b> all, but see 9.7
 <b>Media groups:</b> visual
 </reference>
- <context id="c.css.float" symbols=" &#9;&#10;&#13;{}.:;">
-  <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-   <element pattern="left"/>
-   <element pattern="right"/>
-   <element pattern="none"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context id="c.css.float" symbols=" &#9;&#10;&#13;{}.:;">
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+	<element pattern="left"/>
+	<element pattern="right"/>
+	<element pattern="none"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="font" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference><b>font</b> is a convenience option to set font-style, font-variant, font-weight, and font-size
- <b>Values:</b> [ [ 'font-style' || 'font-variant' || 'font-weight' ]? 'font-size' [ / 'line-height' ]? 'font-family' ] | caption | icon | menu | message-box | small-caption | status-bar | inherit
+<b>Values:</b> [ [ 'font-style' || 'font-variant' || 'font-weight' ]? 'font-size' [ / 'line-height' ]? 'font-family' ] | caption | icon | menu | message-box | small-caption | status-bar | inherit
 <b>Initial value:</b> see individual properties
 <b>Percentages:</b> see individual properties
 <b>Media groups:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern=""/>
-   <element pattern=""/>
-   <element pattern=""/>
-   <element pattern=""/>
-   <element pattern=""/>
-   <element pattern="normal"/>
-   <element pattern="italic"/>
-   <element pattern="oblique"/>
-   <element pattern="small-caps"/>
-   <element pattern="bold"/>
-   <element pattern="bolder"/>
-   <element pattern="lighter"/>
-   <element pattern="xx-small"/>
-   <element pattern="x-small"/>
-   <element pattern="small"/>
-   <element pattern="medium"/>
-   <element pattern="large"/>
-   <element pattern="x-large"/>
-   <element pattern="xx-large"/>
-   <element pattern="larger"/>
-   <element pattern="smaller"/>   
-   <element pattern="serif"/>
-   <element pattern="Times"/>
-   <element pattern="sans-serif"/>
-   <element pattern="Helvetica"/>
-   <element pattern="cursive"/>
-   <element pattern="Zapf-Chancery"/>
-   <element pattern="monospace"/>
-   <element pattern="Courier"/>
-   <element pattern="caption"/>
-   <element pattern="icon"/>
-   <element pattern="menu"/>
-   <element pattern="message-box"/>
-   <element pattern="small-caption"/>
-   <element pattern="status-bar"/>
-   <element pattern="inherit"/>
-  </group>
-  <element pattern="(100|200|300|400|500|600|700|800|900)" is_regex="1"  highlight="css-value"/>
-  <element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
-  <element pattern="/"/>
-  <element idref="e.css.length"/>
-  <element idref="e.css.percent"/>  
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/> 
- </context> 
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern=""/>
+	<element pattern=""/>
+	<element pattern=""/>
+	<element pattern=""/>
+	<element pattern=""/>
+	<element pattern="normal"/>
+	<element pattern="italic"/>
+	<element pattern="oblique"/>
+	<element pattern="small-caps"/>
+	<element pattern="bold"/>
+	<element pattern="bolder"/>
+	<element pattern="lighter"/>
+	<element pattern="xx-small"/>
+	<element pattern="x-small"/>
+	<element pattern="small"/>
+	<element pattern="medium"/>
+	<element pattern="large"/>
+	<element pattern="x-large"/>
+	<element pattern="xx-large"/>
+	<element pattern="larger"/>
+	<element pattern="smaller"/>   
+	<element pattern="serif"/>
+	<element pattern="Times"/>
+	<element pattern="sans-serif"/>
+	<element pattern="Helvetica"/>
+	<element pattern="cursive"/>
+	<element pattern="Zapf-Chancery"/>
+	<element pattern="monospace"/>
+	<element pattern="Courier"/>
+	<element pattern="caption"/>
+	<element pattern="icon"/>
+	<element pattern="menu"/>
+	<element pattern="message-box"/>
+	<element pattern="small-caption"/>
+	<element pattern="status-bar"/>
+	<element pattern="inherit"/>
+</group>
+<element pattern="(100|200|300|400|500|600|700|800|900)" is_regex="1"  highlight="css-value"/>
+<element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
+<element pattern="/"/>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>  
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/> 
+</context> 
 </element>
 <element pattern="font-family" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -817,21 +817,21 @@ autocomplete_append=": ">
 <b>Initial value:</b> depends on user agent
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="serif"/>
-   <element pattern="Times"/>
-   <element pattern="sans-serif"/>
-   <element pattern="Helvetica"/>
-   <element pattern="cursive"/>
-   <element pattern="Zapf-Chancery"/>
-   <element pattern="monospace"/>
-   <element pattern="Courier"/>
-   <element pattern="inherit"/>	
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>		
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="serif"/>
+	<element pattern="Times"/>
+	<element pattern="sans-serif"/>
+	<element pattern="Helvetica"/>
+	<element pattern="cursive"/>
+	<element pattern="Zapf-Chancery"/>
+	<element pattern="monospace"/>
+	<element pattern="Courier"/>
+	<element pattern="inherit"/>	
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
 </element>
 <element pattern="font-size" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference><b>font-size</b> describes the size of the font when set solid.
@@ -839,25 +839,25 @@ autocomplete_append=": ">
 <b>Initial value:</b> medium
 <b>Percentages:</b> refer to inherited font size
 <b>Media groups:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-   <element pattern="xx-small"/>
-   <element pattern="x-small"/>
-   <element pattern="small"/>
-   <element pattern="medium"/>
-   <element pattern="large"/>
-   <element pattern="x-large"/>
-   <element pattern="xx-large"/>
-   <element pattern="larger"/>
-   <element pattern="smaller"/>
-   <element pattern="0"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.length"/>
-  <element idref="e.css.percent"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+	<element pattern="xx-small"/>
+	<element pattern="x-small"/>
+	<element pattern="small"/>
+	<element pattern="medium"/>
+	<element pattern="large"/>
+	<element pattern="x-large"/>
+	<element pattern="xx-large"/>
+	<element pattern="larger"/>
+	<element pattern="smaller"/>
+	<element pattern="0"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="font-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -865,16 +865,16 @@ autocomplete_append=": ">
 <b>Initial value:</b> normal
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-   <element pattern="normal"/>
-   <element pattern="italic"/>
-   <element pattern="oblique"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+	<element pattern="normal"/>
+	<element pattern="italic"/>
+	<element pattern="oblique"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="font-variant" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -882,13 +882,13 @@ autocomplete_append=": ">
 <b>Initial value:</b> normal
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="small-caps" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-   <element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="small-caps" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+	<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>	
 <element pattern="font-weight" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -896,18 +896,18 @@ autocomplete_append=": ">
 <b>Initial value:</b> normal
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-   <element pattern="normal"/>
-   <element pattern="bold"/>
-   <element pattern="bolder"/>
-   <element pattern="lighter"/>
-   <element pattern="inherit"/>
-  </group>
-  <element pattern="(100|200|300|400|500|600|700|800|900)" is_regex="1"  highlight="css-value"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+	<element pattern="normal"/>
+	<element pattern="bold"/>
+	<element pattern="bolder"/>
+	<element pattern="lighter"/>
+	<element pattern="inherit"/>
+</group>
+<element pattern="(100|200|300|400|500|600|700|800|900)" is_regex="1"  highlight="css-value"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -917,7 +917,7 @@ autocomplete_append=": ">
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.box_offsets"/>
+<context idref="c.css.box_offsets"/>
 </element>
 <element pattern="letter-spacing" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -925,16 +925,16 @@ autocomplete_append=": ">
 <b>Initial value:</b> normal
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="normal"/>
-   <element pattern="inherit"/>
-   <element pattern="0"/>	
-  </group>
-  <element idref="e.css.length"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>		
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="normal"/>
+	<element pattern="inherit"/>
+	<element pattern="0"/>	
+</group>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
 </element>
 <element pattern="line-height" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -943,15 +943,15 @@ autocomplete_append=": ">
 <b>Percentages:</b> refer to the font size of the element itself
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
-  <element idref="e.css.length"/>
-  <element idref="e.css.percent"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>		
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
 </element>
 <element pattern="list-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -960,33 +960,33 @@ autocomplete_append=": ">
 <b>Applies to:</b> elements with 'display: list-item'
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:()">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="disc"/>
-   <element pattern="circle"/>
-   <element pattern="square"/>
-   <element pattern="decimal"/>
-   <element pattern="decimal-leading-zero"/>
-   <element pattern="lower-roman"/>
-   <element pattern="upper-roman"/>
-   <element pattern="lower-greek"/>
-   <element pattern="lower-latin"/>
-   <element pattern="upper-latin"/>
-   <element pattern="armenian"/>
-   <element pattern="georgian"/>
-   <element pattern="lower-alpha"/>
-   <element pattern="upper-alpha"/>
-   <element pattern="none"/>
-   <element pattern="inside"/>
-   <element pattern="outside"/>
-   <element pattern="inherit"/>
-  </group>
-  <element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
-   <context idref="c.css.uri"/>
-  </element>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/> 
- </context>	
+<context symbols=" &#9;&#10;&#13;{}.;:()">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="disc"/>
+	<element pattern="circle"/>
+	<element pattern="square"/>
+	<element pattern="decimal"/>
+	<element pattern="decimal-leading-zero"/>
+	<element pattern="lower-roman"/>
+	<element pattern="upper-roman"/>
+	<element pattern="lower-greek"/>
+	<element pattern="lower-latin"/>
+	<element pattern="upper-latin"/>
+	<element pattern="armenian"/>
+	<element pattern="georgian"/>
+	<element pattern="lower-alpha"/>
+	<element pattern="upper-alpha"/>
+	<element pattern="none"/>
+	<element pattern="inside"/>
+	<element pattern="outside"/>
+	<element pattern="inherit"/>
+</group>
+<element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
+	<context idref="c.css.uri"/>
+</element>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/> 
+</context>	
 </element>
 <element pattern="list-style-image" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -996,17 +996,17 @@ autocomplete_append=": ">
 <b>Media groups:</b> visual
 </reference>
 <reference></reference>
- <context symbols=" &#9;&#10;&#13;{}.;:()">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="none"/>
-   <element pattern="inherit"/>
-  </group>
-    <element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
-   <context idref="c.css.uri"/>
-  </element>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>		
+<context symbols=" &#9;&#10;&#13;{}.;:()">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="none"/>
+	<element pattern="inherit"/>
+</group>
+	<element pattern="url" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1" highlight="css-value">
+	<context idref="c.css.uri"/>
+</element>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
 </element>
 <element pattern="list-style-position" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1016,12 +1016,12 @@ autocomplete_append=": ">
 <b>Media groups:</b> visual
 </reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="inside" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="outside" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<element pattern="inside" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="outside" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="list-style-type" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1031,26 +1031,26 @@ autocomplete_append=": ">
 <b>Media groups:</b> visual
 </reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
- <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-  <element pattern="disc"/>
-  <element pattern="circle"/>
-  <element pattern="square"/>
-  <element pattern="decimal"/>
-  <element pattern="decimal-leading-zero"/>
-  <element pattern="lower-roman"/>
-  <element pattern="upper-roman"/>
-  <element pattern="lower-greek"/>
-  <element pattern="lower-latin"/>
-  <element pattern="upper-latin"/>
-  <element pattern="armenian"/>
-  <element pattern="georgian"/>
-  <element pattern="lower-alpha"/>
-  <element pattern="upper-alpha"/>
-  <element pattern="none"/>
-  <element pattern="inherit"/>
- </group>
- <element idref="e.css.end"/><element idref="e.css.lcomment"/>
- <element idref="e.css.rbrace"/>
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+<element pattern="disc"/>
+<element pattern="circle"/>
+<element pattern="square"/>
+<element pattern="decimal"/>
+<element pattern="decimal-leading-zero"/>
+<element pattern="lower-roman"/>
+<element pattern="upper-roman"/>
+<element pattern="lower-greek"/>
+<element pattern="lower-latin"/>
+<element pattern="upper-latin"/>
+<element pattern="armenian"/>
+<element pattern="georgian"/>
+<element pattern="lower-alpha"/>
+<element pattern="upper-alpha"/>
+<element pattern="none"/>
+<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
 </context>
 </element>
 <element pattern="margin" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -1060,15 +1060,15 @@ autocomplete_append=": ">
 <b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual</reference>
- <context id="c.css.width" symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="0" highlight="css-value" autocomplete="1"/>
-  <element pattern="auto" highlight="css-value" autocomplete="1"/>
-  <element pattern="inherit" highlight="css-value" autocomplete="1"/>
-  <element idref="e.css.length"/>
-  <element idref="e.css.percent"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context id="c.css.width" symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="0" highlight="css-value" autocomplete="1"/>
+<element pattern="auto" highlight="css-value" autocomplete="1"/>
+<element pattern="inherit" highlight="css-value" autocomplete="1"/>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="margin-bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1077,7 +1077,7 @@ autocomplete_append=": ">
 <b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual</reference>
- <context idref="c.css.width"/>
+<context idref="c.css.width"/>
 </element>
 <element pattern="margin-left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1086,7 +1086,7 @@ autocomplete_append=": ">
 <b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual</reference>
- <context idref="c.css.width"/>
+<context idref="c.css.width"/>
 </element>
 <element pattern="margin-right" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1095,7 +1095,7 @@ autocomplete_append=": ">
 <b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual</reference>
- <context idref="c.css.width"/>
+<context idref="c.css.width"/>
 </element>
 <element pattern="margin-top" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1104,7 +1104,7 @@ autocomplete_append=": ">
 <b>Applies to:</b> all elements except elements with table display types other than table-caption, table and inline-table
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual</reference>
- <context idref="c.css.width"/>
+<context idref="c.css.width"/>
 </element>
 <element pattern="max-height" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1114,15 +1114,15 @@ autocomplete_append=": ">
 <b>Percentages:</b> see prose
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="0" highlight="css-value" autocomplete="1"/>
-  <element pattern="none" highlight="css-value" autocomplete="1"/>
-  <element pattern="inherit" highlight="css-value" autocomplete="1"/>
-  <element idref="e.css.length"/>
-  <element idref="e.css.percent"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="0" highlight="css-value" autocomplete="1"/>
+<element pattern="none" highlight="css-value" autocomplete="1"/>
+<element pattern="inherit" highlight="css-value" autocomplete="1"/>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="max-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1132,15 +1132,15 @@ autocomplete_append=": ">
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="0" highlight="css-value" autocomplete="1"/>
-  <element pattern="none" highlight="css-value" autocomplete="1"/>
-  <element pattern="inherit" highlight="css-value" autocomplete="1"/>
-  <element idref="e.css.length"/>
-  <element idref="e.css.percent"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="0" highlight="css-value" autocomplete="1"/>
+<element pattern="none" highlight="css-value" autocomplete="1"/>
+<element pattern="inherit" highlight="css-value" autocomplete="1"/>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="min-height" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1150,14 +1150,14 @@ autocomplete_append=": ">
 <b>Percentages:</b> see prose
 <b>Media groups:</b> visual
 </reference>
- <context id="c.css.length_percentage" symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="0" highlight="css-value" autocomplete="1"/>
-  <element pattern="inherit" highlight="css-value" autocomplete="1"/>
-  <element idref="e.css.length"/>
-  <element idref="e.css.percent"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context id="c.css.length_percentage" symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="0" highlight="css-value" autocomplete="1"/>
+<element pattern="inherit" highlight="css-value" autocomplete="1"/>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="min-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1175,49 +1175,49 @@ autocomplete_append=": ">
 <b>Initial value:</b> see individual properties
 <b>Media groups:</b> visual, interactive
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern=""/>
-   <element pattern=""/>
-   <element pattern="aqua"/>
-   <element pattern="black"/>
-   <element pattern="blue"/>
-   <element pattern="fuchsia"/>
-   <element pattern="gray"/>
-   <element pattern="green"/>
-   <element pattern="lime"/>
-   <element pattern="maroon"/>
-   <element pattern="navy"/>
-   <element pattern="olive"/>
-   <element pattern="orange"/>
-   <element pattern="purple"/>
-   <element pattern="red"/>
-   <element pattern="silver"/>
-   <element pattern="teal"/>
-   <element pattern="white"/>
-   <element pattern="yellow"/>
-   <element pattern="invert"/>
-   <element pattern="none"/>
-   <element pattern="hidden"/>
-   <element pattern="dotted"/>
-   <element pattern="dashed"/>
-   <element pattern="solid"/>
-   <element pattern="double"/>
-   <element pattern="groove"/>
-   <element pattern="ridge"/>
-   <element pattern="inset"/>
-   <element pattern="outset"/>
-   <element pattern="thin"/>
-   <element pattern="medium"/>
-   <element pattern="0"/>	
-   <element pattern="inherit"/>
-  </group>
-  <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-  <element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
-  <element idref="e.css.length"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/> 
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern=""/>
+	<element pattern=""/>
+	<element pattern="aqua"/>
+	<element pattern="black"/>
+	<element pattern="blue"/>
+	<element pattern="fuchsia"/>
+	<element pattern="gray"/>
+	<element pattern="green"/>
+	<element pattern="lime"/>
+	<element pattern="maroon"/>
+	<element pattern="navy"/>
+	<element pattern="olive"/>
+	<element pattern="orange"/>
+	<element pattern="purple"/>
+	<element pattern="red"/>
+	<element pattern="silver"/>
+	<element pattern="teal"/>
+	<element pattern="white"/>
+	<element pattern="yellow"/>
+	<element pattern="invert"/>
+	<element pattern="none"/>
+	<element pattern="hidden"/>
+	<element pattern="dotted"/>
+	<element pattern="dashed"/>
+	<element pattern="solid"/>
+	<element pattern="double"/>
+	<element pattern="groove"/>
+	<element pattern="ridge"/>
+	<element pattern="inset"/>
+	<element pattern="outset"/>
+	<element pattern="thin"/>
+	<element pattern="medium"/>
+	<element pattern="0"/>	
+	<element pattern="inherit"/>
+</group>
+<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/> 
+</context>
 </element>
 <element pattern="outline-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1225,33 +1225,33 @@ autocomplete_append=": ">
 <b>Initial value:</b> invert
 <b>Media groups:</b> visual, interactive
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group highlight="css-value" autocomplete="1" autocomplete_append=";">
-   <element pattern="aqua"/>
-   <element pattern="black"/>
-   <element pattern="blue"/>
-   <element pattern="fuchsia"/>
-   <element pattern="gray"/>
-   <element pattern="green"/>
-   <element pattern="lime"/>
-   <element pattern="maroon"/>
-   <element pattern="navy"/>
-   <element pattern="olive"/>
-   <element pattern="orange"/>
-   <element pattern="purple"/>
-   <element pattern="red"/>
-   <element pattern="silver"/>
-   <element pattern="teal"/>
-   <element pattern="white"/>
-   <element pattern="yellow"/>
-   <element pattern="invert"/>
-   <element pattern="inherit"/>   
-  </group>
-  <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-  <element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
+	<element pattern="aqua"/>
+	<element pattern="black"/>
+	<element pattern="blue"/>
+	<element pattern="fuchsia"/>
+	<element pattern="gray"/>
+	<element pattern="green"/>
+	<element pattern="lime"/>
+	<element pattern="maroon"/>
+	<element pattern="navy"/>
+	<element pattern="olive"/>
+	<element pattern="orange"/>
+	<element pattern="purple"/>
+	<element pattern="red"/>
+	<element pattern="silver"/>
+	<element pattern="teal"/>
+	<element pattern="white"/>
+	<element pattern="yellow"/>
+	<element pattern="invert"/>
+	<element pattern="inherit"/>   
+</group>
+<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="outline-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1259,23 +1259,23 @@ autocomplete_append=": ">
 <b>Initial value:</b> none
 <b>Media groups:</b> visual, interactive
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="none"/>
-   <element pattern="hidden"/>
-   <element pattern="dotted"/>
-   <element pattern="dashed"/>
-   <element pattern="solid"/>
-   <element pattern="double"/>
-   <element pattern="groove"/>
-   <element pattern="ridge"/>
-   <element pattern="inset"/>
-   <element pattern="outset"/>
-   <element pattern="inherit"/>	
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>		
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="none"/>
+	<element pattern="hidden"/>
+	<element pattern="dotted"/>
+	<element pattern="dashed"/>
+	<element pattern="solid"/>
+	<element pattern="double"/>
+	<element pattern="groove"/>
+	<element pattern="ridge"/>
+	<element pattern="inset"/>
+	<element pattern="outset"/>
+	<element pattern="inherit"/>	
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
 </element>
 <element pattern="outline-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1284,17 +1284,17 @@ autocomplete_append=": ">
 <b>Media groups:</b> visual, interactive
 </reference>
 <reference></reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="thin"/>
-   <element pattern="medium"/>
-   <element pattern="inherit"/>
-   <element pattern="0"/>	
-  </group>
-  <element idref="e.css.length"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>		
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="thin"/>
+	<element pattern="medium"/>
+	<element pattern="inherit"/>
+	<element pattern="0"/>	
+</group>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
 </element>
 <element pattern="overflow" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1303,15 +1303,15 @@ autocomplete_append=": ">
 <b>Applies to:</b> non-replaced block-level elements, table cells, inline-table, and inline-block elements
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="visible" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="hidden" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="scroll" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="auto" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="inherit" highlight="css-value" autocomplete_append=";"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="visible" highlight="css-value" autocomplete_append=";"/>
+<element pattern="hidden" highlight="css-value" autocomplete_append=";"/>
+<element pattern="scroll" highlight="css-value" autocomplete_append=";"/>
+<element pattern="auto" highlight="css-value" autocomplete_append=";"/>
+<element pattern="inherit" highlight="css-value" autocomplete_append=";"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="padding" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>If there is only one value, it applies to all sides. If there are two values, the top and bottom paddings are set to the first value and the right and left paddings are set to the second. If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom is set to the third. If there are four values, they apply to the top, right, bottom, and left, respectively.
@@ -1320,10 +1320,10 @@ autocomplete_append=": ">
 <b>Applies to:</b> all elements except table-row-group, table-header-group, table-footer-group, table-row, table-column-group and table-column
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual</reference>
- <context idref="c.css.length_percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="padding-bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
- <context idref="c.css.length_percentage"/>
+<context idref="c.css.length_percentage"/>
 </element>
 <element pattern="padding-left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1360,24 +1360,24 @@ autocomplete_append=": ">
 <b>Values:</b> static | relative | absolute | fixed | inherit
 <b>Initial value:</b> static
 <b>Media groups:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="static" autocomplete="1" highlight="css-value" autocomplete_append=";">
-  <reference><b>static</b>: The box is a normal box, laid out according to the normal flow. The 'left' and 'top' properties do not apply. 
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="static" autocomplete="1" highlight="css-value" autocomplete_append=";">
+<reference><b>static</b>: The box is a normal box, laid out according to the normal flow. The 'left' and 'top' properties do not apply. 
 relative </reference>
-  </element>
-  <element pattern="relative" autocomplete="1" highlight="css-value" autocomplete_append=";">
-  <reference><b>relative</b>: The box's position is calculated according to the normal flow (this is called the position in normal flow). Then the box is offset relative to its normal position. When a box B is relatively positioned, the position of the following box is calculated as though B were not offset. </reference>
-  </element>
-  <element pattern="absolute" autocomplete="1" highlight="css-value" autocomplete_append=";">
-  <reference><b>absolute</b>: The box's position (and possibly size) is specified with the 'left', 'right', 'top', and 'bottom' properties. These properties specify offsets with respect to the box's containing block. Absolutely positioned boxes are taken out of the normal flow. This means they have no impact on the layout of later siblings. Also, though absolutely positioned boxes have margins, they do not collapse with any other margins. </reference>
-  </element>
-  <element pattern="fixed" autocomplete="1" highlight="css-value" autocomplete_append=";">
-  <reference><b>fixed</b>: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. In the case of continuous media, the box is fixed with respect to the viewport (and doesn't move when scrolled). In the case of paged media, the box is fixed with respect to the page, even if that page is seen through a viewport (in the case of a print-preview, for example). Authors may wish to specify 'fixed' in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page.</reference>
-  </element>
-  <element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+</element>
+<element pattern="relative" autocomplete="1" highlight="css-value" autocomplete_append=";">
+<reference><b>relative</b>: The box's position is calculated according to the normal flow (this is called the position in normal flow). Then the box is offset relative to its normal position. When a box B is relatively positioned, the position of the following box is calculated as though B were not offset. </reference>
+</element>
+<element pattern="absolute" autocomplete="1" highlight="css-value" autocomplete_append=";">
+<reference><b>absolute</b>: The box's position (and possibly size) is specified with the 'left', 'right', 'top', and 'bottom' properties. These properties specify offsets with respect to the box's containing block. Absolutely positioned boxes are taken out of the normal flow. This means they have no impact on the layout of later siblings. Also, though absolutely positioned boxes have margins, they do not collapse with any other margins. </reference>
+</element>
+<element pattern="fixed" autocomplete="1" highlight="css-value" autocomplete_append=";">
+<reference><b>fixed</b>: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. In the case of continuous media, the box is fixed with respect to the viewport (and doesn't move when scrolled). In the case of paged media, the box is fixed with respect to the page, even if that page is seen through a viewport (in the case of a print-preview, for example). Authors may wish to specify 'fixed' in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page.</reference>
+</element>
+<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="quotes" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1385,26 +1385,26 @@ relative </reference>
 <b>Initial value:</b> depends on user agent
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:'&#34;">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="none"/>
-   <element pattern="inherit"/>
-  </group>
- <element pattern="'" highlight="css-string">
-  <context symbols="\'" highlight="css-string">
-   <element pattern="\\." is_regex="1" highlight="css-string"/>
-   <element pattern="'" highlight="css-string" ends_context="1"/>
-  </context>
- </element>
- <element pattern="&quot;" highlight="css-string">
-  <context symbols="\&quot;" highlight="css-string">
-   <element pattern="\\." is_regex="1" highlight="css-string"/>
-    <element pattern="&quot;" highlight="css-string" ends_context="1"/>
-  </context>
- </element>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>		
+<context symbols=" &#9;&#10;&#13;{}.;:'&#34;">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="none"/>
+	<element pattern="inherit"/>
+</group>
+<element pattern="'" highlight="css-string">
+<context symbols="\'" highlight="css-string">
+	<element pattern="\\." is_regex="1" highlight="css-string"/>
+	<element pattern="'" highlight="css-string" ends_context="1"/>
+</context>
+</element>
+<element pattern="&quot;" highlight="css-string">
+<context symbols="\&quot;" highlight="css-string">
+	<element pattern="\\." is_regex="1" highlight="css-string"/>
+	<element pattern="&quot;" highlight="css-string" ends_context="1"/>
+</context>
+</element>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
 </element>
 <element pattern="right" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1414,7 +1414,7 @@ relative </reference>
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.box_offsets"/>
+<context idref="c.css.box_offsets"/>
 </element>
 <element pattern="table-layout" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1424,12 +1424,12 @@ relative </reference>
 <b>Media groups:</b> visual
 </reference>
 <context symbols=" &#9;&#10;&#13;{}.;:"><group autocomplete="1" highlight="css-value" autocomplete_append=";">
-  <element pattern="fixed"/>
-  <element pattern="auto"/>
-  <element pattern="inherit"/>
- </group>
- <element idref="e.css.end"/><element idref="e.css.lcomment"/>
- <element idref="e.css.rbrace"/>
+<element pattern="fixed"/>
+<element pattern="auto"/>
+<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
 </context>
 </element>
 <element pattern="text-align" autocomplete="1" highlight="css-property" autocomplete_append=": ">
@@ -1438,17 +1438,17 @@ relative </reference>
 <b>Initial value:</b> a nameless value that acts as 'left' if 'direction' is 'ltr',   'right' if 'direction' is 'rtl'
 <b>Applies to:</b> block containers
 <b>Media groups:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="left"/>
-   <element pattern="right"/>
-   <element pattern="center"/>
-   <element pattern="justify"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="left"/>
+	<element pattern="right"/>
+	<element pattern="center"/>
+	<element pattern="justify"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="text-decoration" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference><b>text-decoration</b> describes decorations that are added to the text of an element. If the property is specified for a block-level element, it affects all inline-level descendants of the element. If it is specified for (or affects) an inline-level element, it affects all boxes generated by the element. If the element has no content or no text content (e.g., the IMG element in HTML), user agents must ignore this property
@@ -1456,20 +1456,20 @@ relative </reference>
 <b>Initial value:</b> none
 <b>Initial value :</b> (see prose)
 <b>Media groups:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="none"/>
-   <element pattern="underline"/>
-   <element pattern="overline"/>
-   <element pattern="line-through"/>
-   <element pattern="blink">
-   <reference>Text blinks (alternates between visible and invisible). Conforming user agents are not required to support this value.</reference>
-   </element>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="none"/>
+	<element pattern="underline"/>
+	<element pattern="overline"/>
+	<element pattern="line-through"/>
+	<element pattern="blink">
+	<reference>Text blinks (alternates between visible and invisible). Conforming user agents are not required to support this value.</reference>
+	</element>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="text-indent" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference><b>text-indent</b> specifies the indentation of the first line of text in a block. More precisely, it specifies the indentation of the first box that flows into the block's first line box. The box is indented with respect to the left (or right, for right-to-left layout) edge of the line box. User agents should render this indentation as blank space. 
@@ -1478,14 +1478,14 @@ relative </reference>
 <b>Applies to:</b> block containers
 <b>Percentages:</b> refer to width of containing block
 <b>Media groups:</b> visual</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:"> 
-  <element pattern="0" highlight="css-value" autocomplete="1"/>
-  <element pattern="inherit" highlight="css-value" autocomplete="1"/>
-  <element idref="e.css.length"/>
-  <element idref="e.css.percent"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context> 
+<context symbols=" &#9;&#10;&#13;{}.;:"> 
+<element pattern="0" highlight="css-value" autocomplete="1"/>
+<element pattern="inherit" highlight="css-value" autocomplete="1"/>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context> 
 </element>
 <element pattern="text-transform" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1494,17 +1494,17 @@ relative </reference>
 <b>Media groups:</b> visual
 </reference>
 <reference><b>text-transform</b> controls capitalization effects of an element's text.</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="none"/>
-   <element pattern="capitalize"/>
-   <element pattern="uppercase"/>
-   <element pattern="lowercase"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>	
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="none"/>
+	<element pattern="capitalize"/>
+	<element pattern="uppercase"/>
+	<element pattern="lowercase"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>	
 </element>
 <element pattern="top" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1514,7 +1514,7 @@ relative </reference>
 <b>Percentages:</b> refer to height of containing block
 <b>Media groups:</b> visual
 </reference>
- <context idref="c.css.box_offsets"/>
+<context idref="c.css.box_offsets"/>
 </element>
 <element pattern="unicode-bidi" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1523,18 +1523,17 @@ relative </reference>
 <b>Applies to:</b> all elements, but see prose
 <b>Media groups:</b> visual
 </reference> 
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="normal"/>
-   <element pattern="embed"/>
-   <element pattern="bidi-override"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>  
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="normal"/>
+	<element pattern="embed"/>
+	<element pattern="bidi-override"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>  
+</context>
 </element>
-
 <element pattern="vertical-align" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
 <b>Values:</b> baseline | sub | super | top | text-top | middle | bottom | text-bottom | &lt;percentage&gt; | &lt;length&gt; | inherit
@@ -1543,26 +1542,26 @@ relative </reference>
 <b>Percentages:</b> refer to the 'line-height' of the element itself
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="baseline"/>
-   <element pattern="sub"/>
-   <element pattern="super"/>
-   <element pattern="top"/>
-   <element pattern="text-top"/>
-   <element pattern="middle"/>
-   <element pattern="bottom"/>
-   <element pattern="text-bottom"/>
-   <element pattern="inherit"/>
-   <element pattern="top"/>
-   <element pattern="bottom"/>
-   <element pattern="0"/>
-  </group>
-  <element idref="e.css.length"/>
-  <element idref="e.css.percent"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="baseline"/>
+	<element pattern="sub"/>
+	<element pattern="super"/>
+	<element pattern="top"/>
+	<element pattern="text-top"/>
+	<element pattern="middle"/>
+	<element pattern="bottom"/>
+	<element pattern="text-bottom"/>
+	<element pattern="inherit"/>
+	<element pattern="top"/>
+	<element pattern="bottom"/>
+	<element pattern="0"/>
+</group>
+<element idref="e.css.length"/>
+<element idref="e.css.percent"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="visibility" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1570,32 +1569,32 @@ relative </reference>
 <b>Initial value:</b> visible
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="visible"/>
-   <element pattern="hidden"/>
-   <element pattern="collapse"/>
-   <element pattern="inherit"/>
-  </group>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="visible"/>
+	<element pattern="hidden"/>
+	<element pattern="collapse"/>
+	<element pattern="inherit"/>
+</group>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>
 </element>
 <element pattern="white-space" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference><b>white-space</b> declares how whitespace inside the element is handled. Conforming user agents may ignore the 'white-space' property in author and user style sheets but must specify a value for it in the default style sheet
 <b>Values:</b> normal | pre | nowrap | pre-wrap | pre-line | inherit
 <b>Initial value:</b> normal
 <b>Media groups:</b> visual.</reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="pre" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="nowrap" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="pre-wrap" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="pre-line" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>		
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="pre" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="nowrap" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="pre-wrap" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="pre-line" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
 </element>
 <element pattern="width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1623,16 +1622,16 @@ relative </reference>
 <b>Initial value:</b> normal
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="normal"/>
-   <element pattern="inherit"/>
-   <element pattern="0"/>	
-  </group>
-  <element idref="e.css.length"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>		
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="normal"/>
+	<element pattern="inherit"/>
+	<element pattern="0"/>	
+</group>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
 </element>
 <element pattern="z-index" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1641,14 +1640,15 @@ relative </reference>
 <b>Applies to:</b> positioned elements
 <b>Media groups:</b> visual
 </reference>
- <context symbols=" &#9;&#10;&#13;{}.;:">
-  <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-   <element pattern="auto"/>
-   <element pattern="inherit"/>
-  </group>
-  <element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
-  <element idref="e.css.length"/>
-  <element idref="e.css.end"/><element idref="e.css.lcomment"/>
-  <element idref="e.css.rbrace"/>
- </context>		
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+	<element pattern="auto"/>
+	<element pattern="inherit"/>
+</group>
+<element pattern="[0-9]+\.?[0-9]*" is_regex="1" highlight="css-value"/>
+<element idref="e.css.length"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
 </element>
+</bfinc>

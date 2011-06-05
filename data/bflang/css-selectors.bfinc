@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-		Bluefish HTML Editor
-		css-selectors.bfinc $Revision: 4947 $
- 
-		Copyright (C) 2008-2010 Olivier Sessink
+	Bluefish HTML Editor
+	css-selectors.bfinc $Revision$
 
-	    This program is free software: you can redistribute it and/or modify
-		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
-		(at your option) any later version.
+	Copyright (C) 2008-2011 Olivier Sessink
 
-		This program is distributed in the hope that it will be useful,
-		but WITHOUT ANY WARRANTY; without even the implied warranty of
-		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-		GNU General Public License for more details.
+    This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
 
-		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
+<bfinc>
 <group highlight="css-html-tag" autocomplete="1">
 	<element pattern="a"/>
 	<element pattern="abbr"/>
@@ -114,13 +115,16 @@
 	<element pattern=":active"/>
 	<element pattern=":after"/>
 	<element pattern=":before"/>
+	<element pattern=":first"/>
 	<element pattern=":first-child"/>
 	<element pattern=":first-letter"/>
 	<element pattern=":first-line"/>
 	<element pattern=":focus"/>
 	<element pattern=":hover"/>
 	<element pattern=":lang"/>
+	<element pattern=":left"/>
 	<element pattern=":link"/>
+	<element pattern=":right"/>
 	<element pattern=":visited"/>
 </group>
 <group highlight="css-html-classid">
@@ -129,25 +133,4 @@
 	<element pattern="\.[-][^0-9][a-z0-9._-]+" is_regex="1" case_insens="1" />
 	<element pattern="#[-][^0-9][a-z0-9._-]+" is_regex="1" case_insens="1" />
 </group>
-<group highlight="css-html-media">
-	<element pattern="@media">
-	<context symbols=" &#9;&#10;&#13;{}.;,">
-		<group highlight="css-html-media" autocomplete="1">
-			<element pattern="all" />
-			<element pattern="aural" />
-			<element pattern="braille" />
-			<element pattern="embossed" />
-			<element pattern="handheld" />
-			<element pattern="print" />
-			<element pattern="projection" />
-			<element pattern="screen" />
-			<element pattern="tty" />
-			<element pattern="tv" />
-			<element id="e.css.media.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
-				<context idref="c.html.css.main" />
-			</element>
-		</group>
-	</context>
-	</element>
-	<element id="e.css.media.rbrace" pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.lbrace" ends_context="2" />
-</group>
+</bfinc>
