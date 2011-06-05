@@ -49,8 +49,10 @@ char *strcasestr(char *a, char *b)
 typedef struct {
 	Tasyncqueue queue;
 	guint refcount;
+	gboolean cancelled;
 	Tsnr3run *s3run;
 	void (*callback) (void *);
+	gpointer findfiles;
 } Tfilesworker;
 
 typedef struct {
@@ -310,7 +312,7 @@ static gpointer files_replace_run(gpointer data) {
 
 static void finished_finding_files_cb(Tfilesworker *fw) {
 	DEBUG_MSG("finished_cb, fw refcount (before unref) = %d\n",fw->refcount);
-	
+	fw->findfiles=NULL;
 	filesworker_unref(fw);
 }
 
@@ -342,15 +344,33 @@ static void filematch_cb(Tfilesworker *fw, GFile *uri, GFileInfo *finfo) {
 	queue_push(&fw->queue, rit);
 }
 
+void snr3_run_in_files_cancel(Tsnr3run *s3run) {
+	GSList *tmpslist;
+	Tfilesworker *fw = s3run->filesworker_id;
+	fw->cancelled = TRUE;
+	
+	if (fw->findfiles) {
+		findfiles_cancel(fw->findfiles);
+	}
+	
+	/* now wait till all the threads are cancelled, so the Tsnr3run structure 
+	can be freed after the cancel */
+	for (tmpslist = fw->queue.threads;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+		g_thread_join(tmpslist->data);
+	}
+}
+
 void snr3_run_in_files(Tsnr3run *s3run, void (*callback)(void *)) {
 	Tfilesworker *fw;
 	
 	fw = g_slice_new0(Tfilesworker);
 	queue_init_full(&fw->queue, 4, TRUE, TRUE, (QueueFunc)files_replace_run);
 	fw->s3run=s3run;
+	s3run->filesworker_id=fw;
 	fw->refcount=1;
+	fw->cancelled=FALSE;
 	fw->callback = callback;
 	
-	findfiles(s3run->basedir, s3run->recursive, 1, TRUE,s3run->filepattern, G_CALLBACK(filematch_cb), G_CALLBACK(finished_finding_files_cb), fw);
+	fw->findfiles = findfiles(s3run->basedir, s3run->recursive, 1, TRUE,s3run->filepattern, G_CALLBACK(filematch_cb), G_CALLBACK(finished_finding_files_cb), fw);
 	/*outputbox(s3run->bfwin,NULL, 0, 0, 0, NULL);*/
 }

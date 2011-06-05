@@ -1021,6 +1021,7 @@ typedef struct {
 	void (*finished_cb) (gpointer data);
 	void (*filematch_cb) (const gchar *name, GFile *uri, gpointer data);
 	gpointer data;
+	gboolean cancel;
 #ifdef LOAD_TIMER
 	GTimer *timer;
 #endif
@@ -1084,6 +1085,11 @@ enumerator_next_files_lcb(GObject * source_object, GAsyncResult * res, gpointer 
 	GError *error = NULL;
 	Tfindfiles_dir *ffd = user_data;
 	GList *alldoclist;
+
+	if (ffd->ff->cancel) {	
+		findfiles_load_directory_cleanup(ffd);
+		return;
+	}
 
 	list = tmplist = g_file_enumerator_next_files_finish(ffd->gfe, res, &error);
 	DEBUG_MSG("enumerator_next_files_lcb for oad=%p has %d results\n", omd, g_list_length(list));
@@ -1171,6 +1177,8 @@ static void
 findfiles_backend(Tfindfiles * ff, GFile * basedir, guint recursion)
 {
 	Tfindfiles_dir *ffd;
+	if (ff->cancel)
+		return;
 	DEBUG_MSG("open_advanced_backend on basedir %p ", basedir);
 	DEBUG_URI(basedir, TRUE);
 	ffd = g_slice_new0(Tfindfiles_dir);
@@ -1184,7 +1192,7 @@ findfiles_backend(Tfindfiles * ff, GFile * basedir, guint recursion)
 	ffd->basedir = basedir;
 	g_object_ref(ffd->basedir);
 
-	/* tune the queue, if there are VERY MANY files on the ofqueue, we limit the oadqueue */
+	/* tune the queue, if there are VERY MANY files on the ofqueue, we limit the ffdqueue */
 	if (ffdqueue.max_worknum >= 8 && ofqueue.q.length > 1024)
 		ffdqueue.max_worknum = 2;
 	else if (ffdqueue.max_worknum >= 2 && ofqueue.q.length > 10240)
@@ -1194,14 +1202,14 @@ findfiles_backend(Tfindfiles * ff, GFile * basedir, guint recursion)
 	queue_push(&ffdqueue, ffd);
 }
 
-gboolean
+gpointer
 findfiles(GFile *basedir, gboolean recursive, guint max_recursion, gboolean matchname,
 			  gchar * name_filter, GCallback filematch_cb, GCallback finished_cb, gpointer data)
 {
 	Tfindfiles *ff;
 
 	if (!basedir || !name_filter)
-		return FALSE;
+		return NULL;
 
 	ff = g_slice_new0(Tfindfiles);
 	ff->topbasedir = basedir;
@@ -1212,13 +1220,30 @@ findfiles(GFile *basedir, gboolean recursive, guint max_recursion, gboolean matc
 	ff->filematch_cb = filematch_cb;
 	ff->finished_cb = finished_cb;
 	ff->data = data;
+	ff->cancel = FALSE;
 	if (name_filter) {
 		ff->extension_filter = g_strdup(name_filter);
 		ff->patspec = g_pattern_spec_new(name_filter);
 	}
 	findfiles_backend(ff, basedir, 0);
-	return TRUE;
+	return ff;
 }
+
+void findfiles_cancel(gpointer data) {
+	Tfindfiles *ff=data;
+	GList *tmplist;
+	ff->cancel=TRUE;
+	/* now empty the non-active queue */
+	for (tmplist=g_list_first(ffdqueue.q.head);tmplist;tmplist=g_list_next(tmplist)) {
+		Tfindfiles_dir *ffd = tmplist->data;
+		g_object_unref(ffd->basedir);
+		if (ffd->gfe)
+			g_object_unref(ffd->gfe);
+		findfiles_unref(ffd->ff);
+		g_slice_free(Tfindfiles_dir, ffd);
+	}
+}
+
 /****************** open advanced (uses open multi) **********************************/
 
 typedef struct {

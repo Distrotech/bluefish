@@ -56,9 +56,11 @@ queue_run(Tasyncqueue * queue)
 		item = g_queue_pop_tail(&queue->q);
 		queue->worknum++;
 		if (queue->startinthread) {
+			GThread *thread;
 			GError *gerror=NULL;
 			DEBUG_MSG("create new thread, worknum now is %d\n",queue->worknum);
-			g_thread_create((GThreadFunc)queue->queuefunc, item, FALSE, &gerror);
+			thread = g_thread_create((GThreadFunc)queue->queuefunc, item, FALSE, &gerror);
+			queue->threads = g_slist_append(queue->threads, thread);
 		} else {
 			if (queue->lockmutex)
 				g_static_mutex_unlock(&queue->mutex);
@@ -89,6 +91,7 @@ queue_worker_ready_inthread(Tasyncqueue *queue)
 	if (!queue->q.tail) {
 		queue->worknum--;
 		DEBUG_MSG("queue_worker_ready_inthread, queue length %d, just return (end thread, worknum=%d)\n",g_queue_get_length(&queue->q),queue->worknum);
+		queue->threads = g_slist_remove(queue->threads, g_thread_self());
 		g_static_mutex_unlock(&queue->mutex);
 		return;
 	}
