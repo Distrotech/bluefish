@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		octave language file $Revision: 6337 $
+		octave language file $Revision$
  
 		Copyright (C 2008-2011 Olivier Sessink
 
@@ -40,7 +40,7 @@
 </properties>
 
 <definition>
-<context symbols=" .;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;" commentid_line="hashcomment" commentid_block="none">
+<context symbols=" .;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;" commentid_line="cm.hashcomment" commentid_block="none">
 
 <element pattern="&#34;" highlight="string">
  <context symbols="\&#34;" highlight="string">
@@ -85,8 +85,8 @@
 <element pattern="continue"/>
 <element pattern="unwind_protect"/>
 <element pattern="try"/>
-<element id="function" pattern="function" starts_block="1"/>
-<element pattern="endfunction" ends_block="1" blockstartelement="function"/>
+<element id="e.function" pattern="function" starts_block="1"/>
+<element pattern="endfunction" ends_block="1" blockstartelement="e.function"/>
 </group>
 
 <group autocomplete="1" highlight="type">
