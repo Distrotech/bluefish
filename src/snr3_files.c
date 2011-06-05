@@ -233,12 +233,13 @@ static gboolean replace_files_in_thread_finished(gpointer data) {
 	GList *tmplist;
 	
 	DEBUG_MSG("add %d results to outputbox\n",g_list_length(rit->results));
-	
-	curi = g_file_get_uri(rit->uri);
-	for (tmplist=g_list_first(rit->results);tmplist;tmplist=g_list_next(tmplist)) {
-		outputbox_add_line(rit->fw->s3run->bfwin, curi, GPOINTER_TO_INT(tmplist->data), rit->fw->s3run->query);
+	if (!rit->fw->cancelled) {
+		curi = g_file_get_uri(rit->uri);
+		for (tmplist=g_list_first(rit->results);tmplist;tmplist=g_list_next(tmplist)) {
+			outputbox_add_line(rit->fw->s3run->bfwin, curi, GPOINTER_TO_INT(tmplist->data), rit->fw->s3run->query);
+		}
+		g_free(curi);
 	}
-	g_free(curi);
 	DEBUG_MSG("replace_files_in_thread_finished, finished rit %p\n", rit);
 	filesworker_unref(rit->fw);
 	/* cleanup */
@@ -288,7 +289,6 @@ static gpointer files_replace_run(gpointer data) {
 				DEBUG_MSG("replaced %d entries\n",g_list_length(rit->results));
 				outbuf = g_convert(replacedbuf, -1, encoding, "UTF-8", NULL, &outbuflen, NULL);
 				
-			
 				ret = g_file_replace_contents(rit->uri,outbuf,outbuflen,NULL,TRUE,G_FILE_CREATE_NONE,NULL,NULL,&gerror);
 				if (gerror) {
 					g_print("failed to save file: %s\n",gerror->message);
@@ -302,6 +302,7 @@ static gpointer files_replace_run(gpointer data) {
 	}
 	rit->results = g_list_reverse(rit->results);
 	tmpqueue = &rit->fw->queue;
+	/* TODO: BUG: if we add this idle function when cancel is TRUE, we might have a problem  */
 	g_idle_add(replace_files_in_thread_finished, rit);
 	
 	DEBUG_MSG("thread %p: calling queue_worker_ready_inthread\n",g_thread_self());
@@ -346,11 +347,19 @@ static void filematch_cb(Tfilesworker *fw, GFile *uri, GFileInfo *finfo) {
 
 void snr3_run_in_files_cancel(Tsnr3run *s3run) {
 	GSList *tmpslist;
+	GList *tmplist;
 	Tfilesworker *fw = s3run->filesworker_id;
 	fw->cancelled = TRUE;
 	
 	if (fw->findfiles) {
 		findfiles_cancel(fw->findfiles);
+	}
+	/* empty the queue */
+	for (tmplist = fw->queue.q.head;tmplist;tmplist=g_list_next(tmplist)) {
+		Treplaceinthread *rit=tmplist->data;
+		g_object_unref(rit->uri);
+		filesworker_unref(rit->fw);
+		g_slice_free(Treplaceinthread, rit);
 	}
 	
 	/* now wait till all the threads are cancelled, so the Tsnr3run structure 
@@ -358,6 +367,8 @@ void snr3_run_in_files_cancel(Tsnr3run *s3run) {
 	for (tmpslist = fw->queue.threads;tmpslist;tmpslist=g_slist_next(tmpslist)) {
 		g_thread_join(tmpslist->data);
 	}
+	
+	/* hmm but what if there are still idle callbacks registered ??? */
 }
 
 void snr3_run_in_files(Tsnr3run *s3run, void (*callback)(void *)) {
