@@ -544,9 +544,8 @@ snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *))
 				snr3_run_pcre_in_doc(s3run, tmplist->data, 0, -1);
 		break;
 		case snr3scope_files:
-			s3run->basedir = g_file_new_for_path("/tmp/");
+			DEBUG_MSG("scope files, run with filepattern %s\n", s3run->filepattern);
 			s3run->recursive = TRUE;
-			s3run->filepattern = g_strdup("*.txt");
 			snr3_run_in_files(s3run, callback);
 		break;
 	}
@@ -738,6 +737,8 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	gint type, replacetype, scope;
 	gboolean is_case_sens;
 	gint retval=0;
+	GFile *basedir;
+	const gchar *filepattern;
 	
 	query = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))));
 	replace = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))));
@@ -745,6 +746,9 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
 	scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 	is_case_sens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->matchCase));
+	
+	basedir = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(snrwin->basedir)));
+	filepattern = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->filepattern))));
 
 	if (is_case_sens != s3run->is_case_sens) {
 		g_print("set is_case_sens %d\n",is_case_sens);
@@ -781,6 +785,21 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 		s3run->replace = g_strdup(replace);
 		retval |= 2;
 		g_print("retval=%d\n",retval);
+	}
+	
+	if (g_strcmp0(s3run->filepattern, filepattern)!=0) {
+		g_free(s3run->filepattern);
+		s3run->filepattern = g_strdup(filepattern);
+		g_print("filepattern =%s\n",filepattern);
+		retval |= 1;
+	}
+	if (!s3run->basedir || !g_file_equal(s3run->basedir, basedir)) {
+		if (!s3run->basedir)
+			g_object_unref(s3run->basedir);
+		s3run->basedir = basedir;
+		retval |= 1;
+	} else {
+		g_object_unref(basedir);
 	}
 	
 	if ((retval & 1) != 0) {
@@ -1067,6 +1086,14 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	g_object_unref(lstore);
 	gtk_box_pack_start(GTK_BOX(snrwin->fileshbox), snrwin->filepattern, TRUE, TRUE, 2);
 	snrwin->basedir = gtk_entry_new();
+	
+	if (bfwin->current_document && bfwin->current_document->uri) {
+		GFile *parent = g_file_get_parent(bfwin->current_document->uri);
+		gchar *tmp = g_file_get_uri(parent);
+		gtk_entry_set_text(GTK_ENTRY(snrwin->basedir), tmp);
+		g_object_unref(parent);
+		g_free(tmp);
+	}
 	gtk_box_pack_start(GTK_BOX(snrwin->fileshbox), snrwin->basedir, TRUE, TRUE, 2);
 	button = dialog_button_new_with_image(NULL, -1, GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU);
 	gtk_box_pack_start(GTK_BOX(snrwin->fileshbox), button, TRUE, TRUE, 2);

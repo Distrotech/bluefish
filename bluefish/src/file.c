@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>				/* memcpy */
@@ -1065,7 +1065,7 @@ static void findfiles_rundir(gpointer data);
 static void
 findfiles_load_directory_cleanup(Tfindfiles_dir * ffd)
 {
-	DEBUG_MSG("open_adv_load_directory_cleanup %p\n", oad);
+	DEBUG_MSG("findfiles_load_directory_cleanup %p\n", ffd);
 	g_object_unref(ffd->basedir);
 	if (ffd->gfe)
 		g_object_unref(ffd->gfe);
@@ -1092,7 +1092,7 @@ enumerator_next_files_lcb(GObject * source_object, GAsyncResult * res, gpointer 
 	}
 
 	list = tmplist = g_file_enumerator_next_files_finish(ffd->gfe, res, &error);
-	DEBUG_MSG("enumerator_next_files_lcb for oad=%p has %d results\n", omd, g_list_length(list));
+	DEBUG_MSG("enumerator_next_files_lcb for oad=%p has %d results\n", ffd, g_list_length(list));
 	if (!list) {
 		/* cleanup */
 		findfiles_load_directory_cleanup(ffd);
@@ -1124,7 +1124,7 @@ enumerator_next_files_lcb(GObject * source_object, GAsyncResult * res, gpointer 
 				} else {
 					nametomatch = g_file_get_uri(child_uri);
 				}
-				DEBUG_MSG("open_adv_load_directory_lcb, matching on %s\n", nametomatch);
+				DEBUG_MSG("enumerator_next_files_lcb_lcb, matching on %s\n", nametomatch);
 				if (g_pattern_match_string(ffd->ff->patspec, nametomatch)) {	/* test extension */
 					ffd->ff->filematch_cb(ffd->ff->data, child_uri, finfo);
 				}
@@ -1179,7 +1179,7 @@ findfiles_backend(Tfindfiles * ff, GFile * basedir, guint recursion)
 	Tfindfiles_dir *ffd;
 	if (ff->cancel)
 		return;
-	DEBUG_MSG("open_advanced_backend on basedir %p ", basedir);
+	DEBUG_MSG("findfiles_backend on basedir %p ", basedir);
 	DEBUG_URI(basedir, TRUE);
 	ffd = g_slice_new0(Tfindfiles_dir);
 #ifdef OAD_MEMCOUNT
@@ -1212,6 +1212,7 @@ findfiles(GFile *basedir, gboolean recursive, guint max_recursion, gboolean matc
 		return NULL;
 
 	ff = g_slice_new0(Tfindfiles);
+	g_print("findfiles started at %p, name_filter=%s\n",name_filter);
 	ff->topbasedir = basedir;
 	g_object_ref(ff->topbasedir);
 	ff->recursive = recursive;
@@ -1240,9 +1241,8 @@ static void findfiles_cancel_queue_freefunc(gpointer data, gpointer user_data) {
 
 void findfiles_cancel(gpointer data) {
 	Tfindfiles *ff=data;
-	GList *tmplist;
 	ff->cancel=TRUE;
-	queue_cancel(&ffdqueue.q, findfiles_cancel_queue_freefunc, NULL);
+	queue_cancel(&ffdqueue, findfiles_cancel_queue_freefunc, NULL);
 }
 
 /****************** open advanced (uses open multi) **********************************/
@@ -1565,9 +1565,9 @@ sync_unref(gpointer data)
 		sync->progress_callback(-1, -1, sync->num_failed, sync->callback_data);
 		/*g_timer_destroy(sync->timer); */
 		DEBUG_MSG("sync_unref, refcount=%d, q_update=%d/%d, q_local=%d/%d q_remote=%d/%d\n", sync->refcount,
-				  g_list_length(sync->queue_update.head), sync->queue_update.worknum,
-				  g_list_length(sync->queue_walkdir_local.head), sync->queue_walkdir_local.worknum,
-				  g_list_length(sync->queue_walkdir_remote.head), sync->queue_walkdir_remote.worknum);
+				  g_list_length(sync->queue_update.q.head), sync->queue_update.worknum,
+				  g_list_length(sync->queue_walkdir_local.q.head), sync->queue_walkdir_local.worknum,
+				  g_list_length(sync->queue_walkdir_remote.q.head), sync->queue_walkdir_remote.worknum);
 		queue_cleanup(&sync->queue_walkdir_local);
 		queue_cleanup(&sync->queue_walkdir_remote);
 		queue_cleanup(&sync->queue_update);
