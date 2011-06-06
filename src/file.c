@@ -1229,19 +1229,20 @@ findfiles(GFile *basedir, gboolean recursive, guint max_recursion, gboolean matc
 	return ff;
 }
 
+static void findfiles_cancel_queue_freefunc(gpointer data, gpointer user_data) {
+	Tfindfiles_dir *ffd = data;
+	g_object_unref(ffd->basedir);
+	if (ffd->gfe)
+		g_object_unref(ffd->gfe);
+	findfiles_unref(ffd->ff);
+	g_slice_free(Tfindfiles_dir, ffd);
+}
+
 void findfiles_cancel(gpointer data) {
 	Tfindfiles *ff=data;
 	GList *tmplist;
 	ff->cancel=TRUE;
-	/* now empty the non-active queue */
-	for (tmplist=g_list_first(ffdqueue.q.head);tmplist;tmplist=g_list_next(tmplist)) {
-		Tfindfiles_dir *ffd = tmplist->data;
-		g_object_unref(ffd->basedir);
-		if (ffd->gfe)
-			g_object_unref(ffd->gfe);
-		findfiles_unref(ffd->ff);
-		g_slice_free(Tfindfiles_dir, ffd);
-	}
+	queue_cancel(&ffdqueue.q, findfiles_cancel_queue_freefunc, NULL);
 }
 
 /****************** open advanced (uses open multi) **********************************/

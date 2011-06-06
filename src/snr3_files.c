@@ -49,7 +49,7 @@ char *strcasestr(char *a, char *b)
 typedef struct {
 	Tasyncqueue queue;
 	guint refcount;
-	gboolean cancelled;
+	volatile gint cancelled;
 	Tsnr3run *s3run;
 	void (*callback) (void *);
 	gpointer findfiles;
@@ -218,9 +218,9 @@ static void filesworker_unref(Tfilesworker *fw) {
 	DEBUG_MSG("filesworker_unref, fw=%p, refcount=%d\n",fw,fw->refcount);
 	if (fw->refcount == 0) {
 		Tsnr3run *s3run = fw->s3run;
-		
-		fw->callback(s3run);
-		
+		if (fw->cancelled==0) {
+			fw->callback(s3run);
+		}
 		queue_cleanup(&fw->queue);
 		DEBUG_MSG("filesworker_unref, free %p\n",fw);
 		g_slice_free(Tfilesworker, fw);
@@ -233,7 +233,7 @@ static gboolean replace_files_in_thread_finished(gpointer data) {
 	GList *tmplist;
 	
 	DEBUG_MSG("add %d results to outputbox\n",g_list_length(rit->results));
-	if (!rit->fw->cancelled) {
+	if (g_atomic_int_get(&rit->fw->cancelled)==0) {
 		curi = g_file_get_uri(rit->uri);
 		for (tmplist=g_list_first(rit->results);tmplist;tmplist=g_list_next(tmplist)) {
 			outputbox_add_line(rit->fw->s3run->bfwin, curi, GPOINTER_TO_INT(tmplist->data), rit->fw->s3run->query);
@@ -260,6 +260,10 @@ static gpointer files_replace_run(gpointer data) {
 	DEBUG_MSG("thread %p: files_replace_run, started rit %p\n", g_thread_self(), rit);
 	
 	ret = g_file_load_contents(rit->uri,NULL,&inbuf,&inbuflen,NULL,&gerror);
+	if (g_atomic_int_get(&rit->fw->cancelled)!=0) {
+		g_free(inbuf);
+		return NULL;
+	}
 	if (gerror) {
 		g_print("failed to load file: %s\n",gerror->message);
 		g_error_free(gerror);
@@ -285,7 +289,7 @@ static gpointer files_replace_run(gpointer data) {
 				break;
 			}
 			g_free(utf8buf);
-			if (rit->results && replacedbuf) {
+			if ((g_atomic_int_get(&rit->fw->cancelled)==0) && rit->results && replacedbuf) {
 				DEBUG_MSG("replaced %d entries\n",g_list_length(rit->results));
 				outbuf = g_convert(replacedbuf, -1, encoding, "UTF-8", NULL, &outbuflen, NULL);
 				
@@ -302,9 +306,10 @@ static gpointer files_replace_run(gpointer data) {
 	}
 	rit->results = g_list_reverse(rit->results);
 	tmpqueue = &rit->fw->queue;
-	/* TODO: BUG: if we add this idle function when cancel is TRUE, we might have a problem  */
-	g_idle_add(replace_files_in_thread_finished, rit);
-	
+	if (g_atomic_int_get(&rit->fw->cancelled)==0) {
+		g_idle_add(replace_files_in_thread_finished, rit);
+	}
+
 	DEBUG_MSG("thread %p: calling queue_worker_ready_inthread\n",g_thread_self());
 	queue_worker_ready_inthread(tmpqueue);
 	/* we don't need to start a new thread by calling _inthread() inside the thread */
@@ -324,7 +329,10 @@ static void doc_s3run_finished(gpointer data) {
 static void filematch_cb(Tfilesworker *fw, GFile *uri, GFileInfo *finfo) {
 	Treplaceinthread *rit;
 	Tdocument *doc;
-
+	if (g_atomic_int_get(&fw->cancelled)!=0) {
+		/* do nothing */
+		return;
+	}
 	/* TODO: first check if we have this file open, in that case we have to run the 
 	function that replaces in the document */
 	doc = documentlist_return_document_from_uri(fw->s3run->bfwin->documentlist, uri);
@@ -345,30 +353,25 @@ static void filematch_cb(Tfilesworker *fw, GFile *uri, GFileInfo *finfo) {
 	queue_push(&fw->queue, rit);
 }
 
+static void
+queue_cancel_freefunc(gpointer data, gpointer user_data)
+{
+	Treplaceinthread *rit=data;
+	g_object_unref(rit->uri);
+	filesworker_unref(rit->fw);
+	g_slice_free(Treplaceinthread, rit);
+}
+
 void snr3_run_in_files_cancel(Tsnr3run *s3run) {
-	GSList *tmpslist;
-	GList *tmplist;
 	Tfilesworker *fw = s3run->filesworker_id;
-	fw->cancelled = TRUE;
-	
+	g_atomic_int_set(&fw->cancelled, 1);
 	if (fw->findfiles) {
 		findfiles_cancel(fw->findfiles);
 	}
-	/* empty the queue */
-	for (tmplist = fw->queue.q.head;tmplist;tmplist=g_list_next(tmplist)) {
-		Treplaceinthread *rit=tmplist->data;
-		g_object_unref(rit->uri);
-		filesworker_unref(rit->fw);
-		g_slice_free(Treplaceinthread, rit);
-	}
-	
-	/* now wait till all the threads are cancelled, so the Tsnr3run structure 
-	can be freed after the cancel */
-	for (tmpslist = fw->queue.threads;tmpslist;tmpslist=g_slist_next(tmpslist)) {
-		g_thread_join(tmpslist->data);
-	}
-	
-	/* hmm but what if there are still idle callbacks registered ??? */
+	queue_cancel(&fw->queue, queue_cancel_freefunc, NULL);	
+	/* hmm but what if there are still idle callbacks registered ???
+	the s3run structure can only be free'd after the fw refcount 
+	is 0 */
 }
 
 void snr3_run_in_files(Tsnr3run *s3run, void (*callback)(void *)) {
@@ -379,7 +382,7 @@ void snr3_run_in_files(Tsnr3run *s3run, void (*callback)(void *)) {
 	fw->s3run=s3run;
 	s3run->filesworker_id=fw;
 	fw->refcount=1;
-	fw->cancelled=FALSE;
+	fw->cancelled= 0;
 	fw->callback = callback;
 	
 	fw->findfiles = findfiles(s3run->basedir, s3run->recursive, 1, TRUE,s3run->filepattern, G_CALLBACK(filematch_cb), G_CALLBACK(finished_finding_files_cb), fw);
