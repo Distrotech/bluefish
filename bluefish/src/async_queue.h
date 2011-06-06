@@ -44,5 +44,5 @@ void queue_worker_ready(Tasyncqueue * queue);
 void queue_worker_ready_inthread(Tasyncqueue *queue);
 void queue_push(Tasyncqueue * queue, gpointer item);
 gboolean queue_remove(Tasyncqueue * queue, gpointer item);
-
+void queue_cancel(Tasyncqueue *queue, GFunc freefunc, gpointer user_data);
 #endif /* ASYNC_QUEUE */

@@ -127,3 +127,20 @@ queue_remove(Tasyncqueue * queue, gpointer item)
 		g_static_mutex_unlock(&queue->mutex);
 	return retval;
 }
+
+void
+queue_cancel(Tasyncqueue *queue, GFunc freefunc, gpointer user_data)
+{
+	if (queue->lockmutex)
+		g_static_mutex_lock(&queue->mutex);	
+	g_queue_foreach(&queue->q, freefunc, user_data);
+	g_queue_clear(&queue->q);
+	if (queue->lockmutex)
+		g_static_mutex_unlock(&queue->mutex);
+	if (queue->startinthread) {
+		GSList *tmpslist;
+		for (tmpslist = queue->threads;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+			g_thread_join(tmpslist->data);
+		}
+	}
+}
