@@ -18,7 +18,7 @@
  *
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #define _GNU_SOURCE
 #include <string.h>
@@ -317,7 +317,7 @@ static gpointer files_replace_run(gpointer data) {
 }
 
 static void finished_finding_files_cb(Tfilesworker *fw) {
-	DEBUG_MSG("finished_cb, fw refcount (before unref) = %d\n",fw->refcount);
+	DEBUG_MSG("finished_finding_files_cb, fw refcount (before unref) = %d\n",fw->refcount);
 	fw->findfiles=NULL;
 	filesworker_unref(fw);
 }
@@ -329,6 +329,7 @@ static void doc_s3run_finished(gpointer data) {
 static void filematch_cb(Tfilesworker *fw, GFile *uri, GFileInfo *finfo) {
 	Treplaceinthread *rit;
 	Tdocument *doc;
+	DEBUG_MSG("filematch_cb\n");
 	if (g_atomic_int_get(&fw->cancelled)!=0) {
 		/* do nothing */
 		return;
@@ -376,15 +377,15 @@ void snr3_run_in_files_cancel(Tsnr3run *s3run) {
 
 void snr3_run_in_files(Tsnr3run *s3run, void (*callback)(void *)) {
 	Tfilesworker *fw;
-	
 	fw = g_slice_new0(Tfilesworker);
+	DEBUG_MSG("snr3_run_in_files, started with fw=%p\n",fw);
 	queue_init_full(&fw->queue, 4, TRUE, TRUE, (QueueFunc)files_replace_run);
 	fw->s3run=s3run;
 	s3run->filesworker_id=fw;
 	fw->refcount=1;
 	fw->cancelled= 0;
 	fw->callback = callback;
-	
+	g_print("filepattern=%s\n",s3run->filepattern);
 	fw->findfiles = findfiles(s3run->basedir, s3run->recursive, 1, TRUE,s3run->filepattern, G_CALLBACK(filematch_cb), G_CALLBACK(finished_finding_files_cb), fw);
 	/*outputbox(s3run->bfwin,NULL, 0, 0, 0, NULL);*/
 }
