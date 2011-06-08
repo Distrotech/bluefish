@@ -19,7 +19,7 @@
 
 #ifndef __SNR3_FILES_H_
 #define __SNR3_FILES_H_
-
-void snr3_run_in_files(Tsnr3run *s3run, void (*callback)(void *));
+void snr3_run_in_files_cancel(Tsnr3run *s3run);
+void snr3_run_in_files(Tsnr3run *s3run);
 
 #endif /* __SNR3_FILES_H_ */

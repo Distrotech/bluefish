@@ -40,7 +40,7 @@ void queue_init_full(Tasyncqueue *queue, guint max_worknum, gboolean lockmutex, 
 #define queue_init(queue, max_worknum, queuefunc) queue_init_full(queue, max_worknum, FALSE, FALSE, queuefunc)
 
 void queue_cleanup(Tasyncqueue * queue);
-void queue_worker_ready(Tasyncqueue * queue);
+gboolean queue_worker_ready(Tasyncqueue * queue);
 void queue_worker_ready_inthread(Tasyncqueue *queue);
 void queue_push(Tasyncqueue * queue, gpointer item);
 gboolean queue_remove(Tasyncqueue * queue, gpointer item);

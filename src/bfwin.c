@@ -952,6 +952,7 @@ bfwin_current_document_changed_notify(Tbfwin *bfwin, Tdocument *olddoc, Tdocumen
 	GSList *tmpslist;
 	for (tmpslist=bfwin->curdoc_changed;tmpslist;tmpslist=g_slist_next(tmpslist)) {
 		Tcallback *cb=tmpslist->data;
+		g_print("bfwin_current_document_changed_notify, call %p, data=%p, bfwin=%p, olddoc=%p, newdoc=%p\n",cb->func,cb->data, bfwin,olddoc,newdoc);
 		cb->func(bfwin, olddoc, newdoc, cb->data);
 	}
 }
@@ -962,6 +963,7 @@ bfwin_current_document_change_register(Tbfwin *bfwin, CurdocChangedCallback func
 	cb = g_slice_new0(Tcallback);
 	cb->func = func;
 	cb->data = data;
+	g_print("bfwin_current_document_change_register func %p, data %p\n",func,data);
 	bfwin->curdoc_changed = g_slist_append(bfwin->curdoc_changed, cb);
 }
 
@@ -969,16 +971,16 @@ void
 bfwin_current_document_change_remove_by_data(Tbfwin *bfwin, gpointer data) {
 	Tcallback *cb=NULL;
 	GSList *tmpslist=bfwin->curdoc_changed;
+	g_print("bfwin_current_document_change_remove_by_data, data=%p\n", data);
 	while(tmpslist) {
 		cb=tmpslist->data;
 		if (cb->data == data) {
+			g_print("bfwin_current_document_change_remove_by_data, removed func %p data %p\n",cb->func, cb->data);
 			bfwin->curdoc_changed = g_slist_delete_link(bfwin->curdoc_changed, tmpslist);
-			break;
+			g_slice_free(Tcallback, cb);
+			return;
 		}
 		tmpslist = g_slist_next(tmpslist);
-	}
-	if (cb) {
-		g_slice_free(Tcallback, cb);
 	}
 }
 
