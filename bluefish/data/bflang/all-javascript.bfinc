@@ -20,6 +20,7 @@
 -->
 
 <!-- JavaScript Keywords -->
+<bfinc>
 <group highlight="js-keyword" autocomplete="1">
 	<element pattern="break" />
 	<element pattern="case" />
@@ -92,7 +93,7 @@
 	<element pattern="encodeURIComponent"/>
 	<element pattern="escape"/>
 	<element pattern="eval"/>
-	<element pattern="exec"/>
+<!-- 	<element pattern="exec"/> -->
 	<element pattern="hasOwnProperty"/>
 	<element pattern="isFinite"/>
 	<element pattern="isNaN"/>
@@ -134,8 +135,8 @@
 		<element pattern="setTimeout"/>
 		<element pattern="stop"/>
 		<group class="javascript_document_object">
-			<element pattern="captureEvents"/>
-			<element pattern="close"/>
+<!-- 			<element pattern="captureEvents"/> -->
+<!-- 			<element pattern="close"/> -->
 			<element pattern="createAttribute"/>
 			<element pattern="createElement"/>
 			<element pattern="createTextNode"/>
@@ -143,29 +144,29 @@
 			<element pattern="getElementsByName"/>
 			<element pattern="getElementsByTagName" />
 			<element pattern="getSelection"/>
-			<element pattern="handleEvent"/>
-			<element pattern="open"/>
-			<element pattern="releaseEvents"/>
+<!-- 			<element pattern="handleEvent"/> -->
+<!-- 			<element pattern="open"/> -->
+<!-- 			<element pattern="releaseEvents"/> -->
 			<element pattern="routeEvents"/>
 			<element pattern="write"/>
 			<element pattern="writeIn"/>
 		</group>
 		<group class="javascript_history_object">
-			<element pattern="back"/>
-			<element pattern="forward"/>
+<!-- 			<element pattern="back"/> -->
+<!-- 			<element pattern="forward"/> -->
 			<element pattern="go"/>
 		</group>
 
 	</group>
 	<!-- Array -->
 	<group>
-		<element pattern="concat"/>
+<!-- 		<element pattern="concat"/> -->
 		<element pattern="join"/>
 		<element pattern="pop"/>
 		<element pattern="push"/>
 		<element pattern="reverse"/>
 		<element pattern="shift"/>
-		<element pattern="slice"/>
+<!-- 		<element pattern="slice"/> -->
 		<element pattern="splice"/>
 		<element pattern="sort"/>
 		<element pattern="unshift"/>
@@ -248,7 +249,7 @@
 		<element pattern="deleteData"/>
 		<element pattern="getAttribute"/>
 		<element pattern="getAttributeNode"/>
-		<element pattern="getElementsByTagName"/>
+<!-- 		<element pattern="getElementsByTagName"/> -->
 		<element pattern="hasChildNodes"/>
 		<element pattern="insertBefore"/>
 		<element pattern="insertData"/>
@@ -272,7 +273,7 @@
 
 	<group class="javascript_location_object">
 		<element pattern="reload" />
-		<element pattern="replace" /> <!--  replace element is define twice in bfinc. -->
+<!-- 		<element pattern="replace" /> -->
 	</group>
 </group>
 	<!-- string -->
@@ -293,8 +294,8 @@
 		<element pattern="italics"/>
 		<element pattern="lastIndexOf"/>
 		<element pattern="link"/>
-		<element pattern="match"/>
-		<element pattern="search"/>
+<!-- 		<element pattern="match"/> -->
+<!-- 		<element pattern="search"/> -->
 		<element pattern="slice"/>
 		<element pattern="small"/>
 		<element pattern="split"/>
@@ -375,13 +376,13 @@
 			<element pattern="URL"/>
 			<element pattern="vlinkColor"/>
 			<group class="javascript_anchors_object">
-				<element pattern="name"/>
+<!-- 				<element pattern="name"/> -->
 				<element pattern="length"/>
 				<element pattern="text"/>
 				<element pattern="x"/>
 				<element pattern="y"/>
 			</group>
-			<element pattern="length" class="javascript_applets_object"/>
+<!-- 			<element pattern="length" class="javascript_applets_object"/> -->
 			<group class="javascript_node_object">
 				<element pattern="attributes"/>
 				<element pattern="childNodes"/>
@@ -411,14 +412,14 @@
 			<element pattern="screenX"/>
 			<element pattern="which"/>
 			<element pattern="type"/>
-			<element pattern="x"/>
-			<element pattern="y"/>
+<!-- 			<element pattern="x"/> -->
+<!-- 			<element pattern="y"/> -->
 			<element pattern="layerY"/>
 			<element pattern="offsetY"/>
 			<element pattern="pageY"/>
 			<element pattern="screenY"/>
 		</group>
-		<element pattern="length" class="javascript_history_object"/>
+<!-- 		<element pattern="length" class="javascript_history_object"/> -->
 		<group class="javascript_location_object">
 			<element pattern="hash"/>
 			<element pattern="host"/>
@@ -427,7 +428,7 @@
 			<element pattern="pathname"/>
 			<element pattern="port"/>
 			<element pattern="protocol"/>
-			<element pattern="search"/>
+<!-- 			<element pattern="search"/> -->
 		</group>
 	</group>
 	<group class="javascript_math_object">
@@ -451,15 +452,15 @@
 		<group>
 			<element pattern="description"/>
 			<element pattern="enabledPlugin"/>
-			<element pattern="length"/>
+<!-- 			<element pattern="length"/> -->
 			<element pattern="suffixes"/>
-			<element pattern="type"/>
+<!-- 			<element pattern="type"/> -->
 		</group>
 		<group>
-			<element pattern="description"/>
+<!-- 			<element pattern="description"/> -->
 			<element pattern="filename"/>
-			<element pattern="length"/>
-			<element pattern="name"/>
+<!-- 			<element pattern="length"/> -->
+<!-- 			<element pattern="name"/> -->
 		</group>
 	</group>
 	<group class="javascript_screen_object">
@@ -470,7 +471,7 @@
 		<element pattern="pixelDepth"/>
 		<element pattern="width"/>
 	</group>
-	<element pattern="length" class="javascript_string_object"/>
+<!-- 	<element pattern="length" class="javascript_string_object"/> -->
 </group>
 <!-- JavaScript Objects -->
 <group highlight="js-type" autocomplete="1">
@@ -569,7 +570,7 @@
 		<element pattern="fontStyle" />
 		<element pattern="fontVariant" />
 		<element pattern="fontWeight" />
-		<element pattern="height" />
+<!-- 		<element pattern="height" /> -->
 		<element pattern="left" />
 		<element pattern="letterSpacing" />
 		<element pattern="lineHeight" />
@@ -638,7 +639,7 @@
 		<element pattern="volume" />
 		<element pattern="whiteSpace" />
 		<element pattern="widows" />
-		<element pattern="width" />
+<!-- 		<element pattern="width" /> -->
 		<element pattern="wordSpacing" />
 		<element pattern="wordWrap"><reference>CSS3</reference></element>
 		<element pattern="zIndex" />
@@ -690,3 +691,4 @@
 		<element pattern="'" highlight="js-string" ends_context="1" />
 	</context>
 </element>
+</bfinc>
