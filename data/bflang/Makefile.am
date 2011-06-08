@@ -23,7 +23,6 @@ bflang_bflang2_files = \
 	asp.bflang2 \
 	asp-vbscript.bflang2 \
 	bflang2.bflang2 \
-	bfinc.bflang2 \
 	c.bflang2 \
 	clojure.bflang2 \
 	cpp.bflang2 \
@@ -52,6 +51,7 @@ bflang_bflang2_files = \
 	sql.bflang2 \
 	svg.bflang2 \
 	text.bflang2 \
+	vala.bflang2 \
 	vbscript.bflang2 \
 	wordpress.bflang2 \
 	xhtml.bflang2 \
