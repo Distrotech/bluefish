@@ -19,6 +19,8 @@
 #ifndef __SNR3_H_
 #define __SNR3_H_
 
+#include "async_queue.h"
+
 typedef enum {
 	snr3type_string,
 	snr3type_pcre
@@ -64,7 +66,7 @@ typedef struct {
 	Tsnr3type type;
 	Tsnr3replace replacetype;
 	Tsnr3scope scope;
-	GList *doclist;
+	GList *doclist; /* the files to do the replace in */
 	GFile *basedir; /* when replace in files */
 	gchar *filepattern;
 	gboolean recursive;
@@ -73,20 +75,47 @@ typedef struct {
 	gboolean escape_chars;
 	gboolean select_matches;
 	gboolean bookmark_matches;
-	guint idle_id;
-	gpointer filesworker_id; /* a pointer to the Tfilesworker structure used in find_files */
+
+	/* the resultss of a search run */
+	GQueue results; /* all results */
+	GList *current; /* current result */
+
+	guint unre_action_id;
+	
 	/* following entries are used during the search run */
-	Tdocument *curdoc;
-	gchar *curbuf;
+	Tdocument *curdoc; /* the current document */
+	gchar *curbuf; /* the current buffer */
 	gint curoffset; /* when running replace all, the difference between the offset in curbuf and the offset in the text widget */
 	guint curposition; /* the position in curbuf to continue the next search run */
-	guint so;
-	guint eo;
-	Tsnr3workmode workmode; /* not yet used */
+	guint so; /* area to search in */
+	guint eo; /* see so */
 	void (*callback) (void *);	/* to be called when the search has finished */
-	GQueue results;
-	GList *current;
+	guint idle_id;
+	Tasyncqueue idlequeue;
+	Tasyncqueue threadqueue;
+	volatile gint runcount;
+	volatile gint cancelled;
+	gpointer findfiles; /* a pointer for the return value of findfiles() so we can cancel it */
+	
+	/*gpointer filesworker_id;*/ /* a pointer to the Tfilesworker structure used in find_files */
+
 } Tsnr3run;
+
+typedef struct {
+	Tasyncqueue queue;
+	guint refcount;
+	volatile gint cancelled;
+	Tsnr3run *s3run;
+	void (*callback) (void *);
+	gpointer findfiles;
+} Tfilesworker;
+
+typedef struct {
+	gsize pos;
+	guint line;
+} Tlineinbuffer;
+
+
 
 enum {
 	SNR_RESPONSE_FIND = 0,
@@ -131,12 +160,14 @@ typedef struct {
 } Tsnr3config;
 
 #define MAX_CONTINUOUS_SEARCH_INTERVAL 0.1
+void snr3_run_pcre_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo);
+void snr3_run_string_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo);
 
-void
-snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *)); /* called from snr3_files.c */
+void snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *)); /* called from snr3_files.c */
 
 void snr3_run_go(Tsnr3run *s3run, gboolean forward);
 void snr3run_free(Tsnr3run *s3run);
+void snr3run_unrun(Tsnr3run *s3run);
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string);
 void snr3_advanced_dialog(Tbfwin * bfwin, const gchar *searchstring);
 #endif /* #define __SNR3_H_ */

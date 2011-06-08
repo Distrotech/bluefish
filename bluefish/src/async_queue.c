@@ -46,9 +46,10 @@ queue_cleanup(Tasyncqueue * queue)
 		g_static_mutex_free(&queue->mutex);
 }
 
-static void
+static gboolean
 queue_run(Tasyncqueue * queue)
 {
+	gboolean startednew=FALSE;
 	/* THE QUEUE MUTEX SHOULD BE LOCKED IF NEEDED WHEN CALLING THIS FUNCTION !!!!!!!!!!!!!!!!!!!!! */
 	while (queue->q.length > 0 && queue->worknum < queue->max_worknum) {
 		gpointer item;
@@ -68,18 +69,22 @@ queue_run(Tasyncqueue * queue)
 			if (queue->lockmutex)
 				g_static_mutex_lock(&queue->mutex);
 		}
+		startednew=TRUE;
 	}
+	return startednew;
 }
 
-void
+gboolean
 queue_worker_ready(Tasyncqueue * queue)
 {
+	gboolean startednew;
 	if (queue->lockmutex)
 		g_static_mutex_lock(&queue->mutex);
 	queue->worknum--;
-	queue_run(queue);
+	startednew = queue_run(queue);
 	if (queue->lockmutex)
 		g_static_mutex_unlock(&queue->mutex);
+	return startednew;
 }
 
 void
