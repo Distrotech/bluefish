@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 		Bluefish HTML Editor
-		all-php.bfinc $Revision: 4947 $
+		all-php.bfinc $Revision$
  
 		Copyright (C) 2008-2010 Olivier Sessink
 
@@ -19,6 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
+<bfinc>
 <group class="load_php_functions" autocomplete="1" highlight="php-function"  autocomplete_append="();" autocomplete_backup_cursor="2" >
 <element pattern="dotnet_load"/>
 <element pattern="apache_child_terminate"/>
@@ -1406,7 +1407,6 @@ Checks if the object or class has a property
 <element pattern="variant_set"/>
 <element pattern="variant_sub"/>
 <element pattern="variant_xor"/>
-<element pattern="crack_check"/>
 <element pattern="crack_check"/>
 <element pattern="crack_closedict"/>
 <element pattern="crack_getlastmessage"/>
@@ -3199,7 +3199,6 @@ transitions on success or false on failure.
 <element pattern="dba_delete"/>
 <element pattern="dba_exists"/>
 <element pattern="dba_fetch"/>
-<element pattern="dba_fetch"/>
 <element pattern="dba_firstkey"/>
 <element pattern="dba_handlers"/>
 <element pattern="dba_insert"/>
@@ -3270,7 +3269,7 @@ Rewind the position of a file pointer
 successfully opened by fopen.
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
-<element pattern="close"/>
+<element pattern="clo-->se"/>
 <element pattern="closedir" autocomplete_append="($dir_handle = null);">
 <reference>closedir($dir_handle = null);
 Close directory handle
@@ -3386,8 +3385,6 @@ E_WARNING is generated.
 <element pattern="getAttributeNode"/>
 <element pattern="getAttributeNodeNS"/>
 <element pattern="getAttributeNS"/>
-<element pattern="getElementsByTagName"/>
-<element pattern="getElementsByTagNameNS"/>
 <element pattern="hasAttribute"/>
 <element pattern="hasAttributeNS"/>
 <element pattern="removeAttribute"/>
@@ -3419,7 +3416,6 @@ E_WARNING is generated.
 <element pattern="normalize"/>
 <element pattern="removeChild"/>
 <element pattern="replaceChild"/>
-<element pattern="item"/>
 <element pattern="isWhitespaceInElementContent"/>
 <element pattern="splitText"/>
 <element pattern="evaluate"/>
@@ -3437,7 +3433,6 @@ Gets a DOMElement object from a SimpleXMLElement object
 <element pattern="value"/>
 <element pattern="entities"/>
 <element pattern="internal_subset"/>
-<element pattern="name"/>
 <element pattern="notations"/>
 <element pattern="public_id"/>
 <element pattern="system_id"/>
@@ -3466,13 +3461,10 @@ Gets a DOMElement object from a SimpleXMLElement object
 <element pattern="domxml_xslt_stylesheet"/>
 <element pattern="domxml_xslt_version"/>
 <element pattern="xpath_eval_expression"/>
-<element pattern="xpath_eval_expression"/>
-<element pattern="xpath_eval"/>
 <element pattern="xpath_eval"/>
 <element pattern="xpath_new_context"/>
 <element pattern="xpath_register_ns_auto"/>
 <element pattern="xpath_register_ns"/>
-<element pattern="xptr_eval"/>
 <element pattern="xptr_eval"/>
 <element pattern="xptr_new_context"/>
 <element pattern="enchant_broker_describe"/>
@@ -4825,10 +4817,7 @@ the "callback" filter, callback type should be passed.
 <element pattern="ibase_blob_echo"/>
 <element pattern="ibase_blob_get"/>
 <element pattern="ibase_blob_import"/>
-<element pattern="ibase_blob_import"/>
 <element pattern="ibase_blob_info"/>
-<element pattern="ibase_blob_info"/>
-<element pattern="ibase_blob_open"/>
 <element pattern="ibase_blob_open"/>
 <element pattern="ibase_close"/>
 <element pattern="ibase_commit_ret"/>
@@ -4856,8 +4845,6 @@ the "callback" filter, callback type should be passed.
 <element pattern="ibase_param_info"/>
 <element pattern="ibase_pconnect"/>
 <element pattern="ibase_prepare"/>
-<element pattern="ibase_prepare"/>
-<element pattern="ibase_prepare"/>
 <element pattern="ibase_query"/>
 <element pattern="ibase_restore"/>
 <element pattern="ibase_rollback_ret"/>
@@ -4866,10 +4853,8 @@ the "callback" filter, callback type should be passed.
 <element pattern="ibase_service_attach"/>
 <element pattern="ibase_service_detach"/>
 <element pattern="ibase_set_event_handler"/>
-<element pattern="ibase_set_event_handler"/>
 <element pattern="ibase_timefmt"/>
 <element pattern="ibase_trans"/>
-<element pattern="ibase_wait_event"/>
 <element pattern="ibase_wait_event"/>
 <element pattern="fribidi_log2vis"/>
 <element pattern="fbsql_affected_rows"/>
@@ -5934,53 +5919,17 @@ binary representation of the message digest is returned.
 <element pattern="hw_unlock"/>
 <element pattern="hw_who"/>
 <element pattern="langdepvalue"/>
-<element pattern="value"/>
 <element pattern="values"/>
 <element pattern="hw_api_attribute"/>
 <element pattern="checkin"/>
 <element pattern="checkout"/>
 <element pattern="children"/>
 <element pattern="mimetype"/>
-<element pattern="read"/>
 <element pattern="content"/>
-<element pattern="copy" autocomplete_append="($source, $dest, $context = null);">
-<reference>copy($source, $dest, $context = null);
-Copies file
-<b> source string </b>Path to the source file.
-<b> dest string </b>The destination path. If dest is a URL, the
-copy operation may fail if the wrapper does not support overwriting of
-existing files.
-If the destination file already exists, it will be overwritten.
-<b> context resource[optional] </b>A valid context resource created with 
-stream_context_create.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
 <element pattern="dbstat"/>
 <element pattern="dcstat"/>
 <element pattern="dstanchors"/>
 <element pattern="dstofsrcanchor"/>
-<element pattern="count" autocomplete_append="($var, $mode = null);">
-<reference>count($var, $mode = null);
-Count elements in an array, or properties in an object
-<b> var mixed </b>The array.
-<b> mode int[optional] </b>If the optional mode parameter is set to
-COUNT_RECURSIVE (or 1), count
-will recursively count the array. This is particularly useful for
-counting all the elements of a multidimensional array. The default
-value for mode is 0.
-count does not detect infinite recursion.
-<b>returns</b>  int the number of elements in var, which is
-typically an array, since anything else will have one
-element.
-If var is not an array or an object with
-implemented Countable interface,
-1 will be returned.
-There is one exception, if var is &amp;null;,
-0 will be returned.
-count may return 0 for a variable that isn't set,
-but it may also return 0 for a variable that has been initialized with an
-empty array. Use isset to test if a variable is set.
-</reference></element>
 <element pattern="reason"/>
 <element pattern="find"/>
 <element pattern="ftstat"/>
@@ -5992,51 +5941,19 @@ empty array. Use isset to test if a variable is set.
 <element pattern="insertanchor"/>
 <element pattern="insertcollection"/>
 <element pattern="insertdocument"/>
-<element pattern="link" autocomplete_append="($target, $link);">
-<reference>link($target, $link);
-Create a hard link
-<b> target string </b>Target of the link.
-<b> link string </b>The link name.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
 <element pattern="lock"/>
 <element pattern="move"/>
 <element pattern="hw_api_content"/>
 <element pattern="assign"/>
 <element pattern="attreditable"/>
-<element pattern="count" autocomplete_append="($var, $mode = null);">
-<reference>count($var, $mode = null);
-Count elements in an array, or properties in an object
-<b> var mixed </b>The array.
-<b> mode int[optional] </b>If the optional mode parameter is set to
-COUNT_RECURSIVE (or 1), count
-will recursively count the array. This is particularly useful for
-counting all the elements of a multidimensional array. The default
-value for mode is 0.
-count does not detect infinite recursion.
-<b>returns</b>  int the number of elements in var, which is
-typically an array, since anything else will have one
-element.
-If var is not an array or an object with
-implemented Countable interface,
-1 will be returned.
-There is one exception, if var is &amp;null;,
-0 will be returned.
-count may return 0 for a variable that isn't set,
-but it may also return 0 for a variable that has been initialized with an
-empty array. Use isset to test if a variable is set.
-</reference></element>
-<element pattern="insert"/>
 <element pattern="hw_api_object"/>
 <element pattern="remove"/>
 <element pattern="title"/>
-<element pattern="value"/>
 <element pattern="object"/>
 <element pattern="objectbyanchor"/>
 <element pattern="parents"/>
 <element pattern="description"/>
 <element pattern="type"/>
-<element pattern="remove"/>
 <element pattern="replace"/>
 <element pattern="setcommittedversion"/>
 <element pattern="srcanchors"/>
@@ -9935,20 +9852,6 @@ Find highest value
 <b>returns</b>  mixed max returns the numerically highest of the
 parameter values.
 </reference></element>
-<element pattern="max" autocomplete_append="(array $values);">
-<reference>max(array $values);
-Find highest value
-<b> values array </b>An array containing the values.
-<b>returns</b>  mixed max returns the numerically highest of the
-parameter values.
-</reference></element>
-<element pattern="min" autocomplete_append="(array $values);">
-<reference>min(array $values);
-Find lowest value
-<b> values array </b>An array containing the values.
-<b>returns</b>  mixed min returns the numerically lowest of the
-parameter values.
-</reference></element>
 <element pattern="min" autocomplete_append="(array $values);">
 <reference>min(array $values);
 Find lowest value
@@ -10058,7 +9961,6 @@ Hyperbolic tangent
 <element pattern="maxdb_character_set_name"/>
 <element pattern="character_set_name"/>
 <element pattern="maxdb_close"/>
-<element pattern="close"/>
 <element pattern="maxdb_commit"/>
 <element pattern="commit"/>
 <element pattern="maxdb_connect_errno"/>
@@ -10148,14 +10050,11 @@ Hyperbolic tangent
 <element pattern="maxdb_stmt_affected_rows"/>
 <element pattern="maxdb_stmt_bind_param"/>
 <element pattern="bind_param"/>
-<element pattern="maxdb_stmt_bind_param"/>
-<element pattern="bind_param"/>
 <element pattern="maxdb_stmt_bind_result"/>
 <element pattern="bind_result"/>
 <element pattern="maxdb_stmt_close_long_data"/>
 <element pattern="maxdb_stmt_close"/>
 <element pattern="maxdb_stmt_data_seek"/>
-<element pattern="data_seek"/>
 <element pattern="maxdb_stmt_errno"/>
 <element pattern="maxdb_stmt_error"/>
 <element pattern="maxdb_stmt_execute"/>
@@ -10169,15 +10068,7 @@ Hyperbolic tangent
 <element pattern="maxdb_stmt_num_rows"/>
 <element pattern="maxdb_stmt_param_count"/>
 <element pattern="maxdb_stmt_prepare"/>
-<element pattern="prepare"/>
 <element pattern="maxdb_stmt_reset"/>
-<element pattern="reset" autocomplete_append="(array &amp;$array);">
-<reference>reset(array &amp;$array);
-Set the internal pointer of an array to its first element
-<b> array array </b>The input array.
-<b>returns</b>  mixed the value of the first array element, or false if the array is
-empty.
-</reference></element>
 <element pattern="maxdb_stmt_result_metadata"/>
 <element pattern="result_metadata"/>
 <element pattern="maxdb_stmt_send_long_data"/>
@@ -10236,16 +10127,6 @@ empty.
 Encrypt/decrypt data in CBC mode
 <b> cipher int </b><b> key string </b><b> data string </b><b> mode int </b><b> iv string[optional] </b><b>returns</b>  string 
 </reference></element>
-<element pattern="mcrypt_cbc" autocomplete_append="($cipher, $key, $data, $mode, $iv = null);">
-<reference>mcrypt_cbc($cipher, $key, $data, $mode, $iv = null);
-Encrypt/decrypt data in CBC mode
-<b> cipher int </b><b> key string </b><b> data string </b><b> mode int </b><b> iv string[optional] </b><b>returns</b>  string 
-</reference></element>
-<element pattern="mcrypt_cfb" autocomplete_append="($cipher, $key, $data, $mode, $iv);">
-<reference>mcrypt_cfb($cipher, $key, $data, $mode, $iv);
-Encrypt/decrypt data in CFB mode
-<b> cipher int </b><b> key string </b><b> data string </b><b> mode int </b><b> iv string </b><b>returns</b>  string 
-</reference></element>
 <element pattern="mcrypt_cfb" autocomplete_append="($cipher, $key, $data, $mode, $iv);">
 <reference>mcrypt_cfb($cipher, $key, $data, $mode, $iv);
 Encrypt/decrypt data in CFB mode
@@ -10275,11 +10156,6 @@ do not supply an IV, while it is needed for an algorithm, the function
 issues a warning and uses an IV with all bytes set to
 '\0'.
 <b>returns</b>  string the decrypted data as a string.
-</reference></element>
-<element pattern="mcrypt_ecb" autocomplete_append="($cipher, $key, $data, $mode);">
-<reference>mcrypt_ecb($cipher, $key, $data, $mode);
-Deprecated: Encrypt/decrypt data in ECB mode
-<b> cipher int </b><b> key string </b><b> data string </b><b> mode int </b><b>returns</b>  string 
 </reference></element>
 <element pattern="mcrypt_ecb" autocomplete_append="($cipher, $key, $data, $mode);">
 <reference>mcrypt_ecb($cipher, $key, $data, $mode);
@@ -10392,16 +10268,6 @@ This function encrypts data
 Get the block size of the specified cipher
 <b> cipher int </b><b>returns</b>  int 
 </reference></element>
-<element pattern="mcrypt_get_block_size" autocomplete_append="($cipher);">
-<reference>mcrypt_get_block_size($cipher);
-Get the block size of the specified cipher
-<b> cipher int </b><b>returns</b>  int 
-</reference></element>
-<element pattern="mcrypt_get_cipher_name" autocomplete_append="($cipher);">
-<reference>mcrypt_get_cipher_name($cipher);
-Get the name of the specified cipher
-<b> cipher int </b><b>returns</b>  string 
-</reference></element>
 <element pattern="mcrypt_get_cipher_name" autocomplete_append="($cipher);">
 <reference>mcrypt_get_cipher_name($cipher);
 Get the name of the specified cipher
@@ -10411,11 +10277,6 @@ Get the name of the specified cipher
 <reference>mcrypt_get_iv_size($cipher, $mode);
 Returns the size of the IV belonging to a specific cipher/mode combination
 <b> cipher string </b><b> mode string </b><b>returns</b>  int 
-</reference></element>
-<element pattern="mcrypt_get_key_size" autocomplete_append="($cipher);">
-<reference>mcrypt_get_key_size($cipher);
-Get the key size of the specified cipher
-<b> cipher int </b><b>returns</b>  int 
 </reference></element>
 <element pattern="mcrypt_get_key_size" autocomplete_append="($cipher);">
 <reference>mcrypt_get_key_size($cipher);
@@ -10484,11 +10345,6 @@ Opens the module of the algorithm and the mode to be used
 <reference>mcrypt_module_self_test($algorithm, $lib_dir = null);
 This function runs a self test on the specified module
 <b> algorithm string </b><b> lib_dir string[optional] </b><b>returns</b>  bool 
-</reference></element>
-<element pattern="mcrypt_ofb" autocomplete_append="($cipher, $key, $data, $mode, $iv);">
-<reference>mcrypt_ofb($cipher, $key, $data, $mode, $iv);
-Encrypt/decrypt data in OFB mode
-<b> cipher int </b><b> key string </b><b> data string </b><b> mode int </b><b> iv string </b><b>returns</b>  string 
 </reference></element>
 <element pattern="mcrypt_ofb" autocomplete_append="($cipher, $key, $data, $mode, $iv);">
 <reference>mcrypt_ofb($cipher, $key, $data, $mode, $iv);
@@ -10602,7 +10458,6 @@ text/plain or application/octet-stream.
 <element pattern="setMenu"/>
 <element pattern="setOver"/>
 <element pattern="setUp"/>
-<element pattern="addAction"/>
 <element pattern="addColor"/>
 <element pattern="endMask"/>
 <element pattern="getRot"/>
@@ -10612,10 +10467,7 @@ text/plain or application/octet-stream.
 <element pattern="getY"/>
 <element pattern="getYScale"/>
 <element pattern="getYSkew"/>
-<element pattern="move"/>
-<element pattern="moveTo"/>
 <element pattern="multColor"/>
-<element pattern="remove"/>
 <element pattern="rotate"/>
 <element pattern="rotateTo"/>
 <element pattern="scale"/>
@@ -10630,22 +10482,16 @@ text/plain or application/octet-stream.
 <element pattern="skewY"/>
 <element pattern="skewYTo"/>
 <element pattern="moveTo"/>
-<element pattern="rotateTo"/>
-<element pattern="scaleTo"/>
-<element pattern="skewXTo"/>
-<element pattern="skewYTo"/>
 <element pattern="getAscent"/>
 <element pattern="getDescent"/>
 <element pattern="getLeading"/>
 <element pattern="getShape"/>
 <element pattern="getUTF8Width"/>
-<element pattern="getWidth"/>
 <element pattern="addChars"/>
 <element pattern="addUTF8Chars"/>
 <element pattern="addEntry"/>
 <element pattern="getShape1"/>
 <element pattern="getShape2"/>
-<element pattern="add"/>
 <element pattern="addExport"/>
 <element pattern="addFont"/>
 <element pattern="importChar"/>
@@ -10653,8 +10499,6 @@ text/plain or application/octet-stream.
 <element pattern="labelFrame"/>
 <element pattern="nextFrame"/>
 <element pattern="output"/>
-<element pattern="remove"/>
-<element pattern="save"/>
 <element pattern="saveToFile"/>
 <element pattern="setbackground"/>
 <element pattern="setDimension"/>
@@ -10664,8 +10508,6 @@ text/plain or application/octet-stream.
 <element pattern="stopSound"/>
 <element pattern="streamMP3"/>
 <element pattern="writeExports"/>
-<element pattern="addFill"/>
-<element pattern="addFill"/>
 <element pattern="addFill"/>
 <element pattern="drawArc"/>
 <element pattern="drawCircle"/>
@@ -10679,50 +10521,28 @@ text/plain or application/octet-stream.
 <element pattern="movePen"/>
 <element pattern="movePenTo"/>
 <element pattern="setLeftFill"/>
-<element pattern="setLeftFill"/>
 <element pattern="setLine"/>
-<element pattern="setLine"/>
-<element pattern="setRightFill"/>
 <element pattern="setRightFill"/>
 <element pattern="loopCount"/>
 <element pattern="loopInPoint"/>
 <element pattern="loopOutPoint"/>
 <element pattern="noMultiple"/>
 <element pattern="add"/>
-<element pattern="labelFrame"/>
-<element pattern="nextFrame"/>
-<element pattern="remove"/>
-<element pattern="setFrames"/>
-<element pattern="startSound"/>
-<element pattern="stopSound"/>
 <element pattern="addString"/>
 <element pattern="addUTF8String"/>
-<element pattern="getAscent"/>
-<element pattern="getDescent"/>
-<element pattern="getLeading"/>
-<element pattern="getUTF8Width"/>
-<element pattern="getWidth"/>
-<element pattern="moveTo"/>
 <element pattern="setColor"/>
 <element pattern="setFont"/>
 <element pattern="setHeight"/>
 <element pattern="setSpacing"/>
-<element pattern="addChars"/>
-<element pattern="addString"/>
 <element pattern="align"/>
 <element pattern="setBounds"/>
-<element pattern="setColor"/>
-<element pattern="setFont"/>
-<element pattern="setHeight"/>
 <element pattern="setIndentation"/>
 <element pattern="setLeftMargin"/>
 <element pattern="setLineSpacing"/>
 <element pattern="setMargins"/>
-<element pattern="setName"/>
 <element pattern="setPadding"/>
 <element pattern="setRightMargin"/>
 <element pattern="getNumFrames"/>
-<element pattern="setDimension"/>
 <element pattern="ming_keypress" autocomplete_append="($char);">
 <reference>ming_keypress($char);
 Returns the action flag for keyPress(char)
@@ -10801,7 +10621,6 @@ Checks whether a given named constant exists
 has been defined, false otherwise.
 </reference></element>
 <element pattern="eval"/>
-<element pattern="exit"/>
 <element pattern="exit"/>
 <element pattern="get_browser" autocomplete_append="($user_agent = null, $return_array = null);">
 <reference>get_browser($user_agent = null, $return_array = null);
@@ -12370,41 +12189,29 @@ or false on error.
 <element pattern="mysqli_change_user" autocomplete_append="();">
 <reference>mysqli_change_user();
 </reference></element>
-<element pattern="change_user"/>
 <element pattern="mysqli_character_set_name" autocomplete_append="();">
 <reference>mysqli_character_set_name();
-
 </reference></element>
-<element pattern="character_set_name"/>
 <element pattern="mysqli_close" autocomplete_append="();">
 <reference>mysqli_close();
-
 </reference></element>
-<element pattern="close"/>
 <element pattern="mysqli_commit" autocomplete_append="();">
 <reference>mysqli_commit();
-
 </reference></element>
 <element pattern="mysqli_connect_errno" autocomplete_append="();">
 <reference>mysqli_connect_errno();
-
 </reference></element>
 <element pattern="mysqli_connect_error" autocomplete_append="();">
 <reference>mysqli_connect_error();
-
 </reference></element>
 <element pattern="mysqli_connect" autocomplete_append="();">
 <reference>mysqli_connect();
-
 </reference></element>
 <element pattern="mysqli_data_seek" autocomplete_append="();">
 <reference>mysqli_data_seek();
-
 </reference></element>
-<element pattern="data_seek"/>
 <element pattern="mysqli_debug" autocomplete_append="();">
 <reference>mysqli_debug();
-
 </reference></element>
 <element pattern="debug"/>
 <element pattern="mysqli_disable_reads_from_master" autocomplete_append="();">
@@ -12412,7 +12219,6 @@ or false on error.
 Disable reads from master
 <b>returns</b>  void 
 </reference></element>
-<element pattern="disable_reads_from_master"/>
 <element pattern="mysqli_disable_rpl_parse" autocomplete_append="(mysqli $link);">
 <reference>mysqli_disable_rpl_parse(mysqli $link);
 Disable RPL parse
@@ -12458,27 +12264,22 @@ Enable RPL parse
 <reference>mysqli_fetch_array();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 </reference></element>
-<element pattern="fetch_array"/>
 <element pattern="mysqli_fetch_assoc" autocomplete_append="();">
 <reference>mysqli_fetch_assoc();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 </reference></element>
-<element pattern="fetch_assoc"/>
 <element pattern="mysqli_fetch_field_direct" autocomplete_append="();">
 <reference>mysqli_fetch_field_direct();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 </reference></element>
-<element pattern="fetch_field_direct"/>
 <element pattern="mysqli_fetch_field" autocomplete_append="();">
 <reference>mysqli_fetch_field();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 </reference></element>
-<element pattern="fetch_field"/>
 <element pattern="mysqli_fetch_fields" autocomplete_append="();">
 <reference>mysqli_fetch_fields();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 </reference></element>
-<element pattern="fetch_fields"/>
 <element pattern="mysqli_fetch_lengths" autocomplete_append="();">
 <reference>mysqli_fetch_lengths();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
@@ -12487,22 +12288,18 @@ Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 <reference>mysqli_fetch_object();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 </reference></element>
-<element pattern="fetch_object"/>
 <element pattern="mysqli_fetch_row" autocomplete_append="();">
 <reference>mysqli_fetch_row();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 </reference></element>
-<element pattern="fetch_row"/>
 <element pattern="mysqli_field_count" autocomplete_append="();">
 <reference>mysqli_field_count();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 </reference></element>
-<element pattern="field_count"/>
 <element pattern="mysqli_field_seek" autocomplete_append="();">
 <reference>mysqli_field_seek();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 </reference></element>
-<element pattern="field_seek"/>
 <element pattern="mysqli_field_tell" autocomplete_append="();">
 <reference>mysqli_field_tell();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
@@ -12511,9 +12308,6 @@ Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 <reference>mysqli_free_result();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 </reference></element>
-<element pattern="free"/>
-<element pattern="close"/>
-<element pattern="free_result"/>
 <element pattern="mysqli_get_charset" autocomplete_append="();">
 <reference>mysqli_get_charset();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
@@ -12563,7 +12357,6 @@ Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 <reference>mysqli_kill();
 Alias for &lt;function&gt;mysqli_stmt_execute&lt;/function&gt;
 </reference></element>
-<element pattern="kill"/>
 <element pattern="mysqli_master_query" autocomplete_append="(mysqli $link, $query);">
 <reference>mysqli_master_query(mysqli $link, $query);
 Enforce execution of a query on the master in a master/slave setup
@@ -12579,7 +12372,6 @@ Enforce execution of a query on the master in a master/slave setup
 Enforce execution of a query on the master in a master/slave setup
 <b> link mysqli </b><b> query string </b><b>returns</b>  bool 
 </reference></element>
-<element pattern="multi_query"/>
 <element pattern="mysqli_next_result" autocomplete_append="();">
 <reference>mysqli_next_result();
 Enforce execution of a query on the master in a master/slave setup
@@ -12600,19 +12392,16 @@ Enforce execution of a query on the master in a master/slave setup
 Enforce execution of a query on the master in a master/slave setup
 <b> link mysqli </b><b> query string </b><b>returns</b>  bool 
 </reference></element>
-<element pattern="options"/>
 <element pattern="mysqli_ping" autocomplete_append="();">
 <reference>mysqli_ping();
 Enforce execution of a query on the master in a master/slave setup
 <b> link mysqli </b><b> query string </b><b>returns</b>  bool 
 </reference></element>
-<element pattern="ping"/>
 <element pattern="mysqli_prepare" autocomplete_append="();">
 <reference>mysqli_prepare();
 Enforce execution of a query on the master in a master/slave setup
 <b> link mysqli </b><b> query string </b><b>returns</b>  bool 
 </reference></element>
-<element pattern="prepare"/>
 <element pattern="mysqli_query" autocomplete_append="();">
 <reference>mysqli_query();
 Enables or disables internal report functions
@@ -12637,7 +12426,6 @@ MYSQLI_REPORT_INDEX Report if no index or bad index was used in a query
 MYSQLI_REPORT_ALL Set all options (report all)
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
-<element pattern="real_connect"/>
 <element pattern="mysqli_real_escape_string" autocomplete_append="();">
 <reference>mysqli_real_escape_string();
 Enables or disables internal report functions
@@ -12664,7 +12452,6 @@ MYSQLI_REPORT_INDEX Report if no index or bad index was used in a query
 MYSQLI_REPORT_ALL Set all options (report all)
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
-<element pattern="real_query"/>
 <element pattern="mysqli_report" autocomplete_append="($flags);">
 <reference>mysqli_report($flags);
 Enables or disables internal report functions
@@ -12689,7 +12476,6 @@ MYSQLI_REPORT_INDEX Report if no index or bad index was used in a query
 MYSQLI_REPORT_ALL Set all options (report all)
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
-<element pattern="rollback"/>
 <element pattern="mysqli_rpl_parse_enabled" autocomplete_append="(mysqli $link);">
 <reference>mysqli_rpl_parse_enabled(mysqli $link);
 Check if RPL parse is enabled
@@ -12705,7 +12491,6 @@ RPL probe
 Returns RPL query type
 <b> query string </b><b>returns</b>  int 
 </reference></element>
-<element pattern="rpl_query_type"/>
 <element pattern="mysqli_select_db" autocomplete_append="();">
 <reference>mysqli_select_db();
 Returns RPL query type
@@ -12717,7 +12502,6 @@ Returns RPL query type
 Send the query and return
 <b> query string </b><b>returns</b>  bool 
 </reference></element>
-<element pattern="send_query"/>
 <element pattern="mysqli_server_end"/>
 <element pattern="mysqli_server_init"/>
 <element pattern="mysqli_set_charset" autocomplete_append="();">
@@ -12749,37 +12533,10 @@ Force execution of a query on a slave in a master/slave setup
 Force execution of a query on a slave in a master/slave setup
 <b> link mysqli </b><b> query string </b><b>returns</b>  bool 
 </reference></element>
-<element pattern="ssl_set"/>
 <element pattern="mysqli_stat" autocomplete_append="();">
 <reference>mysqli_stat();
 Force execution of a query on a slave in a master/slave setup
 <b> link mysqli </b><b> query string </b><b>returns</b>  bool 
-</reference></element>
-<element pattern="stat" autocomplete_append="($filename);">
-<reference>stat($filename);
-Gives information about a file
-<b> filename string </b>Path to the file.
-<b>returns</b>  array 
-stat and fstat result format
-
-0 dev device number
-1 ino inode number *
-2 mode inode protection mode
-3 nlink number of links
-4 uid userid of owner *
-5 gid groupid of owner *
-6 rdev device type, if inode device
-7 size size in bytes
-8 atime time of last access (Unix timestamp)
-9 mtime time of last modification (Unix timestamp)
-10 ctime time of last inode change (Unix timestamp)
-11 blksize blocksize of filesystem IO **
-12 blocks number of blocks allocated **
-
-* On Windows this will always be 0.
-** Only valid on systems supporting the st_blksize type - other
-systems (e.g. Windows) return -1.
-In case of error, stat returns false.
 </reference></element>
 <element pattern="mysqli_stmt_affected_rows" autocomplete_append="();">
 <reference>mysqli_stmt_affected_rows();
@@ -12799,23 +12556,19 @@ Returns RPL query type
 <element pattern="mysqli_stmt_bind_param" autocomplete_append="($var1, $var2);">
 <reference>mysqli_stmt_bind_param($var1, $var2);
 <b> var1</b><b> var2</b></reference></element>
-<element pattern="bind_param"/>
 <element pattern="mysqli_stmt_bind_result" autocomplete_append="($var1);">
 <reference>mysqli_stmt_bind_result($var1);
 <b> var1</b></reference></element>
-<element pattern="bind_result"/>
 <element pattern="mysqli_stmt_close" autocomplete_append="();">
 <reference>mysqli_stmt_close();
 Force execution of a query on a slave in a master/slave setup
 <b> link mysqli </b><b> query string </b><b>returns</b>  bool 
 </reference></element>
-<element pattern="close"/>
 <element pattern="mysqli_stmt_data_seek" autocomplete_append="();">
 <reference>mysqli_stmt_data_seek();
 Force execution of a query on a slave in a master/slave setup
 <b> link mysqli </b><b> query string </b><b>returns</b>  bool 
 </reference></element>
-<element pattern="data_seek"/>
 <element pattern="mysqli_stmt_errno" autocomplete_append="();">
 <reference>mysqli_stmt_errno();
 Force execution of a query on a slave in a master/slave setup
@@ -12831,7 +12584,6 @@ Force execution of a query on a slave in a master/slave setup
 Enable RPL parse
 <b> link mysqli </b><b>returns</b>  bool 
 </reference></element>
-<element pattern="execute"/>
 <element pattern="mysqli_stmt_fetch" autocomplete_append="();">
 <reference>mysqli_stmt_fetch();
 <b> var1</b></reference></element>
@@ -12843,7 +12595,6 @@ Returns RPL query type
 <element pattern="mysqli_stmt_free_result" autocomplete_append="();">
 <reference>mysqli_stmt_free_result();
 <b> var1</b></reference></element>
-<element pattern="free_result"/>
 <element pattern="mysqli_stmt_get_warnings" autocomplete_append="();">
 <reference>mysqli_stmt_get_warnings();
 <b> var1</b></reference></element>
@@ -12852,7 +12603,6 @@ Returns RPL query type
 Returns RPL query type
 <b> query string </b><b>returns</b>  int 
 </reference></element>
-<element pattern="stmt_init"/>
 <element pattern="mysqli_stmt_insert_id" autocomplete_append="();">
 <reference>mysqli_stmt_insert_id();
 <b> var1</b></reference></element>
@@ -12869,23 +12619,14 @@ Force execution of a query on a slave in a master/slave setup
 Returns RPL query type
 <b> query string </b><b>returns</b>  int 
 </reference></element>
-<element pattern="prepare"/>
 <element pattern="mysqli_stmt_reset" autocomplete_append="();">
 <reference>mysqli_stmt_reset();
 <b> var1</b></reference></element>
-<element pattern="reset" autocomplete_append="(array &amp;$array);">
-<reference>reset(array &amp;$array);
-Set the internal pointer of an array to its first element
-<b> array array </b>The input array.
-<b>returns</b>  mixed the value of the first array element, or false if the array is
-empty.
-</reference></element>
 <element pattern="mysqli_stmt_result_metadata" autocomplete_append="();">
 <reference>mysqli_stmt_result_metadata();
 Returns RPL query type
 <b> query string </b><b>returns</b>  int 
 </reference></element>
-<element pattern="result_metadata"/>
 <element pattern="mysqli_stmt_send_long_data" autocomplete_append="();">
 <reference>mysqli_stmt_send_long_data();
 Returns RPL query type
@@ -12902,13 +12643,11 @@ Force execution of a query on a slave in a master/slave setup
 Force execution of a query on a slave in a master/slave setup
 <b> link mysqli </b><b> query string </b><b>returns</b>  bool 
 </reference></element>
-<element pattern="store_result"/>
 <element pattern="mysqli_store_result" autocomplete_append="();">
 <reference>mysqli_store_result();
 Force execution of a query on a slave in a master/slave setup
 <b> link mysqli </b><b> query string </b><b>returns</b>  bool 
 </reference></element>
-<element pattern="store_result"/>
 <element pattern="mysqli_thread_id" autocomplete_append="();">
 <reference>mysqli_thread_id();
 Force execution of a query on a slave in a master/slave setup
@@ -12924,7 +12663,6 @@ Force execution of a query on a slave in a master/slave setup
 Force execution of a query on a slave in a master/slave setup
 <b> link mysqli </b><b> query string </b><b>returns</b>  bool 
 </reference></element>
-<element pattern="use_result"/>
 <element pattern="mysqli_warning_count" autocomplete_append="();">
 <reference>mysqli_warning_count();
 Force execution of a query on a slave in a master/slave setup
@@ -13722,17 +13460,8 @@ oci_connect.
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
 <element pattern="append"/>
-<element pattern="assign"/>
 <element pattern="assignElem"/>
-<element pattern="free"/>
 <element pattern="getElem"/>
-<element pattern="max" autocomplete_append="(array $values);">
-<reference>max(array $values);
-Find highest value
-<b> values array </b>An array containing the values.
-<b>returns</b>  mixed max returns the numerically highest of the
-parameter values.
-</reference></element>
 <element pattern="size"/>
 <element pattern="trim" autocomplete_append="($str, $charlist = null);">
 <reference>trim($str, $charlist = null);
@@ -13944,8 +13673,6 @@ Enables or disables internal debug output
 <b> onoff bool </b>Set this to false to turn debug output off or true to turn it on.
 <b>returns</b>  void 
 </reference></element>
-<element pattern="append"/>
-<element pattern="close"/>
 <element pattern="oci_lob_copy" autocomplete_append="(OCI-Lob $lob_to, OCI-Lob $lob_from, $length = null);">
 <reference>oci_lob_copy(OCI-Lob $lob_to, OCI-Lob $lob_from, $length = null);
 Copies large object
@@ -13962,7 +13689,6 @@ Copies large object
 Flush the output buffer
 <b>returns</b>  void 
 </reference></element>
-<element pattern="free"/>
 <element pattern="getBuffering"/>
 <element pattern="import"/>
 <element pattern="oci_lob_is_equal" autocomplete_append="(OCI-Lob $lob1, OCI-Lob $lob2);">
@@ -13972,12 +13698,8 @@ Compares two LOB/FILE locators for equality
 <b> lob2 OCI-Lob </b>A LOB identifier.
 <b>returns</b>  bool true if these objects are equal, false otherwise.
 </reference></element>
-<element pattern="load"/>
-<element pattern="read"/>
-<element pattern="save"/>
 <element pattern="seek"/>
 <element pattern="setBuffering"/>
-<element pattern="size"/>
 <element pattern="tell"/>
 <element pattern="truncate"/>
 <element pattern="write"/>
@@ -15917,15 +15639,12 @@ output parameter.
 </reference></element>
 <element pattern="getAvailableDrivers"/>
 <element pattern="lastInsertId"/>
-<element pattern="prepare"/>
 <element pattern="quote"/>
-<element pattern="rollBack"/>
 <element pattern="bindColumn"/>
 <element pattern="bindParam"/>
 <element pattern="bindValue"/>
 <element pattern="closeCursor"/>
 <element pattern="columnCount"/>
-<element pattern="execute"/>
 <element pattern="fetchAll"/>
 <element pattern="fetchColumn"/>
 <element pattern="fetchObject"/>
@@ -16477,7 +16196,6 @@ function, and hence redundant.
 members
 This consists of an array of
 string's for all the members in the group.
-
 </reference></element>
 <element pattern="posix_getgrnam" autocomplete_append="($name);">
 <reference>posix_getgrnam($name);
@@ -16501,7 +16219,6 @@ Group ID of the group in numeric form.
 members
 This consists of an array of
 string's for all the members in the group.
-
 </reference></element>
 <element pattern="posix_getgroups" autocomplete_append="();">
 <reference>posix_getgroups();
@@ -17127,24 +16844,6 @@ must match the number of placeholders.
 Elements are converted to strings by calling this function.
 <b>returns</b>  resource A query result resource on success, or false on failure.
 </reference></element>
-<element pattern="pg_execute" autocomplete_append="($connection, $stmtname, array $params);">
-<reference>pg_execute($connection, $stmtname, array $params);
-Sends a request to execute a prepared statement with given parameters, and waits for the result.
-<b> connection resource </b>PostgreSQL database connection resource. When 
-connection is not present, the default connection 
-is used. The default connection is the last connection made by 
-pg_connect or pg_pconnect.
-<b> stmtname string </b>The name of the prepared statement to execute. if
-"" is specified, then the unnamed statement is executed. The name must have
-been previously prepared using pg_prepare, 
-pg_send_prepare or a PREPARE SQL
-command.
-<b> params array </b>An array of parameter values to substitute for the $1, $2, etc. placeholders
-in the original prepared query string. The number of elements in the array
-must match the number of placeholders.
-Elements are converted to strings by calling this function.
-<b>returns</b>  resource A query result resource on success, or false on failure.
-</reference></element>
 <element pattern="pg_fetch_all_columns" autocomplete_append="($result, $column = null);">
 <reference>pg_fetch_all_columns($result, $column = null);
 Fetches all rows in a particular result column as an array
@@ -17459,52 +17158,6 @@ pg_connect or pg_pconnect.
 large object on the client filesystem.
 <b>returns</b>  bool Returns true on success or false on failure.
 </reference></element>
-<element pattern="pg_lo_export" autocomplete_append="($connection, $oid, $pathname);">
-<reference>pg_lo_export($connection, $oid, $pathname);
-Export a large object to file
-<b> connection resource </b>PostgreSQL database connection resource. When 
-connection is not present, the default connection 
-is used. The default connection is the last connection made by 
-pg_connect or pg_pconnect.
-<b> oid int </b>The OID of the large object in the database.
-<b> pathname string </b>The full path and file name of the file in which to write the
-large object on the client filesystem.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
-<element pattern="pg_lo_import" autocomplete_append="($connection, $pathname, $object_id);">
-<reference>pg_lo_import($connection, $pathname, $object_id);
-Import a large object from file
-<b> connection resource </b>PostgreSQL database connection resource. When 
-connection is not present, the default connection 
-is used. The default connection is the last connection made by 
-pg_connect or pg_pconnect.
-<b> pathname string </b>The full path and file name of the file on the client
-filesystem from which to read the large object data.
-<b> object_id mixed </b>If an object_id is given the function
-will try to create a large object with this id, else a free
-object id is assigned by the server. The parameter
-was added in PHP 5.3 and relies on functionality that first
-appeared in PostgreSQL 8.1.
-<b>returns</b>  int The OID of the newly created large object, or
-false on failure.
-</reference></element>
-<element pattern="pg_lo_import" autocomplete_append="($connection, $pathname, $object_id);">
-<reference>pg_lo_import($connection, $pathname, $object_id);
-Import a large object from file
-<b> connection resource </b>PostgreSQL database connection resource. When 
-connection is not present, the default connection 
-is used. The default connection is the last connection made by 
-pg_connect or pg_pconnect.
-<b> pathname string </b>The full path and file name of the file on the client
-filesystem from which to read the large object data.
-<b> object_id mixed </b>If an object_id is given the function
-will try to create a large object with this id, else a free
-object id is assigned by the server. The parameter
-was added in PHP 5.3 and relies on functionality that first
-appeared in PostgreSQL 8.1.
-<b>returns</b>  int The OID of the newly created large object, or
-false on failure.
-</reference></element>
 <element pattern="pg_lo_import" autocomplete_append="($connection, $pathname, $object_id);">
 <reference>pg_lo_import($connection, $pathname, $object_id);
 Import a large object from file
@@ -17635,21 +17288,6 @@ integer_datetimes.
 <b>returns</b>  string A string containing the value of the parameter, false on failure or invalid
 param_name.
 </reference></element>
-<element pattern="pg_parameter_status" autocomplete_append="($connection, $param_name);">
-<reference>pg_parameter_status($connection, $param_name);
-Looks up a current parameter setting of the server.
-<b> connection resource </b>PostgreSQL database connection resource. When 
-connection is not present, the default connection 
-is used. The default connection is the last connection made by 
-pg_connect or pg_pconnect.
-<b> param_name string </b>Possible param_name values include server_version, 
-server_encoding, client_encoding, 
-is_superuser, session_authorization, 
-DateStyle, TimeZone, and 
-integer_datetimes.
-<b>returns</b>  string A string containing the value of the parameter, false on failure or invalid
-param_name.
-</reference></element>
 <element pattern="pg_pconnect" autocomplete_append="($connection_string, $connect_type = null);">
 <reference>pg_pconnect($connection_string, $connect_type = null);
 Open a persistent PostgreSQL connection
@@ -17709,29 +17347,6 @@ previously defined unnamed statement.
 are used, they are referred to as $1, $2, etc.
 <b>returns</b>  resource A query result resource on success, or false on failure.
 </reference></element>
-<element pattern="pg_prepare" autocomplete_append="($connection, $stmtname, $query);">
-<reference>pg_prepare($connection, $stmtname, $query);
-Submits a request to create a prepared statement with the 
-iven parameters, and waits for completion.
-<b> connection resource </b>PostgreSQL database connection resource. When 
-connection is not present, the default connection 
-is used. The default connection is the last connection made by 
-pg_connect or pg_pconnect.
-<b> stmtname string </b>The name to give the prepared statement. Must be unique per-connection. If
-"" is specified, then an unnamed statement is created, overwriting any
-previously defined unnamed statement.
-<b> query string </b>The parameterised SQL statement. Must contain only a single statement.
-(multiple statements separated by semi-colons are not allowed.) If any parameters 
-are used, they are referred to as $1, $2, etc.
-<b>returns</b>  resource A query result resource on success, or false on failure.
-</reference></element>
-<element pattern="pg_put_line" autocomplete_append="($data);">
-<reference>pg_put_line($data);
-Send a NULL-terminated string to PostgreSQL backend
-<b> data string </b>A line of text to be sent directly to the PostgreSQL backend. A NULL
-terminator is added automatically.
-<b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
 <element pattern="pg_put_line" autocomplete_append="($data);">
 <reference>pg_put_line($data);
 Send a NULL-terminated string to PostgreSQL backend
@@ -17752,29 +17367,6 @@ are used, they are referred to as $1, $2, etc.
 <b> params array </b>An array of parameter values to substitute for the $1, $2, etc. placeholders
 in the original prepared query string. The number of elements in the array
 must match the number of placeholders.
-<b>returns</b>  resource A query result resource on success, or false on failure.
-</reference></element>
-<element pattern="pg_query_params" autocomplete_append="($connection, $query, array $params);">
-<reference>pg_query_params($connection, $query, array $params);
-Submits a command to the server and waits for the result, with the ability to pass parameters separately from the SQL command text.
-<b> connection resource </b>PostgreSQL database connection resource. When 
-connection is not present, the default connection 
-is used. The default connection is the last connection made by 
-pg_connect or pg_pconnect.
-<b> query string </b>The parameterised SQL statement. Must contain only a single statement.
-(multiple statements separated by semi-colons are not allowed.) If any parameters 
-are used, they are referred to as $1, $2, etc.
-<b> params array </b>An array of parameter values to substitute for the $1, $2, etc. placeholders
-in the original prepared query string. The number of elements in the array
-must match the number of placeholders.
-<b>returns</b>  resource A query result resource on success, or false on failure.
-</reference></element>
-<element pattern="pg_query" autocomplete_append="($query);">
-<reference>pg_query($query);
-Execute a query
-<b> query string </b>The SQL statement or statements to be executed. When multiple statements are passed to the function,
-they are automatically executed as one transaction, unless there are explicit BEGIN/COMMIT commands
-included in the query string. However, using multiple transactions in one function call is not recommended.
 <b>returns</b>  resource A query result resource on success, or false on failure.
 </reference></element>
 <element pattern="pg_query" autocomplete_append="($query);">
@@ -17920,33 +17512,6 @@ The exact list of available encodings depends on your PostgreSQL version, so che
 PostgreSQL manual for a more specific list.
 <b>returns</b>  int 0 on success or -1 on error.
 </reference></element>
-<element pattern="pg_set_client_encoding" autocomplete_append="($encoding);">
-<reference>pg_set_client_encoding($encoding);
-Set the client encoding
-<b> encoding string </b>The required client encoding. One of SQL_ASCII, EUC_JP, 
-EUC_CN, EUC_KR, EUC_TW, 
-UNICODE, MULE_INTERNAL, LATINX (X=1...9), 
-KOI8, WIN, ALT, SJIS, 
-BIG5 or WIN1250.
-The exact list of available encodings depends on your PostgreSQL version, so check your
-PostgreSQL manual for a more specific list.
-<b>returns</b>  int 0 on success or -1 on error.
-</reference></element>
-<element pattern="pg_set_error_verbosity" autocomplete_append="($connection, $verbosity);">
-<reference>pg_set_error_verbosity($connection, $verbosity);
-Determines the verbosity of messages returned by &lt;function&gt;pg_last_error&lt;/function&gt; 
-and &lt;function&gt;pg_result_error&lt;/function&gt;.
-<b> connection resource </b>PostgreSQL database connection resource. When 
-connection is not present, the default connection 
-is used. The default connection is the last connection made by 
-pg_connect or pg_pconnect.
-<b> verbosity int </b>The required verbosity: PGSQL_ERRORS_TERSE,
-PGSQL_ERRORS_DEFAULT
-or PGSQL_ERRORS_VERBOSE.
-<b>returns</b>  int The previous verbosity level: PGSQL_ERRORS_TERSE,
-PGSQL_ERRORS_DEFAULT
-or PGSQL_ERRORS_VERBOSE.
-</reference></element>
 <element pattern="pg_set_error_verbosity" autocomplete_append="($connection, $verbosity);">
 <reference>pg_set_error_verbosity($connection, $verbosity);
 Determines the verbosity of messages returned by &lt;function&gt;pg_last_error&lt;/function&gt; 
@@ -18081,28 +17646,6 @@ Escape a string to be used as a shell argument
 Escape shell metacharacters
 <b> command string </b>The command that will be escaped.
 <b>returns</b>  string The escaped string.
-</reference></element>
-<element pattern="exec" autocomplete_append="($command, array &amp;$output = null, &amp;$return_var = null);">
-<reference>exec($command, array &amp;$output = null, &amp;$return_var = null);
-Execute an external program
-<b> command string </b>The command that will be executed.
-<b> output array[optional] </b>If the output argument is present, then the
-specified array will be filled with every line of output from the
-command. Trailing whitespace, such as \n, is not
-included in this array. Note that if the array already contains some
-elements, exec will append to the end of the array.
-If you do not want the function to append elements, call
-unset on the array before passing it to
-exec.
-<b> return_var int[optional] </b>If the return_var argument is present
-along with the output argument, then the
-return status of the executed command will be written to this
-variable.
-<b>returns</b>  string The last line from the result of the command. If you need to execute a 
-command and have all the data from the command passed directly back without 
-any interference, use the passthru function.
-To get the output of the executed command, be sure to set and use the
-output parameter.
 </reference></element>
 <element pattern="passthru" autocomplete_append="($command, &amp;$return_var = null);">
 <reference>passthru($command, &amp;$return_var = null);
@@ -18389,28 +17932,6 @@ on failure.
 <element pattern="radius_strerror"/>
 <element pattern="rar_close"/>
 <element pattern="rar_entry_get"/>
-<element pattern="extract" autocomplete_append="(array $var_array, $extract_type = null, $prefix = null);">
-<reference>extract(array $var_array, $extract_type = null, $prefix = null);
-Import variables into the current symbol table from an array
-<b> var_array array </b>Note that prefix is only required if
-extract_type is EXTR_PREFIX_SAME,
-EXTR_PREFIX_ALL, EXTR_PREFIX_INVALID
-or EXTR_PREFIX_IF_EXISTS. If
-the prefixed result is not a valid variable name, it is not
-imported into the symbol table. Prefixes are automatically separated from
-the array key by an underscore character.
-<b> extract_type int[optional] </b>The way invalid/numeric keys and collisions are treated is determined
-by the extract_type. It can be one of the
-following values:
-EXTR_OVERWRITE
-If there is a collision, overwrite the existing variable.
-<b> prefix string[optional] Only overwrite the variable if it already exists in the</b>current symbol table, otherwise do nothing. This is useful
-for defining a list of valid variables and then extracting
-only those variables you have defined out of
-$_REQUEST, for example.
-<b>returns</b>  int the number of variables successfully imported into the symbol
-table.
-</reference></element>
 <element pattern="getAttr"/>
 <element pattern="getCrc"/>
 <element pattern="getFileTime"/>
@@ -18469,9 +17990,6 @@ table.
 <element pattern="peek"/>
 <element pattern="peekAll"/>
 <element pattern="receive"/>
-<element pattern="remove"/>
-<element pattern="rollback"/>
-<element pattern="send"/>
 <element pattern="send"/>
 <element pattern="subscribe"/>
 <element pattern="unsubscribe"/>
@@ -18975,9 +18493,7 @@ failure.
 <element pattern="addChild"/>
 <element pattern="asXML"/>
 <element pattern="attributes"/>
-<element pattern="children"/>
 <element pattern="getDocNamespaces"/>
-<element pattern="getName"/>
 <element pattern="getNamespaces"/>
 <element pattern="registerXPathNamespace"/>
 <element pattern="xpath"/>
@@ -19055,7 +18571,6 @@ Checks if SOAP call was failed
 <element pattern="__getTypes"/>
 <element pattern="__setCookie"/>
 <element pattern="__soapCall"/>
-<element pattern="__construct"/>
 <element pattern="addFunction"/>
 <element pattern="fault"/>
 <element pattern="getFunctions"/>
@@ -19735,12 +19250,6 @@ Execute a query against a given database and returns an array
 <b> query string </b>The query to be executed.
 <b> result_type int[optional] &amp;sqlite.result-type;</b><b> decode_binary bool[optional] &amp;sqlite.decode-bin;</b><b>returns</b>  array an array of the entire result set; false otherwise.
 </reference></element>
-<element pattern="sqlite_array_query" autocomplete_append="($query, $result_type = null, $decode_binary = null);">
-<reference>sqlite_array_query($query, $result_type = null, $decode_binary = null);
-Execute a query against a given database and returns an array
-<b> query string </b>The query to be executed.
-<b> result_type int[optional] &amp;sqlite.result-type;</b><b> decode_binary bool[optional] &amp;sqlite.decode-bin;</b><b>returns</b>  array an array of the entire result set; false otherwise.
-</reference></element>
 <element pattern="arrayQuery"/>
 <element pattern="sqlite_busy_timeout" autocomplete_append="($milliseconds);">
 <reference>sqlite_busy_timeout($milliseconds);
@@ -19942,7 +19451,6 @@ Returns the number of fields in a result set
 <b>returns</b>  int 
 </reference></element>
 <element pattern="numFields"/>
-<element pattern="numFields"/>
 <element pattern="sqlite_num_rows" autocomplete_append="();">
 <reference>sqlite_num_rows();
 Returns the number of rows in a buffered result set
@@ -20037,18 +19545,6 @@ sqlite_escape_string.
 Encode binary data before returning it from an UDF
 <b> data string </b>The string being encoded.
 <b>returns</b>  string The encoded string.
-</reference></element>
-<element pattern="sqlite_unbuffered_query" autocomplete_append="($query, $result_type = null, &amp;$error_msg = null);">
-<reference>sqlite_unbuffered_query($query, $result_type = null, &amp;$error_msg = null);
-Execute a query that does not prefetch and buffer all data
-<b> query string </b>The query to be executed.
-<b> result_type int[optional] &amp;sqlite.result-type;</b><b> error_msg string[optional] </b>The specified variable will be filled if an error occurs. This is
-specially important because SQL syntax errors can't be fetched using
-the sqlite_last_error function.
-<b>returns</b>  SQLiteUnbuffered a result handle or false on failure.
-sqlite_unbuffered_query returns a sequential
-forward-only result set that can only be used to read each row, one after
-the other.
 </reference></element>
 <element pattern="sqlite_unbuffered_query" autocomplete_append="($query, $result_type = null, &amp;$error_msg = null);">
 <reference>sqlite_unbuffered_query($query, $result_type = null, &amp;$error_msg = null);
@@ -20238,7 +19734,6 @@ Attach a filter to a stream
 <reference>stream_filter_register($filtername, $classname);
 Register a stream filter implemented as a PHP class derived from &lt;literal&gt;php_user_filter&lt;/literal&gt;
 <b> filtername</b><b> classname</b></reference></element>
-<element pattern="filter"/>
 <element pattern="filter"/>
 <element pattern="onCreate"/>
 <element pattern="onClose"/>
@@ -20947,34 +20442,6 @@ of the charlist parameter.
 Simply list all characters that you want to be stripped. With
 .. you can specify a range of characters.
 <b>returns</b>  string the modified string.
-</reference></element>
-<element pattern="setlocale" autocomplete_append="($category, $locale, $_ = null);">
-<reference>setlocale($category, $locale, $_ = null);
-Set locale information
-<b> category int </b>category is a named constant specifying the
-category of the functions affected by the locale setting:
-LC_ALL for all of the below
-<b> locale string </b>If locale is &amp;null; or the empty string
-"", the locale names will be set from the
-values of environment variables with the same names as the above
-categories, or from "LANG".
-If locale is "0",
-the locale setting is not affected, only the current setting is returned.
-If locale is an array or followed by additional
-parameters then each array element or parameter is tried to be set as
-new locale until success. This is useful if a locale is known under
-different names on different systems or for providing a fallback
-for a possibly not available locale.
-<b> _ string[optional] </b><b>returns</b>  string the new current locale, or false if the locale functionality is
-not implemented on your platform, the specified locale does not exist or
-the category name is invalid.
-An invalid category name also causes a warning message. Category/locale
-names can be found in RFC 1766
-and ISO 639.
-Different systems have different naming schemes for locales.
-The return value of setlocale depends
-on the system that PHP is running. It returns exactly
-what the system setlocale function returns.
 </reference></element>
 <element pattern="setlocale" autocomplete_append="($category, $locale, $_ = null);">
 <reference>setlocale($category, $locale, $_ = null);
@@ -22774,7 +22241,6 @@ Sets xmlrpc type, base64 or datetime, for a PHP string value
 <b>returns</b>  bool Returns true on success or false on failure.
 If successful, value is converted to an object.
 </reference></element>
-<element pattern="close"/>
 <element pattern="expand"/>
 <element pattern="getAttributeNo"/>
 <element pattern="getAttributeNs"/>
@@ -22788,11 +22254,9 @@ If successful, value is converted to an object.
 <element pattern="moveToFirstAttribute"/>
 <element pattern="moveToNextAttribute"/>
 <element pattern="open"/>
-<element pattern="read"/>
 <element pattern="setParserProperty"/>
 <element pattern="setRelaxNGSchema"/>
 <element pattern="setRelaxNGSchemaSource"/>
-<element pattern="open"/>
 <element pattern="endAttribute"/>
 <element pattern="xmlwriter_end_attribute" autocomplete_append="();">
 <reference>xmlwriter_end_attribute();
@@ -22852,11 +22316,6 @@ End current element
 <reference>xmlwriter_end_pi();
 End current PI
 <b>returns</b>  bool Returns true on success or false on failure.
-</reference></element>
-<element pattern="flush" autocomplete_append="();">
-<reference>flush();
-Flush the output buffer
-<b>returns</b>  void 
 </reference></element>
 <element pattern="xmlwriter_flush" autocomplete_append="($empty = null);">
 <reference>xmlwriter_flush($empty = null);
@@ -23115,7 +22574,6 @@ Write a raw XML text
 <element pattern="registerPHPFunctions"/>
 <element pattern="removeParameter"/>
 <element pattern="setParameter"/>
-<element pattern="setParameter"/>
 <element pattern="transformToDoc"/>
 <element pattern="transformToURI"/>
 <element pattern="transformToXML"/>
@@ -23159,7 +22617,6 @@ Write a raw XML text
 <element pattern="yaz_scan"/>
 <element pattern="yaz_schema"/>
 <element pattern="yaz_search"/>
-<element pattern="yaz_set_option"/>
 <element pattern="yaz_set_option"/>
 <element pattern="yaz_sort"/>
 <element pattern="yaz_syntax"/>
@@ -23525,3 +22982,4 @@ or false.
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
+</bfinc>
