@@ -35,6 +35,7 @@ bflang_bflang2_files = \
 	java.bflang2 \
 	javascript.bflang2 \
 	jsp.bflang2 \
+	lua.bflang2 \
 	mediawiki.bflang2 \
 	nsis.bflang2 \
 	pascal.bflang2 \

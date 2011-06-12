@@ -1,0 +1,1508 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		lua.bflang2 $Revision$
+ 
+		Copyright (C) 2008-2011 Olivier Sessink
+
+	    This program is free software: you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation, either version 3 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
+-->
+
+<bflang name="Lua" version="2.0" table="654" contexts="6" matches="132">
+<header>
+	<mime type="text/x-lua?lua"/>
+	<option name="load_reference" default="1" description="load reference data"/>
+	<option name="load_completion" default="1" description="load completion data"/>
+	<highlight name="keyword" style="keyword" />
+	<highlight name="brackets" style="brackets" />
+	<highlight name="type" style="type" />
+	<highlight name="comment" style="comment" />
+	<highlight name="string" style="string" />
+	<highlight name="value" style="value" />
+	<highlight name="preprocessor" style="preprocessor" />
+	<highlight name="function" style="function" />
+</header>
+<properties>
+	<comment type="line" start="--" />
+	<comment type="block" start="--[[" end="]]" />
+	<smartindent characters="{" />
+	<smartoutdent characters="}" />
+</properties>
+<definition>
+<context symbols=" ;(){}[]:\&#34;\\',*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<group highlight="keyword" autocomplete="1">
+<element pattern="and" />
+<element pattern="break" />
+<element pattern="do" />
+<element pattern="else" />
+<element pattern="elseif" />
+<element pattern="end" />
+<element pattern="false" />
+<element pattern="for" />
+<element pattern="function" />
+<element pattern="if" />
+<element pattern="in" />
+<element pattern="local" />
+<element pattern="nil" />
+<element pattern="not" />
+<element pattern="or" />
+<element pattern="repeat" />
+<element pattern="return" />
+<element pattern="then" />
+<element pattern="true" />
+<element pattern="until" />
+<element pattern="while" />
+</group>
+
+<group highlight="function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
+
+<element pattern="lua_Alloc">
+<reference>
+<i>typedef void * (*lua_Alloc) (void *ud,
+                             void *ptr,
+                             size_t osize,
+                             size_t nsize);</i>
+
+The type of the memory-allocation function used by Lua states.
+The allocator function must provide a
+functionality similar to <b>realloc</b>,
+but not exactly the same.
+Its arguments are
+<b>ud</b>, an opaque pointer passed to <b>lua_newstate</b>;
+<b>ptr</b>, a pointer to the block being allocated/reallocated/freed;
+<b>osize</b>, the original size of the block;
+<b>nsize</b>, the new size of the block.
+<b>ptr</b> is <b>NULL</b> if and only if <b>osize</b> is zero.
+When <b>nsize</b> is zero, the allocator must return <b>NULL</b>;
+if <b>osize</b> is not zero,
+it should free the block pointed to by <b>ptr</b>.
+When <b>nsize</b> is not zero, the allocator returns <b>NULL</b>
+if and only if it cannot fill the request.
+When <b>nsize</b> is not zero and <b>osize</b> is zero,
+the allocator should behave like <b>malloc</b>.
+When <b>nsize</b> and <b>osize</b> are not zero,
+the allocator behaves like <b>realloc</b>.
+Lua assumes that the allocator never fails when
+<b>osize &amp;gt;= nsize</b>.
+
+Here is a simple implementation for the allocator function.
+It is used in the auxiliary library by <b>luaL_newstate</b>.
+<i>     static void *l_alloc (void *ud, void *ptr, size_t osize,
+                                                size_t nsize) {
+       (void)ud;  (void)osize;  /* not used */
+       if (nsize == 0) {
+         free(ptr);
+         return NULL;
+       }
+       else
+         return realloc(ptr, nsize);
+     }
+</i>
+This code assumes
+that <b>free(NULL)</b> has no effect and that
+<b>realloc(NULL, size)</b> is equivalent to <b>malloc(size)</b>.
+ANSI C ensures both behaviors.
+</reference>
+</element>
+<element pattern="lua_atpanic">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>lua_CFunction lua_atpanic (lua_State *L, lua_CFunction panicf);</i>
+
+Sets a new panic function and returns the old one.
+
+If an error happens outside any protected environment,
+Lua calls a <i>panic function</i>
+and then calls <b>exit(EXIT_FAILURE)</b>,
+thus exiting the host application.
+Your panic function can avoid this exit by
+never returning (e.g., doing a long jump).
+
+The panic function can access the error message at the top of the stack.
+</reference>
+</element>
+<element pattern="lua_call">
+<reference>
+<b>[-(nargs + 1), +nresults, <i>e</i>]</b>
+<i>void lua_call (lua_State *L, int nargs, int nresults);</i>
+
+Calls a function.
+
+To call a function you must use the following protocol:
+first, the function to be called is pushed onto the stack;
+then, the arguments to the function are pushed
+in direct order;
+that is, the first argument is pushed first.
+Finally you call <b>lua_call</b>;
+<b>nargs</b> is the number of arguments that you pushed onto the stack.
+All arguments and the function value are popped from the stack
+when the function is called.
+The function results are pushed onto the stack when the function returns.
+The number of results is adjusted to <b>nresults</b>,
+unless <b>nresults</b> is <b>LUA_MULTRET</b>.
+In this case, <i>all</i> results from the function are pushed.
+Lua takes care that the returned values fit into the stack space.
+The function results are pushed onto the stack in direct order
+(the first result is pushed first),
+so that after the call the last result is on the top of the stack.
+
+Any error inside the called function is propagated upwards
+(with a <b>longjmp</b>).
+
+The following example shows how the host program can do the
+equivalent to this Lua code:
+<i>     a = f("how", t.x, 14)
+</i>
+Here it is in C:
+<i>     lua_getfield(L, LUA_GLOBALSINDEX, "f"); /* function to be called */
+     lua_pushstring(L, "how");                        /* 1st argument */
+     lua_getfield(L, LUA_GLOBALSINDEX, "t");   /* table to be indexed */
+     lua_getfield(L, -1, "x");        /* push result of t.x (2nd arg) */
+     lua_remove(L, -2);                  /* remove 't' from the stack */
+     lua_pushinteger(L, 14);                          /* 3rd argument */
+     lua_call(L, 3, 1);     /* call 'f' with 3 arguments and 1 result */
+     lua_setfield(L, LUA_GLOBALSINDEX, "a");        /* set global 'a' */
+</i>
+Note that the code above is "balanced":
+at its end, the stack is back to its original configuration.
+This is considered good programming practice.
+</reference>
+</element>
+<element pattern="lua_CFunction">
+<reference>
+<i>typedef int (*lua_CFunction) (lua_State *L);</i>
+
+Type for C functions.
+
+In order to communicate properly with Lua,
+a C function must use the following protocol,
+which defines the way parameters and results are passed:
+a C function receives its arguments from Lua in its stack
+in direct order (the first argument is pushed first).
+So, when the function starts,
+<b>lua_gettop(L)</b> returns the number of arguments received by the function.
+The first argument (if any) is at index 1
+and its last argument is at index <b>lua_gettop(L)</b>.
+To return values to Lua, a C function just pushes them onto the stack,
+in direct order (the first result is pushed first),
+and returns the number of results.
+Any other value in the stack below the results will be properly
+discarded by Lua.
+Like a Lua function, a C function called by Lua can also return
+many results.
+
+As an example, the following function receives a variable number
+of numerical arguments and returns their average and sum:
+<i>     static int foo (lua_State *L) {
+       int n = lua_gettop(L);    /* number of arguments */
+       lua_Number sum = 0;
+       int i;
+       for (i = 1; i &amp;lt;= n; i++) {
+         if (!lua_isnumber(L, i)) {
+           lua_pushstring(L, "incorrect argument");
+           lua_error(L);
+         }
+         sum += lua_tonumber(L, i);
+       }
+       lua_pushnumber(L, sum/n);        /* first result */
+       lua_pushnumber(L, sum);         /* second result */
+       return 2;                   /* number of results */
+     }
+</i>
+</reference>
+</element>
+<element pattern="lua_checkstack">
+<reference>
+<b>[-0, +0, <i>m</i>]</b>
+<i>int lua_checkstack (lua_State *L, int extra);</i>
+
+Ensures that there are at least <b>extra</b> free stack slots in the stack.
+It returns false if it cannot grow the stack to that size.
+This function never shrinks the stack;
+if the stack is already larger than the new size,
+it is left unchanged.
+</reference>
+</element>
+<element pattern="lua_close">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>void lua_close (lua_State *L);</i>
+
+Destroys all objects in the given Lua state
+(calling the corresponding garbage-collection metamethods, if any)
+and frees all dynamic memory used by this state.
+On several platforms, you may not need to call this function,
+because all resources are naturally released when the host program ends.
+On the other hand, long-running programs,
+such as a daemon or a web server,
+might need to release states as soon as they are not needed,
+to avoid growing too large.
+</reference>
+</element>
+<element pattern="lua_concat">
+<reference>
+<b>[-n, +1, <i>e</i>]</b>
+<i>void lua_concat (lua_State *L, int n);</i>
+
+Concatenates the <b>n</b> values at the top of the stack,
+pops them, and leaves the result at the top.
+If <b>n</b> is 1, the result is the single value on the stack
+(that is, the function does nothing);
+if <b>n</b> is 0, the result is the empty string.
+Concatenation is performed following the usual semantics of Lua
+(see §2.5.4).
+</reference>
+</element>
+<element pattern="lua_cpcall">
+<reference>
+<b>[-0, +(0|1), <i>-</i>]</b>
+<i>int lua_cpcall (lua_State *L, lua_CFunction func, void *ud);</i>
+
+Calls the C function <b>func</b> in protected mode.
+<b>func</b> starts with only one element in its stack,
+a light userdata containing <b>ud</b>.
+In case of errors,
+<b>lua_cpcall</b> returns the same error codes as <b>lua_pcall</b>,
+plus the error object on the top of the stack;
+otherwise, it returns zero, and does not change the stack.
+All values returned by <b>func</b> are discarded.
+</reference>
+</element>
+<element pattern="lua_createtable">
+<reference>
+<b>[-0, +1, <i>m</i>]</b>
+<i>void lua_createtable (lua_State *L, int narr, int nrec);</i>
+
+Creates a new empty table and pushes it onto the stack.
+The new table has space pre-allocated
+for <b>narr</b> array elements and <b>nrec</b> non-array elements.
+This pre-allocation is useful when you know exactly how many elements
+the table will have.
+Otherwise you can use the function <b>lua_newtable</b>.
+</reference>
+</element>
+<element pattern="lua_dump">
+<reference>
+<b>[-0, +0, <i>m</i>]</b>
+<i>int lua_dump (lua_State *L, lua_Writer writer, void *data);</i>
+
+Dumps a function as a binary chunk.
+Receives a Lua function on the top of the stack
+and produces a binary chunk that,
+if loaded again,
+results in a function equivalent to the one dumped.
+As it produces parts of the chunk,
+<b>lua_dump</b> calls function <b>writer</b> (see <b>lua_Writer</b>)
+with the given <b>data</b>
+to write them.
+
+The value returned is the error code returned by the last
+call to the writer;
+0 means no errors.
+
+This function does not pop the Lua function from the stack.
+</reference>
+</element>
+<element pattern="lua_equal">
+<reference>
+<b>[-0, +0, <i>e</i>]</b>
+<i>int lua_equal (lua_State *L, int index1, int index2);</i>
+
+Returns 1 if the two values in acceptable indices <b>index1</b> and
+<b>index2</b> are equal,
+following the semantics of the Lua <b>==</b> operator
+(that is, may call metamethods).
+Otherwise returns 0.
+Also returns 0 if any of the indices is non valid.
+</reference>
+</element>
+<element pattern="lua_error">
+<reference>
+<b>[-1, +0, <i>v</i>]</b>
+<i>int lua_error (lua_State *L);</i>
+
+Generates a Lua error.
+The error message (which can actually be a Lua value of any type)
+must be on the stack top.
+This function does a long jump,
+and therefore never returns.
+(see <b>luaL_error</b>).
+</reference>
+</element>
+<element pattern="lua_gc">
+<reference>
+<b>[-0, +0, <i>e</i>]</b>
+<i>int lua_gc (lua_State *L, int what, int data);</i>
+
+Controls the garbage collector.
+
+This function performs several tasks,
+according to the value of the parameter <b>what</b>:
+
+<b><b>LUA_GCSTOP</b>:</b>
+stops the garbage collector.
+
+<b><b>LUA_GCRESTART</b>:</b>
+restarts the garbage collector.
+
+<b><b>LUA_GCCOLLECT</b>:</b>
+performs a full garbage-collection cycle.
+
+<b><b>LUA_GCCOUNT</b>:</b>
+returns the current amount of memory (in Kbytes) in use by Lua.
+
+<b><b>LUA_GCCOUNTB</b>:</b>
+returns the remainder of dividing the current amount of bytes of
+memory in use by Lua by 1024.
+
+<b><b>LUA_GCSTEP</b>:</b>
+performs an incremental step of garbage collection.
+The step "size" is controlled by <b>data</b>
+(larger values mean more steps) in a non-specified way.
+If you want to control the step size
+you must experimentally tune the value of <b>data</b>.
+The function returns 1 if the step finished a
+garbage-collection cycle.
+
+<b><b>LUA_GCSETPAUSE</b>:</b>
+sets <b>data</b> as the new value
+for the <i>pause</i> of the collector (see §2.10).
+The function returns the previous value of the pause.
+
+<b><b>LUA_GCSETSTEPMUL</b>:</b>
+sets <b>data</b> as the new value for the <i>step multiplier</i> of
+the collector (see §2.10).
+The function returns the previous value of the step multiplier.
+
+
+</reference>
+</element>
+<element pattern="lua_getallocf">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>lua_Alloc lua_getallocf (lua_State *L, void **ud);</i>
+
+Returns the memory-allocation function of a given state.
+If <b>ud</b> is not <b>NULL</b>, Lua stores in <b>*ud</b> the
+opaque pointer passed to <b>lua_newstate</b>.
+</reference>
+</element>
+<element pattern="lua_getfenv">
+<reference>
+<b>[-0, +1, <i>-</i>]</b>
+<i>void lua_getfenv (lua_State *L, int index);</i>
+
+Pushes onto the stack the environment table of
+the value at the given index.
+</reference>
+</element>
+<element pattern="lua_getfield">
+<reference>
+<b>[-0, +1, <i>e</i>]</b>
+<i>void lua_getfield (lua_State *L, int index, const char *k);</i>
+
+Pushes onto the stack the value <b>t[k]</b>,
+where <b>t</b> is the value at the given valid index.
+As in Lua, this function may trigger a metamethod
+for the "index" event (see §2.8).
+</reference>
+</element>
+<element pattern="lua_getglobal">
+<reference>
+<b>[-0, +1, <i>e</i>]</b>
+<i>void lua_getglobal (lua_State *L, const char *name);</i>
+
+Pushes onto the stack the value of the global <b>name</b>.
+It is defined as a macro:
+<i>     #define lua_getglobal(L,s)  lua_getfield(L, LUA_GLOBALSINDEX, s)
+</i>
+</reference>
+</element>
+<element pattern="lua_getmetatable">
+<reference>
+<b>[-0, +(0|1), <i>-</i>]</b>
+<i>int lua_getmetatable (lua_State *L, int index);</i>
+
+Pushes onto the stack the metatable of the value at the given
+acceptable index.
+If the index is not valid,
+or if the value does not have a metatable,
+the function returns 0 and pushes nothing on the stack.
+</reference>
+</element>
+<element pattern="lua_gettable">
+<reference>
+<b>[-1, +1, <i>e</i>]</b>
+<i>void lua_gettable (lua_State *L, int index);</i>
+
+Pushes onto the stack the value <b>t[k]</b>,
+where <b>t</b> is the value at the given valid index
+and <b>k</b> is the value at the top of the stack.
+
+This function pops the key from the stack
+(putting the resulting value in its place).
+As in Lua, this function may trigger a metamethod
+for the "index" event (see §2.8).
+</reference>
+</element>
+<element pattern="lua_gettop">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_gettop (lua_State *L);</i>
+
+Returns the index of the top element in the stack.
+Because indices start at 1,
+this result is equal to the number of elements in the stack
+(and so 0 means an empty stack).
+</reference>
+</element>
+<element pattern="lua_insert">
+<reference>
+<b>[-1, +1, <i>-</i>]</b>
+<i>void lua_insert (lua_State *L, int index);</i>
+
+Moves the top element into the given valid index,
+shifting up the elements above this index to open space.
+Cannot be called with a pseudo-index,
+because a pseudo-index is not an actual stack position.
+</reference>
+</element>
+<element pattern="lua_Integer">
+<reference>
+<i>typedef ptrdiff_t lua_Integer;</i>
+
+The type used by the Lua API to represent integral values.
+
+By default it is a <b>ptrdiff_t</b>,
+which is usually the largest signed integral type the machine handles
+"comfortably".
+</reference>
+</element>
+<element pattern="lua_isboolean">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_isboolean (lua_State *L, int index);</i>
+
+Returns 1 if the value at the given acceptable index has type boolean,
+and 0 otherwise.
+</reference>
+</element>
+<element pattern="lua_iscfunction">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_iscfunction (lua_State *L, int index);</i>
+
+Returns 1 if the value at the given acceptable index is a C function,
+and 0 otherwise.
+</reference>
+</element>
+<element pattern="lua_isfunction">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_isfunction (lua_State *L, int index);</i>
+
+Returns 1 if the value at the given acceptable index is a function
+(either C or Lua), and 0 otherwise.
+</reference>
+</element>
+<element pattern="lua_islightuserdata">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_islightuserdata (lua_State *L, int index);</i>
+
+Returns 1 if the value at the given acceptable index is a light userdata,
+and 0 otherwise.
+</reference>
+</element>
+<element pattern="lua_isnil">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_isnil (lua_State *L, int index);</i>
+
+Returns 1 if the value at the given acceptable index is <b>nil</b>,
+and 0 otherwise.
+</reference>
+</element>
+<element pattern="lua_isnone">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_isnone (lua_State *L, int index);</i>
+
+Returns 1 if the given acceptable index is not valid
+(that is, it refers to an element outside the current stack),
+and 0 otherwise.
+</reference>
+</element>
+<element pattern="lua_isnoneornil">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_isnoneornil (lua_State *L, int index);</i>
+
+Returns 1 if the given acceptable index is not valid
+(that is, it refers to an element outside the current stack)
+or if the value at this index is <b>nil</b>,
+and 0 otherwise.
+</reference>
+</element>
+<element pattern="lua_isnumber">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_isnumber (lua_State *L, int index);</i>
+
+Returns 1 if the value at the given acceptable index is a number
+or a string convertible to a number,
+and 0 otherwise.
+</reference>
+</element>
+<element pattern="lua_isstring">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_isstring (lua_State *L, int index);</i>
+
+Returns 1 if the value at the given acceptable index is a string
+or a number (which is always convertible to a string),
+and 0 otherwise.
+</reference>
+</element>
+<element pattern="lua_istable">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_istable (lua_State *L, int index);</i>
+
+Returns 1 if the value at the given acceptable index is a table,
+and 0 otherwise.
+</reference>
+</element>
+<element pattern="lua_isthread">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_isthread (lua_State *L, int index);</i>
+
+Returns 1 if the value at the given acceptable index is a thread,
+and 0 otherwise.
+</reference>
+</element>
+<element pattern="lua_isuserdata">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_isuserdata (lua_State *L, int index);</i>
+
+Returns 1 if the value at the given acceptable index is a userdata
+(either full or light), and 0 otherwise.
+</reference>
+</element>
+<element pattern="lua_lessthan">
+<reference>
+<b>[-0, +0, <i>e</i>]</b>
+<i>int lua_lessthan (lua_State *L, int index1, int index2);</i>
+
+Returns 1 if the value at acceptable index <b>index1</b> is smaller
+than the value at acceptable index <b>index2</b>,
+following the semantics of the Lua <b>&amp;lt;</b> operator
+(that is, may call metamethods).
+Otherwise returns 0.
+Also returns 0 if any of the indices is non valid.
+</reference>
+</element>
+<element pattern="lua_load">
+<reference>
+<b>[-0, +1, <i>-</i>]</b>
+<i>int lua_load (lua_State *L,
+              lua_Reader reader,
+              void *data,
+              const char *chunkname);</i>
+
+Loads a Lua chunk.
+If there are no errors,
+<b>lua_load</b> pushes the compiled chunk as a Lua
+function on top of the stack.
+Otherwise, it pushes an error message.
+The return values of <b>lua_load</b> are:
+
+<b>0:</b> no errors;
+<b><b>LUA_ERRSYNTAX</b>:</b>
+syntax error during pre-compilation;
+<b><b>LUA_ERRMEM</b>:</b>
+memory allocation error.
+
+
+This function only loads a chunk;
+it does not run it.
+
+<b>lua_load</b> automatically detects whether the chunk is text or binary,
+and loads it accordingly (see program <b>luac</b>).
+
+The <b>lua_load</b> function uses a user-supplied <b>reader</b> function
+to read the chunk (see <b>lua_Reader</b>).
+The <b>data</b> argument is an opaque value passed to the reader function.
+
+The <b>chunkname</b> argument gives a name to the chunk,
+which is used for error messages and in debug information (see §3.8).
+</reference>
+</element>
+<element pattern="lua_newstate">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>lua_State *lua_newstate (lua_Alloc f, void *ud);</i>
+
+Creates a new, independent state.
+Returns <b>NULL</b> if cannot create the state
+(due to lack of memory).
+The argument <b>f</b> is the allocator function;
+Lua does all memory allocation for this state through this function.
+The second argument, <b>ud</b>, is an opaque pointer that Lua
+simply passes to the allocator in every call.
+</reference>
+</element>
+<element pattern="lua_newtable">
+<reference>
+<b>[-0, +1, <i>m</i>]</b>
+<i>void lua_newtable (lua_State *L);</i>
+
+Creates a new empty table and pushes it onto the stack.
+It is equivalent to <b>lua_createtable(L, 0, 0)</b>.
+</reference>
+</element>
+<element pattern="lua_newthread">
+<reference>
+<b>[-0, +1, <i>m</i>]</b>
+<i>lua_State *lua_newthread (lua_State *L);</i>
+
+Creates a new thread, pushes it on the stack,
+and returns a pointer to a <b>lua_State</b> that represents this new thread.
+The new state returned by this function shares with the original state
+all global objects (such as tables),
+but has an independent execution stack.
+
+There is no explicit function to close or to destroy a thread.
+Threads are subject to garbage collection,
+like any Lua object.
+</reference>
+</element>
+<element pattern="lua_newuserdata">
+<reference>
+<b>[-0, +1, <i>m</i>]</b>
+<i>void *lua_newuserdata (lua_State *L, size_t size);</i>
+
+This function allocates a new block of memory with the given size,
+pushes onto the stack a new full userdata with the block address,
+and returns this address.
+
+Userdata represent C values in Lua.
+A <i>full userdata</i> represents a block of memory.
+It is an object (like a table):
+you must create it, it can have its own metatable,
+and you can detect when it is being collected.
+A full userdata is only equal to itself (under raw equality).
+
+When Lua collects a full userdata with a <b>gc</b> metamethod,
+Lua calls the metamethod and marks the userdata as finalized.
+When this userdata is collected again then
+Lua frees its corresponding memory.
+</reference>
+</element>
+<element pattern="lua_next">
+<reference>
+<b>[-1, +(2|0), <i>e</i>]</b>
+<i>int lua_next (lua_State *L, int index);</i>
+
+Pops a key from the stack,
+and pushes a key-value pair from the table at the given index
+(the "next" pair after the given key).
+If there are no more elements in the table,
+then <b>lua_next</b> returns 0 (and pushes nothing).
+
+A typical traversal looks like this:
+<i>     /* table is in the stack at index 't' */
+     lua_pushnil(L);  /* first key */
+     while (lua_next(L, t) != 0) {
+       /* uses 'key' (at index -2) and 'value' (at index -1) */
+       printf("%s - %s\n",
+              lua_typename(L, lua_type(L, -2)),
+              lua_typename(L, lua_type(L, -1)));
+       /* removes 'value'; keeps 'key' for next iteration */
+       lua_pop(L, 1);
+     }
+</i>
+
+While traversing a table,
+do not call <b>lua_tolstring</b> directly on a key,
+unless you know that the key is actually a string.
+Recall that <b>lua_tolstring</b> <i>changes</i>
+the value at the given index;
+this confuses the next call to <b>lua_next</b>.
+</reference>
+</element>
+<element pattern="lua_Number">
+<reference>
+<i>typedef double lua_Number;</i>
+
+The type of numbers in Lua.
+By default, it is double, but that can be changed in <b>luaconf.h</b>.
+
+Through the configuration file you can change
+Lua to operate with another type for numbers (e.g., float or long).
+</reference>
+</element>
+<element pattern="lua_objlen">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>size_t lua_objlen (lua_State *L, int index);</i>
+
+Returns the "length" of the value at the given acceptable index:
+for strings, this is the string length;
+for tables, this is the result of the length operator ('<b>#</b>');
+for userdata, this is the size of the block of memory allocated
+for the userdata;
+for other values, it is 0.
+</reference>
+</element>
+<element pattern="lua_pcall">
+<reference>
+<b>[-(nargs + 1), +(nresults|1), <i>-</i>]</b>
+<i>int lua_pcall (lua_State *L, int nargs, int nresults, int errfunc);</i>
+
+Calls a function in protected mode.
+
+Both <b>nargs</b> and <b>nresults</b> have the same meaning as
+in <b>lua_call</b>.
+If there are no errors during the call,
+<b>lua_pcall</b> behaves exactly like <b>lua_call</b>.
+However, if there is any error,
+<b>lua_pcall</b> catches it,
+pushes a single value on the stack (the error message),
+and returns an error code.
+Like <b>lua_call</b>,
+<b>lua_pcall</b> always removes the function
+and its arguments from the stack.
+
+If <b>errfunc</b> is 0,
+then the error message returned on the stack
+is exactly the original error message.
+Otherwise, <b>errfunc</b> is the stack index of an
+<i>error handler function</i>.
+(In the current implementation, this index cannot be a pseudo-index.)
+In case of runtime errors,
+this function will be called with the error message
+and its return value will be the message returned on the stack by <b>lua_pcall</b>.
+
+Typically, the error handler function is used to add more debug
+information to the error message, such as a stack traceback.
+Such information cannot be gathered after the return of <b>lua_pcall</b>,
+since by then the stack has unwound.
+
+The <b>lua_pcall</b> function returns 0 in case of success
+or one of the following error codes
+(defined in <b>lua.h</b>):
+
+<b><b>LUA_ERRRUN</b>:</b>
+a runtime error.
+
+<b><b>LUA_ERRMEM</b>:</b>
+memory allocation error.
+For such errors, Lua does not call the error handler function.
+
+<b><b>LUA_ERRERR</b>:</b>
+error while running the error handler function.
+
+
+</reference>
+</element>
+<element pattern="lua_pop">
+<reference>
+<b>[-n, +0, <i>-</i>]</b>
+<i>void lua_pop (lua_State *L, int n);</i>
+
+Pops <b>n</b> elements from the stack.
+</reference>
+</element>
+<element pattern="lua_pushboolean">
+<reference>
+<b>[-0, +1, <i>-</i>]</b>
+<i>void lua_pushboolean (lua_State *L, int b);</i>
+
+Pushes a boolean value with value <b>b</b> onto the stack.
+</reference>
+</element>
+<element pattern="lua_pushcclosure">
+<reference>
+<b>[-n, +1, <i>m</i>]</b>
+<i>void lua_pushcclosure (lua_State *L, lua_CFunction fn, int n);</i>
+
+Pushes a new C closure onto the stack.
+
+When a C function is created,
+it is possible to associate some values with it,
+thus creating a C closure (see §3.4);
+these values are then accessible to the function whenever it is called.
+To associate values with a C function,
+first these values should be pushed onto the stack
+(when there are multiple values, the first value is pushed first).
+Then <b>lua_pushcclosure</b>
+is called to create and push the C function onto the stack,
+with the argument <b>n</b> telling how many values should be
+associated with the function.
+<b>lua_pushcclosure</b> also pops these values from the stack.
+
+The maximum value for <b>n</b> is 255.
+</reference>
+</element>
+<element pattern="lua_pushcfunction">
+<reference>
+<b>[-0, +1, <i>m</i>]</b>
+<i>void lua_pushcfunction (lua_State *L, lua_CFunction f);</i>
+
+Pushes a C function onto the stack.
+This function receives a pointer to a C function
+and pushes onto the stack a Lua value of type <b>function</b> that,
+when called, invokes the corresponding C function.
+
+Any function to be registered in Lua must
+follow the correct protocol to receive its parameters
+and return its results (see <b>lua_CFunction</b>).
+
+<b>lua_pushcfunction</b> is defined as a macro:
+<i>     #define lua_pushcfunction(L,f)  lua_pushcclosure(L,f,0)
+</i>
+</reference>
+</element>
+<element pattern="lua_pushfstring">
+<reference>
+<b>[-0, +1, <i>m</i>]</b>
+<i>const char *lua_pushfstring (lua_State *L, const char *fmt, ...);</i>
+
+Pushes onto the stack a formatted string
+and returns a pointer to this string.
+It is similar to the C function <b>sprintf</b>,
+but has some important differences:
+
+
+You do not have to allocate space for the result:
+the result is a Lua string and Lua takes care of memory allocation
+(and deallocation, through garbage collection).
+
+
+The conversion specifiers are quite restricted.
+There are no flags, widths, or precisions.
+The conversion specifiers can only be
+'<b>%%</b>' (inserts a '<b>%</b>' in the string),
+'<b>%s</b>' (inserts a zero-terminated string, with no size restrictions),
+'<b>%f</b>' (inserts a <b>lua_Number</b>),
+'<b>%p</b>' (inserts a pointer as a hexadecimal numeral),
+'<b>%d</b>' (inserts an <b>int</b>), and
+'<b>%c</b>' (inserts an <b>int</b> as a character).
+
+
+</reference>
+</element>
+<element pattern="lua_pushinteger">
+<reference>
+<b>[-0, +1, <i>-</i>]</b>
+<i>void lua_pushinteger (lua_State *L, lua_Integer n);</i>
+
+Pushes a number with value <b>n</b> onto the stack.
+</reference>
+</element>
+<element pattern="lua_pushlightuserdata">
+<reference>
+<b>[-0, +1, <i>-</i>]</b>
+<i>void lua_pushlightuserdata (lua_State *L, void *p);</i>
+
+Pushes a light userdata onto the stack.
+
+Userdata represent C values in Lua.
+A <i>light userdata</i> represents a pointer.
+It is a value (like a number):
+you do not create it, it has no individual metatable,
+and it is not collected (as it was never created).
+A light userdata is equal to "any"
+light userdata with the same C address.
+</reference>
+</element>
+<element pattern="lua_pushliteral">
+<reference>
+<b>[-0, +1, <i>m</i>]</b>
+<i>void lua_pushliteral (lua_State *L, const char *s);</i>
+
+This macro is equivalent to <b>lua_pushlstring</b>,
+but can be used only when <b>s</b> is a literal string.
+In these cases, it automatically provides the string length.
+</reference>
+</element>
+<element pattern="lua_pushlstring">
+<reference>
+<b>[-0, +1, <i>m</i>]</b>
+<i>void lua_pushlstring (lua_State *L, const char *s, size_t len);</i>
+
+Pushes the string pointed to by <b>s</b> with size <b>len</b>
+onto the stack.
+Lua makes (or reuses) an internal copy of the given string,
+so the memory at <b>s</b> can be freed or reused immediately after
+the function returns.
+The string can contain embedded zeros.
+</reference>
+</element>
+<element pattern="lua_pushnil">
+<reference>
+<b>[-0, +1, <i>-</i>]</b>
+<i>void lua_pushnil (lua_State *L);</i>
+
+Pushes a nil value onto the stack.
+</reference>
+</element>
+<element pattern="lua_pushnumber">
+<reference>
+<b>[-0, +1, <i>-</i>]</b>
+<i>void lua_pushnumber (lua_State *L, lua_Number n);</i>
+
+Pushes a number with value <b>n</b> onto the stack.
+</reference>
+</element>
+<element pattern="lua_pushstring">
+<reference>
+<b>[-0, +1, <i>m</i>]</b>
+<i>void lua_pushstring (lua_State *L, const char *s);</i>
+
+Pushes the zero-terminated string pointed to by <b>s</b>
+onto the stack.
+Lua makes (or reuses) an internal copy of the given string,
+so the memory at <b>s</b> can be freed or reused immediately after
+the function returns.
+The string cannot contain embedded zeros;
+it is assumed to end at the first zero.
+</reference>
+</element>
+<element pattern="lua_pushthread">
+<reference>
+<b>[-0, +1, <i>-</i>]</b>
+<i>int lua_pushthread (lua_State *L);</i>
+
+Pushes the thread represented by <b>L</b> onto the stack.
+Returns 1 if this thread is the main thread of its state.
+</reference>
+</element>
+<element pattern="lua_pushvalue">
+<reference>
+<b>[-0, +1, <i>-</i>]</b>
+<i>void lua_pushvalue (lua_State *L, int index);</i>
+
+Pushes a copy of the element at the given valid index
+onto the stack.
+</reference>
+</element>
+<element pattern="lua_pushvfstring">
+<reference>
+<b>[-0, +1, <i>m</i>]</b>
+<i>const char *lua_pushvfstring (lua_State *L,
+                              const char *fmt,
+                              va_list argp);</i>
+
+Equivalent to <b>lua_pushfstring</b>, except that it receives a <b>va_list</b>
+instead of a variable number of arguments.
+</reference>
+</element>
+<element pattern="lua_rawequal">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_rawequal (lua_State *L, int index1, int index2);</i>
+
+Returns 1 if the two values in acceptable indices <b>index1</b> and
+<b>index2</b> are primitively equal
+(that is, without calling metamethods).
+Otherwise returns 0.
+Also returns 0 if any of the indices are non valid.
+</reference>
+</element>
+<element pattern="lua_rawget">
+<reference>
+<b>[-1, +1, <i>-</i>]</b>
+<i>void lua_rawget (lua_State *L, int index);</i>
+
+Similar to <b>lua_gettable</b>, but does a raw access
+(i.e., without metamethods).
+</reference>
+</element>
+<element pattern="lua_rawgeti">
+<reference>
+<b>[-0, +1, <i>-</i>]</b>
+<i>void lua_rawgeti (lua_State *L, int index, int n);</i>
+
+Pushes onto the stack the value <b>t[n]</b>,
+where <b>t</b> is the value at the given valid index.
+The access is raw;
+that is, it does not invoke metamethods.
+</reference>
+</element>
+<element pattern="lua_rawset">
+<reference>
+<b>[-2, +0, <i>m</i>]</b>
+<i>void lua_rawset (lua_State *L, int index);</i>
+
+Similar to <b>lua_settable</b>, but does a raw assignment
+(i.e., without metamethods).
+</reference>
+</element>
+<element pattern="lua_rawseti">
+<reference>
+<b>[-1, +0, <i>m</i>]</b>
+<i>void lua_rawseti (lua_State *L, int index, int n);</i>
+
+Does the equivalent of <b>t[n] = v</b>,
+where <b>t</b> is the value at the given valid index
+and <b>v</b> is the value at the top of the stack.
+
+This function pops the value from the stack.
+The assignment is raw;
+that is, it does not invoke metamethods.
+</reference>
+</element>
+<element pattern="lua_Reader">
+<reference>
+<i>typedef const char * (*lua_Reader) (lua_State *L,
+                                    void *data,
+                                    size_t *size);</i>
+
+The reader function used by <b>lua_load</b>.
+Every time it needs another piece of the chunk,
+<b>lua_load</b> calls the reader,
+passing along its <b>data</b> parameter.
+The reader must return a pointer to a block of memory
+with a new piece of the chunk
+and set <b>size</b> to the block size.
+The block must exist until the reader function is called again.
+To signal the end of the chunk,
+the reader must return <b>NULL</b> or set <b>size</b> to zero.
+The reader function may return pieces of any size greater than zero.
+</reference>
+</element>
+<element pattern="lua_register">
+<reference>
+<b>[-0, +0, <i>e</i>]</b>
+<i>void lua_register (lua_State *L,
+                   const char *name,
+                   lua_CFunction f);</i>
+
+Sets the C function <b>f</b> as the new value of global <b>name</b>.
+It is defined as a macro:
+<i>     #define lua_register(L,n,f) \
+            (lua_pushcfunction(L, f), lua_setglobal(L, n))
+</i>
+</reference>
+</element>
+<element pattern="lua_remove">
+<reference>
+<b>[-1, +0, <i>-</i>]</b>
+<i>void lua_remove (lua_State *L, int index);</i>
+
+Removes the element at the given valid index,
+shifting down the elements above this index to fill the gap.
+Cannot be called with a pseudo-index,
+because a pseudo-index is not an actual stack position.
+</reference>
+</element>
+<element pattern="lua_replace">
+<reference>
+<b>[-1, +0, <i>-</i>]</b>
+<i>void lua_replace (lua_State *L, int index);</i>
+
+Moves the top element into the given position (and pops it),
+without shifting any element
+(therefore replacing the value at the given position).
+</reference>
+</element>
+<element pattern="lua_resume">
+<reference>
+<b>[-?, +?, <i>-</i>]</b>
+<i>int lua_resume (lua_State *L, int narg);</i>
+
+Starts and resumes a coroutine in a given thread.
+
+To start a coroutine, you first create a new thread
+(see <b>lua_newthread</b>);
+then you push onto its stack the main function plus any arguments;
+then you call <b>lua_resume</b>,
+with <b>narg</b> being the number of arguments.
+This call returns when the coroutine suspends or finishes its execution.
+When it returns, the stack contains all values passed to <b>lua_yield</b>,
+or all values returned by the body function.
+<b>lua_resume</b> returns
+<b>LUA_YIELD</b> if the coroutine yields,
+0 if the coroutine finishes its execution
+without errors,
+or an error code in case of errors (see <b>lua_pcall</b>).
+In case of errors,
+the stack is not unwound,
+so you can use the debug API over it.
+The error message is on the top of the stack.
+To restart a coroutine, you put on its stack only the values to
+be passed as results from <b>yield</b>,
+and then call <b>lua_resume</b>.
+</reference>
+</element>
+<element pattern="lua_setallocf">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>void lua_setallocf (lua_State *L, lua_Alloc f, void *ud);</i>
+
+Changes the allocator function of a given state to <b>f</b>
+with user data <b>ud</b>.
+</reference>
+</element>
+<element pattern="lua_setfenv">
+<reference>
+<b>[-1, +0, <i>-</i>]</b>
+<i>int lua_setfenv (lua_State *L, int index);</i>
+
+Pops a table from the stack and sets it as
+the new environment for the value at the given index.
+If the value at the given index is
+neither a function nor a thread nor a userdata,
+<b>lua_setfenv</b> returns 0.
+Otherwise it returns 1.
+</reference>
+</element>
+<element pattern="lua_setfield">
+<reference>
+<b>[-1, +0, <i>e</i>]</b>
+<i>void lua_setfield (lua_State *L, int index, const char *k);</i>
+
+Does the equivalent to <b>t[k] = v</b>,
+where <b>t</b> is the value at the given valid index
+and <b>v</b> is the value at the top of the stack.
+
+This function pops the value from the stack.
+As in Lua, this function may trigger a metamethod
+for the "newindex" event (see §2.8).
+</reference>
+</element>
+<element pattern="lua_setglobal">
+<reference>
+<b>[-1, +0, <i>e</i>]</b>
+<i>void lua_setglobal (lua_State *L, const char *name);</i>
+
+Pops a value from the stack and
+sets it as the new value of global <b>name</b>.
+It is defined as a macro:
+<i>     #define lua_setglobal(L,s)   lua_setfield(L, LUA_GLOBALSINDEX, s)
+</i>
+</reference>
+</element>
+<element pattern="lua_setmetatable">
+<reference>
+<b>[-1, +0, <i>-</i>]</b>
+<i>int lua_setmetatable (lua_State *L, int index);</i>
+
+Pops a table from the stack and
+sets it as the new metatable for the value at the given
+acceptable index.
+</reference>
+</element>
+<element pattern="lua_settable">
+<reference>
+<b>[-2, +0, <i>e</i>]</b>
+<i>void lua_settable (lua_State *L, int index);</i>
+
+Does the equivalent to <b>t[k] = v</b>,
+where <b>t</b> is the value at the given valid index,
+<b>v</b> is the value at the top of the stack,
+and <b>k</b> is the value just below the top.
+
+This function pops both the key and the value from the stack.
+As in Lua, this function may trigger a metamethod
+for the "newindex" event (see §2.8).
+</reference>
+</element>
+<element pattern="lua_settop">
+<reference>
+<b>[-?, +?, <i>-</i>]</b>
+<i>void lua_settop (lua_State *L, int index);</i>
+
+Accepts any acceptable index, or 0,
+and sets the stack top to this index.
+If the new top is larger than the old one,
+then the new elements are filled with <b>nil</b>.
+If <b>index</b> is 0, then all stack elements are removed.
+</reference>
+</element>
+<element pattern="lua_State">
+<reference>
+<i>typedef struct lua_State lua_State;</i>
+
+Opaque structure that keeps the whole state of a Lua interpreter.
+The Lua library is fully reentrant:
+it has no global variables.
+All information about a state is kept in this structure.
+
+A pointer to this state must be passed as the first argument to
+every function in the library, except to <b>lua_newstate</b>,
+which creates a Lua state from scratch.
+</reference>
+</element>
+<element pattern="lua_status">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_status (lua_State *L);</i>
+
+Returns the status of the thread <b>L</b>.
+
+The status can be 0 for a normal thread,
+an error code if the thread finished its execution with an error,
+or <b>LUA_YIELD</b> if the thread is suspended.
+</reference>
+</element>
+<element pattern="lua_toboolean">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_toboolean (lua_State *L, int index);</i>
+
+Converts the Lua value at the given acceptable index to a C boolean
+value (0 or 1).
+Like all tests in Lua,
+<b>lua_toboolean</b> returns 1 for any Lua value
+different from <b>false</b> and <b>nil</b>;
+otherwise it returns 0.
+It also returns 0 when called with a non-valid index.
+(If you want to accept only actual boolean values,
+use <b>lua_isboolean</b> to test the value's type.)
+</reference>
+</element>
+<element pattern="lua_tocfunction">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>lua_CFunction lua_tocfunction (lua_State *L, int index);</i>
+
+Converts a value at the given acceptable index to a C function.
+That value must be a C function;
+otherwise, returns <b>NULL</b>.
+</reference>
+</element>
+<element pattern="lua_tointeger">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>lua_Integer lua_tointeger (lua_State *L, int index);</i>
+
+Converts the Lua value at the given acceptable index
+to the signed integral type <b>lua_Integer</b>.
+The Lua value must be a number or a string convertible to a number
+(see §2.2.1);
+otherwise, <b>lua_tointeger</b> returns 0.
+
+If the number is not an integer,
+it is truncated in some non-specified way.
+</reference>
+</element>
+<element pattern="lua_tolstring">
+<reference>
+<b>[-0, +0, <i>m</i>]</b>
+<i>const char *lua_tolstring (lua_State *L, int index, size_t *len);</i>
+
+Converts the Lua value at the given acceptable index to a C string.
+If <b>len</b> is not <b>NULL</b>,
+it also sets <b>*len</b> with the string length.
+The Lua value must be a string or a number;
+otherwise, the function returns <b>NULL</b>.
+If the value is a number,
+then <b>lua_tolstring</b> also
+<i>changes the actual value in the stack to a string</i>.
+(This change confuses <b>lua_next</b>
+when <b>lua_tolstring</b> is applied to keys during a table traversal.)
+
+<b>lua_tolstring</b> returns a fully aligned pointer
+to a string inside the Lua state.
+This string always has a zero ('<b>\0</b>')
+after its last character (as in C),
+but can contain other zeros in its body.
+Because Lua has garbage collection,
+there is no guarantee that the pointer returned by <b>lua_tolstring</b>
+will be valid after the corresponding value is removed from the stack.
+</reference>
+</element>
+<element pattern="lua_tonumber">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>lua_Number lua_tonumber (lua_State *L, int index);</i>
+
+Converts the Lua value at the given acceptable index
+to the C type <b>lua_Number</b> (see <b>lua_Number</b>).
+The Lua value must be a number or a string convertible to a number
+(see §2.2.1);
+otherwise, <b>lua_tonumber</b> returns 0.
+</reference>
+</element>
+<element pattern="lua_topointer">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>const void *lua_topointer (lua_State *L, int index);</i>
+
+Converts the value at the given acceptable index to a generic
+C pointer (<b>void*</b>).
+The value can be a userdata, a table, a thread, or a function;
+otherwise, <b>lua_topointer</b> returns <b>NULL</b>.
+Different objects will give different pointers.
+There is no way to convert the pointer back to its original value.
+
+Typically this function is used only for debug information.
+</reference>
+</element>
+<element pattern="lua_tostring">
+<reference>
+<b>[-0, +0, <i>m</i>]</b>
+<i>const char *lua_tostring (lua_State *L, int index);</i>
+
+Equivalent to <b>lua_tolstring</b> with <b>len</b> equal to <b>NULL</b>.
+</reference>
+</element>
+<element pattern="lua_tothread">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>lua_State *lua_tothread (lua_State *L, int index);</i>
+
+Converts the value at the given acceptable index to a Lua thread
+(represented as <b>lua_State*</b>).
+This value must be a thread;
+otherwise, the function returns <b>NULL</b>.
+</reference>
+</element>
+<element pattern="lua_touserdata">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>void *lua_touserdata (lua_State *L, int index);</i>
+
+If the value at the given acceptable index is a full userdata,
+returns its block address.
+If the value is a light userdata,
+returns its pointer.
+Otherwise, returns <b>NULL</b>.
+</reference>
+</element>
+<element pattern="lua_type">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>int lua_type (lua_State *L, int index);</i>
+
+Returns the type of the value in the given acceptable index,
+or <b>LUA_TNONE</b> for a non-valid index
+(that is, an index to an "empty" stack position).
+The types returned by <b>lua_type</b> are coded by the following constants
+defined in <b>lua.h</b>:
+<b>LUA_TNIL</b>,
+<b>LUA_TNUMBER</b>,
+<b>LUA_TBOOLEAN</b>,
+<b>LUA_TSTRING</b>,
+<b>LUA_TTABLE</b>,
+<b>LUA_TFUNCTION</b>,
+<b>LUA_TUSERDATA</b>,
+<b>LUA_TTHREAD</b>,
+and
+<b>LUA_TLIGHTUSERDATA</b>.
+</reference>
+</element>
+<element pattern="lua_typename">
+<reference>
+<b>[-0, +0, <i>-</i>]</b>
+<i>const char *lua_typename  (lua_State *L, int tp);</i>
+
+Returns the name of the type encoded by the value <b>tp</b>,
+which must be one the values returned by <b>lua_type</b>.
+</reference>
+</element>
+<element pattern="lua_Writer">
+<reference>
+<i>typedef int (*lua_Writer) (lua_State *L,
+                           const void* p,
+                           size_t sz,
+                           void* ud);</i>
+
+The type of the writer function used by <b>lua_dump</b>.
+Every time it produces another piece of chunk,
+<b>lua_dump</b> calls the writer,
+passing along the buffer to be written (<b>p</b>),
+its size (<b>sz</b>),
+and the <b>data</b> parameter supplied to <b>lua_dump</b>.
+
+The writer returns an error code:
+0 means no errors;
+any other value means an error and stops <b>lua_dump</b> from
+calling the writer again.
+</reference>
+</element>
+<element pattern="lua_xmove">
+<reference>
+<b>[-?, +?, <i>-</i>]</b>
+<i>void lua_xmove (lua_State *from, lua_State *to, int n);</i>
+
+Exchange values between different threads of the <i>same</i> global state.
+
+This function pops <b>n</b> values from the stack <b>from</b>,
+and pushes them onto the stack <b>to</b>.
+</reference>
+</element>
+<element pattern="lua_yield">
+<reference>
+<b>[-?, +?, <i>-</i>]</b>
+<i>int lua_yield  (lua_State *L, int nresults);</i>
+
+Yields a coroutine.
+
+This function should only be called as the
+return expression of a C function, as follows:
+<i>     return lua_yield (L, nresults);
+</i>
+When a C function calls <b>lua_yield</b> in that way,
+the running coroutine suspends its execution,
+and the call to <b>lua_resume</b> that started this coroutine returns.
+The parameter <b>nresults</b> is the number of values from the stack
+that are passed as results to <b>lua_resume</b>.
+</reference>
+</element>
+</group>
+
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;nrt" highlight="string">
+		<element pattern="\\." is_regex="1" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string" >
+		<element pattern="\\." is_regex="1" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="--[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
+<element pattern="[[" highlight="string">
+	<context symbols="\]" highlight="string" >
+		<element pattern="\\." is_regex="1" highlight="string" />
+		<element pattern="]]" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+
+
+<element pattern="--[^\[][^&#10;&#13;]*" is_regex="1" highlight="comment"/>
+<element id="e.lbrace" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="e.lbrace" highlight="brackets" />
+<element id="e.lparen" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="e.lparen" highlight="brackets" />
+<element id="e.bcomment" pattern="--[[" starts_block="1" highlight="comment">
+	<context symbols="]&#9;&#10;&#13;" highlight="comment" >
+		<element pattern="]]" ends_block="1" blockstartelement="e.bcomment" highlight="comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+
+<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+
+</context>
+</definition>
+</bflang>
