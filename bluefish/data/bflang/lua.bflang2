@@ -66,55 +66,6 @@
 </group>
 
 <group highlight="function" autocomplete="1" autocomplete_append="()" autocomplete_backup_cursor="1">
-
-<element pattern="lua_Alloc">
-<reference>
-<i>typedef void * (*lua_Alloc) (void *ud,
-                             void *ptr,
-                             size_t osize,
-                             size_t nsize);</i>
-
-The type of the memory-allocation function used by Lua states.
-The allocator function must provide a
-functionality similar to <b>realloc</b>,
-but not exactly the same.
-Its arguments are
-<b>ud</b>, an opaque pointer passed to <b>lua_newstate</b>;
-<b>ptr</b>, a pointer to the block being allocated/reallocated/freed;
-<b>osize</b>, the original size of the block;
-<b>nsize</b>, the new size of the block.
-<b>ptr</b> is <b>NULL</b> if and only if <b>osize</b> is zero.
-When <b>nsize</b> is zero, the allocator must return <b>NULL</b>;
-if <b>osize</b> is not zero,
-it should free the block pointed to by <b>ptr</b>.
-When <b>nsize</b> is not zero, the allocator returns <b>NULL</b>
-if and only if it cannot fill the request.
-When <b>nsize</b> is not zero and <b>osize</b> is zero,
-the allocator should behave like <b>malloc</b>.
-When <b>nsize</b> and <b>osize</b> are not zero,
-the allocator behaves like <b>realloc</b>.
-Lua assumes that the allocator never fails when
-<b>osize &amp;gt;= nsize</b>.
-
-Here is a simple implementation for the allocator function.
-It is used in the auxiliary library by <b>luaL_newstate</b>.
-<i>     static void *l_alloc (void *ud, void *ptr, size_t osize,
-                                                size_t nsize) {
-       (void)ud;  (void)osize;  /* not used */
-       if (nsize == 0) {
-         free(ptr);
-         return NULL;
-       }
-       else
-         return realloc(ptr, nsize);
-     }
-</i>
-This code assumes
-that <b>free(NULL)</b> has no effect and that
-<b>realloc(NULL, size)</b> is equivalent to <b>malloc(size)</b>.
-ANSI C ensures both behaviors.
-</reference>
-</element>
 <element pattern="lua_atpanic">
 <reference>
 <b>[-0, +0, <i>-</i>]</b>
@@ -179,49 +130,7 @@ at its end, the stack is back to its original configuration.
 This is considered good programming practice.
 </reference>
 </element>
-<element pattern="lua_CFunction">
-<reference>
-<i>typedef int (*lua_CFunction) (lua_State *L);</i>
 
-Type for C functions.
-
-In order to communicate properly with Lua,
-a C function must use the following protocol,
-which defines the way parameters and results are passed:
-a C function receives its arguments from Lua in its stack
-in direct order (the first argument is pushed first).
-So, when the function starts,
-<b>lua_gettop(L)</b> returns the number of arguments received by the function.
-The first argument (if any) is at index 1
-and its last argument is at index <b>lua_gettop(L)</b>.
-To return values to Lua, a C function just pushes them onto the stack,
-in direct order (the first result is pushed first),
-and returns the number of results.
-Any other value in the stack below the results will be properly
-discarded by Lua.
-Like a Lua function, a C function called by Lua can also return
-many results.
-
-As an example, the following function receives a variable number
-of numerical arguments and returns their average and sum:
-<i>     static int foo (lua_State *L) {
-       int n = lua_gettop(L);    /* number of arguments */
-       lua_Number sum = 0;
-       int i;
-       for (i = 1; i &amp;lt;= n; i++) {
-         if (!lua_isnumber(L, i)) {
-           lua_pushstring(L, "incorrect argument");
-           lua_error(L);
-         }
-         sum += lua_tonumber(L, i);
-       }
-       lua_pushnumber(L, sum/n);        /* first result */
-       lua_pushnumber(L, sum);         /* second result */
-       return 2;                   /* number of results */
-     }
-</i>
-</reference>
-</element>
 <element pattern="lua_checkstack">
 <reference>
 <b>[-0, +0, <i>m</i>]</b>
@@ -478,17 +387,7 @@ Cannot be called with a pseudo-index,
 because a pseudo-index is not an actual stack position.
 </reference>
 </element>
-<element pattern="lua_Integer">
-<reference>
-<i>typedef ptrdiff_t lua_Integer;</i>
 
-The type used by the Lua API to represent integral values.
-
-By default it is a <b>ptrdiff_t</b>,
-which is usually the largest signed integral type the machine handles
-"comfortably".
-</reference>
-</element>
 <element pattern="lua_isboolean">
 <reference>
 <b>[-0, +0, <i>-</i>]</b>
@@ -744,17 +643,7 @@ the value at the given index;
 this confuses the next call to <b>lua_next</b>.
 </reference>
 </element>
-<element pattern="lua_Number">
-<reference>
-<i>typedef double lua_Number;</i>
 
-The type of numbers in Lua.
-By default, it is double, but that can be changed in <b>luaconf.h</b>.
-
-Through the configuration file you can change
-Lua to operate with another type for numbers (e.g., float or long).
-</reference>
-</element>
 <element pattern="lua_objlen">
 <reference>
 <b>[-0, +0, <i>-</i>]</b>
@@ -815,8 +704,6 @@ For such errors, Lua does not call the error handler function.
 
 <b><b>LUA_ERRERR</b>:</b>
 error while running the error handler function.
-
-
 </reference>
 </element>
 <element pattern="lua_pop">
@@ -902,8 +789,6 @@ The conversion specifiers can only be
 '<b>%p</b>' (inserts a pointer as a hexadecimal numeral),
 '<b>%d</b>' (inserts an <b>int</b>), and
 '<b>%c</b>' (inserts an <b>int</b> as a character).
-
-
 </reference>
 </element>
 <element pattern="lua_pushinteger">
@@ -1067,25 +952,7 @@ The assignment is raw;
 that is, it does not invoke metamethods.
 </reference>
 </element>
-<element pattern="lua_Reader">
-<reference>
-<i>typedef const char * (*lua_Reader) (lua_State *L,
-                                    void *data,
-                                    size_t *size);</i>
 
-The reader function used by <b>lua_load</b>.
-Every time it needs another piece of the chunk,
-<b>lua_load</b> calls the reader,
-passing along its <b>data</b> parameter.
-The reader must return a pointer to a block of memory
-with a new piece of the chunk
-and set <b>size</b> to the block size.
-The block must exist until the reader function is called again.
-To signal the end of the chunk,
-the reader must return <b>NULL</b> or set <b>size</b> to zero.
-The reader function may return pieces of any size greater than zero.
-</reference>
-</element>
 <element pattern="lua_register">
 <reference>
 <b>[-0, +0, <i>e</i>]</b>
@@ -1235,20 +1102,7 @@ then the new elements are filled with <b>nil</b>.
 If <b>index</b> is 0, then all stack elements are removed.
 </reference>
 </element>
-<element pattern="lua_State">
-<reference>
-<i>typedef struct lua_State lua_State;</i>
 
-Opaque structure that keeps the whole state of a Lua interpreter.
-The Lua library is fully reentrant:
-it has no global variables.
-All information about a state is kept in this structure.
-
-A pointer to this state must be passed as the first argument to
-every function in the library, except to <b>lua_newstate</b>,
-which creates a Lua state from scratch.
-</reference>
-</element>
 <element pattern="lua_status">
 <reference>
 <b>[-0, +0, <i>-</i>]</b>
@@ -1464,6 +1318,174 @@ the running coroutine suspends its execution,
 and the call to <b>lua_resume</b> that started this coroutine returns.
 The parameter <b>nresults</b> is the number of values from the stack
 that are passed as results to <b>lua_resume</b>.
+</reference>
+</element>
+</group>
+<group highlight="type" autocomplete="1">
+<element pattern="lua_Alloc">
+<reference>
+<i>typedef void * (*lua_Alloc) (void *ud,
+                             void *ptr,
+                             size_t osize,
+                             size_t nsize);</i>
+
+The type of the memory-allocation function used by Lua states.
+The allocator function must provide a
+functionality similar to <b>realloc</b>,
+but not exactly the same.
+Its arguments are
+<b>ud</b>, an opaque pointer passed to <b>lua_newstate</b>;
+<b>ptr</b>, a pointer to the block being allocated/reallocated/freed;
+<b>osize</b>, the original size of the block;
+<b>nsize</b>, the new size of the block.
+<b>ptr</b> is <b>NULL</b> if and only if <b>osize</b> is zero.
+When <b>nsize</b> is zero, the allocator must return <b>NULL</b>;
+if <b>osize</b> is not zero,
+it should free the block pointed to by <b>ptr</b>.
+When <b>nsize</b> is not zero, the allocator returns <b>NULL</b>
+if and only if it cannot fill the request.
+When <b>nsize</b> is not zero and <b>osize</b> is zero,
+the allocator should behave like <b>malloc</b>.
+When <b>nsize</b> and <b>osize</b> are not zero,
+the allocator behaves like <b>realloc</b>.
+Lua assumes that the allocator never fails when
+<b>osize &amp;gt;= nsize</b>.
+
+Here is a simple implementation for the allocator function.
+It is used in the auxiliary library by <b>luaL_newstate</b>.
+<i>     static void *l_alloc (void *ud, void *ptr, size_t osize,
+                                                size_t nsize) {
+       (void)ud;  (void)osize;  /* not used */
+       if (nsize == 0) {
+         free(ptr);
+         return NULL;
+       }
+       else
+         return realloc(ptr, nsize);
+     }
+</i>
+This code assumes
+that <b>free(NULL)</b> has no effect and that
+<b>realloc(NULL, size)</b> is equivalent to <b>malloc(size)</b>.
+ANSI C ensures both behaviors.
+</reference>
+</element>
+<element pattern="lua_CFunction">
+<reference>
+<i>typedef int (*lua_CFunction) (lua_State *L);</i>
+
+Type for C functions.
+
+In order to communicate properly with Lua,
+a C function must use the following protocol,
+which defines the way parameters and results are passed:
+a C function receives its arguments from Lua in its stack
+in direct order (the first argument is pushed first).
+So, when the function starts,
+<b>lua_gettop(L)</b> returns the number of arguments received by the function.
+The first argument (if any) is at index 1
+and its last argument is at index <b>lua_gettop(L)</b>.
+To return values to Lua, a C function just pushes them onto the stack,
+in direct order (the first result is pushed first),
+and returns the number of results.
+Any other value in the stack below the results will be properly
+discarded by Lua.
+Like a Lua function, a C function called by Lua can also return
+many results.
+
+As an example, the following function receives a variable number
+of numerical arguments and returns their average and sum:
+<i>     static int foo (lua_State *L) {
+       int n = lua_gettop(L);    /* number of arguments */
+       lua_Number sum = 0;
+       int i;
+       for (i = 1; i &amp;lt;= n; i++) {
+         if (!lua_isnumber(L, i)) {
+           lua_pushstring(L, "incorrect argument");
+           lua_error(L);
+         }
+         sum += lua_tonumber(L, i);
+       }
+       lua_pushnumber(L, sum/n);        /* first result */
+       lua_pushnumber(L, sum);         /* second result */
+       return 2;                   /* number of results */
+     }
+</i>
+</reference>
+</element>
+<element pattern="lua_Integer">
+<reference>
+<i>typedef ptrdiff_t lua_Integer;</i>
+
+The type used by the Lua API to represent integral values.
+
+By default it is a <b>ptrdiff_t</b>,
+which is usually the largest signed integral type the machine handles
+"comfortably".
+</reference>
+</element>
+<element pattern="lua_Number">
+<reference>
+<i>typedef double lua_Number;</i>
+
+The type of numbers in Lua.
+By default, it is double, but that can be changed in <b>luaconf.h</b>.
+
+Through the configuration file you can change
+Lua to operate with another type for numbers (e.g., float or long).
+</reference>
+</element>
+<element pattern="lua_Reader">
+<reference>
+<i>typedef const char * (*lua_Reader) (lua_State *L,
+                                    void *data,
+                                    size_t *size);</i>
+
+The reader function used by <b>lua_load</b>.
+Every time it needs another piece of the chunk,
+<b>lua_load</b> calls the reader,
+passing along its <b>data</b> parameter.
+The reader must return a pointer to a block of memory
+with a new piece of the chunk
+and set <b>size</b> to the block size.
+The block must exist until the reader function is called again.
+To signal the end of the chunk,
+the reader must return <b>NULL</b> or set <b>size</b> to zero.
+The reader function may return pieces of any size greater than zero.
+</reference>
+</element>
+<element pattern="lua_State">
+<reference>
+<i>typedef struct lua_State lua_State;</i>
+
+Opaque structure that keeps the whole state of a Lua interpreter.
+The Lua library is fully reentrant:
+it has no global variables.
+All information about a state is kept in this structure.
+
+A pointer to this state must be passed as the first argument to
+every function in the library, except to <b>lua_newstate</b>,
+which creates a Lua state from scratch.
+</reference>
+</element>
+<element pattern="lua_Writer">
+<reference>
+<i>typedef int (*lua_Writer) (lua_State *L,
+                           const void* p,
+                           size_t sz,
+                           void* ud);</i>
+
+The type of the writer function used by <b>lua_dump</b>.
+Every time it produces another piece of chunk,
+<b>lua_dump</b> calls the writer,
+passing along the buffer to be written (<b>p</b>),
+its size (<b>sz</b>),
+and the <b>data</b> parameter supplied to <b>lua_dump</b>.
+
+The writer returns an error code:
+0 means no errors;
+any other value means an error and stops <b>lua_dump</b> from
+calling the writer again.
 </reference>
 </element>
 </group>
