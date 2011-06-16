@@ -19,7 +19,7 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 
-<bflang name="Bflang2" version="2.0" table="1157" contexts="26" matches="143">
+<bflang name="Bflang2" version="2.0" table="1236" contexts="28" matches="147">
 <header>
 	<mime type="application/x-bluefish-language2"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -92,7 +92,8 @@
 					<element idref="e.comment"/>
 					<element idref="e.entity" />
 					<tag name="reference" highlight="tag" autocomplete_append="&gt;&lt;/reference&gt;">
-						<reference>reference is a tag that can be added to tag or to element. The text within the reference opening/closing is the reference information about the pertinent tag or element. Simple layout is available because the string is passed to Pango.</reference>
+						<reference>reference is a tag that can be added to tag or to element. The text within the reference opening/closing is the reference information about the pertinent tag or element. Simple layout is available because the string is passed to Pango. <i>i</i>, <b>b</b>, <tt>tt</tt>, <small>small</small>, <big>big</big>, <s>s</s>, <u>u</u>, <sub>sub</sub>
+<sup>sup</sup> tags are permitted. <span foreground="blue">&lt;span foreground="blue"&gt;</span> is also permitted, see Pango Text Attribute Markup Language.</reference>
 					</tag>
 					<tag idref="t.context" />
 				</context>
@@ -117,6 +118,19 @@
 	</tag>
 	</context>
 </tag>
+
+<tag name="bfinc" highlight="tag" autocomplete_append="&gt;">
+<reference>the <i>bflang</i> tag is the root tag of the bluefish language include file.</reference>
+	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" >
+		<element idref="e.comment"/>
+		<element idref="e.entity" />
+		<tag idref="t.context" />
+		<tag idref="t.element"/>
+		<tag idref="t.tag"/>
+		<tag idref="t.group"/>
+	</context>
+</tag>
+
 </context>
 </definition>
 </bflang>
