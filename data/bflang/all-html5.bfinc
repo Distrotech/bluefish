@@ -702,7 +702,7 @@
 <b>Parents:</b> phrasing
 <b>Children:</b> phrasing*
 <b>Interface:</b> HTMLTimeElement</reference></tag>
-<tag id="t.title" name="title" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<tag name="title" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>Document title
 <b>Categories:</b> metadata
 <b>Parents:</b> head
@@ -720,6 +720,12 @@
 <b>Parents:</b> audio, video
 <b>Children:</b> empty
 <b>Interface:</b> HTMLTrackElement</reference></tag>
+<tag name="u" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
+<reference>Keywords
+<b>Categories:</b> flow, phrasing
+<b>Parents:</b> phrasing
+<b>Children:</b> phrasing
+<b>Interface:</b> HTMLElement</reference></tag>
 <tag name="ul" highlight="html-tag" attribhighlight="html-attribute" attributes="&globals;">
 <reference>List
 <b>Categories:</b> flow
