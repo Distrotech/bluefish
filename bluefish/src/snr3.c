@@ -312,15 +312,14 @@ static gboolean snr3_run_pcre_loop(Truninidle *rii) {
 	Tsnr3run *s3run=rii->s3run;
 	gint loop=0;
 	GTimer *timer;
-	gboolean cont=TRUE;
+	gboolean cont;
 	static guint loops_per_timer = 10;
 	GMatchInfo *match_info = NULL;
 	GError *gerror = NULL;
 	
 	DEBUG_MSG("snr3_run_pcre_loop, started, curbuf=%p, regex=%p\n",s3run->curbuf,s3run->regex);
 	/* reconstruct where we are searching */
-	g_regex_match_full(s3run->regex, s3run->curbuf, -1, s3run->curposition, G_REGEX_MATCH_NEWLINE_ANY, &match_info, NULL);
-	
+	cont = g_regex_match_full(s3run->regex, s3run->curbuf, -1, s3run->curposition, G_REGEX_MATCH_NEWLINE_ANY, &match_info, NULL);
 	timer = g_timer_new();
 	while (cont && (loop % loops_per_timer != 0
 				 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SEARCH_INTERVAL)) {
@@ -338,13 +337,12 @@ static gboolean snr3_run_pcre_loop(Truninidle *rii) {
 		
 		s3run->curposition = eo;
 		
-		g_match_info_next (match_info, &gerror);
+		cont = g_match_info_next (match_info, &gerror);
 		if (gerror) {
 			g_print("snr3_run_pcre_loop, match error %s\n",gerror->message);
 			g_error_free(gerror);
 		}
 		loop++;
-		cont = g_match_info_matches(match_info);
 	}
 	DEBUG_MSG("snr3_run_pcre_loop, did %d loops in %f seconds\n",loop, g_timer_elapsed(timer, NULL));
 	g_timer_destroy(timer);
