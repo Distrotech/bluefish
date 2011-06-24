@@ -892,21 +892,33 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 
 }
 
+static inline void widget_set_show(GtkWidget *widget, gboolean show) {
+	if (show)
+		gtk_widget_show(widget);
+	else
+		gtk_widget_hide(widget);
+}
+
+static void snr_dialog_show_widgets(TSNRWin * snrwin) {
+	Tsnr3type searchtype;
+	Tsnr3scope scope;
+	Tsnr3replace replacetype;
+	
+	scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
+	searchtype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->searchType));
+	replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
+
+	widget_set_show(snrwin->fileshbox, (scope == snr3scope_files));
+	widget_set_show(snrwin->replaceType, (searchtype == snr3type_pcre));
+	widget_set_show(snrwin->replace, (searchtype != snr3type_pcre || replacetype == snr3replace_string));
+	widget_set_show(snrwin->escapeChars, (searchtype == snr3type_string));
+	
+}
+
 static void
 snr_combobox_changed(GtkComboBox * combobox, TSNRWin * snrwin)
 {
-	gint value;
-	if (combobox == GTK_COMBO_BOX(snrwin->replaceType)) {
-		value = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
-		gtk_widget_set_sensitive(snrwin->replace, (value == snr3type_string));
-	} else if (combobox == GTK_COMBO_BOX(snrwin->scope)) {
-		value = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
-		if (value == snr3scope_files) {
-			gtk_widget_show_all(snrwin->fileshbox);
-		} else {
-			gtk_widget_hide(snrwin->fileshbox);
-		}
-	}
+	snr_dialog_show_widgets(snrwin);
 }
 
 static void
@@ -1034,8 +1046,8 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	dialog_mnemonic_label_in_table(_("Match Patter_n: "), snrwin->searchType, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->searchType, 1, 3, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
-/*	g_signal_connect(snrwin->searchType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
-	g_signal_connect(snrwin->searchType, "realize", G_CALLBACK(realize_combo_set_tooltip),
+	g_signal_connect(snrwin->searchType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
+	/*g_signal_connect(snrwin->searchType, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("How to interpret the pattern."));
 */
 	currentrow++;
@@ -1047,8 +1059,8 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	dialog_mnemonic_label_in_table(_("Replace T_ype: "), snrwin->replaceType, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->replaceType, 1, 3, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
-	/*g_signal_connect(snrwin->replaceType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
-	g_signal_connect(snrwin->replaceType, "realize", G_CALLBACK(realize_combo_set_tooltip),
+	g_signal_connect(snrwin->replaceType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
+	/*g_signal_connect(snrwin->replaceType, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("What to replace with."));*/
 	
 	currentrow++;
