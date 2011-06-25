@@ -696,9 +696,13 @@ snrwin_doc_changed_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpoin
 
 static gboolean compile_regex(TSNRWin *snrwin, Tsnr3run *s3run, const gchar *query) {
 	GError *gerror = NULL;
-	s3run->regex = g_regex_new(query,
-					 (s3run->is_case_sens ? G_REGEX_MULTILINE | G_REGEX_DOTALL : G_REGEX_CASELESS |
-					  G_REGEX_MULTILINE | G_REGEX_DOTALL), G_REGEX_MATCH_NEWLINE_ANY, &gerror);
+	gint options = G_REGEX_MULTILINE;
+	if (s3run->is_case_sens)
+		options |= G_REGEX_CASELESS;
+	if (s3run->dotmatchall)
+		options |= G_REGEX_DOTALL;
+	
+	s3run->regex = g_regex_new(query,options, G_REGEX_MATCH_NEWLINE_ANY, &gerror);
 	if (gerror) {
 		gchar *message = g_markup_printf_escaped("<span foreground=\"red\">%s</span>", gerror->message);
 		g_print("compile_regex, regex error %s\n",gerror->message);
@@ -725,7 +729,7 @@ static gint
 snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 {
 	const gchar *query, *replace;
-	gint type, replacetype, scope;
+	gint type, replacetype, scope, dotmatchall;
 	gboolean is_case_sens;
 	gint retval=0;
 	GFile *basedir;
@@ -737,6 +741,7 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
 	scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 	is_case_sens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->matchCase));
+	dotmatchall = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->dotmatchall));
 	
 	basedir = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(snrwin->basedir)));
 	filepattern = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->filepattern))));
@@ -744,6 +749,10 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	if (is_case_sens != s3run->is_case_sens) {
 		g_print("set is_case_sens %d\n",is_case_sens);
 		s3run->is_case_sens = is_case_sens;
+		retval |= 1;
+	}
+	if (dotmatchall != s3run->dotmatchall) {
+		s3run->dotmatchall = dotmatchall;
 		retval |= 1;
 	}
 	if (replacetype != s3run->replacetype) {
@@ -917,7 +926,7 @@ static void snr_dialog_show_widgets(TSNRWin * snrwin) {
 	widget_set_show(snrwin->replaceTypeL, (searchtype == snr3type_pcre));
 	widget_set_show(snrwin->replace, (searchtype != snr3type_pcre || replacetype == snr3replace_string));
 	widget_set_show(snrwin->escapeChars, (searchtype == snr3type_string));
-	
+	widget_set_show(snrwin->dotmatchall, (searchtype == snr3type_pcre));
 }
 
 static void
@@ -980,6 +989,13 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	/*g_signal_connect_after(G_OBJECT(snrwin->dialog), "focus-in-event", G_CALLBACK(snr_focus_in_lcb), snrwin);*/
 	
 	vbox = gtk_dialog_get_content_area(GTK_DIALOG(snrwin->dialog));
+
+	table =
+		dialog_table_in_vbox(3, 4, 6/*borderwidth*/, vbox, TRUE,
+							 TRUE, 0);
+	gtk_table_set_row_spacings(GTK_TABLE(table), 4);
+	currentrow=0;
+
 	
 	history = gtk_list_store_new(1, G_TYPE_STRING);
 	list = g_list_last(bfwin->session->searchlist);
@@ -999,20 +1015,26 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	/*if (bfwin->session->searchlist)
 	   gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->search), 0); */
 	g_object_unref(history);
-	widget = dialog_mnemonic_label_new(_("<b>_Search for</b>"), snrwin->search);
-	gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 2);
-	gtk_box_pack_start(GTK_BOX(vbox), snrwin->search, TRUE, TRUE, 2);
+	dialog_mnemonic_label_in_table(_("<b>_Search for</b>"), snrwin->search, table, 0, 1, currentrow, currentrow+1);
+	gtk_table_attach(GTK_TABLE(table), snrwin->search, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
+					 GTK_SHRINK, 0, 0);
+	currentrow++;
+
 	g_signal_connect(gtk_bin_get_child(GTK_BIN(snrwin->search)), "focus-out-event", G_CALLBACK(snrwin_focus_out_event_cb), snrwin);
 /*	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
 	g_signal_connect(snrwin->search, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("The pattern to look for"));
 	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))), "activate",
 					 G_CALLBACK(snr_combo_activate_lcb), snrwin);*/
+
 	snrwin->searchfeedback = gtk_label_new(NULL);
 	gtk_label_set_line_wrap(GTK_LABEL(snrwin->searchfeedback), TRUE);
 	gtk_misc_set_alignment(GTK_MISC(snrwin->searchfeedback),0,0);
-	gtk_box_pack_start(GTK_BOX(vbox), snrwin->searchfeedback, TRUE, TRUE, 2);
-
+	gtk_table_attach(GTK_TABLE(table), snrwin->searchfeedback, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
+					 GTK_SHRINK, 0, 0);
+	gtk_table_set_row_spacing(GTK_TABLE(table), currentrow, 0);
+	currentrow++;
+	
 	history = gtk_list_store_new(1, G_TYPE_STRING);
 	list = g_list_last(bfwin->session->replacelist);
 	while (list) {
@@ -1024,21 +1046,17 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	snrwin->replace = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
 	g_signal_connect(gtk_bin_get_child(GTK_BIN(snrwin->replace)), "focus-out-event", G_CALLBACK(snrwin_focus_out_event_cb), snrwin);
 	g_object_unref(history);
-	widget = dialog_mnemonic_label_new(_("<b>Replace _with</b>"), snrwin->replace);
-	gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 2);
-	gtk_box_pack_start(GTK_BOX(vbox), snrwin->replace, TRUE, TRUE, 2);
+	dialog_mnemonic_label_in_table(_("<b>Replace _with</b>"), snrwin->replace, table, 0, 1, currentrow, currentrow+1);
+	gtk_table_attach(GTK_TABLE(table), snrwin->replace, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
+					 GTK_SHRINK, 0, 0);
+	currentrow++;
+
 /*	g_signal_connect(snrwin->replace, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
 	g_signal_connect(snrwin->replace, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("Replace matching text with"));
 	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 					 G_CALLBACK(snr_combo_activate_lcb), snrwin);
 */
-
-	table =
-		dialog_table_in_vbox(3, 4, 6/*borderwidth*/, vbox, TRUE,
-							 TRUE, 0);
-	gtk_table_set_row_spacings(GTK_TABLE(table), 4);
-	currentrow=0;
 
 	dialog_mnemonic_label_in_table(_("<b>Options</b>"), NULL, table, 0, 1, currentrow, currentrow+1);
 	
@@ -1113,17 +1131,25 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	currentrow++;
 
 	snrwin->matchCase = dialog_check_button_in_table(_("Case sensitive _matching"), FALSE, table,
-										0, 2, currentrow, currentrow+1);
+										0, 4, currentrow, currentrow+1);
 	/*g_signal_connect(snrwin->matchCase, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
 	gtk_widget_set_tooltip_text(snrwin->matchCase, _("Only match if case (upper/lower) is identical."));
 
+	currentrow++;
+
 	snrwin->escapeChars = dialog_check_button_in_table(_("Pattern contains escape-se_quences"), FALSE, table,
-										2, 4, currentrow, currentrow+1);
+										0, 4, currentrow, currentrow+1);
 	/*g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
 	gtk_widget_set_tooltip_text(snrwin->escapeChars,
 								_("Pattern contains backslash escaped characters such as \\n \\t etc."));
 
 	currentrow++;
+
+	snrwin->dotmatchall = dialog_check_button_in_table(_("Dot . matches newlines"), FALSE, table,
+										0, 4, currentrow, currentrow+1);
+	/*g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
+	gtk_widget_set_tooltip_text(snrwin->escapeChars,
+								_("The . character will match everything including newlines, use for multiline matching."));
 
 
 /*	snrwin->overlappingMatches = gtk_check_button_new_with_mnemonic(_("Allow o_verlapping matches"));
