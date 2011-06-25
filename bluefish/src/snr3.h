@@ -133,12 +133,15 @@ typedef struct {
 	GtkWidget *replace;
 	GtkWidget *scope;
 	GtkWidget *basedir;
-	GtkWidget *fileshbox;
+	GtkWidget *basedirL;
+	GtkWidget *basedirB;
 	GtkWidget *filepattern;
+	GtkWidget *filepatternL;
 	GtkWidget *countlabel;
 	GtkWidget *warninglabel;
 	GtkWidget *searchType;
 	GtkWidget *replaceType;
+	GtkWidget *replaceTypeL;
 	GtkWidget *overlappingMatches;
 	GtkWidget *matchCase;
 	GtkWidget *escapeChars;

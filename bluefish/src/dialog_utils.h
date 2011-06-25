@@ -69,7 +69,7 @@ GtkWidget *dialog_entry_in_table(const gchar * text, GtkWidget * table, guint le
 								 guint top_attach, guint bottom_attach);
 GtkWidget *
 dialog_mnemonic_label_new(const gchar * labeltext, GtkWidget * m_widget);
-void dialog_mnemonic_label_in_table(const gchar * labeltext, GtkWidget * m_widget, GtkWidget * table,
+GtkWidget *dialog_mnemonic_label_in_table(const gchar * labeltext, GtkWidget * m_widget, GtkWidget * table,
 									guint left_attach, guint right_attach, guint top_attach,
 									guint bottom_attach);
 
