@@ -56,35 +56,34 @@
 	<highlight name="js-variable" style="variable"  />
 </header>
 <properties>
-	<comment id="cm.cpplinecomment" type="line" start="//" />
 	<comment id="cm.cblockcomment" type="block" start="/*" end="*/" />
+	<comment id="cm.cpplinecomment" type="line" start="//" />
 	<smartindent characters="{" />
 	<smartoutdent characters="}" />
 </properties>
 
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;." commentid_line="cm.cpplinecomment"  commentid_block="cm.cblockcomment">
-	<element pattern="(" id="e.html.js.lparen" starts_block="1" highlight="js-brackets" />
-	<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lparen" />
-	<element pattern="{" id="e.html.js.lbrace" starts_block="1" highlight="js-brackets" />
-	<element pattern="}" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbrace" />
-	<element pattern="[" id="e.html.js.lbracket" starts_block="1" highlight="js-brackets" />
-	<element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbracket" />
-	&all-javascript;
-
-<group class="JQuery">
-	&JQuery;
-</group>
-	<element pattern="//" highlight="js-comment">
-		<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
-			<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="js-comment" ends_context="1" />
-		</context>
-	</element>
-	<element id="e.lcomment" pattern="/*" starts_block="1" highlight="js-comment">
-		<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
-			<element pattern="*/" ends_block="1" blockstartelement="e.lcomment" highlight="js-comment" mayfold="1" ends_context="1" />
-		</context>
-	</element>
+		<element pattern="(" id="e.html.js.lparen" starts_block="1" highlight="js-brackets" />
+		<element pattern=")" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lparen" />
+		<element pattern="{" id="e.html.js.lbrace" starts_block="1" highlight="js-brackets" />
+		<element pattern="}" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbrace" />
+		<element pattern="[" id="e.html.js.lbracket" starts_block="1" highlight="js-brackets" />
+		<element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbracket" />
+		&all-javascript;
+		<group class="JQuery">
+			&JQuery;
+		</group>
+		<element id="e.bcomment" pattern="/*" starts_block="1" highlight="js-comment">
+			<context symbols="*/&#9;&#10;&#13; " highlight="js-comment">
+				<element pattern="*/" ends_block="1" blockstartelement="e.bcomment" highlight="js-comment" mayfold="1" ends_context="1" />
+			</context>
+		</element>
+		<element pattern="//" highlight="js-comment">
+			<context symbols="&#10;&#13;&#9; " highlight="js-comment">
+				<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="js-comment" ends_context="1" />
+			</context>
+		</element>
 	</context>
 </definition>
 </bflang>
