@@ -391,15 +391,14 @@ dialog_mnemonic_label_new(const gchar * labeltext, GtkWidget * m_widget)
  *
  * Return value: void
  */
-void
+GtkWidget *
 dialog_mnemonic_label_in_table(const gchar * labeltext, GtkWidget * m_widget, GtkWidget * table,
 							   guint left_attach, guint right_attach, guint top_attach, guint bottom_attach)
 {
-	GtkWidget *label;
-
-	label = dialog_mnemonic_label_new(labeltext, m_widget);
+	GtkWidget *label = dialog_mnemonic_label_new(labeltext, m_widget);
 	gtk_table_attach(GTK_TABLE(table), label, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
 					 GTK_SHRINK, 0, 0);
+	return label;
 }
 
 GtkWidget *

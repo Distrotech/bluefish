@@ -908,8 +908,13 @@ static void snr_dialog_show_widgets(TSNRWin * snrwin) {
 	searchtype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->searchType));
 	replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
 
-	widget_set_show(snrwin->fileshbox, (scope == snr3scope_files));
+	widget_set_show(snrwin->filepattern, (scope == snr3scope_files));
+	widget_set_show(snrwin->filepatternL, (scope == snr3scope_files));
+	widget_set_show(snrwin->basedir, (scope == snr3scope_files));
+	widget_set_show(snrwin->basedirL, (scope == snr3scope_files));
+	widget_set_show(snrwin->basedirB, (scope == snr3scope_files));
 	widget_set_show(snrwin->replaceType, (searchtype == snr3type_pcre));
+	widget_set_show(snrwin->replaceTypeL, (searchtype == snr3type_pcre));
 	widget_set_show(snrwin->replace, (searchtype != snr3type_pcre || replacetype == snr3replace_string));
 	widget_set_show(snrwin->escapeChars, (searchtype == snr3type_string));
 	
@@ -1030,7 +1035,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 */
 
 	table =
-		dialog_table_in_vbox(3, 3, 6, vbox, TRUE,
+		dialog_table_in_vbox(3, 4, 6/*borderwidth*/, vbox, TRUE,
 							 TRUE, 0);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 4);
 	currentrow=0;
@@ -1044,7 +1049,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->searchType), _(matchPattern[i]));
 	}
 	dialog_mnemonic_label_in_table(_("Match Patter_n: "), snrwin->searchType, table, 0, 1, currentrow, currentrow+1);
-	gtk_table_attach(GTK_TABLE(table), snrwin->searchType, 1, 3, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
+	gtk_table_attach(GTK_TABLE(table), snrwin->searchType, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
 	g_signal_connect(snrwin->searchType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	/*g_signal_connect(snrwin->searchType, "realize", G_CALLBACK(realize_combo_set_tooltip),
@@ -1056,8 +1061,8 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	for (i = 0; i < G_N_ELEMENTS(replaceType); i++) {
 		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->replaceType), _(replaceType[i]));
 	}
-	dialog_mnemonic_label_in_table(_("Replace T_ype: "), snrwin->replaceType, table, 0, 1, currentrow, currentrow+1);
-	gtk_table_attach(GTK_TABLE(table), snrwin->replaceType, 1, 3, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
+	snrwin->replaceTypeL = dialog_mnemonic_label_in_table(_("Replace T_ype: "), snrwin->replaceType, table, 0, 1, currentrow, currentrow+1);
+	gtk_table_attach(GTK_TABLE(table), snrwin->replaceType, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
 	g_signal_connect(snrwin->replaceType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	/*g_signal_connect(snrwin->replaceType, "realize", G_CALLBACK(realize_combo_set_tooltip),
@@ -1070,7 +1075,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->scope), _(scope[i]));
 	}
 	dialog_mnemonic_label_in_table(_("Sco_pe: "), snrwin->scope, table, 0, 1, currentrow, currentrow+1);
-	gtk_table_attach(GTK_TABLE(table), snrwin->scope, 1, 3, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), snrwin->scope, 1, 4, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	g_signal_connect(snrwin->scope, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	/*g_signal_connect(snrwin->scope, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("Where to look for the pattern."));*/
@@ -1078,10 +1083,6 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->scope), s3scope);
 	
 	currentrow++;
-	
-/*	gtk_box_pack_start(GTK_BOX(vbox), gtk_label_new("File selection options:"), TRUE, TRUE, 2);*/
-	snrwin->fileshbox = gtk_hbox_new(FALSE, 2);
-	gtk_box_pack_start(GTK_BOX(vbox), snrwin->fileshbox, TRUE, TRUE, 2);
 	/* add a basedir and file pattern widget here */
 	lstore = gtk_list_store_new(1, G_TYPE_STRING);
 	/*for (i = 0; i < G_N_ELEMENTS(fileExts); i++) {
@@ -1090,9 +1091,14 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	};*/
 	snrwin->filepattern = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(lstore), 0);
 	g_object_unref(lstore);
-	gtk_box_pack_start(GTK_BOX(snrwin->fileshbox), snrwin->filepattern, TRUE, TRUE, 2);
-	snrwin->basedir = gtk_entry_new();
+	snrwin->filepatternL = dialog_mnemonic_label_in_table(_("Filename pattern: "), snrwin->filepattern, table, 0, 1, currentrow, currentrow+1);
+	gtk_table_attach(GTK_TABLE(table), snrwin->filepattern, 1, 4, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	
+	currentrow++;
+	
+	snrwin->basedir = gtk_entry_new();
+	snrwin->basedirL = dialog_mnemonic_label_in_table(_("Basedir: "), snrwin->basedir, table, 0, 1, currentrow, currentrow+1);
+
 	if (bfwin->current_document && bfwin->current_document->uri) {
 		GFile *parent = g_file_get_parent(bfwin->current_document->uri);
 		gchar *tmp = g_file_get_uri(parent);
@@ -1100,16 +1106,12 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 		g_object_unref(parent);
 		g_free(tmp);
 	}
-	gtk_box_pack_start(GTK_BOX(snrwin->fileshbox), snrwin->basedir, TRUE, TRUE, 2);
-	button = dialog_button_new_with_image(NULL, -1, GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU);
-	gtk_box_pack_start(GTK_BOX(snrwin->fileshbox), button, TRUE, TRUE, 2);
+	gtk_table_attach(GTK_TABLE(table), snrwin->basedir, 1, 3, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	snrwin->basedirB = dialog_button_new_with_image(NULL, -1, GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU);
+	gtk_table_attach(GTK_TABLE(table), snrwin->basedirB, 3, 4, currentrow, currentrow+1,GTK_FILL, GTK_SHRINK, 0, 0);
 
-	table =
-		dialog_table_in_vbox(2, 4, 6, vbox, TRUE,
-							 TRUE, 0);
-	gtk_table_set_row_spacings(GTK_TABLE(table), 4);
-	currentrow=0;
-	
+	currentrow++;
+
 	snrwin->matchCase = dialog_check_button_in_table(_("Case sensitive _matching"), FALSE, table,
 										0, 2, currentrow, currentrow+1);
 	/*g_signal_connect(snrwin->matchCase, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
