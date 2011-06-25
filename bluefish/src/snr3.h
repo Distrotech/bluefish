@@ -73,6 +73,7 @@ typedef struct {
 	gboolean is_case_sens;
 	gboolean overlapping;
 	gboolean escape_chars;
+	gboolean dotmatchall;
 	gboolean select_matches;
 	gboolean bookmark_matches;
 
@@ -145,6 +146,7 @@ typedef struct {
 	GtkWidget *overlappingMatches;
 	GtkWidget *matchCase;
 	GtkWidget *escapeChars;
+	GtkWidget *dotmatchall;
 	GtkWidget *select_match;
 	GtkWidget *bookmarks;
 	GtkWidget *findButton;
