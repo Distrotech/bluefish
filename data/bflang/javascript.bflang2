@@ -23,7 +23,7 @@
 	<!ENTITY JQuery SYSTEM "JQuery.bfinc">
 ]>
 
-<bflang name="Javascript" version="2.0" table="2712" contexts="9" matches="547">
+<bflang name="Javascript" version="2.0" table="3476" contexts="10" matches="778">
 <header>
 	<mime type="application/javascript"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -71,9 +71,10 @@
 	<element pattern="[" id="e.html.js.lbracket" starts_block="1" highlight="js-brackets" />
 	<element pattern="]" highlight="js-brackets" ends_block="1" blockstartelement="e.html.js.lbracket" />
 	&all-javascript;
-	<group class="JQuery">
+
+<group class="JQuery">
 	&JQuery;
-	</group>
+</group>
 	<element pattern="//" highlight="js-comment">
 		<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
 			<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="js-comment" ends_context="1" />
