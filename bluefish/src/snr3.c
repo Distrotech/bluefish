@@ -1125,14 +1125,14 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 
 	currentrow++;
 
-	snrwin->matchCase = dialog_check_button_in_table(_("Case sensitive _matching"), FALSE, table,
+	snrwin->matchCase = dialog_check_button_in_table(_("Case sensitive _matching"), bfwin->session->snr3_casesens, table,
 										0, 4, currentrow, currentrow+1);
 	/*g_signal_connect(snrwin->matchCase, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
 	gtk_widget_set_tooltip_text(snrwin->matchCase, _("Only match if case (upper/lower) is identical."));
 
 	currentrow++;
 
-	snrwin->escapeChars = dialog_check_button_in_table(_("Pattern contains escape-se_quences"), FALSE, table,
+	snrwin->escapeChars = dialog_check_button_in_table(_("Pattern contains escape-se_quences"), bfwin->session->snr3_escape_chars, table,
 										0, 4, currentrow, currentrow+1);
 	/*g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
 	gtk_widget_set_tooltip_text(snrwin->escapeChars,
@@ -1140,7 +1140,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 
 	currentrow++;
 
-	snrwin->dotmatchall = dialog_check_button_in_table(_("Dot character in regex pattern matches newlines"), FALSE, table,
+	snrwin->dotmatchall = dialog_check_button_in_table(_("Dot character in regex pattern matches newlines"), bfwin->session->snr3_dotmatchall, table,
 										0, 4, currentrow, currentrow+1);
 	/*g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
 	gtk_widget_set_tooltip_text(snrwin->dotmatchall,

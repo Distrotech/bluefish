@@ -341,6 +341,15 @@ typedef struct {
 	gint autocomplete;			/* whether or not to enable autocomplete by default for each new document */
 	gint show_mbhl;				/* show matching block begin-end by default */
 	gint snr_is_expanded;
+
+	/* snr3 advanced search and replace */
+	gint snr3_type;
+	gint snr3_replacetype;
+	gint snr3_scope;
+	gint snr3_casesens;
+	gint snr3_escape_chars;
+	gint snr3_dotmatchall;
+
 	gint sync_delete_deprecated;
 	gint sync_include_hidden;
 	gint adv_open_matchname;
@@ -362,7 +371,7 @@ typedef struct {
 	gint outputb_show_all_output;
 	gint convertcolumn_horizontally;
 	gint display_right_margin;
-	/* 30 * sizeof(gint) */
+	/* 37 * sizeof(gint) */
 	/* IF YOU EDIT THIS STRUCTURE PLEASE EDIT THE CODE IN PROJECT.C THAT COPIES
 	   A Tsessionvar INTO A NEW Tsessionvar AND ADJUST THE SIZES!!!!!!!!!!!!!!!!!!!!!! */
 #ifdef HAVE_LIBENCHANT
