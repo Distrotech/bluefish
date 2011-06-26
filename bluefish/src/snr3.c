@@ -1020,7 +1020,6 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 					 GTK_SHRINK, 0, 0);
 	currentrow++;
 
-	g_signal_connect(gtk_bin_get_child(GTK_BIN(snrwin->search)), "focus-out-event", G_CALLBACK(snrwin_focus_out_event_cb), snrwin);
 /*	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
 	g_signal_connect(snrwin->search, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("The pattern to look for"));
@@ -1044,7 +1043,6 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 		list = g_list_previous(list);
 	}
 	snrwin->replace = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
-	g_signal_connect(gtk_bin_get_child(GTK_BIN(snrwin->replace)), "focus-out-event", G_CALLBACK(snrwin_focus_out_event_cb), snrwin);
 	g_object_unref(history);
 	dialog_mnemonic_label_in_table(_("<b>Replace _with</b>"), snrwin->replace, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->replace, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
@@ -1069,7 +1067,6 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	dialog_mnemonic_label_in_table(_("Match Patter_n: "), snrwin->searchType, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->searchType, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
-	g_signal_connect(snrwin->searchType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	/*g_signal_connect(snrwin->searchType, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("How to interpret the pattern."));
 */
@@ -1082,7 +1079,6 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	snrwin->replaceTypeL = dialog_mnemonic_label_in_table(_("Replace T_ype: "), snrwin->replaceType, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->replaceType, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
-	g_signal_connect(snrwin->replaceType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	/*g_signal_connect(snrwin->replaceType, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("What to replace with."));*/
 	
@@ -1094,7 +1090,6 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	}
 	dialog_mnemonic_label_in_table(_("Sco_pe: "), snrwin->scope, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->scope, 1, 4, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
-	g_signal_connect(snrwin->scope, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	/*g_signal_connect(snrwin->scope, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("Where to look for the pattern."));*/
 	g_print("this should set set scope %d but that doesn't seem to work???\n",s3scope);
@@ -1145,10 +1140,10 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 
 	currentrow++;
 
-	snrwin->dotmatchall = dialog_check_button_in_table(_("Dot . matches newlines"), FALSE, table,
+	snrwin->dotmatchall = dialog_check_button_in_table(_("Dot character in regex pattern matches newlines"), FALSE, table,
 										0, 4, currentrow, currentrow+1);
 	/*g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
-	gtk_widget_set_tooltip_text(snrwin->escapeChars,
+	gtk_widget_set_tooltip_text(snrwin->dotmatchall,
 								_("The . character will match everything including newlines, use for multiline matching."));
 
 
@@ -1198,8 +1193,17 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->replaceType), 0);
 	gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND);
 	DEBUG_MSG("snr_dialog_real: display the dialog\n");
-	gtk_widget_show(snrwin->dialog);
+	
+	g_signal_connect(gtk_bin_get_child(GTK_BIN(snrwin->search)), "focus-out-event", G_CALLBACK(snrwin_focus_out_event_cb), snrwin);
+	g_signal_connect(gtk_bin_get_child(GTK_BIN(snrwin->replace)), "focus-out-event", G_CALLBACK(snrwin_focus_out_event_cb), snrwin);
+	g_signal_connect(snrwin->searchType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
+	g_signal_connect(snrwin->replaceType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
+	g_signal_connect(snrwin->scope, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 
+	snr_dialog_show_widgets(snrwin);
+
+	gtk_widget_show(snrwin->dialog);
+	
 /*	if ((bfwin->session->snr_position_x >= 0) && (bfwin->session->snr_position_y >= 0) &&
 		(bfwin->session->snr_position_x < (gdk_screen_width() - 50))
 		&& (bfwin->session->snr_position_y < (gdk_screen_height() - 50))) {
