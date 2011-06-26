@@ -104,7 +104,7 @@ project_setup_initial_session(Tsessionvars * session, gboolean before_parse)
 
 	/* THE NUBER OF BYTES THAT IS COPIED HERE MUST BE EQUAL TO THE NUMBER OF INTEGERS
 	   IN THE STRUCT IN bluefish.h ELSE ALL WILL FAIL */
-	memcpy(session, main_v->session, 30 * sizeof(gint));
+	memcpy(session, main_v->session, 37 * sizeof(gint));
 }
 
 Tbfwin *
