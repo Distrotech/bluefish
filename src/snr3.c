@@ -729,7 +729,7 @@ static gint
 snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 {
 	const gchar *query, *replace;
-	gint type, replacetype, scope, dotmatchall;
+	gint type, replacetype, scope, dotmatchall, escapechars;
 	gboolean is_case_sens;
 	gint retval=0;
 	GFile *basedir;
@@ -742,6 +742,7 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 	is_case_sens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->matchCase));
 	dotmatchall = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->dotmatchall));
+	escapechars = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(snrwin->escapeChars));
 	
 	basedir = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(snrwin->basedir)));
 	filepattern = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->filepattern))));
@@ -820,6 +821,16 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 		snr3run_resultcleanup(s3run);
 	}
 	gtk_widget_hide(snrwin->searchfeedback);
+	
+	if (retval != 0) {
+		snrwin->bfwin->session->snr3_type = type;
+		snrwin->bfwin->session->snr3_replacetype = replacetype;
+		snrwin->bfwin->session->snr3_scope = scope;
+		snrwin->bfwin->session->snr3_casesens = is_case_sens;
+		snrwin->bfwin->session->snr3_escape_chars = escapechars;
+		snrwin->bfwin->session->snr3_dotmatchall = dotmatchall;
+	}
+	
 	g_print("snr3run_init_from_gui, return %d\n", retval);
 	return retval;
 }
