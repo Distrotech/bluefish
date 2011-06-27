@@ -937,6 +937,14 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_integer(&configlist, &session->view_blocks, "view_blocks:", 1, FALSE);
 	init_prop_integer(&configlist, &session->autocomplete, "autocomplete:", 1, FALSE);
 	init_prop_integer(&configlist, &session->show_mbhl, "show_mbhl:", 1, FALSE);
+	
+	init_prop_integer(&configlist, &session->snr3_type, "snr_type:", 1, 0);
+	init_prop_integer(&configlist, &session->snr3_replacetype, "snr_replacetype:", 1, 0);
+	init_prop_integer(&configlist, &session->snr3_scope, "snr_scope:", 1, 0);
+	init_prop_integer(&configlist, &session->snr3_casesens, "snr_casesens:", 1, 0);
+	init_prop_integer(&configlist, &session->snr3_escape_chars, "snr_escape_chars:", 1, 0);
+	init_prop_integer(&configlist, &session->snr3_dotmatchall, "snr_dotmatchall:", 1, 1);
+
 	init_prop_integer(&configlist, &session->display_right_margin, "display_right_margin:", 0, FALSE);
 #ifdef HAVE_LIBENCHANT
 	init_prop_integer(&configlist, &session->spell_check_default, "spell_check_default:", 1, FALSE);
