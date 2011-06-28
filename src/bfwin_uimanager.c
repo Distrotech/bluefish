@@ -1002,7 +1002,7 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	}
 #ifndef WIN32
 #ifndef MAC_INTEGRATION
-	GtkAction *action = gtk_action_new("FileOpenURL", N_("Open _URL..."), NULL, NULL);
+	GtkAction *action = gtk_action_new("FileOpenURL", _("Open _URL..."), NULL, NULL);
 	gtk_action_group_add_action(bfwin->globalGroup, action);
 /*	g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(ui_set_spell_check), bfwin); */
 
@@ -1015,7 +1015,7 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 #endif							/* WIN32 */
 
 #ifdef HAVE_LIBENCHANT
-	GtkToggleAction *toggleaction = gtk_toggle_action_new("SpellCheck", N_("_Spell Check"), NULL, NULL);
+	GtkToggleAction *toggleaction = gtk_toggle_action_new("SpellCheck", _("_Spell Check"), NULL, NULL);
 	gtk_action_group_add_action(bfwin->documentGroup, GTK_ACTION(toggleaction));
 	g_signal_connect(G_OBJECT(toggleaction), "activate", G_CALLBACK(ui_set_spell_check), bfwin);
 
