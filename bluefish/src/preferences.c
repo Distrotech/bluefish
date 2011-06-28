@@ -2133,7 +2133,7 @@ preferences_dialog_new(void)
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[transient_htdialogs], FALSE, FALSE, 0);
 
 	but = gtk_button_new_with_label(_("Save user customised menu accelerators"));
-	g_signal_connect(G_OBJECT(but), "clicked", save_user_menu_accelerators, NULL);
+	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(save_user_menu_accelerators), NULL);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Recent Files</b>"), vbox1);
