@@ -867,21 +867,11 @@ rcfile_check_directory(void)
 }
 
 void
-rcfile_save_configfile_menu_cb(gpointer callback_data, guint action, GtkWidget * widget)
+rcfile_save_accelerators(void)
 {
-	switch (action) {
-	case 0:
-		{
-			gchar *shortcutfilename = g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
-			gtk_accel_map_save(shortcutfilename);
-			g_free(shortcutfilename);
-		}
-		break;
-	default:
-		DEBUG_MSG_C("rcfile_save_configfile_menu_cb, unknown action %d\n", action);
-		g_return_if_reached();
-		break;
-	}
+	gchar *shortcutfilename = g_strconcat(g_get_home_dir(), "/." PACKAGE "/menudump_2", NULL);
+	gtk_accel_map_save(shortcutfilename);
+	g_free(shortcutfilename);
 }
 
 static GHashTable *
