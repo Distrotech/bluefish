@@ -24,7 +24,7 @@ GHashTable *make_config_list_item(GHashTable * config_list, void *pointer_to_var
 void rcfile_parse_main(void);
 void rcfile_parse_highlighting(void);
 void rcfile_check_directory(void);
-void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidget *widget);
+void rcfile_save_accelerators(void);
 
 gint rcfile_save_main(void);
 

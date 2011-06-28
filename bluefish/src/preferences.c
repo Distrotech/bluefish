@@ -1764,6 +1764,12 @@ prefs_combo_box_get_index_from_text(const gchar ** options, const gchar * string
 	return (found ? index : 0);
 }
 
+static void save_user_menu_accelerators(GObject *object, gpointer data)
+{
+	rcfile_save_accelerators();
+}
+
+
 void
 preferences_dialog_new(void)
 {
@@ -1771,7 +1777,7 @@ preferences_dialog_new(void)
 	gint index;
 	GList *tmplist, *poplist;
 	GtkWidget *dvbox, *frame, *hbox, *label, *table, *vbox1, *vbox2, *vbox3;
-	GtkWidget *dhbox, *scrolwin;
+	GtkWidget *dhbox, *scrolwin, *but;
 	GtkCellRenderer *cell;
 	GtkTreeIter auxit, iter;
 	GtkTreePath *path;
@@ -2125,6 +2131,10 @@ preferences_dialog_new(void)
 	pd->prefs[transient_htdialogs] = dialog_check_button_new(_("_Make HTML dialogs transient"),
 															 main_v->props.transient_htdialogs);
 	gtk_box_pack_start(GTK_BOX(vbox2), pd->prefs[transient_htdialogs], FALSE, FALSE, 0);
+
+	but = gtk_button_new_with_label(_("Save user customised menu accelerators"));
+	g_signal_connect(G_OBJECT(but), "clicked", save_user_menu_accelerators, NULL);
+	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Recent Files</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(2, 4, 0, vbox2);
