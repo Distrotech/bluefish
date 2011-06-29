@@ -668,6 +668,14 @@ gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	return s3run;
 }
 
+void
+simple_search_next(Tbfwin *bfwin)
+{
+	if (bfwin->simplesearch_snr3run) {
+		snr3_run_go(((Tsnr3run *)bfwin->simplesearch_snr3run), TRUE);
+	}
+}
+
 static void dialog_changed_run_ready_cb(gpointer data) {
 	Tsnr3run *s3run=data;
 	g_print("dialog_changed_run_ready_cb, finished with %d results\n",g_queue_get_length(&s3run->results));
@@ -823,6 +831,7 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	gtk_widget_hide(snrwin->searchfeedback);
 	
 	if (retval != 0) {
+		g_print("set session type %d, replacetype %d, scope %d\n",type,replacetype,scope);
 		snrwin->bfwin->session->snr3_type = type;
 		snrwin->bfwin->session->snr3_replacetype = replacetype;
 		snrwin->bfwin->session->snr3_scope = scope;
@@ -927,6 +936,8 @@ static void snr_dialog_show_widgets(TSNRWin * snrwin) {
 	scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 	searchtype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->searchType));
 	replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
+
+	g_print("snr_dialog_show_widgets, scope=%d, searchtype=%d, replacetype=%d\n",scope,searchtype,replacetype);
 
 	widget_set_show(snrwin->filepattern, (scope == snr3scope_files));
 	widget_set_show(snrwin->filepatternL, (scope == snr3scope_files));
@@ -1075,6 +1086,9 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	for (i = 0; i < G_N_ELEMENTS(matchPattern); i++) {
 		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->searchType), _(matchPattern[i]));
 	}
+	g_print("activate searchtype %d from session\n",bfwin->session->snr3_type);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->searchType), bfwin->session->snr3_type);
+
 	dialog_mnemonic_label_in_table(_("Match Patter_n: "), snrwin->searchType, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->searchType, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
@@ -1090,6 +1104,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	snrwin->replaceTypeL = dialog_mnemonic_label_in_table(_("Replace T_ype: "), snrwin->replaceType, table, 0, 1, currentrow, currentrow+1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->replaceType, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->replaceType), bfwin->session->snr3_replacetype);
 	/*g_signal_connect(snrwin->replaceType, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("What to replace with."));*/
 	
@@ -1236,13 +1251,13 @@ snr3_advanced_dialog(Tbfwin * bfwin, const gchar *findtext)
 		/* check if it is a multiline selection */
 		if (gtk_text_iter_get_line(&so)==gtk_text_iter_get_line(&eo)) {
 			gchar *tmp = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(doc->buffer), &so, &eo, TRUE);
-			snr3_advanced_dialog_backend(bfwin, findtext?findtext:tmp, snr3scope_doc);
+			snr3_advanced_dialog_backend(bfwin, findtext?findtext:tmp, bfwin->session->snr3_scope);
 			g_free(tmp);
 		} else {
 			snr3_advanced_dialog_backend(bfwin, findtext, snr3scope_selection);
 		}
 	} else {
-		snr3_advanced_dialog_backend(bfwin, findtext, snr3scope_doc);
+		snr3_advanced_dialog_backend(bfwin, findtext, bfwin->session->snr3_scope);
 	}
 }
 

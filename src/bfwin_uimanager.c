@@ -320,7 +320,7 @@ ui_find(GtkAction * action, gpointer user_data)
 static void
 ui_find_again(GtkAction * action, gpointer user_data)
 {
-	search_again(BFWIN(user_data));
+	simple_search_next(BFWIN(user_data));
 }
 
 static void
