@@ -2137,9 +2137,14 @@ void
 doc_destroy(Tdocument * doc, gboolean delay_activation)
 {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
+	GSList *tmpslist;
 	DEBUG_MSG("doc_destroy(%p,%d);\n", doc, delay_activation);
 	if (doc->status == DOC_STATUS_ERROR) {
 		bfwin_docs_not_complete(doc->bfwin, FALSE);
+	}
+	for (tmpslist=bfwin->doc_destroy;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+		Tcallback *cb = tmpslist->data;
+		((DocDestroyCallback)cb->func)(doc, cb->data);
 	}
 
 	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n", doc);
@@ -2152,12 +2157,6 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 		g_source_remove(doc->newdoc_autodetect_lang_id);
 		doc->newdoc_autodetect_lang_id = 0;
 	}
-
-	/* NOT USED ANYMORE: to make this go really quick, we first only destroy the notebook page and run flush_queue(),
-	   (in notebook_changed())
-	   after the document is gone from the GUI we complete the destroy, to destroy only the notebook
-	   page we ref+ the scrolthingie, remove the page, and unref it again */
-	/*g_object_ref_sink(gtk_widget_get_parent(doc->view)); */
 
 	if (doc->floatingview) {
 		gtk_widget_destroy(FLOATINGVIEW(doc->floatingview)->window);
@@ -2199,8 +2198,6 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 		bfwin_notebook_changed(BFWIN(doc->bfwin), newpage);
 	}
 	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed(), vsplit=%p\n", doc, doc->vsplit);
-	/* NOT USED ANYMORE: now we really start to destroy the document */
-	/*g_object_unref(G_OBJECT(doc->view)); */
 	remove_autosave(doc);
 	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {

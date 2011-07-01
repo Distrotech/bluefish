@@ -993,6 +993,17 @@ bfwin_document_delete_range_remove_by_data(Tbfwin *bfwin, gpointer data) {
 }
 
 void
+bfwin_document_destroy_register(Tbfwin *bfwin, DocDestroyCallback func, gpointer data)
+{
+	callback_register(&bfwin->doc_destroy, func, data);
+}
+void
+bfwin_document_destroy_remove_by_data(Tbfwin *bfwin, gpointer data)
+{
+	callback_remove_by_data(&bfwin->doc_destroy, data);
+}
+
+void
 bfwin_notebook_changed(Tbfwin * bfwin, gint newpage)
 {
 	gint cur = newpage;

@@ -30,19 +30,10 @@ technical design:
 - that means that we have to adjust offsets if the buffer changes
 - so we need to keep track of any documents that have search results 
 
-- TODO: if the text changes after a search, but before a replace, we have to update the offsets
-- TODO: if a document is closed that has search results, those results have to be removed from the set
-
-- TODO: store the information for 'find again' somewhere
-
 - TODO: store the complete set of options in the search history, not only the text strings
-
-- TODO: clear the highlights when the user switches documents
 
 - TODO: use a separate highlighting color for different dialogs ???? and then clean the corresponding 
 texttag from the tag table??
-
-- TODO: make buttons and widgets invisible or insensitive if they cannot be used anyway
 
 */
 
@@ -265,7 +256,6 @@ s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, gint offset, GMatchInfo
 
 
 static void snr3result_free(gpointer s3result, gpointer s3run) {
-	/* BUG TODO: for pcre patterns we should free the 'extra' data */
 	DEBUG_MSG("free result %p\n",s3result);
 	g_slice_free(Tsnr3result, (Tsnr3result *)s3result);
 }
@@ -640,6 +630,22 @@ snr3_docdeleterange_cb(Tdocument *doc, GtkTextIter * itstart, gint start, GtkTex
 	g_queue_foreach(&((Tsnr3run *)data)->results, snr3run_update_offsets,&offsetupdate);
 }
 
+static void
+snr3_docdestroy_cb(Tdocument *doc, gpointer data)
+{
+	Tsnr3run * s3run = data;
+	GList *tmplist=g_list_first(s3run->results.head);
+	while(tmplist) {
+		GList *next = tmplist->next;
+		Tsnr3result *s3result=tmplist->data;
+		if(s3result->doc == doc) {
+			snr3result_free(s3result, s3run);
+			g_queue_delete_link(&s3run->results, tmplist);
+		}
+		tmplist = next;
+	}
+}
+
 static Tsnr3run *
 snr3run_new(Tbfwin *bfwin, gpointer dialog) 
 {
@@ -652,6 +658,7 @@ snr3run_new(Tbfwin *bfwin, gpointer dialog)
 	bfwin_current_document_change_register(bfwin, snr3_curdocchanged_cb, s3run);
 	bfwin_document_insert_text_register(bfwin, snr3_docinsertext_cb, s3run);
 	bfwin_document_delete_range_register(bfwin, snr3_docdeleterange_cb, s3run);
+	bfwin_document_destroy_register(bfwin, snr3_docdestroy_cb, s3run);
 	return s3run;
 } 
 
