@@ -25,7 +25,7 @@
 #include "bluefish.h"
 
 typedef void (*CurdocChangedCallback) (Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data);
-typedef void (*DocDeleteRangeCallback) (Tdocument *doc, GtkTextIter * itstart, GtkTextIter * itend, const gchar *string, gpointer data);
+typedef void (*DocDeleteRangeCallback) (Tdocument *doc, GtkTextIter * itstart, gint start, GtkTextIter * itend, gint end, const gchar *string, gpointer data);
 typedef void (*DocInsertTextCallback) (Tdocument *doc, const gchar *string, GtkTextIter * iter, gint pos, gint len, gint clen, gpointer data);
 
 #define bfwin_exists(bfwin) (g_list_index(main_v->bfwinlist, bfwin)!=-1)

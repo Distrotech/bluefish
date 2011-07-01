@@ -181,12 +181,13 @@ static void highlight_run_in_doc(Tsnr3run *s3run, Tdocument *doc) {
 }
 
 typedef struct {
+	Tdocument *doc;
 	guint startingpoint;
 	gint offset;
 } Toffsetupdate;
 
 static void snr3run_update_offsets(gpointer s3result, gpointer offsetupdate) {
-	if (((Tsnr3result *)s3result)->so > ((Toffsetupdate *)offsetupdate)->startingpoint) {
+	if (((Toffsetupdate *)offsetupdate)->doc == ((Tsnr3result *)s3result)->doc && ((Tsnr3result *)s3result)->so > ((Toffsetupdate *)offsetupdate)->startingpoint) {
 		((Tsnr3result *)s3result)->so += ((Toffsetupdate *)offsetupdate)->offset;
 		((Tsnr3result *)s3result)->eo += ((Toffsetupdate *)offsetupdate)->offset;
 	}
@@ -232,7 +233,7 @@ retrieve_pcre_replace_string(Tsnr3run *s3run, Tsnr3result *s3result, GMatchInfo 
 static Toffsetupdate 
 s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, gint offset, GMatchInfo *matchinfo)
 {
-	Toffsetupdate offsetupdate = {0,0};
+	Toffsetupdate offsetupdate = {NULL,0,0};
 	if (s3run->replacetype == snr3replace_string) {
 		if (s3run->type == snr3type_string) {
 			g_print("s3result_replace, replace %d:%d with %s\n", s3result->so+offset, s3result->eo+offset, s3run->replace);
@@ -258,6 +259,7 @@ s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, gint offset, GMatchInfo
 		g_free(tmp2);
 	}
 	offsetupdate.startingpoint = s3result->eo;
+	offsetupdate.doc = s3result->doc;
 	return offsetupdate;
 }
 
@@ -559,6 +561,9 @@ snr3run_resultcleanup(Tsnr3run *s3run)
 void snr3run_free(Tsnr3run *s3run) {
 	DEBUG_MSG("snr3run_free, started for %p\n",s3run);
 	snr3_cancel_run(s3run);
+	bfwin_current_document_change_remove_by_data(s3run->bfwin, s3run);
+	bfwin_document_insert_text_remove_by_data(s3run->bfwin, s3run);
+	bfwin_document_delete_range_remove_by_data(s3run->bfwin, s3run);
 	DEBUG_MSG("snr3run_free, query at %p\n",s3run->query);
 	g_free(s3run->query);
 	g_print("snr3run_free, replace\n");
@@ -568,8 +573,6 @@ void snr3run_free(Tsnr3run *s3run) {
 		g_object_unref(s3run->basedir);
 	g_print("snr3run_free, remove all highlights\n");
 	remove_all_highlights_in_doc(s3run->bfwin->current_document);
-	g_print("snr3run_free, call bfwin_current_document_change_remove_by_data(bfwin=%p, s3run=%p)\n",s3run->bfwin, s3run);
-	bfwin_current_document_change_remove_by_data(s3run->bfwin, s3run);
 	g_print("snr3run_free, resultcleanup\n");
 	snr3run_resultcleanup(s3run);
 	g_slice_free(Tsnr3run, s3run);
@@ -607,6 +610,36 @@ highlight_simple_search(void *data) {
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);	
 }
 
+static void
+snr3_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data) {
+	Tsnr3run *s3run=data;
+	if (olddoc)
+		remove_all_highlights_in_doc(olddoc);
+	if (newdoc) {
+		if (s3run->dialog) {
+			highlight_run_in_doc(s3run, newdoc);
+		} else { /* simple search */
+			snr3run_resultcleanup(s3run);
+			snr3_run(s3run, newdoc, highlight_simple_search);
+		}
+	}
+}
+
+static void
+snr3_docinsertext_cb(Tdocument *doc, const gchar *string, GtkTextIter * iter, gint pos, gint len, gint clen, gpointer data)
+{
+	Tsnr3run *s3run = data;
+	Toffsetupdate offsetupdate = {doc,pos,clen};
+	g_queue_foreach(&((Tsnr3run *)data)->results, snr3run_update_offsets,&offsetupdate);
+}
+
+static void
+snr3_docdeleterange_cb(Tdocument *doc, GtkTextIter * itstart, gint start, GtkTextIter * itend, gint end, const gchar *string, gpointer data)
+{
+	Toffsetupdate offsetupdate = {doc,start,end-start};
+	g_queue_foreach(&((Tsnr3run *)data)->results, snr3run_update_offsets,&offsetupdate);
+}
+
 static Tsnr3run *
 snr3run_new(Tbfwin *bfwin, gpointer dialog) 
 {
@@ -616,6 +649,9 @@ snr3run_new(Tbfwin *bfwin, gpointer dialog)
 	s3run->dialog = dialog;
 	g_queue_init(&s3run->results);
 	queue_init_full(&s3run->idlequeue, 1, FALSE, FALSE, snr3_run_run);
+	bfwin_current_document_change_register(bfwin, snr3_curdocchanged_cb, s3run);
+	bfwin_document_insert_text_register(bfwin, snr3_docinsertext_cb, s3run);
+	bfwin_document_delete_range_register(bfwin, snr3_docdeleterange_cb, s3run);
 	return s3run;
 } 
 
@@ -645,16 +681,6 @@ snr3run_multiset(Tsnr3run *s3run,
 	
 } 
 
-static void simple_search_doc_changed_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data) {
-	Tsnr3run *s3run=data;
-	if (olddoc)
-		remove_all_highlights_in_doc(olddoc);
-	if (newdoc) {
-		snr3run_resultcleanup(s3run);
-		snr3_run(s3run, newdoc, highlight_simple_search);
-	}
-}
-
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	Tsnr3run *s3run;
 	
@@ -662,9 +688,6 @@ gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	snr3run_multiset(s3run, string, NULL, snr3type_string,snr3replace_string,snr3scope_doc);
 	DEBUG_MSG("simple_search_run, snr3run at %p, query at %p\n",s3run, s3run->query);
 	snr3_run(s3run, bfwin->current_document, activate_simple_search);
-	
-	bfwin_current_document_change_register(bfwin, simple_search_doc_changed_cb, s3run);
-	
 	return s3run;
 }
 
@@ -692,15 +715,6 @@ static void dialog_changed_run_ready_cb(gpointer data) {
 /***************************************************************************/
 /***************************** GUI *****************************************/
 /***************************************************************************/
-static void
-snrwin_doc_changed_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data) {
-	Tsnr3run *s3run=data;
-	if (olddoc)
-		remove_all_highlights_in_doc(olddoc);
-	if (newdoc) {
-		highlight_run_in_doc(s3run, newdoc);
-	}
-}
 
 static gboolean compile_regex(TSNRWin *snrwin, Tsnr3run *s3run, const gchar *query) {
 	GError *gerror = NULL;
@@ -868,8 +882,6 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 	gint guichange;
 	if (!snrwin->s3run) {
 		snrwin->s3run = snr3run_new(snrwin->bfwin, snrwin);
-		g_print("snr3_advanced_response, register s3run %p\n",snrwin->s3run);
-		bfwin_current_document_change_register(snrwin->bfwin, snrwin_doc_changed_cb, snrwin->s3run);
 	}
 	guichange = snr3run_init_from_gui(snrwin, snrwin->s3run);
 	g_print("snr3_advanced_response, response=%d, guichange=%d\n",response,guichange);
