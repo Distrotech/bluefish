@@ -120,4 +120,12 @@ gchar *gfile_display_name(GFile *uri,GFileInfo *finfo);
 gboolean gfile_uri_is_parent(GFile *parent, GFile *child, gboolean recursive);
 gchar *get_hostname_from_uri(GFile *uri);
 
+typedef struct {
+	void (*func)();
+	gpointer data;
+} Tcallback;
+void callback_register(GSList **slist, void (*func)(), gpointer data);
+void callback_remove_by_data(GSList **slist, gpointer data);
+void callback_remove_all(GSList **slist);
+
 #endif /* __BF_LIB_H_ */

@@ -953,46 +953,43 @@ bfwin_current_document_changed_notify(Tbfwin *bfwin, Tdocument *olddoc, Tdocumen
 	for (tmpslist=bfwin->curdoc_changed;tmpslist;tmpslist=g_slist_next(tmpslist)) {
 		Tcallback *cb=tmpslist->data;
 		g_print("bfwin_current_document_changed_notify, call %p, data=%p, bfwin=%p, olddoc=%p, newdoc=%p\n",cb->func,cb->data, bfwin,olddoc,newdoc);
-		cb->func(bfwin, olddoc, newdoc, cb->data);
+		((CurdocChangedCallback)cb->func)(bfwin, olddoc, newdoc, cb->data);
 	}
 }
 
 void
 bfwin_current_document_change_register(Tbfwin *bfwin, CurdocChangedCallback func, gpointer data) {
-	Tcallback *cb;
-	cb = g_slice_new0(Tcallback);
-	cb->func = func;
-	cb->data = data;
-	g_print("bfwin_current_document_change_register func %p, data %p\n",func,data);
-	bfwin->curdoc_changed = g_slist_append(bfwin->curdoc_changed, cb);
+	callback_register(&bfwin->curdoc_changed, func, data);
 }
 
 void
 bfwin_current_document_change_remove_by_data(Tbfwin *bfwin, gpointer data) {
-	Tcallback *cb=NULL;
-	GSList *tmpslist=bfwin->curdoc_changed;
-	g_print("bfwin_current_document_change_remove_by_data, data=%p\n", data);
-	while(tmpslist) {
-		cb=tmpslist->data;
-		if (cb->data == data) {
-			g_print("bfwin_current_document_change_remove_by_data, removed func %p data %p\n",cb->func, cb->data);
-			bfwin->curdoc_changed = g_slist_delete_link(bfwin->curdoc_changed, tmpslist);
-			g_slice_free(Tcallback, cb);
-			return;
-		}
-		tmpslist = g_slist_next(tmpslist);
-	}
+	callback_remove_by_data(&bfwin->curdoc_changed, data);
 }
 
 void
 bfwin_current_document_change_remove_all(Tbfwin *bfwin) {
-	GSList *tmpslist=bfwin->curdoc_changed;
-	while(tmpslist) {
-		g_slice_free(Tcallback, tmpslist->data);
-		tmpslist = g_slist_next(tmpslist);
-	}
-	g_slist_free(bfwin->curdoc_changed);
-	bfwin->curdoc_changed=NULL;
+	callback_remove_all(&bfwin->curdoc_changed);
+}
+
+void
+bfwin_document_insert_text_register(Tbfwin *bfwin, DocInsertTextCallback func, gpointer data) {
+	callback_register(&bfwin->doc_insert_text, func, data);
+}
+
+void
+bfwin_document_insert_text_remove_by_data(Tbfwin *bfwin, gpointer data) {
+	callback_remove_by_data(&bfwin->doc_insert_text, data);
+}
+
+void
+bfwin_document_delete_range_register(Tbfwin *bfwin, DocDeleteRangeCallback func, gpointer data) {
+	callback_register(&bfwin->doc_delete_range, func, data);
+}
+
+void
+bfwin_document_delete_range_remove_by_data(Tbfwin *bfwin, gpointer data) {
+	callback_remove_by_data(&bfwin->doc_delete_range, data);
 }
 
 void

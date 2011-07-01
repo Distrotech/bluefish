@@ -1690,53 +1690,11 @@ doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean en
 	return TRUE;
 }
 
-/**
- * doc_file_to_textbox:
- * @doc: The #Tdocument target.
- * @filename: Filename to read in.
- * @enable_undo: #gboolean
- * @delay: Whether to delay GUI-calls.
- *
- * Open and read in a file to the doc buffer.
- * The data is inserted starting at the current cursor position.
- * Charset is detected, and highlighting performed (if applicable).
- *
- * Return value: A #gboolean, TRUE if successful, FALSE on error.
- ** /
-gboolean doc_file_to_textbox(Tdocument *doc, gchar *filename, gboolean enable_undo, gboolean delay) {
-	gchar *buffer, *message;
-	int document_size=0;
-	gboolean ret;
-	message = g_strconcat(_("Opening file "), filename, NULL);
-	statusbar_message(BFWIN(doc->bfwin),message, 1);
-	g_free(message);
-
-	buffer = get_buffer_from_filename(BFWIN(doc->bfwin), filename, &document_size);
-	ret = doc_buffer_to_textbox(doc, buffer, document_size, enable_undo, delay);
-	g_free(buffer);
-	return ret;
-}*/
-/* code moved to file.c
-void doc_set_fileinfo(Tdocument *doc, GFileInfo *finfo) {
-	DEBUG_MSG("doc_set_fileinfo, doc=%p, new finfo=%p, old fileinfo=%p\n",doc,finfo,doc->fileinfo);
-	if (doc->fileinfo) {
-		DEBUG_MSG("doc_set_fileinfo, unref doc->fileinfo at %p\n",doc->fileinfo);
-		g_object_unref(doc->fileinfo);
-		doc->fileinfo = NULL;
-	}
-
-	if (finfo != NULL) {
-		g_object_ref(finfo);
-		doc->fileinfo = finfo;
-	}
-
-	doc_set_tooltip(doc);
-}*/
-
 static void
 doc_buffer_insert_text_lcb(GtkTextBuffer * textbuffer, GtkTextIter * iter, gchar * string, gint len,
 						   Tdocument * doc)
 {
+	GSList *tmpslist;
 	gint pos = gtk_text_iter_get_offset(iter);
 	gint clen = g_utf8_strlen(string, len);
 	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s', len=%d, clen=%d\n", string, len, clen);
@@ -1749,42 +1707,20 @@ doc_buffer_insert_text_lcb(GtkTextBuffer * textbuffer, GtkTextIter * iter, gchar
 		doc_unre_new_group(doc);
 	}
 	doc_unre_add(doc, string, pos, pos + clen, UndoInsert);
+	/* see if any other code wants to see document changes */
+	for (tmpslist=BFWIN(doc->bfwin)->doc_insert_text;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+		Tcallback *cb = tmpslist->data;
+		((DocInsertTextCallback)cb->func)(doc, string, iter, pos, len, clen, cb->data);
+	}
 	doc_set_modified(doc, 1);
 	DEBUG_MSG("doc_buffer_insert_text_lcb, done\n");
 }
-
-/*
-static gboolean find_char(gunichar ch,gchar *data) {
-#ifdef DEBUG
-	if (ch < 127) {
-		DEBUG_MSG("find_char, looking at character %c, searching for '%s', returning %d\n",ch,data,(strchr(data, ch) != NULL));
-	} else {
-		DEBUG_MSG("find_char, looking at character code %d, searching for '%s', returning %d\n",ch,data,(strchr(data, ch) != NULL));
-	}
-#endif
-	return (strchr(data, ch) != NULL);
-}
-
-static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIter *iter) {
-	return NULL;
-}
-*/
-/*
-static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
-	DEBUG_MSG("doc_buffer_insert_text_after_lcb, started for string '%s'\n",string);
-	if (!doc->paste_operation) {
-	}
-#ifdef DEBUG
-	else {
-		DEBUG_MSG("doc_buffer_insert_text_after_lcb, paste_operation, NOT DOING ANYTHING\n");
-	}
-#endif
-}*/
 
 static void
 doc_buffer_delete_range_lcb(GtkTextBuffer * textbuffer, GtkTextIter * itstart, GtkTextIter * itend,
 							Tdocument * doc)
 {
+	GSList *tmpslist;
 	gchar *string;
 	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, TRUE);
 	DEBUG_MSG("doc_buffer_delete_range_lcb, string='%s'\n", string);
@@ -1809,8 +1745,13 @@ doc_buffer_delete_range_lcb(GtkTextBuffer * textbuffer, GtkTextIter * itstart, G
 			}
 		}
 		doc_unre_add(doc, string, start, end, UndoDelete);
-		g_free(string);
 	}
+	/* see if any other code wants to see document changes */
+	for (tmpslist=BFWIN(doc->bfwin)->doc_delete_range;tmpslist;tmpslist=g_slist_next(tmpslist)) {
+		Tcallback *cb = tmpslist->data;
+		((DocDeleteRangeCallback)cb->func)(doc, itstart, itend, string, cb->data);
+	}
+	g_free(string);
 	doc_set_modified(doc, 1);
 }
 
@@ -1963,9 +1904,6 @@ doc_bind_signals(Tdocument * doc)
 									   "insert-text", G_CALLBACK(doc_buffer_insert_text_lcb), doc);
 	doc->del_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
 									   "delete-range", G_CALLBACK(doc_buffer_delete_range_lcb), doc);
-/*	doc->ins_aft_txt_id = g_signal_connect_after(G_OBJECT(doc->buffer),
-					 "insert-text",
-					 G_CALLBACK(doc_buffer_insert_text_after_lcb), doc);*/
 }
 
 /**
