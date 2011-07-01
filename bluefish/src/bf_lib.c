@@ -1461,3 +1461,39 @@ gchar *get_hostname_from_uri(GFile *uri) {
 	g_free(tmp); 
 	return retval;
 }
+
+void
+callback_register(GSList **slist, void (*func)(), gpointer data) {
+	Tcallback *cb;
+	cb = g_slice_new0(Tcallback);
+	cb->func = func;
+	cb->data = data;
+	*slist = g_slist_append(*slist, cb);	
+}
+
+void
+callback_remove_by_data(GSList **slist, gpointer data) {
+	Tcallback *cb=NULL;
+	GSList *tmpslist=*slist;
+	while(tmpslist) {
+		cb=tmpslist->data;
+		if (cb->data == data) {
+			*slist = g_slist_delete_link(*slist, tmpslist);
+			g_slice_free(Tcallback, cb);
+			return;
+		}
+		tmpslist = g_slist_next(tmpslist);
+	}
+}
+
+void
+callback_remove_all(GSList **slist) {
+	GSList *tmpslist=*slist;
+	while(tmpslist) {
+		g_slice_free(Tcallback, tmpslist->data);
+		tmpslist = g_slist_next(tmpslist);
+	}
+	g_slist_free(*slist);
+	*slist=NULL;
+}
+
