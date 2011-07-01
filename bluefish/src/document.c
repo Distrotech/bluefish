@@ -1722,14 +1722,16 @@ doc_buffer_delete_range_lcb(GtkTextBuffer * textbuffer, GtkTextIter * itstart, G
 {
 	GSList *tmpslist;
 	gchar *string;
+	gint start, end, len;
+
+	start = gtk_text_iter_get_offset(itstart);
+	end = gtk_text_iter_get_offset(itend);
+	len = end - start;
 	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, TRUE);
+	
 	DEBUG_MSG("doc_buffer_delete_range_lcb, string='%s'\n", string);
 	if (string) {
 		/* undo_redo stuff */
-		gint start, end, len;
-		start = gtk_text_iter_get_offset(itstart);
-		end = gtk_text_iter_get_offset(itend);
-		len = end - start;
 		DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len,
 				  string);
 		if (!doc->in_paste_operation) {
@@ -1749,7 +1751,7 @@ doc_buffer_delete_range_lcb(GtkTextBuffer * textbuffer, GtkTextIter * itstart, G
 	/* see if any other code wants to see document changes */
 	for (tmpslist=BFWIN(doc->bfwin)->doc_delete_range;tmpslist;tmpslist=g_slist_next(tmpslist)) {
 		Tcallback *cb = tmpslist->data;
-		((DocDeleteRangeCallback)cb->func)(doc, itstart, itend, string, cb->data);
+		((DocDeleteRangeCallback)cb->func)(doc, itstart, start, itend, end, string, cb->data);
 	}
 	g_free(string);
 	doc_set_modified(doc, 1);

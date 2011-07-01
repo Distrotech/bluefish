@@ -46,9 +46,9 @@ typedef struct {
 } Tsnr3submatches;
 
 typedef struct {
-	gint so;
-	gint eo;
 	gpointer doc;
+	gint32 so;
+	gint32 eo;
 } Tsnr3result;
 
 typedef enum {
@@ -58,7 +58,7 @@ typedef enum {
 
 typedef struct {
 	Tbfwin *bfwin;
-	gpointer dialog;
+	gpointer dialog; /* NULL for simple search */
 	gchar *query;
 	GRegex *regex;
 	gchar *replace; /* enabled if not NULL */
