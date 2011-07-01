@@ -499,8 +499,9 @@ typedef struct {
 	GHashTable *identifier_ac;
 #endif /* IDENTSTORING */
 	GSList *curdoc_changed; /* register a function here that is called when the current document changes*/
-	GSList *doc_insert_text;
-	GSList *doc_delete_range;
+	GSList *doc_insert_text; /* register a function here that is called when text is inserted into a document */
+	GSList *doc_delete_range; /* register a function here that is called when text is deleted from a document */
+	GSList *doc_destroy; /* register a function here that is called when a document is destroyed */
 } Tbfwin;
 
 typedef struct {

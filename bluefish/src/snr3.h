@@ -174,5 +174,6 @@ void snr3_run_go(Tsnr3run *s3run, gboolean forward);
 void snr3run_free(Tsnr3run *s3run);
 void snr3run_unrun(Tsnr3run *s3run);
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string);
+void simple_search_next(Tbfwin *bfwin);
 void snr3_advanced_dialog(Tbfwin * bfwin, const gchar *searchstring);
 #endif /* #define __SNR3_H_ */
