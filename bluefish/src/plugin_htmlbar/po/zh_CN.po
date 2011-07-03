@@ -1,15 +1,15 @@
-# Chinese(GB) language file for Bluefish.
-# Copyright (C) 2003 Dormouse <mouselinux@163.com>, 2003
-# Funda Wang <fundawang@linux.net.cn>, 2004
+# Simple Chinese(zh_CN) language file for Bluefish.
+# Copyright (C) 2011 william9527
+# william9527 <mzf9527@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-06-24 22:20+0200\n"
-"PO-Revision-Date: 2004-12-08 18:48-0300\n"
-"Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
-"Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
+"POT-Creation-Date: 2011-06-27 06:57+0800\n"
+"PO-Revision-Date: 2011-07-01 15:57+0800\n"
+"Last-Translator: william9527 <mzf9527@gmail.com>\n"
+"Language-Team: \n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,29 +19,27 @@ msgstr ""
 #. * update.
 #.
 #: src/plugin_htmlbar/html2.c:500
-#, fuzzy
 msgid "_Update"
-msgstr " 更新(_U) "
+msgstr "更新(_U)"
 
 #: src/plugin_htmlbar/html2.c:505
-#, fuzzy, c-format
+#, c-format
 msgid "The %s %s property already exists.\n"
-msgstr "指定的目录名已存在。"
+msgstr "%s %s 属性已存在。\n"
 
 #: src/plugin_htmlbar/html2.c:507
-#, fuzzy, c-format
+#, c-format
 msgid "The %s property already exists.\n"
-msgstr "指定的目录名已存在。"
+msgstr "%s 属性已存在。\n"
 
 #: src/plugin_htmlbar/html2.c:510
 #, c-format
 msgid "Update its value from %s to %s?"
-msgstr ""
+msgstr "更新 %s 为 %s吗？"
 
 #: src/plugin_htmlbar/html2.c:641
-#, fuzzy
 msgid "Cascading Style Sheet Builder"
-msgstr "连续样式表对话框"
+msgstr "层叠样式表生成器"
 
 #: src/plugin_htmlbar/html2.c:661
 msgid "_Selector:"
@@ -98,558 +96,522 @@ msgid "Edit tag"
 msgstr "编辑标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1255
-#, fuzzy
 msgid "T_ags"
-msgstr "/标签(_T)"
+msgstr "标签(_a)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1256
-#, fuzzy
 msgid "_Headings"
-msgstr "标题"
+msgstr "标题(_H)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1257
 msgid "H_1"
-msgstr ""
+msgstr "H_1"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1257
-#, fuzzy
 msgid "Insert H1 tag"
-msgstr "插入图像"
+msgstr "插入 H1 标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1259
 msgid "H_2"
-msgstr ""
+msgstr "H_2"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1259
-#, fuzzy
 msgid "Insert H2 tag"
-msgstr "插入图像"
+msgstr "插入 H2 标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1261
 msgid "H_3"
-msgstr ""
+msgstr "H_3"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1261
-#, fuzzy
 msgid "Insert H3 tag"
-msgstr "插入图像"
+msgstr "插入 H3 标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1263
 msgid "H_4"
-msgstr ""
+msgstr "H_4"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1263
-#, fuzzy
 msgid "Insert H4 tag"
-msgstr "插入图像"
+msgstr "插入 H4 标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1265
 msgid "H_5"
-msgstr ""
+msgstr "H_5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1265
-#, fuzzy
 msgid "Insert H5 tag"
-msgstr "插入图像"
+msgstr "插入 H5 标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1267
 msgid "H_6"
-msgstr ""
+msgstr "H_6"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1267
-#, fuzzy
 msgid "Insert H6 tag"
-msgstr "插入图像"
+msgstr "插入 H6 标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1269
-#, fuzzy
 msgid "_Special"
-msgstr "/标签(T)/特殊(_S)"
+msgstr "特殊符号(_S)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1270
-#, fuzzy
 msgid "_Accent"
-msgstr "接受(_A)："
+msgstr "重音(_A)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1271
-#, fuzzy
 msgid "_Uppercase"
-msgstr "大写"
+msgstr "大写(_U)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1272
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1304
 msgid "_A-I"
-msgstr ""
+msgstr "A-I(_A)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1273
 msgid "A grave À"
-msgstr ""
+msgstr "À"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1274
 msgid "A acute Á"
-msgstr ""
+msgstr "Á"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1275
 msgid "A circumflex Â"
-msgstr ""
+msgstr "Â"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1276
 msgid "A tilde Ã"
-msgstr ""
+msgstr "Ã"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1277
 msgid "AE ligature Æ"
-msgstr ""
+msgstr "Æ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1278
 msgid "A diaeresis Ä"
-msgstr ""
+msgstr "Ä"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1279
 msgid "A ring Å"
-msgstr ""
+msgstr "Å"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1280
 msgid "C cedilla Ç"
-msgstr ""
+msgstr "Ç"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1281
 msgid "E grave È"
-msgstr ""
+msgstr "È"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1282
 msgid "E acute É"
-msgstr ""
+msgstr "É"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1283
 msgid "E circumflex Ê"
-msgstr ""
+msgstr "Ê"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1284
 msgid "E diaeresis Ë"
-msgstr ""
+msgstr "Ë"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1285
 msgid "I grave Ì"
-msgstr ""
+msgstr "Ì"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1286
 msgid "I acute Í"
-msgstr ""
+msgstr "Í"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1287
 msgid "I circumflex Î"
-msgstr ""
+msgstr "Î"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1288
 msgid "I diaeresis Ï"
-msgstr ""
+msgstr "Ï"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1289
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1321
 msgid "_J-Z"
-msgstr ""
+msgstr "J-Z(_J)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1290
 msgid "N tilde Ñ"
-msgstr ""
+msgstr "Ñ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1291
 msgid "O grave Ò"
-msgstr ""
+msgstr "Ò"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1292
 msgid "O acute Ó"
-msgstr ""
+msgstr "Ó"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1293
 msgid "O circumflex Ô"
-msgstr ""
+msgstr "Ô"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1294
 msgid "OE ligature Œ"
-msgstr ""
+msgstr "Œ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1295
 msgid "O tilde Õ"
-msgstr ""
+msgstr "Õ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1296
 msgid "O diaeresis Ö"
-msgstr ""
+msgstr "Ö"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1297
 msgid "O slash Ø"
-msgstr ""
+msgstr "Ø"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1298
 msgid "U grave Ù"
-msgstr ""
+msgstr "Ù"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1299
 msgid "U acute Ú"
-msgstr ""
+msgstr "Ú"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1300
 msgid "U circumflex Û"
-msgstr ""
+msgstr "Û"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1301
 msgid "U diaeresis Ü"
-msgstr ""
+msgstr "Ü"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1302
 msgid "Y acute Ý"
-msgstr ""
+msgstr "Ý"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1303
-#, fuzzy
 msgid "_Lowercase"
-msgstr "小写"
+msgstr "小写(_L)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1305
 msgid "a grave à"
-msgstr ""
+msgstr "à"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1306
 msgid "a acute á"
-msgstr ""
+msgstr "á"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1307
 msgid "a circumflex â"
-msgstr ""
+msgstr "â"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1308
 msgid "a tilde ã"
-msgstr ""
+msgstr "ã"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1309
 msgid "a ring å"
-msgstr ""
+msgstr "å"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1310
 msgid "ae ligature æ"
-msgstr ""
+msgstr "æ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1311
 msgid "a diaeresis ä"
-msgstr ""
+msgstr "ä"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1312
 msgid "c cedilla ç"
-msgstr ""
+msgstr "ç"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1313
 msgid "e grave è"
-msgstr ""
+msgstr "è"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1314
 msgid "e acute é"
-msgstr ""
+msgstr "é"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1315
 msgid "e circumflex ê"
-msgstr ""
+msgstr "ê"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1316
 msgid "e diaeresis ë"
-msgstr ""
+msgstr "ë"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1317
 msgid "i grave ì"
-msgstr ""
+msgstr "ì"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1318
 msgid "i acute í"
-msgstr ""
+msgstr "í"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1319
 msgid "i circumflex î"
-msgstr ""
+msgstr "î"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1320
 msgid "i diaeresis ï"
-msgstr ""
+msgstr "ï"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1322
 msgid "n tilde ñ"
-msgstr ""
+msgstr "ñ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1323
 msgid "o grave ò"
-msgstr ""
+msgstr "ò"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1324
 msgid "o acute ó"
-msgstr ""
+msgstr "ó"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1325
 msgid "oe ligature œ"
-msgstr ""
+msgstr "œ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1326
 msgid "o circumflex ô"
-msgstr ""
+msgstr "ô"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1327
 msgid "o tilde õ"
-msgstr ""
+msgstr "õ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1328
 msgid "o diaeresis ö"
-msgstr ""
+msgstr "ö"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1329
 msgid "o slash ø"
-msgstr ""
+msgstr "ø"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1330
 msgid "u grave ù"
-msgstr ""
+msgstr "ù"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1331
 msgid "u acute ú"
-msgstr ""
+msgstr "ú"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1332
 msgid "u circumflex û"
-msgstr ""
+msgstr "û"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1333
 msgid "u diaeresis ü"
-msgstr ""
+msgstr "ü"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1334
 msgid "y acute ý"
-msgstr ""
+msgstr "ý"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1335
 msgid "y diaeresis ÿ"
-msgstr ""
+msgstr "ÿ"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1336
 msgid "_Acute ´"
-msgstr ""
+msgstr "重音(_A) ´"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1337
 msgid "_Cedilla ¸"
-msgstr ""
+msgstr "变音符号(_C) ¸"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1338
 msgid "U_mlaut ¨"
-msgstr ""
+msgstr "变音(_m) ¨"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1339
 msgid "_Currency"
-msgstr ""
+msgstr "货币符号(_C)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1340
 msgid "_Cent sign ¢"
-msgstr ""
+msgstr "¢(_C)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1341
-#, fuzzy
 msgid "_Pound sterling £"
-msgstr "/标签(T)/特殊(S)/货币(C)/£(_P)"
+msgstr "£(_P)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1342
 msgid "C_urrency sign ¤"
-msgstr ""
+msgstr "¤(_u)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1343
 msgid "_Yen sign ¥"
-msgstr ""
+msgstr "¥(_Y)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1344
 msgid "_Euro €"
-msgstr ""
+msgstr "€(_E)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1345
-#, fuzzy
 msgid "_Math-Science"
-msgstr "/标签(T)/特殊(S)/数学符号(_M)"
+msgstr "数学-科学符号(_M)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1346
 msgid "Logical _not sign ¬"
-msgstr ""
+msgstr "¬(_n)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1347
-#, fuzzy
 msgid "_Multiplication sign ×"
-msgstr "/标签(T)/特殊(S)/数学符号(M)/×(_M)"
+msgstr "×(_M)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1348
 msgid "_Division sign ÷"
-msgstr ""
+msgstr "÷(_D)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1350
 msgid "_Plus-minus sign ±"
-msgstr ""
+msgstr "±(_P)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1351
 msgid "_Less-than sign <"
-msgstr ""
+msgstr "<(_L)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1353
 msgid "_Greater-than sign >"
-msgstr ""
+msgstr ">(_G)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1355
-#, fuzzy
 msgid "Superscript _1 ¹"
-msgstr "上标"
+msgstr "上标1 ¹(_1)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1356
-#, fuzzy
 msgid "Superscript _2 ²"
-msgstr "上标"
+msgstr "上标2 ²(_2)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1357
-#, fuzzy
 msgid "Superscript _3 ³"
-msgstr "上标"
+msgstr "上标3 ³(_3)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1358
 msgid "One _quarter ¼"
-msgstr ""
+msgstr "¼(_q)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1359
 msgid "One _half ½"
-msgstr ""
+msgstr "½(_h)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1360
 msgid "_Three quarters ¾"
-msgstr ""
+msgstr "¾(T)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1362
 msgid "Deg_ree sign °"
-msgstr ""
+msgstr "°(_r)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1363
 msgid "_Non Latin"
-msgstr ""
+msgstr "非拉丁文"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1364
-#, fuzzy
 msgid "_ETH (Icelandic) Ð"
-msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/Ð(_E)"
+msgstr "Ð(_E)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1365
-#, fuzzy
 msgid "_THORN (Icelandic) Þ"
-msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/ Þ(_T)"
+msgstr "Þ(_T)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1366
-#, fuzzy
 msgid "et_h (Icelandic) ð"
-msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/ð(_H)"
+msgstr "ð(_h)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1367
 msgid "th_orn ÿ"
-msgstr ""
+msgstr "ÿ(_o)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1368
 msgid "Sharp _s ß"
-msgstr ""
+msgstr "ß(_s)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1369
 msgid "_Micro sign µ"
-msgstr ""
+msgstr "µ(_M)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1370
 msgid "_Other"
-msgstr ""
+msgstr "其他(_O)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1371
-#, fuzzy
 msgid "_Non-breaking space"
-msgstr "不间断空格"
+msgstr "不间断空格(_N)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1372
-#, fuzzy
 msgid "_Section sign §"
-msgstr "/标签(T)/特殊(S)/其它(O)/§(_S)"
+msgstr "§(_S)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1373
-#, fuzzy
 msgid "_Copyright sign ©"
-msgstr "/标签(T)/特殊(S)/其它(O)/©(_C)"
+msgstr "©(_C)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1374
-#, fuzzy
 msgid "_Left angle quotes «"
-msgstr "/标签(T)/特殊(S)/其它(O)/«(_L)"
+msgstr "«(_L)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1376
-#, fuzzy
 msgid "_Right angle quotes »"
-msgstr "/标签(T)/特殊(S)/其它(O)/»(_R)"
+msgstr "»(_R)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1378
-#, fuzzy
 msgid "Registered _trademark ®"
-msgstr "/标签(T)/特殊(S)/其它(O)/®(_T)"
+msgstr "®(_t)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1379
-#, fuzzy
 msgid "Inverted _exclamation ¡"
-msgstr "/标签(T)/特殊(S)/其它(O)/¡(_E)"
+msgstr "¡(_e)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1381
-#, fuzzy
 msgid "Inverted _question mark ¿"
-msgstr "/标签(T)/特殊(S)/其它(O)/¿(_Q)"
+msgstr "¿(_q)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1383
-#, fuzzy
 msgid "_Feminine ordinal ª"
-msgstr "/标签(T)/特殊(S)/其它(O)/ª(_F)"
+msgstr "ª(_F)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1384
-#, fuzzy
 msgid "_Masculine ordinal º"
-msgstr "/标签(T)/特殊(S)/其它(O)/º(_M)"
+msgstr "º(_M)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1386
-#, fuzzy
 msgid "_Pilcrow (paragraph sign) ¶"
-msgstr "/标签(T)/特殊(S)/其它(O)/¶(_P)"
+msgstr "¶(_P)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1388
 msgid "_Broken bar ¦"
-msgstr ""
+msgstr "¦(_B)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1389
 msgid "Soft _hyphen -"
-msgstr ""
+msgstr "-(_h)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1390
-#, fuzzy
 msgid "Spa_cing macron ¯"
-msgstr "/标签(T)/特殊(S)/其它(O)/¯(_C)"
+msgstr "¯(_c)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1392
 msgid "Middle _dot ·"
-msgstr ""
+msgstr "中间点 ·(_d)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1393
-#, fuzzy
 msgid "F_ormat by context"
-msgstr "/标签(T)/环境格式(_O)"
+msgstr "根据环境格式化文本(_o)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1394
-#, fuzzy
 msgid "_Strong"
-msgstr "强壮"
+msgstr "强烈(_S)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1394
 msgid "Strong"
-msgstr "强壮"
+msgstr "强烈"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1396
-#, fuzzy
 msgid "_Emphasis"
-msgstr "强调"
+msgstr "强调(_E)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1396
 msgid "Emphasis"
@@ -657,9 +619,8 @@ msgstr "强调"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1398
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1470
-#, fuzzy
 msgid "_Definition"
-msgstr "定义"
+msgstr "定义(_D)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1398
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1470
@@ -667,104 +628,92 @@ msgid "Definition"
 msgstr "定义"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1400
-#, fuzzy
 msgid "_Code"
-msgstr "代码"
+msgstr "代码(_C)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1400
 msgid "Code"
 msgstr "代码"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1401
-#, fuzzy
 msgid "Sa_mple"
-msgstr "示例"
+msgstr "示例(_m)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1401
 msgid "Sample"
 msgstr "示例"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1402
-#, fuzzy
 msgid "_Keyboard"
-msgstr "键盘"
+msgstr "键盘(_K)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1402
 msgid "Keyboard"
 msgstr "键盘"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1404
-#, fuzzy
 msgid "_Variable"
-msgstr "变量"
+msgstr "变量(_V)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1404
 msgid "Variable"
 msgstr "变量"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1406
-#, fuzzy
 msgid "Ci_tation"
-msgstr "引用"
+msgstr "引用(_t)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1406
 msgid "Citation"
 msgstr "引用"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1408
-#, fuzzy
 msgid "_Abbreviation"
-msgstr "缩写"
+msgstr "缩写(_A)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1408
 msgid "Abbreviation"
 msgstr "缩写"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1410
-#, fuzzy
 msgid "Ac_ronym"
-msgstr "字头"
+msgstr "字头(_r)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1410
 msgid "Acronym"
 msgstr "字头"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1412
-#, fuzzy
 msgid "_Insert"
-msgstr "插入"
+msgstr "插入(_I)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1412
 msgid "Insert"
 msgstr "插入"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1413
-#, fuzzy
 msgid "De_lete"
-msgstr "删除"
+msgstr "删除(_l)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1413
 msgid "Delete"
 msgstr "删除"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1414
-#, fuzzy
 msgid "_Format by layout"
-msgstr "/标签(T)/布局格式(_F)"
+msgstr "根据布局格式化文本(_F)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1415
-#, fuzzy
 msgid "_Bold"
-msgstr "粗体"
+msgstr "粗体(_B)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1415
 msgid "Bold"
 msgstr "粗体"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1417
-#, fuzzy
 msgid "_Italic"
-msgstr "斜体"
+msgstr "斜体(_I)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1417
 msgid "Italic"
@@ -772,128 +721,115 @@ msgstr "斜体"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1419
 msgid "_Underline"
-msgstr ""
+msgstr "下划线(_U)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1419
 msgid "Underline"
-msgstr ""
+msgstr "下划线"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1421
-#, fuzzy
 msgid "_Strikeout"
-msgstr "脚本"
+msgstr "删除线(_S)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1421
-#, fuzzy
 msgid "Strikeout"
-msgstr "脚本"
+msgstr "删除线"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1423
 msgid "Sm_all"
-msgstr ""
+msgstr "Small标签(_a)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1423
 msgid "Small"
-msgstr ""
+msgstr "Small标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1424
 msgid "Bi_g"
-msgstr ""
+msgstr "Big标签(_g)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1424
 msgid "Big"
-msgstr ""
+msgstr "Big标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1425
-#, fuzzy
 msgid "Format _general"
-msgstr "/标签(T)/常规格式(_G)"
+msgstr "常规格式(_g)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1426
-#, fuzzy
 msgid "_Paragraph"
-msgstr "段落"
+msgstr "段落(_P)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1426 src/plugin_htmlbar/html.c:876
 msgid "Paragraph"
 msgstr "段落"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1428
-#, fuzzy
 msgid "_Break"
-msgstr "换行"
+msgstr "换行(_B)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1428
 msgid "Break"
 msgstr "换行"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1430
-#, fuzzy
 msgid "Break clear _all"
-msgstr "换行回车"
+msgstr "回车换行(_a)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1430
 msgid "Break and clear"
-msgstr "换行回车"
+msgstr "回车换行"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1432
-#, fuzzy
 msgid "_Non-Breaking Space"
-msgstr "不间断空格"
+msgstr "不间断空格(_N)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1432
 msgid "Non-breaking space"
 msgstr "不间断空格"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1434
-#, fuzzy
 msgid "Font Si_ze +1"
-msgstr "字体尺寸 +1"
+msgstr "字体尺寸 +1(_z)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1434
 msgid "Font Size +1"
 msgstr "字体尺寸 +1"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1436
-#, fuzzy
 msgid "Font _Size -1"
-msgstr "字体尺寸 -1"
+msgstr "字体尺寸 -1(_S)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1436
 msgid "Font Size -1"
 msgstr "字体尺寸 -1"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1438
-#, fuzzy
 msgid "Preformatted _Text"
-msgstr "预格式化文本"
+msgstr "预格式化文本(_T)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1438
 msgid "Preformatted Text"
 msgstr "预格式化文本"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1440
-#, fuzzy
 msgid "Su_bscript"
-msgstr "下标"
+msgstr "下标(_b)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1440
 msgid "Subscript"
 msgstr "下标"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1442
-#, fuzzy
 msgid "Su_perscript"
-msgstr "上标"
+msgstr "上标(_p)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1442
 msgid "Superscript"
 msgstr "上标"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1444
-#, fuzzy
 msgid "_Center"
-msgstr "居中"
+msgstr "居中(_C)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1444
 msgid "Center"
@@ -901,7 +837,7 @@ msgstr "居中"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1446
 msgid "Align _right"
-msgstr ""
+msgstr "右对齐(_r)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1446
 msgid "Right Justify"
@@ -910,9 +846,8 @@ msgstr "右对齐"
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1448
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1449
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1518
-#, fuzzy
 msgid "_Table"
-msgstr "表格"
+msgstr "表格(_T)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1449
 #: src/plugin_htmlbar/html_table.c:84
@@ -920,9 +855,8 @@ msgid "Table"
 msgstr "表格"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1451
-#, fuzzy
 msgid "Table _Row"
-msgstr "表格行"
+msgstr "表格行(_R)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1451
 #: src/plugin_htmlbar/html_table.c:218
@@ -930,19 +864,17 @@ msgid "Table Row"
 msgstr "表格行"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1453
-#, fuzzy
 msgid "Table _Header"
-msgstr "表格头"
+msgstr "表头(_H)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1453
 #: src/plugin_htmlbar/html_table.c:343
 msgid "Table Header"
-msgstr "表格头"
+msgstr "表头"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1455
-#, fuzzy
 msgid "Table _Data"
-msgstr "表格数据"
+msgstr "表格数据(_D)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1455
 #: src/plugin_htmlbar/html_table.c:341
@@ -950,59 +882,52 @@ msgid "Table Data"
 msgstr "表格数据"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1457
-#, fuzzy
 msgid "Table _Caption"
-msgstr "表格标题"
+msgstr "表格标题(_C)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1457
 msgid "Table Caption"
 msgstr "表格标题"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1459
-#, fuzzy
 msgid "_List"
-msgstr " 列表 "
+msgstr "列表(_L)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1460
-#, fuzzy
 msgid "Unordered _List"
-msgstr "无序列表"
+msgstr "无序列表（_L)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1460
 msgid "Unordered List"
 msgstr "无序列表"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1462
-#, fuzzy
 msgid "_Ordered List"
-msgstr "有序列表"
+msgstr "有序列表（_O)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1462
 msgid "Ordered List"
 msgstr "有序列表"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1464
-#, fuzzy
 msgid "List Ite_m"
-msgstr "列表项"
+msgstr "列表项(_m)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1464
 msgid "List Item"
 msgstr "列表项"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1466
-#, fuzzy
 msgid "De_finition List"
-msgstr "定义列表"
+msgstr "定义列表(_f)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1466
 msgid "Definition List"
 msgstr "定义列表"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1468
-#, fuzzy
 msgid "Definition _Term"
-msgstr "定义术语"
+msgstr "定义术语(_T)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1468
 msgid "Definition Term"
@@ -1010,22 +935,19 @@ msgstr "定义术语"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1472
 msgid "Men_u"
-msgstr ""
+msgstr "菜单(_u)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1472
-#, fuzzy
 msgid "Menu"
-msgstr "菜单路径"
+msgstr "菜单"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1473
-#, fuzzy
 msgid "Fo_rm"
-msgstr "/标签(T)/表单(_R)"
+msgstr "表单(_r)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1474
-#, fuzzy
 msgid "_Form"
-msgstr "表单"
+msgstr "表单(_F)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1474
 #: src/plugin_htmlbar/html_form.c:156
@@ -1033,102 +955,84 @@ msgid "Form"
 msgstr "表单"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1475
-#, fuzzy
 msgid "_Button"
-msgstr "按钮"
+msgstr "按钮(_B)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1476
-#, fuzzy
 msgid "_Input"
-msgstr "输入"
+msgstr "输入框(_I)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1477
-#, fuzzy
 msgid "_Textarea"
-msgstr "文本域"
+msgstr "文本域(_T)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1478
-#, fuzzy
 msgid "_Misc"
-msgstr "其他"
+msgstr "其他(_M)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1479
-#, fuzzy
 msgid "Insert Generator _META-Tag"
-msgstr "/标签(T)/其他(M)/插入 _META 标签"
+msgstr "插入生成者 META 标签(_M)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1481
-#, fuzzy
 msgid "_Span"
 msgstr "Span"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1482
 msgid "_Div"
-msgstr ""
+msgstr "Div(_D)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1483
-#, fuzzy
 msgid "_Link"
-msgstr "颜色"
+msgstr "Link(_L)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1484
-#, fuzzy
 msgid "S_cript"
-msgstr "脚本"
+msgstr "脚本(_c)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1485
-#, fuzzy
 msgid "_Anchor"
-msgstr "锚点"
+msgstr "锚点(_A)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1486
 msgid "_Image"
-msgstr ""
+msgstr "图像(_I)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1487
-#, fuzzy
 msgid "_Comment"
-msgstr "注释"
+msgstr "注释(_C)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1487
-#, fuzzy
 msgid "HTML Comment"
-msgstr "注释"
+msgstr "HTML 注释"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1489
-#, fuzzy
 msgid "Dial_ogs"
-msgstr "对话"
+msgstr "对话框(_o)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1490
-#, fuzzy
 msgid "_General"
-msgstr "常规"
+msgstr "常规(_G)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1491
-#, fuzzy
 msgid "_Quickstart..."
-msgstr "快速启动..."
+msgstr "快速启动(Q)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1491
-#, fuzzy
 msgid "Quickstart..."
 msgstr "快速启动..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1493
-#, fuzzy
 msgid "_Link Header..."
-msgstr "表格头..."
+msgstr "Link 头部信息(_L)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1493
-#, fuzzy
 msgid "Link Header..."
-msgstr "表格头..."
+msgstr "Link 头部信息..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1495
-#, fuzzy
 msgid "_Body..."
-msgstr "主体..."
+msgstr "主体(_B)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1495
 msgid "Body..."
@@ -1136,140 +1040,119 @@ msgstr "主体..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1497
 msgid "_Anchor..."
-msgstr ""
+msgstr "锚点(_A)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1497
-#, fuzzy
 msgid "Anchor / Hyperlink..."
-msgstr "锚点..."
+msgstr "锚点 / 超链接..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1499
-#, fuzzy
 msgid "_E-mail..."
-msgstr "电子邮件..."
+msgstr "电子邮件(_E)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1499
-#, fuzzy
 msgid "E-mail..."
 msgstr "电子邮件..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1501
-#, fuzzy
 msgid "_Rule..."
-msgstr "横线..."
+msgstr "水平线(_R)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1501
-#, fuzzy
 msgid "Horizontal Rule..."
-msgstr "水平线"
+msgstr "水平线..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1503
-#, fuzzy
 msgid "_Font..."
-msgstr "字体..."
+msgstr "字体(_F)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1503
 msgid "Font..."
 msgstr "字体..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1505
-#, fuzzy
 msgid "Basef_ont..."
-msgstr "基础字体尺寸..."
+msgstr "基础字体(_o)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1505
-#, fuzzy
 msgid "Base font..."
-msgstr "基础字体"
+msgstr "基础字体..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1507
-#, fuzzy
 msgid "Quick_list..."
-msgstr "快速列表..."
+msgstr "快速列表(_l)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1507
 msgid "Quick List..."
 msgstr "快速列表..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1509
-#, fuzzy
 msgid "_Meta..."
-msgstr "Meta"
+msgstr "Meta(_M)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1510
-#, fuzzy
 msgid "Embe_d..."
-msgstr "嵌入"
+msgstr "嵌入(_d)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1511
-#, fuzzy
 msgid "Select _Color..."
-msgstr "选择..."
+msgstr "选择颜色(_C)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1512
-#, fuzzy
 msgid "Insert _Time..."
-msgstr "插入图像..."
+msgstr "插入时间(_T)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1513
-#, fuzzy
 msgid "Insert _Image..."
-msgstr "插入图像..."
+msgstr "插入图像(_I)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1513
 msgid "Insert image..."
 msgstr "插入图像..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1515
-#, fuzzy
 msgid "Insert T_humbnail..."
-msgstr "插入相册..."
+msgstr "插入相册(_h)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1516
 msgid "Insert thumbnail..."
 msgstr "插入相册..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1519
-#, fuzzy
 msgid "Table _Wizard..."
-msgstr "表格向导..."
+msgstr "表格向导(_W)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1519
 msgid "Table Wizard..."
 msgstr "表格向导..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1521
-#, fuzzy
 msgid "_Table..."
-msgstr "表格..."
+msgstr "表格(_T)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1521
 msgid "Table..."
 msgstr "表格..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1523
-#, fuzzy
 msgid "Table _Row..."
-msgstr "表格行..."
+msgstr "表格行(_R)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1523
 msgid "Table Row..."
 msgstr "表格行..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1525
-#, fuzzy
 msgid "Table _Head..."
-msgstr "表格头..."
+msgstr "表头(_H)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1525
-#, fuzzy
 msgid "Table Head..."
-msgstr "表格头..."
+msgstr "表头..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1527
-#, fuzzy
 msgid "Table _Data..."
-msgstr "表格数据..."
+msgstr "表格数据(_D)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1527
 msgid "Table Data..."
@@ -1277,77 +1160,67 @@ msgstr "表格数据..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1529
 msgid "_CSS"
-msgstr ""
+msgstr "CSS(_C)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1530
-#, fuzzy
 msgid "_Create Style..."
-msgstr "创建样式表..."
+msgstr "创建样式表(_C)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1531
 msgid "Create stylesheet..."
 msgstr "创建样式表..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1533
-#, fuzzy
 msgid "S_pan..."
-msgstr "Span..."
+msgstr "Span(_p)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1533
 msgid "Span..."
 msgstr "Span..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1534
-#, fuzzy
 msgid "_Div..."
-msgstr "Div..."
+msgstr "Div(_D)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1534
 msgid "Div..."
 msgstr "Div..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1536
-#, fuzzy
 msgid "Style..."
-msgstr "样式(_S)..."
+msgstr "样式..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1538
-#, fuzzy
 msgid "_Link to Stylesheet..."
-msgstr "链接到样式表..."
+msgstr "链接到样式表(_L)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1539
-#, fuzzy
 msgid "Link to Stylesheet..."
 msgstr "链接到样式表..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1541
-#, fuzzy
 msgid "_Frame"
-msgstr "框架(_F)："
+msgstr "框架(_F)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1542
-#, fuzzy
 msgid "Frame _Wizard..."
-msgstr "框架向导..."
+msgstr "框架向导(_W)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1542
 msgid "Frame Wizard..."
 msgstr "框架向导..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1544
-#, fuzzy
 msgid "Frame_set..."
-msgstr "框架嵌套..."
+msgstr "框架集(_s)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1544
 msgid "Frameset..."
-msgstr "框架嵌套..."
+msgstr "框架集..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1546
-#, fuzzy
 msgid "_Frame..."
-msgstr "框架..."
+msgstr "框架(_F)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1546
 msgid "Frame..."
@@ -1355,89 +1228,79 @@ msgstr "框架..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1547
 msgid "F_orm"
-msgstr ""
+msgstr "表单(_o)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1548
-#, fuzzy
 msgid "F_orm..."
-msgstr "表单..."
+msgstr "表单(_o)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1548
 msgid "Form..."
 msgstr "表单..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1549
-#, fuzzy
 msgid "_Input..."
-msgstr "输入文字..."
+msgstr "输入(_I)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1550
-#, fuzzy
 msgid "Input Buttons..."
-msgstr "输入按钮..."
+msgstr "表单按钮..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1550
 msgid "Input Button..."
-msgstr "输入按钮..."
+msgstr "表单按钮..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1552
 msgid "Input Text..."
-msgstr "输入文字..."
+msgstr "文本框..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1554
-#, fuzzy
 msgid "Text_area..."
-msgstr "文本域..."
+msgstr "文本域(_a)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1554
 msgid "Textarea..."
 msgstr "文本域..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1556
-#, fuzzy
 msgid "_Select..."
-msgstr "选择..."
+msgstr "可选列表(_S)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1556
 msgid "Select..."
-msgstr "选择..."
+msgstr "可选列表..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1558
-#, fuzzy
 msgid "O_ption..."
-msgstr "选项..."
+msgstr "可选列表的选项(_O)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1558
 msgid "Option..."
-msgstr "选项..."
+msgstr "可选列表的选项..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1560
-#, fuzzy
 msgid "Option _Group..."
-msgstr "选项组..."
+msgstr "可选列表的选项组(_G)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1560
 msgid "Option group..."
-msgstr "选项组..."
+msgstr "可选列表的选项组..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1562
-#, fuzzy
 msgid "_Button..."
-msgstr "按钮..."
+msgstr "按钮(_B)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1562
 msgid "Button..."
 msgstr "按钮..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1564
-#, fuzzy
 msgid "_Edit tag under cursor..."
-msgstr "/对话(O)/编辑光标处的标签(_E)..."
+msgstr "编辑光标处的标签(_E)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1566
-#, fuzzy
 msgid "_Multi Thumbnail..."
-msgstr "多相册..."
+msgstr "多相册(_M)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1566
 msgid "Multi thumbnail..."
@@ -1449,7 +1312,7 @@ msgstr "框架"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1569 src/plugin_htmlbar/html.c:1724
 msgid "Frameset"
-msgstr "框架嵌套"
+msgstr "框架集"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1571
 msgid "Noframes"
@@ -1461,45 +1324,39 @@ msgstr "目标"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1575
 msgid "Input Hidden..."
-msgstr "隐藏输入..."
+msgstr "隐藏域..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1576
-#, fuzzy
 msgid "Input Radio button..."
-msgstr "输入单选钮..."
+msgstr "单选按钮..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1577
 msgid "Input Radio Button..."
-msgstr "输入单选钮..."
+msgstr "单选按钮..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1578
-#, fuzzy
 msgid "Input Check box..."
-msgstr "输入复选框..."
+msgstr "复选框..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1579
-#, fuzzy
 msgid "Input Check Box..."
-msgstr "输入复选框..."
+msgstr "复选框..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1591
-#, fuzzy
 msgid "_HTML Toolbar"
-msgstr "/查看(V)/查看主工具栏(_M)"
+msgstr "HTML 工具栏(_H)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1643
-#, fuzzy
 msgid " Standard "
-msgstr " 标准栏 "
+msgstr " 标准 "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1647
 msgid " Fonts "
 msgstr " 字体 "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1651
-#, fuzzy
 msgid " Formatting "
-msgstr "在光标后插入的字符串"
+msgstr " 文本格式化中 "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1655
 msgid " Tables "
@@ -1532,31 +1389,31 @@ msgstr "  时间(_T) (%i:%i:%i)"
 
 #: src/plugin_htmlbar/html.c:441
 msgid "  Day of the _week (Sunday)"
-msgstr "  星期几(_W) (星期日)"
+msgstr "  星期几(_w) (星期日)"
 
 #: src/plugin_htmlbar/html.c:444
 msgid "  Day of the _week (Monday)"
-msgstr "  星期几(_W) (星期一)"
+msgstr "  星期几(_w) (星期一)"
 
 #: src/plugin_htmlbar/html.c:447
 msgid "  Day of the _week (Tuesday)"
-msgstr "  星期几(_W) (星期二)"
+msgstr "  星期几(_w) (星期二)"
 
 #: src/plugin_htmlbar/html.c:450
 msgid "  Day of the _week (Wednesday)"
-msgstr "  星期几(_W) (星期三)"
+msgstr "  星期几(_w) (星期三)"
 
 #: src/plugin_htmlbar/html.c:453
 msgid "  Day of the _week (Thursday)"
-msgstr "  星期几(_W) (星期四)"
+msgstr "  星期几(_w) (星期四)"
 
 #: src/plugin_htmlbar/html.c:456
 msgid "  Day of the _week (Friday)"
-msgstr "  星期几(_W) (星期五)"
+msgstr "  星期几(_w) (星期五)"
 
 #: src/plugin_htmlbar/html.c:459
 msgid "  Day of the _week (Saturday)"
-msgstr "  星期几(_W) (星期六)"
+msgstr "  星期几(_w) (星期六)"
 
 #: src/plugin_htmlbar/html.c:462
 msgid "You appear to have a non existant day!\n"
@@ -1573,17 +1430,17 @@ msgid "  _Unix Time (%i)"
 msgstr "  _Unix 时间 (%i)"
 
 #: src/plugin_htmlbar/html.c:478
-#, fuzzy, c-format
+#, c-format
 msgid "  Unix Date _String (%s)"
-msgstr "  Unix 日期字符串(_S) (%s"
+msgstr "  Unix 日期字符串(_S) (%s)"
 
 #: src/plugin_htmlbar/html.c:486
 msgid "  ISO-8601 Ti_me "
-msgstr ""
+msgstr "  ISO-8601 时间(_m) "
 
 #: src/plugin_htmlbar/html.c:660
 msgid "Quick Anchor"
-msgstr "锚点"
+msgstr "快速锚点"
 
 #: src/plugin_htmlbar/html.c:666 src/plugin_htmlbar/html_form.c:520
 msgid "Attributes"
@@ -1591,7 +1448,7 @@ msgstr "属性"
 
 #: src/plugin_htmlbar/html.c:680 src/plugin_htmlbar/html.c:2076
 msgid "_HREF:"
-msgstr "_HREF："
+msgstr "被链接文档的位置(_H)："
 
 #: src/plugin_htmlbar/html.c:686 src/plugin_htmlbar/html_form.c:200
 msgid "_Target:"
@@ -1606,9 +1463,8 @@ msgid "_Name:"
 msgstr "名称(_N)："
 
 #: src/plugin_htmlbar/html.c:693 src/plugin_htmlbar/quickstart.c:555
-#, fuzzy
 msgid "Titl_e:"
-msgstr "标题(_T)："
+msgstr "标题(_e)："
 
 #: src/plugin_htmlbar/html.c:698 src/plugin_htmlbar/html.c:1213
 #: src/plugin_htmlbar/html.c:1362 src/plugin_htmlbar/html.c:1988
@@ -1625,7 +1481,7 @@ msgstr "语言(_L)："
 #: src/plugin_htmlbar/html_table.c:383 src/plugin_htmlbar/image.c:509
 #: src/plugin_htmlbar/image_dialog.c:382
 msgid "Custo_m:"
-msgstr "自定义(_M)："
+msgstr "自定义(_m)："
 
 #: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:1220
 #: src/plugin_htmlbar/html_form.c:568
@@ -1634,15 +1490,15 @@ msgstr "事件"
 
 #: src/plugin_htmlbar/html.c:706
 msgid "OnClic_k:"
-msgstr "单击(_K)："
+msgstr "单击(_k)："
 
 #: src/plugin_htmlbar/html.c:709
 msgid "OnD_blClick:"
-msgstr "双击(_B)："
+msgstr "双击(_b)："
 
 #: src/plugin_htmlbar/html.c:712
 msgid "OnMouseO_ver:"
-msgstr "鼠标经过(_V)："
+msgstr "鼠标经过(_v)："
 
 #: src/plugin_htmlbar/html.c:715
 msgid "OnMouse_Down:"
@@ -1654,15 +1510,15 @@ msgstr "鼠标移动(_M)："
 
 #: src/plugin_htmlbar/html.c:721
 msgid "OnMouseOu_t:"
-msgstr "鼠标移出(_T)："
+msgstr "鼠标移出(_t)："
 
 #: src/plugin_htmlbar/html.c:724
 msgid "OnMouse_Up:"
-msgstr "鼠标放开(_U)："
+msgstr "鼠标按键弹起(_U)："
 
 #: src/plugin_htmlbar/html.c:727
 msgid "OnKeyDo_wn:"
-msgstr "键盘按下(_W)："
+msgstr "键盘按下(_w)："
 
 #: src/plugin_htmlbar/html.c:730
 msgid "OnKey_Press:"
@@ -1670,7 +1526,7 @@ msgstr "键盘击键(_P)："
 
 #: src/plugin_htmlbar/html.c:733
 msgid "OnKe_yUp:"
-msgstr "键盘放开(_Y)："
+msgstr "键盘按键弹起(_y)："
 
 #: src/plugin_htmlbar/html.c:879
 msgid "Div"
@@ -1707,20 +1563,20 @@ msgstr "标题 6"
 #: src/plugin_htmlbar/html.c:917 src/plugin_htmlbar/html_table.c:114
 #: src/plugin_htmlbar/html_table.c:228 src/plugin_htmlbar/html_table.c:356
 msgid "Ali_gn:"
-msgstr "对齐(_G)："
+msgstr "对齐(_g)："
 
 #: src/plugin_htmlbar/html.c:921 src/plugin_htmlbar/html.c:1207
 #: src/plugin_htmlbar/html_diag.c:445 src/plugin_htmlbar/html_table.c:98
 #: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
 #: src/plugin_htmlbar/image_dialog.c:368
 msgid "Cl_ass:"
-msgstr "Cl_ass："
+msgstr "类："
 
 #: src/plugin_htmlbar/html.c:925 src/plugin_htmlbar/html.c:1200
 #: src/plugin_htmlbar/html_diag.c:459 src/plugin_htmlbar/html_table.c:102
 #: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:378
 msgid "St_yle:"
-msgstr "样式(_Y)："
+msgstr "样式(_y)："
 
 #: src/plugin_htmlbar/html.c:934 src/plugin_htmlbar/html.c:1210
 #: src/plugin_htmlbar/html_diag.c:453
@@ -1750,11 +1606,11 @@ msgstr "宽度(_W)："
 
 #: src/plugin_htmlbar/html.c:1097
 msgid "Is _percent"
-msgstr "百分比(_P)"
+msgstr "百分比(_p)"
 
 #: src/plugin_htmlbar/html.c:1102
 msgid "No _shading"
-msgstr "无阴影(_S)"
+msgstr "无阴影(_s)"
 
 #: src/plugin_htmlbar/html.c:1185
 msgid "Body"
@@ -1765,14 +1621,12 @@ msgid "Options"
 msgstr "选项"
 
 #: src/plugin_htmlbar/html.c:1226
-#, fuzzy
 msgid "On _Load:"
-msgstr "载入时(_L)："
+msgstr "在装载时(_L)："
 
 #: src/plugin_htmlbar/html.c:1230
-#, fuzzy
 msgid "On _Unload:"
-msgstr "卸载时(_U)："
+msgstr "在卸载时(_U)："
 
 #: src/plugin_htmlbar/html.c:1236
 msgid "Depreciated options"
@@ -1784,7 +1638,7 @@ msgstr "背景图像(_I)："
 
 #: src/plugin_htmlbar/html.c:1252
 msgid "Back_ground Color:"
-msgstr "背景颜色(_G)："
+msgstr "背景颜色(_g)："
 
 #: src/plugin_htmlbar/html.c:1259
 msgid "_Text Color:"
@@ -1796,11 +1650,11 @@ msgstr "链接颜色(_L)："
 
 #: src/plugin_htmlbar/html.c:1271
 msgid "_Visited Link Color:"
-msgstr "已访问链接颜色(_V)："
+msgstr "已访问的链接颜色(_V)："
 
 #: src/plugin_htmlbar/html.c:1278
 msgid "_Active Link Color:"
-msgstr "激活链接颜色(_A)："
+msgstr "激活的链接颜色(_A)："
 
 #: src/plugin_htmlbar/html.c:1335
 msgid "Meta"
@@ -1843,30 +1697,28 @@ msgid "Custom"
 msgstr "自定义"
 
 #: src/plugin_htmlbar/html.c:1575
-#, fuzzy
 msgid "E-mail"
 msgstr "电子邮件"
 
 #: src/plugin_htmlbar/html.c:1583
 msgid "_Mail to:"
-msgstr ""
+msgstr "收信人(_M):"
 
 #: src/plugin_htmlbar/html.c:1586
-#, fuzzy
 msgid "_Copy to:"
-msgstr "复制"
+msgstr "抄送(_C)："
 
 #: src/plugin_htmlbar/html.c:1589
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "密送(_d)："
 
 #: src/plugin_htmlbar/html.c:1592
 msgid "with _Subject:"
-msgstr ""
+msgstr "标题(_S)"
 
 #: src/plugin_htmlbar/html.c:1595
 msgid "with _Body:"
-msgstr ""
+msgstr "主体(_B)："
 
 #: src/plugin_htmlbar/html.c:1641
 msgid "Quick List"
@@ -1874,11 +1726,11 @@ msgstr "快速列表"
 
 #: src/plugin_htmlbar/html.c:1646 src/plugin_htmlbar/wizards.c:81
 msgid "Number of _rows:"
-msgstr "行数(_R)："
+msgstr "行数(_r)："
 
 #: src/plugin_htmlbar/html.c:1649
 msgid "Or_dered"
-msgstr "有序(_D)"
+msgstr "有序(_d)"
 
 #: src/plugin_htmlbar/html.c:1652
 msgid "_Unordered"
@@ -1890,7 +1742,7 @@ msgstr "样式："
 
 #: src/plugin_htmlbar/html.c:1730 src/plugin_htmlbar/html_form.c:259
 msgid "Co_ls:"
-msgstr "列(_L)："
+msgstr "列(_l)："
 
 #: src/plugin_htmlbar/html.c:1733 src/plugin_htmlbar/html_form.c:255
 msgid "_Rows:"
@@ -1915,7 +1767,7 @@ msgstr "边距高度(_H)："
 
 #: src/plugin_htmlbar/html.c:1849
 msgid "Scrollin_g:"
-msgstr "滚动条(_G)："
+msgstr "滚动条(_g)："
 
 #: src/plugin_htmlbar/html.c:1853
 msgid "_Frameborder:"
@@ -1931,7 +1783,7 @@ msgstr "嵌入"
 
 #: src/plugin_htmlbar/html.c:1934 src/plugin_htmlbar/html_table.c:145
 msgid "Bo_rder:"
-msgstr "边框(_R)："
+msgstr "边框(_r)："
 
 #: src/plugin_htmlbar/html.c:1974
 msgid "Script"
@@ -1944,33 +1796,31 @@ msgstr "类型(_T)："
 
 #: src/plugin_htmlbar/html.c:2065
 msgid "Link"
-msgstr "颜色"
+msgstr "链接"
 
 #: src/plugin_htmlbar/html.c:2082
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF："
+msgstr "被链接文档中文本的语言:"
 
 #: src/plugin_htmlbar/html.c:2085
-#, fuzzy
 msgid "T_itle:"
 msgstr "标题(_T)："
 
 #: src/plugin_htmlbar/html.c:2130
 msgid "_Forward Relation:"
-msgstr "前进关系(_F)："
+msgstr "当前文档与被链接文档之间的关系(_F)："
 
 #: src/plugin_htmlbar/html.c:2135
 msgid "_Reverse Relation:"
-msgstr "后退关系(_R)："
+msgstr "被链接文档与当前文档之间的关系(_R)："
 
 #: src/plugin_htmlbar/html.c:2149
 msgid "Media:"
-msgstr "介质："
+msgstr "被链接文档将显示在什么设备上："
 
 #: src/plugin_htmlbar/html.c:2153
 msgid "L_ang:"
-msgstr "L_ang："
+msgstr "元素中内容的语言代码："
 
 #: src/plugin_htmlbar/html.c:2156
 msgid "_Custom:"
@@ -1978,15 +1828,15 @@ msgstr "自定义(_C)："
 
 #: src/plugin_htmlbar/html_form.c:174
 msgid "_Action:"
-msgstr "动作(_A)："
+msgstr "提交表单时向何处发送表单数据(_A)："
 
 #: src/plugin_htmlbar/html_form.c:184
 msgid "Metho_d:"
-msgstr "方法(_D)："
+msgstr "如何发送表单数据(_d)："
 
 #: src/plugin_htmlbar/html_form.c:193
 msgid "_Enctype:"
-msgstr "编码类型(_E)："
+msgstr "表单数据在前应该如何编码(_E)："
 
 #: src/plugin_htmlbar/html_form.c:245
 msgid "Text area"
@@ -1994,11 +1844,11 @@ msgstr "文本域"
 
 #: src/plugin_htmlbar/html_form.c:309
 msgid "Select"
-msgstr "选择"
+msgstr "可选列表"
 
 #: src/plugin_htmlbar/html_form.c:319 src/plugin_htmlbar/html_form.c:548
 msgid "Si_ze:"
-msgstr "大小(_Z)："
+msgstr "大小(_z)："
 
 #: src/plugin_htmlbar/html_form.c:323
 msgid "Multiple _Selections:"
@@ -2006,7 +1856,7 @@ msgstr "多选(_S)："
 
 #: src/plugin_htmlbar/html_form.c:369
 msgid "Option"
-msgstr "选项"
+msgstr "可选列表的选项"
 
 #: src/plugin_htmlbar/html_form.c:378 src/plugin_htmlbar/html_form.c:424
 msgid "_Label:"
@@ -2014,15 +1864,15 @@ msgstr "标签(_L)："
 
 #: src/plugin_htmlbar/html_form.c:382
 msgid "_Selected:"
-msgstr "已选(_S)："
+msgstr "选中(_S)："
 
 #: src/plugin_htmlbar/html_form.c:419
 msgid "Option group"
-msgstr "选项组"
+msgstr "可选列表的选项组"
 
 #: src/plugin_htmlbar/html_form.c:515
 msgid "Input"
-msgstr "输入"
+msgstr "输入域"
 
 #: src/plugin_htmlbar/html_form.c:543
 msgid "_Checked:"
@@ -2050,7 +1900,7 @@ msgstr "获得焦点时(_F)："
 
 #: src/plugin_htmlbar/html_form.c:574
 msgid "On_Blur:"
-msgstr "模糊时(_B)："
+msgstr "失去焦点时(_B)："
 
 #: src/plugin_htmlbar/html_form.c:577
 msgid "On_Select:"
@@ -2058,7 +1908,7 @@ msgstr "选中时(_S)："
 
 #: src/plugin_htmlbar/html_form.c:580
 msgid "On_Change:"
-msgstr "改变时(_C)："
+msgstr "内容改变时(_C)："
 
 #: src/plugin_htmlbar/html_form.c:626
 msgid "Button"
@@ -2066,11 +1916,11 @@ msgstr "按钮"
 
 #: src/plugin_htmlbar/html_table.c:90
 msgid "Cell _Padding:"
-msgstr "单元格留空(_P)："
+msgstr "单元格内边距(_P)："
 
 #: src/plugin_htmlbar/html_table.c:94
 msgid "C_ell Spacing:"
-msgstr "单元格间距(_E)："
+msgstr "单元格外间距(_e)："
 
 #: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
 #: src/plugin_htmlbar/html_table.c:370
@@ -2080,7 +1930,7 @@ msgstr "垂直对齐(_V)："
 #: src/plugin_htmlbar/html_table.c:133 src/plugin_htmlbar/html_table.c:251
 #: src/plugin_htmlbar/html_table.c:413
 msgid "Backgrou_nd Color:"
-msgstr "背景颜色(_N)："
+msgstr "背景色(_n)："
 
 #: src/plugin_htmlbar/html_table.c:159
 msgid "_Frame:"
@@ -2088,11 +1938,11 @@ msgstr "框架(_F)："
 
 #: src/plugin_htmlbar/html_table.c:170
 msgid "R_ules:"
-msgstr "横线(_U)："
+msgstr "水平线(_u)："
 
 #: src/plugin_htmlbar/html_table.c:386
 msgid "Co_l Span:"
-msgstr "列合并(_L)："
+msgstr "列合并(_l)："
 
 #: src/plugin_htmlbar/html_table.c:390
 msgid "_Row Span:"
@@ -2100,18 +1950,17 @@ msgstr "行合并(_R)："
 
 #: src/plugin_htmlbar/html_table.c:395
 msgid "No Wra_p:"
-msgstr "不换行(_P)："
+msgstr "不换行(_p)："
 
 #. TODO: use error info in gerror
 #: src/plugin_htmlbar/image.c:313
-#, fuzzy
 msgid "Loading image failed..."
-msgstr "正在载入文件..."
+msgstr "读取图像失败..."
 
 #: src/plugin_htmlbar/image.c:396
-#, fuzzy, c-format
+#, c-format
 msgid "Loading file %s..."
-msgstr "正在载入文件..."
+msgstr "正在载入文件 %s ..."
 
 #: src/plugin_htmlbar/image.c:456
 msgid "Insert thumbnail"
@@ -2127,7 +1976,7 @@ msgstr "图像位置(_I)："
 
 #: src/plugin_htmlbar/image.c:495
 msgid "Hei_ght:"
-msgstr "高度(_G)："
+msgstr "高度(_g)："
 
 #: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:377
 msgid "_Usemap:"
@@ -2135,7 +1984,7 @@ msgstr "使用映射(_U)："
 
 #: src/plugin_htmlbar/image.c:506
 msgid "Alternate _text:"
-msgstr "替代文本(_T)："
+msgstr "替代文本(_t)："
 
 #: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:414
 msgid "_Hspace:"
@@ -2147,7 +1996,7 @@ msgstr "垂直距离(_V)："
 
 #: src/plugin_htmlbar/image.c:530
 msgid "Borde_r:"
-msgstr "边框(_R)："
+msgstr "边框(_r)："
 
 #: src/plugin_htmlbar/image.c:946
 msgid "Select files for thumbnail creation"
@@ -2175,15 +2024,15 @@ msgstr "根据比例"
 
 #: src/plugin_htmlbar/image.c:1029
 msgid "By width, keep aspect ratio"
-msgstr "根据宽度，保持高宽比"
+msgstr "根据宽度，保持纵横比"
 
 #: src/plugin_htmlbar/image.c:1032
 msgid "By height, keep aspect ratio"
-msgstr "根据高度，保持高宽比"
+msgstr "根据高度，保持纵横比"
 
 #: src/plugin_htmlbar/image.c:1035
 msgid "By width and height, ignore aspect ratio"
-msgstr "根据和宽度和高度，忽略高宽比"
+msgstr "根据宽度和高度，忽略纵横比"
 
 #: src/plugin_htmlbar/image.c:1061
 msgid ""
@@ -2192,39 +2041,34 @@ msgid ""
 "%x: thumbnail width  %y: thumbnail height\n"
 "%b: original size (bytes)"
 msgstr ""
-"%r: 原文件名  %t: 相册文件名\n"
-"%w: 原宽度  %h: 原高度\n"
-"%x: 相册宽度  %y: 相册高度\n"
-"%b: 原大小(字节)"
+"原文件名：%r  相册文件名：%t\n"
+"原宽度：%w  原高度：%h\n"
+"相册宽度：%x  相册高度：%y\n"
+"原大小(字节)：%b"
 
 #: src/plugin_htmlbar/image_dialog.c:345
-#, fuzzy
 msgid "_Reset Dimensions"
-msgstr "窗口大小"
+msgstr "重置尺寸(_R)"
 
 #: src/plugin_htmlbar/image_dialog.c:358
-#, fuzzy
 msgid "Alternate te_xt:"
-msgstr "替代文本(_T)："
+msgstr "替代文本(_x)："
 
 #: src/plugin_htmlbar/image_dialog.c:363
-#, fuzzy
 msgid "_Long description:"
-msgstr "描述(_D)："
+msgstr "冗长描述(_L)："
 
 #: src/plugin_htmlbar/image_dialog.c:372
-#, fuzzy
 msgid "I_D:"
-msgstr "_ID:"
+msgstr "I_D:"
 
 #: src/plugin_htmlbar/image_dialog.c:394
 msgid "_Use Transitional options"
-msgstr ""
+msgstr "使用过渡选项(_U)"
 
 #: src/plugin_htmlbar/image_dialog.c:410
-#, fuzzy
 msgid "_Border:"
-msgstr "边框(_R)："
+msgstr "边框(_B)："
 
 #: src/plugin_htmlbar/image_dialog.c:713
 #, c-format
@@ -2232,6 +2076,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"\n"
+"%s"
 
 #: src/plugin_htmlbar/image_dialog.c:718
 #, c-format
@@ -2239,6 +2085,8 @@ msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
+"\n"
+"%d x %d 像素"
 
 #: src/plugin_htmlbar/image_dialog.c:816
 msgid ""
@@ -2247,99 +2095,87 @@ msgid ""
 "\t<b>Loading preview...</b>\t\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"\t<b>预览读取中...</b>\t\n"
+"\n"
 
 #: src/plugin_htmlbar/image_dialog.c:918
-#, fuzzy
 msgid "Select Image"
-msgstr "选择文件"
+msgstr "选择图像"
 
 #: src/plugin_htmlbar/image_dialog.c:925
-#, fuzzy
 msgid "All images"
-msgstr "图像"
+msgstr "所有的图像"
 
 #: src/plugin_htmlbar/image_dialog.c:1136
 #: src/plugin_htmlbar/image_dialog.c:1237
-#, fuzzy
 msgid "Insert Image"
 msgstr "插入图像"
 
 #: src/plugin_htmlbar/quickstart.c:516
-#, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "<b>常规</b>"
+msgstr "<b>外部的样式表(_x)</b>"
 
 #: src/plugin_htmlbar/quickstart.c:527
-#, fuzzy
 msgid "Ty_pe:"
-msgstr "类型(_T)："
+msgstr "类型(_p)："
 
 #: src/plugin_htmlbar/quickstart.c:545
-#, fuzzy
 msgid "HRE_F:"
-msgstr "_HREF："
+msgstr "被链接文档的位置(_F):"
 
 #: src/plugin_htmlbar/quickstart.c:550
-#, fuzzy
 msgid "_Media:"
-msgstr "介质："
+msgstr "被链接文档将显示在什么设备上(_M)："
 
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
 #.
 #: src/plugin_htmlbar/quickstart.c:562
-#, fuzzy
 msgid "<b>Style Area</b>"
-msgstr "<b>常规</b>"
+msgstr "<b>样式区</b>"
 
 #: src/plugin_htmlbar/quickstart.c:566
-#, fuzzy
 msgid "Cre_ate empty style area"
-msgstr "创建空项目"
+msgstr "创建空样式区(_a)"
 
 #: src/plugin_htmlbar/quickstart.c:588
-#, fuzzy
 msgid "<b>Attributes</b>"
-msgstr "属性"
+msgstr "<b>属性</b>"
 
 #: src/plugin_htmlbar/quickstart.c:603
-#, fuzzy
 msgid "_Src:"
-msgstr "源代码(_S)："
+msgstr "源(_S)："
 
 #. TODO: add an option to place content in the script area
 #: src/plugin_htmlbar/quickstart.c:610
-#, fuzzy
 msgid "<b>Script Area</b>"
-msgstr "<b>常规</b>"
+msgstr "<b>脚本区</b>"
 
 #: src/plugin_htmlbar/quickstart.c:614
-#, fuzzy
 msgid "Cre_ate empty script area"
-msgstr "创建空项目"
+msgstr "创建空脚本区"
 
 #: src/plugin_htmlbar/quickstart.c:641
 msgid "Quick Start"
 msgstr "快速启动"
 
 #: src/plugin_htmlbar/quickstart.c:656
-#, fuzzy
 msgid "_DTD:"
-msgstr "使用 _DTD："
+msgstr "文档类型定义 DTD(_D):"
 
 #: src/plugin_htmlbar/quickstart.c:660 src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "标题(_T)："
 
 #: src/plugin_htmlbar/quickstart.c:683
-#, fuzzy
 msgid "_Head:"
-msgstr "_Href："
+msgstr "头部(_H):"
 
 #: src/plugin_htmlbar/quickstart.c:700
-#, fuzzy
 msgid "Open in _new document."
-msgstr "在文档中(_D)"
+msgstr "在新文档中打开(_n)。"
 
 #: src/plugin_htmlbar/wizards.c:73
 msgid "Table Wizard"
@@ -2347,11 +2183,11 @@ msgstr "表格向导"
 
 #: src/plugin_htmlbar/wizards.c:85
 msgid "Number of colu_mns:"
-msgstr "列数(_M)："
+msgstr "列数(_m)："
 
 #: src/plugin_htmlbar/wizards.c:89
 msgid "Table rows on one _line:"
-msgstr "表格同一行的代码在文本的同一行中(_L)："
+msgstr "表格的一行在文本的一行中(_l)："
 
 #: src/plugin_htmlbar/wizards.c:94
 msgid "_Indent table code:"
@@ -2363,7 +2199,7 @@ msgstr "框架向导"
 
 #: src/plugin_htmlbar/wizards.c:204
 msgid "Use _DTD:"
-msgstr "使用 _DTD："
+msgstr "使用文档类型定义 DTD(_D)："
 
 #: src/plugin_htmlbar/wizards.c:207
 msgid "Orientation:"
@@ -2396,3055 +2232,3 @@ msgstr "源代码："
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "大小："
-
-#~ msgid "/Tags/_Headings"
-#~ msgstr "/标签(T)/标题(_H)"
-
-#~ msgid "/Tags/Headings/H_1"
-#~ msgstr "/标签(T)/标题(H)/H_1"
-
-#~ msgid "/Tags/Headings/H_2"
-#~ msgstr "/标签(T)/标题(H)/H_2"
-
-#~ msgid "/Tags/Headings/H_3"
-#~ msgstr "/标签(T)/标题(H)/H_3"
-
-#~ msgid "/Tags/Headings/H_4"
-#~ msgstr "/标签(T)/标题(H)/H_4"
-
-#~ msgid "/Tags/Headings/H_5"
-#~ msgstr "/标签(T)/标题(H)/H_5"
-
-#~ msgid "/Tags/Headings/H_6"
-#~ msgstr "/标签(T)/标题(H)/H_6"
-
-#~ msgid "/Tags/Special/_Accent"
-#~ msgstr "/标签(T)/特殊(S)/音标(_A)"
-
-#~ msgid "/Tags/Special/Accent/_Uppercase"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(_U)"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/_A-I"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/_A-I"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/À"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Á"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Â"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Ã"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Æ"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Ä"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Å"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Ç"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/È"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/É"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/É"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/É"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Ì"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Í"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Î"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Ï"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/_J-Z"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ñ"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ò"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ó"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ô"
-
-#, fuzzy
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/OE"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Õ"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ö"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ø"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ù"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ú"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Û"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ü"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ý"
-
-#~ msgid "/Tags/Special/Accent/_Lowercase"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(_L)"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/_A-I"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/_A-I"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/à"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/á"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/â"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ã"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/å"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/æ"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ä"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ç"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/è"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/é"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ê"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ë"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ì"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/í"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/î"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ï"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/_J-Z"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/_J-Z"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ñ"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ò"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ó"
-
-#, fuzzy
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/æ"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ô"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/õ"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ö"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ø"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ù"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ú"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/û"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ü"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ý"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ÿ"
-
-#~ msgid "/Tags/Special/Accent/U_mlaut ¨"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/¨(_M)"
-
-#~ msgid "/Tags/Special/Accent/_Acute ´"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/´(_A)"
-
-#~ msgid "/Tags/Special/Accent/_Cedilla ¸"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/¸(_C)"
-
-#~ msgid "/Tags/Special/_Currency"
-#~ msgstr "/标签(T)/特殊(S)/货币(_C)"
-
-#~ msgid "/Tags/Special/Currency/_Cent sign ¢"
-#~ msgstr "/标签(T)/特殊(S)/货币(C)/¢(_C)"
-
-#~ msgid "/Tags/Special/Currency/C_urrency sign ¤"
-#~ msgstr "/标签(T)/特殊(S)/货币(C)/¤(_U)"
-
-#~ msgid "/Tags/Special/Currency/_Yen sign ¥"
-#~ msgstr "/标签(T)/特殊(S)/货币(C)/¥(_Y)"
-
-#, fuzzy
-#~ msgid "/Tags/Special/Currency/_Euro €"
-#~ msgstr "/标签(T)/特殊(S)/货币(C)/_Euro "
-
-#~ msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/¬(_N)"
-
-#~ msgid "/Tags/Special/Math-Science/_Division sign ÷"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/÷(_D)"
-
-#~ msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/±(_P)"
-
-#~ msgid "/Tags/Special/Math-Science/_Less-than sign <"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/<(_L)"
-
-#~ msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/>(_G)"
-
-#~ msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/上标 _1 ¹"
-
-#~ msgid "/Tags/Special/Math-Science/Superscript _2 ²"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/上标 _2 ²"
-
-#~ msgid "/Tags/Special/Math-Science/Superscript _3 ³"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/上标 _3 ³"
-
-#~ msgid "/Tags/Special/Math-Science/One _quarter ¼"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/¼(_Q)"
-
-#~ msgid "/Tags/Special/Math-Science/One _half ½"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/½(_H)"
-
-#~ msgid "/Tags/Special/Math-Science/_Three quarters ¾"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/¾(_T)"
-
-#~ msgid "/Tags/Special/Math-Science/Deg_ree sign °"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/°(_R)"
-
-#~ msgid "/Tags/Special/_Non Latin"
-#~ msgstr "/标签(T)/特殊(S)/非拉丁(_N)"
-
-#~ msgid "/Tags/Special/Non Latin/th_orn ÿ"
-#~ msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/ÿ(_O)"
-
-#~ msgid "/Tags/Special/Non Latin/Sharp _s ß"
-#~ msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/ß(_S)"
-
-#~ msgid "/Tags/Special/Non Latin/_Micro sign µ"
-#~ msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/µ(_M)"
-
-#~ msgid "/Tags/Special/_Other"
-#~ msgstr "/标签(T)/特殊(S)/其它(_O)"
-
-#~ msgid "/Tags/Special/Other/_Non-breaking space"
-#~ msgstr "/标签(T)/特殊(S)/其它(O)/不间断空格"
-
-#~ msgid "/Tags/Special/Other/_Broken bar ¦"
-#~ msgstr "/标签(T)/特殊(S)/其它(O)/¦(_B)"
-
-#, fuzzy
-#~ msgid "/Tags/Special/Other/Soft _hyphen -"
-#~ msgstr "/标签(T)/特殊(S)/其它(O)/-(_H)"
-
-#~ msgid "/Tags/Special/Other/Middle _dot ·"
-#~ msgstr "/标签(T)/特殊(S)/其它(O)/·(_D)"
-
-#~ msgid "/Tags/Format by layout/_Bold"
-#~ msgstr "/标签(T)/布局格式(F)/粗体(_B)"
-
-#~ msgid "/Tags/Format by layout/_Italic"
-#~ msgstr "/标签(T)/布局格式(F)/斜体(_I)"
-
-#~ msgid "/Tags/Format by layout/_Underline"
-#~ msgstr "/标签(T)/布局格式(F)/下划线(_U)"
-
-#~ msgid "/Tags/Format by layout/_Strikeout"
-#~ msgstr "/标签(T)/布局格式(F)/删除线(_S)"
-
-#~ msgid "/Tags/Format by layout/Sm_all"
-#~ msgstr "/标签(T)/布局格式(F)/斜体(_A)"
-
-#~ msgid "/Tags/Format by layout/Bi_g"
-#~ msgstr "/标签(T)/布局格式(_G)"
-
-#~ msgid "/Tags/Format by context/_Strong"
-#~ msgstr "/标签(T)/环境格式(O)/强壮(_S)"
-
-#~ msgid "/Tags/Format by context/_Emphasis"
-#~ msgstr "/标签(T)/环境格式(O)/强调(_E)"
-
-#~ msgid "/Tags/Format by context/_Define"
-#~ msgstr "/标签(T)/环境格式(O)/定义(_D)"
-
-#~ msgid "/Tags/Format by context/_Code"
-#~ msgstr "/标签(T)/环境格式(O)/代码(_C)"
-
-#~ msgid "/Tags/Format by context/Sa_mple"
-#~ msgstr "/标签(T)/环境格式(O)/例子(_M)"
-
-#~ msgid "/Tags/Format by context/_Keyboard"
-#~ msgstr "/标签(T)/环境格式(O)/键盘(_K)"
-
-#~ msgid "/Tags/Format by context/_Variable"
-#~ msgstr "/标签(T)/环境格式(O)/变量(_V)"
-
-#~ msgid "/Tags/Format by context/Ci_tation"
-#~ msgstr "/标签(T)/环境格式(O)/引用(_T)"
-
-#~ msgid "/Tags/Format by context/_Abbreviation"
-#~ msgstr "/标签(T)/环境格式(O)/缩写(_A)"
-
-#~ msgid "/Tags/Format by context/Ac_ronym"
-#~ msgstr "/标签(T)/环境格式(O)/字头(_R)"
-
-#, fuzzy
-#~ msgid "/Tags/Format by context/_Insert"
-#~ msgstr "/标签(T)/环境格式(O)/定义(_D)"
-
-#, fuzzy
-#~ msgid "/Tags/Format by context/De_lete"
-#~ msgstr "/标签(T)/环境格式(O)/定义(_D)"
-
-#~ msgid "/Tags/Format general/_Paragraph"
-#~ msgstr "/标签(T)/常规格式(G)/段落(_P)"
-
-#~ msgid "/Tags/Format general/_Break"
-#~ msgstr "/标签(T)/常规格式(G)/换行(_B)"
-
-#~ msgid "/Tags/Format general/Break clear _all"
-#~ msgstr "/标签(T)/常规格式(G)/换行回车(_A)"
-
-#~ msgid "/Tags/Format general/_Non-Breaking Space"
-#~ msgstr "/标签(T)/常规格式(G)/不间断空格(_N)"
-
-#~ msgid "/Tags/Format general/Font Si_ze +1"
-#~ msgstr "/标签(T)/常规格式(G)/字体尺寸 +1"
-
-#~ msgid "/Tags/Format general/Font _Size -1"
-#~ msgstr "/标签(T)/常规格式(G)/字体尺寸 -1"
-
-#~ msgid "/Tags/Format general/Preformatted _Text"
-#~ msgstr "/标签(T)/常规格式(G)/预格式化文本(_T)"
-
-#~ msgid "/Tags/Format general/Su_bscript"
-#~ msgstr "/标签(T)/常规格式(G)/下标(_B)"
-
-#~ msgid "/Tags/Format general/Su_perscript"
-#~ msgstr "/标签(T)/常规格式(G)/上标(_P)"
-
-#~ msgid "/Tags/Format general/_Center"
-#~ msgstr "/标签(T)/常规格式(G)/居中(_C)"
-
-#~ msgid "/Tags/Format general/Align _right"
-#~ msgstr "/标签(T)/常规格式(G)/右对齐(_R)"
-
-#~ msgid "/Tags/_Table"
-#~ msgstr "/标签(T)/表格(_T)"
-
-#~ msgid "/Tags/Table/_Table"
-#~ msgstr "/标签(T)/表格(T)/表格(_T)"
-
-#~ msgid "/Tags/Table/Table _Row"
-#~ msgstr "/标签(T)/表格(T)/表格行(_R)"
-
-#~ msgid "/Tags/Table/Table _Header"
-#~ msgstr "/标签(T)/表格(T)/表格头(_H)"
-
-#~ msgid "/Tags/Table/Table _Data"
-#~ msgstr "/标签(T)/表格(T)/表格数据(_D)"
-
-#~ msgid "/Tags/Table/Table _Caption"
-#~ msgstr "/标签(T)/表格(T)/表格标题(_C)"
-
-#~ msgid "/Tags/_List"
-#~ msgstr "/标签(T)/列表(_L)"
-
-#~ msgid "/Tags/List/Unordered _List"
-#~ msgstr "/标签(T)/列表(L)/无序列表(_L)"
-
-#~ msgid "/Tags/List/_Ordered List"
-#~ msgstr "/标签(T)/列表(L)/有序列表(_O)"
-
-#~ msgid "/Tags/List/List Ite_m"
-#~ msgstr "/标签(T)/列表(L)/列表项(_M)"
-
-#~ msgid "/Tags/List/De_finition List"
-#~ msgstr "/标签(T)/列表(L)/定义列表(_F)"
-
-#~ msgid "/Tags/List/Definition _Term"
-#~ msgstr "/标签(T)/列表(L)/定义术语(_T)"
-
-#~ msgid "/Tags/List/_Definition"
-#~ msgstr "/标签(T)/列表(L)/定义(_D)"
-
-#~ msgid "/Tags/List/Men_u"
-#~ msgstr "/标签(T)/列表(L)/菜单(_U)"
-
-#~ msgid "/Tags/Form/_Form"
-#~ msgstr "/标签(T)/表单(R)/表单(_F)"
-
-#~ msgid "/Tags/Form/_Button"
-#~ msgstr "/标签(T)/表单(R)/按钮(_B)"
-
-#~ msgid "/Tags/Form/_Input"
-#~ msgstr "/标签(T)/表单(R)/输入(_I)"
-
-#~ msgid "/Tags/Form/_Textarea"
-#~ msgstr "/标签(T)/表单(R)/文本框(_T)"
-
-#~ msgid "/Tags/_Misc"
-#~ msgstr "/标签(T)/其他(_M)"
-
-#~ msgid "/Tags/Misc/_Span"
-#~ msgstr "/标签(T)/其他(M)/_Span"
-
-#~ msgid "/Tags/Misc/_Div"
-#~ msgstr "/标签(T)/其他(M)/_Div"
-
-#~ msgid "/Tags/Misc/_Link"
-#~ msgstr "/标签(T)/其他(M)/链接(_L)"
-
-#~ msgid "/Tags/Misc/S_cript"
-#~ msgstr "/标签(T)/其他(M)/S_cript"
-
-#~ msgid "/Tags/Misc/_Anchor"
-#~ msgstr "/标签(T)/其他(M)/锚点(_A)"
-
-#~ msgid "/Tags/Misc/_Image"
-#~ msgstr "/标签(T)/其他(M)/图像(_I)"
-
-#~ msgid "/Tags/_Comment"
-#~ msgstr "/标签(T)/注释(_C)"
-
-#, fuzzy
-#~ msgid "/D_ialogs"
-#~ msgstr "/对话(_O)"
-
-#~ msgid "/Dialogs/_General"
-#~ msgstr "/对话(O)/常规(_G)"
-
-#~ msgid "/Dialogs/General/_Quickstart..."
-#~ msgstr "/对话(O)/常规(G)/快速启动(_Q)..."
-
-#, fuzzy
-#~ msgid "/Dialogs/General/_Link Header..."
-#~ msgstr "/对话(O)/常规(G)/_Meta..."
-
-#~ msgid "/Dialogs/General/_Body..."
-#~ msgstr "/对话(O)/常规(G)/主体(_B)..."
-
-#~ msgid "/Dialogs/General/_Anchor..."
-#~ msgstr "/对话(O)/常规(G)/锚点(_A)..."
-
-#~ msgid "/Dialogs/General/_Email..."
-#~ msgstr "/对话(O)/常规(G)/电子邮件(_E)..."
-
-#~ msgid "/Dialogs/General/_Rule..."
-#~ msgstr "/对话(O)/常规(G)/横线(_R)..."
-
-#~ msgid "/Dialogs/General/_Font..."
-#~ msgstr "/对话(O)/常规(G)/字体(_F)..."
-
-#~ msgid "/Dialogs/General/Basef_ont..."
-#~ msgstr "/对话(O)/常规(G)/基础字体(_O).."
-
-#~ msgid "/Dialogs/General/Quick_list..."
-#~ msgstr "/对话(O)/常规(G)/快速列表(_L)..."
-
-#~ msgid "/Dialogs/General/_Meta..."
-#~ msgstr "/对话(O)/常规(G)/_Meta..."
-
-#~ msgid "/Dialogs/General/Embe_d..."
-#~ msgstr "/对话(O)/常规(G)/嵌入(_D)..."
-
-#~ msgid "/Dialogs/General/Select _Color..."
-#~ msgstr "/对话(O)/常规(G)/选择颜色(_C)..."
-
-#~ msgid "/Dialogs/General/Insert _Time..."
-#~ msgstr "/对话(O)/常规(G)/插入时间(_T)..."
-
-#~ msgid "/Dialogs/General/Insert _Image..."
-#~ msgstr "/对话(O)/常规(G)/插入图像(_I)..."
-
-#~ msgid "/Dialogs/General/Insert T_humbnail..."
-#~ msgstr "/对话(O)/常规(G)/插入相册(_H)..."
-
-#~ msgid "/Dialogs/_Table"
-#~ msgstr "/对话(O)/表格(_T)"
-
-#~ msgid "/Dialogs/Table/Table _Wizard..."
-#~ msgstr "/对话(O)/表格(T)/表格向导(_W)..."
-
-#~ msgid "/Dialogs/Table/_Table..."
-#~ msgstr "/对话(O)/表格(T)/表格(_T)..."
-
-#~ msgid "/Dialogs/Table/Table _Row..."
-#~ msgstr "/对话(O)/表格(T)/表格行(_R)..."
-
-#~ msgid "/Dialogs/Table/Table _Head..."
-#~ msgstr "/对话(O)/表格(T)/表格头(_H)..."
-
-#~ msgid "/Dialogs/Table/Table _Data..."
-#~ msgstr "/对话(O)/表格(T)/表格数据(_D)..."
-
-#~ msgid "/Dialogs/_CSS"
-#~ msgstr "/对话(O)/_CSS"
-
-#~ msgid "/Dialogs/CSS/_Create Style..."
-#~ msgstr "/对话(O)/CSS/创建样式表(_C)..."
-
-#~ msgid "/Dialogs/CSS/S_pan..."
-#~ msgstr "/对话(O)/CSS/S_pan..."
-
-#~ msgid "/Dialogs/CSS/_Div..."
-#~ msgstr "/对话(O)/CSS/_Div..."
-
-#~ msgid "/Dialogs/CSS/_Style..."
-#~ msgstr "/对话(O)/CSS/样式(_S)..."
-
-#~ msgid "/Dialogs/CSS/_Link to Stylesheet..."
-#~ msgstr "/对话(O)/CSS/链结到样式表(_L)..."
-
-#~ msgid "/Dialogs/_Frame"
-#~ msgstr "/对话(O)/框架(_F)"
-
-#~ msgid "/Dialogs/Frame/Frame _Wizard..."
-#~ msgstr "/对话(O)/框架(F)/框架向导(_W)..."
-
-#~ msgid "/Dialogs/Frame/Frame_set..."
-#~ msgstr "/对话(O)/框架(F)/框架集(_S)..."
-
-#~ msgid "/Dialogs/Frame/_Frame..."
-#~ msgstr "/对话(O)/框架(F)/框架(_F)..."
-
-#~ msgid "/Dialogs/F_orm"
-#~ msgstr "/对话(O)/表单(_O)"
-
-#~ msgid "/Dialogs/Form/F_orm..."
-#~ msgstr "/对话(O)/表单(O)/表单(_O)..."
-
-#~ msgid "/Dialogs/Form/_Input..."
-#~ msgstr "/对话(O)/表单(O)/输入(_I)..."
-
-#~ msgid "/Dialogs/Form/Input Buttons..."
-#~ msgstr "/对话(O)/表单(O)/输入按钮..."
-
-#~ msgid "/Dialogs/Form/Input Text..."
-#~ msgstr "/对话(O)/表单(O)/输入文本..."
-
-#~ msgid "/Dialogs/Form/Text_area..."
-#~ msgstr "/对话(O)/表单(O)/文本框(_A)..."
-
-#~ msgid "/Dialogs/Form/_Select..."
-#~ msgstr "/对话(O)/表单(O)/选择(_S)..."
-
-#~ msgid "/Dialogs/Form/O_ption..."
-#~ msgstr "/对话(O)/表单(O)/选项(_O)..."
-
-#~ msgid "/Dialogs/Form/Option _Group..."
-#~ msgstr "/对话(O)/表单(O)/选项组(_G)..."
-
-#~ msgid "/Dialogs/Form/_Button..."
-#~ msgstr "/对话(O)/表单(O)/按钮(_B)..."
-
-#~ msgid "Remove from quickbar"
-#~ msgstr "从快捷栏删除"
-
-#~ msgid "Move Left"
-#~ msgstr "左移"
-
-#~ msgid "Move Right"
-#~ msgstr "右移"
-
-#~ msgid "Add to quickbar"
-#~ msgstr "添加到快捷栏"
-
-#~ msgid " Quick bar "
-#~ msgstr " 快捷栏 "
-
-#~ msgid "Context formatting"
-#~ msgstr "上下文格式化"
-
-#~ msgid "Insert image"
-#~ msgstr "插入图像"
-
-#, fuzzy
-#~ msgid "_Rel:"
-#~ msgstr "替换(_R)："
-
-#, fuzzy
-#~ msgid "T_ype:"
-#~ msgstr "类型(_T)："
-
-#, fuzzy
-#~ msgid "Clas_s:"
-#~ msgstr "Cl_ass："
-
-#, fuzzy
-#~ msgid "_Style:"
-#~ msgstr "样式："
-
-#, fuzzy
-#~ msgid "C_harset:"
-#~ msgstr "目标(_T)："
-
-#, fuzzy
-#~ msgid "_Dir:"
-#~ msgstr "_ID:"
-
-#, fuzzy
-#~ msgid "_Hreflang:"
-#~ msgstr "Href_lang："
-
-#, fuzzy
-#~ msgid "_Lang:"
-#~ msgstr "L_ang："
-
-#, fuzzy
-#~ msgid "_Accesskey:"
-#~ msgstr "接受(_A)："
-
-#, fuzzy
-#~ msgid "/Dialogs/_New html dialog..."
-#~ msgstr "/对话(O)/表单(O)/选项(_O)..."
-
-#, fuzzy
-#~ msgid "Transitional"
-#~ msgstr "翻译者"
-
-#~ msgid "/Tags/Tearoff1"
-#~ msgstr "/标签(T)/Tearoff1"
-
-#~ msgid "/Tags/Headings/Tearoff1"
-#~ msgstr "/标签(T)/标题(H)/Tearoff1"
-
-#~ msgid "/Tags/Special/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/separator"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/Separator"
-
-#~ msgid "/Tags/Special/Currency/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/货币(C)/tearoff1"
-
-#~ msgid "/Tags/Special/Math-Science/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/tearoff1"
-
-#~ msgid "/Tags/Special/Non Latin/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/tearoff1"
-
-#~ msgid "/Tags/Special/Other/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/其它(O)/tearoff1"
-
-#~ msgid "/Tags/Format by layout/tearoff1"
-#~ msgstr "/标签(T)/布局格式(F)/tearoff1"
-
-#~ msgid "/Tags/Format by context/tearoff1"
-#~ msgstr "/标签(T)/环境格式(O)/tearoff1"
-
-#~ msgid "/Tags/Format general/tearoff1"
-#~ msgstr "/标签(T)/常规格式(G)/tearoff1"
-
-#~ msgid "/Tags/Format general/<separator>"
-#~ msgstr "/标签(T)/常规格式(G)/<separator>"
-
-#~ msgid "/Tags/Table/tearoff1"
-#~ msgstr "/标签(T)/表格(T)/tearoff1"
-
-#~ msgid "/Tags/List/tearoff1"
-#~ msgstr "/标签(T)/列表(L)/tearoff1"
-
-#~ msgid "/Tags/Form/tearoff1"
-#~ msgstr "/标签(T)/表单(R)/tearoff1"
-
-#~ msgid "/Tags/Misc/tearoff1"
-#~ msgstr "/标签(T)/其他(M)/tearoff1"
-
-#~ msgid "/Dialogs/tearoff1"
-#~ msgstr "/对话(O)/tearoff1"
-
-#~ msgid "/Dialogs/General/tearoff1"
-#~ msgstr "/对话(O)/常规(G)/tearoff1"
-
-#~ msgid "/Dialogs/Table/tearoff1"
-#~ msgstr "/对话(O)/表格(T)/tearoff1"
-
-#~ msgid "/Dialogs/CSS/tearoff1"
-#~ msgstr "对话框/CSS/tearoff1"
-
-#~ msgid "/Dialogs/Frame/tearoff1"
-#~ msgstr "/对话(O)/框架(F)/tearoff1"
-
-#~ msgid "/Dialogs/Form/tearoff1"
-#~ msgstr "/对话(O)/表单(O)/tearoff1"
-
-#~ msgid "/Dialogs/sep1"
-#~ msgstr "/对话(O)/sep1"
-
-#~ msgid "_Email address:"
-#~ msgstr "电子邮件地址(_E)："
-
-#~ msgid "UrlEncoded _subject:"
-#~ msgstr "UrlEncoded 主题(_S)："
-
-#~ msgid "UrlEncoded _body:"
-#~ msgstr "主体内容(_B)："
-
-#~ msgid "_Href:"
-#~ msgstr "_Href："
-
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "_Href："
-
-#, fuzzy
-#~ msgid "/View/View _HTML Bar"
-#~ msgstr "/查看(V)/查看 _HTML 工具栏"
-
-#~ msgid ""
-#~ "Bluefish is an editor for experienced web designers and programmers. It "
-#~ "supports many programming and markup languages, but focuses on editing "
-#~ "dynamic and interactive websites. Bluefish is an open source development "
-#~ "project, released under the GPL license.\n"
-#~ "\n"
-#~ "For more information, visit the Bluefish Website at http://bluefish."
-#~ "openoffice.nl/\n"
-#~ "\n"
-#~ "This version of bluefish was compiled with the following options:\n"
-#~ msgstr ""
-#~ "Bluefish 是为有经验的网页设计者和网页编程者使用的编辑器。它支持许多编程和"
-#~ "标记语言，但主要专注于编辑动态交互网站。Bluefish 是一项开源开发项目，以 "
-#~ "GPL 协议发布。\n"
-#~ "\n"
-#~ "要获得更多信息，请浏览 Bluefish 的网站 http://bluefish.openoffice.nl/\n"
-#~ "\n"
-#~ "此版本的 Bluefish 以下列选项编译：\n"
-
-#~ msgid ""
-#~ "Project leader:\n"
-#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "Developers for this release:\n"
-#~ "  Olivier Sessink\n"
-#~ "   <olivier@bluefish.openoffice.nl>\n"
-#~ "  Jim Hayward\n"
-#~ "   <jimhayward@linuxexperience.net>\n"
-#~ "  Oskar Świda\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "  Eugene Morenko(More)\n"
-#~ "   <more@irpin.com>\n"
-#~ "  Alastair Porter\n"
-#~ "   <alastair@linuxexperience.com>\n"
-#~ "\n"
-#~ "Developers for previous releases:\n"
-#~ "  Chris Mazuc\n"
-#~ "  Neil Millar\n"
-#~ "  Gero Takke\n"
-#~ "  Bo Forslund\n"
-#~ "  David Arno\n"
-#~ "  Pablo De Napoli\n"
-#~ "  Santiago Capel Torres\n"
-#~ "  Rasmus Toftdahl Olesen\n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "  Roland Steinbach\n"
-#~ "   <roland@netzblick.de>\n"
-#~ "  Christian Tellefsen\n"
-#~ "   <chris@tellefsen.net>\n"
-#~ "  Antti-Juhani Kaijanaho\n"
-#~ "\n"
-#~ "Documentation:\n"
-#~ "  Scott White\n"
-#~ "   <wwsw3@earthlink.net>\n"
-#~ "  Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "  Anita Lewis\n"
-#~ "   <ajreiki@highstream.net>\n"
-#~ "  Alastair Porter\n"
-#~ "   <alastair@linuxexperience.com>\n"
-#~ "  Daniel Blair\n"
-#~ "   <joecamel@realcoders.org>\n"
-#~ "  Olivier Sessink\n"
-#~ "   <olivier@bluefish.openoffice.nl>\n"
-#~ "  Denny Reeh\n"
-#~ "\n"
-#~ "Package Maintainers:\n"
-#~ "  Debian:   Davide Puricelli\n"
-#~ "   <evo@debian.org>\n"
-#~ "  Redhat:   Matthias Haase\n"
-#~ "   <matthias_haase@bennewitz.com>\n"
-#~ "  Mandrake: Todd Lyons\n"
-#~ "   <todd@mrball.net>\n"
-#~ "  Fink: Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "\n"
-#~ "If you know of anyone missing from this list, please let us know\n"
-#~ "<bluefish@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "Thanks to all who helped making this software available.\n"
-#~ msgstr ""
-#~ "项目领导人：\n"
-#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "此版本的开发者：\n"
-#~ "  Jim Hayward <jimhayward@linuxexperience.com>\n"
-#~ "  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
-#~ "  Christian Tellefsen <christian@tellefsen.net>\n"
-#~ "  Eugene Morenko(More) <more@irpin.com>\n"
-#~ "\n"
-#~ "先前版本的开发者：\n"
-#~ "  Chris Mazuc\n"
-#~ "  Neil Millar\n"
-#~ "  Gero Takke\n"
-#~ "  Bo Forslund\n"
-#~ "  David Arno\n"
-#~ "  Pablo De Napoli\n"
-#~ "  Santiago Capel Torres\n"
-#~ "  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
-#~ "  Roland Steinbach <roland@netzblick.de>\n"
-#~ "  Christian Tellefsen <chris@tellefsen.net>\n"
-#~ "  Antti-Juhani Kaijanaho\n"
-#~ "\n"
-#~ "文档：\n"
-#~ "  Alastair Porter <alastair@linuxexperience.com>\n"
-#~ "  Daniel Blair <joecamel@realcoders.org>\n"
-#~ "  Denny Reeh\n"
-#~ "\n"
-#~ "软件包维护者：\n"
-#~ "  Debian：  Davide Puricelli <evo@debian.org>\n"
-#~ "  Redhat：  Matthias Haase <matthias_haase@bennewitz.com>\n"
-#~ "  Mandrake：Todd Lyons <todd@mrball.net>\n"
-#~ "\n"
-#~ "如果你知道有谁从这个列表中遗漏了,请与我们联系\n"
-#~ "<bluefish@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "感谢所有给予本软件帮助的人..\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Current translators:\n"
-#~ "\n"
-#~ "  Brazilian Portuguese: Anderson Rocha\n"
-#~ "   <anderson@maxlinux.com.br>\n"
-#~ "\n"
-#~ "  Bulgarian: Peio Popov\n"
-#~ "   <peio@peio.org>\n"
-#~ "\n"
-#~ "  Chinese: Ting Yang (Dormouse)\n"
-#~ "   <mouselinux@163.com>\n"
-#~ "\n"
-#~ "  Chinese, Traditional: OLS3\n"
-#~ "   <ols3@lxer.idv.tw>\n"
-#~ "\n"
-#~ "  Danish: Rasmus Toftdahl Olesen\n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "\n"
-#~ "  Finnish: Juho Roukala\n"
-#~ "   <j.mr@luukku.com>\n"
-#~ "\n"
-#~ "  French: Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "\n"
-#~ "  German: Roland Steinbach\n"
-#~ "   <roland@netzblick.de>\n"
-#~ "\n"
-#~ "  Hungarian: Péter Sáska\n"
-#~ "   <sasek@ccsystem.hu>\n"
-#~ "\n"
-#~ "  Italian: Stefano Canepa\n"
-#~ "   <sc@linux.it>\n"
-#~ "\n"
-#~ "  Japanese: Takeshi Hamasaki\n"
-#~ "   <hma@syd.odn.ne.jp>\n"
-#~ "\n"
-#~ "  Norwegian: Christian Tellefsen\n"
-#~ "   <chris@tellefsen.net>\n"
-#~ "\n"
-#~ "  Polish: Oskar Swida\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "\n"
-#~ "  Portuguese: Lopo Pizarro\n"
-#~ "   <lopopizarro@netcabo.pt>\n"
-#~ "\n"
-#~ "  Russian: Eugene Rupakov\n"
-#~ "   <rupakov@jet.msk.su>\n"
-#~ "\n"
-#~ "  Serbian: Marko Milenović\n"
-#~ "   <raven@sbb.co.yu>\n"
-#~ "\n"
-#~ "  Spanish: Walter Oscar Echarri\n"
-#~ "   <wecharri@arnet.com.ar>\n"
-#~ "\n"
-#~ "  Swedish: David Smeringe\n"
-#~ "   <david.smeringe@telia.com>\n"
-#~ "\n"
-#~ "  Tamil: Murugapandian Barathee\n"
-#~ "   <barathee@yahoo.com>\n"
-#~ "\n"
-#~ "  Turkish: Oğuz Eren\n"
-#~ "   <ogzeren@gmail.com>\n"
-#~ "\n"
-#~ msgstr ""
-#~ "当前翻译者：\n"
-#~ "\n"
-#~ "  巴西葡萄牙语 - Anderson Rocha\n"
-#~ "   <anderson@maxlinux.com.br>\n"
-#~ "\n"
-#~ "  保加利亚语 - Peio Popov\n"
-#~ "   <peio@peio.org>\n"
-#~ "\n"
-#~ "  中文 - 杨(廷页) (Dormouse)\n"
-#~ "   <mouselinux@163.com>\n"
-#~ "\n"
-#~ "  丹麦语 - Rasmus Toftdahl Olesen\n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "\n"
-#~ "  芬兰语 - Juho Roukala\n"
-#~ "   <j.mr@luukku.com>\n"
-#~ "\n"
-#~ "  法语 - Roméo Viu-Berges\n"
-#~ "   <apostledemencia@free.fr>\n"
-#~ "\n"
-#~ "  德语 - Roland Steinbach\n"
-#~ "   <roland@netzblick.de>\n"
-#~ "\n"
-#~ "  匈牙利语 - Péter Sáska\n"
-#~ "   <sasek@ccsystem.hu>\n"
-#~ "\n"
-#~ "  意大利语 - Stefano Canepa\n"
-#~ "   <sc@linux.it>\n"
-#~ "\n"
-#~ "  挪威语 - Christian Tellefsen\n"
-#~ "   <chris@tellefsen.net>\n"
-#~ "\n"
-#~ "  波兰语 - Oskar Swida\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "\n"
-#~ "  葡萄牙语 - Lopo Pizarro\n"
-#~ "   <lopopizarro@netcabo.pt>\n"
-#~ "\n"
-#~ "  俄语 - Eugene Rupakov\n"
-#~ "   <rupakov@jet.msk.su>\n"
-#~ "\n"
-#~ "  塞尔维亚语 - Marko Milenović\n"
-#~ "   <raven@sbb.co.yu>\n"
-#~ "\n"
-#~ "  西班牙语 - Walter Oscar Echarri\n"
-#~ "   <wecharri@infovia.com.ar>\n"
-#~ "\n"
-#~ "  瑞典语 - David Smeringe\n"
-#~ "   <david.smeringe@telia.com>\n"
-#~ "\n"
-#~ "  泰米尔语 - Murugapandian Barathee\n"
-#~ "   <barathee@yahoo.com>\n"
-#~ "\n"
-
-#~ msgid "About Bluefish"
-#~ msgstr "关于 Bluefish"
-
-#~ msgid "Info"
-#~ msgstr "信息"
-
-#~ msgid "Authors"
-#~ msgstr "作者"
-
-#~ msgid "Authentication required"
-#~ msgstr "需要身份验证"
-
-#~ msgid "Authentication is required for %s."
-#~ msgstr "%s 需要身份验证"
-
-#~ msgid "Username:"
-#~ msgstr "用户名："
-
-#~ msgid "Password:"
-#~ msgstr "密码："
-
-#~ msgid ""
-#~ "Bluefish has trouble reading the filenames. Try to set the environment "
-#~ "variable G_BROKEN_FILENAMES=1\n"
-#~ msgstr ""
-#~ "Bluefish 读取文件名有问题。请试着设置环境变量 G_BROKEN_FILENAMES=1\n"
-
-#~ msgid "Check Spelling"
-#~ msgstr "拼写检查"
-
-#~ msgid "Checking"
-#~ msgstr "检查中"
-
-#~ msgid "_Misspelled word:"
-#~ msgstr "拼错的单词(_M)："
-
-#~ msgid "Change _to:"
-#~ msgstr "更改为(_T)："
-
-#~ msgid "I_gnore"
-#~ msgstr "忽略(_G)"
-
-#~ msgid "_Replace"
-#~ msgstr "替换(_R)"
-
-#~ msgid "I_n selection"
-#~ msgstr "在选择中(_N)"
-
-#~ msgid "personal dictionary"
-#~ msgstr "个人字典"
-
-#~ msgid "session dictionary"
-#~ msgstr "会话字典"
-
-#~ msgid "Dictionary:"
-#~ msgstr "字典:"
-
-#~ msgid "_Add"
-#~ msgstr "添加(_A)"
-
-#~ msgid "Language:"
-#~ msgstr "语言："
-
-#~ msgid "Set defa_ult"
-#~ msgstr "设为默认的(_U)"
-
-#~ msgid "Filter:"
-#~ msgstr "过滤器："
-
-#~ msgid "no filter"
-#~ msgstr "不过滤"
-
-#~ msgid "html filter"
-#~ msgstr "html 过滤器"
-
-#~ msgid ""
-#~ "\n"
-#~ "Usage: %s [options] [filenames ...]\n"
-#~ msgstr ""
-#~ "\n"
-#~ "用法: %s [选项] [文件名 ...]\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Currently accepted options are:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "当前可接受的选项为:\n"
-
-#~ msgid "-s           skip root check\n"
-#~ msgstr "-s           跳过 root 检查\n"
-
-#~ msgid "-v           current version\n"
-#~ msgstr "-v           当前版本\n"
-
-#~ msgid "-n           open new window\n"
-#~ msgstr "-n           打开新窗口\n"
-
-#~ msgid "-p filename  open project\n"
-#~ msgstr "-p 文件名    打开项目\n"
-
-#~ msgid "-h           this help screen\n"
-#~ msgstr "-h           当前帮助\n"
-
-#~ msgid "parsing highlighting file..."
-#~ msgstr "分析语法高亮文件..."
-
-#~ msgid "compiling highlighting patterns..."
-#~ msgstr "编译语法高亮参数..."
-
-#~ msgid "parsing custom menu file..."
-#~ msgstr "分析自定义菜单文件..."
-
-#~ msgid "creating main gui..."
-#~ msgstr "创建主界面..."
-
-#~ msgid "showing main gui..."
-#~ msgstr "显示主界面..."
-
-#~ msgid "Bluefish tip:"
-#~ msgstr "Bluefish 提示："
-
-#~ msgid ""
-#~ "This message is shown since you do not have any items in the Quickbar.\n"
-#~ "\n"
-#~ "If you right-click a button in the HTML toolbars you can add buttons to "
-#~ "the Quickbar."
-#~ msgstr ""
-#~ "如果您的快捷栏上没有东东就会显示这个信息.\n"
-#~ "\n"
-#~ "您可以用鼠标右键点击工具栏上的按钮来添加快捷栏上的按钮"
-
-#~ msgid "Temporary"
-#~ msgstr "临时"
-
-#~ msgid "Do you really want to delete all bookmarks for %s?"
-#~ msgstr "您真的想要删除 %s 的所有书签吗？"
-
-#~ msgid "Delete bookmarks?"
-#~ msgstr "删除书签。"
-
-#~ msgid "Do you really want to delete %s?"
-#~ msgstr "您真的想要删除 %s 吗？"
-
-#~ msgid "Delete permanent bookmark."
-#~ msgstr "删除永久书签。"
-
-#~ msgid "Edit bookmark"
-#~ msgstr "编辑书签"
-
-#~ msgid "Goto bookmark"
-#~ msgstr "转到书签"
-
-#~ msgid "Edit"
-#~ msgstr "编辑"
-
-#~ msgid "Delete all in document"
-#~ msgstr "在文档中删除全部"
-
-#~ msgid "Delete all"
-#~ msgstr " 删除全部 "
-
-#, fuzzy
-#~ msgid "Error adding bookmark"
-#~ msgstr "编辑书签"
-
-#, fuzzy
-#~ msgid "Cannot add bookmarks to unsaved files."
-#~ msgstr "无法在未命名的文件中添加书签。"
-
-#, fuzzy
-#~ msgid "Can't add bookmark"
-#~ msgstr "添加书签"
-
-#~ msgid "You already have a bookmark here!"
-#~ msgstr "在当前位置已经有书签了！"
-
-#~ msgid "Delete all bookmarks."
-#~ msgstr "删除所有书签。"
-
-#~ msgid "File size changed in file\n"
-#~ msgstr "文件大小已改变\n"
-
-#~ msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
-#~ msgstr "书签位置可能不正确。要删除书签吗?"
-
-#~ msgid "/Document/Highlight Syntax"
-#~ msgstr "/文档(D)/语法高亮"
-
-#~ msgid "Name: "
-#~ msgstr "名称："
-
-#~ msgid ""
-#~ "\n"
-#~ "Type: "
-#~ msgstr ""
-#~ "\n"
-#~ "类型："
-
-#~ msgid ""
-#~ "\n"
-#~ "Encoding: "
-#~ msgstr ""
-#~ "\n"
-#~ "编码："
-
-#~ msgid ""
-#~ "\n"
-#~ "Size (on disk): "
-#~ msgstr ""
-#~ "\n"
-#~ "大小(磁盘上)："
-
-#~ msgid " bytes"
-#~ msgstr " 字节"
-
-#~ msgid ""
-#~ "\n"
-#~ "Permissions: "
-#~ msgstr ""
-#~ "\n"
-#~ "权限："
-
-#~ msgid ""
-#~ "\n"
-#~ "Last modified: "
-#~ msgstr ""
-#~ "\n"
-#~ "上次修改时间："
-
-#~ msgid "Untitled %d"
-#~ msgstr "无标题 %d"
-
-#, fuzzy
-#~ msgid " Ln: %d, Col: %d"
-#~ msgstr "行 %d，列 %d"
-
-#~ msgid "  %s, %s"
-#~ msgstr "  %s，%s"
-
-#~ msgid "Cannot display file, unknown characters found."
-#~ msgstr "无法显示文件，字符集未知。"
-
-#~ msgid "Replace"
-#~ msgstr "替换"
-
-#~ msgid "Find"
-#~ msgstr "查找"
-
-#~ msgid "Delete bookmark"
-#~ msgstr "删除书签。"
-
-#~ msgid "Add bookmark"
-#~ msgstr "添加书签"
-
-#~ msgid "_Abort save"
-#~ msgstr "中断保存(_A)"
-
-#~ msgid "_Continue save in UTF-8"
-#~ msgstr "继续以 UTF-8 保存(_C)"
-
-#~ msgid ""
-#~ "Failed to convert %s to character encoding %s. Encoding failed on "
-#~ "character '%s' at line %d column %d\n"
-#~ "\n"
-#~ "Continue saving in UTF-8 encoding?"
-#~ msgstr ""
-#~ "将 %s 转换为编码 %s 失败。转换失败的字符串'%s'在第%d行第%d列。\n"
-#~ "\n"
-#~ "以 UTF-8 编码继续保存吗？"
-
-#~ msgid "File encoding conversion failure"
-#~ msgstr "文件编码转换失败"
-
-#~ msgid "Previously: "
-#~ msgstr "前一个："
-
-#~ msgid "No filename"
-#~ msgstr "没有文件名"
-
-#~ msgid "Unable to open file"
-#~ msgstr "无法打开文件"
-
-#~ msgid "_Reload"
-#~ msgstr "重新载入(_R)"
-
-#~ msgid "_Ignore"
-#~ msgstr "忽略(_I)"
-
-#~ msgid ""
-#~ "Filename: %s\n"
-#~ "\n"
-#~ "New modification time is: %s\n"
-#~ "Old modification time is: %s"
-#~ msgstr ""
-#~ "文件名：%s\n"
-#~ "\n"
-#~ "新的修改时间：%s\n"
-#~ "旧的修改时间：%s"
-
-#~ msgid "File has been modified by another process\n"
-#~ msgstr "文件已经被另一个程序修改\n"
-
-#, fuzzy
-#~ msgid "_Close"
-#~ msgstr "关闭"
-
-#, fuzzy
-#~ msgid "File "
-#~ msgstr "文件 #"
-
-#~ msgid "Select file to insert"
-#~ msgstr "选择要插入的文件"
-
-#~ msgid "No file to insert"
-#~ msgstr "没有要插入的文件"
-
-#~ msgid "Statistics: %d lines, %d words, %d characters"
-#~ msgstr "统计：共 %d 行，%d 个单词，%d 个字符"
-
-#, fuzzy
-#~ msgid "New directory"
-#~ msgstr "/新建目录(_N)"
-
-#, fuzzy
-#~ msgid "New file"
-#~ msgstr "/新建文件(_F)"
-
-#~ msgid "Could not rename\n"
-#~ msgstr "无法重命名\n"
-
-#~ msgid "Are you sure you want to delete \"%s\" ?"
-#~ msgstr "您确定要删除\" %s \"吗?"
-
-#~ msgid "If you delete this file, it will be permanently lost."
-#~ msgstr "如果你删除这个文件,它将会被永久删除。"
-
-#~ msgid "Could not delete \n"
-#~ msgstr "无法删除 \n"
-
-#~ msgid "/_Open"
-#~ msgstr "/打开(_O)"
-
-#~ msgid "/Open _Advanced..."
-#~ msgstr "/高级打开(_A)..."
-
-#~ msgid "/Rena_me"
-#~ msgstr "/重命名(_M)"
-
-#~ msgid "/_Delete"
-#~ msgstr "/删除(_D)"
-
-#~ msgid "/New _File"
-#~ msgstr "/新建文件(_F)"
-
-#~ msgid "/_New Directory"
-#~ msgstr "/新建目录(_N)"
-
-#~ msgid "/_Refresh"
-#~ msgstr "/刷新(_R)"
-
-#, fuzzy
-#~ msgid "/Show Full _Tree"
-#~ msgstr "显示完整树"
-
-#~ msgid "/_Set as basedir"
-#~ msgstr "/设为基础目录(_S)"
-
-#, fuzzy
-#~ msgid "/Follow active document"
-#~ msgstr "/转到(G)/最后一篇文档(_A)"
-
-#, fuzzy
-#~ msgid "/Show hidden files"
-#~ msgstr "显示隐藏文件"
-
-#, fuzzy
-#~ msgid "/Show backup files"
-#~ msgstr "显示备份文件"
-
-#~ msgid "Filter"
-#~ msgstr "过滤器"
-
-#~ msgid "All files"
-#~ msgstr "所有文件"
-
-#~ msgid "Error creating path"
-#~ msgstr "创建目录失败"
-
-#~ msgid "File name"
-#~ msgstr "文件名"
-
-#~ msgid "Directory name"
-#~ msgstr "目录名"
-
-#~ msgid "Opening directory..."
-#~ msgstr "打开目录... "
-
-#~ msgid "Show hidden files"
-#~ msgstr "显示隐藏文件"
-
-#~ msgid "Show backup files"
-#~ msgstr "显示备份文件"
-
-#~ msgid "Show full tree"
-#~ msgstr "显示完整树"
-
-#~ msgid "Follow focus"
-#~ msgstr "跟随焦点"
-
-#~ msgid "_Skip"
-#~ msgstr "跳过(_S)"
-
-#~ msgid "_Overwrite"
-#~ msgstr "覆盖(_O)"
-
-#, fuzzy
-#~ msgid "%s already exists, overwrite?"
-#~ msgstr "文件 %s 存在且已打开，要覆盖吗？"
-
-#, fuzzy
-#~ msgid "Overwrite file?"
-#~ msgstr "覆盖(_O)"
-
-#~ msgid "Select basedir"
-#~ msgstr "选择基础目录"
-
-#~ msgid "Advanced open file selector"
-#~ msgstr "高级打开文件选择器"
-
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>常规</b>"
-
-#~ msgid "Base_dir:"
-#~ msgstr "基础目录(_D)："
-
-#~ msgid "_Browse..."
-#~ msgstr "浏览(_B)..."
-
-#, fuzzy
-#~ msgid "_Pattern:"
-#~ msgstr "模式(_T)："
-
-#~ msgid "_Recursive:"
-#~ msgstr "包括子目录(_R)："
-
-#~ msgid "<b>Contains</b>"
-#~ msgstr "<b>包含</b>"
-
-#~ msgid "Pa_ttern:"
-#~ msgstr "模式(_T)："
-
-#~ msgid "Is rege_x:"
-#~ msgstr "是正规表达式(_X)："
-
-#~ msgid "Select files"
-#~ msgstr "选择文件"
-
-#~ msgid "Open URL"
-#~ msgstr "打开 URL"
-
-#~ msgid "<b>Open URL</b>"
-#~ msgstr "<b>打开 URL</b>"
-
-#~ msgid "_Continue save"
-#~ msgstr "继续保存(_C)"
-
-#~ msgid ""
-#~ "A backupfile for %s could not be created. If you continue, this file will "
-#~ "be overwritten."
-#~ msgstr "%s 的备份文件无法创建。如果继续，此文件将被覆盖。"
-
-#~ msgid "File backup failure"
-#~ msgstr "文件备份失败"
-
-#, fuzzy
-#~ msgid ""
-#~ "Could not save file:\n"
-#~ "\""
-#~ msgstr ""
-#~ "无法写入文件：\n"
-#~ "\""
-
-#, fuzzy
-#~ msgid "File save failed!\n"
-#~ msgstr "文件保存中断。\n"
-
-#, fuzzy
-#~ msgid "File %s is modified on disk, overwrite?"
-#~ msgstr "文件 %s 存在且已打开，要覆盖吗？"
-
-#, fuzzy
-#~ msgid "Failed to check if %s is modified on disk"
-#~ msgstr "文件修改依据"
-
-#, fuzzy
-#~ msgid "File modified on disk"
-#~ msgstr "文件修改依据"
-
-# c-format
-#~ msgid "Move/rename %s to"
-#~ msgstr "移动/重命名文档为"
-
-# c-format
-#~ msgid "Save %s as"
-#~ msgstr "另存为..."
-
-#~ msgid "_Cancel"
-#~ msgstr "取消(_C)"
-
-#~ msgid "File %s exists and is opened, overwrite?"
-#~ msgstr "文件 %s 存在且已打开，要覆盖吗？"
-
-#~ msgid "The file you have selected is being edited in Bluefish."
-#~ msgstr "您选择的文件已经在 Bluefish 中编辑了。"
-
-#~ msgid "A file named \"%s\" already exists."
-#~ msgstr "名为“%s”的文件已存在。"
-
-#~ msgid "Do you want to replace the existing file?"
-#~ msgstr "您要替换已经存在的文件吗？"
-
-#, fuzzy
-#~ msgid ""
-#~ "File:\n"
-#~ "\""
-#~ msgstr "过滤器："
-
-#~ msgid "Do_n't save"
-#~ msgstr "不保存(_N)"
-
-#~ msgid "Save changes to \"%s\" before closing?."
-#~ msgstr "关闭前要保存 \"%s\" 吗?."
-
-#~ msgid "If you don't save your changes they will be lost."
-#~ msgstr "如果你不保存则所有的改动将消失."
-
-#~ msgid "Choose per _File"
-#~ msgstr "选择每个文件(_F)"
-
-#~ msgid "Close _All"
-#~ msgstr "全部关闭(_A)"
-
-#~ msgid "_Save All"
-#~ msgstr "全部保存(_S)"
-
-#~ msgid "Multiple open files have been changed."
-#~ msgstr "多个打开的文件已更改。"
-
-#, fuzzy
-#~ msgid "Cannot load reference file %s\n"
-#~ msgstr "重新扫描参考文件"
-
-#, fuzzy
-#~ msgid "Bad root element in reference file"
-#~ msgstr "重新扫描参考文件"
-
-#, fuzzy
-#~ msgid "Bad reference"
-#~ msgstr "编辑首选项"
-
-#, fuzzy
-#~ msgid "Loading reference"
-#~ msgstr "编辑首选项"
-
-#, fuzzy
-#~ msgid "Unloading reference"
-#~ msgstr "函数参考"
-
-#, fuzzy
-#~ msgid "Identifier"
-#~ msgstr "居中"
-
-#, fuzzy
-#~ msgid "Kind"
-#~ msgstr "查找"
-
-#~ msgid "Name"
-#~ msgstr "名称"
-
-#, fuzzy
-#~ msgid "Type"
-#~ msgstr "类型(_T)："
-
-#, fuzzy
-#~ msgid "Default value"
-#~ msgstr "默认基准路径"
-
-#, fuzzy
-#~ msgid "Input type"
-#~ msgstr "信息类型"
-
-#~ msgid "Description"
-#~ msgstr "描述"
-
-#, fuzzy
-#~ msgid "Values"
-#~ msgstr "值"
-
-#, fuzzy
-#~ msgid "Insert syntax"
-#~ msgstr "插入图像"
-
-#, fuzzy
-#~ msgid "Insert text"
-#~ msgstr "插入时间"
-
-#, fuzzy
-#~ msgid "Help"
-#~ msgstr "/帮助(_H)"
-
-#, fuzzy
-#~ msgid "Properties"
-#~ msgstr "属性"
-
-#, fuzzy
-#~ msgid "Add property"
-#~ msgstr "属性"
-
-#, fuzzy
-#~ msgid "Add definition ref"
-#~ msgstr "定义术语"
-
-#, fuzzy
-#~ msgid "Select font for reference view"
-#~ msgstr "重新扫描参考文件"
-
-#, fuzzy
-#~ msgid "Set reference colors"
-#~ msgstr "编辑首选项"
-
-#~ msgid "Attributes/Parameters"
-#~ msgstr "属性/参数"
-
-#~ msgid "Notes"
-#~ msgstr "笔记"
-
-#, fuzzy
-#~ msgid "Examples"
-#~ msgstr "示例"
-
-#, fuzzy
-#~ msgid "Links"
-#~ msgstr "颜色"
-
-#~ msgid "Error"
-#~ msgstr "错误"
-
-#, fuzzy
-#~ msgid ""
-#~ "Perhaps you didn't load a library, or you did not select a library to "
-#~ "search in."
-#~ msgstr "可能您没有装入参考文件，或没有选择一个要搜索的参考文件。"
-
-#, fuzzy
-#~ msgid "Element %s not found"
-#~ msgstr "找不到参考文件"
-
-#, fuzzy
-#~ msgid "Element search"
-#~ msgstr "搜索参考文件"
-
-#, fuzzy
-#~ msgid "New library"
-#~ msgstr "/新建目录(_N)"
-
-#, fuzzy
-#~ msgid "Library name"
-#~ msgstr "目录名"
-
-#, fuzzy
-#~ msgid "Delete library?"
-#~ msgstr "删除书签。"
-
-#, fuzzy
-#~ msgid "Reference not loaded."
-#~ msgstr "找不到参考文件"
-
-#, fuzzy
-#~ msgid "New note"
-#~ msgstr "新建项目"
-
-#, fuzzy
-#~ msgid "Title"
-#~ msgstr "标题(_T)："
-
-#, fuzzy
-#~ msgid "Text"
-#~ msgstr "文本域"
-
-#, fuzzy
-#~ msgid "New group"
-#~ msgstr "新建项目"
-
-#, fuzzy
-#~ msgid "New description def"
-#~ msgstr "描述"
-
-#, fuzzy
-#~ msgid "Description text"
-#~ msgstr "描述"
-
-#, fuzzy
-#~ msgid "New values def"
-#~ msgstr "新建 Bluefish 窗口"
-
-#, fuzzy
-#~ msgid "Definitions"
-#~ msgstr "定义"
-
-#, fuzzy
-#~ msgid "New property"
-#~ msgstr "新建项目"
-
-#, fuzzy
-#~ msgid "No name"
-#~ msgstr "没有文件名"
-
-#, fuzzy
-#~ msgid "Delete definition?"
-#~ msgstr "定义"
-
-#, fuzzy
-#~ msgid "Delete group"
-#~ msgstr " 删除 "
-
-#, fuzzy
-#~ msgid "Delete group?"
-#~ msgstr " 删除 "
-
-#, fuzzy
-#~ msgid "Do you really want to delete current entity?"
-#~ msgstr "您真的想要删除 %s 吗？"
-
-#~ msgid "Show info window"
-#~ msgstr "显示信息窗口"
-
-#~ msgid "Rescan reference files"
-#~ msgstr "重新扫描参考文件"
-
-#, fuzzy
-#~ msgid "Set view font"
-#~ msgstr "选择字体"
-
-#, fuzzy
-#~ msgid "Delete library"
-#~ msgstr "删除书签。"
-
-#, fuzzy
-#~ msgid "Note"
-#~ msgstr "笔记"
-
-#, fuzzy
-#~ msgid "Property definition"
-#~ msgstr "定义"
-
-#, fuzzy
-#~ msgid "Description definition"
-#~ msgstr "描述"
-
-#, fuzzy
-#~ msgid "Values definition"
-#~ msgstr "定义"
-
-#, fuzzy
-#~ msgid "Element"
-#~ msgstr "事件"
-
-#, fuzzy
-#~ msgid "Delete definition"
-#~ msgstr "定义"
-
-#, fuzzy
-#~ msgid "Delete entity"
-#~ msgstr "删除菜单项"
-
-#~ msgid "Close"
-#~ msgstr "关闭"
-
-#~ msgid "Left doubleclick action"
-#~ msgstr "左键双击动作"
-
-#~ msgid "Info type"
-#~ msgstr "信息类型"
-
-#~ msgid "Reference search"
-#~ msgstr "搜索参考文件"
-
-#~ msgid "Reference not found"
-#~ msgstr "找不到参考文件"
-
-#~ msgid ""
-#~ "Perhaps you didn't load a reference, or you did not select a reference to "
-#~ "search in."
-#~ msgstr "可能您没有装入参考文件，或没有选择一个要搜索的参考文件。"
-
-#~ msgid "Search"
-#~ msgstr "搜索"
-
-#~ msgid "%d of %d"
-#~ msgstr "%2$d 的 %1$d"
-
-#~ msgid "Show hidden"
-#~ msgstr "显示隐藏文件"
-
-#~ msgid "Filebrowser"
-#~ msgstr "文件浏览器"
-
-#~ msgid "Function reference"
-#~ msgstr "函数参考"
-
-#~ msgid "Bookmarks"
-#~ msgstr "书签"
-
-#~ msgid "New"
-#~ msgstr "新建"
-
-#~ msgid "Open..."
-#~ msgstr "打开.."
-
-#~ msgid "Save"
-#~ msgstr "保存"
-
-#~ msgid "Save As..."
-#~ msgstr "另存为..."
-
-#~ msgid "Cut"
-#~ msgstr "剪切"
-
-#~ msgid "Paste"
-#~ msgstr "粘贴"
-
-#~ msgid "Find..."
-#~ msgstr "查找..."
-
-#~ msgid "Replace..."
-#~ msgstr "替换..."
-
-#~ msgid "Undo"
-#~ msgstr "撤消"
-
-#~ msgid "Redo"
-#~ msgstr "重做"
-
-#~ msgid "Shift Left"
-#~ msgstr "左移"
-
-#~ msgid "Shift Right"
-#~ msgstr "右移"
-
-#~ msgid "Spellcheck..."
-#~ msgstr "拼写检查..."
-
-#~ msgid "View in browser"
-#~ msgstr "在浏览器中显示"
-
-#~ msgid "Preferences..."
-#~ msgstr "首选项..."
-
-#~ msgid "New Bluefish Window"
-#~ msgstr "新建 Bluefish 窗口"
-
-#~ msgid "Stand by..."
-#~ msgstr "请等待..."
-
-#~ msgid "Goto line"
-#~ msgstr "转到行"
-
-#~ msgid "_Line number:"
-#~ msgstr "行号(_L)："
-
-#~ msgid "From _selection"
-#~ msgstr "从选中内容(_S)"
-
-#~ msgid "Keep _dialog"
-#~ msgstr "保持对话框(_D)"
-
-#~ msgid "starting bluefish"
-#~ msgstr "开始 bluefish"
-
-#~ msgid "Syntax highlighting error for "
-#~ msgstr "语法高亮错误"
-
-#~ msgid "compiling pattern '%s': %s at offset %d"
-#~ msgstr "编译参数 '%s': %s 在偏移量 %d"
-
-#~ msgid "studying pattern '%s': %s"
-#~ msgstr "学习参数 '%s': %s"
-
-#~ msgid "compiling 2nd pattern '%s': %s at offset %d"
-#~ msgstr "第二编译参数 '%s': %s 在偏移量 %d"
-
-#~ msgid "studying 2nd pattern '%s': %s"
-#~ msgstr "第二学习参数 '%s': %s"
-
-#~ msgid "/_File"
-#~ msgstr "/文件(F)"
-
-#~ msgid "/File/tearoff1"
-#~ msgstr "/文件(F)/tearoff1"
-
-#~ msgid "/File/_New"
-#~ msgstr "/文件(F)/新建(_N)"
-
-#~ msgid "/File/New _Window"
-#~ msgstr "/文件(F)/新建窗口(_W)"
-
-#~ msgid "/File/_Open..."
-#~ msgstr "/文件(F)/打开(_O)..."
-
-#~ msgid "/File/Open _recent"
-#~ msgstr "/文件(F)/打开最近使用的文件(_R)"
-
-#~ msgid "/File/Open recent/tearoff1"
-#~ msgstr "/文件(F)/打开最近(R)/tearoff1"
-
-#~ msgid "/File/Open Ad_vanced..."
-#~ msgstr "/文件(F)/高级打开(_V)..."
-
-#~ msgid "/File/Open _URL..."
-#~ msgstr "/文件(F)/打开 _URL..."
-
-#~ msgid "/File/Open _from selection"
-#~ msgstr "/文件(F)/根据选择打开(_F)"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/文件(F)/sep1"
-
-#~ msgid "/File/_Save"
-#~ msgstr "/文件(F)/保存(_S)"
-
-#~ msgid "/File/Save _As..."
-#~ msgstr "/文件(F)/另存为(_A)..."
-
-#~ msgid "/File/Sav_e All"
-#~ msgstr "/文件(F)/全部保存(_E)"
-
-#~ msgid "/File/Rever_t to Saved"
-#~ msgstr "/文件(F)/恢复到已保存的文件(_T)"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/文件(F)/sep2"
-
-#~ msgid "/File/_Insert..."
-#~ msgstr "/文件(F)/插入(_I)..."
-
-#~ msgid "/File/Rena_me..."
-#~ msgstr "/文件(F)/重命名(_M)..."
-
-#~ msgid "/File/sep3"
-#~ msgstr "/文件(F)/sep3"
-
-#~ msgid "/File/_Close"
-#~ msgstr "/文件(F)/关闭(_C)"
-
-#~ msgid "/File/Close A_ll"
-#~ msgstr "/文件(F)/全部关闭(_L)"
-
-#~ msgid "/File/Close Win_dow"
-#~ msgstr "/文件(F)/关闭窗口(_D)"
-
-#~ msgid "/File/sep4"
-#~ msgstr "/文件(F)/sep4"
-
-#~ msgid "/File/_Quit"
-#~ msgstr "/文件(F)/退出(_Q)"
-
-#, fuzzy
-#~ msgid "/File/sep5"
-#~ msgstr "/文件(F)/sep1"
-
-#~ msgid "/_Edit"
-#~ msgstr "/编辑(_E)"
-
-#~ msgid "/Edit/Tearoff1"
-#~ msgstr "/编辑(E)/Tearoff1"
-
-#~ msgid "/Edit/_Undo"
-#~ msgstr "/编辑(E)/撤消(_U)"
-
-#~ msgid "/Edit/_Redo"
-#~ msgstr "/编辑(E)/重做(_R)"
-
-#~ msgid "/Edit/Undo All"
-#~ msgstr "/编辑(E)/撤消所有"
-
-#~ msgid "/Edit/Redo All"
-#~ msgstr "/编辑(E)/重做所有"
-
-#~ msgid "/Edit/sep1"
-#~ msgstr "/编辑(E)/sep1"
-
-#~ msgid "/Edit/Cu_t"
-#~ msgstr "/编辑(E)/剪切(_T)"
-
-#~ msgid "/Edit/_Copy"
-#~ msgstr "/编辑(E)/复制(_C)"
-
-#~ msgid "/Edit/_Paste"
-#~ msgstr "/编辑(E)/粘贴(_P)"
-
-#~ msgid "/Edit/sep2"
-#~ msgstr "/编辑(E)/sep2"
-
-#~ msgid "/Edit/Select _All"
-#~ msgstr "/编辑(E)/全选(_A)"
-
-#~ msgid "/Edit/sep3"
-#~ msgstr "/编辑(E)/sep3"
-
-#~ msgid "/Edit/_Find..."
-#~ msgstr "/编辑(E)/查找(_F)..."
-
-#~ msgid "/Edit/Find A_gain"
-#~ msgstr "/编辑(E)/查找下一个(_G)"
-
-#~ msgid "/Edit/Find from selection"
-#~ msgstr "/编辑(E)/在选择的文本中查找"
-
-#~ msgid "/Edit/R_eplace..."
-#~ msgstr "/编辑(E)/替换(_E)..."
-
-#~ msgid "/Edit/Replace Agai_n"
-#~ msgstr "/编辑(E)/替换下一个(_N)"
-
-#~ msgid "/Edit/Replace special"
-#~ msgstr "/编辑(E)/特殊替换"
-
-#~ msgid "/Tools/Tearoff1"
-#~ msgstr "/编辑(E)/特殊替换/Tearoff1"
-
-#~ msgid "/Tools/_ASCII to HTML Entities"
-#~ msgstr "/编辑(E)/特殊替换/替换 _ASCII 字符为 HTML 代码"
-
-#~ msgid "/Tools/_ISO8859 to HTML Entities"
-#~ msgstr "/编辑(E)/特殊替换/替换 _iso8859 字符为 HTML 代码"
-
-#~ msgid "/Tools/_Both Types to HTML Entities"
-#~ msgstr "/编辑(E)/特殊替换/以上两者都替换为 HTML 代码(_B)"
-
-#~ msgid "/Tools/To _Uppercase"
-#~ msgstr "/编辑(E)/特殊替换/转为大写(_U)"
-
-#~ msgid "/Tools/To _Lowercase"
-#~ msgstr "/编辑(E)/特殊替换/转为小写(_L)"
-
-#~ msgid "/Edit/sep4"
-#~ msgstr "/编辑(E)/sep4"
-
-#~ msgid "/Edit/S_hift Right"
-#~ msgstr "/编辑(E)/右移(_H)"
-
-#~ msgid "/Edit/Shift _Left"
-#~ msgstr "/编辑(E)/左移(_L)"
-
-#~ msgid "/Edit/sep5"
-#~ msgstr "/编辑(E)/sep5"
-
-#~ msgid "/Document/Add _Bookmark"
-#~ msgstr "/编辑(E)/添加书签(_B)"
-
-#~ msgid "/Edit/sep6"
-#~ msgstr "/编辑(E)/sep6"
-
-#~ msgid "/Edit/Save Sett_ings"
-#~ msgstr "/编辑(E)/保存设置(_I)"
-
-#~ msgid "/Edit/Save Shortcut _Keys"
-#~ msgstr "/编辑(E)/保存快捷键(_K)"
-
-#~ msgid "/Edit/Preference_s"
-#~ msgstr "/编辑(E)/首选项(_S)"
-
-#~ msgid "/_View"
-#~ msgstr "/查看(_V)"
-
-#~ msgid "/View/tearoff1"
-#~ msgstr "/查看(V)/tearoff1"
-
-#~ msgid "/View/View _Custom Menu"
-#~ msgstr "/查看(V)/查看自定义菜单(_C)"
-
-#~ msgid "/View/View _Sidebar"
-#~ msgstr "/查看(V)/查看主工具栏(_S)"
-
-#~ msgid "/_Document"
-#~ msgstr "/文档(_D)"
-
-#~ msgid "/Document/tearoff1"
-#~ msgstr "/文档(D)/tearoff1"
-
-#~ msgid "/Document/_Increase Tabsize"
-#~ msgstr "/文档(D)/增大 Tab 尺寸(_I)"
-
-#~ msgid "/Document/_Decrease Tabsize"
-#~ msgstr "/文档(D)/减小 Tab 尺寸(_D)"
-
-#~ msgid "/Document/_Auto Indent"
-#~ msgstr "/文档(D)/自动缩进(_A)"
-
-#~ msgid "/Document/sep1"
-#~ msgstr "/文档(D)/sep1"
-
-#~ msgid "/Document/Auto Close H_TML tags"
-#~ msgstr "/文档(D)/自动关闭 HTML 标签(_T)"
-
-#~ msgid "/Document/_Wrap"
-#~ msgstr "/文档(D)/自动换行(_W)"
-
-#~ msgid "/Document/_Line Numbers"
-#~ msgstr "/文档(D)/行号(_L)"
-
-#~ msgid "/Document/sep2"
-#~ msgstr "/文档(D)/sep2"
-
-#~ msgid "/Document/_Highlight Syntax"
-#~ msgstr "/文档(D)/语法高亮(_H)"
-
-#~ msgid "/Document/_Update Highlighting"
-#~ msgstr "/文档(D)/刷新语法高亮(_U)"
-
-#~ msgid "/Document/sep3"
-#~ msgstr "/文档(D)/sep3"
-
-#~ msgid "/Document/Document Ty_pe"
-#~ msgstr "/文档(D)/文档类型(_P)"
-
-#~ msgid "/Document/Document Type/tearoff1"
-#~ msgstr "/文档(D)/文档类型/tearoff1"
-
-#~ msgid "/Document/Character _Encoding"
-#~ msgstr "/文档(D)/字符编码(_E)"
-
-#~ msgid "/Document/Character Encoding/tearoff1"
-#~ msgstr "/文档(D)/字符编码/tearoff1"
-
-#~ msgid "/Document/sep4"
-#~ msgstr "/文档(D)/sep4"
-
-#~ msgid "/Document/Check _Spelling..."
-#~ msgstr "/文档(D)/拼写检查(_S)..."
-
-#~ msgid "/Document/_Floating window"
-#~ msgstr "/文档(D)/浮动窗口(_F)"
-
-#~ msgid "/Document/Word _Count"
-#~ msgstr "/文档(D)/字数统计(_C)"
-
-#, fuzzy
-#~ msgid "/Document/sep5"
-#~ msgstr "/文档(D)/sep1"
-
-#, fuzzy
-#~ msgid "/Document/Move left"
-#~ msgstr "/文档(D)/自动缩进(_A)"
-
-#, fuzzy
-#~ msgid "/Document/Move right"
-#~ msgstr "/文档(D)/sep1"
-
-#~ msgid "/_Go"
-#~ msgstr "/转到(_G)"
-
-#~ msgid "/Go/tearoff1"
-#~ msgstr "/转到(G)/tearoff1"
-
-#~ msgid "/Go/_Previous document"
-#~ msgstr "/转到(G)/前一篇文档(_P)"
-
-#~ msgid "/Go/_Next document"
-#~ msgstr "/转到(G)/下一篇文档(_N)"
-
-#~ msgid "/Go/sep1"
-#~ msgstr "/转到(G)/sep1"
-
-#~ msgid "/Go/_First document"
-#~ msgstr "/转到(G)/第一篇文档(_F)"
-
-#~ msgid "/Go/L_ast document"
-#~ msgstr "/转到(G)/最后一篇文档(_A)"
-
-#~ msgid "/Go/Goto _Line"
-#~ msgstr "/转到(G)/移动到行(_L)"
-
-#~ msgid "/Go/Goto _Selection"
-#~ msgstr "/转到(G)/移动到选择(_S)"
-
-#~ msgid "/_Project"
-#~ msgstr "/项目(_P)"
-
-#~ msgid "/Project/tearoff1"
-#~ msgstr "/项目(P)/tearoff1"
-
-#~ msgid "/Project/_New Project"
-#~ msgstr "/项目(P)/新建项目(_N)"
-
-#~ msgid "/Project/_Open Project..."
-#~ msgstr "/项目(P)/打开项目(_O)..."
-
-#~ msgid "/Project/Open _recent"
-#~ msgstr "/项目(P)/打开最近使用的项目(_R)"
-
-#~ msgid "/Project/Open recent/tearoff1"
-#~ msgstr "/项目(P)/打开最近使用的项目(E)/tearoff1"
-
-#~ msgid "/Project/sep1"
-#~ msgstr "/项目(P)/sep1"
-
-#~ msgid "/Project/_Save"
-#~ msgstr "/项目(P)/保存(_S)"
-
-#~ msgid "/Project/Save _as..."
-#~ msgstr "/项目(P)/另存为(_A)..."
-
-#~ msgid "/Project/Save & _close"
-#~ msgstr "/项目(P)/保存并关闭(_C)..."
-
-#~ msgid "/Project/sep2"
-#~ msgstr "/项目(P)/sep2"
-
-#~ msgid "/Project/E_dit Project Options..."
-#~ msgstr "/项目(P)/编辑项目选项(_D)..."
-
-#~ msgid "/E_xternal"
-#~ msgstr "/外部程序(_X)"
-
-#~ msgid "/External/tearoff1"
-#~ msgstr "/外部程序(X)/tearoff1"
-
-#~ msgid "/_Help"
-#~ msgstr "/帮助(_H)"
-
-#~ msgid "/Help/_About..."
-#~ msgstr "/帮助(H)/关于(_A)..."
-
-#~ msgid "/Document/Document Type"
-#~ msgstr "/文档(D)/文档类型"
-
-#~ msgid "/Project/Open recent"
-#~ msgstr "/项目(P)/打开最近使用的项目"
-
-#~ msgid "/File/Open recent"
-#~ msgstr "/文件(F)/打开最近使用的文件"
-
-#~ msgid "/Windows"
-#~ msgstr "/窗口"
-
-#, fuzzy
-#~ msgid "Could not view file in browser."
-#~ msgstr "找不到文件“%s”。"
-
-#~ msgid "/External/Outputbox/"
-#~ msgstr "/外部程序(X)/输出窗口/"
-
-#~ msgid "/External/Commands/"
-#~ msgstr "/外部程序(X)/命令/"
-
-#~ msgid "/External/Browsers/"
-#~ msgstr "/外部程序(X)/浏览器/"
-
-#~ msgid "/External"
-#~ msgstr "/外部程序(X)"
-
-#~ msgid "/External/Browsers"
-#~ msgstr "/外部程序(X)/浏览器"
-
-#~ msgid "/External/Commands"
-#~ msgstr "/外部程序(X)/命令"
-
-#~ msgid "/External/Outputbox"
-#~ msgstr "/外部程序(X)/输出窗口"
-
-#~ msgid "/Document/Character Encoding"
-#~ msgstr "/文档(D)/字符编码"
-
-#~ msgid "This custom search and replace requires a selection"
-#~ msgstr "自定义搜索和替换需要选择"
-
-#~ msgid "/_Custom menu"
-#~ msgstr "/自定义菜单(_C)"
-
-#~ msgid "/Custom menu/sep"
-#~ msgstr "/自定义菜单(C)/sep"
-
-#~ msgid "/Custom menu/Edit custom menu..."
-#~ msgstr "/自定义菜单(C)/编辑自定义菜单..."
-
-#~ msgid "/Custom menu/Reset"
-#~ msgstr "/自定义菜单(C)/重置"
-
-#~ msgid "/Custom menu/Load new"
-#~ msgstr "/自定义菜单(C)/载入新的"
-
-#~ msgid "Search Pattern"
-#~ msgstr "搜索模式"
-
-#~ msgid "Replace String"
-#~ msgstr "替换字符串"
-
-#~ msgid "Formatstring Before"
-#~ msgstr "在光标前插入的字符串"
-
-#~ msgid "The menupath you want to update does not exist yet"
-#~ msgstr "您要刷新的菜单路径不存在"
-
-#~ msgid "Try 'add' instead."
-#~ msgstr "试试换用“添加”。"
-
-#~ msgid "The menupath you want to add already exists."
-#~ msgstr "您要添加的菜单路径已存在."
-
-#~ msgid "The menupath should start with a / character"
-#~ msgstr "菜单路径要以 / 开头"
-
-#~ msgid "Custom Menu Editor"
-#~ msgstr "编辑自定义菜单"
-
-#~ msgid "Add New Menu Entry"
-#~ msgstr "添加新的菜单项"
-
-#~ msgid "Apply Changes"
-#~ msgstr "应用更改"
-
-#~ msgid "Delete Menu Entry"
-#~ msgstr "删除菜单项"
-
-#~ msgid "Close Discards Changes"
-#~ msgstr "不保存并关闭"
-
-#~ msgid "Save Changes and Exit"
-#~ msgstr "保存更改并退出"
-
-#~ msgid "_Menu Path:"
-#~ msgstr "菜单路径(_M)："
-
-#~ msgid "Number of _Variables:"
-#~ msgstr "变量数(_V)："
-
-#~ msgid "Variables"
-#~ msgstr "变量"
-
-#~ msgid "Custom Dialo_g"
-#~ msgstr "自定义对话框(_G)"
-
-#~ msgid "Custom Replace"
-#~ msgstr "自定义搜索和替换(_S)"
-
-#~ msgid "in current document"
-#~ msgstr "在当前文档"
-
-#~ msgid "from cursor"
-#~ msgstr "从光标开始"
-
-#~ msgid "in selection"
-#~ msgstr "在选中内容"
-
-#~ msgid "in all open documents"
-#~ msgstr "在所有打开的文档中"
-
-#~ msgid "Matc_hing:"
-#~ msgstr "匹配(_H)："
-
-#~ msgid "normal"
-#~ msgstr "普通"
-
-#~ msgid "posix regular expressions"
-#~ msgstr "posix 正规表达式"
-
-#~ msgid "perl regular expressions"
-#~ msgstr "perl 正规表达式"
-
-#~ msgid "Case Se_nsitive"
-#~ msgstr "区分大小写(_N)"
-
-#~ msgid "Untitled"
-#~ msgstr "无标题"
-
-#~ msgid "Select font"
-#~ msgstr "选择字体"
-
-#~ msgid "Label"
-#~ msgstr "标签"
-
-#~ msgid "Extensions"
-#~ msgstr "扩展名"
-
-#~ msgid "Update chars"
-#~ msgstr "更新字符"
-
-#~ msgid "Icon"
-#~ msgstr "图标"
-
-#~ msgid "Editable"
-#~ msgstr "可编辑"
-
-#~ msgid "Content regex"
-#~ msgstr "内容正规表达式"
-
-#~ msgid "Auto close tags mode"
-#~ msgstr "自动关闭标签模式"
-
-#~ msgid "Inverse filter"
-#~ msgstr "反转过滤"
-
-#~ msgid "Filetypes in filter"
-#~ msgstr "过滤文件类型"
-
-#~ msgid "filetype"
-#~ msgstr "文件类型"
-
-#~ msgid "Reset"
-#~ msgstr "重置"
-
-#~ msgid "Pattern name"
-#~ msgstr "模式名称"
-
-#~ msgid "Pattern"
-#~ msgstr "模式"
-
-#~ msgid "Start pattern and end pattern"
-#~ msgstr "开始模式和结束模式"
-
-#~ msgid "Only start pattern"
-#~ msgstr "只有开始模式"
-
-#~ msgid "Subpattern from parent"
-#~ msgstr "子模式"
-
-#~ msgid "Start pattern"
-#~ msgstr "开始模式"
-
-#~ msgid "End pattern"
-#~ msgstr "结束模式"
-
-#~ msgid "Case sensitive matching"
-#~ msgstr "区分大小写匹配"
-
-#~ msgid "Parentmatch"
-#~ msgstr "匹配父项"
-
-#~ msgid "Foreground color"
-#~ msgstr "前景颜色"
-
-#~ msgid "Background color"
-#~ msgstr "背景颜色"
-
-#~ msgid "don't change weight"
-#~ msgstr "不改变字的粗细"
-
-#~ msgid "force non-bold weight"
-#~ msgstr "使用非粗体"
-
-#~ msgid "force bold weight"
-#~ msgstr "使用粗体"
-
-#~ msgid "don't change style"
-#~ msgstr "不改变字的倾斜"
-
-#~ msgid "force non-italic style"
-#~ msgstr "使用非斜体"
-
-#~ msgid "force italic style"
-#~ msgstr "使用斜体"
-
-#~ msgid "Command"
-#~ msgstr "命令"
-
-# c-format
-#~ msgid ""
-#~ "%s for current filename (any command)\n"
-#~ "%i for input and %f for output filename (filters)"
-#~ msgstr ""
-#~ "%s = 当前文件名\n"
-#~ "%f = 输出文件名(用于过滤器)"
-
-#~ msgid "File #"
-#~ msgstr "文件 #"
-
-#~ msgid "Line #"
-#~ msgstr "行 #"
-
-#~ msgid "Output #"
-#~ msgstr "输出 #"
-
-#~ msgid "Show all output"
-#~ msgstr "显示所有输出"
-
-#~ msgid "left"
-#~ msgstr "左"
-
-#~ msgid "right"
-#~ msgstr "右"
-
-#~ msgid "top"
-#~ msgstr "上"
-
-#~ msgid "bottom"
-#~ msgstr "下"
-
-#~ msgid "no check"
-#~ msgstr "不检查"
-
-#~ msgid "check mtime and size"
-#~ msgstr "检查时间和尺寸"
-
-#~ msgid "check mtime"
-#~ msgstr "检查时间"
-
-#~ msgid "check size"
-#~ msgstr "检查尺寸"
-
-#~ msgid "Edit preferences"
-#~ msgstr "编辑首选项"
-
-#~ msgid "Editor"
-#~ msgstr "编辑器"
-
-#~ msgid "Editor options"
-#~ msgstr "编辑器选项"
-
-#~ msgid "Tab width"
-#~ msgstr "跳格宽度"
-
-#~ msgid "Use spaces to indent, not tabs"
-#~ msgstr "用空格代替跳格缩进"
-
-#~ msgid "Word wrap default"
-#~ msgstr "默认自动换行"
-
-#~ msgid "Line numbers by default"
-#~ msgstr "默认显示行号"
-
-#~ msgid "Highlight syntax by default"
-#~ msgstr "默认语法高亮"
-
-#~ msgid "Highlight # lines"
-#~ msgstr "高亮 # 行"
-
-#~ msgid "Undo history size"
-#~ msgstr "可撤消次数"
-
-#~ msgid "Clear undo history on save"
-#~ msgstr "保存后清除撤消历史"
-
-#~ msgid "Bookmark options"
-#~ msgstr "书签选项"
-
-#~ msgid "Make permanent by default"
-#~ msgstr "默认为永久"
-
-#~ msgid "full path"
-#~ msgstr "完全路径"
-
-#~ msgid "path from basedir"
-#~ msgstr "基准目录的路径"
-
-#~ msgid "filename"
-#~ msgstr "文件名"
-
-#~ msgid "Bookmarks filename display"
-#~ msgstr "书签文件名显示"
-
-#~ msgid "HTML"
-#~ msgstr "HTML"
-
-#~ msgid "HTML options"
-#~ msgstr "HTML 选项"
-
-#~ msgid "Lowercase HTML tags"
-#~ msgstr "HTML 标签小写"
-
-#~ msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-#~ msgstr "使用非标准标签 (例如 <font> 和 <nobr>)"
-
-#~ msgid "Use XHTML style tags (<br />)"
-#~ msgstr "使用 XHTML 样式标签 (例如<br />)"
-
-#~ msgid "Automatic update author meta"
-#~ msgstr "自动刷新作者 META 标签"
-
-#~ msgid "Files"
-#~ msgstr "文件"
-
-#~ msgid "Encoding"
-#~ msgstr "编码"
-
-#~ msgid "Default character set"
-#~ msgstr "默认字符集"
-
-#~ msgid "Auto set <meta> encoding tag on change"
-#~ msgstr "改变时自动设定 <meta> 编码标签"
-
-#~ msgid "Backup"
-#~ msgstr "备份"
-
-#~ msgid "Create backup on save"
-#~ msgstr "保存时创建备份"
-
-#~ msgid "Backup file suffix"
-#~ msgstr "备份文件后缀"
-
-#~ msgid "save"
-#~ msgstr "保存"
-
-#~ msgid "abort"
-#~ msgstr "中断"
-
-#~ msgid "ask"
-#~ msgstr "询问"
-
-#~ msgid "Action on backup failure"
-#~ msgstr "备份失败时动作"
-
-#~ msgid "Remove backupfile on close"
-#~ msgstr "关闭时删除备份文件"
-
-#~ msgid "Allow multi instances of a file"
-#~ msgstr "允许文件的多个实例"
-
-#~ msgid "Open files in already running bluefish window"
-#~ msgstr "在已打开的 bluefish 窗口中打开文件"
-
-#~ msgid "File modified on disk check "
-#~ msgstr "文件修改依据"
-
-#~ msgid "Number of files in 'Open recent'"
-#~ msgstr "最近使用文件的个数"
-
-#~ msgid "File browser"
-#~ msgstr "文件浏览器"
-
-#~ msgid "Default basedir"
-#~ msgstr "默认基准路径"
-
-#~ msgid "Use separate file and directory view"
-#~ msgstr "文件和目录分离"
-
-#~ msgid "Unknown icon"
-#~ msgstr "未知文件图标"
-
-#~ msgid "Directory icon"
-#~ msgstr "目录图标"
-
-#~ msgid "User interface"
-#~ msgstr "用户界面"
-
-#~ msgid "Restore last used dimensions"
-#~ msgstr "最后一次使用的大小"
-
-#~ msgid "Initial sidebar width"
-#~ msgstr "定义边栏宽度"
-
-#~ msgid "Initial window height"
-#~ msgstr "定义窗口高度"
-
-#~ msgid "Initial window width"
-#~ msgstr "定义窗口宽度"
-
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "临时 HTML 对话框"
-
-#~ msgid "External browsers in submenu"
-#~ msgstr "在外部程序子菜单中显示浏览器"
-
-#~ msgid "External commands in submenu"
-#~ msgstr "在外部程序子菜单中显示命令"
-
-#~ msgid "External outputbox in submenu"
-#~ msgstr "在外部程序子菜单中显示输出窗口"
-
-#~ msgid "Notebook tab font (leave empty for gtk default)"
-#~ msgstr "编辑区字体 (为空则使用 gtk 默认的字体)"
-
-#~ msgid "Document notebook tab position"
-#~ msgstr "编辑区标签位置"
-
-#~ msgid "Sidebar notebook tab position"
-#~ msgstr "边栏标签位置"
-
-#~ msgid "Sidebar location"
-#~ msgstr "边栏位置"
-
-#~ msgid "Thumbnails"
-#~ msgstr "相册"
-
-#~ msgid "Thumbnail suffix"
-#~ msgstr "相册扩展名"
-
-#~ msgid "Thumbnail filetype"
-#~ msgstr "相册文件类型"
-
-#~ msgid "Filetypes"
-#~ msgstr "文件类型"
-
-#~ msgid "Filefilters"
-#~ msgstr "文件过滤器"
-
-#~ msgid "Syntax highlighting"
-#~ msgstr "语法高亮"
-
-#~ msgid "Patterns"
-#~ msgstr "参数"
-
-#~ msgid "External programs"
-#~ msgstr "外部程序"
-
-#~ msgid "Browsers"
-#~ msgstr "浏览器"
-
-#~ msgid "Utilities and filters"
-#~ msgstr "工具和过滤器"
-
-#~ msgid "Output parsers"
-#~ msgstr "输出语法分析器"
-
-#~ msgid "Outputbox"
-#~ msgstr "输出窗口"
-
-#~ msgid "Servers"
-#~ msgstr "服务器"
-
-#~ msgid "Remote servers"
-#~ msgstr "远程服务器"
-
-#~ msgid "Zope compatibility mode"
-#~ msgstr "Zope 兼容模式"
-
-#~ msgid "New project"
-#~ msgstr "新建项目"
-
-#~ msgid "Enter Bluefish project filename"
-#~ msgstr "输入 Bluefish 项目文件名"
-
-#~ msgid "Select Bluefish project filename"
-#~ msgstr "选择 Bluefish 项目文件名"
-
-#, fuzzy
-#~ msgid "Save current project?"
-#~ msgstr "创建空项目"
-
-#~ msgid "Create New Project"
-#~ msgstr "创建新项目"
-
-#~ msgid "Edit Project"
-#~ msgstr "编辑项目"
-
-#~ msgid "This project contains %d files"
-#~ msgstr "这个项目包含%d个文件"
-
-#~ msgid "Project _Name:"
-#~ msgstr "项目名称(_N)："
-
-#~ msgid "_Basedir:"
-#~ msgstr "基础目录(_D)："
-
-#~ msgid "_Preview URL:"
-#~ msgstr "预览 URL(_P)："
-
-#~ msgid "_Template:"
-#~ msgstr "模板(_T)："
-
-#~ msgid "_Word wrap by default"
-#~ msgstr "默认自动换行(_W)"
-
-#~ msgid "Create _Project"
-#~ msgstr "创建项目(_P)"
-
-#~ msgid "Create project"
-#~ msgstr "创建项目"
-
-#~ msgid "Create project with currently opened documents"
-#~ msgstr "使用当前打开的文件创建项目"
-
-#~ msgid "Create empty project"
-#~ msgstr "创建空项目"
-
-#~ msgid "Galeon"
-#~ msgstr "Galeon"
-
-#~ msgid "Mozilla"
-#~ msgstr "Mozilla"
-
-#~ msgid "Opera"
-#~ msgstr "Opera"
-
-#~ msgid "Netscape"
-#~ msgstr "Netscape"
-
-#~ msgid "Gnome default"
-#~ msgstr "GNOME 默认的"
-
-#~ msgid "make"
-#~ msgstr "make"
-
-#~ msgid "weblint HTML checker"
-#~ msgstr "weblint HTML checker"
-
-#~ msgid "tidy HTML validator"
-#~ msgstr "tidy HTML validator"
-
-#~ msgid "javac"
-#~ msgstr "javac"
-
-#~ msgid "xmllint XML checker"
-#~ msgstr "xmllint XML checker"
-
-#~ msgid "php"
-#~ msgstr "php"
-
-#~ msgid "Dos2Unix filter"
-#~ msgstr "Dos2Unix filter"
-
-#~ msgid "Tidy cleanup filter"
-#~ msgstr "Tidy cleanup filter"
-
-#~ msgid "C programming"
-#~ msgstr "C 编程"
-
-#~ msgid "All web files"
-#~ msgstr "所有 Web 文件"
-
-#~ msgid "Java programming"
-#~ msgstr "Java 编程"
-
-#~ msgid "Hide objectfiles"
-#~ msgstr "隐藏目标文件"
-
-#~ msgid "Untitled Project"
-#~ msgstr "无标题项目"
-
-#~ msgid "Regular expression error: "
-#~ msgstr "正规表达式错误："
-
-#~ msgid "Search failed"
-#~ msgstr "搜索失败"
-
-#~ msgid "Regular expression error: %s at offset %d"
-#~ msgstr "正规表达式出错：位于偏移量 %2$d 的 %1$s"
-
-#~ msgid "Confirm replace"
-#~ msgstr "确认替换"
-
-#~ msgid "Replace selected text?"
-#~ msgstr "要替换选中的文本吗？"
-
-#~ msgid "Replace _all"
-#~ msgstr "全部替换(_A)"
-
-#~ msgid "Search: no match found"
-#~ msgstr "搜索：没有匹配项"
-
-#~ msgid "_Search for: "
-#~ msgstr "搜索(_S)："
-
-#~ msgid "_Replace with: "
-#~ msgstr "替换为(_R)："
-
-#~ msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
-#~ msgstr "\\0 指第一个查找子参数，\\1 指第二个，依此类推。"
-
-#~ msgid "Beginning of document till end"
-#~ msgstr "从文档开始到结束"
-
-#~ msgid "Current position till end"
-#~ msgstr "从当前位置到结束"
-
-#~ msgid "Beginning of selection till end of selection"
-#~ msgstr "在选择文本内"
-
-#~ msgid "All opened files begin till end"
-#~ msgstr "从所有打开的文档开始到结束"
-
-#~ msgid "Disabled"
-#~ msgstr "关闭"
-
-#~ msgid "POSIX type"
-#~ msgstr "POSIX 类型"
-
-#~ msgid "PERL type"
-#~ msgstr "PERL 类型"
-
-#~ msgid "Starts at:"
-#~ msgstr "开始处:"
-
-#~ msgid "Regular expression:"
-#~ msgstr "正规表达式："
-
-#~ msgid "Normal"
-#~ msgstr "一般"
-
-#~ msgid "Replace type:"
-#~ msgstr "替换类型："
-
-#~ msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
-#~ msgstr "模式包含反斜线转码字符(\\n、\\t)"
-
-#~ msgid "_Match case"
-#~ msgstr "区分大小写(_M)"
-
-#~ msgid "O_verlap searches"
-#~ msgstr "循环搜索(_O)"
-
-#~ msgid "Prompt _before replace"
-#~ msgstr "替换前提示(_B)"
-
-#~ msgid "Replace o_nce"
-#~ msgstr "替换一次(_N)"
-
-#~ msgid "Bookmark results"
-#~ msgstr "把所有结果作为书签"
-
-#~ msgid " Add "
-#~ msgstr " 添加 "
-
-#~ msgid " Update "
-#~ msgstr " 更新 "
-
-#~ msgid " Delete "
-#~ msgstr " 删除 "
-
-#~ msgid " Up "
-#~ msgstr " 上 "
-
-#~ msgid " Down "
-#~ msgstr " 下 "
-
-#~ msgid " Sort "
-#~ msgstr " 排序 "
-
-#~ msgid "This bookmark is set in a file that no longer exists."
-#~ msgstr "设置此书签的文件不存在。"
-
-#~ msgid "Are you sure?"
-#~ msgstr "你确定吗?"
-
-#~ msgid "Could not read file:\n"
-#~ msgstr "无法读取文件：\n"
-
-#~ msgid "Opening file "
-#~ msgstr "打开文件 "
-
-#~ msgid "Saving file"
-#~ msgstr "正在保存文件"
-
-#~ msgid "Save as..."
-#~ msgstr "另存为..."
-
-#~ msgid ""
-#~ "File: %s\n"
-#~ "\n"
-#~ "New modification time: %s\n"
-#~ "Old modification time: %s"
-#~ msgstr ""
-#~ "文件: %s\n"
-#~ "\n"
-#~ "新的修改时间: %s\n"
-#~ "老的修改时间: %s"
-
-#~ msgid "File has been modified by another process."
-#~ msgstr "文件已被另一个进程修改。"
-
-#~ msgid "Saving %s"
-#~ msgstr "保存 %s"
-
-#~ msgid ""
-#~ "Could not backup file:\n"
-#~ "\""
-#~ msgstr ""
-#~ "无法备份文件:\n"
-#~ "\""
-
-#~ msgid "File save error"
-#~ msgstr "文件保存错误"
-
-#~ msgid ""
-#~ "These files could not opened:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "这些文件无法打开：\n"
-#~ "\n"
-
-#~ msgid "Unable to open file(s)\n"
-#~ msgstr "无法打开文件\n"
-
-#~ msgid "searching files..."
-#~ msgstr "正在搜索文件..."
-
-#~ msgid "grep {contains} `find {basedir} -name '{file type}'`"
-#~ msgstr "grep {包含} `find {基础目录} -name '{文件类型}'`"
-
-#~ msgid "_File Type:"
-#~ msgstr "文件类型(_F)："
-
-#~ msgid "Loading %d file(s)..."
-#~ msgstr "正在载入 %d 个文件..."
-
-#~ msgid "No matching files found"
-#~ msgstr "未找到符合条件的文件"
-
-#~ msgid "Select file"
-#~ msgstr "选择文件"
-
-#~ msgid "_Doctype:"
-#~ msgstr "文档类型(_D)："
-
-#~ msgid "Header tags:"
-#~ msgstr "标题标签:"
-
-#~ msgid "Loading file(s)..."
-#~ msgstr "正在载入文件..."
-
-#~ msgid "The filename was:\n"
-#~ msgstr "文件名为：\n"
-
-#~ msgid "Could not open file\n"
-#~ msgstr "无法打开文件\n"
-
-#~ msgid "Could not view file in browser, the file does not yet have a name\n"
-#~ msgstr "文件未命名,无法在浏览器中显示\n"
-
-#~ msgid "These files were not opened:\n"
-#~ msgstr "这些文件没有被打开：\n"
-
-#~ msgid "Show main toolbar by default"
-#~ msgstr "默认显示主工具栏"
-
-#~ msgid "Show sidebar by default"
-#~ msgstr "默认显示边栏"
-
-#~ msgid "Show custom menu by default"
-#~ msgstr "默认显示自定义菜单"
-
-#~ msgid "Show HTML toolbar by default"
-#~ msgstr "默认显示 HTML 工具栏"
-
-#~ msgid "Do you want to save the project?"
-#~ msgstr "您要保存项目吗？"
