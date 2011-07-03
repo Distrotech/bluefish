@@ -1,15 +1,15 @@
-# Chinese(GB) language file for Bluefish.
-# Copyright (C) 2003 Dormouse <mouselinux@163.com>, 2003
-# Funda Wang <fundawang@linux.net.cn>, 2004
+# Simple Chinese(zh_CN) language file for Bluefish.
+# Copyright (C) 2011 william9527
+# william9527 <mzf9527@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish\n"
+"Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-02-06 07:49-0800\n"
-"PO-Revision-Date: 2004-12-08 18:48-0300\n"
-"Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
-"Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
+"POT-Creation-Date: 2011-06-27 06:57+0800\n"
+"PO-Revision-Date: 2011-07-01 15:57+0800\n"
+"Last-Translator: william9527 <mzf9527@gmail.com>\n"
+"Language-Team: \n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,110 +17,110 @@ msgstr ""
 
 #: src/plugin_infbrowser/infb_gui.c:140
 msgid "Loading..."
-msgstr ""
+msgstr "读取中..."
 
 #: src/plugin_infbrowser/infb_gui.c:146 src/plugin_infbrowser/infb_gui.c:206
 msgid "Cannot load file from network"
-msgstr ""
+msgstr "无法从网络上获取文件"
 
 #: src/plugin_infbrowser/infb_gui.c:160
 msgid "Cannot find file"
-msgstr ""
+msgstr "找不到文件"
 
 #: src/plugin_infbrowser/infb_gui.c:370
 msgid "Fragment saved"
-msgstr ""
+msgstr "片段已保存"
 
 #: src/plugin_infbrowser/infb_gui.c:374
 msgid "Cannot open file"
-msgstr ""
+msgstr "无法打开文件"
 
 #: src/plugin_infbrowser/infb_gui.c:456 src/plugin_infbrowser/infb_gui.c:494
 msgid "Nothing found"
-msgstr ""
+msgstr "未找到"
 
 #: src/plugin_infbrowser/infb_gui.c:535
 msgid "Documentation index"
-msgstr ""
+msgstr "文档索引"
 
 #: src/plugin_infbrowser/infb_gui.c:540
 msgid "Document index"
-msgstr ""
+msgstr "文档索引"
 
 #: src/plugin_infbrowser/infb_gui.c:545
 msgid "Upper level"
-msgstr ""
+msgstr "上一级"
 
 #: src/plugin_infbrowser/infb_gui.c:551
 msgid "Save current view"
-msgstr ""
+msgstr "保存当前视图"
 
 #: src/plugin_infbrowser/infb_gui.c:552
 msgid "Go to selected fragment"
-msgstr ""
+msgstr "到选择的片段处"
 
 #: src/plugin_infbrowser/infb_gui.c:574
 msgid "Find"
-msgstr ""
+msgstr "查找"
 
 #: src/plugin_infbrowser/infb_gui.c:580
 msgid "Info Browser"
-msgstr ""
+msgstr "信息浏览器"
 
 #: src/plugin_infbrowser/infb_load.c:41
 #, c-format
 msgid "Cannot load reference file %s\n"
-msgstr ""
+msgstr "无法读取参考文件 %s\n"
 
 #: src/plugin_infbrowser/infb_load.c:164
 msgid "Documentation entries"
-msgstr ""
+msgstr "文档条目"
 
 #: src/plugin_infbrowser/infb_load.c:168
 msgid "References"
-msgstr ""
+msgstr "参考文件"
 
 #: src/plugin_infbrowser/infb_load.c:170
 msgid "DTD"
-msgstr ""
+msgstr "DTD"
 
 #: src/plugin_infbrowser/infb_load.c:172
 msgid "Web pages"
-msgstr ""
+msgstr "网页"
 
 #: src/plugin_infbrowser/infb_text.c:808
 msgid "Unknown document type"
-msgstr ""
+msgstr "未知的文档类型"
 
 #: src/plugin_infbrowser/infb_wizard.c:116
 #: src/plugin_infbrowser/infb_wizard.c:164
 msgid "Local DTD file"
-msgstr ""
+msgstr "本地 DTD 文件"
 
 #: src/plugin_infbrowser/infb_wizard.c:124
 msgid "Remote DTD file"
-msgstr ""
+msgstr "远程 DTD 文件"
 
 #: src/plugin_infbrowser/infb_wizard.c:161
 msgid "Choose file"
-msgstr ""
+msgstr "选择文件"
 
 #: src/plugin_infbrowser/infb_wizard.c:213
 msgid "Entry name"
-msgstr ""
+msgstr "条目名称"
 
 #: src/plugin_infbrowser/infb_wizard.c:222
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: src/plugin_infbrowser/infb_wizard.c:258
 msgid "DTD file URI"
-msgstr ""
+msgstr "DTD 文件的 URI"
 
 #: src/plugin_infbrowser/infb_wizard.c:348
 msgid "New info item"
-msgstr ""
+msgstr "新建信息项目"
 
 #: src/plugin_infbrowser/infb_wizard.c:418
 msgid "Entries you can delete"
-msgstr ""
+msgstr "可删除的条目"
