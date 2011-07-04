@@ -473,11 +473,6 @@ void snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 	}
 }
 
-/* a special case call back if run in files hits a document that is currently open */
-static void snr3_run_in_files_doc_cb(Tsnr3run *s3run) {
-	g_print("snr3_run_in_files_doc_cb\n");
-}
-
 void
 snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *))
 {
@@ -528,6 +523,7 @@ snr3_cancel_run(Tsnr3run *s3run) {
 		g_print("remove idle_id %d\n", s3run->idle_id);
 		g_source_remove(s3run->idle_id);
 		s3run->idle_id=0;
+		s3run->curdoc=NULL;
 	}
 	if (s3run->scope == snr3scope_files) {
 		snr3_run_in_files_cancel(s3run);
@@ -584,12 +580,14 @@ replace_all_ready(void *data) {
 	Tsnr3run *s3run=data;
 	s3run->replaceall=FALSE;
 	s3run->unre_action_id = 0;
+	s3run->curdoc = NULL;
 }
 
 static void
 activate_simple_search(void *data) {
 	Tsnr3run *s3run=data;
 	g_print("activate_simple_search, s3run=%p\n", s3run);
+	s3run->curdoc = NULL;
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
 	snr3_run_go(s3run, TRUE);
 }
@@ -618,7 +616,6 @@ snr3_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpoin
 static void
 snr3_docinsertext_cb(Tdocument *doc, const gchar *string, GtkTextIter * iter, gint pos, gint len, gint clen, gpointer data)
 {
-	Tsnr3run *s3run = data;
 	Toffsetupdate offsetupdate = {doc,pos,clen};
 	g_queue_foreach(&((Tsnr3run *)data)->results, snr3run_update_offsets,&offsetupdate);
 }
@@ -633,7 +630,12 @@ snr3_docdeleterange_cb(Tdocument *doc, GtkTextIter * itstart, gint start, GtkTex
 static void
 snr3_docdestroy_cb(Tdocument *doc, gpointer data)
 {
-	Tsnr3run * s3run = data;
+	Tsnr3run *s3run = data;
+	/* see if this is the current document of an ongoing search, if so, cancel the search */
+	if (s3run->curdoc == doc) {
+		snr3_cancel_run(s3run);
+	}
+	/* remove any existing search results for this doc */
 	GList *tmplist=g_list_first(s3run->results.head);
 	while(tmplist) {
 		GList *next = tmplist->next;
@@ -709,6 +711,7 @@ simple_search_next(Tbfwin *bfwin)
 static void dialog_changed_run_ready_cb(gpointer data) {
 	Tsnr3run *s3run=data;
 	g_print("dialog_changed_run_ready_cb, finished with %d results\n",g_queue_get_length(&s3run->results));
+	s3run->curdoc = NULL;
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
 	if (s3run->dialog) {
 		TSNRWin *snrwin = s3run->dialog;
@@ -989,7 +992,7 @@ static void
 snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s3scope)
 {
 	TSNRWin *snrwin;
-	GtkWidget *table, *vbox, *button, *widget, *entry;
+	GtkWidget *table, *vbox, *entry;
 	gint currentrow=0;
 	GtkListStore *history, *lstore;
 	GList *list;
