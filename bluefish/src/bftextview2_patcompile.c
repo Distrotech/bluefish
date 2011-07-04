@@ -806,7 +806,7 @@ static guint16
 new_match(Tscantable * st, const gchar * pattern, const gchar * lang, const gchar * selfhighlight,
 		  const gchar * blockhighlight, gint16 context, gint16 nextcontext, gboolean starts_block,
 		  gboolean ends_block, guint16 blockstartpattern, gboolean case_insens, gboolean is_regex,
-		  gboolean tagclose_from_blockstack, guint8 identmode)
+		  gboolean tagclose_from_blockstack, guint8 identmode, gboolean identjump, gboolean identautocomp)
 {
 	guint matchnum;
 /* add the match */
@@ -828,7 +828,10 @@ new_match(Tscantable * st, const gchar * pattern, const gchar * lang, const gcha
 	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = (gchar *) blockhighlight;
 	g_array_index(st->matches, Tpattern, matchnum).tagclose_from_blockstack = tagclose_from_blockstack;
 #ifdef IDENTSTORING
-	g_array_index(st->matches, Tpattern, matchnum).identmode = identmode;
+	if (identjump || identautocomp) {
+		g_array_index(st->matches, Tpattern, matchnum).identmode = identmode;
+		g_array_index(st->matches, Tpattern, matchnum).identaction = (identjump?1:0) | (identautocomp?2:0);
+	}
 #endif
 	return matchnum;
 }
@@ -854,7 +857,7 @@ add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * la
 							  const gchar * selfhighlight, const gchar * blockhighlight, gboolean is_regex,
 							  gboolean case_insens, gint16 context, gint16 nextcontext, gboolean starts_block,
 							  gboolean ends_block, guint blockstartpattern, gboolean tagclose_from_blockstack,
-							  guint8 identmode)
+							  guint8 identmode, gboolean identjump, gboolean identautocomp)
 {
 	guint16 matchnum;
 
@@ -864,7 +867,7 @@ add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gchar * la
 	}
 	matchnum =
 		new_match(st, pattern, lang, selfhighlight, blockhighlight, context, nextcontext, starts_block,
-				  ends_block, blockstartpattern, case_insens, is_regex, tagclose_from_blockstack, identmode);
+				  ends_block, blockstartpattern, case_insens, is_regex, tagclose_from_blockstack, identmode, identjump, identautocomp);
 	DBG_PATCOMPILE
 		("add_keyword_to_scanning_table,pattern=%s,starts_block=%d,ends_block=%d,blockstartpattern=%d, context=%d,nextcontext=%d and got matchnum %d\n",
 		 pattern, starts_block, ends_block, blockstartpattern, context, nextcontext, matchnum);

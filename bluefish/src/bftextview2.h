@@ -211,6 +211,11 @@ the GCompletion can be found in hashtable
 bfwin->identifier_ac with 
 key Tbflang-context -> value GCompletion
 
+identifier_mode="1" means that the following the *following* identifier is to be stored. For example in 
+php 'function', and in python 'def' and 'class' (implemented in bluefish 2.0.3).
+identifier_mode="2" means that the match itself is to be stored as an identifier, for example in php
+the variable '$[a-zA-Z_][a-zA-Z0-9_]*' (implemented in 2.0.4)
+
 ======= Split view / slave widget =======
 
 a slave widget is a widget that does not do scanning itself, it doesn't 
@@ -308,6 +313,7 @@ typedef struct {
 	guint8 tagclose_from_blockstack;	/* this is a generix xml close tag that needs the blockstack to autoclose */
 #ifdef IDENTSTORING
 	guint8 identmode;
+	guint8 identaction; /* bitwise, first bit is add to jump hashtable, second bit is autocomplete */
 #endif							/* IDENTSTORING */
 	/*gboolean may_fold;  not yet used */
 	/*gboolean highlight_other_end; not yet used */

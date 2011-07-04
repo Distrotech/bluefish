@@ -60,6 +60,7 @@ typedef struct {
 	GtkTextIter end;			/* end of area to scan */
 	gint16 context;
 	guint8 identmode;
+	guint8 identaction;
 } Tscanning;
 
 #ifdef HL_PROFILING
@@ -846,6 +847,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 		} else if (scanning->nextfound->charoffset_o == match_end_o
 				   && cached_found_is_valid(btv, match, scanning)) {
 			Tfoundcontext *tmpfcontext;
+			/* BUG? tmpfcontext is not always initialised ??*/
 			gint context;
 			DBG_SCANCACHE("found_match, cache item at offset %d is still valid\n",
 						  scanning->nextfound->charoffset_o);
@@ -1199,6 +1201,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 		if (G_UNLIKELY(newpos == 0 || uc == '\0')) {
 			if (G_UNLIKELY(get_tablerow(btv->bflang->st,scanning.context,pos).match)) {
 				Tmatch match;
+				guint oldcontext = scanning.context;
 				match.patternum = get_tablerow(btv->bflang->st,scanning.context,pos).match;
 				match.start = mstart;
 				match.end = iter;
@@ -1206,6 +1209,10 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 							 gtk_text_iter_get_offset(&match.end));
 				scanning.context = found_match(btv, &match, &scanning);
 				DBG_SCANNING("after match context=%d\n", scanning.context);
+				if (G_UNLIKELY(scanning.identmode == 2)) {
+					found_identifier(btv, &mstart, &iter, oldcontext, scanning.identaction);
+					scanning.identmode = 0;
+				}
 			} else {
 				if G_UNLIKELY
 					((uc == '\0' && scanning.nextfound
@@ -1218,12 +1225,12 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 					}
 #ifdef IDENTSTORING
 				if (G_UNLIKELY
-					(scanning.identmode != 0 && pos == 1)) {
+					(scanning.identmode == 1 && pos == 1)) {
 					/* ignore if the cursor is within the range, because it could be that the user is still typing the name */
 					if (G_LIKELY(!gtk_text_iter_in_range(&itcursor, &mstart, &iter)
 								 && !gtk_text_iter_equal(&itcursor, &mstart)
 								 && !gtk_text_iter_equal(&itcursor, &iter))) {
-						found_identifier(btv, &mstart, &iter, scanning.context, scanning.identmode);
+						found_identifier(btv, &mstart, &iter, scanning.context, scanning.identaction);
 						scanning.identmode = 0;
 					}
 				}

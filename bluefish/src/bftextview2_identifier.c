@@ -195,18 +195,18 @@ identifier_ac_get_completion(BluefishTextView * btv, gint16 context, gboolean cr
 }
 
 void
-found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end, gint16 context,
-				 guint8 identmode)
+found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end, gint16 context, guint8 identaction)
 {
-	if (identmode == 1) {
-		Tjumpkey *ijk;
-		Tjumpdata *ijd, *oldijd;
-		GCompletion *compl;
-		gchar *tmp;
-		GList *items;
+	Tjumpkey *ijk;
+	Tjumpdata *ijd, *oldijd;
+	GCompletion *compl;
+	gchar *tmp;
+	GList *items;
+	gboolean freetmp=TRUE;
 
-		tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
-		DBG_IDENTIFIER("found identifier %s at %p\n", tmp, tmp);
+	tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
+	DBG_IDENTIFIER("found identifier %s at %p\n", tmp, tmp);
+	if (identaction & 1) {
 		ijk = identifier_jumpkey_new(btv->bflang, context, tmp);
 		oldijd = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk);
 		if (oldijd) {
@@ -214,15 +214,35 @@ found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end,
 			if (oldijd->doc == btv->doc)
 				oldijd->line = gtk_text_iter_get_line(end) + 1;
 			identifier_jump_key_free(ijk);	/* that will free tmp as well */
+			return; /* if it has identaction 2 it should exist in the completion already */
 		} else {
 			ijd = identifier_jumpdata_new(DOCUMENT(btv->doc), gtk_text_iter_get_line(end) + 1);
 			g_hash_table_insert(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk, ijd);
-			compl = identifier_ac_get_completion(btv, context, TRUE);
+			freetmp=FALSE;
+		}
+	}
+	if (identaction & 2) {
+		gboolean havecompl=FALSE;
+		compl = identifier_ac_get_completion(btv, context, TRUE);
+		if (freetmp==FALSE) { /* if tmp was new as jumpkey, it cannot exist in the autocompletion, so we don't have to check it */
+			/* see if we have this item already */
+			GList *tmplist;
+			for (tmplist=g_list_first(compl->items);tmplist;tmplist=g_list_next(tmplist)) {
+				if (g_strcmp0(tmp, tmplist->data)==0) {
+					havecompl=TRUE;
+					break;
+				}
+			}
+		}
+		if (!havecompl) {
 			items = g_list_prepend(NULL, tmp);
 			g_completion_add_items(compl, items);
 			g_list_free(items);
-			/*don't free tmp, we use this piece of memory both in the jumpkey and in the completion */
+			freetmp=FALSE;
 		}
+	}
+	if (freetmp) {
+		g_free(tmp);
 	}
 }
 

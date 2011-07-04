@@ -36,7 +36,7 @@ guint16 add_keyword_to_scanning_table(Tscantable * st, gchar * pattern, const gc
 									  gboolean is_regex, gboolean case_insens, gint16 context,
 									  gint16 nextcontext, gboolean starts_block, gboolean ends_block,
 									  guint blockstartpattern, gboolean tagclose_from_blockstack,
-									  guint8 identmode);
+									  guint8 identmode, gboolean identjump, gboolean identautocomp);
 void print_DFA(Tscantable * st, char start, char end);
 Tscantable *scantable_new(guint size_table, guint size_matches, guint size_contexts);
 Tscantable *bftextview2_scantable_new(GtkTextBuffer * buffer);
