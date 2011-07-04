@@ -53,7 +53,6 @@ Tjumpdata *bftextview2_lookup_identifier(gpointer bfwin, BluefishTextView * btv,
 
 /* only called internally within bftextview2 */
 GCompletion *identifier_ac_get_completion(BluefishTextView * btv, gint16 context, gboolean create);
-void found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end, gint16 context,
-					  guint8 identmode);
+void found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end, gint16 context, guint8 identaction);
 
 #endif							/* _BFTEXTVIEW2_IDENTIFIER_H_ */

@@ -527,7 +527,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 	gboolean starts_block = FALSE, ends_block = FALSE, is_empty, tagclose_from_blockstack = FALSE;
 	gint case_insens = UNDEFINED, is_regex = UNDEFINED, autocomplete = UNDEFINED;
 	gint ends_context = 0, autocomplete_backup_cursor = 0;
-	gint identifier_mode;
+	gint identifier_mode=0, identifier_jump=0, identifier_autocomp=0;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 
 
@@ -558,6 +558,8 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 										  &autocomplete_backup_cursor);
 		}
 		set_integer_if_attribute_name(reader, aname, (xmlChar *) "identifier_mode", &identifier_mode);
+		set_integer_if_attribute_name(reader, aname, (xmlChar *) "identifier_jump", &identifier_jump);
+		set_integer_if_attribute_name(reader, aname, (xmlChar *) "identifier_autocomp", &identifier_autocomp);
 		xmlFree(aname);
 	}
 	tmp = lookup_user_option(bfparser->bflang->name, class);
@@ -614,7 +616,7 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 																						ih_case_insens :
 																						FALSE)
 											  , context, nextcontext, starts_block, ends_block, blockstartelementum, tagclose_from_blockstack	/* the very special case for the generix xml tag close pattern */
-											  , identifier_mode);
+											  , identifier_mode, identifier_jump, identifier_autocomp);
 			if (autocomplete == TRUE || (autocomplete == UNDEFINED && ih_autocomplete == TRUE)) {
 				match_add_autocomp_item(bfparser->st, matchnum, autocomplete_string,
 										autocomplete_append ? autocomplete_append : ih_autocomplete_append,
@@ -783,7 +785,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				matchnum =
 					add_keyword_to_scanning_table(bfparser->st, tmp, bfparser->bflang->name,
 												  highlight ? highlight : ih_highlight, NULL, FALSE,
-												  case_insens, context, contexttag, TRUE, FALSE, 0, TRUE, 0);
+												  case_insens, context, contexttag, TRUE, FALSE, 0, TRUE, 0, FALSE, FALSE);
 				match_add_autocomp_item(bfparser->st, matchnum, NULL, tmp2, strlen(tag) + 3);
 				/*g_print("context %d: id %s gets matchnum %d\n",context,id,matchnum); */
 				g_free(tmp2);
@@ -791,7 +793,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				matchnum =
 					add_keyword_to_scanning_table(bfparser->st, tmp, bfparser->bflang->name,
 												  highlight ? highlight : ih_highlight, NULL, FALSE,
-												  case_insens, context, contexttag, TRUE, FALSE, 0, TRUE, 0);
+												  case_insens, context, contexttag, TRUE, FALSE, 0, TRUE, 0, FALSE, FALSE);
 				match_add_autocomp_item(bfparser->st, matchnum, NULL,
 										autocomplete_append ? autocomplete_append : ih_autocomplete_append,
 										autocomplete_backup_cursor ? autocomplete_backup_cursor :
@@ -820,7 +822,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 							add_keyword_to_scanning_table(bfparser->st, *tmp2, bfparser->bflang->name,
 														  attribhighlight ? attribhighlight :
 														  ih_attribhighlight, NULL, FALSE, TRUE, contexttag,
-														  0, FALSE, FALSE, 0, 0, 0);
+														  0, FALSE, FALSE, 0, 0, 0, FALSE, FALSE);
 						match_add_autocomp_item(bfparser->st, attrmatch, NULL,
 												attrib_autocomplete_append ? attrib_autocomplete_append :
 												ih_attrib_autocomplete_append,
@@ -847,7 +849,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					matchstring =
 						add_keyword_to_scanning_table(bfparser->st, "\"[^\"]*\"", bfparser->bflang->name,
 													  stringhighlight, NULL, TRUE, FALSE, contexttag, 0,
-													  FALSE, FALSE, 0, 0, 0);
+													  FALSE, FALSE, 0, 0, 0, FALSE, FALSE);
 					g_hash_table_insert(bfparser->patterns, g_strdup(internal_tag_string_d),
 										GINT_TO_POINTER((gint) matchstring));
 				}
@@ -860,7 +862,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					matchstring =
 						add_keyword_to_scanning_table(bfparser->st, "'[^']*'", bfparser->bflang->name,
 													  stringhighlight, NULL, TRUE, FALSE, contexttag, 0,
-													  FALSE, FALSE, 0, 0, 0);
+													  FALSE, FALSE, 0, 0, 0, FALSE, FALSE);
 					g_hash_table_insert(bfparser->patterns, g_strdup(internal_tag_string_s),
 										GINT_TO_POINTER((gint) matchstring));
 				}
@@ -870,7 +872,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 					tmpnum =
 						add_keyword_to_scanning_table(bfparser->st, "/>", bfparser->bflang->name,
 													  highlight ? highlight : ih_highlight, NULL, FALSE,
-													  FALSE, contexttag, -1, FALSE, TRUE, -1, 0, 0);
+													  FALSE, contexttag, -1, FALSE, TRUE, -1, 0, 0, FALSE, FALSE);
 					if (bfparser->autoclose_tags)
 						match_add_autocomp_item(bfparser->st, tmpnum, NULL, NULL, 0);
 					match_autocomplete_reference(bfparser->st, tmpnum, contexttag);
@@ -879,7 +881,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				starttagmatch =
 					add_keyword_to_scanning_table(bfparser->st, ">", bfparser->bflang->name,
 												  highlight ? highlight : ih_highlight, NULL, FALSE, FALSE,
-												  contexttag, -1, FALSE, FALSE, 0, 0, 0);
+												  contexttag, -1, FALSE, FALSE, 0, 0, 0, FALSE, FALSE);
 				if (bfparser->autoclose_tags && !no_close)
 					match_add_autocomp_item(bfparser->st, starttagmatch, NULL, tmp, tmp ? strlen(tmp) : 0);
 				if (tmp)
@@ -940,7 +942,7 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 												  highlight ? highlight : ih_highlight, NULL, FALSE,
 												  case_insens, innercontext,
 												  (innercontext == context) ? 0 : -2, FALSE, TRUE, matchnum,
-												  0, 0);
+												  0, 0, FALSE, FALSE);
 /*				g_print("context %d: matchnum %d is ended by endtagmatch %d while working on id %s\n",innercontext,matchnum, endtagmatch, id);*/
 				match_add_autocomp_item(bfparser->st, endtagmatch, NULL, NULL, 0);
 				match_autocomplete_reference(bfparser->st, endtagmatch, innercontext);
