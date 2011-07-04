@@ -814,6 +814,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 			gtk_text_iter_get_offset(&match->start), gtk_text_iter_get_offset(&match->end), scantable.matches[match->patternum].nextcontext);*/
 #ifdef IDENTSTORING
 	scanning->identmode = pat.identmode;
+	scanning->identaction = pat.identaction;
 #endif							/* IDENTSTORING */
 
 	match_end_o = gtk_text_iter_get_offset(&match->end);
