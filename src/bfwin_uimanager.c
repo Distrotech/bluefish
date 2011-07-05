@@ -912,21 +912,23 @@ lang_mode_menu_create(Tbfwin * bfwin)
 	freelist = langmgr_get_languages();
 	for (list = g_list_first(freelist); list; list = list->next) {
 		Tbflang *bflang = (Tbflang *) list->data;
-		GtkRadioAction *action;
-
-		action = gtk_radio_action_new(bflang->name, bflang->name, NULL, NULL, value);
-		gtk_action_group_add_action(bfwin->lang_mode_group, GTK_ACTION(action));
-		gtk_radio_action_set_group(action, group);
-		group = gtk_radio_action_get_group(action);
-		g_object_set_data(G_OBJECT(action), "bflang", (gpointer) bflang);
-
-		g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(lang_mode_menu_activate), bfwin);
-
-		gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->lang_mode_merge_id,
-							  "/MainMenu/DocumentMenu/DocumentLangMode/LangModePlaceholder", bflang->name,
-							  bflang->name, GTK_UI_MANAGER_MENUITEM, FALSE);
-		g_object_unref(action);
-		value++;
+		if (bflang->in_menu) {
+			GtkRadioAction *action;
+	
+			action = gtk_radio_action_new(bflang->name, bflang->name, NULL, NULL, value);
+			gtk_action_group_add_action(bfwin->lang_mode_group, GTK_ACTION(action));
+			gtk_radio_action_set_group(action, group);
+			group = gtk_radio_action_get_group(action);
+			g_object_set_data(G_OBJECT(action), "bflang", (gpointer) bflang);
+	
+			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(lang_mode_menu_activate), bfwin);
+	
+			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->lang_mode_merge_id,
+								  "/MainMenu/DocumentMenu/DocumentLangMode/LangModePlaceholder", bflang->name,
+								  bflang->name, GTK_UI_MANAGER_MENUITEM, FALSE);
+			g_object_unref(action);
+			value++;
+		}
 	}
 	g_list_free(freelist);
 }

@@ -509,7 +509,7 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 		xmlFree(name);
 	}
 	
-	tmp = lookup_user_option(bflang->name, "in_menu");
+	tmp = lookup_user_option(bflang->name, "show_in_menu");
 	bflang->in_menu = !(tmp && tmp[0] == '0');
 }
 
