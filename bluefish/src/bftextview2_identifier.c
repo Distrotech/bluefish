@@ -21,6 +21,9 @@
 #include "bftextview2.h"
 #include "bftextview2_identifier.h"
 
+/*#undef DBG_IDENTIFIER*/
+/*#define DBG_IDENTIFIER g_print*/
+
 #ifdef IDENTSTORING
 static gboolean
 identifier_jump_equal(gconstpointer k1, gconstpointer k2)
@@ -205,7 +208,7 @@ found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end,
 	gboolean freetmp=TRUE;
 
 	tmp = gtk_text_buffer_get_text(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)), start, end, TRUE);
-	DBG_IDENTIFIER("found identifier %s at %p\n", tmp, tmp);
+	DBG_IDENTIFIER("found identifier %s at %p, identaction=%d\n", tmp, tmp, identaction);
 	if (identaction & 1) {
 		ijk = identifier_jumpkey_new(btv->bflang, context, tmp);
 		oldijd = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk);
@@ -230,18 +233,21 @@ found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end,
 			for (tmplist=g_list_first(compl->items);tmplist;tmplist=g_list_next(tmplist)) {
 				if (g_strcmp0(tmp, tmplist->data)==0) {
 					havecompl=TRUE;
+					DBG_IDENTIFIER("identifier exists already\n");
 					break;
 				}
 			}
 		}
 		if (!havecompl) {
 			items = g_list_prepend(NULL, tmp);
+			DBG_IDENTIFIER("add identifier %s to completion %p for context %d\n",tmp,compl,context);
 			g_completion_add_items(compl, items);
 			g_list_free(items);
 			freetmp=FALSE;
 		}
 	}
 	if (freetmp) {
+		DBG_IDENTIFIER("tmp is not stored somewhere, free tmp\n");
 		g_free(tmp);
 	}
 }

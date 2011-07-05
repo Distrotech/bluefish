@@ -429,8 +429,6 @@ typedef struct {
 typedef struct {
 	gchar *name;
 	GList *mimetypes;
-	/*GList *langoptions; *//* all options that can be enabled/disabled for this language and their default value (0 or 1) */
-	/*GList *setoptions; *//* all options that are enabled have value '1' in this hashtable */
 	GList *tags;				/* all tags used for highlighting in this language. we use this list when 
 								   we want to remove all tags and want to re-highlight */
 	gchar *filename;			/* the .bflang2 file */
@@ -443,6 +441,7 @@ typedef struct {
 #endif
 	gboolean no_st;				/* no scantable, for Text, don't try to load the scantable if st=NULL */
 	gboolean parsing;			/* set to TRUE when a thread is parsing the scantable already */
+	gboolean in_menu; /* set to TRUE to show this language in the menu */ 
 	gint size_table;
 	gint size_contexts;
 	gint size_matches;

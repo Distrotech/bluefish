@@ -610,7 +610,7 @@ large php files, a cache of
 so we keep it at 12 for the moment
 */
 #define UTF8_OFFSET_CACHE_SIZE 12
-#define UTF8_BYTECHARDEBUG 
+/*#define UTF8_BYTECHARDEBUG */
 
 typedef struct {
 	/* the two arrays must be grouped and in this order, because they are moved back 

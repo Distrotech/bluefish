@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h>				/* memcpy */
@@ -1212,7 +1212,7 @@ findfiles(GFile *basedir, gboolean recursive, guint max_recursion, gboolean matc
 		return NULL;
 
 	ff = g_slice_new0(Tfindfiles);
-	g_print("findfiles started at %p, name_filter=%s\n",name_filter);
+	DEBUG_MSG("findfiles started at %p, name_filter=%s\n",ff,name_filter);
 	ff->topbasedir = basedir;
 	g_object_ref(ff->topbasedir);
 	ff->recursive = recursive;
