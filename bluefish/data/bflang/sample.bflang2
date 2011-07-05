@@ -42,7 +42,9 @@ can enable/disable this complete section with this option
 	<!-- whether or not to load the auto completion data for this language -->
 	<option name="autocomplete_tags" default="1" />
 	<!-- whether or not to close <tag> -->
-
+	
+	<option name="show_in_menu" default="0"/>
+	<!-- show this language by default in the menu -->
 </header>
 <properties>
 <!-- properties are parsed after the first file with this mime type has been loaded -->
