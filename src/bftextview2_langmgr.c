@@ -428,6 +428,7 @@ set_boolean_if_attribute_name(xmlTextReaderPtr reader, xmlChar * aname, xmlChar 
 static void
 process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 {
+	gchar *tmp;
 	while (xmlTextReaderRead(reader) == 1) {
 		xmlChar *name = xmlTextReaderName(reader);
 		if (xmlStrEqual(name, (xmlChar *) "mime")) {
@@ -507,6 +508,9 @@ process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 		}
 		xmlFree(name);
 	}
+	
+	tmp = lookup_user_option(bflang->name, "in_menu");
+	bflang->in_menu = !(tmp && tmp[0] == '0');
 }
 
 /* declaration needed for recursive calling */
