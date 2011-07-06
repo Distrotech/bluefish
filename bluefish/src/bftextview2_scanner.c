@@ -188,8 +188,33 @@ get_foundcache_at_offset(BluefishTextView * btv, guint offset, GSequenceIter ** 
 
 void found_free_lcb(gpointer data, gpointer btv);
 
+static gboolean
+is_fblock_on_stack(Tfoundblock * topfblock, Tfoundblock * searchfblock)
+{
+	Tfoundblock *fblock = topfblock;
+	while (fblock) {
+		DBG_SCANCACHE("is_fblock_on_stack, compare needle %p with haystack item %p\n", searchfblock, fblock);
+		if (fblock == searchfblock)
+			return TRUE;
+		fblock = (Tfoundblock *) fblock->parentfblock;
+	}
+	return FALSE;
+}
+
+static gboolean
+is_fcontext_on_stack(Tfoundcontext * topfcontext, Tfoundcontext * searchfcontext)
+{
+	Tfoundcontext *fcontext = topfcontext;
+	while (fcontext) {
+		if (fcontext == searchfcontext)
+			return TRUE;
+		fcontext = (Tfoundcontext *) fcontext->parentfcontext;
+	}
+	return FALSE;
+}
+
 static guint
-remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** siter)
+remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** siter, Tfoundblock *curblockstack, Tfoundcontext *curcontextstack)
 {
 	Tfound *tmpfound1 = *found;
 	GSequenceIter *tmpsiter1 = *siter;
@@ -198,16 +223,18 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 	*found = get_foundcache_next(btv, siter);
 	DBG_SCANCACHE("remove_cache_entry, remove %p at offset %d and any children, numblockchange=%d, numcontextchange=%d\n", tmpfound1,
 				  tmpfound1->charoffset_o, tmpfound1->numblockchange, tmpfound1->numcontextchange);
-	/* if this entry pops blocks or contexts, mark the ends of those as undefined */
+		/* if this entry pops blocks or contexts, mark the ends of those as undefined */
 	if (tmpfound1->numblockchange < 0) {
 		Tfoundblock *tmpfblock = tmpfound1->fblock;
 		DBG_SCANCACHE("remove_cache_entry, mark end of %d fblock's as undefined, fblock=%p\n",
 					  tmpfound1->numblockchange, tmpfound1->fblock);
 		blockstackcount = tmpfound1->numblockchange;
 		while (tmpfblock && blockstackcount < 0) {
-			DBG_SCANCACHE("remove_cache_entry, mark end of fblock %p as undefined\n", tmpfblock);
-			tmpfblock->start2_o = BF2_OFFSET_UNDEFINED;
-			tmpfblock->end2_o = BF2_OFFSET_UNDEFINED;
+			if (!curblockstack || is_fblock_on_stack(curblockstack, tmpfblock)) {
+				DBG_SCANCACHE("remove_cache_entry, mark end of fblock %p as undefined\n", tmpfblock);
+				tmpfblock->start2_o = BF2_OFFSET_UNDEFINED;
+				tmpfblock->end2_o = BF2_OFFSET_UNDEFINED;
+			}
 			tmpfblock = tmpfblock->parentfblock;
 			blockstackcount++;
 		}
@@ -218,8 +245,10 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 					  tmpfound1->numcontextchange);
 		contextstackcount = tmpfound1->numcontextchange;
 		while (tmpfcontext && contextstackcount < 0) {
-			DBG_SCANCACHE("remove_cache_entry, mark end of fcontext %p as undefined\n", tmpfcontext);
-			tmpfcontext->end_o = BF2_OFFSET_UNDEFINED;
+			if (!curcontextstack || is_fcontext_on_stack(curcontextstack, tmpfcontext)) {
+				DBG_SCANCACHE("remove_cache_entry, mark end of fcontext %p as undefined\n", tmpfcontext);
+				tmpfcontext->end_o = BF2_OFFSET_UNDEFINED;
+			}
 			tmpfcontext = tmpfcontext->parentfcontext;
 			contextstackcount++;
 		}
@@ -320,7 +349,7 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 		while (found && found->charoffset_o <= startpos - offset) {
 			if (found->charoffset_o > startpos) {
 				gboolean didpop = (found->numblockchange < 0);
-				remove_cache_entry(btv, &found, &siter);
+				remove_cache_entry(btv, &found, &siter, NULL, NULL);
 				if (!found && didpop) {
 					GtkTextIter it1, it2;
 					/* there is a special situation: if this is the last found in the cache, and it pops a block, 
@@ -496,7 +525,7 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 		Tfound *ifound;
 		GSequenceIter *isiter = NULL, *cursiter;
 		DBG_SCANCACHE
-			("found_end_of_block, block has an end already?!? invalidate and enlarge region to previous end at end2_o %d\n",
+			("found_end_of_block, block has an end already! invalidate and enlarge region to previous end at end2_o %d\n",
 			 fblock->end2_o);
 		/* this block was previously larger, so now we have to invalidate the previous
 		   end of block in the cache */
@@ -706,38 +735,18 @@ cached_found_is_valid(BluefishTextView * btv, Tmatch * match, Tscanning * scanni
 	return TRUE;
 }
 
-static gboolean
-is_fblock_on_stack(Tfoundblock * topfblock, Tfoundblock * searchfblock)
-{
-	Tfoundblock *fblock = topfblock;
-	while (fblock) {
-		DBG_SCANCACHE("is_fblock_on_stack, compare needle %p with haystack item %p\n", searchfblock, fblock);
-		if (fblock == searchfblock)
-			return TRUE;
-		fblock = (Tfoundblock *) fblock->parentfblock;
-	}
-	return FALSE;
-}
-
-static gboolean
-is_fcontext_on_stack(Tfoundcontext * topfcontext, Tfoundcontext * searchfcontext)
-{
-	Tfoundcontext *fcontext = topfcontext;
-	while (fcontext) {
-		if (fcontext == searchfcontext)
-			return TRUE;
-		fcontext = (Tfoundcontext *) fcontext->parentfcontext;
-	}
-	return FALSE;
-}
-
-
 /* called from found_match() if an entry is in the cache, but the scanner continued in the text beyond
 this offset (and thus this is outdated), or this entry is invalid for some reason */
 static guint
 remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tscanning * scanning)
 {
 	guint invalidoffset;
+	do {
+		invalidoffset = remove_cache_entry(btv, &scanning->nextfound, &scanning->siter, scanning->curfblock, scanning->curfcontext);
+	} while (scanning->nextfound && (scanning->nextfound->charoffset_o < match_end_o || !nextcache_valid(scanning)));
+	DBG_SCANNING("remove_invalid_cache, return invalidoffset %d\n", invalidoffset);
+	return invalidoffset; 
+/*	guint invalidoffset;
 
 	DBG_SCANNING("remove_invalid_cache, cache item %p at offset %d is NO LONGER valid\n", scanning->nextfound,
 				 scanning->nextfound->charoffset_o);
@@ -745,7 +754,7 @@ remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tscanning * scan
 		gint i = scanning->nextfound->numblockchange;
 		Tfoundblock *tmpfblock = scanning->nextfound->fblock;
 		while (i < 0 && tmpfblock) {
-			/* if tmpfblock is still on the stack, we have to set the end as undefined */
+			/ * if tmpfblock is still on the stack, we have to set the end as undefined * /
 			if (is_fblock_on_stack(scanning->curfblock, tmpfblock)) {
 				DBG_SCANNING("setting end of fblock %p as undefined\n", tmpfblock);
 				tmpfblock->start2_o = BF2_OFFSET_UNDEFINED;
@@ -772,7 +781,7 @@ remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tscanning * scan
 		invalidoffset = remove_cache_entry(btv, &scanning->nextfound, &scanning->siter);
 	} while (scanning->nextfound && (scanning->nextfound->charoffset_o < match_end_o || !nextcache_valid(scanning)));
 	DBG_SCANNING("remove_invalid_cache, return invalidoffset %d\n", invalidoffset);
-	return invalidoffset;
+	return invalidoffset;*/
 }
 
 static gboolean
