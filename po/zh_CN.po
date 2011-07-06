@@ -1,12 +1,12 @@
 # Simple Chinese(zh_CN) language file for Bluefish.
-# Copyright (C) 2011 william9527
-# william9527 <mzf9527@gmail.com>, 2011.
+# Copyright (C) 2011 ZhiFeng Ma
+# ZhiFeng Ma <mzf9527@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-07-01 15:50+0800\n"
+"POT-Creation-Date: 2011-07-04 23:41+0800\n"
 "PO-Revision-Date: 2011-07-01 15:57+0800\n"
 "Last-Translator: william9527 <mzf9527@gmail.com>\n"
 "Language-Team: \n"
@@ -75,12 +75,12 @@ msgstr "查找："
 msgid "Advanced"
 msgstr "高级"
 
-#: ../src/bfwin.c:1117
+#: ../src/bfwin.c:1125
 msgid "New Bluefish Window"
 msgstr "新建 Bluefish 窗口"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1177
+#: ../src/bfwin.c:1185
 msgid "Stand by..."
 msgstr "请等待..."
 
@@ -245,7 +245,7 @@ msgstr "全选"
 msgid "Add Boo_kmark"
 msgstr "添加书签(_k)"
 
-#: ../src/bfwin_uimanager.c:737 ../src/document.c:1895
+#: ../src/bfwin_uimanager.c:737 ../src/document.c:1838
 msgid "Add bookmark"
 msgstr "添加书签"
 
@@ -529,7 +529,7 @@ msgstr "文本换行(_W)"
 msgid "Wrap text"
 msgstr "文本换行"
 
-#: ../src/bfwin_uimanager.c:814 ../src/document.c:2966
+#: ../src/bfwin_uimanager.c:814 ../src/document.c:2903
 msgid "_Close"
 msgstr "关闭(_C)"
 
@@ -731,7 +731,7 @@ msgstr "粘贴"
 msgid "_Find..."
 msgstr "查找(_F)..."
 
-#: ../src/bfwin_uimanager.c:863 ../src/document.c:1882 ../src/snr2.c:1949
+#: ../src/bfwin_uimanager.c:863 ../src/document.c:1825 ../src/snr2.c:1949
 msgid "Find"
 msgstr "查找"
 
@@ -755,7 +755,7 @@ msgstr "在剪切板中查找"
 msgid "R_eplace..."
 msgstr "替换(_e)..."
 
-#: ../src/bfwin_uimanager.c:867 ../src/document.c:1876 ../src/snr2.c:1952
+#: ../src/bfwin_uimanager.c:867 ../src/document.c:1819 ../src/snr2.c:1952
 msgid "Replace"
 msgstr "替换"
 
@@ -990,7 +990,7 @@ msgstr "编辑(_E)..."
 msgid "_Delete"
 msgstr "删除(_D)"
 
-#: ../src/bookmark.c:849 ../src/document.c:1891
+#: ../src/bookmark.c:849 ../src/document.c:1834
 msgid "Delete bookmark"
 msgstr "删除书签"
 
@@ -1186,15 +1186,15 @@ msgstr "无法显示文件，字符集未知。"
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2021 ../src/file_dialogs.c:482 ../src/file_dialogs.c:520
+#: ../src/document.c:1961 ../src/file_dialogs.c:482 ../src/file_dialogs.c:520
 msgid "_Abort save"
 msgstr "中断保存(_A)"
 
-#: ../src/document.c:2021
+#: ../src/document.c:1961
 msgid "_Continue save in UTF-8"
 msgstr "继续以 UTF-8 保存(_C)"
 
-#: ../src/document.c:2034
+#: ../src/document.c:1974
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1206,15 +1206,15 @@ msgstr ""
 "\n"
 "以 UTF-8 编码继续保存吗？"
 
-#: ../src/document.c:2039
+#: ../src/document.c:1979
 msgid "File encoding conversion failure"
 msgstr "文件编码转换失败"
 
-#: ../src/document.c:2307
+#: ../src/document.c:2244
 msgid "Previously: "
 msgstr "前一个："
 
-#: ../src/document.c:2758 ../src/file_dialogs.c:827
+#: ../src/document.c:2695 ../src/file_dialogs.c:827
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1224,79 +1224,79 @@ msgstr ""
 "本。"
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2883
+#: ../src/document.c:2820
 msgid "Unable to open file"
 msgstr "无法打开文件"
 
-#: ../src/document.c:2895
+#: ../src/document.c:2832
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "如果你恢复 \"%s\" 到你上次备份的位置，当前的修改将永久丢失。"
 
-#: ../src/document.c:2899
+#: ../src/document.c:2836
 msgid "Revert changes to last saved copy?"
 msgstr "恢复到上次保存的位置吗？"
 
-#: ../src/document.c:2966
+#: ../src/document.c:2903
 msgid "_Retry"
 msgstr "重试(_R)"
 
-#: ../src/document.c:2966
+#: ../src/document.c:2903
 msgid "Retry _all failed"
 msgstr "重试所有失败的文件(_a)"
 
-#: ../src/document.c:2966
+#: ../src/document.c:2903
 msgid "Close all _failed"
 msgstr "关闭所有失败的文件(_f)"
 
-#: ../src/document.c:2971
+#: ../src/document.c:2908
 msgid "File "
 msgstr "文件 "
 
-#: ../src/document.c:2971
+#: ../src/document.c:2908
 msgid " failed to load."
 msgstr " 读取失败。"
 
-#: ../src/document.c:2975
+#: ../src/document.c:2912
 msgid "File failed to load\n"
 msgstr "文件读取失败\n"
 
-#: ../src/document.c:3091
+#: ../src/document.c:3028
 msgid "Select file to insert"
 msgstr "选择要插入的文件"
 
-#: ../src/document.c:3100
+#: ../src/document.c:3037
 msgid "No file to insert"
 msgstr "没有要插入的文件"
 
-#: ../src/document.c:3204
+#: ../src/document.c:3141
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d 行"
 msgstr[1] "%d 行"
 
-#: ../src/document.c:3205
+#: ../src/document.c:3142
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d 个字"
 msgstr[1] "%d 个字"
 
-#: ../src/document.c:3206
+#: ../src/document.c:3143
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d 个字符"
 msgstr[1] "% 个字符"
 
-#: ../src/document.c:3208
+#: ../src/document.c:3145
 msgid "Selection statistics: "
 msgstr "统计选择区域："
 
-#: ../src/document.c:3208
+#: ../src/document.c:3145
 msgid "Statistics: "
 msgstr "统计："
 
@@ -2514,7 +2514,7 @@ msgstr "<b>文档标签</b>"
 
 #: ../src/preferences.c:2112
 msgid "_Tab position:"
-msgstr "跳格键位置(_T)："
+msgstr "标签位置(_T)："
 
 #: ../src/preferences.c:2116
 msgid "_Switch between tabs with <Alt>+0..9"
@@ -2554,7 +2554,7 @@ msgstr "位置(_n)："
 
 #: ../src/preferences.c:2161
 msgid "Tab _position:"
-msgstr "跳格键位置(_p)："
+msgstr "标签位置(_p)："
 
 #: ../src/preferences.c:2170
 msgid "Dimensions"
