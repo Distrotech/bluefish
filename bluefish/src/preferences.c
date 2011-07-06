@@ -51,6 +51,7 @@ enum {
 	editor_font_string,			/* editor font */
 	editor_smart_cursor,
 	editor_tab_indent_sel,
+	editor_auto_close_brackets,
 	use_system_tab_font,
 	tab_font_string,			/* notebook tabs font */
 	/*tab_color_normal, *//* notebook tabs text color normal.  This is just NULL! */
@@ -1485,6 +1486,7 @@ preferences_apply(Tprefdialog * pd)
 	DEBUG_MSG("preferences_apply, started\n");
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
+	integer_apply(&main_v->props.editor_auto_close_brackets, pd->prefs[editor_auto_close_brackets], TRUE);
 	integer_apply(&main_v->props.editor_tab_indent_sel, pd->prefs[editor_tab_indent_sel], TRUE);
 	integer_apply(&main_v->props.smartindent, pd->prefs[smartindent], TRUE);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_ED_FG], pd->prefs[editor_fg]);
@@ -1860,7 +1862,7 @@ preferences_dialog_new(void)
 		dialog_spin_button_labeled(1, 500, main_v->props.right_margin_pos,
 								   _("Right _margin/split line end position:"), hbox, 0);
 
-	table = dialog_table_in_vbox_defaults(3, 2, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(4, 2, 0, vbox2);
 
 	pd->prefs[smartindent] =
 		dialog_check_button_in_table(_("Smart auto indentin_g"), main_v->props.smartindent, table, 0, 1, 0,
@@ -1872,6 +1874,10 @@ preferences_dialog_new(void)
 	pd->prefs[editor_tab_indent_sel] =
 		dialog_check_button_in_table(_("_Tab key indents selection"), main_v->props.editor_tab_indent_sel,
 									 table, 0, 1, 2, 3);
+
+	pd->prefs[editor_auto_close_brackets] =
+		dialog_check_button_in_table(_("Auto close brackets"),
+									 main_v->props.editor_auto_close_brackets, table, 0, 1, 3, 4);
 
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);

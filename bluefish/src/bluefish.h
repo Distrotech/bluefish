@@ -221,6 +221,7 @@ typedef struct {
 	gchar *editor_font_string;	/* editor font */
 	gint editor_smart_cursor;
 	gint editor_tab_indent_sel; /* tab key will indent a selected block */
+	gint editor_auto_close_brackets;
 	gint use_system_tab_font;
 	gchar *tab_font_string;		/* notebook tabs font */
 	/*  gchar *tab_color_normal; *//* notebook tabs text color normal.  This is just NULL! */
