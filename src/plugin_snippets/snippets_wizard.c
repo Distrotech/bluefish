@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snippets_wizard.c - plugin for snippets sidebar
  *
- * Copyright (C) 2006,2009,2010 Olivier Sessink
+ * Copyright (C) 2006,2009-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -129,7 +129,7 @@ static gpointer snippets_build_pageSnr(Tsnipwiz *snwiz, GtkWidget *dialog_action
 	gtk_table_set_col_spacings(GTK_TABLE (p->table), 12);
 	gtk_box_pack_start(GTK_BOX(dialog_action), p->table, TRUE, TRUE, 0);
 	
-	label = gtk_label_new(_("Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."));
+	label = gtk_label_new(_("Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"));
 	/*gtk_label_set_use_markup(GTK_LABEL(label),TRUE);*/
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
 	gtk_table_attach(GTK_TABLE(p->table),label, 0,4,0,1
@@ -337,7 +337,7 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 	gtk_table_set_col_spacings(GTK_TABLE (p2->table), 12);
 	gtk_box_pack_start(GTK_BOX(dialog_action), p2->table, TRUE, TRUE, 0);
 	
-	label = gtk_label_new(_("The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."));
+	label = gtk_label_new(_("The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"));
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
 	gtk_table_attach(GTK_TABLE(p2->table),label, 0,3,0,1
