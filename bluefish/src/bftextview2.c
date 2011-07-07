@@ -1653,10 +1653,10 @@ bluefish_text_view_get_comment(BluefishTextView * btv, GtkTextIter * it, Tcommen
 		} else {
 			contextnum = 1;
 		}
-/*		g_print("bluefish_text_view_get_comment, contextnum=%d\n",contextnum);*/
+		DEBUG_MSG("bluefish_text_view_get_comment, contextnum=%d\n",contextnum);
 		line = g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).comment_line;
 		block = g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).comment_block;
-/*		g_print("bluefish_text_view_get_comment, comment_line=%d, comment_block=%d\n",line,block);*/
+		DEBUG_MSG("bluefish_text_view_get_comment, type %d (line) has index %d, type %d (block) has index %d\n",comment_type_line, line, comment_type_block,block);
 		if (line == COMMENT_INDEX_NONE && block == COMMENT_INDEX_NONE)
 			return NULL;
 
@@ -1665,8 +1665,8 @@ bluefish_text_view_get_comment(BluefishTextView * btv, GtkTextIter * it, Tcommen
 			|| (line == COMMENT_INDEX_NONE && block == COMMENT_INDEX_INHERIT)
 			)
 			continue;
-
-		if (preferred_type == block) {
+		DEBUG_MSG("preferred_type %d\n",preferred_type);
+		if (preferred_type == comment_type_block) {
 			if (block == COMMENT_INDEX_NONE) {
 				return &g_array_index(btv->bflang->st->comments, Tcomment, line);
 			} else if (block == COMMENT_INDEX_INHERIT) {

@@ -200,6 +200,7 @@ void toggle_comment(Tdocument *doc) {
 	 		return;
 		offsets = gtk_text_iter_get_offset(&its);
 		offsete = gtk_text_iter_get_offset(&ite);
+		DEBUG_MSG("got comment with type %d, so=%s\n",comment->type, comment->so);
 	 	if (comment->type == comment_type_line) {
 	 		add_line_comment(doc, comment->so, offsets,offsete);
 	 		extraoffset = strlen(comment->so);

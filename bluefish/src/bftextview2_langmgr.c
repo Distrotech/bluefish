@@ -1096,12 +1096,15 @@ set_commentid(Tbflangparsing * bfparser, gboolean topevel_context, guint8 * tose
 {
 	*toset = COMMENT_INDEX_INHERIT;
 	if (string) {
+		DEBUG_MSG("set_commentid, request for commentid %s\n",string);
 		if (g_strcmp0(string, "none") == 0) {
 			*toset = COMMENT_INDEX_NONE;
 		} else {
 			gint tmp = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->commentid_table, string));
+			/* decrement 1 because to store index 0 in the hashtable, all numbers in the hastable are incremented with 1 */
+			DEBUG_MSG("set_commentid, id %s has index %d\n",string,(gint)(tmp-1));
 			if (tmp != 0)
-				*toset = (guint8) (tmp - 1);
+				*toset = (guint8) (tmp-1);
 		}
 	}
 	if (topevel_context && *toset == COMMENT_INDEX_INHERIT) {
@@ -1283,6 +1286,8 @@ build_lang_thread(gpointer data)
 					if (com.so && (com.type == comment_type_line || com.eo)) {
 						g_array_append_val(bfparser->st->comments, com);
 						if (id)
+							/* we insert one position higher than the actual index in the hashtable, because index 0 would 
+							otherwise produce pointer NULL in the hashtable. set_comment() should thus decrement by 1) */
 							g_hash_table_insert(bfparser->commentid_table, id,
 												GINT_TO_POINTER(bfparser->st->comments->len));
 					} else {
