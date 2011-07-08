@@ -1041,6 +1041,10 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	bfwin_recent_menu_create(bfwin);
 
 	set_project_menu_actions(bfwin, FALSE);
+	
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewSidePane", bfwin->session->view_left_panel);
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewMainToolbar", bfwin->session->view_main_toolbar);
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewStatusBar", bfwin->session->view_statusbar);
 }
 
 void
