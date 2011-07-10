@@ -1148,17 +1148,17 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		const gchar *insert;
 		GtkTextIter tmpit;
 		if (kevent->keyval == '{')
-			insert = "}";
+			insert = "{}";
 		else if (kevent->keyval == '[')
-			insert = "]";
+			insert = "[]";
 		else
-			insert = ")";
-		gtk_text_buffer_insert_at_cursor(BLUEFISH_TEXT_VIEW(btv)->buffer, insert, 1);
+			insert = "()";
+		gtk_text_buffer_insert_at_cursor(BLUEFISH_TEXT_VIEW(btv)->buffer, insert, 2);
 		gtk_text_buffer_get_iter_at_mark(BLUEFISH_TEXT_VIEW(btv)->buffer, &tmpit, gtk_text_buffer_get_insert(BLUEFISH_TEXT_VIEW(btv)->buffer));
 		if (gtk_text_iter_backward_char(&tmpit)) {
 			gtk_text_buffer_place_cursor(BLUEFISH_TEXT_VIEW(btv)->buffer, &tmpit);
 		}
-		/* do not return TRUE, we ALSO need the normal response to this event */
+		return TRUE;
 	}
 	
 	retval = GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->key_press_event(widget, kevent);
