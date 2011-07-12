@@ -1533,8 +1533,13 @@ bflang_cleanup_scantable(Tbflang * bflang)
 		g_free(g_array_index(bflang->st->contexts, Tcontext, i).contexthighlight);
 		g_array_free(g_array_index(bflang->st->contexts, Tcontext, i).table, TRUE);
 	}
+	for (i = 1; i < bflang->st->comments->len; i++) {
+		g_free(g_array_index(bflang->st->comments, Tcomment, i).so);
+		g_free(g_array_index(bflang->st->comments, Tcomment, i).eo);
+	}
 	g_array_free(bflang->st->matches, TRUE);
 	g_array_free(bflang->st->contexts, TRUE);
+	g_array_free(bflang->st->comments, TRUE);
 	g_slice_free(Tscantable, bflang->st);
 	bflang->st = NULL;
 }

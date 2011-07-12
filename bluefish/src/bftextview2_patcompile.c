@@ -544,6 +544,7 @@ process_regex_part(Tscantable * st, gchar * regexpart, gint16 context, gboolean 
 		}
 		i++;
 	}
+	/* cannot get here */
 }
 
 static void
