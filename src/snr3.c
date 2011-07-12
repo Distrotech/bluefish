@@ -188,13 +188,12 @@ static gchar *
 retrieve_pcre_replace_string(Tsnr3run *s3run, Tsnr3result *s3result, GMatchInfo *matchinfo)
 {
 	GError *gerror=NULL;
-	gboolean found;
 	gchar *newstr=NULL;
 	gchar *buf = NULL;
 	if (!matchinfo) {
 		buf =doc_get_chars(s3result->doc, s3result->so-10, s3result->eo+10);
 		g_print("retrieve_pcre_replace_string, search in %s\n",buf);
-		found = g_regex_match_full(s3run->regex,buf,-1, 10,0, &matchinfo, &gerror);
+		g_regex_match_full(s3run->regex,buf,-1, 10,0, &matchinfo, &gerror);
 		if (gerror) {
 			g_print("retrieve_pcre_replace_string, error %s\n",gerror->message);
 			g_error_free(gerror);
@@ -522,6 +521,7 @@ snr3_cancel_run(Tsnr3run *s3run) {
 	if (s3run->idle_id) {
 		g_print("remove idle_id %d\n", s3run->idle_id);
 		g_source_remove(s3run->idle_id);
+		/* TODO: BUG: MEMLEAK: the Truninidle is not free'ed now !?!?!?! */
 		s3run->idle_id=0;
 		s3run->curdoc=NULL;
 	}
@@ -547,13 +547,17 @@ snr3run_resultcleanup(Tsnr3run *s3run)
 void snr3run_free(Tsnr3run *s3run) {
 	DEBUG_MSG("snr3run_free, started for %p\n",s3run);
 	snr3_cancel_run(s3run);
+	if (s3run->curbuf)
+		g_free(s3run->curbuf);
 	bfwin_current_document_change_remove_by_data(s3run->bfwin, s3run);
 	bfwin_document_insert_text_remove_by_data(s3run->bfwin, s3run);
 	bfwin_document_delete_range_remove_by_data(s3run->bfwin, s3run);
+	bfwin_document_destroy_remove_by_data(s3run->bfwin, s3run);
 	DEBUG_MSG("snr3run_free, query at %p\n",s3run->query);
 	g_free(s3run->query);
 	g_print("snr3run_free, replace\n");
 	g_free(s3run->replace);
+	g_free(s3run->filepattern);
 	g_print("snr3run_free, basedir\n");
 	if (s3run->basedir)
 		g_object_unref(s3run->basedir);
@@ -632,6 +636,7 @@ snr3_docdestroy_cb(Tdocument *doc, gpointer data)
 {
 	Tsnr3run *s3run = data;
 	/* see if this is the current document of an ongoing search, if so, cancel the search */
+	DEBUG_MSG("snr3_docdestroy_cb, doc=%p, s3run=%p\n",doc,s3run);
 	if (s3run->curdoc == doc) {
 		snr3_cancel_run(s3run);
 	}

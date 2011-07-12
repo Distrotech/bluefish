@@ -38,7 +38,7 @@ the trailing slash. So it is convenient to use directories without trailing slas
 alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're supposed to do
 */
 
-/*#define DBG_FBREFCOUNT*/
+#define DBG_FBREFCOUNT
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -65,7 +65,7 @@ typedef struct {
 } Turi_in_refresh;
 
 enum {
-	PIXMAP_COLUMN,
+	/*PIXMAP_COLUMN,*/
 	ICON_NAME_COLUMN,
 	FILENAME_COLUMN,
 	URI_COLUMN,
@@ -390,9 +390,11 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 		}
 	} else {					/* child does not yet exist */
 		gchar *display_name;
-		gchar *mime_type;
 #ifdef WIN32
 		const gchar *cont_type;
+		gchar *mime_type;
+#else
+		const gchar *mime_type;
 #endif
 		GIcon *icon;
 		gchar *icon_name = NULL;
@@ -408,10 +410,8 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 			cont_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 			mime_type = g_content_type_get_mime_type(cont_type);
 		}
-		/*g_print("display_name=%s, cont_type=%s, mime_type=%s\n",display_name,cont_type,mime_type); */
 #else
-		mime_type =
-			(gchar *) g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+		mime_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 		if (mime_type == NULL && g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY) {
 			/* GVFS SMB module on Ubuntu 8.10 returns NULL as FAST_CONTENT_TYPE, but it does set
 			   the type (regular file or directory). In the case of a directory we manually set the 
@@ -430,8 +430,11 @@ fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri, GFileInfo * fi
 		DEBUG_MSG("fb2_add_filesystem_entry, store child_uri %p, finfo %p\n",child_uri, finfo);
 		gtk_tree_store_insert_with_values(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
 										  newiter, parent, 0,
-										  ICON_NAME_COLUMN, icon_name, FILENAME_COLUMN, display_name,
-										  URI_COLUMN, child_uri, REFRESH_COLUMN, 0, TYPE_COLUMN, mime_type,
+										  ICON_NAME_COLUMN, icon_name, 
+										  FILENAME_COLUMN, display_name,
+										  URI_COLUMN, child_uri, 
+										  REFRESH_COLUMN, 0, 
+										  TYPE_COLUMN, mime_type,
 										  FILEINFO_COLUMN, finfo, -1);
 		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
 		g_free(icon_name);
@@ -2721,8 +2724,8 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
 	gtk_tree_view_column_set_attributes(column, renderer,
 										"icon-name", ICON_NAME_COLUMN,
-										"pixbuf_expander_closed", PIXMAP_COLUMN,
-										"pixbuf_expander_open", PIXMAP_COLUMN, NULL);
+										/*"pixbuf_expander_closed", PIXMAP_COLUMN,
+										"pixbuf_expander_open", PIXMAP_COLUMN,*/ NULL);
 	renderer = gtk_cell_renderer_text_new();
 	g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
 	gtk_tree_view_column_pack_start(column, renderer, TRUE);
@@ -2769,8 +2772,8 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		gtk_tree_view_column_pack_start(column, renderer, FALSE);
 		gtk_tree_view_column_set_attributes(column, renderer,
 											"icon-name", ICON_NAME_COLUMN,
-											"pixbuf_expander_closed", PIXMAP_COLUMN,
-											"pixbuf_expander_open", PIXMAP_COLUMN, NULL);
+											/*"pixbuf_expander_closed", PIXMAP_COLUMN,
+											"pixbuf_expander_open", PIXMAP_COLUMN,*/ NULL);
 		renderer = gtk_cell_renderer_text_new();
 		g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
 		gtk_tree_view_column_pack_start(column, renderer, TRUE);
@@ -2966,7 +2969,7 @@ fb2config_init(void)
 	fb2config->filesystem_itable =
 		g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, uri_hash_destroy, iter_value_destroy);
 	fb2config->filesystem_tstore =
-		gtk_tree_store_new(N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
+		gtk_tree_store_new(N_COLUMNS, /*GDK_TYPE_PIXBUF,*/ G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
 						   G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
 	DEBUG_MSG("fb2config_init, finished\n");
 }

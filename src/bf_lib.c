@@ -629,7 +629,7 @@ typedef struct {
 #endif
 } Tutf8_offset_cache;
 
-static Tutf8_offset_cache utf8_offset_cache;
+static Tutf8_offset_cache utf8_offset_cache = {{0,0,0,0,0,0,0,0,0,0,0,0}, {0,0,0,0,0,0,0,0,0,0,0,0}};
 
 /**
  * utf8_offset_cache_reset:
