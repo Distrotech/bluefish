@@ -981,6 +981,7 @@ static void snr_dialog_show_widgets(TSNRWin * snrwin) {
 static void
 snr_combobox_changed(GtkComboBox * combobox, TSNRWin * snrwin)
 {
+	g_print("snr_combobox_changed, combobox=%p\n",combobox);
 	snr_dialog_show_widgets(snrwin);
 }
 
@@ -1113,7 +1114,6 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	for (i = 0; i < G_N_ELEMENTS(matchPattern); i++) {
 		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->searchType), _(matchPattern[i]));
 	}
-	g_print("activate searchtype %d from session\n",bfwin->session->snr3_type);
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->searchType), bfwin->session->snr3_type);
 
 	dialog_mnemonic_label_in_table(_("Match Patter_n: "), snrwin->searchType, table, 0, 1, currentrow, currentrow+1);
@@ -1145,7 +1145,6 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	gtk_table_attach(GTK_TABLE(table), snrwin->scope, 1, 4, currentrow, currentrow+1,GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	/*g_signal_connect(snrwin->scope, "realize", G_CALLBACK(realize_combo_set_tooltip),
 					 _("Where to look for the pattern."));*/
-	g_print("this should set set scope %d but that doesn't seem to work???\n",s3scope);
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->scope), s3scope);
 	
 	currentrow++;
@@ -1241,9 +1240,6 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
         if (buffer)    g_free(buffer);
     }*/
 
-	/*gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->scope), 0);*/
-	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->searchType), 0);
-	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->replaceType), 0);
 	gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND);
 	DEBUG_MSG("snr_dialog_real: display the dialog\n");
 	
