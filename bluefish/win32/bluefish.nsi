@@ -176,6 +176,8 @@ ${LoadLocalization}	"FRENCH"	"locale\French.nsh"
 ${LoadLocalization}	"GALICIAN"	"locale\Galician.nsh"
 !insertmacro MUI_LANGUAGE	"German" 	; 1031
 ${LoadLocalization}	"GERMAN"	"locale\German.nsh"
+!insertmacro MUI_LANGUAGE	"Hungarian" 	; 1038
+${LoadLocalization}	"HUNGARIAN"	"locale\Hungarian.nsh"
 !insertmacro MUI_LANGUAGE	"Italian" 	; 1040
 ${LoadLocalization}	"ITALIAN"	"locale\Italian.nsh"
 !insertmacro MUI_LANGUAGE	"Japanese" 	; 1041
@@ -186,12 +188,13 @@ ${LoadLocalization}	"NORWEGIAN"	"locale\Norwegian.nsh"
 ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 !insertmacro MUI_LANGUAGE	"Ukrainian" ; 1058
 ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
+!insertmacro MUI_LANGUAGE	"SimpChinese" 	; 2052
+${LoadLocalization}	"SIMPLE CHINESE"	"locale\SimpChinese.nsh"
 ; Translations needed for the following commented languages
 ;;!insertmacro MUI_LANGUAGE	"Bulgarian" 	; 1026
 ;;!insertmacro MUI_LANGUAGE	"Danish" 	; 1030
 ;;!insertmacro MUI_LANGUAGE	"Finnish" 	; 1035
 ;;!insertmacro MUI_LANGUAGE	"Greek" 	; 1032
-;;!insertmacro MUI_LANGUAGE	"Hungarian" 	; 1038
 ;;!insertmacro MUI_LANGUAGE	"Korean" 	; 1042
 ;;!insertmacro MUI_LANGUAGE	"Polish" 	; 1045
 ;;!insertmacro MUI_LANGUAGE	"Portuguese" 	; 2070
@@ -199,7 +202,6 @@ ${LoadLocalization}	"UKRAINIAN"	"locale\Ukrainian.nsh"
 ;;!insertmacro MUI_LANGUAGE	"Romanian" 	; 1048
 ;;!insertmacro MUI_LANGUAGE	"Russian" 	; 1049
 ;;!insertmacro MUI_LANGUAGE	"Serbian" 	; 3098
-;;!insertmacro MUI_LANGUAGE	"SimpChinese" 	; 2052
 ;;!insertmacro MUI_LANGUAGE	"Slovak" 	; 1051
 ;;!insertmacro MUI_LANGUAGE	"Spanish" 	; 1034
 ;;!insertmacro MUI_LANGUAGE	"TradChinese" 	; 1028
