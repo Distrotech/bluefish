@@ -413,8 +413,8 @@ int main(int argc, char *argv[])
 	langmgr_cleanup();
 	xmlCleanupParser();
 	
-	cairo_debug_reset_static_data();
-	FcFini(); 
+	/*cairo_debug_reset_static_data();
+	FcFini();*/ 
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
 #else
 	exit(0);

@@ -34,7 +34,7 @@
 #include "file.h"
 #include "filebrowser2.h"
 #include "gtk_easy.h"
-#include "snr2.h"				/* snr2_run_extern_replace() */
+#include "snr3.h"				/* snr3_run_extern_replace() */
 #include "stringlist.h"
 #include "undo_redo.h"
 
@@ -715,9 +715,9 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 		if (realname && strlen(realname) > 0) {
 			gchar *author_tmp;
 			author_tmp = g_strconcat("<meta name=\"author\" content=\"", realname, "\" ", NULL);
-			snr2_run_extern_replace(doc,
+			snr3_run_extern_replace(doc,
 									"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
-									0, match_perl, 0, author_tmp, FALSE);
+									snr3scope_doc, snr3type_pcre, FALSE, author_tmp, FALSE);
 			g_free(author_tmp);
 		}
 	}
@@ -749,17 +749,17 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 		DEBUG_MSG("doc_save_backend, ISO-8601 time %s\n", isotime);
 
 		date_tmp = g_strconcat("<meta name=\"date\" content=\"", isotime, "\" ", NULL);
-		snr2_run_extern_replace(doc,
+		snr3_run_extern_replace(doc,
 								"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"date\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
-								0, match_perl, 0, date_tmp, FALSE);
+								snr3scope_doc, snr3type_pcre, FALSE, date_tmp, FALSE);
 		g_free(date_tmp);
 	}
 
 	/* update generator meta tag */
 	if (main_v->props.auto_update_meta_generator) {
-		snr2_run_extern_replace(doc,
+		snr3_run_extern_replace(doc,
 								"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",
-								0, match_perl, 0,
+								snr3scope_doc, snr3type_pcre, FALSE,
 								"<meta name=\"generator\" content=\"Bluefish " VERSION "\" ", FALSE);
 	}
 

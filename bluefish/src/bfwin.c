@@ -45,7 +45,6 @@
 #include "plugins.h"
 #include "project.h"
 #include "rcfile.h"
-#include "snr2.h"
 #include "snr3.h"
 
 #ifdef IDENTSTORING
@@ -526,7 +525,6 @@ bfwin_cleanup(Tbfwin * bfwin)
 	fb2_cleanup(bfwin);
 	bmark_cleanup(bfwin);
 	outputbox_cleanup(bfwin);
-	snr2_cleanup(bfwin);
 
 	if (bfwin->notebook_changed_doc_activate_id != 0) {
 		g_source_remove(bfwin->notebook_changed_doc_activate_id);
@@ -1154,8 +1152,6 @@ bfwin_create_main(Tbfwin * bfwin)
 	bfwin->uimanager = gtk_ui_manager_new();
 	gtk_ui_manager_set_add_tearoffs(bfwin->uimanager, TRUE);
 	bfwin_main_menu_init(bfwin, bfwin->toolbarbox);
-
-	snr2_init(bfwin);
 
 	/* then the toolbars */
 	{

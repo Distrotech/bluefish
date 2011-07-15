@@ -297,22 +297,18 @@ static Tsnr3result * sn3run_add_result(Tsnr3run *s3run, gulong so, gulong eo, gp
 	s3result->doc = doc;
 	g_queue_push_tail(&s3run->results, s3result);
 	return s3result;
-} 
+}
 
-static gboolean snr3_run_pcre_loop(Truninidle *rii) {
-	Tsnr3run *s3run=rii->s3run;
-	gint loop=0;
-	GTimer *timer;
-	gboolean cont;
+static gboolean
+backend_pcre_loop(Tsnr3run *s3run, gboolean indefinitely) {
 	static guint loops_per_timer = 10;
+	gint loop=0;
 	GMatchInfo *match_info = NULL;
 	GError *gerror = NULL;
-	
-	DEBUG_MSG("snr3_run_pcre_loop, started, curbuf=%p, regex=%p\n",s3run->curbuf,s3run->regex);
 	/* reconstruct where we are searching */
-	cont = g_regex_match_full(s3run->regex, s3run->curbuf, -1, s3run->curposition, G_REGEX_MATCH_NEWLINE_ANY, &match_info, NULL);
-	timer = g_timer_new();
-	while (cont && (loop % loops_per_timer != 0
+	gboolean cont = g_regex_match_full(s3run->regex, s3run->curbuf, -1, s3run->curposition, G_REGEX_MATCH_NEWLINE_ANY, &match_info, NULL);
+	GTimer *timer = g_timer_new();
+	while (cont && (indefinitely || loop % loops_per_timer != 0
 				 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SEARCH_INTERVAL)) {
 		gint so, eo;
 		Tsnr3result *s3result;
@@ -335,43 +331,29 @@ static gboolean snr3_run_pcre_loop(Truninidle *rii) {
 		}
 		loop++;
 	}
-	DEBUG_MSG("snr3_run_pcre_loop, did %d loops in %f seconds\n",loop, g_timer_elapsed(timer, NULL));
+	DEBUG_MSG("did %d loops in %f seconds\n",loop, g_timer_elapsed(timer, NULL));
 	g_timer_destroy(timer);
 	g_match_info_free(match_info);
-	
-	if (cont) {
+	if (cont)
 		loops_per_timer = (loops_per_timer + MAX(loop / 10, 10))/2;
-		DEBUG_MSG("snr3_run_pcre_loop, continue the search another time\n");
-		return TRUE; /* call me again */
-	}
-	DEBUG_MSG("snr3_run_pcre_loop, finished document %p\n",s3run->curdoc);
-	g_free(s3run->curbuf);
-	s3run->curbuf=NULL;
-	s3run->idle_id = 0;
-	queue_worker_ready(&s3run->idlequeue);
-	snr3run_unrun(s3run);
-	g_slice_free(Truninidle, rii);
-	return FALSE;
+	return cont;
 }
 
-static gboolean snr3_run_string_loop(Truninidle *rii) {
-	Tsnr3run *s3run=rii->s3run;
+static gboolean
+backend_string_loop(Tsnr3run *s3run, gboolean indefinitely)
+{
+	GTimer *timer = g_timer_new();
 	gint querylen;
 	char *(*f) ();
 	gint loop=0;
 	static guint loops_per_timer=10;
 	gchar *result;
-	GTimer *timer;
-
-	timer = g_timer_new();
-
 	if (s3run->is_case_sens) {
 		f = strstr;
 	} else {
 		f = strcasestr;
 	}
 	querylen = g_utf8_strlen(s3run->query, -1);
-	DEBUG_MSG("snr3_run_string_loop, s3run=%p, doc=%p,reconstruct at %d\n",s3run,rii->doc,s3run->curposition);
 	/* now reconstruct the last scan offset */
 	result = s3run->curbuf + utf8_charoffset_to_byteoffset_cached(s3run->curbuf, s3run->curposition);
 
@@ -388,14 +370,10 @@ static gboolean snr3_run_string_loop(Truninidle *rii) {
 				s3run->curoffset += offsetupdate.offset;
 			}
 			s3run->curposition = char_o+querylen+s3run->so;
-			
-#ifdef SNR3_PROFILING
-			s3profiling.numresults++;
-#endif
 			result++;
 			loop++;
 		}		
-	} while (result && (loop % loops_per_timer != 0
+	} while (result && (indefinitely || loop % loops_per_timer != 0
 				 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SEARCH_INTERVAL));
 	DEBUG_MSG("did %d loops in %f seconds\n",loop, g_timer_elapsed(timer, NULL));
 	g_timer_destroy(timer);
@@ -404,6 +382,22 @@ static gboolean snr3_run_string_loop(Truninidle *rii) {
 		loops_per_timer = (loops_per_timer + MAX(loop / 10, 10))/2;
 		return TRUE;
 	}
+	return FALSE;
+}
+
+static gboolean
+snr3_run_loop_idle_func(Truninidle *rii)
+{
+	Tsnr3run *s3run=rii->s3run;
+	gboolean cont;
+	
+	if (s3run->type == snr3type_string)
+		cont = backend_string_loop(s3run, FALSE);
+	else 
+		cont = backend_pcre_loop(s3run, FALSE);
+
+	if (cont)		
+		return TRUE;
 	g_free(s3run->curbuf);
 	s3run->curbuf=NULL;
 	s3run->idle_id = 0;
@@ -428,11 +422,7 @@ snr3_run_run(gpointer data) {
 		doc_unre_new_group_action_id(rii->doc, rii->s3run->unre_action_id);
 	}
 	
-	if (rii->s3run->type == snr3type_string) {
-		rii->s3run->idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,(GSourceFunc)snr3_run_string_loop,rii,NULL);	
-	} else {
-		rii->s3run->idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,(GSourceFunc)snr3_run_pcre_loop,rii,NULL);
-	}
+	rii->s3run->idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,(GSourceFunc)snr3_run_loop_idle_func,rii,NULL);	
 }
 
 void
@@ -544,7 +534,8 @@ snr3run_resultcleanup(Tsnr3run *s3run)
 }
 
 /* called from bfwin.c for simplesearch */
-void snr3run_free(Tsnr3run *s3run) {
+void
+snr3run_free(Tsnr3run *s3run) {
 	DEBUG_MSG("snr3run_free, started for %p\n",s3run);
 	snr3_cancel_run(s3run);
 	if (s3run->curbuf)
@@ -1282,5 +1273,61 @@ snr3_advanced_dialog(Tbfwin * bfwin, const gchar *findtext)
 	} else {
 		snr3_advanced_dialog_backend(bfwin, findtext, bfwin->session->snr3_scope);
 	}
+}
+
+static void
+extern_doc_backend(Tsnr3run * s3run, Tdocument *doc, guint so, guint eo)
+{
+	s3run->curoffset=0;
+	s3run->curposition=0;
+	s3run->curbuf = doc_get_chars(doc, so, eo);
+	utf8_offset_cache_reset();
+	s3run->so = so;
+	s3run->eo = eo;
+	if (s3run->type == snr3type_pcre) {
+		backend_pcre_loop(s3run, TRUE);
+	} else if (s3run->type == snr3type_string) {
+		backend_string_loop(s3run, TRUE);
+	}
+	g_free(s3run->curbuf);
+	s3run->curbuf = NULL;
+}
+
+void
+snr3_run_extern_replace(Tdocument * doc, const gchar * search_pattern, Tsnr3scope scope,
+							 Tsnr3type type, gboolean is_case_sens, const gchar * replace_pattern,
+							 gboolean unescape) 
+{
+	gint so,eo;
+	GList *tmplist;
+	Tsnr3run * s3run = snr3run_new(doc->bfwin, NULL);
+	snr3run_multiset(s3run, search_pattern, NULL, type,snr3replace_string,scope);
+	s3run->replaceall = TRUE;
+	
+	switch(s3run->scope) {
+		case snr3scope_doc:
+			extern_doc_backend(s3run, doc, 0, -1);
+		break;
+		case snr3scope_cursor:
+			so = doc_get_cursor_position(doc);
+			extern_doc_backend(s3run, doc, so, -1);
+		break;
+		case snr3scope_selection:
+			if (doc_get_selection(doc, &so, &eo)) {
+				extern_doc_backend(s3run, doc, so, eo);
+			} else {
+				g_print("Find in selection, but there is no selection\n");
+			}
+		break;
+		case snr3scope_alldocs:
+			for (tmplist=g_list_first(s3run->bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
+				extern_doc_backend(s3run, tmplist->data, 0, -1);
+			}
+		break;
+		case snr3scope_files:
+			g_warning("snr3_run_extern_replace does not support replace in files\n");
+		break;
+	}
+	snr3run_free(s3run);
 }
 
