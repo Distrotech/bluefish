@@ -57,7 +57,6 @@
 #include "file_dialogs.h"
 #include "gtk_easy.h"			/* *_dialog() */
 #include "pixmap.h"
-#include "snr2.h"				/* snr2_run_extern_replace */
 #include "stringlist.h"			/* free_stringlist() */
 #include "undo_redo.h"			/* doc_unre_init() */
 #include "file_autosave.h"
@@ -1816,7 +1815,7 @@ doc_view_populate_popup_lcb(GtkTextView * textview, GtkMenu * menu, Tdocument * 
 #endif*/
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
-	menuitem = gtk_image_menu_item_new_with_label(_("Replace"));
+/*	menuitem = gtk_image_menu_item_new_with_label(_("Replace"));
 	g_signal_connect(menuitem, "activate", G_CALLBACK(replace_cb), doc->bfwin);
 	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),
 								  gtk_image_new_from_stock(GTK_STOCK_FIND_AND_REPLACE, GTK_ICON_SIZE_MENU));
@@ -1829,7 +1828,7 @@ doc_view_populate_popup_lcb(GtkTextView * textview, GtkMenu * menu, Tdocument * 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
-
+*/
 	if (bmark_have_bookmark_at_stored_bevent(doc)) {
 		menuitem = gtk_menu_item_new_with_label(_("Delete bookmark"));
 		g_signal_connect(menuitem, "activate", G_CALLBACK(rpopup_del_bookmark_lcb), doc);
@@ -1936,6 +1935,68 @@ doc_unbind_signals(Tdocument * doc)
 	}*/
 }
 
+/**
+ * update_encoding_meta_in_file:
+ * @doc: a #Tdocument*
+ * @encoding: #gchar*, The documents character encoding
+ *
+ * Update the HTML meta encoding tags for the supplied document.
+ *
+ * Return value: void
+ **/
+void
+update_encoding_meta_in_file(Tdocument * doc, gchar * encoding)
+{
+	if (!encoding)
+		return;
+	GRegex *regex;
+	GError *gerror=NULL;
+	GMatchInfo *match_info;
+	gchar *type, *xhtmlend, *fulltext, *replacestring=NULL;
+	gint so, eo, cso, ceo;
+	/* first find if there is a meta encoding tag already */
+	
+	fulltext = doc_get_chars(doc, 0, -1);
+	regex = g_regex_new("<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"([^;]*);[ \t\n]*charset=[a-z0-9-]*\"[ \t\n]*(/?)>", G_REGEX_MULTILINE|G_REGEX_CASELESS, 0, NULL);
+	if (g_regex_match(regex, fulltext, 0, &match_info)) {
+		DEBUG_MSG("we have a match, replace the encoding\n");
+		if (g_match_info_get_match_count(match_info)>2) {
+			type = g_match_info_fetch(match_info, 1);
+			xhtmlend = g_match_info_fetch(match_info, 2);
+		} else {
+			type = g_strdup("text/html");
+			xhtmlend = g_strdup(main_v->props.xhtml ? "/" : "");
+		}
+		replacestring =
+			g_strconcat("<meta http-equiv=\"content-type\" content=\"", type, "; charset=", encoding,
+						"\" ", xhtmlend, ">", NULL);
+		g_free(type);
+		g_free(xhtmlend);
+	} else {
+		DEBUG_MSG("no match, add the encoding\n");
+		/* no <meta encoding tag yet */
+		g_regex_unref(regex);
+		g_match_info_free(match_info);
+		regex = g_regex_new("<head>", G_REGEX_CASELESS, 0, NULL);
+		g_regex_match(regex, fulltext, 0, &match_info);
+		if (g_match_info_matches(match_info)) {
+			replacestring = g_strconcat("<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=", encoding,
+						"\" ", (main_v->props.xhtml? "/>": ">"), NULL);
+		}
+	}
+	if (replacestring) {
+		g_match_info_fetch_pos(match_info, 0, &so, &eo);
+		cso = utf8_byteoffset_to_charsoffset(fulltext,so);
+		ceo = utf8_byteoffset_to_charsoffset(fulltext,eo);
+		DEBUG_MSG("update_encoding_meta_in_file, update from %d to %d\n",cso,ceo);
+		doc_replace_text(doc, replacestring, cso, ceo);
+		g_free(replacestring);
+		g_match_info_free(match_info);
+	}
+	g_regex_unref(regex);
+	g_free(fulltext);
+}
+
 /*
 returns a buffer in the encoding stored in doc->encoding, or NULL if that fails
 and the user aborted conversion to UTF-8
@@ -1992,124 +2053,6 @@ doc_get_buffer_in_encoding(Tdocument * doc)
 	}
 	return buffer;
 }
-
-/**
- * gint doc_textbox_to_file
- * @doc: a #Tdocument*
- * @filename: a #gchar*
- * @window_closing: a #gboolean if the window is closing, we should supress any statusbar messages then
- *
- * If applicable, backup existing file,
- * possibly update meta-tags (HTML),
- * and finally write the document to the specified file.
- *
- * Return value: #gint set to
- * 1: on success
- * 2: on success but the backup failed
- * -1: if the backup failed and save was aborted
- * -2: if the file could not be opened or written
- * -3: if the backup failed and save was aborted by the user
- * -4: if the charset encoding conversion failed and the save was aborted by the user
- **
-gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_closing) {
-	gint backup_retval;
-	gint write_retval;
-	gchar *buffer;
-	GtkTextIter itstart, itend;
-
-	if (!window_closing) statusbar_message(BFWIN(doc->bfwin),_("Saving file"), 1);
-	if (main_v->props.auto_update_meta) {
-		const gchar *realname = g_get_real_name();
-		if (realname && strlen(realname) > 0)  {
-			gchar *tmp;
-			Tsearch_result res = doc_search_run_extern(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*bluefish[^\"]*\"[ \t\n]*>",1,0);
-			if (res.end > 0) {
-				snr2_run_extern_replace(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,"<meta name=\"generator\" content=\"Bluefish, see http://bluefish.openoffice.nl/\">", FALSE);
-			}
-			tmp = g_strconcat("<meta name=\"author\" content=\"",realname,"\">",NULL);
-			snr2_run_extern_replace(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,tmp,FALSE);
-			g_free(tmp);
-		}
-	}
-
-	/ * This writes the contents of a textbox to a file * /
-	backup_retval = doc_check_backup(doc);
-
-	if (!backup_retval) {
-		if (main_v->props.backup_abort_action == DOCUMENT_BACKUP_ABORT_ABORT) {
-			DEBUG_MSG("doc_textbox_to_file, backup failure, abort!\n");
-			return -1;
-		} else if (main_v->props.backup_abort_action == DOCUMENT_BACKUP_ABORT_ASK) {
-			gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
-			gint retval;
-			gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), filename);
-			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File backup failure"), tmpstr, 1, 0, options);
-			g_free(tmpstr);
-			if (retval == 0) {
-				DEBUG_MSG("doc_textbox_to_file, backup failure, user aborted!\n");
-				return -3;
-			}
-		}
-	}
-
-	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-	buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
-
-	if (doc->encoding) {
-		gchar *newbuf;
-		gsize bytes_written=0, bytes_read=0;
-		DEBUG_MSG("doc_textbox_to_file, converting from UTF-8 to %s\n", doc->encoding);
-		newbuf = g_convert(buffer,-1,doc->encoding,"UTF-8",&bytes_read,&bytes_written,NULL);
-		if (newbuf) {
-			g_free(buffer);
-			buffer = newbuf;
-		} else {
-			gchar *options[] = {_("_Abort save"), _("_Continue save in UTF-8"), NULL};
-			gint retval, line, column;
-			glong position;
-			gchar *tmpstr, failed[6];
-			GtkTextIter iter;
-			position = g_utf8_pointer_to_offset(buffer,buffer+bytes_read);
-			gtk_text_buffer_get_iter_at_offset(doc->buffer,&iter,position);
-			line = gtk_text_iter_get_line(&iter);
-			column = gtk_text_iter_get_line_offset(&iter);
-			failed[0]='\0';
-			g_utf8_strncpy(failed,buffer+bytes_read,1);
-			tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n\nContinue saving in UTF-8 encoding?"), filename, doc->encoding, failed, line+1, column+1);
-			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File encoding conversion failure"), tmpstr, 1, 0, options);
-			g_free(tmpstr);
-			if (retval == 0) {
-				DEBUG_MSG("doc_textbox_to_file, character set conversion failed, user aborted!\n");
-				return -4;
-			} else {
-				/ * continue in UTF-8 * /
-				update_encoding_meta_in_file(doc, "UTF-8");
-				g_free(buffer);
-				gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-				buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
-			}
-		}
-	}
-
-	write_retval = buffer_to_file(BFWIN(doc->bfwin), buffer, filename);
-	DEBUG_MSG("doc_textbox_to_file, write_retval=%d\n",write_retval);
-	g_free(buffer);
-	if (!write_retval) {
-		return -2;
-	}
-
-	if (main_v->props.clear_undo_on_save) {
-		doc_unre_clear_all(doc);
-	}
-	DEBUG_MSG("doc_textbox_to_file, calling doc_set_modified(doc, 0)\n");
-	doc_set_modified(doc, 0);
-	if (!backup_retval) {
-		return 2;
-	} else {
-		return 1;
-	}
-}
-*/
 
 static void
 delete_backupfile_lcb(gpointer data)

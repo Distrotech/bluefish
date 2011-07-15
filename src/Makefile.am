@@ -99,8 +99,6 @@ bluefish_SOURCES = \
 	project.h \
 	rcfile.c \
 	rcfile.h \
-	snr2.c \
-	snr2.h \
 	snr3.c \
 	snr3.h \
 	snr3_files.c \

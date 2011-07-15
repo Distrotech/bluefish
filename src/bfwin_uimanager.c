@@ -338,12 +338,12 @@ ui_replace(GtkAction * action, gpointer user_data)
 	/*snr_dialog_new(BFWIN(user_data), BF_REPLACE_DIALOG);*/
 }
 
-static void
+/*static void
 ui_replace_again(GtkAction * action, gpointer user_data)
 {
 	replace_again(BFWIN(user_data));
 }
-
+*/
 static void
 ui_indent(GtkAction * action, gpointer user_data)
 {
@@ -865,9 +865,9 @@ static const GtkActionEntry find_replace_actions[] = {
 	{"FindSelection", NULL, N_("Find from Clipboard"), "<shift><control>F", N_("Find from clipboard"),
 	 G_CALLBACK(ui_find_from_clipboard)},
 	{"Replace", GTK_STOCK_FIND_AND_REPLACE, N_("R_eplace..."), "<control>H", N_("Replace"),
-	 G_CALLBACK(ui_replace)},
+	 G_CALLBACK(ui_replace)}/*,
 	{"ReplaceAgain", NULL, N_("Replace Agai_n"), "<shift><control>H", N_("Replace again"),
-	 G_CALLBACK(ui_replace_again)}
+	 G_CALLBACK(ui_replace_again)}*/
 };
 
 static const GtkActionEntry project_actions[] = {

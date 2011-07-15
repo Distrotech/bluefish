@@ -25,64 +25,57 @@
 #include "../bf_lib.h"
 #include "../dialog_utils.h"
 #include "../gtk_easy.h"
-#include "../snr2.h"
+#include "../snr3.h"
 
-
-gint snippets_snr_region_from_char(const xmlChar *region) {
+Tsnr3scope snippets_snr_region_from_char(const xmlChar *region) {
 	if (region) {
 		switch (region[0]) {  /* beginning, cursor, selection, allopenfiles */
 			case 'c':
-				return 1;
+				return snr3scope_cursor;
 			break;
 			case 's':
-				return 2;
+				return snr3scope_selection;
 			break;
 			case 'a':
-				return 3;
+				return snr3scope_alldocs;
 			break;
 			case 'b':
 			default:
-				return 0;
+				return snr3scope_doc;
 			break;
 		}
 	} 
-	return 0;
+	return snr3scope_doc;
 }
 
-gint snippets_snr_matchtype_from_char(const xmlChar *matchtype) {
-	if (matchtype) {
-		if (xmlStrEqual(matchtype, (const xmlChar *)"perl"))
-			return 3;
-		else if (xmlStrEqual(matchtype, (const xmlChar *)"posix"))
-			return 2;
-		else if (xmlStrEqual(matchtype, (const xmlChar *)"word"))
-			return 1;
-		else 
-			return 0;
-	}  
-	return 0;
+Tsnr3type snippets_snr_matchtype_from_char(const xmlChar *matchtype) {
+	if (matchtype && xmlStrEqual(matchtype, (const xmlChar *)"pcre"))
+		return snr3type_pcre;
+	return snr3type_string;
 }
 
 static void snippets_snr_run_from_strings(Tdocument *doc, const xmlChar *searchpat,const xmlChar *region, 
 					const xmlChar *matchtype,const xmlChar *casesens, const xmlChar *replacepat, const xmlChar *useescapechars) {
-	gint regionnum,matchtypenum,casesensnum,unescape;
+	gint casesensnum,unescape;
+	Tsnr3scope scope;
+	Tsnr3type type;
 	
-	regionnum = snippets_snr_region_from_char(region);
-	matchtypenum = snippets_snr_matchtype_from_char(matchtype);
+	scope = snippets_snr_region_from_char(region);
+	type = snippets_snr_matchtype_from_char(matchtype);
 	casesensnum = (casesens && casesens[0] == '1');
 	unescape = (useescapechars && useescapechars[0]=='1');
-	/* snr2_run_extern_replace
+	/* snr3_run_extern_replace
 	 * doc: a #Tdocument
 	 * search_pattern: #gchar* to search pattern
-	 * region: #gint, 0 = region_from_beginning, 1 = region_from_cursor, 2 = region_selection, 3 = region_all_open_files
+	 * scope: #gint, 0 = region_from_beginning, 1 = region_from_cursor, 2 = region_selection, 3 = region_all_open_files
 	 * matchtype: #gint, 0 = normal, 1 = posix, 2 = perl
 	 * is_case_sens: #gint
 	 * replace_pattern: #gchar* to replace pattern.
 	 * unescape: #gint
 	 * */
 	DEBUG_MSG("snippets_snr_run_from_strings, useescapechars=%s, unescape=%d\n",useescapechars,unescape);
-	snr2_run_extern_replace(doc, (gchar *)searchpat, 
-						regionnum,matchtypenum, casesensnum, (gchar *)replacepat,unescape);
+	snr3_run_extern_replace(doc, (gchar *)searchpat, 
+						scope,type, casesensnum, (gchar *)replacepat,unescape);
 }
 
 typedef struct {

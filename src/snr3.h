@@ -176,4 +176,9 @@ void snr3run_unrun(Tsnr3run *s3run);
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string);
 void simple_search_next(Tbfwin *bfwin);
 void snr3_advanced_dialog(Tbfwin * bfwin, const gchar *searchstring);
+
+void snr3_run_extern_replace(Tdocument * doc, const gchar * search_pattern, Tsnr3scope scope,
+							 Tsnr3type type, gboolean is_case_sens, const gchar * replace_pattern,
+							 gboolean unescape);
+
 #endif /* #define __SNR3_H_ */
