@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-07-09 01:16+0800\n"
+"POT-Creation-Date: 2011-07-17 16:42+0200\n"
 "PO-Revision-Date: 2011-07-01 15:57+0800\n"
 "Last-Translator: william9527 <mzf9527@gmail.com>\n"
 "Language-Team: \n"
@@ -136,13 +136,13 @@ msgstr "代码片段菜单"
 msgid "[cursor position or selection]"
 msgstr "[光标位置或选择区域]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:157
+#: src/plugin_snippets/snippets_leaf_snr.c:150
 msgid "Search for: '"
-msgstr "查找：‘"
+msgstr "查找：’"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:157
+#: src/plugin_snippets/snippets_leaf_snr.c:150
 msgid "', replace with: '"
-msgstr "‘，替换为：‘"
+msgstr "’，替换为：’"
 
 #: src/plugin_snippets/snippets_wizard.c:111
 msgid "Entire document"
@@ -184,8 +184,8 @@ msgid ""
 "literal % in your string!)"
 msgstr ""
 "指定一个查找和替换的模式。当你激活一项时，可以使用 %0, %1, ...%5 这些占位符来"
-"代表一个值，同时在右边给这些占位符一个适当的名称。（如需在字符串中使用 %，请"
-"用 %% 替代之！）"
+"代表一个值，同时在右边给这些占位符一个适当的名称。（如需在字符串中使用 %的字"
+"面含义，请用 %% 替代之！）"
 
 #: src/plugin_snippets/snippets_wizard.c:139
 msgid "_Search for: "
@@ -217,7 +217,7 @@ msgstr "使用转义字符(_U)"
 
 #: src/plugin_snippets/snippets_wizard.c:165
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
-msgstr "取消反斜杠转义字符，如 \\n，\\t 等等。"
+msgstr "解码反斜杠转义字符，如 \\n，\\t 等等。"
 
 #: src/plugin_snippets/snippets_wizard.c:340
 msgid ""
@@ -228,10 +228,10 @@ msgid ""
 "appropriate name on the right. (Please use %% if you need literal % in your "
 "string!)"
 msgstr ""
-"<i>前置</i>的文本将在光标位置或当前选择区域之前插入，<i>后置</i>的文本将在光"
-"标位置或当前选择区域之后插入。当你激活一项时，可以使用 %0, %1, ...%9 这些占位"
-"符来代表一个值，同时在右边给这些占位符一个适当的名称。（如需在字符串中使用 "
-"%，请用 %% 替代之！）"
+"<i>前置</i>的文本将被插入到光标位置或当前选择区域之前，<i>后置</i>的文本将被"
+"插入到光标位置或当前选择区域之后。当你激活一项时，可以使用 %0, %1, ...%9 这些"
+"占位符来代表一个值，同时在右边给这些占位符一个适当的名称。（如需在字符串中使"
+"用 %的字面含义，请用 %% 替代之！）"
 
 #: src/plugin_snippets/snippets_wizard.c:346
 msgid "<i>Before</i> text"
@@ -267,7 +267,7 @@ msgstr "描述："
 
 #: src/plugin_snippets/snippets_wizard.c:641
 msgid "Select what you want to add"
-msgstr "选择你想添加的东西"
+msgstr "选择要添加的项目"
 
 #: src/plugin_snippets/snippets_wizard.c:643
 msgid "Branch"
