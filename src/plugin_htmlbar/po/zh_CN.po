@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-07-04 23:33+0800\n"
+"POT-Creation-Date: 2011-05-13 17:59+0200\n"
 "PO-Revision-Date: 2011-07-01 15:57+0800\n"
 "Last-Translator: william9527 <mzf9527@gmail.com>\n"
 "Language-Team: \n"
@@ -25,12 +25,12 @@ msgstr "更新(_U)"
 #: src/plugin_htmlbar/html2.c:505
 #, c-format
 msgid "The %s %s property already exists.\n"
-msgstr "%s %s 属性已存在。\n"
+msgstr "属性 %s %s 已存在。\n"
 
 #: src/plugin_htmlbar/html2.c:507
 #, c-format
 msgid "The %s property already exists.\n"
-msgstr "%s 属性已存在。\n"
+msgstr "属性 %s 已存在。\n"
 
 #: src/plugin_htmlbar/html2.c:510
 #, c-format
@@ -43,7 +43,7 @@ msgstr "层叠样式表生成器"
 
 #: src/plugin_htmlbar/html2.c:661
 msgid "_Selector:"
-msgstr "选择(_S)："
+msgstr "选择器(_S)："
 
 #: src/plugin_htmlbar/html2.c:680
 msgid "_Property:"
@@ -773,11 +773,11 @@ msgstr "换行"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1430
 msgid "Break clear _all"
-msgstr "回车换行(_a)"
+msgstr "换行并清除浮动(_a)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1430
 msgid "Break and clear"
-msgstr "回车换行"
+msgstr "换行并清除浮动"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1432
 msgid "_Non-Breaking Space"
@@ -841,7 +841,7 @@ msgstr "右对齐(_r)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1446
 msgid "Right Justify"
-msgstr "右对齐"
+msgstr "向右调整对齐"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1448
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1449
@@ -976,15 +976,15 @@ msgstr "插入生成者 META 标签(_M)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1481
 msgid "_Span"
-msgstr "Span"
+msgstr "Span标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1482
 msgid "_Div"
-msgstr "Div(_D)"
+msgstr "Div标签(_D)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1483
 msgid "_Link"
-msgstr "Link(_L)"
+msgstr "Link标签(_L)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1484
 msgid "S_cript"
@@ -1024,11 +1024,11 @@ msgstr "快速启动..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1493
 msgid "_Link Header..."
-msgstr "Link 头部信息(_L)..."
+msgstr "Link 标签(_L)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1493
 msgid "Link Header..."
-msgstr "Link 头部信息..."
+msgstr "Link 标签..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1495
 msgid "_Body..."
@@ -1172,19 +1172,19 @@ msgstr "创建样式表..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1533
 msgid "S_pan..."
-msgstr "Span(_p)..."
+msgstr "Span标签(_p)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1533
 msgid "Span..."
-msgstr "Span..."
+msgstr "Span标签..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1534
 msgid "_Div..."
-msgstr "Div(_D)..."
+msgstr "Div标签(_D)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1534
 msgid "Div..."
-msgstr "Div..."
+msgstr "Div标签..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1536
 msgid "Style..."
@@ -1385,35 +1385,35 @@ msgstr "插入时间"
 #: src/plugin_htmlbar/html.c:435
 #, c-format
 msgid "  _Time (%i:%i:%i)"
-msgstr "  时间(_T) (%i:%i:%i)"
+msgstr "  时间(%i:%i:%i)(_T)"
 
 #: src/plugin_htmlbar/html.c:441
 msgid "  Day of the _week (Sunday)"
-msgstr "  星期几(_w) (星期日)"
+msgstr "  一周内的第几日(星期日)(_w)"
 
 #: src/plugin_htmlbar/html.c:444
 msgid "  Day of the _week (Monday)"
-msgstr "  星期几(_w) (星期一)"
+msgstr "  一周内的第几日(星期一)(_w)"
 
 #: src/plugin_htmlbar/html.c:447
 msgid "  Day of the _week (Tuesday)"
-msgstr "  星期几(_w) (星期二)"
+msgstr "  一周内的第几日(星期二)(_w)"
 
 #: src/plugin_htmlbar/html.c:450
 msgid "  Day of the _week (Wednesday)"
-msgstr "  星期几(_w) (星期三)"
+msgstr "  一周内的第几日(星期三)(_w)"
 
 #: src/plugin_htmlbar/html.c:453
 msgid "  Day of the _week (Thursday)"
-msgstr "  星期几(_w) (星期四)"
+msgstr "  一周内的第几日(星期四)(_w)"
 
 #: src/plugin_htmlbar/html.c:456
 msgid "  Day of the _week (Friday)"
-msgstr "  星期几(_w) (星期五)"
+msgstr "  一周内的第几日(星期五)(_w)"
 
 #: src/plugin_htmlbar/html.c:459
 msgid "  Day of the _week (Saturday)"
-msgstr "  星期几(_w) (星期六)"
+msgstr "  一周内的第几日(星期六)(_w)"
 
 #: src/plugin_htmlbar/html.c:462
 msgid "You appear to have a non existant day!\n"
@@ -1432,7 +1432,7 @@ msgstr "  _Unix 时间 (%i)"
 #: src/plugin_htmlbar/html.c:478
 #, c-format
 msgid "  Unix Date _String (%s)"
-msgstr "  Unix 日期字符串(_S) (%s)"
+msgstr "  Unix 日期字符串(%s)(_S)"
 
 #: src/plugin_htmlbar/html.c:486
 msgid "  ISO-8601 Ti_me "
@@ -1502,7 +1502,7 @@ msgstr "鼠标经过(_v)："
 
 #: src/plugin_htmlbar/html.c:715
 msgid "OnMouse_Down:"
-msgstr "鼠标按下(_D)："
+msgstr "鼠标按键按下(_D)："
 
 #: src/plugin_htmlbar/html.c:718
 msgid "OnMouse_Move:"
@@ -1530,11 +1530,11 @@ msgstr "键盘按键弹起(_y)："
 
 #: src/plugin_htmlbar/html.c:879
 msgid "Div"
-msgstr "Div"
+msgstr "Div标签"
 
 #: src/plugin_htmlbar/html.c:882
 msgid "Span"
-msgstr "Span"
+msgstr "Span标签"
 
 #: src/plugin_htmlbar/html.c:885
 msgid "Heading 1"
@@ -1606,7 +1606,7 @@ msgstr "宽度(_W)："
 
 #: src/plugin_htmlbar/html.c:1097
 msgid "Is _percent"
-msgstr "百分比(_p)"
+msgstr "是否百分比(_p)"
 
 #: src/plugin_htmlbar/html.c:1102
 msgid "No _shading"
@@ -1836,7 +1836,7 @@ msgstr "如何发送表单数据(_d)："
 
 #: src/plugin_htmlbar/html_form.c:193
 msgid "_Enctype:"
-msgstr "表单数据在前应该如何编码(_E)："
+msgstr "表单数据在发送前应该如何编码(_E)："
 
 #: src/plugin_htmlbar/html_form.c:245
 msgid "Text area"
@@ -1864,7 +1864,7 @@ msgstr "标签(_L)："
 
 #: src/plugin_htmlbar/html_form.c:382
 msgid "_Selected:"
-msgstr "选中(_S)："
+msgstr "已选择(_S)："
 
 #: src/plugin_htmlbar/html_form.c:419
 msgid "Option group"
@@ -1916,11 +1916,11 @@ msgstr "按钮"
 
 #: src/plugin_htmlbar/html_table.c:90
 msgid "Cell _Padding:"
-msgstr "单元格内边距(_P)："
+msgstr "单元格内间距(_P)："
 
 #: src/plugin_htmlbar/html_table.c:94
 msgid "C_ell Spacing:"
-msgstr "单元格外间距(_e)："
+msgstr "单元格外边距(_e)："
 
 #: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
 #: src/plugin_htmlbar/html_table.c:370
@@ -1988,11 +1988,11 @@ msgstr "替代文本(_t)："
 
 #: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:414
 msgid "_Hspace:"
-msgstr "水平距离(_H)："
+msgstr "水平间距(_H)："
 
 #: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:418
 msgid "_Vspace:"
-msgstr "垂直距离(_V)："
+msgstr "垂直间距(_V)："
 
 #: src/plugin_htmlbar/image.c:530
 msgid "Borde_r:"
@@ -2024,15 +2024,15 @@ msgstr "根据比例"
 
 #: src/plugin_htmlbar/image.c:1029
 msgid "By width, keep aspect ratio"
-msgstr "根据宽度，保持纵横比"
+msgstr "保留宽度，保持纵横比"
 
 #: src/plugin_htmlbar/image.c:1032
 msgid "By height, keep aspect ratio"
-msgstr "根据高度，保持纵横比"
+msgstr "保留高度，保持纵横比"
 
 #: src/plugin_htmlbar/image.c:1035
 msgid "By width and height, ignore aspect ratio"
-msgstr "根据宽度和高度，忽略纵横比"
+msgstr "保持宽度和高度，忽略纵横比"
 
 #: src/plugin_htmlbar/image.c:1061
 msgid ""
@@ -2106,7 +2106,7 @@ msgstr "选择图像"
 
 #: src/plugin_htmlbar/image_dialog.c:925
 msgid "All images"
-msgstr "所有的图像"
+msgstr "所有图像"
 
 #: src/plugin_htmlbar/image_dialog.c:1136
 #: src/plugin_htmlbar/image_dialog.c:1237
@@ -2187,11 +2187,11 @@ msgstr "列数(_m)："
 
 #: src/plugin_htmlbar/wizards.c:89
 msgid "Table rows on one _line:"
-msgstr "表格的一行在文本的一行中(_l)："
+msgstr "表格行显示在一行中(_l)："
 
 #: src/plugin_htmlbar/wizards.c:94
 msgid "_Indent table code:"
-msgstr "缩进表格代码(_I)："
+msgstr "表格缩进(_I)："
 
 #: src/plugin_htmlbar/wizards.c:190
 msgid "Frame Wizard"
@@ -2199,7 +2199,7 @@ msgstr "框架向导"
 
 #: src/plugin_htmlbar/wizards.c:204
 msgid "Use _DTD:"
-msgstr "使用文档类型定义 DTD(_D)："
+msgstr "使用 DTD(_D)："
 
 #: src/plugin_htmlbar/wizards.c:207
 msgid "Orientation:"
