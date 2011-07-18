@@ -489,29 +489,6 @@ snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 	}
 }
 
-void snr3_run_go(Tsnr3run *s3run, gboolean forward) {
-	GList *next=NULL;
-	DEBUG_MSG("snr3_run_go, s3run=%p\n",s3run);
-	if (s3run->current) {
-		DEBUG_MSG("snr3_run_go, s3run->current=%p\n",s3run->current);
-		if (forward) {
-			next = g_list_next(s3run->current);
-		} else {
-			next = g_list_previous(s3run->current);
-		}
-	}
-	if (!next) {
-		g_print("no 'next' (current=%p)\n", s3run->current);
-		next = forward ? s3run->results.head : s3run->results.tail;
-		DEBUG_MSG("snr3_run_go, no next (current=%p), new next=%p\n",s3run->current,next);
-	}
-	DEBUG_MSG("scroll to result %p\n",next);
-	if (next) {
-		s3run->current = next;
-		scroll_to_result(next->data, NULL);
-	}
-}
-
 void
 snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *))
 {
