@@ -1228,11 +1228,11 @@ void
 doc_insert_text_backend(Tdocument * doc, const gchar * newstring, gint position)
 {
 	GtkTextIter iter;
-	doc_unbind_signals(doc);
+	doc_block_undo_reg(doc);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, position);
 	gtk_text_buffer_insert(doc->buffer, &iter, newstring, -1);
 	doc_unre_add(doc, newstring, position, position + g_utf8_strlen(newstring, -1), UndoInsert);
-	doc_bind_signals(doc);
+	doc_unblock_undo_reg(doc);
 	doc_set_modified(doc, 1);
 	doc->need_highlighting = TRUE;
 }
@@ -1260,7 +1260,7 @@ doc_insert_text_backend(Tdocument * doc, const gchar * newstring, gint position)
 void
 doc_replace_text_backend(Tdocument * doc, const gchar * newstring, gint start, gint end)
 {
-	doc_unbind_signals(doc);
+	doc_block_undo_reg(doc);
 	/* delete region, and add that to undo/redo list */
 	if (end == -1 || end > start) {
 		gchar *buf;
@@ -1290,7 +1290,7 @@ doc_replace_text_backend(Tdocument * doc, const gchar * newstring, gint start, g
 		gtk_text_buffer_insert(doc->buffer, &itstart, newstring, -1);
 		doc_unre_add(doc, newstring, insert, insert + g_utf8_strlen(newstring, -1), UndoInsert);
 	}
-	doc_bind_signals(doc);
+	doc_unblock_undo_reg(doc);
 	doc_set_modified(doc, 1);
 }
 
@@ -1358,7 +1358,7 @@ doc_insert_two_strings(Tdocument * doc, const gchar * before_str, const gchar * 
 	gboolean have_diag_marks = FALSE;
 
 	doc_unre_new_group(doc);
-	doc_unbind_signals(doc);
+	doc_block_undo_reg(doc);
 	insert = gtk_text_buffer_get_mark(doc->buffer, "diag_ins");
 	select = gtk_text_buffer_get_mark(doc->buffer, "diag_sel");
 	if (insert && select) {
@@ -1438,7 +1438,7 @@ doc_insert_two_strings(Tdocument * doc, const gchar * before_str, const gchar * 
 		gtk_text_buffer_delete_mark(doc->buffer, select);
 	}
 	doc_unre_new_group(doc);
-	doc_bind_signals(doc);
+	doc_unblock_undo_reg(doc);
 	doc_set_modified(doc, 1);
 	DEBUG_MSG("doc_insert_two_strings, finished\n");
 }
@@ -1649,7 +1649,7 @@ doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean en
 	}
 
 	if (!enable_undo) {
-		doc_unbind_signals(doc);
+		doc_block_undo_reg(doc);
 	}
 	/* now get the current cursor position */
 	insert = gtk_text_buffer_get_insert(doc->buffer);
@@ -1674,7 +1674,7 @@ doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean en
 	gtk_text_buffer_insert_at_cursor(doc->buffer, newbuf, -1);
 	g_free(newbuf);
 	if (!enable_undo) {
-		doc_bind_signals(doc);
+		doc_unblock_undo_reg(doc);
 	}
 
 	{
@@ -1698,20 +1698,22 @@ doc_buffer_insert_text_lcb(GtkTextBuffer * textbuffer, GtkTextIter * iter, gchar
 	gint clen = g_utf8_strlen(string, len);
 	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s', len=%d, clen=%d\n", string, len, clen);
 	/* 'len' is the number of bytes and not the number of characters.. */
-
-	if (!doc->in_paste_operation && (!doc_unre_test_last_entry(doc, UndoInsert, -1, pos)
+	if (!doc->block_undo_reg) {
+		if (!doc->in_paste_operation && (!doc_unre_test_last_entry(doc, UndoInsert, -1, pos)
 									 || string[0] == ' '
 									 || string[0] == '\n' || string[0] == '\t' || string[0] == '\r')) {
-		DEBUG_MSG("doc_buffer_insert_text_lcb, create a new undogroup\n");
-		doc_unre_new_group(doc);
+			DEBUG_MSG("doc_buffer_insert_text_lcb, create a new undogroup\n");
+			doc_unre_new_group(doc);
+		}
+		doc_unre_add(doc, string, pos, pos + clen, UndoInsert);
+		
+		doc_set_modified(doc, 1);
 	}
-	doc_unre_add(doc, string, pos, pos + clen, UndoInsert);
 	/* see if any other code wants to see document changes */
 	for (tmpslist=BFWIN(doc->bfwin)->doc_insert_text;tmpslist;tmpslist=g_slist_next(tmpslist)) {
 		Tcallback *cb = tmpslist->data;
 		((DocInsertTextCallback)cb->func)(doc, string, iter, pos, len, clen, cb->data);
 	}
-	doc_set_modified(doc, 1);
 	DEBUG_MSG("doc_buffer_insert_text_lcb, done\n");
 }
 
@@ -1729,31 +1731,33 @@ doc_buffer_delete_range_lcb(GtkTextBuffer * textbuffer, GtkTextIter * itstart, G
 	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, TRUE);
 	
 	DEBUG_MSG("doc_buffer_delete_range_lcb, string='%s'\n", string);
-	if (string) {
-		/* undo_redo stuff */
-		DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len,
-				  string);
-		if (!doc->in_paste_operation) {
-			if (len == 1) {
-				if ((!doc_unre_test_last_entry(doc, UndoDelete, start, -1)	/* delete */
-					 &&!doc_unre_test_last_entry(doc, UndoDelete, end, -1))	/* backspace */
-					||string[0] == ' ' || string[0] == '\n' || string[0] == '\t' || string[0] == '\r') {
-					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
+	if (!doc->block_undo_reg) {
+		if (string) {
+			/* undo_redo stuff */
+			DEBUG_MSG("doc_buffer_delete_range_lcb, start=%d, end=%d, len=%d, string='%s'\n", start, end, len,
+						  string);
+			if (!doc->in_paste_operation) {
+				if (len == 1) {
+					if ((!doc_unre_test_last_entry(doc, UndoDelete, start, -1)	/* delete */
+					 	&&!doc_unre_test_last_entry(doc, UndoDelete, end, -1))	/* backspace */
+						||string[0] == ' ' || string[0] == '\n' || string[0] == '\t' || string[0] == '\r') {
+						DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
+						doc_unre_new_group(doc);
+					}
+				} else {
 					doc_unre_new_group(doc);
 				}
-			} else {
-				doc_unre_new_group(doc);
 			}
+			doc_unre_add(doc, string, start, end, UndoDelete);
 		}
-		doc_unre_add(doc, string, start, end, UndoDelete);
+		doc_set_modified(doc, 1);
 	}
 	/* see if any other code wants to see document changes */
 	for (tmpslist=BFWIN(doc->bfwin)->doc_delete_range;tmpslist;tmpslist=g_slist_next(tmpslist)) {
 		Tcallback *cb = tmpslist->data;
 		((DocDeleteRangeCallback)cb->func)(doc, itstart, start, itend, end, string, cb->data);
 	}
-	g_free(string);
-	doc_set_modified(doc, 1);
+	g_free(string);	
 }
 
 void
@@ -1887,52 +1891,6 @@ doc_view_toggle_overwrite_lcb(GtkTextView * view, Tdocument * doc)
 {
 	doc->overwrite_mode = (doc->overwrite_mode ? FALSE : TRUE);
 	doc_set_statusbar_insovr(doc);
-}
-
-/**
- * doc_bind_signals:
- * @doc: a #Tdocument
- *
- * Bind signals related to the doc's buffer:
- * "insert-text", "delete-range" and "insert-text" for autoindent
- *
- * Return value: void
- **/
-void
-doc_bind_signals(Tdocument * doc)
-{
-	doc->ins_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
-									   "insert-text", G_CALLBACK(doc_buffer_insert_text_lcb), doc);
-	doc->del_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
-									   "delete-range", G_CALLBACK(doc_buffer_delete_range_lcb), doc);
-}
-
-/**
- * doc_unbind_signals:
- * @doc: a #Tdocument
- *
- * Unbind signals related to the doc's buffer:
- * "insert-text", "delete-range" and "insert-text" for autoindent.
- * This function checks if each individual signal has been bound before unbinding.
- *
- * Return value: void
- **/
-void
-doc_unbind_signals(Tdocument * doc)
-{
-/*	g_print("doc_unbind_signals, before unbind ins=%lu, del=%lu\n", doc->ins_txt_id, doc->del_txt_id);*/
-	if (doc->ins_txt_id != 0) {
-		g_signal_handler_disconnect(G_OBJECT(doc->buffer), doc->ins_txt_id);
-		doc->ins_txt_id = 0;
-	}
-	if (doc->del_txt_id != 0) {
-		g_signal_handler_disconnect(G_OBJECT(doc->buffer), doc->del_txt_id);
-		doc->del_txt_id = 0;
-	}
-/*	if (doc->ins_aft_txt_id != 0) {
-		g_signal_handler_disconnect(G_OBJECT(doc->buffer),doc->ins_aft_txt_id);
-		doc->ins_txt_id = 0;
-	}*/
 }
 
 /**
@@ -2386,8 +2344,9 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	newdoc->overwrite_mode = FALSE;
 
 	doc_set_title(newdoc);
-	doc_bind_signals(newdoc);
-
+	
+	g_signal_connect(G_OBJECT(newdoc->buffer), "insert-text", G_CALLBACK(doc_buffer_insert_text_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->buffer), "delete-range", G_CALLBACK(doc_buffer_delete_range_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "changed", G_CALLBACK(doc_buffer_changed_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set", G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "toggle-overwrite",
@@ -3112,7 +3071,7 @@ doc_indent_selection(Tdocument * doc, gboolean unindent)
 		GtkTextMark *end;
 /*		gboolean firstrun=TRUE;*/
 
-		doc_unbind_signals(doc);
+		doc_block_undo_reg(doc);
 		doc_unre_new_group(doc);
 		/* we have a selection, now we loop trough the characters, and for every newline
 		   we add or remove a tab, we set the end with a mark */
@@ -3191,7 +3150,7 @@ doc_indent_selection(Tdocument * doc, gboolean unindent)
 					  gtk_text_iter_get_offset(&itstart), gtk_text_iter_get_offset(&itend));
 		}
 		gtk_text_buffer_delete_mark(doc->buffer, end);
-		doc_bind_signals(doc);
+		doc_unblock_undo_reg(doc);
 		doc_set_modified(doc, 1);
 	} else {
 		/* there is no selection, work on the current line */

@@ -177,10 +177,25 @@ typedef struct {
 	gint offset;
 } Toffsetupdate;
 
-static void snr3run_update_offsets(gpointer s3result, gpointer offsetupdate) {
-	if (((Toffsetupdate *)offsetupdate)->doc == ((Tsnr3result *)s3result)->doc && ((Tsnr3result *)s3result)->so > ((Toffsetupdate *)offsetupdate)->startingpoint) {
-		((Tsnr3result *)s3result)->so += ((Toffsetupdate *)offsetupdate)->offset;
-		((Tsnr3result *)s3result)->eo += ((Toffsetupdate *)offsetupdate)->offset;
+static void snr3run_update_offsets(Tsnr3run *s3run, Tdocument *doc, guint startpos, gint offset) {
+	GList *tmplist = g_list_first(s3run->results.head);
+	while (tmplist) {
+		if (doc == ((Tsnr3result *)tmplist->data)->doc 
+						&& ((Tsnr3result *)tmplist->data)->eo >= startpos) {
+			if (((Tsnr3result *)tmplist->data)->so > startpos) {
+				((Tsnr3result *)tmplist->data)->so += offset;
+				((Tsnr3result *)tmplist->data)->eo += offset;
+			} else {
+				GList *tmplist2;
+				g_print("so < startpos, but eo > startpos !! delete the result!!\n");
+				tmplist2 = tmplist;
+				tmplist = g_list_next(tmplist);
+				g_slice_free(Tsnr3result, tmplist2->data);
+				s3run->results.head = g_list_delete_link(s3run->results.head, tmplist2);
+				continue;
+			}
+		}
+		tmplist = g_list_next(tmplist);
 	}
 }
 
@@ -285,7 +300,7 @@ s3run_replace_current(Tsnr3run *s3run)
 	}
 	if (offsetupdate.offset != 0) {
 		/* now re-calculate all the offsets in the results lists!!!!!!!!!!! */
-		g_queue_foreach(&s3run->results, snr3run_update_offsets,&offsetupdate);
+		snr3run_update_offsets(s3run, offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
 	}
 }
 
@@ -450,12 +465,14 @@ snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 		} else {
 			next = g_list_previous(s3run->current);
 		}
-	}
+	} 
+	
 	if (!next) {
 		g_print("no 'next' (current=%p)\n", s3run->current);
 		next = forward ? s3run->results.head : s3run->results.tail;
 		DEBUG_MSG("snr3_run_go, no next (current=%p), new next=%p\n",s3run->current,next);
 	}
+	
 	if (!s3run->current) {
 		GtkTextBuffer *buffer;
 		GtkTextIter iter;
@@ -477,7 +494,7 @@ snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 				} else if ((((Tsnr3result *)tmplist->data)->so > cursorpos)) {
 					if (forward)
 						next = tmplist;
-						break;
+					break;
 				}
 			}
 		}
@@ -639,14 +656,16 @@ static void
 snr3_docinsertext_cb(Tdocument *doc, const gchar *string, GtkTextIter * iter, gint pos, gint len, gint clen, gpointer data)
 {
 	Toffsetupdate offsetupdate = {doc,pos,clen};
-	g_queue_foreach(&((Tsnr3run *)data)->results, snr3run_update_offsets,&offsetupdate);
+	g_print("snr3_docinsertext_cb, doc=%p, position %d, insert len %d\n",offsetupdate.doc,offsetupdate.startingpoint,offsetupdate.offset);
+	snr3run_update_offsets(((Tsnr3run *)data), offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
 }
 
 static void
 snr3_docdeleterange_cb(Tdocument *doc, GtkTextIter * itstart, gint start, GtkTextIter * itend, gint end, const gchar *string, gpointer data)
 {
-	Toffsetupdate offsetupdate = {doc,start,end-start};
-	g_queue_foreach(&((Tsnr3run *)data)->results, snr3run_update_offsets,&offsetupdate);
+	Toffsetupdate offsetupdate = {doc,start,start-end};
+	g_print("snr3_docdeleterange_cb, doc=%p, position %d, delete len %d\n",offsetupdate.doc,offsetupdate.startingpoint,offsetupdate.offset);
+	snr3run_update_offsets(((Tsnr3run *)data), offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
 }
 
 static void

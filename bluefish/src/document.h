@@ -88,8 +88,10 @@ void doc_insert_two_strings(Tdocument * doc, const gchar * before_str, const gch
 gchar *buffer_find_encoding(gchar * buffer, gsize buflen, gchar ** encoding, const gchar * sessionencoding);
 gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gboolean enable_undo,
 							   gboolean delay);
-void doc_bind_signals(Tdocument * doc);
-void doc_unbind_signals(Tdocument * doc);
+
+#define doc_block_undo_reg(doc) ((Tdocument *)doc)->block_undo_reg = 1;
+#define doc_unblock_undo_reg(doc) ((Tdocument *)doc)->block_undo_reg = 0;
+
 gchar *doc_get_buffer_in_encoding(Tdocument * doc);
 /* gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename); */
 void doc_set_fileinfo(Tdocument * doc, GFileInfo * finfo);
