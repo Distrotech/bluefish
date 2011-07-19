@@ -193,8 +193,9 @@ typedef struct {
 	GFile *autosave_uri;		/* if autosaved, the URI of the autosave location, else NULL */
 	gint readonly;
 	gint is_symlink;			/* file is a symbolic link */
-	gulong del_txt_id;			/* text delete signal */
-	gulong ins_txt_id;			/* text insert signal */
+	/*gulong del_txt_id;*/			/* text delete signal */
+	/*gulong ins_txt_id;*/			/* text insert signal */
+	gboolean block_undo_reg; 	/* block the registration for undo */
 	guint newdoc_autodetect_lang_id;	/* a timer function that runs for new documents to detect their mime type  */
 	unre_t unre;
 	GtkWidget *view;

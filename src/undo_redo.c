@@ -24,7 +24,7 @@
 
 #include "bluefish.h"
 #include "dialog_utils.h"
-#include "document.h"			/* doc_bind_signals() */
+#include "document.h"			/* doc_unblock_undo_reg() */
 #include "undo_redo.h"
 
 typedef struct {
@@ -323,7 +323,7 @@ static void
 doc_unre_start(Tdocument * doc)
 {
 	DEBUG_MSG("doc_unre_start, started\n");
-	doc_unbind_signals(doc);
+	doc_block_undo_reg(doc);
 }
 
 static void
@@ -332,7 +332,7 @@ doc_unre_finish(Tdocument * doc, gint cursorpos)
 	GtkTextIter iter;
 	DEBUG_MSG("doc_unre_finish, started\n");
 	/* now re-establish the signals */
-	doc_bind_signals(doc);
+	doc_unblock_undo_reg(doc);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, cursorpos);
 	gtk_text_buffer_place_cursor(doc->buffer, &iter);
 }
