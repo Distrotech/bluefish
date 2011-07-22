@@ -2088,6 +2088,10 @@ bluefish_text_view_finalize(GObject * object)
 		g_source_remove(btv->user_idle);
 		btv->user_idle = 0;
 	}
+	if (btv->mark_set_idle) {
+		g_source_remove(btv->mark_set_idle);
+		btv->mark_set_idle = 0;
+	}
 	if (btv->autocomp) {
 		autocomp_stop(btv);
 	}
