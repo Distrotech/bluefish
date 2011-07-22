@@ -1132,6 +1132,7 @@ enumerator_next_files_lcb(GObject * source_object, GAsyncResult * res, gpointer 
 			} else {
 				ffd->ff->filematch_cb(ffd->ff->data, child_uri, finfo);
 			}
+			g_object_unref(child_uri);
 		} else {
 			/* TODO: symlink support ?? */
 			/*g_print("%s is not a file and not a dir\n",g_file_info_get_name(finfo)); */
@@ -1248,6 +1249,7 @@ void findfiles_cancel(gpointer data) {
 /****************** open advanced (uses open multi) **********************************/
 
 typedef struct {
+	gint refcount;
 	Tbfwin *bfwin;
 	gchar *content_filter;
 	gboolean use_regex;
@@ -1260,10 +1262,27 @@ typedef struct {
 	GFileInfo *finfo;
 } Topenadvanced_uri;
 
+static void 
+open_advanced_cleanup(Topenadvanced *oa) {
+	DEBUG_MSG("open_advanced_cleanup, oa=%p\n",oa);
+	if (oa->content_filter)
+		g_free(oa->content_filter);
+	if (oa->content_reg)
+		g_regex_unref(oa->content_reg);
+	g_slice_free(Topenadvanced, oa);
+}
+
+static void open_advanced_unref(Topenadvanced *oa) {
+	oa->refcount--;
+	if (oa->refcount == 0) 
+		open_advanced_cleanup(oa);
+}
+
 static void
 open_adv_open_uri_cleanup(Topenadvanced_uri * oau)
 {
 	DEBUG_MSG("open_adv_open_uri_cleanup, oau=%p\n",oau);
+	open_advanced_unref(oau->oa);
 	g_object_unref(oau->uri);
 	g_object_unref(oau->finfo);
 #ifdef OAD_MEMCOUNT
@@ -1271,15 +1290,6 @@ open_adv_open_uri_cleanup(Topenadvanced_uri * oau)
 	g_print("allocuri=%d\n", omemcount.allocuri);
 #endif							/* OAD_MEMCOUNT */
 	g_slice_free(Topenadvanced_uri, oau);
-}
-
-static void open_advanced_cleanup(Topenadvanced *oa) {
-	DEBUG_MSG("open_advanced_cleanup, oa=%p\n",oa);
-	if (oa->content_filter)
-		g_free(oa->content_filter);
-	if (oa->content_reg)
-		g_regex_unref(oa->content_reg);
-	g_slice_free(Topenadvanced, oa);
 	
 }
 
@@ -1348,6 +1358,7 @@ openadv_content_filter_file(Topenadvanced * oa, GFile * uri, GFileInfo * finfo)
 			oadqueue.max_worknum, ofqueue.q.length, ofqueue.max_worknum);
 #endif							/* OAD_MEMCOUNT */
 	oau->oa = oa;
+	oa->refcount++;
 	oau->uri = uri;
 	g_object_ref(uri);
 
@@ -1367,7 +1378,8 @@ open_advanced_filematch_cb(Topenadvanced *oa, GFile *uri, GFileInfo *finfo) {
 
 static void
 open_advanced_finished_cb(Topenadvanced *oa) {
-	gchar *tmp, *tmp2;
+/*	gchar *tmp, *tmp2;
+	DEBUG_MSG("open_advanced_finished_cb, oa=%p\n",oa);
 	tmp =
 		g_strdup_printf(ngettext
 						("%d document open.", "%d documents open.",
@@ -1377,7 +1389,8 @@ open_advanced_finished_cb(Topenadvanced *oa) {
 	g_free(tmp);
 	g_free(tmp2);
 
-	open_advanced_cleanup(oa);
+	open_advanced_cleanup(oa);*/
+	open_advanced_unref(oa);
 }
 
 gboolean
@@ -1409,7 +1422,7 @@ open_advanced(Tbfwin * bfwin, GFile * basedir, gboolean recursive, guint max_rec
 			return FALSE;
 		}
 	}
-
+	oa->refcount=1;
 	findfiles(basedir, recursive, max_recursion, matchname, name_filter, open_advanced_filematch_cb, open_advanced_finished_cb, oa);
 	return TRUE;
 }
