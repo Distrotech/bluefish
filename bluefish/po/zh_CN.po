@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-07-17 17:48+0200\n"
+"POT-Creation-Date: 2011-07-20 23:41+0800\n"
 "PO-Revision-Date: 2011-07-01 15:57+0800\n"
 "Last-Translator: william9527 <mzf9527@gmail.com>\n"
 "Language-Team: \n"
@@ -134,7 +134,7 @@ msgstr "字符编码(_E)"
 
 #: ../src/bfwin_uimanager.c:711
 msgid "_Go"
-msgstr "转到行(_G)"
+msgstr "转到(_G)"
 
 #: ../src/bfwin_uimanager.c:712
 msgid "_Project"
@@ -160,8 +160,8 @@ msgstr "输出窗口(_O)"
 msgid "_New"
 msgstr "新建(_N)"
 
-#: ../src/bfwin_uimanager.c:721 ../src/filebrowser2.c:1597
-#: ../src/filebrowser2.c:1599 ../src/filebrowser2.c:1984
+#: ../src/bfwin_uimanager.c:721 ../src/filebrowser2.c:1600
+#: ../src/filebrowser2.c:1602 ../src/filebrowser2.c:1987
 msgid "New file"
 msgstr "新建文件"
 
@@ -193,7 +193,7 @@ msgstr "打开文件"
 msgid "Open Ad_vanced..."
 msgstr "高级打开(_v)..."
 
-#: ../src/bfwin_uimanager.c:726 ../src/filebrowser2.c:1980
+#: ../src/bfwin_uimanager.c:726 ../src/filebrowser2.c:1983
 msgid "Open advanced"
 msgstr "高级打开"
 
@@ -245,7 +245,7 @@ msgstr "全选"
 msgid "Add Boo_kmark"
 msgstr "添加书签(_k)"
 
-#: ../src/bfwin_uimanager.c:737 ../src/document.c:1837
+#: ../src/bfwin_uimanager.c:737 ../src/document.c:1841
 msgid "Add bookmark"
 msgstr "添加书签"
 
@@ -529,7 +529,7 @@ msgstr "文本换行(_W)"
 msgid "Wrap text"
 msgstr "文本换行"
 
-#: ../src/bfwin_uimanager.c:814 ../src/document.c:2846
+#: ../src/bfwin_uimanager.c:814 ../src/document.c:2805
 msgid "_Close"
 msgstr "关闭(_C)"
 
@@ -689,11 +689,11 @@ msgstr "转到某行"
 
 #: ../src/bfwin_uimanager.c:850
 msgid "Goto Line Number in _Selection"
-msgstr "前往选择区域中的指定行(_S)"
+msgstr "转到选择区域中的指定行(_S)"
 
 #: ../src/bfwin_uimanager.c:851
 msgid "Goto line number in selection"
-msgstr "前往选择区域中的指定行"
+msgstr "转到选择区域中的指定行"
 
 #: ../src/bfwin_uimanager.c:852
 msgid "Jump to Reference"
@@ -980,11 +980,11 @@ msgstr "书签搜索菜单"
 msgid "_Edit..."
 msgstr "编辑(_E)..."
 
-#: ../src/bookmark.c:849 ../src/filebrowser2.c:1983
+#: ../src/bookmark.c:849 ../src/filebrowser2.c:1986
 msgid "_Delete"
 msgstr "删除(_D)"
 
-#: ../src/bookmark.c:849 ../src/document.c:1833
+#: ../src/bookmark.c:849 ../src/document.c:1837
 msgid "Delete bookmark"
 msgstr "删除书签"
 
@@ -1180,15 +1180,15 @@ msgstr "无法显示文件，字符集未知。"
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2022 ../src/file_dialogs.c:482 ../src/file_dialogs.c:520
+#: ../src/document.c:1980 ../src/file_dialogs.c:482 ../src/file_dialogs.c:520
 msgid "_Abort save"
 msgstr "中断保存(_A)"
 
-#: ../src/document.c:2022
+#: ../src/document.c:1980
 msgid "_Continue save in UTF-8"
 msgstr "继续以 UTF-8 保存(_C)"
 
-#: ../src/document.c:2035
+#: ../src/document.c:1993
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -1200,15 +1200,15 @@ msgstr ""
 "\n"
 "以 UTF-8 编码继续保存吗？"
 
-#: ../src/document.c:2040
+#: ../src/document.c:1998
 msgid "File encoding conversion failure"
 msgstr "文件编码转换失败"
 
-#: ../src/document.c:2187
+#: ../src/document.c:2145
 msgid "Previously: "
 msgstr "前一个："
 
-#: ../src/document.c:2638 ../src/file_dialogs.c:827
+#: ../src/document.c:2597 ../src/file_dialogs.c:827
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1218,79 +1218,79 @@ msgstr ""
 "本。"
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2763
+#: ../src/document.c:2722
 msgid "Unable to open file"
 msgstr "无法打开文件"
 
-#: ../src/document.c:2775
+#: ../src/document.c:2734
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "如果你恢复 \"%s\" 到你上次备份的位置，当前的修改将永久丢失。"
 
-#: ../src/document.c:2779
+#: ../src/document.c:2738
 msgid "Revert changes to last saved copy?"
 msgstr "恢复到上次保存的备份吗？"
 
-#: ../src/document.c:2846
+#: ../src/document.c:2805
 msgid "_Retry"
 msgstr "重试(_R)"
 
-#: ../src/document.c:2846
+#: ../src/document.c:2805
 msgid "Retry _all failed"
 msgstr "重试所有失败的文件(_a)"
 
-#: ../src/document.c:2846
+#: ../src/document.c:2805
 msgid "Close all _failed"
 msgstr "关闭所有失败的文件(_f)"
 
-#: ../src/document.c:2851
+#: ../src/document.c:2810
 msgid "File "
 msgstr "文件 "
 
-#: ../src/document.c:2851
+#: ../src/document.c:2810
 msgid " failed to load."
 msgstr " 读取失败。"
 
-#: ../src/document.c:2855
+#: ../src/document.c:2814
 msgid "File failed to load\n"
 msgstr "文件读取失败\n"
 
-#: ../src/document.c:2971
+#: ../src/document.c:2930
 msgid "Select file to insert"
 msgstr "选择要插入的文件"
 
-#: ../src/document.c:2980
+#: ../src/document.c:2939
 msgid "No file to insert"
 msgstr "没有要插入的文件"
 
-#: ../src/document.c:3084
+#: ../src/document.c:3043
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d 行"
 msgstr[1] "%d 行"
 
-#: ../src/document.c:3085
+#: ../src/document.c:3044
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d 个字"
 msgstr[1] "%d 个字"
 
-#: ../src/document.c:3086
+#: ../src/document.c:3045
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d 个字符"
 msgstr[1] "%d 个字符"
 
-#: ../src/document.c:3088
+#: ../src/document.c:3047
 msgid "Selection statistics: "
 msgstr "统计选择区域："
 
-#: ../src/document.c:3088
+#: ../src/document.c:3047
 msgid "Statistics: "
 msgstr "统计："
 
@@ -1355,11 +1355,11 @@ msgstr "文档根目录"
 msgid "Webroot"
 msgstr "网站根目录"
 
-#: ../src/filebrowser2.c:1501
+#: ../src/filebrowser2.c:1504
 msgid "Could not rename\n"
 msgstr "无法重命名\n"
 
-#: ../src/filebrowser2.c:1574 ../src/filebrowser2.c:1985
+#: ../src/filebrowser2.c:1577 ../src/filebrowser2.c:1988
 msgid "New directory"
 msgstr "新建目录"
 
@@ -1371,7 +1371,7 @@ msgstr "新建目录"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1691
+#: ../src/filebrowser2.c:1694
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -1380,140 +1380,140 @@ msgstr ""
 "你确定要删除 \n"
 "\"%s\"?"
 
-#: ../src/filebrowser2.c:1692
+#: ../src/filebrowser2.c:1695
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "如果你要删除 %s,它将永远丢失。"
 
-#: ../src/filebrowser2.c:1978
+#: ../src/filebrowser2.c:1981
 msgid "File Browser menu"
 msgstr "文件浏览菜单"
 
-#: ../src/filebrowser2.c:1979
+#: ../src/filebrowser2.c:1982
 msgid "_Open"
 msgstr "打开(_O)"
 
-#: ../src/filebrowser2.c:1979
+#: ../src/filebrowser2.c:1982
 msgid "Open"
 msgstr "打开(_O)"
 
-#: ../src/filebrowser2.c:1980
+#: ../src/filebrowser2.c:1983
 msgid "Open _Advanced..."
 msgstr "高级打开(_A)..."
 
-#: ../src/filebrowser2.c:1982
+#: ../src/filebrowser2.c:1985
 msgid "Rena_me"
 msgstr "重命名(_m)"
 
-#: ../src/filebrowser2.c:1982
+#: ../src/filebrowser2.c:1985
 msgid "Rename"
 msgstr "重命名"
 
-#: ../src/filebrowser2.c:1983
+#: ../src/filebrowser2.c:1986
 msgid "Delete"
 msgstr "删除"
 
-#: ../src/filebrowser2.c:1984
+#: ../src/filebrowser2.c:1987
 msgid "New _File"
 msgstr "新建文件(_F)"
 
-#: ../src/filebrowser2.c:1985
+#: ../src/filebrowser2.c:1988
 msgid "_New Directory"
 msgstr "新建目录(_N)"
 
-#: ../src/filebrowser2.c:1987
+#: ../src/filebrowser2.c:1990
 msgid "_Refresh"
 msgstr "刷新(_R)"
 
-#: ../src/filebrowser2.c:1987
+#: ../src/filebrowser2.c:1990
 msgid "Refresh"
 msgstr "刷新"
 
-#: ../src/filebrowser2.c:1988
+#: ../src/filebrowser2.c:1991
 msgid "_Set as base dir"
 msgstr "设为基础目录(_S)"
 
-#: ../src/filebrowser2.c:1988
+#: ../src/filebrowser2.c:1991
 msgid "Set as base directory"
 msgstr "设为基础目录"
 
-#: ../src/filebrowser2.c:1990
+#: ../src/filebrowser2.c:1993
 msgid "Set as document root"
 msgstr "设为文档根目录"
 
-#: ../src/filebrowser2.c:1992
+#: ../src/filebrowser2.c:1995
 msgid "Show Full _Tree"
 msgstr "显示完整目录树(_T)"
 
-#: ../src/filebrowser2.c:1992
+#: ../src/filebrowser2.c:1995
 msgid "Show full tree"
 msgstr "显示完整目录树"
 
-#: ../src/filebrowser2.c:1994
+#: ../src/filebrowser2.c:1997
 msgid "View Mode"
 msgstr "查看方式"
 
-#: ../src/filebrowser2.c:1995
+#: ../src/filebrowser2.c:1998
 msgid "Filter"
 msgstr "过滤器"
 
-#: ../src/filebrowser2.c:1996
+#: ../src/filebrowser2.c:1999
 msgid "New Filter"
 msgstr "新建过滤器"
 
-#: ../src/filebrowser2.c:1996 ../src/filefilter.c:534
+#: ../src/filebrowser2.c:1999 ../src/filefilter.c:534
 msgid "New filter"
 msgstr "新建过滤器"
 
-#: ../src/filebrowser2.c:1997
+#: ../src/filebrowser2.c:2000
 msgid "Edit Filter"
 msgstr "编辑过滤器"
 
-#: ../src/filebrowser2.c:1997 ../src/filefilter.c:540
+#: ../src/filebrowser2.c:2000 ../src/filefilter.c:540
 msgid "Edit filter"
 msgstr "编辑过滤器"
 
-#: ../src/filebrowser2.c:1998
+#: ../src/filebrowser2.c:2001
 msgid "Delete Filter"
 msgstr "删除过滤器"
 
-#: ../src/filebrowser2.c:1998
+#: ../src/filebrowser2.c:2001
 msgid "Delete filter"
 msgstr "删除过滤器"
 
-#: ../src/filebrowser2.c:2002
+#: ../src/filebrowser2.c:2005
 msgid "Follow Active Document"
 msgstr "跟随当前文档"
 
-#: ../src/filebrowser2.c:2002
+#: ../src/filebrowser2.c:2005
 msgid "Follow active document"
 msgstr "跟随当前文档"
 
-#: ../src/filebrowser2.c:2004
+#: ../src/filebrowser2.c:2007
 msgid "Show Backup Files"
 msgstr "显示备份文件"
 
-#: ../src/filebrowser2.c:2004 ../src/gtk_easy.c:1277
+#: ../src/filebrowser2.c:2007 ../src/gtk_easy.c:1277
 msgid "Show backup files"
 msgstr "显示备份文件"
 
-#: ../src/filebrowser2.c:2006
+#: ../src/filebrowser2.c:2009
 msgid "Show Hidden Files"
 msgstr "显示隐藏文件"
 
-#: ../src/filebrowser2.c:2006
+#: ../src/filebrowser2.c:2009
 msgid "Show hidden files"
 msgstr "显示隐藏文件"
 
-#: ../src/filebrowser2.c:2011
+#: ../src/filebrowser2.c:2014
 msgid "Dual"
 msgstr "双窗口"
 
-#: ../src/filebrowser2.c:2012
+#: ../src/filebrowser2.c:2015
 msgid "Flat"
 msgstr "平面"
 
-#: ../src/filebrowser2.c:2013
+#: ../src/filebrowser2.c:2016
 msgid "Tree"
 msgstr "树状"
 
