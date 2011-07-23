@@ -409,7 +409,7 @@ sessionprefs_apply(Tsessionprefs * sprefs, Tsessionvars * sessionvars)
 {
 	gchar *template_name = NULL;
 	GList *tmplist;
-
+	integer_apply(&sessionvars->enable_syntax_scan, sprefs->prefs[enable_syntax_scan], TRUE);
 	integer_apply(&sessionvars->autoindent, sprefs->prefs[autoindent], TRUE);
 	integer_apply(&sessionvars->editor_tab_width, sprefs->prefs[editor_tab_width], FALSE);
 	integer_apply(&sessionvars->editor_indent_wspaces, sprefs->prefs[editor_indent_wspaces], TRUE);
