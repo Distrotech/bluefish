@@ -572,7 +572,7 @@ gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter * its
 Tcomment *bluefish_text_view_get_comment(BluefishTextView * btv, GtkTextIter * it,
 										 Tcomment_type preferred_type);
 void bluefish_text_view_multiset(BluefishTextView * btv, gpointer doc, gint view_line_numbers,
-								 gint view_blocks, gint autoindent, gint autocomplete, gint show_mbhl);
+							gint view_blocks, gint autoindent, gint autocomplete, gint show_mbhl, gint enable_scanner);
 
 GtkWidget *bftextview2_new(void);
 GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer);

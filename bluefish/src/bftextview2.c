@@ -2166,7 +2166,7 @@ bluefish_text_view_class_init(BluefishTextViewClass * klass)
 
 void
 bluefish_text_view_multiset(BluefishTextView * btv, gpointer doc, gint view_line_numbers,
-							gint view_blocks, gint autoindent, gint autocomplete, gint show_mbhl)
+							gint view_blocks, gint autoindent, gint autocomplete, gint show_mbhl, gint enable_scanner)
 {
 	BLUEFISH_TEXT_VIEW(btv->master)->doc = doc;
 	BLUEFISH_TEXT_VIEW(btv->master)->show_line_numbers = view_line_numbers;
@@ -2174,6 +2174,7 @@ bluefish_text_view_multiset(BluefishTextView * btv, gpointer doc, gint view_line
 	BLUEFISH_TEXT_VIEW(btv->master)->auto_indent = autoindent;
 	BLUEFISH_TEXT_VIEW(btv->master)->auto_complete = autocomplete;
 	BLUEFISH_TEXT_VIEW(btv->master)->show_mbhl = show_mbhl;
+	BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner = enable_scanner;
 }
 
 static void

@@ -2300,7 +2300,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	bluefish_text_view_multiset(BLUEFISH_TEXT_VIEW(newdoc->view), newdoc,
 								BFWIN(bfwin)->session->view_line_numbers, BFWIN(bfwin)->session->view_blocks,
 								BFWIN(bfwin)->session->autoindent, BFWIN(bfwin)->session->autocomplete,
-								BFWIN(bfwin)->session->show_mbhl);
+								BFWIN(bfwin)->session->show_mbhl, BFWIN(bfwin)->session->enable_syntax_scan);
 	bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(newdoc->view),
 											 bfwin->session->display_right_margin);
 #ifdef HAVE_LIBENCHANT
@@ -2316,7 +2316,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scroll), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scroll), newdoc->view);
-	newdoc->highlightstate = 1;
+	newdoc->highlightstate = bfwin->session->enable_syntax_scan;
 	newdoc->tab_label = gtk_label_new(NULL);
 	gtk_widget_set_can_focus(newdoc->tab_label, FALSE);
 	if (!main_v->props.use_system_tab_font)
