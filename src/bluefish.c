@@ -96,7 +96,8 @@ void cb_print_version(const gchar * option_name, const gchar * value, gpointer d
 }
 
 static void init_default_session(Tsessionvars *session) {
-	session->view_main_toolbar = session->view_left_panel
+	session->enable_syntax_scan = session->view_main_toolbar
+			= session->view_left_panel
 			= session->filebrowser_focus_follow
 			= session->view_statusbar
 			= session->autoindent

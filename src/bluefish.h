@@ -333,6 +333,7 @@ typedef struct {
 } Tglobalsession;
 
 typedef struct {
+	gint enable_syntax_scan; /* syntax scan by default */
 	gint wrap_text_default;		/* by default wrap text */
 	gint autoindent;			/* autoindent code */
 	gint editor_tab_width;		/* editor tabwidth */
@@ -342,7 +343,6 @@ typedef struct {
 	gint view_blocks;			/* show blocks on the left side by default */
 	gint autocomplete;			/* whether or not to enable autocomplete by default for each new document */
 	gint show_mbhl;				/* show matching block begin-end by default */
-	gint snr_is_expanded;
 
 	/* snr3 advanced search and replace */
 	gint snr3_type;
