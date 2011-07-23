@@ -919,6 +919,7 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	/* this function should *NOT* initialize any values to default values
 	   because it is also used on existing sessions that already have a value, and
 	   that would wipe out the value of the existing session */
+	init_prop_integer(&configlist, &session->enable_syntax_scan, "enable_syntax_scan:", 1, FALSE);
 	init_prop_integer(&configlist, &session->wrap_text_default, "wrap_text_default:", 1, FALSE);
 	init_prop_integer(&configlist, &session->autoindent, "autoindent:", 1, FALSE);
 	init_prop_integer(&configlist, &session->editor_tab_width, "editor_tab_width:", 3, FALSE);

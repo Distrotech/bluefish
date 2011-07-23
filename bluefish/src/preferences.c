@@ -478,11 +478,10 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 	g_list_free(poplist);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Options</b>"), sprefs->vbox);
-	table = dialog_table_in_vbox_defaults(9, 2, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(10, 2, 0, vbox2);
 
 	sprefs->prefs[autocomplete] =
-		dialog_check_button_in_table(_("Enable a_uto-completion"), sessionvars->autocomplete, table, 0, 1, 0,
-									 1);
+		dialog_check_button_in_table(_("Enable a_uto-completion"), sessionvars->autocomplete, table, 0, 1, 0,1);
 	sprefs->prefs[view_blocks] =
 		dialog_check_button_in_table(_("Enable _block folding"), sessionvars->view_blocks, table, 0, 1, 1, 2);
 	sprefs->prefs[show_mbhl] =
@@ -502,10 +501,13 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 	sprefs->prefs[session_wrap_text] =
 		dialog_check_button_in_table(_("Wra_p lines"), sessionvars->wrap_text_default, table, 0, 1, 7, 8);
 
+	sprefs->prefs[enable_syntax_scan] =
+		dialog_check_button_in_table(_("Enable syntax scanning"), sessionvars->enable_syntax_scan, table, 0, 1, 8,9);
+
 #ifdef HAVE_LIBENCHANT
 	sprefs->prefs[session_spell_check] = dialog_check_button_in_table(_("_Enable spell check"),
 																	  sessionvars->spell_check_default, table,
-																	  0, 1, 8, 9);
+																	  0, 1, 9, 10);
 #endif
 
 	vbox2 = dialog_vbox_labeled(_("<b>Tab Stops</b>"), sprefs->vbox);

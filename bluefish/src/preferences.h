@@ -21,6 +21,7 @@
 #define __PREFERENCES_H_
 
 enum {
+	enable_syntax_scan,
 	session_wrap_text,
 	view_line_numbers,
 	editor_tab_width,			/* editor tabwidth */
