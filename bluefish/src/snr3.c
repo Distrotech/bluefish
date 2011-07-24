@@ -239,6 +239,7 @@ static Toffsetupdate
 s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, gint offset, GMatchInfo *matchinfo)
 {
 	Toffsetupdate offsetupdate = {NULL,0,0};
+	s3run->in_replace=TRUE;
 	if (s3run->replacetype == snr3replace_string) {
 		if (s3run->type == snr3type_string) {
 			g_print("s3result_replace, replace %d:%d with %s\n", s3result->so+offset, s3result->eo+offset, s3run->replace);
@@ -265,6 +266,7 @@ s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, gint offset, GMatchInfo
 	}
 	offsetupdate.startingpoint = s3result->eo;
 	offsetupdate.doc = s3result->doc;
+	s3run->in_replace=FALSE;
 	return offsetupdate;
 }
 
@@ -281,7 +283,7 @@ s3run_replace_current(Tsnr3run *s3run)
 	Toffsetupdate offsetupdate;
 	Tsnr3result *s3result=NULL;
 	GList *next=NULL, *current=NULL;
-	
+	DEBUG_MSG("s3run_replace_current, s3run->current=%p\n",s3run->current);
 	if (s3run->current) {
 		current = s3run->current;
 		next = s3run->current->next;
@@ -292,6 +294,7 @@ s3run_replace_current(Tsnr3run *s3run)
 	offsetupdate = s3result_replace(s3run, s3result, 0, NULL);
 
 	snr3result_free(s3result, s3run);
+	DEBUG_MSG("s3run_replace_current, the result is free'ed, now delete the link %p\n",current);
 	g_queue_delete_link(&s3run->results, current);
 	s3run->current = next;
 	
@@ -655,17 +658,21 @@ snr3_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpoin
 static void
 snr3_docinsertext_cb(Tdocument *doc, const gchar *string, GtkTextIter * iter, gint pos, gint len, gint clen, gpointer data)
 {
-	Toffsetupdate offsetupdate = {doc,pos,clen};
-	g_print("snr3_docinsertext_cb, doc=%p, position %d, insert len %d\n",offsetupdate.doc,offsetupdate.startingpoint,offsetupdate.offset);
-	snr3run_update_offsets(((Tsnr3run *)data), offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
+	if (!((Tsnr3run *)data)->in_replace) {
+		Toffsetupdate offsetupdate = {doc,pos,clen};
+		g_print("snr3_docinsertext_cb, doc=%p, position %d, insert len %d\n",offsetupdate.doc,offsetupdate.startingpoint,offsetupdate.offset);
+		snr3run_update_offsets(((Tsnr3run *)data), offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
+	}
 }
 
 static void
 snr3_docdeleterange_cb(Tdocument *doc, GtkTextIter * itstart, gint start, GtkTextIter * itend, gint end, const gchar *string, gpointer data)
 {
-	Toffsetupdate offsetupdate = {doc,start,start-end};
-	g_print("snr3_docdeleterange_cb, doc=%p, position %d, delete len %d\n",offsetupdate.doc,offsetupdate.startingpoint,offsetupdate.offset);
-	snr3run_update_offsets(((Tsnr3run *)data), offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
+	if (!((Tsnr3run *)data)->in_replace) {
+		Toffsetupdate offsetupdate = {doc,start,start-end};
+		g_print("snr3_docdeleterange_cb, doc=%p, position %d, delete len %d\n",offsetupdate.doc,offsetupdate.startingpoint,offsetupdate.offset);
+		snr3run_update_offsets(((Tsnr3run *)data), offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
+	}
 }
 
 static void
