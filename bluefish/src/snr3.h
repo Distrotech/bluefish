@@ -58,7 +58,7 @@ typedef enum {
 
 typedef struct {
 	Tbfwin *bfwin;
-	gpointer dialog; /* NULL for simple search */
+	gpointer dialog; /* NULL for simple search or external search */
 	gchar *query;
 	GRegex *regex;
 	gchar *replace; /* enabled if not NULL */
@@ -98,8 +98,7 @@ typedef struct {
 	volatile gint runcount;
 	volatile gint cancelled;
 	gpointer findfiles; /* a pointer for the return value of findfiles() so we can cancel it */
-	
-	/*gpointer filesworker_id;*/ /* a pointer to the Tfilesworker structure used in find_files */
+
 
 } Tsnr3run;
 

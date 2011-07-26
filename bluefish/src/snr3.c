@@ -248,7 +248,9 @@ s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, gint offset, GMatchInfo
 		} else if (s3run->type == snr3type_pcre) {
 			gchar *newstr = retrieve_pcre_replace_string(s3run, s3result, matchinfo);
 			if (newstr) {
+				g_print("s3result_replace, replace from offset=%d, so=%d, eo=%d --> %d:%d\n",offset,s3result->so,s3result->eo,s3result->so+offset, s3result->eo+offset);
 				doc_replace_text_backend(s3result->doc, newstr, s3result->so+offset, s3result->eo+offset);
+				g_print("s3result_replace, old len=%d, new len=%d, change offset with %d\n",(s3result->eo - s3result->so), (gint)g_utf8_strlen(newstr, -1), (gint)g_utf8_strlen(newstr, -1)-(s3result->eo - s3result->so));
 				offsetupdate.offset = g_utf8_strlen(newstr, -1)-(s3result->eo - s3result->so);
 				g_free(newstr);
 			}
@@ -333,11 +335,12 @@ backend_pcre_loop(Tsnr3run *s3run, gboolean indefinitely) {
 		g_match_info_fetch_pos(match_info, 0, &so, &eo);
 		so = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, so);
 		eo = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, eo);
-		s3result = sn3run_add_result(s3run, so+s3run->curoffset, eo+s3run->curoffset, s3run->curdoc);
+		s3result = sn3run_add_result(s3run, so+s3run->curoffset+s3run->so, eo+s3run->curoffset+s3run->so, s3run->curdoc);
 		if (s3run->replaceall) {
-			g_print("snr3_run_pcre_loop, replace %d:%d\n", so, eo);
+			g_print("backend_pcre_loop, replace %d:%d, curoffset=%d\n", so+s3run->curoffset+s3run->so, eo+s3run->curoffset+s3run->so,s3run->curoffset);
 			Toffsetupdate offsetupdate = s3result_replace(s3run, s3result, 0, match_info);
 			s3run->curoffset += offsetupdate.offset;
+			g_print("backend_pcre_loop, new offset %d\n",s3run->curoffset);
 		}
 		
 		s3run->curposition = eo;
@@ -775,7 +778,7 @@ static void dialog_changed_run_ready_cb(gpointer data) {
 /***************************** GUI *****************************************/
 /***************************************************************************/
 
-static gboolean compile_regex(TSNRWin *snrwin, Tsnr3run *s3run, const gchar *query) {
+static gboolean compile_regex(Tsnr3run *s3run) {
 	GError *gerror = NULL;
 	gint options = G_REGEX_MULTILINE;
 	if (s3run->is_case_sens)
@@ -783,18 +786,35 @@ static gboolean compile_regex(TSNRWin *snrwin, Tsnr3run *s3run, const gchar *que
 	if (s3run->dotmatchall)
 		options |= G_REGEX_DOTALL;
 	
-	s3run->regex = g_regex_new(query,options, G_REGEX_MATCH_NEWLINE_ANY, &gerror);
+	s3run->regex = g_regex_new(s3run->query, options, G_REGEX_MATCH_NEWLINE_ANY, &gerror);
 	if (gerror) {
-		gchar *message = g_markup_printf_escaped("<span foreground=\"red\">%s</span>", gerror->message);
-		g_print("compile_regex, regex error %s\n",gerror->message);
-		gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback), message);
-		gtk_widget_show(snrwin->searchfeedback);
-		g_free(message);
+		if (s3run->dialog) {
+			gchar *message = g_markup_printf_escaped("<span foreground=\"red\">%s</span>", gerror->message);
+			g_print("compile_regex, regex error %s\n",gerror->message);
+			gtk_label_set_markup(GTK_LABEL(((TSNRWin *)s3run->dialog)->searchfeedback), message);
+			gtk_widget_show(((TSNRWin *)s3run->dialog)->searchfeedback);
+			g_free(message);
+		}
 		g_error_free(gerror);
 		return FALSE;
 	}
 	g_print("compile_regex, return TRUE\n");
 	return TRUE;
+}
+
+static gint update_snr3run(Tsnr3run *s3run) {
+	if (s3run->regex) {
+		g_regex_unref(s3run->regex);
+		s3run->regex = NULL;
+	}
+	if (s3run->type == snr3type_pcre) {
+		if (!compile_regex(s3run)) {
+			g_free(s3run->query);
+			s3run->query = NULL; /* mark query as unusable */
+			return -1;
+		}
+	}
+	return 1;
 }
 
 /*
@@ -885,19 +905,8 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	}
 	
 	if ((retval & 1) != 0) {
-		if (s3run->regex) {
-			g_regex_unref(s3run->regex);
-			s3run->regex = NULL;
-		}
-		
-		if (type == snr3type_pcre) {
-			if (!compile_regex(snrwin, s3run, query)) {
-				g_free(s3run->query);
-				s3run->query = NULL; /* mark query as unusable */
-				return -1;
-			}
-		}
-		
+		if (update_snr3run(s3run)==-1)
+			return -1;
 		remove_all_highlights_in_doc(snrwin->bfwin->current_document);
 		snr3run_resultcleanup(s3run);
 	}
@@ -1333,6 +1342,7 @@ extern_doc_backend(Tsnr3run * s3run, Tdocument *doc, guint so, guint eo)
 {
 	s3run->curoffset=0;
 	s3run->curposition=0;
+	s3run->curdoc = doc;
 	s3run->curbuf = doc_get_chars(doc, so, eo);
 	utf8_offset_cache_reset();
 	s3run->so = so;
@@ -1355,6 +1365,8 @@ snr3_run_extern_replace(Tdocument * doc, const gchar * search_pattern, Tsnr3scop
 	GList *tmplist;
 	Tsnr3run * s3run = snr3run_new(doc->bfwin, NULL);
 	snr3run_multiset(s3run, search_pattern, NULL, type,snr3replace_string,scope);
+	s3run->replace = g_strdup(replace_pattern);
+	update_snr3run(s3run);
 	s3run->replaceall = TRUE;
 	
 	switch(s3run->scope) {
