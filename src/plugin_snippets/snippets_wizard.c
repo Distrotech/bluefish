@@ -116,9 +116,7 @@ static gpointer snippets_build_pageSnr(Tsnipwiz *snwiz, GtkWidget *dialog_action
 
 	const gchar *matchPattern[] = {
 		N_("Normal"),
-		N_("Entire word only"),
-		N_("POSIX"),
-		N_("PERL"),
+		N_("PERL")
 	};
 	GtkWidget *label;
 	gint i;
@@ -281,12 +279,6 @@ static gint snippets_test_pageSnr(Tsnipwiz *snwiz, gpointer data) {
 			tmp = "normal";
 		break;
 		case 1:
-			tmp = "word";
-		break;
-		case 2:
-			tmp = "posix";
-		break;
-		case 3:
 			tmp = "perl";
 		break;
 	}

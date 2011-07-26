@@ -49,7 +49,9 @@ Tsnr3scope snippets_snr_region_from_char(const xmlChar *region) {
 }
 
 Tsnr3type snippets_snr_matchtype_from_char(const xmlChar *matchtype) {
-	if (matchtype && xmlStrEqual(matchtype, (const xmlChar *)"pcre"))
+	/* since snr2 dropped support for posix, we try to run them as pcre. */
+	if (matchtype && (xmlStrEqual(matchtype, (const xmlChar *)"posix")
+						||xmlStrEqual(matchtype, (const xmlChar *)"perl")))
 		return snr3type_pcre;
 	return snr3type_string;
 }
@@ -189,6 +191,7 @@ static void snippets_snr_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_var
 		casesens = xmlGetProp(leaf, (const xmlChar *)"casesens");
 		escapechars = xmlGetProp(leaf, (const xmlChar *)"escapechars");
 		snippets_snr_run_from_strings(snw->bfwin->current_document, (const xmlChar *)search_final,region,matchtype,casesens, (const xmlChar *)replace_final, escapechars);
+		g_free(replace_final);
 	}
 	gtk_widget_destroy(sid->dialog);
 	g_free(sid);
