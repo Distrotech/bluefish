@@ -51,6 +51,7 @@ texttag from the tag table??
 #include "bf_lib.h"
 #include "bookmark.h"
 #include "bfwin.h"
+#include "stringlist.h"
 #include "dialog_utils.h"
 #include "gtk_easy.h"
 #include "bf_lib.h"
@@ -963,6 +964,9 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 	if (guichange == -1)
 		return;
 
+	snrwin->bfwin->session->searchlist = add_to_history_stringlist(snrwin->bfwin->session->searchlist, s3run->query, FALSE,TRUE);
+	snrwin->bfwin->session->replacelist = add_to_history_stringlist(snrwin->bfwin->session->replacelist, s3run->replace,FALSE, TRUE);
+	
 	switch(response) {
 		case SNR_RESPONSE_FIND:
 			if ((guichange & 1) != 0) {
