@@ -733,6 +733,7 @@ simplesearch_advanced_clicked(GtkButton * button, Tbfwin * bfwin)
 		return; 
 	
 	snr3_advanced_dialog(bfwin, tmpstr);
+	gotoline_close_button_clicked(NULL, bfwin);
 	g_free(tmpstr);
 }
 

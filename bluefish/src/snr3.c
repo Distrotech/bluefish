@@ -508,7 +508,7 @@ snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 	DEBUG_MSG("scroll to result %p\n",next);
 	if (next) {
 		s3run->current = next;
-		scroll_to_result(next->data, GTK_WINDOW(((TSNRWin *)s3run->dialog)->dialog));
+		scroll_to_result(next->data, s3run->dialog ? GTK_WINDOW(((TSNRWin *)s3run->dialog)->dialog) : NULL);
 	}
 }
 
