@@ -84,7 +84,6 @@ move_window_away_from_cursor(Tdocument * doc, GtkWindow * win, GtkTextIter * ite
 
 	/* get window coordinates, try to include the decorations */
 	gdk_window_get_frame_extents(gtk_widget_get_window(GTK_WIDGET(win)), &winrect);
-
 	doc_get_iter_location(doc, iter, &itrect);
 	DEBUG_MSG("move_window_away_from_cursor, itx=%d-%d,ity=%d-%d, winx=%d-%d, winy=%d-%d\n", itrect.x,
 			  itrect.x + itrect.width, itrect.y, itrect.y + itrect.height, winrect.x,
@@ -105,7 +104,7 @@ move_window_away_from_cursor(Tdocument * doc, GtkWindow * win, GtkTextIter * ite
 
 static void scroll_to_result(Tsnr3result *s3result, GtkWindow *dialog) {
 	GtkTextIter itstart, itend;
-	DEBUG_MSG("scroll_to_result, started for s3result %p\n",s3result);
+	DEBUG_MSG("scroll_to_result, started for s3result %p, dialog=%p\n",s3result, dialog);
 	if (BFWIN(DOCUMENT(s3result->doc)->bfwin)->current_document != s3result->doc) {
 		DEBUG_MSG("scroll_to_result, switch to document %p\n",s3result->doc);
 		bfwin_switch_to_document_by_pointer(DOCUMENT(s3result->doc)->bfwin,s3result->doc);
@@ -115,6 +114,7 @@ static void scroll_to_result(Tsnr3result *s3result, GtkWindow *dialog) {
 	gtk_text_buffer_get_iter_at_offset(DOCUMENT(s3result->doc)->buffer, &itend, s3result->eo);
 	gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(DOCUMENT(s3result->doc)->view), &itstart, 0.25, FALSE, 0.5, 0.10);
 	gtk_text_buffer_select_range(DOCUMENT(s3result->doc)->buffer,&itstart,&itend);
+	
 	if (dialog)
 		move_window_away_from_cursor(s3result->doc, dialog, &itstart);
 	DEBUG_MSG("scroll_to_result, finished for s3result %p\n",s3result);
@@ -301,7 +301,7 @@ s3run_replace_current(Tsnr3run *s3run)
 	s3run->current = next;
 	
 	if (s3run->current) {
-		scroll_to_result(s3run->current->data, NULL);
+		scroll_to_result(s3run->current->data, GTK_WINDOW(((TSNRWin *)s3run->dialog)->dialog));
 	}
 	if (offsetupdate.offset != 0) {
 		/* now re-calculate all the offsets in the results lists!!!!!!!!!!! */
@@ -508,7 +508,7 @@ snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 	DEBUG_MSG("scroll to result %p\n",next);
 	if (next) {
 		s3run->current = next;
-		scroll_to_result(next->data, NULL);
+		scroll_to_result(next->data, GTK_WINDOW(((TSNRWin *)s3run->dialog)->dialog));
 	}
 }
 
@@ -629,19 +629,11 @@ replace_all_ready(void *data) {
 }
 
 static void
-activate_simple_search(void *data) {
-	Tsnr3run *s3run=data;
-	g_print("activate_simple_search, s3run=%p\n", s3run);
-	s3run->curdoc = NULL;
-	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
-	snr3_run_go(s3run, TRUE);
-}
-
-static void
 highlight_simple_search(void *data) {
 	Tsnr3run *s3run=data;
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);	
 }
+
 
 static void
 snr3_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data) {
@@ -741,6 +733,18 @@ snr3run_multiset(Tsnr3run *s3run,
 	g_queue_init(&s3run->results);
 	
 } 
+/******************************************************/
+/*********** start of simple search *******************/
+/******************************************************/
+
+static void
+activate_simple_search(void *data) {
+	Tsnr3run *s3run=data;
+	g_print("activate_simple_search, s3run=%p\n", s3run);
+	s3run->curdoc = NULL;
+	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
+	snr3_run_go(s3run, TRUE);
+}
 
 gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	Tsnr3run *s3run;
@@ -759,6 +763,9 @@ simple_search_next(Tbfwin *bfwin)
 		snr3_run_go(((Tsnr3run *)bfwin->simplesearch_snr3run), TRUE);
 	}
 }
+/******************************************************/
+/*********** end of simple search *********************/
+/******************************************************/
 
 static void dialog_changed_run_ready_cb(gpointer data) {
 	Tsnr3run *s3run=data;
@@ -979,7 +986,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			s3run_replace_current(snrwin->s3run);
 			doc_unre_new_group(snrwin->bfwin->current_document);
 			if ((guichange == 0) && s3run->current) {
-				scroll_to_result(s3run->current->data, NULL);
+				scroll_to_result(s3run->current->data, GTK_WINDOW(((TSNRWin *)s3run->dialog)->dialog));
 			}
 		break;
 		case SNR_RESPONSE_BOOKMARK_ALL:
