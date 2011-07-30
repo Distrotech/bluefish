@@ -965,7 +965,10 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 		return;
 
 	snrwin->bfwin->session->searchlist = add_to_history_stringlist(snrwin->bfwin->session->searchlist, s3run->query, FALSE,TRUE);
-	snrwin->bfwin->session->replacelist = add_to_history_stringlist(snrwin->bfwin->session->replacelist, s3run->replace,FALSE, TRUE);
+	if (s3run->replace && s3run->replace[0] != '\0')
+		snrwin->bfwin->session->replacelist = add_to_history_stringlist(snrwin->bfwin->session->replacelist, s3run->replace,FALSE, TRUE);
+	if (s3run->scope == snr3scope_files && s3run->filepattern && s3run->filepattern[0] != '\0')
+		snrwin->bfwin->session->filegloblist = add_to_history_stringlist(snrwin->bfwin->session->filegloblist, s3run->filepattern,FALSE, TRUE);
 	
 	switch(response) {
 		case SNR_RESPONSE_FIND:
@@ -1065,7 +1068,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	GtkWidget *table, *vbox, *entry;
 	gint currentrow=0;
 	GtkListStore *history, *lstore;
-	GList *list;
+	GList *list, *tmplist;
 	GtkTreeIter iter;
 	/*GtkTextIter start, end; */
 	unsigned int i = 0;
@@ -1214,10 +1217,10 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	currentrow++;
 	/* add a basedir and file pattern widget here */
 	lstore = gtk_list_store_new(1, G_TYPE_STRING);
-	/*for (i = 0; i < G_N_ELEMENTS(fileExts); i++) {
+	for (tmplist = g_list_first(bfwin->session->filegloblist); tmplist; tmplist = g_list_next(tmplist)) {
 		gtk_list_store_append(GTK_LIST_STORE(lstore), &iter);
-		gtk_list_store_set(GTK_LIST_STORE(lstore), &iter, 0, fileExts[i], -1);
-	};*/
+		gtk_list_store_set(GTK_LIST_STORE(lstore), &iter, 0, tmplist->data, -1);
+	}
 	snrwin->filepattern = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(lstore), 0);
 	g_object_unref(lstore);
 	snrwin->filepatternL = dialog_mnemonic_label_in_table(_("Filename pattern: "), snrwin->filepattern, table, 0, 1, currentrow, currentrow+1);

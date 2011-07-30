@@ -61,6 +61,7 @@ free_session(Tsessionvars * session)
 	free_stringlist(session->positionlist);
 	free_stringlist(session->searchlist);
 	free_stringlist(session->replacelist);
+	free_stringlist(session->filegloblist);
 	free_arraylist(session->bmarks);
 	free_stringlist(session->recent_files);
 	free_stringlist(session->recent_dirs);

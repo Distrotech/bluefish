@@ -404,6 +404,7 @@ typedef struct {
 	GList *recent_files;
 	GList *replacelist;			/* used in snr2 */
 	GList *searchlist;			/* used in snr2 and for advanced_open */
+	GList *filegloblist; /* file glob filters in advanced open and search in files */
 	GList *targetlist;
 	GList *urllist;
 } Tsessionvars;

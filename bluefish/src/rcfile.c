@@ -946,8 +946,9 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_string(&configlist, &session->template, "template:", NULL);
 	init_prop_string_with_escape(&configlist, &session->webroot, "webroot:", NULL);
 	init_prop_string_with_escape(&configlist, &session->documentroot, "documentroot:", NULL);
-	init_prop_limitedstringlist(&configlist, &session->searchlist, "searchlist:", 10, FALSE);
-	init_prop_limitedstringlist(&configlist, &session->replacelist, "replacelist:", 10, FALSE);
+	init_prop_limitedstringlist(&configlist, &session->searchlist, "searchlist:", 15, FALSE);
+	init_prop_limitedstringlist(&configlist, &session->replacelist, "replacelist:", 15, FALSE);
+	init_prop_limitedstringlist(&configlist, &session->filegloblist, "filegloblist:", 15, FALSE);
 	init_prop_stringlist(&configlist, &session->classlist, "classlist:", FALSE);
 	init_prop_stringlist(&configlist, &session->colorlist, "colorlist:", FALSE);
 	init_prop_stringlist(&configlist, &session->targetlist, "targetlist:", FALSE);
@@ -1000,6 +1001,25 @@ setup_session_after_parse(Tsessionvars * session)
 
 	if (session->default_mime_type == NULL)
 		session->default_mime_type = g_strdup("text/plain");
+	
+	if (session->filegloblist == NULL) {
+		session->filegloblist = list_from_arglist(TRUE, "*", 
+				"*.c",
+				"*.cgi",
+				"*.cpp",
+				"*.css",
+				"*.h",
+				"*.html",
+				"*.htm",
+				"*.java",
+				"*.js",
+				"*.php",
+				"*.pl",
+				"*.py",
+				"*.shtml",
+				"*.txt",
+				"*.xml" , NULL);
+	}
 /* TODO: set spell check language to a sensible default
 	 
 #ifdef HAVE_LIBENCHANT

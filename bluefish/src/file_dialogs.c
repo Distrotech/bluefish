@@ -79,8 +79,10 @@ files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 	basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
 	baseuri = g_file_new_for_uri(basedir);
 	content_filter = gtk_combo_box_get_active_text(GTK_COMBO_BOX(tfs->grep_pattern));
-	tfs->bfwin->session->searchlist =
-		add_to_history_stringlist(tfs->bfwin->session->searchlist, content_filter, FALSE, TRUE);
+	if (content_filter && content_filter[0]!='\0')
+		tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist, content_filter, FALSE, TRUE);
+	if (extension_filter && extension_filter[0] != '\0') 
+		tfs->bfwin->session->filegloblist = add_to_history_stringlist(tfs->bfwin->session->filegloblist, extension_filter,FALSE, TRUE);
 
 	retval =
 		open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
@@ -133,25 +135,7 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	GtkTreeIter iter;
 	Tfiles_advanced *tfs;
 	unsigned int i = 0;
-
-	const gchar *fileExts[] = {
-		"*",
-		"*.c",
-		"*.cgi",
-		"*.cpp",
-		"*.css",
-		"*.h",
-		"*.html",
-		"*.htm",
-		"*.java",
-		"*.js",
-		"*.php",
-		"*.pl",
-		"*.py",
-		"*.shtml",
-		"*.txt",
-		"*.xml"
-	};
+	GList *tmplist;
 
 	tfs = g_new(Tfiles_advanced, 1);
 	tfs->bfwin = bfwin;
@@ -188,10 +172,10 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	g_signal_connect(button, "clicked", G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
 
 	lstore = gtk_list_store_new(1, G_TYPE_STRING);
-	for (i = 0; i < G_N_ELEMENTS(fileExts); i++) {
+	for (tmplist = g_list_first(bfwin->session->filegloblist); tmplist; tmplist = g_list_next(tmplist)) {
 		gtk_list_store_append(GTK_LIST_STORE(lstore), &iter);
-		gtk_list_store_set(GTK_LIST_STORE(lstore), &iter, 0, fileExts[i], -1);
-	};
+		gtk_list_store_set(GTK_LIST_STORE(lstore), &iter, 0, tmplist->data, -1);
+	}
 	tfs->find_pattern = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(lstore), 0);
 	g_object_unref(lstore);
 	dialog_mnemonic_label_in_table(_("_Pattern:"), tfs->find_pattern, table, 0, 1, 1, 2);
