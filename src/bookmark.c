@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <fcntl.h>
@@ -684,7 +684,7 @@ popup_menu_delete(GtkAction * action, gpointer user_data)
 	gint retval;
 	gchar *pstr;
 	const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
-
+	DEBUG_MSG("popup_menu_delete\n");
 	bmark = get_current_bmark(bfwin);
 	if (!bmark)
 		return;
@@ -809,18 +809,18 @@ popup_search_mode_changed(GtkRadioAction * action, GtkRadioAction * current, gpo
 static const gchar *bookmark_menu_ui =
 	"<ui>"
 	"  <popup action='BookmarkMenu'>"
-	"    <menuitem action='Edit'/>"
-	"    <menuitem action='Delete'/>"
+	"    <menuitem action='EditBookmark'/>"
+	"    <menuitem action='DeleteBookmark'/>"
 	"    <separator/>"
-	"    <menuitem action='DeleteAllInDoc'/>"
-	"    <menuitem action='DeleteAll'/>"
+	"    <menuitem action='DeleteAllBookmarkInDoc'/>"
+	"    <menuitem action='DeleteAllBookmark'/>"
 	"    <separator/>"
 	"    <menuitem action='DefaultPermanent'/>"
 	"    <separator/>"
 	"    <menu action='ShowFileMenu'>"
-	"    <menuitem action='FileByName'/>"
-	"    <menuitem action='FileByPath'/>"
-	"    <menuitem action='FileByURI'/>"
+	"    <menuitem action='BookmarkFileByName'/>"
+	"    <menuitem action='BookmarkFileByPath'/>"
+	"    <menuitem action='BookmarkFileByURI'/>"
 	"    </menu>"
 	"    <menu action='ShowBookmarkMenu'>"
 	"    <menuitem action='BookmarkContent'/>"
@@ -844,12 +844,12 @@ static const GtkActionEntry bookmark_actions[] = {
 	{"ShowBookmarkMenu", NULL, N_("Show Bookmark")},
 	{"ShowFileMenu", NULL, N_("Show File")},
 	{"BookmarkSearchMenu", NULL, N_("Bookmark search menu")},
-	{"Edit", NULL, N_("_Edit..."), NULL, N_("Edit bookmark"),
+	{"EditBookmark", NULL, N_("_Edit..."), NULL, N_("Edit bookmark"),
 	 G_CALLBACK(popup_menu_edit)},
-	{"Delete", NULL, N_("_Delete"), NULL, N_("Delete bookmark"), G_CALLBACK(popup_menu_delete)},
-	{"DeleteAll", NULL, N_("Delete All"), NULL, N_("Delete all bookmarks"),
+	{"DeleteBookmark", NULL, N_("_Delete"), NULL, N_("Delete bookmark"), G_CALLBACK(popup_menu_delete)},
+	{"DeleteAllBookmark", NULL, N_("Delete All"), NULL, N_("Delete all bookmarks"),
 	 G_CALLBACK(popup_menu_delete_all)},
-	{"DeleteAllInDoc", NULL, N_("Delete All in Document"), NULL, N_("Delete all bookmarks in document"),
+	{"DeleteAllBookmarkInDoc", NULL, N_("Delete All in Document"), NULL, N_("Delete all bookmarks in document"),
 	 G_CALLBACK(popup_menu_delete_all_doc)}
 };
 
@@ -859,9 +859,9 @@ static const GtkToggleActionEntry bookmark_toggle_actions[] = {
 };
 
 static const GtkRadioActionEntry bookmark_file_radio_actions[] = {
-	{"FileByName", NULL, N_("By Name"), NULL, NULL, 0},
-	{"FileByPath", NULL, N_("By Full Path"), NULL, NULL, 1},
-	{"FileByURI", NULL, N_("By Full URI"), NULL, NULL, 2},
+	{"BookmarkFileByName", NULL, N_("By Name"), NULL, NULL, 0},
+	{"BookmarkFileByPath", NULL, N_("By Full Path"), NULL, NULL, 1},
+	{"BookmarkFileByURI", NULL, N_("By Full URI"), NULL, NULL, 2},
 };
 
 static const GtkRadioActionEntry bookmark_radio_actions[] = {
@@ -922,9 +922,9 @@ popup_menu(Tbfwin * bfwin, GdkEventButton * event, gboolean show_bmark_specific,
 	if (!menu)
 		return;
 
-	bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/Edit", show_bmark_specific);
-	bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/Delete", show_bmark_specific);
-	bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/DeleteAllInDoc", show_file_specific);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/EditBookmark", show_bmark_specific);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/DeleteBookmark", show_bmark_specific);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/DeleteAllBookmarkInDoc", show_file_specific);
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/BookmarkMenu/DefaultPermanent",
 										 main_v->globses.bookmarks_default_store);
 	gtk_widget_show(menu);
