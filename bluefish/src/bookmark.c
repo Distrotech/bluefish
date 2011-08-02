@@ -927,6 +927,8 @@ popup_menu(Tbfwin * bfwin, GdkEventButton * event, gboolean show_bmark_specific,
 	bfwin_action_set_sensitive(bfwin->uimanager, "/BookmarkMenu/DeleteAllBookmarkInDoc", show_file_specific);
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/BookmarkMenu/DefaultPermanent",
 										 main_v->globses.bookmarks_default_store);
+	gtk_radio_action_set_current_value((GtkRadioAction *)gtk_ui_manager_get_action(bfwin->uimanager, "/BookmarkMenu/ShowFileMenu/BookmarkFileByName"),bfwin->session->bookmarks_filename_mode);
+	gtk_radio_action_set_current_value((GtkRadioAction *)gtk_ui_manager_get_action(bfwin->uimanager, "/BookmarkMenu/ShowBookmarkMenu/BookmarkName"),bfwin->session->bookmarks_show_mode);
 	gtk_widget_show(menu);
 	gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
 }
