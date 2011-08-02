@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -38,7 +38,7 @@ the trailing slash. So it is convenient to use directories without trailing slas
 alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're supposed to do
 */
 
-#define DBG_FBREFCOUNT
+/*#define DBG_FBREFCOUNT*/
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -1945,75 +1945,75 @@ popup_menu_new_filter(GtkAction * action, gpointer user_data)
 static const gchar *filebrowser_menu_ui =
 	"<ui>"
 	"  <popup action='FileBrowserMenu'>"
-	"    <menuitem action='Open'/>"
-	"    <menuitem action='OpenAdvanced'/>"
-	"    <menuitem action='Rename'/>"
-	"    <menuitem action='Delete'/>"
+	"    <menuitem action='FB2Open'/>"
+	"    <menuitem action='FB2OpenAdvanced'/>"
+	"    <menuitem action='FB2Rename'/>"
+	"    <menuitem action='FB2Delete'/>"
 	"    <separator/>"
-	"    <menuitem action='NewFile'/>"
-	"    <menuitem action='NewDirectory'/>"
+	"    <menuitem action='FB2NewFile'/>"
+	"    <menuitem action='FB2NewDirectory'/>"
 	"    <separator/>"
-	"    <menuitem action='Refresh'/>"
-	"    <menuitem action='FollowActiveDoc'/>"
-	"    <menuitem action='SetBaseDir'/>"
-	"    <menuitem action='SetDocumentRoot'/>"
+	"    <menuitem action='FB2Refresh'/>"
+	"    <menuitem action='FB2FollowActiveDoc'/>"
+	"    <menuitem action='FB2SetBaseDir'/>"
+	"    <menuitem action='FB2SetDocumentRoot'/>"
 	"    <separator/>"
-	"    <menuitem action='ShowFullTree'/>"
-	"    <menuitem action='ShowBackupFiles'/>"
-	"    <menuitem action='ShowHiddenFiles'/>"
+	"    <menuitem action='FB2ShowFullTree'/>"
+	"    <menuitem action='FB2ShowBackupFiles'/>"
+	"    <menuitem action='FB2ShowHiddenFiles'/>"
 	"    <separator/>"
-	"    <menu action='ViewModeMenu'>"
-	"      <menuitem action='ViewModeDual'/>"
-	"      <menuitem action='ViewModeFlat'/>"
-	"      <menuitem action='ViewModeTree'/>"
+	"    <menu action='FB2ViewModeMenu'>"
+	"      <menuitem action='FB2ViewModeDual'/>"
+	"      <menuitem action='FB2ViewModeFlat'/>"
+	"      <menuitem action='FB2ViewModeTree'/>"
 	"    </menu>"
-	"    <menu action='FilterMenu'>"
-	"      <placeholder name='FilterPlaceholder'/>"
+	"    <menu action='FB2FilterMenu'>"
+	"      <placeholder name='FB2FilterPlaceholder'/>"
 	"      <separator/>"
-	"      <menuitem action='NewFilter'/>"
-	"      <menuitem action='EditFilter'/>"
-	"      <menuitem action='DeleteFilter'/>"
+	"      <menuitem action='FB2NewFilter'/>"
+	"      <menuitem action='FB2EditFilter'/>"
+	"      <menuitem action='FB2DeleteFilter'/>"
 	"    </menu>"
 	"  </popup>"
 	"</ui>";
 
 static const GtkActionEntry filebrowser_actions[] = {
-	{"FileBrowserMenu", NULL, N_("File Browser menu")},
-	{"Open", NULL, N_("_Open"), NULL, N_("Open"), G_CALLBACK(popup_menu_open)},
-	{"OpenAdvanced", NULL, N_("Open _Advanced..."), NULL, N_("Open advanced"),
+	{"FB2FileBrowserMenu", NULL, N_("File Browser menu")},
+	{"FB2Open", NULL, N_("_Open"), NULL, N_("Open"), G_CALLBACK(popup_menu_open)},
+	{"FB2OpenAdvanced", NULL, N_("Open _Advanced..."), NULL, N_("Open advanced"),
 	 G_CALLBACK(popup_menu_open_advanced)},
-	{"Rename", NULL, N_("Rena_me"), NULL, N_("Rename"), G_CALLBACK(popup_menu_rename)},
-	{"Delete", NULL, N_("_Delete"), NULL, N_("Delete"), G_CALLBACK(popup_menu_delete)},
-	{"NewFile", NULL, N_("New _File"), NULL, N_("New file"), G_CALLBACK(popup_menu_new_file)},
-	{"NewDirectory", NULL, N_("_New Directory"), NULL, N_("New directory"),
+	{"FB2Rename", NULL, N_("Rena_me"), NULL, N_("Rename"), G_CALLBACK(popup_menu_rename)},
+	{"FB2Delete", NULL, N_("_Delete"), NULL, N_("Delete"), G_CALLBACK(popup_menu_delete)},
+	{"FB2NewFile", NULL, N_("New _File"), NULL, N_("New file"), G_CALLBACK(popup_menu_new_file)},
+	{"FB2NewDirectory", NULL, N_("_New Directory"), NULL, N_("New directory"),
 	 G_CALLBACK(popup_menu_new_directory)},
-	{"Refresh", NULL, N_("_Refresh"), NULL, N_("Refresh"), G_CALLBACK(popup_menu_refresh)},
-	{"SetBaseDir", NULL, N_("_Set as base dir"), NULL, N_("Set as base directory"),
+	{"FB2Refresh", NULL, N_("_Refresh"), NULL, N_("Refresh"), G_CALLBACK(popup_menu_refresh)},
+	{"FB2SetBaseDir", NULL, N_("_Set as base dir"), NULL, N_("Set as base directory"),
 	 G_CALLBACK(popup_menu_set_basedir)},
-	{"SetDocumentRoot", NULL, N_("Set as document root"), NULL, N_("Set as document root"),
+	{"FB2SetDocumentRoot", NULL, N_("Set as document root"), NULL, N_("Set as document root"),
 	 G_CALLBACK(popup_menu_set_document_root)},
-	{"ShowFullTree", NULL, N_("Show Full _Tree"), NULL, N_("Show full tree"),
+	{"FB2ShowFullTree", NULL, N_("Show Full _Tree"), NULL, N_("Show full tree"),
 	 G_CALLBACK(popup_menu_show_full_tree)},
-	{"ViewModeMenu", NULL, N_("View Mode")},
-	{"FilterMenu", NULL, N_("Filter")},
-	{"NewFilter", NULL, N_("New Filter"), NULL, N_("New filter"), G_CALLBACK(popup_menu_new_filter)},
-	{"EditFilter", NULL, N_("Edit Filter"), NULL, N_("Edit filter"), G_CALLBACK(popup_menu_edit_filter)},
-	{"DeleteFilter", NULL, N_("Delete Filter"), NULL, N_("Delete filter"), G_CALLBACK(popup_menu_delete_filter)}
+	{"FB2ViewModeMenu", NULL, N_("View Mode")},
+	{"FB2FilterMenu", NULL, N_("Filter")},
+	{"FB2NewFilter", NULL, N_("New Filter"), NULL, N_("New filter"), G_CALLBACK(popup_menu_new_filter)},
+	{"FB2EditFilter", NULL, N_("Edit Filter"), NULL, N_("Edit filter"), G_CALLBACK(popup_menu_edit_filter)},
+	{"FB2DeleteFilter", NULL, N_("Delete Filter"), NULL, N_("Delete filter"), G_CALLBACK(popup_menu_delete_filter)}
 };
 
 static const GtkToggleActionEntry filebrowser_toggle_actions[] = {
-	{"FollowActiveDoc", NULL, N_("Follow Active Document"), NULL, N_("Follow active document"),
+	{"FB2FollowActiveDoc", NULL, N_("Follow Active Document"), NULL, N_("Follow active document"),
 	 G_CALLBACK(popup_menu_follow_active_doc), FALSE},
-	{"ShowBackupFiles", NULL, N_("Show Backup Files"), NULL, N_("Show backup files"),
+	{"FB2ShowBackupFiles", NULL, N_("Show Backup Files"), NULL, N_("Show backup files"),
 	 G_CALLBACK(popup_menu_show_backup_files), FALSE},
-	{"ShowHiddenFiles", NULL, N_("Show Hidden Files"), NULL, N_("Show hidden files"),
+	{"FB2ShowHiddenFiles", NULL, N_("Show Hidden Files"), NULL, N_("Show hidden files"),
 	 G_CALLBACK(popup_menu_show_hidden_files), FALSE}
 };
 
 static const GtkRadioActionEntry filebrowser_radio_actions[] = {
-	{"ViewModeDual", NULL, N_("Dual"), NULL, NULL, viewmode_dual},
-	{"ViewModeFlat", NULL, N_("Flat"), NULL, NULL, viewmode_flat},
-	{"ViewModeTree", NULL, N_("Tree"), NULL, NULL, viewmode_tree}
+	{"FB2ViewModeDual", NULL, N_("Dual"), NULL, NULL, viewmode_dual},
+	{"FB2ViewModeFlat", NULL, N_("Flat"), NULL, NULL, viewmode_flat},
+	{"FB2ViewModeTree", NULL, N_("Tree"), NULL, NULL, viewmode_tree}
 };
 
 static void
@@ -2027,6 +2027,7 @@ popup_menu_action_group_init(Tbfwin * bfwin)
 	gtk_action_group_add_actions(bfwin->filebrowserGroup, filebrowser_actions, G_N_ELEMENTS(filebrowser_actions), fb2);
 	gtk_action_group_add_toggle_actions(bfwin->filebrowserGroup, filebrowser_toggle_actions,
 										G_N_ELEMENTS(filebrowser_toggle_actions), fb2);
+	g_print("popup_menu_action_group_init, set default viewmode to %d\n",fb2->filebrowser_viewmode);
 	gtk_action_group_add_radio_actions(bfwin->filebrowserGroup, filebrowser_radio_actions,
 									   G_N_ELEMENTS(filebrowser_radio_actions),
 									   fb2->filebrowser_viewmode, G_CALLBACK(popup_menu_view_mode_changed),
@@ -2057,23 +2058,25 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 	}	
 	fb2->last_popup_on_dir = is_directory;
 	 
-	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FollowActiveDoc",
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FB2FollowActiveDoc",
 										 fb2->bfwin->session->filebrowser_focus_follow);
-	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/ShowBackupFiles",
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FB2ShowBackupFiles",
 										 fb2->filebrowser_show_backup_files);
-	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/ShowHiddenFiles",
+	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/FileBrowserMenu/FB2ShowHiddenFiles",
 										 fb2->filebrowser_show_hidden_files);
 
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Rename", (is_directory || is_file));
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Delete", (is_directory || is_file));
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/OpenAdvanced", is_directory);
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetDocumentRoot", is_directory);
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/SetBaseDir", is_directory);
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/Open", is_file);
-	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/ShowFullTree", (fb2->basedir != NULL && fb2->filebrowser_viewmode != viewmode_flat));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2Rename", (is_directory || is_file));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2Delete", (is_directory || is_file));
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2OpenAdvanced", is_directory);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2SetDocumentRoot", is_directory);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2SetBaseDir", is_directory);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2Open", is_file);
+	bfwin_action_set_sensitive(bfwin->uimanager, "/FileBrowserMenu/FB2ShowFullTree", (fb2->basedir != NULL && fb2->filebrowser_viewmode != viewmode_flat));
+
+	gtk_radio_action_set_current_value((GtkRadioAction *)gtk_ui_manager_get_action(bfwin->uimanager, "/FileBrowserMenu/FB2ViewModeMenu/FB2ViewModeDual"),fb2->filebrowser_viewmode);
 
 	if (!bfwin->fb2_filters_group) {
-		bfwin->fb2_filters_group = gtk_action_group_new("FileBrowserFilterActions");
+		bfwin->fb2_filters_group = gtk_action_group_new("FB2FileBrowserFilterActions");
 		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->fb2_filters_group, 1);
 	} else {
 		GList *actions, *list;
@@ -2103,7 +2106,7 @@ popup_menu_create(Tfilebrowser2 * fb2, gboolean is_directory, gboolean is_file, 
 		g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(popup_menu_filter_activate), fb2);
 
 		gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->fb2_filters_merge_id,
-							  "/FileBrowserMenu/FilterMenu/FilterPlaceholder", filter->name,
+							  "/FileBrowserMenu/FB2FilterMenu/FB2FilterPlaceholder", filter->name,
 							  filter->name, GTK_UI_MANAGER_MENUITEM, FALSE);
 
 		if (fb2->curfilter == filter)
@@ -2818,6 +2821,9 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 		DEBUG_MSG("fb2_update_settings_from_session, started, bfwin=%p, fb2=%p, viewmode=%d\n",
 				  bfwin, fb2, fb2->filebrowser_viewmode);
 
+		if (!bfwin->filebrowserGroup)
+			popup_menu_action_group_init(bfwin);
+
 		fb2_set_viewmode_widgets(fb2, bfwin->session->filebrowser_viewmode);
 
 		if (bfwin->session->last_filefilter) {
@@ -2896,9 +2902,6 @@ fb2_init(Tbfwin * bfwin)
 		g_signal_connect(fb2->dirmenu_v, "changed", G_CALLBACK(dirmenu_changed_lcb), fb2);
 
 	fb2_update_settings_from_session(bfwin);
-
-	if (!bfwin->filebrowserGroup)
-		popup_menu_action_group_init(bfwin);
 
 	gtk_widget_show_all(fb2->vbox);
 /*  {
