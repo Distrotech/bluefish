@@ -235,14 +235,14 @@ GList *list_from_arglist(gboolean allocate_strings, ...) {
 	va_start(args, allocate_strings);
 	s = va_arg(args, gchar*);
 	while (s) {
-		retval = g_list_append(retval, s);
+		retval = g_list_append(retval, allocate_strings ? g_strdup(s) : s);
 		s = va_arg (args, gchar*);
 	}
 	va_end (args);
 	return retval;
 }
 
-GList *duplicate_stringlist(GList *list, gint dup_data) {
+/*GList *duplicate_stringlist(GList *list, gint dup_data) {
 	GList *retlist=NULL;
 	if (list) {
 		GList *tmplist;
@@ -261,7 +261,7 @@ GList *duplicate_stringlist(GList *list, gint dup_data) {
 		}
 	}
 	return retlist;
-}
+}*/
 
 gint free_stringlist(GList * which_list)
 {
@@ -497,7 +497,7 @@ gboolean put_stringlist(GFile * file, GList * which_list, gboolean is_arraylist)
 	return TRUE;
 }
 
-GList *remove_from_stringlist(GList *which_list, const gchar * string) {
+/*GList *remove_from_stringlist(GList *which_list, const gchar * string) {
 	if (string && strlen(string) ) {
 		GList *tmplist = g_list_first(which_list);
 		while (tmplist) {
@@ -511,7 +511,7 @@ GList *remove_from_stringlist(GList *which_list, const gchar * string) {
 	}
 	return which_list;
 }
-
+*/
 static void unlink_before(GList *tmplist) {
 	GList *prev = tmplist->prev;
 	DEBUG_MSG("unlink_before, freeing starting at %s\n",(gchar *)tmplist->data);
@@ -621,7 +621,7 @@ GList *add_to_stringlist(GList * which_list, const gchar * string) {
  * 
  * Return value: the gchar *
  **/
-gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
+/*gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
 	gchar *string, *tmp;
 	GList *tmplist;
 	string = g_strdup("");
@@ -634,7 +634,7 @@ gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
 		tmplist = g_list_next(tmplist);
 	}
 	return string;
-}
+}*/
 
 /**
  * array_n_strings_identical:
@@ -671,6 +671,7 @@ gint array_n_strings_identical(const gchar **array1, const gchar **array2, gbool
 	}
 	return res;
 }
+#ifdef OBSOLETE
 /**
  * arraylist_delete_identical:
  * @thelist: #GList*
@@ -742,7 +743,7 @@ GList *arraylist_append_identical_from_file(GList *thelist, const gchar *sourcef
 	free_arraylist(sourcelist);
 	return thelist;
 }*/
-
+#endif
 /**
  * arraylist_value_exists:
  * @arraylist: #GList*
@@ -770,6 +771,7 @@ gchar **arraylist_value_exists(GList *arraylist, const gchar **value, gint testl
 /*	g_print("arraylist_value_exists,found nothing, listlen=%d\n",g_list_length(arraylist));*/
 	return NULL;
 }
+#ifdef OBSOLETE
 /**
  * arraylist_load_new_identifiers_from_list:
  * @mylist: #GList*
@@ -818,6 +820,7 @@ GList *arraylist_load_new_identifiers_from_file(GList *mylist, const gchar *from
 	free_arraylist(deflist);
 	return mylist;	
 }*/
+#endif
 
 /* pure for debugging purposes */
 #ifdef DEVELOPMENT
