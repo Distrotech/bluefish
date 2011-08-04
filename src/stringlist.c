@@ -242,7 +242,7 @@ GList *list_from_arglist(gboolean allocate_strings, ...) {
 	return retval;
 }
 
-/*GList *duplicate_stringlist(GList *list, gint dup_data) {
+GList *duplicate_stringlist(GList *list, gint dup_data) {
 	GList *retlist=NULL;
 	if (list) {
 		GList *tmplist;
@@ -261,7 +261,7 @@ GList *list_from_arglist(gboolean allocate_strings, ...) {
 		}
 	}
 	return retlist;
-}*/
+}
 
 gint free_stringlist(GList * which_list)
 {
