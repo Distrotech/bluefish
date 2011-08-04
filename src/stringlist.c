@@ -539,6 +539,15 @@ GList *limit_stringlist(GList *which_list, gint num_entries, gboolean keep_end) 
 	return retlist;
 }
 
+GList *find_in_stringlist(GList *thelist, const gchar *string) {
+	GList *list;
+	for (list=g_list_first(thelist);list;list=list->next) {
+		if (g_strcmp0(string, list->data)==0)
+			return list;
+	}
+	return NULL;
+} 
+
 /**
  * add_to_history_stringlist:
  * @which_list: #GList* the list to add to
@@ -555,26 +564,25 @@ GList *limit_stringlist(GList *which_list, gint num_entries, gboolean keep_end) 
  * Return value: GList* with the modified list
  */
 GList *add_to_history_stringlist(GList *which_list, const gchar *string, gboolean recent_on_top, gboolean move_if_exists) {
-	if (string && strlen(string) ) {
-		GList *tmplist = g_list_first(which_list);
-		while (tmplist) {
-			if (strcmp((gchar *) tmplist->data, string) == 0) {
-				/* move this entry to the end */
-				if (move_if_exists) {
-					DEBUG_MSG("add_to_history_stringlist, entry %s exists, moving!\n", string);
-					which_list = g_list_remove_link(which_list, tmplist);
-					if (recent_on_top) {
-						return g_list_concat(tmplist, which_list);
-					} else {
-						return g_list_concat(which_list, tmplist);
-					}
-				} else {
-					return which_list;
-				}
+	GList *tmplist;
+	if (!string || string[0]=='\0' )
+		return which_list;
+	
+	tmplist = find_in_stringlist(which_list, string);
+	if (tmplist) {
+		/* move this entry to the end */
+		if (move_if_exists) {
+			DEBUG_MSG("add_to_history_stringlist, entry %s exists, moving!\n", string);
+			which_list = g_list_remove_link(which_list, tmplist);
+			if (recent_on_top) {
+				return g_list_concat(tmplist, which_list);
+			} else {
+				return g_list_concat(which_list, tmplist);
 			}
-			tmplist = g_list_next(tmplist);
+		} else {
+			return which_list;
 		}
-		/* if we arrive here the string was not yet in the list */
+	} else {
 		DEBUG_MSG("add_to_history_stringlist, adding new entry %s\n",string);
 		if (recent_on_top) {
 			which_list = g_list_prepend(which_list, g_strdup(string));

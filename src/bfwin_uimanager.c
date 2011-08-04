@@ -40,6 +40,7 @@
 #include "outputbox.h"
 #include "preferences.h"
 #include "project.h"
+#include "stringlist.h"
 #include "snr3.h"
 #include "undo_redo.h"
 
@@ -1038,7 +1039,7 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	bfwin_commands_menu_create(bfwin);
 	bfwin_filters_menu_create(bfwin);
 	bfwin_outputbox_menu_create(bfwin);
-	bfwin_recent_menu_create(bfwin);
+	bfwin_recent_menu_create(bfwin, FALSE);
 
 	set_project_menu_actions(bfwin, FALSE);
 	
@@ -1126,7 +1127,7 @@ bfwin_set_document_menu_items(Tdocument * doc)
 	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/Cut", !doc->readonly);
 	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/Paste", !doc->readonly);
 	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/Replace", !doc->readonly);
-	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/ReplaceAgain", !doc->readonly);
+	/*bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/ReplaceAgain", !doc->readonly);*/
 	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/EditIndent", !doc->readonly);
 	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/EditUnindent", !doc->readonly);
 }
@@ -1182,11 +1183,9 @@ dynamic_menu_item_create(GtkUIManager *uimanager, GtkActionGroup *action_group,
 	} else {
 		action = (GtkAction *)gtk_radio_action_new(action_name,action_label,NULL,NULL,radio_value);
 	}
-	g_print("action=%p\n",action);
 	if (!action)
 		return;
 	if (radio_value != -1 && radio_group) {
-		g_print("action %s is radioaction\n",action_label);
 		gtk_radio_action_set_group(GTK_RADIO_ACTION(action), *radio_group);
 		*radio_group = gtk_radio_action_get_group(GTK_RADIO_ACTION(action));
 	}
@@ -1206,7 +1205,7 @@ dynamic_menu_empty(GtkUIManager *uimanager, guint merge_id, GtkActionGroup *acti
 	gtk_ui_manager_remove_ui(uimanager, merge_id);
 	actions = gtk_action_group_list_actions(action_group);
 	for (list = actions; list; list = list->next) {
-		g_print("dynamic_menu_empty, remove action %s\n",gtk_action_get_label(list->data));
+		DEBUG_MSG("dynamic_menu_empty, remove action %s\n",gtk_action_get_label(list->data));
 		/*g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
 											 G_CALLBACK(commands_menu_activate), bfwin);*/
 		gtk_action_group_remove_action(action_group, GTK_ACTION(list->data));
@@ -1479,106 +1478,133 @@ bfwin_outputbox_menu_create(Tbfwin * bfwin)
 	}
 }
 
-void
-bfwin_recent_menu_add(Tbfwin * bfwin, GFile * file, GFileInfo * finfo, gboolean is_project)
+static void
+recent_menu_activate(GtkMenuItem * menuitem, gpointer user_data)
 {
-	GtkRecentData *recent_data;
-	GtkRecentManager *recent_manager;
-	const gchar *mime_type = NULL;
-	gchar *uri;
-
-	static gchar *file_groups[2] = { BF_RECENT_FILE_GROUP, NULL };
-	static gchar *project_groups[2] = { BF_RECENT_PROJECT_GROUP, NULL };
-
-	recent_manager = gtk_recent_manager_get_default();
-
-	recent_data = g_slice_new(GtkRecentData);
-	recent_data->display_name = NULL;
-	recent_data->description = NULL;
-	recent_data->app_name = (gchar *) g_get_application_name();
-	recent_data->app_exec = g_strjoin(" ", g_get_prgname(), "%f", NULL);
-	recent_data->is_private = TRUE;
-	if (is_project) {
-		recent_data->mime_type = "application/x-bluefish-project";
-		recent_data->groups = project_groups;
+	Tbfwin *bfwin = BFWIN(user_data);
+	const gchar *str = gtk_menu_item_get_label(menuitem);
+	gint len = strlen(str);
+	GFile *uri = g_file_new_for_uri(str);
+	if (g_strcmp0(str+len-10,".bfproject")==0) {
+		project_open_from_file(bfwin, uri);
 	} else {
-		if (finfo)
-			mime_type = g_file_info_get_content_type(finfo);
-
-		recent_data->mime_type = (gchar *) mime_type;
-		recent_data->groups = file_groups;
+		doc_new_from_uri(bfwin, uri, NULL, FALSE,FALSE, -1, -1);
 	}
-
-	uri = g_file_get_uri(file);
-	gtk_recent_manager_add_full(recent_manager, uri, recent_data);
-	g_free(uri);
-
-	g_free(recent_data->app_exec);
-	g_slice_free(GtkRecentData, recent_data);
+	g_object_unref(uri);
 }
 
-static void
-recent_menu_file_item_activated(GtkRecentChooser * chooser, gpointer user_data)
-{
-	Tbfwin *bfwin = BFWIN(user_data);
-	gchar *uri = gtk_recent_chooser_get_current_uri(chooser);
-	GFile *file = g_file_new_for_uri(uri);
-
-	if (file) {
-		doc_new_from_uri(bfwin, file, NULL, FALSE, FALSE, -1, -1);
-		g_object_unref(file);
-	}
-	g_free(uri);
+static void recent_menu_add(Tbfwin *bfwin, GtkMenu *menu, const gchar *curi) {
+	GtkWidget *menuitem;
+	menuitem = gtk_menu_item_new_with_label(curi);
+	g_signal_connect(menuitem, "activate", G_CALLBACK(recent_menu_activate), bfwin);
+	gtk_menu_shell_insert(GTK_MENU_SHELL(menu), menuitem, 1);
+	gtk_widget_show(menuitem);
 }
 
-static void
-recent_menu_project_item_activated(GtkRecentChooser * chooser, gpointer user_data)
+static void 
+recent_menu_remove_backend(Tbfwin *bfwin, const gchar *menupath, const gchar *curi)
 {
-	Tbfwin *bfwin = BFWIN(user_data);
-	gchar *uri = gtk_recent_chooser_get_current_uri(chooser);
-	GFile *file = g_file_new_for_uri(uri);
-
-	if (file) {
-		project_open_from_file(bfwin, file);
-		g_object_unref(file);
+	GtkWidget *menuitem, *menu;
+	GList *list, *tmplist;
+	
+	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager,menupath);
+	menu = gtk_menu_item_get_submenu(menuitem);
+	list = gtk_container_get_children(menu);
+	for (tmplist = list; tmplist; tmplist = tmplist->next) {
+		if (g_strcmp0(gtk_menu_item_get_label(tmplist->data), curi)==0) {
+			gtk_widget_destroy(tmplist->data);
+			break;
+		}
 	}
-	g_free(uri);
-}
-
-static void
-recent_menu_create_real(Tbfwin * bfwin, const gchar * recent_group, const gchar * path)
-{
-	GtkRecentManager *recent_manager;
-	GtkRecentFilter *recent_filter;
-	GtkWidget *menuitem, *recent_menu;
-
-	recent_manager = gtk_recent_manager_get_default();
-	recent_menu = gtk_recent_chooser_menu_new_for_manager(recent_manager);
-	recent_filter = gtk_recent_filter_new();
-	gtk_recent_filter_add_group(recent_filter, recent_group);
-	gtk_recent_chooser_set_show_icons(GTK_RECENT_CHOOSER(recent_menu), FALSE);
-	gtk_recent_chooser_set_show_private(GTK_RECENT_CHOOSER(recent_menu), TRUE);
-	gtk_recent_chooser_set_show_tips(GTK_RECENT_CHOOSER(recent_menu), TRUE);
-	gtk_recent_chooser_set_limit(GTK_RECENT_CHOOSER(recent_menu), main_v->props.max_recent_files);
-	gtk_recent_chooser_set_sort_type(GTK_RECENT_CHOOSER(recent_menu), GTK_RECENT_SORT_MRU);
-	gtk_recent_chooser_set_filter(GTK_RECENT_CHOOSER(recent_menu), recent_filter);
-
-	if (g_strcmp0(recent_group, BF_RECENT_FILE_GROUP) == 0)
-		g_signal_connect(G_OBJECT(recent_menu), "item-activated",
-						 G_CALLBACK(recent_menu_file_item_activated), bfwin);
-	else
-		g_signal_connect(G_OBJECT(recent_menu), "item-activated",
-						 G_CALLBACK(recent_menu_project_item_activated), bfwin);
-
-	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, path);
-	gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem), recent_menu);
+	g_list_free(list);
 }
 
 void
-bfwin_recent_menu_create(Tbfwin * bfwin)
+bfwin_recent_menu_remove(Tbfwin *bfwin, gboolean project, const gchar *curi)
 {
-	recent_menu_create_real(bfwin, BF_RECENT_FILE_GROUP, "/MainMenu/FileMenu/FileOpenRecent");
-	recent_menu_create_real(bfwin, BF_RECENT_PROJECT_GROUP, "/MainMenu/ProjectMenu/ProjectOpenRecent");
+	GList *tmplist;
+	if (!project && bfwin->session != main_v->session) {
+		recent_menu_remove_backend(bfwin, "/MainMenu/FileMenu/FileOpenRecent", curi);
+		return;
+	}
+	for (tmplist=g_list_first(main_v->bfwinlist);tmplist;tmplist=g_list_next(tmplist)) {
+		if (project || BFWIN(tmplist->data)->session == main_v->session) {
+			recent_menu_remove_backend(bfwin, 
+					project ? "/MainMenu/ProjectMenu/ProjectOpenRecent" :"/MainMenu/FileMenu/FileOpenRecent", curi);
+		}
+	}
+}
+
+static void
+recent_menu_add_backend(Tbfwin *bfwin, const gchar *menupath, const gchar *curi)
+{
+	GtkWidget *menuitem, *menu;
+	GList *tmplist, *list;
+	gint num=0;
+	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager,menupath);
+	menu = gtk_menu_item_get_submenu(menuitem);
+	
+	recent_menu_add(bfwin, menu, curi);
+	
+	list = gtk_container_get_children(menu);
+	for (tmplist = list; tmplist; tmplist = tmplist->next) {
+		if (num > main_v->props.max_recent_files) {
+			gtk_widget_destroy(tmplist->data);
+		}
+		num++;
+	}
+	g_list_free(list);
+	
+}
+
+void
+bfwin_recent_menu_add(Tbfwin *bfwin, gboolean project, const gchar *curi)
+{
+	GList *tmplist;
+	if (!project && bfwin->session != main_v->session) {
+		recent_menu_add_backend(bfwin, "/MainMenu/FileMenu/FileOpenRecent", curi);
+		return;
+	}
+	for (tmplist=g_list_first(main_v->bfwinlist);tmplist;tmplist=g_list_next(tmplist)) {
+		if (project || BFWIN(tmplist->data)->session == main_v->session) {
+			recent_menu_add_backend(bfwin, 
+					project ? "/MainMenu/ProjectMenu/ProjectOpenRecent" :"/MainMenu/FileMenu/FileOpenRecent", curi);
+		}
+	}
+	
+}
+
+static void recent_create_backend(Tbfwin *bfwin, const gchar *menupath, GList *recentlist) {
+	GtkWidget *menuitem, *menu;
+	GList *list, *tmplist;
+	gint num=0;
+
+	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, menupath);
+	menu = gtk_menu_item_get_submenu(menuitem);
+	list = gtk_container_get_children(menu);
+	for (tmplist = list; tmplist; tmplist = tmplist->next) {
+		gchar *label = gtk_menu_item_get_label(tmplist->data);
+		/* don't remove the tearoff item which has an empty string as label */
+		if (label && label[0]) {
+			gtk_widget_destroy(tmplist->data);
+		}
+	}
+	g_list_free(list);
+
+	for (tmplist = g_list_first(recentlist); tmplist; tmplist = tmplist->next) {
+		if (num > main_v->props.max_recent_files)
+			break;
+		recent_menu_add(bfwin, menu, (const gchar *)tmplist->data);
+		num++;
+	}
+}
+
+void
+bfwin_recent_menu_create(Tbfwin *bfwin, gboolean only_update_session)
+{
+	recent_create_backend(bfwin, "/MainMenu/FileMenu/FileOpenRecent", bfwin->session->recent_files);
+	if (!only_update_session)
+		recent_create_backend(bfwin, "/MainMenu/ProjectMenu/ProjectOpenRecent", main_v->globses.recent_projects);
 }
 
 static void

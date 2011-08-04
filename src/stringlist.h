@@ -44,6 +44,7 @@ GList *duplicate_arraylist(GList *arraylist);
 /* removes a string from a stringlist if it is the same */
 GList *remove_from_stringlist(GList *which_list, const gchar * string);
 GList *limit_stringlist(GList *which_list, gint num_entries, gboolean keep_end);
+GList *find_in_stringlist(GList *thelist, const gchar *string);
 GList *add_to_history_stringlist(GList *which_list, const gchar *string, gboolean recent_on_top, gboolean move_if_exists);
 /* adds a string to a stringlist if it is not yet in there */
 GList *add_to_stringlist(GList * which_list, const gchar * string);
