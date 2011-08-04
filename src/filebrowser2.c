@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -1585,7 +1585,7 @@ fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * noselectionbaseuri
 			done = g_file_make_directory(newuri, NULL, &error);
 			if (error) {
 				gchar *tmp = g_file_get_uri(newuri);
-				g_print("fb2rpopup_new, failed to create directory %s: %s, done=%d\n", tmp, error->message,
+				DEBUG_MSG("fb2rpopup_new, failed to create directory %s: %s, done=%d\n", tmp, error->message,
 						done);
 				g_error_free(error);
 				g_free(tmp);
