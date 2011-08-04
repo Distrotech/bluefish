@@ -817,7 +817,7 @@ rcfile_parse_main(void)
 						  array_from_arglist(_("Links2 (graphics)"), "links2 -g '%p'&", "0", NULL));
 		main_v->props.external_command =
 			g_list_append(main_v->props.external_command,
-						  array_from_arglist(_("chmod a+x"), "chmod a+x %s", "0", NULL));
+						  array_from_arglist(_("chmod a+x"), "chmod a+x %f", "0", NULL));
 	}
 #endif							/* ifdef WIN32 elif PLATFORM_DARWIN */
 	if (main_v->props.templates == NULL) {
