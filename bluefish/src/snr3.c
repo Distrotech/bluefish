@@ -191,6 +191,8 @@ static void snr3run_update_offsets(Tsnr3run *s3run, Tdocument *doc, guint startp
 				g_print("so < startpos, but eo > startpos !! delete the result!!\n");
 				tmplist2 = tmplist;
 				tmplist = g_list_next(tmplist);
+				if (tmplist2 == s3run->current)
+					s3run->current = tmplist;
 				g_slice_free(Tsnr3result, tmplist2->data);
 				s3run->results.head = g_list_delete_link(s3run->results.head, tmplist2);
 				continue;
