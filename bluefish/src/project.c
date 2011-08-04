@@ -364,6 +364,10 @@ project_open_from_file(Tbfwin * bfwin, GFile * fromuri)
 	main_v->globses.recent_projects =
 				add_to_history_stringlist(main_v->globses.recent_projects, curi, FALSE, TRUE);
 	bfwin_recent_menu_remove(bfwin, TRUE, curi);
+	if (main_v->props.register_recent_mode != 0) {
+		gtk_recent_manager_add_item(main_v->recentm, curi);
+	}
+	
 	g_free(curi);
 	prj->uri = fromuri;
 	g_object_ref(fromuri);
