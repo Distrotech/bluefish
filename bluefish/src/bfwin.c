@@ -369,7 +369,7 @@ bfwin_apply_session(Tbfwin * bfwin)
 	bfwin_statusbar_show_hide_toggle(bfwin, bfwin->session->view_statusbar, TRUE);
 
 	fb2_update_settings_from_session(bfwin);
-
+	bfwin_recent_menu_create(bfwin, TRUE);
 	/* force this session in the plugins */
 	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
 }

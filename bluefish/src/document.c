@@ -229,23 +229,27 @@ gint return_num_untitled_documents(GList *doclist) {
 }*/
 
 /**
- * add_filename_to_history:
+ * add_filename_to_recentlist:
  * @bfwin: #Tbfwin*
- * @filename: a #gchar
+ * @uri: a #GFile*
  *
  * adds a filename to the recently opened files list
  * will not add it to the menu, only to the list and the file
  **/
 void
-add_filename_to_history(Tbfwin * bfwin, GFile * file)
+add_filename_to_recentlist(Tbfwin * bfwin, GFile * uri)
 {
-/*	gchar *dirname;*/
-
-/*	add_to_recent_list(bfwin, file, 0, FALSE); the recent menu
-	dirname = g_path_get_dirname(filename);
-	DEBUG_MSG("add_filename_to_history, adding %s\n",dirname);
-	main_v->recent_directories = add_to_history_stringlist(main_v->recent_directories,dirname,FALSE,TRUE);
-	g_free(dirname);*/
+	gchar *curi = g_file_get_uri(uri);
+	bfwin->session->recent_files =
+				add_to_history_stringlist(bfwin->session->recent_files, curi, FALSE, TRUE);
+	bfwin_recent_menu_remove(bfwin, FALSE, curi);
+	
+	if (main_v->props.register_recent_mode == 0)
+		return;
+	if (main_v->props.register_recent_mode == 1) {
+		gtk_recent_manager_add_item(main_v->recentm, curi);
+	}
+	g_free(curi);
 }
 
 /**
@@ -2051,7 +2055,9 @@ doc_destroy(Tdocument * doc, gboolean delay_activation)
 	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n", doc);
 	bmark_clean_for_doc(doc);
 	if (doc->uri && bfwin->session) {	/* in a special situation the bfwin does not have a session: if a project window is closing */
-		bfwin_recent_menu_add(doc->bfwin, doc->uri, doc->fileinfo, FALSE);
+		gchar *curi = g_file_get_uri(doc->uri);
+		bfwin_recent_menu_add(doc->bfwin,FALSE, curi);
+		g_free(curi); 
 	}
 	bfwin_notebook_block_signals(BFWIN(doc->bfwin));
 	if (doc->newdoc_autodetect_lang_id) {
@@ -2602,7 +2608,6 @@ glib_major_version, glib_minor_version, glib_micro_version);
 #endif
 		file_doc_from_uri(bfwin, uri, NULL, finfo, goto_line, goto_offset, open_readonly);
 	}
-	add_filename_to_history(bfwin, uri);
 	session_set_opendir(bfwin, tmpcuri);
 	g_free(tmpcuri);
 }

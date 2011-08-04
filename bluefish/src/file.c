@@ -794,7 +794,8 @@ file2doc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset b
 			f2d->doc->action.goto_line = -1;
 			f2d->doc->action.goto_offset = -1;
 			f2d->doc->action.load = NULL;
-			bfwin_recent_menu_add(BFWIN(f2d->doc->bfwin), f2d->doc->uri, f2d->doc->fileinfo, FALSE);
+			add_filename_to_recentlist(BFWIN(f2d->doc->bfwin), f2d->doc->uri);
+			/*bfwin_recent_menu_add(BFWIN(f2d->doc->bfwin), f2d->doc->uri, f2d->doc->fileinfo, FALSE);*/
 			file2doc_cleanup(data);
 		}
 		DEBUG_MSG("finished data in document view %p\n", f2d->doc->view);

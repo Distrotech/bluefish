@@ -42,6 +42,8 @@ typedef void (*foreachdocfunc) (Tdocument * doc, gpointer data);
 void alldocs_foreach(foreachdocfunc func, gpointer data);
 gint have_modified_documents(GList * doclist);
 GList *return_urilist_from_doclist(GList * doclist);
+void add_filename_to_recentlist(Tbfwin * bfwin, GFile * uri);
+
 gint documentlist_return_index_from_uri(GList * doclist, GFile * uri);
 Tdocument *documentlist_return_document_from_uri(GList * doclist, GFile * uri);
 Tdocument *documentlist_return_document_from_index(GList * doclist, gint index);
@@ -107,8 +109,6 @@ void doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolea
 					  gboolean move_to_this_win, gint goto_line, gint goto_offset);
 void doc_new_from_input(Tbfwin * bfwin, gchar * input, gboolean delay_activate, gboolean move_to_this_win,
 						gint goto_line);
-Tdocument *doc_new_with_file(Tbfwin * bfwin, gchar * filename, gboolean delay_activate,
-							 gboolean move_to_this_win);
 void docs_new_from_files(Tbfwin * bfwin, GList * file_list, gboolean move_to_this_win);
 void doc_reload(Tdocument * doc, GFileInfo * newfinfo, gboolean warn_user);
 void doc_start_modified_check(Tdocument * doc);

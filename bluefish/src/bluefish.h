@@ -482,6 +482,7 @@ typedef struct {
 	guint outputbox_merge_id;
 	GtkActionGroup *encodings_group;
 	guint encodings_merge_id;
+	GtkActionGroup *recent_group;
 	GtkActionGroup *fb2_filters_group;
 	guint fb2_filters_merge_id;
 #ifdef HAVE_LIBENCHANT
