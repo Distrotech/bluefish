@@ -920,7 +920,7 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 		remove_all_highlights_in_doc(snrwin->bfwin->current_document);
 		snr3run_resultcleanup(s3run);
 	}
-	gtk_widget_hide(snrwin->searchfeedback);
+	/*gtk_widget_hide(snrwin->searchfeedback);*/
 	
 	if (retval != 0) {
 		g_print("set session type %d, replacetype %d, scope %d\n",type,replacetype,scope);
@@ -1045,6 +1045,11 @@ static void snr_dialog_show_widgets(TSNRWin * snrwin) {
 	widget_set_show(snrwin->replace, (searchtype != snr3type_pcre || replacetype == snr3replace_string));
 	widget_set_show(snrwin->escapeChars, (searchtype == snr3type_string));
 	widget_set_show(snrwin->dotmatchall, (searchtype == snr3type_pcre));
+	
+	widget_set_show(snrwin->replaceButton, (scope != snr3scope_files));
+	widget_set_show(snrwin->backButton, (scope != snr3scope_files));
+	widget_set_show(snrwin->findButton, (scope != snr3scope_files));
+	widget_set_show(snrwin->bookmarkButton, (scope != snr3scope_files));
 }
 
 static void
