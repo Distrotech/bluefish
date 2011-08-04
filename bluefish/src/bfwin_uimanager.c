@@ -19,7 +19,7 @@
  */
 
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include <stdlib.h>				/* atoi */
 
@@ -1169,7 +1169,6 @@ bfwin_set_menu_toggle_item_from_path(GtkUIManager * manager, const gchar * path,
 		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), is_active);
 }
 
-
 static void 
 dynamic_menu_item_create(GtkUIManager *uimanager, GtkActionGroup *action_group, 
 						guint merge_id, const gchar *path, 
@@ -1310,7 +1309,7 @@ encodings_menu_activate(GtkAction * action, gpointer user_data)
 				if (main_v->props.auto_set_encoding_meta) {
 					update_encoding_meta_in_file(bfwin->current_document, bfwin->current_document->encoding);
 				}
-				DEBUG_MSG("encodings_menu_activate, set to %s\n", encoding);
+				DEBUG_MSG("encodings_menu_activate, set to %s\n", arr[1]);
 			}
 			if (bfwin->session->encoding)
 				g_free(bfwin->session->encoding);
@@ -1344,21 +1343,6 @@ bfwin_encodings_menu_create(Tbfwin * bfwin)
 			dynamic_menu_item_create(bfwin->uimanager,bfwin->encodings_group, bfwin->encodings_merge_id, 
 						"/MainMenu/DocumentMenu/DocumentEncoding/EncodingPlaceholder", 
 						arr[1], label, value, &group, G_CALLBACK(encodings_menu_activate), bfwin, arr);
-
-/*			label = g_strdup_printf("%s (%s)", strarr[0], strarr[1]);
-			action = gtk_radio_action_new(label, label, NULL, NULL, value);
-			gtk_action_group_add_action(bfwin->encodings_group, GTK_ACTION(action));
-			gtk_radio_action_set_group(action, group);
-			group = gtk_radio_action_get_group(action);
-			g_object_set_data(G_OBJECT(action), "encoding", (gpointer) strarr[1]);
-
-			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(encodings_menu_activate), bfwin);
-
-			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->encodings_merge_id,
-								  "/MainMenu/DocumentMenu/DocumentEncoding/EncodingPlaceholder", label,
-								  label, GTK_UI_MANAGER_MENUITEM, TRUE);
-			g_object_unref(action);
-			*/
 			g_free(label);
 			value++;
 		}
@@ -1368,7 +1352,7 @@ bfwin_encodings_menu_create(Tbfwin * bfwin)
 typedef struct {
 	Tbfwin *bfwin;
 	Tselectionsave *selsave;
-	gchar *command;
+	const gchar *command;
 } Tfilterdialog;
 
 static void
@@ -1390,7 +1374,8 @@ static void
 filters_menu_activate(GtkAction * action, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
-	gchar *command = g_object_get_data(G_OBJECT(action), "command");
+	gchar **arr = g_object_get_data(G_OBJECT(action), "adata");
+	const gchar *command = arr[1];
 	gint begin = 0, end = -1;
 	/* if we have a selection, and the filter can be used on a selection,
 	   we should ask if it should be the complete file or the selection */
@@ -1429,17 +1414,7 @@ bfwin_filters_menu_create(Tbfwin * bfwin)
 		bfwin->filters_group = gtk_action_group_new("FiltersActions");
 		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->filters_group, 1);
 	} else {
-		GList *actions, *list;
-
-		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->filters_merge_id);
-
-		actions = gtk_action_group_list_actions(bfwin->filters_group);
-		for (list = actions; list; list = list->next) {
-			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
-												 G_CALLBACK(filters_menu_activate), bfwin);
-			gtk_action_group_remove_action(bfwin->filters_group, GTK_ACTION(list->data));
-		}
-		g_list_free(actions);
+		dynamic_menu_empty(bfwin->uimanager, bfwin->filters_merge_id, bfwin->filters_group);
 	}
 
 	bfwin->filters_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
@@ -1450,18 +1425,10 @@ bfwin_filters_menu_create(Tbfwin * bfwin)
 		 *  arr[1] = command
 		 */
 		if (g_strv_length(arr) == 2) {
-			GtkAction *action;
-
-			action = gtk_action_new(arr[0], arr[0], NULL, NULL);
-			gtk_action_group_add_action(bfwin->filters_group, action);
-			g_object_set_data(G_OBJECT(action), "command", (gpointer) arr[1]);
-
-			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(filters_menu_activate), bfwin);
-
-			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->filters_merge_id,
-								  "/MainMenu/ToolsMenu/ToolsFilters/FiltersPlaceholder", arr[0],
-								  arr[0], GTK_UI_MANAGER_MENUITEM, FALSE);
-			g_object_unref(action);
+			dynamic_menu_item_create(bfwin->uimanager, bfwin->filters_group, 
+						bfwin->filters_merge_id, "/MainMenu/ToolsMenu/ToolsFilters/FiltersPlaceholder", 
+						arr[0], arr[0], -1, NULL,  
+						G_CALLBACK(filters_menu_activate), bfwin, arr);
 		} else {
 			DEBUG_MSG("bfwin_filters_menu_create, CORRUPT ENTRY IN filter actions; array count =%d\n",
 					  g_strv_length(arr));
@@ -1472,19 +1439,8 @@ bfwin_filters_menu_create(Tbfwin * bfwin)
 static void
 outputbox_menu_activate(GtkAction * action, gpointer user_data)
 {
-	gchar *pattern = g_object_get_data(G_OBJECT(action), "pattern");
-	gchar *file_subpat = g_object_get_data(G_OBJECT(action), "file subpattern");
-	gchar *line_subpat = g_object_get_data(G_OBJECT(action), "line subpattern");
-	gchar *output_subpat = g_object_get_data(G_OBJECT(action), "output subpattern");
-	gchar *command = g_object_get_data(G_OBJECT(action), "command");
-
-	outputbox(BFWIN(user_data), pattern, atoi(file_subpat), atoi(line_subpat), atoi(output_subpat), command);
-
-	/*g_free(pattern);
-	g_free(file_subpat);
-	g_free(line_subpat);
-	g_free(output_subpat);
-	g_free(command);*/
+	gchar **arr = g_object_get_data(G_OBJECT(action), "adata");
+	outputbox(BFWIN(user_data), arr[1], atoi(arr[2]), atoi(arr[3]), atoi(arr[4]), arr[5]);
 }
 
 void
@@ -1496,17 +1452,7 @@ bfwin_outputbox_menu_create(Tbfwin * bfwin)
 		bfwin->outputbox_group = gtk_action_group_new("OutputboxActions");
 		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->outputbox_group, 1);
 	} else {
-		GList *actions, *list;
-
-		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->outputbox_merge_id);
-
-		actions = gtk_action_group_list_actions(bfwin->outputbox_group);
-		for (list = actions; list; list = list->next) {
-			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
-												 G_CALLBACK(outputbox_menu_activate), bfwin);
-			gtk_action_group_remove_action(bfwin->outputbox_group, GTK_ACTION(list->data));
-		}
-		g_list_free(actions);
+		dynamic_menu_empty(bfwin->uimanager,bfwin->outputbox_merge_id , bfwin->outputbox_group);
 	}
 
 	bfwin->outputbox_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
@@ -1522,23 +1468,10 @@ bfwin_outputbox_menu_create(Tbfwin * bfwin)
 		 * arr[6] = show_all_output     gboolean not used
 		 */
 		if (g_strv_length(arr) == 6) {
-			GtkAction *action;
-
-			/* TODO: set the integers as pointers not strings */
-			action = gtk_action_new(arr[0], arr[0], NULL, NULL);
-			gtk_action_group_add_action(bfwin->outputbox_group, action);
-			g_object_set_data(G_OBJECT(action), "pattern", (gpointer) arr[1]);
-			g_object_set_data(G_OBJECT(action), "file subpattern", (gpointer) arr[2]);
-			g_object_set_data(G_OBJECT(action), "line subpattern", (gpointer) arr[3]);
-			g_object_set_data(G_OBJECT(action), "output subpattern", (gpointer) arr[4]);
-			g_object_set_data(G_OBJECT(action), "command", (gpointer) arr[5]);
-
-			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(outputbox_menu_activate), bfwin);
-
-			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->outputbox_merge_id,
-								  "/MainMenu/ToolsMenu/ToolsOutputBox/OutputBoxPlaceholder", arr[0],
-								  arr[0], GTK_UI_MANAGER_MENUITEM, FALSE);
-			g_object_unref(action);
+			dynamic_menu_item_create(bfwin->uimanager, bfwin->outputbox_group, 
+						bfwin->outputbox_merge_id, "/MainMenu/ToolsMenu/ToolsOutputBox/OutputBoxPlaceholder", 
+						arr[0], arr[0], -1, NULL,  
+						G_CALLBACK(outputbox_menu_activate), bfwin, arr);
 		} else {
 			DEBUG_MSG("bfwin_outputbox_menu_create, CORRUPT ENTRY IN outputbox action; array count =%d\n",
 					  g_strv_length(arr));
@@ -1652,8 +1585,8 @@ static void
 templates_menu_activate(GtkAction * action, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
-	gchar *path = g_object_get_data(G_OBJECT(action), "path");
-	GFile *uri = g_file_new_for_commandline_arg(path);
+	gchar **arr = g_object_get_data(G_OBJECT(action), "adata");
+	GFile *uri = g_file_new_for_commandline_arg(arr[1]);
 	doc_new_with_template(bfwin, uri, FALSE);
 	g_object_unref(uri);
 }
@@ -1667,39 +1600,18 @@ bfwin_templates_menu_create(Tbfwin * bfwin)
 		bfwin->templates_group = gtk_action_group_new("TemplateActions");
 		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->templates_group, 1);
 	} else {
-		GList *actions, *list;
-
-		gtk_ui_manager_remove_ui(bfwin->uimanager, bfwin->templates_merge_id);
-
-		actions = gtk_action_group_list_actions(bfwin->templates_group);
-		for (list = actions; list; list = list->next) {
-			g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
-												 G_CALLBACK(templates_menu_activate), bfwin);
-			gtk_action_group_remove_action(bfwin->templates_group, GTK_ACTION(list->data));
-		}
-		g_list_free(actions);
+		dynamic_menu_empty(bfwin->uimanager, bfwin->templates_merge_id,bfwin->templates_group);
 	}
-
 	bfwin->templates_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
 
 	for (list = g_list_last(main_v->props.templates); list; list = list->prev) {
 		gchar **arr = (gchar **) list->data;
-
 		if (arr && arr[0] && arr[1]) {
-			GtkAction *action;
-			gchar *action_name;
-
-			action_name = g_strconcat("template ", arr[0], NULL);
-			action = gtk_action_new(action_name, arr[0], NULL, NULL);
-			gtk_action_group_add_action(bfwin->templates_group, action);
-			g_object_set_data(G_OBJECT(action), "path", (gpointer) arr[1]);
-
-			g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(templates_menu_activate), bfwin);
-
-			gtk_ui_manager_add_ui(bfwin->uimanager, bfwin->templates_merge_id,
-								  "/MainMenu/FileMenu/NewFromTemplate/TemplatePlaceholder", action_name,
-								  action_name, GTK_UI_MANAGER_MENUITEM, TRUE);
-			g_object_unref(action);
+			gchar *action_name = g_strconcat("template ", arr[0], NULL);
+			dynamic_menu_item_create(bfwin->uimanager, bfwin->templates_group, 
+						bfwin->templates_merge_id, "/MainMenu/FileMenu/NewFromTemplate/TemplatePlaceholder", 
+						action_name, arr[0], -1, NULL,  
+						G_CALLBACK(templates_menu_activate), bfwin, arr);
 			g_free(action_name);
 		}
 	}
