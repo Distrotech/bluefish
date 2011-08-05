@@ -1512,18 +1512,18 @@ bfwin_set_title(Tbfwin * bfwin, Tdocument * doc, gint num_modified_change)
 
 /* use -1 to switch to the last page */
 gboolean
-bfwin_switch_to_document_by_index(Tbfwin * bfwin, gint index)
+bfwin_switch_to_document_by_index(Tbfwin * bfwin, gint i)
 {
-	DEBUG_MSG("switch_to_document_by_index, index=%d\n", index);
-	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), (index));
+	DEBUG_MSG("switch_to_document_by_index, index=%d\n", i);
+	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), i);
 	return TRUE;
 }
 
 gboolean
 bfwin_switch_to_document_by_pointer(Tbfwin * bfwin, Tdocument * document)
 {
-	gint index;
-
-	index = g_list_index(bfwin->documentlist, document);
-	return bfwin_switch_to_document_by_index(bfwin, index);
+	gint i = g_list_index(bfwin->documentlist, document);
+	if (i==-1)
+		return FALSE;
+	return bfwin_switch_to_document_by_index(bfwin, i);
 }
