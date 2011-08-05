@@ -562,6 +562,23 @@ bfwin_cleanup(Tbfwin * bfwin)
 }
 
 void
+bfwin_gotoline_from_clipboard(Tbfwin * bfwin)
+{
+	gchar *string;
+	GtkClipboard *cb;
+	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
+		gtk_widget_show(bfwin->gotoline_frame);
+
+	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+	string = gtk_clipboard_wait_for_text(cb);
+	if (string) {
+		gtk_entry_set_text(GTK_ENTRY(bfwin->gotoline_entry),string);
+		gtk_editable_select_region(GTK_EDITABLE(bfwin->gotoline_entry),0,-1);
+		g_free(string);
+	}
+}
+
+void
 bfwin_gotoline_frame_show(Tbfwin * bfwin)
 {
 	if (!gtk_widget_get_visible(bfwin->gotoline_frame))
