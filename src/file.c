@@ -1424,7 +1424,7 @@ open_advanced(Tbfwin * bfwin, GFile * basedir, gboolean recursive, guint max_rec
 		}
 	}
 	oa->refcount=1;
-	findfiles(basedir, recursive, max_recursion, matchname, name_filter, open_advanced_filematch_cb, open_advanced_finished_cb, oa);
+	findfiles(basedir, recursive, max_recursion, matchname, name_filter, G_CALLBACK(open_advanced_filematch_cb), G_CALLBACK(open_advanced_finished_cb), oa);
 	return TRUE;
 }
 

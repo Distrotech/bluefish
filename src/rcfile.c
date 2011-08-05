@@ -520,7 +520,6 @@ merge_config_files(GFile * oldrc, GFile * oldsession, GFile * newrc, GFile * new
 	GError *gerror = NULL;
 	GInputStream *istream;
 	GOutputStream *ostream;
-	gssize size;
 
 	istream = (GInputStream *) g_file_read(oldrc, NULL, &gerror);
 	if (gerror) {
@@ -535,7 +534,7 @@ merge_config_files(GFile * oldrc, GFile * oldsession, GFile * newrc, GFile * new
 		g_input_stream_close(istream, NULL, &gerror);
 		return FALSE;
 	}
-	size = g_output_stream_splice(ostream, istream, G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE, NULL, &gerror);
+	g_output_stream_splice(ostream, istream, G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE, NULL, &gerror);
 	if (gerror) {
 		g_print("config file migration error %d:%s", gerror->code, gerror->message);
 		g_error_free(gerror);
@@ -549,7 +548,7 @@ merge_config_files(GFile * oldrc, GFile * oldsession, GFile * newrc, GFile * new
 		g_output_stream_close(ostream, NULL, &gerror);
 		return FALSE;
 	}
-	size = g_output_stream_splice(ostream, istream, G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE, NULL, &gerror);
+	g_output_stream_splice(ostream, istream, G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE, NULL, &gerror);
 	if (gerror) {
 		g_print("config file migration error %d:%s", gerror->code, gerror->message);
 		g_error_free(gerror);

@@ -1514,8 +1514,8 @@ recent_menu_remove_backend(Tbfwin *bfwin, const gchar *menupath, const gchar *cu
 	GList *list, *tmplist;
 	
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager,menupath);
-	menu = gtk_menu_item_get_submenu(menuitem);
-	list = gtk_container_get_children(menu);
+	menu = gtk_menu_item_get_submenu(GTK_MENU_ITEM(menuitem));
+	list = gtk_container_get_children(GTK_CONTAINER(menu));
 	for (tmplist = list; tmplist; tmplist = tmplist->next) {
 		if (g_strcmp0(gtk_menu_item_get_label(tmplist->data), curi)==0) {
 			gtk_widget_destroy(tmplist->data);
@@ -1548,11 +1548,11 @@ recent_menu_add_backend(Tbfwin *bfwin, const gchar *menupath, const gchar *curi)
 	GList *tmplist, *list;
 	gint num=0;
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager,menupath);
-	menu = gtk_menu_item_get_submenu(menuitem);
+	menu = gtk_menu_item_get_submenu(GTK_MENU_ITEM(menuitem));
 	
-	recent_menu_add(bfwin, menu, curi);
+	recent_menu_add(bfwin, GTK_MENU(menu), curi);
 	
-	list = gtk_container_get_children(menu);
+	list = gtk_container_get_children(GTK_CONTAINER(menu));
 	for (tmplist = list; tmplist; tmplist = tmplist->next) {
 		if (num > main_v->props.max_recent_files) {
 			gtk_widget_destroy(tmplist->data);
@@ -1586,10 +1586,10 @@ static void recent_create_backend(Tbfwin *bfwin, const gchar *menupath, GList *r
 	gint num=0;
 
 	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, menupath);
-	menu = gtk_menu_item_get_submenu(menuitem);
-	list = gtk_container_get_children(menu);
+	menu = gtk_menu_item_get_submenu(GTK_MENU_ITEM(menuitem));
+	list = gtk_container_get_children(GTK_CONTAINER(menu));
 	for (tmplist = list; tmplist; tmplist = tmplist->next) {
-		gchar *label = gtk_menu_item_get_label(tmplist->data);
+		const gchar *label = gtk_menu_item_get_label(tmplist->data);
 		/* don't remove the tearoff item which has an empty string as label */
 		if (label && label[0]) {
 			gtk_widget_destroy(tmplist->data);
@@ -1600,7 +1600,7 @@ static void recent_create_backend(Tbfwin *bfwin, const gchar *menupath, GList *r
 	for (tmplist = g_list_first(recentlist); tmplist; tmplist = tmplist->next) {
 		if (num > main_v->props.max_recent_files)
 			break;
-		recent_menu_add(bfwin, menu, (const gchar *)tmplist->data);
+		recent_menu_add(bfwin, GTK_MENU(menu), (const gchar *)tmplist->data);
 		num++;
 	}
 }

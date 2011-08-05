@@ -538,10 +538,7 @@ dialog_vbox_new(GtkWidget * box)
 GtkWidget *
 dialog_vbox_labeled(const gchar * labeltext, GtkWidget * box)
 {
-	GtkWidget *label;
-
-	label = dialog_label_new(labeltext, 0, 0, box, 0);
-
+	dialog_label_new(labeltext, 0, 0, box, 0);
 	return dialog_vbox_new(box);
 }
 
