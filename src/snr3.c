@@ -180,15 +180,19 @@ typedef struct {
 
 static void snr3run_update_offsets(Tsnr3run *s3run, Tdocument *doc, guint startpos, gint offset) {
 	GList *tmplist = g_list_first(s3run->results.head);
+	gint comparepos = (offset > 0) ? startpos : startpos - offset; 
+	g_print("snr3run_update_offsets, startpos=%d, offset=%d, comparepos=%d\n",startpos,offset,comparepos);
 	while (tmplist) {
 		if (doc == ((Tsnr3result *)tmplist->data)->doc 
 						&& ((Tsnr3result *)tmplist->data)->eo >= startpos) {
-			if (((Tsnr3result *)tmplist->data)->so > startpos) {
+			g_print("evaluate so=%d, eo=%d\n",((Tsnr3result *)tmplist->data)->so,((Tsnr3result *)tmplist->data)->eo);
+			if (((Tsnr3result *)tmplist->data)->so >= comparepos) {
 				((Tsnr3result *)tmplist->data)->so += offset;
 				((Tsnr3result *)tmplist->data)->eo += offset;
+				g_print("new so=%d, eo=%d\n",((Tsnr3result *)tmplist->data)->so,((Tsnr3result *)tmplist->data)->eo);
 			} else {
 				GList *tmplist2;
-				g_print("so < startpos, but eo > startpos !! delete the result!!\n");
+				g_print("so <= startpos, and eo >= startpos !! delete the result!!\n");
 				tmplist2 = tmplist;
 				tmplist = g_list_next(tmplist);
 				if (tmplist2 == s3run->current)
