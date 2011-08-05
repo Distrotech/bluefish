@@ -874,6 +874,9 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 					g_warning
 						("found_match, ERROR: popped context from cache does not equal popped context from current scan\n");
 				}
+			} else {
+				g_warning("bug in syntax scanner, tmpfcontext is not initialised, please report this\n");
+				tmpfcontext = NULL;
 			}
 			if (scanning->nextfound->numblockchange < 0) {
 				scanning->curfblock = pop_blocks(scanning->nextfound->numblockchange, fblock);
@@ -1033,7 +1036,7 @@ static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buf
 	/ * TODO see if there are any old blockstack or context changes * /
 
 }*/
-
+/*
 static void
 remove_old_scan_results(BluefishTextView * btv, GtkTextIter * fromhere)
 {
@@ -1058,13 +1061,13 @@ remove_old_scan_results(BluefishTextView * btv, GtkTextIter * fromhere)
 		DBG_SCANCACHE("no sit1, no cleanup ??\n");
 	}
 }
-
+*/
 /* if visible_end is set (not NULL) we will scan only the visible area and nothing else.
 this can be used to delay scanning everything until the editor is idle for several milliseconds */
 gboolean
 bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 {
-	GtkTextIter iter, orig_end;
+	GtkTextIter iter;
 	GtkTextIter mstart;
 	/*GArray *matchstack; */
 	Tscanning scanning;
@@ -1114,7 +1117,6 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 	/* start timer */
 	scanning.timer = g_timer_new();
 
-	orig_end = scanning.end;
 	if (visible_end) {
 		/* make sure that we only scan up to visible_end and no further */
 		if (gtk_text_iter_compare(&scanning.start, visible_end) > 0) {

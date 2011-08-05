@@ -94,6 +94,7 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 #define doc_block_undo_reg(doc) ((Tdocument *)doc)->block_undo_reg = 1;
 #define doc_unblock_undo_reg(doc) ((Tdocument *)doc)->block_undo_reg = 0;
 
+void update_encoding_meta_in_file(Tdocument * doc, gchar * encoding);
 gchar *doc_get_buffer_in_encoding(Tdocument * doc);
 /* gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename); */
 void doc_set_fileinfo(Tdocument * doc, GFileInfo * finfo);

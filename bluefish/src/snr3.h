@@ -169,7 +169,7 @@ void snr3_run_pcre_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo);
 void snr3_run_string_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo);
 
 void snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *)); /* called from snr3_files.c */
-
+void snr3_run_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo);
 void snr3_run_go(Tsnr3run *s3run, gboolean forward);
 void snr3run_free(Tsnr3run *s3run);
 void snr3run_unrun(Tsnr3run *s3run);

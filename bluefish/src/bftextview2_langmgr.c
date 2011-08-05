@@ -428,7 +428,7 @@ set_boolean_if_attribute_name(xmlTextReaderPtr reader, xmlChar * aname, xmlChar 
 static void
 process_header(xmlTextReaderPtr reader, Tbflang * bflang)
 {
-	gchar *tmp;
+	const gchar *tmp;
 	while (xmlTextReaderRead(reader) == 1) {
 		xmlChar *name = xmlTextReaderName(reader);
 		if (xmlStrEqual(name, (xmlChar *) "mime")) {
@@ -1119,10 +1119,10 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 {
 	gchar *symbols = NULL, *highlight = NULL, *id = NULL, *idref = NULL, *commentid_block =
 		NULL, *commentid_line = NULL;
-	gboolean autocomplete_case_insens = FALSE, is_empty;
+	gboolean autocomplete_case_insens = FALSE;
 	gint context;
 	
-	is_empty = xmlTextReaderIsEmptyElement(reader);
+	xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
 		set_string_if_attribute_name(reader, aname, (xmlChar *) "id", &id);

@@ -225,12 +225,11 @@ static gpointer files_replace_run(gpointer data) {
 	GError *gerror=NULL;
 	gchar *inbuf=NULL, *encoding=NULL, *outbuf, *utf8buf;
 	gsize inbuflen=0, outbuflen=0;
-	gboolean ret;
 	Tasyncqueue *tmpqueue;
 	
 	DEBUG_MSG("thread %p: files_replace_run, started rit %p\n", g_thread_self(), rit);
 	
-	ret = g_file_load_contents(rit->uri,NULL,&inbuf,&inbuflen,NULL,&gerror);
+	g_file_load_contents(rit->uri,NULL,&inbuf,&inbuflen,NULL,&gerror);
 	if (g_atomic_int_get(&rit->s3run->cancelled)!=0) {
 		g_free(inbuf);
 		return NULL;
@@ -264,7 +263,7 @@ static gpointer files_replace_run(gpointer data) {
 				DEBUG_MSG("replaced %d entries\n",g_list_length(rit->results));
 				outbuf = g_convert(replacedbuf, -1, encoding, "UTF-8", NULL, &outbuflen, NULL);
 				
-				ret = g_file_replace_contents(rit->uri,outbuf,outbuflen,NULL,TRUE,G_FILE_CREATE_NONE,NULL,NULL,&gerror);
+				g_file_replace_contents(rit->uri,outbuf,outbuflen,NULL,TRUE,G_FILE_CREATE_NONE,NULL,NULL,&gerror);
 				if (gerror) {
 					g_print("failed to save file: %s\n",gerror->message);
 					g_error_free(gerror);
@@ -290,10 +289,6 @@ static gpointer files_replace_run(gpointer data) {
 static void finished_finding_files_cb(Tsnr3run *s3run) {
 	s3run->findfiles=NULL;
 	snr3run_unrun(s3run);
-}
-
-static void doc_s3run_finished(gpointer data) {
-	g_print("doc_s3run_finished, nothing implemented here\n");
 }
 
 static void filematch_cb(Tsnr3run *s3run, GFile *uri, GFileInfo *finfo) {

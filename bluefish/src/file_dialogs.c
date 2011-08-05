@@ -134,7 +134,6 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	GtkListStore *lstore;
 	GtkTreeIter iter;
 	Tfiles_advanced *tfs;
-	unsigned int i = 0;
 	GList *tmplist;
 
 	tfs = g_new(Tfiles_advanced, 1);

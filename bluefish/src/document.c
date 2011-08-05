@@ -1912,7 +1912,6 @@ update_encoding_meta_in_file(Tdocument * doc, gchar * encoding)
 	if (!encoding)
 		return;
 	GRegex *regex;
-	GError *gerror=NULL;
 	GMatchInfo *match_info;
 	gchar *type, *xhtmlend, *fulltext, *replacestring=NULL;
 	gint so, eo, cso, ceo;
