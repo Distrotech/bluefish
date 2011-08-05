@@ -550,6 +550,12 @@ ui_goto_line(GtkAction * action, gpointer user_data)
 }
 
 static void
+ui_goto_line_selection(GtkAction * action, gpointer user_data)
+{
+	bfwin_gotoline_from_clipboard(BFWIN(user_data));
+}
+
+static void
 ui_jump_to_reference(GtkAction * action, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
@@ -848,8 +854,8 @@ static const GtkActionEntry document_actions[] = {
 	{"DocPrevious", GTK_STOCK_GO_BACK, N_("_Previous Document"), "<control>Page_Up", N_("Goto previous document"),
 	 G_CALLBACK(ui_doc_previous)},
 	{"GotoLine", NULL, N_("Goto _Line"), "<control>L", N_("Goto line"), G_CALLBACK(ui_goto_line)},
-	{"GotoLineSelection", NULL, N_("Goto Line Number in _Selection"), "<shift><control>L",
-	 N_("Goto line number in selection"), NULL},
+	{"GotoLineSelection", NULL, N_("Goto Line Number From _Clipboard"), "<shift><control>L",
+	 N_("Goto line number in clipboard or selection"), G_CALLBACK(ui_goto_line_selection)},
 	{"JumpToReference", NULL, N_("Jump to Reference"), "<control>J", N_("Jump to reference"),
 	 G_CALLBACK(ui_jump_to_reference)}
 };

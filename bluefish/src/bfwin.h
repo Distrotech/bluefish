@@ -32,6 +32,7 @@ typedef void (*DocInsertTextCallback) (Tdocument *doc, const gchar *string, GtkT
 #define bfwin_exists(bfwin) (g_list_index(main_v->bfwinlist, bfwin)!=-1)
 
 void bfwin_fullscreen_toggle(Tbfwin * bfwin, gboolean active);
+void bfwin_gotoline_from_clipboard(Tbfwin * bfwin);
 void bfwin_gotoline_frame_show(Tbfwin * bfwin);
 void bfwin_simplesearch_show(Tbfwin *bfwin);
 void bfwin_simplesearch_from_clipboard(Tbfwin *bfwin);
