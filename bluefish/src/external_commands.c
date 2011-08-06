@@ -125,6 +125,8 @@ static void externalp_unref(Texternalp *ep) {
 			g_free(ep->securedir);
 		}
 		g_free(ep);
+		g_io_channel_unref(ep->channel_in);
+		g_io_channel_unref(ep->channel_out);
 	}
 }
 
@@ -588,8 +590,8 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 			if (buflen > 0) {
 				if (termpos < buflen) buf[termpos] = '\0';
 				fill_output_box(ep->bfwin->outputbox, buf);
-				g_free(buf);
 			}
+			g_free(buf);
 			status = g_io_channel_read_line(channel,&buf,&buflen,&termpos,&gerror);
 		}
 		if (gerror) {
