@@ -603,6 +603,8 @@ snr3run_free(Tsnr3run *s3run) {
 	bfwin_document_destroy_remove_by_data(s3run->bfwin, s3run);
 	DEBUG_MSG("snr3run_free, query at %p\n",s3run->query);
 	g_free(s3run->query);
+	if (s3run->regex)
+		g_regex_unref(s3run->regex);
 	g_print("snr3run_free, replace\n");
 	g_free(s3run->replace);
 	g_free(s3run->filepattern);
