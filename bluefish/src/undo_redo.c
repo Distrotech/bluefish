@@ -18,6 +18,7 @@
  */
 
 /*#define DEBUG*/
+/*#define UNRE_REFCOUNT*/
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -26,6 +27,11 @@
 #include "dialog_utils.h"
 #include "document.h"			/* doc_unblock_undo_reg() */
 #include "undo_redo.h"
+
+#ifdef UNRE_REFCOUNT
+	static int entry_ref=0;
+	static int group_ref=0;
+#endif
 
 typedef struct {
 	char *text;					/* text to be inserted or deleted */
@@ -62,6 +68,9 @@ unregroup_new(Tdocument * doc, guint action_id)
 	unregroup_t *newgroup;
 
 	newgroup = g_slice_new(unregroup_t);
+#ifdef UNRE_REFCOUNT
+	group_ref++;
+#endif
 	newgroup->changed = doc->modified;
 	newgroup->entries = NULL;
 	newgroup->action_id = action_id;
@@ -76,6 +85,9 @@ unreentry_destroy(unreentry_t * remove_entry)
 	if (remove_entry->text) {
 		g_free(remove_entry->text);
 	}
+#ifdef UNRE_REFCOUNT
+	entry_ref--;
+#endif
 	g_slice_free(unreentry_t, remove_entry);
 }
 
@@ -91,6 +103,9 @@ unregroup_destroy(unregroup_t * to_remove)
 	}
 	g_list_free(tmplist);
 	g_slice_free(unregroup_t, to_remove);
+#ifdef UNRE_REFCOUNT
+	group_ref--;
+#endif
 }
 
 static void
@@ -156,6 +171,9 @@ unreentry_new(const char *text, int start, int end, undo_op_t op)
 {
 	unreentry_t *new_entry;
 	new_entry = g_slice_new(unreentry_t);
+#ifdef UNRE_REFCOUNT
+	entry_ref++;
+#endif
 	DEBUG_MSG("unreentry_new, for text='%s'\n", text);
 	new_entry->text = g_strdup(text);
 	new_entry->start = start;
@@ -399,6 +417,10 @@ doc_unre_init(Tdocument * doc)
 	doc->unre.current = unregroup_new(doc, 0);
 	doc->unre.num_groups = 0;
 	doc->unre.redofirst = NULL;
+#ifdef UNRE_REFCOUNT
+	g_print("after doc_unre_init: group_ref=%d, entry_ref=%d\n",group_ref,entry_ref);
+#endif
+
 }
 
 /**
@@ -418,6 +440,9 @@ doc_unre_destroy(Tdocument * doc)
 	unre_list_cleanup(&doc->unre.redofirst);
 	DEBUG_MSG("doc_unre_destroy, about to destroy current %p\n", doc->unre.current);
 	unregroup_destroy(doc->unre.current);
+#ifdef UNRE_REFCOUNT
+	g_print("after doc_unre_destroy: group_ref=%d, entry_ref=%d\n",group_ref,entry_ref);
+#endif
 }
 
 /**
