@@ -29,9 +29,7 @@
 #define BF_RECENT_PROJECT_GROUP		"bluefish-recent-project"
 
 
-void bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox);
-void bfwin_main_toolbar_init(Tbfwin * bfwin);
-
+void bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox);
 void bfwin_set_undo_redo_actions(Tbfwin * bfwin, gboolean undo, gboolean redo);
 void bfwin_set_document_menu_items(Tdocument * doc);
 

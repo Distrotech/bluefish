@@ -181,4 +181,29 @@
 	  <menuitem action="StripTrailingWhitespace"/>
     </menu>
   </menubar>
+  <toolbar name="MainToolbar">
+     <toolitem action="FileNew"/>
+     <toolitem action="FileOpen"/>
+     <toolitem action="FileSave"/>
+     <toolitem action="FileSaveAs"/>
+     <toolitem action="FileClose"/>
+     <separator/>
+     <toolitem action="Cut"/>
+     <toolitem action="Copy"/>
+     <toolitem action="Paste"/>
+     <separator/>
+     <toolitem action="Find"/>
+     <toolitem action="Replace"/>
+     <separator/>
+     <toolitem action="Undo"/>
+     <toolitem action="Redo"/>
+     <separator/>
+     <toolitem action="EditUnindent"/>
+     <toolitem action="EditIndent"/>
+     <separator/>
+     <toolitem action="EditPreferences"/>
+     <separator/>
+     <toolitem action="ViewFullScreen"/>
+  </toolbar>
+
 </ui>

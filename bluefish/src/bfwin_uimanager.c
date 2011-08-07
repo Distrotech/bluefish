@@ -941,12 +941,12 @@ lang_mode_menu_create(Tbfwin * bfwin)
 }
 
 void
-bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
+bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 {
 	GtkActionGroup *action_group;
 	GtkUIManager *manager;
 	guint merge_id = 0;
-
+	GtkWidget *toolbar;
 	GError *error = NULL;
 
 	manager = bfwin->uimanager;
@@ -1052,22 +1052,13 @@ bfwin_main_menu_init(Tbfwin * bfwin, GtkWidget * vbox)
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewSidePane", bfwin->session->view_left_panel);
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewMainToolbar", bfwin->session->view_main_toolbar);
 	bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewStatusbar", bfwin->session->view_statusbar);
-}
 
-void
-bfwin_main_toolbar_init(Tbfwin * bfwin)
-{
-	GtkUIManager *manager;
-	GtkWidget *toolbar;
-	GError *error = NULL;
+	/* now the toolbars */
 
-	manager = bfwin->uimanager;
-
-	gtk_ui_manager_add_ui_from_file(manager, MAIN_TOOLBAR_UI, &error);
-	if (error != NULL) {
-		g_message("building main toolbar failed: %s", error->message);
-		g_error_free(error);
-	}
+	bfwin->main_toolbar_hb = gtk_handle_box_new();
+	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->main_toolbar_hb, FALSE, FALSE, 0);
+	bfwin->html_toolbar_hb = gtk_handle_box_new();
+	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->html_toolbar_hb, FALSE, FALSE, 0);
 
 	toolbar = gtk_ui_manager_get_widget(manager, "/MainToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
