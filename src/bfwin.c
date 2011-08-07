@@ -132,8 +132,8 @@ bfwin_set_main_toolbar_visible(Tbfwin * bfwin, gboolean visible, gboolean sync_m
 		DEBUG_MSG("bfwin_set_main_toolbar_visible, trying to sync menu\n");
 		bfwin_set_menu_toggle_item_from_path(bfwin->uimanager, "/MainMenu/ViewMenu/ViewMainToolbar", visible);
 	}
-	if (gtk_bin_get_child(GTK_BIN(bfwin->main_toolbar_hb)) == NULL)
-		bfwin_main_toolbar_init(bfwin);
+	/*if (gtk_bin_get_child(GTK_BIN(bfwin->main_toolbar_hb)) == NULL)
+		bfwin_main_toolbar_init(bfwin);*/
 
 	widget_set_visible(bfwin->main_toolbar_hb, visible);
 }
@@ -1169,22 +1169,15 @@ bfwin_create_main(Tbfwin * bfwin)
 	/* first a menubar */
 	bfwin->uimanager = gtk_ui_manager_new();
 	gtk_ui_manager_set_add_tearoffs(bfwin->uimanager, TRUE);
-	bfwin_main_menu_init(bfwin, bfwin->toolbarbox);
+	bfwin_main_ui_init(bfwin, bfwin->toolbarbox);
 
 	/* then the toolbars */
-	{
-		DEBUG_MSG("bfwin_create_main, creating handles for all menu/toolbars\n");
-		bfwin->main_toolbar_hb = gtk_handle_box_new();
-		gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->main_toolbar_hb, FALSE, FALSE, 0);
-		bfwin->html_toolbar_hb = gtk_handle_box_new();
-		gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->html_toolbar_hb, FALSE, FALSE, 0);
+	DEBUG_MSG("bfwin_create_main, creating handles for all menu/toolbars\n");
 
-		if (bfwin->session->view_main_toolbar) {
-			bfwin_main_toolbar_init(bfwin);
-			gtk_widget_show(bfwin->main_toolbar_hb);
-		}
+	if (bfwin->session->view_main_toolbar) {
+		/*bfwin_main_toolbar_init(bfwin);*/
+		gtk_widget_show(bfwin->main_toolbar_hb);
 	}
-
 
 	/* the area for the middlebox and the outputbox */
 	bfwin->vpane = gtk_vpaned_new();
