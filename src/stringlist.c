@@ -464,36 +464,57 @@ gboolean put_stringlist_limited(GFile * file, GList * which_list, gint maxentrie
 	return TRUE;
 }*/
 
+/**
+ * stringlist_to_string:
+ * @stringlist: a #GList * to convert
+ * @delimiter: a #const gchar * item with the delimiter
+ * 
+ * this function will convert a stringlist (GList that contains 
+ * only \0 terminated gchar* elements) to a string, putting the 
+ * delimiter inbetween all elements;
+ * 
+ * Return value: the gchar *
+ **/
+gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
+	GString *strbuffer;
+	GList *tmplist;
+	strbuffer = g_string_sized_new(4096);
+	for (tmplist=g_list_first(stringlist);tmplist;tmplist=g_list_next(tmplist)) {
+		strbuffer = g_string_append(strbuffer,(char *) tmplist->data);
+		strbuffer = g_string_append(strbuffer,(char *) delimiter);
+	}
+	return g_string_free(strbuffer, FALSE);
+}
+gchar *arraylist_to_string(GList *arraylist, gchar *delimiter) {
+	GString *strbuffer;
+	GList *tmplist;
+	strbuffer = g_string_sized_new(4096);
+	for (tmplist=g_list_first(arraylist);tmplist;tmplist=g_list_next(tmplist)) {
+		gchar *tmp = array_to_string(tmplist->data);
+		strbuffer = g_string_append(strbuffer,tmp);
+		g_free(tmp);
+		strbuffer = g_string_append(strbuffer,(char *) delimiter);
+	}
+	return g_string_free(strbuffer, FALSE);	
+}
+
 gboolean put_stringlist(GFile * file, GList * which_list, gboolean is_arraylist) {
 	/*return put_stringlist_limited(file,which_list, -1, is_arraylist);*/
-	GString *strbuffer;
+	gchar *buf;
 	GError *gerror=NULL;
-	GList *tmplist = g_list_first(which_list);;
-	
-	strbuffer = g_string_sized_new(1024);
 	if (is_arraylist) {
-		while (tmplist) {
-			gchar *tmp = array_to_string(tmplist->data);
-			strbuffer = g_string_append(strbuffer,tmp);
-			g_free(tmp);
-			strbuffer = g_string_append_c(strbuffer,'\n');
-			tmplist = g_list_next(tmplist);
-		}
+		buf = arraylist_to_string(which_list, "\n");
 	} else {
-		while (tmplist) {
-			strbuffer = g_string_append(strbuffer,(char *) tmplist->data);
-			strbuffer = g_string_append_c(strbuffer,'\n');
-			tmplist = g_list_next(tmplist);
-		}
+		buf = stringlist_to_string(which_list, "\n");
 	}
-	g_file_replace_contents(file,strbuffer->str,strbuffer->len
+	g_file_replace_contents(file,buf,strlen(buf)
 				,NULL,FALSE,G_FILE_CREATE_PRIVATE,NULL,NULL,&gerror);
 	if (gerror) {
 		g_warning("save stringlist error %d %s\n",gerror->code,gerror->message);
 		g_error_free(gerror);
 		return FALSE;
 	}
-	g_string_free(strbuffer,TRUE);
+	g_free(buf);
 	return TRUE;
 }
 
@@ -618,31 +639,6 @@ GList *add_to_stringlist(GList * which_list, const gchar * string) {
 	}
 	return which_list;
 }
-/**
- * stringlist_to_string:
- * @stringlist: a #GList * to convert
- * @delimiter: a #const gchar * item with the delimiter
- * 
- * this function will convert a stringlist (GList that contains 
- * only \0 terminated gchar* elements) to a string, putting the 
- * delimiter inbetween all elements;
- * 
- * Return value: the gchar *
- **/
-/*gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
-	gchar *string, *tmp;
-	GList *tmplist;
-	string = g_strdup("");
-	tmp = string;
-	tmplist = g_list_first(stringlist);
-	while (tmplist) {
-		string = g_strconcat(tmp, (gchar *) tmplist->data, delimiter, NULL);
-		g_free(tmp);
-		tmp = string;
-		tmplist = g_list_next(tmplist);
-	}
-	return string;
-}*/
 
 /**
  * array_n_strings_identical:
