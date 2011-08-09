@@ -18,7 +18,7 @@
  */
 
 /*#define DEBUG*/
-/*#define UNRE_REFCOUNT*/
+#define UNRE_REFCOUNT
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -34,15 +34,15 @@
 #endif
 
 typedef struct {
-	char *text;					/* text to be inserted or deleted */
-	int start;					/* starts at this position */
-	int end;					/* ends at this position */
+	gchar *text;					/* text to be inserted or deleted */
+	guint32 start;					/* starts at this position */
+	guint32 end;					/* ends at this position */
 	undo_op_t op;				/* action to execute */
 } unreentry_t;
 
-static guint action_id_count = 1;	/* 0 means it should be auto-generated */
+static guint32 action_id_count = 1;	/* 0 means it should be auto-generated */
 
-guint
+guint32 
 new_unre_action_id(void)
 {
 	return ++action_id_count;
@@ -63,7 +63,7 @@ have_current_action_id(unre_t unre)
 }
 
 static unregroup_t *
-unregroup_new(Tdocument * doc, guint action_id)
+unregroup_new(Tdocument * doc, guint32 action_id)
 {
 	unregroup_t *newgroup;
 
@@ -276,7 +276,7 @@ doc_redo(Tdocument * doc)
  * Return value: void
  **/
 void
-doc_unre_add(Tdocument * doc, const char *text, gint start, gint end, undo_op_t op)
+doc_unre_add(Tdocument * doc, const gchar *text, guint32 start, guint32 end, undo_op_t op)
 {
 	unreentry_t *entry = NULL;
 	gboolean handled = FALSE;
@@ -365,7 +365,7 @@ doc_unre_finish(Tdocument * doc, gint cursorpos)
  * Return value: void
  **/
 void
-doc_unre_new_group_action_id(Tdocument * doc, guint action_id)
+doc_unre_new_group_action_id(Tdocument * doc, guint32 action_id)
 {
 	DEBUG_MSG("doc_unre_new_group_w_id, started, num entries=%d, action_id=%u\n",
 			  g_list_length(doc->unre.current->entries), action_id);
@@ -434,6 +434,12 @@ doc_unre_init(Tdocument * doc)
 void
 doc_unre_destroy(Tdocument * doc)
 {
+#ifdef UNRE_REFCOUNT
+	g_print("before doc_unre_destroy: group_ref=%d (%ld+%ld bytes), entry_ref=%d (%ld+%ld bytes) = %ld bytes total\n"
+					,group_ref,group_ref*sizeof(unregroup_t),group_ref*sizeof(GList)
+					,entry_ref,entry_ref*sizeof(unreentry_t),entry_ref*sizeof(GList)
+					,entry_ref*(sizeof(unreentry_t)+sizeof(GList))+group_ref*(sizeof(GList)+sizeof(unregroup_t)));
+#endif
 	DEBUG_MSG("doc_unre_destroy, about to destroy undolist %p\n", doc->unre.first);
 	unre_list_cleanup(&doc->unre.first);
 	DEBUG_MSG("doc_unre_destroy, about to destroy redofirst %p\n", doc->unre.redofirst);
@@ -501,7 +507,7 @@ doc_unre_clear_all(Tdocument * doc)
  * Return value: gboolean, TRUE if everything matches or if there was no previous operation, FALSE if not
  **/
 gboolean
-doc_unre_test_last_entry(Tdocument * doc, undo_op_t testfor, gint start, gint end)
+doc_unre_test_last_entry(Tdocument * doc, undo_op_t testfor, guint32 start, guint32 end)
 {
 	if (doc->unre.current->entries && doc->unre.current->entries->data) {
 		gboolean retval;
