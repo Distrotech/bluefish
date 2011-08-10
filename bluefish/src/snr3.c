@@ -964,6 +964,12 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
 	Tsnr3run *s3run = snrwin->s3run;
 	gint guichange;
+	if (response == GTK_RESPONSE_CLOSE) {
+		/* freeing is done in the destroy callback */
+		gtk_widget_destroy(GTK_WIDGET(dialog));
+		return;
+	}
+
 	if (!snrwin->s3run) {
 		snrwin->s3run = snr3run_new(snrwin->bfwin, snrwin);
 	}
@@ -1013,12 +1019,6 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			s3run->unre_action_id = new_unre_action_id();
 			snr3_run(s3run, s3run->bfwin->current_document, replace_all_ready);
 		break;
-		case GTK_RESPONSE_CLOSE:
-			g_print("reponse close\n");
-			/* freeing is done in the destroy callback */
-			gtk_widget_destroy(GTK_WIDGET(dialog));
-		break;
-		
 	}
 
 }
