@@ -949,12 +949,12 @@ snrwin_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
 	gint guichange;
 	if (!snrwin->s3run) {
 		snrwin->s3run = snr3run_new(snrwin->bfwin, snrwin);
-		g_print("snrwin_focus_out_event_cb, new s3run at %p\n",snrwin->s3run);
+		DEBUG_MSG("snrwin_focus_out_event_cb, new s3run at %p\n",snrwin->s3run);
 	}
 	guichange = snr3run_init_from_gui(snrwin, snrwin->s3run);
-	g_print("search_focus_out_event_cb, guichange=%d\n",guichange);
+	DEBUG_MSG("search_focus_out_event_cb, guichange=%d\n",guichange);
 	if ((guichange & 1) != 0) {
-		g_print("search_focus_out_event_cb, run snr3_run %p\n",snrwin->s3run);
+		DEBUG_MSG("search_focus_out_event_cb, run snr3_run %p\n",snrwin->s3run);
 		snr3_run(snrwin->s3run, snrwin->s3run->bfwin->current_document, dialog_changed_run_ready_cb);
 	}
 	return FALSE;
@@ -964,8 +964,9 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
 	Tsnr3run *s3run = snrwin->s3run;
 	gint guichange;
-	if (response == GTK_RESPONSE_CLOSE) {
+	if (response == GTK_RESPONSE_CLOSE || response == GTK_RESPONSE_DELETE_EVENT) {
 		/* freeing is done in the destroy callback */
+		DEBUG_MSG("snr3_advanced_response, destroy widget\n");
 		gtk_widget_destroy(GTK_WIDGET(dialog));
 		return;
 	}
@@ -974,7 +975,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 		snrwin->s3run = snr3run_new(snrwin->bfwin, snrwin);
 	}
 	guichange = snr3run_init_from_gui(snrwin, snrwin->s3run);
-	g_print("snr3_advanced_response, response=%d, guichange=%d\n",response,guichange);
+	DEBUG_MSG("snr3_advanced_response, response=%d, guichange=%d\n",response,guichange);
 	if (guichange == -1)
 		return;
 
@@ -987,19 +988,19 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 	switch(response) {
 		case SNR_RESPONSE_FIND:
 			if ((guichange & 1) != 0) {
-				g_print("guichange=%d, call snr3_run\n",guichange);
+				DEBUG_MSG("guichange=%d, call snr3_run\n",guichange);
 				snr3_run(s3run, s3run->bfwin->current_document, activate_simple_search);
 			} else if (snrwin->s3run->results.length) {
-				g_print("guichange=%d, call snr3_run_go\n",guichange);
+				DEBUG_MSG("guichange=%d, call snr3_run_go\n",guichange);
 				snr3_run_go(s3run, TRUE);
 			}
 		break;
 		case SNR_RESPONSE_BACK:
 			if ((guichange & 1) != 0) {
-				g_print("guichange=%d, call snr3_run\n",guichange);
+				DEBUG_MSG("guichange=%d, call snr3_run\n",guichange);
 				snr3_run(snrwin->s3run, snrwin->s3run->bfwin->current_document, activate_simple_search);
 			} else if (snrwin->s3run->results.length) {
-				g_print("guichange=%d, call snr3_run_go\n",guichange);
+				DEBUG_MSG("guichange=%d, call snr3_run_go\n",guichange);
 				snr3_run_go(s3run, FALSE);
 			}		
 		break;
