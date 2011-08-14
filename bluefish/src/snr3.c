@@ -333,7 +333,12 @@ backend_pcre_loop(Tsnr3run *s3run, gboolean indefinitely) {
 	GMatchInfo *match_info = NULL;
 	GError *gerror = NULL;
 	/* reconstruct where we are searching */
-	gboolean cont = g_regex_match_full(s3run->regex, s3run->curbuf, -1, s3run->curposition, G_REGEX_MATCH_NEWLINE_ANY, &match_info, NULL);
+	gboolean cont = g_regex_match_full(s3run->regex, s3run->curbuf, -1, s3run->curposition, G_REGEX_MATCH_NEWLINE_ANY, &match_info, &gerror);
+	if (gerror) {
+		g_warning("regex matching error: %s\n",gerror->message);
+		g_error_free(gerror);
+		gerror=NULL;
+	}
 	GTimer *timer = g_timer_new();
 	while (cont && (indefinitely || loop % loops_per_timer != 0
 				 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SEARCH_INTERVAL)) {
@@ -447,7 +452,11 @@ snr3_run_run(gpointer data) {
 	rii->s3run->eo = rii->eo;
 	utf8_offset_cache_reset();
 	if (rii->s3run->replaceall) {
-		doc_unre_new_group_action_id(rii->doc, rii->s3run->unre_action_id);
+		if (rii->s3run->scope == snr3scope_alldocs || rii->s3run->scope == snr3scope_files) {
+			doc_unre_new_group_action_id(rii->doc, rii->s3run->unre_action_id);
+		} else {
+			doc_unre_new_group(rii->doc);
+		}
 	}
 	
 	rii->s3run->idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,(GSourceFunc)snr3_run_loop_idle_func,rii,NULL);	
