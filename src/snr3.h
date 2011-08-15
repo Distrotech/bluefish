@@ -85,7 +85,7 @@ typedef struct {
 	guint eo; /* see so */
 	void (*callback) (void *);	/* to be called when the search has finished */
 	guint idle_id;
-	guint update_idle_id;	
+	guint changed_idle_id;	
 	Tasyncqueue idlequeue;
 	Tasyncqueue threadqueue;
 	volatile gint runcount;
