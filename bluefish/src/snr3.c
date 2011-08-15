@@ -492,8 +492,9 @@ snr3_queue_run(gpointer data) {
 }
 
 static void
-update_callback(Tsnr3run *s3run)
+update_callback(gpointer data)
 {
+	Tsnr3run *s3run=data;
 	remove_all_highlights_in_doc(s3run->bfwin->current_document);
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
 }
@@ -750,16 +751,18 @@ handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 	rii->s3run = s3run;
 	rii->update = TRUE;
 	rii->so = pos;
+	if (s3run->curposition < pos) {
+		rii->so = s3run->curposition;
+	}
 	rii->doc = doc;
 	rii->eo = -1;
 	if (s3run->curdoc == doc) {
 		snr3_cancel_run(s3run);
-		/* and restart it again in an idle loop */
-		if (s3run->curposition < pos) {
+		if (s3run->callback != update_callback) {
 			rii->update = FALSE;
-			rii->so = s3run->curposition;
 			rii->eo = s3run->eo;
 		}
+		/* and we'll restart it again */
 	}
 	s3run->changed_idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+40,changed_idle_cb,rii,changed_destroy_cb);
 }
