@@ -83,7 +83,7 @@ typedef struct {
 	guint curposition; /* the position in curbuf to continue the next search run */
 	guint so; /* area to search in */
 	guint eo; /* see so */
-	void (*callback) (void *);	/* to be called when the search has finished */
+	void (*callback) (gpointer data);	/* to be called when the search has finished */
 	guint idle_id;
 	guint changed_idle_id;	
 	Tasyncqueue idlequeue;
