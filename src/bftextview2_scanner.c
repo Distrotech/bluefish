@@ -330,16 +330,20 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 
 		tmpfblock = found->fblock;
 		while (tmpfblock) {
-			DBG_SCANCACHE("foundcache_update_offsets, fblock on stack=%p, start1_o=%d end2_o=%d\n", tmpfblock,
-						  tmpfblock->start1_o, tmpfblock->end2_o);
-			if (tmpfblock->start2_o > startpos && tmpfblock->start2_o != BF2_OFFSET_UNDEFINED) {
+			DBG_SCANCACHE("foundcache_update_offsets, fblock on stack=%p, %d:%d-%d:%d\n", tmpfblock,
+						  tmpfblock->start1_o, tmpfblock->end1_o,tmpfblock->start2_o, tmpfblock->end2_o);
+			if (tmpfblock->start2_o >= startpos && tmpfblock->start2_o != BF2_OFFSET_UNDEFINED) {
 				DBG_SCANCACHE
-					("foundcache_update_offsets, update fblock %p with start1_o=%d and start2_o=%d to start2_o=%d\n",
-					 tmpfblock, tmpfblock->start1_o, tmpfblock->start2_o, tmpfblock->start2_o + offset);
+					("foundcache_update_offsets, update fblock %p from start2_o=%d to start2_o=%d\n",
+					 tmpfblock, tmpfblock->start2_o, tmpfblock->start2_o + offset);
 				tmpfblock->start2_o += offset;
 			}
-			if (tmpfblock->end2_o > startpos && tmpfblock->end2_o != BF2_OFFSET_UNDEFINED)
+			if (tmpfblock->end2_o >= startpos && tmpfblock->end2_o != BF2_OFFSET_UNDEFINED) {
+				DBG_SCANCACHE
+					("foundcache_update_offsets, update fblock %p from end2_o=%d to end2_o=%d\n",
+					 tmpfblock, tmpfblock->end2_o, tmpfblock->end2_o + offset);
 				tmpfblock->end2_o += offset;
+			}
 
 			tmpfblock = (Tfoundblock *) tmpfblock->parentfblock;
 		}
@@ -1282,10 +1286,9 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 			 && (loop % loops_per_timer != 0
 				 || g_timer_elapsed(scanning.timer, NULL) < MAX_CONTINUOUS_SCANNING_INTERVAL));
 	DBG_SCANNING
-		("scanned from %d to position %d, (end=%d, orig_end=%d) which took %f microseconds, loops_per_timer=%d\n",
+		("scanned from %d to position %d, (end=%d) which took %f microseconds, loops_per_timer=%d\n",
 		 gtk_text_iter_get_offset(&scanning.start), gtk_text_iter_get_offset(&iter),
-		 gtk_text_iter_get_offset(&scanning.end), gtk_text_iter_get_offset(&orig_end),
-		 g_timer_elapsed(scanning.timer, NULL), loops_per_timer);
+		 gtk_text_iter_get_offset(&scanning.end), g_timer_elapsed(scanning.timer, NULL), loops_per_timer);
 	/* TODO: if we end the scan within a context that has a tag, we have to apply the contexttag */
 	if (!gtk_text_iter_is_end(&scanning.end) && scanning.curfcontext) {
 		if (g_array_index(btv->bflang->st->contexts, Tcontext, scanning.curfcontext->context).contexttag) {
