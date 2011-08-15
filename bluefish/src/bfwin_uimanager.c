@@ -1233,7 +1233,8 @@ bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
 	if (bflang) {
 		GtkAction *action = gtk_action_group_get_action(bfwin->lang_mode_group, bflang->name);
 		if (!action) {
-			g_warning("Cannot set menu action LangMode %s\n", bflang->name);
+			/* because we hide certain languages from the menu it is perfectly fine if we cannot find an
+			action for a certain language file. */
 			return;
 		}
 
