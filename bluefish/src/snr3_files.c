@@ -304,7 +304,7 @@ static void filematch_cb(Tsnr3run *s3run, GFile *uri, GFileInfo *finfo) {
 	doc = documentlist_return_document_from_uri(s3run->bfwin->documentlist, uri);
 	if (doc) {
 		/* TODO: BUG: these functions will call the s3run->callback which will free s3run */
-		snr3_run_in_doc(s3run, doc, 0, -1);
+		snr3_run_in_doc(s3run, doc, 0, -1, FALSE);
 		return;
 	}
 	rit = g_slice_new0(Treplaceinthread);

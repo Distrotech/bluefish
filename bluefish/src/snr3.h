@@ -41,20 +41,12 @@ typedef enum {
 } Tsnr3replace;
 
 typedef struct {
-	gint so;
-	gint eo;
-} Tsnr3submatches;
-
-typedef struct {
 	gpointer doc;
 	gint32 so;
 	gint32 eo;
 } Tsnr3result;
 
-typedef enum {
-	alldocs,
-	singledocupdate
-} Tsnr3workmode;
+#define S3RESULT(var)  ((Tsnr3result *)var)
 
 typedef struct {
 	Tbfwin *bfwin;
@@ -93,14 +85,15 @@ typedef struct {
 	guint eo; /* see so */
 	void (*callback) (void *);	/* to be called when the search has finished */
 	guint idle_id;
+	guint update_idle_id;	
 	Tasyncqueue idlequeue;
 	Tasyncqueue threadqueue;
 	volatile gint runcount;
 	volatile gint cancelled;
 	gpointer findfiles; /* a pointer for the return value of findfiles() so we can cancel it */
-
-
 } Tsnr3run;
+
+#define S3RUN(var)  ((Tsnr3run *)var)
 
 typedef struct {
 	Tasyncqueue queue;
@@ -165,11 +158,9 @@ typedef struct {
 } Tsnr3config;
 
 #define MAX_CONTINUOUS_SEARCH_INTERVAL 0.1
-void snr3_run_pcre_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo);
-void snr3_run_string_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo);
 
 void snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *)); /* called from snr3_files.c */
-void snr3_run_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo);
+void snr3_run_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, gboolean update);
 void snr3_run_go(Tsnr3run *s3run, gboolean forward);
 void snr3run_free(Tsnr3run *s3run);
 void snr3run_unrun(Tsnr3run *s3run);

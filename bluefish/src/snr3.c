@@ -71,11 +71,12 @@ Tsnr3profiling s3profiling= {NULL};
 
 typedef struct {
 	Tdocument *doc;
-	GList *results;
 	Tsnr3run *s3run;
-	guint so;
-	guint eo;
+	gboolean update; /* if TRUE, update the current results instead of adding new results */
+	guint32 so;
+	guint32 eo;
 } Truninidle;
+
 
 static void
 move_window_away_from_cursor(Tdocument * doc, GtkWindow * win, GtkTextIter * iter)
@@ -159,7 +160,9 @@ static void highlight_result(Tsnr3result *s3result) {
 	gtk_text_buffer_apply_tag(DOCUMENT(s3result->doc)->buffer, tag, &itstart, &itend);
 }
 
-static void highlight_run_in_doc(Tsnr3run *s3run, Tdocument *doc) {
+static void
+highlight_run_in_doc(Tsnr3run *s3run, Tdocument *doc)
+{
 	GList *tmplist;
 	
 	DEBUG_MSG("s3run=%p, highlight all results that have doc %p\n",s3run, doc);
@@ -178,7 +181,8 @@ typedef struct {
 	gint offset;
 } Toffsetupdate;
 
-static void snr3run_update_offsets(Tsnr3run *s3run, Tdocument *doc, guint startpos, gint offset) {
+static void 
+snr3run_update_offsets(Tsnr3run *s3run, Tdocument *doc, guint startpos, gint offset) {
 	GList *tmplist = g_list_first(s3run->results.head);
 	gint comparepos = (offset > 0) ? startpos : startpos - offset; 
 	g_print("snr3run_update_offsets, startpos=%d, offset=%d, comparepos=%d\n",startpos,offset,comparepos);
@@ -198,7 +202,7 @@ static void snr3run_update_offsets(Tsnr3run *s3run, Tdocument *doc, guint startp
 				if (tmplist2 == s3run->current)
 					s3run->current = tmplist;
 				g_slice_free(Tsnr3result, tmplist2->data);
-				s3run->results.head = g_list_delete_link(s3run->results.head, tmplist2);
+				g_queue_delete_link(&s3run->results, tmplist2);
 				continue;
 			}
 		}
@@ -435,15 +439,40 @@ snr3_run_loop_idle_func(Truninidle *rii)
 	s3run->curbuf=NULL;
 	s3run->idle_id = 0;
 	queue_worker_ready(&s3run->idlequeue);
-	snr3run_unrun(s3run);
+	snr3run_unrun(s3run); /* unrun currently only calls the callback if the refcount is zero, we can run that from here too ??? */
 	g_slice_free(Truninidle, rii);
 	return FALSE;
 }
 
 void
-snr3_run_run(gpointer data) {
+snr3_queue_run(gpointer data) {
 	Truninidle *rii=data;
-	g_print("snr3_run_run, s3run=%p, doc=%p\n",rii->s3run, rii->doc);
+	g_print("snr3_queue_run, s3run=%p, doc=%p\n",rii->s3run, rii->doc);
+
+	if (rii->update) {
+		GList *tmplist=rii->s3run->results.head;
+		guint32 newso=0;
+		/* we start not at the requested change offset, but we use the last valid search result end as start offset */
+		while (tmplist) {
+			if (rii->doc == ((Tsnr3result *)tmplist->data)->doc 
+							&& ((Tsnr3result *)tmplist->data)->so >= rii->so) {
+				GList *tmplist2;
+				DEBUG_MSG("snr3_queue_run, so >= update so!! delete the result %d:%d!!\n",((Tsnr3result *)tmplist->data)->so, ((Tsnr3result *)tmplist->data)->eo);
+				tmplist2 = tmplist;
+				tmplist = g_list_next(tmplist);
+				if (tmplist2 == rii->s3run->current)
+					rii->s3run->current = g_list_previous(tmplist2);
+				g_slice_free(Tsnr3result, tmplist2->data);
+				g_queue_delete_link(&rii->s3run->results, tmplist2);
+			} else {
+				newso = ((Tsnr3result *)tmplist->data)->eo;
+				tmplist = g_list_next(tmplist);
+			}
+		}
+		rii->so = newso;
+		DEBUG_MSG("snr3_queue_run, update starting at %d\n",newso);
+	}
+
 	rii->s3run->curdoc = rii->doc;
 	rii->s3run->curoffset=0;
 	rii->s3run->curposition=0;
@@ -462,8 +491,15 @@ snr3_run_run(gpointer data) {
 	rii->s3run->idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,(GSourceFunc)snr3_run_loop_idle_func,rii,NULL);	
 }
 
+static void
+update_callback(Tsnr3run *s3run)
+{
+	remove_all_highlights_in_doc(s3run->bfwin->current_document);
+	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
+}
+
 void
-snr3_run_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo) {
+snr3_run_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, gboolean update) {
 	Truninidle *rii;
 	
 	rii = g_slice_new(Truninidle);
@@ -472,6 +508,11 @@ snr3_run_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo) {
 	g_atomic_int_inc(&s3run->runcount);
 	rii->so = so;
 	rii->eo = eo;
+	if (update) {
+		rii->update = update;
+		rii->s3run->callback = update_callback;
+	}
+	
 	g_print("push doc %p on the idlequeue, len=%d\n",doc,s3run->idlequeue.q.length);
 	queue_push(&s3run->idlequeue, rii);
 }
@@ -543,22 +584,22 @@ snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *))
 	
 	switch(s3run->scope) {
 		case snr3scope_doc:
-			snr3_run_in_doc(s3run, doc, 0, -1);
+			snr3_run_in_doc(s3run, doc, 0, -1, FALSE);
 		break;
 		case snr3scope_cursor:
 			so = doc_get_cursor_position(doc);
-			snr3_run_in_doc(s3run, doc, so, -1);
+			snr3_run_in_doc(s3run, doc, so, -1, FALSE);
 		break;
 		case snr3scope_selection:
 			if (doc_get_selection(doc, &so, &eo)) {
-				snr3_run_in_doc(s3run, doc, so, eo);
+				snr3_run_in_doc(s3run, doc, so, eo, FALSE);
 			} else {
 				g_print("Find in selection, but there is no selection\n");
 			}
 		break;
 		case snr3scope_alldocs:
 			for (tmplist=g_list_first(s3run->bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
-				snr3_run_in_doc(s3run, tmplist->data, 0, -1);
+				snr3_run_in_doc(s3run, tmplist->data, 0, -1, FALSE);
 			}
 		break;
 		case snr3scope_files:
@@ -580,6 +621,10 @@ snr3_cancel_run(Tsnr3run *s3run) {
 		/* TODO: BUG: MEMLEAK: the Truninidle is not free'ed now !?!?!?! */
 		s3run->idle_id=0;
 		s3run->curdoc=NULL;
+	}
+	if (s3run->update_idle_id) {
+		g_source_remove(s3run->update_idle_id);
+		s3run->update_idle_id=0;
 	}
 	if (s3run->scope == snr3scope_files) {
 		snr3_run_in_files_cancel(s3run);
@@ -668,6 +713,34 @@ snr3_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpoin
 	}
 }
 
+static gboolean
+startupdate_idle_cb(gpointer data)
+{
+	Truninidle *rii = data;
+	DEBUG_MSG("startupdate_idle_cb\n");
+	snr3_run_in_doc(rii->s3run, rii->doc, rii->so, -1, TRUE);
+	/*g_slice_free(Truninidle, rii); handled bythe idle function destroy */
+	return FALSE;
+}
+
+static void
+startupdate_destroy_cb(gpointer data)
+{
+	DEBUG_MSG("startupdate_destroy_cb\n");
+	g_slice_free(Truninidle, data);
+}
+
+static void
+startupdate(Tsnr3run *s3run, Tdocument *doc, guint pos)
+{
+	Truninidle *rii = g_slice_new(Truninidle);
+	DEBUG_MSG("startupdate for doc %p pos=%d\n",doc,pos);
+	rii->s3run = s3run;
+	rii->doc = doc;
+	rii->so = pos;
+	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+40,startupdate_idle_cb,rii,startupdate_destroy_cb);
+}
+
 static void
 snr3_docinsertext_cb(Tdocument *doc, const gchar *string, GtkTextIter * iter, gint pos, gint len, gint clen, gpointer data)
 {
@@ -675,6 +748,7 @@ snr3_docinsertext_cb(Tdocument *doc, const gchar *string, GtkTextIter * iter, gi
 		Toffsetupdate offsetupdate = {doc,pos,clen};
 		g_print("snr3_docinsertext_cb, doc=%p, position %d, insert len %d\n",offsetupdate.doc,offsetupdate.startingpoint,offsetupdate.offset);
 		snr3run_update_offsets(((Tsnr3run *)data), offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
+		startupdate((Tsnr3run *)data,doc, pos);
 	}
 }
 
@@ -685,6 +759,7 @@ snr3_docdeleterange_cb(Tdocument *doc, GtkTextIter * itstart, gint start, GtkTex
 		Toffsetupdate offsetupdate = {doc,start,start-end};
 		g_print("snr3_docdeleterange_cb, doc=%p, position %d, delete len %d\n",offsetupdate.doc,offsetupdate.startingpoint,offsetupdate.offset);
 		snr3run_update_offsets(((Tsnr3run *)data), offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
+		startupdate((Tsnr3run *)data,doc, start);
 	}
 }
 
@@ -718,7 +793,7 @@ snr3run_new(Tbfwin *bfwin, gpointer dialog)
 	s3run->bfwin = bfwin;
 	s3run->dialog = dialog;
 	g_queue_init(&s3run->results);
-	queue_init_full(&s3run->idlequeue, 1, FALSE, FALSE, snr3_run_run);
+	queue_init_full(&s3run->idlequeue, 1, FALSE, FALSE, snr3_queue_run);
 	bfwin_current_document_change_register(bfwin, snr3_curdocchanged_cb, s3run);
 	bfwin_document_insert_text_register(bfwin, snr3_docinsertext_cb, s3run);
 	bfwin_document_delete_range_register(bfwin, snr3_docdeleterange_cb, s3run);
