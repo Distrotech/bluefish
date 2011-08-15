@@ -622,9 +622,9 @@ snr3_cancel_run(Tsnr3run *s3run) {
 		s3run->idle_id=0;
 		s3run->curdoc=NULL;
 	}
-	if (s3run->update_idle_id) {
-		g_source_remove(s3run->update_idle_id);
-		s3run->update_idle_id=0;
+	if (s3run->changed_idle_id) {
+		g_source_remove(s3run->changed_idle_id);
+		s3run->changed_idle_id=0;
 	}
 	if (s3run->scope == snr3scope_files) {
 		snr3_run_in_files_cancel(s3run);
@@ -714,53 +714,66 @@ snr3_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpoin
 }
 
 static gboolean
-startupdate_idle_cb(gpointer data)
+changed_idle_cb(gpointer data)
 {
 	Truninidle *rii = data;
 	DEBUG_MSG("startupdate_idle_cb\n");
-	snr3_run_in_doc(rii->s3run, rii->doc, rii->so, -1, TRUE);
+	snr3_run_in_doc(rii->s3run, rii->doc, rii->so, rii->eo, rii->update);
 	/*g_slice_free(Truninidle, rii); handled bythe idle function destroy */
+	rii->s3run->changed_idle_id = 0;
 	return FALSE;
 }
 
 static void
-startupdate_destroy_cb(gpointer data)
+changed_destroy_cb(gpointer data)
 {
 	DEBUG_MSG("startupdate_destroy_cb\n");
 	g_slice_free(Truninidle, data);
 }
 
 static void
-startupdate(Tsnr3run *s3run, Tdocument *doc, guint pos)
-{
-	Truninidle *rii = g_slice_new(Truninidle);
-	DEBUG_MSG("startupdate for doc %p pos=%d\n",doc,pos);
+handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
+	Toffsetupdate offsetupdate = {doc,pos,len};
+	Truninidle *rii;
+	if (s3run->in_replace) {
+		return;
+	}
+	
+	DEBUG_MSG("handle_change_in_snr3doc, doc=%p, pos=%d, len=%d\n",doc,pos,len);
+	snr3run_update_offsets(s3run, offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
+	
+	/* notice that this function is called BEFORE the actual change in the document
+	so we CANNOT call a function that will get a buffer from the textview widget or something like
+	that, we should register an idle callback to do something like that */
+	
+	rii = g_slice_new(Truninidle);
 	rii->s3run = s3run;
-	rii->doc = doc;
+	rii->update = TRUE;
 	rii->so = pos;
-	g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+40,startupdate_idle_cb,rii,startupdate_destroy_cb);
+	rii->doc = doc;
+	rii->eo = -1;
+	if (s3run->curdoc == doc) {
+		snr3_cancel_run(s3run);
+		/* and restart it again in an idle loop */
+		if (s3run->curposition < pos) {
+			rii->update = FALSE;
+			rii->so = s3run->curposition;
+			rii->eo = s3run->eo;
+		}
+	}
+	s3run->changed_idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+40,changed_idle_cb,rii,changed_destroy_cb);
 }
 
 static void
 snr3_docinsertext_cb(Tdocument *doc, const gchar *string, GtkTextIter * iter, gint pos, gint len, gint clen, gpointer data)
 {
-	if (!((Tsnr3run *)data)->in_replace) {
-		Toffsetupdate offsetupdate = {doc,pos,clen};
-		g_print("snr3_docinsertext_cb, doc=%p, position %d, insert len %d\n",offsetupdate.doc,offsetupdate.startingpoint,offsetupdate.offset);
-		snr3run_update_offsets(((Tsnr3run *)data), offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
-		startupdate((Tsnr3run *)data,doc, pos);
-	}
+	handle_changed_in_snr3doc((Tsnr3run *)data, doc, pos, clen);
 }
 
 static void
 snr3_docdeleterange_cb(Tdocument *doc, GtkTextIter * itstart, gint start, GtkTextIter * itend, gint end, const gchar *string, gpointer data)
 {
-	if (!((Tsnr3run *)data)->in_replace) {
-		Toffsetupdate offsetupdate = {doc,start,start-end};
-		g_print("snr3_docdeleterange_cb, doc=%p, position %d, delete len %d\n",offsetupdate.doc,offsetupdate.startingpoint,offsetupdate.offset);
-		snr3run_update_offsets(((Tsnr3run *)data), offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
-		startupdate((Tsnr3run *)data,doc, start);
-	}
+	handle_changed_in_snr3doc((Tsnr3run *)data, doc, start, start-end);
 }
 
 static void
