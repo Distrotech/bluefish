@@ -332,13 +332,14 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 		while (tmpfblock) {
 			DBG_SCANCACHE("foundcache_update_offsets, fblock on stack=%p, %d:%d-%d:%d\n", tmpfblock,
 						  tmpfblock->start1_o, tmpfblock->end1_o,tmpfblock->start2_o, tmpfblock->end2_o);
+			/* notice the difference: the start needs >= startpos and the end needs > startpos */
 			if (tmpfblock->start2_o >= startpos && tmpfblock->start2_o != BF2_OFFSET_UNDEFINED) {
 				DBG_SCANCACHE
 					("foundcache_update_offsets, update fblock %p from start2_o=%d to start2_o=%d\n",
 					 tmpfblock, tmpfblock->start2_o, tmpfblock->start2_o + offset);
 				tmpfblock->start2_o += offset;
 			}
-			if (tmpfblock->end2_o >= startpos && tmpfblock->end2_o != BF2_OFFSET_UNDEFINED) {
+			if (tmpfblock->end2_o > startpos && tmpfblock->end2_o != BF2_OFFSET_UNDEFINED) {
 				DBG_SCANCACHE
 					("foundcache_update_offsets, update fblock %p from end2_o=%d to end2_o=%d\n",
 					 tmpfblock, tmpfblock->end2_o, tmpfblock->end2_o + offset);
