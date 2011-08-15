@@ -247,33 +247,33 @@ retrieve_pcre_replace_string(Tsnr3run *s3run, Tsnr3result *s3result, GMatchInfo 
 }
 
 static Toffsetupdate 
-s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, gint offset, GMatchInfo *matchinfo)
+s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, GMatchInfo *matchinfo)
 {
 	Toffsetupdate offsetupdate = {NULL,0,0};
 	s3run->in_replace=TRUE;
 	if (s3run->replacetype == snr3replace_string) {
 		if (s3run->type == snr3type_string) {
-			g_print("s3result_replace, replace %d:%d with %s\n", s3result->so+offset, s3result->eo+offset, s3run->replace);
-			doc_replace_text_backend(s3result->doc, s3run->replace, s3result->so+offset, s3result->eo+offset);
+			DEBUG_MSG("s3result_replace, replace %d:%d with %s\n", s3result->so, s3result->eo, s3run->replace);
+			doc_replace_text_backend(s3result->doc, s3run->replace, s3result->so, s3result->eo);
 			offsetupdate.offset = g_utf8_strlen(s3run->replace, -1)-(s3result->eo - s3result->so);
 		} else if (s3run->type == snr3type_pcre) {
 			gchar *newstr = retrieve_pcre_replace_string(s3run, s3result, matchinfo);
 			if (newstr) {
-				g_print("s3result_replace, replace from offset=%d, so=%d, eo=%d --> %d:%d\n",offset,s3result->so,s3result->eo,s3result->so+offset, s3result->eo+offset);
-				doc_replace_text_backend(s3result->doc, newstr, s3result->so+offset, s3result->eo+offset);
-				g_print("s3result_replace, old len=%d, new len=%d, change offset with %d\n",(s3result->eo - s3result->so), (gint)g_utf8_strlen(newstr, -1), (gint)g_utf8_strlen(newstr, -1)-(s3result->eo - s3result->so));
+				DEBUG_MSG("s3result_replace, replace from  %d:%d\n",s3result->so,s3result->eo);
+				doc_replace_text_backend(s3result->doc, newstr, s3result->so, s3result->eo);
+				DEBUG_MSG("s3result_replace, old len=%d, new len=%d, change offset with %d\n",(s3result->eo - s3result->so), (gint)g_utf8_strlen(newstr, -1), (gint)g_utf8_strlen(newstr, -1)-(s3result->eo - s3result->so));
 				offsetupdate.offset = g_utf8_strlen(newstr, -1)-(s3result->eo - s3result->so);
 				g_free(newstr);
 			}
 		}
 	} else {
 		gchar *tmp1, *tmp2;
-		tmp1 = doc_get_chars(s3result->doc, s3result->so+offset, s3result->eo+offset);
+		tmp1 = doc_get_chars(s3result->doc, s3result->so, s3result->eo);
 		if (s3run->replacetype == snr3replace_upper) 
 			tmp2 = g_utf8_strup(tmp1, -1);
 		else
 			tmp2 = g_utf8_strdown(tmp1, -1);
-		doc_replace_text_backend(s3result->doc, tmp2, s3result->so+offset, s3result->eo+offset);
+		doc_replace_text_backend(s3result->doc, tmp2, s3result->so, s3result->eo);
 		g_free(tmp1);
 		g_free(tmp2);
 	}
@@ -304,7 +304,7 @@ s3run_replace_current(Tsnr3run *s3run)
 	if (!current)
 		return;
 	s3result = current->data;
-	offsetupdate = s3result_replace(s3run, s3result, 0, NULL);
+	offsetupdate = s3result_replace(s3run, s3result, NULL);
 
 	snr3result_free(s3result, s3run);
 	DEBUG_MSG("s3run_replace_current, the result is free'ed, now delete the link %p\n",current);
@@ -336,8 +336,10 @@ backend_pcre_loop(Tsnr3run *s3run, gboolean indefinitely) {
 	gint loop=0;
 	GMatchInfo *match_info = NULL;
 	GError *gerror = NULL;
+	gboolean cont;
 	/* reconstruct where we are searching */
-	gboolean cont = g_regex_match_full(s3run->regex, s3run->curbuf, -1, s3run->curposition, G_REGEX_MATCH_NEWLINE_ANY, &match_info, &gerror);
+	DEBUG_MSG("backend_pcre_loop, reconstruct scanning at curbuf %p curposition %d (byte %d)\n",s3run->curbuf, s3run->curposition, utf8_charoffset_to_byteoffset_cached(s3run->curbuf, s3run->curposition));
+	cont = g_regex_match_full(s3run->regex, s3run->curbuf, -1, utf8_charoffset_to_byteoffset_cached(s3run->curbuf, s3run->curposition), G_REGEX_MATCH_NEWLINE_ANY, &match_info, &gerror);
 	if (gerror) {
 		g_warning("regex matching error: %s\n",gerror->message);
 		g_error_free(gerror);
@@ -353,10 +355,10 @@ backend_pcre_loop(Tsnr3run *s3run, gboolean indefinitely) {
 		eo = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, eo);
 		s3result = sn3run_add_result(s3run, so+s3run->curoffset+s3run->so, eo+s3run->curoffset+s3run->so, s3run->curdoc);
 		if (s3run->replaceall) {
-			g_print("backend_pcre_loop, replace %d:%d, curoffset=%d\n", so+s3run->curoffset+s3run->so, eo+s3run->curoffset+s3run->so,s3run->curoffset);
-			Toffsetupdate offsetupdate = s3result_replace(s3run, s3result, 0, match_info);
+			DEBUG_MSG("backend_pcre_loop, found in buffer at %d:%d, replace at %d:%d (curoffset=%d, s3run->so=%d)\n", so, eo, s3result->so, s3result->eo,s3run->curoffset, s3run->so);
+			Toffsetupdate offsetupdate = s3result_replace(s3run, s3result, match_info);
 			s3run->curoffset += offsetupdate.offset;
-			g_print("backend_pcre_loop, new offset %d\n",s3run->curoffset);
+			DEBUG_MSG("backend_pcre_loop, new offset %d\n",s3run->curoffset);
 		}
 		
 		s3run->curposition = eo;
@@ -365,6 +367,7 @@ backend_pcre_loop(Tsnr3run *s3run, gboolean indefinitely) {
 		if (gerror) {
 			g_print("snr3_run_pcre_loop, match error %s\n",gerror->message);
 			g_error_free(gerror);
+			break;
 		}
 		loop++;
 	}
@@ -403,7 +406,7 @@ backend_string_loop(Tsnr3run *s3run, gboolean indefinitely)
 			s3result = sn3run_add_result(s3run, char_o+s3run->so+s3run->curoffset, char_o+querylen+s3run->so+s3run->curoffset, s3run->curdoc);
 			if (s3run->replaceall) {
 				g_print("snr3_run_string_loop, replace %d:%d\n", (gint)char_o+s3run->so, (gint)char_o+querylen+s3run->so);
-				Toffsetupdate offsetupdate = s3result_replace(s3run, s3result, 0, NULL);
+				Toffsetupdate offsetupdate = s3result_replace(s3run, s3result, NULL);
 				s3run->curoffset += offsetupdate.offset;
 			}
 			s3run->curposition = char_o+querylen+s3run->so;
@@ -427,7 +430,7 @@ snr3_run_loop_idle_func(Truninidle *rii)
 {
 	Tsnr3run *s3run=rii->s3run;
 	gboolean cont;
-	
+	DEBUG_MSG("snr3_run_loop_idle_func, next loop\n");
 	if (s3run->type == snr3type_string)
 		cont = backend_string_loop(s3run, FALSE);
 	else 
