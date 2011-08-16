@@ -693,6 +693,11 @@ replace_all_ready(void *data) {
 	s3run->replaceall=FALSE;
 	s3run->unre_action_id = 0;
 	s3run->curdoc = NULL;
+	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->replaceButton, TRUE);
+	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->findButton, TRUE);
+	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->backButton, TRUE);
+	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->replaceAllButton, TRUE);
+	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->bookmarkButton, TRUE);
 }
 
 static void
@@ -955,6 +960,9 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	GFile *basedir;
 	const gchar *filepattern;
 	
+	if (s3run->in_replace)
+		return -1;
+	
 	query = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))));
 	replace = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))));
 	type = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->searchType));
@@ -1056,7 +1064,7 @@ snrwin_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
 	}
 	guichange = snr3run_init_from_gui(snrwin, snrwin->s3run);
 	DEBUG_MSG("search_focus_out_event_cb, guichange=%d\n",guichange);
-	if ((guichange & 1) != 0) {
+	if (guichange != -1 && (guichange & 1) != 0) {
 		DEBUG_MSG("search_focus_out_event_cb, run snr3_run %p\n",snrwin->s3run);
 		snr3_run(snrwin->s3run, snrwin->s3run->bfwin->current_document, dialog_changed_run_ready_cb);
 	}
@@ -1121,6 +1129,13 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			s3run->replaceall=TRUE;
 			snr3run_resultcleanup(s3run);
 			s3run->unre_action_id = new_unre_action_id();
+			
+			gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
+			gtk_widget_set_sensitive(snrwin->findButton, FALSE);
+			gtk_widget_set_sensitive(snrwin->backButton, FALSE);
+			gtk_widget_set_sensitive(snrwin->replaceAllButton, FALSE);
+			gtk_widget_set_sensitive(snrwin->bookmarkButton, FALSE);
+			
 			snr3_run(s3run, s3run->bfwin->current_document, replace_all_ready);
 		break;
 	}
