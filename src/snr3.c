@@ -37,7 +37,7 @@ texttag from the tag table??
 
 */
 
-#define DEBUG
+/*#define DEBUG*/
 /*#define SNR3_PROFILING*/
 
 #define _GNU_SOURCE
