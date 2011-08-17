@@ -438,6 +438,14 @@ snr3_run_loop_idle_func(Truninidle *rii)
 
 	if (cont)		
 		return TRUE;
+
+	/* now see if this document added any results to the resultset, and increment the number of 
+	documents with results if so */
+	if (s3run->results.tail) {
+		if (S3RESULT(s3run->results.tail->data)->doc == rii->doc)
+			s3run->resultnumdoc++;
+	}
+
 	g_free(s3run->curbuf);
 	s3run->curbuf=NULL;
 	s3run->idle_id = 0;
@@ -646,6 +654,7 @@ snr3run_resultcleanup(Tsnr3run *s3run)
 	s3run->current=NULL;
 	s3run->curposition=0;
 	s3run->curoffset=0;
+	s3run->resultnumdoc=0;
 }
 
 /* called from bfwin.c for simplesearch */
@@ -884,14 +893,20 @@ simple_search_next(Tbfwin *bfwin)
 /*********** end of simple search *********************/
 /******************************************************/
 
-static void dialog_changed_run_ready_cb(gpointer data) {
+static void
+dialog_changed_run_ready_cb(gpointer data) {
 	Tsnr3run *s3run=data;
 	g_print("dialog_changed_run_ready_cb, finished with %d results\n",g_queue_get_length(&s3run->results));
 	s3run->curdoc = NULL;
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
 	if (s3run->dialog) {
 		TSNRWin *snrwin = s3run->dialog;
-		gchar *tmp = g_strdup_printf("<i>found %d results</i>\n",g_queue_get_length(&s3run->results));
+		gchar *tmp;
+		if (s3run->resultnumdoc > 1) {
+			tmp = g_strdup_printf("<i>found %d results in %d documents</i>",g_queue_get_length(&s3run->results), s3run->resultnumdoc);
+		} else {
+			tmp = g_strdup_printf("<i>found %d results</i>",g_queue_get_length(&s3run->results));
+		}
 		gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),tmp);
 		gtk_widget_show(snrwin->searchfeedback);
 		g_free(tmp);
@@ -905,7 +920,7 @@ static void dialog_changed_run_ready_cb(gpointer data) {
 static gboolean compile_regex(Tsnr3run *s3run) {
 	GError *gerror = NULL;
 	gint options = G_REGEX_MULTILINE;
-	if (s3run->is_case_sens)
+	if (!s3run->is_case_sens)
 		options |= G_REGEX_CASELESS;
 	if (s3run->dotmatchall)
 		options |= G_REGEX_DOTALL;
@@ -1053,21 +1068,26 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	return retval;
 }
 
-static gboolean
-snrwin_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
+static void
+snrwin_guichange(TSNRWin *snrwin)
 {
-	TSNRWin *snrwin=data;
 	gint guichange;
 	if (!snrwin->s3run) {
 		snrwin->s3run = snr3run_new(snrwin->bfwin, snrwin);
-		DEBUG_MSG("snrwin_focus_out_event_cb, new s3run at %p\n",snrwin->s3run);
+		DEBUG_MSG("snrwin_guichange, new s3run at %p\n",snrwin->s3run);
 	}
 	guichange = snr3run_init_from_gui(snrwin, snrwin->s3run);
-	DEBUG_MSG("search_focus_out_event_cb, guichange=%d\n",guichange);
+	DEBUG_MSG("snrwin_guichange, guichange=%d\n",guichange);
 	if (guichange != -1 && (guichange & 1) != 0) {
-		DEBUG_MSG("search_focus_out_event_cb, run snr3_run %p\n",snrwin->s3run);
+		DEBUG_MSG("snrwin_guichange, run snr3_run %p\n",snrwin->s3run);
 		snr3_run(snrwin->s3run, snrwin->s3run->bfwin->current_document, dialog_changed_run_ready_cb);
 	}
+}
+
+static gboolean
+snrwin_focus_out_event_cb(GtkWidget *widget,GdkEventFocus *event,gpointer data)
+{
+	snrwin_guichange((TSNRWin *)data);
 	return FALSE;
 }
 static void
@@ -1182,6 +1202,13 @@ snr_combobox_changed(GtkComboBox * combobox, TSNRWin * snrwin)
 {
 	g_print("snr_combobox_changed, combobox=%p\n",combobox);
 	snr_dialog_show_widgets(snrwin);
+	snrwin_guichange(snrwin);
+}
+
+static void
+snr_option_toggled(GtkToggleButton * togglebutton, gpointer data)
+{
+	snrwin_guichange((TSNRWin *) data);
 }
 
 static void
@@ -1378,14 +1405,14 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 
 	snrwin->matchCase = dialog_check_button_in_table(_("Case sensitive _matching"), bfwin->session->snr3_casesens, table,
 										0, 4, currentrow, currentrow+1);
-	/*g_signal_connect(snrwin->matchCase, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
+	g_signal_connect(snrwin->matchCase, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_widget_set_tooltip_text(snrwin->matchCase, _("Only match if case (upper/lower) is identical."));
 
 	currentrow++;
 
 	snrwin->escapeChars = dialog_check_button_in_table(_("Pattern contains escape-se_quences"), bfwin->session->snr3_escape_chars, table,
 										0, 4, currentrow, currentrow+1);
-	/*g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
+	g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_widget_set_tooltip_text(snrwin->escapeChars,
 								_("Pattern contains backslash escaped characters such as \\n \\t etc."));
 
@@ -1393,7 +1420,7 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 
 	snrwin->dotmatchall = dialog_check_button_in_table(_("Dot character in regex pattern matches newlines"), bfwin->session->snr3_dotmatchall, table,
 										0, 4, currentrow, currentrow+1);
-	/*g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);*/
+	g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_widget_set_tooltip_text(snrwin->dotmatchall,
 								_("The . character will match everything including newlines, use for multiline matching."));
 

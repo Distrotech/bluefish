@@ -73,6 +73,7 @@ typedef struct {
 	gboolean in_replace; /* TRUE if the code is in a replace, so the doc_insert and doc_delete signals do not need to do anything */
 	GQueue results; /* all results */
 	GList *current; /* current result */
+	guint resultnumdoc; /* the number of unique documents in the resultset */
 
 	guint unre_action_id;
 	
