@@ -713,15 +713,14 @@ simplesearch_entry_changed_or_activate(GtkEditable * editable, Tbfwin * bfwin)
 
 	if (!bfwin->current_document)
 		return;
-
 	tmpstr = gtk_editable_get_chars(editable, 0, -1);
 	if (bfwin->simplesearch_snr3run) {
-		g_print("free simple search run %p\n", bfwin->simplesearch_snr3run);
+		DEBUG_MSG("free simple search run %p\n", bfwin->simplesearch_snr3run);
 		snr3run_free(bfwin->simplesearch_snr3run);
 		bfwin->simplesearch_snr3run=NULL;
 	}
 	if (tmpstr && tmpstr[0]!='\0' && tmpstr[1] != '\0') {
-		g_print("start simple search run\n");
+		DEBUG_MSG("start simple search run\n");
 		bfwin->simplesearch_snr3run = simple_search_run(bfwin, tmpstr);
 	}
 	g_free(tmpstr);
