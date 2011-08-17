@@ -1535,7 +1535,7 @@ bookmark_reposition(Tbmark * mark, gint offset)
 {
 	gint doclen = gtk_text_buffer_get_char_count(mark->doc->buffer);
 	gint bandwidth = offset > 0 ? 2 * offset : -2 * offset;
-	if (bandwidth < 5 * strlen(mark->text))
+	if (bandwidth < (5 * strlen(mark->text)))
 		bandwidth = 5 * strlen(mark->text);
 	/* search for the bookmark near the old positions */
 
@@ -1556,8 +1556,10 @@ bookmark_reposition(Tbmark * mark, gint offset)
 			mark->offset = gtk_text_iter_get_offset(&itrs);
 			return TRUE;
 		}
-		if (bandwidth > doclen)
+		if (bandwidth > doclen) {
+			DEBUG_MSG("bookmark_reposition, no result for %s, original offset %d\n",mark->text, mark->offset);
 			return FALSE;
+		}
 		bandwidth *= 2;
 	}
 }
@@ -1994,6 +1996,8 @@ bmark_get_tooltip_for_line(Tdocument *doc, gint line)
 		return NULL;
 	if (bmark->text && bmark->name) 
 		return g_strconcat(bmark->name," ", bmark->text, NULL);
+	if (bmark->name)
+		return g_strdup(bmark->name);
 	return g_strdup(bmark->text);
 }
 

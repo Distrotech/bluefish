@@ -1102,9 +1102,20 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 		return;
 	}
 
+	if (snrwin->s3run && snrwin->s3run->scope != snr3scope_files 
+							&& snrwin->s3run->scope != snr3scope_alldocs
+							&& snrwin->s3run->results.head
+							&& S3RESULT(snrwin->s3run->results.head->data)->doc != snrwin->bfwin->current_document) {
+		DEBUG_MSG("restart the search on the new active document\n");
+		snr3run_resultcleanup(snrwin->s3run);
+		snr3_run(snrwin->s3run, snrwin->s3run->bfwin->current_document, dialog_changed_run_ready_cb);
+		return;
+	}
+
 	if (!snrwin->s3run) {
 		snrwin->s3run = snr3run_new(snrwin->bfwin, snrwin);
 	}
+	
 	guichange = snr3run_init_from_gui(snrwin, snrwin->s3run);
 	DEBUG_MSG("snr3_advanced_response, response=%d, guichange=%d\n",response,guichange);
 	if (guichange == -1)
