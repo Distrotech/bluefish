@@ -235,6 +235,24 @@ bmark_update_offset_from_textmark(Tbmark * b)
  * returns NULL if we have to append this as first child to the parent
  *
  */
+static Tbmark * 
+bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * parent)
+{
+	gboolean cont;
+	GtkTreeIter iter;
+	Tbmark *b1=NULL, *b2;
+	cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter, parent);
+	while (cont) {
+		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter, PTR_COLUMN, &b2,-1);
+		bmark_update_offset_from_textmark(b2);
+		if (b2->offset > offset)
+			return b1; 
+		b1 = b2;
+		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter);
+	}
+	return b1;
+}
+/*
 static Tbmark *
 bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * parent)
 {
@@ -277,7 +295,7 @@ bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * pa
 			child = num_children;
 		if (child < 1)
 			child = 1;
-		/* we request child-1, NOT child */
+		/ * we request child-1, NOT child * /
 		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter,
 									  parent, child - 1);
 		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &iter, PTR_COLUMN, &b,
@@ -293,7 +311,7 @@ bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * pa
 			jumpsize = (jumpsize > 3) ? (jumpsize + 1) / 2 : jumpsize - 1;
 			if (jumpsize <= 0) {
 				child--;
-				/* we request child-1, NOT child */
+				/ * we request child-1, NOT child * /
 				if (child >= 1
 					&&
 					gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),
@@ -310,7 +328,7 @@ bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * pa
 				}
 			}
 			child = child - jumpsize;
-		} else {				/* compare > 0 */
+		} else {				/ * compare > 0 * /
 			jumpsize = (jumpsize > 3) ? (jumpsize + 1) / 2 : jumpsize - 1;
 			if (jumpsize <= 0) {
 				DEBUG_MSG("in_loop: return bookmark (offset %d) from child %d\n", b->offset, child);
@@ -322,7 +340,7 @@ bmark_find_bookmark_before_offset(Tbfwin * bfwin, guint offset, GtkTreeIter * pa
 	DEBUG_MSG("bmark_find_bookmark_before_offset, end-of-function, return NULL\n");
 	return NULL;
 }
-
+*/
 void
 bmark_rename_uri(Tbfwin * bfwin, Tbmark * b, GFile * newuri)
 {
@@ -1795,12 +1813,12 @@ can we make this function faster? when adding bookmarks from a search this funct
 a lot of time, perhaps that can be improved
 */
 static Tbmark *
-bmark_get_bmark_at_line(Tdocument * doc, gint offset)
+bmark_get_bmark_at_iter(Tdocument * doc, GtkTextIter *iter, gint offset)
 {
 	GtkTextIter sit, eit;
 	GtkTreeIter tmpiter;
 	gint linenum;
-	gtk_text_buffer_get_iter_at_offset(doc->buffer, &sit, offset);
+	sit = *iter;
 	linenum = gtk_text_iter_get_line(&sit);
 	eit = sit;
 	gtk_text_iter_set_line_offset(&sit, 0);
@@ -1809,9 +1827,11 @@ bmark_get_bmark_at_line(Tdocument * doc, gint offset)
 	if (DOCUMENT(doc)->bmark_parent) {
 		GtkTextIter testit;
 		Tbmark *m, *m2;
+		/* the next function is probably the slowest since it jumps through the listmodel 
+		to find the right bookmark */
 		m = bmark_find_bookmark_before_offset(BFWIN(doc->bfwin), offset, doc->bmark_parent);
 		if (m == NULL) {
-			DEBUG_MSG("bmark_get_bmark_at_line, m=NULL, get first child\n");
+			DEBUG_MSG("bmark_get_bmark_at_iter, m=NULL, get first child\n");
 			if (gtk_tree_model_iter_children
 				(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter,
 				 doc->bmark_parent)) {
@@ -1824,7 +1844,7 @@ bmark_get_bmark_at_line(Tdocument * doc, gint offset)
 			}
 		} else {
 			gtk_text_buffer_get_iter_at_mark(doc->buffer, &testit, m->mark);
-			DEBUG_MSG("bmark_get_bmark_at_line, m=%p, has linenum=%d\n", m, gtk_text_iter_get_line(&testit));
+			DEBUG_MSG("bmark_get_bmark_at_iter, m=%p, has linenum=%d\n", m, gtk_text_iter_get_line(&testit));
 			if (gtk_text_iter_get_line(&testit) == linenum) {
 				return m;
 			}
@@ -1839,12 +1859,28 @@ bmark_get_bmark_at_line(Tdocument * doc, gint offset)
 				}
 			}
 		}
-		DEBUG_MSG("bmark_get_bmark_at_line, nothing found at this line, return NULL\n");
+		DEBUG_MSG("bmark_get_bmark_at_iter, nothing found at this line, return NULL\n");
 		return NULL;
 
 	}
-	DEBUG_MSG("bmark_get_bmark_at_line, no existing bookmark found, return NULL\n");
+	DEBUG_MSG("bmark_get_bmark_at_iter, no existing bookmark found, return NULL\n");
 	return NULL;
+}
+
+static Tbmark *
+bmark_get_bmark_at_line(Tdocument * doc, gint line) 
+{
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_line(doc->buffer, &iter, line);
+	return bmark_get_bmark_at_iter(doc, &iter, gtk_text_iter_get_offset(&iter));
+}
+
+static Tbmark *
+bmark_get_bmark_at_offset(Tdocument * doc, gint offset)
+{
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, offset);
+	return bmark_get_bmark_at_iter(doc, &iter, offset);
 }
 
 static void
@@ -1877,7 +1913,7 @@ bmark_add_extern(Tdocument * doc, gint offset, const gchar * name, const gchar *
 		return;
 	}
 	DEBUG_MSG("adding bookmark at offset %d with name %s\n", offset, name);	/* dummy */
-	if (!bmark_get_bmark_at_line(doc, offset)) {
+	if (!bmark_get_bmark_at_offset(doc, offset)) {
 		if (text) {
 			bmark_add_backend(doc, NULL, offset, (name) ? name : "", text, is_temp);
 		} else {
@@ -1898,7 +1934,7 @@ bmark_toggle(Tdocument * doc, gint offset, const gchar * name, const gchar * tex
 		bmark_warn_unsaved_file(doc->bfwin);
 		return;
 	}
-	bmark = bmark_get_bmark_at_line(doc, offset);
+	bmark = bmark_get_bmark_at_offset(doc, offset);
 	if (bmark) {
 		bmark_check_remove(BFWIN(doc->bfwin), bmark);	/* check  if we should remove a filename too */
 		bmark_unstore(BFWIN(doc->bfwin), bmark);
@@ -1929,7 +1965,7 @@ bmark_add(Tbfwin * bfwin)
 	gtk_text_iter_order(&it, &it2);
 	offset = gtk_text_iter_get_offset(&it);
 	/* check for existing bookmark in this place */
-	has_mark = (bmark_get_bmark_at_line(DOCUMENT(bfwin->current_document), offset) != NULL);
+	has_mark = (bmark_get_bmark_at_offset(DOCUMENT(bfwin->current_document), offset) != NULL);
 	if (has_mark) {
 		message_dialog_new(bfwin->main_window,
 						   GTK_MESSAGE_ERROR,
@@ -1944,16 +1980,28 @@ gboolean
 bmark_have_bookmark_at_stored_bevent(Tdocument * doc)
 {
 	if (main_v->bevent_doc == doc) {
-		return (bmark_get_bmark_at_line(doc, main_v->bevent_charoffset) != NULL);
+		return (bmark_get_bmark_at_offset(doc, main_v->bevent_charoffset) != NULL);
 	}
 	return FALSE;
+}
+
+gchar *
+bmark_get_tooltip_for_line(Tdocument *doc, gint line)
+{
+	Tbmark *bmark;
+	bmark = bmark_get_bmark_at_line(doc, line);
+	if (!bmark || !bmark->text)
+		return NULL;
+	if (bmark->text && bmark->name) 
+		return g_strconcat(bmark->name," ", bmark->text, NULL);
+	return g_strdup(bmark->text);
 }
 
 void
 bmark_del_at_bevent(Tdocument * doc)
 {
 	if (main_v->bevent_doc == doc) {
-		Tbmark *b = bmark_get_bmark_at_line(doc, main_v->bevent_charoffset);
+		Tbmark *b = bmark_get_bmark_at_offset(doc, main_v->bevent_charoffset);
 		if (b) {
 			DEBUG_MSG("bmark_del_at_bevent, deleting bookmark %p\n", b);
 			bmark_check_remove(BFWIN(doc->bfwin), b);	/* check  if we should remove a filename too */
