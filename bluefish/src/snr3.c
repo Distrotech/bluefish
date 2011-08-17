@@ -37,7 +37,7 @@ texttag from the tag table??
 
 */
 
-/*#define DEBUG*/
+#define DEBUG
 /*#define SNR3_PROFILING*/
 
 #define _GNU_SOURCE
@@ -802,7 +802,7 @@ snr3_docdestroy_cb(Tdocument *doc, gpointer data)
 	Tsnr3run *s3run = data;
 	/* see if this is the current document of an ongoing search, if so, cancel the search */
 	DEBUG_MSG("snr3_docdestroy_cb, doc=%p, s3run=%p\n",doc,s3run);
-	if (s3run->curdoc == doc) {
+	if (s3run->curdoc == doc || s3run->scope == snr3scope_alldocs) {
 		snr3_cancel_run(s3run);
 	}
 	/* remove any existing search results for this doc */
@@ -974,8 +974,8 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	gint retval=0;
 	GFile *basedir;
 	const gchar *filepattern;
-	
-	if (s3run->in_replace)
+	DEBUG_MSG("s3run->in_replace=%d\n",s3run->in_replace);
+	if (s3run->replaceall)
 		return -1;
 	
 	query = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))));
@@ -991,11 +991,13 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	filepattern = gtk_entry_get_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->filepattern))));
 
 	if (is_case_sens != s3run->is_case_sens) {
+		snr3_cancel_run(s3run);
 		DEBUG_MSG("set is_case_sens %d\n",is_case_sens);
 		s3run->is_case_sens = is_case_sens;
 		retval |= 1;
 	}
 	if (dotmatchall != s3run->dotmatchall) {
+		snr3_cancel_run(s3run);
 		s3run->dotmatchall = dotmatchall;
 		retval |= 1;
 	}
@@ -1005,17 +1007,20 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 		retval |= 2;
 	}
 	if (scope != s3run->scope) {
+		snr3_cancel_run(s3run);
 		DEBUG_MSG("set scope %d\n",scope);
 		s3run->scope = scope;
 		retval |= 1;
 	}
 	if (type != s3run->type) {
+		snr3_cancel_run(s3run);
 		DEBUG_MSG("set type %d\n",type);
 		s3run->type = type;
 		retval |= 1;
 	}
 
 	if (g_strcmp0(s3run->query, query)!=0) {
+		snr3_cancel_run(s3run);
 		g_free(s3run->query);
 		s3run->query = NULL;
 		DEBUG_MSG("set query %s\n",query);
@@ -1032,12 +1037,14 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	}
 	
 	if (g_strcmp0(s3run->filepattern, filepattern)!=0) {
+		snr3_cancel_run(s3run);
 		g_free(s3run->filepattern);
 		s3run->filepattern = g_strdup(filepattern);
 		DEBUG_MSG("filepattern =%s\n",filepattern);
 		retval |= 1;
 	}
 	if (!s3run->basedir || !g_file_equal(s3run->basedir, basedir)) {
+		snr3_cancel_run(s3run);
 		if (!s3run->basedir)
 			g_object_unref(s3run->basedir);
 		s3run->basedir = basedir;
@@ -1157,6 +1164,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			snr3run_bookmark_all(snrwin->s3run);
 		break;
 		case SNR_RESPONSE_REPLACE_ALL:
+			snr3_cancel_run(s3run);
 			s3run->replaceall=TRUE;
 			snr3run_resultcleanup(s3run);
 			s3run->unre_action_id = new_unre_action_id();
