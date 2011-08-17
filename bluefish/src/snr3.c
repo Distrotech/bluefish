@@ -1233,16 +1233,16 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	unsigned int i = 0;
 
 	const gchar *scope[] = {
-		N_("Entire document"),
+		N_("Active document"),
 		N_("Forward from cursor position"),
-		N_("Selection"),
+		N_("Current selection"),
 		N_("All open documents"),
 		N_("Files on disk")
 	};
 
 	const gchar *matchPattern[] = {
 		N_("Normal"),
-		N_("PERL style regular expression"),
+		N_("Regular expression (pcre)"),
 	};
 
 	const gchar *replaceType[] = {
