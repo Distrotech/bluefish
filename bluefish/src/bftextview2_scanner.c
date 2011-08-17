@@ -681,8 +681,11 @@ nextcache_valid(Tscanning * scanning)
 			 scanning->nextfound, scanning->curfblock);
 		return FALSE;
 	}
-	DBG_SCANCACHE("nextcache_valid, next found %p with offset %d seems valid\n", scanning->nextfound,
-				  scanning->nextfound->charoffset_o);
+	DBG_SCANCACHE("nextcache_valid, next found %p with offset=%d,numcontextchange=%d,numblockchange=%d seems valid\n", scanning->nextfound,
+				  scanning->nextfound->charoffset_o,
+				  scanning->nextfound->numcontextchange,
+				  scanning->nextfound->numblockchange
+				  );
 	return TRUE;
 }
 
@@ -1231,15 +1234,14 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 					scanning.identmode = 0;
 				}
 			} else {
-				if G_UNLIKELY
-					((uc == '\0' && scanning.nextfound
-					  && scanning.nextfound->charoffset_o == gtk_text_iter_get_offset(&iter))) {
+				if (G_UNLIKELY(uc == '\0' && scanning.nextfound && 
+					scanning.nextfound->charoffset_o <= gtk_text_iter_get_offset(&iter))) { 
 					guint invalidoffset;
 					/* scanning->nextfound is invalid! remove from cache */
 					invalidoffset = remove_invalid_cache(btv, gtk_text_iter_get_offset(&iter), &scanning);
 					if (enlarge_scanning_region(btv, &scanning, invalidoffset))
 						last_character_run = FALSE;
-					}
+				}
 #ifdef IDENTSTORING
 				if (G_UNLIKELY
 					(scanning.identmode == 1 && pos == 1)) {
