@@ -1965,6 +1965,23 @@ bluefish_text_view_query_tooltip(GtkWidget * widget, gint x, gint y, gboolean ke
 {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
+
+	if (x < (master->margin_pixels_chars + master->margin_pixels_block + master->margin_pixels_symbol)) {
+		gint bx,by, trailing;
+		GtkTextIter iter;
+		gchar *str;
+		gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT,
+												  x , y, &bx, &by);
+		gtk_text_view_get_iter_at_position(GTK_TEXT_VIEW(btv), &iter, &trailing, bx, by);
+		str = bmark_get_tooltip_for_line(master->doc, gtk_text_iter_get_line(&iter));
+		if (str) {
+			gtk_tooltip_set_markup(tooltip,str);
+			g_free(str);
+			return TRUE;
+		}
+		return FALSE;
+	}
+	
 	if (master->bflang && master->bflang->st && master->enable_scanner && master->scanner_idle == 0
 		&& main_v->props.show_tooltip_reference) {
 		GtkTextIter iter, mstart;
