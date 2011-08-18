@@ -711,11 +711,17 @@ replace_all_ready(void *data) {
 	s3run->replaceall=FALSE;
 	s3run->unre_action_id = 0;
 	s3run->curdoc = NULL;
-	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->replaceButton, TRUE);
-	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->findButton, TRUE);
-	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->backButton, TRUE);
-	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->replaceAllButton, TRUE);
-	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->bookmarkButton, TRUE);
+	if (s3run->dialog) {
+		gchar *tmp;
+		gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->replaceButton, TRUE);
+		gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->findButton, TRUE);
+		gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->backButton, TRUE);
+		gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->replaceAllButton, TRUE);
+		gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->bookmarkButton, TRUE);
+		tmp = g_strdup_printf(_("<i>Replaced %d entries</i>"), g_queue_get_length(&s3run->results));
+		gtk_label_set_markup(GTK_LABEL(((TSNRWin *)s3run->dialog)->searchfeedback),tmp);
+		g_free(tmp);
+	}
 }
 
 static void
