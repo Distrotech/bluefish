@@ -22,7 +22,7 @@
 	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
 ]>
-<bflang name="CSS" version="2.0" table="9231" contexts="139" matches="1495">
+<bflang name="CSS" version="2.0" table="5043" contexts="75" matches="877">
 <header>
 	<mime type="text/css" />
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -35,6 +35,7 @@
 	<highlight name="css-html-media" style="special-tag" />
 	<highlight name="css-keyword" style="keyword"  />
 	<highlight name="css-property" style="special-keyword"  />
+	<highlight name="css-draft-property" style="special-tag3"  />
 	<highlight name="css-string" style="string" />
 	<highlight name="css-value" style="value"   />
 </header>
