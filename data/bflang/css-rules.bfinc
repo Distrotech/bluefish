@@ -1169,6 +1169,19 @@ autocomplete_append=": ">
 </reference>
 <context idref="c.css.length_percentage"/>
 </element>
+<element pattern="opacity" autocomplete="1" highlight="css-property" autocomplete_append=": ">
+<reference>
+<b>Values:</b> range [0.0,1.0] | inherit 
+<b>Initial value:</b> 1
+<b>Media groups:</b> visual
+</reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="0|1|0.[0-9]" highlight="css-value" is_regex="1" />
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/> 
+</context>
+</element>
+
 <element pattern="outline" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
 <b>Values:</b> [ 'outline-color' || 'outline-style' || 'outline-width' ] | inherit
@@ -1627,6 +1640,18 @@ relative </reference>
 	<element pattern="0"/>	
 </group>
 <element idref="e.css.length"/>
+<element idref="e.css.end"/><element idref="e.css.lcomment"/>
+<element idref="e.css.rbrace"/>
+</context>		
+</element>
+<element pattern="word-wrap" autocomplete="1" highlight="css-draft-property" autocomplete_append=": ">
+<reference><span foreground="red">Draft</span> The word-wrap CSS property is used to to specify whether or not the browser is allowed to break lines within words in order to prevent overflow when an otherwise unbreakable string is too long to fit.
+<b>Values:</b> normal | break-word
+<b>Initial value:</b> normal
+<b>Media groups:</b> visual.</reference>
+<context symbols=" &#9;&#10;&#13;{}.;:">
+<element pattern="normal" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+<element pattern="break-word" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 <element idref="e.css.end"/><element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/>
 </context>		
