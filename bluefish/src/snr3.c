@@ -348,12 +348,13 @@ backend_pcre_loop(Tsnr3run *s3run, gboolean indefinitely) {
 	GTimer *timer = g_timer_new();
 	while (cont && (indefinitely || loop % loops_per_timer != 0
 				 || g_timer_elapsed(timer, NULL) < MAX_CONTINUOUS_SEARCH_INTERVAL)) {
-		gint so, eo;
+		gint bso, beo, so, eo;
 		Tsnr3result *s3result;
-		g_match_info_fetch_pos(match_info, 0, &so, &eo);
-		so = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, so);
-		eo = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, eo);
+		g_match_info_fetch_pos(match_info, 0, &bso, &beo);
+		so = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, bso);
+		eo = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, beo);
 		s3result = sn3run_add_result(s3run, so+s3run->curoffset+s3run->so, eo+s3run->curoffset+s3run->so, s3run->curdoc);
+		DBG_MSG("backend_pcre_loop, found result at bso %d, so %d, s3run->so=%d, s3run->curoffse=%d --> %s\n",bso,so,s3run->so,s3run->curoffset,s3result->so);
 		if (s3run->replaceall) {
 			DEBUG_MSG("backend_pcre_loop, found in buffer at %d:%d, replace at %d:%d (curoffset=%d, s3run->so=%d)\n", so, eo, s3result->so, s3result->eo,s3run->curoffset, s3run->so);
 			Toffsetupdate offsetupdate = s3result_replace(s3run, s3result, match_info);
@@ -490,6 +491,7 @@ snr3_queue_run(gpointer data) {
 	rii->s3run->curbuf = doc_get_chars(rii->doc, rii->so, rii->eo);
 	rii->s3run->so = rii->so;
 	rii->s3run->eo = rii->eo;
+	DEBUG_MSG("snr3_queue_run, run doc %p, curbuf %p (%d:%d)\n",rii->doc, rii->s3run->curbuf, rii->so, rii->eo);
 	utf8_offset_cache_reset();
 	if (rii->s3run->replaceall) {
 		if (rii->s3run->scope == snr3scope_alldocs || rii->s3run->scope == snr3scope_files) {
@@ -520,8 +522,8 @@ snr3_run_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, gboolean upda
 	g_atomic_int_inc(&s3run->runcount);
 	rii->so = so;
 	rii->eo = eo;
+	rii->update = update;
 	if (update) {
-		rii->update = update;
 		rii->s3run->callback = update_callback;
 	}
 	
@@ -582,7 +584,7 @@ snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 }
 
 void
-snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *))
+snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void *))
 {
 	gint so,eo;
 	GList *tmplist;
@@ -593,6 +595,13 @@ snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *))
 		return;
 	}
 	s3run->callback = callback;
+	if (snrwin) {
+		if (s3run->replaceall)
+			gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),_("<i>Replace started</i>"));
+		else
+			gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),_("<i>Search started</i>"));
+		gtk_widget_show(snrwin->searchfeedback);
+	}
 	
 	switch(s3run->scope) {
 		case snr3scope_doc:
@@ -606,7 +615,7 @@ snr3_run(Tsnr3run *s3run, Tdocument *doc, void (*callback)(void *))
 			if (doc_get_selection(doc, &so, &eo)) {
 				snr3_run_in_doc(s3run, doc, so, eo, FALSE);
 			} else {
-				DEBUG_MSG("Find in selection, but there is no selection\n");
+				gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),_("<span foreground=\"red\">No selection, aborted search</span>"));
 			}
 		break;
 		case snr3scope_alldocs:
@@ -726,7 +735,7 @@ snr3_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpoin
 			highlight_run_in_doc(s3run, newdoc);
 		} else { /* simple search */
 			snr3run_resultcleanup(s3run);
-			snr3_run(s3run, newdoc, highlight_simple_search);
+			snr3_run(s3run, NULL, newdoc, highlight_simple_search);
 		}
 	}
 }
@@ -878,7 +887,7 @@ gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	s3run = snr3run_new(bfwin, NULL);
 	snr3run_multiset(s3run, string, NULL, snr3type_string,snr3replace_string,snr3scope_doc);
 	DEBUG_MSG("simple_search_run, snr3run at %p, query at %p\n",s3run, s3run->query);
-	snr3_run(s3run, bfwin->current_document, activate_simple_search);
+	snr3_run(s3run, NULL, bfwin->current_document, activate_simple_search);
 	return s3run;
 }
 
@@ -903,9 +912,9 @@ dialog_changed_run_ready_cb(gpointer data) {
 		TSNRWin *snrwin = s3run->dialog;
 		gchar *tmp;
 		if (s3run->resultnumdoc > 1) {
-			tmp = g_strdup_printf("<i>found %d results in %d documents</i>",g_queue_get_length(&s3run->results), s3run->resultnumdoc);
+			tmp = g_strdup_printf(_("<i>Found %d results in %d documents</i>"),g_queue_get_length(&s3run->results), s3run->resultnumdoc);
 		} else {
-			tmp = g_strdup_printf("<i>found %d results</i>",g_queue_get_length(&s3run->results));
+			tmp = g_strdup_printf(_("<i>Found %d results</i>"),g_queue_get_length(&s3run->results));
 		}
 		gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),tmp);
 		gtk_widget_show(snrwin->searchfeedback);
@@ -1087,7 +1096,7 @@ snrwin_guichange(TSNRWin *snrwin)
 	DEBUG_MSG("snrwin_guichange, guichange=%d\n",guichange);
 	if (guichange != -1 && (guichange & 1) != 0) {
 		DEBUG_MSG("snrwin_guichange, run snr3_run %p\n",snrwin->s3run);
-		snr3_run(snrwin->s3run, snrwin->s3run->bfwin->current_document, dialog_changed_run_ready_cb);
+		snr3_run(snrwin->s3run, snrwin, snrwin->s3run->bfwin->current_document, dialog_changed_run_ready_cb);
 	}
 }
 
@@ -1115,7 +1124,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 							&& S3RESULT(snrwin->s3run->results.head->data)->doc != snrwin->bfwin->current_document) {
 		DEBUG_MSG("restart the search on the new active document\n");
 		snr3run_resultcleanup(snrwin->s3run);
-		snr3_run(snrwin->s3run, snrwin->s3run->bfwin->current_document, dialog_changed_run_ready_cb);
+		snr3_run(snrwin->s3run, snrwin, snrwin->s3run->bfwin->current_document, dialog_changed_run_ready_cb);
 		return;
 	}
 
@@ -1138,7 +1147,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 		case SNR_RESPONSE_FIND:
 			if ((guichange & 1) != 0) {
 				DEBUG_MSG("guichange=%d, call snr3_run\n",guichange);
-				snr3_run(s3run, s3run->bfwin->current_document, activate_simple_search);
+				snr3_run(s3run, snrwin, s3run->bfwin->current_document, activate_simple_search);
 			} else if (snrwin->s3run->results.length) {
 				DEBUG_MSG("guichange=%d, call snr3_run_go\n",guichange);
 				snr3_run_go(s3run, TRUE);
@@ -1147,7 +1156,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 		case SNR_RESPONSE_BACK:
 			if ((guichange & 1) != 0) {
 				DEBUG_MSG("guichange=%d, call snr3_run\n",guichange);
-				snr3_run(snrwin->s3run, snrwin->s3run->bfwin->current_document, activate_simple_search);
+				snr3_run(snrwin->s3run, snrwin, snrwin->s3run->bfwin->current_document, activate_simple_search);
 			} else if (snrwin->s3run->results.length) {
 				DEBUG_MSG("guichange=%d, call snr3_run_go\n",guichange);
 				snr3_run_go(s3run, FALSE);
@@ -1175,7 +1184,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			gtk_widget_set_sensitive(snrwin->replaceAllButton, FALSE);
 			gtk_widget_set_sensitive(snrwin->bookmarkButton, FALSE);
 			
-			snr3_run(s3run, s3run->bfwin->current_document, replace_all_ready);
+			snr3_run(s3run, snrwin, s3run->bfwin->current_document, replace_all_ready);
 		break;
 	}
 
