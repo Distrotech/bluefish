@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-08-06 18:55+0200\n"
-"PO-Revision-Date: 2011-06-29 015:20+0200\n"
+"POT-Creation-Date: 2011-08-18 06:19+0200\n"
+"PO-Revision-Date: 2011-08-18 06:20+0200\n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -69,24 +69,24 @@ msgstr "Explorateur de fichiers"
 msgid "Bookmarks"
 msgstr "Signets"
 
-#: ../src/bfwin.c:781
+#: ../src/bfwin.c:780
 msgid "Goto Line:"
 msgstr "Aller à la ligne :"
 
-#: ../src/bfwin.c:790
+#: ../src/bfwin.c:789
 msgid "Find:"
 msgstr "Rechercher :"
 
-#: ../src/bfwin.c:800
+#: ../src/bfwin.c:799
 msgid "Advanced"
 msgstr "Options"
 
-#: ../src/bfwin.c:1141
+#: ../src/bfwin.c:1140
 msgid "New Bluefish Window"
 msgstr "Nouvelle fenêtre Bluefish"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1199
+#: ../src/bfwin.c:1191
 msgid "Stand by..."
 msgstr "Veuillez patienter..."
 
@@ -736,7 +736,7 @@ msgstr "Coller"
 msgid "_Find..."
 msgstr "Rechercher… "
 
-#: ../src/bfwin_uimanager.c:870 ../src/snr2.c:1949
+#: ../src/bfwin_uimanager.c:870
 msgid "Find"
 msgstr "Rechercher"
 
@@ -760,7 +760,7 @@ msgstr "Rechercher à partir du presse-papiers"
 msgid "R_eplace..."
 msgstr "Remplacer… "
 
-#: ../src/bfwin_uimanager.c:874 ../src/snr2.c:1952
+#: ../src/bfwin_uimanager.c:874
 msgid "Replace"
 msgstr "Remplacer"
 
@@ -824,15 +824,15 @@ msgstr "Ouvrir une _URL… "
 msgid "_Spell Check"
 msgstr "Vérifier l'orthographe"
 
-#: ../src/bfwin_uimanager.c:1401
+#: ../src/bfwin_uimanager.c:1393
 msgid "Text area to filter"
 msgstr "Zone de texte comme filtre"
 
-#: ../src/bfwin_uimanager.c:1402
+#: ../src/bfwin_uimanager.c:1394
 msgid "All text"
 msgstr "Tout le texte"
 
-#: ../src/bfwin_uimanager.c:1403
+#: ../src/bfwin_uimanager.c:1395
 msgid "Selected text only"
 msgstr "Texte sélectionné uniquement"
 
@@ -932,146 +932,146 @@ msgstr ""
 "Erreur lors de l'analyse des options de la ligne de commande. %s\n"
 "Essayez : %s -?\n"
 
-#: ../src/bookmark.c:530
+#: ../src/bookmark.c:548
 msgid "_Name:"
 msgstr "_Nom :"
 
-#: ../src/bookmark.c:534
+#: ../src/bookmark.c:552
 msgid "_Description:"
 msgstr "_Description :"
 
-#: ../src/bookmark.c:536
+#: ../src/bookmark.c:554
 msgid "Temporary"
 msgstr "Temporaire"
 
-#: ../src/bookmark.c:696
+#: ../src/bookmark.c:714
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Désirez-vous vraiment supprimer %s ?"
 
-#: ../src/bookmark.c:699
+#: ../src/bookmark.c:717
 msgid "Delete permanent bookmark."
 msgstr "Supprimer le signet permanent."
 
-#: ../src/bookmark.c:725
+#: ../src/bookmark.c:743
 msgid "Delete all bookmarks."
 msgstr "Supprimer tous les signets"
 
-#: ../src/bookmark.c:763
+#: ../src/bookmark.c:781
 #, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "Voulez-vous vraiment supprimer tous les signets relatifs à %s ?"
 
-#: ../src/bookmark.c:765
+#: ../src/bookmark.c:783
 msgid "Delete bookmarks?"
 msgstr "Voulez-vous supprimer les signets ?"
 
-#: ../src/bookmark.c:786 ../src/bookmark.c:847
+#: ../src/bookmark.c:804 ../src/bookmark.c:865
 msgid "Edit bookmark"
 msgstr "Éditer le signet"
 
-#: ../src/bookmark.c:843
+#: ../src/bookmark.c:861
 msgid "Bookmark menu"
 msgstr "Menu des _signets"
 
-#: ../src/bookmark.c:844
+#: ../src/bookmark.c:862
 msgid "Show Bookmark"
 msgstr "Afficher les signets"
 
-#: ../src/bookmark.c:845
+#: ../src/bookmark.c:863
 msgid "Show File"
 msgstr "Afficher le fichier"
 
-#: ../src/bookmark.c:846
+#: ../src/bookmark.c:864
 msgid "Bookmark search menu"
 msgstr "Menu de recherche des signets"
 
-#: ../src/bookmark.c:847
+#: ../src/bookmark.c:865
 msgid "_Edit..."
 msgstr "É_diter… "
 
-#: ../src/bookmark.c:849 ../src/filebrowser2.c:1986
+#: ../src/bookmark.c:867 ../src/filebrowser2.c:1986
 msgid "_Delete"
 msgstr "_Supprimer "
 
-#: ../src/bookmark.c:849 ../src/document.c:1841
+#: ../src/bookmark.c:867 ../src/document.c:1841
 msgid "Delete bookmark"
 msgstr "Supprimer le signet"
 
-#: ../src/bookmark.c:850
+#: ../src/bookmark.c:868
 msgid "Delete All"
 msgstr "Tout supprimer"
 
-#: ../src/bookmark.c:850
+#: ../src/bookmark.c:868
 msgid "Delete all bookmarks"
 msgstr "Supprimer tous les signets"
 
-#: ../src/bookmark.c:852
+#: ../src/bookmark.c:870
 msgid "Delete All in Document"
 msgstr "Tout supprimer dans le document actif"
 
-#: ../src/bookmark.c:852
+#: ../src/bookmark.c:870
 msgid "Delete all bookmarks in document"
 msgstr "Supprimer tous les signets du document"
 
-#: ../src/bookmark.c:857
+#: ../src/bookmark.c:875
 msgid "Permanent by default"
 msgstr "Permanent par défaut"
 
-#: ../src/bookmark.c:862
+#: ../src/bookmark.c:880
 msgid "By Name"
 msgstr "Par Nom"
 
-#: ../src/bookmark.c:863
+#: ../src/bookmark.c:881
 msgid "By Full Path"
 msgstr "Par chemin complet"
 
-#: ../src/bookmark.c:864
+#: ../src/bookmark.c:882
 msgid "By Full URI"
 msgstr "Par URI complète"
 
-#: ../src/bookmark.c:868 ../src/bookmark.c:874
+#: ../src/bookmark.c:886 ../src/bookmark.c:892
 msgid "Content"
 msgstr "Contenu"
 
-#: ../src/bookmark.c:869 ../src/bookmark.c:875 ../src/preferences.c:556
+#: ../src/bookmark.c:887 ../src/bookmark.c:893 ../src/preferences.c:556
 #: ../src/preferences.c:1142 ../src/preferences.c:1247
 msgid "Name"
 msgstr "Nom"
 
-#: ../src/bookmark.c:870 ../src/bookmark.c:876
+#: ../src/bookmark.c:888 ../src/bookmark.c:894
 msgid "Name & Content"
 msgstr "Nom & contenu"
 
-#: ../src/bookmark.c:1196
+#: ../src/bookmark.c:1214
 msgid "First bookmark"
 msgstr "Premier signet"
 
-#: ../src/bookmark.c:1200
+#: ../src/bookmark.c:1218
 msgid "Previous bookmark"
 msgstr "Signet précédant"
 
-#: ../src/bookmark.c:1204
+#: ../src/bookmark.c:1222
 msgid "Next bookmark"
 msgstr "Signet suivant"
 
-#: ../src/bookmark.c:1208
+#: ../src/bookmark.c:1226
 msgid "Last bookmark"
 msgstr "Dernier signet"
 
-#: ../src/bookmark.c:1856 ../src/bookmark.c:1974
+#: ../src/bookmark.c:1894 ../src/bookmark.c:2026
 msgid "Error adding bookmark"
 msgstr "Erreur lors de l'ajout de signet"
 
-#: ../src/bookmark.c:1856 ../src/bookmark.c:1974
+#: ../src/bookmark.c:1894 ../src/bookmark.c:2026
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Impossible d'ajouter des signets à des fichiers non enregistrés."
 
-#: ../src/bookmark.c:1937
+#: ../src/bookmark.c:1975
 msgid "Can't add bookmark"
 msgstr "Impossible d'ajouter un signet"
 
-#: ../src/bookmark.c:1937
+#: ../src/bookmark.c:1975
 msgid "You already have a bookmark here!"
 msgstr "Il existe déjà un signet à cet endroit !"
 
@@ -1959,7 +1959,13 @@ msgstr "Aucun"
 msgid "_Template:"
 msgstr "Modèle :"
 
-#: ../src/preferences.c:480 ../src/preferences.c:1859
+#. g_signal_connect(snrwin->replace, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
+#. g_signal_connect(snrwin->replace, "realize", G_CALLBACK(realize_combo_set_tooltip),
+#. _("Replace matching text with"));
+#. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
+#. G_CALLBACK(snr_combo_activate_lcb), snrwin);
+#.
+#: ../src/preferences.c:480 ../src/preferences.c:1859 ../src/snr3.c:1360
 msgid "<b>Options</b>"
 msgstr "<b>Options</b>"
 
@@ -2945,246 +2951,133 @@ msgstr "fichiers de type web"
 msgid "Hide objectfiles"
 msgstr "Cacher les fichiers objets"
 
-#: ../src/snr2.c:254
-msgid "Regular expression error: "
-msgstr "Erreur d'expression régulière : "
+#: ../src/snr3.c:1261
+msgid "Active document"
+msgstr "Document courant"
 
-#: ../src/snr2.c:256 ../src/snr2.c:306 ../src/snr2.c:355
-msgid "Search failed"
-msgstr "Échec de la recherche"
-
-#: ../src/snr2.c:304
-#, c-format
-msgid "Regular expression error: %s"
-msgstr "Erreur d'expression régulière : %s"
-
-#: ../src/snr2.c:353
-#, c-format
-msgid "Regular expression error: %s at offset %d"
-msgstr "Erreur d'expression régulière : %s à la position %d"
-
-#: ../src/snr2.c:1614
-#, c-format
-msgid "Found %d matches, "
-msgid_plural "Found %d matches, "
-msgstr[0] "%d occurrence trouvée, "
-msgstr[1] "%d occurrences trouvées, "
-
-#: ../src/snr2.c:1617
-#, c-format
-msgid "replaced %d"
-msgid_plural "replaced %d"
-msgstr[0] "%d remplacée"
-msgstr[1] "%d remplacées"
-
-#: ../src/snr2.c:1623
-#, c-format
-msgid "Found %d matches"
-msgid_plural "Found %d matches"
-msgstr[0] "%d occurrence trouvée"
-msgstr[1] "%d occurrences trouvées"
-
-#: ../src/snr2.c:1647
-msgid ""
-"<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
-"span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Tous les documents ne sont pas "
-"encore chargés</span>"
-
-#: ../src/snr2.c:1787
-msgid ""
-"<span foreground=\"red\" weight=\"bold\">No selection. Please select a block "
-"of text first.</span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Aucune sélection. Sélectionner  "
-"d'abord un bloc de texte</span>"
-
-#: ../src/snr2.c:1831 ../src/snr2.c:2237 ../src/snr2.c:2277
-msgid ""
-"<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
-"will continue at the beginning.</span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Fin de la recherche, la prochaine "
-"recherche recommencera au début du document.</span>"
-
-#: ../src/snr2.c:1925
-msgid "Entire document"
-msgstr "Ensemble du document"
-
-#: ../src/snr2.c:1926
+#: ../src/snr3.c:1262
 msgid "Forward from cursor position"
 msgstr "Vers le bas à partir de la position du curseur"
 
-#: ../src/snr2.c:1927
-msgid "Selection"
-msgstr "Sélection "
+#: ../src/snr3.c:1263
+msgid "Current selection"
+msgstr "Sélection courante"
 
-#: ../src/snr2.c:1928
-msgid "All open files"
+#: ../src/snr3.c:1264
+msgid "All open documents"
 msgstr "Tous les fichiers ouverts"
 
-#: ../src/snr2.c:1932 ../src/snr2.c:1939
+#: ../src/snr3.c:1265
+msgid "Files on disk"
+msgstr "Fichiers sur le disque"
+
+#: ../src/snr3.c:1269 ../src/snr3.c:1274
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/snr2.c:1933
-msgid "Entire word only"
-msgstr "Mot entier seulement"
+#: ../src/snr3.c:1270
+msgid "Regular expression (pcre)"
+msgstr "Expression régulière (pcre)"
 
-#: ../src/snr2.c:1934
-msgid "POSIX style regular expression"
-msgstr "Expression régulière POSIX : "
-
-#: ../src/snr2.c:1935
-msgid "PERL style regular expression"
-msgstr "Expression régulière PERL : "
-
-#: ../src/snr2.c:1940
+#: ../src/snr3.c:1275
 msgid "Uppercase"
 msgstr "Mettre en majuscules"
 
-#: ../src/snr2.c:1941
+#: ../src/snr3.c:1276
 msgid "Lowercase"
 msgstr "Mettre en minuscules"
 
-#: ../src/snr2.c:1985
-msgid "_Search for: "
-msgstr "Rechercher : "
+#: ../src/snr3.c:1283
+msgid "Find and Replace"
+msgstr "Chercher et Remplacer"
 
-#: ../src/snr2.c:1989
-msgid "The pattern to look for"
-msgstr "Modèle à rechercher"
+#: ../src/snr3.c:1319
+msgid "<b>_Search for</b>"
+msgstr "<b>_Chercher</b>"
 
-#: ../src/snr2.c:2005
-msgid "Replace _with: "
-msgstr "Remplacer _par : "
+#: ../src/snr3.c:1348
+msgid "<b>Replace _with</b>"
+msgstr "<b>_Remplacer par</b>"
 
-#: ../src/snr2.c:2010
-msgid "Replace matching text with"
-msgstr "Remplacer le texte trouvé par"
-
-#: ../src/snr2.c:2019
-msgid "Sco_pe: "
-msgstr "_Zone de recherche :"
-
-#: ../src/snr2.c:2024
-msgid "Where to look for the pattern."
-msgstr "Zone de recherche du modèle."
-
-#: ../src/snr2.c:2031
-msgid "Found 0 matches, replaced 0"
-msgstr "Aucune occurrence trouvée, aucun remplacement effectué"
-
-#: ../src/snr2.c:2031
-msgid "Found 0 matches"
-msgstr "Aucune occurrence trouvée"
-
-#: ../src/snr2.c:2041
-msgid "<b>_Options</b>"
-msgstr "<b>_Options</b>"
-
-#: ../src/snr2.c:2057
+#: ../src/snr3.c:1370
 msgid "Match Patter_n: "
 msgstr "_Modèle de recherche : "
 
-#: ../src/snr2.c:2062
-msgid "How to interpret the pattern."
-msgstr "Type d'interprétation du modèle."
-
-#: ../src/snr2.c:2069
+#: ../src/snr3.c:1382
 msgid "Replace T_ype: "
 msgstr "T_ype de remplacement : "
 
-#: ../src/snr2.c:2074
-msgid "What to replace with."
-msgstr "Remplacement."
+#: ../src/snr3.c:1395
+msgid "Sco_pe: "
+msgstr "_Zone de recherche :"
 
-#: ../src/snr2.c:2077
-msgid "Allow o_verlapping matches"
-msgstr "Autoriser les recherches récursiv_es"
+#: ../src/snr3.c:1410
+msgid "Filename pattern: "
+msgstr "Modèle de nom de fichier : "
 
-#: ../src/snr2.c:2081
-msgid "After a match is found, start next search within that match."
-msgstr ""
-"Après qu'une occurrence ait été trouvée, effectue la recherche suivante à "
-"l'intérieur de cette occurrence."
+#: ../src/snr3.c:1416
+msgid "Basedir: "
+msgstr "Répertoire de _base : "
 
-#: ../src/snr2.c:2083
+#: ../src/snr3.c:1431
 msgid "Case sensitive _matching"
-msgstr "Respecter la  _casse"
+msgstr "Respecter la c_asse"
 
-#: ../src/snr2.c:2086
+#: ../src/snr3.c:1433
 msgid "Only match if case (upper/lower) is identical."
 msgstr ""
 "Recherche fructueuse seulement si la casse (majuscules/minuscules) est "
 "identique."
 
-#: ../src/snr2.c:2088
+#: ../src/snr3.c:1437
 msgid "Pattern contains escape-se_quences"
 msgstr "Le modèle contient des caractères d'échappement"
 
-#: ../src/snr2.c:2092
+#: ../src/snr3.c:1440
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr ""
 "Le modèle contient des caractères échappés par un antislash tels  \\n, \\t, "
 "etc."
 
-#: ../src/snr2.c:2094
-msgid "Select matc_hes"
-msgstr "Sélectionner les modèles"
+#: ../src/snr3.c:1444
+msgid "Dot character in regex pattern matches newlines"
+msgstr "Un point dans le modèle correspond à un saut de ligne"
 
-#: ../src/snr2.c:2098
-msgid "Select the matching text instead of just highlighting it"
+#: ../src/snr3.c:1447
+msgid ""
+"The . character will match everything including newlines, use for multiline "
+"matching."
 msgstr ""
-"Sélectionner le texte correspondant au lieu de ne le mettre qu'en évidence."
+"Le point correspond à tout, y compris les nouvelles lignes, utiliser pour la "
+"recherche multiligne."
 
-#: ../src/snr2.c:2100
-msgid "_Bookmark matches"
-msgstr "Créer des _signets"
-
-#: ../src/snr2.c:2102
-msgid "Create a bookmark for each match"
-msgstr "Crée un signet pour chaque occurrence trouvée"
-
-#: ../src/snr2.c:2107
+#: ../src/snr3.c:1469
 msgid "Replace _All"
 msgstr "_Tout remplacer"
 
-#: ../src/snr2.c:2110
+#: ../src/snr3.c:1471
 msgid "_Replace"
 msgstr "_Remplacer"
 
-#: ../src/snr2.c:2114
-msgid "Find _All"
-msgstr "_Tout rechercher"
+#: ../src/snr3.c:1475
+msgid "_Bookmark all"
+msgstr "_Signets"
 
-#: ../src/undo_redo.c:537 ../src/undo_redo.c:679
+#: ../src/undo_redo.c:543 ../src/undo_redo.c:685
 msgid "Undo in _all documents"
 msgstr "Annuler dans _tous les documents ouverts"
 
-#: ../src/undo_redo.c:537 ../src/undo_redo.c:679
+#: ../src/undo_redo.c:543 ../src/undo_redo.c:685
 msgid "Undo only _this document"
 msgstr "Annuler seulement dans ce _document"
 
-#: ../src/undo_redo.c:540 ../src/undo_redo.c:682
+#: ../src/undo_redo.c:546 ../src/undo_redo.c:688
 msgid "Undo this change in all documents?"
 msgstr "Annuler ce changement dans tous les documents ?"
 
-#: ../src/undo_redo.c:541 ../src/undo_redo.c:683
+#: ../src/undo_redo.c:547 ../src/undo_redo.c:689
 msgid "This change concerns multiple documents."
 msgstr "Ce changement affecte de multiple documents."
 
-#~ msgid "Replace Agai_n"
-#~ msgstr "Remplacer e_ncore"
-
-#~ msgid "Replace again"
-#~ msgstr "Remplacer encore"
-
-#~ msgid "%d document open."
-#~ msgid_plural "%d documents open."
-#~ msgstr[0] "%d document ouvert"
-#~ msgstr[1] "%d documents ouverts"
-
-#~ msgid "Advanced open: Finished searching files. "
-#~ msgstr "Ouverture avancée : fin de la recherche des fichiers"
+#~ msgid "Selection"
+#~ msgstr "Sélection "
