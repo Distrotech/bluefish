@@ -771,6 +771,7 @@ handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 	if (s3run->in_replace) {
 		return;
 	}
+	/* BUG: TODO: update s3run->so and s3run->eo also ! */
 	
 	DEBUG_MSG("handle_change_in_snr3doc, doc=%p, pos=%d, len=%d\n",doc,pos,len);
 	snr3run_update_offsets(s3run, offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
@@ -788,6 +789,7 @@ handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 	}
 	rii->doc = doc;
 	rii->eo = -1;
+	/* TODO: BUG: what if the region is not all of the document, but just a part of it (a selection ?? */
 	if (s3run->curdoc == doc) {
 		snr3_cancel_run(s3run);
 		if (s3run->callback != update_callback) {
