@@ -297,13 +297,14 @@ static void filematch_cb(Tsnr3run *s3run, GFile *uri, GFileInfo *finfo) {
 	DEBUG_MSG("filematch_cb\n");
 	if (g_atomic_int_get(&s3run->cancelled)!=0) {
 		/* do nothing */
+		DEBUG_MSG("filematch_cb, cancelled, do nothing\n");
 		return;
 	}
 	/* TODO: first check if we have this file open, in that case we have to run the 
 	function that replaces in the document */
 	doc = documentlist_return_document_from_uri(s3run->bfwin->documentlist, uri);
 	if (doc) {
-		/* TODO: BUG: these functions will call the s3run->callback which will free s3run */
+		DEBUG_MSG("filematch_cb, this file is already open, use snr3_run_in_doc()\n");
 		snr3_run_in_doc(s3run, doc, 0, -1, FALSE);
 		return;
 	}
@@ -326,6 +327,7 @@ queue_cancel_freefunc(gpointer data, gpointer user_data)
 }
 
 void snr3_run_in_files_cancel(Tsnr3run *s3run) {
+	DEBUG_MSG("snr3_run_in_files_cancel s3run %p\n",s3run);
 	g_atomic_int_set(&s3run->cancelled, 1);
 	if (s3run->findfiles) {
 		findfiles_cancel(s3run->findfiles);
@@ -338,6 +340,7 @@ void snr3_run_in_files_cancel(Tsnr3run *s3run) {
 
 void snr3_run_in_files(Tsnr3run *s3run) {
 	DEBUG_MSG("snr3_run_in_files, started for s3run=%p\n",s3run);
+	g_atomic_int_set(&s3run->cancelled, 0);
 	queue_init_full(&s3run->threadqueue, 4, TRUE, TRUE, (QueueFunc)files_replace_run);
 	g_print("filepattern=%s\n",s3run->filepattern);
 	s3run->findfiles = findfiles(s3run->basedir, s3run->recursive, 1, TRUE,s3run->filepattern, G_CALLBACK(filematch_cb), G_CALLBACK(finished_finding_files_cb), s3run);
