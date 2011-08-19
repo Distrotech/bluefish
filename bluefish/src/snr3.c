@@ -596,10 +596,15 @@ snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void
 	}
 	s3run->callback = callback;
 	if (snrwin) {
-		if (s3run->replaceall)
+		if (s3run->replaceall) {
 			gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),_("<i>Replace started</i>"));
-		else
-			gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),_("<i>Search started</i>"));
+		} else {
+			if (s3run->scope == snr3scope_files) {
+				gtk_label_set(GTK_LABEL(snrwin->searchfeedback),"");
+			} else {
+				gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),_("<i>Search started</i>"));
+			}
+		}
 		gtk_widget_show(snrwin->searchfeedback);
 	}
 	
