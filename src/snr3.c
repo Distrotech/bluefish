@@ -773,10 +773,19 @@ static void
 handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 	Toffsetupdate offsetupdate = {doc,pos,len};
 	Truninidle *rii;
+	gint comparepos;
 	if (s3run->in_replace) {
 		return;
 	}
 	/* BUG: TODO: update s3run->so and s3run->eo also ! */
+	comparepos = (len > 0) ? pos : pos - len;
+	if (s3run->so > comparepos) {
+		s3run->so += len;
+	}
+	
+	if (s3run->eo > comparepos) {
+		s3run->eo += len;
+	}
 	
 	DEBUG_MSG("handle_change_in_snr3doc, doc=%p, pos=%d, len=%d\n",doc,pos,len);
 	snr3run_update_offsets(s3run, offsetupdate.doc, offsetupdate.startingpoint, offsetupdate.offset);
@@ -926,6 +935,9 @@ dialog_changed_run_ready_cb(gpointer data) {
 		gchar *tmp;
 		if (s3run->resultnumdoc > 1) {
 			tmp = g_strdup_printf(_("<i>Found %d results in %d documents</i>"),g_queue_get_length(&s3run->results), s3run->resultnumdoc);
+		} else if (s3run->so != 0) {
+			gint reo = (s3run->eo == -1) ? gtk_text_buffer_get_char_count(s3run->bfwin->current_document->buffer) : s3run->eo;
+			tmp = g_strdup_printf(_("<i>Found %d results from character %d to %d</i>"),g_queue_get_length(&s3run->results), s3run->so, reo);
 		} else {
 			tmp = g_strdup_printf(_("<i>Found %d results</i>"),g_queue_get_length(&s3run->results));
 		}
