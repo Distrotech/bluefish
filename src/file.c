@@ -727,6 +727,23 @@ file2doc_cancel(gpointer f2d)
 	/* no cleanup, there is a CANCELLED callback coming */
 }
 
+static gboolean
+file2doc_goto_idle_cb(Tfile2doc * f2d)
+{
+	if (f2d->doc->action.goto_line >= 0) {
+		DEBUG_MSG("file2doc_lcb, goto_line=%d\n", f2d->doc->action.goto_line);
+		doc_select_line(f2d->doc, f2d->doc->action.goto_line, TRUE);
+	} else if (f2d->doc->action.goto_offset >= 0) {
+		DEBUG_MSG("file2doc_lcb, goto_offset=%d\n", f2d->doc->action.goto_offset);
+		doc_select_line_by_offset(f2d->doc, f2d->doc->action.goto_offset, TRUE);
+	}
+	f2d->doc->action.goto_line = -1;
+	f2d->doc->action.goto_offset = -1;
+	f2d->doc->action.load = NULL;	
+	file2doc_cleanup(f2d);
+	return FALSE;
+}
+
 static void
 file2doc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen, gpointer data)
 {
@@ -769,13 +786,6 @@ file2doc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset b
 					bfwin_switch_to_document_by_pointer(f2d->bfwin, f2d->doc);
 				}
 			}
-			if (f2d->doc->action.goto_line >= 0) {
-				DEBUG_MSG("file2doc_lcb, goto_line=%d\n", f2d->doc->action.goto_line);
-				doc_select_line(f2d->doc, f2d->doc->action.goto_line, TRUE);
-			} else if (f2d->doc->action.goto_offset >= 0) {
-				DEBUG_MSG("file2doc_lcb, goto_offset=%d\n", f2d->doc->action.goto_offset);
-				doc_select_line_by_offset(f2d->doc, f2d->doc->action.goto_offset, TRUE);
-			}
 			{
 				gchar *utf8uri, *tmp;
 				utf8uri = gfile_display_name(f2d->uri, NULL);
@@ -791,12 +801,15 @@ file2doc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset b
 				g_free(tmp);
 				g_free(utf8uri);
 			}
-			f2d->doc->action.goto_line = -1;
-			f2d->doc->action.goto_offset = -1;
-			f2d->doc->action.load = NULL;
 			add_filename_to_recentlist(BFWIN(f2d->doc->bfwin), f2d->doc->uri);
-			/*bfwin_recent_menu_add(BFWIN(f2d->doc->bfwin), f2d->doc->uri, f2d->doc->fileinfo, FALSE);*/
-			file2doc_cleanup(data);
+			if (f2d->doc->action.goto_line >= 0 || f2d->doc->action.goto_offset >= 0) {
+				g_idle_add(file2doc_goto_idle_cb, f2d);
+			} else {
+				f2d->doc->action.goto_line = -1;
+				f2d->doc->action.goto_offset = -1;
+				f2d->doc->action.load = NULL;
+				file2doc_cleanup(data);
+			}
 		}
 		DEBUG_MSG("finished data in document view %p\n", f2d->doc->view);
 		break;
