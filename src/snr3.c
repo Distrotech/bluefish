@@ -583,6 +583,16 @@ snr3_run_go(Tsnr3run *s3run, gboolean forward) {
 	}
 }
 
+static void
+replace_all_buttons(Tsnr3run *s3run, gboolean enable)
+{
+	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->replaceButton, enable);
+	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->findButton, enable);
+	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->backButton, enable);
+	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->replaceAllButton, enable);
+	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->bookmarkButton, enable);
+}
+
 void
 snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void *))
 {
@@ -620,7 +630,9 @@ snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void
 			if (doc_get_selection(doc, &so, &eo)) {
 				snr3_run_in_doc(s3run, doc, so, eo, FALSE);
 			} else {
-				gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),_("<span foreground=\"red\">No selection, aborted search</span>"));
+				gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),_("<span foreground=\"red\"><b>No selection, aborted search</b></span>"));
+				if (s3run->replaceall)
+					replace_all_buttons(s3run,TRUE);
 			}
 		break;
 		case snr3scope_alldocs:
@@ -718,14 +730,10 @@ replace_all_ready(void *data) {
 	s3run->curdoc = NULL;
 	if (s3run->dialog) {
 		gchar *tmp;
-		gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->replaceButton, TRUE);
-		gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->findButton, TRUE);
-		gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->backButton, TRUE);
-		gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->replaceAllButton, TRUE);
-		gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->bookmarkButton, TRUE);
 		tmp = g_strdup_printf(_("<i>Replaced %d entries</i>"), g_queue_get_length(&s3run->results));
 		gtk_label_set_markup(GTK_LABEL(((TSNRWin *)s3run->dialog)->searchfeedback),tmp);
 		g_free(tmp);
+		replace_all_buttons(s3run, TRUE);
 	}
 }
 
@@ -962,7 +970,7 @@ static gboolean compile_regex(Tsnr3run *s3run) {
 	s3run->regex = g_regex_new(s3run->query, options, G_REGEX_MATCH_NEWLINE_ANY, &gerror);
 	if (gerror) {
 		if (s3run->dialog) {
-			gchar *message = g_markup_printf_escaped("<span foreground=\"red\">%s</span>", gerror->message);
+			gchar *message = g_markup_printf_escaped("<span foreground=\"red\"><b>%s</b></span>", gerror->message);
 			DEBUG_MSG("compile_regex, regex error %s\n",gerror->message);
 			gtk_label_set_markup(GTK_LABEL(((TSNRWin *)s3run->dialog)->searchfeedback), message);
 			gtk_widget_show(((TSNRWin *)s3run->dialog)->searchfeedback);
@@ -1203,11 +1211,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			snr3run_resultcleanup(s3run);
 			s3run->unre_action_id = new_unre_action_id();
 			
-			gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
-			gtk_widget_set_sensitive(snrwin->findButton, FALSE);
-			gtk_widget_set_sensitive(snrwin->backButton, FALSE);
-			gtk_widget_set_sensitive(snrwin->replaceAllButton, FALSE);
-			gtk_widget_set_sensitive(snrwin->bookmarkButton, FALSE);
+			replace_all_buttons(s3run, FALSE);
 			
 			snr3_run(s3run, snrwin, s3run->bfwin->current_document, replace_all_ready);
 		break;
