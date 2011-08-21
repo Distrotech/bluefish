@@ -27,5 +27,5 @@ void rewrap_lines(Tdocument *doc);
 void convert_identing(Tdocument *doc, gboolean to_tabs);
 void toggle_comment(Tdocument *doc);
 void convert_to_columns(Tdocument *doc);
-void delete_between_matching_block_boundaries(Tdocument *doc);
+void select_between_matching_block_boundaries(Tdocument *doc);
 #endif							/* __DOC_TEXT_TOOLS_H_ */
