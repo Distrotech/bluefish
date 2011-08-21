@@ -412,3 +412,14 @@ convert_to_columns(Tdocument * doc)
 
 	gtk_widget_show_all(cc->dialog);
 }
+
+void
+delete_between_matching_block_boundaries(Tdocument *doc)
+{
+	GtkTextIter so,eo;
+	
+	if (!bluefish_text_view_get_matching_block_boundaries(doc->view, &so, &eo)) {
+		return;
+	}
+	gtk_text_buffer_delete(doc->buffer,&so,&eo);
+}

@@ -629,6 +629,12 @@ ui_merge_lines(GtkAction * action, gpointer user_data)
 }
 
 static void
+ui_delete_block(GtkAction * action, gpointer user_data)
+{
+	delete_between_matching_block_boundaries(BFWIN(user_data)->current_document);
+}
+
+static void
 ui_rewrap_lines(GtkAction * action, gpointer user_data)
 {
 	rewrap_lines(BFWIN(user_data)->current_document);
@@ -772,6 +778,8 @@ static const GtkActionEntry global_actions[] = {
 	 G_CALLBACK(ui_synch_text_block)},
 	{"ToggleComment", NULL, N_("Toggle _Comment"), "<shift><control>C", N_("Toggle comment"),
 	 G_CALLBACK(ui_toggle_comment)},
+	 {"DeleteBlock", NULL, N_("Delete highlighted block"), NULL, N_("Delete block between highlighted boundaries"),
+	 G_CALLBACK(ui_delete_block)},
 	{"WordCount", NULL, N_("_Word Count"), NULL, N_("Word count"), G_CALLBACK(ui_word_count)},
 	{"IndentingToSpaces", NULL, N_("Indenting To S_paces"), NULL, N_("Indenting to spaces"),
 	 G_CALLBACK(ui_indenting_to_spaces)},
