@@ -803,7 +803,7 @@ file2doc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset b
 			}
 			add_filename_to_recentlist(BFWIN(f2d->doc->bfwin), f2d->doc->uri);
 			if (f2d->doc->action.goto_line >= 0 || f2d->doc->action.goto_offset >= 0) {
-				g_idle_add(file2doc_goto_idle_cb, f2d);
+				g_idle_add(((GSourceFunc)file2doc_goto_idle_cb), f2d);
 			} else {
 				f2d->doc->action.goto_line = -1;
 				f2d->doc->action.goto_offset = -1;

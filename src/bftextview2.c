@@ -387,6 +387,26 @@ bftextview2_get_block_at_offset(BluefishTextView * btv, guint offset)
 	return NULL;
 }
 
+gboolean
+bluefish_text_view_get_matching_block_boundaries(BluefishTextView *btv, GtkTextIter *so, GtkTextIter *eo)
+{
+	Tfoundblock *fblock;
+	GtkTextIter location, it1,it2;
+	if (!btv->showing_blockmatch) {
+		return FALSE;
+	}
+	gtk_text_buffer_get_iter_at_mark(btv->buffer, &location, gtk_text_buffer_get_insert(btv->buffer));
+	fblock = bftextview2_get_block_at_offset(btv, gtk_text_iter_get_offset(&location));
+	if (!fblock) {
+		return FALSE;
+	}
+	if (fblock->start2_o == BF2_OFFSET_UNDEFINED) {
+		return FALSE;
+	}
+	bftextview2_get_iters_at_foundblock(btv->buffer, fblock, so, &it1, &it2, eo);
+	return TRUE;
+}
+
 static gboolean
 mark_set_idle_lcb(gpointer widget)
 {
