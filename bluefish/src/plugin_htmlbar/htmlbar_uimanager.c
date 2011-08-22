@@ -1599,7 +1599,7 @@ htmlbar_menu_create(Thtmlbarwin * hbw)
 										G_N_ELEMENTS(htmlbar_toggle_actions), hbw);
 	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 0);
 	g_object_unref(action_group);
-
+	g_print("loading htmlbar menu from %s\n",HTMLBAR_MENU_UI);
 	gtk_ui_manager_add_ui_from_file(bfwin->uimanager, HTMLBAR_MENU_UI, &error);
 	if (error != NULL) {
 		g_warning("building htmlbar plugin menu failed: %s", error->message);
@@ -1631,7 +1631,7 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw)
 	hbw->handlebox = gtk_handle_box_new();
 	gtk_container_add(GTK_CONTAINER(hbw->handlebox), html_notebook);
 	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), hbw->handlebox, FALSE, FALSE, 0);
-
+	g_print("loading htmlbar toolbar from %s\n",HTMLBAR_TOOLBAR_UI);
 	gtk_ui_manager_add_ui_from_file(bfwin->uimanager, HTMLBAR_TOOLBAR_UI, &error);
 	if (error != NULL) {
 		g_warning("building html toolbar failed: %s", error->message);
