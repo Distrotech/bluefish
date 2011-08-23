@@ -2,8 +2,7 @@
 uidir = $(datadir)/bluefish/ui
 
 ui_DATA = \
-    bluefish_menu_ui.xml \
-    bluefish_toolbar_ui.xml
+    bluefish_menu_ui.xml
 
 EXTRA_DIST = \
     $(ui_DATA)
