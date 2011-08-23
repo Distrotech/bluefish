@@ -112,9 +112,10 @@ htmlbar_initgui(Tbfwin * bfwin)
 				  bfwin->session);
 		g_hash_table_insert(htmlbar_v.lookup, bfwin->session, hbs);
 	}
-
+	
 	htmlbar_register_stock_icons();
-	DEBUG_MSG("htmlbar_initgui, started, will call htmlbar_build_menu\n");
+	DEBUG_MSG("htmlbar_initgui, started, will call htmlbar_load_ui\n");
+	htmlbar_load_ui(hbw);
 	htmlbar_menu_create(hbw);
 	htmlbar_toolbar_show(hbw, hbs->view_htmlbar);
 	DEBUG_MSG("htmlbar_initgui, finished\n");

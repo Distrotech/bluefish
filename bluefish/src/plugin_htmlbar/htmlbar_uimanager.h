@@ -24,7 +24,7 @@
 
 #include "htmlbar.h"
 
-
+void htmlbar_load_ui(Thtmlbarwin * hbw);
 void htmlbar_menu_create(Thtmlbarwin *hbw);
 void htmlbar_toolbar_create(Thtmlbarwin *hbw);
 

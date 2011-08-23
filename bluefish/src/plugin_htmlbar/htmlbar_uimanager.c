@@ -41,13 +41,13 @@
 
 #define HTMLBAR_PIXMAP_DIR PKGDATADIR"/plugins/htmlbar/pixmaps/"
 #define HTMLBAR_MENU_UI	   PKGDATADIR"/plugins/htmlbar/ui/htmlbar_menu_ui.xml"
-#define HTMLBAR_TOOLBAR_UI PKGDATADIR"/plugins/htmlbar/ui/htmlbar_toolbar_ui.xml"
+/*#define HTMLBAR_TOOLBAR_UI PKGDATADIR"/plugins/htmlbar/ui/htmlbar_toolbar_ui.xml"*/ /* menu and toolbar are merged into one file now */
 
 #include "pixmaps/htmlbar_icons.c"
 
 /* For testing purposes */
 /*#define HTMLBAR_MENU_UI	"src/plugin_htmlbar/ui/htmlbar_menu_ui.xml"
-#define HTMLBAR_TOOLBAR_UI	"src/plugin_htmlbar/ui/htmlbar_toolbar_ui.xml"*/
+*/
 
 
 static void
@@ -1583,9 +1583,8 @@ void
 htmlbar_menu_create(Thtmlbarwin * hbw)
 {
 	Tbfwin *bfwin = hbw->bfwin;
-
+	Thtmlbarsession *hbs;
 	GtkActionGroup *action_group;
-	GError *error = NULL;
 
 	static const GtkToggleActionEntry htmlbar_toggle_actions[] = {
 		{"ViewHTMLToolbar", NULL, N_("_HTML Toolbar"), NULL, NULL, G_CALLBACK(htmlbar_toolbar_show_toogle),
@@ -1599,20 +1598,10 @@ htmlbar_menu_create(Thtmlbarwin * hbw)
 										G_N_ELEMENTS(htmlbar_toggle_actions), hbw);
 	gtk_ui_manager_insert_action_group(bfwin->uimanager, action_group, 0);
 	g_object_unref(action_group);
-	g_print("loading htmlbar menu from %s\n",HTMLBAR_MENU_UI);
-	gtk_ui_manager_add_ui_from_file(bfwin->uimanager, HTMLBAR_MENU_UI, &error);
-	if (error != NULL) {
-		g_warning("building htmlbar plugin menu failed: %s", error->message);
-		g_error_free(error);
-	} else {
-		Thtmlbarsession *hbs = g_hash_table_lookup(htmlbar_v.lookup, bfwin->session);
+	hbs = g_hash_table_lookup(htmlbar_v.lookup, bfwin->session);
+	if (hbs)
+		bfwin_set_menu_toggle_item(action_group, "ViewHTMLToolbar", hbs->view_htmlbar);
 
-		if (hbs)
-			bfwin_set_menu_toggle_item(action_group, "ViewHTMLToolbar", hbs->view_htmlbar);
-		else
-			DEBUG_MSG("htmlbar_build_menu, ERROR, no htmlbarsession in hasht %p for session %p!!?!?!?!?\n",
-					  htmlbar_v.lookup, bfwin->session);
-	}
 }
 
 void
@@ -1622,7 +1611,6 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw)
 
 	GtkWidget *html_notebook;
 	GtkWidget *toolbar;
-	GError *error = NULL;
 
 	html_notebook = gtk_notebook_new();
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP);
@@ -1631,12 +1619,6 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw)
 	hbw->handlebox = gtk_handle_box_new();
 	gtk_container_add(GTK_CONTAINER(hbw->handlebox), html_notebook);
 	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), hbw->handlebox, FALSE, FALSE, 0);
-	g_print("loading htmlbar toolbar from %s\n",HTMLBAR_TOOLBAR_UI);
-	gtk_ui_manager_add_ui_from_file(bfwin->uimanager, HTMLBAR_TOOLBAR_UI, &error);
-	if (error != NULL) {
-		g_warning("building html toolbar failed: %s", error->message);
-		g_error_free(error);
-	}
 
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLStandardToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
@@ -1671,6 +1653,17 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw)
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" CSS ")));
 
 	gtk_widget_show_all(hbw->handlebox);
+}
+
+void htmlbar_load_ui(Thtmlbarwin * hbw)
+{
+	GError *gerror=NULL;
+	const gchar *htmlbar_menu_ui = HTMLBAR_MENU_UI;
+	gtk_ui_manager_add_ui_from_file(hbw->bfwin->uimanager, htmlbar_menu_ui, &gerror);
+	if (gerror != NULL) {
+		g_warning("loading htmlbar UI from file %s failed: %s", htmlbar_menu_ui, gerror->message);
+		g_error_free(gerror);
+	}
 }
 
 void
@@ -1771,7 +1764,6 @@ htmlbar_register_stock_icons(void)
 	GtkIconFactory *icon_factory;
 	GtkIconSet *icon_set;
 	GtkIconSource *icon_source;
-	/*gchar *filename;*/
 	gint i;
 
 	icon_factory = gtk_icon_factory_new();
@@ -1780,10 +1772,6 @@ htmlbar_register_stock_icons(void)
 		GdkPixbuf *pixbuf;
 		icon_set = gtk_icon_set_new();
 		icon_source = gtk_icon_source_new();
-
-		/*filename = g_strconcat(HTMLBAR_PIXMAP_DIR, htmlbar_stock_icons[i].filename, NULL);
-		gtk_icon_source_set_filename(icon_source, filename);
-		g_free(filename);*/
 		pixbuf = gdk_pixbuf_new_from_inline(-1,htmlbar_stock_icons[i].data,FALSE,NULL);
 		gtk_icon_source_set_pixbuf(icon_source, pixbuf);
 		g_object_unref(pixbuf);
