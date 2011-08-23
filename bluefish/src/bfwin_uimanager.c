@@ -778,7 +778,7 @@ static const GtkActionEntry global_actions[] = {
 	 G_CALLBACK(ui_synch_text_block)},
 	{"ToggleComment", NULL, N_("Toggle _Comment"), "<shift><control>C", N_("Toggle comment"),
 	 G_CALLBACK(ui_toggle_comment)},
-	 {"SelectBlock", NULL, N_("Select highlighted block"), NULL, N_("Select block between highlighted boundaries"),
+	 {"SelectBlock", NULL, N_("Select highlighted block"), "<shift><control>b", N_("Select block between highlighted boundaries"),
 	 G_CALLBACK(ui_select_block)},
 	{"WordCount", NULL, N_("_Word Count"), NULL, N_("Word count"), G_CALLBACK(ui_word_count)},
 	{"IndentingToSpaces", NULL, N_("Indenting To S_paces"), NULL, N_("Indenting to spaces"),
