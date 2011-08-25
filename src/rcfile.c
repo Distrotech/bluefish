@@ -926,6 +926,7 @@ return_session_configlist(GHashTable * configlist, Tsessionvars * session)
 	init_prop_integer(&configlist, &session->view_line_numbers, "view_line_numbers:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_cline, "view_cline:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_blocks, "view_blocks:", 1, FALSE);
+	init_prop_integer(&configlist, &session->view_blockstack, "view_blockstack:", 1, FALSE);
 	init_prop_integer(&configlist, &session->autocomplete, "autocomplete:", 1, FALSE);
 	init_prop_integer(&configlist, &session->show_mbhl, "show_mbhl:", 1, FALSE);
 	

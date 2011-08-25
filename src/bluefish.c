@@ -104,6 +104,7 @@ static void init_default_session(Tsessionvars *session) {
 			= session->view_line_numbers
 			= session->view_cline
 			= session->view_blocks
+			= session->view_blockstack
 			= session->autocomplete
 			= session->show_mbhl
 			= 1;

@@ -415,6 +415,7 @@ sessionprefs_apply(Tsessionprefs * sprefs, Tsessionvars * sessionvars)
 	integer_apply(&sessionvars->editor_indent_wspaces, sprefs->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&sessionvars->view_line_numbers, sprefs->prefs[view_line_numbers], TRUE);
 	integer_apply(&sessionvars->view_blocks, sprefs->prefs[view_blocks], TRUE);
+	integer_apply(&sessionvars->view_blockstack, sprefs->prefs[view_blockstack], TRUE);
 	integer_apply(&sessionvars->autocomplete, sprefs->prefs[autocomplete], TRUE);
 	integer_apply(&sessionvars->show_mbhl, sprefs->prefs[show_mbhl], TRUE);
 	integer_apply(&sessionvars->view_cline, sprefs->prefs[view_cline], TRUE);
@@ -484,30 +485,30 @@ sessionprefs(const gchar * label, Tsessionprefs * sprefs, Tsessionvars * session
 		dialog_check_button_in_table(_("Enable a_uto-completion"), sessionvars->autocomplete, table, 0, 1, 0,1);
 	sprefs->prefs[view_blocks] =
 		dialog_check_button_in_table(_("Enable _block folding"), sessionvars->view_blocks, table, 0, 1, 1, 2);
+	sprefs->prefs[view_blockstack] =
+		dialog_check_button_in_table(_("Display block stack in statusbar"), sessionvars->view_blockstack, table, 0, 1, 2, 3);
 	sprefs->prefs[show_mbhl] =
-		dialog_check_button_in_table(_("Highlight block _delimiters"), sessionvars->show_mbhl, table, 0, 1, 2,
-									 3);
+		dialog_check_button_in_table(_("Highlight block _delimiters"), sessionvars->show_mbhl, table, 0,1,3,4);
 	sprefs->prefs[view_cline] =
-		dialog_check_button_in_table(_("_Highlight current line"), sessionvars->view_cline, table, 0, 1, 3,
-									 4);
+		dialog_check_button_in_table(_("_Highlight current line"), sessionvars->view_cline, table, 0,1,4,5);
 	sprefs->prefs[view_line_numbers] =
-		dialog_check_button_in_table(_("Show line _numbers"), sessionvars->view_line_numbers, table, 0, 1, 4,
-									 5);
+		dialog_check_button_in_table(_("Show line _numbers"), sessionvars->view_line_numbers, table, 0, 1, 5,6);
+		
+	/* right column */
 	sprefs->prefs[display_right_margin] =
-		dialog_check_button_in_table(_("Show _right margin indicator"), sessionvars->display_right_margin,
-									 table, 0, 1, 5, 6);
+		dialog_check_button_in_table(_("Show _right margin indicator"), sessionvars->display_right_margin,table, 1,2,0,1);
 	sprefs->prefs[autoindent] =
-		dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table, 0, 1, 6, 7);
+		dialog_check_button_in_table(_("Smart auto indentin_g"), sessionvars->autoindent, table, 1,2,1,2);
 	sprefs->prefs[session_wrap_text] =
-		dialog_check_button_in_table(_("Wra_p lines"), sessionvars->wrap_text_default, table, 0, 1, 7, 8);
+		dialog_check_button_in_table(_("Wra_p lines"), sessionvars->wrap_text_default, table, 1,2,2,3);
 
 	sprefs->prefs[enable_syntax_scan] =
-		dialog_check_button_in_table(_("Enable syntax scanning"), sessionvars->enable_syntax_scan, table, 0, 1, 8,9);
+		dialog_check_button_in_table(_("Enable syntax scanning"), sessionvars->enable_syntax_scan, table, 1,2,3,4);
 
 #ifdef HAVE_LIBENCHANT
 	sprefs->prefs[session_spell_check] = dialog_check_button_in_table(_("_Enable spell check"),
 																	  sessionvars->spell_check_default, table,
-																	  0, 1, 9, 10);
+																	  1,2,4,5);
 #endif
 
 	vbox2 = dialog_vbox_labeled(_("<b>Tab Stops</b>"), sprefs->vbox);

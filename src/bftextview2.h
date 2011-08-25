@@ -52,6 +52,8 @@ nextcontext -1), we revert to the previous context
  - the scanner keeps a timer and stops scanning once a certain time has passed
  - if the scanning is finished the idle function stops
 
+
+============ The scanned syntax cache ============
 - to find where to resume scanning it simply searches for the first position
   that is marked with the needscanning tag 
  - to know which patterns to use we have to know in which context we are. we therefore keep
@@ -64,11 +66,22 @@ nextcontext -1), we revert to the previous context
  - same holds for the blocks. we keep a blockstack, and we keep a cache of the blockstack in the
    same foundcache as where we keep the contextstack. The member of the Tfound structure that
    describes the state for blocks is the Tfoundblock structure.
+   
+- when a new block is found, a Tfound structure has a member fblock of type Tfoundblock 
+  that points to the new block, and member numblockchange is 1. That Tfoundblock has a 
+  pointer to it's parent block.
+- when an end-of-block is found, the Tfound structure has again a member fblock that
+  points to the popped block, and numblockchange is -1. So to get the active block *after*
+  a popped block, you have to look at the parent of the fblock member!!!!
+- the Tfound member charoffset_o has the character offset of the end-of-the-end-of-context-match 
+  or the end-of-the-end-of-block-match.
 
 - to paint the margin and detect if we can expand/collapse blocks, we can use this same
   scancache. Along with walking the lines to draw the line numbers we walk the GSequence 
   and see in the Tfound structures if there are new blocks that can be folded.
 
+
+=========== Scanning with a DFA engine ==============
 - the current scanning is based on Deterministic Finite Automata (DFA) just like the 1.1.6
 unstable engine (see wikipedia for more info). The 1.1.6 engine alloc's each state in a
 separate memory block. This new engine alloc's a large array for all states at once, so you can
