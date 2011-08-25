@@ -143,14 +143,14 @@ static gpointer snippets_build_pageSnr(Tsnipwiz *snwiz, GtkWidget *dialog_action
 	
 	p->scope = gtk_combo_box_new_text();
 	for (i = 0; i < G_N_ELEMENTS(scope); i++) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(p->scope), scope[i]);
+		gtk_combo_box_append_text(GTK_COMBO_BOX(p->scope), _(scope[i]));
 	}
 	dialog_mnemonic_label_in_table(_("Sco_pe: "), p->scope, p->table, 0, 1, 3, 4);
 	gtk_table_attach(GTK_TABLE(p->table),p->scope, 1,2,3,4,GTK_FILL|GTK_EXPAND,GTK_SHRINK,0,0);
 	
 	p->matchtype = gtk_combo_box_new_text();
 	for (i = 0; i < G_N_ELEMENTS(matchPattern); i++) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(p->matchtype), matchPattern[i]);
+		gtk_combo_box_append_text(GTK_COMBO_BOX(p->matchtype), _(matchPattern[i]));
 	}
 	dialog_mnemonic_label_in_table(_("Match Patter_n: "), p->matchtype, p->table, 0, 1, 4, 5);
 	gtk_table_attach(GTK_TABLE(p->table), p->matchtype, 1, 2, 4, 5, GTK_EXPAND|GTK_FILL,GTK_SHRINK, 0, 0);
