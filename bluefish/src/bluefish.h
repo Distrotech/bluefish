@@ -341,6 +341,7 @@ typedef struct {
 	gint view_line_numbers;		/* view line numbers on the left side by default */
 	gint view_cline;			/* highlight current line by default */
 	gint view_blocks;			/* show blocks on the left side by default */
+	gint view_blockstack;
 	gint autocomplete;			/* whether or not to enable autocomplete by default for each new document */
 	gint show_mbhl;				/* show matching block begin-end by default */
 
@@ -373,7 +374,7 @@ typedef struct {
 	gint outputb_show_all_output;
 	gint convertcolumn_horizontally;
 	gint display_right_margin;
-	/* 37 * sizeof(gint) */
+	/* 38 * sizeof(gint) */
 	/* IF YOU EDIT THIS STRUCTURE PLEASE EDIT THE CODE IN PROJECT.C THAT COPIES
 	   A Tsessionvar INTO A NEW Tsessionvar AND ADJUST THE SIZES!!!!!!!!!!!!!!!!!!!!!! */
 #ifdef HAVE_LIBENCHANT

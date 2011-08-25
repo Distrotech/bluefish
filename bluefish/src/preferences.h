@@ -29,6 +29,7 @@ enum {
 	autoindent,					/* autoindent code */
 	autocomplete,
 	view_blocks,
+	view_blockstack,
 	show_mbhl,
 	view_cline,
 	default_mime_type,
