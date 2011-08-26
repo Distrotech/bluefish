@@ -463,8 +463,11 @@ static gchar *
 blockstack_string(BluefishTextView *btv, Tfoundblock *fblock)
 {
 	GString *tmp;
-	Tfoundblock *parent = fblock->parentfblock;
-
+	Tfoundblock *parent;
+	if (!fblock)
+		return NULL;
+	
+	parent = fblock->parentfblock;
 	tmp = g_string_new(g_array_index(BLUEFISH_TEXT_VIEW(btv->master)->bflang->st->matches, Tpattern, fblock->patternum).pattern);
 	while (parent) {
 		tmp = g_string_prepend(tmp, " ");
@@ -511,7 +514,11 @@ mark_set_idle_lcb(gpointer widget)
 		if (BFWIN(DOCUMENT(btv->doc)->bfwin)->session->view_blockstack)
 			tmpstr = blockstack_string(btv, fblock);
 	} else if (found && found->fblock && BFWIN(DOCUMENT(btv->doc)->bfwin)->session->view_blockstack) {
-		tmpstr = blockstack_string(btv, found->fblock);
+		fblock = found->fblock;
+		if (found->numblockchange < 0) {
+			fblock = pop_blocks(found->numblockchange, fblock);
+		}
+		tmpstr = blockstack_string(btv, fblock);
 	}
 	if (tmpstr) {
 		bfwin_statusbar_message(DOCUMENT(btv->doc)->bfwin, tmpstr, 2);
