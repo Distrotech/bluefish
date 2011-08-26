@@ -63,7 +63,7 @@ during startup:
 
 ************************************************************************************/
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <glib/gstdio.h>		/* g_mkdir */
