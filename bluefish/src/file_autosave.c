@@ -63,7 +63,7 @@ during startup:
 
 ************************************************************************************/
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <glib/gstdio.h>		/* g_mkdir */
@@ -194,8 +194,10 @@ remove_autosave(Tdocument * doc)
 
 	/* cancel running autosave */
 	if (doc->autosave_progress) {
-		if (doc->autosave_action)
+		if (doc->autosave_action) {
 			file_checkNsave_cancel(doc->autosave_action);
+			doc->autosave_action = NULL;
+		}
 		main_v->autosave_progress = g_list_delete_link(main_v->autosave_progress, doc->autosave_progress);
 		doc->autosave_progress = NULL;
 	}
