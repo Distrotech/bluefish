@@ -1354,8 +1354,8 @@ bookmark_data_new(void)
 }
 
 /* used to clean up the project bookmarkdata */
-void
-bookmark_data_cleanup(gpointer * data)
+gpointer
+bookmark_data_cleanup(gpointer data)
 {
 	Tbmarkdata *bmd = BMARKDATA(data);
 	GtkTreeIter fileit;
@@ -1380,6 +1380,7 @@ bookmark_data_cleanup(gpointer * data)
 	g_object_unref(bmd->bookmarkstore);
 	g_hash_table_destroy(bmd->bmarkfiles);
 	g_free(bmd);
+	return NULL;
 }
 
 /* this function will load the bookmarks
@@ -1494,8 +1495,13 @@ bmark_clean_for_doc(Tdocument * doc)
 
 	if (!doc->uri)
 		return;
+	
+	if (BFWIN(doc->bfwin)->bmarkdata == NULL)
+		return;
+	
 	DEBUG_MSG("bmark_clean_for_doc, doc=%p, bfwin=%p, bmarkdata=%p, getting children for parent_iter=%p\n",
 			  doc, doc->bfwin, BFWIN(doc->bfwin)->bmarkdata, doc->bmark_parent);
+	/* a segfault is reported here, coming from a document save and close */
 	cont =
 		gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore),
 									 &tmpiter, doc->bmark_parent);

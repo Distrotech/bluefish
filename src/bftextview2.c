@@ -401,59 +401,62 @@ bftextview2_get_active_block_at_offset(BluefishTextView * btv, gboolean innerblo
 	found1 = get_foundcache_at_offset(btv, offset, &siter);
 	if (!found1)
 		return NULL;
+
 	if (innerblock) {
-		if (!found1->fblock)
+		if (!found1->fblock) {
+			DEBUG_MSG("bftextview2_get_active_block_at_offset, found1 does not have an fblock, return NULL\n");
 			return NULL;
+		}
 		/* when innerblock is requested we have to check for the situation that we are in the middle of the end-of-block-match
 		because it means that we are outside the innerblock already, and thus we need the parent */
-		if (found1->fblock->start1_o < offset) {
+		if (found1->numblockchange < 0 && found1->fblock->start2_o < offset) {
+			DEBUG_MSG("bftextview2_get_active_block_at_offset, in end-of-block match, return parent\n");
 			return found1->fblock->parentfblock;
 		}
 	} else {
 		/* when outerblock is requested we have to check if we are in the middle of a new start-of-block
 		which is then stored in the next Tfound in the scancache */
 		found2 = get_foundcache_next(btv, &siter);
-		if (found2->numblockchange > 0 && found2->fblock->start1_o < offset) {
+		g_print("found2->numblockchange=%d, found2->fblock->start1_o=%d, offset=%d\n"
+				,found2->numblockchange, found2->fblock->start1_o, offset);
+		if (found2->numblockchange > 0 && found2->fblock->start1_o <= offset) {
 			return found2->fblock;
 		}
 	}
 	
 	if (found1->numblockchange < 0) {
+		g_print("return %d blocks popped from found1\n",found1->numblockchange+1);
 		return pop_blocks(found1->numblockchange+1, found1->fblock);
 	}
+	g_print("return found1->fblock\n");
 	return found1->fblock;
 }
 
-
-gboolean
-bluefish_text_view_get_matching_block_boundaries(BluefishTextView *btv, GtkTextIter *so, GtkTextIter *eo)
+static Tfoundblock *
+first_fully_defined_block(Tfoundblock *fblock)
 {
-	Tfoundblock *fblock;
-	Tfound *found;
-	GtkTextIter location, it1,it2;
-	if (!btv->showing_blockmatch) {
-		return FALSE;
+	while(fblock && fblock->start2_o == BF2_OFFSET_UNDEFINED) {
+		fblock = fblock->parentfblock;
 	}
-	gtk_text_buffer_get_iter_at_mark(btv->buffer, &location, gtk_text_buffer_get_insert(btv->buffer));
-	fblock = bftextview2_get_block_at_offset(btv, &found, gtk_text_iter_get_offset(&location));
-	if (!fblock) {
-		return FALSE;
-	}
-	if (fblock->start2_o == BF2_OFFSET_UNDEFINED) {
-		return FALSE;
-	}
-	bftextview2_get_iters_at_foundblock(btv->buffer, fblock, so, &it1, &it2, eo);
-	return TRUE;
+	return fblock;
 }
 
 gboolean
 bluefish_text_view_get_active_block_boundaries(BluefishTextView *btv, guint location, gboolean innerblock, GtkTextIter *so, GtkTextIter *eo)
 {
-	Tfoundblock *fblock;
-	fblock = bftextview2_get_active_block_at_offset(btv, innerblock, location);
+	GtkTextIter it1, it2;
+	Tfoundblock *fblock = bftextview2_get_active_block_at_offset(btv, innerblock, location);
+	if (!fblock) 
+		return FALSE;
 	
-	
-	
+	fblock = first_fully_defined_block(fblock);
+	if (!fblock) 
+		return FALSE;
+	if (innerblock)
+		bftextview2_get_iters_at_foundblock(btv->buffer, fblock, &it1, so, eo, &it2);
+	else
+		bftextview2_get_iters_at_foundblock(btv->buffer, fblock, so, &it1, &it2, eo);
+	return TRUE;
 }
 
 static gchar *
