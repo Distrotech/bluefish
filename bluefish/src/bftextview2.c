@@ -425,8 +425,8 @@ bftextview2_get_active_block_at_offset(BluefishTextView * btv, gboolean innerblo
 	}
 	
 	if (found1->numblockchange < 0) {
-		g_print("return %d blocks popped from found1\n",found1->numblockchange+1);
-		return pop_blocks(found1->numblockchange+1, found1->fblock);
+		g_print("return %d blocks popped from found1\n",found1->numblockchange);
+		return pop_blocks(found1->numblockchange, found1->fblock);
 	}
 	g_print("return found1->fblock\n");
 	return found1->fblock;
