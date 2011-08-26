@@ -555,7 +555,7 @@ struct _BluefishTextViewClass {
 
 GType bluefish_text_view_get_type(void);
 
-gboolean bluefish_text_view_get_matching_block_boundaries(BluefishTextView *btv, GtkTextIter *so, GtkTextIter *eo);
+gboolean bluefish_text_view_get_active_block_boundaries(BluefishTextView *btv, guint location, gboolean innerblock, GtkTextIter *so, GtkTextIter *eo);
 gboolean bluefish_text_view_get_auto_complete(BluefishTextView * btv);
 void bluefish_text_view_set_auto_complete(BluefishTextView * btv, gboolean enable);
 gboolean bluefish_text_view_get_auto_indent(BluefishTextView * btv);

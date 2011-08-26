@@ -50,6 +50,6 @@ void bmark_del_at_bevent(Tdocument * doc);
 void bmark_store_bevent_location(Tdocument * doc, gint charoffset);
 
 void bmark_cleanup(Tbfwin * bfwin);
-void bookmark_data_cleanup();
+gpointer bookmark_data_cleanup(gpointer data);
 
 #endif							/* __BOOKMARK_H__ */
