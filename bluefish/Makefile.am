@@ -10,8 +10,9 @@ PO_SUBDIRS = \
 	src/plugin_entities/po \
 	src/plugin_htmlbar/po \
 	src/plugin_infbrowser/po \
-	src/plugin_snippets/po \
-	src/plugin_xmltools/po
+	src/plugin_snippets/po
+
+#	src/plugin_xmltools/po
 
 
 EXTRA_DIST = \

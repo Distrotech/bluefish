@@ -637,8 +637,6 @@ AC_CONFIG_FILES([
 	src/plugin_infbrowser/po/Makefile.in
 	src/plugin_snippets/Makefile
 	src/plugin_snippets/po/Makefile.in
-	src/plugin_xmltools/Makefile
-	src/plugin_xmltools/po/Makefile.in
 	src/bluefish_rc.rc.in
 	ui/Makefile
 	macosx/Makefile
@@ -647,6 +645,8 @@ AC_CONFIG_FILES([
 ])
 AC_OUTPUT
 
+# 	src/plugin_xmltools/po/Makefile.in
+# 	src/plugin_xmltools/Makefile
 
 dnl *******************************
 dnl   Feedback
