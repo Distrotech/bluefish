@@ -74,7 +74,23 @@ nextcontext -1), we revert to the previous context
   points to the popped block, and numblockchange is -1. So to get the active block *after*
   a popped block, you have to look at the parent of the fblock member!!!!
 - the Tfound member charoffset_o has the character offset of the end-of-the-end-of-context-match 
-  or the end-of-the-end-of-block-match.
+  (Tfoundcontext->end_o) or the end-of-the-end-of-block-match (Tfoundblock->end2_o).
+
+The next ascii art shows how blocks are stored in the scancache. This is a special situation
+in which a second block starts but does not have an end, so both blocks are popped at 'f'. A 
+Tfound structure is saved at offset B, D and F.  
+
+     --------------------Block-1-with-valid-end--------------------
+     |  |                                                      |  |
+     |  |                        ------Block-without-end-------|--|
+     |  |                        |   |                         |  | 
+-----a--B------------------------c---D-------------------------e--F---------
+     |  |                        |   |                         |  |
+     |  |Tfound numblockchange=1 |   |Tfound numblockchange=1  |  |Tfound nublockchange=-2
+     |  |end1_o == charoffset_o  |   |end1_o == charoffset_o   |  | end2_o == charoffset_o for the block1
+     |                           |                             |
+     |start1_o                   |start1_o                     |start2_o for block1
+
 
 - to paint the margin and detect if we can expand/collapse blocks, we can use this same
   scancache. Along with walking the lines to draw the line numbers we walk the GSequence 
