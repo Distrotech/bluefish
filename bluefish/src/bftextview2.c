@@ -359,7 +359,7 @@ bftextview2_get_iters_at_foundblock(GtkTextBuffer * buffer, Tfoundblock * fblock
 	gtk_text_buffer_get_iter_at_offset(buffer, it3, fblock->start2_o);
 	gtk_text_buffer_get_iter_at_offset(buffer, it4, fblock->end2_o);
 }
-
+/*
 static inline Tfoundblock *
 bftextview2_get_block_at_offset(BluefishTextView * btv, Tfound **found, guint offset)
 {
@@ -374,8 +374,8 @@ bftextview2_get_block_at_offset(BluefishTextView * btv, Tfound **found, guint of
 			*found = rfound;
 			return (rfound)->fblock;
 		} else if ((rfound)->numblockchange < 0) {
-			/* TODO: if multiple blocks are popped, usually the last popped one if the one that matches thje end-of-block-tag
-			so that block should be returned */
+			/ * TODO: if multiple blocks are popped, usually the last popped one if the one that matches thje end-of-block-tag
+			so that block should be returned * /
 			Tfoundblock *tmpfblock = pop_blocks((rfound)->numblockchange+1, (rfound)->fblock);
 			DBG_BLOCKMATCH("bftextview2_get_block_at_offset, found->fblock=%p, tmpfblock=%p\n",rfound->fblock,tmpfblock);
 			if (tmpfblock && (tmpfblock->start2_o == offset || tmpfblock->end2_o == offset)) {
@@ -389,48 +389,7 @@ bftextview2_get_block_at_offset(BluefishTextView * btv, Tfound **found, guint of
 		rfound = get_foundcache_next(btv, &siter);
 	}
 	return NULL;
-}
-
-/* if innerblock is TRUE we only return a block that we are between the matches, if innerblock is FALSE
-we might return a block if we are within the startmatch or within the end match */
-static Tfoundblock *
-bftextview2_get_active_block_at_offset(BluefishTextView * btv, gboolean innerblock, guint offset)
-{
-	GSequenceIter *siter;
-	Tfound *found1, *found2;
-	found1 = get_foundcache_at_offset(btv, offset, &siter);
-	if (!found1)
-		return NULL;
-
-	if (innerblock) {
-		if (!found1->fblock) {
-			DEBUG_MSG("bftextview2_get_active_block_at_offset, found1 does not have an fblock, return NULL\n");
-			return NULL;
-		}
-		/* when innerblock is requested we have to check for the situation that we are in the middle of the end-of-block-match
-		because it means that we are outside the innerblock already, and thus we need the parent */
-		if (found1->numblockchange < 0 && found1->fblock->start2_o < offset) {
-			DEBUG_MSG("bftextview2_get_active_block_at_offset, in end-of-block match, return parent\n");
-			return found1->fblock->parentfblock;
-		}
-	} else {
-		/* when outerblock is requested we have to check if we are in the middle of a new start-of-block
-		which is then stored in the next Tfound in the scancache */
-		found2 = get_foundcache_next(btv, &siter);
-		g_print("found2->numblockchange=%d, found2->fblock->start1_o=%d, offset=%d\n"
-				,found2->numblockchange, found2->fblock->start1_o, offset);
-		if (found2->numblockchange > 0 && found2->fblock->start1_o <= offset) {
-			return found2->fblock;
-		}
-	}
-	
-	if (found1->numblockchange < 0) {
-		g_print("return %d blocks popped from found1\n",found1->numblockchange);
-		return pop_blocks(found1->numblockchange, found1->fblock);
-	}
-	g_print("return found1->fblock\n");
-	return found1->fblock;
-}
+}*/
 
 static Tfoundblock *
 first_fully_defined_block(Tfoundblock *fblock)
@@ -439,6 +398,53 @@ first_fully_defined_block(Tfoundblock *fblock)
 		fblock = fblock->parentfblock;
 	}
 	return fblock;
+}
+
+
+/* if innerblock is TRUE we only return a block that we are between the matches, if innerblock is FALSE
+we might return a block if we are within the startmatch or within the end match */
+static Tfoundblock *
+bftextview2_get_active_block_at_offset(BluefishTextView * btv, gboolean innerblock, guint offset)
+{
+	GSequenceIter *siter;
+	Tfound *found1, *found2;
+	Tfoundblock *fblock;
+	found1 = get_foundcache_at_offset(btv, offset, &siter);
+	if (!found1)
+		return NULL;
+	DEBUG_MSG("offset=%d, got found1 %p with offset %d and found1->fblock %p\n",offset,found1, found1->charoffset_o, found1->fblock);
+	if (innerblock) {
+		if (!found1->fblock) {
+			DEBUG_MSG("bftextview2_get_active_block_at_offset, found1 does not have an fblock, return NULL\n");
+			return NULL;
+		}
+		fblock = first_fully_defined_block(found1->fblock);
+		/* when innerblock is requested we have to check for the situation that we are in the middle of the end-of-block-match
+		because it means that we are outside the innerblock already, and thus we need the parent */
+		if (fblock && found1->numblockchange < 0 && fblock->start2_o < offset) {
+			DEBUG_MSG("bftextview2_get_active_block_at_offset, in end-of-block match, return parent\n");
+			return fblock->parentfblock;
+		}
+	} else {
+		/* when outerblock is requested we have to check if we are in the middle of a new start-of-block
+		which is stored in the next Tfound in the scancache */
+		found2 = get_foundcache_next(btv, &siter);
+		if (found2 && found2->numblockchange > 0 && found2->fblock->start1_o <= offset && found2->fblock->start2_o != BF2_OFFSET_UNDEFINED) {
+			return found2->fblock;
+		}
+	}
+	if (found1->numblockchange < 0) {
+		fblock = first_fully_defined_block(found1->fblock);
+		/* if outerblock is requested, we have to check for the situation that we are exactly at the end-of-block
+			in which case we don't have to pop the block yet */
+		if (fblock->end2_o == offset) {
+			return fblock;
+		}
+		DEBUG_MSG("return %d blocks popped from found1\n",found1->numblockchange);
+		return pop_blocks(found1->numblockchange, found1->fblock);
+	}
+	DEBUG_MSG("return found1->fblock\n");
+	return first_fully_defined_block(found1->fblock);
 }
 
 gboolean
@@ -494,12 +500,14 @@ mark_set_idle_lcb(gpointer widget)
 	BluefishTextView *btv = widget;
 
 	GtkTextIter it1, it2, location;
-	Tfound *found;
 	Tfoundblock *fblock;
 	gchar *tmpstr=NULL;
+	guint offset;
 
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &location, gtk_text_buffer_get_insert(btv->buffer));
-	fblock = bftextview2_get_block_at_offset(btv, &found, gtk_text_iter_get_offset(&location));
+	offset = gtk_text_iter_get_offset(&location);
+	/*fblock = bftextview2_get_block_at_offset(btv, &found, gtk_text_iter_get_offset(&location));*/
+	fblock = bftextview2_get_active_block_at_offset(btv, FALSE, offset);
 	DBG_BLOCKMATCH("mark_set_idle_lcb, got fblock %p\n", fblock);
 	if (btv->showing_blockmatch) {
 		gtk_text_buffer_get_bounds(btv->buffer, &it1, &it2);
@@ -507,30 +515,34 @@ mark_set_idle_lcb(gpointer widget)
 		btv->showing_blockmatch = FALSE;
 	}
 	DBG_SIGNALS("mark_set_idle_lcb, 'insert' set at %d\n", gtk_text_iter_get_offset(&location));
-	if (fblock) {
-		GtkTextIter it3, it4;
-		
-		DBG_BLOCKMATCH("mark_set_idle_lcb, got fblock %p with offsets %d:%d %d:%d\n", fblock, fblock->start1_o, fblock->end1_o, fblock->start2_o, fblock->end2_o);
-		if (fblock->start2_o != BF2_OFFSET_UNDEFINED) {
-			bftextview2_get_iters_at_foundblock(btv->buffer, fblock, &it1, &it2, &it3, &it4);
-			DBG_MSG("mark_set_idle_lcb, found a block to highlight the start (%d:%d) and end (%d:%d)\n",
-					gtk_text_iter_get_offset(&it1), gtk_text_iter_get_offset(&it2),
-					gtk_text_iter_get_offset(&it3), gtk_text_iter_get_offset(&it4));
-			gtk_text_buffer_apply_tag(btv->buffer, btv->blockmatch, &it1, &it2);
-			gtk_text_buffer_apply_tag(btv->buffer, btv->blockmatch, &it3, &it4);
-			btv->showing_blockmatch = TRUE;
-		} else {
-			DBG_MSG("mark_set_idle_lcb, block has no end - no matching\n");
+	if (fblock)
+		fblock = first_fully_defined_block(fblock);
+	if (fblock ) {
+		if (fblock->start1_o == offset || fblock->end1_o == offset || fblock->start2_o == offset || fblock->end2_o == offset) {
+			GtkTextIter it3, it4;
+			
+			DBG_BLOCKMATCH("mark_set_idle_lcb, got fblock %p with offsets %d:%d %d:%d\n", fblock, fblock->start1_o, fblock->end1_o, fblock->start2_o, fblock->end2_o);
+			if (fblock->start2_o != BF2_OFFSET_UNDEFINED) {
+				bftextview2_get_iters_at_foundblock(btv->buffer, fblock, &it1, &it2, &it3, &it4);
+				DBG_MSG("mark_set_idle_lcb, found a block to highlight the start (%d:%d) and end (%d:%d)\n",
+						gtk_text_iter_get_offset(&it1), gtk_text_iter_get_offset(&it2),
+						gtk_text_iter_get_offset(&it3), gtk_text_iter_get_offset(&it4));
+				gtk_text_buffer_apply_tag(btv->buffer, btv->blockmatch, &it1, &it2);
+				gtk_text_buffer_apply_tag(btv->buffer, btv->blockmatch, &it3, &it4);
+				btv->showing_blockmatch = TRUE;
+			} else {
+				DBG_MSG("mark_set_idle_lcb, block has no end - no matching\n");
+			}
 		}
 		if (BFWIN(DOCUMENT(btv->doc)->bfwin)->session->view_blockstack)
 			tmpstr = blockstack_string(btv, fblock);
-	} else if (found && found->fblock && BFWIN(DOCUMENT(btv->doc)->bfwin)->session->view_blockstack) {
+	} /*else if (found && found->fblock && BFWIN(DOCUMENT(btv->doc)->bfwin)->session->view_blockstack) {
 		fblock = found->fblock;
 		if (found->numblockchange < 0) {
 			fblock = pop_blocks(found->numblockchange, fblock);
 		}
 		tmpstr = blockstack_string(btv, fblock);
-	}
+	}*/
 	if (tmpstr) {
 		bfwin_statusbar_message(DOCUMENT(btv->doc)->bfwin, tmpstr, 2);
 		g_free(tmpstr);
