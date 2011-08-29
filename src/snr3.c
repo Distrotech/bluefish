@@ -631,6 +631,7 @@ snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void
 				snr3_run_in_doc(s3run, doc, so, eo, FALSE);
 			} else {
 				gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),_("<span foreground=\"red\"><b>No selection, aborted search</b></span>"));
+				s3run->scope = -1;
 				if (s3run->replaceall)
 					replace_all_buttons(s3run,TRUE);
 			}
