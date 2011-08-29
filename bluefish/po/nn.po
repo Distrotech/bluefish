@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-04-04 16:26+0200\n"
-"PO-Revision-Date: 2011-01-25 08:14+0100\n"
+"PO-Revision-Date: 2011-08-26 20:38+0200\n"
 "Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -68,14 +68,12 @@ msgid "Goto Line:"
 msgstr "Gå til linje:"
 
 #: ../src/bfwin.c:720
-#, fuzzy
 msgid "Find:"
-msgstr "Finn"
+msgstr "Finn:"
 
 #: ../src/bfwin.c:730
-#, fuzzy
 msgid "Advanced"
-msgstr "Opna _avansert …"
+msgstr "Avansert"
 
 #: ../src/bfwin.c:1013
 msgid "New Bluefish Window"
@@ -91,12 +89,10 @@ msgid "/Edit/Preferences"
 msgstr "/Endra/Inn_stillingar"
 
 #: ../src/bfwin_uimanager.c:669
-#, fuzzy
 msgid "Leave Fullscreen"
-msgstr "Fullskjermsvising"
+msgstr "Gå ut av fullskjermsvisinga"
 
 #: ../src/bfwin_uimanager.c:669
-#, fuzzy
 msgid "Fullscreen"
 msgstr "Fullskjermsvising"
 
@@ -180,76 +176,66 @@ msgid "New _Window"
 msgstr "Nytt _vindauge"
 
 #: ../src/bfwin_uimanager.c:719
-#, fuzzy
 msgid "New window"
-msgstr "Nytt _vindauge"
+msgstr "Nytt vindauge"
 
 #: ../src/bfwin_uimanager.c:721
 msgid "Close Win_dow"
 msgstr "Lukk vin_dauge"
 
 #: ../src/bfwin_uimanager.c:721
-#, fuzzy
 msgid "Close window"
-msgstr "Lukk vin_dauge"
+msgstr "Lukk vindauget"
 
 #: ../src/bfwin_uimanager.c:722
 msgid "_Open..."
 msgstr "_Opna …"
 
 #: ../src/bfwin_uimanager.c:722
-#, fuzzy
 msgid "Open file"
-msgstr "Henter fil "
+msgstr "Opna fil"
 
 #: ../src/bfwin_uimanager.c:723
 msgid "Open Ad_vanced..."
 msgstr "Opna _avansert …"
 
 #: ../src/bfwin_uimanager.c:723 ../src/filebrowser2.c:1977
-#, fuzzy
 msgid "Open advanced"
-msgstr "Opna _avansert …"
+msgstr "Opna avansert"
 
 #: ../src/bfwin_uimanager.c:725
 msgid "Open _From Selection"
 msgstr "Opna frå u_tvalet"
 
 #: ../src/bfwin_uimanager.c:725
-#, fuzzy
 msgid "Open From Selection"
-msgstr "Opna frå u_tvalet"
+msgstr "Opna frå utvalet"
 
 #: ../src/bfwin_uimanager.c:727
 msgid "_Insert..."
 msgstr "Set _inn …"
 
 #: ../src/bfwin_uimanager.c:727
-#, fuzzy
 msgid "Insert file"
-msgstr "Sett inn tid"
+msgstr "Sett inn fil"
 
 #: ../src/bfwin_uimanager.c:728
-#, fuzzy
 msgid "Upload / Download..."
-msgstr "Last opp / ned"
+msgstr "Last opp / ned …"
 
 #: ../src/bfwin_uimanager.c:730
 msgid "_Quit"
 msgstr "Avsl_utt"
 
 #: ../src/bfwin_uimanager.c:730
-#, fuzzy
 msgid "Quit Bluefish"
-msgstr "Om Bluefish"
+msgstr "Avslutt Bluefish"
 
 #: ../src/bfwin_uimanager.c:731
-#, fuzzy
 msgid "Preference_s..."
-msgstr "Innstillingar …"
+msgstr "_Innstillingar …"
 
 #: ../src/bfwin_uimanager.c:731
-#, fuzzy
 msgid "Edit Preferences"
 msgstr "Endra innstillingane"
 
@@ -258,9 +244,8 @@ msgid "Select _All"
 msgstr "_Vel alt"
 
 #: ../src/bfwin_uimanager.c:733
-#, fuzzy
 msgid "Select all"
-msgstr "Vel fil"
+msgstr "Vel alle"
 
 #: ../src/bfwin_uimanager.c:734
 msgid "Add Boo_kmark"
@@ -275,78 +260,68 @@ msgid "_Add or Remove..."
 msgstr "Legg _til eller fjern …"
 
 #: ../src/bfwin_uimanager.c:736
-#, fuzzy
 msgid "Add or remove character encoding"
-msgstr "Legg til eller fjern dokumentkodingar"
+msgstr "Legg til eller fjern teiknkodingar"
 
 #: ../src/bfwin_uimanager.c:738
 msgid "Floati_ng Window"
 msgstr "_Flytande vindauge"
 
 #: ../src/bfwin_uimanager.c:738
-#, fuzzy
 msgid "Open current document in floating window"
-msgstr "Opna i eksisterande vindauge."
+msgstr "Opna dokumentet i eit flytande vindauge"
 
 #: ../src/bfwin_uimanager.c:740 ../src/bfwin_uimanager.c:746
 msgid "_Increase"
 msgstr "Gjer st_ørre"
 
 #: ../src/bfwin_uimanager.c:740
-#, fuzzy
 msgid "Increase document font size"
-msgstr "Bruk s_ystemet sin dokumenttabskrifttype "
+msgstr "Auk dokumentskriftstorleiken"
 
 #: ../src/bfwin_uimanager.c:742 ../src/bfwin_uimanager.c:748
 msgid "_Decrease"
 msgstr "Gjer _mindre"
 
 #: ../src/bfwin_uimanager.c:742
-#, fuzzy
 msgid "Decrease document font size"
-msgstr "_Skriftstorleik"
+msgstr "Minsk dokumentskriftstorleiken"
 
 #: ../src/bfwin_uimanager.c:744 ../src/bfwin_uimanager.c:750
 msgid "_Reset"
 msgstr "_Nullstill"
 
 #: ../src/bfwin_uimanager.c:744
-#, fuzzy
 msgid "Reset document font size"
-msgstr "Bruk s_ystemet sin dokumenttabskrifttype "
+msgstr "Nullstill dokumentskriftstorleiken"
 
 #: ../src/bfwin_uimanager.c:746
-#, fuzzy
 msgid "Increase document tab size"
-msgstr "Bruk s_ystemet sin dokumenttabskrifttype "
+msgstr "Auk dokumenttabskrifstorleiken "
 
 #: ../src/bfwin_uimanager.c:748
-#, fuzzy
 msgid "Decrease document tab size"
-msgstr "_Tabulatorstorleik"
+msgstr "Minsk dokumenttabstorleiken"
 
 #: ../src/bfwin_uimanager.c:750
-#, fuzzy
 msgid "Reset document tab size"
-msgstr "Bruk s_ystemet sin dokumenttabskrifttype "
+msgstr "Nullstill dokumenttabstorleiken"
 
 #: ../src/bfwin_uimanager.c:753
 msgid "_Rescan Syntax & Spelling"
 msgstr "K_ontroller syntaksen og stavinga på nytt"
 
 #: ../src/bfwin_uimanager.c:753 ../src/bfwin_uimanager.c:756
-#, fuzzy
 msgid "Rescan document highlighting"
-msgstr "Oppdater s_yntaksmarkering"
+msgstr "Skann om att dokumentframhevinga"
 
 #: ../src/bfwin_uimanager.c:756
 msgid "_Rescan Syntax"
 msgstr "K_ontroller syntaksen på nytt"
 
 #: ../src/bfwin_uimanager.c:759
-#, fuzzy
 msgid "_New Project..."
-msgstr "Nytt prosjekt"
+msgstr "_Nytt prosjekt …"
 
 #: ../src/bfwin_uimanager.c:759 ../src/project.c:208
 msgid "New project"
@@ -357,14 +332,12 @@ msgid "_Open Project..."
 msgstr "_Opna prosjektet …"
 
 #: ../src/bfwin_uimanager.c:760
-#, fuzzy
 msgid "Open project"
-msgstr "Nytt prosjekt"
+msgstr "Opna prosjekt"
 
 #: ../src/bfwin_uimanager.c:761
-#, fuzzy
 msgid "_Synchronize Text Block"
-msgstr "Synkroniser tekstblokka"
+msgstr "_Synkroniser tekstblokka"
 
 #: ../src/bfwin_uimanager.c:761 ../src/blocksync.c:296
 msgid "Synchronize text block"
@@ -375,54 +348,46 @@ msgid "Toggle _Comment"
 msgstr "på"
 
 #: ../src/bfwin_uimanager.c:763
-#, fuzzy
 msgid "Toggle comment"
-msgstr "Merknader av\\/på"
+msgstr "Merknader av/på"
 
 #: ../src/bfwin_uimanager.c:765
 msgid "_Word Count"
 msgstr "Ord_teljing"
 
 #: ../src/bfwin_uimanager.c:765
-#, fuzzy
 msgid "Word count"
-msgstr "Ord_teljing"
+msgstr "Ordteljing"
 
 #: ../src/bfwin_uimanager.c:766
 msgid "Indenting To S_paces"
 msgstr "Innrykk til _mellomrom"
 
 #: ../src/bfwin_uimanager.c:766
-#, fuzzy
 msgid "Indenting to spaces"
-msgstr "Innrykk til _mellomrom"
+msgstr "Innrykk til mellomrom"
 
 #: ../src/bfwin_uimanager.c:768
 msgid "Indenting To T_abs"
 msgstr "_Innrykk til tabulatorar"
 
 #: ../src/bfwin_uimanager.c:768
-#, fuzzy
 msgid "Indenting to tabs"
-msgstr "_Innrykk til tabulatorar"
+msgstr "Innrykk til tabulatorar"
 
 #: ../src/bfwin_uimanager.c:770
-#, fuzzy
 msgid "_Join Lines Together"
 msgstr "Sl_å saman linjer"
 
 #: ../src/bfwin_uimanager.c:770
-#, fuzzy
 msgid "Join lines together"
-msgstr "Sl_å saman linjer"
+msgstr "Slå saman linjer"
 
 #: ../src/bfwin_uimanager.c:772
-#, fuzzy
 msgid "Sp_lit Lines on Right Margin"
-msgstr "Del linjer ved høgremargen"
+msgstr "Del linjer ved h_øgremargen"
 
 #: ../src/bfwin_uimanager.c:772
-#, fuzzy
 msgid "Split lines on right margin"
 msgstr "Del linjer ved høgremargen"
 
@@ -431,96 +396,84 @@ msgid "Merge Lines Into Col_umns"
 msgstr "Slå saman linjer til _kolonnar"
 
 #: ../src/bfwin_uimanager.c:774
-#, fuzzy
 msgid "Merge lines into columns"
-msgstr "Linjer til kolonnar"
+msgstr "Slå saman linjer til kolonnar"
 
 #: ../src/bfwin_uimanager.c:776
-#, fuzzy
 msgid "Rewrap _Lines"
-msgstr "Slå saman linjer _att"
+msgstr "Slå saman linjer _att"
 
 #: ../src/bfwin_uimanager.c:776
-#, fuzzy
 msgid "Rewrap lines"
-msgstr "_Bryt linjer"
+msgstr "Slå saman linjer att"
 
 #: ../src/bfwin_uimanager.c:777
 msgid "Strip T_railing Whitespace"
 msgstr "Ta _vekk avsluttande blankteikn"
 
 #: ../src/bfwin_uimanager.c:777
-#, fuzzy
 msgid "Strip trailing whitespace"
-msgstr "Ta _vekk avsluttande blankteikn"
+msgstr "Ta vekk avsluttande blankteikn"
 
 #: ../src/bfwin_uimanager.c:782
 msgid "_Full Screen"
 msgstr "_Fullskjerm"
 
 #: ../src/bfwin_uimanager.c:782
-#, fuzzy
 msgid "Full screen"
-msgstr "Fullskjermsvising"
+msgstr "Fullskjerm"
 
 #: ../src/bfwin_uimanager.c:784
 msgid "_Main Toolbar"
 msgstr "Hovud_verktøylinja"
 
 #: ../src/bfwin_uimanager.c:784
-#, fuzzy
 msgid "Show main toolbar"
-msgstr "Hovud_verktøylinja"
+msgstr "Syn hovudverktøylinja"
 
 #: ../src/bfwin_uimanager.c:786
 msgid "_Side Pane"
 msgstr "_Sidefeltet"
 
 #: ../src/bfwin_uimanager.c:786
-#, fuzzy
 msgid "Show side pane"
-msgstr "Vis blankteikn"
+msgstr "Syn sidepanelet"
 
 #: ../src/bfwin_uimanager.c:787
 msgid "_Output Pane"
 msgstr "_Utdatafeltet"
 
 #: ../src/bfwin_uimanager.c:787
-#, fuzzy
 msgid "Show output pane"
-msgstr "Vis all output"
+msgstr "Syn utdatapanelet"
 
 #: ../src/bfwin_uimanager.c:789
 msgid "Status_bar"
 msgstr "Sta_tuslinja"
 
 #: ../src/bfwin_uimanager.c:789
-#, fuzzy
 msgid "Show statusbar"
-msgstr "Sta_tuslinja"
+msgstr "Syn statuslinja"
 
 #: ../src/bfwin_uimanager.c:791
 msgid "Auto _Completion Popup"
 msgstr "Sprettoppvindauge for auto_utfylling"
 
 #: ../src/bfwin_uimanager.c:791
-#, fuzzy
 msgid "Show auto completion popup"
-msgstr "Vis i sprett_oppvindauget til auto-fullføringsfunksjonen"
+msgstr "Syn sprettoppvindauget til auto-fullføringsfunksjonen"
 
 #: ../src/bfwin_uimanager.c:793
 msgid "_Auto Indent"
 msgstr "_Automatiske innrykk"
 
 #: ../src/bfwin_uimanager.c:793
-#, fuzzy
 msgid "Auto indent"
-msgstr "(Smart) Autoinnrykk"
+msgstr "Autoinnrykk"
 
 #: ../src/bfwin_uimanager.c:794
-#, fuzzy
 msgid "Highlight Block Delimiters"
-msgstr "Framhev blokk_skilje"
+msgstr "Framhev blokkskilje"
 
 #: ../src/bfwin_uimanager.c:795
 msgid "Highlight block delimiters"
@@ -531,81 +484,72 @@ msgid "_Highlight Syntax"
 msgstr "F_ramhev syntaksen"
 
 #: ../src/bfwin_uimanager.c:796
-#, fuzzy
 msgid "Highlight syntax"
-msgstr "Marker syntaks som standard"
+msgstr "Framhev syntaks"
 
 #: ../src/bfwin_uimanager.c:798
 msgid "Show _Blocks"
 msgstr "Vis _blokker"
 
 #: ../src/bfwin_uimanager.c:798
-#, fuzzy
 msgid "Show blocks"
-msgstr "Vis tryggleikskopiar"
+msgstr "Syn blokker"
 
 #: ../src/bfwin_uimanager.c:799
-#, fuzzy
 msgid "Show _Line Numbers"
-msgstr "Vis linje_nummer"
+msgstr "Syn linje_nummer"
 
 #: ../src/bfwin_uimanager.c:799
-#, fuzzy
 msgid "Show line numbers"
-msgstr "Vis linje_nummer"
+msgstr "Syn linjenummer"
 
 #: ../src/bfwin_uimanager.c:801
 msgid "Show Right Margin"
 msgstr "Vis høgremarg"
 
 #: ../src/bfwin_uimanager.c:801
-#, fuzzy
 msgid "Show right margin"
-msgstr "Vis høgremargs_merke"
+msgstr "Syn høgremargen"
 
 #: ../src/bfwin_uimanager.c:803
 msgid "Show Split View"
-msgstr ""
+msgstr "Syn delt vising"
 
 #: ../src/bfwin_uimanager.c:803
 msgid "Show split view"
-msgstr ""
+msgstr "Syn delt vising"
 
 #: ../src/bfwin_uimanager.c:805
-#, fuzzy
 msgid "Show _Visible Spacing"
-msgstr "Synlege _mellomrom"
+msgstr "Vis synlege _mellomrom"
 
 #: ../src/bfwin_uimanager.c:805
-#, fuzzy
 msgid "Show visible spacing"
-msgstr "Vis blankteikn"
+msgstr "Vis synlege mellomrom"
 
 #: ../src/bfwin_uimanager.c:807
 msgid "_Wrap Text"
-msgstr ""
+msgstr "Tekst_bryting"
 
 #: ../src/bfwin_uimanager.c:807
 msgid "Wrap text"
-msgstr ""
+msgstr "Tekstbryting"
 
 #: ../src/bfwin_uimanager.c:811 ../src/document.c:2975
 msgid "_Close"
 msgstr "L_ukk"
 
 #: ../src/bfwin_uimanager.c:811
-#, fuzzy
 msgid "Close current file"
-msgstr "Lukk alle som _feila"
+msgstr "Lukk denne fila"
 
 #: ../src/bfwin_uimanager.c:813
 msgid "Close A_ll"
 msgstr "Lu_kk alle"
 
 #: ../src/bfwin_uimanager.c:813
-#, fuzzy
 msgid "Close all files"
-msgstr "Lukk alle som _feila"
+msgstr "Lukk alle filene"
 
 #: ../src/bfwin_uimanager.c:815 ../src/bfwin_uimanager.c:873
 #: ../src/file_dialogs.c:1430
@@ -613,27 +557,24 @@ msgid "_Save"
 msgstr "_Lagra"
 
 #: ../src/bfwin_uimanager.c:815
-#, fuzzy
 msgid "Save current file"
-msgstr "Lagre det aktive prosjektet?"
+msgstr "Lagra fila"
 
 #: ../src/bfwin_uimanager.c:817
 msgid "Save _As..."
 msgstr "Lagra _som …"
 
 #: ../src/bfwin_uimanager.c:817
-#, fuzzy
 msgid "Save file as"
-msgstr "Lagra %s som"
+msgstr "Lagra fila som"
 
 #: ../src/bfwin_uimanager.c:819
 msgid "Sav_e All"
 msgstr "La_gra alle"
 
 #: ../src/bfwin_uimanager.c:819
-#, fuzzy
 msgid "Save all files"
-msgstr "Alle filer"
+msgstr "Lagra alle filene"
 
 #: ../src/bfwin_uimanager.c:820
 msgid "Rever_t to Saved"
@@ -641,16 +582,15 @@ msgstr "G_å attende til lagra"
 
 #: ../src/bfwin_uimanager.c:820
 msgid "Reload current file"
-msgstr ""
+msgstr "Last om att denne fila"
 
 #: ../src/bfwin_uimanager.c:822
 msgid "Rena_me..."
 msgstr "Gje nytt na_mn …"
 
 #: ../src/bfwin_uimanager.c:822
-#, fuzzy
 msgid "Rename file"
-msgstr "Ny fil"
+msgstr "Gje fila nytt namn"
 
 #: ../src/bfwin_uimanager.c:823
 msgid "_Indent"
@@ -673,84 +613,72 @@ msgid "F_irst Bookmark"
 msgstr "Første bok_merket"
 
 #: ../src/bfwin_uimanager.c:826
-#, fuzzy
 msgid "Goto first bookmark"
-msgstr "Første bokmerke"
+msgstr "Gå til det første bokmerket"
 
 #: ../src/bfwin_uimanager.c:828
-#, fuzzy
 msgid "_Last Bookmark"
-msgstr "Siste bokmerket"
+msgstr "_Siste bokmerket"
 
 #: ../src/bfwin_uimanager.c:828
-#, fuzzy
 msgid "Goto last bookmark"
-msgstr "Siste bokmerket"
+msgstr "Gå til det siste bokmerket"
 
 #: ../src/bfwin_uimanager.c:830
 msgid "N_ext Bookmark"
 msgstr "N_este bokmerke"
 
 #: ../src/bfwin_uimanager.c:830
-#, fuzzy
 msgid "Goto next bookmark"
-msgstr "Neste bokmerke"
+msgstr "Gå til det neste bokmerket"
 
 #: ../src/bfwin_uimanager.c:832
 msgid "P_revious Bookmark"
 msgstr "Fø_rre bokmerke"
 
 #: ../src/bfwin_uimanager.c:833 ../src/bfwin_uimanager.c:844
-#, fuzzy
 msgid "Goto previous document"
-msgstr "Gå til/F_ørre dokument"
+msgstr "Gå til det førre dokumentet"
 
 #: ../src/bfwin_uimanager.c:834
-#, fuzzy
 msgid "Move Tab Left"
-msgstr "Flytt venstre"
+msgstr "Flytt tabulatoren til venstre"
 
 #: ../src/bfwin_uimanager.c:834
-#, fuzzy
 msgid "Move current tab left"
-msgstr "_Dokumenttabskrifttype:"
+msgstr "Flytt den gjeldande tabulatoren til venstre"
 
 #: ../src/bfwin_uimanager.c:836
-#, fuzzy
 msgid "Move Tab Right"
-msgstr "Flytt mot høyre"
+msgstr "Flytt tabulatoren til høgre"
 
 #: ../src/bfwin_uimanager.c:836
-#, fuzzy
 msgid "Move current tab right"
-msgstr "Lagre det aktive prosjektet?"
+msgstr "Flytt den gjeldande tabulatoren til høgre"
 
 #: ../src/bfwin_uimanager.c:838
 msgid "_First Document"
 msgstr "_Første dokumentet"
 
 #: ../src/bfwin_uimanager.c:838
-#, fuzzy
 msgid "Goto first document"
-msgstr "Gå til/_Første dokumentet"
+msgstr "Gå til det første dokumentet"
 
 #: ../src/bfwin_uimanager.c:840
 msgid "L_ast Document"
 msgstr "_Siste dokumentet"
 
 #: ../src/bfwin_uimanager.c:840
-#, fuzzy
 msgid "Goto last document"
-msgstr "Gå til/_Siste dokumentet"
+msgstr "Gå til det siste dokumentet"
 
 #: ../src/bfwin_uimanager.c:842
 msgid "_Next Document"
 msgstr "_Neste dokument"
 
 #: ../src/bfwin_uimanager.c:842
-#, fuzzy
 msgid "Goto next document"
-msgstr "Gå til/_Neste dokument"
+msgstr "Gå til det neste dokumentet"
 
 #: ../src/bfwin_uimanager.c:844
 msgid "_Previous Document"
@@ -761,28 +689,24 @@ msgid "Goto _Line"
 msgstr "_Linjenummer"
 
 #: ../src/bfwin_uimanager.c:846
-#, fuzzy
 msgid "Goto line"
-msgstr "Gå til linje:"
+msgstr "Gå til linje"
 
 #: ../src/bfwin_uimanager.c:847
-#, fuzzy
 msgid "Goto Line Number in _Selection"
-msgstr "Gå til/Linjenummer i _utvalet"
+msgstr "Gå til linjenummeret i _utvalet"
 
 #: ../src/bfwin_uimanager.c:848
-#, fuzzy
 msgid "Goto line number in selection"
-msgstr "Gå til/Linjenummer i _utvalet"
+msgstr "Gå til linjenummeret i utvalet"
 
 #: ../src/bfwin_uimanager.c:849
-#, fuzzy
 msgid "Jump to Reference"
-msgstr "Gå til/Far til referanse"
+msgstr "Gå til referansen"
 
 #: ../src/bfwin_uimanager.c:849
 msgid "Jump to reference"
-msgstr "Far til referanse"
+msgstr "Gå til referansen"
 
 #: ../src/bfwin_uimanager.c:854
 msgid "Cu_t"
@@ -821,18 +745,16 @@ msgid "Find A_gain"
 msgstr "Søk på n_ytt"
 
 #: ../src/bfwin_uimanager.c:861
-#, fuzzy
 msgid "Find again"
-msgstr "Søk på n_ytt"
+msgstr "Søk på nytt"
 
 #: ../src/bfwin_uimanager.c:862
 msgid "Find From Selection"
-msgstr "Finn i utvalet"
+msgstr "Finn frå utvalet"
 
 #: ../src/bfwin_uimanager.c:862
-#, fuzzy
 msgid "Find from selection"
-msgstr "Fra markering"
+msgstr "Finn frå utvalet"
 
 #: ../src/bfwin_uimanager.c:864
 msgid "R_eplace..."
@@ -847,41 +769,36 @@ msgid "Replace Agai_n"
 msgstr "Byt ut p_å nytt"
 
 #: ../src/bfwin_uimanager.c:866
-#, fuzzy
 msgid "Replace again"
-msgstr "Erstatt streng"
+msgstr "Byt ut på nytt"
 
 #: ../src/bfwin_uimanager.c:871
 msgid "Save & _close"
 msgstr "Lagra og l_ukk"
 
 #: ../src/bfwin_uimanager.c:871
-#, fuzzy
 msgid "Save & close project"
-msgstr "Lagre det aktive prosjektet?"
+msgstr "Lagra & lukk prosjektet"
 
 #: ../src/bfwin_uimanager.c:873
-#, fuzzy
 msgid "Save project"
-msgstr "Nytt prosjekt"
+msgstr "Lagra prosjektet"
 
 #: ../src/bfwin_uimanager.c:874
 msgid "Save _as..."
 msgstr "Lagra _som …"
 
 #: ../src/bfwin_uimanager.c:874
-#, fuzzy
 msgid "Save project as"
-msgstr "Nytt prosjekt"
+msgstr "Lagra prosjektet som"
 
 #: ../src/bfwin_uimanager.c:875
 msgid "E_dit Project Options..."
 msgstr "Endra prosjekt_vala …"
 
 #: ../src/bfwin_uimanager.c:875
-#, fuzzy
 msgid "Edit project options"
-msgstr "Endra prosjektet"
+msgstr "Endra prosjektvala"
 
 #: ../src/bfwin_uimanager.c:880
 msgid "_Undo"
@@ -1062,29 +979,24 @@ msgid "Edit bookmark"
 msgstr "Endra bokmerke"
 
 #: ../src/bookmark.c:843
-#, fuzzy
 msgid "Bookmark menu"
-msgstr "Bokmerker, resultater"
+msgstr "Bokmerkemeny"
 
 #: ../src/bookmark.c:844
-#, fuzzy
 msgid "Show Bookmark"
 msgstr "Vis bokmerke"
 
 #: ../src/bookmark.c:845
-#, fuzzy
 msgid "Show File"
-msgstr "Vis fil"
+msgstr "Syn fil"
 
 #: ../src/bookmark.c:846
-#, fuzzy
 msgid "Bookmark search menu"
-msgstr "Treff i _bokmerke"
+msgstr "Bokmerkesøkjemeny"
 
 #: ../src/bookmark.c:847
-#, fuzzy
 msgid "_Edit..."
-msgstr "_Endra"
+msgstr "_Endra …"
 
 #: ../src/bookmark.c:849 ../src/filebrowser2.c:1980
 msgid "_Delete"
@@ -1099,37 +1011,32 @@ msgid "Delete All"
 msgstr "Slett alt"
 
 #: ../src/bookmark.c:850
-#, fuzzy
 msgid "Delete all bookmarks"
-msgstr "Sletta alle bokmerka."
+msgstr "Slett alle bokmerka"
 
 #: ../src/bookmark.c:852
-#, fuzzy
 msgid "Delete All in Document"
 msgstr "Slett alt i dokumentet"
 
 #: ../src/bookmark.c:852
-#, fuzzy
 msgid "Delete all bookmarks in document"
-msgstr "Slett alt i dokumentet"
+msgstr "Slett alle bokmerka i dokumentet"
 
 #: ../src/bookmark.c:857
 msgid "Permanent by default"
 msgstr "Gjer permanent til standardverdi"
 
 #: ../src/bookmark.c:862
-#, fuzzy
 msgid "By Name"
-msgstr "Namn"
+msgstr "Etter namn"
 
 #: ../src/bookmark.c:863
-#, fuzzy
 msgid "By Full Path"
-msgstr "full sti"
+msgstr "Etter full adresse"
 
 #: ../src/bookmark.c:864
 msgid "By Full URI"
-msgstr ""
+msgstr "Etter full adresse"
 
 #: ../src/bookmark.c:868 ../src/bookmark.c:874
 msgid "Content"
@@ -1413,23 +1320,20 @@ msgid "Lines into columns"
 msgstr "Linjer til kolonnar"
 
 #: ../src/doc_text_tools.c:396
-#, fuzzy
 msgid "Number of columns:"
-msgstr "Tal kolonnar"
+msgstr "Tal kolonnar:"
 
 #: ../src/doc_text_tools.c:400
 msgid "Spread lines horizontally"
 msgstr "Sprei linjene vassrett"
 
 #: ../src/doc_text_tools.c:407
-#, fuzzy
 msgid "Column separator:"
-msgstr "Kolonneskiljar"
+msgstr "Kolonneskilje"
 
 #: ../src/doc_text_tools.c:411
-#, fuzzy
 msgid "Fill empty entries:"
-msgstr "Fyll ut tomme oppføringar"
+msgstr "Fyll ut tomme oppføringar:"
 
 #: ../src/encodings_dialog.c:291
 msgid "_Available encodings:"
@@ -1504,18 +1408,16 @@ msgid "If you delete %s, it will be permanently lost."
 msgstr "Om du slettar %s, kan ikkje slettinga gjerast om."
 
 #: ../src/filebrowser2.c:1975
-#, fuzzy
 msgid "File Browser menu"
-msgstr "Filbrowser"
+msgstr "Filutforskarmeny"
 
 #: ../src/filebrowser2.c:1976
 msgid "_Open"
 msgstr "_Opna"
 
 #: ../src/filebrowser2.c:1976
-#, fuzzy
 msgid "Open"
-msgstr "_Opna"
+msgstr "Opna"
 
 #: ../src/filebrowser2.c:1977
 msgid "Open _Advanced..."
@@ -1526,9 +1428,8 @@ msgid "Rena_me"
 msgstr "_Gje nytt namn"
 
 #: ../src/filebrowser2.c:1979
-#, fuzzy
 msgid "Rename"
-msgstr "_Gje nytt namn"
+msgstr "Gje nytt namn"
 
 #: ../src/filebrowser2.c:1980
 msgid "Delete"
@@ -1547,36 +1448,30 @@ msgid "_Refresh"
 msgstr "_Oppdater"
 
 #: ../src/filebrowser2.c:1984
-#, fuzzy
 msgid "Refresh"
-msgstr "_Oppdater"
+msgstr "Frisk opp"
 
 #: ../src/filebrowser2.c:1985
-#, fuzzy
 msgid "_Set as base dir"
 msgstr "Bruk som _basekatalog"
 
 #: ../src/filebrowser2.c:1985
-#, fuzzy
 msgid "Set as base directory"
-msgstr "Bruk som _basekatalog"
+msgstr "Bruk som basekatalog"
 
 #: ../src/filebrowser2.c:1987
-#, fuzzy
 msgid "Set as document root"
-msgstr "Bruk som dokument-rot"
+msgstr "Bruk som dokument-rotmappe"
 
 #: ../src/filebrowser2.c:1989
 msgid "Show Full _Tree"
 msgstr "Vis heile _treet"
 
 #: ../src/filebrowser2.c:1989
-#, fuzzy
 msgid "Show full tree"
-msgstr "Vis heile _treet"
+msgstr "Vis heile treet"
 
 #: ../src/filebrowser2.c:1991
-#, fuzzy
 msgid "View Mode"
 msgstr "Visingsmodus"
 
@@ -1585,7 +1480,6 @@ msgid "Filter"
 msgstr "Filter"
 
 #: ../src/filebrowser2.c:1993
-#, fuzzy
 msgid "New Filter"
 msgstr "Nytt filter"
 
@@ -1594,7 +1488,6 @@ msgid "New filter"
 msgstr "Nytt filter"
 
 #: ../src/filebrowser2.c:1994
-#, fuzzy
 msgid "Edit Filter"
 msgstr "Endra filteret"
 
@@ -1603,7 +1496,6 @@ msgid "Edit filter"
 msgstr "Endra filteret"
 
 #: ../src/filebrowser2.c:1995
-#, fuzzy
 msgid "Delete Filter"
 msgstr "Sletta filteret"
 
@@ -1612,7 +1504,6 @@ msgid "Delete filter"
 msgstr "Sletta filteret"
 
 #: ../src/filebrowser2.c:1999
-#, fuzzy
 msgid "Follow Active Document"
 msgstr "Følg det aktive dokumentet"
 
@@ -1621,7 +1512,6 @@ msgid "Follow active document"
 msgstr "Følg det aktive dokumentet"
 
 #: ../src/filebrowser2.c:2001
-#, fuzzy
 msgid "Show Backup Files"
 msgstr "Vis tryggleikskopiar"
 
@@ -1630,7 +1520,6 @@ msgid "Show backup files"
 msgstr "Vis tryggleikskopiar"
 
 #: ../src/filebrowser2.c:2003
-#, fuzzy
 msgid "Show Hidden Files"
 msgstr "Vis skjulte filer"
 
@@ -1995,9 +1884,8 @@ msgid "Automatic detection"
 msgstr "Automatisk oppdaging"
 
 #: ../src/gtk_easy.c:1440
-#, fuzzy
 msgid "<b>Keystroke choice</b>"
-msgstr "<b>Tastetrykksval </b>"
+msgstr "<b>Tastetrykksval</b>"
 
 #: ../src/gtk_easy.c:1448
 msgid ""
@@ -2586,9 +2474,8 @@ msgid "_Periodically check if file is modified on disk"
 msgstr "Sjekk jamleg om fila er _endra på lagringseininga"
 
 #: ../src/preferences.c:2029
-#, fuzzy
 msgid "File properties to check on dis_k for modifications:"
-msgstr "Endringskontroll av desse fil_eigenskapane på lagringseininga"
+msgstr "Endringskontroll av desse fil_eigenskapane på lagringseininga:"
 
 #: ../src/preferences.c:2042
 msgid "HTML"
@@ -2680,7 +2567,6 @@ msgid "<b>Sidebar</b>"
 msgstr "<b>Sidefelt</b>"
 
 #: ../src/preferences.c:2147
-#, fuzzy
 msgid "L_ocation:"
 msgstr "_Plassering:"
 
@@ -2976,7 +2862,7 @@ msgstr "Gjer om HTML til tekst"
 
 #: ../src/rcfile.c:789
 msgid "Chrome"
-msgstr ""
+msgstr "Chrome"
 
 #: ../src/rcfile.c:792
 msgid "Mozilla"
