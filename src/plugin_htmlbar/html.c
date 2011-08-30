@@ -322,6 +322,8 @@ general_html_menu_cb(Tbfwin * bfwin, guint callback_action, GtkWidget * widget)
 	case 69:
 		doc_insert_two_strings(bfwin->current_document, cap("<DEL>"), cap("</DEL>"));
 		break;
+	case 70:
+		doc_insert_two_strings(bfwin->current_document, cap("<ARTICLE>"), cap("</ARTICLE>"));
 	default:
 		break;
 	}
@@ -1805,7 +1807,6 @@ framedialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 	html_diag_destroy_cb(NULL, dg);
 }
 
-
 void
 frame_dialog(Tbfwin * bfwin, Ttagpopup * data)
 {
@@ -1873,6 +1874,88 @@ frame_dialog(Tbfwin * bfwin, Ttagpopup * data)
 
 	if (custom)
 		g_free(custom);
+}
+
+void audiodialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
+	gchar *finalstring;
+	
+	/* Tag construction */
+	finalstring = g_strdup(cap("<AUDIO"));
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("SRC"), finalstring, NULL);
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("AUTOPLAY"), finalstring, NULL);
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("CONTROLS"), finalstring, NULL);
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[4]), cap("LOOP"), finalstring, NULL);
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[5]), cap("PRELOAD"), finalstring, NULL);
+	finalstring = g_strconcat(finalstring, ">\n", NULL);
+	finalstring = g_strconcat(finalstring, cap("</AUDIO>"), NULL);
+	
+	/* Insert tag in document */
+	doc_insert_two_strings(dg->doc, finalstring, NULL);
+	
+	/* Free */
+	g_free(finalstring);
+	html_diag_destroy_cb(NULL, dg);
+}
+
+void
+audio_dialog(Tbfwin * bfwin, Ttagpopup * data)
+{
+	/* Controls */
+	GtkWidget *dgtable, *file_but;
+	Thtml_diag *dg;
+	
+	/* Attributes name list */
+	static gchar *attrList[] =
+		{ "src", "autoplay", "controls", "loop", "preload", NULL };
+		
+	/* Values attributes lists */
+	GList *listAutoplay, *listControls, *listLoop, *listPreload;
+	
+	/* Dialog construction and settings */
+	dg = html_diag_new(bfwin, _("Audio"));
+	dgtable = gtk_table_new(4, 5, 0);
+	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
+	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
+	gtk_box_pack_start(GTK_BOX(dg->vbox), dgtable, FALSE, FALSE, 0);
+
+	/* Source */
+	dg->combo[1] = combobox_with_popdown(NULL, bfwin->session->urllist, 1);
+	file_but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[1]))), 0, bfwin);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 9, 10, 0, 1);
+	dialog_mnemonic_label_in_table(_("_Source:"), dg->combo[1], dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 9, 0, 1);
+
+	/* autoplay */
+	listAutoplay = g_list_append(NULL, "");
+	dg->combo[2] = combobox_with_popdown(attrList[1], listAutoplay, 1);
+	dialog_mnemonic_label_in_table(_("_Autoplay:"), dg->combo[2], dgtable, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[2]), 1, 2, 3, 4);
+	g_list_free(listAutoplay);
+	
+	/* controls */
+	listControls = g_list_append(NULL, "");
+	dg->combo[3] = combobox_with_popdown(attrList[2], listControls, 1);
+	dialog_mnemonic_label_in_table(_("_Controls:"), dg->combo[3], dgtable, 0, 1, 5, 6);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[3]), 1, 2, 5, 6);
+	g_list_free(listControls);
+	
+	/* loop */
+	listLoop = g_list_append(NULL, "");
+	dg->combo[4] = combobox_with_popdown(attrList[3], listLoop, 1);
+	dialog_mnemonic_label_in_table(_("_Loop:"), dg->combo[4], dgtable, 0, 1, 7, 8);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[4]), 1, 2, 7, 8);
+	g_list_free(listLoop);
+
+	/* Preload */
+	listPreload = g_list_append(NULL, "auto");
+	listPreload = g_list_append(listPreload, "metadata");
+	dg->combo[5] = combobox_with_popdown(attrList[4], listPreload, 1);
+	dialog_mnemonic_label_in_table(_("_Preload:"), dg->combo[5], dgtable, 0, 1, 9, 10);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[5]), 1, 2, 9, 10);
+	g_list_free(listPreload);
+
+	html_diag_finish(dg, G_CALLBACK(audiodialogok_lcb));
 }
 
 /* this is no HTML, but often requested, so we leave it for now */

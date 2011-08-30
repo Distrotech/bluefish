@@ -158,6 +158,7 @@ void email_dialog(Tbfwin * bfwin, Ttagpopup * data);
 void quicklist_dialog(Tbfwin * bfwin, Ttagpopup * data);
 void frameset_dialog(Tbfwin * bfwin, Ttagpopup * data);
 void frame_dialog(Tbfwin * bfwin, Ttagpopup * data);
+void audio_dialog(Tbfwin * bfwin, Ttagpopup * data);
 void embed_dialog(Tbfwin * bfwin, Ttagpopup * data);
 void script_dialog(Tbfwin * bfwin, Ttagpopup * data);
 void linkdialog_dialog(Tbfwin * bfwin, Ttagpopup * data, Tlinkdialog_mode mode);

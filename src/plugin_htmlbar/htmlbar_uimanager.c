@@ -1251,6 +1251,85 @@ htmlbar_toolbar_show_toogle(GtkAction * action, gpointer user_data)
 	htmlbar_toolbar_show(hbw, gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)));
 }
 
+static void
+htmlbar_insert_article_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<ARTICLE>"), cap("</ARTICLE>"));
+}
+
+static void
+htmlbar_insert_aside_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<ASIDE>"), cap("</ASIDE>"));
+}
+
+static void
+htmlbar_insert_figcaption_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<FIGCAPTION>"), cap("</FIGCAPTION>"));
+}
+
+static void
+htmlbar_insert_figure_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<FIGURE>"), cap("</FIGURE>"));
+}
+
+static void
+htmlbar_insert_footer_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<FOOTER>"), cap("</FOOTER>"));
+}
+
+static void
+htmlbar_insert_header_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<HEADER>"), cap("</HEADER>"));
+}
+
+static void
+htmlbar_insert_hgroup_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<HGROUP>"), cap("</HGROUP>"));
+}
+
+static void
+htmlbar_insert_mark_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<MARK>"), cap("</MARK>"));
+}
+
+static void
+htmlbar_insert_nav_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<NAV>"), cap("</NAV>"));
+}
+
+static void
+htmlbar_insert_rp_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<RP>"), cap("</RP>"));
+}
+
+static void
+htmlbar_insert_ruby_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<RUBY>"), cap("</RUBY>"));
+}
+
+static void
+htmlbar_insert_section_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<SECTION>"), cap("</SECTION>"));
+}
+
+static void
+htmlbar_dialog_audio(GtkAction * action, gpointer user_data)
+{
+	
+	audio_dialog(BFWIN(user_data), NULL);
+}
+
 static const GtkActionEntry htmlbar_actions[] = {
 	{"TagsMenu", NULL, N_("T_ags")},
 	{"HeadingsMenu", NULL, N_("_Headings")},
@@ -1576,7 +1655,20 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"DialogsFormRadioButton", BF_STOCK_FORM_RADIO, N_("Input Radio button..."), NULL,
 	 N_("Input Radio Button..."), G_CALLBACK(htmlbar_dialog_form_radio_button)},
 	{"DialogsFormCheckBox", BF_STOCK_FORM_CHECK, N_("Input Check box..."), NULL,
-	 N_("Input Check Box..."), G_CALLBACK(htmlbar_dialog_form_check_box)}
+	 N_("Input Check Box..."), G_CALLBACK(htmlbar_dialog_form_check_box)},
+	{"FormatArticle", BF_STOCK_FRAME_NO, N_("_Article"), NULL, N_("Article"), G_CALLBACK(htmlbar_insert_article_tag)},
+	{"FormatAside", BF_STOCK_FRAME_NO, N_("_Aside"), NULL, N_("Aside"), G_CALLBACK(htmlbar_insert_aside_tag)},
+	{"FormatFigcaption", BF_STOCK_FRAME_NO, N_("_Figcaption"), NULL, N_("Figcaption"), G_CALLBACK(htmlbar_insert_figcaption_tag)},
+	{"FormatFigure", BF_STOCK_FRAME_NO, N_("_Figure"), NULL, N_("Figure"), G_CALLBACK(htmlbar_insert_figure_tag)},
+	{"FormatFooter", BF_STOCK_FRAME_NO, N_("_Footer"), NULL, N_("Footer"), G_CALLBACK(htmlbar_insert_footer_tag)},
+	{"FormatHeader", BF_STOCK_FRAME_NO, N_("_Header"), NULL, N_("Header"), G_CALLBACK(htmlbar_insert_header_tag)},
+	{"FormatHgroup", BF_STOCK_FRAME_NO, N_("_Hgroup"), NULL, N_("Hgroup"), G_CALLBACK(htmlbar_insert_hgroup_tag)},
+	{"FormatMark", BF_STOCK_FRAME_NO, N_("_Mark"), NULL, N_("Mark"), G_CALLBACK(htmlbar_insert_mark_tag)},
+	{"FormatNav", BF_STOCK_FRAME_NO, N_("_Nav"), NULL, N_("Nav"), G_CALLBACK(htmlbar_insert_nav_tag)},
+	{"FormatRp", BF_STOCK_FRAME_NO, N_("_Rp"), NULL, N_("Rp"), G_CALLBACK(htmlbar_insert_rp_tag)},
+	{"FormatRuby", BF_STOCK_FRAME_NO, N_("_Ruby"), NULL, N_("Ruby"), G_CALLBACK(htmlbar_insert_ruby_tag)},
+	{"FormatSection", BF_STOCK_FRAME_NO, N_("_Section"), NULL, N_("Section"), G_CALLBACK(htmlbar_insert_section_tag)},
+	{"DialogsAudio", BF_STOCK_FRAME_NO, N_("_Audio..."), NULL, N_("Audio"), G_CALLBACK(htmlbar_dialog_audio)}
 };
 
 void
@@ -1651,6 +1743,10 @@ htmlbar_toolbar_create(Thtmlbarwin * hbw)
 	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLCSSToolbar");
 	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" CSS ")));
+
+	toolbar = gtk_ui_manager_get_widget(bfwin->uimanager, "/HTMLHTML5Toolbar");
+	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_ICONS);
+	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), toolbar, gtk_label_new(_(" HTML 5 ")));
 
 	gtk_widget_show_all(hbw->handlebox);
 }
