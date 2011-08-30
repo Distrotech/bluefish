@@ -192,9 +192,6 @@ typedef struct {
 	GList *autosaved;			/* NULL if no autosave registration, else this is a direct pointer into the main_v->autosave_journal list */
 	GFile *autosave_uri;		/* if autosaved, the URI of the autosave location, else NULL */
 	gint readonly;
-	gint is_symlink;			/* file is a symbolic link */
-	/*gulong del_txt_id;*/			/* text delete signal */
-	/*gulong ins_txt_id;*/			/* text insert signal */
 	gboolean block_undo_reg; 	/* block the registration for undo */
 	guint newdoc_autodetect_lang_id;	/* a timer function that runs for new documents to detect their mime type  */
 	unre_t unre;
@@ -207,10 +204,7 @@ typedef struct {
 	GtkTextBuffer *buffer;
 	gboolean in_paste_operation;
 	gint last_rbutton_event;	/* index of last 3rd button click */
-	gint need_highlighting;		/* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
 	gboolean highlightstate;	/* does this document use highlighting ? */
-	gboolean wrapstate;			/* does this document use wrap? */
-	gboolean overwrite_mode;	/* is keyboard in overwrite mode */
 	gpointer floatingview;		/* a 2nd textview widget that has its own window */
 	gpointer bfwin;
 	GtkTreeIter *bmark_parent;	/* if NULL this document doesn't have bookmarks, if

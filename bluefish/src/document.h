@@ -50,7 +50,7 @@ Tdocument *documentlist_return_document_from_index(GList * doclist, gint index);
 gint document_return_num_notcomplete(GList * doclist);
 
 void doc_update_highlighting(Tbfwin * bfwin, guint callback_action, GtkWidget * widget);
-void doc_set_wrap(Tdocument * doc);
+void doc_set_wrap(Tdocument * doc, gboolean enabled);
 void doc_set_tooltip(Tdocument * doc);
 void doc_set_title(Tdocument * doc);
 void doc_set_mimetype(Tdocument * doc, const gchar * mimetype, const gchar * filename);
@@ -79,7 +79,6 @@ void doc_select_line(Tdocument * doc, gint line, gboolean do_scroll);
 void doc_select_line_by_offset(Tdocument * doc, gint offset, gboolean do_scroll);
 gboolean doc_get_selection(Tdocument * doc, gint * start, gint * end);
 gint doc_get_cursor_position(Tdocument * doc);
-void doc_set_statusbar_insovr(Tdocument * doc);
 /*void doc_set_statusbar_mimetype_encoding(Tdocument *doc);*/
 
 /* the prototype for these functions is changed!! */
