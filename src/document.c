@@ -384,9 +384,9 @@ doc_update_highlighting(Tbfwin * bfwin, guint callback_action, GtkWidget * widge
  * Return value: void
  **/
 void
-doc_set_wrap(Tdocument * doc)
+doc_set_wrap(Tdocument * doc, gboolean enabled)
 {
-	GtkWrapMode wmode = doc->wrapstate ? GTK_WRAP_WORD : GTK_WRAP_NONE;
+	GtkWrapMode wmode = enabled ? GTK_WRAP_WORD : GTK_WRAP_NONE;
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view), wmode);
 	if (doc->slave)
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->slave), wmode);
@@ -1193,13 +1193,13 @@ doc_set_statusbar_lncol(Tdocument * doc)
  *
  * Return value: void
  **/
-void
+static void
 doc_set_statusbar_insovr(Tdocument * doc)
 {
 	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0);
 	if (!doc->readonly)
 		gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0,
-						   (doc->overwrite_mode ? _(" OVR") : _(" INS")));
+						   (gtk_text_view_get_overwrite(GTK_TEXT_VIEW(doc->view)) ? _(" OVR") : _(" INS")));
 	else
 		gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0, _(" RO"));
 }
@@ -1238,7 +1238,6 @@ doc_insert_text_backend(Tdocument * doc, const gchar * newstring, gint position)
 	doc_unre_add(doc, newstring, position, position + g_utf8_strlen(newstring, -1), UndoInsert);
 	doc_unblock_undo_reg(doc);
 	doc_set_modified(doc, 1);
-	doc->need_highlighting = TRUE;
 }
 
 /**
@@ -1893,7 +1892,14 @@ doc_buffer_changed_lcb(GtkTextBuffer * textbuffer, Tdocument * doc)
 static void
 doc_view_toggle_overwrite_lcb(GtkTextView * view, Tdocument * doc)
 {
-	doc->overwrite_mode = (doc->overwrite_mode ? FALSE : TRUE);
+	/* if there is a slave bview, toggle that too! */
+	if (doc->slave) {
+		if (view == (GtkTextView *)doc->view)
+			gtk_text_view_set_overwrite(GTK_TEXT_VIEW(doc->slave), gtk_text_view_get_overwrite(GTK_TEXT_VIEW(view)));
+		else
+			gtk_text_view_set_overwrite(GTK_TEXT_VIEW(doc->view), gtk_text_view_get_overwrite(GTK_TEXT_VIEW(view)));
+	}
+
 	doc_set_statusbar_insovr(doc);
 }
 
@@ -2333,20 +2339,16 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 
 	doc_unre_init(newdoc);
 	apply_font_style(newdoc->view, main_v->props.editor_font_string);
-	newdoc->wrapstate = bfwin->session->wrap_text_default;
-	doc_set_wrap(newdoc);
+	doc_set_wrap(newdoc, bfwin->session->wrap_text_default);
 
 	/* we initialize already with 0 , so we don't need these:
-	   newdoc->need_highlighting = 0;
 	   newdoc->uri = NULL;
 	   newdoc->modified = 0;
 	   newdoc->fileinfo = NULL; */
-	newdoc->is_symlink = 0;
 	newdoc->encoding =
 		g_strdup((bfwin->session->encoding) ? bfwin->session->encoding : main_v->
 				 props.newfile_default_encoding);
 	DEBUG_MSG("doc_new_backend, encoding is %s\n", newdoc->encoding);
-	newdoc->overwrite_mode = FALSE;
 
 	doc_set_title(newdoc);
 	
@@ -2354,7 +2356,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	g_signal_connect(G_OBJECT(newdoc->buffer), "delete-range", G_CALLBACK(doc_buffer_delete_range_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "changed", G_CALLBACK(doc_buffer_changed_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set", G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
-	g_signal_connect(G_OBJECT(newdoc->view), "toggle-overwrite",
+	g_signal_connect_after(G_OBJECT(newdoc->view), "toggle-overwrite",
 					 G_CALLBACK(doc_view_toggle_overwrite_lcb), newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view), "populate-popup",
 						   G_CALLBACK(doc_view_populate_popup_lcb), newdoc);
@@ -2388,7 +2390,6 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize(newdoc, BFWIN(bfwin)->session->editor_tab_width);
 
-	DEBUG_MSG("doc_new_backend, doc %p need_highlighting=%d\n", newdoc, newdoc->need_highlighting);
 	return newdoc;
 }
 
@@ -2644,7 +2645,8 @@ doc_create_slave_view(Tdocument * doc)
 	GtkWidget *scroll;
 	DEBUG_MSG("doc_create_slave_view, create slave view for %p\n", doc->view);
 	doc->slave = bftextview2_new_slave(BLUEFISH_TEXT_VIEW(doc->view));
-	g_signal_connect(G_OBJECT(doc->slave), "toggle-overwrite",
+	gtk_text_view_set_overwrite(GTK_TEXT_VIEW(doc->slave), gtk_text_view_get_overwrite(GTK_TEXT_VIEW(doc->view)));
+	g_signal_connect_after(G_OBJECT(doc->slave), "toggle-overwrite",
 					 G_CALLBACK(doc_view_toggle_overwrite_lcb), doc);
 	g_signal_connect_after(G_OBJECT(doc->slave), "populate-popup",
 						   G_CALLBACK(doc_view_populate_popup_lcb), doc);

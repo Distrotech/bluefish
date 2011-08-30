@@ -177,8 +177,7 @@ ui_set_wrap_text(GtkAction * action, gpointer user_data)
 	Tbfwin *bfwin = BFWIN(user_data);
 
 	if (bfwin->current_document) {
-		bfwin->current_document->wrapstate = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
-		doc_set_wrap(bfwin->current_document);
+		doc_set_wrap(bfwin->current_document, gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action)));
 	}
 }
 
@@ -1113,7 +1112,7 @@ bfwin_set_document_menu_items(Tdocument * doc)
 																					 (doc->view)));
 	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/ShowSplitView",
 										 (doc->slave != NULL));
-	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/WrapText", doc->wrapstate);
+	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/WrapText", gtk_text_view_get_wrap_mode(GTK_TEXT_VIEW(doc->view))==GTK_WRAP_WORD);
 	bfwin_set_menu_toggle_item_from_path(manager, "/MainMenu/DocumentMenu/HighlightSyntax",
 										 doc->highlightstate);
 #ifdef HAVE_LIBENCHANT
