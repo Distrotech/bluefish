@@ -429,7 +429,7 @@ select_between_matching_block_boundaries(Tdocument *doc)
 	
 	gtk_text_buffer_get_iter_at_mark(doc->buffer, &cursor, gtk_text_buffer_get_insert(doc->buffer));
 	DEBUG_MSG("select_between_matching_block_boundaries, innerblock=%d, location=%d\n", innerblock, gtk_text_iter_get_offset(&cursor));
-	if (!bluefish_text_view_get_active_block_boundaries(doc->view, 
+	if (!bluefish_text_view_get_active_block_boundaries(BLUEFISH_TEXT_VIEW(doc->view), 
 					gtk_text_iter_get_offset(&cursor), innerblock, &so, &eo)) {
 		return;
 	}
