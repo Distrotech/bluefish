@@ -74,6 +74,7 @@ typedef struct {
 	GQueue results; /* all results */
 	GList *current; /* current result */
 	guint resultnumdoc; /* the number of unique documents in the resultset */
+	guint searchednumdoc; /* the number of documents searched */
 
 	guint unre_action_id;
 	
