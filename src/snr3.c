@@ -793,13 +793,12 @@ handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 	if (s3run->in_replace) {
 		return;
 	}
-	/* BUG: TODO: update s3run->so and s3run->eo also ! */
 	comparepos = (len > 0) ? pos : pos - len;
 	if (s3run->so > comparepos) {
 		s3run->so += len;
 	}
 	
-	if (s3run->eo > comparepos) {
+	if (s3run->eo != -1 && s3run->eo > comparepos) {
 		s3run->eo += len;
 	}
 	
