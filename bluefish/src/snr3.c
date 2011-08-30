@@ -484,7 +484,7 @@ snr3_queue_run(gpointer data) {
 		rii->so = newso;
 		DEBUG_MSG("snr3_queue_run, update starting at %d\n",newso);
 	}
-
+	rii->s3run->searchednumdoc++;
 	rii->s3run->curdoc = rii->doc;
 	rii->s3run->curoffset=0;
 	rii->s3run->curposition=0;
@@ -637,8 +637,14 @@ snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void
 			}
 		break;
 		case snr3scope_alldocs:
-			for (tmplist=g_list_first(s3run->bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
-				snr3_run_in_doc(s3run, tmplist->data, 0, -1, FALSE);
+			if (snrwin->bfwin->num_docs_not_completed > 0) {
+				/* display warning that not all documents have yet finished loading */
+				gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),_("<span foreground=\"red\" weight=\"bold\">Some documents are still loading</span>"));
+				s3run->scope = -1;
+			} else {
+				for (tmplist=g_list_first(s3run->bfwin->documentlist);tmplist;tmplist=g_list_next(tmplist)) {
+					snr3_run_in_doc(s3run, tmplist->data, 0, -1, FALSE);
+				}
 			}
 		break;
 		case snr3scope_files:
@@ -682,6 +688,7 @@ snr3run_resultcleanup(Tsnr3run *s3run)
 	s3run->curposition=0;
 	s3run->curoffset=0;
 	s3run->resultnumdoc=0;
+	s3run->searchednumdoc=0;
 }
 
 /* called from bfwin.c for simplesearch */
@@ -942,13 +949,13 @@ dialog_changed_run_ready_cb(gpointer data) {
 	if (s3run->dialog) {
 		TSNRWin *snrwin = s3run->dialog;
 		gchar *tmp;
-		if (s3run->resultnumdoc > 1) {
-			tmp = g_strdup_printf(_("<i>Found %d results in %d documents</i>"),g_queue_get_length(&s3run->results), s3run->resultnumdoc);
+		if (s3run->searchednumdoc > 1) {
+			tmp = g_strdup_printf(_("<i>Found %d results in %d of the %d searched documents</i>"),g_queue_get_length(&s3run->results), s3run->resultnumdoc, s3run->searchednumdoc);
 		} else if (s3run->so != 0) {
 			gint reo = (s3run->eo == -1) ? gtk_text_buffer_get_char_count(s3run->bfwin->current_document->buffer) : s3run->eo;
 			tmp = g_strdup_printf(_("<i>Found %d results from character %d to %d</i>"),g_queue_get_length(&s3run->results), s3run->so, reo);
 		} else {
-			tmp = g_strdup_printf(_("<i>Found %d results</i>"),g_queue_get_length(&s3run->results));
+			tmp = g_strdup_printf(_("<i>Found %d results in the active document</i>"),g_queue_get_length(&s3run->results));
 		}
 		gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),tmp);
 		gtk_widget_show(snrwin->searchfeedback);
