@@ -1494,8 +1494,8 @@ bfwin_set_title(Tbfwin * bfwin, Tdocument * doc, gint num_modified_change)
 	} else {
 		title = g_strconcat("* ", prfilepart, " - Bluefish " VERSION, NULL);
 	}
-	if (strlen(title) > 120)
-		title[120] = '\0';
+	if (main_v->props.max_window_title > 0 && strlen(title) > main_v->props.max_window_title)
+		title[main_v->props.max_window_title] = '\0';
 	gtk_window_set_title(GTK_WINDOW(bfwin->main_window), title);
 	/*rename_window_entry_in_all_windows(bfwin, title); */
 	g_free(title);

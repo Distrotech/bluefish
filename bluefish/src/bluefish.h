@@ -251,6 +251,7 @@ typedef struct {
 	gint auto_update_meta_date;	/* auto update date meta tag on save */
 	gint auto_update_meta_generator;	/* auto update generator meta tag on save */
 	gint encoding_search_Nbytes;	/* number of bytes to look for the encoding meta tag */
+	gint max_window_title; /* max. number of chars in the window title */
 	gint document_tabposition;
 	gint leftpanel_tabposition;
 	gint switch_tabs_by_altx;
