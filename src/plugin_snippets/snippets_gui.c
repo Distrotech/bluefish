@@ -347,7 +347,7 @@ snippets_gen_treetip_string(xmlNodePtr cur)
 		gchar *tooltip2 = NULL, *accelerator2 = NULL;
 		tooltip = xmlGetProp(cur, (const xmlChar *) "tooltip");
 		accelerator = xmlGetProp(cur, (const xmlChar *) "accelerator");
-		if (tooltip) {
+		if (tooltip && tooltip[0]!='\0') {
 			tooltip2 = g_markup_escape_text((gchar *) tooltip, -1);
 			xmlFree(tooltip);
 		} else {
