@@ -80,6 +80,7 @@ enum {
 	auto_update_meta_author,	/* auto update author meta tag */
 	auto_update_meta_date,		/* auto update date meta tag */
 	auto_update_meta_generator,	/* auto update generator meta tag */
+	max_window_title,
 	document_tabposition,
 	leftpanel_tabposition,
 	switch_tabs_by_altx,		/* switch tabs using Alt+X (#385860) */
@@ -1547,6 +1548,11 @@ preferences_apply(Tprefdialog * pd)
 		integer_apply(&main_v->globses.main_window_h, pd->prefs[main_window_h], FALSE);
 		integer_apply(&main_v->globses.main_window_w, pd->prefs[main_window_w], FALSE);
 	}
+	if (gtk_toggle_button_get_active(pd->prefs[max_window_title]) && main_v->props.max_window_title==0) {
+		main_v->props.max_window_title=120;
+	} else if (!gtk_toggle_button_get_active(pd->prefs[max_window_title])) {
+		main_v->props.max_window_title=0;
+	}
 
 	integer_apply(&main_v->props.use_system_tab_font, pd->prefs[use_system_tab_font], TRUE);
 	string_apply(&main_v->props.tab_font_string, pd->prefs[tab_font_string]);
@@ -2208,6 +2214,10 @@ preferences_dialog_new(void)
 					 G_CALLBACK(restore_dimensions_toggled_lcb), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[leave_to_window_manager]), "toggled",
 					 G_CALLBACK(leave_to_window_manager_toggled_lcb), vbox3);
+
+	pd->prefs[max_window_title] = dialog_check_button_new(_("_Limit window title length"),
+															main_v->props.max_window_title);
+	gtk_box_pack_start(GTK_BOX(vbox3), pd->prefs[max_window_title], FALSE, FALSE, 0);
 
 	frame = gtk_frame_new(NULL);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
