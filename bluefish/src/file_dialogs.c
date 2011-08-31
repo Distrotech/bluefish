@@ -1021,7 +1021,7 @@ doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean clos
 		DEBUG_MSG("doc_close_single_backend, cancelled load/info and set close_doc to TRUE, returning now\n");
 		return FALSE;
 	}
-	if (doc->autosaved || doc->need_autosave) {
+	if (doc->autosaved || doc->autosave_progress || doc->need_autosave) {
 		remove_autosave(doc);
 	}
 	if (doc_is_empty_non_modified_and_nameless(doc)
