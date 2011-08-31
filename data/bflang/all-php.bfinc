@@ -22905,6 +22905,7 @@ or false.
 </group>
 
 <group highlight="php-keyword" autocomplete="1">
+<element pattern="abstract" />
 <element pattern="break" autocomplete_append=";" />
 <element pattern="case" autocomplete_append=" :"  autocomplete_backup_cursor="1" />
 <element pattern="class" />
@@ -22923,14 +22924,18 @@ or false.
 <element pattern="function" autocomplete_append=" () {"  autocomplete_backup_cursor="4" identifier_mode="1"  identifier_jump="1" identifier_autocomp="1" />
 <element pattern="global" />
 <element pattern="if" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
+<element pattern="implements" />
+<element pattern="interface" />
 <element pattern="include" />
 <element pattern="include_once" />
+<element pattern="parent" autocomplete_append="::" />
 <element pattern="private" />
 <element pattern="protected" />
 <element pattern="public" />
 <element pattern="return" autocomplete_append=";" />
 <element pattern="require" />
 <element pattern="require_once" />
+<element pattern="self" autocomplete_append="::" />
 <element pattern="static" />
 <element pattern="switch" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
 <element pattern="var" />
