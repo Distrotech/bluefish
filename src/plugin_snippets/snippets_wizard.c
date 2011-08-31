@@ -745,7 +745,7 @@ void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr node) {
 	snwiz = g_new0(Tsnipwiz,1);
 	snwiz->snw = snw;
 	snwiz->node = node;
-	snwiz->dialog = gtk_dialog_new_with_buttons(_("New snippet"),GTK_WINDOW(snw->bfwin->main_window),
+	snwiz->dialog = gtk_dialog_new_with_buttons(node? _("Edit snippet") :_("New snippet"),GTK_WINDOW(snw->bfwin->main_window),
 					GTK_DIALOG_DESTROY_WITH_PARENT,
 					GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,
 					GTK_STOCK_GO_FORWARD,1,
