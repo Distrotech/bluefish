@@ -104,6 +104,8 @@ files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 	tfs->bfwin->session->adv_open_recursive = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive));
 	tfs->bfwin->session->adv_open_matchname =
 		!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname));
+	if (retval)
+		bfwin_statusbar_message(tfs->bfwin,_("Started open advanced..."), 1);
 	return retval;
 }
 
@@ -456,7 +458,7 @@ doc_checkNsave_lcb(TcheckNsave_status status, GError * gerror, gpointer data)
 		if (main_v->props.backup_abort_action == 0) {
 			return CHECKNSAVE_CONT;
 		} else if (main_v->props.backup_abort_action == 1) {
-			doc->action.save = NULL;
+			doc->save = NULL;
 			gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
 			return CHECKNSAVE_STOP;
 		} else {				/* if (main_v->props.backup_abort_action == 2) */
@@ -475,7 +477,7 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 			DEBUG_MSG("doc_checkNsave_lcb, retval=%d, returning %d\n", retval,
 					  (retval == 0) ? CHECKNSAVE_STOP : CHECKNSAVE_CONT);
 			if (retval == 0) {
-				doc->action.save = NULL;
+				doc->save = NULL;
 				gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
 				return CHECKNSAVE_STOP;
 			}
@@ -493,7 +495,7 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 		}
 		/* no break - fall through */
 	case CHECKANDSAVE_ERROR_CANCELLED:
-		doc->action.save = NULL;
+		doc->save = NULL;
 		gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
 		docsavebackend_cleanup(dsb);
 		break;
@@ -524,7 +526,7 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 										 _("File changed on disk\n"), tmpstr);
 			g_free(tmpstr);
 			if (retval == 0) {
-				doc->action.save = NULL;
+				doc->save = NULL;
 				gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), TRUE);
 				return CHECKNSAVE_STOP;
 			}
@@ -535,11 +537,11 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 			file_delete_async(dsb->unlink_uri, FALSE, docsavebackend_async_unlink_lcb, dsb);
 		}
 		/* if the user wanted to close the doc we should do very diffferent things here !! */
-		doc->action.save = NULL;
-		if (doc->action.close_doc) {
+		doc->save = NULL;
+		if (doc->close_doc) {
 			Tbfwin *bfwin = doc->bfwin;
-			gboolean close_window = doc->action.close_window;
-			doc_destroy(doc, doc->action.close_window);
+			gboolean close_window = doc->close_window;
+			doc_destroy(doc, doc->close_window);
 			if (close_window && test_only_empty_doc_left(bfwin->documentlist)) {
 				gtk_widget_destroy(bfwin->main_window);
 			}
@@ -749,7 +751,7 @@ doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolea
 	if (doc->uri)
 		curi = g_file_get_uri(doc->uri);
 
-	if (doc->action.save) {
+	if (doc->save) {
 		gchar *errmessage;
 		/* this message is not in very nice english I'm afraid */
 		errmessage =
@@ -814,11 +816,11 @@ glib_major_version, glib_minor_version, glib_micro_version);
 	}
 #endif
 	buffer = refcpointer_new(tmp);
-	doc->action.close_doc = close_doc;
-	doc->action.close_window = close_window;
+	doc->close_doc = close_doc;
+	doc->close_window = close_window;
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view), FALSE);
 	DEBUG_MSG("doc_save_backend, calling file_checkNsave_uri_async for %zd bytes\n", strlen(buffer->data));
-	doc->action.save =
+	doc->save =
 		file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as,
 								  main_v->props.backup_file, doc_checkNsave_lcb, dsb);
 
@@ -1000,20 +1002,20 @@ gboolean
 doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean close_window)
 {
 	Tbfwin *bfwin = doc->bfwin;
-	if (doc->action.checkmodified)
-		checkmodified_cancel(doc->action.checkmodified);
+	if (doc->checkmodified)
+		checkmodified_cancel(doc->checkmodified);
 	if (doc->autosave_progress || doc->autosaved || doc->need_autosave)
 		remove_autosave(doc);
-	if (doc->action.load != NULL || doc->action.info != NULL) {
+	if (doc->load != NULL || doc->info != NULL) {
 		/* we should cancel the action now..., and then let the callbacks close it...
 		   the order is important, because the info callback will not close the document, 
 		   only the load callback will call doc_close_single_backend */
-		doc->action.close_doc = TRUE;
-		doc->action.close_window = close_window;
-		if (doc->action.info)
-			file_asyncfileinfo_cancel(doc->action.info);
-		if (doc->action.load)
-			file2doc_cancel(doc->action.load);
+		doc->close_doc = TRUE;
+		doc->close_window = close_window;
+		if (doc->info)
+			file_asyncfileinfo_cancel(doc->info);
+		if (doc->load)
+			file2doc_cancel(doc->load);
 		/* we will not cancel save operations, because it might corrupt the file, let 
 		   them just timeout */
 		DEBUG_MSG("doc_close_single_backend, cancelled load/info and set close_doc to TRUE, returning now\n");
@@ -1479,14 +1481,14 @@ doc_activate_modified_lcb(Tcheckmodified_status status, GError * gerror, GFileIn
 		/* do nothing */
 		break;
 	}
-	doc->action.checkmodified = NULL;
+	doc->checkmodified = NULL;
 }
 
 void
 doc_start_modified_check(Tdocument * doc)
 {
-	if (doc->uri && doc->fileinfo && !doc->action.checkmodified && !doc->action.save) {	/* don't check during another check, or during save */
-		doc->action.checkmodified =
+	if (doc->uri && doc->fileinfo && !doc->checkmodified && !doc->save) {	/* don't check during another check, or during save */
+		doc->checkmodified =
 			file_checkmodified_uri_async(doc->uri, doc->fileinfo, doc_activate_modified_lcb, doc);
 	}
 }
