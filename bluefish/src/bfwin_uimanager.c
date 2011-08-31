@@ -1310,6 +1310,7 @@ encodings_menu_activate(GtkAction * action, gpointer user_data)
 				if (bfwin->current_document->encoding)
 					g_free(bfwin->current_document->encoding);
 				bfwin->current_document->encoding = g_strdup(arr[1]);
+				doc_set_tooltip(bfwin->current_document);
 				if (main_v->props.auto_set_encoding_meta) {
 					update_encoding_meta_in_file(bfwin->current_document, bfwin->current_document->encoding);
 				}
