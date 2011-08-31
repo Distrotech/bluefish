@@ -635,7 +635,7 @@ fileintodoc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffse
 			doc_set_tooltip(fid->doc);
 			doc_set_status(fid->doc, DOC_STATUS_COMPLETE);
 			bfwin_docs_not_complete(fid->doc->bfwin, FALSE);
-			fid->doc->action.load = NULL;
+			fid->doc->load = NULL;
 			if (fid->untiledRecovery) {
 				doc_set_modified(fid->doc, TRUE);
 			} else if (fid->isTemplate) {
@@ -669,7 +669,7 @@ fileintodoc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffse
 		} else {
 			/* do nothing */
 		}
-		fid->doc->action.load = NULL;
+		fid->doc->load = NULL;
 		fileintodoc_cleanup(data);
 		break;
 	case OPENFILE_CHANNEL_OPENED:
@@ -688,7 +688,7 @@ fileintodoc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffse
 	case OPENFILE_ERROR_NOREAD:
 		/* TODO: use gerror information to notify the user, for example in the statusbar */
 		DEBUG_MSG("fileitodoc_lcb, ERROR status=%d, cleanup!!!!!\n", status);
-		fid->doc->action.load = NULL;
+		fid->doc->load = NULL;
 		fileintodoc_cleanup(data);
 		break;
 	}
@@ -745,16 +745,16 @@ file2doc_cancel(gpointer f2d)
 static gboolean
 file2doc_goto_idle_cb(Tfile2doc * f2d)
 {
-	if (f2d->doc->action.goto_line >= 0) {
-		DEBUG_MSG("file2doc_lcb, goto_line=%d\n", f2d->doc->action.goto_line);
-		doc_select_line(f2d->doc, f2d->doc->action.goto_line, TRUE);
-	} else if (f2d->doc->action.goto_offset >= 0) {
-		DEBUG_MSG("file2doc_lcb, goto_offset=%d\n", f2d->doc->action.goto_offset);
-		doc_select_line_by_offset(f2d->doc, f2d->doc->action.goto_offset, TRUE);
+	if (f2d->doc->goto_line >= 0) {
+		DEBUG_MSG("file2doc_lcb, goto_line=%d\n", f2d->doc->goto_line);
+		doc_select_line(f2d->doc, f2d->doc->goto_line, TRUE);
+	} else if (f2d->doc->goto_offset >= 0) {
+		DEBUG_MSG("file2doc_lcb, goto_offset=%d\n", f2d->doc->goto_offset);
+		doc_select_line_by_offset(f2d->doc, f2d->doc->goto_offset, TRUE);
 	}
-	f2d->doc->action.goto_line = -1;
-	f2d->doc->action.goto_offset = -1;
-	f2d->doc->action.load = NULL;	
+	f2d->doc->goto_line = -1;
+	f2d->doc->goto_offset = -1;
+	f2d->doc->load = NULL;	
 	file2doc_cleanup(f2d);
 	return FALSE;
 }
@@ -783,7 +783,7 @@ file2doc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset b
 			bfwin_docs_not_complete(f2d->bfwin, FALSE);
 			doc_set_modified(f2d->doc, TRUE);
 			bmark_set_for_doc(f2d->doc, TRUE);
-			f2d->doc->action.load = NULL;
+			f2d->doc->load = NULL;
 			file2doc_cleanup(data);
 		} else {
 			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
@@ -817,12 +817,12 @@ file2doc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset b
 				g_free(utf8uri);
 			}
 			add_filename_to_recentlist(BFWIN(f2d->doc->bfwin), f2d->doc->uri);
-			if (f2d->doc->action.goto_line >= 0 || f2d->doc->action.goto_offset >= 0) {
+			if (f2d->doc->goto_line >= 0 || f2d->doc->goto_offset >= 0) {
 				g_idle_add(((GSourceFunc)file2doc_goto_idle_cb), f2d);
 			} else {
-				f2d->doc->action.goto_line = -1;
-				f2d->doc->action.goto_offset = -1;
-				f2d->doc->action.load = NULL;
+				f2d->doc->goto_line = -1;
+				f2d->doc->goto_offset = -1;
+				f2d->doc->load = NULL;
 				file2doc_cleanup(data);
 			}
 		}
@@ -833,9 +833,9 @@ file2doc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset b
 		break;
 	case OPENFILE_ERROR_CANCELLED:
 		/* lets close the document */
-		f2d->doc->action.load = NULL;
+		f2d->doc->load = NULL;
 		DEBUG_MSG("file2doc_lcb, calling doc_close_single_backend\n");
-		doc_close_single_backend(f2d->doc, FALSE, f2d->doc->action.close_window);
+		doc_close_single_backend(f2d->doc, FALSE, f2d->doc->close_window);
 		file2doc_cleanup(f2d);
 		break;
 	case OPENFILE_ERROR:
@@ -843,13 +843,13 @@ file2doc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset b
 	case OPENFILE_ERROR_NOREAD:
 		/* TODO use gerror info to notify user, for example in the statusbar */
 		DEBUG_MSG("file2doc_lcb, ERROR status=%d, cleanup!!!!!\n", status);
-		if (f2d->doc->action.close_doc) {
-			f2d->doc->action.load = NULL;
-			doc_close_single_backend(f2d->doc, FALSE, f2d->doc->action.close_window);
+		if (f2d->doc->close_doc) {
+			f2d->doc->load = NULL;
+			doc_close_single_backend(f2d->doc, FALSE, f2d->doc->close_window);
 		} else {
 			doc_set_status(f2d->doc, DOC_STATUS_ERROR);
 		}
-		f2d->doc->action.load = NULL;
+		f2d->doc->load = NULL;
 		file2doc_cleanup(f2d);
 		break;
 	}
@@ -937,9 +937,9 @@ fill_fileinfo_lcb(GObject * source_object, GAsyncResult * res, gpointer user_dat
 			g_free(curi);
 		}
 	}
-	fi->doc->action.info = NULL;
-	if (fi->doc->action.close_doc) {
-		doc_close_single_backend(fi->doc, FALSE, fi->doc->action.close_window);
+	fi->doc->info = NULL;
+	if (fi->doc->close_doc) {
+		doc_close_single_backend(fi->doc, FALSE, fi->doc->close_window);
 	}
 	queue_worker_ready(&fiqueue);
 	fill_fileinfo_cleanup(fi);
@@ -960,7 +960,7 @@ file_doc_fill_fileinfo(Tdocument * doc, GFile * uri)
 	fi = g_slice_new(Tfileinfo);
 	DEBUG_MSG("file_doc_fill_fileinfo, started for doc %p and uri %p at fi=%p\n", doc, uri, fi);
 	fi->doc = doc;
-	fi->doc->action.info = fi;
+	fi->doc->info = fi;
 	g_object_ref(uri);
 	fi->uri = uri;
 	fi->cancel = g_cancellable_new();
@@ -997,8 +997,8 @@ file_doc_fill_from_uri(Tdocument * doc, GFile * uri, GFileInfo * finfo, gint got
 	f2d->bfwin = doc->bfwin;
 	f2d->uri = g_object_ref(uri);
 	f2d->doc = doc;
-	f2d->doc->action.load = f2d;
-	f2d->doc->action.goto_line = goto_line;
+	f2d->doc->load = f2d;
+	f2d->doc->goto_line = goto_line;
 	/* this forces an activate on the document, which will call widget_show() on the textview */
 	BFWIN(doc->bfwin)->focus_next_new_doc = TRUE;
 	if (finfo == NULL) {
@@ -1023,9 +1023,9 @@ file_doc_from_uri(Tbfwin * bfwin, GFile * uri, GFile * recover_uri, GFileInfo * 
 	}
 	f2d->readonly = readonly;
 	f2d->doc = doc_new_loading_in_background(bfwin, uri, finfo, readonly);
-	f2d->doc->action.load = f2d;
-	f2d->doc->action.goto_line = goto_line;
-	f2d->doc->action.goto_offset = goto_offset;
+	f2d->doc->load = f2d;
+	f2d->doc->goto_line = goto_line;
+	f2d->doc->goto_offset = goto_offset;
 	DEBUG_MSG("file_doc_from_uri, got doc %p\n", f2d->doc);
 	if (finfo == NULL) {
 		/* get the fileinfo also async */
@@ -1303,8 +1303,10 @@ open_advanced_cleanup(Topenadvanced *oa) {
 
 static void open_advanced_unref(Topenadvanced *oa) {
 	oa->refcount--;
-	if (oa->refcount == 0) 
+	if (oa->refcount == 0) {
+		bfwin_statusbar_message(oa->bfwin, _("Finished advanced open"), 2);
 		open_advanced_cleanup(oa);
+	}
 }
 
 static void

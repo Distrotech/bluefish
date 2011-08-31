@@ -167,8 +167,14 @@ typedef enum {
 	DOC_CLOSING
 } Tdocstatus;
 
-/* if an action is set, this action has to be executed after the document finishing closing/opening */
 typedef struct {
+	GFile *uri;
+	GFileInfo *fileinfo;
+	Tdocstatus status;			/* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE, DOC_CLOSING */
+	gchar *encoding;
+	gint modified;
+
+	/* if an action is set, this action has to be executed after the document finishing closing/opening */
 	gpointer save;				/* during document save */
 	gpointer info;				/* during update of the fileinfo */
 	gpointer checkmodified;		/* during check modified on disk checking */
@@ -177,15 +183,7 @@ typedef struct {
 	gint goto_offset;
 	gushort close_doc;
 	gushort close_window;
-} Tdoc_action;
 
-typedef struct {
-	GFile *uri;
-	GFileInfo *fileinfo;
-	Tdoc_action action;			/* see above, if set, some action has to be executed after opening/closing is done */
-	Tdocstatus status;			/* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE, DOC_CLOSING */
-	gchar *encoding;
-	gint modified;
 	GList *need_autosave;		/* if autosave is needed, a direct pointer to main_v->need_autosave; */
 	GList *autosave_progress;
 	gpointer autosave_action;
