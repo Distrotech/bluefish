@@ -369,7 +369,7 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 		p2->entries[i] = gtk_entry_new();
 		gtk_table_attach(GTK_TABLE(p2->table),p2->entries[i], 2,3,i+2,i+3
 					,GTK_FILL,GTK_FILL,0,0);
-		p2->is_file[i] = gtk_toggle_button_new();
+		p2->is_file[i] = gtk_check_button_new();
 		gtk_table_attach(GTK_TABLE(p2->table),p2->is_file[i], 3,4,i+2,i+3
 					,GTK_SHRINK,GTK_SHRINK,0,0);
 	}
