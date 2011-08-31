@@ -255,7 +255,7 @@ static gint snippets_test_pageSnr(Tsnipwiz *snwiz, gpointer data) {
 	
 	/* build the leaf */
 	xmlSetProp(childn, (const xmlChar *)"title", (const xmlChar *)snwiz->name);
-	if (strlen(snwiz->description)) {
+	if (snwiz->description) {
 		xmlSetProp(childn, (const xmlChar *)"tooltip", (const xmlChar *)snwiz->description);
 	}
 	
@@ -443,7 +443,7 @@ static gint snippets_test_pageInsert(Tsnipwiz *snwiz, gpointer data) {
 	before = textbuffer_get_all_chars(p2->before);	
 	after = textbuffer_get_all_chars(p2->after);		
 	xmlSetProp(childn, (const xmlChar *)"title", (const xmlChar *)snwiz->name);
-	if (strlen(snwiz->description)) {
+	if (snwiz->description) {
 		xmlSetProp(childn, (const xmlChar *)"tooltip", (const xmlChar *)snwiz->description);
 	}
 	
