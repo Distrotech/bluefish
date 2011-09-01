@@ -86,7 +86,23 @@ EXTRA_DIST = \
 	tablewhiz.png \
 	thumbnail.png \
 	underline.png \
-	var.png
+	var.png \
+	article.png \
+	aside.png \
+	figcaption.png \
+	figure.png \
+	footer.png \
+	header.png \
+	hgroup.png \
+	mark.png \
+	nav.png \
+	rp.png \
+	ruby.png \
+	section.png \
+	audio.png \
+	video.png \
+	canvas.png \
+	time.png
 
 CLEANFILES = htmlbar_icons.c
 
@@ -178,7 +194,23 @@ HTMLBAR = \
 	pixmap_tablewhiz $(srcdir)/tablewhiz.png \
 	pixmap_thumbnail $(srcdir)/thumbnail.png \
 	pixmap_underline $(srcdir)/underline.png \
-	pixmap_var $(srcdir)/var.png
+	pixmap_var $(srcdir)/var.png \
+	pixmap_article $(srcdir)/article.png \
+	pixmap_aside $(srcdir)/aside.png \
+	pixmap_figcaption $(srcdir)/figcaption.png \
+	pixmap_figure $(srcdir)/figure.png \
+	pixmap_footer $(srcdir)/footer.png \
+	pixmap_header $(srcdir)/header.png \
+	pixmap_hgroup $(srcdir)/hgroup.png \
+	pixmap_mark $(srcdir)/mark.png \
+	pixmap_nav $(srcdir)/nav.png \
+	pixmap_rp $(srcdir)/rp.png \
+	pixmap_ruby $(srcdir)/ruby.png \
+	pixmap_section $(srcdir)/section.png \
+	pixmap_audio $(srcdir)/audio.png \
+	pixmap_video $(srcdir)/video.png \
+	pixmap_canvas $(srcdir)/canvas.png \
+	pixmap_html5time $(srcdir)/time.png
 
 
 htmlbar_icons.c: $(EXTRA_DIST)

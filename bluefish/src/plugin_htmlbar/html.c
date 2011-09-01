@@ -1876,7 +1876,8 @@ frame_dialog(Tbfwin * bfwin, Ttagpopup * data)
 		g_free(custom);
 }
 
-void audiodialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
+static void
+audiodialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
 {
 	gchar *finalstring;
 	
@@ -1950,12 +1951,233 @@ audio_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	/* Preload */
 	listPreload = g_list_append(NULL, "auto");
 	listPreload = g_list_append(listPreload, "metadata");
-	dg->combo[5] = combobox_with_popdown(attrList[4], listPreload, 1);
+	dg->combo[5] = combobox_with_popdown("none", listPreload, 1);
 	dialog_mnemonic_label_in_table(_("_Preload:"), dg->combo[5], dgtable, 0, 1, 9, 10);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[5]), 1, 2, 9, 10);
 	g_list_free(listPreload);
 
 	html_diag_finish(dg, G_CALLBACK(audiodialogok_lcb));
+}
+
+static void
+canvasdialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
+	gchar *finalstring;
+	
+	/* Tag construction */
+	finalstring = g_strdup(cap("<CANVAS"));
+	finalstring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("WIDTH"), finalstring, NULL);
+	finalstring = insert_string_if_entry((GTK_ENTRY(dg->spin[2])), cap("HEIGHT"), finalstring, NULL);
+	finalstring = g_strconcat(finalstring, ">\n", NULL);
+	finalstring = g_strconcat(finalstring, cap("</CANVAS>"), NULL);
+	
+	/* Insert tag in document */
+	doc_insert_two_strings(dg->doc, finalstring, NULL);
+	
+	/* Free */
+	g_free(finalstring);
+	html_diag_destroy_cb(NULL, dg);
+}
+
+void
+canvas_dialog(Tbfwin * bfwin, Ttagpopup * data)
+{
+	/* Controls */
+	GtkWidget *dgtable, *file_but;
+	Thtml_diag *dg;
+		
+	/* Dialog construction */
+	dg = html_diag_new(bfwin, _("Canvas"));
+	dgtable = html_diag_table_in_vbox(dg, 2, 4);
+	
+	/* Width */
+	dg->spin[1] = spinbut_with_value("", 0, 10000, 1.0, 5.0);
+	dialog_mnemonic_label_in_table(_("_Width:"), dg->spin[1], dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 2, 3);
+
+	/* Height */
+	dg->spin[2] = spinbut_with_value("", 0, 10000, 1.0, 5.0);
+	dialog_mnemonic_label_in_table(_("_Height:"), dg->spin[2], dgtable, 0, 1, 4, 5);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 2, 4, 5);
+
+	html_diag_finish(dg, G_CALLBACK(canvasdialogok_lcb));
+}
+
+static void
+videodialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
+	gchar *finalstring;
+	
+	/* Tag construction */
+	finalstring = g_strdup(cap("<VIDEO"));
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("SRC"), finalstring, NULL);
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[2]), cap("POSTER"), finalstring, NULL);
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[3]), cap("AUTOPLAY"), finalstring, NULL);
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[4]), cap("CONTROLS"), finalstring, NULL);
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[5]), cap("LOOP"), finalstring, NULL);
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[6]), cap("PRELOAD"), finalstring, NULL);
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[7]), cap("AUDIO"), finalstring, NULL);
+	finalstring = insert_string_if_entry((GTK_ENTRY(dg->spin[1])), cap("WIDTH"), finalstring, NULL);
+	finalstring = insert_string_if_entry((GTK_ENTRY(dg->spin[2])), cap("HEIGHT"), finalstring, NULL);
+	finalstring = g_strconcat(finalstring, ">\n", NULL);
+	finalstring = g_strconcat(finalstring, cap("</VIDEO>"), NULL);
+	
+	/* Insert tag in document */
+	doc_insert_two_strings(dg->doc, finalstring, NULL);
+	
+	/* Free */
+	g_free(finalstring);
+	html_diag_destroy_cb(NULL, dg);
+}
+
+void
+video_dialog(Tbfwin * bfwin, Ttagpopup * data)
+{
+	/* Controls */
+	GtkWidget *dgtable, *src_file_but, *poster_file_but;
+	Thtml_diag *dg;
+	
+	/* Attributes name list */
+	static gchar *attrList[] =
+		{ "src", "poster", "autoplay", "controls", "loop", "preload", "height", "width", "audio", NULL };
+		
+	/* Values attributes lists */
+	GList *listAutoplay, *listControls, *listLoop, *listPreload, *listAudio;
+	
+	/* Dialog construction and settings */
+	dg = html_diag_new(bfwin, _("Audio"));
+	dgtable = gtk_table_new(4, 5, 0);
+	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
+	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
+	gtk_box_pack_start(GTK_BOX(dg->vbox), dgtable, FALSE, FALSE, 0);
+
+	/* Source */
+	dg->combo[1] = combobox_with_popdown(NULL, bfwin->session->urllist, 1);
+	src_file_but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[1]))), 0, bfwin);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(src_file_but), 9, 10, 0, 1);
+	dialog_mnemonic_label_in_table(_("_Source:"), dg->combo[1], dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 9, 0, 1);
+	
+	/* Poster */
+	dg->combo[2] = combobox_with_popdown(NULL, bfwin->session->urllist, 1);
+	poster_file_but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[2]))), 0, bfwin);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(poster_file_but), 9, 10, 2, 3);
+	dialog_mnemonic_label_in_table(_("_Poster:"), dg->combo[2], dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1, 9, 2, 3);
+
+	/* Autoplay */
+	listAutoplay = g_list_append(NULL, "");
+	dg->combo[3] = combobox_with_popdown(attrList[2], listAutoplay, 1);
+	dialog_mnemonic_label_in_table(_("_Autoplay:"), dg->combo[3], dgtable, 0, 1, 4, 5);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[3]), 1, 2, 4, 5);
+	g_list_free(listAutoplay);
+	
+	/* Controls */
+	listControls = g_list_append(NULL, "");
+	dg->combo[4] = combobox_with_popdown(attrList[3], listControls, 1);
+	dialog_mnemonic_label_in_table(_("_Controls:"), dg->combo[4], dgtable, 0, 1, 6, 7);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[4]), 1, 2, 6, 7);
+	g_list_free(listControls);
+	
+	/* Loop */
+	listLoop = g_list_append(NULL, "");
+	dg->combo[5] = combobox_with_popdown(attrList[4], listLoop, 1);
+	dialog_mnemonic_label_in_table(_("_Loop:"), dg->combo[5], dgtable, 0, 1, 8, 9);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[5]), 1, 2, 8, 9);
+	g_list_free(listLoop);
+
+	/* Preload */
+	listPreload = g_list_append(NULL, "auto");
+	listPreload = g_list_append(listPreload, "metadata");
+	dg->combo[6] = combobox_with_popdown("none", listPreload, 1);
+	dialog_mnemonic_label_in_table(_("_Preload:"), dg->combo[6], dgtable, 0, 1, 10, 11);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[6]), 1, 2, 10, 11);
+	g_list_free(listPreload);
+
+	/* Audio */
+	listAudio = g_list_append(NULL, "");
+	dg->combo[7] = combobox_with_popdown("muted", listAudio, 1);
+	dialog_mnemonic_label_in_table(_("_Audio:"), dg->combo[7], dgtable, 0, 1, 12, 13);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[7]), 1, 2, 12, 13);
+	g_list_free(listAudio);
+
+	/* Width */
+	dg->spin[1] = spinbut_with_value("", 0, 10000, 1.0, 5.0);
+	dialog_mnemonic_label_in_table(_("_Width:"), dg->spin[1], dgtable, 0, 1, 14, 15);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 14, 15);
+
+	/* Height */
+	dg->spin[2] = spinbut_with_value("", 0, 10000, 1.0, 5.0);
+	dialog_mnemonic_label_in_table(_("_Height:"), dg->spin[2], dgtable, 0, 1, 16, 17);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 2, 16, 17);
+
+	html_diag_finish(dg, G_CALLBACK(videodialogok_lcb));
+}
+
+static void
+html5timedialogok_lcb(GtkWidget * widget, Thtml_diag * dg)
+{
+	gchar *finalstring;
+	
+	/* Tag construction */
+	finalstring = g_strdup(cap("<TIME"));
+	finalstring = insert_string_if_combobox(GTK_COMBO_BOX(dg->combo[1]), cap("PUBDATE"), finalstring, NULL);
+	finalstring = insert_string_if_entry((GTK_ENTRY(dg->entry[1])), cap("DATETIME"), finalstring, NULL);
+	finalstring = g_strconcat(finalstring, cap("></TIME>"), NULL);
+	
+	/* Insert tag in document */
+	doc_insert_two_strings(dg->doc, finalstring, NULL);
+	
+	/* Free */
+	g_free(finalstring);
+	html_diag_destroy_cb(NULL, dg);
+}
+
+void
+html5time_dialog(Tbfwin * bfwin, Ttagpopup * data)
+{
+	/* Controls */
+	GtkWidget *dgtable;
+	Thtml_diag *dg;
+
+	/* Datetime help format */
+	gchar *helpstring;
+
+	/* Values attributes lists */
+	GList *listPubdate;
+
+	/* Attributes name list */
+	static gchar *attrList[] =
+		{ "datetime", "pubdate", NULL };
+
+	/* Help string construction */
+	helpstring = g_strdup("Datetime format (ex. YYYY-MM-DDThh:mm:ssTZD) :\n\n");
+	helpstring = g_strconcat(helpstring, "YYYY - year (e.g. 2009)\n", NULL);
+	helpstring = g_strconcat(helpstring, "MM - month (e.g. 01 for January)\nDD - day of the month (e.g. 08)\n", NULL);
+	helpstring = g_strconcat(helpstring, "T - a required separator\nhh - hour (e.g. 22 for 10.00pm)\n", NULL);
+	helpstring = g_strconcat(helpstring, "mm - minutes (e.g. 55)\nss - seconds (e.g. 03)\n", NULL);
+	helpstring = g_strconcat(helpstring, "TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean Time)\n", NULL);
+
+	/* Dialog construction */
+	dg = html_diag_new(bfwin, _("Time"));
+	dgtable = html_diag_table_in_vbox(dg, 2, 4);
+
+	/* Pubdate */
+	listPubdate = g_list_append(NULL, "");
+	dg->combo[1] = combobox_with_popdown(attrList[1], listPubdate, 1);
+	dialog_mnemonic_label_in_table(_("_Pubdate:"), dg->combo[1], dgtable, 0, 1, 0, 1);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 2, 0, 1);
+	g_list_free(listPubdate);
+
+	/* Datetime */
+	dg->entry[1] = dialog_entry_in_table("", dgtable, 1, 3, 2, 3);
+	dialog_mnemonic_label_in_table(_("_Datetime:"), dg->entry[1], dgtable, 0, 1, 2, 3);
+
+	/* Datetime help */
+	GtkWidget* l = dialog_label_new(_(helpstring), 0.5, 0.5, dgtable, 0);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(l), 0, 5, 4, 5);
+
+	html_diag_finish(dg, G_CALLBACK(html5timedialogok_lcb));
 }
 
 /* this is no HTML, but often requested, so we leave it for now */
