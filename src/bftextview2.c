@@ -639,7 +639,7 @@ static void
 bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
 							gint stringlen, BluefishTextView * btv)
 {
-	DBG_SIGNALS("bftextview2_insert_text_lcb, btv=%p, master=%p\n", btv, btv->master);
+	DBG_SIGNALS("bftextview2_insert_text_lcb, btv=%p, master=%p, stringlen=%d\n", btv, btv->master, stringlen);
 	if (btv == btv->master)
 		foundcache_update_offsets(BLUEFISH_TEXT_VIEW(btv->master), gtk_text_iter_get_offset(iter),
 								  g_utf8_strlen(string, stringlen));
@@ -650,12 +650,13 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 								  gint stringlen, BluefishTextView * btv)
 {
 	GtkTextIter start, end;
-	DBG_SIGNALS("bftextview2_insert_text_after_lcb, btv=%p, master=%p, stringlen=%d\n", btv, btv->master,
-				stringlen);
+	DBG_SIGNALS("bftextview2_insert_text_after_lcb, btv=%p, master=%p, stringlen=%d, string=%s\n", btv, btv->master,
+				stringlen, string);
+	if (DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->in_paste_operation)
+		btv->needs_autocomp = FALSE;
 	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
-		&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && stringlen == 1 && (btv->autocomp
-																				|| main_v->props.
-																				autocomp_popup_mode != 0)) {
+				&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && stringlen == 1 
+				&& (btv->autocomp	|| main_v->props.autocomp_popup_mode != 0)) {
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb: call autocomp_run\n");
 		autocomp_run(btv, FALSE);
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, set needs_autocomp to FALSE\n");
