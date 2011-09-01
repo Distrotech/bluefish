@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-05-13 15:37+0900\n"
+"POT-Creation-Date: 2011-08-24 21:37+0200\n"
 "PO-Revision-Date: 2011-05-14 00:46+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
@@ -21,7 +21,8 @@ msgstr ""
 
 #: src/plugin_about/about.c:76
 msgid "This version of Bluefish was built with:\n"
-msgstr "このバージョンの Bluefish は次のオプションを使用してコンパイルされています:\n"
+msgstr ""
+"このバージョンの Bluefish は次のオプションを使用してコンパイルされています:\n"
 
 #: src/plugin_about/about.c:143
 msgid ""
@@ -58,8 +59,14 @@ msgstr ""
 "このソフトウェアのリリースを手助けしてくれたすべての人に感謝します."
 
 #: src/plugin_about/about.c:202
-msgid "An open-source editor for experienced web designers and programmers, supporting many programming and markup languages, but focusing on creating dynamic and interactive websites."
-msgstr "経験を積んだウェブデザイナーやプログラマーのためのオープンソースなエディタです。多くのプログラミング言語やマークアップ言語をサポートしており、ダイナミック、インタラクティブなウェブサイトを作成する際に、大きな助けとなるでしょう。"
+msgid ""
+"An open-source editor for experienced web designers and programmers, "
+"supporting many programming and markup languages, but focusing on creating "
+"dynamic and interactive websites."
+msgstr ""
+"経験を積んだウェブデザイナーやプログラマーのためのオープンソースなエディタで"
+"す。多くのプログラミング言語やマークアップ言語をサポートしており、ダイナミッ"
+"ク、インタラクティブなウェブサイトを作成する際に、大きな助けとなるでしょう。"
 
 #. Translators: This is a special message that shouldn't be translated
 #. * literally. It is used in the about box to give credits to
@@ -112,4 +119,3 @@ msgstr "ビルド情報(_B)..."
 #: src/plugin_about/about.c:282
 msgid "Build info"
 msgstr "ビルド情報を表示する"
-

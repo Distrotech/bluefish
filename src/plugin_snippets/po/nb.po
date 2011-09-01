@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-03-20 18:13+0100\n"
+"POT-Creation-Date: 2011-09-01 21:02+0200\n"
 "PO-Revision-Date: 2010-04-21 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
-"Language: nb\n"
 
 #: src/plugin_snippets/snippets_gui.c:407
 msgid "Click the right mouse button to add, edit or delete snippets."
@@ -54,7 +54,7 @@ msgid "_New Snippet"
 msgstr "_Nytt utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:798
-#: src/plugin_snippets/snippets_wizard.c:756
+#: src/plugin_snippets/snippets_wizard.c:748
 msgid "New snippet"
 msgstr "Nytt utklipp"
 
@@ -64,6 +64,7 @@ msgid "_Edit Snippet"
 msgstr "_Rediger utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:799
+#: src/plugin_snippets/snippets_wizard.c:748
 #, fuzzy
 msgid "Edit snippet"
 msgstr "_Rediger utklipp"
@@ -153,11 +154,11 @@ msgstr "Utklippsmeny"
 msgid "[cursor position or selection]"
 msgstr "[markørposisjon eller markert tekst]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:157
+#: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "Search for: '"
 msgstr "Søk etter: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:157
+#: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "', replace with: '"
 msgstr "', erstatt med: '"
 
@@ -182,116 +183,118 @@ msgid "Normal"
 msgstr "Standard"
 
 #: src/plugin_snippets/snippets_wizard.c:119
-msgid "Entire word only"
-msgstr "Kun hele ord"
-
-#: src/plugin_snippets/snippets_wizard.c:120
-msgid "POSIX"
-msgstr "POSIX"
-
-#: src/plugin_snippets/snippets_wizard.c:121
 msgid "PERL"
 msgstr "PERL"
 
-#: src/plugin_snippets/snippets_wizard.c:132
+#: src/plugin_snippets/snippets_wizard.c:130
+#, fuzzy
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
-"placeholders an appropriate name on the right."
+"placeholders an appropriate name on the right. (Please use %% if you need "
+"literal % in your string!)"
 msgstr ""
 "Oppgi et søk/erstatt-filter. Du kan bruke identifikatorene %0, %1, ...%5 for "
 "å spørre etter verdier når du aktiverer dette elementet.Gi disse "
 "identifikatorene et passende navn på høyre side."
 
-#: src/plugin_snippets/snippets_wizard.c:139
+#: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
 msgstr "_Søk etter: "
 
-#: src/plugin_snippets/snippets_wizard.c:143
+#: src/plugin_snippets/snippets_wizard.c:141
 msgid "Replace _with: "
 msgstr "Erstatt _med: "
 
-#: src/plugin_snippets/snippets_wizard.c:150
+#: src/plugin_snippets/snippets_wizard.c:148
 msgid "Sco_pe: "
 msgstr "Omfang: "
 
-#: src/plugin_snippets/snippets_wizard.c:157
+#: src/plugin_snippets/snippets_wizard.c:155
 msgid "Match Patter_n: "
 msgstr "Søkeuttrykk: "
 
-#: src/plugin_snippets/snippets_wizard.c:160
+#: src/plugin_snippets/snippets_wizard.c:158
 msgid "Case sensitive _matching"
 msgstr "Treff store-s_må bokstaver"
 
-#: src/plugin_snippets/snippets_wizard.c:161
+#: src/plugin_snippets/snippets_wizard.c:159
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Bare treff hvis store-små bokstaver er identiske."
 
-#: src/plugin_snippets/snippets_wizard.c:164
+#: src/plugin_snippets/snippets_wizard.c:162
 msgid "_Use escape chars"
 msgstr "Br_uk omgåelsestegn (\\n, \\t, ...)"
 
-#: src/plugin_snippets/snippets_wizard.c:165
+#: src/plugin_snippets/snippets_wizard.c:163
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr "Fjern skråstrek foran omgåelsestegn som \\n, \\t, etc."
 
-#: src/plugin_snippets/snippets_wizard.c:340
+#: src/plugin_snippets/snippets_wizard.c:332
+#, fuzzy
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
 "position or the current selection. You may use %0, %1, ...%9 placeholders to "
 "ask for values when you activate this item. Give these placeholders an "
-"appropriate name on the right."
+"appropriate name on the right. (Please use %% if you need literal % in your "
+"string!)"
 msgstr ""
 "Startteksten settes inn foran markøren eller den valgte teksten.Sluttekst "
 "settes inn etter markøren eller den valgte teksten.Du kan bruke "
 "identifikatorene %0, %1, ...%9 for å spørre etter verdier når du aktiverer "
 "dette elementet. Til høyre kan du navngi identifikatorene.til høyre."
 
-#: src/plugin_snippets/snippets_wizard.c:346
+#: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
 msgstr "i>"
 
-#: src/plugin_snippets/snippets_wizard.c:356
+#: src/plugin_snippets/snippets_wizard.c:348
 msgid "<i>After</i> text"
 msgstr "i>"
 
-#: src/plugin_snippets/snippets_wizard.c:364
+#: src/plugin_snippets/snippets_wizard.c:356
 msgid "Number"
 msgstr "Nummer"
 
-#: src/plugin_snippets/snippets_wizard.c:366
+#: src/plugin_snippets/snippets_wizard.c:358
 msgid "Name"
 msgstr "Navn"
 
-#: src/plugin_snippets/snippets_wizard.c:368
+#: src/plugin_snippets/snippets_wizard.c:360
 msgid "Is file path"
 msgstr "Er en filsti"
 
-#: src/plugin_snippets/snippets_wizard.c:494
+#: src/plugin_snippets/snippets_wizard.c:486
 msgid "Enter the name of the branch:"
 msgstr "Sett inn navn for grenen:"
 
-#: src/plugin_snippets/snippets_wizard.c:586
+#: src/plugin_snippets/snippets_wizard.c:578
 msgid "Name of the new item:"
 msgstr "Navn på det nye elementet:"
 
-#: src/plugin_snippets/snippets_wizard.c:591
+#: src/plugin_snippets/snippets_wizard.c:583
 msgid "Description:"
 msgstr "Beskrivelse:"
 
-#: src/plugin_snippets/snippets_wizard.c:641
+#: src/plugin_snippets/snippets_wizard.c:633
 msgid "Select what you want to add"
 msgstr "Velg hva du ønsker å legge til"
 
-#: src/plugin_snippets/snippets_wizard.c:643
+#: src/plugin_snippets/snippets_wizard.c:635
 msgid "Branch"
 msgstr "Gren"
 
-#: src/plugin_snippets/snippets_wizard.c:645
+#: src/plugin_snippets/snippets_wizard.c:637
 msgid "Insert string"
 msgstr "Sett inn tekst"
 
-#: src/plugin_snippets/snippets_wizard.c:647
+#: src/plugin_snippets/snippets_wizard.c:639
 msgid "Search and replace pattern"
 msgstr "Søkemønster"
+
+#~ msgid "Entire word only"
+#~ msgstr "Kun hele ord"
+
+#~ msgid "POSIX"
+#~ msgstr "POSIX"

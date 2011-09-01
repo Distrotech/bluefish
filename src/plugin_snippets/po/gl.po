@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-06-24 22:20+0200\n"
+"POT-Creation-Date: 2011-09-01 21:02+0200\n"
 "PO-Revision-Date: 2009-11-03 10:36+0100\n"
 "Last-Translator: Xose M. <pikamoku@gmail.com>\n"
 "Language-Team: none\n"
@@ -57,7 +57,7 @@ msgid "_New Snippet"
 msgstr "_Novo anaco"
 
 #: src/plugin_snippets/snippets_gui.c:798
-#: src/plugin_snippets/snippets_wizard.c:756
+#: src/plugin_snippets/snippets_wizard.c:748
 msgid "New snippet"
 msgstr "Novo anaco"
 
@@ -67,6 +67,7 @@ msgid "_Edit Snippet"
 msgstr "_Edita anaco"
 
 #: src/plugin_snippets/snippets_gui.c:799
+#: src/plugin_snippets/snippets_wizard.c:748
 #, fuzzy
 msgid "Edit snippet"
 msgstr "_Edita anaco"
@@ -156,11 +157,11 @@ msgstr "Menú Anacos"
 msgid "[cursor position or selection]"
 msgstr "[posición do cursor ou selección]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:157
+#: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "Search for: '"
 msgstr "Buscar: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:157
+#: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "', replace with: '"
 msgstr "', trocar por: '"
 
@@ -185,116 +186,118 @@ msgid "Normal"
 msgstr "Normal"
 
 #: src/plugin_snippets/snippets_wizard.c:119
-msgid "Entire word only"
-msgstr "Só palabra completa"
-
-#: src/plugin_snippets/snippets_wizard.c:120
-msgid "POSIX"
-msgstr "POSIX"
-
-#: src/plugin_snippets/snippets_wizard.c:121
 msgid "PERL"
 msgstr "PERL"
 
-#: src/plugin_snippets/snippets_wizard.c:132
+#: src/plugin_snippets/snippets_wizard.c:130
+#, fuzzy
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
-"placeholders an appropriate name on the right."
+"placeholders an appropriate name on the right. (Please use %% if you need "
+"literal % in your string!)"
 msgstr ""
 "Faga unha búsqueda e substitúa o patrón. Pode usar %0, %1,  ..%5 marcadores "
 "de posición para pedir valores cando activas esta función. Na dereita, dalle "
 "un nome axeitado ó marcador."
 
-#: src/plugin_snippets/snippets_wizard.c:139
+#: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
 msgstr "_Buscar por: "
 
-#: src/plugin_snippets/snippets_wizard.c:143
+#: src/plugin_snippets/snippets_wizard.c:141
 msgid "Replace _with: "
 msgstr "Substitúe _con: "
 
-#: src/plugin_snippets/snippets_wizard.c:150
+#: src/plugin_snippets/snippets_wizard.c:148
 msgid "Sco_pe: "
 msgstr "Ámb_ito: "
 
-#: src/plugin_snippets/snippets_wizard.c:157
+#: src/plugin_snippets/snippets_wizard.c:155
 msgid "Match Patter_n: "
 msgstr "Patrón coincidente: "
 
-#: src/plugin_snippets/snippets_wizard.c:160
+#: src/plugin_snippets/snippets_wizard.c:158
 msgid "Case sensitive _matching"
 msgstr "Distingue Maí/Min"
 
-#: src/plugin_snippets/snippets_wizard.c:161
+#: src/plugin_snippets/snippets_wizard.c:159
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Só se Mai/Min son idénticas"
 
-#: src/plugin_snippets/snippets_wizard.c:164
+#: src/plugin_snippets/snippets_wizard.c:162
 msgid "_Use escape chars"
 msgstr "_Usar caracteres de escape"
 
-#: src/plugin_snippets/snippets_wizard.c:165
+#: src/plugin_snippets/snippets_wizard.c:163
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr "Quitar caracteres de escape coma \\n , \\t etc."
 
-#: src/plugin_snippets/snippets_wizard.c:340
+#: src/plugin_snippets/snippets_wizard.c:332
+#, fuzzy
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
 "position or the current selection. You may use %0, %1, ...%9 placeholders to "
 "ask for values when you activate this item. Give these placeholders an "
-"appropriate name on the right."
+"appropriate name on the right. (Please use %% if you need literal % in your "
+"string!)"
 msgstr ""
 "O texto <i>anterior</i> será introducido antes da posición do cursor ou "
 "selección actual, o texto <i>posterior</i> será introducido despois da "
 "selección actual ou posición do cursor. Pode usar %0, %1 ...%9 marcadores de "
 "posición (e debe darlle nomes) para pedir valores cando activa este control."
 
-#: src/plugin_snippets/snippets_wizard.c:346
+#: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
 msgstr "texto <i>anterior</i>"
 
-#: src/plugin_snippets/snippets_wizard.c:356
+#: src/plugin_snippets/snippets_wizard.c:348
 msgid "<i>After</i> text"
 msgstr "texto <i>posterior</i>"
 
-#: src/plugin_snippets/snippets_wizard.c:364
+#: src/plugin_snippets/snippets_wizard.c:356
 msgid "Number"
 msgstr "Número"
 
-#: src/plugin_snippets/snippets_wizard.c:366
+#: src/plugin_snippets/snippets_wizard.c:358
 msgid "Name"
 msgstr "Nome"
 
-#: src/plugin_snippets/snippets_wizard.c:368
+#: src/plugin_snippets/snippets_wizard.c:360
 msgid "Is file path"
 msgstr "É ruta ó ficheiro"
 
-#: src/plugin_snippets/snippets_wizard.c:494
+#: src/plugin_snippets/snippets_wizard.c:486
 msgid "Enter the name of the branch:"
 msgstr "Introduza o nome da ramificación:"
 
-#: src/plugin_snippets/snippets_wizard.c:586
+#: src/plugin_snippets/snippets_wizard.c:578
 msgid "Name of the new item:"
 msgstr "Nome do novo elemento:"
 
-#: src/plugin_snippets/snippets_wizard.c:591
+#: src/plugin_snippets/snippets_wizard.c:583
 msgid "Description:"
 msgstr "Descrición"
 
-#: src/plugin_snippets/snippets_wizard.c:641
+#: src/plugin_snippets/snippets_wizard.c:633
 msgid "Select what you want to add"
 msgstr "Seleccione o que queira engadir"
 
-#: src/plugin_snippets/snippets_wizard.c:643
+#: src/plugin_snippets/snippets_wizard.c:635
 msgid "Branch"
 msgstr "Ramificación"
 
-#: src/plugin_snippets/snippets_wizard.c:645
+#: src/plugin_snippets/snippets_wizard.c:637
 msgid "Insert string"
 msgstr "Insira cadea"
 
-#: src/plugin_snippets/snippets_wizard.c:647
+#: src/plugin_snippets/snippets_wizard.c:639
 msgid "Search and replace pattern"
 msgstr "Busque e substitúa o patrón"
+
+#~ msgid "Entire word only"
+#~ msgstr "Só palabra completa"
+
+#~ msgid "POSIX"
+#~ msgstr "POSIX"

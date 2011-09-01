@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-06-24 22:20+0200\n"
+"POT-Creation-Date: 2011-09-01 21:02+0200\n"
 "PO-Revision-Date: 2011-01-30 23:28+0100\n"
 "Last-Translator: Quick-Master SI <dawajpoczte@gmail.com>\n"
 "Language-Team: None\n"
@@ -55,7 +55,7 @@ msgid "_New Snippet"
 msgstr "Nowy skrawek"
 
 #: src/plugin_snippets/snippets_gui.c:798
-#: src/plugin_snippets/snippets_wizard.c:756
+#: src/plugin_snippets/snippets_wizard.c:748
 msgid "New snippet"
 msgstr "Nowy skrawek"
 
@@ -65,6 +65,7 @@ msgid "_Edit Snippet"
 msgstr "Edytuj skrawek"
 
 #: src/plugin_snippets/snippets_gui.c:799
+#: src/plugin_snippets/snippets_wizard.c:748
 #, fuzzy
 msgid "Edit snippet"
 msgstr "Edytuj skrawek"
@@ -154,11 +155,11 @@ msgstr "Meny skrawków"
 msgid "[cursor position or selection]"
 msgstr "[pozycja kursora lub zaznaczenie]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:157
+#: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "Search for: '"
 msgstr "Szukaj: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:157
+#: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "', replace with: '"
 msgstr "', zastąp: '"
 
@@ -183,67 +184,63 @@ msgid "Normal"
 msgstr "Normalny"
 
 #: src/plugin_snippets/snippets_wizard.c:119
-msgid "Entire word only"
-msgstr "Tylko całe słowa"
-
-#: src/plugin_snippets/snippets_wizard.c:120
-msgid "POSIX"
-msgstr "POSIX"
-
-#: src/plugin_snippets/snippets_wizard.c:121
 msgid "PERL"
 msgstr "PERL"
 
-#: src/plugin_snippets/snippets_wizard.c:132
+#: src/plugin_snippets/snippets_wizard.c:130
+#, fuzzy
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
-"placeholders an appropriate name on the right."
+"placeholders an appropriate name on the right. (Please use %% if you need "
+"literal % in your string!)"
 msgstr ""
 "Określ wzorzec wyszukiwania i zastępowania. Możesz użyć %0, %1, ...%5 "
 "wartościzastępczych aby odwołać się do tych wartości kiedy zostaną "
 "aktywowane. Te wartości zastępcze zostaną nadane na odpowiedniej nazwie po "
 "prawej stronie."
 
-#: src/plugin_snippets/snippets_wizard.c:139
+#: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
 msgstr "Szukaj: "
 
-#: src/plugin_snippets/snippets_wizard.c:143
+#: src/plugin_snippets/snippets_wizard.c:141
 msgid "Replace _with: "
 msgstr "Zastąp: "
 
-#: src/plugin_snippets/snippets_wizard.c:150
+#: src/plugin_snippets/snippets_wizard.c:148
 msgid "Sco_pe: "
 msgstr "Zakres: "
 
-#: src/plugin_snippets/snippets_wizard.c:157
+#: src/plugin_snippets/snippets_wizard.c:155
 msgid "Match Patter_n: "
 msgstr "Dopasuj wzorzec: "
 
-#: src/plugin_snippets/snippets_wizard.c:160
+#: src/plugin_snippets/snippets_wizard.c:158
 msgid "Case sensitive _matching"
 msgstr "Rozróżnianie WIELKICH i małych liter"
 
-#: src/plugin_snippets/snippets_wizard.c:161
+#: src/plugin_snippets/snippets_wizard.c:159
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Dopasuj tylko wtedy, gdy wielkość liter jest identyczna."
 
-#: src/plugin_snippets/snippets_wizard.c:164
+#: src/plugin_snippets/snippets_wizard.c:162
 msgid "_Use escape chars"
 msgstr "Użyj specjalnych znaków wyjścia (tzw. escape char)"
 
-#: src/plugin_snippets/snippets_wizard.c:165
+#: src/plugin_snippets/snippets_wizard.c:163
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr "Usuń znaki backslasha użytych znaków wyjścia np. \\n, \\t itd."
 
-#: src/plugin_snippets/snippets_wizard.c:340
+#: src/plugin_snippets/snippets_wizard.c:332
+#, fuzzy
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
 "position or the current selection. You may use %0, %1, ...%9 placeholders to "
 "ask for values when you activate this item. Give these placeholders an "
-"appropriate name on the right."
+"appropriate name on the right. (Please use %% if you need literal % in your "
+"string!)"
 msgstr ""
 "<i>Przed</i> tekstem zostanie wstawiony przed pozycją  kursora lub bieżącym "
 "zaznaczeniem, <i>Za</i> tekstem zostanie wstawione za pozycją kursora lub "
@@ -251,50 +248,56 @@ msgstr ""
 "odwołać się do tych wartości kiedy zostaną aktywowane. Te wartości zastępcze "
 "zostaną nadane na odpowiedniej nazwie po prawej stronie."
 
-#: src/plugin_snippets/snippets_wizard.c:346
+#: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
 msgstr "i> tekstem"
 
-#: src/plugin_snippets/snippets_wizard.c:356
+#: src/plugin_snippets/snippets_wizard.c:348
 msgid "<i>After</i> text"
 msgstr "i> tekście"
 
-#: src/plugin_snippets/snippets_wizard.c:364
+#: src/plugin_snippets/snippets_wizard.c:356
 msgid "Number"
 msgstr "Numer"
 
-#: src/plugin_snippets/snippets_wizard.c:366
+#: src/plugin_snippets/snippets_wizard.c:358
 msgid "Name"
 msgstr "Nazwa"
 
-#: src/plugin_snippets/snippets_wizard.c:368
+#: src/plugin_snippets/snippets_wizard.c:360
 msgid "Is file path"
 msgstr "Ścieżka do pliku"
 
-#: src/plugin_snippets/snippets_wizard.c:494
+#: src/plugin_snippets/snippets_wizard.c:486
 msgid "Enter the name of the branch:"
 msgstr "Podaj nazwę nowej gałęzi"
 
-#: src/plugin_snippets/snippets_wizard.c:586
+#: src/plugin_snippets/snippets_wizard.c:578
 msgid "Name of the new item:"
 msgstr "Nazwa nowego elementu"
 
-#: src/plugin_snippets/snippets_wizard.c:591
+#: src/plugin_snippets/snippets_wizard.c:583
 msgid "Description:"
 msgstr "Opis"
 
-#: src/plugin_snippets/snippets_wizard.c:641
+#: src/plugin_snippets/snippets_wizard.c:633
 msgid "Select what you want to add"
 msgstr "Wybierz co zamierzasz dodać"
 
-#: src/plugin_snippets/snippets_wizard.c:643
+#: src/plugin_snippets/snippets_wizard.c:635
 msgid "Branch"
 msgstr "Gałąź"
 
-#: src/plugin_snippets/snippets_wizard.c:645
+#: src/plugin_snippets/snippets_wizard.c:637
 msgid "Insert string"
 msgstr "Wstaw wyrażenie"
 
-#: src/plugin_snippets/snippets_wizard.c:647
+#: src/plugin_snippets/snippets_wizard.c:639
 msgid "Search and replace pattern"
 msgstr "Szukaj i zamień wzorzec"
+
+#~ msgid "Entire word only"
+#~ msgstr "Tylko całe słowa"
+
+#~ msgid "POSIX"
+#~ msgstr "POSIX"
