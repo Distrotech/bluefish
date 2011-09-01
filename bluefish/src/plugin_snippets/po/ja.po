@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-05-13 15:37+0900\n"
+"POT-Creation-Date: 2011-09-01 21:02+0200\n"
 "PO-Revision-Date: 2011-05-14 00:43+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
@@ -21,7 +21,8 @@ msgstr ""
 
 #: src/plugin_snippets/snippets_gui.c:407
 msgid "Click the right mouse button to add, edit or delete snippets."
-msgstr "マウスの右ボタンをクリックすると、スニペットを追加、編集、削除できます。"
+msgstr ""
+"マウスの右ボタンをクリックすると、スニペットを追加、編集、削除できます。"
 
 #: src/plugin_snippets/snippets_gui.c:408
 msgid "Use drag and drop to re-order snippets"
@@ -29,7 +30,9 @@ msgstr "ドラッグ&ドロップでスニペットを並べ替える"
 
 #: src/plugin_snippets/snippets_gui.c:409
 msgid "To exchange snippets with others use import or export"
-msgstr "スニペットを他のものと入れ替えるには、インポートまたはエクスポートを使用してください"
+msgstr ""
+"スニペットを他のものと入れ替えるには、インポートまたはエクスポートを使用して"
+"ください"
 
 #: src/plugin_snippets/snippets_gui.c:598
 msgid "snippets"
@@ -56,7 +59,7 @@ msgid "_New Snippet"
 msgstr "新規スニペット(_N)"
 
 #: src/plugin_snippets/snippets_gui.c:798
-#: src/plugin_snippets/snippets_wizard.c:756
+#: src/plugin_snippets/snippets_wizard.c:748
 msgid "New snippet"
 msgstr "新規スニペット"
 
@@ -65,6 +68,7 @@ msgid "_Edit Snippet"
 msgstr "スニペットを編集(_E)"
 
 #: src/plugin_snippets/snippets_gui.c:799
+#: src/plugin_snippets/snippets_wizard.c:748
 msgid "Edit snippet"
 msgstr "スニペットを編集する"
 
@@ -140,11 +144,11 @@ msgstr "スニペットメニュー"
 msgid "[cursor position or selection]"
 msgstr "[カーソル位置 または 選択範囲]"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:157
+#: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "Search for: '"
 msgstr "検索する文字列: '"
 
-#: src/plugin_snippets/snippets_leaf_snr.c:157
+#: src/plugin_snippets/snippets_leaf_snr.c:152
 msgid "', replace with: '"
 msgstr "', 置換文字列: '"
 
@@ -169,106 +173,120 @@ msgid "Normal"
 msgstr "通常"
 
 #: src/plugin_snippets/snippets_wizard.c:119
-msgid "Entire word only"
-msgstr "単語全体が一致する"
-
-#: src/plugin_snippets/snippets_wizard.c:120
-msgid "POSIX"
-msgstr "POSIX形式"
-
-#: src/plugin_snippets/snippets_wizard.c:121
 msgid "PERL"
 msgstr "PERL形式"
 
-#: src/plugin_snippets/snippets_wizard.c:132
-msgid "Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."
-msgstr "検索、置換するパターンを指定してください。%0, %1, ...%5 をプレースホルダーとして使用し、項目を有効化したときに値を尋ねるようにすることができます。これらのプレースホルダーに適当な名前を付けてください（右側）。"
+#: src/plugin_snippets/snippets_wizard.c:130
+#, fuzzy
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right. (Please use %% if you need "
+"literal % in your string!)"
+msgstr ""
+"検索、置換するパターンを指定してください。%0, %1, ...%5 をプレースホルダーと"
+"して使用し、項目を有効化したときに値を尋ねるようにすることができます。これら"
+"のプレースホルダーに適当な名前を付けてください（右側）。"
 
-#: src/plugin_snippets/snippets_wizard.c:139
+#: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
 msgstr "検索する単語(_S):"
 
-#: src/plugin_snippets/snippets_wizard.c:143
+#: src/plugin_snippets/snippets_wizard.c:141
 msgid "Replace _with: "
 msgstr "置換文字列(_W): "
 
-#: src/plugin_snippets/snippets_wizard.c:150
+#: src/plugin_snippets/snippets_wizard.c:148
 msgid "Sco_pe: "
 msgstr "範囲(_P):"
 
-#: src/plugin_snippets/snippets_wizard.c:157
+#: src/plugin_snippets/snippets_wizard.c:155
 msgid "Match Patter_n: "
 msgstr "一致(_N): "
 
-#: src/plugin_snippets/snippets_wizard.c:160
+#: src/plugin_snippets/snippets_wizard.c:158
 msgid "Case sensitive _matching"
 msgstr "大文字小文字を区別する(_M)"
 
-#: src/plugin_snippets/snippets_wizard.c:161
+#: src/plugin_snippets/snippets_wizard.c:159
 msgid "Only match if case (upper/lower) is identical."
 msgstr "小文字が一致した場合のみ"
 
-#: src/plugin_snippets/snippets_wizard.c:164
+#: src/plugin_snippets/snippets_wizard.c:162
 msgid "_Use escape chars"
 msgstr "エスケープ文字を使用する(_U)"
 
-#: src/plugin_snippets/snippets_wizard.c:165
-msgid ""
-"Unescape backslash escaped characters such as \\n"
-", \\t etc."
+#: src/plugin_snippets/snippets_wizard.c:163
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr ""
-"バックスラッシュでエスケープされた文字 \\n"
-", \\t などのエスケープを外す。"
+"バックスラッシュでエスケープされた文字 \\n, \\t などのエスケープを外す。"
 
-#: src/plugin_snippets/snippets_wizard.c:340
-msgid "The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."
-msgstr "<i>の前</i> の場合、文字列はカーソル位置または、選択範囲の前に挿入されます。<i>の後</i>の場合、文字列はカーソル位置または、選択範囲の後ろに挿入されます。 %0, %1, ...%9 をプレースホルダーとして使用し、項目を有効化したときに値を尋ねるようにすることができます。これらのプレースホルダーに適当な名前を付けてください（右側）。"
+#: src/plugin_snippets/snippets_wizard.c:332
+#, fuzzy
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right. (Please use %% if you need literal % in your "
+"string!)"
+msgstr ""
+"<i>の前</i> の場合、文字列はカーソル位置または、選択範囲の前に挿入されます。"
+"<i>の後</i>の場合、文字列はカーソル位置または、選択範囲の後ろに挿入されま"
+"す。 %0, %1, ...%9 をプレースホルダーとして使用し、項目を有効化したときに値を"
+"尋ねるようにすることができます。これらのプレースホルダーに適当な名前を付けて"
+"ください（右側）。"
 
-#: src/plugin_snippets/snippets_wizard.c:346
+#: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
 msgstr "テキスト <i>の前</i>"
 
-#: src/plugin_snippets/snippets_wizard.c:356
+#: src/plugin_snippets/snippets_wizard.c:348
 msgid "<i>After</i> text"
 msgstr "テキスト <i>の後</i>"
 
-#: src/plugin_snippets/snippets_wizard.c:364
+#: src/plugin_snippets/snippets_wizard.c:356
 msgid "Number"
 msgstr "番号"
 
-#: src/plugin_snippets/snippets_wizard.c:366
+#: src/plugin_snippets/snippets_wizard.c:358
 msgid "Name"
 msgstr "名前"
 
-#: src/plugin_snippets/snippets_wizard.c:368
+#: src/plugin_snippets/snippets_wizard.c:360
 msgid "Is file path"
 msgstr "ファイルのパス名"
 
-#: src/plugin_snippets/snippets_wizard.c:494
+#: src/plugin_snippets/snippets_wizard.c:486
 msgid "Enter the name of the branch:"
 msgstr "ブランチの名前を入力:"
 
-#: src/plugin_snippets/snippets_wizard.c:586
+#: src/plugin_snippets/snippets_wizard.c:578
 msgid "Name of the new item:"
 msgstr "新しい項目の名前:"
 
-#: src/plugin_snippets/snippets_wizard.c:591
+#: src/plugin_snippets/snippets_wizard.c:583
 msgid "Description:"
 msgstr "説明:"
 
-#: src/plugin_snippets/snippets_wizard.c:641
+#: src/plugin_snippets/snippets_wizard.c:633
 msgid "Select what you want to add"
 msgstr "追加したいものを選択"
 
-#: src/plugin_snippets/snippets_wizard.c:643
+#: src/plugin_snippets/snippets_wizard.c:635
 msgid "Branch"
 msgstr "ブランチ"
 
-#: src/plugin_snippets/snippets_wizard.c:645
+#: src/plugin_snippets/snippets_wizard.c:637
 msgid "Insert string"
 msgstr "文字列を挿入"
 
-#: src/plugin_snippets/snippets_wizard.c:647
+#: src/plugin_snippets/snippets_wizard.c:639
 msgid "Search and replace pattern"
 msgstr "パターンの検索と置換"
 
+#~ msgid "Entire word only"
+#~ msgstr "単語全体が一致する"
+
+#~ msgid "POSIX"
+#~ msgstr "POSIX形式"
