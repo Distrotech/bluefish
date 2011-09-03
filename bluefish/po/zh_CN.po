@@ -1,14 +1,14 @@
 # Simple Chinese(zh_CN) language file for Bluefish.
 # Copyright (C) 2011 ZhiFeng Ma
-# ZhiFeng Ma <mzf9527@gmail.com>, 2011.
 # william9527 <mzf9527@gmail.com>, 2011.
+# ZhiFeng Ma <mzf9527@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2011-08-21 23:22+0800\n"
+"POT-Creation-Date: 2011-09-03 00:19+0800\n"
+"PO-Revision-Date: 2011-09-03 00:29+0800\n"
 "Last-Translator: ZhiFeng Ma <mzf9527@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -347,13 +347,12 @@ msgid "Toggle comment"
 msgstr "切换注释"
 
 #: ../src/bfwin_uimanager.c:780
-#, fuzzy
 msgid "Select block"
-msgstr "全选"
+msgstr "选择块"
 
 #: ../src/bfwin_uimanager.c:780
 msgid "Select block, use multiple times to select parent blocks "
-msgstr ""
+msgstr "选择块，用多次选择父块"
 
 #: ../src/bfwin_uimanager.c:782
 msgid "_Word Count"
@@ -1541,7 +1540,7 @@ msgstr "所有文件已读取，已完成 %s"
 
 #: ../src/file.c:1307
 msgid "Finished advanced open"
-msgstr ""
+msgstr "高级打开已结束"
 
 #: ../src/file.c:1481
 msgid "_Skip"
@@ -1566,9 +1565,8 @@ msgid "Autosave in progress..."
 msgstr "自动保存中..."
 
 #: ../src/file_dialogs.c:108
-#, fuzzy
 msgid "Started open advanced..."
-msgstr "高级打开(_A)..."
+msgstr "高级打开已启动..."
 
 #: ../src/file_dialogs.c:119
 msgid "Select basedir"
@@ -1977,7 +1975,7 @@ msgstr "打开文本块折叠(_b)"
 
 #: ../src/preferences.c:490
 msgid "Display block stack in statusbar"
-msgstr ""
+msgstr "文本块堆放显示在状态栏里"
 
 #: ../src/preferences.c:492
 msgid "Highlight block _delimiters"
@@ -2606,7 +2604,7 @@ msgstr "初始的窗口宽度(_w)："
 
 #: ../src/preferences.c:2218
 msgid "_Limit window title length"
-msgstr ""
+msgstr "限制窗体标题长度(_L)"
 
 #: ../src/preferences.c:2235
 msgid "_Use system document tab font"
@@ -2952,12 +2950,10 @@ msgstr "<span foreground=\"red\"><b>未发现有选择区域，搜索终止</b><
 
 #. display warning that not all documents have yet finished loading
 #: ../src/snr3.c:642
-#, fuzzy
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
 "span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">并不是所有的文件都已读取</span>"
+msgstr "<span foreground=\"red\" weight=\"bold\">部分文档仍在读取中</span>"
 
 #: ../src/snr3.c:741
 #, c-format
@@ -2965,9 +2961,9 @@ msgid "<i>Replaced %d entries</i>"
 msgstr "<i>已替换 %d 个条目</i>"
 
 #: ../src/snr3.c:952
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
-msgstr "<i>已找到 %d 个结果在 %d 个文档里</i>"
+msgstr "<i>已找到 %d 个结果 在 %d 个文档中 全部 %d 个文档</i>"
 
 #: ../src/snr3.c:955
 #, c-format
@@ -2975,9 +2971,9 @@ msgid "<i>Found %d results from character %d to %d</i>"
 msgstr "<i>已找到 %d 个结果，从字符 %d 到 %d</i>"
 
 #: ../src/snr3.c:957
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d results in the active document</i>"
-msgstr "<i>已找到 %d 个结果在 %d 个文档里</i>"
+msgstr "<i>在激活的文档中找到 %d 个结果</i>"
 
 #: ../src/snr3.c:1306
 msgid "Active document"

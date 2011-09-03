@@ -1,13 +1,14 @@
 # Simple Chinese(zh_CN) language file for Bluefish.
 # Copyright (C) 2011 ZhiFeng Ma
 # ZhiFeng Ma <mzf9527@gmail.com>, 2011.
+# william9527 <mzf9527@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2011-07-01 15:57+0800\n"
+"POT-Creation-Date: 2011-09-03 00:20+0800\n"
+"PO-Revision-Date: 2011-09-03 00:58+0800\n"
 "Last-Translator: william9527 <mzf9527@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -1343,145 +1344,136 @@ msgid "Input Check Box..."
 msgstr "复选框..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1677
-#, fuzzy
 msgid "_Article"
-msgstr "垂直(_V)"
+msgstr "Article(_A)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1677
-#, fuzzy
 msgid "Article"
-msgstr "垂直(_V)"
+msgstr "Article标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1678
 msgid "_Aside"
-msgstr ""
+msgstr "Aside(_A)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1678
 msgid "Aside"
-msgstr ""
+msgstr "Aside标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1679
-#, fuzzy
 msgid "_Figcaption"
-msgstr "引用"
+msgstr "Figcaption(_F)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1679
-#, fuzzy
 msgid "Figcaption"
-msgstr "引用"
+msgstr "Figcaption标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1680
 msgid "_Figure"
-msgstr ""
+msgstr "Figure(_F)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1680
 msgid "Figure"
-msgstr ""
+msgstr "Figure标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1681
 msgid "_Footer"
-msgstr ""
+msgstr "Footer(_F)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1681
 msgid "Footer"
-msgstr ""
+msgstr "Footer标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1682
-#, fuzzy
 msgid "_Header"
-msgstr "头部(_H):"
+msgstr "Header(_H)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1682
-#, fuzzy
 msgid "Header"
-msgstr "表头"
+msgstr "Header标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 msgid "_Hgroup"
-msgstr ""
+msgstr "Hgroup(_H)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 msgid "Hgroup"
-msgstr ""
+msgstr "Hgroup标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
 msgid "_Mark"
-msgstr ""
+msgstr "Mark(_M)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
 msgid "Mark"
-msgstr ""
+msgstr "Mark标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1685
 msgid "_Nav"
-msgstr ""
+msgstr "Nav(_N)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1685
 msgid "Nav"
-msgstr ""
+msgstr "Nav标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
 msgid "_Rp"
-msgstr ""
+msgstr "Rp(_R)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
 msgid "Rp"
-msgstr ""
+msgstr "Rp标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1687
 msgid "_Ruby"
-msgstr ""
+msgstr "Ruby(_R)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1687
 msgid "Ruby"
-msgstr ""
+msgstr "Ruby标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1688
-#, fuzzy
 msgid "_Section"
-msgstr "提交表单时向何处发送表单数据(_A)："
+msgstr "Section(_S)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1688
-#, fuzzy
 msgid "Section"
-msgstr "提交表单时向何处发送表单数据(_A)："
+msgstr "Section标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1689
 msgid "_Audio..."
-msgstr ""
+msgstr "Audio(_A)..."
 
 #. Dialog construction and settings
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1689 src/plugin_htmlbar/html.c:1917
 #: src/plugin_htmlbar/html.c:2048
 msgid "Audio"
-msgstr ""
+msgstr "Audio标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1690
 msgid "_Video..."
-msgstr ""
+msgstr "Video(_V)..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1690
 msgid "Video"
-msgstr ""
+msgstr "Video标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1691
 msgid "_Canvas..."
-msgstr ""
+msgstr "Canvas(_C)..."
 
 #. Dialog construction
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1691 src/plugin_htmlbar/html.c:1990
 msgid "Canvas"
-msgstr ""
+msgstr "Canvas标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1692
-#, fuzzy
 msgid "_Time..."
-msgstr "框架(_F)..."
+msgstr "Time(_T)..."
 
 #. Dialog construction
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1692 src/plugin_htmlbar/html.c:2162
 msgid "Time"
-msgstr ""
+msgstr "Time标签"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1703
 msgid "_HTML Toolbar"
@@ -1521,7 +1513,7 @@ msgstr " CSS "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1770
 msgid " HTML 5 "
-msgstr ""
+msgstr " HTML 5 "
 
 #: src/plugin_htmlbar/html.c:428
 msgid "Insert Time"
@@ -1903,7 +1895,7 @@ msgstr "添加 <frame> 元素(_A)"
 #: src/plugin_htmlbar/html.c:2058 src/plugin_htmlbar/html.c:2222
 #: src/plugin_htmlbar/html.c:2285 src/plugin_htmlbar/image_dialog.c:290
 msgid "_Source:"
-msgstr "源代码(_S)："
+msgstr "源文件(_S)："
 
 #: src/plugin_htmlbar/html.c:1838
 msgid "Margin _Width:"
@@ -1927,37 +1919,35 @@ msgstr "不改变尺寸(_R)："
 
 #: src/plugin_htmlbar/html.c:1933 src/plugin_htmlbar/html.c:2071
 msgid "_Autoplay:"
-msgstr ""
+msgstr "自动播放(_A):"
 
 #: src/plugin_htmlbar/html.c:1940 src/plugin_htmlbar/html.c:2078
 msgid "_Controls:"
-msgstr ""
+msgstr "显示控制器(_C):"
 
 #: src/plugin_htmlbar/html.c:1947 src/plugin_htmlbar/html.c:2085
 msgid "_Loop:"
-msgstr ""
+msgstr "循环播放(_L):"
 
 #: src/plugin_htmlbar/html.c:1955 src/plugin_htmlbar/html.c:2093
-#, fuzzy
 msgid "_Preload:"
-msgstr "在卸载时(_U)："
+msgstr "预载入(_P)："
 
 #: src/plugin_htmlbar/html.c:2065
 msgid "_Poster:"
-msgstr ""
+msgstr "相框默认图片(_P):"
 
 #: src/plugin_htmlbar/html.c:2100
 msgid "_Audio:"
-msgstr ""
+msgstr "声音(_A):"
 
 #: src/plugin_htmlbar/html.c:2168
-#, fuzzy
 msgid "_Pubdate:"
-msgstr "更新(_U)"
+msgstr "发布日期(_P):"
 
 #: src/plugin_htmlbar/html.c:2174
 msgid "_Datetime:"
-msgstr ""
+msgstr "日期及时间(_D):"
 
 #: src/plugin_htmlbar/html.c:2218
 msgid "Embed"
@@ -2409,7 +2399,7 @@ msgstr "名称："
 
 #: src/plugin_htmlbar/wizards.c:233
 msgid "Source:"
-msgstr "源代码："
+msgstr "源文件："
 
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
