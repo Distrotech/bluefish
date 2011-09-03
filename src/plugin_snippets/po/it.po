@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2010-01-17 00:21+0100\n"
+"PO-Revision-Date: 2011-09-02 16:10+0100\n"
 "Last-Translator: Roberto Bellingeri <bellingeri@netguru.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -29,9 +29,7 @@ msgstr "Trascina per ri-ordinare i ritagli"
 
 #: src/plugin_snippets/snippets_gui.c:409
 msgid "To exchange snippets with others use import or export"
-msgstr ""
-"Per scambiare i ritagli con altri usa le funzioni di importazione ed "
-"esportazione"
+msgstr "Per scambiare i ritagli con altri usa le funzioni di importazione ed esportazione"
 
 #: src/plugin_snippets/snippets_gui.c:598
 msgid "snippets"
@@ -50,14 +48,12 @@ msgid "Set accelerator key"
 msgstr "Imposta scorciatoia"
 
 #: src/plugin_snippets/snippets_gui.c:797
-#, fuzzy
 msgid "Snippets menu"
 msgstr "Menù ritagli"
 
 #: src/plugin_snippets/snippets_gui.c:798
-#, fuzzy
 msgid "_New Snippet"
-msgstr "_Nuovo ritaglio"
+msgstr "_Nuovo Ritaglio"
 
 #: src/plugin_snippets/snippets_gui.c:798
 #: src/plugin_snippets/snippets_wizard.c:748
@@ -65,92 +61,77 @@ msgid "New snippet"
 msgstr "Nuovo ritaglio"
 
 #: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
 msgid "_Edit Snippet"
-msgstr "_Modifica ritaglio"
+msgstr "_Modifica Ritaglio"
 
 #: src/plugin_snippets/snippets_gui.c:799
 #: src/plugin_snippets/snippets_wizard.c:748
-#, fuzzy
 msgid "Edit snippet"
-msgstr "_Modifica ritaglio"
+msgstr "Modifica Ritaglio"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "_Delete Snippet"
-msgstr "_Cancella ritaglio"
+msgstr "_Cancella Ritaglio"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "Delete snippet"
-msgstr "_Cancella ritaglio"
+msgstr "Cancella Ritaglio"
 
 #: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
 msgid "Delete _Branch"
-msgstr "Cancella il ramo"
+msgstr "Cancella il _Ramo"
 
 #: src/plugin_snippets/snippets_gui.c:801
 msgid "Delete branch"
 msgstr "Cancella il ramo"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set Snippet _Accelerator"
-msgstr "Imposta scorciatoia"
+msgstr "Imposta _Scorciatoia al Ritaglio"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set snippet accelerator"
-msgstr "Imposta scorciatoia"
+msgstr "Imposta scorciatoia al ritaglio"
 
 #: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
 msgid "Ex_pand All"
-msgstr "Espandi tutti"
+msgstr "Es_pandi Tutti"
 
 #: src/plugin_snippets/snippets_gui.c:804
 msgid "Expand all"
 msgstr "Espandi tutti"
 
 #: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
 msgid "_Collapse All"
-msgstr "Riduci tutti"
+msgstr "_Riduci Tutti"
 
 #: src/plugin_snippets/snippets_gui.c:805
 msgid "Collapse all"
 msgstr "Riduci tutti"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "E_xport"
-msgstr "Esporta"
+msgstr "E_sporta"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "Export snippets"
-msgstr "ritagli"
+msgstr "Esporta ritagli"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "I_mport"
-msgstr "Importa"
+msgstr "I_mporta"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "Import snippets"
-msgstr "ritagli"
+msgstr "Importa ritagli"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "_Show as menu"
-msgstr "Visualizza come menù"
+msgstr "_Visualizza come menù"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "Show snippets menu"
-msgstr "Visualizza come menù"
+msgstr "Visualizza il menù ritagli"
 
 #: src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets Menu"
@@ -193,16 +174,8 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-#, fuzzy
-msgid ""
-"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
-"placeholders to ask for values when you activate this item. Give these "
-"placeholders an appropriate name on the right. (Please use %% if you need "
-"literal % in your string!)"
-msgstr ""
-"Specificate il modello di ricerca e sostituzione. Potete utilizzare i "
-"segnaposto %0, %1, ...%5 per richiedere valori quando viene attivato. Date a "
-"questi segnaposto un nome appropriato sulla destra."
+msgid "Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
+msgstr "Specificate il modello di ricerca e sostituzione. Potete utilizzare i segnaposto %0, %1, ...%5 per richiedere valori quando questo viene attivato. Date a questi segnaposto un nome appropriato sulla destra. (Utilizzate %% se necessitate del carattere %)"
 
 #: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
@@ -233,24 +206,16 @@ msgid "_Use escape chars"
 msgstr "_Usa carattere escape"
 
 #: src/plugin_snippets/snippets_wizard.c:163
-msgid "Unescape backslash escaped characters such as \\n, \\t etc."
-msgstr "Elimina le barre rovesciate dei caratteri di escape come \\n, \\t ecc."
+msgid ""
+"Unescape backslash escaped characters such as \\n"
+", \\t etc."
+msgstr ""
+"Elimina le barre rovesciate dei caratteri di escape come \\n"
+", \\t ecc."
 
 #: src/plugin_snippets/snippets_wizard.c:332
-#, fuzzy
-msgid ""
-"The <i>before</i> text will be inserted before the cursor position or the "
-"current selection, the <i>after</i> text will be inserted after the cursor "
-"position or the current selection. You may use %0, %1, ...%9 placeholders to "
-"ask for values when you activate this item. Give these placeholders an "
-"appropriate name on the right. (Please use %% if you need literal % in your "
-"string!)"
-msgstr ""
-"Il testo <i>precedente</i> verrà inserito prima della posizione del cursore "
-"o della selezione, il testo <i>successivo</i> verrà inserito dopo la "
-"posizione dl cursore o della selezione. Potete utilizzare i segnaposto %0, "
-"%1, ...%9 per richiedere valori quando viene attivato. Date a questi "
-"segnaposto un nome appropriato sulla destra."
+msgid "The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
+msgstr "Il testo <i>precedente</i> verrà inserito prima della posizione del cursore o della selezione, il testo <i>successivo</i> verrà inserito dopo la posizione dl cursore o della selezione. Potete utilizzare i segnaposto %0, %1, ...%9 per richiedere valori quando questo viene attivato. Date a questi segnaposto un nome appropriato sulla destra. (Utilizzate %% se necessitate del carattere %)"
 
 #: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
