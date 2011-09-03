@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2009-08-0721 18:57+0200 \n"
+"POT-Creation-Date: 2011-09-03 09:45+0200\n"
+"PO-Revision-Date: 2011-09-03 17:57+0200 \n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -176,7 +176,6 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-#, fuzzy
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
@@ -184,9 +183,9 @@ msgid ""
 "literal % in your string!)"
 msgstr ""
 "Spécifie un modèle de recherche et remplacement. Vous pouvez utiliser les "
-"paramètres  substituables %0, %1, ...%9 pour demander les valeurs lors de "
+"paramètres  substituables %0, %1, ...%5 pour demander les valeurs lors de "
 "l'utilisation. Donner à ces paramètres substituables un nom approprié dans "
-"la colonne de droite."
+"la colonne de droite. (Utiliser %% pour afficher le caractère % dans la chaîne)"
 
 #: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
@@ -222,7 +221,6 @@ msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr "Ne pas échapper les caractères échappés tels que \\n, \\t etc."
 
 #: src/plugin_snippets/snippets_wizard.c:332
-#, fuzzy
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -234,8 +232,9 @@ msgstr ""
 "Le texte <i>précédant sera </i> sera inséré avant la position du curseur ou "
 "de la sélection courante, le texte <i>suivant</i> sera inséré après le "
 "curseur ou la sélection. Vous pouvez utiliser les paramètres substituables "
-"%0, %1, ...%9 pour demander les valeurs lors de l'utilisation. Donner à ces "
-"paramètres substituables un nom approprié dans la colonne de droite."
+"%0, %1, ...%5 pour demander les valeurs lors de l'utilisation. Donner à ces "
+"paramètres substituables un nom approprié dans la colonne de droite. "
+" (Utiliser %% pour afficher le caractère % dans la chaîne)"
 
 #: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
