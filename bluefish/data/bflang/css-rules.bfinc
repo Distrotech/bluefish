@@ -34,30 +34,162 @@
 </element>
 <element pattern="background-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>Sets the background color of an element
-<b>Values:</b> &lt;color&gt; | transparent | inherit
+<b>Values:</b> &lt;color&gt; | currentColor | transparent | inherit
 <b>Initial value:</b> transparent
 <b>Media group:</b> visual</reference>
 <context id="c.css.color" symbols=" &#9;&#10;&#13;{}.;:">
 <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="(rgba|hsla)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *, *(0|1|0.[0-9]) *\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="(rgb|hsl)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *\)" highlight="css-value" is_regex="1" case_insens="1"/>
 <group highlight="css-value" autocomplete="1" autocomplete_append=";">
+	<element pattern="aliceblue"/>
+	<element pattern="antiquewhite"/>
 	<element pattern="aqua"/>
+	<element pattern="aquamarine"/>
+	<element pattern="azure"/>
+	<element pattern="beige"/>
+	<element pattern="bisque"/>
 	<element pattern="black"/>
+	<element pattern="blanchedalmond"/>
 	<element pattern="blue"/>
+	<element pattern="blueviolet"/>
+	<element pattern="brown"/>
+	<element pattern="burlywood"/>
+	<element pattern="cadetblue"/>
+	<element pattern="chartreuse"/>
+	<element pattern="chocolate"/>
+	<element pattern="coral"/>
+	<element pattern="cornflowerblue"/>
+	<element pattern="cornsilk"/>
+	<element pattern="crimson"/>
+	<element pattern="cyan"/>
+	<element pattern="darkblue"/>
+	<element pattern="darkcyan"/>
+	<element pattern="darkgoldenrod"/>
+	<element pattern="darkgray"/>
+	<element pattern="darkgreen"/>
+	<element pattern="darkgrey"/>
+	<element pattern="darkkhaki"/>
+	<element pattern="darkmagenta"/>
+	<element pattern="darkolivegreen"/>
+	<element pattern="darkorange"/>
+	<element pattern="darkorchid"/>
+	<element pattern="darkred"/>
+	<element pattern="darksalmon"/>
+	<element pattern="darkseagreen"/>
+	<element pattern="darkslateblue"/>
+	<element pattern="darkslategray"/>
+	<element pattern="darkslategrey"/>
+	<element pattern="darkturquoise"/>
+	<element pattern="darkviolet"/>
+	<element pattern="deeppink"/>
+	<element pattern="deepskyblue"/>
+	<element pattern="dimgray"/>
+	<element pattern="dimgrey"/>
+	<element pattern="dodgerblue"/>
+	<element pattern="firebrick"/>
+	<element pattern="floralwhite"/>
+	<element pattern="forestgreen"/>
 	<element pattern="fuchsia"/>
+	<element pattern="gainsboro"/>
+	<element pattern="ghostwhite"/>
+	<element pattern="gold"/>
+	<element pattern="goldenrod"/>
 	<element pattern="gray"/>
 	<element pattern="green"/>
+	<element pattern="greenyellow"/>
+	<element pattern="grey"/>
+	<element pattern="honeydew"/>
+	<element pattern="hotpink"/>
+	<element pattern="indianred"/>
+	<element pattern="indigo"/>
+	<element pattern="ivory"/>
+	<element pattern="khaki"/>
+	<element pattern="lavender"/>
+	<element pattern="lavenderblush"/>
+	<element pattern="lawngreen"/>
+	<element pattern="lemonchiffon"/>
+	<element pattern="lightblue"/>
+	<element pattern="lightcoral"/>
+	<element pattern="lightcyan"/>
+	<element pattern="lightgoldenrodyellow"/>
+	<element pattern="lightgray"/>
+	<element pattern="lightgreen"/>
+	<element pattern="lightgrey"/>
+	<element pattern="lightpink"/>
+	<element pattern="lightsalmon"/>
+	<element pattern="lightseagreen"/>
+	<element pattern="lightskyblue"/>
+	<element pattern="lightslategray"/>
+	<element pattern="lightslategrey"/>
+	<element pattern="lightsteelblue"/>
+	<element pattern="lightyellow"/>
 	<element pattern="lime"/>
+	<element pattern="limegreen"/>
+	<element pattern="linen"/>
+	<element pattern="magenta"/>
 	<element pattern="maroon"/>
+	<element pattern="mediumaquamarine"/>
+	<element pattern="mediumblue"/>
+	<element pattern="mediumorchid"/>
+	<element pattern="mediumpurple"/>
+	<element pattern="mediumseagreen"/>
+	<element pattern="mediumslateblue"/>
+	<element pattern="mediumspringgreen"/>
+	<element pattern="mediumturquoise"/>
+	<element pattern="mediumvioletred"/>
+	<element pattern="midnightblue"/>
+	<element pattern="mintcream"/>
+	<element pattern="mistyrose"/>
+	<element pattern="moccasin"/>
+	<element pattern="navajowhite"/>
 	<element pattern="navy"/>
+	<element pattern="oldlace"/>
 	<element pattern="olive"/>
+	<element pattern="olivedrab"/>
 	<element pattern="orange"/>
+	<element pattern="orangered"/>
+	<element pattern="orchid"/>
+	<element pattern="palegoldenrod"/>
+	<element pattern="palegreen"/>
+	<element pattern="paleturquoise"/>
+	<element pattern="palevioletred"/>
+	<element pattern="papayawhip"/>
+	<element pattern="peachpuff"/>
+	<element pattern="peru"/>
+	<element pattern="pink"/>
+	<element pattern="plum"/>
+	<element pattern="powderblue"/>
 	<element pattern="purple"/>
 	<element pattern="red"/>
+	<element pattern="rosybrown"/>
+	<element pattern="royalblue"/>
+	<element pattern="saddlebrown"/>
+	<element pattern="salmon"/>
+	<element pattern="sandybrown"/>
+	<element pattern="seagreen"/>
+	<element pattern="seashell"/>
+	<element pattern="sienna"/>
 	<element pattern="silver"/>
+	<element pattern="skyblue"/>
+	<element pattern="slateblue"/>
+	<element pattern="slategray"/>
+	<element pattern="slategrey"/>
+	<element pattern="snow"/>
+	<element pattern="springgreen"/>
+	<element pattern="steelblue"/>
+	<element pattern="tan"/>
 	<element pattern="teal"/>
+	<element pattern="thistle"/>
+	<element pattern="tomato"/>
+	<element pattern="turquoise"/>
+	<element pattern="violet"/>
+	<element pattern="wheat"/>
 	<element pattern="white"/>
+	<element pattern="whitesmoke"/>
 	<element pattern="yellow"/>
+	<element pattern="yellowgreen"/>
+	<element pattern="currentColor"/>
 	<element pattern="transparent"/>
 	<element pattern="inherit"/>
 </group>
@@ -143,26 +275,10 @@
 <b>Initial value:</b> see individual properties
 <b>Percentages:</b> allowed on 'background-position'
 <b>Media group:</b> visual</reference>
+<context idref="c.css.color" />
 <context symbols=" &#9;&#10;&#13;{}.;:()">
 <group autocomplete="1" highlight="css-value" autocomplete_append=";">
-	<element pattern="aqua"/>
-	<element pattern="black"/>
-	<element pattern="blue"/>
-	<element pattern="fuchsia"/>
-	<element pattern="gray"/>
-	<element pattern="green"/>
-	<element pattern="lime"/>
-	<element pattern="maroon"/>
-	<element pattern="navy"/>
-	<element pattern="olive"/>
-	<element pattern="orange"/>
-	<element pattern="purple"/>
-	<element pattern="red"/>
-	<element pattern="silver"/>
-	<element pattern="teal"/>
-	<element pattern="white"/>
-	<element pattern="yellow"/>
-	<element pattern="transparent"/>
+
 	<element pattern="repeat"/>
 	<element pattern="repeat-x"/>
 	<element pattern="repeat-y"/>
@@ -380,8 +496,9 @@
 <b>Media groups:</b> visual</reference>
 <context id="c.css.border" symbols=" &#9;&#10;&#13;{}.;:">
 <element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
-<group autocomplete="1" highlight="css-value" autocomplete_append=";">
+<element pattern="(rgba|hsla)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *, *(0|1|0.[0-9]) *\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="(rgb|hsl)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
 	<element pattern="thin"/>
 	<element pattern="medium"/>
 	<element pattern="thick"/>
@@ -396,23 +513,154 @@
 	<element pattern="ridge"/>
 	<element pattern="inset"/>
 	<element pattern="outset"/>   
+	<element pattern="aliceblue"/>
+	<element pattern="antiquewhite"/>
 	<element pattern="aqua"/>
+	<element pattern="aquamarine"/>
+	<element pattern="azure"/>
+	<element pattern="beige"/>
+	<element pattern="bisque"/>
 	<element pattern="black"/>
+	<element pattern="blanchedalmond"/>
 	<element pattern="blue"/>
+	<element pattern="blueviolet"/>
+	<element pattern="brown"/>
+	<element pattern="burlywood"/>
+	<element pattern="cadetblue"/>
+	<element pattern="chartreuse"/>
+	<element pattern="chocolate"/>
+	<element pattern="coral"/>
+	<element pattern="cornflowerblue"/>
+	<element pattern="cornsilk"/>
+	<element pattern="crimson"/>
+	<element pattern="cyan"/>
+	<element pattern="darkblue"/>
+	<element pattern="darkcyan"/>
+	<element pattern="darkgoldenrod"/>
+	<element pattern="darkgray"/>
+	<element pattern="darkgreen"/>
+	<element pattern="darkgrey"/>
+	<element pattern="darkkhaki"/>
+	<element pattern="darkmagenta"/>
+	<element pattern="darkolivegreen"/>
+	<element pattern="darkorange"/>
+	<element pattern="darkorchid"/>
+	<element pattern="darkred"/>
+	<element pattern="darksalmon"/>
+	<element pattern="darkseagreen"/>
+	<element pattern="darkslateblue"/>
+	<element pattern="darkslategray"/>
+	<element pattern="darkslategrey"/>
+	<element pattern="darkturquoise"/>
+	<element pattern="darkviolet"/>
+	<element pattern="deeppink"/>
+	<element pattern="deepskyblue"/>
+	<element pattern="dimgray"/>
+	<element pattern="dimgrey"/>
+	<element pattern="dodgerblue"/>
+	<element pattern="firebrick"/>
+	<element pattern="floralwhite"/>
+	<element pattern="forestgreen"/>
 	<element pattern="fuchsia"/>
+	<element pattern="gainsboro"/>
+	<element pattern="ghostwhite"/>
+	<element pattern="gold"/>
+	<element pattern="goldenrod"/>
 	<element pattern="gray"/>
 	<element pattern="green"/>
+	<element pattern="greenyellow"/>
+	<element pattern="grey"/>
+	<element pattern="honeydew"/>
+	<element pattern="hotpink"/>
+	<element pattern="indianred"/>
+	<element pattern="indigo"/>
+	<element pattern="ivory"/>
+	<element pattern="khaki"/>
+	<element pattern="lavender"/>
+	<element pattern="lavenderblush"/>
+	<element pattern="lawngreen"/>
+	<element pattern="lemonchiffon"/>
+	<element pattern="lightblue"/>
+	<element pattern="lightcoral"/>
+	<element pattern="lightcyan"/>
+	<element pattern="lightgoldenrodyellow"/>
+	<element pattern="lightgray"/>
+	<element pattern="lightgreen"/>
+	<element pattern="lightgrey"/>
+	<element pattern="lightpink"/>
+	<element pattern="lightsalmon"/>
+	<element pattern="lightseagreen"/>
+	<element pattern="lightskyblue"/>
+	<element pattern="lightslategray"/>
+	<element pattern="lightslategrey"/>
+	<element pattern="lightsteelblue"/>
+	<element pattern="lightyellow"/>
 	<element pattern="lime"/>
+	<element pattern="limegreen"/>
+	<element pattern="linen"/>
+	<element pattern="magenta"/>
 	<element pattern="maroon"/>
+	<element pattern="mediumaquamarine"/>
+	<element pattern="mediumblue"/>
+	<element pattern="mediumorchid"/>
+	<element pattern="mediumpurple"/>
+	<element pattern="mediumseagreen"/>
+	<element pattern="mediumslateblue"/>
+	<element pattern="mediumspringgreen"/>
+	<element pattern="mediumturquoise"/>
+	<element pattern="mediumvioletred"/>
+	<element pattern="midnightblue"/>
+	<element pattern="mintcream"/>
+	<element pattern="mistyrose"/>
+	<element pattern="moccasin"/>
+	<element pattern="navajowhite"/>
 	<element pattern="navy"/>
+	<element pattern="oldlace"/>
 	<element pattern="olive"/>
+	<element pattern="olivedrab"/>
 	<element pattern="orange"/>
+	<element pattern="orangered"/>
+	<element pattern="orchid"/>
+	<element pattern="palegoldenrod"/>
+	<element pattern="palegreen"/>
+	<element pattern="paleturquoise"/>
+	<element pattern="palevioletred"/>
+	<element pattern="papayawhip"/>
+	<element pattern="peachpuff"/>
+	<element pattern="peru"/>
+	<element pattern="pink"/>
+	<element pattern="plum"/>
+	<element pattern="powderblue"/>
 	<element pattern="purple"/>
 	<element pattern="red"/>
+	<element pattern="rosybrown"/>
+	<element pattern="royalblue"/>
+	<element pattern="saddlebrown"/>
+	<element pattern="salmon"/>
+	<element pattern="sandybrown"/>
+	<element pattern="seagreen"/>
+	<element pattern="seashell"/>
+	<element pattern="sienna"/>
 	<element pattern="silver"/>
+	<element pattern="skyblue"/>
+	<element pattern="slateblue"/>
+	<element pattern="slategray"/>
+	<element pattern="slategrey"/>
+	<element pattern="snow"/>
+	<element pattern="springgreen"/>
+	<element pattern="steelblue"/>
+	<element pattern="tan"/>
 	<element pattern="teal"/>
+	<element pattern="thistle"/>
+	<element pattern="tomato"/>
+	<element pattern="turquoise"/>
+	<element pattern="violet"/>
+	<element pattern="wheat"/>
 	<element pattern="white"/>
+	<element pattern="whitesmoke"/>
 	<element pattern="yellow"/>
+	<element pattern="yellowgreen"/>
+	<element pattern="currentColor"/>
 	<element pattern="transparent"/>
 	<element pattern="inherit"/>
 </group>
@@ -536,32 +784,8 @@
 <b>Values:</b> &lt;color&gt; | inherit
 <b>Initial value:</b> depends on user agent
 <b>Media groups:</b> visual</reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
-<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
-<group highlight="css-value" autocomplete="1" autocomplete_append=";">
-	<element pattern="aqua"/>
-	<element pattern="black"/>
-	<element pattern="blue"/>
-	<element pattern="fuchsia"/>
-	<element pattern="gray"/>
-	<element pattern="green"/>
-	<element pattern="lime"/>
-	<element pattern="maroon"/>
-	<element pattern="navy"/>
-	<element pattern="olive"/>
-	<element pattern="orange"/>
-	<element pattern="purple"/>
-	<element pattern="red"/>
-	<element pattern="silver"/>
-	<element pattern="teal"/>
-	<element pattern="white"/>
-	<element pattern="yellow"/>
-	<element pattern="inherit"/>
-</group>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
+<context idref="c.css.color"/>
+
 </element>
 <element pattern="content" autocomplete="1" highlight="css-property"
 autocomplete_append=": ">
@@ -1189,26 +1413,10 @@ autocomplete_append=": ">
 <b>Media groups:</b> visual, interactive
 </reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
-<group autocomplete="1" highlight="css-value" autocomplete_append=";">
-	<element pattern=""/>
-	<element pattern=""/>
-	<element pattern="aqua"/>
-	<element pattern="black"/>
-	<element pattern="blue"/>
-	<element pattern="fuchsia"/>
-	<element pattern="gray"/>
-	<element pattern="green"/>
-	<element pattern="lime"/>
-	<element pattern="maroon"/>
-	<element pattern="navy"/>
-	<element pattern="olive"/>
-	<element pattern="orange"/>
-	<element pattern="purple"/>
-	<element pattern="red"/>
-	<element pattern="silver"/>
-	<element pattern="teal"/>
-	<element pattern="white"/>
-	<element pattern="yellow"/>
+<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="(rgba|hsla)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *, *(0|1|0.[0-9]) *\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<element pattern="(rgb|hsl)\( *[0-9]+%? *, *[0-9]+%? *, *[0-9]+%? *\)" highlight="css-value" is_regex="1" case_insens="1"/>
+<group highlight="css-value" autocomplete="1" autocomplete_append=";">
 	<element pattern="invert"/>
 	<element pattern="none"/>
 	<element pattern="hidden"/>
@@ -1222,11 +1430,158 @@ autocomplete_append=": ">
 	<element pattern="outset"/>
 	<element pattern="thin"/>
 	<element pattern="medium"/>
-	<element pattern="0"/>	
+	<element pattern="0"/>
+	<element pattern="aliceblue"/>
+	<element pattern="antiquewhite"/>
+	<element pattern="aqua"/>
+	<element pattern="aquamarine"/>
+	<element pattern="azure"/>
+	<element pattern="beige"/>
+	<element pattern="bisque"/>
+	<element pattern="black"/>
+	<element pattern="blanchedalmond"/>
+	<element pattern="blue"/>
+	<element pattern="blueviolet"/>
+	<element pattern="brown"/>
+	<element pattern="burlywood"/>
+	<element pattern="cadetblue"/>
+	<element pattern="chartreuse"/>
+	<element pattern="chocolate"/>
+	<element pattern="coral"/>
+	<element pattern="cornflowerblue"/>
+	<element pattern="cornsilk"/>
+	<element pattern="crimson"/>
+	<element pattern="cyan"/>
+	<element pattern="darkblue"/>
+	<element pattern="darkcyan"/>
+	<element pattern="darkgoldenrod"/>
+	<element pattern="darkgray"/>
+	<element pattern="darkgreen"/>
+	<element pattern="darkgrey"/>
+	<element pattern="darkkhaki"/>
+	<element pattern="darkmagenta"/>
+	<element pattern="darkolivegreen"/>
+	<element pattern="darkorange"/>
+	<element pattern="darkorchid"/>
+	<element pattern="darkred"/>
+	<element pattern="darksalmon"/>
+	<element pattern="darkseagreen"/>
+	<element pattern="darkslateblue"/>
+	<element pattern="darkslategray"/>
+	<element pattern="darkslategrey"/>
+	<element pattern="darkturquoise"/>
+	<element pattern="darkviolet"/>
+	<element pattern="deeppink"/>
+	<element pattern="deepskyblue"/>
+	<element pattern="dimgray"/>
+	<element pattern="dimgrey"/>
+	<element pattern="dodgerblue"/>
+	<element pattern="firebrick"/>
+	<element pattern="floralwhite"/>
+	<element pattern="forestgreen"/>
+	<element pattern="fuchsia"/>
+	<element pattern="gainsboro"/>
+	<element pattern="ghostwhite"/>
+	<element pattern="gold"/>
+	<element pattern="goldenrod"/>
+	<element pattern="gray"/>
+	<element pattern="green"/>
+	<element pattern="greenyellow"/>
+	<element pattern="grey"/>
+	<element pattern="honeydew"/>
+	<element pattern="hotpink"/>
+	<element pattern="indianred"/>
+	<element pattern="indigo"/>
+	<element pattern="ivory"/>
+	<element pattern="khaki"/>
+	<element pattern="lavender"/>
+	<element pattern="lavenderblush"/>
+	<element pattern="lawngreen"/>
+	<element pattern="lemonchiffon"/>
+	<element pattern="lightblue"/>
+	<element pattern="lightcoral"/>
+	<element pattern="lightcyan"/>
+	<element pattern="lightgoldenrodyellow"/>
+	<element pattern="lightgray"/>
+	<element pattern="lightgreen"/>
+	<element pattern="lightgrey"/>
+	<element pattern="lightpink"/>
+	<element pattern="lightsalmon"/>
+	<element pattern="lightseagreen"/>
+	<element pattern="lightskyblue"/>
+	<element pattern="lightslategray"/>
+	<element pattern="lightslategrey"/>
+	<element pattern="lightsteelblue"/>
+	<element pattern="lightyellow"/>
+	<element pattern="lime"/>
+	<element pattern="limegreen"/>
+	<element pattern="linen"/>
+	<element pattern="magenta"/>
+	<element pattern="maroon"/>
+	<element pattern="mediumaquamarine"/>
+	<element pattern="mediumblue"/>
+	<element pattern="mediumorchid"/>
+	<element pattern="mediumpurple"/>
+	<element pattern="mediumseagreen"/>
+	<element pattern="mediumslateblue"/>
+	<element pattern="mediumspringgreen"/>
+	<element pattern="mediumturquoise"/>
+	<element pattern="mediumvioletred"/>
+	<element pattern="midnightblue"/>
+	<element pattern="mintcream"/>
+	<element pattern="mistyrose"/>
+	<element pattern="moccasin"/>
+	<element pattern="navajowhite"/>
+	<element pattern="navy"/>
+	<element pattern="oldlace"/>
+	<element pattern="olive"/>
+	<element pattern="olivedrab"/>
+	<element pattern="orange"/>
+	<element pattern="orangered"/>
+	<element pattern="orchid"/>
+	<element pattern="palegoldenrod"/>
+	<element pattern="palegreen"/>
+	<element pattern="paleturquoise"/>
+	<element pattern="palevioletred"/>
+	<element pattern="papayawhip"/>
+	<element pattern="peachpuff"/>
+	<element pattern="peru"/>
+	<element pattern="pink"/>
+	<element pattern="plum"/>
+	<element pattern="powderblue"/>
+	<element pattern="purple"/>
+	<element pattern="red"/>
+	<element pattern="rosybrown"/>
+	<element pattern="royalblue"/>
+	<element pattern="saddlebrown"/>
+	<element pattern="salmon"/>
+	<element pattern="sandybrown"/>
+	<element pattern="seagreen"/>
+	<element pattern="seashell"/>
+	<element pattern="sienna"/>
+	<element pattern="silver"/>
+	<element pattern="skyblue"/>
+	<element pattern="slateblue"/>
+	<element pattern="slategray"/>
+	<element pattern="slategrey"/>
+	<element pattern="snow"/>
+	<element pattern="springgreen"/>
+	<element pattern="steelblue"/>
+	<element pattern="tan"/>
+	<element pattern="teal"/>
+	<element pattern="thistle"/>
+	<element pattern="tomato"/>
+	<element pattern="turquoise"/>
+	<element pattern="violet"/>
+	<element pattern="wheat"/>
+	<element pattern="white"/>
+	<element pattern="whitesmoke"/>
+	<element pattern="yellow"/>
+	<element pattern="yellowgreen"/>
+	<element pattern="currentColor"/>
+	<element pattern="transparent"/>
 	<element pattern="inherit"/>
 </group>
-<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
 <element idref="e.css.length"/>
 <element idref="e.css.end"/><element idref="e.css.lcomment"/>
 <element idref="e.css.rbrace"/> 
@@ -1238,33 +1593,7 @@ autocomplete_append=": ">
 <b>Initial value:</b> invert
 <b>Media groups:</b> visual, interactive
 </reference>
-<context symbols=" &#9;&#10;&#13;{}.;:">
-<group highlight="css-value" autocomplete="1" autocomplete_append=";">
-	<element pattern="aqua"/>
-	<element pattern="black"/>
-	<element pattern="blue"/>
-	<element pattern="fuchsia"/>
-	<element pattern="gray"/>
-	<element pattern="green"/>
-	<element pattern="lime"/>
-	<element pattern="maroon"/>
-	<element pattern="navy"/>
-	<element pattern="olive"/>
-	<element pattern="orange"/>
-	<element pattern="purple"/>
-	<element pattern="red"/>
-	<element pattern="silver"/>
-	<element pattern="teal"/>
-	<element pattern="white"/>
-	<element pattern="yellow"/>
-	<element pattern="invert"/>
-	<element pattern="inherit"/>   
-</group>
-<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
-<element idref="e.css.end"/><element idref="e.css.lcomment"/>
-<element idref="e.css.rbrace"/>
-</context>
+<context idref="c.css.color"/>
 </element>
 <element pattern="outline-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 <reference>
@@ -1296,7 +1625,6 @@ autocomplete_append=": ">
 <b>Initial value:</b> medium
 <b>Media groups:</b> visual, interactive
 </reference>
-<reference></reference>
 <context symbols=" &#9;&#10;&#13;{}.;:">
 <group autocomplete="1" highlight="css-value" autocomplete_append=";">
 	<element pattern="thin"/>
