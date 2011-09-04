@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2011-08-26 20:38+0200\n"
+"PO-Revision-Date: 2011-09-04 16:47+0200\n"
 "Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
 "Language: nn\n"
@@ -348,13 +348,12 @@ msgid "Toggle comment"
 msgstr "Merknader av/på"
 
 #: ../src/bfwin_uimanager.c:780
-#, fuzzy
 msgid "Select block"
-msgstr "Vel alle"
+msgstr "Vel blokk"
 
 #: ../src/bfwin_uimanager.c:780
 msgid "Select block, use multiple times to select parent blocks "
-msgstr ""
+msgstr "Vel blokk, bruk fleire gonger for å velja overordna blokker "
 
 #: ../src/bfwin_uimanager.c:782
 msgid "_Word Count"
@@ -698,14 +697,12 @@ msgid "Goto line"
 msgstr "Gå til linje"
 
 #: ../src/bfwin_uimanager.c:864
-#, fuzzy
 msgid "Goto Line Number From _Clipboard"
-msgstr "Gå til linjenummeret i _utvalet"
+msgstr "Gå til linjenummeret frå _utklippstavla"
 
 #: ../src/bfwin_uimanager.c:865
-#, fuzzy
 msgid "Goto line number in clipboard or selection"
-msgstr "Gå til linjenummeret i utvalet"
+msgstr "Gå til linjenummeret på utklippstavla eller i utvalet"
 
 #: ../src/bfwin_uimanager.c:866
 msgid "Jump to Reference"
@@ -756,14 +753,12 @@ msgid "Find again"
 msgstr "Søk på nytt"
 
 #: ../src/bfwin_uimanager.c:879
-#, fuzzy
 msgid "Find from Clipboard"
-msgstr "Finn frå utvalet"
+msgstr "Finn frå utklippstavla"
 
 #: ../src/bfwin_uimanager.c:879
-#, fuzzy
 msgid "Find from clipboard"
-msgstr "Finn frå utvalet"
+msgstr "Finn frå utklippstavla"
 
 #: ../src/bfwin_uimanager.c:881
 msgid "R_eplace..."
@@ -1554,7 +1549,7 @@ msgstr "Alle filer er lasta, totalt %s"
 
 #: ../src/file.c:1307
 msgid "Finished advanced open"
-msgstr ""
+msgstr "Ferdig med avansert opna"
 
 #: ../src/file.c:1481
 msgid "_Skip"
@@ -1579,9 +1574,8 @@ msgid "Autosave in progress..."
 msgstr "Autolagrar …"
 
 #: ../src/file_dialogs.c:108
-#, fuzzy
 msgid "Started open advanced..."
-msgstr "Opna _avansert …"
+msgstr "Starta opna avansert …"
 
 #: ../src/file_dialogs.c:119
 msgid "Select basedir"
@@ -1991,7 +1985,7 @@ msgstr "Bruk _blokkfalding"
 
 #: ../src/preferences.c:490
 msgid "Display block stack in statusbar"
-msgstr ""
+msgstr "Syn blokkstabelen på statuslinja"
 
 #: ../src/preferences.c:492
 msgid "Highlight block _delimiters"
@@ -2019,7 +2013,7 @@ msgstr "_Bryt linjer"
 
 #: ../src/preferences.c:507
 msgid "Enable syntax scanning"
-msgstr ""
+msgstr "Slå på syntaksskanning"
 
 #: ../src/preferences.c:510
 msgid "_Enable spell check"
@@ -2364,7 +2358,7 @@ msgstr "_Tabulatortasten rykkjer inn utvalet"
 
 #: ../src/preferences.c:1888
 msgid "Auto close brackets"
-msgstr ""
+msgstr "Auto sluttparentes"
 
 #: ../src/preferences.c:1894
 msgid "Visible _whitespace mode:"
@@ -2569,7 +2563,7 @@ msgstr "Gjer _HTML-vindauga stuttvarige"
 
 #: ../src/preferences.c:2150
 msgid "Save user customised menu accelerators"
-msgstr ""
+msgstr "Lagra dei brukartilpassa menysnarvegane"
 
 #: ../src/preferences.c:2154
 msgid "<b>Recent Files</b>"
@@ -2625,7 +2619,7 @@ msgstr "Startbreidda til _vindauget:"
 
 #: ../src/preferences.c:2218
 msgid "_Limit window title length"
-msgstr ""
+msgstr "_Avgrens tittellengda til vindauget"
 
 #: ../src/preferences.c:2235
 msgid "_Use system document tab font"
@@ -2883,12 +2877,11 @@ msgstr "chmod a+x"
 
 #: ../src/rcfile.c:759
 msgid "php syntax check"
-msgstr ""
+msgstr "php syntakskontroll"
 
 #: ../src/rcfile.c:763
-#, fuzzy
 msgid "perl syntax check"
-msgstr "Stave_kontroll"
+msgstr "perl syntakskontroll"
 
 #: ../src/rcfile.c:785
 msgid "Render HTML to text"
@@ -2960,81 +2953,73 @@ msgstr "Gøym objektfiler"
 
 #: ../src/snr3.c:610
 msgid "<i>Replace started</i>"
-msgstr ""
+msgstr "<i>Byrja utbytinga</i>"
 
 #: ../src/snr3.c:615
 msgid "<i>Search started</i>"
-msgstr ""
+msgstr "<i>Søket er i gang</i>"
 
 #: ../src/snr3.c:633
-#, fuzzy
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Du må velja ei tekstblokk først.</"
-"span>"
+"<span foreground=\"red\"><b>Ikkje noko utval - bryt av søket</b></span>"
 
 #. display warning that not all documents have yet finished loading
 #: ../src/snr3.c:642
-#, fuzzy
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
 "span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Ikkje alle dokumenta er blitt henta "
-"enno</span>"
+"<span foreground=\"red\" weight=\"bold\">Nokre dokument blir framleis henta</"
+"span>"
 
 #: ../src/snr3.c:741
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Replaced %d entries</i>"
-msgstr "<b>Nylege filer</b>"
+msgstr "<i>Bytt ut %d oppføringar</i>"
 
 #: ../src/snr3.c:952
 #, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
-msgstr ""
+msgstr "<i>Fann %d resultat i %d av dei %d søkte dokumenta</i>"
 
 #: ../src/snr3.c:955
 #, c-format
 msgid "<i>Found %d results from character %d to %d</i>"
-msgstr ""
+msgstr "<i>Fann %d resultat frå teiknet %d til %d</i>"
 
 #: ../src/snr3.c:957
 #, c-format
 msgid "<i>Found %d results in the active document</i>"
-msgstr ""
+msgstr "<i>Fann %d resultat i det aktive dokumentet</i>"
 
 #: ../src/snr3.c:1306
-#, fuzzy
 msgid "Active document"
-msgstr "Heile dokumentet"
+msgstr "Aktivt dokument"
 
 #: ../src/snr3.c:1307
 msgid "Forward from cursor position"
 msgstr "Framover frå peikarplasseringa"
 
 #: ../src/snr3.c:1308
-#, fuzzy
 msgid "Current selection"
-msgstr "Farge på den gjeldande linja"
+msgstr "Gjeldande utval"
 
 #: ../src/snr3.c:1309
-#, fuzzy
 msgid "All open documents"
-msgstr "Alle opne filer"
+msgstr "Alle opne dokument"
 
 #: ../src/snr3.c:1310
-#, fuzzy
 msgid "Files on disk"
-msgstr "Fila er endra på lagringseininga\n"
+msgstr "Filer på lagringseininga"
 
 #: ../src/snr3.c:1314 ../src/snr3.c:1319
 msgid "Normal"
 msgstr "Normal"
 
 #: ../src/snr3.c:1315
-#, fuzzy
 msgid "Regular expression (pcre)"
-msgstr "Feil i regulært uttrykk: "
+msgstr "Regulært uttrykk (PCRE)"
 
 #: ../src/snr3.c:1320
 msgid "Uppercase"
@@ -3045,19 +3030,16 @@ msgid "Lowercase"
 msgstr "Små bokstavar"
 
 #: ../src/snr3.c:1328
-#, fuzzy
 msgid "Find and Replace"
-msgstr "Byt ut"
+msgstr "Finn og byt ut"
 
 #: ../src/snr3.c:1364
-#, fuzzy
 msgid "<b>_Search for</b>"
-msgstr "_Søk etter:"
+msgstr "<b>Søk etter</b>"
 
 #: ../src/snr3.c:1393
-#, fuzzy
 msgid "<b>Replace _with</b>"
-msgstr "Byt _ut med: "
+msgstr "<b>Byt _ut med</b>"
 
 #: ../src/snr3.c:1415
 msgid "Match Patter_n: "
@@ -3072,14 +3054,12 @@ msgid "Sco_pe: "
 msgstr "O_mfang: "
 
 #: ../src/snr3.c:1455
-#, fuzzy
 msgid "Filename pattern: "
-msgstr "Filnamn: %s"
+msgstr "Filnamnmønster: "
 
 #: ../src/snr3.c:1461
-#, fuzzy
 msgid "Basedir: "
-msgstr "Rot_katalog:"
+msgstr "Rotkatalog: "
 
 #: ../src/snr3.c:1476
 msgid "Case sensitive _matching"
@@ -3100,13 +3080,13 @@ msgstr ""
 
 #: ../src/snr3.c:1489
 msgid "Dot character in regex pattern matches newlines"
-msgstr ""
+msgstr "Punktum i regulære uttrykk tek òg med seg nylinje-teikn"
 
 #: ../src/snr3.c:1492
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
-msgstr ""
+msgstr ".-teiknet samsvarer med alt inkludert nylinjer. Bruk i fleirlinjesøk."
 
 #: ../src/snr3.c:1514
 msgid "Replace _All"
@@ -3117,9 +3097,8 @@ msgid "_Replace"
 msgstr "Byt _ut"
 
 #: ../src/snr3.c:1520
-#, fuzzy
 msgid "_Bookmark all"
-msgstr "Treff i _bokmerke"
+msgstr "Merk alle som _bokmerke"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
 msgid "Undo in _all documents"
