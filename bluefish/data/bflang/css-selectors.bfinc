@@ -109,6 +109,37 @@
 	<element pattern="u"/>
 	<element pattern="ul"/>
 	<element pattern="var"/>
+	<!-- HTML 5 new elements -->
+	<element pattern="article"><reference><b>HTML 5</b> article</reference></element>
+	<element pattern="aside"><reference><b>HTML 5</b> tangential content</reference></element>
+	<element pattern="audio"><reference><b>HTML 5</b> audio stream</reference></element>
+	<element pattern="bdi"><reference><b>HTML 5</b> BiDi isolate</reference></element>
+	<element pattern="canvas"><reference><b>HTML 5</b> canvas for dynamic graphics</reference></element>
+	<element pattern="command"><reference><b>HTML 5</b> command</reference></element>
+	<element pattern="datalist"><reference><b>HTML 5</b> predefined options for other controls</reference></element>
+	<element pattern="details"><reference><b>HTML 5</b> control for additional on-demand information</reference></element>
+	<element pattern="embed"><reference><b>HTML 5</b> integration point for plugins</reference></element>
+	<element pattern="figcaption"><reference><b>HTML 5</b> figure caption</reference></element>
+	<element pattern="figure"><reference><b>HTML 5</b> figure with optional caption</reference></element>
+	<element pattern="footer"><reference><b>HTML 5</b> footer</reference></element>
+	<element pattern="header"><reference><b>HTML 5</b> header</reference></element>
+	<element pattern="hgroup"><reference><b>HTML 5</b> heading group</reference></element>
+	<element pattern="keygen"><reference><b>HTML 5</b> key-pair generator/input control</reference></element>
+	<element pattern="mark"><reference><b>HTML 5</b> marked (highlighted) text</reference></element>
+	<element pattern="meter"><reference><b>HTML 5</b> scalar gauge</reference></element>
+	<element pattern="nav"><reference><b>HTML 5</b> group of navigational links</reference></element>
+	<element pattern="output"><reference><b>HTML 5</b> result of a calculation in a form</reference></element>
+	<element pattern="progress"><reference><b>HTML 5</b> progress indicator</reference></element>
+	<element pattern="rp"><reference><b>HTML 5</b> ruby parenthesis</reference></element>
+	<element pattern="rt"><reference><b>HTML 5</b> ruby text</reference></element>
+	<element pattern="ruby"><reference><b>HTML 5</b> ruby annotation</reference></element>
+	<element pattern="section"><reference><b>HTML 5</b> section</reference></element>
+	<element pattern="source"><reference><b>HTML 5</b> media source</reference></element>
+	<element pattern="summary"><reference><b>HTML 5</b> summary, caption, or legend for a details control</reference></element>
+	<element pattern="time"><reference><b>HTML 5</b> date and/or time</reference></element>
+	<element pattern="track"><reference><b>HTML 5</b> supplementary media track</reference></element>
+	<element pattern="video"><reference><b>HTML 5</b> video</reference></element>
+	<element pattern="wbr"><reference><b>HTML 5</b> line-break opportunity</reference></element>
 </group>
 <!-- pseudo elements/classes -->
 <group highlight="css-html-tag" autocomplete="1">
