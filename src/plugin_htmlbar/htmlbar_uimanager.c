@@ -1675,21 +1675,21 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"DialogsFormCheckBox", BF_STOCK_FORM_CHECK, N_("Input Check box..."), NULL,
 	 N_("Input Check Box..."), G_CALLBACK(htmlbar_dialog_form_check_box)},
 	{"FormatArticle", BF_STOCK_ARTICLE, N_("_Article"), NULL, N_("Article"), G_CALLBACK(htmlbar_insert_article_tag)},
-	{"FormatAside", BF_STOCK_ASIDE, N_("_Aside"), NULL, N_("Aside"), G_CALLBACK(htmlbar_insert_aside_tag)},
-	{"FormatFigcaption", BF_STOCK_FIGCAPTION, N_("_Figcaption"), NULL, N_("Figcaption"), G_CALLBACK(htmlbar_insert_figcaption_tag)},
-	{"FormatFigure", BF_STOCK_FIGURE, N_("_Figure"), NULL, N_("Figure"), G_CALLBACK(htmlbar_insert_figure_tag)},
+	{"FormatAside", BF_STOCK_ASIDE, N_("As_ide"), NULL, N_("Aside"), G_CALLBACK(htmlbar_insert_aside_tag)},
+	{"FormatFigcaption", BF_STOCK_FIGCAPTION, N_("Figcaption"), NULL, N_("Figcaption "), G_CALLBACK(htmlbar_insert_figcaption_tag)},
+	{"FormatFigure", BF_STOCK_FIGURE, N_("Fig_ure"), NULL, N_("Figure"), G_CALLBACK(htmlbar_insert_figure_tag)},
 	{"FormatFooter", BF_STOCK_FOOTER, N_("_Footer"), NULL, N_("Footer"), G_CALLBACK(htmlbar_insert_footer_tag)},
 	{"FormatHeader", BF_STOCK_HEADER, N_("_Header"), NULL, N_("Header"), G_CALLBACK(htmlbar_insert_header_tag)},
-	{"FormatHgroup", BF_STOCK_HGROUP, N_("_Hgroup"), NULL, N_("Hgroup"), G_CALLBACK(htmlbar_insert_hgroup_tag)},
+	{"FormatHgroup", BF_STOCK_HGROUP, N_("H_group"), NULL, N_("Hgroup"), G_CALLBACK(htmlbar_insert_hgroup_tag)},
 	{"FormatMark", BF_STOCK_MARK, N_("_Mark"), NULL, N_("Mark"), G_CALLBACK(htmlbar_insert_mark_tag)},
 	{"FormatNav", BF_STOCK_NAV, N_("_Nav"), NULL, N_("Nav"), G_CALLBACK(htmlbar_insert_nav_tag)},
-	{"FormatRp", BF_STOCK_RP, N_("_Rp"), NULL, N_("Rp"), G_CALLBACK(htmlbar_insert_rp_tag)},
+	{"FormatRp", BF_STOCK_RP, N_("Rp"), NULL, N_("Rp "), G_CALLBACK(htmlbar_insert_rp_tag)},
 	{"FormatRuby", BF_STOCK_RUBY, N_("_Ruby"), NULL, N_("Ruby"), G_CALLBACK(htmlbar_insert_ruby_tag)},
 	{"FormatSection", BF_STOCK_SECTION, N_("_Section"), NULL, N_("Section"), G_CALLBACK(htmlbar_insert_section_tag)},
-	{"DialogsAudio", BF_STOCK_AUDIO, N_("_Audio..."), NULL, N_("Audio"), G_CALLBACK(htmlbar_dialog_audio)},
-	{"DialogsVideo", BF_STOCK_VIDEO, N_("_Video..."), NULL, N_("Video"), G_CALLBACK(htmlbar_dialog_video)},
-	{"DialogsCanvas", BF_STOCK_CANVAS, N_("_Canvas..."), NULL, N_("Canvas"), G_CALLBACK(htmlbar_dialog_canvas)},
-	{"DialogsHtml5Time", BF_STOCK_HTML5TIME, N_("_Time..."), NULL, N_("Time"), G_CALLBACK(htmlbar_dialog_html5time)}
+	{"DialogsAudio", BF_STOCK_AUDIO, N_("Au_dio..."), NULL, N_("Audio..."), G_CALLBACK(htmlbar_dialog_audio)},
+	{"DialogsVideo", BF_STOCK_VIDEO, N_("_Video..."), NULL, N_("Video..."), G_CALLBACK(htmlbar_dialog_video)},
+	{"DialogsCanvas", BF_STOCK_CANVAS, N_("_Canvas..."), NULL, N_("Canvas..."), G_CALLBACK(htmlbar_dialog_canvas)},
+	{"DialogsHtml5Time", BF_STOCK_HTML5TIME, N_("_Time..."), NULL, N_("Time..."), G_CALLBACK(htmlbar_dialog_html5time)}
 };
 
 void

@@ -398,23 +398,26 @@
 <toolitem action='DialogsDiv'/>
 </toolbar>
 <toolbar name='HTMLHTML5Toolbar'>
+<toolitem action='FormatSection'/>
+<toolitem action='FormatNav'/>
 <toolitem action='FormatArticle'/>
 <toolitem action='FormatAside'/>
+<toolitem action='FormatHgroup'/>
+<toolitem action='FormatHeader'/>
+<toolitem action='FormatFooter'/>
+<separator />
 <toolitem action='FormatFigcaption'/>
 <toolitem action='FormatFigure'/>
-<toolitem action='FormatFooter'/>
-<toolitem action='FormatHeader'/>
-<toolitem action='FormatHgroup'/>
-<toolitem action='FormatMark'/>
-<toolitem action='FormatNav'/>
-<toolitem action='FormatRp'/>
-<toolitem action='FormatRuby'/>
-<toolitem action='FormatSection'/>
 <separator />
-<toolitem action='DialogsAudio'/>
-<toolitem action='DialogsVideo'/>
-<toolitem action='DialogsCanvas'/>
+<toolitem action='FormatMark'/>
+<toolitem action='FormatRuby'/>
+<toolitem action='FormatRp'/>
 <toolitem action='DialogsHtml5Time'/>
+<separator />
+<toolitem action='DialogsVideo'/>
+<toolitem action='DialogsAudio'/>
+<toolitem action='DialogsCanvas'/>
 </toolbar>
+
 
 </ui>
