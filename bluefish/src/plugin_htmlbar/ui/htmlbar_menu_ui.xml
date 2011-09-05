@@ -285,6 +285,7 @@
 		<menuitem action='DialogsEditTag'/>
 	</menu>
 </menubar>
+
 <toolbar name='HTMLStandardToolbar'>
 	<toolitem action='DialogsQuickstart'/>
 	<toolitem action='DialogsBody'/>
@@ -308,116 +309,119 @@
 </toolbar>
 
 <toolbar name='HTMLFontsToolbar'>
-<toolitem action='DialogsFont'/>
-<toolitem action='DialogsFontBase'/>
-<separator/>
-<toolitem action='FormatFontSizePlus'/>
-<toolitem action='FormatFontSizeMinus'/>
-<toolitem action='FormatSubscript'/>
-<toolitem action='FormatSuperscript'/>
-<toolitem action='FormatStrong'/>
-<toolitem action='FormatEmphasis'/>
-<toolitem action='FormatPre'/>
-<separator/>
-<toolitem action='HeadingsH1'/>
-<toolitem action='HeadingsH2'/>
-<toolitem action='HeadingsH3'/>
-<toolitem action='HeadingsH4'/>
-<toolitem action='HeadingsH5'/>
-<toolitem action='HeadingsH6'/>
+	<toolitem action='DialogsFont'/>
+	<toolitem action='DialogsFontBase'/>
+	<separator/>
+	<toolitem action='FormatFontSizePlus'/>
+	<toolitem action='FormatFontSizeMinus'/>
+	<toolitem action='FormatSubscript'/>
+	<toolitem action='FormatSuperscript'/>
+	<toolitem action='FormatStrong'/>
+	<toolitem action='FormatEmphasis'/>
+	<toolitem action='FormatPre'/>
+	<separator/>
+	<toolitem action='HeadingsH1'/>
+	<toolitem action='HeadingsH2'/>
+	<toolitem action='HeadingsH3'/>
+	<toolitem action='HeadingsH4'/>
+	<toolitem action='HeadingsH5'/>
+	<toolitem action='HeadingsH6'/>
 </toolbar>
 
 <toolbar name='HTMLFormattingToolbar'>
-<toolitem action='FormatAbbr'/>
-<toolitem action='FormatAcronym'/>
-<toolitem action='FormatCitation'/>
-<toolitem action='FormatCode'/>
-<toolitem action='FormatDefine'/>
-<toolitem action='FormatDelete'/>
-<toolitem action='FormatInsert'/>
-<toolitem action='FormatKeyboard'/>
-<toolitem action='FormatSample'/>
-<toolitem action='FormatVariable'/>
+	<toolitem action='FormatAbbr'/>
+	<toolitem action='FormatAcronym'/>
+	<toolitem action='FormatCitation'/>
+	<toolitem action='FormatCode'/>
+	<toolitem action='FormatDefine'/>
+	<toolitem action='FormatDelete'/>
+	<toolitem action='FormatInsert'/>
+	<toolitem action='FormatKeyboard'/>
+	<toolitem action='FormatSample'/>
+	<toolitem action='FormatVariable'/>
 </toolbar>
 
 <toolbar name='HTMLTablesToolbar'>
-<toolitem action='DialogsTableWizard'/>
-<separator/>
-<toolitem action='DialogsTable'/>
-<toolitem action='DialogsTableRow'/>
-<toolitem action='DialogsTableHead'/>
-<toolitem action='DialogsTableData'/>
-<separator/>
-<toolitem action='TableTable'/>
-<toolitem action='TableRow'/>
-<toolitem action='TableHeader'/>
-<toolitem action='TableData'/>
-<toolitem action='TableCaption'/>
+	<toolitem action='DialogsTableWizard'/>
+	<separator/>
+	<toolitem action='DialogsTable'/>
+	<toolitem action='DialogsTableRow'/>
+	<toolitem action='DialogsTableHead'/>
+	<toolitem action='DialogsTableData'/>
+	<separator/>
+	<toolitem action='TableTable'/>
+	<toolitem action='TableRow'/>
+	<toolitem action='TableHeader'/>
+	<toolitem action='TableData'/>
+	<toolitem action='TableCaption'/>
 </toolbar>
 
 <toolbar name='HTMLFramesToolbar'>
-<toolitem action='DialogsFrameWizard'/>
-<separator/>
-<toolitem action='DialogsFrameset'/>
-<toolitem action='DialogsFrame'/>
-<separator/>
-<toolitem action='Frame'/>
-<toolitem action='Frameset'/>
-<toolitem action='NoFrames'/>
-<toolitem action='FrameTarget'/>
+	<toolitem action='DialogsFrameWizard'/>
+	<separator/>
+	<toolitem action='DialogsFrameset'/>
+	<toolitem action='DialogsFrame'/>
+	<separator/>
+	<toolitem action='Frame'/>
+	<toolitem action='Frameset'/>
+	<toolitem action='NoFrames'/>
+	<toolitem action='FrameTarget'/>
 </toolbar>
 
 <toolbar name='HTMLFormsToolbar'>
-<toolitem action='DialogsForm'/>
-<toolitem action='DialogsFormButtons'/>
-<toolitem action='DialogsFormText'/>
-<toolitem action='DialogsFormHidden'/>
-<toolitem action='DialogsFormTextarea'/>
-<toolitem action='DialogsFormRadioButton'/>
-<toolitem action='DialogsFormCheckBox'/>
-<toolitem action='DialogsFormSelect'/>
-<toolitem action='DialogsFormOption'/>
-<toolitem action='DialogsFormOptionGroup'/>
-<toolitem action='DialogsFormButton'/>
+	<toolitem action='DialogsForm'/>
+	<toolitem action='DialogsFormButtons'/>
+	<toolitem action='DialogsFormText'/>
+	<toolitem action='DialogsFormHidden'/>
+	<toolitem action='DialogsFormTextarea'/>
+	<toolitem action='DialogsFormRadioButton'/>
+	<toolitem action='DialogsFormCheckBox'/>
+	<toolitem action='DialogsFormSelect'/>
+	<toolitem action='DialogsFormOption'/>
+	<toolitem action='DialogsFormOptionGroup'/>
+	<toolitem action='DialogsFormButton'/>
 </toolbar>  
 
 <toolbar name='HTMLListToolbar'>
-<toolitem action='DialogsQuicklist'/>
-<separator/>
-<toolitem action='ListUnordered'/>
-<toolitem action='ListOrdered'/>
-<toolitem action='ListItem'/>
-<toolitem action='ListDefList'/>
-<toolitem action='ListDefTerm'/>
-<toolitem action='ListDefinition'/>
+	<toolitem action='DialogsQuicklist'/>
+	<separator/>
+	<toolitem action='ListUnordered'/>
+	<toolitem action='ListOrdered'/>
+	<toolitem action='ListItem'/>
+	<toolitem action='ListDefList'/>
+	<toolitem action='ListDefTerm'/>
+	<toolitem action='ListDefinition'/>
 </toolbar>
 
 <toolbar name='HTMLCSSToolbar'>
 <toolitem action='DialogsCreateStyle'/>
-<toolitem action='DialogsSpan'/>
-<toolitem action='DialogsDiv'/>
-</toolbar>
-<toolbar name='HTMLHTML5Toolbar'>
-<toolitem action='FormatSection'/>
-<toolitem action='FormatNav'/>
-<toolitem action='FormatArticle'/>
-<toolitem action='FormatAside'/>
-<toolitem action='FormatHgroup'/>
-<toolitem action='FormatHeader'/>
-<toolitem action='FormatFooter'/>
-<separator />
-<toolitem action='FormatFigcaption'/>
-<toolitem action='FormatFigure'/>
-<separator />
-<toolitem action='FormatMark'/>
-<toolitem action='FormatRuby'/>
-<toolitem action='FormatRp'/>
-<toolitem action='DialogsHtml5Time'/>
-<separator />
-<toolitem action='DialogsVideo'/>
-<toolitem action='DialogsAudio'/>
-<toolitem action='DialogsCanvas'/>
+	<toolitem action='DialogsSpan'/>
+	<toolitem action='DialogsDiv'/>	<toolitem action='DialogsCreateStyle'/>
+	<toolitem action='DialogsSpan'/>
+	<toolitem action='DialogsDiv'/>
 </toolbar>
 
+<toolbar name='HTMLHTML5Toolbar'>
+	<toolitem action='FormatSection'/>
+	<toolitem action='FormatNav'/>
+	<toolitem action='FormatArticle'/>
+	<toolitem action='FormatAside'/>
+	<toolitem action='FormatHgroup'/>
+	<toolitem action='FormatHeader'/>
+	<toolitem action='FormatFooter'/>
+	<separator />
+	<toolitem action='FormatFigcaption'/>
+	<toolitem action='FormatFigure'/>
+	<separator />
+	<toolitem action='FormatMark'/>
+	<toolitem action='FormatRuby'/>
+	<toolitem action='FormatRp'/>
+	<toolitem action='FormatRt'/>
+	<toolitem action='DialogsHtml5Time'/>
+	<separator />
+	<toolitem action='DialogsVideo'/>
+	<toolitem action='DialogsAudio'/>
+	<toolitem action='DialogsCanvas'/>
+</toolbar>
 
 </ui>

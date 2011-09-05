@@ -1312,6 +1312,12 @@ htmlbar_insert_rp_tag(GtkAction * action, gpointer user_data)
 }
 
 static void
+htmlbar_insert_rt_tag(GtkAction * action, gpointer user_data)
+{
+	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<RT>"), cap("</RT>"));
+}
+
+static void
 htmlbar_insert_ruby_tag(GtkAction * action, gpointer user_data)
 {
 	doc_insert_two_strings(BFWIN(user_data)->current_document, cap("<RUBY>"), cap("</RUBY>"));
@@ -1683,7 +1689,8 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"FormatHgroup", BF_STOCK_HGROUP, N_("H_group"), NULL, N_("Hgroup"), G_CALLBACK(htmlbar_insert_hgroup_tag)},
 	{"FormatMark", BF_STOCK_MARK, N_("_Mark"), NULL, N_("Mark"), G_CALLBACK(htmlbar_insert_mark_tag)},
 	{"FormatNav", BF_STOCK_NAV, N_("_Nav"), NULL, N_("Nav"), G_CALLBACK(htmlbar_insert_nav_tag)},
-	{"FormatRp", BF_STOCK_RP, N_("Rp"), NULL, N_("Rp "), G_CALLBACK(htmlbar_insert_rp_tag)},
+	{"FormatRp", BF_STOCK_RP, N_("Rp"), NULL, N_("Ruby parenthesis"), G_CALLBACK(htmlbar_insert_rp_tag)},
+	{"FormatRt", BF_STOCK_RT, N_("Rt"), NULL, N_("Ruby text"), G_CALLBACK(htmlbar_insert_rt_tag)},
 	{"FormatRuby", BF_STOCK_RUBY, N_("_Ruby"), NULL, N_("Ruby"), G_CALLBACK(htmlbar_insert_ruby_tag)},
 	{"FormatSection", BF_STOCK_SECTION, N_("_Section"), NULL, N_("Section"), G_CALLBACK(htmlbar_insert_section_tag)},
 	{"DialogsAudio", BF_STOCK_AUDIO, N_("Au_dio..."), NULL, N_("Audio..."), G_CALLBACK(htmlbar_dialog_audio)},
@@ -1886,6 +1893,7 @@ htmlbar_register_stock_icons(void)
 			{pixmap_mark, BF_STOCK_MARK},
 			{pixmap_nav, BF_STOCK_NAV},
 			{pixmap_rp, BF_STOCK_RP},
+			{pixmap_rt, BF_STOCK_RT},
 			{pixmap_ruby, BF_STOCK_RUBY},
 			{pixmap_section, BF_STOCK_SECTION},
 			{pixmap_audio, BF_STOCK_AUDIO},
