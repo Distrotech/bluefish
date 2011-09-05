@@ -118,6 +118,7 @@
 #define BF_STOCK_MARK				"bf-stock-mark"
 #define BF_STOCK_NAV				"bf-stock-nav"
 #define BF_STOCK_RP					"bf-stock-rp"
+#define BF_STOCK_RT					"bf-stock-rt"
 #define BF_STOCK_RUBY				"bf-stock-ruby"
 #define BF_STOCK_SECTION			"bf-stock-section"
 #define BF_STOCK_AUDIO				"bf-stock-audio"

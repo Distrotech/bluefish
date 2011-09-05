@@ -97,6 +97,7 @@ EXTRA_DIST = \
 	mark.png \
 	nav.png \
 	rp.png \
+	rt.png \
 	ruby.png \
 	section.png \
 	audio.png \
@@ -205,6 +206,7 @@ HTMLBAR = \
 	pixmap_mark $(srcdir)/mark.png \
 	pixmap_nav $(srcdir)/nav.png \
 	pixmap_rp $(srcdir)/rp.png \
+	pixmap_rt $(srcdir)/rt.png \
 	pixmap_ruby $(srcdir)/ruby.png \
 	pixmap_section $(srcdir)/section.png \
 	pixmap_audio $(srcdir)/audio.png \
