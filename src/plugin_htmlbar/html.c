@@ -2045,7 +2045,7 @@ video_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	GList *listAutoplay, *listControls, *listLoop, *listPreload, *listAudio;
 	
 	/* Dialog construction and settings */
-	dg = html_diag_new(bfwin, _("Audio"));
+	dg = html_diag_new(bfwin, _("Video"));
 	dgtable = gtk_table_new(4, 5, 0);
 	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 6);
 	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
