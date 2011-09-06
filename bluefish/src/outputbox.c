@@ -260,13 +260,14 @@ init_output_box(Tbfwin * bfwin)
 	g_signal_connect(G_OBJECT(ob->lview), "button_press_event", G_CALLBACK(ob_lview_button_press_lcb), ob);
 
 	vbox2 = gtk_vbox_new(FALSE, 0);
-	but = gtk_button_new();
+	but = bluefish_small_close_button_new();
+/*	but = gtk_button_new();
 	image = new_pixmap(4);
 	gtk_widget_show(image);
 	gtk_container_add(GTK_CONTAINER(but), image);
 	gtk_container_set_border_width(GTK_CONTAINER(but), 0);
 	gtk_widget_set_size_request(but, 16, 16);
-	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(output_box_close_clicked_lcb), ob);
+*/	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(output_box_close_clicked_lcb), ob);
 	gtk_box_pack_start(GTK_BOX(ob->hbox), vbox2, FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox2), but, FALSE, FALSE, 0);
 
