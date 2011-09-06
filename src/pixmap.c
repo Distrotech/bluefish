@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * pixmap.c
  *
- * Copyright (C) 2002-2007 Oliver Sessink
+ * Copyright (C) 2002-2011 Oliver Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@
 #include "bluefish.h"
 
 #include "pixmaps/toolbar_icons.c"
-#include "pixmaps/general_icons.c"
 
 typedef struct {
 	const guint id;
@@ -36,11 +35,11 @@ typedef struct {
 } Tstockpixmap;
 
 static Tpixmap tp[] = {
- 	{0, pixmap_new}, 
+/* 	{0, pixmap_new},*/ 
 /* 	{1, open}, */
 /* 	{2, save}, */
 /* 	{3, save_as}, */
- 	{4, pixmap_close}, 
+/* 	{4, pixmap_close}, */
 /* 	{5, copy}, */
 /* 	{6, cut}, */
 /* 	{7, paste}, */
@@ -58,7 +57,7 @@ static Tpixmap tp[] = {
 	{109, pixmap_frsearch},*/
 /*	{110, pixmap_indent},
 	{111, pixmap_unindent},*/
-	{112, pixmap_open_small},
+/*	{112, pixmap_open_small},*/
 /*	{150, pixmap_prefseditor},
 	{151, pixmap_prefsexternal},
 	{152, pixmap_prefsfiles},
@@ -68,7 +67,7 @@ static Tpixmap tp[] = {
 	{156, pixmap_prefsinterface},
 	{157, pixmap_prefsoutputparser},
 	{158, pixmap_prefssyntax},*/
-	{159, pixmap_nothing},
+/*	{159, pixmap_nothing},*/
 /*	{160, pixmap_frhide},
 	{161, pixmap_frdialog2},
 	{162, pixmap_frlibrary},
