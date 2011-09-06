@@ -1911,15 +1911,14 @@ htmlbar_register_stock_icons(void)
 
 	for (i = 0; i < G_N_ELEMENTS(htmlbar_stock_icons); i++) {
 		GdkPixbuf *pixbuf;
-		icon_set = gtk_icon_set_new();
-		icon_source = gtk_icon_source_new();
+		
 		pixbuf = gdk_pixbuf_new_from_inline(-1,htmlbar_stock_icons[i].data,FALSE,NULL);
-		gtk_icon_source_set_pixbuf(icon_source, pixbuf);
+		icon_set = gtk_icon_set_new_from_pixbuf(pixbuf);
 		g_object_unref(pixbuf);
 
-		gtk_icon_set_add_source(icon_set, icon_source);
+/*		gtk_icon_set_add_source(icon_set, icon_source);
 		gtk_icon_source_free(icon_source);
-		gtk_icon_factory_add(icon_factory, htmlbar_stock_icons[i].stock_id, icon_set);
+*/		gtk_icon_factory_add(icon_factory, htmlbar_stock_icons[i].stock_id, icon_set);
 		gtk_icon_set_unref(icon_set);
 	}
 
