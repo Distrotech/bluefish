@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * external_commands.c - backend for external commands, filters and the outputbox
  *
- * Copyright (C) 2005-2010 Olivier Sessink
+ * Copyright (C) 2005-2011 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -125,8 +125,10 @@ static void externalp_unref(Texternalp *ep) {
 			g_free(ep->securedir);
 		}
 		g_free(ep);
-		g_io_channel_unref(ep->channel_in);
-		g_io_channel_unref(ep->channel_out);
+		if (ep->channel_in)
+			g_io_channel_unref(ep->channel_in);
+		if (ep->channel_out)
+			g_io_channel_unref(ep->channel_out);
 	}
 }
 
