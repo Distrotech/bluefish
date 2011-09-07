@@ -222,6 +222,21 @@
 			<menuitem action='FormInput'/>
 			<menuitem action='FormTextArea'/>
 		</menu>
+		<menu action='HTML5Menu'>
+			<menuitem action='FormatSection'/>
+			<menuitem action='FormatNav'/>
+			<menuitem action='FormatArticle'/>
+			<menuitem action='FormatAside'/>
+			<menuitem action='FormatHgroup'/>
+			<menuitem action='FormatHeader'/>
+			<menuitem action='FormatFooter'/>
+			<menuitem action='FormatFigcaption'/>
+			<menuitem action='FormatFigure'/>
+			<menuitem action='FormatMark'/>
+			<menuitem action='FormatRuby'/>
+			<menuitem action='FormatRp'/>
+			<menuitem action='FormatRt'/>		
+		</menu>
 		<menu action='MiscMenu'>
 			<menuitem action='MiscGenMETATag'/>
 			<menuitem action='MiscSpan'/>
@@ -280,6 +295,12 @@
 			<menuitem action='DialogsFormOption'/>
 			<menuitem action='DialogsFormOptionGroup'/>
 			<menuitem action='DialogsFormButton'/>
+		</menu>
+		<menu action='DialogsHTML5Menu'>
+		<menuitem action='DialogsAudio'/>
+		<menuitem action='DialogsVideo'/>
+		<menuitem action='DialogsCanvas'/>
+		<menuitem action='DialogsHtml5Time'/>		
 		</menu>
 		<separator/>
 		<menuitem action='DialogsEditTag'/>
