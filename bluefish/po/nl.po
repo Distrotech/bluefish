@@ -5,20 +5,21 @@
 # Dutch translation of Bluefish
 # Copyright (C) 2001, 2007 Free Software Foundation, Inc.
 # elve <elve@savage-elve.net>, 2007, 2009, 2010.
+# Olivier <olivier@bluefish.openoffice.nl>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2010-12-31 23:05+0200\n"
-"Last-Translator: elve <elve@savage-elve.net>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"PO-Revision-Date: 2011-09-07 22:53+0200\n"
+"Last-Translator: Olivier <olivier@bluefish.openoffice.nl>\n"
+"Language-Team: nl\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.0\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
 msgid "Bluefish Editor"
@@ -259,7 +260,6 @@ msgid "_Add or Remove..."
 msgstr "Voeg toe of verwijder..."
 
 #: ../src/bfwin_uimanager.c:751
-#, fuzzy
 msgid "Add or remove character encoding"
 msgstr "Verwijder of voeg coderingen toe"
 
@@ -268,69 +268,60 @@ msgid "Floati_ng Window"
 msgstr "_Zwevend venster"
 
 #: ../src/bfwin_uimanager.c:753
-#, fuzzy
 msgid "Open current document in floating window"
-msgstr "Open in bestaand venster."
+msgstr "Huidig document in zwevend venster."
 
 #: ../src/bfwin_uimanager.c:755 ../src/bfwin_uimanager.c:761
 msgid "_Increase"
 msgstr "Vergroten"
 
 #: ../src/bfwin_uimanager.c:755
-#, fuzzy
 msgid "Increase document font size"
-msgstr "_Gebruik systeem lettertype"
+msgstr "Vergroot font grootte"
 
 #: ../src/bfwin_uimanager.c:757 ../src/bfwin_uimanager.c:763
 msgid "_Decrease"
 msgstr "Verkleinen"
 
 #: ../src/bfwin_uimanager.c:757
-#, fuzzy
 msgid "Decrease document font size"
-msgstr "_Gebruik systeem lettertype"
+msgstr "Verklein font grootte"
 
 #: ../src/bfwin_uimanager.c:759 ../src/bfwin_uimanager.c:765
 msgid "_Reset"
 msgstr "Herstellen"
 
 #: ../src/bfwin_uimanager.c:759
-#, fuzzy
 msgid "Reset document font size"
-msgstr "_Gebruik systeem lettertype"
+msgstr "Reset font grootte"
 
 #: ../src/bfwin_uimanager.c:761
-#, fuzzy
 msgid "Increase document tab size"
-msgstr "_Gebruik systeem lettertype"
+msgstr "Vergroot tab grootte"
 
 #: ../src/bfwin_uimanager.c:763
-#, fuzzy
 msgid "Decrease document tab size"
-msgstr "_Gebruik systeem lettertype"
+msgstr "Verklein tab grootte"
 
 #: ../src/bfwin_uimanager.c:765
-#, fuzzy
 msgid "Reset document tab size"
-msgstr "_Gebruik systeem lettertype"
+msgstr "Reset tab grootte"
 
 #: ../src/bfwin_uimanager.c:768
 msgid "_Rescan Syntax & Spelling"
 msgstr "Syntax en spelling _verversen"
 
 #: ../src/bfwin_uimanager.c:768 ../src/bfwin_uimanager.c:771
-#, fuzzy
 msgid "Rescan document highlighting"
-msgstr "Ververs syntax Highlight"
+msgstr "Ververs syntax herkenning"
 
 #: ../src/bfwin_uimanager.c:771
 msgid "_Rescan Syntax"
 msgstr "Syntax _verversen"
 
 #: ../src/bfwin_uimanager.c:774
-#, fuzzy
 msgid "_New Project..."
-msgstr "_Nieuw project"
+msgstr "_Nieuw Project..."
 
 #: ../src/bfwin_uimanager.c:774 ../src/project.c:208
 msgid "New project"
@@ -341,14 +332,12 @@ msgid "_Open Project..."
 msgstr "_Open Project..."
 
 #: ../src/bfwin_uimanager.c:775
-#, fuzzy
 msgid "Open project"
-msgstr "_Open Project..."
+msgstr "Open project"
 
 #: ../src/bfwin_uimanager.c:776
-#, fuzzy
 msgid "_Synchronize Text Block"
-msgstr "_Synchroniseer tekst blok"
+msgstr "Synchroniseer tekst blok"
 
 #: ../src/bfwin_uimanager.c:776 ../src/blocksync.c:296
 msgid "Synchronize text block"
@@ -361,61 +350,53 @@ msgstr "Schakel _commentaar"
 #: ../src/bfwin_uimanager.c:778
 #, fuzzy
 msgid "Toggle comment"
-msgstr "Schakel _commentaar"
+msgstr "Wissel commentaar markering"
 
 #: ../src/bfwin_uimanager.c:780
-#, fuzzy
 msgid "Select block"
-msgstr "_Alles Selecteren"
+msgstr "Selecteer blok"
 
 #: ../src/bfwin_uimanager.c:780
 msgid "Select block, use multiple times to select parent blocks "
-msgstr ""
+msgstr "Selecteer blok, herhaal om omsluitend blok te selecteren"
 
 #: ../src/bfwin_uimanager.c:782
 msgid "_Word Count"
 msgstr "_Woorden tellen"
 
 #: ../src/bfwin_uimanager.c:782
-#, fuzzy
 msgid "Word count"
-msgstr "_Woorden tellen"
+msgstr "Aantal woorden"
 
 #: ../src/bfwin_uimanager.c:783
 msgid "Indenting To S_paces"
-msgstr "Inspringen Naar Sp_aties"
+msgstr "Inspringen naar Sp_aties"
 
 #: ../src/bfwin_uimanager.c:783
-#, fuzzy
 msgid "Indenting to spaces"
-msgstr "Inspringen Naar Sp_aties"
+msgstr "Inspringen naar Spaties"
 
 #: ../src/bfwin_uimanager.c:785
 msgid "Indenting To T_abs"
-msgstr "Inspringen Naar _Tabs"
+msgstr "Inspringen naar _Tabs"
 
 #: ../src/bfwin_uimanager.c:785
-#, fuzzy
 msgid "Indenting to tabs"
-msgstr "Inspringen Naar _Tabs"
+msgstr "Inspringen naar Tabs"
 
 #: ../src/bfwin_uimanager.c:787
-#, fuzzy
 msgid "_Join Lines Together"
 msgstr "Regels Sa_menvoegen"
 
 #: ../src/bfwin_uimanager.c:787
-#, fuzzy
 msgid "Join lines together"
 msgstr "Regels Sa_menvoegen"
 
 #: ../src/bfwin_uimanager.c:789
-#, fuzzy
 msgid "Sp_lit Lines on Right Margin"
 msgstr "Regels S_plitsen op rechtermarge"
 
 #: ../src/bfwin_uimanager.c:789
-#, fuzzy
 msgid "Split lines on right margin"
 msgstr "Regels S_plitsen op rechtermarge"
 
@@ -424,17 +405,14 @@ msgid "Merge Lines Into Col_umns"
 msgstr "Voeg Samen In _Kolommen"
 
 #: ../src/bfwin_uimanager.c:791
-#, fuzzy
 msgid "Merge lines into columns"
 msgstr "Voeg Samen In _Kolommen"
 
 #: ../src/bfwin_uimanager.c:793
-#, fuzzy
 msgid "Rewrap _Lines"
 msgstr "Regelomloop herzien"
 
 #: ../src/bfwin_uimanager.c:793
-#, fuzzy
 msgid "Rewrap lines"
 msgstr "Regelomloop herzien"
 
@@ -443,7 +421,6 @@ msgid "Strip T_railing Whitespace"
 msgstr "Verwijder _naloopspaties"
 
 #: ../src/bfwin_uimanager.c:794
-#, fuzzy
 msgid "Strip trailing whitespace"
 msgstr "Verwijder _naloopspaties"
 
@@ -452,66 +429,58 @@ msgid "_Full Screen"
 msgstr "_Volledige schermvulling"
 
 #: ../src/bfwin_uimanager.c:799
-#, fuzzy
 msgid "Full screen"
-msgstr "_Volledige schermvulling"
+msgstr "Volledige schermvulling"
 
 #: ../src/bfwin_uimanager.c:801
 msgid "_Main Toolbar"
 msgstr "_Hoofd-Werkbalk"
 
 #: ../src/bfwin_uimanager.c:801
-#, fuzzy
 msgid "Show main toolbar"
-msgstr "_Hoofd-Werkbalk"
+msgstr "Hoofd Werkbalk"
 
 #: ../src/bfwin_uimanager.c:803
 msgid "_Side Pane"
 msgstr "_Zĳpaneel"
 
 #: ../src/bfwin_uimanager.c:803
-#, fuzzy
 msgid "Show side pane"
-msgstr "_Zĳpaneel"
+msgstr "Zĳpaneel"
 
 #: ../src/bfwin_uimanager.c:804
 msgid "_Output Pane"
 msgstr "_Uitvoerpaneel"
 
 #: ../src/bfwin_uimanager.c:804
-#, fuzzy
 msgid "Show output pane"
-msgstr "Toon alle uitvoer"
+msgstr "Toon uitvoer paneel"
 
 #: ../src/bfwin_uimanager.c:806
 msgid "Status_bar"
 msgstr "_Statusbalk"
 
 #: ../src/bfwin_uimanager.c:806
-#, fuzzy
 msgid "Show statusbar"
-msgstr "_Statusbalk"
+msgstr "Statusbalk"
 
 #: ../src/bfwin_uimanager.c:808
 msgid "Auto _Completion Popup"
 msgstr "Auto _completeren popup"
 
 #: ../src/bfwin_uimanager.c:808
-#, fuzzy
 msgid "Show auto completion popup"
-msgstr "Referentie informatie bij automatische _completering weergeven"
+msgstr "Toon auto-completering popup"
 
 #: ../src/bfwin_uimanager.c:810
 msgid "_Auto Indent"
 msgstr "Auto _Inspringen"
 
 #: ../src/bfwin_uimanager.c:810
-#, fuzzy
 msgid "Auto indent"
-msgstr "Auto _Inspringen"
+msgstr "Automatisch _Inspringen"
 
 #: ../src/bfwin_uimanager.c:811
-#, fuzzy
 msgid "Highlight Block Delimiters"
 msgstr "Blok uiteinden oplichten"
 
@@ -524,26 +493,22 @@ msgid "_Highlight Syntax"
 msgstr "Synta_x weergeven"
 
 #: ../src/bfwin_uimanager.c:813
-#, fuzzy
 msgid "Highlight syntax"
-msgstr "Highlight syntax standaard"
+msgstr "Syntax weergeven"
 
 #: ../src/bfwin_uimanager.c:815
 msgid "Show _Blocks"
 msgstr "Toon _blokken"
 
 #: ../src/bfwin_uimanager.c:815
-#, fuzzy
 msgid "Show blocks"
 msgstr "Toon _blokken"
 
 #: ../src/bfwin_uimanager.c:816
-#, fuzzy
 msgid "Show _Line Numbers"
-msgstr "_Regelnummering"
+msgstr "Regelnummers weergeven"
 
 #: ../src/bfwin_uimanager.c:816
-#, fuzzy
 msgid "Show line numbers"
 msgstr "Regel_nummers weergeven"
 
@@ -552,37 +517,30 @@ msgid "Show Right Margin"
 msgstr "Toon rechtermarge"
 
 #: ../src/bfwin_uimanager.c:818
-#, fuzzy
 msgid "Show right margin"
 msgstr "Toon rechtermarge"
 
 #: ../src/bfwin_uimanager.c:820
-#, fuzzy
 msgid "Show Split View"
 msgstr "Gesplitst beeld"
 
 #: ../src/bfwin_uimanager.c:820
-#, fuzzy
 msgid "Show split view"
 msgstr "Gesplitst beeld"
 
 #: ../src/bfwin_uimanager.c:822
-#, fuzzy
 msgid "Show _Visible Spacing"
 msgstr "Zichtbare _spatiering"
 
 #: ../src/bfwin_uimanager.c:822
-#, fuzzy
 msgid "Show visible spacing"
 msgstr "Zichtbare _spatiering"
 
 #: ../src/bfwin_uimanager.c:824
-#, fuzzy
 msgid "_Wrap Text"
 msgstr "_Omloop"
 
 #: ../src/bfwin_uimanager.c:824
-#, fuzzy
 msgid "Wrap text"
 msgstr "Regel _omloop inschakelen"
 
@@ -591,18 +549,16 @@ msgid "_Close"
 msgstr "Sluiten"
 
 #: ../src/bfwin_uimanager.c:828
-#, fuzzy
 msgid "Close current file"
-msgstr "Alle gefaalde sluiten"
+msgstr "Alle gefaalde documenten sluiten"
 
 #: ../src/bfwin_uimanager.c:830
 msgid "Close A_ll"
 msgstr "A_lles sluiten"
 
 #: ../src/bfwin_uimanager.c:830
-#, fuzzy
 msgid "Close all files"
-msgstr "Alle gefaalde sluiten"
+msgstr "Alle documenten sluiten"
 
 #: ../src/bfwin_uimanager.c:832 ../src/bfwin_uimanager.c:890
 #: ../src/file_dialogs.c:1415
@@ -610,27 +566,24 @@ msgid "_Save"
 msgstr "Opslaan"
 
 #: ../src/bfwin_uimanager.c:832
-#, fuzzy
 msgid "Save current file"
-msgstr "Huidig project opslaan ?"
+msgstr "Huidig bestand opslaan"
 
 #: ../src/bfwin_uimanager.c:834
 msgid "Save _As..."
 msgstr "Opslaan _als..."
 
 #: ../src/bfwin_uimanager.c:834
-#, fuzzy
 msgid "Save file as"
-msgstr "Opslaan van %s als"
+msgstr "Bestand opslaan als"
 
 #: ../src/bfwin_uimanager.c:836
 msgid "Sav_e All"
 msgstr "All_es opslaan"
 
 #: ../src/bfwin_uimanager.c:836
-#, fuzzy
 msgid "Save all files"
-msgstr "Alle bestanden"
+msgstr "Alle bestanden opslaan"
 
 #: ../src/bfwin_uimanager.c:837
 msgid "Rever_t to Saved"
@@ -638,16 +591,15 @@ msgstr "_Terug naar Opgeslagen"
 
 #: ../src/bfwin_uimanager.c:837
 msgid "Reload current file"
-msgstr ""
+msgstr "Huidig bestand herladen"
 
 #: ../src/bfwin_uimanager.c:839
 msgid "Rena_me..."
 msgstr "_Hernoemen..."
 
 #: ../src/bfwin_uimanager.c:839
-#, fuzzy
 msgid "Rename file"
-msgstr "Nieuw bestand"
+msgstr "Bestand hernoemen"
 
 #: ../src/bfwin_uimanager.c:840
 msgid "_Indent"
@@ -670,110 +622,94 @@ msgid "F_irst Bookmark"
 msgstr "Eerste _Bladwĳzer"
 
 #: ../src/bfwin_uimanager.c:843
-#, fuzzy
 msgid "Goto first bookmark"
-msgstr "Eerste bladwĳzer"
+msgstr "Naar eerste bladwĳzer"
 
 #: ../src/bfwin_uimanager.c:845
-#, fuzzy
 msgid "_Last Bookmark"
-msgstr "Laatste Bladwĳ_zer"
+msgstr "Naar laatste bladwĳzer"
 
 #: ../src/bfwin_uimanager.c:845
-#, fuzzy
 msgid "Goto last bookmark"
-msgstr "Laatste bladwĳzer"
+msgstr "Naar laatste bladwĳzer"
 
 #: ../src/bfwin_uimanager.c:847
 msgid "N_ext Bookmark"
 msgstr "Volgende Blad_wĳzer"
 
 #: ../src/bfwin_uimanager.c:847
-#, fuzzy
 msgid "Goto next bookmark"
-msgstr "Volgende bladwĳzer"
+msgstr "Naar volgende bladwĳzer"
 
 #: ../src/bfwin_uimanager.c:849
 msgid "P_revious Bookmark"
 msgstr "Vorige Bla_dwijzer"
 
 #: ../src/bfwin_uimanager.c:850 ../src/bfwin_uimanager.c:861
-#, fuzzy
 msgid "Goto previous document"
-msgstr "Vori_g document"
+msgstr "Naar vorig document"
 
 #: ../src/bfwin_uimanager.c:851
-#, fuzzy
 msgid "Move Tab Left"
-msgstr "Verschuif naar links"
+msgstr "Verschuif tabblad naar links"
 
 #: ../src/bfwin_uimanager.c:851
-#, fuzzy
 msgid "Move current tab left"
-msgstr "Document tab lettertype:"
+msgstr "Verschuif tabblad naar rechts"
 
 #: ../src/bfwin_uimanager.c:853
-#, fuzzy
 msgid "Move Tab Right"
-msgstr "Verschuif naar rechts"
+msgstr "Verschuif tabblad naar rechts"
 
 #: ../src/bfwin_uimanager.c:853
-#, fuzzy
 msgid "Move current tab right"
-msgstr "Huidig project opslaan ?"
+msgstr "Huidige tabblad naar rechts verplaatsen"
 
 #: ../src/bfwin_uimanager.c:855
 msgid "_First Document"
 msgstr "_Eerste document"
 
 #: ../src/bfwin_uimanager.c:855
-#, fuzzy
 msgid "Goto first document"
-msgstr "_Eerste document"
+msgstr "Naar eerste document"
 
 #: ../src/bfwin_uimanager.c:857
 msgid "L_ast Document"
 msgstr "_Laatste document"
 
 #: ../src/bfwin_uimanager.c:857
-#, fuzzy
 msgid "Goto last document"
-msgstr "_Laatste document"
+msgstr "Naar laatste document"
 
 #: ../src/bfwin_uimanager.c:859
 msgid "_Next Document"
-msgstr "Vol_gend Document"
+msgstr "Vol_gende Document"
 
 #: ../src/bfwin_uimanager.c:859
-#, fuzzy
 msgid "Goto next document"
-msgstr "Vol_gend Document"
+msgstr "Naar volgende document"
 
 #: ../src/bfwin_uimanager.c:861
 msgid "_Previous Document"
-msgstr "Vori_g document"
+msgstr "Vori_ge document"
 
 #: ../src/bfwin_uimanager.c:863
 msgid "Goto _Line"
 msgstr "Ga naar _regel"
 
 #: ../src/bfwin_uimanager.c:863
-#, fuzzy
 msgid "Goto line"
-msgstr "Ga naar regel:"
+msgstr "Ga naar regel"
 
 #: ../src/bfwin_uimanager.c:864
-#, fuzzy
 msgid "Goto Line Number From _Clipboard"
-msgstr "Ga naar regelnummer in _selectie"
+msgstr "Ga naar regelnummer in _klembord"
 
 #: ../src/bfwin_uimanager.c:865
-#, fuzzy
 msgid "Goto line number in clipboard or selection"
-msgstr "Ga naar regelnummer in _selectie"
+msgstr "Ga naar regelnummer in _klembord of selectie"
 
 #: ../src/bfwin_uimanager.c:866
-#, fuzzy
 msgid "Jump to Reference"
 msgstr "Spring naar referentie"
 
@@ -795,7 +731,7 @@ msgstr "_Kopieren"
 
 #: ../src/bfwin_uimanager.c:872
 msgid "Copy"
-msgstr "Kopieren"
+msgstr "Kopiëren"
 
 #: ../src/bfwin_uimanager.c:873
 msgid "_Paste"
@@ -818,19 +754,16 @@ msgid "Find A_gain"
 msgstr "Herhaal zoeken"
 
 #: ../src/bfwin_uimanager.c:878
-#, fuzzy
 msgid "Find again"
-msgstr "Herhaal zoeken"
+msgstr "Opnieuw zoeken"
 
 #: ../src/bfwin_uimanager.c:879
-#, fuzzy
 msgid "Find from Clipboard"
-msgstr "Zoek van selectie"
+msgstr "Zoek van klembord"
 
 #: ../src/bfwin_uimanager.c:879
-#, fuzzy
 msgid "Find from clipboard"
-msgstr "Zoek van selectie"
+msgstr "Zoek van klembord"
 
 #: ../src/bfwin_uimanager.c:881
 msgid "R_eplace..."
@@ -845,32 +778,28 @@ msgid "Save & _close"
 msgstr "Opslaan & sl_uiten"
 
 #: ../src/bfwin_uimanager.c:888
-#, fuzzy
 msgid "Save & close project"
-msgstr "Huidig project opslaan ?"
+msgstr "Project opslaan en sluiten"
 
 #: ../src/bfwin_uimanager.c:890
-#, fuzzy
 msgid "Save project"
-msgstr "Nieuw project"
+msgstr "Project opslaan"
 
 #: ../src/bfwin_uimanager.c:891
 msgid "Save _as..."
 msgstr "Opslaan _als..."
 
 #: ../src/bfwin_uimanager.c:891
-#, fuzzy
 msgid "Save project as"
-msgstr "Nieuw project"
+msgstr "Project opslaan als"
 
 #: ../src/bfwin_uimanager.c:892
 msgid "E_dit Project Options..."
 msgstr "Project _Voorkeuren..."
 
 #: ../src/bfwin_uimanager.c:892
-#, fuzzy
 msgid "Edit project options"
-msgstr "Project _Voorkeuren..."
+msgstr "Project Voorkeuren"
 
 #: ../src/bfwin_uimanager.c:897
 msgid "_Undo"
@@ -878,7 +807,7 @@ msgstr "_Ongedaan maken"
 
 #: ../src/bfwin_uimanager.c:897
 msgid "Undo"
-msgstr "Herstel"
+msgstr "Ongedaan maken"
 
 #: ../src/bfwin_uimanager.c:898
 msgid "Undo All"
@@ -890,11 +819,11 @@ msgstr "Op_nieuw"
 
 #: ../src/bfwin_uimanager.c:899
 msgid "Redo"
-msgstr "Herhaal"
+msgstr "Opnieuw"
 
 #: ../src/bfwin_uimanager.c:900
 msgid "Redo All"
-msgstr "Alles herhalen"
+msgstr "Alles opnieuw"
 
 #: ../src/bfwin_uimanager.c:1021
 msgid "Open _URL..."
@@ -1655,7 +1584,7 @@ msgstr "Alle bestanden geladen, klaar met %s"
 
 #: ../src/file.c:1307
 msgid "Finished advanced open"
-msgstr ""
+msgstr "Geavanceerd openen gereed"
 
 #: ../src/file.c:1481
 msgid "_Skip"
@@ -2093,7 +2022,7 @@ msgstr "_Blok in- / uitklappen inschakelen "
 
 #: ../src/preferences.c:490
 msgid "Display block stack in statusbar"
-msgstr ""
+msgstr "Blok niveau in statusbalk weergeven"
 
 #: ../src/preferences.c:492
 msgid "Highlight block _delimiters"
@@ -2121,7 +2050,7 @@ msgstr "Regel _omloop inschakelen"
 
 #: ../src/preferences.c:507
 msgid "Enable syntax scanning"
-msgstr ""
+msgstr "Activeer syntax herkenning"
 
 #: ../src/preferences.c:510
 msgid "_Enable spell check"
@@ -2468,7 +2397,7 @@ msgstr "Selectie inpringen met _tab toets"
 
 #: ../src/preferences.c:1888
 msgid "Auto close brackets"
-msgstr ""
+msgstr "Automatisch haken sluiten"
 
 #: ../src/preferences.c:1894
 msgid "Visible _whitespace mode:"
@@ -2674,7 +2603,7 @@ msgstr "HTML dialogen altĳd _vooraan"
 
 #: ../src/preferences.c:2150
 msgid "Save user customised menu accelerators"
-msgstr ""
+msgstr "Gebruikers menu sneltoetsen opslaan"
 
 #: ../src/preferences.c:2154
 msgid "<b>Recent Files</b>"
@@ -2731,7 +2660,7 @@ msgstr "Initiële _venster breedte:"
 
 #: ../src/preferences.c:2218
 msgid "_Limit window title length"
-msgstr ""
+msgstr "Beperk window titel lengte"
 
 #: ../src/preferences.c:2235
 msgid "_Use system document tab font"
@@ -2990,7 +2919,7 @@ msgstr "chmod a+x"
 
 #: ../src/rcfile.c:759
 msgid "php syntax check"
-msgstr ""
+msgstr "php syntax test"
 
 #: ../src/rcfile.c:763
 #, fuzzy
@@ -3003,7 +2932,7 @@ msgstr "Maak tekst van HTML"
 
 #: ../src/rcfile.c:798
 msgid "Chrome"
-msgstr ""
+msgstr "Chrome"
 
 #: ../src/rcfile.c:801
 msgid "Mozilla"
@@ -3067,11 +2996,11 @@ msgstr "Object bestanden verbergen"
 
 #: ../src/snr3.c:610
 msgid "<i>Replace started</i>"
-msgstr ""
+msgstr "<i>Vervangen gestart</i>"
 
 #: ../src/snr3.c:615
 msgid "<i>Search started</i>"
-msgstr ""
+msgstr "<i>Zoeken gestart</i>"
 
 #: ../src/snr3.c:633
 #, fuzzy
@@ -3098,17 +3027,17 @@ msgstr "<b>Recente bestanden</b>"
 #: ../src/snr3.c:952
 #, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
-msgstr ""
+msgstr "<i>%d resultaten in %d van de %d documenten</i>"
 
 #: ../src/snr3.c:955
 #, c-format
 msgid "<i>Found %d results from character %d to %d</i>"
-msgstr ""
+msgstr "<i>%d resultaten van karakter %d tot %d</i>"
 
 #: ../src/snr3.c:957
 #, c-format
 msgid "<i>Found %d results in the active document</i>"
-msgstr ""
+msgstr "<i>%d resultaten in het huidige actieve document</i>"
 
 #: ../src/snr3.c:1306
 #, fuzzy
@@ -3206,13 +3135,15 @@ msgstr "Patroon bevat backslash escape karakters zoals \\n, \\t etc."
 
 #: ../src/snr3.c:1489
 msgid "Dot character in regex pattern matches newlines"
-msgstr ""
+msgstr "Punt karakter in reguliere expressie pakt regeleinden"
 
 #: ../src/snr3.c:1492
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
+"Het . karakter zal alles pakken inclusies regeleinden, gebruik dit voor "
+"meer-regelige zoekopdrachten"
 
 #: ../src/snr3.c:1514
 msgid "Replace _All"
