@@ -341,13 +341,16 @@ typedef struct {
 	guint8 case_insens;
 	guint8 is_regex;
 	guint8 tagclose_from_blockstack;	/* this is a generix xml close tag that needs the blockstack to autoclose */
+	guint8 stretch_blockstart; /* the end of this match is the new end-of-blockstart, used for HTML/XML tags */
 #ifdef IDENTSTORING
 	guint8 identmode;
 	guint8 identaction; /* bitwise, first bit is add to jump hashtable, second bit is autocomplete */
 #endif							/* IDENTSTORING */
-	/*gboolean may_fold;  not yet used */
-	/*gboolean highlight_other_end; not yet used */
 } Tpattern;
+/* 
+32bit size = 7 * 32 + 2 * 16 + 8 * 8 = 320 bits = 40 bytes 
+64bit size = 7 * 64 + 2 * 16 + 8 * 8 = 544 bits = 68 bytes
+*/
 
 typedef struct {
 	guint16 row[NUMSCANCHARS];	/* contains for each character the number of the next state
