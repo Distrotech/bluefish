@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-03 00:19+0800\n"
-"PO-Revision-Date: 2011-09-03 00:29+0800\n"
+"POT-Creation-Date: 2011-09-08 23:16+0800\n"
+"PO-Revision-Date: 2011-09-07 00:37+0800\n"
 "Last-Translator: ZhiFeng Ma <mzf9527@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -352,7 +352,7 @@ msgstr "选择块"
 
 #: ../src/bfwin_uimanager.c:780
 msgid "Select block, use multiple times to select parent blocks "
-msgstr "选择块，用多次选择父块"
+msgstr "选择块，用于选择其上一级的块，可多次使用"
 
 #: ../src/bfwin_uimanager.c:782
 msgid "_Word Count"
@@ -1934,7 +1934,7 @@ msgstr "行"
 msgid "Output"
 msgstr "输出"
 
-#: ../src/outputbox.c:466
+#: ../src/outputbox.c:467
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "编译输出窗口模式失败 %s: %s"
