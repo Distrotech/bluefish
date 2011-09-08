@@ -567,6 +567,13 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 		set_integer_if_attribute_name(reader, aname, (xmlChar *) "identifier_autocomp", &identifier_autocomp);
 		xmlFree(aname);
 	}
+	if (stretch_blockstart && ends_block) {
+		g_print("Error in language file, id %s / pattern %s has mutually exclusive options stretch_blockstart and ends_block both enabled\n", id, pattern);
+		stretch_blockstart = FALSE;
+	}
+	if ((stretch_blockstart || ends_block) && !blockstartelement) {
+		g_print("Error in language file, id %s / pattern %s has stretch_blockstart or ends_block enabled without blockstartelement\n", id, pattern);
+	}
 	tmp = lookup_user_option(bfparser->bflang->name, class);
 	tmp2 = lookup_user_option(bfparser->bflang->name, notclass);
 	if ((!class || (tmp && tmp[0] == '1')) || !notclass || (tmp2 && tmp2[0] == '0')) {
@@ -894,7 +901,8 @@ process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing * bfparser, guint16
 				starttagmatch =
 					add_keyword_to_scanning_table(bfparser->st, ">", bfparser->bflang->name,
 												  highlight ? highlight : ih_highlight, NULL, FALSE, FALSE,
-												  contexttag, -1, FALSE, FALSE, 0, 0, TRUE,
+												  contexttag, -1, FALSE, FALSE, 
+												  matchnum /* blockstartpattern for stretch_block */, FALSE, TRUE,
 												  0, FALSE, FALSE);
 				if (bfparser->autoclose_tags && !no_close)
 					match_add_autocomp_item(bfparser->st, starttagmatch, NULL, tmp, tmp ? strlen(tmp) : 0);
