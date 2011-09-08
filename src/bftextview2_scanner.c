@@ -840,14 +840,14 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 					 gtk_text_iter_get_offset(&match->start), gtk_text_iter_get_offset(&match->end));
 		gtk_text_buffer_apply_tag(btv->buffer, pat->selftag, &match->start, &match->end);
 	}
-	if (pat->stretch_blockstart && scanning->curfblock) {
+	if (G_UNLIKELY(pat->stretch_blockstart && scanning->curfblock && scanning->curfblock->patternum == pat->blockstartpattern)) {
 		/* get the current block on the stack and stretch the end-of-blockstart to the end of the match */
 		DBG_BLOCKMATCH("found_match, pat->stretch_blockstart=%d, update curfblock end1_o from %d to %d\n", pat->stretch_blockstart, scanning->curfblock->end1_o, match_end_o);
 		scanning->curfblock->end1_o = match_end_o;
 	}
 	
-	if (!pat->starts_block && !pat->ends_block
-		&& (pat->nextcontext == 0 || pat->nextcontext == scanning->context))
+	if G_LIKELY((!pat->starts_block && !pat->ends_block
+		&& (pat->nextcontext == 0 || pat->nextcontext == scanning->context)))
 		return scanning->context;
 
 	/* There are three situations comparing the current scan to the cached results:
