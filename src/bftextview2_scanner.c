@@ -822,32 +822,32 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	gint numblockchange = 0, numcontextchange = 0;
 	Tfound *found;
 	GtkTextIter iter;
-	Tpattern pat = g_array_index(btv->bflang->st->matches, Tpattern, match->patternum);
+	Tpattern *pat = &g_array_index(btv->bflang->st->matches, Tpattern, match->patternum);
 	DBG_SCANNING
 		("found_match for pattern %d %s at charoffset %d, starts_block=%d,ends_block=%d, nextcontext=%d (current=%d)\n",
-		 match->patternum, pat.pattern, gtk_text_iter_get_offset(&match->start), pat.starts_block,
-		 pat.ends_block, pat.nextcontext, scanning->context);
+		 match->patternum, pat->pattern, gtk_text_iter_get_offset(&match->start), pat->starts_block,
+		 pat->ends_block, pat->nextcontext, scanning->context);
 /*	DBG_MSG("pattern no. %d (%s) matches (%d:%d) --> nextcontext=%d\n", match->patternum, scantable.matches[match->patternum].message,
 			gtk_text_iter_get_offset(&match->start), gtk_text_iter_get_offset(&match->end), scantable.matches[match->patternum].nextcontext);*/
 #ifdef IDENTSTORING
-	scanning->identmode = pat.identmode;
-	scanning->identaction = pat.identaction;
+	scanning->identmode = pat->identmode;
+	scanning->identaction = pat->identaction;
 #endif							/* IDENTSTORING */
 
 	match_end_o = gtk_text_iter_get_offset(&match->end);
-	if (pat.selftag) {
-		DBG_SCANNING("found_match, apply tag %p from %d to %d\n", pat.selftag,
+	if (pat->selftag) {
+		DBG_SCANNING("found_match, apply tag %p from %d to %d\n", pat->selftag,
 					 gtk_text_iter_get_offset(&match->start), gtk_text_iter_get_offset(&match->end));
-		gtk_text_buffer_apply_tag(btv->buffer, pat.selftag, &match->start, &match->end);
+		gtk_text_buffer_apply_tag(btv->buffer, pat->selftag, &match->start, &match->end);
 	}
-	if (pat.stretch_blockstart && scanning->curfblock) {
+	if (pat->stretch_blockstart && scanning->curfblock) {
 		/* get the current block on the stack and stretch the end-of-blockstart to the end of the match */
-		DBG_BLOCKMATCH("found_match, pat.stretch_blockstart=%d, update curfblock end1_o from %d to %d\n", pat.stretch_blockstart, scanning->curfblock->end1_o, match_end_o);
+		DBG_BLOCKMATCH("found_match, pat->stretch_blockstart=%d, update curfblock end1_o from %d to %d\n", pat->stretch_blockstart, scanning->curfblock->end1_o, match_end_o);
 		scanning->curfblock->end1_o = match_end_o;
 	}
 	
-	if (!pat.starts_block && !pat.ends_block
-		&& (pat.nextcontext == 0 || pat.nextcontext == scanning->context))
+	if (!pat->starts_block && !pat->ends_block
+		&& (pat->nextcontext == 0 || pat->nextcontext == scanning->context))
 		return scanning->context;
 
 	/* There are three situations comparing the current scan to the cached results:
@@ -877,11 +877,11 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 			if (scanning->nextfound->numcontextchange >= 0) {
 				context = scanning->nextfound->fcontext ? scanning->nextfound->fcontext->context : 1;
 				tmpfcontext = scanning->nextfound->fcontext;
-			} else if (pat.nextcontext < 0) {
+			} else if (pat->nextcontext < 0) {
 				gint tmp = 0;
 				tmpfcontext =
-					pop_and_apply_contexts(btv, pat.nextcontext, scanning->curfcontext, &match->start, &tmp);
-				Tfoundcontext *tmpfcontext2 = pop_contexts(pat.nextcontext, scanning->nextfound->fcontext);
+					pop_and_apply_contexts(btv, pat->nextcontext, scanning->curfcontext, &match->start, &tmp);
+				Tfoundcontext *tmpfcontext2 = pop_contexts(pat->nextcontext, scanning->nextfound->fcontext);
 				context = tmpfcontext ? tmpfcontext->context : 1;
 				if (tmpfcontext != tmpfcontext2) {
 					g_warning
@@ -914,11 +914,11 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 		enlarge_scanning_region_to_iter(btv, scanning, &iter);
 	}
 
-	if (pat.starts_block) {
+	if (pat->starts_block) {
 		fblock = found_start_of_block(btv, match, scanning);
 		numblockchange = 1;
-	} else if (pat.ends_block) {
-		fblock = found_end_of_block(btv, match, scanning, &pat, &numblockchange);
+	} else if (pat->ends_block) {
+		fblock = found_end_of_block(btv, match, scanning, pat, &numblockchange);
 		if (!fblock) {
 			fblock = scanning->curfblock;
 		}
@@ -935,8 +935,8 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 		g_assert(tmpfblock == scanning->curfblock);
 	}
 #endif
-	if (pat.nextcontext != 0 && pat.nextcontext != scanning->context) {
-		fcontext = found_context_change(btv, match, scanning, &pat, &numcontextchange);
+	if (pat->nextcontext != 0 && pat->nextcontext != scanning->context) {
+		fcontext = found_context_change(btv, match, scanning, pat, &numcontextchange);
 	} else {
 		numcontextchange = 0;
 	}
