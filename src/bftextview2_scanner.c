@@ -417,17 +417,19 @@ void
 found_free_lcb(gpointer data, gpointer btv)
 {
 	Tfound *found = data;
-	DBG_SCANCACHE("found_free_lcb, destroy %p\n", found);
+	DBG_SCANCACHE("found_free_lcb, btv=%p, destroy found=%p\n", btv, found);
 	if (IS_FOUNDMODE_BLOCKPUSH(found)) {
 #ifdef HL_PROFILING
 		hl_profiling.fblock_refcount--;
 #endif
+		DBG_SCANCACHE("found_free_lcb, free fblock=%p\n", btv, found->fblock);
 		g_slice_free(Tfoundblock, found->fblock);
 	}
 	if (IS_FOUNDMODE_CONTEXTPUSH(found)) {
 #ifdef HL_PROFILING
 		hl_profiling.fcontext_refcount--;
 #endif
+		DBG_SCANCACHE("found_free_lcb, free fcontext=%p\n", btv, found->fcontext);
 		g_slice_free(Tfoundcontext, found->fcontext);
 	}
 #ifdef HL_PROFILING
@@ -548,9 +550,11 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 				scanning->nextfound = get_foundcache_next(btv, &isiter);
 				scanning->siter = isiter;
 			}
-			DBG_SCANCACHE("found_end_of_block, remove cache in range, nextfound=%p\n", scanning->nextfound);
+			DBG_SCANCACHE("found_end_of_block, btv=%p, remove cache in range, nextfound=%p\n", btv, scanning->nextfound);
 			g_sequence_foreach_range(cursiter, isiter, found_free_lcb, btv);
+			DBG_SCANCACHE("found_end_of_block, remove range\n");
 			g_sequence_remove_range(cursiter, isiter);
+			DBG_SCANCACHE("found_end_of_block, check nextfound %p\n",scanning->nextfound);
 			if (scanning->nextfound) {
 				DBG_SCANCACHE("nextfound %p is now set to charoffset %d\n", scanning->nextfound,
 							  scanning->nextfound->charoffset_o);
@@ -842,7 +846,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	}
 	if (G_UNLIKELY(pat->stretch_blockstart && scanning->curfblock && scanning->curfblock->patternum == pat->blockstartpattern)) {
 		/* get the current block on the stack and stretch the end-of-blockstart to the end of the match */
-		DBG_BLOCKMATCH("found_match, pat->stretch_blockstart=%d, update curfblock end1_o from %d to %d\n", pat->stretch_blockstart, scanning->curfblock->end1_o, match_end_o);
+		DBG_SCANNING("found_match, pat->stretch_blockstart=%d, update curfblock end1_o from %d to %d\n", pat->stretch_blockstart, scanning->curfblock->end1_o, match_end_o);
 		scanning->curfblock->end1_o = match_end_o;
 	}
 	
