@@ -296,8 +296,10 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 {
 	Tfound *found;
 	GSequenceIter *siter;
+	gint comparepos;
 	if (offset == 0)
 		return;
+	comparepos = (offset < 0) ? startpos - offset : startpos;
 	DBG_SCANCACHE
 		("foundcache_update_offsets, update with offset %d starting at startpos %d, cache length=%d\n",
 		 offset, startpos, g_sequence_get_length(btv->scancache.foundcaches));
@@ -332,20 +334,27 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 		while (tmpfblock) {
 			DBG_SCANCACHE("foundcache_update_offsets, fblock on stack=%p, %d:%d-%d:%d\n", tmpfblock,
 						  tmpfblock->start1_o, tmpfblock->end1_o,tmpfblock->start2_o, tmpfblock->end2_o);
-			/* notice the difference: the start needs >= startpos and the end needs > startpos */
-			if (tmpfblock->start2_o >= startpos && tmpfblock->start2_o != BF2_OFFSET_UNDEFINED) {
-				DBG_SCANCACHE
-					("foundcache_update_offsets, update fblock %p from start2_o=%d to start2_o=%d\n",
-					 tmpfblock, tmpfblock->start2_o, tmpfblock->start2_o + offset);
-				tmpfblock->start2_o += offset;
+			if (G_UNLIKELY(tmpfblock->start2_o != BF2_OFFSET_UNDEFINED)) {
+				if (G_UNLIKELY(offset < 0 && tmpfblock->start2_o <= comparepos)) {
+					/* the end of the block might be within the deleted region, if so, set the end as undefined */
+					tmpfblock->start2_o = BF2_OFFSET_UNDEFINED;
+					tmpfblock->end2_o = BF2_OFFSET_UNDEFINED;
+				} else {
+					if (tmpfblock->start2_o >= startpos) {
+					/* notice the difference: the start needs >= startpos and the end needs > startpos */
+						DBG_SCANCACHE
+							("foundcache_update_offsets, update fblock %p from start2_o=%d to start2_o=%d\n",
+						 	tmpfblock, tmpfblock->start2_o, tmpfblock->start2_o + offset);
+						tmpfblock->start2_o += offset;
+					}
+					if (tmpfblock->end2_o > startpos) {
+						DBG_SCANCACHE
+							("foundcache_update_offsets, update fblock %p from end2_o=%d to end2_o=%d\n",
+						 	tmpfblock, tmpfblock->end2_o, tmpfblock->end2_o + offset);
+						tmpfblock->end2_o += offset;
+					}
+				}
 			}
-			if (tmpfblock->end2_o > startpos && tmpfblock->end2_o != BF2_OFFSET_UNDEFINED) {
-				DBG_SCANCACHE
-					("foundcache_update_offsets, update fblock %p from end2_o=%d to end2_o=%d\n",
-					 tmpfblock, tmpfblock->end2_o, tmpfblock->end2_o + offset);
-				tmpfblock->end2_o += offset;
-			}
-
 			tmpfblock = (Tfoundblock *) tmpfblock->parentfblock;
 		}
 	}
@@ -514,8 +523,9 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 	hl_profiling.numblockend++;
 #endif
 	while (fblock && fblock->patternum != pat->blockstartpattern && pat->blockstartpattern != -1) {
-		DBG_BLOCKMATCH("pop fblock %p with patternum %d and parent %p\n", fblock, fblock->patternum,
-					   fblock->parentfblock);
+		DBG_BLOCKMATCH("pop fblock %p (%d:%d-%d:%d)with patternum %d and parent %p\n", fblock
+						, fblock->start1_o, fblock->end1_o , fblock->start2_o, fblock->end2_o
+						, fblock->patternum, fblock->parentfblock);
 		fblock = (Tfoundblock *) fblock->parentfblock;
 		(*numblockchange)--;
 	}
@@ -539,25 +549,26 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 		if (fblock->end2_o < gtk_text_iter_get_offset(&match->end)) {
 			g_print("BUG: this block %p was ended already on a lower offset (%d) then we have right now (%d), so our blockstack is broken??\n", fblock, fblock->end2_o, gtk_text_iter_get_offset(&match->end));
 			g_print("BUG: block %p started at %d:%d, ended at %d:%d\n",fblock, fblock->start1_o, fblock->end1_o, fblock->start2_o, fblock->end2_o);
-		}
-		enlarge_scanning_region(btv, scanning, fblock->end2_o);
-		ifound = get_foundcache_at_offset(btv, fblock->end2_o, &isiter);
-		if (ifound && ifound->charoffset_o == fblock->end2_o && isiter) {
-			DBG_SCANCACHE("found_end_of_block, invalidate ifound=%p at offset %d\n", ifound,
-						  ifound->charoffset_o);
-			cursiter = scanning->siter;
-			if (scanning->siter) {
-				scanning->nextfound = get_foundcache_next(btv, &isiter);
-				scanning->siter = isiter;
-			}
-			DBG_SCANCACHE("found_end_of_block, btv=%p, remove cache in range, nextfound=%p\n", btv, scanning->nextfound);
-			g_sequence_foreach_range(cursiter, isiter, found_free_lcb, btv);
-			DBG_SCANCACHE("found_end_of_block, remove range\n");
-			g_sequence_remove_range(cursiter, isiter);
-			DBG_SCANCACHE("found_end_of_block, check nextfound %p\n",scanning->nextfound);
-			if (scanning->nextfound) {
-				DBG_SCANCACHE("nextfound %p is now set to charoffset %d\n", scanning->nextfound,
-							  scanning->nextfound->charoffset_o);
+		} else {
+			enlarge_scanning_region(btv, scanning, fblock->end2_o);
+			ifound = get_foundcache_at_offset(btv, fblock->end2_o, &isiter);
+			if (ifound && ifound->charoffset_o == fblock->end2_o && isiter) {
+				DBG_SCANCACHE("found_end_of_block, invalidate ifound=%p at offset %d\n", ifound,
+							  ifound->charoffset_o);
+				cursiter = scanning->siter;
+				if (scanning->siter) {
+					scanning->nextfound = get_foundcache_next(btv, &isiter);
+					scanning->siter = isiter;
+				}
+				DBG_SCANCACHE("found_end_of_block, btv=%p, remove cache in range, nextfound=%p\n", btv, scanning->nextfound);
+				g_sequence_foreach_range(cursiter, isiter, found_free_lcb, btv);
+				DBG_SCANCACHE("found_end_of_block, remove range\n");
+				g_sequence_remove_range(cursiter, isiter);
+				DBG_SCANCACHE("found_end_of_block, check nextfound %p\n",scanning->nextfound);
+				if (scanning->nextfound) {
+					DBG_SCANCACHE("nextfound %p is now set to charoffset %d\n", scanning->nextfound,
+								  scanning->nextfound->charoffset_o);
+				}
 			}
 		}
 	}
