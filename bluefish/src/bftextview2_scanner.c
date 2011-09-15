@@ -34,10 +34,10 @@
 #include "bftextview2_scanner.h"
 #include "bftextview2_identifier.h"
 
-#undef DBG_SCANCACHE
+/*#undef DBG_SCANCACHE
 #undef DBG_SCANNING
 #define DBG_SCANCACHE g_print
-#define DBG_SCANNING g_print
+#define DBG_SCANNING g_print*/
 
 /* use 
 G_SLICE=always-malloc valgrind --tool=memcheck --leak-check=full --num-callers=32 --freelist-vol=100000000 src/bluefish-unstable
@@ -288,6 +288,14 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 	return invalidoffset;
 }
 
+static void
+mark_needscanning(BluefishTextView * btv, guint startpos, guint endpos)
+{
+	GtkTextIter it1, it2;
+	gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, startpos);
+	gtk_text_buffer_get_iter_at_offset(btv->buffer, &it2, endpos);
+	gtk_text_buffer_apply_tag(btv->buffer, btv->needscanning, &it1, &it2);
+}
 
 /** 
  * foundcache_update_offsets
@@ -366,10 +374,16 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 
 	if (offset < 0) {
 		while (found && found->charoffset_o <= startpos - offset) {
-			if (found->charoffset_o > startpos) {
-				gboolean didpop = (found->numblockchange < 0);
+			if (G_UNLIKELY(found->charoffset_o > startpos)) {
+				gint numblockchange = found->numblockchange;
+				DBG_SCANCACHE("foundcache_update_offsets, remove found %p from the cache\n",found);
+				if (numblockchange > 0) {
+					/* we have to enlarge needscanning to the place where this was popped */
+					DBG_SCANCACHE("foundcache_update_offsets, found pushed a block, mark obsolete block %d:%d as needscanning\n",found->fblock->start1_o, found->fblock->end2_o);
+					mark_needscanning(btv, found->fblock->start1_o, found->fblock->end2_o);
+				}
 				remove_cache_entry(btv, &found, &siter, NULL, NULL);
-				if (!found && didpop) {
+				if (!found && (numblockchange < 0)) {
 					GtkTextIter it1, it2;
 					/* there is a special situation: if this is the last found in the cache, and it pops a block, 
 					   we have to enlarge the scanning region to the end of the text */
@@ -676,13 +690,13 @@ nextcache_valid(Tscanning * scanning)
 	if (!scanning->nextfound)
 		return FALSE;
 	if (scanning->nextfound->numblockchange <= 0 && scanning->nextfound->fblock != scanning->curfblock) {
-		DBG_SCANCACHE("nextcache_valid, next found %p pops fblock=%p, current fblock=%p, return FALSE\n",
-					  scanning->nextfound, scanning->nextfound->fblock, scanning->curfblock);
+		DBG_SCANCACHE("nextcache_valid, next found %p with numblockchange=%d has fblock=%p, current fblock=%p, return FALSE\n",
+					  scanning->nextfound, scanning->nextfound->numblockchange, scanning->nextfound->fblock, scanning->curfblock);
 		return FALSE;
 	}
 	if (scanning->nextfound->numcontextchange <= 0 && scanning->nextfound->fcontext != scanning->curfcontext) {
-		DBG_SCANCACHE("nextcache_valid, next found %p pops fcontext=%p, current fcontext=%p, return FALSE\n",
-					  scanning->nextfound, scanning->nextfound->fcontext, scanning->curfcontext);
+		DBG_SCANCACHE("nextcache_valid, next found %p with numcontextchange=%d has fcontext=%p, current fcontext=%p, return FALSE\n",
+					  scanning->nextfound, scanning->nextfound->numcontextchange, scanning->nextfound->fcontext, scanning->curfcontext);
 		return FALSE;
 	}
 	if (scanning->nextfound->numcontextchange > 0 && (!scanning->nextfound->fcontext
@@ -769,6 +783,7 @@ static guint
 remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tscanning * scanning)
 {
 	guint invalidoffset;
+	DBG_SCANNING("remove_invalid_cache, scanning->nextfound=%p, scanning->curfblock=%p, scanning->curfblock=%p\n", scanning->nextfound, scanning->curfblock, scanning->curfblock);
 	do {
 		invalidoffset = remove_cache_entry(btv, &scanning->nextfound, &scanning->siter, scanning->curfblock, scanning->curfcontext);
 	} while (scanning->nextfound && (scanning->nextfound->charoffset_o < match_end_o || !nextcache_valid(scanning)));
@@ -839,6 +854,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	Tfoundblock *fblock = scanning->curfblock;
 	Tfoundcontext *fcontext = scanning->curfcontext;
 	guint match_end_o;
+	gboolean cleanup_obsolete_cache_items=FALSE;
 	gint numblockchange = 0, numcontextchange = 0;
 	Tfound *found;
 	GtkTextIter iter;
@@ -920,11 +936,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 			scanning->nextfound = get_foundcache_next(btv, &scanning->siter);
 			return context;
 		} else {				/* either a smaller offset, or invalid */
-			guint invalidoffset;
-			DBG_SCANCACHE("found_match, found %p with offset %d will be removed\n", scanning->nextfound,
-						  scanning->nextfound->charoffset_o);
-			invalidoffset = remove_invalid_cache(btv, match_end_o, scanning);
-			enlarge_scanning_region(btv, scanning, invalidoffset);
+			cleanup_obsolete_cache_items = TRUE;
 		}
 	}
 	/* TODO: in all cases: if we find a previously unknown match and there is no nextfound we
@@ -963,6 +975,16 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 	if (numblockchange == 0 && numcontextchange == 0) {
 		DBG_SCANCACHE("found_match, no context change, no block change, return\n");
 		return scanning->context;
+	}
+
+	if (cleanup_obsolete_cache_items) {
+		/* we have to do the cleanup *after* found_start_of_block/found_end_of_block/found_context_change so
+		Tscanning will reflext the up-to-date situation at this offset */
+		guint invalidoffset;
+		DBG_SCANCACHE("found_match, found %p with offset %d will be removed\n", scanning->nextfound,
+						  scanning->nextfound->charoffset_o);
+		invalidoffset = remove_invalid_cache(btv, match_end_o, scanning);
+		enlarge_scanning_region(btv, scanning, invalidoffset);
 	}
 
 	found = g_slice_new0(Tfound);
