@@ -382,6 +382,11 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 					DBG_SCANCACHE("foundcache_update_offsets, found pushed a block, mark obsolete block %d:%d as needscanning\n",found->fblock->start1_o, found->fblock->end2_o);
 					mark_needscanning(btv, found->fblock->start1_o, found->fblock->end2_o);
 				}
+				if (found->numcontextchange > 0) {
+					/* we have to enlarge needscanning to the place where this was popped */
+					DBG_SCANCACHE("foundcache_update_offsets, found pushed a context, mark obsolete context %d:%d as needscanning\n",found->fcontext->start_o, found->fcontext->end_o);
+					mark_needscanning(btv, found->fcontext->start_o, found->fcontext->end_o);
+				}
 				remove_cache_entry(btv, &found, &siter, NULL, NULL);
 				if (!found && (numblockchange < 0)) {
 					GtkTextIter it1, it2;
