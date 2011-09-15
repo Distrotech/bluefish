@@ -38,6 +38,11 @@
 #include "bftextview2_spell.h"
 #endif
 
+#undef DBG_SCANCACHE
+#undef DBG_SCANNING
+#define DBG_SCANCACHE g_print
+#define DBG_SCANNING g_print
+
 #define USER_IDLE_EVENT_INTERVAL 480	/* milliseconds */
 /*
 G_PRIORITY_HIGH -100 			Use this for high priority event sources. It is not used within GLib or GTK+.
@@ -435,6 +440,8 @@ bftextview2_get_active_block_at_offset(BluefishTextView * btv, gboolean innerblo
 	}
 	if (found1->numblockchange < 0) {
 		fblock = first_fully_defined_block(found1->fblock);
+		if (!fblock)
+			return NULL;
 		/* if outerblock is requested, we have to check for the situation that we are exactly at the end-of-block
 			in which case we don't have to pop the block yet */
 		if (fblock->end2_o == offset) {

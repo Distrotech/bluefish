@@ -33,6 +33,12 @@
 #include "bluefish.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_identifier.h"
+
+#undef DBG_SCANCACHE
+#undef DBG_SCANNING
+#define DBG_SCANCACHE g_print
+#define DBG_SCANNING g_print
+
 /* use 
 G_SLICE=always-malloc valgrind --tool=memcheck --leak-check=full --num-callers=32 --freelist-vol=100000000 src/bluefish-unstable
 to memory-debug this code
@@ -193,7 +199,6 @@ is_fblock_on_stack(Tfoundblock * topfblock, Tfoundblock * searchfblock)
 {
 	Tfoundblock *fblock = topfblock;
 	while (fblock) {
-		DBG_SCANCACHE("is_fblock_on_stack, compare needle %p with haystack item %p\n", searchfblock, fblock);
 		if (fblock == searchfblock)
 			return TRUE;
 		fblock = (Tfoundblock *) fblock->parentfblock;
@@ -431,14 +436,14 @@ found_free_lcb(gpointer data, gpointer btv)
 #ifdef HL_PROFILING
 		hl_profiling.fblock_refcount--;
 #endif
-		DBG_SCANCACHE("found_free_lcb, free fblock=%p\n", btv, found->fblock);
+		DBG_SCANCACHE("found_free_lcb, btv=%p, free fblock=%p\n", btv, found->fblock);
 		g_slice_free(Tfoundblock, found->fblock);
 	}
 	if (IS_FOUNDMODE_CONTEXTPUSH(found)) {
 #ifdef HL_PROFILING
 		hl_profiling.fcontext_refcount--;
 #endif
-		DBG_SCANCACHE("found_free_lcb, free fcontext=%p\n", btv, found->fcontext);
+		DBG_SCANCACHE("found_free_lcb, btv=%p, free fcontext=%p\n", btv, found->fcontext);
 		g_slice_free(Tfoundcontext, found->fcontext);
 	}
 #ifdef HL_PROFILING
@@ -588,7 +593,7 @@ found_end_of_block(BluefishTextView * btv, Tmatch * match, Tscanning * scanning,
 	(*numblockchange)--;
 	return retfblock;
 }
-
+/* pop_contexts expects a negative number !!!!!!!!!! */
 static Tfoundcontext *
 pop_contexts(gint numchange, Tfoundcontext * curcontext)
 {
@@ -708,7 +713,7 @@ nextcache_valid(Tscanning * scanning)
 static inline gboolean
 cached_found_is_valid(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 {
-	Tpattern pat = g_array_index(btv->bflang->st->matches, Tpattern, match->patternum);
+	Tpattern *pat = &g_array_index(btv->bflang->st->matches, Tpattern, match->patternum);
 
 	if (!scanning->nextfound)
 		return FALSE;
@@ -722,37 +727,37 @@ cached_found_is_valid(BluefishTextView * btv, Tmatch * match, Tscanning * scanni
 	DBG_SCANCACHE("with numcontextchange=%d, numblockchange=%d\n", scanning->nextfound->numcontextchange,
 				  scanning->nextfound->numblockchange);
 	if (IS_FOUNDMODE_BLOCKPUSH(scanning->nextfound)
-		&& (!pat.starts_block || scanning->nextfound->fblock->patternum != match->patternum)) {
+		&& (!pat->starts_block || scanning->nextfound->fblock->patternum != match->patternum)) {
 		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not push the same block\n",
 					  scanning->nextfound);
 		DBG_SCANCACHE
-			("pat.startsblock=%d, nextfound->fblock->patternum=%d,match->patternum=%d,nextfound->fblock->parentfblock=%p,scanning->curfblock=%p\n",
-			 pat.starts_block, scanning->nextfound->fblock->patternum, match->patternum,
+			("pat->startsblock=%d, nextfound->fblock->patternum=%d,match->patternum=%d,nextfound->fblock->parentfblock=%p,scanning->curfblock=%p\n",
+			 pat->starts_block, scanning->nextfound->fblock->patternum, match->patternum,
 			 scanning->nextfound->fblock->parentfblock, scanning->curfblock);
 		return FALSE;
 	}
-	if (IS_FOUNDMODE_BLOCKPOP(scanning->nextfound) && !pat.ends_block) {
+	if (IS_FOUNDMODE_BLOCKPOP(scanning->nextfound) && !pat->ends_block) {
 		/* TODO: add more checks for popped blocks */
 		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not pop a block\n", scanning->nextfound);
 		return FALSE;
 	}
-	if (IS_FOUNDMODE_CONTEXTPUSH(scanning->nextfound) && (pat.nextcontext <= 0
+	if (IS_FOUNDMODE_CONTEXTPUSH(scanning->nextfound) && (pat->nextcontext <= 0
 														  /*|| pat.nextcontext != scanning->context */
 														  || scanning->nextfound->fcontext->context !=
-														  pat.nextcontext)) {
+														  pat->nextcontext)) {
 		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not push the same context\n",
 					  scanning->nextfound);
-		DBG_SCANCACHE("cached pat.nextcontext=%d, fcontext->context=%d, current context=%d\n",
-					  pat.nextcontext, scanning->nextfound->fcontext->context, scanning->context);
+		DBG_SCANCACHE("cached pat->nextcontext=%d, fcontext->context=%d, current context=%d\n",
+					  pat->nextcontext, scanning->nextfound->fcontext->context, scanning->context);
 		return FALSE;
 	}
 	if ((scanning->nextfound->numcontextchange < 0)
-		&& (pat.nextcontext != scanning->nextfound->numcontextchange)) {
+		&& (pat->nextcontext != scanning->nextfound->numcontextchange)) {
 		/* TODO: use more checks for popped contexts */
 		DBG_SCANCACHE("cached_found_is_valid, cached entry %p does not pop the same context\n",
 					  scanning->nextfound);
 		DBG_SCANCACHE("cached numcontextchange=%d, pat.nextcontext=%d\n",
-					  scanning->nextfound->numcontextchange, pat.nextcontext);
+					  scanning->nextfound->numcontextchange, pat->nextcontext);
 		return FALSE;
 	}
 	return TRUE;
