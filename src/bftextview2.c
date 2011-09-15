@@ -38,10 +38,10 @@
 #include "bftextview2_spell.h"
 #endif
 
-#undef DBG_SCANCACHE
+/*#undef DBG_SCANCACHE
 #undef DBG_SCANNING
 #define DBG_SCANCACHE g_print
-#define DBG_SCANNING g_print
+#define DBG_SCANNING g_print*/
 
 #define USER_IDLE_EVENT_INTERVAL 480	/* milliseconds */
 /*
