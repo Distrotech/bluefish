@@ -38,9 +38,12 @@
 #include "bftextview2_spell.h"
 #endif
 
+
+#undef DEBUG_MSG 
+#define DEBUG_MSG g_print
 /*#undef DBG_SCANCACHE
-#undef DBG_SCANNING
 #define DBG_SCANCACHE g_print
+#undef DBG_SCANNING
 #define DBG_SCANNING g_print*/
 
 #define USER_IDLE_EVENT_INTERVAL 480	/* milliseconds */
@@ -461,10 +464,13 @@ bluefish_text_view_get_active_block_boundaries(BluefishTextView *btv, guint loca
 	Tfoundblock *fblock = bftextview2_get_active_block_at_offset(btv, innerblock, location);
 	if (!fblock) 
 		return FALSE;
-	
+	DEBUG_MSG("bluefish_text_view_get_active_block_boundaries, got block %p %d:%d-%d:%d\n", 
+					fblock, fblock->start1_o, fblock->end1_o, fblock->start2_o, fblock->end2_o);
 	fblock = first_fully_defined_block(fblock);
 	if (!fblock) 
 		return FALSE;
+	DEBUG_MSG("bluefish_text_view_get_active_block_boundaries, got fully defined block %p %d:%d-%d:%d\n", 
+					fblock, fblock->start1_o, fblock->end1_o, fblock->start2_o, fblock->end2_o);
 	if (innerblock)
 		bftextview2_get_iters_at_foundblock(btv->buffer, fblock, &it1, so, eo, &it2);
 	else
