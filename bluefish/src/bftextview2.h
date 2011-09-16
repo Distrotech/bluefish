@@ -272,8 +272,9 @@ extern void g_none(char *first, ...);
 #define IDENTSTORING
 #define BF2_OFFSET_UNDEFINED G_MAXUINT32
 
-
+/*#define DUMP_SCANCACHE*/
 /*#define CHECK_CONSISTENCY*/
+
 #define DBG_MSG DBG_NONE
 #define DBG_SCANCACHE DBG_NONE
 #define DBG_SCANNING DBG_NONE
