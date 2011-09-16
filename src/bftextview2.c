@@ -39,8 +39,8 @@
 #endif
 
 
-#undef DEBUG_MSG 
-#define DEBUG_MSG g_print
+/*#undef DEBUG_MSG 
+#define DEBUG_MSG g_print*/
 /*#undef DBG_SCANCACHE
 #define DBG_SCANCACHE g_print
 #undef DBG_SCANNING

@@ -18,7 +18,7 @@
  */
 
 /*#define DEBUG*/
-#define UNRE_REFCOUNT
+/*#define UNRE_REFCOUNT*/
 
 #include <gtk/gtk.h>
 #include <string.h>

@@ -108,7 +108,8 @@ dump_scancache(BluefishTextView * btv)
 		if (found->numcontextchange != 0) {
 			g_print("\tnumcontextchange=%d", found->numcontextchange);
 			if (found->fcontext) {
-				g_print(",context %d, highlight %s, parent=%p, start %d, end %d", found->fcontext->context,
+				g_print(",context %d", found->fcontext->context);
+				g_print(", highlight %s, parent=%p, %d:%d", 
 						g_array_index(btv->bflang->st->contexts, Tcontext,
 									  found->fcontext->context).contexthighlight,
 						found->fcontext->parentfcontext, found->fcontext->start_o, found->fcontext->end_o);
@@ -118,9 +119,30 @@ dump_scancache(BluefishTextView * btv)
 		if (found->numblockchange != 0) {
 			g_print("\tnumblockchange=%d", found->numblockchange);
 			if (found->fblock) {
-				g_print(", pattern %d %s, parent=%p, start1 %d, end1 %d, start2 %d, end2 %d",
-						found->fblock->patternum, g_array_index(btv->bflang->st->matches, Tpattern,
-																found->fblock->patternum).pattern,
+				g_print(", pattern %d ", found->fblock->patternum);
+				if (g_array_index(btv->bflang->st->matches, Tpattern,
+																found->fblock->patternum).is_regex) {
+					GtkTextIter it1, it2;
+					gchar *tmp2;
+					if (found->numblockchange > 0) {
+						gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, found->fblock->start1_o);
+						gtk_text_buffer_get_iter_at_offset(btv->buffer, &it2, found->fblock->end1_o);
+						tmp2 = gtk_text_buffer_get_text(btv->buffer, &it1, &it2, TRUE);
+					} else if (found->fblock->start2_o != -1) {
+						gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, found->fblock->start2_o);
+						gtk_text_buffer_get_iter_at_offset(btv->buffer, &it2, found->fblock->end2_o);
+						tmp2 = gtk_text_buffer_get_text(btv->buffer, &it1, &it2, TRUE);
+					} else {
+						tmp2 = g_strdup(g_array_index(btv->bflang->st->matches, Tpattern,
+																found->fblock->patternum).pattern);
+					}
+					g_print("%s", tmp2);
+					g_free(tmp2);
+				} else {
+					g_print("%s", g_array_index(btv->bflang->st->matches, Tpattern,
+																found->fblock->patternum).pattern);
+				}
+				g_print(", parent=%p, %d:%d-%d:%d",
 						found->fblock->parentfblock, found->fblock->start1_o, found->fblock->end1_o,
 						found->fblock->start2_o, found->fblock->end2_o);
 			}
@@ -348,8 +370,10 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 			DBG_SCANCACHE("foundcache_update_offsets, fblock on stack=%p, %d:%d-%d:%d\n", tmpfblock,
 						  tmpfblock->start1_o, tmpfblock->end1_o,tmpfblock->start2_o, tmpfblock->end2_o);
 			if (G_UNLIKELY(tmpfblock->start2_o != BF2_OFFSET_UNDEFINED)) {
-				if (G_UNLIKELY(offset < 0 && tmpfblock->start2_o <= comparepos)) {
+				if (G_UNLIKELY(offset < 0 && tmpfblock->start2_o < comparepos)) {
 					/* the end of the block might be within the deleted region, if so, set the end as undefined */
+					DBG_SCANCACHE("update end of fblock %p %d:%d-%d:%d to UNDEFINED\n",tmpfblock
+									, tmpfblock->start1_o, tmpfblock->end1_o, tmpfblock->start2_o, tmpfblock->end2_o );
 					tmpfblock->start2_o = BF2_OFFSET_UNDEFINED;
 					tmpfblock->end2_o = BF2_OFFSET_UNDEFINED;
 				} else {
