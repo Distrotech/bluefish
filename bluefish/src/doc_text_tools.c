@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*#define DEBUG*/
+#define DEBUG
 
 #include "bluefish.h"
 #include "bf_lib.h"
@@ -433,12 +433,15 @@ select_between_matching_block_boundaries(Tdocument *doc)
 	offset = gtk_text_iter_get_offset(&cursor);
 	if (!bluefish_text_view_get_active_block_boundaries(BLUEFISH_TEXT_VIEW(doc->view), 
 					offset, innerblock, &so, &eo)) {
+		DEBUG_MSG("select_between_matching_block_boundaries, no block, return\n");
 		return;
 	}
 	if (innerblock && gtk_text_iter_equal(&so, &eo)) {
+		DEBUG_MSG("select_between_matching_block_boundaries, iters are equal, request innerblock=FALSE\n");
 		innerblock = FALSE;
 		if (!bluefish_text_view_get_active_block_boundaries(BLUEFISH_TEXT_VIEW(doc->view), 
 						offset, innerblock, &so, &eo)) {
+			DEBUG_MSG("select_between_matching_block_boundaries, innerblock=FALSE, no block, return\n");
 			return;
 		}	
 	}
