@@ -2320,6 +2320,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
 	bluefish_text_view_select_language(BLUEFISH_TEXT_VIEW(newdoc->view), bfwin->session->default_mime_type,
 									   NULL);
+	gtk_widget_show(newdoc->view);
 	newdoc->fileinfo = g_file_info_new();
 	g_file_info_set_content_type(newdoc->fileinfo, bfwin->session->default_mime_type);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
