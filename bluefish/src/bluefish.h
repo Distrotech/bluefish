@@ -121,6 +121,37 @@ extern void g_none(gchar * first, ...);
 #define G_GOFFSET_FORMAT G_GINT64_FORMAT
 #endif
 
+
+/*************************************/
+/*** priorities for the main loop ****/
+/*************************************/
+
+/*
+G_PRIORITY_HIGH -100 			Use this for high priority event sources. It is not used within GLib or GTK+.
+G_PRIORITY_DEFAULT 0 			Use this for default priority event sources. In GLib this priority is used when adding 
+										timeout functions with g_timeout_add(). In GDK this priority is used for events from the X server.
+G_PRIORITY_HIGH_IDLE 100 		Use this for high priority idle functions. GTK+ uses G_PRIORITY_HIGH_IDLE + 10 for resizing 
+										operations, and G_PRIORITY_HIGH_IDLE + 20 for redrawing operations. (This is done to ensure 
+										that any pending resizes are processed before any pending redraws, so that widgets are not 
+										redrawn twice unnecessarily.)
+G_PRIORITY_DEFAULT_IDLE 200 	Use this for default priority idle functions. In GLib this priority is used when adding idle 
+										functions with g_idle_add().
+G_PRIORITY_LOW 300
+*/
+
+#define FILEINTODOC_PRIORITY 200
+#define FILE2DOC_PRIORITY 195
+#define NOTEBOOKCHANGED_DOCACTIVATE_PRIORITY 50
+#define BUILD_LANG_FINISHED_PRIORITY 122
+#define SCANNING_IDLE_PRIORITY -50
+/* a newly loaded language file generates a priority 122 event to notice all documents to be rescanned.
+to make sure that we don't scan or spellcheck a file that will be scanned again we do timeout
+scanning in a lower priority timeout  */
+#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 155	/* set to 125. a higher priority makes bluefish go greyed-out (it will not redraw if required while the loop is running)
+													   and a much lower priority (tried 250) will first draw all textstyles on screen before the
+													   next burst of scanning is done */
+
+
 /*********************/
 /* undo/redo structs */
 /*********************/

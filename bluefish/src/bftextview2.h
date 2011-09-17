@@ -282,7 +282,7 @@ extern void g_none(char *first, ...);
 #define DBG_PATCOMPILE DBG_NONE
 #define DBG_SIGNALS DBG_NONE
 #define DBG_AUTOCOMP DBG_NONE
-#define DBG_DELAYSCANNING DBG_NONE
+#define DBG_DELAYSCANNING g_print
 #define DBG_FOLD DBG_NONE
 #define DBG_MARGIN DBG_NONE
 #define DBG_PARSING DBG_NONE
@@ -527,6 +527,7 @@ struct _BluefishTextView {
 	GtkTextTag *blockmatch;
 	Tscancache scancache;
 
+	guint scanner_immediate; /* event ID for the high priority scanning run */
 	guint scanner_idle;			/* event ID for the idle function that handles the scanning. 0 if no idle function is running */
 	guint scanner_delayed;		/* event ID for the timeout function that handles the delayed scanning. 0 if no timeout function is running */
 	GTimer *user_idle_timer;
