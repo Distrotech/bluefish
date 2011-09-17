@@ -1044,7 +1044,7 @@ bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuffer * buffer, Gtk
 	if (!gtk_text_iter_begins_tag(start, btv->needscanning)) {
 		if (!gtk_text_iter_forward_to_tag_toggle(start, btv->needscanning)) {
 			/* nothing to scan */
-			DBG_DELAYSCANNING("nothing to scan..\n");
+			DBG_DELAYSCANNING("bftextview2_find_region2scan, nothing to scan..\n");
 			return FALSE;
 		}
 	}
