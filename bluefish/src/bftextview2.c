@@ -489,18 +489,20 @@ blockstack_string(BluefishTextView *btv, Tfoundblock *fblock)
 	parent = fblock;
 	tmp = g_string_new("");
 	while (parent) {
-		if (parent != fblock)
-			tmp = g_string_prepend(tmp, " ");
-		if (g_array_index(BLUEFISH_TEXT_VIEW(btv->master)->bflang->st->matches, Tpattern, parent->patternum).is_regex) {
-			GtkTextIter it1, it2;
-			gchar *tmp2;
-			gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, parent->start1_o);
-			gtk_text_buffer_get_iter_at_offset(btv->buffer, &it2, parent->end1_o);
-			tmp2 = gtk_text_buffer_get_text(btv->buffer, &it1, &it2, TRUE);
-			tmp = g_string_prepend(tmp, tmp2);
-			g_free(tmp2);
-		} else {
-			tmp = g_string_prepend(tmp, g_array_index(BLUEFISH_TEXT_VIEW(btv->master)->bflang->st->matches, Tpattern, parent->patternum).pattern);
+		if (parent->start2_o != BF2_OFFSET_UNDEFINED) {
+			if (parent != fblock)
+				tmp = g_string_prepend(tmp, " ");
+			if (g_array_index(BLUEFISH_TEXT_VIEW(btv->master)->bflang->st->matches, Tpattern, parent->patternum).is_regex) {
+				GtkTextIter it1, it2;
+				gchar *tmp2;
+				gtk_text_buffer_get_iter_at_offset(btv->buffer, &it1, parent->start1_o);
+				gtk_text_buffer_get_iter_at_offset(btv->buffer, &it2, parent->end1_o);
+				tmp2 = gtk_text_buffer_get_text(btv->buffer, &it1, &it2, TRUE);
+				tmp = g_string_prepend(tmp, tmp2);
+				g_free(tmp2);
+			} else {
+				tmp = g_string_prepend(tmp, g_array_index(BLUEFISH_TEXT_VIEW(btv->master)->bflang->st->matches, Tpattern, parent->patternum).pattern);
+			}
 		}
 		parent = parent->parentfblock;
 	}
