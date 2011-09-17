@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #ifdef MAC_INTEGRATION
 /*#include <ige-mac-integration.h>*/
@@ -942,11 +942,12 @@ notebook_set_tab_accels(Tbfwin * bfwin)
 static gboolean
 notebook_changed_activate_current_document(gpointer data)
 {
+	g_print("notebook_changed_activate_current_document, current_document=%p\n",BFWIN(data)->current_document);
 	if (BFWIN(data)->current_document)
 		doc_activate(BFWIN(data)->current_document);
 
 	BFWIN(data)->notebook_changed_doc_activate_id = 0;
-
+	g_print("notebook_changed_doc_activate_id=%d\n",BFWIN(data)->notebook_changed_doc_activate_id);
 	return FALSE;
 }
 
@@ -1081,8 +1082,8 @@ bfwin_notebook_changed(Tbfwin * bfwin, gint newpage)
 	}
 
 	bfwin->last_notebook_page = cur;
-	DEBUG_MSG("bfwin_notebook_changed, current_document=%p, first flush the queue\n",
-			  bfwin->current_document);
+	DEBUG_MSG("bfwin_notebook_changed, current_document=%p, idle callback for doc activate = %d\n",
+			  bfwin->current_document, bfwin->notebook_changed_doc_activate_id);
 	/* slightly lower than default priority so we make sure any events are handled first */
 	if (bfwin->notebook_changed_doc_activate_id == 0) {
 		bfwin->notebook_changed_doc_activate_id =

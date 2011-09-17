@@ -367,7 +367,7 @@ doc_update_highlighting(Tbfwin * bfwin, guint callback_action, GtkWidget * widge
 	if (!bfwin->current_document)
 		return;
 	if (!BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner) {
-		DEBUG_MSG("doc_update_highlighting, set enable_scanner to TRUE\n");
+		g_print("doc_update_highlighting, set enable_scanner to TRUE\n");
 		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = TRUE;
 	}
 	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
@@ -2311,7 +2311,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 	bluefish_text_view_multiset(BLUEFISH_TEXT_VIEW(newdoc->view), newdoc,
 								BFWIN(bfwin)->session->view_line_numbers, BFWIN(bfwin)->session->view_blocks,
 								BFWIN(bfwin)->session->autoindent, BFWIN(bfwin)->session->autocomplete,
-								BFWIN(bfwin)->session->show_mbhl, BFWIN(bfwin)->session->enable_syntax_scan);
+								BFWIN(bfwin)->session->show_mbhl, FALSE);
 	bluefish_text_view_set_show_right_margin(BLUEFISH_TEXT_VIEW(newdoc->view),
 											 bfwin->session->display_right_margin);
 #ifdef HAVE_LIBENCHANT
@@ -2798,9 +2798,10 @@ doc_activate(Tdocument * doc)
 #endif
 	if (doc == NULL)
 		return;
-
+	g_print("doc_activate, started for %p\n",doc);
 	if (doc == BFWIN(doc->bfwin)->last_activated_doc || doc->close_doc) {
 		/* DO enable the scanner, because it is disabled in notebook_changed(), but if the last document is also the new document it needs to be re-enabled again */
+		g_print("doc_activate, enable the scanner for doc %p\n", doc);
 		BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
 		DEBUG_MSG("doc_activate, not doing anything, doc=%p, last_avtivated_doc=%p, close_doc=%d\n", doc,
 				  BFWIN(doc->bfwin)->last_activated_doc, doc->close_doc);
@@ -2861,7 +2862,7 @@ doc_activate(Tdocument * doc)
 		return;
 	} else {
 		if (doc->highlightstate && !BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner) {
-			/*g_print("doc_activate, enable scanner for %p\n",doc); */
+			g_print("doc_activate, enable scanner for %p\n",doc); 
 			BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
 			bftextview2_schedule_scanning(BLUEFISH_TEXT_VIEW(doc->view));
 		}
@@ -2896,11 +2897,12 @@ doc_activate(Tdocument * doc)
 /*		g_free(dir1);
 		g_free(dir2);*/
 	}
+	if (doc->highlightstate)
+		BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
 	DEBUG_MSG("doc_activate, doc=%p, about to grab focus\n", doc);
 	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
 
 	DEBUG_MSG("doc_activate, doc=%p, finished\n", doc);
-
 }
 
 void
@@ -3005,11 +3007,14 @@ void
 doc_toggle_highlighting(Tbfwin * bfwin, gboolean active)
 {
 	bfwin->current_document->highlightstate = active;
-	DEBUG_MSG("doc_toggle_highlighting_cb, set enable_scanner=%d\n", bfwin->current_document->highlightstate);
-
+	g_print("doc_toggle_highlighting_cb, set enable_scanner=%d\n", bfwin->current_document->highlightstate);
 	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner =
 		bfwin->current_document->highlightstate;
-	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+	if (active) {
+		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+	} else { 
+		bluefish_text_view_scan_cleanup(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+	}
 }
 
 /**

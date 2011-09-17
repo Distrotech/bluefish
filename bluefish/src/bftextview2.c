@@ -63,7 +63,7 @@ G_PRIORITY_LOW 300
 /* a newly loaded language file generates a priority 122 event to notice all documents to be rescanned.
 to make sure that we don't scan or spellcheck a file that will be scanned again we do timeout
 scanning in a lower priority timeout  */
-#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 155	/* a higher priority makes bluefish go greyed-out (it will not redraw if required while the loop is running)
+#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 125	/* a higher priority makes bluefish go greyed-out (it will not redraw if required while the loop is running)
 													   and a much lower priority (tried 250) will first draw all textstyles on screen before the
 													   next burst of scanning is done */
 
@@ -1946,7 +1946,10 @@ bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, c
 #ifdef HAVE_LIBENCHANT
 		gtk_text_buffer_apply_tag(buffer, master->needspellcheck, &start, &end);
 #endif
-		bftextview2_schedule_scanning(master);
+		if (master->enable_scanner) {
+			g_print("bluefish_text_view_select_language, schedule scanning\n");
+			bftextview2_schedule_scanning(master);
+		}
 	} else {
 		master->bflang = NULL;
 	}
