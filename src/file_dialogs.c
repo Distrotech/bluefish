@@ -18,7 +18,7 @@
  */
 
 /* indented with indent -ts4 -kr -l110   */
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>				/* memcpy */

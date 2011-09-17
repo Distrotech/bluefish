@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>				/* memcpy */
@@ -571,15 +571,17 @@ openfile_async_lcb(GObject * source_object, GAsyncResult * res, gpointer user_da
 			}
 		} else {
 			g_warning("while opening file, received error %d: %s\n", error->code, error->message);
-			of->callback_func(OPENFILE_ERROR, error, buffer, size, of->callback_data);
+			of->callback_func(OPENFILE_ERROR, error, NULL, 0, of->callback_data);
 			g_free(buffer);
 		}
 		g_error_free(error);
 	} else {
+		Trefcpointer *refp;
 		DEBUG_MSG("openfile_async_lcb, finished, received %zd bytes\n", size);
-		of->callback_func(OPENFILE_FINISHED, NULL, buffer, size, of->callback_data);
+		refp = refcpointer_new(buffer);
+		of->callback_func(OPENFILE_FINISHED, NULL, refp, size, of->callback_data);
 		openfile_cleanup(of);
-		g_free(buffer);
+		refcpointer_unref(refp);
 	}
 }
 
@@ -613,6 +615,8 @@ typedef struct {
 	GFile *uri;
 	gboolean isTemplate;
 	gboolean untiledRecovery;
+	Trefcpointer *buffer;
+	goffset buflen;
 } Tfileintodoc;
 
 static void
@@ -622,50 +626,67 @@ fileintodoc_cleanup(Tfileintodoc * fid)
 	g_slice_free(Tfileintodoc, fid);
 }
 
+static gboolean
+fileintodoc_finished_idle_lcb(gpointer data) 
+{
+	Tfileintodoc *fid = data;
+	DEBUG_MSG("fileintodoc_finished_idle_lcb, loading the data for doc %p\n",fid->doc);
+	if (fid->isTemplate || fid->untiledRecovery) {
+		doc_buffer_to_textbox(fid->doc, fid->buffer->data, fid->buflen, FALSE, TRUE);
+		/*          DEBUG_MSG("fileintodoc_lcb, fid->doc->hl=%p, %s, first=%p\n",fid->doc->hl,fid->doc->hl->type,((GList *)g_list_first(main_v->filetypelist))->data); */
+		doc_reset_filetype(fid->doc, fid->doc->uri, fid->buffer->data, fid->buflen);
+		doc_set_tooltip(fid->doc);
+		doc_set_status(fid->doc, DOC_STATUS_COMPLETE);
+		bfwin_docs_not_complete(fid->doc->bfwin, FALSE);
+		fid->doc->load = NULL;
+		if (fid->untiledRecovery) {
+			doc_set_modified(fid->doc, TRUE);
+		} else if (fid->isTemplate) {
+			if (fid->bfwin->current_document == fid->doc) {
+				doc_force_activate(fid->doc);
+			} else {
+				bfwin_switch_to_document_by_pointer(fid->bfwin, fid->doc);
+			}
+		}
+	} else {				/* file_insert, convert to UTF-8 and insert it! */
+		gchar *encoding, *newbuf;
+		newbuf =
+			buffer_find_encoding(fid->buffer->data, fid->buflen, &encoding, BFWIN(fid->doc->bfwin)->session->encoding);
+		if (newbuf) {
+			GtkTextIter iter;
+			gtk_text_buffer_get_iter_at_mark(fid->doc->buffer, &iter,
+											 gtk_text_buffer_get_insert(fid->doc->buffer));
+			gtk_text_buffer_insert(fid->doc->buffer, &iter, newbuf, -1);
+			g_free(newbuf);
+			g_free(encoding);
+		}
+	}
+	if (fid->bfwin->current_document == fid->doc) {
+		doc_force_activate(fid->doc);
+	}
+	refcpointer_unref(fid->buffer);
+	fileintodoc_cleanup(data);
+	return FALSE;
+} 
+
 static void
-fileintodoc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen, gpointer data)
+fileintodoc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, goffset buflen, gpointer data)
 {
 	Tfileintodoc *fid = data;
 	switch (status) {
 	case OPENFILE_FINISHED:
-		if (fid->isTemplate || fid->untiledRecovery) {
-			doc_buffer_to_textbox(fid->doc, buffer, buflen, FALSE, TRUE);
-			/*          DEBUG_MSG("fileintodoc_lcb, fid->doc->hl=%p, %s, first=%p\n",fid->doc->hl,fid->doc->hl->type,((GList *)g_list_first(main_v->filetypelist))->data); */
-			doc_reset_filetype(fid->doc, fid->doc->uri, buffer, buflen);
-			doc_set_tooltip(fid->doc);
-			doc_set_status(fid->doc, DOC_STATUS_COMPLETE);
-			bfwin_docs_not_complete(fid->doc->bfwin, FALSE);
-			fid->doc->load = NULL;
-			if (fid->untiledRecovery) {
-				doc_set_modified(fid->doc, TRUE);
-			} else if (fid->isTemplate) {
-				if (fid->bfwin->current_document == fid->doc) {
-					doc_force_activate(fid->doc);
-				} else {
-					bfwin_switch_to_document_by_pointer(fid->bfwin, fid->doc);
-				}
-			}
-		} else {				/* file_insert, convert to UTF-8 and insert it! */
-			gchar *encoding, *newbuf;
-			newbuf =
-				buffer_find_encoding(buffer, buflen, &encoding, BFWIN(fid->doc->bfwin)->session->encoding);
-			if (newbuf) {
-				GtkTextIter iter;
-				gtk_text_buffer_get_iter_at_mark(fid->doc->buffer, &iter,
-												 gtk_text_buffer_get_insert(fid->doc->buffer));
-				gtk_text_buffer_insert(fid->doc->buffer, &iter, newbuf, -1);
-				g_free(newbuf);
-				g_free(encoding);
-			}
-		}
-		if (fid->bfwin->current_document == fid->doc) {
-			doc_force_activate(fid->doc);
-		}
-		fileintodoc_cleanup(data);
+		/* a GtkTextView with lots of data displays incredibly slow. So during 
+		startup of bluefish we want the GUI to show first, and *then* it should load
+		the data into the documents. That's why we insert this extra idle call with low
+		priority, to give the UI priority over the data loading */
+		fid->buffer = buffer;
+		refcpointer_ref(fid->buffer);
+		fid->buflen = buflen;
+		g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,fileintodoc_finished_idle_lcb,fid,NULL);
 		break;
 	case OPENFILE_ERROR_CANCELLED:	/* hmm what to do here ? */
 		if (fid->isTemplate) {
-			doc_buffer_to_textbox(fid->doc, buffer, buflen, FALSE, TRUE);
+			doc_buffer_to_textbox(fid->doc, buffer->data, buflen, FALSE, TRUE);
 		} else {
 			/* do nothing */
 		}
@@ -722,6 +743,8 @@ typedef struct {
 	GFile *recover_uri;
 	gboolean readonly;
 	gint recovery_status;		/* 0=no recovery, 1=original file, 2=recover backup */
+	Trefcpointer *buffer;
+	goffset buflen;
 } Tfile2doc;
 
 static void
@@ -760,73 +783,90 @@ file2doc_goto_idle_cb(Tfile2doc * f2d)
 }
 
 static void
-file2doc_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen, gpointer data)
+file2doc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, goffset buflen, gpointer data);
+
+static gboolean
+file2doc_finished_idle_lcb(gpointer data)
+{
+	Tfile2doc * f2d=data;
+	Trefcpointer *refp = f2d->buffer;
+	DEBUG_MSG("file2doc_finished_idle_lcb started for doc %p\n",f2d->doc);
+	if (f2d->recovery_status == 1) {
+		GtkTextIter itstart, itend;
+	
+		f2d->recovery_status = 2;
+		doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
+		gtk_text_buffer_get_bounds(f2d->doc->buffer, &itstart, &itend);
+		gtk_text_buffer_delete(f2d->doc->buffer, &itstart, &itend);
+		f2d->of = file_openfile_uri_async(f2d->recover_uri, f2d->bfwin, file2doc_lcb, f2d);
+	} else if (f2d->recovery_status == 2) {
+		doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
+		f2d->doc->autosave_uri = f2d->recover_uri;
+		f2d->doc->autosaved = register_autosave_journal(f2d->recover_uri, f2d->doc->uri, NULL);
+		doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
+		bfwin_docs_not_complete(f2d->bfwin, FALSE);
+		doc_set_modified(f2d->doc, TRUE);
+		bmark_set_for_doc(f2d->doc, TRUE);
+		f2d->doc->load = NULL;
+		file2doc_cleanup(data);
+	} else {
+		doc_buffer_to_textbox(f2d->doc, f2d->buffer->data, f2d->buflen, FALSE, TRUE);
+		doc_reset_filetype(f2d->doc, f2d->doc->uri, f2d->buffer->data, f2d->buflen);
+		doc_set_tooltip(f2d->doc);
+		doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
+		bfwin_docs_not_complete(f2d->doc->bfwin, FALSE);
+		bmark_set_for_doc(f2d->doc, TRUE);
+		DEBUG_MSG("file2doc_finished_idle_lcb, focus_next_new_doc=%d\n", f2d->bfwin->focus_next_new_doc);
+		if (f2d->bfwin->focus_next_new_doc) {
+			f2d->bfwin->focus_next_new_doc = FALSE;
+			if (f2d->bfwin->current_document == f2d->doc) {
+				doc_force_activate(f2d->doc);
+			} else {
+				bfwin_switch_to_document_by_pointer(f2d->bfwin, f2d->doc);
+			}
+		}
+		{
+			gchar *utf8uri, *tmp;
+			utf8uri = gfile_display_name(f2d->uri, NULL);
+			if (BFWIN(f2d->bfwin)->num_docs_not_completed > 0) {
+				tmp = g_strdup_printf(ngettext("Still loading %d file, finished %s",
+											   "Still loading %d files, finished %s",
+											   BFWIN(f2d->bfwin)->num_docs_not_completed),
+									  BFWIN(f2d->bfwin)->num_docs_not_completed, utf8uri);
+			} else {
+				tmp = g_strdup_printf(_("All files loaded, finished %s"), utf8uri);
+			}
+			bfwin_statusbar_message(f2d->doc->bfwin, tmp, 3);
+			g_free(tmp);
+			g_free(utf8uri);
+		}
+		add_filename_to_recentlist(BFWIN(f2d->doc->bfwin), f2d->doc->uri);
+		if (f2d->doc->goto_line >= 0 || f2d->doc->goto_offset >= 0) {
+			g_idle_add(((GSourceFunc)file2doc_goto_idle_cb), f2d);
+		} else {
+			f2d->doc->goto_line = -1;
+			f2d->doc->goto_offset = -1;
+			f2d->doc->load = NULL;
+			file2doc_cleanup(data);
+		}
+	}
+	refcpointer_unref(refp);
+	DEBUG_MSG("file2doc_finished_idle_lcb, finished data in document view %p\n", f2d->doc->view);
+	return FALSE;
+}
+
+static void
+file2doc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, goffset buflen, gpointer data)
 {
 	Tfile2doc *f2d = data;
 	DEBUG_MSG("file2doc_lcb, status=%d, f2d=%p\n", status, f2d);
 	switch (status) {
 	case OPENFILE_FINISHED:
-		DEBUG_MSG("finished loading data in memory for view %p\n", f2d->doc->view);
-		if (f2d->recovery_status == 1) {
-			GtkTextIter itstart, itend;
-
-			f2d->recovery_status = 2;
-			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
-			gtk_text_buffer_get_bounds(f2d->doc->buffer, &itstart, &itend);
-			gtk_text_buffer_delete(f2d->doc->buffer, &itstart, &itend);
-			f2d->of = file_openfile_uri_async(f2d->recover_uri, f2d->bfwin, file2doc_lcb, f2d);
-		} else if (f2d->recovery_status == 2) {
-			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
-			f2d->doc->autosave_uri = f2d->recover_uri;
-			f2d->doc->autosaved = register_autosave_journal(f2d->recover_uri, f2d->doc->uri, NULL);
-			doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
-			bfwin_docs_not_complete(f2d->bfwin, FALSE);
-			doc_set_modified(f2d->doc, TRUE);
-			bmark_set_for_doc(f2d->doc, TRUE);
-			f2d->doc->load = NULL;
-			file2doc_cleanup(data);
-		} else {
-			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
-			doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer, buflen);
-			doc_set_tooltip(f2d->doc);
-			doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
-			bfwin_docs_not_complete(f2d->doc->bfwin, FALSE);
-			bmark_set_for_doc(f2d->doc, TRUE);
-			DEBUG_MSG("file2doc_lcb, focus_next_new_doc=%d\n", f2d->bfwin->focus_next_new_doc);
-			if (f2d->bfwin->focus_next_new_doc) {
-				f2d->bfwin->focus_next_new_doc = FALSE;
-				if (f2d->bfwin->current_document == f2d->doc) {
-					doc_force_activate(f2d->doc);
-				} else {
-					bfwin_switch_to_document_by_pointer(f2d->bfwin, f2d->doc);
-				}
-			}
-			{
-				gchar *utf8uri, *tmp;
-				utf8uri = gfile_display_name(f2d->uri, NULL);
-				if (BFWIN(f2d->bfwin)->num_docs_not_completed > 0) {
-					tmp = g_strdup_printf(ngettext("Still loading %d file, finished %s",
-												   "Still loading %d files, finished %s",
-												   BFWIN(f2d->bfwin)->num_docs_not_completed),
-										  BFWIN(f2d->bfwin)->num_docs_not_completed, utf8uri);
-				} else {
-					tmp = g_strdup_printf(_("All files loaded, finished %s"), utf8uri);
-				}
-				bfwin_statusbar_message(f2d->doc->bfwin, tmp, 3);
-				g_free(tmp);
-				g_free(utf8uri);
-			}
-			add_filename_to_recentlist(BFWIN(f2d->doc->bfwin), f2d->doc->uri);
-			if (f2d->doc->goto_line >= 0 || f2d->doc->goto_offset >= 0) {
-				g_idle_add(((GSourceFunc)file2doc_goto_idle_cb), f2d);
-			} else {
-				f2d->doc->goto_line = -1;
-				f2d->doc->goto_offset = -1;
-				f2d->doc->load = NULL;
-				file2doc_cleanup(data);
-			}
-		}
-		DEBUG_MSG("finished data in document view %p\n", f2d->doc->view);
+		DEBUG_MSG("file2doc_lcb, finished loading data in memory for view %p\n", f2d->doc->view);
+		f2d->buffer = buffer;
+		f2d->buflen = buflen;
+		refcpointer_ref(buffer);
+		g_idle_add_full(195, file2doc_finished_idle_lcb, f2d, NULL);
 		break;
 	case OPENFILE_CHANNEL_OPENED:
 		/* do nothing */
@@ -1336,7 +1376,7 @@ open_adv_content_matches_filter(gchar * buffer, goffset buflen, Topenadvanced_ur
 }
 
 static void
-open_adv_content_filter_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen,
+open_adv_content_filter_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, goffset buflen,
 							gpointer data)
 {
 	Topenadvanced_uri *oau = data;
@@ -1344,7 +1384,7 @@ open_adv_content_filter_lcb(Topenfile_status status, GError * gerror, gchar * bu
 	case OPENFILE_FINISHED:
 		DEBUG_MSG("open_adv_content_filter_lcb, status=%d, now we should do the content filtering\n", status);
 		/* we have all content, do the filtering, and if correct, open the file as document */
-		if (open_adv_content_matches_filter(buffer, buflen, oau)) {
+		if (open_adv_content_matches_filter(buffer->data, buflen, oau)) {
 			Tfile2doc *f2d = g_slice_new0(Tfile2doc);
 			f2d->uri = oau->uri;
 			g_object_ref(oau->uri);

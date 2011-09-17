@@ -63,7 +63,7 @@ G_PRIORITY_LOW 300
 /* a newly loaded language file generates a priority 122 event to notice all documents to be rescanned.
 to make sure that we don't scan or spellcheck a file that will be scanned again we do timeout
 scanning in a lower priority timeout  */
-#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 125	/* a higher priority makes bluefish go greyed-out (it will not redraw if required while the loop is running)
+#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 155	/* a higher priority makes bluefish go greyed-out (it will not redraw if required while the loop is running)
 													   and a much lower priority (tried 250) will first draw all textstyles on screen before the
 													   next burst of scanning is done */
 

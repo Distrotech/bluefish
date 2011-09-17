@@ -107,7 +107,7 @@ typedef enum {
 	OPENFILE_FINISHED
 } Topenfile_status;
 
-typedef void (*OpenfileAsyncCallback) (Topenfile_status status, GError * gerror, gchar * buffer,
+typedef void (*OpenfileAsyncCallback) (Topenfile_status status, GError * gerror, Trefcpointer * buffer,
 									   goffset buflen, gpointer callback_data);
 typedef struct {
 	GFile *uri;
