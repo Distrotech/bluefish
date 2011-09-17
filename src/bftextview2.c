@@ -37,8 +37,6 @@
 #ifdef HAVE_LIBENCHANT
 #include "bftextview2_spell.h"
 #endif
-
-
 /*#undef DEBUG_MSG 
 #define DEBUG_MSG g_print*/
 /*#undef DBG_SCANCACHE
@@ -291,7 +289,7 @@ bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
 	} else 					/* no delayed scanning, run everything in the idle callback */
 #endif /*ENABLE_DELAYED_SCANNING*/
 		{
-		DBG_SIGNALS("bftextview2_scanner_idle, delay_full_scan=%d, running scanner idle function\n", main_v->props.delay_full_scan);
+		DBG_DELAYSCANNING("bftextview2_scanner_idle, running scanner idle function, scanner_idle=%d, scanner_immediate=%d\n", btv->scanner_idle, btv->scanner_immediate);
 		if (!bftextview2_run_scanner(btv, NULL)
 #ifdef HAVE_LIBENCHANT
 			&& !bftextview2_run_spellcheck(btv)
@@ -299,13 +297,14 @@ bftextview2_scanner_scan(BluefishTextView * btv, gboolean in_idle)
 			) {
 			btv->scanner_idle = 0;
 			btv->scanner_immediate = 0;
-			DBG_SIGNALS("bftextview2_scanner_idle, stopping scanner idle function\n");
+			DBG_DELAYSCANNING("bftextview2_scanner_idle, stopping scanner idle function\n");
 			bftextview2_set_margin_size(btv);
 			return FALSE;
 		} else if (btv->scanner_immediate) {
-			DBG_DELAYSCANNING("bftextview2_scanner_idle, stop immediate priority callback, start idle priority callback\n");
+			DBG_DELAYSCANNING("bftextview2_scanner_idle, stop immediate priority callback, start idle priority callback, priority=%d\n", SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY);
 			btv->scanner_immediate = 0;
-			btv->scanner_idle = g_idle_add_full(SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY, bftextview2_scanner_idle, btv->master, NULL);
+			btv->scanner_idle = g_idle_add_full(SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY, bftextview2_scanner_idle, btv, NULL);
+			DBG_DELAYSCANNING("bftextview2_scanner_idle, idle priority callback at %d\n", btv->scanner_idle);
 			return FALSE;
 		}
 	}

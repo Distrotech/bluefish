@@ -372,6 +372,7 @@ bftextview2_run_spellcheck(BluefishTextView * btv)
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	if (!bftextview2_find_region2spellcheck(btv, buffer, &so, &eo)) {
 		DBG_SPELL("bftextview2_run_spellcheck, no region to spellcheck found... return FALSE\n");
+		DBG_DELAYSCANNING("bftextview2_run_spellcheck, nothing to spellcheck..\n");
 		return FALSE;
 	}
 	DBG_SPELL("bftextview2_run_spellcheck, in bfwin=%p, bfwin->ed=%p loop1 from %d to %d\n",

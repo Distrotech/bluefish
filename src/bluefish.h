@@ -129,28 +129,42 @@ extern void g_none(gchar * first, ...);
 /*
 G_PRIORITY_HIGH -100 			Use this for high priority event sources. It is not used within GLib or GTK+.
 G_PRIORITY_DEFAULT 0 			Use this for default priority event sources. In GLib this priority is used when adding 
-										timeout functions with g_timeout_add(). In GDK this priority is used for events from the X server.
-G_PRIORITY_HIGH_IDLE 100 		Use this for high priority idle functions. GTK+ uses G_PRIORITY_HIGH_IDLE + 10 for resizing 
-										operations, and G_PRIORITY_HIGH_IDLE + 20 for redrawing operations. (This is done to ensure 
-										that any pending resizes are processed before any pending redraws, so that widgets are not 
-										redrawn twice unnecessarily.)
+										timeout functions with g_timeout_add(). 
+G_PRIORITY_HIGH_IDLE 100 		Use this for high priority idle functions. 
 G_PRIORITY_DEFAULT_IDLE 200 	Use this for default priority idle functions. In GLib this priority is used when adding idle 
 										functions with g_idle_add().
 G_PRIORITY_LOW 300
+
+GDK  uses   0 for events from the X server.
+GTK+ uses 110 for resizing operations 
+GTK+ uses 120 for redrawing operations. (This is done to ensure 
+										that any pending resizes are processed before any pending 
+										redraws, so that widgets are not redrawn twice unnecessarily.)
 */
 
-#define FILEINTODOC_PRIORITY 200
-#define FILE2DOC_PRIORITY 195
+/* inserting data into a GtkTextBuffer should be in a lower priority than 
+the drawing of the GUI, otherwise the bluefish GUI won't show when loading 
+large files from the commandline. 
+I don't understand what it interacts with, but 145 is a too high priority
+so set it lower to 155 */
+#define FILEINTODOC_PRIORITY 155
+#define FILE2DOC_PRIORITY 155
+/* doc activate will stop scanning for the old document and schedule 
+for the new document. Set it between the X event (0) and the normal
+gtk events (100) */
 #define NOTEBOOKCHANGED_DOCACTIVATE_PRIORITY 50
-#define BUILD_LANG_FINISHED_PRIORITY 122
-#define SCANNING_IDLE_PRIORITY -50
-/* a newly loaded language file generates a priority 122 event to notice all documents to be rescanned.
-to make sure that we don't scan or spellcheck a file that will be scanned again we do timeout
-scanning in a lower priority timeout  */
-#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 155	/* set to 125. a higher priority makes bluefish go greyed-out (it will not redraw if required while the loop is running)
-													   and a much lower priority (tried 250) will first draw all textstyles on screen before the
-													   next burst of scanning is done */
-
+/* set between a X event (0) and a normal event (100) */
+#define SCANNING_IDLE_PRIORITY 10 
+/* set idle after timeout scanning to 115. 
+		a higher priority (109 is too high) makes bluefish go greyed-out 
+		(it will not redraw if required while the loop is running)
+	   and a much lower priority (199 is too low) will first draw 
+	   all textstyles on screen before the next burst of scanning is done */
+#define SCANNING_IDLE_AFTER_TIMEOUT_PRIORITY 115	
+/*  make sure that we don't scan or spellcheck a file that will be scanned again we do timeout
+scanning in a lower priority timeout than the language file notice 
+so a newly loaded language file uses a priority 113 event to notice all documents to be rescanned. */
+#define BUILD_LANG_FINISHED_PRIORITY 113
 
 /*********************/
 /* undo/redo structs */
