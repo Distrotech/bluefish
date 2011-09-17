@@ -682,7 +682,7 @@ fileintodoc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer,
 		fid->buffer = buffer;
 		refcpointer_ref(fid->buffer);
 		fid->buflen = buflen;
-		g_idle_add_full(G_PRIORITY_DEFAULT_IDLE,fileintodoc_finished_idle_lcb,fid,NULL);
+		g_idle_add_full(FILEINTODOC_PRIORITY,fileintodoc_finished_idle_lcb,fid,NULL);
 		break;
 	case OPENFILE_ERROR_CANCELLED:	/* hmm what to do here ? */
 		if (fid->isTemplate) {
@@ -866,7 +866,7 @@ file2doc_lcb(Topenfile_status status, GError * gerror, Trefcpointer * buffer, go
 		f2d->buffer = buffer;
 		f2d->buflen = buflen;
 		refcpointer_ref(buffer);
-		g_idle_add_full(195, file2doc_finished_idle_lcb, f2d, NULL);
+		g_idle_add_full(FILE2DOC_PRIORITY, file2doc_finished_idle_lcb, f2d, NULL);
 		break;
 	case OPENFILE_CHANNEL_OPENED:
 		/* do nothing */

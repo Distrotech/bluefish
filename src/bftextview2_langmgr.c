@@ -1382,7 +1382,7 @@ build_lang_thread(gpointer data)
 	}
 	DBG_PARSING("build_lang_thread finished bflang=%p\n", bflang);
 	/* when done call mainloop, see the top of bftextview2.c why we use priority 122 here */
-	g_idle_add_full(122, build_lang_finished_lcb, bfparser, NULL);
+	g_idle_add_full(BUILD_LANG_FINISHED_PRIORITY, build_lang_finished_lcb, bfparser, NULL);
 	return bflang;
 }
 

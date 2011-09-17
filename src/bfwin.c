@@ -1087,7 +1087,7 @@ bfwin_notebook_changed(Tbfwin * bfwin, gint newpage)
 	/* slightly lower than default priority so we make sure any events are handled first */
 	if (bfwin->notebook_changed_doc_activate_id == 0) {
 		bfwin->notebook_changed_doc_activate_id =
-			g_idle_add_full(G_PRIORITY_DEFAULT_IDLE + 1, notebook_changed_activate_current_document,
+			g_idle_add_full(NOTEBOOKCHANGED_DOCACTIVATE_PRIORITY, notebook_changed_activate_current_document,
 							bfwin, NULL);
 	}
 }
