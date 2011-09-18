@@ -282,7 +282,7 @@ extern void g_none(char *first, ...);
 #define DBG_PATCOMPILE DBG_NONE
 #define DBG_SIGNALS DBG_NONE
 #define DBG_AUTOCOMP DBG_NONE
-#define DBG_DELAYSCANNING g_print
+#define DBG_DELAYSCANNING DBG_NONE
 #define DBG_FOLD DBG_NONE
 #define DBG_MARGIN DBG_NONE
 #define DBG_PARSING DBG_NONE

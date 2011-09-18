@@ -174,7 +174,7 @@ get_foundcache_first(BluefishTextView * btv, GSequenceIter ** retsiter)
 	if (*retsiter && !g_sequence_iter_is_end(*retsiter)) {
 		return g_sequence_get(*retsiter);
 	}
-	g_print("get_foundcache_first, return NULL\n");
+	DBG_MSG("get_foundcache_first, return NULL\n");
 	return NULL;
 }
 

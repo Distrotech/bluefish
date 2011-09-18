@@ -1626,11 +1626,11 @@ auto_indent_blockstackbased(BluefishTextView *btv) {
 	GSequenceIter *siter;
 	Tfoundblock *fblock;
 	gboolean in_paste;
-	g_print("auto_indent_blockstackbased, started\n");
+	DBG_MSG("auto_indent_blockstackbased, started\n");
 	gtk_text_buffer_get_iter_at_mark(btv->buffer, &iter, gtk_text_buffer_get_insert(btv->buffer));
 	offset = gtk_text_iter_get_offset(&iter);
 	found = get_foundcache_at_offset(BLUEFISH_TEXT_VIEW(btv->master), offset, &siter);
-	g_print("auto_indent_blockstackbased, found=%p\n",found);
+	DBG_MSG("auto_indent_blockstackbased, found=%p\n",found);
 	if (!found || found->charoffset_o > offset)
 		return;
 	fblock = found->fblock;
@@ -1640,7 +1640,7 @@ auto_indent_blockstackbased(BluefishTextView *btv) {
 		fblock = (Tfoundblock *) fblock->parentfblock;
 		num++;
 	}
-	g_print("auto_indent_blockstackbased, num blocks=%d\n",num);
+	DBG_MSG("auto_indent_blockstackbased, num blocks=%d\n",num);
 	if (num<=0)
 		return;
 	if (BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_indent_wspaces)
@@ -1889,7 +1889,7 @@ bftextview2_parse_static_colors(void)
 void
 bftextview2_init_globals(void)
 {
-	g_print("sizeof(Tfound)=%ld, sizeof(Tfoundcontext)=%ld,sizeof(Tfoundblock)=%ld\n",(glong)sizeof(Tfound),(glong)sizeof(Tfoundcontext),(glong)sizeof(Tfoundblock));
+	DBG_MSG("sizeof(Tfound)=%ld, sizeof(Tfoundcontext)=%ld,sizeof(Tfoundblock)=%ld\n",(glong)sizeof(Tfound),(glong)sizeof(Tfoundcontext),(glong)sizeof(Tfoundblock));
 	bftextview2_parse_static_colors();
 	if (main_v->props.autocomp_accel_string && main_v->props.autocomp_accel_string[0] != '\0') {
 		gtk_accelerator_parse(main_v->props.autocomp_accel_string, &main_v->autocomp_accel_key,
@@ -1943,7 +1943,7 @@ bluefish_text_view_select_language(BluefishTextView * btv, const gchar * mime, c
 		gtk_text_buffer_apply_tag(buffer, master->needspellcheck, &start, &end);
 #endif
 		if (master->enable_scanner) {
-			g_print("bluefish_text_view_select_language, schedule scanning\n");
+			DBG_MSG("bluefish_text_view_select_language, schedule scanning\n");
 			bftextview2_schedule_scanning(master);
 		}
 	} else {

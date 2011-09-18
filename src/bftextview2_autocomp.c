@@ -24,6 +24,9 @@
 #include "bftextview2_identifier.h"
 #include "bftextview2_autocomp.h"
 
+/*#undef DBG_AUTOCOMP
+#define DBG_AUTOCOMP g_print*/
+
 typedef struct {
 	BluefishTextView *btv;
 	gchar *prefix;
@@ -337,12 +340,17 @@ acwin_position_at_cursor(BluefishTextView * btv)
 }
 
 static void
-acwin_calculate_window_size(Tacwin * acw, GList * items, GList * items2)
+acwin_calculate_window_size(Tacwin * acw, GList * items, GList * items2, const gchar *closetag)
 {
 	GList *tmplist;
 	gboolean runtwo = FALSE;
 	gchar *longest = NULL, *tmp;
 	guint longestlen = 1, numitems = 0;
+	DBG_AUTOCOMP("acwin_calculate_window_size, items=%p, items2=%p\n", items, items2);
+	if (closetag) {
+		longest = g_markup_escape_text(closetag, -1);
+		longestlen = strlen(longest);
+	}
 	tmplist = g_list_first(items);
 	while (!runtwo || tmplist) {
 		guint len;
@@ -524,15 +532,20 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 		prefix = gtk_text_buffer_get_text(buffer, &iter, &cursorpos, TRUE);
 
 		if (fblock) {
-			gchar *tmp;
+			GString *tmpstr;
 			gint plen;
-			GtkTextIter it1, it2;
+			GtkTextIter it1;
 			gtk_text_buffer_get_iter_at_offset(buffer, &it1, fblock->start1_o);
-			gtk_text_buffer_get_iter_at_offset(buffer, &it2, fblock->end1_o);
-			gtk_text_iter_forward_char(&it1);
-			tmp = gtk_text_buffer_get_text(buffer, &it1, &it2, TRUE);
-			closetag = g_strconcat("</", tmp, ">", NULL);
-			g_free(tmp);
+			tmpstr = g_string_new("</");
+			while(gtk_text_iter_forward_char(&it1)) {
+				gunichar uc = gtk_text_iter_get_char(&it1);
+				if (!g_unichar_isalnum(uc) && uc != '_') {
+					break;
+				}	
+				g_string_append_c(tmpstr, uc);
+			}
+			g_string_append_c(tmpstr, '>');
+			closetag = g_string_free(tmpstr, FALSE);
 			DBG_AUTOCOMP("closetag=%s, prefix=%s\n", closetag, prefix);
 			plen = strlen(prefix);
 			if (plen == strlen(closetag) || strncmp(closetag, prefix, plen) != 0) {
@@ -583,7 +596,7 @@ autocomp_run(BluefishTextView * btv, gboolean user_requested)
 			if (newprefix) {
 				ACWIN(btv->autocomp)->newprefix = g_strdup(newprefix);
 			}
-			acwin_calculate_window_size(ACWIN(btv->autocomp), items, items2);
+			acwin_calculate_window_size(ACWIN(btv->autocomp), items, items2, closetag);
 			below = acwin_position_at_cursor(btv);
 			acwin_fill_tree(ACWIN(btv->autocomp), items, items2, closetag, !below);
 			gtk_widget_show(ACWIN(btv->autocomp)->win);

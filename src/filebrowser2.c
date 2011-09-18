@@ -756,12 +756,12 @@ get_toplevel_name(GFile * uri)
 	GMount *mount;
 	gchar *name;
 	mount = g_file_find_enclosing_mount(uri, NULL, &error);
-	g_print("retrieved mount %p\n",mount);
+	DEBUG_MSG("retrieved mount %p\n",mount);
 	if (!error && mount) {
 		name = g_mount_get_name(mount);
 		g_object_unref(mount);
 	} else {
-		g_print("error, no unref mount %p\n",mount);
+		DEBUG_MSG("error, no unref mount %p\n",mount);
 		name = g_file_get_basename(uri);
 		if (error)
 			g_error_free(error);
@@ -1616,7 +1616,7 @@ fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * noselectionbaseuri
 				} else {
 					counter = 100;
 					if (error) {
-						g_print("fb2rpopup_new, failed to create file: %s\n", error->message);
+						DEBUG_MSG("fb2rpopup_new, failed to create file: %s\n", error->message);
 						g_error_free(error);
 					}
 				}
@@ -1626,7 +1626,7 @@ fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * noselectionbaseuri
 			}
 		}
 		if (done) {
-			g_print("calling for newuri %p %s\n", newuri, g_file_get_uri(newuri));
+			DEBUG_MSG("calling for newuri %p %s\n", newuri, g_file_get_uri(newuri));
 			fb2_refresh_parent_of_uri(newuri);
 		}
 		g_object_unref(newuri);
@@ -1700,7 +1700,7 @@ popup_menu_delete(GtkAction * action, gpointer user_data)
 		if (retval == 1) {
 			/* ref the uri, it is unreffed by the callback */
 			g_object_ref(uri);
-			g_print("fb2rpopup_delete, calling file_delete_file_async\n");
+			DEBUG_MSG("fb2rpopup_delete, calling file_delete_file_async\n");
 			file_delete_async(uri, FALSE, rcpopup_async_delete_lcb, uri);
 		}
 		g_free(filename);
@@ -2027,7 +2027,7 @@ popup_menu_action_group_init(Tbfwin * bfwin)
 	gtk_action_group_add_actions(bfwin->filebrowserGroup, filebrowser_actions, G_N_ELEMENTS(filebrowser_actions), fb2);
 	gtk_action_group_add_toggle_actions(bfwin->filebrowserGroup, filebrowser_toggle_actions,
 										G_N_ELEMENTS(filebrowser_toggle_actions), fb2);
-	g_print("popup_menu_action_group_init, set default viewmode to %d\n",fb2->filebrowser_viewmode);
+	DEBUG_MSG("popup_menu_action_group_init, set default viewmode to %d\n",fb2->filebrowser_viewmode);
 	gtk_action_group_add_radio_actions(bfwin->filebrowserGroup, filebrowser_radio_actions,
 									   G_N_ELEMENTS(filebrowser_radio_actions),
 									   fb2->filebrowser_viewmode, G_CALLBACK(popup_menu_view_mode_changed),
@@ -2142,12 +2142,12 @@ dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser2
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->dir_v), event->x, event->y, &path, NULL, NULL, NULL);
 		if (path) {
 			gboolean is_dir = fb2_isdir_from_dir_sort_path(fb2, path);
-			g_print("context menu: %s selected\n",is_dir?"dir":"file");
+			DEBUG_MSG("context menu: %s selected\n",is_dir?"dir":"file");
 			popup_menu_create(fb2, is_dir, !is_dir, event);
 			gtk_tree_path_free(path);
 		} else {
 			DEBUG_MSG("dir_v_button_press_lcb, no path for position\n");
-			g_print("context menu: nothing selected\n");
+			DEBUG_MSG("context menu: nothing selected\n");
 			popup_menu_create(fb2, FALSE, FALSE, event);
 		}
 	} else if (!(fb2->filebrowser_viewmode == viewmode_dual) && event->button == 1
@@ -2182,11 +2182,11 @@ file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &path, NULL,
 									  NULL, NULL);
 		if (path) {
-			g_print("context menu: file selected\n");
+			DEBUG_MSG("context menu: file selected\n");
 			popup_menu_create(fb2, FALSE, TRUE, event);
 			gtk_tree_path_free(path);
 		} else {
-			g_print("context menu: nothing selected\n");
+			DEBUG_MSG("context menu: nothing selected\n");
 			DEBUG_MSG("no path for position\n");
 			popup_menu_create(fb2, FALSE, FALSE, event);
 		}

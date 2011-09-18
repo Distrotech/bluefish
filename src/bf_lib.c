@@ -45,7 +45,7 @@
 #include <stdlib.h>
 #endif
 
-#define REFP_REFS
+/*#define REFP_REFS*/
 #ifdef REFP_REFS
 	gint num_refp_refs=0;
 #endif

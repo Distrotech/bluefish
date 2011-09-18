@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #ifdef MAC_INTEGRATION
 /*#include <ige-mac-integration.h>*/
@@ -530,7 +530,7 @@ bfwin_cleanup(Tbfwin * bfwin)
 		g_source_remove(bfwin->notebook_changed_doc_activate_id);
 	}
 	
-	g_print("unref static actiongroups\n");
+	DEBUG_MSG("unref static actiongroups\n");
 	g_object_unref(G_OBJECT(bfwin->uimanager));
 	/*g_object_unref(G_OBJECT(bfwin->globalGroup));
 	g_object_unref(G_OBJECT(bfwin->documentGroup));
@@ -541,23 +541,23 @@ bfwin_cleanup(Tbfwin * bfwin)
 	g_object_unref(G_OBJECT(bfwin->bookmarkGroup));
 	g_object_unref(G_OBJECT(bfwin->filebrowserGroup)); invalid unref according to valgrind */
 	
-	g_print("unref dynamic templates actiongroups\n");
+	DEBUG_MSG("unref dynamic templates actiongroups\n");
 	g_object_unref(G_OBJECT(bfwin->templates_group));
-	g_print("unref dynamic lang_mode actiongroups\n");
+	DEBUG_MSG("unref dynamic lang_mode actiongroups\n");
 	g_object_unref(G_OBJECT(bfwin->lang_mode_group));
-	g_print("unref dynamic commands actiongroups\n");
+	DEBUG_MSG("unref dynamic commands actiongroups\n");
 	g_object_unref(G_OBJECT(bfwin->commands_group));
-	g_print("unref dynamicfilters  actiongroups\n");
+	DEBUG_MSG("unref dynamicfilters  actiongroups\n");
 	g_object_unref(G_OBJECT(bfwin->filters_group));
-	g_print("unref dynamic outputbox actiongroups\n");
+	DEBUG_MSG("unref dynamic outputbox actiongroups\n");
 	g_object_unref(G_OBJECT(bfwin->outputbox_group));
-	g_print("unref dynamicencodings  actiongroups\n");
+	DEBUG_MSG("unref dynamicencodings  actiongroups\n");
 	g_object_unref(G_OBJECT(bfwin->encodings_group));
 	if (bfwin->fb2_filters_group) {
-		g_print("unref dynamic fb2_filters actiongroups\n");
+		DEBUG_MSG("unref dynamic fb2_filters actiongroups\n");
 		g_object_unref(G_OBJECT(bfwin->fb2_filters_group));
 	}
-	g_print("finished unref actiongroups\n");
+	DEBUG_MSG("finished unref actiongroups\n");
 
 }
 
@@ -689,7 +689,7 @@ gotoline_close_button_clicked(GtkButton * button, Tbfwin * bfwin)
 	gtk_widget_hide(bfwin->gotoline_frame);
 
 	if (bfwin->simplesearch_snr3run) {
-		g_print("free simple search run %p\n", bfwin->simplesearch_snr3run);
+		DEBUG_MSG("free simple search run %p\n", bfwin->simplesearch_snr3run);
 		snr3run_free(bfwin->simplesearch_snr3run);
 		bfwin->simplesearch_snr3run = NULL;
 	}
@@ -942,12 +942,12 @@ notebook_set_tab_accels(Tbfwin * bfwin)
 static gboolean
 notebook_changed_activate_current_document(gpointer data)
 {
-	g_print("notebook_changed_activate_current_document, current_document=%p\n",BFWIN(data)->current_document);
+	DEBUG_MSG("notebook_changed_activate_current_document, current_document=%p\n",BFWIN(data)->current_document);
 	if (BFWIN(data)->current_document)
 		doc_activate(BFWIN(data)->current_document);
 
 	BFWIN(data)->notebook_changed_doc_activate_id = 0;
-	g_print("notebook_changed_doc_activate_id=%d\n",BFWIN(data)->notebook_changed_doc_activate_id);
+	DEBUG_MSG("notebook_changed_doc_activate_id=%d\n",BFWIN(data)->notebook_changed_doc_activate_id);
 	return FALSE;
 }
 
@@ -968,7 +968,7 @@ bfwin_current_document_changed_notify(Tbfwin *bfwin, Tdocument *olddoc, Tdocumen
 	GSList *tmpslist;
 	for (tmpslist=bfwin->curdoc_changed;tmpslist;tmpslist=g_slist_next(tmpslist)) {
 		Tcallback *cb=tmpslist->data;
-		g_print("bfwin_current_document_changed_notify, call %p, data=%p, bfwin=%p, olddoc=%p, newdoc=%p\n",cb->func,cb->data, bfwin,olddoc,newdoc);
+		DEBUG_MSG("bfwin_current_document_changed_notify, call %p, data=%p, bfwin=%p, olddoc=%p, newdoc=%p\n",cb->func,cb->data, bfwin,olddoc,newdoc);
 		((CurdocChangedCallback)cb->func)(bfwin, olddoc, newdoc, cb->data);
 	}
 }

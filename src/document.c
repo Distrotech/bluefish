@@ -2798,10 +2798,10 @@ doc_activate(Tdocument * doc)
 #endif
 	if (doc == NULL)
 		return;
-	g_print("doc_activate, started for %p\n",doc);
+	DEBUG_MSG("doc_activate, started for %p\n",doc);
 	if (doc == BFWIN(doc->bfwin)->last_activated_doc || doc->close_doc) {
 		/* DO enable the scanner, because it is disabled in notebook_changed(), but if the last document is also the new document it needs to be re-enabled again */
-		g_print("doc_activate, enable the scanner for doc %p\n", doc);
+		DEBUG_MSG("doc_activate, enable the scanner for doc %p\n", doc);
 		BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
 		DEBUG_MSG("doc_activate, not doing anything, doc=%p, last_avtivated_doc=%p, close_doc=%d\n", doc,
 				  BFWIN(doc->bfwin)->last_activated_doc, doc->close_doc);
@@ -2862,7 +2862,7 @@ doc_activate(Tdocument * doc)
 		return;
 	} else {
 		if (doc->highlightstate && !BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner) {
-			g_print("doc_activate, enable scanner for %p\n",doc); 
+			DEBUG_MSG("doc_activate, enable scanner for %p\n",doc); 
 			BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
 			bftextview2_schedule_scanning(BLUEFISH_TEXT_VIEW(doc->view));
 		}
