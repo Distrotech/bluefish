@@ -19,7 +19,7 @@
  */
 
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include <stdlib.h>				/* atoi */
 
