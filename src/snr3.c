@@ -57,6 +57,7 @@ texttag from the tag table??
 #include "bf_lib.h"
 #include "snr3.h"
 #include "snr3_files.h"
+#include "outputbox.h"
 
 #ifdef SNR3_PROFILING
 
@@ -327,6 +328,14 @@ static Tsnr3result * sn3run_add_result(Tsnr3run *s3run, gulong so, gulong eo, gp
 	s3result->eo = eo;
 	s3result->doc = doc;
 	g_queue_push_tail(&s3run->results, s3result);
+	if (s3run->showinoutputbox && doc && DOCUMENT(doc)->uri) {
+		GtkTextIter iter;
+		gchar *curi;
+		curi = g_file_get_uri(DOCUMENT(doc)->uri);
+		gtk_text_buffer_get_iter_at_offset(DOCUMENT(doc)->buffer, &iter, so);
+		outputbox_add_line(s3run->bfwin, curi, gtk_text_iter_get_line(&iter)+1, s3run->query);
+		g_free(curi);
+	}
 	return s3result;
 }
 
@@ -588,6 +597,7 @@ replace_all_buttons(Tsnr3run *s3run, gboolean enable)
 {
 	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->replaceButton, enable);
 	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->findButton, enable);
+	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->findAllButton, enable);
 	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->backButton, enable);
 	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->replaceAllButton, enable);
 	gtk_widget_set_sensitive(((TSNRWin *)s3run->dialog)->bookmarkButton, enable);
@@ -650,6 +660,11 @@ snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void
 		case snr3scope_files:
 			if (s3run->replaceall) {
 				DEBUG_MSG("scope files, run with filepattern %s\n", s3run->filepattern);
+				s3run->showinoutputbox=TRUE;
+				s3run->recursive = TRUE;
+				snr3_run_in_files(s3run);
+			} else { 
+				s3run->showinoutputbox=TRUE;
 				s3run->recursive = TRUE;
 				snr3_run_in_files(s3run);
 			}
@@ -731,18 +746,22 @@ void snr3run_bookmark_all(Tsnr3run *s3run) {
 }
 
 static void
-replace_all_ready(void *data) {
+threaded_all_ready(void *data) {
 	Tsnr3run *s3run=data;
-	s3run->replaceall=FALSE;
 	s3run->unre_action_id = 0;
 	s3run->curdoc = NULL;
 	if (s3run->dialog) {
 		gchar *tmp;
-		tmp = g_strdup_printf(_("<i>Replaced %d entries</i>"), g_queue_get_length(&s3run->results));
+		if (s3run->replaceall) {
+			tmp = g_strdup_printf(_("<i>Replaced %d entries</i>"), g_queue_get_length(&s3run->results));
+		} else {
+			tmp = g_strdup_printf(_("<i>Found %d entries</i>"), g_queue_get_length(&s3run->results));
+		}
 		gtk_label_set_markup(GTK_LABEL(((TSNRWin *)s3run->dialog)->searchfeedback),tmp);
 		g_free(tmp);
 		replace_all_buttons(s3run, TRUE);
 	}
+	s3run->replaceall=FALSE;
 }
 
 static void
@@ -1220,7 +1239,13 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			
 			replace_all_buttons(s3run, FALSE);
 			
-			snr3_run(s3run, snrwin, s3run->bfwin->current_document, replace_all_ready);
+			snr3_run(s3run, snrwin, s3run->bfwin->current_document, threaded_all_ready);
+		break;
+		case SNR_RESPONSE_FIND_ALL:
+			snr3_cancel_run(s3run);
+			snr3run_resultcleanup(s3run);
+			replace_all_buttons(s3run, FALSE);
+			snr3_run(s3run, snrwin, s3run->bfwin->current_document, threaded_all_ready);
 		break;
 	}
 
@@ -1249,6 +1274,7 @@ static void snr_dialog_show_widgets(TSNRWin * snrwin) {
 	widget_set_show(snrwin->basedir, (scope == snr3scope_files));
 	widget_set_show(snrwin->basedirL, (scope == snr3scope_files));
 	widget_set_show(snrwin->basedirB, (scope == snr3scope_files));
+	widget_set_show(snrwin->findAllButton, (scope == snr3scope_files));
 	widget_set_show(snrwin->replaceType, (searchtype == snr3type_pcre));
 	widget_set_show(snrwin->replaceTypeL, (searchtype == snr3type_pcre));
 	widget_set_show(snrwin->replace, (searchtype != snr3type_pcre || replacetype == snr3replace_string));
@@ -1517,7 +1543,9 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 	snrwin->backButton = gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_GO_BACK, SNR_RESPONSE_BACK);
 	snrwin->findButton = gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_GO_FORWARD, SNR_RESPONSE_FIND);
 	
-	snrwin->bookmarkButton = gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), _("_Bookmark all"), SNR_RESPONSE_BOOKMARK_ALL);
+	snrwin->findAllButton = gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), _("Find All"), SNR_RESPONSE_FIND_ALL);
+	
+	snrwin->bookmarkButton = gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), _("_Bookmark All"), SNR_RESPONSE_BOOKMARK_ALL);
 	/*gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND, FALSE); */
 	/*snr_comboboxentry_changed(GTK_COMBO_BOX_ENTRY(snrwin->search), snrwin);*/
 	gtk_widget_show_all(GTK_WIDGET(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(snrwin->dialog)))));

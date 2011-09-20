@@ -68,6 +68,7 @@ typedef struct {
 	gboolean dotmatchall;
 	gboolean select_matches;
 	gboolean bookmark_matches;
+	gboolean showinoutputbox;
 
 	/* the resultss of a search run */
 	gboolean in_replace; /* TRUE if the code is in a replace, so the doc_insert and doc_delete signals do not need to do anything */
@@ -118,7 +119,8 @@ enum {
 	SNR_RESPONSE_BACK,
 	SNR_RESPONSE_REPLACE,
 	SNR_RESPONSE_REPLACE_ALL,
-	SNR_RESPONSE_BOOKMARK_ALL
+	SNR_RESPONSE_BOOKMARK_ALL,
+	SNR_RESPONSE_FIND_ALL,
 };
 
 typedef struct {
