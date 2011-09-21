@@ -300,7 +300,7 @@ image_dialog_set_pixbuf(Timage_diag * imdg)
 }
 
 static void
-image_loaded_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen,
+image_loaded_lcb(Topenfile_status status, GError * gerror, Trefcpointer * refp, goffset buflen,
 				 gpointer callback_data)
 {
 	Timage_diag *imdg = callback_data;
@@ -322,7 +322,7 @@ image_loaded_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffs
 		break;
 	case OPENFILE_FINISHED:{
 			GError *error = NULL;
-			if (gdk_pixbuf_loader_write(imdg->pbloader, (const guchar *) buffer, buflen, &error)
+			if (gdk_pixbuf_loader_write(imdg->pbloader, (const guchar *) refp->data, buflen, &error)
 				&& gdk_pixbuf_loader_close(imdg->pbloader, &error)) {
 				imdg->pb = gdk_pixbuf_loader_get_pixbuf(imdg->pbloader);
 				if (imdg->pb) {
@@ -740,7 +740,7 @@ mt_start_next_load(Timage2thumb * i2t)
 }
 
 static void
-mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffset buflen,
+mt_openfile_lcb(Topenfile_status status, GError * gerror, Trefcpointer *refp, goffset buflen,
 				gpointer callback_data)
 {
 	Timage2thumb *i2t = callback_data;
@@ -779,7 +779,7 @@ mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffse
 			pbloader = pbloader_from_filename(path);
 			g_free(path);
 
-			if (gdk_pixbuf_loader_write(pbloader, (const guchar *) buffer, buflen, &error)
+			if (gdk_pixbuf_loader_write(pbloader, (const guchar *) refp->data, buflen, &error)
 				&& gdk_pixbuf_loader_close(pbloader, &error)) {
 				gint tw, th, ow, oh;
 				GdkPixbuf *image;
@@ -826,10 +826,10 @@ mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffse
 					/*gdk_pixbuf_unref(image); will be unreffed with the loader! */
 					/* save the thumbnail */
 					if (strcmp(main_v->props.image_thumbnailtype, "jpeg") == 0) {
-						gdk_pixbuf_save_to_buffer(thumb, &buffer, &buflen, main_v->props.image_thumbnailtype,
+						gdk_pixbuf_save_to_buffer(thumb, (gchar **)&refp->data, &buflen, main_v->props.image_thumbnailtype,
 												  &error, "quality", "50", NULL);
 					} else {
-						gdk_pixbuf_save_to_buffer(thumb, &buffer, &buflen, main_v->props.image_thumbnailtype,
+						gdk_pixbuf_save_to_buffer(thumb, (gchar **)&refp->data, &buflen, main_v->props.image_thumbnailtype,
 												  &error, NULL);
 					}
 					g_object_unref(thumb);
@@ -839,8 +839,7 @@ mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffse
 					} else {
 						GError *error = NULL;
 						GFileInfo *finfo;
-						Trefcpointer *refbuf = refcpointer_new(buffer);
-
+						refcpointer_ref(refp);
 						finfo = g_file_query_info(i2t->thumbname,
 												  BF_FILEINFO, G_FILE_QUERY_INFO_NONE, NULL, &error);
 						if (error != NULL) {
@@ -853,9 +852,9 @@ mt_openfile_lcb(Topenfile_status status, GError * gerror, gchar * buffer, goffse
 						g_free(path);
 #endif
 						i2t->sf =
-							file_checkNsave_uri_async(i2t->thumbname, finfo, refbuf, buflen, FALSE, FALSE,
+							file_checkNsave_uri_async(i2t->thumbname, finfo, refp, buflen, FALSE, FALSE,
 													  async_thumbsave_lcb, NULL);
-						refcpointer_unref(refbuf);
+						refcpointer_unref(refp);
 					}
 				} else {
 					/* ok, this image is not valid, how do we continue ?? */
