@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-01 21:02+0200\n"
+"POT-Creation-Date: 2011-09-21 23:18+0200\n"
 "PO-Revision-Date: 2011-06-27 11:47+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=2; plural=0;\n"
 "X-Poedit-Language: Japanese\n"
 "X-Poedit-Country: JAPAN\n"
@@ -37,27 +37,27 @@ msgstr "Bluefish 言語定義ファイル"
 msgid "Bluefish project file"
 msgstr "Bluefish プロジェクトファイル"
 
-#: ../src/bftextview2.c:1407
+#: ../src/bftextview2.c:1418
 msgid "Collapse all"
 msgstr "すべて畳む"
 
-#: ../src/bftextview2.c:1410
+#: ../src/bftextview2.c:1421
 msgid "Expand all"
 msgstr "すべて展開"
 
-#: ../src/bftextview2_spell.c:671
+#: ../src/bftextview2_spell.c:672
 msgid "Spell check language"
 msgstr "スペルチェックする言語"
 
-#: ../src/bftextview2_spell.c:704
+#: ../src/bftextview2_spell.c:705
 msgid "Add to dictionary"
 msgstr "辞書に追加"
 
-#: ../src/bftextview2_spell.c:707
+#: ../src/bftextview2_spell.c:708
 msgid "Ignore spelling"
 msgstr "綴りを無視"
 
-#: ../src/bftextview2_spell.c:722
+#: ../src/bftextview2_spell.c:723
 msgid "Insert special characters as entities"
 msgstr "特殊文字を実体参照として入力"
 
@@ -81,12 +81,12 @@ msgstr "検索: "
 msgid "Advanced"
 msgstr "詳細..."
 
-#: ../src/bfwin.c:1140
+#: ../src/bfwin.c:1141
 msgid "New Bluefish Window"
 msgstr "新規 Bluefish ウィンドウ"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1191
+#: ../src/bfwin.c:1192
 msgid "Stand by..."
 msgstr "しばらくお待ちください..."
 
@@ -544,7 +544,7 @@ msgstr "行を折り返す(_W)"
 msgid "Wrap text"
 msgstr "行の幅に合わせて折り返す"
 
-#: ../src/bfwin_uimanager.c:828 ../src/document.c:2811
+#: ../src/bfwin_uimanager.c:828 ../src/document.c:2813
 msgid "_Close"
 msgstr "閉じる(_C)"
 
@@ -1230,7 +1230,7 @@ msgstr "ファイルの文字コード変換に失敗しました"
 msgid "Previously: "
 msgstr "元: "
 
-#: ../src/document.c:2603 ../src/file_dialogs.c:812
+#: ../src/document.c:2604 ../src/file_dialogs.c:812
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1240,11 +1240,11 @@ msgstr ""
 "には不十分です。 2.18.0 以上のバージョンにアップグレードしてください。"
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2728
+#: ../src/document.c:2729
 msgid "Unable to open file"
 msgstr "ファイルをオープンできません"
 
-#: ../src/document.c:2740
+#: ../src/document.c:2741
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1253,68 +1253,68 @@ msgstr ""
 "ファイル \"%s\"について 一つ前の保存から行われた変更を破棄すると、その変更は"
 "失われます。"
 
-#: ../src/document.c:2744
+#: ../src/document.c:2745
 msgid "Revert changes to last saved copy?"
 msgstr "一つ前の保存から行われた変更を破棄しますか？"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "_Retry"
 msgstr "再試行(_R)"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "Retry _all failed"
 msgstr "失敗したすべての文書をもう一度開く(_A)"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "Close all _failed"
 msgstr "失敗したすべての文書を閉じる(_F)"
 
-#: ../src/document.c:2816
+#: ../src/document.c:2818
 msgid "File "
 msgstr "ファイル"
 
-#: ../src/document.c:2816
+#: ../src/document.c:2818
 msgid " failed to load."
 msgstr " 読み込みに失敗しました。"
 
-#: ../src/document.c:2820
+#: ../src/document.c:2822
 msgid "File failed to load\n"
 msgstr "ファイルの読み込みに失敗しました\n"
 
-#: ../src/document.c:2936
+#: ../src/document.c:2939
 msgid "Select file to insert"
 msgstr "挿入するファイルの選択"
 
-#: ../src/document.c:2945
+#: ../src/document.c:2948
 msgid "No file to insert"
 msgstr "挿入するファイルがありません"
 
-#: ../src/document.c:3049
+#: ../src/document.c:3055
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d 行"
 msgstr[1] "%d 行"
 
-#: ../src/document.c:3050
+#: ../src/document.c:3056
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d 語"
 msgstr[1] "%d 語"
 
-#: ../src/document.c:3051
+#: ../src/document.c:3057
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d 文字"
 msgstr[1] "%d 文字"
 
-#: ../src/document.c:3053
+#: ../src/document.c:3059
 msgid "Selection statistics: "
 msgstr "選択範囲の統計:"
 
-#: ../src/document.c:3053
+#: ../src/document.c:3059
 msgid "Statistics: "
 msgstr "統計:"
 
@@ -1542,37 +1542,37 @@ msgstr "フラット"
 msgid "Tree"
 msgstr "ツリー表示"
 
-#: ../src/file.c:808
+#: ../src/file.c:832
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "まだ %d 個のファイルを読み込んでいます, 完了 %s"
 msgstr[1] "まだ %d 個のファイルを読み込んでいます, 完了 %s"
 
-#: ../src/file.c:813
+#: ../src/file.c:837
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "すべてのファイルを読み込みました, %s"
 
-#: ../src/file.c:1307
+#: ../src/file.c:1347
 msgid "Finished advanced open"
 msgstr ""
 
-#: ../src/file.c:1481
+#: ../src/file.c:1521
 msgid "_Skip"
 msgstr "スキップ(_S)"
 
-#: ../src/file.c:1481 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
+#: ../src/file.c:1521 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
 #: ../src/project.c:308
 msgid "_Overwrite"
 msgstr "上書き(_O)"
 
-#: ../src/file.c:1485
+#: ../src/file.c:1525
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "ファイル %s はコピーできません, 既に存在します, 上書きしますか?"
 
-#: ../src/file.c:1487
+#: ../src/file.c:1527
 msgid "Overwrite file?"
 msgstr "ファイルを上書きしますか?"
 
@@ -1940,19 +1940,19 @@ msgstr "ログアウトするまでパスワードを保存する(_L)"
 msgid "Remember _forever"
 msgstr "期限なしでパスワードを保存する(_F)"
 
-#: ../src/outputbox.c:246
+#: ../src/outputbox.c:247
 msgid "Filename"
 msgstr "ファイル名"
 
-#: ../src/outputbox.c:248
+#: ../src/outputbox.c:249
 msgid "Line"
 msgstr "行パターン#"
 
-#: ../src/outputbox.c:250
+#: ../src/outputbox.c:251
 msgid "Output"
 msgstr "出力パターン#"
 
-#: ../src/outputbox.c:466
+#: ../src/outputbox.c:469
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "Outputbox のパターン %s を解釈できませんでした: %s"
@@ -1979,7 +1979,7 @@ msgstr "テンプレート(_T):"
 #. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 #. G_CALLBACK(snr_combo_activate_lcb), snrwin);
 #.
-#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1405
+#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1442
 msgid "<b>Options</b>"
 msgstr "<b>オプション</b>"
 
@@ -2127,8 +2127,8 @@ msgstr ""
 "%f ローカルファイル名 (ローカルファイルに有効)\n"
 "%i 入力のための一時的な FIFO, 文書がローカルにあり変更されていなければ、%f と"
 "同じです\n"
-"%I 入力のための一時的なファイル, 文書がローカルにあり変更されていなけれ"
-"ば、%f と同じです\n"
+"%I 入力のための一時的なファイル, 文書がローカルにあり変更されていなければ、%"
+"f と同じです\n"
 "<b>その他のオプション</b>\n"
 "%c ファイルが格納されているローカルディレクトリ (ローカルファイルに有効)\n"
 "%n パスなしのファイル名 (名前のあるすべてのファイルに有効)\n"
@@ -2218,8 +2218,8 @@ msgstr ""
 "%f ローカルファイル名 (ローカルファイルに有効)\n"
 "%i 入力のための一時的な FIFO, 文書がローカルにあり変更されていなければ、%f と"
 "同じです\n"
-"%I 入力のための一時的なファイル, 文書がローカルにあり変更されていなけれ"
-"ば、%f と同じです\n"
+"%I 入力のための一時的なファイル, 文書がローカルにあり変更されていなければ、%"
+"f と同じです\n"
 "<b>出力オプション</b>\n"
 "| で終えると出力を標準出力から読み出すことができます\n"
 "%o 出力のための一時的な FIFO\n"
@@ -2965,15 +2965,15 @@ msgstr "Webファイル"
 msgid "Hide objectfiles"
 msgstr "オブジェクトファイルを隠す"
 
-#: ../src/snr3.c:610
+#: ../src/snr3.c:629
 msgid "<i>Replace started</i>"
 msgstr ""
 
-#: ../src/snr3.c:615
+#: ../src/snr3.c:634
 msgid "<i>Search started</i>"
 msgstr ""
 
-#: ../src/snr3.c:633
+#: ../src/snr3.c:652
 #, fuzzy
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
 msgstr ""
@@ -2981,7 +2981,7 @@ msgstr ""
 "ブロックを選択してください。</span>"
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr3.c:642
+#: ../src/snr3.c:661
 #, fuzzy
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
@@ -2990,142 +2990,152 @@ msgstr ""
 "<span foreground=\"red\" weight=\"bold\">まだ読み込まれていない文書があります"
 "</span>"
 
-#: ../src/snr3.c:741
+#: ../src/snr3.c:765
 #, fuzzy, c-format
 msgid "<i>Replaced %d entries</i>"
 msgstr "<b>最近使用したファイル</b>"
 
-#: ../src/snr3.c:952
+#: ../src/snr3.c:767
+#, fuzzy, c-format
+msgid "<i>Found %d entries</i>"
+msgstr "<b>最近使用したファイル</b>"
+
+#: ../src/snr3.c:981
 #, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr ""
 
-#: ../src/snr3.c:955
+#: ../src/snr3.c:984
 #, c-format
 msgid "<i>Found %d results from character %d to %d</i>"
 msgstr ""
 
-#: ../src/snr3.c:957
+#: ../src/snr3.c:986
 #, c-format
 msgid "<i>Found %d results in the active document</i>"
 msgstr ""
 
-#: ../src/snr3.c:1306
+#: ../src/snr3.c:1343
 #, fuzzy
 msgid "Active document"
 msgstr "文書内"
 
-#: ../src/snr3.c:1307
+#: ../src/snr3.c:1344
 msgid "Forward from cursor position"
 msgstr "カーソル位置からスタート"
 
-#: ../src/snr3.c:1308
+#: ../src/snr3.c:1345
 #, fuzzy
 msgid "Current selection"
 msgstr "現在の行の色"
 
-#: ../src/snr3.c:1309
+#: ../src/snr3.c:1346
 #, fuzzy
 msgid "All open documents"
 msgstr "開いているすべてのファイル"
 
-#: ../src/snr3.c:1310
+#: ../src/snr3.c:1347
 #, fuzzy
 msgid "Files on disk"
 msgstr "ディスク上でファイルが変更されました\n"
 
-#: ../src/snr3.c:1314 ../src/snr3.c:1319
+#: ../src/snr3.c:1351 ../src/snr3.c:1356
 msgid "Normal"
 msgstr "通常"
 
-#: ../src/snr3.c:1315
+#: ../src/snr3.c:1352
 #, fuzzy
 msgid "Regular expression (pcre)"
 msgstr "正規表現エラー: "
 
-#: ../src/snr3.c:1320
+#: ../src/snr3.c:1357
 msgid "Uppercase"
 msgstr "大文字"
 
-#: ../src/snr3.c:1321
+#: ../src/snr3.c:1358
 msgid "Lowercase"
 msgstr "小文字"
 
-#: ../src/snr3.c:1328
+#: ../src/snr3.c:1365
 #, fuzzy
 msgid "Find and Replace"
 msgstr "置換"
 
-#: ../src/snr3.c:1364
+#: ../src/snr3.c:1401
 #, fuzzy
 msgid "<b>_Search for</b>"
 msgstr "検索対象(_S):"
 
-#: ../src/snr3.c:1393
+#: ../src/snr3.c:1430
 #, fuzzy
 msgid "<b>Replace _with</b>"
 msgstr "置換文字列(_W): "
 
-#: ../src/snr3.c:1415
+#: ../src/snr3.c:1452
 msgid "Match Patter_n: "
 msgstr "検索パターン(_N):"
 
-#: ../src/snr3.c:1427
+#: ../src/snr3.c:1464
 msgid "Replace T_ype: "
 msgstr "置換の種類(_Y):"
 
-#: ../src/snr3.c:1440
+#: ../src/snr3.c:1477
 msgid "Sco_pe: "
 msgstr "範囲(_P):"
 
-#: ../src/snr3.c:1455
+#: ../src/snr3.c:1492
 #, fuzzy
 msgid "Filename pattern: "
 msgstr "ファイル名: %s"
 
-#: ../src/snr3.c:1461
+#: ../src/snr3.c:1498
 #, fuzzy
 msgid "Basedir: "
 msgstr "ベースディレクトリ(_D):"
 
-#: ../src/snr3.c:1476
+#: ../src/snr3.c:1513
 msgid "Case sensitive _matching"
 msgstr "大文字小文字を区別する(_M)"
 
-#: ../src/snr3.c:1478
+#: ../src/snr3.c:1515
 msgid "Only match if case (upper/lower) is identical."
 msgstr "小文字が一致した場合のみ。"
 
-#: ../src/snr3.c:1482
+#: ../src/snr3.c:1519
 msgid "Pattern contains escape-se_quences"
 msgstr "パターンはエスケープシーケンスを含む(_Q)"
 
-#: ../src/snr3.c:1485
+#: ../src/snr3.c:1522
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr ""
 "バックスラッシュを使用した \\n,\\t のようなエスケープ文字を含むパターン"
 
-#: ../src/snr3.c:1489
+#: ../src/snr3.c:1526
 msgid "Dot character in regex pattern matches newlines"
 msgstr ""
 
-#: ../src/snr3.c:1492
+#: ../src/snr3.c:1529
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
 
-#: ../src/snr3.c:1514
+#: ../src/snr3.c:1551
 msgid "Replace _All"
 msgstr "すべて置換(_A)"
 
-#: ../src/snr3.c:1516
+#: ../src/snr3.c:1553
 msgid "_Replace"
 msgstr "置換(_R)"
 
-#: ../src/snr3.c:1520
+#: ../src/snr3.c:1557
 #, fuzzy
-msgid "_Bookmark all"
+msgid "Find All"
+msgstr "すべてを検索(_A)"
+
+#: ../src/snr3.c:1559
+#, fuzzy
+msgid "_Bookmark All"
 msgstr "検索に合致した箇所をブックマークする(_B)"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
@@ -3239,9 +3249,6 @@ msgstr "この変更には複数の文書が関係しています。"
 
 #~ msgid "Create a bookmark for each match"
 #~ msgstr "見つかった一致それぞれに、ブックマークを設定"
-
-#~ msgid "Find _All"
-#~ msgstr "すべてを検索(_A)"
 
 #~ msgid "Find From Selection"
 #~ msgstr "選択領域内で検索"

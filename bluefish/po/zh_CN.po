@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-08 23:16+0800\n"
+"POT-Creation-Date: 2011-09-21 23:18+0200\n"
 "PO-Revision-Date: 2011-09-07 00:37+0800\n"
 "Last-Translator: ZhiFeng Ma <mzf9527@gmail.com>\n"
 "Language-Team: \n"
-"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
 msgid "Bluefish Editor"
@@ -32,27 +32,27 @@ msgstr "Bluefish 语言定义文件"
 msgid "Bluefish project file"
 msgstr "Bluefish 项目文件"
 
-#: ../src/bftextview2.c:1407
+#: ../src/bftextview2.c:1418
 msgid "Collapse all"
 msgstr "全部收起"
 
-#: ../src/bftextview2.c:1410
+#: ../src/bftextview2.c:1421
 msgid "Expand all"
 msgstr "全部展开"
 
-#: ../src/bftextview2_spell.c:671
+#: ../src/bftextview2_spell.c:672
 msgid "Spell check language"
 msgstr "语言拼写检查"
 
-#: ../src/bftextview2_spell.c:704
+#: ../src/bftextview2_spell.c:705
 msgid "Add to dictionary"
 msgstr "添加到字典中"
 
-#: ../src/bftextview2_spell.c:707
+#: ../src/bftextview2_spell.c:708
 msgid "Ignore spelling"
 msgstr "忽略拼写检查"
 
-#: ../src/bftextview2_spell.c:722
+#: ../src/bftextview2_spell.c:723
 msgid "Insert special characters as entities"
 msgstr "插入特殊字符"
 
@@ -76,12 +76,12 @@ msgstr "查找："
 msgid "Advanced"
 msgstr "高级"
 
-#: ../src/bfwin.c:1140
+#: ../src/bfwin.c:1141
 msgid "New Bluefish Window"
 msgstr "新建 Bluefish 窗口"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1191
+#: ../src/bfwin.c:1192
 msgid "Stand by..."
 msgstr "请等待..."
 
@@ -538,7 +538,7 @@ msgstr "文本换行(_W)"
 msgid "Wrap text"
 msgstr "文本换行"
 
-#: ../src/bfwin_uimanager.c:828 ../src/document.c:2811
+#: ../src/bfwin_uimanager.c:828 ../src/document.c:2813
 msgid "_Close"
 msgstr "关闭(_C)"
 
@@ -1217,7 +1217,7 @@ msgstr "文件编码转换失败"
 msgid "Previously: "
 msgstr "前一个："
 
-#: ../src/document.c:2603 ../src/file_dialogs.c:812
+#: ../src/document.c:2604 ../src/file_dialogs.c:812
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1227,79 +1227,79 @@ msgstr ""
 "的版本。"
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2728
+#: ../src/document.c:2729
 msgid "Unable to open file"
 msgstr "无法打开文件"
 
-#: ../src/document.c:2740
+#: ../src/document.c:2741
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "如果你恢复 \"%s\" 到上次备份的位置，当前的修改将永久丢失。"
 
-#: ../src/document.c:2744
+#: ../src/document.c:2745
 msgid "Revert changes to last saved copy?"
 msgstr "恢复到上次保存的备份吗？"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "_Retry"
 msgstr "重试(_R)"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "Retry _all failed"
 msgstr "重试所有失败的文件(_a)"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "Close all _failed"
 msgstr "关闭所有失败的文件(_f)"
 
-#: ../src/document.c:2816
+#: ../src/document.c:2818
 msgid "File "
 msgstr "文件 "
 
-#: ../src/document.c:2816
+#: ../src/document.c:2818
 msgid " failed to load."
 msgstr " 读取失败。"
 
-#: ../src/document.c:2820
+#: ../src/document.c:2822
 msgid "File failed to load\n"
 msgstr "文件读取失败\n"
 
-#: ../src/document.c:2936
+#: ../src/document.c:2939
 msgid "Select file to insert"
 msgstr "选择要插入的文件"
 
-#: ../src/document.c:2945
+#: ../src/document.c:2948
 msgid "No file to insert"
 msgstr "没有要插入的文件"
 
-#: ../src/document.c:3049
+#: ../src/document.c:3055
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d 行"
 msgstr[1] "%d 行"
 
-#: ../src/document.c:3050
+#: ../src/document.c:3056
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d 个字"
 msgstr[1] "%d 个字"
 
-#: ../src/document.c:3051
+#: ../src/document.c:3057
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d 个字符"
 msgstr[1] "%d 个字符"
 
-#: ../src/document.c:3053
+#: ../src/document.c:3059
 msgid "Selection statistics: "
 msgstr "统计选择区域："
 
-#: ../src/document.c:3053
+#: ../src/document.c:3059
 msgid "Statistics: "
 msgstr "统计："
 
@@ -1526,37 +1526,37 @@ msgstr "平面"
 msgid "Tree"
 msgstr "树状"
 
-#: ../src/file.c:808
+#: ../src/file.c:832
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "%d 读取中，已完成 %s"
 msgstr[1] "%d 读取中，已完成 %s"
 
-#: ../src/file.c:813
+#: ../src/file.c:837
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "所有文件已读取，已完成 %s"
 
-#: ../src/file.c:1307
+#: ../src/file.c:1347
 msgid "Finished advanced open"
 msgstr "高级打开已结束"
 
-#: ../src/file.c:1481
+#: ../src/file.c:1521
 msgid "_Skip"
 msgstr "跳过(_S)"
 
-#: ../src/file.c:1481 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
+#: ../src/file.c:1521 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
 #: ../src/project.c:308
 msgid "_Overwrite"
 msgstr "覆盖(_O)"
 
-#: ../src/file.c:1485
+#: ../src/file.c:1525
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "文件 %s 因已存在故无法被拷贝，覆盖吗？"
 
-#: ../src/file.c:1487
+#: ../src/file.c:1527
 msgid "Overwrite file?"
 msgstr "覆盖文件？"
 
@@ -1922,19 +1922,19 @@ msgstr "退出前记住密码(_l)"
 msgid "Remember _forever"
 msgstr "永久记忆"
 
-#: ../src/outputbox.c:246
+#: ../src/outputbox.c:247
 msgid "Filename"
 msgstr "文件名"
 
-#: ../src/outputbox.c:248
+#: ../src/outputbox.c:249
 msgid "Line"
 msgstr "行"
 
-#: ../src/outputbox.c:250
+#: ../src/outputbox.c:251
 msgid "Output"
 msgstr "输出"
 
-#: ../src/outputbox.c:467
+#: ../src/outputbox.c:469
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "编译输出窗口模式失败 %s: %s"
@@ -1961,7 +1961,7 @@ msgstr "模板(_T)："
 #. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 #. G_CALLBACK(snr_combo_activate_lcb), snrwin);
 #.
-#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1405
+#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1442
 msgid "<b>Options</b>"
 msgstr "<b>选项</b>"
 
@@ -2936,149 +2936,160 @@ msgstr "Web 文件（集）"
 msgid "Hide objectfiles"
 msgstr "隐藏目标文件"
 
-#: ../src/snr3.c:610
+#: ../src/snr3.c:629
 msgid "<i>Replace started</i>"
 msgstr "<i>替换已启动</i>"
 
-#: ../src/snr3.c:615
+#: ../src/snr3.c:634
 msgid "<i>Search started</i>"
 msgstr "<i>搜索已启动</i>"
 
-#: ../src/snr3.c:633
+#: ../src/snr3.c:652
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
 msgstr "<span foreground=\"red\"><b>未发现有选择区域，搜索终止</b></span>"
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr3.c:642
+#: ../src/snr3.c:661
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
 "span>"
 msgstr "<span foreground=\"red\" weight=\"bold\">部分文档仍在读取中</span>"
 
-#: ../src/snr3.c:741
+#: ../src/snr3.c:765
 #, c-format
 msgid "<i>Replaced %d entries</i>"
 msgstr "<i>已替换 %d 个条目</i>"
 
-#: ../src/snr3.c:952
+#: ../src/snr3.c:767
+#, fuzzy, c-format
+msgid "<i>Found %d entries</i>"
+msgstr "<i>找到 %d 个结果</i>"
+
+#: ../src/snr3.c:981
 #, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr "<i>已找到 %d 个结果 在 %d 个文档中 全部 %d 个文档</i>"
 
-#: ../src/snr3.c:955
+#: ../src/snr3.c:984
 #, c-format
 msgid "<i>Found %d results from character %d to %d</i>"
 msgstr "<i>已找到 %d 个结果，从字符 %d 到 %d</i>"
 
-#: ../src/snr3.c:957
+#: ../src/snr3.c:986
 #, c-format
 msgid "<i>Found %d results in the active document</i>"
 msgstr "<i>在激活的文档中找到 %d 个结果</i>"
 
-#: ../src/snr3.c:1306
+#: ../src/snr3.c:1343
 msgid "Active document"
 msgstr "当前激活的文档"
 
-#: ../src/snr3.c:1307
+#: ../src/snr3.c:1344
 msgid "Forward from cursor position"
 msgstr "从光标处向前"
 
-#: ../src/snr3.c:1308
+#: ../src/snr3.c:1345
 msgid "Current selection"
 msgstr "当前选择区域"
 
-#: ../src/snr3.c:1309
+#: ../src/snr3.c:1346
 msgid "All open documents"
 msgstr "所有已打开的文档"
 
-#: ../src/snr3.c:1310
+#: ../src/snr3.c:1347
 msgid "Files on disk"
 msgstr "磁盘上的文件"
 
-#: ../src/snr3.c:1314 ../src/snr3.c:1319
+#: ../src/snr3.c:1351 ../src/snr3.c:1356
 msgid "Normal"
 msgstr "普通"
 
-#: ../src/snr3.c:1315
+#: ../src/snr3.c:1352
 msgid "Regular expression (pcre)"
 msgstr "正则表达式（pcre）"
 
-#: ../src/snr3.c:1320
+#: ../src/snr3.c:1357
 msgid "Uppercase"
 msgstr "大写"
 
-#: ../src/snr3.c:1321
+#: ../src/snr3.c:1358
 msgid "Lowercase"
 msgstr "小写"
 
-#: ../src/snr3.c:1328
+#: ../src/snr3.c:1365
 msgid "Find and Replace"
 msgstr "查找与替换"
 
-#: ../src/snr3.c:1364
+#: ../src/snr3.c:1401
 msgid "<b>_Search for</b>"
 msgstr "<b>搜索项（_S）</b>"
 
-#: ../src/snr3.c:1393
+#: ../src/snr3.c:1430
 msgid "<b>Replace _with</b>"
 msgstr "<b>替换为(_w)</b>"
 
-#: ../src/snr3.c:1415
+#: ../src/snr3.c:1452
 msgid "Match Patter_n: "
 msgstr "匹配模式(_n)："
 
-#: ../src/snr3.c:1427
+#: ../src/snr3.c:1464
 msgid "Replace T_ype: "
 msgstr "替换类型(_y)："
 
-#: ../src/snr3.c:1440
+#: ../src/snr3.c:1477
 msgid "Sco_pe: "
 msgstr "范围(_p)："
 
-#: ../src/snr3.c:1455
+#: ../src/snr3.c:1492
 msgid "Filename pattern: "
 msgstr "文件名模式："
 
-#: ../src/snr3.c:1461
+#: ../src/snr3.c:1498
 msgid "Basedir: "
 msgstr "基础目录："
 
-#: ../src/snr3.c:1476
+#: ../src/snr3.c:1513
 msgid "Case sensitive _matching"
 msgstr "大小写敏感匹配(_m)"
 
-#: ../src/snr3.c:1478
+#: ../src/snr3.c:1515
 msgid "Only match if case (upper/lower) is identical."
 msgstr "仅匹配大小写一致的情况。"
 
-#: ../src/snr3.c:1482
+#: ../src/snr3.c:1519
 msgid "Pattern contains escape-se_quences"
 msgstr "包含了转义序列的模式"
 
-#: ../src/snr3.c:1485
+#: ../src/snr3.c:1522
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr "包含了反斜线转义字符的模式，如：\\n、\\t等等。"
 
-#: ../src/snr3.c:1489
+#: ../src/snr3.c:1526
 msgid "Dot character in regex pattern matches newlines"
 msgstr "在正则表达式中的豆点字符为匹配新行"
 
-#: ../src/snr3.c:1492
+#: ../src/snr3.c:1529
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr "字符 . 将匹配包括新行在内的任意项，用于多行匹配。"
 
-#: ../src/snr3.c:1514
+#: ../src/snr3.c:1551
 msgid "Replace _All"
 msgstr "全部替换(_A)"
 
-#: ../src/snr3.c:1516
+#: ../src/snr3.c:1553
 msgid "_Replace"
 msgstr "替换(_R)"
 
-#: ../src/snr3.c:1520
-msgid "_Bookmark all"
+#: ../src/snr3.c:1557
+#, fuzzy
+msgid "Find All"
+msgstr "查找全部(_A)"
+
+#: ../src/snr3.c:1559
+#, fuzzy
+msgid "_Bookmark All"
 msgstr "将匹配项设为书签(_B)"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
@@ -3102,9 +3113,6 @@ msgstr "此次修改关系到多个文档。"
 
 #~ msgid "Select block between highlighted boundaries"
 #~ msgstr "选择高亮范围内的块"
-
-#~ msgid "<i>Found %d results</i>"
-#~ msgstr "<i>找到 %d 个结果</i>"
 
 #~ msgid "Search failed"
 #~ msgstr "搜索失败"
@@ -3187,9 +3195,6 @@ msgstr "此次修改关系到多个文档。"
 
 #~ msgid "Create a bookmark for each match"
 #~ msgstr "为每个匹配项建立一个书签"
-
-#~ msgid "Find _All"
-#~ msgstr "查找全部(_A)"
 
 #~ msgid "%d document open."
 #~ msgid_plural "%d documents open."

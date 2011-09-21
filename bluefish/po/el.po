@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-01 21:02+0200\n"
+"POT-Creation-Date: 2011-09-21 23:18+0200\n"
 "PO-Revision-Date: 2004-12-09 12:11+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: no team\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
+"Language: \n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
 #, fuzzy
@@ -36,31 +36,31 @@ msgstr "Ορισμός"
 msgid "Bluefish project file"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/bftextview2.c:1407
+#: ../src/bftextview2.c:1418
 #, fuzzy
 msgid "Collapse all"
 msgstr "Κλείσιμο _Όλων"
 
-#: ../src/bftextview2.c:1410
+#: ../src/bftextview2.c:1421
 msgid "Expand all"
 msgstr ""
 
-#: ../src/bftextview2_spell.c:671
+#: ../src/bftextview2_spell.c:672
 #, fuzzy
 msgid "Spell check language"
 msgstr "Έλεγχος Ορθογραφίας..."
 
-#: ../src/bftextview2_spell.c:704
+#: ../src/bftextview2_spell.c:705
 #, fuzzy
 msgid "Add to dictionary"
 msgstr " Γρήγορη μπάρα "
 
-#: ../src/bftextview2_spell.c:707
+#: ../src/bftextview2_spell.c:708
 #, fuzzy
 msgid "Ignore spelling"
 msgstr "Έλεγχος Ορθογραφίας"
 
-#: ../src/bftextview2_spell.c:722
+#: ../src/bftextview2_spell.c:723
 msgid "Insert special characters as entities"
 msgstr ""
 
@@ -87,12 +87,12 @@ msgstr "Εύρεση"
 msgid "Advanced"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/bfwin.c:1140
+#: ../src/bfwin.c:1141
 msgid "New Bluefish Window"
 msgstr "Νέο Παράθυρο Bluefish"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1191
+#: ../src/bfwin.c:1192
 #, fuzzy
 msgid "Stand by..."
 msgstr "Διάστημα..."
@@ -632,7 +632,7 @@ msgstr ""
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:828 ../src/document.c:2811
+#: ../src/bfwin_uimanager.c:828 ../src/document.c:2813
 #, fuzzy
 msgid "_Close"
 msgstr "Κλείσιμο"
@@ -1370,7 +1370,7 @@ msgstr ""
 msgid "Previously: "
 msgstr ""
 
-#: ../src/document.c:2603 ../src/file_dialogs.c:812
+#: ../src/document.c:2604 ../src/file_dialogs.c:812
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1378,84 +1378,84 @@ msgid ""
 msgstr ""
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2728
+#: ../src/document.c:2729
 msgid "Unable to open file"
 msgstr "Δεν είναι δυνατή η προσπέλαση του αρχείου"
 
-#: ../src/document.c:2740
+#: ../src/document.c:2741
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr ""
 
-#: ../src/document.c:2744
+#: ../src/document.c:2745
 msgid "Revert changes to last saved copy?"
 msgstr ""
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 #, fuzzy
 msgid "Close all _failed"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/document.c:2816
+#: ../src/document.c:2818
 #, fuzzy
 msgid "File "
 msgstr "/_Αρχεία"
 
-#: ../src/document.c:2816
+#: ../src/document.c:2818
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:2820
+#: ../src/document.c:2822
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:2936
+#: ../src/document.c:2939
 #, fuzzy
 msgid "Select file to insert"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/document.c:2945
+#: ../src/document.c:2948
 #, fuzzy
 msgid "No file to insert"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/document.c:3049
+#: ../src/document.c:3055
 #, fuzzy, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "Πήγαινε στη γραμμή"
 msgstr[1] "Πήγαινε στη γραμμή"
 
-#: ../src/document.c:3050
+#: ../src/document.c:3056
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d από %d"
 msgstr[1] "%d από %d"
 
-#: ../src/document.c:3051
+#: ../src/document.c:3057
 #, fuzzy, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "Προεπιλεγμένο σετ χαρακτήρων"
 msgstr[1] "Προεπιλεγμένο σετ χαρακτήρων"
 
-#: ../src/document.c:3053
+#: ../src/document.c:3059
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "Εύρεση"
 
-#: ../src/document.c:3053
+#: ../src/document.c:3059
 #, fuzzy
 msgid "Statistics: "
 msgstr "Εύρεση"
@@ -1713,37 +1713,37 @@ msgstr ""
 msgid "Tree"
 msgstr ""
 
-#: ../src/file.c:808
+#: ../src/file.c:832
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file.c:813
+#: ../src/file.c:837
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr ""
 
-#: ../src/file.c:1307
+#: ../src/file.c:1347
 msgid "Finished advanced open"
 msgstr ""
 
-#: ../src/file.c:1481
+#: ../src/file.c:1521
 msgid "_Skip"
 msgstr ""
 
-#: ../src/file.c:1481 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
+#: ../src/file.c:1521 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
 #: ../src/project.c:308
 msgid "_Overwrite"
 msgstr "_Αντικατάσταση"
 
-#: ../src/file.c:1485
+#: ../src/file.c:1525
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr ""
 
-#: ../src/file.c:1487
+#: ../src/file.c:1527
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "_Αντικατάσταση"
@@ -2120,21 +2120,21 @@ msgstr ""
 msgid "Remember _forever"
 msgstr ""
 
-#: ../src/outputbox.c:246
+#: ../src/outputbox.c:247
 #, fuzzy
 msgid "Filename"
 msgstr "Όνομα αρχείου"
 
-#: ../src/outputbox.c:248
+#: ../src/outputbox.c:249
 #, fuzzy
 msgid "Line"
 msgstr "Τύλιγμα γραμμής"
 
-#: ../src/outputbox.c:250
+#: ../src/outputbox.c:251
 msgid "Output"
 msgstr ""
 
-#: ../src/outputbox.c:466
+#: ../src/outputbox.c:469
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr ""
@@ -2165,7 +2165,7 @@ msgstr "_Πρότυπο:"
 #. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 #. G_CALLBACK(snr_combo_activate_lcb), snrwin);
 #.
-#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1405
+#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1442
 #, fuzzy
 msgid "<b>Options</b>"
 msgstr "<b>Περιέχει</b>"
@@ -3204,164 +3204,174 @@ msgstr "Σε όλα τα ανοικτά αρχεία"
 msgid "Hide objectfiles"
 msgstr "Διάλεξε αρχεία"
 
-#: ../src/snr3.c:610
+#: ../src/snr3.c:629
 msgid "<i>Replace started</i>"
 msgstr ""
 
-#: ../src/snr3.c:615
+#: ../src/snr3.c:634
 msgid "<i>Search started</i>"
 msgstr ""
 
-#: ../src/snr3.c:633
+#: ../src/snr3.c:652
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
 msgstr ""
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr3.c:642
+#: ../src/snr3.c:661
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
 "span>"
 msgstr ""
 
-#: ../src/snr3.c:741
+#: ../src/snr3.c:765
 #, fuzzy, c-format
 msgid "<i>Replaced %d entries</i>"
 msgstr "Γνωρίσματα"
 
-#: ../src/snr3.c:952
+#: ../src/snr3.c:767
+#, fuzzy, c-format
+msgid "<i>Found %d entries</i>"
+msgstr "Γνωρίσματα"
+
+#: ../src/snr3.c:981
 #, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr ""
 
-#: ../src/snr3.c:955
+#: ../src/snr3.c:984
 #, c-format
 msgid "<i>Found %d results from character %d to %d</i>"
 msgstr ""
 
-#: ../src/snr3.c:957
+#: ../src/snr3.c:986
 #, c-format
 msgid "<i>Found %d results in the active document</i>"
 msgstr ""
 
-#: ../src/snr3.c:1306
+#: ../src/snr3.c:1343
 #, fuzzy
 msgid "Active document"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/snr3.c:1307
+#: ../src/snr3.c:1344
 msgid "Forward from cursor position"
 msgstr ""
 
-#: ../src/snr3.c:1308
+#: ../src/snr3.c:1345
 #, fuzzy
 msgid "Current selection"
 msgstr "Στην επιλογή"
 
-#: ../src/snr3.c:1309
+#: ../src/snr3.c:1346
 #, fuzzy
 msgid "All open documents"
 msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
 
-#: ../src/snr3.c:1310
+#: ../src/snr3.c:1347
 #, fuzzy
 msgid "Files on disk"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/snr3.c:1314 ../src/snr3.c:1319
+#: ../src/snr3.c:1351 ../src/snr3.c:1356
 msgid "Normal"
 msgstr "Κανονικό"
 
-#: ../src/snr3.c:1315
+#: ../src/snr3.c:1352
 #, fuzzy
 msgid "Regular expression (pcre)"
 msgstr "Κανονική έκφραση:"
 
-#: ../src/snr3.c:1320
+#: ../src/snr3.c:1357
 msgid "Uppercase"
 msgstr "Κεφαλαία"
 
-#: ../src/snr3.c:1321
+#: ../src/snr3.c:1358
 msgid "Lowercase"
 msgstr "Πεζά"
 
-#: ../src/snr3.c:1328
+#: ../src/snr3.c:1365
 #, fuzzy
 msgid "Find and Replace"
 msgstr "Αντικατάσταση"
 
-#: ../src/snr3.c:1364
+#: ../src/snr3.c:1401
 #, fuzzy
 msgid "<b>_Search for</b>"
 msgstr "Α_ναζήτηση για: "
 
-#: ../src/snr3.c:1393
+#: ../src/snr3.c:1430
 #, fuzzy
 msgid "<b>Replace _with</b>"
 msgstr "_Αντικατάσταση με: "
 
-#: ../src/snr3.c:1415
+#: ../src/snr3.c:1452
 #, fuzzy
 msgid "Match Patter_n: "
 msgstr "Εύρεση"
 
-#: ../src/snr3.c:1427
+#: ../src/snr3.c:1464
 #, fuzzy
 msgid "Replace T_ype: "
 msgstr "Αντικατάσταση"
 
-#: ../src/snr3.c:1440
+#: ../src/snr3.c:1477
 msgid "Sco_pe: "
 msgstr ""
 
-#: ../src/snr3.c:1455
+#: ../src/snr3.c:1492
 #, fuzzy
 msgid "Filename pattern: "
 msgstr "Όνομα αρχείου"
 
-#: ../src/snr3.c:1461
+#: ../src/snr3.c:1498
 #, fuzzy
 msgid "Basedir: "
 msgstr "Βασικός υποκατάλογος"
 
-#: ../src/snr3.c:1476
+#: ../src/snr3.c:1513
 #, fuzzy
 msgid "Case sensitive _matching"
 msgstr "Διαφορά πεζών-κεφαλαίων"
 
-#: ../src/snr3.c:1478
+#: ../src/snr3.c:1515
 msgid "Only match if case (upper/lower) is identical."
 msgstr ""
 
-#: ../src/snr3.c:1482
+#: ../src/snr3.c:1519
 msgid "Pattern contains escape-se_quences"
 msgstr ""
 
-#: ../src/snr3.c:1485
+#: ../src/snr3.c:1522
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr ""
 
-#: ../src/snr3.c:1489
+#: ../src/snr3.c:1526
 msgid "Dot character in regex pattern matches newlines"
 msgstr ""
 
-#: ../src/snr3.c:1492
+#: ../src/snr3.c:1529
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
 
-#: ../src/snr3.c:1514
+#: ../src/snr3.c:1551
 #, fuzzy
 msgid "Replace _All"
 msgstr "Αντικατάσταση _όλων"
 
-#: ../src/snr3.c:1516
+#: ../src/snr3.c:1553
 msgid "_Replace"
 msgstr "_Αντικατάσταση"
 
-#: ../src/snr3.c:1520
+#: ../src/snr3.c:1557
 #, fuzzy
-msgid "_Bookmark all"
+msgid "Find All"
+msgstr "Εύρεση"
+
+#: ../src/snr3.c:1559
+#, fuzzy
+msgid "_Bookmark All"
 msgstr "Σελίδοδείκτες"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
@@ -3457,10 +3467,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Select matc_hes"
 #~ msgstr "Επιλογή αρχείων"
-
-#, fuzzy
-#~ msgid "Find _All"
-#~ msgstr "Εύρεση"
 
 #, fuzzy
 #~ msgid "/Edit"
