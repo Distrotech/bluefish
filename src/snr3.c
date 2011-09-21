@@ -329,12 +329,21 @@ static Tsnr3result * sn3run_add_result(Tsnr3run *s3run, gulong so, gulong eo, gp
 	s3result->doc = doc;
 	g_queue_push_tail(&s3run->results, s3result);
 	if (s3run->showinoutputbox && doc && DOCUMENT(doc)->uri) {
-		GtkTextIter iter;
-		gchar *curi;
+		GtkTextIter it1, it2;
+		gchar *curi, *text;
+		guint line;
 		curi = g_file_get_uri(DOCUMENT(doc)->uri);
-		gtk_text_buffer_get_iter_at_offset(DOCUMENT(doc)->buffer, &iter, so);
-		outputbox_add_line(s3run->bfwin, curi, gtk_text_iter_get_line(&iter)+1, s3run->query);
+		gtk_text_buffer_get_iter_at_offset(DOCUMENT(doc)->buffer, &it1, so);
+		line = gtk_text_iter_get_line(&it1)+1;
+		gtk_text_buffer_get_iter_at_offset(DOCUMENT(doc)->buffer, &it2, eo);
+		if (!gtk_text_iter_starts_line(&it1)) 
+			gtk_text_iter_set_line_offset(&it1, 0);
+		if (!gtk_text_iter_ends_line(&it2)) 
+			gtk_text_iter_forward_to_line_end(&it2);
+		text = gtk_text_buffer_get_text(DOCUMENT(doc)->buffer, &it1, &it2, TRUE);
+		outputbox_add_line(s3run->bfwin, curi, line, text);
 		g_free(curi);
+		g_free(text);
 	}
 	return s3result;
 }
@@ -663,7 +672,7 @@ snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void
 				s3run->showinoutputbox=TRUE;
 				s3run->recursive = TRUE;
 				snr3_run_in_files(s3run);
-			} else { 
+			} else if (s3run->findall) { 
 				s3run->showinoutputbox=TRUE;
 				s3run->recursive = TRUE;
 				snr3_run_in_files(s3run);
@@ -762,6 +771,7 @@ threaded_all_ready(void *data) {
 		replace_all_buttons(s3run, TRUE);
 	}
 	s3run->replaceall=FALSE;
+	s3run->findall=FALSE;
 }
 
 static void
@@ -920,7 +930,7 @@ snr3run_multiset(Tsnr3run *s3run,
 	s3run->type = type;
 	s3run->replacetype = replacetype;
 	s3run->scope = scope;
-	/* TODO: potential memory leak below, what if there are results on the queue ? */
+	snr3run_resultcleanup(s3run);
 	g_queue_init(&s3run->results);
 	
 } 
@@ -1245,6 +1255,7 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 			snr3_cancel_run(s3run);
 			snr3run_resultcleanup(s3run);
 			replace_all_buttons(s3run, FALSE);
+			s3run->findall=TRUE;
 			snr3_run(s3run, snrwin, s3run->bfwin->current_document, threaded_all_ready);
 		break;
 	}
