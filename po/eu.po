@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-01 21:02+0200\n"
+"POT-Creation-Date: 2011-09-21 23:18+0200\n"
 "PO-Revision-Date: 2011-02-07 12:24+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
-"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: eu\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -35,27 +35,27 @@ msgstr "Bluefish hizkuntzaren definizioaren fitxategia"
 msgid "Bluefish project file"
 msgstr "Bluefish proiektuaren fitxategia"
 
-#: ../src/bftextview2.c:1407
+#: ../src/bftextview2.c:1418
 msgid "Collapse all"
 msgstr "Tolestu guztiak"
 
-#: ../src/bftextview2.c:1410
+#: ../src/bftextview2.c:1421
 msgid "Expand all"
 msgstr "Zabaldu guztiak"
 
-#: ../src/bftextview2_spell.c:671
+#: ../src/bftextview2_spell.c:672
 msgid "Spell check language"
 msgstr "Egiaztatu hizkuntza"
 
-#: ../src/bftextview2_spell.c:704
+#: ../src/bftextview2_spell.c:705
 msgid "Add to dictionary"
 msgstr "Gehitu hiztegiari"
 
-#: ../src/bftextview2_spell.c:707
+#: ../src/bftextview2_spell.c:708
 msgid "Ignore spelling"
 msgstr "Ezikusi egin ortografiari"
 
-#: ../src/bftextview2_spell.c:722
+#: ../src/bftextview2_spell.c:723
 msgid "Insert special characters as entities"
 msgstr "Txertatu karaktere bereziak entitate gisa"
 
@@ -81,12 +81,12 @@ msgstr "Bilatu"
 msgid "Advanced"
 msgstr "Ireki _aurreratua..."
 
-#: ../src/bfwin.c:1140
+#: ../src/bfwin.c:1141
 msgid "New Bluefish Window"
 msgstr "Bluefish-en leiho berria"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1191
+#: ../src/bfwin.c:1192
 msgid "Stand by..."
 msgstr "Itxaron..."
 
@@ -596,7 +596,7 @@ msgstr ""
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:828 ../src/document.c:2811
+#: ../src/bfwin_uimanager.c:828 ../src/document.c:2813
 msgid "_Close"
 msgstr "It_xi"
 
@@ -1315,7 +1315,7 @@ msgstr "Huts egin du fitxategiaren kodeketa bihurtzean"
 msgid "Previously: "
 msgstr "Lehen: "
 
-#: ../src/document.c:2603 ../src/file_dialogs.c:812
+#: ../src/document.c:2604 ../src/file_dialogs.c:812
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1325,11 +1325,11 @@ msgstr ""
 "Eguneratu ezazu 2.18.0 edo berriagora."
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2728
+#: ../src/document.c:2729
 msgid "Unable to open file"
 msgstr "Fitxategia ezin da ireki"
 
-#: ../src/document.c:2740
+#: ../src/document.c:2741
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1338,68 +1338,68 @@ msgstr ""
 "%s leheneratzen baduzu zuk gordetako azken kopirara, uneko aldaketak betiko "
 "galduko dira."
 
-#: ../src/document.c:2744
+#: ../src/document.c:2745
 msgid "Revert changes to last saved copy?"
 msgstr "Leheneratu aldaketak gordetako azken kopiara?"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "_Retry"
 msgstr "_Saiatu berriro"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "Retry _all failed"
 msgstr "Saiatu berriro huts egindako _guztiak"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "Close all _failed"
 msgstr "Itxi _huts egindako guztiak"
 
-#: ../src/document.c:2816
+#: ../src/document.c:2818
 msgid "File "
 msgstr " "
 
-#: ../src/document.c:2816
+#: ../src/document.c:2818
 msgid " failed to load."
 msgstr " fitxategiak huts egin du kargatzean."
 
-#: ../src/document.c:2820
+#: ../src/document.c:2822
 msgid "File failed to load\n"
 msgstr "Fitxategiak huts egin du kargatzean\n"
 
-#: ../src/document.c:2936
+#: ../src/document.c:2939
 msgid "Select file to insert"
 msgstr "Hautatu fitxategia txertatzeko"
 
-#: ../src/document.c:2945
+#: ../src/document.c:2948
 msgid "No file to insert"
 msgstr "Ez dago fitxategirik txertatzeko"
 
-#: ../src/document.c:3049
+#: ../src/document.c:3055
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "lerro %d"
 msgstr[1] "%d lerro"
 
-#: ../src/document.c:3050
+#: ../src/document.c:3056
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "hitz %d"
 msgstr[1] "%d hitz"
 
-#: ../src/document.c:3051
+#: ../src/document.c:3057
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "karaktere %d"
 msgstr[1] "%d karaktere"
 
-#: ../src/document.c:3053
+#: ../src/document.c:3059
 msgid "Selection statistics: "
 msgstr "Hautapenaren estatistikak: "
 
-#: ../src/document.c:3053
+#: ../src/document.c:3059
 msgid "Statistics: "
 msgstr "Estatistikak:"
 
@@ -1644,37 +1644,37 @@ msgstr "Soila"
 msgid "Tree"
 msgstr "Zuhaitza"
 
-#: ../src/file.c:808
+#: ../src/file.c:832
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "Oraindik fitxategi %d kargatzen, %s amaituta"
 msgstr[1] "Oraindik %d fitxategi kargatzen, %s amaituta"
 
-#: ../src/file.c:813
+#: ../src/file.c:837
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "Fitxategi guztiak kargatuta, %s amaituta"
 
-#: ../src/file.c:1307
+#: ../src/file.c:1347
 msgid "Finished advanced open"
 msgstr ""
 
-#: ../src/file.c:1481
+#: ../src/file.c:1521
 msgid "_Skip"
 msgstr "_Saltatu"
 
-#: ../src/file.c:1481 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
+#: ../src/file.c:1521 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
 #: ../src/project.c:308
 msgid "_Overwrite"
 msgstr "_Gainidatzi"
 
-#: ../src/file.c:1485
+#: ../src/file.c:1525
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s ezin da kopiatu, badago lehendik ere, gainidatzi?"
 
-#: ../src/file.c:1487
+#: ../src/file.c:1527
 msgid "Overwrite file?"
 msgstr "Gainidatzi fitxategia?"
 
@@ -2044,19 +2044,19 @@ msgstr "_Gogoratu pasahitza saio amaitu arte"
 msgid "Remember _forever"
 msgstr "_Gogoratu beti"
 
-#: ../src/outputbox.c:246
+#: ../src/outputbox.c:247
 msgid "Filename"
 msgstr "Fitxategi-izena"
 
-#: ../src/outputbox.c:248
+#: ../src/outputbox.c:249
 msgid "Line"
 msgstr "Lerroa"
 
-#: ../src/outputbox.c:250
+#: ../src/outputbox.c:251
 msgid "Output"
 msgstr "Irteera"
 
-#: ../src/outputbox.c:466
+#: ../src/outputbox.c:469
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "Huts egin du %s ereduaren irteerako kutxa konpilatzean: %s"
@@ -2083,7 +2083,7 @@ msgstr "_Txantiloia:"
 #. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 #. G_CALLBACK(snr_combo_activate_lcb), snrwin);
 #.
-#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1405
+#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1442
 msgid "<b>Options</b>"
 msgstr "<b>Aukerak</b>"
 
@@ -3078,15 +3078,15 @@ msgstr "Web fitxategiak"
 msgid "Hide objectfiles"
 msgstr "Ezkutatu objektu-fitxategiak"
 
-#: ../src/snr3.c:610
+#: ../src/snr3.c:629
 msgid "<i>Replace started</i>"
 msgstr ""
 
-#: ../src/snr3.c:615
+#: ../src/snr3.c:634
 msgid "<i>Search started</i>"
 msgstr ""
 
-#: ../src/snr3.c:633
+#: ../src/snr3.c:652
 #, fuzzy
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
 msgstr ""
@@ -3094,7 +3094,7 @@ msgstr ""
 "hautatu testu-bloke bat.</span>"
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr3.c:642
+#: ../src/snr3.c:661
 #, fuzzy
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
@@ -3103,143 +3103,153 @@ msgstr ""
 "<span foreground=\"red\" weight=\"bold\">Oraindik ez dira dokumentu guztiak "
 "kargatu</span>"
 
-#: ../src/snr3.c:741
+#: ../src/snr3.c:765
 #, fuzzy, c-format
 msgid "<i>Replaced %d entries</i>"
 msgstr "<b>Azken fitxategiak</b>"
 
-#: ../src/snr3.c:952
+#: ../src/snr3.c:767
+#, fuzzy, c-format
+msgid "<i>Found %d entries</i>"
+msgstr "<b>Azken fitxategiak</b>"
+
+#: ../src/snr3.c:981
 #, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr ""
 
-#: ../src/snr3.c:955
+#: ../src/snr3.c:984
 #, c-format
 msgid "<i>Found %d results from character %d to %d</i>"
 msgstr ""
 
-#: ../src/snr3.c:957
+#: ../src/snr3.c:986
 #, c-format
 msgid "<i>Found %d results in the active document</i>"
 msgstr ""
 
-#: ../src/snr3.c:1306
+#: ../src/snr3.c:1343
 #, fuzzy
 msgid "Active document"
 msgstr "Dokumentu osoa"
 
-#: ../src/snr3.c:1307
+#: ../src/snr3.c:1344
 msgid "Forward from cursor position"
 msgstr "Aurrerantz kurtsorearen posiziotik"
 
-#: ../src/snr3.c:1308
+#: ../src/snr3.c:1345
 #, fuzzy
 msgid "Current selection"
 msgstr "Uneko lerroaren kolorea"
 
-#: ../src/snr3.c:1309
+#: ../src/snr3.c:1346
 #, fuzzy
 msgid "All open documents"
 msgstr "Irekitako fitxategi guztiak"
 
-#: ../src/snr3.c:1310
+#: ../src/snr3.c:1347
 #, fuzzy
 msgid "Files on disk"
 msgstr "Fitxategia diskoan aldatuta\n"
 
-#: ../src/snr3.c:1314 ../src/snr3.c:1319
+#: ../src/snr3.c:1351 ../src/snr3.c:1356
 msgid "Normal"
 msgstr "Normala"
 
-#: ../src/snr3.c:1315
+#: ../src/snr3.c:1352
 #, fuzzy
 msgid "Regular expression (pcre)"
 msgstr "Adierazpen erregularraren errorea: "
 
-#: ../src/snr3.c:1320
+#: ../src/snr3.c:1357
 msgid "Uppercase"
 msgstr "Maiuskulak"
 
-#: ../src/snr3.c:1321
+#: ../src/snr3.c:1358
 msgid "Lowercase"
 msgstr "Minuskulak"
 
-#: ../src/snr3.c:1328
+#: ../src/snr3.c:1365
 #, fuzzy
 msgid "Find and Replace"
 msgstr "Ordeztu"
 
-#: ../src/snr3.c:1364
+#: ../src/snr3.c:1401
 #, fuzzy
 msgid "<b>_Search for</b>"
 msgstr "_Bilatu hau: "
 
-#: ../src/snr3.c:1393
+#: ../src/snr3.c:1430
 #, fuzzy
 msgid "<b>Replace _with</b>"
 msgstr "Ordeztu _honekin: "
 
-#: ../src/snr3.c:1415
+#: ../src/snr3.c:1452
 msgid "Match Patter_n: "
 msgstr "Bilatu _eredua: "
 
-#: ../src/snr3.c:1427
+#: ../src/snr3.c:1464
 msgid "Replace T_ype: "
 msgstr "Ordeztu _mota: "
 
-#: ../src/snr3.c:1440
+#: ../src/snr3.c:1477
 msgid "Sco_pe: "
 msgstr "_Esparrua: "
 
-#: ../src/snr3.c:1455
+#: ../src/snr3.c:1492
 #, fuzzy
 msgid "Filename pattern: "
 msgstr "Fitxategi-izena: %s"
 
-#: ../src/snr3.c:1461
+#: ../src/snr3.c:1498
 #, fuzzy
 msgid "Basedir: "
 msgstr "Oinarri-_dir.:"
 
-#: ../src/snr3.c:1476
+#: ../src/snr3.c:1513
 msgid "Case sensitive _matching"
 msgstr "_Maiuskulak eta minuskulak"
 
-#: ../src/snr3.c:1478
+#: ../src/snr3.c:1515
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Bat etorriko da maiuskulak/minuskulak berdinak badira."
 
-#: ../src/snr3.c:1482
+#: ../src/snr3.c:1519
 msgid "Pattern contains escape-se_quences"
 msgstr "_Ereduak ihes sekuentziak ditu"
 
-#: ../src/snr3.c:1485
+#: ../src/snr3.c:1522
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr ""
 "Ereduak ihes-ikurra \\n, \\t, e.a. bezalako alderantzizko barradun ihes-"
 "karaktereak ditu."
 
-#: ../src/snr3.c:1489
+#: ../src/snr3.c:1526
 msgid "Dot character in regex pattern matches newlines"
 msgstr ""
 
-#: ../src/snr3.c:1492
+#: ../src/snr3.c:1529
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
 
-#: ../src/snr3.c:1514
+#: ../src/snr3.c:1551
 msgid "Replace _All"
 msgstr "Ordeztu _guztiak"
 
-#: ../src/snr3.c:1516
+#: ../src/snr3.c:1553
 msgid "_Replace"
 msgstr "Orde_ztu"
 
-#: ../src/snr3.c:1520
+#: ../src/snr3.c:1557
 #, fuzzy
-msgid "_Bookmark all"
+msgid "Find All"
+msgstr "Bilatu _guztiak"
+
+#: ../src/snr3.c:1559
+#, fuzzy
+msgid "_Bookmark All"
 msgstr "Sortu emaitzen _laster-marka"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
@@ -3361,9 +3371,6 @@ msgstr "Aldaketa hau hainbat dokumentutan aplikatu da."
 
 #~ msgid "Create a bookmark for each match"
 #~ msgstr "Sortu emaitza bakoitzaren laster-marka"
-
-#~ msgid "Find _All"
-#~ msgstr "Bilatu _guztiak"
 
 #~ msgid "Parent"
 #~ msgstr "Gurasoa"

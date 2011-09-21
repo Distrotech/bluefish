@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-01 21:02+0200\n"
+"POT-Creation-Date: 2011-09-21 23:18+0200\n"
 "PO-Revision-Date: 2011-01-31 22:28+0100\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: None\n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
@@ -35,27 +35,27 @@ msgstr "Bluefish Sprach- und Syntaxunterstützung"
 msgid "Bluefish project file"
 msgstr "Bluefish Projektdatei"
 
-#: ../src/bftextview2.c:1407
+#: ../src/bftextview2.c:1418
 msgid "Collapse all"
 msgstr "Alle einklappen"
 
-#: ../src/bftextview2.c:1410
+#: ../src/bftextview2.c:1421
 msgid "Expand all"
 msgstr "Alle ausklappen"
 
-#: ../src/bftextview2_spell.c:671
+#: ../src/bftextview2_spell.c:672
 msgid "Spell check language"
 msgstr "Sprache für die Rechtschreibprüfung"
 
-#: ../src/bftextview2_spell.c:704
+#: ../src/bftextview2_spell.c:705
 msgid "Add to dictionary"
 msgstr "Zum Wörterbuch hinzufügen"
 
-#: ../src/bftextview2_spell.c:707
+#: ../src/bftextview2_spell.c:708
 msgid "Ignore spelling"
 msgstr "Rechtschreibung ignorieren"
 
-#: ../src/bftextview2_spell.c:722
+#: ../src/bftextview2_spell.c:723
 msgid "Insert special characters as entities"
 msgstr "Sonderzeichen als Entitäten einfügen"
 
@@ -81,12 +81,12 @@ msgstr "Suchen"
 msgid "Advanced"
 msgstr "Öffnen Er_weitert..."
 
-#: ../src/bfwin.c:1140
+#: ../src/bfwin.c:1141
 msgid "New Bluefish Window"
 msgstr "Neues Bluefish Fenster"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1191
+#: ../src/bfwin.c:1192
 msgid "Stand by..."
 msgstr "Warten..."
 
@@ -599,7 +599,7 @@ msgstr ""
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:828 ../src/document.c:2811
+#: ../src/bfwin_uimanager.c:828 ../src/document.c:2813
 msgid "_Close"
 msgstr "S_chliessen"
 
@@ -1319,7 +1319,7 @@ msgstr "Zeichensatzkonvertierungsfehler"
 msgid "Previously: "
 msgstr "Vorher: "
 
-#: ../src/document.c:2603 ../src/file_dialogs.c:812
+#: ../src/document.c:2604 ../src/file_dialogs.c:812
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1329,11 +1329,11 @@ msgstr ""
 "Bitte aktualisieren Sie Glib auf Version 2.18.0 oder neuer."
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2728
+#: ../src/document.c:2729
 msgid "Unable to open file"
 msgstr "Kann Datei nicht öffnen"
 
-#: ../src/document.c:2740
+#: ../src/document.c:2741
 #, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
@@ -1342,68 +1342,68 @@ msgstr ""
 "Wenn \"%s\" aus der zuletzt gespeicherten Version wiederhergestellt wird, "
 "gehen alle Änderungen verloren."
 
-#: ../src/document.c:2744
+#: ../src/document.c:2745
 msgid "Revert changes to last saved copy?"
 msgstr "Zuletzt gespeicherte Version wiederherstellen?"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "_Retry"
 msgstr "_Wiederholen"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "Retry _all failed"
 msgstr "Alles neu versuchen fehl geschlagen"
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "Close all _failed"
 msgstr "Alles schließen fehl geschlagen"
 
-#: ../src/document.c:2816
+#: ../src/document.c:2818
 msgid "File "
 msgstr "Datei "
 
-#: ../src/document.c:2816
+#: ../src/document.c:2818
 msgid " failed to load."
 msgstr "Fehler beim Laden"
 
-#: ../src/document.c:2820
+#: ../src/document.c:2822
 msgid "File failed to load\n"
 msgstr "Datei konnte nicht geladen werden\n"
 
-#: ../src/document.c:2936
+#: ../src/document.c:2939
 msgid "Select file to insert"
 msgstr "Datei zum Einfügen auswählen"
 
-#: ../src/document.c:2945
+#: ../src/document.c:2948
 msgid "No file to insert"
 msgstr "Keine Datei zum einfügen"
 
-#: ../src/document.c:3049
+#: ../src/document.c:3055
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] "%d Zeile"
 msgstr[1] "%d Zeilen"
 
-#: ../src/document.c:3050
+#: ../src/document.c:3056
 #, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d Wort"
 msgstr[1] "%d Wörter"
 
-#: ../src/document.c:3051
+#: ../src/document.c:3057
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] "%d Zeichen"
 msgstr[1] "%d Zeichen"
 
-#: ../src/document.c:3053
+#: ../src/document.c:3059
 msgid "Selection statistics: "
 msgstr "Auswahlstatistiken: "
 
-#: ../src/document.c:3053
+#: ../src/document.c:3059
 msgid "Statistics: "
 msgstr "Statistiken: "
 
@@ -1650,37 +1650,37 @@ msgstr "Einfach"
 msgid "Tree"
 msgstr "Baum"
 
-#: ../src/file.c:808
+#: ../src/file.c:832
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] "Noch %d Datei laden, %s fertig"
 msgstr[1] "Noch %d Dateien laden, %s fertig"
 
-#: ../src/file.c:813
+#: ../src/file.c:837
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr "Alle Dateien wurden geladen, %s fertig"
 
-#: ../src/file.c:1307
+#: ../src/file.c:1347
 msgid "Finished advanced open"
 msgstr ""
 
-#: ../src/file.c:1481
+#: ../src/file.c:1521
 msgid "_Skip"
 msgstr "Ü_berspringen"
 
-#: ../src/file.c:1481 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
+#: ../src/file.c:1521 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
 #: ../src/project.c:308
 msgid "_Overwrite"
 msgstr "Ü_berschreiben"
 
-#: ../src/file.c:1485
+#: ../src/file.c:1525
 #, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "%s kann nicht kopiert werden, da es bereits existiert. Überschreiben?"
 
-#: ../src/file.c:1487
+#: ../src/file.c:1527
 msgid "Overwrite file?"
 msgstr "Datei Überschreiben?"
 
@@ -2050,19 +2050,19 @@ msgstr "Passwort erst beim Ab_melden vergessen"
 msgid "Remember _forever"
 msgstr "_Nie vergessen"
 
-#: ../src/outputbox.c:246
+#: ../src/outputbox.c:247
 msgid "Filename"
 msgstr "Dateiname"
 
-#: ../src/outputbox.c:248
+#: ../src/outputbox.c:249
 msgid "Line"
 msgstr "Zeile"
 
-#: ../src/outputbox.c:250
+#: ../src/outputbox.c:251
 msgid "Output"
 msgstr "Ausgabe"
 
-#: ../src/outputbox.c:466
+#: ../src/outputbox.c:469
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "Muster %s für die Ausgabe konnte nicht kompiliert werden: %s"
@@ -2090,7 +2090,7 @@ msgstr "_Template:"
 #. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 #. G_CALLBACK(snr_combo_activate_lcb), snrwin);
 #.
-#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1405
+#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1442
 msgid "<b>Options</b>"
 msgstr "<b>Optionen</b>"
 
@@ -3095,15 +3095,15 @@ msgstr "Webdateien"
 msgid "Hide objectfiles"
 msgstr "Objektdateien verstecken"
 
-#: ../src/snr3.c:610
+#: ../src/snr3.c:629
 msgid "<i>Replace started</i>"
 msgstr ""
 
-#: ../src/snr3.c:615
+#: ../src/snr3.c:634
 msgid "<i>Search started</i>"
 msgstr ""
 
-#: ../src/snr3.c:633
+#: ../src/snr3.c:652
 #, fuzzy
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
 msgstr ""
@@ -3111,7 +3111,7 @@ msgstr ""
 "einen Textblock selektieren.</span>"
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr3.c:642
+#: ../src/snr3.c:661
 #, fuzzy
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
@@ -3120,148 +3120,158 @@ msgstr ""
 "<span foreground=\"red\" weight=\"bold\">Noch nicht alle Dokumente geladen</"
 "span>"
 
-#: ../src/snr3.c:741
+#: ../src/snr3.c:765
 #, fuzzy, c-format
 msgid "<i>Replaced %d entries</i>"
 msgstr "<b>Zuletzt geöffnete Dateien</b>"
 
-#: ../src/snr3.c:952
+#: ../src/snr3.c:767
+#, fuzzy, c-format
+msgid "<i>Found %d entries</i>"
+msgstr "<b>Zuletzt geöffnete Dateien</b>"
+
+#: ../src/snr3.c:981
 #, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr ""
 
-#: ../src/snr3.c:955
+#: ../src/snr3.c:984
 #, c-format
 msgid "<i>Found %d results from character %d to %d</i>"
 msgstr ""
 
-#: ../src/snr3.c:957
+#: ../src/snr3.c:986
 #, c-format
 msgid "<i>Found %d results in the active document</i>"
 msgstr ""
 
 #
-#: ../src/snr3.c:1306
+#: ../src/snr3.c:1343
 #, fuzzy
 msgid "Active document"
 msgstr "Gesamtes Dokument"
 
-#: ../src/snr3.c:1307
+#: ../src/snr3.c:1344
 msgid "Forward from cursor position"
 msgstr "Von Cursorposition vorwärts"
 
-#: ../src/snr3.c:1308
+#: ../src/snr3.c:1345
 #, fuzzy
 msgid "Current selection"
 msgstr "Farbe für die aktuelle Zeile"
 
-#: ../src/snr3.c:1309
+#: ../src/snr3.c:1346
 #, fuzzy
 msgid "All open documents"
 msgstr "Alle offenen Dateien"
 
-#: ../src/snr3.c:1310
+#: ../src/snr3.c:1347
 #, fuzzy
 msgid "Files on disk"
 msgstr "Datei wurde auf dem Datenträger verändert\n"
 
-#: ../src/snr3.c:1314 ../src/snr3.c:1319
+#: ../src/snr3.c:1351 ../src/snr3.c:1356
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/snr3.c:1315
+#: ../src/snr3.c:1352
 #, fuzzy
 msgid "Regular expression (pcre)"
 msgstr "Fehler im regulären Ausdruck: "
 
-#: ../src/snr3.c:1320
+#: ../src/snr3.c:1357
 msgid "Uppercase"
 msgstr "Großschrift"
 
-#: ../src/snr3.c:1321
+#: ../src/snr3.c:1358
 msgid "Lowercase"
 msgstr "Kleinschrift"
 
-#: ../src/snr3.c:1328
+#: ../src/snr3.c:1365
 #, fuzzy
 msgid "Find and Replace"
 msgstr "Ersetzen"
 
-#: ../src/snr3.c:1364
+#: ../src/snr3.c:1401
 #, fuzzy
 msgid "<b>_Search for</b>"
 msgstr "_Suchen nach: "
 
 #
-#: ../src/snr3.c:1393
+#: ../src/snr3.c:1430
 #, fuzzy
 msgid "<b>Replace _with</b>"
 msgstr "_Ersetzen durch: "
 
-#: ../src/snr3.c:1415
+#: ../src/snr3.c:1452
 msgid "Match Patter_n: "
 msgstr "Such_muster: "
 
 #
-#: ../src/snr3.c:1427
+#: ../src/snr3.c:1464
 msgid "Replace T_ype: "
 msgstr "Ersetzeungst_yp:"
 
-#: ../src/snr3.c:1440
+#: ../src/snr3.c:1477
 msgid "Sco_pe: "
 msgstr "Bereic_h: "
 
-#: ../src/snr3.c:1455
+#: ../src/snr3.c:1492
 #, fuzzy
 msgid "Filename pattern: "
 msgstr "Dateiname: %s"
 
-#: ../src/snr3.c:1461
+#: ../src/snr3.c:1498
 #, fuzzy
 msgid "Basedir: "
 msgstr "Basis_verzeichnis:"
 
 #
-#: ../src/snr3.c:1476
+#: ../src/snr3.c:1513
 msgid "Case sensitive _matching"
 msgstr "Groß- und Kleinschreibung be_achten"
 
-#: ../src/snr3.c:1478
+#: ../src/snr3.c:1515
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Nur finden falls Groß-/Kleinschreibung identisch ist"
 
-#: ../src/snr3.c:1482
+#: ../src/snr3.c:1519
 msgid "Pattern contains escape-se_quences"
 msgstr "Suchmuster enthält Flucht_zeichen"
 
-#: ../src/snr3.c:1485
+#: ../src/snr3.c:1522
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr ""
 "Das Suchmuster enthält mit dem Backslash-Fluchtzeichen versehene Zeichen wie "
 "\\n \\t etc."
 
-#: ../src/snr3.c:1489
+#: ../src/snr3.c:1526
 msgid "Dot character in regex pattern matches newlines"
 msgstr ""
 
-#: ../src/snr3.c:1492
+#: ../src/snr3.c:1529
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
 
 #
-#: ../src/snr3.c:1514
+#: ../src/snr3.c:1551
 msgid "Replace _All"
 msgstr "_Alles ersetzen"
 
-#: ../src/snr3.c:1516
+#: ../src/snr3.c:1553
 msgid "_Replace"
 msgstr "E_rsetzen"
 
-#: ../src/snr3.c:1520
+#: ../src/snr3.c:1557
 #, fuzzy
-msgid "_Bookmark all"
+msgid "Find All"
+msgstr "_Alles finden"
+
+#: ../src/snr3.c:1559
+#, fuzzy
+msgid "_Bookmark All"
 msgstr "Treffer _bookmarken"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
@@ -3384,6 +3394,3 @@ msgstr "Diese Änderung betrifft mehrere Dokumente"
 
 #~ msgid "Create a bookmark for each match"
 #~ msgstr "Erzeuge Lesezeichen für jeden Treffer"
-
-#~ msgid "Find _All"
-#~ msgstr "_Alles finden"

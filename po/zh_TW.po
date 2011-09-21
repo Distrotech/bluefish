@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish SVN\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-01 21:02+0200\n"
+"POT-Creation-Date: 2011-09-21 23:18+0200\n"
 "PO-Revision-Date: 2005-01-19 11:34+0800\n"
 "Last-Translator: OLS3 <ols3@lxer.idv.tw>\n"
 "Language-Team: zh_TW <i18n-translation@b2d.org.tw>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
 #, fuzzy
@@ -31,31 +31,31 @@ msgstr "定義"
 msgid "Bluefish project file"
 msgstr "輸入 Bluefish 專案檔名"
 
-#: ../src/bftextview2.c:1407
+#: ../src/bftextview2.c:1418
 #, fuzzy
 msgid "Collapse all"
 msgstr "全部關閉(_A)"
 
-#: ../src/bftextview2.c:1410
+#: ../src/bftextview2.c:1421
 msgid "Expand all"
 msgstr ""
 
-#: ../src/bftextview2_spell.c:671
+#: ../src/bftextview2_spell.c:672
 #, fuzzy
 msgid "Spell check language"
 msgstr "拼字檢查..."
 
-#: ../src/bftextview2_spell.c:704
+#: ../src/bftextview2_spell.c:705
 #, fuzzy
 msgid "Add to dictionary"
 msgstr "新增到快捷列"
 
-#: ../src/bftextview2_spell.c:707
+#: ../src/bftextview2_spell.c:708
 #, fuzzy
 msgid "Ignore spelling"
 msgstr "拼字檢查"
 
-#: ../src/bftextview2_spell.c:722
+#: ../src/bftextview2_spell.c:723
 msgid "Insert special characters as entities"
 msgstr ""
 
@@ -82,12 +82,12 @@ msgstr "尋找"
 msgid "Advanced"
 msgstr "/進階開啟(_A)..."
 
-#: ../src/bfwin.c:1140
+#: ../src/bfwin.c:1141
 msgid "New Bluefish Window"
 msgstr "新增 Bluefish 視窗"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/bfwin.c:1191
+#: ../src/bfwin.c:1192
 msgid "Stand by..."
 msgstr "稍待..."
 
@@ -634,7 +634,7 @@ msgstr ""
 msgid "Wrap text"
 msgstr ""
 
-#: ../src/bfwin_uimanager.c:828 ../src/document.c:2811
+#: ../src/bfwin_uimanager.c:828 ../src/document.c:2813
 #, fuzzy
 msgid "_Close"
 msgstr "關閉"
@@ -1387,7 +1387,7 @@ msgstr "檔案編碼轉換失敗"
 msgid "Previously: "
 msgstr "前一個: "
 
-#: ../src/document.c:2603 ../src/file_dialogs.c:812
+#: ../src/document.c:2604 ../src/file_dialogs.c:812
 #, c-format
 msgid ""
 "Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade "
@@ -1395,83 +1395,83 @@ msgid ""
 msgstr ""
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:2728
+#: ../src/document.c:2729
 msgid "Unable to open file"
 msgstr "無法開啟檔案"
 
-#: ../src/document.c:2740
+#: ../src/document.c:2741
 #, fuzzy, c-format
 msgid ""
 "If you revert \"%s\" to your last saved copy, your current changes will be "
 "permanently lost."
 msgstr "如果您刪除這個檔案, 它將會永久消失."
 
-#: ../src/document.c:2744
+#: ../src/document.c:2745
 #, fuzzy
 msgid "Revert changes to last saved copy?"
 msgstr "關閉前要儲存 \"%s\" 嗎?."
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:2811
+#: ../src/document.c:2813
 #, fuzzy
 msgid "Close all _failed"
 msgstr "檔案儲存中斷.\n"
 
-#: ../src/document.c:2816
+#: ../src/document.c:2818
 #, fuzzy
 msgid "File "
 msgstr "檔案 #"
 
-#: ../src/document.c:2816
+#: ../src/document.c:2818
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:2820
+#: ../src/document.c:2822
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:2936
+#: ../src/document.c:2939
 msgid "Select file to insert"
 msgstr "選擇要插入的檔案"
 
-#: ../src/document.c:2945
+#: ../src/document.c:2948
 msgid "No file to insert"
 msgstr "沒有要插入的檔案"
 
-#: ../src/document.c:3049
+#: ../src/document.c:3055
 #, c-format
 msgid "%d line"
 msgid_plural "%d lines"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/document.c:3050
+#: ../src/document.c:3056
 #, fuzzy, c-format
 msgid "%d word"
 msgid_plural "%d words"
 msgstr[0] "%d 的 %d"
 msgstr[1] "%d 的 %d"
 
-#: ../src/document.c:3051
+#: ../src/document.c:3057
 #, c-format
 msgid "%d character"
 msgid_plural "%d characters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/document.c:3053
+#: ../src/document.c:3059
 #, fuzzy
 msgid "Selection statistics: "
 msgstr "開始於:"
 
-#: ../src/document.c:3053
+#: ../src/document.c:3059
 #, fuzzy
 msgid "Statistics: "
 msgstr "開始於:"
@@ -1730,37 +1730,37 @@ msgstr ""
 msgid "Tree"
 msgstr ""
 
-#: ../src/file.c:808
+#: ../src/file.c:832
 #, c-format
 msgid "Still loading %d file, finished %s"
 msgid_plural "Still loading %d files, finished %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/file.c:813
+#: ../src/file.c:837
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr ""
 
-#: ../src/file.c:1307
+#: ../src/file.c:1347
 msgid "Finished advanced open"
 msgstr ""
 
-#: ../src/file.c:1481
+#: ../src/file.c:1521
 msgid "_Skip"
 msgstr "跳過(_S)"
 
-#: ../src/file.c:1481 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
+#: ../src/file.c:1521 ../src/file_dialogs.c:640 ../src/file_dialogs.c:661
 #: ../src/project.c:308
 msgid "_Overwrite"
 msgstr "覆蓋(_O)"
 
-#: ../src/file.c:1485
+#: ../src/file.c:1525
 #, fuzzy, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "檔案 %s 已存在且已被開啟, 要覆蓋嗎?"
 
-#: ../src/file.c:1487
+#: ../src/file.c:1527
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "覆蓋(_O)"
@@ -2143,22 +2143,22 @@ msgstr ""
 msgid "Remember _forever"
 msgstr ""
 
-#: ../src/outputbox.c:246
+#: ../src/outputbox.c:247
 #, fuzzy
 msgid "Filename"
 msgstr "檔案名稱"
 
-#: ../src/outputbox.c:248
+#: ../src/outputbox.c:249
 #, fuzzy
 msgid "Line"
 msgstr "列 #"
 
-#: ../src/outputbox.c:250
+#: ../src/outputbox.c:251
 #, fuzzy
 msgid "Output"
 msgstr "輸出 #"
 
-#: ../src/outputbox.c:466
+#: ../src/outputbox.c:469
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr ""
@@ -2188,7 +2188,7 @@ msgstr "樣板(_T):"
 #. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 #. G_CALLBACK(snr_combo_activate_lcb), snrwin);
 #.
-#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1405
+#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1442
 #, fuzzy
 msgid "<b>Options</b>"
 msgstr "<b>包含</b>"
@@ -3230,166 +3230,176 @@ msgstr "所有的 Web 檔案"
 msgid "Hide objectfiles"
 msgstr "隱藏目標檔案"
 
-#: ../src/snr3.c:610
+#: ../src/snr3.c:629
 msgid "<i>Replace started</i>"
 msgstr ""
 
-#: ../src/snr3.c:615
+#: ../src/snr3.c:634
 msgid "<i>Search started</i>"
 msgstr ""
 
-#: ../src/snr3.c:633
+#: ../src/snr3.c:652
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
 msgstr ""
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr3.c:642
+#: ../src/snr3.c:661
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
 "span>"
 msgstr ""
 
-#: ../src/snr3.c:741
+#: ../src/snr3.c:765
 #, fuzzy, c-format
 msgid "<i>Replaced %d entries</i>"
 msgstr "屬性"
 
-#: ../src/snr3.c:952
+#: ../src/snr3.c:767
+#, fuzzy, c-format
+msgid "<i>Found %d entries</i>"
+msgstr "屬性"
+
+#: ../src/snr3.c:981
 #, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr ""
 
-#: ../src/snr3.c:955
+#: ../src/snr3.c:984
 #, c-format
 msgid "<i>Found %d results from character %d to %d</i>"
 msgstr ""
 
-#: ../src/snr3.c:957
+#: ../src/snr3.c:986
 #, c-format
 msgid "<i>Found %d results in the active document</i>"
 msgstr ""
 
-#: ../src/snr3.c:1306
+#: ../src/snr3.c:1343
 #, fuzzy
 msgid "Active document"
 msgstr "在文件中(_D)"
 
-#: ../src/snr3.c:1307
+#: ../src/snr3.c:1344
 msgid "Forward from cursor position"
 msgstr ""
 
-#: ../src/snr3.c:1308
+#: ../src/snr3.c:1345
 #, fuzzy
 msgid "Current selection"
 msgstr "在選擇中(_N)"
 
-#: ../src/snr3.c:1309
+#: ../src/snr3.c:1346
 #, fuzzy
 msgid "All open documents"
 msgstr "在所有開啟的文件中"
 
-#: ../src/snr3.c:1310
+#: ../src/snr3.c:1347
 #, fuzzy
 msgid "Files on disk"
 msgstr "檔案大小已改變\n"
 
-#: ../src/snr3.c:1314 ../src/snr3.c:1319
+#: ../src/snr3.c:1351 ../src/snr3.c:1356
 msgid "Normal"
 msgstr "一般"
 
-#: ../src/snr3.c:1315
+#: ../src/snr3.c:1352
 #, fuzzy
 msgid "Regular expression (pcre)"
 msgstr "正規式:"
 
-#: ../src/snr3.c:1320
+#: ../src/snr3.c:1357
 msgid "Uppercase"
 msgstr "大寫"
 
-#: ../src/snr3.c:1321
+#: ../src/snr3.c:1358
 msgid "Lowercase"
 msgstr "小寫"
 
-#: ../src/snr3.c:1328
+#: ../src/snr3.c:1365
 #, fuzzy
 msgid "Find and Replace"
 msgstr "取代"
 
-#: ../src/snr3.c:1364
+#: ../src/snr3.c:1401
 #, fuzzy
 msgid "<b>_Search for</b>"
 msgstr "搜尋(_S):"
 
-#: ../src/snr3.c:1393
+#: ../src/snr3.c:1430
 #, fuzzy
 msgid "<b>Replace _with</b>"
 msgstr "取代以(_R):"
 
-#: ../src/snr3.c:1415
+#: ../src/snr3.c:1452
 #, fuzzy
 msgid "Match Patter_n: "
 msgstr "搜尋樣式"
 
-#: ../src/snr3.c:1427
+#: ../src/snr3.c:1464
 #, fuzzy
 msgid "Replace T_ype: "
 msgstr "取代類型:"
 
-#: ../src/snr3.c:1440
+#: ../src/snr3.c:1477
 msgid "Sco_pe: "
 msgstr ""
 
-#: ../src/snr3.c:1455
+#: ../src/snr3.c:1492
 #, fuzzy
 msgid "Filename pattern: "
 msgstr "檔案名稱"
 
-#: ../src/snr3.c:1461
+#: ../src/snr3.c:1498
 #, fuzzy
 msgid "Basedir: "
 msgstr "基本目錄(_D):"
 
-#: ../src/snr3.c:1476
+#: ../src/snr3.c:1513
 #, fuzzy
 msgid "Case sensitive _matching"
 msgstr "區分大小寫地比對"
 
-#: ../src/snr3.c:1478
+#: ../src/snr3.c:1515
 msgid "Only match if case (upper/lower) is identical."
 msgstr ""
 
-#: ../src/snr3.c:1482
+#: ../src/snr3.c:1519
 #, fuzzy
 msgid "Pattern contains escape-se_quences"
 msgstr "樣式包含反斜線跳脫字元 (\\n、\\t)"
 
-#: ../src/snr3.c:1485
+#: ../src/snr3.c:1522
 #, fuzzy
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr "樣式包含反斜線跳脫字元 (\\n、\\t)"
 
-#: ../src/snr3.c:1489
+#: ../src/snr3.c:1526
 msgid "Dot character in regex pattern matches newlines"
 msgstr ""
 
-#: ../src/snr3.c:1492
+#: ../src/snr3.c:1529
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
 
-#: ../src/snr3.c:1514
+#: ../src/snr3.c:1551
 #, fuzzy
 msgid "Replace _All"
 msgstr "全部取代(_A)"
 
-#: ../src/snr3.c:1516
+#: ../src/snr3.c:1553
 msgid "_Replace"
 msgstr "取代(_R)"
 
-#: ../src/snr3.c:1520
+#: ../src/snr3.c:1557
 #, fuzzy
-msgid "_Bookmark all"
+msgid "Find All"
+msgstr "尋找"
+
+#: ../src/snr3.c:1559
+#, fuzzy
+msgid "_Bookmark All"
 msgstr "書籤"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
@@ -3494,10 +3504,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Select matc_hes"
 #~ msgstr "選擇檔案"
-
-#, fuzzy
-#~ msgid "Find _All"
-#~ msgstr "尋找"
 
 #, fuzzy
 #~ msgid "/Edit"
