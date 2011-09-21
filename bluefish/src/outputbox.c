@@ -309,7 +309,7 @@ outputbox_add_line(Tbfwin *bfwin, const gchar *uri, gint line, const gchar *mess
 		ob = init_output_box(bfwin);
 	}
 	gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
-	g_print("outputbox append %s : %d : %s\n",uri,line,message);
+	DEBUG_MSG("outputbox append %s : %d : %s\n",uri,line,message);
 	if (uri)
 		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter, 0, uri, -1);
 	
@@ -373,7 +373,8 @@ fill_output_box(gpointer data, gchar * string)
 				st = g_new(Tscrollto, 1);
 				st->lpath = gtk_tree_model_get_path(GTK_TREE_MODEL(ob->lstore), &iter);
 				st->ob = ob;
-				g_idle_add(scroll_to_lstore_path_idle_lcb, st);
+				/* use 114 priority so we have a higher priority than the idle scanning engine */
+				g_idle_add_full(114, scroll_to_lstore_path_idle_lcb, st, NULL);
 				ob->def->scrolled_once = TRUE;
 			}
 		}

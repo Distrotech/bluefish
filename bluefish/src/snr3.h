@@ -55,6 +55,7 @@ typedef struct {
 	GRegex *regex;
 	gchar *replace; /* enabled if not NULL */
 	gboolean replaceall; /* set to TRUE bluefish will immediately (while searching) do the replace */
+	gboolean findall; /* only used when find all in files is used */
 	Tsnr3type type;
 	Tsnr3replace replacetype;
 	Tsnr3scope scope;
