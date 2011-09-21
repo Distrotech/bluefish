@@ -31,6 +31,11 @@
 #include "snr3_files.h"
 #include "async_queue.h"
 
+typedef struct {
+	gint line;
+	gchar *text;
+} Tfileresult;
+
 /*#ifndef HAVE_STRCASESTR
 char *strcasestr(char *a, char *b)
 {
@@ -69,6 +74,32 @@ static guint calculate_line_in_buffer(Tlineinbuffer *lib, gchar *buffer, gsize p
 	return line;
 }
 
+static gchar *line_from_buffer(gchar *buffer, guint offset) {
+	guint i,j;
+	i=j=offset;
+	while (i >=0) {
+		if (buffer[i] == '\n' || buffer[i] == '\r')
+			break;
+		i--;
+	}
+	i++;
+	while (buffer[j] !='\0') {
+		if (buffer[j] == '\n' || buffer[j] == '\r')
+			break;
+		j++;
+	}
+	return g_strndup(buffer+i, j-i);
+}
+
+static Tfileresult *new_result(guint line, gchar *buffer, guint offset) {
+	Tfileresult *fr;
+	
+	fr = g_slice_new(Tfileresult);
+	fr->line = line;
+	fr->text = line_from_buffer(buffer, offset);
+	return fr;
+}
+
 static GList *snr3_find_pcre(Tsnr3run *s3run, gchar *buffer) {
 	Tlineinbuffer lib = {0,1};
 	GList *results=NULL;
@@ -80,8 +111,7 @@ static GList *snr3_find_pcre(Tsnr3run *s3run, gchar *buffer) {
 		guint line;
 		g_match_info_fetch_pos(match_info,0,&so,&eo);
 		line = calculate_line_in_buffer(&lib, buffer, so);
-		results = g_list_prepend(results, GINT_TO_POINTER(line));
-		
+		results = g_list_prepend(results, new_result(line, buffer, so));
 		g_match_info_next(match_info, NULL);
 	}
 	g_match_info_free(match_info);
@@ -122,7 +152,7 @@ static GList *snr3_replace_pcre(Tsnr3run *s3run, gchar *buffer, gchar **replaced
 		prevpos = eo;
 		
 		line = calculate_line_in_buffer(&lib, newbuf, (newbufpos-newbuf));
-		results = g_list_prepend(results, GINT_TO_POINTER(line));
+		results = g_list_prepend(results, new_result(line, newbuf, (newbufpos-newbuf)));
 		
 		replacestring = g_match_info_expand_references(match_info, s3run->replace, &gerror);
 		if (gerror) {
@@ -173,7 +203,7 @@ static GList *snr3_find_string(Tsnr3run *s3run, gchar *buffer) {
 		DEBUG_MSG("snr3_find_string, result=%p\n",result);
 		if (result) {
 			guint line = calculate_line_in_buffer(&lib, buffer, (result-buffer));
-			results = g_list_prepend(results, GINT_TO_POINTER(line));
+			results = g_list_prepend(results, new_result(line, buffer, result-buffer));
 			result += querylen;
 		}
 	} while (result);
@@ -225,7 +255,7 @@ static GList *snr3_replace_string(Tsnr3run *s3run, gchar *buffer, gchar **replac
 			result += querylen;
 			bufferpos = result;
 			
-			results = g_list_prepend(results, GINT_TO_POINTER(line));
+			results = g_list_prepend(results, new_result(line, newbuf, newbufpos-newbuf));
 			
 			if (alloced <= (1+replacelen+(newbufpos-newbuf)+replacelen+(buflen-(bufferpos-buffer)))) {
 				gchar *tmp;
@@ -257,7 +287,10 @@ static gboolean replace_files_in_thread_finished(gpointer data) {
 	if (g_atomic_int_get(&rit->s3run->cancelled)==0) {
 		curi = g_file_get_uri(rit->uri);
 		for (tmplist=g_list_first(rit->results);tmplist;tmplist=g_list_next(tmplist)) {
-			outputbox_add_line(rit->s3run->bfwin, curi, GPOINTER_TO_INT(tmplist->data), rit->s3run->query);
+			Tfileresult *fr = tmplist->data;
+			outputbox_add_line(rit->s3run->bfwin, curi, fr->line, fr->text);
+			g_free(fr->text);
+			g_slice_free(Tfileresult, fr);
 		}
 		g_free(curi);
 	}
