@@ -39,6 +39,7 @@
 #include "gtk_easy.h"
 #include "pixmap.h"
 #include "stringlist.h"
+#include "dialog_utils.h"
 
 #define NUM_MATCH 30
 
