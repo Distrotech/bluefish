@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-21 23:18+0200\n"
-"PO-Revision-Date: 2011-09-04 16:47+0200\n"
+"PO-Revision-Date: 2011-09-22 10:15+0200\n"
 "Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -2979,9 +2979,9 @@ msgid "<i>Replaced %d entries</i>"
 msgstr "<i>Bytt ut %d oppføringar</i>"
 
 #: ../src/snr3.c:767
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d entries</i>"
-msgstr "<i>Bytt ut %d oppføringar</i>"
+msgstr "<i>Fann %d oppføringar</i>"
 
 #: ../src/snr3.c:981
 #, c-format
@@ -3102,14 +3102,12 @@ msgid "_Replace"
 msgstr "Byt _ut"
 
 #: ../src/snr3.c:1557
-#, fuzzy
 msgid "Find All"
-msgstr "Finn _alt"
+msgstr "Finn alle"
 
 #: ../src/snr3.c:1559
-#, fuzzy
 msgid "_Bookmark All"
-msgstr "Merk alle som _bokmerke"
+msgstr "Legg til alle som _bokmerke"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
 msgid "Undo in _all documents"
