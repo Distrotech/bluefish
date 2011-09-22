@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-06 07:03+0200\n"
+"POT-Creation-Date: 2011-09-22 03:12+0200\n"
 "PO-Revision-Date: 2011-09-04 16:29+0200\n"
 "Last-Translator: Yngve Spjeld Landro <l10n@landro.net>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
@@ -87,11 +87,11 @@ msgstr "Sti_l …"
 msgid "Bluefish: Select color"
 msgstr "Bluefish: vel farge"
 
-#: src/plugin_htmlbar/htmlbar.c:41
+#: src/plugin_htmlbar/htmlbar.c:42
 msgid "Edit color"
 msgstr "Endra farge"
 
-#: src/plugin_htmlbar/htmlbar.c:49
+#: src/plugin_htmlbar/htmlbar.c:50
 msgid "Edit tag"
 msgstr "Endra etikett"
 
@@ -1343,178 +1343,184 @@ msgid "Input Check Box..."
 msgstr "Avkryssingsboks …"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1697
+#, fuzzy
+msgid "_HTML5"
+msgstr " HTML 5 "
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1684
 msgid "_Article"
 msgstr "_Artikkel"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1683
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1684
 msgid "Article"
 msgstr "Artikkel"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1684
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
 msgid "As_ide"
 msgstr "Sidestolpe"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1684
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
 msgid "Aside"
 msgstr "Sidestolpe"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1686
 msgid "Figcaption"
 msgstr "Figurbilettekst"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1686
 msgid "Figcaption "
 msgstr "Figurbilettekst"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1686
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
 msgid "Fig_ure"
 msgstr "Figur"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1686
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
 msgid "Figure"
 msgstr "Figur"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1688
 msgid "_Footer"
 msgstr "_Botntekst"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1688
 msgid "Footer"
 msgstr "Botntekst"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1688
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
 msgid "_Header"
 msgstr "_Hovud"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1688
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
 msgid "Header"
 msgstr "Hovud"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1690
 msgid "H_group"
 msgstr "Hovudgruppering"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1690
 msgid "Hgroup"
 msgstr "Hovudgruppering"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1690
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1691
 msgid "_Mark"
 msgstr "Marker"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1690
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1691
 msgid "Mark"
 msgstr "Marker"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1691
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1692
 msgid "_Nav"
 msgstr "_Nav"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1691
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1692
 msgid "Nav"
 msgstr "Nav"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1692
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1693
 msgid "Rp"
 msgstr "Rp"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1692
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1693
 msgid "Ruby parenthesis"
 msgstr "rp"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1693
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1694
 msgid "Rt"
 msgstr "Rt"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1693
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1694
 msgid "Ruby text"
 msgstr "rt"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1694
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1695
 msgid "_Ruby"
 msgstr "_Ruby"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1694
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1695
 msgid "Ruby"
 msgstr "Ruby"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1695
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1696
 msgid "_Section"
 msgstr "_Inndeling"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1695
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1696
 msgid "Section"
 msgstr "Inndeling"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1696
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1698
 msgid "Au_dio..."
 msgstr "Lyd …"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1696
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1698
 msgid "Audio..."
 msgstr "Lyd …"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1697
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1699
 msgid "_Video..."
 msgstr "_Video …"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1697
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1699
 msgid "Video..."
 msgstr "Video …"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1698
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1700
 msgid "_Canvas..."
 msgstr "_Canvas …"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1698
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1700
 msgid "Canvas..."
 msgstr "Canvas …"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1699
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1701
 msgid "_Time..."
 msgstr "_Tid …"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1699
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1701
 msgid "Time..."
 msgstr "Tid …"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1710
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1712
 msgid "_HTML Toolbar"
 msgstr "_HTML-verktøylinja"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1745
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1747
 msgid " Standard "
 msgstr " Standard "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1749
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1751
 msgid " Fonts "
 msgstr " Skrifter "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1753
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1755
 msgid " Formatting "
 msgstr " Formaterer "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1757
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1759
 msgid " Tables "
 msgstr " Tabellar "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1761
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1763
 msgid " Frames "
 msgstr " Rammer "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1765
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1767
 msgid " Forms "
 msgstr " Skjema "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1769
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1771
 msgid " List "
 msgstr " Liste "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1773
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1775
 msgid " CSS "
 msgstr " CSS "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1777
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1779
 msgid " HTML 5 "
 msgstr " HTML 5 "
 
@@ -1921,7 +1927,7 @@ msgid "No _Resize:"
 msgstr "Inga _skalering:"
 
 #. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:1917 src/plugin_htmlbar/html.c:2048
+#: src/plugin_htmlbar/html.c:1917
 msgid "Audio"
 msgstr "Lyd"
 
@@ -1945,6 +1951,12 @@ msgstr "_Førehandslast:"
 #: src/plugin_htmlbar/html.c:1990
 msgid "Canvas"
 msgstr "Canvas"
+
+#. Dialog construction and settings
+#: src/plugin_htmlbar/html.c:2048
+#, fuzzy
+msgid "Video"
+msgstr "Video …"
 
 #: src/plugin_htmlbar/html.c:2065
 msgid "_Poster:"
@@ -2188,43 +2200,43 @@ msgstr "_Loddrett avstand:"
 msgid "Borde_r:"
 msgstr "_Kant:"
 
-#: src/plugin_htmlbar/image.c:946
+#: src/plugin_htmlbar/image.c:945
 msgid "Select files for thumbnail creation"
 msgstr "Vel filene det skal lagast miniatyrar av"
 
-#: src/plugin_htmlbar/image.c:988
+#: src/plugin_htmlbar/image.c:987
 msgid "Scaling (%)"
 msgstr "Skalering (%) "
 
-#: src/plugin_htmlbar/image.c:992 src/plugin_htmlbar/image.c:1000
+#: src/plugin_htmlbar/image.c:991 src/plugin_htmlbar/image.c:999
 msgid "Width"
 msgstr "Breidd"
 
-#: src/plugin_htmlbar/image.c:996 src/plugin_htmlbar/image.c:1037
+#: src/plugin_htmlbar/image.c:995 src/plugin_htmlbar/image.c:1036
 msgid "Height"
 msgstr "Høgd"
 
-#: src/plugin_htmlbar/image.c:1020
+#: src/plugin_htmlbar/image.c:1019
 msgid "Multi thumbnail"
 msgstr "Fleirminiatyr"
 
-#: src/plugin_htmlbar/image.c:1026
+#: src/plugin_htmlbar/image.c:1025
 msgid "By scaling"
 msgstr "Etter skalering"
 
-#: src/plugin_htmlbar/image.c:1029
+#: src/plugin_htmlbar/image.c:1028
 msgid "By width, keep aspect ratio"
 msgstr "Etter breidda, hald på breidd/høgd-forholdet"
 
-#: src/plugin_htmlbar/image.c:1032
+#: src/plugin_htmlbar/image.c:1031
 msgid "By height, keep aspect ratio"
 msgstr "Etter høgda, hald på breidd/høgd-forholdet"
 
-#: src/plugin_htmlbar/image.c:1035
+#: src/plugin_htmlbar/image.c:1034
 msgid "By width and height, ignore aspect ratio"
 msgstr "Etter breidda og høgda, sjå vekk frå breidd/høgd-forholdet"
 
-#: src/plugin_htmlbar/image.c:1061
+#: src/plugin_htmlbar/image.c:1060
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2422,4 +2434,3 @@ msgstr "Kjelde:"
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "Storleik:"
-
