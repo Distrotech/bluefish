@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-21 23:18+0200\n"
-"PO-Revision-Date: 2011-09-03 13:27+0200\n"
+"PO-Revision-Date: 2011-09-22 03:00+0200\n"
 "Last-Translator: Frédéric Falsetti <falsetti@clansco.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -3004,9 +3004,9 @@ msgid "<i>Replaced %d entries</i>"
 msgstr "<i>%d items remplacés</i>"
 
 #: ../src/snr3.c:767
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d entries</i>"
-msgstr "<i>%d items remplacés</i>"
+msgstr "<i>%d items trouvés</i>"
 
 #: ../src/snr3.c:981
 #, c-format
@@ -3132,14 +3132,12 @@ msgid "_Replace"
 msgstr "_Remplacer"
 
 #: ../src/snr3.c:1557
-#, fuzzy
 msgid "Find All"
-msgstr "Tout annuler"
+msgstr "Tout Chercher"
 
 #: ../src/snr3.c:1559
-#, fuzzy
 msgid "_Bookmark All"
-msgstr "_Signets"
+msgstr "Marquer tous les signets"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
 msgid "Undo in _all documents"
