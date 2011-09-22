@@ -329,17 +329,27 @@ static Tsnr3result * sn3run_add_result(Tsnr3run *s3run, gulong so, gulong eo, gp
 	s3result->doc = doc;
 	g_queue_push_tail(&s3run->results, s3result);
 	if (s3run->showinoutputbox && doc && DOCUMENT(doc)->uri) {
-		GtkTextIter it1, it2;
+		GtkTextIter it1, it2, tmpit;
 		gchar *curi, *text;
 		guint line;
 		curi = g_file_get_uri(DOCUMENT(doc)->uri);
 		gtk_text_buffer_get_iter_at_offset(DOCUMENT(doc)->buffer, &it1, so);
 		line = gtk_text_iter_get_line(&it1)+1;
 		gtk_text_buffer_get_iter_at_offset(DOCUMENT(doc)->buffer, &it2, eo);
-		if (!gtk_text_iter_starts_line(&it1)) 
-			gtk_text_iter_set_line_offset(&it1, 0);
-		if (!gtk_text_iter_ends_line(&it2)) 
+		if (!gtk_text_iter_starts_line(&it1)) {
+			if (gtk_text_iter_get_line_offset(&it1) <= 40) 
+				gtk_text_iter_set_line_offset(&it1, 0);
+			else
+				gtk_text_iter_backward_chars(&it1, 40);
+		}
+		if (!gtk_text_iter_ends_line(&it2)) {
+			tmpit = it2; 
 			gtk_text_iter_forward_to_line_end(&it2);
+			if (gtk_text_iter_get_offset(&it2) > (gtk_text_iter_get_offset(&tmpit)+40)) {
+				it2 = tmpit;
+				gtk_text_iter_forward_chars(&it2, 40);
+			}
+		}
 		text = gtk_text_buffer_get_text(DOCUMENT(doc)->buffer, &it1, &it2, TRUE);
 		outputbox_add_line(s3run->bfwin, curi, line, text);
 		g_free(curi);
