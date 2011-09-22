@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-21 23:18+0200\n"
-"PO-Revision-Date: 2011-09-07 00:37+0800\n"
+"POT-Creation-Date: 2011-09-21 14:09+0800\n"
+"PO-Revision-Date: 2011-09-21 14:31+0800\n"
 "Last-Translator: ZhiFeng Ma <mzf9527@gmail.com>\n"
 "Language-Team: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
 msgid "Bluefish Editor"
@@ -1922,19 +1922,19 @@ msgstr "退出前记住密码(_l)"
 msgid "Remember _forever"
 msgstr "永久记忆"
 
-#: ../src/outputbox.c:247
+#: ../src/outputbox.c:246
 msgid "Filename"
 msgstr "文件名"
 
-#: ../src/outputbox.c:249
+#: ../src/outputbox.c:248
 msgid "Line"
 msgstr "行"
 
-#: ../src/outputbox.c:251
+#: ../src/outputbox.c:250
 msgid "Output"
 msgstr "输出"
 
-#: ../src/outputbox.c:469
+#: ../src/outputbox.c:467
 #, c-format
 msgid "Failed to compile outputbox pattern %s: %s"
 msgstr "编译输出窗口模式失败 %s: %s"
@@ -1961,7 +1961,7 @@ msgstr "模板(_T)："
 #. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 #. G_CALLBACK(snr_combo_activate_lcb), snrwin);
 #.
-#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1442
+#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1431
 msgid "<b>Options</b>"
 msgstr "<b>选项</b>"
 
@@ -2936,161 +2936,159 @@ msgstr "Web 文件（集）"
 msgid "Hide objectfiles"
 msgstr "隐藏目标文件"
 
-#: ../src/snr3.c:629
+#: ../src/snr3.c:620
 msgid "<i>Replace started</i>"
 msgstr "<i>替换已启动</i>"
 
-#: ../src/snr3.c:634
+#: ../src/snr3.c:625
 msgid "<i>Search started</i>"
 msgstr "<i>搜索已启动</i>"
 
-#: ../src/snr3.c:652
+#: ../src/snr3.c:643
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
 msgstr "<span foreground=\"red\"><b>未发现有选择区域，搜索终止</b></span>"
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr3.c:661
+#: ../src/snr3.c:652
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
 "span>"
 msgstr "<span foreground=\"red\" weight=\"bold\">部分文档仍在读取中</span>"
 
-#: ../src/snr3.c:765
+#: ../src/snr3.c:756
 #, c-format
 msgid "<i>Replaced %d entries</i>"
 msgstr "<i>已替换 %d 个条目</i>"
 
-#: ../src/snr3.c:767
-#, fuzzy, c-format
+#: ../src/snr3.c:758
+#, c-format
 msgid "<i>Found %d entries</i>"
-msgstr "<i>找到 %d 个结果</i>"
+msgstr "<i>找到 %d 个条目</i>"
 
-#: ../src/snr3.c:981
+#: ../src/snr3.c:971
 #, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
 msgstr "<i>已找到 %d 个结果 在 %d 个文档中 全部 %d 个文档</i>"
 
-#: ../src/snr3.c:984
+#: ../src/snr3.c:974
 #, c-format
 msgid "<i>Found %d results from character %d to %d</i>"
 msgstr "<i>已找到 %d 个结果，从字符 %d 到 %d</i>"
 
-#: ../src/snr3.c:986
+#: ../src/snr3.c:976
 #, c-format
 msgid "<i>Found %d results in the active document</i>"
 msgstr "<i>在激活的文档中找到 %d 个结果</i>"
 
-#: ../src/snr3.c:1343
+#: ../src/snr3.c:1332
 msgid "Active document"
 msgstr "当前激活的文档"
 
-#: ../src/snr3.c:1344
+#: ../src/snr3.c:1333
 msgid "Forward from cursor position"
 msgstr "从光标处向前"
 
-#: ../src/snr3.c:1345
+#: ../src/snr3.c:1334
 msgid "Current selection"
 msgstr "当前选择区域"
 
-#: ../src/snr3.c:1346
+#: ../src/snr3.c:1335
 msgid "All open documents"
 msgstr "所有已打开的文档"
 
-#: ../src/snr3.c:1347
+#: ../src/snr3.c:1336
 msgid "Files on disk"
 msgstr "磁盘上的文件"
 
-#: ../src/snr3.c:1351 ../src/snr3.c:1356
+#: ../src/snr3.c:1340 ../src/snr3.c:1345
 msgid "Normal"
 msgstr "普通"
 
-#: ../src/snr3.c:1352
+#: ../src/snr3.c:1341
 msgid "Regular expression (pcre)"
 msgstr "正则表达式（pcre）"
 
-#: ../src/snr3.c:1357
+#: ../src/snr3.c:1346
 msgid "Uppercase"
 msgstr "大写"
 
-#: ../src/snr3.c:1358
+#: ../src/snr3.c:1347
 msgid "Lowercase"
 msgstr "小写"
 
-#: ../src/snr3.c:1365
+#: ../src/snr3.c:1354
 msgid "Find and Replace"
 msgstr "查找与替换"
 
-#: ../src/snr3.c:1401
+#: ../src/snr3.c:1390
 msgid "<b>_Search for</b>"
 msgstr "<b>搜索项（_S）</b>"
 
-#: ../src/snr3.c:1430
+#: ../src/snr3.c:1419
 msgid "<b>Replace _with</b>"
 msgstr "<b>替换为(_w)</b>"
 
-#: ../src/snr3.c:1452
+#: ../src/snr3.c:1441
 msgid "Match Patter_n: "
 msgstr "匹配模式(_n)："
 
-#: ../src/snr3.c:1464
+#: ../src/snr3.c:1453
 msgid "Replace T_ype: "
 msgstr "替换类型(_y)："
 
-#: ../src/snr3.c:1477
+#: ../src/snr3.c:1466
 msgid "Sco_pe: "
 msgstr "范围(_p)："
 
-#: ../src/snr3.c:1492
+#: ../src/snr3.c:1481
 msgid "Filename pattern: "
 msgstr "文件名模式："
 
-#: ../src/snr3.c:1498
+#: ../src/snr3.c:1487
 msgid "Basedir: "
 msgstr "基础目录："
 
-#: ../src/snr3.c:1513
+#: ../src/snr3.c:1502
 msgid "Case sensitive _matching"
 msgstr "大小写敏感匹配(_m)"
 
-#: ../src/snr3.c:1515
+#: ../src/snr3.c:1504
 msgid "Only match if case (upper/lower) is identical."
 msgstr "仅匹配大小写一致的情况。"
 
-#: ../src/snr3.c:1519
+#: ../src/snr3.c:1508
 msgid "Pattern contains escape-se_quences"
 msgstr "包含了转义序列的模式"
 
-#: ../src/snr3.c:1522
+#: ../src/snr3.c:1511
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr "包含了反斜线转义字符的模式，如：\\n、\\t等等。"
 
-#: ../src/snr3.c:1526
+#: ../src/snr3.c:1515
 msgid "Dot character in regex pattern matches newlines"
 msgstr "在正则表达式中的豆点字符为匹配新行"
 
-#: ../src/snr3.c:1529
+#: ../src/snr3.c:1518
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr "字符 . 将匹配包括新行在内的任意项，用于多行匹配。"
 
-#: ../src/snr3.c:1551
+#: ../src/snr3.c:1540
 msgid "Replace _All"
 msgstr "全部替换(_A)"
 
-#: ../src/snr3.c:1553
+#: ../src/snr3.c:1542
 msgid "_Replace"
 msgstr "替换(_R)"
 
-#: ../src/snr3.c:1557
-#, fuzzy
+#: ../src/snr3.c:1546
 msgid "Find All"
-msgstr "查找全部(_A)"
+msgstr "查找全部"
 
-#: ../src/snr3.c:1559
-#, fuzzy
+#: ../src/snr3.c:1548
 msgid "_Bookmark All"
-msgstr "将匹配项设为书签(_B)"
+msgstr "全部设为书签(_B)"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
 msgid "Undo in _all documents"
