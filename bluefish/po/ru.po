@@ -4,23 +4,23 @@
 # boobaloo <koptev.oleg@gmail,com>, 2009, 2010.
 # Alexander <ser.melipharo@gmail.com>, 2010
 # Александр Прокудин <alexandre.prokoudine@gmail.com>, 2010.
-# Fr. Br. George <george@altlinux.org>, 2010, 2001
+# Fr. Br. George <george@altlinux.org>, 2010, 2011
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-21 23:18+0200\n"
+"POT-Creation-Date: 2011-09-23 11:38+0000\n"
 "PO-Revision-Date: 2011-03-30 21:43+0400\n"
 "Last-Translator: Fr. Br. George <george@altlinux.org>\n"
 "Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: UTF-8\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); 10<=4 && (n%100<10 || n%"
-"100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); 10<=4 && (n%100<10 || n"
+"%100>=20) ? 1 : 2);\n"
 "X-Generator: Virtaal 0.5.2\n"
 
 #: ../desktop-data/bluefish.desktop.in.h:1 ../src/bluefish.c:94
@@ -76,14 +76,12 @@ msgid "Goto Line:"
 msgstr "Перейти к строке:"
 
 #: ../src/bfwin.c:789
-#, fuzzy
 msgid "Find:"
-msgstr "Найти"
+msgstr "Найти:"
 
 #: ../src/bfwin.c:799
-#, fuzzy
 msgid "Advanced"
-msgstr "Открыть расширенный диалог..."
+msgstr "Дополнительно"
 
 #: ../src/bfwin.c:1141
 msgid "New Bluefish Window"
@@ -205,7 +203,7 @@ msgstr "Открыть рас_ширенный диалог..."
 
 #: ../src/bfwin_uimanager.c:738 ../src/filebrowser2.c:1983
 msgid "Open advanced"
-msgstr "Открыть расширенный диалог..."
+msgstr "Специальное открытие..."
 
 #: ../src/bfwin_uimanager.c:740
 msgid "Open _From Selection"
@@ -356,13 +354,12 @@ msgid "Toggle comment"
 msgstr "Режим комментария"
 
 #: ../src/bfwin_uimanager.c:780
-#, fuzzy
 msgid "Select block"
-msgstr "Выбрать все"
+msgstr "Выбрать блок"
 
 #: ../src/bfwin_uimanager.c:780
 msgid "Select block, use multiple times to select parent blocks "
-msgstr ""
+msgstr "Выделить блок (повторное выделение определяет родительские блок) "
 
 #: ../src/bfwin_uimanager.c:782
 msgid "_Word Count"
@@ -706,14 +703,12 @@ msgid "Goto line"
 msgstr "Перейти к строке:"
 
 #: ../src/bfwin_uimanager.c:864
-#, fuzzy
 msgid "Goto Line Number From _Clipboard"
-msgstr "Перейти к номеру строки в в_ыбранном"
+msgstr "Перейти к номеру строки из буфера _обмена"
 
 #: ../src/bfwin_uimanager.c:865
-#, fuzzy
 msgid "Goto line number in clipboard or selection"
-msgstr "Перейти к номеру строки в выбранном"
+msgstr "Перейти к номеру строки из отмеченного или буфера обмена"
 
 #: ../src/bfwin_uimanager.c:866
 msgid "Jump to Reference"
@@ -764,14 +759,12 @@ msgid "Find again"
 msgstr "Найти _следующее"
 
 #: ../src/bfwin_uimanager.c:879
-#, fuzzy
 msgid "Find from Clipboard"
-msgstr "Найти в выделенном"
+msgstr "Найти содержимое буфера обмена"
 
 #: ../src/bfwin_uimanager.c:879
-#, fuzzy
 msgid "Find from clipboard"
-msgstr "Найти в выделенном"
+msgstr "содержимое буфера обмена"
 
 #: ../src/bfwin_uimanager.c:881
 msgid "R_eplace..."
@@ -1332,23 +1325,20 @@ msgid "Lines into columns"
 msgstr "Строки в столбцы"
 
 #: ../src/doc_text_tools.c:396
-#, fuzzy
 msgid "Number of columns:"
-msgstr "Количество столбцов"
+msgstr "Количество столбцов:"
 
 #: ../src/doc_text_tools.c:400
 msgid "Spread lines horizontally"
 msgstr "Распределить полосы горизонтально"
 
 #: ../src/doc_text_tools.c:407
-#, fuzzy
 msgid "Column separator:"
-msgstr "Разделитель колонок"
+msgstr "Разделитель колонок:"
 
 #: ../src/doc_text_tools.c:411
-#, fuzzy
 msgid "Fill empty entries:"
-msgstr "Заполнить пустые строки"
+msgstr "Заполнить пустые строки:"
 
 #: ../src/encodings_dialog.c:291
 msgid "_Available encodings:"
@@ -1465,11 +1455,11 @@ msgstr "Обновить"
 
 #: ../src/filebrowser2.c:1991
 msgid "_Set as base dir"
-msgstr "Установить как _базовый каталог"
+msgstr "Установить как _основной каталог"
 
 #: ../src/filebrowser2.c:1991
 msgid "Set as base directory"
-msgstr "Установить как базовый каталог"
+msgstr "Установить как основной каталог"
 
 #: ../src/filebrowser2.c:1993
 msgid "Set as document root"
@@ -1566,7 +1556,7 @@ msgstr "Все файлы загружены, закончено %s"
 
 #: ../src/file.c:1347
 msgid "Finished advanced open"
-msgstr ""
+msgstr "Специальное открытие завершено"
 
 #: ../src/file.c:1521
 msgid "_Skip"
@@ -1591,17 +1581,16 @@ msgid "Autosave in progress..."
 msgstr "Автосохранение..."
 
 #: ../src/file_dialogs.c:108
-#, fuzzy
 msgid "Started open advanced..."
-msgstr "Открыть рас_ширенный диалог..."
+msgstr "Идёт специальное открытие..."
 
 #: ../src/file_dialogs.c:119
 msgid "Select basedir"
-msgstr "Выберите базовый каталог"
+msgstr "Выберите основной каталог"
 
 #: ../src/file_dialogs.c:144
 msgid "Advanced open file selector"
-msgstr "Расширенный диалог выбора файлов"
+msgstr "Выбор файлов для специального открытия"
 
 #: ../src/file_dialogs.c:159
 msgid "<b>Files</b>"
@@ -1609,7 +1598,7 @@ msgstr "<b>Файлы</b>"
 
 #: ../src/file_dialogs.c:168
 msgid "Base _Dir:"
-msgstr "Базовый _каталог:"
+msgstr "Основной _каталог:"
 
 #: ../src/file_dialogs.c:182
 msgid "_Pattern:"
@@ -1896,7 +1885,6 @@ msgid "Automatic detection"
 msgstr "Автоматическое распознавание"
 
 #: ../src/gtk_easy.c:1440
-#, fuzzy
 msgid "<b>Keystroke choice</b>"
 msgstr "<b>Выбор горячих клавиш</b>"
 
@@ -1991,7 +1979,7 @@ msgstr "_Шаблон:"
 #. g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",
 #. G_CALLBACK(snr_combo_activate_lcb), snrwin);
 #.
-#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1442
+#: ../src/preferences.c:482 ../src/preferences.c:1866 ../src/snr3.c:1452
 msgid "<b>Options</b>"
 msgstr "<b>Параметры</b>"
 
@@ -2005,7 +1993,7 @@ msgstr "Включить сворачивающиеся _блоки"
 
 #: ../src/preferences.c:490
 msgid "Display block stack in statusbar"
-msgstr ""
+msgstr "Показывать список блоков в строке статуса"
 
 #: ../src/preferences.c:492
 msgid "Highlight block _delimiters"
@@ -2032,9 +2020,8 @@ msgid "Wra_p lines"
 msgstr "_Переносить строки"
 
 #: ../src/preferences.c:507
-#, fuzzy
 msgid "Enable syntax scanning"
-msgstr "Расширенные параметры синтаксиса сканирования"
+msgstr "Включить проверку синтаксиса синтаксическое"
 
 #: ../src/preferences.c:510
 msgid "_Enable spell check"
@@ -2385,11 +2372,11 @@ msgstr "Клавиша «Tab» _сдвигает выделенное"
 
 #: ../src/preferences.c:1888
 msgid "Auto close brackets"
-msgstr ""
+msgstr "Автоматически закрывать скобки"
 
 #: ../src/preferences.c:1894
 msgid "Visible _whitespace mode:"
-msgstr "РЕжим видимых _пробелов:"
+msgstr "Режим видимых _пробелов:"
 
 #: ../src/preferences.c:1897
 msgid "<b>Undo</b>"
@@ -2513,9 +2500,8 @@ msgid "_Periodically check if file is modified on disk"
 msgstr "_Периодически проверять изменение файла на диске"
 
 #: ../src/preferences.c:2050
-#, fuzzy
 msgid "File properties to check on dis_k for modifications:"
-msgstr "Свойства файла для проверки _изменений на диске"
+msgstr "Свойства файла для проверки _изменений на диске:"
 
 #: ../src/preferences.c:2063
 msgid "HTML"
@@ -2592,7 +2578,7 @@ msgstr "_Сделать диалоги HTML постоянными"
 
 #: ../src/preferences.c:2150
 msgid "Save user customised menu accelerators"
-msgstr ""
+msgstr "Сохранить пользовательские быстрые клавиши меню"
 
 #: ../src/preferences.c:2154
 msgid "<b>Recent Files</b>"
@@ -2611,9 +2597,8 @@ msgid "<b>Sidebar</b>"
 msgstr "<b>Боковая панель</b>"
 
 #: ../src/preferences.c:2172
-#, fuzzy
 msgid "L_ocation:"
-msgstr "_Размещение"
+msgstr "_Размещение:"
 
 #: ../src/preferences.c:2176
 msgid "Tab _position:"
@@ -2649,7 +2634,7 @@ msgstr "Начальная _ширина окна"
 
 #: ../src/preferences.c:2218
 msgid "_Limit window title length"
-msgstr ""
+msgstr "_Ограничить размер оконного заголовка"
 
 #: ../src/preferences.c:2235
 msgid "_Use system document tab font"
@@ -2908,12 +2893,11 @@ msgstr "chmod a+x"
 
 #: ../src/rcfile.c:759
 msgid "php syntax check"
-msgstr ""
+msgstr "Проверка синтаксиса PHP"
 
 #: ../src/rcfile.c:763
-#, fuzzy
 msgid "perl syntax check"
-msgstr "_Проверка орфографии"
+msgstr "Проверка синтаксиса Perl"
 
 #: ../src/rcfile.c:785
 msgid "Render HTML to text"
@@ -2983,24 +2967,20 @@ msgstr "Web-файлы"
 msgid "Hide objectfiles"
 msgstr "Спрятать объектные файлы"
 
-#: ../src/snr3.c:629
+#: ../src/snr3.c:639
 msgid "<i>Replace started</i>"
-msgstr ""
+msgstr "<i>Идёт замена</i>"
 
-#: ../src/snr3.c:634
+#: ../src/snr3.c:644
 msgid "<i>Search started</i>"
-msgstr ""
+msgstr "<i>Идёт поиск</i>"
 
-#: ../src/snr3.c:652
-#, fuzzy
+#: ../src/snr3.c:662
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
-msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Ничего не выбрано. Сперва выберите "
-"участок текста.</span>"
+msgstr "<span foreground=\"red\"><b>Ничего не выбрано, поиск прерван</b></span>"
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr3.c:661
-#, fuzzy
+#: ../src/snr3.c:671
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Some documents are still loading</"
 "span>"
@@ -3008,153 +2988,144 @@ msgstr ""
 "<span foreground=\"red\" weight=\"bold\">Не все документы еще загружены</"
 "span>"
 
-#: ../src/snr3.c:765
-#, fuzzy, c-format
+#: ../src/snr3.c:775
+#, c-format
 msgid "<i>Replaced %d entries</i>"
-msgstr "<b>Недавние файлы</b>"
+msgstr "<i>Заменено %d вхождений</i>"
 
-#: ../src/snr3.c:767
-#, fuzzy, c-format
+#: ../src/snr3.c:777
+#, c-format
 msgid "<i>Found %d entries</i>"
-msgstr "<b>Недавние файлы</b>"
+msgstr "<i>Найдено %d вхождений</i>"
 
-#: ../src/snr3.c:981
+#: ../src/snr3.c:991
 #, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
-msgstr ""
+msgstr "<i>Найдено %d совпадений в %d из %d документов</i>"
 
-#: ../src/snr3.c:984
+#: ../src/snr3.c:994
 #, c-format
 msgid "<i>Found %d results from character %d to %d</i>"
-msgstr ""
+msgstr "<i>Найдено %d совпадений с символа %d до %d</i>"
 
-#: ../src/snr3.c:986
+#: ../src/snr3.c:996
 #, c-format
 msgid "<i>Found %d results in the active document</i>"
-msgstr ""
+msgstr "<i>Найдено %d совпадений в текущем документе</i>"
 
-#: ../src/snr3.c:1343
-#, fuzzy
+#: ../src/snr3.c:1353
 msgid "Active document"
-msgstr "Весь документ"
+msgstr "Текущий документ"
 
-#: ../src/snr3.c:1344
+#: ../src/snr3.c:1354
 msgid "Forward from cursor position"
 msgstr "Вперед от курсора"
 
-#: ../src/snr3.c:1345
-#, fuzzy
+#: ../src/snr3.c:1355
 msgid "Current selection"
-msgstr "Текущий цвет строк"
+msgstr "Текущее выделение"
 
-#: ../src/snr3.c:1346
-#, fuzzy
+#: ../src/snr3.c:1356
 msgid "All open documents"
-msgstr "Все открытые файлы"
+msgstr "Все открытые документы"
 
-#: ../src/snr3.c:1347
-#, fuzzy
+#: ../src/snr3.c:1357
 msgid "Files on disk"
-msgstr "Файл на диске изменён\n"
+msgstr "Файлы на диске"
 
-#: ../src/snr3.c:1351 ../src/snr3.c:1356
+#: ../src/snr3.c:1361 ../src/snr3.c:1366
 msgid "Normal"
 msgstr "Обычный"
 
-#: ../src/snr3.c:1352
-#, fuzzy
+#: ../src/snr3.c:1362
 msgid "Regular expression (pcre)"
-msgstr "Ошибка регулярного выражения:"
+msgstr "Регулярное выражение (pcre)"
 
-#: ../src/snr3.c:1357
+#: ../src/snr3.c:1367
 msgid "Uppercase"
 msgstr "Прописные буквы"
 
-#: ../src/snr3.c:1358
+#: ../src/snr3.c:1368
 msgid "Lowercase"
 msgstr "Строчные буквы"
 
-#: ../src/snr3.c:1365
-#, fuzzy
+#: ../src/snr3.c:1375
 msgid "Find and Replace"
-msgstr "Заменить"
+msgstr "Найти и Заменить"
 
-#: ../src/snr3.c:1401
-#, fuzzy
+#: ../src/snr3.c:1411
 msgid "<b>_Search for</b>"
-msgstr "_Искать: "
+msgstr "<b>_Искать</b>"
 
-#: ../src/snr3.c:1430
-#, fuzzy
+#: ../src/snr3.c:1440
 msgid "<b>Replace _with</b>"
-msgstr "Заменить _на: "
+msgstr "<b>Заменить _на</b>"
 
-#: ../src/snr3.c:1452
+#: ../src/snr3.c:1462
 msgid "Match Patter_n: "
 msgstr "Шаблон _поиска:"
 
-#: ../src/snr3.c:1464
+#: ../src/snr3.c:1474
 msgid "Replace T_ype: "
 msgstr "_Тип замены:"
 
-#: ../src/snr3.c:1477
+#: ../src/snr3.c:1487
 msgid "Sco_pe: "
 msgstr "_Диапазон:"
 
-#: ../src/snr3.c:1492
-#, fuzzy
+#: ../src/snr3.c:1502
 msgid "Filename pattern: "
-msgstr "Имя файла: %s"
+msgstr "Шаблон имени файла: "
 
-#: ../src/snr3.c:1498
-#, fuzzy
+#: ../src/snr3.c:1508
 msgid "Basedir: "
-msgstr "Базовый _каталог:"
+msgstr "Основной каталог:"
 
-#: ../src/snr3.c:1513
+#: ../src/snr3.c:1523
 msgid "Case sensitive _matching"
 msgstr "_Учитывать регистр букв"
 
-#: ../src/snr3.c:1515
+#: ../src/snr3.c:1525
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Считать совпадением только, если совпадают регистры (верхний/нижний)"
 
-#: ../src/snr3.c:1519
+#: ../src/snr3.c:1529
 msgid "Pattern contains escape-se_quences"
 msgstr "_Шаблоны содержат escape-последовательности"
 
-#: ../src/snr3.c:1522
+#: ../src/snr3.c:1532
 msgid "Pattern contains backslash escaped characters such as \\n \\t etc."
 msgstr ""
 "Шаблоны содержат escape-последовательности с обратной дробью (\\n, \\t)"
 
-#: ../src/snr3.c:1526
+#: ../src/snr3.c:1536
 msgid "Dot character in regex pattern matches newlines"
-msgstr ""
+msgstr "Точка в регулярном выражении сопоставляется с концом строки"
 
-#: ../src/snr3.c:1529
+#: ../src/snr3.c:1539
 msgid ""
 "The . character will match everything including newlines, use for multiline "
 "matching."
 msgstr ""
+"Символ '.' в регулярном выражении будет сопоставляться с любым символом, "
+"включая конец строки (используется для многострочных сопоставлений)."
 
-#: ../src/snr3.c:1551
+
+#: ../src/snr3.c:1561
 msgid "Replace _All"
 msgstr "Заменить вс_ё"
 
-#: ../src/snr3.c:1553
+#: ../src/snr3.c:1563
 msgid "_Replace"
 msgstr "_Заменить"
 
-#: ../src/snr3.c:1557
-#, fuzzy
+#: ../src/snr3.c:1567
 msgid "Find All"
-msgstr "Найти в_сё"
+msgstr "Найти всё"
 
-#: ../src/snr3.c:1559
-#, fuzzy
+#: ../src/snr3.c:1569
 msgid "_Bookmark All"
-msgstr "_Закладки совпадений"
+msgstr "_Поместить всё в закладки"
 
 #: ../src/undo_redo.c:543 ../src/undo_redo.c:685
 msgid "Undo in _all documents"
