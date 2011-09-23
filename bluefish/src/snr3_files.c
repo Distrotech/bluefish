@@ -76,18 +76,30 @@ static guint calculate_line_in_buffer(Tlineinbuffer *lib, gchar *buffer, gsize p
 
 static gchar *line_from_buffer(gchar *buffer, guint offset) {
 	guint i,j;
-	/* TODO: BUG: what if offset-40 or offset+40 is in the middle of a multibyte character ? */ 
 	i=j=offset;
 	while (i >=0 && i > (offset-40)) {
-		if (buffer[i] == '\n' || buffer[i] == '\r')
+		if (buffer[i] == '\n' || buffer[i] == '\r') {
 			break;
+		}
 		i--;
 	}
-	i++;
+	if (i <= offset-40) {
+		gchar *tmp = g_utf8_find_next_char(buffer+i, NULL);
+		if (tmp)
+			i = tmp-buffer;
+	} else {
+		i++;
+	}
 	while (buffer[j] !='\0' && j < (offset+40)) {
-		if (buffer[j] == '\n' || buffer[j] == '\r')
+		if (buffer[j] == '\n' || buffer[j] == '\r') {
 			break;
+		}
 		j++;
+	}
+	if (j >= offset+40) {
+		gchar *tmp = g_utf8_find_prev_char(buffer, buffer+j);
+		if (tmp)
+			j = tmp-buffer;
 	}
 	return g_strndup(buffer+i, j-i);
 }
