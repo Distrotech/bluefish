@@ -1,20 +1,20 @@
 # Copyright (C) YEAR The Bluefish Development Team.
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2010.
+# Yuri Chornoivan <yurchor@ukr.net>, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2010-01-19 20:53+0200\n"
+"PO-Revision-Date: 2011-09-22 07:50+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
@@ -50,12 +50,10 @@ msgid "Set accelerator key"
 msgstr "Встановити клавішу-акселератор"
 
 #: src/plugin_snippets/snippets_gui.c:797
-#, fuzzy
 msgid "Snippets menu"
 msgstr "Меню фрагментів"
 
 #: src/plugin_snippets/snippets_gui.c:798
-#, fuzzy
 msgid "_New Snippet"
 msgstr "С_творити фрагмент"
 
@@ -65,92 +63,77 @@ msgid "New snippet"
 msgstr "Новий фрагмент"
 
 #: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
 msgid "_Edit Snippet"
 msgstr "_Змінити фрагмент"
 
 #: src/plugin_snippets/snippets_gui.c:799
 #: src/plugin_snippets/snippets_wizard.c:748
-#, fuzzy
 msgid "Edit snippet"
-msgstr "_Змінити фрагмент"
+msgstr "Змінити фрагмент"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "_Delete Snippet"
 msgstr "_Вилучити фрагмент"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "Delete snippet"
-msgstr "_Вилучити фрагмент"
+msgstr "Вилучити фрагмент"
 
 #: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
 msgid "Delete _Branch"
-msgstr "Вилучити гілку"
+msgstr "Вилучити _гілку"
 
 #: src/plugin_snippets/snippets_gui.c:801
 msgid "Delete branch"
 msgstr "Вилучити гілку"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set Snippet _Accelerator"
 msgstr "Встановити _акселератор фрагмента"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set snippet accelerator"
-msgstr "Встановити _акселератор фрагмента"
+msgstr "Встановити акселератор фрагмента"
 
 #: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
 msgid "Ex_pand All"
-msgstr "Розгорнути всі"
+msgstr "Р_озгорнути всі"
 
 #: src/plugin_snippets/snippets_gui.c:804
 msgid "Expand all"
 msgstr "Розгорнути всі"
 
 #: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
 msgid "_Collapse All"
-msgstr "Згорнути всі"
+msgstr "З_горнути всі"
 
 #: src/plugin_snippets/snippets_gui.c:805
 msgid "Collapse all"
 msgstr "Згорнути всі"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "E_xport"
-msgstr "Експортувати"
+msgstr "_Експортувати"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "Export snippets"
-msgstr "фрагменти"
+msgstr "Експортувати фрагменти"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "I_mport"
-msgstr "Імпортувати"
+msgstr "І_мпортувати"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "Import snippets"
-msgstr "фрагменти"
+msgstr "Імпортувати фрагменти"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "_Show as menu"
-msgstr "Показати як меню"
+msgstr "По_казати як меню"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "Show snippets menu"
-msgstr "Показати як меню"
+msgstr "Показати меню фрагментів"
 
 #: src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets Menu"
@@ -193,7 +176,6 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-#, fuzzy
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
@@ -202,7 +184,8 @@ msgid ""
 msgstr ""
 "Вкажіть параметри пошуку та ключ пошуку. Можна використовувати заповнювачі "
 "%0, %1, ...%5, які буде замінено значеннями, після активації цього пункту. "
-"Вказати назви заповнювачів можна праворуч."
+"Вказати назви заповнювачів можна праворуч. (Скористайтеся послідовністю %% "
+"якщо у вашому рядку є символ «%»!)"
 
 #: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
@@ -239,7 +222,6 @@ msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr "Зняти екранування з керівних символів, зокрема \\n, \\t тощо."
 
 #: src/plugin_snippets/snippets_wizard.c:332
-#, fuzzy
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -252,7 +234,8 @@ msgstr ""
 "позначеним текстом. <i>Після</i>текст буде вставлено після позиції курсора "
 "або поточного позначеного тексту. Можна використовувати заповнювачі %0, "
 "%1, ...%9, які буде замінено значеннями, після активації цього пункту. "
-"Вказати назви заповнювачів можна праворуч."
+"Вказати назви заповнювачів можна праворуч. (Скористайтеся послідовністю %% "
+"якщо у вашому рядку є символ «%»!)"
 
 #: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
