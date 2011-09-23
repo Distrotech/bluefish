@@ -245,8 +245,12 @@ remove_cache_entry(BluefishTextView * btv, Tfound ** found, GSequenceIter ** sit
 {
 	Tfound *tmpfound1 = *found;
 	GSequenceIter *tmpsiter1 = *siter;
-	guint invalidoffset = tmpfound1->charoffset_o;
+	guint invalidoffset = 0;
 	gint blockstackcount = 0, contextstackcount = 0;
+	
+	if (!tmpfound1)
+		return 0;
+	
 	*found = get_foundcache_next(btv, siter);
 	DBG_SCANCACHE("remove_cache_entry, remove %p at offset %d and any children, numblockchange=%d, numcontextchange=%d\n", tmpfound1,
 				  tmpfound1->charoffset_o, tmpfound1->numblockchange, tmpfound1->numcontextchange);
@@ -1006,7 +1010,7 @@ found_match(BluefishTextView * btv, Tmatch * match, Tscanning * scanning)
 		return scanning->context;
 	}
 
-	if (cleanup_obsolete_cache_items) {
+	if (cleanup_obsolete_cache_items && scanning->nextfound) {
 		/* we have to do the cleanup *after* found_start_of_block/found_end_of_block/found_context_change so
 		Tscanning will reflext the up-to-date situation at this offset */
 		guint invalidoffset;
