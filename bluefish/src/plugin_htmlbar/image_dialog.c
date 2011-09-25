@@ -736,7 +736,7 @@ image_dialog_preview_loaded(BluefishImageDialog * dialog)
 
 static void
 image_dialog_load_preview(Topenfile_status status,
-						  GError * gerror, gchar * buffer, goffset buflen, gpointer callback_data)
+						  GError * gerror, Trefcpointer *refcp, goffset buflen, gpointer callback_data)
 {
 	BluefishImageDialog *imageDialog = callback_data;
 	gboolean cleanup = TRUE;
@@ -757,7 +757,7 @@ image_dialog_load_preview(Topenfile_status status,
 			GdkPixbuf *pixbuf;
 			GError *error = NULL;
 			DEBUG_MSG("limage_dialog_load_preview, oading data into pixbuf\n");
-			if (gdk_pixbuf_loader_write(imageDialog->priv->pbloader, (guchar *) buffer, buflen, &error)
+			if (gdk_pixbuf_loader_write(imageDialog->priv->pbloader, (guchar *) refcp->data, buflen, &error)
 				&& gdk_pixbuf_loader_close(imageDialog->priv->pbloader, &error)) {
 
 				pixbuf = gdk_pixbuf_loader_get_pixbuf(imageDialog->priv->pbloader);

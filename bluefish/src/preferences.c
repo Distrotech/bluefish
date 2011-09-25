@@ -1548,9 +1548,9 @@ preferences_apply(Tprefdialog * pd)
 		integer_apply(&main_v->globses.main_window_h, pd->prefs[main_window_h], FALSE);
 		integer_apply(&main_v->globses.main_window_w, pd->prefs[main_window_w], FALSE);
 	}
-	if (gtk_toggle_button_get_active(pd->prefs[max_window_title]) && main_v->props.max_window_title==0) {
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->prefs[max_window_title])) && main_v->props.max_window_title==0) {
 		main_v->props.max_window_title=120;
-	} else if (!gtk_toggle_button_get_active(pd->prefs[max_window_title])) {
+	} else if (!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->prefs[max_window_title]))) {
 		main_v->props.max_window_title=0;
 	}
 
