@@ -1288,8 +1288,8 @@ findfiles(GFile *basedir, gboolean recursive, guint max_recursion, gboolean matc
 	ff->recursive = recursive;
 	ff->max_recursion = max_recursion;
 	ff->matchname = matchname;
-	ff->filematch_cb = filematch_cb;
-	ff->finished_cb = finished_cb;
+	ff->filematch_cb = (void (*)(gchar const *, GFile *, gpointer))filematch_cb;
+	ff->finished_cb = (void (*)(gpointer))finished_cb;
 	ff->data = data;
 	ff->cancel = FALSE;
 	if (name_filter) {
