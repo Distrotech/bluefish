@@ -1395,7 +1395,7 @@ modified_on_disk_warning_string(const gchar * filename, GFileInfo * oldfinfo, GF
 							   "Original modification time was %s\n"
 							   "New modification time is %s\n"
 							   "Original size was %lu\n"
-							   "New size is %lu"), filename, oldtimestr, newtimestr, oldsize, newsize);
+							   "New size is %lu"), filename, oldtimestr, newtimestr, (long unsigned int)oldsize, (long unsigned int)newsize);
 	g_free(newtimestr);
 	g_free(oldtimestr);
 	return tmpstr;

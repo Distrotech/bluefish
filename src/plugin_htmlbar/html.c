@@ -1983,7 +1983,7 @@ void
 canvas_dialog(Tbfwin * bfwin, Ttagpopup * data)
 {
 	/* Controls */
-	GtkWidget *dgtable, *file_but;
+	GtkWidget *dgtable;
 	Thtml_diag *dg;
 		
 	/* Dialog construction */
