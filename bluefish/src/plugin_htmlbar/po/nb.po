@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-22 03:12+0200\n"
-"PO-Revision-Date: 2011-01-24 12:00+0100\n"
+"PO-Revision-Date: 2011-09-26 12:00+0200\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "Language: nb\n"
@@ -21,7 +21,7 @@ msgstr ""
 #.
 #: src/plugin_htmlbar/html2.c:500
 msgid "_Update"
-msgstr " Oppdatér"
+msgstr "_Oppdatér"
 
 #: src/plugin_htmlbar/html2.c:505
 #, c-format
@@ -69,15 +69,15 @@ msgstr "Verdi"
 
 #: src/plugin_htmlbar/html2.c:718
 msgid " _Add "
-msgstr " Tilføy "
+msgstr " Tilfø_y "
 
 #: src/plugin_htmlbar/html2.c:721
 msgid " _Update "
-msgstr " Oppdatér "
+msgstr " _Oppdatér "
 
 #: src/plugin_htmlbar/html2.c:724
 msgid " _Delete "
-msgstr " Slett "
+msgstr " S_lett "
 
 #: src/plugin_htmlbar/html2.c:977 src/plugin_htmlbar/html2.c:1014
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1639
@@ -109,54 +109,48 @@ msgid "H_1"
 msgstr "H_1"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1360
-#, fuzzy
 msgid "Insert H1 tag"
-msgstr "Sett inn bilde"
+msgstr "Sett inn H1"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1362
 msgid "H_2"
 msgstr "H_2"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1362
-#, fuzzy
 msgid "Insert H2 tag"
-msgstr "Sett inn bilde"
+msgstr "Sett inn H2"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1364
 msgid "H_3"
 msgstr "H_3"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1364
-#, fuzzy
 msgid "Insert H3 tag"
-msgstr "Sett inn bilde"
+msgstr "Sett inn H3"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1366
 msgid "H_4"
 msgstr "H_4"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1366
-#, fuzzy
 msgid "Insert H4 tag"
-msgstr "Sett inn bilde"
+msgstr "Sett inn H4"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1368
 msgid "H_5"
 msgstr "H_5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1368
-#, fuzzy
 msgid "Insert H5 tag"
-msgstr "Sett inn bilde"
+msgstr "Sett inn H5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1370
 msgid "H_6"
 msgstr "H_6"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1370
-#, fuzzy
 msgid "Insert H6 tag"
-msgstr "Sett inn bilde"
+msgstr "Sett inn H6"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1372
 msgid "_Special"
@@ -732,16 +726,15 @@ msgstr "_Understreket"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1522
 msgid "Underline"
-msgstr ""
+msgstr "Understreket"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1524
 msgid "_Strikeout"
 msgstr "Over_strøket"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1524
-#, fuzzy
 msgid "Strikeout"
-msgstr "Skript"
+msgstr "Overstrøket"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1526
 msgid "Sm_all"
@@ -749,7 +742,7 @@ msgstr "Liten"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1526
 msgid "Small"
-msgstr ""
+msgstr "Liten"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1527
 msgid "Bi_g"
@@ -757,7 +750,7 @@ msgstr "Stor"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1527
 msgid "Big"
-msgstr ""
+msgstr "Stor"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1528
 msgid "Format _general"
@@ -946,9 +939,8 @@ msgid "Men_u"
 msgstr "_Meny"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1575
-#, fuzzy
 msgid "Menu"
-msgstr "_Menysti"
+msgstr "Meny"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1576
 msgid "Fo_rm"
@@ -1012,14 +1004,12 @@ msgid "_Comment"
 msgstr "Kommentar"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1590
-#, fuzzy
 msgid "HTML Comment"
-msgstr "Kommentar"
+msgstr "HTML kommentar"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1592
-#, fuzzy
 msgid "Dial_ogs"
-msgstr "Dialog"
+msgstr "Dial_oger"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1593
 msgid "_General"
@@ -1030,7 +1020,6 @@ msgid "_Quickstart..."
 msgstr "Hurtigstart..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1594
-#, fuzzy
 msgid "Quickstart..."
 msgstr "Hurtigstart..."
 
@@ -1039,9 +1028,8 @@ msgid "_Link Header..."
 msgstr "_Linkheader..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1596
-#, fuzzy
 msgid "Link Header..."
-msgstr "Tabelloverskrift..."
+msgstr "Lenkeoverskrift..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1598
 msgid "_Body..."
@@ -1060,9 +1048,8 @@ msgid "Anchor / Hyperlink..."
 msgstr "Anker / Hyperlink..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1602
-#, fuzzy
 msgid "_E-mail..."
-msgstr "E-Post..."
+msgstr "_E-Post..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1602
 msgid "E-mail..."
@@ -1073,7 +1060,6 @@ msgid "_Rule..."
 msgstr "Linje..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1604
-#, fuzzy
 msgid "Horizontal Rule..."
 msgstr "Horisontal linje"
 
@@ -1090,9 +1076,8 @@ msgid "Basef_ont..."
 msgstr "Basisf_ont..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1608
-#, fuzzy
 msgid "Base font..."
-msgstr "Standard skrift"
+msgstr "Standardskrift..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1610
 msgid "Quick_list..."
@@ -1163,7 +1148,6 @@ msgid "Table _Head..."
 msgstr "Tabell_overskrift..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1628
-#, fuzzy
 msgid "Table Head..."
 msgstr "Tabelloverskrift..."
 
@@ -1204,16 +1188,14 @@ msgid "Div..."
 msgstr "Div..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1639
-#, fuzzy
 msgid "Style..."
-msgstr "_Stil..."
+msgstr "Stil..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1641
 msgid "_Link to Stylesheet..."
 msgstr "_Link til stylesheet..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1642
-#, fuzzy
 msgid "Link to Stylesheet..."
 msgstr "Link til stylesheet..."
 
@@ -1318,13 +1300,12 @@ msgid "_Edit tag under cursor..."
 msgstr "R_ediger tag under markør..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1669
-#, fuzzy
 msgid "_Multi Thumbnail..."
-msgstr "Thumbnail..."
+msgstr "Thu_mbnails..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1669
 msgid "Multi thumbnail..."
-msgstr "Thumbnail..."
+msgstr "Thum_bnails..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1671 src/plugin_htmlbar/html.c:1822
 msgid "Frame"
@@ -1347,7 +1328,6 @@ msgid "Input Hidden..."
 msgstr "Skult input..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1679
-#, fuzzy
 msgid "Input Radio button..."
 msgstr "Radioknapp..."
 
@@ -1356,7 +1336,6 @@ msgid "Input Radio Button..."
 msgstr "Radioknapp..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1681
-#, fuzzy
 msgid "Input Check box..."
 msgstr "Avkrysningsboks..."
 
@@ -1367,135 +1346,127 @@ msgstr "Avkrysningsboks..."
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1683
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1697
 msgid "_HTML5"
-msgstr ""
+msgstr "_HTML5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
-#, fuzzy
 msgid "_Article"
-msgstr "_Vertikal"
+msgstr "_Artikkel"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
-#, fuzzy
 msgid "Article"
-msgstr "_Vertikal"
+msgstr "Artikkel"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1685
 msgid "As_ide"
-msgstr ""
+msgstr "På s_iden"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1685
 msgid "Aside"
-msgstr ""
+msgstr "På siden"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-#, fuzzy
 msgid "Figcaption"
-msgstr "Inneholder"
+msgstr "Bildetittel"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-#, fuzzy
 msgid "Figcaption "
-msgstr "Inneholder"
+msgstr "Bildetittel "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1687
 msgid "Fig_ure"
-msgstr ""
+msgstr "Fig_ur"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1687
 msgid "Figure"
-msgstr ""
+msgstr "Figur"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1688
 msgid "_Footer"
-msgstr ""
+msgstr "_Bunntekst"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1688
 msgid "Footer"
-msgstr ""
+msgstr "Bunntekst"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1689
-#, fuzzy
 msgid "_Header"
-msgstr "_Head:"
+msgstr "Toppt_ekst"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1689
-#, fuzzy
 msgid "Header"
-msgstr "Tabelloverskrift"
+msgstr "Overskrift"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1690
 msgid "H_group"
-msgstr ""
+msgstr "H_gruppe"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1690
 msgid "Hgroup"
-msgstr ""
+msgstr "Hgruppe"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1691
 msgid "_Mark"
-msgstr ""
+msgstr "_Merke"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1691
 msgid "Mark"
-msgstr ""
+msgstr "Merke"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1692
 msgid "_Nav"
-msgstr ""
+msgstr "_Nav"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1692
 msgid "Nav"
-msgstr ""
+msgstr "Nav"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1693
 msgid "Rp"
-msgstr ""
+msgstr "Rp"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1693
 msgid "Ruby parenthesis"
-msgstr ""
+msgstr "Ruby parenteser"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1694
 msgid "Rt"
-msgstr ""
+msgstr "Rt"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1694
 msgid "Ruby text"
-msgstr ""
+msgstr "Ruby tekst"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1695
 msgid "_Ruby"
-msgstr ""
+msgstr "_Ruby"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1695
 msgid "Ruby"
-msgstr ""
+msgstr "Ruby"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1696
-#, fuzzy
 msgid "_Section"
-msgstr "\"Action\":"
+msgstr "_Seksjon"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1696
-#, fuzzy
 msgid "Section"
-msgstr "\"Action\":"
+msgstr "Seksjon"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1698
 msgid "Au_dio..."
-msgstr ""
+msgstr "L_yd..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1698
 msgid "Audio..."
-msgstr ""
+msgstr "Lyd..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1699
 msgid "_Video..."
-msgstr ""
+msgstr "_Video..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1699
 msgid "Video..."
-msgstr ""
+msgstr "Video..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1700
 msgid "_Canvas..."
@@ -1506,21 +1477,18 @@ msgid "Canvas..."
 msgstr ""
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1701
-#, fuzzy
 msgid "_Time..."
-msgstr "Frame..."
+msgstr "_Tid..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1701
-#, fuzzy
 msgid "Time..."
-msgstr "Frame..."
+msgstr "Tid..."
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1712
 msgid "_HTML Toolbar"
-msgstr "HTML-verktøylinje"
+msgstr "_HTML-verktøylinje"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1747
-#, fuzzy
 msgid " Standard "
 msgstr " Standard "
 
@@ -1529,9 +1497,8 @@ msgid " Fonts "
 msgstr " Skrifter "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1755
-#, fuzzy
 msgid " Formatting "
-msgstr "Formateringsstreng etter"
+msgstr "Formatering "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1759
 msgid " Tables "
@@ -1555,7 +1522,7 @@ msgstr " CSS "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1779
 msgid " HTML 5 "
-msgstr ""
+msgstr " HTML 5 "
 
 #: src/plugin_htmlbar/html.c:428
 msgid "Insert Time"
@@ -1802,14 +1769,12 @@ msgid "Options"
 msgstr "Innstillinger"
 
 #: src/plugin_htmlbar/html.c:1228
-#, fuzzy
 msgid "On _Load:"
-msgstr "On_Load:"
+msgstr "On _Load:"
 
 #: src/plugin_htmlbar/html.c:1232
-#, fuzzy
 msgid "On _Unload:"
-msgstr "On_UnLoad:"
+msgstr "On _UnLoad:"
 
 #: src/plugin_htmlbar/html.c:1238
 msgid "Depreciated options"
@@ -1964,24 +1929,23 @@ msgstr "Behold størrelsen:"
 #. Dialog construction and settings
 #: src/plugin_htmlbar/html.c:1917
 msgid "Audio"
-msgstr ""
+msgstr "Lyd"
 
 #: src/plugin_htmlbar/html.c:1933 src/plugin_htmlbar/html.c:2071
 msgid "_Autoplay:"
-msgstr ""
+msgstr "_Autoavspilling"
 
 #: src/plugin_htmlbar/html.c:1940 src/plugin_htmlbar/html.c:2078
 msgid "_Controls:"
-msgstr ""
+msgstr "_Kontroller"
 
 #: src/plugin_htmlbar/html.c:1947 src/plugin_htmlbar/html.c:2085
 msgid "_Loop:"
-msgstr ""
+msgstr "_Loop:"
 
 #: src/plugin_htmlbar/html.c:1955 src/plugin_htmlbar/html.c:2093
-#, fuzzy
 msgid "_Preload:"
-msgstr "On_UnLoad:"
+msgstr "_Preload:"
 
 #. Dialog construction
 #: src/plugin_htmlbar/html.c:1990
@@ -1991,29 +1955,28 @@ msgstr ""
 #. Dialog construction and settings
 #: src/plugin_htmlbar/html.c:2048
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: src/plugin_htmlbar/html.c:2065
 msgid "_Poster:"
-msgstr ""
+msgstr "_Poster:"
 
 #: src/plugin_htmlbar/html.c:2100
 msgid "_Audio:"
-msgstr ""
+msgstr "L_yd:"
 
 #. Dialog construction
 #: src/plugin_htmlbar/html.c:2162
 msgid "Time"
-msgstr ""
+msgstr "Tid"
 
 #: src/plugin_htmlbar/html.c:2168
-#, fuzzy
 msgid "_Pubdate:"
-msgstr " Oppdatér"
+msgstr "_Publiseringsdato:"
 
 #: src/plugin_htmlbar/html.c:2174
 msgid "_Datetime:"
-msgstr ""
+msgstr "Tid og _dato:"
 
 #: src/plugin_htmlbar/html.c:2218
 msgid "Embed"
