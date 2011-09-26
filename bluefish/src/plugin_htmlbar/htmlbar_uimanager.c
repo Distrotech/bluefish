@@ -1906,7 +1906,6 @@ htmlbar_register_stock_icons(void)
 
 	GtkIconFactory *icon_factory;
 	GtkIconSet *icon_set;
-	GtkIconSource *icon_source;
 	gint i;
 
 	icon_factory = gtk_icon_factory_new();
@@ -1918,9 +1917,7 @@ htmlbar_register_stock_icons(void)
 		icon_set = gtk_icon_set_new_from_pixbuf(pixbuf);
 		g_object_unref(pixbuf);
 
-/*		gtk_icon_set_add_source(icon_set, icon_source);
-		gtk_icon_source_free(icon_source);
-*/		gtk_icon_factory_add(icon_factory, htmlbar_stock_icons[i].stock_id, icon_set);
+		gtk_icon_factory_add(icon_factory, htmlbar_stock_icons[i].stock_id, icon_set);
 		gtk_icon_set_unref(icon_set);
 	}
 

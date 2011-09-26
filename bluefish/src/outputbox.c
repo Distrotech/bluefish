@@ -222,7 +222,7 @@ init_output_box(Tbfwin * bfwin)
 	GtkTreeViewColumn *column;
 	GtkWidget *scrolwin;
 	GtkCellRenderer *renderer;
-	GtkWidget *vbox2, *but, *image;
+	GtkWidget *vbox2, *but;
 	Toutputbox *ob;
 	GtkAllocation allocation;
 
