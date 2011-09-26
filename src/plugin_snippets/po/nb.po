@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2010-04-21 12:00+0100\n"
+"PO-Revision-Date: 2010-04-26 12:00+0100\n"
 "Last-Translator: Christian Tellefsen <chris@tellefsen.net>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "Language: nb\n"
@@ -44,12 +44,10 @@ msgid "Set accelerator key"
 msgstr "Velg snarveitast"
 
 #: src/plugin_snippets/snippets_gui.c:797
-#, fuzzy
 msgid "Snippets menu"
 msgstr "Utklippsmeny"
 
 #: src/plugin_snippets/snippets_gui.c:798
-#, fuzzy
 msgid "_New Snippet"
 msgstr "_Nytt utklipp"
 
@@ -59,92 +57,77 @@ msgid "New snippet"
 msgstr "Nytt utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
 msgid "_Edit Snippet"
 msgstr "_Rediger utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:799
 #: src/plugin_snippets/snippets_wizard.c:748
-#, fuzzy
 msgid "Edit snippet"
-msgstr "_Rediger utklipp"
+msgstr "Rediger utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "_Delete Snippet"
 msgstr "_Slett utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "Delete snippet"
-msgstr "_Slett utklipp"
+msgstr "Slett utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
 msgid "Delete _Branch"
-msgstr "Slett gren"
+msgstr "Slett _gren"
 
 #: src/plugin_snippets/snippets_gui.c:801
 msgid "Delete branch"
 msgstr "Slett gren"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set Snippet _Accelerator"
-msgstr "Sett snarveitast for utklipp"
+msgstr "Sett sn_arveitast for utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set snippet accelerator"
 msgstr "Sett snarveitast for utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
 msgid "Ex_pand All"
-msgstr "Ekspander alle"
+msgstr "Eks_pander alle"
 
 #: src/plugin_snippets/snippets_gui.c:804
 msgid "Expand all"
 msgstr "Ekspander alle"
 
 #: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
 msgid "_Collapse All"
-msgstr "Skjul alle"
+msgstr "S_kjul alle"
 
 #: src/plugin_snippets/snippets_gui.c:805
 msgid "Collapse all"
 msgstr "Skjul alle"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "E_xport"
-msgstr "Eksporter"
+msgstr "Ek_sporter"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "Export snippets"
-msgstr "utklipp"
+msgstr "Eksporter utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "I_mport"
-msgstr "Importer"
+msgstr "I_mporter"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "Import snippets"
-msgstr "utklipp"
+msgstr "Importer utklipp"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "_Show as menu"
-msgstr "Vis som meny"
+msgstr "Vi_s som meny"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "Show snippets menu"
-msgstr "Vis som meny"
+msgstr "Vis utklippsmeny"
 
 #: src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets Menu"
@@ -187,7 +170,6 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-#, fuzzy
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
@@ -195,8 +177,8 @@ msgid ""
 "literal % in your string!)"
 msgstr ""
 "Oppgi et søk/erstatt-filter. Du kan bruke identifikatorene %0, %1, ...%5 for "
-"å spørre etter verdier når du aktiverer dette elementet.Gi disse "
-"identifikatorene et passende navn på høyre side."
+"å spørre etter verdier. Gi identifikatorene et passende navn på høyre side."
+" (Bruk %% for å angi % i søkestrengen)"
 
 #: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
@@ -208,7 +190,7 @@ msgstr "Erstatt _med: "
 
 #: src/plugin_snippets/snippets_wizard.c:148
 msgid "Sco_pe: "
-msgstr "Omfang: "
+msgstr "Om_fang: "
 
 #: src/plugin_snippets/snippets_wizard.c:155
 msgid "Match Patter_n: "
@@ -231,7 +213,6 @@ msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr "Fjern skråstrek foran omgåelsestegn som \\n, \\t, etc."
 
 #: src/plugin_snippets/snippets_wizard.c:332
-#, fuzzy
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -240,18 +221,18 @@ msgid ""
 "appropriate name on the right. (Please use %% if you need literal % in your "
 "string!)"
 msgstr ""
-"Startteksten settes inn foran markøren eller den valgte teksten.Sluttekst "
-"settes inn etter markøren eller den valgte teksten.Du kan bruke "
-"identifikatorene %0, %1, ...%9 for å spørre etter verdier når du aktiverer "
-"dette elementet. Til høyre kan du navngi identifikatorene.til høyre."
+"Startteksten settes inn foran markøren eller den valgte teksten. Slutteksten "
+"settes inn etter markøren eller den valgte teksten. Du kan bruke "
+"identifikatorene %0, %1, ...%9 for å spørre etter verdier. "
+"Til høyre kan du navngi identifikatorene."
 
 #: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
-msgstr "i>"
+msgstr "<i>Før-</i>tekst"
 
 #: src/plugin_snippets/snippets_wizard.c:348
 msgid "<i>After</i> text"
-msgstr "i>"
+msgstr "<i>Etter-</i>tekst"
 
 #: src/plugin_snippets/snippets_wizard.c:356
 msgid "Number"
