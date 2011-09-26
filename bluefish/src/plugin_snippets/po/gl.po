@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2009-11-03 10:36+0100\n"
-"Last-Translator: Xose M. <pikamoku@gmail.com>\n"
+"PO-Revision-Date: 2011-09-24 17:54+0100\n"
+"Last-Translator: Xose M. Lamas <correo.xmgz@gmail.com>\n"
 "Language-Team: none\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
@@ -47,12 +47,10 @@ msgid "Set accelerator key"
 msgstr "Establecer atallo teclado"
 
 #: src/plugin_snippets/snippets_gui.c:797
-#, fuzzy
 msgid "Snippets menu"
 msgstr "Menú Anacos"
 
 #: src/plugin_snippets/snippets_gui.c:798
-#, fuzzy
 msgid "_New Snippet"
 msgstr "_Novo anaco"
 
@@ -62,28 +60,23 @@ msgid "New snippet"
 msgstr "Novo anaco"
 
 #: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
 msgid "_Edit Snippet"
 msgstr "_Edita anaco"
 
 #: src/plugin_snippets/snippets_gui.c:799
 #: src/plugin_snippets/snippets_wizard.c:748
-#, fuzzy
 msgid "Edit snippet"
-msgstr "_Edita anaco"
+msgstr "Edita anaco"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "_Delete Snippet"
 msgstr "_Borra anaco"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "Delete snippet"
-msgstr "_Borra anaco"
+msgstr "Borra anaco"
 
 #: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
 msgid "Delete _Branch"
 msgstr "_Borra pola"
 
@@ -92,62 +85,52 @@ msgid "Delete branch"
 msgstr "_Borra pola"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set Snippet _Accelerator"
-msgstr "Establecer atallo ó Anaco"
+msgstr "Establecer _Atallo ó Anaco"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set snippet accelerator"
 msgstr "Establecer atallo ó Anaco"
 
 #: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
 msgid "Ex_pand All"
-msgstr "Amosar todo"
+msgstr "Ex_pander todo"
 
 #: src/plugin_snippets/snippets_gui.c:804
 msgid "Expand all"
 msgstr "Amosar todo"
 
 #: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
 msgid "_Collapse All"
-msgstr "Pechar todo"
+msgstr "_Pechar todo"
 
 #: src/plugin_snippets/snippets_gui.c:805
 msgid "Collapse all"
 msgstr "Pechar todo"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "E_xport"
-msgstr "Exportar"
+msgstr "E_xportar"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "Export snippets"
-msgstr "Anacos"
+msgstr "Exportar Anacos"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "I_mport"
-msgstr "Importar"
+msgstr "I_mportar"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "Import snippets"
-msgstr "Anacos"
+msgstr "Importar Anacos"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "_Show as menu"
-msgstr "Amosar coma menu"
+msgstr "Mostrar coma menu"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "Show snippets menu"
-msgstr "Amosar coma menu"
+msgstr "Mostrar menú Anacos"
 
 #: src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets Menu"
@@ -190,16 +173,8 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-#, fuzzy
-msgid ""
-"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
-"placeholders to ask for values when you activate this item. Give these "
-"placeholders an appropriate name on the right. (Please use %% if you need "
-"literal % in your string!)"
-msgstr ""
-"Faga unha búsqueda e substitúa o patrón. Pode usar %0, %1,  ..%5 marcadores "
-"de posición para pedir valores cando activas esta función. Na dereita, dalle "
-"un nome axeitado ó marcador."
+msgid "Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
+msgstr "Faga unha búsqueda e substitúa o patrón. Pode usar %0, %1,  ..%5 marcadores de posición para pedir valores cando activas esta función. Na dereita, dalle un nome axeitado ó marcador. (Por favor use %% se precisa literalmente un % na súa cadea!)"
 
 #: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
@@ -230,23 +205,16 @@ msgid "_Use escape chars"
 msgstr "_Usar caracteres de escape"
 
 #: src/plugin_snippets/snippets_wizard.c:163
-msgid "Unescape backslash escaped characters such as \\n, \\t etc."
-msgstr "Quitar caracteres de escape coma \\n , \\t etc."
+msgid ""
+"Unescape backslash escaped characters such as \\n"
+", \\t etc."
+msgstr ""
+"Quitar caracteres de escape coma \\n"
+" , \\t etc."
 
 #: src/plugin_snippets/snippets_wizard.c:332
-#, fuzzy
-msgid ""
-"The <i>before</i> text will be inserted before the cursor position or the "
-"current selection, the <i>after</i> text will be inserted after the cursor "
-"position or the current selection. You may use %0, %1, ...%9 placeholders to "
-"ask for values when you activate this item. Give these placeholders an "
-"appropriate name on the right. (Please use %% if you need literal % in your "
-"string!)"
-msgstr ""
-"O texto <i>anterior</i> será introducido antes da posición do cursor ou "
-"selección actual, o texto <i>posterior</i> será introducido despois da "
-"selección actual ou posición do cursor. Pode usar %0, %1 ...%9 marcadores de "
-"posición (e debe darlle nomes) para pedir valores cando activa este control."
+msgid "The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"
+msgstr "O texto <i>anterior</i> será introducido antes da posición do cursor ou selección actual, o texto <i>posterior</i> será introducido despois da selección actual ou posición do cursor. Pode usar %0, %1 ...%9 marcadores de posición (e debe darlle nomes) para pedir valores cando activa este control. Delle as estos posicionadores un nome apropiado na dereita. (Por favor use %% se precisar usar literalmente un % na súa cadea!)"
 
 #: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
