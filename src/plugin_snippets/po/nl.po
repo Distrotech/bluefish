@@ -50,14 +50,12 @@ msgid "Set accelerator key"
 msgstr "Stel accelerator toets in"
 
 #: src/plugin_snippets/snippets_gui.c:797
-#, fuzzy
 msgid "Snippets menu"
-msgstr "Snippets Menu"
+msgstr "Snippets menu"
 
 #: src/plugin_snippets/snippets_gui.c:798
-#, fuzzy
 msgid "_New Snippet"
-msgstr "Nieuw snippet"
+msgstr "_Nieuw snippet"
 
 #: src/plugin_snippets/snippets_gui.c:798
 #: src/plugin_snippets/snippets_wizard.c:748
@@ -65,92 +63,77 @@ msgid "New snippet"
 msgstr "Nieuwe snippet"
 
 #: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
 msgid "_Edit Snippet"
-msgstr "Bewerk snippet"
+msgstr "_Bewerk Snippet"
 
 #: src/plugin_snippets/snippets_gui.c:799
 #: src/plugin_snippets/snippets_wizard.c:748
-#, fuzzy
 msgid "Edit snippet"
 msgstr "Bewerk snippet"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "_Delete Snippet"
-msgstr "Verwijder snippet"
+msgstr "_Verwijder snippet"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "Delete snippet"
 msgstr "Verwijder snippet"
 
 #: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
 msgid "Delete _Branch"
-msgstr "Verwĳder Tak"
+msgstr "Verwĳder _Tak"
 
 #: src/plugin_snippets/snippets_gui.c:801
 msgid "Delete branch"
 msgstr "Verwĳder Tak"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set Snippet _Accelerator"
-msgstr "Instellen snippet accelerator"
+msgstr "Snippet _sneltoets instellen"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set snippet accelerator"
-msgstr "Instellen snippet accelerator"
+msgstr "Snippet sneltoets instellen"
 
 #: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
 msgid "Ex_pand All"
-msgstr "Alles uitklappen"
+msgstr "Alles _uitklappen"
 
 #: src/plugin_snippets/snippets_gui.c:804
 msgid "Expand all"
 msgstr "Alles uitklappen"
 
 #: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
 msgid "_Collapse All"
-msgstr "Alles inklappen"
+msgstr "Alles _inklappen"
 
 #: src/plugin_snippets/snippets_gui.c:805
 msgid "Collapse all"
 msgstr "Alles inklappen"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "E_xport"
-msgstr "Exporteren"
+msgstr "E_xporteren"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "Export snippets"
-msgstr "snippets"
+msgstr "Snippets exporteren"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "I_mport"
-msgstr "Importeren"
+msgstr "I_mporteren"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "Import snippets"
-msgstr "snippets"
+msgstr "Snippets importeren"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "_Show as menu"
-msgstr "Geef weer als menu"
+msgstr "_Weergeven als menu"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "Show snippets menu"
-msgstr "Geef weer als menu"
+msgstr "Weergeven als menu"
 
 #: src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets Menu"
@@ -193,7 +176,6 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-#, fuzzy
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
@@ -202,23 +184,24 @@ msgid ""
 msgstr ""
 "Specificeer een zoek en vervang patroon. U kunt gebruik maken van %0, %1, ..."
 "%5 als plaatshouders om naar waardes te vragen als u dit item activeerd. "
-"Geef deze plaatshouders een toepasselijke naam aan de rechterkant."
+"Geef deze plaatshouders een toepasselijke naam aan de rechterkant (gebruik %%)"
+"als u een % wilt gebruiken)."
 
 #: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
-msgstr "Zoeken naar: "
+msgstr "_Zoeken naar: "
 
 #: src/plugin_snippets/snippets_wizard.c:141
 msgid "Replace _with: "
-msgstr "Vervangen door: "
+msgstr "_Vervangen door: "
 
 #: src/plugin_snippets/snippets_wizard.c:148
 msgid "Sco_pe: "
-msgstr "Bereik: "
+msgstr "Be_reik: "
 
 #: src/plugin_snippets/snippets_wizard.c:155
 msgid "Match Patter_n: "
-msgstr "Zoek Patroon: "
+msgstr "Zoek _Patroon: "
 
 #: src/plugin_snippets/snippets_wizard.c:158
 msgid "Case sensitive _matching"
@@ -237,7 +220,6 @@ msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr "Escape karakters omzetten in het geval van bijvoorbeeld \\n, \\t etc."
 
 #: src/plugin_snippets/snippets_wizard.c:332
-#, fuzzy
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -250,7 +232,8 @@ msgstr ""
 "selectie, de <i>erna</i> zal worden ingevoegd na de cursor positie of de "
 "huidige selectie. U kunt gebruik maken van %0, %1, ...%9 als plaatshouders "
 "om te vragen naar waarden als u dit item activeert. Geef deze plaatshouders "
-"een toepasselijke naam aan de rechterkant."
+"een toepasselijke naam aan de rechterkant (gebruik %%)"
+"als u een % wilt gebruiken)."
 
 #: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
