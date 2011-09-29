@@ -603,7 +603,9 @@ void bluefish_exit_request(void);
 #define gtk_widget_get_state(arg) GTK_WIDGET_STATE(arg)
 #define gtk_widget_is_sensitive(arg) GTK_WIDGET_IS_SENSITIVE(arg)
 #endif /* GTK_CHECK_VERSION(2,18,0) */
-
+#if !GTK_CHECK_VERSION(2,16,0)
+#define gtk_menu_item_get_label(arg) (gtk_label_get_text(GTK_LABEL(gtk_bin_get_child(GTK_BIN(arg)))))
+#endif /* GTK_CHECK_VERSION(2,16,0) */
 #if !GTK_CHECK_VERSION(2,14,0)
 #define gtk_adjustment_get_upper(arg) (GTK_ADJUSTMENT(arg)->upper)
 #define gtk_adjustment_get_lower(arg) (GTK_ADJUSTMENT(arg)->lower)

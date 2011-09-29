@@ -680,8 +680,10 @@ ui_fullscreen_toggle(GtkAction * action, gpointer user_data)
 	gboolean active = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
 
 	/* TODO: This only works when "use-action-appearance" is TRUE. TRUE is default */
+#if GTK_CHECK_VERSION(2,16,0)
 	gtk_action_set_stock_id(action, (active ? GTK_STOCK_LEAVE_FULLSCREEN : GTK_STOCK_FULLSCREEN));
 	gtk_action_set_tooltip(action, (active ? _("Leave Fullscreen") : _("Fullscreen")));
+#endif
 	bfwin_fullscreen_toggle(BFWIN(user_data), active);
 }
 
@@ -1228,9 +1230,13 @@ bfwin_encoding_set_wo_activate(Tbfwin * bfwin, const gchar * encoding)
 	}
 	
 	if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
+#if GTK_CHECK_VERSION(2,16,0)
 		gtk_action_block_activate(action);
+#endif
 		gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
+#if GTK_CHECK_VERSION(2,16,0)
 		gtk_action_unblock_activate(action);
+#endif
 	}
 }
 
@@ -1246,9 +1252,13 @@ bfwin_lang_mode_set_wo_activate(Tbfwin * bfwin, Tbflang * bflang)
 		}
 
 		if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
+#if GTK_CHECK_VERSION(2,16,0)
 			gtk_action_block_activate(action);
+#endif
 			gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(action), TRUE);
+#if GTK_CHECK_VERSION(2,16,0)
 			gtk_action_unblock_activate(action);
+#endif
 		}
 	}
 }
