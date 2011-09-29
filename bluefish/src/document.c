@@ -2603,7 +2603,7 @@ doc_new_from_uri(Tbfwin * bfwin, GFile * opturi, GFileInfo * finfo, gboolean del
 				g_strdup_printf(_
 								("Your glib version (%d.%d.%d) is unreliable with remote files. Please upgrade to 2.18.0 or newer."),
 glib_major_version, glib_minor_version, glib_micro_version);
-			statusbar_message(bfwin, message, 20);
+			bfwin_statusbar_message(bfwin, message, 20);
 			g_free(message);
 		}
 #endif

@@ -35,6 +35,7 @@ bin_PROGRAMS = bluefish
 
 bluefish_SOURCES = \
 	async_queue.c \
+	async_queue.h \
 	bf_lib.c \
 	bf_lib.h \
 	blocksync.c \
