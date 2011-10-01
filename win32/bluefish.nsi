@@ -92,7 +92,7 @@ ShowUninstDetails show
 
 ; Installer version information
 ;----------------------------------------------
-VIProductVersion "2.0.2.0"
+VIProductVersion "2.0.4.0"
 VIAddVersionKey "ProductName" "${PRODUCT}"
 VIAddVersionKey "FileVersion" "${VERSION}"
 VIAddVersionKey "ProductVersion" "${VERSION}"

@@ -206,7 +206,7 @@
 !define RegisterHTMLType `!insertmacro RegisterHTMLType`
 
 !macro Localize DEF LANG
-	!if ${LANG} == "ENGLISH"
+	!if "${LANG}" == "ENGLISH"
 		!define DEFAULT_${DEF} "${${DEF}}"
 	!endif
 	!ifdef "${DEF}"

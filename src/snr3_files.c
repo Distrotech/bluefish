@@ -36,7 +36,8 @@ typedef struct {
 	gchar *text;
 } Tfileresult;
 
-/*#ifndef HAVE_STRCASESTR
+#ifndef HAVE_STRCASESTR
+#include <ctype.h>
 char *strcasestr(char *a, char *b)
 {
 	size_t l;
@@ -48,7 +49,7 @@ char *strcasestr(char *a, char *b)
 			return(a + l);
 	return(NULL);
 }
-#endif*/
+#endif
 
 static guint calculate_line_in_buffer(Tlineinbuffer *lib, gchar *buffer, gsize pos) {
 	char *tmp = buffer + lib->pos;
