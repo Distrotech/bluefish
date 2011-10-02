@@ -185,7 +185,7 @@ ${LoadLocalization}	"JAPANESE"	"locale\Japanese.nsh"
 !insertmacro MUI_LANGUAGE	"Norwegian" ; 2068
 ${LoadLocalization}	"NORWEGIAN"	"locale\Norwegian.nsh"
 ;!insertmacro MUI_LANGUAGE "NorwegianNynorsk"  ; 2068
-;${LoadLocalization} "NYNORSK" "locale\Nynorsk.nsh"
+;${LoadLocalization} "NYNORSK" "locale\NorwegianNynorsk.nsh"
 !insertmacro MUI_LANGUAGE	"Swedish" 	; 1053
 ${LoadLocalization}	"SWEDISH"	"locale\Swedish.nsh"
 !insertmacro MUI_LANGUAGE	"SimpChinese" 	; 2052
@@ -433,7 +433,7 @@ SectionGroup /e "$(SECT_DICT)" SecLang
 	Section /o "Norwegian" SecLangNb
 		${InstallAspellDict} "nb" "0.50.1-0"
 	SectionEnd
-	Section /o "Nynorsk" SecLangNn
+	Section /o "Norwegian Nynorsk" SecLangNn
 		${InstallAspellDict} "nn" "0.50.1-1"
 	SectionEnd
 	Section /o "Portuguese" SecLangPt_PT
