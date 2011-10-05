@@ -159,7 +159,7 @@ get_foundcache_next(BluefishTextView * btv, GSequenceIter ** siter)
 {
 	DBG_MSG("get_foundcache_next, *siter=%p\n", *siter);
 	*siter = g_sequence_iter_next(*siter);
-	if (*siter && !g_sequence_iter_is_end(*siter)) {
+	if G_LIKELY((*siter && !g_sequence_iter_is_end(*siter))) {
 		DBG_MSG("get_foundcache_next, next *siter=%p, return found %p\n", *siter, g_sequence_get(*siter));
 		return g_sequence_get(*siter);
 	}
@@ -192,7 +192,7 @@ get_foundcache_at_offset(BluefishTextView * btv, guint offset, GSequenceIter ** 
 	Tfound *found = NULL;
 	fakefound.charoffset_o = offset;
 	siter = g_sequence_search(btv->scancache.foundcaches, &fakefound, foundcache_compare_charoffset_o, NULL);
-	if (!g_sequence_iter_is_begin(siter)) {
+	if (G_LIKELY(!g_sequence_iter_is_begin(siter))) {
 		/* now get the previous position, and get the stack at that position */
 		DBG_SCANCACHE("search for offset %d returned iter-position %d (cache length %d)\n", offset,
 					  g_sequence_iter_get_position(siter), g_sequence_get_length(btv->scancache.foundcaches));
@@ -443,26 +443,26 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 			("foundcache_update_offsets, about to update found %p with charoffset %d to %d, fcontext %p and fblock %p\n",
 			 found, found->charoffset_o, found->charoffset_o + offset, found->fcontext, found->fblock);
 		/* for all further founds, we only handle the pushedblock and pushedcontext */
-		if (IS_FOUNDMODE_CONTEXTPUSH(found)) {
+		if (G_UNLIKELY(IS_FOUNDMODE_CONTEXTPUSH(found))) {
 			DBG_SCANCACHE("foundcache_update_offsets, contextpush %p update from %d:%d to %d:%d\n",
 						  found->fcontext, found->fcontext->start_o, found->fcontext->end_o,
 						  found->fcontext->start_o + offset, found->fcontext->end_o + offset);
-			if (found->fcontext->start_o != BF2_OFFSET_UNDEFINED)
+			if (G-LIKELY(found->fcontext->start_o != BF2_OFFSET_UNDEFINED))
 				found->fcontext->start_o += offset;
-			if (found->fcontext->end_o != BF2_OFFSET_UNDEFINED)
+			if (G-LIKELY(found->fcontext->end_o != BF2_OFFSET_UNDEFINED))
 				found->fcontext->end_o += offset;
 		}
-		if (IS_FOUNDMODE_BLOCKPUSH(found)) {
+		if (G_UNLIKELY(IS_FOUNDMODE_BLOCKPUSH(found))) {
 			DBG_SCANCACHE("foundcache_update_offsets, blockpush %p update from %d:%d to %d:%d\n",
 						  found->fblock, found->fblock->start1_o, found->fblock->end2_o,
 						  found->fblock->start1_o + offset, found->fblock->end2_o + offset);
-			if (found->fblock->start1_o != BF2_OFFSET_UNDEFINED)
+			if (G-LIKELY(found->fblock->start1_o != BF2_OFFSET_UNDEFINED))
 				found->fblock->start1_o += offset;
-			if (found->fblock->end1_o != BF2_OFFSET_UNDEFINED)
+			if (G-LIKELY(found->fblock->end1_o != BF2_OFFSET_UNDEFINED))
 				found->fblock->end1_o += offset;
-			if (found->fblock->start2_o != BF2_OFFSET_UNDEFINED)
+			if (G-LIKELY(found->fblock->start2_o != BF2_OFFSET_UNDEFINED))
 				found->fblock->start2_o += offset;
-			if (found->fblock->end2_o != BF2_OFFSET_UNDEFINED)
+			if (G-LIKELY(found->fblock->end2_o != BF2_OFFSET_UNDEFINED))
 				found->fblock->end2_o += offset;
 		}
 		/*g_print("startpos=%d, offset=%d, found=%p, update charoffset_o from %d to %d\n",startpos,offset, found,found->charoffset_o,found->charoffset_o+offset); */
@@ -666,7 +666,7 @@ pop_and_apply_contexts(BluefishTextView * btv, gint numchange, Tfoundcontext * c
 					 g_array_index(btv->bflang->st->contexts, Tcontext, fcontext->context).contexttag,
 					 fcontext->parentfcontext);
 		fcontext->end_o = offset;
-		if (g_array_index(btv->bflang->st->contexts, Tcontext, fcontext->context).contexttag) {
+		if (G_UNLIKELY(g_array_index(btv->bflang->st->contexts, Tcontext, fcontext->context).contexttag)) {
 			GtkTextIter iter;
 			gtk_text_buffer_get_iter_at_offset(btv->buffer, &iter, fcontext->start_o);
 			gtk_text_buffer_apply_tag(btv->buffer,
@@ -720,29 +720,29 @@ found_context_change(BluefishTextView * btv, Tmatch * match, Tscanning * scannin
 static gboolean
 nextcache_valid(Tscanning * scanning)
 {
-	if (!scanning->nextfound)
+	if (G_UNLIKELY(!scanning->nextfound))
 		return FALSE;
-	if (scanning->nextfound->numblockchange <= 0 && scanning->nextfound->fblock != scanning->curfblock) {
+	if (G_UNLIKELY(scanning->nextfound->numblockchange <= 0 && scanning->nextfound->fblock != scanning->curfblock)) {
 		DBG_SCANCACHE("nextcache_valid, next found %p with numblockchange=%d has fblock=%p, current fblock=%p, return FALSE\n",
 					  scanning->nextfound, scanning->nextfound->numblockchange, scanning->nextfound->fblock, scanning->curfblock);
 		return FALSE;
 	}
-	if (scanning->nextfound->numcontextchange <= 0 && scanning->nextfound->fcontext != scanning->curfcontext) {
+	if (G_UNLIKELY(scanning->nextfound->numcontextchange <= 0 && scanning->nextfound->fcontext != scanning->curfcontext)) {
 		DBG_SCANCACHE("nextcache_valid, next found %p with numcontextchange=%d has fcontext=%p, current fcontext=%p, return FALSE\n",
 					  scanning->nextfound, scanning->nextfound->numcontextchange, scanning->nextfound->fcontext, scanning->curfcontext);
 		return FALSE;
 	}
-	if (scanning->nextfound->numcontextchange > 0 && (!scanning->nextfound->fcontext
+	if (G_UNLIKELY(scanning->nextfound->numcontextchange > 0 && (!scanning->nextfound->fcontext
 													  || scanning->nextfound->fcontext->parentfcontext !=
-													  scanning->curfcontext)) {
+													  scanning->curfcontext))) {
 		DBG_SCANCACHE
 			("nextcache_valid, next found %p doesn't push context on top of current fcontext %p, return FALSE\n",
 			 scanning->nextfound, scanning->curfcontext);
 		return FALSE;
 	}
-	if (scanning->nextfound->numblockchange > 0 && (!scanning->nextfound->fblock
+	if (G_UNLIKELY(scanning->nextfound->numblockchange > 0 && (!scanning->nextfound->fblock
 													|| scanning->nextfound->fblock->parentfblock !=
-													scanning->curfblock)) {
+													scanning->curfblock))) {
 		DBG_SCANCACHE
 			("nextcache_valid, next found %p doesn't push block on top of current fblock %p, return FALSE\n",
 			 scanning->nextfound, scanning->curfblock);
@@ -762,13 +762,13 @@ cached_found_is_valid(BluefishTextView * btv, Tmatch * match, Tscanning * scanni
 {
 	Tpattern *pat = &g_array_index(btv->bflang->st->matches, Tpattern, match->patternum);
 
-	if (!scanning->nextfound)
+	if (G_UNLIKELY(!scanning->nextfound))
 		return FALSE;
 
 	DBG_SCANCACHE("cached_found_is_valid, testing %p at offset %d\n", scanning->nextfound,
 				  scanning->nextfound->charoffset_o);
 
-	if (!nextcache_valid(scanning))
+	if (G_UNLIKELY(!nextcache_valid(scanning)))
 		return FALSE;
 
 	DBG_SCANCACHE("with numcontextchange=%d, numblockchange=%d\n", scanning->nextfound->numcontextchange,
@@ -1288,7 +1288,7 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 			uc = '\0';
 		} else {
 			uc = gtk_text_iter_get_char(&iter);
-			if (uc > 128) {
+			if (G_UNLIKELY(uc > 128)) {
 				/* multibyte characters cannot be matched by the engine. character
 				   1 in ascii is "SOH (start of heading)". we need this to support a
 				   pattern like [^#]* .  */
