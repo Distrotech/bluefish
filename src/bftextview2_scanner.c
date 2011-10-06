@@ -447,22 +447,22 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 			DBG_SCANCACHE("foundcache_update_offsets, contextpush %p update from %d:%d to %d:%d\n",
 						  found->fcontext, found->fcontext->start_o, found->fcontext->end_o,
 						  found->fcontext->start_o + offset, found->fcontext->end_o + offset);
-			if (G-LIKELY(found->fcontext->start_o != BF2_OFFSET_UNDEFINED))
+			if (G_LIKELY(found->fcontext->start_o != BF2_OFFSET_UNDEFINED))
 				found->fcontext->start_o += offset;
-			if (G-LIKELY(found->fcontext->end_o != BF2_OFFSET_UNDEFINED))
+			if (G_LIKELY(found->fcontext->end_o != BF2_OFFSET_UNDEFINED))
 				found->fcontext->end_o += offset;
 		}
 		if (G_UNLIKELY(IS_FOUNDMODE_BLOCKPUSH(found))) {
 			DBG_SCANCACHE("foundcache_update_offsets, blockpush %p update from %d:%d to %d:%d\n",
 						  found->fblock, found->fblock->start1_o, found->fblock->end2_o,
 						  found->fblock->start1_o + offset, found->fblock->end2_o + offset);
-			if (G-LIKELY(found->fblock->start1_o != BF2_OFFSET_UNDEFINED))
+			if (G_LIKELY(found->fblock->start1_o != BF2_OFFSET_UNDEFINED))
 				found->fblock->start1_o += offset;
-			if (G-LIKELY(found->fblock->end1_o != BF2_OFFSET_UNDEFINED))
+			if (G_LIKELY(found->fblock->end1_o != BF2_OFFSET_UNDEFINED))
 				found->fblock->end1_o += offset;
-			if (G-LIKELY(found->fblock->start2_o != BF2_OFFSET_UNDEFINED))
+			if (G_LIKELY(found->fblock->start2_o != BF2_OFFSET_UNDEFINED))
 				found->fblock->start2_o += offset;
-			if (G-LIKELY(found->fblock->end2_o != BF2_OFFSET_UNDEFINED))
+			if (G_LIKELY(found->fblock->end2_o != BF2_OFFSET_UNDEFINED))
 				found->fblock->end2_o += offset;
 		}
 		/*g_print("startpos=%d, offset=%d, found=%p, update charoffset_o from %d to %d\n",startpos,offset, found,found->charoffset_o,found->charoffset_o+offset); */
