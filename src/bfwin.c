@@ -796,7 +796,8 @@ gotoline_frame_create(Tbfwin * bfwin)
 	g_signal_connect(G_OBJECT(bfwin->simplesearch_entry), "key-press-event", G_CALLBACK(gotoline_entries_key_press_event), bfwin);
 	g_signal_connect(bfwin->simplesearch_entry, "changed", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
 	g_signal_connect(bfwin->simplesearch_entry, "activate", G_CALLBACK(simplesearch_entry_changed_or_activate), bfwin);
-	button = bf_generic_button_with_image(_("Advanced"),-1,G_CALLBACK(simplesearch_advanced_clicked),bfwin);
+	button = dialog_button_new_with_image(_("Advanced"), 0, NULL,GTK_ICON_SIZE_MENU);
+	g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(simplesearch_advanced_clicked),bfwin);
 	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 	
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->gotoline_frame, FALSE, FALSE, 2);

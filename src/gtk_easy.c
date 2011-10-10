@@ -655,59 +655,6 @@ apply_font_style(GtkWidget * this_widget, gchar * fontstring)
 }
 
 /**
- * hbox_with_pix_and_text:
- * 	@label: #const gchar* with the text
- * 	@pixmap_type: #gint with a pixmap type known by new_pixmap() from pixmap.h
- *
- * constructs a hbox with a pixmap and text. The pixmap type should be known
- * to the new_pixmap() function from pixmap.c
- * This function is very useful to create a button with text and a pixmap
- *
- * Return value: #GtkWidget* to the hbox
- */
-GtkWidget *
-hbox_with_pix_and_text(const gchar * label, gint bf_pixmaptype, gboolean w_mnemonic)
-{
-	GtkWidget *hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(bf_pixmaptype), FALSE, FALSE, 1);
-	gtk_box_pack_start(GTK_BOX(hbox),
-					   ((w_mnemonic) ? gtk_label_new_with_mnemonic(label) : gtk_label_new(label)), TRUE, TRUE,
-					   1);
-	gtk_widget_show_all(hbox);
-	return hbox;
-}
-
-GtkWidget *
-bf_allbuttons_backend(const gchar * label, gboolean w_mnemonic, gint bf_pixmaptype, GCallback func,
-					  gpointer func_data)
-{
-	GtkWidget *button;
-	if (bf_pixmaptype == -1) {
-		/* there is no image needed, only text */
-		if (w_mnemonic) {
-			button = gtk_button_new_with_mnemonic(label);
-		} else {
-			button = gtk_button_new_with_label(label);
-		}
-	} else {
-		/* there is an image needed */
-		button = gtk_button_new();
-		if (label) {
-			/* both a pixmap and text */
-			gtk_container_set_border_width(GTK_CONTAINER(button), 0);
-			gtk_container_add(GTK_CONTAINER(button),
-							  hbox_with_pix_and_text(label, bf_pixmaptype, w_mnemonic));
-		} else {
-			/* only pixmap */
-			gtk_container_add(GTK_CONTAINER(button), new_pixmap(bf_pixmaptype));
-		}
-	}
-	gtk_widget_set_can_default(button, TRUE);
-	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
-	return button;
-}
-
-/**
  * bf_gtkstock_button:
  * @stock_id: #const gchar* wioth the GTK stock icon ID
  * @func: #GCallback pointer to signal handler
