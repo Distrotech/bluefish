@@ -1115,7 +1115,7 @@ file_but_clicked_lcb(GtkWidget * widget, Tfilebut * fb)
 static void
 file_but_destroy(GtkObject * object, Tfilebut * fb)
 {
-	g_free(fb);
+	g_slice_free(Tfilebut, fb);
 }
 
 /**
@@ -1136,16 +1136,14 @@ file_but_new2(GtkWidget * which_entry, gint full_pathname, Tbfwin * bfwin, GtkFi
 	GtkWidget *file_but;
 	Tfilebut *fb;
 
-	fb = g_new(Tfilebut, 1);
+	fb = g_slice_new(Tfilebut);
 	fb->entry = which_entry;
 	fb->bfwin = bfwin;
 	fb->fullpath = full_pathname;
 	fb->chooseraction = chooseraction;
-	file_but = gtk_button_new();
+	file_but = bf_gtkstock_button(GTK_STOCK_OPEN, G_CALLBACK(file_but_clicked_lcb), fb, TRUE);
 	g_signal_connect(G_OBJECT(file_but), "destroy", G_CALLBACK(file_but_destroy), fb);
 	DEBUG_MSG("file_but_new, entry=%p, button=%p\n", which_entry, file_but);
-	gtk_container_add(GTK_CONTAINER(file_but), hbox_with_pix_and_text(_("_Browse..."), 112, TRUE));
-	g_signal_connect(G_OBJECT(file_but), "clicked", G_CALLBACK(file_but_clicked_lcb), fb);
 	gtk_widget_show(file_but);
 	return file_but;
 }
