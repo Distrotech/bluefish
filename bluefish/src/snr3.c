@@ -1272,13 +1272,6 @@ snr3_advanced_response(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 
 }
 
-static inline void widget_set_show(GtkWidget *widget, gboolean show) {
-	if (show)
-		gtk_widget_show(widget);
-	else
-		gtk_widget_hide(widget);
-}
-
 static void snr_dialog_show_widgets(TSNRWin * snrwin) {
 	Tsnr3type searchtype;
 	Tsnr3scope scope;
@@ -1290,22 +1283,22 @@ static void snr_dialog_show_widgets(TSNRWin * snrwin) {
 
 	DEBUG_MSG("snr_dialog_show_widgets, scope=%d, searchtype=%d, replacetype=%d\n",scope,searchtype,replacetype);
 
-	widget_set_show(snrwin->filepattern, (scope == snr3scope_files));
-	widget_set_show(snrwin->filepatternL, (scope == snr3scope_files));
-	widget_set_show(snrwin->basedir, (scope == snr3scope_files));
-	widget_set_show(snrwin->basedirL, (scope == snr3scope_files));
-	widget_set_show(snrwin->basedirB, (scope == snr3scope_files));
-	widget_set_show(snrwin->findAllButton, (scope == snr3scope_files));
-	widget_set_show(snrwin->replaceType, (searchtype == snr3type_pcre));
-	widget_set_show(snrwin->replaceTypeL, (searchtype == snr3type_pcre));
-	widget_set_show(snrwin->replace, (searchtype != snr3type_pcre || replacetype == snr3replace_string));
-	widget_set_show(snrwin->escapeChars, (searchtype == snr3type_string));
-	widget_set_show(snrwin->dotmatchall, (searchtype == snr3type_pcre));
+	widget_set_visible(snrwin->filepattern, (scope == snr3scope_files));
+	widget_set_visible(snrwin->filepatternL, (scope == snr3scope_files));
+	widget_set_visible(snrwin->basedir, (scope == snr3scope_files));
+	widget_set_visible(snrwin->basedirL, (scope == snr3scope_files));
+	widget_set_visible(snrwin->basedirB, (scope == snr3scope_files));
+	widget_set_visible(snrwin->findAllButton, (scope == snr3scope_files));
+	widget_set_visible(snrwin->replaceType, (searchtype == snr3type_pcre));
+	widget_set_visible(snrwin->replaceTypeL, (searchtype == snr3type_pcre));
+	widget_set_visible(snrwin->replace, (searchtype != snr3type_pcre || replacetype == snr3replace_string));
+	widget_set_visible(snrwin->escapeChars, (searchtype == snr3type_string));
+	widget_set_visible(snrwin->dotmatchall, (searchtype == snr3type_pcre));
 	
-	widget_set_show(snrwin->replaceButton, (scope != snr3scope_files));
-	widget_set_show(snrwin->backButton, (scope != snr3scope_files));
-	widget_set_show(snrwin->findButton, (scope != snr3scope_files));
-	widget_set_show(snrwin->bookmarkButton, (scope != snr3scope_files));
+	widget_set_visible(snrwin->replaceButton, (scope != snr3scope_files));
+	widget_set_visible(snrwin->backButton, (scope != snr3scope_files));
+	widget_set_visible(snrwin->findButton, (scope != snr3scope_files));
+	widget_set_visible(snrwin->bookmarkButton, (scope != snr3scope_files));
 }
 
 static void
