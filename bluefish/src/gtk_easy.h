@@ -69,16 +69,8 @@ void window_close_by_widget_cb(GtkWidget * widget, gpointer data);
 void window_close_by_data_cb(GtkWidget * widget, gpointer data);
 GtkWidget *apply_font_style(GtkWidget * this_widget, gchar * fontstring);
 
-GtkWidget *hbox_with_pix_and_text(const gchar * label, gint bf_pixmaptype, gboolean w_mnemonic);
-
-/*GtkWidget *bf_allbuttons_backend(const gchar * label, gboolean w_mnemonic, gint bf_pixmaptype, GCallback func,
-								 gpointer func_data);
-#define bf_generic_button_with_image(label,pixmap_type,func,func_data) bf_allbuttons_backend(label,FALSE,pixmap_type,func,func_data)
-#define bf_generic_mnemonic_button(label,func,func_data) bf_allbuttons_backend(label,TRUE,-1,func,func_data)
-*/
-GtkWidget *bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data, gboolean force_image);
-#define bf_stock_ok_button(func, data) bf_gtkstock_button(GTK_STOCK_OK, func, data, FALSE)
-#define bf_stock_cancel_button(func, data) bf_gtkstock_button(GTK_STOCK_CANCEL, func, data, FALSE)
+#define bf_stock_ok_button(func, data) dialog_button_new_with_image(NULL,GTK_STOCK_OK,func, data, FALSE, FALSE)
+#define bf_stock_cancel_button(func, data) dialog_button_new_with_image(NULL,GTK_STOCK_CANCEL,func, data, FALSE, FALSE)
 
 GtkWidget *bf_generic_frame_new(const gchar * label, GtkShadowType shadowtype, gint borderwidth);
 

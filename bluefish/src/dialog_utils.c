@@ -103,26 +103,6 @@ dialog_button_new_in_table(const gchar * labeltext, GtkWidget * table, guint lef
 	return button;
 }
 
-static GtkWidget *
-dialog_button_widget_new(const gchar * labeltext, gint pixmap, const gchar * stockID, GtkIconSize iconSize)
-{
-	GtkWidget *hbox;
-
-	hbox = gtk_hbox_new(FALSE, 0);
-
-	if (stockID == NULL)
-		gtk_box_pack_start(GTK_BOX(hbox), new_pixmap(pixmap), FALSE, FALSE, 1);
-	else
-		gtk_box_pack_start(GTK_BOX(hbox), gtk_image_new_from_stock(stockID, iconSize), FALSE, FALSE, 1);
-
-	if (labeltext)
-		gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new_with_mnemonic(labeltext), TRUE, TRUE, 1);
-
-	gtk_widget_show_all(hbox);
-
-	return hbox;
-}
-
 /**
  * dialog_button_new_with_image:
  * 	@labeltext:		 #const gchar * The label text.
@@ -136,15 +116,35 @@ dialog_button_widget_new(const gchar * labeltext, gint pixmap, const gchar * sto
  * Return value: #GtkWidget * The newly created button
  */
 GtkWidget *
-dialog_button_new_with_image(const gchar * labeltext, gint pixmap, const gchar * stockID,
-							 GtkIconSize iconSize)
+dialog_button_new_with_image(const gchar * labeltext,const gchar * stockid,
+							GCallback func, gpointer func_data, gboolean force_image, gboolean mnemonic)
 {
-	GtkWidget *button, *hbox;
+	GtkWidget *button, *child=NULL, *label=NULL;
+	
+	if (labeltext)
+		label = mnemonic ? gtk_label_new_with_mnemonic(labeltext) : gtk_label_new(labeltext);
+		
+	if (labeltext && stockid) {
+		child = gtk_hbox_new(FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(child), gtk_image_new_from_stock(stockid, GTK_ICON_SIZE_MENU), FALSE, FALSE, 1);
+		gtk_box_pack_start(GTK_BOX(child), label, TRUE, TRUE, 1);
+	} else if (force_image) {
+		child = gtk_image_new_from_stock(stockid, GTK_ICON_SIZE_MENU);
+	} else if (label) {
+		child = label;
+	}
 
-	hbox = dialog_button_widget_new(labeltext, pixmap, stockID, iconSize);
-	button = gtk_button_new();
-	gtk_container_add(GTK_CONTAINER(button), hbox);
-
+	if (child) {
+		button = gtk_button_new();
+		gtk_container_add(GTK_CONTAINER(button), child);
+	} else if (stockid) {
+		button = gtk_button_new_from_stock(stockid);
+	} else {
+		g_warning("bluefish bug in dialog_button_new_with_image(), labeltext=%s, stockid=%s, please report this.", labeltext, stockid);
+	}
+	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
+	gtk_widget_set_can_default(button, TRUE);
+	gtk_widget_show_all(button);
 	return button;
 }
 
@@ -166,13 +166,14 @@ dialog_button_new_with_image(const gchar * labeltext, gint pixmap, const gchar *
  * Return value: #GtkWidget * The newly created button
  */
 GtkWidget *
-dialog_button_new_with_image_in_table(const gchar * labeltext, gint pixmap, const gchar * stockID,
-									  GtkIconSize iconSize, GtkWidget * table, guint left_attach,
-									  guint right_attach, guint top_attach, guint bottom_attach)
+dialog_button_new_with_image_in_table(const gchar * labeltext, const gchar * stockID,
+										GCallback func, gpointer func_data, gboolean force_image, gboolean mnemonic,
+										GtkWidget * table, guint left_attach,
+										guint right_attach, guint top_attach, guint bottom_attach)
 {
 	GtkWidget *button;
 
-	button = dialog_button_new_with_image(labeltext, pixmap, stockID, iconSize);
+	button = dialog_button_new_with_image(labeltext, stockID, func, func_data, force_image, mnemonic);
 	gtk_table_attach(GTK_TABLE(table), button, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
 					 GTK_SHRINK, 0, 0);
 

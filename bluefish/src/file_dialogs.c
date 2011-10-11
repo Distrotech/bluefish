@@ -168,9 +168,10 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 	dialog_mnemonic_label_in_table(_("Base _Dir:"), tfs->basedir, table, 0, 1, 0, 1);
 
 	button =
-		dialog_button_new_with_image_in_table(NULL, -1, GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU, table, 5, 6, 0,
-											  1);
-	g_signal_connect(button, "clicked", G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs);
+		dialog_button_new_with_image_in_table(NULL, GTK_STOCK_OPEN, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs, 
+						TRUE, FALSE,
+						table, 5, 6, 0,1);
+
 
 	lstore = gtk_list_store_new(1, G_TYPE_STRING);
 	for (tmplist = g_list_first(bfwin->session->filegloblist); tmplist; tmplist = g_list_next(tmplist)) {

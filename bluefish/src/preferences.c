@@ -582,10 +582,6 @@ create_plugin_gui(Tprefdialog * pd, GtkWidget * vbox1)
 	}
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 2);
-	/*  but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_filetype_lcb), pd);
-	   gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
-	   but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_filetype_lcb), pd);
-	   gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2); */
 }
 
 /****** Text style **************/
@@ -851,9 +847,9 @@ create_textstyle_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	hbox2 = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox2, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_textstyle_lcb), pd, TRUE);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_ADD, G_CALLBACK(add_new_textstyle_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox2), but, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_textstyle_lcb), pd, TRUE);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_DELETE, G_CALLBACK(delete_textstyle_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox2), but, FALSE, FALSE, 2);
 }
 
@@ -954,9 +950,9 @@ create_extcommands_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_extcommands_lcb), pd, TRUE);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_ADD, G_CALLBACK(add_new_extcommands_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_extcommands_lcb), pd, TRUE);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_DELETE, G_CALLBACK(delete_extcommands_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
 
@@ -1047,9 +1043,9 @@ create_filters_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_external_filter_lcb), pd, TRUE);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_ADD, G_CALLBACK(add_new_external_filter_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_external_filter_lcb), pd, TRUE);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_DELETE, G_CALLBACK(delete_external_filter_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
 
@@ -1187,9 +1183,9 @@ create_outputbox_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_outputbox_lcb), pd, TRUE);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_ADD, G_CALLBACK(add_new_outputbox_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_outputbox_lcb), pd, TRUE);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_DELETE, G_CALLBACK(delete_outputbox_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
 
@@ -1277,9 +1273,9 @@ create_template_gui(Tprefdialog * pd, GtkWidget * vbox1)
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_template_lcb), pd, TRUE);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_ADD, G_CALLBACK(add_new_template_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_template_lcb), pd, TRUE);
+	but = dialog_button_new_with_image(NULL, GTK_STOCK_DELETE, G_CALLBACK(delete_template_lcb), pd, TRUE, FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 2);
 }
 
@@ -2414,13 +2410,13 @@ preferences_dialog_new(void)
 		gtk_box_set_spacing(GTK_BOX(ahbox), 6);
 
 		gtk_box_pack_start(GTK_BOX(dvbox), ahbox, FALSE, FALSE, 0);
-		but = bf_gtkstock_button(GTK_STOCK_APPLY, G_CALLBACK(preferences_apply_clicked_lcb), pd, FALSE);
+		but = dialog_button_new_with_image(NULL, GTK_STOCK_APPLY, G_CALLBACK(preferences_apply_clicked_lcb), pd, FALSE, FALSE);
 		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 0);
 
-		but = bf_stock_cancel_button(G_CALLBACK(preferences_cancel_clicked_lcb), pd);
+		but = dialog_button_new_with_image(NULL, GTK_STOCK_CANCEL, G_CALLBACK(preferences_cancel_clicked_lcb), pd, FALSE, FALSE);
 		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 0);
 
-		but = bf_stock_ok_button(G_CALLBACK(preferences_ok_clicked_lcb), pd);
+		but = dialog_button_new_with_image(NULL, GTK_STOCK_OK, G_CALLBACK(preferences_ok_clicked_lcb), pd, FALSE, FALSE);
 		gtk_box_pack_start(GTK_BOX(ahbox), but, FALSE, FALSE, 6);
 		gtk_window_set_default(GTK_WINDOW(pd->win), but);
 	}
