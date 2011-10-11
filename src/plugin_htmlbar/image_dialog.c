@@ -295,10 +295,9 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 	g_signal_connect(dialog->priv->source, "activate", G_CALLBACK(image_dialog_source_activate), dialog);
 	g_signal_connect(dialog->priv->source, "changed", G_CALLBACK(image_dialog_source_changed), dialog);
 
-	dialog->priv->fileButton = dialog_button_new_with_image(NULL, -1, GTK_STOCK_OPEN, GTK_ICON_SIZE_MENU);
+	dialog->priv->fileButton = dialog_button_new_with_image(NULL, GTK_STOCK_OPEN, G_CALLBACK(filebutton_clicked), dialog, TRUE, FALSE);
 	gtk_button_set_focus_on_click(GTK_BUTTON(dialog->priv->fileButton), FALSE);
 	gtk_box_pack_start(GTK_BOX(hbox), dialog->priv->fileButton, FALSE, FALSE, 0);
-	g_signal_connect(dialog->priv->fileButton, "clicked", G_CALLBACK(filebutton_clicked), dialog);
 
 	hbox = gtk_hbox_new(FALSE, 6);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
@@ -343,12 +342,9 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 					 G_CALLBACK(image_dialog_height_percent_toggled), dialog);
 
 	dialog->priv->resetSizeButton = dialog_button_new_with_image_in_table(_("_Reset Dimensions"),
-																		  -1, GTK_STOCK_REFRESH,
-																		  GTK_ICON_SIZE_MENU,
-																		  table, 0, 3, 2, 3);
+									  GTK_STOCK_REFRESH,G_CALLBACK(image_dialog_reset_dimensions),dialog,FALSE, TRUE,
+									  table, 0, 3, 2, 3);
 	gtk_widget_set_sensitive(dialog->priv->resetSizeButton, FALSE);
-	g_signal_connect(dialog->priv->resetSizeButton, "clicked", G_CALLBACK(image_dialog_reset_dimensions),
-					 dialog);
 
 	table = dialog_table_in_vbox(6, 3, 6, vbox, TRUE, TRUE, 0);
 

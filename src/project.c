@@ -637,9 +637,9 @@ project_edit(Tbfwin * bfwin)
 	but = bf_stock_cancel_button(G_CALLBACK(project_edit_cancel_clicked_lcb), pred);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
 	if (pred->destroy_project_on_close == TRUE) {
-		but = dialog_button_new_with_image(_("Create _Project"), 0, GTK_STOCK_NEW,GTK_ICON_SIZE_MENU);
+		but = dialog_button_new_with_image(_("Create _Project"), GTK_STOCK_NEW, G_CALLBACK(project_edit_ok_clicked_lcb), pred, TRUE, TRUE);
 	} else {
-		but = bf_stock_ok_button(G_CALLBACK(project_edit_ok_clicked_lcb), pred);
+		but = dialog_button_new_with_image(NULL, GTK_STOCK_OK, G_CALLBACK(project_edit_ok_clicked_lcb), pred, TRUE, FALSE);
 	}
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
 	gtk_widget_grab_default(but);

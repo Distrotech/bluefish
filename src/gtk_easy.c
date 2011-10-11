@@ -29,6 +29,7 @@
 #include "bf_lib.h"
 #include "bfwin.h"
 #include "pixmap.h"
+#include "dialog_utils.h"
 
 
 #ifdef WIN32
@@ -654,30 +655,6 @@ apply_font_style(GtkWidget * this_widget, gchar * fontstring)
 	return this_widget;
 }
 
-/**
- * bf_gtkstock_button:
- * @stock_id: #const gchar* wioth the GTK stock icon ID
- * @func: #GCallback pointer to signal handler
- * @func_data: #gpointer data for signal handler
- *
- * Create new button from the GTK stock icons
- *
- * Return value: pointer to created button
- */
-GtkWidget *
-bf_gtkstock_button(const gchar * stock_id, GCallback func, gpointer func_data, gboolean force_image)
-{
-	GtkWidget *button;
-	if (force_image) {
-		button = gtk_button_new();
-		gtk_container_add(GTK_CONTAINER(button), gtk_image_new_from_stock(stock_id, GTK_ICON_SIZE_MENU));
-	} else {
-		button = gtk_button_new_from_stock(stock_id);
-	}
-	gtk_widget_set_can_default(button, TRUE);
-	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
-	return button;
-}
 
 /**
  * bf_generic_frame_new:
@@ -1088,7 +1065,7 @@ file_but_new2(GtkWidget * which_entry, gint full_pathname, Tbfwin * bfwin, GtkFi
 	fb->bfwin = bfwin;
 	fb->fullpath = full_pathname;
 	fb->chooseraction = chooseraction;
-	file_but = bf_gtkstock_button(GTK_STOCK_OPEN, G_CALLBACK(file_but_clicked_lcb), fb, TRUE);
+	file_but = dialog_button_new_with_image(NULL,GTK_STOCK_OPEN, G_CALLBACK(file_but_clicked_lcb), fb, TRUE, FALSE);
 	g_signal_connect(G_OBJECT(file_but), "destroy", G_CALLBACK(file_but_destroy), fb);
 	DEBUG_MSG("file_but_new, entry=%p, button=%p\n", which_entry, file_but);
 	gtk_widget_show(file_but);
