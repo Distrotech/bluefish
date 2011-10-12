@@ -568,11 +568,11 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 		xmlFree(aname);
 	}
 	if (stretch_blockstart && ends_block) {
-		g_print("Error in language file, id %s / pattern %s has mutually exclusive options stretch_blockstart and ends_block both enabled\n", id, pattern);
+		g_print("Error in language file, id %s / pattern %s has mutually exclusive options stretch_blockstart and ends_block both enabled\n", id?id:"-", pattern?pattern:"null");
 		stretch_blockstart = FALSE;
 	}
 	if ((stretch_blockstart || ends_block) && !blockstartelement) {
-		g_print("Error in language file, id %s / pattern %s has stretch_blockstart or ends_block enabled without blockstartelement\n", id, pattern);
+		g_print("Error in language file, id %s / pattern %s has stretch_blockstart or ends_block enabled without blockstartelement\n", id?id:"-", pattern?pattern:"null");
 	}
 	tmp = lookup_user_option(bfparser->bflang->name, class);
 	tmp2 = lookup_user_option(bfparser->bflang->name, notclass);
@@ -602,8 +602,8 @@ process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing * bfparser, gin
 				nextcontext = -1 * ends_context;	/*GPOINTER_TO_INT(g_queue_peek_nth(contextstack,ends_context)); */
 				if (ends_context >= g_queue_get_length(contextstack)) {
 					g_print
-						("Possible error in language file, id %s / pattern %s ends_context=%d, but has only %d parent contexts\n",
-						 id, pattern, ends_context, g_queue_get_length(contextstack));
+						("Possible error in language file, id %s / pattern %s has ends_context=%d, but has only %d parent contexts\n",
+						 id?id:"-", pattern?pattern:"null", ends_context, g_queue_get_length(contextstack));
 				}
 			}
 			if (blockstartelement) {
