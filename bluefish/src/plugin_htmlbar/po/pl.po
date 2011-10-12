@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-22 03:12+0200\n"
-"PO-Revision-Date: 2011-01-30 23:28+0100\n"
+"POT-Creation-Date: 2011-09-01 21:02+0200\n"
+"PO-Revision-Date: 2011-10-06 22:35+0100\n"
 "Last-Translator: Quick-Master SI <dawajpoczte@gmail.com>\n"
 "Language-Team: PL\n"
 "Language: pl\n"
@@ -49,8 +49,10 @@ msgstr "_Selektor"
 msgid "_Property:"
 msgstr "Wła_sność"
 
-#: src/plugin_htmlbar/html2.c:682 src/plugin_htmlbar/html_form.c:375
-#: src/plugin_htmlbar/html_form.c:540 src/plugin_htmlbar/html_form.c:635
+#: src/plugin_htmlbar/html2.c:682
+#: src/plugin_htmlbar/html_form.c:375
+#: src/plugin_htmlbar/html_form.c:540
+#: src/plugin_htmlbar/html_form.c:635
 msgid "_Value:"
 msgstr "_Wartość"
 
@@ -58,11 +60,13 @@ msgstr "_Wartość"
 msgid "Selector"
 msgstr "Selektor"
 
-#: src/plugin_htmlbar/html2.c:700 src/plugin_htmlbar/html2.c:703
+#: src/plugin_htmlbar/html2.c:700
+#: src/plugin_htmlbar/html2.c:703
 msgid "Property"
 msgstr "Własność"
 
-#: src/plugin_htmlbar/html2.c:700 src/plugin_htmlbar/html2.c:703
+#: src/plugin_htmlbar/html2.c:700
+#: src/plugin_htmlbar/html2.c:703
 msgid "Value"
 msgstr "Wartość"
 
@@ -78,8 +82,9 @@ msgstr " _Odśwież "
 msgid " _Delete "
 msgstr " Usuń "
 
-#: src/plugin_htmlbar/html2.c:977 src/plugin_htmlbar/html2.c:1014
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1639
+#: src/plugin_htmlbar/html2.c:977
+#: src/plugin_htmlbar/html2.c:1014
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1633
 msgid "_Style..."
 msgstr "_Styl..."
 
@@ -87,1474 +92,1438 @@ msgstr "_Styl..."
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Wybierz kolor"
 
-#: src/plugin_htmlbar/htmlbar.c:42
+#: src/plugin_htmlbar/htmlbar.c:41
 msgid "Edit color"
 msgstr "Zmień kolor"
 
-#: src/plugin_htmlbar/htmlbar.c:50
+#: src/plugin_htmlbar/htmlbar.c:49
 msgid "Edit tag"
 msgstr "Edytuj znacznik"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1358
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1352
 msgid "T_ags"
 msgstr "_Znaczniki"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1359
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1353
 msgid "_Headings"
 msgstr "Nagłówki"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1360
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1354
 msgid "H_1"
 msgstr "H1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1360
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1354
 msgid "Insert H1 tag"
-msgstr "Wstaw obrazek"
+msgstr "Wstaw znacznik H1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1362
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1356
 msgid "H_2"
 msgstr "H2"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1362
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1356
 msgid "Insert H2 tag"
-msgstr "Wstaw obrazek"
+msgstr "Wstaw znacznik H2"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1364
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1358
 msgid "H_3"
 msgstr "H3"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1364
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1358
 msgid "Insert H3 tag"
-msgstr "Wstaw obrazek"
+msgstr "Wstaw znacznik H3"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1366
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1360
 msgid "H_4"
 msgstr "H4"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1366
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1360
 msgid "Insert H4 tag"
-msgstr "Wstaw obrazek"
+msgstr "Wstaw znacznik H4"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1368
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1362
 msgid "H_5"
 msgstr "H5"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1368
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1362
 msgid "Insert H5 tag"
-msgstr "Wstaw obrazek"
+msgstr "Wstaw znacznik H5"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1370
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1364
 msgid "H_6"
 msgstr "H6"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1370
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1364
 msgid "Insert H6 tag"
-msgstr "Wstaw obrazek"
+msgstr "Wstaw znacznik H6"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1372
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1366
 msgid "_Special"
 msgstr "Specjalne"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1373
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1367
 msgid "_Accent"
 msgstr "Akcent"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1374
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1368
 msgid "_Uppercase"
 msgstr "Duże"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1375
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1407
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1369
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1401
 msgid "_A-I"
 msgstr "A-I"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1376
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1370
 msgid "A grave À"
 msgstr "A z kreską w lewo À"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1377
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1371
 msgid "A acute Á"
 msgstr "A kreską w prawo Á"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1378
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1372
 msgid "A circumflex Â"
 msgstr "A z daszkiem Â"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1379
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1373
 msgid "A tilde Ã"
 msgstr "A z tyldą Ã"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1380
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1374
 msgid "AE ligature Æ"
 msgstr "AE połączone Æ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1381
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1375
 msgid "A diaeresis Ä"
 msgstr "A z umlaut Ä"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1382
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1376
 msgid "A ring Å"
 msgstr "A z kółkiem Å"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1383
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1377
 msgid "C cedilla Ç"
 msgstr "C z ogonkiem Ç"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1384
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1378
 msgid "E grave È"
 msgstr "E z kreską w lewo È"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1385
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1379
 msgid "E acute É"
 msgstr "E z kreską w prawo É"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1386
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1380
 msgid "E circumflex Ê"
 msgstr "E z daszkiem Ê"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1387
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1381
 msgid "E diaeresis Ë"
 msgstr "E z umlaut Ë"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1388
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1382
 msgid "I grave Ì"
 msgstr "I z kreską w lewo Ì"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1389
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1383
 msgid "I acute Í"
 msgstr "I z kreską w prawo Í"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1390
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1384
 msgid "I circumflex Î"
 msgstr "I z daszkiem Î"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1391
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1385
 msgid "I diaeresis Ï"
 msgstr "I z umlaut Ï"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1392
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1424
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1386
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1418
 msgid "_J-Z"
 msgstr "J-Z"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1393
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1387
 msgid "N tilde Ñ"
 msgstr "N z tyldą Ñ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1394
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1388
 msgid "O grave Ò"
 msgstr "O z kreską w lewo Ò"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1395
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1389
 msgid "O acute Ó"
 msgstr "O z kreską w prawo Ó"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1396
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1390
 msgid "O circumflex Ô"
 msgstr "O z daszkiem Ô"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1397
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1391
 msgid "OE ligature Œ"
 msgstr "OE połączone Œ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1398
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1392
 msgid "O tilde Õ"
 msgstr "O z tyldą Õ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1399
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1393
 msgid "O diaeresis Ö"
 msgstr "O z umlaut Ö"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1400
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1394
 msgid "O slash Ø"
 msgstr "O z kreską Ø"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1401
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1395
 msgid "U grave Ù"
 msgstr "U z kreską w lewo Ù"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1402
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1396
 msgid "U acute Ú"
 msgstr "U z kreską w prawo Ú"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1403
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1397
 msgid "U circumflex Û"
 msgstr "U z daszkiem Û"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1404
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1398
 msgid "U diaeresis Ü"
 msgstr "U z umlaut Ü"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1405
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1399
 msgid "Y acute Ý"
 msgstr "Y z kreską w prawo Ý"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1406
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1400
 msgid "_Lowercase"
 msgstr "Małe"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1408
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1402
 msgid "a grave à"
 msgstr "a z kreską w lewo à"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1409
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1403
 msgid "a acute á"
 msgstr "a z kreską w prawo á"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1410
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1404
 msgid "a circumflex â"
 msgstr "a z daszkiem â"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1411
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1405
 msgid "a tilde ã"
 msgstr "a z tyldą ã"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1412
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1406
 msgid "a ring å"
 msgstr "a z kółkiem å"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1413
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1407
 msgid "ae ligature æ"
 msgstr "ae połączone æ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1414
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1408
 msgid "a diaeresis ä"
 msgstr "a z umlaut ä"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1415
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1409
 msgid "c cedilla ç"
 msgstr "c z ogonkiem ç"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1416
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1410
 msgid "e grave è"
 msgstr "e z kreską w lewo è"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1417
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1411
 msgid "e acute é"
 msgstr "e z kreską w prawo é"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1418
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1412
 msgid "e circumflex ê"
 msgstr "e z daszkiem ê"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1419
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1413
 msgid "e diaeresis ë"
 msgstr "e z umlaut ë"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1420
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1414
 msgid "i grave ì"
 msgstr "i z kreską w lewo ì"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1421
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1415
 msgid "i acute í"
 msgstr "i z kreską w prawo í"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1422
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1416
 msgid "i circumflex î"
 msgstr "i z daszkiem î"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1423
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1417
 msgid "i diaeresis ï"
 msgstr "i z umlaut ï"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1425
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1419
 msgid "n tilde ñ"
 msgstr "n z tyldą ñ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1426
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1420
 msgid "o grave ò"
 msgstr "o z kreską w lewo ò"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1427
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1421
 msgid "o acute ó"
 msgstr "o z kreską w prawo ó"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1428
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1422
 msgid "oe ligature œ"
 msgstr "oe połączone œ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1429
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1423
 msgid "o circumflex ô"
 msgstr "o z daszkiem ô"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1430
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1424
 msgid "o tilde õ"
 msgstr "o z tyldą õ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1431
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1425
 msgid "o diaeresis ö"
 msgstr "o z umlaut ö"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1432
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1426
 msgid "o slash ø"
 msgstr "o z kreską ø"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1433
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1427
 msgid "u grave ù"
 msgstr "u z kreską w lewo ù"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1434
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1428
 msgid "u acute ú"
 msgstr "u z kreską w prawo ú"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1435
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1429
 msgid "u circumflex û"
 msgstr "u z daszkiem û"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1436
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1430
 msgid "u diaeresis ü"
 msgstr "u z umlaut ü"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1437
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1431
 msgid "y acute ý"
 msgstr "y z kreską w prawo ý"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1438
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1432
 msgid "y diaeresis ÿ"
 msgstr "y z umlaut ÿ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1439
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1433
 msgid "_Acute ´"
 msgstr "_Kreska w prawo ´"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1440
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1434
 msgid "_Cedilla ¸"
 msgstr "_Ogonek ¸"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1441
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1435
 msgid "U_mlaut ¨"
 msgstr "U_mlaut ¨"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1442
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1436
 msgid "_Currency"
 msgstr "_Waluta"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1443
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1437
 msgid "_Cent sign ¢"
 msgstr "_Cent ¢"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1444
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1438
 msgid "_Pound sterling £"
 msgstr "_Funt szterling £"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1445
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1439
 msgid "C_urrency sign ¤"
 msgstr "Znak wal_uty ¤"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1446
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1440
 msgid "_Yen sign ¥"
 msgstr "_Yen ¥"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1447
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1441
 msgid "_Euro €"
 msgstr "_Euro €"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1448
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1442
 msgid "_Math-Science"
 msgstr "_Matematyczne"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1449
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1443
 msgid "Logical _not sign ¬"
 msgstr "_Negacja ¬"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1450
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1444
 msgid "_Multiplication sign ×"
 msgstr "_Mnożenie ×"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1451
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1445
 msgid "_Division sign ÷"
 msgstr "_Dzielenie ÷"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1453
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1447
 msgid "_Plus-minus sign ±"
 msgstr "_Plus minus ±"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1454
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1448
 msgid "_Less-than sign <"
 msgstr "Mnie_jsze <"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1456
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1450
 msgid "_Greater-than sign >"
 msgstr "_Większe >"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1458
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1452
 msgid "Superscript _1 ¹"
 msgstr "P_ierwsza potęga ¹"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1459
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1453
 msgid "Superscript _2 ²"
 msgstr "_Kwadrat ²"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1460
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1454
 msgid "Superscript _3 ³"
 msgstr "_Sześcian ³"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1461
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1455
 msgid "One _quarter ¼"
 msgstr "Ćwi_erć ¼"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1462
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1456
 msgid "One _half ½"
 msgstr "_Pół ½"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1463
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1457
 msgid "_Three quarters ¾"
 msgstr "_Trzy czwarte ¾"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1465
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1459
 msgid "Deg_ree sign °"
 msgstr "St_opień °"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1466
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1460
 msgid "_Non Latin"
 msgstr "Niełacińskie"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1467
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1461
 msgid "_ETH (Icelandic) Ð"
 msgstr "_ETH (Islandzkie) Ð"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1468
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1462
 msgid "_THORN (Icelandic) Þ"
 msgstr "THORN (Islandzkie) Þ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1469
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1463
 msgid "et_h (Icelandic) ð"
 msgstr "et_h (Islandzkie) ð"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1470
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1464
 msgid "th_orn ÿ"
 msgstr "th_orn ÿ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1471
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1465
 msgid "Sharp _s ß"
 msgstr "Ostre _s ß"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1472
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1466
 msgid "_Micro sign µ"
 msgstr "_Mikro µ"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1473
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1467
 msgid "_Other"
 msgstr "_Inne"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1474
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1468
 msgid "_Non-breaking space"
 msgstr "Twardy _odstęp"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1475
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1469
 msgid "_Section sign §"
 msgstr "Znak _sekcji §"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1476
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1470
 msgid "_Copyright sign ©"
 msgstr "_Znak praw autorskich ©"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1477
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1471
 msgid "_Left angle quotes «"
 msgstr "Cudzysłów w _lewo «"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1479
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1473
 msgid "_Right angle quotes »"
 msgstr "Cudzysłów w p_rawo »"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1481
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1475
 msgid "Registered _trademark ®"
 msgstr "Znak _Towarowy ®"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1482
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1476
 msgid "Inverted _exclamation ¡"
 msgstr "Odwrócony _wykrzyknik ¡"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1484
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1478
 msgid "Inverted _question mark ¿"
 msgstr "Odwrócony znak _zapytania ¿"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1486
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1480
 msgid "_Feminine ordinal ª"
 msgstr "Znak płci żeńs_kiej ª"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1487
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1481
 msgid "_Masculine ordinal º"
 msgstr "Znak płci _męskiej º"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1489
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1483
 msgid "_Pilcrow (paragraph sign) ¶"
 msgstr "Znak _paragrafu ¶"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1491
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1485
 msgid "_Broken bar ¦"
 msgstr "Złama_ny słupek ¦"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1492
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1486
 msgid "Soft _hyphen -"
 msgstr "Miękki z_nacznik -"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1487
 msgid "Spa_cing macron ¯"
 msgstr "_Odstęp ¯"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1489
 msgid "Middle _dot ·"
 msgstr "Środkowa kr_opka ·"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1496
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1490
 msgid "F_ormat by context"
 msgstr "Format kontekstowy"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1491
 msgid "_Strong"
 msgstr "Wzmocnienie"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1491
 msgid "Strong"
 msgstr "Wzmocnienie"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
 msgid "_Emphasis"
 msgstr "Wyróżnienie"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1493
 msgid "Emphasis"
 msgstr "Wyróżnienie"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1573
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1567
 msgid "_Definition"
 msgstr "_Definicja"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1573
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1495
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1567
 msgid "Definition"
 msgstr "Definicja"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
 msgid "_Code"
 msgstr "Kod"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1497
 msgid "Code"
 msgstr "Kod"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1504
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1498
 msgid "Sa_mple"
 msgstr "Przykład"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1504
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1498
 msgid "Sample"
 msgstr "Przykład"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
 msgid "_Keyboard"
 msgstr "Klawiatura"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1499
 msgid "Keyboard"
 msgstr "Klawiatura"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
 msgid "_Variable"
 msgstr "Zmienna"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1501
 msgid "Variable"
 msgstr "Zmienna"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1509
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
 msgid "Ci_tation"
 msgstr "Cytat"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1509
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1503
 msgid "Citation"
 msgstr "Cytat"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1511
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
 msgid "_Abbreviation"
 msgstr "Skrót"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1511
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1505
 msgid "Abbreviation"
 msgstr "Skrót"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1513
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
 msgid "Ac_ronym"
 msgstr "Akronim"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1513
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1507
 msgid "Acronym"
 msgstr "Akronim"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1515
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1509
 msgid "_Insert"
 msgstr "Wstaw"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1515
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1509
 msgid "Insert"
 msgstr "Wstaw"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1510
 msgid "De_lete"
 msgstr "Usuń"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1510
 msgid "Delete"
 msgstr "Kasuj"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1517
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1511
 msgid "_Format by layout"
 msgstr "Formatowanie wyglądu"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1512
 msgid "_Bold"
 msgstr "Pogrubione"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1512
 msgid "Bold"
 msgstr "Pogrubienie"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1514
 msgid "_Italic"
 msgstr "Kursywa"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1514
 msgid "Italic"
 msgstr "Kursywa"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1522
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
 msgid "_Underline"
 msgstr "Podkreślenie"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1522
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1516
 msgid "Underline"
-msgstr ""
+msgstr "Podkreślenie"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1524
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
 msgid "_Strikeout"
 msgstr "Przekreślenie"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1524
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1518
 msgid "Strikeout"
-msgstr "Skrypt"
+msgstr "Przekreślenie"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1526
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
 msgid "Sm_all"
 msgstr "_Małe"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1526
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1520
 msgid "Small"
-msgstr ""
+msgstr "Małe"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1527
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1521
 msgid "Bi_g"
 msgstr "_Duże"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1527
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1521
 msgid "Big"
-msgstr ""
+msgstr "Duże"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1528
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1522
 msgid "Format _general"
 msgstr "Format ogólny"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1529
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1523
 msgid "_Paragraph"
 msgstr "_Paragraf"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1529 src/plugin_htmlbar/html.c:878
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1523
+#: src/plugin_htmlbar/html.c:878
 msgid "Paragraph"
 msgstr "Paragraf"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1531
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1525
 msgid "_Break"
 msgstr "_Koniec linii"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1531
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1525
 msgid "Break"
 msgstr "Koniec linii"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1533
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1527
 msgid "Break clear _all"
 msgstr "Koniec linii i wyczyść"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1533
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1527
 msgid "Break and clear"
 msgstr "Koniec linii i wyczyść"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1535
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1529
 msgid "_Non-Breaking Space"
 msgstr "_Twardy odstęp"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1535
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1529
 msgid "Non-breaking space"
 msgstr "Twardy odstęp"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1537
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1531
 msgid "Font Si_ze +1"
 msgstr "Rozmiar czcionki +1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1537
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1531
 msgid "Font Size +1"
 msgstr "Rozmiar czcionki +1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1539
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1533
 msgid "Font _Size -1"
 msgstr "Rozmiar czcionki -1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1539
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1533
 msgid "Font Size -1"
 msgstr "Rozmiar czcionki -1"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1541
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1535
 msgid "Preformatted _Text"
 msgstr "_Preformatowany tekst"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1541
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1535
 msgid "Preformatted Text"
 msgstr "Tekst preformatowany"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1543
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1537
 msgid "Su_bscript"
 msgstr "Indeks _dolny"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1543
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1537
 msgid "Subscript"
 msgstr "Indeks dolny"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1545
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1539
 msgid "Su_perscript"
 msgstr "Indeks _górny"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1545
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1539
 msgid "Superscript"
 msgstr "Indeks górny"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1547
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1541
 msgid "_Center"
 msgstr "Wyśrodkuj"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1547
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1541
 msgid "Center"
 msgstr "Wyśrodkowanie"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1549
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1543
 msgid "Align _right"
 msgstr "Do p_rawej"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1549
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1543
 msgid "Right Justify"
 msgstr "Wyrównanie do prawej"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1551
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1621
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1545
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1546
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1615
 msgid "_Table"
 msgstr "Tabela"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1546
 #: src/plugin_htmlbar/html_table.c:84
 msgid "Table"
 msgstr "Tabela"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1554
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1548
 msgid "Table _Row"
 msgstr "_Wiersz tabeli"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1554
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1548
 #: src/plugin_htmlbar/html_table.c:218
 msgid "Table Row"
 msgstr "Wiersz"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1556
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1550
 msgid "Table _Header"
 msgstr "_Nagłówek tabeli"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1556
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1550
 #: src/plugin_htmlbar/html_table.c:343
 msgid "Table Header"
 msgstr "Nagłówek tabeli"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1558
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
 msgid "Table _Data"
 msgstr "_Dane tabeli"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1558
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1552
 #: src/plugin_htmlbar/html_table.c:341
 msgid "Table Data"
 msgstr "Dane tabeli"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1560
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1554
 msgid "Table _Caption"
 msgstr "_Tytuł tabeli"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1560
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1554
 msgid "Table Caption"
 msgstr "Tytuł tabeli"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1562
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1556
 msgid "_List"
 msgstr "_Lista"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1563
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1557
 msgid "Unordered _List"
 msgstr "Nien_umerowana"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1563
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1557
 msgid "Unordered List"
 msgstr "Lista nienumerowana"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1565
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1559
 msgid "_Ordered List"
 msgstr "Numer_owana"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1565
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1559
 msgid "Ordered List"
 msgstr "Lista numerowana"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1567
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1561
 msgid "List Ite_m"
 msgstr "Element l_isty"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1567
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1561
 msgid "List Item"
 msgstr "Element listy"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1569
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1563
 msgid "De_finition List"
 msgstr "Lista _definicji"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1569
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1563
 msgid "Definition List"
 msgstr "Lista definicji"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1571
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1565
 msgid "Definition _Term"
 msgstr "_Termin definicji"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1571
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1565
 msgid "Definition Term"
 msgstr "Termin definicji"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1575
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1569
 msgid "Men_u"
 msgstr "_Menu"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1575
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1569
 msgid "Menu"
-msgstr "Ścieżka menu"
+msgstr "Menu"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1576
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1570
 msgid "Fo_rm"
 msgstr "_Formularz"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1577
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1571
 msgid "_Form"
 msgstr "Formularz..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1577
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1571
 #: src/plugin_htmlbar/html_form.c:156
 msgid "Form"
 msgstr "Formularz"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1578
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1572
 msgid "_Button"
 msgstr "_Przycisk..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1579
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1573
 msgid "_Input"
 msgstr "_Input..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1580
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1574
 msgid "_Textarea"
 msgstr "Obszar tekstowy..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1581
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1575
 msgid "_Misc"
 msgstr "_Różne"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1582
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1576
 msgid "Insert Generator _META-Tag"
 msgstr "_Wstaw znacznik META 'Generator'"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1584
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1578
 msgid "_Span"
 msgstr "_Span"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1585
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1579
 msgid "_Div"
 msgstr "_Div"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1586
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1580
 msgid "_Link"
 msgstr "_Link"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1587
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1581
 msgid "S_cript"
 msgstr "_Skrypt"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1588
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1582
 msgid "_Anchor"
 msgstr "_Odnośnik"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1589
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1583
 msgid "_Image"
 msgstr "_Obrazek"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1590
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1584
 msgid "_Comment"
 msgstr "_Komentarz"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1590
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1584
 msgid "HTML Comment"
-msgstr "Komentarz"
+msgstr "Komentarz HTML"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1592
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1586
 msgid "Dial_ogs"
-msgstr "Parametry"
+msgstr "Okna dialogowe"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1593
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1587
 msgid "_General"
 msgstr "Ogólne"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1594
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1588
 msgid "_Quickstart..."
 msgstr "Szybki start..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1594
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1588
 msgid "Quickstart..."
 msgstr "Szybki start..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1596
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1590
 msgid "_Link Header..."
 msgstr "_Nagłówek odnośnika..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1596
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1590
 msgid "Link Header..."
-msgstr "Nagłówek tabeli..."
+msgstr "Nagłówek odnośnika..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1598
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1592
 msgid "_Body..."
 msgstr "Treść..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1598
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1592
 msgid "Body..."
 msgstr "Treść..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1600
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1594
 msgid "_Anchor..."
 msgstr "_Odnośnik..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1600
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1594
 msgid "Anchor / Hyperlink..."
 msgstr "Odnośnik..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1602
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1596
 msgid "_E-mail..."
-msgstr "Poczta elektroniczna..."
+msgstr "E-mail"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1602
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1596
 msgid "E-mail..."
 msgstr "Poczta elektroniczna..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1604
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1598
 msgid "_Rule..."
 msgstr "Linia pozioma..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1604
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1598
 msgid "Horizontal Rule..."
-msgstr "Linia pozioma"
+msgstr "Linia pozioma..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1606
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1600
 msgid "_Font..."
 msgstr "Czcionka..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1606
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1600
 msgid "Font..."
 msgstr "Czcionka..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1608
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1602
 msgid "Basef_ont..."
 msgstr "Czcionka podstawowa..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1608
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1602
 msgid "Base font..."
-msgstr "Czcionka podstawowa"
+msgstr "Czcionka podstawowa..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1610
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1604
 msgid "Quick_list..."
 msgstr "Szybka lista..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1610
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1604
 msgid "Quick List..."
 msgstr "Szybka lista..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1612
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1606
 msgid "_Meta..."
 msgstr "Meta..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1613
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1607
 msgid "Embe_d..."
 msgstr "Osadź..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1614
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1608
 msgid "Select _Color..."
 msgstr "Wybierz _kolor..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1615
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1609
 msgid "Insert _Time..."
 msgstr "Wstaw _czas..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1616
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1610
 msgid "Insert _Image..."
 msgstr "Wstaw _obrazek..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1616
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1610
 msgid "Insert image..."
 msgstr "Wstaw obrazek..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1618
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1612
 msgid "Insert T_humbnail..."
 msgstr "Wstaw _miniaturę..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1619
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1613
 msgid "Insert thumbnail..."
 msgstr "Wstaw miniaturę..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1622
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1616
 msgid "Table _Wizard..."
 msgstr "_Kreator tabeli..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1622
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1616
 msgid "Table Wizard..."
 msgstr "Kreator tabeli..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1624
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1618
 msgid "_Table..."
 msgstr "Tabela..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1624
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1618
 msgid "Table..."
 msgstr "Tabela..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1626
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1620
 msgid "Table _Row..."
 msgstr "_Wiersz tabeli..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1626
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1620
 msgid "Table Row..."
 msgstr "Wiersz tabeli..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1628
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1622
 msgid "Table _Head..."
 msgstr "_Nagłówek tabeli..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1628
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1622
 msgid "Table Head..."
 msgstr "Nagłówek tabeli..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1630
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1624
 msgid "Table _Data..."
 msgstr "_Dane tabeli..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1630
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1624
 msgid "Table Data..."
 msgstr "Dane tabeli..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1632
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1626
 msgid "_CSS"
 msgstr "CSS"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1633
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1627
 msgid "_Create Style..."
 msgstr "_Utwórz styl..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1634
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1628
 msgid "Create stylesheet..."
 msgstr "Utwórz arkusz stylów..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1636
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1630
 msgid "S_pan..."
 msgstr "Span..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1636
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1630
 msgid "Span..."
 msgstr "Span..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1637
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1631
 msgid "_Div..."
 msgstr "Div..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1637
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1631
 msgid "Div..."
 msgstr "Div..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1639
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1633
 msgid "Style..."
-msgstr "_Styl..."
+msgstr "Styl..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1641
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1635
 msgid "_Link to Stylesheet..."
 msgstr "Łącze do a_rkusza stylów..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1642
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1636
 msgid "Link to Stylesheet..."
 msgstr "Łącze do arkusza stylów..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1644
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1638
 msgid "_Frame"
 msgstr "Ramka"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1639
 msgid "Frame _Wizard..."
 msgstr "Krea_tor ramek..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1639
 msgid "Frame Wizard..."
 msgstr "Kreator ramek..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1647
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1641
 msgid "Frame_set..."
 msgstr "Zbiór ramek..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1647
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1641
 msgid "Frameset..."
 msgstr "Zbiór ramek..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1649
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1643
 msgid "_Frame..."
 msgstr "Ramka..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1649
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1643
 msgid "Frame..."
 msgstr "Ramka..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1650
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1644
 msgid "F_orm"
 msgstr "Formularz"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1651
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
 msgid "F_orm..."
 msgstr "Formularz..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1651
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1645
 msgid "Form..."
 msgstr "Formularz..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1652
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1646
 msgid "_Input..."
 msgstr "_Input..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1653
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1647
 msgid "Input Buttons..."
 msgstr "_Przyciski..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1653
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1647
 msgid "Input Button..."
 msgstr "Przycisk input..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1655
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1649
 msgid "Input Text..."
 msgstr "Przycisk text..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1657
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1651
 msgid "Text_area..."
 msgstr "Obszar tekstowy..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1657
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1651
 msgid "Textarea..."
 msgstr "Obszar tekstowy..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1659
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1653
 msgid "_Select..."
 msgstr "Lista wyboru..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1659
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1653
 msgid "Select..."
 msgstr "Selekcja..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1661
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1655
 msgid "O_ption..."
 msgstr "Opcja..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1661
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1655
 msgid "Option..."
 msgstr "Opcja..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1663
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1657
 msgid "Option _Group..."
 msgstr "_Grupa opcji..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1663
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1657
 msgid "Option group..."
 msgstr "Grupa opcji..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1665
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1659
 msgid "_Button..."
 msgstr "_Przycisk..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1665
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1659
 msgid "Button..."
 msgstr "Przycisk..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1667
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1661
 msgid "_Edit tag under cursor..."
 msgstr "_Edytuj znacznik przy kursorze..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1669
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1663
 msgid "_Multi Thumbnail..."
 msgstr "Wielokrotna miniatura..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1669
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1663
 msgid "Multi thumbnail..."
 msgstr "Wielokrotna miniatura..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1671 src/plugin_htmlbar/html.c:1822
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1665
+#: src/plugin_htmlbar/html.c:1822
 msgid "Frame"
 msgstr "Ramka"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1672 src/plugin_htmlbar/html.c:1726
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1666
+#: src/plugin_htmlbar/html.c:1726
 msgid "Frameset"
 msgstr "Zbiór ramek"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1674
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1668
 msgid "Noframes"
 msgstr "Bez ramek"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1676
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1670
 msgid "Target"
 msgstr "Cel"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1678
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1672
 msgid "Input Hidden..."
 msgstr "Pole ukryte..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1679
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1673
 msgid "Input Radio button..."
-msgstr "Przycisk 'radio'..."
+msgstr "Przycisk typu 'radio'..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1680
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1674
 msgid "Input Radio Button..."
 msgstr "Przycisk 'radio'..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1681
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1675
 msgid "Input Check box..."
-msgstr "Przycisk 'checkbox'..."
+msgstr "Przycisk typu 'checkbox'..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1682
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1676
 msgid "Input Check Box..."
 msgstr "Przycisk 'checkbox'..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1683
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1697
-msgid "_HTML5"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1684
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1677
 msgid "_Article"
-msgstr "P_ionowo"
+msgstr "_Paragraf"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1677
+msgid "Article"
+msgstr "Paragraf"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1678
+msgid "_Aside"
+msgstr "_Aside"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1678
+msgid "Aside"
+msgstr "Aside"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1679
+msgid "_Figcaption"
+msgstr "Znacznik figcaption"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1679
+msgid "Figcaption"
+msgstr "Znacznik figcaption"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1680
+msgid "_Figure"
+msgstr "_Figure"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1680
+msgid "Figure"
+msgstr "Figure"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1681
+msgid "_Footer"
+msgstr "_Stopka"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1681
+msgid "Footer"
+msgstr "Stopka"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1682
+msgid "_Header"
+msgstr "_Nagłówek"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1682
+msgid "Header"
+msgstr "Nagłówek"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1683
+msgid "_Hgroup"
+msgstr "_Hgroup"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1683
+msgid "Hgroup"
+msgstr "Hgroup"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
-#, fuzzy
-msgid "Article"
-msgstr "P_ionowo"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
-msgid "As_ide"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
-msgid "Aside"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-#, fuzzy
-msgid "Figcaption"
-msgstr "Cytat"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-#, fuzzy
-msgid "Figcaption "
-msgstr "Cytat"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
-msgid "Fig_ure"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
-msgid "Figure"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1688
-msgid "_Footer"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1688
-msgid "Footer"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
-#, fuzzy
-msgid "_Header"
-msgstr "_Nagłówek:"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
-#, fuzzy
-msgid "Header"
-msgstr "Nagłówek tabeli"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1690
-msgid "H_group"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1690
-msgid "Hgroup"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1691
 msgid "_Mark"
-msgstr ""
+msgstr "_Mark"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1684
+msgid "Mark"
+msgstr "Mark"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
+msgid "_Nav"
+msgstr "_Nav"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1685
+msgid "Nav"
+msgstr "Nav"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1686
+msgid "_Rp"
+msgstr "_Rp"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1686
+msgid "Rp"
+msgstr "Rp"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
+msgid "_Ruby"
+msgstr "_Ruby"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1687
+msgid "Ruby"
+msgstr "Ruby"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1688
+msgid "_Section"
+msgstr "_Sekcja"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1688
+msgid "Section"
+msgstr "Sekcja"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
+msgid "_Audio..."
+msgstr "_Audio..."
+
+#. Dialog construction and settings
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1689
+#: src/plugin_htmlbar/html.c:1917
+#: src/plugin_htmlbar/html.c:2048
+msgid "Audio"
+msgstr "Audio"
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1690
+msgid "_Video..."
+msgstr "_Video..."
+
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1690
+msgid "Video"
+msgstr "Video"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1691
-msgid "Mark"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1692
-msgid "_Nav"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1692
-msgid "Nav"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1693
-msgid "Rp"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1693
-msgid "Ruby parenthesis"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1694
-msgid "Rt"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1694
-msgid "Ruby text"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1695
-msgid "_Ruby"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1695
-msgid "Ruby"
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1696
-#, fuzzy
-msgid "_Section"
-msgstr "_Akcja:"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1696
-#, fuzzy
-msgid "Section"
-msgstr "_Akcja:"
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1698
-msgid "Au_dio..."
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1698
-msgid "Audio..."
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1699
-msgid "_Video..."
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1699
-msgid "Video..."
-msgstr ""
-
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1700
 msgid "_Canvas..."
-msgstr ""
+msgstr "_Canvas..."
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1700
-msgid "Canvas..."
-msgstr ""
+#. Dialog construction
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1691
+#: src/plugin_htmlbar/html.c:1990
+msgid "Canvas"
+msgstr "Canvas"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1701
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1692
 msgid "_Time..."
-msgstr "Ramka..."
+msgstr "_Czas"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1701
-#, fuzzy
-msgid "Time..."
-msgstr "Ramka..."
+#. Dialog construction
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1692
+#: src/plugin_htmlbar/html.c:2162
+msgid "Time"
+msgstr "Czas"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1712
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1703
 msgid "_HTML Toolbar"
 msgstr "Pokaż pasek _HTML"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1747
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1738
 msgid " Standard "
-msgstr " Pasek standardowy "
+msgstr " Pasek standardowy"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1751
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1742
 msgid " Fonts "
 msgstr " Czcionki "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1755
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1746
 msgid " Formatting "
 msgstr "Ciąg formatujący po"
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1759
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1750
 msgid " Tables "
 msgstr " Tabele "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1763
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1754
 msgid " Frames "
 msgstr " Ramki "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1767
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1758
 msgid " Forms "
 msgstr " Formularze "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1771
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1762
 msgid " List "
 msgstr " Lista "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1775
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1766
 msgid " CSS "
 msgstr " CSS "
 
-#: src/plugin_htmlbar/htmlbar_uimanager.c:1779
+#: src/plugin_htmlbar/htmlbar_uimanager.c:1770
 msgid " HTML 5 "
-msgstr ""
+msgstr "HTML 5"
 
 #: src/plugin_htmlbar/html.c:428
 msgid "Insert Time"
@@ -1620,48 +1589,67 @@ msgstr " Czas w formacie ISO-8601"
 msgid "Quick Anchor"
 msgstr "Szybki odnośnik"
 
-#: src/plugin_htmlbar/html.c:668 src/plugin_htmlbar/html_form.c:520
+#: src/plugin_htmlbar/html.c:668
+#: src/plugin_htmlbar/html_form.c:520
 msgid "Attributes"
 msgstr "Parametry"
 
-#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:2381
+#: src/plugin_htmlbar/html.c:682
+#: src/plugin_htmlbar/html.c:2381
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: src/plugin_htmlbar/html.c:688 src/plugin_htmlbar/html_form.c:200
+#: src/plugin_htmlbar/html.c:688
+#: src/plugin_htmlbar/html_form.c:200
 msgid "_Target:"
 msgstr "_Cel:"
 
-#: src/plugin_htmlbar/html.c:692 src/plugin_htmlbar/html.c:933
-#: src/plugin_htmlbar/html.c:1346 src/plugin_htmlbar/html.c:1834
-#: src/plugin_htmlbar/html_form.c:251 src/plugin_htmlbar/html_form.c:315
-#: src/plugin_htmlbar/html_form.c:537 src/plugin_htmlbar/html_form.c:632
+#: src/plugin_htmlbar/html.c:692
+#: src/plugin_htmlbar/html.c:933
+#: src/plugin_htmlbar/html.c:1346
+#: src/plugin_htmlbar/html.c:1834
+#: src/plugin_htmlbar/html_form.c:251
+#: src/plugin_htmlbar/html_form.c:315
+#: src/plugin_htmlbar/html_form.c:537
+#: src/plugin_htmlbar/html_form.c:632
 #: src/plugin_htmlbar/image.c:503
 msgid "_Name:"
 msgstr "_Nazwa:"
 
-#: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/quickstart.c:555
+#: src/plugin_htmlbar/html.c:695
+#: src/plugin_htmlbar/quickstart.c:555
 msgid "Titl_e:"
 msgstr "_Tytuł:"
 
-#: src/plugin_htmlbar/html.c:700 src/plugin_htmlbar/html.c:1215
-#: src/plugin_htmlbar/html.c:1364 src/plugin_htmlbar/html.c:2293
+#: src/plugin_htmlbar/html.c:700
+#: src/plugin_htmlbar/html.c:1215
+#: src/plugin_htmlbar/html.c:1364
+#: src/plugin_htmlbar/html.c:2293
 msgid "_Language:"
 msgstr "_Język:"
 
-#: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:939
-#: src/plugin_htmlbar/html.c:1109 src/plugin_htmlbar/html.c:1218
-#: src/plugin_htmlbar/html.c:1370 src/plugin_htmlbar/html.c:1757
-#: src/plugin_htmlbar/html.c:1871 src/plugin_htmlbar/html.c:2312
-#: src/plugin_htmlbar/html_form.c:204 src/plugin_htmlbar/html_form.c:267
-#: src/plugin_htmlbar/html_form.c:328 src/plugin_htmlbar/html_form.c:644
-#: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
-#: src/plugin_htmlbar/html_table.c:383 src/plugin_htmlbar/image.c:509
+#: src/plugin_htmlbar/html.c:703
+#: src/plugin_htmlbar/html.c:939
+#: src/plugin_htmlbar/html.c:1109
+#: src/plugin_htmlbar/html.c:1218
+#: src/plugin_htmlbar/html.c:1370
+#: src/plugin_htmlbar/html.c:1757
+#: src/plugin_htmlbar/html.c:1871
+#: src/plugin_htmlbar/html.c:2312
+#: src/plugin_htmlbar/html_form.c:204
+#: src/plugin_htmlbar/html_form.c:267
+#: src/plugin_htmlbar/html_form.c:328
+#: src/plugin_htmlbar/html_form.c:644
+#: src/plugin_htmlbar/html_table.c:107
+#: src/plugin_htmlbar/html_table.c:261
+#: src/plugin_htmlbar/html_table.c:383
+#: src/plugin_htmlbar/image.c:509
 #: src/plugin_htmlbar/image_dialog.c:382
 msgid "Custo_m:"
 msgstr "Wła_sne:"
 
-#: src/plugin_htmlbar/html.c:705 src/plugin_htmlbar/html.c:1222
+#: src/plugin_htmlbar/html.c:705
+#: src/plugin_htmlbar/html.c:1222
 #: src/plugin_htmlbar/html_form.c:568
 msgid "Events"
 msgstr "Zdarzenia"
@@ -1738,25 +1726,34 @@ msgstr "Nagłówek 5"
 msgid "Heading 6"
 msgstr "Nagłówek 6"
 
-#: src/plugin_htmlbar/html.c:919 src/plugin_htmlbar/html_table.c:114
-#: src/plugin_htmlbar/html_table.c:228 src/plugin_htmlbar/html_table.c:356
+#: src/plugin_htmlbar/html.c:919
+#: src/plugin_htmlbar/html_table.c:114
+#: src/plugin_htmlbar/html_table.c:228
+#: src/plugin_htmlbar/html_table.c:356
 msgid "Ali_gn:"
 msgstr "Poł_ożenie:"
 
-#: src/plugin_htmlbar/html.c:923 src/plugin_htmlbar/html.c:1209
-#: src/plugin_htmlbar/html_diag.c:445 src/plugin_htmlbar/html_table.c:98
-#: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
+#: src/plugin_htmlbar/html.c:923
+#: src/plugin_htmlbar/html.c:1209
+#: src/plugin_htmlbar/html_diag.c:445
+#: src/plugin_htmlbar/html_table.c:98
+#: src/plugin_htmlbar/html_table.c:246
+#: src/plugin_htmlbar/html_table.c:374
 #: src/plugin_htmlbar/image_dialog.c:368
 msgid "Cl_ass:"
 msgstr "Kl_asa:"
 
-#: src/plugin_htmlbar/html.c:927 src/plugin_htmlbar/html.c:1202
-#: src/plugin_htmlbar/html_diag.c:459 src/plugin_htmlbar/html_table.c:102
-#: src/plugin_htmlbar/html_table.c:256 src/plugin_htmlbar/html_table.c:378
+#: src/plugin_htmlbar/html.c:927
+#: src/plugin_htmlbar/html.c:1202
+#: src/plugin_htmlbar/html_diag.c:459
+#: src/plugin_htmlbar/html_table.c:102
+#: src/plugin_htmlbar/html_table.c:256
+#: src/plugin_htmlbar/html_table.c:378
 msgid "St_yle:"
 msgstr "St_yl:"
 
-#: src/plugin_htmlbar/html.c:936 src/plugin_htmlbar/html.c:1212
+#: src/plugin_htmlbar/html.c:936
+#: src/plugin_htmlbar/html.c:1212
 #: src/plugin_htmlbar/html_diag.c:453
 msgid "_ID:"
 msgstr "_ID:"
@@ -1765,22 +1762,31 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "Linia pozioma"
 
-#: src/plugin_htmlbar/html.c:1083 src/plugin_htmlbar/html.c:2227
-#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/html.c:1083
+#: src/plugin_htmlbar/html.c:2227
+#: src/plugin_htmlbar/image.c:526
+#: src/plugin_htmlbar/image_dialog.c:405
 msgid "_Align:"
 msgstr "Poł_ożenie:"
 
-#: src/plugin_htmlbar/html.c:1090 src/plugin_htmlbar/html.c:2000
-#: src/plugin_htmlbar/html.c:2111 src/plugin_htmlbar/html.c:2235
-#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:338
+#: src/plugin_htmlbar/html.c:1090
+#: src/plugin_htmlbar/html.c:2000
+#: src/plugin_htmlbar/html.c:2111
+#: src/plugin_htmlbar/html.c:2235
+#: src/plugin_htmlbar/html_table.c:408
+#: src/plugin_htmlbar/image_dialog.c:338
 msgid "_Height:"
 msgstr "W_ysokość:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:1096 src/plugin_htmlbar/html.c:1995
-#: src/plugin_htmlbar/html.c:2106 src/plugin_htmlbar/html.c:2231
-#: src/plugin_htmlbar/html_table.c:139 src/plugin_htmlbar/html_table.c:401
-#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:329
+#: src/plugin_htmlbar/html.c:1096
+#: src/plugin_htmlbar/html.c:1995
+#: src/plugin_htmlbar/html.c:2106
+#: src/plugin_htmlbar/html.c:2231
+#: src/plugin_htmlbar/html_table.c:139
+#: src/plugin_htmlbar/html_table.c:401
+#: src/plugin_htmlbar/image.c:488
+#: src/plugin_htmlbar/image_dialog.c:329
 msgid "_Width:"
 msgstr "S_zerokość:"
 
@@ -1801,14 +1807,12 @@ msgid "Options"
 msgstr "Opcje"
 
 #: src/plugin_htmlbar/html.c:1228
-#, fuzzy
 msgid "On _Load:"
-msgstr "On_Load:"
+msgstr "Przy otwieraniu:"
 
 #: src/plugin_htmlbar/html.c:1232
-#, fuzzy
 msgid "On _Unload:"
-msgstr "On_UnLoad:"
+msgstr "Przy zamykaniu:"
 
 #: src/plugin_htmlbar/html.c:1238
 msgid "Depreciated options"
@@ -1906,7 +1910,8 @@ msgstr "T_reść:"
 msgid "Quick List"
 msgstr "Szybka lista"
 
-#: src/plugin_htmlbar/html.c:1648 src/plugin_htmlbar/wizards.c:81
+#: src/plugin_htmlbar/html.c:1648
+#: src/plugin_htmlbar/wizards.c:81
 msgid "Number of _rows:"
 msgstr "Ilość wie_rszy:"
 
@@ -1922,11 +1927,13 @@ msgstr "_Nienumerowana"
 msgid "Style:"
 msgstr "Styl:"
 
-#: src/plugin_htmlbar/html.c:1732 src/plugin_htmlbar/html_form.c:259
+#: src/plugin_htmlbar/html.c:1732
+#: src/plugin_htmlbar/html_form.c:259
 msgid "Co_ls:"
 msgstr "Ko_lumny:"
 
-#: src/plugin_htmlbar/html.c:1735 src/plugin_htmlbar/html_form.c:255
+#: src/plugin_htmlbar/html.c:1735
+#: src/plugin_htmlbar/html_form.c:255
 msgid "_Rows:"
 msgstr "Wie_rsze:"
 
@@ -1934,9 +1941,12 @@ msgstr "Wie_rsze:"
 msgid "_Add <frame> elements"
 msgstr "_Dodaj elementy <frame>"
 
-#: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1927
-#: src/plugin_htmlbar/html.c:2058 src/plugin_htmlbar/html.c:2222
-#: src/plugin_htmlbar/html.c:2285 src/plugin_htmlbar/image_dialog.c:290
+#: src/plugin_htmlbar/html.c:1830
+#: src/plugin_htmlbar/html.c:1927
+#: src/plugin_htmlbar/html.c:2058
+#: src/plugin_htmlbar/html.c:2222
+#: src/plugin_htmlbar/html.c:2285
+#: src/plugin_htmlbar/image_dialog.c:290
 msgid "_Source:"
 msgstr "Źró_dło:"
 
@@ -1960,65 +1970,48 @@ msgstr "Obramowanie _ramki:"
 msgid "No _Resize:"
 msgstr "Zablokuj zmianę rozmiaru:"
 
-#. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:1917
-msgid "Audio"
-msgstr ""
-
-#: src/plugin_htmlbar/html.c:1933 src/plugin_htmlbar/html.c:2071
+#: src/plugin_htmlbar/html.c:1933
+#: src/plugin_htmlbar/html.c:2071
 msgid "_Autoplay:"
-msgstr ""
+msgstr "Autoodtwarzanie:"
 
-#: src/plugin_htmlbar/html.c:1940 src/plugin_htmlbar/html.c:2078
+#: src/plugin_htmlbar/html.c:1940
+#: src/plugin_htmlbar/html.c:2078
 msgid "_Controls:"
-msgstr ""
+msgstr "Sterowanie"
 
-#: src/plugin_htmlbar/html.c:1947 src/plugin_htmlbar/html.c:2085
+#: src/plugin_htmlbar/html.c:1947
+#: src/plugin_htmlbar/html.c:2085
 msgid "_Loop:"
-msgstr ""
+msgstr "Pętla:"
 
-#: src/plugin_htmlbar/html.c:1955 src/plugin_htmlbar/html.c:2093
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1955
+#: src/plugin_htmlbar/html.c:2093
 msgid "_Preload:"
-msgstr "On_UnLoad:"
-
-#. Dialog construction
-#: src/plugin_htmlbar/html.c:1990
-msgid "Canvas"
-msgstr ""
-
-#. Dialog construction and settings
-#: src/plugin_htmlbar/html.c:2048
-msgid "Video"
-msgstr ""
+msgstr "Przy odświeżaniu:"
 
 #: src/plugin_htmlbar/html.c:2065
 msgid "_Poster:"
-msgstr ""
+msgstr "_Plakat:"
 
 #: src/plugin_htmlbar/html.c:2100
 msgid "_Audio:"
-msgstr ""
-
-#. Dialog construction
-#: src/plugin_htmlbar/html.c:2162
-msgid "Time"
-msgstr ""
+msgstr "_Audio:"
 
 #: src/plugin_htmlbar/html.c:2168
-#, fuzzy
 msgid "_Pubdate:"
-msgstr " _Aktualizuj"
+msgstr "Znacznik PubDate"
 
 #: src/plugin_htmlbar/html.c:2174
 msgid "_Datetime:"
-msgstr ""
+msgstr "_Data/czas:"
 
 #: src/plugin_htmlbar/html.c:2218
 msgid "Embed"
 msgstr "Osadź"
 
-#: src/plugin_htmlbar/html.c:2239 src/plugin_htmlbar/html_table.c:145
+#: src/plugin_htmlbar/html.c:2239
+#: src/plugin_htmlbar/html_table.c:145
 msgid "Bo_rder:"
 msgstr "Ob_ramowanie:"
 
@@ -2026,8 +2019,10 @@ msgstr "Ob_ramowanie:"
 msgid "Script"
 msgstr "Skrypt"
 
-#: src/plugin_htmlbar/html.c:2308 src/plugin_htmlbar/html.c:2412
-#: src/plugin_htmlbar/html_form.c:531 src/plugin_htmlbar/html_form.c:640
+#: src/plugin_htmlbar/html.c:2308
+#: src/plugin_htmlbar/html.c:2412
+#: src/plugin_htmlbar/html_form.c:531
+#: src/plugin_htmlbar/html_form.c:640
 msgid "_Type:"
 msgstr "_Typ:"
 
@@ -2083,7 +2078,8 @@ msgstr "Obszar tekstowy"
 msgid "Select"
 msgstr "Lista wyboru"
 
-#: src/plugin_htmlbar/html_form.c:319 src/plugin_htmlbar/html_form.c:548
+#: src/plugin_htmlbar/html_form.c:319
+#: src/plugin_htmlbar/html_form.c:548
 msgid "Si_ze:"
 msgstr "Ro_zmiar:"
 
@@ -2095,7 +2091,8 @@ msgstr "Wybór _wielokrotny:"
 msgid "Option"
 msgstr "Opcja"
 
-#: src/plugin_htmlbar/html_form.c:378 src/plugin_htmlbar/html_form.c:424
+#: src/plugin_htmlbar/html_form.c:378
+#: src/plugin_htmlbar/html_form.c:424
 msgid "_Label:"
 msgstr "_Etykieta:"
 
@@ -2159,12 +2156,14 @@ msgstr "Odstęp wewnę_trzny komórki:"
 msgid "C_ell Spacing:"
 msgstr "Odstęp _pomiędzy komórkami:"
 
-#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:128
+#: src/plugin_htmlbar/html_table.c:242
 #: src/plugin_htmlbar/html_table.c:370
 msgid "_Valign:"
 msgstr "Ustawienie p_ionowe:"
 
-#: src/plugin_htmlbar/html_table.c:133 src/plugin_htmlbar/html_table.c:251
+#: src/plugin_htmlbar/html_table.c:133
+#: src/plugin_htmlbar/html_table.c:251
 #: src/plugin_htmlbar/html_table.c:413
 msgid "Backgrou_nd Color:"
 msgstr "Kolor _tła:"
@@ -2203,7 +2202,8 @@ msgstr "Wczytywanie pliku %s..."
 msgid "Insert thumbnail"
 msgstr "Wstaw miniaturę"
 
-#: src/plugin_htmlbar/image.c:460 src/plugin_htmlbar/image_dialog.c:308
+#: src/plugin_htmlbar/image.c:460
+#: src/plugin_htmlbar/image_dialog.c:308
 msgid "Preview"
 msgstr "Podgląd"
 
@@ -2215,7 +2215,8 @@ msgstr "Lokalizacja _obrazka:"
 msgid "Hei_ght:"
 msgstr "W_ysokość:"
 
-#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:377
+#: src/plugin_htmlbar/image.c:500
+#: src/plugin_htmlbar/image_dialog.c:377
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
@@ -2223,11 +2224,13 @@ msgstr "_Usemap:"
 msgid "Alternate _text:"
 msgstr "Alternatywny _tekst:"
 
-#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:414
+#: src/plugin_htmlbar/image.c:512
+#: src/plugin_htmlbar/image_dialog.c:414
 msgid "_Hspace:"
 msgstr "Odstęp po_ziomy:"
 
-#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:418
+#: src/plugin_htmlbar/image.c:516
+#: src/plugin_htmlbar/image_dialog.c:418
 msgid "_Vspace:"
 msgstr "Odstęp p_ionowy:"
 
@@ -2235,43 +2238,45 @@ msgstr "Odstęp p_ionowy:"
 msgid "Borde_r:"
 msgstr "Ob_ramowanie:"
 
-#: src/plugin_htmlbar/image.c:945
+#: src/plugin_htmlbar/image.c:946
 msgid "Select files for thumbnail creation"
 msgstr "Wybierz pliki do tworzenia miniatur"
 
-#: src/plugin_htmlbar/image.c:987
+#: src/plugin_htmlbar/image.c:988
 msgid "Scaling (%)"
 msgstr "Skalowanie (%)"
 
-#: src/plugin_htmlbar/image.c:991 src/plugin_htmlbar/image.c:999
+#: src/plugin_htmlbar/image.c:992
+#: src/plugin_htmlbar/image.c:1000
 msgid "Width"
 msgstr "Szerokość"
 
-#: src/plugin_htmlbar/image.c:995 src/plugin_htmlbar/image.c:1036
+#: src/plugin_htmlbar/image.c:996
+#: src/plugin_htmlbar/image.c:1037
 msgid "Height"
 msgstr "Wyskość"
 
-#: src/plugin_htmlbar/image.c:1019
+#: src/plugin_htmlbar/image.c:1020
 msgid "Multi thumbnail"
 msgstr "Wiele miniatur"
 
-#: src/plugin_htmlbar/image.c:1025
+#: src/plugin_htmlbar/image.c:1026
 msgid "By scaling"
 msgstr "Skalowanie"
 
-#: src/plugin_htmlbar/image.c:1028
+#: src/plugin_htmlbar/image.c:1029
 msgid "By width, keep aspect ratio"
 msgstr "Szerokość, zachowaj stosunek długości"
 
-#: src/plugin_htmlbar/image.c:1031
+#: src/plugin_htmlbar/image.c:1032
 msgid "By height, keep aspect ratio"
 msgstr "Wysokość, zachowaj stosunek długości"
 
-#: src/plugin_htmlbar/image.c:1034
+#: src/plugin_htmlbar/image.c:1035
 msgid "By width and height, ignore aspect ratio"
 msgstr "Szerokość i wysokość, ignoruj stosunek długości"
 
-#: src/plugin_htmlbar/image.c:1060
+#: src/plugin_htmlbar/image.c:1061
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2402,7 +2407,8 @@ msgstr "Szybki start"
 msgid "_DTD:"
 msgstr "_DTD:"
 
-#: src/plugin_htmlbar/quickstart.c:660 src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/quickstart.c:660
+#: src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "_Tytuł:"
 
@@ -2470,6 +2476,3 @@ msgstr "Źródło:"
 msgid "Size:"
 msgstr "Rozmiar:"
 
-#, fuzzy
-#~ msgid "_Figcaption"
-#~ msgstr "Cytat"
