@@ -208,9 +208,10 @@ side_panel_build(Tbfwin * bfwin)
 	bfwin->leftpanel_notebook = gtk_notebook_new();
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook), main_v->props.leftpanel_tabposition);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(bfwin->leftpanel_notebook), TRUE);
+	g_object_set(G_OBJECT(bfwin->leftpanel_notebook), "tab-border", 0, NULL);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(bfwin->leftpanel_notebook), FALSE);
-	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(bfwin->leftpanel_notebook), 0);
-	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(bfwin->leftpanel_notebook), 0);
+	/*gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(bfwin->leftpanel_notebook), 0);
+	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(bfwin->leftpanel_notebook), 0);*/
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->leftpanel_notebook));
 	DEBUG_MSG("side_panel_build, building side panel for bfwin %p\n", bfwin);
 	bmarks = bmark_gui(bfwin);
@@ -756,7 +757,7 @@ simplesearch_advanced_clicked(GtkButton * button, Tbfwin * bfwin)
 static gboolean
 gotoline_entries_key_press_event(GtkWidget * widget, GdkEventKey * event, Tbfwin * bfwin)
 {
-	if (event->keyval == GDK_Escape) {
+	if (event->keyval == GDK_KEY_Escape) {
 		gotoline_close_button_clicked(NULL, bfwin);
 		return TRUE;
 	}
@@ -925,18 +926,18 @@ notebook_set_tab_accels(Tbfwin * bfwin)
 	DEBUG_MSG("notebook_set_tab_accels, gtk_window_add_accel_group\n");
 	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), tab_accels);
 	DEBUG_MSG("notebook_set_tab_accels, gtk_widget_add_accelerator\n");
-	gtk_widget_add_accelerator(bfwin->notebook, "tab-last", tab_accels, GDK_0, GDK_MOD1_MASK,
+	gtk_widget_add_accelerator(bfwin->notebook, "tab-last", tab_accels, GDK_KEY_0, GDK_MOD1_MASK,
 							   GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab-first", tab_accels, GDK_1, GDK_MOD1_MASK,
+	gtk_widget_add_accelerator(bfwin->notebook, "tab-first", tab_accels, GDK_KEY_1, GDK_MOD1_MASK,
 							   GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab2", tab_accels, GDK_2, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab3", tab_accels, GDK_3, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab4", tab_accels, GDK_4, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab5", tab_accels, GDK_5, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab6", tab_accels, GDK_6, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab7", tab_accels, GDK_7, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab8", tab_accels, GDK_8, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	gtk_widget_add_accelerator(bfwin->notebook, "tab9", tab_accels, GDK_9, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab2", tab_accels, GDK_KEY_2, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab3", tab_accels, GDK_KEY_3, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab4", tab_accels, GDK_KEY_4, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab5", tab_accels, GDK_KEY_5, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab6", tab_accels, GDK_KEY_6, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab7", tab_accels, GDK_KEY_7, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab8", tab_accels, GDK_KEY_8, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab9", tab_accels, GDK_KEY_9, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
 }
 
 static gboolean
@@ -1196,8 +1197,9 @@ bfwin_create_main(Tbfwin * bfwin)
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook), main_v->props.document_tabposition);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(bfwin->notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(bfwin->notebook), FALSE);
-	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(bfwin->notebook), 0);
-	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(bfwin->notebook), 0);
+	/*gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(bfwin->notebook), 0);
+	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(bfwin->notebook), 0);*/
+	g_object_set(G_OBJECT(bfwin->notebook), "tab-border", 0, NULL);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->notebook));
 
 	/* Add notebook and its fake friend to their common hbox. */
@@ -1219,21 +1221,25 @@ bfwin_create_main(Tbfwin * bfwin)
 		hbox = gtk_hbox_new(FALSE, 0);
 		gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 		bfwin->statusbar = gtk_statusbar_new();
-		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar), FALSE);
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar, TRUE, TRUE, 0);
 		bfwin->statusbar_lncol = gtk_statusbar_new();
-		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_lncol), FALSE);
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_lncol, FALSE, FALSE, 0);
 		/* I hope the 'w' is an average width character, the characters are usually not monospaced so these values are just averages that look good on most translations too */
 		onecharwidth = widget_get_string_size(bfwin->statusbar_lncol, "x");
 		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_lncol), onecharwidth * 30, -1);
 		bfwin->statusbar_insovr = gtk_statusbar_new();
-		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_insovr), FALSE);
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_insovr, FALSE, FALSE, 0);
 		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_insovr), onecharwidth * 6, -1);
 		bfwin->statusbar_editmode = gtk_statusbar_new();
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_editmode, FALSE, FALSE, 0);
 		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_editmode), onecharwidth * 35, -1);
+#if GTK_CHECK_VERSION(3, 0, 0)
+		gtk_window_set_has_resize_grip(GTK_WINDOW(bfwin->main_window), TRUE);
+#else
+		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_lncol), FALSE);
+		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_insovr), FALSE);
+		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar), FALSE);				
+#endif /* gtk3 */
 		if (bfwin->session->view_statusbar)
 			gtk_widget_show_all(hbox);
 		else
