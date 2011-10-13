@@ -422,6 +422,7 @@ image_adjust_changed(GtkAdjustment * adj, Timage_diag * imdg)
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[0]), tn_width);
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(imdg->dg->spin[1]), tn_height);
 
+	/* TODO: move this to an idle callback so we will not block the UI */ 
 	tmp_pb =
 		gdk_pixbuf_scale_simple(imdg->pb, tn_width, tn_height,
 								main_v->globses.image_thumbnail_refresh_quality ? GDK_INTERP_BILINEAR :
@@ -467,7 +468,6 @@ image_insert_dialog_backend(gchar * filename, Tbfwin * bfwin, Ttagpopup * data)
 	imdg->adj_changed_id =
 		g_signal_connect(G_OBJECT(imdg->adjustment), "value_changed", G_CALLBACK(image_adjust_changed), imdg);
 	gtk_scale_set_digits(GTK_SCALE(scale), 3);
-	gtk_range_set_update_policy(GTK_RANGE(scale), GTK_UPDATE_DISCONTINUOUS);
 	gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), scale, FALSE, FALSE, 0);
 
 	dgtable = html_diag_table_in_vbox(imdg->dg, 5, 9);

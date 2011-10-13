@@ -378,6 +378,18 @@ else
 	GIO_PC="gio-unix-2.0"
 fi
 
+BF_dependencies_GTK3="\
+gtk+-3.0  \
+gdk-3.0 \
+gmodule-2.0 >= 2.16 \
+gobject-2.0 \
+glib-2.0 \
+pango \
+gdk-pixbuf-2.0 \
+$GIO_PC >= 2.16 \
+gthread-2.0 \
+libxml-2.0"
+
 BF_dependencies="\
 gtk+-2.0 >= 2.12 \
 gmodule-2.0 >= 2.16 \
