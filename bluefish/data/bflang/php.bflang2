@@ -131,7 +131,7 @@
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;$ &#9;&#10;&#13;' -&lt;&gt;{}[]" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
-		<element pattern="\$" highlight="string" />
+<!--		<element pattern="\$" highlight="string" />-->
 		<element idref="e.php.short.variable" />
 		<group class="sql-in-php-string" highlight="php-string-sql-keyword" case_insens="1">
 			<element pattern="AND" />
@@ -209,21 +209,38 @@ was disabled, this whole section is not parsed by the language manager, so the c
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;$ &#9;&#10;&#13;' -&lt;&gt;{}[]" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
-		<element pattern="\$" highlight="string" />
+<!--		<element pattern="\$" highlight="string" />-->
 		<element idref="e.php.variable" />
 		<group class="sql-in-php-string" highlight="php-string-sql-keyword" case_insens="1">
-			<element pattern="SELECT" />
-			<element pattern="FROM" />
-			<element pattern="WHERE" />
-			<element pattern="ON" />
+			<element pattern="AND" />
 			<element pattern="AS" />
-			<element pattern="ORDER" />
-			<element pattern="LEFT" />
-			<element pattern="INNER" />
-			<element pattern="JOIN" />
-			<element pattern="UPDATE" />
-			<element pattern="INSERT" />
+			<element pattern="ASC" />
+			<element pattern="BY" />
+			<element pattern="COUNT" />
+			<element pattern="DATE" />
+			<element pattern="DATE_FORMAT" />
 			<element pattern="DELETE" />
+			<element pattern="DESC" />
+			<element pattern="DISTINCT" />
+			<element pattern="FROM" />
+			<element pattern="GROUP" />
+			<element pattern="IN" />
+			<element pattern="INNER" />
+			<element pattern="INSERT" />
+			<element pattern="INTO" />
+			<element pattern="JOIN" />
+			<element pattern="LEFT" />
+			<element pattern="LIMIT" />
+			<element pattern="NOT" />
+			<element pattern="ON" />
+			<element pattern="OR" />
+			<element pattern="ORDER" />
+			<element pattern="REGEXP" />
+			<element pattern="SELECT" />
+			<element pattern="SET" />
+			<element pattern="UPDATE" />
+			<element pattern="VALUES" />
+			<element pattern="WHERE" />
 		</group>
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
