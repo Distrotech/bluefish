@@ -588,6 +588,17 @@ extern EXPORT Tmain *main_v;
 void bluefish_exit_request(void);
 
 /* backwards compatibility */
+#if !GTK_CHECK_VERSION(2,24,0)
+#define GDK_KEY_Enter GDK_Enter
+#define GDK_KEY_KP_Enter GDK_KP_Enter
+#define GDK_KEY_Home GDK_Home
+#define GDK_KEY_KP_Home GDK_KP_Home
+#define GDK_KEY_End GDK_End
+#define GDK_KEY_KP_End GDK_KP_End
+#define GDK_KEY_Tab GDK_Tab
+#define GDK_KEY_KP_Tab GDK_KP_Tab
+#define GDK_KEY_ISO_Left_Tab GDK_ISO_Left_Tab
+#endif /* GTK_CHECK_VERSION(3,0,0) */
 #if !GTK_CHECK_VERSION(2,18,0)
 #define gtk_widget_set_can_focus(arg, arg2) do {if (arg2) GTK_WIDGET_SET_FLAGS(arg, GTK_CAN_FOCUS); else GTK_WIDGET_UNSET_FLAGS(arg, GTK_CAN_FOCUS);} while(0)
 #define gtk_widget_get_allocation(arg1, arg2) (*(arg2) = arg1->allocation)
@@ -611,5 +622,4 @@ void bluefish_exit_request(void);
 #define gtk_adjustment_get_lower(arg) (GTK_ADJUSTMENT(arg)->lower)
 #define gtk_adjustment_get_page_size(arg) (GTK_ADJUSTMENT(arg)->page_size)
 #endif /* GTK_CHECK_VERSION(2,18,0) */
-
 #endif							/* __BLUEFISH_H_ */

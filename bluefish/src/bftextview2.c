@@ -1051,10 +1051,8 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 			gint w, w2;
 			cairo_t *context;
 			GtkTextIter it;
-			GtkTextBuffer *buffer;
 			DBG_SIGNALS("bluefish_text_view_expose_event, current line highlighting\n");
-			buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-			gtk_text_buffer_get_iter_at_mark(buffer, &it, gtk_text_buffer_get_insert(buffer));
+			gtk_text_buffer_get_iter_at_mark(master->buffer, &it, gtk_text_buffer_get_insert(master->buffer));
 			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
 			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &w2);
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
@@ -1196,8 +1194,8 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 
 	/* following code does smart cursor placement */
 	if (main_v->props.editor_smart_cursor && !(kevent->state & GDK_CONTROL_MASK)
-		&& ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End)
-			|| (kevent->keyval == GDK_KP_End))) {
+		&& ((kevent->keyval == GDK_KEY_Home) || (kevent->keyval == GDK_KEY_KP_Home) || (kevent->keyval == GDK_KEY_End)
+			|| (kevent->keyval == GDK_KEY_KP_End))) {
 		GtkTextMark *imark;
 		gboolean ret;
 		GtkTextIter iter, currentpos, linestart;
@@ -1208,7 +1206,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		gtk_text_buffer_get_iter_at_mark(buffer, &currentpos, imark);
 		iter = currentpos;
 
-		if ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home)) {
+		if ((kevent->keyval == GDK_KEY_Home) || (kevent->keyval == GDK_KEY_KP_Home)) {
 			ret = bf_text_iter_line_start_of_text(&iter, &linestart);
 		} else {				/* (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End) */
 			ret = bf_text_iter_line_end_of_text(&iter, &linestart);
@@ -1226,7 +1224,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 	}
 	/* following code indents on tab */
 	if (main_v->props.editor_tab_indent_sel
-		&& (kevent->keyval == GDK_Tab || kevent->keyval == GDK_KP_Tab || kevent->keyval == GDK_ISO_Left_Tab)
+		&& (kevent->keyval == GDK_KEY_Tab || kevent->keyval == GDK_KEY_KP_Tab || kevent->keyval == GDK_KEY_ISO_Left_Tab)
 		&& (!(kevent->state & GDK_CONTROL_MASK))) {	/* shift-tab is also known as GDK_ISO_Left_Tab */
 		GtkTextIter so, eo;
 		gboolean have_selection;
@@ -1259,7 +1257,7 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 		}
 	}
 	/* following code replaces tab with spaces */
-	if ((kevent->keyval == GDK_Tab && !(kevent->state & GDK_SHIFT_MASK)
+	if ((kevent->keyval == GDK_KEY_Tab && !(kevent->state & GDK_SHIFT_MASK)
 		 && !(kevent->state & GDK_CONTROL_MASK))
 		&& BFWIN(DOCUMENT(BLUEFISH_TEXT_VIEW(btv->master)->doc)->bfwin)->session->editor_indent_wspaces) {
 		GtkTextMark *imark;

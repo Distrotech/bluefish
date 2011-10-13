@@ -193,7 +193,7 @@ bluefish_image_dialog_set_property(GObject * object, guint prop_id, const GValue
 		break;
 	case PROP_CLASS:
 		if (g_value_get_string(value) != NULL) {
-			gtk_combo_box_prepend_text(GTK_COMBO_BOX(dialog->priv->class), g_value_get_string(value));
+			gtk_combo_box_text_prepend_text(GTK_COMBO_BOX_TEXT(dialog->priv->class), g_value_get_string(value));
 			gtk_combo_box_set_active(GTK_COMBO_BOX(dialog->priv->class), 0);
 		}
 		break;
@@ -358,7 +358,7 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 					 0, 0);
 	dialog_mnemonic_label_in_table(_("_Long description:"), dialog->priv->longDesc, table, 0, 1, 1, 2);
 
-	dialog->priv->class = gtk_combo_box_entry_new_text();
+	dialog->priv->class = gtk_combo_box_text_new_with_entry();
 	gtk_table_attach(GTK_TABLE(table), dialog->priv->class, 1, 3, 2, 3, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0,
 					 0);
 	dialog_mnemonic_label_in_table(_("Cl_ass:"), dialog->priv->class, table, 0, 1, 2, 3);

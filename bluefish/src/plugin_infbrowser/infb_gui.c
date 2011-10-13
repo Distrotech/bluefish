@@ -117,7 +117,7 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
    
    if (event->button == 1) {
    	if (win && gtk_widget_get_visible(win->tip_window))
-   		gtk_widget_hide_all(win->tip_window);
+   		gtk_widget_hide(win->tip_window);
    	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (widget));
    	gtk_text_buffer_get_selection_bounds (buffer, &start, &end);
   		if (gtk_text_iter_get_offset (&start) != gtk_text_iter_get_offset (&end))  return FALSE;
@@ -405,7 +405,9 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 	gboolean found = FALSE;
 	Tinfbwin *win = (Tinfbwin*)g_hash_table_lookup(infb_v.windows,bfwin);
 	
-	if ( event->keyval != GDK_Return )	return FALSE;
+
+	if ( event->keyval != GDK_KEY_Return )	return FALSE;
+
 	if (infb_v.currentDoc == NULL ) return FALSE; 
 	txt = (gchar*)gtk_entry_get_text(GTK_ENTRY(widget));
 	if ( txt && strcmp(txt,"")!=0) {
@@ -500,17 +502,42 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 
 static gint infb_tip_paint(GtkWidget *tip)
 {
-  if (!tip) return FALSE;
-  if (!gtk_widget_get_visible(tip)) return FALSE;
-  gtk_paint_flat_box (gtk_widget_get_style(tip), gtk_widget_get_window(tip),
+#if GTK_CHECK_VERSION(3, 0, 0)
+	cairo_t *arg2;
+#else
+	GdkWindow *arg2;
+#endif /* gtk3 */
+	GtkStyle *style;
+
+	if (!tip) return FALSE;
+	if (!gtk_widget_get_visible(tip)) return FALSE;
+
+	style = gtk_widget_get_style(tip);
+#if GTK_CHECK_VERSION(3, 0, 0)
+	arg2 = gdk_cairo_create(gtk_widget_get_window(tip));
+	gtk_paint_flat_box (style, arg2,
+                      GTK_STATE_NORMAL, GTK_SHADOW_ETCHED_IN,
+                      tip, "",
+                      0, 0, -1, -1);  
+	gtk_paint_shadow (style, arg2,
+                      GTK_STATE_NORMAL, GTK_SHADOW_ETCHED_IN,
+                      tip, "",
+                      0, 0, -1, -1);                        
+
+#else
+	arg2= gtk_widget_get_window(tip);
+	gtk_paint_flat_box (style, arg2,
                       GTK_STATE_NORMAL, GTK_SHADOW_ETCHED_IN,
                       NULL, tip, "",
                       0, 0, -1, -1);  
-  gtk_paint_shadow (gtk_widget_get_style(tip), gtk_widget_get_window(tip),
+	gtk_paint_shadow (style, arg2,
                       GTK_STATE_NORMAL, GTK_SHADOW_ETCHED_IN,
                       NULL, tip, "",
                       0, 0, -1, -1);                        
-  return FALSE;                      
+
+#endif /* gtk3 */
+
+	return FALSE;                      
 }
 
 
@@ -588,7 +615,7 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
    gtk_label_set_markup(GTK_LABEL(win->tip_label),"xx");
    gtk_misc_set_alignment (GTK_MISC (win->tip_label), 0.5, 0.5);
    gtk_container_add (GTK_CONTAINER (win->tip_window), GTK_WIDGET (win->tip_label));  
-   gtk_widget_hide_all(win->tip_window);   
+   gtk_widget_hide(win->tip_window);   
    g_object_set_data(G_OBJECT(win->view),"tip",win->tip_window);
        
 
