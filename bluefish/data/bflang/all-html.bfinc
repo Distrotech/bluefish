@@ -19,9 +19,13 @@
 		along with this program.  If not, see <http://www.gnu.org/licenses/>.		
 -->
 <bfinc>
+
 <element id="e.html.lcomment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
 	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
 		<element pattern="--&gt;" ends_block="1" blockstartelement="e.html.lcomment" highlight="html-comment" mayfold="1" ends_context="1" />
+		<group class="is_ASP-VBS">
+			<element pattern="#include" highlight="asp-keyword" case_insens="1" />
+		</group>		
 	</context>
 </element>
 
@@ -56,13 +60,13 @@
 		<element pattern="//" highlight="js-comment">
 			<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
 				<element pattern="(&#10;|&#13;|&#13;&#10;)" is_regex="1" highlight="js-comment" ends_context="1" />
-				<element id="end-script-js-comment" pattern="&lt;/script&gt;" highlight="html-tag" ends_context="3" case_insens="1" ends_block="1" blockstartelement="t.html.script"/>
+				<element id="end-script-js-comment" pattern="&lt;/script&gt;" highlight="html-tag" ends_context="2" case_insens="1" ends_block="1" blockstartelement="t.html.script"/>
 			</context>
 		</element>
 		<element id="e.html.js.blockcomment" pattern="/*" starts_block="1" highlight="js-comment">
 			<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
 				<element pattern="*/" ends_block="1" blockstartelement="e.html.js.blockcomment" highlight="js-comment" mayfold="1" ends_context="1" />
-				<element id="end-script-js-blockcomment" pattern="&lt;/script&gt;" highlight="html-tag" case_insens="1" ends_context="3" ends_block="1" blockstartelement="t.html.script"/>
+				<element id="end-script-js-blockcomment" pattern="&lt;/script&gt;" highlight="html-tag" case_insens="1" ends_context="2" ends_block="1" blockstartelement="t.html.script"/>
 			</context>
 		</element>
 		<element idref="e.html.lcomment"/>
@@ -98,6 +102,7 @@
 				</group>
 			</context>
 			</element>
+			<!-- the next pattern ends 2 contexts because the context c.html.css.main can be called recursively by a media selector -->
 			<element pattern="}" ends_block="1" highlight="css-brackets" blockstartelement="e.css.media.group.lbrace" ends_context="2" />
 		</group>
 		<element id="e.css.lbrace" pattern="{" starts_block="1" highlight="css-brackets">
@@ -108,7 +113,7 @@
 					</context>
 				</element>
 				&css-rules;
-				<element pattern="&lt;/style&gt;" highlight="html-tag" ends_context="3" />
+				<element id="end-style-tag" pattern="&lt;/style&gt;" highlight="html-tag" ends_context="3" />
 				<element pattern="}" ends_block="1" blockstartelement="e.css.lbrace" highlight="css-brackets" ends_context="1" />
 			</context>
 		</element>
