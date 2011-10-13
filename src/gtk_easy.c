@@ -242,8 +242,8 @@ string_apply(gchar ** config_var, GtkWidget * widget)
 
 		gtk_color_button_get_color(GTK_COLOR_BUTTON(widget), &color);
 		tmpstring = gdk_color_to_string(&color);
-	} else if (GTK_IS_COMBO_BOX(widget)) {
-		tmpstring = gtk_combo_box_get_active_text(GTK_COMBO_BOX(widget));
+	} else if (GTK_IS_COMBO_BOX_TEXT(widget)) {
+		tmpstring = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
 	} else {
 		tmpstring = gtk_editable_get_chars(GTK_EDITABLE(widget), 0, -1);
 	}
@@ -320,12 +320,12 @@ combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean edit
 	GList *tmplist;
 	gint activenum = -1, index = 0;
 	if (editable)
-		returnwidget = gtk_combo_box_entry_new_text();
+		returnwidget = gtk_combo_box_text_new_with_entry();
 	else
-		returnwidget = gtk_combo_box_new_text();
+		returnwidget = gtk_combo_box_text_new();
 	for (tmplist = g_list_first(which_list); tmplist; tmplist = g_list_next(tmplist)) {
 		if (tmplist->data) {
-			gtk_combo_box_append_text(GTK_COMBO_BOX(returnwidget), tmplist->data);
+			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(returnwidget), tmplist->data);
 			if (setstring && g_strcmp0(tmplist->data, setstring) == 0) {
 				activenum = index;
 			}
@@ -335,10 +335,10 @@ combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean edit
 	if (activenum != -1) {
 		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget), activenum);
 	} else if (setstring) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(returnwidget), setstring);
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(returnwidget), setstring);
 		gtk_combo_box_set_active(GTK_COMBO_BOX(returnwidget), index);
 	}
-	if (GTK_IS_COMBO_BOX_ENTRY(returnwidget)) {
+	if (editable) {
 		child = gtk_bin_get_child(GTK_BIN(returnwidget));
 		gtk_entry_set_activates_default(GTK_ENTRY(child), TRUE);
 	}
@@ -525,7 +525,7 @@ static gboolean
 window_full_key_press_event_lcb(GtkWidget * widget, GdkEventKey * event, GtkWidget * win)
 {
 	DEBUG_MSG("window_full_key_press_event_lcb, started\n");
-	if (event->keyval == GDK_Escape) {
+	if (event->keyval == GDK_KEY_Escape) {
 		DEBUG_MSG("window_full_key_press_event_lcb, emit delete_event on %p\n", win);
 /*		g_signal_emit_by_name(G_OBJECT(win), "delete_event");*/
 		gtk_widget_destroy(win);
@@ -1037,7 +1037,7 @@ file_but_clicked_lcb(GtkWidget * widget, Tfilebut * fb)
 }
 
 static void
-file_but_destroy(GtkObject * object, Tfilebut * fb)
+file_but_destroy(GtkWidget * widget, Tfilebut * fb)
 {
 	g_slice_free(Tfilebut, fb);
 }
@@ -1307,12 +1307,12 @@ accelerator_key_press_lcb(GtkWidget * widget, GdkEventKey * event, gpointer user
 /*	if (!g_unichar_isalnum((gunichar)event->keyval) && event->keyval!=GDK_Escape && !g_unichar_isspace((gunichar)event->keyval))
 		return FALSE;*/
 	switch (event->keyval) {
-	case GDK_Escape:
+	case GDK_KEY_Escape:
 		gtk_dialog_response(dlg, GTK_RESPONSE_CANCEL);
 		break;
-	case GDK_Delete:
-	case GDK_KP_Delete:
-	case GDK_BackSpace:
+	case GDK_KEY_Delete:
+	case GDK_KEY_KP_Delete:
+	case GDK_KEY_BackSpace:
 		gtk_dialog_response(dlg, GTK_RESPONSE_REJECT);
 		break;
 	default:
@@ -1357,7 +1357,9 @@ ask_accelerator_dialog(const gchar * title)
 	gtk_window_set_modal(GTK_WINDOW(dialog1), TRUE);
 	/*gtk_window_set_decorated(GTK_WINDOW(dialog1), FALSE); */
 	gtk_window_set_type_hint(GTK_WINDOW(dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
+#if !GTK_CHECK_VERSION(3, 0, 0)
 	gtk_dialog_set_has_separator(GTK_DIALOG(dialog1), FALSE);
+#endif /* gtk3 */
 
 	label1 = gtk_label_new(_("<b>Keystroke choice</b>"));
 	gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog1))), label1, FALSE, FALSE, 0);

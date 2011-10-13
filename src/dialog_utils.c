@@ -227,38 +227,13 @@ dialog_color_button_in_table(const gchar * color, const gchar * title, GtkWidget
 }
 
 GtkWidget *
-dialog_combo_box_text_from_list(const GList * options, const gchar * value)
-{
-	gboolean found = FALSE;
-	gint index = 0;
-	const GList *node;
-	GtkWidget *combobox;
-
-	combobox = gtk_combo_box_new_text();
-
-	for (node = options; node != NULL; node = node->next) {
-		if (node->data) {
-			gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), node->data);
-			if (!found && value && g_strcmp0(node->data, value) == 0)
-				found = TRUE;
-			else if (!found)
-				index++;
-		}
-	}
-
-	gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), (found ? index : 0));
-
-	return combobox;
-}
-
-GtkWidget *
 dialog_combo_box_text_labeled_from_list(const GList * options, const gchar * value, const gchar * labeltext,
 										GtkWidget * box, guint padding)
 {
 	GtkWidget *combobox;
 	GtkWidget *label;
 
-	combobox = dialog_combo_box_text_from_list(options, value);
+	combobox = combobox_with_popdown(value, options, FALSE);
 
 	label = dialog_label_new(labeltext, 0, 0.5, box, padding);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), combobox);
@@ -275,7 +250,7 @@ dialog_combo_box_text_from_list_in_table(const GList * options, const gchar * va
 {
 	GtkWidget *combobox;
 
-	combobox = dialog_combo_box_text_from_list(options, value);
+	combobox = combobox_with_popdown(value, options, FALSE);
 	gtk_table_attach(GTK_TABLE(table), combobox, left_attach, right_attach, top_attach, bottom_attach,
 					 GTK_FILL, GTK_SHRINK, 0, 0);
 
@@ -288,11 +263,11 @@ dialog_combo_box_text_new(const gchar ** options, gint index)
 	GtkWidget *combobox;
 	const gchar **tmp;
 
-	combobox = gtk_combo_box_new_text();
+	combobox = gtk_combo_box_text_new();
 
 	tmp = options;
 	while (*tmp)
-		gtk_combo_box_append_text(GTK_COMBO_BOX(combobox), gettext(*tmp++));
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(combobox), gettext(*tmp++));
 
 	gtk_combo_box_set_active(GTK_COMBO_BOX(combobox), index);
 
@@ -432,7 +407,7 @@ dialog_radio_button_from_widget_in_table(GtkRadioButton * radio_group_member, co
 GtkWidget *
 dialog_spin_button_new(gfloat lower, gfloat upper, const gint value)
 {
-	GtkObject *adjustment;
+	GtkAdjustment *adjustment;
 	GtkWidget *button;
 	gfloat step_increment, page_increment;
 

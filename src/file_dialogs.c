@@ -78,7 +78,7 @@ files_advanced_win_ok_clicked(Tfiles_advanced * tfs)
 		gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(tfs->find_pattern))), 0, -1);
 	basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
 	baseuri = g_file_new_for_uri(basedir);
-	content_filter = gtk_combo_box_get_active_text(GTK_COMBO_BOX(tfs->grep_pattern));
+	content_filter = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(tfs->grep_pattern));
 	if (content_filter && content_filter[0]!='\0')
 		tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist, content_filter, FALSE, TRUE);
 	if (extension_filter && extension_filter[0] != '\0') 
@@ -147,7 +147,9 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 											  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 											  GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
 
+#if !GTK_CHECK_VERSION(3, 0, 0)
 	gtk_dialog_set_has_separator(GTK_DIALOG(tfs->dialog), FALSE);
+#endif /* gtk3 */
 	carea = gtk_dialog_get_content_area(GTK_DIALOG(tfs->dialog));
 
 	alignment = gtk_alignment_new(0, 0, 1, 1);
@@ -173,13 +175,14 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 						table, 5, 6, 0,1);
 
 
-	lstore = gtk_list_store_new(1, G_TYPE_STRING);
+	/*lstore = gtk_list_store_new(1, G_TYPE_STRING);
 	for (tmplist = g_list_first(bfwin->session->filegloblist); tmplist; tmplist = g_list_next(tmplist)) {
 		gtk_list_store_append(GTK_LIST_STORE(lstore), &iter);
 		gtk_list_store_set(GTK_LIST_STORE(lstore), &iter, 0, tmplist->data, -1);
 	}
 	tfs->find_pattern = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(lstore), 0);
-	g_object_unref(lstore);
+	g_object_unref(lstore);*/
+	tfs->find_pattern = combobox_with_popdown(NULL, bfwin->session->filegloblist, TRUE);
 	dialog_mnemonic_label_in_table(_("_Pattern:"), tfs->find_pattern, table, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 1, 5, 1, 2);
 	g_signal_connect(G_OBJECT(tfs->find_pattern), "changed",
@@ -350,7 +353,7 @@ open_url_cancel_lcb(GtkWidget * widget, Tou * ou)
 static void
 open_url_ok_lcb(GtkWidget * widget, Tou * ou)
 {
-	gchar *url = gtk_combo_box_get_active_text(GTK_COMBO_BOX(ou->entry));
+	gchar *url = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(ou->entry));
 	DEBUG_MSG("open_url_ok_lcb, url=%s\n", url);
 	doc_new_from_input(ou->bfwin, url, FALSE, FALSE, -1);
 	g_free(url);
