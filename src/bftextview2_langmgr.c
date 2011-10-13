@@ -1222,6 +1222,7 @@ build_lang_thread(gpointer data)
 	Tbflang *bflang = data;
 	Tbflangparsing *bfparser;
 	const gchar *tmp;
+	GList *tmplist;
 
 	bfparser = g_slice_new0(Tbflangparsing);
 	bfparser->patterns = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
@@ -1240,6 +1241,14 @@ build_lang_thread(gpointer data)
 	bfparser->load_completion = !(tmp && tmp[0] == '0');
 	tmp = lookup_user_option(bflang->name, "autoclose_tags");
 	bfparser->autoclose_tags = !(tmp && tmp[0] == '0');
+
+	/* insert the special option is_LANGNAME to the hashtable, so you can check for the language file being parsed using class or notclass */
+	for (tmplist=g_list_first(langmgr.bflang_list);tmplist;tmplist=g_list_next(tmplist)) {
+		Tbflang* tmpbflang = tmplist->data;
+		gchar *tmp2 = g_strconcat("is_", tmpbflang->name, NULL);
+		langmgr_insert_user_option(bflang->name, tmp2, (tmpbflang == bflang) ? "1" : "0");
+		g_free(tmp2);
+	}
 
 	DBG_PARSING("build_lang_thread %p, started for %s\n", g_thread_self(), bfparser->bflang->filename);
 	reader = xmlNewTextReaderFilename(bfparser->bflang->filename);
@@ -1366,7 +1375,7 @@ build_lang_thread(gpointer data)
 				largest_table = get_table(bfparser->st, i)->len;
 		}
 		g_print("Language statistics for %s from %s\n", bfparser->bflang->name, bfparser->bflang->filename);
-		g_print("reference size       %9.2f Kbyte\n", bfparser->reference_size/1024.0);
+		g_print("reference size       %9.2f Kbytes\n", bfparser->reference_size/1024.0);
 		g_print("largest table %5d (%9.2f Kbytes)\n", largest_table,
 				1.0 * largest_table * sizeof(Ttablerow) / 1024.0);
 		g_print("total tables  %5d (%9.2f Kbytes)\n", tablenum,

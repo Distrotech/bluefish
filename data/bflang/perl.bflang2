@@ -72,7 +72,6 @@
 	<element pattern="__LINE__" />
 	<element pattern="__PACKAGE__" />
 	<element pattern="BEGIN" />
-	<element pattern="BEGIN" />
 	<element pattern="STDIN" />
 	<element pattern="STDERR" />
 </group>
@@ -117,7 +116,6 @@
 	<element pattern="bind" />
 	<element pattern="binmode" />
 	<element pattern="bless" />
-	<element pattern="caller" />
 	<element pattern="chdir" />
 	<element pattern="chmod" />
 	<element pattern="chomp" />
@@ -136,7 +134,6 @@
 	<element pattern="delete" />
 	<element pattern="die" />
 	<element pattern="dump" />
-	<element pattern="each" />
 	<element pattern="endgrent" />
 	<element pattern="endhostent" />
 	<element pattern="endnetent" />
@@ -292,9 +289,7 @@
 	<element pattern="unpack" />
 	<element pattern="unshift" />
 	<element pattern="untie" />
-	<element pattern="use" />
 	<element pattern="utime" />
-	<element pattern="values" />
 	<element pattern="vec" />
 	<element pattern="wait" />
 	<element pattern="waitpid" />
@@ -304,8 +299,9 @@
 </group>
 
 <group highlight="variable" case_insens="1">
-	<element pattern="@$?[a-z_][a-z0-9_]*" is_regex="1" />
-	<element pattern="%$?[a-z_][a-z0-9_]*" is_regex="1" />
+	<!-- the next regex patterns used to start with @$?[a and %$?[a but that makes them overlap with the pointer patterns defined below -->
+	<element pattern="@$[a-z_][a-z0-9_]*" is_regex="1" />
+	<element pattern="%$[a-z_][a-z0-9_]*" is_regex="1" />
 	<element pattern="$[a-z_][a-z0-9_]*" is_regex="1" />
 	<element pattern="&amp;[a-z_][a-z0-9_]*;" is_regex="1" />
 </group>
@@ -315,11 +311,11 @@
 	<element pattern="[0-9]+" is_regex="1"  />
 </group>
 <group highlight="pointer" case_insens="1"><!-- does not yet work - use context? -->
-	<element pattern="\@[a-z_][a-z0-9_]*" is_regex="1"  />
-	<element pattern="\$[a-z_][a-z0-9_]*" is_regex="1"  />
-	<element pattern="\%[a-z_][a-z0-9_]*" is_regex="1"  />
-	<element pattern="\&amp;[a-z_][a-z0-9_]*;" is_regex="1" />
-	<element pattern="\&amp;{[a-z_][a-z0-9_]*}()" is_regex="1" />
+	<element pattern="\\@[a-z_][a-z0-9_]*" is_regex="1"  />
+	<element pattern="\\$[a-z_][a-z0-9_]*" is_regex="1"  />
+	<element pattern="\\%[a-z_][a-z0-9_]*" is_regex="1"  />
+	<element pattern="\\&amp;[a-z_][a-z0-9_]*;" is_regex="1" />
+	<element pattern="\\&amp;{[a-z_][a-z0-9_]*}()" is_regex="1" />
 </group>
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;" highlight="string">

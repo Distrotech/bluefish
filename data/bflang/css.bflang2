@@ -47,6 +47,11 @@
 </properties>
 <definition>
 	<context id="c.html.css.main" symbols=" &#9;&#10;&#13;{}./*&lt;&gt;:+~[],">
+		<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
+			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
+				<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
+			</context>
+		</element>		
 		<element id="e.css.grouping" pattern="/\* @group[^*]+\*/" starts_block="1" highlight="css-keyword" mayfold="1"  is_regex="1">
 			<context symbols="*/&#9;&#10;&#13;@{}./*&lt;&gt;:+~[],">
 				<element id="e.css.grouping.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
@@ -87,11 +92,6 @@
 				<element pattern="/\* @end[^*]+\*/" ends_block="1" blockstartelement="e.css.grouping" highlight="css-keyword" mayfold="1" ends_context="1" is_regex="1"/>
 			</context>
 		</element>
-		<element id="e.css.lcomment" pattern="/*" starts_block="1" highlight="css-comment">
-			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
-				<element pattern="*/" ends_block="1" blockstartelement="e.css.lcomment" highlight="css-comment" mayfold="1" ends_context="1" />
-			</context>
-		</element>		
 		&css-selectors;
 		<group highlight="css-html-media">
 			<element pattern="@media">
