@@ -220,7 +220,9 @@ about_dialog_create(GtkAction * action, gpointer user_data)
 		}
 	}
 
+#if !GTK_CHECK_VERSION(3, 0, 0)
 	gtk_about_dialog_set_url_hook(about_activate_url, NULL, NULL);
+#endif /* gtk3 */
 
 	gtk_show_about_dialog(GTK_WINDOW(bfwin->main_window), "logo", logo, "name", PACKAGE,
 #ifdef SVN_REVISION
