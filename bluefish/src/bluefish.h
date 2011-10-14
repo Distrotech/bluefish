@@ -590,6 +590,7 @@ void bluefish_exit_request(void);
 /* backwards compatibility */
 #if !GTK_CHECK_VERSION(2,24,0)
 #define GDK_KEY_Enter GDK_Enter
+#define GDK_KEY_Return GDK_Return
 #define GDK_KEY_KP_Enter GDK_KP_Enter
 #define GDK_KEY_Home GDK_Home
 #define GDK_KEY_KP_Home GDK_KP_Home
@@ -598,7 +599,35 @@ void bluefish_exit_request(void);
 #define GDK_KEY_Tab GDK_Tab
 #define GDK_KEY_KP_Tab GDK_KP_Tab
 #define GDK_KEY_ISO_Left_Tab GDK_ISO_Left_Tab
-#endif /* GTK_CHECK_VERSION(3,0,0) */
+#define GDK_KEY_Up GDK_Up
+#define GDK_KEY_Down GDK_Down
+#define GDK_KEY_Page_Down GDK_Page_Down
+#define GDK_KEY_Page_Up GDK_Page_Up
+#define GDK_KEY_Right GDK_Right
+#define GDK_KEY_KP_Right GDK_KP_Right
+#define GDK_KEY_Left GDK_Left
+#define GDK_KEY_KP_Left GDK_KP_Left
+#define GDK_KEY_Escape GDK_Escape
+#define GDK_KEY_0 GDK_0
+#define GDK_KEY_1 GDK_1
+#define GDK_KEY_2 GDK_2
+#define GDK_KEY_3 GDK_3
+#define GDK_KEY_4 GDK_4
+#define GDK_KEY_5 GDK_5
+#define GDK_KEY_6 GDK_6
+#define GDK_KEY_7 GDK_7
+#define GDK_KEY_8 GDK_8
+#define GDK_KEY_9 GDK_9
+#define GDK_KEY_Delete GDK_Delete
+#define GDK_KEY_BackSpace GDK_BackSpace
+#define GDK_KEY_KP_Delete GDK_KP_Delete
+/*#define GDK_KEY_ GDK_*/
+#define GTK_COMBO_BOX_TEXT(arg) GTK_COMBO_BOX(arg)
+#define gtk_combo_box_text_get_active_text gtk_combo_box_get_active_text
+#define gtk_combo_box_text_new_with_entry gtk_combo_box_entry_new_text 
+#define gtk_combo_box_text_new gtk_combo_box_new_text
+#define gtk_combo_box_text_append_text gtk_combo_box_append_text
+#endif /* GTK_CHECK_VERSION(2,24,0) */
 #if !GTK_CHECK_VERSION(2,18,0)
 #define gtk_widget_set_can_focus(arg, arg2) do {if (arg2) GTK_WIDGET_SET_FLAGS(arg, GTK_CAN_FOCUS); else GTK_WIDGET_UNSET_FLAGS(arg, GTK_CAN_FOCUS);} while(0)
 #define gtk_widget_get_allocation(arg1, arg2) (*(arg2) = arg1->allocation)
