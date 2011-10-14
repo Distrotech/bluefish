@@ -242,7 +242,13 @@ string_apply(gchar ** config_var, GtkWidget * widget)
 
 		gtk_color_button_get_color(GTK_COLOR_BUTTON(widget), &color);
 		tmpstring = gdk_color_to_string(&color);
-	} else if (GTK_IS_COMBO_BOX_TEXT(widget)) {
+	}
+#if GTK_CHECK_VERSION(2,24,0)
+	else if (GTK_IS_COMBO_BOX_TEXT(widget)) 
+#else
+	else if (GTK_IS_COMBO_BOX(widget))
+#endif
+	{
 		tmpstring = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
 	} else {
 		tmpstring = gtk_editable_get_chars(GTK_EDITABLE(widget), 0, -1);
