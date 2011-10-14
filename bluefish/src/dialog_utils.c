@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 
 #include "bluefish.h"
+#include "gtk_easy.h"
 #include "dialog_utils.h"
 #include "pixmap.h"
 
@@ -137,10 +138,8 @@ dialog_button_new_with_image(const gchar * labeltext,const gchar * stockid,
 	if (child) {
 		button = gtk_button_new();
 		gtk_container_add(GTK_CONTAINER(button), child);
-	} else if (stockid) {
+	} else /* if (stockid) */ {
 		button = gtk_button_new_from_stock(stockid);
-	} else {
-		g_warning("bluefish bug in dialog_button_new_with_image(), labeltext=%s, stockid=%s, please report this.", labeltext, stockid);
 	}
 	g_signal_connect(G_OBJECT(button), "clicked", func, func_data);
 	gtk_widget_set_can_default(button, TRUE);

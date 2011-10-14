@@ -1023,7 +1023,7 @@ paint_spaces(BluefishTextView * btv, cairo_t *cr, GtkTextIter * startvisible,
 
 #if GTK_CHECK_VERSION(3, 0, 0)
 static gboolean
-bluefish_text_view_draw(GtkWidget * widget, cairo_t *cr, gpointer user_data)
+bluefish_text_view_draw(GtkWidget * widget, cairo_t *cr)
 #else
 static gboolean
 bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)

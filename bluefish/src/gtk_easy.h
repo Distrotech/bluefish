@@ -37,11 +37,11 @@ void string_apply(gchar ** config_var, GtkWidget * entry);
 void integer_apply(gint * config_var, GtkWidget * widget, gboolean is_checkbox);
 void button_apply(gchar ** config_var, GtkWidget * entry);
 
-GtkWidget *combobox_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable,
+GtkWidget *combobox_with_popdown_sized(const gchar * setstring, const GList * which_list, gint editable,
 									   gint width);
-GtkWidget *boxed_combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable,
+GtkWidget *boxed_combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolean editable,
 									   GtkWidget * box);
-GtkWidget *combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable);
+GtkWidget *combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolean editable);
 
 GtkWidget *checkbut_with_value(gchar * labeltext, gint which_config_int);
 GtkWidget *boxed_checkbut_with_value(gchar * labeltext, gint which_config_int, GtkWidget * box);

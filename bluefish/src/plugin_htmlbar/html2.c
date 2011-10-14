@@ -694,10 +694,9 @@ static void css_parse(Tcs3_diag *diag, gchar *data) {
 	if (diag->styletype == onestyle) {
 		gint prev_end = 0;
 		Tcs3_prevtype_onestyle prevtype = end;
-		gchar *text[3];
+		gchar *text[3] = {NULL, NULL, NULL};
 		
 		DEBUG_MSG("css_parse, onestyle\n");
-		text[2] = NULL;
 		while (tmp[count] && parsable_css) {
 			switch (tmp[count]) {
 			case ':':

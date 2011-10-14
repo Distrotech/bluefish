@@ -1334,11 +1334,8 @@ static void
 snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s3scope)
 {
 	TSNRWin *snrwin;
-	GtkWidget *table, *vbox, *entry;
+	GtkWidget *table, *vbox;
 	gint currentrow=0;
-	GtkListStore *history, *lstore;
-	GList *list, *tmplist;
-	GtkTreeIter iter;
 	/*GtkTextIter start, end; */
 	unsigned int i = 0;
 

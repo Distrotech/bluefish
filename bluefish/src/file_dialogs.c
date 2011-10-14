@@ -133,10 +133,7 @@ void
 files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 {
 	GtkWidget *alignment, *button, *carea, *table, *vbox, *vbox2;
-	GtkListStore *lstore;
-	GtkTreeIter iter;
 	Tfiles_advanced *tfs;
-	GList *tmplist;
 
 	tfs = g_new(Tfiles_advanced, 1);
 	tfs->bfwin = bfwin;
