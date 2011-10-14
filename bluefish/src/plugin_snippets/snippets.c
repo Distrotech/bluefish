@@ -67,6 +67,7 @@ Tsnippetswin *snippets_get_win(Tbfwin *bfwin) {
 	return snw;	
 }
 static void snippets_initgui(Tbfwin* bfwin) {
+	DEBUG_MSG("snippets_initgui for bfwin %p\n",bfwin);
 	snippets_create_gui(bfwin);
 }
 static void snippets_enforce_session(Tbfwin* bfwin) {
