@@ -296,7 +296,7 @@ boxed_widget(const gchar * labeltext, GtkWidget * widget, GtkWidget * box)
 }
 
 GtkWidget *
-combobox_with_popdown_sized(const gchar * setstring, GList * which_list, gint editable, gint width)
+combobox_with_popdown_sized(const gchar * setstring, const GList * which_list, gint editable, gint width)
 {
 	GtkWidget *returnwidget;
 
@@ -306,7 +306,7 @@ combobox_with_popdown_sized(const gchar * setstring, GList * which_list, gint ed
 }
 
 GtkWidget *
-boxed_combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable, GtkWidget * box)
+boxed_combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolean editable, GtkWidget * box)
 {
 	GtkWidget *returnwidget = combobox_with_popdown(setstring, which_list, editable);
 	gtk_box_pack_start(GTK_BOX(box), returnwidget, TRUE, TRUE, 3);
@@ -314,7 +314,7 @@ boxed_combobox_with_popdown(const gchar * setstring, GList * which_list, gboolea
 }
 
 GtkWidget *
-combobox_with_popdown(const gchar * setstring, GList * which_list, gboolean editable)
+combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolean editable)
 {
 	GtkWidget *child, *returnwidget;
 	GList *tmplist;
