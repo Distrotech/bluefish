@@ -138,7 +138,9 @@ typedef struct {
 	GtkWidget *win;
 	Tcs3_destination dest;
 	Tcs3_style styletype;
-	GtkWidget *clist;
+	/*GtkWidget *clist;*/
+	GtkListStore *lstore;
+	GtkWidget *lview; 
 	gint selected_row;
 	gboolean grab;
 	GtkWidget *selector;
@@ -325,7 +327,7 @@ static GList *pointer_arr2glist(gchar **arr) {
 
 static void cs3d_destroy_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 	window_destroy(diag->win);
-	g_free(diag);
+	g_slice_free(Tcs3_diag, diag);
 }
 
 static void cs3d_cancel_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
@@ -333,249 +335,152 @@ static void cs3d_cancel_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 }
 
 static void cs3d_ok_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
-
 	Tcs3_destination dest = diag->dest;
-	gchar *stylebuf=NULL;
+	GtkTreeIter iter;
+	GString *retstr;
+	retstr = g_string_new("");
 
 	if (diag->styletype == onestyle) {
-		gchar *tmpbuf1 = NULL;
-		gchar *tmpbuf2 = g_strdup("");
-		gint retval=1, row=0;
+		gboolean retval = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(diag->lstore), &iter);
 		while (retval) {
-			gchar *text[4];
-			retval = (gtk_clist_get_text(GTK_CLIST(diag->clist), row, 0, &text[0]) 
-						&& gtk_clist_get_text(GTK_CLIST(diag->clist), row, 1, &text[1]));
-			if (retval) {
-				tmpbuf1 = g_strconcat(tmpbuf2, text[0], ": ", text[1], "; ", NULL);
-				g_free(tmpbuf2);
-				tmpbuf2 = tmpbuf1;
-			}
-			row++;
+			gchar *text[3];
+			gtk_tree_model_get(GTK_TREE_MODEL(diag->lstore), &iter, 1, &text[1], 2, &text[2], -1);
+			retstr = g_string_append(retstr, text[1]);
+			retstr = g_string_append(retstr, ": ");
+			retstr = g_string_append(retstr, text[2]);
+			retstr = g_string_append(retstr, "; ");
+			retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(diag->lstore), &iter);
 		}
-		stylebuf = tmpbuf2;
 	} else { /* multistyle */
-		gchar *tmpbuf1 = NULL;
-		gchar *tmpbuf2 = g_strdup("");
 		gchar *prev_selector = NULL;
-		gint retval=1, row=0;
+		gboolean retval = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(diag->lstore), &iter);
 		while (retval) {
-			gchar *text[4];
-			retval = (gtk_clist_get_text(GTK_CLIST(diag->clist), row, 0, &text[0])
-					&& gtk_clist_get_text(GTK_CLIST(diag->clist), row, 1, &text[1])
-					&& gtk_clist_get_text(GTK_CLIST(diag->clist), row, 2, &text[2]));
-			if (retval) {
-				if (!prev_selector) {
-					prev_selector = g_strdup(text[0]);
-					tmpbuf1 = g_strconcat(tmpbuf2, text[0], " {\n", NULL);
-					g_free(tmpbuf2);
-					tmpbuf2 = tmpbuf1;
-				} 
-				if (strcmp(prev_selector, text[0]) == 0 ) {
-					tmpbuf1 = g_strconcat(tmpbuf2, "\t", text[1], ": ", text[2], ";\n", NULL);
-				} else {
-					tmpbuf1 = g_strconcat(tmpbuf2, "}\n", text[0], " {\n\t", text[1], ": ", text[2], ";\n", NULL);
-					g_free(prev_selector);
-					prev_selector = g_strdup(text[0]);
-				}
-				g_free(tmpbuf2);
-				tmpbuf2 = tmpbuf1;
-				row++;
+			gchar *text[3];
+			gtk_tree_model_get(GTK_TREE_MODEL(diag->lstore), &iter, 0, &text[0], 1, &text[1], 2, &text[2], -1);
+			if (!prev_selector) {
+				prev_selector = g_strdup(text[0]);
+				retstr = g_string_append(retstr, text[0]);
+				retstr = g_string_append(retstr, " {\n");
+			} else if (g_strcmp0(prev_selector, text[0]) != 0 ) {
+				retstr = g_string_append(retstr, "}\n");
+				retstr = g_string_append(retstr, text[0]);
+				retstr = g_string_append(retstr, " {\n");
+				g_free(prev_selector);
+				prev_selector = g_strdup(text[0]);
 			}
+			retstr = g_string_append(retstr, "\t");
+			retstr = g_string_append(retstr, text[1]);
+			retstr = g_string_append(retstr, ": ");
+			retstr = g_string_append(retstr, text[2]);
+			retstr = g_string_append(retstr, ";\n");
+			retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(diag->lstore), &iter);
 		}
 		g_free(prev_selector);
 		/* only append '}\n' in case there is content */
-		if (strlen(tmpbuf2) != 0)
-			stylebuf = g_strconcat(tmpbuf2, "}\n", NULL);
-		g_free(tmpbuf2);
+		if (retstr->len > 0) {
+			retstr = g_string_append(retstr, "}\n");
+		}
 	}
 
-	if (stylebuf) {
+	if (retstr->len > 0) {
 		if (dest.dest_type == entry) {
 			DEBUG_MSG("cs3d_ok_clicked_lcb, entry? %p\n", dest.entry);
 			if (dest.entry && GTK_IS_WIDGET(dest.entry)) {
 				DEBUG_MSG("cs3d_ok_clicked_lcb, entry!\n");
-				gtk_entry_set_text(GTK_ENTRY(dest.entry), stylebuf);
+				gtk_entry_set_text(GTK_ENTRY(dest.entry), retstr->str);
 			}
 		} else if (dest.dest_type == textbox) {
 			if (dest.doc) {
 				DEBUG_MSG("cs3d_ok_clicked_lcb, textbox!\n");
 				if (dest.doc_start != -1 || dest.doc_end != -1) {
-					doc_replace_text(dest.doc, stylebuf, dest.doc_start, dest.doc_end);
+					doc_replace_text(dest.doc, retstr->str, dest.doc_start, dest.doc_end);
 				} else {
-					doc_insert_two_strings(dest.doc, stylebuf, NULL);
+					doc_insert_two_strings(dest.doc, retstr->str, NULL);
 				}
 			}
 		} else if (dest.dest_type == wizard) {
 			GtkTextBuffer *buf;
 			buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(dest.entry));
-			gtk_text_buffer_set_text(buf, stylebuf, -1);
+			gtk_text_buffer_set_text(buf, retstr->str, -1);
 		} else {
 #ifdef DEVELOPMENT
 			g_print("cs3d_ok_clicked_lcb, an unknown dest type, this should never happen!\n");
 #endif
 		}
-		g_free(stylebuf);
 	}
+	g_string_free(retstr, TRUE);
 	cs3d_destroy_lcb(NULL, diag);
 }
 
-static void cs3d_select_row_lcb(GtkWidget *clist, gint row, gint column, GdkEventButton *event, Tcs3_diag *diag) {
-	diag->selected_row = row;
-	if (diag->selected_row != -1) {
-		gchar *text[3];
-		if (diag->styletype == onestyle) {
-			text[0] = NULL;
-			gtk_clist_get_text(GTK_CLIST(diag->clist), diag->selected_row, 0, &text[1]);
-			gtk_clist_get_text(GTK_CLIST(diag->clist), diag->selected_row, 1, &text[2]);
-		} else { /* multistyle */
-			gtk_clist_get_text(GTK_CLIST(diag->clist), diag->selected_row, 0, &text[0]);
-			gtk_clist_get_text(GTK_CLIST(diag->clist), diag->selected_row, 1, &text[1]);
-			gtk_clist_get_text(GTK_CLIST(diag->clist), diag->selected_row, 2, &text[2]);
-		}
-		if (text[0]) {
-			gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->selector))), text[0]);
-		}
-		gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->property))), text[1]);
-		gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->value))), text[2]);
-		DEBUG_MSG("cs3d_select_row_lcb, sele=%s, prop=%s, val=%s\n", text[0], text[1], text[2]);
+static void cs3d_selection_changed_cb(GtkTreeSelection *selection, gpointer data) 
+{
+	Tcs3_diag *diag = data;
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	gchar *text[3] = {NULL, NULL, NULL};
+	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+		gint *indices;
+		GtkTreePath *path;
+		gtk_tree_model_get(model, &iter, 0, &text[0], 1, &text[1], 2, &text[2], -1);
+		
+		/* now set the diag->selected_row !!!!!!!!!!!!!!!!!!! */
+		path = gtk_tree_model_get_path(model, &iter);
+		indices = gtk_tree_path_get_indices(path);
+		DEBUG_MSG("cs3d_selection_changed_cb, selected row=%d\n",indices[0]);
+		diag->selected_row = indices[0];
+		gtk_tree_path_free(path);
 	}
-}
-
-static void cs3d_unselect_row_lcb(GtkWidget *clist, gint row, gint column, GdkEventButton *event, Tcs3_diag *diag) {
-	diag->selected_row = -1;
 	if (diag->styletype == multistyle) {
-		gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->selector))), "");
+		gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->selector))), text[0]?text[0]:"");
 	}
-	gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->property))), "");
-	gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->value))), "");
+	gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->property))), text[1]?text[1]:"");
+	gtk_entry_set_text(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->value))), text[2]?text[2]:"");
+	
+	
 }
 
 static void add_to_row(Tcs3_diag *diag, gint whichrow) {
-	gchar *text[4];
-	gint count, correct=1;
+	gchar *text[3] = {NULL, NULL, NULL};
+	gboolean correct=TRUE;
+	gint count=1;
 	if (diag->styletype == multistyle) {
-		DEBUG_MSG("add_to_row, multistyle\n");
 		text[0] = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->selector))), 0, -1);
-		text[1] = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->property))), 0, -1);
-		text[2] = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->value))), 0, -1);
-	} else {
-		DEBUG_MSG("add_to_row, onestyle\n");
-		text[0] = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->property))), 0, -1);
-		text[1] = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->value))), 0, -1);
-		text[2] = NULL;
+		count=0;
 	}
-	text[3] = NULL;
+	text[1] = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->property))), 0, -1);
+	text[2] = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->value))), 0, -1);
 
-	count=0;
 	while (text[count]) {
 		if (strlen(text[count]) == 0) {
-			correct = 0;
+			correct = FALSE;
+			break;
 		}
 		count++;
 	}
 	if (correct) {
+		GtkTreeIter iter;
 		if (whichrow == -1) {
-			gtk_clist_append(GTK_CLIST(diag->clist), text);
+			gtk_list_store_append(GTK_LIST_STORE(diag->lstore),&iter);
 		} else {
-			DEBUG_MSG("add_to_row, removing %d\n", whichrow);
-			gtk_clist_remove(GTK_CLIST(diag->clist), whichrow);
-			DEBUG_MSG("add_to_row, adding new %d\n", whichrow);
-			gtk_clist_insert(GTK_CLIST(diag->clist), whichrow, text);
+			gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(diag->lstore),&iter,NULL,whichrow);
 		}
-		gtk_clist_sort(GTK_CLIST(diag->clist));
+		gtk_list_store_set(GTK_LIST_STORE(diag->lstore), &iter, 0, text[0], 1, text[1], 2, text[2], -1);
 	}
-	count=0;
-	while (text[count]) {
-		g_free(text[count]);
-		count++;
-	}
-}
-
-static void cs3d_add_to_update(Tcs3_diag *diag, 
-                               const gchar *selector, const gchar *property, 
-                               const gchar *curValue, const gchar *newValue) {
-	/* _DM_ Alert box asking if user would like to change request from add to
-	 * update.
-	 */
-    const gchar *buttons[] = {GTK_STOCK_CANCEL, _("_Update"), NULL};
-    gchar *primaryText = NULL, *secondaryText = NULL; 
-    gint result;
-    
-    if (selector) {
-        primaryText = g_strdup_printf (_("The %s %s property already exists.\n"), selector, property);
-    } else {
-        primaryText = g_strdup_printf (_("The %s property already exists.\n"), property);
-    }
-    
-    secondaryText = g_strdup_printf (_("Update its value from %s to %s?"), curValue, newValue);
-    
-    result = message_dialog_new_multi(diag->win,
-                                      GTK_MESSAGE_QUESTION,
-                                      buttons,
-                                      primaryText,
-                                      secondaryText);
-
-	g_free (primaryText);
-	g_free (secondaryText);
-
-	if (result == 1) {
-	    add_to_row(diag, diag->selected_row);
-        gtk_clist_unselect_row(GTK_CLIST(diag->clist), diag->selected_row, 0);
-	}
-	
+	g_free(text[0]);
+	g_free(text[1]);
+	g_free(text[2]);
 }
 
 static void cs3d_add_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
-	gint onlist = 0, row = 0, retval = 1;
-	gint col = diag->styletype == onestyle ? 0 : 1;
-	gchar *cmb_selector = NULL, *cmb_property = NULL, *cmb_value = NULL;
-	gchar *lst_selector, *lst_property, *lst_value;
-
-	if (diag->styletype == multistyle) { 
-		cmb_selector = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->selector))), 0, -1);
-	}
-	cmb_property = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->property))), 0, -1);
-	cmb_value = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->value))), 0, -1);
-
-	while (retval) {
-		if (diag->styletype == multistyle) {
-			retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, 0, &lst_selector);
-			if (retval && g_strcmp0(lst_selector, cmb_selector) != 0) {
-				row++;
-				continue;
-			}
-		}
-		retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, col, &lst_property);
-		if (retval && strcmp(lst_property, cmb_property) == 0) {
-			retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, col + 1, &lst_value);
-			if (retval && strcmp(lst_value, cmb_value) == 0) {
-				onlist = 1;
-				DEBUG_MSG("%s already on list.\n", cmb_property);
-				break;
-			} else {
-				onlist = 1;
-				DEBUG_MSG("%s already on list.\n", cmb_property);
-				diag->selected_row = row;
-				cs3d_add_to_update(diag, cmb_selector, cmb_property, lst_value, cmb_value);
-				break;
-			}
-		}
-		DEBUG_MSG("clist %d contains: %s, %s\n", retval, lst_selector, lst_property); 
-		row++;
-	}
-    
-	if(!onlist)
-		add_to_row(diag, -1);
-
-	if (cmb_selector)
-		g_free (cmb_selector);
-	g_free (cmb_property);
-	g_free (cmb_value);
+	add_to_row(diag, -1);
 }
 
 static void cs3d_del_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 	if (diag->selected_row != -1) {
-		gtk_clist_remove(GTK_CLIST(diag->clist), diag->selected_row);
+		GtkTreeIter iter;
+		gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(diag->lstore),&iter,NULL,diag->selected_row); 
+		gtk_list_store_remove(GTK_LIST_STORE(diag->lstore),&iter);
+		/*gtk_clist_remove(GTK_CLIST(diag->clist), diag->selected_row);*/
 		diag->selected_row = -1;
 	}
 }
@@ -604,7 +509,7 @@ static void cs3d_prop_activate_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 			}
 			for (tmplist=g_list_first(list);tmplist;tmplist=g_list_next(tmplist)) {
 				if (tmplist->data) {
-					gtk_combo_box_append_text(GTK_COMBO_BOX(diag->value),tmplist->data);
+					gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(diag->value),tmplist->data);
 				}
 			}
 			g_list_free(list);
@@ -623,7 +528,7 @@ static void cs3d_prop_activate_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 		} else {
 				gtk_widget_set_sensitive(diag->extra_but, FALSE);
 		}
-		gtk_entry_set_editable(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(diag->value))), !tmp->force_pos);
+		gtk_editable_set_editable(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->value))), !tmp->force_pos);
 	} else {
 		gtk_widget_set_sensitive(diag->extra_but, FALSE);
 	}
@@ -636,8 +541,11 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	GList *tmplist = NULL;
 	Tcs3_arr tmp;
 	gint count=0;
+	GtkTreeSelection *selection;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
 	
-	diag = g_malloc(sizeof(Tcs3_diag));
+	diag = g_slice_new(Tcs3_diag);
 	diag->win = window_full2(_("Cascading Style Sheet Builder"), GTK_WIN_POS_CENTER_ON_PARENT, 
 			12, G_CALLBACK(cs3d_destroy_lcb), diag, TRUE, transient_win);
 	gtk_window_set_role(GTK_WINDOW(diag->win), "css");
@@ -690,13 +598,27 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	/* the list widget and the buttons are in a horizontal box */
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 18);
-
+	
+	diag->lstore = gtk_list_store_new(3, G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+	diag->lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(diag->lstore));
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes (_("Selector"),renderer,"text", 0,NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(diag->lview), column);
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes (_("Property"),renderer,"text", 1,NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(diag->lview), column);
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes (_("Value"),renderer,"text", 2,NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(diag->lview), column);
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(diag->lview));
+	gtk_tree_selection_set_mode(selection, GTK_SELECTION_SINGLE);
+	g_signal_connect(G_OBJECT(selection), "changed",G_CALLBACK(cs3d_selection_changed_cb),diag);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_widget_set_size_request(scrolwin, 400, 300);
 	gtk_box_pack_start(GTK_BOX(hbox), scrolwin, FALSE, FALSE, 0);
-	
-	if (diag->styletype == multistyle) {
+	gtk_container_add(GTK_CONTAINER(scrolwin), diag->lview);
+	/*if (diag->styletype == multistyle) {
 		gchar *titles[] = {_("Selector"), _("Property"), _("Value"), NULL};
 		diag->clist = gtk_clist_new_with_titles(3, titles);
 	} else {
@@ -706,12 +628,11 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	gtk_clist_set_sort_column(GTK_CLIST(diag->clist), 0);
 	gtk_clist_set_auto_sort(GTK_CLIST(diag->clist), TRUE);
 
-/*	gtk_clist_columns_autosize(GTK_CLIST(diag->clist));*/
 	g_signal_connect(diag->clist, "select_row", G_CALLBACK(cs3d_select_row_lcb), diag);
 	g_signal_connect(diag->clist, "unselect_row", G_CALLBACK(cs3d_unselect_row_lcb), diag);
-
-	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), diag->clist);
-
+	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), diag->lview);
+	*/
+	
 	vbox2 = gtk_vbox_new(FALSE, 6);
 	gtk_box_pack_start(GTK_BOX(hbox), vbox2, FALSE, FALSE, 0);
 	
@@ -822,7 +743,10 @@ static void css_parse(Tcs3_diag *diag, gchar *data) {
 			break;
 			}
 			if (prevtype == value) {
-				gtk_clist_append(GTK_CLIST(diag->clist), text);
+				GtkTreeIter iter;
+				gtk_list_store_append(diag->lstore, &iter);
+				gtk_list_store_set(diag->lstore,&iter,1, text[0],2,text[1],-1);
+				/*gtk_clist_append(GTK_CLIST(diag->clist), text);*/
 				g_free(text[0]);
 				g_free(text[1]);
 				prevtype = end;
@@ -898,7 +822,11 @@ static void css_parse(Tcs3_diag *diag, gchar *data) {
 			break;
 			}
 			if (prevtype == mvalue) {
-				gtk_clist_append(GTK_CLIST(diag->clist), text);
+				GtkTreeIter iter;
+				gtk_list_store_append(diag->lstore, &iter);
+				gtk_list_store_set(diag->lstore,&iter,0,text[0],1, text[1],2,text[2],-1);
+
+				/*gtk_clist_append(GTK_CLIST(diag->clist), text);*/
 				g_free(text[1]);
 				text[1] = NULL;
 				g_free(text[2]);
@@ -913,7 +841,7 @@ static void css_parse(Tcs3_diag *diag, gchar *data) {
 			}
 		}
 	}
-	gtk_clist_sort(GTK_CLIST(diag->clist));
+	/*gtk_clist_sort(GTK_CLIST(diag->clist));*/
 	DEBUG_MSG("css_parse, finished\n");
 }
 

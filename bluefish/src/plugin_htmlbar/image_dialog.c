@@ -393,9 +393,9 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 
 	table = dialog_table_in_vbox(4, 2, 6, dialog->priv->transitionalVbox, FALSE, FALSE, 0);
 
-	dialog->priv->align = gtk_combo_box_new_text();
+	dialog->priv->align = gtk_combo_box_text_new();
 	for (i = 0; i < G_N_ELEMENTS(alignments); i++) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(dialog->priv->align), alignments[i]);
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(dialog->priv->align), alignments[i]);
 	}
 	gtk_combo_box_set_active(GTK_COMBO_BOX(dialog->priv->align), 0);
 	dialog_mnemonic_label_in_table(_("_Align:"), dialog->priv->align, table, 0, 1, 0, 1);
@@ -1053,7 +1053,7 @@ image_dialog_ok_clicked(BluefishImageDialog * dialog)
 		g_string_append_printf(tag, " %s=\"%s\"", cap("LONGDESC"), strvalue);
 	g_free(strvalue);
 
-	strvalue = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dialog->priv->class));
+	strvalue = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dialog->priv->class));
 	if (strlen(strvalue))
 		g_string_append_printf(tag, " %s=\"%s\"", cap("CLASS"), strvalue);
 	g_free(strvalue);
@@ -1075,7 +1075,7 @@ image_dialog_ok_clicked(BluefishImageDialog * dialog)
 
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(dialog->priv->useTransitional))) {
 		if (gtk_combo_box_get_active(GTK_COMBO_BOX(dialog->priv->align))) {
-			strvalue = gtk_combo_box_get_active_text(GTK_COMBO_BOX(dialog->priv->align));
+			strvalue = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(dialog->priv->align));
 			g_string_append_printf(tag, " %s=\"%s\"", cap("ALIGN"), strvalue);
 			g_free(strvalue);
 		}

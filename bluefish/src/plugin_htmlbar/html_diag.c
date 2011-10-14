@@ -352,7 +352,7 @@ insert_string_if_combobox(GtkComboBox * combobox, gchar * itemname, gchar * stri
 	if (!combobox)
 		return string2add2;
 
-	value = gtk_combo_box_get_active_text(combobox);
+	value = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(combobox));
 	if (!value)
 		return string2add2;
 

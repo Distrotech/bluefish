@@ -495,9 +495,6 @@ static GtkWidget *
 quickstart_style_page_create(TQuickStart * qstart)
 {
 	GtkWidget *frame, *vbox, *vbox2, *hbox, *table, *label;
-	GtkListStore *history;
-	GList *urllist;
-	GtkTreeIter iter;
 	unsigned int i = 0;
 
 	const gchar *type[] = {
@@ -518,9 +515,9 @@ quickstart_style_page_create(TQuickStart * qstart)
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
 
-	qstart->stylelinktype = gtk_combo_box_new_text();
+	qstart->stylelinktype = gtk_combo_box_text_new();
 	for (i = 0; i < G_N_ELEMENTS(type); i++) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(qstart->stylelinktype), type[i]);
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(qstart->stylelinktype), type[i]);
 	}
 	g_signal_connect(G_OBJECT(qstart->stylelinktype), "changed", G_CALLBACK(quickstart_stylelinktype_changed),
 					 qstart);
@@ -532,16 +529,16 @@ quickstart_style_page_create(TQuickStart * qstart)
 
 	table = dialog_table_in_vbox(3, 2, 0, vbox2, FALSE, FALSE, 0);
 
-	history = gtk_list_store_new(1, G_TYPE_STRING);
+	/*history = gtk_list_store_new(1, G_TYPE_STRING);
 	urllist = g_list_first(qstart->bfwin->session->urllist);
 	while (urllist) {
 		gtk_list_store_append(history, &iter);
 		gtk_list_store_set(history, &iter, 0, urllist->data, -1);
 		urllist = g_list_next(urllist);
 	}
-
 	qstart->stylehref = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
-	g_object_unref(history);
+	g_object_unref(history);*/
+	qstart->stylehref = combobox_with_popdown(NULL, qstart->bfwin->session->urllist, TRUE);
 	dialog_mnemonic_label_in_table(_("HRE_F:"), qstart->stylehref, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), qstart->stylehref, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0,
 					 0);
@@ -575,9 +572,6 @@ static GtkWidget *
 quickstart_script_page_create(TQuickStart * qstart)
 {
 	GtkWidget *frame, *vbox, *vbox2, *hbox, *label;
-	GtkListStore *history;
-	GList *urllist;
-	GtkTreeIter iter;
 
 	frame = gtk_frame_new(NULL);
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
@@ -590,16 +584,16 @@ quickstart_script_page_create(TQuickStart * qstart)
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox2), hbox, FALSE, FALSE, 0);
 
-	history = gtk_list_store_new(1, G_TYPE_STRING);
+	/*history = gtk_list_store_new(1, G_TYPE_STRING);
 	urllist = g_list_first(qstart->bfwin->session->urllist);
 	while (urllist) {
 		gtk_list_store_append(history, &iter);
 		gtk_list_store_set(history, &iter, 0, urllist->data, -1);
 		urllist = g_list_next(urllist);
 	}
-
 	qstart->scriptsrc = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
-	g_object_unref(history);
+	g_object_unref(history);*/
+	qstart->scriptsrc = combobox_with_popdown(NULL,qstart->bfwin->session->urllist , TRUE);
 	label = gtk_label_new_with_mnemonic(_("_Src:"));
 	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), qstart->scriptsrc);
@@ -642,15 +636,17 @@ quickstart_dialog_new(Tbfwin * bfwin)
 										 GTK_DIALOG_DESTROY_WITH_PARENT,
 										 GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 										 GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, NULL);
+#if !GTK_CHECK_VERSION(3, 0, 0)
 	gtk_dialog_set_has_separator(GTK_DIALOG(dialog), FALSE);
+#endif /* gtk3 */
 	vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 	g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(quickstart_response_lcb), qstart);
 
 	table = dialog_table_in_vbox_defaults(4, 3, 6, vbox);
 
-	qstart->dtd = gtk_combo_box_new_text();
+	qstart->dtd = gtk_combo_box_text_new();
 	for (i = 0; i < G_N_ELEMENTS(dtds); i++) {
-		gtk_combo_box_append_text(GTK_COMBO_BOX(qstart->dtd), dtds[i].name);
+		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(qstart->dtd), dtds[i].name);
 	}
 	gtk_combo_box_set_active(GTK_COMBO_BOX(qstart->dtd), 0);
 	dialog_mnemonic_label_in_table(_("_DTD:"), qstart->dtd, table, 0, 1, 0, 1);
