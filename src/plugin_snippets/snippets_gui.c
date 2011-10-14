@@ -445,7 +445,7 @@ snippetview_drag_data_received_lcb(GtkWidget * widget, GdkDragContext * context,
 								   GtkSelectionData * sd, guint info, guint time, gpointer user_data)
 {
 	g_signal_stop_emission_by_name(widget, "drag_data_received");
-	DEBUG_MSG("snippetview_drag_data_received_lcb received node %p (%s)\n", sd->data, sd->data);
+	DEBUG_MSG("snippetview_drag_data_received_lcb \n");
 	if (gtk_selection_data_get_target(sd) == gdk_atom_intern("BLUEFISH_SNIPPET", FALSE)
 		&& gtk_selection_data_get_data(sd)) {
 		GtkTreePath *destpath = NULL, *srcpath;
