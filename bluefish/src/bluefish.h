@@ -621,12 +621,18 @@ void bluefish_exit_request(void);
 #define GDK_KEY_Delete GDK_Delete
 #define GDK_KEY_BackSpace GDK_BackSpace
 #define GDK_KEY_KP_Delete GDK_KP_Delete
+#define GDK_KEY_Alt_L GDK_Alt_L
+#define GDK_KEY_Alt_R GDK_Alt_R
+#define GDK_KEY_Control_L GDK_Control_L
+#define GDK_KEY_Control_R GDK_Control_R
+
 /*#define GDK_KEY_ GDK_*/
 #define GTK_COMBO_BOX_TEXT(arg) GTK_COMBO_BOX(arg)
 #define gtk_combo_box_text_get_active_text gtk_combo_box_get_active_text
 #define gtk_combo_box_text_new_with_entry gtk_combo_box_entry_new_text 
 #define gtk_combo_box_text_new gtk_combo_box_new_text
 #define gtk_combo_box_text_append_text gtk_combo_box_append_text
+#define gtk_combo_box_text_prepend_text gtk_combo_box_prepend_text
 #endif /* GTK_CHECK_VERSION(2,24,0) */
 #if !GTK_CHECK_VERSION(2,18,0)
 #define gtk_widget_set_can_focus(arg, arg2) do {if (arg2) GTK_WIDGET_SET_FLAGS(arg, GTK_CAN_FOCUS); else GTK_WIDGET_UNSET_FLAGS(arg, GTK_CAN_FOCUS);} while(0)

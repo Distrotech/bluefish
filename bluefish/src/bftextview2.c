@@ -43,6 +43,8 @@
 #define DBG_SCANCACHE g_print
 #undef DBG_SCANNING
 #define DBG_SCANNING g_print*/
+#undef DBG_AUTOCOMP
+#define DBG_AUTOCOMP g_print
 
 #define USER_IDLE_EVENT_INTERVAL 480	/* milliseconds */
 
@@ -139,7 +141,7 @@ bftextview2_user_idle_timer(gpointer data)
 		if (BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && btv->needs_autocomp
 			&& main_v->props.autocomp_popup_mode == 0) {
 			autocomp_run(btv, FALSE);
-			DBG_AUTOCOMP("bftextview2_user_idle_timer, set needs_autocomp to FALSE\n");
+			DBG_AUTOCOMP("bftextview2_user_idle_timer, after run, set needs_autocomp to FALSE\n");
 			btv->needs_autocomp = FALSE;
 		}
 		btv->user_idle = 0;
@@ -670,9 +672,9 @@ bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gc
 				&& (btv->autocomp	|| main_v->props.autocomp_popup_mode != 0)) {
 		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb: call autocomp_run\n");
 		autocomp_run(btv, FALSE);
-		DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, set needs_autocomp to FALSE\n");
-		btv->needs_autocomp = FALSE;
 	}
+	DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, set needs_autocomp to FALSE\n");
+	btv->needs_autocomp = FALSE;
 
 	bftextview2_reset_user_idle_timer(btv);
 	bftextview2_set_margin_size(BLUEFISH_TEXT_VIEW(btv->master));
@@ -1185,10 +1187,11 @@ bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && btv->needs_autocomp
 		&& BLUEFISH_TEXT_VIEW(btv->master)->auto_complete && (btv->autocomp
 															  || main_v->props.autocomp_popup_mode != 0)) {
+		DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, before autocomp_run()\n");
 		autocomp_run(btv, FALSE);
-		DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, set needs_autocomp to FALSE\n");
-		btv->needs_autocomp = FALSE;
 	}
+	DBG_AUTOCOMP("bftextview2_delete_range_after_lcb, after run, set needs_autocomp to FALSE\n");
+	btv->needs_autocomp = FALSE;
 }
 
 static gboolean
@@ -1207,12 +1210,28 @@ bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventKey * kevent)
 	/* following code handles the manual autocompletion popup accelerator key, default <ctrl><space> */
 	if (BLUEFISH_TEXT_VIEW(btv->master)->enable_scanner && (kevent->state & main_v->autocomp_accel_mods)
 		&& kevent->keyval == main_v->autocomp_accel_key) {
+		DBG_AUTOCOMP("bluefish_text_view_key_press_event, autocomp key combination\n");
 		autocomp_run(btv, TRUE);
 		return TRUE;
 	}
-	DBG_AUTOCOMP("bluefish_text_view_key_press_event, set needs_autocomp to TRUE\n");
-	btv->needs_autocomp = TRUE;
-
+	/* avoid the autocompletion popup for certain keys such as the delete key */
+	if (kevent->keyval != GDK_KEY_Delete 
+			&& kevent->keyval != GDK_KEY_Up
+			&& kevent->keyval != GDK_KEY_Down
+			&& kevent->keyval != GDK_KEY_Left
+			&& kevent->keyval != GDK_KEY_Right
+			&& kevent->keyval != GDK_KEY_Page_Up
+			&& kevent->keyval != GDK_KEY_Page_Down
+			&& kevent->keyval != GDK_KEY_Home
+			&& kevent->keyval != GDK_KEY_End
+			&& kevent->keyval != GDK_KEY_Alt_L
+			&& kevent->keyval != GDK_KEY_Alt_R
+			&& kevent->keyval != GDK_KEY_Control_L
+			&& kevent->keyval != GDK_KEY_Control_R
+			&& !(kevent->state & GDK_CONTROL_MASK) && !(kevent->state & GDK_MOD1_MASK)) {
+		DBG_AUTOCOMP("bluefish_text_view_key_press_event, keyval=%d, state=%d, set needs_autocomp to TRUE\n",kevent->keyval,kevent->state);
+		btv->needs_autocomp = TRUE;
+	}
 	/* following code does smart cursor placement */
 	if (main_v->props.editor_smart_cursor && !(kevent->state & GDK_CONTROL_MASK)
 		&& ((kevent->keyval == GDK_KEY_Home) || (kevent->keyval == GDK_KEY_KP_Home) || (kevent->keyval == GDK_KEY_End)
