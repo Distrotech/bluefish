@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/* #define DEBUG */
+ #define DEBUG 
 
 #include <gtk/gtk.h>
 #include <string.h>            /* strlen() */
@@ -450,8 +450,9 @@ static void add_to_row(Tcs3_diag *diag, gint whichrow) {
 	text[1] = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->property))), 0, -1);
 	text[2] = gtk_editable_get_chars(GTK_EDITABLE(gtk_bin_get_child(GTK_BIN(diag->value))), 0, -1);
 
-	while (text[count]) {
+	while (count < 3) {
 		if (strlen(text[count]) == 0) {
+			DEBUG_MSG("add_to_row, %s:%s:%s: %d %s is incorrect, will not add\n",text[0],text[1], text[2], count, text[count]);
 			correct = FALSE;
 			break;
 		}
@@ -557,7 +558,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(diag->win),vbox);
 	
-	table = gtk_table_new(3, 6, FALSE);
+	table = gtk_table_new(3, 6, TRUE);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 12);
 	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 	gtk_box_pack_start(GTK_BOX(vbox), table, FALSE, FALSE, 0);
@@ -597,13 +598,16 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 
 	/* the list widget and the buttons are in a horizontal box */
 	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 18);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 18);
 	
 	diag->lstore = gtk_list_store_new(3, G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(diag->lstore),0,GTK_SORT_ASCENDING);
 	diag->lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(diag->lstore));
-	renderer = gtk_cell_renderer_text_new();
-	column = gtk_tree_view_column_new_with_attributes (_("Selector"),renderer,"text", 0,NULL);
-	gtk_tree_view_append_column(GTK_TREE_VIEW(diag->lview), column);
+	if (diag->styletype == multistyle) {
+		renderer = gtk_cell_renderer_text_new();
+		column = gtk_tree_view_column_new_with_attributes (_("Selector"),renderer,"text", 0,NULL);
+		gtk_tree_view_append_column(GTK_TREE_VIEW(diag->lview), column);
+	}
 	renderer = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes (_("Property"),renderer,"text", 1,NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(diag->lview), column);
@@ -616,7 +620,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_widget_set_size_request(scrolwin, 400, 300);
-	gtk_box_pack_start(GTK_BOX(hbox), scrolwin, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), scrolwin, TRUE, TRUE, 0);
 	gtk_container_add(GTK_CONTAINER(scrolwin), diag->lview);
 	/*if (diag->styletype == multistyle) {
 		gchar *titles[] = {_("Selector"), _("Property"), _("Value"), NULL};

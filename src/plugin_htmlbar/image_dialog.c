@@ -22,6 +22,7 @@
 #include <string.h>
 #include "htmlbar.h"
 #include "image_dialog.h"
+#include "html2.h"
 #include "cap.h"
 
 #include "../bf_lib.h"
@@ -62,6 +63,7 @@ struct _BluefishImageDialogPrivate {
 	GtkWidget *previewPane;
 	GtkWidget *resetSizeButton;
 	GtkWidget *source;
+	GtkWidget *style;
 	GtkWidget *transitionalVbox;
 	GtkWidget *usemap;
 	GtkWidget *useTransitional;
@@ -94,7 +96,8 @@ enum {
 	PROP_VSPACE,
 	PROP_USE_TRANSITIONAL,
 	PROP_TAG_START,
-	PROP_TAG_END
+	PROP_TAG_END,
+	PROP_STYLE
 };
 
 G_DEFINE_TYPE(BluefishImageDialog, bluefish_image_dialog, GTK_TYPE_DIALOG)
@@ -235,6 +238,10 @@ bluefish_image_dialog_set_property(GObject * object, guint prop_id, const GValue
 	case PROP_TAG_END:
 		dialog->priv->tagEnd = g_value_get_int(value);
 		break;
+	case PROP_STYLE:
+		if (g_value_get_string(value) != NULL)
+			gtk_entry_set_text(GTK_ENTRY(dialog->priv->style), g_value_get_string(value));
+		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
 		break;
@@ -253,7 +260,7 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 											 construct_properties);
 	BluefishImageDialog *dialog = BLUEFISH_IMAGE_DIALOG(obj);
 
-	GtkWidget *alignment, *frame, *hbox, *vbox;
+	GtkWidget *alignment, *frame, *hbox, *vbox, *but;
 	GtkWidget *label, *notebook, *table;
 	unsigned int i = 0;
 
@@ -321,7 +328,7 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 	gtk_frame_set_shadow_type(GTK_FRAME(frame), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(frame), vbox);
 
-	table = dialog_table_in_vbox(3, 3, 6, vbox, FALSE, FALSE, 0);
+	table = dialog_table_in_vbox(2, 4, 6, vbox, FALSE, FALSE, 0);
 
 	dialog->priv->width = gtk_spin_button_new_with_range(0, 3000, 1);
 	gtk_table_attach(GTK_TABLE(table), dialog->priv->width, 1, 2, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
@@ -343,10 +350,10 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 
 	dialog->priv->resetSizeButton = dialog_button_new_with_image_in_table(_("_Reset Dimensions"),
 									  GTK_STOCK_REFRESH,G_CALLBACK(image_dialog_reset_dimensions),dialog,FALSE, TRUE,
-									  table, 0, 3, 2, 3);
+									  table, 3, 4, 0, 1);
 	gtk_widget_set_sensitive(dialog->priv->resetSizeButton, FALSE);
 
-	table = dialog_table_in_vbox(6, 3, 6, vbox, TRUE, TRUE, 0);
+	table = dialog_table_in_vbox(7, 3, 6, vbox, TRUE, TRUE, 0);
 
 	dialog->priv->alt = gtk_entry_new();
 	gtk_table_attach(GTK_TABLE(table), dialog->priv->alt, 1, 3, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0,
@@ -372,10 +379,16 @@ bluefish_image_dialog_create(GType type, guint n_construct_properties,
 					 0);
 	dialog_mnemonic_label_in_table(_("_Usemap:"), dialog->priv->usemap, table, 0, 1, 4, 5);
 
-	dialog->priv->custom = gtk_entry_new();
-	gtk_table_attach(GTK_TABLE(table), dialog->priv->custom, 1, 3, 5, 6, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0,
+	dialog->priv->style = gtk_entry_new();
+	gtk_table_attach(GTK_TABLE(table), dialog->priv->style, 1, 2, 5, 6, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0,
 					 0);
-	dialog_mnemonic_label_in_table(_("Custo_m:"), dialog->priv->custom, table, 0, 1, 5, 6);
+	dialog_mnemonic_label_in_table(_("Style:"), dialog->priv->style, table, 0, 1, 5, 6);
+	but = style_but_new(GTK_WIDGET(dialog->priv->style), GTK_WIDGET(dialog));
+	gtk_table_attach(GTK_TABLE(table), but, 2, 3, 5, 6, GTK_FILL, GTK_SHRINK, 0, 0);
+	dialog->priv->custom = gtk_entry_new();
+	gtk_table_attach(GTK_TABLE(table), dialog->priv->custom, 1, 3, 6, 7, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0,
+					 0);
+	dialog_mnemonic_label_in_table(_("Custo_m:"), dialog->priv->custom, table, 0, 1, 6, 7);
 
 	gtk_notebook_append_page(GTK_NOTEBOOK(notebook), frame, gtk_label_new("Strict"));
 
@@ -574,6 +587,13 @@ bluefish_image_dialog_class_init(BluefishImageDialogClass * klass)
 													 "End position to replace existing tag",
 													 -1, G_MAXINT, -1,
 													 G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+	g_object_class_install_property(object_class,
+									PROP_STYLE,
+									g_param_spec_string("style",
+														"style",
+														"Style",
+														NULL, G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+
 }
 
 static void
@@ -1068,6 +1088,11 @@ image_dialog_ok_clicked(BluefishImageDialog * dialog)
 		g_string_append_printf(tag, " %s=\"%s\"", cap("USEMAP"), strvalue);
 	g_free(strvalue);
 
+	strvalue = gtk_editable_get_chars(GTK_EDITABLE(dialog->priv->style), 0, -1);
+	if (strlen(strvalue))
+		g_string_append_printf(tag, " %s=\"%s\"", cap("STYLE"), strvalue);
+	g_free(strvalue);
+
 	strvalue = gtk_editable_get_chars(GTK_EDITABLE(dialog->priv->custom), 0, -1);
 	if (strlen(strvalue))
 		g_string_append_printf(tag, " %s", strvalue);
@@ -1167,10 +1192,11 @@ bluefish_image_dialog_new_with_data(Tbfwin * bfwin, Ttagpopup * data)
 		"border",
 		"hspace",
 		"vspace",
+		"style",
 		NULL
 	};
 
-	gchar *tagvalues[14] = { NULL };
+	gchar *tagvalues[15] = { NULL };
 
 	parse_html_for_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data);
 
@@ -1223,6 +1249,7 @@ bluefish_image_dialog_new_with_data(Tbfwin * bfwin, Ttagpopup * data)
 	if (tagvalues[12])
 		vspace = g_strtod(tagvalues[12], NULL);
 
+
 	if (tagvalues[9] || tagvalues[10] || tagvalues[11] || tagvalues[12])
 		usetransitional = TRUE;
 
@@ -1242,6 +1269,7 @@ bluefish_image_dialog_new_with_data(Tbfwin * bfwin, Ttagpopup * data)
 						  "class", tagvalues[5],
 						  "id", tagvalues[6],
 						  "usemap", tagvalues[7],
+						  "style", tagvalues[13],
 						  "custom", custom,
 						  "align", align,
 						  "border", border,
