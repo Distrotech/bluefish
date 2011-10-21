@@ -329,8 +329,8 @@ dialog_entry_in_table(const gchar * text, GtkWidget * table, guint left_attach, 
 	GtkWidget *entry;
 
 	entry = gtk_entry_new();
-	gtk_table_attach(GTK_TABLE(table), entry, left_attach, right_attach, top_attach, bottom_attach, GTK_FILL,
-					 GTK_SHRINK, 0, 0);
+	gtk_table_attach(GTK_TABLE(table), entry, left_attach, right_attach, top_attach, bottom_attach
+					, GTK_FILL|GTK_EXPAND,GTK_SHRINK, 0, 0);
 
 	if (text)
 		gtk_entry_set_text(GTK_ENTRY(entry), text);
@@ -418,7 +418,7 @@ dialog_spin_button_new(gfloat lower, gfloat upper, const gint value)
 	if (page_increment < 10)
 		page_increment = 10;
 
-	adjustment = gtk_adjustment_new((1.0 * value), lower, upper, step_increment, page_increment, 0);
+	adjustment = (GtkAdjustment *)gtk_adjustment_new((1.0 * value), lower, upper, step_increment, page_increment, 0);
 	button = gtk_spin_button_new(GTK_ADJUSTMENT(adjustment), 0.1, 0);
 
 	return button;

@@ -1646,7 +1646,7 @@ sync_unref(gpointer data)
 		DEBUG_MSG("sync_unref, unreffing!\n");
 		g_object_unref(sync->basedir);
 		g_object_unref(sync->targetdir);
-		sync->progress_callback(-1, -1, sync->num_failed, sync->callback_data);
+		sync->progress_callback(NULL, -1, -1, sync->num_failed, sync->callback_data);
 		/*g_timer_destroy(sync->timer); */
 		DEBUG_MSG("sync_unref, refcount=%d, q_update=%d/%d, q_local=%d/%d q_remote=%d/%d\n", sync->refcount,
 				  g_list_length(sync->queue_update.q.head), sync->queue_update.worknum,
@@ -1720,13 +1720,12 @@ remote_for_local(Tsync * sync, GFile * local)
 }
 
 static void
-progress_update(gpointer data)
+progress_update(Tsync *sync, GFile *uri)
 {
-	Tsync *sync = data;
 /*	if (g_timer_elapsed(sync->timer,NULL) > 0.05) */
 /*	if (sync->num_found % 10==0 || (sync->num_found - sync->num_finished) % 10 == 0) 
 	{*/
-	sync->progress_callback(sync->num_found, sync->num_finished, sync->num_failed, sync->callback_data);
+	sync->progress_callback(uri, sync->num_found, sync->num_finished, sync->num_failed, sync->callback_data);
 /*		g_print("timer elapsed %f\n",g_timer_elapsed(sync->timer,NULL));
 		g_timer_start(sync->timer);*/
 /*	}*/
@@ -1754,7 +1753,7 @@ do_update_lcb(GObject * source_object, GAsyncResult * res, gpointer user_data)
 		error = sync_handle_error(su->sync, su->remote_uri, "Failed to copy to", error);
 	}
 	su->sync->num_finished++;
-	progress_update(su->sync);
+	progress_update(su->sync, su->remote_uri);
 	/*g_print("%d%%: %d found, %d finished\n",(gint)(100.0*su->sync->num_finished/su->sync->num_found), su->sync->num_found,su->sync->num_finished); */
 	queue_worker_ready(&su->sync->queue_update);
 	update_cleanup(su);
@@ -1866,7 +1865,7 @@ walk_local_directory_job_finished(gpointer user_data)
 	if (swd->sync->delete_deprecated) {
 		queue_push(&swd->sync->queue_walkdir_remote, swd);
 	}
-	progress_update(swd->sync);
+	progress_update(swd->sync, swd->remote_dir);
 	if (!swd->sync->delete_deprecated) {
 		walk_directory_cleanup(swd);
 	}

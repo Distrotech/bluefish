@@ -1233,13 +1233,19 @@ typedef struct {
 } Tsyncdialog;
 
 static void
-sync_progress(gint total, gint done, gint failed, gpointer user_data)
+sync_progress(GFile *uri, gint total, gint done, gint failed, gpointer user_data)
 {
 	Tsyncdialog *sd = user_data;
 	if (total > 0) {
 		gchar *text;
 		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(sd->progress), 1.0 * done / total);
-		text = g_strdup_printf("%d / %d", done, total);
+		if (uri) {
+			gchar * curi = g_file_get_uri(uri);
+			text = g_strdup_printf("%s (%d / %d)", curi, done, total);
+			g_free(curi);
+		} else {
+			text = g_strdup_printf("%d / %d", done, total);
+		}
 		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress), text);
 /*		g_print("%s\n",text);*/
 		g_free(text);
@@ -1249,6 +1255,7 @@ sync_progress(gint total, gint done, gint failed, gpointer user_data)
 								("<span color=\"red\">%d failure</span>",
 								 "<span color=\"red\">%d failures</span>", failed), failed);
 			gtk_label_set_markup(GTK_LABEL(sd->messagelabel), text);
+			gtk_widget_show(sd->messagelabel);
 			g_free(text);
 		}
 	} else if (total == -1) {
@@ -1270,6 +1277,7 @@ sync_dialog_response_lcb(GtkDialog * dialog, gint response_id, gpointer user_dat
 	if (response_id > 0) {
 		GFile *local, *remote;
 		gtk_label_set_text(GTK_LABEL(sd->messagelabel), "");
+		gtk_widget_hide(sd->messagelabel);
 		local = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_local)));
 		remote = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_remote)));
 		if (response_id == 1) {
@@ -1298,7 +1306,7 @@ sync_dialog_response_lcb(GtkDialog * dialog, gint response_id, gpointer user_dat
 		g_object_unref(remote);
 	} else {
 		gtk_widget_destroy(sd->dialog);
-		g_free(sd);
+		g_slice_free(Tsyncdialog, sd);
 	}
 }
 
@@ -1306,9 +1314,9 @@ void
 sync_dialog(Tbfwin * bfwin)
 {
 	Tsyncdialog *sd;
-	GtkWidget *carea, *hbox;
+	GtkWidget *carea, *table;
 
-	sd = g_new0(Tsyncdialog, 1);
+	sd = g_slice_new0(Tsyncdialog);
 	sd->bfwin = bfwin;
 	sd->dialog = gtk_dialog_new_with_buttons(_("Upload / Download"),
 											 GTK_WINDOW(bfwin->main_window),
@@ -1333,34 +1341,33 @@ sync_dialog(Tbfwin * bfwin)
 						   4);
 	}
 #endif
-	hbox = gtk_hbox_new(FALSE, 4);
-	sd->entry_local = gtk_entry_new();
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Local directory")), FALSE, FALSE, 4);
-	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_local, TRUE, TRUE, 4);
-	gtk_box_pack_start(GTK_BOX(hbox),
-					   file_but_new2(sd->entry_local, 1, bfwin, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), FALSE,
-					   FALSE, 4);
-	gtk_box_pack_start(GTK_BOX(carea), hbox, FALSE, FALSE, 4);
+	table = dialog_table_in_vbox(4, 3, 6, carea, TRUE,TRUE, 3);
 
-	hbox = gtk_hbox_new(FALSE, 4);
-	sd->entry_remote = gtk_entry_new();
-	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Remote directory")), FALSE, FALSE, 4);
-	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_remote, TRUE, TRUE, 4);
-	gtk_box_pack_start(GTK_BOX(hbox),
-					   file_but_new2(sd->entry_remote, 1, bfwin, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER),
-					   FALSE, FALSE, 4);
-	gtk_box_pack_start(GTK_BOX(carea), hbox, FALSE, FALSE, 4);
+	sd->entry_local = dialog_entry_in_table(NULL, table, 1, 2,0, 1);
+	dialog_mnemonic_label_in_table(_("Local directory"), sd->entry_local, table,
+									0, 1, 0,1);
+	gtk_table_attach(GTK_TABLE(table), file_but_new2(sd->entry_local, 1, bfwin, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER),
+									2, 3, 0, 1, GTK_FILL, GTK_FILL, 3, 3);
 
-	sd->delete_deprecated =
-		boxed_checkbut_with_value(_("Delete deprecated files"), bfwin->session->sync_delete_deprecated,
-								  carea);
-	sd->include_hidden =
-		boxed_checkbut_with_value(_("Include hidden files"), bfwin->session->sync_include_hidden, carea);
+	sd->entry_remote = dialog_entry_in_table(NULL, table, 1, 2,1, 2);
+	dialog_mnemonic_label_in_table(_("Remote directory"), sd->entry_remote, table,
+									0, 1, 1,2);
+	gtk_table_attach(GTK_TABLE(table), file_but_new2(sd->entry_remote, 1, bfwin, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER),
+									2, 3, 1, 2, GTK_FILL, GTK_FILL, 3, 3);
 
+	sd->delete_deprecated = dialog_check_button_in_table(_("Delete deprecated files"), 
+						bfwin->session->sync_delete_deprecated, table,
+						0, 3, 2, 3);
+	
+	sd->include_hidden = dialog_check_button_in_table(_("Include hidden files"), 
+						bfwin->session->sync_include_hidden, table,
+						0, 3, 3, 4);
+	
 	sd->messagelabel = gtk_label_new(NULL);
 	gtk_box_pack_start(GTK_BOX(carea), sd->messagelabel, FALSE, FALSE, 4);
 
 	sd->progress = gtk_progress_bar_new();
+	gtk_progress_bar_set_ellipsize(GTK_PROGRESS_BAR(sd->progress), PANGO_ELLIPSIZE_MIDDLE);
 	gtk_box_pack_start(GTK_BOX(carea), sd->progress, FALSE, FALSE, 4);
 
 	if (bfwin->session->sync_local_uri && bfwin->session->sync_local_uri[0] != '\0') {
@@ -1376,6 +1383,7 @@ sync_dialog(Tbfwin * bfwin)
 
 	sd->signal_id = g_signal_connect(sd->dialog, "response", G_CALLBACK(sync_dialog_response_lcb), sd);
 	gtk_widget_show_all(sd->dialog);
+	gtk_widget_hide(sd->messagelabel);
 }
 
 static gchar *
