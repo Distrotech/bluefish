@@ -549,10 +549,17 @@ doc_reset_filetype(Tdocument * doc, GFile * newuri, gconstpointer buf, gssize bu
 	g_free(conttype);
 	conttype = tmp;
 #endif
-	if (strcmp(conttype, "text/html") == 0 && buf
-		&& strstr(buf, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML") != NULL) {
-		g_free(conttype);
-		conttype = g_strdup("application/xhtml+xml");
+	if (strcmp(conttype, "text/html") == 0 && buf) {
+		const gchar *newtype=NULL;
+		if (strstr(buf, "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML") != NULL) {
+			newtype = "application/xhtml+xml";
+		} else if (strstr(buf, "<!DOCTYPE html>")!=NULL) {
+			newtype = "text/x-html5";
+		}
+		if (newtype) {
+			g_free(conttype);
+			conttype = g_strdup(newtype);
+		}
 	}
 
 	doc_set_mimetype(doc, conttype, filename);

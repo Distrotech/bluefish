@@ -680,13 +680,13 @@ quickanchor_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	file_but = file_but_new(GTK_WIDGET(gtk_bin_get_child(GTK_BIN(dg->combo[2]))), 0, bfwin);
 	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(file_but), 2, 3, 0, 1, GTK_SHRINK, GTK_SHRINK, 0, 0);
 	dialog_mnemonic_label_in_table(_("_HREF:"), dg->combo[2], dgtable, 0, 1, 0, 1);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1, 2, 0, 1);
+	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[2])), 1, 2, 0, 1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
 	if (bfwin->session->targetlist == NULL) {
 		bfwin->session->targetlist = list_from_arglist(TRUE, "_top", "_blank", "_parent", "_selfs", NULL);
 	}
 	dg->combo[1] = combobox_with_popdown(avalues[1], bfwin->session->targetlist, 1);
 	dialog_mnemonic_label_in_table(_("_Target:"), dg->combo[1], dgtable, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 3, 1, 2);
+	gtk_table_attach(GTK_TABLE(dgtable), GTK_WIDGET(GTK_BIN(dg->combo[1])), 1, 3, 1, 2, GTK_EXPAND|GTK_FILL,GTK_SHRINK, 0, 0);
 
 	dg->entry[2] = dialog_entry_in_table(avalues[2], dgtable, 1, 3, 2, 3);
 	dialog_mnemonic_label_in_table(_("_Name:"), dg->entry[2], dgtable, 0, 1, 2, 3);
