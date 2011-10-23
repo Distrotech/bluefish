@@ -1464,27 +1464,6 @@ fb2_uri_from_dir_selection(Tfilebrowser2 * fb2)
 	return NULL;
 }
 
-/**
- * handle_activate_on_file:
- *
- * opens the file, project or inserts the image pointer to by 'uri'
- */
-/*
-static void handle_activate_on_file(Tfilebrowser2 * fb2, GFile * uri, gchar *mimetype) {
-	if (mimetype) {
-		if (strncmp(mimetype, "image", 5) == 0) {
-			/ * image! * /
-			g_print("handle_activate_on_file, TODO, handle image activate!\n");
-		} else if (strcmp(mimetype, "application/x-bluefish-project") == 0) {
-			project_open_from_file(fb2->bfwin, uri);
-			return;
-		}
-	}
-	doc_new_from_uri(fb2->bfwin, uri, NULL, FALSE, FALSE, -1, -1);
-	DEBUG_MSG("handle_activate_on_file, finished\n");
-}
-*/
-
 static void
 rename_not_open_file(Tbfwin * bfwin, GFile * olduri)
 {
@@ -2165,9 +2144,8 @@ dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser2
 				g_free(basename);
 #endif
 				file_handle(uri, fb2->bfwin, mime, FALSE);
-				/*handle_activate_on_file(fb2, uri,mime); */
 			}
-			/* BUG??: do we need to free mime here ?? */
+			g_free(mime);
 		}
 	}
 	return FALSE;				/* pass the event on */
@@ -2372,15 +2350,34 @@ static void
 dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 						GtkTreeViewColumn * column, Tfilebrowser2 * fb2)
 {
-	if (fb2->filebrowser_viewmode == viewmode_flat) {
-		gchar *mime = NULL;
-		GFile *uri = fb2_uri_from_dir_sort_path(fb2, path, &mime);	/* this is a pointer to the uri stored in the treemodel */
-		if (mime && MIME_ISDIR(mime)) {
+	gchar *mime = NULL;
+	GFile *uri = fb2_uri_from_dir_sort_path(fb2, path, &mime);	/* this is a pointer to the uri stored in the treemodel */
+	if (!mime || !MIME_ISDIR(mime)) {
+		file_handle(uri, fb2->bfwin, mime, FALSE);
+	} else { /* a directory */
+		if (fb2->filebrowser_viewmode == viewmode_flat) {
 			fb2_set_basedir_backend(fb2, uri);
 			dirmenu_set_curdir(fb2, uri);
+		} else {
+			if (gtk_tree_view_row_expanded(tree, path)) {
+				gtk_tree_view_collapse_row(tree, path);
+			} else {
+				gtk_tree_view_expand_row(tree, path, FALSE);
+			}
 		}
-		/* BUG?? do we need to free mime here ? */
 	}
+	g_free(mime);
+}
+
+static void
+file_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
+						GtkTreeViewColumn * column, Tfilebrowser2 * fb2)
+{
+	gchar *mime = NULL;
+	GFile *uri = fb2_uri_from_file_sort_path(fb2, path, &mime); /* this is a pointer to the uri stored in the treemodel */
+	g_print("handle file with mime %s\n",mime);
+	file_handle(uri, fb2->bfwin, mime, FALSE);
+	g_free(mime);
 }
 
 static void
@@ -2648,6 +2645,23 @@ fb2_tooltip_lcb(GtkWidget * widget, gint x, gint y, gboolean keyboard_tip, GtkTo
 	return retval;
 }
 
+static gboolean
+file_search_func(GtkTreeModel *model, gint column,const gchar *key, GtkTreeIter *iter,gpointer search_data)
+{
+	gint len;
+	gchar *tmp=NULL;
+	gboolean retval = TRUE;
+	if (!key || key[0]=='\0')
+		return TRUE;
+	gtk_tree_model_get(model, iter, FILENAME_COLUMN, &tmp, -1);
+	len = strlen(key);
+	if (strncmp(key, tmp, len)==0){
+		retval = FALSE;
+	}
+	g_free(tmp);
+	return retval;
+}
+
 static void
 fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 {
@@ -2715,6 +2729,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	g_object_unref(G_OBJECT(fb2->dir_tsort));
 
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fb2->dir_v), FALSE);
+	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW(fb2->dir_v),file_search_func,fb2,NULL);
 	if (fb2->filebrowser_viewmode != viewmode_flat) {
 		dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
 		DEBUG_MSG("fb2_init, NEW FILEBROWSER2, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
@@ -2770,6 +2785,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		g_object_unref(G_OBJECT(fb2->file_lsort));
 
 		gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(fb2->file_v), FALSE);
+		gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW(fb2->file_v),file_search_func,fb2,NULL);
 		renderer = gtk_cell_renderer_pixbuf_new();
 		column = gtk_tree_view_column_new();
 		gtk_tree_view_column_pack_start(column, renderer, FALSE);
@@ -2791,6 +2807,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		gtk_box_pack_start(GTK_BOX(fb2->vbox), fb2->vpaned, TRUE, TRUE, 0);
 		g_signal_connect(G_OBJECT(fb2->file_v), "button_press_event",
 						 G_CALLBACK(file_v_button_press_lcb), fb2);
+		g_signal_connect(G_OBJECT(fb2->file_v), "row-activated", G_CALLBACK(file_v_row_activated_lcb), fb2);
 		gtk_drag_dest_set(fb2->file_v, (GTK_DEST_DEFAULT_ALL), drag_dest_types, 2,
 						  (GDK_ACTION_DEFAULT | GDK_ACTION_COPY));
 		g_signal_connect(G_OBJECT(fb2->file_v), "drag_data_received",

@@ -128,4 +128,8 @@ void callback_register(GSList **slist, void (*func)(), gpointer data);
 void callback_remove_by_data(GSList **slist, gpointer data);
 void callback_remove_all(GSList **slist);
 
+#ifndef HAVE_STRCASESTR
+char *strcasestr(char *a, char *b);
+#endif
+
 #endif /* __BF_LIB_H_ */

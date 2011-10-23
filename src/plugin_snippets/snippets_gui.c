@@ -19,6 +19,8 @@
  */
 /* #define DEBUG */
 
+#define _GNU_SOURCE
+
 #include <string.h>
 
 #include "snippets.h"
@@ -31,6 +33,7 @@
 #include "../bfwin_uimanager.h"
 #include "../document.h"
 #include "../gtk_easy.h"
+#include "../bf_lib.h"
 
 /* GdkPixbuf RGBA C-Source image dump 1-byte-run-length-encoded */
 
@@ -536,6 +539,36 @@ snippetview_drag_data_received_lcb(GtkWidget * widget, GdkDragContext * context,
 	gtk_drag_finish(context, FALSE, TRUE, time);
 }
 
+static gboolean
+snippets_search(GtkTreeModel *model,gint column,const gchar *key,GtkTreeIter *iter,gpointer search_data)
+{
+	xmlNodePtr node;
+	gchar *tmp=NULL, *title=NULL;
+	gboolean retval = TRUE;
+	
+	gtk_tree_model_get(model, iter, NODE_COLUMN, &node, TITLE_COLUMN, &title, -1);
+	if (title && strcasestr(title, key)!= NULL) {
+		retval = FALSE;
+	}
+	g_free(title);
+		
+	if (node) {
+		xmlChar *type = xmlGetProp(node, (const xmlChar *) "type");
+		if (type && xmlStrEqual(type, (const xmlChar *) "insert")) {
+			tmp = snippets_tooltip_from_insert_content(node);
+		}					/*else if (type && xmlStrEqual(type, (const xmlChar *)"snr")) {
+		   TODO
+	   } */
+		if (type)
+			xmlFree(type);
+		if (tmp && strcasestr(tmp, key)!= NULL) {
+			retval = FALSE;
+		}
+		g_free(tmp);
+	}
+	return retval;
+}
+
 void
 snippets_sidepanel_initgui(Tbfwin * bfwin)
 {
@@ -566,6 +599,9 @@ snippets_sidepanel_initgui(Tbfwin * bfwin)
 	snw->view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(snippets_v.store));
 /*	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(snw->view));
 	gtk_tree_selection_set_mode(selection,GTK_SELECTION_NONE);*/
+
+	gtk_tree_view_set_search_entry(GTK_TREE_VIEW(snw->view), GTK_ENTRY(entry));
+	gtk_tree_view_set_search_equal_func(GTK_TREE_VIEW(snw->view), snippets_search, snw, NULL);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(snw->view), FALSE);
 	renderer = gtk_cell_renderer_pixbuf_new();
 	column = gtk_tree_view_column_new();

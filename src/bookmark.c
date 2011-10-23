@@ -1142,34 +1142,52 @@ bookmark_navigate(Tbfwin * bfwin, guint action)
 }
 
 static gboolean
-bmark_search_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
+all_children_hidden(GtkTreeModel * model, GtkTreeIter * iter, gpointer data, GtkTreeModelFilterVisibleFunc func)
 {
-	GtkTreeIter piter;
-	Tbfwin *bfwin = data;
-	if (bfwin->bmark_search_prefix == NULL || bfwin->bmark_search_prefix[0] == '\0')
-		return TRUE;
-
-	/* the parents have a Tdocument stored in PTR_COLUMN, the bookmarks themselves have a Tbmark */
-	if (gtk_tree_model_iter_parent(model, &piter, iter)) {
-		Tbmark *bmark;
-		gtk_tree_model_get(model, iter, PTR_COLUMN, &bmark, -1);
-		if (bmark) {
-			switch ( /*bfwin->session->bmark_search_mode */ BM_SEARCH_BOTH) {
-			case BM_SEARCH_NAME:
-				return (bmark->name && strstr(bmark->name, bfwin->bmark_search_prefix));
-				break;
-			case BM_SEARCH_CONTENT:
-				return (bmark->text && strstr(bmark->text, bfwin->bmark_search_prefix));
-				break;
-			case BM_SEARCH_BOTH:
-				return ((bmark->text && strstr(bmark->text, bfwin->bmark_search_prefix))
-						|| (bmark->name && g_str_has_prefix(bmark->name, bfwin->bmark_search_prefix)));
-				break;
-			}
-		}
-		return FALSE;
+	GtkTreeIter citer;
+	gboolean cont=TRUE;
+	if (!gtk_tree_model_iter_children(model,&citer,iter)) {
+		return TRUE; /* there are no children */
+	}
+	while(cont) {
+		if (func(model, &citer, data)==TRUE)
+			return FALSE;
+		cont = gtk_tree_model_iter_next(model, &citer);
 	}
 	return TRUE;
+}
+
+static gboolean
+bmark_search_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
+{
+	Tbfwin *bfwin = data;
+	Tbmark *bmark;
+
+	if (bfwin->bmark_search_prefix == NULL || bfwin->bmark_search_prefix[0] == '\0')
+		return TRUE;
+	
+	if (gtk_tree_model_iter_has_child(model, iter)) {
+		if (all_children_hidden(model, iter, data, bmark_search_filter_func)) {
+			return FALSE;
+		}
+		return TRUE;
+	}
+	gtk_tree_model_get(model, iter, PTR_COLUMN, &bmark, -1);
+	if (bmark) {
+		switch ( /*bfwin->session->bmark_search_mode */ BM_SEARCH_BOTH) {
+		case BM_SEARCH_NAME:
+			return (bmark->name && strstr(bmark->name, bfwin->bmark_search_prefix));
+			break;
+		case BM_SEARCH_CONTENT:
+			return (bmark->text && strstr(bmark->text, bfwin->bmark_search_prefix));
+			break;
+		case BM_SEARCH_BOTH:
+			return ((bmark->text && strstr(bmark->text, bfwin->bmark_search_prefix))
+					|| (bmark->name && g_str_has_prefix(bmark->name, bfwin->bmark_search_prefix)));
+			break;
+		}
+	}
+	return FALSE;
 }
 
 static void
