@@ -378,7 +378,7 @@ else
 	GIO_PC="gio-unix-2.0"
 fi
 
-BF_dependencies_GTK3="\
+BF_dependencies="\
 gtk+-3.0  \
 gdk-3.0 \
 gmodule-2.0 >= 2.16 \
@@ -390,7 +390,7 @@ $GIO_PC >= 2.16 \
 gthread-2.0 \
 libxml-2.0"
 
-BF_dependencies="\
+BF_dependencies_GTK2="\
 gtk+-2.0 >= 2.12 \
 gmodule-2.0 >= 2.16 \
 gobject-2.0 \
@@ -452,20 +452,26 @@ PKG_CHECK_MODULES(
 	[gucharmap-2],
 	[
 	 build_charmap_plugin=yes
-	 AC_DEFINE([HAVE_LIBGUCHARMAP_2], [1], [Define to 1 if you have the `gucharmap-2' library (-lgucharmap).])
+	 AC_DEFINE([HAVE_LIBGUCHARMAP_2], [1], [Define to 1 if you have the 'gucharmap-2' library (-lgucharmap).])
 	],
 	[PKG_CHECK_MODULES(
 		[CHARMAP_PLUGIN],
 		[gucharmap >= 2.20],
 		[
 		 build_charmap_plugin=yes
-		 AC_DEFINE([HAVE_LIBGUCHARMAP], [1], [Define to 1 if you have the `gucharmap' library (-lgucharmap).])
+		 AC_DEFINE([HAVE_LIBGUCHARMAP], [1], [Define to 1 if you have the 'gucharmap' library (-lgucharmap).])
 		],
-		[
-		 build_charmap_plugin=no
-		 AC_MSG_WARN([Disabling the building of the charmap plugin.])
-		 AC_MSG_WARN([Install gucharmap/gucharmap2 (>= 2.20) library/headers to build the plugin.])
-		]
+		[PKG_CHECK_MODULES(
+			[CHARMAP_PLUGIN],
+			[gucharmap-2.90],
+			[
+				build_charmap_plugin=yes
+				AC_DEFINE([HAVE_LIBGUCHARMAP_2], [1], [Define to 1 if you have the 'gucharmap-2.90' library (-lgucharmap).])
+			],		
+		 	build_charmap_plugin=no
+		 	AC_MSG_WARN([Disabling the building of the charmap plugin.])
+		 	AC_MSG_WARN([Install gucharmap/gucharmap2 (>= 2.20) library/headers to build the plugin.])
+		)]
 	)]
 )
 AM_CONDITIONAL([ENABLE_CHARMAP_PLUGIN], [test "x$build_charmap_plugin" = "xyes"])
