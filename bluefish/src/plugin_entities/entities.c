@@ -264,7 +264,9 @@ entity_dialog(Tbfwin * bfwin, Tentmode mode, Tentitysetting * eset)
 									GTK_WINDOW(bfwin->main_window), GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT, GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
 									NULL);
+#if !GTK_CHECK_VERSION(3, 0, 0)
 	gtk_dialog_set_has_separator(GTK_DIALOG(ew->dialog), FALSE);
+#endif /* gtk3 */
 	g_signal_connect(G_OBJECT(ew->dialog), "response", G_CALLBACK(ew_response_lcb), ew);
 	window_delete_on_escape(GTK_WINDOW(ew->dialog));
 
@@ -280,10 +282,10 @@ entity_dialog(Tbfwin * bfwin, Tentmode mode, Tentitysetting * eset)
 	hbox = gtk_hbox_new(FALSE, 12);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 
-	ew->scope = gtk_combo_box_new_text();
-	gtk_combo_box_append_text(GTK_COMBO_BOX(ew->scope), _("In current document"));
-	gtk_combo_box_append_text(GTK_COMBO_BOX(ew->scope), _("In selection"));
-	gtk_combo_box_append_text(GTK_COMBO_BOX(ew->scope), _("In all documents"));
+	ew->scope = gtk_combo_box_text_new();
+	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(ew->scope), _("In current document"));
+	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(ew->scope), _("In selection"));
+	gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(ew->scope), _("In all documents"));
 	dialog_label_new(_("Sco_pe:"), 0.5, 0.5, hbox, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), ew->scope, FALSE, FALSE, 0);
 
