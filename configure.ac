@@ -378,6 +378,13 @@ else
 	GIO_PC="gio-unix-2.0"
 fi
 
+PKG_CHECK_EXISTS(
+	[gtk+-3.0 gdk-3.0],
+	[have_gtk3=yes],		
+	[have_gtk3=no]
+)
+
+if test "x$have_gtk3" = "xyes"; then
 BF_dependencies="\
 gtk+-3.0  \
 gdk-3.0 \
@@ -389,8 +396,8 @@ gdk-pixbuf-2.0 \
 $GIO_PC >= 2.16 \
 gthread-2.0 \
 libxml-2.0"
-
-BF_dependencies_GTK2="\
+else
+BF_dependencies="\
 gtk+-2.0 >= 2.12 \
 gmodule-2.0 >= 2.16 \
 gobject-2.0 \
@@ -401,6 +408,7 @@ gdk-2.0 \
 $GIO_PC >= 2.16 \
 gthread-2.0 \
 libxml-2.0"
+fi
 
 if test "x$enable_spell_check" != "xno"; then
 	PKG_CHECK_EXISTS(
@@ -467,10 +475,12 @@ PKG_CHECK_MODULES(
 			[
 				build_charmap_plugin=yes
 				AC_DEFINE([HAVE_LIBGUCHARMAP_2], [1], [Define to 1 if you have the 'gucharmap-2.90' library (-lgucharmap).])
-			],		
-		 	build_charmap_plugin=no
-		 	AC_MSG_WARN([Disabling the building of the charmap plugin.])
-		 	AC_MSG_WARN([Install gucharmap/gucharmap2 (>= 2.20) library/headers to build the plugin.])
+			],
+			[		
+		 		build_charmap_plugin=no
+		 		AC_MSG_WARN([Disabling the building of the charmap plugin.])
+		 		AC_MSG_WARN([Install gucharmap/gucharmap2 (>= 2.20) library/headers to build the plugin.])
+		 	]
 		)]
 	)]
 )
