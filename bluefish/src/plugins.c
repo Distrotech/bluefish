@@ -101,7 +101,8 @@ static void bluefish_scan_dir_load_plugins(GList **oldlist,const gchar *indirnam
 	DEBUG_PATH("plugins are loaded from %s\n",dirname);
 	gdir = g_dir_open(dirname ,0,&error);
 	if (error) {
-		/* BUG: handle the error  */
+		g_warning("Error: failed to open plugin directory %s",dirname);
+		g_error_free(error);
 		g_free(dirname);
 		return;
 	}
@@ -209,10 +210,6 @@ void bluefish_load_plugins(void) {
 	free_arraylist(oldlist);
 	
 	main_v->plugins = g_slist_sort(main_v->plugins,(GCompareFunc)plugins_compare_priority);
-}
-
-void bluefish_cleanup_plugins(void) {
-	/* BUG: should be finished when plugins are really working */
 }
 
 /* can be called by g_list_foreach() */
