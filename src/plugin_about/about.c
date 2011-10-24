@@ -358,6 +358,7 @@ about_register_session_config(GHashTable * configlist, Tsessionvars * session)
 static TBluefishPlugin bfplugin = {
 	"About Dialog",
 	BFPLUGIN_VERSION,
+	GTK_MAJOR_VERSION,
 	sizeof(Tdocument),
 	sizeof(Tsessionvars),
 	sizeof(Tglobalsession),

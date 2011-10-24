@@ -110,6 +110,7 @@ static void snippets_session_cleanup(Tsessionvars *session) {
 static TBluefishPlugin bfplugin = {
 	"Code Snippets",
 	BFPLUGIN_VERSION,
+	GTK_MAJOR_VERSION,
 	sizeof(Tdocument),
 	sizeof(Tsessionvars),
 	sizeof(Tglobalsession),

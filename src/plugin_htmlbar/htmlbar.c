@@ -204,6 +204,7 @@ htmlbar_session_cleanup(Tsessionvars * session)
 static TBluefishPlugin bfplugin = {
 	"HTML Features",
 	BFPLUGIN_VERSION,
+	GTK_MAJOR_VERSION,
 	sizeof(Tdocument),
 	sizeof(Tsessionvars),
 	sizeof(Tglobalsession),
