@@ -84,6 +84,7 @@ static GHashTable *charmap_register_session_config(GHashTable *configlist, Tsess
 static TBluefishPlugin bfplugin = {
   "Character Map",
   BFPLUGIN_VERSION,
+  GTK_MAJOR_VERSION,
   sizeof(Tdocument),
   sizeof(Tsessionvars),
   sizeof(Tglobalsession),

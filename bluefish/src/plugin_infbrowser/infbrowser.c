@@ -90,6 +90,7 @@ static GHashTable *infb_register_session_config(GHashTable *configlist, Tsession
 static TBluefishPlugin bfplugin = {
 	"Info Browser",
 	BFPLUGIN_VERSION,
+	GTK_MAJOR_VERSION,
 	sizeof(Tdocument),
 	sizeof(Tsessionvars),
 	sizeof(Tglobalsession),
