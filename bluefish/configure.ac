@@ -378,10 +378,17 @@ else
 	GIO_PC="gio-unix-2.0"
 fi
 
+AC_MSG_CHECKING([for gtk+-3 development files])
 PKG_CHECK_EXISTS(
 	[gtk+-3.0 gdk-3.0],
-	[have_gtk3=yes],		
-	[have_gtk3=no]
+	[
+	have_gtk3=yes
+	AC_MSG_RESULT([yes])
+	],		
+	[
+	have_gtk3=no
+	AC_MSG_RESULT([no])
+	]
 )
 
 if test "x$have_gtk3" = "xyes"; then
@@ -410,7 +417,12 @@ gthread-2.0 \
 libxml-2.0"
 fi
 
+
+AC_MSG_CHECKING([for required development files])
+PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
+
 if test "x$enable_spell_check" != "xno"; then
+	AC_MSG_CHECKING([for optional libenchant development files])
 	PKG_CHECK_EXISTS(
 		[enchant],
 		[
@@ -420,24 +432,25 @@ if test "x$enable_spell_check" != "xno"; then
 			[enchant >= 1.4],
 			[AC_DEFINE([HAVE_LIBENCHANT_1_4], [1], [Define to 1 if you have the `enchant' library (-lenchant) >= 1.4.])]
 		 )
+		 AC_MSG_RESULT([yes])
 		],
 		[
 		 AC_CHECK_HEADERS(
 			[enchant.h enchant/enchant.h],
 			AC_CHECK_LIB(
 				[enchant],
-				[enchant_dict_check]
+				[enchant_dict_check],
+				[AC_MSG_RESULT([yes])],
+				[AC_MSG_RESULT([no])]
 			)
 		 )
 		]
 	)
 fi
 
-PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
-
 # from https://sourceforge.net/apps/trac/gtk-osx/wiki/Integrate
 # to integrate bluefish in the OSX GUI
-AC_MSG_CHECKING([for ige Mac OSX integration])
+AC_MSG_CHECKING([for Mac OSX integration])
 _gdk_tgt=`$PKG_CONFIG --variable=target gdk-2.0`
 if test "x$_gdk_tgt" = "xquartz"; then
 	BF_igemacintegration="ige-mac-integration"
@@ -455,35 +468,44 @@ fi
 
 
 # optionally build the charmap plugin if gucharmap is available
-PKG_CHECK_MODULES(
-	[CHARMAP_PLUGIN],
-	[gucharmap-2],
-	[
-	 build_charmap_plugin=yes
-	 AC_DEFINE([HAVE_LIBGUCHARMAP_2], [1], [Define to 1 if you have the 'gucharmap-2' library (-lgucharmap).])
-	],
-	[PKG_CHECK_MODULES(
+AC_MSG_CHECKING([for optional libgucharmap development files])
+if test "x$have_gtk3" = "xyes"; then
+	PKG_CHECK_MODULES(
 		[CHARMAP_PLUGIN],
-		[gucharmap >= 2.20],
+		[gucharmap-2.90],
+		[
+			build_charmap_plugin=yes
+			AC_DEFINE([HAVE_LIBGUCHARMAP_2], [1], [Define to 1 if you have the 'gucharmap-2.90' library (-lgucharmap).])
+		],
+		[		
+	 		build_charmap_plugin=no
+	 		AC_MSG_WARN([Disabling the building of the charmap plugin.])
+	 		AC_MSG_WARN([Install gucharmap/gucharmap2.90 (>= 2.90) library/headers to build the plugin.])
+	 	]
+	)
+else
+	PKG_CHECK_MODULES(
+		[CHARMAP_PLUGIN],
+		[gucharmap-2],
 		[
 		 build_charmap_plugin=yes
-		 AC_DEFINE([HAVE_LIBGUCHARMAP], [1], [Define to 1 if you have the 'gucharmap' library (-lgucharmap).])
+		 AC_DEFINE([HAVE_LIBGUCHARMAP_2], [1], [Define to 1 if you have the 'gucharmap-2' library (-lgucharmap).])
 		],
 		[PKG_CHECK_MODULES(
 			[CHARMAP_PLUGIN],
-			[gucharmap-2.90],
+			[gucharmap >= 2.20],
 			[
-				build_charmap_plugin=yes
-				AC_DEFINE([HAVE_LIBGUCHARMAP_2], [1], [Define to 1 if you have the 'gucharmap-2.90' library (-lgucharmap).])
+			 build_charmap_plugin=yes
+			 AC_DEFINE([HAVE_LIBGUCHARMAP], [1], [Define to 1 if you have the 'gucharmap' library (-lgucharmap).])
 			],
-			[		
-		 		build_charmap_plugin=no
-		 		AC_MSG_WARN([Disabling the building of the charmap plugin.])
-		 		AC_MSG_WARN([Install gucharmap/gucharmap2 (>= 2.20) library/headers to build the plugin.])
-		 	]
+			[
+			build_charmap_plugin=no
+	 		AC_MSG_WARN([Disabling the building of the charmap plugin.])
+	 		AC_MSG_WARN([Install gucharmap/gucharmap2 (>= 2.20) library/headers to build the plugin.])
+	 		]
 		)]
-	)]
-)
+	)
+fi
 AM_CONDITIONAL([ENABLE_CHARMAP_PLUGIN], [test "x$build_charmap_plugin" = "xyes"])
 
 AC_SEARCH_LIBS([log10], [m])
