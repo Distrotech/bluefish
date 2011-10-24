@@ -23,18 +23,23 @@
 
 #if !GTK_CHECK_VERSION(3,0,0)
 /* this is an ugly hack to expose the treepath internals to this widget */
-typedef struct {
+/*typedef struct {
 	gint depth;
 	gint *indices;	
 } TreePath;
 
 #define TREEPATH(var) ((TreePath *)(var))
-
+*/
 static gint *
 gtk_tree_path_get_indices_with_depth(GtkTreePath *path, gint *depth)
 {
-	*depth = TREEPATH(path)->depth;
-	return TREEPATH(depth)->indices;
+/*	*depth = TREEPATH(path)->depth;
+	DEBUG_MSG("get_indices_with_depth, return depth %d and indices %p\n",*depth, TREEPATH(depth)->indices);
+	if (*depth > 0)
+		DEBUG_MSG("indices[0]=%d\n",TREEPATH(depth)->indices[0]);
+	return TREEPATH(depth)->indices;*/
+	*depth = gtk_tree_path_get_depth(path);
+	return gtk_tree_path_get_indices(path);
 }
 #endif
 
