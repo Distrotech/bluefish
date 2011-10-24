@@ -417,10 +417,6 @@ gthread-2.0 \
 libxml-2.0"
 fi
 
-
-AC_MSG_CHECKING([for required development files])
-PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
-
 if test "x$enable_spell_check" != "xno"; then
 	AC_MSG_CHECKING([for optional libenchant development files])
 	PKG_CHECK_EXISTS(
@@ -447,6 +443,9 @@ if test "x$enable_spell_check" != "xno"; then
 		]
 	)
 fi
+
+AC_MSG_CHECKING([for required development files])
+PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
 
 # from https://sourceforge.net/apps/trac/gtk-osx/wiki/Integrate
 # to integrate bluefish in the OSX GUI
