@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2011-01-30 12:27+0100\n"
+"PO-Revision-Date: 2011-09-22 10:58+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -50,12 +50,10 @@ msgid "Set accelerator key"
 msgstr "Configurar tecla rápida"
 
 #: src/plugin_snippets/snippets_gui.c:797
-#, fuzzy
 msgid "Snippets menu"
 msgstr "Menú de fragmentos"
 
 #: src/plugin_snippets/snippets_gui.c:798
-#, fuzzy
 msgid "_New Snippet"
 msgstr "Fragmento _nuevo"
 
@@ -65,28 +63,23 @@ msgid "New snippet"
 msgstr "Nuevo fragmento"
 
 #: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
 msgid "_Edit Snippet"
 msgstr "_Editar fragmento"
 
 #: src/plugin_snippets/snippets_gui.c:799
 #: src/plugin_snippets/snippets_wizard.c:748
-#, fuzzy
 msgid "Edit snippet"
-msgstr "_Editar fragmento"
+msgstr "Editar fragmento"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "_Delete Snippet"
-msgstr "_Eliminar fragmento"
+msgstr "E_liminar fragmento"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "Delete snippet"
-msgstr "_Eliminar fragmento"
+msgstr "Eliminar fragmento"
 
 #: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
 msgid "Delete _Branch"
 msgstr "Eli_minar rama"
 
@@ -95,62 +88,52 @@ msgid "Delete branch"
 msgstr "Eli_minar rama"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set Snippet _Accelerator"
 msgstr "Configurar _accelerador del fragmento"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set snippet accelerator"
-msgstr "Configurar _accelerador del fragmento"
+msgstr "Configurar accelerador del fragmento"
 
 #: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
 msgid "Ex_pand All"
-msgstr "Expandir todo"
+msgstr "E_xpandir todo"
 
 #: src/plugin_snippets/snippets_gui.c:804
 msgid "Expand all"
 msgstr "Expandir todo"
 
 #: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
 msgid "_Collapse All"
-msgstr "Contraer todo"
+msgstr "_Contraer todo"
 
 #: src/plugin_snippets/snippets_gui.c:805
 msgid "Collapse all"
 msgstr "Contraer todo"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "E_xport"
-msgstr "Exportar"
+msgstr "E_xportar"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "Export snippets"
-msgstr "fragmentos"
+msgstr "Exportar fragmentos"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "I_mport"
-msgstr "Importar"
+msgstr "I_mportar"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "Import snippets"
-msgstr "fragmentos"
+msgstr "Importar fragmentos"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "_Show as menu"
-msgstr "Mostrar como menú"
+msgstr "Mo_strar como menú"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "Show snippets menu"
-msgstr "Mostrar como menú"
+msgstr "Mostrar menú de fragmentos"
 
 #: src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets Menu"
@@ -193,7 +176,6 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-#, fuzzy
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
@@ -201,8 +183,9 @@ msgid ""
 "literal % in your string!)"
 msgstr ""
 "Especificar una búsqueda y un patrón de reemplazo. Debe usar %0, %1, ...%5 "
-"contenedores para preguntar por los valores cuando active este elemento. Dé "
-"a esos contenedores un nombre apropiado a la derecha."
+"marcadores de posición para preguntar por los valores cuando active este "
+"elemento. Dé a esos marcadores de posición un nombre apropiado a la derecha. "
+"(Use %% si necesita el literal «%» en su cadena.)"
 
 #: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
@@ -240,7 +223,6 @@ msgstr ""
 "etc."
 
 #: src/plugin_snippets/snippets_wizard.c:332
-#, fuzzy
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -250,10 +232,11 @@ msgid ""
 "string!)"
 msgstr ""
 "El texto <i>anterior</i> se insertará antes de la posición del cursor en la "
-"actual selección; el texto de <i>después</i> se insertará después de la "
+"selección actual; el texto de <i>después</i> se insertará después de la "
 "posición del cursor en la selección actual. Debe usar %0, %1, ...%9 "
-"contenedores para preguntar por los valores cuando active este elemento. Dé "
-"a esos contenedores un valor apropiado en la derecha."
+"marcadores de posición para preguntar por los valores cuando active este "
+"elemento. Dé a esos contenedores un valor apropiado en la derecha. (Use %% "
+"si necesita el literal «%» en su cadena.)"
 
 #: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
