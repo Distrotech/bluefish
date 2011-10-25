@@ -355,35 +355,34 @@ about_register_session_config(GHashTable * configlist, Tsessionvars * session)
 	return configlist;
 }
 
-static TBluefishPlugin bfplugin = {
-	"About Dialog",
-	BFPLUGIN_VERSION,
-	GTK_MAJOR_VERSION,
-	sizeof(Tdocument),
-	sizeof(Tsessionvars),
-	sizeof(Tglobalsession),
-	sizeof(Tbfwin),
-	sizeof(Tproject),
-	sizeof(Tmain),
-	sizeof(Tproperties),
-	BFPLUGIN_PRIORITY_LAST,
-	1,
-	NULL,						/* private */
-	about_init,					/* init */
-	about_initgui,
-	about_enforce_session,
-	about_cleanup,
-	about_cleanup_gui,
-	about_register_globses_config,
-	about_register_session_config,
-	NULL,						/* binary compatibility */
-	NULL,
-	NULL,
-	NULL
-};
-
 G_MODULE_EXPORT TBluefishPlugin *
 getplugin(void)
 {
+	static TBluefishPlugin bfplugin = {
+		"About Dialog",
+		BFPLUGIN_VERSION,
+		GTK_MAJOR_VERSION,
+		sizeof(Tdocument),
+		sizeof(Tsessionvars),
+		sizeof(Tglobalsession),
+		sizeof(Tbfwin),
+		sizeof(Tproject),
+		sizeof(Tmain),
+		sizeof(Tproperties),
+		BFPLUGIN_PRIORITY_LAST,
+		1,
+		NULL,						/* private */
+		about_init,					/* init */
+		about_initgui,
+		about_enforce_session,
+		about_cleanup,
+		about_cleanup_gui,
+		about_register_globses_config,
+		about_register_session_config,
+		NULL,						/* binary compatibility */
+		NULL,
+		NULL,
+		NULL
+	};
 	return &bfplugin;
 }

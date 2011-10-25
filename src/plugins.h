@@ -34,7 +34,7 @@
 typedef struct {
 	const gchar *name; /* plugin name */
 	const gushort bfplugin_version;
-	const gushort gtk_major_version;
+	const gushort gtkmajorversion;
 	const gushort document_size;  /* the sizes of the most important structs are checker here to avoid a plugin */
 	const gushort sessionvars_size;    /* compiled with a different struct accessing the wrong member of a struct  */
 	const gushort globalsession_size;
