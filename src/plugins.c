@@ -84,6 +84,7 @@ static TBluefishPlugin *plugin_from_filename(const gchar *path) {
 			DEBUG_MSG("bluefish_load_plugins, loaded %s properly, init!\n",path);
 			return bfplugin;
 		} else {
+			g_warning("plugin %s is not compatible with this version of bluefish",path);
 			DEBUG_MSG("plugin_from_filename, %s binary compatibility mismatch\n",path);
 			g_module_close(PRIVATE(bfplugin)->module);
 		}

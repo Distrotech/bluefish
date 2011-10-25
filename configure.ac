@@ -390,6 +390,13 @@ PKG_CHECK_EXISTS(
 	AC_MSG_RESULT([no])
 	]
 )
+AC_ARG_WITH(
+	gtk2, 
+	AC_HELP_STRING([--with-gtk2],[use gtk2 even if gtk3 is available])
+)
+if test "x$with_gtk2" = "xyes"; then
+	have_gtk3=no
+fi
 
 if test "x$have_gtk3" = "xyes"; then
 BF_dependencies="\
