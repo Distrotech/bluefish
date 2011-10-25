@@ -340,8 +340,8 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 		return;
 	comparepos = (offset < 0) ? startpos - offset : startpos;
 	DBG_SCANCACHE
-		("foundcache_update_offsets, update with offset %d starting at startpos %d, cache length=%d\n",
-		 offset, startpos, g_sequence_get_length(btv->scancache.foundcaches));
+		("foundcache_update_offsets, update with offset %d starting at startpos %d, cache length=%d, comparepos=%d\n",
+		 offset, startpos, g_sequence_get_length(btv->scancache.foundcaches), comparepos);
 
 	found = get_foundcache_at_offset(btv, startpos, &siter);
 	if (found)
@@ -374,7 +374,7 @@ foundcache_update_offsets(BluefishTextView * btv, guint startpos, gint offset)
 			DBG_SCANCACHE("foundcache_update_offsets, fblock on stack=%p, %d:%d-%d:%d\n", tmpfblock,
 						  tmpfblock->start1_o, tmpfblock->end1_o,tmpfblock->start2_o, tmpfblock->end2_o);
 			if (G_UNLIKELY(tmpfblock->start2_o != BF2_OFFSET_UNDEFINED)) {
-				if (G_UNLIKELY(offset < 0 && tmpfblock->start2_o < comparepos)) {
+				if (G_UNLIKELY(offset < 0 && tmpfblock->start2_o < comparepos && tmpfblock->end2_o >= comparepos)) {
 					/* the end of the block might be within the deleted region, if so, set the end as undefined */
 					DBG_SCANCACHE("update end of fblock %p %d:%d-%d:%d to UNDEFINED\n",tmpfblock
 									, tmpfblock->start1_o, tmpfblock->end1_o, tmpfblock->start2_o, tmpfblock->end2_o );
