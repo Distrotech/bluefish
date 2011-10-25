@@ -72,7 +72,7 @@ static TBluefishPlugin *plugin_from_filename(const gchar *path) {
 	DEBUG_MSG("plugin_from_filename, bfplugin=%p\n",bfplugin);
 	if (bfplugin) {
 		if (bfplugin->bfplugin_version == BFPLUGIN_VERSION
-					&& bfplugin->gtk_major_version == GTK_MAJOR_VERSION
+					&& bfplugin->gtkmajorversion == GTK_MAJOR_VERSION
 					&& bfplugin->document_size == sizeof(Tdocument)
 					&& bfplugin->sessionvars_size == sizeof(Tsessionvars)
 					&& bfplugin->globalsession_size == sizeof(Tglobalsession)
