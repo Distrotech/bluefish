@@ -21,7 +21,7 @@
 #include "../bluefish.h"
 #include "snippetsmenu.h"
 
-#if !GTK_CHECK_VERSION(3,0,0)
+#if !GTK_CHECK_VERSION(2,24,0)
 /* this is an ugly hack to expose the treepath internals to this widget */
 /*typedef struct {
 	gint depth;
