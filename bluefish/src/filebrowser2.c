@@ -2912,6 +2912,9 @@ fb2_init(Tbfwin * bfwin)
 								      "pixbuf_expander_open", DIR_ICON_COLUMN, */ NULL);
 
 	renderer = gtk_cell_renderer_text_new();
+#if GTK_CHECK_VERSION(3,0,0)
+	g_object_set(G_OBJECT(renderer), "ellipsize", PANGO_ELLIPSIZE_START, NULL);
+#endif
 	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, TRUE);
 	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(fb2->dirmenu_v), renderer, "text", DIR_NAME_COLUMN, NULL);
 	gtk_box_pack_start(GTK_BOX(fb2->vbox), fb2->dirmenu_v, FALSE, FALSE, 0);
