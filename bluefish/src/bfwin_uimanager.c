@@ -1022,7 +1022,7 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 #ifndef MAC_INTEGRATION
 	GtkAction *action = gtk_action_new("FileOpenURL", _("Open _URL..."), NULL, NULL);
 	gtk_action_group_add_action(bfwin->globalGroup, action);
-/*	g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(ui_set_spell_check), bfwin); */
+	g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(file_open_url_cb), bfwin); 
 
 	merge_id = gtk_ui_manager_new_merge_id(manager);
 	gtk_ui_manager_add_ui(manager, merge_id,

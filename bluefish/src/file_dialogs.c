@@ -368,7 +368,7 @@ open_url_ok_lcb(GtkWidget * widget, Tou * ou)
  * Return value: void
  **/
 void
-file_open_url_cb(GtkWidget * widget, Tbfwin * bfwin)
+file_open_url_cb(GtkAction * action, Tbfwin * bfwin)
 {
 	GtkWidget *vbox, *hbox, *but;
 	Tou *ou;

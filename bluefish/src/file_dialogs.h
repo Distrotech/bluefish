@@ -36,7 +36,7 @@ void file_save_all(Tbfwin * bfwin);
 void files_advanced_win(Tbfwin * bfwin, gchar * basedir);
 void file_open_advanced_cb(GtkWidget * widget, Tbfwin * bfwin);
 void file_open_cb(GtkWidget * widget, Tbfwin * bfwin);
-void file_open_url_cb(GtkWidget * widget, Tbfwin * bfwin);
+void file_open_url_cb(GtkAction * action, Tbfwin * bfwin);
 gchar *ask_new_filename(Tbfwin * bfwin, const gchar * old_curi, const gchar * gui_name, gboolean is_move);
 void doc_save_backend(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean close_doc,
 					  gboolean close_window);
