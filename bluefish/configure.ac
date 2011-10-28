@@ -67,19 +67,20 @@ dnl ************************
 #AC_ARG_PROGRAM
 AC_PROG_CC
 m4_ifdef(
-[LT_INIT],
-[
-dnl libtool 2.x macros
-LT_INIT([disable-static dlopen win32-dll])
-LT_PROG_RC
-],[
-dnl libtool 1.4 macros.
-AC_DISABLE_STATIC
-AC_LIBTOOL_DLOPEN
-AC_LIBTOOL_WIN32_DLL
-AC_LIBTOOL_RC
-AC_PROG_LIBTOOL
-])
+	[LT_INIT],
+	[
+	 dnl libtool 2.x macros
+	 LT_INIT([disable-static dlopen win32-dll])
+	 LT_PROG_RC
+	],[
+	 dnl libtool 1.4 macros.
+	 AC_DISABLE_STATIC
+	 AC_LIBTOOL_DLOPEN
+	 AC_LIBTOOL_WIN32_DLL
+	 AC_LIBTOOL_RC
+	 AC_PROG_LIBTOOL
+	]
+)
 m4_ifdef([DOLT], [DOLT])
 AC_ISC_POSIX
 AC_C_INLINE
@@ -115,12 +116,12 @@ case "$host" in
 esac
 
 if test "x$native_win32" = "xyes"; then
-AC_CHECK_TOOL([WINDRES], [windres], [no])
-if test "x$WINDRES" = "xno"; then
-AC_MSG_ERROR([The tool 'windres' was not found. Aborting.])
-fi
-AC_PROG_SED
-AC_SUBST([SPLIT_VERSION], [`echo $VERSION | $SED -e 's/-.*//' | $SED -e 's/\./,/g'`])
+	AC_CHECK_TOOL([WINDRES], [windres], [no])
+	if test "x$WINDRES" = "xno"; then
+		AC_MSG_ERROR([The tool 'windres' was not found. Aborting.])
+	fi
+	AC_PROG_SED
+	AC_SUBST([SPLIT_VERSION], [`echo $VERSION | $SED -e 's/-.*//' | $SED -e 's/\./,/g'`])
 fi
 AM_CONDITIONAL([OS_WIN32], [test "x$native_win32" = "xyes"])
 
@@ -130,7 +131,7 @@ dnl ************************
 
 AC_ARG_VAR(
 	[GDK_PIXBUF_CSOURCE],
-	[The `gdk-pixbuf-csource' executable. Use it to define or override its location.]
+	[The 'gdk-pixbuf-csource' executable. Use it to define or override its location.]
 )
 AC_CHECK_PROG([GDK_PIXBUF_CSOURCE], [gdk-pixbuf-csource], [gdk-pixbuf-csource])
 
@@ -236,7 +237,7 @@ AC_ARG_ENABLE(
 		[
 		 enable (or disable) the running of xmlcatalog after installation -
 		 some distributions like Debian use their own system for registering
-		 catalogs, so be careful here and also check the `--with-xml-catalog'
+		 catalogs, so be careful here and also check the '--with-xml-catalog'
 		 option @<:@default=yes@:>@
 		]
 	),
@@ -255,11 +256,11 @@ AC_ARG_ENABLE(
 
 AC_ARG_VAR(
 	[UPDATE_DESKTOP_DATABASE],
-	[The `update-desktop-database' program. Use it to define or override its location.]
+	[The 'update-desktop-database' program. Use it to define or override its location.]
 )
 AC_ARG_VAR(
 	[UPDATE_MIME_DATABASE],
-	[The `update-mime-database' program. Use it to define or override its location.]
+	[The 'update-mime-database' program. Use it to define or override its location.]
 )
 if test "x$enable_update_databases" != "xno" ; then
 	AC_PATH_PROG([UPDATE_DESKTOP_DATABASE], [update-desktop-database])
@@ -430,10 +431,10 @@ if test "x$enable_spell_check" != "xno"; then
 		[enchant],
 		[
 		 BF_dependencies="$BF_dependencies enchant"
-		 AC_DEFINE([HAVE_LIBENCHANT], [1], [Define to 1 if you have the `enchant' library (-lenchant).])
+		 AC_DEFINE([HAVE_LIBENCHANT], [1], [Define to 1 if you have the 'enchant' library (-lenchant).])
                  PKG_CHECK_EXISTS(
 			[enchant >= 1.4],
-			[AC_DEFINE([HAVE_LIBENCHANT_1_4], [1], [Define to 1 if you have the `enchant' library (-lenchant) >= 1.4.])]
+			[AC_DEFINE([HAVE_LIBENCHANT_1_4], [1], [Define to 1 if you have the 'enchant' library (-lenchant) >= 1.4.])]
 		 )
 		 AC_MSG_RESULT([yes])
 		],
