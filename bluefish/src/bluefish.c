@@ -261,17 +261,17 @@ int main(int argc, char *argv[])
 	Tstartup *startup;
 #ifdef WIN32
  	gchar *path;
- #endif
+#endif
 	GError *error = NULL;
 	GOptionContext *context;
 	const GOptionEntry options[] = {
-		{"curwindow", 'c', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &arg_curwindow,
+		{"curwindow", 'c', 0, G_OPTION_ARG_NONE, &arg_curwindow,
 		 N_("Open in existing window."), NULL},
-		{"newwindow", 'n', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &arg_newwindow,
+		{"newwindow", 'n', 0, G_OPTION_ARG_NONE, &arg_newwindow,
 		 N_("Open in new window."), NULL},
 		{"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void *) cb_print_version,
 		 N_("Print version information."), NULL},
-		{G_OPTION_REMAINING, 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_FILENAME_ARRAY, &files,
+		{G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &files,
 		 "Special option that collects any remaining arguments for us", NULL},
 		{NULL}
 	};
