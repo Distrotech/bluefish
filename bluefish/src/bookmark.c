@@ -19,6 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*#define DEBUG*/
+/*#define BMARKREF*/
 
 #include <gtk/gtk.h>
 #include <fcntl.h>
@@ -37,6 +38,14 @@
 #include "gtk_easy.h"
 #include "stringlist.h"
 
+#ifdef BMARKREF
+typedef struct {
+	gint itercount;
+} Tbmarkref;
+
+Tbmarkref bmarkref = {0};
+
+#endif
 
 /*
 bookmarks will be loaded and saved to an arraylist (see stringlist.c). This
@@ -645,15 +654,14 @@ bmark_check_remove(Tbfwin * bfwin, Tbmark * b)
 		}
 
 		if (numchild == 1) {
-			gpointer ptr;
+			GtkTextIter *tmpiter;
 			DEBUG_MSG("bmark_check_remove, we removed the last child, now remove the parent\n");
 			gtk_tree_store_remove(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &parent);
 			/* if the document is open, it should be removed from the hastable as well */
-			ptr = g_hash_table_lookup(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, b->filepath);
-			if (ptr) {
-				DEBUG_MSG("bmark_check_remove, removing iter from hashtable\n");
+			tmpiter = g_hash_table_lookup(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, b->filepath);
+			if (tmpiter) {
+				DEBUG_MSG("bmark_check_remove, removing iter %p from hashtable\n", tmpiter);
 				g_hash_table_remove(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, b->filepath);
-				g_free(ptr);
 				if (b->doc)
 					b->doc->bmark_parent = NULL;
 			}
@@ -1293,7 +1301,12 @@ bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m)
 			  BMARKDATA(bfwin->bmarkdata)->bmarkfiles);
 	if (ptr == NULL) {			/* closed document or bookmarks never set */
 		gchar *title;
-		parent = g_new0(GtkTreeIter, 1);
+		parent = g_slice_new0(GtkTreeIter);
+/*		parent = g_new0(GtkTreeIter, 1);*/
+#ifdef BMARKREF
+		bmarkref.itercount++;
+		g_print("bmark_get_iter_at_tree_position, itercount=%d\n",bmarkref.itercount);
+#endif
 		/* we should sort the document names in the treestore */
 		title = bmark_filename(bfwin, m->filepath);
 		DEBUG_MSG("insert parent with name %s and doc=%p in treestore %p\n", title, m->doc,
@@ -1311,19 +1324,10 @@ bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m)
 		/* the hash table frees the key, but not the value, on destroy */
 		g_object_ref(m->filepath);
 		g_hash_table_insert(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, m->filepath, parent);
-	} else
+	} else {
 		parent = (GtkTreeIter *) ptr;
-
-	{
-		/*Tbmark *bef = bmark_find_bookmark_before_offset(bfwin, m->offset, parent);
-		   if (bef == NULL) { */
-		gtk_tree_store_prepend(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &m->iter, parent);
-		return;
-/*		} else {
-			gtk_tree_store_insert_after(GTK_TREE_STORE(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&m->iter,parent,&bef->iter);
-			return;
-		}*/
 	}
+	gtk_tree_store_prepend(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &m->iter, parent);
 }
 
 static gint
@@ -1351,6 +1355,18 @@ bmark_sort_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter * b, gpointer
 	}
 }
 
+void
+bmark_hash_value_free(gpointer data)
+{
+	DEBUG_MSG("bmark_hash_value_free, free iter %p\n",data);
+#ifdef BMARKREF
+	bmarkref.itercount--;
+	g_print("bmark_hash_value_free, itercount=%d\n",bmarkref.itercount);
+#endif
+	g_slice_free(GtkTreeIter, data);
+/*	g_free(data);*/
+}
+
 /*
  * this function is used to create the global main_v->bookmarkstore
  * as well as the project bookmarkstores
@@ -1366,7 +1382,7 @@ bookmark_data_new(void)
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(bmd->bookmarkstore),
 										 GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID, GTK_SORT_ASCENDING);
 	/* BUG: shouldn't we free the data in the hash table when we close a project? */
-	bmd->bmarkfiles = g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, NULL, NULL);
+	bmd->bmarkfiles = g_hash_table_new_full(g_file_hash, (GEqualFunc) g_file_equal, NULL, bmark_hash_value_free);
 	DEBUG_MSG("bookmark_data_new, created bookmarkstore at %p\n", bmd->bookmarkstore);
 	return bmd;
 }
@@ -1502,6 +1518,7 @@ bmark_set_store(Tbfwin * bfwin)
 	}
 }
 
+/* the Tdocument will be closed, but the bookmark should stay in the treestore */
 void
 bmark_clean_for_doc(Tdocument * doc)
 {
@@ -2019,12 +2036,27 @@ bmark_get_tooltip_for_line(Tdocument *doc, gint line)
 	if (!bmark || !bmark->text)
 		return NULL;
 	if (bmark->text && bmark->name) 
+		return g_markup_printf_escaped("%s %s", bmark->name, bmark->text);
+	if (bmark->name)
+		return g_markup_escape_text(bmark->name, -1);
+	return g_markup_escape_text(bmark->text, -1);
+}
+
+
+/*gchar *
+bmark_get_tooltip_for_line(Tdocument *doc, gint line)
+{
+	Tbmark *bmark;
+	bmark = bmark_get_bmark_at_line(doc, line);
+	if (!bmark || !bmark->text)
+		return NULL;
+	if (bmark->text && bmark->name) 
 		return g_strconcat(bmark->name," ", bmark->text, NULL);
 	if (bmark->name)
 		return g_strdup(bmark->name);
 	return g_strdup(bmark->text);
 }
-
+*/
 void
 bmark_del_at_bevent(Tdocument * doc)
 {
@@ -2074,4 +2106,7 @@ bmark_cleanup(Tbfwin * bfwin)
 	bfwin->bmarkfilter = NULL;
 	g_free(bfwin->bmark_search_prefix);
 	bfwin->bmark_search_prefix = NULL;
+#ifdef BMARKREF 
+	g_print("bmark_cleanup, itercount=%d\n",bmarkref.itercount);
+#endif
 }
