@@ -209,7 +209,6 @@ files_advanced_win(Tbfwin * bfwin, gchar * basedir)
 
 	table = dialog_table_in_vbox(2, 4, 0, vbox2, FALSE, FALSE, 6);
 
-	/* TODO: This needs to be converted to use GtkComboBoxEntry */
 	tfs->grep_pattern = combobox_with_popdown("", bfwin->session->searchlist, TRUE);
 	dialog_mnemonic_label_in_table(_("Pa_ttern:"), tfs->grep_pattern, table, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 1, 4, 0, 1);

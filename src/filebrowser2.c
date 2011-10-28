@@ -1724,8 +1724,6 @@ popup_menu_new_directory(GtkAction * action, gpointer user_data)
 {
 	Tfilebrowser2 *fb2 = FILEBROWSER2(user_data);
 
-	/* BUG: in the case of a click in a dual-view fileview, we should not use the basedir
-	   as third argument */
 	fb2rpopup_new(fb2, TRUE, fb2->basedir);
 }
 
@@ -1734,8 +1732,6 @@ popup_menu_new_file(GtkAction * action, gpointer user_data)
 {
 	Tfilebrowser2 *fb2 = FILEBROWSER2(user_data);
 
-	/* BUG: in the case of a click in a dual-view fileview, we should not use the basedir
-	   as third argument */
 	if (fb2->file_v == NULL) {
 		fb2rpopup_new(fb2, FALSE, fb2->basedir);
 	} else {

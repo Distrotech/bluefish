@@ -592,8 +592,6 @@ bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location, GtkText
 static void
 bftextview2_set_margin_size(BluefishTextView * btv)
 {
-	/* TODO: this should be calculated based on the number of lines in the text,
-	   whether or not we have bookmarks, and whether or not we have block folding */
 	gint lines, count, newsize;
 	DBG_MSG("bftextview2_set_margin_size, called for %p\n", btv);
 	if (BLUEFISH_TEXT_VIEW(btv->master)->show_line_numbers) {
@@ -928,7 +926,6 @@ paint_margin(BluefishTextView * btv, cairo_t *cr, GtkTextIter * startvisible,
 						}
 						break;
 					}
-					/* TODO: use 'numblockchange' in the cache to calculate this more efficiently */ 
 					if (foundpos <= nextline_o && foundpos >= curline_o) {
 						if (IS_FOUNDMODE_BLOCKPUSH(found) && found->fblock->foldable) {
 							if (found->fblock->folded)
