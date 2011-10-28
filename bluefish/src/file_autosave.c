@@ -310,7 +310,6 @@ autosave_recover(Tbfwin * bfwin, GFile * file)
 			tmplist = g_list_next(tmplist);
 			continue;
 		}
-		/* TODO */
 		DEBUG_MSG("recover %s for %s\n", arr[0], arr[1]);
 		recover_uri = g_file_new_for_uri(arr[0]);
 		if (arr[1] && arr[1][0] != '\0') {
