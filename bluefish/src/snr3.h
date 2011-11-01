@@ -52,8 +52,10 @@ typedef struct {
 	Tbfwin *bfwin;
 	gpointer dialog; /* NULL for simple search or external search */
 	gchar *query;
+	gchar *queryreal; /* with characters escaped and such */
 	GRegex *regex;
 	gchar *replace; /* enabled if not NULL */
+	gchar *replacereal; /* with characters escaped and such */
 	gboolean replaceall; /* set to TRUE bluefish will immediately (while searching) do the replace */
 	gboolean findall; /* only used when find all in files is used */
 	Tsnr3type type;

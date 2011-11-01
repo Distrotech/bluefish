@@ -254,9 +254,9 @@ s3result_replace(Tsnr3run *s3run, Tsnr3result *s3result, GMatchInfo *matchinfo)
 	s3run->in_replace=TRUE;
 	if (s3run->replacetype == snr3replace_string) {
 		if (s3run->type == snr3type_string) {
-			DEBUG_MSG("s3result_replace, replace %d:%d with %s\n", s3result->so, s3result->eo, s3run->replace);
-			doc_replace_text_backend(s3result->doc, s3run->replace, s3result->so, s3result->eo);
-			offsetupdate.offset = g_utf8_strlen(s3run->replace, -1)-(s3result->eo - s3result->so);
+			DEBUG_MSG("s3result_replace, replace %d:%d with %s\n", s3result->so, s3result->eo, s3run->replacereal);
+			doc_replace_text_backend(s3result->doc, s3run->replacereal, s3result->so, s3result->eo);
+			offsetupdate.offset = g_utf8_strlen(s3run->replacereal, -1)-(s3result->eo - s3result->so);
 		} else if (s3run->type == snr3type_pcre) {
 			gchar *newstr = retrieve_pcre_replace_string(s3run, s3result, matchinfo);
 			if (newstr) {
@@ -422,12 +422,12 @@ backend_string_loop(Tsnr3run *s3run, gboolean indefinitely)
 	} else {
 		f = strcasestr;
 	}
-	querylen = g_utf8_strlen(s3run->query, -1);
+	querylen = g_utf8_strlen(s3run->queryreal, -1);
 	/* now reconstruct the last scan offset */
 	result = s3run->curbuf + utf8_charoffset_to_byteoffset_cached(s3run->curbuf, s3run->curposition);
 
 	do {
-		result = f(result, s3run->query);
+		result = f(result, s3run->queryreal);
 		if (result) {
 			Tsnr3result *s3result;
 			glong char_o = utf8_byteoffset_to_charsoffset_cached(s3run->curbuf, (result-s3run->curbuf));
@@ -629,8 +629,8 @@ snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void
 	GList *tmplist;
 	DEBUG_MSG("snr3_run, s3run=%p, scope=%d, query=%s\n",s3run, s3run->scope, s3run->query);
 
-	if (s3run->query == NULL || s3run->query[0]=='\0') {
-		DEBUG_MSG("no query (%p), no s3run\n",s3run->query);
+	if (s3run->queryreal == NULL || s3run->queryreal[0]=='\0') {
+		DEBUG_MSG("no query (%p), no s3run\n",s3run->queryreal);
 		return;
 	}
 	s3run->callback = callback;
@@ -738,10 +738,12 @@ snr3run_free(Tsnr3run *s3run) {
 	bfwin_document_destroy_remove_by_data(s3run->bfwin, s3run);
 	DEBUG_MSG("snr3run_free, query at %p\n",s3run->query);
 	g_free(s3run->query);
+	g_free(s3run->queryreal);
 	if (s3run->regex)
 		g_regex_unref(s3run->regex);
 	DEBUG_MSG("snr3run_free, replace\n");
 	g_free(s3run->replace);
+	g_free(s3run->replacereal);
 	g_free(s3run->filepattern);
 	DEBUG_MSG("snr3run_free, basedir\n");
 	if (s3run->basedir)
@@ -1034,13 +1036,34 @@ static gint update_snr3run(Tsnr3run *s3run) {
 		g_regex_unref(s3run->regex);
 		s3run->regex = NULL;
 	}
+	if (s3run->queryreal) {
+		g_free(s3run->queryreal);
+		s3run->queryreal=NULL;
+	}
+	if (s3run->replacereal) {
+		g_free(s3run->replacereal);
+		s3run->replacereal=NULL;
+	}
 	if (s3run->type == snr3type_pcre) {
 		if (!compile_regex(s3run)) {
 			g_free(s3run->query);
 			s3run->query = NULL; /* mark query as unusable */
 			return -1;
 		}
+	} else if (s3run->escape_chars) {
+		s3run->queryreal = unescape_string(s3run->query, FALSE);
+		if (s3run->replace) {
+			s3run->replacereal = unescape_string(s3run->replace, FALSE);
+		}
+	} else {
+		s3run->queryreal = g_strdup(s3run->query);
+		if (s3run->replace) {
+			s3run->replacereal = g_strdup(s3run->replace);
+		}
 	}
+	DEBUG_MSG("update_snr3run, query=%s, queryreal=%s, replace=%s, replacereal=%s\n",s3run->query, 
+				s3run->type == snr3type_pcre ? "undefined (regex pattern)" : s3run->queryreal,
+				s3run->replace ? s3run->replace : "undefined", s3run->replace ? s3run->replacereal: "undefined");
 	return 1;
 }
 
@@ -1106,7 +1129,11 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 		s3run->type = type;
 		retval |= 1;
 	}
-
+	if (escapechars != s3run->escape_chars) {
+		snr3_cancel_run(s3run);
+		s3run->escape_chars = escapechars;
+		retval |= 1;
+	}
 	if (g_strcmp0(s3run->query, query)!=0) {
 		snr3_cancel_run(s3run);
 		g_free(s3run->query);
@@ -1140,10 +1167,11 @@ snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 	} else {
 		g_object_unref(basedir);
 	}
-	
+
+	if (update_snr3run(s3run)==-1)
+		return -1;
+
 	if ((retval & 1) != 0) {
-		if (update_snr3run(s3run)==-1)
-			return -1;
 		remove_all_highlights_in_doc(snrwin->bfwin->current_document);
 		snr3run_resultcleanup(s3run);
 	}
