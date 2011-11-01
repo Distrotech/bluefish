@@ -754,6 +754,72 @@ snr3run_free(Tsnr3run *s3run) {
 	snr3run_resultcleanup(s3run);
 	g_slice_free(Tsnr3run, s3run);
 }
+static gboolean compile_regex(Tsnr3run *s3run) {
+	GError *gerror = NULL;
+	gint options = G_REGEX_MULTILINE;
+	if (!s3run->is_case_sens)
+		options |= G_REGEX_CASELESS;
+	if (s3run->dotmatchall)
+		options |= G_REGEX_DOTALL;
+	
+	s3run->regex = g_regex_new(s3run->query, options, G_REGEX_MATCH_NEWLINE_ANY, &gerror);
+	if (gerror) {
+		if (s3run->dialog) {
+			gchar *message = g_markup_printf_escaped("<span foreground=\"red\"><b>%s</b></span>", gerror->message);
+			DEBUG_MSG("compile_regex, regex error %s\n",gerror->message);
+			gtk_label_set_markup(GTK_LABEL(((TSNRWin *)s3run->dialog)->searchfeedback), message);
+			gtk_widget_show(((TSNRWin *)s3run->dialog)->searchfeedback);
+			g_free(message);
+		}
+		g_error_free(gerror);
+		return FALSE;
+	}
+	DEBUG_MSG("compile_regex, return TRUE\n");
+	return TRUE;
+}
+
+/*
+returns -1 on error
+returns a bitfield with:
+ - on 0, nothing changed in the GUI
+ - first bit: search options have changed
+ - second bit: replace options have changed
+*/
+static gint update_snr3run(Tsnr3run *s3run) {
+	if (s3run->regex) {
+		g_regex_unref(s3run->regex);
+		s3run->regex = NULL;
+	}
+	if (s3run->queryreal) {
+		g_free(s3run->queryreal);
+		s3run->queryreal=NULL;
+	}
+	if (s3run->replacereal) {
+		g_free(s3run->replacereal);
+		s3run->replacereal=NULL;
+	}
+	if (s3run->type == snr3type_pcre) {
+		if (!compile_regex(s3run)) {
+			g_free(s3run->query);
+			s3run->query = NULL; /* mark query as unusable */
+			return -1;
+		}
+	} else if (s3run->escape_chars) {
+		s3run->queryreal = unescape_string(s3run->query, FALSE);
+		if (s3run->replace) {
+			s3run->replacereal = unescape_string(s3run->replace, FALSE);
+		}
+	} else {
+		s3run->queryreal = g_strdup(s3run->query);
+		if (s3run->replace) {
+			s3run->replacereal = g_strdup(s3run->replace);
+		}
+	}
+	DEBUG_MSG("update_snr3run, query=%s, queryreal=%s, replace=%s, replacereal=%s\n",s3run->query, 
+				s3run->type == snr3type_pcre ? "undefined (regex pattern)" : s3run->queryreal,
+				s3run->replace ? s3run->replace : "undefined", s3run->replace ? s3run->replacereal: "undefined");
+	return 1;
+}
 
 void snr3run_bookmark_all(Tsnr3run *s3run) {
 	GList *tmpl;
@@ -965,6 +1031,7 @@ gpointer simple_search_run(Tbfwin *bfwin, const gchar *string) {
 	s3run = snr3run_new(bfwin, NULL);
 	snr3run_multiset(s3run, string, NULL, snr3type_string,snr3replace_string,snr3scope_doc);
 	DEBUG_MSG("simple_search_run, snr3run at %p, query at %p\n",s3run, s3run->query);
+	update_snr3run(s3run);
 	snr3_run(s3run, NULL, bfwin->current_document, activate_simple_search);
 	return s3run;
 }
@@ -1007,75 +1074,6 @@ dialog_changed_run_ready_cb(gpointer data) {
 /***************************** GUI *****************************************/
 /***************************************************************************/
 
-static gboolean compile_regex(Tsnr3run *s3run) {
-	GError *gerror = NULL;
-	gint options = G_REGEX_MULTILINE;
-	if (!s3run->is_case_sens)
-		options |= G_REGEX_CASELESS;
-	if (s3run->dotmatchall)
-		options |= G_REGEX_DOTALL;
-	
-	s3run->regex = g_regex_new(s3run->query, options, G_REGEX_MATCH_NEWLINE_ANY, &gerror);
-	if (gerror) {
-		if (s3run->dialog) {
-			gchar *message = g_markup_printf_escaped("<span foreground=\"red\"><b>%s</b></span>", gerror->message);
-			DEBUG_MSG("compile_regex, regex error %s\n",gerror->message);
-			gtk_label_set_markup(GTK_LABEL(((TSNRWin *)s3run->dialog)->searchfeedback), message);
-			gtk_widget_show(((TSNRWin *)s3run->dialog)->searchfeedback);
-			g_free(message);
-		}
-		g_error_free(gerror);
-		return FALSE;
-	}
-	DEBUG_MSG("compile_regex, return TRUE\n");
-	return TRUE;
-}
-
-static gint update_snr3run(Tsnr3run *s3run) {
-	if (s3run->regex) {
-		g_regex_unref(s3run->regex);
-		s3run->regex = NULL;
-	}
-	if (s3run->queryreal) {
-		g_free(s3run->queryreal);
-		s3run->queryreal=NULL;
-	}
-	if (s3run->replacereal) {
-		g_free(s3run->replacereal);
-		s3run->replacereal=NULL;
-	}
-	if (s3run->type == snr3type_pcre) {
-		if (!compile_regex(s3run)) {
-			g_free(s3run->query);
-			s3run->query = NULL; /* mark query as unusable */
-			return -1;
-		}
-	} else if (s3run->escape_chars) {
-		s3run->queryreal = unescape_string(s3run->query, FALSE);
-		if (s3run->replace) {
-			s3run->replacereal = unescape_string(s3run->replace, FALSE);
-		}
-	} else {
-		s3run->queryreal = g_strdup(s3run->query);
-		if (s3run->replace) {
-			s3run->replacereal = g_strdup(s3run->replace);
-		}
-	}
-	DEBUG_MSG("update_snr3run, query=%s, queryreal=%s, replace=%s, replacereal=%s\n",s3run->query, 
-				s3run->type == snr3type_pcre ? "undefined (regex pattern)" : s3run->queryreal,
-				s3run->replace ? s3run->replace : "undefined", s3run->replace ? s3run->replacereal: "undefined");
-	return 1;
-}
-
-/*
-returns -1 on error
-returns a bitfield with:
- - on 0, nothing changed in the GUI
- - first bit: search options have changed
- - second bit: replace options have changed
-
-
-*/
 static gint
 snr3run_init_from_gui(TSNRWin *snrwin, Tsnr3run *s3run)
 {
