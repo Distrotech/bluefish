@@ -1,13 +1,13 @@
 # German language file for Bluefish.
 # Copyright (C) 2000 Free Software Foundation, Inc.
-# Daniel Leidert <daniel.leidert@wgdd.de>, 2006, 2009, 2010.
+# Daniel Leidert <daniel.leidert@wgdd.de>, 2006, 2009-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2010-05-07 08:07+0200\n"
+"POT-Creation-Date: 2011-10-28 18:56+0200\n"
+"PO-Revision-Date: 2011-11-01 22:39+0100\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: none\n"
 "Language: de\n"
@@ -15,140 +15,123 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: src/plugin_snippets/snippets_gui.c:407
+#: src/plugin_snippets/snippets_gui.c:410
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr ""
 "Schnipsel mit der rechten Maustaste hinzufügen, bearbeiten oder löschen."
 
-#: src/plugin_snippets/snippets_gui.c:408
+#: src/plugin_snippets/snippets_gui.c:411
 msgid "Use drag and drop to re-order snippets"
 msgstr ""
 "Mit Ziehen-und-Ablegen (Drag'n'Drop) Schnipsel neu sortieren und verschieben"
 
-#: src/plugin_snippets/snippets_gui.c:409
+#: src/plugin_snippets/snippets_gui.c:412
 msgid "To exchange snippets with others use import or export"
 msgstr "Schnipsel via Import und Export mit anderen tauschen"
 
-#: src/plugin_snippets/snippets_gui.c:598
+#: src/plugin_snippets/snippets_gui.c:634
 msgid "snippets"
 msgstr "Code-Schnipsel"
 
-#: src/plugin_snippets/snippets_gui.c:685
+#: src/plugin_snippets/snippets_gui.c:721
 msgid "Snippet export filename"
 msgstr "Schnipseldatei exportieren"
 
-#: src/plugin_snippets/snippets_gui.c:723
+#: src/plugin_snippets/snippets_gui.c:759
 msgid "Snippet import filename"
 msgstr "Schnipseldatei importieren"
 
-#: src/plugin_snippets/snippets_gui.c:741
+#: src/plugin_snippets/snippets_gui.c:777
 msgid "Set accelerator key"
 msgstr "Tastaturkürzel festlegen"
 
-#: src/plugin_snippets/snippets_gui.c:797
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:833
 msgid "Snippets menu"
-msgstr "Code-Schnipsel"
+msgstr "Code-Schnipsel Menü"
 
-#: src/plugin_snippets/snippets_gui.c:798
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:834
 msgid "_New Snippet"
 msgstr "_Neuer Schnipsel"
 
-#: src/plugin_snippets/snippets_gui.c:798
+#: src/plugin_snippets/snippets_gui.c:834
 #: src/plugin_snippets/snippets_wizard.c:748
 msgid "New snippet"
-msgstr "Neues Schnipsel"
+msgstr "Neuer Schnipsel"
 
-#: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:835
 msgid "_Edit Snippet"
 msgstr "Schnipsel b_earbeiten"
 
-#: src/plugin_snippets/snippets_gui.c:799
+#: src/plugin_snippets/snippets_gui.c:835
 #: src/plugin_snippets/snippets_wizard.c:748
-#, fuzzy
 msgid "Edit snippet"
-msgstr "Schnipsel b_earbeiten"
+msgstr "Schnipsel bearbeiten"
 
-#: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:836
 msgid "_Delete Snippet"
 msgstr "Schnipsel _löschen"
 
-#: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:836
 msgid "Delete snippet"
-msgstr "Schnipsel _löschen"
+msgstr "Schnipsel löschen"
 
-#: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:837
 msgid "Delete _Branch"
-msgstr "Gruppe löschen"
+msgstr "Gru_ppe löschen"
 
-#: src/plugin_snippets/snippets_gui.c:801
+#: src/plugin_snippets/snippets_gui.c:837
 msgid "Delete branch"
 msgstr "Gruppe löschen"
 
-#: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:838
 msgid "Set Snippet _Accelerator"
-msgstr "T_astaturkürzel für Schnipsel setzen"
+msgstr "T_astenkürzel für Schnipsel setzen"
 
-#: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:838
 msgid "Set snippet accelerator"
-msgstr "T_astaturkürzel für Schnipsel setzen"
+msgstr "T_astenkürzel für Schnipsel setzen"
 
-#: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:840
 msgid "Ex_pand All"
-msgstr "Alle anzeigen"
+msgstr "Alle auskla_ppen"
 
-#: src/plugin_snippets/snippets_gui.c:804
+#: src/plugin_snippets/snippets_gui.c:840
 msgid "Expand all"
-msgstr "Alle anzeigen"
+msgstr "Alle ausklappen"
 
-#: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:841
 msgid "_Collapse All"
-msgstr "Alle verbergen"
+msgstr "Alle ein_klappen"
 
-#: src/plugin_snippets/snippets_gui.c:805
+#: src/plugin_snippets/snippets_gui.c:841
 msgid "Collapse all"
-msgstr "Alle verbergen"
+msgstr "Alle einklappen"
 
-#: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:842
 msgid "E_xport"
-msgstr "Exportieren"
+msgstr "E_xportieren"
 
-#: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:842
 msgid "Export snippets"
-msgstr "Code-Schnipsel"
+msgstr "Code-Schnipsel exportieren"
 
-#: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:843
 msgid "I_mport"
-msgstr "Importieren"
+msgstr "I_mportieren"
 
-#: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:843
 msgid "Import snippets"
-msgstr "Code-Schnipsel"
+msgstr "Code-Schnipsel importieren"
 
-#: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:847
 msgid "_Show as menu"
-msgstr "Als Menü zeigen"
+msgstr "Al_s Menüleiste einblenden"
 
-#: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
+#: src/plugin_snippets/snippets_gui.c:847
 msgid "Show snippets menu"
-msgstr "Als Menü zeigen"
+msgstr "Schnipsel-Menüleiste einblenden"
 
-#: src/plugin_snippets/snippets_gui.c:813
+#: src/plugin_snippets/snippets_gui.c:849
 msgid "Snippets Menu"
 msgstr "Code-Schnipsel"
 
@@ -189,16 +172,16 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-#, fuzzy
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
 "placeholders an appropriate name on the right. (Please use %% if you need "
 "literal % in your string!)"
 msgstr ""
-"Geben Sie ein Such- oder Ersetzungsmuster ein. Sie können %0, %1, ...%5 als "
-"Platzhalter verwenden, um bei Treffern nach Werten zu fragen. Geben Sie "
-"diesen Platzhaltern auf der rechten Seite aussagekräftige Namen."
+"Geben Sie ein Such- oder Ersatzmuster ein. Sie können %0, %1, ...%5 als "
+"Platzhalter verwenden, um dynamische nach Werten einzutragen. Geben Sie "
+"diesen Platzhaltern auf der rechten Seite aussagekräftige Namen. (Ein %% "
+"erzeugt ein % als Text.)"
 
 #: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
@@ -236,7 +219,6 @@ msgstr ""
 "Fluchtzeichen verwenden, um Sonderzeichen darzustellen, z.B. \\n, \\t etc."
 
 #: src/plugin_snippets/snippets_wizard.c:332
-#, fuzzy
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -245,20 +227,21 @@ msgid ""
 "appropriate name on the right. (Please use %% if you need literal % in your "
 "string!)"
 msgstr ""
-"Der Text <i>vorher</i> wird vor der aktuellen Cursorposition oder Auswahl "
-"und der Text <i>danach</i> nach der aktuellen Cursorposition oder Auswahl "
+"Der <i>Start</i>-Text wird vor der aktuellen Cursorposition oder Auswahl "
+"und der <i>End</i>-Text nach der aktuellen Cursorposition oder Auswahl "
 "eingefügt. Die Zeichenketten %0, %1, ...%9 können als Platzhalter verwendet "
-"werden. Im Dialog werden Werte dazu erfragt und statt der Platzhalter "
-"eingefügt. Daher sollten Sie auf der rechten Seite aussagekräftige Namen "
-"eingeben."
+"werden. Wenn der Schnipsel benutzt wird, öffnet sich ein Dialog, in dem "
+"Werte eingetragen und statt der Platzhalter eingefügt werden. Daher sollten "
+"Sie auf der rechten Seite aussagekräftige Namen eingeben. (Ein %% erzeugt "
+"ein % als Text.)"
 
 #: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
-msgstr "i> text"
+msgstr "<i>Start</i>-Text"
 
 #: src/plugin_snippets/snippets_wizard.c:348
 msgid "<i>After</i> text"
-msgstr "i> text"
+msgstr "<i>End</i>-Text"
 
 #: src/plugin_snippets/snippets_wizard.c:356
 msgid "Number"
