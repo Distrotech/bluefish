@@ -1,14 +1,14 @@
 # Czech translations for bluefish-unstable package.
 # Copyright (C) 2009 The Bluefish Development Team.
 # This file is distributed under the same license as the bluefish-unstable package.
-# Marek Černocký <marek@manet.cz>, 2009.
+# Marek Černocký <marek@manet.cz>, 2009, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-01 21:02+0200\n"
-"PO-Revision-Date: 2009-10-11 19:12+0100\n"
+"PO-Revision-Date: 2011-10-12 10:36+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech translators <diskuze@lists.l10n.cz>\n"
 "Language: cs\n"
@@ -16,8 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Poedit-Language: Czech\n"
-"X-Poedit-SourceCharset: utf-8\n"
 
 #: src/plugin_snippets/snippets_gui.c:407
 msgid "Click the right mouse button to add, edit or delete snippets."
@@ -33,7 +31,7 @@ msgstr "Pro výměnu úryku s ostatními použijte import nebo export"
 
 #: src/plugin_snippets/snippets_gui.c:598
 msgid "snippets"
-msgstr "úryvek"
+msgstr "Úryvky"
 
 #: src/plugin_snippets/snippets_gui.c:685
 msgid "Snippet export filename"
@@ -48,12 +46,10 @@ msgid "Set accelerator key"
 msgstr "Nastavení klávesové zkratky"
 
 #: src/plugin_snippets/snippets_gui.c:797
-#, fuzzy
 msgid "Snippets menu"
 msgstr "Nabídka úryvků"
 
 #: src/plugin_snippets/snippets_gui.c:798
-#, fuzzy
 msgid "_New Snippet"
 msgstr "_Nový úryvek"
 
@@ -63,92 +59,77 @@ msgid "New snippet"
 msgstr "Nový úryvek"
 
 #: src/plugin_snippets/snippets_gui.c:799
-#, fuzzy
 msgid "_Edit Snippet"
 msgstr "_Upravit úryvek"
 
 #: src/plugin_snippets/snippets_gui.c:799
 #: src/plugin_snippets/snippets_wizard.c:748
-#, fuzzy
 msgid "Edit snippet"
-msgstr "_Upravit úryvek"
+msgstr "Upravit úryvek"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "_Delete Snippet"
 msgstr "_Smazat úryvek"
 
 #: src/plugin_snippets/snippets_gui.c:800
-#, fuzzy
 msgid "Delete snippet"
-msgstr "_Smazat úryvek"
+msgstr "Smazat úryvek"
 
 #: src/plugin_snippets/snippets_gui.c:801
-#, fuzzy
 msgid "Delete _Branch"
-msgstr "Smazat větev"
+msgstr "Smazat _větev"
 
 #: src/plugin_snippets/snippets_gui.c:801
 msgid "Delete branch"
 msgstr "Smazat větev"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set Snippet _Accelerator"
-msgstr "Nastavit klávesovou zkratku"
+msgstr "Nastavit klávesovou zkr_atku"
 
 #: src/plugin_snippets/snippets_gui.c:802
-#, fuzzy
 msgid "Set snippet accelerator"
-msgstr "Nastavit klávesovou zkratku"
+msgstr "Nastavit klávesovou zkratku úryvku"
 
 #: src/plugin_snippets/snippets_gui.c:804
-#, fuzzy
 msgid "Ex_pand All"
-msgstr "Rozbalit vše"
+msgstr "_Rozbalit vše"
 
 #: src/plugin_snippets/snippets_gui.c:804
 msgid "Expand all"
 msgstr "Rozbalit vše"
 
 #: src/plugin_snippets/snippets_gui.c:805
-#, fuzzy
 msgid "_Collapse All"
-msgstr "Sbalit vše"
+msgstr "_Sbalit vše"
 
 #: src/plugin_snippets/snippets_gui.c:805
 msgid "Collapse all"
 msgstr "Sbalit vše"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "E_xport"
-msgstr "Exportovat"
+msgstr "E_xportovat"
 
 #: src/plugin_snippets/snippets_gui.c:806
-#, fuzzy
 msgid "Export snippets"
-msgstr "úryvek"
+msgstr "Exportovat úryvky"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "I_mport"
-msgstr "Importovat"
+msgstr "I_mportovat"
 
 #: src/plugin_snippets/snippets_gui.c:807
-#, fuzzy
 msgid "Import snippets"
-msgstr "úryvek"
+msgstr "Importovat úryvky"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "_Show as menu"
-msgstr "Zobrazit jako nabídku"
+msgstr "Zo_brazovat jako nabídku"
 
 #: src/plugin_snippets/snippets_gui.c:811
-#, fuzzy
 msgid "Show snippets menu"
-msgstr "Zobrazit jako nabídku"
+msgstr "Zobrazovat nabídku úryvků"
 
 #: src/plugin_snippets/snippets_gui.c:813
 msgid "Snippets Menu"
@@ -191,7 +172,6 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:130
-#, fuzzy
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
@@ -200,7 +180,8 @@ msgid ""
 msgstr ""
 "Zadejte předlohu, která se má hledat a čím se má nahradit. Můžete použít "
 "zástupce %0, %1, …%5, na jejichž hodnoty budete dotázání při aktivaci této "
-"položky. V polích vpravo přidělte zástupcům patřičné názvy."
+"položky. V polích vpravo přidělte zástupcům patřičné názvy. (Pokud "
+"potřebujete znak %, použijte %%)"
 
 #: src/plugin_snippets/snippets_wizard.c:137
 msgid "_Search for: "
@@ -237,7 +218,6 @@ msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr "Jednoduché zpětné lomítko mění význam znaku, např. \\n, \\t apod."
 
 #: src/plugin_snippets/snippets_wizard.c:332
-#, fuzzy
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -248,8 +228,9 @@ msgid ""
 msgstr ""
 "Text <i>před</i> bude vložen před umístění kurzoru nebo aktuální výběr, text "
 "<i>za</i> bude vložen za umístění kurzoru nebo aktuální výběr. Můžete použít "
-"zástupce %0, %1, …%9, na jejichž hodnoty budete dotázání při aktivaci této "
-"položky. V polích vpravo přidělte zástupcům patřičné názvy."
+"zástupné proměnné %0, %1, …%9, na jejichž hodnoty budete dotázání při "
+"aktivaci této položky. V polích vpravo přidělte zástupcům patřičné názvy. "
+"(Pokud potřebujete znak %, použijte %%)"
 
 #: src/plugin_snippets/snippets_wizard.c:338
 msgid "<i>Before</i> text"
