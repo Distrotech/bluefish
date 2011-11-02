@@ -2141,7 +2141,13 @@ html5time_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	Thtml_diag *dg;
 
 	/* Datetime help format */
-	gchar *helpstring;
+	const gchar *helpstring = 
+		_("Datetime format (ex. YYYY-MM-DDThh:mm:ssTZD) :\n\n"
+		"YYYY - year (e.g. 2009)\n"
+		"MM - month (e.g. 01 for January)\nDD - day of the month (e.g. 08)\n"
+		"T - a required separator\nhh - hour (e.g. 22 for 10.00pm)\n"
+		"mm - minutes (e.g. 55)\nss - seconds (e.g. 03)\n"
+		"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean Time)\n");
 
 	/* Values attributes lists */
 	GList *listPubdate;
@@ -2149,14 +2155,6 @@ html5time_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	/* Attributes name list */
 	static gchar *attrList[] =
 		{ "datetime", "pubdate", NULL };
-
-	/* Help string construction */
-	helpstring = g_strdup("Datetime format (ex. YYYY-MM-DDThh:mm:ssTZD) :\n\n");
-	helpstring = g_strconcat(helpstring, "YYYY - year (e.g. 2009)\n", NULL);
-	helpstring = g_strconcat(helpstring, "MM - month (e.g. 01 for January)\nDD - day of the month (e.g. 08)\n", NULL);
-	helpstring = g_strconcat(helpstring, "T - a required separator\nhh - hour (e.g. 22 for 10.00pm)\n", NULL);
-	helpstring = g_strconcat(helpstring, "mm - minutes (e.g. 55)\nss - seconds (e.g. 03)\n", NULL);
-	helpstring = g_strconcat(helpstring, "TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean Time)\n", NULL);
 
 	/* Dialog construction */
 	dg = html_diag_new(bfwin, _("Time"));
