@@ -466,8 +466,17 @@ is_int(gfloat testval)
 static gboolean
 spinbut_output(GtkSpinButton *spin,gpointer data)
 {
-   /* by returning TRUE a string value will not be converted to a number */
-   return TRUE;
+	const gchar *text;
+	gchar *endptr;
+	double testval;
+	/* if text contains a number, we return FALSE and thus use the adjustment to update the number,
+	if it contains text we return TRUE and thus do nothing */
+	text = gtk_entry_get_text(GTK_ENTRY(spin));
+	testval = strtod(text, &endptr);
+	if (endptr == text) {
+		return TRUE;
+	}
+	return FALSE;
 }
  
  
@@ -494,14 +503,18 @@ spinbut_with_value(gchar * value, gfloat lower, gfloat upper, gfloat step_increm
 	}*/
 	
 	GtkWidget *returnwidget;
-	
+	gchar *endptr;
+	double testval;
 	returnwidget = gtk_spin_button_new_with_range(lower,upper,step_increment);
+	testval = strtod(value, &endptr);
+	if (endptr != value) {
+		gtk_spin_button_set_value(GTK_SPIN_BUTTON(returnwidget), testval);
+	}
 	g_signal_connect(G_OBJECT(returnwidget), "output", G_CALLBACK(spinbut_output), returnwidget);
 	gtk_spin_button_set_update_policy(GTK_SPIN_BUTTON(returnwidget), GTK_UPDATE_IF_VALID);
 	gtk_spin_button_set_snap_to_ticks(GTK_SPIN_BUTTON(returnwidget), FALSE);
 	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(returnwidget), FALSE);
 	gtk_entry_set_text(GTK_ENTRY(returnwidget), value?value:"");
-	
 	return returnwidget;
 }
 
