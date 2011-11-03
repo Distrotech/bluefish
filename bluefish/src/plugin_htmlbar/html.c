@@ -2032,12 +2032,12 @@ canvas_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	gtk_table_attach(GTK_TABLE(dgtable), but, 3,4, 2,3, GTK_SHRINK,GTK_SHRINK,0,0);
 	
 	/* Width */
-	dg->spin[1] = spinbut_with_value(tagvalues[1], 0, 10000, 1.0, 5.0);
+	dg->spin[1] = spinbut_with_value(tagvalues[1]?tagvalues[1]:"200", 0, 10000, 1.0, 5.0);
 	dialog_mnemonic_label_in_table(_("_Width:"), dg->spin[1], dgtable, 2, 3, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 3, 4, 0,1);
 
 	/* Height */
-	dg->spin[0] = spinbut_with_value(tagvalues[0], 0, 10000, 1.0, 5.0);
+	dg->spin[0] = spinbut_with_value(tagvalues[0]?tagvalues[0]:"200", 0, 10000, 1.0, 5.0);
 	dialog_mnemonic_label_in_table(_("_Height:"), dg->spin[0], dgtable, 2, 3, 1,2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[0], 3, 4, 1,2);
 
@@ -2152,12 +2152,12 @@ video_dialog(Tbfwin * bfwin, Ttagpopup * data)
 	g_list_free(tmplist);
 
 	/* Width */
-	dg->spin[1] = spinbut_with_value(tagvalues[7], 0, 10000, 1.0, 5.0);
+	dg->spin[1] = spinbut_with_value(tagvalues[7]?tagvalues[7]:"200", 0, 10000, 1.0, 5.0);
 	dialog_mnemonic_label_in_table(_("_Width:"), dg->spin[1], dgtable, 5, 6, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 6, 9, 2, 3);
 
 	/* Height */
-	dg->spin[2] = spinbut_with_value(tagvalues[6], 0, 10000, 1.0, 5.0);
+	dg->spin[2] = spinbut_with_value(tagvalues[6]?tagvalues[6]:"200", 0, 10000, 1.0, 5.0);
 	dialog_mnemonic_label_in_table(_("_Height:"), dg->spin[2], dgtable, 5, 6, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 6, 9, 3, 4);
 
