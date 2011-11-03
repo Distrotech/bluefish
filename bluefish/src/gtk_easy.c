@@ -506,9 +506,11 @@ spinbut_with_value(gchar * value, gfloat lower, gfloat upper, gfloat step_increm
 	gchar *endptr;
 	double testval;
 	returnwidget = gtk_spin_button_new_with_range(lower,upper,step_increment);
-	testval = strtod(value, &endptr);
-	if (endptr != value) {
-		gtk_spin_button_set_value(GTK_SPIN_BUTTON(returnwidget), testval);
+	if (value) {
+		testval = strtod(value, &endptr);
+		if (endptr != value) {
+			gtk_spin_button_set_value(GTK_SPIN_BUTTON(returnwidget), testval);
+		}
 	}
 	g_signal_connect(G_OBJECT(returnwidget), "output", G_CALLBACK(spinbut_output), returnwidget);
 	gtk_spin_button_set_update_policy(GTK_SPIN_BUTTON(returnwidget), GTK_UPDATE_IF_VALID);

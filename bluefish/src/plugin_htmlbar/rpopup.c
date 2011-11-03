@@ -229,9 +229,11 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 	gboolean in_quote, has_quotes;
 	Ttagdialog tagdia[] = {
 		{"a", G_CALLBACK(quickanchor_dialog)},
+		{"audio", G_CALLBACK(audio_dialog)},
 		{"basefont", G_CALLBACK(basefont_dialog)},
 		{"body", G_CALLBACK(body_dialog)},
 		{"button",G_CALLBACK(buttondialog_dialog)},
+		{"canvas", G_CALLBACK(canvas_dialog)},
 		{"div", G_CALLBACK(div_dialog)},
 		{"font", G_CALLBACK(font_dialog)},
 		{"form",G_CALLBACK(formdialog_dialog)},
@@ -256,6 +258,7 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 		{"td", G_CALLBACK(tabledatadialog_dialog)},
 		{"textarea",G_CALLBACK(textareadialog_dialog)},
 		{"th", G_CALLBACK(tableheaddialog_dialog)},
+		{"time", G_CALLBACK(html5time_dialog)},
 		{"tr", G_CALLBACK(tablerowdialog_dialog)},
 		{"video", G_CALLBACK(video_dialog)}
 	};
