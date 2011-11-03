@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-21 23:18+0200\n"
-"PO-Revision-Date: 2011-11-03 23:54+0900\n"
+"PO-Revision-Date: 2011-11-04 00:11+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -369,7 +369,7 @@ msgstr "ブロックを選択"
 
 #: ../src/bfwin_uimanager.c:780
 msgid "Select block, use multiple times to select parent blocks "
-msgstr ""
+msgstr "ブロックを選択してください、親ブロックを選択するには複数回使用してください。"
 
 #: ../src/bfwin_uimanager.c:782
 msgid "_Word Count"
@@ -1550,7 +1550,7 @@ msgstr "すべてのファイルを読み込みました, %s"
 
 #: ../src/file.c:1347
 msgid "Finished advanced open"
-msgstr ""
+msgstr "高度なファイル選択が終了しました"
 
 #: ../src/file.c:1521
 msgid "_Skip"
@@ -1577,9 +1577,8 @@ msgid "Autosave in progress..."
 msgstr "自動保存中です..."
 
 #: ../src/file_dialogs.c:108
-#, fuzzy
 msgid "Started open advanced..."
-msgstr "検索して開く(_A)..."
+msgstr "高度なファイル選択を開始しました..."
 
 #: ../src/file_dialogs.c:119
 msgid "Select basedir"
@@ -1995,7 +1994,7 @@ msgstr "ブロックの折り畳みを有効(_B)"
 
 #: ../src/preferences.c:490
 msgid "Display block stack in statusbar"
-msgstr ""
+msgstr "ステータスバーにブロックのスタックを表示する"
 
 #: ../src/preferences.c:492
 msgid "Highlight block _delimiters"
@@ -2566,7 +2565,7 @@ msgstr "HTMLダイアログを常に上に表示(_M)"
 
 #: ../src/preferences.c:2150
 msgid "Save user customised menu accelerators"
-msgstr ""
+msgstr "ユーザがカスタマイズしたメニューのショートカットを保存する"
 
 #: ../src/preferences.c:2154
 msgid "<b>Recent Files</b>"
@@ -2977,11 +2976,11 @@ msgstr "オブジェクトファイルを隠す"
 
 #: ../src/snr3.c:629
 msgid "<i>Replace started</i>"
-msgstr ""
+msgstr "<i>置換を開始しました</i>"
 
 #: ../src/snr3.c:634
 msgid "<i>Search started</i>"
-msgstr ""
+msgstr "<i>検索を開始しました</i>"
 
 #: ../src/snr3.c:652
 msgid "<span foreground=\"red\"><b>No selection, aborted search</b></span>"
@@ -2993,29 +2992,29 @@ msgid "<span foreground=\"red\" weight=\"bold\">Some documents are still loading
 msgstr "<span foreground=\"red\" weight=\"bold\">まだ読み込まれていない文書があります</span>"
 
 #: ../src/snr3.c:765
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Replaced %d entries</i>"
-msgstr "<b>最近使用したファイル</b>"
+msgstr "<i>%d 箇所を置換しました</i>"
 
 #: ../src/snr3.c:767
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d entries</i>"
-msgstr "<b>最近使用したファイル</b>"
+msgstr "<i>%d 箇所 見つかりました</i>"
 
 #: ../src/snr3.c:981
 #, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
-msgstr ""
+msgstr "<i>%d 個の一致が %d 個の文書で見つかりました（%d の文書から検索）</i>"
 
 #: ../src/snr3.c:984
 #, c-format
 msgid "<i>Found %d results from character %d to %d</i>"
-msgstr ""
+msgstr "<i>%d 個の一致が %d 文字目から %d 文字目にかけて見つかりました</i>"
 
 #: ../src/snr3.c:986
 #, c-format
 msgid "<i>Found %d results in the active document</i>"
-msgstr ""
+msgstr "<i>%d 個の一致が編集対象になっている文書で見つかりました</i>"
 
 #: ../src/snr3.c:1343
 msgid "Active document"
@@ -3079,9 +3078,8 @@ msgid "Sco_pe: "
 msgstr "範囲(_P):"
 
 #: ../src/snr3.c:1492
-#, fuzzy
 msgid "Filename pattern: "
-msgstr "ファイル名: %s"
+msgstr "ファイル名パターン:"
 
 #: ../src/snr3.c:1498
 msgid "Basedir: "
