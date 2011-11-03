@@ -329,7 +329,7 @@ combobox_with_popdown(const gchar * setstring, const GList * which_list, gboolea
 		returnwidget = gtk_combo_box_text_new_with_entry();
 	else
 		returnwidget = gtk_combo_box_text_new();
-	for (tmplist = g_list_first(which_list); tmplist; tmplist = g_list_next(tmplist)) {
+	for (tmplist = g_list_first((GList *)which_list); tmplist; tmplist = g_list_next(tmplist)) {
 		if (tmplist->data) {
 			gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(returnwidget), tmplist->data);
 			if (setstring && g_strcmp0(tmplist->data, setstring) == 0) {
@@ -437,7 +437,7 @@ boxed_radiobut_with_value(gchar * labeltext, gint enabled, GtkRadioButton * prev
 	return returnwidget;
 }
 
-static gint
+/*static gint
 is_int(gfloat testval)
 {
 	DEBUG_MSG("is_int, (int)testval=%d\n", (int) testval);
@@ -449,7 +449,7 @@ is_int(gfloat testval)
 		return 0;
 	}
 }
-
+*/
 /**
  * spinbut_with_value:
  * @value: #const gchar * with the value as string for the spinbut
@@ -462,15 +462,24 @@ is_int(gfloat testval)
  *
  * Return value: #GtkWidget* pointer to the new spinbutton widget
  */
+ 
+static gboolean
+spinbut_output(GtkSpinButton *spin,gpointer data)
+{
+   /* by returning TRUE a string value will not be converted to a number */
+   return TRUE;
+}
+ 
+ 
 GtkWidget *
 spinbut_with_value(gchar * value, gfloat lower, gfloat upper, gfloat step_increment, gfloat page_increment)
 {
-	GtkAdjustment *adj;
+/*	GtkAdjustment *adj;
 	GtkWidget *returnwidget;
 	guint digits;
 	double fvalue = 0;
 
-	if (value) {
+	if (value && value[0]!='\0') {
 		fvalue = strtod(value, NULL);
 	}
 	adj =
@@ -478,14 +487,21 @@ spinbut_with_value(gchar * value, gfloat lower, gfloat upper, gfloat step_increm
 											 page_increment, 0.0);
 	digits = (is_int(lower) ? 0 : 2);
 	returnwidget = gtk_spin_button_new(adj, step_increment, digits);
-/*	g_object_set(G_OBJECT(returnwidget), "numeric", TRUE, NULL);*/
-	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(returnwidget), FALSE);
 	gtk_spin_button_set_snap_to_ticks(GTK_SPIN_BUTTON(returnwidget), FALSE);
-/*	gtk_spin_button_set_update_policy(GTK_SPIN_BUTTON(returnwidget), GTK_UPDATE_IF_VALID);*/
-	if (!value) {
-		gtk_entry_set_text(GTK_ENTRY(GTK_SPIN_BUTTON(returnwidget)), "");
-	}
-
+	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(returnwidget), FALSE);
+	if (!value || value[0]=='\0') {
+		gtk_entry_set_text(GTK_ENTRY(returnwidget), value);
+	}*/
+	
+	GtkWidget *returnwidget;
+	
+	returnwidget = gtk_spin_button_new_with_range(lower,upper,step_increment);
+	g_signal_connect(G_OBJECT(returnwidget), "output", G_CALLBACK(spinbut_output), returnwidget);
+	gtk_spin_button_set_update_policy(GTK_SPIN_BUTTON(returnwidget), GTK_UPDATE_IF_VALID);
+	gtk_spin_button_set_snap_to_ticks(GTK_SPIN_BUTTON(returnwidget), FALSE);
+	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(returnwidget), FALSE);
+	gtk_entry_set_text(GTK_ENTRY(returnwidget), value?value:"");
+	
 	return returnwidget;
 }
 
