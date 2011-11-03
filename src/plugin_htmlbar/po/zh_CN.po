@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 2.0.4\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-09-22 03:12+0200\n"
+"POT-Creation-Date: 2011-11-03 17:25+0100\n"
 "PO-Revision-Date: 2011-09-08 23:24+0800\n"
 "Last-Translator: william9527 <mzf9527@gmail.com>\n"
 "Language-Team: \n"
@@ -16,75 +16,53 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. _DM_ Alert box asking if user would like to change request from add to
-#. * update.
-#.
-#: src/plugin_htmlbar/html2.c:500
-msgid "_Update"
-msgstr "更新(_U)"
-
-#: src/plugin_htmlbar/html2.c:505
-#, c-format
-msgid "The %s %s property already exists.\n"
-msgstr "属性 %s %s 已存在。\n"
-
-#: src/plugin_htmlbar/html2.c:507
-#, c-format
-msgid "The %s property already exists.\n"
-msgstr "属性 %s 已存在。\n"
-
-#: src/plugin_htmlbar/html2.c:510
-#, c-format
-msgid "Update its value from %s to %s?"
-msgstr "更新 %s 为 %s吗？"
-
-#: src/plugin_htmlbar/html2.c:641
+#: src/plugin_htmlbar/html2.c:550
 msgid "Cascading Style Sheet Builder"
 msgstr "层叠样式表生成器"
 
-#: src/plugin_htmlbar/html2.c:661
+#: src/plugin_htmlbar/html2.c:570
 msgid "_Selector:"
 msgstr "选择器(_S)："
 
-#: src/plugin_htmlbar/html2.c:680
+#: src/plugin_htmlbar/html2.c:589
 msgid "_Property:"
 msgstr "属性(_P)："
 
-#: src/plugin_htmlbar/html2.c:682 src/plugin_htmlbar/html_form.c:375
+#: src/plugin_htmlbar/html2.c:591 src/plugin_htmlbar/html_form.c:375
 #: src/plugin_htmlbar/html_form.c:540 src/plugin_htmlbar/html_form.c:635
 msgid "_Value:"
 msgstr "值(_V)："
 
-#: src/plugin_htmlbar/html2.c:700
+#: src/plugin_htmlbar/html2.c:608
 msgid "Selector"
 msgstr "选择器"
 
-#: src/plugin_htmlbar/html2.c:700 src/plugin_htmlbar/html2.c:703
+#: src/plugin_htmlbar/html2.c:612
 msgid "Property"
 msgstr "属性"
 
-#: src/plugin_htmlbar/html2.c:700 src/plugin_htmlbar/html2.c:703
+#: src/plugin_htmlbar/html2.c:615
 msgid "Value"
 msgstr "值"
 
-#: src/plugin_htmlbar/html2.c:718
+#: src/plugin_htmlbar/html2.c:643
 msgid " _Add "
 msgstr " 添加(_A) "
 
-#: src/plugin_htmlbar/html2.c:721
+#: src/plugin_htmlbar/html2.c:647
 msgid " _Update "
 msgstr " 更新(_U) "
 
-#: src/plugin_htmlbar/html2.c:724
+#: src/plugin_htmlbar/html2.c:651
 msgid " _Delete "
 msgstr " 删除(_D) "
 
-#: src/plugin_htmlbar/html2.c:977 src/plugin_htmlbar/html2.c:1014
+#: src/plugin_htmlbar/html2.c:911 src/plugin_htmlbar/html2.c:948
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1639
 msgid "_Style..."
 msgstr "样式(_S)..."
 
-#: src/plugin_htmlbar/html2.c:1099
+#: src/plugin_htmlbar/html2.c:1033
 msgid "Bluefish: Select color"
 msgstr "Bluefish：选择颜色"
 
@@ -1592,7 +1570,7 @@ msgstr "快速锚点"
 msgid "Attributes"
 msgstr "属性"
 
-#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:2381
+#: src/plugin_htmlbar/html.c:682 src/plugin_htmlbar/html.c:2379
 msgid "_HREF:"
 msgstr "被链接文档的位置(_H)："
 
@@ -1608,24 +1586,24 @@ msgstr "目标(_T)："
 msgid "_Name:"
 msgstr "名称(_N)："
 
-#: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/quickstart.c:555
+#: src/plugin_htmlbar/html.c:695 src/plugin_htmlbar/quickstart.c:552
 msgid "Titl_e:"
 msgstr "标题(_e)："
 
 #: src/plugin_htmlbar/html.c:700 src/plugin_htmlbar/html.c:1215
-#: src/plugin_htmlbar/html.c:1364 src/plugin_htmlbar/html.c:2293
+#: src/plugin_htmlbar/html.c:1364 src/plugin_htmlbar/html.c:2291
 msgid "_Language:"
 msgstr "语言(_L)："
 
 #: src/plugin_htmlbar/html.c:703 src/plugin_htmlbar/html.c:939
 #: src/plugin_htmlbar/html.c:1109 src/plugin_htmlbar/html.c:1218
 #: src/plugin_htmlbar/html.c:1370 src/plugin_htmlbar/html.c:1757
-#: src/plugin_htmlbar/html.c:1871 src/plugin_htmlbar/html.c:2312
+#: src/plugin_htmlbar/html.c:1871 src/plugin_htmlbar/html.c:2310
 #: src/plugin_htmlbar/html_form.c:204 src/plugin_htmlbar/html_form.c:267
 #: src/plugin_htmlbar/html_form.c:328 src/plugin_htmlbar/html_form.c:644
 #: src/plugin_htmlbar/html_table.c:107 src/plugin_htmlbar/html_table.c:261
 #: src/plugin_htmlbar/html_table.c:383 src/plugin_htmlbar/image.c:509
-#: src/plugin_htmlbar/image_dialog.c:382
+#: src/plugin_htmlbar/image_dialog.c:391
 msgid "Custo_m:"
 msgstr "自定义(_m)："
 
@@ -1714,7 +1692,7 @@ msgstr "对齐(_g)："
 #: src/plugin_htmlbar/html.c:923 src/plugin_htmlbar/html.c:1209
 #: src/plugin_htmlbar/html_diag.c:445 src/plugin_htmlbar/html_table.c:98
 #: src/plugin_htmlbar/html_table.c:246 src/plugin_htmlbar/html_table.c:374
-#: src/plugin_htmlbar/image_dialog.c:368
+#: src/plugin_htmlbar/image_dialog.c:371
 msgid "Cl_ass:"
 msgstr "类："
 
@@ -1733,22 +1711,22 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "水平线"
 
-#: src/plugin_htmlbar/html.c:1083 src/plugin_htmlbar/html.c:2227
-#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:405
+#: src/plugin_htmlbar/html.c:1083 src/plugin_htmlbar/html.c:2225
+#: src/plugin_htmlbar/image.c:526 src/plugin_htmlbar/image_dialog.c:414
 msgid "_Align:"
 msgstr "对齐(_A)："
 
 #: src/plugin_htmlbar/html.c:1090 src/plugin_htmlbar/html.c:2000
-#: src/plugin_htmlbar/html.c:2111 src/plugin_htmlbar/html.c:2235
-#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:338
+#: src/plugin_htmlbar/html.c:2111 src/plugin_htmlbar/html.c:2233
+#: src/plugin_htmlbar/html_table.c:408 src/plugin_htmlbar/image_dialog.c:344
 msgid "_Height:"
 msgstr "高度(_H)："
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:1096 src/plugin_htmlbar/html.c:1995
-#: src/plugin_htmlbar/html.c:2106 src/plugin_htmlbar/html.c:2231
+#: src/plugin_htmlbar/html.c:2106 src/plugin_htmlbar/html.c:2229
 #: src/plugin_htmlbar/html_table.c:139 src/plugin_htmlbar/html_table.c:401
-#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:329
+#: src/plugin_htmlbar/image.c:488 src/plugin_htmlbar/image_dialog.c:335
 msgid "_Width:"
 msgstr "宽度(_W)："
 
@@ -1884,7 +1862,7 @@ msgstr "有序(_d)"
 msgid "_Unordered"
 msgstr "无序(_U)"
 
-#: src/plugin_htmlbar/html.c:1656
+#: src/plugin_htmlbar/html.c:1656 src/plugin_htmlbar/image_dialog.c:385
 msgid "Style:"
 msgstr "样式："
 
@@ -1901,8 +1879,8 @@ msgid "_Add <frame> elements"
 msgstr "添加 <frame> 元素(_A)"
 
 #: src/plugin_htmlbar/html.c:1830 src/plugin_htmlbar/html.c:1927
-#: src/plugin_htmlbar/html.c:2058 src/plugin_htmlbar/html.c:2222
-#: src/plugin_htmlbar/html.c:2285 src/plugin_htmlbar/image_dialog.c:290
+#: src/plugin_htmlbar/html.c:2058 src/plugin_htmlbar/html.c:2220
+#: src/plugin_htmlbar/html.c:2283 src/plugin_htmlbar/image_dialog.c:297
 msgid "_Source:"
 msgstr "源文件(_S)："
 
@@ -1965,65 +1943,90 @@ msgstr "相框默认图片(_P):"
 msgid "_Audio:"
 msgstr "声音(_A):"
 
+#: src/plugin_htmlbar/html.c:2145
+msgid ""
+"Datetime format (ex. YYYY-MM-DDThh:mm:ssTZD) :\n"
+"\n"
+"YYYY - year (e.g. 2009)\n"
+"MM - month (e.g. 01 for January)\n"
+"DD - day of the month (e.g. 08)\n"
+"T - a required separator\n"
+"hh - hour (e.g. 22 for 10.00pm)\n"
+"mm - minutes (e.g. 55)\n"
+"ss - seconds (e.g. 03)\n"
+"TZD - Time Zone Designator (Z denotes Zulu, also known as Greenwich Mean "
+"Time)\n"
+msgstr ""
+"日期时间格式 (例如：YYYY-MM-DDThh:mm:ssTZD) :\n"
+"\n"
+"YYYY - 年 (例如 2009)\n"
+"MM - 月 (例如 01 代表一月份)\n"
+"DD - 该月的一天 (例如 08)\n"
+"T - 一个必须的分隔符\n"
+"hh - 小时 (例如 22 代表 午后10：00)\n"
+"mm - 分钟 (例如 55)\n"
+"ss - 秒钟 (例如 03)\n"
+"TZD - 时区标示符 (Z 代表格林尼治标准时间)\n"
+
 #. Dialog construction
-#: src/plugin_htmlbar/html.c:2162
+#: src/plugin_htmlbar/html.c:2160
 msgid "Time"
 msgstr "Time标签"
 
-#: src/plugin_htmlbar/html.c:2168
+#: src/plugin_htmlbar/html.c:2166
 msgid "_Pubdate:"
 msgstr "发布日期(_P):"
 
-#: src/plugin_htmlbar/html.c:2174
+#: src/plugin_htmlbar/html.c:2172
 msgid "_Datetime:"
 msgstr "日期及时间(_D):"
 
-#: src/plugin_htmlbar/html.c:2218
+#: src/plugin_htmlbar/html.c:2216
 msgid "Embed"
 msgstr "嵌入"
 
-#: src/plugin_htmlbar/html.c:2239 src/plugin_htmlbar/html_table.c:145
+#: src/plugin_htmlbar/html.c:2237 src/plugin_htmlbar/html_table.c:145
 msgid "Bo_rder:"
 msgstr "边框(_r)："
 
-#: src/plugin_htmlbar/html.c:2279
+#: src/plugin_htmlbar/html.c:2277
 msgid "Script"
 msgstr "脚本"
 
-#: src/plugin_htmlbar/html.c:2308 src/plugin_htmlbar/html.c:2412
+#: src/plugin_htmlbar/html.c:2306 src/plugin_htmlbar/html.c:2410
 #: src/plugin_htmlbar/html_form.c:531 src/plugin_htmlbar/html_form.c:640
 msgid "_Type:"
 msgstr "类型(_T)："
 
-#: src/plugin_htmlbar/html.c:2370
+#: src/plugin_htmlbar/html.c:2368
 msgid "Link"
 msgstr "链接"
 
-#: src/plugin_htmlbar/html.c:2387
+#: src/plugin_htmlbar/html.c:2385
 msgid "HREF_LANG:"
 msgstr "被链接文档中文本的语言:"
 
-#: src/plugin_htmlbar/html.c:2390
+#: src/plugin_htmlbar/html.c:2388
 msgid "T_itle:"
 msgstr "标题(_T)："
 
-#: src/plugin_htmlbar/html.c:2435
+#: src/plugin_htmlbar/html.c:2433
 msgid "_Forward Relation:"
 msgstr "当前文档与被链接文档之间的关系(_F)："
 
-#: src/plugin_htmlbar/html.c:2440
+#: src/plugin_htmlbar/html.c:2438
 msgid "_Reverse Relation:"
 msgstr "被链接文档与当前文档之间的关系(_R)："
 
-#: src/plugin_htmlbar/html.c:2454
+#: src/plugin_htmlbar/html.c:2452
 msgid "Media:"
 msgstr "被链接文档将显示在什么设备上："
 
-#: src/plugin_htmlbar/html.c:2458
+#: src/plugin_htmlbar/html.c:2456
 msgid "L_ang:"
 msgstr "元素中内容的语言代码："
 
-#: src/plugin_htmlbar/html.c:2461
+#: src/plugin_htmlbar/html.c:2459
 msgid "_Custom:"
 msgstr "自定义(_C)："
 
@@ -2163,11 +2166,11 @@ msgstr "读取图像失败..."
 msgid "Loading file %s..."
 msgstr "正在载入文件 %s ..."
 
-#: src/plugin_htmlbar/image.c:456
+#: src/plugin_htmlbar/image.c:457
 msgid "Insert thumbnail"
 msgstr "插入相册"
 
-#: src/plugin_htmlbar/image.c:460 src/plugin_htmlbar/image_dialog.c:308
+#: src/plugin_htmlbar/image.c:461 src/plugin_htmlbar/image_dialog.c:314
 msgid "Preview"
 msgstr "预览"
 
@@ -2179,7 +2182,7 @@ msgstr "图像位置(_I)："
 msgid "Hei_ght:"
 msgstr "高度(_g)："
 
-#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:377
+#: src/plugin_htmlbar/image.c:500 src/plugin_htmlbar/image_dialog.c:380
 msgid "_Usemap:"
 msgstr "使用映射(_U)："
 
@@ -2187,11 +2190,11 @@ msgstr "使用映射(_U)："
 msgid "Alternate _text:"
 msgstr "替代文本(_t)："
 
-#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:414
+#: src/plugin_htmlbar/image.c:512 src/plugin_htmlbar/image_dialog.c:423
 msgid "_Hspace:"
 msgstr "水平间距(_H)："
 
-#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:418
+#: src/plugin_htmlbar/image.c:516 src/plugin_htmlbar/image_dialog.c:427
 msgid "_Vspace:"
 msgstr "垂直间距(_V)："
 
@@ -2247,31 +2250,31 @@ msgstr ""
 "相册宽度：%x  相册高度：%y\n"
 "原大小(字节)：%b"
 
-#: src/plugin_htmlbar/image_dialog.c:345
+#: src/plugin_htmlbar/image_dialog.c:351
 msgid "_Reset Dimensions"
 msgstr "重置尺寸(_R)"
 
-#: src/plugin_htmlbar/image_dialog.c:358
+#: src/plugin_htmlbar/image_dialog.c:361
 msgid "Alternate te_xt:"
 msgstr "替代文本(_x)："
 
-#: src/plugin_htmlbar/image_dialog.c:363
+#: src/plugin_htmlbar/image_dialog.c:366
 msgid "_Long description:"
 msgstr "冗长描述(_L)："
 
-#: src/plugin_htmlbar/image_dialog.c:372
+#: src/plugin_htmlbar/image_dialog.c:375
 msgid "I_D:"
 msgstr "I_D:"
 
-#: src/plugin_htmlbar/image_dialog.c:394
+#: src/plugin_htmlbar/image_dialog.c:403
 msgid "_Use Transitional options"
 msgstr "使用过渡选项(_U)"
 
-#: src/plugin_htmlbar/image_dialog.c:410
+#: src/plugin_htmlbar/image_dialog.c:419
 msgid "_Border:"
 msgstr "边框(_B)："
 
-#: src/plugin_htmlbar/image_dialog.c:713
+#: src/plugin_htmlbar/image_dialog.c:729
 #, c-format
 msgid ""
 "\n"
@@ -2280,7 +2283,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: src/plugin_htmlbar/image_dialog.c:718
+#: src/plugin_htmlbar/image_dialog.c:734
 #, c-format
 msgid ""
 "\n"
@@ -2289,7 +2292,7 @@ msgstr ""
 "\n"
 "%d x %d 像素"
 
-#: src/plugin_htmlbar/image_dialog.c:816
+#: src/plugin_htmlbar/image_dialog.c:832
 msgid ""
 "\n"
 "\n"
@@ -2301,80 +2304,80 @@ msgstr ""
 "\t<b>预览读取中...</b>\t\n"
 "\n"
 
-#: src/plugin_htmlbar/image_dialog.c:918
+#: src/plugin_htmlbar/image_dialog.c:934
 msgid "Select Image"
 msgstr "选择图像"
 
-#: src/plugin_htmlbar/image_dialog.c:925
+#: src/plugin_htmlbar/image_dialog.c:941
 msgid "All images"
 msgstr "所有图像"
 
-#: src/plugin_htmlbar/image_dialog.c:1136
-#: src/plugin_htmlbar/image_dialog.c:1237
+#: src/plugin_htmlbar/image_dialog.c:1157
+#: src/plugin_htmlbar/image_dialog.c:1260
 msgid "Insert Image"
 msgstr "插入图像"
 
-#: src/plugin_htmlbar/quickstart.c:516
+#: src/plugin_htmlbar/quickstart.c:513
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>外部的样式表(_x)</b>"
 
-#: src/plugin_htmlbar/quickstart.c:527
+#: src/plugin_htmlbar/quickstart.c:524
 msgid "Ty_pe:"
 msgstr "类型(_p)："
 
-#: src/plugin_htmlbar/quickstart.c:545
+#: src/plugin_htmlbar/quickstart.c:542
 msgid "HRE_F:"
 msgstr "被链接文档的位置(_F):"
 
-#: src/plugin_htmlbar/quickstart.c:550
+#: src/plugin_htmlbar/quickstart.c:547
 msgid "_Media:"
 msgstr "被链接文档将显示在什么设备上(_M)："
 
 #. TODO: add an option to place content in the style area
 #. * Possibly from a code snippet library
 #.
-#: src/plugin_htmlbar/quickstart.c:562
+#: src/plugin_htmlbar/quickstart.c:559
 msgid "<b>Style Area</b>"
 msgstr "<b>样式区</b>"
 
-#: src/plugin_htmlbar/quickstart.c:566
+#: src/plugin_htmlbar/quickstart.c:563
 msgid "Cre_ate empty style area"
 msgstr "创建空样式区(_a)"
 
-#: src/plugin_htmlbar/quickstart.c:588
+#: src/plugin_htmlbar/quickstart.c:582
 msgid "<b>Attributes</b>"
 msgstr "<b>属性</b>"
 
-#: src/plugin_htmlbar/quickstart.c:603
+#: src/plugin_htmlbar/quickstart.c:597
 msgid "_Src:"
 msgstr "源(_S)："
 
 #. TODO: add an option to place content in the script area
-#: src/plugin_htmlbar/quickstart.c:610
+#: src/plugin_htmlbar/quickstart.c:604
 msgid "<b>Script Area</b>"
 msgstr "<b>脚本区</b>"
 
-#: src/plugin_htmlbar/quickstart.c:614
+#: src/plugin_htmlbar/quickstart.c:608
 msgid "Cre_ate empty script area"
 msgstr "创建空脚本区"
 
-#: src/plugin_htmlbar/quickstart.c:641
+#: src/plugin_htmlbar/quickstart.c:635
 msgid "Quick Start"
 msgstr "快速启动"
 
-#: src/plugin_htmlbar/quickstart.c:656
+#: src/plugin_htmlbar/quickstart.c:652
 msgid "_DTD:"
 msgstr "文档类型定义 DTD(_D):"
 
-#: src/plugin_htmlbar/quickstart.c:660 src/plugin_htmlbar/wizards.c:201
+#: src/plugin_htmlbar/quickstart.c:656 src/plugin_htmlbar/wizards.c:201
 msgid "_Title:"
 msgstr "标题(_T)："
 
-#: src/plugin_htmlbar/quickstart.c:683
+#: src/plugin_htmlbar/quickstart.c:679
 msgid "_Head:"
 msgstr "头部(_H):"
 
-#: src/plugin_htmlbar/quickstart.c:700
+#: src/plugin_htmlbar/quickstart.c:696
 msgid "Open in _new document."
 msgstr "在新文档中打开(_n)。"
 
@@ -2433,6 +2436,18 @@ msgstr "源文件："
 #: src/plugin_htmlbar/wizards.c:237
 msgid "Size:"
 msgstr "大小："
+
+#~ msgid "_Update"
+#~ msgstr "更新(_U)"
+
+#~ msgid "The %s %s property already exists.\n"
+#~ msgstr "属性 %s %s 已存在。\n"
+
+#~ msgid "The %s property already exists.\n"
+#~ msgstr "属性 %s 已存在。\n"
+
+#~ msgid "Update its value from %s to %s?"
+#~ msgstr "更新 %s 为 %s吗？"
 
 #~ msgid "_Aside"
 #~ msgstr "Aside(_A)"
