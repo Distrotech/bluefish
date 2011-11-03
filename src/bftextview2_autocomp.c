@@ -34,6 +34,7 @@ typedef struct {
 	GtkWidget *win;
 	GtkListStore *store;
 	GtkTreeView *tree;
+	GtkWidget *scroll;
 	GtkWidget *reflabel;
 	gint listwidth;
 	gint w;
@@ -255,7 +256,7 @@ acwin_create(BluefishTextView * btv)
 {
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
-	GtkWidget *scroll, *hbox;
+	GtkWidget *hbox;
 	/* GtkWidget *vbar; */
 	Tacwin *acw;
 	GtkTreeSelection *selection;
@@ -274,10 +275,8 @@ acwin_create(BluefishTextView * btv)
 	g_object_unref(acw->store);
 
 	gtk_tree_view_set_headers_visible(acw->tree, FALSE);
-	scroll = gtk_scrolled_window_new(NULL, NULL);
-	/* vbar = gtk_scrolled_window_get_vscrollbar(GTK_SCROLLED_WINDOW(scroll));
-	   gtk_widget_set_size_request(vbar,10,-1); */
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+	acw->scroll = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(acw->scroll), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "markup", 0, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(acw->tree), column);
@@ -290,17 +289,17 @@ acwin_create(BluefishTextView * btv)
 
 	/*g_signal_connect_swapped(GTK_WINDOW(acw->win),"expose-event",G_CALLBACK(ac_paint),acw->win); */
 	/*gtk_window_set_position (GTK_WINDOW(acw->win), GTK_WIN_POS_MOUSE); */
-	gtk_container_add(GTK_CONTAINER(scroll), GTK_WIDGET(acw->tree));
+	gtk_container_add(GTK_CONTAINER(acw->scroll), GTK_WIDGET(acw->tree));
 
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), scroll, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), acw->scroll, FALSE, TRUE, 0);
 	acw->reflabel = gtk_label_new(NULL);
 	gtk_label_set_line_wrap(GTK_LABEL(acw->reflabel), TRUE);
 	gtk_misc_set_alignment(GTK_MISC(acw->reflabel), 0.1, 0.1);
 	gtk_box_pack_start(GTK_BOX(hbox), acw->reflabel, TRUE, TRUE, 0);
 	gtk_container_add(GTK_CONTAINER(acw->win), hbox);
 	/*gtk_widget_set_size_request(acw->reflabel,150,-1); */
-	gtk_widget_show_all(scroll);
+	gtk_widget_show_all(acw->scroll);
 	gtk_widget_show(hbox);
 	/*gtk_widget_set_size_request(GTK_WIDGET(acw->tree),100,200); */
 	/*gtk_widget_set_size_request(acw->win, 150, 200); */
@@ -381,7 +380,7 @@ acwin_calculate_window_size(Tacwin * acw, GList * items, GList * items2, const g
 		acw->w = acw->listwidth = MIN(len + 20, 350);
 		DBG_AUTOCOMP("numitems=%d, rowh=%d, new height=%d, listwidth=%d\n", numitems, rowh, acw->h,
 				acw->listwidth);
-		gtk_widget_set_size_request(GTK_WIDGET(acw->tree), acw->listwidth, acw->h);	/* ac_window */
+		gtk_widget_set_size_request(GTK_WIDGET(acw->scroll), acw->listwidth, acw->h);	/* ac_window */
 		g_free(longest);
 		g_object_unref(G_OBJECT(panlay));
 	}
