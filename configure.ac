@@ -460,13 +460,13 @@ PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
 AC_MSG_CHECKING([for Mac OSX integration])
 _gdk_tgt=`$PKG_CONFIG --variable=target gdk-2.0`
 if test "x$_gdk_tgt" = "xquartz"; then
-	BF_igemacintegration="ige-mac-integration"
+	BF_gtkmacintegration="gtk-mac-integration"
 	AC_MSG_RESULT([gdk target is $_gdk_tgt])
 	PKG_CHECK_MODULES(
-		[BLUEFISH_IGEMAC],
-		[$BF_igemacintegration],
+		[BLUEFISH_GTKMAC],
+		[$BF_gtkmacintegration],
 		[
-		 AC_DEFINE([MAC_INTEGRATION], [1], [Define to 1 for ige Mac OSX integration.])
+		 AC_DEFINE([MAC_INTEGRATION], [1], [Define to 1 for gtk Mac OSX integration.])
 		]
 	)
 else
@@ -624,8 +624,8 @@ fi
 dnl ************************
 dnl   Final Cflags/Libs
 dnl ************************
-CFLAGS="$CFLAGS $BLUEFISH_REQUIRED_CFLAGS $BLUEFISH_IGEMAC_CFLAGS"
-LIBS="$LIBS $BLUEFISH_REQUIRED_LIBS $BLUEFISH_IGEMAC_LIBS"
+CFLAGS="$CFLAGS $BLUEFISH_REQUIRED_CFLAGS $BLUEFISH_GTKMAC_CFLAGS"
+LIBS="$LIBS $BLUEFISH_REQUIRED_LIBS $BLUEFISH_GTKMAC_LIBS"
 
 
 dnl ************************
