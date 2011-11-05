@@ -18,7 +18,7 @@
  */
 
 #define HL_PROFILING
-/*#define DUMP_SCANCACHE*/
+#define DUMP_SCANCACHE
 
 /*#define VALGRIND_PROFILING*/
 
@@ -34,10 +34,10 @@
 #include "bftextview2_scanner.h"
 #include "bftextview2_identifier.h"
 
-/*#undef DBG_SCANCACHE
+#undef DBG_SCANCACHE
 #undef DBG_SCANNING
 #define DBG_SCANCACHE g_print
-#define DBG_SCANNING g_print*/
+#define DBG_SCANNING g_print
 
 /* use 
 G_SLICE=always-malloc valgrind --tool=memcheck --leak-check=full --num-callers=32 --freelist-vol=100000000 src/bluefish-unstable
@@ -815,10 +815,12 @@ this offset (and thus this is outdated), or this entry is invalid for some reaso
 static guint
 remove_invalid_cache(BluefishTextView * btv, guint match_end_o, Tscanning * scanning)
 {
-	guint invalidoffset;
+	guint invalidoffset=0;
 	DBG_SCANNING("remove_invalid_cache, scanning->nextfound=%p, scanning->curfblock=%p, scanning->curfblock=%p\n", scanning->nextfound, scanning->curfblock, scanning->curfblock);
 	do {
-		invalidoffset = remove_cache_entry(btv, &scanning->nextfound, &scanning->siter, scanning->curfblock, scanning->curfcontext);
+		gint ret = remove_cache_entry(btv, &scanning->nextfound, &scanning->siter, scanning->curfblock, scanning->curfcontext);
+		if (ret > invalidoffset) 
+			invalidoffset = ret; 
 	} while (scanning->nextfound && (scanning->nextfound->charoffset_o < match_end_o || !nextcache_valid(scanning)));
 	DBG_SCANNING("remove_invalid_cache, return invalidoffset %d\n", invalidoffset);
 	return invalidoffset; 
