@@ -22,8 +22,8 @@
 /*#define DEBUG*/
 
 #ifdef MAC_INTEGRATION
-/*#include <ige-mac-integration.h>*/
 #include <gtkosxapplication.h>
+#include <gtk-mac-menu.h>
 #endif
 
 #include <string.h>
@@ -1317,23 +1317,26 @@ bfwin_show_main(Tbfwin * bfwin)
 {
 #ifdef MAC_INTEGRATION
 	GtkWidget *menuitem;
-	GtkItemFactory *ifactory;
-
-	GtkOSXApplicationMenuGroup *group;
 	GtkOSXApplication *theApp = g_object_new(GTK_TYPE_OSX_APPLICATION, NULL);
 	gtk_widget_hide(bfwin->menubar);
 	gtk_osxapplication_set_menu_bar(theApp, GTK_MENU_SHELL(bfwin->menubar));
 	g_print("hide gtk menubar, set gtkosxapplication menubar\n");
-	/*ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 
-	menuitem = gtk_item_factory_get_widget(ifactory, _("/Edit/Preferences"));
-	group = gtk_osxapplication_add_app_menu_group(theApp);
-	gtk_osxapplication_add_app_menu_item(theApp, group, GTK_MENU_ITEM(menuitem));*/
+	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/EditMenu/EditPreferences");
+	gtk_osxapplication_insert_app_menu_item(theApp, menuitem,5);
 
+	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/HelpMenu/HelpAbout");
+	gtk_osxapplication_insert_app_menu_item(theApp, menuitem,5);
+	
+	menuitem = gtk_ui_manager_get_widget(bfwin->uimanager, "/MainMenu/FileMenu/FileQuit");
+	gtk_widget_hide(menuitem);
 
 	gtk_accel_map_foreach_unfiltered(NULL, osx_accel_map_foreach_controltometa_lcb);
 	gtk_accel_map_foreach_unfiltered(NULL, osx_accel_map_foreach_mod1tocontrol_lcb);
-/*	IgeMacMenuGroup *group;
+
+
+/*
+IgeMacMenuGroup *group;
 	gtk_widget_hide(bfwin->menubar);
 
 	ige_mac_menu_set_menu_bar(GTK_MENU_SHELL(bfwin->menubar));
