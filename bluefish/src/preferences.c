@@ -1622,6 +1622,7 @@ preferences_apply(Tprefdialog * pd)
 		while (tmplist) {
 			Tbfwin *bfwin = BFWIN(tmplist->data);
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling encoding_menu_rebuild\n");
+			lang_mode_menu_create(bfwin);
 			bfwin_commands_menu_create(bfwin);
 			bfwin_filters_menu_create(bfwin);
 			bfwin_outputbox_menu_create(bfwin);

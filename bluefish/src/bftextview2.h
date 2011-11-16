@@ -483,6 +483,7 @@ typedef struct {
 	gint size_matches;
 } Tbflang;
 
+#define BFLANG(var)  ((Tbflang *)var)
 
 /* Color Configuation data */
 typedef enum {
