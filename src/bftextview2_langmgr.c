@@ -269,19 +269,6 @@ langmgr_insert_user_option(gchar * lang, gchar * option, gchar * val)
 	}
 }
 
-void
-langmgr_reload_user_options(void)
-{
-	GList *tmplist;
-	g_hash_table_remove_all(langmgr.bflang_options);
-	for (tmplist = g_list_first(main_v->props.bflang_options); tmplist; tmplist = tmplist->next) {
-		gchar **arr = (gchar **) tmplist->data;
-		langmgr_insert_user_option(arr[0], arr[1], arr[2]);
-	}
-
-	/* we don't apply anything in this function (yet) */
-}
-
 static const gchar *
 lookup_user_option(const gchar * lang, const gchar * option)
 {
@@ -290,6 +277,27 @@ lookup_user_option(const gchar * lang, const gchar * option)
 		return g_hash_table_lookup(langmgr.bflang_options, arr);
 	}
 	return NULL;
+}
+
+void
+langmgr_reload_user_options(void)
+{
+	GList *tmplist;
+	const gchar *tmp;
+	g_hash_table_remove_all(langmgr.bflang_options);
+	for (tmplist = g_list_first(main_v->props.bflang_options); tmplist; tmplist = tmplist->next) {
+		gchar **arr = (gchar **) tmplist->data;
+		langmgr_insert_user_option(arr[0], arr[1], arr[2]);
+	}
+
+	/* loop over the languages and set some of the options */
+	
+	tmplist = g_list_first(langmgr.bflang_list);
+	while (tmplist) {
+		tmp = lookup_user_option(BFLANG(tmplist->data)->name, "show_in_menu");
+		BFLANG(tmplist->data)->in_menu = !(tmp && tmp[0] == '0');
+		tmplist = tmplist->next;
+	}
 }
 
 void

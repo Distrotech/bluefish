@@ -903,6 +903,22 @@ static const GtkActionEntry undo_redo_actions[] = {
 };
 
 static void
+dynamic_menu_empty(GtkUIManager *uimanager, guint merge_id, GtkActionGroup *action_group)
+{
+	GList *actions, *list;
+
+	gtk_ui_manager_remove_ui(uimanager, merge_id);
+	actions = gtk_action_group_list_actions(action_group);
+	for (list = actions; list; list = list->next) {
+		DEBUG_MSG("dynamic_menu_empty, remove action %s\n",gtk_action_get_label(list->data));
+		/*g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
+											 G_CALLBACK(commands_menu_activate), bfwin);*/
+		gtk_action_group_remove_action(action_group, GTK_ACTION(list->data));
+	}
+	g_list_free(actions);
+}
+
+static void
 lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
@@ -912,7 +928,7 @@ lang_mode_menu_activate(GtkAction * action, gpointer user_data)
 		doc_set_mimetype(bfwin->current_document, bflang->mimetypes->data, NULL);
 }
 
-static void
+void
 lang_mode_menu_create(Tbfwin * bfwin)
 {
 	GSList *group = NULL;
@@ -922,6 +938,8 @@ lang_mode_menu_create(Tbfwin * bfwin)
 	if (!bfwin->lang_mode_group) {
 		bfwin->lang_mode_group = gtk_action_group_new("LangModeActions");
 		gtk_ui_manager_insert_action_group(bfwin->uimanager, bfwin->lang_mode_group, 1);
+	} else {
+		dynamic_menu_empty(bfwin->uimanager,bfwin->lang_mode_merge_id, bfwin->lang_mode_group);
 	}
 
 	bfwin->lang_mode_merge_id = gtk_ui_manager_new_merge_id(bfwin->uimanager);
@@ -930,7 +948,6 @@ lang_mode_menu_create(Tbfwin * bfwin)
 		Tbflang *bflang = (Tbflang *) list->data;
 		if (bflang->in_menu) {
 			GtkRadioAction *action;
-	
 			action = gtk_radio_action_new(bflang->name, bflang->name, NULL, NULL, value);
 			gtk_action_group_add_action(bfwin->lang_mode_group, GTK_ACTION(action));
 			gtk_radio_action_set_group(action, group);
@@ -1202,22 +1219,6 @@ dynamic_menu_item_create(GtkUIManager *uimanager, GtkActionGroup *action_group,
 	gtk_ui_manager_add_ui(uimanager, merge_id,path, action_name,action_name, GTK_UI_MANAGER_MENUITEM, TRUE);
 	g_object_unref(action);
 } 
-
-static void
-dynamic_menu_empty(GtkUIManager *uimanager, guint merge_id, GtkActionGroup *action_group)
-{
-	GList *actions, *list;
-
-	gtk_ui_manager_remove_ui(uimanager, merge_id);
-	actions = gtk_action_group_list_actions(action_group);
-	for (list = actions; list; list = list->next) {
-		DEBUG_MSG("dynamic_menu_empty, remove action %s\n",gtk_action_get_label(list->data));
-		/*g_signal_handlers_disconnect_by_func(GTK_ACTION(list->data),
-											 G_CALLBACK(commands_menu_activate), bfwin);*/
-		gtk_action_group_remove_action(action_group, GTK_ACTION(list->data));
-	}
-	g_list_free(actions);
-}
 
 void
 bfwin_encoding_set_wo_activate(Tbfwin * bfwin, const gchar * encoding)
