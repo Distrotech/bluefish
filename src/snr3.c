@@ -478,6 +478,7 @@ snr3_run_loop_idle_func(Truninidle *rii)
 	g_free(s3run->curbuf);
 	s3run->curbuf=NULL;
 	s3run->idle_id = 0;
+	DEBUG_MSG("snr3_run_loop_idle_func, s3run=%p, ready, call queue_worker_ready()\n",s3run);
 	queue_worker_ready(&s3run->idlequeue);
 	snr3run_unrun(s3run); /* unrun currently only calls the callback if the refcount is zero, we can run that from here too ??? */
 	g_slice_free(Truninidle, rii);
@@ -536,6 +537,7 @@ static void
 update_callback(gpointer data)
 {
 	Tsnr3run *s3run=data;
+	g_print("update_callback, remove and re-apply all highlights in doc %p\n",s3run->bfwin->current_document);
 	remove_all_highlights_in_doc(s3run->bfwin->current_document);
 	highlight_run_in_doc(s3run, s3run->bfwin->current_document);
 }
@@ -555,7 +557,7 @@ snr3_run_in_doc(Tsnr3run *s3run, Tdocument *doc, gint so, gint eo, gboolean upda
 		rii->s3run->callback = update_callback;
 	}
 	
-	DEBUG_MSG("push doc %p on the idlequeue, len=%d\n",doc,s3run->idlequeue.q.length);
+	DEBUG_MSG("s3run=%p, push doc %p on the idlequeue, len=%d, update=%d\n",s3run, doc,s3run->idlequeue.q.length, update);
 	queue_push(&s3run->idlequeue, rii);
 }
 
@@ -697,6 +699,8 @@ snr3_cancel_run(Tsnr3run *s3run) {
 	if (s3run->idle_id) {
 		DEBUG_MSG("remove idle_id %d\n", s3run->idle_id);
 		g_source_remove(s3run->idle_id);
+		queue_worker_ready(&s3run->idlequeue);
+		g_atomic_int_set(&s3run->runcount,0);
 		/* TODO: BUG: MEMLEAK: the Truninidle is not free'ed now !?!?!?! */
 		s3run->idle_id=0;
 		s3run->curdoc=NULL;
@@ -862,6 +866,7 @@ highlight_simple_search(void *data) {
 static void
 snr3_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data) {
 	Tsnr3run *s3run=data;
+	DEBUG_MSG("snr3_curdocchanged_cb, olddoc=%p, newdoc=%p\n",olddoc,newdoc);
 	if (olddoc)
 		remove_all_highlights_in_doc(olddoc);
 	if (newdoc) {
@@ -878,7 +883,7 @@ static gboolean
 changed_idle_cb(gpointer data)
 {
 	Truninidle *rii = data;
-	DEBUG_MSG("startupdate_idle_cb\n");
+	DEBUG_MSG("startupdate_idle_cb, run from %d to %d, update=%d\n",rii->so, rii->eo, rii->update);
 	snr3_run_in_doc(rii->s3run, rii->doc, rii->so, rii->eo, rii->update);
 	/*g_slice_free(Truninidle, rii); handled bythe idle function destroy */
 	rii->s3run->changed_idle_id = 0;
@@ -934,6 +939,7 @@ handle_changed_in_snr3doc(Tsnr3run *s3run, Tdocument *doc, gint pos, gint len) {
 		}
 		/* and we'll restart it again */
 	}
+	DEBUG_MSG("register changed_idle_cb\n");
 	s3run->changed_idle_id = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+40,changed_idle_cb,rii,changed_destroy_cb);
 }
 
@@ -988,6 +994,7 @@ snr3run_new(Tbfwin *bfwin, gpointer dialog)
 } 
 
 void snr3run_unrun(Tsnr3run *s3run) {
+	DEBUG_MSG("snr3run_unrun, runcont=%d\n",s3run->runcount);
 	if (g_atomic_int_dec_and_test(&s3run->runcount)) {
 		DEBUG_MSG("runcount 0, run the callback\n");
 		s3run->callback(s3run);

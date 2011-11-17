@@ -51,6 +51,7 @@ queue_run(Tasyncqueue * queue)
 {
 	gboolean startednew=FALSE;
 	/* THE QUEUE MUTEX SHOULD BE LOCKED IF NEEDED WHEN CALLING THIS FUNCTION !!!!!!!!!!!!!!!!!!!!! */
+	DEBUG_MSG("queue_run %p, length=%d, worknum=%d, max_worknum=%d\n",queue, queue->q.length, queue->worknum, queue->max_worknum);
 	while (queue->q.length > 0 && queue->worknum < queue->max_worknum) {
 		gpointer item;
 		
@@ -59,12 +60,13 @@ queue_run(Tasyncqueue * queue)
 		if (queue->startinthread) {
 			GThread *thread;
 			GError *gerror=NULL;
-			DEBUG_MSG("create new thread, worknum now is %d\n",queue->worknum);
+			DEBUG_MSG("queue_run %p, create new thread, worknum now is %d\n",queue,queue->worknum);
 			thread = g_thread_create((GThreadFunc)queue->queuefunc, item, FALSE, &gerror);
 			queue->threads = g_slist_append(queue->threads, thread);
 		} else {
 			if (queue->lockmutex)
 				g_static_mutex_unlock(&queue->mutex);
+			DEBUG_MSG("queue_run %p, calling queuefunc(), worknum now is %d\n",queue,queue->worknum);
 			queue->queuefunc(item);
 			if (queue->lockmutex)
 				g_static_mutex_lock(&queue->mutex);
@@ -81,6 +83,7 @@ queue_worker_ready(Tasyncqueue * queue)
 	if (queue->lockmutex)
 		g_static_mutex_lock(&queue->mutex);
 	queue->worknum--;
+	DEBUG_MSG("queue_worker_ready %p, len=%d, worknum=%d\n",queue,queue->q.length, queue->worknum);
 	startednew = queue_run(queue);
 	if (queue->lockmutex)
 		g_static_mutex_unlock(&queue->mutex);
@@ -95,13 +98,13 @@ queue_worker_ready_inthread(Tasyncqueue *queue)
 	
 	if (!queue->q.tail) {
 		queue->worknum--;
-		DEBUG_MSG("queue_worker_ready_inthread, queue length %d, just return (end thread, worknum=%d)\n",g_queue_get_length(&queue->q),queue->worknum);
+		DEBUG_MSG("queue_worker_ready_inthread %p, queue length %d, just return (end thread, worknum=%d)\n",queue,g_queue_get_length(&queue->q),queue->worknum);
 		queue->threads = g_slist_remove(queue->threads, g_thread_self());
 		g_static_mutex_unlock(&queue->mutex);
 		return;
 	}
 	item = g_queue_pop_tail(&queue->q);
-	DEBUG_MSG("queue_worker_ready_inthread, queue length=%d, worknum=%d\n",g_queue_get_length(&queue->q), queue->worknum);
+	DEBUG_MSG("queue_worker_ready_inthread %p, queue length=%d, worknum=%d\n",queue,g_queue_get_length(&queue->q), queue->worknum);
 	g_static_mutex_unlock(&queue->mutex);
 	queue->queuefunc(item);
 }
@@ -112,6 +115,7 @@ queue_push(Tasyncqueue * queue, gpointer item)
 	if (queue->lockmutex)
 		g_static_mutex_lock(&queue->mutex);
 	g_queue_push_head(&queue->q, item);
+	DEBUG_MSG("queue_push %p, new queue length=%d, worknum=%d\n",queue,queue->q.length, queue->worknum);
 	queue_run(queue);
 	if (queue->lockmutex)
 		g_static_mutex_unlock(&queue->mutex);
