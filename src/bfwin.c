@@ -1197,9 +1197,11 @@ bfwin_create_main(Tbfwin * bfwin)
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook), main_v->props.document_tabposition);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(bfwin->notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(bfwin->notebook), FALSE);
-	/*gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(bfwin->notebook), 0);
-	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(bfwin->notebook), 0);*/
-	g_object_set(G_OBJECT(bfwin->notebook), "tab-border", 0, NULL);
+#if !GTK_CHECK_VERSION(3, 0, 0)
+	gtk_notebook_set_tab_border(GTK_NOTEBOOK(bfwin->notebook), 0);
+#endif
+	/*g_object_set(G_OBJECT(bfwin->notebook), "tab-fill", 0, NULL);
+	g_object_set(G_OBJECT(bfwin->notebook), "tab-curvature", 0, NULL);*/
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->notebook));
 
 	/* Add notebook and its fake friend to their common hbox. */

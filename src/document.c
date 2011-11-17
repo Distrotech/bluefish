@@ -2380,7 +2380,7 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 
 	DEBUG_MSG("doc_new_backend, appending doc to notebook\n");
 
-	hbox = gtk_hbox_new(FALSE, 2);
+	hbox = gtk_hbox_new(FALSE, 0);
 	button = bluefish_small_close_button_new();
 	g_signal_connect(button, "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
 	gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
