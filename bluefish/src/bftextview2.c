@@ -992,6 +992,9 @@ paint_spaces(BluefishTextView * btv, cairo_t *cr, GtkTextIter * startvisible,
 			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv), &iter, &rect);
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, rect.x,
 												  rect.y + rect.height / 1.5, &x, &y);
+#if GTK_CHECK_VERSION(3, 0, 0)
+			x += (BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_chars + BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_block + BLUEFISH_TEXT_VIEW(btv->master)->margin_pixels_symbol);
+#endif
 			if (uc == '\t' && (trailing || main_v->props.visible_ws_mode != 2)) {
 				/* draw tab */
 				cairo_move_to(cr, x + 3.5, y - 2.5);
