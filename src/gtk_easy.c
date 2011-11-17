@@ -89,7 +89,7 @@ treemodel_from_arraylist(GList * list, gint numcols)
 		if (g_strv_length(arr) >= numcols - 1) {
 			gtk_list_store_append(GTK_LIST_STORE(retm), &iter);
 			for (i = 0; i < numcols - 1; i++) {
-				g_print("set column %d to value %s\n", i, arr[i]);
+				/*g_print("set column %d to value %s\n", i, arr[i]);*/
 				gtk_list_store_set(GTK_LIST_STORE(retm), &iter, i, arr[i], -1);
 			}
 			gtk_list_store_set(GTK_LIST_STORE(retm), &iter, numcols - 1, arr, -1);
@@ -239,9 +239,10 @@ string_apply(gchar ** config_var, GtkWidget * widget)
 		tmpstring = g_strdup(gtk_font_button_get_font_name(GTK_FONT_BUTTON(widget)));
 	} else if (GTK_IS_COLOR_BUTTON(widget)) {
 		GdkColor color;
-
 		gtk_color_button_get_color(GTK_COLOR_BUTTON(widget), &color);
-		tmpstring = gdk_color_to_string(&color);
+		tmpstring = g_strdup_printf("#%02X%02X%02X", color.red/256, color.green/256, color.blue/256);
+		DEBUG_MSG("return color %s\n",tmpstring);
+		/*tmpstring = gdk_color_to_string(&color);*/
 	}
 #if GTK_CHECK_VERSION(2,24,0)
 	else if (GTK_IS_COMBO_BOX_TEXT(widget)) 
