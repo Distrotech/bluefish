@@ -1031,15 +1031,16 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	BluefishTextView *master = BLUEFISH_TEXT_VIEW(btv->master);
 	gboolean event_handled = FALSE;
+	GdkWindow *wleft, *wtext;
 	
 #if !GTK_CHECK_VERSION(3, 0, 0)
 	cairo_t *cr = gdk_cairo_create(event->window);
 #endif /* gtk3 */
-
+	wleft = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT);
 #if GTK_CHECK_VERSION(3, 0, 0)
-	if (gtk_cairo_should_draw_window (cr, gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT)))
+	if (wleft && gtk_cairo_should_draw_window(cr, wleft))
 #else
-	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT))
+	if (event->window == wleft)
 #endif /* gtk3 */ 
 	{
 		GtkTextIter startvisible, endvisible;
@@ -1053,11 +1054,11 @@ bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpose * event)
 		paint_margin(btv, cr, &startvisible, &endvisible);
 		event_handled = TRUE;
 	}
-
+	wtext = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT);
 #if GTK_CHECK_VERSION(3, 0, 0)
-	if (gtk_cairo_should_draw_window (cr, gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT)))
+	if (wtext && gtk_cairo_should_draw_window(cr, wtext))
 #else
-	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
+	if (event->window == wtext)
 #endif /* gtk3 */
 	{
 		if (gtk_widget_is_sensitive(GTK_WIDGET(btv))
