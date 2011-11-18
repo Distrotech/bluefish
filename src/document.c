@@ -567,24 +567,6 @@ doc_reset_filetype(Tdocument * doc, GFile * newuri, gconstpointer buf, gssize bu
 	g_free(conttype);
 }
 
-void
-doc_set_filename(Tdocument * doc, GFile * newuri)
-{
-	DEBUG_MSG("doc_set_filename, started\n");
-	if (newuri) {
-		gchar *buf;
-
-		if (doc->uri)
-			g_object_unref(doc->uri);
-		doc->uri = newuri;
-		g_object_ref(newuri);
-		doc_set_title(doc);
-		buf = doc_get_chars(doc, 0, -1);
-		doc_reset_filetype(doc, doc->uri, buf, strlen(buf));
-		g_free(buf);
-	}
-}
-
 /**
  * This function is taken from gtksourceview
  * Copyright (C) 2001
@@ -2418,7 +2400,9 @@ doc_new_loading_in_background(Tbfwin * bfwin, GFile * uri, GFileInfo * finfo, gb
 	} else {
 		doc->fileinfo = NULL;
 	}
-	doc_set_filename(doc, uri);
+	doc->uri = uri;
+	g_object_ref(doc->uri);
+	doc_set_title(doc);
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	bfwin_docs_not_complete(bfwin, TRUE);
 	return doc;
