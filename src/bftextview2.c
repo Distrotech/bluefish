@@ -1968,7 +1968,7 @@ bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 		GtkStyleContext *stc;
 		gchar *tmp;
 		GtkCssProvider *cssp = gtk_css_provider_new();
-		tmp = g_strdup_printf("GtkTextView.view {background-color: %s;}", colors[BTV_COLOR_ED_BG]);
+		tmp = g_strdup_printf("GtkTextView.view:focused {background-color: %s;}", colors[BTV_COLOR_ED_BG]);
 		gtk_css_provider_load_from_data(cssp, tmp, -1, NULL);
 		g_free(tmp);
 		stc = gtk_widget_get_style_context(GTK_WIDGET(btv));
