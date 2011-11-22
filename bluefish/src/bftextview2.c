@@ -1929,7 +1929,7 @@ bftextview2_parse_static_colors(void)
 		gdk_color_parse("#ff0000", &st_whitespace_color);
 	}
 #if !GTK_CHECK_VERSION(3,0,0)
-	if (main_v->props.btv_color_str[BTV_COLOR_CURSOR] != NULL
+	if (!main_v->props.use_system_colors && main_v->props.btv_color_str[BTV_COLOR_CURSOR] != NULL
 		&& main_v->props.btv_color_str[BTV_COLOR_CURSOR][0] != '\0') {
 		gchar *tmp;
 		tmp = g_strconcat("style \"bluefish-cursor\" {"
@@ -1964,7 +1964,7 @@ bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 {
 #if GTK_CHECK_VERSION(3,0,0)
 	GdkRGBA color;
-	if (colors[BTV_COLOR_ED_BG] && colors[BTV_COLOR_ED_BG][0] != '\0'){
+	if (!main_v->props.use_system_colors && colors[BTV_COLOR_ED_BG] && colors[BTV_COLOR_ED_BG][0] != '\0'){
 		GtkStyleContext *stc;
 		gchar *tmp;
 		GtkCssProvider *cssp = gtk_css_provider_new();
@@ -1979,24 +1979,24 @@ bluefish_text_view_set_colors(BluefishTextView * btv, gchar * const *colors)
 		if (btv->slave)
 			gtk_widget_override_background_color(GTK_WIDGET(btv->slave), GTK_STATE_NORMAL, &color);
 	}
-*/	if (colors[BTV_COLOR_ED_FG] && gdk_rgba_parse(&color,colors[BTV_COLOR_ED_FG])) {
+*/	if (!main_v->props.use_system_colors && colors[BTV_COLOR_ED_FG] && gdk_rgba_parse(&color,colors[BTV_COLOR_ED_FG])) {
 		gtk_widget_override_color(GTK_WIDGET(btv), GTK_STATE_NORMAL, &color);
 		if (btv->slave)
 			gtk_widget_override_color(GTK_WIDGET(btv->slave), GTK_STATE_NORMAL, &color);
 	}
-	if (colors[BTV_COLOR_CURSOR] && gdk_rgba_parse(&color,colors[BTV_COLOR_CURSOR])) {
+	if (!main_v->props.use_system_colors && colors[BTV_COLOR_CURSOR] && gdk_rgba_parse(&color,colors[BTV_COLOR_CURSOR])) {
 		gtk_widget_override_cursor(GTK_WIDGET(btv), &color, &color);
 		if (btv->slave)
 			gtk_widget_override_cursor(GTK_WIDGET(btv->slave), &color, &color);
 	}
 #else
 	GdkColor color;
-	if (colors[BTV_COLOR_ED_BG] && gdk_color_parse(colors[BTV_COLOR_ED_BG], &color)) {
+	if (!main_v->props.use_system_colors && colors[BTV_COLOR_ED_BG] && gdk_color_parse(colors[BTV_COLOR_ED_BG], &color)) {
 		gtk_widget_modify_base(GTK_WIDGET(btv), GTK_STATE_NORMAL, &color);
 		if (btv->slave)
 			gtk_widget_modify_base(GTK_WIDGET(btv->slave), GTK_STATE_NORMAL, &color);
 	}
-	if (colors[BTV_COLOR_ED_FG] && gdk_color_parse(colors[BTV_COLOR_ED_FG], &color)) {
+	if (!main_v->props.use_system_colors && colors[BTV_COLOR_ED_FG] && gdk_color_parse(colors[BTV_COLOR_ED_FG], &color)) {
 		gtk_widget_modify_text(GTK_WIDGET(btv), GTK_STATE_NORMAL, &color);
 		if (btv->slave)
 			gtk_widget_modify_text(GTK_WIDGET(btv->slave), GTK_STATE_NORMAL, &color);

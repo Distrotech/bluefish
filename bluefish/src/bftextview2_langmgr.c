@@ -125,8 +125,8 @@ skip_to_end_tag(xmlTextReaderPtr reader, int depth)
 }
 
 static GtkTextTag *
-langmrg_create_style(const gchar * name, const gchar * fgcolor, const gchar * bgcolor, gchar * bold,
-					 gchar * italic)
+langmrg_create_style(const gchar * name, const gchar * fgcolor, const gchar * bgcolor, const gchar * bold,
+					 const gchar * italic)
 {
 	GtkTextTag *tag;
 	gboolean newtag = FALSE;
@@ -175,16 +175,36 @@ langmrg_create_style(const gchar * name, const gchar * fgcolor, const gchar * bg
 	return tag;
 }
 
-static void
-langmgr_load_default_styles(void)
+static GtkTextTag **
+texttag_array_from_list(GList * thelist)
 {
 	gint i = 0;
-	/* init the textstyles, most important on the bottom
-	   order of the items is {name, foreground, background, bold, italic} */
-	const gchar *arr[][7] = {
+	GList *tmplist;
+	GtkTextTag **retval = (GtkTextTag **) g_new0(gpointer, g_list_length(thelist) + 1);
+	for (tmplist = g_list_first(thelist); tmplist; tmplist = tmplist->next) {
+		retval[i] = tmplist->data;
+		i++;
+	}
+	g_list_free(thelist);
+	return retval;
+}
+
+void
+langmgr_reload_user_styles(void)
+{
+	GList *tmplist, *highlightlist = NULL;
+#ifdef HAVE_LIBENCHANT
+	GList *needlist = NULL, *noscanlist = NULL;
+#endif
+	gint i=0;
+	GtkTextTag *tag;
+	const gchar *defaultarr[][7] = {
 		{"preprocessor", "#aaaa00", "", "0", "0", "0", NULL},
 		{"comment", "#555555", "", "0", "1", "1", NULL},
 		{"string", "#009900", "", "0", "0", "1", NULL},
+		{"special-string", "#005400", "", "0", "0", "1", NULL},
+		{"special-string2", "#00D000", "", "0", "0", "1", NULL},
+		{"special-string3", "#999900", "", "0", "0", "1", NULL},
 		{"type", "", "", "1", "0", "0", NULL},
 		{"special-type", "#990000", "", "1", "", "0", NULL},
 		{"function", "#000099", "", "0", "0", "0", NULL},
@@ -206,41 +226,9 @@ langmgr_load_default_styles(void)
 		{"special-warning", "", "#FF0000", "", "", "", NULL},
 		{NULL, NULL, NULL, NULL, NULL, NULL, NULL}
 	};
-	while (arr[i][0]) {
-		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv((gchar **) arr[i]));
-		i++;
-	}
-}
-
-static GtkTextTag **
-texttag_array_from_list(GList * thelist)
-{
-	gint i = 0;
-	GList *tmplist;
-	GtkTextTag **retval = (GtkTextTag **) g_new0(gpointer, g_list_length(thelist) + 1);
-	for (tmplist = g_list_first(thelist); tmplist; tmplist = tmplist->next) {
-		retval[i] = tmplist->data;
-		i++;
-	}
-	g_list_free(thelist);
-	return retval;
-}
-
-void
-langmgr_reload_user_styles(void)
-{
-	GList *tmplist, *highlightlist = NULL;
-#ifdef HAVE_LIBENCHANT
-	GList *needlist = NULL, *noscanlist = NULL;
-#endif 
-	if (main_v->props.textstyles == NULL) {
-		langmgr_load_default_styles();
-	}
-
 	/* because the order of the styles is important (last added GtkTextTag is most important)
 	   we begin with the last style in the list */
 	for (tmplist = g_list_last(main_v->props.textstyles); tmplist; tmplist = tmplist->prev) {
-		GtkTextTag *tag;
 		gchar **arr = (gchar **) tmplist->data;
 		if (g_strv_length(arr) == 6) {
 			tag = langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
@@ -253,6 +241,22 @@ langmgr_reload_user_styles(void)
 #endif
 		}
 	}
+	/* now see if all the default styles are defined, if not -> add them */
+	while (defaultarr[i][0]) {
+		if (gtk_text_tag_table_lookup(langmgr.tagtable, defaultarr[i][0])==NULL) {
+			tag = langmrg_create_style(defaultarr[i][0], defaultarr[i][1], defaultarr[i][2], defaultarr[i][3], defaultarr[i][4]);
+			highlightlist = g_list_prepend(highlightlist, tag);
+#ifdef HAVE_LIBENCHANT
+			if (defaultarr[i][5][0] == '1')
+				needlist = g_list_prepend(needlist, tag);
+			else
+				noscanlist = g_list_prepend(noscanlist, tag);
+#endif
+			main_v->props.textstyles = g_list_append(main_v->props.textstyles, g_strdupv((gchar **) defaultarr[i]));
+		}
+		i++;
+	}
+	
 	langmgr.highlight_tags = texttag_array_from_list(highlightlist);
 #ifdef HAVE_LIBENCHANT
 	langmgr.need_spellcheck_tags = texttag_array_from_list(needlist);

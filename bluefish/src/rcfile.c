@@ -482,8 +482,9 @@ props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.open_in_new_window, "open_in_new_window:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.register_recent_mode, "register_recent_mode:", 2, TRUE);
 	init_prop_arraylist(&config_rc, &main_v->props.plugin_config, "plugin_config:", 3, TRUE);
-	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_FG], "editor_fg:", "#000000");
-	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_BG], "editor_bg:", "#FFFFFF");
+	init_prop_integer(&config_rc, &main_v->props.use_system_colors, "use_system_colors:", 1, TRUE);
+	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_FG], "editor_fg:", "");
+	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_ED_BG], "editor_bg:", "");
 	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE], "cline_bg:",
 					 "#E0E0E0");
 	init_prop_string(&config_rc, &main_v->props.btv_color_str[BTV_COLOR_WHITESPACE], "visible_ws:",

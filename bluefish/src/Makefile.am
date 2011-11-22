@@ -7,7 +7,8 @@ SUBDIRS = pixmaps\
 	plugin_htmlbar\
 	plugin_infbrowser\
 	plugin_snippets\
-	plugin_charmap
+	plugin_charmap\
+	plugin_zencoding
 
 #	plugin_xmltools
 
