@@ -22,8 +22,4 @@
 void snr3_run_in_files_cancel(Tsnr3run *s3run);
 void snr3_run_in_files(Tsnr3run *s3run);
 
-#ifndef HAVE_STRCASESTR
-char *strcasestr(char *a, char *b);
-#endif
-
 #endif /* __SNR3_FILES_H_ */

@@ -2172,11 +2172,13 @@ preferences_dialog_new(void)
 		dialog_spin_button_in_table(3, 25, main_v->props.max_recent_files, table, 1, 2, 0, 1);
 	dialog_mnemonic_label_in_table(_("_Number of files in 'Open recent' menu:"), pd->prefs[max_recent_files],
 								   table, 0, 1, 0, 1);
+#ifndef WIN32
 	pd->prefs[register_recent_mode] =
 		dialog_combo_box_text_in_table(registerrecentmodes, main_v->props.register_recent_mode, table, 1, 4,
 									   1, 2);
 	dialog_mnemonic_label_in_table(_("_Register recent files with your desktop:"),
 								   pd->prefs[register_recent_mode], table, 0, 1, 1, 2);
+#endif
 
 	vbox2 = dialog_vbox_labeled(_("<b>Sidebar</b>"), vbox1);
 	table = dialog_table_in_vbox_defaults(2, 2, 0, vbox2);
