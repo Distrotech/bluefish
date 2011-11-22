@@ -39,7 +39,8 @@ zeneditor_set_context(Tzeneditor *self, PyObject *args)
 {
 	PyObject *context = NULL;
 	if (PyArg_ParseTuple(args, "O", &context)) {
-		self->context = (Tdocument *)context;
+		self->context = (Tdocument *)PyLong_AsVoidPtr(context);
+		g_print("zeneditor_set_context, got document %p\n",self->context);
 	}
 	Py_RETURN_NONE;
 }
@@ -49,8 +50,12 @@ zeneditor_get_selection_range(Tzeneditor *self, PyObject *args)
 {
 	PyObject *result;
 	gint start, end;
-	doc_get_selection(DOCUMENT(self->context), &start, &end);
+	if (!doc_get_selection(DOCUMENT(self->context), &start, &end)) {
+		start = end = -1;
+	}
+	g_print("zeneditor_get_selection_range, return %d:%d\n",start, end);
 	result = Py_BuildValue("(ii)", start, end);
+	g_print("zeneditor_get_selection_range, return %d:%d\n",start, end);
 	return result;
 }
 
@@ -84,6 +89,7 @@ zeneditor_get_current_line_range(Tzeneditor *self, PyObject *args)
 	gtk_text_iter_set_line_offset(&itstart, 0);
 	gtk_text_iter_forward_to_line_end(&itend);
 	result = Py_BuildValue("ii", gtk_text_iter_get_offset(&itstart), gtk_text_iter_get_offset(&itend));
+	g_print("zeneditor_get_current_line_range, return %d:%d\n",gtk_text_iter_get_offset(&itstart), gtk_text_iter_get_offset(&itend));
 	return result;
 }
 
@@ -95,6 +101,7 @@ zeneditor_get_caret_pos(Tzeneditor *self, PyObject *args)
 	gtk_text_buffer_get_iter_at_mark(DOCUMENT(self->context)->buffer, &itstart, 
 				gtk_text_buffer_get_insert(DOCUMENT(self->context)->buffer));
 	result = Py_BuildValue("i", gtk_text_iter_get_offset(&itstart));
+	g_print("zeneditor_get_caret_pos, return %d\n",gtk_text_iter_get_offset(&itstart));
 	return result;
 }
 
@@ -126,6 +133,7 @@ zeneditor_get_current_line(Tzeneditor *self, PyObject *args)
 	gtk_text_iter_forward_to_line_end(&itend);
 
 	text = gtk_text_buffer_get_text(DOCUMENT(self->context)->buffer, &itstart, &itend, TRUE);
+	g_print("zeneditor_get_current_line, return %s\n",text);
 	result = Py_BuildValue("s", text);
 	g_free(text);
 	return result;
@@ -133,7 +141,13 @@ zeneditor_get_current_line(Tzeneditor *self, PyObject *args)
 
 static inline const gchar *
 get_caret_placeholder(PyObject *mod) {
-	PyObject *pcaret_placeholder = PyObject_GetAttrString(mod, "caret_placeholder");
+	/*PyObject *pcaret_placeholder = PyObject_GetAttrString(mod, "caret_placeholder");*/
+	PyObject *pcaret_placeholder = PyObject_CallMethod(mod, "getCaretPlaceholder", NULL);
+	if (!pcaret_placeholder) {
+		if (PyErr_Occurred()) PyErr_Print();
+		g_print("failed to get placeholder\n");
+		return "{%::zen-caret::%}";
+	}
 	return (const gchar *)PyString_AsString(pcaret_placeholder);
 }
 
@@ -156,6 +170,7 @@ zeneditor_replace_content(Tzeneditor *self, PyObject *args)
 		tmp1 = g_strndup(text, tmp2-text+strlen(placeholder));
 		
 		if (start >= 0 && end == -1) {
+			g_print("zeneditor_replace_content, insert at cursor\n");
 			doc_insert_two_strings(self->context, tmp1, tmp2);
 		} else {
 			gchar *complete;
@@ -164,6 +179,7 @@ zeneditor_replace_content(Tzeneditor *self, PyObject *args)
 				start = 0;
 			}
 			complete = g_strconcat(tmp1, tmp2, NULL);
+			g_print("zeneditor_replace_content, replace from %d:%d\n",start, end);
 			doc_replace_text(self->context, complete, start, end);
 			g_free(complete);
 			gtk_text_buffer_get_iter_at_offset(DOCUMENT(self->context)->buffer, &itstart, tmp2-text);
@@ -183,6 +199,7 @@ zeneditor_get_content(Tzeneditor *self, PyObject *args)
 	gchar *text;
 	text = doc_get_chars(self->context, 0, -1);
 	result = PyString_FromString(text);
+	g_print("zeneditor_get_content\n");
 	g_free(text);
 	return result;
 }
@@ -190,6 +207,7 @@ zeneditor_get_content(Tzeneditor *self, PyObject *args)
 static PyObject *
 zeneditor_get_syntax(Tzeneditor *self, PyObject *args)
 {
+	g_print("zeneditor_get_syntax\n");
 	/* TODO: which syntaxes does zeneditor support ?? */
 	return PyString_FromString("html");
 }
@@ -197,6 +215,7 @@ zeneditor_get_syntax(Tzeneditor *self, PyObject *args)
 static PyObject *
 zeneditor_get_profile_name(Tzeneditor *self, PyObject *args)
 {
+	g_print("zeneditor_get_profile_name\n");
 	if (self->profile) {
 		return PyString_FromString(self->profile);
 	}
@@ -207,7 +226,7 @@ zeneditor_prompt(Tzeneditor *self, PyObject *args)
 {
 	PyObject *result;
 	gchar *title = NULL;
-
+	g_print("zeneditor_prompt\n");
 	if (PyArg_ParseTuple(args, "s", &title)) {
 		GtkWidget *dialog, *entry;
 		const gchar *retval=NULL;
@@ -240,12 +259,15 @@ zeneditor_get_selection(Tzeneditor *self, PyObject *args)
 {
 	PyObject *result;
 	gint start,end;
+	
 	if (doc_get_selection(self->context, &start, &end)) {
 		gchar *text = doc_get_chars(self->context, start, end);
 		result = Py_BuildValue("s", text);
+		g_print("zeneditor_get_selection, return %s\n", text);
 		g_free(text);
 		return result;
 	}
+	g_print("zeneditor_get_selection, NO SELECTION\n");
 	Py_RETURN_NONE;
 }
 
@@ -255,6 +277,7 @@ zeneditor_get_file_path(Tzeneditor *self, PyObject *args)
 	PyObject *result;
 	gchar *path = g_file_get_path(DOCUMENT(self->context)->uri);
 	result = Py_BuildValue("s", path);
+	g_print("zeneditor_get_file_path, return %s\n",path);
 	g_free(path);
 	return result;
 }

@@ -27,60 +27,71 @@
 #include "../plugins.h"
 #include "../bfwin.h"
 
-Tzencoding zencoding = {NULL};
+Tzencoding zencoding = {NULL, NULL};
 
-static void
+static gboolean
 init_python(void) {
-	PyObject *module;
+	PyObject *mod/*, *interface*/;
+	
+	g_print("init_python()\n");
 	Py_Initialize();
 	PyRun_SimpleString("import sys");
 	g_print("set zencoding path to "PKGDATADIR"/plugins/zencoding/\n");
 	PyRun_SimpleString("sys.path.append('"PKGDATADIR"/plugins/zencoding/')");
-	module = PyImport_ImportModule("zencoding");
-	if (!module) {
-		if (PyErr_Occurred()) PyErr_Print();
-		g_print("did not found zencoding, abort\n");
-		return;
-	}
-	/* now call my own module */
-	zencoding.module = zeneditor_module_init();
+	zencoding.module = PyImport_ImportModule("zencoding");
 	if (!zencoding.module) {
 		if (PyErr_Occurred()) PyErr_Print();
-		return;
+		g_print("did not found zencoding, abort\n");
+		return FALSE;
 	}
+	/* now call my own module */
+	mod = zeneditor_module_init();
+	if (!mod) {
+		if (PyErr_Occurred()) PyErr_Print();
+		g_print("failed to initialize zeneditor-interface module\n");
+		return FALSE;
+	}
+	
+	zencoding.editor = PyObject_CallMethod(mod, "zeneditor", NULL);
+	if (!zencoding.editor) {
+		if (PyErr_Occurred()) PyErr_Print();
+		g_print("failed to get editor interface\n");
+		return FALSE;
+	}
+	
+	/*interface = PyObject_GetAttrString(mod, "zeneditor");
+	if (!interface) {
+		if (PyErr_Occurred()) PyErr_Print();
+		g_print("failed to get zeneditor interface module\n");
+		return FALSE;
+	}
+	zencoding.editor = PyObject_CallObject(interface, NULL);
+	if (!zencoding.editor) {
+		if (PyErr_Occurred()) PyErr_Print();
+		g_print("failed to get editor interface\n");
+		return FALSE;
+	}
+	Py_XDECREF(interface);*/
+	return TRUE;
 }
 
 static void
 zencoding_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data) {
-	PyObject *cls, *editor, *set_context;
 	PyObject *ptr, *result;
 	
 	g_print("zencoding_curdocchanged_cb, started for newdoc %p\n",newdoc);
 	
-	if (!zencoding.module)
+	if (!zencoding.module || !zencoding.editor) {
 		return;
+	}
 	
 	if (!newdoc) {
 		g_print("zencoding_curdocchanged_cb, no newdoc\n");
 		return;
 	}
-	
-	cls = PyObject_GetAttrString(zencoding.module, "ZenEditor");
-	if (!cls) {
-		if (PyErr_Occurred()) PyErr_Print();
-		g_print("failed to get ZenEditor\n");
-		return;
-	}
-
-	editor = PyObject_CallObject(cls, NULL);
-	if (!editor) {
-		if (PyErr_Occurred()) PyErr_Print();
-		g_print("failed to get editor\n");
-		return;
-	}
-
 	ptr = PyLong_FromVoidPtr((void *) newdoc);
-	result = PyObject_CallMethod(editor, "set_context", "O", ptr);
+	g_print("calling set_context for document %p wrapped in python object %p\n",newdoc, ptr);
+	result = PyObject_CallMethod(zencoding.editor, "set_context", "O", ptr);
 	if (!result) {
 		if (PyErr_Occurred()) PyErr_Print();
 		g_print("failed to call set_context()\n");
@@ -88,46 +99,55 @@ zencoding_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, 
 	}
 	Py_XDECREF(result);
 	Py_XDECREF(ptr);
-	Py_XDECREF(editor);
-	Py_XDECREF(cls);
 }
+/*******************************************************************/
+/*   GUI callbacks */
+/*******************************************************************/
 
-/*******************************************************************/
-/*   general plugin functions below */
-/*******************************************************************/
 static void
-zencoding_init(void)
-{
-#ifdef ENABLE_NLS
-	DEBUG_MSG("zencoding_init, gettext domain-name=%s\n", PACKAGE "_plugin_zencoding");
-	bindtextdomain(PACKAGE "_plugin_zencoding", LOCALEDIR);
-	bind_textdomain_codeset(PACKAGE "_plugin_zencoding", "UTF-8");
-#endif							/* ENABLE_NLS */
-	init_python();
+zencoding_expand_cb(GtkAction *action, gpointer user_data) {
+	Tbfwin *bfwin = user_data;
+	PyObject *result;
 	
+	if (!zencoding.module || !zencoding.editor) {
+		if (!init_python())
+			return;
+		zencoding_curdocchanged_cb(bfwin, NULL, bfwin->current_document, NULL);
+	}
+	g_print("zencoding_expand_cb, calling run_action expand_abbreviation\n");
+	result = PyObject_CallMethod(zencoding.module, "run_action", "sO", "expand_abbreviation", zencoding.editor);
+	if (!result) {
+		if (PyErr_Occurred()) PyErr_Print();
+		g_print("failed to call run_action()\n");
+	}
+	Py_XDECREF(result);
 }
 
-/*static const gchar *zencoding_plugin_ui =
+/*******************************************************************/
+/*   GUI */
+/*******************************************************************/
+
+static const gchar *zencoding_plugin_ui =
 	"<ui>"
-	"  <menubar name='MainMenu'>"
-	"    <menu action='ToolsMenu'>"
-	"      <separator/>"
-	"      <menuitem action='XmlOpenIncludes'/>"
-	"    </menu>"
-	"  </menubar>"
-	"</ui>";*/
+		"<menubar name='MainMenu'>"
+			"<menu action='ZencodingMenu'>"
+				"<menuitem action='ExpandZenCoding'/>"
+			"</menu>"
+		"</menubar>"
+	"</ui>";
 
 static void
 zencoding_initgui(Tbfwin * bfwin)
 {
 	bfwin_current_document_change_register(bfwin, zencoding_curdocchanged_cb, NULL);
 	
-/*	GtkActionGroup *action_group;
+	GtkActionGroup *action_group;
 	GError *error = NULL;
 
 	static const GtkActionEntry zencoding_actions[] = {
-		{"XmlOpenIncludes", NULL, N_("Open XML includes"), NULL,
-		 N_("Open included xml files"), G_CALLBACK(zencoding_open_included)}
+		{"ZencodingMenu", NULL, N_("_Zencoding")},
+		{"ExpandZenCoding", NULL, N_("Expand zen-coding"), NULL,
+		 N_("Expand zen-code at cursor"), G_CALLBACK(zencoding_expand_cb)}
 	};
 
 	action_group = gtk_action_group_new("zencodingActions");
@@ -140,8 +160,23 @@ zencoding_initgui(Tbfwin * bfwin)
 	if (error != NULL) {
 		g_warning("building zencoding plugin menu failed: %s", error->message);
 		g_error_free(error);
-	}*/
+	}
 }
+
+/*******************************************************************/
+/*   general plugin functions below */
+/*******************************************************************/
+
+static void
+zencoding_init(void)
+{
+#ifdef ENABLE_NLS
+	DEBUG_MSG("zencoding_init, gettext domain-name=%s\n", PACKAGE "_plugin_zencoding");
+	bindtextdomain(PACKAGE "_plugin_zencoding", LOCALEDIR);
+	bind_textdomain_codeset(PACKAGE "_plugin_zencoding", "UTF-8");
+#endif							/* ENABLE_NLS */
+}
+
 
 static void
 zencoding_enforce_session(Tbfwin * bfwin)
