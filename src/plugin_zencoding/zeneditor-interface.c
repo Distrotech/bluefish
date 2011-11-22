@@ -3,9 +3,30 @@
  *
  * Copyright (C) 2011 Olivier Sessink
  *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+see https://github.com/sergeche/zen-coding/blob/master/python/zencoding/interface/editor.py
+for the description of the zen-editor interface
+*/
+
 #include <Python.h>
+
+#include "zencoding.h"
+#include "../document.h"
+
 
 typedef struct {
 	PyObject_HEAD
@@ -16,9 +37,9 @@ typedef struct {
 static PyObject *
 zeneditor_set_context(Tzeneditor *self, PyObject *args)
 {
-	PyObject *context = NULL, *tmp;
+	PyObject *context = NULL;
 	if (PyArg_ParseTuple(args, "O", &context)) {
-		self->context = context;
+		self->context = (Tdocument *)context;
 	}
 	Py_RETURN_NONE;
 }
@@ -113,14 +134,13 @@ zeneditor_get_current_line(Tzeneditor *self, PyObject *args)
 static inline const gchar *
 get_caret_placeholder(PyObject *mod) {
 	PyObject *pcaret_placeholder = PyObject_GetAttrString(mod, "caret_placeholder");
-	return = (const gchar *)PyString_AsString(pcaret_placeholder);
+	return (const gchar *)PyString_AsString(pcaret_placeholder);
 }
 
 
 static PyObject *
 zeneditor_replace_content(Tzeneditor *self, PyObject *args)
 {
-	PyObject *result;
 	gchar *text;
 	gint start=-1, end=-1;
 	if (PyArg_ParseTuple(args, "s|ii", &text, &start, &end))	{
@@ -131,8 +151,8 @@ zeneditor_replace_content(Tzeneditor *self, PyObject *args)
 		if only end is -1 we insert starting at the current cursor position
 		
 		we also have to check if there is a caret placeholder in 'text' */
-		placeholder = get_caret_placeholder(self->mod);
-		tmp2 = g_strstr_len(text, placeholder, -1);
+		placeholder = get_caret_placeholder(zencoding.module);
+		tmp2 = g_strstr_len(text, -1, placeholder);
 		tmp1 = g_strndup(text, tmp2-text+strlen(placeholder));
 		
 		if (start >= 0 && end == -1) {
@@ -188,10 +208,10 @@ zeneditor_prompt(Tzeneditor *self, PyObject *args)
 	PyObject *result;
 	gchar *title = NULL;
 
-	if (PyArg_ParseTuple(args, "s", &title))
-		GtkWidget *win, *entry;
+	if (PyArg_ParseTuple(args, "s", &title)) {
+		GtkWidget *dialog, *entry;
 		const gchar *retval=NULL;
-		win = gtk_dialog_new_with_buttons(title, GTK_WINDOW(BFWIN(DOCUMENT(self->context)->bfwin)->main_window),
+		dialog = gtk_dialog_new_with_buttons(title, GTK_WINDOW(BFWIN(DOCUMENT(self->context)->bfwin)->main_window),
 					GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,
 					GTK_STOCK_OK,GTK_RESPONSE_ACCEPT,NULL);
 		gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
@@ -199,18 +219,18 @@ zeneditor_prompt(Tzeneditor *self, PyObject *args)
 
 		entry = gtk_entry_new();
 		gtk_entry_set_activates_default(GTK_ENTRY(entry), TRUE);
-		gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), input, TRUE, TRUE, 0);
-		gtk_widget_show_all(win);
+		gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), entry, TRUE, TRUE, 0);
+		gtk_widget_show_all(dialog);
 	
-		if (gtk_dialog_run(GTK_DIALOG(win)) == GTK_RESPONSE_ACCEPT)
+		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
 			retval = gtk_entry_get_text(GTK_ENTRY(entry));
 		if (!retval || retval[0]=='\0') {
-			g_free(retval);
+			gtk_widget_destroy(dialog);
 			Py_RETURN_NONE;
 		}
 		result = PyString_FromString(retval);
 		gtk_widget_destroy(dialog);
-		return result
+		return result;
 	}
 	Py_RETURN_NONE;
 }
@@ -221,7 +241,7 @@ zeneditor_get_selection(Tzeneditor *self, PyObject *args)
 	PyObject *result;
 	gint start,end;
 	if (doc_get_selection(self->context, &start, &end)) {
-		text = doc_get_chars(self->context, start, end);
+		gchar *text = doc_get_chars(self->context, start, end);
 		result = Py_BuildValue("s", text);
 		g_free(text);
 		return result;
@@ -259,7 +279,7 @@ static PyObject *
 zeneditor_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
 {
 	Tzeneditor *self;
-	self = (zeneditor *)type->tp_alloc(type, 0);
+	self = (Tzeneditor *)type->tp_alloc(type, 0);
 	if (self != NULL) {
 		self->profile = g_strdup("xhtml");
 		self->context = NULL;
@@ -272,8 +292,7 @@ zeneditor_init(Tzeneditor *self, PyObject *args, PyObject *kwds)
 {
 	PyObject *context = NULL;
 	PyObject *profile = NULL;
-	PyObject *tmp, *mod, *caret_ph;
-	const gchar *ph;
+	PyObject *mod;
 	static gchar *kwlist[] = { "profile", "context", NULL };
 
 	if (!self->profile)
@@ -291,14 +310,19 @@ zeneditor_init(Tzeneditor *self, PyObject *args, PyObject *kwds)
 	}
 
 	mod = PyImport_ImportModule("zencoding.utils");
-	if (mod == NULL)
-	{
-		if (PyErr_Occurred())
-			PyErr_Print();
+	if (mod == NULL) {
+		if (PyErr_Occurred()) PyErr_Print();
 		return -1;
 	}
 	Py_XDECREF(mod);
 	return 0;
+}
+
+static void
+zeneditor_dealloc()
+{
+	g_print("zeneditor_dealloc, TODO, NOT IMPLEMENTED YET\n");
+	
 }
 
 static PyMethodDef zeneditor_methods[] = {
@@ -324,7 +348,7 @@ static PyTypeObject zeneditorType = {
 	PyObject_HEAD_INIT(NULL)
     0,                         /*ob_size*/
     "bluefish.zeneditor",         /*tp_name*/
-    sizeof(zeneditor),         /*tp_basicsize*/
+    sizeof(Tzeneditor),         /*tp_basicsize*/
     0,                         /*tp_itemsize*/
     (destructor)zeneditor_dealloc, /*tp_dealloc*/
     0,                         /*tp_print*/
@@ -371,7 +395,7 @@ PyObject *zeneditor_module_init(void) {
 
 	zeneditorType.tp_new = PyType_GenericNew;
 	if (PyType_Ready(&zeneditorType) < 0)
-		return;
+		return NULL;
 
 	m = Py_InitModule3("bluefish_zeneditor", Module_methods, "Bluefish zeneditor interface");
 

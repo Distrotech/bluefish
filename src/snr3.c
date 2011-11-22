@@ -844,9 +844,11 @@ threaded_all_ready(void *data) {
 	if (s3run->dialog) {
 		gchar *tmp;
 		if (s3run->replaceall) {
-			tmp = g_strdup_printf(_("<i>Replaced %d entries</i>"), g_queue_get_length(&s3run->results));
+			gint count = g_queue_get_length(&s3run->results);
+			tmp = g_strdup_printf(ngettext("<i>Replaced %d entry</i>", "<i>Replaced %d entries</i>", count), count);
 		} else {
-			tmp = g_strdup_printf(_("<i>Found %d entries</i>"), g_queue_get_length(&s3run->results));
+			gint count = g_queue_get_length(&s3run->results);
+			tmp = g_strdup_printf(ngettext("<i>Found %d entry</i>", "<i>Found %d entries</i>", count), count);
 		}
 		gtk_label_set_markup(GTK_LABEL(((TSNRWin *)s3run->dialog)->searchfeedback),tmp);
 		g_free(tmp);
@@ -1064,12 +1066,15 @@ dialog_changed_run_ready_cb(gpointer data) {
 		TSNRWin *snrwin = s3run->dialog;
 		gchar *tmp;
 		if (s3run->searchednumdoc > 1) {
-			tmp = g_strdup_printf(_("<i>Found %d results in %d of the %d searched documents</i>"),g_queue_get_length(&s3run->results), s3run->resultnumdoc, s3run->searchednumdoc);
+			gint count = g_queue_get_length(&s3run->results);
+			tmp = g_strdup_printf(ngettext("<i>Found %d results in %d of the %d searched documents</i>", "<i>Found %d result in %d of the %d searched documents</i>", count),count, s3run->resultnumdoc, s3run->searchednumdoc);
 		} else if (s3run->so != 0) {
+			gint count = g_queue_get_length(&s3run->results);
 			gint reo = (s3run->eo == -1) ? gtk_text_buffer_get_char_count(s3run->bfwin->current_document->buffer) : s3run->eo;
-			tmp = g_strdup_printf(_("<i>Found %d results from character %d to %d</i>"),g_queue_get_length(&s3run->results), s3run->so, reo);
+			tmp = g_strdup_printf(ngettext("<i>Found %d result from character %d to %d</i>", "<i>Found %d results from character %d to %d</i>", count),count, s3run->so, reo);
 		} else {
-			tmp = g_strdup_printf(_("<i>Found %d results in the active document</i>"),g_queue_get_length(&s3run->results));
+			gint count = g_queue_get_length(&s3run->results);
+			tmp = g_strdup_printf(ngettext("<i>Found %d result in the active document</i>", "<i>Found %d results in the active document</i>", count),count);
 		}
 		gtk_label_set_markup(GTK_LABEL(snrwin->searchfeedback),tmp);
 		gtk_widget_show(snrwin->searchfeedback);

@@ -11,7 +11,7 @@ dnl ************************
 
 AC_PREREQ([2.59])
 
-AC_INIT([bluefish],[2.2.0],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
+AC_INIT([bluefish],[2.2.1],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 
 dnl Have to save them here!
 if test "${ac_configure_args+set}" != "set" ; then
@@ -586,8 +586,11 @@ the python binary '$PYTHON' does not exist.])
 fi
 if test "x$enable_python" = "xyes"; then
 	AC_DEFINE([HAVE_PYTHON], [1], [Define to 1 if you have python installed.])
+	build_zencoding_plugin=yes
+else
+	build_zencoding_plugin=no
 fi
-
+AM_CONDITIONAL([ENABLE_ZENCODING_PLUGIN], [test "x$build_zencoding_plugin" = "xyes"])
 
 dnl ************************
 dnl   Header
@@ -694,6 +697,7 @@ AC_CONFIG_FILES([
 	src/plugin_infbrowser/po/Makefile.in
 	src/plugin_snippets/Makefile
 	src/plugin_snippets/po/Makefile.in
+	src/plugin_zencoding/Makefile
 	src/bluefish_rc.rc.in
 	ui/Makefile
 	macosx/Makefile

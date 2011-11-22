@@ -111,6 +111,7 @@ enum {
 	delay_full_scan,
 	autocomp_popup_mode,
 	reduced_scan_triggers,
+	use_system_colors,
 	editor_fg,
 	editor_bg,
 	cline_bg,
@@ -1489,6 +1490,7 @@ preferences_apply(Tprefdialog * pd)
 	integer_apply(&main_v->props.editor_auto_close_brackets, pd->prefs[editor_auto_close_brackets], TRUE);
 	integer_apply(&main_v->props.editor_tab_indent_sel, pd->prefs[editor_tab_indent_sel], TRUE);
 	integer_apply(&main_v->props.smartindent, pd->prefs[smartindent], TRUE);
+	integer_apply(&main_v->props.use_system_colors, pd->prefs[use_system_colors], TRUE);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_ED_FG], pd->prefs[editor_fg]);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_ED_BG], pd->prefs[editor_bg]);
 	string_apply(&main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE], pd->prefs[cline_bg]);
@@ -1753,6 +1755,14 @@ xhtml_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
 	gtk_widget_set_sensitive(pd->prefs[lowercase_tags], !active);
 	gtk_widget_set_sensitive(pd->prefs[allow_dep], !active);
 }
+static void
+use_system_colors_toggled_lcb(GtkWidget * widget, Tprefdialog * pd)
+{
+	gboolean active = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
+	gtk_widget_set_sensitive(pd->prefs[editor_fg], !active);
+	gtk_widget_set_sensitive(pd->prefs[editor_bg], !active);
+	gtk_widget_set_sensitive(pd->prefs[cursor_color], !active);
+}
 
 static gint
 prefs_combo_box_get_index_from_text(const gchar ** options, const gchar * string)
@@ -1920,27 +1930,34 @@ preferences_dialog_new(void)
 	gtk_box_pack_start(GTK_BOX(hbox), pd->prefs[editor_font_string], FALSE, FALSE, 0);
 
 	vbox2 = dialog_vbox_labeled(_("<b>Colors</b>"), vbox1);
-	table = dialog_table_in_vbox_defaults(5, 2, 0, vbox2);
+	table = dialog_table_in_vbox_defaults(6, 2, 0, vbox2);
 
+	pd->prefs[use_system_colors] =
+		dialog_check_button_in_table(_("Use system wide color settings"), main_v->props.use_system_colors, table, 0,
+									 1, 0, 1);
+	
 	pd->prefs[editor_fg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_ED_FG],
-														_("Foreground color"), table, 1, 2, 0, 1);
-	dialog_mnemonic_label_in_table(_("_Foreground color:"), pd->prefs[editor_fg], table, 0, 1, 0, 1);
+														_("Foreground color"), table, 1, 2, 1,2);
+	dialog_mnemonic_label_in_table(_("_Foreground color:"), pd->prefs[editor_fg], table, 0, 1, 1,2);
 
 	pd->prefs[editor_bg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_ED_BG],
-														_("Background color"), table, 1, 2, 1, 2);
-	dialog_mnemonic_label_in_table(_("_Background color:"), pd->prefs[editor_bg], table, 0, 1, 1, 2);
+														_("Background color"), table, 1, 2, 2,3);
+	dialog_mnemonic_label_in_table(_("_Background color:"), pd->prefs[editor_bg], table, 0, 1, 2,3);
 
 	pd->prefs[cursor_color] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_CURSOR],
-														   _("Cursor color"), table, 1, 2, 2, 3);
-	dialog_mnemonic_label_in_table(_("C_ursor color:"), pd->prefs[cursor_color], table, 0, 1, 2, 3);
+														   _("Cursor color"), table, 1, 2, 3,4);
+	dialog_mnemonic_label_in_table(_("C_ursor color:"), pd->prefs[cursor_color], table, 0, 1, 3,4);
+
+	g_signal_connect(G_OBJECT(pd->prefs[use_system_colors]), "toggled", G_CALLBACK(use_system_colors_toggled_lcb), pd);
+	use_system_colors_toggled_lcb(pd->prefs[use_system_colors], pd);
 
 	pd->prefs[cline_bg] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_CURRENT_LINE],
-													   _("Current line color"), table, 1, 2, 3, 4);
-	dialog_mnemonic_label_in_table(_("Cu_rrent line color:"), pd->prefs[cline_bg], table, 0, 1, 3, 4);
+													   _("Current line color"), table, 1, 2, 4,5);
+	dialog_mnemonic_label_in_table(_("Cu_rrent line color:"), pd->prefs[cline_bg], table, 0, 1, 4,5);
 
 	pd->prefs[visible_ws] = dialog_color_button_in_table(main_v->props.btv_color_str[BTV_COLOR_WHITESPACE],
-														 _("Visible whitespace color"), table, 1, 2, 4, 5);
-	dialog_mnemonic_label_in_table(_("_Visible whitespace color:"), pd->prefs[visible_ws], table, 0, 1, 4, 5);
+														 _("Visible whitespace color"), table, 1, 2, 5,6);
+	dialog_mnemonic_label_in_table(_("_Visible whitespace color:"), pd->prefs[visible_ws], table, 0, 1, 5,6);
 
 	/*
 	 *  Initial document settings
