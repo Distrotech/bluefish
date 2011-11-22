@@ -34,6 +34,23 @@ typedef struct {
 	Tdocument *context;
 } Tzeneditor;
 
+/**********************************/
+/* helper functions */
+/**********************************/
+
+static int get_cursor_pos(Tdocument *doc) {
+	GtkTextIter itstart;
+	gtk_text_buffer_get_iter_at_mark(DOCUMENT(doc)->buffer, &itstart, 
+				gtk_text_buffer_get_insert(DOCUMENT(doc)->buffer));
+	return gtk_text_iter_get_offset(&itstart);
+}
+
+
+
+/**********************************/
+/* interface functions */
+/**********************************/
+
 static PyObject *
 zeneditor_set_context(Tzeneditor *self, PyObject *args)
 {
@@ -51,9 +68,8 @@ zeneditor_get_selection_range(Tzeneditor *self, PyObject *args)
 	PyObject *result;
 	gint start, end;
 	if (!doc_get_selection(DOCUMENT(self->context), &start, &end)) {
-		start = end = -1;
+		start = end = get_cursor_pos(DOCUMENT(self->context));
 	}
-	g_print("zeneditor_get_selection_range, return %d:%d\n",start, end);
 	result = Py_BuildValue("(ii)", start, end);
 	g_print("zeneditor_get_selection_range, return %d:%d\n",start, end);
 	return result;
@@ -167,6 +183,7 @@ zeneditor_replace_content(Tzeneditor *self, PyObject *args)
 		we also have to check if there is a caret placeholder in 'text' */
 		placeholder = get_caret_placeholder(zencoding.module);
 		tmp2 = g_strstr_len(text, -1, placeholder);
+		g_print("zeneditor_replace_content, got start=%d, end=%d, placeholder found at %p\n", start, end, tmp2);
 		tmp1 = g_strndup(text, tmp2-text+strlen(placeholder));
 		
 		if (start >= 0 && end == -1) {
