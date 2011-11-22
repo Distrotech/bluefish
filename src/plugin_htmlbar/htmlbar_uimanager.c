@@ -1683,7 +1683,7 @@ static const GtkActionEntry htmlbar_actions[] = {
 	{"HTML5Menu", NULL, N_("_HTML5")},
 	{"FormatArticle", BF_STOCK_ARTICLE, N_("_Article"), NULL, N_("Article"), G_CALLBACK(htmlbar_insert_article_tag)},
 	{"FormatAside", BF_STOCK_ASIDE, N_("As_ide"), NULL, N_("Aside"), G_CALLBACK(htmlbar_insert_aside_tag)},
-	{"FormatFigcaption", BF_STOCK_FIGCAPTION, N_("Figcaption"), NULL, N_("Figcaption "), G_CALLBACK(htmlbar_insert_figcaption_tag)},
+	{"FormatFigcaption", BF_STOCK_FIGCAPTION, N_("Figcaption"), NULL, N_("Figcaption"), G_CALLBACK(htmlbar_insert_figcaption_tag)},
 	{"FormatFigure", BF_STOCK_FIGURE, N_("Fig_ure"), NULL, N_("Figure"), G_CALLBACK(htmlbar_insert_figure_tag)},
 	{"FormatFooter", BF_STOCK_FOOTER, N_("_Footer"), NULL, N_("Footer"), G_CALLBACK(htmlbar_insert_footer_tag)},
 	{"FormatHeader", BF_STOCK_HEADER, N_("_Header"), NULL, N_("Header"), G_CALLBACK(htmlbar_insert_header_tag)},
