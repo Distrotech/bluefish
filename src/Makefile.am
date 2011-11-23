@@ -73,8 +73,6 @@ bluefish_SOURCES = \
 	document.h \
 	encodings_dialog.c \
 	encodings_dialog.h \
-	embed_python.c \
-	embed_python.h \
 	external_commands.c \
 	external_commands.h \
 	filebrowser2.c \
