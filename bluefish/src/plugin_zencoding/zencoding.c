@@ -298,7 +298,7 @@ static TBluefishPlugin bfplugin = {
 	sizeof(Tmain),
 	sizeof(Tproperties),
 	BFPLUGIN_PRIORITY_DEFAULT,
-	0,
+	1,
 	NULL,						/* private */
 	zencoding_init,				/* init */
 	zencoding_initgui,

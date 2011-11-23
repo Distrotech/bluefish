@@ -521,11 +521,11 @@ AC_SEARCH_LIBS([nanosleep], [posix4 rt])
 AC_ARG_ENABLE(
 	[python],
 	AC_HELP_STRING(
-		[--enable-python],
-		[enable (or disable) python integration (HIGHLY EXPERIMENTAL) @<:@default=no@:>@]
+		[--disable-python],
+		[disable (or enable) python integration for zen-coding plugin @<:@default=yes@:>@]
 	),
 	[enable_python="$enableval"],
-	[enable_python="no"]
+	[enable_python="yes"]
 )
 
 if test "x$enable_python" = "xyes" ; then
@@ -533,7 +533,7 @@ if test "x$enable_python" = "xyes" ; then
 		[PYTHON],
 		[The 'python' binary with path. Use it to define or override the location of 'python'.]
 	)
-	AC_PATH_PROGS([PYTHON], [python python2.4 python2.3 python2.2 python2])
+	AC_PATH_PROGS([PYTHON], [python python2.6 python2.5 python2.4 python2.3 python2.2 python2])
 	if test -n "$PYTHON" ; then
 		# The following was inspired by Andrew Collier's AC_PYTHON_MODULE macro.
 		for python_module in "sys" "distutils.sysconfig" ; do
