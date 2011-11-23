@@ -1333,9 +1333,10 @@ fb2_uri_from_file_sort_path(Tfilebrowser2 * fb2, GtkTreePath * sort_path, gchar 
 	   uri = fb2_uri_from_fspath(fb2, fs_path);
 	   gtk_tree_path_free(fs_path); */
 	if (gtk_tree_model_get_iter(fb2->file_lsort, &iter, sort_path)) {
-		gtk_tree_model_get(fb2->file_lsort, &iter, URI_COLUMN, &uri, -1);
-		if (mime) {
-			gtk_tree_model_get(fb2->file_lsort, &iter, TYPE_COLUMN, &mime, -1);
+		gchar *tmpmime=NULL;
+		gtk_tree_model_get(fb2->file_lsort, &iter, URI_COLUMN, &uri,TYPE_COLUMN, &tmpmime, -1);
+		if (mime && tmpmime) {
+			*mime = tmpmime;
 		}
 	}
 	return uri;
@@ -2152,10 +2153,9 @@ file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser
 {
 	DEBUG_MSG("file_v_button_press_lcb, called for fb2=%p and event->button=%d\n", fb2, event->button);
 	if (event->button == 3) {
-		GtkTreePath *path;
-		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &path, NULL,
-									  NULL, NULL);
-		if (path) {
+		GtkTreePath *path=NULL;
+		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &path, NULL,
+									  NULL, NULL) && path) {
 			DEBUG_MSG("context menu: file selected\n");
 			popup_menu_create(fb2, FALSE, TRUE, event);
 			gtk_tree_path_free(path);
@@ -2165,19 +2165,13 @@ file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event, Tfilebrowser
 			popup_menu_create(fb2, FALSE, FALSE, event);
 		}
 	} else if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
-		GtkTreePath *sort_path;
-		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &sort_path,
-									  NULL, NULL, NULL);
-		if (sort_path) {
+		GtkTreePath *sort_path=NULL;
+		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(fb2->file_v), event->x, event->y, &sort_path,
+									  NULL, NULL, NULL) && sort_path) {
 			GFile *uri;
 			gchar *mime = NULL;
 			uri = fb2_uri_from_file_sort_path(fb2, sort_path, &mime);
 			if (uri) {
-#ifdef DEBUG
-				gchar *basename = g_file_get_basename(uri);
-				DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", basename);
-				g_free(basename);
-#endif
 				file_handle(uri, fb2->bfwin, mime, FALSE);
 				/*handle_activate_on_file(fb2, uri,mime); */
 			}
@@ -2371,7 +2365,7 @@ file_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 {
 	gchar *mime = NULL;
 	GFile *uri = fb2_uri_from_file_sort_path(fb2, path, &mime); /* this is a pointer to the uri stored in the treemodel */
-	g_print("handle file with mime %s\n",mime);
+	DEBUG_MSG("handle file with mime %s\n",mime);
 	file_handle(uri, fb2->bfwin, mime, FALSE);
 	g_free(mime);
 }
