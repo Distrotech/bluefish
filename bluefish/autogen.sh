@@ -45,6 +45,7 @@ src/plugin_htmlbar/po
 src/plugin_infbrowser/po
 src/plugin_snippets/po
 src/plugin_xmltools/po
+src/plugin_zencoding/po
 "
 
 ## the gettext files we need to copy to $GETTEXT_PO_DIRS
