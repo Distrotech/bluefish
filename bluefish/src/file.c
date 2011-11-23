@@ -2062,7 +2062,7 @@ file_handle(GFile * uri, Tbfwin * bfwin, gchar * mimetype, gboolean external_inp
 	GFileInfo *finfo;
 	GError *error = NULL;
 #ifdef WIN32
-	gchar *mime;
+	gchar *mime=NULL;
 	const gchar *cont_type;
 #else
 	const gchar *mime;
