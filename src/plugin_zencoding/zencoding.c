@@ -33,42 +33,42 @@ static gboolean
 init_python(void) {
 	PyObject *mod/*, *interface*/;
 	
-	g_print("init_python()\n");
+	DEBUG_MSG("init_python()\n");
 	Py_Initialize();
 	PyRun_SimpleString("import sys");
-	g_print("set zencoding path to "PKGDATADIR"/plugins/zencoding/\n");
-	PyRun_SimpleString("sys.path.append('"PKGDATADIR"/plugins/zencoding/')");
+	DEBUG_MSG("set zencoding path to "PKGDATADIR"/plugins/\n");
+	PyRun_SimpleString("sys.path.append('"PKGDATADIR"/plugins/')");
 	zencoding.module = PyImport_ImportModule("zencoding");
 	if (!zencoding.module) {
 		if (PyErr_Occurred()) PyErr_Print();
-		g_print("did not found zencoding, abort\n");
+		DEBUG_MSG("did not found zencoding, abort\n");
 		return FALSE;
 	}
 	/* now call my own module */
 	mod = zeneditor_module_init();
 	if (!mod) {
 		if (PyErr_Occurred()) PyErr_Print();
-		g_print("failed to initialize zeneditor-interface module\n");
+		DEBUG_MSG("failed to initialize zeneditor-interface module\n");
 		return FALSE;
 	}
 	
 	zencoding.editor = PyObject_CallMethod(mod, "zeneditor", NULL);
 	if (!zencoding.editor) {
 		if (PyErr_Occurred()) PyErr_Print();
-		g_print("failed to get editor interface\n");
+		DEBUG_MSG("failed to get editor interface\n");
 		return FALSE;
 	}
 	
 	/*interface = PyObject_GetAttrString(mod, "zeneditor");
 	if (!interface) {
 		if (PyErr_Occurred()) PyErr_Print();
-		g_print("failed to get zeneditor interface module\n");
+		DEBUG_MSG("failed to get zeneditor interface module\n");
 		return FALSE;
 	}
 	zencoding.editor = PyObject_CallObject(interface, NULL);
 	if (!zencoding.editor) {
 		if (PyErr_Occurred()) PyErr_Print();
-		g_print("failed to get editor interface\n");
+		DEBUG_MSG("failed to get editor interface\n");
 		return FALSE;
 	}
 	Py_XDECREF(interface);*/
@@ -79,48 +79,98 @@ static void
 zencoding_curdocchanged_cb(Tbfwin *bfwin, Tdocument *olddoc, Tdocument *newdoc, gpointer data) {
 	PyObject *ptr, *result;
 	
-	g_print("zencoding_curdocchanged_cb, started for newdoc %p\n",newdoc);
+	DEBUG_MSG("zencoding_curdocchanged_cb, started for newdoc %p\n",newdoc);
 	
 	if (!zencoding.module || !zencoding.editor) {
 		return;
 	}
 	
 	if (!newdoc) {
-		g_print("zencoding_curdocchanged_cb, no newdoc\n");
+		DEBUG_MSG("zencoding_curdocchanged_cb, no newdoc\n");
 		return;
 	}
 	ptr = PyLong_FromVoidPtr((void *) newdoc);
-	g_print("calling set_context for document %p wrapped in python object %p\n",newdoc, ptr);
+	DEBUG_MSG("calling set_context for document %p wrapped in python object %p\n",newdoc, ptr);
 	result = PyObject_CallMethod(zencoding.editor, "set_context", "O", ptr);
 	if (!result) {
 		if (PyErr_Occurred()) PyErr_Print();
-		g_print("failed to call set_context()\n");
+		DEBUG_MSG("failed to call set_context()\n");
 		return;
 	}
 	Py_XDECREF(result);
 	Py_XDECREF(ptr);
 }
+
+static void
+zencoding_run_action(Tdocument *doc, const gchar *action_name)
+{
+	PyObject *result;
+	if (!zencoding.module || !zencoding.editor) {
+		if (!init_python())
+			return;
+		zencoding_curdocchanged_cb(doc->bfwin, NULL, doc, NULL);
+	}
+	
+	result = PyObject_CallMethod(zencoding.module, "run_action", "sO", action_name, zencoding.editor);
+	if (!result) {
+		if (PyErr_Occurred()) PyErr_Print();
+		DEBUG_MSG("failed to call run_action(%s)\n",action_name);
+	}
+	Py_XDECREF(result);
+}
+
+
 /*******************************************************************/
 /*   GUI callbacks */
 /*******************************************************************/
 
 static void
 zencoding_expand_cb(GtkAction *action, gpointer user_data) {
-	Tbfwin *bfwin = user_data;
-	PyObject *result;
-	
-	if (!zencoding.module || !zencoding.editor) {
-		if (!init_python())
-			return;
-		zencoding_curdocchanged_cb(bfwin, NULL, bfwin->current_document, NULL);
-	}
-	g_print("zencoding_expand_cb, calling run_action expand_abbreviation\n");
-	result = PyObject_CallMethod(zencoding.module, "run_action", "sO", "expand_abbreviation", zencoding.editor);
-	if (!result) {
-		if (PyErr_Occurred()) PyErr_Print();
-		g_print("failed to call run_action()\n");
-	}
-	Py_XDECREF(result);
+	zencoding_run_action(BFWIN(user_data)->current_document, "expand_abbreviation");
+}
+static void
+zencoding_matchpairinward_cb(GtkAction *action, gpointer user_data) {
+	zencoding_run_action(BFWIN(user_data)->current_document, "match_pair_inward");
+}
+static void
+zencoding_matchpairoutward_cb(GtkAction *action, gpointer user_data) {
+	zencoding_run_action(BFWIN(user_data)->current_document, "match_pair_outward");
+}
+static void
+zencoding_wrapwithabbreviation_cb(GtkAction *action, gpointer user_data) {
+	zencoding_run_action(BFWIN(user_data)->current_document, "wrap_with_abbreviation");
+}
+static void
+zencoding_splitjointag_cb(GtkAction *action, gpointer user_data) {
+	zencoding_run_action(BFWIN(user_data)->current_document, "split_join_tag");
+}
+static void
+zencoding_preveditpoint_cb(GtkAction *action, gpointer user_data) {
+	zencoding_run_action(BFWIN(user_data)->current_document, "prev_edit_point");
+}
+static void
+zencoding_nexteditpoint_cb(GtkAction *action, gpointer user_data) {
+	zencoding_run_action(BFWIN(user_data)->current_document, "next_edit_point");
+}
+static void
+zencoding_insertformattednewline_cb(GtkAction *action, gpointer user_data) {
+	zencoding_run_action(BFWIN(user_data)->current_document, "insert_formatted_newline");
+}
+static void
+zencoding_gotomatchingpair_cb(GtkAction *action, gpointer user_data) {
+	zencoding_run_action(BFWIN(user_data)->current_document, "go_to_matching_pair");
+}
+static void
+zencoding_mergelines_cb(GtkAction *action, gpointer user_data) {
+	zencoding_run_action(BFWIN(user_data)->current_document, "merge_lines");
+}
+static void
+zencoding_removetag_cb(GtkAction *action, gpointer user_data) {
+	zencoding_run_action(BFWIN(user_data)->current_document, "remove_tag");
+}
+static void
+zencoding_evaluatemathexpression_cb(GtkAction *action, gpointer user_data) {
+	zencoding_run_action(BFWIN(user_data)->current_document, "evaluate_math_expression");
 }
 
 /*******************************************************************/
@@ -132,6 +182,17 @@ static const gchar *zencoding_plugin_ui =
 		"<menubar name='MainMenu'>"
 			"<menu action='ZencodingMenu'>"
 				"<menuitem action='ExpandZenCoding'/>"
+				"<menuitem action='MatchPairInward'/>"
+				"<menuitem action='MatchPairOutward'/>"
+				"<menuitem action='WrapWithAbbreviation'/>"
+				"<menuitem action='SplitJoinTag'/>"
+				"<menuitem action='PrevEditPoint'/>"
+				"<menuitem action='NextEditPoint'/>"
+				"<menuitem action='InsertFormattedNewline'/>"
+				"<menuitem action='GoToMatchingPair'/>"
+				"<menuitem action='MergeLines'/>"
+				"<menuitem action='RemoveTag'/>"
+				"<menuitem action='EvaluateMathExpression'/>"
 			"</menu>"
 		"</menubar>"
 	"</ui>";
@@ -146,8 +207,19 @@ zencoding_initgui(Tbfwin * bfwin)
 
 	static const GtkActionEntry zencoding_actions[] = {
 		{"ZencodingMenu", NULL, N_("_Zencoding")},
-		{"ExpandZenCoding", NULL, N_("Expand zen-coding"), NULL,
-		 N_("Expand zen-code at cursor"), G_CALLBACK(zencoding_expand_cb)}
+		{"ExpandZenCoding", NULL, N_("Expand zen-coding"), "<shift><ctrl>Return",N_("Expand zen-code at cursor"), G_CALLBACK(zencoding_expand_cb)},
+		{"MatchPairInward", NULL, N_("Select Tag Content"), NULL,NULL, G_CALLBACK(zencoding_matchpairinward_cb)},
+		{"MatchPairOutward", NULL, N_("Select Tag and Content"), NULL,NULL, G_CALLBACK(zencoding_matchpairoutward_cb)},
+		{"WrapWithAbbreviation", NULL, N_("Wrap with Abbreviation"), NULL,NULL, G_CALLBACK(zencoding_wrapwithabbreviation_cb)},
+		{"SplitJoinTag", NULL, N_("Split or Join Tag"), NULL,NULL, G_CALLBACK(zencoding_splitjointag_cb)},
+		{"PrevEditPoint", NULL, N_("Previous Edit Point"), NULL,N_(""), G_CALLBACK(zencoding_preveditpoint_cb)},
+		{"NextEditPoint", NULL, N_("Next Edit Point"), NULL,N_(""), G_CALLBACK(zencoding_nexteditpoint_cb)},
+		{"InsertFormattedNewline", NULL, N_("Insert Formatted Newline"), NULL,N_(""), G_CALLBACK(zencoding_insertformattednewline_cb)},
+		{"GoToMatchingPair", NULL, N_("Go to Matching Pair"), NULL,N_(""), G_CALLBACK(zencoding_gotomatchingpair_cb)},
+		{"MergeLines", NULL, N_("Merge Lines"), NULL,N_(""), G_CALLBACK(zencoding_mergelines_cb)},
+		{"RemoveTag", NULL, N_("Remove Tag"), NULL,N_(""), G_CALLBACK(zencoding_removetag_cb)},
+		{"EvaluateMathExpression", NULL, N_("Evaluate Math Expression"), NULL,N_(""), G_CALLBACK(zencoding_evaluatemathexpression_cb)}
+		/*{"", NULL, N_(""), NULL,N_(""), G_CALLBACK(zencoding__cb)},*/
 	};
 
 	action_group = gtk_action_group_new("zencodingActions");
@@ -186,7 +258,10 @@ zencoding_enforce_session(Tbfwin * bfwin)
 static void
 zencoding_cleanup(void)
 {
-
+	Py_XDECREF(zencoding.module);
+	Py_XDECREF(zencoding.editor);
+	zencoding.module = NULL;
+	zencoding.editor = NULL;
 }
 
 static void
