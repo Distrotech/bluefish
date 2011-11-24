@@ -77,7 +77,8 @@ about_options_dialog_create(GtkAction * action, gpointer user_data)
 	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog), 
 			"%s\ngtk %d.%d.%d (runtime gtk %d.%d.%d)\nglib %d.%d.%d (runtime %d.%d.%d)\n"
 			"with libenchant... %s\nwith libenchant >= 1.4... %s\n"
-			"with libgucharmap... %s\nwith libgucharmap_2... %s"
+			"with libgucharmap... %s\nwith libgucharmap_2... %s\n"
+			"with python... %s"
 			, sec_text
 			, GTK_MAJOR_VERSION, GTK_MINOR_VERSION, GTK_MICRO_VERSION
 			, gtk_major_version, gtk_minor_version, gtk_micro_version
@@ -99,6 +100,11 @@ about_options_dialog_create(GtkAction * action, gpointer user_data)
 			, "no"
 #endif
 #ifdef HAVE_LIBGUCHARMAP_2
+			, "yes"
+#else
+			, "no"
+#endif
+#ifdef HAVE_PYTHON
 			, "yes"
 #else
 			, "no"
