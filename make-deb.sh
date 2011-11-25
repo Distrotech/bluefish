@@ -33,7 +33,7 @@ cat << EOF
 ******************************************************************************
 You'll need all software packages listed in the file INSTALL plus the
 build-essential and devscripts packages. The script needs at least
-Debian Lenny (or newer) or Ubuntu Hardy (or newer).
+Debian Squeeze (or newer) or Ubuntu Lucid (or newer).
 
 If the script fails for you, first check, if you have all necessary
 packages installed.
