@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <string.h>
 #include "snippets.h"
@@ -73,6 +73,7 @@ static void snippets_initgui(Tbfwin* bfwin) {
 static void snippets_enforce_session(Tbfwin* bfwin) {
 	Tsnippetssession *sns;
 	Tsnippetswin *snw;
+	DEBUG_MSG("snippets_enforce_session, bfwin=%p\n",bfwin);
 	sns = g_hash_table_lookup(snippets_v.lookup,bfwin->session);
 	snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
 	if (sns && snw) {
@@ -80,6 +81,7 @@ static void snippets_enforce_session(Tbfwin* bfwin) {
 	}
 }
 static void snippets_cleanup(void) {
+	DEBUG_MSG("snippets_cleanup\n");
 	g_hash_table_unref(snippets_v.lookup);
 	g_object_unref(snippets_v.store);
 	main_v->sidepanel_initgui = g_slist_remove(main_v->sidepanel_initgui,snippets_sidepanel_initgui);
@@ -88,8 +90,10 @@ static void snippets_cleanup(void) {
 
 static void snippets_cleanup_gui(Tbfwin *bfwin) {
 	Tsnippetswin *snw;
+	DEBUG_MSG("snippets_cleanup_gui\n");
 	snw = snippets_get_win(bfwin);
 	if (snw) {
+		DEBUG_MSG("snippets_cleanup_gui, remove accelerators from bfwin %p\n",bfwin);
 		gtk_window_remove_accel_group(GTK_WINDOW(snw->bfwin->main_window), snw->accel_group);
 		g_object_unref(G_OBJECT(snw->accel_group));
 	}	

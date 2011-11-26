@@ -332,8 +332,8 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 	label = gtk_label_new(_("The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right. (Please use %% if you need literal % in your string!)"));
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
-	gtk_table_attach(GTK_TABLE(p2->table),label, 0,3,0,1
-					,GTK_FILL,GTK_FILL,0,0);
+	gtk_table_attach(GTK_TABLE(p2->table),label, 0,5,0,1
+					,GTK_FILL|GTK_EXPAND,GTK_FILL,0,0);
 	
 	label = gtk_label_new(_("<i>Before</i> text"));
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
