@@ -22,7 +22,6 @@
 void snippets_rebuild_accelerators(void);
 void snippets_show_as_menu(Tsnippetswin *snw, gboolean enable);
 void snippets_sidepanel_initgui(Tbfwin *bfwin);
-void snippets_sidepanel_destroygui(Tbfwin *bfwin);
 void snippets_create_gui(Tbfwin *bfwin);
 
 #endif /* SNIPPET_GUI_H */

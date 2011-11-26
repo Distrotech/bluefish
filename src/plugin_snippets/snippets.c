@@ -40,7 +40,7 @@ static void snippets_init(void) {
 					NULL,g_free);
 	snippets_v.store = gtk_tree_store_new(NUM_COLUMNS /* Total number of columns */,GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,snippets_sidepanel_initgui);
-	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);
+/*	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);*/
 	snippets_load();
 	
 	DEBUG_MSG("snippets_init finished, store=%p, lookup=%p\n",snippets_v.store, snippets_v.lookup);
@@ -83,10 +83,16 @@ static void snippets_cleanup(void) {
 	g_hash_table_unref(snippets_v.lookup);
 	g_object_unref(snippets_v.store);
 	main_v->sidepanel_initgui = g_slist_remove(main_v->sidepanel_initgui,snippets_sidepanel_initgui);
-	main_v->sidepanel_destroygui = g_slist_remove(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);
+/*	main_v->sidepanel_destroygui = g_slist_remove(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);*/
 }
 
 static void snippets_cleanup_gui(Tbfwin *bfwin) {
+	Tsnippetswin *snw;
+	snw = snippets_get_win(bfwin);
+	if (snw) {
+		gtk_window_remove_accel_group(GTK_WINDOW(snw->bfwin->main_window), snw->accel_group);
+		g_object_unref(G_OBJECT(snw->accel_group));
+	}	
 	/* BUG: clean the keys and structures in the hashtable */
 	g_hash_table_remove(snippets_v.lookup,bfwin);
 }
