@@ -210,6 +210,8 @@ snippets_rebuild_accelerators(void)
 	for (tmplist = g_list_first(main_v->bfwinlist); tmplist; tmplist = tmplist->next) {
 		Tbfwin *bfwin = tmplist->data;
 		Tsnippetswin *snw = g_hash_table_lookup(snippets_v.lookup, bfwin);
+		if (!snw)
+			continue;
 		gtk_window_remove_accel_group(GTK_WINDOW(bfwin->main_window), snw->accel_group);
 		g_object_unref(G_OBJECT(snw->accel_group));
 
@@ -634,32 +636,8 @@ snippets_sidepanel_initgui(Tbfwin * bfwin)
 								  gtk_label_new(_("snippets")), 2);
 	g_object_set(snw->view, "has-tooltip", TRUE, NULL);
 	g_signal_connect(snw->view, "query-tooltip", G_CALLBACK(snippets_treetip_lcb), snw);
-	/*snw->ttips = tree_tips_new_full(snw->bfwin,GTK_TREE_VIEW(snw->view),snippets_treetip_lcb); */
 
-	/* now parse the accelerator, and make it active for this item */
-	snw->accel_group = gtk_accel_group_new();
-	gtk_window_add_accel_group(GTK_WINDOW(snw->bfwin->main_window), snw->accel_group);
-	DEBUG_MSG("snippets_sidepanel_initgui, connect accelerators\n");
-	if (snippets_v.doc) {
-		xmlNodePtr cur = xmlDocGetRootElement(snippets_v.doc);
-		if (cur) {
-			snippets_connect_accelerators_from_doc(snw, cur, snw->accel_group);
-		}
-	}
 	DEBUG_MSG("snippets_sidepanel_initgui, finished\n");
-}
-
-void
-snippets_sidepanel_destroygui(Tbfwin * bfwin)
-{
-	Tsnippetswin *snw;
-	/* the widget is auto destroyed, and there is nothing more to destroy */
-	snw = snippets_get_win(bfwin);
-	if (snw) {
-		/*tree_tips_destroy(snw->ttips); */
-		gtk_window_remove_accel_group(GTK_WINDOW(snw->bfwin->main_window), snw->accel_group);
-		g_object_unref(G_OBJECT(snw->accel_group));
-	}
 }
 
 static void
@@ -858,6 +836,9 @@ snippets_create_gui(Tbfwin * bfwin)
 	GtkActionGroup *action_group;
 	GError *error = NULL;
 
+	if (!snw || !sns)
+		return;
+
 	action_group = gtk_action_group_new("SnippetsActions");
 	gtk_action_group_set_translation_domain(action_group, GETTEXT_PACKAGE "_plugin_snippets");
 	gtk_action_group_add_actions(action_group, snippets_actions, G_N_ELEMENTS(snippets_actions), snw);
@@ -876,6 +857,16 @@ snippets_create_gui(Tbfwin * bfwin)
 	if (error != NULL) {
 		g_warning("building snippets plugin popup menu failed: %s", error->message);
 		g_error_free(error);
+	}
+		/* now parse the accelerator, and make it active for this item */
+	snw->accel_group = gtk_accel_group_new();
+	gtk_window_add_accel_group(GTK_WINDOW(bfwin->main_window), snw->accel_group);
+	DEBUG_MSG("snippets_create_gui, connect accelerators\n");
+	if (snippets_v.doc) {
+		xmlNodePtr cur = xmlDocGetRootElement(snippets_v.doc);
+		if (cur) {
+			snippets_connect_accelerators_from_doc(snw, cur, snw->accel_group);
+		}
 	}
 
 	if (sns->show_as_menu) {
