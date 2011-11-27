@@ -1,13 +1,12 @@
 # Simple Chinese(zh_CN) language file for Bluefish.
 # Copyright (C) 2011 ZhiFeng Ma
-# william9527 <mzf9527@gmail.com>, 2011.
 # ZhiFeng Ma <mzf9527@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.4\n"
+"Project-Id-Version: Bluefish 2.2.0\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2011-11-24 09:17+0100\n"
+"POT-Creation-Date: 2011-11-27 17:41+0800\n"
 "PO-Revision-Date: 2011-11-24 00:31+0800\n"
 "Last-Translator: ZhiFeng Ma <mzf9527@gmail.com>\n"
 "Language-Team: \n"
@@ -2956,35 +2955,35 @@ msgid ""
 msgstr "<span foreground=\"red\" weight=\"bold\">部分文档仍在读取中</span>"
 
 #: ../src/snr3.c:848
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Replaced %d entry</i>"
 msgid_plural "<i>Replaced %d entries</i>"
 msgstr[0] "<i>已替换 %d 个条目</i>"
 msgstr[1] "<i>已替换 %d 个条目</i>"
 
 #: ../src/snr3.c:851
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d entry</i>"
 msgid_plural "<i>Found %d entries</i>"
 msgstr[0] "<i>找到 %d 个条目</i>"
 msgstr[1] "<i>找到 %d 个条目</i>"
 
 #: ../src/snr3.c:1070
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d results in %d of the %d searched documents</i>"
 msgid_plural "<i>Found %d result in %d of the %d searched documents</i>"
 msgstr[0] "<i>已找到 %d 个结果 在 %d 个文档中 全部 %d 个文档</i>"
 msgstr[1] "<i>已找到 %d 个结果 在 %d 个文档中 全部 %d 个文档</i>"
 
 #: ../src/snr3.c:1074
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d result from character %d to %d</i>"
 msgid_plural "<i>Found %d results from character %d to %d</i>"
 msgstr[0] "<i>已找到 %d 个结果，从字符 %d 到 %d</i>"
 msgstr[1] "<i>已找到 %d 个结果，从字符 %d 到 %d</i>"
 
 #: ../src/snr3.c:1077
-#, fuzzy, c-format
+#, c-format
 msgid "<i>Found %d result in the active document</i>"
 msgid_plural "<i>Found %d results in the active document</i>"
 msgstr[0] "<i>在激活的文档中找到 %d 个结果</i>"
