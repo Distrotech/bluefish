@@ -1452,6 +1452,9 @@ snr3_advanced_dialog_backend(Tbfwin * bfwin, const gchar *findtext, Tsnr3scope s
 
 	snrwin->searchfeedback = gtk_label_new(NULL);
 	gtk_label_set_line_wrap(GTK_LABEL(snrwin->searchfeedback), TRUE);
+#if GTK_CHECK_VERSION(3,2,0)
+	gtk_label_set_width_chars(GTK_LABEL(snrwin->searchfeedback),50);
+#endif
 	gtk_misc_set_alignment(GTK_MISC(snrwin->searchfeedback),0,0);
 	gtk_table_attach(GTK_TABLE(table), snrwin->searchfeedback, 1, 4, currentrow, currentrow+1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
