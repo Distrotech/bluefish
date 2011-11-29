@@ -631,8 +631,8 @@ snr3_run(Tsnr3run *s3run, TSNRWin *snrwin, Tdocument *doc, void (*callback)(void
 	GList *tmplist;
 	DEBUG_MSG("snr3_run, s3run=%p, scope=%d, query=%s\n",s3run, s3run->scope, s3run->query);
 
-	if (s3run->queryreal == NULL || s3run->queryreal[0]=='\0') {
-		DEBUG_MSG("no query (%p), no s3run\n",s3run->queryreal);
+	if ((s3run->queryreal == NULL || s3run->queryreal[0]=='\0') && s3run->regex == NULL) {
+		DEBUG_MSG("no queryreal (%p), no regex (%p), no s3run\n",s3run->queryreal, s3run->regex);
 		return;
 	}
 	s3run->callback = callback;
