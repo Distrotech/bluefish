@@ -747,10 +747,7 @@ static void
 simplesearch_advanced_clicked(GtkButton * button, Tbfwin * bfwin)
 {
 	gchar *tmpstr = gtk_editable_get_chars(GTK_EDITABLE(bfwin->simplesearch_entry) , 0, -1);
-	if (!tmpstr)
-		return; 
-	
-	snr3_advanced_dialog(bfwin, tmpstr);
+	snr3_advanced_dialog(bfwin, tmpstr?tmpstr:"");
 	gotoline_close_button_clicked(NULL, bfwin);
 	g_free(tmpstr);
 }

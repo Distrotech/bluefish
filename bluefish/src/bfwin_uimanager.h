@@ -31,6 +31,7 @@
 
 void bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox);
 void bfwin_set_undo_redo_actions(Tbfwin * bfwin, gboolean undo, gboolean redo);
+void bfwin_set_cutcopypaste_actions(Tbfwin * bfwin, gboolean enabled);
 void bfwin_set_document_menu_items(Tdocument * doc);
 
 void bfwin_action_set_sensitive(GtkUIManager * manager, const gchar * path, gboolean sensitive);
