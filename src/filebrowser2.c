@@ -679,7 +679,7 @@ fb2_fill_dir_async(GtkTreeIter * parent, GFile * uri)
 static GFile *
 fb2_uri_from_iter(GtkTreeIter * iter)
 {
-	GFile *uri;
+	GFile *uri=NULL;
 	gtk_tree_model_get(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), iter,
 					   URI_COLUMN, &uri, -1);
 	return uri;
