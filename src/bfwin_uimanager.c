@@ -305,7 +305,6 @@ static void
 ui_paste(GtkAction * action, gpointer user_data)
 {
 	Tbfwin *bfwin = BFWIN(user_data);
-
 	if (bfwin->current_document)
 		doc_paste(bfwin);
 }
@@ -1104,6 +1103,17 @@ bfwin_set_undo_redo_actions(Tbfwin * bfwin, gboolean undo, gboolean redo)
 	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/Redo", redo);
 	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/RedoAll", redo);
 }
+
+void
+bfwin_set_cutcopypaste_actions(Tbfwin * bfwin, gboolean enabled)
+{
+	GtkUIManager *manager = bfwin->uimanager;
+	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/Cut", enabled);
+	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/Copy", enabled);
+	bfwin_action_set_sensitive(manager, "/MainMenu/EditMenu/Paste", enabled);
+}
+
+
 
 void
 bfwin_set_document_menu_items(Tdocument * doc)

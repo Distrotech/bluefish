@@ -2274,6 +2274,21 @@ doc_view_button_release_lcb(GtkWidget * widget, GdkEventButton * bevent, Tdocume
 	return FALSE;
 }
 
+static gboolean
+doc_focus_in_lcb(GtkWidget *widget,GdkEvent  *event, Tdocument *doc)
+{
+	bfwin_set_cutcopypaste_actions(doc->bfwin, TRUE);
+	return FALSE;
+}  
+
+static gboolean
+doc_focus_out_lcb(GtkWidget *widget,GdkEvent  *event, Tdocument *doc)
+{
+	if (gtk_window_get_focus(GTK_WINDOW(BFWIN(doc->bfwin)->main_window))!=widget) {
+		bfwin_set_cutcopypaste_actions(doc->bfwin, FALSE);
+	}
+	return FALSE;
+}  
 
 Tdocument *
 doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
@@ -2354,7 +2369,10 @@ doc_new_backend(Tbfwin * bfwin, gboolean force_new, gboolean readonly)
 					 G_CALLBACK(doc_view_button_release_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event",
 					 G_CALLBACK(doc_view_button_press_lcb), newdoc);
-
+	g_signal_connect(G_OBJECT(newdoc->view), "focus-in-event",
+					 G_CALLBACK(doc_focus_in_lcb), newdoc);
+	g_signal_connect(G_OBJECT(newdoc->view), "focus-out-event",
+					 G_CALLBACK(doc_focus_out_lcb), newdoc);
 	bfwin->documentlist = g_list_append(bfwin->documentlist, newdoc);
 
 	gtk_widget_show(newdoc->tab_label);
@@ -2653,6 +2671,10 @@ doc_create_slave_view(Tdocument * doc)
 	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scroll), GTK_SHADOW_IN);
 	gtk_container_add(GTK_CONTAINER(scroll), doc->slave);
 	doc_set_tabsize(doc, BFWIN(doc->bfwin)->session->editor_tab_width);
+	g_signal_connect(G_OBJECT(doc->slave), "focus-in-event",
+					 G_CALLBACK(doc_focus_in_lcb), doc);
+	g_signal_connect(G_OBJECT(doc->slave), "focus-out-event",
+					 G_CALLBACK(doc_focus_out_lcb), doc);
 	return scroll;
 }
 
