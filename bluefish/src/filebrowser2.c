@@ -100,6 +100,7 @@ typedef struct {
 	GtkWidget *file_v;			/* treeview widget */
 
 	gulong expand_signal;
+	gulong dirselection_changed_id;
 
 	GFile *basedir;
 	Tfilter *curfilter;
@@ -2724,7 +2725,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
 		DEBUG_MSG("fb2_init, NEW FILEBROWSER2, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
 				  dirselection, fb2, fb2->dir_tfilter);
-		g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(dir_v_selection_changed_lcb), fb2);
+		fb2->dirselection_changed_id = g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(dir_v_selection_changed_lcb), fb2);
 	}
 
 	renderer = gtk_cell_renderer_pixbuf_new();
@@ -2871,6 +2872,19 @@ fb2_update_settings_from_session(Tbfwin * bfwin)
 	}
 }
 
+void
+fb2destroy_signal_lcb(GtkWidget *widget, Tfilebrowser2 *fb2)
+{
+	g_print("fb2destroy_signal_lcb widget=%p, fb2=%p\n",widget,fb2);
+	if (fb2->dir_v) {
+		GtkTreeSelection *dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
+		if (dirselection) {
+			g_signal_handler_disconnect(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v))), fb2->dirselection_changed_id);
+			g_print("disconnected!\n");
+		}
+	}
+}
+
 GtkWidget *
 fb2_init(Tbfwin * bfwin)
 {
@@ -2891,7 +2905,7 @@ fb2_init(Tbfwin * bfwin)
 			  fb2->filebrowser_viewmode);
 
 	fb2->vbox = gtk_vbox_new(FALSE, 0);
-
+	g_signal_connect(G_OBJECT(fb2->vbox), "destroy", G_CALLBACK(fb2destroy_signal_lcb), fb2);
 	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_STRING));
 	fb2->dirmenu_v = gtk_combo_box_new_with_model(fb2->dirmenu_m);
 	/*gtk_combo_box_set_wrap_width(GTK_COMBO_BOX(fb2->dirmenu_v),3); */
