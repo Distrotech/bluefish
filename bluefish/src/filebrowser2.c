@@ -998,7 +998,7 @@ tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 	gint len;
 	GFile *uri;
 	gboolean retval = TRUE;
-
+	g_print("tree_model_filter_func, model=%p, fb2=%p\n",model,fb2);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri,
 					   TYPE_COLUMN, &mime_type, -1);
 	if (!name || !uri) {
@@ -1081,7 +1081,7 @@ file_list_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data)
 	gchar *name, *mime_type;
 	gint len;
 	gboolean retval = TRUE;
-/*  DEBUG_MSG("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);*/
+	g_print("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);
 	gtk_tree_model_get((GtkTreeModel *) model, iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &mime_type, -1);
 	if (!name)
 		return FALSE;
@@ -2220,7 +2220,7 @@ dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	GFile *tmp;
 	GVolumeMonitor *gvolmon;
 	gboolean cont, havesetiter = FALSE;
-	DEBUG_MSG("dirmenu_set_curdir(fb2=%p, newcurdir=%p)\n", fb2, newcurdir);
+	g_print("dirmenu_set_curdir(fb2=%p, newcurdir=%p)\n", fb2, newcurdir);
 	if (fb2->currentdir) {
 		if (newcurdir && (fb2->currentdir == newcurdir || g_file_equal(fb2->currentdir, newcurdir)))
 			return;
@@ -2377,7 +2377,7 @@ dir_v_selection_changed_lcb(GtkTreeSelection * treeselection, Tfilebrowser2 * fb
 	GtkTreeModel *sort_model = NULL;
 	GtkTreeIter sort_iter;
 	/* Get the current selected row and the model. */
-	DEBUG_MSG("dir_v_selection_changed_lcb, treeselection=%p, fb2=%p\n", treeselection, fb2);
+	g_print("dir_v_selection_changed_lcb, treeselection=%p, fb2=%p\n", treeselection, fb2);
 	if (treeselection && gtk_tree_selection_get_selected(treeselection, &sort_model, &sort_iter)) {
 		GFile *uri;
 		gchar *mime_type;
@@ -2458,7 +2458,7 @@ dirmenu_changed_lcb(GtkComboBox * widget, gpointer data)
 {
 	Tfilebrowser2 *fb2 = data;
 	GtkTreeIter iter;
-	DEBUG_MSG("dirmenu_changed_lcb, started\n");
+	g_print("dirmenu_changed_lcb, started for fb2 %p\n", fb2);
 	if (gtk_combo_box_get_active_iter(widget, &iter)) {
 		GFile *uri;
 		DEBUG_MSG("dirmenu_changed_lcb. we have an active iter\n");
@@ -2723,7 +2723,7 @@ fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	gtk_tree_view_set_search_equal_func (GTK_TREE_VIEW(fb2->dir_v),file_search_func,fb2,NULL);
 	if (fb2->filebrowser_viewmode != viewmode_flat) {
 		dirselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v));
-		DEBUG_MSG("fb2_init, NEW FILEBROWSER2, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
+		g_print("fb2_init, NEW FILEBROWSER2, treeselection=%p, fb2=%p, dir_tfilter=%p\n",
 				  dirselection, fb2, fb2->dir_tfilter);
 		fb2->dirselection_changed_id = g_signal_connect(G_OBJECT(dirselection), "changed", G_CALLBACK(dir_v_selection_changed_lcb), fb2);
 	}
@@ -2901,7 +2901,7 @@ fb2_init(Tbfwin * bfwin)
 
 	bfwin->fb2 = fb2;
 	fb2->bfwin = bfwin;
-	DEBUG_MSG("fb2_init, started for bfwin=%p, fb2=%p, fb2->filebrowser_viewmode=%d\n", bfwin, fb2,
+	g_print("fb2_init, started for bfwin=%p, fb2=%p, fb2->filebrowser_viewmode=%d\n", bfwin, fb2,
 			  fb2->filebrowser_viewmode);
 
 	fb2->vbox = gtk_vbox_new(FALSE, 0);
@@ -2965,6 +2965,7 @@ fb2_cleanup(Tbfwin * bfwin)
 		
 		if (fb2->basedir)
 			g_object_unref(fb2->basedir);
+		g_print("fb2_cleanup, free %p\n",fb2);
 		g_free(fb2);
 		bfwin->fb2 = NULL;
 	}
