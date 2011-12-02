@@ -207,18 +207,18 @@ zencoding_initgui(Tbfwin * bfwin)
 
 	static const GtkActionEntry zencoding_actions[] = {
 		{"ZencodingMenu", NULL, N_("_Zencoding")},
-		{"ExpandZenCoding", NULL, N_("Expand zen-coding"), "<shift><ctrl>Return",N_("Expand zen-code at cursor"), G_CALLBACK(zencoding_expand_cb)},
-		{"MatchPairInward", NULL, N_("Select Tag Content"), NULL,NULL, G_CALLBACK(zencoding_matchpairinward_cb)},
-		{"MatchPairOutward", NULL, N_("Select Tag and Content"), NULL,NULL, G_CALLBACK(zencoding_matchpairoutward_cb)},
-		{"WrapWithAbbreviation", NULL, N_("Wrap with Abbreviation"), NULL,NULL, G_CALLBACK(zencoding_wrapwithabbreviation_cb)},
-		{"SplitJoinTag", NULL, N_("Split or Join Tag"), NULL,NULL, G_CALLBACK(zencoding_splitjointag_cb)},
-		{"PrevEditPoint", NULL, N_("Previous Edit Point"), NULL,N_(""), G_CALLBACK(zencoding_preveditpoint_cb)},
-		{"NextEditPoint", NULL, N_("Next Edit Point"), NULL,N_(""), G_CALLBACK(zencoding_nexteditpoint_cb)},
-		{"InsertFormattedNewline", NULL, N_("Insert Formatted Newline"), NULL,N_(""), G_CALLBACK(zencoding_insertformattednewline_cb)},
-		{"GoToMatchingPair", NULL, N_("Go to Matching Pair"), NULL,N_(""), G_CALLBACK(zencoding_gotomatchingpair_cb)},
-		{"MergeLines", NULL, N_("Merge Lines"), NULL,N_(""), G_CALLBACK(zencoding_mergelines_cb)},
-		{"RemoveTag", NULL, N_("Remove Tag"), NULL,N_(""), G_CALLBACK(zencoding_removetag_cb)},
-		{"EvaluateMathExpression", NULL, N_("Evaluate Math Expression"), NULL,N_(""), G_CALLBACK(zencoding_evaluatemathexpression_cb)}
+		{"ExpandZenCoding", NULL, N_("E_xpand zen-coding"), "<shift><ctrl>Return",N_("Expand zen-code at cursor"), G_CALLBACK(zencoding_expand_cb)},
+		{"MatchPairInward", NULL, N_("Select Tag _Content"), NULL,NULL, G_CALLBACK(zencoding_matchpairinward_cb)},
+		{"MatchPairOutward", NULL, N_("Select _Tag and Content"), NULL,NULL, G_CALLBACK(zencoding_matchpairoutward_cb)},
+		{"WrapWithAbbreviation", NULL, N_("Wrap with _Abbreviation"), NULL,NULL, G_CALLBACK(zencoding_wrapwithabbreviation_cb)},
+		{"SplitJoinTag", NULL, N_("_Split or Join Tag"), NULL,NULL, G_CALLBACK(zencoding_splitjointag_cb)},
+		{"PrevEditPoint", NULL, N_("_Previous Edit Point"), NULL,N_(""), G_CALLBACK(zencoding_preveditpoint_cb)},
+		{"NextEditPoint", NULL, N_("_Next Edit Point"), NULL,N_(""), G_CALLBACK(zencoding_nexteditpoint_cb)},
+		{"InsertFormattedNewline", NULL, N_("_Insert Formatted Newline"), NULL,N_(""), G_CALLBACK(zencoding_insertformattednewline_cb)},
+		{"GoToMatchingPair", NULL, N_("_Go to Matching Pair"), NULL,N_(""), G_CALLBACK(zencoding_gotomatchingpair_cb)},
+		{"MergeLines", NULL, N_("_Merge Lines"), NULL,N_(""), G_CALLBACK(zencoding_mergelines_cb)},
+		{"RemoveTag", NULL, N_("_Remove Tag"), NULL,N_(""), G_CALLBACK(zencoding_removetag_cb)},
+		{"EvaluateMathExpression", NULL, N_("_Evaluate Math Expression"), NULL,N_(""), G_CALLBACK(zencoding_evaluatemathexpression_cb)}
 		/*{"", NULL, N_(""), NULL,N_(""), G_CALLBACK(zencoding__cb)},*/
 	};
 
