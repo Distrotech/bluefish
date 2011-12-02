@@ -155,9 +155,10 @@ bfwin_output_pane_show(Tbfwin * bfwin, gboolean active)
 }
 
 static void
-side_panel_cleanup(Tbfwin * bfwin)
+side_panel_destroy_cleanup(Tbfwin * bfwin)
 {
-	DEBUG_MSG("side_panel_cleanup called for bfwin %p\n", bfwin);
+	g_print("side_panel_destroy_cleanup called for bfwin %p\n", bfwin);
+	gtk_widget_destroy(bfwin->leftpanel_notebook);
 	bmark_cleanup(bfwin);
 	fb2_cleanup(bfwin);
 	if (main_v->sidepanel_destroygui) {
@@ -249,9 +250,7 @@ bfwin_side_panel_rebuild(Tbfwin * bfwin)
 {
 	if (bfwin->hpane) {
 		DEBUG_MSG("bfwin_side_panel_rebuild, destroying widgets for bfwin %p\n", bfwin);
-		gtk_widget_destroy(bfwin->leftpanel_notebook);
-		DEBUG_MSG("bfwin_side_panel_rebuild, cleanup for bfwin %p\n", bfwin);
-		side_panel_cleanup(bfwin);
+		side_panel_destroy_cleanup(bfwin);
 		DEBUG_MSG("bfwin_side_panel_rebuild, re-init\n");
 		side_panel_build(bfwin);
 		if (main_v->props.left_panel_left) {
@@ -288,8 +287,8 @@ bfwin_side_panel_show_hide_toggle(Tbfwin * bfwin, gboolean first_time, gboolean 
 			gtk_container_remove(GTK_CONTAINER(bfwin->middlebox), bfwin->notebook_box);
 		} else {
 			gtk_container_remove(GTK_CONTAINER(bfwin->hpane), bfwin->notebook_box);
+			side_panel_destroy_cleanup(bfwin);
 			gtk_widget_destroy(bfwin->hpane);
-			side_panel_cleanup(bfwin);
 			bfwin->hpane = NULL;
 		}
 	}
@@ -524,8 +523,8 @@ bfwin_cleanup(Tbfwin * bfwin)
 #ifdef HAVE_LIBENCHANT
 	unload_spell_dictionary(bfwin);
 #endif
-	fb2_cleanup(bfwin);
-	bmark_cleanup(bfwin);
+	g_print("bfwin_cleanup called for bfwin %p\n",bfwin);
+	side_panel_destroy_cleanup(bfwin);
 	outputbox_cleanup(bfwin);
 
 	if (bfwin->notebook_changed_doc_activate_id != 0) {
@@ -817,10 +816,12 @@ bfwin_destroy_event(GtkWidget * widget, Tbfwin * bfwin)
 
 	main_v->bfwinlist = g_list_remove(main_v->bfwinlist, bfwin);
 	DEBUG_MSG("bfwin_destroy_event, bfwin(%p) is removed from bfwinlist\n", bfwin);
-	bfwin_cleanup(bfwin);
 
 	DEBUG_MSG("bfwin_destroy_event, will destroy the window now\n");
 	gtk_widget_destroy(bfwin->main_window);
+
+	bfwin_cleanup(bfwin);
+
 
 #ifdef IDENTSTORING
 	bftextview2_identifier_hash_destroy(bfwin);
