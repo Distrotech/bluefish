@@ -1067,7 +1067,7 @@ dialog_changed_run_ready_cb(gpointer data) {
 		gchar *tmp;
 		if (s3run->searchednumdoc > 1) {
 			gint count = g_queue_get_length(&s3run->results);
-			tmp = g_strdup_printf(ngettext("<i>Found %d results in %d of the %d searched documents</i>", "<i>Found %d result in %d of the %d searched documents</i>", count),count, s3run->resultnumdoc, s3run->searchednumdoc);
+			tmp = g_strdup_printf(ngettext("<i>Found %d result in %d of the %d searched documents</i>", "<i>Found %d results in %d of the %d searched documents</i>", count),count, s3run->resultnumdoc, s3run->searchednumdoc);
 		} else if (s3run->so != 0) {
 			gint count = g_queue_get_length(&s3run->results);
 			gint reo = (s3run->eo == -1) ? gtk_text_buffer_get_char_count(s3run->bfwin->current_document->buffer) : s3run->eo;
