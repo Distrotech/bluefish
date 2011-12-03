@@ -21,8 +21,8 @@
 #include "bftextview2.h"
 #include "bftextview2_identifier.h"
 
-/*#undef DBG_IDENTIFIER*/
-/*#define DBG_IDENTIFIER g_print*/
+/*#undef DBG_IDENTIFIER
+#define DBG_IDENTIFIER g_print*/
 
 #ifdef IDENTSTORING
 static gboolean
@@ -213,12 +213,14 @@ found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end,
 		ijk = identifier_jumpkey_new(btv->bflang, context, tmp);
 		oldijd = g_hash_table_lookup(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk);
 		if (oldijd) {
+			DBG_IDENTIFIER("found identifier, %s already exists\n", tmp);
 			/* it exists, now only update the line number, don't add to the completion */
 			if (oldijd->doc == btv->doc)
 				oldijd->line = gtk_text_iter_get_line(end) + 1;
 			identifier_jump_key_free(ijk);	/* that will free tmp as well */
 			return; /* if it has identaction 2 it should exist in the completion already */
 		} else {
+			DBG_IDENTIFIER("found identifier, %s is new\n", tmp);
 			ijd = identifier_jumpdata_new(DOCUMENT(btv->doc), gtk_text_iter_get_line(end) + 1);
 			g_hash_table_insert(BFWIN(DOCUMENT(btv->doc)->bfwin)->identifier_jump, ijk, ijd);
 			freetmp=FALSE;
@@ -226,14 +228,16 @@ found_identifier(BluefishTextView * btv, GtkTextIter * start, GtkTextIter * end,
 	}
 	if (identaction & 2) {
 		gboolean havecompl=FALSE;
+		DBG_IDENTIFIER("freetmp=%d for identifier %s\n", freetmp, tmp);
 		compl = identifier_ac_get_completion(btv, context, TRUE);
-		if (freetmp==FALSE) { /* if tmp was new as jumpkey, it cannot exist in the autocompletion, so we don't have to check it */
+		if (freetmp!=FALSE) { /* if tmp was new as jumpkey, it cannot exist in the autocompletion, so we don't have to check it */
 			/* see if we have this item already */
 			GList *tmplist;
+			DBG_IDENTIFIER("look if %s is in the autocompletion list\n", tmp);
 			for (tmplist=g_list_first(compl->items);tmplist;tmplist=g_list_next(tmplist)) {
 				if (g_strcmp0(tmp, tmplist->data)==0) {
 					havecompl=TRUE;
-					DBG_IDENTIFIER("identifier exists already\n");
+					DBG_IDENTIFIER("identifier %s exists already\n", tmp);
 					break;
 				}
 			}
