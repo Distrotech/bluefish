@@ -127,7 +127,7 @@
 <element pattern="EOF" ends_block="1" ends_context="1" blockstartelement="e.php.short.multiline_string" highlight="brackets" />
 	</context>
 </element>
-<element id="e.php.short.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable"/>
+<element id="e.php.short.variable" pattern="$[a-zA-Z_][a-zA-Z0-9_]*" is_regex="1" case_insens="1" highlight="php-variable" identifier_mode="2" identifier_autocomp="1" />
 <element pattern="&#34;" highlight="string">
 	<context symbols="\&#34;$ &#9;&#10;&#13;' -&lt;&gt;{}[]" highlight="string">
 		<element pattern="\\." highlight="string" is_regex="1" />
