@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish 2.0.4\n"
+"Project-Id-Version: Bluefish 2.2.0\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2011-09-22 03:12+0200\n"
-"PO-Revision-Date: 2011-11-04 00:52+0900\n"
+"PO-Revision-Date: 2011-12-04 19:36+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -1360,109 +1360,92 @@ msgid "_HTML5"
 msgstr "_HTML5"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
-#, fuzzy
 msgid "_Article"
-msgstr "記事(&A)"
+msgstr "記事(_A)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1684
-#, fuzzy
 msgid "Article"
-msgstr "記事"
+msgstr "Article"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1685
-#, fuzzy
 msgid "As_ide"
-msgstr "ワイドエリア(&I)"
+msgstr "付記(_I)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1685
 msgid "Aside"
-msgstr ""
+msgstr "付記"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-#, fuzzy
 msgid "Figcaption"
-msgstr "引用"
+msgstr "引用のキャプション"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1686
-#, fuzzy
 msgid "Figcaption "
-msgstr "引用"
+msgstr "Figcaption "
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1687
-#, fuzzy
 msgid "Fig_ure"
-msgstr "画像(&U)"
+msgstr "引用(_U)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1687
-#, fuzzy
 msgid "Figure"
-msgstr "図表"
+msgstr "Figure"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1688
-#, fuzzy
 msgid "_Footer"
-msgstr "フッタ"
+msgstr "フッタ(_F)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1688
-#, fuzzy
 msgid "Footer"
-msgstr "フッタ"
+msgstr "Footer"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1689
 msgid "_Header"
 msgstr "_Header"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1689
-#, fuzzy
 msgid "Header"
-msgstr "ヘッダ"
+msgstr "Header"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1690
-#, fuzzy
 msgid "H_group"
-msgstr "グループ"
+msgstr "セクション見出し(_G)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1690
 msgid "Hgroup"
-msgstr ""
+msgstr "セクション見出し"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1691
-#, fuzzy
 msgid "_Mark"
-msgstr "マーク"
+msgstr "目印(_M)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1691
-#, fuzzy
 msgid "Mark"
-msgstr "マーク"
+msgstr "Mark"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1692
 msgid "_Nav"
-msgstr ""
+msgstr "ナビゲーション(_N)"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1692
 msgid "Nav"
-msgstr ""
+msgstr "Nav"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1693
-#, fuzzy
 msgid "Rp"
 msgstr "Rp"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1693
-#, fuzzy
 msgid "Ruby parenthesis"
-msgstr "対応する括弧がない: %s"
+msgstr "Ruby の括弧"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1694
-#, fuzzy
 msgid "Rt"
-msgstr "開始(&R):"
+msgstr "Rt"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1694
-#, fuzzy
 msgid "Ruby text"
-msgstr "SMS テキスト:"
+msgstr "Ruby のテキスト"
 
 #: src/plugin_htmlbar/htmlbar_uimanager.c:1695
 msgid "_Ruby"
@@ -1999,33 +1982,28 @@ msgstr "サイズ変更禁止(_R):"
 
 #. Dialog construction and settings
 #: src/plugin_htmlbar/html.c:1917
-#, fuzzy
 msgid "Audio"
 msgstr "オーディオ"
 
 #: src/plugin_htmlbar/html.c:1933
 #: src/plugin_htmlbar/html.c:2071
-#, fuzzy
 msgid "_Autoplay:"
-msgstr "選択されたファイルを自動再生"
+msgstr "自動再生(_A):"
 
 #: src/plugin_htmlbar/html.c:1940
 #: src/plugin_htmlbar/html.c:2078
-#, fuzzy
 msgid "_Controls:"
-msgstr "コントロール"
+msgstr "コントロール(_C):"
 
 #: src/plugin_htmlbar/html.c:1947
 #: src/plugin_htmlbar/html.c:2085
-#, fuzzy
 msgid "_Loop:"
-msgstr "ループ"
+msgstr "ループ(_L):"
 
 #: src/plugin_htmlbar/html.c:1955
 #: src/plugin_htmlbar/html.c:2093
-#, fuzzy
 msgid "_Preload:"
-msgstr "次の画像を先読みする"
+msgstr "先読み(_P):"
 
 #. Dialog construction
 #: src/plugin_htmlbar/html.c:1990
@@ -2038,14 +2016,12 @@ msgid "Video"
 msgstr "ビデオ"
 
 #: src/plugin_htmlbar/html.c:2065
-#, fuzzy
 msgid "_Poster:"
-msgstr "ポスター"
+msgstr "ポスター画像(_P):"
 
 #: src/plugin_htmlbar/html.c:2100
-#, fuzzy
 msgid "_Audio:"
-msgstr "オーディオ:"
+msgstr "オーディオ(_A):"
 
 #. Dialog construction
 #: src/plugin_htmlbar/html.c:2162
@@ -2053,13 +2029,12 @@ msgid "Time"
 msgstr "時間"
 
 #: src/plugin_htmlbar/html.c:2168
-#, fuzzy
 msgid "_Pubdate:"
-msgstr "更新(_U)"
+msgstr "発行日(_P):"
 
 #: src/plugin_htmlbar/html.c:2174
 msgid "_Datetime:"
-msgstr ""
+msgstr "日付と時刻(_D):"
 
 #: src/plugin_htmlbar/html.c:2218
 msgid "Embed"
