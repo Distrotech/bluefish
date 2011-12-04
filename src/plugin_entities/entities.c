@@ -415,14 +415,14 @@ entity_initgui(Tbfwin * bfwin)
 	GError *error = NULL;
 
 	static const GtkActionEntry entities_actions[] = {
-		{"CharactersToEntities", NULL, N_("Characters to Entities"), NULL,
+		{"CharactersToEntities", NULL, N_("C_haracters to Entities"), NULL,
 		 N_("Change characters to entities"), G_CALLBACK(entity_char_to_entity)},
-		{"EntitiesToCharacters", NULL, N_("Entities to Characters"), NULL,
+		{"EntitiesToCharacters", NULL, N_("Ent_ities to Characters"), NULL,
 		 N_("Change entities to characters"), G_CALLBACK(entity_entity_to_char)},
-		{"URLDecode", NULL, N_("URL Decode"), NULL, N_("URL decode"), G_CALLBACK(entity_url_decode)},
-		{"URLEncode", NULL, N_("URL Encode"), NULL, N_("URL encode"), G_CALLBACK(entity_url_encode)},
-		{"ToLowercase", NULL, N_("To Lowercase"), NULL, N_("To lowercase"), G_CALLBACK(entity_to_lowercase)},
-		{"ToUppercase", NULL, N_("To Uppercase"), NULL, N_("To uppercase"), G_CALLBACK(entity_to_uppercase)}
+		{"URLDecode", NULL, N_("URL _Decode"), NULL, N_("URL decode"), G_CALLBACK(entity_url_decode)},
+		{"URLEncode", NULL, N_("URL _Encode"), NULL, N_("URL encode"), G_CALLBACK(entity_url_encode)},
+		{"ToLowercase", NULL, N_("To Lo_wercase"), NULL, N_("To lowercase"), G_CALLBACK(entity_to_lowercase)},
+		{"ToUppercase", NULL, N_("To Upper_case"), NULL, N_("To uppercase"), G_CALLBACK(entity_to_uppercase)}
 	};
 
 	action_group = gtk_action_group_new("EntitiesActions");

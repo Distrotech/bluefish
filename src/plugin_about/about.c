@@ -317,7 +317,7 @@ about_initgui(Tbfwin * bfwin)
 		{"HelpReportBug", NULL, N_("Report a _Bug"), NULL, N_("Report a bug"), G_CALLBACK(about_report_bug)},
 		{"HelpAbout", GTK_STOCK_ABOUT, N_("_About"), NULL, N_("About Bluefish"),
 		 G_CALLBACK(about_dialog_create)},
-		{"HelpBuildInfo", GTK_STOCK_INFO, N_("_Build Info"), NULL, N_("Build info"),
+		{"HelpBuildInfo", GTK_STOCK_INFO, N_("Build _Info"), NULL, N_("Build info"),
 		 G_CALLBACK(about_options_dialog_create)}
 	};
 
