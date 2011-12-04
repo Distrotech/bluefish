@@ -735,16 +735,16 @@ static const GtkActionEntry global_actions[] = {
 	{"FileNewWindow", NULL, N_("New _Window"), "<shift><control>N", N_("New window"),
 	 G_CALLBACK(ui_new_window)},
 	{"FileCloseWindow", NULL, N_("Close Win_dow"), NULL, N_("Close window"), G_CALLBACK(ui_window_close)},
-	{"FileOpen", GTK_STOCK_OPEN, N_("_Open…"), "<control>O", N_("Open file"), G_CALLBACK(ui_open_doc)},
-	{"FileOpenAdvanced", NULL, N_("Open Ad_vanced…"), "<shift><control>O", N_("Open advanced"),
+	{"FileOpen", GTK_STOCK_OPEN, N_("_Open..."), "<control>O", N_("Open file"), G_CALLBACK(ui_open_doc)},
+	{"FileOpenAdvanced", NULL, N_("Open Ad_vanced..."), "<shift><control>O", N_("Open advanced"),
 	 G_CALLBACK(ui_open_advanced)},
 	{"FileOpenSelection", NULL, N_("Open _from Selection"), NULL, N_("Open from Selection"),
 	 G_CALLBACK(ui_open_from_selection)},
-	{"FileInsert", NULL, N_("_Insert…"), NULL, N_("Insert file"), G_CALLBACK(ui_insert_doc)},
-	{"FileUploadDownload", NULL, N_("U_pload / Download…"), NULL, NULL,
+	{"FileInsert", NULL, N_("_Insert..."), NULL, N_("Insert file"), G_CALLBACK(ui_insert_doc)},
+	{"FileUploadDownload", NULL, N_("U_pload / Download..."), NULL, NULL,
 	 G_CALLBACK(ui_upload_download_dialog)},
 	{"FileQuit", GTK_STOCK_QUIT, N_("_Quit"), "<control>Q", N_("Quit Bluefish"), G_CALLBACK(ui_quit)},
-	{"EditPreferences", GTK_STOCK_PREFERENCES, N_("Preference_s…"), NULL, N_("Edit Preferences"),
+	{"EditPreferences", GTK_STOCK_PREFERENCES, N_("Preference_s..."), NULL, N_("Edit Preferences"),
 	 G_CALLBACK(ui_preferences)},
 	{"EditSelectAll", NULL, N_("Select _All"), "<control>A", N_("Select all"), G_CALLBACK(ui_select_all)},
 	{"DocAddBookmark", NULL, N_("Add Boo_kmark"), "<control>k", N_("Add bookmark"),
@@ -772,8 +772,8 @@ static const GtkActionEntry global_actions[] = {
 	{"DocumentRescan", NULL, N_("_Rescan Syntax"), "F5", N_("Rescan document highlighting"),
 	 G_CALLBACK(ui_highlighting_update)},
 #endif
-	{"ProjectNew", NULL, N_("_New Project…"), NULL, N_("New project"), G_CALLBACK(ui_project_new)},
-	{"ProjectOpen", NULL, N_("_Open Project…"), NULL, N_("Open project"), G_CALLBACK(ui_project_open)},
+	{"ProjectNew", NULL, N_("_New Project..."), NULL, N_("New project"), G_CALLBACK(ui_project_new)},
+	{"ProjectOpen", NULL, N_("_Open Project..."), NULL, N_("Open project"), G_CALLBACK(ui_project_open)},
 	{"SynchTextBlock", NULL, N_("_Synchronize Text Block"), NULL, N_("Synchronize text block"),
 	 G_CALLBACK(ui_synch_text_block)},
 	{"ToggleComment", NULL, N_("To_ggle Comment"), "<shift><control>C", N_("Toggle comment"),
@@ -832,12 +832,12 @@ static const GtkActionEntry document_actions[] = {
 	 G_CALLBACK(ui_file_close_all)},
 	{"FileSave", GTK_STOCK_SAVE, N_("_Save"), "<control>S", N_("Save current file"),
 	 G_CALLBACK(ui_file_save)},
-	{"FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _as…"), "<shift><control>S", N_("Save file as"),
+	{"FileSaveAs", GTK_STOCK_SAVE_AS, N_("Save _as..."), "<shift><control>S", N_("Save file as"),
 	 G_CALLBACK(ui_file_save_as)},
 	{"FileSaveAll", NULL, N_("Sav_e All"), NULL, N_("Save all files"), G_CALLBACK(ui_file_save_all)},
 	{"FileRevert", GTK_STOCK_REVERT_TO_SAVED, N_("Rever_t to Saved"), NULL, N_("Reload current file"),
 	 G_CALLBACK(ui_file_reload)},
-	{"FileRename", NULL, N_("Rena_me…"), "F2", N_("Rename file"), G_CALLBACK(ui_file_rename)},
+	{"FileRename", NULL, N_("Rena_me..."), "F2", N_("Rename file"), G_CALLBACK(ui_file_rename)},
 	{"EditIndent", GTK_STOCK_INDENT, N_("_Indent"), "<control>period", N_("Indent"), G_CALLBACK(ui_indent)},
 	{"EditUnindent", GTK_STOCK_UNINDENT, N_("Unin_dent"), "<control>comma", N_("Unindent"),
 	 G_CALLBACK(ui_unindent)},
@@ -875,11 +875,11 @@ static const GtkActionEntry edit_actions[] = {
 };
 
 static const GtkActionEntry find_replace_actions[] = {
-	{"Find", GTK_STOCK_FIND, N_("_Find…"), "<control>F", N_("Find"), G_CALLBACK(ui_find)},
+	{"Find", GTK_STOCK_FIND, N_("_Find..."), "<control>F", N_("Find"), G_CALLBACK(ui_find)},
 	{"FindAgain", NULL, N_("Find A_gain"), "<control>G", N_("Find again"), G_CALLBACK(ui_find_again)},
 	{"FindSelection", NULL, N_("Find from Clip_board"), "<shift><control>F", N_("Find from clipboard"),
 	 G_CALLBACK(ui_find_from_clipboard)},
-	{"Replace", GTK_STOCK_FIND_AND_REPLACE, N_("Re_place…"), "<control>H", N_("Replace"),
+	{"Replace", GTK_STOCK_FIND_AND_REPLACE, N_("Re_place..."), "<control>H", N_("Replace"),
 	 G_CALLBACK(ui_replace)}/*,
 	{"ReplaceAgain", NULL, N_("Replace Agai_n"), "<shift><control>H", N_("Replace again"),
 	 G_CALLBACK(ui_replace_again)}*/
@@ -889,8 +889,8 @@ static const GtkActionEntry project_actions[] = {
 	{"ProjectClose", NULL, N_("Save & _close"), NULL, N_("Save & close project"),
 	 G_CALLBACK(ui_project_close)},
 	{"ProjectSave", NULL, N_("_Save"), NULL, N_("Save project"), G_CALLBACK(ui_project_save)},
-	{"ProjectSaveAs", NULL, N_("Save _as…"), NULL, N_("Save project as"), G_CALLBACK(ui_project_save_as)},
-	{"ProjectEditOptions", NULL, N_("_Edit Project Options…"), NULL, N_("Edit project options"),
+	{"ProjectSaveAs", NULL, N_("Save _as..."), NULL, N_("Save project as"), G_CALLBACK(ui_project_save_as)},
+	{"ProjectEditOptions", NULL, N_("_Edit Project Options..."), NULL, N_("Edit project options"),
 	 G_CALLBACK(ui_project_edit_options)},
 };
 
@@ -1036,7 +1036,7 @@ bfwin_main_ui_init(Tbfwin * bfwin, GtkWidget * vbox)
 	}
 #ifndef WIN32
 #ifndef MAC_INTEGRATION
-	GtkAction *action = gtk_action_new("FileOpenURL", ("Open _URL…"), NULL, NULL);
+	GtkAction *action = gtk_action_new("FileOpenURL", _("Open _URL..."), NULL, NULL);
 	gtk_action_group_add_action(bfwin->globalGroup, action);
 	g_signal_connect(G_OBJECT(action), "activate", G_CALLBACK(file_open_url_cb), bfwin); 
 
