@@ -1312,7 +1312,9 @@ bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter * visible_end)
 							 gtk_text_iter_get_offset(&match.end));
 				scanning.context = found_match(btv, &match, &scanning);
 				DBG_SCANNING("after match context=%d\n", scanning.context);
-				if (G_UNLIKELY(scanning.identmode == 2)) {
+				if (G_UNLIKELY(scanning.identmode == 2 && !gtk_text_iter_in_range(&itcursor, &mstart, &iter)
+								 && !gtk_text_iter_equal(&itcursor, &mstart)
+								 && !gtk_text_iter_equal(&itcursor, &iter))) {
 					found_identifier(btv, &mstart, &iter, oldcontext, scanning.identaction);
 					scanning.identmode = 0;
 				}
