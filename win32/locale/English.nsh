@@ -42,6 +42,7 @@
 !define PLUG_HTMLBAR "HTML Bar"
 !define PLUG_INFBROWSER "Info Browser"
 !define PLUG_SNIPPETS "Snippets"
+!define PLUG_ZENCODING "Zencoding"
 
 ; File Associations Page
 !define FA_TITLE "File Associations"
