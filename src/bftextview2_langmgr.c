@@ -1152,7 +1152,7 @@ process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing * bfparser, GQu
 		NULL, *commentid_line = NULL;
 	gboolean autocomplete_case_insens = FALSE;
 	gint context;
-	
+
 	xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
